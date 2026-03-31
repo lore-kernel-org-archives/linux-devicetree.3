@@ -1,188 +1,74 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010059.outbound.protection.outlook.com [52.101.46.59])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13E311A6826;
-	Tue, 31 Mar 2026 12:19:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.59
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774959561; cv=fail; b=ty8L6cjOB8Pboc8q7FyRnqCngjAUf8xvPpITRMY573jaiG2Uh/PkCLkNmzA4+/pye3Ox/Vkv3rpFb9u1KVmFzSBcSKa03GOYG45FrTw5/5slEZgPPx/KPC6q4w7+HJpQGH3Uoyx222yLXE5wF3fiNru4Jk4h9Y4oKF8HSBgi0PI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774959561; c=relaxed/simple;
-	bh=zdHp+vzdyMRbVEdAuA1cfvzY3ayE6FRIsaWRrEjd/fw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=JgKWszQtHwmfuHLDGRO/eYcVsigLFQmX39qFUKlVZD3lvkCz3xSvi/KKuSioarvhDgB1p+9Up1zS534zUAAvKoFfSNDY29h/BJY/+xoyJy0bZmHB4Th6YWs7qw4slo6DZxCHsnJVYZNn36+A7axYQ0+2ChkrwEoVyeCp2NMBJbU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=hujSxz4T; arc=fail smtp.client-ip=52.101.46.59
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E61393E1D03;
+	Tue, 31 Mar 2026 12:23:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774959837; cv=none; b=GaLCmKeCys2W1SFNKIr/p6GDuR2fQ2F1HWxEIQ4YXDQ8TUEwwc/j5VNsgKVliqAH93jNyADt0TECk9mXpGom0vjHvucG6XnzLwYuTi+II19Btc7JR/9ohm1/JnifBBskWGPJCoJgCraqz3cfLPUjbjKUUrDttBt743XHDbiaksU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774959837; c=relaxed/simple;
+	bh=6EHU6i3Kxk1PsCup6AbdyOQktdihYokChOMhMY1WDMY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aGNmofD5NmHQjgIq5TPNww/x/NpW9MMAnNi5KNbXCOVCyxRIm9kUxtRdZGr6DWvPNXFyy/0ywJbaQdgpQkMaX8C5XvWoMd8IivM/IV0xUsQRURmBJdBpI7Sqt7rJbnznpArBDsj9xZCTQYhG8odZdE9lgAYerRZccmrFDR360mk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=bLomtK/b; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="hujSxz4T"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=npEhU/BoNnKcpahuD0xn5vd6QeyTv9xmrpUymnVEglkckme9+9YohNGZq3nr2BHGKnn2vLSldFHP/4nv1ZiR5S+zvHf0q3kge/ovnGn2n6aCrpTkG2DM/LgeNN/DWBc64058MNG+kgkUIeXVt9pNy2LMexX/0XAwVH2zlUo3093wO8g3MDxXhyhKez1s1Y8Ysa8VmfZyGc4897evRNuuM10lGLLaGUOKmPi+X5/uSp+6Qi5bbE8VhN+pd4tfHpX+bLDP7evgzHZC/zxcglvpxm5HEh5xBCGiLK5HzHmLGADiHn4vkLutP/npwm4byF7juSuEx5cRIfNCdvpE1kUi4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZJkXpP31qfsrEm+q5zIu8YXx4jAqFbEaXndk6NE+lpo=;
- b=GujBUK8cQIKLXkOULVG/BlbK4CKFjnkoOju8K1Z6+UamcUFDg6iby6HYyfUs6qYRegknlsXohboy+l8helZFUamOo6JPVGOMG8pO9citLq2H5RVssqovEaLN6d6JYWakq9Afjs6hUsFTeEeBMVgpvvF6g/jxGqQG1j0Ntd+LH88SlwN+Hugab9scZHZgoLVA1EQX9RstHBa4e2z+PT5wzNFMP2gp9AELQ/U4KBh9xcNrvCXtnx0AHc97Dwhj9ymw9irT2DfUbWuPajgNsmVWu1uNyYYJMQOn2GV3x1rNSboViQDwz35v8DbV1LW5/6HJGw5620Az3CRPUlb10gCbug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZJkXpP31qfsrEm+q5zIu8YXx4jAqFbEaXndk6NE+lpo=;
- b=hujSxz4T7M6uER5kAz+lpKKW89wPATQhk4M6rIfpLYuXzzaDyJ8E4rnPe+tKavUGHhCUIi1svwmGCRClZG3TQge32ZYArqzNK4tSayBiivddSua13QePU+YJCXp0in5OhDfCcvPTGLl2HL/u355uuFLDt+0mgRb47CcEh78gU98=
-Received: from BL1PR13CA0181.namprd13.prod.outlook.com (2603:10b6:208:2be::6)
- by CYYPR10MB7625.namprd10.prod.outlook.com (2603:10b6:930:c0::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Tue, 31 Mar
- 2026 12:19:17 +0000
-Received: from BL02EPF0002992B.namprd02.prod.outlook.com
- (2603:10b6:208:2be:cafe::a2) by BL1PR13CA0181.outlook.office365.com
- (2603:10b6:208:2be::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.28 via Frontend Transport; Tue,
- 31 Mar 2026 12:19:17 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- BL02EPF0002992B.mail.protection.outlook.com (10.167.249.56) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9745.21 via Frontend Transport; Tue, 31 Mar 2026 12:19:16 +0000
-Received: from DFLE207.ent.ti.com (10.64.6.65) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 31 Mar
- 2026 07:19:14 -0500
-Received: from DFLE205.ent.ti.com (10.64.6.63) by DFLE207.ent.ti.com
- (10.64.6.65) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 31 Mar
- 2026 07:19:14 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE205.ent.ti.com
- (10.64.6.63) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
- Transport; Tue, 31 Mar 2026 07:19:14 -0500
-Received: from [10.24.50.20] (moteen-ubuntu-desk.dhcp.ti.com [10.24.50.20])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 62VCJBLW2736751;
-	Tue, 31 Mar 2026 07:19:11 -0500
-Message-ID: <8d4a2839-5b1e-479e-a462-dbbc3d016020@ti.com>
-Date: Tue, 31 Mar 2026 17:49:10 +0530
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="bLomtK/b"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=dksMoYQmNn4rvPd11eAqblukoSAKuwPHp8JrhoOdYjk=; b=bLomtK/b0H07CzFlV5YH8R3djV
+	pdef76doN/DTo8CfsgGdBR6wIQik44SLikp9HhSGATx5w5ldmp48wltGiioRfdSj8t0ZFSAmX86Gc
+	OIXQIvoKgk7Cr1e+4HjapmJZL3AJA3RbjLvKxhUUmH033agnB+vgS0yCgGwGV1GG1pvs=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1w7Y8J-00EC3H-SQ; Tue, 31 Mar 2026 14:23:47 +0200
+Date: Tue, 31 Mar 2026 14:23:47 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Joris Vaisvila <joey@tinyisr.com>
+Cc: netdev@vger.kernel.org, horms@kernel.org, pabeni@redhat.com,
+	kuba@kernel.org, edumazet@google.com, davem@davemloft.net,
+	olteanv@gmail.com, devicetree@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH net-next v2 3/4] net: dsa: initial MT7628 tagging driver
+Message-ID: <60abbf88-e97a-4c2d-acc3-ecf3dd338a80@lunn.ch>
+References: <20260330184017.766200-1-joey@tinyisr.com>
+ <20260330184017.766200-4-joey@tinyisr.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: ti: k3-j721e-main: Update delay select values
- for MMC1/2 subsystems
-To: Romain Naour <romain.naour@smile.fr>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-omap@vger.kernel.org>
-CC: <conor+dt@kernel.org>, <krzk+dt@kernel.org>, <robh@kernel.org>,
-	<kristo@kernel.org>, <vigneshr@ti.com>, <nm@ti.com>, <stable@vger.kernel.org>
-References: <20260218203823.1825554-1-romain.naour@smile.fr>
-Content-Language: en-US
-From: Moteen Shah <m-shah@ti.com>
-In-Reply-To: <20260218203823.1825554-1-romain.naour@smile.fr>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0002992B:EE_|CYYPR10MB7625:EE_
-X-MS-Office365-Filtering-Correlation-Id: 34ac821a-90b6-4091-7baf-08de8f1fba1c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|36860700016|1800799024|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	YDZY9pS2mxUv2NlCjHnkHzMyjZFXtF8isjMajp/vKg9e9JhoVP4XWctsfL//dGLKG3IUBxtz3irQgd0ycvt97tS27uip2fPj1ZfR6blbRE2+Q1kFuASn0wb1rF4FGwgcvjXoMhZnltkARymMMTa3GmcH+UE93iKKgxi+vMrhYMQb3Rqjfxjkjw9VkZZpbf4/vBkXq3nFbIK0ul266lX7Y8knzmmZ9ykpY1YutOYYnjnbsQLbE2qI9YFM4hshcYI/y/Nnxtgx3iUbHDtjFr6sN6T6g22pdmnkMVUMIZ6p4/hIuqiJI6PbMo4N3nbdFeWhuwdGLwWTOq/msimdiG1ODOgbSOWlfsX70YV5GwD8/dRBqXcoSbF2o/c5wJ29VznFnGZzMBYLlI2IZCOTlZW6Uwen6xFRBiV/AvGhrEFDWda0tDsjgS3LYrGGYHWILbzGCUW6xMiY8BImjvBnPnXUgQPy9eizKA8gQLJAEBsxaRb6v3zLTNqF1ot/jwCwJi3gCRukTjjgRDSxaJk1ojWzXH+PFsC/e0L6VivNTyL6VjyGBxcIjU15V8+/hAccqJKfGpUks2vxTiqSrtg6HBUl52d8GVjOV3Of7RQ/3+1rj0hIKxyDy1fk72XhIQ9MTC1oH3WKx7scKpblzl0686Xb9kdvDwOF+UrahdSJdD7/iZQyj7//sXrQ3tv9foL8KLrD/bR/zT67R3eRjOM7tjeRyGnewQnjfOFJQMEZEBlDF6d9WOTILRfz0F3i3pGkiyyTf8cnd9D84TEaPe1US2V5yQ==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(376014)(36860700016)(1800799024)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	tQqvZtFt/UtwILKsaZETGYJ1Baed85dQjXHWEe4XeoTsyPUM0+cTDtZyqWw6yDYPZagTJywNqaZFDDrYr5jyYuu7QBeIEhgUfevG2pVDy5qUwGFDDLvj6kiKOcrWoxy5I0XL0BmD8gyiCSG+HXNiId4qpJtzYk/2TH4D9c2z6cres1NVGp7txM2OP6TdDTqMk5vDxb5Pv2dt6C3Pw/rJShJp8Ba9ouPhnDneTF00q4BD0nPbPwznWVybA4X8td806hceaW2ariWdf+7Z0aykkNKQJq6C4BKjUzbwuo2gNNJ6THcTyZ9toMR2Vk+6GTLztb6/1gSsfm8ol7vc+GcaOWijFD7O2yw1MMlEt7IzLdbgpJyw3ojRmsf+c25YIncv7YAVaE/2iRS5nozRQ2wOSKSU/43f4lEpmzhud/vR6+FpMU1oFiploIwisZzPbxnc
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 12:19:16.1192
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 34ac821a-90b6-4091-7baf-08de8f1fba1c
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0002992B.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR10MB7625
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260330184017.766200-4-joey@tinyisr.com>
 
-Hey Romain,
+On Mon, Mar 30, 2026 at 09:40:16PM +0300, Joris Vaisvila wrote:
+> Add support for the MT7628 embedded switch's tag.
+> 
+> The MT7628 tag is merged with the VLAN TPID field when a VLAN is
+> appended by the switch hardware. It is not installed if the VLAN tag is
+> already there on ingress. Due to this hardware quirk the tag cannot be
+> trusted for port 0 if we don't know that the VLAN was added by the
+> hardware. As a workaround for this the switch is configured to always
+> append the port PVID tag even if the incoming packet is already tagged.
+> The tagging driver can then trust that the tag is always accurate and
+> the whole VLAN tag can be removed on ingress as it's only metadata for
+> the tagger.
+> 
+> On egress the MT7628 tag allows precise TX, but the correct VLAN tag
+> from tag_8021q is still appended or the switch will not forward the
+> packet.
+> 
+> Signed-off-by: Joris Vaisvila <joey@tinyisr.com>
 
-Thanks for the patch
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-On 19/02/26 02:08, Romain Naour wrote:
-> The previous SPRSP36J datasheet recommends to set ti,otap-del-sel-sd-hs
-> value to 0 for MMC1 and MMC2 interfaces. These values were updated in
-> kernel 6.5. As a result we have some occasional regression with ultra
-> high speed DDR50 SDXC cards while mounting the rootfs:
-
-This error shouldn't be limited to just DDR50, were you seeing similar 
-behavior with other speed modes?
->
->    mmc1: error -110 whilst initialising SD card
->
-> A similar issue may occur with u-boot after a reboot while
-> initialising the SD card:
->
->    mmc_init: -110, time 67
->
-> Update the delay values for legacy and high speed modes, based on
-> the latest revised datasheet SPRSP36K released in April 2024 [1].
->
->    (MMC1/2 - SD/SDIO Interface): Updated/Changed the
->    "OTAPDLYENA, DELAY ENABLE" and "OTAPDLYSEL, DELAY VALUE" for the
->    Default Speed and High Speed modes from "0x0" to "0x1"
->
-> [1] Table 6-86. MMC1/2 DLL Delay Mapping for All Timing Modes, in
-> https://www.ti.com/lit/ds/symlink/tda4vm.pdf,
-> (SPRSP36K – SEPTEMBER 2021 – REVISED APRIL 2024)
->
-> Cc: stable@vger.kernel.org # 6.5+
-> Fixes: af398252d68e ("arm64: dts: ti: k3-j721e-main: Update delay select values for MMC subsystems")
-> Signed-off-by: Romain Naour <romain.naour@smile.fr>
-> ---
->   arch/arm64/boot/dts/ti/k3-j721e-main.dtsi | 8 ++++----
->   1 file changed, 4 insertions(+), 4 deletions(-)
->
-> diff --git a/arch/arm64/boot/dts/ti/k3-j721e-main.dtsi b/arch/arm64/boot/dts/ti/k3-j721e-main.dtsi
-> index d5fd30a01032..418e6010ef1f 100644
-> --- a/arch/arm64/boot/dts/ti/k3-j721e-main.dtsi
-> +++ b/arch/arm64/boot/dts/ti/k3-j721e-main.dtsi
-> @@ -1643,8 +1643,8 @@ main_sdhci1: mmc@4fb0000 {
->   		clocks = <&k3_clks 92 5>, <&k3_clks 92 0>;
->   		assigned-clocks = <&k3_clks 92 0>;
->   		assigned-clock-parents = <&k3_clks 92 1>;
-> -		ti,otap-del-sel-legacy = <0x0>;
-> -		ti,otap-del-sel-sd-hs = <0x0>;
-> +		ti,otap-del-sel-legacy = <0x1>;
-> +		ti,otap-del-sel-sd-hs = <0x1>;
->   		ti,otap-del-sel-sdr12 = <0xf>;
->   		ti,otap-del-sel-sdr25 = <0xf>;
->   		ti,otap-del-sel-sdr50 = <0xc>;
-> @@ -1671,8 +1671,8 @@ main_sdhci2: mmc@4f98000 {
->   		clocks = <&k3_clks 93 5>, <&k3_clks 93 0>;
->   		assigned-clocks = <&k3_clks 93 0>;
->   		assigned-clock-parents = <&k3_clks 93 1>;
-> -		ti,otap-del-sel-legacy = <0x0>;
-> -		ti,otap-del-sel-sd-hs = <0x0>;
-> +		ti,otap-del-sel-legacy = <0x1>;
-> +		ti,otap-del-sel-sd-hs = <0x1>;
->   		ti,otap-del-sel-sdr12 = <0xf>;
->   		ti,otap-del-sel-sdr25 = <0xf>;
->   		ti,otap-del-sel-sdr50 = <0xc>;
-
-
-Reviewed-by: Moteen Shah <m-shah@ti.com>
-
-Regards,
-Moteen
-
+    Andrew
