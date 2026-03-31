@@ -1,78 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 733F436D4E4;
-	Tue, 31 Mar 2026 07:01:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 342DC146A66;
+	Tue, 31 Mar 2026 07:02:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774940491; cv=none; b=roWgjD1VX1MPy84qUQB/Ey89QHtrDd0BMdKoyR0OgvNE+SihJbU6KhG72JyaA65ROht8WGt0xr2/sP9zGarsd01YQrHZyo1Q9ruZsHYOFF+obFriNv03dnHIdJPlHHmCZwf0A6+/RWUV9DKktJ+j+wSe5sS5yYHrhdYG+RsN3Uc=
+	t=1774940575; cv=none; b=fkZX9EBg3KKdPgxjKK5uhexyFzvYAgS6EjeklqiTI5uNRgYL+37YipVoPN1aN3hJNcjD/jufVM9MgICrDOzwEMVkxu5+ftRbcnfNok3ZOqw1DgwFILiBIhdpFQAURad2OHmQUveUXc6+0lurDN79M3I5MiwQv80RnGfzJaA88O8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774940491; c=relaxed/simple;
-	bh=GzzLKAM7HohgpbhX7Jt24n8lQNb/+gcmxOQdZGYzy2A=;
+	s=arc-20240116; t=1774940575; c=relaxed/simple;
+	bh=yt9o+hP525Oxql1j/peL75RWbfKyVjlXzURR7373UqE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Eifb3WoGjoQr5h0YOD2zOaAGbPdkhgFvyMw98qK+nVITj/UEbj1gqP9+LYCYAqk56+ZK1NPhyX/oo/INJJr0MxBn+5GRrfeNE2dhXxp1gjTyZiLwtF9Oxfh+U37wClPNeXthof/wm+BotN/mWUtx5jN0YHFi+OD1ZqQYkg6N7HU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kYmtxUd7; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=ka8VQMDc0brDnqvr459TVvzrDDRmAVQGW9KEt7YnKkNhhRex/IXd/89zU4y9lSTINUYMAs+Hj4kX2SwDl/WDl0qC+t58ez0fkG3ExashiIfqJSglxHLnYogdSNe1HYPVN7uP4lHVrmJSa1zdvGucW2GhDuPKdKAlHSiqtu43mP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=k6afqY4r; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kYmtxUd7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 835A1C2BCB0;
-	Tue, 31 Mar 2026 07:01:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774940491;
-	bh=GzzLKAM7HohgpbhX7Jt24n8lQNb/+gcmxOQdZGYzy2A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kYmtxUd7yP70LJIdwmBli+tq6dX5Y/2Ui7J8KZWxYW9ikaun9TIbA1m/EA8J+SYW9
-	 vwVnbO7y4rfYzwYxb+LbfW8xjiauMSGmzVBZxEEQVokRa7chI1K9zj6mFIUPzHmf+A
-	 TGBL+pcRCNUMQNHtrUZxU/ZWde7UQrqqv40ISXPLuQmJQjoqFrQo1wiXjOjRz3+uxk
-	 vsVG18fyH9euB3nFroZB1rOteT63tE2UocB+NuSgJAfgUWdb1x2g9D/ANwV6ZFvtKj
-	 ulAYXzoAIeEBXg7aTm81E3+SNZ8M6ZLm+2t9L+1ZbICGB7O9wNXW2PGbxoYOZBqh58
-	 jB3U6aNVa/neQ==
-Date: Tue, 31 Mar 2026 09:01:28 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Cc: linux-mediatek@lists.infradead.org, Fabien Parent <parent.f@gmail.com>, 
-	Val Packett <val@packett.cool>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Sen Chu <sen.chu@mediatek.com>, 
-	Sean Wang <sean.wang@mediatek.com>, Macpaul Lin <macpaul.lin@mediatek.com>, 
-	Lee Jones <lee@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Linus Walleij <linusw@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>, Gary Bisson <bisson.gary@gmail.com>, 
-	Julien Massot <julien.massot@collabora.com>, Chen Zhong <chen.zhong@mediatek.com>, 
-	linux-input@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v4 1/9] dt-bindings: mfd: mt6397: Add MT6392 PMIC
-Message-ID: <20260331-flawless-bronze-lorikeet-59a6ff@quoll>
-References: <20260330083429.359819-1-l.scorcia@gmail.com>
- <20260330083429.359819-2-l.scorcia@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="k6afqY4r"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1774940574; x=1806476574;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=yt9o+hP525Oxql1j/peL75RWbfKyVjlXzURR7373UqE=;
+  b=k6afqY4rMs/43BmdKoPcayEl2a1QYA4NMGm2V8YZV3dDCYn6A6qDH3sf
+   auvLZIrpPw+75LRsTNU7Khrzs6DwjHKZSBmblc9TyHnp400T243vXf7Ob
+   9Wp2db8MFHPY7Pt9stHwbxaSfqvp+SARDEKkX6OUnT7TniXiyrEdxH+Me
+   JMV1JCRRqEYB7LEYEOF6jJLEvVb75AlD1NzH3rE6PCFRXd2rcQyc8T+Me
+   ADAB1xXXOQKnJoLj6ZcsJ5i7oZqfOzM+EZpKkOQMwkvK9vq/Tn4/06+OU
+   aCMVkJBMQP800F8hUc4xf8T8Vr6NYpDpmsXpQZun853AitZfS/31IxOHR
+   w==;
+X-CSE-ConnectionGUID: EqasG9K0TG6De97H1nFDNA==
+X-CSE-MsgGUID: VppXuF84QCysb5aqSysJBg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11744"; a="79545029"
+X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; 
+   d="scan'208";a="79545029"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Mar 2026 00:02:53 -0700
+X-CSE-ConnectionGUID: EilyfNbITeSJwrNzdhz4uA==
+X-CSE-MsgGUID: u2eMCNNLQkmmy/GQ3a7TUw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; 
+   d="scan'208";a="249494457"
+Received: from abityuts-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.233])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Mar 2026 00:02:48 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 536DA121CF2;
+	Tue, 31 Mar 2026 10:02:55 +0300 (EEST)
+Date: Tue, 31 Mar 2026 10:02:55 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Richard Acayan <mailingradian@gmail.com>
+Cc: David Heidelberg <david@ixit.cz>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+	Todor Tomov <todor.too@gmail.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Tianshu Qiu <tian.shu.qiu@intel.com>,
+	Robert Mader <robert.mader@collabora.com>,
+	phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-media@vger.kernel.org
+Subject: Re: [PATCH v9 7/7] arm64: dts: qcom: sdm670-google-sargo: add imx355
+ front camera
+Message-ID: <actxn5kvN3auqCBm@kekkonen.localdomain>
+References: <20260217002738.133534-1-mailingradian@gmail.com>
+ <20260217002738.133534-8-mailingradian@gmail.com>
+ <1349f725-a20f-4935-a829-208c8e583ad9@ixit.cz>
+ <acHxgIsyPiQTeqCB@rdacayan>
+ <eff25adf-c5fd-484d-a9ae-ec27c0d9c100@ixit.cz>
+ <acJuN_FRqMTGgl8C@kekkonen.localdomain>
+ <acsjH0tZ-jj7N7c5@rdacayan>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260330083429.359819-2-l.scorcia@gmail.com>
+In-Reply-To: <acsjH0tZ-jj7N7c5@rdacayan>
 
-On Mon, Mar 30, 2026 at 09:29:35AM +0100, Luca Leonardo Scorcia wrote:
->            - items:
->                - enum:
->                    - mediatek,mt6366-rtc
-> @@ -99,9 +107,6 @@ properties:
->                    - mediatek,mt6366-regulator
->                - const: mediatek,mt6358-regulator
->  
-> -    required:
-> -      - compatible
+On Mon, Mar 30, 2026 at 09:27:59PM -0400, Richard Acayan wrote:
+> On Tue, Mar 24, 2026 at 12:57:59PM +0200, Sakari Ailus wrote:
+> > Hi David, Richard,
+> > 
+> > On Tue, Mar 24, 2026 at 10:35:24AM +0100, David Heidelberg wrote:
+> > > 
+> > > 
+> > > On 24/03/2026 03:05, Richard Acayan wrote:
+> > > > On Fri, Mar 13, 2026 at 07:26:47PM +0100, David Heidelberg wrote:
+> > > > > On 17/02/2026 01:27, Richard Acayan wrote:
+> > > > > [...]
+> > > > > 
+> > > > > > +&cci_i2c1 {
+> > > > > > +	camera@1a {
+> > > > > > +		compatible = "sony,imx355";
+> > > > > > +		reg = <0x1a>;
+> > > > > > +
+> > > > > > +		clocks = <&camcc CAM_CC_MCLK2_CLK>;
+> > > > > > +
+> > > > > > +		assigned-clocks = <&camcc CAM_CC_MCLK2_CLK>;
+> > > > > > +		assigned-clock-rates = <19200000>;
+> > > > > 
+> > > > > Extract from #sdm670-mainline:erebion.eu discussion:
+> > > > > The imx355 can operate on 24 MHz (on both Pixel 3 and 3a), but Linux kernel
+> > > > > driver can operate only with 19.2 MHz.
+> > > > > 
+> > > > > I assume it would be worth it mention at least by comment here.
+> > > > 
+> > > > This might set the series back because the devicetree isn't meant to be
+> > > > written for specific software, but it's included in v11 because you
+> > > > already asked twice.
+> > > > 
+> > > 
+> > > I would say node with lower clock frequency is still much better than
+> > > nothing or placeholder saying "i2c camera here". Instead we'll have small
+> > > placeholder that value can be bumped to 24 MHz. Important is this can be
+> > > easily improved when at least one consumer of the device-tree gains support.
+> > > 
+> > > We have very scarce support of cameras on mobile phones in mainline, thus
+> > > leaving a comment that HW can do 24 MHz is reasonable compromise IMHO.
+> > 
+> > The bindings could document the supported frequency range.
+> > 
+> > In DTS it may make sense to set the frequency the vendor uses as it may
+> > affect the link frequencies (albeit I guess they're the same in this
+> > case?).
+> 
+> Is this review relevant to v11?
 
-Not really, this affects existing ABI and might make the child schema
-being applied. Basically regulators node can be anything now.
+I'd think so: it doesn't mention the frequency should be 24 MHz.
 
-This is definitely not a binding we want. The syntax for parent schema
-when listing only compatibles is requiring this compatible. You cannot
-have here whatever empty node.
-
-Best regards,
-Krzysztof
-
+-- 
+Sakari Ailus
