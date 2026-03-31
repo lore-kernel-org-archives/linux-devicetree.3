@@ -1,119 +1,195 @@
-Received: from mail-4323.protonmail.ch (mail-4323.protonmail.ch [185.70.43.23])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78FA425CD4;
-	Tue, 31 Mar 2026 17:28:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.23
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8897C36655C
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 17:31:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774978131; cv=none; b=TVSWVnqx8f802U4FXSwWuTWcIGkNxBM/mdqwKo43YqZOLep0a1bGwW7P62gKkqdaR2+1KJ8jOdbZsw/rP0AEWkQpjjGCVMgHeCechjQhKKyzw0oYRljY7T5cGFP+3YWIR7owFWOk4MT1KiITCjhRu0kYXzJOmc3gHnKnEqYD20M=
+	t=1774978293; cv=none; b=tJilQ8VlOoORqzm/t0xKYf16BJOYyIN+0tyGe7jLFxDkrlbY9lotZmCHWrN5OTiybLgSDPDtAP+R3T+8pOxjb2EIRw3CnH3fDlsPj7sg0COtIvAdmkF8QYMJzDSaRTXNmkakTJZKxRdcKmUQpi1E5kvWr7/7ad+XuDWuNVFpKJU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774978131; c=relaxed/simple;
-	bh=YfUih1exLsJMD7xKSC0lhbxqEh6hoZVtHVWQM+4KANY=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fwEYpQ2L/pQxlLww7ebetXdjntisbDBJotn/vmcr6svlzaO6PbmEI06F+sFTfNbKFFX5N2B4Ld5WCjyiVugVpZPvqDIt1UURcJn5m9BRji83PsLyVMNJxG3zwvnCkbI6s6cchc3a2ZKRDxYTxvstyQJY2OtMAr1XxXGZ32yK6Fk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com; spf=pass smtp.mailfrom=vinarskis.com; dkim=pass (2048-bit key) header.d=vinarskis.com header.i=@vinarskis.com header.b=n2P8Z37O; arc=none smtp.client-ip=185.70.43.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinarskis.com
+	s=arc-20240116; t=1774978293; c=relaxed/simple;
+	bh=QtI8q7MchfqQEtGHXWlJ7hjF3p3yWi14nrUrOgHyqiM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=R2oaY6+8H9Scj0i+uHlxAtVDpdBOeVuZgGZfGqu/0XoIbVcuP/2dMiNN3Hqs1cZ3yf/v2XTvv8ufOtu/YM7HpIiW0ogifhTeF+F2KB6/SbQ8hDa1bJilRcLc9pMKLh1qaZsUpBgggjj00Spe+epLtTcKHpXa7zgYA+Dcyoie51k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=huIcm+RD; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vinarskis.com header.i=@vinarskis.com header.b="n2P8Z37O"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vinarskis.com;
-	s=protonmail2; t=1774978119; x=1775237319;
-	bh=RAJ/BmxoWBjj74xPSxI88dSbFSKg+ByLjVGNOvvJDw4=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=n2P8Z37OaUVkoIozMA2G105AjaF//ZxGxajTkh3aHHR7QOAq5AXtskHy/W7ESbaGI
-	 a+2VvsnEuBbYjnVHG2zwzhNbjAz3rGmfIlgw5MJsaoAHhvopUlkRyNSQ2R+hDoGnJ2
-	 EPHZ5g7XvB9tNzbfXy05Z20bfWEnJA7Iju85KXvqemBrNgnROCFJyQfd5WUkNbrxkJ
-	 TjDvbEgc7txxS2uBuK3Tf9CAHo+9xFt/HsF2NyRtpCHZPjqObmuquY3pnS4kWCS9tT
-	 4AdzE3oe48rG8jxO2KD6uJOlrcb0H/b2/0SJu/jSh1bD9jzs5cNKRzkmXjkSVZmaVr
-	 Y8AF0/bX2IuwQ==
-Date: Tue, 31 Mar 2026 17:28:34 +0000
-To: Val Packett <val@packett.cool>
-From: Aleksandrs Vinarskis <alex@vinarskis.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, laurentiu.tudor1@dell.com, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v2] arm64: dts: qcom: x1e80100-dell-xps13-9345: enable onboard accelerometers
-Message-ID: <99hP9Xe8ibJcx85xycqBaG3yUezfHcy8D6ezywja7IDv_eMMPfl4zourMSO82q643vxISbWBwo-L7iKesCSVGOq9uDO5I93GjLVacPjTSGU=@vinarskis.com>
-In-Reply-To: <33c0a723-7748-4199-9623-7ed3eed8bfa0@packett.cool>
-References: <20260331-dell-xps-9345-accel-v2-1-7dacbd24b43d@vinarskis.com> <33c0a723-7748-4199-9623-7ed3eed8bfa0@packett.cool>
-Feedback-ID: 158356072:user:proton
-X-Pm-Message-ID: 32283a8f4b08d2670bffbcefeb60a742e2a4ecd6
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="huIcm+RD"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-35d971fb6f1so2811991a91.0
+        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 10:31:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774978292; x=1775583092; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZmLnySGgpX5qdaI09bcdNyFr/X6vDkvqTADZpSFZpVI=;
+        b=huIcm+RDM1NB6av6CaPvyKQSm5SBEtIc1b0uRgh0DxMoTNSlJAjmo6HbiKQn10VkgN
+         uauECSQQ9UP2UXhzvlPnMaNALv7gzvCV/g8nLMC8X/8t837m0XuFXv2j93C6Rhl8LJ7a
+         SISPWe9yB4abWwxOP4LkXC+LA6HtIWCWSk9ZmH1feoNeCMvzJkzddEsmhKIYpQAtsghC
+         zr9Ul3qcO3W22OebrMS8OdGkq2+yHP8MBjOof56u9JXetftd5XxNP8TwrGQN92N81w3o
+         AAlf3f+U0Cy5RReRu/Z4NGvOiyqf3ppFCNRJhsBZdAPHW2z3pvdwypQi9yDYEwdf+k3Q
+         KTdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774978292; x=1775583092;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ZmLnySGgpX5qdaI09bcdNyFr/X6vDkvqTADZpSFZpVI=;
+        b=L0Hpss8359N2gUdqUy6J3YjchLN9JwUadLbHtZqqYD8p8vKK3aUPV5LaN+lfSlcntI
+         e+59edNr+0d64TmtDIhF+R0RxxbJ/nnq7OB+91TtxKfccpB1ig4H+AcXw4EJA9O4aKaA
+         TRXpuWP8yyBlGjwIOVmiBQNTwg9GSvzODXcvUlQgYpyXSRI5y198hXJDoSr9ztPiOeCw
+         Z/UZcC5RMek8UsIvSmLMcj5puqRLcLL36xU8+yDiMgoGNtUSzolT0k6nCuj6wgSTTUBR
+         y3b5Lerzqot+pNVQthEvTp9riZIhvVJ8BLStVCiT0MnajmDChwjjRoT0Dk2spsVEaXCg
+         pcxA==
+X-Gm-Message-State: AOJu0YzZCWsaikVkgYOFczXArgougl4ajK4eE9KWI8p7WECE2BV+iCBe
+	21FpbMlz8ZJhTuSfTlQNneBjzTCswburCwpGpERq99YvG85eM1efapfY
+X-Gm-Gg: ATEYQzwlWml7p2kLZ0Fiwi5zDyenxGFObJxyZW6iae9et3cz/n20MqF3eZ/ys5sEJpA
+	YoooqT6C5AMrOLFdJFoE7O0wE4Fp+eEwIdcrxC9lk5RpP7VN2OO5gKSeZ6by+rIb2/4X7DNDRxm
+	oYp9oI68cBOGvKbacqDQ2wNbcTz6pPntV7cq01IHVA+H8TWkEJtpTqnnfrkn1HATxK2jQWw7eZE
+	1+0TMYWHDto43nZ6SHfSfDgnONpowCe8lpGY8V+nx0tx+kmpI+YJF7FWGINs1F8NddeuslnabMq
+	RpOZ5EG05bjOdPZziYR8FVqeCnWngFqc2ojkTSGBL9aiGkC2lO5rcuZWmCcWnj38wf9NlmkGvhH
+	VH1Xy/KK9GBmM90smiD9L6ZIczznfll8nBmuXhg4wwlnoGv2q0sfxpolBG+Mc+UXJQALDudr7Mb
+	XsdOePeeSW86P38amgiGbJpALmgRP09g==
+X-Received: by 2002:a17:902:e78c:b0:2b0:665b:c7de with SMTP id d9443c01a7336-2b269cbe40emr468325ad.40.1774978291526;
+        Tue, 31 Mar 2026 10:31:31 -0700 (PDT)
+Received: from snowman ([2401:4900:646d:8c67:2583:bc87:aa68:3bee])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b24265aa9fsm114499935ad.20.2026.03.31.10.31.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 31 Mar 2026 10:31:30 -0700 (PDT)
+From: Khushal Chitturi <khushalchitturi@gmail.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	liviu.dudau@arm.com,
+	sudeep.holla@kernel.org,
+	lpieralisi@kernel.org,
+	pawel.moll@arm.com
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Khushal Chitturi <khushalchitturi@gmail.com>
+Subject: [PATCH] dt-bindings: arm: arm,vexpress-scc: convert to DT schema
+Date: Tue, 31 Mar 2026 22:59:59 +0530
+Message-ID: <20260331172959.35745-1-khushalchitturi@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
+Convert the ARM Versatile Express Serial Configuration Controller
+bindings to DT schema.
 
-On Tuesday, March 31st, 2026 at 19:05, Val Packett <val@packett.cool> wrote=
-:
+Signed-off-by: Khushal Chitturi <khushalchitturi@gmail.com>
+---
+Note:
+* This patch is part of the GSoC2026 application process for device tree bindings conversions
+* https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Device-Tree-Bindings
 
-> On 3/31/26 10:36 AM, Aleksandrs Vinarskis wrote:
-> > Particular laptop comes with two sets of sensors:
-> > 1. Motherboard: accelerometer
-> > 2. Display/Camera module: accelerometer, ambient ligth (and more)
-> >     sensor
-> >
-> > Both i2c busses are bound to Snapdragon Sensor Core (SSC) and are
-> > typically controlled by (A)DSP thus allowing for great power
-> > efficiency. This however requires DSP libraries matching ADSP firmware,
-> > sensors descriptions (must be extracted from Windows) and other
-> > potentially closed-source libraries. Opensource tooling includes
-> > `libssc` and `hexagonrpcd`, but they were not verified to be working.
-> >
-> > Until SSC support for X1E lands, bitbang both i2c busses to enable
-> > accelerometer functionality. In the future if/when sensors on this
-> > platform can be used from DSP directly, this commit can be reverted.
-> >
-> > [..]
->=20
-> WDYM by "support lands"? It's a userspace setup thing, nothing new
-> should be required in the kernel.
+ .../bindings/arm/arm,vexpress-scc.yaml        | 51 +++++++++++++++++++
+ .../devicetree/bindings/arm/vexpress-scc.txt  | 33 ------------
+ 2 files changed, 51 insertions(+), 33 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/arm/arm,vexpress-scc.yaml
+ delete mode 100644 Documentation/devicetree/bindings/arm/vexpress-scc.txt
 
-Hi Val,
+diff --git a/Documentation/devicetree/bindings/arm/arm,vexpress-scc.yaml b/Documentation/devicetree/bindings/arm/arm,vexpress-scc.yaml
+new file mode 100644
+index 000000000000..7870410211a0
+--- /dev/null
++++ b/Documentation/devicetree/bindings/arm/arm,vexpress-scc.yaml
+@@ -0,0 +1,51 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/arm/arm,vexpress-scc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: ARM Versatile Express Serial Configuration Controller
++
++maintainers:
++  - Pawel Moll <pawel.moll@arm.com>
++
++description: |
++  Test chips for ARM Versatile Express platform implement SCC (Serial
++  Configuration Controller) interface, used to set initial conditions
++  for the test chip.
++
++  In some cases its registers are also mapped in normal address space
++  and can be used to obtain runtime information about the chip internals
++  (like silicon temperature sensors) and as interface to other subsystems
++  like platform configuration control and power management.
++
++properties:
++  compatible:
++    items:
++      - pattern: "^arm,vexpress-scc,[a-z0-9_-]+$"
++      - const: arm,vexpress-scc
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++required:
++  - compatible
++
++additionalProperties: false
++
++examples:
++  - |
++    bus {
++        #address-cells = <2>;
++        #size-cells = <2>;
++
++        scc@7fff0000 {
++            compatible = "arm,vexpress-scc,v2p-ca15_a7", "arm,vexpress-scc";
++            reg = <0 0x7fff0000 0 0x1000>;
++            interrupts = <0 95 4>;
++        };
++    };
++...
+diff --git a/Documentation/devicetree/bindings/arm/vexpress-scc.txt b/Documentation/devicetree/bindings/arm/vexpress-scc.txt
+deleted file mode 100644
+index ae5043e42e5d..000000000000
+--- a/Documentation/devicetree/bindings/arm/vexpress-scc.txt
++++ /dev/null
+@@ -1,33 +0,0 @@
+-ARM Versatile Express Serial Configuration Controller
+------------------------------------------------------
+-
+-Test chips for ARM Versatile Express platform implement SCC (Serial
+-Configuration Controller) interface, used to set initial conditions
+-for the test chip.
+-
+-In some cases its registers are also mapped in normal address space
+-and can be used to obtain runtime information about the chip internals
+-(like silicon temperature sensors) and as interface to other subsystems
+-like platform configuration control and power management.
+-
+-Required properties:
+-
+-- compatible value: "arm,vexpress-scc,<model>", "arm,vexpress-scc";
+-		    where <model> is the full tile model name (as used
+-		    in the tile's Technical Reference Manual),
+-		    eg. for Coretile Express A15x2 A7x3 (V2P-CA15_A7):
+-	compatible = "arm,vexpress-scc,v2p-ca15_a7", "arm,vexpress-scc";
+-
+-Optional properties:
+-
+-- reg: when the SCC is memory mapped, physical address and size of the
+-       registers window
+-- interrupts: when the SCC can generate a system-level interrupt
+-
+-Example:
+-
+-	scc@7fff0000 {
+-		compatible = "arm,vexpress-scc,v2p-ca15_a7", "arm,vexpress-scc";
+-		reg = <0 0x7fff0000 0 0x1000>;
+-		interrupts = <0 95 4>;
+-	};
+-- 
+2.53.0
 
-In v1 discussion [1] it was mentioned that libssc was never tested on
-X1E and is likely missing required libraries. I have briefly looked
-into getting `hexagonrpcd` to run without much success (though I have=20
-to admit, I only spend a few hours on it). It seems just having
-`hexagonrpcd` and sensors .json files (extracted from Windows) is not
-enough.
-
->=20
-> It is amazing that this bitbanging works here, I don't think it was
-> expected to ever work on anything newer than msm89x7 o.0
-
-Been running it for a few weeks now without issues.
-
->=20
-> But this is likely inefficient=E2=80=A6 and "stealing" GPIOs from ADSP li=
-ke this
-> sounds rather scary. And would definitely break SSC initialization for
-> anyone wanting to bring up hexagonrpcd/iio-sensor-proxy.
-
-Do you have any experience with `hexagonrpcd` on X1/X1E specifically?
-Personally, I think it still better to go with always-working bit-bang
-approach over correctly implemented but 'needs userspace customization
-and firmware' approach, as in practice it means very few people will
-get it to work. However, if its possible to get SSC to run X1/X1E it
-would be a very good argument to drop this patch, up to maintainers'
-discretion.
-
-Speaking more broadly, while the accelerometer is not such a highly
-needed feature, ALS is, as it can be used for automatic screen brightness,
-keyboard backlight controls. I am planning to port ALS's driver to get
-those features next, depending on sensor model other laptops would be
-able to benefit from that as well, iff bit-banging approach is chosen.
-
-Alex
-
-[1] https://lore.kernel.org/all/20260228-dell-xps-9345-accel-v1-1-daf9e3b3b=
-5ee@vinarskis.com/
-
->=20
-> ~val
->=20
-> 
