@@ -1,202 +1,143 @@
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E1343CF02A
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 20:06:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D9AA2D46CE;
+	Tue, 31 Mar 2026 20:20:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774987595; cv=none; b=Rc11LDG4PuYsobFVPkNPFVgYBA/YhVFotB5HvwR8fBdS7Bu0sb+EYUk2tBrRGzpwaWBCbNpmQEPROZlzar40TskfY6tErfKJQ+eqmgYcToofciHIwaQxy2oWkNwYwXtl0F6uxJ0Y24pn4w7fLdJhlHauRhWD/VU1Y2FNyIzUrqI=
+	t=1774988454; cv=none; b=a0STYnW8LCS+30dYq5QzevFRS2+BxIgXj/GpWG/61MUj43s15ClFAwvBEtMSGYo7gWel4OMtaXDuI1N7C14jbfUKQh377QlQ8+t+e5CAzytGgm3pC4c5G3XlbTyTed6rmnH/+wPv9O5zGJeQxNnDVXbXF0yiAxSks6XRd/COyj4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774987595; c=relaxed/simple;
-	bh=Jsw2LZX+24ad49I5ppoLXlXypBhq0fgDlxTOnH7YRDM=;
+	s=arc-20240116; t=1774988454; c=relaxed/simple;
+	bh=DDf77+4N4LhLprCTibbv//x45CHKg/s8+b5TX20o5ZI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fy9PIj7V6avfwY2NNl+wBhb+pClEikJ6b5lDe/7UDPjY1VufzQe9GD4ovH0llJ4Xq5IsQy+NXaeINfQ/x/WmzbSBCOfSkSmbMZZPRqHWmRF2IyeAF3xyh4XBin/nmUJNILER9/S/cEPN7TR5YASYIJZ5rVgBkGHgpLY72jWNRSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H/8XDrzE; arc=none smtp.client-ip=209.85.222.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version:Content-Type; b=CNf5K3Z0XGbLUIidBf5dHpyjHqr8F4Pkw+rScKXkjSOFY63hYcaZV11FfCt+BAxZJpZUEOrOolBB9eJSr05GqptQm1HJ7+zkmExgZgaBp7x9hwgGEZkHlvqmYdQVxRrgwQpsIpyEAbbmP4sTPB4Odv8LO/NZ9/BNtnIi9bYVqv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=dMmFTAQK; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H/8XDrzE"
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-8c70b5594f4so35962985a.1
-        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 13:06:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774987591; x=1775592391; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=mvo58vQkpYun2pER1aP/8VK1/EjAtCoPrLClSYN1Vl0=;
-        b=H/8XDrzEjnkTZX0j3TkbF4zrSP79umb61uRp3hLK8f52G+O2gqx1/LJ4UTDWL5Rech
-         Jgz171iUsGK4cojfYMHtJugESICe5/wAdUNwz7NsV6SOjyOdOjtR4JCxLAo87robJu6D
-         7qR2JcUeAVvPCrwM3kvuPWmPwlT9ebMP6EVrmGF04DhMSvJLD5THRc1+7q9tvd07O5b7
-         nh8zim3mugahkJEV1nn6eVs3cBw4zQle3LYlZeIbkP5/Ptpc9arHOdGLlWaCN7OKUoEk
-         I0xn/8D0ATlr4sZnifHluJdq0/MPJvUQVgKqw680VXxKBgyJogGuUQGqPWkggJGGlLUH
-         Vg4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774987591; x=1775592391;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=mvo58vQkpYun2pER1aP/8VK1/EjAtCoPrLClSYN1Vl0=;
-        b=DyVsTi5Z3vZRjcKJ3gSus1em8yZaY8tw87tJKv4S2Vnm5fDHGDOSgP8fsMv75+nC9w
-         CRXK+0qF/xWgpv2XmLG4ng3oCc9D/6798Fl1Dn76O0uSLKRlxLkPlyZ8ybhcXzlcVwez
-         1rr8Q7OuUcO/V8+hfLGwGfBJSwxJmg8a5JENj0ClNopzcJNmJ4seOiV8WObPt7TS+uMa
-         pNMqbB3OezaWvDLe+pvxBmavULotLCF37mmeRPEF2PqEYsEwNePCsdURzDNUmbimtOsZ
-         TW01mBSW37VLRp8R4KyBHkIGC+txB5jXt2kKmCmWbjo1Fhs8/1ulUNn0jDDUnmwGLtoq
-         8lVg==
-X-Forwarded-Encrypted: i=1; AJvYcCUeLOWZG0HIPonh2AA6gC8KM9C2aGh74/SQPxzmRZNM6KjFJaJ8S89rWTVsV/2NUpw6hjB2/larnZoH@vger.kernel.org
-X-Gm-Message-State: AOJu0YzWFn6j9xK21NdcbKrP4REj7SR3rXJZuusXUCfEr2FcHvHU3tmh
-	SH5OHXIz2Ebpb6PO6kfLjehk1V2oWz5iweJ5iS/zNs+yoDV8mligY4OM
-X-Gm-Gg: ATEYQzwF7MhlXD90G9QoMPBr3Q8Qsj3xPssFjDjOwcd37avQ7fvwCucJsgwoHF4wJ8+
-	669TpLFkDxiMq4C522AJaX5ZnkBbPDjWJuCOHNILKeWORZxKQkeAa7Tx8oWGWsaaYzBSPkBoiIY
-	QsXwng/TrndDWmaHBZeSavehBxHSHi6hvz7MHjkzoRcviFx3K/PRXCKM+jqT4i00NU4KQyKh8Nx
-	KfS0BhkxlJH3TT/8t43ilnVLctVQ5roXDMJ0W1sxLYqXbWUAilDEfyxZmraYMCmU+waUiQvSf1j
-	sxYOa4jHcskl1oY+CV+/77rM3qzcDOSpFZl1XQYRrBVLWwzGqHW6FBEQ8bc4vbYCy0LhSK05vbN
-	cmKlC4YUz/pTcrH7W2S4svEvo4S+Hghqo1/L9cDMReH4fJti50xIIbB1ahDcLOKrD5hFEnAgDPm
-	sbYUDjfeUF6EKgygsbLa3p9tqpJxgWCUxQNco=
-X-Received: by 2002:a05:620a:28ca:b0:8cf:dbf0:502b with SMTP id af79cd13be357-8d1b642e06emr97471985a.31.1774987591205;
-        Tue, 31 Mar 2026 13:06:31 -0700 (PDT)
-Received: from localhost ([199.7.157.124])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-8d0280428d1sm961054385a.25.2026.03.31.13.06.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 31 Mar 2026 13:06:30 -0700 (PDT)
-From: Richard Acayan <mailingradian@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org
-Cc: Richard Acayan <mailingradian@gmail.com>
-Subject: [PATCH v5 4/4] arm64: dts: qcom: sdm670: add lpi pinctrl
-Date: Tue, 31 Mar 2026 16:06:58 -0400
-Message-ID: <20260331200658.1306-5-mailingradian@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260331200658.1306-1-mailingradian@gmail.com>
-References: <20260331200658.1306-1-mailingradian@gmail.com>
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="dMmFTAQK"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=j0M0/sXX/s0DXkkv0+EF2fIkGOqZ6C31hkXqcBioYKU=; b=dMmFTAQKdHoK+OMMZ3qvudqnUZ
+	4rainb2qsrUHgHOP8R3lPswoGe4ucx+aqtz6sk1eZ0HRM1mTT+QpN8ZdcE7tmTimxinxyvclzImRZ
+	rG7gHw2rRZgr+4aMdFknFtkiR23scQZZBBRxWw7pS4M6x2iqb3mZo9bysBw65vl02YInjsf1Jsn5i
+	y6i04IKp2U0Jv1hI2U+VKaWjndyOdwY6CAluE4xfowMd481CiK7bPi0bZYrbvpzW5lhh4uQnWs8G2
+	Z5kaLATQs5x8Fj9r+SMm31c7fZGXe7UA0JADZw1OIGNK7Ln1HCvdg62W2piCE0HgR6QbG6YNvSRZW
+	p+S9lLsQ==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Alexey Charkov <alchark@gmail.com>, Dennis Gilmore <dennis@ausil.us>
+Cc: Jimmy Hon <honyuenkwun@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ FUKAUMI Naoki <naoki@radxa.com>, Hsun Lai <i@chainsx.cn>,
+ Jonas Karlman <jonas@kwiboo.se>, Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+ John Clark <inindev@gmail.com>,
+ Michael Opdenacker <michael.opdenacker@rootcommit.com>,
+ Quentin Schulz <quentin.schulz@cherry.de>, Andrew Lunn <andrew@lunn.ch>,
+ Chukun Pan <amadeus@jmu.edu.cn>, Peter Robinson <pbrobinson@gmail.com>,
+ Michael Riesch <michael.riesch@collabora.com>,
+ Mykola Kvach <xakep.amatop@gmail.com>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH v4 3/3] arm64: dts: rockchip: Add Orange Pi 5 Pro board support
+Date: Tue, 31 Mar 2026 22:19:50 +0200
+Message-ID: <2545205.jE0xQCEvom@phil>
+In-Reply-To:
+ <CAABkxwsD_59G3YrpMdUi7D1fVHruSuDHn9-gQAZbwTdxGBHaBA@mail.gmail.com>
+References:
+ <20260310031002.3921234-1-dennis@ausil.us>
+ <CABjd4Yz3MKOp-gE8kNc4EOt3-a0mKZsxvbVYCN4KsbqTRDtWgA@mail.gmail.com>
+ <CAABkxwsD_59G3YrpMdUi7D1fVHruSuDHn9-gQAZbwTdxGBHaBA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-The Snapdragon 670 has a separate TLMM for audio pins. Add the device
-node for it.
+Hi Dennis,
 
-Also add reserved GPIOs for the Pixel 3a, which blocks access to the
-sensor GPIOs.
+Am Dienstag, 31. M=C3=A4rz 2026, 21:41:50 Mitteleurop=C3=A4ische Sommerzeit=
+ schrieb Dennis Gilmore:
+> On Wed, Mar 11, 2026 at 9:26=E2=80=AFAM Alexey Charkov <alchark@gmail.com=
+> wrote:
+> >
+> > On Wed, Mar 11, 2026 at 5:29=E2=80=AFAM Dennis Gilmore <dennis@ausil.us=
+> wrote:
+> > >
+> > > On Tue, Mar 10, 2026 at 7:20=E2=80=AFPM Jimmy Hon <honyuenkwun@gmail.=
+com> wrote:
+> > > >
+> > > > <snip>
+> > > > > +
+> > > > > +       vcc5v0_otg: regulator-vcc5v0-otg {
+> > > > > +               compatible =3D "regulator-fixed";
+> > > > > +               enable-active-high;
+> > > > > +               gpios =3D <&gpio0 RK_PC4 GPIO_ACTIVE_HIGH>;
+> > > > > +               pinctrl-names =3D "default";
+> > > > > +               pinctrl-0 =3D <&vcc5v0_otg_en>;
+> > > > > +               regulator-always-on;
+> > > > > +               regulator-boot-on;
+> > > > regulator-always-on and regulator-boot-on does not seem right.
+> > > >
+> > > > Why were these added? The vendor did not have them.
+> > > > https://github.com/orangepi-xunlong/linux-orangepi/blob/232ed4b97b6=
+5da2b7b647c4e3c496f8594b9f3f1/arch/arm64/boot/dts/rockchip/rk3588s-orangepi=
+=2D5-pro.dts#L216-L226
+> > > >
+> > > > Was this mistakenly taken from the regulator usb 20 which is poweri=
+ng
+> > > > the onboard usb2.0 hub?
+> > > > https://github.com/orangepi-xunlong/linux-orangepi/blob/232ed4b97b6=
+5da2b7b647c4e3c496f8594b9f3f1/arch/arm64/boot/dts/rockchip/rk3588s-orangepi=
+=2D5-pro.dts#L111-L119
+> > >
+> > > It may have been a missreading of the schematic, but it was added to
+> > > get power to the USB3 port. before I added it devices plugged into the
+> > > USB 3 port would not power on
+> >
+> > Hi Dennis,
+> >
+> > The schematic says that this regulator supplies the VBUS voltage for
+> > the USB3 part of your Type-A OTG connector. If you make it always-on,
+> > you'll likely lose the possibility to use this port in device mode
+> > (which you would need e.g. for flashing images over a USB cable in
+> > U-boot which also takes device tree sources from Linux via
+> > devicetree-rebasing).
+> >
+> > You also link it up as the PHY supply of the USB2 controller, which
+> > doesn't describe the actual hardware.
+> >
+> > Please see if you'd rather define a connector node for your Type-A
+> > port, and list this regulator as its VBUS supply explicitly. I've
+> > recently submitted a patch [1] to make the "onboard_usb_dev" driver
+> > take care of enabling VBUS in exactly this type of situations (it's in
+> > usb-testing now and will hopefully hit -next sometime soon). If you
+> > need an example for its use, please refer to [2].
+> >
+> > Best regards,
+> > Alexey
+> >
+> > [1] https://lore.kernel.org/all/20260217-typea-vbus-v1-1-657b4e55a4c2@f=
+lipper.net/
+> > [2] https://github.com/flipperdevices/flipper-linux-kernel/blob/2f814cd=
+f07f50e901fc1b1328213e76460864c20/arch/arm64/boot/dts/rockchip/rk3576-flipp=
+er-one-rev-f0b0c1.dts#L303-L328
+>=20
+> Sorry for the delay, I am taking a look at it now. Please let me know
+> when it lands in -next. In the meantime, I believe what I have is in
+> good shape and is working well here. I am happy to make a change once
+> support lands upstream.
 
-Signed-off-by: Richard Acayan <mailingradian@gmail.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
- .../boot/dts/qcom/sdm670-google-common.dtsi   |  5 ++
- arch/arm64/boot/dts/qcom/sdm670.dtsi          | 73 +++++++++++++++++++
- 2 files changed, 78 insertions(+)
+Review comments should be addressed before patches get applied.
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-index 0f57b915186b..b4854801a5f5 100644
---- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-@@ -522,6 +522,11 @@ rmi4_f12: rmi4-f12@12 {
- 	};
- };
- 
-+&lpi_tlmm {
-+	/* sensor gpios are protected */
-+	gpio-reserved-ranges = <0 8>, <12 6>;
-+};
-+
- &mdss {
- 	status = "okay";
- };
-diff --git a/arch/arm64/boot/dts/qcom/sdm670.dtsi b/arch/arm64/boot/dts/qcom/sdm670.dtsi
-index 5b41f8bac7bc..2d5728c75a93 100644
---- a/arch/arm64/boot/dts/qcom/sdm670.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm670.dtsi
-@@ -2346,6 +2346,79 @@ lmh_cluster0: lmh@17d78800 {
- 			interrupt-controller;
- 			#interrupt-cells = <1>;
- 		};
-+
-+		lpi_tlmm: pinctrl@62b40000 {
-+			compatible = "qcom,sdm670-lpass-lpi-pinctrl";
-+			reg = <0 0x62b40000 0 0x20000>;
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+			gpio-ranges = <&lpi_tlmm 0 0 32>;
-+
-+			cdc_pdm_default: cdc-pdm-default-state {
-+				clk-pins {
-+					pins = "gpio18";
-+					function = "slimbus_clk";
-+					drive-strength = <4>;
-+					output-low;
-+				};
-+
-+				sync-pins {
-+					pins = "gpio19";
-+					function = "pdm_sync";
-+					drive-strength = <4>;
-+					output-low;
-+				};
-+
-+				tx-pins {
-+					pins = "gpio20";
-+					function = "pdm_tx";
-+					drive-strength = <8>;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio21", "gpio23", "gpio25";
-+					function = "pdm_rx";
-+					drive-strength = <4>;
-+					output-low;
-+				};
-+			};
-+
-+			cdc_comp_default: cdc-comp-default-state {
-+				pins = "gpio22", "gpio24";
-+				function = "comp_rx";
-+				drive-strength = <4>;
-+			};
-+
-+			cdc_dmic_default: cdc-dmic-default-state {
-+				clk1-pins {
-+					pins = "gpio26";
-+					function = "dmic1_clk";
-+					drive-strength = <8>;
-+					output-high;
-+				};
-+
-+				clk2-pins {
-+					pins = "gpio28";
-+					function = "dmic2_clk";
-+					drive-strength = <8>;
-+					output-high;
-+				};
-+
-+				data1-pins {
-+					pins = "gpio27";
-+					function = "dmic1_data";
-+					drive-strength = <8>;
-+					input-enable;
-+				};
-+
-+				data2-pins {
-+					pins = "gpio29";
-+					function = "dmic2_data";
-+					drive-strength = <8>;
-+					input-enable;
-+				};
-+			};
-+		};
- 	};
- 
- 	thermal-zones {
--- 
-2.53.0
+So there is no waiting for "when it lands upstream" to make additional
+fixes, when you know at submission time, that things need improvement.
+
+
+Heiko
+
 
