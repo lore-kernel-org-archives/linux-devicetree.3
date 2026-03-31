@@ -1,114 +1,115 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4F6C3A5E65
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 12:09:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F1063E1CE8
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 12:15:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774958991; cv=none; b=NG00qAQQrvZLVrDKkivvV6Ta6jh/UXYTQ6KGnZVt5CwfAaCh1hPVuM+rm6mEQi3cX2+tP0i7Jc4C4DeYWYviTH36lqMPMK0WeHga3IkbfmLAoI7zBYx02P53jEAlMo+EbIwmn5/UdPHt5V9ZyUUQY6tOttV7X/ySgMnN/8m1vM4=
+	t=1774959353; cv=none; b=moyrp6R/4dMW5SgoTGEpNQWwIj4p7JMjBN41bgL75HaUnoXCaFJQoPq4tkBdUMSeNis8X+V1+CfZcexndVunh4dw+pkz9zx/+k3XpeL/e2n9ut7zP6hTRZ3KyHdJWUFdxnP7SyFsD0ugWp/OjFy2HnA4m5GrCgeuLj+gEcnemIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774958991; c=relaxed/simple;
-	bh=0ze6s62GoWXJwedORq0Ck2i8s/n/lLU7Kn7pTb1PCSY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tjobzb914UMnPRqbWLaVGMFztScYZC6WfFyHu7FDwXwlCtphRV1fvMjOK35DxBL/fFnbqOzCmKNgm4lCo0hVaaQiE0QSnRubkT9Ggsn0pCWwDcjjrHJ8uMRh4CDxWMzGW3Rxm63+tKr+QS6tooxM60ZMcd4EV7WwDe5QjTj6FgI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g6SBti1Z; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1774959353; c=relaxed/simple;
+	bh=tLzrIdEn1WyEQ7rUAuC/WY8xiLZVLXce48Kb4NPr1qs=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=poGLLpMuvm2Zq1lqn5MSz/tDQQxMNcWfHXzsds+Ifn1snTwOfYR2SvGDAm2lbMfrroJBE4ckzJOrlY5X6IZL+93YyMshOJZ86E/to/wHMiFX+dhSpfzb+oEWR/DBgbPoubd0qYaWeFbxKpn25m/pTp6nea4slyFQgnZq/lyZ2Gg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jKAuikN6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g6SBti1Z"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2aae146b604so33216975ad.3
-        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 05:09:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774958989; x=1775563789; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=YJsN9xOorEStaNzhqVyskGIBPrVNwL+4GmqbmijKTAk=;
-        b=g6SBti1Zbx41AUZ4zD1F1mn9v1H+IGlz3gHMaZKAFiHjBRPMQAbeqjEcMLrYx82lke
-         vjnYRzJ5CO3r4nq/ILd+jCYwfEqaQMGc+KJ/yXETAmiuRd9CP+B6nuCwx8EnVKHL5dKk
-         uArnOeZLPSiGvDJaoK9dTtIAUJBM1v1JyII6SGfe0jed5UxmEADSWgU0MwJ6o9lNdofz
-         WlhwTiL7WrHtbJWyYpxV+00uX0FiAcpRxaVleN/vaF6uqM5vAzl41w6gMrHIygHoE1Or
-         b94soWnLRlbapWHc38uh7KMjyXVRwC/Lt74FNj/d+v+GYNDI68tD48D4zMkAvpBn78nQ
-         008g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774958989; x=1775563789;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YJsN9xOorEStaNzhqVyskGIBPrVNwL+4GmqbmijKTAk=;
-        b=mTcg0wu4KGVzilHsREbXv4Vpg7FRiwqq4WJRw3wxVeG0RFWXnzzuoQU+A2uPfZdr8h
-         Jz7sYIM5LMGyHx2Jp6mbb9RFoIL0fGkGhQfGyA4VWyxJKp9NfT/BxxAsXBA3QDwPlB2E
-         N+7nrpHYPWHcJf1JWIn5I0fy9k5Lj8TI+gf+wk2BYBOhPqsUHMMpiwNjZYl5OLppdlQe
-         5r6chaE1Cluwscz5WI7pDEmpiRO/uLkTRrc9vhLFTjZcoQ+oNPfkFWpmk22l2SBPu/ij
-         yfhJkz41QGv4/dl4XJVNkB2v+tpRi9H65KkjQKSeb55eF1jptRaEvIbIzLMIikN2psh+
-         gdow==
-X-Forwarded-Encrypted: i=1; AJvYcCWXEzfWVtynynoGU7OQEMU0Ayjc0btC6BbJ1ZJnzq1B0FmXRGP5e05bCym66i3n/Mkdm0w1fcCcVL54@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz/8z2EWE8sWfvumLq9M4dfrgWZWw1NVfaQb2fLlK1d0B9auhBs
-	Nx+A8XXWAhSqOZ5W76Tgo4iGrJHi74TQrRY/nVRt8ZDNsJUy+2CFzUgJ
-X-Gm-Gg: ATEYQzxqXa9FGHGKpGlF4f6TKHLUeYoArvofFjVCZ6PS4Ne06yYdDmzc29sdcnd1lrK
-	yvGRPV2fxALiAsXlC8siOAQdZOy1SiQ6uiOohtwh0WllQUDFeLJYQ8EnEhq8q93EhgnKrghTi3M
-	YZCnXysUwVEldDTzndpk9ykbGke9hfJO17TbxsE05/OcwQJeGWHE/wr8V404Wok8SXeJcG0yOgV
-	nLKrBlm/PtY/k7blFRGLrg4QZTFDf6qNJ8Uw3jTwZ7sLnE8tizVxijqDdoZylaXLQUChovEFIEq
-	OpasFtaR0FHywsRT0mts/hzqpeNw7HddhQe8vJyu52HZrWIp1gAB+DpvYrK9tG3C+1NoU5vpsTk
-	sh6Dix/eJLKVbdbysGCsjKQ1UsA/xVlNpibccsj1zeryItA7hyn4sjXpRzuFBbp9ze/+IB+VaMo
-	bUJLkYHWEwR8IBGt/UHyZn3YWnzt1WMblVHf4RySzmWLT+zApVLCzxCWiy+/GtX5S3YpoiO824n
-	mdCzIbOv8vW8bFaqtXuiw==
-X-Received: by 2002:a17:902:e846:b0:2b2:490c:411e with SMTP id d9443c01a7336-2b2490c53c4mr108364095ad.6.1774958989240;
-        Tue, 31 Mar 2026 05:09:49 -0700 (PDT)
-Received: from bu9-daniel.dhcpserver.bu9bmc.local (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b242642c5asm109350915ad.7.2026.03.31.05.09.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 31 Mar 2026 05:09:48 -0700 (PDT)
-From: Daniel Hsu <d486250@gmail.com>
-X-Google-Original-From: Daniel Hsu <Daniel-Hsu@quantatw.com>
-To: andrew@codeconstruct.com.au
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	joel@jms.id.au,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	Daniel Hsu <Daniel-Hsu@quantatw.com>
-Subject: [PATCH v2] ARM: dts: aspeed: yosemite5: Add MP5998 power monitor
-Date: Tue, 31 Mar 2026 20:07:34 +0800
-Message-ID: <20260331120734.39260-1-Daniel-Hsu@quantatw.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jKAuikN6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68A84C2BCB2
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 12:15:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774959353;
+	bh=tLzrIdEn1WyEQ7rUAuC/WY8xiLZVLXce48Kb4NPr1qs=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc:From;
+	b=jKAuikN6bnLdn5uO4u3Zt8okYO8bMuz5ocsORfId0v8QBcvPj8tyRILrxvE3LAQ7B
+	 qyC1nz39sHIK4ix3XLPA8NNUnV3eeOnQhwYyA5YTIkRhVwJmloSwFHyc3V8lbg832+
+	 VKwN5R6W1XLhaDEGe+Vz4VzHkWwcZy4uOcKncyCmh/p5dB1KtvmPSOBU5bu4TCS2tJ
+	 FvfBAutEOFAT0e8SV3Fi2h09KhiNeRDujwgliGJ1ReX5IXqMUBwuDdDaingS55gCt1
+	 bmJCt68i0k6yhkXY5tAyfekk/kbXdvod25bxRETTE5Zm/C2H3yE5X1svYJwCPkkHu4
+	 +n3ylqFLmDlWw==
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5a2853b1f8cso5566006e87.3
+        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 05:15:53 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCUEbusmm7BnVckmM3r3XJHIHwkXLLVFQdoh1gWLF3GXq/4HzDfuG41XPZQ6s7h4k5RobMv5cn7ZeBK0@vger.kernel.org
+X-Gm-Message-State: AOJu0YyxYYguWGC7B88INLHHrl7m9khndh3Vw8O3wl9u8xFYBck+DdWx
+	h6BDYEyZhcqHnpc8c86wdwYMtvnmxNt1QNpHBHXSPHUGWhbvDI3lW+pBC25lN+sgfqu5AxzvrSm
+	tddVHMp0UhgXbXJuYWcQIVAGEtBCoeUq0Hj65M1MbPA==
+X-Received: by 2002:a05:6512:3405:b0:5a1:3d07:a057 with SMTP id
+ 2adb3069b0e04-5a2ab7fce47mr5800690e87.19.1774959351946; Tue, 31 Mar 2026
+ 05:15:51 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 31 Mar 2026 05:15:49 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 31 Mar 2026 05:15:49 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260331113835.3510341-4-eleanor.lin@realtek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260331113835.3510341-1-eleanor.lin@realtek.com> <20260331113835.3510341-4-eleanor.lin@realtek.com>
+Date: Tue, 31 Mar 2026 05:15:49 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Mey9D9b7bHgp5nd_v-xi=YBorOZUWfMu1o4gOmzo1vsig@mail.gmail.com>
+X-Gm-Features: AQROBzDFmrCNatrpQCVy37JWlWLpWeGhKF0UAUsoGgs4zB4bmR0GLXOUue6p2R0
+Message-ID: <CAMRc=Mey9D9b7bHgp5nd_v-xi=YBorOZUWfMu1o4gOmzo1vsig@mail.gmail.com>
+Subject: Re: [PATCH 3/3] gpio: realtek: Add driver for Realtek DHC RTD1625 SoC
+To: Yu-Chun Lin <eleanor.lin@realtek.com>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-realtek-soc@lists.infradead.org, cy.huang@realtek.com, 
+	stanley_chang@realtek.com, james.tai@realtek.com, linusw@kernel.org, 
+	brgl@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	afaerber@suse.com, tychang@realtek.com
+Content-Type: text/plain; charset="UTF-8"
 
-Add an MP5998 power monitor used to monitor the power consumption
-of the Paddle_P12V_HSC rail on the Yosemite5 paddle board.
+On Tue, 31 Mar 2026 13:38:35 +0200, Yu-Chun Lin <eleanor.lin@realtek.com> said:
+> From: Tzuyi Chang <tychang@realtek.com>
+>
+> Add support for the GPIO controller found on Realtek DHC RTD1625 SoCs.
+>
+> Unlike the existing Realtek GPIO driver (drivers/gpio/gpio-rtd.c),
+> which manages pins via shared bank registers, the RTD1625 introduces
+> a per-pin register architecture. Each GPIO line now has its own
+> dedicated 32-bit control register to manage configuration independently,
+> including direction, output value, input value, interrupt enable, and
+> debounce. Therefore, this distinct hardware design requires a separate
+> driver.
+>
+> Signed-off-by: Tzuyi Chang <tychang@realtek.com>
+> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> ---
+>  drivers/gpio/Kconfig        |  12 +
+>  drivers/gpio/Makefile       |   1 +
+>  drivers/gpio/gpio-rtd1625.c | 581 ++++++++++++++++++++++++++++++++++++
+>  3 files changed, 594 insertions(+)
+>  create mode 100644 drivers/gpio/gpio-rtd1625.c
+>
+> diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
+> index b45fb799e36c..6ffc95e02cb9 100644
+> --- a/drivers/gpio/Kconfig
+> +++ b/drivers/gpio/Kconfig
+> @@ -639,6 +639,18 @@ config GPIO_RTD
+>  	  Say yes here to support GPIO functionality and GPIO interrupt on
+>  	  Realtek DHC SoCs.
+>
+> +config GPIO_RTD1625
+> +	tristate "Realtek DHC RTD1625 GPIO support"
+> +	depends on ARCH_REALTEK || COMPILE_TEST
+> +	default y
 
-[v2]
-- Describe the purpose of the power monitor
-- Remove software/driver related description
+Don't default to y for COMPILE_TEST. If you need this for ARCH_REALTEK then
+limit it to it. Though seeing as it's a module_initcall() anyway, maybe you
+don't need it at all?
 
-Signed-off-by: Daniel Hsu <Daniel-Hsu@quantatw.com>
----
- arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite5.dts | 5 +++++
- 1 file changed, 5 insertions(+)
+> +	select GPIOLIB_IRQCHIP
+> +	help
+> +	  This option enables support for the GPIO controller on Realtek
+> +	  DHC (Digital Home Center) RTD1625 SoC.
+> +
+> +	  Say yes here to support both basic GPIO line functionality
+> +	  and GPIO interrupt handling capabilities for this platform.
+> +
 
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite5.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite5.dts
-index 2486981f3d6b..6287f80d70d9 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite5.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite5.dts
-@@ -422,6 +422,11 @@ power-sensor@45 {
- 		shunt-resistor = <1000>;
- 	};
- 
-+	power-monitor@46 {
-+		compatible = "mps,mp5998";
-+		reg = <0x46>;
-+	};
-+
- 	power-monitor@47 {
- 		compatible = "ti,tps25990";
- 		reg = <0x47>;
--- 
-2.53.0
+Other than that looks really nice!
 
+Bart
