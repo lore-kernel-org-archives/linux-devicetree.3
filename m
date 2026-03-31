@@ -1,190 +1,175 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80C903B9608;
-	Mon, 30 Mar 2026 23:51:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 303A73A1C9
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 00:35:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774914666; cv=none; b=b3eAHHuRi1zAFbgapgCJOj6FoeYwCV7ZRUGuQsOYlrORCVnfBdgDeMK+Yk2SXh1BpnrTibGRZIdZUMntOnS8peDsgMoKDF+gjeZTG7Gi1bdBl1Qm0LDEBltpsdjqxR1v/xk2Z7O1T7jbgdyDIrirn08l+PSuX3lQ6k16B0yVmsQ=
+	t=1774917314; cv=none; b=ZFTDXE/qnnnh2wdUBtiTnfwDBjGpgICLA0SBuxEoMrFAWcyCw7k80zlRyQ+yTd3wB+jQ7b3LZzi8bFNaLPg0fxSpferewhpBm4Ab0/OZFplRzKN+BZHI81HTVC9FqLU2BU/vyNDfLk5oHQjoarZd6v/UdNo0ccKNKLrvFojE2ts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774914666; c=relaxed/simple;
-	bh=3Ve9LY2wIgFdBUPZpWBHQ981zkpK8qkZE5S/h1XyfBE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PBERajMx1BCeRlxWa+JYeeN3KNZzJEMEgcD9/wpGWrr1chAWQeVfsNjU16iKRP9wBYJF9Ipw4BKoWR8NWD/FJzUUpeLqMIFMHUaV0bJBl7IEkeo4mjK15+KeQUE5ZCj2dsGHOX1RknJ1XX1gh+e+HGbMAmiI+OCpDuDE/5TRmmI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PR/2km4+; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1774917314; c=relaxed/simple;
+	bh=OxmTEsU6yPIvA9JFvpyrJOrSETzVU0VLbsVYljlqaU4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=UfiHEU2TXwBM1zMGxv18EeRtXY60phat2rN92A0irryy6a0/Kr8vJfDcunTJp9/YpHS36thHX3VQ8l81dTDVd+4rcszoYZm2lfbRHxMnWK7OAS4i9DFQ9j6lBLMokrch3ut/Z9WWzH+RaIg/Neeh9oELkvr4/9SM+v/tGtRf9bc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XnlR/aHA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EHIJwjzd; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PR/2km4+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774914666; x=1806450666;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=3Ve9LY2wIgFdBUPZpWBHQ981zkpK8qkZE5S/h1XyfBE=;
-  b=PR/2km4+ARthZX9vQWnlzbDCTYgOsyNcGajl4zHCIFQfgntunKmLjF1V
-   g/4Io+XE+7+8OhdjE1eIkerY2MQ0yosNFMWGbDcpgyA6L0O+qHVwRHJVX
-   aI5uVm2f96t9aaaTUoZp2sGUcvNEMvP1t9U2sgatPJDqV0tlpNEDIbHHd
-   xfVXgtiHhbt2JMMQbO7o7bhY8H5t0eY/46BtLlmRa+clEP3vwMKdebBJ9
-   gNRUEc24J+SzJxfQU8net/YFAUbIJnR6YFDNWSeiEaLyMDm57m+EsWdDm
-   sDzeppC6loH+MPOu9UNlbpT7y/8PxL/SlWpSMXn2kLMLq3qn37SGnNdbX
-   g==;
-X-CSE-ConnectionGUID: x0Dyo3z3REGDyQp6VzKVZw==
-X-CSE-MsgGUID: GpPnaW5iR8689AHhGb4XNA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11744"; a="98528031"
-X-IronPort-AV: E=Sophos;i="6.23,150,1770624000"; 
-   d="scan'208";a="98528031"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Mar 2026 16:51:05 -0700
-X-CSE-ConnectionGUID: OVPUjDCUSPO9Em7wSZcCCA==
-X-CSE-MsgGUID: EYhVNtHzTaiYOy311aqwaw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,150,1770624000"; 
-   d="scan'208";a="249419287"
-Received: from lkp-server01.sh.intel.com (HELO 283bf2e1b94a) ([10.239.97.150])
-  by fmviesa001.fm.intel.com with ESMTP; 30 Mar 2026 16:51:00 -0700
-Received: from kbuild by 283bf2e1b94a with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1w7MNk-000000001sn-41Af;
-	Mon, 30 Mar 2026 23:50:56 +0000
-Date: Tue, 31 Mar 2026 07:50:39 +0800
-From: kernel test robot <lkp@intel.com>
-To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-pwm@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-doc@vger.kernel.org, Radu Sabau <radu.sabau@analog.com>
-Subject: Re: [PATCH v5 3/4] iio: adc: ad4691: add triggered buffer support
-Message-ID: <202603310753.zLWq0JDB-lkp@intel.com>
-References: <20260327-ad4692-multichannel-sar-adc-driver-v5-3-11f789de47b8@analog.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XnlR/aHA";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EHIJwjzd"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62UMfsJh2391396
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 00:35:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=XxOdSYsl3fecO0oeoW1Y9y
+	XUtWQGqOKVZLqUNQjrjcs=; b=XnlR/aHAt2QDBTmvO04+DyTONKUNTC83UWR5XL
+	PpdqO4kM95oPHAlmCETkr1GazRTphzC/IbFk9hzD4FFwjwrYt19EDbpDjRUF+2PD
+	HmyOqLYL4oHuHvUSnH4d/VHpUcfHT9Rf3K4W5V2qEAxJOfk5MNuQ8UdzzPgSXDCO
+	3Him7TgCzjlXHFfN2XMP72spfwOG+aqIzVjD1jz7QBXl1PRYuGXLYqNaJWDvdOKY
+	qjrdb87hi8JA1Mp/dNGBz2GHvpUcCzrWgMT+uj13sRI5JBjQoz8KtNASEdleXpCh
+	U6GEWbc5K5m4QwXgPalz1/zp+eDk79s0UnWw4A9MjhQ4eHEw==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d7ue7hxsd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 00:35:12 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-2c18175fc54so15449983eec.1
+        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 17:35:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774917312; x=1775522112; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=XxOdSYsl3fecO0oeoW1Y9yXUtWQGqOKVZLqUNQjrjcs=;
+        b=EHIJwjzdCQdUgb9ns7dxz1otpLWzdCK8BPGS8AdfkGgiHKK0+D9gvdVw4ByUEweqeL
+         fqAaeoi4q3HRkHjcx9OmAXA8FstZD3zkpNwRctb8oqoSKAm3rr46h/FFqv6dYe8/Iije
+         styhvP9Sy7ir0NK88/z/MvzKBrjtjLAqHHPUheMgLkx+ijAaDP+MZXtf/fQuXzgJELAx
+         fWs1iGIKM4NhzE4Q24NfM0ZlEI53bLhg9V9TLth2jbAfUVySOi5hLSCDhYP3y7Ry8hoj
+         jh4DaX7lLk0jmOagtOmljFb1muzF5rdpMIJrUf2zhMK03/h8/NvCnrKhdGfWrdQ2yhQ6
+         L7RA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774917312; x=1775522112;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=XxOdSYsl3fecO0oeoW1Y9yXUtWQGqOKVZLqUNQjrjcs=;
+        b=Ut5jmCuTyzm4IbNWUgGtlwQJNRwzqBFcnRqdasOx3lgAcqJmU2XLL4Or04cWxpVZdd
+         IacIozHfumVe8XAp94SNxe9NW628PkEIZDxWH7k8v2iFCvU9R9Ay/a0n5AmZYQSmu4oP
+         ftJx8e678Ct110qCxi8rXH+XtGWiMbsDtYvwuubWzVUf1+EqowgnMfzubXl5lJbTw61L
+         FNqnc1cJNthen/CEaHcjiFWUhN87WGw0Rxl01UVAvs0Lhv7hwjew3PUV1ekdPFzlMT+U
+         mG/g1AZZmUk9Mq80Bmk6YI7UWFsm98CGPRv62r7HRaOBDAi1oKNCBTfbKncLwND0mK2f
+         bnSg==
+X-Forwarded-Encrypted: i=1; AJvYcCWqvZ6zGtap85SQPxkGCM6eINpOsT4yXjznPuQX98n96QZtyxIJDrpg3O0zPEltkxmvdhcbbjOLvifg@vger.kernel.org
+X-Gm-Message-State: AOJu0YwpVJYdMJeANergIxdEWlQq16VnPIGKuwYjfsyYS6QQUwiBDIbw
+	1M7J2DIrFGRAH0KwevhQNMGgNDuatVAiiAfIdJ+H+0b7zB1jTxqU1bV45v7Av0/ZfVyE44Yql88
+	x9heCV3eFOj7c/b/Unpk/+ebNCRefCA5Nod1FaBe9wNwuvKTcO4oTh+rsMg5uexGY
+X-Gm-Gg: ATEYQzz1M/BI7Iv8l6wLsi82NHpnfeq23cAsrxIHdVvB4dA4upUu1OS/GMRcC2M5TjG
+	CSkC4EvPpvlR8bmau27tcYcKSJ4DW8xY36+w00WreftZ049Jw4l4lQfu6fDVSOFzttfvByrkL6P
+	X2pmkp7pXsip3MzuYWqzTb44miJepRi1qHBALunT2X9TFkqh+vGaB6/o5N7JzcPgLFrGOm4x63A
+	J7MLrTTMc41de28f4owf59/mCLJjglSeiB/qhT2I9/oBYguvi7nKbCc+1KY1IzQmdceLLUMDE4n
+	c7rlE2AeDn1i4l+1CUvEct8myWDq7OGb6Ckk5zG9yPVGkeKpNRg5XlJm8fbeVDiMdJfieDRHn7W
+	O0hibud3H+ImqThfysxbOpAU7s6LdvoYtUwdtYv2cTXfwUtX8sKXTqf4OK3Z1VMpnnh1v7wgAa4
+	dF
+X-Received: by 2002:a05:7301:1298:b0:2c7:11f2:d081 with SMTP id 5a478bee46e88-2c711f31321mr2311291eec.14.1774917311783;
+        Mon, 30 Mar 2026 17:35:11 -0700 (PDT)
+X-Received: by 2002:a05:7301:1298:b0:2c7:11f2:d081 with SMTP id 5a478bee46e88-2c711f31321mr2311253eec.14.1774917311215;
+        Mon, 30 Mar 2026 17:35:11 -0700 (PDT)
+Received: from hu-viveka-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2c3c6e9c088sm8454529eec.21.2026.03.30.17.35.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 30 Mar 2026 17:35:10 -0700 (PDT)
+From: Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>
+Subject: [PATCH 0/7] clk: qcom: Add initial clock controllers for the
+ upcoming Hawi SoC
+Date: Mon, 30 Mar 2026 17:34:55 -0700
+Message-Id: <20260330-clk-hawi-v1-0-c2a663e1d35b@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260327-ad4692-multichannel-sar-adc-driver-v5-3-11f789de47b8@analog.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAK8Wy2kC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDY0Mz3eScbN2MxPJMXcPEFJPkxBRjsxSzRCWg8oKi1LTMCrBR0bG1tQA
+ aW78dWgAAAA==
+X-Change-ID: 20260316-clk-hawi-1ad4cad36d6a
+To: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Taniya Das <quic_tdas@quicinc.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Mike Tipton <mike.tipton@oss.qualcomm.com>,
+        Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774917310; l=1758;
+ i=vivek.aknurwar@oss.qualcomm.com; s=20260311; h=from:subject:message-id;
+ bh=OxmTEsU6yPIvA9JFvpyrJOrSETzVU0VLbsVYljlqaU4=;
+ b=03RbKNT3HIjRENWAS08w++Bz8qNif54rsAGZizhRTonDIoenKuxuIIhcT7pQrAuNclrEjWQKl
+ nmDiaHysXmsBUvtK06l6Z6MtIgZnh3aIqezZCgw9DE1G5UO6fqgODHO
+X-Developer-Key: i=vivek.aknurwar@oss.qualcomm.com; a=ed25519;
+ pk=WIVIbn3nJR9YRWNRyJiEbvpgoHhNyYrmVqMUXWqAIC0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMxMDAwMyBTYWx0ZWRfXx9r+uFEJEbGx
+ iXaXZ2rp2hvEfodoCA3OzOs70BvOKJk0YMc+PhPxe4w5TxxvZQ+TIwPdxrzNz71Q1dnf1fP+7LM
+ zOaVNWQAK4//UwJO1TPyP5/PvnBBkmt89IOestx4dfHM0k72ih3bVDKdsqLKqv/S2p6mLDjKop3
+ eOIO5v7fraFUtiXVqO+I9kDBgFOV9KA+kswLZ8pnzZWLWDh6TsRnBzElBKz9e1qXN7Mt224Y+bl
+ RWt9PiITbmukaDJ70MeRnag1+tE3FCJygw68B7iA/v7bsNotKcj0hH3hNs1q3oOdjHuBej7tDbJ
+ hNU7JeLxkmK5fTKUQ5V3WABoPipeIGZ/g1S+ss1pgKyingY1bNPQMSpB4xCT4COD5YygkVjMkny
+ MJoLESV69ZiyJDTMn7D/R9k+SczFRNDow1G0u5gw3fllkGXFDLJw2jo3jkxKa0hzCD4xlCF1Ye7
+ FR7GjenmmdYbdU4zCGg==
+X-Proofpoint-GUID: IuaVhWqHVNZhfRY7r-gpPmiBN3UrHS9E
+X-Authority-Analysis: v=2.4 cv=G7sR0tk5 c=1 sm=1 tr=0 ts=69cb16c0 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=jia197ti5a5XF4lDde8A:9 a=QEXdDO2ut3YA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-ORIG-GUID: IuaVhWqHVNZhfRY7r-gpPmiBN3UrHS9E
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-30_02,2026-03-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 phishscore=0 malwarescore=0 lowpriorityscore=0 bulkscore=0
+ priorityscore=1501 spamscore=0 adultscore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603310003
 
-Hi Radu,
+This series adds support for the initial clock controllers required
+by the upcoming Qualcomm Hawi SoC. These include the Global Clock
+Controller (GCC), TCSR clocks, and RPMH-managed clocks. It also adds
+the PLL support required by Hawi.
 
-kernel test robot noticed the following build warnings:
+Signed-off-by: Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>
+---
+Vivek Aknurwar (7):
+      dt-bindings: clock: qcom-rpmhcc: Add RPMHCC bindings for Hawi
+      dt-bindings: clock: qcom: Add Hawi TCSR clock controller
+      dt-bindings: clock: qcom: Add Hawi global clock controller
+      clk: qcom: rpmh: Add support for Hawi RPMH clocks
+      clk: qcom: Add Hawi TCSR clock controller driver
+      clk: qcom: clk-alpha-pll: Add support for Taycan EHA_T PLL
+      clk: qcom: Add support for global clock controller on Hawi
 
-[auto build test WARNING on 11439c4635edd669ae435eec308f4ab8a0804808]
+ .../devicetree/bindings/clock/qcom,hawi-gcc.yaml   |   63 +
+ .../devicetree/bindings/clock/qcom,rpmhcc.yaml     |    1 +
+ .../bindings/clock/qcom,sm8550-tcsr.yaml           |    2 +
+ drivers/clk/qcom/Kconfig                           |   16 +
+ drivers/clk/qcom/Makefile                          |    2 +
+ drivers/clk/qcom/clk-alpha-pll.h                   |    6 +
+ drivers/clk/qcom/clk-rpmh.c                        |   33 +
+ drivers/clk/qcom/gcc-hawi.c                        | 3656 ++++++++++++++++++++
+ drivers/clk/qcom/tcsrcc-hawi.c                     |  158 +
+ include/dt-bindings/clock/qcom,hawi-gcc.h          |  253 ++
+ include/dt-bindings/clock/qcom,hawi-tcsrcc.h       |   16 +
+ include/dt-bindings/clock/qcom,rpmh.h              |    2 +
+ 12 files changed, 4208 insertions(+)
+---
+base-commit: e77a5a5cfe43b4c25bd44a3818e487033287517f
+change-id: 20260316-clk-hawi-1ad4cad36d6a
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Radu-Sabau-via-B4-Relay/dt-bindings-iio-adc-add-AD4691-family/20260330-200546
-base:   11439c4635edd669ae435eec308f4ab8a0804808
-patch link:    https://lore.kernel.org/r/20260327-ad4692-multichannel-sar-adc-driver-v5-3-11f789de47b8%40analog.com
-patch subject: [PATCH v5 3/4] iio: adc: ad4691: add triggered buffer support
-config: i386-randconfig-r131-20260331 (https://download.01.org/0day-ci/archive/20260331/202603310753.zLWq0JDB-lkp@intel.com/config)
-compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260331/202603310753.zLWq0JDB-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202603310753.zLWq0JDB-lkp@intel.com/
-
-sparse warnings: (new ones prefixed by >>)
->> drivers/iio/adc/ad4691.c:675:47: sparse: sparse: dereference of noderef expression
->> drivers/iio/adc/ad4691.c:675:47: sparse: sparse: dereference of noderef expression
-   drivers/iio/adc/ad4691.c:757:47: sparse: sparse: dereference of noderef expression
-   drivers/iio/adc/ad4691.c:757:47: sparse: sparse: dereference of noderef expression
-   drivers/iio/adc/ad4691.c:809:46: sparse: sparse: dereference of noderef expression
-   drivers/iio/adc/ad4691.c:809:46: sparse: sparse: dereference of noderef expression
-   drivers/iio/adc/ad4691.c:815:40: sparse: sparse: dereference of noderef expression
-   drivers/iio/adc/ad4691.c:815:40: sparse: sparse: dereference of noderef expression
-   drivers/iio/adc/ad4691.c: note: in included file:
-   include/linux/bitmap.h:797:55: sparse: sparse: shift too big (32) for type unsigned long
-   include/linux/bitmap.h:797:55: sparse: sparse: shift too big (32) for type unsigned long
-
-vim +675 drivers/iio/adc/ad4691.c
-
-   668	
-   669	static int ad4691_manual_buffer_preenable(struct iio_dev *indio_dev)
-   670	{
-   671		struct ad4691_state *st = iio_priv(indio_dev);
-   672		struct device *dev = regmap_get_device(st->regmap);
-   673		struct spi_device *spi = to_spi_device(dev);
-   674		unsigned int n_active = bitmap_weight(indio_dev->active_scan_mask,
- > 675						      indio_dev->masklength);
-   676		unsigned int n_xfers = n_active + 1;
-   677		unsigned int k, i;
-   678		int ret;
-   679	
-   680		st->scan_xfers = kcalloc(n_xfers, sizeof(*st->scan_xfers), GFP_KERNEL);
-   681		if (!st->scan_xfers)
-   682			return -ENOMEM;
-   683	
-   684		st->scan_tx = kcalloc(n_xfers, sizeof(*st->scan_tx), GFP_KERNEL);
-   685		if (!st->scan_tx) {
-   686			kfree(st->scan_xfers);
-   687			return -ENOMEM;
-   688		}
-   689	
-   690		st->scan_rx = kcalloc(n_xfers, sizeof(*st->scan_rx), GFP_KERNEL);
-   691		if (!st->scan_rx) {
-   692			kfree(st->scan_tx);
-   693			kfree(st->scan_xfers);
-   694			return -ENOMEM;
-   695		}
-   696	
-   697		spi_message_init(&st->scan_msg);
-   698	
-   699		k = 0;
-   700		iio_for_each_active_channel(indio_dev, i) {
-   701			st->scan_tx[k] = cpu_to_be16(AD4691_ADC_CHAN(i));
-   702			st->scan_xfers[k].tx_buf = &st->scan_tx[k];
-   703			st->scan_xfers[k].rx_buf = &st->scan_rx[k];
-   704			st->scan_xfers[k].len = sizeof(__be16);
-   705			st->scan_xfers[k].cs_change = 1;
-   706			spi_message_add_tail(&st->scan_xfers[k], &st->scan_msg);
-   707			k++;
-   708		}
-   709	
-   710		/* Final NOOP transfer to retrieve last channel's result. */
-   711		st->scan_tx[k] = cpu_to_be16(AD4691_NOOP);
-   712		st->scan_xfers[k].tx_buf = &st->scan_tx[k];
-   713		st->scan_xfers[k].rx_buf = &st->scan_rx[k];
-   714		st->scan_xfers[k].len = sizeof(__be16);
-   715		spi_message_add_tail(&st->scan_xfers[k], &st->scan_msg);
-   716	
-   717		st->scan_msg.spi = spi;
-   718	
-   719		ret = spi_optimize_message(spi, &st->scan_msg);
-   720		if (ret) {
-   721			ad4691_free_scan_bufs(st);
-   722			return ret;
-   723		}
-   724	
-   725		ret = ad4691_enter_conversion_mode(st);
-   726		if (ret) {
-   727			spi_unoptimize_message(&st->scan_msg);
-   728			ad4691_free_scan_bufs(st);
-   729			return ret;
-   730		}
-   731	
-   732		return 0;
-   733	}
-   734	
-
+Best regards,
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>
+
