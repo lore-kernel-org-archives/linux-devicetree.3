@@ -1,217 +1,195 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010007.outbound.protection.outlook.com [52.101.228.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFBB53A6B6F;
-	Tue, 31 Mar 2026 11:02:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BFAE3A7829;
+	Tue, 31 Mar 2026 11:09:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.7
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774954925; cv=pass; b=NsMUxjiW3Q/PU8aLXS04LnoJznF4d2BO01KL4cbPElJMlSwFdxSfZ4WKZX8QurfMAAycMNs17t1iI9ZyMTymVo449+HaXGpyW9zvyeYTSShsyLti6i5cD3wRkvl1mLCwh6oEiK21Dgcvx97rIxiNVuu+J1dOGnFNid+7pFIsvIs=
+	t=1774955382; cv=fail; b=ZauwGy3gMFkEpmglDU+XAcW/JF26SCegUyMlTy0jDivQFRY+t09UqKUB6EX5GHTbSk10xcBvakZaP/HkGgMxMFxlUn7K74zde2UFGY8v7izQsMUAIFWxgFM5qOUG+guf7mLGs8rzOaxiaIdhZe8f7OVCH7h28wGNTeIHWaEau9c=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774954925; c=relaxed/simple;
-	bh=KgThie/Lrlvk8P8GwHP27l1Esfgg2H/pmnorA7A33mI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nrDD55PLzxW4sOp5GcqebpCywas+28DKKT4zyeQ4oAwVY+RAiDOKiAdFSmeinOiicj1gsDBO9Gqg7lWJ0+mYaMl+nSorQiNxsabCB+4fxGCYe1Q++gY2tIenoYCqMHzUPA9/rRM3EyD//aNb/7tBTWNcPdKmAeVBhqqD4cIzoZ8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=UL1OFMIG; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1774955382; c=relaxed/simple;
+	bh=MHV2DCEMmeXLf5MJAVV/mSbTOGk5cNLNZw3LXOLl6jY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=fqZk9N0nRhYS41dZTKkRsoHDhIp2+7VYDZX3CZL1l/jRhTx9dbogEVzc4L7TROXZa4rJTjmt+k9SvoBnA7CEAi9ZPr4ToqOim38TTJl0DSqeOXf692LnNRcgvQN2Lt9A5rTPTf9PsQDqRNcJaGQBO7Er5xWcxbXkhEGGxO9bS+Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=bJHOJQqQ; arc=fail smtp.client-ip=52.101.228.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="UL1OFMIG"
-ARC-Seal: i=1; a=rsa-sha256; t=1774954888; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Bb4fYXmN58XESqL8Mizz7i6dZfAwwfSdKDL47H4/JApJmkBaN+6px9j0rOYKEzRV/AmI3kSgyKwpdtA4qIMBYMAgAc/9wryjZ/VIzhFIMBcHpvhh8/hZxIA75oShKY+lQHpZenjE3o/IA0f4t3Zsh6wCSzqEgrYfPPE1DSyfOss=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1774954888; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=u13dMEcF9M+aXZsAMu08kfH0fwxaX2Y4cknWwBOVSCY=; 
-	b=InWxbVKylN6XldQEMAIoQuoTd6cCFFR5X5+f/LeO0gcMyAJS3YaiTpux+HCNTiL/G6J+Evj27LudKZoRTz8cR/nly1IAYLUW+W63fFyjf01Ed1IOrGfLd3KaLP/ydJJqVoJmYe4gHvdOtFd9Mmp5PvATQh1cs99Uvhigju4vJk0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774954888;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=u13dMEcF9M+aXZsAMu08kfH0fwxaX2Y4cknWwBOVSCY=;
-	b=UL1OFMIGHg9Zy1GZlRCQDlVlb35zutQpJ/PIGOVlLeugOLTK+3s5bf6C3p5Hou45
-	R/Kxqr/D8ZjofE7QU0ZncxiayHc7St9DUx3AyNYIsI5A3Y/GsELt53vcs23Lr0oYw+F
-	dRoxx0Q0XBa2sFbscg9RYazqeCIShfFVPoPz6cNE=
-Received: by mx.zohomail.com with SMTPS id 1774954887379775.1689389168353;
-	Tue, 31 Mar 2026 04:01:27 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id 4340D181F55; Tue, 31 Mar 2026 13:01:21 +0200 (CEST)
-Date: Tue, 31 Mar 2026 13:01:21 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Chaoyi Chen <kernel@airkyi.com>
-Cc: Sandy Huang <hjc@rock-chips.com>, 
-	Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Alexey Charkov <alchark@gmail.com>, dri-devel@lists.freedesktop.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	kernel@collabora.com
-Subject: Re: [PATCH 00/10] Synopsys DisplayPort Controller improvements for
- Rockchip platforms
-Message-ID: <acuoBEWNw6fVk-yT@venus>
-References: <20260326-synopsys-dw-dp-improvements-v1-0-501849162290@collabora.com>
- <FE1BFB774BE13241+54b8a8ce-5a8c-495d-a53f-65a2440924fb@airkyi.com>
- <acphlgK6ZmBitGJL@venus>
- <AFAEA46A791878B0+9fe68e46-8d8f-44f1-80e3-dfad2de51832@airkyi.com>
- <acsoT_i-LfoMoIy_@venus>
- <1801CF6805B8DD32+0afb49ab-a03c-40f0-92bd-d0b332f8f28e@airkyi.com>
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="bJHOJQqQ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=S56Kql3MAU2VEuIryu9Ks8P/jMSHmbCX4AZnhWDjKzD9IXwZGtEHe+B94uaAPQvwBw1pfCk0dmQp2uUk+C2kb3i4mIlgx6z7+Z5WiDLwwHAZkbKfQE89FEnJRFqHHpDx5WfU2iM5oAemDQ48ffNCAPv6RBrd9x2YTGOFq8L4hxtM0WDE+hdtSJl1ZRziN/ldRzleIObsY/IU7yZP70jdzu251tgIHaDdena1TBjCgCRDn4HNX2PEKHwdPt/wZwYT4R7XJ1VxrpnxhPkSo9Na6ut5xrF54V+zuuSURdgTn+LS7mZ7c2WCZMPLc/3X5rdA53Mh7dv8Yz6a3ovqOOsQNQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MUZOZaBGRIo2C2+5P5ejApdB2vQkvYf1UY4jJlO3irY=;
+ b=QS6x7991pESrPV7aDNPi0IRLtS+IdkNO+eliFp4Tp81jA/Oq6q7qcWgxE/elEAuxBo3LeN7C/Q86w4eqTdXSvFN8CcnmrCtcIhklZHoLUi7Y9kIDC7Bx16p28xGDjW30+DaicGtdjPOAlJnm6O0LuFdIU1JX2iYy168mbJKcKEwkAAOOrtte+x0F65UIOz4lIqYfhrqyqdt0cTHzRbxiwdIyB8RLMdN81QvUJHq2lUQH+CojuOKd/seNN0yN+W+8uU22/fHawnmgC7mG4po0nAoB5AU4ymH9ka3d3+yZ2TOl9wPC923eU9AWjd/yVKWaqotBJv79Cjlv3KbUAg0jpg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MUZOZaBGRIo2C2+5P5ejApdB2vQkvYf1UY4jJlO3irY=;
+ b=bJHOJQqQvfPvcGq+WA4jLloi4PN2aj+WvjT/bYPld8DblcL7LLkyGQsIwcUhnw2FIcRyVlT84LlpKQNnveF/iDTjbfueoyDYIfnWAYl/h+l1rarjiL5M4mZUgakMZhpnbeU/WjBEphvUxRKYCU/mkIULAqEH8PebPtZxaYQ6iOY=
+Received: from TYCPR01MB12093.jpnprd01.prod.outlook.com (2603:1096:400:448::7)
+ by TYCPR01MB10696.jpnprd01.prod.outlook.com (2603:1096:400:294::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Tue, 31 Mar
+ 2026 11:09:37 +0000
+Received: from TYCPR01MB12093.jpnprd01.prod.outlook.com
+ ([fe80::3468:d7ea:e817:1e6c]) by TYCPR01MB12093.jpnprd01.prod.outlook.com
+ ([fe80::3468:d7ea:e817:1e6c%4]) with mapi id 15.20.9745.027; Tue, 31 Mar 2026
+ 11:09:37 +0000
+From: Fabrizio Castro <fabrizio.castro.jz@renesas.com>
+To: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	"linux-watchdog@vger.kernel.org" <linux-watchdog@vger.kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Rob
+ Herring <robh@kernel.org>, Guenter Roeck <linux@roeck-us.net>
+CC: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+	<sboyd@kernel.org>, magnus.damm <magnus.damm@gmail.com>, Prabhakar Mahadev
+ Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-renesas-soc@vger.kernel.org"
+	<linux-renesas-soc@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-clk@vger.kernel.org"
+	<linux-clk@vger.kernel.org>, Biju Das <biju.das.jz@bp.renesas.com>, geert
+	<geert@linux-m68k.org>
+Subject: RE: [PATCH v2 1/3] dt-bindings: watchdog: renesas,r9a09g057-wdt:
+ Rework example
+Thread-Topic: [PATCH v2 1/3] dt-bindings: watchdog: renesas,r9a09g057-wdt:
+ Rework example
+Thread-Index: AQHclQrDEukhAG0pA0ODsvKeUfiXJrWc9eoAgCvckFA=
+Date: Tue, 31 Mar 2026 11:09:37 +0000
+Message-ID:
+ <TYCPR01MB1209331146787ADF63F9C430CC253A@TYCPR01MB12093.jpnprd01.prod.outlook.com>
+References: <20260203124247.7320-1-fabrizio.castro.jz@renesas.com>
+ <20260203124247.7320-2-fabrizio.castro.jz@renesas.com>
+ <CAMuHMdXtrAwAtqNPqwq5qKHo4SKQqFoGSE7qPnFRD4rbKkPfaA@mail.gmail.com>
+In-Reply-To:
+ <CAMuHMdXtrAwAtqNPqwq5qKHo4SKQqFoGSE7qPnFRD4rbKkPfaA@mail.gmail.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYCPR01MB12093:EE_|TYCPR01MB10696:EE_
+x-ms-office365-filtering-correlation-id: fe68967b-87b4-408a-706c-08de8f15ff82
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|366016|7416014|1800799024|38070700021|22082099003|18002099003|56012099003;
+x-microsoft-antispam-message-info:
+ 4diCdMBq+liyASz3oem6OQ+67Ckyl9azsZ6jBVqlCzAGIWsloOVnONfnpYtjREnRic298QkWCcsil+OHRW+vBfLY1rrXqimdK+sbJK8LAHRUVpvIhDh41ckR68MiiAiVUH4qDvDRlF0M18mon6idznZBd8SBKlPGNq0EA3j7Fgh0JR8dJBFT0VZzy6DGdGKvE4T1uMoUqTJcttnFYUq6ejKggeiierbYfAfut9EduzVv1O2ZaQxD+l9ruLfEhwg0mf3wF74SfKIqNBX6Dgf3TllmK2h9ODoY3XvyJbAtSKFIpDoJK3ZPvAepDOyQbsguapXcdUvVJ8rzmW1ky/1SP+szaj5yiOFjE0L1C7JzqxtRVGsRAkw0Xl1mF/ZtncS/7D+1B5uZ/AhS56XyfReGyj8s7Jn8r2zU9e4F10FDegz9DK/ERFyHQv2MfCw3ITwFoordFB1zXE7ge/31l1KZZue7mlwSDW4W3qDotzBO3/GeOCcPYliRfuG6YdR8oLgoHFRCahK7PybRphBkN6bno+FtZh3j15jWGUfAKJT6qQ76Uw9b2OlFDYLc5I7//mhnD2ZY4FtQbY74rLZ+HX9tBPkdD1+smV/n097CMhxDG+hEk8u9OR9W2HgzJAZdjpjV6aR/QPnNcXLgsuNM3dfAP3gF77yEsNwIOlp6/DMH7ryGuGQj5hWv15AJpkwXUCeolHWtv4zXe1w7Lqnj2vuOcp1P00SyANS7tiYcF9PiEe8Pa81cnEodUrDshftk8KgFl6fxbnHjMRiq/PlPJyAqwGATiEnFYCkIfg9lxcmKDgY=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB12093.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(7416014)(1800799024)(38070700021)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?QizdrN5ERPH92Ll+TyJbTATO3GNHQm2YO3+98D5sDbcZAsawzCyhOMKSyvsi?=
+ =?us-ascii?Q?cgPjJVFbndXQh6RNYuUONQ5VtOaNBusZ0zD3xIwzadXP2kEba+5DFjjR/T6y?=
+ =?us-ascii?Q?4//DFhPMcdr35Ba0n7NUnwVV5lP0m3C3EBS2GgsJpbhg1oRecaA5wxJVWMPU?=
+ =?us-ascii?Q?wgSGapIq54d140yAEe7fN1dGJ5GxVdkGzaRxle0qPpaKK9HhbIhO1t+4GD9T?=
+ =?us-ascii?Q?seyRuWCKiEJcpyRJDQp5JFHvFzLcs0DEo5usBgvBfF2S8nqzcCzazO1koSJp?=
+ =?us-ascii?Q?eBP+d1fBY59jJNrpL2WO6Gtqv/XYawZHTgdyjAmcQfVlqtfXr1JhK91YdEpZ?=
+ =?us-ascii?Q?GNjymQur91HwuqaynC1qW1BRHpTUPVY7G0aOkqvFDwXu919FlsEQ5oEqciC7?=
+ =?us-ascii?Q?VBKMfnZqAEtdQfOpKvedL0aSA43BOk03rqic7Tx3/1cyVonqWRtxgcpHYMfO?=
+ =?us-ascii?Q?Fdy7x5k+JdMS0+vYTL8YV6TDCqT6T8VM3ypMkhHTRj9VeC4GhyXuOuywuiF2?=
+ =?us-ascii?Q?YQXmkdaXudapdFWVH0dqzW/7AjepI6fmLSiehN3LJwbN0skeD27LYbQzg1H4?=
+ =?us-ascii?Q?EZSqbNSYRryaNX6b2Fub4N7lKhozzD7kVR0m5k+m2+D7e3PvFWoup3Iy1gL6?=
+ =?us-ascii?Q?DoHexk+hKtStfpfKpt+aBI+Bo6PV6U2sfG2kB9n0wkrgFvryKoVo/9lBjIXO?=
+ =?us-ascii?Q?Dlp6bWjN5Hj4tvZH/8cTTTc5VxIo5NwSJUM0SU1R520X3E/3jUHc0ebl8kns?=
+ =?us-ascii?Q?S5QIO0VIXFAe3KJPBFjI4m2Lc6hwCaC7RsfSb7YoDCRb5UhCiKbBsT005iw3?=
+ =?us-ascii?Q?VGnsvp/UrzLI2pFlEpyrHYUQcGbn/Kv+U/KVMKLxmCWKh72NyqbpAs6fVzSY?=
+ =?us-ascii?Q?Q9lMXX1SR8/EpHsn0hBothcC5iqSk8v7380uwvc/2kK0V1xWeOxj0n7AMiEa?=
+ =?us-ascii?Q?innbhi35m+njst4PUoA8b6rsfp0BkTWOX5tYBLZY5mdRGEBu8TOClkPWAfdR?=
+ =?us-ascii?Q?DRvB/WDLvKjVIuiJJnvyJzequWHEb6CqW8zQh75e7e8V6DhQrxdcpfzEn6O7?=
+ =?us-ascii?Q?9eRhfITrmQohJX9aQIrUWcH+Fy/o/Ubmgtjfr8iw7vbGbxv/g2LwXVIGY5Op?=
+ =?us-ascii?Q?bp73TPhQFDG+727+3XfKYNR5abSsz9CxqdJ2m8xOk5K+Y/sBWsV/b8YZdhra?=
+ =?us-ascii?Q?5XT6vOp3QPz/W5My6flk4v9ibJKKrgZ7v1xuV9Gpkpf6Ts2NQzDX6ghoEw9C?=
+ =?us-ascii?Q?w46pdTMxYCw9qmLp3ukSWqIr8ZTLTIn968mXpy30y8k/rkbZRMKvlwOvxqpl?=
+ =?us-ascii?Q?VT4RY47pZnX0r8s4+wQlHjYSMbVAOYO1IKz0DFDzPvfP9ZRgytFuYiKam+/T?=
+ =?us-ascii?Q?5xAdMzqyILQS3BkmSTrvxXy6SqowQ5HBg0YVUpzA9wF2jaD7579S2019V9gW?=
+ =?us-ascii?Q?WI8i8vI+0kara+HxpZDK0WCc2mgsf5hD0AIHMIHH6CIq7cJXz99DzN8CLE56?=
+ =?us-ascii?Q?DHn/ItMpqQr5jqVOoY7YX8bd18HomqpfaGoJ28pa5ob7PwF0q/0uW+2tjQbR?=
+ =?us-ascii?Q?ubqA+Xu+lKEYx85hcimsZ4CUvqzeGr8k9kkYkGHLUzG/1N9AK61QP6UCDnk8?=
+ =?us-ascii?Q?rhsGAWsFVAM2qN+GOqIkorWT/vTy2Z99wxiSO8CzJTkDp1aBpHH39EsfH0HG?=
+ =?us-ascii?Q?yFQNM61E1SIJznZqsRi0S+2Ax2OdVRE59QhcvN3jVm0WuYmmK+1riUzHfG02?=
+ =?us-ascii?Q?l4fILaBNkc2XpLV9tHgsEMw+enM97V8=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zxhyojzxk5dujjf4"
-Content-Disposition: inline
-In-Reply-To: <1801CF6805B8DD32+0afb49ab-a03c-40f0-92bd-d0b332f8f28e@airkyi.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.1.0.1.4.3/274.894.35
-X-ZohoMailClient: External
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB12093.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe68967b-87b4-408a-706c-08de8f15ff82
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Mar 2026 11:09:37.6863
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: rmBqQJL/AQ0r1SSiw3RvQGzMuv8ocHGB4pIyLZA1huHl50QipgP1POx/I/Y+4DoFez4VemBQfYZLvp+nfbUBuQMX5EQwC13QRM+x7CWvsyI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB10696
 
+Dear All,
 
---zxhyojzxk5dujjf4
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 00/10] Synopsys DisplayPort Controller improvements for
- Rockchip platforms
-MIME-Version: 1.0
+This is a gentle reminder that this patch is waiting for someone
+to kindly pick it up.
 
-Hi,
+Kind regards,
+Fab
 
-On Tue, Mar 31, 2026 at 11:16:26AM +0800, Chaoyi Chen wrote:
-> On 3/31/2026 10:09 AM, Sebastian Reichel wrote:
-> > On Tue, Mar 31, 2026 at 09:18:32AM +0800, Chaoyi Chen wrote:
-> >> On 3/30/2026 7:50 PM, Sebastian Reichel wrote:
-> >>> On Mon, Mar 30, 2026 at 09:34:15AM +0800, Chaoyi Chen wrote:
-> >>>>> There are two parts, which possibly need some discussion:
-> >>>>>
-> >>>>>  1. I added a dedicated bridge callback for out-of-band hotplug eve=
-nts,
-> >>>>>     which is separate from the hotplug_notify. I have a feeling, th=
-at
-> >>>>>     there might be a better solution, but haven't found it.
-> >>>>
-> >>>> Could you explain what an out-of-band hotplug event is?
-> >>>>
-> >>>> Can't the drivers/usb/typec/altmodes/displayport.c respond to these
-> >>>> hot-plug events? Thank you.
-> >>>
-> >>> That is what generates the out-of-band hotplug event in the first
-> >>> place via drm_connector_oob_hotplug_event(). The oob in that call
-> >>> means out of band.
-> >>>
-> >>> If you look at that function it calls oob_hotplug_event() callback
-> >>> on the DRM connector, which is then implemented by
-> >>> drm_bridge_connector_oob_hotplug_event(). This function calls uses
-> >>> the normal hpd handling (shared by in-band and out-of-band) and I'm
-> >>> patching it, so that the bridges are aware of hpd explicitly being
-> >>> provided out-of-band.
-> >>>
-> >>
-> >> Ah, I'm actually more concerned with the specific types of events.
-> >> For example, the "explicitly" provided HPD you mentioned here.=20
-> >> Isn't drm_connector_oob_hotplug_event able to provide those?
-> >>
-> >> I assume you=E2=80=99re looking for an oob event that is propagated al=
-ong the
-> >> bridge chain, rather than at the connector. Is that so? Thank you.
-> >=20
-> > The connector has a dedicated hotplug oob event callback, but I obvious=
-ly
-> > need the event on the bridge, since the DP controller is implemented as
-> > bridge. The existing infrastructure propages it down to the bridge chain
-> > via drm_bridge_hpd_notify(), which can be received by the DP controller
-> > via the .hpd_notify callback in struct drm_bridge_funcs.
-> >=20
-> > The problem is, that this receives events for in-band AND
-> > out-of-band hotplug events. That's why I added a new bridge
-> > callback, which hooks into the existing framework, but only delivers
-> > out-of-band events and no in-band events.
-> >=20
+> From: Geert Uytterhoeven <geert@linux-m68k.org>
+> Sent: 03 March 2026 13:17
+> To: Fabrizio Castro <fabrizio.castro.jz@renesas.com>
+> Cc: Rob Herring <robh@kernel.org>; Guenter Roeck <linux@roeck-us.net>; Mi=
+chael Turquette
+> <mturquette@baylibre.com>; Stephen Boyd <sboyd@kernel.org>; Wim Van Sebro=
+eck <wim@linux-watchdog.org>;
+> Krzysztof Kozlowski <krzk+dt@kernel.org>; Conor Dooley <conor+dt@kernel.o=
+rg>; magnus.damm
+> <magnus.damm@gmail.com>; Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@=
+bp.renesas.com>; linux-
+> watchdog@vger.kernel.org; linux-kernel@vger.kernel.org; linux-renesas-soc=
+@vger.kernel.org;
+> devicetree@vger.kernel.org; linux-clk@vger.kernel.org; Biju Das <biju.das=
+.jz@bp.renesas.com>
+> Subject: Re: [PATCH v2 1/3] dt-bindings: watchdog: renesas,r9a09g057-wdt:=
+ Rework example
 >=20
-> How to distinguish between in-band and out-of-band events? In your patch4:
+> On Tue, 3 Feb 2026 at 13:43, Fabrizio Castro
+> <fabrizio.castro.jz@renesas.com> wrote:
+> > When the bindings for the Renesas RZ/V2H(P) SoC were factored
+> > out IP WDT0 was selected for the example, however the HW user
+> > manual states that only IP WDT1 can be used by Linux.
+> >
+> > This commit is part of a series that removes WDT{0,2,3} support
+> > from the kernel, therefore the example from the bindings has
+> > lost its meaning.
+> >
+> > Update the example accordingly.
+> >
+> > Signed-off-by: Fabrizio Castro <fabrizio.castro.jz@renesas.com>
+> > Acked-by: Conor Dooley <conor.dooley@microchip.com>
 >=20
-> @@ -180,6 +180,12 @@ static void drm_bridge_connector_oob_hotplug_event(s=
-truct drm_connector *connect
->  	struct drm_bridge_connector *bridge_connector =3D
->  		to_drm_bridge_connector(connector);
-> =20
-> +	/* Notify all bridges in the pipeline of hotplug events. */
-> +	drm_for_each_bridge_in_chain_scoped(bridge_connector->encoder, bridge) {
-> +		if (bridge->funcs->oob_notify)
-> +			bridge->funcs->oob_notify(bridge, connector, status);
-> +	}
-> +
-
-this is the new handler that will only get OOB events, since it is
-only called from the connector's oob hotplug event function.
-
->  	drm_bridge_connector_handle_hpd(bridge_connector, status);
-
-this is the existing handler, which is not modified and keeps its
-behaviour of receiving both hpd event types just as before.
-
-> Here, drm_bridge_connector_handle_hpd() will eventually call:
+> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 >=20
-> 	drm_for_each_bridge_in_chain_scoped(bridge_connector->encoder, bridge) {
-> 		if (bridge->funcs->hpd_notify)
-> 			bridge->funcs->hpd_notify(bridge, connector, status);
-> 	}
+> Gr{oetje,eeting}s,
 >=20
-> Therefore, for the bridge chain, you will call hpd_notify and
-> oob_notify separately.
+>                         Geert
+>=20
+> --
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m6=
+8k.org
+>=20
+> In personal conversations with technical people, I call myself a hacker. =
+But
+> when I'm talking to journalists I just say "programmer" or something like=
+ that.
+>                                 -- Linus Torvalds
 
-Correct, I keep existing functionality. Apparently it works for
-everyone else.
-
-> This looks redundant, how do you distinguish between them?
-
-hpd_notify can be used in the same way as before. It is useful in
-case the bridge driver does not care about the source of the hpd
-event. In case of the Rockchip Synopsys DP bridge, .hpd_notify is
-not bound and only .oob_notify is used, so it only receives the OOB
-events. It's not necessary to receive the in-band events at all,
-since those are generated by the driver itself anyways.
-
-> > The problem with receiving in-band in addition to out-of-band is
-> > that the out-of-band signal should set the hotplug pin accordingly,
-> > but the in-band detection also checks the actual DP link. If the OOB
-> > hotplug signal says "nothing plugged", the hotplug pin should be
-> > forced off, but if the DP link detection fails, the hotplug pin
-> > should not be force disabled, as that makes any further detection
-> > tries useless.
-
-Greetings,
-
--- Sebastian
-
---zxhyojzxk5dujjf4
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmnLqXkACgkQ2O7X88g7
-+prg6g//SvwR05BqZDVsojL70OoR7cgOcShKoW2+48teWWFmYnLjMQngMJfuA02Z
-ii1xl3ZGQ00JRSkXnINmrn88PZ1P2HajNjPPUMoxwJ8S3/rv4WUBrSXDjqvgSExI
-Z1iv8NoXCR2dPore64bUOKUD/YonjaUHeAIztXdjEU9NGrS/Z3iO5WbikmVKmJ7J
-1o35CZj8bB1UTDJDc7+PgCLgnCDkDTlRrpzEGSfxIZcG/P1g25k+K1uJRNB4ccvt
-jDkAbaMkw/yb7O9DRugQGP9pL1TNhCZGccMqvnZCCjOZMknbo57WyEiD7Q/LY00Q
-iOJJrLFyoCgdKMIMyu3u+jXS1Wwp3JLNzggTQcnlWpJip2H2RNuj7n66X3SPO0sE
-ZGE+mwRDNnNFATzn3UnnNwqErFqEyW5p0wBw1FucCzWSSeAB+/rcCCqrbBMT5qdt
-70le+BQqzQ4ENT6fMXGTdUO9YCDDDA6LEvgoAwMO7h6goJZKi9myVq2zfuPecB50
-UF7E8xj+zpmHzsOhcwiovSOSlwVra+A/KCM8LmTFeCn8ngt9YaQDCUV50S3YtPIg
-yq2y8mB0N3fRqdASROQNSHAFr1Xf58FNYy3OsoR/g+B8JCI0GckCX9UD2LI6D1hU
-TTXnoKSrYSK8cKBz06P08hwS0WpBDhYA99uyDgUkYyPpmNdelng=
-=v1/C
------END PGP SIGNATURE-----
-
---zxhyojzxk5dujjf4--
