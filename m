@@ -1,86 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 252B4375AC6
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 18:17:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7316837700D
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 18:19:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774981054; cv=none; b=FWgkf1NACDsn4XTAy6v8oarYdNrAND/F9SwsQkHHyt65VcPThTteV9UxKno8fVkVB6xnBeek+/38FIYV8yYTfxIj6zBGa5sfuclNh3ZeKwXD43okhkWnsBODuNMDS0kvgfOvMqI/sC6onbn0P+4PhHvIgyrqyoHwKiOpwqqr/L4=
+	t=1774981196; cv=none; b=WkgAu8tJPXtPlQBIPGDmz/1Bue/QZdwvWEvmUAn3nnNqJZ5JA+YoOzNfI8rZdIHs/J+kJ9VyUv1TtbsvLa3VrNs+Luh4pH+ixUOqGxiIhT7mjHa+Hau3TFwR0ZA22NG/gxeLzXao3nCwfhskLHHGhj/SPdiPIMlhVlIFcu91U/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774981054; c=relaxed/simple;
-	bh=5SfKtWMW/MTMKZvB2XBW+7ZIzP+paJSdBKtCWkXfuQw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=W9wuKV+aW0UH2yL8m0Rp6dDob/nIeb3A7MIKRJEHPiOBfM9xrXGjaMwqNmOcoE3M//WeoK/HgXH06+Ofwb7HM7nNnFMu2cG+RG9IeziDPeOaRjomQ76moEPWerVB9K+bP+UPMBKpwwAZa6fuwfOn5aqCEY0HN3fY6w0PFTUjuiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z7/4x0nT; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774981196; c=relaxed/simple;
+	bh=kPInaKIlGBsI+UM/YJPnUqU8aR/XGjrY3x0/PI30Q6E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=u6djH5sqFtSNxyEySgo/9T+rzrk97ePXhT32ibtBOmJy+ZZYwfD7mGhZkerBoqclC4ntxbo4nH1L4CwNSCgeZU+zkw/tEkAXV7+TtXvBI9zi6Dh+/Ro/n2C7/l08zWdU0xmNmXMtM6oEOc452WDLbUeFp8M13IKm1WEnNrPtgiY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=OIFnzwVF; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z7/4x0nT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF6DBC2BCB4
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 18:17:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774981053;
-	bh=5SfKtWMW/MTMKZvB2XBW+7ZIzP+paJSdBKtCWkXfuQw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=Z7/4x0nTwLxu7/3knpbYpvdeLuUj3P2hPOg2TSpqblXcdoIZp0rCCEmepZcqLHwJt
-	 r1Z7vPLAogkkMTwdpN1IHXB04MfaQLlpD8scw4kspbzC0eUdXeXBbIhBPBGMrru3ad
-	 F+hjp0eB92SajLf0lUOTLoZ28eeJdb8tic+fjwi0TB7hr8zcLUVQoQZ6SvFURMtPKR
-	 RH0TosQ17/W29fLvqMCJoYZ0cTI9cZdJz/TOOAX9zqc6aeW5pAq1+QABoQPa0Wa8py
-	 oNslusIrOmMJDipn+gWBAV0O/u/WwDNDYR7QwCSiJG6NYvFLdposAtc485mzLHgUVP
-	 wB+SkJH996ZGQ==
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-79ab3e26cceso22872297b3.3
-        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 11:17:33 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCWzveN22IqmpBbz5c1U6PbLf8/xUCmGtY8WQtNfLUnBHwzTDhlScq7YOJgpZU3jpyeLjp5HvKGheaUj@vger.kernel.org
-X-Gm-Message-State: AOJu0YxWZN9y0NPijNzmtwVDSjxFClsuJOr2fb9XjN4HHZ6doSklmkZS
-	1u2j0R/bFYyqwwMy0l1OrIZaaBvohWkCqUDTPTOV0l+cPhnT/I5zPMzscIFw/cMCO/XJ/1T6rpz
-	5lzOV2pUp5ru/n9p3ZIDsARBSzZrJxY0=
-X-Received: by 2002:a05:690c:84:b0:79a:4767:238b with SMTP id
- 00721157ae682-7a20ffc58b5mr5096637b3.18.1774981053248; Tue, 31 Mar 2026
- 11:17:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="OIFnzwVF"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 0EE1BC5994D;
+	Tue, 31 Mar 2026 18:20:21 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3C2876029D;
+	Tue, 31 Mar 2026 18:19:50 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 110D71045043E;
+	Tue, 31 Mar 2026 20:19:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1774981189; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=pYrn3dZCQv0C3hAZrNijv8f5Lcb5/fHiy1jRqfMgcB8=;
+	b=OIFnzwVFtnFf2XakMJHYVzAqyUyblauLulrlqMYnv2+6tSbH2aFNbadLB99PE3dYCfQgfk
+	RtI/2O2p/GisCmJneoq0N8WRhpAJnIILNkJn47ji2DImdL4Q82BfEMCJ5HVMjEPXLzXCCG
+	7LNmAsNXQ588jFVw9P933i5Z15RpYav0DbZOR3FF7zVxpkkaQjcjbV+i4VAaMji5TY9UbP
+	4WMH6WycNn4i12szOWF6zfCw3cFin5XctVjngyXEIIqymU3vOfksuYiD2YuRni+FlARjnw
+	UyOFcS2MIufITzaaJ+cdmiEdc4KxsZ0hXbRuUXWcZOua+1f6fG9C0OS3Iby+ew==
+Message-ID: <da551b0f-97de-46b7-9ea0-f9ad818eb15b@bootlin.com>
+Date: Tue, 31 Mar 2026 20:19:43 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260331-expressatt_camera_flash-v4-0-f1e99f474513@gmail.com> <20260331-expressatt_camera_flash-v4-2-f1e99f474513@gmail.com>
-In-Reply-To: <20260331-expressatt_camera_flash-v4-2-f1e99f474513@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 31 Mar 2026 20:17:21 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmK2Pxw=Zj_8TsPm8vKcLWwGRjuFzXhHhFgq_ekYmmrzw@mail.gmail.com>
-X-Gm-Features: AQROBzBYeESNwniyKl-C50INEHNyIKSVre4W_M1f7i-oE4ahJatHHOaELZwZf2Q
-Message-ID: <CAD++jLmK2Pxw=Zj_8TsPm8vKcLWwGRjuFzXhHhFgq_ekYmmrzw@mail.gmail.com>
-Subject: Re: [PATCH v4 2/3] leds: flash: rt8515: Support single-GPIO flash ICs
- with vin supply
-To: guptarud@gmail.com
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, linux-leds@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7/8] mfd: omap-usb-host: Add pbias regulator support
+To: Lee Jones <lee@kernel.org>
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-omap@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260323-omap4-fix-usb-support-v1-0-b668132124ac@bootlin.com>
+ <20260323-omap4-fix-usb-support-v1-7-b668132124ac@bootlin.com>
+ <20260331165537.GJ3795166@google.com>
+Content-Language: en-US
+From: Thomas Richard <thomas.richard@bootlin.com>
+In-Reply-To: <20260331165537.GJ3795166@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Mar 31, 2026 at 7:08=E2=80=AFPM Rudraksha Gupta via B4 Relay
-<devnull+guptarud.gmail.com@kernel.org> wrote:
+Hello Lee,
 
-> From: Rudraksha Gupta <guptarud@gmail.com>
->
-> Extend the RT8515 driver to support flash ICs that use only a single
-> GPIO for both flash and torch modes (no separate ENT pin), with an
-> optional vin regulator that gates power to the flash IC.
->
-> When vin-supply is provided, the driver enables the regulator before
-> activating the LED and disables it when turning off.
->
-> Make ent-gpios optional and validate at probe time that exactly one of
-> ent-gpios or vin-supply is provided. When ent-gpios is absent, the
-> driver uses enf-gpios for both flash and torch brightness control.
->
-> Assisted-by: Claude:claude-opus-4.6
-> Signed-off-by: Rudraksha Gupta <guptarud@gmail.com>
+On 3/31/26 6:55 PM, Lee Jones wrote:
+> On Mon, 23 Mar 2026, Thomas Richard wrote:
+> 
+>> Add pbias regulator support to enable SIM_VDDS supply and unlock USB I/O
+>> cell. Previously, this was handled by the bootloader, now the kernel can
+>> take responsibility for managing the PBIAS regulator, ensuring correct
+>> operation regardless of the bootloader.
+>>
+>> Signed-off-by: Thomas Richard <thomas.richard@bootlin.com>
+>> ---
+>>  drivers/mfd/omap-usb-host.c | 41 ++++++++++++++++++++++++++++++++++++++++-
+>>  1 file changed, 40 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/mfd/omap-usb-host.c b/drivers/mfd/omap-usb-host.c
+>> index ac974285be341fa579ef198d1893b77af428b5f8..9e254e00183e940b775d5bde6e891f0d26af27b0 100644
+>> --- a/drivers/mfd/omap-usb-host.c
+>> +++ b/drivers/mfd/omap-usb-host.c
+>> @@ -15,6 +15,9 @@
+>>  #include <linux/pm_runtime.h>
+>>  #include <linux/of.h>
+>>  #include <linux/of_platform.h>
+>> +#include <linux/regulator/consumer.h>
+>> +#include <linux/string_choices.h>
+>> +
+> 
+> ?
+> 
+>>  
+>>  #include "omap-usb.h"
+>>  
+>> @@ -95,6 +98,8 @@ struct usbhs_hcd_omap {
+>>  	struct usbhs_omap_platform_data	*pdata;
+>>  
+>>  	u32				usbhs_rev;
+>> +
+>> +	struct regulator		*pbias;
+>>  };
+>>  /*-------------------------------------------------------------------------*/
+>>  
+>> @@ -270,6 +275,25 @@ static bool is_ohci_port(enum usbhs_omap_port_mode pmode)
+>>  	}
+>>  }
+>>  
+>> +static int omap_usbhs_set_pbias(struct device *dev, bool power_on)
+>> +{
+>> +	struct usbhs_hcd_omap *omap = dev_get_drvdata(dev);
+>> +	int ret;
+>> +
+>> +	if (!omap->pbias)
+>> +		return 0;
+>> +
+>> +	if (power_on)
+>> +		ret = regulator_enable(omap->pbias);
+>> +	else
+>> +		ret = regulator_disable(omap->pbias);
+>> +
+>> +	if (ret)
+>> +		dev_err(dev, "pbias reg %s failed\n", str_enable_disable(power_on));
+>> +
+>> +	return ret;
+>> +}
+>> +
+>>  static int usbhs_runtime_resume(struct device *dev)
+>>  {
+>>  	struct usbhs_hcd_omap		*omap = dev_get_drvdata(dev);
+>> @@ -278,6 +302,10 @@ static int usbhs_runtime_resume(struct device *dev)
+>>  
+>>  	dev_dbg(dev, "usbhs_runtime_resume\n");
+>>  
+>> +	r = omap_usbhs_set_pbias(dev, true);
+>> +	if (r)
+>> +		return r;
+>> +
+>>  	omap_tll_enable(pdata);
+>>  
+>>  	if (!IS_ERR(omap->ehci_logic_fck))
+>> @@ -355,7 +383,7 @@ static int usbhs_runtime_suspend(struct device *dev)
+>>  
+>>  	omap_tll_disable(pdata);
+>>  
+>> -	return 0;
+>> +	return omap_usbhs_set_pbias(dev, false);
+>>  }
+>>  
+>>  static unsigned omap_usbhs_rev1_hostconfig(struct usbhs_hcd_omap *omap,
+>> @@ -564,6 +592,11 @@ static int usbhs_omap_probe(struct platform_device *pdev)
+>>  
+>>  	omap->pdata = pdata;
+>>  
+>> +	omap->pbias = devm_regulator_get_optional(dev, "pbias");
+>> +	if (IS_ERR(omap->pbias))
+>> +		return dev_err_probe(dev, PTR_ERR(omap->pbias),
+>> +				     "unable to get pbias regulator\n");
+> 
+> You need to check for '-ENODEV' here or you are ignoring the optional part.
+> 
+>> +
+>>  	/* Initialize the TLL subsystem */
+>>  	omap_tll_init(pdata);
+>>  
+>> @@ -759,6 +792,10 @@ static int usbhs_omap_probe(struct platform_device *pdev)
+>>  	}
+>>  
+>>  initialize:
+>> +	ret = omap_usbhs_set_pbias(dev, true);
+>> +	if (ret)
+>> +		goto err_mem;
+> 
+> Since this regulator is also managed by 'usbhs_runtime_resume' and
+> 'usbhs_runtime_suspend', could manually enabling it here in probe and
+> disabling it in remove interfere with the reference counting during runtime
+> PM transitions? Should we consider relying entirely on runtime PM to manage
+> its state?
+> 
 
-Excellent this looks good to me!
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Thanks a lot for the review. I already sent a v2, do not spend your time
+on this version. This comment is also valid for v2 (and the headers
+one), but I fixed -ENODEV in v2.
 
-Yours,
-Linus Walleij
+Best Regards,
+Thomas
+
