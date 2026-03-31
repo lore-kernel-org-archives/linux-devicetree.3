@@ -1,63 +1,63 @@
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAEC43793D4
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 19:39:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23D4E38BF70
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 19:39:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774985942; cv=none; b=ecT/C6bMpxyyi/KXJN+9kTp3rB569oJjbMd7S9TlC1MPo6fLJ5brRCh6vM42m8Z2tmQZeOQluV+1eK3Je4jdH1RT7kjFvgLCbLDoMqq0UGoTM8Ijx3bp1RUbNIJm++88MYkJK9f2o7xaaxmMd39du6p1C0A74kGosIQbooxlkcw=
+	t=1774985946; cv=none; b=NdQne1G7azMVlgylY9b6He7Kc2CZtsdk11TtZZe/ZCqL3nm9NKtvug35mTOElBrJc7Slpm7fVcPAvqPdH5m4J//AXcWqCWfMCZ3rU3gWH3J12n5nz/Nire2A4YM/uf8t7SeO/od3a4X52xT0zqYphNI3gIyO3WyynRuGYJUMito=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774985942; c=relaxed/simple;
-	bh=md7ZgyJKci1oL67mwHChonuZy799l2+wru4xchUlLE4=;
+	s=arc-20240116; t=1774985946; c=relaxed/simple;
+	bh=huc+C2J5/ogSFYxxpwIAQP0C2iLi2Nk80fvhtK14SKI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lNlTlz8u/FlZF8lzJU/6KHRzARbUkhHH0TpyGDUihMcm692Oa2Od+ujPTwKqS3DjuhSY96zPagi0VS32Re4rdB5VjX+jhU4+yA2vTMvV1y2qNBATxBiIkCOwmLsma7fHlvvUMmnoidZp4hyxZbuLf+Ms1ZuyzxmSEMC3s8Bml68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YcJQZTI3; arc=none smtp.client-ip=209.85.222.174
+	 MIME-Version; b=H9qnomF3yKcJtfe0x6kdMrYeOHCtKccnTJtBF04T2EMhSswnuoaB2Y6ypbRDLsLa78TFMc9VduJkU+DGkFZmP3+OxNquQ5iZIsgC9FqCG1donP8WsrXjqG+/IrqNSz1wAFdX2o3eMUfQg1b059qkym12OgQloHU0bIVa85t7jBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sfUatkp2; arc=none smtp.client-ip=209.85.222.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YcJQZTI3"
-Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-8cfd122d78fso966345085a.3
-        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 12:39:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sfUatkp2"
+Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-8cd8a189f44so533915185a.0
+        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 12:39:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774985940; x=1775590740; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1774985944; x=1775590744; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=V8PeiigyZeO1TReQFmzOYp1g+SjtZC0Tv13VfVdNAnw=;
-        b=YcJQZTI3egIel3Boxoxkifz3IOHjSFkT/nmX2NTArEqDC8W1PteE8GOJjPqcgBSfJE
-         sRsfniMWKCiFBLZHf8oJKMVKk8wtgL7VoUZuLqaZV/ARPxOUvcXyDi6bhM6OB9ZTVsDb
-         abYjVzQxLjW+q3NkCQSa6gGNVOhDWJJHZ5BqhGZuQan1ANJfEABZkYRkoUBCD86oeiA5
-         3ijE8nUr8ARUzste8GdykxYjtYA8Dph9R2KoH7ilOSmRp6g319AGARlwZi7UdZHbdP7j
-         HEzVVYs0hFYODRgpKoUVeYx1FEws3NmbivT2HAAi0d7ta+lf9Pg/Ch6KN/AEWoYxS+cd
-         +I3g==
+        bh=2DMgcX8uhy5oeABb4B4dx47WI1aVkZ3HwLZ7cgpkUvM=;
+        b=sfUatkp26WZhvIh99lLoXUC69K699gUeFo9Z7qSL1fOR8br1o8cmb1z8T3LEWs7Ue2
+         GOgl7v0Ca3/+ZLzXlidhx3xF6W515XLlDUM4Se8J/tHcVhYVf1CMS2eyGgKHfIalHSNN
+         QxOGvd54tIGgJkoKeIpQn4F0/gvcaqOWNl/5+1UZ2P8ruXnRXbb/nbkdMoN+rrsJQaHf
+         lu0k9SwRkq4+1mO5aQCxJjMNzk3j6ts4Sseuz1KK3lawoUH3mwp+udCxlW7+Q66+cAJI
+         50yLhS219yDkp7vQqwtL9gYG7N6Tcxo96YUZSA7ujvI2jiJruJWOWcwizwfsSASEweuc
+         16fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774985940; x=1775590740;
+        d=1e100.net; s=20251104; t=1774985944; x=1775590744;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=V8PeiigyZeO1TReQFmzOYp1g+SjtZC0Tv13VfVdNAnw=;
-        b=db8XNI92bgBx8QDzKrbOkI9mkcf2MBxKLokgl78ZwoQE94iaE9nB+K33igEN3pVh3m
-         Q/hjdWnI8lr80G11Gxt5E+5uryI4OxmUl8ISOTZpiJgcr62K5CR7tPASkI/aiyq4NO0n
-         qoJrjhvT4NNSrVNb4rLZwalIm45VMljvyKxnAeOlsCkkFt2E0XduJP0vTA2ZYrTC8RET
-         8NgD2peOXHQT7MHwHkdk/L4Y34GfKM0DYlK8kl8jn0x3Hdwu6Lyvm7Zxjwc+IRs3sOPv
-         frD3W3E2j7yIfc3tQbavv6Z5G/49PSmqKVbwWx45uCo7cbZklolXyUJsFJRlWujDET5r
-         xE/A==
-X-Forwarded-Encrypted: i=1; AJvYcCVDptSiW4UmiaaXqSQDACH6MH+G3VstWEPjc3MDWZOqr7L2gF4KkAY4czHGcbwm6jT8CS8Ao8FThE2w@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz5oEfngs4O9R6cSZ4r5CmqBoMKCNCYQxeZgIiwOTLcWqsHyGqT
-	9IWR7vNDRsSEg6RiohrZqceR+uxcymON0kiOEyzc/sKxsPOk6BUslRux
-X-Gm-Gg: ATEYQzxAj3G4KnaKbeSS4iX6DLDETe/r4bhvh8O1G4LJ1JNe/ZQEbp1RJV9KplrRFHB
-	L2wcam2BjJqbAaNafH6Pu51AIgw057Def1iieAtzDJx1ufo6Y4OTMdW87uFqZVG983/L0mCzJnT
-	luz5rF/iX8/1/05zmCg1CFB8oeu/3YphalR+loy94t/DzDRS9ovYlhk9Dm9v2Xi1ec3tbvVvqZK
-	5bLiNoYh1Og4iqIH6SkDm6kmNfbZ64rfVwhuZRe7f02hNNdDSKkCybcGgt6ragCB6umNO7U5qQ4
-	2w2ZPIw/8oiA3vHgDSnxvIZnU1Zcw5gFSVDimcgW6GFDdobX/Wyu7u1CzRg05xX5ONI0uoRe2fc
-	P7O6mj/ot8PqHB46o45j7jXi8R7poR+FfjzIZXs5jgj9sjVihRGG8NuwjAN/LCHOfnCPWHwQZj3
-	1C/As3R0YAAhk71tkSlsR6O75e
-X-Received: by 2002:a05:620a:bc8:b0:8cd:dfe9:60f8 with SMTP id af79cd13be357-8d1b5aeef3bmr142663785a.23.1774985939822;
-        Tue, 31 Mar 2026 12:38:59 -0700 (PDT)
+        bh=2DMgcX8uhy5oeABb4B4dx47WI1aVkZ3HwLZ7cgpkUvM=;
+        b=qWtYjaQp/RSa7SDRycqKUd2rJTEyqXa8iqKr8/dry9DyiZdUMbgwy25SW3esc4A+Aq
+         a4+OGb74GcRD0NXDwoqLeuYnn1AIRtCkorVHV8MTdFy4E28DVCUxihxBNRPP0X832bkT
+         /PQZgsGyN0NTrksl7VPUDaA3dzkBR48QgtRFaEJDlCrsS8GeDKOS9LxVUP6mBXuRXy0s
+         zDL2RbfTBObnVmtITzysPIm/eP2Q2X9VZnkMOY7iIS8PKlXKO2wH1iM6X9MiViOQO6Sb
+         GHoi+gnj7ur6+vgnFokk/ce0P43tmniprdp7Qxb0ayTt1qD4BU5qBAFlahdnwR9M57U7
+         9wLg==
+X-Forwarded-Encrypted: i=1; AJvYcCVXgw4JRX71bUo1pCsIf5FPqtZP1YruvX+7vtmLVzg6bEWpOFh5vzIdjkNqKEhPk+figP14NSzzmEId@vger.kernel.org
+X-Gm-Message-State: AOJu0YxsKxtKMtBw4A1kdVCH35K/0V7zldpBIL5IZ/xUle8VAWx9jKi/
+	nV3g6w1DIwefINhOziWdhFtLfbd4SYYN+lYXTEzonPmUnSEMdqrf/J6N
+X-Gm-Gg: ATEYQzzfyLWpWAd3WsjX85sD1/MfpVm4TGh8coZimEu2J5E6htUEB0co+B3Ze/sEYIp
+	xhxbaKFOkPMTKGn00fwhZs7rZ839JPC3WwpHyFr5Jqpqc5HjRM5zmr/ONpIoryXO5sQtEXTigU3
+	5lTvBh6dJLbuXeWnY3kdD/Cm5ZRmZpgGrcFb8wFOu2J107eB5Yd9G4xlsL/Dt+ibQUBFXbQOBb0
+	swlFB4CV4PmHaTXunb9fyT/C3ljXm0p8JouModmD1ynO6OWu4Vl87HYFwHTuLEmj3IhYGHuPls2
+	CPM1mrn8MEz2djkGcecu+3UJiA2C3iTrFyfuLNpptQbOQpGlr/rOd5AgMhIZIouW0HMmIZJ9j6O
+	IpzzKt9xAm5Y9LxDq10/LywhDlTR4g+hvveSpn0/LykBE3BpUrXOVmzDuKBY+5uzJFz2S12eLZY
+	mij1RqyBd+eK9JePzLCv/zdVZX
+X-Received: by 2002:a05:620a:46a5:b0:8cf:d3f2:9f4f with SMTP id af79cd13be357-8d1b5c369fcmr151944585a.55.1774985943871;
+        Tue, 31 Mar 2026 12:39:03 -0700 (PDT)
 Received: from localhost ([199.7.157.124])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-8d02806a36fsm936924485a.35.2026.03.31.12.38.59
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-89ed02364e2sm98172316d6.45.2026.03.31.12.39.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 31 Mar 2026 12:38:59 -0700 (PDT)
+        Tue, 31 Mar 2026 12:39:03 -0700 (PDT)
 From: Richard Acayan <mailingradian@gmail.com>
 To: Srinivas Kandagatla <srini@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>,
@@ -83,9 +83,9 @@ Cc: Nickolay Goppen <setotau@mainlining.org>,
 	Charles Keepax <ckeepax@opensource.cirrus.com>,
 	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
 	Richard Acayan <mailingradian@gmail.com>
-Subject: [PATCH v3 01/15] ASoC: dt-bindings: qcom,sm8250: add compatible for sdm660
-Date: Tue, 31 Mar 2026 15:39:25 -0400
-Message-ID: <20260331193939.40636-2-mailingradian@gmail.com>
+Subject: [PATCH v3 02/15] ASoC: dt-bindings: qcom: q6dsp: add internal mi2s support
+Date: Tue, 31 Mar 2026 15:39:26 -0400
+Message-ID: <20260331193939.40636-3-mailingradian@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260331193939.40636-1-mailingradian@gmail.com>
 References: <20260331193939.40636-1-mailingradian@gmail.com>
@@ -97,28 +97,62 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Nickolay Goppen <setotau@mainlining.org>
+The internal MI2S ports are found on devices with the internal sound
+card for Snapdragon 660. Add support for them.
 
-Add compatibles for sdm660 based soundcards.
-
-Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
 Signed-off-by: Richard Acayan <mailingradian@gmail.com>
 ---
- Documentation/devicetree/bindings/sound/qcom,sm8250.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ .../bindings/sound/qcom,q6dsp-lpass-ports.yaml     |  4 ++--
+ include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h | 14 ++++++++++++++
+ 2 files changed, 16 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-index 15f38622b98b..63c744524e01 100644
---- a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-@@ -44,6 +44,7 @@ properties:
-           - qcom,qrb5165-rb5-sndcard
-           - qcom,sc7180-qdsp6-sndcard
-           - qcom,sc8280xp-sndcard
-+          - qcom,sdm660-sndcard
-           - qcom,sdm845-sndcard
-           - qcom,sm8250-sndcard
-           - qcom,sm8450-sndcard
+diff --git a/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-ports.yaml b/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-ports.yaml
+index 2b27d6c8f58f..d8271f1d9a34 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-ports.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,q6dsp-lpass-ports.yaml
+@@ -127,7 +127,7 @@ patternProperties:
+               contains:
+                 # MI2S DAI ID range PRIMARY_MI2S_RX - QUATERNARY_MI2S_TX and
+                 # QUINARY_MI2S_RX - QUINARY_MI2S_TX and
+-                # LPI_MI2S_RX_0 - SENARY_MI2S_TX
++                # LPI_MI2S_RX_0 - INT6_MI2S_TX
+                 items:
+                   oneOf:
+                     - minimum: 16
+@@ -135,7 +135,7 @@ patternProperties:
+                     - minimum: 127
+                       maximum: 128
+                     - minimum: 137
+-                      maximum: 148
++                      maximum: 162
+         then:
+           required:
+             - qcom,sd-lines
+diff --git a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+index 45850f2d4342..059f2ea1bd23 100644
+--- a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
++++ b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+@@ -152,6 +152,20 @@
+ #define LPI_MI2S_TX_4		146
+ #define SENARY_MI2S_RX		147
+ #define SENARY_MI2S_TX		148
++#define INT0_MI2S_RX		149
++#define INT0_MI2S_TX		150
++#define INT1_MI2S_RX		151
++#define INT1_MI2S_TX		152
++#define INT2_MI2S_RX		153
++#define INT2_MI2S_TX		154
++#define INT3_MI2S_RX		155
++#define INT3_MI2S_TX		156
++#define INT4_MI2S_RX		157
++#define INT4_MI2S_TX		158
++#define INT5_MI2S_RX		159
++#define INT5_MI2S_TX		160
++#define INT6_MI2S_RX		161
++#define INT6_MI2S_TX		162
+ 
+ #define LPASS_CLK_ID_PRI_MI2S_IBIT	1
+ #define LPASS_CLK_ID_PRI_MI2S_EBIT	2
 -- 
 2.53.0
 
