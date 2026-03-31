@@ -1,68 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from gate2.alliedtelesis.co.nz (gate2.alliedtelesis.co.nz [202.36.163.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79565451054;
-	Tue, 31 Mar 2026 22:38:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C9E33A962E
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 23:19:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.36.163.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774996732; cv=none; b=hk3feOhkiGvgUWKuLxtFT/XbfPItZ0rta8tSXL8GycrgYaClzgaiWhSicoM1ei2OZdRBf/o+3lINUquG762tQzezuUeS54OQ8BdJFqPpri4QVUm2i0+Br16sXpsUX8X69uQM+IFezo6J8em0RyEmGgDWvfbrv2zwZu9cwAiThrg=
+	t=1774999170; cv=none; b=VJNazYEmIt4dUxorgvQwNdpwuWcFjfLoi1WtD0JHuNhWZYm121WXCbXDUmmDGeHABL+7jRPgBm8h7GRF2fEZIKK+v67ztWf0lmgV2pV7CfxKTIjmbc35Brur0G6MdJPw/0gTkEfyTwGUq+ckYOU9U1XE7JNP1y3HcRjaze8gmu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774996732; c=relaxed/simple;
-	bh=cN2uGtOY8lmBwWPA/21l9JKzzTYz0awsRS+Ef+cIPRk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QD4ixJ/pjiZafbVhqwsrYccaNio9DHpjOBgMvRTiiOpzs4x4jvlB0ZUt03ql1QbfszcultSXTmTqOBxSiZ9Blky0JZwI4o/1bwTrrqT3qDd4CjEBFVl/miD48XJ94DYcVy/NpExMN5wEAfKQICPzVRuTEfP/KZiOmoOEEbKx/Y8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gY8Pmrej; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774999170; c=relaxed/simple;
+	bh=5jK8GcVu1vSZwUFJ8czxSX0PHhJofNRdkC6TilUwZdE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VpauXKP1VE2xoDCphO69FLuFo8iv3dhOyDWKAgJgrgTH9kt79gL2ieOEWTP3ni/auurD0RJM3mNUuW8MhPuqfLx+yviPrFOt5YhRoToVzcSVWkbzMEDv7QllhKsBxt7YHogJkHlgKj0ZiU5XCZSnBsW/rTnBK+jmcRZgRfHsJQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz; spf=pass smtp.mailfrom=alliedtelesis.co.nz; dkim=pass (2048-bit key) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.b=Cgk2vEmD; arc=none smtp.client-ip=202.36.163.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alliedtelesis.co.nz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gY8Pmrej"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EABE5C19423;
-	Tue, 31 Mar 2026 22:38:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774996732;
-	bh=cN2uGtOY8lmBwWPA/21l9JKzzTYz0awsRS+Ef+cIPRk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=gY8PmrejuWoWP9cIVFF9P+ii5N+E8ndk0o06kgDO/rnmp989O+nEGMxfTcRbttFtZ
-	 8vKTysGBjHbJQvHurFjOERjvQ/pBCgpT5BOjDjvtssFycxSQEhxJq5mtHIBBwh9Jxd
-	 PnO8deD1tLYnIw18AdPcwLCvM71G8otHrcns4t8EJEoJbos8Nnalp+HS7VQPyPkFeb
-	 yTS0ms7ARkTbGcPsoDtt+9J8sGpGoZ70RSlwU1D3yTpDvYkPdHWejKU7Pwnqj+oZEB
-	 m1NsbO+xzOxT4okZr/LrLIwFfAqaeYKhtjMsDNf2COby8cmO1v6My4A3Da99s1pAJb
-	 Ja/kczxSpYkmg==
-Date: Wed, 1 Apr 2026 00:38:46 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Rustam Adilov <adilov@disroot.org>
-Cc: Chris Packham <chris.packham@alliedtelesis.co.nz>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 0/8] i2c: rtl9300: support for RTL9607C I2C controller
-Message-ID: <acxMeyVpRh9nts3d@zenone.zhora.eu>
-References: <20260326152656.14030-1-adilov@disroot.org>
+	dkim=pass (2048-bit key) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.b="Cgk2vEmD"
+Received: from svr-chch-seg1.atlnz.lc (mmarshal3.atlnz.lc [10.32.18.43])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by gate2.alliedtelesis.co.nz (Postfix) with ESMTPS id DB9912C046F;
+	Wed,  1 Apr 2026 12:19:25 +1300 (NZDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alliedtelesis.co.nz;
+	s=mail181024; t=1774999165;
+	bh=oIhU8F0u3bMco9H5yKNEmxDtoEsOH18S7pDwsiTk314=;
+	h=From:To:Cc:Subject:Date:From;
+	b=Cgk2vEmDGKOezVrNaHJoF+4N4T01gcHsHoWJT2GpluLy+YjqM2rD4Hx+MTxVI5cON
+	 9CWuHOOkJ3oZj+QvyneWYM6rzD7oYqdBEbQLfkJOHAHcy7NETgr+dFdxFhDc8TUDy8
+	 UCkPbAOIkGqVnjj7eLxFkkQRwBjPfpUTCufWOXY3Ww3HDD+kOaBUvvUyPpFghiLgS3
+	 8Ntfihm/RMAg37msTZE2YuIIkthyAgHDRbgwIIQDW5mPyGp9/sSyV2583gimAe5aZK
+	 S1AByYdtno0Wr1WLCqRGxqJUHEHIKO0yiEJbFx/MfNcc5k+TyvsiepFyYs6Skm0l/n
+	 DscoKUR87p0yg==
+Received: from pat.atlnz.lc (Not Verified[10.32.16.33]) by svr-chch-seg1.atlnz.lc with Trustwave SEG (v8,2,6,11305)
+	id <B69cc567d0000>; Wed, 01 Apr 2026 12:19:25 +1300
+Received: from chrisp-dl.ws.atlnz.lc (chrisp-dl.ws.atlnz.lc [10.33.22.12])
+	by pat.atlnz.lc (Postfix) with ESMTP id 88F8913EE44;
+	Wed,  1 Apr 2026 12:19:25 +1300 (NZDT)
+Received: by chrisp-dl.ws.atlnz.lc (Postfix, from userid 1030)
+	id 81AEA2807C8; Wed,  1 Apr 2026 12:19:25 +1300 (NZDT)
+From: Chris Packham <chris.packham@alliedtelesis.co.nz>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux@roeck-us.net
+Cc: devicetree@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chris Packham <chris.packham@alliedtelesis.co.nz>
+Subject: [PATCH 0/2] hwmon: pmbus: Sony APS-379
+Date: Wed,  1 Apr 2026 12:19:11 +1300
+Message-ID: <20260331231916.94662-1-chris.packham@alliedtelesis.co.nz>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260326152656.14030-1-adilov@disroot.org>
+Content-Transfer-Encoding: quoted-printable
+X-SEG-SpamProfiler-Analysis: v=2.4 cv=EcprQ+mC c=1 sm=1 tr=0 ts=69cc567d a=KLBiSEs5mFS1a/PbTCJxuA==:117 a=A5OVakUREuEA:10 a=RPtVrnf-bw8RX5avTx0A:9 a=3ZKOabzyN94A:10
+X-SEG-SpamProfiler-Score: 0
+x-atlnz-ls: pat
 
-Hi Rustam,
+This series add support for the PMBus hwmon on the Sony
+APS-379 power supply module. There's some deviations from
+the PMBus specification that need to be dealt with.
 
-> Rustam Adilov (8):
->   i2c: rtl9300: split data_reg into read and write reg
->   i2c: rtl9300: introduce max length property to driver data
->   i2c: rtl9300: introduce F_BUSY to the reg_fields struct
->   i2c: rtl9300: introduce a property for 8 bit width reg address
->   dt-bindings: i2c: realtek,rtl9301-i2c: extend for clocks and RTL9607C
->     support
->   i2c: rtl9300: introduce clk struct for upcoming rtl9607 support
->   i2c: rtl9300: intoduce new function properties to driver data
+Chris Packham (2):
+  dt-bindings: trivial-devices: Add sony,aps-379
+  hwmon: pmbus: Add support for Sony APS-379
 
-Patch 7 does not apply (not even in i2c-host-next, next,
-mainline). Which branch are you on? Can you please
-rebase on top of i2c/i2c-host, please?
+ .../devicetree/bindings/trivial-devices.yaml  |   2 +
+ drivers/hwmon/pmbus/Kconfig                   |   6 +
+ drivers/hwmon/pmbus/Makefile                  |   1 +
+ drivers/hwmon/pmbus/aps-379.c                 | 196 ++++++++++++++++++
+ 4 files changed, 205 insertions(+)
+ create mode 100644 drivers/hwmon/pmbus/aps-379.c
 
-Thanks,
-Andi
+--=20
+2.53.0
 
->   i2c: rtl9300: add RTL9607C i2c controller support
