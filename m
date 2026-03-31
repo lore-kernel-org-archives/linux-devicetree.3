@@ -1,71 +1,78 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6653B3822B5;
-	Tue, 31 Mar 2026 11:48:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4F6C3A5E65
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 12:09:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774957725; cv=none; b=HPigsCHRndjcR5fCC9krGCKvpxF7m3avlJIcgITPkpUqK/ZNg4Rorh+E2vEYkg0XOSP3a6X3VygYFGSMUlgXwK3Wq561ni+1qNwZDaNvXNvMuU7LLJ8p1KarXQKmTk2nashmpIX4e9MC+JjtHMSaLWXC88jQwLUCuXe6YE5Ho/Y=
+	t=1774958991; cv=none; b=NG00qAQQrvZLVrDKkivvV6Ta6jh/UXYTQ6KGnZVt5CwfAaCh1hPVuM+rm6mEQi3cX2+tP0i7Jc4C4DeYWYviTH36lqMPMK0WeHga3IkbfmLAoI7zBYx02P53jEAlMo+EbIwmn5/UdPHt5V9ZyUUQY6tOttV7X/ySgMnN/8m1vM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774957725; c=relaxed/simple;
-	bh=OrTPCLFoy/lXjg+kOZqJZMWotZiwF1YBFeK6SAao5D0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=kfQA3D/ZO8t2Du6Ii/QoPFuR1qlznRpjLAtPNDmB+jv8DjzhgVoCbDtycNEFVfolRZHi8i5eDL1dBaGQGk+bVb4myy8ySsV58fJYX+RS07WnpIBlnLHecQZ7fMLh9LFODfoE2qy0iObrHVJRgt8qxg98d/F6su1+IF7pehQ8xVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oeeQeodj; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1774958991; c=relaxed/simple;
+	bh=0ze6s62GoWXJwedORq0Ck2i8s/n/lLU7Kn7pTb1PCSY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tjobzb914UMnPRqbWLaVGMFztScYZC6WfFyHu7FDwXwlCtphRV1fvMjOK35DxBL/fFnbqOzCmKNgm4lCo0hVaaQiE0QSnRubkT9Ggsn0pCWwDcjjrHJ8uMRh4CDxWMzGW3Rxm63+tKr+QS6tooxM60ZMcd4EV7WwDe5QjTj6FgI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g6SBti1Z; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oeeQeodj"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62VBk1ce2391342;
-	Tue, 31 Mar 2026 11:48:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=FJDNGZLM93w
-	QFe5ymtZ0GbdfY8lxJ4Mzqty5jJep6hw=; b=oeeQeodjHaLJIHQeXRJRdQbp/W5
-	cCK9A2pRkyrMQw4MestTJdMRZhdnuPpw+Cr438RyFbOaogXmDjlfeHEx4fjjcFVI
-	7Lw11qgHL9KSX/5q5Y7FLCSJ6RRocoWvScIzAybrcGf7HXDbLLEy8fxM+GpZYa9g
-	8O1RyZrjSXzkku46x9p3Q7ogJc6Js1uasCr1UO53G0DUCVKgN7IhldkfOJJg9qI8
-	K3c69kMAIbbqO1GPCiyyLOF+s0DSOsEL1o7recktiLQoi0q9mLa3XdW2EYc7OaO4
-	SZlB5qUAsH8WXnkRrQPr+1EM2Tcx9FGJCiRrJSZgjWaI8L1lSYaVtBLxF+A==
-Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d7ue7mc9b-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 31 Mar 2026 11:48:39 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 62VBmaMY011366;
-	Tue, 31 Mar 2026 11:48:36 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4d6qk1ven0-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 31 Mar 2026 11:48:36 +0000 (GMT)
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 62VBmaZT011361;
-	Tue, 31 Mar 2026 11:48:36 GMT
-Received: from hu-maiyas-hyd.qualcomm.com (hu-msavaliy-hyd.qualcomm.com [10.213.110.207])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 62VBmZqh011359
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 31 Mar 2026 11:48:36 +0000 (GMT)
-Received: by hu-maiyas-hyd.qualcomm.com (Postfix, from userid 429934)
-	id 387792579A; Tue, 31 Mar 2026 17:18:35 +0530 (+0530)
-From: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
-To: viken.dadhaniya@oss.qualcomm.com, andi.shyti@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, vkoul@kernel.org,
-        Frank.Li@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
-        dmitry.baryshkov@oss.qualcomm.com, linmq006@gmail.com,
-        quic_jseerapu@quicinc.com, agross@kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        dmaengine@vger.kernel.org
-Cc: krzysztof.kozlowski@oss.qualcomm.com, bartosz.golaszewski@oss.qualcomm.com,
-        bjorn.andersson@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com,
-        Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
-Subject: [PATCH v6 4/4] i2c: qcom-geni: Support multi-owner controllers in GPI mode
-Date: Tue, 31 Mar 2026 17:17:42 +0530
-Message-Id: <20260331114742.2896317-5-mukesh.savaliya@oss.qualcomm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260331114742.2896317-1-mukesh.savaliya@oss.qualcomm.com>
-References: <20260331114742.2896317-1-mukesh.savaliya@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g6SBti1Z"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2aae146b604so33216975ad.3
+        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 05:09:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774958989; x=1775563789; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=YJsN9xOorEStaNzhqVyskGIBPrVNwL+4GmqbmijKTAk=;
+        b=g6SBti1Zbx41AUZ4zD1F1mn9v1H+IGlz3gHMaZKAFiHjBRPMQAbeqjEcMLrYx82lke
+         vjnYRzJ5CO3r4nq/ILd+jCYwfEqaQMGc+KJ/yXETAmiuRd9CP+B6nuCwx8EnVKHL5dKk
+         uArnOeZLPSiGvDJaoK9dTtIAUJBM1v1JyII6SGfe0jed5UxmEADSWgU0MwJ6o9lNdofz
+         WlhwTiL7WrHtbJWyYpxV+00uX0FiAcpRxaVleN/vaF6uqM5vAzl41w6gMrHIygHoE1Or
+         b94soWnLRlbapWHc38uh7KMjyXVRwC/Lt74FNj/d+v+GYNDI68tD48D4zMkAvpBn78nQ
+         008g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774958989; x=1775563789;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YJsN9xOorEStaNzhqVyskGIBPrVNwL+4GmqbmijKTAk=;
+        b=mTcg0wu4KGVzilHsREbXv4Vpg7FRiwqq4WJRw3wxVeG0RFWXnzzuoQU+A2uPfZdr8h
+         Jz7sYIM5LMGyHx2Jp6mbb9RFoIL0fGkGhQfGyA4VWyxJKp9NfT/BxxAsXBA3QDwPlB2E
+         N+7nrpHYPWHcJf1JWIn5I0fy9k5Lj8TI+gf+wk2BYBOhPqsUHMMpiwNjZYl5OLppdlQe
+         5r6chaE1Cluwscz5WI7pDEmpiRO/uLkTRrc9vhLFTjZcoQ+oNPfkFWpmk22l2SBPu/ij
+         yfhJkz41QGv4/dl4XJVNkB2v+tpRi9H65KkjQKSeb55eF1jptRaEvIbIzLMIikN2psh+
+         gdow==
+X-Forwarded-Encrypted: i=1; AJvYcCWXEzfWVtynynoGU7OQEMU0Ayjc0btC6BbJ1ZJnzq1B0FmXRGP5e05bCym66i3n/Mkdm0w1fcCcVL54@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz/8z2EWE8sWfvumLq9M4dfrgWZWw1NVfaQb2fLlK1d0B9auhBs
+	Nx+A8XXWAhSqOZ5W76Tgo4iGrJHi74TQrRY/nVRt8ZDNsJUy+2CFzUgJ
+X-Gm-Gg: ATEYQzxqXa9FGHGKpGlF4f6TKHLUeYoArvofFjVCZ6PS4Ne06yYdDmzc29sdcnd1lrK
+	yvGRPV2fxALiAsXlC8siOAQdZOy1SiQ6uiOohtwh0WllQUDFeLJYQ8EnEhq8q93EhgnKrghTi3M
+	YZCnXysUwVEldDTzndpk9ykbGke9hfJO17TbxsE05/OcwQJeGWHE/wr8V404Wok8SXeJcG0yOgV
+	nLKrBlm/PtY/k7blFRGLrg4QZTFDf6qNJ8Uw3jTwZ7sLnE8tizVxijqDdoZylaXLQUChovEFIEq
+	OpasFtaR0FHywsRT0mts/hzqpeNw7HddhQe8vJyu52HZrWIp1gAB+DpvYrK9tG3C+1NoU5vpsTk
+	sh6Dix/eJLKVbdbysGCsjKQ1UsA/xVlNpibccsj1zeryItA7hyn4sjXpRzuFBbp9ze/+IB+VaMo
+	bUJLkYHWEwR8IBGt/UHyZn3YWnzt1WMblVHf4RySzmWLT+zApVLCzxCWiy+/GtX5S3YpoiO824n
+	mdCzIbOv8vW8bFaqtXuiw==
+X-Received: by 2002:a17:902:e846:b0:2b2:490c:411e with SMTP id d9443c01a7336-2b2490c53c4mr108364095ad.6.1774958989240;
+        Tue, 31 Mar 2026 05:09:49 -0700 (PDT)
+Received: from bu9-daniel.dhcpserver.bu9bmc.local (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b242642c5asm109350915ad.7.2026.03.31.05.09.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 31 Mar 2026 05:09:48 -0700 (PDT)
+From: Daniel Hsu <d486250@gmail.com>
+X-Google-Original-From: Daniel Hsu <Daniel-Hsu@quantatw.com>
+To: andrew@codeconstruct.com.au
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	joel@jms.id.au,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	Daniel Hsu <Daniel-Hsu@quantatw.com>
+Subject: [PATCH v2] ARM: dts: aspeed: yosemite5: Add MP5998 power monitor
+Date: Tue, 31 Mar 2026 20:07:34 +0800
+Message-ID: <20260331120734.39260-1-Daniel-Hsu@quantatw.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -73,113 +80,35 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMxMDExNCBTYWx0ZWRfX4EIMPCC6+G3F
- kaPnwIABJWb7zWX2OeVj9elD2aGSc4+espdoQMsLQnF+svLGcV8jvoJ5OpkO9I5fnvTtZSLq9KT
- xOLdyuV/Om4GMZjWf1uOnQJzoYlvFHqURQfLPDIaypBdQeslexEd8f9j+bTF7+2DyT7swPDxmzH
- OF6oTTD7eIAo41HLT3Iab2C4/fM0u9m12JYp2RXizqJodWf8n80ttVd0q/V2Zu1tmoEVlg6NWJc
- aksIIZggqc5EFSfnB7alWfc/3uNwHmW/GePh/6n2bJhF4s6yWep1CjTw3QPLEFQhzW+eSnqS2y6
- Lee+3FuWASkQyW+as/oh0or2FD3dxuKtWF8UjGEtvcTyVLcrTa5zT4Wd//UAwefCwmjvtgQ7yEr
- xAViIg7/58FhCEhwQCozM0uHGlfW217zo6o81WhMFYk0Zza83auWQJwNKIqoOn+PXz6pSaUYJPI
- 9v5ZeBZx/ekAV39CE0A==
-X-Proofpoint-GUID: Za3FSEG0VLwaC8DqKNHp_YFTAWkpSgaS
-X-Authority-Analysis: v=2.4 cv=G7sR0tk5 c=1 sm=1 tr=0 ts=69cbb498 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8 a=r5MnBgDnrAiVjouRZIUA:9
-X-Proofpoint-ORIG-GUID: Za3FSEG0VLwaC8DqKNHp_YFTAWkpSgaS
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-31_02,2026-03-31_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 malwarescore=0 lowpriorityscore=0 bulkscore=0
- priorityscore=1501 spamscore=0 adultscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603310114
 
-Some platforms use a QUP-based I2C controller in a configuration where the
-controller is shared with another system processor. In this setup the
-operating system must not assume exclusive ownership of the controller or
-its associated pins.
+Add an MP5998 power monitor used to monitor the power consumption
+of the Paddle_P12V_HSC rail on the Yosemite5 paddle board.
 
-Add support for enabling multi-owner operation when DeviceTree specifies
-qcom,qup-multi-owner. When enabled, mark the underlying serial engine as
-shared so the common GENI resource handling avoids selecting the "sleep"
-pinctrl state, which could disrupt transfers initiated by the other
-processor.
+[v2]
+- Describe the purpose of the power monitor
+- Remove software/driver related description
 
-For GPI mode transfers, request lock/unlock TRE sequencing from the GPI
-driver by setting a single lock_action selector per message, emitting lock
-before the first message and unlock after the last message (handling the
-single-message case as well). This serializes access to the shared
-controller without requiring message-position flags to be passed into the
-DMA engine layer.
-
-Signed-off-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Signed-off-by: Daniel Hsu <Daniel-Hsu@quantatw.com>
 ---
- drivers/i2c/busses/i2c-qcom-geni.c | 27 ++++++++++++++++++++++++++-
- 1 file changed, 26 insertions(+), 1 deletion(-)
+ arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite5.dts | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
-index ae609bdd2ec4..1925e4ec9842 100644
---- a/drivers/i2c/busses/i2c-qcom-geni.c
-+++ b/drivers/i2c/busses/i2c-qcom-geni.c
-@@ -815,6 +815,14 @@ static int geni_i2c_gpi_xfer(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[], i
- 		if (i < num - 1)
- 			peripheral.stretch = 1;
+diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite5.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite5.dts
+index 2486981f3d6b..6287f80d70d9 100644
+--- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite5.dts
++++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite5.dts
+@@ -422,6 +422,11 @@ power-sensor@45 {
+ 		shunt-resistor = <1000>;
+ 	};
  
-+		peripheral.lock_action = GPI_LOCK_NONE;
-+		if (gi2c->se.multi_owner) {
-+			if (i == 0)
-+				peripheral.lock_action = GPI_LOCK_ACQUIRE;
-+			else if (i == num - 1)
-+				peripheral.lock_action = GPI_LOCK_RELEASE;
-+		}
++	power-monitor@46 {
++		compatible = "mps,mp5998";
++		reg = <0x46>;
++	};
 +
- 		peripheral.addr = msgs[i].addr;
- 		if (i > 0 && (!(msgs[i].flags & I2C_M_RD)))
- 			peripheral.multi_msg = false;
-@@ -1014,6 +1022,17 @@ static int geni_i2c_probe(struct platform_device *pdev)
- 		gi2c->clk_freq_out = I2C_MAX_STANDARD_MODE_FREQ;
- 	}
- 
-+	if (of_property_read_bool(pdev->dev.of_node, "qcom,qup-multi-owner")) {
-+		/*
-+		 * Multi-owner controller configuration: the controller may be
-+		 * used by another system processor. Mark the SE as shared so
-+		 * common GENI resource handling can avoid pin state changes
-+		 * that would disrupt the other user.
-+		 */
-+		gi2c->se.multi_owner = true;
-+		dev_dbg(&pdev->dev, "I2C controller is shared with another system processor\n");
-+	}
-+
- 	if (has_acpi_companion(dev))
- 		ACPI_COMPANION_SET(&gi2c->adap.dev, ACPI_COMPANION(dev));
- 
-@@ -1089,7 +1108,9 @@ static int geni_i2c_probe(struct platform_device *pdev)
- 	}
- 
- 	if (fifo_disable) {
--		/* FIFO is disabled, so we can only use GPI DMA */
-+		/* FIFO is disabled, so we can only use GPI DMA.
-+		 * SE can be shared in GSI mode between subsystems, each SS owns a GPII.
-+		 */
- 		gi2c->gpi_mode = true;
- 		ret = setup_gpi_dma(gi2c);
- 		if (ret)
-@@ -1098,6 +1119,10 @@ static int geni_i2c_probe(struct platform_device *pdev)
- 		dev_dbg(dev, "Using GPI DMA mode for I2C\n");
- 	} else {
- 		gi2c->gpi_mode = false;
-+
-+		if (gi2c->se.multi_owner)
-+			dev_err_probe(dev, -EINVAL, "I2C sharing not supported in non GSI mode\n");
-+
- 		tx_depth = geni_se_get_tx_fifo_depth(&gi2c->se);
- 
- 		/* I2C Master Hub Serial Elements doesn't have the HW_PARAM_0 register */
+ 	power-monitor@47 {
+ 		compatible = "ti,tps25990";
+ 		reg = <0x47>;
 -- 
-2.25.1
+2.53.0
 
