@@ -1,26 +1,87 @@
-Received: from mail-m32104.qiye.163.com (mail-m32104.qiye.163.com [220.197.32.104])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59AC83CCA16;
-	Tue, 31 Mar 2026 07:59:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.104
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC5E3CD8A1
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 08:01:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774943994; cv=none; b=reOyVwqanLBTAQA34NyATnvsrZZSHKTwDOPoy7mHI3uQqCOLnTS9CZhU239ujvOpLGiezdVL8EBIZ1a4WPqhe1ycfbuftawJSW2bCNkoXz9YqiVjrYBpST23EL/dXjWOonH9+cC8cvKaNCmvX+Pw6R4p836ihQdeBsynpcoztLs=
+	t=1774944075; cv=none; b=PIr73tjj0jmZGn16mhkJx2iAUO0wtJtBmWeuhZnaQkGB6Vlg7Aq/N9bnmZZaWvzlfITCEOj/ktDNIo2P6M0a1n88MdVy64xHDe34PHNhu1ZoHXU6zJYgeV+oVx7tHXmHN1aRNXfEsrRpZybj3Y+PAvUSaW/HPWUH8JZdZj6TynU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774943994; c=relaxed/simple;
-	bh=uqfaO+FKyxOyT8cRysw8t5NVwAtt2Q99YAdW08Jxs+U=;
+	s=arc-20240116; t=1774944075; c=relaxed/simple;
+	bh=71D5q3LnwShAxYqxMaE+yJpCvwEkx0ggRNjfGlVCQ3U=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=F5g0Yc6cO421qDykxaN3nOt+4OUMeM6RAhTaWfaPKTjSYbsxICw2b1Dq7nGTKaPSdJImISg/xP8gCOf7s/uvuB3Q8CkiQJEcZ/uyG6C5G5JPF5o3MzF2EOd3Nq7/j1nDDJHbVWQDbmABwNOAbUYDUCn/M5lDfcjTnYOJYb4kr18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=SOssxE5s; arc=none smtp.client-ip=220.197.32.104
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	 In-Reply-To:Content-Type; b=k8FS0KzKDdx1dAvYvRIr60Uz0pxIbL1egVJmNr02LKmdQEuCoC/JKWdMeqcWD+ItqGsgQHBKeO8N3yRBVPvKBwfICklvk0tHjAGM8/Yu4FTNjuHsc+VFMmVVTs+5/jov51ZkTER1MQDRpfe3ur3qzN6fvZT7/7ewtaX9Pdq74YA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Aqi57tLs; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=I6WfrqZu; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="SOssxE5s"
-Received: from [172.16.12.43] (unknown [58.22.7.114])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 38f46a9a4;
-	Tue, 31 Mar 2026 15:24:13 +0800 (GMT+08:00)
-Message-ID: <26af9f46-a831-425f-89b8-c6e66a937b26@rock-chips.com>
-Date: Tue, 31 Mar 2026 15:24:13 +0800
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Aqi57tLs";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="I6WfrqZu"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62V80oV6430936
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 08:01:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	cUFyAnWnalzdlcqrIiIlSnYf2f8KbjaujscQYXFddmA=; b=Aqi57tLsTxJbstn+
+	64s9RVVObvhQo/WuaXBah/DS12xXh1tfRsibD9veQW0xzpAOPA2dH8tsNddW4RKE
+	W0LytxdiWL4EsGocln6OvuDmyib70L6kDtYwEnY2gu4RbtsD5cnLiDrerM8qEwnp
+	iKs/q751XRw0ejfvACCHhQLQRabxdnvqZ9Fz0gw753DJp5tlV5sHpIpfIai+ioaS
+	zKmQEA1itRpIEK+GughVmlxENZ+XmVGlTmdauf0hbMi+w01afJK8ggXvR+HMA3H5
+	T4Vr/nyXfs1dLpf9LW5EdAe+y6iKqy8+FxMn5LB4ioGLDlkpYzSkaqdVGODQGSjT
+	rqUMZg==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d84bfhach-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 08:01:13 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50ba793d06dso4515151cf.1
+        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 01:01:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774944073; x=1775548873; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=cUFyAnWnalzdlcqrIiIlSnYf2f8KbjaujscQYXFddmA=;
+        b=I6WfrqZuSmWatRpWx4EpPTXRaZ/3LX+x7GOK+tT+4Y5G3/TrOqxwZtSJqVu+ZqR3LW
+         Q3BmhC3cfJq6SImRUScUXsOK9nuVZJkpHrsVd2PJTycjVWrc7QJbA9FcTGWFeG2BFVGV
+         FF7v4QSEpTOi/Im5OQz+V/Nj0BtVbOuXfpNaTegzawtoczf4xQlWivOyYJNVmQPI2auP
+         PctjIIR0Eeqfn9KitJN/2XumjlhUCND7hVHyfU+Ub5/WB3saUrx0STViYwrGYETGxjmo
+         ha91dU9UrhpQ/fY5SpvxfCPMmdNw+xus97ptHAifs+GTNXLqLiBmMB8z+0TgWCHxelAI
+         F/Ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774944073; x=1775548873;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=cUFyAnWnalzdlcqrIiIlSnYf2f8KbjaujscQYXFddmA=;
+        b=sfpug1XotzQToNAzcCaS/1yWrLYHvXgtIXPXL2WEBnBiBVbWwPuh6fHbUkzUu0QjUL
+         V7vg0smmThOuXfcKu5uoJVt977AocnJ9VcySXJrUKJaiYGI1MQAWpzPkyI/Mazu7LXlU
+         o6eEoY2EtqAK6wOB3K0BFiZ439FTxlv580FkmuEksSNVDoto12Uc3QtiUMDJLau71GK0
+         WuS2jQpkitbH3mQ+js22R1PbvT6jRuttfPFdXvnDHHuhDozE96hsOERdHo8p4qiSvLWb
+         Jn0G/0HXM2ZSIAYbv3rLtebIkAFl9PCxd9NgSrrPDYNeFvuaFGZs7peqzpOiMon4Q9s5
+         rNCA==
+X-Forwarded-Encrypted: i=1; AJvYcCUFdNdyV3ccjuSbcABYzBLD7vZdQGWptYpODFOComSzaW/YYoqpghjgvC9f0k83stRYRbywJsrnDjQj@vger.kernel.org
+X-Gm-Message-State: AOJu0YxtWUwL33rtwowUpnfNNkyzjaACzPNgfRW6Ckd7tEASAOAa11+w
+	DUMDu8k49AvDKqlVQKKwvNEnUYcjZfHXMk3Nb9YqsSsHjplj8NghwZZQoIyuYDFvX+VIe36NtFQ
+	xryfl2rWbphzI2cE4+Kw1bV54+mQlpMyEb6OhBRUmR6idpUz9F8rw4cQaETXbcgRe
+X-Gm-Gg: ATEYQzx7uLhCIH4LaziHn0482y5e1syL28yn8F0MOR26m+N4hiFCVLbQsQ0qLu6MUiu
+	/YVXM0jcMvRjNfIK6EKGsA3fXbQdcO3T2P651z55MAS0/JnUVe+oXLX16jZ3rSZoWWbCKIJl+76
+	pKWvgCr6oimta5LorJoESPmhCKyd0o+qfUWeqmvAhGDgqPv2INjbadIFy15BKGbt2Ua+fM9ugSb
+	/QZxdGl2v1a/cHVEvgCVmKwkNw+SLN/g/tQj/nkcjAZvl+Zu3xVwQHxHTxTtJuAU7Hwmo2CM4Ht
+	VVRytpJPeWGR8wa21GmRSyNdoS7iw7dQqlXzlLdMAxY2zjV/s0BlFAC8nVsdbt0T+YSxvL7EjzE
+	Pl+PAqsHnMMTg2UlncgnCcNqW7jJSs162fO0lu2NvDG53ltRP6lXedZMw/gsRWREpdJQEKI/9rL
+	QdDDg=
+X-Received: by 2002:a05:6214:250b:b0:8a2:18b4:79cc with SMTP id 6a1803df08f44-8a218b48708mr50473796d6.8.1774944073088;
+        Tue, 31 Mar 2026 01:01:13 -0700 (PDT)
+X-Received: by 2002:a05:6214:250b:b0:8a2:18b4:79cc with SMTP id 6a1803df08f44-8a218b48708mr50473316d6.8.1774944072693;
+        Tue, 31 Mar 2026 01:01:12 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9b7ae23f18sm372898566b.1.2026.03.31.01.01.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 31 Mar 2026 01:01:11 -0700 (PDT)
+Message-ID: <aca0c679-654a-4c39-8ff9-197e820653af@oss.qualcomm.com>
+Date: Tue, 31 Mar 2026 10:01:09 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -28,185 +89,60 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 07/10] drm/bridge: dw-hdmi: move next_bridge lookup to
- attach time
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>,
- Stefan Agner <stefan@agner.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Liu Ying <victor.liu@nxp.com>, Rob Herring <robh@kernel.org>,
- Saravana Kannan <saravanak@kernel.org>
-Cc: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
- =?UTF-8?Q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>,
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Adam Ford <aford173@gmail.com>,
- Alexander Stein <alexander.stein@ew.tq-group.com>,
- Christopher Obbard <christopher.obbard@linaro.org>,
- Daniel Scally <dan.scally@ideasonboard.com>,
- Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
- Fabio Estevam <festevam@denx.de>,
- Francesco Dolcini <francesco.dolcini@toradex.com>,
- Frieder Schrempf <frieder.schrempf@kontron.de>,
- Gilles Talis <gilles.talis@gmail.com>,
- =?UTF-8?B?R29yYW4gUmHEkWVub3ZpxIc=?= <goran.radni@gmail.com>,
- Heiko Schocher <hs@denx.de>, Josua Mayer <josua@solid-run.com>,
- Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Marco Felsch <m.felsch@pengutronix.de>,
- Martyn Welch <martyn.welch@collabora.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>,
- Richard Hu <richard.hu@technexion.com>, Shengjiu Wang
- <shengjiu.wang@nxp.com>,
- Stefan Eichenberger <stefan.eichenberger@toradex.com>,
- Vitor Soares <vitor.soares@toradex.com>
-References: <20260330-drm-lcdif-dbanc-v2-0-c7f2af536a24@bootlin.com>
- <20260330-drm-lcdif-dbanc-v2-7-c7f2af536a24@bootlin.com>
+Subject: Re: [PATCH 7/7] clk: qcom: Add support for global clock controller on
+ Hawi
+To: Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Taniya Das <quic_tdas@quicinc.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Mike Tipton <mike.tipton@oss.qualcomm.com>
+References: <20260330-clk-hawi-v1-0-c2a663e1d35b@oss.qualcomm.com>
+ <20260330-clk-hawi-v1-7-c2a663e1d35b@oss.qualcomm.com>
 Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <20260330-drm-lcdif-dbanc-v2-7-c7f2af536a24@bootlin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260330-clk-hawi-v1-7-c2a663e1d35b@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9d42c7556e03a3kunmef6e2820a6aebe
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFDSUNOT01LS0k3V1ktWUFJV1kPCRoVCBIfWUFZGUJKH1ZOGhlOQkxDTR9MQkxWFRQJFh
-	oXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0tIVUpLSUJNS0
-	pVSktLVUtZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=SOssxE5suj5ZNsuWbIy+7Xf44htCzfzHoDzFo/VhGeZ+2K2xJGxUp8Qe/bk2B8eeiRFXXBBjPNj8WGF+reXTb9bNrmGb5iZazSq4V85svyX1U9z5f0KkZDL5q3Kxd/kAD5cnNbus1AYR/PEaEH/yFB5mvdB3LEdTvO34OpXgMcc=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=maTtoLZ6eXqdqKa68USyYKNJj/9x0MED6DQWvxrTcj8=;
-	h=date:mime-version:subject:message-id:from;
+X-Authority-Analysis: v=2.4 cv=INwPywvG c=1 sm=1 tr=0 ts=69cb7f49 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=rjm_ucXa43sWr1tRvOIA:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMxMDA3NSBTYWx0ZWRfX3v4DkMsS1cDF
+ C1D6lS5uQLMc8GFAXM9D3yENgJ+ECjGj7P0ewD8XTR3+4c4+gMbeCmTjcinSd/13CGdAj9UamI6
+ zsq/JYtvDw0ImxT/rfe9nuRsdkW0b60DvWrY4ZrInYX4CJYsUwNyMH0N0SAvIMrmieHW3j6gJqm
+ vcAVdu/oxTOBZetcQu01dhpq7qGGujMSNEEK03P0s9i4StuL6aNdj4DtnWShXxgoVwifXDh4KQR
+ JPDhADG2Kk1qqvgtPLrivuFq1ncAG07SDiuJOsYF8rvBk0joCTOzsraK8d92RKHTm9Nlmk3c5dp
+ kJmkFa09POdY+Cxlv9kh8T/TYWgzimhHwpHa/ixeB7mXkOqM2uzLDio3i9zJxv4WulDNkJZ5JRl
+ PrDnwNHcf7kU4EtQ518fNw7dbbqM22LdLcaFPv1CsRK3q040MZEmSsIFJj/Ba3QAuvzhmV0d3IF
+ YWo8qkJQZYC7LNxdnpQ==
+X-Proofpoint-GUID: 2stWYtVrbXH7DdCuYpVVKXjkaQKy8Yel
+X-Proofpoint-ORIG-GUID: 2stWYtVrbXH7DdCuYpVVKXjkaQKy8Yel
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-31_02,2026-03-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 clxscore=1015 malwarescore=0
+ impostorscore=0 adultscore=0 phishscore=0 priorityscore=1501 spamscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2603310075
 
-On 3/31/2026 3:25 AM, Luca Ceresoli wrote:
-> This driver looks up the next_bridge at probe time and stores it in
-> hdmi->bridge.next_bridge, but only uses the stored value when attaching,
-> and only in the DRM_BRIDGE_ATTACH_NO_CONNECTOR case.
+On 3/31/26 2:35 AM, Vivek Aknurwar wrote:
+> Add support for the global clock controller (GCC) on the Hawi SoC.
 > 
-> This will be problematic with an upcoming change, adding an hdmi-connector
-> using a device tree overlay when not present. That change is in turn
-> necessary to migrate the i.MX LCDIF driver to the bridge-connector.
-> 
-> The problem is that, adding the hdmi-connector via an overlay, devlink
-> considers hdmi-connector a consumer of the dw-hdmi device, generating a
-> chicken-egg problem:
-> 
->   * hdmi-connector probe won't be tried until dw-hdmi is probed (devlink)
->   * dw-hdmi probe will defer until it finds the next_bridge (the
->     hdmi-connector wrapper bridge)
-> 
-> In preparation for those changes, move the next_bridge lookup from probe to
-> attach, when it is actually used. This allows dw-hdmi to probe, so that the
-> hdmi-connector can probe as well.
-> 
-> Also avoid storing the pointer in hdmi->bridge.next_bridge: the value is
-> computed when needed, thus a local variable is enough.
-> 
-> Finally, this also allows to slightly improve the code by not doing any DT
-> lookup in the !DRM_BRIDGE_ATTACH_NO_CONNECTOR case.
-> 
-> Tested-by: Martyn Welch <martyn.welch@collabora.com>
-> Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com> # TQMa8MPxL/MBa8MPxL
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> 
+> Signed-off-by: Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>
 > ---
-> 
-> Changes in v2:
-> - Fix returned error codes
-> - Added missing cleanup.h include
-> ---
->   drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 45 +++++++++++--------------------
->   1 file changed, 16 insertions(+), 29 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-> index ab1a6a8783cd..f4a1ebb79716 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-> @@ -6,6 +6,8 @@
->    * Copyright (C) 2011-2013 Freescale Semiconductor, Inc.
->    * Copyright (C) 2010, Guennadi Liakhovetski <g.liakhovetski@gmx.de>
->    */
-> +
-> +#include <linux/cleanup.h>
->   #include <linux/clk.h>
->   #include <linux/delay.h>
->   #include <linux/err.h>
-> @@ -2914,9 +2916,20 @@ static int dw_hdmi_bridge_attach(struct drm_bridge *bridge,
->   	if (WARN_ON((flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) && !hdmi->plat_data->output_port))
->   		return -EINVAL;
->   
-> -	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)
-> -		return drm_bridge_attach(encoder, hdmi->bridge.next_bridge,
-> -					 bridge, flags);
-> +	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) {
-> +		struct device_node *remote __free(device_node) =
-> +			of_graph_get_remote_node(hdmi->dev->of_node,
-> +						 hdmi->plat_data->output_port, -1);
-> +		if (!remote)
-> +			return -ENODEV;
-> +
-> +		struct drm_bridge *next_bridge __free(drm_bridge_put) =
-> +			of_drm_find_and_get_bridge(remote);
-> +		if (!next_bridge)
-> +			return -EPROBE_DEFER;
-> +
-> +		return drm_bridge_attach(encoder, next_bridge, bridge, flags);
-> +	}
->   
->   	return dw_hdmi_connector_create(hdmi);
->   }
-> @@ -3307,28 +3320,6 @@ static void dw_hdmi_init_hw(struct dw_hdmi *hdmi)
->    * Probe/remove API, used from platforms based on the DRM bridge API.
->    */
->   
-> -static int dw_hdmi_parse_dt(struct dw_hdmi *hdmi)
-> -{
-> -	struct device_node *remote;
-> -
-> -	if (!hdmi->plat_data->output_port)
-> -		return 0;
-> -
-> -
-> -	remote = of_graph_get_remote_node(hdmi->dev->of_node,
-> -					  hdmi->plat_data->output_port,
-> -					  -1);
-> -	if (!remote)
-> -		return -ENODEV;
-> -
-> -	hdmi->bridge.next_bridge = of_drm_find_and_get_bridge(remote);
-> -	of_node_put(remote);
-> -	if (!hdmi->bridge.next_bridge)
-> -		return -EPROBE_DEFER;
-> -
-> -	return 0;
-> -}
-> -
->   bool dw_hdmi_bus_fmt_is_420(struct dw_hdmi *hdmi)
->   {
->   	return hdmi_bus_fmt_is_yuv420(hdmi->hdmi_data.enc_out_bus_format);
-> @@ -3373,10 +3364,6 @@ struct dw_hdmi *dw_hdmi_probe(struct platform_device *pdev,
->   	mutex_init(&hdmi->cec_notifier_mutex);
->   	spin_lock_init(&hdmi->audio_lock);
->   
-> -	ret = dw_hdmi_parse_dt(hdmi);
-> -	if (ret < 0)
-> -		return ERR_PTR(ret);
-> -
->   	ddc_node = of_parse_phandle(np, "ddc-i2c-bus", 0);
->   	if (ddc_node) {
->   		hdmi->ddc = of_get_i2c_adapter_by_node(ddc_node);
-> 
 
-Tested-by: Damon Ding <damon.ding@rock-chips.com> (on rk3399)
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Best regards,
-Damon
-
+Konrad
