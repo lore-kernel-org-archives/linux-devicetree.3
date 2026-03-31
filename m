@@ -1,54 +1,43 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E55BF3C3BF6
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 07:33:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 012123BE16E;
+	Tue, 31 Mar 2026 07:36:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774942430; cv=none; b=W7E9fQk1DJLOrC2EoXymvcHb6ieCHi8OrFautNxrPtNHGkM2oj+iSkVaRNM3dprBCP8hb5FU5gb9yXcszAorYVZBCedeW1Ps8oF4BB/29Z5G68cY4NonzBp2Z4oaIA5/jv5AJgwvSN516DxtSj06kgD/Ced5YOusa7tyI6L7lK8=
+	t=1774942564; cv=none; b=AvzUFfpDoCbhg4EGUfZW0El/6ifzDoioHfo7EWPr8EVwm89ZHMzev2um5Ja6s2YOGJEcZUuJBVz/0ZTIrhAhU4f202egCMQCIzQf1YbAYq/L6lKskyniwVXvUacc8662DH6kA1isgUAUU1wYNNvxGfL70Lu7xcnxhAOOVEVDtUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774942430; c=relaxed/simple;
-	bh=xGO9cJCF9yFsZpN1UnzEF0N+yYGVMT7/dqkAnyOaLBU=;
+	s=arc-20240116; t=1774942564; c=relaxed/simple;
+	bh=6k307i8VwvH6rWKWKxaJdayRee/mTSIw9CfTlwbA7DA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=spiJEplJljEFpzCzY+hPxIGCERwZymUZtjMs1+rg/C3roWdYa6BpuHBkm5Bk9HFeWnR1CKd8diXF68B/r0jIF6KNbpfwCz+hogqSaG01RuwaUMU/u92/xkeVxLt6xtyvWVTGlVFlK+Yn+jeDi2LLzU3+nndUkkusVNRvFRCNfE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=aeXZS/6C; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=dtdEGDPgD+xQ179kjTTs0jpQ0jGsDieuVF6cOUIHSEY5x6b3ISe2lw5vgwB77AoM5a7zZBkAR7+VRTeOV5/X1fjr/1PaFH443KeJUQj3p7Fl8K5deYgzfN+FwethYSd/zl1VnHqvfevtRm0NstpD/piGUugELRzIu41FUJanc6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yi+c8SJx; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="aeXZS/6C"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=xGO9
-	cJCF9yFsZpN1UnzEF0N+yYGVMT7/dqkAnyOaLBU=; b=aeXZS/6CH178XYZzMgey
-	PLzGDK9/+CyaCEkuHsYPbtXzjxoJR/GssWtw9wIowt2mIkNHsSQOGWPrW31nGHt7
-	1N/oMDlXPCR2p5CLhUDuaS+XXBo3Yc6DRqD4wZ/orhIJ1gO5yHryC4IOEWhKM8gf
-	9FQ726vkoC+AXGZcC9vmxfKVA8OFaz6oXKzaf+bujgDjD7IVWD6Svtbxz1NWO8IC
-	w96ygeJTbRAQNrFFjoqkt2OuDdpcXo9UZeCjLoIOIBSsWg7bszz7JPq+3ipBETDW
-	r/Xg2D/xZiEfRagGPpcdYTpoHg/GCgB2R4JvovJ0VY2UsWJDuJ0dp77jxmTHrmfV
-	RA==
-Received: (qmail 1587397 invoked from network); 31 Mar 2026 09:33:41 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 31 Mar 2026 09:33:41 +0200
-X-UD-Smtp-Session: l3s3148p1@RsKG/ExO0Jcujnu8
-Date: Tue, 31 Mar 2026 09:33:41 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Jassi Brar <jassisinghbrar@gmail.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: soc: renesas: add MFIS binding
- documentation
-Message-ID: <act41fVsL1F17bHa@shikoro>
-References: <20260317130638.2804-1-wsa+renesas@sang-engineering.com>
- <20260317130638.2804-2-wsa+renesas@sang-engineering.com>
- <20260318-camouflaged-umber-oxpecker-b2b29e@quoll>
- <CAMuHMdX=DRnFWG1ky8wT7mK=LHeJ6LduL28nYd19QpASrn6mew@mail.gmail.com>
- <c46357c9-8cf4-45ec-8b48-8cf979de2e98@kernel.org>
- <actzUSIKKzcDmBCT@shikoro>
- <28396df7-bb9f-4a6a-963c-0b56c66fb3cd@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yi+c8SJx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0115FC19423;
+	Tue, 31 Mar 2026 07:36:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774942563;
+	bh=6k307i8VwvH6rWKWKxaJdayRee/mTSIw9CfTlwbA7DA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Yi+c8SJxLD6zktj4xmcJnTeBTrS5Z3m6a2peMCn+4MPnOnLw12SHVRvJGaBZHItzv
+	 aBXL841caAnJDe94vvGKySmTaWpsbFwyVY396ytCJVJ9MegI1c8olv4PcFHH8M0vEB
+	 MviKDAMo4RqrulRuUG8lPUnEuJiPli51E5UeIH5X6tP6Og7y9UOOdlkZVP5i5iIedE
+	 MrbxCbeSvq7RCANmHDp0Ojpo/Qj8S5n06edP6QaVB2RXfmzxaoJj3fd4Dgt9Aka0KM
+	 ULpLTRRD7WazSGRBcoZpGIHOjg6s+fnfwMQv9qQaYmjjTaFYE007K6kjTlwhEMrb0a
+	 xETFvf+7uOTvg==
+Date: Tue, 31 Mar 2026 09:36:00 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>, 
+	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-pwm@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, Yi-Wei Wang <yiweiw@nvidia.com>
+Subject: Re: [PATCH v4 6/7] pwm: tegra: Add support for Tegra264
+Message-ID: <act4lQhiy2x3Qzx9@orome>
+References: <20260331-t264-pwm-v4-0-c041659677cf@nvidia.com>
+ <20260331-t264-pwm-v4-6-c041659677cf@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -56,62 +45,187 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qw9sYZXXv/5ffU+l"
+	protocol="application/pgp-signature"; boundary="dpacxmcdjmza7u6p"
 Content-Disposition: inline
-In-Reply-To: <28396df7-bb9f-4a6a-963c-0b56c66fb3cd@kernel.org>
+In-Reply-To: <20260331-t264-pwm-v4-6-c041659677cf@nvidia.com>
 
 
---qw9sYZXXv/5ffU+l
-Content-Type: text/plain; charset=us-ascii
+--dpacxmcdjmza7u6p
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v4 6/7] pwm: tegra: Add support for Tegra264
+MIME-Version: 1.0
 
-
-> And look when my question was asked:
-> 19th of Match:
-> "I did not get the driver so I cannot verify that. What sort of Linux
-> ABI does this bind?"
+On Tue, Mar 31, 2026 at 11:12:18AM +0900, Mikko Perttunen wrote:
+> Tegra264 changes the register layout to accommodate wider fields
+> for duty and scale, and adds configurable depth which will be
+> supported in a later patch.
 >=20
-> You ignore it and on 23rd of Match you send v2.
+> Add SoC data and update top comment to describe register layout
+> in more detail.
+>=20
+> Co-developed-by: Yi-Wei Wang <yiweiw@nvidia.com>
+> Signed-off-by: Yi-Wei Wang <yiweiw@nvidia.com>
+> Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
+> ---
+>  drivers/pwm/pwm-tegra.c | 75 ++++++++++++++++++++++++++++++++++++++++---=
+------
+>  1 file changed, 61 insertions(+), 14 deletions(-)
+>=20
+> diff --git a/drivers/pwm/pwm-tegra.c b/drivers/pwm/pwm-tegra.c
+> index d7968521fbfd..c9d30724e339 100644
+> --- a/drivers/pwm/pwm-tegra.c
+> +++ b/drivers/pwm/pwm-tegra.c
+> @@ -7,22 +7,60 @@
+>   * Copyright (c) 2010-2020, NVIDIA Corporation.
+>   * Based on arch/arm/plat-mxc/pwm.c by Sascha Hauer <s.hauer@pengutronix=
+=2Ede>
+>   *
+> - * Overview of Tegra Pulse Width Modulator Register:
+> - * 1. 13-bit: Frequency division (SCALE)
+> - * 2. 8-bit : Pulse division (DUTY)
+> - * 3. 1-bit : Enable bit
+> + * Overview of Tegra Pulse Width Modulator Register
+> + * CSR_0 of Tegra20, Tegra186, and Tegra194:
+> + * +-------+-------+----------------------------------------------------=
+-------+
+> + * | Bit   | Field | Description                                        =
+       |
+> + * +-------+-------+----------------------------------------------------=
+-------+
+> + * | 31    | ENB   | Enable Pulse width modulator.                      =
+       |
+> + * |       |       | 0 =3D DISABLE, 1 =3D ENABLE.                       =
+           |
+> + * +-------+-------+----------------------------------------------------=
+-------+
+> + * | 30:16 | PWM_0 | Pulse width that needs to be programmed.           =
+       |
+> + * |       |       | 0 =3D Always low.                                  =
+         |
+> + * |       |       | 1 =3D 1 / 256 pulse high.                          =
+         |
+> + * |       |       | 2 =3D 2 / 256 pulse high.                          =
+         |
+> + * |       |       | N =3D N / 256 pulse high.                          =
+         |
+> + * |       |       | Only 8 bits are usable [23:16].                    =
+       |
+> + * |       |       | Bit[24] can be programmed to 1 to achieve 100% duty=
+       |
+> + * |       |       | cycle. In this case the other bits [23:16] are set =
+to     |
+> + * |       |       | don=E2=80=99t care.                                =
+               |
+> + * +-------+-------+----------------------------------------------------=
+-------+
+> + * | 12:0  | PFM_0 | Frequency divider that needs to be programmed, also=
+ known |
+> + * |       |       | as SCALE. Division by (1 + PFM_0).                 =
+       |
+> + * +-------+-------+----------------------------------------------------=
+-------+
+>   *
+> - * The PWM clock frequency is divided by 256 before subdividing it based
+> - * on the programmable frequency division value to generate the required
+> - * frequency for PWM output. The maximum output frequency that can be
+> - * achieved is (max rate of source clock) / 256.
+> - * e.g. if source clock rate is 408 MHz, maximum output frequency can be:
+> - * 408 MHz/256 =3D 1.6 MHz.
+> - * This 1.6 MHz frequency can further be divided using SCALE value in PW=
+M.
+> + * CSR_0 of Tegra264:
+> + * +-------+-------+----------------------------------------------------=
+-------+
+> + * | Bit   | Field | Description                                        =
+       |
+> + * +-------+-------+----------------------------------------------------=
+-------+
+> + * | 31:16 | PWM_0 | Pulse width that needs to be programmed.           =
+       |
+> + * |       |       | 0 =3D Always low.                                  =
+         |
+> + * |       |       | 1 =3D 1 / (1 + CSR_1.DEPTH) pulse high.            =
+         |
+> + * |       |       | 2 =3D 2 / (1 + CSR_1.DEPTH) pulse high.            =
+         |
+> + * |       |       | N =3D N / (1 + CSR_1.DEPTH) pulse high.            =
+         |
+> + * +-------+-------+----------------------------------------------------=
+-------+
+> + * | 15:0  | PFM_0 | Frequency divider that needs to be programmed, also=
+ known |
+> + * |       |       | as SCALE. Division by (1 + PFM_0).                 =
+       |
+> + * +-------+-------+----------------------------------------------------=
+-------+
+> + *
+> + * CSR_1 of Tegra264:
+> + * +-------+-------+----------------------------------------------------=
+-------+
+> + * | Bit   | Field | Description                                        =
+       |
+> + * +-------+-------+----------------------------------------------------=
+-------+
+> + * | 31    | ENB   | Enable Pulse width modulator.                      =
+       |
+> + * |       |       | 0 =3D DISABLE, 1 =3D ENABLE.                       =
+           |
+> + * +-------+-------+----------------------------------------------------=
+-------+
+> + * | 30:15 | DEPTH | Depth for pulse width modulator. This controls the =
+pulse  |
+> + * |       |       | time generated. Division by (1 + CSR_1.DEPTH).     =
+       |
+> + * +-------+-------+----------------------------------------------------=
+-------+
+>   *
+> - * PWM pulse width: 8 bits are usable [23:16] for varying pulse width.
+> - * To achieve 100% duty cycle, program Bit [24] of this register to
+> - * 1=E2=80=99b1. In which case the other bits [23:16] are set to don't c=
+are.
+> + * The PWM clock frequency is divided by DEPTH =3D (1 + CSR_1.DEPTH) bef=
+ore subdividing it
+> + * based on the programmable frequency division value to generate the re=
+quired frequency
+> + * for PWM output. DEPTH is fixed to 256 before Tegra264. The maximum ou=
+tput frequency
+> + * that can be achieved is (max rate of source clock) / DEPTH.
+> + * e.g. if source clock rate is 408 MHz, and DEPTH =3D 256, maximum outp=
+ut frequency can be:
+> + * 408 MHz / 256 ~=3D 1.6 MHz.
+> + * This 1.6 MHz frequency can further be divided using SCALE value in PW=
+M.
 
-The opposite is true. I saw it as a short-coming of v1 that you didn't
-get the driver to properly review it. So, like many other short-comings
-of v1, I addressed it in v2. I explicitly paid attention to send the
-driver in v2 to you and explain more of my reasoning to continue the
-discussion then on a better ground. This is exactly *not ignoring*!
+This paragraph exceeds the 80 character limit. Technically checkpatch
+now has a limit of 100 characters, so it probably doesn't warn about
+this, but I've seen some people say that we should still stay within
+the 80 character limit if easily doable (which would be the case here).
 
-> And now you reply that "you got driver as well in v2". Seriously? How
-> can I move from 19th Match into the future of 23rd to get the email from
-> the future? And some answers from the future?
+I don't care much either way, so it's ultimately up to Uwe. Other than
+that looks good:
 
-You can't. But why can't we move the discussion to v2 instead? There is
-more context. This seems like absolutely normal development to me.
+Reviewed-by: Thierry Reding <treding@nvidia.com>
 
-> Respond to review instead of ignoring it and sending v2.
-
-Again, it was not ignoring. I even explained in v2 why I kept some
-choices as in v1. Might still be wrong, could be. But I tried to address
-the comments as best as I could.
-
-
---qw9sYZXXv/5ffU+l
+--dpacxmcdjmza7u6p
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmnLeNUACgkQFA3kzBSg
-KbaZFBAAhEP1X9PgPI+kS+jBDbO8qwkVYf6ffuXOQ8w1kcrpfkr5XKN40g2Jg/jq
-WdGl2adoex217URbXXvTj+DWU7KBS8BLK0SKdvFeiNlgRHcitgwvz6HpALz9XiLn
-s8sCYxVUG1YugbF2kgEDhqKtOdLA6HTqnWrOLiCx46SA/ybkY1KEPehO9c6kSLxx
-LarfQwIjxL4e80EK8+OfEKIFY5xLZ+BGGmwOQFqQc1idaEAbfEKiKsOfLKJfrfEk
-rRhmmAPK2d0sojqO9/nfI60HTFHN6KuXxh0eQqnoedkxeNcIM6+sYYOtOHAzQQ80
-7mfqMkv/N4lKvy6RNyG7l+EnvOeC86UG1vZqX2gbDYgJnnqlyidY1EEgaGbPb7ni
-s8TBDjKjILTtnrohMkv75RgTbrGaUqfjALaz/jQ/qaEhZvRN9OToRKib6PNyAONC
-jWIwrmYKYWj/9jYkh2adsklVbEZC4tifl5svrjsRRl+v2oydJ5k19Q8AXqNpcBNG
-HTq8FjUaMJIWwnVLMlVel7R/64/DDvp1TQDBOJJFVvDJ4uwUA9ueyXXLdwaH5d7i
-RDq4W7Cqlazeej5HwMZ0CfXHCHV18kbfl0538kX0vykrRVf62UqMzkTousO3z3n6
-4Qbo+LNtuyOfmU5f5zpin2tTj29gPg81fD5LIj/6NLWRwX11rTU=
-=H6YP
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmnLeWAACgkQ3SOs138+
+s6GjJA/+M+9NdXIvktftT2CnoEXnIyK76tg2SbfWn5drbr95ifHnxvyVHEc88TR/
+fdfyDRkKLJQaE2hobLa4D5mzW2btjeeuK669JMfe4U/26zus/3LIptRZeBEyGGi0
+3tWv2Uk1a8Z8bBYPb1GKfdanEU8L1e/jyJtfbl6ytljbB5eneZjy4MnFVz/+cl5y
+jvoUZwsmR0oILI/5XUrnaxXYZ2nvIzuyaNRNKG9BYN7ucHoWUdZeSORrc7ZIbPjr
+5+diPFxoArSt5SazK504t5ZdPZ1oZDiMYvVFUATjcnbvsTLEbxQ9gVavR14hM62O
+cHoiDp49+r5UO27XT7yWuS/W/FIv1mOUkaTGBEXKAnNqd/WEJFwmWWAocOJBr/15
+XZeTYeDNOIrGa2/7CRF63L/XIvfG4s6yVVunTQnsvqPliA49Y+H5FT3eDJYoE/Oy
+/fyJdpdm6f8V44cITwyP0b73UCNbT9E41e+h80sFDIjdjeuLYNgSB4P1OnvVvnZ6
++YPJp5AUT0BZr5CapFOd+Njp+7DTSUGxqaN/R7eqV1jMBMIqhenjglufYemRidw1
+QgOI9neDK0SydRKoncEH9TozZTdJkGWUfNwM7DC4LOor00MJ2eAl46ma+zcCc4dC
+1zS/M8+TQaKt0jQu2aeC/lPjWzpr/t30PySe+HkJpTizSbYgxX8=
+=t8bQ
 -----END PGP SIGNATURE-----
 
---qw9sYZXXv/5ffU+l--
+--dpacxmcdjmza7u6p--
