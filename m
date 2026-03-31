@@ -1,89 +1,130 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80C584779BF;
-	Wed,  1 Apr 2026 16:56:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 403D6472777;
+	Wed,  1 Apr 2026 17:19:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775062589; cv=none; b=a5bMbrTwpywRnmEG5XQ58J/J4+WmGJOOs0i6RvPVacPiKnSmF64mV4CK1OWGfJoKabhBfuJ7afFDDSDxiAezI/FkpeC17HES+TXDa2ClggYAIanvvbcPnJfFNDw1renHmoqq4mjTd2bFcuNl6I6HObvR32BYah/gHgbC53AJmck=
+	t=1775063959; cv=none; b=ZncrQ4yhLIjgCZa20qcEWdlSTzJpBvWgNAv7vXcp0Jj1YFwoZcZ/Q3Maw4FHSHvfkYYrjiJsz8kH/yE8E+/cB/EFxVbQOoAnyw1RzD/v8Hs3EE43lyIY3XSZ5855Q5SbzpjYgaeYYUi7Iiswr7P3JNVcuUJ7Zgy7EvZ7y9wfeK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775062589; c=relaxed/simple;
-	bh=JtuP7vPnFffiZdmEnggWNONBs26JwGvGwJ7IAIpurQs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hajwmL3DPhHoX5TZA3yQFSUk2uh8AwmTbxw8+WH8cG029dnueVj9TIPxrPzGgf4qb7QRdz7VTPELlAm+b3HMXfnm7IVl8Up3mtmWSVqBjRN8oQBrNw6EXy4lVj5aVs8Hw+AaWT6N8RJbaP7gbbaWaVTjzUUfTwX3v/FunFxupZs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jEOFVcEm; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775063959; c=relaxed/simple;
+	bh=0t1qiOT2TkAHTnIXYBg0hCbmcpZmO03o+RmNg0lRSM4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=RDFVGtj9x65BexKxXnmsWv33Pn3VqTC5zrQ7omDbNBBE60jrjkvH+ryxrl8uryZimL+NmblIO1ocjtVn+2ppheVsnXwbLQot8psfLF9l8sPEvg81XYsFZYZ1UKmorwuXJ0OpvFkjPNIPbE78fCevVGHv40zsuLSqyIyXOa7JU1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kn6aGhbV; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jEOFVcEm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00A54C4CEF7;
-	Wed,  1 Apr 2026 16:56:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kn6aGhbV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE168C4CEF7;
+	Wed,  1 Apr 2026 17:19:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775062589;
-	bh=JtuP7vPnFffiZdmEnggWNONBs26JwGvGwJ7IAIpurQs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=jEOFVcEmkejqemYu9gD1QVBBnGGdJ6a5183yyH7vg94RAvsTzp/3hIIZlQctGkcs7
-	 MHQssxvOFXFUGX6IAa79WgQBtLqlItM2F0SBu054JQuNmuAQNxNth8RC1KFpwDVUCj
-	 nvbK52HUEAV57Xw45y+qqwCuRfmYrJiNMUo/pvrqFGDDC6Gok5uSw62IL4XO9oFsAI
-	 4nYfR39/sqtCO5MbVCBGluuFSyBiw3KH03tFpAHivrWtF+TUUEk8KZT6euRf4F5Knz
-	 35U0yhUEGLClRV9IiuEbZdM++sdU5KGGhYam2zSlU1KaDF7Fif6TvL0E3gXOm7wuX/
-	 Wn6tV6B7hUM7Q==
-Date: Wed, 1 Apr 2026 17:56:23 +0100
+	s=k20201202; t=1775063959;
+	bh=0t1qiOT2TkAHTnIXYBg0hCbmcpZmO03o+RmNg0lRSM4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=Kn6aGhbVpkCvOBVAh+SBNp2CXHHvrdBvyGduFCUxQDiR7qJe8WqoQaVr7DqqvqgS8
+	 WAcunvO+lt/tUvspqhbvEW0XNNsLGEsNSoa9fg0A2oirbdRvQH+hqXfQDK3KXLTK9E
+	 Iv9/NfeUtRxn/RgGuz+QYM3AHCFdnaFlvveEDVB8atfAPpvi+yLcoY346n+6m/oLA6
+	 0/6PCbpX7tnLEKriTVpTjM4SBfK8Zg2hikUMd1QlUvjSgxk2B6AKdMgtANqxosKIM/
+	 PeGTIuN8VVVItBNdBlx9EitcCVzrNTf+BWwEHfhXrSKABfZwNbYSaP60QdPureyXot
+	 mNcbswJ7x5TAw==
 From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	mohammad.rafi.shaik@oss.qualcomm.com, linux-sound@vger.kernel.org,
-	lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
-	johan@kernel.org, dmitry.baryshkov@oss.qualcomm.com,
-	konrad.dybcio@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	srini@kernel.org, val@packett.cool, mailingradian@gmail.com
-Subject: Re: [PATCH v8 08/13] ASoC: qcom: q6dsp: Add Senary MI2S audio
- interface support
-Message-ID: <f226a03d-f2d2-4a85-9a63-5ac93b665740@sirena.org.uk>
+To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: mohammad.rafi.shaik@oss.qualcomm.com, linux-sound@vger.kernel.org, 
+ lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, johan@kernel.org, 
+ dmitry.baryshkov@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, srini@kernel.org, val@packett.cool, 
+ mailingradian@gmail.com
+In-Reply-To: <20260330082105.278055-1-srinivas.kandagatla@oss.qualcomm.com>
 References: <20260330082105.278055-1-srinivas.kandagatla@oss.qualcomm.com>
- <20260330082105.278055-9-srinivas.kandagatla@oss.qualcomm.com>
- <38eb807e-8467-4d7b-9094-3007d0ba9c89@sirena.org.uk>
- <6be87f21-1da0-412a-8662-ef05ca32f3c4@oss.qualcomm.com>
+Subject: Re: [PATCH v8 00/13] ASoC: qcom: q6dsp: few fixes and enhancements
+Message-Id: <177498454736.825035.17158629527064214797.b4-ty@b4>
+Date: Tue, 31 Mar 2026 20:15:47 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xUit4U/rWLaTNSx6"
-Content-Disposition: inline
-In-Reply-To: <6be87f21-1da0-412a-8662-ef05ca32f3c4@oss.qualcomm.com>
-X-Cookie: "Yo baby yo baby yo."
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev-7777e
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3225; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=0t1qiOT2TkAHTnIXYBg0hCbmcpZmO03o+RmNg0lRSM4=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBpzVOSIVdmH+wSNvp/okTncJiMCIH2sFZN1OGMI
+ oQu9duWOdiJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCac1TkgAKCRAk1otyXVSH
+ 0CuxCACC9KKzA/fAdPwwiJumNjSTCJm8Oyl6YqXD/dZgVMqclE+DBVH8Vf05YtOXTD0b8Pjnfnx
+ b01IWU3HhvUFGxnwkdP2nWiaTqsjSsfBEV8wSJ4P5gGNs7QN8WrEtQ0UlDlvUh9dNWYHEz85mJm
+ YfpgaOawIy38h3vrNUWDUW769SSSWRw/hVipmfsXeq1cjZ6H58HJaafeUEfIC8P7L2mHGNNlMXB
+ +pnNokNut4jcVy4ud76KTI4slp1xCwcOHQAp14ZTXOTnJd8Ope/pkJakmHXNZuruE4R7I5NveB9
+ keORpL0mZWOOvApxHyoHttDbwa38FYAx6IugNIEL+ijc3t+w
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
+On Mon, 30 Mar 2026 08:20:52 +0000, Srinivas Kandagatla wrote:
+> ASoC: qcom: q6dsp: few fixes and enhancements
+> 
+> This patchset contains few fixes for the bugs hit during testing with
+> Monza EVK platform
+> - around array out of bounds access on dai ids which keep extending but
+>   the drivers seems to have hardcoded some numbers, fix this and clean
+> the mess up
+> - fix few issues discovered while trying to shut down dsp.
+> - flooding rpmsg with write requests due to not resetting queue pointer,
+>   fix this resetting the pointer in trigger stop.
+> - possible multiple graph opens which can result in open failures.
+> 
+> [...]
 
---xUit4U/rWLaTNSx6
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Wed, Apr 01, 2026 at 04:54:00PM +0000, Srinivas Kandagatla wrote:
-> On 4/1/26 11:25 AM, Mark Brown wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.1
 
-> [PATCH v8 09/13] ASoC: qcom: common: validate cpu dai id during parsing
+Thanks!
 
-> re-ordering these two patches, should fix the issue.
+[01/13] ASoC: qcom: q6apm: move component registration to unmanaged version
+        https://git.kernel.org/broonie/sound/c/b918fa0009c5
+[02/13] ASoC: qcom: q6apm: remove child devices when apm is removed
+        https://git.kernel.org/broonie/sound/c/53c1971fee3e
+[03/13] ASoC: qcom: qdsp6: topology: check widget type before accessing data
+        https://git.kernel.org/broonie/sound/c/4acb0d8ae805
+[04/13] ASoC: qcom: q6apm-lpass-dai: Fix multiple graph opens
+        https://git.kernel.org/broonie/sound/c/08798200d790
+[05/13] ASoC: qcom: q6apm-dai: reset queue ptr on trigger stop
+        https://git.kernel.org/broonie/sound/c/05e5370b04c3
+[06/13] ASoC: dt-bindings: qcom: add LPASS LPI MI2S dai ids
+        https://git.kernel.org/broonie/sound/c/c6e2c74a1999
+[07/13] ASoC: qcom: qdsp6: lpass-ports: add support for LPASS LPI MI2S dais
+        https://git.kernel.org/broonie/sound/c/2d99c2869c35
+[08/13] ASoC: qcom: q6dsp: Add Senary MI2S audio interface support
+        https://git.kernel.org/broonie/sound/c/cd1716423637
+[09/13] ASoC: qcom: common: validate cpu dai id during parsing
+        https://git.kernel.org/broonie/sound/c/4847eb57fcf1
+[10/13] ASoC: qcom: qdapm-lpass-dai: correct the error message
+        https://git.kernel.org/broonie/sound/c/c4c6e17a3bd5
+[11/13] ASoC: qcom: q6apm-lpass-dai: move graph start to trigger
+        https://git.kernel.org/broonie/sound/c/dce7c38257ad
+[12/13] ASoC: qcom: qdsp6: remove search for module iid in hot path
+        https://git.kernel.org/broonie/sound/c/aeb8c96748af
+[13/13] ASoC: qcom: q6apm: Add support for early buffer mapping on DSP
+        https://git.kernel.org/broonie/sound/c/7cc1926fcd8d
 
-> Sorry about this, Is it fine if I send this reorder in v9?
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-Yes, it was otherwise fine.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
---xUit4U/rWLaTNSx6
-Content-Type: application/pgp-signature; name="signature.asc"
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
------BEGIN PGP SIGNATURE-----
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnNTjYACgkQJNaLcl1U
-h9BCSgf+LQqr/13SpqYuSRvPKSn7plrzehU/l1FCowf22rsrd115KRv6RPjbTO9z
-GzlmlOzhfNRXdqzum8D0NE0puZB++7IB8+jeMiI8UgPcT7nhVX2uZmgWg208S706
-MdyE4m5i0rfatTJziLap2Npd6YOotbiey8W/JGdrKclg4ffn36CmyOiBO4deQPzD
-/ogS+YwAfxM4pK3kQj+7bashffpssNRxhz3NhvDGnAkSlSpAMs9QMiuW43Wvo5ag
-itW43O2iv4c+0y9WsHguPVlZlDtj5m6npTjkKEEMVVnmdXeTLtzdlFJYhRtWVDpF
-RHNQHx2UFnHA9+B7+ls1QFr48rmoVA==
-=kifs
------END PGP SIGNATURE-----
+Thanks,
+Mark
 
---xUit4U/rWLaTNSx6--
