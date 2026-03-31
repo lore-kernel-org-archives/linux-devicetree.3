@@ -1,188 +1,179 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D372C30C345;
-	Tue, 31 Mar 2026 16:26:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D030D41B349;
+	Tue, 31 Mar 2026 16:28:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774974413; cv=none; b=CVBBaXvWz4MXX/ZzFGRtOzQnMvDGPvG/iruj7vGtA7VxwATe0fYLTHIWXFhLUSVOmGh+Yo21iibnvoa/juiKSECR11k07ts0mYNl7XMNmTdojg+QD93K2+D/Iy3eyD2uDHLX+5BFeZ0bsCp/OOyWn8JILvrqFEJjHRCBZ1J368g=
+	t=1774974496; cv=none; b=AjqbFz1BHV8KfhHAPjtPiSbVZcCEKDk2k+iCHSHtCYUqgZqQTJx1QjRZp+moyTGMv0wjFDgo6FRRPg7GyHHCZY1RA/WQoNmhLJCdouFBRm090DzxKYI4U6Wfi2HEaqKh44bF03tlPsDtnIxNglwAg325DVn5I/+vrdmjVHdjVbs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774974413; c=relaxed/simple;
-	bh=4/KOV5r9948VYhuiUcfo+u6YJ2ubFSTwMYYsK55YSNI=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=aUGQc+ewONc9NcuPa7p0SsfNlIeyjjroatykAbx48kOJq6WjVfyJuz2sXRSAcxcG8sHKhOl2EGrA25MckVMbDH4Ifc5dfZ+M/KqQvfOlfVa/s0yfo05H9GssQyTtuNSiM0QYhtfUnc8rC08jyWGJo21tP70HyztA2j21hv5zl3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=mkl841Yf; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="mkl841Yf"
-Received: from [127.0.0.1] (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 0546225F3F;
-	Tue, 31 Mar 2026 18:26:50 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id yEFNASaRFbob; Tue, 31 Mar 2026 18:26:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1774974409; bh=4/KOV5r9948VYhuiUcfo+u6YJ2ubFSTwMYYsK55YSNI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=mkl841Yf5Uzpm0YCBamFprdHBM9aPwhUAhzqkP7JGPqLeP92X4/qMAoRmqvZEIZQZ
-	 n7LMpw6OHGQN5JV/Uw2qDbfoE+q1deCWNtflgVJJ5SlkUVA5LnkC0oFpn8rFMfGrla
-	 sDGyhyO3NJ4JGc/IR5A/7Niw6Fdr7pLn/nZEQngg9z4dvpYoSs7B42Pg8Zp5laeliz
-	 lIPdM8bx5T5UWBlTB4aURf3JhBrZQGberYWaQ49ZSrqyF1kxqnvgfE+b7Z3992bnug
-	 AGtF2QhvGQXxAY/broksmc+3uG6Uk0jxTqdakr3/7F+jOe8NSZWwdwMqRFiKfxS4Zr
-	 ffLn2fZyAvstw==
+	s=arc-20240116; t=1774974496; c=relaxed/simple;
+	bh=A4itH1QxtQt5JQOB/8NEu+NCqGg/HuSKhjLV7aQvf0o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Ab7smvlJm3LPd+TRoTEBCxGLdilUbGySQTxtWbYznf6D/dd9+UIh6lfHM8SYGWr3I6QACBjqlg9lKmJ7tu9vRiXYeLF1aOWlYz4cwfxRkTuZE1wwAzM1FpVFmoUGUuJutj7gXyQ+Wm64HyK/yUZzlImfLM6D8nZcf6XbHwclcpI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [223.166.95.230])
+	by APP-05 (Coremail) with SMTP id zQCowAC3TBAO9stphZUSDA--.56709S5;
+	Wed, 01 Apr 2026 00:28:00 +0800 (CST)
+From: Han Gao <gaohan@iscas.ac.cn>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Yixun Lan <dlan@kernel.org>,
+	Chukun Pan <amadeus@jmu.edu.cn>
+Cc: devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Han Gao <rabenda.cn@gmail.com>,
+	Han Gao <gaohan@iscas.ac.cn>
+Subject: [PATCH v4 3/3] riscv: dts: spacemit: Enable USB3.0/PCIe on OrangePi RV2
+Date: Wed,  1 Apr 2026 00:27:56 +0800
+Message-ID: <0ec229e2fb138092672773f134d0739e70740ce0.1774974017.git.gaohan@iscas.ac.cn>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1774974017.git.gaohan@iscas.ac.cn>
+References: <cover.1774974017.git.gaohan@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 31 Mar 2026 16:26:48 +0000
-From: Rustam Adilov <adilov@disroot.org>
-To: Vladimir Oltean <olteanv@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Stanley
- Chang <stanley_chang@realtek.com>, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Michael Zavertkin
- <misha.zavertkin@mail.ru>
-Subject: Re: [PATCH v2 2/6] phy: realtek: usb2: introduce read and write
- functions to driver data
-In-Reply-To: <20260330213227.zujvcvsxdfknzltz@skbuf>
-References: <20260327160638.15134-1-adilov@disroot.org>
- <20260327160638.15134-3-adilov@disroot.org>
- <20260330211918.y7su36j47e3uelcv@skbuf>
- <20260330213227.zujvcvsxdfknzltz@skbuf>
-Message-ID: <4663266d3a7d428d9d28edb96227cb8c@disroot.org>
-X-Sender: adilov@disroot.org
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAC3TBAO9stphZUSDA--.56709S5
+X-Coremail-Antispam: 1UD129KBjvJXoW7uFykZw1rWr1ktr1Duw43GFg_yoW8tF4DpF
+	17ursI9asxCr4Sg3W3WFyIgF43W3WkG395Zwn8uFW8Jr4kWa4q9rZ3GryfAF95WF48J34Y
+	yF18AFyxGrnrKw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmY14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JrWl82xGYIkIc2
+	x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
+	Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UM2
+	8EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r4UJwAS
+	0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2
+	IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0
+	Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2
+	xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
+	JVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67
+	kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY
+	6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42
+	IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIev
+	Ja73UjIFyTuYvjfUO_MaUUUUU
+X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiCRADDGnL4q42+gAAs0
 
-On 2026-03-30 21:32, Vladimir Oltean wrote:
-> On Tue, Mar 31, 2026 at 12:19:18AM +0300, Vladimir Oltean wrote:
->> On Fri, Mar 27, 2026 at 09:06:34PM +0500, Rustam Adilov wrote:
->> > +static inline u32 phy_read(void __iomem *reg)
->> > +{
->> > +	return readl(reg);
->> > +}
->> > +
->> > +static inline u32 phy_read_le(void __iomem *reg)
->> > +{
->> > +	return le32_to_cpu(readl(reg));
->> > +}
->> > +
->> > +static inline void phy_write(u32 val, void __iomem *reg)
->> > +{
->> > +	writel(val, reg);
->> > +}
->> > +
->> > +static inline void phy_write_le(u32 val, void __iomem *reg)
->> > +{
->> > +	writel(cpu_to_le32(val), reg);
->> > +}
->> 
->> Please don't name driver-level functions phy_read() and phy_write().
->> That will collide with networking API functions of the same name and
->> will make grep-based code searching more difficult.
->> 
->> Also, have you looked at regmap? It has native support for endianness;
->> it supports regmap_field_read()/regmap_field_write() for abstracting
->> registers which may be found at different places for different HW;
->> it offers regmap_read_poll_timeout() so you don't have to pass the
->> function pointer to utmi_wait_register(). It seems the result would be a
->> bit more elegant.
-> 
-> Even if you decide not to use regmap. I thought I should let you know
-> that LLM review says:
-> 
->   Are these double byte-swaps intentional?
-> 
->   Since readl() and writel() inherently perform little-endian memory accesses
->   and handle byte-swapping on big-endian architectures automatically, won't
->   wrapping them in le32_to_cpu() and cpu_to_le32() apply a second, redundant
->   byte-swap?
+Enable the DWC3 USB 3.0 controller and its associated usbphy2 on the
+OrangePi RV2 board.
 
-From my experience (and also understanding), readl returns value in native endian
-and doesn't do byte swapping. The same goes writel.
-Thus wrapping le32_to_cpu() and cpu_to_le32() around them correctly swaps the
-bytes from big endian to little endian, without the double byte-swaps.
+The board utilizes a Genesys Logic GL3523 USB3.0 hub.
 
-The comment even mentions it "{read,write}{b,w,l,q}() access little endian memory
-and return result in native endianness." which was provided for reference later on.
+Define a 3.3v fixed voltage regulator for PCIe and enable PCIe and
+PHY-related Device Tree nodes for the OrangePi RV2.
 
->   On big-endian systems, wouldn't these double swaps cancel each other out
->   and result in a native big-endian access instead of the intended
->   little-endian access? If the SoC bus bridge implicitly swaps and requires
->   a native access, should __raw_readl() and __raw_writel() (or ioread32be /
->   iowrite32be) be used instead to avoid obfuscating it with double-swaps?
+Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+---
+ .../boot/dts/spacemit/k1-orangepi-rv2.dts     | 68 +++++++++++++++++++
+ 1 file changed, 68 insertions(+)
 
-The __raw_readl() and __raw_writel() are indeed in native endian, and for
-RTL9607C SoC it is in big endian.
+diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+index e5e358d49c09..e93e7f660820 100644
+--- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
++++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+@@ -23,6 +23,15 @@ chosen {
+ 		stdout-path = "serial0";
+ 	};
+ 
++	pcie_vcc_3v3: regulator-pcie-vcc3v3 {
++		compatible = "regulator-fixed";
++		regulator-name = "pcie_vcc3v3";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		gpio = <&gpio K1_GPIO(116) GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++	};
++
+ 	reg_vcc_4v: regulator-vcc-4v {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vcc4v0";
+@@ -44,6 +53,10 @@ led1 {
+ 	};
+ };
+ 
++&combo_phy {
++	status = "okay";
++};
++
+ &eth0 {
+ 	phy-handle = <&rgmii0>;
+ 	phy-mode = "rgmii-id";
+@@ -190,8 +203,63 @@ dldo6 {
+ 	};
+ };
+ 
++&pcie1_phy {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pcie1_3_cfg>;
++	status = "okay";
++};
++
++&pcie1_port {
++	phys = <&pcie1_phy>;
++	vpcie3v3-supply = <&pcie_vcc_3v3>;
++};
++
++&pcie1 {
++	vpcie3v3-supply = <&pcie_vcc_3v3>;
++	status = "okay";
++};
++
++&pcie2_phy {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pcie2_4_cfg>;
++	status = "okay";
++};
++
++&pcie2_port {
++	phys = <&pcie2_phy>;
++	vpcie3v3-supply = <&pcie_vcc_3v3>;
++};
++
++&pcie2 {
++	vpcie3v3-supply = <&pcie_vcc_3v3>;
++	status = "okay";
++};
++
+ &uart0 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&uart0_2_cfg>;
+ 	status = "okay";
+ };
++
++&usbphy2 {
++	status = "okay";
++};
++
++&usb_dwc3 {
++	dr_mode = "host";
++	#address-cells = <1>;
++	#size-cells = <0>;
++	status = "okay";
++
++	hub_2_0: hub@1 {
++		compatible = "usb5e3,610";
++		reg = <0x1>;
++		peer-hub = <&hub_3_0>;
++	};
++
++	hub_3_0: hub@2 {
++		compatible = "usb5e3,620";
++		reg = <0x2>;
++		peer-hub = <&hub_2_0>;
++	};
++};
+-- 
+2.47.3
 
-The way Realtek did it is by using the volatile and wrapping them around
-le32_to_cpu() and cpu_to_le32() respectively, which is certainly hacky.
-
- static inline unsigned int ehci_readl(const struct ehci_hcd *ehci,
- 		__u32 __iomem *regs)
- {
-+#if defined(CONFIG_RTK_MIPS_SOC)
-+	return (le32_to_cpu((*(volatile unsigned long *)(regs))));
-+#else
-[...]
-
- static inline void ehci_writel(const struct ehci_hcd *ehci,
- 		const unsigned int val, __u32 __iomem *regs)
- {
-+#if defined(CONFIG_RTK_MIPS_SOC)
-+	((*(volatile unsigned long *)(regs))=cpu_to_le32(val));
-+#else
-
-We did a bit of debugging with usb some time ago and and printed the value
-of the readl result from the base usb address and got this
-[    1.327473] ehci_setup:694 ehci caps: 0xb8021000, value: 0x10000001
-[    1.334478] ehci_setup:695 ehci regs: 0xb8021001
-[    1.339706] ehci_halt:187 ehci regs: 0xb8021001
-
-"0x10000001" is supposed to be "0x01000010". Otherwise, it would take 0x01
-for the cap length and result in immediate halt from timeout.
-
-Even though it is for linux-usb and not the phy subsystem, it was worth
-mentioning as it is very much related to this issue.
-
-What is surprising, the ioread32be and iowrite32be functions actually do
-swap bytes, thus resulting in little endian (ironic). But using it here
-would be just incorrect as it is intended for accessing big endian mmio, 
-not for big endian CPU and its little endian USB phy/host.
-
-So, that is a conundrum we have here. Let me know if what you think of it
-and maybe even how to better solve it.
-
-Will hold on posting v3 until this hopefully is more or less solved..
-
->   Also, does passing the __le32 restricted type returned by cpu_to_le32()
->   into writel() (which expects a native u32) trigger Sparse static analysis
->   warnings for an incorrect type in argument?
-> 
-> For reference:
-> https://elixir.bootlin.com/linux/v6.19.10/source/include/asm-generic/io.h#L184
-> /*
->  * {read,write}{b,w,l,q}() access little endian memory and return result in
->  * native endianness.
->  */
-> 
-> and yes, your patch does trigger sparse warnings:
-> ../drivers/phy/realtek/phy-rtk-usb2.c:153:16: warning: cast to restricted __le32
-> ../drivers/phy/realtek/phy-rtk-usb2.c:163:16: warning: incorrect type in argument 1 (different base types)
-> ../drivers/phy/realtek/phy-rtk-usb2.c:163:16:    expected unsigned int val
-> ../drivers/phy/realtek/phy-rtk-usb2.c:163:16:    got restricted __le32 [usertype]
-
-I can alleviate it by creating a temp u32 variable to hold the cpu_to_le32() and then
-using that temp variable for writel.
-
-> Furthermore, please drop the 'inline' keyword from C files and let the
-> compiler decide. Your use of this keyword has no value - you declare
-> phy_read(), phy_read_le() etc as inline but then assign function
-> pointers to them. How can the compiler inline the indirect calls?
-
-Will drop these.
