@@ -1,95 +1,215 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFFCB3E3174;
-	Tue, 31 Mar 2026 16:28:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD066421EF4
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 16:30:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774974497; cv=none; b=CyEnKU6SZLAeffJdmyKYmZiicElEXi1b++MBahKJDXeSUJTvDGxo+7XH6QPLnn/xY9GVUEFgLeNyGoy1uGn8di9lJhdJ/e/7SHNwQMKkuXiUBM0JeCBMQJ1h8Z3gjHFWnhmnztWze33/MifYlVzVnacmUFUZ9lSt1Wl3L7lOTts=
+	t=1774974608; cv=none; b=UF93rCP6IEFF8Fgw+482PX8sZlSHvoJ/2nCAtzdICWEKKJLyo7juPZUi1x+cL4UBzotOf6YE0FD6hRSXeEqITbmKEkkslLraPDlaYyZTQAgsEOPT58dfi0flE/r5N2UVyk4MRdsF2LlkSGVE+XxurSZwHDybg+Fh8nZ95zHbbRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774974497; c=relaxed/simple;
-	bh=jpwxRVLKPoVZv9Fo4wEaj2y+VUHAF/4aKGEQRzoJzpY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p3O4cIi9tL5fbNfgnz53rFtfO3p4H2ep0gM2lysIEjGnxasTi3qZdNE4xwHfuo2DWHU/QCbDeP6aDgG4WDquLT/9oxOlQWMNgbZvax1OkaYdnVl9KW498ZjfHpYqH+fHaA2fsyMGsaD+P0TI1W26zYolZnwFpdreT8gMAVgIxCw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [223.166.95.230])
-	by APP-05 (Coremail) with SMTP id zQCowAC3TBAO9stphZUSDA--.56709S3;
-	Wed, 01 Apr 2026 00:27:59 +0800 (CST)
-From: Han Gao <gaohan@iscas.ac.cn>
-To: Rob Herring <robh@kernel.org>,
+	s=arc-20240116; t=1774974608; c=relaxed/simple;
+	bh=gRS3YG1pr3ibnZKjf/71FJl6wBB9Cgbl3KE/lAnEraw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ik2BErURSdl/+wZGxY7QzISFU2NJQOmuN8B0aqpz/e5zxRko7yfyrzqT2TWxSk+eNEu0+HesRotv1zZqFE/mdkkOhH5NqKVAKCucFsti4ImtPk4cL+DKzqdZCfps4gz0DYraBBeXj9VAWtZoooODU4T6G3pG2mxReVX0e4wsACw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=dTSD6t0c; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="dTSD6t0c"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-43cfbd17589so2556370f8f.0
+        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 09:30:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1774974605; x=1775579405; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=05T17Gt7zJJTuhvPKMku3wBY947ddWSwqLLasltmOi4=;
+        b=dTSD6t0cNjOU5XQfbf0Gvdqi67J2ZS6/QRo4sGkOy57+ZGgiEuSmbS04k95w9AIL4U
+         9Ec1WbJSiYysFd7vBlIhZi+fFlm/p/kz7MThVLDSsJ9MdpSvcxlPCav9WCnrN+UVX6LX
+         gF+BysODJ7zsZ5HKLpOGEAnvPqc09UbSDvV3u/+9Bg/HBx1LKLZvoUKmADuwCSa0oydp
+         9J3BHroLTiXBm1+jV9K1opvczZjSnAfbC98+MjA3ayziorkbXV6KO/0EKWsylayrbkwE
+         VZxTW84SoVCgM/K6QZBta7bdXtm51nx/nltSglAtdqk6iwBv1YxhFris4Y8x6ohuZvcp
+         NRHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774974605; x=1775579405;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=05T17Gt7zJJTuhvPKMku3wBY947ddWSwqLLasltmOi4=;
+        b=LnPvePoS9SPRZZarbMR6R3Lid7kJ9LvocQzyTR/dc2auYYNkWsXeDf7kGX9O18P0Qz
+         kDAaDv/XCl4AYx0Px+xCaS6IbK5H3Kstd6n0RyUXah2+qs5xaPDYVMZF+QQzUHX2T23u
+         OoIiq43VpwNACvs9dglzxq50pWwbwrGoklViBgXG6NF2fc13Zaipzl8r0RcexQwSLFyD
+         ZVbEgmlXZ+Hj3vRK8b9mCTdOWhsM7jbl1D/XrQDkE8Ot77ZCXzIsySy5qFOYg/gD5eEM
+         yKW2zPKccBrL2GIfsOi1EJA5RArWsxtouYCGVnY0bzonc7F6YTIp6w/m+YMRQ8+tHBvk
+         ThTw==
+X-Forwarded-Encrypted: i=1; AJvYcCVGXBukOwkggT+TGj8euizw9GXhl6sTVDcdViuJaTG/trH8u2YuvXOKAvq+PsW/MZ0A4WEartmGXhyk@vger.kernel.org
+X-Gm-Message-State: AOJu0YwOBvbIx2QOePpWIiNV/jp5cKlNPF/ueGsm9IZ6o7aLiyHz3w6C
+	Erw0t1wwihr/Am0OPNJP8Rj60V3VRNHF9MysYXYd1aWFeuRg8XhbCwHhVpoW54wE8Ug=
+X-Gm-Gg: ATEYQzzWgl0/OrJ5EyvBtc4PuZTYQtFl5rv2j+2A4DvhNRBU/vp+Ko5YJbFMLt/XRBq
+	BzLSGkeKX6GRcAjcJN8QFNEpfyo1FPqcdvV3469/in0B/+Lyemp2+pn5SBWB2LGQkeIpCzbCa2z
+	3OUzfhynEDMJRsKB2JgJyj164CgEss1Jt2RW3doisVFaCjwYnw0tEZ4+ELACKPJUkUuZWCX21Vt
+	OEsPdQW5mzCeaxOK4rUX5gsOBHmaDKtWl5Z34nICTeNApWLeWH7EcdL9gtQ92Rz+WfLRjwM+qfN
+	8auFUJrL2Vn2frIEFoZIMPZhLso4AbwIgk4ZTRvveYIsoTF97Yn/gP8mqYvEJI5vR/mkjwu8VC6
+	S/ldQswFk0S4M8Pf8MpWfsAPayEIvL/B5eF0ZB3HViGvSyWWEChoSIyMozRkRIZIO3Z39bvWft5
+	Q8LT54DEHCLi24NWV506fIBA1oo8rhaA==
+X-Received: by 2002:a5d:5f53:0:b0:43c:f66e:f31 with SMTP id ffacd0b85a97d-43d150ddb4bmr483415f8f.27.1774974604559;
+        Tue, 31 Mar 2026 09:30:04 -0700 (PDT)
+Received: from linaro.org ([92.206.122.171])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43cf21e9e24sm27279076f8f.10.2026.03.31.09.30.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 31 Mar 2026 09:30:03 -0700 (PDT)
+Date: Tue, 31 Mar 2026 18:29:51 +0200
+From: Stephan Gerhold <stephan.gerhold@linaro.org>
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Mark Pearson <mpearson-lenovo@squebb.ca>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Rob Herring <robh@kernel.org>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nicolas.schier@linux.dev>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	"Derek J . Clark" <derekjohn.clark@gmail.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>,
-	Chukun Pan <amadeus@jmu.edu.cn>
-Cc: devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Han Gao <rabenda.cn@gmail.com>,
-	Han Gao <gaohan@iscas.ac.cn>
-Subject: [PATCH v4 1/3] riscv: dts: spacemit: Enable i2c8 adapter for OrangePi RV2
-Date: Wed,  1 Apr 2026 00:27:54 +0800
-Message-ID: <894c94e9d087c6a924146bda9a5649c424de320b.1774974017.git.gaohan@iscas.ac.cn>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1774974017.git.gaohan@iscas.ac.cn>
-References: <cover.1774974017.git.gaohan@iscas.ac.cn>
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Bartosz Golaszewski <brgl@bgdev.pl>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>, linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org,
+	"platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	"linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>
+Subject: Re: [PATCH v6 6/9] dt-bindings: connector: m2: Add M.2 1620 LGA
+ soldered down connector
+Message-ID: <acv2f1qbqu4PlSL1@linaro.org>
+References: <20260322233713.GA98177-robh@kernel.org>
+ <to2mrizprc3hjufqbiplpqyek7f4uutqtn4hx4gkmdgv2rykbc@ybwwjhdec4nm>
+ <CAL_JsqJXrHCJt770bJkMmAUhirSF3kHjYwSzkG7cXp7-eys8Rg@mail.gmail.com>
+ <6aef3xxjjd4nbgrfx6jc6jt6rpqmttoui6hil5zqgdpas2j6gj@ie6j72orenou>
+ <fsvmmgoe5wslmxebhrrwmdg2ldcmhzvj53gjkdfnfg2m2rz2lw@dcfboaakz7ae>
+ <bguhzabwryayyqkv4ilzwr3ixwv6bzxncblo3ircz2wm3fs52k@66zvcrfcb4oe>
+ <blhm4csjyw6r667cleljgzd6rpwagttjo5rau7wjrlnjakq2qm@ekyhc4jvwmwf>
+ <m44mupdmg7kgco62n4evcviagqo7wwgyt3gybugbxwesd4ekjz@o24r6v4tpezc>
+ <3faffec9-dc9d-4eec-a652-a84d30d85c96@app.fastmail.com>
+ <cvqdbqnzjmzoowxkvz2lyv4avropu5jw7h2r6zng3ecf245hgg@fsysjqflqd35>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAC3TBAO9stphZUSDA--.56709S3
-X-Coremail-Antispam: 1UD129KBjvdXoW7Xry5AF4DWFyxCFyDZFyxZrb_yoW3GrX_CF
-	13Gay0vFyUGFWvkFnrXr1rtayxu3y5KrWSywnaqr1UGasYgrWrKFWUKF4kJw1rurWYvrW3
-	Jw48tFyxJwnIkjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbk8FF20E14v26rWj6s0DM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUGwA2048vs2IY02
-	0Ec7CjxVAFwI0_Gr0_Xr1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xv
-	wVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwA2z4
-	x0Y4vEx4A2jsIE14v26r4j6F4UM28EF7xvwVC2z280aVCY1x0267AKxVW8JVW8Jr1le2I2
-	62IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcV
-	AFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG
-	0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI
-	1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_
-	Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17
-	CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0
-	I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I
-	8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73
-	UjIFyTuYvjfU8XdbUUUUU
-X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiDAgDDGnL4tU3VwAAs+
+In-Reply-To: <cvqdbqnzjmzoowxkvz2lyv4avropu5jw7h2r6zng3ecf245hgg@fsysjqflqd35>
 
-The adapter is used to access the SpacemiT P1 PMIC present in this board.
+On Wed, Mar 25, 2026 at 05:36:08PM +0530, Manivannan Sadhasivam wrote:
+> On Mon, Mar 23, 2026 at 01:23:07PM -0400, Mark Pearson wrote:
+> > On Mon, Mar 23, 2026, at 12:52 PM, Manivannan Sadhasivam wrote:
+> > > On Mon, Mar 23, 2026 at 06:45:15PM +0200, Dmitry Baryshkov wrote:
+> > >> On Mon, Mar 23, 2026 at 09:26:04PM +0530, Manivannan Sadhasivam wrote:
+> > >> > On Mon, Mar 23, 2026 at 05:14:30PM +0200, Dmitry Baryshkov wrote:
+> > >> > > On Mon, Mar 23, 2026 at 07:14:25PM +0530, Manivannan Sadhasivam wrote:
+> > >> > > > On Mon, Mar 23, 2026 at 08:39:55AM -0500, Rob Herring wrote:
+> > >> > > > > On Mon, Mar 23, 2026 at 7:16 AM Manivannan Sadhasivam <mani@kernel.org> wrote:
+> > >> > > > > >
+> > >> > > > > > On Sun, Mar 22, 2026 at 06:37:13PM -0500, Rob Herring wrote:
+> > >> > > > > > > On Tue, Mar 17, 2026 at 09:59:56AM +0530, Manivannan Sadhasivam wrote:
+> > >> > > > > > > > Lenovo Thinkpad T14s is found to have a soldered down version of M.2 1620
+> > >> > > > > > > > LGA connector. Though, there is no 1620 LGA form factor defined in the M.2
+> > >> > > > > > > > spec, it looks very similar to the M.2 Key E connector. So add the
+> > >> > > > > > > > "pcie-m2-1620-lga-connector" compatible with "pcie-m2-e-connector" fallback
+> > >> > > > > > > > to reuse the Key E binding.
+> > >> > > > > > >
+> > >> > > > > > > What is LGA?
+> > >> > > > > > >
+> > >> > > > > >
+> > >> > > > > > Land Grid Array
+> > >> > > > > >
+> > >> > > > > > > If not in the spec, is it really something generic?
+> > >> > > > > > >
+> > >> > > > > >
+> > >> > > > > > Good question. Yes and No! LGA is not something that Lenovo only uses. Other
+> > >> > > > > > vendors may also use this form factor. PCIe connectors are full of innovation as
+> > >> > > > > > the spec gives room for hardware designers to be as innovative as possible to
+> > >> > > > > > save the BOM cost.
+> > >> > > > > 
+> > >> > > > > innovation == incompatible changes
+> > >> > > > > 
+> > >> > > > 
+> > >> > > > Yes, I was trying to sound nice :)
+> > >> > > > 
+> > >> > > > > > This is why I do not want to make it Lenovo specific. But if you prefer that, I
+> > >> > > > > > can name it as "lenovo,pcie-m2-1620-lga-connector".
+> > >> > > > > 
+> > >> > > > > Depends if you think that s/w needs to know the differences. Hard to
+> > >> > > > > say with a sample size of 1.
+> > >> > > > > 
+> > >> > > > 
+> > >> > > > Sure. Will add the 'lenovo' prefix then.
+> > >> > > 
+> > >> > > Is it really Lenovo? Or is it some other module vendor, whose LGAs are
+> > >> > > being used by Lenovo?
+> > >> > > 
+> > >> > > I remember that DB820c also used some kind of a module for the WiFi card
+> > >> > > (which might be M.2 compatible or might not, I can't find exact docs at
+> > >> > > this point).
+> > >> > > 
+> > >> > 
+> > >> > I don't know. These kind of designs might be reused by several vendors. But
+> > >> > considering that we should not make it generic, I'd go with Lenovo as that's
+> > >> > the only vendor we know as of now.
+> > >> 
+> > >> ... and later we learn that other vendors use the same idea /pinout,
+> > >> then nothing stops us from still telling that it's a
+> > >> "lenovo,pcie-m2-something-lga". 
+> > >> 
+> > >
+> > > How do you possibly know whether a single vendor has introduced this form factor
+> > > or reused by multiple ones? Atleast, I don't have access to such a source to
+> > > confirm.
+> > >
+> > I've not really been following this thread/patchset in detail; but want me to try and check with the T14s platform team if this device is specifically made for us (Lenovo) or not?
+> > I doubt it is - we just don't do that usually, but I can go and ask the question if it will help resolve this (with the caveat that it could hold up the review for a bit and I may not be able to get a straight answer)
+> > 
+> 
+> I can drop this specific patch in the meantime.
+> 
+> > My vote (for what little it's worth) would be to make it non-Lenovo specific. Then when the same part causes issues on another vendors platform I won't get asked questions about why Lenovo is breaking <other vendor> :)
+> > 
+> 
+> Even if Lenovo prefix is used, it won't break other vendors. Just that we will
+> end up adding more compatibles.
+> 
+> Anyhow, I'll wait for your reply and drop this patch for next revision.
+> 
 
-Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
----
- arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts | 6 ++++++
- 1 file changed, 6 insertions(+)
+If you need a vendor prefix, I think "qcom," would be more appropriate
+than Lenovo. This form factor is used by most vendors for recent
+soldered Qualcomm-based wireless cards, not just Lenovo:
 
-diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-index 7b7331cb3c72..93880ba7bdfe 100644
---- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-@@ -87,6 +87,12 @@ &pdma {
- 	status = "okay";
- };
- 
-+&i2c8 {
-+	pinctrl-0 = <&i2c8_cfg>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+};
-+
- &uart0 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&uart0_2_cfg>;
--- 
-2.47.3
+ - Dell XPS 13 9345 has exactly the same soldered M.2 card, I assume
+   there are several other vendors as well.
 
+ - https://www.sparklan.com/product/wnsq-290be/ is a third-party
+   (Qualcomm-based) M.2 LGA 1620 card, in the block diagram the
+   pinout is called "QM.2 1620 LGA 168pin".
+
+ - If you press F9 while booting the ThinkPad T14s, you should get to a
+   screen with "Regulatory Information". For the T14s, this screen says
+   "Contains FCC ID: J9C-QCNCM825". This is the WiFi/BT module in the
+   soldered form factor. If you look that up on the FCC website, the
+   applicant for this module is "Qualcomm Technologies, Inc.". This
+   seems to be some kind of "modular certification" that vendors can
+   reuse/adapt without going through the whole process again.
+
+Perhaps you should ask around inside Qualcomm? :-)
+
+Thanks,
+Stephan
