@@ -1,105 +1,83 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 382B43BD62A
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 07:10:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 587B13BC678;
+	Tue, 31 Mar 2026 07:11:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774941049; cv=none; b=LAFjqT0+ZeRnKPi/ML9AT+sBLj9Hj7fFJO+ocIv9EJTeZwobvfRjv1WHJVQ4yHtutGwg5336U9kGfOLr0pDEAN52WK+YLGghafnCRo4bDGxf/TiejMoQKVV0VVU42+r9dk66eoNdO48MH+HPtU4po4Hse3F/3uor4vT7TBeE5vc=
+	t=1774941087; cv=none; b=gHXRyPfFw7ytg0we6Jd5p7tSTODHYgWNAex3g1ZZORZ9KOVdsqH7vSxqEX9ACnUM0S2UmJxIMNaZAJX2BUp4Ro7f9soS3QFy9YvpThZP3nGz7ytiDrtzCjrPjAU+zWQ1Nwr1S0gFpaqMzlenNkP26CSbG7/J0rNBB9JwoNfkOhk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774941049; c=relaxed/simple;
-	bh=5gpgYRLnbSNFscf1Q1NHWRl/4eynSze1FCD1K0u1oaw=;
+	s=arc-20240116; t=1774941087; c=relaxed/simple;
+	bh=XdwZEdTlh7eUy97pvQnqE/71BTBUar0XRDwzHcXBMRk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DzQ+0Lb9c1NS2MV8aYsq7QQwnZpjSJImpEq5QArpUWbfR69dj2Y6jOlNmzagBCXyC+6D9HzOjhT26Gw5iAbaWMB14O7SdT018Intr76zCUPFBsW6ItW46udn0sjlJU26i970J1pbmJEKZnbUkGZiUpDxVaSJKXTN24j5KNle8lE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1w7TEn-0005cr-Lu; Tue, 31 Mar 2026 09:10:09 +0200
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1w7TEm-00302T-2l;
-	Tue, 31 Mar 2026 09:10:08 +0200
-Received: from pengutronix.de (unknown [IPv6:2a0a:edc0:0:701:471e:8ea9:4bec:c12c])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 1F944511D74;
-	Tue, 31 Mar 2026 07:10:08 +0000 (UTC)
-Date: Tue, 31 Mar 2026 09:10:07 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-Cc: mani@kernel.org, thomas.kopp@microchip.com, mailhol@kernel.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org, 
-	konradybcio@kernel.org, linusw@kernel.org, brgl@kernel.org, linux-can@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, mukesh.savaliya@oss.qualcomm.com, anup.kulkarni@oss.qualcomm.com, 
-	Conor Dooley <conor@kernel.org>
-Subject: Re: [PATCH v3 1/2] dt-bindings: can: mcp251xfd: add
- microchip,xstbyen property
-Message-ID: <20260331-shaggy-blond-weasel-1bf32b-mkl@pengutronix.de>
-X-AI: stop_reason: "refusal"
-References: <20260321135031.3107408-1-viken.dadhaniya@oss.qualcomm.com>
- <20260321135031.3107408-2-viken.dadhaniya@oss.qualcomm.com>
- <20260323-bonded-ranging-c9f9c4d0aacf@spud>
- <20260323-artificial-ecstatic-collie-047169-mkl@pengutronix.de>
- <20260323-surname-osmosis-3cceca19c824@spud>
- <d4e092d6-5d9e-49a4-88d0-c02e2f17f36b@oss.qualcomm.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=EgaVAbWksB7Rd4YozVhBAucjPr2OjsnpZdKijvmTKHBigSNO6peHw3cOq0mEAecsvgANvP9lOUADkkj7zY2YZKnpvsPHRPUUQOv7h0h2stKvX3wsC5xsNe8HKQVmtSjwJbKL9GCdi2U85LlRfE5RqbFW3fkDp7zUAuuA3rN3QHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QyRC3uPK; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QyRC3uPK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2919C19423;
+	Tue, 31 Mar 2026 07:11:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774941087;
+	bh=XdwZEdTlh7eUy97pvQnqE/71BTBUar0XRDwzHcXBMRk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=QyRC3uPKayasDp5XbK4TcodAQFVigapbBpUw7l9SV5fn2FogMcr0+0H3k3CwEub67
+	 ut/eKMiFQW9cbDFEPtncQEvdwRLGDky5jsRNpdVTZJk2L76YBU2H8GJ5m7UxFokgeN
+	 Joa8xlffQh7E0Z4x6TX7PnXOVqLpnVFzwADKCsHY6IaW3pWEY3XweYAqXvCK5NTeT2
+	 HpaR1oiw3WuQLEIOucFlXBGQNA8CgO/Mn/O5t6qilNFgnNahLE0EnVSPD32geOl9ca
+	 nGD0YLzJIO196sqPtQRsydsJ6XIKflDTNFC93Pp87Q8RIoqlVLu3t279lE6fjAi5Mk
+	 TUokJqkNqWrjw==
+Date: Tue, 31 Mar 2026 09:11:24 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Moteen Shah <m-shah@ti.com>
+Cc: krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, nm@ti.com, 
+	vigneshr@ti.com, kristo@kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, u-kumar1@ti.com, 
+	gehariprasath@ti.com, y-abhilashchandra@ti.com
+Subject: Re: [PATCH v3 2/2] arm64: dts: ti: Add audio overlay for
+ k3-j721s2-evm
+Message-ID: <20260331-fabulous-bipedal-boobook-b11a27@quoll>
+References: <20260330094459.128648-1-m-shah@ti.com>
+ <20260330094459.128648-3-m-shah@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gvr3ft3j52edqxpi"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <d4e092d6-5d9e-49a4-88d0-c02e2f17f36b@oss.qualcomm.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: mkl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
+In-Reply-To: <20260330094459.128648-3-m-shah@ti.com>
 
+On Mon, Mar 30, 2026 at 03:14:59PM +0530, Moteen Shah wrote:
+> +	p10-hog {
+> +		/* P10 - MCASP/TRACE_MUX_S1 */
+> +		gpio-hog;
+> +		gpios = <10 GPIO_ACTIVE_HIGH>;
+> +		output-high;
+> +		line-name = "MCASP/TRACE_MUX_S1";
+> +	};
+> +};
+> +
+> +&mux0 {
+> +	idle-state = <0>;
+> +};
+> +
+> +&mux1 {
+> +	idle-state = <0>;
+> +};
+> +
+> +&scm_conf {
+> +	#address-cells = <1>;
+> +	#size-cells = <1>;
+> +
+> +	audio_refclk1: clock-controller@42e4 {
+> +		compatible = "ti,am62-audio-refclk";
 
---gvr3ft3j52edqxpi
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 1/2] dt-bindings: can: mcp251xfd: add
- microchip,xstbyen property
-MIME-Version: 1.0
+there is no am62 compatible or DTSI include in the parent SoC file, so
+am62n seems to be completely different device than j721s2.
 
-On 31.03.2026 12:15:26, Viken Dadhaniya wrote:
-> Could you please let me know if the driver change looks acceptable to be =
-merged?
-> Once merged, I will proceed with posting the device-tree change.
+Why does am62b appear here in this context?
 
-Applied to linux-can-next. It will be included in my next PR.
+Best regards,
+Krzysztof
 
-regards,
-Marc
-
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---gvr3ft3j52edqxpi
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCactzTQAKCRDMOmT6rpmt
-0ljHAQCN2W7NzJyFY0dzNqqglCyalyp93y3AkcphLuv3tVojLQD/ak7VSTbgCUkv
-TSCxRH9IUqWn8Ux2NiLt5sstO3CZbAE=
-=Ic0c
------END PGP SIGNATURE-----
-
---gvr3ft3j52edqxpi--
