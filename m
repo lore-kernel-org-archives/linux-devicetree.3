@@ -1,158 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4906E3E639F;
-	Tue, 31 Mar 2026 13:17:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 937D23AA1A8
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 13:20:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774963032; cv=none; b=hrdAgoE+8k6K7sGoebf1pxHEV+H9KjzYSEQANeLFwz4Tskl3qSuT2rDvpnhOuZfvFZZa8UAO/6zOHvrdnvWoEQTS5TaEovk9+UMZAhGMGZpcBbEzQA8cUC8KIv0uR/zUtZ8H6JQWxUFkHnkPDbp1ggWbuYT+hzPdPpIke7zlcdE=
+	t=1774963240; cv=none; b=A02gCw2tageXjuF15hEDBvGA+VZNBBl6GgsxRAztsdScYrNzMFUQFatvewHTDpTh1dETKcadaPcIk04fV5iUxHqGTI7H03Ldg8oa7bUGIQr5vupzucIZy8/Ftmz6Rv8KM1jDOyjEmYiO1+S2PKX+Kf5GAS/ajoR/8sbY/OKqKD8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774963032; c=relaxed/simple;
-	bh=wfkM9H8lnswPA5KiysJl/MsElmwbu8d/sHC6jNfO0GU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HpDUnMx0DRN/Vl8cr3+Z8Nkhl8lsxp52yUaQ0j4CCTbcQ7eGbLUrMSRJ3cPE94kdpo78UBie4GZXW58I3Ync+SrBZsOq+e2VQTnESxIMwJpi+KBRMCfa46JxwXI/B3LXFkeYE6t50K9BLWchfdKJRPLmoUYu3sdl3oEXge7i4Bg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CEbxPOAo; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774963240; c=relaxed/simple;
+	bh=FHCG1eyKPTFyYzgTJ8AuOuQbuY4G/koxwDmMSh7hUqE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EPDNmYyCATHOW5YuIK/YEyFbhpvw5S2AEl6c9uoCf9+XmpZocOH8W/mAbFU9Kl9bPT0F09Vf3RnwWZrYfMyAYr+AmJzo9sdH3DBgrJWdXTz83QQdxGz/Jmj+kVQYygSXaHwgKVRLxAPRktu7OlTgeevohwUZja3xKZNbA8HSVoA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=YKDlbfPN; arc=none smtp.client-ip=209.85.167.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CEbxPOAo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71271C2BC9E;
-	Tue, 31 Mar 2026 13:17:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774963032;
-	bh=wfkM9H8lnswPA5KiysJl/MsElmwbu8d/sHC6jNfO0GU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=CEbxPOAoA8ORT2e5y9YYLZ2GnEwvS8UvLz+e1VcDBd2PTP9ZMnwxYAEaUO6oAEepb
-	 2cPyk6GBPA+n0TVDDzmJQ62Gv/sYMGd8VbwwARmKTVjvzFxB1dpbqvPa7p+6kA0j60
-	 3MAtIV/WYa3pUwKZpuiCd9Y3Ddun9kE3PRBvTZaozBxSvd6qvj7Ai50Xq1966JPazL
-	 Qpiw0hiMGyGGetKxS3W0DIcH1cCoYmTADApbdFzAK7HojH2RW0nqy47C7fkjMmtwjI
-	 X6u5hOw+K8JNWjjJqmn17Q/JiVqMMvO1JfDxhBTfNhk4XJe+3Ju/FmmRiA2ofnRUli
-	 02m13PZB0Wlbw==
-Date: Tue, 31 Mar 2026 14:17:06 +0100
-From: Lee Jones <lee@kernel.org>
-To: Alexey Charkov <alchark@flipper.net>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chris Morgan <macromorgan@hotmail.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Sebastian Reichel <sre@kernel.org>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH v5 09/11] mfd: bq257xx: Add BQ25792 support
-Message-ID: <20260331131706.GH3795166@google.com>
-References: <20260324-bq25792-v5-0-0a2eb58cf11d@flipper.net>
- <20260324-bq25792-v5-9-0a2eb58cf11d@flipper.net>
- <20260331102710.GB3795166@google.com>
- <CAKTNdwE4omfEkd6FNdj=hZUY2ZwLprXzUu1L4juFhWCxbWEjpQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="YKDlbfPN"
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5a2c0615d6fso30291e87.2
+        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 06:20:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1774963238; x=1775568038; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8Fd2h35A9jrPAd01iGaIxV/0FHNMxJJdX6ssgg+Eiwc=;
+        b=YKDlbfPNBYT/RzZYT0AEy6bhZdIHIaPWEUMKgdo8Qw1uLVnbYcmnuAON9e+9NWXl3I
+         TVPzZwo4e539EPFMnU/Uuj98yNLXnYyDgisFZdhnDkqPTZOnEFcVmMjpsAhFp/+0ASi9
+         o8RE7rGXKvak62nMUm1uWGjH1iXRdSk7qVMoIK2jDBf+OE4RPcuMoXTETfgkONUqmftO
+         Tmh0k3LcKw1nb4dMHiy5uK/sRPBlBL6WjR0oIIKOLhDas5M9iRdJ2983ZszUmwCIc2kx
+         Li8dilXnUx738GWXm8oyn6cjrWcrjMUBeBwy4Kttf1qg1b508IJ5I1L2PK29FsCDitpY
+         8D/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774963238; x=1775568038;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=8Fd2h35A9jrPAd01iGaIxV/0FHNMxJJdX6ssgg+Eiwc=;
+        b=tTKYNdysYtDb3NhD1Y9EASjyfUya5gRuzd4nNVwlHtI11vi1+YSAxQPPEGyGP8qwzQ
+         eiw+VDnsU+8ihBkLV2Jb7MZeqzilAUP5/C48JjIwfh4tpZyw7iM4mzHKuSfsupXyF4PS
+         8P+FxWzu9xQFC+nTAyTJ4gX7UFasR1Fy8PJw/BazAhbFLXu9lfBXNA/h7ClRatLRNFNT
+         JROskK/X9RS2FJXU0/xGwYI8ICy8me4p8zD5ipIF0NZ2HjylsaDeQTTjKiLeYUmCJJUK
+         Fw5etQBDkvcWykfxWoQ8/J2Qwo7IXzazqG5POJOKPCjb+HRyxRsbyoQCTkCohvZnljzB
+         KiZw==
+X-Forwarded-Encrypted: i=1; AJvYcCVCbSf6U2xpvsrDF3h0Yqt3zf0CPIQ6XZZ6PBx2TXloPMkRfqT6X1FQ7QOKX0nKGtrU3m3K0EaIQZ05@vger.kernel.org
+X-Gm-Message-State: AOJu0YwWFGiOc3z/hqPvvoqPq/DdrT0LGZQgimUwiP0iU6exayx07f6X
+	p02UQmbOmuUnLaxJzC8kaDVFgHNLycTYtSGZcBLuDP+7I+FqxuhSZzj4ixw/SKEkGzQ=
+X-Gm-Gg: ATEYQzzmNQsPtbVe6Xps7aGutxCJVkuj01fnaP9NvZUZqER9m5k3WuUibpHqrahwj4v
+	DJC8KBHO27PMFL5YhjxJpt2Eb8ZlHitnN30b+5zjdO2sEjHrDlAcak6QjIb6pjnXxzoKL8ZVzhv
+	wDEkEa12Hby8mtuYgR+Us76Jc2KTzo20z8smzyxA112gC737VCenSqGGLfnLa36l/pcz12rgDsJ
+	R8HvuM8vAyGZ//MInkJE8dPT5N5D547FEagGDWINROc6PT0YiDiSkULrs7g2Lhh1p6DyGBfmRE3
+	0Fmnzh6zuVbMpG0p7MDvr9h8nb63iKIwvWJOY+HqFMmbhW+slEK+lXC2N4MCyzVmDgAfMqtPbzs
+	6tgc4FXSRHKXDuqVo1vw4HV5qpvW+tx5ARPcxSzJZkSR2Ujmic1R0lpNvHh2i9zivMApsm16s9G
+	5fnH1OqLY37VBVVVNzobJUixCkUZ8I/0/JyCg4wrfUFxv6LPK1aA2sfpS815IL6yKxbZkFE99I+
+	34Ayg==
+X-Received: by 2002:a05:6512:3b9f:b0:5a2:8516:a52a with SMTP id 2adb3069b0e04-5a2ab5fcfcamr2769606e87.2.1774963237655;
+        Tue, 31 Mar 2026 06:20:37 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a2b140a4d3sm2395494e87.34.2026.03.31.06.20.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 31 Mar 2026 06:20:37 -0700 (PDT)
+Message-ID: <bc4579ce-294b-4553-8166-55cf4888c6a7@linaro.org>
+Date: Tue, 31 Mar 2026 16:20:36 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAKTNdwE4omfEkd6FNdj=hZUY2ZwLprXzUu1L4juFhWCxbWEjpQ@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/3] media: qcom: camss: Add SM6350 support
+To: Luca Weiss <luca.weiss@fairphone.com>, Bryan O'Donoghue <bod@kernel.org>,
+ Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260216-sm6350-camss-v4-0-b9df35f87edb@fairphone.com>
+ <20260216-sm6350-camss-v4-2-b9df35f87edb@fairphone.com>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <20260216-sm6350-camss-v4-2-b9df35f87edb@fairphone.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, 31 Mar 2026, Alexey Charkov wrote:
-
-> On Tue, Mar 31, 2026 at 2:27 PM Lee Jones <lee@kernel.org> wrote:
-> >
-> > On Tue, 24 Mar 2026, Alexey Charkov wrote:
-> >
-> > > Add register definitions and a new 'type' enum to be passed via MFD
-> > > private data to support the BQ25792, which is a newer variant of the
-> > > BQ257xx family.
-> > >
-> > > BQ25792 shares similar logic of operation with the already supported
-> > > BQ25703A but has a completely different register map and different
-> > > electrical constraints.
-> > >
-> > > Tested-by: Chris Morgan <macromorgan@hotmail.com>
-> > > Signed-off-by: Alexey Charkov <alchark@flipper.net>
-> > > ---
-> > >  drivers/mfd/bq257xx.c       |  54 +++++-
-> > >  include/linux/mfd/bq257xx.h | 412 ++++++++++++++++++++++++++++++++++++++++++++
-> > >  2 files changed, 463 insertions(+), 3 deletions(-)
-> > >
-> > > diff --git a/drivers/mfd/bq257xx.c b/drivers/mfd/bq257xx.c
-> > > index e9d49dac0a16..31654925afa5 100644
-> > > --- a/drivers/mfd/bq257xx.c
-> > > +++ b/drivers/mfd/bq257xx.c
-> > > @@ -39,6 +39,39 @@ static const struct regmap_config bq25703_regmap_config = {
-> > >       .val_format_endian = REGMAP_ENDIAN_LITTLE,
-> > >  };
-> > >
-> > > +static const struct regmap_range bq25792_writeable_reg_ranges[] = {
-> > > +     regmap_reg_range(BQ25792_REG00_MIN_SYS_VOLTAGE,
-> > > +                      BQ25792_REG18_NTC_CONTROL_1),
-> > > +     regmap_reg_range(BQ25792_REG28_CHARGER_MASK_0,
-> > > +                      BQ25792_REG30_ADC_FUNCTION_DISABLE_1),
-> > > +};
-> > > +
-> > > +static const struct regmap_access_table bq25792_writeable_regs = {
-> > > +     .yes_ranges = bq25792_writeable_reg_ranges,
-> > > +     .n_yes_ranges = ARRAY_SIZE(bq25792_writeable_reg_ranges),
-> > > +};
-> > > +
-> > > +static const struct regmap_range bq25792_volatile_reg_ranges[] = {
-> > > +     regmap_reg_range(BQ25792_REG19_ICO_CURRENT_LIMIT,
-> > > +                      BQ25792_REG27_FAULT_FLAG_1),
-> > > +     regmap_reg_range(BQ25792_REG31_IBUS_ADC,
-> > > +                      BQ25792_REG47_DPDM_DRIVER),
-> > > +};
-> > > +
-> > > +static const struct regmap_access_table bq25792_volatile_regs = {
-> > > +     .yes_ranges = bq25792_volatile_reg_ranges,
-> > > +     .n_yes_ranges = ARRAY_SIZE(bq25792_volatile_reg_ranges),
-> > > +};
-> > > +
-> > > +static const struct regmap_config bq25792_regmap_config = {
-> > > +     .reg_bits = 8,
-> > > +     .val_bits = 8,
-> > > +     .max_register = BQ25792_REG48_PART_INFORMATION,
-> > > +     .cache_type = REGCACHE_MAPLE,
-> > > +     .wr_table = &bq25792_writeable_regs,
-> > > +     .volatile_table = &bq25792_volatile_regs,
-> > > +};
-> > > +
-> > >  static const struct mfd_cell cells[] = {
-> > >       MFD_CELL_NAME("bq257xx-regulator"),
-> > >       MFD_CELL_NAME("bq257xx-charger"),
-> > > @@ -46,6 +79,7 @@ static const struct mfd_cell cells[] = {
-> > >
-> > >  static int bq257xx_probe(struct i2c_client *client)
-> > >  {
-> > > +     const struct regmap_config *rcfg;
-> > >       struct bq257xx_device *ddata;
-> > >       int ret;
-> > >
-> > > @@ -53,9 +87,21 @@ static int bq257xx_probe(struct i2c_client *client)
-> > >       if (!ddata)
-> > >               return -ENOMEM;
-> > >
-> > > +     ddata->type = (uintptr_t)i2c_get_match_data(client);
-> > >       ddata->client = client;
-> > >
-> > > -     ddata->regmap = devm_regmap_init_i2c(client, &bq25703_regmap_config);
-> > > +     switch (ddata->type) {
-> > > +     case BQ25703A:
-> > > +             rcfg = &bq25703_regmap_config;
-> > > +             break;
-> > > +     case BQ25792:
-> > > +             rcfg = &bq25792_regmap_config;
-> > > +             break;
-> > > +     default:
-> > > +             return dev_err_probe(&client->dev, -EINVAL, "Unsupported device type\n");
-> >
-> > Nit: Shouldn't we be returning '-ENODEV' here for an unsupported device?
+On 2/16/26 10:54, Luca Weiss wrote:
+> Add the necessary support for CAMSS on the SM6350 SoC.
 > 
-> Hi Lee,
-> 
-> Indeed, I've had a quick look and other drivers seem to return -ENODEV
-> in similar situations. Shall I respin a new version with that change?
+> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 
-Yes please.  And add a change log so I am reminded of it.
+Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
 
 -- 
-Lee Jones [李琼斯]
+Best wishes,
+Vladimir
