@@ -1,70 +1,105 @@
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022101.outbound.protection.outlook.com [40.107.75.101])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013067.outbound.protection.outlook.com [40.107.162.67])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 755511925BC;
-	Tue, 31 Mar 2026 02:48:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B26461B3925;
+	Tue, 31 Mar 2026 03:02:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.67
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774925323; cv=fail; b=sTHX98dz0STIyxsR7K3ICX0u4RYPbPs4c/6NEGF2S/mCVlxduYua7xjhBDGDuD2CR4/QZTprA08EMvhJh42CN6RZFCfcaOn1xnsvIEZCvGEyXU5k8uW0GX/4i3Mx9dnvsivQewvYOlt3zNAHPdnao2dqiexJYlyp37IEtWmkiMk=
+	t=1774926138; cv=fail; b=ezx24SaZi7GOMkcuoks4iow1C0ISaNrhzzg4JNbMBZheNCTBO6myu/UPOfburvOuQRfhlVMBZVmP3KWlbe0ZO1hNJfkJZtfi+zSBl3Dh9Pu+7o0h9yVJ39iUqbBJWUNdsRJeT57y5o9d3WEqD36LR/60pvcBghSQsjouhDRi290=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774925323; c=relaxed/simple;
-	bh=uscb8PoLjh3eWKsxuB6EcVgJ4+Q6D83vb6C5G7pd4Is=;
+	s=arc-20240116; t=1774926138; c=relaxed/simple;
+	bh=Y51/vY5tCh4XNt8hdLDsUnatrpkl+tMvGoSecfOfUEE=;
 	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=KZx9luXERxJaGYGcrN0AmyAGSuFqUxESwcZAmOsb9LqpeyHf7YgeQAUiUpx3CXfinf8pSKNw8TELo77dXF/goCx7BQEgeCRflo3ygwJVt6wpntR4hoYfINYrTNpT3vaHfvpHr4EaJE6RYe58ahdB7uERqvqbCcUniRJ9tOJqLwM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=kwTr6TCq; arc=fail smtp.client-ip=40.107.75.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	 Content-Type:MIME-Version; b=tEvqDnr16s9BhISYyvNmTawNEul1VrQlqnmZARBCfbplheqv+Ew4lkwRFbU6keGAOOL+zS13Nw6ZBSAFctngRqb9rWQFQLeIQQojBEmBkuq5N0V36ETlzzLX0KiWLMT/iujzchPhA60Zt4BV0BJbVBdwbKEh1GGDB4cH9SZ7GZc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=hi3L3XY8; arc=fail smtp.client-ip=40.107.162.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="kwTr6TCq"
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="hi3L3XY8"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=j2qRYRGNrDDfjJvwA/dBVk3g1u0TYt22tlwZn0ALviBN+lcTqSOa8PIDCuwgjcyu4z5decuy0vM4D2K3lP709Nr2jxYEi8hB00z7r2Hmq8U/c4bNKUrILiwu4wxAHKa0qz9bKTRoTurFW1oKT4MB3nL+5UZ0Hrblru3QaCFOFzFkjhIcHRCk4nqR4qpBMxGLqzn2thGKMv/qwhbS3U/OqS4S0dZDpoFtXAx632u3SQnbHuwfyRMMr3oT5oTZWKj5fdtUX00Zw0J7cDOlbyLgLC7iJ52CNlQEa+uMjNjho5uaOTfgw+/Ge2ocFd+MgqA9oUKE6cr+vgDZH/4nwYCJIw==
+ b=sXup4tSqWQUugY5t9JvbxQVwmVxP+4zMuuCLcoocvzBlDCfTzX7BeY6orYDwHJPZ595ymjWhX6BB8YlCUODsp5zEEg1+KDecquEjxsGJOHNNZ3MUvSen8uJnFak1j/KCgh21674RMY3HmBKxm5zOghYAmd0ed7DsGs0hu0rYQR7oXIwGoMYF+kzdoy9JSfCStnSfVvzikd1BgoHJ6uBGrVH/8awIUyxVXsJ5DcqMYfa2jc8QogTm/UIM9lvhJQtKCco6G0GpDRxZeBNM7XQDSiLCd8cOvZjrN1s9lI8DWSBlBhyiO3UqeSC9Dqs0auUdoboyVBBPM2L90A7oeMtVfA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sozgCNhtywv92zdUZwDHpgSAXrEUvj1kf8dSd6QpfRw=;
- b=ikYgL5IvNyANUdzwPcuHzxrimdhvTub3plzSX65VKiy1BM5VzOctEfrP//jChrBov9628A+4PCJRwBs6ZrOz25iGNefv0IGuou7RC6nSqPGimk2QtvuEzwAPutjRm0EyNzC5KIzXZl3cjg8VwOt0ZKjz8eQtMHKGaPSHCWD60E6RW+F4ifHQkI5TeKW3+w7QLTiXUgK/IO+JBrCkjH6Kre+QNEx4UCi0HfdrmQNZS7wbx9B0SawvENzEdHAKXD35YP9/ICLRG17Wy64Elv00WmjzdVkZ6nmtuFG5orteD8+b4Rox7u9hVewmawBpEce+LHc28kYLFJjzTYpvskWkMA==
+ bh=MvpBgWS7U2b6h2vo3zcaPZZU+/nWrCzii+JNQgSTPGI=;
+ b=aKj6qNN4CVJwKfyrcr25ebLMbhHwUn5zpF4fP0mSiq0AOCJfc6P4d/2TZAH3CFKdaIbo6xmSrDUOpdZUBVYReLf+qfbdmN3AnB66p7BE+qzT9eHwHBpOtN+paWLyy0BruFTHciA5fnEouZBX35tclmxP2AEumWkRISH3YwfF60l3fiybpFp2kItSWAw3Vcvq2PEVQXz6AHHnuAD7oXMg59N3hUKDnfrZgoAr48S1bWlG6+pgjm7CaVXhbDH4kkw5c68HRJByMRmOErXuJs0S3HZAJ954KSi5Au0slyXJscY7HSv+GDgzyVAEgWisiAZhFFTfR8XrEbBBxGALyqLOaw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sozgCNhtywv92zdUZwDHpgSAXrEUvj1kf8dSd6QpfRw=;
- b=kwTr6TCqSE5WVug89MfGtPM7UqfABVCNokbwerBHFp/ccnIDbRSNhlJmA2sx6kRwI8kUPAq3yQ11UQtQ9cC7e+war3EcwMKaHHcP0oFhSptCVGvNmYd+F4uQTx1RfSRi1jqcMbRaPG41wi7cr20KynR1UZACqp0uiHT0AWTITr0EksdM66xOOPnPVdXO1HdWTeBFGwsa9eDFVzWCQVdGC1u9+oceugOjcOMM0MSYqNI6brJBsXYsV9olhCI77GadOUM0YtoCMcOA+FTy9VDKv9+USxrxhXlvAUe7tymH18CZNQhnAjb/xr/9LZOgyym9+YseAolcLSru+Edb9eBlqw==
+ bh=MvpBgWS7U2b6h2vo3zcaPZZU+/nWrCzii+JNQgSTPGI=;
+ b=hi3L3XY8XLuaV9ZN9/i6jOVw53qqlyS3yGYo9mdV0/Vf9LUPeUmE32TR2o/JxOg7fWPiUWPQiiRvBN4x9me8++zT03xQUfPrpagq8w/3vw+LXCR9SaLLa62yyqdu1/ZqwbqJ4bCft44yIyWmldhm1y4kaXrK8u/2e3l9tN24CCHN7QrpJw9w/KLV1IO3yHOsHJ+gPKz+gSFdVcVMxvwIFZ0Xxac46cW21gaAMuKcAavxQTtUKMdzZtRR1+P3tHsWl4UPxd2CMKU6+5tSD6Dz0wgQ3OUGF9EZohtrYS0TjUr8g2fKaq1CWl9/bRGdaM+Ub+18Vzv1PZSIDPcIVt4xRA==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from TYZPR03MB6896.apcprd03.prod.outlook.com (2603:1096:400:289::14)
- by PUZPR03MB6988.apcprd03.prod.outlook.com (2603:1096:301:f7::8) with
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
+ by GV1PR04MB10306.eurprd04.prod.outlook.com (2603:10a6:150:1c9::22) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Tue, 31 Mar
- 2026 02:48:38 +0000
-Received: from TYZPR03MB6896.apcprd03.prod.outlook.com
- ([fe80::78d4:9dee:2e32:d1e4]) by TYZPR03MB6896.apcprd03.prod.outlook.com
- ([fe80::78d4:9dee:2e32:d1e4%3]) with mapi id 15.20.9745.027; Tue, 31 Mar 2026
- 02:48:38 +0000
-Message-ID: <59b5c878-dad8-4ce3-9864-f4706c993d4d@amlogic.com>
-Date: Tue, 31 Mar 2026 10:48:34 +0800
+ 2026 03:02:10 +0000
+Received: from AM7PR04MB7046.eurprd04.prod.outlook.com
+ ([fe80::4609:64af:8a4b:fd64]) by AM7PR04MB7046.eurprd04.prod.outlook.com
+ ([fe80::4609:64af:8a4b:fd64%3]) with mapi id 15.20.9745.027; Tue, 31 Mar 2026
+ 03:02:10 +0000
+Message-ID: <9a6e74ed-d4ab-4f11-ab17-25e1a2b64b2d@nxp.com>
+Date: Tue, 31 Mar 2026 11:03:14 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] pwm: meson: Add support for Amlogic S7
+Subject: Re: [PATCH 7/8] drm/bridge: imx8mp-hdmi-tx: add an hdmi-connector
+ when missing using a DT overlay at boot time
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>,
+ Stefan Agner <stefan@agner.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
+Cc: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
+ =?UTF-8?Q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>,
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Adam Ford <aford173@gmail.com>,
+ Alexander Stein <alexander.stein@ew.tq-group.com>,
+ Anson Huang <Anson.Huang@nxp.com>,
+ Christopher Obbard <christopher.obbard@linaro.org>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
+ Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
+ Fabio Estevam <festevam@denx.de>,
+ Francesco Dolcini <francesco.dolcini@toradex.com>,
+ Frieder Schrempf <frieder.schrempf@kontron.de>,
+ Gilles Talis <gilles.talis@gmail.com>,
+ =?UTF-8?B?R29yYW4gUmHEkWVub3ZpxIc=?= <goran.radni@gmail.com>,
+ Heiko Schocher <hs@denx.de>,
+ Joao Paulo Goncalves <joao.goncalves@toradex.com>,
+ Josua Mayer <josua@solid-run.com>,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Marco Felsch <m.felsch@pengutronix.de>,
+ Martyn Welch <martyn.welch@collabora.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>,
+ Philippe Schenker <philippe.schenker@toradex.com>,
+ Richard Hu <richard.hu@technexion.com>, Shengjiu Wang
+ <shengjiu.wang@nxp.com>,
+ Stefan Eichenberger <stefan.eichenberger@toradex.com>,
+ Vitor Soares <vitor.soares@toradex.com>
+References: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
+ <20260320-drm-lcdif-dbanc-v1-7-479a04133e70@bootlin.com>
+ <544112ab-8ca0-4622-b680-233457198e3e@nxp.com>
+ <DHDNA5HLQPIB.3F21G9QPBUQG8@bootlin.com>
+ <5f06ea5a-5388-440f-91d6-cebb0bee0a88@nxp.com>
+ <DHG8G8FMXA6C.U6LU563OZ8NR@bootlin.com>
+From: Liu Ying <victor.liu@nxp.com>
 Content-Language: en-US
-To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org
-References: <20260326-s6-s7-pwm-v1-0-67e2f72b98bc@amlogic.com>
- <20260326-s6-s7-pwm-v1-2-67e2f72b98bc@amlogic.com>
- <CAFBinCD-4dwp7pmM_GHK_N1kag_5VBZbP9VAwQOxcyg6aquj3w@mail.gmail.com>
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-In-Reply-To: <CAFBinCD-4dwp7pmM_GHK_N1kag_5VBZbP9VAwQOxcyg6aquj3w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: TP0P295CA0039.TWNP295.PROD.OUTLOOK.COM (2603:1096:910:4::8)
- To TYZPR03MB6896.apcprd03.prod.outlook.com (2603:1096:400:289::14)
+In-Reply-To: <DHG8G8FMXA6C.U6LU563OZ8NR@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
+X-ClientProxiedBy: MA5PR01CA0236.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1f4::10) To AM7PR04MB7046.eurprd04.prod.outlook.com
+ (2603:10a6:20b:113::22)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,144 +107,181 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYZPR03MB6896:EE_|PUZPR03MB6988:EE_
-X-MS-Office365-Filtering-Correlation-Id: 30a65925-24e5-4394-1921-08de8ed002ab
+X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|GV1PR04MB10306:EE_
+X-MS-Office365-Filtering-Correlation-Id: 31439cb8-3b04-44b9-e168-08de8ed1e6ab
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|22082099003|18002099003|56012099003;
+ BCL:0;ARA:13230040|366016|19092799006|1800799024|376014|7416014|921020|56012099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	81p4gaxQ3I3MacqJQAKKOFTms6bAPfdVJOlFs3yqHi7Y7ungsVsuuuD/wHHLgoX+zjvBDNMknCepyvy75jQ/Zn2MdKmcQcAR9yertTeZ9j1Nv9RRQQepwH1tVtxV3tpjxHd4GIPrnFwbyps6EQclGtQlT8Zelikv4S5v0OeJ8fMsaKPC4EHxILxXGbshbvGat/bxrTLasoJNeN0mjYFOSoXI4/HDcapUPoxxoZ1W6Whg2KImtI2RWHq95iuPN3Gsm319LQL7H/kOFNvnBo06x/Tsvzg6zOa2lRD1+PHaoudMZKPvcpHFkm+zvDFEryCWCgrIGFANHDIW78vxwj59J4M1fQTcjKZmuekcglpHPW4/klUFy+J6az+HfwhOyN5Ws+p+bHt0BJZ+W4dhVE9KyGP/qNUmN92cwFR6oVHCDAbQ4h1k4DN8sJzgxNeECBF8R6bl3XwJ3h5FWl4ev5wc6Ac4NG6GvNbjeYtEFBy3OIqivLNULIsLZ1lLo/pC1ZmT6khmAjtVImXm36oQ/igaCZ0J9lf0i5bnRGT/HxE/QPbdCwFE2dS/v+2DE+xI/QaV+m/6MYAGJLgawXlPp/lPyC5hsNB7ZEzV1Ak/OdUwrv9bPb03zci1laD8nRD2PEjeK1pXqDPtJqyOPUeQxWRtYZKN2XNYcJ1zXZGRTmxvbWaxGoUhl7Ne/zKYuVZzhVpiPWQnGKVKXinouk5JS/VR3ugfcH+OjEoudRHblBMNYWQ=
+ m/CydDk4M/hDGZpf34sFgM+sJdlBg4/D8C4QZpaM8JVZuvFCG0LGuP3QsHaHbSv/h4Tua8+3gGlgM7aUpZIknLtu+lQj5mH6lDFn7hhR2mKO5wXVxg6WzlR1LJ84zY3JZakHGHni1dKaHEks0/GLPAJ9A2/XC0xTXOpN8QyUCpEPzJnQA2bT6HonFrD7jb5dznAKCTFA80UCtP/imQXGBqwtfbgGmxGR5scYwNMx+YIzUanefGBidBGGF8NJKy9hiwUlK+KCdYaiZklx/k2DoB/qdUqq9gmuzq6sgCVGTfUNcs0xjbnGQ3cfn8xDgUukMlhFlZcSS9/k1DMjygW625nqO8DffdlS1thMgjy2QNeRwYpeWZJjY9cgnG5P6SRs2aoYxuGwycVk+XE02zJvPYO73B2VcwEwAk1pyzl38tGShE9gfxTnFyJ53brb0a3RBMbyCgJgOHb9tB+VXYEEC/pObxQb/CySCL2GyrnHoxW6/1JE3L4BAubz/t3uJTekMizqe2v3Vkr4L0Pk3QymlRvrByVjkiHKKQvoJKWaPSnG9uw08eZ7GMMJgZHx0BdiigVn16KT6Vk08Z2k+Lp5olNNnn4uw2ndGO6DghpgpjjrDEeMwVkS6eoodGFeZyuqmgOuEBjfvOQxUz84ab0+XMFVmuA1AdiRIN9wjxqe6XoIYyDhd7ismMe/k+ECtVlQjybL+IhZL94cFZ+vX5zuF6UUbT/zZr3Ugal4yizru0M=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6896.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1102;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM7PR04MB7046.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(1800799024)(376014)(7416014)(921020)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RlV1WC9GZlFNMTBNR3FNM1FITHBxTGd6TmdqdmdIUGN5NGc2N24yaHllSUVz?=
- =?utf-8?B?WTNxeXF2ODF2Y1NzUlFyRVFScEwvZDFJMlNxZXU0QmRjb3JNN1FVakQxQndP?=
- =?utf-8?B?YmJ6eUFtVmwweUxvQ0hraE5VRTRneDNOc3locHhna2xFVVZ3T0xjUHRDdXhy?=
- =?utf-8?B?eFNSdENBRGRZVzRwaFlDR0gvVkNJT1JUYWpiZytieXZXcEw5bVpUcTF6dE11?=
- =?utf-8?B?dGFxajRlN2hodVFFbWlXUXhadzcvSnB5T05YRUVUVHBVM1V1eStjRkZoTFhK?=
- =?utf-8?B?eUFkTVZBQ21NV1R0TmNlajVkcklyeWVjM01oUUpmOU1QNzN1RU1ydXJqbkRh?=
- =?utf-8?B?VHdMVG9iRXFUREo5UXNnSWtnMGFMMnVLZGFSR3kwU0FXUnViVXBSV0NRZHhC?=
- =?utf-8?B?TVpJUlBiRVdnVm0rVVhzUXF5WlcwbEVIdlRIVkh4RnlhV0pCejFuNnJiNzFq?=
- =?utf-8?B?bEpvbm5ob3JTTUhxYXg2ZFdQWVVoVlFhZGx3UW1TNlI5dFBkbXFWM01RR0E5?=
- =?utf-8?B?cWhSU0FySHN6YUFMb1J3bE5FemtBTzNWa1dYeWUvbTAxQUNNdG9FSHVDZ0c3?=
- =?utf-8?B?ZlJBSVFzQm51dVlkdmJ1Y3ZwemM5bjBEdkc0OFpSNlZUbW5oMi9hMmtLSWRM?=
- =?utf-8?B?ejZtclF1ekxXbXhmOS85WlRMT1RhQ25jTnFyUGhLdTFwYUlzaVhxQ1FMcFdq?=
- =?utf-8?B?OGphOHRackVpNHEyckJtUXZabytncFpvQzVOd2k5WUQwbGcrWVpoOEhEOEZt?=
- =?utf-8?B?eUZiUUtkcHFlN0VPRmZva1RJaHNBTDVPeDI2anFGM05KV1BkOEFJUGMwTDc3?=
- =?utf-8?B?aDJoRHB2azlSdkxiVjEzTHo3b0VXOXBMM3RXZHZxN1hJa25YbHI3a3dCL1lS?=
- =?utf-8?B?ZXFzZ0dSSStxcXMyWlQwckJLNzlCekZVeTVyY08yZXNrbnp1TTlLWEJJN3lO?=
- =?utf-8?B?REJOa0dCQ2xXMlVGUzh5YjgwWWRHYnJCc0tVMUh0S0lIM05oWjc1YmFYd3l1?=
- =?utf-8?B?cW14RERsT0U1V3JaZDBuSS9CKzRvQjdrRHlzNzRlRkVNZEFiMXljTVNMYzh2?=
- =?utf-8?B?R054ZSthUHlpb01hZUF4anU2REoyN1lLck5vOTZVS0ltdERLNDlpZ2pQNlZy?=
- =?utf-8?B?dHEvN1BuaU1RNW53MmhrdGFOZ3FTdU1DVTRkS1B5dE9iRWFaQ2VFWmtkNDh0?=
- =?utf-8?B?WkNLOUM4L3AwaXBRV3AwZ01OdDUxRzdTZVpPMEE2cFNQTVZneFdGaXlic3N6?=
- =?utf-8?B?KzVNSGtlclJIR0NDM0llV0FhbjE0NkpXS2doUmxrWXA0eTFxWlpGS3c5MTg0?=
- =?utf-8?B?d2hiL3drelpCZlRvVWlIa2xRNXlhOGRjSUIxbHZPRStCVU82aUVuVXZVQlZL?=
- =?utf-8?B?QzkrcDRIRXBZUmMxdmo3WGJ5SjY2cHhzdTBNdW91NE90cGd4VGNCaDgybVNC?=
- =?utf-8?B?VTU1UklDOWJNQzlpVnpqYTVhbmxOWSs1UVZQdlFVbmxaMzFGVXpqcHc2UFNi?=
- =?utf-8?B?ek81elJUUlpweTY3UjNURE83bmpWWm1KSjZUb0RTL3lMbW9VWmZaT1lGSWJl?=
- =?utf-8?B?aU9xYUF2QXJMYzZBaVk2Z0t0Z3FzQlc4T3VlTFo2NVhzU0cycmpqOFk4TVV2?=
- =?utf-8?B?SlEydWxLSDVvZU4xYjZoZ2RaQ2h4WUZZT0QwVG9MZ293ZDVheVk1dE9MMUtr?=
- =?utf-8?B?Zmg0WGdtc2t1am5QMDFkKy9aUmcwMEFzZjlZclNaeW9oMTNBTnNRVnZ5aU5J?=
- =?utf-8?B?UVl1d3ROTzU5NWZ6VDJiaXRhWUI0Sk1ETFltVk5BTWNrbUtPRVR0dytDZzdZ?=
- =?utf-8?B?Q1o0QnMwa09GMG5WMHNYR1k2QlVnUTEraFh3c3NmUzl5aG5DQkxtRWdHc1RY?=
- =?utf-8?B?TGx3K00vWnZnSFJ0clZNK1RSUHVEbElxRzZGMS9ZZ1E4bzYydkF6Unc0dnEx?=
- =?utf-8?B?UWhzbGUvdkh3RkhhTmJ5dk9VeHNiY05tVUZxSDJiN0MvcVhLWmRKSjVmNXFv?=
- =?utf-8?B?dGxFVFBIYU03MUNzU1JsbHh4NXNWaGNONkpibzY2b1RLd1NDWENYaGNXcmFQ?=
- =?utf-8?B?OSt6Tlc0dURxNDh5dmhCd0pRSUR3Q1ZwQXhTblRGUi9jVm1TRE9vb3FreTMw?=
- =?utf-8?B?UDA2WlBrMytOK1RZUmNyRzk5R1k1SVlkdlgrMlp6RlNJZEVWQ3cvcVV1bms0?=
- =?utf-8?B?aFA0a3hoR2VXeHpKSVlOS0xJdDJHNFBadHcraFQ4Myt3OTdTMk1WU2JPYmlB?=
- =?utf-8?B?V1ZiK1BYZzJ0NC9CdG8rQjJ6R3ZvMjZBOHlydmwzOHRSVFMyaHA1eUVXMndZ?=
- =?utf-8?B?V1p0R29CZkdnRGJLYmdTR1dJc1FkcVpqa0dKbkxwdWg0a01wRElvZz09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 30a65925-24e5-4394-1921-08de8ed002ab
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6896.apcprd03.prod.outlook.com
+ =?utf-8?B?WHJTYlc1U2Z0ZkJUMVhLMUdLaHFUTkZyUEcwcWRBd3lyOE5XWTNSbXh5NFJz?=
+ =?utf-8?B?K0pwSTZ0NkFmYS9xdzhkQjRPQjBTVmsvRWpGU25nVTRURFlaTW15Q0l4N3Vt?=
+ =?utf-8?B?U25sbjhCRnA1cjM4TXdSMXFid0g5cXZVanJzQml4dmUydHVDOSs2cUhHY1dq?=
+ =?utf-8?B?NDBlSjNBVVdVR0RkV1lyVkszQjVONFVraVVwWWN4OGJOMUxlcXNrOVFXVU9S?=
+ =?utf-8?B?SkxxSzVYaThrdzdRbzd2R3F3Z0Z6WjRQQ1NHblVqLzY2VFFuOGtDUkg5cnlE?=
+ =?utf-8?B?cFdwYmVGblhBTEVFeklnM0RFMExlTkZLN0luRmtCU29OZEMxVlBBZHNMTHkr?=
+ =?utf-8?B?TEhLZnV3S0VVYWJtNmdjcWlMOVlaVFkwZFlyUjR3NDdZZUh5NlJ5WnpNSTYz?=
+ =?utf-8?B?RU44RVdURVV0cFRTV3MzVnNsM3JEbzhPdG5wcElNdWVXYlhQVHNOYjAzdUh6?=
+ =?utf-8?B?ZjY5a2Z4NFFJYldHc1dnTVhSWi9KeEtyT1JLQklGdjhmaitrRXVqMmUzSXBj?=
+ =?utf-8?B?Rmxwck9SekgyelFyMU9sV09sbWthYUlyb2k4MTVLOEFiQ0tmd3FtaGVoNmhP?=
+ =?utf-8?B?ZExLc0FvTTJuYWtrKy80QlU1dlR0S2pYQWtBZWNTRWhGL0V2Z05SOU9Vc1Fn?=
+ =?utf-8?B?MWtvNTZDS0tPZFcybjA3VmlyTnpxYzRzSWMxWFBwemRPdDBxY2NLNEhvMHA2?=
+ =?utf-8?B?S1ByK01wOHFpb1QxVy9nZnQ1ZllrakY3RUNNTklZaVNHMlg3NUdHaGpXNm9T?=
+ =?utf-8?B?Y2Y0WGFkWjZlbWRmKzJGZmFMai9NeUFqMlVLWCtPaVZBVy93RHBTUTl6L3M1?=
+ =?utf-8?B?MUdkWWl5UHg4WENwRUtIK2hmUFc5K2JGTEZMRjJvUG5hTVBYZEZLRnZIZ0x5?=
+ =?utf-8?B?RUdnS3VRM0JOWi8xVEgzRnUzNWl4RjIyNjVva3lGMDc1QzY2eGQ5N2Y2cGZL?=
+ =?utf-8?B?QS83RFY3dWJxclpub3N2bWJ6ZVRzL3V6bCtLUmxZSENKVGRCeXdLdkhCc3d0?=
+ =?utf-8?B?UkxFdm95NSszemdtQVhCYjNBbHhmeDg0eG1sOWRSOGNvdTY4ZzQ0Rkhackla?=
+ =?utf-8?B?S0JGaUEzNkhoQXNKUnQvSWRpZHJSQVNyd3FPUCtjcVk1SWJxaXMvYzI1TjIv?=
+ =?utf-8?B?Z0ZIemhhWTdqRVM5RmJGeVZRMEFmQXVoOHlLRnhmVkdUYnNWZ0xNRXQ4bmRN?=
+ =?utf-8?B?WWFEbkxxZ1g5YWExbXVCZDBlb3pzQUNvK3N6UktOOUZmWVNWSUFlQ0w4T0dn?=
+ =?utf-8?B?Qm9Kaml3TU5nZ2R2SkdWWHladHF1UjAzUllKREJUQ1dJVm42QWFoREcvV01C?=
+ =?utf-8?B?Z2EyOFU5RFRTdm0wZ1l0RGE2VzFKN3ZvWDNVczVTbmxtOVczM2lzVFJ4aFZR?=
+ =?utf-8?B?VGI3RjVnMkorMUJoSVI2S3lZc0hvZkhNaEkvdUFDaGEzQ3ppazdNcGxzdFV5?=
+ =?utf-8?B?SkhJb0N1cTdYOGs1amlMQzJyd1RJYjBWTFNjL282OXUrbHg0UmcwQ1hES1hB?=
+ =?utf-8?B?S3VkRHgzSnc4MTlIbUhUU2FFcStIaUdQbGZHM0F4WHVFMitIWVBRdWFDaXha?=
+ =?utf-8?B?NzkxSmxqRXFRTitESWg3QkQzNjdsWnJWOXF5V1JXeklxeDBSWDhSYXAyM3VO?=
+ =?utf-8?B?VE1sNCszR0JDZXlBdmZ0emlWUDh2ckV6bkZMU2hrLzVEcjkvOW1sazlQd2Vx?=
+ =?utf-8?B?K01xQk52ODlvMUNyYWpidkp1b1dlWkc2MHg2b1J3OFgza0pxSFZnUUNENFVU?=
+ =?utf-8?B?RkppbG92dFR5elZWMmRza1ZQbGk1SlArNEV4ZzJCUGkxcXhZMjJuZjl2YXlU?=
+ =?utf-8?B?MFEwd1doRzJTWkxMNmEzS3I0RXBhRmxzaGVRTEVzdHhXZnNMeXhQcTIwNHMr?=
+ =?utf-8?B?VkMxdVFaY2QrZjFvNVZxTENJTTJjTXNLR2kvcGFuYnQxc3pNbEdsYXlWUExM?=
+ =?utf-8?B?RWN0eWtWMjJQaXB4M2I5Z2RXNngvZ3c3RUIybU9KZmgxdDRhN1ZJK29yWCsw?=
+ =?utf-8?B?bFd4L2lHdDhzRHZya2hLSG05ZzJEUVZ0NVc0ak0vUGtzL1F4Vm04bDA5NmdN?=
+ =?utf-8?B?OHlubC9wQ3pab0VPLzRFNThjdDV2Tm5TMmkrRFh3a0ZBOEtkZ25Bbzl1QXZy?=
+ =?utf-8?B?eXp2ckpvWlF4Z1FaZnF5dlpLVUdONVFxRENncnBBWWFkNE5XYU05WE13NDQx?=
+ =?utf-8?B?SXgrNEZUN0JPL1VWZWJkbU5zLzB4MW9VUWQ5aVZLVWx5NWV0aWI3TFNVRDZD?=
+ =?utf-8?B?azVsUDZmZTRoZm0xeWZGcjR1RHBLelVKWmhGTTZaeVFXQXdHVStWa3JPc0tU?=
+ =?utf-8?B?YW1ydlVHcVIrNEVXSGRPWXZmQmN2cDdETzBGVFl3ckh2U0p5UHRQdz09?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 31439cb8-3b04-44b9-e168-08de8ed1e6ab
+X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB7046.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 02:48:38.3458
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 03:02:10.5468
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VfQt1QaD6iMJZw9e89wYDrAXz53rvakNwGT4qjlFgQrLhcXR97FIKFk8U+rIz13tRk3VBJIPokWLPUg/HTHqhOq6mDu7Ky5v/gR+d2mFt7A=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUZPR03MB6988
+X-MS-Exchange-CrossTenant-UserPrincipalName: R1rJDFy8c7r1INyhb0q51ihZAm1ts5spnjlB8VqC4NRexNhHTaA4WobI/1ESlESKrHHpAsVGfUbrTStCFz9hIw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10306
 
-Hi Martin,
-    Thanks for your review.
+Hi Luca,
 
-On 2026/3/31 05:44, Martin Blumenstingl wrote:
-> Hi Xianwei Zhao,
+On Mon, Mar 30, 2026 at 05:47:23PM +0200, Luca Ceresoli wrote:
+> Hello Liu,
 > 
-> On Thu, Mar 26, 2026 at 7:35 AM Xianwei Zhao via B4 Relay
-> <devnull+xianwei.zhao.amlogic.com@kernel.org>  wrote:
->> From: Xianwei Zhao<xianwei.zhao@amlogic.com>
->>
->> Add support for Amlogic S7 PWM. Amlogic S7 different from the
->> previous SoCs, a controller includes one pwm, at the same time,
->> the controller has only one input clock source.
->>
->> Signed-off-by: Xianwei Zhao<xianwei.zhao@amlogic.com>
->> ---
->>   drivers/pwm/pwm-meson.c | 32 ++++++++++++++++++++++++++++++--
->>   1 file changed, 30 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/pwm/pwm-meson.c b/drivers/pwm/pwm-meson.c
->> index 8c6bf3d49753..3d16694e254e 100644
->> --- a/drivers/pwm/pwm-meson.c
->> +++ b/drivers/pwm/pwm-meson.c
->> @@ -113,6 +113,7 @@ struct meson_pwm_data {
->>          int (*channels_init)(struct pwm_chip *chip);
->>          bool has_constant;
->>          bool has_polarity;
->> +       bool single_pwm;
-> At first I wasn't sure about this and thought we should replace it
-> with a num_pwms (or similar) variable.
-> However, I think it will be hard to add a third (or even more)
-> channels to the PWM controller (not just from driver perspective but
-> also from hardware perspective). So I think this is good enough as the
-> choice will only be 1 or 2.
-> > [...]
+> On Mon Mar 30, 2026 at 5:02 AM CEST, Liu Ying wrote:
 
-This is not a third channel added here.
-Compared with the previous controller having two channels, here the 
-control has only one channel. It's equivalent to the first channel 
-before, while the second channel is reserved.
+[...]
 
->> +static const struct meson_pwm_data pwm_s7_data = {
->> +       .channels_init = meson_pwm_init_channels_s7,
-> I think you can use .channels_init = meson_pwm_init_channels_s4, if
-> you change the code inside that function from:
->      for (i = 0; i < MESON_NUM_PWMS; i++) {
-> to:
->      for (i = 0; i < chip->npwm; i++) {
+>>>>> +	fixup-hdmi-connector {
+>>>>> +		compatible = "hdmi-connector";
+>>>>> +		label = "HDMI";
+>>>>> +		type = "a";
+>>>>
+>>>> What if a board uses another type?
+>>>
+>>> For boards affected by this patch, currently the connector is created by
+>>> dw_hdmi_connector_create() which hardcodes type A [0], so there would be no
+>>> difference.
+>>
+>> Yes, that's from driver's PoV.  However, userspace may get the type
+>> from /sys/firmware/devicetree/base/fixup-hdmi-connector/type and use it
+>> to do something.
 > 
-> [...]
+> I'd say this is incorrect, the device tree is not an API for that. The
+> connector type might be known to the driver by other means (ACPI, DP MST,
+> whatever). So I think this is a non-problem.
 
-The method you suggested was exactly what I did in the first version, 
-but after my subsequent optimization, it's what you see now.
+I just feel that it's not great to report potentially wrong type to users
+through the above sys node ...
 
-Since initialization only involves obtaining the clock, I modify the 
-code less in this way and the logic is also simpler.
+> 
+> If userspace needs to know the connector type, that should come from the
+> ioctl (DRM_IOCTL_MODE_GETCONNECTOR perhaps).
+> 
+>> Maybe, that's trivial.
+> 
+> Not sure I got what you mean here, sorry. What are you referring to?
 
->> @@ -650,9 +674,13 @@ static int meson_pwm_probe(struct platform_device *pdev)
->>   {
->>          struct pwm_chip *chip;
->>          struct meson_pwm *meson;
->> +       const struct meson_pwm_data *pdata = of_device_get_match_data(&pdev->dev);
->>          int err;
+... with the above potentially wrong type being said, I think maybe this
+drawback is not a big deal and could be ignored.  Sorry for not being
+clear in my last reply.
+
+> 
+>>> OTOH how can a common module know the specific connector?
 >>
->> -       chip = devm_pwmchip_alloc(&pdev->dev, MESON_NUM_PWMS, sizeof(*meson));
->> +       if (pdata->single_pwm)
->> +               chip = devm_pwmchip_alloc(&pdev->dev, 1, sizeof(*meson));
->> +       else
->> +               chip = devm_pwmchip_alloc(&pdev->dev, MESON_NUM_PWMS, sizeof(*meson));
-> I don't think this code is too bad for now.
-> However, I'm wondering if you want to make "channels" from struct
-> meson_pwm a flexible array member in a future patch. In that case it
-> will be helpful to have an "unsigned int npwm = pdata->single_pwm ? 1
-> : MESON_NUM_PWMS;" (or similar) variable to future-proof your code.
-> What do you think?
+>> Hmm, maybe add a module parameter or let users set the type through Kconfig
+> 
+> I'm afraid none of this would work for distribution kernels, where who
+> configures the distribution has no idea on how many different hardware it
+> will run.
+> 
+>> or even define an unknown type to honestly tell users that we don't know it?
+> 
+> This sounds like a potentially valid idea, even though I'm not fully
+> convinced. Also I suspect it would be a pretty large change, and also
+> adding "unknown type" in the device tree seems not compliant with the rule
+> that DT describes the hardware (not the lack of info about the hardware).
+> 
+> But definitely it's not needed for this specific case, because:
+> 
+>  * with current code, every imx8mp-hdmi-tx usage adds a type-A connector [0]
+>  * with this patch the correct type will be created when described in DT,
+>    and type-A will be used only as a fallback when the DT is lacking
+> 
+> So after the patch we'd do sometimes better, never worse in this respect.
 
-I considered this, but chose the current implementation. I will switch 
-to your suggestion in the next version.
+Well, kind of a bit worse since the sys node exposes a potentially wrong type.
+
+> 
+> Based on the above I'm sending v2 soon, but don't hesitate in following up
+> in case I may be missing something (this topic is tricky).
+
+Agreed, it's tricky.
+
+> 
+> [0] https://elixir.bootlin.com/linux/v7.0-rc5/source/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c#L2601
+> 
+>>> Boards with a different connector should describe the connector in the
+>>> device tree, if they need to instantiate the exact type.
+> 
+> I think this is the only valid solution. It's very easy to do, nothing new
+> to invent.
+> 
+> Maybe on top of that we could add a warning when the overlay is applied,
+> e.g. "imx8mp-hdmi-tx used without a connector described in device tree;
+> adding a type A connector as a fallback; please add a valid description to
+> your device tree".
+
+I'd say this doesn't sound a bad idea but I hope the message is clear and
+short.
+
+> Maybe pointing to a TODO entry in the documentation.
+
+To parameterize the HDMI connector type?  If so, I'm okay with that.
+
+> 
+> What do you think about this?
+> 
+> Thanks again for your careful review!
+
+Thanks for your patches! Appreciated.
+
+> 
+> Luca
+> 
+> --
+> Luca Ceresoli, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com/
+
+-- 
+Regards,
+Liu Ying
