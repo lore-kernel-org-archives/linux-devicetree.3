@@ -1,44 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFAC83DDDD3;
-	Tue, 31 Mar 2026 15:52:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83AE341B37F;
+	Tue, 31 Mar 2026 16:01:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774972369; cv=none; b=De3LoNHdP0Q2rRASX9ygdDtYOD9mUl5ecjv7fYmUxkkq30NkvsMVOR0qqTAEni+mKhQc1rpNT6FFRO/fw/v2/YxfXgeqRRzOokOp2gYsZMWTBKC9YzJBFYdcR2CMDCT+WPrtUk8EWqHNcnWBqECjlTcjIpSw8KEoze1Zn2KcP2w=
+	t=1774972916; cv=none; b=l0/VnZZCv5NNVgVj/MQxB6wNWU0Wlwm0R9jxab+7fSwej3a9JKqOpR7Hnvvi4LslzykmPDrrrBF7N77wqRWB03UN4K3iH6CnRUtYEKOBZAVhFl9WN+53RJfuKmO6ZolKdbm+SvPx6KNtsRXuhey29dKU6vLli617t1VzTYZykbg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774972369; c=relaxed/simple;
-	bh=t7dys0idtZz5iiBj3wpm6z9RBDMS3qpP5+1QDLupV00=;
+	s=arc-20240116; t=1774972916; c=relaxed/simple;
+	bh=eI8SQ8hlmfnTvWkv7QAhjjIQ17PWVbfzQx5ojZvnNo4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z06x1NdDwM61P8jFzW8EOVb9x0XaFIAHeIc7XW+0lv9qS+FaqqnLLTjhE7LsamUClIf5LPxFVGwFAaIOCea9abVGij8xnIYzEWvWuPVGZr4qZ2mhb5eaE5x0Xs6KahO8QJmOCRu+ppNJ0XgEOJwwR5dIlkudW3V8rk6vXzYVQ6U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QpfPxYWB; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=JIv3GAHlXjQX+Fd/xJ2TlnYEgxkxlwcINPefkpcsyDZtnF40pg6DgxwYVnTpl+HFmWqpebXfli8cRxBBZ8h8KWDgt2r0TZZJoximoTThcqwavGMUYvB4Zr8GwC1wa+tEiK4C/0xsQ7MCyRY6MeRThf2yJbLCgJXeJz2XTYGuiu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CDl6VWIz; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QpfPxYWB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54AC5C19423;
-	Tue, 31 Mar 2026 15:52:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774972369;
-	bh=t7dys0idtZz5iiBj3wpm6z9RBDMS3qpP5+1QDLupV00=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QpfPxYWBYJxWlgo8o4HxIoYrbcUvDQ/xXrSJHk3WD1ZxPxG96ghZTQWboTFM9hOt0
-	 ss+ryxHNKyTKRfDPnhCV78vp6eaFC+v1CB3zoZDkRXFMr6RggAOKFnjGSN/Q273ZlD
-	 jU4dEle40OcAGBvnxmVbXYpF2yXzTvphadtD0RaFIAs7jy3vNM/GnNjAYT5VZd5AD4
-	 mPO5ReRANcxqEBT09MXbuaPNX6kloUSUAEpmD4f2MnYGd3RvGYcDVf6LNAzkd/ow0K
-	 ux5AKKI+EhB91FYF6UTOwCxabrP0XUxKrHnjK4DEfM50ywZ8npXvslnkCjDS+f2Lre
-	 OwQSqtN8y22IQ==
-Date: Tue, 31 Mar 2026 10:52:46 -0500
-From: Rob Herring <robh@kernel.org>
-To: Guenter Roeck <linux@roeck-us.net>,
-	Alexey Charkov <alchark@flipper.net>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CDl6VWIz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1774972914; x=1806508914;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=eI8SQ8hlmfnTvWkv7QAhjjIQ17PWVbfzQx5ojZvnNo4=;
+  b=CDl6VWIzjIwknuEDX8aRVR75G7bHOlu84fc2/88FEPNZCmUPG8mOdxOE
+   9bVxQxuJ/Sh8FAfHLViltZXSaBrPrKMSL434pjgx6VEOvGDgLeTrVxvEu
+   Hlwc/j6KyOhVN0zP6Se7aUO4kEBcR1YRwKWzTjq01zp0XFGImD8kbYKDF
+   IJ3E+hH8lv8kE1d0JfpCqxLmV10uPHo6W9UpiVNImnnP1r6imBRdK8HYN
+   4NYOWvHLPIi/IiX31MZQA7tpPe1CpdSS9BwBQv+IkuxrLxiLTkwgKKt9i
+   3kBHNO2jj+6b03DnNZ/pArD6HBN2PK2ZCmaxL/joRZdm4xnxzQfuEnaQs
+   A==;
+X-CSE-ConnectionGUID: LIy7F1x4SiGg8NvMZuOL0g==
+X-CSE-MsgGUID: +B5r4h/zQ6qftZSuJHgjNw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11745"; a="75954401"
+X-IronPort-AV: E=Sophos;i="6.23,152,1770624000"; 
+   d="scan'208";a="75954401"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Mar 2026 09:01:53 -0700
+X-CSE-ConnectionGUID: W+2NdeozTVSmfTQd4l/CIQ==
+X-CSE-MsgGUID: IGnx9ev2S/KHj+cLPQVwFQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,152,1770624000"; 
+   d="scan'208";a="226270636"
+Received: from lkp-server01.sh.intel.com (HELO 283bf2e1b94a) ([10.239.97.150])
+  by orviesa009.jf.intel.com with ESMTP; 31 Mar 2026 09:01:47 -0700
+Received: from kbuild by 283bf2e1b94a with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1w7bXD-000000002qT-3p6k;
+	Tue, 31 Mar 2026 16:01:43 +0000
+Date: Wed, 1 Apr 2026 00:01:12 +0800
+From: kernel test robot <lkp@intel.com>
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	linux-mediatek@lists.infradead.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Fabien Parent <parent.f@gmail.com>, Val Packett <val@packett.cool>,
+	Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Sen Chu <sen.chu@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Macpaul Lin <macpaul.lin@mediatek.com>, Lee Jones <lee@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Gary Bisson <bisson.gary@gmail.com>,
+	Julien Massot <julien.massot@collabora.com>,
+	Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
+	Chen Zhong <chen.zhong@mediatek.com>, linux-input@vger.kernel.org,
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v5 0/2] Add support for Texas Instruments INA4230 power
- monitor
-Message-ID: <20260331155246.GA1299761-robh@kernel.org>
-References: <20260330-ina4230-v5-0-eeb322d95b3a@flipper.net>
- <67a5d1c1-a9c5-47fb-a0ec-5b69a991b01e@roeck-us.net>
+	linux-pm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v4 5/9] mfd: mt6397: Add support for MT6392 PMIC
+Message-ID: <202603312339.CMJpqhEq-lkp@intel.com>
+References: <20260330083429.359819-6-l.scorcia@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,45 +83,125 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <67a5d1c1-a9c5-47fb-a0ec-5b69a991b01e@roeck-us.net>
+In-Reply-To: <20260330083429.359819-6-l.scorcia@gmail.com>
 
-On Mon, Mar 30, 2026 at 09:07:32AM -0700, Guenter Roeck wrote:
-> On 3/30/26 08:14, Alexey Charkov wrote:
-> > TI INA4230 is a 4-channel power monitor with I2C interface, similar in
-> > operation to INA3221 (3-channel) and INA219 (single-channel) but with
-> > a different register layout, different alerting mechanism and slightly
-> > different support for directly reading calculated current/power/energy
-> > values (pre-multiplied by the device itself and needing only to be scaled
-> > by the driver depending on its selected LSB unit values).
-> > 
-> > In this initial implementation, the driver supports reading voltage,
-> > current, power and energy values, but does not yet support alerts, which
-> > can be added separately if needed. Also the overflows during hardware
-> > calculations are not yet handled, nor is the support for the device's
-> > internal 32-bit energy counter reset.
-> > 
-> > An example device tree using this binding and driver is available at [1]
-> > (not currently upstreamed, as the device in question is in engineering
-> > phase and not yet publicly available)
-> > 
-> > [1] https://github.com/flipperdevices/flipper-linux-kernel/blob/flipper-devel/arch/arm64/boot/dts/rockchip/rk3576-flipper-one-rev-f0b0c1.dts
-> > 
-> > Signed-off-by: Alexey Charkov <alchark@flipper.net>
-> > ---
-> > Changes in v5:
-> > - Reworded per-channel subnodes description in the binding for clarity (Sashiko)
-> > - NB: Sashiko's suggestion to allow interrupts in the binding sounds premature,
-> >    as the alerts mechanism is not implemented yet and there are no known users
-> >    to test it. If anyone has hardware with the alert pins wired to an interrupt
-> >    line - please shout and we can test/extend it together
-> 
-> The bindings are supposed to be complete, even if not implemented, so I am not sure
-> if the DT maintainers will agree here. We'll see.
+Hi Luca,
 
-Given ti,alert-polarity-active-high is added seems like the interrupt 
-should be too. And the interrupt can specify the polarity, so is that 
-property really needed? There's alway the possibility that you have some 
-inverter on the board too and the interrupt polarity is not enough, but 
-solve that problem when it actually exists.
+kernel test robot noticed the following build warnings:
 
-Rob
+[auto build test WARNING on lee-mfd/for-mfd-next]
+[also build test WARNING on broonie-regulator/for-next linusw-pinctrl/devel linusw-pinctrl/for-next lee-mfd/for-mfd-fixes linus/master v7.0-rc6 next-20260330]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Luca-Leonardo-Scorcia/dt-bindings-mfd-mt6397-Add-MT6392-PMIC/20260331-081127
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/lee/mfd.git for-mfd-next
+patch link:    https://lore.kernel.org/r/20260330083429.359819-6-l.scorcia%40gmail.com
+patch subject: [PATCH v4 5/9] mfd: mt6397: Add support for MT6392 PMIC
+config: s390-randconfig-002-20260331 (https://download.01.org/0day-ci/archive/20260331/202603312339.CMJpqhEq-lkp@intel.com/config)
+compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260331/202603312339.CMJpqhEq-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202603312339.CMJpqhEq-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/mfd/mt6397-core.c:421:16: warning: cast to smaller integer type 'enum mfd_match_data' from 'const void *' [-Wvoid-pointer-to-enum-cast]
+     421 |         device_data = (enum mfd_match_data)of_device_get_match_data(&pdev->dev);
+         |                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   1 warning generated.
+
+
+vim +421 drivers/mfd/mt6397-core.c
+
+   398	
+   399	static int mt6397_probe(struct platform_device *pdev)
+   400	{
+   401		int ret;
+   402		unsigned int id = 0;
+   403		struct mt6397_chip *pmic;
+   404		const struct chip_data *pmic_core;
+   405		enum mfd_match_data device_data;
+   406	
+   407		pmic = devm_kzalloc(&pdev->dev, sizeof(*pmic), GFP_KERNEL);
+   408		if (!pmic)
+   409			return -ENOMEM;
+   410	
+   411		pmic->dev = &pdev->dev;
+   412	
+   413		/*
+   414		 * mt6397 MFD is child device of soc pmic wrapper.
+   415		 * Regmap is set from its parent.
+   416		 */
+   417		pmic->regmap = dev_get_regmap(pdev->dev.parent, NULL);
+   418		if (!pmic->regmap)
+   419			return -ENODEV;
+   420	
+ > 421		device_data = (enum mfd_match_data)of_device_get_match_data(&pdev->dev);
+   422		switch (device_data) {
+   423		case MATCH_DATA_MT6323:
+   424			pmic_core = &mt6323_core;
+   425			break;
+   426		case MATCH_DATA_MT6328:
+   427			pmic_core = &mt6328_core;
+   428			break;
+   429		case MATCH_DATA_MT6331:
+   430			pmic_core = &mt6331_mt6332_core;
+   431			break;
+   432		case MATCH_DATA_MT6357:
+   433			pmic_core = &mt6357_core;
+   434			break;
+   435		case MATCH_DATA_MT6358:
+   436			pmic_core = &mt6358_core;
+   437			break;
+   438		case MATCH_DATA_MT6359:
+   439			pmic_core = &mt6359_core;
+   440			break;
+   441		case MATCH_DATA_MT6392:
+   442			pmic_core = &mt6392_core;
+   443			break;
+   444		case MATCH_DATA_MT6397:
+   445			pmic_core = &mt6397_core;
+   446			break;
+   447		default:
+   448			dev_err(&pdev->dev, "Unknown device match data %u\n", device_data);
+   449			return -ENODEV;
+   450		}
+   451	
+   452		ret = regmap_read(pmic->regmap, pmic_core->cid_addr, &id);
+   453		if (ret) {
+   454			dev_err(&pdev->dev, "Failed to read chip id: %d\n", ret);
+   455			return ret;
+   456		}
+   457	
+   458		pmic->chip_id = (id >> pmic_core->cid_shift) & 0xff;
+   459	
+   460		platform_set_drvdata(pdev, pmic);
+   461	
+   462		pmic->irq = platform_get_irq(pdev, 0);
+   463		if (pmic->irq <= 0)
+   464			return pmic->irq;
+   465	
+   466		ret = pmic_core->irq_init(pmic);
+   467		if (ret)
+   468			return ret;
+   469	
+   470		ret = devm_mfd_add_devices(&pdev->dev, PLATFORM_DEVID_NONE,
+   471					   pmic_core->cells, pmic_core->cell_size,
+   472					   NULL, 0, pmic->irq_domain);
+   473		if (ret) {
+   474			irq_domain_remove(pmic->irq_domain);
+   475			dev_err(&pdev->dev, "failed to add child devices: %d\n", ret);
+   476		}
+   477	
+   478		return ret;
+   479	}
+   480	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
