@@ -1,305 +1,358 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013071.outbound.protection.outlook.com [40.107.162.71])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D769F3AE1A4;
-	Tue, 31 Mar 2026 11:29:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.71
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774956559; cv=fail; b=ojhT2vL/9N8T/ZxdHVPmXofD5QVuNoZKHjb9klEKCAoLeOJ1N/I9QPUGIXOumzLbGkuQF4s/EnqD/YNRd6FzcX03DAmTMj8pi5yIDktvQsClDPtWJemFq+Ou9QZHZfkfGKGcFy47rYbUwpJ0KOSKBHZkls2hadhc0yOvigg+6kg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774956559; c=relaxed/simple;
-	bh=F6oiFFHY0Y3LNPpLPW7ri10hrGMEAmLgcwnVXP8ftiY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ioeo87QcvAsjRlDc/HyG3eIsqmp5GS5kXS0KUkCYz1Y68c9EChjWeWkIZn41oQaS2zj7gIcvve1Poc90mJERFojLbNfpuh6YdRdy2jrXO2dkr44kxQG2Pp1t0o7OFwYaipWjHEc9Lk+LoIEreiYk14Oqr+beUX6CnoDB2JJ2kg4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=esvgF4MB; arc=fail smtp.client-ip=40.107.162.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64E533AE1A4;
+	Tue, 31 Mar 2026 11:29:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774956564; cv=none; b=MKV2B3JFGrDF3FmSFnDApBHMCxv6lgFsRRY1o/mfB/UCKDipetY9cfkC9yv3J3EMINZB3A+/agjmDq7oH/fspd32kSoU19osbaGri0jlPQAudoM1aiMvmq6g/CzYq++JxxPOmeFSRvdoJBaDw/9M0X6VYbqGNxEV921SAqe/KgU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774956564; c=relaxed/simple;
+	bh=S/vMHtpXmmwINoW98j8tfDkxvqXu7f2o4UFRAH921GM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AabTiRA73gzJ+HZfoZnnsFB5E8qgL1JT6BshFtlTLiiU7X6yNnp+S/UmSJByzThsWMX5e2d64kgHP6INWZsKg7xrswpWxrwEwoiAeqVrKPRLcX/rhJsRgCtsVc3EEj6utrcKNu1Y/CHyU9JiEDg/jaKwL5OD7gQFVGfDWTjLOa4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ufX/9lvJ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="esvgF4MB"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=P8UXuny7gz0Ey/Yk+gqmqlElL47W91dFxxpi7Zn/xxRp8WFemJddnv1wV7EffZZ3iey5ThWmfIW6/nxDlM9AWC9c+tP3vYsSHU/cPE4exU5llg/2oUp98HD2s/dv2q9bEme/2ETN2dUynYtQGmKg4piKH2xKl3H11lCf9ZOfaFbDITxK34c2yLD6zJEKooarLHOuecetOlFob48XgGpJOFUfillG72fjvN2QEr5UCxKOom5Djzccig4qLM7x2cmgFgXy52rEZEBwloeSZ1D7t8acQm6iPMIX4ySjUxBY09V89mWACdIdW5F6kvjM7Mt5UoKHREus64KvcTBVwIIiSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Pf9Y9p6ICXZrv2WVScN5pUjaB1x+5qUjldE+EQle0AU=;
- b=dPDXcK7LR81F5zaCCoL3rLyQAZ+W75bSvRNYjAhBgKx9irz9vlGP92SKeYphvjkBEs3JFrRmd0Dh4CWhsa4eOhnxDaCx88rOyiFztPICVfhX/xM/hHDomAmpHS/svS0XpdxhXhm5b27JOZdqwVwi81aTrTTMkqZ6wx0fOg3RpaSBld+ZGrRm71vepdlxanGWM15lFwwhe44paO+KJSBn8UcUBKyFEdKYCTUBKjySZMkS5jDeHjzxrNeib3B3qK4DHRJa+IEQMl4EsC+1qk3n86JE/fgKpyPGVO9ekwpVHQBTScf3J/GoeKSj7rbktFVyPlqBy/+c5039bLFKl8WwUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Pf9Y9p6ICXZrv2WVScN5pUjaB1x+5qUjldE+EQle0AU=;
- b=esvgF4MB4xA6SshAQAyM1Bc6aVWTx9Yf9r6SyRHgHqPj2dk5B1n4EXVgJHSxeaDPq20FEtkAvUGAWpTVb2xkMZ+DMIyvx3WL//4SL+qZ/RVtDEsU3EpMv1Id11HUXk55UU/vvZSCsd1kwBZImoS3p+TxYY5q83nUMb+cjf/VlXlnd9AlEH1Q62Z98UpWWkmPh5F9X9qQMgSwGKg1iVUoy4mV/EVZXBPV10iRWqmzHkJ1cDZcCZMkMY1e1uVEVJoeFyFF0WhxyFqem8W90Xl4FEnalgZP9X/E+lsG/b5FM/X2ta1Iut18KU6r48RWazlEbun9nA7lABG40JC6MpIcSQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM8PR04MB7284.eurprd04.prod.outlook.com (2603:10a6:20b:1dc::8)
- by PA1PR04MB11406.eurprd04.prod.outlook.com (2603:10a6:102:4f1::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Tue, 31 Mar
- 2026 11:29:14 +0000
-Received: from AM8PR04MB7284.eurprd04.prod.outlook.com
- ([fe80::9cd6:51bd:82b:98dc]) by AM8PR04MB7284.eurprd04.prod.outlook.com
- ([fe80::9cd6:51bd:82b:98dc%5]) with mapi id 15.20.9745.027; Tue, 31 Mar 2026
- 11:29:14 +0000
-From: Wei Fang <wei.fang@nxp.com>
-To: claudiu.manoil@nxp.com,
-	vladimir.oltean@nxp.com,
-	xiaoning.wang@nxp.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	f.fainelli@gmail.com,
-	frank.li@nxp.com,
-	chleroy@kernel.org,
-	horms@kernel.org,
-	linux@armlinux.org.uk,
-	andrew@lunn.ch
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev
-Subject: [PATCH v4 net-next 06/14] net: enetc: add support for the "Update" operation to buffer pool table
-Date: Tue, 31 Mar 2026 19:30:17 +0800
-Message-Id: <20260331113025.1566878-7-wei.fang@nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260331113025.1566878-1-wei.fang@nxp.com>
-References: <20260331113025.1566878-1-wei.fang@nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MA5P287CA0151.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1d7::14) To AM8PR04MB7284.eurprd04.prod.outlook.com
- (2603:10a6:20b:1dc::8)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ufX/9lvJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA522C2BCB5;
+	Tue, 31 Mar 2026 11:29:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774956564;
+	bh=S/vMHtpXmmwINoW98j8tfDkxvqXu7f2o4UFRAH921GM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ufX/9lvJw9d25VwcF3VjDq/OD4oVn03acEo3fyAgqixpxoawSFmBBZ7blTgVReEqT
+	 BDpF0Ygb/kS1ZeFQ6/c6RIaAlSZzJEgnh4J/iQBB4pgtP0OMl9wZs5kSoCwg9RzXSd
+	 9NrIj4+rzcS42RbYBAVV7amBu1onxzFcxjmtMiDRFyU6W9nVOzspV8LCnNBS1hWWNc
+	 2YuRCbQg1fw4d7bvC76wENH/jU5NxsCAVYdCixcvYW29FwGdvZhYtBHH2EW1UlP8KA
+	 L9l3kCQYRq+GpoBOn31Z7YJarIvkghuuoYr5gxQQAxCtLiaFPRNa1IQHieE6WDZt+Y
+	 3s2xDJri0LwfA==
+Date: Tue, 31 Mar 2026 12:29:18 +0100
+From: Lee Jones <lee@kernel.org>
+To: Lakshay Piplani <lakshay.piplani@nxp.com>
+Cc: linux-kernel@vger.kernel.org, linux-i3c@lists.infradead.org,
+	alexandre.belloni@bootlin.com, krzk+dt@kernel.org, robh@kernel.org,
+	conor+dt@kernel.org, devicetree@vger.kernel.org, broonie@kernel.org,
+	Frank.Li@nxp.com, lgirdwood@gmail.com, vikash.bansal@nxp.com,
+	priyanka.jain@nxp.com, aman.kumarpandey@nxp.com
+Subject: Re: [PATCH v8 4/7] mfd: p3h2x4x: Add driver for NXP P3H2x4x i3c hub
+ and on-die regulator
+Message-ID: <20260331112918.GD3795166@google.com>
+References: <20260323062737.886728-1-lakshay.piplani@nxp.com>
+ <20260323062737.886728-5-lakshay.piplani@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7284:EE_|PA1PR04MB11406:EE_
-X-MS-Office365-Filtering-Correlation-Id: 028e630e-40c8-4fc8-4d50-08de8f18bc55
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|376014|52116014|366016|7416014|1800799024|18002099003|56012099003|22082099003|38350700014|921020;
-X-Microsoft-Antispam-Message-Info:
-	MtNL2924XuAUZk+e7Ena0DDE4pxlSB9L9A37qEDXsVEcvXOODENzjqAZ/w1+XHM2Q2L98OEzDlyQujyb9OedW0v+mS0erGAplOxNPnr2yZRkfSZhpDmlZ55ccqhr/n7By4+7CN1r0WJPZiSNdHLASIoCRUminVwLXWd/sr6biHsbCwmY/TPPbTjue+a6gl1sqmsgBbMk8NbC7dqLW3oRktMLT8vic7CExOlZs6qF7hQULICete4exy9HoDtoIA9YMAf5lwgSGXKc4HPbx281vFZFG1ePXZwFZR/83K2CT4y+TL7OfzAuat7uw81eB1ZrMBKmtnUQlI1WGIzuE/XuspcVRF53Pvw1OOpu+wdEh5jlid2hn3FCgv8IyasMPDFZCwbm8zaThObqGaPaw79LYKY8GFaXVF9uHf4bbrJyFXfi/7UvIR7czdSn59YiPym8Mw6+x598cqP0mtK2IwJRt/6FsAG+nFFN4jFRJT7CWwkziK9Mx5Jh3LponleubPMd1DJVo8K1HkB/hHVbPKxhQQNpKETAcppcFqWR04UUqKPhNp15L2i/7mSz77LDWW6VfGwWtBHjw8jYZa9yJU7lR3WSeG94vX8y/fqHxUE59zgm66o5fLViidA0Lt1W+zw/DFQhl2ryMp4LHgUv0ZCN+R8z/VTAviaWLLGxoKNKLqb8tgtbpI/SSRcHnpoZymkmYzL9SRXq+zQo9uqOIUlfkFk4LCQnaLxoW2NmD8xiSq7rRpzjDObUydHYNoSTIlEmh9wPw03zOnKjdjIeaDMMiqKk1325O6eyVNk0mr4XkzCalQVBgKaTB2DgfEiuKe2p
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7284.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(52116014)(366016)(7416014)(1800799024)(18002099003)(56012099003)(22082099003)(38350700014)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?aiA/pM4HdDwykpaKiSnOFAEH++JlbmPQMaAzvoVtEPgmrSIB5gGuXbDAfxmY?=
- =?us-ascii?Q?6mNvJVLCzyra9HjFnTM4xnfZalW146CkePzbv2hqSAK8juGeyy8ZnXfgYtIH?=
- =?us-ascii?Q?SCjxEspaWT+wF7r/in0MJCKAvWyzDJ+DyMsqzo8+qkzeTei5SZ4TrqTA6Byv?=
- =?us-ascii?Q?6NZjEDz1hPWiwcp+Ik0DJbyFQBnvCjuazXON/8jer5i+VIrJsEATKxncQiyJ?=
- =?us-ascii?Q?IvHUPwEiMfCPWx105EF+bF5ByTOCTO4QbKSfIFX2iGz+wcl+Tg6KHI2kTs2/?=
- =?us-ascii?Q?HI1E04k0NzD5tbQ/0KxTp+HRb6Ja0dUPMNmsgQt++mng1hmnAKDs9K9LKL2K?=
- =?us-ascii?Q?Mz5P1x3xazwtYpdxxyeF+yN1+agX3g0i6zAJ/o/dKVm+Sgq03YcWTzguFq4x?=
- =?us-ascii?Q?0umUQiKhSTJC96+qGS6SeY/yTZOJ50hXS+AqNgva2Rm4odUjXvxQci35MvJN?=
- =?us-ascii?Q?N4q40u/hWxhp/BAYRDK+FrRM2p71MSTqFzne3t0IFu0Gcrmlo/JGwa92bAMZ?=
- =?us-ascii?Q?LQWnQCqaO8F17g8imDYNNIGSi4lyMdJAJk9ERIsP08sxvkUmVJgIKqTM7CeT?=
- =?us-ascii?Q?5aMIOmfNiGt7uMOA9snwxYT7J/Bhim6IEQDYtxNz3lA/IQlAQnjansfNjBHC?=
- =?us-ascii?Q?0YW4UrihigsekwBkIUQ/R9s+rUKug3BwhPzL1/4stFtDUYVBzIiiAq4UwrsW?=
- =?us-ascii?Q?P8yXA1I0dqA3gWtfygvEqf4Vi8cUgJT+2K+sKf6gAGW0Jw1BB2psdxbv9JsS?=
- =?us-ascii?Q?4oS5pBRgilKU3SRYev1JSDbY1wlh/leyo9+7Zq9JClwmfAE0cOTofcR0f2fH?=
- =?us-ascii?Q?2qC8VOnYHXRC5+cA5xJzTjfOkmTjtwJwPLFc4mFnP7RI/cCm6elBG+s212bf?=
- =?us-ascii?Q?v5CeXJArpcC3Pdy4hxlV52IcRtEyD33tNXk1CvU4Jil2yXLfCybf7POT2XRk?=
- =?us-ascii?Q?P1KG/xv7UzEMb0l8NXbQQA0xP9E05MSbrqt9YtCT0mx/L6maIc51ScOfo4MP?=
- =?us-ascii?Q?xhTx2c2+6z3xk4Hk2nckNibWsJ906L1P308s/bcLPP5ZMq9NBY6lKTgRPq03?=
- =?us-ascii?Q?HBrHi86D4K4B2kMDl15GYtVh3LNMxTFybEovLOwOlt44L7oVGEnTijMKmhom?=
- =?us-ascii?Q?rQo+64je15tNzdnvdqDd/+fySF5rGCAUZ6BMVNlAnjiMSeki1naNRbKffj6E?=
- =?us-ascii?Q?Qucl/6jEa7/NFEy70m4AHtX0GCYY3DMqoHAWwbUtBqW3lJ/c9cJA4HCFkFIw?=
- =?us-ascii?Q?0EBeKM52K+KO8VRBTMCX6L9QecCPp9BopAJBfZarmHUBIWj63EUplWl5T+PW?=
- =?us-ascii?Q?OxETXtPF6n1IbVIHoC1mfghy3Hd9VR/GWOAYNe05egKAlu283w860s0Wbbv0?=
- =?us-ascii?Q?8WiOnIxqLqAHZsQppNNi+GpxWayOtQirLDp6UZNGZPi96BP9npjZOadWXksI?=
- =?us-ascii?Q?HW/o1iw7UZW80I2aDh/+fok4fW/4ZzgJTVWtAYJ0JHO1rDUkibu558eiTWi6?=
- =?us-ascii?Q?AD6bWrrZ9ZHWk5VEpy8k7dw46Rvv9SYZeguHNbiKCvAiesoPkspnZuXu3/1K?=
- =?us-ascii?Q?MBJzCTEO+OXo5XjQb1E+AwJEZ+eZVkaFXbCmhZ0teU7uyo09/GCg47ijPak9?=
- =?us-ascii?Q?b56z/CTFvjyPoKmgRBLWZoUuYqMYefRHC9p5BnUNS//911tiUKDhuzjUdTu7?=
- =?us-ascii?Q?yh3hyYouPRvIdt4Un288IasmSKewMAsH2p0DYnJE9N9sntAM?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 028e630e-40c8-4fc8-4d50-08de8f18bc55
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7284.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 11:29:14.1368
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1KAbA+pc8mIiLG1xyLL1lKVRDki9EyDCNtCx911dbLZwj27fJ9mF/sdqcAYQJRsWjRBRdC8Yo98REX7pGv0sdQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB11406
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260323062737.886728-5-lakshay.piplani@nxp.com>
 
-The buffer pool table contains buffer pool configuration and operational
-information. Each entry corresponds to a buffer pool. The Entry ID value
-represents the buffer pool ID to access.
+On Mon, 23 Mar 2026, Lakshay Piplani wrote:
 
-The buffer pool table is a static bounded index table, buffer pools are
-always present and enabled. It only supports Update and Query operations,
-This patch only adds ntmp_bpt_update_entry() helper to support updating
-the specified entry of the buffer pool table. Query action to the table
-will be added in the future.
+> From: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+> 
+> Add core MFD support for the NXP P3H2x4x (P3H2440/P3H2441/P3H2840/P3H2841)
+> family of multiport I3C hub devices. These devices connect to a host via
+> I3C/I2C/SMBus and expose multiple downstream target ports.
+> 
+> Signed-off-by: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+> Signed-off-by: Vikash Bansal <vikash.bansal@nxp.com>
+> 
+> ---
+> Changes in v8:
+>  - No change
+> 
+> Changes in v7:
+>  - Use new config I3C_OR_I2C
+> 
+> Changes in v6:
+>  - No change
+> 
+> Changes in v5:
+>  - Corrected the ordering in the Makefile and Kconfig for MFD_P3H2X4X
+>  - Updated dev_err_probe() for regmap_init failure.
+>  - Updated module description
+> 
+> Changes in v4:
+>  - Split the driver into three separate patches(mfd, regulator and I3C hub)
+>  - Added support for NXP P3H2x4x MFD functionality
+> ---
+> ---
+>  MAINTAINERS                 |   2 +
+>  drivers/mfd/Kconfig         |  13 ++++
+>  drivers/mfd/Makefile        |   1 +
+>  drivers/mfd/p3h2840.c       | 125 ++++++++++++++++++++++++++++++++++++
+>  include/linux/mfd/p3h2840.h |  27 ++++++++
+>  5 files changed, 168 insertions(+)
+>  create mode 100644 drivers/mfd/p3h2840.c
+>  create mode 100644 include/linux/mfd/p3h2840.h
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index c72976dbdf31..4f67fe64c833 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -19101,6 +19101,8 @@ L:	linux-kernel@vger.kernel.org
+>  L:	linux-i3c-owner@lists.infradead.org
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
+> +F:	drivers/mfd/p3h2840.c
+> +F:	include/linux/mfd/p3h2840.h
+>  
+>  NXP PF5300/PF5301/PF5302 PMIC REGULATOR DEVICE DRIVER
+>  M:	Woodrow Douglass <wdouglass@carnegierobotics.com>
+> diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
+> index 7192c9d1d268..14f4736683a1 100644
+> --- a/drivers/mfd/Kconfig
+> +++ b/drivers/mfd/Kconfig
+> @@ -617,6 +617,19 @@ config MFD_MX25_TSADC
+>  	  i.MX25 processors. They consist of a conversion queue for general
+>  	  purpose ADC and a queue for Touchscreens.
+>  
+> +config MFD_P3H2X4X
+> +       tristate "NXP P3H2X4X I3C Hub Device"
+> +       depends on I3C_OR_I2C
+> +       select MFD_CORE
+> +       select REGMAP_I3C
+> +       select REGMAP_I2C
 
-Signed-off-by: Wei Fang <wei.fang@nxp.com>
----
- drivers/net/ethernet/freescale/enetc/ntmp.c   | 39 +++++++++++++++++++
- .../ethernet/freescale/enetc/ntmp_private.h   |  6 +++
- include/linux/fsl/ntmp.h                      | 32 +++++++++++++++
- 3 files changed, 77 insertions(+)
+Please use a single tab to indent config attributes, and a tab plus two spaces
+for the help text.
 
-diff --git a/drivers/net/ethernet/freescale/enetc/ntmp.c b/drivers/net/ethernet/freescale/enetc/ntmp.c
-index d7d8a37078d1..3c59b355c142 100644
---- a/drivers/net/ethernet/freescale/enetc/ntmp.c
-+++ b/drivers/net/ethernet/freescale/enetc/ntmp.c
-@@ -22,11 +22,15 @@
- #define NTMP_RSST_ID			3
- #define NTMP_FDBT_ID			15
- #define NTMP_VFT_ID			18
-+#define NTMP_BPT_ID			41
- 
- /* Generic Update Actions for most tables */
- #define NTMP_GEN_UA_CFGEU		BIT(0)
- #define NTMP_GEN_UA_STSEU		BIT(1)
- 
-+/* Specific Update Actions for some tables */
-+#define BPT_UA_BPSEU			BIT(1)
-+
- /* Query Action: 0: Full query, 1: Only query entry ID */
- #define NTMP_QA_ENTRY_ID		1
- 
-@@ -234,6 +238,8 @@ static const char *ntmp_table_name(int tbl_id)
- 		return "FDB Table";
- 	case NTMP_VFT_ID:
- 		return "VLAN Filter Table";
-+	case NTMP_BPT_ID:
-+		return "Buffer Pool Table";
- 	default:
- 		return "Unknown Table";
- 	}
-@@ -702,5 +708,38 @@ int ntmp_vft_add_entry(struct ntmp_user *user, u16 vid,
- }
- EXPORT_SYMBOL_GPL(ntmp_vft_add_entry);
- 
-+int ntmp_bpt_update_entry(struct ntmp_user *user, u32 entry_id,
-+			  const struct bpt_cfge_data *cfge)
-+{
-+	struct ntmp_dma_buf data = {
-+		.dev = user->dev,
-+		.size = sizeof(struct bpt_req_update),
-+	};
-+	struct bpt_req_update *req;
-+	union netc_cbd cbd;
-+	int err;
-+
-+	err = ntmp_alloc_data_mem(&data, (void **)&req);
-+	if (err)
-+		return err;
-+
-+	ntmp_fill_crd_eid(&req->rbe, user->tbl.bpt_ver, 0,
-+			  NTMP_GEN_UA_CFGEU | BPT_UA_BPSEU, entry_id);
-+	req->cfge = *cfge;
-+	ntmp_fill_request_hdr(&cbd, data.dma, NTMP_LEN(data.size, 0),
-+			      NTMP_BPT_ID, NTMP_CMD_UPDATE, NTMP_AM_ENTRY_ID);
-+
-+	err = netc_xmit_ntmp_cmd(user, &cbd);
-+	if (err)
-+		dev_err(user->dev,
-+			"Failed to update %s entry 0x%x, err: %pe\n",
-+			ntmp_table_name(NTMP_BPT_ID), entry_id, ERR_PTR(err));
-+
-+	ntmp_free_data_mem(&data);
-+
-+	return err;
-+}
-+EXPORT_SYMBOL_GPL(ntmp_bpt_update_entry);
-+
- MODULE_DESCRIPTION("NXP NETC Library");
- MODULE_LICENSE("Dual BSD/GPL");
-diff --git a/drivers/net/ethernet/freescale/enetc/ntmp_private.h b/drivers/net/ethernet/freescale/enetc/ntmp_private.h
-index d2a6399b0a36..7d50af7745c7 100644
---- a/drivers/net/ethernet/freescale/enetc/ntmp_private.h
-+++ b/drivers/net/ethernet/freescale/enetc/ntmp_private.h
-@@ -179,4 +179,10 @@ struct vft_req_ua {
- 	struct vft_cfge_data cfge;
- };
- 
-+/* Buffer Pool Table Request Data Buffer Format of Update action */
-+struct bpt_req_update {
-+	struct ntmp_req_by_eid rbe;
-+	struct bpt_cfge_data cfge;
-+};
-+
- #endif
-diff --git a/include/linux/fsl/ntmp.h b/include/linux/fsl/ntmp.h
-index 2aedea17307f..a54945dcdc61 100644
---- a/include/linux/fsl/ntmp.h
-+++ b/include/linux/fsl/ntmp.h
-@@ -33,6 +33,7 @@ struct netc_tbl_vers {
- 	u8 rsst_ver;
- 	u8 fdbt_ver;
- 	u8 vft_ver;
-+	u8 bpt_ver;
- };
- 
- struct netc_cbdr {
-@@ -116,6 +117,29 @@ struct vft_cfge_data {
- 	__le32 et_eid;
- };
- 
-+struct bpt_bpse_data {
-+	__le32 amount_used;
-+	__le32 amount_used_hwm;
-+	u8 bpd_fc_state;
-+#define BPT_FC_STATE		BIT(0)
-+#define BPT_BPD			BIT(1)
-+} __packed;
-+
-+struct bpt_cfge_data {
-+	u8 fccfg_sbpen;
-+#define BPT_SBP_EN		BIT(0)
-+#define BPT_FC_CFG		GENMASK(2, 1)
-+#define BPT_FC_CFG_EN_BPFC	1
-+	u8 pfc_vector;
-+	__le16 max_thresh;
-+	__le16 fc_on_thresh;
-+	__le16 fc_off_thresh;
-+	__le16 sbp_thresh;
-+	__le16 resv;
-+	__le32 sbp_eid;
-+	__le32 fc_ports;
-+};
-+
- #if IS_ENABLED(CONFIG_NXP_NETC_LIB)
- int ntmp_init_cbdr(struct netc_cbdr *cbdr, struct device *dev,
- 		   const struct netc_cbdr_regs *regs);
-@@ -142,6 +166,8 @@ int ntmp_fdbt_search_port_entry(struct ntmp_user *user, int port,
- 				struct fdbt_entry_data *entry);
- int ntmp_vft_add_entry(struct ntmp_user *user, u16 vid,
- 		       const struct vft_cfge_data *cfge);
-+int ntmp_bpt_update_entry(struct ntmp_user *user, u32 entry_id,
-+			  const struct bpt_cfge_data *cfge);
- #else
- static inline int ntmp_init_cbdr(struct netc_cbdr *cbdr, struct device *dev,
- 				 const struct netc_cbdr_regs *regs)
-@@ -213,6 +239,12 @@ static inline int ntmp_vft_add_entry(struct ntmp_user *user, u16 vid,
- 	return 0;
- }
- 
-+static inline int ntmp_bpt_update_entry(struct ntmp_user *user, u32 entry_id,
-+					const struct bpt_cfge_data *cfge)
-+{
-+	return 0;
-+}
-+
- #endif
- 
- #endif
+Also, if 'I3C' is disabled but 'I2C' is enabled, unconditionally selecting
+'REGMAP_I3C' could result in unmet dependencies. Should these selects be made
+conditional?
+
+> +       help
+> +         Enable Support for NXP P3H244x/P3H284x I3C HUB device using I3C/I2C
+> +         communication interface.
+> +
+> +         This driver provides support for I3C hub and regulator, each subdriver
+> +         can be enabled independently depending on the required functionality.
+> +
+>  config MFD_PF1550
+>  	tristate "NXP PF1550 PMIC Support"
+>  	depends on I2C=y && OF
+> diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
+> index e75e8045c28a..aaadf50fedf4 100644
+> --- a/drivers/mfd/Makefile
+> +++ b/drivers/mfd/Makefile
+> @@ -122,6 +122,7 @@ obj-$(CONFIG_MFD_MC13XXX)	+= mc13xxx-core.o
+>  obj-$(CONFIG_MFD_MC13XXX_SPI)	+= mc13xxx-spi.o
+>  obj-$(CONFIG_MFD_MC13XXX_I2C)	+= mc13xxx-i2c.o
+>  
+> +obj-$(CONFIG_MFD_P3H2X4X) 	+= p3h2840.o
+
+No spaces before tabs.
+
+>  obj-$(CONFIG_MFD_PF1550)	+= pf1550.o
+>  
+>  obj-$(CONFIG_MFD_NCT6694)	+= nct6694.o
+> diff --git a/drivers/mfd/p3h2840.c b/drivers/mfd/p3h2840.c
+> new file mode 100644
+> index 000000000000..65090a09f7c6
+> --- /dev/null
+> +++ b/drivers/mfd/p3h2840.c
+> @@ -0,0 +1,125 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright 2025 NXP
+
+This is quite out of date at this point.
+
+> + * P3H2x4x i3c hub and regulator device.
+> + */
+> +
+> +#include <linux/i3c/master.h>
+> +#include <linux/i2c.h>
+> +#include <linux/mfd/core.h>
+> +#include <linux/mfd/p3h2840.h>
+> +#include <linux/regmap.h>
+
+Alphabetical.
+
+> +static const struct mfd_cell p3h2x4x_devs[] = {
+> +	{
+> +		.name = "p3h2x4x-regulator",
+> +	},
+> +	{
+> +		.name = "p3h2x4x-i3c-hub",
+> +	},
+> +};
+> +
+> +static const struct regmap_config p3h2x4x_regmap_config = {
+> +	.reg_bits = P3H2x4x_REG_BITS,
+
+Please use standard uppercase for macro names (e.g., 'P3H2X4X_REG_BITS').
+
+> +	.val_bits = P3H2x4x_VAL_BITS,
+> +	.max_register = 0xFF,
+> +};
+> +
+> +static int p3h2x4x_device_probe_i3c(struct i3c_device *i3cdev)
+
+This probe function and 'p3h2x4x_device_probe_i2c()' are nearly identical.
+Could we refactor the common logic into a single generic helper function?
+
+> +{
+> +	struct p3h2x4x_dev *p3h2x4x;
+> +	int ret;
+> +
+> +	p3h2x4x = devm_kzalloc(&i3cdev->dev, sizeof(*p3h2x4x), GFP_KERNEL);
+> +	if (!p3h2x4x)
+> +		return -ENOMEM;
+> +
+> +	i3cdev_set_drvdata(i3cdev, p3h2x4x);
+> +
+> +	p3h2x4x->regmap = devm_regmap_init_i3c(i3cdev, &p3h2x4x_regmap_config);
+> +	if (IS_ERR(p3h2x4x->regmap))
+> +		return dev_err_probe(&i3cdev->dev, PTR_ERR(p3h2x4x->regmap),
+> +				     "Failed to register I3C HUB regmap\n");
+> +
+> +	p3h2x4x->is_p3h2x4x_in_i3c = true;
+> +	p3h2x4x->i3cdev = i3cdev;
+> +
+> +	ret = devm_mfd_add_devices(&i3cdev->dev, PLATFORM_DEVID_NONE,
+
+Why are you using PLATFORM_DEVID_NONE here instead of *_AUTO?
+
+> +				   p3h2x4x_devs, ARRAY_SIZE(p3h2x4x_devs),
+> +				   NULL, 0, NULL);
+> +	if (ret)
+> +		return dev_err_probe(&i3cdev->dev, ret, "Failed to add sub devices\n");
+> +
+> +	return 0;
+> +}
+> +
+> +static int p3h2x4x_device_probe_i2c(struct i2c_client *client)
+> +{
+> +	struct p3h2x4x_dev *p3h2x4x;
+> +	int ret;
+> +
+> +	p3h2x4x = devm_kzalloc(&client->dev, sizeof(*p3h2x4x), GFP_KERNEL);
+> +	if (!p3h2x4x)
+> +		return -ENOMEM;
+> +
+> +	i2c_set_clientdata(client, p3h2x4x);
+> +
+> +	p3h2x4x->regmap = devm_regmap_init_i2c(client, &p3h2x4x_regmap_config);
+> +	if (IS_ERR(p3h2x4x->regmap))
+> +		return dev_err_probe(&client->dev, PTR_ERR(p3h2x4x->regmap),
+> +				     "Failed to register I3C HUB regmap\n");
+
+I3C?
+
+> +
+> +	p3h2x4x->is_p3h2x4x_in_i3c = false;
+> +
+> +	ret = devm_mfd_add_devices(&client->dev, PLATFORM_DEVID_NONE,
+> +				   p3h2x4x_devs, ARRAY_SIZE(p3h2x4x_devs),
+> +				   NULL, 0, NULL);
+> +	if (ret)
+> +		return dev_err_probe(&client->dev, ret, "Failed to add sub devices\n");
+> +
+> +	return 0;
+> +}
+> +
+> +/* p3h2x4x ids (i3c) */
+
+This comment doesn't add anything.  Please remove it.
+
+> +static const struct i3c_device_id p3h2x4x_i3c_ids[] = {
+> +	I3C_CLASS(I3C_DCR_HUB, NULL),
+> +	{ /* sentinel */ },
+> +};
+> +MODULE_DEVICE_TABLE(i3c, p3h2x4x_i3c_ids);
+> +
+> +/* p3h2x4x ids (i2c) */
+
+And this one.
+
+> +static const struct i2c_device_id p3h2x4x_i2c_id_table[] = {
+> +	{ "nxp-i3c-hub" },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(i2c, p3h2x4x_i2c_id_table);
+> +
+> +static const struct of_device_id  p3h2x4x_i2c_of_match[] = {
+
+Too many spaces.
+
+> +	{ .compatible = "nxp,p3h2840", },
+> +	{ /* sentinel */ }
+> +};
+> +
+> +MODULE_DEVICE_TABLE(of, p3h2x4x_i2c_of_match);
+
+This needs to be moved up a line.
+
+It's linked with 'p3h2x4x_i2c_of_match', not 'p3h2x4x_i3c'.
+
+> +static struct i3c_driver p3h2x4x_i3c = {
+> +	.driver = {
+> +		.name = "p3h2x4x_i3c_drv",
+> +	},
+> +	.probe = p3h2x4x_device_probe_i3c,
+> +	.id_table = p3h2x4x_i3c_ids,
+> +};
+> +
+> +static struct i2c_driver p3h2x4x_i2c = {
+> +	.driver = {
+> +		.name = "p3h2x4x_i2c_drv",
+> +		.of_match_table = p3h2x4x_i2c_of_match,
+> +	},
+> +	.probe =  p3h2x4x_device_probe_i2c,
+> +	.id_table = p3h2x4x_i2c_id_table,
+> +};
+> +
+> +module_i3c_i2c_driver(p3h2x4x_i3c, &p3h2x4x_i2c);
+> +
+> +MODULE_AUTHOR("Aman Kumar Pandey <aman.kumarpandey@nxp.com>");
+> +MODULE_AUTHOR("Vikash Bansal <vikash.bansal@nxp.com>");
+> +MODULE_DESCRIPTION("P3H2x4x I3C HUB multi function driver");
+> +MODULE_LICENSE("GPL");
+> diff --git a/include/linux/mfd/p3h2840.h b/include/linux/mfd/p3h2840.h
+> new file mode 100644
+> index 000000000000..cba6fa516d1e
+> --- /dev/null
+> +++ b/include/linux/mfd/p3h2840.h
+> @@ -0,0 +1,27 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+
+These should use // in header files.
+
+> +/*
+> + * Copyright 2025 NXP
+> + * This header file contain private Reg address and its bit mapping etc.
+> + */
+> +
+> +#ifndef _LINUX_MFD_P3H2840_H
+> +#define _LINUX_MFD_P3H2840_H
+> +
+> +#include <linux/types.h>
+> +
+> +/* Device Configuration Registers */
+> +#define P3H2x4x_DEV_REG_PROTECTION_CODE				0x10
+> +#define P3H2x4x_REGISTERS_LOCK_CODE				0x00
+> +#define P3H2x4x_REGISTERS_UNLOCK_CODE				0x69
+> +#define P3H2x4x_CP1_REGISTERS_UNLOCK_CODE			0x6a
+
+Could we use standard uppercase for all macro names (e.g., 'P3H2X4X_')?
+
+> +
+> +/* Reg config for Regmap */
+> +#define P3H2x4x_REG_BITS					8
+> +#define P3H2x4x_VAL_BITS					8
+> +
+> +struct p3h2x4x_dev {
+> +	struct i3c_device *i3cdev;
+> +	struct regmap *regmap;
+> +	bool is_p3h2x4x_in_i3c;
+> +};
+
+Which attributes do the child drivers actually use?
+
 -- 
-2.34.1
-
+Lee Jones [李琼斯]
