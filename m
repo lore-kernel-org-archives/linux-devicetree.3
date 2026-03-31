@@ -1,94 +1,80 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C620441022
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 17:55:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFFE53D5227;
+	Tue, 31 Mar 2026 17:56:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774979711; cv=none; b=GSZqvwrQjHaKAtxEnE7n3D2vqrPMgvtEYXKXbpWjafXbe1bjWvp8Zip6S8o+Q7oQk4vSxQJA24SNPvZQCusZO0UwZOZUTxiNpGCEhRux35TvCoRjiJ0yBvgH0UYSKMUetHK9x1McSQ+MvV9jceesE+vHT+52y/brWqayvPrW9ck=
+	t=1774979804; cv=none; b=aJyH9WAUebfRLSzCwlIqga1cXxnCbFGBCpno/u+LKRMgtvLveas6OOd1Ozn73cVgxUFBtPaxIu6DqEjl2obFOAGzbYXlDzWzDtwP4+4IoKSwk9YTaOR3feVNgx5n0JPwl8SVxOZ7Cp5+Pb/u06tzjkSlf8mbCZKuc4gIRwUJ3NE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774979711; c=relaxed/simple;
-	bh=ysBMc/d/bm8Vg/gCg26e+flxgxRWmXHAvsbtsXQGdDM=;
+	s=arc-20240116; t=1774979804; c=relaxed/simple;
+	bh=TcZWBzzpqTS7aPD+ZnOCeM/2iUYCY9wQrFL9paJkYx8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z9mZZS4I8a/MGSKxhf/cFumOTBfiVW0a1/zQki8rP+X1g54BHV6Q/1zFhVyx3y23ozv3qCfwArtax6//peAbHwpYan87E9AhjtcBIq89Ps7Fy57nB+hnjbI7EdMDjj0W9FIeA+MGaCPoREDBkEly+o1XIJVYvfclVPTUMBJyVzk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=H1l8XbV6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FIwiG4RM; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=clTbBrUZYfSrYpQ/9AoKe/DAJZ4nqHL2ityCDLlLzvZ+bQ0Yq1mXxL85pSKBRwX9ODqs5kGmgPafJbESAS7RH/HcszB7Nxw3bNtjTil1SEs70A6BZf0YSZxQuuXUL7daX0b7m7jXxL6hQeYY/GPyOiTQjDORmKcOltP72OAeEYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=G1Rr/TMQ; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="H1l8XbV6";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FIwiG4RM"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62VGde1U453920
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 17:55:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=kCX+3SO/R74+gTOVpzwntDTc
-	bLEOU5Egzkn9WV1WEfs=; b=H1l8XbV6ur2Hu7XVturiGp2D64MbKfs+Iw5aaKam
-	JBMORqcZ9gAZrfPEXThwsEhfeZuSNh0aAHzPXUrRtVlZCHxrlQWSIJ7Dwn+MwOk/
-	Vgr51EpcG5Sx62znWo4il3vPtXFAZ8spIxUZc+e3qnXleJj4c3mwZxSfXmGHdbhN
-	gzpPLsCzlVg9e+Bt+JnMYq9RjdKCYQRDrXKF76ET8CVnpbuFXp6VvV+uSbctwe8J
-	E+aiCs0iv1/XQDSc3d0p0m+4sS25z7KDwTy2zqHFNrJ0V87e0y+UuptmJW3MIZf6
-	BnMir5xOVy2163ZBrsXvi+kaGI3ZKUk8Wkym1JyqEhrGog==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d80rsmke9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 17:55:03 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50b4076dc16so60986641cf.2
-        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 10:55:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774979702; x=1775584502; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=kCX+3SO/R74+gTOVpzwntDTcbLEOU5Egzkn9WV1WEfs=;
-        b=FIwiG4RM35wJNvEPRksbeF4aEkGCLuzJOWKgtX1N8GISb6myxGbTBzUP9ZXYRG7H3t
-         BBxXbbo7ZUCPEEE3cIcCFeXdvA91x0B7GvbAFeb/t6wboilNwOvWIOxApOQhq0CDFM7p
-         kiSA32UnVZgpscQvfB4S59EGTsoLD7MjoVIGpxNiFaG48mh3R9nrvCpDGlQc8LUpN8AA
-         vABhZjorSBRFL8qaajDC1NUk/vJRJTsaZsA7NiDRRG1tB3nLWv3y394I0YT+BA1Q+hQ9
-         RxsxhgurCUYc5k25XnDwSF3Ud/2+Sy+AxrZpAqViB3t/k0fDhx3jQeT/CGPrQ4FIi/x7
-         D0jw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774979702; x=1775584502;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=kCX+3SO/R74+gTOVpzwntDTcbLEOU5Egzkn9WV1WEfs=;
-        b=HRy2rAGzQF/l3kgeK31Ek29UgaKq/gmE5TqfUjonGgvvBZeR3/7uC14IvtVKNgvZtM
-         Bijwg9nQv5ZeeUFBX7ZJH3NeqOJKbsldreMACOZ7XCp4eS9jB7qcw9Md/kudclp7rWM9
-         B7p63Jt3ds01DKoYh6haqX4R+XuN7rcMD+rxmReR6HSOz/k0z8k/8Kr8CAcVls6TznF9
-         qrMNGc+8FecOUzZTMuzt3BySjOY8gyoTXvJ+D7QovVC2rPW3Ic0R1w2VxCr3Hk7qTFSg
-         5d/VsNEdL2wkJf30xYmqqYuGbWlrxQaw5hzgHL2kUa7yHnSI+sD1tyeIANcpl//CJK4+
-         S96Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUTsGhcYJ4qpDH6WqP/had6Zyal1hcQUpZUzn0AACusdqzG1gBlffGLRhR1+nG047/aVXy8KgnY9K0H@vger.kernel.org
-X-Gm-Message-State: AOJu0YwC7Bu4Ra6axks/nDQTbJxzV4DiJKmUdWVar0WQ81QeLsoOr9cW
-	nRGlEm3j/9LZNoK7mhCcO5ULHMHvm98C8yszQPIuVwQxXEQXmmlRib43aeJ1bXmeN3+psu2QDSP
-	rogu+6e8a1zKaWLUWca3DUktr5j480FJUJPvmaTPVjeKVHf5xYdhQqfTvmbw0M4p+
-X-Gm-Gg: ATEYQzwu/pzb1tOL+zf/8ACaCl0srgbkB/4a04YKTWqOw+XOOV5HE/EldFSHwJuVk63
-	RnlpAQPMO9VqDnbV8M3LkEY/dAwzmM17bbSA5JID5pBN01Le/ybItvg2eRdAmAPResXL2FgxtfD
-	ZAtDRBg8QT3hvFQOaVbo2GkNHveS64HonG0yNh0vkYfqiwuVDUGOQorctAqAcyQpRK+D+HvkVCX
-	//oFR/ed4QDm0dY2KBTihjw7ob0efJvQlgSIyoH/7bzhfdPFnoBJLzjuiFe4w40n8kREICWJJ2R
-	FDPdh52CLBeVRJ/jQBvuSFZxWWJyrdzOe9oaJ+45mzdXzQtbvbrEtECOrcLIy/NF3+MgH+KOArP
-	PUUv8mHRE/aavKohCt19E4An27kmw/69PTv4HpcxAVNn3nEjPVkyvWR/VDxuBrlSfP+cG0kKuM1
-	M3vB+WP1+eej1/s/38s8E9p9dseHO7qaQlFt4=
-X-Received: by 2002:ac8:5a0d:0:b0:509:1a36:6aca with SMTP id d75a77b69052e-50d3bbe437bmr7197781cf.17.1774979702508;
-        Tue, 31 Mar 2026 10:55:02 -0700 (PDT)
-X-Received: by 2002:ac8:5a0d:0:b0:509:1a36:6aca with SMTP id d75a77b69052e-50d3bbe437bmr7197371cf.17.1774979701935;
-        Tue, 31 Mar 2026 10:55:01 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-38c838b7ce7sm22341951fa.28.2026.03.31.10.55.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 31 Mar 2026 10:55:00 -0700 (PDT)
-Date: Tue, 31 Mar 2026 20:54:58 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: sm8750: Fix DSI1 phy reference clock
- rate
-Message-ID: <o3xe7rfzwyendjd5yj3kquw6ayvxdo323bgw4fkhzsbjywceyw@5pifcduwqcq2>
-References: <20260331165645.233965-2-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="G1Rr/TMQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1774979802; x=1806515802;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=TcZWBzzpqTS7aPD+ZnOCeM/2iUYCY9wQrFL9paJkYx8=;
+  b=G1Rr/TMQKqk7w9CtAWxbppxiam0oLIIMi1Ytb1yq9KfvYmRI+TOyoAo/
+   uKlP5x/hx2Z5F4TB192TKzb3MzV2CV3DdFLmCpnV0WrCMtYj1h2yL+a8+
+   UJz4aJjBKZ5HXWSwiVLmsrLn3uYrz8UqAvL0L5mLWux1t+LUCPAr18Pat
+   7TEAiHidZTvf4ZiGd9U/wSD8/wzH/qi5+kxHEFZgyUp9RptoTu24TZN14
+   4ezlrxe+TX+D2ZWLmDbPUVTWD0ahVbMeBw/Jsnt58UyQD2MeHvoQFD+u4
+   MwWOj6nOsVHHVglpigWRYo/NqMYwSyIObLXrl6LcCB1GtpAFJ2cEh49DI
+   Q==;
+X-CSE-ConnectionGUID: cJX5dCRjSS69CDlzJEqUKg==
+X-CSE-MsgGUID: 7b6FKjxjR7KZvhtjZDR7rg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11745"; a="87078491"
+X-IronPort-AV: E=Sophos;i="6.23,152,1770624000"; 
+   d="scan'208";a="87078491"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Mar 2026 10:56:40 -0700
+X-CSE-ConnectionGUID: vgGp7BthSbC+6Z49GyWWcA==
+X-CSE-MsgGUID: z3szsMWpQeymP90If8fszQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,152,1770624000"; 
+   d="scan'208";a="230501581"
+Received: from lkp-server01.sh.intel.com (HELO 283bf2e1b94a) ([10.239.97.150])
+  by orviesa003.jf.intel.com with ESMTP; 31 Mar 2026 10:56:33 -0700
+Received: from kbuild by 283bf2e1b94a with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1w7dKI-00000000463-3PEk;
+	Tue, 31 Mar 2026 17:56:30 +0000
+Date: Wed, 1 Apr 2026 01:55:46 +0800
+From: kernel test robot <lkp@intel.com>
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	linux-mediatek@lists.infradead.org
+Cc: oe-kbuild-all@lists.linux.dev, Fabien Parent <parent.f@gmail.com>,
+	Val Packett <val@packett.cool>,
+	Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Sen Chu <sen.chu@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Macpaul Lin <macpaul.lin@mediatek.com>, Lee Jones <lee@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Julien Massot <julien.massot@collabora.com>,
+	Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
+	Gary Bisson <bisson.gary@gmail.com>,
+	Chen Zhong <chen.zhong@mediatek.com>, linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v4 7/9] regulator: Add MediaTek MT6392 regulator
+Message-ID: <202604010103.FzAGRPye-lkp@intel.com>
+References: <20260330083429.359819-8-l.scorcia@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -97,51 +83,46 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260331165645.233965-2-krzysztof.kozlowski@oss.qualcomm.com>
-X-Proofpoint-GUID: uo4tX3S4OEWrPhVRYyCLjf-NFkYu-oN4
-X-Authority-Analysis: v=2.4 cv=VInQXtPX c=1 sm=1 tr=0 ts=69cc0a77 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=m4qzsdtWhx_JNS0JMQoA:9 a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-ORIG-GUID: uo4tX3S4OEWrPhVRYyCLjf-NFkYu-oN4
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMxMDE3MSBTYWx0ZWRfX5PHNTq/8WL1z
- AhMBHoZYGAFhkA72v7Zhfa+wdhYSeunxSCad6o+AOdUW0RmvpljVfoJcIrzZJ/j/3a2Is8r8jCF
- dG+O8zw1Qnpyq1qnlQGy3N0pYU1QfUfgYcRmKgtbVbbo6Q3wd6tMF5JFv+f8coAxho9eC4lNY5k
- JE5yfWYi/ZH3k+b6famw3xj7HGN/IAfRYxf+B1jiTEnnbs3y3npPAfBAvCsRpkUesS9gEkBUVUR
- 8JHAgmDWyqRUXcXlioQQ0wL/6Jsk9KMVskGKUxlaYA92sOTvDEo3waSJwzYfNwp6Vuumkoukmwp
- I2UMLzwgZeNMUy4rujTPjCSUAjLKw4HygGebGTwbBzvckssmZQttxXoU96WNnIQvYpOJMidhF7U
- FhRwdlFhNKACDFhFjGAbEyjsP+9UxxatBK4CXqLTxBOnU/9RklvY1OzF+fGSubt4yb+b52WNRAh
- mb2KkKP1qDn0WrLAZaA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-31_04,2026-03-31_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 clxscore=1015 priorityscore=1501 spamscore=0
- impostorscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603310171
+In-Reply-To: <20260330083429.359819-8-l.scorcia@gmail.com>
 
-On Tue, Mar 31, 2026 at 06:56:46PM +0200, Krzysztof Kozlowski wrote:
-> The DSI PHY CXO clock input is the SoC CXO divided by two.  DSI0 already
-> uses correct one, but DSI1 got copy-paste from SM8650.  Wrong clock
-> parent will cause incorrect DSI1 PHY PLL frequencies to be used making
-> the DSI panel non-working, although there is no upstream user of DSI1.
-> 
-> Fixes: 818ae2b389bc ("arm64: dts: qcom: sm8750: Add display (MDSS) with Display CC")
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> 
-> ---
-> 
-> Fix for next branch.
-> ---
->  arch/arm64/boot/dts/qcom/sm8750.dtsi | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
+Hi Luca,
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+kernel test robot noticed the following build warnings:
 
+[auto build test WARNING on lee-mfd/for-mfd-next]
+[also build test WARNING on broonie-regulator/for-next linusw-pinctrl/devel linusw-pinctrl/for-next lee-mfd/for-mfd-fixes linus/master v7.0-rc6 next-20260330]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Luca-Leonardo-Scorcia/dt-bindings-mfd-mt6397-Add-MT6392-PMIC/20260331-081127
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/lee/mfd.git for-mfd-next
+patch link:    https://lore.kernel.org/r/20260330083429.359819-8-l.scorcia%40gmail.com
+patch subject: [PATCH v4 7/9] regulator: Add MediaTek MT6392 regulator
+config: sh-allmodconfig (https://download.01.org/0day-ci/archive/20260401/202604010103.FzAGRPye-lkp@intel.com/config)
+compiler: sh4-linux-gcc (GCC) 15.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260401/202604010103.FzAGRPye-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202604010103.FzAGRPye-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/regulator/mt6392-regulator.c:181:18: warning: 'ldo_volt_table1b' defined but not used [-Wunused-const-variable=]
+     181 | static const u32 ldo_volt_table1b[] = {
+         |                  ^~~~~~~~~~~~~~~~
+
+
+vim +/ldo_volt_table1b +181 drivers/regulator/mt6392-regulator.c
+
+   180	
+ > 181	static const u32 ldo_volt_table1b[] = {
+   182		1500000, 1800000, 2500000, 2800000,
+   183	};
+   184	
 
 -- 
-With best wishes
-Dmitry
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
