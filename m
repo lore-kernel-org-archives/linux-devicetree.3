@@ -1,269 +1,280 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 847993EDACC
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 09:40:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 269C33ED5A7
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 09:48:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774950041; cv=none; b=VVaXk1G68yJJyVrYfnVIl9bdq1140ZKXk8DGCSlu+DGencsT2OEy1+w8pvnNPlwyPejQCUi9pv4PrMauxEQMW5a6wZsrminOAiDcNFFmDpC3u9RDHmW7KCqxFrIocODqRAiHIxHZqm1OZnNHxlh5phVJS+4bmCB8P8GZXzJ/sgw=
+	t=1774950482; cv=none; b=EaxXc2tC4GaPuEql0T9QOPkOxunMCm8NZA8HPzasglsZydn+3cIHx0YYSTm/QIFXOgSFiKB1En+P/B7VxYuU82iCvh0bc11y7UrZ3RwIGggKzuhpKdp9HTEyjvZrf5owtKNpKRAD3dWkXk39yhjYn/PV3bLks32q7xuyu7ZZZnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774950041; c=relaxed/simple;
-	bh=6TtXtGHuwbeOGc43RV1ox/wCKy7dGy+cBU/v5F7GGuY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XwoaQPE8O0wTnOhuxXzRcW4/oyDc2JcbPJsX4nYcPtsuB7Eo37W/CyD9xjAoc+C8uwBj6wk6cWNrtVBhQ63pOVtlCXl4Ab9862CRs4uvE22GxbR13W9vfYi2MC66FA74MGMwBdEK4+kwWe8PGxdNnelZhzUibE5IntKNmide7YU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=labxpXx4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OdzHmQgO; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1774950482; c=relaxed/simple;
+	bh=enjXq1IaosHLxnBgQhk2lHI8aL7+jqMUWCiR5kNvnlI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WSq15439ZU5LEEOi+KM1l5nK9v47YJMBDdT9scxuKeileVRm8TzFJqNCVyZdhFu1aFNAWxLzCnxEqXomY9uyvtXjF6z0VAFN9knCHtEi5vFuuPl/JKq1SjBxJYyBquvjW9MP49n73lnThDCyHEAJBf7NW6eVHpxHfTxKbs8RU7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=adzEQltm; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="labxpXx4";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OdzHmQgO"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62V6A6JM1090724
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 09:40:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	oO9fj8VnemesVNw4Kd4kvPTyxIt0YprBH9NBYs6VYwU=; b=labxpXx4emFwd9Yw
-	YA7lhLzAwsnly1/7QCm/HoKB4VvxJk5Kd+9ioBAV7C+Q1bSWsvFm8NGPdb7IPM1F
-	s7gYkJu+AJTSPV6gPZlURLmaRK5BoJJDFI7oXaAfVBQqNTYiuppLjohFJwODGIcQ
-	JM3rfwvQRshKKTeUV06sbxM89gBJLxVaJL9KIM1GqT6DvH+/iNUNsgCV8PS5Hud8
-	nugOPtJl3acxB4J+FYMqejbVL235iFwAi561ZOq2YfL6GWECeWw+YunfjAMccSUr
-	ktG+r/tV2m7yVXFNV92+i7eHQooqF8TLpLOhMBQsHDRrhMjEtlp/uHfvSPwfJV3/
-	vcri9g==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d7trd42tf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 09:40:34 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2b0c30b51bfso146920915ad.0
-        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 02:40:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="adzEQltm"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4852a9c6309so46179975e9.0
+        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 02:47:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774950033; x=1775554833; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=oO9fj8VnemesVNw4Kd4kvPTyxIt0YprBH9NBYs6VYwU=;
-        b=OdzHmQgOyB4myKofD7Sd+W3RDBvUMbFZX2FQWPlSNdapC6RPoXxzBswgb75zxyMlpi
-         cmKlJVCd81eO7hrciagYFaIACfE92SZYoB8O+C0TSfbFZych+b3nISFtERp3ZteiXbF/
-         NPJWLfZKNTcNo+1qhmm2ee67NOxLRbjRlgVCtRLTqFwJrNLSnkNZ+KyFcbCCDBG/NDqZ
-         yAYMCXBLSoroO6e0UwP2vSeyyi2+tgU5omRXzIRFIdA8W+GqcM6qfLq+nuqOtVX8nsOn
-         2ZPj2MYXyOZsxKKEqoh2CXaHE/Tm1dIL7rWMk0atSOGJXYoupolVXKVuWGzUZIyTZZRN
-         Aauw==
+        d=gmail.com; s=20251104; t=1774950478; x=1775555278; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=HmEtPoEG1EUMKwQsf4OvvafgJCsYzJUriFfog6MNbws=;
+        b=adzEQltmPRXJzxV64O8v8A+IFV8kFJoXexFbIIoSwvYutmRN9qZaOwWysUZkM+Hpa2
+         NFdcRYQvUnuySWJA5DAtHYaAdoMx5E7FCodw2oF8kgxAdPzzk29snueyyQ79FIARaPl4
+         EEvzQDnvDw8MKn8YhJkvQSVehu0Tkr8OslqT+iLoFWY9JAiIya9UYTaG/kZyE1qYVhJB
+         cp6dLe9D3s6p83aCu/nqnsQ1MeZ2BTjLItlXL+FN7HUNm2NVc5r2V/CjDb3TyGzKf81q
+         vNZNACzlI+r3W7FDtZgVfewB8jfTZRBP767CO+Hk1fOWwdEaFM0ev8oqY0N1P8JG4P70
+         eMRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774950033; x=1775554833;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=oO9fj8VnemesVNw4Kd4kvPTyxIt0YprBH9NBYs6VYwU=;
-        b=cJ4GnKq6w01Iwv7ajRZhKku616KmwO92Hl+e40v5h/pNMUdoPyh/x6jsD+XEa4eri4
-         +QNd+V5cgaFypkY7nG3/fAl21cpxUSyZ4fPnlq1tnS0cAHHDwZzvZSh7GcBiE/K61Ftj
-         YSRYs4b8vz94gZ2qexRr46UJLTM16JwSVLiNpQ+DjkinIUK3Vl7tBBijZp2FUNxuXLZ/
-         73VvT5R2MrQm6J/AO0B89zhBlmS0Xy+/gksWnT7xHEOIpse/V0gASnfXRBhJX9vkhz37
-         9glUsOxGQOcPhKLM9GzePUQk/hoQPjERt2n3QlWxxdA+R9JB5qulmPcCR5Sppu30C3YP
-         uc1Q==
-X-Forwarded-Encrypted: i=1; AJvYcCW5j8VLk5LOFjaJh6wNoNbczvdqkfqImktloAvGCs8q4PswH6XFVvgJhnYJCNP+dXKlAnAHPkxK4DDZ@vger.kernel.org
-X-Gm-Message-State: AOJu0YwL7WyncummoWn9N7AIlhdGhZxa0lnDDLpPFi98hyAGCWNMqBid
-	XPyc68/BRHgKAv2pYKe0u94wCMstZceJqGOnmSY/RTeyXHQpBiVbxr60Wh1SbH6P9VUhrkfCyKS
-	/js9l47ScUvykZwSOXKS+woTfx2gH7JmuvmAyenn7EDn5qkRj0vW+5jjSu+0MxNQv
-X-Gm-Gg: ATEYQzxH99QiN33Ct8ZnHt8DAkwkrOdwXgtwByQRTtQQJZz+Wjg78QJeYpFWnWKjeWs
-	artN7K+ZDgHRiS88FbXMmimUzJZQn+dX00ZnhAvynRnv2/hJcKQFwawQ3JdPhFPmNAmQjqSHMV+
-	4vVwmQwViOJJzDHKXV7QywlREw/Pj9DJhJteZidmTASDedmuD7btr08vUJLsz8/VSRJwGaEwlmz
-	s3Kgr9kGcK8AUJ9eKteEiALGurhpMnc8ZHFI1UQQ4UKiibJGO9h1R81rRuDyhh+/ADJZZGjv6pO
-	6fdbKgmQRHpLl5v68M91eyDeBQSYTggEVLWvAwL+3JOQlWCHJL0MhmWUAT+2AkrpBUgGFEXT+2n
-	DiOWAJ30kCyEeplxy+whgIjQ429BnEU0oVS7tuIh6gz6ZJidhjt4=
-X-Received: by 2002:a17:902:ef4f:b0:2b0:b1e7:8841 with SMTP id d9443c01a7336-2b0cdcb0990mr168484655ad.32.1774950033392;
-        Tue, 31 Mar 2026 02:40:33 -0700 (PDT)
-X-Received: by 2002:a17:902:ef4f:b0:2b0:b1e7:8841 with SMTP id d9443c01a7336-2b0cdcb0990mr168484325ad.32.1774950032814;
-        Tue, 31 Mar 2026 02:40:32 -0700 (PDT)
-Received: from [10.217.223.121] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b2427660c7sm106046705ad.44.2026.03.31.02.40.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 31 Mar 2026 02:40:32 -0700 (PDT)
-Message-ID: <2b71dd68-ff35-411e-905d-3ffa2ea3efe4@oss.qualcomm.com>
-Date: Tue, 31 Mar 2026 15:10:22 +0530
+        d=1e100.net; s=20251104; t=1774950478; x=1775555278;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=HmEtPoEG1EUMKwQsf4OvvafgJCsYzJUriFfog6MNbws=;
+        b=oh6Vk+oQpRZbF8Iv/nsxoCX5kb+WUx6Re8M69zEvikJiqO4M8ZAhaJHLDjFeI/QJs+
+         HEG6t2SqEIY5aJQfYVaPDLg/r6tin6MssL7/j9IoWVKe5IZa/Twg/StBXuyrxQbHEiFd
+         emn3jY/dZmO+/bP79uubYsdJRGPys3h+2eqDcID3qdzgQH8vMleDwPrd3AUJ6gcfJ+u3
+         ZIDnI9uwI1Bqph+oUyL+J0SkuOeed3c0Km7LJTT28C51XbEy5B6tKe+knk5DOhJCPodm
+         6W9+s8z8X2SLw0AZK6C42sNYpF1cpNyNIYJoRdy2xsbL1lfZGe+jD23uaRej25YLQPxZ
+         5qHQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWGsFxt9DqtDEi6G1DDX4g8RpEuHz7VPDequtxfVimRzQEAn01n2auzR4Vh9Km1lk+mbbiPZ987Mm6q@vger.kernel.org
+X-Gm-Message-State: AOJu0YyXVEcAUA272qCbhUaqmWUkDA8OxukEnHpcHz8zZt5rWBpIScPF
+	rPB1Hn38a4OMPIno0P+WfiuZ1HI/e7BIJkQqhp+1/G1PNbhHgFg9sxWmjq9MRw==
+X-Gm-Gg: ATEYQzx0Jn7CcO+Slf3Tw4gC7J7EAtfGXMdnn9d7ROAfcJbc1jGOrXu2IvXuH9mhGrF
+	4ZF7LzRjfePcuP6lurG0VY4rOeghdQB5mqVv301DyY8W2ZV/kTBIONJ3eG23tzz3pPA1D1y/XW9
+	pZpbCPx4cK3zZ+SWKlInEI2KAl6HLCmn8vhg+cOJGeg4VvoW/3keYdHaIjHNF7JMYzHGuaUbFYG
+	e4e6a4idRSOQeIUHwCtqAaFsh1U3RlmxhovgOkq+jSSaI8vC2Be5JiW4MSCuNwaqR+N/NwNqe8t
+	Ml1Lz2lqoTPlsTKC3kuZZ7ZsJ21lqMIq1akZERvKiQMgEw7ejjLKta4BhGXS3V2BEr9GC3DCXlG
+	nHbhDg+6o5NuArTzTltEKCe7Yz/grv3ZyoS4zOjVTusbc9zL9Qwqnxzlc43zm75LboeAU1mt8/S
+	Xpdz6UdE6h+NFf
+X-Received: by 2002:a05:600c:b95:b0:485:5c6e:8a38 with SMTP id 5b1f17b1804b1-48727f63664mr250648925e9.17.1774950478236;
+        Tue, 31 Mar 2026 02:47:58 -0700 (PDT)
+Received: from nsa ([185.128.9.53])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4887aacb8d0sm14105285e9.3.2026.03.31.02.47.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 31 Mar 2026 02:47:57 -0700 (PDT)
+Date: Tue, 31 Mar 2026 10:48:43 +0100
+From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, linux-gpio@vger.kernel.org, 
+	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
+Subject: Re: [PATCH v8 2/3] hwmon: ltc4283: Add support for the LTC4283 Swap
+ Controller
+Message-ID: <acuLynb1hRFJRcEf@nsa>
+References: <20260327-ltc4283-support-v8-0-471de255d728@analog.com>
+ <20260327-ltc4283-support-v8-2-471de255d728@analog.com>
+ <aco5L_6SZIB2DdpF@nsa>
+ <e0c96f38-6742-4b86-8938-64e4e6063119@roeck-us.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/11] dt-bindings: crypto: qcom,ice: Fix missing
- power-domain and iface clk
-To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-        Herbert Xu <herbert@gondor.apana.org.au>,
-        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-        cros-qcom-dts-watchers@chromium.org,
-        Eric Biggers <ebiggers@google.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
-        Tengfei Fan <tengfei.fan@oss.qualcomm.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        David Wronek <davidwronek@gmail.com>,
-        Luca Weiss <luca.weiss@fairphone.com>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Melody Olvera <quic_molvera@quicinc.com>,
-        Alexander Koskovich <akoskovich@pm.me>
-Cc: Brian Masney <bmasney@redhat.com>,
-        Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
-        Gaurav Kashyap <gaurav.kashyap@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260323-qcom_ice_power_and_clk_vote-v4-0-e36044bbdfe9@oss.qualcomm.com>
- <20260323-qcom_ice_power_and_clk_vote-v4-1-e36044bbdfe9@oss.qualcomm.com>
- <873e8ad2-50cd-4c09-9a51-20ad745fe8dc@oss.qualcomm.com>
-Content-Language: en-US
-From: Harshal Dev <harshal.dev@oss.qualcomm.com>
-In-Reply-To: <873e8ad2-50cd-4c09-9a51-20ad745fe8dc@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 6QQjCmbdVcypRKZdXdI72ZImPACStuv_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMxMDA5MiBTYWx0ZWRfX3aRdcKWzG8zb
- 4hM9z2RdvV8UoX4hhQmNIpx8fSCBsdBXL1uq88SkmddOgzt2BUq6BZ9fvwCd3ff7GJhyl9JMonx
- mtcuxaSi7smpGcZt9mb+0qIoANcAKKTRyLjmwTp66TEjf7b8IFVFDsMH5lNDVGFReRQPZbeW+LR
- l0H964u4c3ochLMg9GoALM1iJdO21qyyXt936c+qaRdN+uDC8ZVwDDO46gT6gZ58sgwSE+IaRNs
- bYcvShyJLxY2xjR0xOgBjw9qcEp8dx9eu10FlgasKlLkfB6DL2Wf2Q47leZmy1p2kxI+sUTeUlV
- wLPMJE4t+6x+gZ3Ph1qYfyOYdpV22frAixzJ4EZAhyCpafMx3Vzr9s/aNFSteaznZ6fYlY6Ei/4
- 64PnRc4QIO2a1U74QW28m/gsdrsUY/aN6Cy0y3zJHobMdXxdCFZyp/UsR317ebiH4YZuSGLUm7w
- E1qnhm0NlwnY/oyZ8Ug==
-X-Proofpoint-ORIG-GUID: 6QQjCmbdVcypRKZdXdI72ZImPACStuv_
-X-Authority-Analysis: v=2.4 cv=H8/WAuYi c=1 sm=1 tr=0 ts=69cb9692 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=P-IC7800AAAA:8 a=EUspDBNiAAAA:8 a=11eJxmzFO3uqpiRjfBAA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22 a=d3PnA9EDa4IxuAV0gXij:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-31_02,2026-03-28_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 priorityscore=1501 bulkscore=0 spamscore=0 lowpriorityscore=0
- clxscore=1015 impostorscore=0 phishscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603310092
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <e0c96f38-6742-4b86-8938-64e4e6063119@roeck-us.net>
 
-Hi Kuldeep,
+On Mon, Mar 30, 2026 at 08:47:32AM -0700, Guenter Roeck wrote:
+> On 3/30/26 02:28, Nuno Sá wrote:
+> > Hi Guenter, Regarding AI review, I think most of the points were
+> > discussed in previous revisions, but there are two valid.
+> > 
+> > On Fri, Mar 27, 2026 at 05:26:15PM +0000, Nuno Sá wrote:
+> > > Support the LTC4283 Hot Swap Controller. The device features programmable
+> > > current limit with foldback and independently adjustable inrush current to
+> > > optimize the MOSFET safe operating area (SOA). The SOA timer limits MOSFET
+> > > temperature rise for reliable protection against overstresses.
+> > > 
+> > > An I2C interface and onboard ADC allow monitoring of board current,
+> > > voltage, power, energy, and fault status.
+> > > 
+> > > Signed-off-by: Nuno Sá <nuno.sa@analog.com>
+> > > ---
+> > >   Documentation/hwmon/index.rst   |    1 +
+> > >   Documentation/hwmon/ltc4283.rst |  266 ++++++
+> > >   MAINTAINERS                     |    1 +
+> > >   drivers/hwmon/Kconfig           |   12 +
+> > >   drivers/hwmon/Makefile          |    1 +
+> > >   drivers/hwmon/ltc4283.c         | 1796 +++++++++++++++++++++++++++++++++++++++
+> > >   6 files changed, 2077 insertions(+)
+> > > 
+> > 
+> > ...
+> > 
+> > > +static int ltc4283_read_in_alarm(struct ltc4283_hwmon *st, u32 channel,
+> > > +				 bool max_alm, long *val)
+> > > +{
+> > > +	if (channel == LTC4283_VPWR)
+> > > +		return ltc4283_read_alarm(st, LTC4283_ADC_ALM_LOG_1,
+> > > +					  BIT(2 + max_alm), val);
+> > > +
+> > > +	if (channel >= LTC4283_CHAN_ADI_1 && channel <= LTC4283_CHAN_ADI_4) {
+> > > +		u32 bit = (channel - LTC4283_CHAN_ADI_1) * 2;
+> > > +		/*
+> > > +		 * Lower channels go to higher bits. We also want to go +1 down
+> > > +		 * in the min_alarm case.
+> > > +		 */
+> > > +		return ltc4283_read_alarm(st, LTC4283_ADC_ALM_LOG_2,
+> > > +					  BIT(7 - bit - !max_alm), val);
+> > > +	}
+> > > +
+> > > +	if (channel >= LTC4283_CHAN_ADIO_1 && channel <= LTC4283_CHAN_ADIO_4) {
+> > > +		u32 bit = (channel - LTC4283_CHAN_ADIO_1) * 2;
+> > > +
+> > > +		return ltc4283_read_alarm(st, LTC4283_ADC_ALM_LOG_3,
+> > > +					  BIT(7 - bit - !max_alm), val);
+> > > +	}
+> > > +
+> > > +	if (channel >= LTC4283_CHAN_ADIN12 && channel <= LTC4283_CHAN_ADIN34) {
+> > > +		u32 bit = (channel - LTC4283_CHAN_ADIN12) * 2;
+> > > +
+> > > +		return ltc4283_read_alarm(st, LTC4283_ADC_ALM_LOG_5,
+> > > +					  BIT(7 - bit - !max_alm), val);
+> > > +	}
+> > 
+> > "Will this condition handle the ADIO12 and ADIO34 differential channels?
+> > It looks like channels 14 and 15 fall through to the default return intended
+> > for the DRAIN channel. Since reading the alarm implicitly clears the register
+> > bits, could reading these ADIO alarms unintentionally clear actual DRAIN
+> > alarms? Should the upper bound be LTC4283_CHAN_ADIO34?"
+> > 
+> > Good catch and should be:
+> > 
+> > -       if (channel >= LTC4283_CHAN_ADIN12 && channel <= LTC4283_CHAN_ADIN34) {
+> > +       if (channel >= LTC4283_CHAN_ADIN12 && channel <= LTC4283_CHAN_ADIO34) {
+> > 
+> > > +
+> > > +	if (channel == LTC4283_CHAN_DRNS)
+> > > +		return ltc4283_read_alarm(st, LTC4283_ADC_ALM_LOG_4,
+> > > +					  BIT(6 + max_alm), val);
+> > > +
+> > > +	return ltc4283_read_alarm(st, LTC4283_ADC_ALM_LOG_4, BIT(4 + max_alm),
+> > > +				  val);
+> > > +}
+> > 
+> > ...
+> > 
+> > > +
+> > > +static int ltc4283_probe(struct i2c_client *client)
+> > > +{
+> > > +	struct device *dev = &client->dev, *hwmon;
+> > > +	struct auxiliary_device *adev;
+> > > +	struct ltc4283_hwmon *st;
+> > > +	int ret;
+> > > +
+> > > +	st = devm_kzalloc(dev, sizeof(*st), GFP_KERNEL);
+> > > +	if (!st)
+> > > +		return -ENOMEM;
+> > > +
+> > > +	if (!i2c_check_functionality(client->adapter,
+> > > +				     I2C_FUNC_SMBUS_BYTE_DATA |
+> > > +				     I2C_FUNC_SMBUS_WORD_DATA |
+> > > +				     I2C_FUNC_SMBUS_READ_I2C_BLOCK))
+> > > +		return -EOPNOTSUPP;
+> > > +
+> > > +	st->client = client;
+> > > +	st->map = devm_regmap_init(dev, &ltc4283_regmap_bus, client,
+> > > +				   &ltc4283_regmap_config);
+> > > +	if (IS_ERR(st->map))
+> > > +		return dev_err_probe(dev, PTR_ERR(st->map),
+> > > +				     "Failed to create regmap\n");
+> > > +
+> > > +	ret = ltc4283_setup(st, dev);
+> > > +	if (ret)
+> > > +		return ret;
+> > > +
+> > > +	hwmon = devm_hwmon_device_register_with_info(dev, "ltc4283", st,
+> > > +						     &ltc4283_chip_info, NULL);
+> > > +
+> > > +	if (IS_ERR(hwmon))
+> > > +		return PTR_ERR(hwmon);
+> > > +
+> > > +	ltc4283_debugfs_init(st, client);
+> > > +
+> > > +	if (!st->gpio_mask)
+> > > +		return 0;
+> > > +
+> > > +	adev = devm_auxiliary_device_create(dev, "gpio", &st->gpio_mask);
+> > > +	if (!adev)
+> > > +		return dev_err_probe(dev, -ENODEV, "Failed to add GPIO device\n");
+> > 
+> > "Does this allow multiple LTC4283 chips to probe successfully?
+> > Without allocating a unique ID per I2C instance, it seems the first probed
+> > chip takes the generic name. If a second chip is present, it might attempt
+> > to register with the exact same name, resulting in a failure in device_add()
+> > and aborting the probe."
+> > 
+> > Also looks valid and I suspect is one of those that a quick look will
+> > find more "offenders". I would purpose:
+> > 
+> > -       adev = devm_auxiliary_device_create(dev, "gpio", &st->gpio_mask);
+> > +       adev = __devm_auxiliary_device_create(dev, KBUILD_MODNAME, "gpio",
+> > +                                             &st->gpio_mask, client->addr);
+> > 
+> 
+> That would still fail if there are multiple chips at the same I2C address
+> on multiple I2C busses. Check drivers/gpu/drm/bridge/ti-sn65dsi86.c which has
+> the same problem.
 
-On 3/24/2026 4:16 PM, Kuldeep Singh wrote:
-> 
-> On 3/23/2026 2:47 PM, Harshal Dev wrote:
->> The DT bindings for inline-crypto engine do not specify the UFS_PHY_GDSC
->> power-domain and iface clock. Without enabling the iface clock and the
->> associated power-domain the ICE hardware cannot function correctly and
->> leads to unclocked hardware accesses being observed during probe.
->>
->> Fix the DT bindings for inline-crypto engine to require the UFS_PHY_GDSC
->> power-domain and iface clock for new devices (Eliza and Milos) introduced
->> in the current release (7.0) with yet-to-stabilize ABI, while preserving
->> backward compatibility for older devices.
->>
->> Fixes: 618195a7ac3df ("dt-bindings: crypto: qcom,inline-crypto-engine: Document the Eliza ICE")
->> Fixes: 85faec1e85555 ("dt-bindings: crypto: qcom,inline-crypto-engine: document the Milos ICE")
->> Signed-off-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
->> ---
->>  .../bindings/crypto/qcom,inline-crypto-engine.yaml | 35 +++++++++++++++++++++-
->>  1 file changed, 34 insertions(+), 1 deletion(-)
->>
->> diff --git a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
->> index 876bf90ed96e..ccb6b8dd8e11 100644
->> --- a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
->> +++ b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml
->> @@ -30,6 +30,16 @@ properties:
->>      maxItems: 1
->>  
->>    clocks:
->> +    minItems: 1
->> +    maxItems: 2
->> +
->> +  clock-names:
->> +    minItems: 1
->> +    items:
->> +      - const: core
->> +      - const: iface
->> +
->> +  power-domains:
->>      maxItems: 1
->>  
->>    operating-points-v2: true
->> @@ -44,6 +54,25 @@ required:
->>  
->>  additionalProperties: false
->>  
->> +allOf:
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            enum:
->> +              - qcom,eliza-inline-crypto-engine
->> +              - qcom,milos-inline-crypto-engine
->> +
->> +    then:
->> +      required:
->> +        - power-domains
->> +        - clock-names
->> +      properties:
->> +        clocks:
->> +          minItems: 2
->> +        clock-names:
->> +          minItems: 2
->> +
-> 
-> Hi Krzysztof,
-> 
-> As motive here is to enforce 2 clocks for upcoming targets and keep
-> minItems as 1 for already merged ones for ensuring backward
-> compatibility. Can we do like below?
-> 
-> allOf:
->   - if:
->       not:
->         properties:
->           compatible:
->             contains:
->               enum:
->                 - qcom,kaanapali-inline-crypto-engine
->                 - qcom,qcs8300-inline-crypto-engine
->                 - qcom,sa8775p-inline-crypto-engine
->                 - qcom,sc7180-inline-crypto-engine
->                 - qcom,sc7280-inline-crypto-engine
->                 - qcom,sm8450-inline-crypto-engine
->                 - qcom,sm8550-inline-crypto-engine
->                 - qcom,sm8650-inline-crypto-engine
->                 - qcom,sm8750-inline-crypto-engine
-> 
->     then:
->       required:
->         - power-domains
->         - clock-names
->       properties:
->         clocks:
->           minItems: 2
->         clock-names:
->           minItems: 2
-> 
-> This will ensure for every new target addition, default clock count is
-> enforced as 2 default.
-> Please share your thoughts as well.
-> 
+I did looked at that one but totally forgot the multiple busses
+scenario.
 
-I don't really have any particular objections to this proposal, but I can
-see that other bindings where the need for an additional clock was realized
-later on use a similar pattern as this patchset does:
-https://elixir.bootlin.com/linux/v7.0-rc2/source/Documentation/devicetree/bindings/timer/fsl,imxgpt.yaml
+> 
+> > If there's nothing else and you agree with the above, is this something
+> > you can tweak while applying or should I spin a new version?
+> > 
+> 
+> Please respin. Also, regarding the other concerns:
+> 
+>   Can BIT(8) * st->rsense wrap to zero on 32-bit architectures?
+>   BIT(8) is a 32-bit unsigned long and st->rsense is a u32. If a user sets a
+>   very large sense resistor value via the device tree, the multiplication could
+>   wrap to 0, causing a division-by-zero kernel panic. Should the divisor use
+>   BIT_ULL(8)?
+> 
+> Unless I am missing something, this _can_ overflow. Try to provide a sense
+> resistor value of 1677721600. Yes, it is unreasonable to specify such large
+> rsense values, but why not just limit it such that it does not overflow ?
 
-I'll wait for Krzysztof to take a final call on this.
+Yes, that's pretty much my reasoning (regarding the unreasonable
+rsense). I could just make BIT_ULL() and be done with it. I can also
+also cap rsense to a max value but i'm not 100% what that value would
+be. Maybe 1 ohm is already more than reasonable. I can also ask internally. Any
+preference on this one?
 
-Regards,
-Harshal
+> 
+> Also, for the overflow concerns, if you are sure they can not happen, I'll
+> really need to write the unit test code to make sure that this is indeed
+> the case.
+>
 
+Hmm, for the val * MILLI case, well it should not happen but given it
+depends on user input, better if I clamp it before passing the
+value to ltc4283_write_in_byte(). Yes, we clamp again inside the
+write_bytes() API but not a big deal.
+
+For the st->power_max is again one of those cases where the values would
+not make sense (I think - the combination of vsense_max and rsense). Just looking
+at the code, it can overflow but this one I'm not really sure how we could handle it.
+Maybe clamp power_max to U8_MAX and have a warning message in ltc4283_read_power_byte() if
+we overflow long in which case we need a power64 attr?
+
+But even clamping does not make much sense here. The power limit register
+is 8 bits, so if our design (rsense + vsense_max) overflows that,
+there's nothing we can do other that erroring out.
+
+- Nuno Sá
+
+> Thanks,
+> Guenter
+> 
