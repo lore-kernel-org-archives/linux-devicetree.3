@@ -1,80 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D1E13E95BF;
-	Tue, 31 Mar 2026 08:54:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C0092989B7;
+	Tue, 31 Mar 2026 08:58:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774947263; cv=none; b=ebNTnFOu2DokUhqKH21DHAYUp5TO7JJFlc8kbWpJMJBIZF6v7c4aHIZ6leQzSdh4vxij+E2/gOM/Sn5YcS9YwLe9OZ6T+v76ihx1f6bihr8p7g+sFWBrrLY1tuZSPrrQDFHrviyowOwvVRlhZm0SBkA7EfWpUw8m7r+4tmm2c44=
+	t=1774947536; cv=none; b=kyJzDJalOpN1RRL+9ic+I+RiQ8LtXpPvAo9lfkwf07T+GDwqYdMY19Bn2OWDOBP6ItwZ3VADZkx6p32zcTh21ijgrBA2vfqibqslAtNz8Pt6rhArfVTaP+GHWlhmrNSmKAHVTSu76esOSOugwUHUDOJPLgAVzUQzTRnXfDkR344=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774947263; c=relaxed/simple;
-	bh=4yxbnpdT4k4UP0bCfHs5KsqRuS2EEBa7W9Zg/dYv15Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XCzlzJTRlN3oZoFyjmXfo35N/HpgfgzU0PjsQ5wfDa7EamC8/ncI6CXFl6UJnSIS2qTImuFJfR8zkNK8a9R1xfF818KZahSQNlUEjSDV+cTVoiyx1cXp5Kb50TrkTo7ir1HtqVqH64tovhdgonqMb1Er5Xm8mjkLNzp8ubCAAWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o98KCsge; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1774947536; c=relaxed/simple;
+	bh=FUPUgjK8/+PvpwggJPyEhrpAfXGX6f/ynqW5/FOp1v4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=h8bI6y6UI1HW4jUf2Z7uvq1T40ZdwExcU2mwk+wO0tqfbDQJ1IbItXE6/tyVZBnweuYaFl1Rnj0D624k7uBPv0vbPQTaoP3xhfNnGYBeM5R6uUmj3pqNerKQSJbXBXkltU8RlsLDqp0wgiZwKcZl54kNsB3slRsZ5LysVySnsSI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XfiMuoyV; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o98KCsge"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35A1DC19423;
-	Tue, 31 Mar 2026 08:54:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774947263;
-	bh=4yxbnpdT4k4UP0bCfHs5KsqRuS2EEBa7W9Zg/dYv15Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=o98KCsgeUv/m4Ead0EPMvl8MU8Xopaoa5r+Em17KxlJO0NHqCAD7pR/1889wwAJte
-	 1CJs15Jeed6lsAparq/1Dt/Pr5TSJ7xEyHmZCYMY1lFK2y1l+e+sJLEo/ikDbEWPra
-	 iQ0+bZQtW6BWXUrPV/g0pmrmIxP0No2NOGg1MBdNDXQagwBkt3Mlm1ZuuMft4TogCL
-	 YHO66F4wg9emud+SlcNOWm51yPtNHQ+JxqB8NEBWiC4jkjqea+W1781z596k4/sIAI
-	 TFn1on9hAdptuHIWS8ah6nU13Gm8Q9qK0ZUVFmfujrHBVfsygi2JTBmjahG19XZHUH
-	 jN0HWDOSGFd8g==
-Message-ID: <df49abf9-39bc-4e2f-81f9-396a3be85928@kernel.org>
-Date: Tue, 31 Mar 2026 09:54:16 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XfiMuoyV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1774947534; x=1806483534;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=FUPUgjK8/+PvpwggJPyEhrpAfXGX6f/ynqW5/FOp1v4=;
+  b=XfiMuoyV4Qjg5rojr5boMK1ojcFkCYD0ylX3/dybqy0MOZTTPYpUc0ux
+   HsIt7zYDUe3x4QMQ1H1hAW4rwOcQBNlM/TVxwg5qZbUlNAvd7P+3utiXA
+   w/ZcFvBjdFUjJhGOxXrep2WrIqvvmAp7fF8lpS6Bzd3dME0utlVU+X5nh
+   t2SXKmjiHdSgKpTqLzR+WfClkohl38iBCYMokTwzGQeVPPQCgRIcQXiSo
+   0jqTvsbazba8XN6MEOts/HJJqk9ugxsWrqo861ytcGNO5h7F/G+NFZ0DP
+   pO27chUZG8lbtMDt66lC1rxMoZTTDrPiGYkXif66Kjfu0SPctmDVMegDG
+   A==;
+X-CSE-ConnectionGUID: 83d4g1I1RuK6cPT7MKcd7w==
+X-CSE-MsgGUID: Am2LcPXNTT+r8y26gSOl3Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11744"; a="93536866"
+X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; 
+   d="scan'208";a="93536866"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Mar 2026 01:58:53 -0700
+X-CSE-ConnectionGUID: DuuIgLTxRZyRcp5clt1jOA==
+X-CSE-MsgGUID: yoig1j+TR9SmrTbrMrvCTQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; 
+   d="scan'208";a="231120906"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Mar 2026 01:58:48 -0700
+Date: Tue, 31 Mar 2026 11:58:46 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: "Sabau, Radu bogdan" <Radu.Sabau@analog.com>
+Cc: Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	"Hennerich, Michael" <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	"Sa, Nuno" <Nuno.Sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>,
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
+Subject: Re: [PATCH v5 2/4] iio: adc: ad4691: add initial driver for AD4691
+ family
+Message-ID: <acuMxjX_rsfsJvMp@ashevche-desk.local>
+References: <20260327-ad4692-multichannel-sar-adc-driver-v5-0-11f789de47b8@analog.com>
+ <20260327-ad4692-multichannel-sar-adc-driver-v5-2-11f789de47b8@analog.com>
+ <acZrthJYQX-h_9p5@ashevche-desk.local>
+ <LV9PR03MB84143540CE505514E1CD84B4F752A@LV9PR03MB8414.namprd03.prod.outlook.com>
+ <CAHp75VcUCM8aeUpNaFEXnS+Cm08Mq5j+Qp2gYqWP9vCO+9CtQA@mail.gmail.com>
+ <LV9PR03MB8414CB05EB794F6974584C2AF753A@LV9PR03MB8414.namprd03.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] dt-bindings: media: camss: Add qcom,sm6350-camss
-To: Luca Weiss <luca.weiss@fairphone.com>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260216-sm6350-camss-v4-0-b9df35f87edb@fairphone.com>
- <20260216-sm6350-camss-v4-1-b9df35f87edb@fairphone.com>
- <fe00906e-fb06-44e3-985b-3d0e95839e43@linaro.org>
- <0El9gr9FaXp_mP-0L6d1xxoH7NZE0u8uyDEj_cHQXFTBREUY1Tc9rgTHpIKCHUNEHrwDtEKYZXrPDgm7fj29AQ==@protonmail.internalid>
- <DHGREFP0IVZS.1HWJHNFTI50KZ@fairphone.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-US
-In-Reply-To: <DHGREFP0IVZS.1HWJHNFTI50KZ@fairphone.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <LV9PR03MB8414CB05EB794F6974584C2AF753A@LV9PR03MB8414.namprd03.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 31/03/2026 07:38, Luca Weiss wrote:
-> Would be nice if the camss maintainers were aligned so that contributors
-> don't have to deal with mailing list conflicts over these fundamental
-> things.
+On Tue, Mar 31, 2026 at 08:36:42AM +0000, Sabau, Radu bogdan wrote:
+> > -----Original Message-----
+> > From: Andy Shevchenko <andy.shevchenko@gmail.com>
+> > Sent: Monday, March 30, 2026 8:24 PM
+
+...
+
+> > > > > +#include <linux/bitfield.h>
+> > > > > +#include <linux/bitops.h>
+> > > > > +#include <linux/cleanup.h>
+> > > > > +#include <linux/delay.h>
+> > > > > +#include <linux/device.h>
+> > > >
+> > > > Hmm... Is it used? Or perhaps you need only
+> > > > dev_printk.h
+> > > > device/devres.h
+> > > > ?
+> > 
+> > > I have checked this out and it seems device.h doesn't actually need
+> > > to be included anyway since spi.h directly includes device.h, and since
+> > > this is a SPI driver that's never going away, it's covered. Will drop it!
+> > 
+> > No, this is the wrong justification. IWYU principle is about exact
+> > match between what is used and included in a file (module). spi.h is
+> > not dev_*() provider and may not be considered for that.
+> > 
 > 
-> It doesn't really make it fun to contribute if you get conflicting
-> opinions from two people that you should both value the opinion of
-> because they're maintainer.
+> You are right, my justification was incorrect. Under IWYU, relying on
+> spi.h's transitive pull of device.h is not valid. However, I think device.h
+> is still needed in this case since struct device is used directly in the code
+> both as local variables and in the regmap callbacks.
 
-Yeah you're right and very much appreciate all the very awesome work you 
-personally do all over Qcom and PostmarketOS, which I don't think you 
-get called out enough for.
+Really? I can't see that.
+(Hint: use of the data type and use of its pointer is a huge difference.)
 
-FWIW if we assume the proposed method of transitioning from legacy to 
-new in Hamoa goes through, even bindings in the old format like this can 
-benefit from new sub-nodes.
+> Also dev_err_probe() is called directly and lives in device.h.
 
----
-bod
+No, as I started with my replies. The proper header that provides it is
+dev_printk.h.
+
+> What's your take on this?
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
