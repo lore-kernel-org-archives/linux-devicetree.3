@@ -1,155 +1,131 @@
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B3152F5A34;
-	Tue, 31 Mar 2026 00:55:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DC842233A
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 01:18:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774918524; cv=none; b=CM15ls4MaFYW8rbHgEoOF4E5khIFGPMFrU8T4iOIgz1jNyPn2TphiGoixiRA2QPWBzpQ8wzHdmE6Snix9QSm83PLFzHeNrAM3XfX8tYDdZkmazpHW4kEQH7XAqGRJNNrd+Yw1mSNAE+ZK+1R7SfKSzw+QOD7qD9OAkgOQfNqP0A=
+	t=1774919931; cv=none; b=nlduCo0EGNhJeRC2NKc7/30bvWBfXGv7HqxpGCTenFFuJYY1r1ngUpsd9Ormd8Dm3fxP5ePAL9j94w2YEzZ7EmqwLHjfdT2Ehma8FkWxisyc2ROnTACeJJsHGEkiWdS/yzbsxS7NBfCGEO4fIL4AoJU0v24nAvETREcu/hFleYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774918524; c=relaxed/simple;
-	bh=RB83I2nH48G2R5UVVKvA0Wx1mlrNr4P968tNH9JcDDA=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=A4DXmqYObeilLFijhGxibYFtJiBFP3JiHgGoXbUTR+Yhc+ae8d9Ge3mxiySJgAWHSPrvvqjWvqexiTvfTGOyeRCRVQmlDFChNh4zf4gT3Pcn30F9DcSNq6+QX3ZIKoAGjiLf7qk0IbBDSMOPlznyKmvWTkzgMceVKv6RtfuDSj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=n1htoq9O; arc=none smtp.client-ip=60.244.123.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1774919931; c=relaxed/simple;
+	bh=1JTdtmdA+XjlvOOqxhEU6ANtrvj+USfrL+gX+C8mijw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Yv65SOhLhA/CQ0dQd570jiWZRaboC9wakxlFvdnqv9H+blhMlci2QDzalDTGfXgrIG/QTR8y56o29+/Yft6DWgpzSzSTeSZtACovqN10OQTCpX1SHgpcIJ5KSRJApz4wWLA/m1K0zWPTRuGxj24SXOMhBmg3VnJTuvcKgGhcqDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=airkyi.com; spf=pass smtp.mailfrom=airkyi.com; dkim=pass (1024-bit key) header.d=airkyi.com header.i=@airkyi.com header.b=LruVaVvB; arc=none smtp.client-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=airkyi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=airkyi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="n1htoq9O"
-X-UUID: 44ea8d782c9c11f1ae70033691e9ac7d-20260331
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=Lvbv8ytIdTwjGat5iq09ZVK5234WoS7drLcT9eltSXI=;
-	b=n1htoq9O9PrYBahPq1Cuh4IOe3mzIUKtsGWeQy69XZl461RPrkqDo5jRgtzDWTWdP5GHiOMtJNCWgPMlb1EI+/7aG3Etl+YBpCMDHXXHx1fCJV1MHHAck2M1iVl9K0zGvdMolsJSR1LUFzDWN6fadS0OqKYw05ksU8ghSLFodzc=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:36110c98-b558-4f81-a398-a435350c2f06,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:e7bac3a,CLOUDID:b86867a7-e101-400a-acb5-0dbb5a913469,B
-	ulkID:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|836|888|898,TC:-5,Content:
-	0|15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI
-	:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 44ea8d782c9c11f1ae70033691e9ac7d-20260331
-Received: from mtkmbs14n1.mediatek.inc [(172.21.101.75)] by mailgw01.mediatek.com
-	(envelope-from <jianhua.lin@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 941723990; Tue, 31 Mar 2026 08:55:10 +0800
-Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Tue, 31 Mar 2026 08:55:09 +0800
-Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
- mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Tue, 31 Mar 2026 08:55:08 +0800
-From: Jianhua Lin <jianhua.lin@mediatek.com>
-To: <nicolas@ndufresne.ca>, <mchehab@kernel.org>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <matthias.bgg@gmail.com>,
-	<angelogioacchino.delregno@collabora.com>
-CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-media@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-mediatek@lists.infradead.org>,
-	<Project_Global_Chrome_Upstream_Group@mediatek.com>,
-	<sirius.wang@mediatek.com>, <vince-wl.liu@mediatek.com>,
-	<jh.hsu@mediatek.com>, Jianhua Lin <jianhua.lin@mediatek.com>
-Subject: [PATCH v5 3/3] media: mediatek: jpeg: add compatible for MT8189 SoC
-Date: Tue, 31 Mar 2026 08:54:58 +0800
-Message-ID: <20260331005458.24010-4-jianhua.lin@mediatek.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20260331005458.24010-1-jianhua.lin@mediatek.com>
-References: <20260331005458.24010-1-jianhua.lin@mediatek.com>
+	dkim=pass (1024-bit key) header.d=airkyi.com header.i=@airkyi.com header.b="LruVaVvB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
+	s=altu2504; t=1774919918;
+	bh=0owlCERj6gBEP9bncwJSFnotM1/dSDt0HIHcpsl1dUE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=LruVaVvBsoEiLBNYgBeWUaWALWq1vNRaHLnmxuPQe2aLAa6F861gxk+72249rnO7G
+	 GNjnxC3m7kIm+Xnnure8o7ITI6iJcD2SQhKDIOTHY7r+edf+9WzEqtuMAk/AGgR5Bf
+	 LLCR0hD+0XJ09QkJaQcGTyIt/8Mpgn/ExhXwSzPE=
+X-QQ-mid: zesmtpsz6t1774919917t48c7f87e
+X-QQ-Originating-IP: 73VvFKCdPCWg6XgecUK7wdpE0n5+tLRhYX+nOTNzZcQ=
+Received: from [172.16.12.51] ( [58.22.7.114])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 31 Mar 2026 09:18:33 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 10548730784965286243
+Message-ID: <AFAEA46A791878B0+9fe68e46-8d8f-44f1-80e3-dfad2de51832@airkyi.com>
+Date: Tue, 31 Mar 2026 09:18:32 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/10] Synopsys DisplayPort Controller improvements for
+ Rockchip platforms
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Damon Ding <damon.ding@rock-chips.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Alexey Charkov <alchark@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ kernel@collabora.com
+References: <20260326-synopsys-dw-dp-improvements-v1-0-501849162290@collabora.com>
+ <FE1BFB774BE13241+54b8a8ce-5a8c-495d-a53f-65a2440924fb@airkyi.com>
+ <acphlgK6ZmBitGJL@venus>
+Content-Language: en-US
+From: Chaoyi Chen <kernel@airkyi.com>
+In-Reply-To: <acphlgK6ZmBitGJL@venus>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: MCg5+ArSTX6cI8MT6PFu0yIQi8WGXvDbYtc21YFco9cEW1xGKpkQ02lW
+	ekFBbF0pGjnmMPIQYO4vm+43naMqCSGNaunE9DywBk+8p0Exos6hW07Mwbi9VmqDtuCT20V
+	NnN5ytGBavM78dc/2u0pnOydOaKFxWW/t4rGUJiAqWER4L+/ZrvBe5OfJv014VUz26375qw
+	lQG6T1duk7ICrUCqfQhirck/C1cWyppDA50rx2lwNrchWab36G0a1PIo6gzmqwQbtee0hmS
+	fVqbMbVWW9aenstVzLG4ZQg9R1HxVfGj2KPeJWTeqs2I8cDrqtyEtxB9eSSJhiReYB90ESU
+	yUjgfigv1Sj8ReqJT9ivnJXIRhDMewpfUWWryHCW65330vEGcek/PrgyA/hqDAYyQVs5UBX
+	OTnMpoOR9wu7JDhh2rXlkHy9+iYt/QriyIiPuDuZFp1P16E1KALrbCNk1uqKp3Juda4jZdO
+	8x5E1i7CfCCV5LD5QLeWfbG6SoNmiZS3eEJmJpg2+P3tATm75BsPfrpvlrF7OWUq5u87C3t
+	3ypPApwC3wbvbAuHXvCJzAUx4Ob2OQ80A/YktkOdzzeKL4WGzBWMg/1McUg02T5P+KBBvUx
+	+giJ3VGzIwOjwtlOQO8F9gBeRve98RoIUuhSYubteQF8HSXtswqYhfTZg6r0AM9gSNq+jQC
+	F854tHOzQj3XD1oRwBrBJy/1LahutftydnfwNNufhq1uTPh89/2r/01bJu5rSg9nLPz93uq
+	yV2ntmrj/mBJXTcPNIARmv0wZhC5S37kK1YZ1vb8BBL7W0Qj4WnMRc88trAsr4SrlyCwr6s
+	dDn1f2oAx3EatlFVEPgwf0kSM/r3q8g5PCWLL/0t09LgyUDa9lS98uupmxmVmlLtoJXhLbv
+	xu2ViGTQPHVsbYgDx0/SYeI2wOtNb2DO9BtTgzkPBzrpmzcXGROeSGR/Zu3YcngvmPVZYBv
+	kALnbnAqNTXyTESbGc8GUkVA1maDqShUHo/DEPSfq36xlGmmiDHU5jhPH
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
 
-Compared to the previous generation ICs, the MT8189 uses a 34-bit IOVA
-address space (16GB) and requires a single clock configuration.
+Hello Sebastian,
 
-Therefore, add new compatible strings ("mediatek,mt8189-jpgenc" and
-"mediatek,mt8189-jpgdec") along with their specific driver data to
-support the JPEG encoder and decoder of the MT8189 SoC.
+On 3/30/2026 7:50 PM, Sebastian Reichel wrote:
+> Hello Chaoyi,
+> 
+> On Mon, Mar 30, 2026 at 09:34:15AM +0800, Chaoyi Chen wrote:
+>>> There are two parts, which possibly need some discussion:
+>>>
+>>>  1. I added a dedicated bridge callback for out-of-band hotplug events,
+>>>     which is separate from the hotplug_notify. I have a feeling, that
+>>>     there might be a better solution, but haven't found it.
+>>
+>> Could you explain what an out-of-band hotplug event is?
+>>
+>> Can't the drivers/usb/typec/altmodes/displayport.c respond to these
+>> hot-plug events? Thank you.
+> 
+> That is what generates the out-of-band hotplug event in the first
+> place via drm_connector_oob_hotplug_event(). The oob in that call
+> means out of band.
+> 
+> If you look at that function it calls oob_hotplug_event() callback
+> on the DRM connector, which is then implemented by
+> drm_bridge_connector_oob_hotplug_event(). This function calls uses
+> the normal hpd handling (shared by in-band and out-of-band) and I'm
+> patching it, so that the bridges are aware of hpd explicitly being
+> provided out-of-band.
+> 
 
-Signed-off-by: Jianhua Lin <jianhua.lin@mediatek.com>
----
- .../platform/mediatek/jpeg/mtk_jpeg_core.c    | 44 +++++++++++++++++++
- 1 file changed, 44 insertions(+)
+Ah, I'm actually more concerned with the specific types of events.
+For example, the "explicitly" provided HPD you mentioned here. 
+Isn't drm_connector_oob_hotplug_event able to provide those?
 
-diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-index 8c684756d5fc..786cc2942c3a 100644
---- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-+++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-@@ -1867,6 +1867,10 @@ static struct clk_bulk_data mt8173_jpeg_dec_clocks[] = {
- 	{ .id = "jpgdec" },
- };
- 
-+static struct clk_bulk_data mtk_jpeg_dec_clocks[] = {
-+	{ .id = "jpgdec" },
-+};
-+
- static const struct mtk_jpeg_variant mt8173_jpeg_drvdata = {
- 	.clks = mt8173_jpeg_dec_clocks,
- 	.num_clks = ARRAY_SIZE(mt8173_jpeg_dec_clocks),
-@@ -1898,6 +1902,38 @@ static const struct mtk_jpeg_variant mtk_jpeg_drvdata = {
- 	.multi_core = false,
- };
- 
-+static const struct mtk_jpeg_variant mtk8189_jpegenc_drvdata = {
-+	.clks = mtk_jpeg_clocks,
-+	.num_clks = ARRAY_SIZE(mtk_jpeg_clocks),
-+	.formats = mtk_jpeg_enc_formats,
-+	.num_formats = MTK_JPEG_ENC_NUM_FORMATS,
-+	.qops = &mtk_jpeg_enc_qops,
-+	.irq_handler = mtk_jpeg_enc_irq,
-+	.hw_reset = mtk_jpeg_enc_reset,
-+	.m2m_ops = &mtk_jpeg_enc_m2m_ops,
-+	.dev_name = "mtk-jpeg-enc",
-+	.ioctl_ops = &mtk_jpeg_enc_ioctl_ops,
-+	.out_q_default_fourcc = V4L2_PIX_FMT_YUYV,
-+	.cap_q_default_fourcc = V4L2_PIX_FMT_JPEG,
-+	.support_34bit = true,
-+};
-+
-+static const struct mtk_jpeg_variant mtk8189_jpegdec_drvdata = {
-+	.clks = mtk_jpeg_dec_clocks,
-+	.num_clks = ARRAY_SIZE(mtk_jpeg_dec_clocks),
-+	.formats = mtk_jpeg_dec_formats,
-+	.num_formats = MTK_JPEG_DEC_NUM_FORMATS,
-+	.qops = &mtk_jpeg_dec_qops,
-+	.irq_handler = mtk_jpeg_dec_irq,
-+	.hw_reset = mtk_jpeg_dec_reset,
-+	.m2m_ops = &mtk_jpeg_dec_m2m_ops,
-+	.dev_name = "mtk-jpeg-dec",
-+	.ioctl_ops = &mtk_jpeg_dec_ioctl_ops,
-+	.out_q_default_fourcc = V4L2_PIX_FMT_JPEG,
-+	.cap_q_default_fourcc = V4L2_PIX_FMT_YUV420M,
-+	.support_34bit = true,
-+};
-+
- static struct mtk_jpeg_variant mtk8195_jpegenc_drvdata = {
- 	.formats = mtk_jpeg_enc_formats,
- 	.num_formats = MTK_JPEG_ENC_NUM_FORMATS,
-@@ -1937,6 +1973,14 @@ static const struct of_device_id mtk_jpeg_match[] = {
- 		.compatible = "mediatek,mtk-jpgenc",
- 		.data = &mtk_jpeg_drvdata,
- 	},
-+	{
-+		.compatible = "mediatek,mt8189-jpgenc",
-+		.data = &mtk8189_jpegenc_drvdata,
-+	},
-+	{
-+		.compatible = "mediatek,mt8189-jpgdec",
-+		.data = &mtk8189_jpegdec_drvdata,
-+	},
- 	{
- 		.compatible = "mediatek,mt8195-jpgenc",
- 		.data = &mtk8195_jpegenc_drvdata,
+I assume you’re looking for an oob event that is propagated along the
+bridge chain, rather than at the connector. Is that so? Thank you.
+
+> Greetings,
+> 
+> -- Sebastian
+
 -- 
-2.45.2
+Best, 
+Chaoyi
 
