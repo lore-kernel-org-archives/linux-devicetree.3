@@ -1,146 +1,126 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7420B2FF675
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 00:47:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7DC2305E10;
+	Tue, 31 Mar 2026 00:55:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774918062; cv=none; b=JKfLMlcWFIGhnK0F+ih9P01unBY+F2QhclyD3yJ08SuOxudVRyPpnrsehwhpExdVAK//4243GsMne/6nBUbr7E1v8pbEkTfTpDBJHC7KgYtJiO8j6aAMpPMMoWYlgNuO7RGyz7GS7a3NjIDwjpDxsXpGK9G3LmaVRR0cjx4Mg1o=
+	t=1774918517; cv=none; b=G0kB+dp8Nb0p/zJ0/BGiwiWYaJLTX4DhFQ0hM1B/HgTjROoGq1exa14PrBnDVXwuuxqDFDCVHNW0gvjUsLJJbntEwB8BeIDYgSwqxkDevYXhm9Lc/Z4daF9r8uu7dMMoiVLHnpKi+toj90n/yBn1zSwviQVm2WYXT4OZdpEfbRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774918062; c=relaxed/simple;
-	bh=UkRdJUdZpZZHT4v9BpxTkD73SSfqTtiXvqdqJgtaJlE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u1XoIyHhm7/UTrhitVIPaQCIBfvIAPa5Vf3sqVB6AE3zg21R979zzvI6sWY6C8MMa71gf3UBOZox4izQTrh6RA9C35eb8ec5Er5CAJPMFQU4WJmM0VGigV5UjK0aARAPDpvLkpEV4OhqC7JRB5tqvcMNGyiw1pomXhj1Y76qNJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Tplk1dNF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FoKmcM8v; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1774918517; c=relaxed/simple;
+	bh=927f/TKZM8RcbY5So6mklAmpUbj2GMk7hCtvQGysGdE=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hr1qYg2TUm7oyPmbfz4EJ3fT56W6xOilJvJjB8dFq1x5mepYOWsDEQ2GC6GIOyTI72F8sdCXSVhhuWCHjbelUj0dz9uFMqVBGmxLU2O55RkqPND27V7I8VrivdYCWJ7o8SpJ9BYHHf7kUy3FAmnI2cT09EepW7Q5oPSRh/8i4ZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=Yov3Ks3k; arc=none smtp.client-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Tplk1dNF";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FoKmcM8v"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62UM6m5g3539619
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 00:47:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=0ks5/MECiU+6M8bwHy2sQ/Az
-	zteX/sEkGMHcLgyfLDw=; b=Tplk1dNF1X+HKHFLmV7EUninlPstXsnxOpF6LC2H
-	XxNbSUAD478CTzLS5wmU/Y7+/FRKRneuACXgqb4wGYEA4XbDHyEAu4IYQ/Px9Pv/
-	UABgHZNBfYxWNm3LYYYJf1PpyLIIgeU+T/IsKT+B/fM8QgvjO+P8yJ1SGWBsF18/
-	EIzCJMllYxhzsovUuHFNQ/aVXTWkQAPHhlJT4Z0xO++FaRsLEFcAp/YthaBKzOYZ
-	arotXznbVbZLVKQAkYPdlDYVUOFosANeDM4dRm0QX1ZowzCk894rXaVoPNupfTNk
-	VVD6H05kLwHXu911I61/ElF2QGBaPrUoY7wQ/TB1Txllbg==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d7q59u378-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 00:47:40 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50937cf66b5so265326081cf.3
-        for <devicetree@vger.kernel.org>; Mon, 30 Mar 2026 17:47:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1774918059; x=1775522859; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=0ks5/MECiU+6M8bwHy2sQ/AzzteX/sEkGMHcLgyfLDw=;
-        b=FoKmcM8v3GOsSdqNbiUYhm3NOvqpVp2OnRdNK1tMu3MMg7ujma3IhoElSkyE8pewB+
-         qfufnhg5YXNhEGHLU3EWvxX3Lk6aRdf9JhFn5udh2F+LCUQpcx0kKLz/SaJhiJ8uYFFW
-         zHQJrJbfFRl7bI/POdFhwn4UR42xZfrjO7vgF7hFpKinsHKLfvkgH5H6A+xBD9HSr+U1
-         AEF9BTM4BK8nhl+ZGCkdSb/V5/C1OzvZ/I35UhFt48HFfsiM1W86CaMmawv6mLi+BOeA
-         WS1Y5ywGMcY4P+1fz8JlFkwj7geuNA3ZR+BfFWAKLZbc3KLAvyJAxsTkmC07fHxWxWfe
-         bAqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774918059; x=1775522859;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=0ks5/MECiU+6M8bwHy2sQ/AzzteX/sEkGMHcLgyfLDw=;
-        b=dQ21Mx7p7HpnDpsuXokzwH322bk9M1NlDCilEmdn6BCC6xsrLG3R2782DPf9UUy2cr
-         gu5Lrp+8zoWrrAuV6i4/k3B5yqvfoB6KFkYJ4UAfce7ckas4ULjWdDCqVw5Rp0bHOpRl
-         Z3AyIbYr+9Vjma4wBXTqEq0Q9PboQ+idlEgsMlkljTyjQzHeb+XD9XNjmUSPNWBQPT5O
-         YG0sQIv8WwDJlE7R3W3O8AxNmhVa0kB3UXAhdXUiP/DrpkoqAOPgSvYLbYCtINr7+9Nr
-         9eUDMvo69jb6fbOELlNVhEqopjs+Y3yc/EM7CVWClHw9UMhWW9qKTMwNl8HoFQsLxhSX
-         3AMg==
-X-Forwarded-Encrypted: i=1; AJvYcCUTNeZRPjHjybfl4236B1yMT0ubxd2QmRMc2LP6qZpfw1IUH68BxUVM5HAdhLSdF6B0UWIhHLHFS9ul@vger.kernel.org
-X-Gm-Message-State: AOJu0YxgUMNF20dFHDchkgwt/zd3mkPYzkm5zrV6qSNsnMeKhDVzLdCw
-	E/kaHSvbhgIS4vrVec/PwJL+TUa8trbhES1Dcx/uRFyR8ZeSVVhvG8ABJFKkfpQSAchx/v1FepN
-	fyG/Ydsa/WBCGSij2YF554c/3AgtB9WWLj5ZH/SbOySosCYgTCdQUMEuvk27OEaqZW1zz2o0P
-X-Gm-Gg: ATEYQzzWu4vhXCrxkfd5yDEQxmOr7x8q7lXEVvQ+IgAB9K3/6cBfPwmebzfZNL4LjVM
-	IbwWfYf3Emrf7PCdCg0CWoa6aQXJtWk31b9sSJ7tF+IT7Bhq9vfUp6gijGHIERlHlJgWsum9XSw
-	423GDh0+GIOvzgH1oXqI6PX8QB5jbxR6ygLpDiAp8Lj7YStIq5jfMo9gyNe5Qbw7mdn8jsrgUSu
-	KHOLu5e7ht21cYvudj6CjW97BRRk2s7R+gDG/lZ85N9xiuBCIG7LOEM3t/WYBZUkHclbOQkgWJW
-	SbfOqmWuZAWHidxl2yWCahgg1QchMgDb+LaLXpKaCCDfBDvxT0fB2s3KucQTIB0JJKiPkZE1P3f
-	ZGBoWSALJC+2DZeLUv0ajFGsmdM+OnuwfK8CDq7pbpb9VWN7riNs6G3aAjF2duNYd6wwD5Lyfwj
-	Y1PrG4M7aRLLuQdZgM4jgmIWgPFoWDJImfUGs=
-X-Received: by 2002:ac8:5f13:0:b0:509:3940:30ea with SMTP id d75a77b69052e-50ba391e97dmr194703521cf.55.1774918059515;
-        Mon, 30 Mar 2026 17:47:39 -0700 (PDT)
-X-Received: by 2002:ac8:5f13:0:b0:509:3940:30ea with SMTP id d75a77b69052e-50ba391e97dmr194702741cf.55.1774918057633;
-        Mon, 30 Mar 2026 17:47:37 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a2bc25ad35sm157626e87.20.2026.03.30.17.47.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 30 Mar 2026 17:47:35 -0700 (PDT)
-Date: Tue, 31 Mar 2026 03:47:33 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>
-Cc: Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Mike Tipton <mike.tipton@oss.qualcomm.com>
-Subject: Re: [PATCH 2/2] interconnect: qcom: add Hawi interconnect provider
- driver
-Message-ID: <3jsmcfrpmjapron5jc65ueiz4jwunfss5r2saarsfzebex3bf2@mase353jnpgw>
-References: <20260330-icc-hawi-v1-0-4b54a9e7d38c@oss.qualcomm.com>
- <20260330-icc-hawi-v1-2-4b54a9e7d38c@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="Yov3Ks3k"
+X-UUID: 443fd5b82c9c11f19a16598d5ca7f8ec-20260331
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=b8uQQS+4NByotBm+og2yg/Ies/NbZuT0AebJns2GtMk=;
+	b=Yov3Ks3k+dfTAsz2+iqeFzPmGAkbHTnr+0PnuevhD0H+Baisda2lrhWw0AkPb6QQuoMfLO/MKzfQjwrhWOZo8GwBFmr0vXOz5TGzSFBKkeaS6NbX8XHOr34Yi+tlvAib7ApxQnpeMhJJ3Y23cSIuUtC6FHI95jP0K2js48sJ8nY=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:b3223af4-cd5e-4247-bc00-4a7d7083a500,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:e7bac3a,CLOUDID:ab6867a7-e101-400a-acb5-0dbb5a913469,B
+	ulkID:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|836|888|898,TC:-5,Content:
+	0|15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI
+	:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 443fd5b82c9c11f19a16598d5ca7f8ec-20260331
+Received: from mtkmbs14n1.mediatek.inc [(172.21.101.75)] by mailgw02.mediatek.com
+	(envelope-from <jianhua.lin@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1758116392; Tue, 31 Mar 2026 08:55:09 +0800
+Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
+ MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Tue, 31 Mar 2026 08:55:08 +0800
+Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
+ mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Tue, 31 Mar 2026 08:55:07 +0800
+From: Jianhua Lin <jianhua.lin@mediatek.com>
+To: <nicolas@ndufresne.ca>, <mchehab@kernel.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <matthias.bgg@gmail.com>,
+	<angelogioacchino.delregno@collabora.com>
+CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-media@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-mediatek@lists.infradead.org>,
+	<Project_Global_Chrome_Upstream_Group@mediatek.com>,
+	<sirius.wang@mediatek.com>, <vince-wl.liu@mediatek.com>,
+	<jh.hsu@mediatek.com>, Jianhua Lin <jianhua.lin@mediatek.com>
+Subject: [PATCH v5 2/3] dt-bindings: media: mediatek-jpeg-encoder: add MT8189 compatible string
+Date: Tue, 31 Mar 2026 08:54:57 +0800
+Message-ID: <20260331005458.24010-3-jianhua.lin@mediatek.com>
+X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20260331005458.24010-1-jianhua.lin@mediatek.com>
+References: <20260331005458.24010-1-jianhua.lin@mediatek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260330-icc-hawi-v1-2-4b54a9e7d38c@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: 6STAjxU_EVLWTdMiHhZqui_Pf2Vvz4Sr
-X-Proofpoint-GUID: 6STAjxU_EVLWTdMiHhZqui_Pf2Vvz4Sr
-X-Authority-Analysis: v=2.4 cv=EcXFgfmC c=1 sm=1 tr=0 ts=69cb19ac cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=X2bA-DTC1ecWuKQBpGMA:9 a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMxMDAwMyBTYWx0ZWRfX/rF3Ehoum2uF
- Cycs0kNOAi9iqjKc1wyYpdiP5Bz+eN3jZ0pS3fJ7Pdz7MXF6LNKsHhPgez+Bce7UWdcITrDLR/Y
- hh2L4kYoH/qNvB7tZ0++udqJK4z2MsLI0YNmtKKsDuDpAc3Gn1540lbcFhkVZOPQaSg1UawSsRy
- k/zUQ/nWL/py5zSu6MkZ9rm6hi+gmxoFs6KdzWwW+F0OOGrrzvN+AysDYXQgx87ep/PCrtrd34s
- wBMykY+bflQaSCNyuExd+eHaEdd+TeiPPYP1JxTYQMdu1gvFEi1EL/JpYRIExZeFFQIBFEePdQ2
- yygTb1N72njzzfAUV4jMDIbKKxYfq8tLUJb8B3RiKQh9Fk8Mjo+g41JLwU/O0PaH7OIkeTEbRKq
- 7mbrRWBaLQL0/63b935bNwoFa47/e45KPsvzj6DYvTBs5vMqyDe3Udf10V8dk+e/ZkBGFokW5Z3
- m/TcHR4HZqi7A6+0FJQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-30_02,2026-03-28_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 priorityscore=1501 clxscore=1015 bulkscore=0
- suspectscore=0 lowpriorityscore=0 phishscore=0 impostorscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603310003
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On Mon, Mar 30, 2026 at 05:40:01PM -0700, Vivek Aknurwar wrote:
-> Add driver for the Qualcomm interconnect buses found in Hawi
-> based platforms. The topology consists of several NoCs that are
-> controlled by a remote processor that collects the aggregated
-> bandwidth for each master-slave pairs.
-> 
-> Signed-off-by: Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>
-> ---
->  drivers/interconnect/qcom/Kconfig  |    9 +
->  drivers/interconnect/qcom/Makefile |    2 +
->  drivers/interconnect/qcom/hawi.c   | 2021 ++++++++++++++++++++++++++++++++++++
->  3 files changed, 2032 insertions(+)
-> 
+Add the compatible string for the JPEG encoder block found in the
+MediaTek MT8189 SoC.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Unlike some previous SoCs, the MT8189 JPEG encoder requires 34-bit IOVA
+address space support. Therefore, it is added as a standalone compatible
+string without falling back to the generic "mediatek,mtk-jpgenc" to
+ensure the driver applies the correct hardware-specific configurations.
 
+Suggested-by: Rob Herring <robh@kernel.org>
+Signed-off-by: Jianhua Lin <jianhua.lin@mediatek.com>
+---
+ .../bindings/media/mediatek-jpeg-encoder.yaml | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
 
+diff --git a/Documentation/devicetree/bindings/media/mediatek-jpeg-encoder.yaml b/Documentation/devicetree/bindings/media/mediatek-jpeg-encoder.yaml
+index 5b15f8977f67..19948ed25f98 100644
+--- a/Documentation/devicetree/bindings/media/mediatek-jpeg-encoder.yaml
++++ b/Documentation/devicetree/bindings/media/mediatek-jpeg-encoder.yaml
+@@ -14,13 +14,16 @@ description: |-
+ 
+ properties:
+   compatible:
+-    items:
++    oneOf:
+       - enum:
+-          - mediatek,mt2701-jpgenc
+-          - mediatek,mt8183-jpgenc
+-          - mediatek,mt8186-jpgenc
+-          - mediatek,mt8188-jpgenc
+-      - const: mediatek,mtk-jpgenc
++          - mediatek,mt8189-jpgenc
++      - items:
++          - enum:
++              - mediatek,mt2701-jpgenc
++              - mediatek,mt8183-jpgenc
++              - mediatek,mt8186-jpgenc
++              - mediatek,mt8188-jpgenc
++          - const: mediatek,mtk-jpgenc
+   reg:
+     maxItems: 1
+ 
+@@ -34,6 +37,10 @@ properties:
+     items:
+       - const: jpgenc
+ 
++  mediatek,larb:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: a phandle to the smi_larb node.
++
+   power-domains:
+     maxItems: 1
+ 
 -- 
-With best wishes
-Dmitry
+2.45.2
+
