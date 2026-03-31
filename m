@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 352A13D3002;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 352143BD242;
 	Tue, 31 Mar 2026 23:22:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774999354; cv=none; b=IzeUbd6zVuD/jVsqekkvW5SOYd2T+8R3YX1Nu5r7MlNawrEIXS4n7mUAo1R1gfdtnuX5FZS3ScwlUbO11U4tEUQF94+lt9CroizFURp9VtqJaYaFeLOU9sHgeQCAk54aOvYFLoywsyjxnsDQU6x4sFZOOcrUIbdhf95X1At0DSc=
+	t=1774999354; cv=none; b=u8zkIZX3Yx/47RAA5xVtQ+YWxQ1SPfdADRXckKp5YjER1k9wfNsaQUx3d2kV7HKOIFUxqrs1hmTqacaN3XHS0mXTbyRWGN3/6j/oUXEYTFP3ZE+cJyxhBp2ADUTV8YWco0eason1t637x33tspyBm+SpcwUygsOx/0wuxJOSgUE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1774999354; c=relaxed/simple;
-	bh=DjY6oYATlsC+Bv2pJ3xVfZNluhqf7p2oQa/Mvppo3eM=;
+	bh=QC+/tqe1/wX3mgbcC+PR25ooF/RqKPuOwtdoO9U4yTM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=k2v8zk8pV9vjcAYvnIdDNEp6OpDtu4MQ1mYGsvBhlgFZEw3Snec8svYV4eUr3XGTYdJa0xEgVdVvfGncKqZHGqu2sjA8e0SGZxu14QqMsrwDtzoamrAvPQyxXgxwbh5gH1+I8nOuN6QtSi874zF2PQPuGIp57QhkT61rMc+5750=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aeOy3O+d; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=qZYITTJpcv9oSr8whnOxHNKc0ZC112YG2I1A/U9KWd1z35Eluh+mB4/tRlzrDleFt5228v4TjOk+89KsWSIvWNFGZmOykFvjTnSeUVD7xF+gHGSc/sqouS9RAYHBpFKfEgGAnd6vrnNrR6FsPB2XU9XET/CSnznWZ2B/pwFSEzs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JuSTj4tH; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aeOy3O+d"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D4A17C2BCB2;
-	Tue, 31 Mar 2026 23:22:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JuSTj4tH"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0F32AC2BCC9;
+	Tue, 31 Mar 2026 23:22:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774999353;
-	bh=DjY6oYATlsC+Bv2pJ3xVfZNluhqf7p2oQa/Mvppo3eM=;
+	s=k20201202; t=1774999354;
+	bh=QC+/tqe1/wX3mgbcC+PR25ooF/RqKPuOwtdoO9U4yTM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=aeOy3O+dnSzpxeNXEeKi95Cn+AHBy0+Hvh/ZRi771iizBt9uwvMziSP5luRH9oLlp
-	 1fbsE2+cyluKitQbMlS4nodAwrjuwhKydnrMkK5F8qoISgN8xi4l3bfq4YMrU5muK7
-	 sKS+FKnYL4Z0d3M5/mwODVmtu8ZJZh3rYT3mTLjuE4FHZjXv2sR9i333mIUWVpYhct
-	 E1mraB+KoS9cAiJ1Z+X5frpZKatA8NQhRS47hzWbKPrFnORVWJkfmuVJOi6DeW0Mdv
-	 zy56k9mOwjVdRHGCWstit1m8lJV9IBvZTe3f8Fh0e4h0ewvPRigR+rqUeqx1VUozpL
-	 oD1N+QkRZCDUw==
+	b=JuSTj4tHq2+YsBAEbcPsvI6QbbqD+H2GAvp6bE6TYbafBHZg1v0TgDIdr5obxUnVa
+	 Fh1DK8wuDW7WFRM9DO5bG23UV2HzDOd2Kq37fSwmHh0BFbT6fny4UlcAIqcuUt0qcx
+	 rY0Zpg0V0jkRyo62FEQKVjTRReYg0U/wJbFl0qMRyO7uNpVHfczbnndmm+CZLbrXEX
+	 dLMldEHr/HzAmdWk5jqL3pQb+5MlT6gjwdWZPZ7yjMMjY45HUY5TBYtYGk1prNRegq
+	 yFCJ/q+pyF2zGR5TEmjcO18FKytr4HOVVQ2jP8eef/r4fYwznKz2JGgVAZHbCXrf8p
+	 NFEhR4MPlAMlg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C392810F930A;
-	Tue, 31 Mar 2026 23:22:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0569910F930B;
+	Tue, 31 Mar 2026 23:22:34 +0000 (UTC)
 From: Amit Sunil Dhamne via B4 Relay <devnull+amitsd.google.com@kernel.org>
-Date: Tue, 31 Mar 2026 23:22:16 +0000
-Subject: [PATCH v10 1/6] dt-bindings: mfd: maxim,max77759: reference
- power-supply schema and add regulator property
+Date: Tue, 31 Mar 2026 23:22:19 +0000
+Subject: [PATCH v10 4/6] lib/linear_ranges: Add
+ linear_range_get_selector_high_array
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,8 +40,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260331-max77759-charger-v10-1-76f59233c369@google.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260331-max77759-charger-v10-4-76f59233c369@google.com>
 References: <20260331-max77759-charger-v10-0-76f59233c369@google.com>
 In-Reply-To: <20260331-max77759-charger-v10-0-76f59233c369@google.com>
 To: =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
@@ -60,14 +60,13 @@ To: =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
 Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-usb@vger.kernel.org, linux-pm@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- RD Babiera <rdbabiera@google.com>, Kyle Tso <kyletso@google.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ RD Babiera <rdbabiera@google.com>, Kyle Tso <kyletso@google.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774999352; l=1898;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774999353; l=3004;
  i=amitsd@google.com; s=20241031; h=from:subject:message-id;
- bh=XkFtHzJetS8TZP39ngKM1YfPYDNQfW4HPTZ+cthF+MU=;
- b=hMOGinuu70YISrF+0/9UojTf8no0vBgI7bDTX3Gjze9IoucwwPBQhXPUYlW83GzmetMWNeYEM
- Yg4JWHhF4hcBqwEd9uDzPrHiGNHkgWDF1dyULparFxq9wkYN9MytFFr
+ bh=EfsBhqbhWkOWcpl6lnnrrFZd6U20wlHL8pMi8geg4Dw=;
+ b=8SnUCdVnNvBOuxFKx0mY+BFXadDyNmS+pNAGroFaPxnnnFjJszZYb3XPGU7KnX3Ah4iFaQ14u
+ kMXZaNKamdaDxRE3d2kcAh4KMnLpP+A7JwXaKor+SxkvvBmk21k9wau
 X-Developer-Key: i=amitsd@google.com; a=ed25519;
  pk=wD+XZSST4dmnNZf62/lqJpLm7fiyT8iv462zmQ3H6bI=
 X-Endpoint-Received: by B4 Relay for amitsd@google.com/20241031 with
@@ -77,63 +76,78 @@ Reply-To: amitsd@google.com
 
 From: Amit Sunil Dhamne <amitsd@google.com>
 
-Extend the max77759 binding to reference power-supply schema, so that
-PMIC node can reference its supplier. Also, add regulator property to
-control CHGIN (OTG) voltage.
+Add a helper function to find the selector for a given value in a linear
+range array. The selector should be such that the value it represents
+should be higher or equal to the given value.
 
 Signed-off-by: Amit Sunil Dhamne <amitsd@google.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Reviewed-by: André Draszik <andre.draszik@linaro.org>
+Reviewed-by: Matti Vaittinen <mazziesaccount@gmail.com>
+Acked-by: Mark Brown <broonie@kernel.org>
 ---
- .../devicetree/bindings/mfd/maxim,max77759.yaml          | 16 +++++++++++++++-
- 1 file changed, 15 insertions(+), 1 deletion(-)
+ include/linux/linear_range.h |  3 +++
+ lib/linear_ranges.c          | 36 ++++++++++++++++++++++++++++++++++++
+ 2 files changed, 39 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/mfd/maxim,max77759.yaml b/Documentation/devicetree/bindings/mfd/maxim,max77759.yaml
-index 525de9ab3c2b..42e4a84d5204 100644
---- a/Documentation/devicetree/bindings/mfd/maxim,max77759.yaml
-+++ b/Documentation/devicetree/bindings/mfd/maxim,max77759.yaml
-@@ -16,6 +16,9 @@ description: |
-   The MAX77759 includes Battery Charger, Fuel Gauge, temperature sensors, USB
-   Type-C Port Controller (TCPC), NVMEM, and a GPIO expander.
+diff --git a/include/linux/linear_range.h b/include/linux/linear_range.h
+index 2e4f4c3539c0..0f3037f1a94f 100644
+--- a/include/linux/linear_range.h
++++ b/include/linux/linear_range.h
+@@ -57,5 +57,8 @@ void linear_range_get_selector_within(const struct linear_range *r,
+ int linear_range_get_selector_low_array(const struct linear_range *r,
+ 					int ranges, unsigned int val,
+ 					unsigned int *selector, bool *found);
++int linear_range_get_selector_high_array(const struct linear_range *r,
++					 int ranges, unsigned int val,
++					 unsigned int *selector, bool *found);
  
-+allOf:
-+  - $ref: /schemas/power/supply/power-supply.yaml#
+ #endif
+diff --git a/lib/linear_ranges.c b/lib/linear_ranges.c
+index a1a7dfa881de..c85583678f6b 100644
+--- a/lib/linear_ranges.c
++++ b/lib/linear_ranges.c
+@@ -241,6 +241,42 @@ int linear_range_get_selector_high(const struct linear_range *r,
+ }
+ EXPORT_SYMBOL_GPL(linear_range_get_selector_high);
+ 
++/**
++ * linear_range_get_selector_high_array - return linear range selector for value
++ * @r:		pointer to array of linear ranges where selector is looked from
++ * @ranges:	amount of ranges to scan from array
++ * @val:	value for which the selector is searched
++ * @selector:	address where found selector value is updated
++ * @found:	flag to indicate that given value was in the range
++ *
++ * Scan array of ranges for selector for which range value matches given
++ * input value. Value is matching if it is equal or higher than given value
++ * If given value is found to be in a range scanning is stopped and @found is
++ * set true. If a range with values greater than given value is found
++ * but the range min is being greater than given value, then the range's
++ * lowest selector is updated to @selector and scanning is stopped.
++ *
++ * Return: 0 on success, -EINVAL if range array is invalid or does not contain
++ * range with a value greater or equal to given value
++ */
++int linear_range_get_selector_high_array(const struct linear_range *r,
++					 int ranges, unsigned int val,
++					 unsigned int *selector, bool *found)
++{
++	int i;
++	int ret;
 +
- properties:
-   compatible:
-     const: maxim,max77759
-@@ -37,12 +40,18 @@ properties:
-   nvmem-0:
-     $ref: /schemas/nvmem/maxim,max77759-nvmem.yaml
- 
-+  chgin-otg-regulator:
-+    type: object
-+    description: Provides Boost for sourcing VBUS.
-+    $ref: /schemas/regulator/regulator.yaml#
-+    unevaluatedProperties: false
++	for (i = 0; i < ranges; i++) {
++		ret = linear_range_get_selector_high(&r[i], val, selector,
++						     found);
++		if (!ret)
++			return 0;
++	}
 +
- required:
-   - compatible
-   - interrupts
-   - reg
- 
--additionalProperties: false
-+unevaluatedProperties: false
- 
- examples:
-   - |
-@@ -59,6 +68,11 @@ examples:
- 
-             interrupt-controller;
-             #interrupt-cells = <2>;
-+            power-supplies = <&maxtcpci>;
++	return -EINVAL;
++}
++EXPORT_SYMBOL_GPL(linear_range_get_selector_high_array);
 +
-+            chgin-otg-regulator {
-+                regulator-name = "chgin-otg";
-+            };
- 
-             gpio {
-                 compatible = "maxim,max77759-gpio";
+ /**
+  * linear_range_get_selector_within - return linear range selector for value
+  * @r:		pointer to linear range where selector is looked from
 
 -- 
 2.53.0.1118.gaef5881109-goog
