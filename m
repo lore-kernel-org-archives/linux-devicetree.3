@@ -1,162 +1,288 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012040.outbound.protection.outlook.com [40.107.209.40])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACD1C43D4E3;
-	Tue, 31 Mar 2026 17:35:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.40
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774978551; cv=fail; b=KyPqwbPfqxw5u3hu0DFvWXNYZ0tI3leTz2aINru/jUvBZLplsx7JIowlGYfNQ6bb5bzJ1GA/2Yd5xKsYabvBxVQUgDrDLa8cGVLGRVPegBOxLuxJYaEX6gz2bmFellRraa37Kkypi+5XaIdg/7rDIgFjWp9A8cstndTqZsu4fU8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774978551; c=relaxed/simple;
-	bh=vN6MWKg+gzbWHF05Zqrov+GuFAENZKej9nO8uaEFSmc=;
-	h=Message-ID:Date:Subject:To:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=RQqxwuKqlA2C7GdruvHKkK9Q4970bXIrsO+pgZScMZKy1StnJebor1oZjkbPZhLU5CNmcLI4dvaYqpr2eppqP5Lh6ClkWOaC6ZVIoFyVu8z3UI0NYSN4l18frekvyWTn1OQJTwGA+rmZvo6nsGbEgcOjGmqNoUT06VeMlE0iFAw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=GSzUYEYf; arc=fail smtp.client-ip=40.107.209.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A1F2330656
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 17:39:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774978745; cv=none; b=erZaPxqWOrAuKGXK3Lv8pmSl1xL4RV6vqO76hpz9I5VHE84ovkNs1ir6Lkv6FYvcHLA4vjOm8DFSScr+kZ7WgKEAopE8Kc+TS6Iy/2//gvCDiE3gb/jHQPgs1QCKXhHx4+BwNZLDyLyWtzL1/7/1DnzlQ8kofhKoQt60UcUC6hY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774978745; c=relaxed/simple;
+	bh=aBM9cA+/zLAFZ81e58fygHqSaf46xq33EhRzTPqrH10=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Iug7BgTQt9c31JhyHlWuqzMNoBdJiMqTEDw0xaPoTC7CYPyy28YuQT5wyp0OBqj2F3N9kiW7vIQRCSiSPg5fY7hDY0iYraTeWXUq2YLg/tJHnhd3GbzsPYbLK0VOx4w92uKNLUyZpgiUpxuXO1VACaSCM1EnUmooQxUANefXFtc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GsqMEMDO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KnmMhzSD; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="GSzUYEYf"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y0UiIafbQlE6TJRmO3HuhjHxRRSaWBLpqaBuSTN3Trg6A4YL8+zrMCAiEv6m37TtXC7h3RS+1t5MvRIA1PLJoGduMSUot4uS+K7wy2ZKDm5CB84GgMMD/Ey6H5tA3V3LW4RqOunoHHCbGy/s1luT5JeeIHlA58KLoXeOIhpxRIW17LmQWFNF9Y+Vlt5KsTEffsjcNxft5QEcaOZFn0rTtsePiv1qmxwHXdqb9xVkEqlpd5HDWX3yePUlXuvLgk/haHqMHt+c95uzav+XiQZohNk5avAsaCmRhfX9EMhIIu7rMd2gAkrd8hKNmzpz/RAtOIF1WQAi2HS+8BKQlFbXpg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=99BMeXBm8I6SX0wZ57eNgIfxbyJ6vvcr2dFyfWnxhjY=;
- b=UmKrAUJbnHY3sMVTO5YySZ0mEiL0NbFdSjJMiQgVeu3QHBmPTpWX9I5SExzuPFUXSQ8aYcKVlLhh9tLFxnElHf7obunKQM6BkEUqs/MkBYTAdrAXvfqmlTq4mD+CMu8Kfb2OcDL7K+JuqDESAn+wnIHl9A6my9CeufnHdVqrBtGwh7hunMwn6AkGaG/QdTr30ZK4cOQEdUbAGbGx6uJvOtrNZbe4Zcnw9q56ifbc2yvxpX2GKt4pK9HqodxKXFhzls3zsA2lkkLj04mrhPRcG+ehRqTbZjW6mWphugQaZGK4JZn4AAzdJ4PlidAFAS6yPWsyaKZDU28dIuZ7pLN5aQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=99BMeXBm8I6SX0wZ57eNgIfxbyJ6vvcr2dFyfWnxhjY=;
- b=GSzUYEYfodR2wTiDcirrX2PYYnsdWlXmkQkS0Xi/fl0atM3z+Lr2VvPm/U5k+aGHqUF6yhv9wIR5Ce5+NnX+EBrXWap+V9tZhbH6nAXth2kru0onfP+y3Bcr889UVhl9Z1AezKLTxonyvOU6fyG2vQMDdmJM9+xOeWu4409qBdE4iTIFSsXwq4zcMD0G1DP7rDnsEShRQ2w8etDJSgd4MFN7OSBwdGJnkAnk5QV3CUHxFsxt921IjHiYkGyngeufPt/fKqGKd6qhguy2yFNbSmVmwS90shoKEkXODf9fnDsqUjb/4ikrliTDGIxoSwL3XRd83gGUAW5DKfZnKwffrQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA1PR12MB6329.namprd12.prod.outlook.com (2603:10b6:208:3e5::19)
- by PH8PR12MB6772.namprd12.prod.outlook.com (2603:10b6:510:1c7::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Tue, 31 Mar
- 2026 17:35:41 +0000
-Received: from IA1PR12MB6329.namprd12.prod.outlook.com
- ([fe80::eadc:c846:73e9:8ccc]) by IA1PR12MB6329.namprd12.prod.outlook.com
- ([fe80::eadc:c846:73e9:8ccc%6]) with mapi id 15.20.9769.014; Tue, 31 Mar 2026
- 17:35:41 +0000
-Message-ID: <6cf9532a-d3e9-4668-9577-91d5e1dd0f6d@nvidia.com>
-Date: Tue, 31 Mar 2026 10:35:37 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] hte: tegra194: Add Tegra264 GTE support
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Suneel Garapati <suneelg@nvidia.com>, jonathanh@nvidia.com,
- thierry.reding@gmail.com, krzk+dt@kernel.org, conor+dt@kernel.org,
- amhetre@nvidia.com, sheetal@nvidia.com, kkarthik@nvidia.com,
- timestamp@list.linux.dev, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, robh@kernel.org
-References: <20260330170657.185854-1-suneelg@nvidia.com>
- <20260330170657.185854-3-suneelg@nvidia.com>
- <6bbff5d0-c75d-42ef-8877-de60e7113db4@nvidia.com>
- <3f88abb3-fcc4-4d73-b003-84fc0bd28306@kernel.org>
- <42ef5cb5-1db4-4faf-93f5-beefc0d321de@nvidia.com>
- <0cc95f5e-a5c7-498f-ae2e-32017141b619@kernel.org>
-Content-Language: en-US
-X-Nvconfidentiality: public
-From: Dipen Patel <dipenp@nvidia.com>
-In-Reply-To: <0cc95f5e-a5c7-498f-ae2e-32017141b619@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BL0PR0102CA0035.prod.exchangelabs.com
- (2603:10b6:207:18::48) To IA1PR12MB6329.namprd12.prod.outlook.com
- (2603:10b6:208:3e5::19)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GsqMEMDO";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KnmMhzSD"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62VGdbpi1349139
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 17:39:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	sSYe3mYBPZkJ7dMuCWtxUspbSWLabCPXagGmaYSWFY8=; b=GsqMEMDO2/FdgS7+
+	N9+MIpg/jkIS0P3RCWDy5Wzy1G1kHNcLwKyZ1/Mcf7/UTZ2Ms/VTxK+LledQIjfD
+	doTjUh01ZKiW5BQGsEYGSwrpvTRm3rbQJ/Vw+Cgbamp253CSyin637QdAyjUQEXv
+	lsTQrmkech4U1ufNu+L6X2OflonhABeNEcaibrW+mJQljZYrxpQ1O16vJNWnIGPp
+	6u/hRLgaHnFTdGDxZHJRYbKbEWqZx6bfGp721OZKiY81rI3bI8g/bFDzbrd8LhoJ
+	b1YD24QPzRgTX8xH1K2YqlCP0oewGiI6ZiUtLHfMVemIU7xAC8R8N2zFFEBs0V9z
+	XkM+cg==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d8ahktgn3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 17:39:00 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2b24e9b4d82so935545ad.1
+        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 10:39:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1774978740; x=1775583540; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=sSYe3mYBPZkJ7dMuCWtxUspbSWLabCPXagGmaYSWFY8=;
+        b=KnmMhzSD2/3aq1nziNiqM+5bUQOQ6pbzBr0gNLVXPCQiVbY2PgNa7+nbc+1GuI7m6U
+         CXP3gEyNQ8GArhgSw93UXQJpc1N49XsZfC8oN5nQTZiFy5W3DfXFXWkw+DN821B/n31v
+         y+TrNXR4VK09Pe+IlU7JrAvsErNPob7u8ctzpd9Sjg8nFP7LEUKn2GpnYCZc+8JmR/yF
+         pwnKFA9/cqNMLnHvbkJGvKuI8Jnbg1A7wjOHfaej5qvSN2ObYOHWY/hsvgyx8fcPSM/3
+         wRqfRq+Tnu+V8q4k3k4h7KU6pLfcDp9RmkccTxMKOl6s0e2nHR8tZS6Tcr1V/VaCRfCY
+         4nGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774978740; x=1775583540;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=sSYe3mYBPZkJ7dMuCWtxUspbSWLabCPXagGmaYSWFY8=;
+        b=qZiNCpfqFiX8bCTOl8k2cTXhFfEdQ6orOCXVx4LHdBQEWyxg8vA9F+6ZtMSTyDRN2c
+         l4zouI+++sNhVWtggbWm+fOy5OrknaKa7FIHhSa7EetPnNn8IkO89YnPkoODJh0DIv/e
+         fOTk1gfERIhniwh+vpVSwKAc+AzJm0kSYaZI7OG5bYrqtUZIZj8mKarpLCa7mufAj6Mz
+         GQ86yHEpguX+veHTHdxfx1uUatf9xOfxwuBwFC1joyv1EpoZBNRh1P5Et8UPTUaK1qxh
+         HpZAZCmKukdU6eojtl/ZF+jmkkfkz6rabPrO1lt2GSGSXwtLI2JLfJ/DmTRg5cPZ5gBT
+         01tw==
+X-Forwarded-Encrypted: i=1; AJvYcCXs/2wyViOSWJTKJ/Zkpuxr2LmfQVztsucElSk4A3r3eXeLqbt1GAtbg9jCuj+J83eI2tOlmKykXjgK@vger.kernel.org
+X-Gm-Message-State: AOJu0YyvNDadn63UJHQ1k6Hc2nPdtT7ghAq38B+NUPW0anhd/f8164vE
+	rRxXTtrApJqBhibZJPFcxeDbpXtAcV3g6t0WGsTsX/Ut2mgqTm2e/OBx+Gpr5bDFRG8kkaCuToU
+	2Cj8c0KXkgv1xq8dzRvgS1uH/+MdcukTPeykuhzqqILTtdxH+ZhE7HUGghWGcLYOAJ1Ev5EDh
+X-Gm-Gg: ATEYQzynQQPolpICS5YH94HYmdLz0OwanEV7NaL90uVxDtOr1elznw1UQZBorDEMGrc
+	Djyfk4weCy0wG7EqWiFCSrw1IqUxOtJwLmqB6AzO5+D3Ak4CriPziCVg6S0Rn9usmQ/gimBMpKG
+	hlaED0dxSgUBO72umtoYaNBNRxHz/gkvm6LozEBtgdfruh36PPZ3c4MU8L9KWVN2NcZ73hyEUZy
+	2J+kxhIqQdQ+byOR/asxga3Hti7oXBsZijQD7ryJsA1eO/tSktjo8a6IYFp7woMMuCajvG/YNnm
+	PNYMtVbggfvc7xU6xEoEpr3GtzIRQli2ucwBEK7yRFUCbB60pkSBurbjdY01TLuRL42LwtiS5aI
+	Ar89OSwsbEuEeo8WlWvHzQ9V1jPj/1AserNXKD/r85kWVtHOsarIh2S0=
+X-Received: by 2002:a17:903:37c4:b0:2b2:4fc1:f653 with SMTP id d9443c01a7336-2b269743addmr1777975ad.3.1774978739505;
+        Tue, 31 Mar 2026 10:38:59 -0700 (PDT)
+X-Received: by 2002:a17:903:37c4:b0:2b2:4fc1:f653 with SMTP id d9443c01a7336-2b269743addmr1777705ad.3.1774978738944;
+        Tue, 31 Mar 2026 10:38:58 -0700 (PDT)
+Received: from [192.168.29.31] ([49.43.225.5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b242642864sm138656795ad.12.2026.03.31.10.38.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 31 Mar 2026 10:38:58 -0700 (PDT)
+Message-ID: <96079c7d-647f-4843-b847-b1e50e3c7ad3@oss.qualcomm.com>
+Date: Tue, 31 Mar 2026 23:08:49 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR12MB6329:EE_|PH8PR12MB6772:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9dbf937d-0b6c-4ab3-b0c7-08de8f4bedd6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|921020|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	pqlP2rV7RueIWw2i2SD1Z0DdmmqJ8FL+wL1T8JNST5NBhNKqsjXcnP4UYBnyDkZ5XCk6IQt5VkqR4gEkCq+OMICicowX3u0l9jekb2kV43bW07JAj8HqGR95pAAYBjstRimrdRuOTuK01TEBBFLDu4Gw0hOzacsHOvEFNd1OGwuFaqSlg1KrczBQQPiqCDNFgH1xraCLlZEUpR2WddW1Zzo+s53UGSeZXSqWo9C66K7fPSCjXsmJoKCiLzGEaHGTUJtOWEXWjN5nL9m5QCam2/k5a1DY/YgKyz22Wk3cJ63QiAzAdO4xM9i5yNUzveWbYFcOsros5MlD6lhNZdyUjGk17OQwSevJt1j/TPiuLEFaQyHoojhCPjnWSKLNb4iwRJrTUb7FJWKTKHYH8ybC0LosfOCqKG1X4Sxui6h4+F4u7XlvSOd5wp8+G8MMEu8t21iDPonihZBeRJyOtux/S+ESc2ap4JQk4r4dBx1tyUhd0qX4BHw/s6CEzof96dQvWKEVXfbh0kS7P+SPkUpQpdo+LcMh+xEuiB5OXhjbchziF41mvQ3SDWST68ccodU294zMQKruokGHrBaoi5TA+U6YOogSH7nnyhnQukb6zyk2fviKIkQh2fetGlLIEtEBT9itbGjiVdIcy03AfPSdfT5/z3sOnuhEzVo7UcLaDQIzLkB3qWdBa6DQzUvnIlqH9Ux+zY7kLMJV2vZcosopEk8nF2o6z2Ugkp5fWVvYlxCnGgs8r0vXqBugJxEu5T4vdEPcU5hgIXrGhNwxXnzIYw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB6329.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(921020)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?d0JzVWJWRWduOXlpd2g0L3RSbFJvT2F0TDNSM3M0KzFjL2lPd2dNOUZiTWVl?=
- =?utf-8?B?WHQ0NkJ5L0ZjZGFUMWZHMTVNT1lIcUpranJnZFJHVWdPSWdZMUVHWFAyTzFC?=
- =?utf-8?B?WUJUUmJvcEIyQmhIeDQ2RTV5M1hBd3J1QU5TeVd1enVTQzdTQTVhZUowRmpV?=
- =?utf-8?B?WnlSUVRIczg3aWNHMGZZeFpPeEZoS29Ta0VnMHhLNTZ0VHI0TGszQ0U4SmJt?=
- =?utf-8?B?L0xFR3BUWWtWelhHNG9SZmNGRC9HenNveUJrVVVsSzcxYW5remdWL0JxODdN?=
- =?utf-8?B?YSs4RlpUVUtSeEdRZlZzbWgyTENVb0hWZS9jWnB2ZWhuRVRucWZYc1NWM2ts?=
- =?utf-8?B?SXNFZ0hmcHFKUnBCVG05V3pmY3ZzOFRwd2dsVFVxUGNMb1J1UFNjdGN1VFdk?=
- =?utf-8?B?dU9oeFN1VlN5NmtEcS9EcDJmdXU1b2sySzA5dmVTdnFWUDRpK2xlcGwyZzlP?=
- =?utf-8?B?ZURheitaVHdtcWVnRTNtTlFEVHpPMXc3NWc3ZFo2dDY1eTk1THZ6QkMwY3Ar?=
- =?utf-8?B?ZitQR2VLZVpUaUtCWVdUc010d2twdEhiQ0JDNGtZWUFWekVjbkRTbVlkVm5r?=
- =?utf-8?B?TDhSckxlMjBNaDlIRmRxVjkvM2FCMGJ0Y2JJM3ZzRkNDaGpuOWErV0FST3FO?=
- =?utf-8?B?d1cwMVJqZnljSWxOR01wVFNNQ0Izc3MweHBTOFdibTF0cDBXSWcvbzJLZStR?=
- =?utf-8?B?WXJvR2xtbGd2d2g2QnpiSGxUOHNMdzJtRVlYM25Lc2lIMnRmanBydFJBMUk5?=
- =?utf-8?B?QVBjYUFxb1VwWE1KUERuSG95V0IzcnJFMlVYUFVtU3IweURhZis1aUVYRHN1?=
- =?utf-8?B?ZGZQSzlUbW9YSXY1V09jUWR5cXpsbTR2Sk1zdFJZVWZPMnhCSG4wOVJvQ3dm?=
- =?utf-8?B?anFnaEg4UGNIak1BTE0zTlYrWndWSGZ5NTdnaVdxS0FlcWhWRkhQYTRWYzFq?=
- =?utf-8?B?UnQ1SEhJdWo0SHYwcCs5ZlNxcmNoWlBxczR6SFphRlpLTkozOWtmT1k0YklZ?=
- =?utf-8?B?OWFncHB3N0xYTHVnY3ZneHF1SXNrdEhJZXBmRXNkOTNYdHNFN0FFNERtWW5K?=
- =?utf-8?B?aEhUbHFYVitBd2lZeFNqb2J6QUNBODhBMm9oN2JabVFlYXQySUNlYlFnNUFJ?=
- =?utf-8?B?ejNUbU5nL204aUR1VDBHdXpoTHVRaU92eldBQUE3eTQyRGNrV3N4bWVWZENQ?=
- =?utf-8?B?MHprc2h1UWFtazR6ZlZmam9EZXVrM0JRa200Tml0TUJhZEUyWGlSNUUxbFUy?=
- =?utf-8?B?NGJXZFRWVlVZaTliaG5OK0NKZFRWZVQxcDVPalpubUs3blQ1cHIxdXZnQThN?=
- =?utf-8?B?WWVkSzBQM2tPMUlXZW82TXpSMzdPL3E3VnFsSlAyNlJhZk1HTU4xOStibTlh?=
- =?utf-8?B?d2JESTFBekJNL1NrNlMxaGZMS3Z4YWFFcjJnYjVBQTIyb1dSVVN4VDkxV1dB?=
- =?utf-8?B?NDJMUndPS0RTN1VQY1hUc21GMnd1U0Z3Lyt2TFFySjBUa2Zva095cmhpbkJJ?=
- =?utf-8?B?MGpkUzlCR09aejloNDFsajZhRTRrUkQzVGlLM3RheVVOeDhQOUx4b20xTVE4?=
- =?utf-8?B?d1VUTVBYSDZNamNlcG1FbjdwOUhSU3FDaDVNajZJYmlMMGxXMXZxSmo3dGlw?=
- =?utf-8?B?YkdKSnJvaE5xVnpCcVR1UFRtdTJudHhtTVZCWEpJVDZQczdiZy9wSG9ReDJY?=
- =?utf-8?B?SnRBWTJUczllUGVoZ1ZDOElJaWdlb3czRFdpVWphWnJJVTBEL2VUWjJ5UDUx?=
- =?utf-8?B?bU9kUGZ5cGI0SktVTDhCZFBidStZSit3c2tORGV6a3o5VlJCUnFsN1l5b3F1?=
- =?utf-8?B?YXljcVpEUFNsWVYraDBmN3ROU00vOU9xVU1TaEtmbmVERXRqYmlLR0ViWk85?=
- =?utf-8?B?cGRHNS94R1hqbnlwOSt6ZzVwdGlITkt0Z1ZCZisxQU01ZS9oSmUra0RpQnJF?=
- =?utf-8?B?M0lJMklFZkRzSzYyY001ZmhNdjFhZU5PNE4xUkpJSzNRVVlTSGs3S1BCTlpN?=
- =?utf-8?B?UnYxQ3lHZSt1OGxtcEZ1MUw2OCs2eURUelFNdlBqZ0JvalNWVk5RMTM5UDdx?=
- =?utf-8?B?QnB6Z3d6cGlvZU0rVXIrRFJ4LzhjRkN4UGJRdTVLUUtaYko4VFFtZWppbEcv?=
- =?utf-8?B?ejJMeHVGckJDeTZmMkp4Mkcvd2NKYURUdmxPTGtTY2doNllZR0svUzZKK0dO?=
- =?utf-8?B?UU9YdXZSb2Z1NCtaUVJzZCt4QjJlOGx5dERRb0RqSnhMV2RqZitKdFVLc2dX?=
- =?utf-8?B?djA4cUJJZ1liSUNKWE9WendXa0R3UEdLSldSTFRDbGo4cVBKZjhBdU1pRXJ2?=
- =?utf-8?B?YUhRU0ZWakxyQ3R5bVFmdlFiQzJCeklzQkxaUktsb0lBemNwb1FWQT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9dbf937d-0b6c-4ab3-b0c7-08de8f4bedd6
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB6329.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 17:35:41.0346
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bgvwuHEuhPWRDGSDVAkXKFMjxZWVGqaSJcbymsNQ/voTXXQTAb52wQ3rO/JvBBhktS0oi3POKXaRFoCh7B4MdQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6772
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v20 04/10] firmware: psci: Introduce command-based reset
+ in psci_sys_reset
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, Bjorn Andersson <andersson@kernel.org>,
+        Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+        Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Andy Yan
+ <andy.yan@rock-chips.com>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        Mark Rutland <mark.rutland@arm.com>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        John Stultz
+ <john.stultz@linaro.org>,
+        Moritz Fischer <moritz.fischer@ettus.com>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Sudeep Holla
+ <sudeep.holla@kernel.org>,
+        Florian Fainelli <florian.fainelli@broadcom.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+        Andre Draszik <andre.draszik@linaro.org>,
+        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, Srinivas Kandagatla <srini@kernel.org>
+References: <20260304-arm-psci-system_reset2-vendor-reboots-v20-0-cf7d346b8372@oss.qualcomm.com>
+ <20260304-arm-psci-system_reset2-vendor-reboots-v20-4-cf7d346b8372@oss.qualcomm.com>
+ <acaPCJnX6lb9lxPy@lpieralisi>
+Content-Language: en-US
+From: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+In-Reply-To: <acaPCJnX6lb9lxPy@lpieralisi>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMxMDE2OCBTYWx0ZWRfX6hu+iNWz9Zw6
+ 7B7lB4SKtRzDGDpHtuwUyfFyoRH7LQwtAneiMDHXMjTBGpnDuGe6Ow/pc5FYTZpp7W9kYMAGwid
+ tE80KMYrtfY2NEkYhTA4Z/ta9pqRJB02kzrJH80mJKqCmsJJSk6H1S0mXL2l8+uAjTnH8Cs2lED
+ ff9wdRf8tNIrMT7ieWSvGPRtE47hag3DII/Ijzm5UVfP5098/UjAKKMaCFMjDmvW7GFXUAuSRlN
+ 5/YLgQoammhapwXRxiMTXYCyKVwNiPtM8UNpmNga7y8E6hI1nFxjhbfcJaRgfWxOrJ3AKoOAy8z
+ MWNTYnXrA36CVtmKhnbsTbHDCi6ADIZ/uetvGKRZ+TV71mYGZ274I4XKTzh7wDuwmN8ELgREQcw
+ A2DIEERAj45OWJlzQoy5+c0kdic/trRvC3n/ge+k/pmCnEzOXU1DbVg9pphLDUmD6Bq7idzKMQQ
+ HAyGTSjdkz/yIIkkURw==
+X-Authority-Analysis: v=2.4 cv=K4wv3iWI c=1 sm=1 tr=0 ts=69cc06b4 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=mO+zk3XXGlxjkZV6yCQMJw==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=fKhT1tDkeSLsOxjvS_wA:9 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-ORIG-GUID: VkBqFBoWBplv_HFEQPzl5Q7OgOu9uIlA
+X-Proofpoint-GUID: VkBqFBoWBplv_HFEQPzl5Q7OgOu9uIlA
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-31_04,2026-03-31_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
+ malwarescore=0 spamscore=0 adultscore=0 impostorscore=0 phishscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2603310168
 
-On 3/30/26 12:33 PM, Krzysztof Kozlowski wrote:
-> On 30/03/2026 21:32, Dipen Patel wrote:
->> On 3/30/26 11:39 AM, Krzysztof Kozlowski wrote:
->>> On 30/03/2026 20:35, Dipen Patel wrote:
->>>>>  MODULE_DEVICE_TABLE(of, tegra_hte_of_match);
->>>
->>> Please kindly trim the replies from unnecessary context. It makes it
->>> much easier to find new content.
->>>
->>>> Acked-by: Dipen Patel <dipenp@nvidia.com>
->>>> Signed-off-by: Dipen Patel <dipenp@nvidia.com>
->>>
->>> What are you certifying here with SoB?
->> I was preemptively adding my SoB since I had to integrate this patch into my HTE
->> subsystem tree. But for now, please ignore my SoB.
-> 
-> So you wanted to say that you applied a patch? Why not sending ty
-> letters with b4?
-Please ignore my SoB and consider that as a mistake.
-> 
-> Best regards,
-> Krzysztof
 
+
+On 27-03-2026 19:37, Lorenzo Pieralisi wrote:
+> On Wed, Mar 04, 2026 at 11:33:04PM +0530, Shivendra Pratap wrote:
+>> PSCI currently supports only COLD reset and ARCH WARM reset based on the
+>> Linux reboot_mode variable. The PSCI specification now includes
+>> SYSTEM_RESET2 for vendor-specific resets, but there's no mechanism to
+>> issue these through psci_sys_reset.
+>>
+>> Add a command-based reset mechanism that allows external drivers to set
+>> the psci reset command via a new psci_set_reset_cmd() function.
+>>
+>> The psci command-based reset is disabled by default and the
+>> psci_sys_reset follows its original flow until a psci_reset command is
+>> set. In kernel panic path, psci_reset command is ignored.
+> 
+> If it is function calls you should add parenthesis (eg psci_sys_reset ->
+> psci_sys_reset()).
+> 
+> You must explain why the kernel panic path requires separate handling
+> here AND in the code - think about looking at this years down the line
+> and figure out why kernel panics are special here.
+
+Ack.
+
+> 
+>> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+>> ---
+>>   drivers/firmware/psci/psci.c | 45 ++++++++++++++++++++++++++++++++++++++++++--
+>>   include/linux/psci.h         |  2 ++
+>>   2 files changed, 45 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/firmware/psci/psci.c b/drivers/firmware/psci/psci.c
+>> index 38ca190d4a22d6e7e0f06420e8478a2b0ec2fe6f..ae6f7a0aead913d740070080d4b2a3da15b29485 100644
+>> --- a/drivers/firmware/psci/psci.c
+>> +++ b/drivers/firmware/psci/psci.c
+>> @@ -51,6 +51,15 @@ static int resident_cpu = -1;
+>>   struct psci_operations psci_ops;
+>>   static enum arm_smccc_conduit psci_conduit = SMCCC_CONDUIT_NONE;
+>>   
+>> +struct psci_sys_reset_params {
+>> +	u32 system_reset;
+>> +	u32 reset_type;
+>> +	u32 cookie;
+>> +	bool cmd;
+>> +};
+>> +
+>> +static struct psci_sys_reset_params psci_reset;
+>> +
+>>   bool psci_tos_resident_on(int cpu)
+>>   {
+>>   	return cpu == resident_cpu;
+>> @@ -80,6 +89,28 @@ static u32 psci_cpu_suspend_feature;
+>>   static bool psci_system_reset2_supported;
+>>   static bool psci_system_off2_hibernate_supported;
+>>   
+>> +/**
+>> + * psci_set_reset_cmd - Sets the psci_reset_cmd for command-based
+>> + * reset which will be used in psci_sys_reset call.
+>> + *
+>> + * @cmd_sys_rst2: Set to true for SYSTEM_RESET2 based resets.
+>> + * @cmd_reset_type: Set the reset_type argument for psci_sys_reset.
+>> + * @cmd_cookie: Set the cookie argument for psci_sys_reset.
+>> + */
+>> +void psci_set_reset_cmd(bool cmd_sys_rst2, u32 cmd_reset_type, u32 cmd_cookie)
+>> +{
+> 
+> I don't think cmd_sys_rst2 is needed, as a replied in a different thread.
+
+Need bit more clarification. The issue is that at some point we need to 
+decide - sys_rst2 or the reboot_mode based reset. Are you suggesting 
+that this check should be in psci driver instead of a pre-check in 
+psci_reboot_mode driver?
+
+> 
+>> +	if (cmd_sys_rst2 && psci_system_reset2_supported) {
+>> +		psci_reset.system_reset = PSCI_FN_NATIVE(1_1, SYSTEM_RESET2);
+>> +		psci_reset.reset_type = cmd_reset_type;
+>> +		psci_reset.cookie = cmd_cookie;
+>> +	} else {
+>> +		psci_reset.system_reset = PSCI_0_2_FN_SYSTEM_RESET;
+>> +		psci_reset.reset_type = 0;
+>> +		psci_reset.cookie = 0;
+>> +	}
+>> +	psci_reset.cmd = true;
+>> +}
+>> +
+>>   static inline bool psci_has_ext_power_state(void)
+>>   {
+>>   	return psci_cpu_suspend_feature &
+>> @@ -309,14 +340,24 @@ static int get_set_conduit_method(const struct device_node *np)
+>>   static int psci_sys_reset(struct notifier_block *nb, unsigned long action,
+>>   			  void *data)
+>>   {
+>> -	if ((reboot_mode == REBOOT_WARM || reboot_mode == REBOOT_SOFT) &&
+>> -	    psci_system_reset2_supported) {
+>> +	if (((reboot_mode == REBOOT_WARM || reboot_mode == REBOOT_SOFT) &&
+>> +	     psci_system_reset2_supported) && (panic_in_progress() || !psci_reset.cmd)) {
+>>   		/*
+>>   		 * reset_type[31] = 0 (architectural)
+>>   		 * reset_type[30:0] = 0 (SYSTEM_WARM_RESET)
+>>   		 * cookie = 0 (ignored by the implementation)
+>>   		 */
+>>   		invoke_psci_fn(PSCI_FN_NATIVE(1_1, SYSTEM_RESET2), 0, 0, 0);
+>> +	} else if (!panic_in_progress() && psci_reset.cmd) {
+>> +		/*
+>> +		 * Commands are being set in psci_set_reset_cmd
+>> +		 * This issues, SYSTEM_RESET2 arch warm reset or
+>> +		 * SYSTEM_RESET2 vendor-specific reset or
+>> +		 * a SYSTEM_RESET cold reset in accordance with
+>> +		 * the reboot-mode command.
+>> +		 */
+>> +		invoke_psci_fn(psci_reset.system_reset, psci_reset.reset_type,
+>> +			       psci_reset.cookie, 0);
+>>   	} else {
+>>   		invoke_psci_fn(PSCI_0_2_FN_SYSTEM_RESET, 0, 0, 0);
+> 
+> This is very hard to parse. IMO, what you should do is:
+> 
+> - Split this into two different paths: reboot_mode vs psci_reset.cmd == true.
+> - Document very clearly why a panic needs separate handling.
+> 
+> Something like:
+> 
+> if (psci_reset.cmd)
+> 	handle_reset_cmd();
+> else
+> 	handle_reboot_mode();
+> 
+> I don't think we are far from converging but I want to be able to maintain
+> this code going forward.
+
+Ack. Will restructure it as suggested.
+
+thanks,
+Shivendra
