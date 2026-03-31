@@ -1,172 +1,92 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28DC52BD59C;
-	Tue, 31 Mar 2026 12:40:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CBB51A6800
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 12:45:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774960825; cv=none; b=FHnBSDfihaUltYrsAowHuSh0ytlYqQBJL1s6vRGV9KnSPZzqKfqVugj4iBMZu1xIWeUn+HWLfpVY3hU34LKrrAzPWr+66vYKYCzXmEibfP4tB3BEpnjW4pv9hNkAT3eyyr6Ci87uctMQAGLZ8H73raogMo5oWH6MLB+1uibyUxY=
+	t=1774961123; cv=none; b=kdn3dQLnPSwThyvW7QmFoaVg+Xe7ASnK8S4mKW2emk5g9jaRO8atQbaoswGOw6Ud6MhbI0eD1/KOhdpr/vRElRRDuo4boIEFqy/f1P/bzczGcblSIWqJkdfgLDxv43VnyD4uhQETqqbgVKlzzoJBMZonciKQuV1v4Wm/QbKA6eg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774960825; c=relaxed/simple;
-	bh=yUiDDpq+rr1MEEEogPrsjwi9iImRyO9leyo0H47IgzM=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EwKhXa29EHd7404ekdmkJYf9j9dHFrAaYf3tTb8z7Xb9RPdiM7Xw7H3W6/BYqbNBCl1aO2SCt8bazpRD6TjdjnGpqUuWu5tTpLURDKn23f49gvNKSIF9TIhM4IgBayFeS2djyBfZI/mvFYAdJdITWJTZq2bT8MMttR0E8ob1ITk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=bFPPE8e0; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="bFPPE8e0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1774960822; x=1806496822;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=yUiDDpq+rr1MEEEogPrsjwi9iImRyO9leyo0H47IgzM=;
-  b=bFPPE8e0hwWPG2g38m1TJ3B0w0fQEkZ7qmtfFqF6oNoRcbxtkhNe91m4
-   +BrvwB1b58W8gWB2J6uasN0DZdAmCqLmKL/QgbWkx/1wdfkTa69E0UQMf
-   +QyCPxHnjL+8Mhx2MtE52n01uJNhErlBK7Q0/t35iv7svJiFrllO7EJI3
-   ZPdvXVq+aiJjDfEBy1P3OjbhToJspi6nzCmV1NvIaDNARvfzozsPhq7rF
-   WrULKApcFsYtxVY6n++tPAoG13Dy5Upz488jt9D5E5mpbnQv0POen74fV
-   sA4M9mV7s4mmYVAo42iUrNHqP3Fmnfh1LM1Snmpj3Nl4W5/DQ+3zLtc2L
-   Q==;
-X-CSE-ConnectionGUID: PC7S4TvrRzGRutD8ffSIyA==
-X-CSE-MsgGUID: lEcwdU0sT7yLIWC35Cy+mw==
-X-IronPort-AV: E=Sophos;i="6.23,151,1770620400"; 
-   d="scan'208";a="55888995"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 31 Mar 2026 05:40:21 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Tue, 31 Mar 2026 05:39:53 -0700
-Received: from bby-cbu-swbuild03.eng.microchip.com (10.10.85.11) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Tue, 31 Mar 2026 05:39:52 -0700
-From: Charles Perry <charles.perry@microchip.com>
-To: <netdev@vger.kernel.org>
-CC: Charles Perry <charles.perry@microchip.com>, Andrew Lunn
-	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH net-next v3 1/2] dt-bindings: net: document Microchip PIC64-HPSC/HX MDIO controller
-Date: Tue, 31 Mar 2026 05:38:53 -0700
-Message-ID: <20260331123858.1912449-2-charles.perry@microchip.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260331123858.1912449-1-charles.perry@microchip.com>
-References: <20260331123858.1912449-1-charles.perry@microchip.com>
+	s=arc-20240116; t=1774961123; c=relaxed/simple;
+	bh=o8FVivU4Xqh6mQiTq1kCcqbBD36cUXHehs/6f1QTY1E=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=F/j/71Iop1R8il4V7Fk0miP0prO4ftlvO+5ZCytvvS2gRfJWyRicfT5OwCcZoE1M4ILzjb0+pOwwFMuZ9SKdcX0LFx6HCghMU0U1Ggi97sziPBRcB5VnMPbHoARHe1FXnIsMlgwsXdIfKRFUSUXJFxIUlOVBfWdIOhyXb+FMYgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1w7YSy-0004rB-3T; Tue, 31 Mar 2026 14:45:08 +0200
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1w7YSx-0032jD-16;
+	Tue, 31 Mar 2026 14:45:07 +0200
+Received: from pza by lupine with local (Exim 4.98.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1w7YSx-00000000Ab8-13OI;
+	Tue, 31 Mar 2026 14:45:07 +0200
+Message-ID: <d6cdea5f1a4f2eb3f7b73e6136c77020f444d8f0.camel@pengutronix.de>
+Subject: Re: [PATCH 1/2] dt-bindings: reset: imx8mq: Add _N suffix to
+ IMX8MQ_RESET_MIPI_CSI*_RESET
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Robby Cai <robby.cai@nxp.com>, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, Frank.Li@nxp.com, s.hauer@pengutronix.de,
+ festevam@gmail.com
+Cc: devicetree@vger.kernel.org, kernel@pengutronix.de, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	aisheng.dong@nxp.com
+Date: Tue, 31 Mar 2026 14:45:07 +0200
+In-Reply-To: <20260331101331.1405588-2-robby.cai@nxp.com>
+References: <20260331101331.1405588-1-robby.cai@nxp.com>
+	 <20260331101331.1405588-2-robby.cai@nxp.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: p.zabel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-This MDIO hardware is based on a Microsemi design supported in Linux by
-mdio-mscc-miim.c. However, The register interface is completely different
-with pic64hpsc, hence the need for separate documentation.
+On Di, 2026-03-31 at 18:13 +0800, Robby Cai wrote:
+> The assert logic of the MIPI CSI reset signals is active-low on i.MX8MQ,
+> but the existing names do not indicate this explicitly. To improve
+> consistency and clarity, append the _N suffix to all
+> IMX8MQ_RESET_MIPI_CSI*_RESET definitions. The deprecated
+> IMX8MQ_RESET_MIPI_CSI*_RESET versions remain temporarily for DT ABI
+> compatibility and will be removed at an appropriate time in the future.
 
-The hardware supports C22 and C45.
+The register description in the latest reference manual I can download,
+IMX8MDQLQRM Rev. 3.1 (06/2021), still call these bits
+MIPI_CSI1_CORE_RESET and so on (without _N). There is no mention of
+polarity in the bitfield description. Is a documentation update
+planned?
 
-The documentation recommends an input clock of 156.25MHz and a prescaler
-of 39, which yields an MDIO clock of 1.95MHz.
+Right now I'd say this improves clarity, but reduces consistency with
+existing documentation.
 
-The hardware supports an interrupt pin to signal transaction completion
-which is not strictly needed as the software can also poll a "TRIGGER"
-bit for this.
+Are these bits self-clearing, or can the reset be asserted by writing
+0? As it stands, the CSI driver using these resets, imx8mq-mipi-csi2.c,
+only calls reset_control_assert() in imx8mq_mipi_csi_sw_reset():
 
-Signed-off-by: Charles Perry <charles.perry@microchip.com>
----
+          /*                                                         =20
+           * these are most likely self-clearing reset bits. to make it
+           * more clear, the reset-imx7 driver should implement the  =20
+           * .reset() operation.                                     =20
+           */                    =20
+          ret =3D reset_control_assert(state->rst);
 
-Notes:
-    Changes in v3: none
-    
-    Changes in v2:
-      - Make "clocks" and "interrupts" required (Andrew)
-      - Add a default value to "clock-frequency" (Andrew)
+This will probably have to be turned into a deassert together with the
+reset driver change.
 
- .../net/microchip,pic64hpsc-mdio.yaml         | 68 +++++++++++++++++++
- 1 file changed, 68 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/net/microchip,pic64hpsc-mdio.yaml
-
-diff --git a/Documentation/devicetree/bindings/net/microchip,pic64hpsc-mdio.yaml b/Documentation/devicetree/bindings/net/microchip,pic64hpsc-mdio.yaml
-new file mode 100644
-index 000000000000..d690afe3d3cf
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/microchip,pic64hpsc-mdio.yaml
-@@ -0,0 +1,68 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/microchip,pic64hpsc-mdio.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Microchip PIC64-HPSC/HX MDIO controller
-+
-+maintainers:
-+  - Charles Perry <charles.perry@microchip.com>
-+
-+description: |
-+  Microchip PIC64-HPSC/HX SoCs have two MDIO bus controller. This MDIO bus
-+  controller supports C22 and C45 register access. It is named "MDIO Initiator"
-+  in the documentation.
-+
-+allOf:
-+  - $ref: mdio.yaml#
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - const: microchip,pic64hpsc-mdio
-+      - items:
-+          - const: microchip,pic64hx-mdio
-+          - const: microchip,pic64hpsc-mdio
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  clock-frequency:
-+    default: 2500000
-+
-+  interrupts:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - interrupts
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    bus {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
-+        mdio@4000C21E000 {
-+            compatible = "microchip,pic64hpsc-mdio";
-+            reg = <0x400 0x0C21E000 0x0 0x1000>;
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+            clocks = <&svc_clk>;
-+            interrupt-parent = <&saplic0>;
-+            interrupts = <168 IRQ_TYPE_LEVEL_HIGH>;
-+
-+            phy0: ethernet-phy@0 {
-+                reg = <0>;
-+            };
-+        };
-+    };
--- 
-2.47.3
-
+regards
+Philipp
