@@ -1,139 +1,167 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 342DC146A66;
-	Tue, 31 Mar 2026 07:02:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E905A2BF3D7
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 07:03:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774940575; cv=none; b=fkZX9EBg3KKdPgxjKK5uhexyFzvYAgS6EjeklqiTI5uNRgYL+37YipVoPN1aN3hJNcjD/jufVM9MgICrDOzwEMVkxu5+ftRbcnfNok3ZOqw1DgwFILiBIhdpFQAURad2OHmQUveUXc6+0lurDN79M3I5MiwQv80RnGfzJaA88O8=
+	t=1774940630; cv=none; b=OhLu6Rg3LbjOXVBLeK1zBV3DXTdMiNnCUa6/4s3R5yDmUInni+vhAEvVxA3Xs1freeYH2/CJrSx8c6fIdgNHerHVnBEgaVsd73HFjGpk2qeWQcjWytDnb5JKyuDDCVr8aOMCGWDk5I7fhz4jbmO0wj8Uy8ITp0ZSk+GkmCzrP+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774940575; c=relaxed/simple;
-	bh=yt9o+hP525Oxql1j/peL75RWbfKyVjlXzURR7373UqE=;
+	s=arc-20240116; t=1774940630; c=relaxed/simple;
+	bh=jGxbfeQZaCNRWO0CupX9OPM0rLpBdoeHpdVT2+551Hs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ka8VQMDc0brDnqvr459TVvzrDDRmAVQGW9KEt7YnKkNhhRex/IXd/89zU4y9lSTINUYMAs+Hj4kX2SwDl/WDl0qC+t58ez0fkG3ExashiIfqJSglxHLnYogdSNe1HYPVN7uP4lHVrmJSa1zdvGucW2GhDuPKdKAlHSiqtu43mP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=k6afqY4r; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=mPC16ZFw54egJG5rznLPXzyZdOkgpRlTv6HEvdSIm6TjMTFdEKMfTT5QNIcVMRgodAJ2szxCMiQTelIKh2+XLZxeIkZz6kSdrp50PNabZ+VKhfQZr9J25EB2xRj7nj8y2NK+s3YX7g9x3cylqejhUF5iezQQUy6vHMTMrjyrl00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.b=2+wU6cum; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="k6afqY4r"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774940574; x=1806476574;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=yt9o+hP525Oxql1j/peL75RWbfKyVjlXzURR7373UqE=;
-  b=k6afqY4rMs/43BmdKoPcayEl2a1QYA4NMGm2V8YZV3dDCYn6A6qDH3sf
-   auvLZIrpPw+75LRsTNU7Khrzs6DwjHKZSBmblc9TyHnp400T243vXf7Ob
-   9Wp2db8MFHPY7Pt9stHwbxaSfqvp+SARDEKkX6OUnT7TniXiyrEdxH+Me
-   JMV1JCRRqEYB7LEYEOF6jJLEvVb75AlD1NzH3rE6PCFRXd2rcQyc8T+Me
-   ADAB1xXXOQKnJoLj6ZcsJ5i7oZqfOzM+EZpKkOQMwkvK9vq/Tn4/06+OU
-   aCMVkJBMQP800F8hUc4xf8T8Vr6NYpDpmsXpQZun853AitZfS/31IxOHR
-   w==;
-X-CSE-ConnectionGUID: EqasG9K0TG6De97H1nFDNA==
-X-CSE-MsgGUID: VppXuF84QCysb5aqSysJBg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11744"; a="79545029"
-X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; 
-   d="scan'208";a="79545029"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Mar 2026 00:02:53 -0700
-X-CSE-ConnectionGUID: EilyfNbITeSJwrNzdhz4uA==
-X-CSE-MsgGUID: u2eMCNNLQkmmy/GQ3a7TUw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; 
-   d="scan'208";a="249494457"
-Received: from abityuts-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.233])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Mar 2026 00:02:48 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 536DA121CF2;
-	Tue, 31 Mar 2026 10:02:55 +0300 (EEST)
-Date: Tue, 31 Mar 2026 10:02:55 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Richard Acayan <mailingradian@gmail.com>
-Cc: David Heidelberg <david@ixit.cz>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
-	Todor Tomov <todor.too@gmail.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Tianshu Qiu <tian.shu.qiu@intel.com>,
-	Robert Mader <robert.mader@collabora.com>,
-	phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH v9 7/7] arm64: dts: qcom: sdm670-google-sargo: add imx355
- front camera
-Message-ID: <actxn5kvN3auqCBm@kekkonen.localdomain>
-References: <20260217002738.133534-1-mailingradian@gmail.com>
- <20260217002738.133534-8-mailingradian@gmail.com>
- <1349f725-a20f-4935-a829-208c8e583ad9@ixit.cz>
- <acHxgIsyPiQTeqCB@rdacayan>
- <eff25adf-c5fd-484d-a9ae-ec27c0d9c100@ixit.cz>
- <acJuN_FRqMTGgl8C@kekkonen.localdomain>
- <acsjH0tZ-jj7N7c5@rdacayan>
+	dkim=pass (2048-bit key) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.b="2+wU6cum"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-483487335c2so56183755e9.2
+        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 00:03:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1774940626; x=1775545426; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=2rrakuJVzyP5a9RFW+UWE6NH7PekmyTOLmdb7Ewoj4E=;
+        b=2+wU6cumNr+ZYkoQIWBYI+cz+yAhUPSlBX6boZTAldVUctZvbGeQihdmR7kQCTtu8X
+         dh9Uimsh6St9oluX/rMAIeryOBLCqgn3RXek9TUlyHF4U6hcVWjx9MMXBjGPxbdEjFpD
+         cF5x9/BBlJW8yfY8m5LATsucTzJefPoEI4mBKMsvMH57Watik7Vv3wyDdUqa1rIvv2l1
+         wSJkXGp5ZBrDTIhlcmimN4ALXBwm5Xx2Tm1tDzENyVdoW72D9tIasC0dUPVM8CumEP1w
+         RtSmG5XUY3HNaKJiqVJ79b1ZVWwCU974U6axA78oksBFo6ZT5chQbZogndYZxGRC2fJE
+         Gmvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774940626; x=1775545426;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=2rrakuJVzyP5a9RFW+UWE6NH7PekmyTOLmdb7Ewoj4E=;
+        b=SD+/ykOIcyqVr7RC7rG+yFQBPvNnT3PkcUeTz1wyjCLHC2jYY2yoYOHY5TXHhOS4if
+         ngx7PiBEZeJCyMVMiytgpDCAf0iYQnZunDn52aOwqt7YdqKhbkBRuOADJW4mhGIigp6M
+         EBeHARCkcd/0imAQNojr6+R1kon4sISHtowPtmh4sIksUu4I6at8p7haEgGS9MIvETpR
+         5Nubz3MBOwSK6cqimocFFLd0svDKcT1MA3XMfOciWjC4+wfi5QmRokvn/qtVjR1mLV6R
+         p+gw2uTDOZBR/VDZljhrZn4Jh2uZ4Kcr/3SPxnxXyIHp680TziJqER2eOB02JxGibHzs
+         Uzuw==
+X-Forwarded-Encrypted: i=1; AJvYcCWHJzWli2XBAdLjUmPAvHF8itigkKipXZG3wMNskgp3Hji2krOLsrAGTgxXz1iyoVrrHxJn8Q51+0jG@vger.kernel.org
+X-Gm-Message-State: AOJu0YxgCJzH8/lRF7xlKjxHKvtFZyz0+zAbkcYt3CEAR3i8Yc/AinIp
+	Ptd+PXZsCKfcSYrlyVJbVcQLsyLTklfHCrssLjzIRv3003zXBkUUix4M6QdMoOW/90I=
+X-Gm-Gg: ATEYQzx63LKKKpWuy/rYp9iNhJ7HcxaHizpXfURtTskdbfvO/qc3fo/IVZDsNjAnaQc
+	jsYZ5De7J/MXwjv0uHwQ8L9rUn/eXIo29XBDCParD6H1qPaLQKIxv6P4agQ9B6UumCLcVyIoJ8G
+	iZZNdrLLjN6hc8q9/wBx+RhXVMEiEkA2QKqRFt0wuhuX3xzTt7Prib8fkVgcLP7PG/zz9bM8r3+
+	EXUhEA9bacg6MZSbojuihqaw43ZFQHFhnbV1wf5C4Imp6y8mTQsNqJl8eNBkchuYanXnfqfb9mR
+	ZySyhBgRQmMEIaoC6h5+EHvmHSGPafnZ7BR7izz7fX+Vpv6XxBJfkUlRuCdqdsa5cxUnocjzWBL
+	wqIWAqcThHXez+XJncbAvvekCv0jWTEhwxRQjfBs4WtDdkqf674yyYbvVF+PShw8Cp707lyGbqo
+	THtJv+xRKg5nRpNSFWpmIoKSTlZhcqfdaR5R7XdUmZobZyh5lBQtbzL9ur4UodWAXOJdMHoFTK6
+	iW79rLOnPPLFrQ=
+X-Received: by 2002:a05:600c:6814:b0:486:fbe1:2499 with SMTP id 5b1f17b1804b1-48727f7be29mr260514595e9.22.1774940625999;
+        Tue, 31 Mar 2026 00:03:45 -0700 (PDT)
+Received: from localhost (p200300f65f20eb048bf95aaa62516f6f.dip0.t-ipconnect.de. [2003:f6:5f20:eb04:8bf9:5aaa:6251:6f6f])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4887e93c014sm16826495e9.10.2026.03.31.00.03.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 31 Mar 2026 00:03:44 -0700 (PDT)
+Date: Tue, 31 Mar 2026 09:03:43 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Daniel Lezcano <daniel.lezcano@linaro.org>, 
+	Thomas Gleixner <tglx@linutronix.de>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Sean Anderson <sean.anderson@seco.com>, linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org, 
+	devicetree@vger.kernel.org, Chris Packham <Chris.Packham@alliedtelesis.co.nz>, 
+	Marek Vasut <marek.vasut+renesas@mailbox.org>
+Subject: Re: New default binding for PWM devices? [Was: Re: [PATCH]
+ dt-bindings: timer: xlnx,xps-timer: Make PWM in example usable]
+Message-ID: <actvzQTb-a7O7sbP@monoceros>
+References: <20250527171504.346696-2-u.kleine-koenig@baylibre.com>
+ <a14be34c-de2a-4bea-9282-1fac7780b9a4@kernel.org>
+ <crk42dsypmbyqk7avldghjq32vslmalfmmouwxzgtdci4agfhz@rkbmxj5z22fx>
+ <20250606141324.GA1383279-robh@kernel.org>
+ <erst43cabswj3cwnszssolgyoh4dsgrlnjjxhb7luk3qkqhyay@6zyoixljvwwg>
+ <CAMuHMdXDZD6QAbKgny1utfYhagUEZ5pcgiDCTTfJKNVVZLOUYg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wyl7ytgv5wvrmgoq"
 Content-Disposition: inline
-In-Reply-To: <acsjH0tZ-jj7N7c5@rdacayan>
+In-Reply-To: <CAMuHMdXDZD6QAbKgny1utfYhagUEZ5pcgiDCTTfJKNVVZLOUYg@mail.gmail.com>
 
-On Mon, Mar 30, 2026 at 09:27:59PM -0400, Richard Acayan wrote:
-> On Tue, Mar 24, 2026 at 12:57:59PM +0200, Sakari Ailus wrote:
-> > Hi David, Richard,
-> > 
-> > On Tue, Mar 24, 2026 at 10:35:24AM +0100, David Heidelberg wrote:
-> > > 
-> > > 
-> > > On 24/03/2026 03:05, Richard Acayan wrote:
-> > > > On Fri, Mar 13, 2026 at 07:26:47PM +0100, David Heidelberg wrote:
-> > > > > On 17/02/2026 01:27, Richard Acayan wrote:
-> > > > > [...]
-> > > > > 
-> > > > > > +&cci_i2c1 {
-> > > > > > +	camera@1a {
-> > > > > > +		compatible = "sony,imx355";
-> > > > > > +		reg = <0x1a>;
-> > > > > > +
-> > > > > > +		clocks = <&camcc CAM_CC_MCLK2_CLK>;
-> > > > > > +
-> > > > > > +		assigned-clocks = <&camcc CAM_CC_MCLK2_CLK>;
-> > > > > > +		assigned-clock-rates = <19200000>;
-> > > > > 
-> > > > > Extract from #sdm670-mainline:erebion.eu discussion:
-> > > > > The imx355 can operate on 24 MHz (on both Pixel 3 and 3a), but Linux kernel
-> > > > > driver can operate only with 19.2 MHz.
-> > > > > 
-> > > > > I assume it would be worth it mention at least by comment here.
-> > > > 
-> > > > This might set the series back because the devicetree isn't meant to be
-> > > > written for specific software, but it's included in v11 because you
-> > > > already asked twice.
-> > > > 
-> > > 
-> > > I would say node with lower clock frequency is still much better than
-> > > nothing or placeholder saying "i2c camera here". Instead we'll have small
-> > > placeholder that value can be bumped to 24 MHz. Important is this can be
-> > > easily improved when at least one consumer of the device-tree gains support.
-> > > 
-> > > We have very scarce support of cameras on mobile phones in mainline, thus
-> > > leaving a comment that HW can do 24 MHz is reasonable compromise IMHO.
-> > 
-> > The bindings could document the supported frequency range.
-> > 
-> > In DTS it may make sense to set the frequency the vendor uses as it may
-> > affect the link frequencies (albeit I guess they're the same in this
-> > case?).
-> 
-> Is this review relevant to v11?
 
-I'd think so: it doesn't mention the frequency should be 24 MHz.
+--wyl7ytgv5wvrmgoq
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: New default binding for PWM devices? [Was: Re: [PATCH]
+ dt-bindings: timer: xlnx,xps-timer: Make PWM in example usable]
+MIME-Version: 1.0
 
--- 
-Sakari Ailus
+Hello Geert,
+
+On Mon, Mar 30, 2026 at 02:12:47PM +0200, Geert Uytterhoeven wrote:
+> On Sat, 7 Jun 2025 at 09:23, Uwe Kleine-K=F6nig
+> <u.kleine-koenig@baylibre.com> wrote:
+> > On Fri, Jun 06, 2025 at 09:13:24AM -0500, Rob Herring wrote:
+> > >    reg:
+> > > >      maxItems: 1
+> > > >
+> > > > -  '#pwm-cells': true
+> > > > +  '#pwm-cells':
+> > > > +    const: 3
+> > > >
+> > > >    xlnx,count-width:
+> > > >      $ref: /schemas/types.yaml#/definitions/uint32
+> > > > @@ -82,7 +83,7 @@ examples:
+> > > >      };
+> > > >
+> > > >      timer@800f0000 {
+> > > > -        #pwm-cells =3D <0>;
+> > > > +        #pwm-cells =3D <3>;
+> > > >          clock-names =3D "s_axi_aclk";
+> > > >          clocks =3D <&zynqmp_clk 71>;
+> > > >          compatible =3D "xlnx,xps-timer-1.00.a";
+> > > >
+> > > > There is however one concern that I want to get resolved first to
+> > > > prevent churn:
+> > > >
+> > > > In principle I think it's bad that a phandle to a PWM must contain a
+> > > > period and flags specifying the polarity. For some use cases the pe=
+riod
+> > > > might not matter or is implicitly given or more than one period len=
+gth
+> > > > is relevant.
+> > >
+> > > Why can't the period be 0 and no flags set if they aren't needed?
+> >
+> > I don't say they cannot, and probably that's the most sane option if
+> > there is no fixed default period and flags and we're sticking to 3
+> > cells.
+>=20
+> So zero should have been used for drivers/pwm/pwm-argon-fan-hat.c?
+
+Do you mean #pwm-cells =3D <0>? Or period =3D flags =3D 0?
+
+If the phandle wouldn't contain period and flags and so it would only be
+used to identify the PWM to use and say nothing about how it is used,
+then using #pwm-cells =3D <0> for PWM chips that only have a single PWM
+would work fine.
+
+Best regards
+Uwe
+
+--wyl7ytgv5wvrmgoq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmnLccUACgkQj4D7WH0S
+/k5NrAf/fw5ux7T53E9Vam6KUGE1olp2rUotaB1fGpB//Vp+V05CVJJV5GDV4VhH
+y2GFYYQbq1ITeXnvxHBYEbm4QRZ78Pcw10MsfyX9DmRyyFcc2Px2PI0EnkHbExfY
+gShB5qrky/K+ZWxwLWg4H8d5IrrTW5ol+ha7TenzMS1JjDxzjv/lMgGkyXdwLhhJ
+ufQzICkv2TzQw0Go1IQM3qwf62IAk8VI7j9Y2QtSStTCAVObtx3dx/PJ01rk6YVK
+3AJwhMuSUEP6F1BPxKPRM1zZwet5rTfTbYUOIm1yVU2WyN2xFq/x5ExQPtQvVsxK
+AFcszk2tlKcAZx+GW8MHjL+1N1Oa0g==
+=KGrq
+-----END PGP SIGNATURE-----
+
+--wyl7ytgv5wvrmgoq--
