@@ -1,185 +1,202 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010020.outbound.protection.outlook.com [40.93.198.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEBA735949;
-	Tue, 31 Mar 2026 12:33:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E02AA3E122C
+	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 12:37:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.42
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774960386; cv=fail; b=egxFNjwlnpr9yzcbIf9SPUMkMdiimtdeLvuqMHwpils1Ev9jd2TeDslaEOXxP5oQRfLL1wi+RrDwKK7e6EHpzDPxh5wRx2TF8OLdRAV/YdzQibG73KotcRSC217oRxQHtgmoWxNTVLBDlC40tg1zKnTCK0kOciEJ10JiTnlv/PM=
+	t=1774960671; cv=pass; b=L10Z2xSKuW+BRPLxuIywr3bvOezvrr46wA5HYLglk7q6QEkJigeRjpwc1Sm260tQeUSi40WzxsUXAZWXS0hDEzPWUXYZk3zGLRkaYOxxJIIdeW2aCcrB/r1MViKPzjWb6ThJJz+pYEzJaJ7yY6LsEsv8n4eOskHfwXPsQiQU4Xo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774960386; c=relaxed/simple;
-	bh=y9NrI60AW908j2BhhfbVLEv8DBsU5cdlUWxKj0LwVAU=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=r+3PonUGM+i92ACNEzoHZ8KJhkpuhUO1Z00kFGjoCQttRMQU/vhi+t4ROvVFj5J47XWbc8yoXaFJ1HcGSru8vp0KSvyjvb5UZ7cmN/b0TmcSi3tpA+mZlsZ6ir1LYhyD3mSANk7FEe6wNV3vmRczMRenxLOEkgzs5YFUHHG8mNg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=gwdXBtpn; arc=fail smtp.client-ip=40.93.198.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1774960671; c=relaxed/simple;
+	bh=jPbNg7vnffslAngWLp1YXKpgROU2PnXJpaYVtorkLMk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UCSHUnMcdiC0jfDIJBLJ3ZG5aH3X0MFeTC6+rq7ldb1GxWXQI0EPTAXyjeORhOYRytWTPb51z74ajb5K03oQ6F9rNtjzMO1193qWT3N2Lj3BYeF3gdBmjiUIiqDNqG8rnBu+vU4BT+LuTPfhLbKoBozrrB7bGI51RJxIO7OKi00=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=OHFU5U3j; arc=pass smtp.client-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="gwdXBtpn"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yJOFJu6EaJbJuYnE0jTvp1AHv9E/VBYajy3UdG1bQyxyRi+gVOEJDfS6LwzQpfH/4Qpv0R9ULQpeciAYAmVWAIOdtNiQu7qW2tzy/x+s72Sy2UA9wijJ9D885QB9QVtwCQ/WvtEy8iCfHpV6Bdb2YLD6Uzdcm6yJI4SIndgjh+VSS7hJ+8e+65F2L8rwNSNQvSmutpU/7hOavG7QYfyyCiinhCNreCUk20TZhTJBbBGuvAbZwf7ANltEw1fwO+LOwqxFJg2HnWDIsVR6dpfaEz29CpYodIGkOIsYQDlX4Yf4uCrn/WaPACV49KOQL5z+ZDAf6Kb07SRwBX5lkf6R8w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1IDtO9DKwASo7dEA8RDtUgQ8MjtNK9UzHzGzJcmc7A0=;
- b=bPQqa+UMP7PHr8w06giDdp3Qq/16rrqfi3sBhouB/NFfXq5mRRP3I9Cph2x5Lh9nqQWGCGWXbiDlqTmBQCIbIGqIvQ+v2OLtpXDXVQBkXEnAVezBzKK/b9KDP/d9w94WI8p0GmhYEdexVsfccXW/dJtgGSAEwoB69EQModfsOfkZ9JeoUmahJ6ufoEL3Q+LGdTx+F8zpjS234yGcT3qu0RPH93QZDRsJYSJ5RW+zqAvSjzlVvIZlbpYEke0x97JNoY8iQVdZ01jUFiFhX4IlUe05/XjgypThGMoMrhv6De4K1wcMW1RSn89YVLuSdeeMLZUl5ThXl0CoPgERwU2nHw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1IDtO9DKwASo7dEA8RDtUgQ8MjtNK9UzHzGzJcmc7A0=;
- b=gwdXBtpnpuHPp4N49zpB6QQVuDraStm3KxsgrY0oKN04AAkAeVFBvjZ91LqT4LwtMFQeluiF/YTT/DOCvvuS0X/pvIGdE6O9DR4kI3YCoR1rKPO0hIX3T9qmvyXEQzRqJYJHfsAWKuHpAR3pTtVisqba98l0NGZGF5DkUjAkyNdPeL+eUTWCBcFMNRK09DtSyDwj/Krz54K5pO7iZxDnbEY00EQxu8fGcqw/Ng+6mHu8sNiryKzanWZkhJJdQkViWMqa/c279VY1sJxuoVC04ug3nYk+R7ScOvqWdYAe6k/9CEDFTrpAeXCbDJV7wDzow2r3MpwBOqVcb3lRl1jNiQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS2PR12MB9750.namprd12.prod.outlook.com (2603:10b6:8:2b0::12)
- by SJ2PR12MB8977.namprd12.prod.outlook.com (2603:10b6:a03:539::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.10; Tue, 31 Mar
- 2026 12:33:00 +0000
-Received: from DS2PR12MB9750.namprd12.prod.outlook.com
- ([fe80::56a8:d6bf:e24c:b391]) by DS2PR12MB9750.namprd12.prod.outlook.com
- ([fe80::56a8:d6bf:e24c:b391%6]) with mapi id 15.20.9769.014; Tue, 31 Mar 2026
- 12:33:00 +0000
-Message-ID: <b3d2a384-b57d-460a-b008-475021874641@nvidia.com>
-Date: Tue, 31 Mar 2026 13:32:55 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] dt-bindings: memory: tegra: Add nvidia,tegra238-mc
- compatible
-To: Ashish Mhetre <amhetre@nvidia.com>, krzk@kernel.org, robh@kernel.org,
- conor+dt@kernel.org, =thierry.reding@kernel.org, sumitg@nvidia.com
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org
-References: <20260331112347.3897841-1-amhetre@nvidia.com>
- <20260331112347.3897841-3-amhetre@nvidia.com>
-From: Jon Hunter <jonathanh@nvidia.com>
-Content-Language: en-US
-In-Reply-To: <20260331112347.3897841-3-amhetre@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P265CA0090.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2bc::11) To DS2PR12MB9750.namprd12.prod.outlook.com
- (2603:10b6:8:2b0::12)
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="OHFU5U3j"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-b9a0762ed5fso818565466b.1
+        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 05:37:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774960668; cv=none;
+        d=google.com; s=arc-20240605;
+        b=N2wbAmmwDU6PYsudQ42qv8QvojzDtwBj4gSx0PayWBKg4Yest62hmZ33nGUjF2U1yz
+         BHsUPwWZQV7kx7vpk9kqHM81iIKfOXGHySQNVKP0MB8tMD/gMQd/fKLQEkd3zP1qymzA
+         d+DQmG9VZ1eiYqQvmaGc6WMTg9P6WuBuPjqnhjRJ2vpLoIT1dbAugfLl7ypuVB88rpb8
+         yr1prQnVYjosPhEzHLZM4tfAaip71q9DbHUNriY7imi5+4FRxOyFEzCkXmc1lZA0ifrs
+         Kx/GOBH7D47e+0wUwp6B8vfz56PLh74JUIcTXYb8xbcRi1cwwuE4mthy2DYtjYZkS3EO
+         I1HQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=APk6GhrrYthp1r3qG0lb9C4gKQqFk3Q9Fs1Ji6JZing=;
+        fh=2z9Cn2iY7VKR3/ZlXXqMVoE22n0ECd9eFZKHA35ul2o=;
+        b=QkmC+lGt/8ut52RoXFkO1nV6so2KJCAz4zJml1YUkdtH+53tu7njCGBkzPuJEYX+gk
+         /+zUd+RiCTkDNqucNSgz1byrv7PNKxK6cSJaUyhTNysRnXXGSpRu1wI8MCNOjT90q/7B
+         WPAy/gvwJF7OsnmaDjaQso95o6CeX5QPmn0Fxbe+moNQvxUpfN2uVbO6OXXbSAoyCFZJ
+         bcp7HDvNaCcbBttJdpRqLuTrdUNohKIMxrEbi7kFPZG/teBkPvfHpnukLemj0CfTylEb
+         feAvIzum2HK15aa9ME7SpnaJxOr5v1WpD2XQ7oSYJ/WufkqE6V9WyR1S4d9K0UmO8iYu
+         CpIQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flipper.net; s=google; t=1774960668; x=1775565468; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=APk6GhrrYthp1r3qG0lb9C4gKQqFk3Q9Fs1Ji6JZing=;
+        b=OHFU5U3j66PbvMavlSF+a6mpP45beTwgYQnPzHAdFNx0leuJLj5waAEmp4l9tkgnrT
+         pNvR7PtQo85qheqJR39ZyW0Mups/YVBmIV2XTaoUazYWfzEeQHBYnaEMJGasa6b5fmNw
+         jfa75bC3De8hZ7wju11xbrgk3XyItkeJNvutjovRhS4GL8LjXYWQSTk9+HlhC1j/BWFW
+         12LsFxyxtdOQHd6kOVIfGvnXpYAFKn3e/5wOjuYCaBcKc1lm5ok8e5okhmlilT1iN0tu
+         IB3gIQ6KASqksjWF5seja8ZdiGGYmjYScSFudcWC/0Jgoak+g48Ve5iMAnRwRej9WvWo
+         uS5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774960668; x=1775565468;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=APk6GhrrYthp1r3qG0lb9C4gKQqFk3Q9Fs1Ji6JZing=;
+        b=a1jjg8EyOho/fOiJQA8N6YGGthXry9qWJ7owuuXrKM5bUQCzA1a+12DsBTqMK4JN2F
+         NPr0JnwhOM4V6IMZIpODUNimzSgICnRuaG6j4BRN4o2afRQsHqibjHOuVHpQrgN43oaH
+         KD1nMiMRn9lrTZB+xm+aktYsYdw16bKDEINUZRfesct3VOIMaHTdhw+2X4AyTvnwR1UZ
+         qOuSQJTfM8m4m26tgXyyb/X9dl2cVPm3LFp4Alf3JGL0H6RHxVfc5DlQIakGSZJGXtKt
+         ffIDC8L21jBmzVJu+PYiKhmpwO9LTca7JUBxXFTmj5Eh+r+p71/FE+pfZ1PpAS4IgQ3D
+         25iQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXtkVuBRGNyTSx+Gp0cKCjTX+BzpFcGt0TmLG8EgGxQmKrKtTI9oBTrTSlceK1sv/uALqmeBGjtQU6F@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz6Pxb6gom9WKrGvIDOeiytev/PDt6o1oKLQH/IJlw7KLheeUal
+	musXzM4cBIIQrT50yDeV2MUgYLWPisPb63LJzMm0+nGrI6qoJkN+ISGx/slllNypQiZXRmCh7jO
+	Ya3sEv7XF1HOVnKrq+1x3gmoNji9ArOySGoXwbHOfpw==
+X-Gm-Gg: ATEYQzzOKqnGJqLypECHdAZZdvSqZRYwgTTaKR6uz0Z1iVpws7U+mD1ana4WF/ZNPFn
+	zBHKrhmdDw+iWDWJE4/HaDqf92vvdu2xbhkGSxknvlvl+QEZokWZrLbswFG4U5rgv0BTT32ubMw
+	rRO/oJyyOb/9Ely/E6UGhUttDq3bAZKPXYBb+hOk8KjPoM7GtmUhr1Wmztjv5Ry0rF2R1XweBg/
+	bfMa4NWvt6KuMcslO1SdaONqg1mR0jwRnKpXeWFLDnX+HqdveoMV/kokIAjQesTMJ8TZVmdTB/L
+	ezSAXEI=
+X-Received: by 2002:a17:907:7245:b0:b90:4838:46ff with SMTP id
+ a640c23a62f3a-b9be855a7cfmr188103066b.21.1774960668061; Tue, 31 Mar 2026
+ 05:37:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PR12MB9750:EE_|SJ2PR12MB8977:EE_
-X-MS-Office365-Filtering-Correlation-Id: 96c5eaf0-942a-4b9c-35c2-08de8f21a513
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	x9KDyxZnx4TkX+k5CnLZ7oQ8Eof1cJdYd+XX0sTvEj8iTBSvVsLQGkpi+07r5B+1d4o4xneHUsutyTHvYDsfrdu3kXF/SB5UMXdaJntgnWlbvgzIeW/MV+Pt0t6SAVRI9kMOuAOidVZ8VyBRlRu+tFevbKM845O+iJy5K6Y9IY3rQQHNTqjDvif2C5e3DK9MZ9PNXFN/52y8vF7UvkzHjt+ZUcVFRVXTLZmxi5dGq0XiArx51BdwCKh8I1w/jWKsE5zukAIp63PFPXn+BSowR+rkF1b4RGRIdI+T0kawjokxRQd5+Cj6vBTJTLgNnlBxTRVr0E9T4E57ibcVGoJtXPI6xdHt6i1FoP2GIo2jkygEwRlMs8FnWOpFJrrdUTpNs6YZKDbz2iIS4YpjL7ha+55FIAGTcHy3Oj08coPiCQGPP+Tq9LH4Fm/yNWUJurrgRG63K1hPoQZnndKKCcszEM8MGmyJ7uTPAwyUMCONSDCg1JUxNffkDlRdhND2t50+P3BQRMet81PlUoxZLJ+YWJ+aomjH2ellEYmQYB6AkZ7/w0eeThmr24pLZGZa6i+WGcB89bKzTVp9/idlVYCsM3ckdBDqGU+YL4qTOtcQpIsVTHDVWWHidc8DGmktoTa95yCMrWnhq2Xu3Z1/4/E/Y305wyNKCgW6vbaVjoTXIqvkvdBy79XH80yXA/3pSELflUZgpn3uVaNmkmZXSKva6EcL7tRo1f5oeJEX7SVeto0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS2PR12MB9750.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MXh1UllzTkxKZ1cyYnp2RXBqdWNjT3kyYllqS0xkcHVzdytqcTZNK29CVzVt?=
- =?utf-8?B?U1hzbUs3YXFBc2hCQi94ZnVweis4a0MzckU4aGJGcUUxeDVraTRQanpuNGpC?=
- =?utf-8?B?RUFtZURoZlpBYWsrZmxMQ0czSTkyNEt4UDg2OUdrUU9VTklvUmZnTm85Z2RB?=
- =?utf-8?B?TDc2VEpRTHJsQ2dQOWxUT0ZrM095enhtamtIelhGaFcycE4vcXBiTEMydDNy?=
- =?utf-8?B?V3B4YTEzYnQyampNR3BZYkM1TnpBRU9XejlDZitOQWZDNzVxSkJYUEZKcFQv?=
- =?utf-8?B?SEl3aHo1NVFSTFdRSWJDL251d1BUWFcrMmcrR1cwWU1OZnRiKzBGZzlCVGlS?=
- =?utf-8?B?UmZmV3dDSTFrUG50NU1xMksyZHNKb3RoWFlnQXVNd3g4YkFZOVFxdnNQbDlY?=
- =?utf-8?B?QjVDdm51SXVVc2dQeXJ4YXBRcnhiVkhJTDJKOG56eXd1b2hvNEJSUkE0TTc1?=
- =?utf-8?B?TUplaW5tQ3VMTldjQ2ZTME5oMm1IaXRRU25XOEYvVjhaVVBMclVQZ091QjJk?=
- =?utf-8?B?Si8wbzVKUENpVlVsbzBiOWZkbzhTYUhodHQ2OE1paHNRWFNhZVpzVTJ0aVN4?=
- =?utf-8?B?TDhKdnZHYnlkNEp4KzRyQ1V5MzJGVFJmQ0xpaUE0VC8wTnVHNnk0WTNkeW11?=
- =?utf-8?B?a0M5N3JMTXlLRTF1MGpvQmRYTGEzR2VRRk1qVzRwMWJRMnNpT2lNQkp5VGdC?=
- =?utf-8?B?ck03dUFYYm1LVHJkbmZSVUlwZWxvL1ZLOXZpR01Qa0dOcGgwNGZSbHlrWjdJ?=
- =?utf-8?B?UHFGeHZ3NFJ0ZUVRaExlS2JjalgveTZHZDE5cnhPWkNYYURNZ2x0SWVnMHVI?=
- =?utf-8?B?U0c3STRXV2EwYTZCRE1xVW9OdU83UEFKNTNPMmNOclQ4VCtyYVFlNVFlcVhD?=
- =?utf-8?B?QVk0SFREVGhPdEdtSlRPc2hzUmhwaGVjdzJPcjYvWlFxYmw2a1k4Y2VHR0lN?=
- =?utf-8?B?SXFIT29odlA5TmMyUnJoYjYxclJETE1FazEwL2d0ejd6RGRvZnFDQUhUUDEz?=
- =?utf-8?B?dk95dXhSUDRPcUdRcTFyNkg0ZU8wVTRFTEkvSG0yd01ZVTZhOTc2SENvSHpV?=
- =?utf-8?B?MjVQZ3Z2QVFNODhyN0VKZGsxYURtQ3AvZGVYNDZYOFFWVlRHVWFiL01aQzh1?=
- =?utf-8?B?ZEhpWWRQVnp0aktvK2NVdEdzQ0g1T25SemFMNW15bFY3OUhjS1FBY1h5T2Vt?=
- =?utf-8?B?ZnpwVDVoMkdSWmxsNWhVN0FiVUY3ZTR2Nnk5NHZoeEZCaXFRb3VpNTJMMkwz?=
- =?utf-8?B?WXVVak00alpjUGZXOHlvUEhlNi93ZWQwc1ZLNXcreUlRdGQ3cEhtbnpGMWdS?=
- =?utf-8?B?Q0dRTVlwVlNtdzc5MmgwRXJOcUM0U2ttUjJLYk5VQlhpNXRyak9zQTNRZWJW?=
- =?utf-8?B?WGltMHpWRTZWNXNLZlR6aWNDSXlWRGs2SW02M0pncG5vQjZueldYYzBkRGhM?=
- =?utf-8?B?Y3BtNitHUlBmeHk0a1Mxb2FTMkNYU2FxZ3RNRUdyVUMwb1JDSXNQcHV4UEpQ?=
- =?utf-8?B?Yy96RnI3L1NqaVo3Y2I0U095aFNZSk9aeVFBdkVQZmhhdDBwWUJTQzhHZGpu?=
- =?utf-8?B?bXJZRnhNK1FXM2lVMU44SVU3Tmg5YU4vcEYrSGdXczhsL0ZKSDJ0UmtoaGZG?=
- =?utf-8?B?bFp6NktZUEw1M3lHZWMxbHFyQ1NzVFFST1JpdzRxSXU5aytjWHg1aUNocGRk?=
- =?utf-8?B?dElTVmlYNVYwZFZJeUh1SFVjL2NvRThuSFg0eC9Ob05YOGIxM2tRZjBMREpW?=
- =?utf-8?B?N1h3cDkweVdjaWxsT0ZLVjQxaUsrZXBRaHlCSDRaY1lHR3lWdzV6QWtuRWZP?=
- =?utf-8?B?TlZIZHNYSVJwZnZnMkJOUDhwdXBaUTJoeDhBeUMydEdzUE9SdHlvblhtRGZa?=
- =?utf-8?B?cWQ5ZVVMRzQzZTRodHdBbGRQQ0EwNEdCNC9TRTNhUnYxMmZ3NEhHd0hFUlk3?=
- =?utf-8?B?bGR3aWZCM2FEdmdpUmJFYUVYRVRubllsVkR1eFkxaFQ0czJJV2dRclNZRUlK?=
- =?utf-8?B?ZXRsYk1mU3BBRFIvVzZQVHNCK3lNTnowcE5PTjdLT0FicFJnYmRPcXpFR1lP?=
- =?utf-8?B?OVNCdFB5QksxRjh6emw1RHNVbktPV3pQZElJdHdCNDFuMWhHbzJMS0orMEFR?=
- =?utf-8?B?N2V6SmQ1SU1JdXd4cTJJb3hrSjVRaStDak1GdzkrR2JHOGxUekJtcndKRTkz?=
- =?utf-8?B?ZjlraU5tY1NWeEQreTl6ZlovU0lsSHdyUkVRTG9QaUJoV0dvRXVtYW4vczB0?=
- =?utf-8?B?M1pyVElyMXJuekVGc0dKbXFUcHppNFo0QmlvSWZhT2tqNzZUQnB0UllTWk5F?=
- =?utf-8?B?Vjk3emFITW1KVEtzMU5rT084aWtFZ29BNkJ0akJjN2hPQzNrV3Aydz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 96c5eaf0-942a-4b9c-35c2-08de8f21a513
-X-MS-Exchange-CrossTenant-AuthSource: DS2PR12MB9750.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 12:33:00.0582
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Tltjg7YihR1wq9vdMc8jEqiF8LDY80jNnpciQKt0FJLuuqJS8P8c2VHX9ydahCLNnggQEeG40MDABvn1mTmRBg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8977
+References: <20260324-bq25792-v5-0-0a2eb58cf11d@flipper.net>
+ <20260324-bq25792-v5-9-0a2eb58cf11d@flipper.net> <20260331102710.GB3795166@google.com>
+In-Reply-To: <20260331102710.GB3795166@google.com>
+From: Alexey Charkov <alchark@flipper.net>
+Date: Tue, 31 Mar 2026 16:37:38 +0400
+X-Gm-Features: AQROBzBsOkDwD-_sfwvUc3QMEB-ceAPpDa8MP94cdzSz0KL5-FxEUULnB7SLa5s
+Message-ID: <CAKTNdwE4omfEkd6FNdj=hZUY2ZwLprXzUu1L4juFhWCxbWEjpQ@mail.gmail.com>
+Subject: Re: [PATCH v5 09/11] mfd: bq257xx: Add BQ25792 support
+To: Lee Jones <lee@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Chris Morgan <macromorgan@hotmail.com>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Sebastian Reichel <sre@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Sebastian Reichel <sebastian.reichel@collabora.com>, linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Tue, Mar 31, 2026 at 2:27=E2=80=AFPM Lee Jones <lee@kernel.org> wrote:
+>
+> On Tue, 24 Mar 2026, Alexey Charkov wrote:
+>
+> > Add register definitions and a new 'type' enum to be passed via MFD
+> > private data to support the BQ25792, which is a newer variant of the
+> > BQ257xx family.
+> >
+> > BQ25792 shares similar logic of operation with the already supported
+> > BQ25703A but has a completely different register map and different
+> > electrical constraints.
+> >
+> > Tested-by: Chris Morgan <macromorgan@hotmail.com>
+> > Signed-off-by: Alexey Charkov <alchark@flipper.net>
+> > ---
+> >  drivers/mfd/bq257xx.c       |  54 +++++-
+> >  include/linux/mfd/bq257xx.h | 412 ++++++++++++++++++++++++++++++++++++=
+++++++++
+> >  2 files changed, 463 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/mfd/bq257xx.c b/drivers/mfd/bq257xx.c
+> > index e9d49dac0a16..31654925afa5 100644
+> > --- a/drivers/mfd/bq257xx.c
+> > +++ b/drivers/mfd/bq257xx.c
+> > @@ -39,6 +39,39 @@ static const struct regmap_config bq25703_regmap_con=
+fig =3D {
+> >       .val_format_endian =3D REGMAP_ENDIAN_LITTLE,
+> >  };
+> >
+> > +static const struct regmap_range bq25792_writeable_reg_ranges[] =3D {
+> > +     regmap_reg_range(BQ25792_REG00_MIN_SYS_VOLTAGE,
+> > +                      BQ25792_REG18_NTC_CONTROL_1),
+> > +     regmap_reg_range(BQ25792_REG28_CHARGER_MASK_0,
+> > +                      BQ25792_REG30_ADC_FUNCTION_DISABLE_1),
+> > +};
+> > +
+> > +static const struct regmap_access_table bq25792_writeable_regs =3D {
+> > +     .yes_ranges =3D bq25792_writeable_reg_ranges,
+> > +     .n_yes_ranges =3D ARRAY_SIZE(bq25792_writeable_reg_ranges),
+> > +};
+> > +
+> > +static const struct regmap_range bq25792_volatile_reg_ranges[] =3D {
+> > +     regmap_reg_range(BQ25792_REG19_ICO_CURRENT_LIMIT,
+> > +                      BQ25792_REG27_FAULT_FLAG_1),
+> > +     regmap_reg_range(BQ25792_REG31_IBUS_ADC,
+> > +                      BQ25792_REG47_DPDM_DRIVER),
+> > +};
+> > +
+> > +static const struct regmap_access_table bq25792_volatile_regs =3D {
+> > +     .yes_ranges =3D bq25792_volatile_reg_ranges,
+> > +     .n_yes_ranges =3D ARRAY_SIZE(bq25792_volatile_reg_ranges),
+> > +};
+> > +
+> > +static const struct regmap_config bq25792_regmap_config =3D {
+> > +     .reg_bits =3D 8,
+> > +     .val_bits =3D 8,
+> > +     .max_register =3D BQ25792_REG48_PART_INFORMATION,
+> > +     .cache_type =3D REGCACHE_MAPLE,
+> > +     .wr_table =3D &bq25792_writeable_regs,
+> > +     .volatile_table =3D &bq25792_volatile_regs,
+> > +};
+> > +
+> >  static const struct mfd_cell cells[] =3D {
+> >       MFD_CELL_NAME("bq257xx-regulator"),
+> >       MFD_CELL_NAME("bq257xx-charger"),
+> > @@ -46,6 +79,7 @@ static const struct mfd_cell cells[] =3D {
+> >
+> >  static int bq257xx_probe(struct i2c_client *client)
+> >  {
+> > +     const struct regmap_config *rcfg;
+> >       struct bq257xx_device *ddata;
+> >       int ret;
+> >
+> > @@ -53,9 +87,21 @@ static int bq257xx_probe(struct i2c_client *client)
+> >       if (!ddata)
+> >               return -ENOMEM;
+> >
+> > +     ddata->type =3D (uintptr_t)i2c_get_match_data(client);
+> >       ddata->client =3D client;
+> >
+> > -     ddata->regmap =3D devm_regmap_init_i2c(client, &bq25703_regmap_co=
+nfig);
+> > +     switch (ddata->type) {
+> > +     case BQ25703A:
+> > +             rcfg =3D &bq25703_regmap_config;
+> > +             break;
+> > +     case BQ25792:
+> > +             rcfg =3D &bq25792_regmap_config;
+> > +             break;
+> > +     default:
+> > +             return dev_err_probe(&client->dev, -EINVAL, "Unsupported =
+device type\n");
+>
+> Nit: Shouldn't we be returning '-ENODEV' here for an unsupported device?
 
-On 31/03/2026 12:23, Ashish Mhetre wrote:
-> Document the device tree binding for the Tegra238 memory controller.
-> Tegra238 has 8 memory controller channels plus broadcast and stream-id
-> registers.
-> 
-> Add the stream ID header (nvidia,tegra238-mc.h) defining ISO and NISO
-> stream IDs for SMMU configuration.
-> 
-> Signed-off-by: Ashish Mhetre <amhetre@nvidia.com>
-> ---
->   .../nvidia,tegra186-mc.yaml                   | 31 ++++++++
->   .../dt-bindings/memory/nvidia,tegra238-mc.h   | 74 +++++++++++++++++++
->   2 files changed, 105 insertions(+)
->   create mode 100644 include/dt-bindings/memory/nvidia,tegra238-mc.h
-> 
-> diff --git a/Documentation/devicetree/bindings/memory-controllers/nvidia,tegra186-mc.yaml b/Documentation/devicetree/bindings/memory-controllers/nvidia,tegra186-mc.yaml
-> index 7b03b589168b..e008cb1ccd28 100644
-> --- a/Documentation/devicetree/bindings/memory-controllers/nvidia,tegra186-mc.yaml
-> +++ b/Documentation/devicetree/bindings/memory-controllers/nvidia,tegra186-mc.yaml
-> @@ -32,6 +32,7 @@ properties:
->             - nvidia,tegra186-mc
->             - nvidia,tegra194-mc
->             - nvidia,tegra234-mc
-> +          - nvidia,tegra238-mc
->             - nvidia,tegra264-mc
->   
->     reg:
-> @@ -266,6 +267,36 @@ allOf:
->   
->           interrupt-names: false
->   
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          const: nvidia,tegra238-mc
-> +    then:
-> +      properties:
-> +        reg:
-> +          minItems: 10
-> +          maxItems: 10
-> +          description: 8 memory controller channels, 1 broadcast, and 1 for stream-id registers
+Hi Lee,
 
-To be consistent with existing bindings, this should be "9 memory 
-controller channels and 1 for stream-id registers". It appears that the 
-broadcast is just consider to be a memory controller channel.
+Indeed, I've had a quick look and other drivers seem to return -ENODEV
+in similar situations. Shall I respin a new version with that change?
 
-Jon
-
--- 
-nvpublic
-
+Thanks a lot,
+Alexey
