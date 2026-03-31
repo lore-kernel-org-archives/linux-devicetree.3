@@ -1,175 +1,257 @@
-Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013065.outbound.protection.outlook.com [52.101.83.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17ED737F00F;
-	Tue, 31 Mar 2026 14:08:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.151
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774966136; cv=none; b=erjyUJ3PlZubD5ppHhKpDAgV8PEaCwSkxwD/I0qtbQ9UEdyD9w1pYTpcYO6UdK9yxfwa60Hb2lfWZ+/IPXmEIyszLxsZwgzlc+9jDJzQmY1UImUcmlj2cmv1qqRgxJQQuqGxrYmccDB27AM9MpoFRv/m59ev0oxYCArjaIssuiA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774966136; c=relaxed/simple;
-	bh=rnxwcNzb3fPolYDOHzrOQiXvCPNY8XDxsBQaUp9OUnU=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=Wje/NoxBAJYpzLT82hcixhy4ciSNdv3/3ImMKdD6bDMHASS0QsT1ZRxDQkWYrGkxCft8ET0Uy+ohJ5v22ffZKc/rTu9i7QBSIiTJlelZvUuGQPrWRtB7zZeP1D5yiYPW1OMzej9HUrztGaf8r83hCINlWI/h9zMrVZxnKWSnhGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=B1LCww5S; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=CWbrwQ7W; arc=none smtp.client-ip=202.12.124.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CEA73E9282;
+	Tue, 31 Mar 2026 14:12:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.65
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1774966349; cv=fail; b=WE4GO+17tOHT3gzUFuSO3wPIbzmXg6DnFpq0jXYvY5/DUm+sfzQqTrdZJLRRSAFBdRxxbuoYHeURBFIu7ygLSKV/oSHaIy5XHGGu1hCjLyKDHDdaasxJbQF3V9pgSqGxy/hlT6s/lnYTNUmgRWsgprcjL4RovTpnTmXAGy/gLEM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1774966349; c=relaxed/simple;
+	bh=MFj/mIrtBL/97rkNrh7bk+3T4F9iIs2s3tGyNWn6lcc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=HD5LjraVWJq92/F1HLErCiR/iOSkvo9Ish8euDhUjw4X3nhFNFnCB32UtVBjfolW/OuNBjxDR4QfGEn9/tgi6JJ0CeCU9U+/oiMWGSUcpsfuqr7f0/U1jiY/oWuqj8f4U8R8F1dhRuTsPCyAcGOY7wbunzOg//WJXHIDx3jidMY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=d7ulp888; arc=fail smtp.client-ip=52.101.83.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="B1LCww5S";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="CWbrwQ7W"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.stl.internal (Postfix) with ESMTP id 120971D0018F;
-	Tue, 31 Mar 2026 10:08:53 -0400 (EDT)
-Received: from phl-imap-02 ([10.202.2.81])
-  by phl-compute-04.internal (MEProxy); Tue, 31 Mar 2026 10:08:54 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1774966132;
-	 x=1775052532; bh=+wB5qVtq/fKVMAqMqoSITrLfao0bHO9kdmdL6ob1esQ=; b=
-	B1LCww5SHprChvjdDhQI4LHZjDChEB2tZO8cjxh8WpbQZRShsreuUnnSTnlL3Ahn
-	QCrNsUp35Pbx5nswQcBH0oZhDglNNa32RyMScKs8kvUZY0NiWEIoza0NNxuNW0Ld
-	d4vNO5k9+oSPNTeUj1BfIIypgD1x0Shljb/8jBYd+qUE4KBzUiUVC6UHHOk1ioBj
-	25q1L9bl+kdWJa00VZeUGVC5hiQw+7lA8K/aOc7s2tR6wNweOpvcbHPQPRC0z2sl
-	FTGPKJAohRBpJQu99nfNqaTWRzhKWLqz6JMiA0Sv5wo0ChMf/hVp2VvR8W6cSCUU
-	8C/g2dF9xSKEkjFusZhxwA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1774966132; x=
-	1775052532; bh=+wB5qVtq/fKVMAqMqoSITrLfao0bHO9kdmdL6ob1esQ=; b=C
-	WbrwQ7WOlPJbXrTJ39oQjfRWzqdsAAO2jn+orvIp2vh9bj7yOlLP9iN29/e+QcL/
-	S3Wb5lvEgQP9NasSAud8hCBJxB1lGiMfqrteZG/cGMdTXS68WEw9skfIjPrKRzR3
-	MLrEVx7ZtkDjNj2rn4fQJqi6gdg9vKbBALveUnvvZWpn/gSxVNB4acU++9Zj0Gz4
-	1fvlr+1Ny37Z5DwbVCp7IDRHRDWtFT5VvDjavE633c34iluwLsta379T6CHNXfQ8
-	xTZvclmKmt8y9JJyDyvsSrW/wwiO4bOPY9cjloZ17BvhNJNpfI4sD6DJompSOucg
-	0NVQIObVTrRP17AVwka/A==
-X-ME-Sender: <xms:c9XLaYTAkZ8e2SygqkXmUPSfi887r1A6GBN06apjKB6aset5L0stzA>
-    <xme:c9XLaQlkRLHRDxhMiY0yxXeFYhUFNpGziUk7G6SKBqiCt0ABXQS98Me2jnY--b--z
-    c97HcH8dQEZBnEBvApgPnSts7piqn1eYAxgcScgUHBKPSWI0jxR>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdegtdcutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegrihhl
-    ohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpe
-    foggffhffvvefkjghfufgtgfesthejredtredttdenucfhrhhomhepfdetrhhnugcuuegv
-    rhhgmhgrnhhnfdcuoegrrhhnugesrghrnhgusgdruggvqeenucggtffrrghtthgvrhhnpe
-    efhfehteffuddvgfeigefhjeetvdekteekjeefkeekleffjeetvedvgefhhfeihfenucff
-    ohhmrghinhepkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrg
-    hrrghmpehmrghilhhfrhhomheprghrnhgusegrrhhnuggsrdguvgdpnhgspghrtghpthht
-    ohepfedvpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopegsrhhglhessghguggvvh
-    drphhlpdhrtghpthhtoheptghhvghsthgvrheivdehudehsehgmhgrihhlrdgtohhmpdhr
-    tghpthhtohepfhgvshhtvghvrghmsehgmhgrihhlrdgtohhmpdhrtghpthhtoheptghonh
-    horhdoughtsehkvghrnhgvlhdrohhrghdprhgtphhtthhopehkrhiikhdoughtsehkvghr
-    nhgvlhdrohhrghdprhgtphhtthhopehkrhiikheskhgvrhhnvghlrdhorhhgpdhrtghpth
-    htoheplhgvvgeskhgvrhhnvghlrdhorhhgpdhrtghpthhtoheprhgrfhgrvghlsehkvghr
-    nhgvlhdrohhrghdprhgtphhtthhopehrohgshheskhgvrhhnvghlrdhorhhg
-X-ME-Proxy: <xmx:dNXLaZfv9GSbkLKfM-5iSaGk5mPu9owz27weaJ1tk0itL-smBqH24A>
-    <xmx:dNXLaUtdjwwx6whu2Rp0Ewgf4qTI2G_YQ4ktIi059_0ldn0RhaVSww>
-    <xmx:dNXLaekwdTzWIGJ914lp8fvdxQEV7G0ASaLHLhybPnIqaHPO5tH5SQ>
-    <xmx:dNXLaQMRFMsVlZKpzoYJzx2wBHdt9Qcsy0V67Cqrp33ea-owvHI4xg>
-    <xmx:dNXLaZS7XS-e_g_pxLDBPvibHaYx8a2TUHZ5C51W5UnEMrfIxYbyKT4a>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id DE24A700065; Tue, 31 Mar 2026 10:08:51 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="d7ulp888"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yf1fWP24Ot2xVgPvwzKOLDeNevyghKnws2tPYTTA2EIEP3qjy9VslK2cxQtTTpoJdqlHkjmdz2UQGfvV8tCVAi05uVDWS5UYjyHwWcgxl8sZo1wr99o//7m3+E17azuSWOzj1mQkcEzpnPTRQG9dUiiSNusRHRjhFNYX1V6gQUDSQ/6Azzjk3pq+FbKI3jQ6WHG/GaXWYu1UR23dr82g3cT8vU2UPyvEDdx3RyYl94tOyJiVwg95nZ2tE67Gf9EhlGycA92L+vN4rc5bB6+laM9ELTXOjavHEJn2ax57/NQwOIBQn9HTxUEn8JlHXX0x8ZKdg2EkweR3fTtela6sEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nvZKgM9z9wMsoW8LduVDcW/H1ETBs8FFAzq3d5MNZ3c=;
+ b=I+HDJ/fRudfLO15lU3HEQKvt3yut+tKKCJKobnnKCPdVGJQq0s9BflRfvxgBe67803woaHjOXEvWrnS+gpP67/G2KmNH5Wj+c4VtcHL9i+Jnht9I4GCj88q7qD/RgT5y8xAQ7R5AjrSzbdHXb35ZvzsEcZGr/IDNt9jP8atH6+rmF99ra7fgQ/8LlcigOq0Afvf0tsResc2TYSHjFjCnxQmMevn/RnNT688sMMDiQ7ylTWU0cb4pyLcsdhtv2iPksmy4o/WkJ3qBHN4aW/Fs/HNy9hH/0autIuxWyncXMQoCxiekjCFnwq1FvbHX6vMoOOGicbJ9FeG8CopU3DJBCA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nvZKgM9z9wMsoW8LduVDcW/H1ETBs8FFAzq3d5MNZ3c=;
+ b=d7ulp888F9XmB3LbgQRwD+RA+VusCwb64yLRCjyxIMRJxJc9E5gZrqvbd5WjGQiwVPvjUOpzSbwG844ysYcuXH63x/25sIPXojIuY2fKVCvqG9QD6V2UaKEleato4eGR+w6e3QAXXZrxGFPzuklJWHiYD1wkaavKWnKudrj8ErSwe4R0DMSV3+l3RJQfGsRPucJProWeB7vUfgd6jN2Gp+Nk3NcoHAV3wWJiXDa0zdr+FoxPiMaWAgpAS8xa+7+khLnMNra0GGHxh8sVqlQsxEUr7VXtSdD0kn9WKb2A1X3Q7YK6uinUmLXnFdPcdLgXbFfPjW1sghDLgvtDD1qEkQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by BESPR04MB12563.eurprd04.prod.outlook.com (2603:10a6:b10:ff::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Tue, 31 Mar
+ 2026 14:12:24 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9745.027; Tue, 31 Mar 2026
+ 14:12:24 +0000
+Date: Tue, 31 Mar 2026 10:12:17 -0400
+From: Frank Li <Frank.li@nxp.com>
+To: Akhil R <akhilrajeev@nvidia.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>, dmaengine@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 08/10] dmaengine: tegra: Use iommu-map for stream ID
+Message-ID: <acvWQa-bJB5EYjLH@lizhi-Precision-Tower-5810>
+References: <20260331102303.33181-1-akhilrajeev@nvidia.com>
+ <20260331102303.33181-9-akhilrajeev@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260331102303.33181-9-akhilrajeev@nvidia.com>
+X-ClientProxiedBy: SN6PR16CA0045.namprd16.prod.outlook.com
+ (2603:10b6:805:ca::22) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: ABMmOHXEXk43
-Date: Tue, 31 Mar 2026 16:08:31 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Khristine Andreea Barbulescu" <khristineandreea.barbulescu@oss.nxp.com>,
- "Krzysztof Kozlowski" <krzk@kernel.org>,
- "Ghennadi Procopciuc" <ghennadi.procopciuc@oss.nxp.com>
-Cc: "Linus Walleij" <linus.walleij@linaro.org>,
- "Bartosz Golaszewski" <brgl@bgdev.pl>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>,
- "Chester Lin" <chester62515@gmail.com>,
- "Matthias Brugger" <mbrugger@suse.com>,
- "Ghennadi Procopciuc" <ghennadi.procopciuc@nxp.com>,
- "Larisa Grigore" <larisa.grigore@nxp.com>, "Lee Jones" <lee@kernel.org>,
- "Shawn Guo" <shawnguo@kernel.org>,
- "Sascha Hauer" <s.hauer@pengutronix.de>,
- "Fabio Estevam" <festevam@gmail.com>,
- "Aisheng Dong" <aisheng.dong@nxp.com>, "Jacky Bai" <ping.bai@nxp.com>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- "Alberto Ruiz" <aruizrui@redhat.com>,
- "Christophe Lizzi" <clizzi@redhat.com>, devicetree@vger.kernel.org,
- "Enric Balletbo" <eballetb@redhat.com>,
- "Eric Chanudet" <echanude@redhat.com>, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- linux-kernel@vger.kernel.org, "NXP S32 Linux Team" <s32@nxp.com>,
- "Pengutronix Kernel Team" <kernel@pengutronix.de>,
- "Vincent Guittot" <vincent.guittot@linaro.org>,
- "Rob Herring" <robh@kernel.org>
-Message-Id: <0666ab85-60ef-4eb9-81fb-636c604653fe@app.fastmail.com>
-In-Reply-To: <fd8c90ec-927e-4395-85ba-9e45c23fd799@oss.nxp.com>
-References: 
- <20260120115923.3463866-1-khristineandreea.barbulescu@oss.nxp.com>
- <20260120115923.3463866-2-khristineandreea.barbulescu@oss.nxp.com>
- <20260121021913.GA1704619-robh@kernel.org>
- <e956750b-0333-4465-b37e-5f460b5e092f@oss.nxp.com>
- <edc3a63a-8117-476f-9582-97ae31fefa96@kernel.org>
- <7d200097-51bc-4404-be8b-f536d0ecfc25@oss.nxp.com>
- <21531cdd-5ab9-493e-a722-61b98117e2c4@kernel.org>
- <22a5a072-847e-4cfd-8abd-e37163f73265@oss.nxp.com>
- <fe755e85-1558-4272-bdd4-af7a2038ab1f@kernel.org>
- <ba6140bf-237e-4099-af0c-ee404c1719cd@oss.nxp.com>
- <c7a59716-3d53-4787-b4ef-9674c2a4a9b5@kernel.org>
- <3c454da1-d949-4258-87ce-8b545000bf01@app.fastmail.com>
- <5f1b651b-1064-4280-a7e0-b7d66c396cde@oss.nxp.com>
- <f3ff461b-edd7-423a-ac99-e70145aaaaea@kernel.org>
- <4c46909d-641b-4389-bc4a-29394cb1d46d@oss.nxp.com>
- <e1c341d6-e60d-4200-a094-48667e8ccd5c@app.fastmail.com>
- <fd8c90ec-927e-4395-85ba-9e45c23fd799@oss.nxp.com>
-Subject: Re: [PATCH v8 01/10] dt-bindings: mfd: add support for the NXP SIUL2 module
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|BESPR04MB12563:EE_
+X-MS-Office365-Filtering-Correlation-Id: daf1f144-06ba-4de9-8b53-08de8f2f8838
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|52116014|376014|7416014|1800799024|38350700014|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	khproBywJN4MHNdTWbICQXGJWAYSXusnUD3hDxHs1lQdx4PJTXpSCdnzOBbLUUQeSsqSkgOKxsb49T8+wDpUs33wZNv6NLmzdGB/BvIkO68Sw38u9Lo1dB/sC/84Jd92d796dmWTGaXznkx3keJ0EBWpbvcO9aDVFcitDock5GMHYFw+SpOABWxnNlaa+pgz6VdLN0Jhge8+d+W9g3tLGng62qQN/i7+M86Z2KPStmvIQHbdPyMkvCtGKBpZcxr/DJ0vdMZA4vyxYjGYSTwF2NGNAC6IRf37bqkYbMlkbVpMB7DcA/Jt5IDWPa6yeozvaXuhlATkgXKBkAhOMTUJutN246uOBC8/HvAOBi1flxDekOGGFfaymZIRBx+NyHHjqiDLmOpi0AOg6hfe+jCfZc91BMLKCWlVNZww0hJXhHA99nRHUFbP9st9EAE4iJ9RXsjqO8GdsVABlRE6JxsFdNfYMt67AQSl0rINMvYSBKDOwo/Fq57yeeQ+S4D52JkQEvDeXUEgBPjNdEYeEur//IIpzrlyptugT8/BOdJi+whR2uO36hcacm9Vtwyddf52pYIeUV0jE4mPqZHLgTrmbq8y9L1myDUMYtSicgA2U7jfOtxISdhxXFQNapXTgo0jFoDyUtQYxVDGZBRtD69MegAYiN6ipdaVe5obUW9QYbcl96mHxy+5EXJbU5BDOdR3jWSipTYb3hB5jAjDoiLGORl4qkvdVFlyZYjPHsu6VNv6LgMsloBx9fPBE5MiNK9TXrhgy73Qm8wa6rb726b10YoWFFORV1V8UjuKe00xNYs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(52116014)(376014)(7416014)(1800799024)(38350700014)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?bSIsSX0VJB0FkFysB2/IrrHO6WWvR03X7zUkznzk0IHEHsvkae/IMOX6RtXb?=
+ =?us-ascii?Q?sl0eEMQJj/2B6exXiBiQ9xkmyf3foTV1HZdQ0PpkIgsBRdUUB3+ejs+bDXuz?=
+ =?us-ascii?Q?k40ntvgTSdOerTo8XS0VpQYrGglBCkmNDmqpnVaoxroQYxI0aHwNGzUCtLsT?=
+ =?us-ascii?Q?eOgzHPWfjV18tnTsP3H5zhLyrZ5zkYvUpDwYinARhQ4SOdHhAedgsDGSQnvv?=
+ =?us-ascii?Q?3o84ow4OKsWt98ECG1zpugAermW9zgJhmEUMhNEkpGQNwoE9Qehz3/tmhkey?=
+ =?us-ascii?Q?r9Djev0GHvGRm0ulD599dbvJ0AOrOeWGomRGAjLAIY8ytpl2lTptZ7lyTK3X?=
+ =?us-ascii?Q?AgQttuEvm0b5mqvCxKOfuUvP1ImqvT1Bpf/I3ByqL+HfhAOWP3GRCO28ZZpf?=
+ =?us-ascii?Q?1D+1EVQ4eu2qcswg+r1T466IU0dSAvLe3XJyKERafn10QOUmGdqjhskp4fpW?=
+ =?us-ascii?Q?3Wy8GqbIdAK9WyPiQuqvPgHmzeTllKGE0Wlzd2C5Cc/seCdL9tRStrelrSde?=
+ =?us-ascii?Q?sE5C/uAj7BdzmK1P119g2QpC6aaRs2H1I0hPTJdNeIrLlgL6pyCj3oUTSpCO?=
+ =?us-ascii?Q?e/9ufHneLQ3qZdcnatl+lDOiewijcSvWC3xGV1JV5hcKFwEt4WZbLXnNOvOO?=
+ =?us-ascii?Q?ya+uylk2aaNvc1BFuftrkgmcqqT5c6tL1JcltndO/uGW0CeHjOmMEKY+ApYd?=
+ =?us-ascii?Q?gNyWkqdg7HcNIPb6qI5TpQhoRfhzjQPA8c4sk9LiVkN/4vJ9BTS0JRBhgyin?=
+ =?us-ascii?Q?ioVxWnSWnTHY+BlWnfnf0KGyjT3GemZWWtCMddC3S5j//POHClpGYkvdUMZJ?=
+ =?us-ascii?Q?3msjJwXAxT5eiMF7aqTMmljObEaCWDgfXwFdENdcnRH7kGdEBDxMfFXQCwoV?=
+ =?us-ascii?Q?XHestlkWxow+k8It72R+jjhf9xxJo0EohyildMt8fn7902H9+D/8JOguDRwo?=
+ =?us-ascii?Q?BcUvUfQzWBk/IiZhy85qrZVFpiDQAzTiT8ls5/OYdYAlRCEMeFfwhggkudve?=
+ =?us-ascii?Q?P2mwB/THsiI5+djMVV/v3BiUBVAYgzwZV1yua6MRnCFAsoKF4lsQtO5WTssz?=
+ =?us-ascii?Q?xUhDnBGukEpl7WJFNKdDD0ZwZopUE/K9ZThBJghWR97kSYOuUk/wmXeuMbGS?=
+ =?us-ascii?Q?C3mTOAEWtyfyZ9UiC6ZRQ9ld3ts5u3tYE9X4ZFh+o6LHg3W1Q48m5fW0Cx2+?=
+ =?us-ascii?Q?Z68ldOuZfPB359/ir6qlCLhS/OnQiKYVlAUT9U+iUDt+HXfPJPDcffblRvnO?=
+ =?us-ascii?Q?h/R7QLzeozRexfgvn9lVVnP+YdFc14QHA2zCJVOoPuxgldmL8rJdc7pK0FzL?=
+ =?us-ascii?Q?A1C/GmRyLjIwPkSXo+y0o4mpnOKQQQCiVff/H4seCuCN8uj20rZIzCaRAs0i?=
+ =?us-ascii?Q?4wkOYTwH38a8ufyTlLyZi+O87mFSHRu98fqvr1IXDJNR2/wLWMH9B1M6hOry?=
+ =?us-ascii?Q?wmdKMsNCXhtNU71l6HQa9t10w5NMc6xi3hbNSiK+yAnOMZCIkKOv2ODe/UTM?=
+ =?us-ascii?Q?WvYrTRD5Jqi5W25qQJH2fHR51N2XGZyOBW2ABpwF+bVs0Cnk0/ZaMdH/gMJV?=
+ =?us-ascii?Q?EV6y8mEXQe0R8FZGMunEBPQYQCE20MLMGs6LLBTzz689gefdd/CnUUUGt34M?=
+ =?us-ascii?Q?HjIGHGA6uaVnXHl4KlUdnOi1NaMS2WDg5IOzoQc55/e4ChyfrsuOyfdczUhN?=
+ =?us-ascii?Q?jRkQ5azSV7w251urFfgGD24BwUdM2FOg34lbtfmWYACxmneJ?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: daf1f144-06ba-4de9-8b53-08de8f2f8838
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 14:12:24.7736
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cG5yJWEMKIQ/xYD7PzEA9YRXbpKPEfjU6n20WHQSzZv1kbiMMQblV+RPz+izH+iAF9UNkIqlrJAcFc3lt+uo5g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BESPR04MB12563
 
-On Tue, Mar 31, 2026, at 15:43, Khristine Andreea Barbulescu wrote:
-> On 3/31/2026 1:11 PM, Arnd Bergmann wrote:
+On Tue, Mar 31, 2026 at 03:53:01PM +0530, Akhil R wrote:
+> Use 'iommu-map', when provided, to get the stream ID to be programmed
+> for each channel. Iterate over the channels registered and configure
+> each channel device separately using of_dma_configure_id() to allow
+> it to use a separate IOMMU domain for the transfer. However, do this
+> in a second loop since the first loop populates the DMA device channels
+> list and async_device_register() registers the channels. Both are
+> prerequisites for using the channel device in the next loop.
 >
-> Our initial intention had been to expose that SoC-information as
-> discussed in the earlier revisions of this series. However,
-> taking the review feedback into account, the current direction is
-> to stop handling those SoC information registers in the Linux driver
-> altogether and instead rely on a boot firmware to pass that
-> information forward, as you suggested.
-> 
-> With this approach, the SIUL2 driver would no longer be responsible
-> for any separate SoC-information functionality. In that case,
-> I understand your point that a monolithic pinctrl/GPIO/irqchip
-> driver is a better fit than keeping the MFD structure.
-
-Ok
-
-> However, as you mentioned, this is still weird because it means
-> listing individual register areas of the larger device inside.
+> Channels will continue to use the same global stream ID if the
+> 'iommu-map' property is not present in the device tree.
 >
-> For this reason, I was wondering whether it would still be
-> acceptable to move forward with the new binding introduced
-> in this series, but simplify it so that it describes a single
-> monolithic SIUL2 pinctrl/GPIO device instead of an MFD, 
-> following the example node I included in my previous reply [1].
+> Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
+> ---
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+>  drivers/dma/tegra186-gpc-dma.c | 53 ++++++++++++++++++++++++++++------
+>  1 file changed, 44 insertions(+), 9 deletions(-)
 >
-> [1] 
-> https://lore.kernel.org/linux-gpio/20260120115923.3463866-4-khristineandreea.barbulescu@oss.nxp.com/T/#m778088251774a15bde7463350d6e75d5e9b9b57d
-
-I can't think of a justification for making this an incompatible
-binding change, if the new "nxp,s32g-siul2-pinctrl" binding is almost
-the same as the old "nxp,s32g2-siul2-pinctrl" one, and you still
-plan to support both versions in the same driver indefinitely.
-
-It would seem much easier to me to make sure that nxp,s32g-siul2-pinctrl
-remains backwards compatible with the existing driver and only
-adds the properties for gpio support on top, so a single
-driver can handle both old and new dts files.
-
-      Arnd
+> diff --git a/drivers/dma/tegra186-gpc-dma.c b/drivers/dma/tegra186-gpc-dma.c
+> index 9bea2ffb3b9e..cd480d047204 100644
+> --- a/drivers/dma/tegra186-gpc-dma.c
+> +++ b/drivers/dma/tegra186-gpc-dma.c
+> @@ -15,6 +15,7 @@
+>  #include <linux/module.h>
+>  #include <linux/of.h>
+>  #include <linux/of_dma.h>
+> +#include <linux/of_device.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/reset.h>
+>  #include <linux/slab.h>
+> @@ -1380,9 +1381,13 @@ static int tegra_dma_program_sid(struct tegra_dma_channel *tdc, int stream_id)
+>  static int tegra_dma_probe(struct platform_device *pdev)
+>  {
+>  	const struct tegra_dma_chip_data *cdata = NULL;
+> +	struct tegra_dma_channel *tdc;
+> +	struct tegra_dma *tdma;
+> +	struct dma_chan *chan;
+> +	struct device *chdev;
+> +	bool use_iommu_map = false;
+>  	unsigned int i;
+>  	u32 stream_id;
+> -	struct tegra_dma *tdma;
+>  	int ret;
+>
+>  	cdata = of_device_get_match_data(&pdev->dev);
+> @@ -1410,9 +1415,10 @@ static int tegra_dma_probe(struct platform_device *pdev)
+>
+>  	tdma->dma_dev.dev = &pdev->dev;
+>
+> -	if (!tegra_dev_iommu_get_stream_id(&pdev->dev, &stream_id)) {
+> -		dev_err(&pdev->dev, "Missing iommu stream-id\n");
+> -		return -EINVAL;
+> +	use_iommu_map = of_property_present(pdev->dev.of_node, "iommu-map");
+> +	if (!use_iommu_map) {
+> +		if (!tegra_dev_iommu_get_stream_id(&pdev->dev, &stream_id))
+> +			return dev_err_probe(&pdev->dev, -EINVAL, "Missing iommu stream-id\n");
+>  	}
+>
+>  	ret = device_property_read_u32(&pdev->dev, "dma-channel-mask",
+> @@ -1424,9 +1430,10 @@ static int tegra_dma_probe(struct platform_device *pdev)
+>  		tdma->chan_mask = TEGRA_GPCDMA_DEFAULT_CHANNEL_MASK;
+>  	}
+>
+> +	/* Initialize vchan for each channel and populate the channels list */
+>  	INIT_LIST_HEAD(&tdma->dma_dev.channels);
+>  	for (i = 0; i < cdata->nr_channels; i++) {
+> -		struct tegra_dma_channel *tdc = &tdma->channels[i];
+> +		tdc = &tdma->channels[i];
+>
+>  		/* Check for channel mask */
+>  		if (!(tdma->chan_mask & BIT(i)))
+> @@ -1446,10 +1453,6 @@ static int tegra_dma_probe(struct platform_device *pdev)
+>
+>  		vchan_init(&tdc->vc, &tdma->dma_dev);
+>  		tdc->vc.desc_free = tegra_dma_desc_free;
+> -
+> -		/* program stream-id for this channel */
+> -		tegra_dma_program_sid(tdc, stream_id);
+> -		tdc->stream_id = stream_id;
+>  	}
+>
+>  	dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(cdata->addr_bits));
+> @@ -1483,6 +1486,7 @@ static int tegra_dma_probe(struct platform_device *pdev)
+>  	tdma->dma_dev.device_synchronize = tegra_dma_chan_synchronize;
+>  	tdma->dma_dev.residue_granularity = DMA_RESIDUE_GRANULARITY_BURST;
+>
+> +	/* Register the DMA device and the channels */
+>  	ret = dmaenginem_async_device_register(&tdma->dma_dev);
+>  	if (ret < 0) {
+>  		dev_err_probe(&pdev->dev, ret,
+> @@ -1490,6 +1494,37 @@ static int tegra_dma_probe(struct platform_device *pdev)
+>  		return ret;
+>  	}
+>
+> +	/*
+> +	 * Configure stream ID for each channel from the channels registered
+> +	 * above. This is done in a separate iteration to ensure that only
+> +	 * the channels available and registered for the DMA device are used.
+> +	 */
+> +	list_for_each_entry(chan, &tdma->dma_dev.channels, device_node) {
+> +		chdev = &chan->dev->device;
+> +		tdc = to_tegra_dma_chan(chan);
+> +
+> +		if (use_iommu_map) {
+> +			chdev->bus = pdev->dev.bus;
+> +			dma_coerce_mask_and_coherent(chdev, DMA_BIT_MASK(cdata->addr_bits));
+> +
+> +			ret = of_dma_configure_id(chdev, pdev->dev.of_node,
+> +						  true, &tdc->id);
+> +			if (ret)
+> +				return dev_err_probe(chdev, ret,
+> +					   "Failed to configure IOMMU for channel %d\n", tdc->id);
+> +
+> +			if (!tegra_dev_iommu_get_stream_id(chdev, &stream_id))
+> +				return dev_err_probe(chdev, -EINVAL,
+> +					   "Failed to get stream ID for channel %d\n", tdc->id);
+> +
+> +			chan->dev->chan_dma_dev = true;
+> +		}
+> +
+> +		/* program stream-id for this channel */
+> +		tegra_dma_program_sid(tdc, stream_id);
+> +		tdc->stream_id = stream_id;
+> +	}
+> +
+>  	ret = devm_of_dma_controller_register(&pdev->dev, pdev->dev.of_node,
+>  					      tegra_dma_of_xlate, tdma);
+>  	if (ret < 0) {
+> --
+> 2.50.1
+>
