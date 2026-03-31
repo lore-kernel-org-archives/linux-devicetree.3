@@ -1,115 +1,87 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6571038F949
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 21:57:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8FCF3803FC;
+	Tue, 31 Mar 2026 22:22:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774994267; cv=none; b=J+TRy3HDP9QuvOjLpR2IXqCJ9yQdVCQM3FYOlJJLsTQyee7vxyIZLG9MELLM9h2nkCpGMtUtFWtMvj3l+K6rdnoXcmtSbUKYEW3FxVRaActT1iJlTlt/7mWC/cqpVu07R3nd20ffVS38doFCDZDxdU1vQ1UB7SHR7QFdF7qjKpo=
+	t=1774995760; cv=none; b=nIlKUBmpRtuG1TXU5ogfIvy1ghGNpsSgFfkjlaftwtX0sikTA/UsmsSwS7QZgTZjIj17W9goYGgSpYuQLkD3mkLI+PuGpFpi5yFub9erU5Ogols2mzowz90H6BGe4JRGy7RLBL7/kok5+U3ymcp2bphAaipmZmul4LU5G0wb77U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774994267; c=relaxed/simple;
-	bh=dpzAblYBVoWsTKpey15gJaeyx9yhGLR8Pej4PQeL77c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KJ9SmRtIoEcfYJCCl0wzWb2K2F4ZYj5JPyL3X7rJHtYXCWdQlJyQw3Cis21Pl5gSnhbWLaLNCgUmCgc4Yol73ub3vJuAw1OcdVnXtDHLQUivYMpErTSXzCetVDdw4McTGVOqiG8bacMMMWMJfVWd8qHEFkAglZ80soAMovZYnFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thingy.jp; spf=pass smtp.mailfrom=0x0f.com; dkim=pass (1024-bit key) header.d=thingy.jp header.i=@thingy.jp header.b=Waadjy0j; arc=none smtp.client-ip=209.85.210.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thingy.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0x0f.com
+	s=arc-20240116; t=1774995760; c=relaxed/simple;
+	bh=rSN3556X0WPg2Hj91zd4Pp5IUyn4KcRXfcYrEOVwTbE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Dlvy9dFkktX/oZCa6V2IZDCcvERbY9i2rSBxyknQ16YNo8vjV8i4dAuLsAXQns9tZb51g+vcy+moYDTC6flyb/Ob9MGUzwjxinuZVRECd/25r9YK5J1pPmHorYfQgVWOue4oknOWMBs38+MPN1sFiYtg/XXFT2Lg0TAVRV/fOW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=of5TGQ3B; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thingy.jp header.i=@thingy.jp header.b="Waadjy0j"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-82c2239140aso2511099b3a.0
-        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 14:57:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thingy.jp; s=google; t=1774994265; x=1775599065; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=wX8tlYakugQaGGpabWy4msh+/XyLM+6wGnijR+pdvP8=;
-        b=Waadjy0jUh60wEIYzxCuKdnjs20IH9HNWytPA+X8Ay/6gyWKrP02MgsKY/C2Yj3mQG
-         jecN63fTFOeRbGJLJKwsiUNx0x25K2FhUWI1mpbIr9N+FYoHPqBCpi9UY2Wh53VSiNpT
-         w/rUVRqettjuuB1DUuMJYF7u1uHgfUXv3nsOw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774994265; x=1775599065;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wX8tlYakugQaGGpabWy4msh+/XyLM+6wGnijR+pdvP8=;
-        b=ZZr7nrOxfWnTtip8JAkaud0wPlIStPscAgZ2yv6PwuqKN9LganbY4Tr9YlNqEdkh0H
-         x19MX/ttpf4ceglsA/wOmbGu/dVPAasPHgiqFw4bl/w+Avs1DI5thTQF8OqGUKJCp+Dd
-         Q3NkAfCCL0ANjBGTxR3Wv4V3GCxHEgjlCsWtibEINhEmYP7s648xBK8/fzQVPRcI+1fP
-         3xc3XqcCv3A9MkQ6mZSqweFUhvPklpBkO8zMaD0ZP0VbRpZGAkqSlQmLKNR7nQFOcFiv
-         g2GgJO0u/gCobxjjKrhsnknzzj4NybiMTq+6xVknWZMuvUYyZB8szaSxsl2Yi4u4Yctj
-         MRRw==
-X-Gm-Message-State: AOJu0Yyc0k+iLMmp7POVN+2i9nnFVUEXnfBzsaYK7zZWyjZCwciCmSUZ
-	Vhn7VnpT3JzLsbNLa11KdDu3v0UhVCN9n5Axg08tuONE2LDiIjwWnzE2WyQa9V4ME6CSA882dSe
-	L1Uw8
-X-Gm-Gg: ATEYQzw1Bk/NJll6SMcPLaQhuwX508dvZKpIMCEH2LMBX7Mcfu++iodgr+0In4sLj13
-	0U2pFS2vMcKbMvRZF6gFgk+dqiyFtop5TALnm5BUUeARn3rIOeadlpYqdXHrnh4us63fIYbRa/G
-	IWXynebY0vST8aa1BVi2HQgI05J1S5ZAE785Sj9oxLWW4XjPiXu4Econ0aWbwPnC0a8gdzn+wZK
-	XP5eiwI5xTUUZ2PeRA1VCweeLbzNlf9WFVAyv5qVYRQBxnjmF/zPP5ChwhCKNHc7iljQ1/14aV+
-	B5JVFHHNuijF0pHRd1m1DBTbRrt38DckBqMKLws+x61/9MsPMomtb6jog6lRMCToP0u7d41LdtT
-	k57q8wmL+wPesEZgR8V2ZE0PD8+QvDkNanSGvr6g9xbNbu8RwlzxVdD5vrlwlGvIxEs69Q8cK7i
-	lkEJth8YVdmJrqsA==
-X-Received: by 2002:a05:6a00:1ad4:b0:82c:ddbb:7db3 with SMTP id d2e1a72fcca58-82ce898259bmr1093796b3a.25.1774994264651;
-        Tue, 31 Mar 2026 14:57:44 -0700 (PDT)
-Received: from kinako ([2400:2200:697:aac6:f82c:1cb4:499f:eef9])
-        by smtp.googlemail.com with ESMTPSA id d2e1a72fcca58-82cc025659dsm6734014b3a.51.2026.03.31.14.57.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 31 Mar 2026 14:57:42 -0700 (PDT)
-From: Daniel Palmer <daniel@thingy.jp>
-To: robh@kernel.org,
-	saravanak@kernel.org
-Cc: devicetree@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="of5TGQ3B"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=zn6Tx+/yUqe1wFWE2jjPTR23b4f4dmxO8nkrQL8rqP8=; b=of5TGQ3BY/0dYg1URKjyoESvBO
+	WXTk2pPyPrMCkMK4+uqn8AKjLqJs0tgkgxpPvBGgmG5MvL0wqBRI5ixxaEtVHnDc/bd12kQHGXQ+D
+	MGX+Am8QHsCVJuQhquqAC+qi0CdqFzDyrXoT+0Lt7rfGBHI3+6aboRx0JwiZ9G1eB97ifpZMm+xnM
+	f8RVfU+U0xVnXNHFYnmWPqYoWRR+zOQdljjtbzkik/e7DVX+fuHOtaboo4Ew3XUSKagsTdcV4h8ZB
+	eceTwq94vniZVWqvhCZ7fM9HLnXrcJFHjvSli50pym7lOwEdXDLMe+89t+86ZVto83iAdEjMlSOYF
+	yZatu2Ow==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Detlev Casanova <detlev.casanova@collabora.com>,
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	kernel@collabora.com,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Daniel Palmer <daniel@thingy.jp>
-Subject: [PATCH] of/platform: Don't include reserved memory compatibles that aren't needed
-Date: Wed,  1 Apr 2026 06:57:35 +0900
-Message-ID: <20260331215735.2783770-1-daniel@thingy.jp>
-X-Mailer: git-send-email 2.51.0
+	Conor Dooley <conor.dooley@microchip.com>,
+	linux-media@vger.kernel.org,
+	Conor Dooley <conor@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v5 0/4] arm64: dts: rockchip: Fix vdec register blocks order on RK3576/RK3588
+Date: Wed,  1 Apr 2026 00:22:22 +0200
+Message-ID: <177499572601.2230685.5329289608304242879.b4-ty@sntech.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260304-vdec-reg-order-rk3576-v5-0-7006fad42c3a@collabora.com>
+References: <20260304-vdec-reg-order-rk3576-v5-0-7006fad42c3a@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-There are a number of very platform specific compatibles for reserved
-memory that the vast majority of people don't need and they waste
-196/200 bytes each.
 
-Wrap the platform specific compatibles so that they are only included
-if needed.
+On Wed, 04 Mar 2026 23:00:39 +0200, Cristian Ciocaltea wrote:
+> When building device trees for the RK3576 based boards, DTC shows the
+> following complaint:
+> 
+>   rk3576.dtsi:1282.30-1304.5: Warning (simple_bus_reg): /soc/video-codec@27b00000: simple-bus unit address format error, expected "27b00100"
+> 
+> The first two patches updates 'reg-names' property in rockchip,vdec
+> binding to make it mandatory for RK3576 & RK3588, since this is what the
+> driver expects, as well as to allow providing the register blocks
+> following the address-based order and, consequently, ensure the video
+> decoder unit address points to the primary register range.
+> 
+> [...]
 
-Signed-off-by: Daniel Palmer <daniel@thingy.jp>
----
- drivers/of/platform.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+Applied, thanks!
 
-diff --git a/drivers/of/platform.c b/drivers/of/platform.c
-index ba591fbceb56..0e6c2844e542 100644
---- a/drivers/of/platform.c
-+++ b/drivers/of/platform.c
-@@ -489,12 +489,22 @@ EXPORT_SYMBOL_GPL(of_platform_default_populate);
- 
- static const struct of_device_id reserved_mem_matches[] = {
- 	{ .compatible = "phram" },
-+#if IS_ENABLED(CONFIG_QCOM_RMTFS_MEM)
- 	{ .compatible = "qcom,rmtfs-mem" },
-+#endif
-+#if IS_ENABLED(CONFIG_QCOM_COMMAND_DB)
- 	{ .compatible = "qcom,cmd-db" },
-+#endif
-+#if IS_ENABLED(CONFIG_QCOM_SMEM)
- 	{ .compatible = "qcom,smem" },
-+#endif
- 	{ .compatible = "ramoops" },
-+#if IS_ENABLED(CONFIG_NVMEM_RMEM)
- 	{ .compatible = "nvmem-rmem" },
-+#endif
-+#if IS_ENABLED(CONFIG_OPEN_DICE)
- 	{ .compatible = "google,open-dice" },
-+#endif
- 	{}
- };
- 
+[3/4] arm64: dts: rockchip: Fix vdec register blocks order on RK3576
+      commit: f8fa98aa23699b7019023cc7cd8bbb8d837f2d3b
+[4/4] arm64: dts: rockchip: Update vdec register blocks order on RK3588
+      commit: 6c4a6f7f19e69bedddee87bebd4f1f1c7411b820
+
+Best regards,
 -- 
-2.51.0
-
+Heiko Stuebner <heiko@sntech.de>
