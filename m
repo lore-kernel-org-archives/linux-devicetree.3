@@ -1,151 +1,99 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A17E938CFE7;
-	Tue, 31 Mar 2026 19:04:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D12A1377542;
+	Tue, 31 Mar 2026 19:17:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1774983861; cv=none; b=MsRkhcNZjPqBsWfpNjwDwZ6uklk5GjxmxJSOgmp8c6v8t7HrhoKuHKabA+oalrGoG330QPHAT+M5n+O+/2YoCvpQjSyMM7/rsM7tEF7/EED7vtRQ5u0MoIZBLuoiGYa8lubFIqnaF2eq3UZyrGCiUKomq5I4fUXMNRRldhnhxT8=
+	t=1774984664; cv=none; b=sH5jjN3MmYt0wopfWcxKpz1GPn/gCUGVn4LlQ3sG/nhcRtUrWQZfGqTKq7Zg8MsdkPGaT3Z5O7oX+gr2oiJpuPdVC6OSXgwVzvIhfuRrobgWSiGkCyGZlRQkiihPKD+iy5LgkhWCn/WO9fX8bnwHD9DALqTsbpCW/ulBXfWZwi4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1774983861; c=relaxed/simple;
-	bh=vl9bPdAnhZOB7e2rN8a7bQ/OUcqdayO0Mnx+F9C5UVE=;
+	s=arc-20240116; t=1774984664; c=relaxed/simple;
+	bh=/vTZy7DNheaWvuUlBmUGnqxzXfCO6SeXhGn+6yRist0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jBpzkgmAEKMZagl0ZYb4ge7spSPVf6jNM46IB9B/8Pd989XxngGVqow2w1yXkvhgAAcq4uNldgKKnoisWeqfAcUkkpiAk5YJXxLPOY6bMsd3o86sXPnX8Rd8FioPEKgpu5qhwEYArcifK/s85ooHXjaE5P3mY+/4iV44zJcS9Xs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dPSUDz8g; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=V1ZQB6x/TrnQcdUaGLgKrU0lNEmjUVcFrb8whkJALTYRKXh25C4FjRhhazsiaH/cwcrBVBprBAxiy7W3JoTpcMw3uLN9K9psSeEfBIGHj8LiBIP8qHA7YHX7bZKifASAc1DG+rwPZs3+y1+M0Hxw95xd5+vm3PBeNdj0Z6sVNIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EtmCM0uo; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dPSUDz8g"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774983860; x=1806519860;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=vl9bPdAnhZOB7e2rN8a7bQ/OUcqdayO0Mnx+F9C5UVE=;
-  b=dPSUDz8gpbUl+njiYFq4wKJ7wPhxShlp9VvqUunMYPWlm98R+X2vk/rL
-   ZZPYlUDPDbJ2t9LAys5Nu1fwn5DoB4PXY0zd+QJ/3dexulNZdsQdflZ1J
-   5mBsmLHPa5/cGwjV0xHEpkqF2tHa/CEdkmEkvvZC9d2zBCWrzayX6up/g
-   /16yJeROZoUHkArocQXQ3qu3xfRMasVW/xR7PnOBo2Y9YHLX/9UC63+Zj
-   wZ6HJr0fzu8T26oszLfzbFsS27F8FuQUV0aRbGgWjbEbublhdvkFfIjNR
-   ykT2Xw/HUtPrzBYHQU5qo/scuK82uiHJDwSn3SVz0cOPQypt1LX4PBooL
-   Q==;
-X-CSE-ConnectionGUID: xQePCVYPTq6wEnDy8w9jrg==
-X-CSE-MsgGUID: LRz1/7uSQ5abtNZLfho0sw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11745"; a="76070831"
-X-IronPort-AV: E=Sophos;i="6.23,152,1770624000"; 
-   d="scan'208";a="76070831"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Mar 2026 12:04:19 -0700
-X-CSE-ConnectionGUID: wSpzeWmCTYC99op37aHAhA==
-X-CSE-MsgGUID: SCK12xPFRo2r1F1cB/xtbw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,152,1770624000"; 
-   d="scan'208";a="225626681"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Mar 2026 12:04:13 -0700
-Date: Tue, 31 Mar 2026 22:04:10 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: "Sabau, Radu bogdan" <Radu.Sabau@analog.com>
-Cc: Andy Shevchenko <andy.shevchenko@gmail.com>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	"Hennerich, Michael" <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	"Sa, Nuno" <Nuno.Sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>,
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH v5 2/4] iio: adc: ad4691: add initial driver for AD4691
- family
-Message-ID: <acwaqrSMXR36KqVR@ashevche-desk.local>
-References: <20260327-ad4692-multichannel-sar-adc-driver-v5-0-11f789de47b8@analog.com>
- <20260327-ad4692-multichannel-sar-adc-driver-v5-2-11f789de47b8@analog.com>
- <acZrthJYQX-h_9p5@ashevche-desk.local>
- <LV9PR03MB84143540CE505514E1CD84B4F752A@LV9PR03MB8414.namprd03.prod.outlook.com>
- <CAHp75VcUCM8aeUpNaFEXnS+Cm08Mq5j+Qp2gYqWP9vCO+9CtQA@mail.gmail.com>
- <LV9PR03MB8414CB05EB794F6974584C2AF753A@LV9PR03MB8414.namprd03.prod.outlook.com>
- <acuMxjX_rsfsJvMp@ashevche-desk.local>
- <LV9PR03MB841477521DF5AB809D0184FAF753A@LV9PR03MB8414.namprd03.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EtmCM0uo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4664CC19423;
+	Tue, 31 Mar 2026 19:17:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774984664;
+	bh=/vTZy7DNheaWvuUlBmUGnqxzXfCO6SeXhGn+6yRist0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=EtmCM0uoGw4csxFZJZ1yAqVNUwrjA5ZegQuGFj+/TT3WUga/CYRYUwgx18gbXjh/b
+	 hAfUJLccOk0X4i/8BbDWW4i8mn9P4qOWjXdPyqFJgCr8Tvtv3fEI3DFNRJRuu+/KZE
+	 7qcHNqUydXcRl+TIoXMnxrc1QIXmq55WNdNB3d2almoRTwOv4JUekpgA5hPPxCM8G3
+	 EzoSGcasUmnwpRWLvT/E+s/uUuztabRKLzPpoNtjIWaD2SoqTf7AJPCNMte/2WhVjJ
+	 P4P3scCqzE0FI4N19zY6lerrjhQliWP8FVWcKP6a0HjIIDgpDpgPbyihpfQX0ohxpM
+	 aifIHpYSpBOWw==
+Date: Tue, 31 Mar 2026 20:17:37 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	mohammad.rafi.shaik@oss.qualcomm.com, linux-sound@vger.kernel.org,
+	lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
+	johan@kernel.org, dmitry.baryshkov@oss.qualcomm.com,
+	konrad.dybcio@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	srini@kernel.org, val@packett.cool, mailingradian@gmail.com
+Subject: Re: [PATCH v8 13/13] ASoC: qcom: q6apm: Add support for early buffer
+ mapping on DSP
+Message-ID: <f2bb116e-bee4-4cd1-9f57-154ea1e9f0e5@sirena.org.uk>
+References: <20260330082105.278055-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260330082105.278055-14-srinivas.kandagatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="pFTWHHyQCqzqbyxs"
+Content-Disposition: inline
+In-Reply-To: <20260330082105.278055-14-srinivas.kandagatla@oss.qualcomm.com>
+X-Cookie: I just had a NOSE JOB!!
+
+
+--pFTWHHyQCqzqbyxs
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <LV9PR03MB841477521DF5AB809D0184FAF753A@LV9PR03MB8414.namprd03.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Mar 31, 2026 at 05:05:32PM +0000, Sabau, Radu bogdan wrote:
-> > -----Original Message-----
-> > From: Andy Shevchenko <andriy.shevchenko@intel.com>
-> > Sent: Tuesday, March 31, 2026 11:59 AM
-> > On Tue, Mar 31, 2026 at 08:36:42AM +0000, Sabau, Radu bogdan wrote:
-> > > > -----Original Message-----
-> > > > From: Andy Shevchenko <andy.shevchenko@gmail.com>
-> > > > Sent: Monday, March 30, 2026 8:24 PM
+On Mon, Mar 30, 2026 at 08:21:05AM +0000, Srinivas Kandagatla wrote:
 
-...
+> @@ -416,9 +415,10 @@ static int q6apm_dai_close(struct snd_soc_component =
+*component,
+>  	struct snd_pcm_runtime *runtime =3D substream->runtime;
+>  	struct q6apm_dai_rtd *prtd =3D runtime->private_data;
+> =20
+> -	if (prtd->state) { /* only stop graph that is started */
+> +	if (prtd->state) {
+> +		/* only stop graph that is started */
+>  		q6apm_graph_stop(prtd->graph);
+> -		q6apm_unmap_memory_regions(prtd->graph, substream->stream);
+> +		q6apm_free_fragments(prtd->graph, substream->stream);
+>  	}
+> =20
+>  	q6apm_graph_close(prtd->graph);
 
-> > > > > > > +#include <linux/bitfield.h>
-> > > > > > > +#include <linux/bitops.h>
-> > > > > > > +#include <linux/cleanup.h>
-> > > > > > > +#include <linux/delay.h>
-> > > > > > > +#include <linux/device.h>
-> > > > > >
-> > > > > > Hmm... Is it used? Or perhaps you need only
-> > > > > > dev_printk.h
-> > > > > > device/devres.h
-> > > > > > ?
-> > > >
-> > > > > I have checked this out and it seems device.h doesn't actually need
-> > > > > to be included anyway since spi.h directly includes device.h, and since
-> > > > > this is a SPI driver that's never going away, it's covered. Will drop it!
-> > > >
-> > > > No, this is the wrong justification. IWYU principle is about exact
-> > > > match between what is used and included in a file (module). spi.h is
-> > > > not dev_*() provider and may not be considered for that.
-> > > >
-> > >
-> > > You are right, my justification was incorrect. Under IWYU, relying on
-> > > spi.h's transitive pull of device.h is not valid. However, I think device.h
-> > > is still needed in this case since struct device is used directly in the code
-> > > both as local variables and in the regmap callbacks.
-> > 
-> > Really? I can't see that.
-> > (Hint: use of the data type and use of its pointer is a huge difference.)
-> > 
-> > > Also dev_err_probe() is called directly and lives in device.h.
-> > 
-> > No, as I started with my replies. The proper header that provides it is
-> > dev_printk.h.
-> 
-> Yep, my bad... device.h can be removed and devres and dev_printk be
-> used instead. Sorry for the confusion from my end, I thought I was
-> looking at device.h, but was instead looking at dev_printk.h.
+Given that we allocate the fragments before setting state it looks like
+there's a window where we might leak them.  Please send an incremental
+patch for this if you're going to fix it, I've queued things for CI and
+will merge tomorrow unless something blows up.
 
-No problem. Headers in Linux kernel is a mess. Mostly historically,
-maintainers' preferences and neglecting the foreseeing the future of
-the dependency hell.
+--pFTWHHyQCqzqbyxs
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
--- 
-With Best Regards,
-Andy Shevchenko
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnMHdAACgkQJNaLcl1U
+h9Ak8gf9HLuKkpq9Mkj48w49xYC0VDMje5Ww4RkphFcNwa+Y68pyGuch/wnk4uGy
+KfjAoflKnNsDyMPEqqOIxxh1vV8G4MAJpthYF7bfHjuad6AKl1tE7Lexnp0qw55c
+cd/1XeWOXpEq9nxA3Na5UJ06vHtbYdFdWfN7uUh13+4O1202/+L0aKSB9O9u/aV+
+7pYU/dla1ENEEf+w64agH3vsKPTmkqxy8UEkzvALDCxyTYOMVgKDNBuvUJpTixRR
+UpoB5mgwIfgqC9V9PXclCBFBdnGAJi5QbsFi+V1U+BQhD5MDru2i2UQrzjS53BiA
+BAaoYQq/6vcQnaRc5cEEoZW+jMwjHg==
+=6Oyu
+-----END PGP SIGNATURE-----
 
-
+--pFTWHHyQCqzqbyxs--
