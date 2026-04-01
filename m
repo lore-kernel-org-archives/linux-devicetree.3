@@ -1,223 +1,156 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F0E7C33C518
-	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 17:20:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C1AC46AF3C;
+	Wed,  1 Apr 2026 17:39:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775064052; cv=none; b=OeD2jLw1o0Vg86vMTA2xBGKmXtsLTpqdA2SJZ/FBWo4nonK9CxUdi8pOHPMrIiAINtFT9NoJCPaAlfMRZs62FRmBGuUoYiCQWUAbomGtk3UUiZaZX4Yw82ZIubmsLzpRvARAtgGHClSwQ9SdTzb9O5EskBpdzqytpWzzg1N/VlU=
+	t=1775065187; cv=none; b=EIMlUq65Lo2/U2DvVHto94IXP5JII/x9RsaQRpfiDZCyNYnZ0Ifd8orbzQJinfrqq030hRAj/sY4c7EoNZMp60qf358EFCDkSUa7hnbc+6ePA9MlxAyfLazyH/GsZMapb4UoLhNZtwOQ/9HBLIFDJfuk7WrKKzxuUdJF2kkM9ys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775064052; c=relaxed/simple;
-	bh=jso9ol/BwsazpOhcwBaDQGk6Irh//4G6BIQJqtlE/t4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F9qrIuSreVUGFV5PgZ5v6EYa6+tT/PjOxogCDGfjxUx3sw2KMJRBZRImuE+WmJnUHb++3VKMzAxo7Mp/VqQnbw25iEoi8OCr7jw6eMJSstoZeqj2jKDToSGjYj4QrDpQGZUdJGG6zeU+tblTR65nS7wAppfR6YwOJ9GkYgK5Luo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Rj5rfhOM; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1775065187; c=relaxed/simple;
+	bh=BnFmG1asfFQ84jgnyjEJvKHkn2oWL7QugAdxWpRFiLA=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=uTnj0F2H20Az38t+r+zvX7BFT1CFasw3Vjb4VjvlQw6MMMViP9Viiul+zKqFDGiep9YomV/QV+c2f3UO8Ni8zX9P9SSOa/qD3KnNOzRAHKwBtxBPMpobyxgK4PXShp3+YNRx4WNfwM1K90HpYwI3Vh29z7ZYsXGG0SVApuxkiFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LnHZZ+1S; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Rj5rfhOM"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7318331DB
-	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 10:20:43 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 1E85F3F641
-	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 10:20:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1775064049; bh=jso9ol/BwsazpOhcwBaDQGk6Irh//4G6BIQJqtlE/t4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Rj5rfhOMii5/eXubnifzHmQ5LYo1ZgzXl0786M+ITTywa3oyQHQf+U5zqpCE6tGFL
-	 rF4VHDpZ1QNXoPrLFe6SRkEksboUEBjvaskDXGdTPxVvW0SiU3x9mtAhAbtBpOkMUl
-	 h3FtGU7yNAn56qRY6LKPZm9vl5fXGp5FpS4ag0oE=
-Date: Wed, 1 Apr 2026 18:20:27 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Guangliu Ding <guangliu.ding@nxp.com>
-Cc: "Daniel Baluta (OSS)" <daniel.baluta@oss.nxp.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	Steven Price <steven.price@arm.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <frank.li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	Jiyu Yang <jiyu.yang@nxp.com>
-Subject: Re: Re: Re: Re: [PATCH 1/2] dt-bindings: gpu: mali-valhall-csf:
- Document i.MX952 support
-Message-ID: <ac1T282yvpdAp_TP@e142607>
-References: <20260331-master-v1-0-65c8e318d462@nxp.com>
- <20260331-master-v1-1-65c8e318d462@nxp.com>
- <acva1Xt8V4k9-uG8@e142607>
- <AM0PR04MB47073E9E8B5C704BCF5D9F72F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
- <99a1da55-d6e5-4d11-abaa-8c85283ab5f2@oss.nxp.com>
- <AM0PR04MB4707B3E37DFE7AEE587DBA2AF350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
- <aczv0R0aQRmHKdvt@e142607>
- <AM0PR04MB4707335CC7035232D44E6ED9F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
- <ac05OpEMjKMd8CXy@e142607>
- <AM0PR04MB4707604AF2C445971C7474EFF350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LnHZZ+1S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAA4BC4CEF7;
+	Wed,  1 Apr 2026 17:39:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775065187;
+	bh=BnFmG1asfFQ84jgnyjEJvKHkn2oWL7QugAdxWpRFiLA=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+	b=LnHZZ+1S3spJ8/7LX5WBJuCXyqMD8G05IcDT1uHNxVhC1INFIVpOzwB7hZv7A6yaY
+	 Z/j0yRAx28qnz9kRB967rQjhl9kel5mjTN1xWlD2v/X1F/E0eEZUZT8W/nSMwQ/aj2
+	 QXne6DJGGCapr4HV3QxIkbot7YJVJKyFtW5MCFAIE2ANw7ISee6a+s8eg5EQ+Mk0D3
+	 tu32gXQ3wPqQMRaW4m1omNOx2rUl0GUDm2+Cl/wOc1cPljh5IEbHtrBYF5XEjk1xvN
+	 ql2fv2MEcYPm58+pm8JjjEp8CMTEJfkzoMS/EXnzkZ+mJ9lOSxN50YXoL0jhdL8ioW
+	 3P3/E8zZxalHw==
+Date: Wed, 01 Apr 2026 12:39:45 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <AM0PR04MB4707604AF2C445971C7474EFF350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Peter Rosin <peda@axentia.se>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Linus Walleij <linusw@kernel.org>, 
+ linux-gpio@vger.kernel.org, David Jander <david@protonic.nl>, 
+ linux-hwmon@vger.kernel.org, kernel@pengutronix.de, 
+ Lee Jones <lee@kernel.org>, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>
+To: Oleksij Rempel <o.rempel@pengutronix.de>
+In-Reply-To: <20260401162510.1706073-2-o.rempel@pengutronix.de>
+References: <20260401162510.1706073-1-o.rempel@pengutronix.de>
+ <20260401162510.1706073-2-o.rempel@pengutronix.de>
+Message-Id: <177506518504.947861.14670485917563381110.robh@kernel.org>
+Subject: Re: [PATCH v10 1/6] dt-bindings: pinctrl: add NXP MC33978/MC34978
+ MSDI
 
-On Wed, Apr 01, 2026 at 03:59:23PM +0000, Guangliu Ding wrote:
-> Hi Liviu
+
+On Wed, 01 Apr 2026 18:25:05 +0200, Oleksij Rempel wrote:
+> Add device tree binding documentation for the NXP MC33978 and MC34978
+> Multiple Switch Detection Interface (MSDI) devices.
 > 
-> > On Wed, Apr 01, 2026 at 10:31:01AM +0000, Guangliu Ding wrote:
-> > > Hi Liviu
-> > >
-> > > > On Wed, Apr 01, 2026 at 09:43:12AM +0000, Guangliu Ding wrote:
-> > > > > Hi Daniel
-> > > > >
-> > > > > > On 4/1/26 11:48, Guangliu Ding wrote:
-> > > > > > > [You don't often get email from guangliu.ding@nxp.com. Learn
-> > > > > > > why this is important at
-> > > > > > > https://aka.ms/LearnAboutSenderIdentification
-> > > > > > > ]
-> > > > > > >
-> > > > > > > Hi Liviu
-> > > > > > >
-> > > > > > > Thanks for your review. Please refer to my comments below:
-> > > > > > >
-> > > > > > >> On Tue, Mar 31, 2026 at 06:12:38PM +0800, Guangliu Ding wrote:
-> > > > > > >>> Add compatible string of Mali G310 GPU on i.MX952 board.
-> > > > > > >>>
-> > > > > > >>> Signed-off-by: Guangliu Ding <guangliu.ding@nxp.com>
-> > > > > > >>> Reviewed-by: Jiyu Yang <jiyu.yang@nxp.com>
-> > > > > > >>> ---
-> > > > > > >>>
-> > > > > > >>> Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.y
-> > > > > > >>> aml
-> > > > > > >>> | 1
-> > > > > > >>> +
-> > > > > > >>>  1 file changed, 1 insertion(+)
-> > > > > > >>>
-> > > > > > >>> diff --git
-> > > > > > >>> a/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf
-> > > > > > >>> .yam
-> > > > > > >>> l
-> > > > > > >> b/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.
-> > > > > > >> yaml
-> > > > > > >>> index 8eccd4338a2b..6a10843a26e2 100644
-> > > > > > >>> ---
-> > > > > > >>> a/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf
-> > > > > > >>> .yam
-> > > > > > >>> l
-> > > > > > >>> +++ b/Documentation/devicetree/bindings/gpu/arm,mali-valhall
-> > > > > > >>> +++ -csf
-> > > > > > >>> +++ .yam
-> > > > > > >>> +++ l
-> > > > > > >>> @@ -20,6 +20,7 @@ properties:
-> > > > > > >>>            - enum:
-> > > > > > >>>                - mediatek,mt8196-mali
-> > > > > > >>>                - nxp,imx95-mali            # G310
-> > > > > > >>> +              - nxp,imx952-mali           # G310
-> > > > > > >> Can you explain why this is needed? Can it not be covered by
-> > > > > > >> the existing compatible?
-> > > > > > > There are functional differences in GPU module (GPUMIX)
-> > > > > > > between
-> > > > > > > i.MX95 and i.MX952. So they cannot be fully covered by a
-> > > > > > > single existing
-> > > > compatible.
-> > > > > > > On i.MX952, The GPU clock is controlled by hardware GPU auto
-> > > > > > > clock-gating mechanism, while the GPU clock is managed
-> > > > > > > explicitly by the
-> > > > > > driver on i.MX95.
-> > > > > > > Because of these behavioral differences, separate compatible
-> > > > > > > strings "nxp,imx95-mali" and "nxp,imx952-mali" are needed to
-> > > > > > > allow the driver to handle the two variants independently and
-> > > > > > > to keep room for future
-> > > > > > divergence.
-> > > > > >
-> > > > > >
-> > > > > > This information should be added in the commit message
-> > > > > > explaining why
-> > > > > >
-> > > > > > the change is needed.
-> > > > > >
-> > > > > >
-> > > > > > But then where is the driver code taking care of these diferences?
-> > > > > >
-> > > > >
-> > > > > Yes. Currently the driver does not require "nxp,imx952-mali" string.
-> > > > > However, when GPU ipa_counters are enabled to calculate the GPU
-> > > > > busy_time/idle_time for GPU DVFS feature, they will conflict with
-> > > > > the hardware GPU auto clock‑gating mechanism, causing GPU clock to
-> > > > > remain
-> > > > always on.
-> > > > > In such cases, ipa_counters need to be disabled so that the GPU
-> > > > > auto clock‑gating mechanism can operate normally, using
-> > "nxp,imx952-mali"
-> > > > string.
-> > > >
-> > > > OK, I understand that you're following guidance from some other
-> > > > senior people on how to upstream patches so you've tried to create
-> > > > the smallest patchset to ensure that it gets reviewed and accepted,
-> > > > but in this case we need to see the other patches as well to decide
-> > > > if your approach is the right one and we do need a separate compatible
-> > string.
-> > > >
-> > > > If enabling GPU ipa_counters causes the clocks to get stuck active,
-> > > > that feels like a hardware bug, so figuring out how to handle that
-> > > > is more important than adding a compatible string.
-> > > >
-> > > > Either add the patch(es) that use the compatible to this series in
-> > > > v2, or put a comment in the commit message on where we can see the
-> > driver changes.
-> > > >
-> > >
-> > > According to discussions with the GPU vendor, this is a hardware
-> > > limitation of Mali-G310 rather than a hardware bug, and it has been
-> > > addressed in newer Mali GPU families.
-> > 
-> > I represent the said GPU vendor and I think I know what you're talking about,
-> > but you're taking the wrong approach. All G310s have a problem where in
-> > order to enable access to the ipa_counters the automatic clock gating gets
-> > disabled. So the solution that needs to be implemented when we add support
-> > for IPA_COUNTERs will apply to all GPUs, not just MX952.
+> The MC33978 and MC34978 differ primarily in their operating temperature
+> ranges. While not software-detectable, providing specific compatible
+> strings allows the hwmon subsystem to correctly interpret thermal
+> thresholds and hardware faults.
 > 
-> Yes. We have bring-up G310 (V2) GPU on both i.MX95 and i.MX952. And auto clock 
-> gating mechanism is firstly introduced in i.MX952 (not supported on i.MX95).
-> According to your update, solution needs to be implemented to all GPUs which support 
-> auto clock gating mechanism after IPA_COUNTERs are supported in the driver, right?
+> These ICs monitor up to 22 mechanical switch contacts in automotive and
+> industrial environments. They provide configurable wetting currents to
+> break through contact oxidation and feature extensive hardware
+> protection against thermal overload and voltage transients (load
+> dumps/brown-outs).
+> 
+> The device interfaces via SPI. While it provides multiple functions, its
+> primary hardware purpose is pin/switch control. To accurately represent
+> the hardware as a single physical integrated circuit without unnecessary
+> DT overhead, all functions are flattened into a single pinctrl node:
+> - pinctrl: Exposing the 22 switch inputs (SG/SP pins) as a GPIO controller
+>   and managing their pin configurations.
+> - hwmon: Exposing critical hardware faults (OT, OV, UV) and static
+>   voltage/temperature thresholds.
+> - mux: Controlling the 24-to-1 analog multiplexer to route pin voltages,
+>   internal temperature, or battery voltage to an external SoC ADC.
+> 
+> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
+> ---
+> changes v10:
+> - no changes
+> changes v9:
+> - no changes
+> changes v8:
+> - Update IRQ_TYPE_* macros include path reference in documentation from
+>   interrupt-controller.h to dt-bindings/interrupt-controller/irq.h.
+> - Add bias-disable, drive-open-drain, drive-open-source, and drive-strength
+>   to the list of supported pin configuration properties.
+> changes v7:
+> - no changes
+> changes v6:
+> - add Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> - add Reviewed-by: Linus Walleij <linusw@kernel.org>
+> changes v5:
+> - Commit Message: Added justification for distinct compatible strings
+>   based on temperature ranges.
+> - Restricted pins property to an explicit enum of valid hardware pins
+> changes v4:
+> - Drop the standalone mfd/nxp,mc33978.yaml schema entirely.
+> - Move the unified device binding to bindings/pinctrl/nxp,mc33978.yaml,
+> - Remove the dedicated child node compatible strings (nxp,mc33978-pinctrl).
+> - Flatten the pinctrl/gpio properties directly into the main SPI device
+>   node.
+> changes v3:
+> - Drop regular expression pattern from pinctrl child node and define
+>   it as a standard property
+> - Reorder required properties list in MFD binding
+> - Remove stray blank line from the MFD binding devicetree example
+> - Replace unevaluatedProperties with additionalProperties in the pinctrl
+>   binding
+> changes v2:
+> - Squashed MFD, pinctrl, hwmon, and mux bindings into a single patch
+> - Removed the empty hwmon child node
+> - Folded the mux-controller node into the parent MFD node
+> - Added vbatp-supply and vddq-supply to the required properties block
+> - Changed the example node name from mc33978@0 to gpio@0
+> - Removed unnecessary literal block scalars (|) from descriptions
+> - Documented SG, SP, and SB pin acronyms in the pinctrl description
+> - Added consumer polarity guidance (GPIO_ACTIVE_LOW/HIGH) for SG/SB
+>   inputs, with a note on output circuit dependency
+> - Updated commit message
+> ---
+>  .../bindings/pinctrl/nxp,mc33978.yaml         | 158 ++++++++++++++++++
+>  1 file changed, 158 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/pinctrl/nxp,mc33978.yaml
+> 
 
-A solution is needed, yes.
+My bot found errors running 'make dt_binding_check' on your patch:
 
-> What's your suggestions for 952 gpu dtb node?
+yamllint warnings/errors:
 
-There is no IPA_COUNTER use in Panthor at the moment. Unless your DVFS controller uses
-that, I would suggest that we don't introduce a compatible for 952 until the time we
-add support for reading the counters.
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pinctrl/nxp,mc33978.example.dtb: gpio@0 (nxp,mc33978): $nodename:0: 'gpio@0' does not match '^mux-controller(@.*|-([0-9]|[1-9][0-9]+))?$'
+	from schema $id: http://devicetree.org/schemas/mux/mux-controller.yaml
 
-It helps if you think in terms of what is already in upstream, rather than mixing with
-the tests that uses kbase code. Does your hardware need extra code in upstream in order
-to function? If so, where is that code? If not, then let's not introduce the compatible
-until we are absolutely sure we need it because we have code specific to that SoC. For
-everything else we will implement an architecture fix if needed.
+doc reference errors (make refcheckdocs):
 
-Best regards,
-Liviu
+See https://patchwork.kernel.org/project/devicetree/patch/20260401162510.1706073-2-o.rempel@pengutronix.de
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
