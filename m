@@ -1,117 +1,141 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 189313BE162;
-	Wed,  1 Apr 2026 10:37:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F8839D6D1;
+	Wed,  1 Apr 2026 10:39:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775039856; cv=none; b=RqTeTnkggphREd6StaNRCZ07V3Ba2zyfoM4OqVyU54RTMJGsuV31y0b0K9Jcrufzc/6fv60Ln4De7UnLqWgxETzXHhfFBCVvS/CLOsRtDvQDSoNsipZdbJo/zNVYRKHR/BkxYV3/Jobq739dbK+wxQOOhbMe6adBRc6ZBL8TkzQ=
+	t=1775039948; cv=none; b=Hswz4hs3xY8SQuyP4zeCimi+rLPEEOAMurDynzkK3V2XhaPONaK+eLlqU/7GGwWO6XU0tsPNbTjEVbv61vr+MSPIHGvl+g1l/+1y+DrYoR+yiEpa1wrLVNZFcS0vazaox4J7AuqPfUFSqoJIo/2keAQnBlrJkgtoGuD+zXgdJJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775039856; c=relaxed/simple;
-	bh=+2TaLnc9RZqutTRX8SJCv4qricOwP96HReXXGGlAKhE=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=WvqjE4/bxcSEnQEF03B9HmXjiFY1duXcNnM+rrXKPWyUBYNm2Bp3SrNXFRuoVLgJ1rE7pXWBTxJJ5r6f6gMES7UwPIlK7BcjcJB/1+Slm5EUudqQajILv6iHalaQw+MMRldQbCYv3CxMIzI5u66lVaJZa050hpMcwioELlyvG9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hRpODnnb; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775039948; c=relaxed/simple;
+	bh=gypXeCIau+T31ayAMYAkx5DFD3q4gUaQNSeKpKpkNlQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DDeZM/ztGBaHxPqBzt94yU6jJYyJm7byLEUc4+mP76EdzQhtb02OX6eLIJ/soNwzHlkJHPZJ6w+fGIOjElEvJCs+36nRIBrUr7ga1x5ELT4do2G18eeDYGbM71VJ+KJk42ruSWBwtGgucMvWmVdgkSggED/ZumPk4d5VKF30fgI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K7DG3XbO; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hRpODnnb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8ABBDC4CEF7;
-	Wed,  1 Apr 2026 10:37:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K7DG3XbO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98EF3C2BC9E;
+	Wed,  1 Apr 2026 10:38:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775039855;
-	bh=+2TaLnc9RZqutTRX8SJCv4qricOwP96HReXXGGlAKhE=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
-	b=hRpODnnbNkaR9WkVqJTF4tkNjwCQKIvjfOATHxR9QQRvgjJJIEivGY4SB65EN9YgQ
-	 z0SU/1E0bhz+KDcSSgP5QkmYsRMoKxJ0vbazgWLlwzuMw19kK7qtIlweyHzSn6Hh7R
-	 zilpCQoPfSoj1Mgi3jrzBLFfKcgAkKVvH7ZgnBrwsEOxs5fkxI3PXH/aVFj22w6Wxn
-	 TPraDAaQSOS2Bd5zg1TkuIw9dtUL65pjZUz/YiL0ux3O2hkawE+pjRqcJ2oTTOpQDi
-	 B+JLo2axLpkABL8TuTCmuP/xZR0yFsH9fXts/vfP61iHgaKrKjtL7tnQtiIkbOiCya
-	 365XMjRRJ74KA==
-Date: Wed, 01 Apr 2026 05:37:33 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20201202; t=1775039948;
+	bh=gypXeCIau+T31ayAMYAkx5DFD3q4gUaQNSeKpKpkNlQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=K7DG3XbOUuYMx5zD4tf0w/zNrZEISuaOkl0y9bsZ4ZF+eqvqQ0/krCyVMIfchfDNf
+	 7Xuk5gafjgRfYkVK39mhBM2PDIsE/ixN1liAk/eRoKmQyUGy7ZRj1enOA4NQefzUhI
+	 GLjiOnzc4Y9Zei2bor3Xg2dVwcLdWJOepFwM7wBYVvd6VJCg8PPuvvxNBtxRTTj29Y
+	 r/jcLZLUpgF2HxBl3qkmT9U5xv+UaKmhWqfZ7wP821m87phAJNBAnqkabTP3HN5ohF
+	 rtkX5shCv/WaBxEtGFpPtzvO3eboX0+Vzx+RlGHVegISQ8lNsbFVElduYjqr1+Mwkf
+	 H5tWHI+WMrmkw==
+Message-ID: <2f4c4063-daf6-48f2-b830-9f58dc7af80d@kernel.org>
+Date: Wed, 1 Apr 2026 12:38:56 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-pci@vger.kernel.org, Eckert.Florian@googlemail.com, 
- Rahul Tanwar <rtanwar@maxlinear.com>, linux-kernel@vger.kernel.org, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Sajid Dalvi <sdalvi@google.com>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- Manivannan Sadhasivam <mani@kernel.org>, 
- Ajay Agarwal <ajayagarwal@google.com>, devicetree@vger.kernel.org, 
- Johan Hovold <johan+linaro@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- ms@dev.tdt.de, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>
-To: Florian Eckert <fe@dev.tdt.de>
-In-Reply-To: <20260401-pcie-intel-gw-v3-7-63b008c5b7b2@dev.tdt.de>
-References: <20260401-pcie-intel-gw-v3-0-63b008c5b7b2@dev.tdt.de>
- <20260401-pcie-intel-gw-v3-7-63b008c5b7b2@dev.tdt.de>
-Message-Id: <177503985369.3634917.6461713197883659054.robh@kernel.org>
-Subject: Re: [PATCH v3 7/7] dt-bindings: PCI: intel,lgm-pcie: Add atu
- resource
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: gpu: mali-valhall-csf: Document i.MX952
+ support
+To: Guangliu Ding <guangliu.ding@nxp.com>, Liviu Dudau <liviu.dudau@arm.com>
+Cc: "Daniel Baluta (OSS)" <daniel.baluta@oss.nxp.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <frank.li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "imx@lists.linux.dev" <imx@lists.linux.dev>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, Jiyu Yang <jiyu.yang@nxp.com>
+References: <20260331-master-v1-0-65c8e318d462@nxp.com>
+ <20260331-master-v1-1-65c8e318d462@nxp.com> <acva1Xt8V4k9-uG8@e142607>
+ <AM0PR04MB47073E9E8B5C704BCF5D9F72F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+ <99a1da55-d6e5-4d11-abaa-8c85283ab5f2@oss.nxp.com>
+ <AM0PR04MB4707B3E37DFE7AEE587DBA2AF350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+ <aczv0R0aQRmHKdvt@e142607>
+ <AM0PR04MB4707335CC7035232D44E6ED9F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <AM0PR04MB4707335CC7035232D44E6ED9F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
-On Wed, 01 Apr 2026 11:31:43 +0200, Florian Eckert wrote:
-> The 'atu' information is already set in the dwc core, if it is specified
-> in the devicetree. The driver uses its own default, if not set in the
-> devicetree. This information is hardware specific and should therefore be
-> maintained in the devicetree rather than in the source.
+On 01/04/2026 12:31, Guangliu Ding wrote:
+>> Either add the patch(es) that use the compatible to this series in v2, or put a
+>> comment in the commit message on where we can see the driver changes.
+>>
 > 
-> To be backward compatibile, this field is not mandatory. If 'atu'
-> resource is not specified in the devicetree, the driver’s default value
-> is used.
+> According to discussions with the GPU vendor, this is a hardware limitation 
+> of Mali-G310 rather than a hardware bug, and it has been addressed in newer
+> Mali GPU families.
 > 
-> Old DTS entry for PCIe:
-> 
-> reg = <0xd1000000 0x1000>,
->       <0xd3000000 0x20000>,
->       <0xd0c41000.0x1000>;
-> reg-names = "dbi", "config", "app";
-> 
-> New DTS entry for PCIe:
-> 
-> reg = <0xd1000000 0x1000>,
->       <0xd10c0000 0x1000>,
->       <0xd3000000 0x20000>,
->      <0xd0c41000.0x1000>;
-> reg-names = "dbi", "atu", "config", "app";
-> 
-> Signed-off-by: Florian Eckert <fe@dev.tdt.de>
-> ---
->  Documentation/devicetree/bindings/pci/intel-gw-pcie.yaml | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
+> In addition, ipa_counters are not enabled in the current Panthor driver. We observed
+> this issue with the private Mali DDK where ipa_counters were enabled.
+> Therefore, keeping the compatible string is necessary to allow for future divergence.
 
-My bot found errors running 'make dt_binding_check' on your patch:
+No one discusses here whether you need separate compatible string.
+writing bindings and all my talks are (e.g. DTS 101) are clearly
+expecting you.
 
-yamllint warnings/errors:
+We discuss only the lack of compatibility in terms of DT, how DT sees
+compatible devices.
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pci/intel-gw-pcie.example.dtb: pcie@d0e00000 (intel,lgm-pcie): reg-names:1: 'config' was expected
-	from schema $id: http://devicetree.org/schemas/pci/intel-gw-pcie.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pci/intel-gw-pcie.example.dtb: pcie@d0e00000 (intel,lgm-pcie): reg-names:2: 'app' was expected
-	from schema $id: http://devicetree.org/schemas/pci/intel-gw-pcie.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pci/intel-gw-pcie.example.dtb: pcie@d0e00000 (intel,lgm-pcie): reg-names:3: 'atu' was expected
-	from schema $id: http://devicetree.org/schemas/pci/intel-gw-pcie.yaml
+And lack of driver code is clear indication that devices are compatible
+in terms how DT understands it. Feel encouraged to bring actual
+arguments in commit msgs in the future.
 
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260401-pcie-intel-gw-v3-7-63b008c5b7b2@dev.tdt.de
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+Best regards,
+Krzysztof
