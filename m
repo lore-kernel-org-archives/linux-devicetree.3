@@ -1,37 +1,42 @@
 Received: from mail-08.mail-europe.com (mail-08.mail-europe.com [57.129.93.249])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A3BD37FF61
-	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 07:34:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB29238BF67;
+	Wed,  1 Apr 2026 07:34:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.129.93.249
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775028847; cv=none; b=H2nlmJexNyciHj2jLnSHdPReXsNxYthoQM0HKNoinpomtwD2kJyM/5yQKDmhS03ztHPRCou2nlV770Lz33nA887DpRtyRU7aaT2WVobkOjihHMu9m7AMsxRJmaGD1Yvk9L9ETUIxpRLf4partccQyJgCGlMCeuEbL4Qjf+5rODI=
+	t=1775028848; cv=none; b=Kuy+JWfV7GgdjozfKHcpuPnHNnSiuHxSn9xJU5mJkmPfjALjES0aJqUFzFbK5meV0zqyJnXRsVrnhvGwuoObSvOuLIDWlkueOJNYD8++pxY7nARBoRJCik0+s05wMvfhARc65LC6r5BKH3QNl4P85UH1RGxJ3u95COC0ZOFqgdc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775028847; c=relaxed/simple;
-	bh=2GcFOJjX1AnO7H5r0kjFzXIVQGMcfOJjJ+MW/bueJ0s=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=UPRAApnw0zjk1qIgGn3Z19UAZkFEPRs+/04LJ4m9MO6mR+RjOEXElY+GNTPlyOqaKThUkF/MBQe98QYrDFUaHtvrRV0JkvPGG5li7Cwx38L+lWRlEoYpnkZ4EOZj4o/P7aA5w6JI8xr3inxSN0bNT5zXT4ef3Huc2JT25xvg6mM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com; spf=pass smtp.mailfrom=vinarskis.com; dkim=pass (2048-bit key) header.d=vinarskis.com header.i=@vinarskis.com header.b=VEwKhf4/; arc=none smtp.client-ip=57.129.93.249
+	s=arc-20240116; t=1775028848; c=relaxed/simple;
+	bh=60K/Uy8LU9zf98IRPCjLh2551vSDeukTLK2XSg3KdFw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=hwuxNKxEsRNa2E5/hVPKs/KJhBFNTtQ+l68qFk/IokYu7TqYeHxOsLJm2pkZVW6yuslC/JkdOzeC0XYns13psSJtYT1UIeeshp9xHVItrlKCyrDjvC0Eeh4ofWmXeMAtF+MK9S71eMAIqot3bZDNzhsNAO6Z7RzLetlyqU+bCD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com; spf=pass smtp.mailfrom=vinarskis.com; dkim=pass (2048-bit key) header.d=vinarskis.com header.i=@vinarskis.com header.b=Md3i3u7k; arc=none smtp.client-ip=57.129.93.249
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinarskis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vinarskis.com header.i=@vinarskis.com header.b="VEwKhf4/"
+	dkim=pass (2048-bit key) header.d=vinarskis.com header.i=@vinarskis.com header.b="Md3i3u7k"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vinarskis.com;
-	s=protonmail2; t=1775028829; x=1775288029;
-	bh=Rde7q74qxf8lDFPD+wE2Tm30AFRT8y1GKoT/Zc7Ga+w=;
-	h=From:Subject:Date:Message-Id:To:Cc:From:To:Cc:Date:Subject:
-	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=VEwKhf4/WxgZmwwqxnLDZm6gcP8R4GM0VESMjGjOMLgmyn3ktyLUzMKjQLPodhq9L
-	 kAhhDQ1buJA/fs/8Q6mAli2nAURhOA7mDoBJOp7ILN8YzwolmC06EFu4asi/GV6CRf
-	 WJJ9gwJTS/vw+WAgWHGwzrfRCn1IXnVkZES83jeagIZCSNpTPp0FN5gCb+ziw4xmnO
-	 GAQHVYz3FD33Cth6BoNisWfykC96Wa2Xbk8V6uVtVhJP/r0kJPuK+EsrGYg+nvn6dD
-	 tTksFL9KQ1XusvaWn7jiP/VAxLp47aIavAUup92uvQf2f2pC3RJKr8c8dbRYUY01R+
-	 oPmHQLaHQc73g==
-X-Pm-Submission-Id: 4flxYl60t2z1DDLK
+	s=protonmail2; t=1775028835; x=1775288035;
+	bh=3cX2RM0lGaVVwCSJiPc5We3uqoBIIsjre4hSZZ55meA=;
+	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=Md3i3u7k84zPIbmyEQdyoQ7b24uu/iyBdfUdOseBvhapFgSNeZYaV0bMWykGfWDDv
+	 VT/fWlMaT4FGdvOgTTFc8SV/gPzctndZzURAcX+xymFbVmgKG8UHMGMLOdOKuBwFdV
+	 OsnsOBmDHetm4tLoSQzCLWN0zKIHep5VKISlW6yzPMHVN/aIzxXfxK2ntKDxjV5bq4
+	 VbO3+e9EBWLFYA5B2i5/wpNj6BcEdZQ4ShT1vrbt1B/Yn87hULuL45mOSTMbF5u1aR
+	 Hty9WA2t78rq2M6nFU97ttqqnBkzomk0VyI31Dsl67jRWWo0aCdq+wtCJebvUzTjZ4
+	 THmnBVfpQRjEg==
+X-Pm-Submission-Id: 4flxYt4nyxz1DDLb
+gpg: Signature made Wed 01 Apr 2026 09:30:47 AM CEST
+gpg: using EDDSA key 8BFCF5668AA29DAD00D728F6EDAE71A20F500310
+gpg: Good signature from "Aleksandrs Vinarskis <alex@vinarskis.com>"
+ [ultimate]
+gpg: aka "Aleksandrs Vinarskis <alex.vinarskis@gmail.com>" [ultimate]
 From: Aleksandrs Vinarskis <alex@vinarskis.com>
-Subject: [PATCH 0/4] Introduce EC driver for Snapdragon X1E based Dell XPS
- 13 9345
-Date: Wed, 01 Apr 2026 09:33:09 +0200
-Message-Id: <20260401-dell-xps-9345-ec-v1-0-afa5cacd49be@vinarskis.com>
+Date: Wed, 01 Apr 2026 09:33:13 +0200
+Subject: [PATCH 4/4] arm64: dts: qcom: x1e80100-dell-xps13-9345: introduce
+ EC
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,10 +45,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIADXKzGkC/x3MQQqAIBBG4avErBvILMGuEi0qf2tAKhRCiO6et
- PwW7z2UEAWJhuqhiFuSnEeBqita9/nYwOKKqW1a02it2CEEzldiq7uesTJ631mnFnijqGRXhJf
- 8L8fpfT/H4+39YgAAAA==
-X-Change-ID: 20260331-dell-xps-9345-ec-e5f49d1bef61
+Message-Id: <20260401-dell-xps-9345-ec-v1-4-afa5cacd49be@vinarskis.com>
+References: <20260401-dell-xps-9345-ec-v1-0-afa5cacd49be@vinarskis.com>
+In-Reply-To: <20260401-dell-xps-9345-ec-v1-0-afa5cacd49be@vinarskis.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -55,79 +59,155 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  laurentiu.tudor1@dell.com, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
  Tobias Heider <tobias.heider@canonical.com>, Val Packett <val@packett.cool>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3414; i=alex@vinarskis.com;
- h=from:subject:message-id; bh=2GcFOJjX1AnO7H5r0kjFzXIVQGMcfOJjJ+MW/bueJ0s=;
- b=owGbwMvMwCX2dl3hIv4AZgHG02pJDJlnTkX/vKG0N2LXikPmTF92dWZVNFenHGQJU8hLnGBnw
- nbrcubfjlIWBjEuBlkxRZbuP1/TuhbNXctwXeMbzBxWJpAhDFycAjAR33mMDK84mXdMm6W+40MR
- 7xWb4w4r838IJMlxRE6ap2FcUR+39AHDX1mDzdIcBqyLXW84B0qe/H7+8PPDhW1Tr3c8L7gtfrb
- 3ERsA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4046; i=alex@vinarskis.com;
+ h=from:subject:message-id; bh=60K/Uy8LU9zf98IRPCjLh2551vSDeukTLK2XSg3KdFw=;
+ b=owGbwMvMwCX2dl3hIv4AZgHG02pJDJlnTkXz1eQ+NeY7WfT7yAdDH66daZa3hb+Ensk+tl0te
+ /7zRzqlHaUsDGJcDLJiiizdf76mdS2au5bhusY3mDmsTCBDGLg4BeAiqQz/ix1W+7+Uee4vEfgr
+ aELujvtn/FKV7h9V+xChvLxplfT0NQz/1Bef+pcx9/TnR2v4Qu7ecPjnfNwizD3iReI8bh7T08x
+ 5TAA=
 X-Developer-Key: i=alex@vinarskis.com; a=openpgp;
  fpr=8E21FAE2D2967BB123303E8C684FD4BA28133815
 
-This series adds Embedded Controller (EC) driver for Dell XPS 13 9345.
-While EC appears to control most of device's peripherals, particular
-driver addresses power and thermal managment issues. Key operational
-principle involves initial thermistor constants configuration followed
-by a periodic reporting of these onboard thermistor values from across
-the motherboard to the EC. The latter then handles fan ramp-up/
-ramp-down internally. Suspend/Resume must be likewise propagated to EC
-for power management.
-
-The driver was developed primarily by analyzing ACPI DSDT's _DSM and
-i2c dumps of communication between SoC and EC during various stages of
-operation (bootup, suspend, resume).
-
-With EC driver in place, the following issues are addressed:
-1. Fans were not properly cooling the laptop, would kick in late and
-   spin lazily, resulting in heavy throttling. With EC driver fans
-   start sooner and hit high RPM under heavy load.
-2. Fans were not stopping once SoC temperature dropped, they would keep
-   slowly spinning irrespective of suspend and/or closed lid until the
-   next powercycle. With EC driver shortly after SoC temperature drops,
-   thermistors temperature drops, and fans ramp-down.
-3. Keyboard and touch row backlight were not turning off during
-   suspend - only lid close would power off the touch row. With EC
-   driver behavior matches that of Windows, suspending device with lid
-   open powers off the peripherals.
-
-As thermistor readout depends on pmic's ADCs, this series introduces
-EC driver and its schema, adds missing ADC to hamoa-pmics, and finally
-adds thermistor and EC nodes to x1e80100-dell-xps13-9345.dts.
-
-Additional findings:
-- Max fan speed depends on Dell's power mode settings, configurable in
-  BIOS or using Windows app (relies on ACPI-WMI). It appears best
-  cooling performance is achieved under 'Ultra Performance' profile.
-- When the said power mode is changed using Windows app, EC IRQ is
-  triggered. Windows performs what appears to be thermistor contants
-  readout, though its not obvious what it is used for.
-- Given similarities between Dell XPS 13 series (codename 'tributo')
-  and Snapdragon-based Latitude, Inspiron ('thena'), including matching
-  EC address and response to suspend/resume command the EC driver can
-  be likely used for both, though in-depth testing on 'thena' is
-  required.
+Describe embedded controller, its interrupt and required thermal zones.
+Add EC's reset GPIO to reserved range, as triggering it during device
+operation leads to unrecoverable and unusable state.
 
 Signed-off-by: Aleksandrs Vinarskis <alex@vinarskis.com>
 ---
-Aleksandrs Vinarskis (4):
-      dt-bindings: platform: introduce EC for Dell XPS 13 9345
-      platform: arm64: dell-xps-ec: new driver
-      arm64: dts: qcom: hamoa-pmics: define VADC for pmk8550
-      arm64: dts: qcom: x1e80100-dell-xps13-9345: introduce EC
+ .../boot/dts/qcom/x1e80100-dell-xps13-9345.dts     | 91 +++++++++++++++++++++-
+ 1 file changed, 89 insertions(+), 2 deletions(-)
 
- .../embedded-controller/dell,xps13-9345-ec.yaml    |  86 +++++++
- MAINTAINERS                                        |   6 +
- arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi          |  11 +
- .../boot/dts/qcom/x1e80100-dell-xps13-9345.dts     |  91 ++++++-
- drivers/platform/arm64/Kconfig                     |  12 +
- drivers/platform/arm64/Makefile                    |   1 +
- drivers/platform/arm64/dell-xps-ec.c               | 269 +++++++++++++++++++++
- 7 files changed, 474 insertions(+), 2 deletions(-)
----
-base-commit: 3b058d1aeeeff27a7289529c4944291613b364e9
-change-id: 20260331-dell-xps-9345-ec-e5f49d1bef61
+diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
+index ce7b10ea89b6dcb2a4a65c114037f4c90a4b0c6d..32e7134316709f5574d43d9edd83c77fb7d23451 100644
+--- a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
++++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
+@@ -7,6 +7,7 @@
+ /dts-v1/;
+ 
+ #include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/iio/qcom,spmi-adc7-pm8350.h>
+ #include <dt-bindings/input/gpio-keys.h>
+ #include <dt-bindings/input/input.h>
+ #include <dt-bindings/leds/common.h>
+@@ -759,8 +760,29 @@ retimer_ss0_con_sbu_out: endpoint {
+ 
+ &i2c5 {
+ 	clock-frequency = <100000>;
+-	status = "disabled";
+-	/* EC @0x3b */
++	status = "okay";
++
++	embedded-controller@3b {
++		compatible = "dell,xps13-9345-ec";
++		reg = <0x3b>;
++
++		interrupts-extended = <&tlmm 66 IRQ_TYPE_LEVEL_LOW>;
++
++		pinctrl-0 = <&ec_int_n_default>;
++		pinctrl-names = "default";
++
++		io-channels = <&pmk8550_vadc PM8350_ADC7_GPIO3_100K_PU(1)>,
++			      <&pmk8550_vadc PM8350_ADC7_GPIO4_100K_PU(1)>,
++			      <&pmk8550_vadc PM8350_ADC7_AMUX_THM1_100K_PU(1)>,
++			      <&pmk8550_vadc PM8350_ADC7_AMUX_THM2_100K_PU(1)>,
++			      <&pmk8550_vadc PM8350_ADC7_AMUX_THM3_100K_PU(1)>,
++			      <&pmk8550_vadc PM8350_ADC7_AMUX_THM4_100K_PU(1)>,
++			      <&pmk8550_vadc PM8350_ADC7_AMUX_THM5_100K_PU(1)>;
++
++		io-channel-names = "sys_therm0", "sys_therm1", "sys_therm2",
++				   "sys_therm3", "sys_therm4", "sys_therm5",
++				   "sys_therm6";
++	};
+ };
+ 
+ &i2c7 {
+@@ -1025,6 +1047,64 @@ rtmr0_1p8_reg_en: rtmr0-1p8-reg-en-state {
+ 	};
+ };
+ 
++&pmk8550_vadc {
++	/* sys_therm0, around DRAM */
++	channel@14c {
++		reg = <PM8350_ADC7_GPIO3_100K_PU(1)>;
++		qcom,hw-settle-time = <200>;
++		qcom,ratiometric;
++		label = "sys_therm0";
++	};
++
++	/* sys_therm1, around left Type-C charging controller */
++	channel@14d {
++		reg = <PM8350_ADC7_GPIO4_100K_PU(1)>;
++		qcom,hw-settle-time = <200>;
++		qcom,ratiometric;
++		label = "sys_therm1";
++	};
++
++	/* sys_therm2, around upper-left side of motherboard */
++	channel@144 {
++		reg = <PM8350_ADC7_AMUX_THM1_100K_PU(1)>;
++		qcom,hw-settle-time = <200>;
++		qcom,ratiometric;
++		label = "sys_therm2";
++	};
++
++	/* sys_therm3, around right Type-C charging controller */
++	channel@145 {
++		reg = <PM8350_ADC7_AMUX_THM2_100K_PU(1)>;
++		qcom,hw-settle-time = <200>;
++		qcom,ratiometric;
++		label = "sys_therm3";
++	};
++
++	/* sys_therm4, around SSD connector */
++	channel@146 {
++		reg = <PM8350_ADC7_AMUX_THM3_100K_PU(1)>;
++		qcom,hw-settle-time = <200>;
++		qcom,ratiometric;
++		label = "sys_therm4";
++	};
++
++	/* sys_therm5, around battery charging circuit */
++	channel@147 {
++		reg = <PM8350_ADC7_AMUX_THM4_100K_PU(1)>;
++		qcom,hw-settle-time = <200>;
++		qcom,ratiometric;
++		label = "sys_therm5";
++	};
++
++	/* sys_therm6, around keyboard */
++	channel@148 {
++		reg = <PM8350_ADC7_AMUX_THM5_100K_PU(1)>;
++		qcom,hw-settle-time = <200>;
++		qcom,ratiometric;
++		label = "sys_therm6";
++	};
++};
++
+ &qupv3_0 {
+ 	status = "okay";
+ };
+@@ -1071,6 +1151,7 @@ &smb2360_1_eusb2_repeater {
+ 
+ &tlmm {
+ 	gpio-reserved-ranges = <44 4>,  /* SPI11 (TPM) */
++			       <65 1>,  /* EC Reset */
+ 			       <76 4>,  /* SPI19 (TZ Protected) */
+ 			       <238 1>; /* UFS Reset */
+ 
+@@ -1081,6 +1162,12 @@ cam_indicator_en: cam-indicator-en-state {
+ 		bias-disable;
+ 	};
+ 
++	ec_int_n_default: ec-int-n-state {
++		pins = "gpio66";
++		function = "gpio";
++		bias-disable;
++	};
++
+ 	edp_bl_en: edp-bl-en-state {
+ 		pins = "gpio74";
+ 		function = "gpio";
 
-Best regards,
 -- 
-Aleksandrs Vinarskis <alex@vinarskis.com>
+2.53.0
 
