@@ -1,84 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from out-170.mta1.migadu.com (out-170.mta1.migadu.com [95.215.58.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65FD4348883;
-	Wed,  1 Apr 2026 13:10:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 355C633261F
+	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 13:16:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775049025; cv=none; b=R8u2LipnJyH+N1XsXTmM5wQ72jzqItQ64wDiGikOZPZkcGIOEBggG9AbGpj1W5mN+3cF4S/DCxjV+BRAeVNcgj7pkSxFWxbo5NutMyb8sOugwqEUMOq6eY5oOBZav43+8VyUxYepyFk2u5LpiWZiQXXh6ZAHZmLgZI8z2BZ6MtY=
+	t=1775049388; cv=none; b=rH9G7wC/28oRmE2yG/RooxYvIXeDtYat+v+JjzLbwW3K+ZfVEmfEoofRZ61Esv+vflAYFc8/S+q3D3qy3n1eJKvrQzg6UOOFSlf2xb4E/KoLGKymGM0QPI6zUcjhs9QvhR4kuwC5m7/MwrkOqwBB6SU2+BHWb6Ea7TtzEuSHAnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775049025; c=relaxed/simple;
-	bh=vLiBS5Uw3iuwKIpYa72ivsyYGQcntQs+xCU93VpVqYQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UwlMT0Sl3ahnIoMNfP8qR8FhI5+bP93i0CjfKvcOOubEO/5Wz3VCPaE8DPkVw3Sp8nInW4skXCIcrZ3H8FFh9oVbpjggFxc9gyQAQImfEZiOETxaorc7gFbclYqZCi50I0Age+Y7ekdGzLIdGzKIBFxZe94eVcAvh/eh4Yd5tRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kDq6FwOg; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775049388; c=relaxed/simple;
+	bh=CGNQRMlk34XHqzvGHCMuqAN6f7M5pIDq3xpMr85kpk4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VS+o9y8cEMI5fSlrdH234LX2HbcXYz3Ttnwu/+SwoCd527VwBn5G6B9xUl76RtdXFK6USLuiMoJyhalrU0FPE6wifA7G91CzHjvUFmovYxwlyPzwxfyV+EZElFNL0fIzTvNgqiV6pEDY+QY9A2ve8Ux1qMgHQwMD0/g6nKH0JXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=dhJO1h+W; arc=none smtp.client-ip=95.215.58.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kDq6FwOg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDEEFC4CEF7;
-	Wed,  1 Apr 2026 13:10:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775049025;
-	bh=vLiBS5Uw3iuwKIpYa72ivsyYGQcntQs+xCU93VpVqYQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kDq6FwOgFS+Kbr8iLp9i5r0qu1GEVJMso/YTxhvo44lyWavq28NEYv2ZPF0ONh+VS
-	 CYAElTyJKIvNz/uBGqSlxTPjK+H2YEO5eMoWSVkmYaYQHpu3agAsQ7c3wUy58clvN8
-	 2g1PQkkEp0e7VliYF3wrphrDE2i/oUNsXkDxo+h1Ro9o6hQzXD+5o1/jwjLTABiR+s
-	 FFmNFrb5x44lKUz034/fAAa3hGYnTx6uQkjgfdffDpQYIDdBwaLOF5NPpThS4AaLWk
-	 YlRJp6iY5ZS4E/gkupTccavvk/pr/0qjENvX4S+QxM2ftjbrCb2t+/eCWQyT0zxem6
-	 Ij0aC1pNs+azQ==
-Date: Wed, 1 Apr 2026 18:40:17 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH] dt-bindings: mailbox: qcom: Add IPCC support for Hawi
- Platform
-Message-ID: <7guwvnqtq6oqeeqcs7s5nsscra5r2nzujjyecbftpijbb7pp2g@rfverjuxzf4g>
-References: <20260401125126.593254-1-mukesh.ojha@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="dhJO1h+W"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow-tech.com;
+	s=key1; t=1775049384;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=g9ydFqbwdCGJ7LRZTrnA9AUz17TQxDwNxo5bRSg0N6o=;
+	b=dhJO1h+Ww8MQKzUtbpNaLyCXn73u3UbmH5Tl74THeoTvoSR0HGHXD3AnR3AVAeS8jq1RXl
+	Obgk9v2DuAQOoI88zttsNkO5HNt/M4Qta4fBOWA4ik2lS2sCZBCYlFIY3HYNnHqbvNN0r8
+	Slh8ksHgkVJhkK1gQGRhtkRtglLvyQVayXovep6Ge5VoOHb67WfG9WdF9Qiqs2+Od7i4lY
+	D6wuEyBjxg7QdGX9JwB9SFW4P/XKjLosWz18iJ6Y1FUMsQrnZtVXueppuovRXdSfi+G2s2
+	BJrzdqMNfHybzgeRnXwBojP/hsyO1SOwYSEI+2W673rdvufpQy8cdAfk4TDewA==
+From: Diederik de Haas <diederik@cknow-tech.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Diederik de Haas <diederik@cknow-tech.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] arm64: dts: rockchip: Fix gmac0 reset pin for NanoPi R5S
+Date: Wed,  1 Apr 2026 15:11:38 +0200
+Message-ID: <20260401131551.734456-2-diederik@cknow-tech.com>
+In-Reply-To: <20260401131551.734456-1-diederik@cknow-tech.com>
+References: <20260401131551.734456-1-diederik@cknow-tech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260401125126.593254-1-mukesh.ojha@oss.qualcomm.com>
+X-Migadu-Flow: FLOW_OUT
 
-On Wed, Apr 01, 2026 at 06:21:26PM +0530, Mukesh Ojha wrote:
-> Document the Inter-Processor Communication Controller on the Qualcomm
-> Hawi Platform, which will be used to route interrupts across various
-> subsystems found on the SoC.
-> 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+According to the NanoPi R5S 2204 schematic on page 6, GPIO0_C4 is for
+GMAC0_INT/PMEB_GPIO0_C4, while GPIO0_C5 is for GMAC0_RSTn_GPIO0_C5.
+While the 'reset-gpios' property was set correctly, the corresponding
+pinctrl didn't match that.
 
-Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
+Next to fixing the pinctrl definition, also change the node name and
+phandle to match what is used in the schematic.
 
-- Mani
+Fixes: c6629b9a6738 ("arm64: dts: rockchip: Add FriendlyElec Nanopi R5S")
+Signed-off-by: Diederik de Haas <diederik@cknow-tech.com>
+---
+ arch/arm64/boot/dts/rockchip/rk3568-nanopi-r5s.dts | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-> ---
->  Documentation/devicetree/bindings/mailbox/qcom-ipcc.yaml | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/mailbox/qcom-ipcc.yaml b/Documentation/devicetree/bindings/mailbox/qcom-ipcc.yaml
-> index 7c4d6170491d..7dbc3ac6c5c9 100644
-> --- a/Documentation/devicetree/bindings/mailbox/qcom-ipcc.yaml
-> +++ b/Documentation/devicetree/bindings/mailbox/qcom-ipcc.yaml
-> @@ -25,6 +25,7 @@ properties:
->      items:
->        - enum:
->            - qcom,glymur-ipcc
-> +          - qcom,hawi-ipcc
->            - qcom,kaanapali-ipcc
->            - qcom,milos-ipcc
->            - qcom,qcs8300-ipcc
-> -- 
-> 2.53.0
-> 
-
+diff --git a/arch/arm64/boot/dts/rockchip/rk3568-nanopi-r5s.dts b/arch/arm64/boot/dts/rockchip/rk3568-nanopi-r5s.dts
+index 718d1a2da8e5..90ce6f0e1dcf 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3568-nanopi-r5s.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3568-nanopi-r5s.dts
+@@ -98,7 +98,7 @@ &mdio0 {
+ 	rgmii_phy0: ethernet-phy@1 {
+ 		compatible = "ethernet-phy-ieee802.3-c22";
+ 		reg = <1>;
+-		pinctrl-0 = <&eth_phy0_reset_pin>;
++		pinctrl-0 = <&gmac0_rstn_gpio0_c5_pin>;
+ 		pinctrl-names = "default";
+ 	};
+ };
+@@ -132,8 +132,8 @@ &pcie3x2 {
+ 
+ &pinctrl {
+ 	gmac0 {
+-		eth_phy0_reset_pin: eth-phy0-reset-pin {
+-			rockchip,pins = <0 RK_PC4 RK_FUNC_GPIO &pcfg_pull_up>;
++		gmac0_rstn_gpio0_c5_pin: gmac0-rstn-gpio0-c5-pin {
++			rockchip,pins = <0 RK_PC5 RK_FUNC_GPIO &pcfg_pull_up>;
+ 		};
+ 	};
+ 
 -- 
-மணிவண்ணன் சதாசிவம்
+2.53.0
+
