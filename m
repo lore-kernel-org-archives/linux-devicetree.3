@@ -1,145 +1,133 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mail-08.mail-europe.com (mail-08.mail-europe.com [57.129.93.249])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD4BD375F69
-	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 07:33:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A3BD37FF61
+	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 07:34:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.129.93.249
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775028838; cv=none; b=f8fVZa9pUZFYKrsXsAaSifBMZI/ZuMIyO2Ba0yvGGa8zp5sKdnJu5ivwwbsTsFqjrcWjYwmxeWLEuCXMNFTim+1X4uy+Ek4sEZS4yHbwOIfNLC2jToyOLTxHtfbUXWzDwXLfitVkAa32xJ2zx9X63MnvOQWK6xFF6Ta/KsUD3Z4=
+	t=1775028847; cv=none; b=H2nlmJexNyciHj2jLnSHdPReXsNxYthoQM0HKNoinpomtwD2kJyM/5yQKDmhS03ztHPRCou2nlV770Lz33nA887DpRtyRU7aaT2WVobkOjihHMu9m7AMsxRJmaGD1Yvk9L9ETUIxpRLf4partccQyJgCGlMCeuEbL4Qjf+5rODI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775028838; c=relaxed/simple;
-	bh=iK65w0LjaTQtPQfrKLmgekAJIlm/JBXiAcjmKb5JoP8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=hnWH06loYf8iHMk0XG5RJO4PZsP350k34hkRULGJFn9hUrBvXjUy94XLGaY37kuVQXSzkYM/BD6hMWx1OjIWVb83R9VWi9h0IeMogzMTIglGQ7fozykHa1PcPlqlkPlfBAHA4dgAwqB80hr4vbab5HqUqIAsNnRphAeZLqvUJz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mtRX4OVu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kO8n27cY; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1775028847; c=relaxed/simple;
+	bh=2GcFOJjX1AnO7H5r0kjFzXIVQGMcfOJjJ+MW/bueJ0s=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=UPRAApnw0zjk1qIgGn3Z19UAZkFEPRs+/04LJ4m9MO6mR+RjOEXElY+GNTPlyOqaKThUkF/MBQe98QYrDFUaHtvrRV0JkvPGG5li7Cwx38L+lWRlEoYpnkZ4EOZj4o/P7aA5w6JI8xr3inxSN0bNT5zXT4ef3Huc2JT25xvg6mM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com; spf=pass smtp.mailfrom=vinarskis.com; dkim=pass (2048-bit key) header.d=vinarskis.com header.i=@vinarskis.com header.b=VEwKhf4/; arc=none smtp.client-ip=57.129.93.249
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinarskis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mtRX4OVu";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kO8n27cY"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6313VTg01459610
-	for <devicetree@vger.kernel.org>; Wed, 1 Apr 2026 07:33:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=hPPR2+jvkaHole48wnGcgLBTOBMjVSCOu4+
-	iJ7qiB5g=; b=mtRX4OVuC4Ht/qmfYab0gD/tLh/L2Y5Dg2+vhcGjBpA/9bTgmDN
-	0MPqJgbRglVwpdFGOQCpNKQDtu0kVz8mHPEzfwT4i4NkJwTJl7CIHtmMoTLsDNBo
-	A/9ecNoSuHdXb1G4/J9TM+5JTRFFc6NS+RpPy9YeP9HFb7k9DSWC1ggFhw46BGNM
-	KYNjuxU8H4McdgL2ELlWthGirxh6OxdEzz0DApMCk9v7w4tsP7Y5gDrnL5YHJ6Tq
-	qZKtDZXegUy75Gsl2hQOK3Ovqa9V4pqsJNegqNfMVkpiE9hUlD1se/d6oNfAMpV5
-	wj8S/yde2rXNgYjjNnuE20aRMXhGcbPy4Ig==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d8uhg0vv7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 07:33:54 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2b23c909256so58586425ad.0
-        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 00:33:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775028834; x=1775633634; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=hPPR2+jvkaHole48wnGcgLBTOBMjVSCOu4+iJ7qiB5g=;
-        b=kO8n27cY3NDoIDALUUFvqv2ZxLuFycYz3YExkrWGkzZ/dCrY2Kz4mZ9h0h5vWoSKks
-         juIPmOaFHRp3thFvLnUsrL4EAGRpRJStv7gL6Wzl4QdlK+SgUHm4qjxaKS6fvSz3SRpj
-         dKhBGRQAYy2M/v7ZqcckzAXf0auAAeQT437LGWbMPeS+5k9ZQ/TeUIffg5vvWI9oma5M
-         LkCc2GbmvPyPvYZhMG3p+nbtAxUG01xyLcwEwMJm+BHk0STTPYiGees2AYtUy31LHkLb
-         9+U9dynwKpKCispAWpXWd+4OmfXlyyZ89mHxURUXd3NlVyDnpiaZkQxn5S2O2FcMvMKX
-         /+kA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775028834; x=1775633634;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hPPR2+jvkaHole48wnGcgLBTOBMjVSCOu4+iJ7qiB5g=;
-        b=tGlDnLLHNTiGGz/Sjys4mD91K4GvmTYgLgPRh6mbFU8zHOgbIAf82bK9eQCVmpJRIs
-         Jx9E9AUb/BKpWzW4zNLJ4OOO40Px/urbAELKocM3WlY94SaL2nBsH4pG2profz71+xmO
-         oQ0iwoh75vfRtqlJ9imBBy6l8ruTjKH0B5KBD1sPbA/oXemN+bc2+eALFjK/fm6UCqdw
-         7JKV1jRJCY4Dl4nfikSaG90PYPtnmBpAGcyi9Z8M0/5rH0hy7fBm50Db0CYZV0TByZLo
-         hc3EjyNA6ZI88wk9m+egHxX/gdhfQg8TxUkKL7BsApWTqUpbmugpyAVkGUhU+fYkQZUE
-         Aieg==
-X-Forwarded-Encrypted: i=1; AJvYcCVpcA0XbNrJyaMCF47XqCzrgq20FbwHvPiA9mG9hkYRfS4trx87TljTlRlu+RhzYe9qAjOpSbaXT56D@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy+M8IKQ/VL8eHPEBmC/D0Eor20pD59P/qqy9QHqy6wIYUIxPvE
-	xY5PYTb6LpO/C4jB4FSYnFuvsWKUJlswD9rgR6H28DmKDqMoPZm1MbOaTzfM/pPW+8jLUcqEFSm
-	UquolHWOA4u65DYDi2D1Uck5nk4pOY2ptcRNl1j85EXhG5WDMc5DymLpioPG73r9t
-X-Gm-Gg: ATEYQzyNE1ExRD9YeqNqGJwggHLQdOOoN0dwoY+dLppJwrpK+ntlqRn0IkDcynYwhBj
-	AE80i9jBz/H7eKckS2hwxdFpAbnzrALkjlQ5253vcQcPv8P0WulezH69xF4xN0nVIMhlZCLsq/K
-	ZwhquGlb/IFgpzBYct8teAgMiAJHJboZAP+FULsUmyLB6/BgiumDTnuU66gbIb8FVmMziRGe6zQ
-	VMmiuDbGEcQHKkUzwqbxN5ZBccxk6zzlgMBWAJ9dYNdS8C99RtC0H/UdBBWD62Fr8/IGBHmV11o
-	OwNriagg4IIVy9lfQboBgwrRHhExwFUGrACtvHOW04+v+zcd5tav9fJP5pW/whB5XeTw6Qyd+bz
-	y8OF8HHs0TMXwebAVwldbJO/lppyru48ts0eCdD71SaGhCkS3ss/ojT8fbgdGhY0bKM5SNHs1ob
-	eC4jj4lOGe9zRJIMWVQg==
-X-Received: by 2002:a17:903:3c4c:b0:2ae:826f:2c50 with SMTP id d9443c01a7336-2b269aa6173mr24687455ad.12.1775028834291;
-        Wed, 01 Apr 2026 00:33:54 -0700 (PDT)
-X-Received: by 2002:a17:903:3c4c:b0:2ae:826f:2c50 with SMTP id d9443c01a7336-2b269aa6173mr24687215ad.12.1775028833770;
-        Wed, 01 Apr 2026 00:33:53 -0700 (PDT)
-Received: from QCOM-SocCW5bzXR.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b242690e60sm136623835ad.37.2026.04.01.00.33.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Apr 2026 00:33:53 -0700 (PDT)
-From: Jianping Li <jianping.li@oss.qualcomm.com>
-To: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org
-Cc: Jianping Li <jianping.li@oss.qualcomm.com>, conor+dt@kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, ekansh.gupta@oss.qualcomm.com
-Subject: [PATCH] arm64: dts: qcom: kodiak: increase fastrpc compute-cb session slots
-Date: Wed,  1 Apr 2026 15:33:45 +0800
-Message-Id: <20260401073345.478-1-jianping.li@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=vinarskis.com header.i=@vinarskis.com header.b="VEwKhf4/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vinarskis.com;
+	s=protonmail2; t=1775028829; x=1775288029;
+	bh=Rde7q74qxf8lDFPD+wE2Tm30AFRT8y1GKoT/Zc7Ga+w=;
+	h=From:Subject:Date:Message-Id:To:Cc:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=VEwKhf4/WxgZmwwqxnLDZm6gcP8R4GM0VESMjGjOMLgmyn3ktyLUzMKjQLPodhq9L
+	 kAhhDQ1buJA/fs/8Q6mAli2nAURhOA7mDoBJOp7ILN8YzwolmC06EFu4asi/GV6CRf
+	 WJJ9gwJTS/vw+WAgWHGwzrfRCn1IXnVkZES83jeagIZCSNpTPp0FN5gCb+ziw4xmnO
+	 GAQHVYz3FD33Cth6BoNisWfykC96Wa2Xbk8V6uVtVhJP/r0kJPuK+EsrGYg+nvn6dD
+	 tTksFL9KQ1XusvaWn7jiP/VAxLp47aIavAUup92uvQf2f2pC3RJKr8c8dbRYUY01R+
+	 oPmHQLaHQc73g==
+X-Pm-Submission-Id: 4flxYl60t2z1DDLK
+From: Aleksandrs Vinarskis <alex@vinarskis.com>
+Subject: [PATCH 0/4] Introduce EC driver for Snapdragon X1E based Dell XPS
+ 13 9345
+Date: Wed, 01 Apr 2026 09:33:09 +0200
+Message-Id: <20260401-dell-xps-9345-ec-v1-0-afa5cacd49be@vinarskis.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAxMDA2NiBTYWx0ZWRfX1pFRLrz9Cpqe
- zk3KHj1bc1PknPBKTXS51Uu2ePm9FtsvxH2ZvwaJCqXreUYCD8RciQF+3v+QZ2kWx1aPRyn0vua
- 0jBUiez1li5yOi8jDslX3ZBd7fpHsWOyfRa+ltxe70zALMrDT1v6evlQfYtZUqBC3P0tTcHbpZQ
- mUnrmhN7OisrsoyAa/0q+2rBonLJKZzpuos30Rp12qFVtC6frwU0Mz8mi/ODOwrFp2PwdHG/SEI
- fdcxJE7m/Nd9KE+SzczTCEBFxlf+hdu5im2TpabNeA8wIuUgp91B0McvXeuiDZwP1HE/mAxnnv7
- e2+dsHNBj3p7qorTVUer+Zq9qtruivS4hiMARmT6oe+MrhqJE+fbYzoE/dFh5oucjukX2HuMMIV
- 4ioL4RLBUG4vcad89EyYWqDwv/3IfnoL4Mthq8xGOWeV0I+gdWVcomUc54DE/mCPIeLjHp7xi6O
- hHdoR3nE+lCKyOAm+pg==
-X-Authority-Analysis: v=2.4 cv=YcawJgRf c=1 sm=1 tr=0 ts=69ccca63 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=hbxEiaAZNVryL09W7gsA:9 a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-GUID: 7PVxZBqvcVCzDOz12jhUmdb8tEXazLYR
-X-Proofpoint-ORIG-GUID: 7PVxZBqvcVCzDOz12jhUmdb8tEXazLYR
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-01_02,2026-04-01_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 adultscore=0 clxscore=1011 suspectscore=0
- malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604010066
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADXKzGkC/x3MQQqAIBBG4avErBvILMGuEi0qf2tAKhRCiO6et
+ PwW7z2UEAWJhuqhiFuSnEeBqita9/nYwOKKqW1a02it2CEEzldiq7uesTJ631mnFnijqGRXhJf
+ 8L8fpfT/H4+39YgAAAA==
+X-Change-ID: 20260331-dell-xps-9345-ec-e5f49d1bef61
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
+ laurentiu.tudor1@dell.com, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+ Tobias Heider <tobias.heider@canonical.com>, Val Packett <val@packett.cool>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3414; i=alex@vinarskis.com;
+ h=from:subject:message-id; bh=2GcFOJjX1AnO7H5r0kjFzXIVQGMcfOJjJ+MW/bueJ0s=;
+ b=owGbwMvMwCX2dl3hIv4AZgHG02pJDJlnTkX/vKG0N2LXikPmTF92dWZVNFenHGQJU8hLnGBnw
+ nbrcubfjlIWBjEuBlkxRZbuP1/TuhbNXctwXeMbzBxWJpAhDFycAjAR33mMDK84mXdMm6W+40MR
+ 7xWb4w4r838IJMlxRE6ap2FcUR+39AHDX1mDzdIcBqyLXW84B0qe/H7+8PPDhW1Tr3c8L7gtfrb
+ 3ERsA
+X-Developer-Key: i=alex@vinarskis.com; a=openpgp;
+ fpr=8E21FAE2D2967BB123303E8C684FD4BA28133815
 
-Some workloads on Kodiak can exhaust FastRPC sessions when multiple
-compute clients open contexts concurrently, leading to -EBUSY failures.
+This series adds Embedded Controller (EC) driver for Dell XPS 13 9345.
+While EC appears to control most of device's peripherals, particular
+driver addresses power and thermal managment issues. Key operational
+principle involves initial thermistor constants configuration followed
+by a periodic reporting of these onboard thermistor values from across
+the motherboard to the EC. The latter then handles fan ramp-up/
+ramp-down internally. Suspend/Resume must be likewise propagated to EC
+for power management.
 
-Describe the compute context bank with qcom,nsessions = <5> so the
-driver can provision enough session slots for the compute-cb instance.
+The driver was developed primarily by analyzing ACPI DSDT's _DSM and
+i2c dumps of communication between SoC and EC during various stages of
+operation (bootup, suspend, resume).
 
-Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
+With EC driver in place, the following issues are addressed:
+1. Fans were not properly cooling the laptop, would kick in late and
+   spin lazily, resulting in heavy throttling. With EC driver fans
+   start sooner and hit high RPM under heavy load.
+2. Fans were not stopping once SoC temperature dropped, they would keep
+   slowly spinning irrespective of suspend and/or closed lid until the
+   next powercycle. With EC driver shortly after SoC temperature drops,
+   thermistors temperature drops, and fans ramp-down.
+3. Keyboard and touch row backlight were not turning off during
+   suspend - only lid close would power off the touch row. With EC
+   driver behavior matches that of Windows, suspending device with lid
+   open powers off the peripherals.
+
+As thermistor readout depends on pmic's ADCs, this series introduces
+EC driver and its schema, adds missing ADC to hamoa-pmics, and finally
+adds thermistor and EC nodes to x1e80100-dell-xps13-9345.dts.
+
+Additional findings:
+- Max fan speed depends on Dell's power mode settings, configurable in
+  BIOS or using Windows app (relies on ACPI-WMI). It appears best
+  cooling performance is achieved under 'Ultra Performance' profile.
+- When the said power mode is changed using Windows app, EC IRQ is
+  triggered. Windows performs what appears to be thermistor contants
+  readout, though its not obvious what it is used for.
+- Given similarities between Dell XPS 13 series (codename 'tributo')
+  and Snapdragon-based Latitude, Inspiron ('thena'), including matching
+  EC address and response to suspend/resume command the EC driver can
+  be likely used for both, though in-depth testing on 'thena' is
+  required.
+
+Signed-off-by: Aleksandrs Vinarskis <alex@vinarskis.com>
 ---
- arch/arm64/boot/dts/qcom/kodiak.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+Aleksandrs Vinarskis (4):
+      dt-bindings: platform: introduce EC for Dell XPS 13 9345
+      platform: arm64: dell-xps-ec: new driver
+      arm64: dts: qcom: hamoa-pmics: define VADC for pmk8550
+      arm64: dts: qcom: x1e80100-dell-xps13-9345: introduce EC
 
-diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi b/arch/arm64/boot/dts/qcom/kodiak.dtsi
-index 6079e67ea829..5bd20909f9db 100644
---- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
-+++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
-@@ -4465,6 +4465,7 @@ compute-cb@5 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <5>;
- 						iommus = <&apps_smmu 0x1805 0x0>;
-+						qcom,nsessions = <5>;
- 						dma-coherent;
- 					};
- 				};
+ .../embedded-controller/dell,xps13-9345-ec.yaml    |  86 +++++++
+ MAINTAINERS                                        |   6 +
+ arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi          |  11 +
+ .../boot/dts/qcom/x1e80100-dell-xps13-9345.dts     |  91 ++++++-
+ drivers/platform/arm64/Kconfig                     |  12 +
+ drivers/platform/arm64/Makefile                    |   1 +
+ drivers/platform/arm64/dell-xps-ec.c               | 269 +++++++++++++++++++++
+ 7 files changed, 474 insertions(+), 2 deletions(-)
+---
+base-commit: 3b058d1aeeeff27a7289529c4944291613b364e9
+change-id: 20260331-dell-xps-9345-ec-e5f49d1bef61
+
+Best regards,
 -- 
-2.43.0
+Aleksandrs Vinarskis <alex@vinarskis.com>
 
