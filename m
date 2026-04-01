@@ -1,168 +1,219 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A765F3AE6F2;
-	Wed,  1 Apr 2026 08:17:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FBD93AB291
+	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 08:24:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775031447; cv=none; b=MJM1mK6Rs4/0ckLIKpwaZ2mGxv/pry+OBwj2IbT+8b0H5KC64hWpOwkRUIouIvNJaayIt5Nbh4o1ilDlCDpTGNW8dh/aNOvC9JA5HzO3ILqPisA9gk8A97zxTFRtOpbbDrF9j9zWIQQ6hgt4DJDhcjp97hWpriVYGoJQFr84640=
+	t=1775031858; cv=none; b=PxwpcHaiPGq2H/yPD2UhsSHOK17E4FsqW2Jg7yOmsmatSDWzmRLFjNDxbThAD48Y0NWSmcx4nVB1HUs4TJhWWhW+4+VB7jcPhOibEX81g6tH/yBNRAnWfdMDcPXjq7yfxBdDi9QSYrvt4EW5VIm68OfUDaafZHTsulKOoky436k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775031447; c=relaxed/simple;
-	bh=Ni04/9G4SIsoNZG/RxPat+gme/lPsnTjF/lZIzHivpc=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=XFP1PFD5/AbsJ8i95DPjd7haEoE6WKGDdFiAzUNS/BxpW51nNJnqfjelthFH2voVKtccL/QyX7uXJ7Uq71cEdtxJWtcp1b860h9p10kBawEB8d0Fm1Ld4apzb3J8pIs/Wva56ikWmUUEMAJzJS3PeqQ++XFYZKnpsxsty8iLlIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=NR81kuGT; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="NR81kuGT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1775031444; x=1806567444;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=Ni04/9G4SIsoNZG/RxPat+gme/lPsnTjF/lZIzHivpc=;
-  b=NR81kuGTf6rAW8DivIT97WKNlZNbiO0G2cYqxjAPdhRqN/KLAgKhZKsw
-   YaXS+KyPG1Khx2QPoRXwY3pVDelQoPXaSp8HAw2G/mwzVlj1BnH9n369J
-   eiU1sPO9LZpfv4ZMkCDW9LzrBS48feBVO0duFJhbuDAL1f/Ew9qXKbiVS
-   mFfgXwPPzF445O5ERoImCkV3v0OAcxBts9gbytWWIsAY49YpRE999tscE
-   BYZeqqRzmpQn+IJc187eiJavWqvP3KxB4wn1GaUMzcklA/crQRY98eQlP
-   raIfuRmBXPObELy9Coyirck4FJP+c9DG+K9XEs0S2CHgjqSXPNSXdGfT6
-   g==;
-X-CSE-ConnectionGUID: ZqHib0C6R5S5HUDka/KWCQ==
-X-CSE-MsgGUID: Sn8Fp7uiSuyFNME6zMPA2g==
-X-IronPort-AV: E=Sophos;i="6.23,153,1770620400"; 
-   d="scan'208";a="55944410"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Apr 2026 01:17:23 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
- chn-vm-ex2.mchp-main.com (10.10.87.31) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.35; Wed, 1 Apr 2026 01:17:00 -0700
-Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Wed, 1 Apr 2026 01:16:57 -0700
-Message-ID: <2a2de46c493fe7d9fcae5c02406d374c40c997eb.camel@microchip.com>
-Subject: Re: [PATCH net-next v2 2/9] dt-bindings: net: lan9645x: add
- LAN9645X switch bindings
-From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
-To: Jakub Kicinski <kuba@kernel.org>
-CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
-	<davem@davemloft.net>, <edumazet@google.com>, <pabeni@redhat.com>,
-	<horms@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>, <woojung.huh@microchip.com>, <linux@armlinux.org.uk>,
-	<Steen.Hegelund@microchip.com>, <daniel.machon@microchip.com>,
-	<linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
-	<devicetree@vger.kernel.org>
-Date: Wed, 1 Apr 2026 10:16:57 +0200
-In-Reply-To: <20260329195625.2789069-1-kuba@kernel.org>
-References: <20260324-dsa_lan9645x_switch_driver_base-v2-2-f7504e3b0681@microchip.com>
-	 <20260329195625.2789069-1-kuba@kernel.org>
+	s=arc-20240116; t=1775031858; c=relaxed/simple;
+	bh=ZzcQF/xLbG3d2Xhxu7WWzgc6rMJlFaUDEw2dS3CW/vM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=fEqXedKeyFQU4kweoxapSrPaLBN6kZQ3AgYR/Jhwgc4xfYiFIn7pLqPE0+yGE5UAwkK5dwVM18TrkMi/C8Pn0kPj2Om3bMhec0sPWjaUemg6UjhtAUd5roDcUkECYFoFja9qpocxW4ZBM6oH00pGkBxroy3A+qt4jFDh8Twe3oo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1w7qrh-0007cM-In; Wed, 01 Apr 2026 10:23:53 +0200
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1w7qrg-003B7l-1L;
+	Wed, 01 Apr 2026 10:23:52 +0200
+Received: from pza by lupine with local (Exim 4.98.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1w7qrf-000000005us-3m3M;
+	Wed, 01 Apr 2026 10:23:51 +0200
+Message-ID: <0bad9579a953cc069e17a7075a45c9eb9c7a6d8d.camel@pengutronix.de>
+Subject: Re: [PATCH v9 5/6] reset: rzv2h-usb2phy: Convert to regmap API
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Cc: tomm.merciai@gmail.com, peda@axentia.se,
+ linux-renesas-soc@vger.kernel.org, 	biju.das.jz@bp.renesas.com, Fabrizio
+ Castro <fabrizio.castro.jz@renesas.com>,  Lad Prabhakar
+ <prabhakar.mahadev-lad.rj@bp.renesas.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Geert Uytterhoeven	 <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Josua Mayer <josua@solid-run.com>, Ulf
+ Hansson	 <ulf.hansson@linaro.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Wed, 01 Apr 2026 10:23:51 +0200
+In-Reply-To: <aczRo8HVUFqXKfG_@tom-desktop>
+References: <cover.1774601289.git.tommaso.merciai.xr@bp.renesas.com>
+	 <0259040014396ea03d58a87c2ce2a3f9eff2b0b6.1774601289.git.tommaso.merciai.xr@bp.renesas.com>
+	 <283a6336658045be8906ee219620c994e85c7fb8.camel@pengutronix.de>
+	 <aczRo8HVUFqXKfG_@tom-desktop>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: p.zabel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-On Sun, 2026-03-29 at 12:56 -0700, Jakub Kicinski wrote:
-> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
-e content is safe
+On Mi, 2026-04-01 at 10:04 +0200, Tommaso Merciai wrote:
+> Hi Philipp,
+> Thanks for your review.
 >=20
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
-> ---
-> dt-bindings: net: lan9645x: add LAN9645X switch bindings
+> On Tue, Mar 31, 2026 at 06:36:45PM +0200, Philipp Zabel wrote:
+> > On Fr, 2026-03-27 at 19:08 +0100, Tommaso Merciai wrote:
+> > > Replace raw MMIO accesses (void __iomem *, readl/writel) with
+> > > regmap_read/regmap_write via devm_regmap_init_mmio(). Regmap
+> > > provides its own internal locking, so the manual spinlock and
+> > > scoped_guard() wrappers are no longer needed.
+> > >=20
+> > > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> > > ---
+> > > v8->v9:
+> > >  - New patch
+> > >=20
+> > >  drivers/reset/Kconfig               |  1 +
+> > >  drivers/reset/reset-rzv2h-usb2phy.c | 42 ++++++++++++++++-----------=
+--
+> > >  2 files changed, 24 insertions(+), 19 deletions(-)
+> > >=20
+> > > diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
+> > > index 5165006be693..c539ca88518f 100644
+> > > --- a/drivers/reset/Kconfig
+> > > +++ b/drivers/reset/Kconfig
+> > > @@ -257,6 +257,7 @@ config RESET_RZG2L_USBPHY_CTRL
+> > >  config RESET_RZV2H_USB2PHY
+> > >  	tristate "Renesas RZ/V2H(P) (and similar SoCs) USB2PHY Reset driver=
+"
+> > >  	depends on ARCH_RENESAS || COMPILE_TEST
+> > > +	select REGMAP_MMIO
+> > >  	help
+> > >  	  Support for USB2PHY Port reset Control found on the RZ/V2H(P) SoC
+> > >  	  (and similar SoCs).
+> > > diff --git a/drivers/reset/reset-rzv2h-usb2phy.c b/drivers/reset/rese=
+t-rzv2h-usb2phy.c
+> > > index 5bdd39274612..4014eff0f017 100644
+> > > --- a/drivers/reset/reset-rzv2h-usb2phy.c
+> > > +++ b/drivers/reset/reset-rzv2h-usb2phy.c
+> > > @@ -5,13 +5,13 @@
+> > >   * Copyright (C) 2025 Renesas Electronics Corporation
+> > >   */
+> > > =20
+> > > -#include <linux/cleanup.h>
+> > >  #include <linux/delay.h>
+> > >  #include <linux/io.h>
+> > >  #include <linux/module.h>
+> > >  #include <linux/of.h>
+> > >  #include <linux/platform_device.h>
+> > >  #include <linux/pm_runtime.h>
+> > > +#include <linux/regmap.h>
+> > >  #include <linux/reset.h>
+> > >  #include <linux/reset-controller.h>
+> > > =20
+> > > @@ -37,10 +37,9 @@ struct rzv2h_usb2phy_reset_of_data {
+> > > =20
+> > >  struct rzv2h_usb2phy_reset_priv {
+> > >  	const struct rzv2h_usb2phy_reset_of_data *data;
+> > > -	void __iomem *base;
+> > > +	struct regmap *regmap;
+> > >  	struct device *dev;
+> > >  	struct reset_controller_dev rcdev;
+> > > -	spinlock_t lock; /* protects register accesses */
+> > >  };
+> > > =20
+> > >  static inline struct rzv2h_usb2phy_reset_priv
+> > > @@ -55,10 +54,8 @@ static int rzv2h_usbphy_reset_assert(struct reset_=
+controller_dev *rcdev,
+> > >  	struct rzv2h_usb2phy_reset_priv *priv =3D rzv2h_usbphy_rcdev_to_pri=
+v(rcdev);
+> > >  	const struct rzv2h_usb2phy_reset_of_data *data =3D priv->data;
+> > > =20
+> > > -	scoped_guard(spinlock, &priv->lock) {
+> > > -		writel(data->reset2_acquire_val, priv->base + data->reset2_reg);
+> > > -		writel(data->reset_assert_val, priv->base + data->reset_reg);
+> > > -	}
+> > > +	regmap_write(priv->regmap, data->reset2_reg, data->reset2_acquire_v=
+al);
+> > > +	regmap_write(priv->regmap, data->reset_reg, data->reset_assert_val)=
+;
+> >=20
+> > What is the spinlock protecting? acquire/assert registers being set
+> > together, without another acquire/assert or deassert/release register
+> > access pair interleaving?
+> > In that case you still need the lock. Or use regmap_multi_reg_write().
+> > You could even directly store the sequences as struct reg_sequence in
+> > rzv2h_usb2phy_reset_of_data.
 >=20
-> Add bindings for LAN9645X switch. We use a fallback compatible for the
-> smallest SKU microchip,lan96455s-switch.
+> You are correct. Thank you.
+> As per your suggestion I'm planning to use regmap_multi_reg_write().
 >=20
-> > diff --git a/Documentation/devicetree/bindings/net/dsa/microchip,lan964=
-55s-switch.yaml b/Documentation/devicetree/bindings/net/dsa/microchip,lan96=
-455s-switch.yaml
-> > new file mode 100644
-> > index 000000000000..0282e25c05d4
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/net/dsa/microchip,lan96455s-swi=
-tch.yaml
+> Plan is to have the:
 >=20
-> [ ... ]
->=20
-> > +patternProperties:
-> > +  "^(ethernet-)?ports$":
-> > +    type: object
-> > +    additionalProperties: true
-> > +    patternProperties:
-> > +      "^(ethernet-)?port@[0-8]$":
->=20
-> Does having additionalProperties set to true bypass the port number
-> restriction?
->=20
-> Since dsa.yaml allows port@[0-9a-f]+, it seems port@9 would silently pass
-> validation as an additional property. Should this be unevaluatedPropertie=
-s
-> set to false instead?
->=20
+> static const struct reg_sequence rzv2h_init_seqs[] =3D {
 
-Yes it is true the port regex has no effect, but I do not think
+Even though the struct is called req_sequence, the whole array is the
+sequence. Let's call these _seq, singular.
 
-unevaluatedProperties: false
+> 	{ .reg =3D 0xc10, .def =3D 0x67c },
+> 	{ .reg =3D 0xc14, .def =3D 0x1f },
 
-is what I want here. That rejects other properties from the parent. I can
-remove the explicit additionalProperties: true. This is similar to
+0x01f for consistency?
 
-Documentation/devicetree/bindings/net/dsa/lantiq,gswip.yaml
-
-and the port number restriction still serves as documentation, even if it i=
-s
-not applied during validation.
-
-
-> > +        type: object
-> > +        description: Ethernet switch ports
-> > +
-> > +        $ref: dsa-port.yaml#
-> > +
-> > +        properties:
-> > +          rx-internal-delay-ps:
-> > +            const: 2000
-> > +
-> > +          tx-internal-delay-ps:
-> > +            const: 2000
+> 	{ .reg =3D 0x600, .def =3D 0x909 },
+> };
 >=20
-> Does enforcing a 2000ps delay conflict with standard rgmii bindings?
->=20
-> As documented in net/ethernet-controller.yaml, a full 2ns delay is
-> typically modeled using phy-mode set to rgmii-id rather than hardcoding t=
-he
-> delay properties with a base rgmii mode.
->=20
+> static const struct reg_sequence rzv2h_assert_seqs[] =3D {
+> 	{ .reg =3D 0xb04, .def =3D 0x303 },
+> 	{ .reg =3D 0x000, .def =3D 0x206 },
 
-No this was explicitly requested on v1 to enable adding a delay with mac2ma=
-c links.
-I enforce 2000ps because that is the only supported value.
+Consider setting .delay_us =3D 11, see below.
 
-> [ ... ]
+> };
 >=20
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +
-> > +unevaluatedProperties: false
+> static const struct reg_sequence rzv2h_deassert_seqs[] =3D {
+> 	{ .reg =3D 0x000, .def =3D 0x200 },
+> 	{ .reg =3D 0xb04, .def =3D 0x003 },
+> 	{ .reg =3D 0x000, .def =3D 0x000 },
+> };
 >=20
-> How are the five integrated 10/100/1000Base-T phys mentioned in the
-> description modeled?
+> static const struct rzv2h_usb2phy_reset_of_data rzv2h_reset_of_data =3D {
+> 	.init_seqs =3D rzv2h_init_seqs,
+> 	.init_nseqs =3D ARRAY_SIZE(rzv2h_init_seqs),
+> 	.assert_seqs =3D rzv2h_assert_seqs,
+> 	.assert_nseqs =3D ARRAY_SIZE(rzv2h_assert_seqs),
+> 	.deassert_seqs =3D rzv2h_deassert_seqs,
+> 	.deassert_nseqs =3D ARRAY_SIZE(rzv2h_deassert_seqs),
+> 	.reset_reg =3D 0,
+> 	.reset_status_bits =3D BIT(2),
+> };
 >=20
-> Since unevaluatedProperties is false at the top level and there is no
-> definition or reference for an mdio node, wouldn't adding an mdio subnode
-> to configure these phys fail schema validation?
+> With that I can use:
 >=20
-> Should there be a reference to /schemas/net/mdio.yaml#?
+> static int rzv2h_usbphy_reset_assert(struct reset_controller_dev *rcdev,
+> 				     unsigned long id)
+> {
+> 	struct rzv2h_usb2phy_reset_priv *priv =3D rzv2h_usbphy_rcdev_to_priv(rcd=
+ev);
+> 	const struct rzv2h_usb2phy_reset_of_data *data =3D priv->data;
+> 	int ret;
+>=20
+> 	ret =3D regmap_multi_reg_write(priv->regmap, data->assert_seqs,
+> 				     data->assert_nseqs);
+> 	if (ret)
+> 		return ret;
+>=20
+> 	usleep_range(11, 20);
 
-No, the MDIO busses will be part of a parent MFD device node, not the switc=
-h node.
+Specifying a delay in rzv2h_assert_seqs[] and setting
+rzv2h_usb2phy_reset_regconf.can_sleep =3D true would have the same
+effect.
 
+regards
+Philipp
