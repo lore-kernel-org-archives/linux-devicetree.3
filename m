@@ -1,114 +1,168 @@
-Received: from mx0a-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 621343B9610;
-	Wed,  1 Apr 2026 08:17:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A765F3AE6F2;
+	Wed,  1 Apr 2026 08:17:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775031433; cv=none; b=PkNjsAD8RcQs2cRGmYOQTZHRNzMoQxCFCskUffg5HxSm3AY1buzLphqOXuaVsU4LfM7Ikn20eiu3OF98ihGHp5BF41Tv90VKLb+0lGv/W+hL7/HNgOKRmHRzOdGvhvVk7WP0SGzhSRaearQ2ORlijRfbcj4x7wATIH0tI1VuTfU=
+	t=1775031447; cv=none; b=MJM1mK6Rs4/0ckLIKpwaZ2mGxv/pry+OBwj2IbT+8b0H5KC64hWpOwkRUIouIvNJaayIt5Nbh4o1ilDlCDpTGNW8dh/aNOvC9JA5HzO3ILqPisA9gk8A97zxTFRtOpbbDrF9j9zWIQQ6hgt4DJDhcjp97hWpriVYGoJQFr84640=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775031433; c=relaxed/simple;
-	bh=zd7xjxqq7IvOrJO4WSClbykgiZPWsZ4Bm7lTJYjmK3Y=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=nLiAyqg+6r/e3dnGQYZGgAtep3tFuINQlhqaW7d70m6EvP+fRY6wRlktAHHfg7WsVcrfZDph1FVdgD7CmqYyZeZY3hmneLI+j6ruSZZqS3Ecb+HJDPZF2xU+Dfobm8HnpVVAFwquPx0h+kZOFhfcWygsvkAJV+drTkYvRT9m16Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=fzZHIL0M; arc=none smtp.client-ip=67.231.148.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	s=arc-20240116; t=1775031447; c=relaxed/simple;
+	bh=Ni04/9G4SIsoNZG/RxPat+gme/lPsnTjF/lZIzHivpc=;
+	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=XFP1PFD5/AbsJ8i95DPjd7haEoE6WKGDdFiAzUNS/BxpW51nNJnqfjelthFH2voVKtccL/QyX7uXJ7Uq71cEdtxJWtcp1b860h9p10kBawEB8d0Fm1Ld4apzb3J8pIs/Wva56ikWmUUEMAJzJS3PeqQ++XFYZKnpsxsty8iLlIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=NR81kuGT; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="fzZHIL0M"
-Received: from pps.filterd (m0431384.ppops.net [127.0.0.1])
-	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62VMGfsk2040922;
-	Wed, 1 Apr 2026 01:16:46 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-type:date:from:message-id:mime-version:subject:to; s=
-	pfpt0220; bh=RkfnkA4c1dqWR9iP4oUu+0lpykz2ZBHeEm5u6kBkk0M=; b=fzZ
-	HIL0M59rvEEtOf2Nt/wurF3IxcUjWOfauyjBIYU1VO1RqKvUZrOmUsrEg/tm5Pd7
-	/1Wvg8Ua8QBNHgRo/kji7Tmuc5IYoLEWv9eieqczxk3VX4AWS3MB8r70CDO6TbOG
-	+W6Cj2/bxR4ImeC92mBgup9tKeZQyJFAZ5xYB0TOQlpACw/HeavYCaTbDRV0e/yo
-	TOnUF4zfmA0woNnmcUB9/oovSn6BclvVMkvFEsOyopf7z0F4eGJ56F+Qk29ZzHrh
-	tw3o1naAIQqQr+FHnGVaXmTJ9ppDUGwv4DJQQhhsl6C+KpAvdRwt9RfIIeZVWnKj
-	eihzmLLCx6ic8GSEjuA==
-Received: from dc5-exch05.marvell.com ([199.233.59.128])
-	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4d8ck3uc8b-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 01 Apr 2026 01:16:46 -0700 (PDT)
-Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
- DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Wed, 1 Apr 2026 01:16:45 -0700
-Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
- DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Wed, 1 Apr 2026 01:16:44 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
- (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Wed, 1 Apr 2026 01:16:43 -0700
-Received: from hyd1soter3.marvell.com (unknown [10.29.37.12])
-	by maili.marvell.com (Postfix) with ESMTP id 529973F7055;
-	Wed,  1 Apr 2026 01:16:41 -0700 (PDT)
-From: Geetha sowjanya <gakula@marvell.com>
-To: <linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>
-CC: <mark.rutland@arm.com>, <will@kernel.org>, <krzk+dt@kernel.org>
-Subject: [PATCH v3 0/2] perf: marvell: Add CN20K DDR PMU support
-Date: Wed, 1 Apr 2026 13:46:38 +0530
-Message-ID: <20260401081640.23740-1-gakula@marvell.com>
-X-Mailer: git-send-email 2.17.1
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="NR81kuGT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1775031444; x=1806567444;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=Ni04/9G4SIsoNZG/RxPat+gme/lPsnTjF/lZIzHivpc=;
+  b=NR81kuGTf6rAW8DivIT97WKNlZNbiO0G2cYqxjAPdhRqN/KLAgKhZKsw
+   YaXS+KyPG1Khx2QPoRXwY3pVDelQoPXaSp8HAw2G/mwzVlj1BnH9n369J
+   eiU1sPO9LZpfv4ZMkCDW9LzrBS48feBVO0duFJhbuDAL1f/Ew9qXKbiVS
+   mFfgXwPPzF445O5ERoImCkV3v0OAcxBts9gbytWWIsAY49YpRE999tscE
+   BYZeqqRzmpQn+IJc187eiJavWqvP3KxB4wn1GaUMzcklA/crQRY98eQlP
+   raIfuRmBXPObELy9Coyirck4FJP+c9DG+K9XEs0S2CHgjqSXPNSXdGfT6
+   g==;
+X-CSE-ConnectionGUID: ZqHib0C6R5S5HUDka/KWCQ==
+X-CSE-MsgGUID: Sn8Fp7uiSuyFNME6zMPA2g==
+X-IronPort-AV: E=Sophos;i="6.23,153,1770620400"; 
+   d="scan'208";a="55944410"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Apr 2026 01:17:23 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
+ chn-vm-ex2.mchp-main.com (10.10.87.31) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.35; Wed, 1 Apr 2026 01:17:00 -0700
+Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Wed, 1 Apr 2026 01:16:57 -0700
+Message-ID: <2a2de46c493fe7d9fcae5c02406d374c40c997eb.camel@microchip.com>
+Subject: Re: [PATCH net-next v2 2/9] dt-bindings: net: lan9645x: add
+ LAN9645X switch bindings
+From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
+To: Jakub Kicinski <kuba@kernel.org>
+CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
+	<davem@davemloft.net>, <edumazet@google.com>, <pabeni@redhat.com>,
+	<horms@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <woojung.huh@microchip.com>, <linux@armlinux.org.uk>,
+	<Steen.Hegelund@microchip.com>, <daniel.machon@microchip.com>,
+	<linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+	<devicetree@vger.kernel.org>
+Date: Wed, 1 Apr 2026 10:16:57 +0200
+In-Reply-To: <20260329195625.2789069-1-kuba@kernel.org>
+References: <20260324-dsa_lan9645x_switch_driver_base-v2-2-f7504e3b0681@microchip.com>
+	 <20260329195625.2789069-1-kuba@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Proofpoint-GUID: yIu8xWzqBm4JafdGAdkZHYflZP05CU_2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAxMDA3MyBTYWx0ZWRfXxNu3LdOuiBmW
- tP6zsk4IFwRxoy7zl3AR/ATh4ajGp6yYsUiKltl645+cjnFOY97bgfvvtgmG1fAYoXRREWVf4CV
- 6SFzQILM9rb4b8MI8o/KrgNJL2SXgBWsQyiT3tJJNAEkKFfeCJ2RLvQFEGPiu0IVLR0U0k6YoS3
- Z5FW2usPswuxk52RCtbQ8poLzI16GZSMMDYS31UoCU6pQGW+wfriFMhVL0HKDpnFzzn9ZUoKt1X
- /bG23gqp5kz/VmVzPDPjPA5TI1c/tNktRjxdIR8XfU9rBiVTv/MrQXmLYbJvuiGa1QEC+tU5WCK
- igzFg4OdIbQBF0H51WmcZVbS3956mmlNaIGLPikH4QaLRC1ZZYj4xJ9IYxXg8v2JpzeAQEAtjna
- hTLjkJxXxltdAynCEO9nWUdTc+Yjn+nj7FvZXnxU4fOK5+XZkaKwhvLX+G142dMoftpkwoRwzVu
- YM0O5LY7CTUy4OJUQ5w==
-X-Proofpoint-ORIG-GUID: yIu8xWzqBm4JafdGAdkZHYflZP05CU_2
-X-Authority-Analysis: v=2.4 cv=EKMLElZC c=1 sm=1 tr=0 ts=69ccd46e cx=c_pps
- a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
- a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
- a=TtqV-g6YmW1Jfm2GSLaY:22 a=M5GUcnROAAAA:8 a=g9OxYFsRBXyit7-cW8EA:9
- a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-01_02,2026-04-01_01,2025-10-01_01
 
-This series adds support for the Marvell CN20K DRAM Subsystem (DSS)
-performance monitor in the existing marvell_cn10k_ddr_pmu driver, and
-documents the device tree binding for the new compatible string.
+On Sun, 2026-03-29 at 12:56 -0700, Jakub Kicinski wrote:
+> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
+e content is safe
+>=20
+> This is an AI-generated review of your patch. The human sending this
+> email has considered the AI review valid, or at least plausible.
+> ---
+> dt-bindings: net: lan9645x: add LAN9645X switch bindings
+>=20
+> Add bindings for LAN9645X switch. We use a fallback compatible for the
+> smallest SKU microchip,lan96455s-switch.
+>=20
+> > diff --git a/Documentation/devicetree/bindings/net/dsa/microchip,lan964=
+55s-switch.yaml b/Documentation/devicetree/bindings/net/dsa/microchip,lan96=
+455s-switch.yaml
+> > new file mode 100644
+> > index 000000000000..0282e25c05d4
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/net/dsa/microchip,lan96455s-swi=
+tch.yaml
+>=20
+> [ ... ]
+>=20
+> > +patternProperties:
+> > +  "^(ethernet-)?ports$":
+> > +    type: object
+> > +    additionalProperties: true
+> > +    patternProperties:
+> > +      "^(ethernet-)?port@[0-8]$":
+>=20
+> Does having additionalProperties set to true bypass the port number
+> restriction?
+>=20
+> Since dsa.yaml allows port@[0-9a-f]+, it seems port@9 would silently pass
+> validation as an additional property. Should this be unevaluatedPropertie=
+s
+> set to false instead?
+>=20
 
-The CN20K PMU provides eight programmable counters and two fixed
-counters (DDR reads and writes).  Patch 1 adds the devicetree schema for
-"marvell,cn20k-ddr-pmu".  Patch 2 wires OF and ACPI (MRVL000B) match
-entries, adds CN20K register offsets and event maps, and refactors
-platform data to use silicon variant flags.
+Yes it is true the port regex has no effect, but I do not think
 
-Signed-off-by: Geetha sowjanya <gakula@marvell.com>
+unevaluatedProperties: false
 
-Changes in v2:
- - Fixed YAML syntax error triggered by a tab character in the examples
-  section, which caused dt_binding_check to fail.
+is what I want here. That rejects other properties from the parent. I can
+remove the explicit additionalProperties: true. This is similar to
 
-Changes in v1:
-- Added a description field to the binding.
-- Simplified the compatible property using 'const' instead of 'items/enum'.
-- Updated the example node name to include a unit-address matching the reg base.
+Documentation/devicetree/bindings/net/dsa/lantiq,gswip.yaml
 
-Geetha sowjanya (2):
-  dt-bindings: perf: marvell: Document CN20K DDR PMU
-  perf: marvell: Add CN20K DDR PMU support
+and the port number restriction still serves as documentation, even if it i=
+s
+not applied during validation.
 
- .../bindings/perf/marvell-cn20k-ddr.yaml      |  37 ++++
- drivers/perf/marvell_cn10k_ddr_pmu.c          | 186 ++++++++++++++++--
- 2 files changed, 207 insertions(+), 16 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/perf/marvell-cn20k-ddr.yaml
 
--- 
-2.25.1
+> > +        type: object
+> > +        description: Ethernet switch ports
+> > +
+> > +        $ref: dsa-port.yaml#
+> > +
+> > +        properties:
+> > +          rx-internal-delay-ps:
+> > +            const: 2000
+> > +
+> > +          tx-internal-delay-ps:
+> > +            const: 2000
+>=20
+> Does enforcing a 2000ps delay conflict with standard rgmii bindings?
+>=20
+> As documented in net/ethernet-controller.yaml, a full 2ns delay is
+> typically modeled using phy-mode set to rgmii-id rather than hardcoding t=
+he
+> delay properties with a base rgmii mode.
+>=20
+
+No this was explicitly requested on v1 to enable adding a delay with mac2ma=
+c links.
+I enforce 2000ps because that is the only supported value.
+
+> [ ... ]
+>=20
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +
+> > +unevaluatedProperties: false
+>=20
+> How are the five integrated 10/100/1000Base-T phys mentioned in the
+> description modeled?
+>=20
+> Since unevaluatedProperties is false at the top level and there is no
+> definition or reference for an mdio node, wouldn't adding an mdio subnode
+> to configure these phys fail schema validation?
+>=20
+> Should there be a reference to /schemas/net/mdio.yaml#?
+
+No, the MDIO busses will be part of a parent MFD device node, not the switc=
+h node.
 
