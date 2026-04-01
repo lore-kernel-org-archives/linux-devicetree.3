@@ -1,418 +1,421 @@
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-00128a01.pphosted.com (mx0b-00128a01.pphosted.com [148.163.139.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 272BF3D34A0
-	for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 23:56:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775001373; cv=none; b=cxAhbGlF8NA2FbNbtVl/b5hRn8tyMvUmTOzM0NPddnIcTFZKJO/Y5rUzMh9J2pT+8ZvZjHyQ4Yi9Dbjiqdz3bMATUW5+PKH7IcUn2wfNrxNnFkjfnxtiDbDIJG3y4h9XRkEIt0Z7MI+q8hlFKez3rYIofoEwBC8Ov0JhO2PUW8o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775001373; c=relaxed/simple;
-	bh=9d8xd88aiUm8VgXjnmm0fTQpnZ1VYMiFZ7Ju5d+R4lg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SUsUB9b7fKPXzJOS0NyJZe7HKuX4fC0BWE5SFN0h3eceENcOUpiRz3EMsr4dufE1pO++RdKQRDdEvxC+M4COduivY2+Fjz+F/62YFsofA4b/VKQ11VP7G5jlvrqBcf331kIcoJoglWeFFDPNYNddBmjLDa/lLAAXQUOGeQbhTZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=atTFrzDI; arc=none smtp.client-ip=74.125.82.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B23458F4A;
+	Wed,  1 Apr 2026 00:11:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.139.77
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775002312; cv=fail; b=VlSaFpgcJakR3NtzsUCIh1PgyIp4oEqt1gFWJJAHOGioV15Vv0Ildh4qJoz53ow7ren9TULk27zdNbD/nRbndmmrL1XxvKrQrrvb3YiJzgty2AkSWEy9ig081NzM2X/sRD0KhJb9UaIo7wzyqcFxUk2kZEvJseiKHTbEFK66jqE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775002312; c=relaxed/simple;
+	bh=nrgX+rmkk+SrYOpJxlnZUWtzKQ3QmJYfQqctUcZPvNg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=JtHZUyOLvf6ilHXm9AyNJosYp3OAe16cXfq+NG/fKupzshaEYqhIU6Ad8DUhVaZNu6NKSbwK2OUrv8bTCFQMlhuVWuthTvTwEwGx4IX0qhTVvSxPC2wbCKEFjfZLTma7HYIfsAUz0fJkjAxNYB3C+U0AYg9ExfjVf2YtX0fLFcw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=JKH0l1Ip; arc=fail smtp.client-ip=148.163.139.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="atTFrzDI"
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-128ebee22caso847455c88.0
-        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 16:56:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775001370; x=1775606170; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=9hdSzpG5NO9RYAgONCLY3fKC0SZ0JRDtBMlPE4JL0nE=;
-        b=atTFrzDIIePyyg4r43DWH6y++oQoIHIofcSPZ7EKK71MmkBkbGFpjSKBvg5I9/eRbs
-         m9qFwkAEDESb1bkLuoSRvDomNXoQr3d/rvPTwvmJp5p7AjpDzZYbAzCUecWh5fq838EP
-         XM635LI8nXdb4DAQ5GHoz2IOrBqUb2x4xN0QdHJQlLjGpwvv1pGyF1kGgI6GIXCQspBa
-         nKyCVImC3r7qlPQgpsyeAmO1vfCxTH6W6g3qTIVE5liAvZSlRjRGaJ3UqIjLS1bNrKPx
-         jhOqgH603TTE7rknbOqX4oniBSs5G4YMpzCBwlUyA9HRgIwUFURWcACrEymHhwpYe0HL
-         uzkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775001370; x=1775606170;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=9hdSzpG5NO9RYAgONCLY3fKC0SZ0JRDtBMlPE4JL0nE=;
-        b=Hto25EvPLj8ujOsJ5LFZsVTtRAfx92k9EBeEftBnTo2JiLoiRO/ZAE00hr6H1r1fUc
-         shvJg0/FKrPMciy/7NDsPeMYfjTgpUOimrHwqG2lfljHlXK7PmPf6f6LD6EyFGCp4vL+
-         BiiFGQJElTm9bfmcz4AdujZfayESXybVYnunW361cbYAAKMQCHrZ+Cqj203CBpz8mGWd
-         t9W121Wem3kL0oTtkJPMlFbL/WtBPgffHLaCcrpwKqWJeHaWu0dvL7JPBaDXZVRRQiYj
-         NaNK11napGFKKGHg+AJ8N//5YhfGr2gg4+PlzX4UvOOzkT976QdsyfofilRapEsnyrG8
-         Hpow==
-X-Gm-Message-State: AOJu0YwEWJfkqDIZQdhAG5nrSqEeRQum2kM0rE+QJFPNPd4f2BoFySQf
-	HSw59NHwMvty+Sqw3Hj2n+6SqO7xTfnypSvEwYFSZHTpTTVG55SdSQSk
-X-Gm-Gg: ATEYQzwkR+VvY7gGs4dyRyG5eL1J4EZoHM6D21GGIAoK/HSMIVWnPkEr6YzbepBT5J6
-	lKlmewljitCSUaf6e3BGx94z+ZIf7E+0Ts02DGLfj+e0BF46145CDHHxD7T+7bxBh/vBg79Ix38
-	ra3lrnAdRlBD9ZGoYjhzcBRFtyvtaAamR+xVreAy245vuWxjLxDtJWQgEeh6IuQCpd0UI7Gw5yF
-	lo5IoOt7Gw4PoI72qJfWcZBpjwMFsf+SRWh7zFqfPUS1PJEl33t3ig0WuAu+h2vgmdL/qQm5usl
-	Nncik+f19+FChaegR7JIfrIDKvXZ4e50Saj94II1N0VZ/zAhiW4PIKq5MCS9T11uxd6DdM7gyIL
-	j0D8yc7zXqzc12BwM+0XIBcOmWpeoKabCLHsG+DCwgWdOUHrEPIy6zK3JeuLiDGh+AdT5jl7Q43
-	0yfd8STDrbjfPvl4UrU4nbBIV9u2qTZ3vhoq6nqtS06DFiC63dvIyr2yCqZ6AsX6x9shdhh9Kc
-X-Received: by 2002:a05:7022:394:b0:128:d20a:2f3d with SMTP id a92af1059eb24-12be645079amr840691c88.4.1775001370052;
-        Tue, 31 Mar 2026 16:56:10 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-12ab97efb42sm17177155c88.7.2026.03.31.16.56.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 31 Mar 2026 16:56:09 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <b4b2642c-35d6-410e-8e44-b3860dc551cf@roeck-us.net>
-Date: Tue, 31 Mar 2026 16:56:08 -0700
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="JKH0l1Ip"
+Received: from pps.filterd (m0167090.ppops.net [127.0.0.1])
+	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62VI9HsP2150047;
+	Tue, 31 Mar 2026 20:11:47 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=65LPZ
+	2zpz8NfaiCQqFlF1g/e4/CV7arjMZ2pQTqO7tg=; b=JKH0l1Ip/eQDz3KXBaHvZ
+	W2e6+FLr8yGcoftJUDT++CRFRZIFlMu4EF8iJOJyZuH1HsXDQt3Vd8nyE56YA7rB
+	DW/Pm6xYy1OhF+9AjjlqzS7+g0u1N9BiRidDX1Fi4I00tlYkg5XxhhLaFeeaFcG6
+	TxW/oY0HtsXO3PLWdQmnIhZpbSHzFPSwckYgj29ync4nTc1Xjc4ThuNfhsiJi5R2
+	iHhYu963KVhT4NbTI3GVv7kobCd/Q73SRC56/WR36RFeYu/ztUtx0UWhJEAZG/MI
+	hqg9AI6fkePRA6152AXQ+MtcUaVsWjvt+cDYo9x2g9kBvkf3MkfFsrmmzWAhyiJe
+	A==
+Received: from ch4pr04cu002.outbound.protection.outlook.com (mail-northcentralusazon11013025.outbound.protection.outlook.com [40.107.201.25])
+	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4d6bm4w979-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 31 Mar 2026 20:11:47 -0400 (EDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZD6vY2T5uF1diyexxJAETHAxkyI7IpZxsgl20DsMwkCC8JwruWocTs7Rt4/wpy9RdiLTwJUjb6N9oGnufFZQerJ9BiOFaRb4423El87A1pVQkc5J+yFrWRHzcVB7K5rawzHDX97Jx8GEbWj/FPhnNPEt1U9qMwUtmr2aNPsn6vouu5A4TSMffaIZBUnR2ftbP7fJJD4RodxOX3YjFRqz44svBCDURiU9Eh8oSX2Nr5KGt6dDkmZbbdltlBuf4YvWC10a7GhUyfUU1w5HyzwKMuvuqjjPbpQCpIcYMfLnUyFXwNLf1gsHU42FB9/8RP1yU7iandHYWant8h5hL5brOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=65LPZ2zpz8NfaiCQqFlF1g/e4/CV7arjMZ2pQTqO7tg=;
+ b=vr24qbcfOLTiMtwtmJVsSiphYUsm0/iFWYa3AKiGOlVnBy6wQkPtwb4xl7uBFfVP7L3nDrQ3GEleUu82bXqwUU0iwJD01PvoWWg+Vdo+ek/ch90LM+SDrQhoQ5wKZ1qlcu7fnqWWo/czBMqyD1cOPJ3/jKq4SEeE/5VYycASJJsl1sKYStK1nTTSkZffSg/9pEkbidSCeeq0B83HzMZR+8EDgV7l8hoodDa0ztnBvWSnM60wSEZBxka68ivFUIHWPoRKmASLhCYua+I7/aqDTrc2jLx8GhrR+wYgJq2P/SJqugf5UdabJXBGSECXaQNiDzZD1q6Q+znaraNw4kPJHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
+ dkim=pass header.d=analog.com; arc=none
+Received: from BN8PR03MB4977.namprd03.prod.outlook.com (2603:10b6:408:de::11)
+ by SJ0PR03MB5485.namprd03.prod.outlook.com (2603:10b6:a03:28a::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.12; Wed, 1 Apr
+ 2026 00:11:44 +0000
+Received: from BN8PR03MB4977.namprd03.prod.outlook.com
+ ([fe80::4d86:70cf:8006:e219]) by BN8PR03MB4977.namprd03.prod.outlook.com
+ ([fe80::4d86:70cf:8006:e219%5]) with mapi id 15.20.9769.014; Wed, 1 Apr 2026
+ 00:11:44 +0000
+From: "Roleda, Jan carlo" <Jancarlo.Roleda@analog.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+CC: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+        Rob Herring
+	<robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>,
+        "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>,
+        "linux-leds@vger.kernel.org"
+	<linux-leds@vger.kernel.org>,
+        "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>
+Subject: RE: [PATCH v2 3/3] dt-bindings: leds: Document LTC3208 Multidisplay
+ LED Driver
+Thread-Topic: [PATCH v2 3/3] dt-bindings: leds: Document LTC3208 Multidisplay
+ LED Driver
+Thread-Index: AQHcvKdCfkN6qGfQL0yEb5AtVTHl0rXAiC6AgAjQWYA=
+Date: Wed, 1 Apr 2026 00:11:43 +0000
+Message-ID:
+ <BN8PR03MB4977205D8FD06E7646AEA2E39650A@BN8PR03MB4977.namprd03.prod.outlook.com>
+References: <20260326-upstream-ltc3208-v2-0-3dbc992b6098@analog.com>
+ <20260326-upstream-ltc3208-v2-3-3dbc992b6098@analog.com>
+ <20260326-nimble-sociable-sawfly-515a36@quoll>
+In-Reply-To: <20260326-nimble-sociable-sawfly-515a36@quoll>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN8PR03MB4977:EE_|SJ0PR03MB5485:EE_
+x-ms-office365-filtering-correlation-id: b98203fe-67c8-45b2-9c60-08de8f8341c5
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|366016|376014|38070700021|18002099003|56012099003|22082099003;
+x-microsoft-antispam-message-info:
+ Lv6jeTq6tH/BSmLLlETo7YopXU/vI+y/ggJQsfE378Ji6UzPmAc7nJtBlPALP1Wi8BdAHN6gBIvq7V8b+cx19O5fD3KqAP63mR1rwm/l5FucplzFlmD+GvbNW7guPeVzfdjAC5CK0LaowTAeS7Wt2XOSTT34numJECCpUa3PTekSAm5STdKtPoJueNCmJxJa2LQJoueTgQlsp7lGlNWvtWCGBb14FzeILgetiHQTcDlXBBIrUlMal/aroaqzZAoJvoOuT/dSvNdaieL2mNgKnrriAFiBT9Ryd9f25K1ZlX+bWkSDmOh89OhRRrhK+Swsdn/rofP6wYye4oB5cxzE/BCGdxGYiyNhJHzN0PG3V9C7R8i/Wl7kpfnlj5vqf4oERn5r6Ep7yj9oy3D2Htzy5cfy5h/BI9FRiOTYbwjbsXGO/YlXPJUVJBsTVYptBuAiXbV/ff4Nr3feIyHIScVeAqypqsnMMieO29baY+xKl4SS17Qc+OLO0hM3VVi+clCN+WaIyl996mxA4U4T8nAhq9xm1rewjsTjEfHjaCwbaLFI4ksF8NEIzlkrdymp2gEuW9nx7DYkirW76N2lotxWqJ6BcljyUJvExN1y9jy9nHuzhScjL+VKgSEiM3+QlPazaL3eKcHPDw9aIX/yCyQ27bVWJN7VnOrF0rUkhSkHpP9lTjiazAITzXU5ap2BeIbMYOEDD1rbRbLFqX6EYSS/nZDMNqZauYCaQq5Y/SbifCMarCh+92YVWcnlwJvHx/KI
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN8PR03MB4977.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(38070700021)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?wWSMjipx0nKm9jO9VX0LkImSpq8s7k6Tj4CpE3plPrnQhsecu0fAQa9rFv?=
+ =?iso-8859-1?Q?A1zqBkmqwZVltk8uWbS7Dj2FJ9WdJhGY079lySRmpbENo76EyVnEcnTa23?=
+ =?iso-8859-1?Q?lqKVT9azXhO8kjoVWxa57I72CVCCyeiU0ChBtcAjfMi7OLw5Y+0efe1dL+?=
+ =?iso-8859-1?Q?zhwdU1Ac3KDhJAMHbmWgQJL0leaj2VjafMwMEn4R03UggXep5FHpGYx4d5?=
+ =?iso-8859-1?Q?fgyjkBLdSUabLnuuQe5uDzY8n2rPPK2dg4hld5mybzfI96N7WvUOPsRcCV?=
+ =?iso-8859-1?Q?wTsD2r1AiYrbABMG3XYx/qlW3GxZstEMzKKEm3PgSPalFU8Fory/sL6jqO?=
+ =?iso-8859-1?Q?LNPBKNBUpCSNIYQReRvOWvo3kTpK0nFqTyLsIWmDSirwVq3xK2YuSigVFq?=
+ =?iso-8859-1?Q?gP2PZo6rn6IrrwGzrJ7fQt9mGcLsAavSSq0YlV7qHZK+0A2eUTczuL5Ytn?=
+ =?iso-8859-1?Q?YHUHZ4sjU/9kT41TZmq7pKEs/9np/lTTn9ez9Ty79OGnueMBeRCe4WBvoX?=
+ =?iso-8859-1?Q?zEay3wZqZogUD3Vyvd3KdTwyk2T0Jn1om1FAOoKFcYQAAChsGWiMBNyy8R?=
+ =?iso-8859-1?Q?/6Bd/GP/nY67LRgnsF/ypkS+S/folAO7ZZr4FsXIxfs2O0zgwZE36l5GRA?=
+ =?iso-8859-1?Q?xZoVyjvkujIPJpsm4JYYj/9ojjbdnSX+USAiYp+eRF5K3x87f4pt4n2ysC?=
+ =?iso-8859-1?Q?K93So/rowWYGcelF1XvhFNZ9XPmODs01pciXpvQA4J2Nbhl05nhlxJ1YBe?=
+ =?iso-8859-1?Q?nPPd45gI5qKRpnVQzToVyLiP44/j2uzjgcS1lo14EmukbkczLDul81xK+3?=
+ =?iso-8859-1?Q?ZsjX1MKNnd7G+c/rslkaRyPvwi9MMpOxlPQ6ePYkl3nxfePgBhuEHtXtvZ?=
+ =?iso-8859-1?Q?MUqlQqpFHdiNKyrL0IET6PmIWie+Fvt26/5qB1wLEWSVDQcgxHyXuTPrSe?=
+ =?iso-8859-1?Q?acntXBfa/1pe2XPdCQUVc9fQ682SYedXRMUvUa1gfWm+X6GdB08dXqmbHb?=
+ =?iso-8859-1?Q?c1mXAufcnwDJkcAqIieJmM3pgN6J1TE33kWt1VO5Ty9rCw4agey9LBqUaS?=
+ =?iso-8859-1?Q?1qm+Nt/y5IfpnZeKCqzfHgqaYww2sVYGPDOzb3gcaSLsYtiBEM0dTmBfbr?=
+ =?iso-8859-1?Q?GVT+pvPf+Y8sdRqXnYfDZAczI3AUICX323zIbnDfwlEKeM/EmxNnmHtQfh?=
+ =?iso-8859-1?Q?Gd+D88AxUmxesX7WxIiotdaRLsXICxByZPG2O4Mw0AL3qmFy5fnfwAVgCs?=
+ =?iso-8859-1?Q?eNjgP3fBgrrrgXVzZzknAtoQ8GNMCpJShLsiCEdvEOh6gB4OxtbxXIr+QZ?=
+ =?iso-8859-1?Q?g0jD3smQqcLNsPUlgD0Npi6I/ruAxKqCh3w4FwoBaOz5bR/wob5nPYGDQc?=
+ =?iso-8859-1?Q?W5XmeSpHHvU3EWcYS/ggn8eyz+/E4kCZJKG9OJXlnU0Od0ZLaVMYjdv+gP?=
+ =?iso-8859-1?Q?AKfpfqTX7AcI0WjbJYM2UfKaCJ+xX+BeBUhmG7BPPnj5GzNmdQqzzwxF1f?=
+ =?iso-8859-1?Q?Tsw/ozl/cqb/6d7uDGSD8CV/1eWPQ7DXLHKCD3XiWddQLAHABwFqyYQPk1?=
+ =?iso-8859-1?Q?W+p7NxPS1Vv8xZKAeCFvvWMe9T/qLUjrrW56umFFG4Q4aBP+S6dAg3kJh1?=
+ =?iso-8859-1?Q?C+Uv+iBJZa5yucyPQEHASIIVudsaza2tK4IOjU4hKKKy7HRb6Rjjq4gvNC?=
+ =?iso-8859-1?Q?AdTXIBl+iNOY/SHKLxTvVeOhXYpoDhbs1mfu36gMVWspS6KPswOuJyn8uj?=
+ =?iso-8859-1?Q?dvAndfBqyyv9D/MD4f3z8AUqCGQPa52TMjAsIqW/cUsAGa4Gp4FXwnjETT?=
+ =?iso-8859-1?Q?uuTpzy6UHA=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] hwmon: pmbus: Add support for Sony APS-379
-To: Chris Packham <chris.packham@alliedtelesis.co.nz>, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260331231916.94662-1-chris.packham@alliedtelesis.co.nz>
- <20260331231916.94662-3-chris.packham@alliedtelesis.co.nz>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260331231916.94662-3-chris.packham@alliedtelesis.co.nz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked:
+	wP73MXxzYyMFqI27i5JJz1GIameFINV6i+9mYgMbDYT68dNa97Y+kFJWtoDJP1pkkjsMKDNCpfLBH5LwSYfcAvJ2R3fgZow8Z18YPIbs14QwDAnScMwQfC/tf43VHEcg3tzokEbBTnjKkzzv3cKvQsITtDxO5RoCN4je8dmITVoNxarzkqltphWmXGJKZm+ckKJITxOiJuBmAZFMZ4Ji0cBj9vR/AYVohbZt+wNYsMF/IaUvXfsculjJYra4a5Gj4dcFzqsjCDoVqPAxPaOXXi5pwi8/JsAdTUg6gB/NDYgXXjCzMO++xkfZ9CtsmL7DF2UmhodFq+A7oI2JEKMreg==
+X-OriginatorOrg: analog.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR03MB4977.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b98203fe-67c8-45b2-9c60-08de8f8341c5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Apr 2026 00:11:43.9985
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: yKl8bCN6eE8nSGk5GwzQU1PXgmp9QG1OYwlU+yr1S5JtyQvg2IY9uNvYaBcVRPACUjVJdmriOz7dt/Tb46H3AjphuM1iC/IeGOxtxBIMHlw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB5485
+X-Authority-Analysis: v=2.4 cv=NvvcssdJ c=1 sm=1 tr=0 ts=69cc62c3 cx=c_pps
+ a=aGwn47qLKbf7B3DwPvQeXg==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
+ a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=_jAD5XSDOtq9-5Nde2OG:22 a=uherdBYGAAAA:8 a=P-IC7800AAAA:8 a=gEfo2CItAAAA:8
+ a=gAnH3GRIAAAA:8 a=VwQbUJbxAAAA:8 a=QscebiB92ML2sGzvX5gA:9 a=wPNLvfGTeEIA:10
+ a=d3PnA9EDa4IxuAV0gXij:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMxMDIzNSBTYWx0ZWRfX7bb2JQ9MyakO
+ ahNOYnGNISY63xuMDDiaXYa/AQ+cU4yJtED+9HitcG1cQbLH12DXjv2Slxz8vliC2t8rFNJgt3/
+ 6n33/z6+LE+kdS83YM1oRLnnM3JycqtUa0bZOceeHKQQCb5L0jXilXUpeUb3AqVz1jEm0Qduz5i
+ 6TK9gfN1SDSBhpoBvS+tA9DtHwVsJ8jSXteuXBShX/g2nHCtRsX6Dm/fFUcqW9qcBrjHD7x0Svq
+ vwEUYbMRs779dK5GAfiq1fnpvXwllUJ8ccQ5m9FsVmII1ilwpwMpUpe6OSHY7pOdtTbmnZRmZz5
+ CswyTvaWkNvoEf9kQaVIdQc/5fuOWVyGYo4rBaMuyvSzE7PkIYhVJHP8U2xJMrqDF2ewAM1Qfsq
+ Pi1srOxYKPU9u6t9FBiTLvpe+Fj7wKZb5jtI+PHX1Jciki7+OtZgIptBUnkhoAIcNef1s+uoaUh
+ nquMufw0z3/bt9b5mSw==
+X-Proofpoint-ORIG-GUID: bcUfvLLsQp3x3FPvhNB7V_sw2Bn09T0d
+X-Proofpoint-GUID: bcUfvLLsQp3x3FPvhNB7V_sw2Bn09T0d
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-31_05,2026-03-31_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 priorityscore=1501 bulkscore=0 malwarescore=0 impostorscore=0
+ spamscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1011 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603310235
 
-Hi Chris,
+Hello Krzysztof,
 
-On 3/31/26 16:19, Chris Packham wrote:
-> Add pmbus support for Sony APS-379 power supplies. There are a few PMBUS
-> commands that return data that is undocumented/invalid so these need to
-> be rejected with -ENXIO. The READ_VOUT command returns data in linear11
-> format instead of linear16 so we need to workaround this.
-> 
-> Signed-off-by: Chris Packham <chris.packham@alliedtelesis.co.nz>
+Thank you for the review.
+ =A0  =A0=A0  =A0=A0  =A0=A0  =A0=A0 =20
+> -----Original Message-----
+> From: Krzysztof Kozlowski <krzk@kernel.org>
+> Sent: Thursday, March 26, 2026 5:13 PM
+> To: Roleda, Jan carlo <Jancarlo.Roleda@analog.com>
+> Cc: Lee Jones <lee@kernel.org>; Pavel Machek <pavel@kernel.org>; Rob
+> Herring <robh@kernel.org>; Krzysztof Kozlowski <krzk+dt@kernel.org>; Cono=
+r
+> Dooley <conor+dt@kernel.org>; linux-kernel@vger.kernel.org; linux-
+> leds@vger.kernel.org; devicetree@vger.kernel.org
+> Subject: Re: [PATCH v2 3/3] dt-bindings: leds: Document LTC3208
+> Multidisplay LED Driver
+>=20
+> [External]
+>=20
+> On Thu, Mar 26, 2026 at 06:30:12AM +0800, Jan Carlo Roleda wrote:
+> > Add Documentation for LTC3208 Multidisplay LED Driver.
+>=20
+> Please organize the patch documenting the compatible (DT bindings) before
+> the patch using that compatible.
+> See also: https://urldefense.com/v3/__https://elixir.bootlin.com/linux/v6=
+.14-
+> rc6/source/Documentation/devicetree/bindings/submitting-
+> patches.rst*L46__;Iw!!A3Ni8CS0y2Y!89AXjtFhkqneWfAb9nXM8SHuCn0WqS
+> pM9sWtt8bobLpZEy9L5KSXPS69lkM99faQ_-SeUAFS2ZnuL4E8$
+>=20
+> >
+> > Signed-off-by: Jan Carlo Roleda <jancarlo.roleda@analog.com>
+> > ---
+> >  .../devicetree/bindings/leds/adi,ltc3208.yaml      | 158
+> +++++++++++++++++++++
+> >  MAINTAINERS                                        |   1 +
+> >  2 files changed, 159 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/leds/adi,ltc3208.yaml
+> > b/Documentation/devicetree/bindings/leds/adi,ltc3208.yaml
+> > new file mode 100644
+> > index 000000000000..c139937936bc
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/leds/adi,ltc3208.yaml
+> > @@ -0,0 +1,158 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) # Copyright
+> > +(c) 2026 Analog Devices, Inc.
+> > +%YAML 1.2
+> > +---
+> > +$id:
+> > +https://urldefense.com/v3/__http://devicetree.org/schemas/leds/adi,lt
+> >
+> +c3208.yaml*__;Iw!!A3Ni8CS0y2Y!89AXjtFhkqneWfAb9nXM8SHuCn0WqSp
+> M9sWtt8b
+> > +obLpZEy9L5KSXPS69lkM99faQ_-SeUAFS2ZsFLfHP$
+> > +$schema:
+> > +https://urldefense.com/v3/__http://devicetree.org/meta-schemas/core.y
+> >
+> +aml*__;Iw!!A3Ni8CS0y2Y!89AXjtFhkqneWfAb9nXM8SHuCn0WqSpM9sWtt
+> 8bobLpZEy
+> > +9L5KSXPS69lkM99faQ_-SeUAFS2SZpZqA4$
+> > +
+> > +title: LTC3208 Multidisplay LED Controller from Linear Technologies (N=
+ow
+> Analog Devices).
+>=20
+> Drop full stop
+>=20
 
-Feedback inline.
+Will remove the period (full stop) on the title.
 
-Thanks,
-Guenter
+> > +
+> > +maintainers:
+> > +  - Jan Carlo Roleda <jancarlo.roleda@analog.com>
+> > +
+> > +description:
+> > +  The LTC3208 is a multidisplay LED controller that can support up to
+> > +1A to all
+> > +  connected LEDs.
+> > +
+> > +  The datasheet for this device can be found in
+> > + https://www.analog.com/en/products/ltc3208.html
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: adi,ltc3208
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  '#address-cells':
+>=20
+> Use consistent quotes, either ' or "
+>=20
 
-> ---
->   drivers/hwmon/pmbus/Kconfig   |   6 ++
->   drivers/hwmon/pmbus/Makefile  |   1 +
->   drivers/hwmon/pmbus/aps-379.c | 196 ++++++++++++++++++++++++++++++++++
->   3 files changed, 203 insertions(+)
->   create mode 100644 drivers/hwmon/pmbus/aps-379.c
-> 
-> diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-> index fc1273abe357..29076921e330 100644
-> --- a/drivers/hwmon/pmbus/Kconfig
-> +++ b/drivers/hwmon/pmbus/Kconfig
-> @@ -77,6 +77,12 @@ config SENSORS_ADP1050_REGULATOR
->   	  µModule regulators that can provide microprocessor power from 54V
->   	  power distribution architecture.
->   
-> +config SENSORS_APS_379
-> +	tristate "Sony APS-379 Power Supplies"
-> +	help
-> +	  If you say yes here you get hardware monitoring support for Sony
-> +	  APS-379 Power Supplies.
-> +
->   config SENSORS_BEL_PFE
->   	tristate "Bel PFE Compatible Power Supplies"
->   	help
-> diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
-> index d6c86924f887..94f36c7069ec 100644
-> --- a/drivers/hwmon/pmbus/Makefile
-> +++ b/drivers/hwmon/pmbus/Makefile
-> @@ -9,6 +9,7 @@ obj-$(CONFIG_SENSORS_ACBEL_FSG032) += acbel-fsg032.o
->   obj-$(CONFIG_SENSORS_ADM1266)	+= adm1266.o
->   obj-$(CONFIG_SENSORS_ADM1275)	+= adm1275.o
->   obj-$(CONFIG_SENSORS_ADP1050)	+= adp1050.o
-> +obj-$(CONFIG_SENSORS_APS_379)	+= aps-379.o
->   obj-$(CONFIG_SENSORS_BEL_PFE)	+= bel-pfe.o
->   obj-$(CONFIG_SENSORS_BPA_RS600)	+= bpa-rs600.o
->   obj-$(CONFIG_SENSORS_DELTA_AHE50DC_FAN) += delta-ahe50dc-fan.o
-> diff --git a/drivers/hwmon/pmbus/aps-379.c b/drivers/hwmon/pmbus/aps-379.c
-> new file mode 100644
-> index 000000000000..e4c4c2d12bc9
-> --- /dev/null
-> +++ b/drivers/hwmon/pmbus/aps-379.c
+Noted. I will update the use of quotes for consistency.
 
-Driver documentation is missing.
+> > +    const: 1
+> > +
+> > +  '#size-cells':
+> > +    const: 0
+> > +
+> > +  adi,disable-camhl-pin:
+> > +    type: boolean
+> > +    description:
+> > +      Configures whether the external CAMHL pin is disabled.
+> > +      if disabled then the output pins associated with CAM will
+> > + always select
+>=20
+> s/if/If/.
+>=20
 
-This power supply does not seem to be documented anywhere, so this is actually quite
-important.
+Sorry, I'm not familiar with this acronym.
+Is this referring to capitalization of "if" to "If"?
+If so, I will update this in the next patch.
 
-Having said this, the behavior seems quite similar to BluTek BPA-RS600. Are those
-power supplies from the same OEM ?
+> > +      the CAM register's high half-byte brightness.
+> > +
+> > +  adi,cfg-enrgbs-pin:
+> > +    type: boolean
+> > +    description:
+> > +      Configures which channel the ENRGBS pin toggles when it receives=
+ a
+> signal.
+> > +      ENRGBS pin controls the SUB channel's output pins if this is set=
+,
+> > +      or RGB channel's output pins if this is unset.
+> > +
+> > +  adi,disable-rgb-aux4-dropout:
+> > +    type: boolean
+> > +    description:
+> > +      Configures the RGB and AUX4 dropout signals to be disabled.
+> > +
+> > +  adi,aux1-channel:
+> > +    $ref: /schemas/types.yaml#/definitions/string
+> > +    description:
+> > +      LED Channel that the AUX1 output pin mirrors its brightness leve=
+l from.
+> > +    enum: [aux, main, sub, cam]
+> > +    default: aux
+> > +
+> > +  adi,aux2-channel:
+> > +    $ref: /schemas/types.yaml#/definitions/string
+> > +    description:
+> > +      LED Channel that the AUX2 output pin mirrors its brightness leve=
+l from.
+> > +    enum: [aux, main, sub, cam]
+> > +    default: aux
+> > +
+> > +  adi,aux3-channel:
+> > +    $ref: /schemas/types.yaml#/definitions/string
+> > +    description:
+> > +      LED Channel that the AUX3 output pin mirrors its brightness leve=
+l from.
+> > +    enum: [aux, main, sub, cam]
+> > +    default: aux
+> > +
+> > +  adi,aux4-channel:
+> > +    $ref: /schemas/types.yaml#/definitions/string
+> > +    description:
+> > +      LED Channel that the AUX4 output pin mirrors its brightness leve=
+l from.
+> > +    enum: [aux, main, sub, cam]
+> > +    default: aux
+> > +
+> > +patternProperties:
+> > +  "^led@[0-7]$":
+> > +    type: object
+> > +    $ref: /schemas/leds/common.yaml#
+> > +    unevaluatedProperties: false
+> > +    properties:
+> > +      reg:
+> > +        description:
+> > +          LED Channel Number. each channel maps to a specific channel =
+group
+> used
+> > +          to configure the brightness level of the output pins corresp=
+onding to
+> > +          the channel.
+> > +        enum:
+> > +          - 0 # Main Channel (8-bit brightness)
+> > +          - 1 # Sub Channel (8-bit brightness)
+> > +          - 2 # AUX Channel (4-bit brightness)
+> > +          - 3 # Camera Channel, Low-side byte (4-bit brightness)
+> > +          - 4 # Camera Channel, High-side byte (4-bit brightness)
+> > +          - 5 # Red Channel (4-bit brightness)
+> > +          - 6 # Blue Channel (4-bit brightness)
+> > +          - 7 # Green Channel (4-bit brightness)
+> > +    required:
+> > +      - reg
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +
+> > +additionalProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    #include <dt-bindings/gpio/gpio.h>
+>=20
+> Where do you use it?
+>=20
 
-> @@ -0,0 +1,196 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Hardware monitoring driver for Sony APS-379 Power Supplies
-> + *
-> + * Copyright 2026 Allied Telesis Labs
-> + */
-> +
-> +#include <linux/i2c.h>
-> +#include <linux/init.h>
-> +#include <linux/kernel.h>
-> +#include <linux/module.h>
-> +#include <linux/pmbus.h>
-> +#include "pmbus.h"
-> +
-> +struct aps_379_data {
-> +	struct pmbus_driver_info info;
-> +	u8 vout_linear_exponent;
-> +};
-> +
-> +#define to_aps_379_data(x) container_of(x, struct aps_379_data, info)
-> +
-> +static const struct i2c_device_id aps_379_id[] = {
-> +	{ "aps-379", 0 },
-> +	{},
-> +};
-> +
-> +static int aps_379_read_byte_data(struct i2c_client *client, int page, int reg)
-> +{
-> +	const struct pmbus_driver_info *info = pmbus_get_driver_info(client);
-> +	struct aps_379_data *data = to_aps_379_data(info);
-> +	int ret;
-> +
-> +	if (page > 0)
-> +		return -ENXIO;
+You're right. This is not relevant for this example. I'll remove it in the =
+next patch.
 
-Unnecessary since there is only one page.
+> > +    #include <dt-bindings/leds/common.h>
+> > +    i2c {
+> > +      #address-cells =3D <1>;
+> > +      #size-cells =3D <0>;
+> > +
+> > +      led-controller@1b {
+> > +        compatible =3D "adi,ltc3208";
+> > +        reg =3D <0x1b>;
+> > +        #address-cells =3D <1>;
+> > +        #size-cells =3D <0>;
+> > +        adi,disable-camhl-pin;
+> > +        adi,cfg-enrgbs-pin;
+> > +        adi,disable-rgb-aux4-dropout;
+> > +
+> > +        led@0 {
+> > +          reg =3D <0>;
+>=20
+> Please list other applicable properties. Otherwise listing all these chil=
+dren is
+> pointless - feels deducible from the compatible.
+>=20
 
-Yes, I know, other drivers do it, but it is really pointless.
+Noted. Only the reg of the led is relevant for the compatible,
+So I'll reduce it to a single led child in the example for brevity.
 
-> +
-> +	switch (reg) {
-> +	case PMBUS_VOUT_MODE:
-> +		/*
-> +		 * The VOUT format used by the chip is linear11,
-> +		 * not linear16. Report that VOUT is in linear mode
-> +		 * and return exponent value extracted while probing
-> +		 * the chip.
-> +		 */
-> +		ret = data->vout_linear_exponent;
-> +		break;
-> +	default:
-> +		ret = -ENODATA;
-> +		break;
-> +	}
-> +
-> +	return ret;
-> +}
-> +
-> +/*
-> + * The APS-379 uses linear11 format instead of linear16. We've reported the exponent
-> + * via the PMBUS_VOUT_MODE so we just return the mantissa here.
-> + */
-> +static int aps_379_read_vout(struct i2c_client *client)
-> +{
-> +	int ret;
-> +	s32 mantissa;
-> +
-> +	ret = pmbus_read_word_data(client, 0, 0xff, PMBUS_READ_VOUT);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	mantissa = ((s16)((ret & 0x7ff) << 5)) >> 5;
+> > +        };
+> > +
+> > +        led@1 {
+> > +          reg =3D <1>;
+> > +        };
+>=20
+> Best regards,
+> Krzysztof
 
-sign_extend32() ?
+I will update this binding accordingly in the next patch.
+Thank you.
 
-Also, is the exponent known to be static ? If not it may be necessary
-to adjust it. If yes, I'd suggest to add a comment above.
-
-> +	ret = mantissa;
-
-That assignment is really unnecessary.
-
-> +
-> +	return ret;
-> +}
-> +
-> +static int aps_379_read_word_data(struct i2c_client *client, int page, int phase, int reg)
-> +{
-> +	int ret;
-> +
-> +	if (page > 0)
-> +		return -ENXIO;
-
-Unnecessary.
-
-> +
-> +	switch (reg) {
-> +	case PMBUS_VOUT_UV_WARN_LIMIT:
-> +	case PMBUS_VOUT_OV_WARN_LIMIT:
-> +	case PMBUS_VOUT_UV_FAULT_LIMIT:
-> +	case PMBUS_VOUT_OV_FAULT_LIMIT:
-> +	case PMBUS_PIN_OP_WARN_LIMIT:
-> +	case PMBUS_POUT_OP_WARN_LIMIT:
-> +	case PMBUS_MFR_IIN_MAX:
-> +	case PMBUS_MFR_PIN_MAX:
-> +	case PMBUS_MFR_VOUT_MIN:
-> +	case PMBUS_MFR_VOUT_MAX:
-> +	case PMBUS_MFR_IOUT_MAX:
-> +	case PMBUS_MFR_POUT_MAX:
-> +	case PMBUS_MFR_MAX_TEMP_1:
-> +		/* These commands return data but it is invalid/un-documented */
-> +		ret = -ENXIO;
-> +		break;
-
-I'd suggest to return directly in this function. There is no real value
-to assign the return value to ret just to return it.
-
-> +	case PMBUS_READ_VOUT:
-> +		ret = aps_379_read_vout(client);
-> +		break;
-> +	default:
-> +		if (reg >= PMBUS_VIRT_BASE)
-> +			ret = -ENXIO;
-> +		else
-> +			ret = -ENODATA;
-> +		break;
-> +	}
-> +
-> +	return ret;
-> +
-> +}
-> +
-> +static struct pmbus_driver_info aps_379_info = {
-> +	.pages = 1,
-> +	.format[PSC_VOLTAGE_OUT] = linear,
-> +	.format[PSC_CURRENT_OUT] = linear,
-> +	.format[PSC_POWER] = linear,
-> +	.format[PSC_TEMPERATURE] = linear,
-> +	.format[PSC_FAN] = linear,
-> +	.func[0] = PMBUS_HAVE_VOUT |
-> +		PMBUS_HAVE_IOUT |
-> +		PMBUS_HAVE_PIN | PMBUS_HAVE_POUT |
-> +		PMBUS_HAVE_TEMP |
-> +		PMBUS_HAVE_FAN12,
-> +	.read_byte_data = aps_379_read_byte_data,
-> +	.read_word_data = aps_379_read_word_data,
-> +};
-> +
-> +static int aps_379_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	const struct i2c_device_id *mid;
-> +	struct pmbus_driver_info *info;
-> +	struct aps_379_data *data;
-> +	u8 buf[I2C_SMBUS_BLOCK_MAX + 1];
-> +	int ret;
-> +
-> +	data = devm_kzalloc(&client->dev, sizeof(*data), GFP_KERNEL);
-> +	if (!data)
-> +		return -ENOMEM;
-> +
-> +	memcpy(&data->info, &aps_379_info, sizeof(*info));
-> +	info = &data->info;
-> +
-> +	if (!i2c_check_functionality(client->adapter,
-> +				     I2C_FUNC_SMBUS_READ_BYTE_DATA
-> +				     | I2C_FUNC_SMBUS_READ_WORD_DATA
-> +				     | I2C_FUNC_SMBUS_READ_BLOCK_DATA))
-> +		return -ENODEV;
-> +
-> +	ret = i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL, buf);
-> +	if (ret < 0) {
-> +		dev_err(dev, "Failed to read Manufacturer Model\n");
-> +		return ret;
-> +	}
-> +
-> +	for (mid = aps_379_id; mid->name[0]; mid++) {
-> +		if (!strncasecmp(buf, mid->name, strlen(mid->name)))
-> +			break;
-> +	}
-
-That seems to be excessive. There is only one power supply.
-If more are added in the future, a looop can be added. Right
-now a simple comparison should do.
-
-Thanks,
-Guenter
-
-> +	if (!mid->name[0]) {
-> +		buf[ret] = '\0';
-> +		dev_err(dev, "Unsupported Manufacturer Model '%s'\n", buf);
-> +		return -ENODEV;
-> +	}
-> +
-> +	ret = i2c_smbus_read_word_data(client, PMBUS_READ_VOUT);
-> +	if (ret < 0) {
-> +		dev_err(dev, "Can't get vout exponent.\n");
-> +		return ret;
-> +	}
-> +	data->vout_linear_exponent = (u8)((ret >> 11) & 0x1f);
-> +
-> +	return pmbus_do_probe(client, info);
-> +}
-> +
-> +static const struct of_device_id __maybe_unused aps_379_of_match[] = {
-> +	{ .compatible = "sony,aps-379" },
-> +	{},
-> +};
-> +MODULE_DEVICE_TABLE(of, aps_379_of_match);
-> +
-> +static struct i2c_driver aps_379_driver = {
-> +	.driver = {
-> +		.name = "aps-379",
-> +		.of_match_table = of_match_ptr(aps_379_of_match),
-> +	},
-> +	.probe = aps_379_probe,
-> +	.id_table = aps_379_id,
-> +};
-> +
-> +module_i2c_driver(aps_379_driver);
-> +
-> +MODULE_AUTHOR("Chris Packham");
-> +MODULE_DESCRIPTION("PMBus driver for Sony APS-379");
-> +MODULE_LICENSE("GPL");
-> +MODULE_IMPORT_NS("PMBUS");
+Regards,
+Carlo
 
