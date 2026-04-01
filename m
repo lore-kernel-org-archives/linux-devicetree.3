@@ -1,90 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B403330D25;
-	Wed,  1 Apr 2026 07:41:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19D438643E;
+	Wed,  1 Apr 2026 07:47:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775029311; cv=none; b=bvmQWyWfemGHzoSRchU4dmjz+ZnRDaZd1O10jz2NVfTvxch3mt2+XI0afEY2Eu5y3H6WTdJn4jYsdSNIcrIJvqtRYhEueuFwXw7EDJ+ynESfeysyRQNowXHlvD8+LMnVmj6yvoiqc408ujVodawou2ztmAGorjEQQtAFw02lkW4=
+	t=1775029622; cv=none; b=ZjeUUTj+bvm5i/INyc+d/G+gKLaAly4iJvaEWQMYGsJHfOGHCJTAxvMBovaM6WbQb8p5jrtbOcC/ZNujrGCZkE1EuTqTFOFZjcRn5Ut3QYktPxP5djYbI0THp0Hz1guEReivJyUqLEvHmzpQnmMDCYGalsOHgHvs0E2T06y4OWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775029311; c=relaxed/simple;
-	bh=2QALR86Ua7MoBi5F0W+OaAxgTNDklOvWHZhuy7YhXts=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jbIElMUOVE10r9Dq5lcxJSYZUpp0V3Bkx4rBwhoW4/n+XV/yUeuoUo75ZR2w/ao4qpUjOBKFREnIhGyhJEPOkAEXv8DVoSvwIt7bRJzYGudHqcoqolgLSONB/TruXhB+ss6NwPoP5Wd22CsKjrxWJJj/XAMi56kycbo6RXmZ9mE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JQBWpmqc; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775029622; c=relaxed/simple;
+	bh=CrDkIk7DbbkMU8e+EcefKWlrD/MR5brATALzgwfYvRM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=c/yFUOGGh6dBhDe3pAwb//cVI4kqqiAazSSUooYEC/Rs+kMeqduqSoxpJKng8CyjvO4/8ubIZo9FBk/d91tTtva67sfhZBj5cA4FftgC1Acee9/Ny/JCs6tkA0US40Kav3ZR1ooJxHlugOYz8YEKa+drIMzJJ56BP494iWzjB9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=bdwVBTLa; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JQBWpmqc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EC1FC4CEF7;
-	Wed,  1 Apr 2026 07:41:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775029311;
-	bh=2QALR86Ua7MoBi5F0W+OaAxgTNDklOvWHZhuy7YhXts=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JQBWpmqcjis29i5L2j99vizY5ydDRBX99V0HjEeQkzydDDIhvAX10ZsuKw5xMiBlA
-	 2ETWv0uxjleyGgdxg+hwbPt+Qr1YKzKmCB+Nv4KqBQbwL01vCErYqYaERakqUbuM0D
-	 rTjNPvnXP+q7vgxSIuARcqJ9AX1i6QJPs98Awhfvkdh5NKdNuPDVcMtJKfM2aoQvCI
-	 ySGuZNVJNKrT+p2cxDvL4H0FEKIQQ1m5VQ0yckpTgiGhRARyVKaD0OYopx6yk3Smp6
-	 1I4mNOilPVXByQ72Z23iMUZKTLOBYjMIujkbOGnjd38cbyc+jk41EdsNEiFE5gMeWO
-	 wq80ELwUxCHZg==
-Date: Wed, 1 Apr 2026 09:41:48 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Robby Cai <robby.cai@nxp.com>
-Cc: p.zabel@pengutronix.de, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, Frank.Li@nxp.com, s.hauer@pengutronix.de, festevam@gmail.com, 
-	devicetree@vger.kernel.org, kernel@pengutronix.de, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, aisheng.dong@nxp.com
-Subject: Re: [PATCH 1/2] dt-bindings: reset: imx8mq: Add _N suffix to
- IMX8MQ_RESET_MIPI_CSI*_RESET
-Message-ID: <20260401-simple-dragonfly-of-will-fedc8c@quoll>
-References: <20260331101331.1405588-1-robby.cai@nxp.com>
- <20260331101331.1405588-2-robby.cai@nxp.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="bdwVBTLa"
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3EFA1F52;
+	Wed,  1 Apr 2026 09:45:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1775029530;
+	bh=CrDkIk7DbbkMU8e+EcefKWlrD/MR5brATALzgwfYvRM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=bdwVBTLasCz284lvmDdCrjSKH1rJ89KsklrsyfGR4ShxvzjTd4XqSCLnyz5J/yJt3
+	 nnIilmO8OyCtdvuv97s8o35boZyvjlIhPIebmEi9f0Tr59G8WILbldNG4l0TBWWRc2
+	 ydiGjT9QcWTOstU4DGz22LI4OMXRECHmEFFjWnBQ=
+Message-ID: <1487bd9d-f514-4a33-9682-1e352edec424@ideasonboard.com>
+Date: Wed, 1 Apr 2026 10:46:48 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260331101331.1405588-2-robby.cai@nxp.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 00/21] media: i2c: add Maxim GMSL2/3 serializer and
+ deserializer drivers
+To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Ceclan Dumitru <mitrutzceclan@gmail.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, dumitru.ceclan@analog.com
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Julien Massot <julien.massot@collabora.com>, Rob Herring <robh@kernel.org>,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Cosmin Tanislav <cosmin.tanislav@analog.com>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-gpio@vger.kernel.org,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+ Martin Hecht <Martin.Hecht@avnet.eu>, Cosmin Tanislav
+ <demonsingur@gmail.com>, Cory Keitz <ckeitz@amazon.com>
+References: <20260311-gmsl2-3_serdes-v9-0-41499f09004f@analog.com>
+ <abEgijQAqW27i5fU@kekkonen.localdomain>
+ <dd858ec6-7621-45d6-9328-b5b03a4d0cec@gmail.com>
+ <8e924699-e0ab-4e39-a1d1-b218d749672f@ideasonboard.com>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Content-Language: en-US
+Autocrypt: addr=tomi.valkeinen@ideasonboard.com; keydata=
+ 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
+In-Reply-To: <8e924699-e0ab-4e39-a1d1-b218d749672f@ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Mar 31, 2026 at 06:13:30PM +0800, Robby Cai wrote:
-> The assert logic of the MIPI CSI reset signals is active-low on i.MX8MQ,
-> but the existing names do not indicate this explicitly. To improve
-> consistency and clarity, append the _N suffix to all
-> IMX8MQ_RESET_MIPI_CSI*_RESET definitions. The deprecated
-> IMX8MQ_RESET_MIPI_CSI*_RESET versions remain temporarily for DT ABI
-> compatibility and will be removed at an appropriate time in the future.
+
+
+On 01/04/2026 09:47, Tomi Valkeinen wrote:
+> Hi,
 > 
-> Signed-off-by: Robby Cai <robby.cai@nxp.com>
-> ---
->  include/dt-bindings/reset/imx8mq-reset.h | 18 ++++++++++++------
->  1 file changed, 12 insertions(+), 6 deletions(-)
-> 
-> diff --git a/include/dt-bindings/reset/imx8mq-reset.h b/include/dt-bindings/reset/imx8mq-reset.h
-> index 705870693ec2..83a155dbbd4a 100644
-> --- a/include/dt-bindings/reset/imx8mq-reset.h
-> +++ b/include/dt-bindings/reset/imx8mq-reset.h
-> @@ -46,12 +46,18 @@
->  #define IMX8MQ_RESET_PCIEPHY2_PERST		35	/* i.MX8MM/i.MX8MN does NOT support */
->  #define IMX8MQ_RESET_PCIE2_CTRL_APPS_EN		36	/* i.MX8MM/i.MX8MN does NOT support */
->  #define IMX8MQ_RESET_PCIE2_CTRL_APPS_TURNOFF	37	/* i.MX8MM/i.MX8MN does NOT support */
-> -#define IMX8MQ_RESET_MIPI_CSI1_CORE_RESET	38	/* i.MX8MM/i.MX8MN does NOT support */
-> -#define IMX8MQ_RESET_MIPI_CSI1_PHY_REF_RESET	39	/* i.MX8MM/i.MX8MN does NOT support */
-> -#define IMX8MQ_RESET_MIPI_CSI1_ESC_RESET	40	/* i.MX8MM/i.MX8MN does NOT support */
-> -#define IMX8MQ_RESET_MIPI_CSI2_CORE_RESET	41	/* i.MX8MM/i.MX8MN does NOT support */
-> -#define IMX8MQ_RESET_MIPI_CSI2_PHY_REF_RESET	42	/* i.MX8MM/i.MX8MN does NOT support */
-> -#define IMX8MQ_RESET_MIPI_CSI2_ESC_RESET	43	/* i.MX8MM/i.MX8MN does NOT support */
-> +#define IMX8MQ_RESET_MIPI_CSI1_CORE_RESET	38	/* Deprecated. Use *_RESET_N instead */
-> +#define IMX8MQ_RESET_MIPI_CSI1_CORE_RESET_N	38	/* i.MX8MM/i.MX8MN does NOT support */
+> On 30/03/2026 10:15, Ceclan Dumitru wrote:
+>>
+>>
+>> On 3/11/26 9:58 AM, Sakari Ailus wrote:
+>>> Hi Dumitru,
+>>>
+>>> On Wed, Mar 11, 2026 at 09:17:12AM +0200, Dumitru Ceclan via B4 Relay wrote:
+>>
+>> ...
+>>
+>>>
+>>> ...
+>>>
+>>>> The following v4l2-compliance test still fails:
+>>>>                 fail: v4l2-test-subdevs.cpp(371): fmt.code == 0 || fmt.code == ~0U
+>>>>                 fail: v4l2-test-subdevs.cpp(418): checkMBusFrameFmt(node, fmt.format)
+>>>>         test Active VIDIOC_SUBDEV_G/S_FMT: FAIL
+>>>
+>>> Could you post the full report here, please?
+>>>
+> So why do these failures happen? It wasn't obvious to me from the full
+> report either.
+I made a quick test with FPD-Link, and I see something similar. It's
+caused (for fpdlink, at least) by the serializer accepting any format,
+as it's a pass-through device.
 
-That's quite a churn for no need. The entire point of these values being
-the binding is that it describes the ABI for SW and DTS, not your
-hardware registers.
+As a hack test, can you try adding something like this to the set_fmt op:
 
-Whether signal is active low or high is kind of irrelevant. Linux uses
-it exactly the same way.
+if (format->format.code == ~0)
+	format->format.code = MEDIA_BUS_FMT_UYVY8_1X16;
 
-Best regards,
-Krzysztof
+If all the compliance errors go away, then it's the same case for you.
+
+ Tomi
 
