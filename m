@@ -1,174 +1,327 @@
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56BCC3E51EF;
-	Wed,  1 Apr 2026 14:57:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AEA435DA4F;
+	Wed,  1 Apr 2026 15:01:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775055436; cv=none; b=Y9Kto3UtjquX0HOZf87qbKcBAsWvIXxyd95YTwvsUNljjMEIfTLymr0Rm+SS5oLB0xu3h6AEFa2FMOmIy+/dAPM9p6CquWJpj+qfETxlP/jXcENAVscXDTDYJQj0yCNZk19UyGODaO4yIOTly+N31QiSW3vVYPTzk3apQRGRTWY=
+	t=1775055671; cv=none; b=kkSSNQGw+syEw/Qrv4Jiu4JPGyr0MO4bJg9ILLsd94Tvgn0WeqFnt/fpI7HpQuIEAFUZAh84FZFgRVk3RAEPK0Ege9DveqGG89TCjrrZJM9k8PGjsnbrMxpMHXdQbS8sJwYV2Q0/XaU3+brHob93XdpjhS/GMHpO2ZqY2b9iQlE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775055436; c=relaxed/simple;
-	bh=goYJAE4V/aRa469NxUYIKQv+2HyvaoEYvg25hMztnW0=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=ggQesaUhmYvPn6DrKNfCJXb39kxHxj1Y/XysoDAFdMVduff8BV2Fmi4KLeqiifi/MLzIutUS5rsS/0d/Elb4kuf9bDbyCJWBMO6tDwULKnojMOTqlX+AImM3a4BzDQZqlXdsltZkS+SDo5QOpgMbSsCvj7qjBw8LgPBDbgDugdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=EBdBmhy8; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=NfWaPNdV; arc=none smtp.client-ip=103.168.172.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1775055671; c=relaxed/simple;
+	bh=RUwWxvVuCmARZw9VXFz52L6j5M88zNRl5Tjw3fQMR58=;
+	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=HLgM9Fzs1FlYFT2fbUCJ9amaDDwkXMQjr2mIKA2utx4WxEZ/WLTR3MnvbyMO67x5hOF2H2UNt5ncMyJiIfG2HBDC2BJ5ESfJHtfQR+D8/LjgLJdSJwrhkqRSSvnv40UW69JTEIYNdl3C9bnEnu2hXompbgkWg08/3Z/5hW018NM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=jIw0Pu7f; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="EBdBmhy8";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="NfWaPNdV"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id 881C3EC0268;
-	Wed,  1 Apr 2026 10:57:13 -0400 (EDT)
-Received: from phl-imap-02 ([10.202.2.81])
-  by phl-compute-04.internal (MEProxy); Wed, 01 Apr 2026 10:57:13 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1775055433;
-	 x=1775141833; bh=wx9uFPxK7aoYVYlvEoqTCO23k72vx9XaFJAGMTz8G/k=; b=
-	EBdBmhy8ush2I8l5uv7vjLGXV75AY92vQWxjmCPyEYY8SJ83SQnF3L14Vicw51NQ
-	FF7gvwNjihLBoZoPAPfH5I3LfsQ0KNJogIRzsAbTWdU+XGuKF751BZaLASMT/tAj
-	hR4TXU5NmhLWaOyIcbiSQ7m9J3rFx/MuuZoY5pTi2MM6a6SZT3kgblN+gL+k8sym
-	j1nf9P/WSt2jGzIfYHTJL1ngpouJ0DKSSsYSBYAQvmV6uNruDtGa/LH+fs7jo8Cm
-	+6tQJtuy0aGgC7A6EA6QHZcXqrgzaJUmJJBuxN+CXI/lO9b2jXbXvFnaymzD9UE4
-	digK44vT3m53pAZJAr7ukw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1775055433; x=
-	1775141833; bh=wx9uFPxK7aoYVYlvEoqTCO23k72vx9XaFJAGMTz8G/k=; b=N
-	fWaPNdVuR1mCv/d2Wu5O8fNJtzKsmx6tfjmxEShfy+qyzQ7kTBBXp2hg1yGjVQoL
-	IRIxSfEux4jgrb9kGa3ix5DTfQnIuohbJN9tvl4c7B/4TH/CoAprnh7wkK5hvpXu
-	NalbROKZrhJkP+TM0HMNh4jkY3n27VoYFZkg5HpLfBKLeOE2ndyutLKepeeo9qtz
-	49h9PsCzlfz1mXQouLensFZ4a83AMHVLvh0lnDzK38p42B7Ka1K8n/pgTTCNPJhv
-	1kD3AM2BuD6wKS7mc9tJGAAZopAOssvGg0Lo59k118uYXuBEr1a7swGiSKjGH1w+
-	EDr3p8a4QXq0j1uWSaVLQ==
-X-ME-Sender: <xms:SDLNafoWFO00-QQIK3gpd96_o3xq4ItpLl-cGJxwCcpDOyoK17MZLw>
-    <xme:SDLNaUc4OdTKOi__4sC0iCw1NVGbCfWje7trf88s1EVGpoQmCDsWMJFLkI4_wk31L
-    KxmDBnHR9wYHgqh5VxwEiBmuOsalQvbRcXgIFGCFMjrY8aFr1jTyNQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdefgedvucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceurghi
-    lhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurh
-    epofggfffhvfevkfgjfhfutgfgsehtjeertdertddtnecuhfhrohhmpedftehrnhguuceu
-    vghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrdguvgeqnecuggftrfgrthhtvghrnh
-    ephfdthfdvtdefhedukeetgefggffhjeeggeetfefggfevudegudevledvkefhvdeinecu
-    vehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprghrnhguse
-    grrhhnuggsrdguvgdpnhgspghrtghpthhtohepvdekpdhmohguvgepshhmthhpohhuthdp
-    rhgtphhtthhopehsohhuvhhikhdrtghhrghkrhgrvhgrrhhthiesrghrmhdrtghomhdprh
-    gtphhtthhopehmrghrkhdrrhhuthhlrghnugesrghrmhdrtghomhdprhgtphhtthhopehf
-    lhhorhhirghnrdhfrghinhgvlhhlihessghrohgruggtohhmrdgtohhmpdhrtghpthhtoh
-    epmhhorhhithiirdhfihhstghhvghrsegvthhtuhhsrdgtohhmpdhrtghpthhtohepmhgr
-    thhthhhirghsrdgsghhgsehgmhgrihhlrdgtohhmpdhrtghpthhtoheprghnuggvrhhssh
-    honheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepsghrghhlsehkvghrnhgvlhdrohhr
-    ghdprhgtphhtthhopegtohhnohhrodgutheskhgvrhhnvghlrdhorhhgpdhrtghpthhtoh
-    epkhhonhhrrgguhigstghioheskhgvrhhnvghlrdhorhhg
-X-ME-Proxy: <xmx:SDLNaRsQoJjEHEh6BjlT9J7fg0cDlw67Z6gzAFTSrS7tQgpPXwwm1w>
-    <xmx:SDLNaSMRCb2AGtL3ZwYrT-br7Fx6lQyFnd7p-gywCyVnBCDgQ2cCUg>
-    <xmx:SDLNaTXk96uxoMM2wYMUw7wCd0aeCKnui6e1E129kqAWwmSbEexovg>
-    <xmx:SDLNaSjKAkD7DqhFGGw036g2Y6NYQaDPd7Qzm4IkKkNtZHXSx_q8Sw>
-    <xmx:STLNacH8t54amPEHZvYFE30Eb81SbY22TSlc7KrXA6P9Jw3Oq9jPahOH>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id BB713700065; Wed,  1 Apr 2026 10:57:12 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="jIw0Pu7f"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1775055668; x=1806591668;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=RUwWxvVuCmARZw9VXFz52L6j5M88zNRl5Tjw3fQMR58=;
+  b=jIw0Pu7fOOuTpqAIqJe/BoG0ZrhT7Y9T3miuC1DbqeMGFywtItZ2pyFF
+   nDtf0KJQdqX+hIljzr7rKVHyOF5fawIQD1nCRZqb/7FPlOEOXraOBf+tn
+   SFAiEdrY17qK20x89HMT9RtjVSUrIDLHwedix/9iyZB+XURismRnoau4N
+   8Wk5fG7vsLQgc3lgj0c8AUlK0zUHW/t4M56zYsBXmbHf9CrZtNkPZTWq8
+   iQXKaw/hXsu2964bvzX8NRpyhCFw7iF97xqUO/W/SNURRbHcICTPZLmYW
+   IuQ68fQVNGjdy2I5bG7UWY9j16Cry6wURYjlcLhqsf9TAQvTzBnzEzn2E
+   g==;
+X-CSE-ConnectionGUID: 3S/Mh0nqQ56XSMJ1idUGjw==
+X-CSE-MsgGUID: Nl7rFw0pRhC0Et4Ko62vXg==
+X-IronPort-AV: E=Sophos;i="6.23,153,1770620400"; 
+   d="scan'208";a="286909498"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 01 Apr 2026 08:01:07 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Wed, 1 Apr 2026 08:01:01 -0700
+Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Wed, 1 Apr 2026 08:00:58 -0700
+Message-ID: <0d589c193992bb71d31689999cb027b748d69c5c.camel@microchip.com>
+Subject: Re: [PATCH net-next v2 7/9] net: dsa: lan9645x: add mac table
+ integration
+From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
+To: Jakub Kicinski <kuba@kernel.org>
+CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
+	<davem@davemloft.net>, <edumazet@google.com>, <pabeni@redhat.com>,
+	<horms@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <woojung.huh@microchip.com>, <linux@armlinux.org.uk>,
+	<Steen.Hegelund@microchip.com>, <daniel.machon@microchip.com>,
+	<linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+	<devicetree@vger.kernel.org>
+Date: Wed, 1 Apr 2026 17:00:58 +0200
+In-Reply-To: <20260329195635.2789227-1-kuba@kernel.org>
+References: <20260324-dsa_lan9645x_switch_driver_base-v2-7-f7504e3b0681@microchip.com>
+	 <20260329195635.2789227-1-kuba@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: ALgIkaxq5xRN
-Date: Wed, 01 Apr 2026 16:56:49 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Lorenzo Pieralisi" <lpieralisi@kernel.org>,
- "Shivendra Pratap" <shivendra.pratap@oss.qualcomm.com>
-Cc: "Bjorn Andersson" <andersson@kernel.org>,
- "Sebastian Reichel" <sre@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Souvik Chakravarty" <Souvik.Chakravarty@arm.com>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Andy Yan" <andy.yan@rock-chips.com>,
- "Matthias Brugger" <matthias.bgg@gmail.com>,
- "Mark Rutland" <mark.rutland@arm.com>,
- "Conor Dooley" <conor+dt@kernel.org>,
- "Konrad Dybcio" <konradybcio@kernel.org>,
- "John Stultz" <john.stultz@linaro.org>,
- "Moritz Fischer" <moritz.fischer@ettus.com>,
- "Bartosz Golaszewski" <brgl@kernel.org>,
- "Sudeep Holla" <sudeep.holla@kernel.org>,
- "Florian Fainelli" <florian.fainelli@broadcom.com>,
- "Krzysztof Kozlowski" <krzk@kernel.org>,
- "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>,
- "Mukesh Ojha" <mukesh.ojha@oss.qualcomm.com>,
- =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
- "Kathiravan Thirumoorthy" <kathiravan.thirumoorthy@oss.qualcomm.com>,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, "Srinivas Kandagatla" <srini@kernel.org>
-Message-Id: <f6ed07b1-8bfc-49ea-951e-b590bf8b299a@app.fastmail.com>
-In-Reply-To: <ac0trUGsRBLPS+ux@lpieralisi>
-References: 
- <20260304-arm-psci-system_reset2-vendor-reboots-v20-0-cf7d346b8372@oss.qualcomm.com>
- <20260304-arm-psci-system_reset2-vendor-reboots-v20-6-cf7d346b8372@oss.qualcomm.com>
- <acaMPgRALnoUIHMC@lpieralisi>
- <93a78bc2-4fd1-41bd-bf4a-b433b06fc218@oss.qualcomm.com>
- <ac0trUGsRBLPS+ux@lpieralisi>
-Subject: Re: [PATCH v20 06/10] power: reset: Add psci-reboot-mode driver
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
 
-On Wed, Apr 1, 2026, at 16:37, Lorenzo Pieralisi wrote:
-> On Tue, Mar 31, 2026 at 11:30:09PM +0530, Shivendra Pratap wrote:
->> 
->> > > +#include <linux/err.h>
->> > > +#include <linux/of.h>
->> > > +#include <linux/psci.h>
->> > > +#include <linux/reboot.h>
->> > > +#include <linux/reboot-mode.h>
->> > > +#include <linux/types.h>
->> > > +
->> > > +/*
->> > > + * Predefined reboot-modes are defined as per the values
->> > > + * of enum reboot_mode defined in the kernel: reboot.c.
->> > > + */
->> > > +static struct mode_info psci_resets[] = {
->> > > +	{ .mode = "warm", .magic = REBOOT_WARM},
->> > > +	{ .mode = "soft", .magic = REBOOT_SOFT},
->> > > +	{ .mode = "cold", .magic = REBOOT_COLD},
->
-> These strings match the command userspace issue right ? I think that we
-> should make them match the corresponding PSCI reset types, the list above
-> maps command to reboot_mode values and those can belong to any reboot
-> mode driver to be honest they don't make much sense in a PSCI reboot
-> mode driver only.
->
-> It is a question for everyone here: would it make sense to make these
-> predefined resets a set of strings, eg:
->
-> psci-system-reset
-> psci-system-reset2-arch-warm-reset
->
-> and then vendor resets:
->
-> psci-system-reset2-vendor-reset
->
-> at least we know what a string maps to ?
->
-> We can export a function from the PSCI driver to detect whether PSCI
-> SYSTEM_RESET2 is supported, an equivalent of psci_has_osi_support() for
-> instance that we can call from this driver to detect its presence.
+On Sun, 2026-03-29 at 12:56 -0700, Jakub Kicinski wrote:
+> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
+e content is safe
+>=20
+> This is an AI-generated review of your patch. The human sending this
+> email has considered the AI review valid, or at least plausible.
+> ---
+> net: dsa: lan9645x: add mac table integration
+>=20
+> Add MAC table support, and dsa fdb callback integration. The mactable is
+> keyed on (vid,mac) and each bucket has 4 slots. A mac table entry typical=
+ly
+> points to a PGID index, the first 9 of which represent a front port.
+>=20
+> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_mac.c b/driver=
+s/net/dsa/microchip/lan9645x/lan9645x_mac.c
+> > index 000000000000..6335714dca21
+> > --- /dev/null
+> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_mac.c
+> [ ... ]
+> > +int lan9645x_mact_entry_add(struct lan9645x *lan9645x, int pgid,
+> > +                         const unsigned char *mac, u16 vid)
+> > +{
+> > +     struct lan9645x_mact_entry *entry;
+> > +     int err;
+> > +
+> > +     mutex_lock(&lan9645x->mact_lock);
+> > +
+> > +     /* Users can not move (vid,mac) to a different port, without remo=
+ving
+> > +      * the original entry first. But we overwrite entry in HW, and up=
+date
+> > +      * software pgid for good measure.
+> > +      */
+> > +     entry =3D lan9645x_mact_entry_find(lan9645x, mac, vid);
+> > +     if (entry) {
+> > +             entry->common.pgid =3D pgid;
+> > +             goto mac_learn;
+> > +     }
+> > +
+> > +     entry =3D lan9645x_mact_entry_alloc(lan9645x, mac, vid, pgid,
+> > +                                       ENTRYTYPE_LOCKED);
+> > +     if (!entry) {
+> > +             mutex_unlock(&lan9645x->mact_lock);
+> > +             return -ENOMEM;
+> > +     }
+> > +
+> > +     list_add_tail(&entry->list, &lan9645x->mac_entries);
+> > +
+> > +mac_learn:
+> > +     err =3D __lan9645x_mact_learn(lan9645x, pgid, mac, vid, ENTRYTYPE=
+_LOCKED);
+> > +     if (err)
+> > +             lan9645x_mact_entry_dealloc(lan9645x, entry);
+>=20
+> If a pre-existing entry is updated but the hardware learning command fail=
+s,
+> will this inadvertently delete the valid software entry and cause the har=
+dware
+> and software tracking to become desynchronized?
+>=20
 
-Sorry I've been out of the loop for this series for a while, but
-can someone refresh me on why we got back to mixing in
-the 'enum reboot_mode' from legacy i386 and arm32 into the new
-interface?
+I will rearrange so they stay synced.
 
-I don't mind having whichever strings are defined for PSCI present
-in the user interface, but this seems like a mistake to me.
-If at all possible, lets define your own magic constants that
-are not tied to "enum reboot_mode" or the legacy reboot= command
-line argument.
+> > +
+> > +     mutex_unlock(&lan9645x->mact_lock);
+> > +     return err;
+> > +}
+> > +
+> > +int lan9645x_mact_entry_del(struct lan9645x *lan9645x, int pgid,
+> > +                         const unsigned char *mac, u16 vid)
+> > +{
+> > +     struct lan9645x_mact_entry *entry;
+> > +     int err;
+> > +
+> > +     mutex_lock(&lan9645x->mact_lock);
+> > +
+> > +     entry =3D lan9645x_mact_entry_find(lan9645x, mac, vid);
+> > +     if (!entry) {
+> > +             mutex_unlock(&lan9645x->mact_lock);
+> > +             return -ENOENT;
+> > +     }
+> > +
+> > +     WARN_ON(entry->common.pgid !=3D pgid);
+> > +     lan9645x_mact_entry_dealloc(lan9645x, entry);
+> > +     err =3D __lan9645x_mact_forget(lan9645x, mac, vid, ENTRYTYPE_LOCK=
+ED);
+>=20
+> Does this permanently remove the software entry even if the hardware
+> command to forget the entry fails?
+>=20
 
-       Arnd
+Same here, I can rearrange so they stay synced.
+
+> > +
+> > +     mutex_unlock(&lan9645x->mact_lock);
+> > +     return err;
+> > +}
+> [ ... ]
+> > +void lan9645x_mac_deinit(struct lan9645x *lan9645x)
+> > +{
+> > +     mutex_destroy(&lan9645x->mact_lock);
+> > +}
+>=20
+> Are the static MAC entries in the mac_entries list leaked here during dri=
+ver
+> teardown, or are they freed elsewhere?
+>=20
+
+I thought DSA core would have removed them for me, but it looks like that m=
+ay not be
+the case. I will add dealloc during deinit.
+
+> > +
+> > +int lan9645x_mact_dsa_dump(struct lan9645x *lan9645x, int port,
+> > +                        dsa_fdb_dump_cb_t *cb, void *data)
+> > +{
+> > +     struct lan9645x_mact_entry entry =3D {};
+> > +     u32 mach, macl, maca;
+> > +     int err =3D 0;
+> > +     u32 autoage;
+> [ ... ]
+> > +     while (1) {
+> > +             /* NOTE: we rely on mach, macl and type being set correct=
+ly in
+> > +              * the registers from previous round, vis a vis the GET_N=
+EXT
+> > +              * semantics, so locking entire loop is important.
+> > +              */
+> > +             lan_wr(ANA_MACACCESS_MAC_TABLE_CMD_SET(CMD_GET_NEXT) |
+> > +                    ANA_MACACCESS_ENTRYTYPE_SET(entry.common.type),
+> > +                    lan9645x, ANA_MACACCESS);
+> > +
+> > +             if (lan9645x_mac_wait_for_completion(lan9645x, &maca))
+> > +                     break;
+>=20
+> If the hardware completion times out, the loop breaks out and returns the
+> local err variable which is initialized to 0. Will this suppress the hard=
+ware
+> timeout error code and incorrectly report a successful dump?
+>=20
+
+Yes, I will return the error.
+
+> > +
+> > +             if (ANA_MACACCESS_VALID_GET(maca) =3D=3D 0)
+> > +                     break;
+> > +
+> > +             mach =3D lan_rd(lan9645x, ANA_MACHDATA);
+> > +             macl =3D lan_rd(lan9645x, ANA_MACLDATA);
+> > +
+> > +             lan9645x_mact_parse(mach, macl, maca, &entry.common);
+> > +
+> > +             if (ANA_MACACCESS_DEST_IDX_GET(maca) =3D=3D port &&
+> > +                 entry.common.type =3D=3D ENTRYTYPE_NORMAL) {
+>=20
+> Since static FDB entries are programmed with ENTRYTYPE_LOCKED, will this
+> condition exclude them from the FDB dump, preventing them from showing up
+> during bridge FDB queries?
+>=20
+
+Yes that is intentional. This is for the dynamic entries which the bridge c=
+ore does not
+know about.
+
+> > +                     if (entry.common.key.vid > VLAN_MAX)
+> > +                             entry.common.key.vid =3D 0;
+> > +
+> > +                     err =3D cb(entry.common.key.mac, entry.common.key=
+.vid,
+> > +                              false, data);
+> > +                     if (err)
+> > +                             break;
+> > +             }
+> > +     }
+> > +
+> > +     /* Remove aging filters and restore aging */
+> > +     lan_wr(0, lan9645x, ANA_ANAGEFIL);
+> > +     lan_rmw(ANA_AUTOAGE_AGE_PERIOD_SET(ANA_AUTOAGE_AGE_PERIOD_GET(aut=
+oage)),
+> > +             ANA_AUTOAGE_AGE_PERIOD,
+> > +             lan9645x, ANA_AUTOAGE);
+>=20
+> Does restoring the ANA_AUTOAGE register using the autoage value saved at =
+the
+> start of the function race with other operations setting the aging time?
+>=20
+> If the aging time is updated concurrently without taking mact_lock, its n=
+ewly
+> configured aging period might be overwritten here.
+>=20
+
+AFAIK both run under rtnl so we do not have a race. But I will take the mac=
+t_lock during
+set_ageing_time.
+
+> > +
+> > +     mutex_unlock(&lan9645x->mact_lock);
+> > +
+> > +     return err;
+> > +}
+> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drive=
+rs/net/dsa/microchip/lan9645x/lan9645x_main.c
+> > index 046c95a72242..32c0301030a4 100644
+> > --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+> [ ... ]
+> > +static int lan9645x_fdb_del(struct dsa_switch *ds, int port,
+> > +                         const unsigned char *addr, u16 vid,
+> > +                         struct dsa_db db)
+> > +{
+> > +     struct net_device *br =3D lan9645x_db2bridge(db);
+> > +     struct dsa_port *dp =3D dsa_to_port(ds, port);
+> > +     struct lan9645x *lan9645x =3D ds->priv;
+> > +     int err;
+> > +
+> > +     if (IS_ERR(br))
+> > +             return PTR_ERR(br);
+> > +
+> > +     if (dsa_port_is_cpu(dp) && !br &&
+> > +         dsa_fdb_present_in_other_db(ds, port, addr, vid, db))
+> > +             return 0;
+> > +
+> > +     if (!vid)
+> > +             vid =3D lan9645x_vlan_unaware_pvid(!!br);
+> > +
+> > +     if (dsa_port_is_cpu(dp))
+> > +             return lan9645x_mact_forget(lan9645x, addr, vid,
+> > +                                         ENTRYTYPE_LOCKED);
+> > +
+> > +     err =3D lan9645x_mact_entry_del(lan9645x, port, addr, vid);
+> > +     if (err =3D=3D -ENOENT) {
+> > +             dev_dbg(lan9645x->dev,
+> > +                     "fdb not found port=3D%d addr=3D%pM vid=3D%u\n", =
+port, addr,
+> > +                     vid);
+> > +             return 0;
+> > +     }
+> > +
+> > +     return err;
+> > +}
+>=20
+> Since lan9645x_mact_entry_del returns -ENOENT when a MAC address is not f=
+ound
+> in the software tracking list, and the software list only contains static=
+ally
+> added entries, won't this intercept attempts to manually delete dynamical=
+ly
+> learned MAC addresses and return success without actually removing them f=
+rom
+> the hardware table?
+
+No I do not think this is how it works. Dynamic entries are flushed with=C2=
+=A0
+.port_fast_age, and port_fdb_del is for static entries. We handle -ENOENT
+because DSA core does not refcount fdbs for userports.
