@@ -1,438 +1,183 @@
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3532F378D68
-	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 03:58:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 774851DF73C;
+	Wed,  1 Apr 2026 04:04:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775015929; cv=none; b=iM8HWF1TJd8iEK58tnRPwk1MF8vWNfsAmTBXjE7O3UI9ZB6xIJPInuIyOTr7A452kj/hyATNjycsJLktd5T+/9KoJdoIQyDmWF17INzEF767YwYWnvOVAp/V3G2dxovK1HS14GYQBj/S5F7gGSMJNy38pj47dtQp0YAWneO6TuU=
+	t=1775016262; cv=none; b=X49E6VyP72qWR08JpZ2gEo15nqEXX76erFJvDG0oP/uPU3F6RWcjvC4beUlArMPvSYAUkAWdKNq4Dn+XHdvu87rmayvxcbbPtxeV7Ds7+nXi51AE8Owlq2+IxlTlO37n2RUm8S+hI1quQwHHjQEy9DFuFQ93hB49oYYcoxdpai4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775015929; c=relaxed/simple;
-	bh=U+4mP5BBn7FtgmJ/FcXLeHd4ZcEFaxCBeW7CFH2o2Q8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=L4rofxjRWzuF489JDPi8lvZxM4iWdti59dLmDQYDwnNvSM++vNkFFKz6T+htYzJhTnghW8rWgJ1S5bZSZN0YnAlHI+DcNxvfZyHXB+XvzossJ2wiEATtakp52/KLa97sOrjY7mtYUrrrYM6YbeVRrZ7rdIgZ2JrHuEYoVNOFJlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=grA2EvRC; arc=none smtp.client-ip=74.125.82.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1775016262; c=relaxed/simple;
+	bh=ScayOH1vtYXF2K7sunI/tM6mb4FVHyGKqqVATORwRxA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Hj2VM2zTydxtk3hCmqn1OKrJ5Z1b8E02KW2O/hcFhN3P2Je24R3p/112TZAVQ+Ztm2EZoOO5VH69PCUyZiXUWuMRL3kh3PM6rSwOers/glcaKZDR3C2F7ysY2vyzYQbBkTHvp+xNKyERJ+gYpkQdUtSI4dUa+vhzndPpFDQbLUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OCeq2Mai; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="grA2EvRC"
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1273349c56bso8148964c88.0
-        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 20:58:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775015926; x=1775620726; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=l84CNpKWW6g2Vwe0V47MIstABqP4OdXkcdJCor6CUkE=;
-        b=grA2EvRCooF6Ok26UJrWcYfc/HtEAqL6qAYrSil5+gpW7QgvTyT4EvWxV9ARvIG1aA
-         +Tnm2VQRK9GOXEkpbAz4CEyTOlkHBxZHn1hIcb1F3qR3K8QRzEzXLOFIaZ1eWg0DbYv7
-         c7+Ljee1fAcnS+b7jSasfMDnBdnrol5g8wTJw1AGThkZyG3w/Yes1WvOzaoHtHGuq9Lz
-         nvbhBucUvJy2v9eNo3xUpEQMYAWiJZnKvhKHQGGi31UKlN/VTQ1JGCF1xwJV0nWvsPG3
-         qT2ComehLno4aIsTCfgUT1TIDl9Ns8pan5pGHoHyOzoEvKzdbi0FVIUb5wQHrlzM+Jhn
-         /Zpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775015926; x=1775620726;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=l84CNpKWW6g2Vwe0V47MIstABqP4OdXkcdJCor6CUkE=;
-        b=cVe7fAa3GpZOF4ED3zzRnVd3xBEn4NZoEG6mfyRnQILHZ0E8AN2qR/j4v12ZKskG2D
-         4UuCa/LXaflbBBHPfUdLPr3H9gHMgDDoazC8lWh/Wltg8nX7Rhi/vAOC4hh7B0mszwad
-         ikDKPfXnqSeWqW9q0uC3k9Ig0QMUaEp5bVpqIMB2gPKQ+fcTT/oB4Q1ms72b2cia8Wox
-         FTilb5IMn2Abs6zx6cZUbiy7UZUWEFYmfng1t8oJXLJMgV5eblEQWSa1O3LoIS/i6Z+c
-         cSLnqVfthBxjR6s5Rk5o7u1PuupXwFaPwxqqkXZ9PVusQBW/3o9mvSB6scz+gr3lAKdN
-         zp6w==
-X-Gm-Message-State: AOJu0YwTJhAZ4EPb5Prp23E1hZBw3X1Y5uOiH3aA3XNlMhO0IsiJ/29W
-	SGql6Q52Z/qVWO56EOdQv15v0ibLmVIfptToQoQuOIaaXjkhY380CkWr
-X-Gm-Gg: ATEYQzyLGtufM8yo8AFmQrtr2y2YTvjw83eeraqNqLAlr4Zlpk7bGoro2T+3eTqV2Ij
-	bSOvyQ6gf1bFKEhK7wGqbqVRq4G86AJnRsHrijtHP6L6Y9dyT0aG2cZqhOwD0chobUR4RFpSgmL
-	zxxNhQ7voFOETGrpBwQO6Fc0ALEHy100Xqvm2KQmZEDVBh8xkEmRq+hI81S7V3n04lT77a4qcg6
-	HBstuDrwb6OE8Yej+Wvbz2FAXaGoXRlVRedDBrW7w3mipQTO8POBeefDnpJ8ijY9HkC/8guqfj+
-	V2R3tDOVNdERmR+Z9s/6lKQwWzy6qcDTehkN6LEtCD/R9dAkPL9XsJVmKm70Rp0YaZP6HDu85CB
-	9l7/6Xzsj9xJo2SaqjzIN6EMFuMYc3sq/ACRCDFz4514EGpsSr84EcJNJXUUkRxcc5c4J2ZL0Cc
-	OGJi3NflfZA/ER2U9WyBEDr+x5/gkoY2M7691CtbIxwgeRTRtCUvR/fy6o2ysZOaDmY1zcHteN
-X-Received: by 2002:a05:7022:258c:b0:128:d471:8c1 with SMTP id a92af1059eb24-12be64cd31fmr1235114c88.17.1775015926152;
-        Tue, 31 Mar 2026 20:58:46 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-12ab97e7a57sm15735566c88.6.2026.03.31.20.58.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 31 Mar 2026 20:58:45 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <451d4cca-5966-4817-92b5-b886c7f7271d@roeck-us.net>
-Date: Tue, 31 Mar 2026 20:58:44 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OCeq2Mai"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A25A4C4CEF7;
+	Wed,  1 Apr 2026 04:04:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775016262;
+	bh=ScayOH1vtYXF2K7sunI/tM6mb4FVHyGKqqVATORwRxA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=OCeq2Mai12RS1qTR9GvoeNmKuwmzoWUAPCrGXdkVBqc4lIsSDEZMczQyFQpPHSP7y
+	 FlMIcvuNkrRphHe4Rt4cEZY/xlHLTa7OSfQFDhBgQ3aRbickkqOk19dpXVwqDmf5MM
+	 6u2K2CDWSa+f6quD3wbRDm1JqmGRC+LlOSvS+gckSe+xMkRBQ/XWNzntlii90YUmj+
+	 HEdJOy95SMpksOuKLVq1LisKAZ2ByjVZlSPbLpQ3vuxDLhddKI2BDUQI8OsNLPQ8Oi
+	 IppT7OyI/TYBDiz5l73wssioFc/UwFpkXWeLhifsQ/0k/CmfAZJVuWAvWiPevd9ESy
+	 yFe3pQyZCjItQ==
+Date: Wed, 1 Apr 2026 12:04:19 +0800
+From: Yixun Lan <dlan@kernel.org>
+To: Han Gao <gaohan@iscas.ac.cn>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Chukun Pan <amadeus@jmu.edu.cn>, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Han Gao <rabenda.cn@gmail.com>
+Subject: Re: [PATCH v4 3/3] riscv: dts: spacemit: Enable USB3.0/PCIe on
+ OrangePi RV2
+Message-ID: <20260401040419-GKC976850@kernel.org>
+References: <cover.1774974017.git.gaohan@iscas.ac.cn>
+ <0ec229e2fb138092672773f134d0739e70740ce0.1774974017.git.gaohan@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] hwmon: pmbus: Add support for Sony APS-379
-To: Chris Packham <chris.packham@alliedtelesis.co.nz>, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260401024214.804237-1-chris.packham@alliedtelesis.co.nz>
- <20260401024214.804237-3-chris.packham@alliedtelesis.co.nz>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260401024214.804237-3-chris.packham@alliedtelesis.co.nz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0ec229e2fb138092672773f134d0739e70740ce0.1774974017.git.gaohan@iscas.ac.cn>
 
-On 3/31/26 19:42, Chris Packham wrote:
-> Add pmbus support for Sony APS-379 power supplies. There are a few PMBUS
-> commands that return data that is undocumented/invalid so these need to
-> be rejected with -ENXIO. The READ_VOUT command returns data in linear11
-> format instead of linear16 so we need to workaround this.
+Hi Han,
+
+On 00:27 Wed 01 Apr     , Han Gao wrote:
+> Enable the DWC3 USB 3.0 controller and its associated usbphy2 on the
+> OrangePi RV2 board.
 > 
-> Signed-off-by: Chris Packham <chris.packham@alliedtelesis.co.nz>
+> The board utilizes a Genesys Logic GL3523 USB3.0 hub.
+> 
+> Define a 3.3v fixed voltage regulator for PCIe and enable PCIe and
+> PHY-related Device Tree nodes for the OrangePi RV2.
+> 
+> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 > ---
+>  .../boot/dts/spacemit/k1-orangepi-rv2.dts     | 68 +++++++++++++++++++
+>  1 file changed, 68 insertions(+)
+> 
+> diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+> index e5e358d49c09..e93e7f660820 100644
+> --- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+> @@ -23,6 +23,15 @@ chosen {
+>  		stdout-path = "serial0";
+>  	};
+>  
+> +	pcie_vcc_3v3: regulator-pcie-vcc3v3 {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "pcie_vcc3v3";
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +		gpio = <&gpio K1_GPIO(116) GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +	};
+> +
+
+I've noticed you dropped usb3_hub_5v which actually provide vbus supply..
+so in current version, it will leave vbus as undetermined state - whether
+vbus is on or not will depend on bootloader to enable it or not?
+
+The best choice would be waiting for Marco's onboard-dev vbus patch[1],
+while in K1 platform, we workaround it by force enabling vbus after power on
+(set regulator as always-on)..
+
+Link: https://lore.kernel.org/all/20260223-v6-16-topic-usb-onboard-dev-v5-0-28d3018a8026@pengutronix.de/ [1]
+
+>  	reg_vcc_4v: regulator-vcc-4v {
+>  		compatible = "regulator-fixed";
+>  		regulator-name = "vcc4v0";
+> @@ -44,6 +53,10 @@ led1 {
+>  	};
+>  };
+>  
+> +&combo_phy {
+> +	status = "okay";
+> +};
+> +
+>  &eth0 {
+>  	phy-handle = <&rgmii0>;
+>  	phy-mode = "rgmii-id";
+> @@ -190,8 +203,63 @@ dldo6 {
+>  	};
+>  };
+>  
+> +&pcie1_phy {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pcie1_3_cfg>;
+> +	status = "okay";
+> +};
+> +
+> +&pcie1_port {
+> +	phys = <&pcie1_phy>;
+> +	vpcie3v3-supply = <&pcie_vcc_3v3>;
+> +};
+> +
+> +&pcie1 {
+> +	vpcie3v3-supply = <&pcie_vcc_3v3>;
+> +	status = "okay";
+> +};
+> +
+> +&pcie2_phy {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pcie2_4_cfg>;
+> +	status = "okay";
+> +};
+> +
+> +&pcie2_port {
+> +	phys = <&pcie2_phy>;
+> +	vpcie3v3-supply = <&pcie_vcc_3v3>;
+> +};
+> +
+> +&pcie2 {
+> +	vpcie3v3-supply = <&pcie_vcc_3v3>;
+> +	status = "okay";
+> +};
+> +
+>  &uart0 {
+>  	pinctrl-names = "default";
+>  	pinctrl-0 = <&uart0_2_cfg>;
+>  	status = "okay";
+>  };
+> +
+> +&usbphy2 {
+> +	status = "okay";
+> +};
+> +
+> +&usb_dwc3 {
+> +	dr_mode = "host";
+> +	#address-cells = <1>;
+> +	#size-cells = <0>;
+> +	status = "okay";
+> +
+> +	hub_2_0: hub@1 {
+> +		compatible = "usb5e3,610";
+> +		reg = <0x1>;
+> +		peer-hub = <&hub_3_0>;
+> +	};
+> +
+> +	hub_3_0: hub@2 {
+> +		compatible = "usb5e3,620";
+> +		reg = <0x2>;
+> +		peer-hub = <&hub_2_0>;
+Can you confirm all usb ports work fine with this?
+
+> +	};
+> +};
+> -- 
+> 2.47.3
 > 
 
-Here is the AI feedback:
-
-https://sashiko.dev/#/patchset/20260401024214.804237-1-chris.packham%40alliedtelesis.co.nz
-
-All good points ...
-
-Guenter
-
-> Notes:
->      Changes in v2:
->      - Simplify code per recommendations from Guenter
->      - Add driver documentation
-> 
->   Documentation/hwmon/aps-379.rst |  58 +++++++++++
->   Documentation/hwmon/index.rst   |   1 +
->   drivers/hwmon/pmbus/Kconfig     |   6 ++
->   drivers/hwmon/pmbus/Makefile    |   1 +
->   drivers/hwmon/pmbus/aps-379.c   | 168 ++++++++++++++++++++++++++++++++
->   5 files changed, 234 insertions(+)
->   create mode 100644 Documentation/hwmon/aps-379.rst
->   create mode 100644 drivers/hwmon/pmbus/aps-379.c
-> 
-> diff --git a/Documentation/hwmon/aps-379.rst b/Documentation/hwmon/aps-379.rst
-> new file mode 100644
-> index 000000000000..468ec5a98fd6
-> --- /dev/null
-> +++ b/Documentation/hwmon/aps-379.rst
-> @@ -0,0 +1,58 @@
-> +Kernel driver aps-379
-> +=====================
-> +
-> +Supported chips:
-> +
-> +  * Sony APS-379
-> +
-> +    Prefix: 'aps-379'
-> +
-> +    Addresses scanned: -
-> +
-> + Authors:
-> +        - Chris Packham
-> +
-> +Description
-> +-----------
-> +
-> +This driver implements support for the PMBus monitor on the Sony APS-379
-> +modular power supply. The APS-379 deviates from the PMBus standard for the
-> +READ_VOUT command by using the linear11 format instead of linear16.
-> +
-> +The known supported PMBus commands are:
-> +
-> +=== ============================= ========= ======= =====
-> +Cmd Function                      Protocol  Scaling Bytes
-> +=== ============================= ========= ======= =====
-> +01  On / Off Command (OPERATION)  Byte R/W  --      1
-> +10  WRITE_PROTECT                 Byte R/W  --      1
-> +3B  FAN_COMMAND_1                 Word R/W  --      2
-> +46  Current Limit (in percent)    Word R/W  2^0     2
-> +47  Current Limit Fault Response  Byte R/W  --      1
-> +79  Alarm Data Bits (STATUS_WORD) Word Rd   --      2
-> +8B  Output Voltage (READ_VOUT)    Word Rd   2^-4    2
-> +8C  Output Current (READ_IOUT)    Word Rd   2^-2    2
-> +8D  Power Supply Ambient Temp     Word Rd   2^0     2
-> +90  READ_FAN_SPEED_1              Word Rd   2^6     2
-> +91  READ_FAN_SPEED_2              Word Rd   2^6     2
-> +96  Output Wattage (READ_POUT)    Word Rd   2^1     2
-> +97  Input Wattage (READ_PIN)      Word Rd   2^1     2
-> +9A  Unit Model Number (MFR_MODEL) Block R/W --      10
-> +9B  Unit Revision Number          Block R/W --      10
-> +9E  Unit Serial Number            Block R/W --      8
-> +99  Unit Manufacturer ID (MFR_ID) Block R/W --      8
-> +D0  Unit Run Time Information     Block Rd  --      4
-> +D5  Firmware Version              Rd cust   --      8
-> +B0  User Data 1 (USER_DATA_00)    Block R/W --      4
-> +B1  User Data 2 (USER_DATA_01)    Block R/W --      4
-> +B2  User Data 3 (USER_DATA_02)    Block R/W --      4
-> +B3  User Data 4 (USER_DATA_03)    Block R/W --      4
-> +B4  User Data 5 (USER_DATA_04)    Block R/W --      4
-> +B5  User Data 6 (USER_DATA_05)    Block R/W --      4
-> +B6  User Data 7 (USER_DATA_06)    Block R/W --      4
-> +B7  User Data 8 (USER_DATA_07)    Block R/W --      4
-> +F0  Calibration command           Byte R/W  --      1
-> +F1  Calibration data              Word Wr   2^9     2
-> +F2  Unlock Calibration            Byte Wr   --      1
-> +=== ============================= ========= ======= =====
-> +
-> diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
-> index b2ca8513cfcd..2bc8d88b5724 100644
-> --- a/Documentation/hwmon/index.rst
-> +++ b/Documentation/hwmon/index.rst
-> @@ -41,6 +41,7 @@ Hardware Monitoring Kernel Drivers
->      adt7475
->      aht10
->      amc6821
-> +   aps-379
->      aquacomputer_d5next
->      asb100
->      asc7621
-> diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-> index fc1273abe357..29076921e330 100644
-> --- a/drivers/hwmon/pmbus/Kconfig
-> +++ b/drivers/hwmon/pmbus/Kconfig
-> @@ -77,6 +77,12 @@ config SENSORS_ADP1050_REGULATOR
->   	  µModule regulators that can provide microprocessor power from 54V
->   	  power distribution architecture.
->   
-> +config SENSORS_APS_379
-> +	tristate "Sony APS-379 Power Supplies"
-> +	help
-> +	  If you say yes here you get hardware monitoring support for Sony
-> +	  APS-379 Power Supplies.
-> +
->   config SENSORS_BEL_PFE
->   	tristate "Bel PFE Compatible Power Supplies"
->   	help
-> diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
-> index d6c86924f887..94f36c7069ec 100644
-> --- a/drivers/hwmon/pmbus/Makefile
-> +++ b/drivers/hwmon/pmbus/Makefile
-> @@ -9,6 +9,7 @@ obj-$(CONFIG_SENSORS_ACBEL_FSG032) += acbel-fsg032.o
->   obj-$(CONFIG_SENSORS_ADM1266)	+= adm1266.o
->   obj-$(CONFIG_SENSORS_ADM1275)	+= adm1275.o
->   obj-$(CONFIG_SENSORS_ADP1050)	+= adp1050.o
-> +obj-$(CONFIG_SENSORS_APS_379)	+= aps-379.o
->   obj-$(CONFIG_SENSORS_BEL_PFE)	+= bel-pfe.o
->   obj-$(CONFIG_SENSORS_BPA_RS600)	+= bpa-rs600.o
->   obj-$(CONFIG_SENSORS_DELTA_AHE50DC_FAN) += delta-ahe50dc-fan.o
-> diff --git a/drivers/hwmon/pmbus/aps-379.c b/drivers/hwmon/pmbus/aps-379.c
-> new file mode 100644
-> index 000000000000..edc489558437
-> --- /dev/null
-> +++ b/drivers/hwmon/pmbus/aps-379.c
-> @@ -0,0 +1,168 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Hardware monitoring driver for Sony APS-379 Power Supplies
-> + *
-> + * Copyright 2026 Allied Telesis Labs
-> + */
-> +
-> +#include <linux/i2c.h>
-> +#include <linux/init.h>
-> +#include <linux/kernel.h>
-> +#include <linux/module.h>
-> +#include <linux/pmbus.h>
-> +#include "pmbus.h"
-> +
-> +struct aps_379_data {
-> +	struct pmbus_driver_info info;
-> +	u8 vout_linear_exponent;
-> +};
-> +
-> +#define to_aps_379_data(x) container_of(x, struct aps_379_data, info)
-> +
-> +static const struct i2c_device_id aps_379_id[] = {
-> +	{ "aps-379", 0 },
-> +	{},
-> +};
-> +
-> +static int aps_379_read_byte_data(struct i2c_client *client, int page, int reg)
-> +{
-> +	const struct pmbus_driver_info *info = pmbus_get_driver_info(client);
-> +	struct aps_379_data *data = to_aps_379_data(info);
-> +
-> +	switch (reg) {
-> +	case PMBUS_VOUT_MODE:
-> +		/*
-> +		 * The VOUT format used by the chip is linear11,
-> +		 * not linear16. Report that VOUT is in linear mode
-> +		 * and return exponent value extracted while probing
-> +		 * the chip.
-> +		 */
-> +		return data->vout_linear_exponent;
-> +	default:
-> +		return -ENODATA;
-> +	}
-> +}
-> +
-> +/*
-> + * The APS-379 uses linear11 format instead of linear16. We've reported the exponent
-> + * via the PMBUS_VOUT_MODE so we just return the mantissa here.
-> + */
-> +static int aps_379_read_vout(struct i2c_client *client)
-> +{
-> +	int ret;
-> +
-> +	ret = pmbus_read_word_data(client, 0, 0xff, PMBUS_READ_VOUT);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	return sign_extend32(ret & 0x7ff, 11);
-> +}
-> +
-> +static int aps_379_read_word_data(struct i2c_client *client, int page, int phase, int reg)
-> +{
-> +	switch (reg) {
-> +	case PMBUS_VOUT_UV_WARN_LIMIT:
-> +	case PMBUS_VOUT_OV_WARN_LIMIT:
-> +	case PMBUS_VOUT_UV_FAULT_LIMIT:
-> +	case PMBUS_VOUT_OV_FAULT_LIMIT:
-> +	case PMBUS_PIN_OP_WARN_LIMIT:
-> +	case PMBUS_POUT_OP_WARN_LIMIT:
-> +	case PMBUS_MFR_IIN_MAX:
-> +	case PMBUS_MFR_PIN_MAX:
-> +	case PMBUS_MFR_VOUT_MIN:
-> +	case PMBUS_MFR_VOUT_MAX:
-> +	case PMBUS_MFR_IOUT_MAX:
-> +	case PMBUS_MFR_POUT_MAX:
-> +	case PMBUS_MFR_MAX_TEMP_1:
-> +		/* These commands return data but it is invalid/un-documented */
-> +		return -ENXIO;
-> +	case PMBUS_READ_VOUT:
-> +		return aps_379_read_vout(client);
-> +	default:
-> +		if (reg >= PMBUS_VIRT_BASE)
-> +			return -ENXIO;
-> +		else
-> +			return -ENODATA;
-> +	}
-> +}
-> +
-> +static struct pmbus_driver_info aps_379_info = {
-> +	.pages = 1,
-> +	.format[PSC_VOLTAGE_OUT] = linear,
-> +	.format[PSC_CURRENT_OUT] = linear,
-> +	.format[PSC_POWER] = linear,
-> +	.format[PSC_TEMPERATURE] = linear,
-> +	.format[PSC_FAN] = linear,
-> +	.func[0] = PMBUS_HAVE_VOUT |
-> +		PMBUS_HAVE_IOUT |
-> +		PMBUS_HAVE_PIN | PMBUS_HAVE_POUT |
-> +		PMBUS_HAVE_TEMP |
-> +		PMBUS_HAVE_FAN12,
-> +	.read_byte_data = aps_379_read_byte_data,
-> +	.read_word_data = aps_379_read_word_data,
-> +};
-> +
-> +static int aps_379_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct pmbus_driver_info *info;
-> +	struct aps_379_data *data;
-> +	u8 buf[I2C_SMBUS_BLOCK_MAX + 1];
-> +	int ret;
-> +
-> +	data = devm_kzalloc(&client->dev, sizeof(*data), GFP_KERNEL);
-> +	if (!data)
-> +		return -ENOMEM;
-> +
-> +	memcpy(&data->info, &aps_379_info, sizeof(*info));
-> +	info = &data->info;
-> +
-> +	if (!i2c_check_functionality(client->adapter,
-> +				     I2C_FUNC_SMBUS_READ_BYTE_DATA
-> +				     | I2C_FUNC_SMBUS_READ_WORD_DATA
-> +				     | I2C_FUNC_SMBUS_READ_BLOCK_DATA))
-> +		return -ENODEV;
-> +
-> +	ret = i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL, buf);
-> +	if (ret < 0) {
-> +		dev_err(dev, "Failed to read Manufacturer Model\n");
-> +		return ret;
-> +	}
-> +
-> +	if (strncasecmp(buf, aps_379_id[0].name, strlen(aps_379_id[0].name)) != 0) {
-> +		buf[ret] = '\0';
-> +		dev_err(dev, "Unsupported Manufacturer Model '%s'\n", buf);
-> +		return -ENODEV;
-> +	}
-> +
-> +	ret = i2c_smbus_read_word_data(client, PMBUS_READ_VOUT);
-> +	if (ret < 0) {
-> +		dev_err(dev, "Can't get vout exponent.\n");
-> +		return ret;
-> +	}
-> +	data->vout_linear_exponent = (u8)((ret >> 11) & 0x1f);
-> +
-> +	return pmbus_do_probe(client, info);
-> +}
-> +
-> +static const struct of_device_id __maybe_unused aps_379_of_match[] = {
-> +	{ .compatible = "sony,aps-379" },
-> +	{},
-> +};
-> +MODULE_DEVICE_TABLE(of, aps_379_of_match);
-> +
-> +static struct i2c_driver aps_379_driver = {
-> +	.driver = {
-> +		.name = "aps-379",
-> +		.of_match_table = of_match_ptr(aps_379_of_match),
-> +	},
-> +	.probe = aps_379_probe,
-> +	.id_table = aps_379_id,
-> +};
-> +
-> +module_i2c_driver(aps_379_driver);
-> +
-> +MODULE_AUTHOR("Chris Packham");
-> +MODULE_DESCRIPTION("PMBus driver for Sony APS-379");
-> +MODULE_LICENSE("GPL");
-> +MODULE_IMPORT_NS("PMBUS");
-
+-- 
+Yixun Lan (dlan)
