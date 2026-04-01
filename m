@@ -1,161 +1,326 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9BF13D6CA4
-	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 15:54:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAC183DD501
+	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 15:56:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775058898; cv=none; b=ca3tD3TYtjOK7Or2/6RjFPCWeJNmEcGBclHtUorlJBN/A+y01zimG1pZfz8/WfXNFqq2D08NgaMsrZTkqdQME/Vphzbbn7MGxdRbsGsAG0wnTlyh9KCSGyU+yaYWDO0j60j+KONi0BmCa56Qn01+rNAPaq7Dg5koL1/ZA2h08Gc=
+	t=1775058987; cv=none; b=ALI2W4fG+u3yLDybuSKsskcESxBMskCqLgF8tWzj1QrM92Sw/Rivwci1Apr8SVcmDgZX9k0Wil0//nty7F94FQqUTWKZ+YUXKVs0acu9ehcnGvWoREB44aLCdDtskndF11fw/zrXu3o9miMPTd3RY9bm24z9d3DWtNsv6OfFGP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775058898; c=relaxed/simple;
-	bh=+qbkO2vGbvThK38+UmgQuZI4Qx1NmsWO4jJxe2qo63Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lAotOd8Y53aNqDletO4HQ369rjP6NpPqjNtuKduFjycN0wCu399A3b7bpROBE54K31lTVEAMA1Yd5X4IT6IgIge2mr/OR8bPXXGVkhoM1FON8ioFZaCivO+fQv5i8/Q6KAf/tjXshJjsVE9dyMxWzWJJRnhvHCKlo/Uw5hwvQqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OuuXGirx; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=a47Hpemp; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1775058987; c=relaxed/simple;
+	bh=6nrrHXppovFSVNa6/SNOBL90VZQsL/cvQ6m4nJzAtjQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LPD5IWvDbuRQ2hx9bBtSlDdnen1hniRVbc0htOaGIQoAPr64sHgwNj/bY7886q8qnjkZOcUnFofkm/EgN5UMXs5Gf8z8n1h+zycw1mWwl+KaqDSqt9XVWy2CziVPSWMogSBe4PaYPsR3YwJWXyOvfkkxO8Qk2gsgHYvnF6JHc30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aJ9Dl4hc; arc=none smtp.client-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OuuXGirx";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a47Hpemp"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 631FS9UE1562475
-	for <devicetree@vger.kernel.org>; Wed, 1 Apr 2026 15:54:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=zFK+mlQujJNjbomDnjjDvyHU
-	Xm93hR7YZ2pRnFwT7mo=; b=OuuXGirx76+DLKs8D3co8hfTs8lZsoHoBcGmWewF
-	KYEH/KyTXvc5JaGHRqQHQDvde1/41yTFPkehGov046JYtSFPWQE2Fqr1MG3C3nYT
-	aZXsg5L4TS30gImaoeY7rpG4F/0eQxOmgcukOjgg1YrA4ovhTo2tePixd7/rq75u
-	1jXvRjA9lG9CCQ/dJI3zklmg445aB+GCCg+XpMTLM8AF6TcPCUngF/CzotG1dx25
-	PpTypfkYUytU9SxVB+jDc/lynX5nG/hSJsI4uGz2qa2hFriO5IQobShO8gWE7kJ+
-	gpT9qWK3Lgy6dYpwq+Lvy2oavWsfcHYjYYre2kWxFIGkaA==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d8va3tv3m-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 15:54:55 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-2ba8013a9e3so6489482eec.0
-        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 08:54:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aJ9Dl4hc"
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-2ba9c484e5eso6366630eec.1
+        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 08:56:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775058895; x=1775663695; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=zFK+mlQujJNjbomDnjjDvyHUXm93hR7YZ2pRnFwT7mo=;
-        b=a47HpemplwS3r6OUDeebyPe+Tj1jtWqNONw9wCJEV8lk27gBLApUeiVSgCKVn1NSQ5
-         Wsy62sBT4In3qIyHJdsSWcqh/3n8QUx+Lp2gjShAKtjhu/zPTrld3f2bbfXYOToDUdRf
-         p3yaxO+7s4r75MxpcPujRcp/rtZz36+i3F+MXDX36K0ANcF6uXLAbH9gi2pETiR7LrCM
-         GZ4J0Gv9HefEA5Wn32EZC6yiEwOavWUhzggO1BtcPfamnAUJJz8FEJk5zmNxiQ/WYxXs
-         IwlgOQhSiz6s9Ox/VKab2Ot574KyncPtxYg1tvYD/spK9PyYqbvXNZu3TJP98dyh9aHW
-         BcpA==
+        d=gmail.com; s=20251104; t=1775058984; x=1775663784; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=BAZhMSEaDOIkmjgeHLvshSeiFddyrMMf+jaqx7Ru3j8=;
+        b=aJ9Dl4hc/hQzKk+2C25Vg5cn8NG1ZVgaI18lmsWixS/T4C4ADWiQNS0K1AArKM9p5L
+         A4jnug4nt/OXA/4HehW0M5dAknaozDLizpIZI4M9hOpHcWJbq5altjQaXeuisvwr1ykr
+         cFsdozn2YnkbRpa0VU93+gSOALQxDWMhHrrDoDyH5l41IKEKz/c4AlztEhiQB77+76Hj
+         ajjjYalhPIddMcieLePF/L5YRvX0clRxEDuJYIiP+gC8ux5QunvDd/L6XDaqS731UG+a
+         JN8p4diWKPgJzjTEFfvxSyKRnNOH1g90+L4TQAvmnc1+3kk23GvX7hmJMXNYc/VTc6lS
+         mJ5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775058895; x=1775663695;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20251104; t=1775058984; x=1775663784;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=zFK+mlQujJNjbomDnjjDvyHUXm93hR7YZ2pRnFwT7mo=;
-        b=UifV8T4lRIiCkiYRrMKxXcBbGTkFst6I/PTbnLYAocDW+7fxjgocvYfvkts0+R1D33
-         TwRunaQIk0Ra9m9OOpw9GOFTwDg4gFf2PFySBjyi36pX6SZ9fSnzGE2tGGq4wwnXHtPS
-         Y1QK8mDCXamoJLLOzj5uLCDmKB/nMUuhvNCw5VggldNYaZKyZUwI6EzJgNb797wQU+3s
-         If6fvMijlP3HyGAMPU7aTXUC3jlx7oeMbbp6y6eS7J298nNNTAEZwyJSPDaflTPu0P1U
-         CGQS98oQ0kMqy+aWcxtLtm2pZ/cug/RDuaMJ+pRUlk0sOWFMiIsmXUPfaW6BkwS3VHQk
-         aCrg==
-X-Forwarded-Encrypted: i=1; AJvYcCUdnDWAhjzI9kmnofvjonyNufrvPi35OiYsCdrk1volPCOhLI3rWuZTQbV8/PGZqosbw8IxnP49e+4x@vger.kernel.org
-X-Gm-Message-State: AOJu0YwD+VN9x/OhIwTHVbmrYmhrRrihCKNk1OxNfe1KPO5H/ULS+e+q
-	WhWA5UdarXtlJdnyZ6UKn17ft0hEWXiAUqoYumQzewmqdMX8n6nl5u9ZA/1F4fKPurbnyWAnL4d
-	cDBYTDvmnPnDClYlQwNVSHh8NYYVrwBsk7zPNWQKnjiiJsHJ9gru2nGoCiDbcM5eu
-X-Gm-Gg: ATEYQzwk2wNf3f+4/Udxmzk+Cdo8n3b1aWBM9N/Bq1ZBMZJ9VaOEaDjwpjsYj+pe3i6
-	bnKN4mpihE1FY23sDH7qCqlIHU86Ad2ucgkRMAQehFKay63E7oPssfoSPSteGF5iJtpHfZYkj12
-	toxQJFEBgTaswBWHmrsldv9a+IJds7K4c0DAC7RPLSSRLIBVBa7OfTPspvTkZB2TbyQsINKd15U
-	JzPIpyn1p5j9XGXrr27dK1ZhWk4GEBsPCrrGNO/x7h4Po1wGQnLpRzHGIgcYPvt9IHnRO//oWvk
-	NaWFHvAktO47eDPexz0fPWzXzVqWFA1zoCx2WlXNG1AvRTcyRNyBDxRjuAFGNa7fHKou4YknJI6
-	MBCLxzQSvGhflTOqXvb+oJxUq2AT6JqqqYY8ArrSqv1W3e6BXsUKsDLFTntPva1Sw2JhI466W1C
-	8=
-X-Received: by 2002:a05:7300:6da8:b0:2c7:2c0b:f334 with SMTP id 5a478bee46e88-2c9325b04a8mr1993408eec.18.1775058894767;
-        Wed, 01 Apr 2026 08:54:54 -0700 (PDT)
-X-Received: by 2002:a05:7300:6da8:b0:2c7:2c0b:f334 with SMTP id 5a478bee46e88-2c9325b04a8mr1993370eec.18.1775058893825;
-        Wed, 01 Apr 2026 08:54:53 -0700 (PDT)
-Received: from hu-mdtipton-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2ca7caeb83dsm103983eec.22.2026.04.01.08.54.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Apr 2026 08:54:53 -0700 (PDT)
-Date: Wed, 1 Apr 2026 08:54:51 -0700
-From: Mike Tipton <mike.tipton@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Taniya Das <quic_tdas@quicinc.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 7/7] clk: qcom: Add support for global clock controller
- on Hawi
-Message-ID: <ac0/y1962gKYUbC1@hu-mdtipton-lv.qualcomm.com>
-References: <20260330-clk-hawi-v1-0-c2a663e1d35b@oss.qualcomm.com>
- <20260330-clk-hawi-v1-7-c2a663e1d35b@oss.qualcomm.com>
- <acw4FDsIbgAUTHXo@baldur>
+        bh=BAZhMSEaDOIkmjgeHLvshSeiFddyrMMf+jaqx7Ru3j8=;
+        b=GPwootjd43qCPqr+p7RnzpgFZRgWaTYgAFl+5tg1r2j7dUZL9s2OvbCJAPy/tbpKtJ
+         giomSRGxDVI0HMf/D08KtXxQLo5oXMNVI9Nj/MghvpXikb7LDz4N88xXTyxqf1slKBPL
+         bB1NYSV1R8lYvhhTJnage9wPOQYMh4WWQJIp+cQU8wRVN3qkMMFrYB4JHl8DN8JgxYjn
+         UrHQVRCUB/XboiNxjXNP6LBrfmjv/JO7svTYU79iBRKTPnnC+Uuet3ldCV7tEBB1qVA9
+         QdEoUKfpKofkqlp+TL5tGNmlzFnYiG04Sfum5FBTAQndHxrJUqbeXbDPNr/9Y0yOZLCd
+         GIrg==
+X-Forwarded-Encrypted: i=1; AJvYcCVGzW1GLCffZSc399egb/djIe4W3f880ofm7xRk0/tkfKHqtXnXkHu9vqLs70aXFgGRcwjxTobR4iAd@vger.kernel.org
+X-Gm-Message-State: AOJu0YyX8UBTmWJzEHbfiUC4BQl0NmaJoWoCqFlt6nZkGJ5wbTMFzDU1
+	aMlSCKzq3nXBQGJaRFdz0b+jS11t8kXvIXQsiiUpJ0/zaIK7HCUj7C1R
+X-Gm-Gg: ATEYQzw/9UQAuOTPqT5d0FbLYMM6kJuQ8YKqkJbTOEa3kYVxRkRxeGprY49N9/De7+b
+	mPDFx3An8urgjuR9O3J+A1rFwEECXTGd+xlW7UvvUVgdPI+ce/BhsFMnUjDcc2+dnCj0SXI1gOK
+	0WhiSU3Ne/VqMq7UDawVU0gj1RP54vFO8r0BsikKs23mG4i6qei7SxSpLBduMfyFgD/u6ZYCbsn
+	tTeD6XnOyF29FIz1mamBw6yGo5x6tFcd7eBsoN7lU5vL4+/2paHahX7aN27o5TsVOwhA2Nsg/m5
+	GMLl1y/V5plEoSOD3MZxEZktkW1jI7mbY3oyr00Ii3h2ILuFwVshA5ZZDK8T2JntMFbn9oec2T0
+	4UuKH7r32hQcxgTJVH0yitWMm6QNprptMWhTgy83LNVcR19xjARKgRbZNPkntUkawgiODuMGd/b
+	c8ZQD5UDJeWtGHEik5lbImfHppMzKYO9/lDni8NMrMrrVeH/1VJfb66iABv82cTNix6njD8mQp
+X-Received: by 2002:a05:7300:a897:b0:2be:1cb2:3a6 with SMTP id 5a478bee46e88-2c9334b62d3mr2166249eec.33.1775058983720;
+        Wed, 01 Apr 2026 08:56:23 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2ca78df5ed3sm96210eec.6.2026.04.01.08.56.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 01 Apr 2026 08:56:23 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <258dd77a-a8d9-4540-a32a-91a3f13c6ed5@roeck-us.net>
+Date: Wed, 1 Apr 2026 08:56:21 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <acw4FDsIbgAUTHXo@baldur>
-X-Proofpoint-GUID: BCWw4I4MNrktVwknW2Ewu3P2dIQQqQsG
-X-Proofpoint-ORIG-GUID: BCWw4I4MNrktVwknW2Ewu3P2dIQQqQsG
-X-Authority-Analysis: v=2.4 cv=B/C0EetM c=1 sm=1 tr=0 ts=69cd3fcf cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=kj9zAlcOel0A:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=luiUJp0ABMwvOzxM0bgA:9 a=CjuIK1q_8ugA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAxMDE0OCBTYWx0ZWRfX4RawBq0HLj0k
- 6tb8llkoddO26eea3XBn+I16gR23bqKbw4lu9ewe4TjspgEJE2nJ3T6mumUtY+j9H5q2Tk79ga8
- h+QWWu5/BaPUy8Jd8vAlkJBuE84DbV98wvy5/NKQJZBckc/+fsfI40AFkryHmKvCPsuQLNEZ1J7
- dKI6VB7TI6zFgJfYgY/xneijpEvttHP3NrC+32lLebVsDIMWtTddwmhyTtHFPEVQ+CxaAFMJUSt
- fAOU26Wl56242QJWZsjdJLxONQ5OPljBasN+1CTiAfSscVz0the4/gcrGTpZLmA7ysDagDlu3OA
- N8AM4bVxLER13opb9lN5IlP/9SFqIOkRfJChgGpiCVEgBn4t2k6HNn6vKoQGhhOtuVY01Unoob0
- Gi8UM/pHMPRDIq87/ZsoE9RLjVzm1HMY/wg27yiyv3H+HBh4Wjvdcb2iPRbCcSEwwrsgaA2vFVP
- HCyBzOQkOYe0768gOqQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-01_04,2026-04-01_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 bulkscore=0 phishscore=0 malwarescore=0
- lowpriorityscore=0 adultscore=0 clxscore=1015 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604010148
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] hwmon:(pmbus/xdp720) Add support for efuse xdp720
+To: ASHISH YADAV <ashishyadav78@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Ashish Yadav <ashish.yadav@infineon.com>
+References: <20260401104550.115715-1-Ashish.Yadav@infineon.com>
+ <20260401104550.115715-3-Ashish.Yadav@infineon.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260401104550.115715-3-Ashish.Yadav@infineon.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Mar 31, 2026 at 04:11:22PM -0500, Bjorn Andersson wrote:
-> On Mon, Mar 30, 2026 at 05:35:02PM -0700, Vivek Aknurwar wrote:
-> > +++ b/drivers/clk/qcom/gcc-hawi.c
-> [..]
-> > +static const struct qcom_cc_desc gcc_hawi_desc = {
-> > +	.config = &gcc_hawi_regmap_config,
-> > +	.clks = gcc_hawi_clocks,
-> > +	.num_clks = ARRAY_SIZE(gcc_hawi_clocks),
-> > +	.resets = gcc_hawi_resets,
-> > +	.num_resets = ARRAY_SIZE(gcc_hawi_resets),
-> > +	.gdscs = gcc_hawi_gdscs,
-> > +	.num_gdscs = ARRAY_SIZE(gcc_hawi_gdscs),
-> > +	.driver_data = &gcc_hawi_driver_data,
-> 
-> Sorry for not spotting this earlier, but don't we need a ".use_rpm =
-> true" here?
-> 
-> In line with
-> https://lore.kernel.org/all/20260309-glymur-fix-gcc-cx-scaling-v2-2-d7a58a0a9ecb@oss.qualcomm.com/
+Hi,
 
-Yeah, we should. Same rationale, which technically applies to many other
-GCC instances that aren't setting this today.
-
-Mike
-
+On 4/1/26 03:45, ASHISH YADAV wrote:
+> From: Ashish Yadav <ashish.yadav@infineon.com>
 > 
-> Regards,
-> Bjorn
+> Add the pmbus driver for Infineon XDP720 Digital eFuse Controller.
 > 
-> > +};
-> > +
+> Signed-off-by: Ashish Yadav <ashish.yadav@infineon.com>
+> ---
+> XDP720 Digital eFuse Controller provides accurate system telemetry
+> (V, I, P, T) and reports analog current at the IMON pin for post-processing.
+> 
+> The Current and Power measurement depends on the RIMON and GIMON values.
+> Please look into data sheet sections 5.4.2 and 5.4.4 for more details:
+> https://www.infineon.com/assets/row/public/documents/24/49/infineon-xdp720-001-datasheet-en.pdf
+> 
+> The GIMON (microA/A) depends on the 10th bit of TELEMETRY_AVG PMBUS Register.
+> The value of RIMON (kohm) can be provided by the user through device tree using
+> infineon,rimon-micro-ohms  property.
+
+Please have a look at
+
+https://sashiko.dev/#/patchset/20260401104550.115715-1-Ashish.Yadav%40infineon.com
+
+Main concern is the power measurement range, but also please use 1000000000000ULL
+as suggested.
+
+Thanks,
+Guenter
+
+> ---
+>   drivers/hwmon/pmbus/Kconfig  |   9 +++
+>   drivers/hwmon/pmbus/Makefile |   1 +
+>   drivers/hwmon/pmbus/xdp720.c | 123 +++++++++++++++++++++++++++++++++++
+>   3 files changed, 133 insertions(+)
+>   create mode 100644 drivers/hwmon/pmbus/xdp720.c
+> 
+> diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
+> index fc1273abe357..c419e3ecce90 100644
+> --- a/drivers/hwmon/pmbus/Kconfig
+> +++ b/drivers/hwmon/pmbus/Kconfig
+> @@ -702,6 +702,15 @@ config SENSORS_XDP710
+>   	  This driver can also be built as a module. If so, the module will
+>   	  be called xdp710.
+>   
+> +config SENSORS_XDP720
+> +	tristate "Infineon XDP720 family"
+> +	help
+> +	  If you say yes here you get hardware monitoring support for Infineon
+> +	  XDP720.
+> +
+> +	  This driver can also be built as a module. If so, the module will
+> +	  be called xdp720.
+> +
+>   config SENSORS_XDPE152
+>   	tristate "Infineon XDPE152 family"
+>   	help
+> diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
+> index d6c86924f887..1cac7ccae79f 100644
+> --- a/drivers/hwmon/pmbus/Makefile
+> +++ b/drivers/hwmon/pmbus/Makefile
+> @@ -68,6 +68,7 @@ obj-$(CONFIG_SENSORS_TPS546D24)	+= tps546d24.o
+>   obj-$(CONFIG_SENSORS_UCD9000)	+= ucd9000.o
+>   obj-$(CONFIG_SENSORS_UCD9200)	+= ucd9200.o
+>   obj-$(CONFIG_SENSORS_XDP710)	+= xdp710.o
+> +obj-$(CONFIG_SENSORS_XDP720)	+= xdp720.o
+>   obj-$(CONFIG_SENSORS_XDPE122)	+= xdpe12284.o
+>   obj-$(CONFIG_SENSORS_XDPE152)	+= xdpe152c4.o
+>   obj-$(CONFIG_SENSORS_ZL6100)	+= zl6100.o
+> diff --git a/drivers/hwmon/pmbus/xdp720.c b/drivers/hwmon/pmbus/xdp720.c
+> new file mode 100644
+> index 000000000000..382dc3f9ce80
+> --- /dev/null
+> +++ b/drivers/hwmon/pmbus/xdp720.c
+> @@ -0,0 +1,123 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/*
+> + * Hardware monitoring driver for Infineon XDP720 Digital eFuse Controller
+> + *
+> + * Copyright (c) 2026 Infineon Technologies. All rights reserved.
+> + */
+> +
+> +#include <linux/i2c.h>
+> +#include <linux/module.h>
+> +#include <linux/init.h>
+> +#include <linux/kernel.h>
+> +#include <linux/of_device.h>
+> +#include <linux/bitops.h>
+> +#include <linux/math64.h>
+> +#include "pmbus.h"
+> +
+> +/*
+> + * The IMON resistor required to generate the system overcurrent protection.
+> + * Arbitrary default Rimon value: 2k Ohm
+> + */
+> +#define XDP720_DEFAULT_RIMON 2000000000 /* 2k ohm */
+> +#define XDP720_TELEMETRY_AVG 0xE9
+> +
+> +static struct pmbus_driver_info xdp720_info = {
+> +	.pages = 1,
+> +	.format[PSC_VOLTAGE_IN] = direct,
+> +	.format[PSC_VOLTAGE_OUT] = direct,
+> +	.format[PSC_CURRENT_OUT] = direct,
+> +	.format[PSC_POWER] = direct,
+> +	.format[PSC_TEMPERATURE] = direct,
+> +
+> +	.m[PSC_VOLTAGE_IN] = 4653,
+> +	.b[PSC_VOLTAGE_IN] = 0,
+> +	.R[PSC_VOLTAGE_IN] = -2,
+> +	.m[PSC_VOLTAGE_OUT] = 4653,
+> +	.b[PSC_VOLTAGE_OUT] = 0,
+> +	.R[PSC_VOLTAGE_OUT] = -2,
+> +	/*
+> +	 * Current and Power measurement depends on the RIMON (kOhm) and
+> +	 * GIMON(microA/A) values.
+> +	 */
+> +	.m[PSC_CURRENT_OUT] = 24668,
+> +	.b[PSC_CURRENT_OUT] = 0,
+> +	.R[PSC_CURRENT_OUT] = -4,
+> +	.m[PSC_POWER] = 4486,
+> +	.b[PSC_POWER] = 0,
+> +	.R[PSC_POWER] = -1,
+> +	.m[PSC_TEMPERATURE] = 54,
+> +	.b[PSC_TEMPERATURE] = 22521,
+> +	.R[PSC_TEMPERATURE] = -1,
+> +
+> +	.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_VOUT | PMBUS_HAVE_PIN |
+> +		   PMBUS_HAVE_TEMP | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_INPUT |
+> +		   PMBUS_HAVE_STATUS_TEMP,
+> +};
+> +
+> +static int xdp720_probe(struct i2c_client *client)
+> +{
+> +	struct pmbus_driver_info *info;
+> +	int ret;
+> +	u32 rimon;
+> +	int gimon;
+> +
+> +	info = devm_kmemdup(&client->dev, &xdp720_info, sizeof(*info),
+> +			    GFP_KERNEL);
+> +	if (!info)
+> +		return -ENOMEM;
+> +
+> +	ret = i2c_smbus_read_word_data(client, XDP720_TELEMETRY_AVG);
+> +	if (ret < 0) {
+> +		dev_err(&client->dev, "Can't get TELEMETRY_AVG\n");
+> +		return ret;
+> +	}
+> +
+> +	ret >>= 10; /* 10th bit of TELEMETRY_AVG REG for GIMON Value */
+> +	ret &= GENMASK(0, 0);
+> +	if (ret == 1)
+> +		gimon = 18200; /* output gain 18.2 microA/A */
+> +	else
+> +		gimon = 9100; /* output gain 9.1 microA/A */
+> +
+> +	if (of_property_read_u32(client->dev.of_node,
+> +				 "infineon,rimon-micro-ohms", &rimon))
+> +		rimon = XDP720_DEFAULT_RIMON; /* Default if not set via DT */
+> +	if (rimon == 0)
+> +		return -EINVAL;
+> +
+> +	/* Adapt the current and power scale for each instance */
+> +	info->m[PSC_CURRENT_OUT] = DIV64_U64_ROUND_CLOSEST((u64)
+> +		info->m[PSC_CURRENT_OUT] * rimon * gimon, 1000000000000);
+> +	info->m[PSC_POWER] = DIV64_U64_ROUND_CLOSEST((u64)
+> +		info->m[PSC_POWER] * rimon * gimon, 1000000000000);
+> +
+> +	return pmbus_do_probe(client, info);
+> +}
+> +
+> +static const struct of_device_id xdp720_of_match[] = {
+> +	{ .compatible = "infineon,xdp720" },
+> +	{}
+> +};
+> +MODULE_DEVICE_TABLE(of, xdp720_of_match);
+> +
+> +static const struct i2c_device_id xdp720_id[] = {
+> +	{ "xdp720" },
+> +	{}
+> +};
+> +MODULE_DEVICE_TABLE(i2c, xdp720_id);
+> +
+> +static struct i2c_driver xdp720_driver = {
+> +	.driver = {
+> +		   .name = "xdp720",
+> +		   .of_match_table = xdp720_of_match,
+> +	},
+> +	.probe = xdp720_probe,
+> +	.id_table = xdp720_id,
+> +};
+> +
+> +module_i2c_driver(xdp720_driver);
+> +
+> +MODULE_AUTHOR("Ashish Yadav <ashish.yadav@infineon.com>");
+> +MODULE_DESCRIPTION("PMBus driver for Infineon XDP720 Digital eFuse Controller");
+> +MODULE_LICENSE("GPL");
+> +MODULE_IMPORT_NS("PMBUS");
+
