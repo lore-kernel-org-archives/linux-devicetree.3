@@ -1,168 +1,190 @@
-Received: from mxout70.expurgate.net (mxout70.expurgate.net [194.37.255.70])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 399093CF046;
-	Wed,  1 Apr 2026 09:31:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.37.255.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED2E37F8C3
+	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 09:32:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775035918; cv=none; b=HetohPlnfm3km/DRFnb8hrUJTNpKkHZCpRes5KnLKzv2q68P4sig4s+A2URYQGS7EzOnJa9QROxCnWqfHODMBzoG5GHdg1rj06row0KT3fXUzv5++MfNK8ybFbwr9hO9qDppjokS+UrrFiWyWVbSCutdA9z+UTPpOgROKHxLIsA=
+	t=1775035965; cv=none; b=SXOubT646BMocHaX6Dyl1tlF2gi8ojsLWqPVT/3D4iewAEbyJotli3VgMNoNnB7ZHkw2rpFgNZPWnyKAHZCF+8HcoyylLYfUvPJvwVI41Mw41o/16kzSNwsFKQXbg1QuFhI2yh8SxMmbMLGQK+SWaJfTmK3JXcGR9+1SyRWP14E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775035918; c=relaxed/simple;
-	bh=1QhwwO0tMMhb5/PF/9cK8bvzkNyUt/Wf2sydrtsZXUc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:Cc; b=oGOOmUPToeVunW7atHh7VXP2dmkONOGH5HEkbWY2BSFfRFBNcfQHgY7OkdfkC524u1tUCBDNyEMxqZLhhQ4jRfYLv9ERo6sorQfPYVvhznj5Q0DaMUyhjTLBO0/B54U3lITEKd3m8M4+BZadAIpLSiERLZu+ON3YJNUYb4cLbq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dev.tdt.de; spf=pass smtp.mailfrom=dev.tdt.de; dkim=temperror (0-bit key) header.d=dev.tdt.de header.i=@dev.tdt.de header.b=gOwDpT4q; arc=none smtp.client-ip=194.37.255.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dev.tdt.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dev.tdt.de
+	s=arc-20240116; t=1775035965; c=relaxed/simple;
+	bh=z+EDexiLErPSTkuOyOJaYzNKm8uMdyFNbjxzeJ/ozbA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LlolYb2hX0343ZzA9GDKQ2/dUyIgGWNtAFBVjUMKP6LamSc/7G1161yVJjTIk0PJnp27Q3GPu9HxoV+/acRklIVIIB1rzKZj8OvEksctWVc7fr9n2JV+dZB0rFdFNkg2Qc5z6nVIEKlOIV7X8AK9EbE9XRjVVtL8lr4kQZ/i7LA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mktgjZKc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hSOi10az; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=dev.tdt.de header.i=@dev.tdt.de header.b="gOwDpT4q"
-Received: from [194.37.255.9] (helo=mxout.expurgate.net)
-	by relay.expurgate.net with smtp (Exim 4.92)
-	(envelope-from <prvs=65659f006e=fe@dev.tdt.de>)
-	id 1w7rvM-001Szr-PT; Wed, 01 Apr 2026 11:31:44 +0200
-Received: from [195.243.126.94] (helo=securemail.tdt.de)
-	by relay.expurgate.net with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <fe@dev.tdt.de>)
-	id 1w7rvM-00CBEM-7W; Wed, 01 Apr 2026 11:31:44 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dev.tdt.de;
-	s=z1-selector1; t=1775035903;
-	bh=3A2J+2MFklTaE6h9BZznlvghg/HLXg4vKOLkKJTaKbc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=gOwDpT4qmA/i4sziFVLw/dUcUMkyGbY5MvhMTnFBSqctDw1rKckGyyuazrHPysRFq
-	 Jum4m8g/jW/f1VT9S9DfkgHxTKMpRO8saVKIXpv3gGrVzm1uL2CjdayAtQbLih6qXI
-	 uJd8snCMnj1M2JugfKlOjbLkL+i5NCdl3qc6LESKrvgo+7OnyKAw5HWMLSBk75OPwN
-	 ch/ZfVDWkL+bc6C65IkUa3ISVrUFSLO96/+H7MeSFgQ8FVigcPWy9bReGMC58PxG3h
-	 U0ExqbKsoHuvrrJ4iY/rT74BBOVoFcEYdzwSXJEXCbQ4I6Wc6cduNQxWBiUHBiKdk6
-	 5+5BhNsAQ145g==
-Received: from securemail.tdt.de (localhost [127.0.0.1])
-	by securemail.tdt.de (Postfix) with ESMTP id C62E6240046;
-	Wed,  1 Apr 2026 11:31:43 +0200 (CEST)
-Received: from mail.dev.tdt.de (unknown [10.2.4.42])
-	by securemail.tdt.de (Postfix) with ESMTP id BB256240041;
-	Wed,  1 Apr 2026 11:31:43 +0200 (CEST)
-Received: from [10.2.3.40] (unknown [10.2.3.40])
-	by mail.dev.tdt.de (Postfix) with ESMTPSA id 956B123C7E;
-	Wed,  1 Apr 2026 11:31:43 +0200 (CEST)
-From: Florian Eckert <fe@dev.tdt.de>
-Date: Wed, 01 Apr 2026 11:31:41 +0200
-Subject: [PATCH v3 5/7] PCI: intel-gw: Add start_link callback function
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mktgjZKc";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hSOi10az"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6317El3m4106686
+	for <devicetree@vger.kernel.org>; Wed, 1 Apr 2026 09:32:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	8DZG0eROtWmud3ZdD4EmRKx3UCJmwtzdRxZUWrs7KTg=; b=mktgjZKc5bsnghQB
+	ydBx3gbKjuZl2Vc6GW1EQtrSd7z2FBd5HsZucM+iz8rkJeKapfrvbD1JoCRvwBcQ
+	A1OatOYwGhrHve47u8wfK0oywq0GbN40neBP5MZII6Tlqdiyq5CrAYSQPUml0hPh
+	HKe8HKggE775HlyGcrhvI8tkJj0KvL3RnmVw9cZ22Ry6gxEbfEZBVnsoWJR2oMya
+	xKd9aYzS9op0Q91wVMov8v+WJkIQh0Ag2AhZR5Dqs/vupg1t4QiHHLFE6ICSHEu4
+	rvaTC2rKwOx4vWVxdYZw3JDDatLCWAMiJQ1a7Py8XpFIgzOFpZGZPify0HB02+ub
+	/lBB6Q==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d8xt90ktd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 09:32:42 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-89e9d327913so18821856d6.1
+        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 02:32:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1775035962; x=1775640762; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=8DZG0eROtWmud3ZdD4EmRKx3UCJmwtzdRxZUWrs7KTg=;
+        b=hSOi10azBvej0dS69srM7y4sx90FOe77VdygDcl4MB+7NFrHl2PztABorOvDctXswL
+         M2XEHqfwtPcRagLKtgVVlQDQPG+uYJi5G5a67JsXYhrpU+kQYfjsf+aBXrvfcBs7re1H
+         Pd56iqLb7JUw8e61I454GEbEJSIcgDg0yAPptoQwQ7OgkcTmS5fwcYD698xPMnVY4Jy3
+         pB039A9afmLq8GT4HdNMgJvDwHeLpFEpvxWo9fm5QnGnYPqm3Pug0IEdQhLpfFrEQ/wI
+         ht3NXGqNusRvGbtpOHJQqjz0tpW+nCXbk5UPDe6VFyJzMmiB+asIcTHjhmwzSA9QFr5L
+         crmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775035962; x=1775640762;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=8DZG0eROtWmud3ZdD4EmRKx3UCJmwtzdRxZUWrs7KTg=;
+        b=pWPZuMK+ObxMmUI8IkTwxyRK1d559/nfaMzwxHdtshB+lXoi1laYlE+vbfoedosS2j
+         M/Ds4wVp+lw7nBPj7cGRkY+kyxlvZMPG/gtaPqScNUkb5/8VBGlwpiVpfzKxhPKEHAKH
+         OC8yaRC7bTEmc1h+3DVRstV6KNFpz0OIWyvH13Z9ovfXnBEzjv/tozYtupu9coXHiF1l
+         yxoPY7lnGkJURsMwKt/LogW8GtZlVDezSYIY4h5P/MZzkgHIK39Kmx7fC6elqff+AOcC
+         pNEYi0vH0hE8Q5SbEbLENDDNO1C30c7ee6KrZEjL3ldh7KbCeqQAryZDcPhX5CinkNEH
+         ZmHw==
+X-Forwarded-Encrypted: i=1; AJvYcCUaVCqMF6DsNEwrOe8KovkGYYvZLP92zVP3fhTHS7GVGcSC06JjHFLUPntJBwwVR3L+5JzK55HwUofH@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw5gb85YdPBA0isxIyZn0Fh4GgPctrvij+VNdlsTHyIWUdegQe3
+	D85c2uzqEtsluwMvQdsKjbr5Ayl0UFMYWzETd4BaREiwmGt06g/YQOu515rAwXm0pYhHnhBiVT5
+	0P/NUz2WsbRUezT78g7ERaINe6PirbdP74GdNAAtouTtJC2aLsO9Swkg2FqQgzxy+
+X-Gm-Gg: ATEYQzw2NA3jise6tLWoYWhJdWvCio715HX4U0Rg3urE0BBFncG/PyTgSbMqsi3ufwK
+	aUyBvmsvAJrCX3soFqvJtsh72D8rv0cGJrtbWWmaCDQTQ5DfPr4nvIW9tbzNeP1LwxiERhXMp3V
+	Kh81QnTCGTL8DxOEB+TU0MAYxKsy0t4pP3q8PvqugcL1dpafWTtLydbKf5BIYCXzEW2Fs7Rq8XQ
+	D2B1MOYtbOhGsVU+Ke+RfapFpHH2suJSgMUCl+Z1VTlZqtOjs95Kvyo3Ab251UR/lP6LPgbSW71
+	DUZi2qSmbV8NzNRRZMYu1cpOnQOdi7FfQpatM/f9EkMiB9MVuK8z9IHe0UlodXJyLt0nDnnJ9us
+	b2vqpmS9GLbNC2zdpHNljCqTpEsEi5dXdPOCdkOilbGzWjQpwS5+0YU43vMslgYOqr/7+N1ux84
+	VnwSo=
+X-Received: by 2002:a05:6214:627:b0:89a:5129:510f with SMTP id 6a1803df08f44-8a433f48ddcmr31691386d6.0.1775035961953;
+        Wed, 01 Apr 2026 02:32:41 -0700 (PDT)
+X-Received: by 2002:a05:6214:627:b0:89a:5129:510f with SMTP id 6a1803df08f44-8a433f48ddcmr31691156d6.0.1775035961433;
+        Wed, 01 Apr 2026 02:32:41 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9c0cce9b2esm115233666b.26.2026.04.01.02.32.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 01 Apr 2026 02:32:39 -0700 (PDT)
+Message-ID: <387635e8-d49e-4e08-bd26-e76838bb27d5@oss.qualcomm.com>
+Date: Wed, 1 Apr 2026 11:32:36 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/6] drm/msm/a8xx: use pipe protect slot 15 for
+ last-span-unbound feature
+To: Alexander Koskovich <akoskovich@pm.me>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov
+ <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>
+Cc: Luca Weiss <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260331-adreno-810-v1-0-725801dbb12b@pm.me>
+ <20260331-adreno-810-v1-4-725801dbb12b@pm.me>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260331-adreno-810-v1-4-725801dbb12b@pm.me>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260401-pcie-intel-gw-v3-5-63b008c5b7b2@dev.tdt.de>
-References: <20260401-pcie-intel-gw-v3-0-63b008c5b7b2@dev.tdt.de>
-In-Reply-To: <20260401-pcie-intel-gw-v3-0-63b008c5b7b2@dev.tdt.de>
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?utf-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Johan Hovold <johan+linaro@kernel.org>,
-	Sajid Dalvi <sdalvi@google.com>,
-	Ajay Agarwal <ajayagarwal@google.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Rahul Tanwar <rtanwar@maxlinear.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, Florian Eckert <fe@dev.tdt.de>,
-	Eckert.Florian@googlemail.com, ms@dev.tdt.de
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1775035902; l=3153;
- i=fe@dev.tdt.de; s=20260205; h=from:subject:message-id;
- bh=1QhwwO0tMMhb5/PF/9cK8bvzkNyUt/Wf2sydrtsZXUc=;
- b=R0SlFWwKBmTvsj+uWe29f0bFOcUZ3aaui1f4slpL69Yzhec/iV1C5JcYguj/tAZlOBzsHgrGw
- 7AuOwZbgUEwDlrkbIPmFBCUa9PP2Xb0GGRi17WpPBktl8qKpFNldbfH
-X-Developer-Key: i=fe@dev.tdt.de; a=ed25519;
- pk=q7Pvv3Au2sAVRhBz5UF7ZqUPNxUwXQ78Jdqu8E6Negk=
-X-purgate-type: clean
-X-purgate: clean
-X-purgate-ID: 151534::1775035904-4B7CE233-00E17F81/0/0
+X-Proofpoint-GUID: Cri6k0i6VWfMAHkSARltaKbFfwz6s6WL
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAxMDA4NiBTYWx0ZWRfX23AbYXSQR3Bb
+ 7X/Cz8Bqd/1FXR5Exg0Ezzh8gd4SthwRFx4FDFzZdmeL6tKO5CdanyWLmEwKJrvRvoBDmqkKyel
+ mS6u/ZzU/SmrsXeZMkgkrGLifm8wjYrr4KRh2JfxrHf63Ud1thRRCk1kFGydX1jpIWyz5TGzZf/
+ gjIF+vj/UaRuH19TlF6PZGZU/A3FMrL3IlBsoSPBkNUJvKvxQ+Zmhtduptg17WpRZdGuL2v4axc
+ vMOrJcT1Z+FQIGwSRr1CZqehHubQxSQKhwTDbxOgiC476UQTrWhdo7TJiWjZYLjq7HiDSt9B+1f
+ vAY7VE9iqc67dxpKZStmTIRoRyk6fpRDgIkfMWG0BdWbQ0T7J82YqUrCLJfoi80izQKDMQV6DsX
+ mBeTn1Ks6bVXpjh0cW0aWVpwgozZQDtFFA+5pq8YuVbz9M4nDe29+9DUD4ReSrNDVfEsg8xBzGP
+ 3+kPd5H/zQDQkc2R7Gg==
+X-Proofpoint-ORIG-GUID: Cri6k0i6VWfMAHkSARltaKbFfwz6s6WL
+X-Authority-Analysis: v=2.4 cv=PoGergM3 c=1 sm=1 tr=0 ts=69cce63a cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=qGQNF-HaROJYSwuyTOwA:9 a=QEXdDO2ut3YA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-01_03,2026-04-01_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 suspectscore=0 bulkscore=0 priorityscore=1501
+ lowpriorityscore=0 adultscore=0 malwarescore=0 clxscore=1015 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604010086
 
-The pcie-intel-gw driver has no start_link callback function. This commit
-adds the missing callback function so that the driver works again and does
-not abort with the following error messages during probing.
+On 4/1/26 4:17 AM, Alexander Koskovich wrote:
+> A8XX GPUs have two sets of protect registers: 64 global slots and 16
+> pipe specific slots. The last-span-unbound feature is only available
+> on pipe protect registers, and should always target pipe slot 15.
+> 
+> This matches the downstream driver which hardcodes pipe slot 15 for
+> all A8XX GPUs (GRAPHICS.LA.15.0.r1) and resolves protect errors on
+> A810.
+> 
+> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+> ---
+>  drivers/gpu/drm/msm/adreno/a8xx_gpu.c | 9 +++++----
+>  1 file changed, 5 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+> index 5af82d43f1e4..63387ee9b04a 100644
+> --- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+> @@ -252,11 +252,12 @@ static void a8xx_set_cp_protect(struct msm_gpu *gpu)
+>  	}
+>  
+>  	/*
+> -	 * Last span feature is only supported on PIPE specific register.
+> -	 * So update those here
+> +	 * Last span setting is only being applied to the last pipe specific
+> +	 * register. Hence duplicate the last span from protect reg into the
+> +	 * BR and BV protect reg pipe 15.
+>  	 */
+> -	a8xx_write_pipe(gpu, PIPE_BR, REG_A8XX_CP_PROTECT_PIPE(protect->count_max), final_cfg);
+> -	a8xx_write_pipe(gpu, PIPE_BV, REG_A8XX_CP_PROTECT_PIPE(protect->count_max), final_cfg);
+> +	a8xx_write_pipe(gpu, PIPE_BR, REG_A8XX_CP_PROTECT_PIPE(15), final_cfg);
+> +	a8xx_write_pipe(gpu, PIPE_BV, REG_A8XX_CP_PROTECT_PIPE(15), final_cfg);
 
-[    2.512015] intel-gw-pcie d1000000.pcie: host bridge /soc/pcie@d1000000 ranges:
-[    2.517868] intel-gw-pcie d1000000.pcie:      MEM 0x00dc000000..0x00ddffffff -> 0x00dc000000
-[    2.528450] intel-combo-phy d0c00000.combo-phy: Set combo mode: combophy[1]: mode: PCIe single lane mode
-[    2.551619] intel-gw-pcie d1000000.pcie: No outbound iATU found
-[    2.556060] intel-gw-pcie d1000000.pcie: Cannot initialize host
-[    2.561901] intel-gw-pcie d1000000.pcie: probe with driver intel-gw-pcie failed with error -22
-[    2.571041] intel-gw-pcie c1100000.pcie: host bridge /soc/pcie@c1100000 ranges:
-[    2.577736] intel-gw-pcie c1100000.pcie:      MEM 0x00ce000000..0x00cfffffff -> 0x00ce000000
-[    2.588299] intel-combo-phy c0c00000.combo-phy: Set combo mode: combophy[3]: mode: PCIe single lane mode
-[    2.611471] intel-gw-pcie c1100000.pcie: No outbound iATU found
-[    2.615934] intel-gw-pcie c1100000.pcie: Cannot initialize host
-[    2.621759] intel-gw-pcie c1100000.pcie: probe with driver intel-gw-pcie failed with error -22
+I think this is a better fix than:
 
-Fixes: c5097b9869a1 ("Revert "PCI: dwc: Wait for link up only if link is started"")
-Fixes: da56a1bfbab5 ("PCI: dwc: Wait for link up only if link is started")
-Signed-off-by: Florian Eckert <fe@dev.tdt.de>
----
- drivers/pci/controller/dwc/pcie-intel-gw.c | 24 +++++++++++-------------
- 1 file changed, 11 insertions(+), 13 deletions(-)
+https://lore.kernel.org/linux-arm-msm/20260225-glymur-protect-fix-v1-1-0deddedf9277@oss.qualcomm.com/
 
-diff --git a/drivers/pci/controller/dwc/pcie-intel-gw.c b/drivers/pci/controller/dwc/pcie-intel-gw.c
-index 6d9499d954674a26a74bff56b7fb5759767424c0..afd933050c92ee31c477e0b1738ab1136bdcfbf6 100644
---- a/drivers/pci/controller/dwc/pcie-intel-gw.c
-+++ b/drivers/pci/controller/dwc/pcie-intel-gw.c
-@@ -284,6 +284,16 @@ static void intel_pcie_turn_off(struct intel_pcie *pcie)
- 	pcie_rc_cfg_wr_mask(pcie, PCI_COMMAND, PCI_COMMAND_MEMORY, 0);
- }
- 
-+static int intel_pcie_start_link(struct dw_pcie *pci)
-+{
-+	struct intel_pcie *pcie = dev_get_drvdata(pci->dev);
-+
-+	intel_pcie_device_rst_deassert(pcie);
-+	intel_pcie_ltssm_enable(pcie);
-+
-+	return 0;
-+}
-+
- static int intel_pcie_host_setup(struct intel_pcie *pcie)
- {
- 	int ret;
-@@ -310,25 +320,12 @@ static int intel_pcie_host_setup(struct intel_pcie *pcie)
- 	intel_pcie_link_setup(pcie);
- 	intel_pcie_init_n_fts(pci);
- 
--	ret = dw_pcie_setup_rc(&pci->pp);
--	if (ret)
--		goto err;
--
- 	dw_pcie_upconfig_setup(pci);
- 
--	intel_pcie_device_rst_deassert(pcie);
--	intel_pcie_ltssm_enable(pcie);
--
--	ret = dw_pcie_wait_for_link(pci);
--	if (ret)
--		goto err;
--
- 	intel_pcie_core_irq_enable(pcie);
- 
- 	return 0;
- 
--err:
--	phy_exit(pcie->phy);
- phy_err:
- 	clk_disable_unprepare(pcie->core_clk);
- clk_err:
-@@ -386,6 +383,7 @@ static int intel_pcie_rc_init(struct dw_pcie_rp *pp)
- }
- 
- static const struct dw_pcie_ops intel_pcie_ops = {
-+	.start_link = intel_pcie_start_link,
- };
- 
- static const struct dw_pcie_host_ops intel_pcie_dw_ops = {
+which will let us bring back the BUILD_BUG_ON.. WDYT Akhil?
 
--- 
-2.47.3
+FWIW KGSL just hardcodes the number 15 here as well.. may make it
+configurable if that ever changes
 
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
+Konrad
