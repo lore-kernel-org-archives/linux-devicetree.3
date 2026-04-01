@@ -1,130 +1,223 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 403D6472777;
-	Wed,  1 Apr 2026 17:19:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F0E7C33C518
+	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 17:20:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775063959; cv=none; b=ZncrQ4yhLIjgCZa20qcEWdlSTzJpBvWgNAv7vXcp0Jj1YFwoZcZ/Q3Maw4FHSHvfkYYrjiJsz8kH/yE8E+/cB/EFxVbQOoAnyw1RzD/v8Hs3EE43lyIY3XSZ5855Q5SbzpjYgaeYYUi7Iiswr7P3JNVcuUJ7Zgy7EvZ7y9wfeK0=
+	t=1775064052; cv=none; b=OeD2jLw1o0Vg86vMTA2xBGKmXtsLTpqdA2SJZ/FBWo4nonK9CxUdi8pOHPMrIiAINtFT9NoJCPaAlfMRZs62FRmBGuUoYiCQWUAbomGtk3UUiZaZX4Yw82ZIubmsLzpRvARAtgGHClSwQ9SdTzb9O5EskBpdzqytpWzzg1N/VlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775063959; c=relaxed/simple;
-	bh=0t1qiOT2TkAHTnIXYBg0hCbmcpZmO03o+RmNg0lRSM4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=RDFVGtj9x65BexKxXnmsWv33Pn3VqTC5zrQ7omDbNBBE60jrjkvH+ryxrl8uryZimL+NmblIO1ocjtVn+2ppheVsnXwbLQot8psfLF9l8sPEvg81XYsFZYZ1UKmorwuXJ0OpvFkjPNIPbE78fCevVGHv40zsuLSqyIyXOa7JU1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kn6aGhbV; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775064052; c=relaxed/simple;
+	bh=jso9ol/BwsazpOhcwBaDQGk6Irh//4G6BIQJqtlE/t4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=F9qrIuSreVUGFV5PgZ5v6EYa6+tT/PjOxogCDGfjxUx3sw2KMJRBZRImuE+WmJnUHb++3VKMzAxo7Mp/VqQnbw25iEoi8OCr7jw6eMJSstoZeqj2jKDToSGjYj4QrDpQGZUdJGG6zeU+tblTR65nS7wAppfR6YwOJ9GkYgK5Luo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Rj5rfhOM; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kn6aGhbV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE168C4CEF7;
-	Wed,  1 Apr 2026 17:19:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775063959;
-	bh=0t1qiOT2TkAHTnIXYBg0hCbmcpZmO03o+RmNg0lRSM4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=Kn6aGhbVpkCvOBVAh+SBNp2CXHHvrdBvyGduFCUxQDiR7qJe8WqoQaVr7DqqvqgS8
-	 WAcunvO+lt/tUvspqhbvEW0XNNsLGEsNSoa9fg0A2oirbdRvQH+hqXfQDK3KXLTK9E
-	 Iv9/NfeUtRxn/RgGuz+QYM3AHCFdnaFlvveEDVB8atfAPpvi+yLcoY346n+6m/oLA6
-	 0/6PCbpX7tnLEKriTVpTjM4SBfK8Zg2hikUMd1QlUvjSgxk2B6AKdMgtANqxosKIM/
-	 PeGTIuN8VVVItBNdBlx9EitcCVzrNTf+BWwEHfhXrSKABfZwNbYSaP60QdPureyXot
-	 mNcbswJ7x5TAw==
-From: Mark Brown <broonie@kernel.org>
-To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Cc: mohammad.rafi.shaik@oss.qualcomm.com, linux-sound@vger.kernel.org, 
- lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, johan@kernel.org, 
- dmitry.baryshkov@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, srini@kernel.org, val@packett.cool, 
- mailingradian@gmail.com
-In-Reply-To: <20260330082105.278055-1-srinivas.kandagatla@oss.qualcomm.com>
-References: <20260330082105.278055-1-srinivas.kandagatla@oss.qualcomm.com>
-Subject: Re: [PATCH v8 00/13] ASoC: qcom: q6dsp: few fixes and enhancements
-Message-Id: <177498454736.825035.17158629527064214797.b4-ty@b4>
-Date: Tue, 31 Mar 2026 20:15:47 +0100
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Rj5rfhOM"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7318331DB
+	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 10:20:43 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 1E85F3F641
+	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 10:20:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1775064049; bh=jso9ol/BwsazpOhcwBaDQGk6Irh//4G6BIQJqtlE/t4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Rj5rfhOMii5/eXubnifzHmQ5LYo1ZgzXl0786M+ITTywa3oyQHQf+U5zqpCE6tGFL
+	 rF4VHDpZ1QNXoPrLFe6SRkEksboUEBjvaskDXGdTPxVvW0SiU3x9mtAhAbtBpOkMUl
+	 h3FtGU7yNAn56qRY6LKPZm9vl5fXGp5FpS4ag0oE=
+Date: Wed, 1 Apr 2026 18:20:27 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Guangliu Ding <guangliu.ding@nxp.com>
+Cc: "Daniel Baluta (OSS)" <daniel.baluta@oss.nxp.com>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <frank.li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	Jiyu Yang <jiyu.yang@nxp.com>
+Subject: Re: Re: Re: Re: [PATCH 1/2] dt-bindings: gpu: mali-valhall-csf:
+ Document i.MX952 support
+Message-ID: <ac1T282yvpdAp_TP@e142607>
+References: <20260331-master-v1-0-65c8e318d462@nxp.com>
+ <20260331-master-v1-1-65c8e318d462@nxp.com>
+ <acva1Xt8V4k9-uG8@e142607>
+ <AM0PR04MB47073E9E8B5C704BCF5D9F72F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+ <99a1da55-d6e5-4d11-abaa-8c85283ab5f2@oss.nxp.com>
+ <AM0PR04MB4707B3E37DFE7AEE587DBA2AF350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+ <aczv0R0aQRmHKdvt@e142607>
+ <AM0PR04MB4707335CC7035232D44E6ED9F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+ <ac05OpEMjKMd8CXy@e142607>
+ <AM0PR04MB4707604AF2C445971C7474EFF350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16-dev-7777e
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3225; i=broonie@kernel.org;
- h=from:subject:message-id; bh=0t1qiOT2TkAHTnIXYBg0hCbmcpZmO03o+RmNg0lRSM4=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBpzVOSIVdmH+wSNvp/okTncJiMCIH2sFZN1OGMI
- oQu9duWOdiJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCac1TkgAKCRAk1otyXVSH
- 0CuxCACC9KKzA/fAdPwwiJumNjSTCJm8Oyl6YqXD/dZgVMqclE+DBVH8Vf05YtOXTD0b8Pjnfnx
- b01IWU3HhvUFGxnwkdP2nWiaTqsjSsfBEV8wSJ4P5gGNs7QN8WrEtQ0UlDlvUh9dNWYHEz85mJm
- YfpgaOawIy38h3vrNUWDUW769SSSWRw/hVipmfsXeq1cjZ6H58HJaafeUEfIC8P7L2mHGNNlMXB
- +pnNokNut4jcVy4ud76KTI4slp1xCwcOHQAp14ZTXOTnJd8Ope/pkJakmHXNZuruE4R7I5NveB9
- keORpL0mZWOOvApxHyoHttDbwa38FYAx6IugNIEL+ijc3t+w
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <AM0PR04MB4707604AF2C445971C7474EFF350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
 
-On Mon, 30 Mar 2026 08:20:52 +0000, Srinivas Kandagatla wrote:
-> ASoC: qcom: q6dsp: few fixes and enhancements
+On Wed, Apr 01, 2026 at 03:59:23PM +0000, Guangliu Ding wrote:
+> Hi Liviu
 > 
-> This patchset contains few fixes for the bugs hit during testing with
-> Monza EVK platform
-> - around array out of bounds access on dai ids which keep extending but
->   the drivers seems to have hardcoded some numbers, fix this and clean
-> the mess up
-> - fix few issues discovered while trying to shut down dsp.
-> - flooding rpmsg with write requests due to not resetting queue pointer,
->   fix this resetting the pointer in trigger stop.
-> - possible multiple graph opens which can result in open failures.
+> > On Wed, Apr 01, 2026 at 10:31:01AM +0000, Guangliu Ding wrote:
+> > > Hi Liviu
+> > >
+> > > > On Wed, Apr 01, 2026 at 09:43:12AM +0000, Guangliu Ding wrote:
+> > > > > Hi Daniel
+> > > > >
+> > > > > > On 4/1/26 11:48, Guangliu Ding wrote:
+> > > > > > > [You don't often get email from guangliu.ding@nxp.com. Learn
+> > > > > > > why this is important at
+> > > > > > > https://aka.ms/LearnAboutSenderIdentification
+> > > > > > > ]
+> > > > > > >
+> > > > > > > Hi Liviu
+> > > > > > >
+> > > > > > > Thanks for your review. Please refer to my comments below:
+> > > > > > >
+> > > > > > >> On Tue, Mar 31, 2026 at 06:12:38PM +0800, Guangliu Ding wrote:
+> > > > > > >>> Add compatible string of Mali G310 GPU on i.MX952 board.
+> > > > > > >>>
+> > > > > > >>> Signed-off-by: Guangliu Ding <guangliu.ding@nxp.com>
+> > > > > > >>> Reviewed-by: Jiyu Yang <jiyu.yang@nxp.com>
+> > > > > > >>> ---
+> > > > > > >>>
+> > > > > > >>> Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.y
+> > > > > > >>> aml
+> > > > > > >>> | 1
+> > > > > > >>> +
+> > > > > > >>>  1 file changed, 1 insertion(+)
+> > > > > > >>>
+> > > > > > >>> diff --git
+> > > > > > >>> a/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf
+> > > > > > >>> .yam
+> > > > > > >>> l
+> > > > > > >> b/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.
+> > > > > > >> yaml
+> > > > > > >>> index 8eccd4338a2b..6a10843a26e2 100644
+> > > > > > >>> ---
+> > > > > > >>> a/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf
+> > > > > > >>> .yam
+> > > > > > >>> l
+> > > > > > >>> +++ b/Documentation/devicetree/bindings/gpu/arm,mali-valhall
+> > > > > > >>> +++ -csf
+> > > > > > >>> +++ .yam
+> > > > > > >>> +++ l
+> > > > > > >>> @@ -20,6 +20,7 @@ properties:
+> > > > > > >>>            - enum:
+> > > > > > >>>                - mediatek,mt8196-mali
+> > > > > > >>>                - nxp,imx95-mali            # G310
+> > > > > > >>> +              - nxp,imx952-mali           # G310
+> > > > > > >> Can you explain why this is needed? Can it not be covered by
+> > > > > > >> the existing compatible?
+> > > > > > > There are functional differences in GPU module (GPUMIX)
+> > > > > > > between
+> > > > > > > i.MX95 and i.MX952. So they cannot be fully covered by a
+> > > > > > > single existing
+> > > > compatible.
+> > > > > > > On i.MX952, The GPU clock is controlled by hardware GPU auto
+> > > > > > > clock-gating mechanism, while the GPU clock is managed
+> > > > > > > explicitly by the
+> > > > > > driver on i.MX95.
+> > > > > > > Because of these behavioral differences, separate compatible
+> > > > > > > strings "nxp,imx95-mali" and "nxp,imx952-mali" are needed to
+> > > > > > > allow the driver to handle the two variants independently and
+> > > > > > > to keep room for future
+> > > > > > divergence.
+> > > > > >
+> > > > > >
+> > > > > > This information should be added in the commit message
+> > > > > > explaining why
+> > > > > >
+> > > > > > the change is needed.
+> > > > > >
+> > > > > >
+> > > > > > But then where is the driver code taking care of these diferences?
+> > > > > >
+> > > > >
+> > > > > Yes. Currently the driver does not require "nxp,imx952-mali" string.
+> > > > > However, when GPU ipa_counters are enabled to calculate the GPU
+> > > > > busy_time/idle_time for GPU DVFS feature, they will conflict with
+> > > > > the hardware GPU auto clock‑gating mechanism, causing GPU clock to
+> > > > > remain
+> > > > always on.
+> > > > > In such cases, ipa_counters need to be disabled so that the GPU
+> > > > > auto clock‑gating mechanism can operate normally, using
+> > "nxp,imx952-mali"
+> > > > string.
+> > > >
+> > > > OK, I understand that you're following guidance from some other
+> > > > senior people on how to upstream patches so you've tried to create
+> > > > the smallest patchset to ensure that it gets reviewed and accepted,
+> > > > but in this case we need to see the other patches as well to decide
+> > > > if your approach is the right one and we do need a separate compatible
+> > string.
+> > > >
+> > > > If enabling GPU ipa_counters causes the clocks to get stuck active,
+> > > > that feels like a hardware bug, so figuring out how to handle that
+> > > > is more important than adding a compatible string.
+> > > >
+> > > > Either add the patch(es) that use the compatible to this series in
+> > > > v2, or put a comment in the commit message on where we can see the
+> > driver changes.
+> > > >
+> > >
+> > > According to discussions with the GPU vendor, this is a hardware
+> > > limitation of Mali-G310 rather than a hardware bug, and it has been
+> > > addressed in newer Mali GPU families.
+> > 
+> > I represent the said GPU vendor and I think I know what you're talking about,
+> > but you're taking the wrong approach. All G310s have a problem where in
+> > order to enable access to the ipa_counters the automatic clock gating gets
+> > disabled. So the solution that needs to be implemented when we add support
+> > for IPA_COUNTERs will apply to all GPUs, not just MX952.
 > 
-> [...]
+> Yes. We have bring-up G310 (V2) GPU on both i.MX95 and i.MX952. And auto clock 
+> gating mechanism is firstly introduced in i.MX952 (not supported on i.MX95).
+> According to your update, solution needs to be implemented to all GPUs which support 
+> auto clock gating mechanism after IPA_COUNTERs are supported in the driver, right?
 
-Applied to
+A solution is needed, yes.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.1
+> What's your suggestions for 952 gpu dtb node?
 
-Thanks!
+There is no IPA_COUNTER use in Panthor at the moment. Unless your DVFS controller uses
+that, I would suggest that we don't introduce a compatible for 952 until the time we
+add support for reading the counters.
 
-[01/13] ASoC: qcom: q6apm: move component registration to unmanaged version
-        https://git.kernel.org/broonie/sound/c/b918fa0009c5
-[02/13] ASoC: qcom: q6apm: remove child devices when apm is removed
-        https://git.kernel.org/broonie/sound/c/53c1971fee3e
-[03/13] ASoC: qcom: qdsp6: topology: check widget type before accessing data
-        https://git.kernel.org/broonie/sound/c/4acb0d8ae805
-[04/13] ASoC: qcom: q6apm-lpass-dai: Fix multiple graph opens
-        https://git.kernel.org/broonie/sound/c/08798200d790
-[05/13] ASoC: qcom: q6apm-dai: reset queue ptr on trigger stop
-        https://git.kernel.org/broonie/sound/c/05e5370b04c3
-[06/13] ASoC: dt-bindings: qcom: add LPASS LPI MI2S dai ids
-        https://git.kernel.org/broonie/sound/c/c6e2c74a1999
-[07/13] ASoC: qcom: qdsp6: lpass-ports: add support for LPASS LPI MI2S dais
-        https://git.kernel.org/broonie/sound/c/2d99c2869c35
-[08/13] ASoC: qcom: q6dsp: Add Senary MI2S audio interface support
-        https://git.kernel.org/broonie/sound/c/cd1716423637
-[09/13] ASoC: qcom: common: validate cpu dai id during parsing
-        https://git.kernel.org/broonie/sound/c/4847eb57fcf1
-[10/13] ASoC: qcom: qdapm-lpass-dai: correct the error message
-        https://git.kernel.org/broonie/sound/c/c4c6e17a3bd5
-[11/13] ASoC: qcom: q6apm-lpass-dai: move graph start to trigger
-        https://git.kernel.org/broonie/sound/c/dce7c38257ad
-[12/13] ASoC: qcom: qdsp6: remove search for module iid in hot path
-        https://git.kernel.org/broonie/sound/c/aeb8c96748af
-[13/13] ASoC: qcom: q6apm: Add support for early buffer mapping on DSP
-        https://git.kernel.org/broonie/sound/c/7cc1926fcd8d
+It helps if you think in terms of what is already in upstream, rather than mixing with
+the tests that uses kbase code. Does your hardware need extra code in upstream in order
+to function? If so, where is that code? If not, then let's not introduce the compatible
+until we are absolutely sure we need it because we have code specific to that SoC. For
+everything else we will implement an architecture fix if needed.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Best regards,
+Liviu
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
