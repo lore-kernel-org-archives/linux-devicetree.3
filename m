@@ -1,143 +1,194 @@
-Received: from s2.avantea.pl (s2.avantea.pl [46.242.128.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4948F337688;
-	Wed,  1 Apr 2026 15:25:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.242.128.95
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4CBCA39E6E4
+	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 15:27:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775057151; cv=none; b=od6tHDzfAMCe0Ft+gwwKEodZ3A1My1r5UPGqGJZVNOuJGQGWMnaQPHos2GQCkf9oE82MKYstdSVxQYxm/i8LHJKafGrdO+dfIeZGYE6HYXLlHFYineHNbUtEJ4V5naxuEhkgv17qomyQAESq8iZXa8zrM1TkNb2GCjtQ3Sq9JYA=
+	t=1775057234; cv=none; b=T8VYhFLwZOVlGnGzu/o+yNPFOA2KThON5PnVOWvnDHP0bgrENEyPQodxKXOiIVk9AWgEnqIoHV/e/nRE0nk/0nLjN12c55D2JCsucro633JzBcdUHxhbj2BvRKYSp1TZT7LZZQwrq1YsxBqMXCbXUMqUByFHS9/yHMuqFhvdPIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775057151; c=relaxed/simple;
-	bh=Ii/eJ5h1USlct5eSHcumUHTZoUYSvDC7KyxJIGIed04=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bIOEqdePJWLcbHmXNEipTpeJxazmBjPsf22lUsmNA5x/bWBW6EIh3/WwSS798vUPtfTGHViU61cISTXznJJnLFU37I+WrCmsNOLn3ii4FbUremKbbXThOSuBNKAPcZvEOVFVH4H9LV87AxxbuyQwaOIHKu+JXocYdh+t99C7NcY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=szczodrzynski.pl; spf=pass smtp.mailfrom=szczodrzynski.pl; dkim=pass (2048-bit key) header.d=szczodrzynski.pl header.i=@szczodrzynski.pl header.b=dTapjwhl; arc=none smtp.client-ip=46.242.128.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=szczodrzynski.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szczodrzynski.pl
+	s=arc-20240116; t=1775057234; c=relaxed/simple;
+	bh=y+MhPjsu8qOsmSPWBWTYc0aedsaAPB/kfVjv0IQGfi4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gNFHrxGqd4RNLqrzjo0+Jrx38NB77a0qUdOv23FRgbaQSTds0QiNfbwTCvquKjF6RqZlxK4JoOfc5MTmZvnutB0y7WeyE20PR3He2pQkxOcsTcJvBLQoNwlQlpYUfIlH9/Mvu9YsfzWBiCnvEAIUuoIaOi2zwTjURRHQ3Yxepns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=JwKOsGQB; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=szczodrzynski.pl header.i=@szczodrzynski.pl header.b="dTapjwhl"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=szczodrzynski.pl; s=x; h=Content-Transfer-Encoding:Content-Type:In-Reply-To
-	:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=Yfl/w1ij3MgpyEqu5acDmeSHKzp1JdcGMEvJsVUioeI=; b=dTapjwhlsakHuG9/ro3lz63N01
-	XdRqX6PAtHDsv/Hqx89CpF904TiwsjZnD8ckUY/929k3Kqh6zJWEV/bZwHUToTvKGf9yVJ6uGH3ls
-	8Kwrz9WhU0B/zKeitP6JlW0f7htpsvS6bhNBxQXHc1qf9f77rtkXHumMFFi0polKAmpE1zRkNzspa
-	fHCxnwx+tD75qpHwxRukvdgbcqzqhSja9xlzKE8/AnrpaVpvoBqytXXymP5r5Ao7xRd6gc1mYVTR8
-	2QTy+ybeTSBCzaSl9bns7x65+O5sMF5eXEPOAWZiSq47yrUdD32xbkhLxziC+Rkra+/azUmpQMB6A
-	ZJ/I/QVg==;
-Received: from d100-78.icpnet.pl ([77.65.100.78] helo=[192.168.0.120])
-	by s2.avantea.pl with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.98.1)
-	(envelope-from <kuba@szczodrzynski.pl>)
-	id 1w7x8q-0000000Ajrx-2VZg;
-	Wed, 01 Apr 2026 17:06:00 +0200
-Message-ID: <5e9f5f0c-1ff0-4b6c-ad2d-ccf6fafbef30@szczodrzynski.pl>
-Date: Wed, 1 Apr 2026 17:04:48 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="JwKOsGQB"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B64F01F91
+	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 08:27:06 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 626BB3F641
+	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 08:27:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1775057232; bh=y+MhPjsu8qOsmSPWBWTYc0aedsaAPB/kfVjv0IQGfi4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=JwKOsGQBSR+MbLgXTcuQ8unienxS1lpyZqFRACgT4r/N+llUBFSvYx9s6fFfD3dHa
+	 R92/CdNHKnM9/5rmgznvMEFy5VOb+Xms2+95RwpNzW963UaV4xg3p/LU/mP88OswaI
+	 eIvDtUo6XT7rHH43nbMLvZbTC4z5OXfBeBw4/v5U=
+Date: Wed, 1 Apr 2026 16:26:50 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Guangliu Ding <guangliu.ding@nxp.com>
+Cc: "Daniel Baluta (OSS)" <daniel.baluta@oss.nxp.com>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <frank.li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	Jiyu Yang <jiyu.yang@nxp.com>
+Subject: Re: Re: Re: [PATCH 1/2] dt-bindings: gpu: mali-valhall-csf: Document
+ i.MX952 support
+Message-ID: <ac05OpEMjKMd8CXy@e142607>
+References: <20260331-master-v1-0-65c8e318d462@nxp.com>
+ <20260331-master-v1-1-65c8e318d462@nxp.com>
+ <acva1Xt8V4k9-uG8@e142607>
+ <AM0PR04MB47073E9E8B5C704BCF5D9F72F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+ <99a1da55-d6e5-4d11-abaa-8c85283ab5f2@oss.nxp.com>
+ <AM0PR04MB4707B3E37DFE7AEE587DBA2AF350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+ <aczv0R0aQRmHKdvt@e142607>
+ <AM0PR04MB4707335CC7035232D44E6ED9F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/6] drm/sun4i: Support LVDS on D1s/T113 combo D-PHY
-To: Parthiban <parthiban@linumiz.com>, Maxime Ripard <mripard@kernel.org>,
- Samuel Holland <samuel@sholland.org>, Chen-Yu Tsai <wens@csie.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, paulk@sys-base.io
-References: <20250221161751.1278049-1-kuba@szczodrzynski.pl>
- <20251116134609.447043-1-kuba@szczodrzynski.pl>
- <a5f6aeb1-b038-462e-8989-c4da65966134@linumiz.com>
- <1027afd7-dec6-4ff3-85eb-2d9a1646ada6@linumiz.com>
-Content-Language: pl
-From: =?UTF-8?Q?Kuba_Szczodrzy=C5=84ski?= <kuba@szczodrzynski.pl>
-Autocrypt: addr=kuba@szczodrzynski.pl; keydata=
- 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
-In-Reply-To: <1027afd7-dec6-4ff3-85eb-2d9a1646ada6@linumiz.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Authenticated-Id: kuba@szczodrzynski.pl
+In-Reply-To: <AM0PR04MB4707335CC7035232D44E6ED9F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
 
-Hi,
+On Wed, Apr 01, 2026 at 10:31:01AM +0000, Guangliu Ding wrote:
+> Hi Liviu
+> 
+> > On Wed, Apr 01, 2026 at 09:43:12AM +0000, Guangliu Ding wrote:
+> > > Hi Daniel
+> > >
+> > > > On 4/1/26 11:48, Guangliu Ding wrote:
+> > > > > [You don't often get email from guangliu.ding@nxp.com. Learn why
+> > > > > this is important at https://aka.ms/LearnAboutSenderIdentification
+> > > > > ]
+> > > > >
+> > > > > Hi Liviu
+> > > > >
+> > > > > Thanks for your review. Please refer to my comments below:
+> > > > >
+> > > > >> On Tue, Mar 31, 2026 at 06:12:38PM +0800, Guangliu Ding wrote:
+> > > > >>> Add compatible string of Mali G310 GPU on i.MX952 board.
+> > > > >>>
+> > > > >>> Signed-off-by: Guangliu Ding <guangliu.ding@nxp.com>
+> > > > >>> Reviewed-by: Jiyu Yang <jiyu.yang@nxp.com>
+> > > > >>> ---
+> > > > >>>  Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yaml
+> > > > >>> | 1
+> > > > >>> +
+> > > > >>>  1 file changed, 1 insertion(+)
+> > > > >>>
+> > > > >>> diff --git
+> > > > >>> a/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yam
+> > > > >>> l
+> > > > >> b/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yaml
+> > > > >>> index 8eccd4338a2b..6a10843a26e2 100644
+> > > > >>> ---
+> > > > >>> a/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yam
+> > > > >>> l
+> > > > >>> +++ b/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf
+> > > > >>> +++ .yam
+> > > > >>> +++ l
+> > > > >>> @@ -20,6 +20,7 @@ properties:
+> > > > >>>            - enum:
+> > > > >>>                - mediatek,mt8196-mali
+> > > > >>>                - nxp,imx95-mali            # G310
+> > > > >>> +              - nxp,imx952-mali           # G310
+> > > > >> Can you explain why this is needed? Can it not be covered by the
+> > > > >> existing compatible?
+> > > > > There are functional differences in GPU module (GPUMIX) between
+> > > > > i.MX95 and i.MX952. So they cannot be fully covered by a single existing
+> > compatible.
+> > > > > On i.MX952, The GPU clock is controlled by hardware GPU auto
+> > > > > clock-gating mechanism, while the GPU clock is managed explicitly
+> > > > > by the
+> > > > driver on i.MX95.
+> > > > > Because of these behavioral differences, separate compatible
+> > > > > strings "nxp,imx95-mali" and "nxp,imx952-mali" are needed to allow
+> > > > > the driver to handle the two variants independently and to keep
+> > > > > room for future
+> > > > divergence.
+> > > >
+> > > >
+> > > > This information should be added in the commit message explaining
+> > > > why
+> > > >
+> > > > the change is needed.
+> > > >
+> > > >
+> > > > But then where is the driver code taking care of these diferences?
+> > > >
+> > >
+> > > Yes. Currently the driver does not require "nxp,imx952-mali" string.
+> > > However, when GPU ipa_counters are enabled to calculate the GPU
+> > > busy_time/idle_time for GPU DVFS feature, they will conflict with the
+> > > hardware GPU auto clock‑gating mechanism, causing GPU clock to remain
+> > always on.
+> > > In such cases, ipa_counters need to be disabled so that the GPU auto
+> > > clock‑gating mechanism can operate normally, using "nxp,imx952-mali"
+> > string.
+> > 
+> > OK, I understand that you're following guidance from some other senior
+> > people on how to upstream patches so you've tried to create the smallest
+> > patchset to ensure that it gets reviewed and accepted, but in this case we need
+> > to see the other patches as well to decide if your approach is the right one and
+> > we do need a separate compatible string.
+> > 
+> > If enabling GPU ipa_counters causes the clocks to get stuck active, that feels
+> > like a hardware bug, so figuring out how to handle that is more important than
+> > adding a compatible string.
+> > 
+> > Either add the patch(es) that use the compatible to this series in v2, or put a
+> > comment in the commit message on where we can see the driver changes.
+> > 
+> 
+> According to discussions with the GPU vendor, this is a hardware limitation 
+> of Mali-G310 rather than a hardware bug, and it has been addressed in newer
+> Mali GPU families.
 
-W dniu 2026-04-01 o 10:39:42, Parthiban pisze:
+I represent the said GPU vendor and I think I know what you're talking about, but you're
+taking the wrong approach. All G310s have a problem where in order to enable access to
+the ipa_counters the automatic clock gating gets disabled. So the solution that needs
+to be implemented when we add support for IPA_COUNTERs will apply to all GPUs, not just
+MX952.
 
-> Dear Kuba,
->
-> On 2/7/26 2:34 PM, Parthiban wrote:
->> On 11/16/25 2:46 PM, Kuba Szczodrzyński wrote:
->>> Some Allwinner chips (notably the D1s/T113 and the A100) have a "combo
->>> MIPI DSI D-PHY" which is required when using single-link LVDS0. The same
->>> PD0..PD9 pins are used for either DSI or LVDS.
->>>
->>> Other than having to use the combo D-PHY, LVDS output is configured in
->>> the same way as on older chips.
->>>
->>> This series enables the sun6i MIPI D-PHY to also work in LVDS mode. It
->>> is then configured by the LCD TCON, which allows connecting a
->>> single-link LVDS display panel.
-> Now I also have the MIPI and LVDS working together on A133. Can I pick your
-> changes and post a combined series for the display support for A133? This will
-> also address D1s/T114 as well.
+> 
+> In addition, ipa_counters are not enabled in the current Panthor driver. We observed
+> this issue with the private Mali DDK where ipa_counters were enabled.
+> Therefore, keeping the compatible string is necessary to allow for future divergence.
 
-I guess it's been waiting for too long anyway - so yes, if you know how 
-to push it further, then please do so.
+This is not an MX952 issue only. You might be aware of it on your SoC, but it's not just
+for it.
 
-Regards Kuba
+Best regards,
+Liviu
 
-> --
-> Thanks,
-> Parthiban
-> https://linumiz.com
-> https://www.linkedin.com/company/linumiz
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
