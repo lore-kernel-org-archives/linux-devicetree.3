@@ -1,130 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26E2D28002B;
-	Wed,  1 Apr 2026 07:00:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 791DD35BDB7;
+	Wed,  1 Apr 2026 07:06:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775026831; cv=none; b=QjvLb+xNeBklwfepD2KtWxkzjsr/lDksZkqV0ej6ponSOoWyfI2ZWRsf5G5dSRhX39f+e0pMYiAvUsG0MZvYhgYKgc2iWL8C/UfQbASOAfIkvW2pcpcMntpGNcoMxi7EalU8zjHKd93dzVKTHx9qngFXeKSr6mMw1iLrLmGITgw=
+	t=1775027173; cv=none; b=DC4LWkdjj7sM5ih1rYMKVyX2Y42aK4uu9Q5d+k1K3HK3AEmtgzJ/d1jzcZLonySKWqEdQGkyf25hGUiLyeOrW4uBBZ31GQ4EAQ1hadypA4LswVWcQtPDbR7VzqXH3NGlZmJP8qH6KLUXp7v5ma8+GIB0yh6NT4Z3fbSLFIJkB8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775026831; c=relaxed/simple;
-	bh=zot45+s4jeVdAguxss4LYuLtmhR3y6kpT1CAA1uASco=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=UTLZ3ZFwpzu+tLdvEvcCuaM2W936TPm/I8ArN++vA01I63dzelhMpkN8rCP9dtXUmXNVjrh9MsMcmTu6XbG4Twb4iCGOPmQFYfdPpm0WICiqxJcdrbd8wllw3bSOwGnCyZmuPmS/q4twAe5RssFxv+2Cog58tfVHglEcE7w3fhU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rm4zgsjp; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775027173; c=relaxed/simple;
+	bh=EgZG8vWpENL7/pRzsvmxV2C0P23JpF9gFWAvH3xpzUU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Ykl7zo4BpG4Ep33xttcflEbOL7MVZV/qqEELvnqLecQ1gTc1jYNfJQeYBrP8rp382A3dnBaY9V7Ti/gJtksYG6ztpJY8jKD12SQ4Zg/3qWVRXcCGwN4zzCJyE9wkaWjMXcPD4/0LEmY7BDbsDXno7MreczvdO2oHsCMvJvAAMOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=NGh+18Lt; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rm4zgsjp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FDF1C2BCB2;
-	Wed,  1 Apr 2026 07:00:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775026830;
-	bh=zot45+s4jeVdAguxss4LYuLtmhR3y6kpT1CAA1uASco=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=rm4zgsjp66OmWKDxKb+cbYUgPP6BpbKod/CPq8WZDAtuGd2VjljIsq+jW79GCyRL0
-	 bJLxHgxybJXdGsRcffN5m5QC2HdH1rWtg/JqZxCkceA2mSnUuK7XRsOqp9vlIrn0vi
-	 Hp97akhbi/2WvCKGdeo6rOfQ3W2rWeoV2D3TrIN3BD0ViGMKgYTh0rGPW7jOBSyZ+/
-	 kjf8ikAnYIRK3tOVvbfwK5FPGqVtOGUsn0AhaT++CGdVvjcm+mHB1QdSF4X1R3cGaG
-	 PUnRv87zg1Y99EzrRnGquoyw3q0NG4cL8n8r13s8ot/dwN+C4g3sUhYsKkuevgjLxH
-	 dRI0zeEng9b9w==
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-Date: Wed, 01 Apr 2026 08:59:29 +0200
-Subject: [PATCH net-next v2 11/11] net: airoha: Rename get_src_port_id
- callback in get_sport
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="NGh+18Lt"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=ICvoVCRHMIyKZPWatorRc2YdWoTDd421WMgvZUug3mk=; b=NGh+18LtKKrST7UgqOTIqoO8JO
+	sFSWoy5Ww0/flE/HfXNntAFf9SmnQHjj0qD3AwlPPqZyb4KLg+bQNd+O/bcH1zLuU56a0bNdPVkJq
+	8ukPn+Gs0jH3BZjWWU9KApbSLrvnJNwiaYjyJf4lrEBTz9jFXA1xfotzWktgTuY5SGAKVecrjLjyk
+	K0bWatCW4fgRappkcuTcj54MH28kg7IAOHPrYITKTtK++Kh68ukq4h5IY+IYOnSQexCpjYQzP/95T
+	ZBhBsC7OtOsqobRKvcsdZ8SQOWWHEGQtnEh1rs/JCiCryevuV1Lk7/aZIGdkJC5c5aVnzNrzVlJNG
+	IR44r0aw==;
+Received: from sslproxy02.your-server.de ([78.47.166.47])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1w7peK-000Gx9-2y;
+	Wed, 01 Apr 2026 09:06:00 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy02.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1w7peK-000IiZ-0M;
+	Wed, 01 Apr 2026 09:06:00 +0200
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Philippe Schenker <philippe.schenker@toradex.com>,
+ Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+ linux-arm-kernel@lists.infradead.org
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Peng Fan <peng.fan@nxp.com>, "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Subject: Re: [PATCH] arm64: dts: imx8x-colibri: Correct SODIMM PAD settings
+Date: Wed, 01 Apr 2026 09:05:59 +0200
+Message-ID: <4727738.LvFx2qVVIh@steina-w>
+Organization: TQ-Systems GmbH
+In-Reply-To: <20260401-imx8-fix-v1-1-cb27398a6aaf@nxp.com>
+References: <20260401-imx8-fix-v1-1-cb27398a6aaf@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260401-airoha-eth-multi-serdes-v2-11-ac427ae4beeb@kernel.org>
-References: <20260401-airoha-eth-multi-serdes-v2-0-ac427ae4beeb@kernel.org>
-In-Reply-To: <20260401-airoha-eth-multi-serdes-v2-0-ac427ae4beeb@kernel.org>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Lorenzo Bianconi <lorenzo@kernel.org>
-Cc: Christian Marangi <ansuelsmth@gmail.com>, 
- Benjamin Larsson <benjamin.larsson@genexis.eu>, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- netdev@vger.kernel.org, devicetree@vger.kernel.org
-X-Mailer: b4 0.14.2
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"
+X-Virus-Scanned: Clear (ClamAV 1.4.3/27957/Tue Mar 31 08:24:30 2026)
 
-For code consistency, rename get_src_port_id callback in get_sport.
-Please note this patch does not introduce any logical change and it is
-just a cosmetic patch.
+Am Mittwoch, 1. April 2026, 08:40:56 CEST schrieb Peng Fan (OSS):
+> From: Peng Fan <peng.fan@nxp.com>
+>=20
+> SION is BIT(30), not BIT(26). Correct it.
+>=20
+> Fixes: 7ece3cbc8b1ef ("arm64: dts: colibri-imx8x: Add atmel pinctrl group=
+s")
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
 
-Signed-off-by: Lorenzo Bianconi <lorenzo@kernel.org>
----
- drivers/net/ethernet/airoha/airoha_eth.c | 10 +++++-----
- drivers/net/ethernet/airoha/airoha_eth.h |  2 +-
- 2 files changed, 6 insertions(+), 6 deletions(-)
+Reviewed-by: Alexander Stein <alexander.stein@ew.tq-group.com>
 
-diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ethernet/airoha/airoha_eth.c
-index 3f9bce8c537081756aff276009c77670ec5915f4..5fe48601bb623f9dba9d3a4d2c1fd6c8276aba88 100644
---- a/drivers/net/ethernet/airoha/airoha_eth.c
-+++ b/drivers/net/ethernet/airoha/airoha_eth.c
-@@ -1751,7 +1751,7 @@ static int airoha_set_gdm2_loopback(struct airoha_gdm_dev *dev)
- 	airoha_fe_clear(eth, REG_FE_VIP_PORT_EN, BIT(AIROHA_GDM2_IDX));
- 	airoha_fe_clear(eth, REG_FE_IFC_PORT_EN, BIT(AIROHA_GDM2_IDX));
- 
--	src_port = eth->soc->ops.get_src_port_id(port, dev->nbq);
-+	src_port = eth->soc->ops.get_sport(port, dev->nbq);
- 	if (src_port < 0)
- 		return src_port;
- 
-@@ -3228,7 +3228,7 @@ static const char * const en7581_xsi_rsts_names[] = {
- 	"xfp-mac",
- };
- 
--static int airoha_en7581_get_src_port_id(struct airoha_gdm_port *port, int nbq)
-+static int airoha_en7581_get_sport(struct airoha_gdm_port *port, int nbq)
- {
- 	switch (port->id) {
- 	case AIROHA_GDM3_IDX:
-@@ -3292,7 +3292,7 @@ static const char * const an7583_xsi_rsts_names[] = {
- 	"xfp-mac",
- };
- 
--static int airoha_an7583_get_src_port_id(struct airoha_gdm_port *port, int nbq)
-+static int airoha_an7583_get_sport(struct airoha_gdm_port *port, int nbq)
- {
- 	switch (port->id) {
- 	case AIROHA_GDM3_IDX:
-@@ -3350,7 +3350,7 @@ static const struct airoha_eth_soc_data en7581_soc_data = {
- 	.num_xsi_rsts = ARRAY_SIZE(en7581_xsi_rsts_names),
- 	.num_ppe = 2,
- 	.ops = {
--		.get_src_port_id = airoha_en7581_get_src_port_id,
-+		.get_sport = airoha_en7581_get_sport,
- 		.get_dev_from_sport = airoha_en7581_get_dev_from_sport,
- 	},
- };
-@@ -3361,7 +3361,7 @@ static const struct airoha_eth_soc_data an7583_soc_data = {
- 	.num_xsi_rsts = ARRAY_SIZE(an7583_xsi_rsts_names),
- 	.num_ppe = 1,
- 	.ops = {
--		.get_src_port_id = airoha_an7583_get_src_port_id,
-+		.get_sport = airoha_an7583_get_sport,
- 		.get_dev_from_sport = airoha_an7583_get_dev_from_sport,
- 	},
- };
-diff --git a/drivers/net/ethernet/airoha/airoha_eth.h b/drivers/net/ethernet/airoha/airoha_eth.h
-index 337bb2d1b59fac6d7bed216e7d7dbbe1ca89d3c5..bbd83d7b6453ae5e45b2e324bbee47883978675f 100644
---- a/drivers/net/ethernet/airoha/airoha_eth.h
-+++ b/drivers/net/ethernet/airoha/airoha_eth.h
-@@ -585,7 +585,7 @@ struct airoha_eth_soc_data {
- 	int num_xsi_rsts;
- 	int num_ppe;
- 	struct {
--		int (*get_src_port_id)(struct airoha_gdm_port *port, int nbq);
-+		int (*get_sport)(struct airoha_gdm_port *port, int nbq);
- 		int (*get_dev_from_sport)(struct airoha_qdma_desc *desc,
- 					  u16 *port, u16 *dev);
- 	} ops;
+> ---
+>  arch/arm64/boot/dts/freescale/imx8x-colibri.dtsi | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/arch/arm64/boot/dts/freescale/imx8x-colibri.dtsi b/arch/arm6=
+4/boot/dts/freescale/imx8x-colibri.dtsi
+> index 47895ff8cb244e9bbebe228eb554c2b3f0dded1d..2415487d3a5dea92f9084cd1b=
+312a07f6a09f3cf 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8x-colibri.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx8x-colibri.dtsi
+> @@ -631,12 +631,12 @@ pinctrl_adc0: adc0grp {
+>  	 */
+>  	pinctrl_atmel_adap: atmeladaptergrp {
+>  		fsl,pins =3D <IMX8QXP_UART1_RX_LSIO_GPIO0_IO22			0x21>,		/* SODIMM  30=
+ */
+> -			   <IMX8QXP_UART1_TX_LSIO_GPIO0_IO21			0x4000021>;	/* SODIMM  28 */
+> +			   <IMX8QXP_UART1_TX_LSIO_GPIO0_IO21			0x40000021>;	/* SODIMM  28 */
+>  	};
+> =20
+>  	/* Atmel MXT touchsceen + boards with built-in Capacitive Touch Connect=
+or */
+>  	pinctrl_atmel_conn: atmelconnectorgrp {
+> -		fsl,pins =3D <IMX8QXP_QSPI0B_DATA2_LSIO_GPIO3_IO20		0x4000021>,	/* SOD=
+IMM 107 */
+> +		fsl,pins =3D <IMX8QXP_QSPI0B_DATA2_LSIO_GPIO3_IO20		0x40000021>,	/* SO=
+DIMM 107 */
+>  			   <IMX8QXP_QSPI0B_SS1_B_LSIO_GPIO3_IO24		0x21>;		/* SODIMM 106 */
+>  	};
+> =20
+>=20
+> ---
+> base-commit: 36ece9697e89016181e5ae87510e40fb31d86f2b
+> change-id: 20260401-imx8-fix-10369e895b8a
+>=20
+> Best regards,
+>=20
 
--- 
-2.53.0
+
+=2D-=20
+TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
+Amtsgericht M=FCnchen, HRB 105018
+Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
+http://www.tq-group.com/
+
 
