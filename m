@@ -1,111 +1,291 @@
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EED4F47278C
-	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 14:44:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83FF944B687;
+	Wed,  1 Apr 2026 14:45:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775054693; cv=none; b=JjvrFag+UA9uZ/acQoLv5fTxGzO+kPYQLsAmnnu6tCCChbZwChwn3yO9IGhFb5ECVvscDxZvVOP8iQUwoTW0yimCXPRW3C00L936eV8x3JEdo/2FeICWOWHy72p4y65TunC8FFbLGND6uy9GtyqOR3UIF5q9PauNIuZ3fVMJaWI=
+	t=1775054721; cv=none; b=blDAytQvqkj0dOJtOS4mNbbmTgoDk1F92Qu0Fvf2xFcr3gsMH9LBXaAPGGfamkaPxPWbb3st4tPPBheZvzBx8NJw1DbKiUyRINzuhelD+LJZXQDKlC/Zx0B/g2PkvV0NTGUdzYeQgRReRQZ71Q+I0UakZZZmzNaFA5RuGWctYJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775054693; c=relaxed/simple;
-	bh=eCtz8uzC3ZyJhfgNc4nb8F31dhwu97gqPpF2HvCCt2s=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=uMO2qbQ2So7ZD4MgRV2YJ+zOxXWz6wMEIN6dEcd2lfE4q7xiHfhoUJnWytCOaqkTA+eZJWWcAg1fhZlv02A6Km0Bck8Im42vcprNVsrGmkMyDgsA3Nm5nPt9pbnN4LbzKwDhijNOpSz6fD+RzhLxlXH+z5+X7mpnHMLFkywFPg4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=1sXwq8NL; arc=none smtp.client-ip=209.85.218.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1775054721; c=relaxed/simple;
+	bh=rddPStbzk+Do50n9A1ISbAAfQVSDvDOgkiUirreABp4=;
+	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=VegVHbTE/4RK++/MpaV/+grrWusfpy4LgChGdtMN4d8Bv/NbEKYqmb7DVknx+CiAbksEHV/Y1n0bYmbQ/yFkr+h6eCRRRifQuFyTU3JPbXQjd2lrsZEShA66z9weZw/XmXxWGqCkV74mpwz4ftxzDziZcne+yBEaJN+ynf+NNNI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=HQNj5fq1; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="1sXwq8NL"
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-b97f9587e6eso1048845166b.3
-        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 07:44:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1775054689; x=1775659489; darn=vger.kernel.org;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=eCtz8uzC3ZyJhfgNc4nb8F31dhwu97gqPpF2HvCCt2s=;
-        b=1sXwq8NLtGdu7z6wbHuWIWyUwu/5yButIFiqdCXoUK8dS+HqT0cW9HZen+TJFo24Ny
-         L8+15BoEum2NVrcrquJ7scAQPBtdnPQqZyh8pyZW42E5vPez6PxzlZWHnydLJEgxm3M9
-         vTO3/WDspo0LQg/TytROkih1KmnuprcqS92TP2t0p2LxVdPi48V7Uo/vxCDanx6E4SpM
-         NywT1I8Xa4yxvU3uRlUf8NfYOZSNT+cQwi2e4sLpaMukapsxG8Gnz2hrVX36cFDHdt19
-         ty2aTjEfoptx5PUiuVcOVWM93GsLHLTXagjVw5sFVMzIfL/6xHIdpNkQS+ZkXooL/F/9
-         NChg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775054689; x=1775659489;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=eCtz8uzC3ZyJhfgNc4nb8F31dhwu97gqPpF2HvCCt2s=;
-        b=FaQ9xZeOg6BvdloLzq2btSxK9y17Wxt3CrV8Ezw3RCXeCSinYgDB4M/VjludkDmi3x
-         w9+CCUhLPNPZwk7CRF1AA0UVxZ8TbovxwkwH5GgiKTvQFptdXtn/raCZfKrtUgOVfbz1
-         LxuX0D5gX65SDlUkDECVxEyGRDmbiUnXBk/QYaAMpRvQ0S8whNTpJbn71A15LBhdzNlO
-         E0RBf1lu/0PMMp/KAiyZzZsHzDAKOlooe87OFiyw1eTPMM5QSU6fjmNGrFm+B5jw4ea7
-         Iz5CaqCMJpRXiUFrnzhXi0kcjAdFvGgP5hB6/9A26vMFCwpB1wQZZhQ+38sgkoJ5b5gH
-         k5Dw==
-X-Forwarded-Encrypted: i=1; AJvYcCWmtbQo8hkZXlyrNPsI6S0e8BuxmsAGnP6yjmGIw1X+sd7YqiMqQut/3i+r91sGXsh/Y93WcOoCZc0b@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz80ACsHwdLgKIeUtQWfvkQjh0qhokOOG9VExPHnDW32BLLF505
-	/6Hgp91O7bmdpbC/aBceAn8T3fJLlE+RjKiqAQeDJC4XQoW1DC4hdBKq2Va/huHzFOg=
-X-Gm-Gg: ATEYQzxS6bVQrH2Ttrz8KuLGQRMZO0McJU4m4j5nDlyxgw5GIpqJnnhHwUDvRN9budh
-	sYKWqanImLRxJyzbQKR/eG1RB6ic9FV/KelDcab/UiBUmuzXSI+YyCkBwvrv2GrppE/fy4240cO
-	PBYXcRX7FMYVc/nA4xCeWQqgsUTP7Ta2ukaiSd5BPOzdzK4ZopLnqoQR5Cvhk+78Q5jORBMXAVj
-	u4HqwnEdxSHePTWwwFktG8wPo4vKkKHJV+qwBA5gvHKAn8p8LcXVtn4juiP9/lxtmbaxDdl5YRB
-	1qJIY0LGkYqoxK7Uokz1oXx6CgtR4FSy/8ESQV+GCqu/1s/APT86hTtovRXMtLPCIKelsX2nJu8
-	YqMBB2d6HwaOkHZetosBtQ3J9OTWDyeyjOpGNb5RV6vG4AI/j53NjnzAbe7e9PIymbjIDw71D6w
-	66PxMOHgw7aZuI30GoYcLHUaVZXcZjBupowuwC+1eXK4LEyqRop/6iblPT05f7HKH5TkA1Dp3Zz
-	lrkNoQWzBzeC00r6Yn9s/OtH559PdU9k/Jh
-X-Received: by 2002:a17:906:3750:b0:b9c:1a5:acb4 with SMTP id a640c23a62f3a-b9c13ca82fcmr213347166b.45.1775054689211;
-        Wed, 01 Apr 2026 07:44:49 -0700 (PDT)
-Received: from localhost (2001-1c00-3b89-c600-71a4-084f-6409-1447.cable.dynamic.v6.ziggo.nl. [2001:1c00:3b89:c600:71a4:84f:6409:1447])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9b7b1a5fb3sm538720866b.31.2026.04.01.07.44.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 01 Apr 2026 07:44:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="HQNj5fq1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1775054719; x=1806590719;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=rddPStbzk+Do50n9A1ISbAAfQVSDvDOgkiUirreABp4=;
+  b=HQNj5fq16qmUSAaiVZTTN1P8j1wVZJmjgkJHLThnkneUMnNOzpVn5f0P
+   QK15FIXpabJShbfs2LlR2VOKW2zt2G9cTlKZPUdpSolOyF5CE86xuaqv4
+   BsrlVpRJ6MDwqKmp0rmPuRpNBAgzc3QFr4zcLLx+dqmNUv5xLg/UEsWE3
+   6WComMKzZh0yq0f5Ac6M1FDUdDYUrVbHy/vWyecrK7wSEprwg2+RZE3oM
+   5GyI9IZF5/pZBO172Q712v6lQiaYI9MVEhymdIeutXCgrN/d1DALOap44
+   rbH8YXME3mtiutNJQsua0Vt16KlrkFuuHxc3JXWePnswP516c6Z117KBv
+   Q==;
+X-CSE-ConnectionGUID: eZBMvTqiS9GvfE6aojStTQ==
+X-CSE-MsgGUID: tctTgIebRcqhT1fg1N2Jzg==
+X-IronPort-AV: E=Sophos;i="6.23,153,1770620400"; 
+   d="scan'208";a="222802746"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Apr 2026 07:45:13 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
+ chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.35; Wed, 1 Apr 2026 07:44:39 -0700
+Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Wed, 1 Apr 2026 07:44:36 -0700
+Message-ID: <7cbf6ce794fa4a3831308f607b19d325572370bf.camel@microchip.com>
+Subject: Re: [PATCH net-next v2 6/9] net: dsa: lan9645x: add vlan support
+From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
+To: Jakub Kicinski <kuba@kernel.org>
+CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
+	<davem@davemloft.net>, <edumazet@google.com>, <pabeni@redhat.com>,
+	<horms@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <woojung.huh@microchip.com>, <linux@armlinux.org.uk>,
+	<Steen.Hegelund@microchip.com>, <daniel.machon@microchip.com>,
+	<linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+	<devicetree@vger.kernel.org>
+Date: Wed, 1 Apr 2026 16:44:35 +0200
+In-Reply-To: <20260329195633.2789187-1-kuba@kernel.org>
+References: <20260324-dsa_lan9645x_switch_driver_base-v2-6-f7504e3b0681@microchip.com>
+	 <20260329195633.2789187-1-kuba@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 01 Apr 2026 16:44:47 +0200
-Message-Id: <DHHWDE7QEOTO.1AQ85UBLO8IQG@fairphone.com>
-To: "Dmitry Torokhov" <dmitry.torokhov@gmail.com>, "Griffin Kroah-Hartman"
- <griffin.kroah@fairphone.com>
-Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Bjorn
- Andersson" <andersson@kernel.org>, "Konrad Dybcio"
- <konradybcio@kernel.org>, "Luca Weiss" <luca.weiss@fairphone.com>,
- <linux-input@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>
-Subject: Re: [PATCH v4 3/4] Input: aw86938 - add driver for Awinic AW86938
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260302-aw86938-driver-v4-0-92c865df9cca@fairphone.com>
- <20260302-aw86938-driver-v4-3-92c865df9cca@fairphone.com>
- <aae7fRYaoDHMptyu@google.com>
-In-Reply-To: <aae7fRYaoDHMptyu@google.com>
+MIME-Version: 1.0
 
-Hi Dmitry,
+On Sun, 2026-03-29 at 12:56 -0700, Jakub Kicinski wrote:
+> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
+e content is safe
+>=20
+> This is an AI-generated review of your patch. The human sending this
+> email has considered the AI review valid, or at least plausible.
+> ---
+> net: dsa: lan9645x: add vlan support
+>=20
+> Add support for vlanaware bridge. We reserve vid 4095 for standalone
+> mode, to implement fdb-isolation. A vlan-unaware bridge uses vid 0.
+>=20
+> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drive=
+rs/net/dsa/microchip/lan9645x/lan9645x_main.c
+> > index 599e589c4ec3..046c95a72242 100644
+> > --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+> [ ... ]
+> > @@ -535,11 +536,54 @@ static void lan9645x_port_bridge_leave(struct dsa=
+_switch *ds, int port,
+> [ ... ]
+> > +static int lan9645x_port_vlan_filtering(struct dsa_switch *ds, int por=
+t,
+> > +                                     bool enabled,
+> > +                                     struct netlink_ext_ack *extack)
+> > +{
+> > +     struct lan9645x *lan9645x =3D ds->priv;
+> > +     struct lan9645x_port *p;
+> > +
+> > +     p =3D lan9645x_to_port(lan9645x, port);
+> > +     p->vlan_aware =3D enabled;
+> > +     lan9645x_vlan_port_apply(p);
+>=20
+> In other places, the driver avoids calling egress functions on the npi
+> port because it conflicts with cpu port header extraction. Since this
+> unconditionally applies the vlan configuration to both ingress and egress=
+,
+> could this overwrite the npi port's configuration when the state is
+> synchronized?
+>=20
 
-On Wed Mar 4, 2026 at 5:56 AM CET, Dmitry Torokhov wrote:
-> On Mon, Mar 02, 2026 at 11:50:27AM +0100, Griffin Kroah-Hartman wrote:
->> Add support for the I2C-connected Awinic AW86938 LRA haptic driver.
->>=20
->> The AW86938 has a similar but slightly different register layout. In
->> particular, the boost mode register values.
->> The AW86938 also has some extra features that aren't implemented
->> in this driver yet.
->>=20
->> Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
->
-> Applied, thank you.
+It is true we avoid this, but the vlan_filtering is not called by DSA core =
+for
+the cpu port, only user ports.
 
-I'm curious, where did you apply these patches? linux-next doesn't have
-it and I don't see it in your kernel.org repo either.
-https://git.kernel.org/pub/scm/linux/kernel/git/dtor/input.git/
+> > +
+> > +     return 0;
+> > +}
+> > +
+> > +static int lan9645x_port_vlan_add(struct dsa_switch *ds, int port,
+> [ ... ]
+> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_vlan.c b/drive=
+rs/net/dsa/microchip/lan9645x/lan9645x_vlan.c
+> > new file mode 100644
+> > index 000000000000..0459932a626c
+> > --- /dev/null
+> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_vlan.c
+> [ ... ]
+> > +static void lan9645x_vlan_hw_wr(struct lan9645x *lan9645x, u16 vid)
+> > +{
+> > +     struct lan9645x_vlan *v =3D &lan9645x->vlans[vid];
+> > +     bool cpu_dis =3D !(v->portmask & BIT(CPU_PORT));
+> > +     u32 val;
+> > +
+> > +     val =3D ANA_VLANTIDX_VLAN_PGID_CPU_DIS_SET(cpu_dis) |
+> > +           ANA_VLANTIDX_V_INDEX_SET(vid) |
+> > +           ANA_VLANTIDX_VLAN_SEC_FWD_ENA_SET(v->s_fwd_ena) |
+> > +           ANA_VLANTIDX_VLAN_FLOOD_DIS_SET(v->fld_dis) |
+> > +           ANA_VLANTIDX_VLAN_PRIV_VLAN_SET(v->prv_vlan) |
+> > +           ANA_VLANTIDX_VLAN_LEARN_DISABLED_SET(v->lrn_dis) |
+> > +           ANA_VLANTIDX_VLAN_MIRROR_SET(v->mir) |
+> > +           ANA_VLANTIDX_VLAN_SRC_CHK_SET(v->src_chk);
+> > +
+> > +     lan_wr(val, lan9645x, ANA_VLANTIDX);
+> > +     lan_wr(v->portmask, lan9645x, ANA_VLAN_PORT_MASK);
+> > +     lan_wr(VLANACCESS_CMD_WRITE, lan9645x, ANA_VLANACCESS);
+>=20
+> Are these registers written with raw values rather than using their respe=
+ctive
+> set macros? This circumvents the register abstraction and might risk fail=
+ures
+> if the hardware layout changes.
+>=20
 
-Did this slip through the cracks or will these patches still appear
-there?
+Yes, they are single field registers. I can add the macro.
 
-Regards
-Luca
+> > +
+> > +     if (lan9645x_vlan_wait_for_completion(lan9645x))
+> > +             dev_err(lan9645x->dev, "Vlan set mask failed\n");
+> > +}
+> [ ... ]
+> > +static void
+> > +lan9645x_vlan_port_apply_egress(struct lan9645x_port *p,
+> > +                             struct lan9645x_vlan_port_info *info)
+> > +{
+> [ ... ]
+> > +     lan_rmw(REW_TAG_CFG_TAG_TPID_CFG_SET(3) |
+> > +             REW_TAG_CFG_TAG_CFG_SET(tag_cfg),
+> > +             REW_TAG_CFG_TAG_TPID_CFG |
+> > +             REW_TAG_CFG_TAG_CFG,
+> > +             lan9645x, REW_TAG_CFG(p->chip_port));
+> > +
+> > +     lan_rmw(REW_PORT_VLAN_CFG_PORT_TPID_SET(ETH_P_8021AD) |
+> > +             REW_PORT_VLAN_CFG_PORT_VID_SET(port_vid),
+> > +             REW_PORT_VLAN_CFG_PORT_TPID |
+> > +             REW_PORT_VLAN_CFG_PORT_VID,
+> > +             lan9645x, REW_PORT_VLAN_CFG(p->chip_port));
+> > +}
+>=20
+> Setting the port tpid to 0x88a8 causes untagged ingress frames to egress =
+trunk
+> ports with 802.1ad tags. Could this break interoperability with standard
+> networks that expect 0x8100 tags?
+>=20
+
+No that is not how it works. I think the comment which is left out explains=
+ this
+clearly. 0x8100 tags are unaffected by this, but it means an stag is not re=
+written
+to a ctag.
+
+> > +static void lan9645x_vlan_port_apply_ingress(struct lan9645x_port *p)
+> > +{
+> [ ... ]
+> > +     /* Drop frames with multicast source address */
+> > +     val =3D ANA_DROP_CFG_DROP_MC_SMAC_ENA_SET(1);
+> > +     if (p->vlan_aware && !pvid)
+> > +             /* If port is vlan-aware and tagged, drop untagged and pr=
+iority
+> > +              * tagged frames.
+> > +              */
+> > +             val |=3D ANA_DROP_CFG_DROP_UNTAGGED_ENA_SET(1) |
+> > +                    ANA_DROP_CFG_DROP_PRIO_S_TAGGED_ENA_SET(1) |
+> > +                    ANA_DROP_CFG_DROP_PRIO_C_TAGGED_ENA_SET(1);
+> > +
+> > +     lan_wr(val, lan9645x, ANA_DROP_CFG(p->chip_port));
+> > +}
+>=20
+> Does this overwrite the entire 32-bit register and silently clear other
+> initialized bitfields? Would it be safer to use a read-modify-write here
+> instead?
+>=20
+
+Yes this is intentional. I prefer this over writing all fields with rmw whi=
+ch is
+slower.
+
+> [ ... ]
+> > +static int lan9645x_vlan_cpu_add(struct lan9645x_port *p, u16 vid, boo=
+l pvid,
+> > +                              bool untagged)
+> > +{
+> > +     struct lan9645x_vlan *v;
+> > +
+> > +     v =3D lan9645x_vlan_port_modify(p, vid, pvid, untagged);
+>=20
+> Is it intentional that this bypasses the bounds check on the vlan id?
+>=20
+
+No, I will move the cpu action below the bounds check.
+
+> > +     v->portmask |=3D BIT(CPU_PORT) | BIT(p->chip_port);
+> > +     lan9645x_vlan_hw_wr(p->lan9645x, vid);
+> > +     lan9645x_vlan_port_apply_ingress(p);
+> > +
+> > +     return 0;
+> > +}
+> > +
+> > +int lan9645x_vlan_port_add_vlan(struct lan9645x_port *p, u16 vid, bool=
+ pvid,
+> > +                             bool untagged, struct netlink_ext_ack *ex=
+tack)
+> > +{
+> [ ... ]
+> > +void lan9645x_vlan_port_del_vlan(struct lan9645x_port *p, u16 vid)
+> > +{
+> > +     struct lan9645x *lan9645x =3D p->lan9645x;
+> > +     struct lan9645x_vlan *v;
+> > +
+> > +     if (!vid)
+> > +             return;
+> > +
+> > +     v =3D lan9645x_vlan_port_modify(p, vid, false, false);
+>=20
+> There is a check for the maximum vlan id when adding a vlan, but no bound=
+s
+> check when deleting one. Could userspace use this to delete the reserved
+> vid 4095 and break standalone forwarding?
+>=20
+
+I will add the bounds check for delete.
+
+> > +     v->portmask &=3D ~BIT(p->chip_port);
+> > +
+> > +     if (p->chip_port =3D=3D lan9645x->npi)
+> > +             v->portmask &=3D ~BIT(CPU_PORT);
+> > +
+> > +     lan9645x_vlan_hw_wr(lan9645x, vid);
+> [ ... ]
+> > +void lan9645x_vlan_init(struct lan9645x *lan9645x)
+> > +{
+> [ ... ]
+> > +     for (vid =3D 1; vid < VLAN_N_VID; vid++)
+> > +             lan9645x_vlan_hw_wr(lan9645x, vid);
+>=20
+> If the indirect table access times out, the write function prints an erro=
+r
+> but does not return a status code. Will this cause the initialization loo=
+p
+> to stall for the full timeout duration 4095 consecutive times if the
+> hardware is unresponsive?
+>=20
+
+Yes, I can return the err from vlan_hw_wr and return it early from vlan_ini=
+t.
+
+> > +
+> > +     /* Set all the ports + cpu to be part of HOST_PVID and UNAWARE_PV=
+ID */
+> > +     lan9645x->vlans[HOST_PVID].portmask =3D all_ports;
+
