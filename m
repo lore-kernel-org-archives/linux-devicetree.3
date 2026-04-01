@@ -1,155 +1,176 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E004E1DE3DC;
-	Wed,  1 Apr 2026 04:10:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11D711A683D
+	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 04:51:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775016644; cv=none; b=l4csMBuD66GiFgmMOE0i5rVOLcPR3k/yrxBqIZTIeqcYvo9VYsULNFudEITgaS+DyVD+XB4zFsZonSPV3WJVgXLB5iyPPRXhkjT8EFmyQPZ0Ejpd/4/b72DeUcvnfDMfdEGkukURyZAnLx0QOF3gVwrxvJOZo/1ZThMuqqRZPzQ=
+	t=1775019119; cv=none; b=jHAy3f9saA1CYH1LebEUhGiA+Iw/5/nhUkNfUScWEyszyPs4ei6B+cm2ExBp5bPW0Glxw23bnPQ9+xIUUerEdicIInQ/RzH7+8yUvx+FAh/MgjuMy9FX2PyTaEeCTJf832SrBOtL0g96bDgJ8YrlA95CSqM35GskI5LIlj4XUI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775016644; c=relaxed/simple;
-	bh=M3OXStmL1cePRFOkz0tJjaQlJFUPvHusToITRj48o48=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pCjBA+S/IT8mdNbyWlasVVz3pl7IXaDYnDetFHwIvSwGcBNvqPIFlR7zS3lKLa6n2inP5MdVD31KmrPKoX0GZd1B7FPra5a5TZuyVO1E864OAvjkByXXD6uIHVG2Icoooatql/3l1b4rfQLatfayTbKxLOmBgBAoa0hNQbOyL7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bB+QicMr; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1775019119; c=relaxed/simple;
+	bh=o2O4dSavHuk4W7rvfyYbGAafzKHTinhRAGTAXvuGCwM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=o5CpwrZxhHdUCQDm5CVDk6CRelZCAYX9RNEiGcoX9heOqCzcJVDkHZ+kurUFwFvRrV/h53AW5SeJOxL9ah+mS7x2EjwSLFTgLhYCaTgm+hW79O2A8OyzETTi1AzVWyO/9w00PK/lw1w6lh3NhI+VnBIz6bxVxmsqW4Bx2aT9JrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=UUSJMmpN; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bB+QicMr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1775016642; x=1806552642;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=M3OXStmL1cePRFOkz0tJjaQlJFUPvHusToITRj48o48=;
-  b=bB+QicMrBL8GZ00p25kuxWgyN4/LPAVW8S7bpUCFrwsOONhONTIYu0vN
-   VbMupIiqO+ESimwRDJlF0moM4LYZwYD2bRIlBZeT/nw+XAl/qvD0wqdqz
-   TULszGqvUwTyzkyQuKkooNmuYZUEjQauoC3nJBrm7uhjrN3AEEHh9BG3p
-   giQs6T3qnbbmFvOyenDx0qXXJaspoqNfTVjIVeNWuNBp37dnAnKlmLRTw
-   FPc0jgH8VvvnyWlDYzF6aktRoZlL6GmthWVu/gq9kOqJ6CsENECQ61uay
-   UeSe3lEp54D9+qnzcl79H1zbFnVqdGWgXE4ks9V8MCKL/4InYjmzUnNuz
-   g==;
-X-CSE-ConnectionGUID: XyOWmbc9S+ajlR4pQ6ZMPw==
-X-CSE-MsgGUID: I+cOpM/+RAm0Nn/ZHFaZlw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11745"; a="78638794"
-X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; 
-   d="scan'208";a="78638794"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Mar 2026 21:10:41 -0700
-X-CSE-ConnectionGUID: uqtPI94cS4OAafsD3P2hKw==
-X-CSE-MsgGUID: JUIOx9YFSrijQbjR1Ypalw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; 
-   d="scan'208";a="230976723"
-Received: from lkp-server01.sh.intel.com (HELO 283bf2e1b94a) ([10.239.97.150])
-  by orviesa004.jf.intel.com with ESMTP; 31 Mar 2026 21:10:36 -0700
-Received: from kbuild by 283bf2e1b94a with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1w7muX-000000004m2-3ahq;
-	Wed, 01 Apr 2026 04:10:33 +0000
-Date: Wed, 1 Apr 2026 12:10:07 +0800
-From: kernel test robot <lkp@intel.com>
-To: Florian Eckert <fe@dev.tdt.de>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <helgaas@kernel.org>,
-	Johan Hovold <johan+linaro@kernel.org>,
-	Sajid Dalvi <sdalvi@google.com>,
-	Ajay Agarwal <ajayagarwal@google.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Rahul Tanwar <rtanwar@maxlinear.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, Florian Eckert <fe@dev.tdt.de>,
-	Eckert.Florian@googlemail.com, ms@dev.tdt.de
-Subject: Re: [PATCH v2 4/7] PCI: intel-gw: Add start_link callback function
-Message-ID: <202604011157.4RiSNWVi-lkp@intel.com>
-References: <20260330-pcie-intel-gw-v2-4-8bd07367a298@dev.tdt.de>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="UUSJMmpN"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4887ca8e529so3711685e9.0
+        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 21:51:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1775019116; x=1775623916; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=TTpVNm6mKhuRORfvWFehpqSJRzquDpB5/uvlMx0PZ4g=;
+        b=UUSJMmpNg5egAwJacgJLkKD4Bjt8Mp7EykVKH/W8KIbcLl6D2+1sB2pssgBheZHnPx
+         E3DnKsgihpROJgw1DZSoVIn17YhYqJZjDWIDbVqHdu8X22qGH+8ZmDkwKcLR8OdLDyhu
+         vkKlsnP1OTRI4MXq0bHMMup9PZgBLej6ywzYavToybt8rMumeXAyskpRGe4HsbcBy/uD
+         UQyrLAxMvw8Zn76Cv0ivLhxFzfqBTKEN6OfjNFCZnJHBDIyEYOXuagTv41s5fmQcNGB6
+         utbJAU0d6jH4CV3ST6C86Ez0q4ohK9w++bxkIn27rbyOH1tpc5TfvZaoVBeyxIJAaGgG
+         foCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775019116; x=1775623916;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=TTpVNm6mKhuRORfvWFehpqSJRzquDpB5/uvlMx0PZ4g=;
+        b=hehLlIYPdtDJwbOeXQbAgm+8Y4sgZZVYKmeNY1y2HDjxr1Tw6T8IVdczWBxA+U5ywh
+         7s4lbzuQZNUf4/ai/jEPIruWjOJmcWl+c/r032n+784XdzI0yMTCt4EuAQ0hKwnoAhVO
+         Rec9J+cY2UURmOT7hHjP3m0Ws1fq+DBS2YWyZBDiMchO+uBUpFbJoJq3gXT4xnsReI9U
+         c/Dubq/1R97cREv9USvhtmT9CDTj5ksBOwJbcUkfoganhEDvyWO+P0cPqlxBuFJodUeJ
+         YQkj+msz7/hfeSjU5hdTZpIbed4jolW1BfeOnQw6MG+mdpzikKTF+9UBVqFRoVhUbFaZ
+         NAKA==
+X-Forwarded-Encrypted: i=1; AJvYcCW+/yeBiRSb8kEA7YI/duAbUTvJ6O0XSG4fQabyU6pAIf2MXDS0DiiaXQ8LPpbXOhbPcZ3zOQtd31Pq@vger.kernel.org
+X-Gm-Message-State: AOJu0Yya/LFkvpQcvD5x3MRHshhsCZxkekK2tQFSU7Cahw8B/rNV8xq1
+	vi5v2qkj8+F2ujz2/ekPFjMSMSH2SUwXeqcKmL5xakF0AX2f7W1VNeO89iEnUBNfZyM=
+X-Gm-Gg: ATEYQzwSxyvIziFu4dZgkLMS2DSmt/vWH3qXmg+tnIPTV4nTjvw8V5d+AYwbpNwKe+/
+	FqfKQMwcwdHZDis/hoOi0mvBSkaLqr1X8vqC5cIIluIqx7EbVut4ZzxSrJNyi3b5ICy/gFoOgxQ
+	x2S6pj6Ztb3rEIasGTAntTNP47AWAxbtOSU3STnRIViBCTiyAMiqS+nVP5YIl/XVfAxwTy+HFUt
+	ZWT9GvQxg3jXJgub7+8bj+ogrgslQe0NTop2YFPOmbktqzvwU6hZkJv8QCJJY+UK2SMCPVPLPm0
+	IqPC50ZKKUSJEp6etg//vPTZMsVpELL0BExwOv1sqqNQlj1aPXMF64WcDMaORRapDPd7VRDRMbo
+	NImx/7gHeoMbxO/ORs+ujQpKsy3OY//frv/+Y7EbnOtujBUJmj+lgxHHDpoTLLWhVtPKBo/zGTr
+	2nqINlbMIVW+Bh0RQ7p2FGp3ntWmoKfs99G5LRdqhnUl3yw7HWgHw1sft+h+WWmagRmdHXl6FUi
+	oxIp8IOzJ5KiHPg8hyXylVPyRE=
+X-Received: by 2002:a05:600c:300b:b0:486:fcc7:6811 with SMTP id 5b1f17b1804b1-488783d24aemr64522825e9.10.1775019116310;
+        Tue, 31 Mar 2026 21:51:56 -0700 (PDT)
+Received: from [127.0.1.1] ([94.4.195.193])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43cf2463dc2sm32986442f8f.23.2026.03.31.21.51.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 31 Mar 2026 21:51:55 -0700 (PDT)
+From: Alexey Klimov <alexey.klimov@linaro.org>
+Subject: [PATCH v2 0/7] Exynos-pmu: Generalise cpu{hotplug,idle},PMU intr
+ gen and add Exynos850 CPU hotplug
+Date: Wed, 01 Apr 2026 05:51:53 +0100
+Message-Id: <20260401-exynos850-cpuhotplug-v2-0-c5a760a3e259@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260330-pcie-intel-gw-v2-4-8bd07367a298@dev.tdt.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGmkzGkC/4WNQQ6DIBBFr2JmXRrAFrSr3qNxYXSASQwYUKIx3
+ r3UC3T5XvLfPyBhJEzwqg6ImClR8AXkrYLB9d4io7EwSC4Vl1Ix3HYfUvPkbJhXF5Z5Wi1TrRG
+ tVoimb6BM54iGtiv76Qo7SkuI+/WSxc/+CWbBONNi1MODq7pu5Hsi38dwD9FCd57nF3fwzEy5A
+ AAA
+X-Change-ID: 20260226-exynos850-cpuhotplug-69f1976eefa8
+To: Sam Protsenko <semen.protsenko@linaro.org>, 
+ linux-samsung-soc@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Alexey Klimov <alexey.klimov@linaro.org>
+X-Mailer: b4 0.14.3
 
-Hi Florian,
+(b4 forces me to send this as v2, however previous version was RFC and b4
+uses RFC as v1; but I don't want to break b4 tracking and b4 comparison)
 
-kernel test robot noticed the following build warnings:
+Series generalises the GS101-specific cpuhotplug, cpuidle and PMU interrupt
+generation block support, which is currently implemented specifically for
+the google GS101 SoC, to make it reusable by other Samsung Exynos SoCs.
 
-[auto build test WARNING on f338e77383789c0cae23ca3d48adcc5e9e137e3c]
+The PMU interrupt generation IP block introduced for google GS101 is a
+standard Samsung Exynos block found in other SoCs, including Exynos850,
+and it is not strictly exclusive to google Exynos-based platforms.
+Access to this block is required to implement and enable cpuhotplug
+on Exynos850-based boards.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Florian-Eckert/PCI-intel-gw-Remove-unused-define/20260401-051352
-base:   f338e77383789c0cae23ca3d48adcc5e9e137e3c
-patch link:    https://lore.kernel.org/r/20260330-pcie-intel-gw-v2-4-8bd07367a298%40dev.tdt.de
-patch subject: [PATCH v2 4/7] PCI: intel-gw: Add start_link callback function
-config: arm64-randconfig-001-20260401 (https://download.01.org/0day-ci/archive/20260401/202604011157.4RiSNWVi-lkp@intel.com/config)
-compiler: clang version 18.1.8 (https://github.com/llvm/llvm-project 3b5b5c1ec4a3095ab096dd780e84d7ab81f3d7ff)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260401/202604011157.4RiSNWVi-lkp@intel.com/reproduce)
+As a next steps it will be possible to enable idle states on top of it.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202604011157.4RiSNWVi-lkp@intel.com/
+First patches work on DT bindings to reflect that Exynos850 SoC predates
+gs101 one, introduce new samsung,pmu-intr-gen-syscon phandle.
+Then series generalises ("Exynosizes") cpuhotplug/cpuidle routines by
+deferring platform-specific PMU and PMU-intr-gen updates to platform-
+specific callbacks and then finally introduces new file exynos850-pmu.c
+where such callbacks are implemented for Exynos850. Last commit adds
+pmu_intr_gen DT node to exynos850.dtsi.
 
-All warnings (new ones prefixed by >>):
+This series was tested on Exynos850 WinLink E850-96 board:
+-- by spinning "chcpu -d 1-7; chcpu -e 1-7" in a loop for a few hours;
+-- by running script [1] that randomly offlines or onlines random cpus
+   for a few hours.
 
->> drivers/pci/controller/dwc/pcie-intel-gw.c:329:1: warning: unused label 'err' [-Wunused-label]
-     329 | err:
-         | ^~~~
-   1 warning generated.
+I do not have access to a development google Pixel 6 or other gs101-based
+devices to verify. I tried to implement it in way to not break anything
+for gs101, but testing from others is highly appreciated.
+Otherwise, if it can be tested on a "normal" pixel6 phone without breaking
+userdata/android there, then please point me to instructions.
 
+Will check sashiko after submitting this to see if anything can be improved.
 
-vim +/err +329 drivers/pci/controller/dwc/pcie-intel-gw.c
+Thanks,
+Alexey
 
-6cbd614d1f7c81 Florian Eckert 2026-03-30  296  
-733770d4a2bea0 Fan Fei        2021-12-22  297  static int intel_pcie_host_setup(struct intel_pcie *pcie)
-ed22aaaede44f6 Dilip Kota     2019-12-09  298  {
-ed22aaaede44f6 Dilip Kota     2019-12-09  299  	int ret;
-733770d4a2bea0 Fan Fei        2021-12-22  300  	struct dw_pcie *pci = &pcie->pci;
-ed22aaaede44f6 Dilip Kota     2019-12-09  301  
-733770d4a2bea0 Fan Fei        2021-12-22  302  	intel_pcie_core_rst_assert(pcie);
-733770d4a2bea0 Fan Fei        2021-12-22  303  	intel_pcie_device_rst_assert(pcie);
-733770d4a2bea0 Fan Fei        2021-12-22  304  	intel_pcie_core_rst_deassert(pcie);
-ed22aaaede44f6 Dilip Kota     2019-12-09  305  
-1927e1ec66a6ee Florian Eckert 2026-03-30  306  	/* Controller clock must be provided earlier than PHY */
-733770d4a2bea0 Fan Fei        2021-12-22  307  	ret = clk_prepare_enable(pcie->core_clk);
-ed22aaaede44f6 Dilip Kota     2019-12-09  308  	if (ret) {
-733770d4a2bea0 Fan Fei        2021-12-22  309  		dev_err(pcie->pci.dev, "Core clock enable failed: %d\n", ret);
-ed22aaaede44f6 Dilip Kota     2019-12-09  310  		goto clk_err;
-ed22aaaede44f6 Dilip Kota     2019-12-09  311  	}
-ed22aaaede44f6 Dilip Kota     2019-12-09  312  
-1cc9a559993a4a Rob Herring    2020-11-05  313  	pci->atu_base = pci->dbi_base + 0xC0000;
-1cc9a559993a4a Rob Herring    2020-11-05  314  
-1927e1ec66a6ee Florian Eckert 2026-03-30  315  	ret = phy_init(pcie->phy);
-1927e1ec66a6ee Florian Eckert 2026-03-30  316  	if (ret)
-1927e1ec66a6ee Florian Eckert 2026-03-30  317  		goto phy_err;
-1927e1ec66a6ee Florian Eckert 2026-03-30  318  
-733770d4a2bea0 Fan Fei        2021-12-22  319  	intel_pcie_ltssm_disable(pcie);
-733770d4a2bea0 Fan Fei        2021-12-22  320  	intel_pcie_link_setup(pcie);
-1cc9a559993a4a Rob Herring    2020-11-05  321  	intel_pcie_init_n_fts(pci);
-ce06bf570390fb Serge Semin    2022-06-24  322  
-1cc9a559993a4a Rob Herring    2020-11-05  323  	dw_pcie_upconfig_setup(pci);
-1cc9a559993a4a Rob Herring    2020-11-05  324  
-4db57fd92a7d2d Florian Eckert 2026-03-30  325  	intel_pcie_core_irq_enable(pcie);
-ed22aaaede44f6 Dilip Kota     2019-12-09  326  
-ed22aaaede44f6 Dilip Kota     2019-12-09  327  	return 0;
-ed22aaaede44f6 Dilip Kota     2019-12-09  328  
-1927e1ec66a6ee Florian Eckert 2026-03-30 @329  err:
-1927e1ec66a6ee Florian Eckert 2026-03-30  330  	phy_exit(pcie->phy);
-1927e1ec66a6ee Florian Eckert 2026-03-30  331  phy_err:
-733770d4a2bea0 Fan Fei        2021-12-22  332  	clk_disable_unprepare(pcie->core_clk);
-ed22aaaede44f6 Dilip Kota     2019-12-09  333  clk_err:
-733770d4a2bea0 Fan Fei        2021-12-22  334  	intel_pcie_core_rst_assert(pcie);
-ed22aaaede44f6 Dilip Kota     2019-12-09  335  
-ed22aaaede44f6 Dilip Kota     2019-12-09  336  	return ret;
-ed22aaaede44f6 Dilip Kota     2019-12-09  337  }
-ed22aaaede44f6 Dilip Kota     2019-12-09  338  
+[1]: https://github.com/laklimov/xlam/blob/main/e850_cpuhotplug_random.sh
 
+Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+---
+Changes in v2:
+- moved gs101 cpu {offline,online} callbacks to gs101-pmu.c, updated MAINTAINERS;
+- added new file exynos850-pmu.c with cpu {offline,online} callbacks and
+  exynos850 pmu data;
+- new patch that adds exynos850-pmu.c to MAINTAINERS;
+- moved pmu_intr_gen to right after pmu_system_controller@11860000;
+- merged two patches that update google,gs101-pmu-intr-gen.yaml together,
+  now rename and adding exynos850 entry goes in a single patch;
+- commits 5 and 6 from RFC series are merged together and reworked,
+  cpu_pmu_{offline,online} callbacks are moved into pmu_data struct, and
+  callbacks now need pmu_context as an argument, exynos_pmu_context and
+  CPU_INFORM defines are moved to exynos-pmu.h, gs101 callbacks
+  renamed. It is really better to check commit description.
+- Link to RFC (v1 from b4 point of view):
+  https://lore.kernel.org/r/20260226-exynos850-cpuhotplug-v1-0-71d7c4063382@linaro.org
+
+---
+Alexey Klimov (7):
+      dt-bindings: soc: move,rename google,gs101-pmu-intr-gen and add exynos850
+      dt-bindings: soc: samsung: exynos-pmu: add samsung,pmu-intr-gen phandle
+      dt-bindings: soc: samsung: exynos-pmu: deprecate google,pmu-intr-gen-syscon
+      soc: samsung: exynos-pmu: generalise gs101-specific cpu{idle,hotplug} for Exynos SoCs
+      soc: samsung: exynos-pmu: add Exynos850 CPU hotplug support
+      MAINTAINERS: add exynos850-pmu.c to Exynos850 entry
+      arm64: dts: exynos850: add PMU interrupt generation node
+
+ .../bindings/soc/samsung/exynos-pmu.yaml           |  24 ++++
+ .../samsung,exynos850-pmu-intr-gen.yaml}           |   8 +-
+ MAINTAINERS                                        |   4 +-
+ arch/arm64/boot/dts/exynos/exynos850.dtsi          |   6 +
+ drivers/soc/samsung/Makefile                       |   2 +-
+ drivers/soc/samsung/exynos-pmu.c                   | 127 +++++----------------
+ drivers/soc/samsung/exynos-pmu.h                   |  32 ++++++
+ drivers/soc/samsung/exynos850-pmu.c                |  78 +++++++++++++
+ drivers/soc/samsung/gs101-pmu.c                    |  57 +++++++++
+ include/linux/soc/samsung/exynos-regs-pmu.h        |  15 ++-
+ 10 files changed, 245 insertions(+), 108 deletions(-)
+---
+base-commit: 3b058d1aeeeff27a7289529c4944291613b364e9
+change-id: 20260226-exynos850-cpuhotplug-69f1976eefa8
+
+Best regards,
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Alexey Klimov <alexey.klimov@linaro.org>
+
