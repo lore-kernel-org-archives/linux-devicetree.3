@@ -1,166 +1,145 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED1F740757F
-	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 13:55:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 171432DCBFC
+	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 14:03:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775051759; cv=none; b=k72EFzgftoD2rNGTUtGhNdawcDVxc4GTtPIlOnpxmRslBCPVeVtSH/GKqiqGUrOLhMq2hu58jBlnXu8RAw+JSpYlwqToiGVxkCVVp5h/XugYXl8HuZIGkQ/6sXUe47zLK6K0m3nUmb9Ru56TkZqaOtsUExB5cDRMT8JjlfW5ThI=
+	t=1775052236; cv=none; b=hg6tVpuolEviVqyyY4hLNlxucXigoeWi28/QlY1uvihjG9r72qW/wKHBfZfv4tca6erWz8HfEmTrNZwHHZf2crjCQ7QApcKNU2bHVM8gnsw4ZswMSsy42MRqWyVIUiLcg3Bmj6HWOPg4nl4FdMgifB2SQyEkWaAok0ZHDet0FZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775051759; c=relaxed/simple;
-	bh=3PXNhSJ6bUXpoMEX2fDn34qnDX+e44HuWuIur7Zph68=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HbqwPnzDyPvAgUtOas94zL8DGGC22Rh7CDwEh3JHin6a7EXSpNRlKVbe67xxpvYf4OHb0qMJ4l33bwdeXrq5Xby6GxZU6as0Pd5Wqh5U8jZaLcIfhl4LheUqe0Y3a4HG6qhjOKcTeSi6OyoWAwYTa9Oi6O74O81x/11gJGkxKzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WkKjBctV; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=NsHhGQUH; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1775052236; c=relaxed/simple;
+	bh=SGCI4fsQhkaGTbbP2PJjfRfwzOSjN0Epesr8zDMhWAw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=W6i91+mAScNcjNzAQibSrVYHVnzV1Ep7uWyZWkkwJMRwcYlPpLa+UCnoX5lYSalxAovT3/xkTMYW3uyGJPh7cL8GjH6kL4PUqIwtOS4C2Kd1lHdkD+tE87qaqN9cA4c1WzlHY/xDElTGn/1gA23ewECJjEYoNkHY/uaSzAXUlnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=asorNbkY; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WkKjBctV";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="NsHhGQUH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1775051757;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=quxJoJV99aTQ23EktQqX4tlfqV2G+rFHJBvPV0aOlpo=;
-	b=WkKjBctVXCVl5RQxebthsfCsDjqGaokR8Dki7Eoumdj2XJ3KrprgtGHrX51Y/KBLIvZM+i
-	g1MekN47vkz+4zlgO7I2u8mr3eJL+2f0Vm/dXvR8Gn7VKQ6iueMwCzf6J90geQtxxVBOK7
-	jAwXQat0u15eijp8r3ukxn/xcCFEIC0=
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-319-I0gx9txiNySFkRtn4Zl4jQ-1; Wed, 01 Apr 2026 09:55:56 -0400
-X-MC-Unique: I0gx9txiNySFkRtn4Zl4jQ-1
-X-Mimecast-MFC-AGG-ID: I0gx9txiNySFkRtn4Zl4jQ_1775051755
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50b878a8c07so144204651cf.0
-        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 06:55:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1775051755; x=1775656555; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=quxJoJV99aTQ23EktQqX4tlfqV2G+rFHJBvPV0aOlpo=;
-        b=NsHhGQUH5Sw6CQE+fw81ILPfHpXVVqRJFnLgHyQdchJ/pM82dADnXkwVQPpo55cmjM
-         cEy3rcV7gsK6bax5aOIHMP2k5FgEWw2paBUMKPT1lw2p2rbX7LWqSKffK7eCI6YYVAQL
-         vruJSlTKsxgx0A2rItHXWq5fHo3J1Et6OT5Wo2JOLVrlNVtrqp8KCAPoIfKQspRo37oO
-         ZbXS8cABSJe7XheQMTmd49AiZevB/bDNlGzPa1MV/V5oRhWSKrvam/mIXW9pPNj7ubSt
-         ZT8L6dg1rF0nxlrQbC5nx3st6rTg7klhtER+/+kz2hAxpe25sVwVPl+k+waFq2lXPMUn
-         Weaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775051755; x=1775656555;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=quxJoJV99aTQ23EktQqX4tlfqV2G+rFHJBvPV0aOlpo=;
-        b=L/wIHW0dj+vqWtgUBxWV3JG6yr8frJJyuBerDXU4jhvj3Zt8svryK3aOfHQfR5ZGsO
-         HSIT95jbeOvoSI/URFZ6MEz160pyHw2wESz+W9Z7tSwXHhXXT4WICUETuIJLc4rxFdFg
-         GQkxb5DpDXtK2Gc2Aqgk86SgBnLTAntkZxhdYQe0fFYAZcqPCk8KeZBT8P5Wa/bavffh
-         Mdn48dEgMSB+cOYYDptEtUfPhoTeJSZBqumSLzh656+4m33FDhRKvz1saVLJpDSpoiUU
-         fQbOPr3H9W2QaZK/A6fQcU658kBwhRXxhGJos/+NSE4oAg1i6rHRf1Myc2wi5HQOlqza
-         m2bg==
-X-Forwarded-Encrypted: i=1; AJvYcCW0gtS2SOX9aDDsnGJ0hDdX49XjvILCbEFtyv2Q4Z4HXLw0EEw9gMTzmp4nKw++Ty7ZQyHHDPNZPvjR@vger.kernel.org
-X-Gm-Message-State: AOJu0YzwQ8zEDpHIlmrSt/IHatqsmHpRNw1KM4qTkrbJyneysdyG9QkJ
-	zmoWIx44q0bXLcPEcVT4L2NWFZaMZUVK+/HV6qtRHFUs9IrZ0uXzf+tqtqsGi4yuTrlAa86j4Bf
-	Fnu1m5Nb2IlHbT08TeacvsmxRoSIoDJlB24PWjKBMMbpHLLjvux1ZbCcVHfT3kjc=
-X-Gm-Gg: ATEYQzwmlXpMj1pW/ammpcC3K2mzecHm0HR+947dSsdIOTbFoUxSxCsbe+FBK7nNFl8
-	iaQSFZNiL4oH0PfyMPPlOw5kBj3WbW5YSBcyfdD8GWSNlw+347Gz/wLdi3aLv5d8jLABIPCjSN9
-	I58kDr5qbCxKtodGnLP1xommqMAH4Pz53mQIgvr+PAIW4a4fuxr9GXVh7GNAD3mp6e7grWMxVBG
-	2kZvmvqy9maYmg44VCOvez69ZOTz4VkAGxx41mOBfKRvtxq322dVpY/+0gdP2vNUerQYoUOJaTm
-	q8Fbd/CNFxVtBnITMQrwXGnHQcQ+V2zxr6M3opCtHrG2k0eak8fGVA21KkszuP4EBuLCtZEQ/KZ
-	L5PJPzTT0zqjsXHlTsZpPKUbWwik62tfIpqTMDmQLrQ0ZQNB5KsVzdADV
-X-Received: by 2002:ac8:5d8a:0:b0:50b:829e:44fe with SMTP id d75a77b69052e-50d3bccce67mr52030441cf.37.1775051755255;
-        Wed, 01 Apr 2026 06:55:55 -0700 (PDT)
-X-Received: by 2002:ac8:5d8a:0:b0:50b:829e:44fe with SMTP id d75a77b69052e-50d3bccce67mr52030111cf.37.1775051754759;
-        Wed, 01 Apr 2026 06:55:54 -0700 (PDT)
-Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-50bb2e43587sm145843331cf.28.2026.04.01.06.55.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Apr 2026 06:55:53 -0700 (PDT)
-Date: Wed, 1 Apr 2026 09:55:51 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Jayesh Choudhary <j-choudhary@ti.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Antoine Tenart <atenart@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Pascal EBERHARD <pascal.eberhard@se.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	Chen-Yu Tsai <wenst@chromium.org>
-Subject: Re: [PATCH 06/16] clk: tests: Add clk_parse_clkspec() Kunit testing
-Message-ID: <ac0j5401vyjIvjCo@redhat.com>
-References: <20260327-schneider-v7-0-rc1-crypto-v1-0-5e6ff7853994@bootlin.com>
- <20260327-schneider-v7-0-rc1-crypto-v1-6-5e6ff7853994@bootlin.com>
- <acqNRVLrPxABvecZ@redhat.com>
- <87mrzn6opj.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="asorNbkY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED8B1C4CEF7
+	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 14:03:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775052236;
+	bh=SGCI4fsQhkaGTbbP2PJjfRfwzOSjN0Epesr8zDMhWAw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=asorNbkY+VGAHkIDOQa99YcLwbC5VlJmNBrPYqXqTJGN1oUd0asbj4qf9+M+U4dji
+	 g1WC49LyqO1o09pbQsPfZHmGhsJxc4XDTdY7dwqyViQlkxJ16jmS7HD72y7altJn/+
+	 z6QkgZGj7vNZAqib26QzQWKVw69TA15D0gfaW31xNcLY97DPUdREZ/k85Ky3ZKKaxW
+	 FR3j5Q4ffE06mhSTsrrci2g1DuVr5I+t0LIS6hQs1n8xdiv//w3BxX3nYhqLQ8Xslu
+	 ZL0ZcKG24JtXl2+3Ze5IYaoWKW6zjDLVsLReILj8tBHG2d+djIdtoRu9xZE1TvkrKv
+	 JrF/sFENlvEaw==
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-66bb6eb28acso7282476a12.0
+        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 07:03:55 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCWpiQvfX2IxrHG7iZCIgdaE8ajnACqeUviUpt0hBUBANWlIc78Iqva80SR/EDZrTo83L3fd7f021ujx@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw4x+AMakM6pnNC8XoYMvAVOPbb51jFFQY+Gl6Q0zdLk6HZL2eK
+	mHlovZtH0YVKBI8ENkKr1eot9W4NyDoyUTukSNAU5afjZm0Cp02Jd0LihbeVlpIeYT7nfYSzvny
+	8zrp+rlibvItqdjfAA1Ct0dXBMAh5Pg==
+X-Received: by 2002:a05:6402:1470:b0:66b:b6d7:df47 with SMTP id
+ 4fb4d7f45d1cf-66db09e27d7mr2641020a12.13.1775052234501; Wed, 01 Apr 2026
+ 07:03:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87mrzn6opj.fsf@bootlin.com>
-User-Agent: Mutt/2.3.0 (2026-01-25)
+References: <20260330-ina4230-v5-0-eeb322d95b3a@flipper.net>
+ <67a5d1c1-a9c5-47fb-a0ec-5b69a991b01e@roeck-us.net> <20260331155246.GA1299761-robh@kernel.org>
+ <20872ef8-f68c-4916-a05f-404fd49fff00@roeck-us.net> <CAKTNdwGcXcE25QiBTrZO6akMad+Lny5iPvAAAmUt6x2Hyzu5wg@mail.gmail.com>
+In-Reply-To: <CAKTNdwGcXcE25QiBTrZO6akMad+Lny5iPvAAAmUt6x2Hyzu5wg@mail.gmail.com>
+From: Rob Herring <robh@kernel.org>
+Date: Wed, 1 Apr 2026 09:03:43 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqJcqMM1LK1dEFvjRWdOc8g=7+G4VvF-jmzbSJ1ijBB=1A@mail.gmail.com>
+X-Gm-Features: AQROBzBc9EnjuxZ3X3qDBWErhdwoqW9DR-aRGycYdhakIyR-QawFuda4ds96piM
+Message-ID: <CAL_JsqJcqMM1LK1dEFvjRWdOc8g=7+G4VvF-jmzbSJ1ijBB=1A@mail.gmail.com>
+Subject: Re: [PATCH v5 0/2] Add support for Texas Instruments INA4230 power monitor
+To: Alexey Charkov <alchark@flipper.net>
+Cc: Guenter Roeck <linux@roeck-us.net>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Miquel,
-
-On Wed, Apr 01, 2026 at 10:59:20AM +0200, Miquel Raynal wrote:
-> >> +	of_node_put(ctx->prov1_np);
-> >> +
-> >> +	/* Register provider 2 */
-> >> +	hw2 = kunit_kzalloc(test, sizeof(*hw2), GFP_KERNEL);
-> >> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, hw2);
-> >> +	hw2->init = &clk_parse_clkspec_2_init_data;
-> >> +
-> >> +	ctx->prov2_np = of_find_compatible_node(NULL, NULL, "test,clock-provider2");
-> >> +	KUNIT_ASSERT_NOT_NULL(test, ctx->prov2_np);
-> >> +
-> >> +	KUNIT_ASSERT_EQ(test, 0, of_clk_hw_register_kunit(test, ctx->prov2_np, hw2));
-> >> +	of_clk_add_hw_provider(ctx->prov2_np, kunit_clk_get, hw2);
-> >> +	of_node_put(ctx->prov2_np);
-> >> +
-> >> +	ctx->cons_np = of_find_compatible_node(NULL, NULL, "test,clock-consumer");
-> >> +	KUNIT_ASSERT_NOT_NULL(test, ctx->cons_np);
-> >> +
-> >> +	return 0;
-> >> +}
-> >> +
-> >> +static void clk_parse_clkspec_exit(struct kunit *test)
-> >> +{
-> >> +	struct clk_parse_clkspec_ctx *ctx = test->priv;
-> >> +
-> >> +	of_node_put(ctx->prov1_np);
-> >> +	of_node_put(ctx->prov2_np);
+On Tue, Mar 31, 2026 at 11:46=E2=80=AFAM Alexey Charkov <alchark@flipper.ne=
+t> wrote:
+>
+> On Tue, Mar 31, 2026 at 8:10=E2=80=AFPM Guenter Roeck <linux@roeck-us.net=
+> wrote:
 > >
-> > Is there a double free of prov1_np and prov2_np? If this is dropped from
-> > the test exit, then they should't need to be in the ctx struct.
-> 
-> These two calls increment the refcount on the node:
-> - of_find_compatible_node()
-> - of_clk_add_hw_provider()
-> 
-> However this makes me realize maybe I should call of_clk_del_provider()
-> in the exit() function. In any case, I believe keeping a reference over
-> the nodes during the test is correct and if there is an of_node_put()
-> call to remove, it should be the on in the _init().
+> > On 3/31/26 08:52, Rob Herring wrote:
+> > > On Mon, Mar 30, 2026 at 09:07:32AM -0700, Guenter Roeck wrote:
+> > >> On 3/30/26 08:14, Alexey Charkov wrote:
+> > >>> TI INA4230 is a 4-channel power monitor with I2C interface, similar=
+ in
+> > >>> operation to INA3221 (3-channel) and INA219 (single-channel) but wi=
+th
+> > >>> a different register layout, different alerting mechanism and sligh=
+tly
+> > >>> different support for directly reading calculated current/power/ene=
+rgy
+> > >>> values (pre-multiplied by the device itself and needing only to be =
+scaled
+> > >>> by the driver depending on its selected LSB unit values).
+> > >>>
+> > >>> In this initial implementation, the driver supports reading voltage=
+,
+> > >>> current, power and energy values, but does not yet support alerts, =
+which
+> > >>> can be added separately if needed. Also the overflows during hardwa=
+re
+> > >>> calculations are not yet handled, nor is the support for the device=
+'s
+> > >>> internal 32-bit energy counter reset.
+> > >>>
+> > >>> An example device tree using this binding and driver is available a=
+t [1]
+> > >>> (not currently upstreamed, as the device in question is in engineer=
+ing
+> > >>> phase and not yet publicly available)
+> > >>>
+> > >>> [1] https://github.com/flipperdevices/flipper-linux-kernel/blob/fli=
+pper-devel/arch/arm64/boot/dts/rockchip/rk3576-flipper-one-rev-f0b0c1.dts
+> > >>>
+> > >>> Signed-off-by: Alexey Charkov <alchark@flipper.net>
+> > >>> ---
+> > >>> Changes in v5:
+> > >>> - Reworded per-channel subnodes description in the binding for clar=
+ity (Sashiko)
+> > >>> - NB: Sashiko's suggestion to allow interrupts in the binding sound=
+s premature,
+> > >>>     as the alerts mechanism is not implemented yet and there are no=
+ known users
+> > >>>     to test it. If anyone has hardware with the alert pins wired to=
+ an interrupt
+> > >>>     line - please shout and we can test/extend it together
+> > >>
+> > >> The bindings are supposed to be complete, even if not implemented, s=
+o I am not sure
+> > >> if the DT maintainers will agree here. We'll see.
+> > >
+> > > Given ti,alert-polarity-active-high is added seems like the interrupt
+> > > should be too. And the interrupt can specify the polarity, so is that
+> > > property really needed? There's alway the possibility that you have s=
+ome
+> > > inverter on the board too and the interrupt polarity is not enough, b=
+ut
+> > > solve that problem when it actually exists.
+> > >
+> >
+> > The alert pin can be attached to a board interrupt, or (more likely) it=
+ can
+> > be attached to the I2C controller's alert pin. In the latter case there=
+ is
+> > no interrupt property.
+>
+> Alright, I will add the interrupt property and keep the dedicated flag
+> for alert polarity.
+>
+> Following the logic of binding completeness, should I add a flag for
+> the single-shot mode too, even though I dropped that functionality
+> from the driver in one of the prior iterations?
 
-Take a look at drivers/clk/clk_kunit_helpers.c.
-of_clk_add_hw_provider_kunit() will call of_clk_del_provider() for you
-via of_clk_del_provider_wrapper.
+I don't remember what that was exactly, but that sounds like a user
+selection which would be some sysfs or other runtime control rather
+than in DT. Unless the h/w design dictates what mode should be used.
 
-Brian
-
+Rob
