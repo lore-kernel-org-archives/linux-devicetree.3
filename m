@@ -1,95 +1,94 @@
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
+Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D4E5426D36
-	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 13:27:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C036D426D1F
+	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 13:29:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.46
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775050064; cv=pass; b=U85z5sFiCeNcoswAt64JbkKaC+6XyrIkcccjHZ2P9e0eV8ykYPapbO/fJi61A9PziQb/cSTk9QLGUjJcewvpQHYnAYStMc30q7oH3dnwOGfUQKpEGfDfbCwe9KI+C4JAeIiZyZBFUmfeUsRsoLGitGed0ikn+iuU35taAbHAgZg=
+	t=1775050186; cv=pass; b=lCxY4WcRDgMJb+k4XpGWRBEIN1jWinY2qWNCotIt4viM637YgHXqBg0qBe2q//qdAPS8ldQ8MIHLRGZgRobY18xwzaHqqb6jjFHPXDsv/eKWaNftk2ro7Hwx8iVbWtiADskLy6RdHergwtMDMt4Jw6kD68OVqxP+d0KYh5SnuKA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775050064; c=relaxed/simple;
-	bh=isSb/mS3MIvcz8OzHn81VNnCHePs45Imq+LyfSuUlWM=;
+	s=arc-20240116; t=1775050186; c=relaxed/simple;
+	bh=onN8FIFbQtcTOhoy8vCDtIf/NkLSgG6QTTFYue/FmMk=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HkZKL2r7kso/y6qYaoBorY2kbd56iVCVDSI0/KQh8R2ATaBcKGVPNznP7CnlKzHAGyjnUc+VCTXOkZG4zlNOkqwcMd9iGeWobIdPQz2KsScdcti6M/eKLBG0uJfurfG4V4W4gR127I6P/jM2ngweV28qeHsSF6dU/ZrY+VCq+Tg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ausil.us; spf=pass smtp.mailfrom=gilmore.net.au; dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b=b6SJAzCI; arc=pass smtp.client-ip=209.85.219.54
+	 To:Cc:Content-Type; b=C3dB4ruBFCNSJPJnPiiiE4veS+BpW5AnN6LJBZ25pbL4q9mKm0la0mMXu1K6c0jh2QWONg8+mVVf3EFNfnWEl8CazssWGRce8o+gE49tlnv/fIU+QUqeSRNeASmSbK3rerzPqVIOyjFhcn9lIDsdEvXSxzOargvAOo6DtPLddFI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ausil.us; spf=pass smtp.mailfrom=gilmore.net.au; dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b=UH4fQzKH; arc=pass smtp.client-ip=209.85.219.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ausil.us
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gilmore.net.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b="b6SJAzCI"
-Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-8a4b8c3a30bso6626926d6.3
-        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 06:27:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775050062; cv=none;
+	dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b="UH4fQzKH"
+Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-8a093c784b0so7652796d6.3
+        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 06:29:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775050183; cv=none;
         d=google.com; s=arc-20240605;
-        b=KsyexF0zcoQPNHpR2cGB30iTaX79MbNQxBQl0hCdY2sXq1SXf5cNk0mlc5pcPrefRd
-         4S5gshf64p0FtIZg5UIwhtt6/+vv7/fYGxsXDzf5LamAXQ0dG2Q5d5VrJBFy9eBn5/C2
-         db+aOZUpk+aijwS9rjoh1Nc1WBm9CiaX5E+T4y8PiD1TcQkBy/sNOEwI7vobys9+ANR/
-         KryDQVwN9p/KDp0QVU+wwCrQ1CsVemCZmxaPVXPgyl1ul+/m1v4fJZxMsx+vhCKsJrnW
-         +sJqHOQNYTOJDDPHr/444NW12ErT7ZMLjuRoYvGi5mo1ABi5zl47ecAIPxCDS6kzNLn6
-         G8qQ==
+        b=cxL1HB5CYsVYFjF8u+tUNkISDSibe4fe/7YmvU73ln5ekBnXPECTb20JO2vCSQ1xU1
+         ZzC/XPvtLuXGLx+CT648pSkHru8/ElESHlhAqXG4IVie7vKaEmuoTvRw4ZL47zZxxhGl
+         UkQhVF7StrhGuvi5rZHNczElij3ri5bwqqhM/iOYHBaAiHxaofDpI8RRyk/nHuMasJQr
+         JittKWeKa10yj8uqu5L0d4EA7q5EOvObP3yLnOyHxDed2xoMB9L60UtSTVky+UZE4kje
+         gaPrQC1jTUPYXy9/dwffLV8NyBDhsfLPLPCJ0Nw2nabt0MjA5JKEElfwdWIR4Y2TTEus
+         Bu8A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=WcIm7yXA7KDT7CpVTwgIEnk1FCyvBlEw6vFDxeCbDSc=;
-        fh=e4k68TRwVEQHtOV6d31qhqVCAPvMeWkrVxUq4eAnFhk=;
-        b=jKXzaHiqt/ot4LOxLG149F547FsakkVYeQBXlHmbPLzf8Sj0wDYUyEfom5ac9nlver
-         OXS5nH3YGacj1w8wEkEzJz2yWTrYf1SjFcT2qudAA1GMTyVybytQEGk9nowMcVm3tIVB
-         sp/aV/kHwfOYuJMQcs6lN2XVfAMONzFxr5CTXoQv0rnQ7w2MkwV3qQCh/p1ryL3M48N2
-         jfvs7QUafxr3ADW2bOijmQTfO0pORYKRQo2S1J7UAZDLvg6ImGr+3cfAt6WN2XCW1dDw
-         OHp1OEvDMRM3d9obT1l3xorZKC/LxyzexDr3kBQXIfc2qrnnn9kzJsKbMFpYG6nmamQ6
-         Fyhw==;
+        bh=VddJqdW/ivYdJwKAv4x/MZN1YGeGSQIg3wJqceIORIA=;
+        fh=pQDVGv43L2mUD7h2Ns/2cZceQWMngYGwVd02BmCBayI=;
+        b=RlCQGB0+Y2mYoGoYtN8WKUUOJoZY7uVBYAccBFbPj2gMrBYHh/Y+mCIqcjqOcZA8Bw
+         fwI6tXvEiyRpy3mmEsxmNdmtX589aFdvOClPDhOEX/KeE+4XvYya5KpweVhjwQQ0V4Hv
+         iWYUoKRwhilt02JHbRkziBIhIyoDeL29t0/yDA8u0RAUIkYze0rKy649YMfLAfXtM64H
+         Q6qjCjWE66iOQtViozvlzLJ+hIGDavR/JjY8ofmjqFcJBeYFhDRuETOAsbyc8nSfINLm
+         vSxWFCpFXhHR0yzZHwetBcLroz8nSeJhWIZWsrIWrW5UI27kcMjN35NBwMFU3l2JuSTM
+         Ahjg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ausil.us; s=google; t=1775050062; x=1775654862; darn=vger.kernel.org;
+        d=ausil.us; s=google; t=1775050183; x=1775654983; darn=vger.kernel.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=WcIm7yXA7KDT7CpVTwgIEnk1FCyvBlEw6vFDxeCbDSc=;
-        b=b6SJAzCIrH3cPBIElw1L2FzsT+swzjI7DKt+XMimskXuJDbNxX/CW76Pj1ocnp4gTr
-         UJ711cLAE0Zs14iAzfHeVdFwCMFRkifluIuu+usFm19RUYfOIYPebQ6o7uyhV66VD5qg
-         3ih8YtpjaNsUULYTwmEq0l0dp64RfW8QO92txW5nhQ2TmiZmDaRtEYOsEr1GQvzaN04L
-         2z67MGgOttogIC2ewhksxYCjomGcox0jQ7CjBoNopy2fkI8OKB6cLxs/ksxqgJvymMb7
-         xEasKTut1RyNhSEn0WNSkdss7v6MLJ6xjnlgdvaKPRJDiLdgimMo3jjlLu2fmyYPHIFg
-         JBoA==
+        bh=VddJqdW/ivYdJwKAv4x/MZN1YGeGSQIg3wJqceIORIA=;
+        b=UH4fQzKH8GPtCXQDUHHbhsZ7l5t0fMQqLfZoAe9w+uzV7rn3SkjS/czYZlf2U/s0uG
+         VJbFoeusYHl+nHOJwTe1l/DIYN36GyJ4+YksVnJPRF3LxnlcLW1OCgOWFuaQxzGjKHI/
+         0QHTqmMfeTpOr9NcenRrMjTOGjyEovxgFWcope+NgeZXM56E3um+9zlBGuekayRlPXqA
+         wly6djzUFZcEWLutQTvBhTtyOnbhuWq9ASbWAG8nYfmtRmUmVNYk4eVITNhYK9fRTmUg
+         PO6HM+nel8Tl32P0bAeqvp0xc5rCRn9o1KQBTv8w5YcpOwCbHeFu7oirbkJfwKBvfkz3
+         Jh4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775050062; x=1775654862;
+        d=1e100.net; s=20251104; t=1775050183; x=1775654983;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=WcIm7yXA7KDT7CpVTwgIEnk1FCyvBlEw6vFDxeCbDSc=;
-        b=ENE3VhneqmE95RdYPIx0q+IM5o4+nGaW7xCTvgm9IZn/FEXd+xOb7nS/il/OL1tjwo
-         Qb0iPIsAS4MjYkWRuj6JYjTpdj5V0a+pcwyNCR5OfWew+/UoK+9T1m3dMql6VuR7o6kf
-         fw1Ez/SIW5lulL4/T63PB8GlORy2CCWUaNClQF0MziHPk8EWNWni9aoUYM/Vo2GrJu58
-         OaJ5SA+bAwTkMjN4mCplFwsfVeMvuZOf/T0E+V4v+qtkOwa4BYP26ttazx8+/lFQtb4u
-         MYLav6I2cM904qcB/rWdVcIcZvf9xk9zKVXfVqBvFXMFE96WcJy3KHGlV/1h1zEDOoeI
-         ao7A==
-X-Forwarded-Encrypted: i=1; AJvYcCUL1lHaX+09csHW+uQKoFKqbQBg4Zv0K/g3KqHHhbtsiFcl3bjzHD3WTZnOmHSNNW3oBgjipyt4P6XC@vger.kernel.org
-X-Gm-Message-State: AOJu0YznWwfMhupS5f32/giNdDvaa6maOMduuYOaGSUAp5LkyvIMzSvq
-	WQFCBrLmyqvDNElvV8xgyprg5oLw+cpEDyA1of9b4nYJ/EL04JssJpucwz+zO4IY1pdirSAz7iZ
-	8MP+lDL89vXQnngeks3C6AK0tV1P1it8dOfQXt1U4bg==
-X-Gm-Gg: ATEYQzw1yoIGHfTbDF9gq0Nm/IZkFlRniRf91APEBjL4sh8lN/hNGlpmGE1xENXckEf
-	fus1LexIvshDSp/DuEW1bl7fTlOsgXicJSZgJIzwvxKYDR1QOp+GLFui2cJ+3fz3Nw+BhvkUVWD
-	srWm+/yuTP7QtHAtVT23WEJ7KnaNTBwa87o49c83V2fWHP/mHoEod/I0eKYtdjcLJqk5LY5qhdt
-	xl98xvkYw7BcWAMkCo8bNLZd7pwg5hbgS+CbiwSKCL9V3HNKN3lhsLSyHNl675g0N0kXIE4zrhm
-	FM6FEke4OLuTGh9eeOMagV6gWiitucSbk9yt/jkaAQ+MYXBiySzW2IUZrhVwWqXjqHsTIoc=
-X-Received: by 2002:a05:6214:2dc7:b0:89c:505e:a96d with SMTP id
- 6a1803df08f44-8a436c12006mr53463596d6.3.1775050061865; Wed, 01 Apr 2026
- 06:27:41 -0700 (PDT)
+        bh=VddJqdW/ivYdJwKAv4x/MZN1YGeGSQIg3wJqceIORIA=;
+        b=q5BWH81aqqgdZ8EqZydDGd2zOBviZmwf/yWGJx4rCwo+nPF7USMFwa7bBwD3nSnwIF
+         v1XhfjYGbYGd10gxhoawvgFTVCVdRQlr7aBcWr/kuCdKosT9erxhYGy//kja+YW4PfEl
+         Edk/6MgjnWBV0fovSWc1F3KlEHYbdJX91hnA1EApSN+TeTZv8lxDgqegrav2IiJXa4PH
+         XhdG3UXua4jYuZSMXVjenwuUAs11wPmNN2omce7efpKDICt1oiOs/DK/tPXF6oMLq6kx
+         prXtlF10Op3cyIc6MuBxbqUPBZYfPHudTuKjCLoAOm6rCX3iDh0EjS9DEFg7dQc9Gmxh
+         WAqQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVP+U9qIXlokYaPrGkSqOGNznIre8UJwbeZbB5ZqFCI5gBMcghO9EeJwBhewzCNl3rdgmd3ydXsHtk/@vger.kernel.org
+X-Gm-Message-State: AOJu0YzG1D7qIn9Jw7ATcZZ5T79rAJGcUMWYTAvKSyUZJJ///G05TcDt
+	L6LiiTxqiFoN7oc9NM/C7+Vuj5M8voY7havKBzmeqPrV7SvMplEL2C0r/q1DR4UqWatcOKUNJUJ
+	/sqv3ZU0FUlcum98xCxTXdt877CTjREArPCdqVMUmug==
+X-Gm-Gg: ATEYQzwyrv3dRtRYgHPLlAhxYtqDTGmFZFqgUDk24vy/RnABBrJkFjdgTfYSeD0ysaj
+	cLxXwKd9hthcGeY9Jm9EguD7iY8iWLwHKVQ5XFuGZI9LfruojbBI3IukLvYvfpL2hkvAUQxgYLh
+	0oAk5IqUeh6iAzgrO22vqxcgCGVt6zpuNFSoD49SePsdLeEteImNxt2DxBPONE6AyB5r+36o5le
+	2FygsGH1ckwUyWuhABAgTyHGtzxaTGAFpQl4gnf1+x6DBG6a2lTZ5tRTOd32B5iUWxuvh3mYHdd
+	u8z+W2PvxpBM7q4FDnXnmJhQJ30pl1HFyk085CF4erDFUZhvgrOkSHgA319PbX3DZNtu3m0=
+X-Received: by 2002:a05:6214:1304:b0:89a:14c5:f4e with SMTP id
+ 6a1803df08f44-8a43a273786mr51708376d6.52.1775050182430; Wed, 01 Apr 2026
+ 06:29:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260401010707.2584962-1-dennis@ausil.us> <20260401010707.2584962-3-dennis@ausil.us>
- <b733883d-e515-4946-a81f-d1a595985e01@lunn.ch>
-In-Reply-To: <b733883d-e515-4946-a81f-d1a595985e01@lunn.ch>
+References: <20260401010707.2584962-1-dennis@ausil.us> <20260401010707.2584962-4-dennis@ausil.us>
+ <7c4791e9-6621-4afb-a166-55211b18fb08@lunn.ch>
+In-Reply-To: <7c4791e9-6621-4afb-a166-55211b18fb08@lunn.ch>
 From: Dennis Gilmore <dennis@ausil.us>
-Date: Wed, 1 Apr 2026 08:27:30 -0500
-X-Gm-Features: AQROBzCAzbfR_j_LOy-RUvYwgZyU2IUXkEObV_iLNc2MeYTFQXYM4pLFScKB5fA
-Message-ID: <CAABkxwvnv7i=xg53qu4JDapBs6ATaMGh9iXZfi+od=CCxRxQUA@mail.gmail.com>
-Subject: Re: [PATCH v5 2/3] arm64: dts: rockchip: refactor items from Orange
- Pi 5/b to prep for Pro
+Date: Wed, 1 Apr 2026 08:29:31 -0500
+X-Gm-Features: AQROBzAu4N-C5ikXx_bUWzY21o8WyoQ0kn_i1gnmUiRPmbCXX-sUt6a9jBTZs-8
+Message-ID: <CAABkxwvfCYqN1y+aVUPVP05uzoGNEitC-BVjvAXL8ZPgRHav1g@mail.gmail.com>
+Subject: Re: [PATCH v5 3/3] arm64: dts: rockchip: Add Orange Pi 5 Pro board support
 To: Andrew Lunn <andrew@lunn.ch>
 Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
 	Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, FUKAUMI Naoki <naoki@radxa.com>, 
@@ -106,36 +105,28 @@ Content-Transfer-Encoding: quoted-printable
 
 Hi Andrew,
 
-On Wed, Apr 1, 2026 at 6:52=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote:
+On Wed, Apr 1, 2026 at 6:56=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote:
 >
-> > +&gmac1 {
-> > +     clock_in_out =3D "output";
-> > +     phy-handle =3D <&rgmii_phy1>;
-> > +     phy-mode =3D "rgmii-rxid";
-> > +     pinctrl-0 =3D <&gmac1_miim
-> > +                  &gmac1_tx_bus2
-> > +                  &gmac1_rx_bus2
-> > +                  &gmac1_rgmii_clk
-> > +                  &gmac1_rgmii_bus>;
-> > +     pinctrl-names =3D "default";
-> > +     tx_delay =3D <0x42>;
+> On Tue, Mar 31, 2026 at 08:07:07PM -0500, dennis@ausil.us wrote:
+> > From: Dennis Gilmore <dennis@ausil.us>
+> >
+> > Add device tree for the Xunlong Orange Pi 5 Pro (RK3588S).
+> >
+> > - eMMC module, you can optionally solder a SPI NOR in place and turn
+> >  off the eMMC
+> > - PCIe-attached NIC (pcie2x1l1)
+> > - PCIe NVMe slot (pcie2x1l2)
+> > - AP6256 WiFi (BCM43456) via SDIO with mmc-pwrseq
+> > - BCM4345C5 Bluetooth
+> > - es8388 audio
+> > - USB 2.0 and USB 3.0
 >
-> phy-mode =3D "rgmii-rxid" means the PCB provides the 2ns delay for
-> TX. This is unlikely to be correct. Please try "rgmii-id" and delete
-> the tx_delay.
+> You said in patch 0/X that the Ethernet driver had just been
+> accepted. So i was expecting a node for it here?
+>
+>           Andrew
 
-As I mentioned to you in v2 I do not have the affected hardware to
-test any changes. This patch is just moving the existing definition
-from the common dtsi to the two devices that  have gmac1 wired up. I
-am not comfortable making changes here that I can not verify if they
-work or not.
+On the Orange Pi 5 Pro, Ethernet is connected to PCIe; there is no
+need to define anything
 
 Dennis
-
-> https://elixir.bootlin.com/linux/v6.15/source/Documentation/devicetree/bi=
-ndings/net/ethernet-controller.yaml#L287
->
->     Andrew
->
-> ---
-> pw-bot: cr
