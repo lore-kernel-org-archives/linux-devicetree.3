@@ -1,87 +1,41 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from s2.avantea.pl (s2.avantea.pl [46.242.128.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C72C40DFCA
-	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 15:21:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4948F337688;
+	Wed,  1 Apr 2026 15:25:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.242.128.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775056889; cv=none; b=fmetmguT2NmwbzEn51DV0MksfmPfPQOtGIdcH/zA16gi75qPRvI6d+qUgu9jjEtKpA0JriS+laYaaJkeRDbIiF6NWaJW26vvxxHzTrvu4igi+GOwhjuu/HMemRD36XWGkuF5W+cgn6BdTlwTM80iaJuUx031mhaoPMlkrh6bh2w=
+	t=1775057151; cv=none; b=od6tHDzfAMCe0Ft+gwwKEodZ3A1My1r5UPGqGJZVNOuJGQGWMnaQPHos2GQCkf9oE82MKYstdSVxQYxm/i8LHJKafGrdO+dfIeZGYE6HYXLlHFYineHNbUtEJ4V5naxuEhkgv17qomyQAESq8iZXa8zrM1TkNb2GCjtQ3Sq9JYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775056889; c=relaxed/simple;
-	bh=6laieGMKvo4gOFbBEOBAqhiW6yg+Q9NNRoJJu4Owx+U=;
+	s=arc-20240116; t=1775057151; c=relaxed/simple;
+	bh=Ii/eJ5h1USlct5eSHcumUHTZoUYSvDC7KyxJIGIed04=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Hier73T+FQ0iq7Zsjx57SC5YVruq1+Xcy4sA24X2ta9DiIyv5SiZJHR8JMjXn/2DFKRTy2GGoNLevIUw//Y0LcbK1h3p6z2b283NBoo8v8WU8E58tM0FgnNSad631YAYqYy8GgYYzRv0kvgbmD/cdEf/j8ZZjfH66rl4VxnqZsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RX4ZZFYN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=e9HtK71Z; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=bIOEqdePJWLcbHmXNEipTpeJxazmBjPsf22lUsmNA5x/bWBW6EIh3/WwSS798vUPtfTGHViU61cISTXznJJnLFU37I+WrCmsNOLn3ii4FbUremKbbXThOSuBNKAPcZvEOVFVH4H9LV87AxxbuyQwaOIHKu+JXocYdh+t99C7NcY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=szczodrzynski.pl; spf=pass smtp.mailfrom=szczodrzynski.pl; dkim=pass (2048-bit key) header.d=szczodrzynski.pl header.i=@szczodrzynski.pl header.b=dTapjwhl; arc=none smtp.client-ip=46.242.128.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=szczodrzynski.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szczodrzynski.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RX4ZZFYN";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="e9HtK71Z"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 631ESUGM3174257
-	for <devicetree@vger.kernel.org>; Wed, 1 Apr 2026 15:21:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	AG9FdGiFyQFH+H+XHLnITj+9mA3P4Sk3/IrlWSvObjY=; b=RX4ZZFYN/EgAFOtv
-	HGIYG4QnwpnCLl8+wzvShrgMQG+rXiUuI9NsZ7hxbIJz2RZPmUTLrjENI2VRZ6Ab
-	0pBrOXtEd1x24ZhAFd8s8ljqYWTns8UPyUS7NC3dkiLjm6rm7K4lEbRRB/Sb97F3
-	xb9IPW6M16oCSVMIifglUZAzz0M8Xw+Ouk6/OA3/XaPv7tQgu0Tu825YNjzHQG1Q
-	lj5Wmczq964L2YayT/gm5cqziiCepQlGgNTejEzRGFBoBRw8kNzEUgzY+x8BBfAi
-	Gn8jIJjE77NSqLeJowXeEEQ6ZElSa2o6ajOqVbDnks/yoQhmXWy3XagajAjhvG/M
-	BKNtfw==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d90gbhkc0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 15:21:26 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-82a80fb4566so2217711b3a.3
-        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 08:21:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775056885; x=1775661685; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=AG9FdGiFyQFH+H+XHLnITj+9mA3P4Sk3/IrlWSvObjY=;
-        b=e9HtK71ZGbC4efqUOLekFVor/98Pp7YUHJNSTqPfLhCU740KV0Tl8OTB+4z3HhGfwO
-         G/xG/anBpX2rtNQgXO+rYhHqNN+hvMBtaN/xHnpf5YmYr5yKrZH6eP+GrTk3429WD0Da
-         XH1Egh138IkSgPYDaG7w7m3YwI5l0LaVKw7+uDCiYgLF17ZNfXeZHrXy2cdJKrTTnaBl
-         j+47SrMnfqsWdUZYXHCoI8MXoO+mKtfo/W4U4c586LUaQ6+R86gEyZpp6X0E4EmioG+a
-         Xi8RPtntxlTKfV8nGUReieE/Xva2yLJS1HbsqOGsw6CELkCY6X9X/776Exs2zorQn+g+
-         5vMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775056885; x=1775661685;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=AG9FdGiFyQFH+H+XHLnITj+9mA3P4Sk3/IrlWSvObjY=;
-        b=dfwnClpnmk2/ukr0Y4vl2LUuoytig6M0j4qEqETJJU5rGFWXld34ikqfLQpLj5n9l1
-         pe6HbqqkcFZdEfCkjIGLi+zBLsyPFsDmCXrZ37M7OE8VooyiSKtd2o3CEZXN4emEYduq
-         qGeL09MShp1HSeb+kdJAtP0rLauKJcpbXq64/II9bEu7c90m98w+H+gH1yLc3mVjprRS
-         Bhv7IVHWggAuWO/f+vq453ZbsxMmQ3v+zo1XOYbj4uZ3ifHqLnU00PGIVHG21BiqHsGI
-         GydCDY8N7E88gFw20grbmaEqTfnu/VYv2YBAVlCp5Lyev8zBt4nLbT7rEqcaiaIqOuw+
-         4u2g==
-X-Forwarded-Encrypted: i=1; AJvYcCXLnbgf+t3DyHJF5v9iy080w92l9mCjSTSpmiR5bLHjzOXjMcsXo6mq9uZP6QIw//Q6tLwjFxO6oRAF@vger.kernel.org
-X-Gm-Message-State: AOJu0YyZJavtBT/y82BG9Lwc4RVkHnC8AT0QGe9+oz4hXUvR2yTITqj8
-	yTeGPjMI3T2jq+uD6JJcDj/5Gg4XvW+9Ki98l8MNBKHsjZNTtHcmN4MfcgqbP+mj2tc1w4h/4p0
-	kbbO+pK3bzvI3qSiOV3Citp5BZo2lwtq04knyccMSST419nEXnOOlJdPJxD1CrB+c
-X-Gm-Gg: ATEYQzwCxlcrBsNeVJCNJIGPql1s5ZTMHks/ppbhjDZluRTpZubHhkIUjrlYP8HkXyE
-	4tRiuqrtdoEQn3RC8Z89fYp65EJyh+pG4h66ruynGk7rnKHB9K7/Ywt9EU/MeeVHuqn+CUwOABV
-	WxrX+ebZq/6OA6LWNIo9ZTeyNVHI/BKZ5/8v44UBA8lYFmhWfiYX9cni1lN5i1os2bhDiOfLVLD
-	mJbax0wq6D3lAe7krQOj7N8koibD9lRUwnZcM9AJDQ5qHrDfLoWzriThPBFm1HTPA4dqsbFMB4X
-	urEklZ4igJZ1Nm7vVoekwFU9ReNGwISXH+k3+X0ZWalqC4fHWVlkCAe3+UrkiPTagJsc9u8apHB
-	Ge4VREGxHoIbYh3twt3BgUg9BzpusmLH2dLT0+lDoIRlK7WDu49NPxIJRFX7BexfMq0FUn5cyW2
-	gTb84GvXEe
-X-Received: by 2002:a05:6a00:2e1e:b0:824:cb8f:2a06 with SMTP id d2e1a72fcca58-82ce8ae212cmr3006842b3a.3.1775056885458;
-        Wed, 01 Apr 2026 08:21:25 -0700 (PDT)
-X-Received: by 2002:a05:6a00:2e1e:b0:824:cb8f:2a06 with SMTP id d2e1a72fcca58-82ce8ae212cmr3006814b3a.3.1775056884957;
-        Wed, 01 Apr 2026 08:21:24 -0700 (PDT)
-Received: from ?IPV6:2406:b400:b5:dc96:4944:a8fe:d32d:b4b0? ([2406:b400:b5:dc96:4944:a8fe:d32d:b4b0])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82cf9ca1869sm233014b3a.56.2026.04.01.08.21.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 01 Apr 2026 08:21:24 -0700 (PDT)
-Message-ID: <9f1d7aae-42b3-4e0a-8cac-39db2ea84521@oss.qualcomm.com>
-Date: Wed, 1 Apr 2026 20:51:17 +0530
+	dkim=pass (2048-bit key) header.d=szczodrzynski.pl header.i=@szczodrzynski.pl header.b="dTapjwhl"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=szczodrzynski.pl; s=x; h=Content-Transfer-Encoding:Content-Type:In-Reply-To
+	:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=Yfl/w1ij3MgpyEqu5acDmeSHKzp1JdcGMEvJsVUioeI=; b=dTapjwhlsakHuG9/ro3lz63N01
+	XdRqX6PAtHDsv/Hqx89CpF904TiwsjZnD8ckUY/929k3Kqh6zJWEV/bZwHUToTvKGf9yVJ6uGH3ls
+	8Kwrz9WhU0B/zKeitP6JlW0f7htpsvS6bhNBxQXHc1qf9f77rtkXHumMFFi0polKAmpE1zRkNzspa
+	fHCxnwx+tD75qpHwxRukvdgbcqzqhSja9xlzKE8/AnrpaVpvoBqytXXymP5r5Ao7xRd6gc1mYVTR8
+	2QTy+ybeTSBCzaSl9bns7x65+O5sMF5eXEPOAWZiSq47yrUdD32xbkhLxziC+Rkra+/azUmpQMB6A
+	ZJ/I/QVg==;
+Received: from d100-78.icpnet.pl ([77.65.100.78] helo=[192.168.0.120])
+	by s2.avantea.pl with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.98.1)
+	(envelope-from <kuba@szczodrzynski.pl>)
+	id 1w7x8q-0000000Ajrx-2VZg;
+	Wed, 01 Apr 2026 17:06:00 +0200
+Message-ID: <5e9f5f0c-1ff0-4b6c-ad2d-ccf6fafbef30@szczodrzynski.pl>
+Date: Wed, 1 Apr 2026 17:04:48 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,146 +43,101 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] arm64: dts: qcom:
- qcs6490-rb3gen2-industrial-mezzanine: Add model string
-To: Bjorn Andersson <andersson@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, richardcochran@gmail.com,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260309121936.1289615-1-umang.chheda@oss.qualcomm.com>
- <rdglzhmncexfcvec5hyenj7jx3m5hsphjlxsaeq2zhi4z4arml@bjeqghbbaoa2>
- <64f43d77-7c09-453e-8d7b-b4e0e5f05598@oss.qualcomm.com>
- <gmeo7kiryfh3qxspzidpwknxgmxqeqr6on2glrjj4tioh6apv5@p6rxe3jw2rkm>
- <0a44b9ea-9f2d-496e-8915-45186433dc1e@oss.qualcomm.com>
- <srndqldc5c3hr3vozvndl4zt66jb47b3iwyjghiqcjg2uoespg@yxg2hvugjrwe>
- <acSfUEVueSR5Ikq7@baldur>
-Content-Language: en-US
-From: Umang Chheda <umang.chheda@oss.qualcomm.com>
-In-Reply-To: <acSfUEVueSR5Ikq7@baldur>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAxMDE0NCBTYWx0ZWRfX47e378sP7u8n
- No8qq0AlhIp8d0amJ49D7QJsVKohdRxdp96ykSAo5UkY3wg9ddJKMpMdwojq1/3545kt00QDETl
- 59th4njJiLuvHU67YEBCZPlDh/b/kBDz8a5Nscm/d7kQoQeqDC+EhdqpNATA0IrXRLeaV1JCcr/
- jGquOa1ScYeLnxR6urIoD7d0r01Q//3pjTh2f59e9gZgTIcTVgodDkZh722h70MRmUaPaEa9puB
- N1UIVqhAS8nJGlAAfSP2B6IOFcq9KCQQqWC9N6ysDMAWPLi+jvw61ewby8mRss1gdzLRHsnrww4
- pDuyn/joK9Rf4h6bKXWot/QeCq4YgK+H43Ver4YBj97AeFJNDB+1zjF6n/OeY5fdKNDG9+XaJiQ
- hALnD2IL7txiZDZ82KxrecaOB18jmE9zIKBrfub0YyUbOXQ8PnkZ0n41ivaPFAcLRltmwxn6+iA
- dUnyioxGce6hkZ/BKEQ==
-X-Authority-Analysis: v=2.4 cv=QJJlhwLL c=1 sm=1 tr=0 ts=69cd37f6 cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=MelL_d3sNiTB4l5edtYA:9 a=QEXdDO2ut3YA:10 a=2VI0MkxyNR6bbpdq8BZq:22
-X-Proofpoint-GUID: jctBpv8QnrG8h8myjOUF9zqOT0pPll74
-X-Proofpoint-ORIG-GUID: jctBpv8QnrG8h8myjOUF9zqOT0pPll74
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-01_04,2026-04-01_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
- phishscore=0 suspectscore=0 lowpriorityscore=0 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604010144
+Subject: Re: [PATCH v3 0/6] drm/sun4i: Support LVDS on D1s/T113 combo D-PHY
+To: Parthiban <parthiban@linumiz.com>, Maxime Ripard <mripard@kernel.org>,
+ Samuel Holland <samuel@sholland.org>, Chen-Yu Tsai <wens@csie.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, paulk@sys-base.io
+References: <20250221161751.1278049-1-kuba@szczodrzynski.pl>
+ <20251116134609.447043-1-kuba@szczodrzynski.pl>
+ <a5f6aeb1-b038-462e-8989-c4da65966134@linumiz.com>
+ <1027afd7-dec6-4ff3-85eb-2d9a1646ada6@linumiz.com>
+Content-Language: pl
+From: =?UTF-8?Q?Kuba_Szczodrzy=C5=84ski?= <kuba@szczodrzynski.pl>
+Autocrypt: addr=kuba@szczodrzynski.pl; keydata=
+ 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
+In-Reply-To: <1027afd7-dec6-4ff3-85eb-2d9a1646ada6@linumiz.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Authenticated-Id: kuba@szczodrzynski.pl
 
-Hello Bjorn, Dmitry,
+Hi,
 
-On 3/26/2026 8:29 AM, Bjorn Andersson wrote:
-> On Mon, Mar 23, 2026 at 09:06:54PM +0200, Dmitry Baryshkov wrote:
->> On Mon, Mar 23, 2026 at 10:33:45PM +0530, Umang Chheda wrote:
->>> Hello Dmitry,
+W dniu 2026-04-01 o 10:39:42, Parthiban pisze:
+
+> Dear Kuba,
+>
+> On 2/7/26 2:34 PM, Parthiban wrote:
+>> On 11/16/25 2:46 PM, Kuba Szczodrzyński wrote:
+>>> Some Allwinner chips (notably the D1s/T113 and the A100) have a "combo
+>>> MIPI DSI D-PHY" which is required when using single-link LVDS0. The same
+>>> PD0..PD9 pins are used for either DSI or LVDS.
 >>>
->>> On 3/13/2026 11:23 PM, Dmitry Baryshkov wrote:
->>>> On Tue, Mar 10, 2026 at 02:09:58PM +0530, Umang Chheda wrote:
->>>>> Hello Dmitry,
->>>>>
->>>>> On 3/10/2026 2:07 AM, Dmitry Baryshkov wrote:
->>>>>> On Mon, Mar 09, 2026 at 05:49:35PM +0530, Umang Chheda wrote:
->>>>>>> The RB3 Gen2 Industrial mezzanine DT file lacks a "model" property,
->>>>>>> resulting in the hardware always being reported as the "Robotics RB3gen2".
->>>>>>> This prevents applications and user-space tooling from distinguishing
->>>>>>> the Industrial mezzanine Kit from other RB3Gen2 variants.
->>>>>>>
->>>>>>> To ensure consistent identification across all RB3 Gen2 mezzanines,
->>>>>>> add the appropriate model string.
->>>>>>>
->>>>>>> Signed-off-by: Umang Chheda <umang.chheda@oss.qualcomm.com>
->>>>>>> ---
->>>>>>>  .../boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso   | 4 ++++
->>>>>>>  1 file changed, 4 insertions(+)
->>>>>>>
->>>>>>> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
->>>>>>> index 619a42b5ef48..7d6e425dae89 100644
->>>>>>> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
->>>>>>> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
->>>>>>> @@ -8,6 +8,10 @@
->>>>>>>  #include <dt-bindings/clock/qcom,gcc-sc7280.h>
->>>>>>>  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
->>>>>>>
->>>>>>> +&{/} {
->>>>>>> +	model = "Qualcomm Technologies, Inc. QCS6490 RB3gen2 Industrial Mezzanine";
->>>>>> So, what happens if I combine Industrial and Vision mezzanines?
->>>>> H/W does not support to connect both Industrial and vision mezzanine at same time - only single mezzanine can be
->>>>>
->>>>> connected at a given point in time - hence probably the above scenario would never occur.
->>>> Industrial mezzanine has all LS and HS connectors, so it is possible to
->>>> stack Vision mezz on top of the industrial one.
+>>> Other than having to use the combo D-PHY, LVDS output is configured in
+>>> the same way as on older chips.
 >>>
->>> I re-checked - from f/w side as well multiple DTSO selection is not supported - and at a single point in time only single mezz can be selected
->>
->> What does this have to do with the firmware? From the Linux build system
->> point of view we are combining the overlay into a single
->> qcs6490-rb3gen2-industrial-mezzanine.dtb file.
->>
->> Nothing prevents me from writing:
->>
->> qcs6490-rb3gen2-multi-mezzanine-dtbs := qcs6490-rb3gen2.dtb \
->> 		qcs6490-rb3gen2-industrial-mezzanine.dtbo \
->> 		qcs6490-rb3gen2-vision-mezzanine.dtbo
->> dtb-$(CONFIG_ARCH_QCOM)        += qcs6490-rb3gen2-multi-mezzanine.dtb
->>
->>> considering above point - is it okay to have this patch ? I believe it would be good to have model string in the DTSO file added.
->>
->> No. A _mezzanine_ can not be a device model. It is by definition
->> something that you plug into the main device. Maybe creating something
->> new, a new kit.
->>
->> Moreover, the model name is not an ABI, we should not be using it for
->> device identification.
->>
-> 
-> I do agree.
-> 
-> That said, as we (others) discussed during LPC, it would be very useful
-> for bug reporting purposes to know what overlays has been applied - or
-> in general what "version" of the dtb we're running the system from.
-> 
-> I don't think "model" is what we're looking for there though.
+>>> This series enables the sun6i MIPI D-PHY to also work in LVDS mode. It
+>>> is then configured by the LCD TCON, which allows connecting a
+>>> single-link LVDS display panel.
+> Now I also have the MIPI and LVDS working together on A133. Can I pick your
+> changes and post a combined series for the display support for A133? This will
+> also address D1s/T114 as well.
 
-Does adding something like below in the chosen node from the DTSO file
-works good instead of a model string to identify the list of overlays
-applied ?
+I guess it's been waiting for too long anyway - so yes, if you know how 
+to push it further, then please do so.
 
-&{/chosen} {
-	applied-overlays {
-		industrial-mezzanine {
-			status = "okay";
-		};
-	};
-};
+Regards Kuba
 
-> 
-> Regards,
-> Bjorn
-> 
->>> Kindly share your views
->>
->> -- 
->> With best wishes
->> Dmitry
-
-Thanks,
-Umang
-
+> --
+> Thanks,
+> Parthiban
+> https://linumiz.com
+> https://www.linkedin.com/company/linumiz
