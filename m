@@ -1,370 +1,142 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBAB33F8DE5;
-	Wed,  1 Apr 2026 12:52:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38B1D3C9ED6
+	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 12:55:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775047970; cv=none; b=EdjhO+vyM8WKgRsG+PexEO5GxO1ubkNZ9dcN34TlMe6og8vlz+7cBeVheuTOjmBxUWOJ2F/SJLfsYRIM/3CCupyiJ1mmMJI4Ksz5djUyvaj3E+TnoTs1C1VcrH8e4h32gwRw4Jy2bCoEqfZhRke88hnqHAAMW6+NjLhJf1Qwklk=
+	t=1775048138; cv=none; b=Thzv9MJYVJGV89MyH+7tShBT+/D9kjML3j3NrfNaZ18MA3BnpvOciga3Xi2aTlMI7yIPj8RiqRSZYvrTzysW4Og9NMUjoDdHQzoi65sTnCxC5O75OCzHNWbBmiLZX4NLoBcknFTtSQN0drLH9MjSdchrLIjQfWN4Y4vqM4Q0F88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775047970; c=relaxed/simple;
-	bh=nMMeGeai7+jxo/XxU/rMhAsLGO/BMZd5lafH1QEnAN0=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Gw5A06kpvbgvGYcwm9BC5/WQ0rfYp6nePUVYqL5FdKVX7c9Md31h05Fb20b2+aovZigZWCeVBzW5vhdxaHTehYCdW0pOUS/Z8+VHFdV/TKNPrdCmOXZA8pAXBUerBOwV+UFzuSSJc3V6Qin7CdKHwXDaMlx/OLvmBOKFF909GEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=fvO4+brC; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1775048138; c=relaxed/simple;
+	bh=wbPPDP/vdVBG+sLNMEEaaJ6pDo/7RKpIwMyfWe0punY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F/krZmXNRTlhZRBshfxhgqHqOE+3b0rq9D91+kWg6g72z6WgUmdXvE2qN9h122Ixh+P0UnnALYCjdITj3ZG6Za9Dq6ZoPiAT+s4/YCDfY/w1nHXtVlXSaLYQFYUQwJjeXKl7OKkkCo7TslvndhsH4g914usgJf3T+qnSReaaOsw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZhrusMq7; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=URcA8zDL; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="fvO4+brC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1775047967; x=1806583967;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=nMMeGeai7+jxo/XxU/rMhAsLGO/BMZd5lafH1QEnAN0=;
-  b=fvO4+brCSr02uO86HEat1UV3Iem1Kv7d0T8XNatyHDGiV6TWSyZtT66D
-   HkgqNW4ZeFJqqtYw9B136HTiZEN7KC3rTEjR3EEN/UeWvpC2xg3CMnF1X
-   /y7BvXMo7vRROHCNtr0WNhRjzdH5BATElNjBvewDaL1jAOPiIXPNx/kS4
-   i/cNyupTvwZTbMKr7vlMkThh/WXivaCN7KtaJIvoE0IiQmvU/P5HXF0cV
-   wBsHWtBcevyi9NveTiofqyCU6RKSKWpSNW1AZSbymZ6kweYRC8IuBqXSF
-   TM/W3yCMOc5Dqqm4yKzkDdSflMqlHFF0zkDd73eu97WIkUIhSFadBrewD
-   A==;
-X-CSE-ConnectionGUID: 2YBp1MG4SB+fC8V+138tSQ==
-X-CSE-MsgGUID: ezyv4A4HS1SqZZK5pn/iWw==
-X-IronPort-AV: E=Sophos;i="6.23,153,1770620400"; 
-   d="scan'208";a="55952462"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Apr 2026 05:52:46 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
- chn-vm-ex2.mchp-main.com (10.10.87.31) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.35; Wed, 1 Apr 2026 05:52:06 -0700
-Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Wed, 1 Apr 2026 05:52:03 -0700
-Message-ID: <dbfadc24cc15c6b5fd1b75fe0eb11d155ee6f3c4.camel@microchip.com>
-Subject: Re: [PATCH net-next v2 5/9] net: dsa: lan9645x: add bridge support
-From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
-To: Jakub Kicinski <kuba@kernel.org>
-CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
-	<davem@davemloft.net>, <edumazet@google.com>, <pabeni@redhat.com>,
-	<horms@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>, <woojung.huh@microchip.com>, <linux@armlinux.org.uk>,
-	<Steen.Hegelund@microchip.com>, <daniel.machon@microchip.com>,
-	<linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
-	<devicetree@vger.kernel.org>
-Date: Wed, 1 Apr 2026 14:52:02 +0200
-In-Reply-To: <20260329195631.2789158-1-kuba@kernel.org>
-References: <20260324-dsa_lan9645x_switch_driver_base-v2-5-f7504e3b0681@microchip.com>
-	 <20260329195631.2789158-1-kuba@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZhrusMq7";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="URcA8zDL"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6318vFbs1459443
+	for <devicetree@vger.kernel.org>; Wed, 1 Apr 2026 12:55:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=wGd+2+4WmnGiGVABG2bgBzlIkSokuv3pKsy
+	4d6mLD3U=; b=ZhrusMq7B9KwmMomiaz91kSwWI5zUnLIcSke/bxVguSxzhDbPNI
+	KElmTpBLw15XO9Qnjc2vGBuHM5MC9/XrWGlMx+m3e8k3JikGf6pzTQa2d3ENINsA
+	COp83zXLv9D8SDRwk35j4kprw2XwCFPN7ibUOnWBTRpbV+zmUV0uQPHpQWkfTykJ
+	hbLlpB2vYoxu0rQIBAVrNEVOXgg5WpC0JbQgSIlzsDndnGtewDy6v0gNCBAZdgdr
+	G2XFRlGkBCUSbMBIqaY1kDdKHP5Qfo/oB48Mb8uQQBfqhdxlwp8hw8eCDJf36uym
+	roQZ5Uj1vaIc75oL7OqTW8QJ3HBOYFwJhIQ==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d8uhg2a7e-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 12:55:36 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2b24cd2e2b3so39754235ad.0
+        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 05:55:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1775048136; x=1775652936; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=wGd+2+4WmnGiGVABG2bgBzlIkSokuv3pKsy4d6mLD3U=;
+        b=URcA8zDLG3ST+ke0htj8EsewSlk1tW0jspqr/loZk1SXvu41euja1Ckg0q5qXxZvf5
+         A45EV9Qwh8bYkR/yAyHi2BfFClFfizoJsyHE09kMcX17cuy1sAtlE7Y0E5SOC8/+T7ky
+         Tio+E8SDzeoFZvuknyKTHmMFxgFvD29zei+bgaK/e/gz77Dk+weQv+dOTKYZmWC4D7bP
+         5xBKFMZpH8h2IDgBfImeTY8jwl2HXBSdaAS+koUj6aA6RHhmJJFTRM7Ob4YWrWCpxIUi
+         cGxqr6CawD+vdPg/AcliR/xsI9W8qcWbjqBeKqC+ZhcGEmRRbjBnDgxVCHMqrx6cuCmF
+         wpQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775048136; x=1775652936;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=wGd+2+4WmnGiGVABG2bgBzlIkSokuv3pKsy4d6mLD3U=;
+        b=l1fzntEv5vyRIC13erecfsWBSVTAh7lgs6T3GiJQ6wrJUKdFKEH9/dS7Eq1Tx73vr0
+         vkIXn6/MGZAae0+cpo7OdXJTr+w9gAXkVwmJ9iE+uR+M7WFpPNflcb+RegyKCMTp9QBw
+         6KYZmmrKQDHBg4fU6/TH3+Czjgnc7VOffZvAH0ognJ9Ph+VLH0OvkGkhOxeEsPtfuAB7
+         HVg3VNrikQ02nFMP9VLHbT5ixMqtSoVYJtztOyX9dcg+fNTdkOLn0M8p8by5AgwKQVTF
+         XgzRi3Z45ZDS1BjaRi92eiXy9K9EJRH/q4NEqnI+GzZKuAy4VeqWPUbkZ72+zhQWvV9y
+         gcVg==
+X-Gm-Message-State: AOJu0YzlNzO/LQtAyjy3ruwJb6dOuxPo5S/hMurohPLpcQgh8s8+8gUW
+	gx73IJtphels1YnS6PWAs1A++2cJqONxbS6PDJBQLzINQA0a2Wl95m/UH/SUUXxamAEo6Dp3EuO
+	DFAKAmgzJZC8P5VBy2J4lyPy2MOH6xXKKfMAHlqtJ+R8x4vRPL8SEYget0ZvQS1mH
+X-Gm-Gg: ATEYQzx/k+9iBt+esB9OFOCTvfhB3rW/tZktZFmeK0dPWufKhi4xGBBSRnL70XqGbLC
+	zf0buA+Te2dIY331fak1nF5IMchac1wCm+Nqm/Su1Xh1WjtOX78H8i5hFIrZsbKqiwsJh9tmJWK
+	qlOHYnNWttVJWAQpr11wzo++l20zsyNpGmXebSJf4+wnIpgFyorcsfMLsRBYHtS0iQtlnGL+ol+
+	6MhS3110T9xoxrFVdxO/qww6gvtPkHp63aJTMH8zhRKp2bzh+TfhWP8EWA6czxt+V1ghqKiJ4Sw
+	0XWf+wJccIo8UvEWHTWWr/m42+owkPqFts+78JixV6uVZZkglVFVX2jBqbvF1bJpXeHhDksfUI4
+	W3dDi6fUjXNS/9be2jsQJnbDhSj/zOJ9WDw9gZ8y3lKGo0Z8e
+X-Received: by 2002:a17:902:bd81:b0:2ae:4a4e:1e25 with SMTP id d9443c01a7336-2b269c42a43mr24476555ad.25.1775048135785;
+        Wed, 01 Apr 2026 05:55:35 -0700 (PDT)
+X-Received: by 2002:a17:902:bd81:b0:2ae:4a4e:1e25 with SMTP id d9443c01a7336-2b269c42a43mr24476275ad.25.1775048135180;
+        Wed, 01 Apr 2026 05:55:35 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b242787bc7sm153862025ad.59.2026.04.01.05.55.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 01 Apr 2026 05:55:34 -0700 (PDT)
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: [PATCH] dt-bindings: sram: Document qcom,hawi-imem compatible
+Date: Wed,  1 Apr 2026 18:25:28 +0530
+Message-ID: <20260401125528.594108-1-mukesh.ojha@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAxMDEyMCBTYWx0ZWRfX/WhI8SsXEr+U
+ HDEgNqGuPOSHw4uSHPCin2uuE/FTXGR0ug2CZ2DPuE+NrKP3GLukmYrVSztHNHgIAH0Qb24xRAx
+ Qn2F1/w1zciGUeJ4ar13e79RhJgUA1TvslHHfrXQM5PHDaaQs2SWda7IamemQDSw0WM7LxWumPL
+ /AO9qEWu9ShtNLgGtY2Cxfn6qALVwxi34YRPYe8gVN4Zu+oMx7yk9MvbXjbUQ1++sSzRJ3zkiFv
+ WJWaZOcFJq46UKR0vPROo2KQy53usa+bNrpqO+Ismp0gxEdI6WKU1tP+7o9UNFIqitMh7ss6DY6
+ bX1bH4uIZAc7WKSQmzdV9KcVD2q2Bi7HNzr0ic0x4piNjTLVF1CYsM+BP9xrRXSHD+XpATYOlAG
+ u4txE57bKRhxRNPptlbmKA9R/Thqzb46OagothzDEg2SSQoS7Gyk4STb+3k+reQ0cf4puAOfInN
+ +agC9wZSVYU0C7vgisA==
+X-Authority-Analysis: v=2.4 cv=YcawJgRf c=1 sm=1 tr=0 ts=69cd15c8 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=PXCVJtlvcWjSRFvF9W8A:9 a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-GUID: h7W7VFcLh6PRmENfdtN2SuLobrdW05O4
+X-Proofpoint-ORIG-GUID: h7W7VFcLh6PRmENfdtN2SuLobrdW05O4
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-01_04,2026-04-01_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 adultscore=0 clxscore=1015 suspectscore=0
+ malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604010120
 
-On Sun, 2026-03-29 at 12:56 -0700, Jakub Kicinski wrote:
-> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
-e content is safe
->=20
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
-> ---
-> net: dsa: lan9645x: add bridge support
->=20
-> This commit adds support for hardware offloading of the bridge in the
-> lan9645x DSA driver. It enables a single bridge device to be used with
-> the switch.
->=20
-> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drive=
-rs/net/dsa/microchip/lan9645x/lan9645x_main.c
-> > index a0908cbf89c7..599e589c4ec3 100644
-> > --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
-> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
-> [ ... ]
-> > @@ -145,6 +155,8 @@ static int lan9645x_setup(struct dsa_switch *ds)
-> >               return err;
-> >       }
-> >=20
-> > +     mutex_init(&lan9645x->fwd_domain_lock);
-> > +
-> >       /* Link Aggregation Mode: NETDEV_LAG_HASH_L2 */
-> >       lan_wr(ANA_AGGR_CFG_AC_SMAC_ENA |
-> >              ANA_AGGR_CFG_AC_DMAC_ENA,
-> [ ... ]
-> > @@ -240,6 +252,11 @@ static int lan9645x_setup(struct dsa_switch *ds)
-> >=20
-> >       lan9645x_port_set_tail_drop_wm(lan9645x);
-> >=20
-> > +     lan9645x->owq =3D alloc_ordered_workqueue("%s-owq", 0,
-> > +                                             dev_name(lan9645x->dev));
-> > +     if (!lan9645x->owq)
-> > +             return -ENOMEM;
-> > +
->=20
-> Is it possible that the hardware remains initialized if the call to
-> alloc_ordered_workqueue fails? Because the setup callback returns an erro=
-r,
-> the DSA core will skip the teardown callback. This would bypass
-> lan9645x_npi_port_deinit, potentially leaving the conduit netdev in a
-> corrupted state with hardware tagging enabled.
+On Qualcomm Hawi platform, IMEM is a block of SRAM shared across
+multiple IP blocks which can fall back to "mmio-sram". Document
+its compatible.
 
-I do not think it is common practice to undo switch register writes in the
-error path here. We reset the switch registers in .setup. If we exit
-here there is nothing to teardown.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/sram/sram.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
->=20
-> Also in lan9645x_setup, the initialization loop for PGID_ENTRIES iterates
-> through index 88:
->=20
-> for (int i =3D 0; i < PGID_ENTRIES; ++i)
->         lan_wr(ANA_PGID_CFG_OBEY_VLAN_SET(1),
->                lan9645x, ANA_PGID_CFG(i));
->=20
-> Could this leave the CPU port's source configuration in an undefined stat=
-e?
-> The CPU port is port 9, which has its source analysis register at PGID_SR=
-C
-> (80) + 9 =3D 89, but the loop terminates before reaching it.
->=20
+diff --git a/Documentation/devicetree/bindings/sram/sram.yaml b/Documentation/devicetree/bindings/sram/sram.yaml
+index c451140962c8..9bf042f392b5 100644
+--- a/Documentation/devicetree/bindings/sram/sram.yaml
++++ b/Documentation/devicetree/bindings/sram/sram.yaml
+@@ -34,6 +34,7 @@ properties:
+         - nvidia,tegra186-sysram
+         - nvidia,tegra194-sysram
+         - nvidia,tegra234-sysram
++        - qcom,hawi-imem
+         - qcom,kaanapali-imem
+         - qcom,rpm-msg-ram
+         - rockchip,rk3288-pmu-sram
+-- 
+2.53.0
 
-No as I mentioned in another mail this OBEY_VLAN does not make sense for
-pgid 89.
-
-> > @@ -258,6 +275,271 @@ static void lan9645x_port_phylink_get_caps(struct=
- dsa_switch *ds, int port,
-> >       lan9645x_phylink_get_caps(ds->priv, port, config);
-> >  }
-> >=20
-> > +static int lan9645x_set_ageing_time(struct dsa_switch *ds, unsigned in=
-t msecs)
-> > +{
-> > +     u32 age_secs =3D max(1, msecs / MSEC_PER_SEC / 2);
-> > +     struct lan9645x *lan9645x =3D ds->priv;
-> > +
-> > +     /* Entry is must suffer two aging scans before it is removed, so =
-it is
-> > +      * aged after 2*AGE_PERIOD, and the unit is in seconds.
-> > +      * An age period of 0 disables automatic aging.
-> > +      */
-> > +     lan_rmw(ANA_AUTOAGE_AGE_PERIOD_SET(age_secs),
-> > +             ANA_AUTOAGE_AGE_PERIOD,
-> > +             lan9645x, ANA_AUTOAGE);
-> > +     return 0;
-> > +}
->=20
-> Does this function properly disable automatic aging when requested? When =
-the
-> Linux bridge passes msecs =3D 0 to disable aging, the max macro evaluates=
- to 1.
-> Since writing 1 configures an aggressive 2-second aging period, it appear=
-s
-> this might not fulfill the user's intent.
->=20
-
-Yes that is right. I will change it to:
-
-
-	lan_rmw(ANA_AUTOAGE_AGE_PERIOD_SET(msecs ? age_secs : 0),
-		ANA_AUTOAGE_AGE_PERIOD,
-		lan9645x, ANA_AUTOAGE);
-
-
-> [ ... ]
-> > +static void __lan9645x_port_set_host_flood(struct lan9645x *lan9645x, =
-int port,
-> > +                                        bool uc, bool mc)
-> > +{
-> > +     bool mc_ena, uc_ena;
-> > +
-> > +     lockdep_assert_held(&lan9645x->fwd_domain_lock);
-> > +
-> > +     /* We want promiscuous and all_multi to affect standalone ports, =
-for
-> > +      * debug and test purposes.
-> > +      *
-> > +      * However, the linux bridge is incredibly eager to put bridged p=
-orts in
-> > +      * promiscuous mode.
-> > +
-> > +      * This is unfortunate since lan9645x flood masks are global and =
-not per
-> > +      * ingress port. When some port triggers unknown uc/mc to the CPU=
-, the
-> > +      * traffic from any port is forwarded to the CPU.
-> > +      *
-> > +      * If the host CPU is weak, this can cause tremendous stress. The=
-refore,
-> > +      * we compromise by ignoring this host flood request for bridged =
-ports.
-> > +      */
-> > +     if (lan9645x_port_is_bridged(lan9645x_to_port(lan9645x, port)))
-> > +             return;
->=20
-> Will ignoring the host flood request for bridged ports break IPv6 Neighbo=
-r
-> Discovery? IPv6 ND relies on multicast, and the PGID_MC and PGID_MCIPV6 m=
-asks
-> do not include the CPU port by default. By ignoring the bridge's request =
-to
-> enable multicast flooding, the CPU port may fail to receive ICMPv6 ND pac=
-kets.
->=20
-
-No that is handled by other mechanisms. There are explicit handles to make =
-sure
-such traffic reaches the cpu.
-
-> [ ... ]
-> > +/* Called in atomic context */
-> > +static void lan9645x_port_set_host_flood(struct dsa_switch *ds, int po=
-rt,
-> > +                                      bool uc, bool mc)
-> > +{
-> > +     struct lan9645x *lan9645x =3D ds->priv;
-> > +     struct lan9645x_host_flood_work *w;
-> > +
-> > +     w =3D kzalloc_obj(*w, GFP_ATOMIC);
->=20
-> Is kzalloc_obj an available kernel function? Using it might cause a build
-> error, as the standard API would be kzalloc(sizeof(*w), GFP_ATOMIC).
->=20
-> > +     if (!w)
-> > +             return;
->=20
-> Are there consequences to returning silently when the allocation fails?
-> If this allocation fails under memory pressure, the network stack will st=
-ill
-> assume the configuration was successfully applied, leaving the hardware s=
-tate
-> out of sync.
->=20
-
-But we can not return any error in the dsa op to the network stack, so I th=
-ink
-this is our only option.
-
-> [ ... ]
-> > +static int lan9645x_port_bridge_join(struct dsa_switch *ds, int port,
-> > +                                  struct dsa_bridge bridge,
-> > +                                  bool *tx_fwd_offload,
-> > +                                  struct netlink_ext_ack *extack)
-> > +{
-> [ ... ]
-> > +     /* The bridge puts ports in IFF_ALLMULTI before calling
-> > +      * port_bridge_join, so clean up before the port is marked as bri=
-dged.
-> > +      */
-> > +     __lan9645x_port_set_host_flood(lan9645x, port, false, false);
-> > +     lan9645x->bridge_mask |=3D BIT(p->chip_port);
-> > +
-> > +     mutex_unlock(&lan9645x->fwd_domain_lock);
-> > +
-> > +     /* Later: stp_state_set updates forwarding */
-> > +
-> > +     return 0;
-> > +}
->=20
-> Could clearing the host flood masks here lead to lost hardware state when=
- the
-> port leaves the bridge? If a user previously enabled IFF_PROMISC or
-> IFF_ALLMULTI on the standalone port, the software netdev flags remain set=
-.
-> When lan9645x_port_bridge_leave is called, it does not restore the hardwa=
-re's
-> promiscuous or multicast state to match the unchanged software flags.
->=20
-
-Yes this is a bug. I will split flood requests and register writes, and mak=
-e sure
-the requested state is restored on bridge leave.
-
-> > +static void lan9645x_port_bridge_stp_state_set(struct dsa_switch *ds, =
-int port,
-> > +                                            u8 state)
-> > +{
-> > +     struct lan9645x *lan9645x;
-> > +     struct lan9645x_port *p;
-> > +     bool learn_ena;
-> > +
-> > +     lan9645x =3D ds->priv;
-> > +     p =3D lan9645x_to_port(lan9645x, port);
-> > +
-> > +     mutex_lock(&lan9645x->fwd_domain_lock);
-> > +
-> > +     p->stp_state =3D state;
-> > +
-> > +     if (state =3D=3D BR_STATE_FORWARDING)
-> > +             lan9645x->bridge_fwd_mask |=3D BIT(p->chip_port);
-> > +     else
-> > +             lan9645x->bridge_fwd_mask &=3D ~BIT(p->chip_port);
-> > +
-> > +     learn_ena =3D (state =3D=3D BR_STATE_LEARNING ||
-> > +                  state =3D=3D BR_STATE_FORWARDING) && p->learn_ena;
-> > +
-> > +     lan_rmw(ANA_PORT_CFG_LEARN_ENA_SET(learn_ena),
-> > +             ANA_PORT_CFG_LEARN_ENA, lan9645x,
-> > +             ANA_PORT_CFG(p->chip_port));
-> > +
-> > +     lan9645x_update_fwd_mask(lan9645x);
-> > +     mutex_unlock(&lan9645x->fwd_domain_lock);
-> > +}
->=20
-> Are ingress data frames correctly dropped for ports in non-forwarding STP
-> states? When the port is removed from bridge_fwd_mask,
-> lan9645x_update_fwd_mask calculates the source PGID mask as
-> bridge_mask & bridge_fwd_mask & ~BIT(dp->index).
->=20
-> This evaluates to the set of all other forwarding ports in the bridge. Si=
-nce
-> ingress forwarding is not explicitly disabled on the port (for example, b=
-y
-> setting ANA_PORT_CFG_PORTID_VAL to NONE), data frames received on a block=
-ing
-> or learning port can enter the analyzer and be forwarded.
->=20
-
-Yes this is a bug, I need to use a zero mask for the src pgid when a port i=
-s
-in non-forwarding STP state.
-
-> > +static void lan9645x_port_bridge_leave(struct dsa_switch *ds, int port=
-,
-> > +                                    struct dsa_bridge bridge)
-> > +{
-> > +     struct lan9645x *lan9645x =3D ds->priv;
-> > +     struct lan9645x_port *p;
-> > +
-> > +     p =3D lan9645x_to_port(lan9645x, port);
-> > +
-> > +     mutex_lock(&lan9645x->fwd_domain_lock);
-> > +
-> > +     lan9645x->bridge_mask &=3D ~BIT(p->chip_port);
-> > +
-> > +     /* Last port leaving clears bridge dev */
-> > +     if (!lan9645x->bridge_mask)
-> > +             lan9645x->bridge =3D NULL;
-> > +
-> > +     lan9645x_update_fwd_mask(lan9645x);
-> > +
-> > +     mutex_unlock(&lan9645x->fwd_domain_lock);
-> > +}
->=20
-> Should p->learn_ena be reset when a port leaves the bridge?
->=20
-> During port_bridge_flags, p->learn_ena is set to true. When leaving the
-> bridge, this flag remains true. The DSA core will transition the leaving
-> port to BR_STATE_FORWARDING, which calls lan9645x_port_bridge_stp_state_s=
-et
-> and leaves hardware learning enabled. This can pollute the shared FDB wit=
-h
-> MAC addresses from standalone ports, leading to silent packet drops if
-> bridged ports attempt to forward traffic to them.
-
-
-No I believe DSA core takes care of this with dsa_port_clear_brport_flags.
