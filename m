@@ -1,150 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 751CC361DBF;
-	Wed,  1 Apr 2026 16:08:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39A3B3CAE6A
+	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 16:11:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775059683; cv=none; b=izLiJ/HCuwlDWKk4rwlrbRq+9RwFqu2VpJq8W9wDwvJehckEoKS5Juroo2zS8RemVxt36ztPmtrr1DjHU9d6TMOt1BaR/aDGjG/TRtmmS0UWdY8xl+F0JkXStHS00Lql+T9ahrlSlxWVIojCeLsODI6B+Z1mhH9DOEXj1yiFjec=
+	t=1775059907; cv=none; b=GWqclw0tep1/0U04KfE5yr/NuMHGh0joUJKw0A9Y1q1xnLW4FmuH2y3sv3aIzbkQZJ6KPH2/mJLPbAHNIVrcfj1/RdONA/6UruOb+VZVg7ZJaB7pVl0TcO4BVxIFaTaXqSObMEApxcjP9UnoUUJLm3aaqLEnI+vDkj7IqbdaKPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775059683; c=relaxed/simple;
-	bh=CAWqjT7a0ECle0p+cjJLfFVUz4QZKrWzh+L4muolz8s=;
+	s=arc-20240116; t=1775059907; c=relaxed/simple;
+	bh=Lll5oR6Qy//fClu5g8F3P8kwsGrz/Ee9mZz01vlvygw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NBmQjAxJnny/7V83Rl6cLvg/CrhE+GZ2HdhVfh05pQO57zKRBuukfVF8fz/xzzvysYMZnlkBtGWDazr41ZbXLt0E6+Ve+3Z8XjL3vfUv1DqrQN50wkVj56XniWoTuuy2Jyfrf1flbn1PvqkiORsWWtZM4XuCLZPhG1x7aYZCCQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IYlcOAC2; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=f2i+C08vysYzddYKVRzsyQUZco013WbVR0PFMoJdxmM8zEin1pVzN3KBShMtNpgGlMIO2hV0lekProRERivNglc8Xr3y07n8U33E8I32sudR0lpEo0ca+b9YmZeX5uaiq3DKcr3smifNfqgDMZCWUO7z5pm9W3P5gzwKciA+IaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rspx1OdJ; arc=none smtp.client-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IYlcOAC2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDD24C4CEF7;
-	Wed,  1 Apr 2026 16:07:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775059683;
-	bh=CAWqjT7a0ECle0p+cjJLfFVUz4QZKrWzh+L4muolz8s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=IYlcOAC2JmrabV6k0EQdev65ty7gp/D9x3bQKT5TdXg7Cd0Gy0QxJNiXK+zYhWq42
-	 VKsMmrDPhE1djTENe2EAW0pSB/xWM31Hb/uTtYdwipRtxCgl48I9sP2JG/2o0w8RuF
-	 RpbrhRZfeIhYvx+tarcltqdLUIw7IFTqYvkqL6cBL4l9l19gCR4SeCU5DS654vFYMS
-	 Dms8ba5NVnK0NUF6WpgZMx7kBSrcPIWrb6KbyDe2/FOhRTDxij5WMLJscwG+gx4b/K
-	 omEZW7lLI0J51CH0GmlVDDXB+XXanK/PvazJxkdpulYQFzjPGabj0It1T6BnL7b74d
-	 N3F8XFQu+CsRA==
-Date: Wed, 1 Apr 2026 17:07:57 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Sen Wang <sen@ti.com>
-Cc: linux-sound@vger.kernel.org, lgirdwood@gmail.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
-	perex@perex.cz, tiwai@suse.com, shenghao-ding@ti.com,
-	kevin-lu@ti.com, baojun.xu@ti.com, niranjan.hy@ti.com,
-	l-badrinarayanan@ti.com, devarsht@ti.com, v-singh1@ti.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] ASoC: codecs: Add TAS675x quad-channel audio
- amplifier driver
-Message-ID: <8eb47e54-12e1-4f92-a488-09485df035c6@sirena.org.uk>
-References: <20260401024210.28542-1-sen@ti.com>
- <20260401024210.28542-3-sen@ti.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rspx1OdJ"
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-2b4520f6b32so7990337eec.0
+        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 09:11:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1775059905; x=1775664705; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=iMl5RIQBcoAsWtIwo/RmJcT3IoyJkv4pCoZnoXhZT0k=;
+        b=rspx1OdJ+amBWmL2aOWQ1W9dz6725GF83pw51m3+pzjzfvH+HUxL46SoQDZfJJxN/U
+         8ieQcdLJJBAtxYRXRBVqYjd/F7BFl8wTxzYP/9Vz2UGcZMja0pOIqtXcaYqVVaIKlIfK
+         hQ//9nMFzjEo54iq6BiilD4n220MOXLxkOL4k20ZErkD6/aA/xv846yE26v7fdBg6t4b
+         3xMXv7WGT8+G0OtH3CS0hypuQla1Wg8wniUXWx+qQrWgO1NeWrcZjrxSRTucx5Yd7X2q
+         XCsVTWxbk4FhudxUawZjRgtkfcYUIlyWyUzbQeReKfaXDa+AL9gy9aQRiyiuIHNWye6a
+         1yJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775059905; x=1775664705;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=iMl5RIQBcoAsWtIwo/RmJcT3IoyJkv4pCoZnoXhZT0k=;
+        b=pAmW7HQaNw5Opm9iylBAQlz3CNinHG0yZQrHM19CkLdGZKNCkTNouHxHrYdnSmSCpq
+         E/vk6Zjx3EjfsDTFIwPIw7FoahkEEB0R3TVmezHpunwB5t3HKC14pW8bMVQ8DAfgtOD4
+         rZUGOPOt9zlY+VgDIzq/alDKSdUoh3fwEzu8CkQHQNNL2gJiJKnt2ZfXVv4bAfFmqEId
+         Whtp5COtg4hbtnOfBELntn3kUkgIxOVYfSfonMy/Xl51DOAQ2mYCDD+Kqm7Z+8TAsdoj
+         ju2oykCMjgT1po0nrAHfL7ieACKpP0k0P4RColHcUei3YsAHdgpbDTYy3/lVudqdfkTd
+         h/8Q==
+X-Forwarded-Encrypted: i=1; AJvYcCWh60OL37YGnHpBQ/Bs6kwLQ8yzPWweId/OGUNUAUR4OBrYaX1vbyOtgOhVuP0ztq3FIEbbESt9Ron2@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw59F7mU3RsfhuFujqA/zEpQs5EF4uMCFcOyoeURZJ0r9CSFjG+
+	nJDGoI3953qrRXmPFUPJlBRxY7qNIZb/VvTADMY6OCLFrhT1HTb7kq9M
+X-Gm-Gg: ATEYQzzTza0OVnQkiwj16ElK/6xAd//TYMHnMoWq/WFpTijWKFMPbWmm4cnxp/4Vrwj
+	CNjBbq3r86o7osLg0WHTDLQr37vb7CbMs/5i3qex94X5isI+iz3wMXiij/4KDNdEOc083siBTwl
+	gMWxRySU4DIMxhOvt8Y2W3gRnFVDEZK0zfrp7PnRuVj7Gza23paZ8/92dqsQlsSW905tugoZDsh
+	RXRI2yiIGAUt/Jwv5QNPVGo7IeCl5ZdVFXLf1FQSiTwToJlW3QGdowoONzBYuq1geodRD8dnuHV
+	y3fYhtb2w/s7TeFLWiUP0grLCN3xQBXitFT1P+ADp9l7XqpcYR8Rdqkg3EGY8f1jPkuE/V9Hdzs
+	8XASOHH8qPuSnST2OmvKpUctVv2jM9SJz2YqMLeMLsiYLcd33A3xY6cOf2ZYxbEH1aDE+imTmT/
+	G0OJs+HWh/xdYy3lxVkwXFYGx8ksz82VEAmbD5wOTDL8QiWK6/LXOa3GMKVU2qWJ7pZI7GnzeBh
+	24=
+X-Received: by 2002:a05:7300:ed0e:b0:2c3:d51b:91c4 with SMTP id 5a478bee46e88-2c930e6b8b1mr2353682eec.7.1775059905279;
+        Wed, 01 Apr 2026 09:11:45 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:5f38:4c97:ec41:caa0])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2ca7cf1271asm139156eec.26.2026.04.01.09.11.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 01 Apr 2026 09:11:44 -0700 (PDT)
+Date: Wed, 1 Apr 2026 09:11:41 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Luca Weiss <luca.weiss@fairphone.com>
+Cc: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v4 3/4] Input: aw86938 - add driver for Awinic AW86938
+Message-ID: <ac1DclNOl3ZA5bUg@google.com>
+References: <20260302-aw86938-driver-v4-0-92c865df9cca@fairphone.com>
+ <20260302-aw86938-driver-v4-3-92c865df9cca@fairphone.com>
+ <aae7fRYaoDHMptyu@google.com>
+ <DHHWDE7QEOTO.1AQ85UBLO8IQG@fairphone.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6Krvfc3UkUAr2EV/"
-Content-Disposition: inline
-In-Reply-To: <20260401024210.28542-3-sen@ti.com>
-X-Cookie: "Yo baby yo baby yo."
-
-
---6Krvfc3UkUAr2EV/
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <DHHWDE7QEOTO.1AQ85UBLO8IQG@fairphone.com>
 
-On Tue, Mar 31, 2026 at 09:42:07PM -0500, Sen Wang wrote:
+On Wed, Apr 01, 2026 at 04:44:47PM +0200, Luca Weiss wrote:
+> Hi Dmitry,
+> 
+> On Wed Mar 4, 2026 at 5:56 AM CET, Dmitry Torokhov wrote:
+> > On Mon, Mar 02, 2026 at 11:50:27AM +0100, Griffin Kroah-Hartman wrote:
+> >> Add support for the I2C-connected Awinic AW86938 LRA haptic driver.
+> >> 
+> >> The AW86938 has a similar but slightly different register layout. In
+> >> particular, the boost mode register values.
+> >> The AW86938 also has some extra features that aren't implemented
+> >> in this driver yet.
+> >> 
+> >> Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+> >
+> > Applied, thank you.
+> 
+> I'm curious, where did you apply these patches? linux-next doesn't have
+> it and I don't see it in your kernel.org repo either.
+> https://git.kernel.org/pub/scm/linux/kernel/git/dtor/input.git/
+> 
+> Did this slip through the cracks or will these patches still appear
+> there?
 
-> The TAS675x (TAS6754, TAS67524) are quad-channel, digital-input
-> Class-D amplifiers with an integrated DSP, controlled over I2C.
-> They support I2S and TDM serial audio interfaces.
+My bad, I think there was a conflict with Dan Carpenter's patch and as a
+result the series got stuck in my internal queue. My apologies.
 
-> +static int tas675x_dapm_sleep_event(struct snd_soc_dapm_widget *widget,
-> +				    struct snd_kcontrol *kcontrol, int event)
-> +{
-> +	struct snd_soc_component *component = snd_soc_dapm_to_component(widget->dapm);
-> +	int ret = 0;
-> +
-> +	switch (event) {
-> +	case SND_SOC_DAPM_POST_PMU:
-> +		ret = pm_runtime_resume_and_get(component->dev);
-> +		break;
-> +	case SND_SOC_DAPM_PRE_PMD:
-> +		pm_runtime_mark_last_busy(component->dev);
-> +		pm_runtime_put_autosuspend(component->dev);
-> +		break;
-> +	}
-> +	return ret < 0 ? ret : 0;
-> +}
+Should be out in 'next' branch now.
 
-I'm confused what's going on here, there's runtime PM management in the
-ASoC core - isn't this just duplicating what's there?
+Thanks.
 
-> +static int tas675x_runtime_resume(struct device *dev)
-> +{
-
-> +       if (!to_i2c_client(dev)->irq)
-> +               schedule_delayed_work(&tas->fault_check_work,
-> +                                     msecs_to_jiffies(TAS675X_FAULT_CHECK_INTERVAL_MS));
-
-This is the only place where we start the fault checking but runtime PM
-can be disabled in configuration and we also start runtime PM in the
-active state so potentially might never suspend and resume.  probe()
-should kick off the work as well.
-
-> +static int tas675x_init_device(struct tas675x_priv *tas)
-> +{
-> +	struct regmap *regmap = tas->regmap;
-> +	unsigned int val;
-> +	int ret, i;
-> +
-> +	/* Clear POR fault flag to prevent IRQ storm */
-> +	regmap_read(regmap, TAS675X_POWER_FAULT_LATCHED_REG, &val);
-
-
-> +static int tas675x_i2c_probe(struct i2c_client *client)
-> +{
-
-> +	if (client->irq) {
-> +		ret = devm_request_threaded_irq(tas->dev, client->irq, NULL,
-> +						tas675x_irq_handler,
-> +						IRQF_ONESHOT | IRQF_TRIGGER_FALLING,
-> +						"tas675x-fault", tas);
-> +		if (ret)
-> +			return dev_err_probe(tas->dev, ret, "Failed to request IRQ\n");
-> +	}
-
-We request the interrupt here...
-
-> +	INIT_DELAYED_WORK(&tas->fault_check_work, tas675x_fault_check_work);
-
-> +	ret = tas675x_power_on(tas);
-> +	if (ret)
-> +		return ret;
-
-...before we do _power_on() which is what calls _hw_init() and clears any
-faults that were latched in the registers.  This means that if there is
-something there we'll handle it through the normal interrupt handling
-flow and the rest won't buy is much, probably better to reorder the init
-vs the interrupt request.
-
---6Krvfc3UkUAr2EV/
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnNQtwACgkQJNaLcl1U
-h9DEZgf+JmeogiHBNBqjFfUuOhJrTON5+mFF7hOVQfKBu9BY+B38erPJbUHdDG09
-SieFXCx3Unz3J/GpJpszArF4KH7B9fBfpCkCGzhlhs3tPRFVFG4mO+L9OX+DfDG5
-qzonRXx6T+gIhIewRMtwCiAJJnXR0Gw/qqtLJGhQQfqQFpXETK/Pwrq1eipF7CWh
-aYcRkZd4lQjdxdknUGP/KTC/govAq+0KS5XYDkQkX+zKxsOw2tBsNz2JgB4Cdj4v
-rkf4AM4G3g51yIvmjerUjlgxK8WVOm6w96ThZVN5hZXr5B0qaOiIuEAs8DV88FDi
-V6DR47In130joJMHqrfZFIRZBaR9Hw==
-=hPV1
------END PGP SIGNATURE-----
-
---6Krvfc3UkUAr2EV/--
+-- 
+Dmitry
