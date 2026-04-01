@@ -1,116 +1,143 @@
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39A3B3CAE6A
-	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 16:11:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775059907; cv=none; b=GWqclw0tep1/0U04KfE5yr/NuMHGh0joUJKw0A9Y1q1xnLW4FmuH2y3sv3aIzbkQZJ6KPH2/mJLPbAHNIVrcfj1/RdONA/6UruOb+VZVg7ZJaB7pVl0TcO4BVxIFaTaXqSObMEApxcjP9UnoUUJLm3aaqLEnI+vDkj7IqbdaKPM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775059907; c=relaxed/simple;
-	bh=Lll5oR6Qy//fClu5g8F3P8kwsGrz/Ee9mZz01vlvygw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=f2i+C08vysYzddYKVRzsyQUZco013WbVR0PFMoJdxmM8zEin1pVzN3KBShMtNpgGlMIO2hV0lekProRERivNglc8Xr3y07n8U33E8I32sudR0lpEo0ca+b9YmZeX5uaiq3DKcr3smifNfqgDMZCWUO7z5pm9W3P5gzwKciA+IaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rspx1OdJ; arc=none smtp.client-ip=74.125.82.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69DE42E1746
+	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 16:16:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775060221; cv=pass; b=bFiNIa1KIhN8AAUZvF1nyIxto2h9UYrJCq5cL+N+h3KThAaUL5uQ7BmorvPFCHx/crv2yZ/9RR2SUucv8tfvn/b5K0PuFD9byJaSNjSylKLEBjcEcTtd30gMS5XYLRLryfu8jkC+VXcONRgbjIATEoXTxjd74wW2eGjlUFzLbh4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775060221; c=relaxed/simple;
+	bh=a/No3osBtbawF2T+IZ92AuftGjU7MOdhwCol+iFX+ig=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ckRmEVRzQ7gkOhvohMJQ4AFpLmZ7t4Ve2o4toY1+wxV1t3HWqA2J7pA2bmb4czMuCuUCrgDOYxq6Qi3bVrU8lmnxURD0rjvzzdb0bl3S1DMqkmlfCgWH56r7IYqOeyOfS5EU3AEm+Bf5KUeux+xi0ppUwyYSLIRRwCMcuq6VhgM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=IjpvaFkm; arc=pass smtp.client-ip=74.125.224.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rspx1OdJ"
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-2b4520f6b32so7990337eec.0
-        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 09:11:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="IjpvaFkm"
+Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-64937edbc9eso8992679d50.2
+        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 09:16:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775060218; cv=none;
+        d=google.com; s=arc-20240605;
+        b=VG+WHrUZf2iifUibzFRRH5zuz+pN/0ubCmjOfS/VhSvDC5kb88c4N4LtsUirE7GyzS
+         MimOCgqWq1AA6PJZnoj2/X28E6gt8KBS39rgGf17I/d1nOvA+OZEaAAEjEWK8z6GAxk2
+         B7ywM/jWvgUyZC4pQjxBVCAyuWsztbQEQoTMiEb63gArQKUfD4CDcTW0rDEuY/zkZIue
+         AR5GO+Jb6Yt9uFf88WjqBxYnh/v7oYjoizFJN2+oSkfFhFJ9Q/8DjVS/zrfth/1hWBPi
+         A4Z0cO2Mc749kQhEi4/dvzaHu/VpUv24+wHvcCKFEe/cKz8doAlgjiKE5tl/8SJPtsdw
+         ZOAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0avH1+SOLHp/H4tdAtDn9dqoZRCCz/pmxrxGL/52XWY=;
+        fh=SO92DSd/JbKBx6bZBzA6Mjx45n3PS9tYjc8ubDfZm0o=;
+        b=OIB40H5JBk08ooO/zy2o5y9xJWVFuWJJaQB37e4r+p4z+WxrrNwOaxmU8iTec6uE8f
+         p0choqNLTEbU9wOVX7cyKlORBZSgLYy/Za3YDF/+t0N9dV0Z+satl618rm6cEMzAa557
+         nNt9GqWQEB+GiwqBtJmolUij3nFPDiAUy7+AYLf34lFSkbL5dGNczXrzI+MYyTWIGmRZ
+         6ji1KOzeIPXzws3KPgqTlz4eAb4G7JpWJR9X+cnGqR4kUqUwSoBgbYBT35Psw8OG48bW
+         bLUTSqOnkDOqaJqUgSIdg99wYwgExxbu2rYU1I9nk9k5oXDtJRU0hzbodBedJBb60NkQ
+         4Ypg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775059905; x=1775664705; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=iMl5RIQBcoAsWtIwo/RmJcT3IoyJkv4pCoZnoXhZT0k=;
-        b=rspx1OdJ+amBWmL2aOWQ1W9dz6725GF83pw51m3+pzjzfvH+HUxL46SoQDZfJJxN/U
-         8ieQcdLJJBAtxYRXRBVqYjd/F7BFl8wTxzYP/9Vz2UGcZMja0pOIqtXcaYqVVaIKlIfK
-         hQ//9nMFzjEo54iq6BiilD4n220MOXLxkOL4k20ZErkD6/aA/xv846yE26v7fdBg6t4b
-         3xMXv7WGT8+G0OtH3CS0hypuQla1Wg8wniUXWx+qQrWgO1NeWrcZjrxSRTucx5Yd7X2q
-         XCsVTWxbk4FhudxUawZjRgtkfcYUIlyWyUzbQeReKfaXDa+AL9gy9aQRiyiuIHNWye6a
-         1yJg==
+        d=linaro.org; s=google; t=1775060218; x=1775665018; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=0avH1+SOLHp/H4tdAtDn9dqoZRCCz/pmxrxGL/52XWY=;
+        b=IjpvaFkmeMl/HsUTgxMHafFnnYEnoKxrnwhKd4HaHm+pUXM8mmbg/aJJWYfbaJN8M0
+         jIDzT2c6/OKxFb0jVfwxF9S4kMxo2fw5mJ2W2sR3MtL9nvF1nJaWZutdDavCnmceACBu
+         VVpFCnrKh5NgI93QGFegvKsgMCUgaNKjy16+9jwJiyA9UMQi+NXYNguVRPGfXcu9Uafn
+         VENWmmvwkhoBMHbKBgQ1hhj2x9RNdppgTQQzyk1CgD74LGR/kszWC5qVb5nVGYAmIkRV
+         spXbIf2izDbaQaxRV0cvrOiFP7s9rr3w04oOQTOGb6dSYtBb05S0HY0lnBPxukjS8+w7
+         CYpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775059905; x=1775664705;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=iMl5RIQBcoAsWtIwo/RmJcT3IoyJkv4pCoZnoXhZT0k=;
-        b=pAmW7HQaNw5Opm9iylBAQlz3CNinHG0yZQrHM19CkLdGZKNCkTNouHxHrYdnSmSCpq
-         E/vk6Zjx3EjfsDTFIwPIw7FoahkEEB0R3TVmezHpunwB5t3HKC14pW8bMVQ8DAfgtOD4
-         rZUGOPOt9zlY+VgDIzq/alDKSdUoh3fwEzu8CkQHQNNL2gJiJKnt2ZfXVv4bAfFmqEId
-         Whtp5COtg4hbtnOfBELntn3kUkgIxOVYfSfonMy/Xl51DOAQ2mYCDD+Kqm7Z+8TAsdoj
-         ju2oykCMjgT1po0nrAHfL7ieACKpP0k0P4RColHcUei3YsAHdgpbDTYy3/lVudqdfkTd
-         h/8Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWh60OL37YGnHpBQ/Bs6kwLQ8yzPWweId/OGUNUAUR4OBrYaX1vbyOtgOhVuP0ztq3FIEbbESt9Ron2@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw59F7mU3RsfhuFujqA/zEpQs5EF4uMCFcOyoeURZJ0r9CSFjG+
-	nJDGoI3953qrRXmPFUPJlBRxY7qNIZb/VvTADMY6OCLFrhT1HTb7kq9M
-X-Gm-Gg: ATEYQzzTza0OVnQkiwj16ElK/6xAd//TYMHnMoWq/WFpTijWKFMPbWmm4cnxp/4Vrwj
-	CNjBbq3r86o7osLg0WHTDLQr37vb7CbMs/5i3qex94X5isI+iz3wMXiij/4KDNdEOc083siBTwl
-	gMWxRySU4DIMxhOvt8Y2W3gRnFVDEZK0zfrp7PnRuVj7Gza23paZ8/92dqsQlsSW905tugoZDsh
-	RXRI2yiIGAUt/Jwv5QNPVGo7IeCl5ZdVFXLf1FQSiTwToJlW3QGdowoONzBYuq1geodRD8dnuHV
-	y3fYhtb2w/s7TeFLWiUP0grLCN3xQBXitFT1P+ADp9l7XqpcYR8Rdqkg3EGY8f1jPkuE/V9Hdzs
-	8XASOHH8qPuSnST2OmvKpUctVv2jM9SJz2YqMLeMLsiYLcd33A3xY6cOf2ZYxbEH1aDE+imTmT/
-	G0OJs+HWh/xdYy3lxVkwXFYGx8ksz82VEAmbD5wOTDL8QiWK6/LXOa3GMKVU2qWJ7pZI7GnzeBh
-	24=
-X-Received: by 2002:a05:7300:ed0e:b0:2c3:d51b:91c4 with SMTP id 5a478bee46e88-2c930e6b8b1mr2353682eec.7.1775059905279;
-        Wed, 01 Apr 2026 09:11:45 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:5f38:4c97:ec41:caa0])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2ca7cf1271asm139156eec.26.2026.04.01.09.11.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Apr 2026 09:11:44 -0700 (PDT)
-Date: Wed, 1 Apr 2026 09:11:41 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Luca Weiss <luca.weiss@fairphone.com>
-Cc: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v4 3/4] Input: aw86938 - add driver for Awinic AW86938
-Message-ID: <ac1DclNOl3ZA5bUg@google.com>
-References: <20260302-aw86938-driver-v4-0-92c865df9cca@fairphone.com>
- <20260302-aw86938-driver-v4-3-92c865df9cca@fairphone.com>
- <aae7fRYaoDHMptyu@google.com>
- <DHHWDE7QEOTO.1AQ85UBLO8IQG@fairphone.com>
+        d=1e100.net; s=20251104; t=1775060218; x=1775665018;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=0avH1+SOLHp/H4tdAtDn9dqoZRCCz/pmxrxGL/52XWY=;
+        b=tGbOSOCY6hCC3jQQUpuDWUrznAVNY2AruBqP/gutb04qv6U1zxD1PGdDbLgen2fQQX
+         QqJtbMifcABNroH+QQfpEay0CR3ttEp2seKYmrMv1Fmmwt7MDOG9cvbeza57F7eN36X/
+         Z7TWQAdIJd4I3fL1qq0C0D/Jka/AaK5QkT4U9/nAXNlYJFesdPTT0JBvqCOtxIcEIUUt
+         PEcuaZTtkrwJCOjJaVFw4BBf5fNBpAM5va3Tgm2Y5WDPbBcySdYHD3W5rCwph1eorbhk
+         biETNxG7PybHgJvB06ycFCFtOuH9OJr9bABGNd9LCnWuj7mhRU0yjQ+7CzjeVY8T+efS
+         q3dw==
+X-Forwarded-Encrypted: i=1; AJvYcCXPQPeaFR8RmwZojLVe/hVrm8MskqxanFm0eK6TNIk6BHAlRvPAxiFwwS+BinOZk9sOOt97agSgQwmB@vger.kernel.org
+X-Gm-Message-State: AOJu0YxrnMfaJo6M70F6+qhDVC1MQetM+e3UNsRo3OsdLzDsK6mLQtyO
+	7mZDFJ2eSVp7pIRK8A43fTe8OEcsIBaBWGbQNfYOMsrdLhHm/rEyRT0iP2G7azxQfXnL2ISJlQ9
+	l4VS7f9YUwY7U8BBaITvkSZVs/HOoOSg4ADFwMREmSQ==
+X-Gm-Gg: ATEYQzzjmm3uvXyoJlAlcPR9dKHJS5sIitj5rlFQo9M/kMLmLKDojWbBCg2eHoNrInc
+	I6mfhgTp09X5nCXnR9k9E35m6dnHuuaXmMn4zo6/WI1rJDbmJv/MqVq5Bp2jjIykOXxYJDczkS+
+	WcdUbRLXZuWGwBJB2+jUsFAQ3e1xXDMpnqsxikNy9JTUcjVfiPopH1eWOsGHwcyCA1I8BkVrJJd
+	LpC81EoHXh/Hfv5AVkfFuFA0m/8qGqTs4h1V/8GgL0GMiqYt0F1CubtuqI6TPMPkRDpLG5fXAEL
+	t2IUs5FcPaNBi9E2oU7ajzKAx3nE/UQix1/c5pADlQ==
+X-Received: by 2002:a53:c608:0:b0:650:1247:fe35 with SMTP id
+ 956f58d0204a3-6502fe7c6famr3104408d50.58.1775060218141; Wed, 01 Apr 2026
+ 09:16:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DHHWDE7QEOTO.1AQ85UBLO8IQG@fairphone.com>
+References: <20260401-exynos850-cpuhotplug-v2-0-c5a760a3e259@linaro.org>
+ <20260401-exynos850-cpuhotplug-v2-6-c5a760a3e259@linaro.org> <f73173b4-f44a-4d01-abec-3366b6561332@kernel.org>
+In-Reply-To: <f73173b4-f44a-4d01-abec-3366b6561332@kernel.org>
+From: Sam Protsenko <semen.protsenko@linaro.org>
+Date: Wed, 1 Apr 2026 11:16:40 -0500
+X-Gm-Features: AQROBzDBnBQJcHuyu8ZHm384f9vOKocl3AGoLecw69PFxAPUA79-AuH9D6PxvHg
+Message-ID: <CAPLW+4=H_UkjwY2RJFPD9ekJh05MyuhKrymeuUYC4dX1WzF0wg@mail.gmail.com>
+Subject: Re: [PATCH v2 6/7] MAINTAINERS: add exynos850-pmu.c to Exynos850 entry
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Alexey Klimov <alexey.klimov@linaro.org>, linux-samsung-soc@vger.kernel.org, 
+	Peter Griffin <peter.griffin@linaro.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Apr 01, 2026 at 04:44:47PM +0200, Luca Weiss wrote:
-> Hi Dmitry,
-> 
-> On Wed Mar 4, 2026 at 5:56 AM CET, Dmitry Torokhov wrote:
-> > On Mon, Mar 02, 2026 at 11:50:27AM +0100, Griffin Kroah-Hartman wrote:
-> >> Add support for the I2C-connected Awinic AW86938 LRA haptic driver.
-> >> 
-> >> The AW86938 has a similar but slightly different register layout. In
-> >> particular, the boost mode register values.
-> >> The AW86938 also has some extra features that aren't implemented
-> >> in this driver yet.
-> >> 
-> >> Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Hi Krzysztof,
+
+On Wed, Apr 1, 2026 at 9:28=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.org=
+> wrote:
+>
+> On 01/04/2026 06:51, Alexey Klimov wrote:
+> > Update Exynos850 entry to include new file
+> > drivers/soc/samsung/exynos850-pmu.c. Add myself as M
+> > there.
 > >
-> > Applied, thank you.
-> 
-> I'm curious, where did you apply these patches? linux-next doesn't have
-> it and I don't see it in your kernel.org repo either.
-> https://git.kernel.org/pub/scm/linux/kernel/git/dtor/input.git/
-> 
-> Did this slip through the cracks or will these patches still appear
-> there?
+> > Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+> > ---
+> >  MAINTAINERS | 2 ++
+> >  1 file changed, 2 insertions(+)
+> >
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index e14e6f874e05..4b28e92b4d9b 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -23601,6 +23601,7 @@ F:    include/dt-bindings/clock/samsung,exynos2=
+200-cmu.h
+> >
+> >  SAMSUNG EXYNOS850 SoC SUPPORT
+> >  M:   Sam Protsenko <semen.protsenko@linaro.org>
+> > +M:   Alexey Klimov <alexey.klimov@linaro.org>
+>
+> I am surprised to see this because I did not find many reviews from your
+> side before.
+>
 
-My bad, I think there was a conflict with Dan Carpenter's patch and as a
-result the series got stuck in my internal queue. My apologies.
+It was me who advised Alexey to add himself on the list, as he's doing
+a lot of Exynos850 related work nowadays, and we expect him to
+continue doing that. If you think it's too early, let's get back to
+this once there are more patches submitted under his name.
 
-Should be out in 'next' branch now.
+Thanks!
 
-Thanks.
-
--- 
-Dmitry
+> Please first engage in reviewing of this platform, before assigning
+> yourself as a maintainer.
+>
+> Best regards,
+> Krzysztof
