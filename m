@@ -1,261 +1,174 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78E812D6E64;
-	Wed,  1 Apr 2026 14:56:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56BCC3E51EF;
+	Wed,  1 Apr 2026 14:57:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775055386; cv=none; b=QBvdXcGjGBSTMNh17MajnIME275yq/qODFjmACF7Ks0pSSFQky7SyVDTtFMXmDfl62Ms7AbcVVCEOZFvy0uQPcmlm93WwUP7l/NsqEb+DfDx+Mc6aymcZfMBJZ7TjDhmgMhWu18HU2K7Dv7d5FLwD2G5Qt7Dfsmj6ydfkRhrQXs=
+	t=1775055436; cv=none; b=Y9Kto3UtjquX0HOZf87qbKcBAsWvIXxyd95YTwvsUNljjMEIfTLymr0Rm+SS5oLB0xu3h6AEFa2FMOmIy+/dAPM9p6CquWJpj+qfETxlP/jXcENAVscXDTDYJQj0yCNZk19UyGODaO4yIOTly+N31QiSW3vVYPTzk3apQRGRTWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775055386; c=relaxed/simple;
-	bh=Na6QdVzB5X2Njts1Jk0JMdNAgFhIRwHXWM8X6NO+KEg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZyX1wEUTBpAyHYeLRvMgg8cWIGetYpRJgX0C4h9lTT4frmUeNAhnywwzvO+bfWQq1u17CKI4EAi7cDVUl9TqHjkFTmA6pQ4E4p9KrsrW4HebQDaDWynqFo8RKhBo2w9t4lEX3DIEg1w9wTFAKRcKBXoSQ+9NIVyI+gYhN4XV+eY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MwQztQN0; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1775055436; c=relaxed/simple;
+	bh=goYJAE4V/aRa469NxUYIKQv+2HyvaoEYvg25hMztnW0=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=ggQesaUhmYvPn6DrKNfCJXb39kxHxj1Y/XysoDAFdMVduff8BV2Fmi4KLeqiifi/MLzIutUS5rsS/0d/Elb4kuf9bDbyCJWBMO6tDwULKnojMOTqlX+AImM3a4BzDQZqlXdsltZkS+SDo5QOpgMbSsCvj7qjBw8LgPBDbgDugdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=EBdBmhy8; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=NfWaPNdV; arc=none smtp.client-ip=103.168.172.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MwQztQN0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1775055384; x=1806591384;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Na6QdVzB5X2Njts1Jk0JMdNAgFhIRwHXWM8X6NO+KEg=;
-  b=MwQztQN04hfs5ff9Wl0VFRriFldhqv7+J1Otv5u1yikc5aoyiw5/AS4X
-   KY+5qr0NU0jdmP0lfXqv2NbtmUbG7KZKk4G8NZHkMZpbR3QzjieJWUX+Y
-   0Fm4Ca6C3JCnPWtPgI6sz8SEX+4Xiy1vs1BVYyjCearFzLh5iBRhjXWkp
-   Ft2EOCe6l2x5XRx4KaZ9Qs4V9ReNguXyZujGD60ak330tY/K9c36x4aJb
-   JWpyMPVmA1Foj6sPhyMYOShsEIWZ0tar1mNp60g4ZIhXMttmMo2wg4Fda
-   B77MfQvHUNMEQ0pMCjD0z171QJl8B0b18TetjrSPebuwlQbtDdgCsI6Uv
-   w==;
-X-CSE-ConnectionGUID: 45DUvV8GQJanttY+OQM6rg==
-X-CSE-MsgGUID: knTddtNhQ46xpeHxoV3bDg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11745"; a="87554721"
-X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; 
-   d="scan'208";a="87554721"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Apr 2026 07:56:24 -0700
-X-CSE-ConnectionGUID: yLmvNsUbT6ubf/xvDNtHvw==
-X-CSE-MsgGUID: ZRnN5pVnQGavXQ8dqJC13A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; 
-   d="scan'208";a="228315258"
-Received: from abityuts-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.215])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Apr 2026 07:56:20 -0700
-Date: Wed, 1 Apr 2026 17:56:17 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] iio: dac: ad5706r: Add support for AD5706R DAC
-Message-ID: <ac0yEfGzqsbkZh86@ashevche-desk.local>
-References: <20260401-dev_ad5706r-v4-0-a785184a8d53@analog.com>
- <20260401-dev_ad5706r-v4-2-a785184a8d53@analog.com>
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="EBdBmhy8";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="NfWaPNdV"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.phl.internal (Postfix) with ESMTP id 881C3EC0268;
+	Wed,  1 Apr 2026 10:57:13 -0400 (EDT)
+Received: from phl-imap-02 ([10.202.2.81])
+  by phl-compute-04.internal (MEProxy); Wed, 01 Apr 2026 10:57:13 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1775055433;
+	 x=1775141833; bh=wx9uFPxK7aoYVYlvEoqTCO23k72vx9XaFJAGMTz8G/k=; b=
+	EBdBmhy8ush2I8l5uv7vjLGXV75AY92vQWxjmCPyEYY8SJ83SQnF3L14Vicw51NQ
+	FF7gvwNjihLBoZoPAPfH5I3LfsQ0KNJogIRzsAbTWdU+XGuKF751BZaLASMT/tAj
+	hR4TXU5NmhLWaOyIcbiSQ7m9J3rFx/MuuZoY5pTi2MM6a6SZT3kgblN+gL+k8sym
+	j1nf9P/WSt2jGzIfYHTJL1ngpouJ0DKSSsYSBYAQvmV6uNruDtGa/LH+fs7jo8Cm
+	+6tQJtuy0aGgC7A6EA6QHZcXqrgzaJUmJJBuxN+CXI/lO9b2jXbXvFnaymzD9UE4
+	digK44vT3m53pAZJAr7ukw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1775055433; x=
+	1775141833; bh=wx9uFPxK7aoYVYlvEoqTCO23k72vx9XaFJAGMTz8G/k=; b=N
+	fWaPNdVuR1mCv/d2Wu5O8fNJtzKsmx6tfjmxEShfy+qyzQ7kTBBXp2hg1yGjVQoL
+	IRIxSfEux4jgrb9kGa3ix5DTfQnIuohbJN9tvl4c7B/4TH/CoAprnh7wkK5hvpXu
+	NalbROKZrhJkP+TM0HMNh4jkY3n27VoYFZkg5HpLfBKLeOE2ndyutLKepeeo9qtz
+	49h9PsCzlfz1mXQouLensFZ4a83AMHVLvh0lnDzK38p42B7Ka1K8n/pgTTCNPJhv
+	1kD3AM2BuD6wKS7mc9tJGAAZopAOssvGg0Lo59k118uYXuBEr1a7swGiSKjGH1w+
+	EDr3p8a4QXq0j1uWSaVLQ==
+X-ME-Sender: <xms:SDLNafoWFO00-QQIK3gpd96_o3xq4ItpLl-cGJxwCcpDOyoK17MZLw>
+    <xme:SDLNaUc4OdTKOi__4sC0iCw1NVGbCfWje7trf88s1EVGpoQmCDsWMJFLkI4_wk31L
+    KxmDBnHR9wYHgqh5VxwEiBmuOsalQvbRcXgIFGCFMjrY8aFr1jTyNQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdefgedvucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceurghi
+    lhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurh
+    epofggfffhvfevkfgjfhfutgfgsehtjeertdertddtnecuhfhrohhmpedftehrnhguuceu
+    vghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrdguvgeqnecuggftrfgrthhtvghrnh
+    ephfdthfdvtdefhedukeetgefggffhjeeggeetfefggfevudegudevledvkefhvdeinecu
+    vehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprghrnhguse
+    grrhhnuggsrdguvgdpnhgspghrtghpthhtohepvdekpdhmohguvgepshhmthhpohhuthdp
+    rhgtphhtthhopehsohhuvhhikhdrtghhrghkrhgrvhgrrhhthiesrghrmhdrtghomhdprh
+    gtphhtthhopehmrghrkhdrrhhuthhlrghnugesrghrmhdrtghomhdprhgtphhtthhopehf
+    lhhorhhirghnrdhfrghinhgvlhhlihessghrohgruggtohhmrdgtohhmpdhrtghpthhtoh
+    epmhhorhhithiirdhfihhstghhvghrsegvthhtuhhsrdgtohhmpdhrtghpthhtohepmhgr
+    thhthhhirghsrdgsghhgsehgmhgrihhlrdgtohhmpdhrtghpthhtoheprghnuggvrhhssh
+    honheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepsghrghhlsehkvghrnhgvlhdrohhr
+    ghdprhgtphhtthhopegtohhnohhrodgutheskhgvrhhnvghlrdhorhhgpdhrtghpthhtoh
+    epkhhonhhrrgguhigstghioheskhgvrhhnvghlrdhorhhg
+X-ME-Proxy: <xmx:SDLNaRsQoJjEHEh6BjlT9J7fg0cDlw67Z6gzAFTSrS7tQgpPXwwm1w>
+    <xmx:SDLNaSMRCb2AGtL3ZwYrT-br7Fx6lQyFnd7p-gywCyVnBCDgQ2cCUg>
+    <xmx:SDLNaTXk96uxoMM2wYMUw7wCd0aeCKnui6e1E129kqAWwmSbEexovg>
+    <xmx:SDLNaSjKAkD7DqhFGGw036g2Y6NYQaDPd7Qzm4IkKkNtZHXSx_q8Sw>
+    <xmx:STLNacH8t54amPEHZvYFE30Eb81SbY22TSlc7KrXA6P9Jw3Oq9jPahOH>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id BB713700065; Wed,  1 Apr 2026 10:57:12 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260401-dev_ad5706r-v4-2-a785184a8d53@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-ThreadId: ALgIkaxq5xRN
+Date: Wed, 01 Apr 2026 16:56:49 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Lorenzo Pieralisi" <lpieralisi@kernel.org>,
+ "Shivendra Pratap" <shivendra.pratap@oss.qualcomm.com>
+Cc: "Bjorn Andersson" <andersson@kernel.org>,
+ "Sebastian Reichel" <sre@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Souvik Chakravarty" <Souvik.Chakravarty@arm.com>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Andy Yan" <andy.yan@rock-chips.com>,
+ "Matthias Brugger" <matthias.bgg@gmail.com>,
+ "Mark Rutland" <mark.rutland@arm.com>,
+ "Conor Dooley" <conor+dt@kernel.org>,
+ "Konrad Dybcio" <konradybcio@kernel.org>,
+ "John Stultz" <john.stultz@linaro.org>,
+ "Moritz Fischer" <moritz.fischer@ettus.com>,
+ "Bartosz Golaszewski" <brgl@kernel.org>,
+ "Sudeep Holla" <sudeep.holla@kernel.org>,
+ "Florian Fainelli" <florian.fainelli@broadcom.com>,
+ "Krzysztof Kozlowski" <krzk@kernel.org>,
+ "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>,
+ "Mukesh Ojha" <mukesh.ojha@oss.qualcomm.com>,
+ =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
+ "Kathiravan Thirumoorthy" <kathiravan.thirumoorthy@oss.qualcomm.com>,
+ linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, "Srinivas Kandagatla" <srini@kernel.org>
+Message-Id: <f6ed07b1-8bfc-49ea-951e-b590bf8b299a@app.fastmail.com>
+In-Reply-To: <ac0trUGsRBLPS+ux@lpieralisi>
+References: 
+ <20260304-arm-psci-system_reset2-vendor-reboots-v20-0-cf7d346b8372@oss.qualcomm.com>
+ <20260304-arm-psci-system_reset2-vendor-reboots-v20-6-cf7d346b8372@oss.qualcomm.com>
+ <acaMPgRALnoUIHMC@lpieralisi>
+ <93a78bc2-4fd1-41bd-bf4a-b433b06fc218@oss.qualcomm.com>
+ <ac0trUGsRBLPS+ux@lpieralisi>
+Subject: Re: [PATCH v20 06/10] power: reset: Add psci-reboot-mode driver
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Wed, Apr 01, 2026 at 06:20:04PM +0800, Alexis Czezar Torreno wrote:
-> Add support for the Analog Devices AD5706R, a 4-channel 16-bit
-> current output digital-to-analog converter with SPI interface.
-> 
-> Features:
->   - 4 independent DAC channels
->   - Hardware and software LDAC trigger
->   - Configurable output range
->   - PWM-based LDAC control
->   - Dither and toggle modes
->   - Dynamically configurable SPI speed
+On Wed, Apr 1, 2026, at 16:37, Lorenzo Pieralisi wrote:
+> On Tue, Mar 31, 2026 at 11:30:09PM +0530, Shivendra Pratap wrote:
+>> 
+>> > > +#include <linux/err.h>
+>> > > +#include <linux/of.h>
+>> > > +#include <linux/psci.h>
+>> > > +#include <linux/reboot.h>
+>> > > +#include <linux/reboot-mode.h>
+>> > > +#include <linux/types.h>
+>> > > +
+>> > > +/*
+>> > > + * Predefined reboot-modes are defined as per the values
+>> > > + * of enum reboot_mode defined in the kernel: reboot.c.
+>> > > + */
+>> > > +static struct mode_info psci_resets[] = {
+>> > > +	{ .mode = "warm", .magic = REBOOT_WARM},
+>> > > +	{ .mode = "soft", .magic = REBOOT_SOFT},
+>> > > +	{ .mode = "cold", .magic = REBOOT_COLD},
+>
+> These strings match the command userspace issue right ? I think that we
+> should make them match the corresponding PSCI reset types, the list above
+> maps command to reboot_mode values and those can belong to any reboot
+> mode driver to be honest they don't make much sense in a PSCI reboot
+> mode driver only.
+>
+> It is a question for everyone here: would it make sense to make these
+> predefined resets a set of strings, eg:
+>
+> psci-system-reset
+> psci-system-reset2-arch-warm-reset
+>
+> and then vendor resets:
+>
+> psci-system-reset2-vendor-reset
+>
+> at least we know what a string maps to ?
+>
+> We can export a function from the PSCI driver to detect whether PSCI
+> SYSTEM_RESET2 is supported, an equivalent of psci_has_osi_support() for
+> instance that we can call from this driver to detect its presence.
 
-...
+Sorry I've been out of the loop for this series for a while, but
+can someone refresh me on why we got back to mixing in
+the 'enum reboot_mode' from legacy i386 and arm32 into the new
+interface?
 
-> ---
-> Changes since v1:
->   - Removed PWM, GPIO, clock generator, debugfs, regmap, IIO_BUFFER
->   - Removed all custom ext_info sysfs attributes
->   - Simplified to basic raw read/write and read-only scale
->   - SPI read/write can handle multibyte registers
-> ---
+I don't mind having whichever strings are defined for PSCI present
+in the user interface, but this seems like a mistake to me.
+If at all possible, lets define your own magic constants that
+are not tied to "enum reboot_mode" or the legacy reboot= command
+line argument.
 
-A bit confusing to have this changelog w/o having v3..v4 ones.
-
-...
-
-> +config AD5706R
-> +	tristate "Analog Devices AD5706R DAC driver"
-> +	depends on SPI
-
-Shouldn't you select REGMAP?
-
-> +	help
-> +	  Say yes here to build support for Analog Devices AD5706R 4-channel,
-> +	  16-bit current output DAC.
-> +
-> +	  To compile this driver as a module, choose M here: the
-> +	  module will be called ad5706r.
-
-...
-
-> +#include <linux/array_size.h>
-> +#include <linux/bits.h>
-
-> +#include <linux/device.h>
-
-Not used, but dev_printk.h is missing.
-
-> +#include <linux/dma-mapping.h>
-> +#include <linux/err.h>
-
-> +#include <linux/errno.h>
-
-No need (in most cases) when err.h is included.
-
-> +#include <linux/iio/iio.h>
-> +#include <linux/minmax.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/module.h>
-> +#include <linux/regmap.h>
-> +#include <linux/spi/spi.h>
-> +#include <linux/string.h>
-> +#include <linux/types.h>
-> +#include <linux/unaligned.h>
-
-Based on the above comments, please revisit the header block.
-
-...
-
-> +struct ad5706r_state {
-> +	struct spi_device *spi;
-> +	struct regmap *regmap;
-> +
-> +	u8 tx_buf[4] __aligned(ARCH_DMA_MINALIGN);
-
-Don't we have specific IIO macro for that?
-
-> +	u8 rx_buf[4];
-> +};
-
-...
-
-> +static int ad5706r_regmap_write(void *context, const void *data, size_t count)
-> +{
-> +	struct ad5706r_state *st = context;
-> +	unsigned int num_bytes;
-
-Currently only 1 and 2 bytes are supported, right? Any updates are planned on
-this in the future?
-
-> +	u16 reg;
-> +
-> +	reg = get_unaligned_be16(data);
-> +	num_bytes = ad5706r_reg_len(reg);
-> +
-> +	struct spi_transfer xfer = {
-> +		.tx_buf = st->tx_buf,
-> +		.len = num_bytes + 2,
-> +	};
-> +
-> +	memcpy(st->tx_buf, data, count);
-> +
-> +	/* For single byte, copy the data to the correct position */
-> +	if (num_bytes == AD5706R_SINGLE_BYTE_LEN)
-> +		st->tx_buf[2] = st->tx_buf[3];
-> +
-> +	return spi_sync_transfer(st->spi, &xfer, 1);
-> +}
-> +
-> +static int ad5706r_regmap_read(void *context, const void *reg_buf,
-> +			       size_t reg_size, void *val_buf, size_t val_size)
-> +{
-> +	struct ad5706r_state *st = context;
-> +	unsigned int num_bytes;
-> +	u16 reg, cmd;
-> +	int ret;
-> +
-> +	reg = get_unaligned_be16(reg_buf);
-> +	num_bytes = ad5706r_reg_len(reg);
-> +
-> +	/* Full duplex, device responds immediately after command */
-> +	struct spi_transfer xfer = {
-> +		.tx_buf = st->tx_buf,
-> +		.rx_buf = st->rx_buf,
-> +		.len = 2 + num_bytes,
-> +	};
-> +
-> +	cmd = AD5706R_RD_MASK | (reg & AD5706R_ADDR_MASK);
-> +	put_unaligned_be16(cmd, st->tx_buf);
-
-> +	memset(st->tx_buf + 2, 0, num_bytes);
-
-I would use &st->tx_buf[2] here and below for the sake of consistency with
-put_unaligned_*().
-
-> +	ret = spi_sync_transfer(st->spi, &xfer, 1);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Ignore the first two bytes (echo during command) */
-> +	if (num_bytes == AD5706R_SINGLE_BYTE_LEN)
-> +		put_unaligned_be16(st->rx_buf[2], val_buf);
-
-The comment wants to explain why it's required to put 2 bytes anyway.
-
-> +	else
-> +		memcpy(val_buf, st->rx_buf + 2, num_bytes);
-
-However with the above question in mind, if it's all about 1 or 2 bytes, can't
-we simply use the same approach everywhere, like put_unaligned_*()?
-
-> +	return 0;
-> +}
-
-...
-
-> +static int ad5706r_read_raw(struct iio_dev *indio_dev,
-> +			    struct iio_chan_spec const *chan, int *val,
-> +			    int *val2, long mask)
-
-Better to use logical split (here and elsewhere where appropriate)
-
-static int ad5706r_read_raw(struct iio_dev *indio_dev,
-			    struct iio_chan_spec const *chan,
-			    int *val, int *val2, long mask)
-
-...
-
-> +	st->regmap = devm_regmap_init(&spi->dev, &ad5706r_regmap_bus,
-> +				      st, &ad5706r_regmap_config);
-
-Use
-
-	struct device *dev = &spi->dev;
-
-at the top of the function to make this look better.
-
-> +	if (IS_ERR(st->regmap))
-> +		return dev_err_probe(&spi->dev, PTR_ERR(st->regmap),
-> +				     "Failed to init regmap");
-
-Missing \n.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+       Arnd
