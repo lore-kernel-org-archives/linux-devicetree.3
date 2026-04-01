@@ -1,210 +1,126 @@
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022140.outbound.protection.outlook.com [40.107.75.140])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91D0A258CCC;
-	Wed,  1 Apr 2026 06:49:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775026154; cv=fail; b=STiIZzenyALOrdqXIsPG0xYeybeICk7YWOIv7nnM2fg2CxFVvxUXI3XbRF1XIQt/WGIuv9fv8gXQ/5E66Cqhh73Vfb0Y0yPouX9j1D6WegvOMvqirQSqbIX6G591+YqhMnnPu8HFUo5nUDOXuv3hAkiJRAzl+7QycAituHSdI1w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775026154; c=relaxed/simple;
-	bh=74XniuzEPDTjtfU2VbjcEhBRVfCMH7BaqQSV666NlXk=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Fa70LPriTrIUcAiWx5Ap4hhB0xKtjfbrwtSfzI5KDVn0FxVyp99iS+i8LEF8rfFPNibsKTSVQS+nTpfgrvNvfVKZ5HXxNgDc0qPu7jZ393waRXuACZqGkM8zfHt3yFa5+6M6e9WchzDZcohsK4npYZKq4IbCDJCqp/wQ/gQKpy8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b=M5roU7bE; arc=fail smtp.client-ip=40.107.75.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9615A2F1FEA;
+	Wed,  1 Apr 2026 07:00:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775026801; cv=none; b=lynatfq+v2AqqHxuhnJjzPLs7RNgVFxl65FVI9E3ViT+NE2AHDXc6KvLG+l0tDOREMN/c7dS5GqQKIPRasaJ5PGi1t8GBLgp2HAn1i9/N2ZnTqGEeAHOy8Rx/mnn0xeQopAk7WgOsr2mn1MnzRXFCdpC0DV+Gz9WhC3oIunL0kg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775026801; c=relaxed/simple;
+	bh=4HoH/phdBrc8oyL9BAmfrv1hLzyLn1XUdnpO9xKGt0A=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=azphTUUHkDiQSM9J5n9yBad2tMAhVXsMwWdoID9swqUZKXD2A7iLEUhSPw9HZlpTJrjC5RKONqeW0HKE/MCP3JDPGGFLbUarqaqrHJvUou897Gj7BQedGjrphaMsBM8t8RdzBs9DVSCovOkvxb3tpMbGa9W+XylXXpHL88sRmQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KMHR94Dg; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b="M5roU7bE"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gtxWMcYKqUIC5mlvTaftWc2Dj9QmpRzzJZfETOp6jExW4+dCRYt0je90Id7aItSElvJlC0kGattPOIqsOBorz31wK4GRSAU8oHHhzQtrulvU+qFzC5kdlZILvBi65tGFCeleAWulp2oLdvxZQU71B6XFnaa7pOYk0x2axFectPHe8kW975YXdoPI8h8nlghvhcdy5vSqe1VC7NwL5j4F0cc8WbtdSnu5DwPdasD1t7wsMrHN/d9sOBmERMpobLT9Ev3gCkAXfZHZKHMfofSWab1ZzVm/w61W406qoCIcUbk22AjlIVLjgQTPUzGqCYiED0Mzw9+AtpYl/AaW+1BAtA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xQTlYkJZaYLeHb4AmYalAOb+yzs7ZwgWqRVABUJbPxM=;
- b=h85bJ6lnkiWkQ9BWFTG0hr+DBaHGpN9ZZ90TWMxLkpZrQwxG2hT+LMtfAF2M8Jk869+6BIETl90/T2R27+7lZr/4nMZ/kspWQUeeIiwe0/D8zCuyZV9wqvaqBwYQgAzc+mfm4BD3SBILk6KwU+HcS5rK0bJ36puao/1mHGbIy08717apAEGlyjeVSze7HTVP6D9RbIZypCdrUHiPuHzIRKYPCVoXU59c5e3K9mCYJrsb+YnLboG2bPhTp6cWClkYfwM+IMrWQCgnGLUTIVLayZZAXaupeUJBqW6JiIl+9TOoEqiFmU8+TQ6TDdXkVz8Ae6G0ANMwTM5ETPFw+TtGmw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
- header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xQTlYkJZaYLeHb4AmYalAOb+yzs7ZwgWqRVABUJbPxM=;
- b=M5roU7bEjGUFPiJ04Is3WtRMhneAqPHVsV7oRRqdXmusKVBYQvKHtRI8kagYEUZwxM3gD8kkYWYJXbDJDVSr2kK6J9bEIWcuM7XaxeBfgSzGbua+yP38va90byeVuNpFvA1WluT7sniwmh8eFjh4U/FCDvmgiFlc3KOky+nkbL+YXlF1LpUMC83KfeM4xwHEQhxGwonxv6o7Y2lDwzBPBiuZZ01RB/xYAVo6uzihl4CxnIbcjZTgsPJuQ09dL/+beTRCF7N0xySYlbARlHsrCEzmBVJBdN4vSHhlWUeakj1WLtf/w5e1uoillP+nSuXDkZfigbqO9M8D8C/1xrTeOA==
-Received: from TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com (2603:1096:408::791)
- by SG2PR06MB5132.apcprd06.prod.outlook.com (2603:1096:4:1cf::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Wed, 1 Apr
- 2026 06:49:07 +0000
-Received: from TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
- ([fe80::8c70:cb01:78fb:d9c0]) by TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
- ([fe80::8c70:cb01:78fb:d9c0%6]) with mapi id 15.20.9769.015; Wed, 1 Apr 2026
- 06:49:07 +0000
-From: Ryan Chen <ryan_chen@aspeedtech.com>
-To: Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert
- Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
-	<linux-aspeed@lists.ozlabs.org>, "linux-riscv@lists.infradead.org"
-	<linux-riscv@lists.infradead.org>
-Subject: RE: [PATCH v4 2/4] irqchip/ast2700-intc: Add AST2700-A2 support
-Thread-Topic: [PATCH v4 2/4] irqchip/ast2700-intc: Add AST2700-A2 support
-Thread-Index: AQHcwA70j6k3wISIzESYyH2Wyy5HoLXI0ZEAgADmGgA=
-Date: Wed, 1 Apr 2026 06:49:07 +0000
-Message-ID:
- <TY2PPF5CB9A1BE6EE88A7A906E10D1F10E4F250A@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
-References: <20260330-irqchip-v4-0-3c0f1620cc06@aspeedtech.com>
- <20260330-irqchip-v4-2-3c0f1620cc06@aspeedtech.com> <87tstw7zfj.ffs@tglx>
-In-Reply-To: <87tstw7zfj.ffs@tglx>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=aspeedtech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY2PPF5CB9A1BE6:EE_|SG2PR06MB5132:EE_
-x-ms-office365-filtering-correlation-id: a931d9e8-2217-4dd8-12d3-08de8fbac58d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|7416014|366016|921020|38070700021|22082099003|18002099003|56012099003;
-x-microsoft-antispam-message-info:
- B4VCJg7Hkm7p4f6lxAv89j6RE3jvXiBVUJ/Z83SmjmKAxsX/cjMDK1suoa31hDbY7+v/5xBSBD7X5p5oYpQEgHn2llp3GCSVg9KDS0RSvJyaO/8Wr7Krjo5Z2ZjaFElS76Pti1NmP9M4djOKNnpcip2i2jPBppudPHGNd8ktXcG1P3d/q86vOT3w8q6x8TiSZ9veKX6CT4KRz3zSCjHEicMGsi0F3dNmQHttrMeX1vQjOcqgwgMLuCA0X9jqky4spoi5258oYdifNnhYNXUdf/WHaJXPReyMeo4FjXvVM8tkhGzttWh1T9o3KSLQw5LEpakQ46+Bt2twnpZTNWu69zKJZ94RU64Rh6h0Do6psmBSC9Cf0W2eRWRXuMg+pO3+I6kOSdhSqj3D0wyM8a/+ITIOCe41PIYpkhzAYNGeBu/OaPoMxtI/wp1pELYO3KUYSPc1aqrQ6ZsR7R8m4jMMNuQJseVjlAnWRBzBugsdHO3gZiwNjJ/rLy7T1GgfzlzBbaT+oNSqgSSR4bkIUlOp+MEQ2idDWE3uMEIKRqc3TkGyv8X7EjNKVhKuxmc08nClPBU7hUj3VGuiyXplTAcN8ovtOxTftpJNPmyXpaLbYV7y9vKTkFT1HuW9UZ8Vo7PVEkdlHjlibfv2leXyJJXLwROYfkwEh0Xe628i1YStpYV4WGdcLIboXqSKV/czck77tp4QDGhIUastQgdngPOcEB9aznun0sjkqzwQiXeru4l3Ktz5+2Zl7y8Tf0uBL3QoQ6/u1xNVIE5jzGC/zVH8RtRFlsbD5LOzTYmzbcHxPhh98ovCn6NxN7oy4OgjODj+
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(921020)(38070700021)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?uQw0OYhVY7JxGZHW+C+O8QWfA3nHYT/QxYNrIDdfrOUfEXjBVeT1x9yAMZ0C?=
- =?us-ascii?Q?P097/oVdpwwgAP9LilwTxd3XDSVPS++f/Jx687hUgRW+nMl/+BN6PLWWEGAM?=
- =?us-ascii?Q?2jHQmHjqy66ia7g86Bkb9H3CJ+eci6XEhncs6a/xPQmJg3mTS+6/Lh/f6tRC?=
- =?us-ascii?Q?uTnJpi26Rhwu9Ur4EnHRvvKUCbcjuN8U2Om02DdONBHjfx89rRhgKDyPMFRw?=
- =?us-ascii?Q?MSlSpGI087bdwXpMRuT2xJCH2dT1VOrnEwUxkOBHpH0GZ2mnMIs0J0qOgtvJ?=
- =?us-ascii?Q?/8plDT4GkOVLeZmnnZ7N3NxQ4YJHn8K23XPg1nGsqjgk4l6rSgULW4DR/ZW1?=
- =?us-ascii?Q?t7ban7IWGgn1uGxr8BjRfb/lTBdW+OuaQf3/Ykca3ZR+EjaLlNrSNCtEar+d?=
- =?us-ascii?Q?x+xW/8nPWwMcLk7A2xj1aKX+S54anMm/AAY1rhW6jEIlixS2hjEbWCMMdR1S?=
- =?us-ascii?Q?GX2BS6Lg3TLdKDyxK6BuWpc7TEdZ0Xuwac47aK0Kf5Jo6mS6IxtmNXEmRJyR?=
- =?us-ascii?Q?kG5/cbuOYAo1nxLyqnIlMdyzi8PEGaveg/Gi/zNXM1Y7kYVfQVdiAS5h3jmD?=
- =?us-ascii?Q?p+d9hHuFWkTgBiZMcallJt+H0jKPfOyycGZr+9LlcQTZxOrsqoYPRdcGMQch?=
- =?us-ascii?Q?EoMv5DdvCst/LmnNIMx/Z84O9+3OtPnrfL5+aU8T8NX175XN3aB3nfMPUl/3?=
- =?us-ascii?Q?T6dw9usIdRJPCGG99Xuvp0454fOVspHO03wmbyGEC3LaNvWkSDAdWMJA6lIC?=
- =?us-ascii?Q?zdwt7H1A8PTIIOoGu0k6HEfN+diU3EIUiaGW+7J7+sdKWdRZ5jO5G7NtnL0W?=
- =?us-ascii?Q?oL4DyN1l/LzioUz9qasXxDoCCA9awqGjm4RMupIobMN2LjhJuFxfufd/WHjs?=
- =?us-ascii?Q?2gt/3bzSN2E+FSJ1F2H2Uh0U8AUBK2RE0siooPRFgMX7EDj/QXS70H2AUAkh?=
- =?us-ascii?Q?0euklANDTHhZbpFGYrbSJ88mSM54MtikBR0ZUIyD0CrqvAIuJH9fMime/Xhm?=
- =?us-ascii?Q?BfIxD7Fj3CpQL/AYHEDJ5RIF8oqVWXG3w9TisoXq4Bqowr6o0qUJBQOmQlYB?=
- =?us-ascii?Q?988wsj2QwJQvZ85GElIuFCfQFbTEZrYjy+NZ6ndvoma+IXDQaXN7G4XOx6b8?=
- =?us-ascii?Q?C84K+EZYUR+ljCI0Rkw/t5rbpH5RmhWq69YbJ14G8euFseypyY6J4NTl6xx/?=
- =?us-ascii?Q?zKxDwkd5HF9rj4+8pIx0yGxJ8jMIOj6aFCeChI/hWxLUkq9JyR6pGVYKCTZz?=
- =?us-ascii?Q?k0Ky2ndF8w9Uf70zJ8DWnvTh68QwzKlztyt6rSLyvZvJjAYy4Ib+4Gm4ZRHF?=
- =?us-ascii?Q?ryeyrTctiOxI+7Vme+oc+xAYw+KlUIv8iKHvPmnLZA0K0V62lhe6kIVJ/pjj?=
- =?us-ascii?Q?wC40VCe0o4JShEDvMttrmL4R4XHUanQeHbuKV4vjwyrFRRfyjZ1E2Ay+kzGn?=
- =?us-ascii?Q?5lp9gvTcHgUIVu36o+UeftCvKIbhhYrnDMouW1l9CkDuz7NK/CagF6YUyTfn?=
- =?us-ascii?Q?YWCGa4Myqlz1oFR7VItagRbWVSGIELlzGl5fpr70NLmNXRGM7kL1j83MH7WB?=
- =?us-ascii?Q?CYlbf82fFGCiPYdpw/7YOb2kMvavRqIS9ywBRxV5o/Ip/jx/7EkyghKTkAbJ?=
- =?us-ascii?Q?jKwGls7eNm9RMBuKiE3Xc+q5S5JWHxit5DlR5EYf9La/YEkfdbXKpV8i5ja5?=
- =?us-ascii?Q?a9VCDLieTt9OOr32MTueVKt4dKdwJvdrDSCuXDMt4DkeXdIhsRNlJvy34ga9?=
- =?us-ascii?Q?L6k+EQyQqw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KMHR94Dg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DFC6C4CEF7;
+	Wed,  1 Apr 2026 06:59:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775026801;
+	bh=4HoH/phdBrc8oyL9BAmfrv1hLzyLn1XUdnpO9xKGt0A=;
+	h=From:Subject:Date:To:Cc:From;
+	b=KMHR94DgfRfOsfxuCdVVQP2+x0xQMgUCkKVaQ81WrDYnarnEtMItaUpDVYAYil9tF
+	 DXanx74oixguSoHPe8XgMxIpsWv2hz/L2eckJm7zW7r9couPmi8qJL4Uw1zdhDnuM9
+	 mdk/l2Lcw9gvPUrS+6JKCltA/PSW+2AERYiHyy87dq0ynJvZ7aLB5JIjJHWpaYYDoB
+	 bFHTu4EHd+hnpXEHWdQ2rSdyURSpvJV3l2I4zuMqmysnGKIaBRzrUYO/oqN6bGkXeH
+	 W4B3k5YSUEQaFzD1fbzdsVQiYsYETySEdt3NsD4tHAfrFRpXx434u71PxTmv9pc4p9
+	 aCrfz3qi1Wh8A==
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+Subject: [PATCH net-next v2 00/11] net: airoha: Support multiple
+ net_devices connected to the same GDM port
+Date: Wed, 01 Apr 2026 08:59:18 +0200
+Message-Id: <20260401-airoha-eth-multi-serdes-v2-0-ac427ae4beeb@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: aspeedtech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a931d9e8-2217-4dd8-12d3-08de8fbac58d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Apr 2026 06:49:07.4198
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Mmj3jziaUr2A4Y84QMLrvf/IAQi7bxetXTLCE7ZZjTe4dpIfNi7W38ov5OPiRZMnZSPAz3da2mp4ysr5o4kSKKVO4j9okNGbXn3RO9XD4cE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SG2PR06MB5132
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CMBBFr0Jm7ZhSaI2uvIdhUWCgE7ElbSUYw
+ t1tiFuXLy///Q0iBaYIt2KDQAtH9i6DPBXQWeNGQu4zgxRSi0rWaDh4a5CSxdd7Sow50FPEoa1
+ bpTTRRWnI6znQwOtRfoCjhI7WBE02lmPy4XNcLuXhf/Xr3/pSokAhBiX7rtKiM/cnBUfT2YcRm
+ n3fv5vISCTJAAAA
+X-Change-ID: 20260324-airoha-eth-multi-serdes-fb4b556ee756
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lorenzo Bianconi <lorenzo@kernel.org>
+Cc: Christian Marangi <ansuelsmth@gmail.com>, 
+ Benjamin Larsson <benjamin.larsson@genexis.eu>, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+ Xuegang Lu <xuegang.lu@airoha.com>
+X-Mailer: b4 0.14.2
 
-> Subject: Re: [PATCH v4 2/4] irqchip/ast2700-intc: Add AST2700-A2 support
->=20
-> On Mon, Mar 30 2026 at 14:32, Ryan Chen wrote:
-> > +static int resolve_parent_range_for_output(const struct aspeed_intc0
-> *intc0,
-> > +					   const struct fwnode_handle *parent,
-> > +					   u32 output,
-> > +					   struct aspeed_intc_interrupt_range *resolved)
->=20
-> Please reduce the number of line breaks. You still have 100 characters.
-Will update
-static int resolve_parent_range_for_output(const struct aspeed_intc0 *intc0=
-,
-					   const struct fwnode_handle *parent, u32 output,
-					   struct aspeed_intc_interrupt_range *resolved)
->=20
-> > +{
-> > +	for (size_t i =3D 0; i < intc0->ranges.nranges; i++) {
-> > +		struct aspeed_intc_interrupt_range range =3D
-> > +			intc0->ranges.ranges[i];
->=20
-> No line break required.
-Will update
-struct aspeed_intc_interrupt_range range =3D intc0->ranges.ranges[i];
->=20
-> > +static int aspeed_intc1_irq_domain_activate(struct irq_domain *domain,
-> > +					    struct irq_data *data, bool reserve) {
-> > +	struct aspeed_intc1 *intc1 =3D irq_data_get_irq_chip_data(data);
-> > +	struct aspeed_intc_interrupt_range resolved;
-> > +	int rc, bank, bit;
-> > +	u32 mask;
-> > +
-> > +	if (WARN_ON_ONCE((data->hwirq >> INTC1_ROUTE_SHIFT) >=3D
-> ARRAY_SIZE(aspeed_intc1_routes)))
-> > +		return -EINVAL;
-> > +
-> > +	/*
-> > +	 * outpin may be an error if the upstream is the BootMCU APLIC node, =
-or
-> > +	 * anything except a valid intc0 driver instance
-> > +	 */
-> > +	rc =3D aspeed_intc0_resolve_route(intc1->upstream, INTC1_ROUTE_NUM,
-> > +					aspeed_intc1_routes[data->hwirq >>
-> INTC1_ROUTE_SHIFT],
-> > +					intc1->ranges.nranges,
-> > +					intc1->ranges.ranges, &resolved);
->=20
-> Please test your code with CONFIG_PROVE_LOCKING=3Dy, which is mandatory
-> for submission according to documentation.
->=20
-> This is invoked with the interrupt descriptor lock held and interrupts di=
-sabled.
->=20
->        aspeed_intc0_resolve_route()
->                 ....
->                 irq_find_matching_fwspec()
->                 	mutex_lock(&irq_domain_mutex); <---- FAIL
->=20
-Thank you point out the issue.
+EN7581 or AN7583 SoCs support connecting multiple external SerDes (e.g.
+Ethernet or USB SerDes) to GDM3 or GDM4 ports via a hw arbiter that
+manages the traffic in a TDM manner. As a result multiple net_devices can
+connect to the same GDM{3,4} port and there is a theoretical "1:n"
+relation between GDM ports and net_devices.
 
-I plan to cache the irq_domain pointer in each aspeed_intc_interrupt_range=
-=20
-entry at populate time.=20
+           ┌─────────────────────────────────┐
+           │                                 │    ┌──────┐
+           │                         P1 GDM1 ├────►MT7530│
+           │                                 │    └──────┘
+           │                                 │      ETH0 (DSA conduit)
+           │                                 │
+           │              PSE/FE             │
+           │                                 │
+           │                                 │
+           │                                 │    ┌─────┐
+           │                         P0 CDM1 ├────►QDMA0│
+           │  P4                     P9 GDM4 │    └─────┘
+           └──┬─────────────────────────┬────┘
+              │                         │
+           ┌──▼──┐                 ┌────▼────┐
+           │ PPE │                 │   ARB   │
+           └─────┘                 └─┬─────┬─┘
+                                     │     │
+                                  ┌──▼──┐┌─▼───┐
+                                  │ ETH ││ USB │
+                                  └─────┘└─────┘
+                                   ETH1   ETH2
 
-Add a domain field to struct aspeed_intc_interrupt_range in irq-ast2700.h
-In aspeed_intc_populate_ranges() (irq-ast2700.c), call irq_find_matching_fw=
-spec()=20
-once per range entry and store the result in r->domain.=20
-This runs in probe context, so taking irq_domain_mutex is safe.
+This series introduces support for multiple net_devices connected to the
+same Frame Engine (FE) GDM port (GDM3 or GDM4) via an external hw
+arbiter. Please note GDM1 or GDM2 does not support the connection with
+the external arbiter.
 
-In aspeed_intc0_resolve_route() (irq-ast2700-intc0.c), replace the=20
-irq_find_matching_fwspec() call with a direct comparison against c1r.domain=
-.
+---
+Changes in v2:
+- Rename multiplexer in arbiter in the commit logs.
+- Rebase on top of net-next main branch.
+- Add missing PPE cpu port configuration for GDM2 when loopback is
+  enabled.
+- Link to v1: https://lore.kernel.org/r/20260329-airoha-eth-multi-serdes-v1-0-00f52dc360ca@kernel.org
 
-In aspeed_intc1_request_interrupts() (irq-ast2700-intc1.c),=20
-likewise replace irq_find_matching_fwspec() with a comparison against r->do=
-main.
+---
+Lorenzo Bianconi (11):
+      dt-bindings: net: airoha: Add EN7581 ethernet-ports properties
+      net: airoha: Set PPE cpu port for GDM2 if loopback is enabled
+      net: airoha: Rely on net_device pointer in airoha_dev_setup_tc_block signature
+      net: airoha: Rely on net_device pointer in HTB callbacks
+      net: airoha: Rely on net_device pointer in ETS callbacks
+      net: airoha: Introduce airoha_gdm_dev struct
+      net: airoha: Move airoha_qdma pointer in airoha_gdm_dev struct
+      net: airoha: Rely on airoha_gdm_dev pointer in airhoa_is_lan_gdm_port()
+      net: airoha: Support multiple net_devices for a single FE GDM port
+      net: airoha: Do not stop GDM port if it is shared
+      net: airoha: Rename get_src_port_id callback in get_sport
+
+ .../devicetree/bindings/net/airoha,en7581-eth.yaml |  44 +-
+ drivers/net/ethernet/airoha/airoha_eth.c           | 631 +++++++++++++--------
+ drivers/net/ethernet/airoha/airoha_eth.h           |  30 +-
+ drivers/net/ethernet/airoha/airoha_ppe.c           |  43 +-
+ 4 files changed, 502 insertions(+), 246 deletions(-)
+---
+base-commit: f1359c240191e686614847905fc861cbda480b47
+change-id: 20260324-airoha-eth-multi-serdes-fb4b556ee756
+
+Best regards,
+-- 
+Lorenzo Bianconi <lorenzo@kernel.org>
 
