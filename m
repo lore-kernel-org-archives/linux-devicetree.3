@@ -1,189 +1,155 @@
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE70440FD93
-	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 11:50:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C40A6410D3B
+	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 11:52:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775044206; cv=none; b=SOdg4HJ5beVVSr5mHMdVSPnI4cVNUTQe/35Fbu8uaGR1sT36Id169Ga7v6J0IZP4CDo8bHtr57VlVBgKJJL8de31YRisyQVzRDLM/R3t6WItzsrMT+SoEcBa+Vp4opJQfjczQ2mIZ47jvam29h783hGnSAqWPtGq13T5UAyXj2g=
+	t=1775044338; cv=none; b=Uo0XcgDUDVt1CbFMIedDGx37wKKJuJdxUy/sx7lTY5f3Qgy3nWYDZPKZcqgE2La4hMP1eoLB1/VyJuS7BPlDQLmRv9lh8ysqBk4J3ZtQARoTu4VfRvcs/IwzCdRn/S1hS/E8CaB4Sqeyr5CeFEOXoaV22Vv3CqsY2Cio/ycDmSY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775044206; c=relaxed/simple;
-	bh=N1+Ri8tyl8Kwm5BhyBgbC2qh62bga6Mp83akJRvVsJA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=A4GHvH1TnB5dY2CxYZ8EcOGYD7eJXKyLI2M8/QUwlDenYxRXRzoCCKSghaA8HlQDR0Ge+RtIaQxok13vBWGwwvYDr/pv9eWF6/f7HbD+vI6/+pC6QNURUVeEMkNFLX11MpPdc3LbJ2aM01gBvOpraoKD+yAAnYq0U39wHlVsAYA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=b9D3a059; arc=none smtp.client-ip=209.85.222.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1775044338; c=relaxed/simple;
+	bh=f5ZmZnFeNe9D+apRa619ltaKL3wjPFLh8/xksQXLx3M=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=r/R7bJ8NvpnjixVmsLklBCEWfwWTyT48vcKC50N6gSl/A7L7ToUD+jZojYr2qATa4rRtpfLF/80OVpOvK46oTG5EIuyNk+OZSZKm/n2EuJeFtQJmGLe2WWIuWV9P0VVyC0e6yoTPPCrePBJIqXQyqc1xTgtbRHMcDMGXoPWGPzc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=llmWZq9B; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QLMHL2yp; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="b9D3a059"
-Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-8cfc497a604so848003985a.3
-        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 04:50:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="llmWZq9B";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QLMHL2yp"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 631AJHn21562623
+	for <devicetree@vger.kernel.org>; Wed, 1 Apr 2026 11:52:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=kjq8IbqCSc4OyEp3nlisvk
+	+bUjiYIQQ9/KSl5493Ogk=; b=llmWZq9BHz8PxW/QnQIlXKX2nQ7fF17Rto9OSG
+	3c6WpDJ29Wsmwdk1PEf7XgxOAq4RkSKp8nEJAX170uinGZaYIfTzcVHXcWFSOIAm
+	XvabeuqLVFaeEOLcf0WrkNc72ZRB64KYhn8DfZLWZDhyVsHjGUNH/W4JZdYIELmI
+	s6PlQ8EkQ8ETUTQ2NH7sHFjNYK74Z/CxicqRsBBmE3XRrFk8FJgG+D2fALa1pgRI
+	Tnp/AOi1bQNTO9noh5GejDP3K3tTCQm83FZeguZ+OZBV9emHlK+DmcYDv/37AGha
+	6M6r4+bn1iZYUhRYbiLRICUBqYZj+PAHpbjn3DXcLKLHIVeA==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d8va3snrn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 11:52:14 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-82cd9fa608bso3874622b3a.3
+        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 04:52:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1775044204; x=1775649004; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=yCRyd9qleOZMVIjgK7RhQpHFpKKn7hN1W8j3Towy8nQ=;
-        b=b9D3a05953Hj09I908zLhRHOdPzMVkUexZAEK+UpRXiVHQx9wtx8w699TThP5LSEsL
-         9K2maOGtF+CyYwU4W6Fu2+oIfxYs+cicJzIfut3brCPGc8PlJlTfWt31L2ysAQHLbYpz
-         iv9AIepXTKwg1oHBtlGkgB8uJ7KXJyARkWufy5fzKSxCBOHldCKj+2RLXv9BClRhO6cV
-         cy5A96hvsb7UREo3OiQgMdD7I1zLtS6VeTBRVhI4rYXZ38t2QQSqzRv/3g7aCLEpA7c8
-         zeX27wWCjNkIsbFG7zr6q6vUekmfZXAiipwmbR6g9U5NoygBttAdSPpmhvVvg3zLeGCD
-         VKKg==
+        d=oss.qualcomm.com; s=google; t=1775044334; x=1775649134; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=kjq8IbqCSc4OyEp3nlisvk+bUjiYIQQ9/KSl5493Ogk=;
+        b=QLMHL2yp91X5fc0U5JC+5XSAavCiP3Hl9IvpQzhR2HBeSkOO7vL05VKYBL7rCUBVPS
+         +E8Y5DUoJUwC9DuZshDszluV5CA4AUtxKceZ5HbpV0aVUtFc5A92SBUs8y+nCc63JC7k
+         eaiNROy6KHf7NPxcJrTPoRTo0Wb/7FMtW1y5kYRmdK/WOdq+2RnkRC0ixPX77krI4aQk
+         dHZTts7y1tCPM+QVfzrPuw9uuBZNmLznx+jrx3LrknZ093RPfdpt11MF03hr6tY8lCE1
+         xu7OVV9zJe+xkVT1VQYdy73NolcErahcFiuB8Jbp03RsIufBAXwx8XnnTy6/ZS6u7dUk
+         pygA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775044204; x=1775649004;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=yCRyd9qleOZMVIjgK7RhQpHFpKKn7hN1W8j3Towy8nQ=;
-        b=CAu1Yk4GnsR+mbyUCfVFrfCjChToPwjv8gPdy1niVZdztLpwRjQtwsbuVIzuaYJdDQ
-         dhbbD0jOC09eHI07HQ+ENeMOuTY8CuatjGQwl6VGqySiZXJjXnnH4U/WtCNqxArD+gyC
-         GOyUk3C4pLUhLA1pdfiv8ELzLG/EHuLzjOtZ+q8kNIjA7mGIcCMAHSE7Vf2/FpzVueTa
-         gkFi9VU/ZHk7NGdXXa+H65jOofJzF7GrXtP57BT0mpujv2V5Kkqyxq04ZqZ4fPVHHspC
-         rnveHC87KwTEFjF0WC5p0xX/pq5g8ZYEHKXi4PLXZhSp0McGDFtqoTb9nRicXgyW/8ah
-         YbMw==
-X-Forwarded-Encrypted: i=1; AJvYcCXiN2KZsK9Yr6k+GK3lW4IyJf963l0qWsB6xHPQoEPky25tqEtYwj9GqmT41sV6cOTt60GfVnIv7cte@vger.kernel.org
-X-Gm-Message-State: AOJu0YyYJlqLyrIXFP4Gmp/cDF5NqDCpsnG0wLsa4341VMMctbkCpegY
-	9HKQbeSCQ8V4i9QbyZrtcRO0YU7Vzf4UChRI7PceTs/R9h86szgNd9yJ/wH/CDoTfNg=
-X-Gm-Gg: ATEYQzzB5resybeK30f7j1vtWZ8kDcfeDzrbWnOIh2qZQKjK7Lfzz+E08WqkaqCCZUB
-	c2lwbPyQWjLJ6JUw2LG3/PybrvRmVvgtajYacD/dnBgs1rS/Sl2iw1frFoBIGbA3O9Spo0fqvdD
-	ZVkBONWsNPa8Xus41UPK9AaLJjsB86AHeukFwhPJEqO4w1vchZBV0D2nsq8q+fRsklbgu9wU6L6
-	ZT4x0QfTh9Dt/CedbQ/P41O01fe2oP8ZhorCvXbTedk3j9JrQ6sJ/KWgjMr0Cll+YwosMnhGxz6
-	jvqDrdQvG5DEc/+mfyJF6Auw5lw2UJiydfrTasU+NbfrktLCFJXRFH5afRT4+vKNclsOzjTT0N1
-	g7pdPZbp1jB/jD2TZeZ6WzfLjNcLxGhzBCYgWjzlFalE37dlW4J/ubmxWpv+NlaMX/OgQ6jeO3w
-	GJ8QeeypJppUPbfQ7loNBKDgc2P6DDtDc=
-X-Received: by 2002:a05:620a:6910:b0:8cd:b90f:fc16 with SMTP id af79cd13be357-8d1b5c6bf23mr447046685a.68.1775044203818;
-        Wed, 01 Apr 2026 04:50:03 -0700 (PDT)
-Received: from [10.11.12.108] ([79.115.63.48])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-8d027db4770sm1309221285a.0.2026.04.01.04.49.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 01 Apr 2026 04:50:03 -0700 (PDT)
-Message-ID: <e011f298-cec4-4c6e-94e8-ce533642a3f8@linaro.org>
-Date: Wed, 1 Apr 2026 14:49:54 +0300
+        d=1e100.net; s=20251104; t=1775044334; x=1775649134;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kjq8IbqCSc4OyEp3nlisvk+bUjiYIQQ9/KSl5493Ogk=;
+        b=sDDZwUEMmwrk6wKEJwE62822FEH7zzKh1tIyWoDQiGsmlAr8nnIlJlJREMGMQY5iJ7
+         RVzSGhSWhZrGYwmv9uWO1hUUZieRMoCvNk3kUVuvK8NMfjgHNtD7ZBx7BGd1FdMk72vw
+         YvfbFhYqlNmX4aeulIoZOa4hB1ylYSonxoPjeYHmGmNX5MXqqdh91hyWxmW/hbIySHhl
+         dHROe1MSpN+Rie45dHEJh2PzwczWvuZNSsceWUqDhODKlGh4DsvYuGepMQIOfkpbRTAf
+         xt8grjCDeOTh1tkU5tysIfPLHcjHzz4xWCpXBJCAxM6QhFcFfOJVkUEMcyyBE9GpmfNw
+         TMrw==
+X-Forwarded-Encrypted: i=1; AJvYcCUbrw4uguk/37ih3HkOXCFtbEzTFcF8lwdMn4Flg+8Gu1blPLgxCEn60leYVqHdQUHwcmn1hJiB8uXt@vger.kernel.org
+X-Gm-Message-State: AOJu0YxNURa7AjveixlRHTw6pKANpH06e+uo2kYMdx5tO1Vd1F2kUCjw
+	90Y5OYVIcMxiiV66ofZ5v1C+mKdm+3KplB5zMo9k3zrhucIJtOHGew2rtxNpFmnbYbXVdGFZFrp
+	5DvkoHwLKvZjjp7RhywnQQoDncnZ3NhQXclqscmyEmNLeucr+ldW4yailIoqzhD9x
+X-Gm-Gg: ATEYQzwAitzafMo4ipMRBbrg7M0kY1+A2E1s8IdsoXDQ4D98H/+xAvTIHzho9Iy90G1
+	zSITJ1oa4LDUoz02LpTddfRAtLOG7sN6Y+BD/aOegWFzoLAgUqhXp+R2KUFnnXoGZLNFs1YarXl
+	OVGRo3uT0FclUHVTl7o1ZKDknHt73vMxBGSpYZagwxUGYbWXa3CMau0Gjxg4QO/MNOvXiGqchbV
+	8O1fA06AXGbyYA6PC9d8/cG1FSqxaT/u7sTuv0fsX74XhA0qmF0y+uCud4H7xAtNybRQyuDw78s
+	bndLTYfrfDP2EnXNlWgunU8nFLgHKdhsZYBYPP/MJAHan+6qu2dfeEBVG7EzxsNPYdyKrcNnKC5
+	Iw72zDeO4Ss3ACGwaEVdVGc3uyejl1GYZteNLxf/Ws+VyptK6
+X-Received: by 2002:a05:6a00:1951:b0:827:343a:a1ef with SMTP id d2e1a72fcca58-82ce8aead3cmr3757188b3a.52.1775044333679;
+        Wed, 01 Apr 2026 04:52:13 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1951:b0:827:343a:a1ef with SMTP id d2e1a72fcca58-82ce8aead3cmr3757149b3a.52.1775044333085;
+        Wed, 01 Apr 2026 04:52:13 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82ca8465785sm18128456b3a.18.2026.04.01.04.52.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 01 Apr 2026 04:52:12 -0700 (PDT)
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Subject: [PATCH 0/2] pinctrl: qcom: Introduce Pinctrl for Hawi
+Date: Wed, 01 Apr 2026 17:22:06 +0530
+Message-Id: <20260401-hawi-pinctrl-v1-0-4718da24e531@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] iommu: Get DT/ACPI parsing into the proper probe
- path
-To: Robin Murphy <robin.murphy@arm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Hanjun Guo
- <guohanjun@huawei.com>, Sudeep Holla <sudeep.holla@arm.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- Russell King <linux@armlinux.org.uk>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Danilo Krummrich <dakr@kernel.org>, Stuart Yoder <stuyoder@gmail.com>,
- Laurentiu Tudor <laurentiu.tudor@nxp.com>, Nipun Gupta
- <nipun.gupta@amd.com>, Nikhil Agarwal <nikhil.agarwal@amd.com>,
- Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
-Cc: linux-acpi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
- devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
- Charan Teja Kalla <quic_charante@quicinc.com>,
- Peter Griffin <peter.griffin@linaro.org>,
- =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
- Juan Yescas <jyescas@google.com>, kernel-team@android.com
-References: <e3b191e6fd6ca9a1e84c5e5e40044faf97abb874.1740753261.git.robin.murphy@arm.com>
- <67b32e90-1f60-4bf5-b534-b4a901d5a796@linaro.org>
- <6c3b506e-8cc4-45ad-a801-326886c694c4@arm.com>
-Content-Language: en-US
-From: Tudor Ambarus <tudor.ambarus@linaro.org>
-In-Reply-To: <6c3b506e-8cc4-45ad-a801-326886c694c4@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOYGzWkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDEwND3YzE8kzdgsy85JKiHF3zZMu0NEMz46S01GQloJaCotS0zAqwcdG
+ xtbUAbvSE/V4AAAA=
+To: Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.14-dev-f7c49
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1775044329; l=722;
+ i=mukesh.ojha@oss.qualcomm.com; s=20250708; h=from:subject:message-id;
+ bh=f5ZmZnFeNe9D+apRa619ltaKL3wjPFLh8/xksQXLx3M=;
+ b=N+o+sJkXtlG0fNbp7rzR575Hc4i96x68cRYUgib4vHaXfoIAoBG8dyl2irbOxwobBsRMwoIS9
+ +Ck99sR6WfaDiJOafCbVocYkBk4ryoedLcttYrrHXCxNnwRB7ZCk98G
+X-Developer-Key: i=mukesh.ojha@oss.qualcomm.com; a=ed25519;
+ pk=eX8dr/7d4HJz/HEXZIpe3c+Ukopa/wZmxH+5YV3gdNc=
+X-Proofpoint-GUID: J7KkthAfSNLBZZOulRvm1GhCOI4Moi4W
+X-Proofpoint-ORIG-GUID: J7KkthAfSNLBZZOulRvm1GhCOI4Moi4W
+X-Authority-Analysis: v=2.4 cv=B/C0EetM c=1 sm=1 tr=0 ts=69cd06ee cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=JAQA1SFX2CWciKQcUckA:9 a=QEXdDO2ut3YA:10
+ a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAxMDEwOCBTYWx0ZWRfX5g9F1EE8fXmy
+ QBpu7N/a+Q3Yb8h58K1VD6VoGlWeGE23MJoF6uFJVON9oT85KKD1PNliTAMua9Up5YTTahv7uWh
+ gCGOX1x6173xZ0JFqscrIIqSeXgnrL5jzMVjTOPARa52OJuWM1wc+FOcsyFhF3uOPoNsnRPpi+w
+ IB7nsJGMhgo9/7WSoPwgyomLnqH3/XvCvBqxJ7B2J6ladqBROdA/fVGMiFL9AtsqJc9ftSj+ErJ
+ ZIBlytvYDGpfqVvlCluHhcAnqsAwlShTghVwzXDGRQVpA0WuQKytduzVKxQR3/DGn5eN0Um13LR
+ /cfTN7ywlvLWpFlSPuETq91+PZuFuBpOHxurXZdd5i+I+b/xeNuVV14Wmdcz1+8H1JeNJ3l7fPk
+ VLJ69wYUjgt63m5wZnfFraeXHK8DwJaiHlAuwLXcvGDMuOCt83ni993GMrWTdJ3wbpbLHhzY3vG
+ ThsjK0cx4G76UNV8X6Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-01_03,2026-04-01_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 priorityscore=1501 bulkscore=0 phishscore=0 malwarescore=0
+ lowpriorityscore=0 adultscore=0 clxscore=1015 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604010108
 
-Hi, Robin,
+Introduce Top Level Mode Multiplexer dt-binding and driver for upcoming
+Qualcomm Hawi SoC.
 
-Thanks a lot for the educative answers!
-And sorry for the late reply, I got sidetracked.
+Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+---
+Mukesh Ojha (2):
+      dt-bindings: pinctrl: describe Hawi TLMM
+      pinctrl: qcom: Add Hawi pinctrl driver
 
-On 3/23/26 10:49 PM, Robin Murphy wrote:
-> On 23/03/2026 5:18 pm, Tudor Ambarus wrote:
->> Hi, Robin,
->>
->> On 2/28/25 5:46 PM, Robin Murphy wrote:
->>> diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
->>> index a3b45b84f42b..1cec7074367a 100644
->>> --- a/drivers/iommu/iommu.c
->>> +++ b/drivers/iommu/iommu.c
->>> @@ -414,9 +414,21 @@ static int iommu_init_device(struct device *dev)
->>>       if (!dev_iommu_get(dev))
->>>           return -ENOMEM;
->>>       /*
->>> -     * For FDT-based systems and ACPI IORT/VIOT, drivers register IOMMU
->>> -     * instances with non-NULL fwnodes, and client devices should have been
->>> -     * identified with a fwspec by this point. Otherwise, we can currently
->>> +     * For FDT-based systems and ACPI IORT/VIOT, the common firmware parsing
->>> +     * is buried in the bus dma_configure path. Properly unpicking that is
->>> +     * still a big job, so for now just invoke the whole thing. The device
->>> +     * already having a driver bound means dma_configure has already run and
->>> +     * either found no IOMMU to wait for, or we're in its replay call right
->>> +     * now, so either way there's no point calling it again.
->>> +     */
->>> +    if (!dev->driver && dev->bus->dma_configure) {
->>> +        mutex_unlock(&iommu_probe_device_lock);
->>> +        dev->bus->dma_configure(dev);
->>> +        mutex_lock(&iommu_probe_device_lock);
->>> +    }
->>
->> I was chasing the "something fishy" dev_WARN on a 6.19+ downstream
->> android kernel and while looking at the IOMMU code I couldn't help
->> myself and ask whether we shall prevent concurrent execution of
->> dma_configure().
->>
->> It seems to me that while the IOMMU subsystem is executing
->> dma_configure(), the deferred probe workqueue can concurrently pick up
->> the same device, enter really_probe(), set dev->driver, and execute
->> dma_configure(). Is it worth protecting against this?
-> 
-> Yes, it's certainly still possible to hit a false-positive if thread A in iommu_device_register()->bus_iommu_probe() races against thread B attempting to bind, simply because thread B can set dev->driver long before it gets to any point where ends up serialising on iommu_probe_device_lock again, so thread A can observe that even while it is doing the IOMMU probe in the "correct" context. Other than the warning though, it's still functionally OK even if the "wrong" thread does end up finishing the probe, at least after 0c8e9c148e29 ("iommu: Avoid introducing more races").
+ .../bindings/pinctrl/qcom,hawi-tlmm.yaml           |  123 ++
+ drivers/pinctrl/qcom/Kconfig.msm                   |   10 +
+ drivers/pinctrl/qcom/Makefile                      |    1 +
+ drivers/pinctrl/qcom/pinctrl-hawi.c                | 1716 ++++++++++++++++++++
+ 4 files changed, 1850 insertions(+)
+---
+base-commit: 3b058d1aeeeff27a7289529c4944291613b364e9
+change-id: 20260401-hawi-pinctrl-7c9ff163bfec
 
-I confirm I have 0c8e9c148e29 ("iommu: Avoid introducing more races") in
-my tree.
+Best regards,
+-- 
+-Mukesh Ojha
 
-If the concurrent execution is functionally safe and the dev->driver
-check is a known source of false positives during async probing, do you
-think it would worth switching the dev_WARN to dev_info? I'm thinking
-dev_WARN is a bit harsh, as it can disrupt CI pipelines that halt on
-warnings.
-
->>
->> diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
->> index e61927b4d41f..5f0c1a8064b5 100644
->> --- a/drivers/iommu/iommu.c
->> +++ b/drivers/iommu/iommu.c
->> @@ -461,9 +461,19 @@ static int iommu_init_device(struct device *dev)
->>           * already having a driver bound means dma_configure has already run and
->>           * found no IOMMU to wait for, so there's no point calling it again.
->>           */
->> -       if (!dev->iommu->fwspec && !dev->driver && dev->bus->dma_configure) {
->> +       if (!dev->iommu->fwspec && !READ_ONCE(dev->driver) &&
->> +           dev->bus->dma_configure) {
->>                  mutex_unlock(&iommu_probe_device_lock);
->> -               dev->bus->dma_configure(dev);
->> +
->> +               /*
->> +                * Serialize with really_probe(). Recheck dev->driver in case a
->> +                * driver bound while we were waiting for the lock.
->> +                */
->> +               device_lock(dev);
->> +               if (!dev->driver)
->> +                       dev->bus->dma_configure(dev);
->> +               device_unlock(dev);
-> 
-> Much as I can't wait to get rid of iommu_probe_device_lock, the main reason we still can't rely on device_lock() at the moment is not actually the remaining sketchy replay-dependers per the comment in __iommu_probe_device(), but more fundamentally that for most IOMMU drivers this will deadlock in that same iommu_device_register()->bus_iommu_probe() path, when the bus walk happens to stumble across the IOMMU device itself, which of course is already locked as it's still in the middle of its own driver bind. I couldn't see an easy, clean and reliable way to get around that, so that can got kicked down the road in order to get the "call of_xlate in the right order and make iommu_device_register() actually work" basics landed (and start shaking out all these other problems...)
-> 
-
-Thank you for the detailed explanation. Between the self-deadlock on
-the IOMMU device itself, and the fact that a non-blocking
-device_trylock() would be unsafe (as it could fail due to a simple sysfs
-read, permanently orphaning the device from the bus walk), it's clear
-there is no clean locking fix for this TOCTOU window right now.
-
-Thanks,
-ta
