@@ -1,106 +1,89 @@
-Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C6232BD0B;
-	Wed,  1 Apr 2026 06:46:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.22.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ED2F33B6DF;
+	Wed,  1 Apr 2026 06:47:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775025975; cv=none; b=k2/zY+fvxr4nwgP285hP5c6CcXoum3V5YiNYA8G+kZ0Tj/1p188okMiZZGHf+P+usFjn9uy3QSSL6KwT3tYGUqm+tq9OBfbXcN0RaDbrleJNFag0xMmp5BKAcc1GzM1ny5/Scq/J0IZjyeuuNZ7yGrKh9EMrCIwAYZ22607NIj8=
+	t=1775026069; cv=none; b=jXuqPeTerlBwfvKZ7WPyDq3J2K2ljFbm30M1xAmJh+iDfkmPjhHTvvtgl4YUeBXFAhixfQXm3jXZi9L+yjIEpCnH7EcmXy5gIUnEUP0wVbcZ8Jialq3ThzN9vAs12HHgjuEn7Mvjc4T2VjwTmWrp/TcVAfFhIp2DFFnXyINhl9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775025975; c=relaxed/simple;
-	bh=tsXCo8kHJxaw2PHmUna9SP8WpCxHXFWUfDWgjeE1aCk=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=aAUHVSEZmK1y+yupvKnRb7+0lgKXCgLvxKqx0Ha+WuZhqI1k3sGdulQzxzao4zzVqDg2s4UXD4bhKw7efMi1SndXHSR93pH1OwnoFqangCzKxY4Ee+fzwRdIUy5SMmYc3kbgQj1rDdXesczDbPGoZRwpXFLtI3w3LRxQYZwE+pk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=jQqDFXPL; arc=none smtp.client-ip=54.207.22.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1775026069; c=relaxed/simple;
+	bh=7+gEutQ/RvWF/TclM39XWAocQIzbC5MMchwsxAgsIhI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fNyy+HkdjTUUP/8FwR2uATQN0Y7ZOPbVpwZFbg813erVX+AjzWgucbM6KL6pgGcEHLAmA4FQcqsSqPc6uSbkFo+vVSeSA/4evimseWpT+pxIrlT1iWEDMpvd6/JYSsDJNP7C00jv5uXnqki48Tq97vE5o/soZmOA7QgkloelnYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=YFK/JW9b; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="jQqDFXPL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1775025903;
-	bh=jdSh7Gkw/dQvbevK9ISn2ljXK48jqiWBgsjGy36WQ/c=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=jQqDFXPLrpAGxQZQu+WsloIN51XWDD+ZO4a4UMAweMsPlqhjtwmLznjOrZMMJh6C6
-	 n3QQYFDoS4iLU8O1ZReUCsNmwyyttIb5lanTRgAerRGgouoU0GEk+Ch+/EvRH8SF4o
-	 xsN/dhgdHQFZzbPzlfdKvsfbPZvfmZFw+ciqOVHI=
-X-QQ-mid: esmtpsz18t1775025901t2af1da78
-X-QQ-Originating-IP: rNVcEvc/xIMzFngA6uKPDU8Cfui6+G/HVk6UwmFySyo=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 01 Apr 2026 14:44:58 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 1209826560755650584
-EX-QQ-RecipientCnt: 21
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="YFK/JW9b"
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8B669105C;
+	Wed,  1 Apr 2026 08:46:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1775025981;
+	bh=7+gEutQ/RvWF/TclM39XWAocQIzbC5MMchwsxAgsIhI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=YFK/JW9btYqpjPGCjZBVCoac+swVC/vS0tayR4hGEsxbbEIdkEHORJ4RtpxR9MICI
+	 XsexkWTJtD+PLQT1eDJRNs5CQQP3BV9DoLjuUVNxWCkQb9F1+MptZ4w7ckhxv4pJnl
+	 6rVZ/iVpVYSgrlVTdqtH101sKgVfOZYb34f9B1w4=
+Message-ID: <8e924699-e0ab-4e39-a1d1-b218d749672f@ideasonboard.com>
+Date: Wed, 1 Apr 2026 09:47:40 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 00/21] media: i2c: add Maxim GMSL2/3 serializer and
+ deserializer drivers
+To: Ceclan Dumitru <mitrutzceclan@gmail.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, dumitru.ceclan@analog.com
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Julien Massot <julien.massot@collabora.com>, Rob Herring <robh@kernel.org>,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Cosmin Tanislav <cosmin.tanislav@analog.com>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-gpio@vger.kernel.org,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+ Martin Hecht <Martin.Hecht@avnet.eu>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Cosmin Tanislav <demonsingur@gmail.com>, Cory Keitz <ckeitz@amazon.com>
+References: <20260311-gmsl2-3_serdes-v9-0-41499f09004f@analog.com>
+ <abEgijQAqW27i5fU@kekkonen.localdomain>
+ <dd858ec6-7621-45d6-9328-b5b03a4d0cec@gmail.com>
+From: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Content-Language: en-US
+In-Reply-To: <dd858ec6-7621-45d6-9328-b5b03a4d0cec@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 01 Apr 2026 14:44:58 +0800
-Message-Id: <DHHM60NUGNZP.1JLBPAHKZRQFR@linux.spacemit.com>
-Cc: "Vinod Koul" <vkoul@kernel.org>, "Frank Li" <Frank.Li@kernel.org>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Yixun Lan" <dlan@kernel.org>,
- "Guodong Xu" <guodong@riscstar.com>, "Michael Turquette"
- <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>, "Paul
- Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
- Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>,
- <dmaengine@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>, <linux-clk@vger.kernel.org>
-Subject: Re: [PATCH v3 1/5] dt-bindings: dmaengine: Add SpacemiT K3 DMA
- compatible string
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Troy Mitchell"
- <troy.mitchell@linux.spacemit.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260331-k3-pdma-v3-0-a4e60dd8b4b3@linux.spacemit.com>
- <20260331-k3-pdma-v3-1-a4e60dd8b4b3@linux.spacemit.com>
- <20260401-divergent-magenta-dalmatian-3c6c3e@quoll>
-In-Reply-To: <20260401-divergent-magenta-dalmatian-3c6c3e@quoll>
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: N9m5DZSiVOZbSjfBIAHCOaI9580cNFua75cW6peU9XPs/5ClY9v4OmN4
-	owqev2zFdNAATCFOi6twzi/iF/GqezRCQWgbLUQw+lPDiXo4wqzgKbKYl8MRq9by7EqOYQw
-	e03FFqbdHOS72KDNHdlv4XNwpvBqYL+0uLu35zqzgrNgDG27HjZBEVEBo+Gg9bWGlpXSL8t
-	UbPXZTbNI04bQ0KxJAJq5a3IdodTDo/yPPjX+moWowygem1dw2rlKHuhSx1km3UdUVTXuCD
-	jVRjhtenQg7hbzqNI1IiUkiZ2PHXjQgRh0DdXX1/8aT6xlHTkbVu7bbUEQ37jVUB36TPQfJ
-	F5uSN+zNWhpsAHbLdY+7tchj/+M5r8/HPHZtcxpox+UIwRau6U1QiJlk+shqC8EOB7K/I9V
-	P3a6HlYeQR/iUkKDn/Xl7dHtvh00wW+FlSpAVegBOwF37rpAX2J3jtSIIZH+oduWaP417hl
-	VraVOmHQnu00Smo4/5fr9XyVpsID8WBHjnqsKqEOpqYU+JIaY1AIAJbN/da7BlBimMYKQcz
-	ncG5Rd3XBoHkxoKECWLBqRdYRldT9WnUXeIBEuOglG88MG/8rP0NOFEB5K77LQylvsdP8Dr
-	6EcdWQTgs7E4bz1CKoCE+TBdI3u9OpnUyVlNYBIs82/qwgvJsYHohy22JJnB+vkWqgnai50
-	OYg0pZ6nM3sDeL93DoNHTLEMAucqxX5KVpHlZonGFw0/YulAw3pXpXYU3L3h/dLdVxbAb8h
-	y9uYn8QWvM7OEPEyGjHRN/YwjWUVUle4tiXfSQ9Y0mg6ynGj5gc4X90yh3ejufllkhN1qPd
-	XwsR3tcsRoRUQx6F343MPF/+7SyGUI5CNhDGGgW0fwY2OCjaonTquc+Q6ak3dVNeuVMDEkm
-	IzojDah2TDJf3Tdryf5ryhJ2X6CsAw5JnXkRgWFRFB1QYuBTlKMnbkEtQacaHAwLzk5BMCc
-	awYWLgI7fBE7+X3mkB9vJCxvMVifTX439yVHnMHlvZ916oFaSn/QPilJSLHZxW+QvXDuMLb
-	UuJNILu1yea/cQorlRbcFt/yLfBZDHlQU3tjWN0Zs3dIJsZb1S/nXMrO+Jl6PkD0jf8Wfxl
-	d2wpM3aEKSYDAh6BbNKrQ0=
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-X-QQ-RECHKSPAM: 0
+Content-Transfer-Encoding: 7bit
 
-On Wed Apr 1, 2026 at 2:42 PM CST, Krzysztof Kozlowski wrote:
-> On Tue, Mar 31, 2026 at 04:27:04PM +0800, Troy Mitchell wrote:
->> From: Guodong Xu <guodong@riscstar.com>
->> - Memory addressing capabilities: Unlike the K1 SoC, which had memory ad=
-dressing
->>   limitations (e.g., restricted to the 0-4GB space) and required a dedic=
-ated
->>   dma-bus with dma-ranges to restrict memory allocations, the K3 DMA mas=
-ters
->>   possess full memory addressing capabilities.
->
-> Programming interface is still compatible, regardless of memory
-> addressing limitations, so that is rather incorrect reason.
-I'll remove this item. Thanks.
+Hi,
 
-                            - Troy
->
-> Best regards,
-> Krzysztof
+On 30/03/2026 10:15, Ceclan Dumitru wrote:
+> 
+> 
+> On 3/11/26 9:58 AM, Sakari Ailus wrote:
+>> Hi Dumitru,
+>>
+>> On Wed, Mar 11, 2026 at 09:17:12AM +0200, Dumitru Ceclan via B4 Relay wrote:
+> 
+> ...
+> 
+>>
+>> ...
+>>
+>>> The following v4l2-compliance test still fails:
+>>>                 fail: v4l2-test-subdevs.cpp(371): fmt.code == 0 || fmt.code == ~0U
+>>>                 fail: v4l2-test-subdevs.cpp(418): checkMBusFrameFmt(node, fmt.format)
+>>>         test Active VIDIOC_SUBDEV_G/S_FMT: FAIL
+>>
+>> Could you post the full report here, please?
+>>
+So why do these failures happen? It wasn't obvious to me from the full
+report either.
+
+ Tomi
 
