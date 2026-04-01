@@ -1,73 +1,83 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010008.outbound.protection.outlook.com [52.101.46.8])
+Received: from bumble.birch.relay.mailchannels.net (bumble.birch.relay.mailchannels.net [23.83.209.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 525EE329395;
-	Wed,  1 Apr 2026 20:43:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC106306498;
+	Wed,  1 Apr 2026 21:06:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=23.83.209.25
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775076210; cv=fail; b=U13xZUMMPH5VO9qk2tow75Ehh9HWTV2oyi1JiYS0rhDGBsix39VBLLunc+VFybSUoKqFgLVuQmSWLOdtGNJPmD2TbmA+KqAbfc00yXaT2ArZHJYyhj2iDiMILibxK7WzoTcoE5nVHKEiAQ4qUm2LVkL/hc4g8R8KEcrXVDgS1SE=
+	t=1775077611; cv=pass; b=Ze9pAfRFTGNI+mFEO795h1Q3xyxNblT8dOuzJLoFcVJLvZBq5FO7sMgqcwTGQyIFfunmNVFdU7kRgk6XHk/dmPXeSDFJkwtJxYN/tm/ebhjglI7sG6f/n/HqHYUQu0TYqd28TT6+Be2XVeSbm6gEF+vzSF8Lwv6wzNL5kRsnGns=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775076210; c=relaxed/simple;
-	bh=cQC3K7fk1JzZKIBTA+N67tWuWADwo+Od4a8bTF5SXLg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=HY9ptpuLwCNFEvIr7kqL16ZjISlLb4L/bL1iV5dpSJr39/GoJ8+krQ6lIL9TqkMdOme2aBwNaaZdfZZ22dkyf12tu3g2AOO5ME+pNTrl3PzUX2sJEp1O4Pc2wIxmJsPjyHkVlU5TpX8TUascR4hsRJ+Ze2isSPsKbnnLgv8W07I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=EAUjuf/U; arc=fail smtp.client-ip=52.101.46.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	s=arc-20240116; t=1775077611; c=relaxed/simple;
+	bh=YDphsqbzDq00gEyEI+EjT+0jZfGAf+jwqxt7NXMBS6E=;
+	h=Message-ID:MIME-Version:Cc:Subject:To:References:From:In-Reply-To:
+	 Content-Type:Date; b=fAblzjtp2n8Raytf53ZAcUx7JsL7HjCqpSDU4//IO7nv1LJlG0Kx3tO4EsFods2LJlOCNEdWTYBaJycB0brSstv5i2pfdkeFIGrmO7H+sUWh6FRgETXQQaOTrPRCjVJfeZzp7vcyP4HCR61SYnoOeCTgjy3UVQeZPHy0O7OwghI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rootcommit.com; spf=pass smtp.mailfrom=rootcommit.com; dkim=pass (2048-bit key) header.d=rootcommit.com header.i=@rootcommit.com header.b=iM5+0XMp; arc=pass smtp.client-ip=23.83.209.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rootcommit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rootcommit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="EAUjuf/U"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=U/o8/b8B60APDbASXecNrocYq5+gxYemFOz4LVJdlWGHx+Vsu1IWOhSPA7UnF/wLMq5OM/odOd2FWHPkNUfHYW9hqiMhWAizWx7bFFyROj4pwz0SSkqKWEl7qp16CmpY26Dr6T+ECcjboV168pzyULz6lhFBR8RI4Nu7v7vso/4VMJcah8YTTGPFDFxO/oayPZty28+TuTG3xwJydL0SKlCkKcrrf/nSDuavR2FYZCuRC1rrOdandqiK9u5diLnBZffI87SPS2AkO+Cc85hvuEToKu8Vp/sFoPFVYU1ZuBjmv47WclHySlTxUTgD4wlkabEkhS48ePBKRs+Ewk+9yw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+CCNdBFT5kbCNtaouPMl5GGAI24IsGjlZUdFd5vZYPU=;
- b=wLPGxDBQFBj5fBE0Z0fSTfk3qgqjLxMmtdlCf284ne0aq+IHI1mMk+iHT41CtzUp8wy9qE17zOBXkmB3thB7X7ks/fC0Go2OQiT1xOMCSgxK5QAHU0+lJZ+UgxjbmPVaiLopyjt9vILszoSog29F6G49SvRIrg2prcN/1o2ojXp676OKv+BrwNdHDM1wzQ3dCThrpIROHjHxo+QYkJuDvZIJeJ+ngP5t68hWXqplsqJEEh+G1ZJAKieFGFjsRWwqjDrTde4LiMf6vLOm8v3ahX6ffwKShHL+vnT3hPUZ2OthEQAP5P86xL5PFHKp5JXLLMtpDUcnlnwTWOEHrLtgjA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+CCNdBFT5kbCNtaouPMl5GGAI24IsGjlZUdFd5vZYPU=;
- b=EAUjuf/Up/4ERLE+BvnRIbYWTDCKiq7PFOZLZ7BPOgVOFJb/mKocMbKdgO+dCfbhMDMVfrqMBYBYGPx5wgTx9bH5BqQV+n1BoXcF4gH0QNMssK1GsszmNry/MZ9otsSFbAMvM00na1lkcVUuA+o2yMOIjfW/kmCwkF0z2BVMIHI=
-Received: from SJ0PR03CA0144.namprd03.prod.outlook.com (2603:10b6:a03:33c::29)
- by DS4PPF072D269AC.namprd10.prod.outlook.com (2603:10b6:f:fc00::d05) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Wed, 1 Apr
- 2026 20:43:25 +0000
-Received: from SJ5PEPF000001F5.namprd05.prod.outlook.com
- (2603:10b6:a03:33c:cafe::ca) by SJ0PR03CA0144.outlook.office365.com
- (2603:10b6:a03:33c::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.30 via Frontend Transport; Wed,
- 1 Apr 2026 20:43:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- SJ5PEPF000001F5.mail.protection.outlook.com (10.167.242.73) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Wed, 1 Apr 2026 20:43:23 +0000
-Received: from DFLE213.ent.ti.com (10.64.6.71) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 1 Apr
- 2026 15:43:19 -0500
-Received: from DFLE200.ent.ti.com (10.64.6.58) by DFLE213.ent.ti.com
- (10.64.6.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 1 Apr
- 2026 15:43:19 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE200.ent.ti.com
- (10.64.6.58) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
- Transport; Wed, 1 Apr 2026 15:43:19 -0500
-Received: from [128.247.81.246] (mz02jj9v.dhcp.ti.com [128.247.81.246])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 631KhJAN747311;
-	Wed, 1 Apr 2026 15:43:19 -0500
-Message-ID: <436bf0b0-1678-4b75-9c6c-8bcdf913f1d4@ti.com>
-Date: Wed, 1 Apr 2026 15:43:19 -0500
+	dkim=pass (2048-bit key) header.d=rootcommit.com header.i=@rootcommit.com header.b="iM5+0XMp"
+X-Sender-Id: hostingeremail|x-authuser|michael.opdenacker@rootcommit.com
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id CF5594C22D1;
+	Wed, 01 Apr 2026 21:06:43 +0000 (UTC)
+Received: from fr-int-smtpout30.hostinger.io (trex-green-0.trex.outbound.svc.cluster.local [100.98.67.68])
+	(Authenticated sender: hostingeremail)
+	by relay.mailchannels.net (Postfix) with ESMTPA id D381D4C318F;
+	Wed, 01 Apr 2026 21:06:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; d=mailchannels.net; s=arc-2022; cv=none;
+	t=1775077603;
+	b=VA/PL+V8L4E2bCyG9SOLTRJY7f8deP5Q9MtcokcpTZyzBuYLZFbLCbcphn23R1y7AwhB4n
+	XpZM7k4DXgPbbEgQkcLO5JPf6YmJ3CcxXvMwy4OkElCVNWaVIWg9H3P83ws1wcpmnny12p
+	nzSlCimcY6KAoOiqVoFXhhgdxC+Ln5FUBxjNLe3n50F/IexkdhEAqkAp4PMOq9oxc6dwcJ
+	DCC+Ctm9VdPc0QC3X3jj3nIGzPL8OZieQQRUqIpkOwJqqSo5sWT88zdckZQPwMJwLoiJdb
+	K//psJ6GS4Dt/95x7PDP4aDdcih4FaDYuJgCXBMnR7rpUuhdnWiatgyjuD5rIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mailchannels.net;
+	s=arc-2022; t=1775077603;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:dkim-signature;
+	bh=NWOt+A5DoBbZU4MDhyWwRpo5TFnWZBhqa/iD6NJpi2M=;
+	b=vjSe0P3ATitWVh3zaKgpceIee35SUakQfAwXf6Pzre61aIrWsPbMTI12OCUaObJK17l7fd
+	xmBUdyswAyQ8ARCEm3ZsWEuho1DCoQwX2vsgu8eDhSNP9JvQsJBDmF1jGXAGBPb39lMOPv
+	vbaj6psAhOHDHtFiZCYk8WNvsvWebd+qQrsULUTVQFYO722Bg2kaxnFJjDkQdnDTNMJZSH
+	YX2/8tmsRJU7ur2BGRuVRJnQCsg+eU22KmLNY1No8L5vmsNM1K5P37cRJ6nqkTKShFLDUa
+	A48DOW0ja25SOhCOxEcRWx8+Gv6+pYQLKZCSkrC1GqfV/03bgK7zP4ywjwDh5w==
+ARC-Authentication-Results: i=1;
+	rspamd-bd48b9d95-5bmzq;
+	auth=pass smtp.auth=hostingeremail
+ smtp.mailfrom=michael.opdenacker@rootcommit.com
+X-Sender-Id: hostingeremail|x-authuser|michael.opdenacker@rootcommit.com
+X-MC-Relay: Neutral
+X-MailChannels-SenderId:
+ hostingeremail|x-authuser|michael.opdenacker@rootcommit.com
+X-MailChannels-Auth-Id: hostingeremail
+X-Coil-Exultant: 77a73e0363d089c2_1775077603610_3843726031
+X-MC-Loop-Signature: 1775077603610:1334320305
+X-MC-Ingress-Time: 1775077603610
+Received: from fr-int-smtpout30.hostinger.io (fr-int-smtpout30.hostinger.io
+ [148.222.54.7])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.98.67.68 (trex/7.1.5);
+	Wed, 01 Apr 2026 21:06:43 +0000
+Received: from [IPV6:2001:861:4450:d360:e8fa:1ded:d686:98f3] (unknown [IPv6:2001:861:4450:d360:e8fa:1ded:d686:98f3])
+	(Authenticated sender: michael.opdenacker@rootcommit.com)
+	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4fmHbf0jwcz364N;
+	Wed,  1 Apr 2026 21:06:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rootcommit.com;
+	s=hostingermail-a; t=1775077599;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NWOt+A5DoBbZU4MDhyWwRpo5TFnWZBhqa/iD6NJpi2M=;
+	b=iM5+0XMph5QpjN/3nMVL4m1lV1Oxrs4W7+KpXmossgzN+u+aVQW8uzg/D6Z9i7vjDFAbNo
+	Jl2tlWxBkGOgL3Mp5ZQkbrTEG1eQffBHRdHyPe7ucIyPSaE9hwKC6TQ/YnaI/1YAFX3cLY
+	/8dSrB4JM+Rej6jo+j1gJ4rsLNQ/LPIabcHTqZaT/230hY9jbT+Oci27dklGIvOJdjpS3R
+	BbosmM0jS5dv4WhMm/O1bd2WF14r4xqOP9GGtg9stc+F3zZY0FppM0iq5TQJqGj2/fRXHh
+	oioktSASh5ZBhjOIbP9NA8oOYvNPmg/0LLxqF30dNelnHJ2qGHKHQM9htg815g==
+Message-ID: <f6b0b867-c37f-47da-b04a-f8bc88727f1a@rootcommit.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -75,152 +85,67 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] ASoC: codecs: Add TAS675x quad-channel audio
- amplifier driver
-To: Mark Brown <broonie@kernel.org>
-CC: <linux-sound@vger.kernel.org>, <lgirdwood@gmail.com>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
-	<perex@perex.cz>, <tiwai@suse.com>, <shenghao-ding@ti.com>,
-	<kevin-lu@ti.com>, <baojun.xu@ti.com>, <niranjan.hy@ti.com>,
-	<l-badrinarayanan@ti.com>, <devarsht@ti.com>, <v-singh1@ti.com>,
-	<linux-kernel@vger.kernel.org>
-References: <20260401024210.28542-1-sen@ti.com>
- <20260401024210.28542-3-sen@ti.com>
- <8eb47e54-12e1-4f92-a488-09485df035c6@sirena.org.uk>
+Cc: michael.opdenacker@rootcommit.com, devicetree@vger.kernel.org,
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Han Gao <rabenda.cn@gmail.com>
+Subject: Re: [PATCH v4 3/3] riscv: dts: spacemit: Enable USB3.0/PCIe on
+ OrangePi RV2
+To: Han Gao <gaohan@iscas.ac.cn>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>,
+ Chukun Pan <amadeus@jmu.edu.cn>
+References: <cover.1774974017.git.gaohan@iscas.ac.cn>
+ <0ec229e2fb138092672773f134d0739e70740ce0.1774974017.git.gaohan@iscas.ac.cn>
 Content-Language: en-US
-From: Sen Wang <sen@ti.com>
-In-Reply-To: <8eb47e54-12e1-4f92-a488-09485df035c6@sirena.org.uk>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+From: Michael Opdenacker <michael.opdenacker@rootcommit.com>
+In-Reply-To: <0ec229e2fb138092672773f134d0739e70740ce0.1774974017.git.gaohan@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F5:EE_|DS4PPF072D269AC:EE_
-X-MS-Office365-Filtering-Correlation-Id: 417fb58a-bdac-4c5c-5a15-08de902f518e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|1800799024|7416014|82310400026|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	aIBcNMrQ5P3eoSNg6NW33hc9g06JkCfYG+Ftg5LcSc28oUqy/CCBzu8DiroB6rhjYh4uMbtbZt6k12PSN2ZJXugupndSZ4UVFYLve9ZKvFAxen7nqZSwZ8FFlKWX9Iooriegm41+Jx74oz0+5ETeDJxJHimdfX+zGQVtqZnFIzVKLYmZZhEaAffvEy+NwOP/miLB9vx4XX8otHNLq0Q7cubvlKqZPHJpkvX0QRdCmnw1lzGb7U63qwWhIsLxBlL9UH7cTGIZOaRWPevX4xfYEtZ7lmpzdHH9WXid292bf1ehCHV4DPDdeSYjK78rYRPBdKkVpRoQJ5Q5Ss0dYZuXOWWKkc/1DvAGhyzeNKGFuzA0LFmdVIVDkV9ijgv0fNL44cfdL0YJcVQXTb0gGUzJva9LPiocH9O/7OeLIfMZx9M1sc/nwBvLm7fPmt9yw9kzHWolLeTFVjsAUDHrPMl0yUAuYxo7jZ4Iy0AQie2AFLmQgcM7xdhkSN3caddEC/h2uzitTEPcIzhmxruL9w6xtOnB1Pfa05r5PmNbicHQc/L7DhkQo/yWsqghjDFCwVgAjqFNiNllb7CkSTDiR/EXKCjVbxiNbzGWtT934NQQ6xzPtGqBbKdgRZkf6K6X6+IrFI2wkP07v8SdHdqa1eW3JRfg0gf44RhPo6xMGsk9Qedj8VsoKf7UV+h+2lFiRCwhsVcOwXQactgC917GUuThgu4n6/EWQz9zZMIA2dqB12qQoBGYXT0ypbShHWns2QKqT83Ly7+VbSXAqz1UizeCbA==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(376014)(1800799024)(7416014)(82310400026)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	oU48/MafOViPr+wZVblo5pJG1IP3O6aH1h1NtsNbICbyUqzCD+T97Un2jUqFPW2m1ZfsPPjcMT6dyqPIuliFgaS+Ag/0RmzQmdI9EKDMy24U+l8xo9D1fkuqhreFS6OlI7zCykaND6ifkvcckSY5qDxzcgv7MJ3oDfSqpP6lJ/to7dQDb3JTM5xNrNF4gCjOYolhetS/MAfDyghVq468lJu8LckAF78mWZ5cmmtJLXQ7QRTVC3EqBcnB+uF/z1hyN20hRe+Naov3f5B8LFq7qzf7wUeBxqXDhImXw6FpPdbWre8O6cUYWVEcuP3Qexakt4w3UL25gMY6dgJgM+g1tBW9A3lkObmQWnjkXzWzVcylYsCheTZehhP1TUwUE6S5c/HuoPg0u4YB6Xwy3XXg9HqsfdhTJDCihniU00vcrldwSczF//DtS6Mrcu94VKPY
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 20:43:23.7970
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 417fb58a-bdac-4c5c-5a15-08de902f518e
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001F5.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PPF072D269AC
+Date: Wed,  1 Apr 2026 21:06:37 +0000 (UTC)
+X-CM-Analysis: v=2.4 cv=ZbRPNdVA c=1 sm=1 tr=0 ts=69cd88df a=E2FlaUaLzEUwfBssy7un6A==:617 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=d70CFdQeAAAA:8 a=N2QTJkzpoG2ymMjQJkQA:9 a=QEXdDO2ut3YA:10 a=NcxpMcIZDGm-g932nG_k:22
+X-CM-Envelope: MS4xfHLB0AFcx0PJZBSV6rZVLaebVYPolfbqqKGbNYeNloUgp6yCDdSlkpPugBc+2qmnfW7J3R45ET7ti5Af7QAza8Js7sNxc1uKI3vbG55g49j8DCmG9V5P J5t27P1WsJQwxtpEyRs+Uqjxrw4iHhuijYNA78GS3b8h2a13qNSw6txERabWudbiGhgKsRGXUU5g6icQkAhV2mqNyLrOGllZqrr7/0LJsRhgWl+xMhJYNfN1 rVlp4/2aqnMiD3oUu113NK0yulz762PqAWX3uLc2oXE3kKPzZe2vE8aj2wk8J6tnYiqzoLBUfMQopQi2tJbUg6OAFLUnrqG52LLQ2JamGaHQnwv6ui4KR2DA wBvMG54Ci0frLbtnpv82l1ydz4FIwYIP0uDR/wGtKNpm80q6N5Fjp9YhaV2E03n8bdjT90QsRSvt+r1tMV2xKcH318++IyhKNOWwvuMKaPoCzvMUI3kALO0s BYqj/oSF/ncW9z0tD2NDDkdPtHXk6KBVlYxjI1cTxq/b26Wa9xA5gDl2/xc1wS/Zz200bkNtQdVcng3uLzEeJAPN+rV2RU0ISgJ04qkyJepteYXANaofBsjo TnOOjnqi7/r3lhki8C8GNqEM9Ac/AOriPOvy8HKn+aEz/ysb7ZQb1EDqOeauvdCmUfpXpgSArhkdvEYg3d1Q5dZSFrYTPv5x8B48cjIe2Ag5TzRXMMJHsmth QRBFbkTkCK0B0W3Dupu2DY+JJZzNrMLPyQNGvcMFY+FHP+pcgt9i5pFMCq4Aqm9LIrm7JiFWBdF0NpICtH/5XLYveayr1ntZ
+X-AuthUser: michael.opdenacker@rootcommit.com
 
-On 4/1/26 11:07, Mark Brown wrote:
-> On Tue, Mar 31, 2026 at 09:42:07PM -0500, Sen Wang wrote:
-> 
->> The TAS675x (TAS6754, TAS67524) are quad-channel, digital-input
->> Class-D amplifiers with an integrated DSP, controlled over I2C.
->> They support I2S and TDM serial audio interfaces.
-> 
->> +static int tas675x_dapm_sleep_event(struct snd_soc_dapm_widget *widget,
->> +				    struct snd_kcontrol *kcontrol, int event)
->> +{
->> +	struct snd_soc_component *component = snd_soc_dapm_to_component(widget->dapm);
->> +	int ret = 0;
->> +
->> +	switch (event) {
->> +	case SND_SOC_DAPM_POST_PMU:
->> +		ret = pm_runtime_resume_and_get(component->dev);
->> +		break;
->> +	case SND_SOC_DAPM_PRE_PMD:
->> +		pm_runtime_mark_last_busy(component->dev);
->> +		pm_runtime_put_autosuspend(component->dev);
->> +		break;
->> +	}
->> +	return ret < 0 ? ret : 0;
->> +}
-> 
-> I'm confused what's going on here, there's runtime PM management in the
-> ASoC core - isn't this just duplicating what's there?
-> 
+Hi Han
 
-Hi Mark, thanks for the review.
+On 3/31/26 6:27 PM, Han Gao wrote:
+> Enable the DWC3 USB 3.0 controller and its associated usbphy2 on the
+> OrangePi RV2 board.
+>
+> The board utilizes a Genesys Logic GL3523 USB3.0 hub.
+>
+> Define a 3.3v fixed voltage regulator for PCIe and enable PCIe and
+> PHY-related Device Tree nodes for the OrangePi RV2.
 
-Yes this function is redundant, it was a residue that I neglected to 
-clean up, let me remove this function.
+Fantastic! On OrangePi RV2 "lsusb" shows the USB3 host:
 
-I was experimenting with DAPM events and see if this would a better way 
-to systematically clear fault status and set the prerequisite registers 
-for LLP (DAI1). But ultimately reverted for the sake of simplicity.
+# lsusb
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 001 Device 002: ID 05e3:0610 Genesys Logic, Inc. Hub
+Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus 002 Device 002: ID 05e3:0620 Genesys Logic, Inc. GL3523 Hub
 
->> +static int tas675x_runtime_resume(struct device *dev)
->> +{
-> 
->> +       if (!to_i2c_client(dev)->irq)
->> +               schedule_delayed_work(&tas->fault_check_work,
->> +                                     msecs_to_jiffies(TAS675X_FAULT_CHECK_INTERVAL_MS));
-> 
-> This is the only place where we start the fault checking but runtime PM
-> can be disabled in configuration and we also start runtime PM in the
-> active state so potentially might never suspend and resume.  probe()
-> should kick off the work as well.
-> 
+I haven't been able to access devices yet, but I guess I'm missing some 
+kernel modules....
 
-Yes, I need to add work at probe time as well. Didn't consider the 
-scenario when PM is disabled in configuration.
+And on PCIe, I could read the contents of a Raspberry Pi SSD disk:# dd 
+if=/dev/nvme0n1 of=/dev/null status=progress bs=4M
+255730909184 bytes (256 GB, 238 GiB) copied, 664 s, 385 MB/s
+61049+1 records in
+61049+1 records out
+256060514304 bytes (256 GB, 238 GiB) copied, 672.782 s, 381 MB/s
 
-I originally wanted detection to only kick off after the first playback.
-But scheduling work after the power_on which clears faults status
-essentially does the same thing.
+The SSD was freaking hot though :}
 
->> +static int tas675x_init_device(struct tas675x_priv *tas)
->> +{
->> +	struct regmap *regmap = tas->regmap;
->> +	unsigned int val;
->> +	int ret, i;
->> +
->> +	/* Clear POR fault flag to prevent IRQ storm */
->> +	regmap_read(regmap, TAS675X_POWER_FAULT_LATCHED_REG, &val);
-> 
-> 
->> +static int tas675x_i2c_probe(struct i2c_client *client)
->> +{
-> 
->> +	if (client->irq) {
->> +		ret = devm_request_threaded_irq(tas->dev, client->irq, NULL,
->> +						tas675x_irq_handler,
->> +						IRQF_ONESHOT | IRQF_TRIGGER_FALLING,
->> +						"tas675x-fault", tas);
->> +		if (ret)
->> +			return dev_err_probe(tas->dev, ret, "Failed to request IRQ\n");
->> +	}
-> 
-> We request the interrupt here...
-> 
->> +	INIT_DELAYED_WORK(&tas->fault_check_work, tas675x_fault_check_work);
-> 
->> +	ret = tas675x_power_on(tas);
->> +	if (ret)
->> +		return ret;
-> 
-> ...before we do _power_on() which is what calls _hw_init() and clears any
-> faults that were latched in the registers.  This means that if there is
-> something there we'll handle it through the normal interrupt handling
-> flow and the rest won't buy is much, probably better to reorder the init
-> vs the interrupt request.
+Tested-by: Michael Opdenacker <michael.opdenacker@rootcommit.com>
+I'm excited to have these features in the mainline kernel, hopefully soon.
+Thanks again,
+Michael.
 
-Absolutely, will reorder the IRQ request to after power_on(), so the 
-handler only starts once the fault reg gets cleared and in a known 
-state. Along with scheduling work at probe that I've mentioned above.
-
-Thanks a lot for the catch! Will post a V2 addressing these concerns.
-
-Best,
-Sen Wang
-
+-- 
+Root Commit
+Embedded Linux Training and Consulting
+https://rootcommit.com
 
