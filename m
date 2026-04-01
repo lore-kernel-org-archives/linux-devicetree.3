@@ -1,196 +1,503 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013059.outbound.protection.outlook.com [40.107.162.59])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE3B838422D;
-	Wed,  1 Apr 2026 09:43:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.59
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FB553B895F
+	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 09:51:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.50
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775036603; cv=fail; b=LizvLIEpqsNVZLTK1m5vRB9KR+H7lfLM6INCLeaJdf5uuOdq2SPeU7700gvfST9Wvu3NNmQ1LweI0rm9a/A4U5vbesjAvbygTKUKjTlLry0TwmN6fJvsq27HJIdvS0mm7putf2/N0K0X5+DoYgh5YZwRq6c3JNpmmjbNI8R2coQ=
+	t=1775037080; cv=pass; b=qYxfpWKrszWu/3BMGOkZR2EhNIcXGoWl+atw+uauD9tEyweGkZKuh3Z0lYNkZDKt53sZGNIV+limW7KE9JS9ipcRazseTWYVH0fL3uyJzirzTnDNylJ7Lky05WLV3NcPFEkx24PUG4BmT6j87I4C5Tzh93mmDsDvYFUhoNePNBs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775036603; c=relaxed/simple;
-	bh=zwxZOzLbG8Z9VQnWZqG5iy4TUr8xtsmyS/DqJd9IjXY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=AQKqxrUo4EAgbCgulL12f6qVxPJFpCFgnrG8o0fW5lpAHePSze84KAdm3TCu+hJnBI08CMbza8O64l2Kp09r/8j2D2OK1gTvCcr4x0acH5F0Wh1pVNs/2/wSjfaUENV6a2L3Vea7qeYYUdPiZsjRqF7S5zynOxBwCzt9Mn9YeeI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=MGOwLVCJ; arc=fail smtp.client-ip=40.107.162.59
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	s=arc-20240116; t=1775037080; c=relaxed/simple;
+	bh=XKPiYSIzgb6NVeZlS8C8wzTlmjcPCD+6SxVz/Zj3e9Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TG68HepQ+yVaFnxAPK/VDi84xlccdGmMH9MzJpwaQGNfAHyv/q+qQb0l2eJjjRpkTvXNYoUyQlG74HnibdVKhLUVscyU6Ar5joVJf/0gqsX6diVXT/fUGZvQ7ReWb8ILsTk5Fv8lRYyP9JSJH8u8A7M80SnZYsYMVu8hSy13+a8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fGnntptj; arc=pass smtp.client-ip=209.85.219.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="MGOwLVCJ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y4ZniGqYdrO8cUEX38M65pvwdUKw/rAploibS649kZFWobz1xd2OqmenroFfQDzPYBxtsLZrNPJNrSYIKQ3ocRv8WP8diYW0ZK31MnuoC+aBPZt/MOb6mhHcHN2J32syXXjX8DlbHSSC9tSsRYnAwd8wR9EK321Jb1T7kzYwz8EPYW9bapBZ+7ekKaU4MzFpA8DV+701mrS72MbZKaLC4pD7kp5QAUWgek2sSRvJt2J/YzMNh2d+cpiGq7aVVIjm/GAP/BfTnrxagejDU9+iDXt67RFJpQDCaZX6Ea43r0/JA7uJzmAIYaUJuugC9dCz8bN4feHPyjQSCg2OIKAHqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zwxZOzLbG8Z9VQnWZqG5iy4TUr8xtsmyS/DqJd9IjXY=;
- b=yyOnk0+2sGf81NSRn0t7xIzBxoty46Q2Zx2JkQCyLparkVSVpqn0RuiA52aYKEptwjxuA3GGDwGmaz7xNk1oWMGl40kxipXTUzFIgi/dI47Gb9VbYbJmWo2NE/CM1by5fs10OS8Kgjab0YzClRGf2CU8Bgf6Mlo4IsCszdU/7xZUE6+TUSU1UxGTp03UjjroQ3DKwFLJyseGLhvTtcBLfIfPInkoxTZlk0+6Af/erJ33vcwyeBvbLJD2VPDk5In3J+r78u1mQrd+7EUjjPR4Kmnlr+0SDhVCJiMyyhBzt+qzlrXq6OsYauBNc8QePB1Am2qtsLdKru6St6WG/+9uQw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zwxZOzLbG8Z9VQnWZqG5iy4TUr8xtsmyS/DqJd9IjXY=;
- b=MGOwLVCJgSCNWLNKR0aRi4riebOzdiEd6d/MPKY3tC7eTJ+ZTrxO8EF7z6LRnpXIyihYF0oFRgZMPIgILS7f1RPDz0U4m5cWDg5tRrN/vII0B00OBDzFANefNbmWwZsdUt30ZUmnxLmOGUrUriX44FKnQOu3NluRZHqU6pGkLkorbS7Vs0Jl/CURfF7oebvO1hC3v4/xxgQsdEbcLE2uaXLBUldrVPwXiBxKdGYVcaLuraOpWCPVoj/7/tVrkvxv1QPJfQumdm6uf5dTWJAT9JLKYqd0bnRrvTTQsnzHsHzrEJ7kpi/+rXcrSAl5LO1GnBwsV/fc9Dy7TWGekFe5PQ==
-Received: from AM0PR04MB4707.eurprd04.prod.outlook.com (2603:10a6:208:c0::29)
- by AM9PR04MB8322.eurprd04.prod.outlook.com (2603:10a6:20b:3e3::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.16; Wed, 1 Apr
- 2026 09:43:13 +0000
-Received: from AM0PR04MB4707.eurprd04.prod.outlook.com
- ([fe80::e918:eca8:f034:698f]) by AM0PR04MB4707.eurprd04.prod.outlook.com
- ([fe80::e918:eca8:f034:698f%5]) with mapi id 15.20.9632.017; Wed, 1 Apr 2026
- 09:43:12 +0000
-From: Guangliu Ding <guangliu.ding@nxp.com>
-To: "Daniel Baluta (OSS)" <daniel.baluta@oss.nxp.com>, Liviu Dudau
-	<liviu.dudau@arm.com>
-CC: Daniel Almeida <daniel.almeida@collabora.com>, Alice Ryhl
-	<aliceryhl@google.com>, Boris Brezillon <boris.brezillon@collabora.com>,
-	Steven Price <steven.price@arm.com>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <frank.li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam
-	<festevam@gmail.com>, "dri-devel@lists.freedesktop.org"
-	<dri-devel@lists.freedesktop.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, Jiyu Yang <jiyu.yang@nxp.com>
-Subject: RE: Re: [PATCH 1/2] dt-bindings: gpu: mali-valhall-csf: Document
- i.MX952 support
-Thread-Topic: Re: [PATCH 1/2] dt-bindings: gpu: mali-valhall-csf: Document
- i.MX952 support
-Thread-Index: AQHcwbv0ZywTVM9NA0GloPWCDGJS0A==
-Date: Wed, 1 Apr 2026 09:43:12 +0000
-Message-ID:
- <AM0PR04MB4707B3E37DFE7AEE587DBA2AF350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
-References: <20260331-master-v1-0-65c8e318d462@nxp.com>
- <20260331-master-v1-1-65c8e318d462@nxp.com> <acva1Xt8V4k9-uG8@e142607>
- <AM0PR04MB47073E9E8B5C704BCF5D9F72F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
- <99a1da55-d6e5-4d11-abaa-8c85283ab5f2@oss.nxp.com>
-In-Reply-To: <99a1da55-d6e5-4d11-abaa-8c85283ab5f2@oss.nxp.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AM0PR04MB4707:EE_|AM9PR04MB8322:EE_
-x-ms-office365-filtering-correlation-id: 612aee14-7ace-4b71-500a-08de8fd31765
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|366016|7416014|19092799006|38070700021|18002099003|22082099003|56012099003;
-x-microsoft-antispam-message-info:
- 62FIXqKBMvvXce66wO4PKFUHQYlaSPx0GfA0axJE8nTO0kihRZwA2aUSbxSmRuyzZebhHaTquoriUt48AdsHl/bidZ2BKaeuiFkRJ+I+GV9qeWGx4Vnsir8cMxZVMJCkD5CPlBbhUa9Z1ElmWD6fSoPfQOwpyzdl3QxlYm5XBpvQWMLDSNH5pvE4AgXadSeIMgLduCYg7p9u5EbNHEHchv20gbuM6Cj3nmYowyQzBngODjLr2FTBvlAqEk1aMfLdmwKqKz4ihb8hjPSQeAQbikKWFaU5ED19HbaO8xJJpkEJc6DuFtMc01fmKS/uYGj84xOF15KTivCmWJ8tkT+VW1tlZDV0zpR0aB0fC+ghc0FmozUvu5rx/b2QxCBFNPUt54GKV3J8yHGZc8zzsNdzVnymX4Y3/uG5fraLPEaZZ2zdgqs6wycgAdkEUWXq8r4pFOq6yRrwKJpaxZ00oRP1MPmu1vUpSemLWK/3MUddLaB03aAv5OVyN8nrZHCSqCNIfx36+c96WVwEssBadEQgb6+nm4Y22GtzODQH6ZIoSJ+3OkQhj1DvRLU4h3iQEaOfYwzwg1KvKXbOt6YjMqrB0qKh5jtXHyIA5hj/RDobGRyrLT4Sk+sYxC/4VyDmDiqoI7R08PMdNkU/rQJKl08NfFbBhf3gMjKNSLjzv4c8wDsWucGbl5AqxufGxzlpAhmoGz7APYdJGrtlf8h2+p2HX0AALTMc24r8hwua+OkT1mq6TgAdtNw/k1l9bx8S9kD/kQem9b5r95A6p8uDhmlVe7pKwI/bBmIZYdctF3a3MbM=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB4707.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(7416014)(19092799006)(38070700021)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?VUJ5Z1h5b28wSzU2dmpNVXFVMTJ4aVRSaHVWemEzbXcxRHdCcnFvQlUwc0dC?=
- =?utf-8?B?OVZmV2ZaYkZ4MGRtR3hIWkxDYUdKeEpCODdlNGswbVF1THZrZi9YZ25ZU3JI?=
- =?utf-8?B?cnhYQ2FaKzBhL2pNU05FS1BWamd3bXRDTGVUYVhleEgvbXpHem1RbVZ2SElK?=
- =?utf-8?B?UWVtR3VTdEJ2WnhMNXRwclJXcnZ5V0s1aDd0OEJhWnlBd1doM1RySGNDN29l?=
- =?utf-8?B?M0NRVCtiSDVPTnowbU16aURKLzZVZFgya1hia3VaVWpLek1zdU1yQnBnL1hO?=
- =?utf-8?B?dWRqV3VTQUJLa2RXbkFNWmk5N3l6SlFOdjVPNkYvMnhua3VjTDNPbHEyQWhV?=
- =?utf-8?B?YTlxREFPM1lacjRIcDdxRjUvUVlBK2kwb1E5MWJzYysyMlBPT1h5M2t4YmxN?=
- =?utf-8?B?MFBMRXBDbXVTelBVWjdRLy9La2s1aElXWC9RdzM0a0wvTURNK0ZkSTN1b3VX?=
- =?utf-8?B?LzNxTlhYcmNsZnEwZDFQR280VlByWGMwaTBLL01xcXU2eTlReFhBZ0hHV05l?=
- =?utf-8?B?WDlCakJXOVYwblB3Wm5QT0pLcnJZQzkzSElqYWpMQTNUYm9melV0cWRWZHFs?=
- =?utf-8?B?MXJvTXpjTVo4MVpZMnByZ2Q2d05hVGhYYURseml0d3k4cGpzZmRzUm1lZ3Iv?=
- =?utf-8?B?U0VkOEg0Vk9tWU12MjlvaEhBblN1RDExYjB5ZGFwMWF6UklLM2lrYVJkeWhF?=
- =?utf-8?B?YXgvbGhEZmFxWDZRakwwN1dSb0podmFmdzlmKzg0cFZneDVhTW5YRUVQeVlZ?=
- =?utf-8?B?Z0x4azBYalVQbjZWeHZFZWx0MDJFSTNoNEQrcTZFQll4bDcwNlBlbSt5ejhX?=
- =?utf-8?B?SDRjVHluQXNpRyt3QkpWeFVoa3krTFE1b3FoOEpBbVhDT3pTbnNkdi84dzg4?=
- =?utf-8?B?eXd1VTE1OEhuVnphYTI0amNZazlhcFI3Y21DOVQ1S091cEtZV0ZaOHoxYzdZ?=
- =?utf-8?B?MWJ1OHhnVEhpVmhMRTVsV0hveUd0SFBpWUhkazhBalhqTi9IVUlsSlVKcURO?=
- =?utf-8?B?Q09ISU5FWEptRSs4dlhKLzNYZVBXekRXZGlkZWpNSCtkNUdRZ2VDdUJDZ3dl?=
- =?utf-8?B?enZiaUw2RVJGZGVzR2ZvV1pPU0dXdkhTY0hyQndKQVNGSDBKd095QmluUW1Q?=
- =?utf-8?B?L0lWaHVjbVBWSjBCSDJpUXh2WExNSHRhWTNnRWZvbnlGRjJ3ZE9OK29zdjli?=
- =?utf-8?B?WUE0QjNKWk5JRXBiVTFVRm5mR29BbnlyMWNaa3ZFMEMwQURQdGFDaTBaMWtD?=
- =?utf-8?B?bEFxWGhiOURpMUw3c0dnYXhRVGtUWU8va2NmVkcxWjJoSno1c2hPR1Q5K2RY?=
- =?utf-8?B?bG5wdWVTeHpyNGlHNnNMQUtvbzhyUFh5czFYSDRHWWIrbFIvUUt6WnBXQUNN?=
- =?utf-8?B?WnNmN05ueThEQ0RHOWVwTnpmQ0M4S0pIZXhDcm1VTEx5aEZiUlhHVlhYSEJ1?=
- =?utf-8?B?TUd3Z1dyL1kzbnJIZ29jVlR6M3k5TmNlYVptbjZFemVIZDVDR3Q0U0NwQnhN?=
- =?utf-8?B?QThPdDJncXJ4SmFxZ1pIdjlrbEp4dUhISnhSZitKMmxoa0tJZ0JBZWUyTDZJ?=
- =?utf-8?B?RGI2MEhHaTZHay8xYm5ZNkRxblhEcllzNllCaUNHSXhrN3dJUVVMM2JJemdD?=
- =?utf-8?B?UGk0NGJlMm5IRW9JRFFIajJUbEtqRm5LWEVhbkJQMGZCRVNEMmo3TmdqMTFZ?=
- =?utf-8?B?Um5JOXNVZjZCZVEvQVJIa2ZxdGhkbjRLTVorL1EvRldHVWRLbkpINDZIa2hz?=
- =?utf-8?B?UUtwVzNBV2Rwa3pPUG5TOWRCYjdsWG0rT1Evdk5NRWs0V1IrcmdzUHdhNU5k?=
- =?utf-8?B?TDFGQytIYWNNSTNJYzd6bDhzOTByYnA2d3o4c1Y3VUV0TTl0S3YweDdOWUgy?=
- =?utf-8?B?MFJpL2lSWFRHUXBlbU5CTDNDaUVHaHhTYkViZFh3UHFBYjQwSkRNSStYTjA3?=
- =?utf-8?B?RVppcXFYbnR4NjNCd1ZlQkRzOVdzNk9ORWJySTQ2VEZERUxHcWpndWVVSzhN?=
- =?utf-8?B?NEV6SnRJZVUxeUxsb1lMQzN3R0VKK2lYZ1FyMzY2bEVub2g3KzFPVjMwOUNM?=
- =?utf-8?B?QWhXYmZSREhKd3JvSUE5K1FleDB4OVhyTHNZWEhCY0QrakdTaEhsRENqZjJ3?=
- =?utf-8?B?R1lXenpvUnVzc2tnRWljazZtcldzWHhTdGxCQTY1UFZxSkZIYmkwRDVIZjVF?=
- =?utf-8?B?MXBPbzR4dE5pb3F3cXNFaStaQ0dmd2RwUEdrTDQ0aEJLaWRUWEw3cUJMNjdS?=
- =?utf-8?B?UDI5Y1laZDlBR0ZRems5bVJONUlIZEZ4TTN1clhYS2tZTS9FL1l2eHEwU3Fo?=
- =?utf-8?Q?DFpubTzGA9+4hnAByO?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fGnntptj"
+Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-8a016799d2cso44763456d6.1
+        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 02:51:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775037078; cv=none;
+        d=google.com; s=arc-20240605;
+        b=fQ1iEqiL3MapRIZOa4cBglwjNMX4awCYbWrKAchp3BLnYzd3go2W+l9gZGCMU3lh1j
+         nDwYmKjd5KCuwkk9jDP0r5iizVelMyZbqTQz8kMfhjB8kIWm4fRh0Y7LDPe+ugZpDsu/
+         pX9Z7jp0h1dnKbPeonlpF9Ghjh0/qCe3oobWBCWXiyapL9PV96+lT/+4RwI90ZtVEweF
+         zaX4nStOr3xPFDmbmaI+XU5nEBmIimC6RkTHVZQfuo2LyWWFF7ClBECr8F3BaunQMx3t
+         BeZic0xQ+1/LnIeH1IrR6XqjlK5kFxMe3RnxOHh6pIq6LHAMyWa5L6txxvYLumTTarQO
+         kw8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Z3jWD8KB9axY08EbcL/Wu3ONW/UD+QA67EncL91vtpI=;
+        fh=w1K/XzR/PRCIB8+euMpvphnFfvhO0YOXMYMCGfq60AU=;
+        b=S40UdihFUI9AHB/ncnWwsXN8VF228PIfcLUqRhVLeJsve96iuF/bEHtNelQXiNbfD9
+         hT8ENsgYkU6b/5FupznajcuedTMBI0RtLq8c8t+XesxCff28hRJud2ad8cQjbSd9WuLA
+         vvUvnxUOU3rf8LzQff5cFw44J9GITe5CL2BR+BXSUT5c5fAHHhEsg6dAAyRV5q20UOao
+         FX04XzJIpD792ueD5SQRn3mFsIF3PQZRpQ3fpHjHUGKzSHmoosk2zXy1/Vn9zhEVrDFg
+         ao598O3p2Ue1mGL6qOhJeLVEk1xUy/ODEG3MsSHRQ/p4ni46Pm/UfYm3J3hOEa6F2Ax9
+         0AOA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1775037078; x=1775641878; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Z3jWD8KB9axY08EbcL/Wu3ONW/UD+QA67EncL91vtpI=;
+        b=fGnntptjEws2hKMi0Tyo1l+TMTyrHIEg57bpEt2XXnpYS5QXJnlvaQZmlPB7vRUwlD
+         a5qJynKSy2hoVR2FGcAYIRYSIxE8xF/UhCqzMwkIEK0Uj6N4QbZ9wGb6RzKbZMFpUMjT
+         glOrTRZORu66CeOmba5E61E9r5y3jr6bARgVmsJJMHtrSUlWADiBAwp1psbase1BgRLW
+         of17UGVEWtRnBLB+AT4to9EczQ9uFpDSz739ippoh4jBjw8ktiwo20Odkg8i7VwhJohh
+         qqbuvfuFVzEtLgzfRgd61/lTbx9EHPLlrq/EDKa5nhczmxgbV3gtYErp+rLjM6a81iol
+         dpqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775037078; x=1775641878;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Z3jWD8KB9axY08EbcL/Wu3ONW/UD+QA67EncL91vtpI=;
+        b=SQclYIzdudwb+HfYEPKiUjgpJjSVOdr4PYUAn71JpLR9QtLfpLL+iwZzkmi1zWOqjN
+         LVtROL9OBWSJB3rkqsJAOZtj09drS/iNm/oaLM1a1qH12NpBXOuks/7NBp9MWr3GYv6l
+         MXGkrME82eDdp7Rs4bbf3TugGwlUgaRw7mrKM9JF1NHI6DgJ9fRCoMpXAfDGbVsT9EGX
+         YKycggnf1J8MsCRuNNbZ/69xeI+tA331WjIlDsSltCrMp2MSe3NA7cmmTxeu8xEKkMuS
+         ++EyLFM2ZN2jsZ3TSm8GMYYw+rsjyrcBEGzIAiirjS+wQqqEvzpgKodZUnblKsob4gb5
+         bZ5w==
+X-Forwarded-Encrypted: i=1; AJvYcCWzZV1D6l+bVhV+WCuQ1I9qrcpc6wGAVz/FRbIHUdF07IZOvEXDbb3nrQNZx5SNr4dniLha1vWTZ2GF@vger.kernel.org
+X-Gm-Message-State: AOJu0YxVuQ2zsKx8mK8l5IKy16v9vuHov5O6p/goEAv2TF9FNYwTu8n4
+	BP6czlYFnvO51YKIroVrJPGMltUxblxsErPvI8Ze4XYWuS+1FY+aXIc/d+cJ/bcBnevuT8yeFg2
+	aJElVAqB7gZw2W2wDW2sR9QUskMltqRo=
+X-Gm-Gg: ATEYQzxnwOQ/yYTr0p1Wi53eo0qPlew/cZdUcjDEc7hWJIq6hP2wy53fx/wyjGdOBTZ
+	DDYAHoJ+AKeNy8yf2FbFkZYsNTZAWp8HU0dw/px7f3F0ZqleoEZE298KE+qkHN5tbIS4YjTtNbp
+	RZZJsTPpNMClVTtlyNzb2nuB9yPHKmdA7wifTBdCjB08HsOM2YNrnLDbbEV+MtaeeZr63br0TtV
+	WSp/nUyxtAgh6LpqRiYm8OoDimE0jtqu7JmSMXemsh+0kgLHxsvc4eD6gJ7eBdNzryw45O8AkJ3
+	yHfhAoWHnlk11m8W8g==
+X-Received: by 2002:a05:6214:dca:b0:8a1:6509:9cbf with SMTP id
+ 6a1803df08f44-8a43ac4811emr40231156d6.52.1775037077979; Wed, 01 Apr 2026
+ 02:51:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB4707.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 612aee14-7ace-4b71-500a-08de8fd31765
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Apr 2026 09:43:12.5945
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: uelsM+44L0IDww+2vNt31cMIwckefradnP32lxVbqYbdVCjuvO/SiO2+LZv023VqZkKziBDMAbproZ8w8TKWNw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8322
+References: <20260401010707.2584962-1-dennis@ausil.us> <20260401010707.2584962-4-dennis@ausil.us>
+In-Reply-To: <20260401010707.2584962-4-dennis@ausil.us>
+From: Alexey Charkov <alchark@gmail.com>
+Date: Wed, 1 Apr 2026 13:51:08 +0400
+X-Gm-Features: AQROBzDKP_DuLbzOy_SddOBUTgbRIK7NqHrgEOy3ruL0UsrfbQKg5eUwC1Wr0Tw
+Message-ID: <CABjd4YyVRExX4gTCZQj2EEht_022ojS58DrYjntuC6H875ewpA@mail.gmail.com>
+Subject: Re: [PATCH v5 3/3] arm64: dts: rockchip: Add Orange Pi 5 Pro board support
+To: dennis@ausil.us
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, FUKAUMI Naoki <naoki@radxa.com>, 
+	Hsun Lai <i@chainsx.cn>, Jonas Karlman <jonas@kwiboo.se>, Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
+	John Clark <inindev@gmail.com>, Michael Opdenacker <michael.opdenacker@rootcommit.com>, 
+	Quentin Schulz <quentin.schulz@cherry.de>, Andrew Lunn <andrew@lunn.ch>, 
+	Chukun Pan <amadeus@jmu.edu.cn>, Peter Robinson <pbrobinson@gmail.com>, 
+	Michael Riesch <michael.riesch@collabora.com>, Mykola Kvach <xakep.amatop@gmail.com>, 
+	Jimmy Hon <honyuenkwun@gmail.com>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-SGkgRGFuaWVsDQoNCj4gT24gNC8xLzI2IDExOjQ4LCBHdWFuZ2xpdSBEaW5nIHdyb3RlOg0KPiA+
-IFtZb3UgZG9uJ3Qgb2Z0ZW4gZ2V0IGVtYWlsIGZyb20gZ3VhbmdsaXUuZGluZ0BueHAuY29tLiBM
-ZWFybiB3aHkgdGhpcw0KPiA+IGlzIGltcG9ydGFudCBhdCBodHRwczovL2FrYS5tcy9MZWFybkFi
-b3V0U2VuZGVySWRlbnRpZmljYXRpb24gXQ0KPiA+DQo+ID4gSGkgTGl2aXUNCj4gPg0KPiA+IFRo
-YW5rcyBmb3IgeW91ciByZXZpZXcuIFBsZWFzZSByZWZlciB0byBteSBjb21tZW50cyBiZWxvdzoN
-Cj4gPg0KPiA+PiBPbiBUdWUsIE1hciAzMSwgMjAyNiBhdCAwNjoxMjozOFBNICswODAwLCBHdWFu
-Z2xpdSBEaW5nIHdyb3RlOg0KPiA+Pj4gQWRkIGNvbXBhdGlibGUgc3RyaW5nIG9mIE1hbGkgRzMx
-MCBHUFUgb24gaS5NWDk1MiBib2FyZC4NCj4gPj4+DQo+ID4+PiBTaWduZWQtb2ZmLWJ5OiBHdWFu
-Z2xpdSBEaW5nIDxndWFuZ2xpdS5kaW5nQG54cC5jb20+DQo+ID4+PiBSZXZpZXdlZC1ieTogSml5
-dSBZYW5nIDxqaXl1LnlhbmdAbnhwLmNvbT4NCj4gPj4+IC0tLQ0KPiA+Pj4gIERvY3VtZW50YXRp
-b24vZGV2aWNldHJlZS9iaW5kaW5ncy9ncHUvYXJtLG1hbGktdmFsaGFsbC1jc2YueWFtbCB8IDEN
-Cj4gPj4+ICsNCj4gPj4+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykNCj4gPj4+DQo+
-ID4+PiBkaWZmIC0tZ2l0DQo+ID4+PiBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5n
-cy9ncHUvYXJtLG1hbGktdmFsaGFsbC1jc2YueWFtbA0KPiA+PiBiL0RvY3VtZW50YXRpb24vZGV2
-aWNldHJlZS9iaW5kaW5ncy9ncHUvYXJtLG1hbGktdmFsaGFsbC1jc2YueWFtbA0KPiA+Pj4gaW5k
-ZXggOGVjY2Q0MzM4YTJiLi42YTEwODQzYTI2ZTIgMTAwNjQ0DQo+ID4+PiAtLS0NCj4gPj4+IGEv
-RG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2dwdS9hcm0sbWFsaS12YWxoYWxsLWNz
-Zi55YW1sDQo+ID4+PiArKysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZ3B1
-L2FybSxtYWxpLXZhbGhhbGwtY3NmLnlhbQ0KPiA+Pj4gKysrIGwNCj4gPj4+IEBAIC0yMCw2ICsy
-MCw3IEBAIHByb3BlcnRpZXM6DQo+ID4+PiAgICAgICAgICAgIC0gZW51bToNCj4gPj4+ICAgICAg
-ICAgICAgICAgIC0gbWVkaWF0ZWssbXQ4MTk2LW1hbGkNCj4gPj4+ICAgICAgICAgICAgICAgIC0g
-bnhwLGlteDk1LW1hbGkgICAgICAgICAgICAjIEczMTANCj4gPj4+ICsgICAgICAgICAgICAgIC0g
-bnhwLGlteDk1Mi1tYWxpICAgICAgICAgICAjIEczMTANCj4gPj4gQ2FuIHlvdSBleHBsYWluIHdo
-eSB0aGlzIGlzIG5lZWRlZD8gQ2FuIGl0IG5vdCBiZSBjb3ZlcmVkIGJ5IHRoZQ0KPiA+PiBleGlz
-dGluZyBjb21wYXRpYmxlPw0KPiA+IFRoZXJlIGFyZSBmdW5jdGlvbmFsIGRpZmZlcmVuY2VzIGlu
-IEdQVSBtb2R1bGUgKEdQVU1JWCkgYmV0d2VlbiBpLk1YOTUNCj4gPiBhbmQgaS5NWDk1Mi4gU28g
-dGhleSBjYW5ub3QgYmUgZnVsbHkgY292ZXJlZCBieSBhIHNpbmdsZSBleGlzdGluZyBjb21wYXRp
-YmxlLg0KPiA+IE9uIGkuTVg5NTIsIFRoZSBHUFUgY2xvY2sgaXMgY29udHJvbGxlZCBieSBoYXJk
-d2FyZSBHUFUgYXV0bw0KPiA+IGNsb2NrLWdhdGluZyBtZWNoYW5pc20sIHdoaWxlIHRoZSBHUFUg
-Y2xvY2sgaXMgbWFuYWdlZCBleHBsaWNpdGx5IGJ5IHRoZQ0KPiBkcml2ZXIgb24gaS5NWDk1Lg0K
-PiA+IEJlY2F1c2Ugb2YgdGhlc2UgYmVoYXZpb3JhbCBkaWZmZXJlbmNlcywgc2VwYXJhdGUgY29t
-cGF0aWJsZSBzdHJpbmdzDQo+ID4gIm54cCxpbXg5NS1tYWxpIiBhbmQgIm54cCxpbXg5NTItbWFs
-aSIgYXJlIG5lZWRlZCB0byBhbGxvdyB0aGUgZHJpdmVyDQo+ID4gdG8gaGFuZGxlIHRoZSB0d28g
-dmFyaWFudHMgaW5kZXBlbmRlbnRseSBhbmQgdG8ga2VlcCByb29tIGZvciBmdXR1cmUNCj4gZGl2
-ZXJnZW5jZS4NCj4gDQo+IA0KPiBUaGlzIGluZm9ybWF0aW9uIHNob3VsZCBiZSBhZGRlZCBpbiB0
-aGUgY29tbWl0IG1lc3NhZ2UgZXhwbGFpbmluZyB3aHkNCj4gDQo+IHRoZSBjaGFuZ2UgaXMgbmVl
-ZGVkLg0KPiANCj4gDQo+IEJ1dCB0aGVuIHdoZXJlIGlzIHRoZSBkcml2ZXIgY29kZSB0YWtpbmcg
-Y2FyZSBvZiB0aGVzZSBkaWZlcmVuY2VzPw0KPiANCg0KWWVzLiBDdXJyZW50bHkgdGhlIGRyaXZl
-ciBkb2VzIG5vdCByZXF1aXJlICJueHAsaW14OTUyLW1hbGkiIHN0cmluZy4NCkhvd2V2ZXIsIHdo
-ZW4gR1BVIGlwYV9jb3VudGVycyBhcmUgZW5hYmxlZCB0byBjYWxjdWxhdGUgdGhlIEdQVSBidXN5
-X3RpbWUvaWRsZV90aW1lIGZvciANCkdQVSBEVkZTIGZlYXR1cmUsIHRoZXkgd2lsbCBjb25mbGlj
-dCB3aXRoIHRoZSBoYXJkd2FyZSBHUFUgYXV0byBjbG9ja+KAkWdhdGluZyBtZWNoYW5pc20sIA0K
-Y2F1c2luZyBHUFUgY2xvY2sgdG8gcmVtYWluIGFsd2F5cyBvbi4NCkluIHN1Y2ggY2FzZXMsIGlw
-YV9jb3VudGVycyBuZWVkIHRvIGJlIGRpc2FibGVkIHNvIHRoYXQgdGhlIEdQVSBhdXRvIGNsb2Nr
-4oCRZ2F0aW5nIA0KbWVjaGFuaXNtIGNhbiBvcGVyYXRlIG5vcm1hbGx5LCB1c2luZyAibnhwLGlt
-eDk1Mi1tYWxpIiBzdHJpbmcuDQo=
+On Wed, Apr 1, 2026 at 5:07=E2=80=AFAM <dennis@ausil.us> wrote:
+>
+> From: Dennis Gilmore <dennis@ausil.us>
+>
+> Add device tree for the Xunlong Orange Pi 5 Pro (RK3588S).
+>
+> - eMMC module, you can optionally solder a SPI NOR in place and turn
+>  off the eMMC
+> - PCIe-attached NIC (pcie2x1l1)
+> - PCIe NVMe slot (pcie2x1l2)
+> - AP6256 WiFi (BCM43456) via SDIO with mmc-pwrseq
+> - BCM4345C5 Bluetooth
+> - es8388 audio
+> - USB 2.0 and USB 3.0
+>
+> Vendors description and links to schematics available:
+> http://www.orangepi.org/html/hardWare/computerAndMicrocontrollers/details=
+/Orange-Pi-5-Pro.html
+>
+> Signed-off-by: Dennis Gilmore <dennis@ausil.us>
+> ---
+>  arch/arm64/boot/dts/rockchip/Makefile         |   1 +
+>  .../dts/rockchip/rk3588s-orangepi-5-pro.dts   | 320 ++++++++++++++++++
+>  2 files changed, 321 insertions(+)
+>  create mode 100644 arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-pro.d=
+ts
+>
+> diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/=
+rockchip/Makefile
+> index 4d384f153c13..c99dca2ae9e7 100644
+> --- a/arch/arm64/boot/dts/rockchip/Makefile
+> +++ b/arch/arm64/boot/dts/rockchip/Makefile
+> @@ -214,6 +214,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588s-nanopi-r6c.d=
+tb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588s-odroid-m2.dtb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588s-orangepi-5.dtb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588s-orangepi-5b.dtb
+> +dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588s-orangepi-5-pro.dtb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588s-orangepi-cm5-base.dtb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588s-radxa-cm5-io.dtb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588s-roc-pc.dtb
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-pro.dts b/ar=
+ch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-pro.dts
+> new file mode 100644
+> index 000000000000..7ab68245d2c6
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-pro.dts
+> @@ -0,0 +1,320 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +
+> +/dts-v1/;
+> +
+> +#include "rk3588s-orangepi-5.dtsi"
+> +
+> +/ {
+> +       model =3D "Xunlong Orange Pi 5 Pro";
+> +       compatible =3D "xunlong,orangepi-5-pro", "rockchip,rk3588s";
+> +
+> +       aliases {
+> +               mmc0 =3D &sdhci;
+> +               mmc1 =3D &sdmmc;
+> +               mmc2 =3D &sdio;
+> +       };
+> +
+> +       analog-sound {
+> +               compatible =3D "simple-audio-card";
+> +               pinctrl-names =3D "default";
+> +               pinctrl-0 =3D <&hp_detect>;
+> +               simple-audio-card,bitclock-master =3D <&masterdai>;
+> +               simple-audio-card,format =3D "i2s";
+> +               simple-audio-card,frame-master =3D <&masterdai>;
+> +               simple-audio-card,hp-det-gpios =3D <&gpio1 RK_PD5 GPIO_AC=
+TIVE_HIGH>;
+> +               simple-audio-card,mclk-fs =3D <256>;
+> +               simple-audio-card,name =3D "rockchip,es8388";
+> +               simple-audio-card,routing =3D
+> +                       "Headphones", "LOUT1",
+> +                       "Headphones", "ROUT1",
+> +                       "LINPUT1", "Microphone Jack",
+> +                       "RINPUT1", "Microphone Jack",
+> +                       "LINPUT2", "Onboard Microphone",
+> +                       "RINPUT2", "Onboard Microphone";
+> +               simple-audio-card,widgets =3D
+> +                       "Microphone", "Microphone Jack",
+> +                       "Microphone", "Onboard Microphone",
+> +                       "Headphone", "Headphones";
+> +
+> +               simple-audio-card,cpu {
+> +                       sound-dai =3D <&i2s2_2ch>;
+> +               };
+> +
+> +               masterdai: simple-audio-card,codec {
+> +                       sound-dai =3D <&es8388>;
+> +                       system-clock-frequency =3D <12288000>;
+> +               };
+> +       };
+> +
+> +       pwm-leds {
+> +               compatible =3D "pwm-leds";
+> +
+> +               led-0 {
+> +                       color =3D <LED_COLOR_ID_BLUE>;
+> +                       function =3D LED_FUNCTION_STATUS;
+> +                       linux,default-trigger =3D "heartbeat";
+> +                       max-brightness =3D <255>;
+> +                       pwms =3D <&pwm15 0 1000000 0>;
+> +               };
+> +
+> +               led-1 {
+> +                       color =3D <LED_COLOR_ID_GREEN>;
+> +                       function =3D LED_FUNCTION_ACTIVITY;
+> +                       linux,default-trigger =3D "heartbeat";
+> +                       max-brightness =3D <255>;
+> +                       pwms =3D <&pwm3 0 1000000 0>;
+> +               };
+> +       };
+> +
+> +       fan: pwm-fan {
+> +               compatible =3D "pwm-fan";
+> +               #cooling-cells =3D <2>;
+> +               cooling-levels =3D <0 50 100 150 200 255>;
+> +               fan-supply =3D <&vcc5v0_sys>;
+> +               pwms =3D <&pwm2 0 20000000 0>;
+> +       };
+> +
+> +       vcc3v3_phy1: regulator-vcc3v3-phy1 {
+> +               compatible =3D "regulator-fixed";
+> +               enable-active-high;
+> +               gpios =3D <&gpio3 RK_PB7 GPIO_ACTIVE_HIGH>;
+> +               regulator-boot-on;
+> +               regulator-max-microvolt =3D <3300000>;
+> +               regulator-min-microvolt =3D <3300000>;
+> +               regulator-name =3D "vcc3v3_phy1";
+> +               startup-delay-us =3D <50000>;
+> +               vin-supply =3D <&vcc_3v3_s3>;
+> +       };
+> +
+> +       vcc5v0_otg: regulator-vcc5v0-otg {
+> +               compatible =3D "regulator-fixed";
+> +               enable-active-high;
+> +               gpios =3D <&gpio0 RK_PC4 GPIO_ACTIVE_HIGH>;
+> +               pinctrl-names =3D "default";
+> +               pinctrl-0 =3D <&vcc5v0_otg_en>;
+> +               regulator-max-microvolt =3D <5000000>;
+> +               regulator-min-microvolt =3D <5000000>;
+> +               regulator-name =3D "vcc5v0_otg";
+> +               vin-supply =3D <&vcc5v0_sys>;
+> +       };
+> +
+> +       sdio_pwrseq: sdio-pwrseq {
+> +               compatible =3D "mmc-pwrseq-simple";
+> +               clocks =3D <&hym8563>;
+> +               clock-names =3D "ext_clock";
+> +               post-power-on-delay-ms =3D <200>;
+> +               reset-gpios =3D <&gpio0 RK_PD0 GPIO_ACTIVE_LOW>;
+> +       };
+> +
+> +       typea_con: usb-a-connector {
+> +               compatible =3D "usb-a-connector";
+> +               data-role =3D "host";
+> +               label =3D "USB3 Type-A";
+> +               power-role =3D "source";
+> +               vbus-supply =3D <&vcc5v0_otg>;
+> +
+> +               ports {
+> +                       #address-cells =3D <1>;
+> +                       #size-cells =3D <0>;
+> +
+> +                       port@0 {
+> +                               reg =3D <0>;
+> +                               typea_con_hs: endpoint {
+> +                               };
+> +                       };
+
+Hi Dennis,
+
+You don't have to define ports if you aren't using them - i.e. here
+the endpoints are not linked up to their remote counterparts, so they
+don't do anything. If it works for you this way that probably means
+you can drop the whole ports subnode altogether and add it later if a
+need arises.
+
+> +                       port@1 {
+> +                               reg =3D <1>;
+> +                               typea_con_ss: endpoint {
+> +                               };
+> +                       };
+> +               };
+> +       };
+> +};
+> +
+> +&i2c1 {
+> +       pinctrl-names =3D "default";
+> +       pinctrl-0 =3D <&i2c1m4_xfer>;
+> +       status =3D "okay";
+> +};
+> +
+> +&i2c3 {
+> +       pinctrl-names =3D "default";
+> +       pinctrl-0 =3D <&i2c3m0_xfer>;
+> +       status =3D "okay";
+> +
+> +       es8388: audio-codec@11 {
+> +               compatible =3D "everest,es8388", "everest,es8328";
+> +               reg =3D <0x11>;
+> +               #sound-dai-cells =3D <0>;
+> +               AVDD-supply =3D <&vcc_3v3_s0>;
+> +               DVDD-supply =3D <&vcc_1v8_s0>;
+> +               HPVDD-supply =3D <&vcc_3v3_s0>;
+> +               PVDD-supply =3D <&vcc_3v3_s0>;
+> +               assigned-clock-rates =3D <12288000>;
+> +               assigned-clocks =3D <&cru I2S2_2CH_MCLKOUT>;
+> +               clocks =3D <&cru I2S2_2CH_MCLKOUT>;
+
+Your codec is the clock master, so it would be better for it to
+request the pin config for the mclk pin, as it's the real user of the
+master clock (not the i2s2 node). See also below
+
+> +       };
+> +};
+> +
+> +&i2c4 {
+> +       pinctrl-names =3D "default";
+> +       pinctrl-0 =3D <&i2c4m3_xfer>;
+> +       status =3D "okay";
+> +};
+> +
+> +&i2s2_2ch {
+> +       pinctrl-0 =3D <&i2s2m1_lrck &i2s2m1_mclk &i2s2m1_sclk
+
+Looks like &i2s2m1_mclk belongs in &es8388 instead, not here.
+
+> +                    &i2s2m1_sdi &i2s2m1_sdo>;
+> +       status =3D "okay";
+> +};
+> +
+> +&package_thermal {
+> +       polling-delay =3D <1000>;
+> +
+> +       cooling-maps {
+> +               map0 {
+> +                       trip =3D <&package_fan0>;
+> +                       cooling-device =3D <&fan THERMAL_NO_LIMIT 1>;
+> +               };
+> +
+> +               map1 {
+> +                       trip =3D <&package_fan1>;
+> +                       cooling-device =3D <&fan 2 THERMAL_NO_LIMIT>;
+> +               };
+> +       };
+> +
+> +       trips {
+> +               package_fan0: package-fan0 {
+> +                       hysteresis =3D <2000>;
+> +                       temperature =3D <55000>;
+> +                       type =3D "active";
+> +               };
+> +
+> +               package_fan1: package-fan1 {
+> +                       hysteresis =3D <2000>;
+> +                       temperature =3D <65000>;
+> +                       type =3D "active";
+> +               };
+> +       };
+> +};
+> +
+> +/* NVMe */
+> +&pcie2x1l1 {
+> +       pinctrl-names =3D "default";
+> +       pinctrl-0 =3D <&pcie30x1m1_1_clkreqn &pcie30x1m1_1_waken>;
+> +       reset-gpios =3D <&gpio4 RK_PA2 GPIO_ACTIVE_HIGH>;
+> +       supports-clkreq;
+> +       vpcie3v3-supply =3D <&vcc_3v3_s3>;
+> +       status =3D "okay";
+> +};
+> +
+> +/* NIC */
+> +&pcie2x1l2 {
+> +       reset-gpios =3D <&gpio3 RK_PD1 GPIO_ACTIVE_HIGH>;
+> +       vpcie3v3-supply =3D <&vcc3v3_phy1>;
+> +       status =3D "okay";
+> +};
+> +
+> +&pinctrl {
+> +       bluetooth {
+> +               bt_wake_gpio: bt-wake-pin {
+> +                       rockchip,pins =3D <0 RK_PC6 RK_FUNC_GPIO &pcfg_pu=
+ll_none>;
+> +               };
+> +
+> +               bt_wake_host_irq: bt-wake-host-irq {
+> +                       rockchip,pins =3D <0 RK_PC5 RK_FUNC_GPIO &pcfg_pu=
+ll_down>;
+> +               };
+> +       };
+> +
+> +       usb {
+> +               vcc5v0_otg_en: vcc5v0-otg-en {
+> +                       rockchip,pins =3D <0 RK_PC4 RK_FUNC_GPIO &pcfg_pu=
+ll_none>;
+> +               };
+> +       };
+> +
+> +       wlan {
+> +               wifi_host_wake_irq: wifi-host-wake-irq {
+> +                       rockchip,pins =3D <0 RK_PA0 RK_FUNC_GPIO &pcfg_pu=
+ll_down>;
+> +               };
+> +       };
+> +};
+> +
+> +&pwm15 {
+> +       pinctrl-names =3D "default";
+> +       pinctrl-0 =3D <&pwm15m2_pins>;
+> +       status =3D "okay";
+> +};
+> +
+> +&pwm2 {
+> +       pinctrl-names =3D "default";
+> +       pinctrl-0 =3D <&pwm2m1_pins>;
+> +       status =3D "okay";
+> +};
+> +
+> +&pwm3 {
+> +       pinctrl-names =3D "default";
+> +       pinctrl-0 =3D <&pwm3m2_pins>;
+> +       status =3D "okay";
+> +};
+> +
+> +&sdhci {
+> +       status =3D "okay";
+> +};
+> +
+> +&sdio {
+> +       #address-cells =3D <1>;
+> +       #size-cells =3D <0>;
+> +       bus-width =3D <4>;
+> +       cap-sd-highspeed;
+> +       cap-sdio-irq;
+> +       keep-power-in-suspend;
+> +       max-frequency =3D <150000000>;
+> +       mmc-pwrseq =3D <&sdio_pwrseq>;
+> +       no-mmc;
+> +       no-sd;
+> +       non-removable;
+> +       sd-uhs-sdr104;
+> +       status =3D "okay";
+> +
+> +       ap6256: wifi@1 {
+> +               compatible =3D "brcm,bcm43456-fmac", "brcm,bcm4329-fmac";
+> +               reg =3D <1>;
+> +               interrupt-names =3D "host-wake";
+> +               interrupt-parent =3D <&gpio0>;
+> +               interrupts =3D <RK_PA0 IRQ_TYPE_LEVEL_HIGH>;
+> +               pinctrl-names =3D "default";
+> +               pinctrl-0 =3D <&wifi_host_wake_irq>;
+> +       };
+> +};
+> +
+> +&uart9 {
+> +       pinctrl-names =3D "default";
+> +       pinctrl-0 =3D <&uart9m2_xfer &uart9m2_ctsn &uart9m2_rtsn>;
+> +       uart-has-rtscts;
+> +       status =3D "okay";
+> +
+> +       bluetooth {
+> +               compatible =3D "brcm,bcm4345c5";
+> +               clocks =3D <&hym8563>;
+> +               clock-names =3D "lpo";
+> +               device-wakeup-gpios =3D <&gpio0 RK_PC6 GPIO_ACTIVE_HIGH>;
+> +               interrupt-names =3D "host-wakeup";
+> +               interrupt-parent =3D <&gpio0>;
+> +               interrupts =3D <RK_PC5 IRQ_TYPE_LEVEL_HIGH>;
+> +               max-speed =3D <1500000>;
+> +               pinctrl-names =3D "default";
+> +               pinctrl-0 =3D <&bt_wake_host_irq &bt_wake_gpio>;
+> +               shutdown-gpios =3D <&gpio0 RK_PD5 GPIO_ACTIVE_HIGH>;
+> +               vbat-supply =3D <&vcc_3v3_s3>;
+> +               vddio-supply =3D <&vcc_1v8_s3>;
+> +       };
+> +};
+> +
+> +&usb_host0_xhci {
+> +       dr_mode =3D "host";
+> +};
+> +
+> +&usbdp_phy0 {
+> +       rockchip,dp-lane-mux =3D <0 1>;
+
+You probably also need a definition for your DP to HDMI bridge and the
+HDMI type A connector. Do you get image output on the HDMI port, and
+does the hotplug work? I don't see you enabling the &dp0 node with its
+pinctrl and ports.
+
+It's okay to leave them out in the initial submission if you wish, but
+then it's best mentioned in the commit description.
+
+Best regards,
+Alexey
