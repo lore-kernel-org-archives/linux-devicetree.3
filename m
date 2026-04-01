@@ -1,213 +1,253 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 442ED3644D5
-	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 16:25:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBA363BF669
+	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 16:35:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775060758; cv=none; b=Afv0mCdTMY8L5+jn9xhe9I/F3MEjYcrysneeYzNYBxcOaWzbbbsIVy4g1itjlfHv2wAskf8I2yeZS3AKENYW/4XwXd4Pj7S3derh7xj6OllWrV3aaGNRAO2XJFb4GeNW1Q1yMW1keT5Og+Hna1ZOnrG/AjQGR3uJoUwA63lnsDM=
+	t=1775061325; cv=none; b=gFsGTZpuakyr94XmkQ9OptC+EuP+E4JsPFsBQHgibMXCm0/RMMA/eWIZNK8p+mERZRWmbJpoC7DX+dfWC6MzWoCwfEqAMVDps70TBpimvh6uXXbsB16AH79DXm6+EK5/BW8lmryDHqFphChdKHT7nyehyPG5+pQgLH4J70H65fo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775060758; c=relaxed/simple;
-	bh=/qWO8KI3tIBC0cjksLyab/irCOuK5UlJOac1HvRs0AA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Gl8zTtvYzudTYNTN1b1UljXv+sAN1JUgcRWWSf7Ox7IXrOqbpQdvGSM2Q5voua593zlFZHNNTHoq3DVvbtI2iCZnMs1XAoIPPbgrS80Lswt+CtOZSIWeiRfR5sCnjs+X+DyA72sdZeqqna43dUWafDWywtV1fq22492yaPuiq+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mirrorstack.ai; spf=none smtp.mailfrom=mirrorstack.ai; dkim=pass (2048-bit key) header.d=mirrorstack-ai.20230601.gappssmtp.com header.i=@mirrorstack-ai.20230601.gappssmtp.com header.b=ATBneXj3; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mirrorstack.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mirrorstack.ai
+	s=arc-20240116; t=1775061325; c=relaxed/simple;
+	bh=7N701LTx9bJ0sc4tJYW2zwmhMyTG1gcsh4UxcNggmXg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CXFNLtEZ3ZPbCLYUFJq2RSdl2VYTD9GSKpk1Y4oAwVwjPqQmI/oZWdNBNpI6CHXtBXWVgOVc7UkfyrfT2Z86qd84pJjbJ2VbPT27PbHnz852dcF9O0AIXwG30JEq5+Dwd2o4hnkdU6hZxPpzGA2SjRhB/mYOstsXnnnXclunlHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pt6gn+Yl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FVJaNKI9; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mirrorstack-ai.20230601.gappssmtp.com header.i=@mirrorstack-ai.20230601.gappssmtp.com header.b="ATBneXj3"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-35691a231a7so4340862a91.3
-        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 09:25:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pt6gn+Yl";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FVJaNKI9"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 631EPt2R1881827
+	for <devicetree@vger.kernel.org>; Wed, 1 Apr 2026 16:35:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	oOH6Gjls3CqWEpA9mqTKUhqgpzoClPrvgbLT+iZ4b6Y=; b=pt6gn+YlNCcP80au
+	cWyjxIZ6zwykIJftcfntN/LeviWS/FMUn63ziH+UDapF9hwYZjD4Rpqo/JTmUn0h
+	tCp/9zyR/IUUkni7/agAr4cKUp19VlOdmOm3mZq/VuMLFvejE5U5niqX6QOOPccP
+	DGw8slxEXiaNQQoo3bMNJX8joAPf3BokVC1/NFWl5VZSzm3WlS1mc8jGA+rOib/Z
+	8PPsH4sH8JDJoYL/hYfSpPKse1LVOCilcWaNLY22PI4bZ33JSymEdBiWleJvY2uL
+	Tp9zP4tu/YqKkwEJJdK8cVBWuiLs9R+sfJ8wFpsHlaPi0NGiry4oUV1pc+vcX+ZQ
+	IQGUPQ==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d954c8njt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 16:35:23 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2b241be0126so157659375ad.3
+        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 09:35:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mirrorstack-ai.20230601.gappssmtp.com; s=20230601; t=1775060749; x=1775665549; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=SmuFDt4ssXwo5Kn+8E+MCnCyQLezwxIlCE02tQ8Pv3k=;
-        b=ATBneXj3E3SGVicK5Q1/mXuKr3nxxMbcAUDFKV3l2XAw09+MfkQ08kdCr6S0XkWPN1
-         YJMyWq/P73TKvyq7o0qfwKkr7bQbF0FfpfJpU7u/jC7Wa5yXrQPSnNq3xsXMdRkuyYPj
-         xR2b+zDfkbFlhtZPf0sPTVS5oL/PWAWTX6rOWkNJ8ZgTtWiEy90IJz/SZczCV6whgWbV
-         CNeO/3ZbyZKzUQzbvxrSbxl0JgbAoVxMEeh8AKYbylSvR8pUDa4+JSuR2gohK2aF7wLn
-         D050nUCLjJjz+ufi+uGXYKdUn9AJ/FNjlrXFxcbgRQwtTGdxcjJj69+iSWT16Io+GnGC
-         WUUQ==
+        d=oss.qualcomm.com; s=google; t=1775061322; x=1775666122; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=oOH6Gjls3CqWEpA9mqTKUhqgpzoClPrvgbLT+iZ4b6Y=;
+        b=FVJaNKI9L5BBC1HJ9d16dCrEKZQYpR7MUtSojW/TgzbkaxH2AO4kvrGw2+0hs5J1DK
+         HFMur7WCkvjzrRVYtWz42rmLA4B6XvSlw/Gq3w820CpUqD+NftYTvT/zAWcyd56GAT0K
+         NkV/L4p61ZrSLMD5MW8ceqaCmDWVRpom/0a4ldRTwCaq1Xt8JcPZXVyPKaXtNbtY0yI7
+         5ZgUKRv0Nw1HMxiWAgM77Jp6kJjR06bRvdOZLUjNNUykNzroImQ6lWC6Bx2bnZUQyEjp
+         rnJer4xa+8sk7tTDYaWoTDO35ZDXdQoqX9wub9m5Y6NN/Y/A/WPSPKHOKUlR15OPAeJe
+         0uNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775060749; x=1775665549;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=SmuFDt4ssXwo5Kn+8E+MCnCyQLezwxIlCE02tQ8Pv3k=;
-        b=Aq4eMReAs+MeBXvtfQSGJH/PbaNpr0rFBSIKZuOitB6CkGKOIOgr0dREAUclbkWrAl
-         XwSmo3Bu2tdFLiQ9pzaLv5UDLoWRKzY86qJ1w5z7t2shzIrwWdrwFm/MHfL7MaRPucC/
-         HzgUrkRERf3jVcgWs6/9XpPC9Reu7fzsrRM4MyYe3FMvnMqtbAw2UHZtc29S+n5NpCut
-         NupOuaDR0zmuMt9gE1Y4tWz59VUHZ/ctHuEWLOrbysru0bp9sgi9HkY62/zzxKN9Npsn
-         sQsHco1dWzRtDYQ3aYdWVOHiPpOBStmrADx9xRUxX5Zbu12VXm9abWvqXd6TMUKChu3P
-         P0ag==
-X-Forwarded-Encrypted: i=1; AJvYcCX1VaRP9vT5Ydxoj//8HeAGqWD0siubaf1WuuFR7pn+a47HhOEa9HAKCu/rurFYXvXp4OVrLvQMxMln@vger.kernel.org
-X-Gm-Message-State: AOJu0YwsjvO4Fzd853xoJF0NsfBuaNuOc8HIiRfaNR1Q9MZ03yb+Mx7X
-	ccORX4HfhV4MzGoOyG9ewlfb3xnn4IpKNgsZH8n2M0UKiNXp04oH5otLhjDNekZnwR8M
-X-Gm-Gg: ATEYQzz33Zzn02ffVoRHUaf6bQOvg9N/fwE8IEzUwzUS59Y/gasb48XVx8CN4mxMQdo
-	D0nNtqywf1qksgBcUzD0eS4LNMHOy5Er8JRty58ZUsCkVUTQet2DYOrI2pk80GRXk2ulfo8d0sk
-	06YxrK0Y4VEk3cMzy8vkjT9gpGfNOhjwekoITHkA1l6OZS5mM9szDCqPOAuhC/QWg07Dcz+sBqL
-	F2R935tV6WrPCCQfU1vhVVnXxk3D/NXG/qv/fD0hdpQjYcpFiy/2SKLyBerBhLEqQLshRP02upC
-	48TlIQE625m+tHLSLcM2qodNHeoOI6XanNyrWuSE3vs8lWE0iHfcbgYtuAOjBqyUzaU2ex3OqF/
-	4d7uVvbB96ufR5qjpyKCeRRk7GPHoOi2IWNCKLa9I+rHpfBn3hOkHejWM0xKPFQPSnYwhWZSj0E
-	141N9ooT4kwmX3jMoKrh/kLcFCZLYOIWiM9LSMTeZ3qMHSbe4gKATTaurIiIBSPGfEs1RoY71UZ
-	6I/pgwJNOP8UL63gAJizRB3ID8yco/o6muZxKwXFw==
-X-Received: by 2002:a17:90b:3f44:b0:354:a57c:65db with SMTP id 98e67ed59e1d1-35dc6f0128amr3633041a91.20.1775060749484;
-        Wed, 01 Apr 2026 09:25:49 -0700 (PDT)
-Received: from ip-172-26-8-186.ap-northeast-1.compute.internal ([2406:da14:e8:bc00:e546:17ee:7142:6d05])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35dd35e34eesm281813a91.2.2026.04.01.09.25.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Apr 2026 09:25:48 -0700 (PDT)
-From: Sheng Kun Chang <nothingchang@mirrorstack.ai>
-To: jic23@kernel.org
-Cc: lars@metafoo.de,
-	Michael.Hennerich@analog.com,
-	dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	andy@kernel.org,
-	gregkh@linuxfoundation.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sheng Kun Chang <nothingchang@mirrorstack.ai>
-Subject: [PATCH 3/3] iio: accel: move adis16203 out of staging
-Date: Wed,  1 Apr 2026 16:24:57 +0000
-Message-ID: <20260401162458.88110-4-nothingchang@mirrorstack.ai>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260401162458.88110-1-nothingchang@mirrorstack.ai>
-References: <20260401162458.88110-1-nothingchang@mirrorstack.ai>
+        d=1e100.net; s=20251104; t=1775061322; x=1775666122;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=oOH6Gjls3CqWEpA9mqTKUhqgpzoClPrvgbLT+iZ4b6Y=;
+        b=doQQaRz3KGJxs0wWE/E/0Y5G1J1nuStsKYoE8OeBDxyfBRUCpUzrbeerFbUqtw8EBH
+         LHkGYmJj9me5BntNG18Sz/xT/ypLcEO+s8niY5s33js2cbZtn4i4+LkRVw9Uc7HImQtN
+         pDNZg3iRHp4jcem7X4uEz1K7X1l6Ok36fGLDtrYW0s63lRRIR+eC1V7i4JxAVMZaMHjK
+         oKKyL2HsJNjkbOIWT5uU9u/I/BqH1AXUWhec1knsHCHqzCilE8tUOfrkCdXTgdDdj7wC
+         NcuonntJoxcphTACgCYyG9f2ahlH0x0q6Q3eum+JFudGvSh6G84W7c/MWRDk0mez3Hn2
+         5DBg==
+X-Forwarded-Encrypted: i=1; AJvYcCX46imX+yzyz41NEfApk4jEeDjqa/11+1KcII94GObeCGUdnbWSIWKbcdX8mE6dUYIhrILK9Nc6TdWH@vger.kernel.org
+X-Gm-Message-State: AOJu0YxTlJj4rQm8HwZDFgl4jYDKYoumZ2gqxZbh5gGltyyhR062tVuY
+	AInSX1LK35Eq6qWokulfTPT7Zt1ibJ8clRPIA2zkpB1xjvVm2o/v6zMTV1NEpO0eOrxYQ8WuPxS
+	R6GQr1PYPi/9TmxVgXUIFYAGhZ+/FYQqEmKJrXg85ed3VE09cQslelUvjdeAb7gbH
+X-Gm-Gg: ATEYQzzsBePlYaMPPQ0cF7F5RuozLxsXHrW+sv+Zg0CN+VakN1x8FR9Oz1X+fVbFZLg
+	S7s/vMkvENVQ7TmgWMteweqpboCe4G3/qYwZcjYZFpDGCmzLZPI33PL3iYeMuCa/7P7pCQ3bcp4
+	Z4+zD38RhYymu2K8nK2ajfwJJk3yKVZrK1wcgpsMzCLKWh0ltWQfnb1jMIcD2StiSh3GNK0YZNA
+	gLYyokM9qEaRL9Wf4Y+OrLUR+x5fGal/a2afpZUgle89feb4e87YOQ2bE6ryILtYcEVvtYY0a13
+	iO5a+6sYaVuDOmO1DLEjj1GFyMIIjpbKO04VlV1E4389GEhE9PythjxkeWgWzYb1Xnp3j6iM5Nb
+	lIp07CgAV14pRZffvU1yfx/lBiWz+Ikv5sMqSLz/jnVuNzp3o2Q==
+X-Received: by 2002:a17:903:2b0c:b0:2b0:ac1e:9720 with SMTP id d9443c01a7336-2b269cffdefmr43544525ad.23.1775061322250;
+        Wed, 01 Apr 2026 09:35:22 -0700 (PDT)
+X-Received: by 2002:a17:903:2b0c:b0:2b0:ac1e:9720 with SMTP id d9443c01a7336-2b269cffdefmr43544125ad.23.1775061321745;
+        Wed, 01 Apr 2026 09:35:21 -0700 (PDT)
+Received: from [192.168.0.195] ([49.204.30.146])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b27478b658sm2609885ad.31.2026.04.01.09.35.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 01 Apr 2026 09:35:21 -0700 (PDT)
+Message-ID: <ebce5979-0ab5-47ff-963e-68e27216821d@oss.qualcomm.com>
+Date: Wed, 1 Apr 2026 22:05:12 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 3/4] clk: qcom: tcsrcc-glymur: Migrate
+ tcsr_pcie_N_clkref_en to clk_ref common helper
+To: Qiang Yu <qiang.yu@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, johan@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260331-qref_vote-v1-0-3fd7fbf87864@oss.qualcomm.com>
+ <20260331-qref_vote-v1-3-3fd7fbf87864@oss.qualcomm.com>
+Content-Language: en-US
+From: Taniya Das <taniya.das@oss.qualcomm.com>
+In-Reply-To: <20260331-qref_vote-v1-3-3fd7fbf87864@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=WMlyn3sR c=1 sm=1 tr=0 ts=69cd494b cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=UX8sLPG5SLFWA/DeEh7vkg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=1wW_Jg1dmpZ7RQPaF88A:9 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-GUID: _UWOH0pBlavwiisU4jeD0emKoLWN4Jzc
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAxMDE1NSBTYWx0ZWRfX3hr3rATsxs00
+ CnPnmaf93AOae4MmA8lZmBWwuxe3Ke+ZacX0tqINreHnclmiOYy8i51CTWA5+v4PUl6NTR26P6J
+ ukEGkoXfNNTdQDJUjsPkC4ABh24f8L8HnqLs/E2XPbxiIVWqMRs8WHgRND0pKL4mU+Utw8t8s5+
+ RjZdusVyA+EQe6G7MkeIDszvcP6jUuH5icJV5gdqhPE+qtQ1x/Sdt9I8270FRvDOKYVa2N6hiZq
+ znQp5LEDJjeBzZ3B988c8i17tjtLSULHZhxqMkjV9jkkVgZabDvJhUOna6T6FL4EHS1fcTPMAMt
+ 5SjbontAMtTE5xMTmQF943Q1OGB0BoRnQKDxyxozGEwfHgOHtZRohw3OMtqMPusp7vzNCYv1slm
+ aSD29brnD5DLvGGFlqV1NEutFgnKWCfyvL4Axo9Q1I3trB5WuQ80olW1qIs3scC4MDVU1lEJL0M
+ cQfxJ2vY5ERtg++uL0Q==
+X-Proofpoint-ORIG-GUID: _UWOH0pBlavwiisU4jeD0emKoLWN4Jzc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-01_04,2026-04-01_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 priorityscore=1501 phishscore=0 suspectscore=0
+ clxscore=1015 malwarescore=0 lowpriorityscore=0 spamscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604010155
 
-The adis16203 driver uses standard IIO channel interfaces, devm
-managed APIs, and has no remaining code quality issues. Move it
-from drivers/staging/iio/accel/ to drivers/iio/accel/ and remove
-the now-empty staging accel directory.
 
-Signed-off-by: Sheng Kun Chang <nothingchang@mirrorstack.ai>
----
- drivers/iio/accel/Kconfig                   | 12 ++++++++++++
- drivers/iio/accel/Makefile                  |  1 +
- drivers/{staging => }/iio/accel/adis16203.c |  0
- drivers/staging/iio/Kconfig                 |  1 -
- drivers/staging/iio/Makefile                |  1 -
- drivers/staging/iio/accel/Kconfig           | 19 -------------------
- drivers/staging/iio/accel/Makefile          |  6 ------
- 7 files changed, 13 insertions(+), 27 deletions(-)
- rename drivers/{staging => }/iio/accel/adis16203.c (100%)
- delete mode 100644 drivers/staging/iio/accel/Kconfig
- delete mode 100644 drivers/staging/iio/accel/Makefile
 
-diff --git a/drivers/iio/accel/Kconfig b/drivers/iio/accel/Kconfig
-index 3d3f8d867..2d8abec49 100644
---- a/drivers/iio/accel/Kconfig
-+++ b/drivers/iio/accel/Kconfig
-@@ -18,6 +18,18 @@ config ADIS16201
- 	  To compile this driver as a module, say M here: the module will
- 	  be called adis16201.
- 
-+config ADIS16203
-+	tristate "Analog Devices ADIS16203 Programmable 360 Degrees Inclinometer"
-+	depends on SPI
-+	select IIO_ADIS_LIB
-+	select IIO_ADIS_LIB_BUFFER if IIO_BUFFER
-+	help
-+	  Say Y here to build support for Analog Devices adis16203 Programmable
-+	  360 Degrees Inclinometer.
-+
-+	  To compile this driver as a module, say M here: the module will
-+	  be called adis16203.
-+
- config ADIS16209
- 	tristate "Analog Devices ADIS16209 Dual-Axis Digital Inclinometer and Accelerometer"
- 	depends on SPI
-diff --git a/drivers/iio/accel/Makefile b/drivers/iio/accel/Makefile
-index fa440a859..eaf8ce443 100644
---- a/drivers/iio/accel/Makefile
-+++ b/drivers/iio/accel/Makefile
-@@ -5,6 +5,7 @@
- 
- # When adding new entries keep the list in alphabetical order
- obj-$(CONFIG_ADIS16201) += adis16201.o
-+obj-$(CONFIG_ADIS16203) += adis16203.o
- obj-$(CONFIG_ADIS16209) += adis16209.o
- obj-$(CONFIG_ADXL313) += adxl313_core.o
- obj-$(CONFIG_ADXL313_I2C) += adxl313_i2c.o
-diff --git a/drivers/staging/iio/accel/adis16203.c b/drivers/iio/accel/adis16203.c
-similarity index 100%
-rename from drivers/staging/iio/accel/adis16203.c
-rename to drivers/iio/accel/adis16203.c
-diff --git a/drivers/staging/iio/Kconfig b/drivers/staging/iio/Kconfig
-index a60631c1f..bf6addf29 100644
---- a/drivers/staging/iio/Kconfig
-+++ b/drivers/staging/iio/Kconfig
-@@ -5,7 +5,6 @@
- menu "IIO staging drivers"
- 	depends on IIO
- 
--source "drivers/staging/iio/accel/Kconfig"
- source "drivers/staging/iio/adc/Kconfig"
- source "drivers/staging/iio/addac/Kconfig"
- source "drivers/staging/iio/frequency/Kconfig"
-diff --git a/drivers/staging/iio/Makefile b/drivers/staging/iio/Makefile
-index 628583535..739e4cbf9 100644
---- a/drivers/staging/iio/Makefile
-+++ b/drivers/staging/iio/Makefile
-@@ -3,7 +3,6 @@
- # Makefile for the industrial I/O core.
- #
- 
--obj-y += accel/
- obj-y += adc/
- obj-y += addac/
- obj-y += frequency/
-diff --git a/drivers/staging/iio/accel/Kconfig b/drivers/staging/iio/accel/Kconfig
-deleted file mode 100644
-index cee51f64b..000000000
---- a/drivers/staging/iio/accel/Kconfig
-+++ /dev/null
-@@ -1,19 +0,0 @@
--# SPDX-License-Identifier: GPL-2.0
--#
--# Accelerometer drivers
--#
--menu "Accelerometers"
--
--config ADIS16203
--	tristate "Analog Devices ADIS16203 Programmable 360 Degrees Inclinometer"
--	depends on SPI
--	select IIO_ADIS_LIB
--	select IIO_ADIS_LIB_BUFFER if IIO_BUFFER
--	help
--	  Say Y here to build support for Analog Devices adis16203 Programmable
--	  360 Degrees Inclinometer.
--
--	  To compile this driver as a module, say M here: the module will be
--	  called adis16203.
--
--endmenu
-diff --git a/drivers/staging/iio/accel/Makefile b/drivers/staging/iio/accel/Makefile
-deleted file mode 100644
-index acac7bc9b..000000000
---- a/drivers/staging/iio/accel/Makefile
-+++ /dev/null
-@@ -1,6 +0,0 @@
--# SPDX-License-Identifier: GPL-2.0
--#
--# Makefile for industrial I/O accelerometer drivers
--#
--
--obj-$(CONFIG_ADIS16203) += adis16203.o
+On 4/1/2026 12:05 PM, Qiang Yu wrote:
+> Replace local clk_branch-based clkref definitions with descriptor-based
+> registration via qcom_clk_ref_probe().
+> 
+> This keeps the glymur driver focused on clock metadata and reuses common
+> runtime logic for regulator handling, enable/disable sequencing, and OF
+> provider wiring.
+> 
+> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
+> ---
+>  drivers/clk/qcom/tcsrcc-glymur.c | 340 +++++++++++----------------------------
+>  1 file changed, 93 insertions(+), 247 deletions(-)
+> 
+> diff --git a/drivers/clk/qcom/tcsrcc-glymur.c b/drivers/clk/qcom/tcsrcc-glymur.c
+> index 9c0edebcdbb12816d1be5249e4f04bcaf02048aa..585f87b23af2d92daef1787b2f38911681c0d8ee 100644
+> --- a/drivers/clk/qcom/tcsrcc-glymur.c
+> +++ b/drivers/clk/qcom/tcsrcc-glymur.c
+> @@ -4,265 +4,115 @@
+>   */
+>  
+>  #include <linux/clk-provider.h>
+> +#include <linux/clk/qcom.h>
+>  #include <linux/mod_devicetable.h>
+>  #include <linux/module.h>
+> +#include <linux/of.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/regmap.h>
+>  
+>  #include <dt-bindings/clock/qcom,glymur-tcsr.h>
+>  
+> -#include "clk-alpha-pll.h"
+> -#include "clk-branch.h"
+> -#include "clk-pll.h"
+> -#include "clk-rcg.h"
+> -#include "clk-regmap.h"
+> -#include "clk-regmap-divider.h"
+> -#include "clk-regmap-mux.h"
+> -#include "common.h"
+> -#include "gdsc.h"
+> -#include "reset.h"
+> -
+> -enum {
+> -	DT_BI_TCXO_PAD,
+> -};
+> -
+> -static struct clk_branch tcsr_edp_clkref_en = {
+> -	.halt_reg = 0x60,
+> -	.halt_check = BRANCH_HALT_DELAY,
+> -	.clkr = {
+> -		.enable_reg = 0x60,
+> -		.enable_mask = BIT(0),
+> -		.hw.init = &(const struct clk_init_data) {
+> -			.name = "tcsr_edp_clkref_en",
+> -			.parent_data = &(const struct clk_parent_data){
+> -				.index = DT_BI_TCXO_PAD,
+> -			},
+> -			.num_parents = 1,
+> -			.ops = &clk_branch2_ops,
+> -		},
+> +static const char * const tcsr_pcie_1_regulators[] = {
+> +	"vdda-refgen-0p9",
+> +	"vdda-refgen-1p2",
+> +	"vdda-qrefrx5-0p9",
+> +	"vdda-qreftx0-0p9",
+> +	"vdda-qreftx0-1p2",
+> +};
+> +
+> +static const char * const tcsr_pcie_2_regulators[] = {
+> +	"vdda-refgen-0p9",
+> +	"vdda-refgen-1p2",
+> +	"vdda-qreftx1-0p9",
+> +	"vdda-qrefrpt0-0p9",
+> +	"vdda-qrefrpt1-0p9",
+> +	"vdda-qrefrpt2-0p9",
+> +	"vdda-qrefrx2-0p9",
+> +};
+> +
+> +static const char * const tcsr_pcie_3_regulators[] = {
+> +	"vdda-refgen-0p9",
+> +	"vdda-refgen-1p2",
+> +	"vdda-qreftx1-0p9",
+> +	"vdda-qrefrpt0-0p9",
+> +	"vdda-qrefrpt1-0p9",
+> +	"vdda-qrefrx1-0p9",
+> +};
+> +
+> +static const char * const tcsr_pcie_4_regulators[] = {
+> +	"vdda-refgen-0p9",
+> +	"vdda-refgen-1p2",
+> +	"vdda-qreftx1-0p9",
+> +	"vdda-qrefrpt0-0p9",
+> +	"vdda-qrefrpt1-0p9",
+> +	"vdda-qrefrpt2-0p9",
+> +	"vdda-qrefrx2-0p9",
+> +};
+> +
+
+TCSR clock refs are just not for PCIe alone, they would have supplies
+for all the ref clocks. These supplies can also be shared across other
+clock refs. I think it is not the correct way to handle the supplies, as
+TCSR does not have the complete supplies map.
+
+
+> +static const struct qcom_clk_ref_desc tcsr_cc_glymur_clk_descs[] = {
+> +	[TCSR_EDP_CLKREF_EN] = {
+> +		.name = "tcsr_edp_clkref_en",
+> +		.offset = 0x60,
+>  	},
+> -};
+>
+
+
 -- 
-2.43.0
+Thanks,
+Taniya Das
 
