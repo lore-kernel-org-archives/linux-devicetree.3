@@ -1,64 +1,207 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5DFD37CD54;
-	Wed,  1 Apr 2026 07:25:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A1C637AA61
+	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 07:26:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775028349; cv=none; b=j28or8g64iQmCneL++ZTw3y3JYXD5jQvF+WjX/hT3tSGLOpVglcKWt2lY4x0dlwEB+jlonQXUpZEVkVHG3jNsZQVJ7uuuxcMOrzu6eg0MHCVbw6LJJn5OuETqG+Eg1FR611IBHjuTa/ht12u/YTLDPvf/+ahgExmfIiFw7MCA1U=
+	t=1775028403; cv=none; b=a7bXxrXmz8kdl6TUmHzaEocg4ThLnYXgq6vPyJ7FXvObFz19gKtzWvKNfhBYTBU0Z2jWT8S2bzVKjkbN+UzbmADN9OEB6k6hKXjlBtxUdkfO0/B7Nr/VhqsN+kQmj4PUVsHcS8UFsOYY7dBwsOtPyhMikhufvEIxdZ+oDP42Bfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775028349; c=relaxed/simple;
-	bh=3zpV4BmFHhX7sLoaP0MfQY1ZCq6/MCT3Rf1kvJHa25g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dY9D2AZrmiXR27u3iepsnJhFBna52yl3dvJ4kqcO50v/5ZzqL1RWORtSOuqg3RcBqbko5I6wHUwaZtkCGpQwJXvYblm92IJBdJrpfZifqcTg+TOZxejI5LYZl7CrVIzk0wuiNzn35GnUWI+ji84KCVzuWvRXqHrDrj/MN2TvdCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EVeNUhp7; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775028403; c=relaxed/simple;
+	bh=uu9o8NADvdeOLd4A6s7eBAhwO4ogsE0lTg/OwWLwDas=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=YuOhn3eh5gMhezXOopFe8SNLO+g0+2vwYYD72LpuUyWuA+G02HPGzW8BCJiU9EN1QJ++HWHds0827AcLa9s/CU2vofG8lDcawfi80ddmQQmzn070Y06GCO1seY0BGJRjAxQszGvzg3zwbxrQ8saoSOTrTVmmUGn0mOuhooi+6QQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AFTt2puW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=B7CWC6qx; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EVeNUhp7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2688C19423;
-	Wed,  1 Apr 2026 07:25:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775028349;
-	bh=3zpV4BmFHhX7sLoaP0MfQY1ZCq6/MCT3Rf1kvJHa25g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=EVeNUhp7ZEZMJv+VgpvFPW1uiPseHFuFg5g692BserrG/QehxMcC9zIlzTT2V6nwE
-	 hMphmHkiapqUnRyOl835AuUyGaNUQB53uEgZoUoCqyEsT/r9XGvcCRwTnVbjOJJpT2
-	 cm+SzaKGIiwql+64XsN4odwWmZD+h6K6sLUy6np61GANT66eqiP5b0PuVKwQVgp1sN
-	 8sZyKtONPV8F8MlImxvtcBelKS5/6KHK4kRXbsqrYUjmtUEySmn3akNKzW9Ga2Gxs0
-	 EVliWEMx9EAS1kLPuB72kG3pVP9lmZpwTxMJyndQJ78uy6eHBSu3uwlDittJYz5jP1
-	 ZdRhw64X08+fA==
-Date: Wed, 1 Apr 2026 09:25:46 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Umang Chheda <umang.chheda@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Richard Cochran <richardcochran@gmail.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: arm: qcom: Add monaco-evk-ac support
-Message-ID: <20260401-sassy-nonchalant-jaguarundi-abe4ee@quoll>
-References: <20260401-monaco-evk-ac-sku-v2-0-27b5f702cfba@oss.qualcomm.com>
- <20260401-monaco-evk-ac-sku-v2-1-27b5f702cfba@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AFTt2puW";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="B7CWC6qx"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6316AWsN639150
+	for <devicetree@vger.kernel.org>; Wed, 1 Apr 2026 07:26:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=Zx/6+DXla+EZMiXJy/SeCR
+	kIOHRL6ZlK26xm52LAe2Q=; b=AFTt2puWDVAQAv+JjOfPfO/T+H00SM+SofdIAm
+	s+IWJTp4TNSKDdAOTYfkCYJQPhmKq4gTOxPCjieCIthdxyp4zcQ0wcT5xbCoOEC+
+	zy2uRY3CeUXbc3zNc+HZafZEd/65yc0CB+ejVa+Tw3lO1zGUFxMg4xs2lmdiJk4i
+	q0XU+n2dSLUKZ0YBAefHogPz/T5uql4dUKQSwn1KSu+xUVLAENAsvxKl3AjOLggh
+	EQi7fztYz7MO/BTnj9/4SdKX6aB47bPoRV+c62LoUhegN/soY7gSteHAJf9eVLA2
+	dYCm73da68jgoak9Pv7Dd7isFcfGMIEA5J/3k7azd8lHFRpA==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d8g2auxc0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 07:26:41 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5091782ab06so338500701cf.0
+        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 00:26:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1775028400; x=1775633200; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Zx/6+DXla+EZMiXJy/SeCRkIOHRL6ZlK26xm52LAe2Q=;
+        b=B7CWC6qxzcGpzaIkcgdogxsjNWnq0j7EeKXMc1EeA/yl1IoXQOfRAZAS0i74JYemdm
+         05Dx6ByVbl/Q4blI1qvw/FgB90uaKdsj1apJxdWZ/2g+EBYTaT08Kx9zdAYaa6LNNH5c
+         KmAteIlSaitajbdglSy4RVn84aWt5y72hTRfdHuLMc40hhJVnHPjE5aAMo/kCphVS/7f
+         x8iZrqTjPxPJu/XhoynmLyYLmJreHMnGoKaVN3xP35foFRqnqvmi5jv1TQ4y03qCSzIR
+         Lsnhb5oElane3dOCgcQZDO1sXqEgrwx6LkH3LqmvDDVN0uUl0vAA/IUUsQXTNTsCJNvT
+         ikwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775028400; x=1775633200;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Zx/6+DXla+EZMiXJy/SeCRkIOHRL6ZlK26xm52LAe2Q=;
+        b=s+mu3qWtXSjrqbP2lLE1MwEaKWeNQvtzFEFyBiU8PF4GT913AxztRwhGNZJ8y+detA
+         jSJmC+va2MDmmBn7NwE10i92K+rFYENlr226WsvOuPWQPYKfz1fClgD8+h62ryTBh8nF
+         adBPh60l9vs5yI1Hap6AOr072w7256wkwUVsyb9lXihaCCBbla9Ffjvq9fsYLprwgOmx
+         1+3t9i/h1BrOoyEDBUgk/969N0mN8Ye2TFUhrwjTNfeF8LA/4Wgd8W0FuC4qCfy6MnUu
+         3T0HD0aodAPrH+WyE0XsvIQtmyFYpX4qrm/1caYg/RocaYikZFXruDWVkQQXA6ZLCG6T
+         PGsw==
+X-Forwarded-Encrypted: i=1; AJvYcCWYo4ZzvK5ExEtHq2iv7+P9BuqHtag9ybkEOIiW+5n3pYEDpe20Efa2+J4UM5Z4RkGyUut1Nqf6KOju@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw9tYi7h3Ru57KdX0JQkt2L1Uvy1vlSkA19LrKKhYK03lbbYoUL
+	6evhd83pn4FRjZ1bYtAymJEl5JGQhQrA5W0rjfUc2vnpIaf7CrbopmKGdTMON8ehiLfRho25YaL
+	39CZWyVEwyT2h1Njy5C+KbwN4n/PUphSjTtHEDTegqOL54l+4YoXDlXnlVGL6Jl+j
+X-Gm-Gg: ATEYQzxMlEAdODMZHicTYrXbw1STeT+0m1c045gXG1pqqNmV+UHH72EIECaZX8w1pNw
+	Ff1B0nmd5PAkfBmzdaXBF3c8Z9/Ohh04GdZznNuMu6L9PBAorp3GqeZKozvlllmjog4dMhiAatz
+	2DtDmN1kZg9ETHTWWE0naYpV7Zygt27/rVDBThvL4DbbEnfAhJlBq+uOhEFDReXdA/6r1ngHPXR
+	NJD9q7fvwErXdC+wYw429bT+xN4XqmzYD+uBoS/6dFBM5VGogZX1tPUwWRJn9Z/VCQLAMQ2s3fp
+	Si7IrZJoyzibG9wjRJ6U16ZoCOIjkcz9TglYvZOXcOs8nUbRJB3jQTdFW53wuA3elhqLA6DXLJJ
+	Dd7TG5AGON/TJuZekRkHRS4Nugc22V6H9T/4TrV1n6uo51qmYf2ejcKqlxvcaInP1ZBxPE8G1cL
+	f7Ji2PJA/2dxGuAeemma4cP0AIPIT0Okn/Jfo=
+X-Received: by 2002:a05:622a:18a4:b0:50b:3ff3:f4a7 with SMTP id d75a77b69052e-50d3bc8cd7bmr35884511cf.35.1775028400347;
+        Wed, 01 Apr 2026 00:26:40 -0700 (PDT)
+X-Received: by 2002:a05:622a:18a4:b0:50b:3ff3:f4a7 with SMTP id d75a77b69052e-50d3bc8cd7bmr35884241cf.35.1775028399937;
+        Wed, 01 Apr 2026 00:26:39 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-38cb9f31972sm8638421fa.12.2026.04.01.00.26.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 01 Apr 2026 00:26:38 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH 00/19] drm/panel: support Waveshare DSI TOUCH kits
+Date: Wed, 01 Apr 2026 10:26:19 +0300
+Message-Id: <20260401-waveshare-dsi-touch-v1-0-5e9119b5a014@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260401-monaco-evk-ac-sku-v2-1-27b5f702cfba@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJvIzGkC/yXMywqDMBBG4VeRWXcgI6Lgq0gXafzTTBdaMl4K4
+ rs3rctvcc5Bhqww6quDMjY1nacCuVUUkp+eYB2LqXZ16xonvPsNlnwGj6a8zGtIDOmk8xJjaBy
+ V8p0R9fO/DvfLtj5eCMtvRef5BaR0hFN3AAAA
+X-Change-ID: 20260401-waveshare-dsi-touch-e1717a1ffc40
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Cong Yang <yangcong5@huaqin.corp-partner.google.com>,
+        Ondrej Jirman <megi@xff.cz>,
+        Javier Martinez Canillas <javierm@redhat.com>,
+        Jagan Teki <jagan@edgeble.ai>, Liam Girdwood <lgirdwood@gmail.com>,
+        Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3192;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=uu9o8NADvdeOLd4A6s7eBAhwO4ogsE0lTg/OwWLwDas=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBpzMiq4WFJ8Dxjp+4X36YIJ0NK5WmevadjdTtez
+ mPpKMNySpmJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaczIqgAKCRCLPIo+Aiko
+ 1XN9B/sFhT31k096LM2EitmHCAK6iB+rQZ9+q+KIbQlE7eMcVgUawYSfZXcEWHZat9vqjZXG85X
+ Im1vKtAv/D+u8I/Piox9p1Y1hpQj17t9E9vxt2DA+EsaFEu0/vgO5iZTAP3PT8GvULu49//KhtN
+ U6ygVHhWqZ0jEqQl35w6xelxdiVVpFWrfqCUN7SpLCf4vLQe5tEV9aQccPjBAeiUEwhnx3MUlv6
+ lMY70G2cq0BqoNwlO2ZDr1Bt29wqCYXy7V4stL+X6k7F2ha5WdLvVa+Hc7yKD4kd75fTr0UPVLg
+ 0R0feqyLQypesJK0gdmRUym9YzNhFopyPvP5oY7tJvOTj/G+
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAxMDA2NCBTYWx0ZWRfX3PqoUVu0AkIG
+ 4VdYU8OD7dZULBGwnULoxbav9s+yLcbDF0+UNy7mAmucAaawCbndABwfaoYbFiS2b4OxoNdEqto
+ EZSmRlLW1b2IjVIzU8i8UW2eegjSTOXKn4Mwzxa/R12LJnlCfoDPm0IM3U/Bnvug9cV8Ik9lrNi
+ G9gOBkntbJePwWRc2XWY4HZJMbWhAQPHL77tRWk0N5E4lbcg0TJvGWXfkVQke2zqXmCWqnVdwSU
+ dbJsduNd5t8sciS6gk0k0n+NOaHYHQQogPd9ZpdDgQY8H6gpReEiYSl4DYKtx1uLkmJKaEL3bpr
+ W/S/ZphOclX+vJO4wPb4DnVUaNSdKSKXWySpS9HmQCwHrhBMVfc9iIYWP2DNSZprPd0WndQaa+u
+ ZvlQZGqXQaYyubI4yajQSQPPlx8ptO46fvIQPVlEjsgZYhyIYpBgF2cApE0Nu15P/amOq8EItu0
+ wulasZ7p8NzEtXyDGKg==
+X-Authority-Analysis: v=2.4 cv=G4ER0tk5 c=1 sm=1 tr=0 ts=69ccc8b1 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=oOvrkLZsNLQ3oAnAngEA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: ygxw-7xhlrgFlQQ5AlsGMXddBwERQBme
+X-Proofpoint-ORIG-GUID: ygxw-7xhlrgFlQQ5AlsGMXddBwERQBme
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-01_02,2026-04-01_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 bulkscore=0 clxscore=1015 priorityscore=1501
+ malwarescore=0 adultscore=0 impostorscore=0 spamscore=0 phishscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2604010064
 
-On Wed, Apr 01, 2026 at 12:14:42AM +0530, Umang Chheda wrote:
-> Introduce bindings for the monaco-evk-ac IoT board, which is
-> based on the monaco-ac (QCS8300-AC) SoC variant.
-> 
-> Signed-off-by: Umang Chheda <umang.chheda@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
->  1 file changed, 1 insertion(+)
+The Waveshare DSI TOUCH family of DSI panel kits feature different DSI
+video-mode panels, bundled with the separate controlling circuit,
+produing necessary voltages from the 3.3V and 5V supplies. Extend panel
+drivers to support those Waveshare panels and also add GPIO driver for
+the onboard control circuitry.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+Dmitry Baryshkov (19):
+      dt-bindings: display/panel: himax,hx83102: describe Waveshare panel
+      dt-bindings: display/panel: himax,hx8394: describe Waveshare panel
+      dt-bindings: display/panel: jadard,jd9365da-h3: describe Waveshare panel
+      dt-bindings: display/panel: ilitek,ili9881c: describe Waveshare panel
+      dt-bindings: dipslay/panel: describe panels using Focaltech OTA7290B
+      drm/of: add helper to count data-lanes on a remote endpoint
+      drm/panel: himax-hx83102: support Waveshare 12.3" DSI panel
+      drm/panel: himax-hx8394: set prepare_prev_first
+      drm/panel: himax-hx8394: simplify hx8394_enable()
+      drm/panel: himax-hx8394: support Waveshare DSI panels
+      drm/panel: jadard-jd9365da-h3: use drm_connector_helper_get_modes_fixed
+      drm/panel: jadard-jd9365da-h3: support variable DSI configuration
+      drm/panel: jadard-jd9365da-h3: set prepare_prev_first
+      drm/panel: jadard-jd9365da-h3: support Waveshare DSI panels
+      drm/panel: ilitek-ili9881c: support Waveshare 7.0" DSI panel
+      drm/panel: add devm_drm_panel_add() helper
+      drm/panel: add driver for Waveshare 8.8" DSI TOUCH-A panel
+      dt-bindings: gpio: describe Waveshare GPIO controller
+      gpio: add GPIO controller found on Waveshare DSI TOUCH panels
+
+ .../bindings/display/panel/focaltech,ota7290b.yaml |   70 +
+ .../bindings/display/panel/himax,hx83102.yaml      |    2 +
+ .../bindings/display/panel/himax,hx8394.yaml       |    2 +
+ .../bindings/display/panel/ilitek,ili9881c.yaml    |    2 +
+ .../bindings/display/panel/jadard,jd9365da-h3.yaml |    6 +
+ .../bindings/gpio/waveshare,dsi-touch-gpio.yaml    |  100 ++
+ drivers/gpio/Kconfig                               |   10 +
+ drivers/gpio/Makefile                              |    1 +
+ drivers/gpio/gpio-waveshare-dsi.c                  |  220 +++
+ drivers/gpu/drm/drm_of.c                           |   34 +
+ drivers/gpu/drm/drm_panel.c                        |   23 +
+ drivers/gpu/drm/panel/Kconfig                      |   13 +
+ drivers/gpu/drm/panel/Makefile                     |    1 +
+ drivers/gpu/drm/panel/panel-focaltech-ota7290b.c   |  208 +++
+ drivers/gpu/drm/panel/panel-himax-hx83102.c        |  144 +-
+ drivers/gpu/drm/panel/panel-himax-hx8394.c         |  279 +++-
+ drivers/gpu/drm/panel/panel-ilitek-ili9881c.c      |  251 +++-
+ drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c   | 1563 ++++++++++++++++++--
+ include/drm/drm_of.h                               |   13 +
+ include/drm/drm_panel.h                            |    1 +
+ 20 files changed, 2813 insertions(+), 130 deletions(-)
+---
+base-commit: 3b058d1aeeeff27a7289529c4944291613b364e9
+change-id: 20260401-waveshare-dsi-touch-e1717a1ffc40
 
 Best regards,
-Krzysztof
+--  
+With best wishes
+Dmitry
 
