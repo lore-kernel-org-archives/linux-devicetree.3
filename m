@@ -1,171 +1,197 @@
-Received: from va-2-35.ptr.blmpb.com (va-2-35.ptr.blmpb.com [209.127.231.35])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40A511A9F82
-	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 06:10:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A447532D42B
+	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 06:35:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775023822; cv=none; b=OFfTTlY2TCMDTMuNbnNJBHY6UUtjbPqjEllpw1G3vddrMR2QE/xfXqKfmX43l7ygOXCO8DkREFiIklBKa33Mcl8GoZzbF+meS7kfLNwS4lsG2rTmcjx86rVoMN4pb86Yh88pIE6s3rE80QkJCzmmyA296RcpWhrR6L82StC7TYo=
+	t=1775025337; cv=none; b=IwJ2h/4yFa5aD+0PjSUCjigTNKZGQ+efg32ZFeVdGbb2E1eIeSxjFeIPUUB7pMcBw8UuGeE1a05olurY1/MF+RCX3d2986APCbnW2/H0BGgUL1KyahmM0sYbzlKQC69EAgSFGwujLqzcHfFGxHpYExYoJFOwS6CvnVIrLOsAp3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775023822; c=relaxed/simple;
-	bh=VbUQOvKGwR1R52hKJcfo6NqJZg0YjUDtMeBwt+ohpDo=;
-	h=Date:Subject:From:References:In-Reply-To:Message-Id:To:Cc:
-	 Mime-Version:Content-Type; b=TxCQ3miTQzzLCoUepM0BVahb5nCFFOIA71DMUSeejICVJglfFqWXSXTkfe5t2EPA0u4k0fWkitYAAjaBE1dbyc38FCmrjNr/h9SrmsywHqfvatl2JydCvzDXTwvn3xCvikR1I8uxJZFJ1e48fG+peBtCt6vk7O2DcB72rV3ih5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io; spf=pass smtp.mailfrom=deepcomputing.io; dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b=V+N6vJC/; arc=none smtp.client-ip=209.127.231.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
+	s=arc-20240116; t=1775025337; c=relaxed/simple;
+	bh=h+6iokKQZz+tTzp0NWNeSPU4XGXWquRPqhH9qv/wUAA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=PZAB92Sju9/hHHt6WkXyMVGuma+ASo0rtgLN64MJ5gyVIpntPcRHgriFWHhJHKvk9op0BgNwLh+rhROUlTQZBR6t9kpo3cSm74OPZVHV1T/NWapg9mSawXT9KD+bBsowrjfraOp2fB9fArPWe+DevtIoxOaOMagyY3F3377Isc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lnz5zc24; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EFvHG/C1; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b="V+N6vJC/"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1775023809;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=VbUQOvKGwR1R52hKJcfo6NqJZg0YjUDtMeBwt+ohpDo=;
- b=V+N6vJC/4N4BRZjaJ+N4wQpB8Kq5KF8p47PPMeiuVWty0/P2L4A4HY8I1oH4rWuHCJC/Fi
- /JX2GRORsDCtiSBhzGuFn73skj8B7EFeY3lRFi65XA5F/pfSgKwNA02otH2C7Et9d1zU9f
- kxIis6FmInDklD1mbtOzF+41G8XVa+Ykr/hqG7GRIaPsM0ynFQ8cGADVIHLxUfjHgZO8oI
- YOsJxUwTH0nWPP48l+J5ubtrF0RUzWbhK0BQBk0XnRoGiyzomdT4N+MxaiHtOTHqzB1Hrp
- 8k5M5OCFN40bFUZOCnFakj6Abxnm22/sFhSAYeepfnm0gP46IRiwDwq7Er9yTA==
-Date: Wed, 01 Apr 2026 14:10:06 +0800
-Subject: Re: [PATCH v1 2/2] riscv: dts: spacemit: add DeepComputing FML13V05 board device tree
-From: =?utf-8?q?=E6=9B=B9=E7=8F=8A=E7=8F=8A?= <sandie.cao@deepcomputing.io>
-References: <20260331034423.67142-1-sandie.cao@deepcomputing.io> <20260331034616.67183-1-sandie.cao@deepcomputing.io>
-	<20260331085925-GKB976850@kernel.org>
-In-Reply-To: <20260331085925-GKB976850@kernel.org>
-Message-Id: <407ce3d77416bb2522b7906b0df3d5adf02c27ee.4c756029.b64e.488e.905e.99baaf78d6a1@feishu.cn>
-To: "Yixun Lan" <dlan@kernel.org>
-Cc: "Conor Dooley" <conor+dt@kernel.org>, 
-	"Emil Renner Berthing" <kernel@esmil.dk>, 
-	"Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Paul Walmsley" <paul.walmsley@sifive.com>, 
-	"Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Albert Ou" <aou@eecs.berkeley.edu>, 
-	"Heinrich Schuchardt" <heinrich.schuchardt@canonical.com>, 
-	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
-	"Michael Opdenacker" <michael.opdenacker@rootcommit.com>, 
-	"Guodong Xu" <guodong@riscstar.com>, 
-	"Hendrik Hamerlinck" <hendrik.hamerlinck@hammernet.be>, 
-	"Yangyu Chen" <cyy@cyyself.name>, <spacemit@lists.linux.dev>, 
-	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lnz5zc24";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EFvHG/C1"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6315Ykao1831828
+	for <devicetree@vger.kernel.org>; Wed, 1 Apr 2026 06:35:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	vOXdhdDzApb0jzhJUtIq/M2ueYVWSIdj/ihpXQxGFuU=; b=lnz5zc2428jcxJJ+
+	1bMYF9WArX+XrYuWWJW4oGa+Joq+wVxtGsQsgPftncBROcsFvVyIrzLopE/uZpFr
+	iLuXb52Km+dCJvb7/OjQ8v+L9lOiGwteVcWv6tRvQxglpLetCj1FPcZTAO22wnic
+	0Qm2NdvuFWtrnuXcaxgq99fIQasxStsB58Km7jKVBwIzsyVpVtI8WWAa1O04e9wN
+	NLu18Yvfei2hRHr1Yv7QAtA1AafhZjp/dsqqzxxKJo3Oim/uQDpwUI8rS2ViE9TP
+	uaYOamfkXMtagcwlwLoipLAodCMb3A8gBTYSIworGssOe/mpiAC46OeUl1FHHF2y
+	FYyCYg==
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d8equcac6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 06:35:35 +0000 (GMT)
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-127337c8e52so11604053c88.1
+        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 23:35:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1775025335; x=1775630135; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=vOXdhdDzApb0jzhJUtIq/M2ueYVWSIdj/ihpXQxGFuU=;
+        b=EFvHG/C1kmOGDPi/Pom6uBeGVSLYXLxslRaQq330TXbDHha8ZeyewalO+72EFPzpAg
+         rH73Sa6xSdmCfGbGEGp0qU+RcPXe7OnTD1H9MoNksRW5vRDYHF7fYVj7RXMAVYCSxyjb
+         UCld3gP1vVeWKbsPlmsNhobG8KoPRTxl6HW0EafF3pfGB1kBzCAxrpu1Rkka7+tR3/e3
+         RxzGL7r6T3syvAB905jveyPiD0dVHK90IpZzCnc91pIZW80mzfMVoGf3MMf9pprqA+Vj
+         Ukh7BpbEYkRBDY8rOGjEJCuLFp1r399XsOZXu7RfIH1pGmjxUtP2xWrLCiPHDh7QprF+
+         q9ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775025335; x=1775630135;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=vOXdhdDzApb0jzhJUtIq/M2ueYVWSIdj/ihpXQxGFuU=;
+        b=btKZWtf51q67D0b+ox04o4t2/dZAevcZypywD+WfJblKmPcHHMvD31r4JEDEO4jHn9
+         GPX+edA5K+XPGDicOAFE/eXL1uwEStQ01w47/kyDQIvdQzrhammpDiuCLz1U/8qXaoHR
+         rqauGQTUR5hF4fHK5AkRl+2VMd41nBoinlcbuV0k9tUveIEeTarb+Br6CVcKEjxwzmbX
+         he8Rz2ZSJ5ACCLI5MCzJoPlNkfexFjhtykrDWF0DjSbNLL65H7xvXhox/+EGLz24C0IK
+         3k3ABbrPB9Fc5ERky81vfN4lbn6TarN/bvm28Og+wpOHF8QxHl+s+RMb8OSiGF2cqhR1
+         ZGMw==
+X-Forwarded-Encrypted: i=1; AJvYcCWvRti8LL/vGhtD/MaZP0d4F69h++YXh9pnfNYsBBy+OtxsrEwUzct7DOJ2MzWNZbQx+aKOD09lcjj6@vger.kernel.org
+X-Gm-Message-State: AOJu0YzhEfjBXU3KOAxpHmKR6WT/pypSDaaZnKd3ORysRrzeLzE6A67v
+	HnJvQS1GNOUHyTjulctqW1iS/SG8v9rFGLPkDQwVhLrUtYhHowhi2ICLXfcDvK/iGjdCmSCLGdy
+	JMVozBGAvtxW70mrVjClaqaooLMI8YP3SNJeh+lokugrS+quQ1DzgGatQsko3J3zI
+X-Gm-Gg: ATEYQzxz7e44A09HAzAuI5EpQriU59hx9aUOXWRIU5fqmBPs2SZ2opUSAa1Ie9pJ23P
+	BUExDvKnAzJkeVDLbTbrKXWjzeNXckpLT5f5xZlkiw9UUtd8mwD1ojO0X7lDR6JkuZFixsTwqxi
+	JxKQrn0e69yTHWh9mCco3M4gofQ699dbHqLmB0QdlosApIkIbHEpzgerlssNknoRy/94f8UYgXV
+	PiMTcXXFcYu9X9iCphCeo3TGhBpvnyR9w1DVQAOxKIkglp7CkHBJFdovgvsMM1g23eOIuMkXdvq
+	XRHyNIC0zGI3YoxtEptFF0wLu7Rb1bNQFbN3w+aFFkn5BpwFFxZsKgZV0tQZEr0lcei7NDUXxFZ
+	PIXlidyuGm1znimexOv6rsWNIbHzJTTSjdJuppefdmJidbqnaZTUu+y7Uggjr69Kylj3Q
+X-Received: by 2002:a05:7022:62b:b0:119:e56b:958a with SMTP id a92af1059eb24-12be64b5885mr1209382c88.15.1775025335263;
+        Tue, 31 Mar 2026 23:35:35 -0700 (PDT)
+X-Received: by 2002:a05:7022:62b:b0:119:e56b:958a with SMTP id a92af1059eb24-12be64b5885mr1209364c88.15.1775025334599;
+        Tue, 31 Mar 2026 23:35:34 -0700 (PDT)
+Received: from hu-qianyu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-12ab97f6994sm12027550c88.8.2026.03.31.23.35.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 31 Mar 2026 23:35:34 -0700 (PDT)
+From: Qiang Yu <qiang.yu@oss.qualcomm.com>
+Date: Tue, 31 Mar 2026 23:35:26 -0700
+Subject: [PATCH RFC 1/4] dt-bindings: clock: qcom,sm8550-tcsr: Add QREF
+ regulator supplies for glymur
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+169ccb6bf+2ee557+vger.kernel.org+sandie.cao@deepcomputing.io>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260331-qref_vote-v1-1-3fd7fbf87864@oss.qualcomm.com>
+References: <20260331-qref_vote-v1-0-3fd7fbf87864@oss.qualcomm.com>
+In-Reply-To: <20260331-qref_vote-v1-0-3fd7fbf87864@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>, johan@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Qiang Yu <qiang.yu@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1775025332; l=1973;
+ i=qiang.yu@oss.qualcomm.com; s=20250513; h=from:subject:message-id;
+ bh=h+6iokKQZz+tTzp0NWNeSPU4XGXWquRPqhH9qv/wUAA=;
+ b=zjvlvfPidMtfsw03SJZXQdGArrrjZcjtFSfDCKrURTOSU4zza+ExjIASSv/GM728Zn/d7x0Ud
+ u10cftkc8EtAcLzZHtMoEC1avGIVTJi3GcJ5AHCUSp8lJzJmXVUi/AN
+X-Developer-Key: i=qiang.yu@oss.qualcomm.com; a=ed25519;
+ pk=Rr94t+fykoieF1ngg/bXxEfr5KoQxeXPtYxM8fBQTAI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAxMDA1NSBTYWx0ZWRfX4VLfd9sbwXFv
+ Mx5UTtvwWz73V1l6LcLMUhTQEM0jnD4fczC/xiPS3glS7bpkEcJVoVPeVAeYZYCUTjVCliUGvfc
+ RpSOhZi5xWcGBN4s9GGiSTUPtMnE4rOSHQyrU5xKI1FFu+4WmHveovaWvyfsnEQXee5SYRfNSDb
+ GfC5w6PgSqOYJ+Drf+MfVXDwH5dT+wCoBKIfxyBkeaXxJB1nRkXNNBPDQeUFqb8o8kRgOT1Ibfo
+ UTSqFGShfrqq6IQFDTGAxDEzZUk2uz1XKfj2WX2mjM0J18wVQOSdJYJMyIGFt1gV90ebSqtBZJo
+ Jk+FCHry2Zpg/OGUtEOgfjnP/lI0fNW3f4DcohzZYG57Ag5jvNMZ3WEsmy4uIcR++hJLzKFVqTX
+ lc6LeHeo1QEPmMo5enAhAnoIONZTFylvOuakEkpaki4K+a0R0lbNBs5wuoKNSyez20bcwy/8jRH
+ BhVGBTrL88xtwj+X57Q==
+X-Proofpoint-GUID: xetcebUBuIXIc4rg2vKWUTV0n36v2DG2
+X-Proofpoint-ORIG-GUID: xetcebUBuIXIc4rg2vKWUTV0n36v2DG2
+X-Authority-Analysis: v=2.4 cv=YMOSCBGx c=1 sm=1 tr=0 ts=69ccbcb7 cx=c_pps
+ a=SvEPeNj+VMjHSW//kvnxuw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=q-kqYbIK7F94m4hkTHoA:9 a=QEXdDO2ut3YA:10
+ a=Kq8ClHjjuc5pcCNDwlU0:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-01_02,2026-03-31_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 spamscore=0 impostorscore=0 adultscore=0
+ lowpriorityscore=0 bulkscore=0 phishscore=0 malwarescore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604010055
 
-Hi Lan,
+The glymur TCSR PCIe clkref clocks require regulator supplies for the
+QREF block and its refgen reference voltage generator. Add the optional
+supply properties restricted to qcom,glymur-tcsr via an allOf/if/then
+conditional schema.
 
-> From: "Yixun Lan"<dlan@kernel.org>
-> Hi Sandie,=C2=A0
->=C2=A0
-> On 11:46 Tue 31 Mar =C2=A0 =C2=A0 , Sandie Cao wrote:
-> > From: sandiecao <sandie.cao@deepcomputing.io>
-> >=C2=A0
-> > The FML13V05 board from DeepComputing incorporates a SpacemiT K3 RISC-V
-> > SoC.It is a mainboard designed for the Framework Laptop 13 Chassis,
-> > which has (Framework) SKU FRANHQ0001.
-> >=C2=A0
-> > The FML13V05 board features:
-> > - SpacemiT K3 RISC-V SoC
-> > - LPDDR5 16GB or 32GB
-> > - eMMC 32GB ~128GB (Optional)
-> > - UFS 3.1 256G (Optional)
-> > - QSPI Flash
-> > - MicroSD Slot
-> > - PCIe-based Wi-Fi
-> > - 4 USB-C Ports
-> > =C2=A0- Port 1: PD 3.0 (65W Max), USB 3.2 Gen 1
-> > =C2=A0- Port 2: PD 3.0 (65W Max), USB 3.2 Gen 1, DP 1.4 (4K@60Hz)
-> > =C2=A0- Port 3 & 4: USB 3.2 Gen 1
-> >=C2=A0
-> > This minimal device tree enables booting into a serial console with UAR=
-T
-> > output.
-> >=C2=A0
-> > Signed-off-by: sandiecao <sandie.cao@deepcomputing.io>
-> > Reviewed-by: Heinrich Schuchardt <heinrich.schuchardt@canonical.com>
-> should put your own signed-off at the end.
->=C2=A0
-> > ---
-> > =C2=A0arch/riscv/boot/dts/spacemit/Makefile =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- | =C2=A01 +
-> > =C2=A0.../spacemit/k3-deepcomputing-fml13v05.dts =C2=A0 =C2=A0| 28 ++++=
-+++++++++++++++
-> > =C2=A02 files changed, 29 insertions(+)
-> > =C2=A0create mode 100644 arch/riscv/boot/dts/spacemit/k3-deepcomputing-=
-fml13v05.dts
-> >=C2=A0
-> > diff --git a/arch/riscv/boot/dts/spacemit/Makefile b/arch/riscv/boot/dt=
-s/spacemit/Makefile
-> > index 7e2b87702571..acb993c452ba 100644
-> > --- a/arch/riscv/boot/dts/spacemit/Makefile
-> > +++ b/arch/riscv/boot/dts/spacemit/Makefile
-> > @@ -4,4 +4,5 @@ dtb-$(CONFIG_ARCH_SPACEMIT) +=3D k1-milkv-jupiter.dtb
-> > =C2=A0dtb-$(CONFIG_ARCH_SPACEMIT) +=3D k1-musepi-pro.dtb
-> > =C2=A0dtb-$(CONFIG_ARCH_SPACEMIT) +=3D k1-orangepi-r2s.dtb
-> > =C2=A0dtb-$(CONFIG_ARCH_SPACEMIT) +=3D k1-orangepi-rv2.dtb
-> > +dtb-$(CONFIG_ARCH_SPACEMIT) +=3D k3-deepcomputing-fml13v05.dtb
-> > =C2=A0dtb-$(CONFIG_ARCH_SPACEMIT) +=3D k3-pico-itx.dtb
-> > diff --git a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts=
- b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-> > new file mode 100644
-> > index 000000000000..2343ae3acc2d
-> > --- /dev/null
-> > +++ b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-> > @@ -0,0 +1,28 @@
-> > +// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-> > +/*
-> > + * Copyright (C) 2024 DeepComputing (HK) Limited
-> should cover current year, which is 2026 now..
->=C2=A0
-> > + */
-> > +
-> > +#include "k3.dtsi"
-> > +
-> > +/ {
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0model =3D "DeepComputing FML13V05";
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0compatible =3D "deepcomputing,fml13v05", "=
-spacemit,k3";
-> > +
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0aliases {
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0serial0 =3D &u=
-art0;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0};
-> > +
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0chosen {
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0stdout-path =
-=3D "serial0";
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0};
-> > +
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0memory@100000000 {
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0device_type =
-=3D "memory";
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0reg =3D <0x1 0=
-x00000000 0x4 0x00000000>;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0};
-> > +};
-> > +
-> > +&uart0 {
-> Can you also add pinctrl data explicitly?
+Switch from additionalProperties to unevaluatedProperties so that
+properties defined inside the if/then block are correctly recognised as
+evaluated and not rejected by the schema validator.
 
-To avoid conflict,=C2=A0 the common pinctrl table "k3-pinctrl.dtsi" should =
-be uploaded by spacemit.=C2=A0
-Then we will add the pinctrl data after k3-pico-itx.dts. That should be ano=
-ther patch.=C2=A0
-Sandie
+Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
+---
+ .../bindings/clock/qcom,sm8550-tcsr.yaml           | 26 +++++++++++++++++++++-
+ 1 file changed, 25 insertions(+), 1 deletion(-)
 
->=C2=A0
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0status =3D "okay";
-> > +};
-> > --=C2=A0
-> > 2.43.0
->=C2=A0
-> --=C2=A0
-> Yixun Lan (dlan)
->=C2=A0
+diff --git a/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml b/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml
+index ae9aef0e54e8b8b85bc70e6096d524447091f39e..88db650e69ef2388a5bfb6783a57c1d48c0e780f 100644
+--- a/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml
++++ b/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml
+@@ -49,11 +49,35 @@ properties:
+   '#reset-cells':
+     const: 1
+ 
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: qcom,glymur-tcsr
++    then:
++      properties:
++        vdda-refgen-0p9-supply: true
++        vdda-refgen-1p2-supply: true
++        vdda-qrefrx0-0p9-supply: true
++        vdda-qrefrx1-0p9-supply: true
++        vdda-qrefrx2-0p9-supply: true
++        vdda-qrefrx4-0p9-supply: true
++        vdda-qrefrx5-0p9-supply: true
++        vdda-qreftx0-0p9-supply: true
++        vdda-qreftx0-1p2-supply: true
++        vdda-qreftx1-0p9-supply: true
++        vdda-qrefrpt0-0p9-supply: true
++        vdda-qrefrpt1-0p9-supply: true
++        vdda-qrefrpt2-0p9-supply: true
++        vdda-qrefrpt3-0p9-supply: true
++        vdda-qrefrpt4-0p9-supply: true
++
+ required:
+   - compatible
+   - clocks
+ 
+-additionalProperties: false
++unevaluatedProperties: false
+ 
+ examples:
+   - |
+
+-- 
+2.34.1
+
