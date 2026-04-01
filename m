@@ -1,150 +1,72 @@
-Received: from va-2-26.ptr.blmpb.com (va-2-26.ptr.blmpb.com [209.127.231.26])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6ED8337B87
-	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 07:38:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.26
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52533330D25;
+	Wed,  1 Apr 2026 07:40:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775029119; cv=none; b=EuMqoE746GOibGZ9WpkWi5Cl/2OD7N+5GWHT73LcWJzd7VABUa17eVF6v9RZEqTnVmduEp+8w+lBscKADSe1c4WyXJnDfQIjfcj65NsxlUYGd7WMif+UG7R3Lt7b1vdj0MJE2zjypXVqCyIPGQAyq0e0SKwfzlnJusShzElGpYY=
+	t=1775029223; cv=none; b=XX1+VrxY2QocIga+8nupI9vzAlxRjdAaDR/akjWwojaH5PaiA4pIM/bki1tpX1NitzVxSAr3+QFIz0FrK+vw08oLgEjn+Z3I6y3RcrI3nk3kcZgjAaU/+qKmjHu/dCgO81VW0puQt4o7+txFHeEmElH5HE1bHbUNYRw8wyFz65k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775029119; c=relaxed/simple;
-	bh=LduvM7ftQhNZfq5zgzln7UtdiXlkxtvJIsUB2Xe8jqU=;
-	h=Subject:From:References:Date:Message-Id:To:Cc:Mime-Version:
-	 In-Reply-To:Content-Type; b=Gn/qbC1MrVg6OiogD8D4CgSaTV2OiumaL8GCOjdGzNgpYHXLQT1kbjvCK7vwJFdyfhS0DkRrnyEdoI2uM6Bxa7a+wy6K7VD94YtGegLJvj4jsWobrstDjBYggPitcBuAjxZc2UlrLe1Zy4aG5GHdkNGPDL7ULJz1UDf4lMNZhgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io; spf=pass smtp.mailfrom=deepcomputing.io; dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b=Vxi6rRWu; arc=none smtp.client-ip=209.127.231.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
+	s=arc-20240116; t=1775029223; c=relaxed/simple;
+	bh=CaHe2VUsZZDWm6ErzNKL9G35yXKCVCCCSuUqA9E9iog=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hEHtOg+GqnDFIuo4m9S/0pLeH+wlWsgX1gcQ0tsGFhRg+zeA5xJFjBqPaNnmYi5g/aujBGn8BGQ28RE8AMqLtPHaCBuvJfC602UdlHNXHEb7izIOFJ2UuRd6hvzd5JXQ9cNh6jfB2+LEpI42ydHc7+oYcw9R1Yv3tCSwJzE5UME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RbRLgtYF; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b="Vxi6rRWu"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1775029107;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=LduvM7ftQhNZfq5zgzln7UtdiXlkxtvJIsUB2Xe8jqU=;
- b=Vxi6rRWuZbnQ2M6Dwgu3YNtR8nhdLDNZo8lgOjN6s02r56HivOMUhRLbeI1HfLwimJptSs
- ZByhzfKWPO1c6TO5ELES5m5nJLXTTabs0oEuSBCSIXgQkFR9Q2ASoSFv51Ozi4ivNgyDtB
- 7zXxQkuZ8gpYuojFzlmxBKyIln94OgiN0VuqFo60NnXCEhvVh+kwO6393vKpoxAWDPdfIp
- fipRMb22N3PuyKc/trltJuuAlcImWaUWqeosv1R/Jaz9TwBYBmYuUn5qTcB0EMs9XMKQ85
- KpcGetIJhhYKGCJgUtIRmy9/irb9QZ6GzW5ui0i6xajwFuy9q9dADwF5qTdDgg==
-Subject: Re: [PATCH v1 2/2] riscv: dts: spacemit: add DeepComputing FML13V05 board device tree
-From: =?utf-8?q?=E6=9B=B9=E7=8F=8A=E7=8F=8A?= <sandie.cao@deepcomputing.io>
-References: <20260331034423.67142-1-sandie.cao@deepcomputing.io> <20260331034616.67183-1-sandie.cao@deepcomputing.io> <20260331085925-GKB976850@kernel.org> <407ce3d77416bb2522b7906b0df3d5adf02c27ee.4c756029.b64e.488e.905e.99baaf78d6a1@feishu.cn>
-	<DHHM43F6TE9I.1F5A3O0VOS6ND@linux.spacemit.com>
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 01 Apr 2026 15:38:23 +0800
-Message-Id: <407ce3d77416bb2522b7906b0df3d5adf02c27ee.20e9d5ae.574e.4942.b529.0e22091ba551@feishu.cn>
-To: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-Cc: "Yixun Lan" <dlan@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, 
-	"Emil Renner Berthing" <kernel@esmil.dk>, 
-	"Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Paul Walmsley" <paul.walmsley@sifive.com>, 
-	"Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Albert Ou" <aou@eecs.berkeley.edu>, 
-	"Heinrich Schuchardt" <heinrich.schuchardt@canonical.com>, 
-	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
-	"Michael Opdenacker" <michael.opdenacker@rootcommit.com>, 
-	"Guodong Xu" <guodong@riscstar.com>, 
-	"Hendrik Hamerlinck" <hendrik.hamerlinck@hammernet.be>, 
-	"Yangyu Chen" <cyy@cyyself.name>, <spacemit@lists.linux.dev>, 
-	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RbRLgtYF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C1B8C4CEF7;
+	Wed,  1 Apr 2026 07:40:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775029222;
+	bh=CaHe2VUsZZDWm6ErzNKL9G35yXKCVCCCSuUqA9E9iog=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=RbRLgtYFvPHl043mICoGZscSr/N7MotX+SGIZUfXePNNzlfCYjC1vieeJmjL13L1v
+	 XHTOIE+lSdhB2HULMm42hT+KYQuRvNBuavSIW9yPgf8EX2zaU1zxC/XHxr/YVLAduK
+	 L+Xp14uT7oOuS0CV8sSwdR1auQq40uHaUs7QEFGmKlrUa9MNfwOxXOVNbbvHEgw+DR
+	 0ja7heziqQtqnoLP04qTWrQEr+BrbzQK7kzcj1aIz85GJK1EqHSkpEuoHwyRM+TiA7
+	 2OU+9/G77nACau3rxtBHs8T4UIMvZ/Ve9pIvYV0XynYU8MxrCWUd7S0cTVm08M3aCT
+	 jpU0c0LKOk8/w==
+Date: Wed, 1 Apr 2026 09:40:20 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Guangliu Ding <guangliu.ding@nxp.com>
+Cc: Daniel Almeida <daniel.almeida@collabora.com>, 
+	Alice Ryhl <aliceryhl@google.com>, Boris Brezillon <boris.brezillon@collabora.com>, 
+	Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	Jiyu Yang <jiyu.yang@nxp.com>
+Subject: Re: [PATCH 1/2] dt-bindings: gpu: mali-valhall-csf: Document i.MX952
+ support
+Message-ID: <20260401-weightless-mule-of-opportunity-57f45e@quoll>
+References: <20260331-master-v1-0-65c8e318d462@nxp.com>
+ <20260331-master-v1-1-65c8e318d462@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+169cccb71+a85208+vger.kernel.org+sandie.cao@deepcomputing.io>
-In-Reply-To: <DHHM43F6TE9I.1F5A3O0VOS6ND@linux.spacemit.com>
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260331-master-v1-1-65c8e318d462@nxp.com>
 
-Hi Troy,
+On Tue, Mar 31, 2026 at 06:12:38PM +0800, Guangliu Ding wrote:
+> Add compatible string of Mali G310 GPU on i.MX952 board.
 
-> From: "Troy Mitchell"<troy.mitchell@linux.spacemit.com>
-> Date:=C2=A0 Wed, Apr 1, 2026, 14:42
+We see this from the diff. Say something useful.
 
-> On Wed Apr 1, 2026 at 2:10 PM CST, =E6=9B=B9=E7=8F=8A=E7=8F=8A wrote:
-> > Hi Lan,
-> >
-> >> From: "Yixun Lan"<dlan@kernel.org>
-> >> Hi Sandie,=C2=A0
-> >>=C2=A0
-> >> On 11:46 Tue 31 Mar =C2=A0 =C2=A0 , Sandie Cao wrote:
-> >> > From: sandiecao <sandie.cao@deepcomputing.io>
-> >> >=C2=A0
-> >> > The FML13V05 board from DeepComputing incorporates a SpacemiT K3 RIS=
-C-V
-> >> > SoC.It is a mainboard designed for the Framework Laptop 13 Chassis,
-> >> > which has (Framework) SKU FRANHQ0001.
-> >> >=C2=A0
-> >> > The FML13V05 board features:
-> >> > - SpacemiT K3 RISC-V SoC
-> >> > - LPDDR5 16GB or 32GB
-> >> > - eMMC 32GB ~128GB (Optional)
-> >> > - UFS 3.1 256G (Optional)
-> >> > - QSPI Flash
-> >> > - MicroSD Slot
-> >> > - PCIe-based Wi-Fi
-> >> > - 4 USB-C Ports
-> >> > =C2=A0- Port 1: PD 3.0 (65W Max), USB 3.2 Gen 1
-> >> > =C2=A0- Port 2: PD 3.0 (65W Max), USB 3.2 Gen 1, DP 1.4 (4K@60Hz)
-> >> > =C2=A0- Port 3 & 4: USB 3.2 Gen 1
-> >> >=C2=A0
-> >> > This minimal device tree enables booting into a serial console with =
-UART
-> >> > output.
-> >> >=C2=A0
-> >> > Signed-off-by: sandiecao <sandie.cao@deepcomputing.io>
-> >> > Reviewed-by: Heinrich Schuchardt <heinrich.schuchardt@canonical.com>
-> >> > +&uart0 {
-> >> Can you also add pinctrl data explicitly?
-> >
-> > To avoid conflict,=C2=A0 the common pinctrl table "k3-pinctrl.dtsi" sho=
-uld be uploaded by spacemit.=C2=A0
-> > Then we will add the pinctrl data after k3-pico-itx.dts. That should be=
- another patch.=C2=A0
-> > Sandie
-> I think you don't understand what Yixun said.
-> You should add pinctrl properties here like:
-> pinctrl-0 =3D xxx;
-> pinctrl-names =3D "default";
->=C2=A0
-> While the bootloader is expected to initialize the UART pins, explicitly =
-adding the pinctrl properties
-> ensures hardware state consistency.
->=C2=A0
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 - Troy
->=C2=A0
+> 
+> Signed-off-by: Guangliu Ding <guangliu.ding@nxp.com>
+> Reviewed-by: Jiyu Yang <jiyu.yang@nxp.com>
 
-Yes, I know this.
-If I add=C2=A0
-=C2=A0=C2=A0 =C2=A0 =C2=A0=C2=A0 pinctrl-names =3D "default";
-=C2=A0=C2=A0 =C2=A0 =C2=A0=C2=A0 pinctrl-0 =3D <&uart0_0_cfg>;
-Then also need to add
-&pinctrl {
-=C2=A0=C2=A0 =C2=A0 =C2=A0=C2=A0 uart0_0_cfg: uart0-0-cfg {
-=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 uart0-0-pins {
-=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0=C2=A0 pinmux =3D <K3_PADCONF(149, 2)>, =C2=A0 =C2=A0 =C2=A0=C2=A0 /=
-* uart0 tx */
-=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 <K3_PADCONF(150, 2)>; =C2=A0 =C2=
-=A0 =C2=A0=C2=A0 /* uart0 rx */
+And the review should tell you that. Did that review even happen? That's
+a v1 and a single liner patch, so how basics could be missed?
 
-=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0=C2=A0 bias-pull-up; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 /* normal pull-up */
-=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0=C2=A0 drive-strength =3D <25>; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0=C2=A0 /* DS8 */
-=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=C2=A0 };
-=C2=A0=C2=A0 =C2=A0 =C2=A0=C2=A0 };
-};
-But this part is common, it should be defined in common pinctrl table "k3-p=
-inctrl.dtsi". And this part hasn't comed to Upstream.
-If I add it currently,=C2=A0 When k3-pinctrl.dtsi is accepted by Upstream, =
-we need to remove it again.
-So we just empty it for simple.
-Sandie
+Best regards,
+Krzysztof
+
