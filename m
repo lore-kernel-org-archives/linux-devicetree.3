@@ -1,105 +1,183 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013053.outbound.protection.outlook.com [40.107.159.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8BB33A75A8;
-	Wed,  1 Apr 2026 08:48:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775033284; cv=none; b=vATJLElk+l6ddWOLxGkdCi1VHu74O1ag6yFxqAH+tMGE2jRo4TXOMY2bkXP6s4qMqYWv4UGSdPXBqBCgmRYVHREPBEbXvSqZG6A97TycMKlQ3fBRlJ30bKjEArf5VOHZ3LEMhLC0kBJ0lGBdx+Pl9O1BgIb7S5D4mxFZPuDxSuU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775033284; c=relaxed/simple;
-	bh=kbzqwPjUI5FPIJ6Pezp/hV9jTHQNFhZvMfXHh1uylQM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=CFEjtTjWNbwSsPQZE7v5kvUoxcgE1WckWYU3U3Lze2WgSUuZiDv0BBy5jPaaDUPgK0IOD/mamQNGERO6bgjwykU42W3WVZQwGX134haD84496odZcI0vXoUut5ECKRhd2paUYx57AZrVT6eWOax6VfEVJDzycKn9qdfOXRlxYR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=O8gwdWor; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED8DC396D2B;
+	Wed,  1 Apr 2026 08:48:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775033306; cv=fail; b=NMtx4u6it5Yz1WzQvy2H6WaSYX4xLnx6053VZv/zoOmEsE80OycfH2YlT3MjJRhskYTnc6cQ2CXsTH9ptNgByhAoGsdMz/1MGkCE2D6Tj0EBUnjVeI8+Qc1RGUq2UNeModek8QBhX7pT8l/47tAKUJApujsV6NsMCTDu3GdiVGo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775033306; c=relaxed/simple;
+	bh=ZWRJlI0x8IvT3F4yBlwFuX81jmd8r5dWr+M9oc6SDWs=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=cH01aokdsmCzLDeWG1icWpVvUKyVG2JRl3UtUVHmIQN45e8v1KTO5uisQi/eTTnWnJacE2MTT5lSPoMNvsWZ64flxFaQVFzlRpZ6wQ43s7jieuRaMjlXlH1CMBoYTiEOTqzjrx2fvYKzskA/HpvofpNog5GCdQqPCcLTVFnvjBw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=mFDWnzbD; arc=fail smtp.client-ip=40.107.159.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="O8gwdWor"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 5CF441A310E;
-	Wed,  1 Apr 2026 08:48:01 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2799F602BF;
-	Wed,  1 Apr 2026 08:48:01 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0A232104502B1;
-	Wed,  1 Apr 2026 10:47:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1775033279; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=MulX6YMpnNOMv0Pee5WdBa40QBlB89kOy61SqtPUmhY=;
-	b=O8gwdWorFGZ31oS+MUxUypavWrJm+WPFW7B9iYYf3nLc9EIVFbgNYH63p4x6hVyLOQ0owi
-	DVEKZRJGe9fKHyuKzeosSHTJjPuClPcoe3qKSHiASpnph+6DJYEI1QO86tbKGmq7tNAaCa
-	eOZa4WUj92yF+GeqNgexZfhQ6FQVTPliQN9YsLW/80Qi3IgqJuVChweuxfHjjKvFjwRShm
-	3GZ2JwjptP7jnvMgvRTcNYaI887GlPBQOYCE2fEkiYjuNSFuqKDRTX48XzHD3BxGfmK6Xj
-	ThbolGyeWrENnGcYTK/LswFcFGTPIfjdoy0tPogo5o9nL3igAjB/PihoOY+Mmw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Brian Masney <bmasney@redhat.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,  Stephen Boyd
- <sboyd@kernel.org>,  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
- <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Thomas
- Gleixner <tglx@kernel.org>,  Olivia Mackall <olivia@selenic.com>,  Herbert
- Xu <herbert@gondor.apana.org.au>,  Jayesh Choudhary <j-choudhary@ti.com>,
-  "David S. Miller" <davem@davemloft.net>,  Christian Marangi
- <ansuelsmth@gmail.com>,  Antoine Tenart <atenart@kernel.org>,  Geert
- Uytterhoeven <geert+renesas@glider.be>,  Magnus Damm
- <magnus.damm@gmail.com>,  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-  Pascal EBERHARD <pascal.eberhard@se.com>,  Wolfram Sang
- <wsa+renesas@sang-engineering.com>,  linux-clk@vger.kernel.org,
-  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org,
-  linux-crypto@vger.kernel.org,  linux-renesas-soc@vger.kernel.org,  Herve
- Codina <herve.codina@bootlin.com>
-Subject: Re: [PATCH 10/16] clk: Add support for clock nexus dt bindings
-In-Reply-To: <acqT3Dh03y3JiLLc@redhat.com> (Brian Masney's message of "Mon, 30
-	Mar 2026 11:16:44 -0400")
-References: <20260327-schneider-v7-0-rc1-crypto-v1-0-5e6ff7853994@bootlin.com>
-	<20260327-schneider-v7-0-rc1-crypto-v1-10-5e6ff7853994@bootlin.com>
-	<acqT3Dh03y3JiLLc@redhat.com>
-User-Agent: mu4e 1.12.7; emacs 30.2
-Date: Wed, 01 Apr 2026 10:47:51 +0200
-Message-ID: <87y0j76p8o.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="mFDWnzbD"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RqXzRhY+mk8UM2SBJs4xDvd4S+v9fDQsEtDbDYTGF8mma/ow+yBTXQtlrq0QlQBhuGTwVI7BIHdRBXVYq6a/5fJ+vDzSyQRFwUUvPqf9+q8IchbjtqSUMKH3zy5pQ3o8ltUst937IpXgApRmoSZlzQ5w4Dh+PTXExci1iV6fAtjvIAIL2J4Dx8c3ttpwKxI4M4qE+Y2nAdYwt2ehutFDj06x/457MV6yTOtecE+OvRKh5joeXt39eYsQPej1H7WBfjfHoVCKG14wFNmlpHBVcPord9I+kzvvpehuF/J893CtFRCkXCcCNpB6fNEfrDfny39wYSP1aX1qzpFvWAicAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZWRJlI0x8IvT3F4yBlwFuX81jmd8r5dWr+M9oc6SDWs=;
+ b=ZTVEPMppvQMRiECey5A3O1klp4HnFVSIKFeVcnAo5AdMWZeMrUX5Qd/dnQexEdAcYx9hN8dvm21j+zW+PO9JlCVjPwn8hT+vCDh+aII6+GJYqE1K0MCqomKtPLx7nwZFAPXB9uhMF6nttLPekRrbq1uMZpwP51vcQMA8RbrrBqmV1RtGrIAxhD/yoBDdD9spw20g+eSceQ6WHWRqyjo/UFCRtNTNeUufTGDIYoUgVBwW0t22l9jq6y9Uu2U0sVj+UNFPV7/sMi24ZnNvyxu6qyM2+d+JwajfAUJJtSrjsCn0V5BfSoezID1V5Kd2FVWNO5Lk6dDgxhp09Ftr6IVDpA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZWRJlI0x8IvT3F4yBlwFuX81jmd8r5dWr+M9oc6SDWs=;
+ b=mFDWnzbDEtKsK1yZblbRdCnQsLBuLpLD2IPnKbqB+GnylQEmwnngodqgmJYPGRt5KQtCCV8QYfA2FVecxZ1GcYP2RdV5V6FsIKurF2MiD4//k3ct2QEwTVBPqnP3qy+xc8MSH0r12/GZoKJapZtXXkHNPrG+sxICs6VzBaI3Sp1f2MfhR1VlsqoPYIW3JrF41C+zNiQpzzG5tncEI1DlLffnPnDsO9s+nQxemQhaOEQ65I56RipdQWLWy41uXkAwZksXLFvtnYpYyri50SMT3Vmod7/MkUD9I/kQUvt/RlOnF4Od8MtFU+Yzas9gJ59mR5PhNexi645fdWwAZPXC+w==
+Received: from AM0PR04MB4707.eurprd04.prod.outlook.com (2603:10a6:208:c0::29)
+ by AM9PR04MB8650.eurprd04.prod.outlook.com (2603:10a6:20b:43d::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Wed, 1 Apr
+ 2026 08:48:21 +0000
+Received: from AM0PR04MB4707.eurprd04.prod.outlook.com
+ ([fe80::e918:eca8:f034:698f]) by AM0PR04MB4707.eurprd04.prod.outlook.com
+ ([fe80::e918:eca8:f034:698f%5]) with mapi id 15.20.9632.017; Wed, 1 Apr 2026
+ 08:48:21 +0000
+From: Guangliu Ding <guangliu.ding@nxp.com>
+To: Liviu Dudau <liviu.dudau@arm.com>
+CC: Daniel Almeida <daniel.almeida@collabora.com>, Alice Ryhl
+	<aliceryhl@google.com>, Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>, David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <frank.li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam
+	<festevam@gmail.com>, "dri-devel@lists.freedesktop.org"
+	<dri-devel@lists.freedesktop.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "imx@lists.linux.dev" <imx@lists.linux.dev>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, Jiyu Yang <jiyu.yang@nxp.com>
+Subject: RE: [EXT] Re: [PATCH 1/2] dt-bindings: gpu: mali-valhall-csf:
+ Document i.MX952 support
+Thread-Topic: [EXT] Re: [PATCH 1/2] dt-bindings: gpu: mali-valhall-csf:
+ Document i.MX952 support
+Thread-Index: AQHcwPW7shqMjkkJ5EWmDQE1whP5mLXItEyAgAEe/dA=
+Date: Wed, 1 Apr 2026 08:48:20 +0000
+Message-ID:
+ <AM0PR04MB47073E9E8B5C704BCF5D9F72F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+References: <20260331-master-v1-0-65c8e318d462@nxp.com>
+ <20260331-master-v1-1-65c8e318d462@nxp.com> <acva1Xt8V4k9-uG8@e142607>
+In-Reply-To: <acva1Xt8V4k9-uG8@e142607>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AM0PR04MB4707:EE_|AM9PR04MB8650:EE_
+x-ms-office365-filtering-correlation-id: 6f502703-da46-4bc0-e22d-08de8fcb6d68
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|7416014|376014|366016|19092799006|1800799024|38070700021|18002099003|22082099003|56012099003;
+x-microsoft-antispam-message-info:
+ AZcbwStEOHmrvsCKfLzZTLXKPG1rn9v8nr2UpD8n1hLCfDHu0VlasUvJYAuYSJOeMxK4HbW72XtScyFxiE5PokMr4ofav1OlTICdYx7B7Evuc5pb9m/jRio8JQc7AFdtOMh/vTdl6N8LqVET21F4WIHHTX74Gflh2FKcG21ru3CS43Y8JV3LAADmp/oz4hmWpmI83nUmAcEsYlE4MsrFNyLu4etHeLITMDLC58WMlzOQgNW8uClcz3Pn2bImzDlp53sWwYCTmV5Xmhl+RaWi1edMOScdnRQHbRtaOSl+LYPuAExDRtGUMr7fQ1r3bJnKrdmRZwfkCJCNd64rjLftLgUoTz4Oksm5GQVWrnrvtEX2/CNgXiwsLLkckv7PLBXeptP02PHEuSBJgLAGP04IlQO8HNyP+f68xZTeAoFLXWLGwXrNogPZpTtnnHWi2pxKtRMkmLMefoHMk2gmlKZPYyEH23o9VAZjmnxf0bxErca9yvZxyYd2iEd//uFmmVkhz4loNGX7pb5IuRuizX6wbEVf87PJ0PgM0KoXQNHLTw5DipbyJNBDhMjRZCZRkXSVk5dkw5C8T4w1rmodEyZyTpTRhuN2vhbMaHZOG1kGxB5e2/UrqAqsnLBiGhAy0eZzoQFtTYQNQfGPwCQTvRrV3fkxgpY2ZwLbAiwDUNDobCZbHyh4+gq0jVDxkMhSncbSir6rJtBXxZQcWOdbRkwDN2X/8bMcva4PY9Lr5U29IA79sXj4aN3U3YEX2YEiUZN2JwNreVWGQ6uOow9rs7Yid5RVgy3Tp3DxGrOLDeggqns=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB4707.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(19092799006)(1800799024)(38070700021)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?ZVBqdDFrNDV5UnpEaEtWUGlidVBIeUltQ296SFlTaWx2bjlqUUEzTjFwNVhF?=
+ =?utf-8?B?Y0g1Zk95bzhDalVJaDIvSHp0VzJRdW5mSURxVDZhWDZ4NDNudHVLMkd4U3Ry?=
+ =?utf-8?B?QkNScTdMWGgvai9EeGMwbms0RGlKem8xNUVGUnc4MHB0Z3lMODQ3KzZxa3BJ?=
+ =?utf-8?B?YlZGL0dhTnJiUDVLR1gzRkRoUTlhMStmZmswL2lZcXd6MmZ0b2d1UkpsWWpB?=
+ =?utf-8?B?eWJGalpZb2pHYU5vVXQyRW93dFd2Yk1HZXRUUmJBOVJWeG5oK1hwR1dmbnhz?=
+ =?utf-8?B?QU1OeVdLcHYwUDg1aVF1SmlxUGl0dVJVQldNc3dQalFRalVBTnN1N21Jc3Nk?=
+ =?utf-8?B?d0RtdWR5WlFETlMzOUlHYkJSeHVPa2xBVVE4bDhzOVJkZnloRnA0K1ZIeFND?=
+ =?utf-8?B?a3FOWDFUdmw3cHpRWHlxZ1V0RE5CTnkyTVNIelVtZ1gydTVKcmJMcUtieEhU?=
+ =?utf-8?B?emEzTGYycmNvK0g0cy9wc0NTTml0eVptRGdmUUVkUGVFY2tTOUU3Q010aFQ3?=
+ =?utf-8?B?NGZFZmg1R1Rqdll3dFFqSktlZ1Q5QndFMG8zajFZcVJOYWRlYkxNMWNNRTMx?=
+ =?utf-8?B?VWlzYXQ1dElUcTNzYUlBd1g0Wk13L3BGMmhJN0EzWmlic2dJZS9nRXd5MHpz?=
+ =?utf-8?B?WXJrMkk2ajN5aExIelVWK2tuMU5HaUxOQ04wV1FobmNrYllwQllJb2VwWitq?=
+ =?utf-8?B?WXAzTXpJNkhOYmNIU3ZMT3NDS2NsODk0QWo3VE92Z3EreXkvdW9hMGF4NytK?=
+ =?utf-8?B?b1RnN1NOem55eHJwN2t5am5nT3h4emhZMlR5TFVRUlpQQnZabCtVOG5hWldn?=
+ =?utf-8?B?eEFoWE5QemNhaTZFU2Z5ZkRFd05yU1A4L0tVQ2VqWEZDT2hObmR3VVZyMlhM?=
+ =?utf-8?B?UGl2TElwSGx6N0hCcHVVTWdwUHdKZmRvOG01blBOY3ZZRktPU2xkdFpMTHJH?=
+ =?utf-8?B?ZDR5UENTV0laZXFtaGRWRzkzR1FaNWxJck5zN29LRjBJVEVWUnBJRndtTVUv?=
+ =?utf-8?B?YThiYnJnY0E3bUZnTDYydmtIZnFoNDJsbXNqTGd2RTB4TE00OTg5MXhlZ0pv?=
+ =?utf-8?B?WXV6bk4wVTVORzFIbm1iS2FwSUg2WG9LUHR0cGtlb2R2Y2xqckx6UTMzaGFF?=
+ =?utf-8?B?eWhTTWNkU3NIWDE2bDBNMDA5WUJQWEFqNXRrejNpTTNFaFAwSTJJOTBabFd4?=
+ =?utf-8?B?Qk1nU3BSWHNZQmw0LzFzVlFCOEd4MEk4UUx1cEZZTzAybjJPeTJlYWZsUlhJ?=
+ =?utf-8?B?Uldrb2hzZVhGa0h6QkoyeU9KQSs4YnIxdGkxTTlqRGNJM3FaaTFwVVVjNlJO?=
+ =?utf-8?B?THg0VE9ZUitSS1FndkN0cW1TSW9wOFJzWjFKVGYzbzZJSHpPejRZMjRsMGl1?=
+ =?utf-8?B?MHA1b01UTmk5REVnMmVjTGZNb0M2Ukg3MjV1ZE9KN0I0K1FBYWR0RGFYWXNN?=
+ =?utf-8?B?OHNzUHQyR0x5TTBHTW5IMW56ZnBzVWVrTURUSEd0T0lEak5xTFB4Z2pxbjVC?=
+ =?utf-8?B?WkI5a1d3LzJ5VVphM0dGK1drZGJsbzVFRUVLVFFZc3BaZFZadGY0Z1lrUXpj?=
+ =?utf-8?B?TVFYRXNFdFROMDNINE5pOW1nOFdBcWJuVjhwQUx1Qld6UEEzOVhyVkhuNTds?=
+ =?utf-8?B?ZkVsRlF1d1VtZ01ta0JsMTVJUi9ZcTRTMXJjbWVkRVVXSjVCS3RTcWFzMmRt?=
+ =?utf-8?B?b1dJcGxlN1RwM1JjV0hBejNmZ3VyRXNYNmo5TFBITUhqd3o3YzRieEpCTzUr?=
+ =?utf-8?B?a29JS2VTam9IQnpWWmxUNjJDWmhlS3pJeVNnWkRLSkZGVnlFbnE2WkFTaDYw?=
+ =?utf-8?B?aUtFRFhEaFBjWnRtVlY3VnA3aktYdHhYcHJDemQrWUxjUStRUmFXSmhtRGtj?=
+ =?utf-8?B?Qm44cWFPbGRkMzQ2NU1RVzNSSjU4MHd2Y2tWa2dIV3NHQitIZktCT25MWkNF?=
+ =?utf-8?B?RFF1TTZsbnhHbHNzSTdsMlF0eEdoWUMvUEJKWFJDNlo0dU1OdG5WT2F1WG5j?=
+ =?utf-8?B?dWphUzRsUTZZTHB1Nk9vc1pWMmJQTVNmWUVPWW5MYTUzaVBHQXVMemIvOFZz?=
+ =?utf-8?B?UFlIY2RwY1ZjeCsrZC82UmF4K0tneG1xaS9ITWp4TDRBQVkveVNJakV3VGpn?=
+ =?utf-8?B?SG03NzU1T1BMN0dwZHZSUUU5VW1WS2ZBZ3dWVUR1ZnlnNk9rcUI0VDY5Vk5w?=
+ =?utf-8?B?bXpBeXRhTDZINXNJeUhhaHB6NThCdW55NDlIc1BrTGMvNnNPSGUrUW1FSEhm?=
+ =?utf-8?B?OGRzT1psUjI5bnUvRk42eXltZVhFS2ZKcWh2WW5Qd0ViLzJoS05zT3dHYlpj?=
+ =?utf-8?Q?QTu8s50GsH7Bi7Xa8m?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB4707.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6f502703-da46-4bc0-e22d-08de8fcb6d68
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Apr 2026 08:48:20.9428
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: dMBxiECbcVJIBLPNjPvTM+P1jcUvKWj8EmAIESubCQjeEiOQAU3b/geI0VNlq514N426CaFLJQYaV/SLEcB02A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8650
 
-Hello Brian,
-
-First, thanks for the whole review.
-
-On 30/03/2026 at 11:16:44 -04, Brian Masney <bmasney@redhat.com> wrote:
->> -		ret =3D of_parse_phandle_with_args(np, "clocks", "#clock-cells",
->> -						 index, out_args);
->> +		ret =3D of_parse_phandle_with_args_map(np, "clocks", "clock",
->> +						     index, out_args);
->
-> Before I left my Reviewed-by, I should have double checked Sashiko. It
-> has several questions about this patch. The first is:
->
->     Are there other places in the clock framework that need to transition=
- to the
->     new map API to ensure assigned clocks work?
->=20=20=20=20=20
->     For instance, assigned-clocks and assigned-clock-parents are parsed in
->     drivers/clk/clk-conf.c using of_parse_phandle_with_args(). If a device
->     specifies an assigned clock that routes through a nexus node, will it=
- fail
->     to configure because the map is not traversed?
-
-The goal of the nexus node is to isolate what is behind. Are
-assigned-clocks et al. supposed to traverse a nexus node? I am tempted
-to say "no", but I'm open to discussing this ofc.
-
-> https://sashiko.dev/#/patchset/20260327-schneider-v7-0-rc1-crypto-v1-0-5e=
-6ff7853994%40bootlin.com?patch=3D12563
-
-I have mixed feelings concerning Sashiko's feedback. I will go through
-that page nevertheless, there are interesting comments in there.
-
-Thanks,
-Miqu=C3=A8l
+SGkgTGl2aXUNCg0KVGhhbmtzIGZvciB5b3VyIHJldmlldy4gUGxlYXNlIHJlZmVyIHRvIG15IGNv
+bW1lbnRzIGJlbG93Og0KDQo+IE9uIFR1ZSwgTWFyIDMxLCAyMDI2IGF0IDA2OjEyOjM4UE0gKzA4
+MDAsIEd1YW5nbGl1IERpbmcgd3JvdGU6DQo+ID4gQWRkIGNvbXBhdGlibGUgc3RyaW5nIG9mIE1h
+bGkgRzMxMCBHUFUgb24gaS5NWDk1MiBib2FyZC4NCj4gPg0KPiA+IFNpZ25lZC1vZmYtYnk6IEd1
+YW5nbGl1IERpbmcgPGd1YW5nbGl1LmRpbmdAbnhwLmNvbT4NCj4gPiBSZXZpZXdlZC1ieTogSml5
+dSBZYW5nIDxqaXl1LnlhbmdAbnhwLmNvbT4NCj4gPiAtLS0NCj4gPiAgRG9jdW1lbnRhdGlvbi9k
+ZXZpY2V0cmVlL2JpbmRpbmdzL2dwdS9hcm0sbWFsaS12YWxoYWxsLWNzZi55YW1sIHwgMSArDQo+
+ID4gIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKQ0KPiA+DQo+ID4gZGlmZiAtLWdpdCBh
+L0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9ncHUvYXJtLG1hbGktdmFsaGFsbC1j
+c2YueWFtbA0KPiBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9ncHUvYXJtLG1h
+bGktdmFsaGFsbC1jc2YueWFtbA0KPiA+IGluZGV4IDhlY2NkNDMzOGEyYi4uNmExMDg0M2EyNmUy
+IDEwMDY0NA0KPiA+IC0tLSBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9ncHUv
+YXJtLG1hbGktdmFsaGFsbC1jc2YueWFtbA0KPiA+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNl
+dHJlZS9iaW5kaW5ncy9ncHUvYXJtLG1hbGktdmFsaGFsbC1jc2YueWFtbA0KPiA+IEBAIC0yMCw2
+ICsyMCw3IEBAIHByb3BlcnRpZXM6DQo+ID4gICAgICAgICAgICAtIGVudW06DQo+ID4gICAgICAg
+ICAgICAgICAgLSBtZWRpYXRlayxtdDgxOTYtbWFsaQ0KPiA+ICAgICAgICAgICAgICAgIC0gbnhw
+LGlteDk1LW1hbGkgICAgICAgICAgICAjIEczMTANCj4gPiArICAgICAgICAgICAgICAtIG54cCxp
+bXg5NTItbWFsaSAgICAgICAgICAgIyBHMzEwDQo+IA0KPiBDYW4geW91IGV4cGxhaW4gd2h5IHRo
+aXMgaXMgbmVlZGVkPyBDYW4gaXQgbm90IGJlIGNvdmVyZWQgYnkgdGhlIGV4aXN0aW5nDQo+IGNv
+bXBhdGlibGU/DQoNClRoZXJlIGFyZSBmdW5jdGlvbmFsIGRpZmZlcmVuY2VzIGluIEdQVSBtb2R1
+bGUgKEdQVU1JWCkgYmV0d2VlbiBpLk1YOTUgDQphbmQgaS5NWDk1Mi4gU28gdGhleSBjYW5ub3Qg
+YmUgZnVsbHkgY292ZXJlZCBieSBhIHNpbmdsZSBleGlzdGluZyBjb21wYXRpYmxlLg0KT24gaS5N
+WDk1MiwgVGhlIEdQVSBjbG9jayBpcyBjb250cm9sbGVkIGJ5IGhhcmR3YXJlIEdQVSBhdXRvIGNs
+b2NrLWdhdGluZyANCm1lY2hhbmlzbSwgd2hpbGUgdGhlIEdQVSBjbG9jayBpcyBtYW5hZ2VkIGV4
+cGxpY2l0bHkgYnkgdGhlIGRyaXZlciBvbiBpLk1YOTUuDQpCZWNhdXNlIG9mIHRoZXNlIGJlaGF2
+aW9yYWwgZGlmZmVyZW5jZXMsIHNlcGFyYXRlIGNvbXBhdGlibGUgc3RyaW5ncw0KIm54cCxpbXg5
+NS1tYWxpIiBhbmQgIm54cCxpbXg5NTItbWFsaSIgYXJlIG5lZWRlZCB0byBhbGxvdyB0aGUgZHJp
+dmVyIHRvIGhhbmRsZQ0KdGhlIHR3byB2YXJpYW50cyBpbmRlcGVuZGVudGx5IGFuZCB0byBrZWVw
+IHJvb20gZm9yIGZ1dHVyZSBkaXZlcmdlbmNlLg0KDQo+IA0KPiBCZXN0IHJlZ2FyZHMsDQo+IExp
+dml1DQo+IA0KPiA+ICAgICAgICAgICAgICAgIC0gcm9ja2NoaXAscmszNTg4LW1hbGkNCj4gPiAg
+ICAgICAgICAgIC0gY29uc3Q6IGFybSxtYWxpLXZhbGhhbGwtY3NmICAgIyBNYWxpIFZhbGhhbGwg
+R1BVDQo+IG1vZGVsL3JldmlzaW9uIGlzIGZ1bGx5IGRpc2NvdmVyYWJsZQ0KPiA+DQo+ID4NCj4g
+PiAtLQ0KPiA+IDIuMzQuMQ0KPiA+DQo+IA0KPiAtLQ0KPiA9PT09PT09PT09PT09PT09PT09PQ0K
+PiB8IEkgd291bGQgbGlrZSB0byB8DQo+IHwgZml4IHRoZSB3b3JsZCwgIHwNCj4gfCBidXQgdGhl
+eSdyZSBub3QgfA0KPiB8IGdpdmluZyBtZSB0aGUgICB8DQo+ICBcIHNvdXJjZSBjb2RlISAgLw0K
+PiAgIC0tLS0tLS0tLS0tLS0tLQ0KPiAgICAgwq9cXyjjg4QpXy/Crw0K
