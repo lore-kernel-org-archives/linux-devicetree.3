@@ -1,387 +1,159 @@
-Received: from gate2.alliedtelesis.co.nz (gate2.alliedtelesis.co.nz [202.36.163.20])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010053.outbound.protection.outlook.com [52.101.85.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF8EA36DA08
-	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 02:43:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.36.163.20
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775011402; cv=none; b=ZjxBrRAumzOEdpwJKS1cBWaG9jalB+t1pLpF4QOzw3dth0ZBqani1i6mnGzGIsb7jI0bbskTv1cOCTdQC0TXP0aL7T2YH2l9xdYcDz+TIug0EIlO81I3eiX/Qr6ulzg5cYOXfVgQo0tMantTBs/qWlEk27EmDhZFrQJLQB31ebY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775011402; c=relaxed/simple;
-	bh=WtgnsxpQ+dy5c3W5T0HgdobslTnRm5MhqesDGk9W5i8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=copD5t+tSCc9g6eAlTMvczJL47jKcLVV4nynuWTmq24WES9vDEhiOf0TqlaffOWvxjKIQRCu6DWAYycXl9rs5Zh79rwqF2mQ9Vfp7vpJJsJEupuujoPDFP+DsMWBuImjw2rT6VqKBYxCa7OYatqI9zTXEvDvfZAirew+BcXekc0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz; spf=pass smtp.mailfrom=alliedtelesis.co.nz; dkim=pass (2048-bit key) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.b=RR0+BBQ9; arc=none smtp.client-ip=202.36.163.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alliedtelesis.co.nz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCFD733A713;
+	Wed,  1 Apr 2026 02:54:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775012102; cv=fail; b=EBsNaRaK7xy5uAJP3GD6aN/sPs+qmFkMey5nNEiPgnWaBG0wZamWB6bj/3RA/6JW2w75Nz7N+PeH3KzMpECTJEG7jq0n4U3ANJDwjMxg5FrZhPAhGKG3oGWQ47JPYw35k/8S7HsqneiMSveeM7PDGQbvcLVpl6fZuRrAva54ubM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775012102; c=relaxed/simple;
+	bh=aGa0AgVq6wIYIY3Rm5wQ3p4BrYDZjlhH8qYhP5zZDIc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=ddQYFZ/G5E+rfX8qXtjQYKDgBiCndMXnfvmLCw/TvQ16B6fBNaCMht0qmejfDk10BoN0oxHS9aoKWxiGNOD1vYUpTfw3A/wxW8XA7Y0vIeYRApFYiKMN2YQmn1Ij0bWC2mc5a89p+hHZcX/6u312WhiCcgT3AFmlQjpUpJ3x7QE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=b3zRXW59; arc=fail smtp.client-ip=52.101.85.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.b="RR0+BBQ9"
-Received: from svr-chch-seg1.atlnz.lc (mmarshal3.atlnz.lc [10.32.18.43])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by gate2.alliedtelesis.co.nz (Postfix) with ESMTPS id 4F42B2C04CF;
-	Wed,  1 Apr 2026 15:42:58 +1300 (NZDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alliedtelesis.co.nz;
-	s=mail181024; t=1775011378;
-	bh=V3kzs6CbM/I0qSollU73aU8k/gAMn8zq+BS9wg1Y4jc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=RR0+BBQ9lAXy/Dhpo82rAkZMdxLwF342iEUYLKJdzjKN9aJ2gJ0Hdx7ulePGrPpg3
-	 n8nzT7LYyDGmycH+Ubb0xTSl6r9UaLW/hpGdfMkfLTqz3OgAEGBsanQu5fBS6fRjpo
-	 W3VEPnR3qkCU4rkAkKVNGz9Sze0PNj3+I8oLB3K218gNZWIAgNzjDY3XJ8yPAFM5Bc
-	 10WtkGvCrRIyNbV2m5yjJFvpZVIweYig1mWLFdk+/3CfcI0Yj9AjDy+VBBormM7xNb
-	 ixzMzvpGuubygA8H0/jvd7Z561qlxaLyGegCD6mddFxHgkeMCObGLSU3hE79MgSE1D
-	 w+oqnsJfgSIqQ==
-Received: from pat.atlnz.lc (Not Verified[10.32.16.33]) by svr-chch-seg1.atlnz.lc with Trustwave SEG (v8,2,6,11305)
-	id <B69cc86320000>; Wed, 01 Apr 2026 15:42:58 +1300
-Received: from chrisp-dl.ws.atlnz.lc (chrisp-dl.ws.atlnz.lc [10.33.22.12])
-	by pat.atlnz.lc (Postfix) with ESMTP id 148F613EE36;
-	Wed,  1 Apr 2026 15:42:58 +1300 (NZDT)
-Received: by chrisp-dl.ws.atlnz.lc (Postfix, from userid 1030)
-	id 1209D28153E; Wed,  1 Apr 2026 15:42:58 +1300 (NZDT)
-From: Chris Packham <chris.packham@alliedtelesis.co.nz>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux@roeck-us.net
-Cc: devicetree@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chris Packham <chris.packham@alliedtelesis.co.nz>
-Subject: [PATCH v2 2/2] hwmon: pmbus: Add support for Sony APS-379
-Date: Wed,  1 Apr 2026 15:42:12 +1300
-Message-ID: <20260401024214.804237-3-chris.packham@alliedtelesis.co.nz>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260401024214.804237-1-chris.packham@alliedtelesis.co.nz>
-References: <20260401024214.804237-1-chris.packham@alliedtelesis.co.nz>
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="b3zRXW59"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AUcjQsR2xQXm8t8tf7DBYYTN/G9Dp7wC69ZitJsWEPIHpn1SZf7d7dXoHyEkQc8viCsJsXsN7xUAxBS1v6KSKL3TGIZfkSBOqN11Q9DD6QOrIBmsDU2Lce7RqWg61LtRpZQsA3PEls6jfDJeSlUBhFPGP4t69vm1zWK9RQhJDe7hh5zK8zIRX7v2VgWmJJDIBfQZon5qX8VZcmta4YYVYseSTpaeHEeS2Ik/SjfvjU/bo+FGNEkVodYsj5qBufP+xXTavzlMAlq53/E8TDk0z5OIVMGxX3c5efDmpiifYwUsE4CeGur5FaQZURUZknpwROcbPhod70oFNQ1Z8l1X0g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=J+X0iTT1fLeRZpIRgZoenpqpcK8Wg3XJFoztsWH2/qg=;
+ b=W4yuCbti2mgxth7J6DuYHXRioMWzDLHSX0Y+5iwJKdqUJ5wdqdMda8AqscXDVcDNrx1GI3dVSEZ1E7NabH/TiSaX/XJ4ch093a83Mo8+UI3k8ujqoKerxIw3mSGhmY9pIJRWm05yM4olbKFWC0cKvWf4lSCo6iF2bQDBddb6dUIJFPBqSoi8cc6KgdX2mriDBR4EOiUW/ej8oYrHe1J1R2J0HJ8LEvyLL73jRiBjVFXGnII26q19LA+dRXEtXSMOPDi5r17IEJP10baLLT5RfZZGKYUJkyqY1jPDX6G3aq2DbTIhzES0lqxqmSZi9hBNC6IPZu7lk9T325q60ngjtg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=J+X0iTT1fLeRZpIRgZoenpqpcK8Wg3XJFoztsWH2/qg=;
+ b=b3zRXW59YFKeiUQgS2jh3CbMtTQeG9N6EAXV0EJFDQSrAj/kMc+YJqGLzYss9RB8RtxlMmytJXi9FvTOhUDr1gS+TUJ2kgJ1STU6XbplBmxERSuWIxmRpmt4xC6jMB5BuI/pTddgDnO7SjqpIyrf2Agvh8jJRreRdcWdLXNkwNw=
+Received: from BL1P222CA0013.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:2c7::18)
+ by SJ0PR10MB6351.namprd10.prod.outlook.com (2603:10b6:a03:479::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Wed, 1 Apr
+ 2026 02:53:38 +0000
+Received: from MN1PEPF0000ECDB.namprd02.prod.outlook.com
+ (2603:10b6:208:2c7:cafe::61) by BL1P222CA0013.outlook.office365.com
+ (2603:10b6:208:2c7::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.29 via Frontend Transport; Wed,
+ 1 Apr 2026 02:53:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ MN1PEPF0000ECDB.mail.protection.outlook.com (10.167.242.139) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Wed, 1 Apr 2026 02:53:37 +0000
+Received: from DFLE206.ent.ti.com (10.64.6.64) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 31 Mar
+ 2026 21:53:36 -0500
+Received: from DFLE208.ent.ti.com (10.64.6.66) by DFLE206.ent.ti.com
+ (10.64.6.64) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 31 Mar
+ 2026 21:53:36 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE208.ent.ti.com
+ (10.64.6.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
+ Transport; Tue, 31 Mar 2026 21:53:36 -0500
+Received: from [128.247.81.246] (mz02jj9v.dhcp.ti.com [128.247.81.246])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6312raV33441292;
+	Tue, 31 Mar 2026 21:53:36 -0500
+Message-ID: <2ad3a6a4-34a1-4ef8-8308-77d023127783@ti.com>
+Date: Tue, 31 Mar 2026 21:53:36 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-SEG-SpamProfiler-Analysis: v=2.4 cv=EcprQ+mC c=1 sm=1 tr=0 ts=69cc8632 a=KLBiSEs5mFS1a/PbTCJxuA==:117 a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=tjzJJQR1ccDbc0m55AAA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-SEG-SpamProfiler-Score: 0
-x-atlnz-ls: pat
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 0/4] ASoC: Add TAS675x quad-channel Class-D amplifier
+ driver
+To: <linux-sound@vger.kernel.org>
+CC: <broonie@kernel.org>, <lgirdwood@gmail.com>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
+	<perex@perex.cz>, <tiwai@suse.com>, <shenghao-ding@ti.com>,
+	<kevin-lu@ti.com>, <baojun.xu@ti.com>, <niranjan.hy@ti.com>,
+	<l-badrinarayanan@ti.com>, <devarsht@ti.com>, <v-singh1@ti.com>,
+	<linux-kernel@vger.kernel.org>
+References: <20260401024210.28542-1-sen@ti.com>
+Content-Language: en-US
+From: Sen Wang <sen@ti.com>
+In-Reply-To: <20260401024210.28542-1-sen@ti.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECDB:EE_|SJ0PR10MB6351:EE_
+X-MS-Office365-Filtering-Correlation-Id: bc13dcc0-aa48-48a7-2f75-08de8f99df77
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|7416014|376014|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	XCqfBm5C63scSlsMyot9h7kI5zYRaaXosFj7VycrjbyEHLcArsyVldqr9llMQn+OeV8ZphT7P/w8bCsdzedU5RLC0zOC2ZsWTbwaAsb99coyQ8/IxrXSp4POr2KxirCnwBojvDbt3U83rFquJC8enlguwRrKYGVm/A7OhCN3el8B2fNL7cp6Y8m/VZkDdhR7s261FTWp1dTBCOWZFYPBk6AnglnBjkCoNrMEwcSKeGQLY+RbN3mxBqBS6DO8QVBqRDdrS5PvqWLTPUvL8vSemP6kC1syx2+XTmPPBCQOm4u1j2r9sjLoRRu8c74k0AL/1MqanMMUxs+CySP1YlY/iTqMc/UJUaerda7ZMoUxqpxuoJQnKMNdX7l/yjwNcdnqB52DthygUIuW0vJmL8pFbwD+T7KAwZ3CiD0rEZy4kemIcUimdsd5OFtdn+SGJ2nu5fBlUO07/UOmGo9wNmt4tApXVK2gmPhLv9WTKbQ3+vu1jSFjqTxKrM6FtZqI6i5ujUXBH8D4UtaU+EdRIUzajb/4m6CwnRfIHRDOU3oWVOt65AkS8WGtmDo6DxtkSDlB5HZDAY2iHidi4f9Q4rS4tzk+DZSl+Q0B3e1D6BjuPX1csc+qrlEcnD3flb0b9xB3E+FvJIF4pJaxPTqOWFUXJ614l3HZUI+RNlTJWSmAGtsk6ZMOuV6LPacdVLHM3oe5k3h8Yp61M2Nz1BiRP+VI4xlEbl+n8c5QV8xv1Z+73hzkrORvppoTkey/8C5yAlG+0ZCgVj5RPOueFgIyHWMX/Q==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(7416014)(376014)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	gsYTpYY26zfGK0ca4lHrRoAXNffOFJjwwLUsWbtxkh3XYLnTuNJQC+90zllN10fF6QfllirVXDR1+/oIH0m05cXkq6EwaPC8Fqp22qbMvfJPu6Tn3elAh1MbjBVQbTR1OZR4hWsFsHYcrbsiEcCpnV1gDGaWX34pQwcH3HYHdJSEWlccG2Tr51uqpb6daWJO9MDXWtMQkkzIE3LkMjv0239qSTCCY4oj+dRu6RPJhEVSb/vime38rIpHHMRYwuyvSEPKJjHFb0v3drD1bYBy7gmKkBI+VG1T8j5CX38vaEvDmjUHfwr5n/evUepHmzPxdAe8KE26DYSGi05lwhR9rA2MRhf8b8viZyDknj+B4QjbcVu4VaCiArJT1ldgFOisLpYzzeNsGokRTTZZlCSmmmSeM3+Af5BNiDj1JwqspUaSdkvIMa83gVfoDPZt58vc
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 02:53:37.3890
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bc13dcc0-aa48-48a7-2f75-08de8f99df77
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MN1PEPF0000ECDB.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR10MB6351
 
-Add pmbus support for Sony APS-379 power supplies. There are a few PMBUS
-commands that return data that is undocumented/invalid so these need to
-be rejected with -ENXIO. The READ_VOUT command returns data in linear11
-format instead of linear16 so we need to workaround this.
+On 3/31/26 21:42, Sen Wang wrote:
 
-Signed-off-by: Chris Packham <chris.packham@alliedtelesis.co.nz>
----
+Apologies, the RFC tag was included by mistake. This is a proper 
+upstream submission, please kindly ignore the RFC tag.
 
-Notes:
-    Changes in v2:
-    - Simplify code per recommendations from Guenter
-    - Add driver documentation
-
- Documentation/hwmon/aps-379.rst |  58 +++++++++++
- Documentation/hwmon/index.rst   |   1 +
- drivers/hwmon/pmbus/Kconfig     |   6 ++
- drivers/hwmon/pmbus/Makefile    |   1 +
- drivers/hwmon/pmbus/aps-379.c   | 168 ++++++++++++++++++++++++++++++++
- 5 files changed, 234 insertions(+)
- create mode 100644 Documentation/hwmon/aps-379.rst
- create mode 100644 drivers/hwmon/pmbus/aps-379.c
-
-diff --git a/Documentation/hwmon/aps-379.rst b/Documentation/hwmon/aps-37=
-9.rst
-new file mode 100644
-index 000000000000..468ec5a98fd6
---- /dev/null
-+++ b/Documentation/hwmon/aps-379.rst
-@@ -0,0 +1,58 @@
-+Kernel driver aps-379
-+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-+
-+Supported chips:
-+
-+  * Sony APS-379
-+
-+    Prefix: 'aps-379'
-+
-+    Addresses scanned: -
-+
-+ Authors:
-+        - Chris Packham
-+
-+Description
-+-----------
-+
-+This driver implements support for the PMBus monitor on the Sony APS-379
-+modular power supply. The APS-379 deviates from the PMBus standard for t=
-he
-+READ_VOUT command by using the linear11 format instead of linear16.
-+
-+The known supported PMBus commands are:
-+
-+=3D=3D=3D =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D =3D=3D=3D=3D=3D=3D=3D=3D=3D =3D=3D=3D=3D=3D=3D=3D=
- =3D=3D=3D=3D=3D
-+Cmd Function                      Protocol  Scaling Bytes
-+=3D=3D=3D =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D =3D=3D=3D=3D=3D=3D=3D=3D=3D =3D=3D=3D=3D=3D=3D=3D=
- =3D=3D=3D=3D=3D
-+01  On / Off Command (OPERATION)  Byte R/W  --      1
-+10  WRITE_PROTECT                 Byte R/W  --      1
-+3B  FAN_COMMAND_1                 Word R/W  --      2
-+46  Current Limit (in percent)    Word R/W  2^0     2
-+47  Current Limit Fault Response  Byte R/W  --      1
-+79  Alarm Data Bits (STATUS_WORD) Word Rd   --      2
-+8B  Output Voltage (READ_VOUT)    Word Rd   2^-4    2
-+8C  Output Current (READ_IOUT)    Word Rd   2^-2    2
-+8D  Power Supply Ambient Temp     Word Rd   2^0     2
-+90  READ_FAN_SPEED_1              Word Rd   2^6     2
-+91  READ_FAN_SPEED_2              Word Rd   2^6     2
-+96  Output Wattage (READ_POUT)    Word Rd   2^1     2
-+97  Input Wattage (READ_PIN)      Word Rd   2^1     2
-+9A  Unit Model Number (MFR_MODEL) Block R/W --      10
-+9B  Unit Revision Number          Block R/W --      10
-+9E  Unit Serial Number            Block R/W --      8
-+99  Unit Manufacturer ID (MFR_ID) Block R/W --      8
-+D0  Unit Run Time Information     Block Rd  --      4
-+D5  Firmware Version              Rd cust   --      8
-+B0  User Data 1 (USER_DATA_00)    Block R/W --      4
-+B1  User Data 2 (USER_DATA_01)    Block R/W --      4
-+B2  User Data 3 (USER_DATA_02)    Block R/W --      4
-+B3  User Data 4 (USER_DATA_03)    Block R/W --      4
-+B4  User Data 5 (USER_DATA_04)    Block R/W --      4
-+B5  User Data 6 (USER_DATA_05)    Block R/W --      4
-+B6  User Data 7 (USER_DATA_06)    Block R/W --      4
-+B7  User Data 8 (USER_DATA_07)    Block R/W --      4
-+F0  Calibration command           Byte R/W  --      1
-+F1  Calibration data              Word Wr   2^9     2
-+F2  Unlock Calibration            Byte Wr   --      1
-+=3D=3D=3D =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D =3D=3D=3D=3D=3D=3D=3D=3D=3D =3D=3D=3D=3D=3D=3D=3D=
- =3D=3D=3D=3D=3D
-+
-diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rs=
-t
-index b2ca8513cfcd..2bc8d88b5724 100644
---- a/Documentation/hwmon/index.rst
-+++ b/Documentation/hwmon/index.rst
-@@ -41,6 +41,7 @@ Hardware Monitoring Kernel Drivers
-    adt7475
-    aht10
-    amc6821
-+   aps-379
-    aquacomputer_d5next
-    asb100
-    asc7621
-diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-index fc1273abe357..29076921e330 100644
---- a/drivers/hwmon/pmbus/Kconfig
-+++ b/drivers/hwmon/pmbus/Kconfig
-@@ -77,6 +77,12 @@ config SENSORS_ADP1050_REGULATOR
- 	  =C2=B5Module regulators that can provide microprocessor power from 54=
-V
- 	  power distribution architecture.
-=20
-+config SENSORS_APS_379
-+	tristate "Sony APS-379 Power Supplies"
-+	help
-+	  If you say yes here you get hardware monitoring support for Sony
-+	  APS-379 Power Supplies.
-+
- config SENSORS_BEL_PFE
- 	tristate "Bel PFE Compatible Power Supplies"
- 	help
-diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
-index d6c86924f887..94f36c7069ec 100644
---- a/drivers/hwmon/pmbus/Makefile
-+++ b/drivers/hwmon/pmbus/Makefile
-@@ -9,6 +9,7 @@ obj-$(CONFIG_SENSORS_ACBEL_FSG032) +=3D acbel-fsg032.o
- obj-$(CONFIG_SENSORS_ADM1266)	+=3D adm1266.o
- obj-$(CONFIG_SENSORS_ADM1275)	+=3D adm1275.o
- obj-$(CONFIG_SENSORS_ADP1050)	+=3D adp1050.o
-+obj-$(CONFIG_SENSORS_APS_379)	+=3D aps-379.o
- obj-$(CONFIG_SENSORS_BEL_PFE)	+=3D bel-pfe.o
- obj-$(CONFIG_SENSORS_BPA_RS600)	+=3D bpa-rs600.o
- obj-$(CONFIG_SENSORS_DELTA_AHE50DC_FAN) +=3D delta-ahe50dc-fan.o
-diff --git a/drivers/hwmon/pmbus/aps-379.c b/drivers/hwmon/pmbus/aps-379.=
-c
-new file mode 100644
-index 000000000000..edc489558437
---- /dev/null
-+++ b/drivers/hwmon/pmbus/aps-379.c
-@@ -0,0 +1,168 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Hardware monitoring driver for Sony APS-379 Power Supplies
-+ *
-+ * Copyright 2026 Allied Telesis Labs
-+ */
-+
-+#include <linux/i2c.h>
-+#include <linux/init.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/pmbus.h>
-+#include "pmbus.h"
-+
-+struct aps_379_data {
-+	struct pmbus_driver_info info;
-+	u8 vout_linear_exponent;
-+};
-+
-+#define to_aps_379_data(x) container_of(x, struct aps_379_data, info)
-+
-+static const struct i2c_device_id aps_379_id[] =3D {
-+	{ "aps-379", 0 },
-+	{},
-+};
-+
-+static int aps_379_read_byte_data(struct i2c_client *client, int page, i=
-nt reg)
-+{
-+	const struct pmbus_driver_info *info =3D pmbus_get_driver_info(client);
-+	struct aps_379_data *data =3D to_aps_379_data(info);
-+
-+	switch (reg) {
-+	case PMBUS_VOUT_MODE:
-+		/*
-+		 * The VOUT format used by the chip is linear11,
-+		 * not linear16. Report that VOUT is in linear mode
-+		 * and return exponent value extracted while probing
-+		 * the chip.
-+		 */
-+		return data->vout_linear_exponent;
-+	default:
-+		return -ENODATA;
-+	}
-+}
-+
-+/*
-+ * The APS-379 uses linear11 format instead of linear16. We've reported =
-the exponent
-+ * via the PMBUS_VOUT_MODE so we just return the mantissa here.
-+ */
-+static int aps_379_read_vout(struct i2c_client *client)
-+{
-+	int ret;
-+
-+	ret =3D pmbus_read_word_data(client, 0, 0xff, PMBUS_READ_VOUT);
-+	if (ret < 0)
-+		return ret;
-+
-+	return sign_extend32(ret & 0x7ff, 11);
-+}
-+
-+static int aps_379_read_word_data(struct i2c_client *client, int page, i=
-nt phase, int reg)
-+{
-+	switch (reg) {
-+	case PMBUS_VOUT_UV_WARN_LIMIT:
-+	case PMBUS_VOUT_OV_WARN_LIMIT:
-+	case PMBUS_VOUT_UV_FAULT_LIMIT:
-+	case PMBUS_VOUT_OV_FAULT_LIMIT:
-+	case PMBUS_PIN_OP_WARN_LIMIT:
-+	case PMBUS_POUT_OP_WARN_LIMIT:
-+	case PMBUS_MFR_IIN_MAX:
-+	case PMBUS_MFR_PIN_MAX:
-+	case PMBUS_MFR_VOUT_MIN:
-+	case PMBUS_MFR_VOUT_MAX:
-+	case PMBUS_MFR_IOUT_MAX:
-+	case PMBUS_MFR_POUT_MAX:
-+	case PMBUS_MFR_MAX_TEMP_1:
-+		/* These commands return data but it is invalid/un-documented */
-+		return -ENXIO;
-+	case PMBUS_READ_VOUT:
-+		return aps_379_read_vout(client);
-+	default:
-+		if (reg >=3D PMBUS_VIRT_BASE)
-+			return -ENXIO;
-+		else
-+			return -ENODATA;
-+	}
-+}
-+
-+static struct pmbus_driver_info aps_379_info =3D {
-+	.pages =3D 1,
-+	.format[PSC_VOLTAGE_OUT] =3D linear,
-+	.format[PSC_CURRENT_OUT] =3D linear,
-+	.format[PSC_POWER] =3D linear,
-+	.format[PSC_TEMPERATURE] =3D linear,
-+	.format[PSC_FAN] =3D linear,
-+	.func[0] =3D PMBUS_HAVE_VOUT |
-+		PMBUS_HAVE_IOUT |
-+		PMBUS_HAVE_PIN | PMBUS_HAVE_POUT |
-+		PMBUS_HAVE_TEMP |
-+		PMBUS_HAVE_FAN12,
-+	.read_byte_data =3D aps_379_read_byte_data,
-+	.read_word_data =3D aps_379_read_word_data,
-+};
-+
-+static int aps_379_probe(struct i2c_client *client)
-+{
-+	struct device *dev =3D &client->dev;
-+	struct pmbus_driver_info *info;
-+	struct aps_379_data *data;
-+	u8 buf[I2C_SMBUS_BLOCK_MAX + 1];
-+	int ret;
-+
-+	data =3D devm_kzalloc(&client->dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	memcpy(&data->info, &aps_379_info, sizeof(*info));
-+	info =3D &data->info;
-+
-+	if (!i2c_check_functionality(client->adapter,
-+				     I2C_FUNC_SMBUS_READ_BYTE_DATA
-+				     | I2C_FUNC_SMBUS_READ_WORD_DATA
-+				     | I2C_FUNC_SMBUS_READ_BLOCK_DATA))
-+		return -ENODEV;
-+
-+	ret =3D i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL, buf);
-+	if (ret < 0) {
-+		dev_err(dev, "Failed to read Manufacturer Model\n");
-+		return ret;
-+	}
-+
-+	if (strncasecmp(buf, aps_379_id[0].name, strlen(aps_379_id[0].name)) !=3D=
- 0) {
-+		buf[ret] =3D '\0';
-+		dev_err(dev, "Unsupported Manufacturer Model '%s'\n", buf);
-+		return -ENODEV;
-+	}
-+
-+	ret =3D i2c_smbus_read_word_data(client, PMBUS_READ_VOUT);
-+	if (ret < 0) {
-+		dev_err(dev, "Can't get vout exponent.\n");
-+		return ret;
-+	}
-+	data->vout_linear_exponent =3D (u8)((ret >> 11) & 0x1f);
-+
-+	return pmbus_do_probe(client, info);
-+}
-+
-+static const struct of_device_id __maybe_unused aps_379_of_match[] =3D {
-+	{ .compatible =3D "sony,aps-379" },
-+	{},
-+};
-+MODULE_DEVICE_TABLE(of, aps_379_of_match);
-+
-+static struct i2c_driver aps_379_driver =3D {
-+	.driver =3D {
-+		.name =3D "aps-379",
-+		.of_match_table =3D of_match_ptr(aps_379_of_match),
-+	},
-+	.probe =3D aps_379_probe,
-+	.id_table =3D aps_379_id,
-+};
-+
-+module_i2c_driver(aps_379_driver);
-+
-+MODULE_AUTHOR("Chris Packham");
-+MODULE_DESCRIPTION("PMBus driver for Sony APS-379");
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS("PMBUS");
---=20
-2.53.0
+> This series adds support for the TI TAS675x (TAS6754, TAS67524)
+> quad-channel automotive Class-D amplifiers. The devices have an
+> integrated DSP and load diagnostics, and are controlled over I2C.
+> 
+> Patch 1 adds the dt-binding, patch 2 the codec driver, patch 3 the
+> ALSA mixer controls documentation, and patch 4 adds the MAINTAINERS
+> entry.
+> 
+> Tested on AM62D-EVM with a TAS67CD-AEC daughter card, on setups &
+> test procedures, refer to the Github repository.
+> 
+> GitHub: https://github.com/SenWang125/tas67-linux
+> 
+> Sen Wang (4):
+>    dt-bindings: sound: Add ti,tas675x
+>    ASoC: codecs: Add TAS675x quad-channel audio amplifier driver
+>    Documentation: sound: Add TAS675x codec mixer controls documentation
+>    MAINTAINERS: add entry for TAS675x audio amplifier
+> 
+>   .../devicetree/bindings/sound/ti,tas675x.yaml |  278 +++
+>   Documentation/sound/codecs/index.rst          |    1 +
+>   Documentation/sound/codecs/tas675x.rst        |  618 +++++
+>   MAINTAINERS                                   |    4 +
+>   sound/soc/codecs/Kconfig                      |   12 +
+>   sound/soc/codecs/Makefile                     |    2 +
+>   sound/soc/codecs/tas675x.c                    | 2172 +++++++++++++++++
+>   sound/soc/codecs/tas675x.h                    |  367 +++
+>   8 files changed, 3454 insertions(+)
+>   create mode 100644 Documentation/devicetree/bindings/sound/ti,tas675x.yaml
+>   create mode 100644 Documentation/sound/codecs/tas675x.rst
+>   create mode 100644 sound/soc/codecs/tas675x.c
+>   create mode 100644 sound/soc/codecs/tas675x.h
+> 
 
