@@ -1,194 +1,128 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4CBCA39E6E4
-	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 15:27:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057343B0AD8;
+	Wed,  1 Apr 2026 15:39:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775057234; cv=none; b=T8VYhFLwZOVlGnGzu/o+yNPFOA2KThON5PnVOWvnDHP0bgrENEyPQodxKXOiIVk9AWgEnqIoHV/e/nRE0nk/0nLjN12c55D2JCsucro633JzBcdUHxhbj2BvRKYSp1TZT7LZZQwrq1YsxBqMXCbXUMqUByFHS9/yHMuqFhvdPIE=
+	t=1775057957; cv=none; b=GSpcJEuWiFoBC9SVUH7r9y7xXb3YEpGNNwXnCYz7aKjcp0c2od66rZz6o5ExM77MBktzaHYLK1hGzeIVoQ8qDdbJC17PmbC1I+ZLTdUG23TgBqNSIlH/3w/DPIrQnB3eREoHFT2YeVP0wi4vlFAstIFG2qtvIxDbsh9CzhpP1z4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775057234; c=relaxed/simple;
-	bh=y+MhPjsu8qOsmSPWBWTYc0aedsaAPB/kfVjv0IQGfi4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gNFHrxGqd4RNLqrzjo0+Jrx38NB77a0qUdOv23FRgbaQSTds0QiNfbwTCvquKjF6RqZlxK4JoOfc5MTmZvnutB0y7WeyE20PR3He2pQkxOcsTcJvBLQoNwlQlpYUfIlH9/Mvu9YsfzWBiCnvEAIUuoIaOi2zwTjURRHQ3Yxepns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=JwKOsGQB; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1775057957; c=relaxed/simple;
+	bh=3K7g9I1EZJEiudLJXUanOS1wzoPVIPDa12Fp8FVtQEk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=m4VtjyCpMJ/X3A2YIjotCk0hqje6Ygp2C6201ORaouvzSrUQKEN/cJPpXc5PBFjPdCmFECGr+SrRtnNNAEBrZPIq3AImFI6nk7CwqCkZWUTys4Oz/rAh6ZGleUddKpX9oemcdFPIfgr05K95rvJxWjwjaRT/Xawi3OWnBqc7DSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uAtC62L9; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="JwKOsGQB"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B64F01F91
-	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 08:27:06 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 626BB3F641
-	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 08:27:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1775057232; bh=y+MhPjsu8qOsmSPWBWTYc0aedsaAPB/kfVjv0IQGfi4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JwKOsGQBSR+MbLgXTcuQ8unienxS1lpyZqFRACgT4r/N+llUBFSvYx9s6fFfD3dHa
-	 R92/CdNHKnM9/5rmgznvMEFy5VOb+Xms2+95RwpNzW963UaV4xg3p/LU/mP88OswaI
-	 eIvDtUo6XT7rHH43nbMLvZbTC4z5OXfBeBw4/v5U=
-Date: Wed, 1 Apr 2026 16:26:50 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Guangliu Ding <guangliu.ding@nxp.com>
-Cc: "Daniel Baluta (OSS)" <daniel.baluta@oss.nxp.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	Steven Price <steven.price@arm.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <frank.li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	Jiyu Yang <jiyu.yang@nxp.com>
-Subject: Re: Re: Re: [PATCH 1/2] dt-bindings: gpu: mali-valhall-csf: Document
- i.MX952 support
-Message-ID: <ac05OpEMjKMd8CXy@e142607>
-References: <20260331-master-v1-0-65c8e318d462@nxp.com>
- <20260331-master-v1-1-65c8e318d462@nxp.com>
- <acva1Xt8V4k9-uG8@e142607>
- <AM0PR04MB47073E9E8B5C704BCF5D9F72F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
- <99a1da55-d6e5-4d11-abaa-8c85283ab5f2@oss.nxp.com>
- <AM0PR04MB4707B3E37DFE7AEE587DBA2AF350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
- <aczv0R0aQRmHKdvt@e142607>
- <AM0PR04MB4707335CC7035232D44E6ED9F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uAtC62L9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E559C19421;
+	Wed,  1 Apr 2026 15:39:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775057956;
+	bh=3K7g9I1EZJEiudLJXUanOS1wzoPVIPDa12Fp8FVtQEk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=uAtC62L9k55+U7kiKNfgp+TCh79kvVW0miMFUlgRr3kPoy05ezRSbvDdLN4cFJzc/
+	 I0jabOmOINrGzT+ukUsBCDN2UzgWLm54Vcj54lwwY++AP3pJKuj3L/RwKABuI3Gmcp
+	 hWCBxwoZD5+fVoISmUqas1ZLoDahUbH/GmjEzaYG5IHoaYgIWhWd12VqohSE66tXHs
+	 mXe4gWGYKsK0uK17jOkjeSyciYHYvnuBpU90YCPDEk++DqVFCQfkOsCFTPr2KQ4hkK
+	 jEdqTOHm8cXEVwQK72evbSfm5mwOBRg+wgeFbKpS7oA0+X9+taYtu4CDD5uvEro7U+
+	 ge//nDUHyBOOw==
+Message-ID: <aa953eb1-39f1-4162-9884-d5de9cc49903@kernel.org>
+Date: Wed, 1 Apr 2026 17:39:12 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <AM0PR04MB4707335CC7035232D44E6ED9F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] arm64: dts: qcom:
+ qcs6490-rb3gen2-industrial-mezzanine: Add model string
+To: Bjorn Andersson <andersson@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Umang Chheda <umang.chheda@oss.qualcomm.com>, konradybcio@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ richardcochran@gmail.com, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260309121936.1289615-1-umang.chheda@oss.qualcomm.com>
+ <rdglzhmncexfcvec5hyenj7jx3m5hsphjlxsaeq2zhi4z4arml@bjeqghbbaoa2>
+ <64f43d77-7c09-453e-8d7b-b4e0e5f05598@oss.qualcomm.com>
+ <gmeo7kiryfh3qxspzidpwknxgmxqeqr6on2glrjj4tioh6apv5@p6rxe3jw2rkm>
+ <0a44b9ea-9f2d-496e-8915-45186433dc1e@oss.qualcomm.com>
+ <srndqldc5c3hr3vozvndl4zt66jb47b3iwyjghiqcjg2uoespg@yxg2hvugjrwe>
+ <acSfUEVueSR5Ikq7@baldur>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <acSfUEVueSR5Ikq7@baldur>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Apr 01, 2026 at 10:31:01AM +0000, Guangliu Ding wrote:
-> Hi Liviu
+On 26/03/2026 03:59, Bjorn Andersson wrote:
+>>
+>>> considering above point - is it okay to have this patch ? I believe it would be good to have model string in the DTSO file added.
+>>
+>> No. A _mezzanine_ can not be a device model. It is by definition
+>> something that you plug into the main device. Maybe creating something
+>> new, a new kit.
+>>
+>> Moreover, the model name is not an ABI, we should not be using it for
+>> device identification.
+>>
 > 
-> > On Wed, Apr 01, 2026 at 09:43:12AM +0000, Guangliu Ding wrote:
-> > > Hi Daniel
-> > >
-> > > > On 4/1/26 11:48, Guangliu Ding wrote:
-> > > > > [You don't often get email from guangliu.ding@nxp.com. Learn why
-> > > > > this is important at https://aka.ms/LearnAboutSenderIdentification
-> > > > > ]
-> > > > >
-> > > > > Hi Liviu
-> > > > >
-> > > > > Thanks for your review. Please refer to my comments below:
-> > > > >
-> > > > >> On Tue, Mar 31, 2026 at 06:12:38PM +0800, Guangliu Ding wrote:
-> > > > >>> Add compatible string of Mali G310 GPU on i.MX952 board.
-> > > > >>>
-> > > > >>> Signed-off-by: Guangliu Ding <guangliu.ding@nxp.com>
-> > > > >>> Reviewed-by: Jiyu Yang <jiyu.yang@nxp.com>
-> > > > >>> ---
-> > > > >>>  Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yaml
-> > > > >>> | 1
-> > > > >>> +
-> > > > >>>  1 file changed, 1 insertion(+)
-> > > > >>>
-> > > > >>> diff --git
-> > > > >>> a/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yam
-> > > > >>> l
-> > > > >> b/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yaml
-> > > > >>> index 8eccd4338a2b..6a10843a26e2 100644
-> > > > >>> ---
-> > > > >>> a/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yam
-> > > > >>> l
-> > > > >>> +++ b/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf
-> > > > >>> +++ .yam
-> > > > >>> +++ l
-> > > > >>> @@ -20,6 +20,7 @@ properties:
-> > > > >>>            - enum:
-> > > > >>>                - mediatek,mt8196-mali
-> > > > >>>                - nxp,imx95-mali            # G310
-> > > > >>> +              - nxp,imx952-mali           # G310
-> > > > >> Can you explain why this is needed? Can it not be covered by the
-> > > > >> existing compatible?
-> > > > > There are functional differences in GPU module (GPUMIX) between
-> > > > > i.MX95 and i.MX952. So they cannot be fully covered by a single existing
-> > compatible.
-> > > > > On i.MX952, The GPU clock is controlled by hardware GPU auto
-> > > > > clock-gating mechanism, while the GPU clock is managed explicitly
-> > > > > by the
-> > > > driver on i.MX95.
-> > > > > Because of these behavioral differences, separate compatible
-> > > > > strings "nxp,imx95-mali" and "nxp,imx952-mali" are needed to allow
-> > > > > the driver to handle the two variants independently and to keep
-> > > > > room for future
-> > > > divergence.
-> > > >
-> > > >
-> > > > This information should be added in the commit message explaining
-> > > > why
-> > > >
-> > > > the change is needed.
-> > > >
-> > > >
-> > > > But then where is the driver code taking care of these diferences?
-> > > >
-> > >
-> > > Yes. Currently the driver does not require "nxp,imx952-mali" string.
-> > > However, when GPU ipa_counters are enabled to calculate the GPU
-> > > busy_time/idle_time for GPU DVFS feature, they will conflict with the
-> > > hardware GPU auto clock‑gating mechanism, causing GPU clock to remain
-> > always on.
-> > > In such cases, ipa_counters need to be disabled so that the GPU auto
-> > > clock‑gating mechanism can operate normally, using "nxp,imx952-mali"
-> > string.
-> > 
-> > OK, I understand that you're following guidance from some other senior
-> > people on how to upstream patches so you've tried to create the smallest
-> > patchset to ensure that it gets reviewed and accepted, but in this case we need
-> > to see the other patches as well to decide if your approach is the right one and
-> > we do need a separate compatible string.
-> > 
-> > If enabling GPU ipa_counters causes the clocks to get stuck active, that feels
-> > like a hardware bug, so figuring out how to handle that is more important than
-> > adding a compatible string.
-> > 
-> > Either add the patch(es) that use the compatible to this series in v2, or put a
-> > comment in the commit message on where we can see the driver changes.
-> > 
+> I do agree.
 > 
-> According to discussions with the GPU vendor, this is a hardware limitation 
-> of Mali-G310 rather than a hardware bug, and it has been addressed in newer
-> Mali GPU families.
-
-I represent the said GPU vendor and I think I know what you're talking about, but you're
-taking the wrong approach. All G310s have a problem where in order to enable access to
-the ipa_counters the automatic clock gating gets disabled. So the solution that needs
-to be implemented when we add support for IPA_COUNTERs will apply to all GPUs, not just
-MX952.
-
+> That said, as we (others) discussed during LPC, it would be very useful
+> for bug reporting purposes to know what overlays has been applied - or
+> in general what "version" of the dtb we're running the system from.
 > 
-> In addition, ipa_counters are not enabled in the current Panthor driver. We observed
-> this issue with the private Mali DDK where ipa_counters were enabled.
-> Therefore, keeping the compatible string is necessary to allow for future divergence.
+> I don't think "model" is what we're looking for there though.
 
-This is not an MX952 issue only. You might be aware of it on your SoC, but it's not just
-for it.
+No, it's not. Prepending compatible is one way, but that cannot be done
+directly by DTSO. In my notes from LPC I have also top-level config node
+(there is patch for U-Boot for that). And I finished my notes around
+that time, so I don't have more ideas...
 
 Best regards,
-Liviu
-
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+Krzysztof
