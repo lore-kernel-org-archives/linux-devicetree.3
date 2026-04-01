@@ -1,325 +1,456 @@
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011029.outbound.protection.outlook.com [52.101.125.29])
+Received: from mx0a-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3392436164A;
-	Wed,  1 Apr 2026 08:05:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.29
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775030717; cv=fail; b=BvcJniu8KRESW4K4k+EKOBEBJyXPMMzEitTu+jkn+yZDrvrA4RyXtmlMmSBN8/KM76uwM6YziZ6okQLkrU0b+c85Zv4gqaq5mhYvCLZZj8L0xEd3eCa1CgMAJdzV+MHYvyqkangkWt90tPJSAmS74J2qS3lW8VFGXyDOx0euRco=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775030717; c=relaxed/simple;
-	bh=JskkNTdCD5HMca9KyO/0WWjkNphA+/SvPoNfG7BKvNs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=MkOP4c/ESJ7ENVK+rkWIxPl7J1FSoVDTDeAZhKffk8JxzB9Sbgo0QU+v7mhhWwiRX23OOiHm1WwIfjXgnunWuUaiY+ZC3mdfOvJwxwqMHoFNQLGwTaEx7ixQZDitnU0aulp/yTpO9jfTpeilScU5aqmJ1R2cVCIF2oUVEoyFrqY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=VTZ03DSH; arc=fail smtp.client-ip=52.101.125.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD6C43B95F0;
+	Wed,  1 Apr 2026 08:17:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775031432; cv=none; b=LVj1rc191uTL+4kJTvlWEncic5aK5TgioGTPsn8rxI4winxwGh6qY2rTbnbrjt+VXBE+fLf0NwA2bvnUp/0XNatRq7sZqazemdDx5RZ8fGol6u5khHbCNXnJTkqKlFoVHMyUxlqL55RV7LGbfyPeq2abGkCERzA4Yn7YkBgLIHI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775031432; c=relaxed/simple;
+	bh=DoXQRe7hcWtxPGGVoRo1ja3dj3tJlCTl4VyNv9MFYKM=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=EWX/PdbwTDr7zSIoCqptosAktPEawe04ZcHLS5NPWRXmt+TO5kXmbxqFwH7IEJVVs4/ErWkbzOERcPJQ7UdzGDTUqd6mqGS6Qyyu3aAAzgOk2NoOoiRbgsEjWFZs+rf/S/Y9s2ngLPjVi4UFpSnM7UDah7c9D9OUkrwoQTDNreE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=Uh/oHQvD; arc=none smtp.client-ip=67.231.148.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="VTZ03DSH"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lLHPu+ptv69e0lnG52TufEv5l5k4VvDV9Jm5T6LEXuVFVcF0V1kiJ8Me2SZs0eGyimKlmSJ/X0cm9AQsNSaeUmJRA9dmzzHGvCQDPmY5YtHI3EsKOOr+6mUt3lXrzunZfY4B+N9bz/ZLxi6bGHpKwhlJWDc34jAVK/PJ+iGXY2hv5gp9h+CxkJscPTf7hqsetNlT90tUH2mW6QR/RWzfTP9S25Xx6rSExBjxECuUKz5Zg2cRCygmFAOQga93qEMjB8A18rOPfw3H1MvjpJN++UfXGNm96wnqNpPkejEOjZCVGc/iU4YAhHzeuKml7Ae2BVzTMyRmhOBIu0NawxsMjw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hoGq3ZnPs1GuuPUi1t/SUaSM2YyKEq0B/yqf5CEFjiU=;
- b=xGFryCajtkhbcx2N3mad5k59/iGd0xMP1XfDP8anSjkrV8Cil2YcYgUwqI4ReqTlSHe68A3poVR2WQGXuSlkAvZ/j4yvLUaJRcxKjOd4S3H7eN0rBjiwDkbtwmj32ym/H+rWWWnnKYJVz4nGMPgGhQoepxqrHMugaw76aTfnfch91UvCbY0GRmN2lHAKfQblufiXsen14Yf1ax8k3hKId7yX0rbSkD/PGKbjiXstkFKQdltCPxe6b0EWmGPeploigLYKGUHsbU4KpIf+oDTwfJHrFnB0QNEezjdvmmOqzF8AZ8W/C4CV+KcTdQ30viUFRUMhlIkV+3q16q0bcJB8YQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hoGq3ZnPs1GuuPUi1t/SUaSM2YyKEq0B/yqf5CEFjiU=;
- b=VTZ03DSHo5q4L/MyoS0q616GtsoYbClhuhkn6dmNCZrFr+sXExx717mLw/EwfsfzQ5jCkxGx4Dy2OlRuOvpYINmfdmWFiqw3lrHXDLgBpbbZSF/7a1V4TNMxWRa0HEabeRVF669B2sf7jg7/EddGr9E7xFLVYSCAXm/HDjU5M/0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com (2603:1096:400:3e1::6)
- by TY4PR01MB14537.jpnprd01.prod.outlook.com (2603:1096:405:23b::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Wed, 1 Apr
- 2026 08:05:13 +0000
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8]) by TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8%5]) with mapi id 15.20.9769.016; Wed, 1 Apr 2026
- 08:05:10 +0000
-Date: Wed, 1 Apr 2026 10:04:51 +0200
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: tomm.merciai@gmail.com, peda@axentia.se,
-	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Josua Mayer <josua@solid-run.com>,
-	Ulf Hansson <ulf.hansson@linaro.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 5/6] reset: rzv2h-usb2phy: Convert to regmap API
-Message-ID: <aczRo8HVUFqXKfG_@tom-desktop>
-References: <cover.1774601289.git.tommaso.merciai.xr@bp.renesas.com>
- <0259040014396ea03d58a87c2ce2a3f9eff2b0b6.1774601289.git.tommaso.merciai.xr@bp.renesas.com>
- <283a6336658045be8906ee219620c994e85c7fb8.camel@pengutronix.de>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <283a6336658045be8906ee219620c994e85c7fb8.camel@pengutronix.de>
-X-ClientProxiedBy: FR0P281CA0161.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b3::8) To TYCPR01MB11947.jpnprd01.prod.outlook.com
- (2603:1096:400:3e1::6)
+	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="Uh/oHQvD"
+Received: from pps.filterd (m0431384.ppops.net [127.0.0.1])
+	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 62VLdRT12040996;
+	Wed, 1 Apr 2026 01:16:51 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pfpt0220; bh=L9xd7vMLFeG3N3Dmk/LIu/Jxg
+	/dW3RJ5aKkQFlvfWY4=; b=Uh/oHQvDS8AkdgsNQ5fL7ek0F9wA/yEm5mhoPG08E
+	IzaVHQzlYAF5SIKDKwdnRnYZZhtGDjvIzDksR0JnEoDMbNTEyR3MRTmZEnS9Clt2
+	YpRYwkPDZfM4hErt8uULbJsA7MwxWnfEYng7FN4de2siP7Qyh7vUq9bXKa3wx80y
+	5nR6p6+1diDXWFJE4MCr9O3ZVRsjgaJ1DrtWyrUzQx7710x7vw/9VH/XH5gGd5Di
+	ImOAedVa1UJMZcQkr46250q4JlCdkjPxUEPHQXrIr8Lm0jsq6ZMdsFidjCVgazom
+	uQYCM2QSoMxNokjzRK3WjD+i/NmhwzCgHKGR/Bk7WmZgA==
+Received: from dc5-exch05.marvell.com ([199.233.59.128])
+	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4d8ck3uc8g-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 01 Apr 2026 01:16:51 -0700 (PDT)
+Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
+ DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Wed, 1 Apr 2026 01:16:50 -0700
+Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
+ DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Wed, 1 Apr 2026 01:16:49 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
+ (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
+ Transport; Wed, 1 Apr 2026 01:16:49 -0700
+Received: from hyd1soter3.marvell.com (unknown [10.29.37.12])
+	by maili.marvell.com (Postfix) with ESMTP id 3F25C3F7044;
+	Wed,  1 Apr 2026 01:16:46 -0700 (PDT)
+From: Geetha sowjanya <gakula@marvell.com>
+To: <linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>
+CC: <mark.rutland@arm.com>, <will@kernel.org>, <krzk+dt@kernel.org>
+Subject: [PATCH v3 2/2] perf: marvell: Add CN20K DDR PMU support
+Date: Wed, 1 Apr 2026 13:46:40 +0530
+Message-ID: <20260401081640.23740-3-gakula@marvell.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20260401081640.23740-1-gakula@marvell.com>
+References: <20260401081640.23740-1-gakula@marvell.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB11947:EE_|TY4PR01MB14537:EE_
-X-MS-Office365-Filtering-Correlation-Id: 871be85e-6544-4136-7b23-08de8fc5652f
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|52116014|376014|366016|7416014|1800799024|38350700014|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	ozBXxhJrf3VnsdCPHHrIkV/htxZfxAWqdYUOh9A6z7/rTcnnyAFZN6t+9t4aTWWqNvnTu4yQ/oCZ9dn7ZAnC/I7JMisXJN/avhYBkHrvGaVvHBmXDPaiBw+yUZPlGweXKK0QmQcvUS9KRGIoaIF2mh7BFEn1VJdcFDaJNHJt8d0C92+mRHZRygrEUCUXz728OBqZ7x7hwCGUWj+UrnGuhRrdmzEhbrehbkWxgczMbXME2zHDxi9NujGqWYRqdeeQRgFtvvoIBbjjp1++c7h8RIcGyfj0uo+PoRa0jhF/jH/untXq7FsKyq/HlSdHweZtnwthU5o+5Flh/F7L2kUTMocv+QQNGREu0zwDTpJwiTT8eA39m8jCIJ81xVv3hIpZD75R405Akl//+xQZ6xAy7sXvX9Re11s+XlV3E794KN6oFDuGcx/rlqy2pcf1hf+YU+bRfV+i/25dYuy04Z1nLFYJotnyZ5kbvy1dKB/cwrwuK1CNf3w7eRaRTdKmiEg3DybBVu5DpePeyHIZ1yHgsHlqYnlemAfua0l6CpxrJuMIRDml866bJnlU/gEPbpboBv5Ajcx4eLXjt5g/z7bfM6Bmymqye+fAY+7kfsQUDeK2G6koDPbI4fSxTwHI7orATeCYrS7Mm7pM9j2PBtVRrlYJ1ZBsd/wxHonXD5mpLBA0QcP5QQa7W3wU0p0uk8PqgXWn+Sdz1dFe9+PU7w28HE1OwmlceGu+kNxPqjwi5ESU9xQtiIXBML7nsmPVDv+OpXNPinhW/KfGWpCm5ewn8xOTP5OqpugRCsQLD3Nfd8c=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB11947.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(52116014)(376014)(366016)(7416014)(1800799024)(38350700014)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?0lUxIWjnOwU7YGSx2Ww3lRA/Y1qosU5XN6k0vRUPidlCW0WUZkeYK5F4uqaH?=
- =?us-ascii?Q?IYSELFwuICX5hIRP1bLiKsCr/Yg0Km8dZMvKNaQx9atg94SDy6yz/csZDjHt?=
- =?us-ascii?Q?ALFXZ+x+rFwHf7B99w005feUVPgWGOyB28FiJ6pnMGOJ0nFrA/+pyLKaJBQb?=
- =?us-ascii?Q?ToCgDZVt2UWt6IqQrwE5Bs2JEezvx41KaKX+i+unX9mCGIyFbLmBcU6+XfA9?=
- =?us-ascii?Q?HfUmAVEeD4Tw0R4t7dQvUw1UZKLRixqhWzQGFqJ7BY9yCAGKwUoxh3GkclJV?=
- =?us-ascii?Q?2v5pnhOJegmI/FtqKBWE4KXPWbmW1os1s8fwLatKbH/pERrgVfTHWN8hr7yV?=
- =?us-ascii?Q?n7ovbQ+81/JrWntGq9oznd3lEboxqNs4OKeAFzxWkbkol1WN1hRSNhHVr1Jw?=
- =?us-ascii?Q?dODMSmOksOzf8We3El3PGas/LXGqZGrHW+1Kj1OS+G2kCzDaiEZn4hx5dqBP?=
- =?us-ascii?Q?8OwmMMKPbHAvBuQBqJQYXRPEar2eh3cYRqmlT1ZJsq+APEq2nNr1da9whkdj?=
- =?us-ascii?Q?1DONDpUJAVDfiq/3BMYEHUG0G9poG/Tx408Q2n3doqnB1JTh47TmPxTS58zE?=
- =?us-ascii?Q?M1R4LZcNFT1I7O7uT340YfVm/T0WSRRCoxmuvDK9c7btBtoAX41FBjbufd5/?=
- =?us-ascii?Q?lcDgfS122dPJdBkuKeRQw1NUkhLoG71v+jSU6SwVez4pM93d6XxqZn+vQMEC?=
- =?us-ascii?Q?M8Nh/dwKzw5UVqS4A0pyShh0Wp//5OuITpUqmD60aRf+jU3nHkjC+X2McW5j?=
- =?us-ascii?Q?IJA0yTBTpZRo+xNwIanYiS4eZZkSdESNZvgqIMlPIKZLz+z9su+BjnCroCgr?=
- =?us-ascii?Q?kmgxKMyItECGFwqkO6FBrTpMzk/bkYA6I5dVU38bTN40cpcTXqleBUXhOCIy?=
- =?us-ascii?Q?tve0LUzhvXl7HdUqKSwXlskF4sK9hqygITzenR3d31Vs0zX0qCtQX9pXovGU?=
- =?us-ascii?Q?wSeDobi2qBl53e/IJtE2/leF6SBCr/6Hi2K2JlmBQa8cQcS9LBl+3+irAy5a?=
- =?us-ascii?Q?EBZAff1VQ5wgWrZf81jn2SqDx2qNn5kxS32p97CFp58XH5fPKwlSREs7QqmS?=
- =?us-ascii?Q?AQX+82uldlc4DZCiNA7HrH90d4GNrf+NkCgIaN1o20nI0Ln/57qnBiIETGj2?=
- =?us-ascii?Q?mioDq+Iu05thn4GqUH/I0/gkJWN9ZTHkXTiQHF873WZpSEem5+sIBkjGszDN?=
- =?us-ascii?Q?WqugDIYd4NqouTPYxvtRpH115YLcZX8wYoU54ykoOuu1qky/9E4JBf70LPiu?=
- =?us-ascii?Q?DWGROGrMqHt0SMpP4eyewPEjOLbZgRBv9fHTV7R3hCA1A8EykPjZy62q7avu?=
- =?us-ascii?Q?l2jATTmrYp9Kf89VJTBHr/Ln1ExMTaSuqYrIxfQ7Lk2Lf4lh5EKerA0QpeNm?=
- =?us-ascii?Q?y6WWFJBliHZ12iw07cdUEoRKSPUc8CiCxV1cAi/3x8Fm0vJv34lrJmCEc6+d?=
- =?us-ascii?Q?qIo4Mb0uJtgn/zagbNEweqsOtrZK9lLtRR5KliOSi9VRgMubq5SjnuOMQpD+?=
- =?us-ascii?Q?BPg4/qE+7T/tI7iOiocdVmt1RCM2dzSKQVyKRy08tLpZgiXUKRmVr/cZQ8yv?=
- =?us-ascii?Q?XvqHAQoONYDagFRWte4FC/1Ma6UcDyRVYiG71Fe9JLmBsqDKodhqWhWbePdr?=
- =?us-ascii?Q?Kw2OTBgRWl+j0ztB7+WtCCXrac/f++QPJY9aXLeDhfjThjrTDZe7kj2J4YhT?=
- =?us-ascii?Q?n1w3bp4GuL9gT0DyU8OUJGNsQOlsx3N6X17u/s2U8cOP5AKw1Anb4ld0Azgg?=
- =?us-ascii?Q?GzvYXIIBrHbLcQIPECuqmlpwN9iAkhoB+lmTgVw6/a666osOm6/u?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 871be85e-6544-4136-7b23-08de8fc5652f
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11947.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 08:05:10.5688
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: B8Qp7QnEXg+BUhyIumgjtS/QZM20mJSnBq7SVbKv6IwjMSbYtFoZJHu5hfCQrfk/b0xbV7XVR3r4UM9UiTaD4iU+GYFLAeNUtGOIEvhEGiL69qmNQhOnpv3sJrsYxFow
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4PR01MB14537
+Content-Type: text/plain
+X-Proofpoint-GUID: 8W75-F_4P2ghe3tQdutL7MM0St4yCDJe
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAxMDA3MyBTYWx0ZWRfX0D27Ym111APX
+ oyBjFvzVND5Q61xxJACvFCLWgseDu/wDPM3Q3al1YqJHwvMf0gbfkuKUF6QW9VLo//nPYFoK7xn
+ DpkvmgWMuwD65qaIpe2y8+J/2G7kAbPIRvZ73n8ZCXXss8IBdJyPoa6DAmdVOYAe7SUy9QnprhH
+ KPS+wy8pFWFHloUSYTfdJstJi0VY+8gtpL3HiapzdXuY8ZehWQ0Q9G7xjKTFNaZDasFtDQTrWuS
+ y/eHoPS6nHfO8qCSCTXIuW8iXJQTHgJAs99R1vInR5Q2/lgVvDVQdEVDeMcAE6EQIJlYQiM/dOd
+ pN/5uqXRCqXm9FOjPRzEKKKKFu8DeM+vqCtqcLJHLq6T0sYwSVGmqlevoY+ZzexQ2Fr4l1LDfJ8
+ nFwwQv6rMDuVI3GrEiTQnyQFMtT+3HutzmSKbPgTRzviIxU7ddaG/gKsAiANI9z7G/V0wXIzW5R
+ oaz8kWjDHQvnyyQMaSg==
+X-Proofpoint-ORIG-GUID: 8W75-F_4P2ghe3tQdutL7MM0St4yCDJe
+X-Authority-Analysis: v=2.4 cv=EKMLElZC c=1 sm=1 tr=0 ts=69ccd473 cx=c_pps
+ a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
+ a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
+ a=TtqV-g6YmW1Jfm2GSLaY:22 a=M5GUcnROAAAA:8 a=WnYttJQ71G5mWjJxUIAA:9
+ a=OBjm3rFKGHvpk9ecZwUJ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-01_02,2026-04-01_01,2025-10-01_01
 
-Hi Philipp,
-Thanks for your review.
+The CN20K DRAM Subsystem exposes eight programmable
+performance counters and two fixed counters for DDR
+read and write traffic.  Software selects events for
+the programmable counters from traffic at the DDR PHY
+interface, the CHI interconnect, or inside the DDR controller.
 
-On Tue, Mar 31, 2026 at 06:36:45PM +0200, Philipp Zabel wrote:
-> On Fr, 2026-03-27 at 19:08 +0100, Tommaso Merciai wrote:
-> > Replace raw MMIO accesses (void __iomem *, readl/writel) with
-> > regmap_read/regmap_write via devm_regmap_init_mmio(). Regmap
-> > provides its own internal locking, so the manual spinlock and
-> > scoped_guard() wrappers are no longer needed.
-> > 
-> > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> > ---
-> > v8->v9:
-> >  - New patch
-> > 
-> >  drivers/reset/Kconfig               |  1 +
-> >  drivers/reset/reset-rzv2h-usb2phy.c | 42 ++++++++++++++++-------------
-> >  2 files changed, 24 insertions(+), 19 deletions(-)
-> > 
-> > diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
-> > index 5165006be693..c539ca88518f 100644
-> > --- a/drivers/reset/Kconfig
-> > +++ b/drivers/reset/Kconfig
-> > @@ -257,6 +257,7 @@ config RESET_RZG2L_USBPHY_CTRL
-> >  config RESET_RZV2H_USB2PHY
-> >  	tristate "Renesas RZ/V2H(P) (and similar SoCs) USB2PHY Reset driver"
-> >  	depends on ARCH_RENESAS || COMPILE_TEST
-> > +	select REGMAP_MMIO
-> >  	help
-> >  	  Support for USB2PHY Port reset Control found on the RZ/V2H(P) SoC
-> >  	  (and similar SoCs).
-> > diff --git a/drivers/reset/reset-rzv2h-usb2phy.c b/drivers/reset/reset-rzv2h-usb2phy.c
-> > index 5bdd39274612..4014eff0f017 100644
-> > --- a/drivers/reset/reset-rzv2h-usb2phy.c
-> > +++ b/drivers/reset/reset-rzv2h-usb2phy.c
-> > @@ -5,13 +5,13 @@
-> >   * Copyright (C) 2025 Renesas Electronics Corporation
-> >   */
-> >  
-> > -#include <linux/cleanup.h>
-> >  #include <linux/delay.h>
-> >  #include <linux/io.h>
-> >  #include <linux/module.h>
-> >  #include <linux/of.h>
-> >  #include <linux/platform_device.h>
-> >  #include <linux/pm_runtime.h>
-> > +#include <linux/regmap.h>
-> >  #include <linux/reset.h>
-> >  #include <linux/reset-controller.h>
-> >  
-> > @@ -37,10 +37,9 @@ struct rzv2h_usb2phy_reset_of_data {
-> >  
-> >  struct rzv2h_usb2phy_reset_priv {
-> >  	const struct rzv2h_usb2phy_reset_of_data *data;
-> > -	void __iomem *base;
-> > +	struct regmap *regmap;
-> >  	struct device *dev;
-> >  	struct reset_controller_dev rcdev;
-> > -	spinlock_t lock; /* protects register accesses */
-> >  };
-> >  
-> >  static inline struct rzv2h_usb2phy_reset_priv
-> > @@ -55,10 +54,8 @@ static int rzv2h_usbphy_reset_assert(struct reset_controller_dev *rcdev,
-> >  	struct rzv2h_usb2phy_reset_priv *priv = rzv2h_usbphy_rcdev_to_priv(rcdev);
-> >  	const struct rzv2h_usb2phy_reset_of_data *data = priv->data;
-> >  
-> > -	scoped_guard(spinlock, &priv->lock) {
-> > -		writel(data->reset2_acquire_val, priv->base + data->reset2_reg);
-> > -		writel(data->reset_assert_val, priv->base + data->reset_reg);
-> > -	}
-> > +	regmap_write(priv->regmap, data->reset2_reg, data->reset2_acquire_val);
-> > +	regmap_write(priv->regmap, data->reset_reg, data->reset_assert_val);
-> 
-> What is the spinlock protecting? acquire/assert registers being set
-> together, without another acquire/assert or deassert/release register
-> access pair interleaving?
-> In that case you still need the lock. Or use regmap_multi_reg_write().
-> You could even directly store the sequences as struct reg_sequence in
-> rzv2h_usb2phy_reset_of_data.
+Add CN20K register offsets, event maps, and sysfs attributes;
+match the device via OF (marvell,cn20k-ddr-pmu) and ACPI (MRVL000B).
+Represent the SoC variant in platform data with bit flags so
+CN20K can reuse the Odyssey PMU code path where appropriate.
 
-You are correct. Thank you.
-As per your suggestion I'm planning to use regmap_multi_reg_write().
+Signed-off-by: Geetha sowjanya <gakula@marvell.com>
+---
+ drivers/perf/marvell_cn10k_ddr_pmu.c | 187 ++++++++++++++++++++++++---
+ 1 file changed, 171 insertions(+), 16 deletions(-)
 
-Plan is to have the:
+diff --git a/drivers/perf/marvell_cn10k_ddr_pmu.c b/drivers/perf/marvell_cn10k_ddr_pmu.c
+index 72ac17efd846..7e2e1823b009 100644
+--- a/drivers/perf/marvell_cn10k_ddr_pmu.c
++++ b/drivers/perf/marvell_cn10k_ddr_pmu.c
+@@ -13,31 +13,43 @@
+ #include <linux/hrtimer.h>
+ #include <linux/acpi.h>
+ #include <linux/platform_device.h>
++#include <linux/bits.h>
++
++/* SoC variant flags for struct ddr_pmu_platform_data (mutually exclusive in pdata) */
++#define IS_CN10K	BIT(0)
++#define IS_ODY		BIT(1)
++#define IS_CN20K	BIT(2)
+ 
+ /* Performance Counters Operating Mode Control Registers */
+ #define CN10K_DDRC_PERF_CNT_OP_MODE_CTRL	0x8020
+ #define ODY_DDRC_PERF_CNT_OP_MODE_CTRL		0x20020
++#define CN20K_DDRC_PERF_CNT_OP_MODE_CTRL	0x20000
+ #define OP_MODE_CTRL_VAL_MANUAL	0x1
+ 
+ /* Performance Counters Start Operation Control Registers */
+ #define CN10K_DDRC_PERF_CNT_START_OP_CTRL	0x8028
+ #define ODY_DDRC_PERF_CNT_START_OP_CTRL		0x200A0
++#define CN20K_DDRC_PERF_CNT_START_OP_CTRL	0x20080
+ #define START_OP_CTRL_VAL_START		0x1ULL
+ #define START_OP_CTRL_VAL_ACTIVE	0x2
+ 
+ /* Performance Counters End Operation Control Registers */
+ #define CN10K_DDRC_PERF_CNT_END_OP_CTRL	0x8030
+ #define ODY_DDRC_PERF_CNT_END_OP_CTRL	0x200E0
++#define CN20K_DDRC_PERF_CNT_END_OP_CTRL	0x200C0
+ #define END_OP_CTRL_VAL_END		0x1ULL
+ 
+ /* Performance Counters End Status Registers */
+ #define CN10K_DDRC_PERF_CNT_END_STATUS		0x8038
+ #define ODY_DDRC_PERF_CNT_END_STATUS		0x20120
++#define CN20K_DDRC_PERF_CNT_END_STATUS		0x20100
+ #define END_STATUS_VAL_END_TIMER_MODE_END	0x1
+ 
+ /* Performance Counters Configuration Registers */
+ #define CN10K_DDRC_PERF_CFG_BASE		0x8040
+ #define ODY_DDRC_PERF_CFG_BASE			0x20160
++#define CN20K_DDRC_PERF_CFG_BASE		0x20140
++#define CN20K_DDRC_PERF_CFG1_BASE		0x20180
+ 
+ /* 8 Generic event counter + 2 fixed event counters */
+ #define DDRC_PERF_NUM_GEN_COUNTERS	8
+@@ -61,6 +73,23 @@
+  * DO NOT change these event-id numbers, they are used to
+  * program event bitmap in h/w.
+  */
++
++/* CN20K specific events */
++#define EVENT_PERF_OP_IS_RD16			61
++#define EVENT_PERF_OP_IS_RD32			60
++#define EVENT_PERF_OP_IS_WR16			59
++#define EVENT_PERF_OP_IS_WR32			58
++#define EVENT_OP_IS_ENTER_DSM			44
++#define EVENT_OP_IS_RFM				43
++
++#define EVENT_CN20K_OP_IS_TCR_MRR			50
++#define EVENT_CN20K_OP_IS_DQSOSC_MRR			49
++#define EVENT_CN20K_OP_IS_DQSOSC_MPC			48
++#define EVENT_CN20K_VISIBLE_WIN_LIMIT_REACHED_WR	47
++#define EVENT_CN20K_VISIBLE_WIN_LIMIT_REACHED_RD	46
++#define EVENT_CN20K_OP_IS_ZQLATCH			21
++#define EVENT_CN20K_OP_IS_ZQSTART			22
++
+ #define EVENT_DFI_CMD_IS_RETRY			61
+ #define EVENT_RD_UC_ECC_ERROR			60
+ #define EVENT_RD_CRC_ERROR			59
+@@ -87,6 +116,9 @@
+ #define EVENT_OP_IS_SPEC_REF			41
+ #define EVENT_OP_IS_CRIT_REF			40
+ #define EVENT_OP_IS_REFRESH			39
++#define EVENT_OP_IS_CAS_WCK_SUS			38
++#define EVENT_OP_IS_CAS_WS_OFF			37
++#define EVENT_OP_IS_CAS_WS			36
+ #define EVENT_OP_IS_ENTER_MPSM			35
+ #define EVENT_OP_IS_ENTER_POWERDOWN		31
+ #define EVENT_OP_IS_ENTER_SELFREF		27
+@@ -183,8 +215,8 @@ struct ddr_pmu_platform_data {
+ 	u64 cnt_freerun_clr;
+ 	u64 cnt_value_wr_op;
+ 	u64 cnt_value_rd_op;
+-	bool is_cn10k;
+-	bool is_ody;
++	u64 cfg1_base;
++	unsigned int silicon_flags; /* IS_CN10K, IS_ODY, or IS_CN20K */
+ };
+ 
+ static ssize_t cn10k_ddr_pmu_event_show(struct device *dev,
+@@ -336,6 +368,80 @@ static struct attribute *odyssey_ddr_perf_events_attrs[] = {
+ 	NULL
+ };
+ 
++static struct attribute *cn20k_ddr_perf_events_attrs[] = {
++	/* Programmable */
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_hif_rd_or_wr_access, EVENT_HIF_RD_OR_WR),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_hif_wr_access, EVENT_HIF_WR),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_hif_rd_access, EVENT_HIF_RD),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_hif_rmw_access, EVENT_HIF_RMW),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_hif_pri_rdaccess, EVENT_HIF_HI_PRI_RD),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_rd_bypass_access, EVENT_READ_BYPASS),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_act_bypass_access, EVENT_ACT_BYPASS),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_dfi_wr_data_access,
++				 EVENT_DFI_WR_DATA_CYCLES),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_dfi_rd_data_access,
++				 EVENT_DFI_RD_DATA_CYCLES),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_hpri_sched_rd_crit_access,
++				 EVENT_HPR_XACT_WHEN_CRITICAL),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_lpri_sched_rd_crit_access,
++				 EVENT_LPR_XACT_WHEN_CRITICAL),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_wr_trxn_crit_access,
++				 EVENT_WR_XACT_WHEN_CRITICAL),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_cam_active_access, EVENT_OP_IS_ACTIVATE),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_cam_rd_or_wr_access,
++				 EVENT_OP_IS_RD_OR_WR),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_cam_rd_active_access,
++				 EVENT_OP_IS_RD_ACTIVATE),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_cam_read, EVENT_OP_IS_RD),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_cam_write, EVENT_OP_IS_WR),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_cam_mwr, EVENT_OP_IS_MWR),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_precharge, EVENT_OP_IS_PRECHARGE),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_precharge_for_rdwr,
++				 EVENT_PRECHARGE_FOR_RDWR),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_precharge_for_other,
++				 EVENT_PRECHARGE_FOR_OTHER),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_rdwr_transitions, EVENT_RDWR_TRANSITIONS),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_write_combine, EVENT_WRITE_COMBINE),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_war_hazard, EVENT_WAR_HAZARD),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_raw_hazard, EVENT_RAW_HAZARD),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_waw_hazard, EVENT_WAW_HAZARD),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_enter_selfref, EVENT_OP_IS_ENTER_SELFREF),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_enter_powerdown,
++				 EVENT_OP_IS_ENTER_POWERDOWN),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_cas_ws, EVENT_OP_IS_CAS_WS),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_cas_ws_off, EVENT_OP_IS_CAS_WS_OFF),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_cas_wck_sus, EVENT_OP_IS_CAS_WCK_SUS),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_refresh, EVENT_OP_IS_REFRESH),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_crit_ref, EVENT_OP_IS_CRIT_REF),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_spec_ref, EVENT_OP_IS_SPEC_REF),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_load_mode, EVENT_OP_IS_LOAD_MODE),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_rfm, EVENT_OP_IS_RFM),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_enter_dsm, EVENT_OP_IS_ENTER_DSM),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_dfi_cycles, EVENT_DFI_CYCLES),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_win_limit_reached_rd,
++				 EVENT_CN20K_VISIBLE_WIN_LIMIT_REACHED_RD),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_win_limit_reached_wr,
++				 EVENT_CN20K_VISIBLE_WIN_LIMIT_REACHED_WR),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_dqsosc_mpc, EVENT_CN20K_OP_IS_DQSOSC_MPC),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_dqsosc_mrr, EVENT_CN20K_OP_IS_DQSOSC_MRR),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_tcr_mrr, EVENT_CN20K_OP_IS_TCR_MRR),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_zqstart, EVENT_CN20K_OP_IS_ZQSTART),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_zqlatch, EVENT_CN20K_OP_IS_ZQLATCH),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_read16, EVENT_PERF_OP_IS_RD16),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_read32, EVENT_PERF_OP_IS_RD32),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_write16, EVENT_PERF_OP_IS_WR16),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_write32, EVENT_PERF_OP_IS_WR32),
++	/* Free run event counters */
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_ddr_reads, EVENT_DDR_READS),
++	CN10K_DDR_PMU_EVENT_ATTR(ddr_ddr_writes, EVENT_DDR_WRITES),
++	NULL
++};
++
++static struct attribute_group cn20k_ddr_perf_events_attr_group = {
++	.name = "events",
++	.attrs = cn20k_ddr_perf_events_attrs,
++};
++
+ static struct attribute_group odyssey_ddr_perf_events_attr_group = {
+ 	.name = "events",
+ 	.attrs = odyssey_ddr_perf_events_attrs,
+@@ -393,6 +499,13 @@ static const struct attribute_group *odyssey_attr_groups[] = {
+ 	NULL
+ };
+ 
++static const struct attribute_group *cn20k_attr_groups[] = {
++	&cn20k_ddr_perf_events_attr_group,
++	&cn10k_ddr_perf_format_attr_group,
++	&cn10k_ddr_perf_cpumask_attr_group,
++	NULL
++};
++
+ /* Default poll timeout is 100 sec, which is very sufficient for
+  * 48 bit counter incremented max at 5.6 GT/s, which may take many
+  * hours to overflow.
+@@ -412,7 +525,7 @@ static int ddr_perf_get_event_bitmap(int eventid, u64 *event_bitmap,
+ 
+ 	switch (eventid) {
+ 	case EVENT_DFI_PARITY_POISON ...EVENT_DFI_CMD_IS_RETRY:
+-		if (!ddr_pmu->p_data->is_ody) {
++		if (!(ddr_pmu->p_data->silicon_flags & IS_ODY)) {
+ 			err = -EINVAL;
+ 			break;
+ 		}
+@@ -524,9 +637,9 @@ static void cn10k_ddr_perf_counter_enable(struct cn10k_ddr_pmu *pmu,
+ 					  int counter, bool enable)
+ {
+ 	const struct ddr_pmu_platform_data *p_data = pmu->p_data;
++	unsigned int silicon_flags = pmu->p_data->silicon_flags;
+ 	u64 ctrl_reg = pmu->p_data->cnt_op_mode_ctrl;
+ 	const struct ddr_pmu_ops *ops = pmu->ops;
+-	bool is_ody = pmu->p_data->is_ody;
+ 	u32 reg;
+ 	u64 val;
+ 
+@@ -546,7 +659,7 @@ static void cn10k_ddr_perf_counter_enable(struct cn10k_ddr_pmu *pmu,
+ 
+ 		writeq_relaxed(val, pmu->base + reg);
+ 
+-		if (is_ody) {
++		if (silicon_flags & IS_ODY) {
+ 			if (enable) {
+ 				/*
+ 				 * Setup the PMU counter to work in
+@@ -621,6 +734,7 @@ static int cn10k_ddr_perf_event_add(struct perf_event *event, int flags)
+ {
+ 	struct cn10k_ddr_pmu *pmu = to_cn10k_ddr_pmu(event->pmu);
+ 	const struct ddr_pmu_platform_data *p_data = pmu->p_data;
++	unsigned int silicon_flags = pmu->p_data->silicon_flags;
+ 	const struct ddr_pmu_ops *ops = pmu->ops;
+ 	struct hw_perf_event *hwc = &event->hw;
+ 	u8 config = event->attr.config;
+@@ -642,10 +756,17 @@ static int cn10k_ddr_perf_event_add(struct perf_event *event, int flags)
+ 	if (counter < DDRC_PERF_NUM_GEN_COUNTERS) {
+ 		/* Generic counters, configure event id */
+ 		reg_offset = DDRC_PERF_CFG(p_data->cfg_base, counter);
+-		ret = ddr_perf_get_event_bitmap(config, &val, pmu);
+-		if (ret)
+-			return ret;
+ 
++		if (silicon_flags & IS_CN20K) {
++			val =  (1ULL << (config - 1));
++			if (config == EVENT_CN20K_OP_IS_ZQSTART ||
++			    config == EVENT_CN20K_OP_IS_ZQLATCH)
++				reg_offset = DDRC_PERF_CFG(p_data->cfg1_base, counter);
++		} else {
++			ret = ddr_perf_get_event_bitmap(config, &val, pmu);
++			if (ret)
++				return ret;
++		}
+ 		writeq_relaxed(val, pmu->base + reg_offset);
+ 	} else {
+ 		/* fixed event counter, clear counter value */
+@@ -952,7 +1073,25 @@ static const struct ddr_pmu_platform_data cn10k_ddr_pmu_pdata = {
+ 	.cnt_freerun_clr = 0,
+ 	.cnt_value_wr_op = CN10K_DDRC_PERF_CNT_VALUE_WR_OP,
+ 	.cnt_value_rd_op = CN10K_DDRC_PERF_CNT_VALUE_RD_OP,
+-	.is_cn10k = TRUE,
++	.silicon_flags = IS_CN10K,
++};
++
++static const struct ddr_pmu_platform_data cn20k_ddr_pmu_pdata = {
++	.counter_overflow_val = 0,
++	.counter_max_val = GENMASK_ULL(63, 0),
++	.cnt_base = ODY_DDRC_PERF_CNT_VALUE_BASE,
++	.cfg_base = CN20K_DDRC_PERF_CFG_BASE,
++	.cfg1_base = CN20K_DDRC_PERF_CFG1_BASE,
++	.cnt_op_mode_ctrl = CN20K_DDRC_PERF_CNT_OP_MODE_CTRL,
++	.cnt_start_op_ctrl = CN20K_DDRC_PERF_CNT_START_OP_CTRL,
++	.cnt_end_op_ctrl = CN20K_DDRC_PERF_CNT_END_OP_CTRL,
++	.cnt_end_status = CN20K_DDRC_PERF_CNT_END_STATUS,
++	.cnt_freerun_en = 0,
++	.cnt_freerun_ctrl = ODY_DDRC_PERF_CNT_FREERUN_CTRL,
++	.cnt_freerun_clr = ODY_DDRC_PERF_CNT_FREERUN_CLR,
++	.cnt_value_wr_op = ODY_DDRC_PERF_CNT_VALUE_WR_OP,
++	.cnt_value_rd_op = ODY_DDRC_PERF_CNT_VALUE_RD_OP,
++	.silicon_flags = IS_CN20K,
+ };
+ #endif
+ 
+@@ -979,7 +1118,7 @@ static const struct ddr_pmu_platform_data odyssey_ddr_pmu_pdata = {
+ 	.cnt_freerun_clr = ODY_DDRC_PERF_CNT_FREERUN_CLR,
+ 	.cnt_value_wr_op = ODY_DDRC_PERF_CNT_VALUE_WR_OP,
+ 	.cnt_value_rd_op = ODY_DDRC_PERF_CNT_VALUE_RD_OP,
+-	.is_ody = TRUE,
++	.silicon_flags = IS_ODY,
+ };
+ #endif
+ 
+@@ -989,8 +1128,7 @@ static int cn10k_ddr_perf_probe(struct platform_device *pdev)
+ 	struct cn10k_ddr_pmu *ddr_pmu;
+ 	struct resource *res;
+ 	void __iomem *base;
+-	bool is_cn10k;
+-	bool is_ody;
++	unsigned int silicon_flags;
+ 	char *name;
+ 	int ret;
+ 
+@@ -1014,10 +1152,9 @@ static int cn10k_ddr_perf_probe(struct platform_device *pdev)
+ 	ddr_pmu->base = base;
+ 
+ 	ddr_pmu->p_data = dev_data;
+-	is_cn10k = ddr_pmu->p_data->is_cn10k;
+-	is_ody = ddr_pmu->p_data->is_ody;
++	silicon_flags = ddr_pmu->p_data->silicon_flags;
+ 
+-	if (is_cn10k) {
++	if (silicon_flags & IS_CN10K) {
+ 		ddr_pmu->ops = &ddr_pmu_ops;
+ 		/* Setup the PMU counter to work in manual mode */
+ 		writeq_relaxed(OP_MODE_CTRL_VAL_MANUAL, ddr_pmu->base +
+@@ -1039,7 +1176,7 @@ static int cn10k_ddr_perf_probe(struct platform_device *pdev)
+ 		};
+ 	}
+ 
+-	if (is_ody) {
++	if (silicon_flags & IS_ODY) {
+ 		ddr_pmu->ops = &ddr_pmu_ody_ops;
+ 
+ 		ddr_pmu->pmu = (struct pmu) {
+@@ -1056,6 +1193,22 @@ static int cn10k_ddr_perf_probe(struct platform_device *pdev)
+ 		};
+ 	}
+ 
++	if (silicon_flags & IS_CN20K) {
++		ddr_pmu->ops = &ddr_pmu_ody_ops;
++
++		ddr_pmu->pmu = (struct pmu) {
++			.module       = THIS_MODULE,
++			.capabilities = PERF_PMU_CAP_NO_EXCLUDE,
++			.task_ctx_nr = perf_invalid_context,
++			.attr_groups = cn20k_attr_groups,
++			.event_init  = cn10k_ddr_perf_event_init,
++			.add         = cn10k_ddr_perf_event_add,
++			.del         = cn10k_ddr_perf_event_del,
++			.start       = cn10k_ddr_perf_event_start,
++			.stop        = cn10k_ddr_perf_event_stop,
++			.read        = cn10k_ddr_perf_event_update,
++		};
++	}
+ 	/* Choose this cpu to collect perf data */
+ 	ddr_pmu->cpu = raw_smp_processor_id();
+ 
+@@ -1098,6 +1251,7 @@ static void cn10k_ddr_perf_remove(struct platform_device *pdev)
+ #ifdef CONFIG_OF
+ static const struct of_device_id cn10k_ddr_pmu_of_match[] = {
+ 	{ .compatible = "marvell,cn10k-ddr-pmu", .data = &cn10k_ddr_pmu_pdata },
++	{ .compatible = "marvell,cn20k-ddr-pmu", .data = &cn20k_ddr_pmu_pdata },
+ 	{ },
+ };
+ MODULE_DEVICE_TABLE(of, cn10k_ddr_pmu_of_match);
+@@ -1107,6 +1261,7 @@ MODULE_DEVICE_TABLE(of, cn10k_ddr_pmu_of_match);
+ static const struct acpi_device_id cn10k_ddr_pmu_acpi_match[] = {
+ 	{"MRVL000A", (kernel_ulong_t)&cn10k_ddr_pmu_pdata },
+ 	{"MRVL000C", (kernel_ulong_t)&odyssey_ddr_pmu_pdata},
++	{"MRVL000B", (kernel_ulong_t)&cn20k_ddr_pmu_pdata},
+ 	{},
+ };
+ MODULE_DEVICE_TABLE(acpi, cn10k_ddr_pmu_acpi_match);
+-- 
+2.25.1
 
-static const struct reg_sequence rzv2h_init_seqs[] = {
-	{ .reg = 0xc10, .def = 0x67c },
-	{ .reg = 0xc14, .def = 0x1f },
-	{ .reg = 0x600, .def = 0x909 },
-};
-
-static const struct reg_sequence rzv2h_assert_seqs[] = {
-	{ .reg = 0xb04, .def = 0x303 },
-	{ .reg = 0x000, .def = 0x206 },
-};
-
-static const struct reg_sequence rzv2h_deassert_seqs[] = {
-	{ .reg = 0x000, .def = 0x200 },
-	{ .reg = 0xb04, .def = 0x003 },
-	{ .reg = 0x000, .def = 0x000 },
-};
-
-static const struct rzv2h_usb2phy_reset_of_data rzv2h_reset_of_data = {
-	.init_seqs = rzv2h_init_seqs,
-	.init_nseqs = ARRAY_SIZE(rzv2h_init_seqs),
-	.assert_seqs = rzv2h_assert_seqs,
-	.assert_nseqs = ARRAY_SIZE(rzv2h_assert_seqs),
-	.deassert_seqs = rzv2h_deassert_seqs,
-	.deassert_nseqs = ARRAY_SIZE(rzv2h_deassert_seqs),
-	.reset_reg = 0,
-	.reset_status_bits = BIT(2),
-};
-
-With that I can use:
-
-static int rzv2h_usbphy_reset_assert(struct reset_controller_dev *rcdev,
-				     unsigned long id)
-{
-	struct rzv2h_usb2phy_reset_priv *priv = rzv2h_usbphy_rcdev_to_priv(rcdev);
-	const struct rzv2h_usb2phy_reset_of_data *data = priv->data;
-	int ret;
-
-	ret = regmap_multi_reg_write(priv->regmap, data->assert_seqs,
-				     data->assert_nseqs);
-	if (ret)
-		return ret;
-
-	usleep_range(11, 20);
-
-	return 0;
-}
-
-static int rzv2h_usbphy_reset_deassert(struct reset_controller_dev *rcdev,
-				       unsigned long id)
-{
-	struct rzv2h_usb2phy_reset_priv *priv = rzv2h_usbphy_rcdev_to_priv(rcdev);
-
-	return regmap_multi_reg_write(priv->regmap, priv->data->deassert_seqs,
-				      priv->data->deassert_nseqs);
-}
-
-
-
-> 
-> >  	usleep_range(11, 20);
-> >  
-> > @@ -71,11 +68,9 @@ static int rzv2h_usbphy_reset_deassert(struct reset_controller_dev *rcdev,
-> >  	struct rzv2h_usb2phy_reset_priv *priv = rzv2h_usbphy_rcdev_to_priv(rcdev);
-> >  	const struct rzv2h_usb2phy_reset_of_data *data = priv->data;
-> >  
-> > -	scoped_guard(spinlock, &priv->lock) {
-> > -		writel(data->reset_deassert_val, priv->base + data->reset_reg);
-> > -		writel(data->reset2_release_val, priv->base + data->reset2_reg);
-> > -		writel(data->reset_release_val, priv->base + data->reset_reg);
-> > -	}
-> > +	regmap_write(priv->regmap, data->reset_reg, data->reset_deassert_val);
-> > +	regmap_write(priv->regmap, data->reset2_reg, data->reset2_release_val);
-> > +	regmap_write(priv->regmap, data->reset_reg, data->reset_release_val);
-> 
-> Same as above.
-
-	return regmap_multi_reg_write(priv->regmap, priv->data->deassert_seqs,
-                                      priv->data->deassert_nseqs);
-> 
-> [...]
-> 
-> > @@ -149,7 +153,7 @@ static int rzv2h_usb2phy_reset_probe(struct platform_device *pdev)
-> >  		return dev_err_probe(dev, error, "unable to register cleanup action\n");
-> >  
-> >  	for (unsigned int i = 0; i < data->init_val_count; i++)
-> > -		writel(data->init_vals[i].val, priv->base + data->init_vals[i].reg);
-> > +		regmap_write(priv->regmap, data->init_vals[i].reg, data->init_vals[i].val);
-> 
-> Not required for locking, but this could use regmap_multi_reg_write()
-> as well.
->
-
-And here we can use:
-
-	error = regmap_multi_reg_write(priv->regmap, data->init_seqs, data->init_nseqs);
-	if (error)
-		return dev_err_probe(dev, error, "failed to initialize PHY registers\n");
-
-Will send new version hope later today.
-Thanks again for the hint!
-
-Kind Regards,
-Tommaso
-
-
-> regards
-> Philipp
