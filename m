@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ABC237BE9A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9644F37B3FE;
 	Wed,  1 Apr 2026 20:40:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775076017; cv=none; b=JsjjZJRbZJ8EruZgz1mbRznxxscG+FJoMjWL7XKfVMtS5eNXGo7mKMEjxLjno8xfJSLQVaCLqeXQ+0shexO9aKiGQis3C0xFNtJLax6IA9CjAYfOEktxKiQwoKgYTupdsPS0G/AwmjG4BaQB++2G9AZ8oDb8GCyqVHCNyO2SZZ4=
+	t=1775076017; cv=none; b=P04PWYtgGGjNkAt4A3a0WFgoOUwoARWxtjTth8OfE8DG2CNVoKBu3lwXgCvg8VHrblCGKXSp+rADNCi1zUgJPlDdNZmojFB0SXuQZGxLm300TxDCbzKcC+ucvCu7U+lFOSLmYCnaqmAE6P9ytWp8URF3SnjLpV0t5RhUlRq8Vjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1775076017; c=relaxed/simple;
-	bh=jFxGbwEin6L02eSnQINsc7WtTy3pSmdJ1Ta0GfkUtV4=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Ofl0J5vNkd0wC+QtubGPdHtXttthfncQhpBDfe3kLzaRF3NWDTMqY3ebEJ3uEowCESt0B0cldF+4BPZ5IfsgT/gtlYMAST50obSIBtk+TvBD5eRT5Eo7EPcTg3WyfIJszG8jic9AlIOAwxk9qO8UkGJXhcy8mlq0luTpT5P7I1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nzEVyVBj; arc=none smtp.client-ip=10.30.226.201
+	bh=SukhKZ9+f2HwLYvQ8WbY2/mfioRlbGDMDXaymSuHNT4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=qsoHkxSAVDtTwPCCiH6OTYj6m9xZW14OFE/QLzPVymDFVLG4zS7g5WM3CA1Ua80R0h+h4ybu+RabGD+RTgEhYq/7DjiIfesxbI8eNMianD+yTMldmHylCmyCfCjdg4kt0FUw7F+dGH7tQ+ZUeytw1AZip32Bbf08kpfYTAjesG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U4D+sppb; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nzEVyVBj"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D31FFC4CEF7;
-	Wed,  1 Apr 2026 20:40:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U4D+sppb"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 30FA6C2BCB2;
+	Wed,  1 Apr 2026 20:40:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775076016;
-	bh=jFxGbwEin6L02eSnQINsc7WtTy3pSmdJ1Ta0GfkUtV4=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=nzEVyVBjrj/QNoQ5FRTpdexsUbTiDgABpbWn9mGY5qDe+5qvRW4zHh4qX88PEEeYb
-	 cAeNznocXGMQMqt9/vaba719T9x/ggxy7JUw2rRWaoOBJLMixLoYPcayU5c16yNM0J
-	 Y+u6oN8+UgjEvc/Egkp45/SjLjTdWNxAfGyc6r+9Iglo8k3zcRtgcAsy6+r9XUpzcb
-	 57rZwLuIBNPQ0cTc7HCMD/kGCTDCV7ONSXnXj8/8D0+GnCA3452HvAuxndDTHEfaul
-	 z5xCzf0tYwkFuJQwzWspJIJv5nlqxLx/NpXYMkUmicIoe+JXisW9oovBKAHNCa/jkr
-	 c2DJaFXlFVGjg==
+	s=k20201202; t=1775076017;
+	bh=SukhKZ9+f2HwLYvQ8WbY2/mfioRlbGDMDXaymSuHNT4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=U4D+sppbH+sNm56EgUYFDJKFQL6i1F3sybuQB588lY0/z0vYUzUZlePglgDXRZj+z
+	 JAI+bvjScM5fzZOnmW/bxio8dizdHaRfgVYB7uPU4SMPw8xm4lhnH86SlwIZGqhQsD
+	 zJrJbN8rBOsbqHk/9FVVsUJU+3EuwCCUwBAZwEjqgUhwV25XE6t0Me8Z/vTUel/Ztf
+	 2qb0AQj2pyAxL/8l8KDFdMiSdj3PSkO3Rw4o4FbTriayhF1HwawuIWtVrAJN6MZ2rc
+	 408qaB+vGfYDPM0e4v37q8RoBX001iWwd7jaPYq7SX8UlulHzWkSFSu2deAyl5as23
+	 wVCWP8cmH9+Kw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BBE2E10FCADA;
-	Wed,  1 Apr 2026 20:40:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2585F10FCADE;
+	Wed,  1 Apr 2026 20:40:17 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Subject: [PATCH v3 0/4] Add framebuffer on Xiaomi Poco F1 and disable the
- MDSS on tianma panel variant
-Date: Wed, 01 Apr 2026 22:40:13 +0200
-Message-Id: <20260401-beryllium-fb-v3-0-ec7d443402ab@ixit.cz>
+Date: Wed, 01 Apr 2026 22:40:17 +0200
+Subject: [PATCH v3 4/4] arm64: dts: qcom: sdm845-samsung-starqltechn:
+ Convert fb to use memory-region
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,11 +41,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAK2CzWkC/12Oyw6CMBBFf8V0bc20lYKu/A/jgraDTIJgWmxAw
- r9bcOFjeW5yTu7EAnrCwI6biXmMFKhrE6jthtm6bK/IySVmEqQGATk36MemoceNV4Y7hUVurAS
- DwJJy91jRsObOl8Q1hb7z41qPYlnfISXEbygKDnwPRZkV4ITM8EQD9Tv7ZEsmym/170OUSVXa6
- IOrTK7BftR5nl/kWwPv4QAAAA==
-X-Change-ID: 20260107-beryllium-fb-d3e87bc20be0
+Message-Id: <20260401-beryllium-fb-v3-4-ec7d443402ab@ixit.cz>
+References: <20260401-beryllium-fb-v3-0-ec7d443402ab@ixit.cz>
+In-Reply-To: <20260401-beryllium-fb-v3-0-ec7d443402ab@ixit.cz>
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -56,65 +54,65 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
  Petr Hodina <petr.hodina@protonmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1569; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1183; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=jFxGbwEin6L02eSnQINsc7WtTy3pSmdJ1Ta0GfkUtV4=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBpzYKuY2d9u8/IoyuOwReNEEB5Nlnmx96ewC13O
- MH/r+AiyNeJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCac2CrgAKCRBgAj/E00kg
- ctueD/9/QokHBZ0ePZfGMS4Jhy8sFM5bznYUnG3DazaR3l8nID++qEh3r+ZpfrEqizSByR8Dyoa
- OEmW9fo/KOdnRrw2j6hUgINeoVErKy5DNceIMuj1D2PraDu9KiCgcC7NTIkc3W/ndCnYPLOLkwo
- +lPzb9t6tccJswvBZ1JP3vizKJHkhkjNK5wl5chnewE/reWdw4gy2PzicPknzVhiYhBTF+2WT6L
- vyPPkGwPo/kkkTc4CJLL8JlR6/Vg08J/pMa8D+NNgr2xeIuAT13VSDIDJ9Huf/VOEprgRtLI10/
- V49a6bO1UpioHZIZctyM0LKh8+hmf8MqI/tAOsa1vyUWYt/7PkYYRc3Wito3XHWIGLfdDSr9JNM
- KZXJyBP3cMWCYHviePYkFWm8QejvFBEaEtf6ejOUxr8RBCZy8A3AdvAmgstzUVvGzhRmcGfOUzr
- LGAZlOE5fD9kh91OmlH7weLj3GJTkjsc3YsE4GXRtmT1KapdYvDhvlJQyJ1tw1+XlWuyEJGlHkV
- fc9DmapaDNW/XEZ3T4mP8Oz3Ol/5WzL9M+r0LCidObCnBXlvMsGsfba5W/vcHebyLZpb7irPqrk
- KLcN7/WCzjR3IgkuY9/ZYkmRUBNw8WVMqPVHlPz1BCsxgVgtG3INSUmCS0ixpNaEkUmAFgpwqvO
- Eo9BfpsoQWNqZAg==
+ bh=gN5kieASmpmvG+WEYJe1SGEYovf2d/d661pl9qIjP0k=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBpzYKvNtolsKMdRe+ofmju3FGMEBlacb1FH7vwM
+ xjeBQhho+uJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCac2CrwAKCRBgAj/E00kg
+ cqlZD/0VYN3MA1hQxNm+8ykNZljgC0t3axnfW3nBo1S8PCRI00XJ+lHXosoTdoD2Z6Hr86PQG8g
+ YFwX5q3rozOQPa2KQUKcH35VdCjgAzbJaKD6rMK9mmz4dG6ECFoNv/UmQCbxS7TWOE4OqDAnEfA
+ Tc117RAc8SKOIsaZywO7r3+agXQzbAAincNHaok27ft9uSLO3z97PuFG4JAIEvnjNna62vJUEZ0
+ tTZTV8ogbhl/MY9MMn/J1JnwhpAGVKu4Kwp4vgN/SrzVP2R0MdPxICcHfc5Sj6VCWfd4NegGEPH
+ +aJpgIeobsRrKRLqc2lCpg4TTK9dxESJIWpRHiC5cq1FQBvKf+g5MNwyjYX7+0jBHWNg1FrFmG+
+ dZmyPsZofjvtICKpghaNFKZwuAQv9NjHdEfEY/o7knuAXHNfvol6lbp4721pJ0V9B3FGVa4Y9VC
+ f+fJV3MA3SMNZ3CHvSggQKdo0bVJl/wAQQW6l+R/IBk8KAnISJWNN5mPR7OzngbTnmxbWeTTs0/
+ ZvpqJ0Dr8nEBeJQjswwK1TUn40DPdn1OndmzjrKFy2tqJynDb1fyULAvUYWKw8GBnw3Du5Vc6K2
+ u/V5codYBkzjqkHeBo6h8JBzOE51ajrJuyG9XuiJNwCL3tE+JoAkZQBUy3RQCKy6mWydMbhozwk
+ 8ySES7h75YJ8ECQ==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
 X-Original-From: David Heidelberg <david@ixit.cz>
 Reply-To: david@ixit.cz
 
-Enable framebuffer for early console output.
+From: David Heidelberg <david@ixit.cz>
 
-Due to broken panel driver on tianma and no visual output it's better
-to disable the MDSS so the framebuffer stays on. 
+Instead of manually specifying reg, reuse the memory region.
 
-In case second patch gets rejected, please apply the first one standalone
-
-Signed-off-by: Petr Hodina <petr.hodina@protonmail.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
-Changes in v3:
-- Strip label from framebuffer nodes where unused and remove -0 postfix. (Konrad)
-- Link to v2: https://lore.kernel.org/r/20260317-beryllium-fb-v2-0-36b69dfb760c@ixit.cz
+ arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-Changes in v2:
-- Added few conversion to use memory-region.
-- Corrected framebuffer node name. (Konrad)
-- Link to v1: https://lore.kernel.org/r/20260311-beryllium-fb-v1-0-408a580d125e@ixit.cz
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts b/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
+index 77f5872de6f19..0d915ecb0444f 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
+@@ -43,9 +43,10 @@ chosen {
+ 		#address-cells = <2>;
+ 		#size-cells = <2>;
+ 		ranges;
+-		framebuffer: framebuffer@9d400000 {
++
++		framebuffer {
+ 			compatible = "simple-framebuffer";
+-			reg = <0 0x9d400000 0 (2960 * 1440 * 4)>;//2400000
++			memory-region = <&framebuffer_mem>;
+ 			width = <1440>;
+ 			height = <2960>;
+ 			stride = <(1440 * 4)>;
+@@ -109,7 +110,7 @@ vreg_s4a_1p8: pm8998-smps4 {
+ 	};
+ 
+ 	reserved-memory {
+-		memory@9d400000 {
++		framebuffer_mem: memory@9d400000 {
+ 			reg = <0x0 0x9d400000 0x0 0x02400000>;
+ 			no-map;
+ 		};
 
----
-David Heidelberg (3):
-      arm64: dts: qcom: sdm845-oneplus: Drop address from framebuffer node
-      arm64: dts: qcom: sdm845-shift-axolotl: Convert fb to use memory-region
-      arm64: dts: qcom: sdm845-samsung-starqltechn: Convert fb to use memory-region
-
-Petr Hodina (1):
-      arm64: dts: qcom: sdm845-xiaomi-beryllium: Introduce framebuffer
-
- arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi      |  2 +-
- arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts  |  7 ++++---
- arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts        |  8 ++++----
- .../boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi    | 16 ++++++++++++++++
- 4 files changed, 25 insertions(+), 8 deletions(-)
----
-base-commit: bd0f139e5fc11182777b81cefc3893ea508544ec
-change-id: 20260107-beryllium-fb-d3e87bc20be0
-
-Best regards,
 -- 
-David Heidelberg <david@ixit.cz>
+2.53.0
 
 
