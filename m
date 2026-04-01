@@ -1,98 +1,131 @@
-Received: from gate2.alliedtelesis.co.nz (gate2.alliedtelesis.co.nz [202.36.163.20])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B13E2C21F2
-	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 19:42:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.36.163.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADBC33630A0;
+	Wed,  1 Apr 2026 20:32:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775072563; cv=none; b=gH0tG0GHr782lqvlNR07w9TnXZba6Cxeax3Xw0/CkQTqvG5oRY86hFJEF1Mpc+B/qBEtaswz/H8zHqZogTOmMFQvV6zeDMpq8ol4KzqXypwN4dmoY9VBMSFKKJS41pxJR901QuRS/99igFURwFmHF8O+RadXXSZy6oLCeLZlv9g=
+	t=1775075534; cv=none; b=O1c7T7Y1o6OTWV0M8HNqCmhubz62VzvMIAWaemNNhJ095/7cCKb5WSVGScLfrTHfnvSQJ/gI8pB/05YMzetddOT4xMfvaeHOfmK9j+9IciqQDzFMtYlWRWYH6xz3q+0to7kklO/rlN+miIHtx/baNKTuRZueOnhrFEmBoLpI7Q4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775072563; c=relaxed/simple;
-	bh=P7Rfdd3v65WAEECYwDtuZ0ZFYZOyNOp2eobTrOVzuk8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Fd0ZVwIeblmWdC/HzU8uDJs4VKFJUisr/iqhOQAlF7UigjLveHXyZD1Ukm37fFlsz4aj0B7lubpD7n7Ggwr8r3S0E5U0updH20xsRiLdz3Ewq0tzGFmE6suWLwlzQm+iLiQIl6dSGy7Y9CIBuYXlMjk5idwSKi43/mZW7CeTk74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz; spf=pass smtp.mailfrom=alliedtelesis.co.nz; dkim=pass (2048-bit key) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.b=tAPkkXB0; arc=none smtp.client-ip=202.36.163.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alliedtelesis.co.nz
+	s=arc-20240116; t=1775075534; c=relaxed/simple;
+	bh=BhjX4uyPeeaD1j4TK8oIjoR7bWrbTgvxC9nfYp2K4Vg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=AdKbKzSupLac8qHSEsxKaHkO0sQq78ppkJxFNEk2pmswJZ8mQdG22imLtkTI02E/HBoaZhCmNeFJHlrVASVejpjBKKiwjR9D6Zei79zBBnp5jmJZ0yqOU7g86eu3H2K2PgPJoAaDKVyDKYctXqO8FnNEY8Lp7M4fc6lZ8DnKIaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Eka3qcdb; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.b="tAPkkXB0"
-Received: from svr-chch-seg1.atlnz.lc (mmarshal3.atlnz.lc [10.32.18.43])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by gate2.alliedtelesis.co.nz (Postfix) with ESMTPS id EAF2D2C04EA;
-	Thu,  2 Apr 2026 08:42:37 +1300 (NZDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alliedtelesis.co.nz;
-	s=mail181024; t=1775072557;
-	bh=cUDm2OR8S8mFGHV98b1HoEngmd4f/lQ8mlBFT/AfBWE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=tAPkkXB0KHg8v8sowFHA8fSKXCSK3OYTsS1MjiAmif/Dk3g8w+uwr1pYsJHhn4VdS
-	 jBTZUrRAcwEOBU3xtwPvYa80tE/M9AYJMUK22xCKxVDhhfID4F+H4FD+3pI+Vi6FVF
-	 1WxRHSrG9NE4/aDS9x72tffR80Z0lK1qrkYrq/rrZhsBrLJhecS/oOEHCqooxkF3YO
-	 I/PN/tj7QeGrx83TAMGdeH7/J8Fr0d636qvsBOTWzUA2SFHCTDlchEQVzXmG4ba0iu
-	 xOt3h5RR92Dr+OZhZw65vyGq9OVTBJTPkv6BIG10/zJH92khsIF/DTCsWBv4ZYmUn6
-	 LhdbQbY30LjSQ==
-Received: from pat.atlnz.lc (Not Verified[10.32.16.33]) by svr-chch-seg1.atlnz.lc with Trustwave SEG (v8,2,6,11305)
-	id <B69cd752d0001>; Thu, 02 Apr 2026 08:42:37 +1300
-Received: from chrisp-dl.ws.atlnz.lc (chrisp-dl.ws.atlnz.lc [10.33.22.12])
-	by pat.atlnz.lc (Postfix) with ESMTP id 24C3F13EE52;
-	Thu,  2 Apr 2026 08:42:37 +1300 (NZDT)
-Received: by chrisp-dl.ws.atlnz.lc (Postfix, from userid 1030)
-	id 217B42804D2; Thu,  2 Apr 2026 08:42:37 +1300 (NZDT)
-From: Chris Packham <chris.packham@alliedtelesis.co.nz>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux@roeck-us.net
-Cc: devicetree@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chris Packham <chris.packham@alliedtelesis.co.nz>
-Subject: [PATCH v3 1/2] dt-bindings: trivial-devices: Add sony,aps-379
-Date: Thu,  2 Apr 2026 08:42:32 +1300
-Message-ID: <20260401194235.2149796-2-chris.packham@alliedtelesis.co.nz>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260401194235.2149796-1-chris.packham@alliedtelesis.co.nz>
-References: <20260401194235.2149796-1-chris.packham@alliedtelesis.co.nz>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Eka3qcdb"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 82DECC2BCB0;
+	Wed,  1 Apr 2026 20:32:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775075534;
+	bh=BhjX4uyPeeaD1j4TK8oIjoR7bWrbTgvxC9nfYp2K4Vg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=Eka3qcdb8FG65mc9WEbe5t3yzmFAeFeHkgtFA40EDeyGdgTpET5F1GwUxXlNes7Ge
+	 LnTrcUoY887Qwv6V8cE++9xUvUBPHX6L9v0sthjvW1d/qDcPIdn6LRqk8+kXgs7cmi
+	 RruQJJ9GSWfTS4nmbPZWo8RbcNJDDR9WV/xjht5SsWuf2aBhhdd3WSGcPxgyNtNc5f
+	 WLshZf8Q236TZnY8Swc330tq/47SndZkm2x3uc5DdtMd45c3zDU5aPwnExMnQBZAcx
+	 NapSNBhDnPGKVdVRNA7E5nVyzIWQr+VVhGKYChlD3JQ7SuFm00EDxMXjsbpmTxQm82
+	 9GJInnRwYefzg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7AB0910FCAD5;
+	Wed,  1 Apr 2026 20:32:14 +0000 (UTC)
+From: Rudraksha Gupta via B4 Relay <devnull+guptarud.gmail.com@kernel.org>
+Date: Wed, 01 Apr 2026 13:32:15 -0700
+Subject: [PATCH v3 3/4] ARM: dts: qcom: msm8960: Add GSBI5 I2C controller
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-SEG-SpamProfiler-Analysis: v=2.4 cv=EcprQ+mC c=1 sm=1 tr=0 ts=69cd752d a=KLBiSEs5mFS1a/PbTCJxuA==:117 a=A5OVakUREuEA:10 a=EUspDBNiAAAA:8 a=CbD2gyqqR853AcFyMGIA:9 a=3ZKOabzyN94A:10
-X-SEG-SpamProfiler-Score: 0
-x-atlnz-ls: pat
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260401-expressatt_fuel_guage-v3-3-9674cfc0b5a2@gmail.com>
+References: <20260401-expressatt_fuel_guage-v3-0-9674cfc0b5a2@gmail.com>
+In-Reply-To: <20260401-expressatt_fuel_guage-v3-0-9674cfc0b5a2@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Rudraksha Gupta <guptarud@gmail.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1775075533; l=1769;
+ i=guptarud@gmail.com; s=20240916; h=from:subject:message-id;
+ bh=Gq2ZOsf1+PUrTIP7d32BgUfFC8VGna7SqX4ihp3Y+5c=;
+ b=ENAUCLk3ske828CQibam5xXcn88ce3y2WOGib9+IkR+TeTg5FynzSB1m0mSPdAJDPaWv2aL/l
+ qW1GKHys8LmCJOKqlekazU+8tExTTLH4/LHEU0fmp2odLLL26dMCfpa
+X-Developer-Key: i=guptarud@gmail.com; a=ed25519;
+ pk=ETrudRugWAtOpr0OhRiheQ1lXM4Kk4KGFnBySlKDi2I=
+X-Endpoint-Received: by B4 Relay for guptarud@gmail.com/20240916 with
+ auth_id=211
+X-Original-From: Rudraksha Gupta <guptarud@gmail.com>
+Reply-To: guptarud@gmail.com
 
-Add the compatible string for the sony,aps-379. This is a simple PMBus
-(I2C) device that requires no additional attributes.
+From: Rudraksha Gupta <guptarud@gmail.com>
 
-Signed-off-by: Chris Packham <chris.packham@alliedtelesis.co.nz>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Add the I2C controller node for GSBI5 (gpio24/gpio25) alongside
+its pinctrl default and sleep states.
+
+Assisted-by: Claude:claude-opus-4.6
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Rudraksha Gupta <guptarud@gmail.com>
 ---
+ arch/arm/boot/dts/qcom/qcom-msm8960.dtsi | 31 +++++++++++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
 
-Notes:
-    Changes in v3:
-    - Collect Ack from Krysztof
+diff --git a/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi b/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi
+index 6069fb925672..a427f0f41cd1 100644
+--- a/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi
++++ b/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi
+@@ -173,6 +173,20 @@ i2c3_sleep_state: i2c3-sleep-state {
+ 				bias-bus-hold;
+ 			};
+ 
++			i2c5_default_state: i2c5-default-state {
++				pins = "gpio24", "gpio25";
++				function = "gsbi5";
++				drive-strength = <8>;
++				bias-disable;
++			};
++
++			i2c5_sleep_state: i2c5-sleep-state {
++				pins = "gpio24", "gpio25";
++				function = "gpio";
++				drive-strength = <2>;
++				bias-bus-hold;
++			};
++
+ 			i2c7_default_state: i2c7-default-state {
+ 				pins = "gpio32", "gpio33";
+ 				function = "gsbi7";
+@@ -636,6 +650,23 @@ gsbi5_serial: serial@16440000 {
+ 
+ 				status = "disabled";
+ 			};
++
++			gsbi5_i2c: i2c@16480000 {
++				compatible = "qcom,i2c-qup-v1.1.1";
++				reg = <0x16480000 0x1000>;
++				pinctrl-0 = <&i2c5_default_state>;
++				pinctrl-1 = <&i2c5_sleep_state>;
++				pinctrl-names = "default", "sleep";
++				interrupts = <GIC_SPI 155 IRQ_TYPE_LEVEL_HIGH>;
++				clocks = <&gcc GSBI5_QUP_CLK>,
++					 <&gcc GSBI5_H_CLK>;
++				clock-names = "core",
++					      "iface";
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				status = "disabled";
++			};
+ 		};
+ 
+ 		gsbi7: gsbi@16600000 {
 
- Documentation/devicetree/bindings/trivial-devices.yaml | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Doc=
-umentation/devicetree/bindings/trivial-devices.yaml
-index a482aeadcd44..0a559beff878 100644
---- a/Documentation/devicetree/bindings/trivial-devices.yaml
-+++ b/Documentation/devicetree/bindings/trivial-devices.yaml
-@@ -430,6 +430,8 @@ properties:
-           - smsc,emc6d103s
-             # Socionext Uniphier SMP control registers
-           - socionext,uniphier-smpctrl
-+            # Sony APS-379 Power Supply
-+          - sony,aps-379
-             # SparkFun Qwiic Joystick (COM-15168) with i2c interface
-           - sparkfun,qwiic-joystick
-             # STMicroelectronics Hot-swap controller stef48h28
---=20
+-- 
 2.53.0
+
 
