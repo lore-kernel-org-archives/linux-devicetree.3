@@ -1,200 +1,261 @@
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD4B83ACEF1
-	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 14:50:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78E812D6E64;
+	Wed,  1 Apr 2026 14:56:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775055014; cv=none; b=NaWQ+m3AV3Cxn+lYu2dqGH3jp4Bf5FSnHpVnRwUD6m0cibEPL3nsGgkxLaTCMqSqjtMsgqqUkCS5x8kKYAoU0/JuXeKUat1GY6hsD1SUB8Dkix35W1VzSVR1kj/KToDM0SXSRSzUThpfXWIDnntZv0jevsGIOrUbEv27pjQDR0A=
+	t=1775055386; cv=none; b=QBvdXcGjGBSTMNh17MajnIME275yq/qODFjmACF7Ks0pSSFQky7SyVDTtFMXmDfl62Ms7AbcVVCEOZFvy0uQPcmlm93WwUP7l/NsqEb+DfDx+Mc6aymcZfMBJZ7TjDhmgMhWu18HU2K7Dv7d5FLwD2G5Qt7Dfsmj6ydfkRhrQXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775055014; c=relaxed/simple;
-	bh=HyPefaPN9C+LsoX1kV04qKd4yLFbTg3iu9tvgw1X/n8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iPj9HzeRRhlA88F223ilg8F6ebFph4IOrAa7AiUWR+pfxsm5VBEeKD8ogecNw6s9a3Hs9yW8ucHR5I7yz0SSuW9pwCniZGxwctwy8cUkzaEotyJspDAGtc4n2ktxvIHOgWYRRDLMwQ50juRagfbRItl57D1/DAXPcLtrm1vgVpY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gVIw037C; arc=none smtp.client-ip=74.125.82.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1775055386; c=relaxed/simple;
+	bh=Na6QdVzB5X2Njts1Jk0JMdNAgFhIRwHXWM8X6NO+KEg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZyX1wEUTBpAyHYeLRvMgg8cWIGetYpRJgX0C4h9lTT4frmUeNAhnywwzvO+bfWQq1u17CKI4EAi7cDVUl9TqHjkFTmA6pQ4E4p9KrsrW4HebQDaDWynqFo8RKhBo2w9t4lEX3DIEg1w9wTFAKRcKBXoSQ+9NIVyI+gYhN4XV+eY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MwQztQN0; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gVIw037C"
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-2bd9a485bd6so13730695eec.1
-        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 07:50:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775055008; x=1775659808; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=adTovVGQXWP2DRbhzwnz90rChnI+nzeVyP76C0UUFdA=;
-        b=gVIw037CWAeMiuJgPyz6XEljtnG5Y6nvkTkZdjj3HYaybBTd4wOmS3Scem1e0AvluJ
-         HhN//KJcP9UQZrxTRg48gT1wEUtfgtln/y0zkjX2CAbWhVYsPe0p/FOgX7wTBD6YzfBg
-         FeMoe4sjIb5qabHDBeTCNWQic4NhtmBAXTDcsrfdIBN6w9WvReYhebCvqV2ECPJTCHRL
-         J8lTUhKBCZOJBuutOTT9GboPTMeR5FUcCdLU/xovwGG32/xuK7gycZuAx1qGj76BDfYB
-         Vjm9nH5fi6CQJo0QUNA14xz56uQluUAm0fkEyb9vc2n8bymatv/dcTILvy5f3akwB+4q
-         aTUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775055008; x=1775659808;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=adTovVGQXWP2DRbhzwnz90rChnI+nzeVyP76C0UUFdA=;
-        b=XKH3PcR1yK6QJ9sQCx8n96kO6Vggqh7Zsq9PrVk5AajYsT4oqyx5oFOBDZv6Sc30m6
-         wMurwVU5GTSfFFXezQtCghS2mWZ2QcBcLJGUtvTJa00q/7yoHMUe/9QdI57lKQMZ2w7e
-         mFNIdLEjH5oaEAkTzWO0CO20EP8YI01cdvxz+7NBJp+wDln7rrK6EZ2gDk394qjgSACO
-         GdQqKOCLkTsuyeZaBEuMGJp7S3CMEWpSzKqWePTxrt3Bqf+NCg5WO9kaKN8h5nI7ts+9
-         N6mG8slVHOmZ1trEVBChsmsa0AVmNAwZvbcI+AYpQHq9r2UZSzhQzCyiFZo79UOAHVMV
-         CyIA==
-X-Forwarded-Encrypted: i=1; AJvYcCVnp7YiZT4f/9X4s4XaE6j5gJ+16iDOQ5H0kHV8asG+tb7xMZ67gYQ0je+6fRU5jJXTy8GHMmoi9FQj@vger.kernel.org
-X-Gm-Message-State: AOJu0YxrlsWjtx4HsMmLErX7AgEerQlfxjPu6fuNBUAbKFV0bKH7MNSH
-	HsD9VeT9VUibpU/hX0j3UyOLNf+ls5fxWx0sVpwirn+D4PG1Q0X4mCG0pZc/Cw==
-X-Gm-Gg: ATEYQzwvybWkM943ecHyc/Qhm9x+LZyujMyYhZJx3p3GR7ophjBWs5oXT8Xk+qWVQcH
-	k45dTH2yZQV37P6bVJ0wIxjKaz8P5/eive+UKaWRk9aaZLrowvNTuz/uwZ3sLoxQllo+2E8ZdEE
-	S1RwhgR0d78X3wq2o4NtWSN0o1kf97dZms4nPj9jmdF/M+xonghoHvbojoFekUtGGAZMRvW3bxv
-	bHkgj6kwlL7RDV8rBlXbWkz/KoFvJ0QibNJpJDy4tcJQr9WLkub6OnaJMZ/a7QVGOaT6LQGNeOV
-	M6YFGusDu+52nOurUUeTllzr1lvXqFDVpscbAhDvG/w0AlycRgLaq4r/4O0REGRXhW9Rud/BBXD
-	y8nDloklxZyoiE992PhArUvKx7ImM5EkO+BEknC59t3hpNLIOMrkSMUnbe7SxPUPZVqJUDu9k+S
-	5pQXOMv+kHQW2Nsb2ddbOe+Ljmoc7SaqJ5wPoXi6JYsD94zWVnKiTzuUg/R0aOPRlTaW9xJhJS
-X-Received: by 2002:a05:7300:2213:b0:2c0:becb:7640 with SMTP id 5a478bee46e88-2c931276dd6mr2288123eec.12.1775055008283;
-        Wed, 01 Apr 2026 07:50:08 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2c3c68b272esm12622956eec.15.2026.04.01.07.50.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 01 Apr 2026 07:50:07 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <9ee56bb2-6f46-49de-bf01-b687bc32393e@roeck-us.net>
-Date: Wed, 1 Apr 2026 07:50:06 -0700
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MwQztQN0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1775055384; x=1806591384;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Na6QdVzB5X2Njts1Jk0JMdNAgFhIRwHXWM8X6NO+KEg=;
+  b=MwQztQN04hfs5ff9Wl0VFRriFldhqv7+J1Otv5u1yikc5aoyiw5/AS4X
+   KY+5qr0NU0jdmP0lfXqv2NbtmUbG7KZKk4G8NZHkMZpbR3QzjieJWUX+Y
+   0Fm4Ca6C3JCnPWtPgI6sz8SEX+4Xiy1vs1BVYyjCearFzLh5iBRhjXWkp
+   Ft2EOCe6l2x5XRx4KaZ9Qs4V9ReNguXyZujGD60ak330tY/K9c36x4aJb
+   JWpyMPVmA1Foj6sPhyMYOShsEIWZ0tar1mNp60g4ZIhXMttmMo2wg4Fda
+   B77MfQvHUNMEQ0pMCjD0z171QJl8B0b18TetjrSPebuwlQbtDdgCsI6Uv
+   w==;
+X-CSE-ConnectionGUID: 45DUvV8GQJanttY+OQM6rg==
+X-CSE-MsgGUID: knTddtNhQ46xpeHxoV3bDg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11745"; a="87554721"
+X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; 
+   d="scan'208";a="87554721"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Apr 2026 07:56:24 -0700
+X-CSE-ConnectionGUID: yLmvNsUbT6ubf/xvDNtHvw==
+X-CSE-MsgGUID: ZRnN5pVnQGavXQ8dqJC13A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; 
+   d="scan'208";a="228315258"
+Received: from abityuts-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.215])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Apr 2026 07:56:20 -0700
+Date: Wed, 1 Apr 2026 17:56:17 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] iio: dac: ad5706r: Add support for AD5706R DAC
+Message-ID: <ac0yEfGzqsbkZh86@ashevche-desk.local>
+References: <20260401-dev_ad5706r-v4-0-a785184a8d53@analog.com>
+ <20260401-dev_ad5706r-v4-2-a785184a8d53@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/2] Add support for Texas Instruments INA4230 power
- monitor
-To: Rob Herring <robh@kernel.org>, Alexey Charkov <alchark@flipper.net>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260330-ina4230-v5-0-eeb322d95b3a@flipper.net>
- <67a5d1c1-a9c5-47fb-a0ec-5b69a991b01e@roeck-us.net>
- <20260331155246.GA1299761-robh@kernel.org>
- <20872ef8-f68c-4916-a05f-404fd49fff00@roeck-us.net>
- <CAKTNdwGcXcE25QiBTrZO6akMad+Lny5iPvAAAmUt6x2Hyzu5wg@mail.gmail.com>
- <CAL_JsqJcqMM1LK1dEFvjRWdOc8g=7+G4VvF-jmzbSJ1ijBB=1A@mail.gmail.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <CAL_JsqJcqMM1LK1dEFvjRWdOc8g=7+G4VvF-jmzbSJ1ijBB=1A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260401-dev_ad5706r-v4-2-a785184a8d53@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 4/1/26 07:03, Rob Herring wrote:
-> On Tue, Mar 31, 2026 at 11:46 AM Alexey Charkov <alchark@flipper.net> wrote:
->>
->> On Tue, Mar 31, 2026 at 8:10 PM Guenter Roeck <linux@roeck-us.net> wrote:
->>>
->>> On 3/31/26 08:52, Rob Herring wrote:
->>>> On Mon, Mar 30, 2026 at 09:07:32AM -0700, Guenter Roeck wrote:
->>>>> On 3/30/26 08:14, Alexey Charkov wrote:
->>>>>> TI INA4230 is a 4-channel power monitor with I2C interface, similar in
->>>>>> operation to INA3221 (3-channel) and INA219 (single-channel) but with
->>>>>> a different register layout, different alerting mechanism and slightly
->>>>>> different support for directly reading calculated current/power/energy
->>>>>> values (pre-multiplied by the device itself and needing only to be scaled
->>>>>> by the driver depending on its selected LSB unit values).
->>>>>>
->>>>>> In this initial implementation, the driver supports reading voltage,
->>>>>> current, power and energy values, but does not yet support alerts, which
->>>>>> can be added separately if needed. Also the overflows during hardware
->>>>>> calculations are not yet handled, nor is the support for the device's
->>>>>> internal 32-bit energy counter reset.
->>>>>>
->>>>>> An example device tree using this binding and driver is available at [1]
->>>>>> (not currently upstreamed, as the device in question is in engineering
->>>>>> phase and not yet publicly available)
->>>>>>
->>>>>> [1] https://github.com/flipperdevices/flipper-linux-kernel/blob/flipper-devel/arch/arm64/boot/dts/rockchip/rk3576-flipper-one-rev-f0b0c1.dts
->>>>>>
->>>>>> Signed-off-by: Alexey Charkov <alchark@flipper.net>
->>>>>> ---
->>>>>> Changes in v5:
->>>>>> - Reworded per-channel subnodes description in the binding for clarity (Sashiko)
->>>>>> - NB: Sashiko's suggestion to allow interrupts in the binding sounds premature,
->>>>>>      as the alerts mechanism is not implemented yet and there are no known users
->>>>>>      to test it. If anyone has hardware with the alert pins wired to an interrupt
->>>>>>      line - please shout and we can test/extend it together
->>>>>
->>>>> The bindings are supposed to be complete, even if not implemented, so I am not sure
->>>>> if the DT maintainers will agree here. We'll see.
->>>>
->>>> Given ti,alert-polarity-active-high is added seems like the interrupt
->>>> should be too. And the interrupt can specify the polarity, so is that
->>>> property really needed? There's alway the possibility that you have some
->>>> inverter on the board too and the interrupt polarity is not enough, but
->>>> solve that problem when it actually exists.
->>>>
->>>
->>> The alert pin can be attached to a board interrupt, or (more likely) it can
->>> be attached to the I2C controller's alert pin. In the latter case there is
->>> no interrupt property.
->>
->> Alright, I will add the interrupt property and keep the dedicated flag
->> for alert polarity.
->>
->> Following the logic of binding completeness, should I add a flag for
->> the single-shot mode too, even though I dropped that functionality
->> from the driver in one of the prior iterations?
+On Wed, Apr 01, 2026 at 06:20:04PM +0800, Alexis Czezar Torreno wrote:
+> Add support for the Analog Devices AD5706R, a 4-channel 16-bit
+> current output digital-to-analog converter with SPI interface.
 > 
-> I don't remember what that was exactly, but that sounds like a user
-> selection which would be some sysfs or other runtime control rather
-> than in DT. Unless the h/w design dictates what mode should be used.
-> 
+> Features:
+>   - 4 independent DAC channels
+>   - Hardware and software LDAC trigger
+>   - Configurable output range
+>   - PWM-based LDAC control
+>   - Dither and toggle modes
+>   - Dynamically configurable SPI speed
 
-I agree. I can not imagine that to be a hardware design constraint.
+...
 
-Thanks,
-Guenter
+> ---
+> Changes since v1:
+>   - Removed PWM, GPIO, clock generator, debugfs, regmap, IIO_BUFFER
+>   - Removed all custom ext_info sysfs attributes
+>   - Simplified to basic raw read/write and read-only scale
+>   - SPI read/write can handle multibyte registers
+> ---
+
+A bit confusing to have this changelog w/o having v3..v4 ones.
+
+...
+
+> +config AD5706R
+> +	tristate "Analog Devices AD5706R DAC driver"
+> +	depends on SPI
+
+Shouldn't you select REGMAP?
+
+> +	help
+> +	  Say yes here to build support for Analog Devices AD5706R 4-channel,
+> +	  16-bit current output DAC.
+> +
+> +	  To compile this driver as a module, choose M here: the
+> +	  module will be called ad5706r.
+
+...
+
+> +#include <linux/array_size.h>
+> +#include <linux/bits.h>
+
+> +#include <linux/device.h>
+
+Not used, but dev_printk.h is missing.
+
+> +#include <linux/dma-mapping.h>
+> +#include <linux/err.h>
+
+> +#include <linux/errno.h>
+
+No need (in most cases) when err.h is included.
+
+> +#include <linux/iio/iio.h>
+> +#include <linux/minmax.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/regmap.h>
+> +#include <linux/spi/spi.h>
+> +#include <linux/string.h>
+> +#include <linux/types.h>
+> +#include <linux/unaligned.h>
+
+Based on the above comments, please revisit the header block.
+
+...
+
+> +struct ad5706r_state {
+> +	struct spi_device *spi;
+> +	struct regmap *regmap;
+> +
+> +	u8 tx_buf[4] __aligned(ARCH_DMA_MINALIGN);
+
+Don't we have specific IIO macro for that?
+
+> +	u8 rx_buf[4];
+> +};
+
+...
+
+> +static int ad5706r_regmap_write(void *context, const void *data, size_t count)
+> +{
+> +	struct ad5706r_state *st = context;
+> +	unsigned int num_bytes;
+
+Currently only 1 and 2 bytes are supported, right? Any updates are planned on
+this in the future?
+
+> +	u16 reg;
+> +
+> +	reg = get_unaligned_be16(data);
+> +	num_bytes = ad5706r_reg_len(reg);
+> +
+> +	struct spi_transfer xfer = {
+> +		.tx_buf = st->tx_buf,
+> +		.len = num_bytes + 2,
+> +	};
+> +
+> +	memcpy(st->tx_buf, data, count);
+> +
+> +	/* For single byte, copy the data to the correct position */
+> +	if (num_bytes == AD5706R_SINGLE_BYTE_LEN)
+> +		st->tx_buf[2] = st->tx_buf[3];
+> +
+> +	return spi_sync_transfer(st->spi, &xfer, 1);
+> +}
+> +
+> +static int ad5706r_regmap_read(void *context, const void *reg_buf,
+> +			       size_t reg_size, void *val_buf, size_t val_size)
+> +{
+> +	struct ad5706r_state *st = context;
+> +	unsigned int num_bytes;
+> +	u16 reg, cmd;
+> +	int ret;
+> +
+> +	reg = get_unaligned_be16(reg_buf);
+> +	num_bytes = ad5706r_reg_len(reg);
+> +
+> +	/* Full duplex, device responds immediately after command */
+> +	struct spi_transfer xfer = {
+> +		.tx_buf = st->tx_buf,
+> +		.rx_buf = st->rx_buf,
+> +		.len = 2 + num_bytes,
+> +	};
+> +
+> +	cmd = AD5706R_RD_MASK | (reg & AD5706R_ADDR_MASK);
+> +	put_unaligned_be16(cmd, st->tx_buf);
+
+> +	memset(st->tx_buf + 2, 0, num_bytes);
+
+I would use &st->tx_buf[2] here and below for the sake of consistency with
+put_unaligned_*().
+
+> +	ret = spi_sync_transfer(st->spi, &xfer, 1);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Ignore the first two bytes (echo during command) */
+> +	if (num_bytes == AD5706R_SINGLE_BYTE_LEN)
+> +		put_unaligned_be16(st->rx_buf[2], val_buf);
+
+The comment wants to explain why it's required to put 2 bytes anyway.
+
+> +	else
+> +		memcpy(val_buf, st->rx_buf + 2, num_bytes);
+
+However with the above question in mind, if it's all about 1 or 2 bytes, can't
+we simply use the same approach everywhere, like put_unaligned_*()?
+
+> +	return 0;
+> +}
+
+...
+
+> +static int ad5706r_read_raw(struct iio_dev *indio_dev,
+> +			    struct iio_chan_spec const *chan, int *val,
+> +			    int *val2, long mask)
+
+Better to use logical split (here and elsewhere where appropriate)
+
+static int ad5706r_read_raw(struct iio_dev *indio_dev,
+			    struct iio_chan_spec const *chan,
+			    int *val, int *val2, long mask)
+
+...
+
+> +	st->regmap = devm_regmap_init(&spi->dev, &ad5706r_regmap_bus,
+> +				      st, &ad5706r_regmap_config);
+
+Use
+
+	struct device *dev = &spi->dev;
+
+at the top of the function to make this look better.
+
+> +	if (IS_ERR(st->regmap))
+> +		return dev_err_probe(&spi->dev, PTR_ERR(st->regmap),
+> +				     "Failed to init regmap");
+
+Missing \n.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
