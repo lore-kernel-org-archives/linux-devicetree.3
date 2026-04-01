@@ -1,33 +1,33 @@
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40964406267;
-	Wed,  1 Apr 2026 11:53:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 385323A900B;
+	Wed,  1 Apr 2026 11:56:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775044394; cv=none; b=JpgjvWbQRJlTXb+5acG+VdpT5nI5SgLwAKhO6/YL0DfJRde+1LPytrhjBIJsFLrGoRmKHIcjGJLe9Ioi/NwLte1ORZeC1zVvXq6uwfYeT5RXJrqc/0b6k3H1qfbZY6R55GyGkkIDSxNZ6fIyZySpmvqSBFsBdDBC/doTCJAxVBQ=
+	t=1775044583; cv=none; b=enj1CCo5LXyAZ4Opt9L63ltBQflwZgFkt4TvC0vHVdVUJBoyyze/cPfapaHBLCQHJx7d7J89akI3OKymgVItyz0j4QdX+CUuvtDSKe41ASGkoNf60wAkrVDFdakeFUeluLcGJ40mkGSwFVhiE2/Vze49iRaDfmFQEpWFKPuB8j8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775044394; c=relaxed/simple;
-	bh=QYeDVOAMxKiaAj6I3lXFfcAlkJxqGZNnnvu4Q6VtSOU=;
+	s=arc-20240116; t=1775044583; c=relaxed/simple;
+	bh=j9Y5lagW9c6E0tLKDJu771yI3Xx/hWwk2CFYViM03sA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FfihrGv6LNKzGFgCpbhmVu8Qr8En1i1l3Bz361FeBXUcznAgpbNRzQC+P/NWh6JQtni8M2uwalvHbsAt4YQdnapfeN1f41gONZRlSd/VGU4cKOk49UZsr2yYhe+D7ycQHUSxUTiSrWTO3z349aigYkvcyNnmNcnl3us0HWeGA8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=f2c71K2W; arc=none smtp.client-ip=156.67.10.101
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZyIh+x1/FG8MAXM+jB35pzZq9FaEiFKakfNM7Va/Vlgdx33xcU6v1QbKL+XO8kkx16222Ls8M+LyPRW6LTR28Lh8Wr0KtgGn6OQD4HlGkUe2ggwKNcXoLx1xwEORku6E+mcwnL8KD1VF8z7+9vetu3SyXq7xMpLt8uD522gpPbY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=P4ewEt+B; arc=none smtp.client-ip=156.67.10.101
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="f2c71K2W"
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="P4ewEt+B"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
 	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
 	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
 	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=rdzbCT4MvQu2UJrbXTBr/kQGOfZEL/wlR5Wrm8JW9Zc=; b=f2c71K2W8jkpY+jkLY+hls0LiW
-	pf11a6nSF1WZDYF7YjZJfkQc1G7xDd8yhU/nM3iQsidCuqi43Dwn+udHP2Z7ILLjfh8e/hopSisqx
-	xhcVRYCxs06whhqqA+zk5SdiNyYmjYND3iW+5dFjBgyFMixWZ8X2NZPx9BxtfY3/oPUI=;
+	bh=+D4hABqFUbRdNjSEQsn4jZKGmlNzjCBJR8Je8rUoK/s=; b=P4ewEt+B/LuJEBDQdIFgnvUp5Y
+	mCzEP9fzaPhVq0sBxjX70mUg02178W/mtNVjmKakPfdjvyiTUaAayYy9tzFXldc+Znodf6maAK4U2
+	Zf2sHpvKSJE5UqqE5rW5r9tsF/aTMOVHq5RS9t2jqDLKkfxgEEdwbdLyxXpmEo6HbgPw=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
 	(envelope-from <andrew@lunn.ch>)
-	id 1w7u7o-00ELSY-WA; Wed, 01 Apr 2026 13:52:45 +0200
-Date: Wed, 1 Apr 2026 13:52:44 +0200
+	id 1w7uB3-00ELUx-GG; Wed, 01 Apr 2026 13:56:05 +0200
+Date: Wed, 1 Apr 2026 13:56:05 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: dennis@ausil.us
 Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -45,11 +45,11 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Jimmy Hon <honyuenkwun@gmail.com>, devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/3] arm64: dts: rockchip: refactor items from Orange
- Pi 5/b to prep for Pro
-Message-ID: <b733883d-e515-4946-a81f-d1a595985e01@lunn.ch>
+Subject: Re: [PATCH v5 3/3] arm64: dts: rockchip: Add Orange Pi 5 Pro board
+ support
+Message-ID: <7c4791e9-6621-4afb-a166-55211b18fb08@lunn.ch>
 References: <20260401010707.2584962-1-dennis@ausil.us>
- <20260401010707.2584962-3-dennis@ausil.us>
+ <20260401010707.2584962-4-dennis@ausil.us>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -58,27 +58,23 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260401010707.2584962-3-dennis@ausil.us>
+In-Reply-To: <20260401010707.2584962-4-dennis@ausil.us>
 
-> +&gmac1 {
-> +	clock_in_out = "output";
-> +	phy-handle = <&rgmii_phy1>;
-> +	phy-mode = "rgmii-rxid";
-> +	pinctrl-0 = <&gmac1_miim
-> +		     &gmac1_tx_bus2
-> +		     &gmac1_rx_bus2
-> +		     &gmac1_rgmii_clk
-> +		     &gmac1_rgmii_bus>;
-> +	pinctrl-names = "default";
-> +	tx_delay = <0x42>;
+On Tue, Mar 31, 2026 at 08:07:07PM -0500, dennis@ausil.us wrote:
+> From: Dennis Gilmore <dennis@ausil.us>
+> 
+> Add device tree for the Xunlong Orange Pi 5 Pro (RK3588S).
+> 
+> - eMMC module, you can optionally solder a SPI NOR in place and turn
+>  off the eMMC
+> - PCIe-attached NIC (pcie2x1l1)
+> - PCIe NVMe slot (pcie2x1l2)
+> - AP6256 WiFi (BCM43456) via SDIO with mmc-pwrseq
+> - BCM4345C5 Bluetooth
+> - es8388 audio
+> - USB 2.0 and USB 3.0
 
-phy-mode = "rgmii-rxid" means the PCB provides the 2ns delay for
-TX. This is unlikely to be correct. Please try "rgmii-id" and delete
-the tx_delay.
+You said in patch 0/X that the Ethernet driver had just been
+accepted. So i was expecting a node for it here?
 
-https://elixir.bootlin.com/linux/v6.15/source/Documentation/devicetree/bindings/net/ethernet-controller.yaml#L287
-
-    Andrew
-
----
-pw-bot: cr
+	  Andrew
