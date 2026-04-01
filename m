@@ -1,113 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C79742FE071;
-	Wed,  1 Apr 2026 18:04:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC04C2FF657;
+	Wed,  1 Apr 2026 18:07:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775066661; cv=none; b=ifgFn3+KpD5LVXNY/btOKdsyHNT2Uf/JVBmKYoS8vda4ZjPZFnElknHevt33Ta3zyoMrDldGzbs5ZBQgk247Qpkub7E+s2SUs6BI22LCqfz5oJqhR+/5pXzRpJhnGnKnAy9oTS2zNc+RK7/YVo+/addjZPMntTzmwkrwyqCijqU=
+	t=1775066843; cv=none; b=RncRFwnZ2FVwYxSS/0nScmc9CTRsYTabRjgjHVqzV2QoLCaZz/T8fM5ToqZzT2Nf8z0USPiblHBzEPc944RplobtDpjWk9FnS86fekwvWqJsZvLhTHTYOgCLzMJ1nRsRYPaUhYeKSGBYFOthXrzQhSrePaj6y1NAZR+T1LiDyJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775066661; c=relaxed/simple;
-	bh=VpPE2BJUg6MYw76TvdVtCeUAkVtAPB+DcRHdaW3Q3Sc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Mect/1+Pmr19n3l00kFWTIhCgZbbnlDzJ6yFbdDW0lS0fnTbzBVjdg0iPRMFOFOM7y8vRZ1RhZ6dZRrQXQnKUyIon+6jeJUMryoBQQGp2CyzZHO2Kq8YGGhVPZdiGD7egU2GdzdxXqEvZrGS3dsCwmLV0WuhziaRKTEOrd1FJLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FuUEU9AU; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775066843; c=relaxed/simple;
+	bh=GwaO3Jgs7I+IjOxIFQXKkawzKx2llBDskSmUtS3EUww=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Oy6tdJ3aERCmro83daLxSJ4soiYOrJfMjwC9BgoaSsMHrCAfaz4uq91oKBJVh1Wt1lEIyipOsn895UMAagzCJnDoZod9jyNV82tOLwW7F5/hwRIzJrrNosW52Q96dFdRwL6Kh9zP2AffUFkJurlJvxD5FT5GFjtQ2wEkuuvz3fQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=e2WbuLd6; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FuUEU9AU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B18BBC4CEF7;
-	Wed,  1 Apr 2026 18:04:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775066661;
-	bh=VpPE2BJUg6MYw76TvdVtCeUAkVtAPB+DcRHdaW3Q3Sc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=FuUEU9AUvCyXlcTP3L3iM/KWTsISz6/NY2866tIwlsNPinE+zzoiJaRjlko4lHA9k
-	 aIGGqeNhb9XKWAkg5qc89Eo3eMjD+4uyKzCWj4O+i1qI59HLKl2l4IZzpr9fNqIIJk
-	 akZc818Axa5tCTCg2o7DxRlxFZZTSu7Bbrb+tf2A5/obDsOCnaHBtwaHy/B9/J0A7B
-	 b9lQn7nHOFiagMbxovRZDl8lij6njzftmJDTysduKzuhDMRhMQKMOUWLr3ntqmZ3tu
-	 p2+HPu4PWfM+CT8497daD3s5+vW/cBC+rdLil1aLT562R977mIm/sIIYwE6CaZ4nAP
-	 kdowHcPH24CLA==
-Message-ID: <70ba9b2a-5028-450c-8492-c4c16dbb2859@kernel.org>
-Date: Wed, 1 Apr 2026 20:04:18 +0200
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="e2WbuLd6"
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 98F1825D5A;
+	Wed,  1 Apr 2026 20:07:19 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id PnB8oaF5aTri; Wed,  1 Apr 2026 20:07:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1775066839; bh=GwaO3Jgs7I+IjOxIFQXKkawzKx2llBDskSmUtS3EUww=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=e2WbuLd62v/KW+PNwQeg5FXWeJvXBVG2TAI7viShUpEERWjhShMa4/h8UAjnz03Fc
+	 1xxCjqomwstCsU8/5aZHRLBvolJryQ1nNWvMccN4pjLZ9LMikiMHYbXtPFqpBIEmmf
+	 TQi7kdIwui180//9fXJV0u7x1/5zxyCpF01/uDGUiokZqcGH8kDnNbNk+ofbFtZWEe
+	 4mnVQPDunQmOrfU/ltmkB6LBHEzXC2GD/orWY+1Ra9r7gJoH8+neaQUod0YbKosf5R
+	 SdAETr7BnuH8vaasDpptws4Q1DqI2kvbWXz++FEzeuY+XIFZG3yf9/sc1E8g2Z7Kk+
+	 ZJbB0AUYppqyg==
+From: Rustam Adilov <adilov@disroot.org>
+To: Chris Packham <chris.packham@alliedtelesis.co.nz>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Rustam Adilov <adilov@disroot.org>
+Subject: [PATCH v6 3/8] i2c: rtl9300: introduce F_BUSY to the reg_fields struct
+Date: Wed,  1 Apr 2026 23:06:43 +0500
+Message-ID: <20260401180648.337834-4-adilov@disroot.org>
+In-Reply-To: <20260401180648.337834-1-adilov@disroot.org>
+References: <20260401180648.337834-1-adilov@disroot.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: mfd: twl: Reference converted YAML schemas
- for subnodes
-To: Jihed Chaibi <jihed.chaibi.dev@gmail.com>
-Cc: lee@kernel.org, andreas@kemnade.info, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260325095016.48752-1-jihed.chaibi.dev@gmail.com>
- <20260327-orthodox-brainy-poodle-738eac@quoll>
- <CANBuOYrPuLKnxqOLOZUEvBSG-4ceeOWMhQKPZhEctzcjBUnbqA@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <CANBuOYrPuLKnxqOLOZUEvBSG-4ceeOWMhQKPZhEctzcjBUnbqA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 01/04/2026 19:57, Jihed Chaibi wrote:
-> On Fri, Mar 27, 2026 at 8:37 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>
->> No, they were validated by their child device schemas. Everything was
->> correct and expected.
->>
->> Best regards,
->> Krzysztof
->>
-> 
-> Thanks for the feedback Krzysztof, I have sent a v2 of this patch,
-> please let me know if anything else needs to be done.
+In RTL9607C i2c controller the busy check operation is done on the
+separate bit of the command register as opposed to self clearing
+command trigger bit on the rtl9300 and rtl9310 i2c controllers.
 
-Really? On 27th of Match, 40 minutes after I told you NO, you send the same?
+Introduce a new F_BUSY field to the reg_fields struct for that
+and change the regmap read poll function to use F_BUSY
+instead of I2C_TRIG.
 
+Reviewed-by: Chris Packham <chris.packham@alliedtelesis.co.nz>
+Signed-off-by: Rustam Adilov <adilov@disroot.org>
+---
+ drivers/i2c/busses/i2c-rtl9300.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-Best regards,
-Krzysztof
+diff --git a/drivers/i2c/busses/i2c-rtl9300.c b/drivers/i2c/busses/i2c-rtl9300.c
+index 2cada6038b44..e40b4692a3fa 100644
+--- a/drivers/i2c/busses/i2c-rtl9300.c
++++ b/drivers/i2c/busses/i2c-rtl9300.c
+@@ -53,6 +53,7 @@ enum rtl9300_i2c_reg_fields {
+ 	F_SCL_SEL,
+ 	F_SDA_OUT_SEL,
+ 	F_SDA_SEL,
++	F_BUSY,
+ 
+ 	/* keep last */
+ 	F_NUM_FIELDS
+@@ -262,7 +263,7 @@ static int rtl9300_i2c_do_xfer(struct rtl9300_i2c *i2c, struct rtl9300_i2c_xfer
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = regmap_field_read_poll_timeout(i2c->fields[F_I2C_TRIG], val, !val, 100, 100000);
++	ret = regmap_field_read_poll_timeout(i2c->fields[F_BUSY], val, !val, 100, 100000);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -505,6 +506,7 @@ static const struct rtl9300_i2c_drv_data rtl9300_i2c_drv_data = {
+ 		[F_MEM_ADDR_WIDTH]	= MST_REG_FIELD(RTL9300_I2C_MST_CTRL2, 2, 3),
+ 		[F_SCL_FREQ]		= MST_REG_FIELD(RTL9300_I2C_MST_CTRL2, 0, 1),
+ 		[F_SDA_SEL]		= GLB_REG_FIELD(RTL9300_I2C_MST_GLB_CTRL, 0, 7),
++		[F_BUSY]		= MST_REG_FIELD(RTL9300_I2C_MST_CTRL1, 0, 0),
+ 	},
+ 	.select_scl = rtl9300_i2c_select_scl,
+ 	.rd_reg = RTL9300_I2C_MST_DATA_WORD0,
+@@ -527,6 +529,7 @@ static const struct rtl9300_i2c_drv_data rtl9310_i2c_drv_data = {
+ 		[F_I2C_FAIL]		= MST_REG_FIELD(RTL9310_I2C_MST_CTRL, 1, 1),
+ 		[F_I2C_TRIG]		= MST_REG_FIELD(RTL9310_I2C_MST_CTRL, 0, 0),
+ 		[F_MEM_ADDR]		= MST_REG_FIELD(RTL9310_I2C_MST_MEMADDR_CTRL, 0, 23),
++		[F_BUSY]		= MST_REG_FIELD(RTL9310_I2C_MST_CTRL, 0, 0),
+ 	},
+ 	.select_scl = rtl9310_i2c_select_scl,
+ 	.rd_reg = RTL9310_I2C_MST_DATA_CTRL,
+-- 
+2.53.0
+
