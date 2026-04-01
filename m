@@ -1,245 +1,158 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47B183F7AB7
-	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 11:01:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4D051C68F;
+	Wed,  1 Apr 2026 11:03:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775041296; cv=none; b=At1Yo7mwkSvTNmN97l/kMF5jlQVT7+GWJprBT0he028kOl5YHfNwVxUvvWfm83ygi6NJnRbTSlb5L4DpRsi5KWZ6qFzw9mONtg31vn7hfanZgOIG6uq7/eiXcd770R3pM0Alh7pzZLXOT4BuRkCS0oWpk4f9bNFQlduM4BXhQs8=
+	t=1775041394; cv=none; b=d3xBu3RbHf4/YqIFntiXnJYJjWmUCyk/6jg0eLpfbAmGWsbBRKLB8n8wU9gjfYQEp5XGpyTcghVeKkw9Gkl/+YERiP36Zl/MabSgcjSDedluVJ/l23HTh7ZPSOQlBpQ6LGvMuSOY0B3Snn4Ng4a5/4Gp7LqWgLmj/mBgnDLK7Og=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775041296; c=relaxed/simple;
-	bh=Fa60T1J9NdG0M8J8bhvHiHZIs+TFsgPClwjQYrHu5nU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m8CLpGMUN60OI8kNArRZNCH3Y/hU9nJcjfA013rnntEDpZ3Sxt4DWf09EMS6KjdefL2O7OCDVoeXjkor5RnRi+PlrfBP21SMNs3/EU2OhHOUxjPawsWNP6ZouEEYrszGr+o7pnyZK8YTP69XC4yw+ycNAOH7iGQvHEdG/AKBgRY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YmHJDtXC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Zx2l5k1n; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1775041394; c=relaxed/simple;
+	bh=oCEaxN73eSvvxvMxeBnhyZYSHteZ4hIRlfxN2j/YYyw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sZ3why7s3WGlNrRaSvzyQ2wGM+Q9q0LmT0SlHAupiywcN+uWiIse7FDzxpSHyvnieDIplaUZQswFyNLBezBa6XRvXtaeTSYUAXP5aU3Bwi5KhtcnaCEnMs88vN7ukG2UMF1onmmkmUeI/+qbMFFFbKb8bfCPZXKi0ehidppoUU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b0md1H/b; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YmHJDtXC";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Zx2l5k1n"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6317VYH31004515
-	for <devicetree@vger.kernel.org>; Wed, 1 Apr 2026 11:01:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Um9bWYbqbpemNVrExQ12MkVwZ+nPwCvsKWs7TNNv7x4=; b=YmHJDtXCinnPJ2gU
-	A6y3Ab8rzxFvUbMoxOyNnpMuzCvBi2K12IXUQvKdZ/uRtmfRJlDThZabVWBqgKwS
-	rx1g90D+TB9X8acBauwZJkxmnXZev/o9T2cd/D68HunUsq+6xE+ZUhiNc2Mdig25
-	wXiUlJvGHTKwqd29H1OVn2Df6GnzaYuCwbqB+GhXXJD4tFc2y5epaTNky3w90Xkk
-	pGfKWPed+lwJNExv5KqbpoXFc+sFysTrH4WSyJUVWJlRFwwDvOebar89AzRIg6R4
-	FxR2Pu+5ZRX/S0JJAPJqmiayrnWa0HmUGntdnLmtQahVV/odLFNmt7GhWv18PDi8
-	NVp2sA==
-Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d8tfjhxxw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 11:01:29 +0000 (GMT)
-Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-56d817b03a8so1058167e0c.3
-        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 04:01:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775041289; x=1775646089; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Um9bWYbqbpemNVrExQ12MkVwZ+nPwCvsKWs7TNNv7x4=;
-        b=Zx2l5k1n/lhGwiPgnMrytyHht4C16Me1D9q/+LMu/xtMuuVlHHyafpKNhPLuemdXuA
-         RNTTn2JZPPTz9ZBlkZWT9rEp9n5hwTjxBotIG5RugnrFsbs9IyV00NQ/Y3nNi8spY4/c
-         UbQSQWI/EKIl1qfsNXmK5prd/KupfWEJFDiQpCbFQie/wS9Zqdfm/tNP8XnTmiaoQOcR
-         xdm3ITSLFSES/SpaalgJNqPGshwAG0ea7GbFi7LWBtDgxhhWNaP5+dgSAcotQM3V6t0S
-         t7ziD+M8LWhTFxR1kzLUTIibyHXUMUNvu40z+fGyAedbIdVSxv+n+tNnC9hYqbQghVNa
-         27ZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775041289; x=1775646089;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Um9bWYbqbpemNVrExQ12MkVwZ+nPwCvsKWs7TNNv7x4=;
-        b=CWNCVlJ95PBVLZ/unlqK9PLr/C0oZylqFZWPHGJgQKu+J+QrZ9YQuTnemKretUvDUB
-         Lnf5tOVD38KLk1IeFQG5L0vj021bOLO8YW1doXSgstXIOIkcZiZrZ5yQIoygjZHvSlxT
-         aSuVLicWAzcg+x0fseYjJh77+xnGBne0o2TBaaZi0P4Dnn31nmsNesyUnhIoYRLDy/Vh
-         Y3PX4SGweAJAGaS1D9P7ELHAyClWsv6CLogQuU6SXdTHpwX8BytzNJK5lt7+znMkOqYd
-         32Nb+sEpiL/WqiG3ix/H84BqHOYt76VMVWSEZyOIDq5bg2fOnNMi+BLPHUdFdRVWuNKT
-         3SwQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV4jUioCaJUpRD++lMRl00B9Q8ShWLSOcgWLtY+PSrFcFK0x40/AInsEpel78occHZvwo8hULdKKGAl@vger.kernel.org
-X-Gm-Message-State: AOJu0YzQ1EcShIv4HnqRpkt3CxuZuTjvWb3+5gSRkoVRfsY45D27Pg34
-	fpXpv0kcRhxH8YkqvgaT/NaAy8pyW3PFSEnFCEP6QGZz4Q4VRKGLAF1yb9NS6GOxrKoW42Ryca0
-	1pkKUzHj2nDnYL5ARZydfSHeOE2t9jG5sqK7fDHiXUqauNMP/HYbjRdxwUBS4hzAD
-X-Gm-Gg: ATEYQzyyFNVcJC++5jDPEX6/0bSlb6ccim+8NYBpRLRrx5Le1aTD2g94AYc6wMXhva9
-	o2Hszj5+jAgG+3ulCLozc6Xy2ETC5b3IPluMi9uyVyaKuxD1XTmhZU21m0AoJAbmzGYPFvJR6D3
-	wGlpL9e+UUL7sPKL1ldngqxNDjjY+ZEQzOB8R7GanRS2ixx5xmgNSlLrVI6OYEAkiWIQNfNCGGx
-	wisOIrDo3wxTbGWmdctxGnYffBw5ZijUy9ykxLJIv3ePzQqsl6PrFeWheV+gHFZHr+cDu7s+L9g
-	uzME3LYIP7u8mKk/Szp2ukMlp/Y9PS4e/uQCRXPan6nSdYdtOCa3B/Fhf4qGiZZdMC82DIHMvhU
-	WDPiI8mxZ+WBtrHmR3O1NDfsQd/YLjiZxI3gTjfOnhCFHv0raP4GE0YqaOY/oDpnTLg9+z67iok
-	gGWGj2Ic0XwQ8aKHAAMOgGkuzpwB9V/MTDLRc=
-X-Received: by 2002:a05:6122:ca1:b0:56d:471b:c814 with SMTP id 71dfb90a1353d-56d8a817f69mr1167218e0c.1.1775041288920;
-        Wed, 01 Apr 2026 04:01:28 -0700 (PDT)
-X-Received: by 2002:a05:6122:ca1:b0:56d:471b:c814 with SMTP id 71dfb90a1353d-56d8a817f69mr1167104e0c.1.1775041288262;
-        Wed, 01 Apr 2026 04:01:28 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a2bc5f3377sm1384251e87.74.2026.04.01.04.01.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Apr 2026 04:01:25 -0700 (PDT)
-Date: Wed, 1 Apr 2026 14:01:23 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Ulf Hansson <ulf.hansson@linaro.org>
-Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Taniya Das <quic_tdas@quicinc.com>,
-        Jonathan Marek <jonathan@marek.ca>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Dikshita Agarwal <dikshita@qti.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-media@vger.kernel.org,
-        Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Subject: Re: [PATCH v5 2/5] media: iris: scale MMCX power domain on SM8250
-Message-ID: <4fiyjcqt5smotudsfzyqrevxxnx3sf5grbgfluzkndbp2od6pq@vlyikcvl3xkb>
-References: <20260209-iris-venus-fix-sm8250-v5-0-0a22365d3585@oss.qualcomm.com>
- <20260209-iris-venus-fix-sm8250-v5-2-0a22365d3585@oss.qualcomm.com>
- <5e2635ac-35de-645b-b5e7-235923f844ce@oss.qualcomm.com>
- <x5gv6dxdum5klzfjyo7xjqull6o43okkmkn7avssg26epbvrz6@z2brpssbk7iv>
- <0b41ee7c-83fe-d604-b750-8a5a0bd62bf8@oss.qualcomm.com>
- <CAPDyKFrO3DzfG0aW4z4w87j_iWM=3dpvp=2Wgr4MX1Bin5-6ZA@mail.gmail.com>
- <6yfn6ux3gbin2dtopdxxv4okinspueryuey5vfdq633gsewc6r@ttp56brnpgvr>
- <CAPDyKFpm7ujNw51dVpPaHCwssjgYe1JVBEyrQ_1CsPbDJuW0Ww@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b0md1H/b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29CD7C4CEF7;
+	Wed,  1 Apr 2026 11:03:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775041394;
+	bh=oCEaxN73eSvvxvMxeBnhyZYSHteZ4hIRlfxN2j/YYyw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=b0md1H/bwbTF6mvFV32llO23OmSxd/7rtsSD6KNBdw+dD6cx/eZjCVYRLs+lC+OA8
+	 BLx8wcM89G/4b5PXsyGthneTFM7H4ahHA+CfNr172wxkSNVpsb8rdqYaLHX2rEHLJD
+	 bpzmGfqwHtHTroS1duDKvzqxz9MNqjUnwxxjZ51/rdrijRVS1fOlKWombiJwg7xHwV
+	 HSRhD7+PB3sBgT+W9TSSSh/JKaJyeElCtDraZhseNtG8yLsMXEVbOqR43VMzvUysJX
+	 ZFutLo1LSVGJejshfD7ot27Cxy74tAb1iapbFpGZDgK9kJ7QmXYkiBi0JCJo0GCCrJ
+	 ZGfOlFCbsXUgg==
+Message-ID: <253608f3-8b47-428d-a703-97dcd9731628@kernel.org>
+Date: Wed, 1 Apr 2026 13:03:07 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPDyKFpm7ujNw51dVpPaHCwssjgYe1JVBEyrQ_1CsPbDJuW0Ww@mail.gmail.com>
-X-Proofpoint-GUID: 8QI0dA362Mlck1MazQHCMARaHGpjTSHp
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAxMDA5OCBTYWx0ZWRfX1bCLZjHboW5A
- +o1aMaWIMjXHKckwOWeTcxfBLUZ/owncAU3P1SM9Fu1YM80De7X9x+l3WdvbE3roRSUIff54nHX
- nqYIZSQK/mKThEAsLGpY+XSeovZbYaDgcfHZBGMDGpRsxc3wD7nYT4SCBIrt6zvIkM1REAPusoN
- muzGCDGaVSe9hFQedV3FG4NRGza66DDx0r82gkXTQt3YV3AYEI7JZGW3NeoBt8FTdoFAe7dN+Mh
- /yS4mQKbz/oZLHN/7bWEdos8tRwP8NPE4Z6SDmkZtGTZBw3mUbQAFyMf3D/3ZD/sHO5TiBLaXSu
- t9nI/eWzZIh3CHrQUoORf4mNs3FElOARyQsaCGmN/2zugOcUpTDjAjBouWD5zqoVnrDOfrX7odP
- WK7LHqhudk2IKziNR8reAf29/hPxdxKlHPncq0Hl+aX8b+uuqhdiLjf7anQ5Q1925G+/z4Z/sDq
- 7CD+wbNQ52mZ+ji+C9A==
-X-Authority-Analysis: v=2.4 cv=fJc0HJae c=1 sm=1 tr=0 ts=69ccfb0a cx=c_pps
- a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=sXGUrAVt7bPh_wKNbm8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=hhpmQAJR8DioWGSBphRh:22
-X-Proofpoint-ORIG-GUID: 8QI0dA362Mlck1MazQHCMARaHGpjTSHp
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-01_03,2026-04-01_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 suspectscore=0 lowpriorityscore=0 adultscore=0
- priorityscore=1501 spamscore=0 clxscore=1015 bulkscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604010098
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: gpu: mali-valhall-csf: Document i.MX952
+ support
+To: Guangliu Ding <guangliu.ding@nxp.com>, Liviu Dudau <liviu.dudau@arm.com>
+Cc: "Daniel Baluta (OSS)" <daniel.baluta@oss.nxp.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <frank.li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "imx@lists.linux.dev" <imx@lists.linux.dev>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, Jiyu Yang <jiyu.yang@nxp.com>
+References: <20260331-master-v1-0-65c8e318d462@nxp.com>
+ <20260331-master-v1-1-65c8e318d462@nxp.com> <acva1Xt8V4k9-uG8@e142607>
+ <AM0PR04MB47073E9E8B5C704BCF5D9F72F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+ <99a1da55-d6e5-4d11-abaa-8c85283ab5f2@oss.nxp.com>
+ <AM0PR04MB4707B3E37DFE7AEE587DBA2AF350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+ <aczv0R0aQRmHKdvt@e142607>
+ <AM0PR04MB4707335CC7035232D44E6ED9F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+ <2f4c4063-daf6-48f2-b830-9f58dc7af80d@kernel.org>
+ <AM0PR04MB4707D758EC8B08C6D42F3A82F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <AM0PR04MB4707D758EC8B08C6D42F3A82F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Apr 01, 2026 at 12:46:01PM +0200, Ulf Hansson wrote:
-> On Tue, 31 Mar 2026 at 20:46, Dmitry Baryshkov
-> <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> >
-> > On Tue, Mar 31, 2026 at 01:33:35PM +0200, Ulf Hansson wrote:
-> > > On Mon, 30 Mar 2026 at 15:06, Dikshita Agarwal
-> > > <dikshita.agarwal@oss.qualcomm.com> wrote:
-> > > >
-> > > >
-> > > >
-> > > > On 3/30/2026 4:45 PM, Dmitry Baryshkov wrote:
-> > > > > On Mon, Mar 30, 2026 at 10:55:02AM +0530, Dikshita Agarwal wrote:
-> > > > >>
-> > > > >>
-> > > > >> On 2/9/2026 7:02 AM, Dmitry Baryshkov wrote:
-> > > > >>> On SM8250 most of the video clocks are powered by the MMCX domain, while
-> > > > >>> the PLL is powered on by the MX domain. Extend the driver to support
-> > > > >>> scaling both power domains, while keeping compatibility with the
-> > > > >>> existing DTs, which define only the MX domain.
-> > > > >>>
-> > > > >>> Fixes: 79865252acb6 ("media: iris: enable video driver probe of SM8250 SoC")
-> > > > >>> Reviewed-by: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-> > > > >>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > > > >>> ---
-> > > > >>>  drivers/media/platform/qcom/iris/iris_platform_gen1.c | 2 +-
-> > > > >>>  drivers/media/platform/qcom/iris/iris_probe.c         | 7 +++++++
-> > > > >>>  2 files changed, 8 insertions(+), 1 deletion(-)
-> > > > >>>
-> > > > >>> diff --git a/drivers/media/platform/qcom/iris/iris_platform_gen1.c b/drivers/media/platform/qcom/iris/iris_platform_gen1.c
-> > > > >>> index df8e6bf9430e..aa71f7f53ee3 100644
-> > > > >>> --- a/drivers/media/platform/qcom/iris/iris_platform_gen1.c
-> > > > >>> +++ b/drivers/media/platform/qcom/iris/iris_platform_gen1.c
-> > > > >>> @@ -281,7 +281,7 @@ static const struct bw_info sm8250_bw_table_dec[] = {
-> > > > >>>
-> > > > >>>  static const char * const sm8250_pmdomain_table[] = { "venus", "vcodec0" };
-> > > > >>>
-> > > > >>> -static const char * const sm8250_opp_pd_table[] = { "mx" };
-> > > > >>> +static const char * const sm8250_opp_pd_table[] = { "mx", "mmcx" };
-> > > > >>>
-> > > > >>>  static const struct platform_clk_data sm8250_clk_table[] = {
-> > > > >>>     {IRIS_AXI_CLK,  "iface"        },
-> > > > >>> diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/platform/qcom/iris/iris_probe.c
-> > > > >>> index 7b612ad37e4f..74ec81e3d622 100644
-> > > > >>> --- a/drivers/media/platform/qcom/iris/iris_probe.c
-> > > > >>> +++ b/drivers/media/platform/qcom/iris/iris_probe.c
-> > > > >>> @@ -64,6 +64,13 @@ static int iris_init_power_domains(struct iris_core *core)
-> > > > >>>             return ret;
-> > > > >>>
-> > > > >>>     ret =  devm_pm_domain_attach_list(core->dev, &iris_opp_pd_data, &core->opp_pmdomain_tbl);
-> > > > >>> +   /* backwards compatibility for incomplete ABI SM8250 */
-> > > > >>> +   if (ret == -ENODEV &&
-> > > > >>> +       of_device_is_compatible(core->dev->of_node, "qcom,sm8250-venus")) {
-> > > > >>> +           iris_opp_pd_data.num_pd_names--;
-> > > > >>> +           ret = devm_pm_domain_attach_list(core->dev, &iris_opp_pd_data,
-> > > > >>> +                                            &core->opp_pmdomain_tbl);
-> > > > >>> +   }
-> > > > >>>     if (ret < 0)
-> > > > >>>             return ret;
-> > > > >>>
-> > > > >>>
-> > > > >>
-> > > > >> Hitting below compilation error on latest kernel
-> > > > >>
-> > > > >> drivers/media/platform/qcom/iris/iris_probe.c: In function
-> > > > >> ‘iris_init_power_domains’:
-> > > > >> drivers/media/platform/qcom/iris/iris_probe.c:71:46: error: decrement of
-> > > > >> read-only member ‘num_pd_names’
-> > > > >>    71 |                 iris_opp_pd_data.num_pd_names--;
-> > > > >
-> > > > > See commit 7ad7f43e568b ("pmdomain: de-constify fields struct
-> > > > > dev_pm_domain_attach_data")
-> > >
-> > > The intent was for this patch to be part of v7.0-rc1, but I failed
-> > > with my pull-request to Linus.
-> > >
-> > > Instead this will be part of v7.1-rc1, assuming everything goes as expected.
-> > >
-> > > Is it possible to drop/defer these changes until v7.2?
-> >
-> > It would be very sad.
+On 01/04/2026 13:01, Guangliu Ding wrote:
+> Hi Krzysztof
 > 
-> Right.
+>> On 01/04/2026 12:31, Guangliu Ding wrote:
+>>>> Either add the patch(es) that use the compatible to this series in
+>>>> v2, or put a comment in the commit message on where we can see the
+>> driver changes.
+>>>>
+>>>
+>>> According to discussions with the GPU vendor, this is a hardware
+>>> limitation of Mali-G310 rather than a hardware bug, and it has been
+>>> addressed in newer Mali GPU families.
+>>>
+>>> In addition, ipa_counters are not enabled in the current Panthor
+>>> driver. We observed this issue with the private Mali DDK where ipa_counters
+>> were enabled.
+>>> Therefore, keeping the compatible string is necessary to allow for future
+>> divergence.
+>>
+>> No one discusses here whether you need separate compatible string.
+>> writing bindings and all my talks are (e.g. DTS 101) are clearly expecting you.
+>>
+>> We discuss only the lack of compatibility in terms of DT, how DT sees
+>> compatible devices.
+>>
+>> And lack of driver code is clear indication that devices are compatible in terms
+>> how DT understands it. Feel encouraged to bring actual arguments in commit
+>> msgs in the future.
+>>
+>> Best regards,
+>> Krzysztof
 > 
-> Since it's my mistake, let me reconsider. If I rebase my branch and
-> share the necessary commit through an immutable branch that you can
-> pull in. Would that work for you?
+> So the best approach is only reserve "arm,mali-valhall-csf" for now, since currently there is
+> no need for an additional compatible entry from a DT compatibility perspective.
+> We can introduce "nxp,imx952-mali" in future commits if hardware or driver differences
+> actually require it, and include more detailed justification in the commit message. Right?
 
-I think that question goes to Vikash, Dikshita, Bryan and linux-media
-maintainers.  Bryan, what is the plan for this patchset? Should Ulf
-rebase the branch? Or is this patchset delayed for some other reasons?
+So does that mean you decided not to read writing bindings document?
 
--- 
-With best wishes
-Dmitry
+Best regards,
+Krzysztof
