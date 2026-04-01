@@ -1,62 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25EEF2FD1B3;
-	Wed,  1 Apr 2026 14:37:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B6DA472789;
+	Wed,  1 Apr 2026 14:41:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775054262; cv=none; b=PtMaL1ZjmDade6YaMnNFPM3KA4UNS2bgXQ44RE3wEfPrxz3x9TLWI6wSjjYZ/+1TQkgB/TOE1KKEIAwHECvCjL1byddfRA+1D9sjqskPFviMcRyS/uL61rdvKGh1VadPU7K8x61Nlx7ZtCJv8MRHpFQPiyzgdfelA7OCX2LGjHU=
+	t=1775054467; cv=none; b=Zqzofm7sk5PbCKa9A2yPvTIrsYcw9lPqqLMd6sKX0Yk97qI3dD+yDXZ74hBvFNymrDysvTIpAbssW2LRujDmBiZpvQsRC1kt9NDIlzzycJDmmMT2zds5TgZzQy357EMg1Y0gwbiJoyBO13RXgRNjEA4svYuv/3unJpyHTR1Edao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775054262; c=relaxed/simple;
-	bh=CxbPEO+4DAO+Jl4a/M7Wk4mQ6ScP+ITjFt/YJGyNw9Y=;
+	s=arc-20240116; t=1775054467; c=relaxed/simple;
+	bh=TgjfJ9DwxAIF8WY3udzvv+dr98Azs03jjfDQs703n+k=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jeKzi+KU/WA62NnF1/RJYlKl+5hdNWki5DJRjHNAVy3/DODWbzTxISeBupbNZnqHMi/cAwUhuX+fOYzORpRFmV1Tay9qrcydbUBoYmOmJhC57vxzQWqBFYwMwYUPvQNSrjQu1XE3coQadxQUIdpsCZvkl7dLX605zjdxZyZk0f0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e+EO+2uR; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=m0T3m5XaO7qQkUcuHKT3iGMU2uE50NdZ0XyC5xsyOQF4sfuQA9uYmUjEUl8ZAZeC7069lEtwUN4/VvWopa0f6nhu/QP6jdWkG8RG3aEt/knNWDZhthUqNzWz7+Mpuqhso7f/yq/OC8mXPfT2r5J7bIPAf1TR/0VFRggUWKOPaKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WsX83Rib; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e+EO+2uR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C98A8C2BCAF;
-	Wed,  1 Apr 2026 14:37:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WsX83Rib"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6581AC19423;
+	Wed,  1 Apr 2026 14:41:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775054261;
-	bh=CxbPEO+4DAO+Jl4a/M7Wk4mQ6ScP+ITjFt/YJGyNw9Y=;
+	s=k20201202; t=1775054467;
+	bh=TgjfJ9DwxAIF8WY3udzvv+dr98Azs03jjfDQs703n+k=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=e+EO+2uROruo+PFMmYimQMkP1+/PyUsudXzfHZAKiCRi6Jdd0Sv0VYOcU5FqrXIEa
-	 Wh1b6S39TSJ4QlnbiPybrmtvbPMdgyjUgczWW/bdydo8au3peDrZEFKEb97SV5l8+A
-	 65XqHfdqfley5hZJ80RUqPXUREGRKI3IZUMx8zYFOs2+kFuKnSBjzan76dBGKXFPPx
-	 /qJtAvOsJ+nCj3ENG7tgQ7ijsG6IleIX0yWniHAZXzfwSoiyFIavsW9/ZQDefSBUqF
-	 Xg7aLwzOeX7OX8i1jqYEkWBqidbr8tt4gomQhvugE4j1UHXDnMVXjs83B6DosGPDna
-	 56FAwJZmiMa8Q==
-Date: Wed, 1 Apr 2026 16:37:33 +0200
-From: Lorenzo Pieralisi <lpieralisi@kernel.org>
-To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, Bjorn Andersson <andersson@kernel.org>,
-	Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
-	Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Andy Yan <andy.yan@rock-chips.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	John Stultz <john.stultz@linaro.org>,
-	Moritz Fischer <moritz.fischer@ettus.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-	Andre Draszik <andre.draszik@linaro.org>,
-	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, Srinivas Kandagatla <srini@kernel.org>
-Subject: Re: [PATCH v20 06/10] power: reset: Add psci-reboot-mode driver
-Message-ID: <ac0trUGsRBLPS+ux@lpieralisi>
-References: <20260304-arm-psci-system_reset2-vendor-reboots-v20-0-cf7d346b8372@oss.qualcomm.com>
- <20260304-arm-psci-system_reset2-vendor-reboots-v20-6-cf7d346b8372@oss.qualcomm.com>
- <acaMPgRALnoUIHMC@lpieralisi>
- <93a78bc2-4fd1-41bd-bf4a-b433b06fc218@oss.qualcomm.com>
+	b=WsX83Ribv38zaI3V2htPkFLab4N/Sjjucxt8ccy274mnMKq9dKvywOvb2Hs1SROrW
+	 xL3+P+Gyw2Q2qA5JzyhaEhCm6p+VIjVNqXAdOsRCjS5/IvDQ71PdMZGtNvNctnmyU1
+	 OKTeGIUehPf4V2S8bdo7aHepS9EfD36cBofs75fVJdywXXGFuPf74qJ6GWz+Ui3vQK
+	 UyMYELBU70577ZABGHU19vg69mFNjeN4gk30F1Lh1qD8wLqJ0AzpzrR/v+404ncu1v
+	 zeHzj0oFEsxAf6bdb+SgPAEyUuryvSD61jULa1p6Syew/83lfILSLrOGdPzhwpB1VD
+	 GN3G2ZlHxlBZw==
+Date: Wed, 1 Apr 2026 09:41:03 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Qiang Yu <qiang.yu@oss.qualcomm.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 4/5] phy: qcom: qmp-pcie: Add Gen5 8-lanes mode for
+ Glymur
+Message-ID: <ac0ubhTTsUNKHD__@baldur>
+References: <20260323-glymur_gen5x8_phy_0323-v2-0-ce0fc07f0e52@oss.qualcomm.com>
+ <20260323-glymur_gen5x8_phy_0323-v2-4-ce0fc07f0e52@oss.qualcomm.com>
+ <x3ts7to7c4qnorloahe7cgup3uekn4wolmmorqa3b3bjfslqfn@eijnzdp2ops3>
+ <acua8Me0zo3v/CBi@hu-qianyu-lv.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -65,242 +50,81 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <93a78bc2-4fd1-41bd-bf4a-b433b06fc218@oss.qualcomm.com>
+In-Reply-To: <acua8Me0zo3v/CBi@hu-qianyu-lv.qualcomm.com>
 
-On Tue, Mar 31, 2026 at 11:30:09PM +0530, Shivendra Pratap wrote:
-> 
-> 
-> On 27-03-2026 19:25, Lorenzo Pieralisi wrote:
-> > On Wed, Mar 04, 2026 at 11:33:06PM +0530, Shivendra Pratap wrote:
-> > > PSCI supports different types of resets like COLD reset, ARCH WARM
-> > > reset, vendor-specific resets. Currently there is no common driver that
-> > > handles all supported psci resets at one place. Additionally, there is
-> > > no common mechanism to issue the supported psci resets from userspace.
+On Tue, Mar 31, 2026 at 02:59:12AM -0700, Qiang Yu wrote:
+> On Tue, Mar 24, 2026 at 11:23:19PM +0200, Dmitry Baryshkov wrote:
+> > On Mon, Mar 23, 2026 at 12:15:31AM -0700, Qiang Yu wrote:
+> > > The third PCIe controller on Glymur SoC supports 8-lane operation via
+> > > bifurcation of two PHYs (each requires separate power domian, resets and
+> > > aux clk).
 > > > 
-> > > Add a PSCI reboot mode driver and define two types of PSCI resets in the
-> > > driver as reboot-modes: predefined resets controlled by Linux
-> > > reboot_mode and customizable resets defined by SoC vendors in their
-> > > device tree under the psci:reboot-mode node.
+> > > Add dedicated reset/no_csr reset list ("phy_b", "phy_b_nocsr") and
+> > > clock ("phy_b_aux") required for 8-lane operation. Introduce new
+> > > glymur_qmp_gen5x8_pciephy_cfg configuration to enable PCIe Gen5 x8 mode.
 > > > 
-> > > Register the driver with the reboot-mode framework to interface these
-> > > resets to userspace. When userspace initiates a supported command, pass
-> > > the reset arguments to the PSCI driver to enable command-based reset.
-> > > 
-> > > This change allows userspace to issue supported PSCI reset commands
-> > > using the standard reboot system calls while enabling SoC vendors to
-> > > define their specific resets for PSCI.
-> > > 
-> > > Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+> > > Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
 > > > ---
-> > >   drivers/power/reset/Kconfig            |  10 +++
-> > >   drivers/power/reset/Makefile           |   1 +
-> > >   drivers/power/reset/psci-reboot-mode.c | 119 +++++++++++++++++++++++++++++++++
-> > >   3 files changed, 130 insertions(+)
+> > >  drivers/phy/qualcomm/phy-qcom-qmp-pcie.c | 30 +++++++++++++++++++++++++++++-
+> > >  1 file changed, 29 insertions(+), 1 deletion(-)
 > > > 
-> > > diff --git a/drivers/power/reset/Kconfig b/drivers/power/reset/Kconfig
-> > > index f6c1bcbb57deff3568d6b1b326454add3b3bbf06..529d6c7d3555601f7b7e6199acd29838030fcef2 100644
-> > > --- a/drivers/power/reset/Kconfig
-> > > +++ b/drivers/power/reset/Kconfig
-> > > @@ -348,6 +348,16 @@ config NVMEM_REBOOT_MODE
-> > >   	  then the bootloader can read it and take different
-> > >   	  action according to the mode.
-> > > +config PSCI_REBOOT_MODE
-> > > +	bool "PSCI reboot mode driver"
-> > > +	depends on OF && ARM_PSCI_FW
-> > > +	select REBOOT_MODE
-> > > +	help
-> > > +	  Say y here will enable PSCI reboot mode driver. This gets
-> > > +          the PSCI reboot mode arguments and passes them to psci
-> > > +	  driver. psci driver uses these arguments for issuing
-> > > +	  device reset into different boot states.
+> > > @@ -4705,6 +4713,23 @@ static const struct qmp_phy_cfg glymur_qmp_gen4x2_pciephy_cfg = {
+> > >  	.phy_status		= PHYSTATUS_4_20,
+> > >  };
+> > >  
+> > > +static const struct qmp_phy_cfg glymur_qmp_gen5x8_pciephy_cfg = {
+> > > +	.lanes = 8,
 > > > +
-> > >   config POWER_MLXBF
-> > >   	tristate "Mellanox BlueField power handling driver"
-> > >   	depends on (GPIO_MLXBF2 || GPIO_MLXBF3) && ACPI
-> > > diff --git a/drivers/power/reset/Makefile b/drivers/power/reset/Makefile
-> > > index 0e4ae6f6b5c55729cf60846d47e6fe0fec24f3cc..49774b42cdf61fd57a5b70f286c65c9d66bbc0cb 100644
-> > > --- a/drivers/power/reset/Makefile
-> > > +++ b/drivers/power/reset/Makefile
-> > > @@ -40,4 +40,5 @@ obj-$(CONFIG_REBOOT_MODE) += reboot-mode.o
-> > >   obj-$(CONFIG_SYSCON_REBOOT_MODE) += syscon-reboot-mode.o
-> > >   obj-$(CONFIG_POWER_RESET_SC27XX) += sc27xx-poweroff.o
-> > >   obj-$(CONFIG_NVMEM_REBOOT_MODE) += nvmem-reboot-mode.o
-> > > +obj-$(CONFIG_PSCI_REBOOT_MODE) += psci-reboot-mode.o
-> > >   obj-$(CONFIG_POWER_MLXBF) += pwr-mlxbf.o
-> > > diff --git a/drivers/power/reset/psci-reboot-mode.c b/drivers/power/reset/psci-reboot-mode.c
-> > > new file mode 100644
-> > > index 0000000000000000000000000000000000000000..86bef195228b0924704c2936b99f6801c14ff1b1
-> > > --- /dev/null
-> > > +++ b/drivers/power/reset/psci-reboot-mode.c
-> > > @@ -0,0 +1,119 @@
-> > > +// SPDX-License-Identifier: GPL-2.0-only
-> > > +/*
-> > > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> > > + */
+> > > +	.offsets		= &qmp_pcie_offsets_v8_50,
 > > > +
-> > > +#include <linux/device/faux.h>
-> > > +#include <linux/device.h>
+> > > +	.reset_list		= glymur_pciephy_reset_l,
+> > > +	.num_resets		= ARRAY_SIZE(glymur_pciephy_reset_l),
+> > > +	.nocsr_reset_list	= glymur_pciephy_nocsr_reset_l,
+> > > +	.num_nocsr_resets	= ARRAY_SIZE(glymur_pciephy_nocsr_reset_l),
 > > 
-> > Nit: swap the two.
+> > Just for my understanding. If it was not the NOCSR case and had to
+> > program the registers, would we have needed to program anything in the
+> > PCIe3B space?
 > 
-> Ack. thanks.
+> The PCIe3B PHY registers need to be programmed.
+
+Why?
+
+Regards,
+Bjorn
+
+> But we don't need to do it explicitly because there are also broadcast
+> registers: writing to these registers will automatically write the same
+> offset and value to both PHY ports simultaneously.
 > 
-> 
-> > > +#include <linux/err.h>
-> > > +#include <linux/of.h>
-> > > +#include <linux/psci.h>
-> > > +#include <linux/reboot.h>
-> > > +#include <linux/reboot-mode.h>
-> > > +#include <linux/types.h>
+> - Qiang Yu
+> > 
+> > > +	.vreg_list		= qmp_phy_vreg_l,
+> > > +	.num_vregs		= ARRAY_SIZE(qmp_phy_vreg_l),
 > > > +
-> > > +/*
-> > > + * Predefined reboot-modes are defined as per the values
-> > > + * of enum reboot_mode defined in the kernel: reboot.c.
-> > > + */
-> > > +static struct mode_info psci_resets[] = {
-> > > +	{ .mode = "warm", .magic = REBOOT_WARM},
-> > > +	{ .mode = "soft", .magic = REBOOT_SOFT},
-> > > +	{ .mode = "cold", .magic = REBOOT_COLD},
-
-These strings match the command userspace issue right ? I think that we
-should make them match the corresponding PSCI reset types, the list above
-maps command to reboot_mode values and those can belong to any reboot
-mode driver to be honest they don't make much sense in a PSCI reboot
-mode driver only.
-
-It is a question for everyone here: would it make sense to make these
-predefined resets a set of strings, eg:
-
-psci-system-reset
-psci-system-reset2-arch-warm-reset
-
-and then vendor resets:
-
-psci-system-reset2-vendor-reset
-
-at least we know what a string maps to ?
-
-We can export a function from the PSCI driver to detect whether PSCI
-SYSTEM_RESET2 is supported, an equivalent of psci_has_osi_support() for
-instance that we can call from this driver to detect its presence.
-
+> > > +	.regs			= pciephy_v8_50_regs_layout,
+> > > +
+> > > +	.phy_status		= PHYSTATUS_4_20,
 > > > +};
 > > > +
-> > > +static void psci_reboot_mode_set_predefined_modes(struct reboot_mode_driver *reboot)
-> > > +{
-> > > +	INIT_LIST_HEAD(&reboot->predefined_modes);
-> > > +	for (u32 i = 0; i < ARRAY_SIZE(psci_resets); i++) {
-> > > +		/* Prepare the magic with arg1 as 0 and arg2 as per pre-defined mode */
-> > > +		psci_resets[i].magic = REBOOT_MODE_MAGIC(0, psci_resets[i].magic);
+> > >  static void qmp_pcie_init_port_b(struct qmp_pcie *qmp, const struct qmp_phy_cfg_tbls *tbls)
+> > >  {
+> > >  	const struct qmp_phy_cfg *cfg = qmp->cfg;
+> > > @@ -5483,6 +5508,9 @@ static const struct of_device_id qmp_pcie_of_match_table[] = {
+> > >  	}, {
+> > >  		.compatible = "qcom,glymur-qmp-gen5x4-pcie-phy",
+> > >  		.data = &glymur_qmp_gen5x4_pciephy_cfg,
+> > > +	}, {
+> > > +		.compatible = "qcom,glymur-qmp-gen5x8-pcie-phy",
+> > > +		.data = &glymur_qmp_gen5x8_pciephy_cfg,
+> > >  	}, {
+> > >  		.compatible = "qcom,ipq6018-qmp-pcie-phy",
+> > >  		.data = &ipq6018_pciephy_cfg,
+> > > 
+> > > -- 
+> > > 2.34.1
+> > > 
 > > 
-> > This looks weird to me, why can't we just initialize the array with the values
-> > directly ?
-> 
-> Ack. The idea was to avoid Typecasting. Will check on this.
-> 
-> > > +		INIT_LIST_HEAD(&psci_resets[i].list);
-> > > +		list_add_tail(&psci_resets[i].list, &reboot->predefined_modes);
-> > > +	}
-> > > +}
-> > > +
-> > > +/*
-> > > + * arg1 is reset_type(Low 32 bit of magic).
-> > > + * arg2 is cookie(High 32 bit of magic).
-> > > + * If reset_type is 0, cookie will be used to decide the reset command.
-> > > + */
-> > > +static int psci_reboot_mode_write(struct reboot_mode_driver *reboot, u64 magic)
-> > > +{
-> > > +	u32 reset_type = REBOOT_MODE_ARG1(magic);
-> > > +	u32 cookie = REBOOT_MODE_ARG2(magic);
-> > > +
-> > > +	if (reset_type == 0) {
-> > > +		if (cookie == REBOOT_WARM || cookie == REBOOT_SOFT)
-> > > +			psci_set_reset_cmd(true, 0, 0);
-> > > +		else
-> > > +			psci_set_reset_cmd(false, 0, 0);
-> > > +	} else {
-> > > +		psci_set_reset_cmd(true, reset_type, cookie);
-> > > +	}
-> > 
-> > I don't think that psci_set_reset_cmd() has the right interface (and this
-> > nested if is too complicated for my taste). All we need to pass is reset-type
-> > and cookie (and if the reset is one of the predefined ones, reset-type is 0
-> > and cookie is the REBOOT_* cookie).
-> > 
-> > Then the PSCI firmware driver will take the action according to what
-> > resets are available.
-> > 
-> > How does it sound ?
-> 
-> So we mean these checks will move to the psci driver? Sorry for re-iterating
-> the question.
-
-Given what I say above, I believe that something we can do is mapping the magic
-to an enum like:
-
-PSCI_SYSTEM_RESET
-PSCI_SYSTEM_RESET2_ARCH_SYSTEM_WARM_RESET
-PSCI_SYSTEM_RESET2_VENDOR_RESET
-
-and can add a probe function into PSCI driver similar to psci_has_osi_support() but
-to probe for SYSTEM_RESET2 and initialize the predefined strings accordingly,
-depending on its presence.
-
-It is getting a bit hairy, agreed, but I am not sure there is cleaner ways
-of pulling this off.
-
-Lorenzo
-
-> 
-> > > +
-> > > +	return NOTIFY_DONE;
-> > > +}
-> > > +
-> > > +static int psci_reboot_mode_register_device(struct faux_device *fdev)
-> > > +{
-> > > +	struct reboot_mode_driver *reboot;
-> > > +	int ret;
-> > > +
-> > > +	reboot = devm_kzalloc(&fdev->dev, sizeof(*reboot), GFP_KERNEL);
-> > > +	if (!reboot)
-> > > +		return -ENOMEM;
-> > > +
-> > > +	psci_reboot_mode_set_predefined_modes(reboot);
-> > > +	reboot->write = psci_reboot_mode_write;
-> > > +	reboot->dev = &fdev->dev;
-> > > +
-> > > +	ret = devm_reboot_mode_register(&fdev->dev, reboot);
-> > > +	if (ret) {
-> > > +		dev_err_probe(&fdev->dev, ret, "devm_reboot_mode_register failed %d\n", ret);
-> > > +		return ret;
-> > > +	}
-> > > +
-> > > +	return 0;
-> > > +}
-> > > +
-> > > +static int __init psci_reboot_mode_init(void)
-> > > +{
-> > > +	struct device_node *psci_np;
-> > > +	struct faux_device *fdev;
-> > > +	struct device_node *np;
-> > > +	int ret;
-> > > +
-> > > +	psci_np = of_find_compatible_node(NULL, NULL, "arm,psci-1.0");
-> > > +	if (!psci_np)
-> > > +		return -ENODEV;
-> > > +	/*
-> > > +	 * Look for reboot-mode in the psci node. Even if the reboot-mode
-> > > +	 * node is not defined in psci, continue to register with the
-> > > +	 * reboot-mode driver and let the dev.ofnode be set as NULL.
-> > > +	 */
-> > > +	np = of_find_node_by_name(psci_np, "reboot-mode");
-> > > +
-> > > +	fdev = faux_device_create("psci-reboot-mode", NULL, NULL);
-> > 
-> > Same comment as Bartosz (have you picked up his work and working towards
-> > a solution) ?
-> Working on this via MFD. Some issue as again MFD framework does not allows a
-> fwnode based driver registration. Will update.
-> 
-> thanks,
-> Shivendra
+> > -- 
+> > With best wishes
+> > Dmitry
