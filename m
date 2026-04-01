@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC5553624CB;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD393363C47;
 	Wed,  1 Apr 2026 20:32:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775075534; cv=none; b=eDOX0zPe5Egu5kODaSyGysB80/JOQIJly9bGn9f7nqMInwkLyhz0SJ8jy04tlxUKmWiCAm1GkZUuE0V17CHR95GeZxvudDb2Uo0sKsdY7WdAFAroLethsgTjS6ymYAwlbt8O8q5HwgZPO6Dpk+/ejbGeuT6IOz0uOk2f1fvhxXo=
+	t=1775075534; cv=none; b=Ri8nSYzamuyH2w4cgHt374/c857DklP35zGVF7GWJqPeJzxFoBhUHSRnuC02OP2GaEsJIoYFWW33L6gGNq7U0SJWvIANdag765LEQQY5YQVvc678F/zZEJ071Np2eZOFpjnxmLu9v43lgdKflOI2JX1/mHa3Qb0RFQB2RoDGdsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1775075534; c=relaxed/simple;
-	bh=yd6xIu1ELgN4dc0E5oWBea0q1TRYAi4cof/2S/O3510=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ix6YKz0uJPxFsnky2rIzVcGEJAgFOXizMxQfyDFhsxvZfuy9+A+KM3SZQm9E6SKdP3FEm0u/oYjdi4gemJ2Ram35wu8++sLX4C4LWlbeNzdbenOmVUgl+n+g108mCtzzrncOhwuArXewnMamKDjXXHBCXyaRzOS+Zj31Y20XSG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kqXfuo6f; arc=none smtp.client-ip=10.30.226.201
+	bh=jBsewHTghAIIn/wUMqhn7I3HEdWZ2HxsTOsAooxpTDw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=SwT/VsxQilcqTzTCIx6VjgMx1GItNl+iggS7aIWJyMK2dbmm5MvMzjsxiNlY2EIVULVI7eoBceXoV5pGdDCLM8uqlUjvYcc65/EViqzqi0rUDfOEA5S/HiburTqqUKc6YsjoWsEsMY6/ZreXYJcO/+i92ZYfvC0P0XPeD6oimt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Za3g2bWc; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kqXfuo6f"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5577EC116C6;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Za3g2bWc"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 96BEAC4AF12;
 	Wed,  1 Apr 2026 20:32:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1775075534;
-	bh=yd6xIu1ELgN4dc0E5oWBea0q1TRYAi4cof/2S/O3510=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=kqXfuo6fMUuhkn14Q9TqZJ+z4aaay4Und4UcDyaWE82ZHfTxmlsMN4ilhkHcOtk/N
-	 nb3MsmRXoaPTwdH/EkxWZD7v7H1xhNL7yJ/pTa8ZZRkCF4+dteaeQbMhRbIbQKxv9p
-	 DKcJ4vqn+PF4tDx1F+iV6bCQ8WDzOWvp4GFeevpnCf+9VeyidX82ACmXU13OxtRrKM
-	 hhQ5GCTOH3azH/oAJl9NjyPp2DD1KJi5vVS/0o1JAssSBWBclHRK+GBk1brxdvLOIg
-	 4H6TN/jVY/p08m/0Dx+/t4vlTDHhLbnp+XTOzRqyoiAvvttXVWmF5xfaoPetxy3N0D
-	 ibBNel3eXBhIw==
+	bh=jBsewHTghAIIn/wUMqhn7I3HEdWZ2HxsTOsAooxpTDw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=Za3g2bWcnInyflFiripNysEfsYnK+m2T4NQzCOCKINQrlbKsEE0QOHxp+5RMznmP1
+	 opGF+oU6HvVWnbAsvTN96/EGGawZok7eAxvfa/BLVezHnBuUjkXmy4fKQoycaPz9Vw
+	 /oxijF/RBwjzUePnuxmaIvGQOioUb/ZkbFktRW+kM6tZQi+edNQUawCbbgV1okjLor
+	 i9Tlx2eTYzGbYpNnr7QSLj7ZjuGhruxXJiJxUZ3GlZZ2EdPF73LfuLkoJHMGzI9Hfw
+	 U4pEpPkZj5KeGVF5nqH/kUs/o4sIZ3VI0qP3tOHDVpTyZXEY3fwUduO/vdmRzWgSqk
+	 7joJeTHswcLMA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 42E451076395;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8DDC610FCAD2;
 	Wed,  1 Apr 2026 20:32:14 +0000 (UTC)
 From: Rudraksha Gupta via B4 Relay <devnull+guptarud.gmail.com@kernel.org>
-Subject: [PATCH v3 0/4] Reorganize DTS and add fuel-gauge to
- samsung-expressatt
-Date: Wed, 01 Apr 2026 13:32:12 -0700
-Message-Id: <20260401-expressatt_fuel_guage-v3-0-9674cfc0b5a2@gmail.com>
+Date: Wed, 01 Apr 2026 13:32:16 -0700
+Subject: [PATCH v3 4/4] ARM: dts: qcom: msm8960: expressatt: Add MAX17048
+ fuel gauge
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,30 +40,24 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WS62obMRCFX2XZ390gjUY3U0rfoy1Glxl7iTdO9
- 0ZC8Lt3vKYkaVOKfh1xzqfhjF7aicaepnbXvLQjrf3Unx9EmE9NW47p4UBdX0W3oMApY3RHT48
- jTVOa5z0vdNofliQmdLZyNhx8yq1kxcP908b99uOmR/q5CH6+XbaPaS5Hge++L6AEzrUq4mSpJ
- qshI0IOQaBBeY9VJ6+Mr+w3+O9oo6FCdBxMKVlnmSBU5ZIHQu8yW53IMpIr71MpepUKgwpKo2E
- Um4rG1grF+py9ZpvZmPAudRuTK1gmtsEqUyzZwh6BfMwaMGIonl2OocYPoi5IgckFlcUK2tuIw
- ioQIjnNBdFceaVeo8O14a37XfNZqpdGlH1TfTefl3K8p+du1Z0cRMwRfIlsvh6G1J/uynn48hH
- pryWWNNCY9nxK07FbsVMda4qR0aPVf9JymqgTMfTzrlndnY7tdbvHfprP4/P2iVa9rfc//2UbG
- 0zVNVhw2cXXhzbiCq8UVP+kgIwb0UeAYLCyfku5XC6/AHX8UXbeAgAA
-X-Change-ID: 20260331-expressatt_fuel_guage-465dfb3f87ab
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260401-expressatt_fuel_guage-v3-4-9674cfc0b5a2@gmail.com>
+References: <20260401-expressatt_fuel_guage-v3-0-9674cfc0b5a2@gmail.com>
+In-Reply-To: <20260401-expressatt_fuel_guage-v3-0-9674cfc0b5a2@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Rudraksha Gupta <guptarud@gmail.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1775075533; l=2567;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1775075533; l=2748;
  i=guptarud@gmail.com; s=20240916; h=from:subject:message-id;
- bh=yd6xIu1ELgN4dc0E5oWBea0q1TRYAi4cof/2S/O3510=;
- b=h60YI8+uFyz1L63WCxxYV0eYIQd880tYkAT6/Rc9VmB2D7eUtf+6ClHyGfSknxQJBxKEvCDTp
- qixT5SNt4hUBSpYD50/5d+8/j8jDSpOAXx9tHgT1Ou+W0zgICp4pwkU
+ bh=IonQhp2O6bu8eJNbRzvS3qlnrcCkSyJ1KwFHc6H2q3E=;
+ b=Pdcp1JWN4eqttKlHzxOcnyf2fyTy1ZYVoNtr3gjw/2PNsqDxLNOAFRO8X03903ZgO0X0nmn1x
+ gmONkSgnit+DIHLMZ74GPxb5UWn0XGgz7XsJlrIKHGYHIF5aHSqsc1M
 X-Developer-Key: i=guptarud@gmail.com; a=ed25519;
  pk=ETrudRugWAtOpr0OhRiheQ1lXM4Kk4KGFnBySlKDi2I=
 X-Endpoint-Received: by B4 Relay for guptarud@gmail.com/20240916 with
@@ -71,59 +65,81 @@ X-Endpoint-Received: by B4 Relay for guptarud@gmail.com/20240916 with
 X-Original-From: Rudraksha Gupta <guptarud@gmail.com>
 Reply-To: guptarud@gmail.com
 
-Reorganized the samsung-expressatt DTS and msm8960 DTSI to be more in
-line with mainline standards. Introduce GSBI5 I2C
+From: Rudraksha Gupta <guptarud@gmail.com>
 
-Tested battery by doing `cat /sys/class/power_supply/battery/capacity`
-in upstream Linux and comparing the value with downstream Linux. Booted
-on upstream Linux first, as the upstream Linux seems to use a lot
-more battery than downstream, and then put the battery into another
-expressatt running downstream Android to compare values. There are
-some slight differences, but overall seems to line up pretty well with
-downstream.
+Add MAX17048 fuel gauge support.
 
+Tested by comparing battery capacity readings between upstream (mainline
+max17040 driver) and downstream (Samsung max17048_fuelgauge driver)
+across a full discharge cycle. Upstream reads ~3% lower throughout. Both
+track the discharge curve correctly:
+
+  Upstream:   95 92 88 87 86 87 83 82 80 68 60 55 50 45 40 35 30 20 16 10 10 5 5 1
+  Downstream: 95 94 92 91 91 89 87 86 84 73 64 59 51 48 43 38 33 23 17 14 12 8 6 3
+
+Each pair of readings was collected by checking the upstream capacity
+first, then moving the battery to a second expressatt running downstream
+Android to check its capacity. The battery was then moved back to the
+upstream device for the next reading. This swap occasionally caused the
+upstream capacity to read slightly higher than the previous value
+(e.g. 86 -> 87). When this happened, the reading was retaken after the
+value settled.
+
+Link: https://github.com/LineageOS/android_kernel_samsung_d2/blob/stable/cm-11.0-XNG3C/arch/arm/mach-msm/board-apexq-battery.c
+Link: https://github.com/LineageOS/android_kernel_samsung_d2/blob/stable/cm-11.0-XNG3C/drivers/battery/Makefile#L5
+Link: https://github.com/LineageOS/android_kernel_samsung_d2/blob/stable/cm-11.0-XNG3C/arch/arm/mach-msm/Makefile#L308
+
+Assisted-by: Claude:claude-opus-4.6
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Rudraksha Gupta <guptarud@gmail.com>
 ---
-Changes in v3:
-- Flatten i2c pinctrl subnodes in msm8960 dtsi
-- change comment format from // to /* */
-- \n before status
-- use interrupts-extended instead
-- Link to v2: https://lore.kernel.org/r/20260401-expressatt_fuel_guage-v2-0-947922834df1@gmail.com
+ .../dts/qcom/qcom-msm8960-samsung-expressatt.dts   | 23 ++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
-Changes in v2:
-- Previous changes were based on some outdated dependencies. Update them
-- Reorganized expressatt DTS
-- Switch to GSBI5
-- Link to v1: https://lore.kernel.org/r/20260331-expressatt_fuel_guage-v1-1-23d1d8526b69@gmail.com
+diff --git a/arch/arm/boot/dts/qcom/qcom-msm8960-samsung-expressatt.dts b/arch/arm/boot/dts/qcom/qcom-msm8960-samsung-expressatt.dts
+index 0e6959f7af6f..e4a5e49a43ec 100644
+--- a/arch/arm/boot/dts/qcom/qcom-msm8960-samsung-expressatt.dts
++++ b/arch/arm/boot/dts/qcom/qcom-msm8960-samsung-expressatt.dts
+@@ -186,6 +186,22 @@ &gsbi5_serial {
+ 	status = "okay";
+ };
+ 
++&gsbi5_i2c {
++	status = "okay";
++
++	fuel-gauge@36 {
++		compatible = "maxim,max17048";
++		reg = <0x36>;
++		maxim,double-soc;
++		maxim,rcomp = /bits/ 8 <0x62>;
++		maxim,alert-low-soc-level = <2>;
++		interrupts-extended = <&tlmm 67 IRQ_TYPE_EDGE_FALLING>;
++		pinctrl-0 = <&fuelgauge_alert_pin>;
++		pinctrl-names = "default";
++		wakeup-source;
++	};
++};
++
+ &gsbi7 {
+ 	qcom,mode = <GSBI_PROT_I2C>;
+ 
+@@ -587,6 +603,13 @@ touchkey_irq_pin: touchkey-irq-state {
+ 		bias-disable;
+ 	};
+ 
++	fuelgauge_alert_pin: fuelgauge-alert-state {
++		pins = "gpio67";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
+ 	touchkey_i2c_pins: touchkey-i2c-state {
+ 		pins = "gpio71", "gpio72";
+ 		function = "gpio";
 
----
-Rudraksha Gupta (4):
-      ARM: dts: qcom: msm8960: expressatt: Sort node references and includes
-      ARM: dts: qcom: msm8960: Flatten I2C pinctrl state subnodes
-      ARM: dts: qcom: msm8960: Add GSBI5 I2C controller
-      ARM: dts: qcom: msm8960: expressatt: Add MAX17048 fuel gauge
-
- .../dts/qcom/qcom-msm8960-samsung-expressatt.dts   | 423 +++++++++++----------
- arch/arm/boot/dts/qcom/qcom-msm8960.dtsi           | 171 +++++----
- 2 files changed, 313 insertions(+), 281 deletions(-)
----
-base-commit: e9ec05addd1a067fc7cb218f20ecdc1b1b0898c0
-change-id: 20260331-expressatt_fuel_guage-465dfb3f87ab
-prerequisite-patch-id: 6fdd0efa5eda512b442b885df80774d1a7037df7
-prerequisite-patch-id: 12d296f83ccb1bdfb8d06a72e476bf51ae5f4e6c
-prerequisite-patch-id: a970acf2080143f41ae0935dd2c57bb71f5bf338
-prerequisite-patch-id: fd25fef58503c5e5cf742e79b124948c7f6b98d9
-prerequisite-patch-id: 68603a680b24921759425fc289e61fc4435e5ccd
-prerequisite-message-id: <20251205-expressatt-touchkey-v1-1-1444b927c9f3@gmail.com>
-prerequisite-patch-id: 8de4de7909722ccaf385c4224f25a623eaa72c28
-prerequisite-message-id: <20260331-expressatt_camera_flash-v4-0-f1e99f474513@gmail.com>
-prerequisite-patch-id: ab8b8d87fd2d518c4c5b5dace3f22238d1abbe49
-prerequisite-patch-id: 47e32e653e520a27770bb05d99135694b0128ba0
-prerequisite-patch-id: 7ef7df61e7ef6476a35811d765f522f793d9ecc7
-
-Best regards,
 -- 
-Rudraksha Gupta <guptarud@gmail.com>
+2.53.0
 
 
