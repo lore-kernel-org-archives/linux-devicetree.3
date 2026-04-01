@@ -1,157 +1,150 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 307154657E3;
-	Wed,  1 Apr 2026 16:07:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 751CC361DBF;
+	Wed,  1 Apr 2026 16:08:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775059652; cv=none; b=BnHvYjJpghj7bxut3tc6p/To2CDiuaa62TWpfCCsBrMML5BFYrSyqvKFQD6IYoApUsquH2Gx9uEbBBRqKFq50t/OX4ot2K6rV1gSPpbOKc2PI7EQc317lftuCxGwPElk04hnsmgnrgv++SQUaUGT+ntkA+MfZ6Xm0ECTKUsZDg0=
+	t=1775059683; cv=none; b=izLiJ/HCuwlDWKk4rwlrbRq+9RwFqu2VpJq8W9wDwvJehckEoKS5Juroo2zS8RemVxt36ztPmtrr1DjHU9d6TMOt1BaR/aDGjG/TRtmmS0UWdY8xl+F0JkXStHS00Lql+T9ahrlSlxWVIojCeLsODI6B+Z1mhH9DOEXj1yiFjec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775059652; c=relaxed/simple;
-	bh=EFiVz7oTsJZh6ZU1Ng7jCh+8Psy0EZFpu1yBCNbbNEo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gHHmANgZ2X/fLOoT/Eo9onxeA6WAHiC+3ZWMEoDDUEWOCkXqrT1NliUj1e/cgWR9Kqb2m+tr9WtkqQha5fUg5qYhd0E4+XeApCjqXtEqRBwu9gGunuhMawjqEV/AWSD0c2nq2nAabLtHbKxHgVNkW3jSCINVVf4HaFl9X6nQkhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UD1ISEYc; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775059683; c=relaxed/simple;
+	bh=CAWqjT7a0ECle0p+cjJLfFVUz4QZKrWzh+L4muolz8s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NBmQjAxJnny/7V83Rl6cLvg/CrhE+GZ2HdhVfh05pQO57zKRBuukfVF8fz/xzzvysYMZnlkBtGWDazr41ZbXLt0E6+Ve+3Z8XjL3vfUv1DqrQN50wkVj56XniWoTuuy2Jyfrf1flbn1PvqkiORsWWtZM4XuCLZPhG1x7aYZCCQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IYlcOAC2; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UD1ISEYc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 710CBC19421;
-	Wed,  1 Apr 2026 16:07:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IYlcOAC2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDD24C4CEF7;
+	Wed,  1 Apr 2026 16:07:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775059650;
-	bh=EFiVz7oTsJZh6ZU1Ng7jCh+8Psy0EZFpu1yBCNbbNEo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=UD1ISEYcsmSYDhlb01nvZDFtlQlbSemlnr7iXtgCk104YW1Q5UxqwsolERk5ylFHv
-	 Vt1PY4i4FHRYcP8dnxS8Q8eBRTzYywTPGKUZtWQdZdpoNe99VW6H7iQQqNCm1jw8Bz
-	 n86Z36xJ4BZ5cWRXG6m9oIgvPhCmBpLh1ki9W4JudWmC9EHmPhTbLAGUU6e+kwqm7L
-	 8KuEJ4EPuD9AWV1PsnVAcs+Tn1B/bI/YO5n1g500VM71HHkbnXXbOF29Vr0SwSACPQ
-	 /K0VJ66vzfau79yssDUdidY/ndCcqyKFplWKKQok3R8Tvn+pWIvzT4D5nxYoFCDUqY
-	 ZUo5E5dWU/p+Q==
-Message-ID: <562530e9-a607-4dae-9b43-786a3946f795@kernel.org>
-Date: Wed, 1 Apr 2026 18:07:23 +0200
+	s=k20201202; t=1775059683;
+	bh=CAWqjT7a0ECle0p+cjJLfFVUz4QZKrWzh+L4muolz8s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=IYlcOAC2JmrabV6k0EQdev65ty7gp/D9x3bQKT5TdXg7Cd0Gy0QxJNiXK+zYhWq42
+	 VKsMmrDPhE1djTENe2EAW0pSB/xWM31Hb/uTtYdwipRtxCgl48I9sP2JG/2o0w8RuF
+	 RpbrhRZfeIhYvx+tarcltqdLUIw7IFTqYvkqL6cBL4l9l19gCR4SeCU5DS654vFYMS
+	 Dms8ba5NVnK0NUF6WpgZMx7kBSrcPIWrb6KbyDe2/FOhRTDxij5WMLJscwG+gx4b/K
+	 omEZW7lLI0J51CH0GmlVDDXB+XXanK/PvazJxkdpulYQFzjPGabj0It1T6BnL7b74d
+	 N3F8XFQu+CsRA==
+Date: Wed, 1 Apr 2026 17:07:57 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Sen Wang <sen@ti.com>
+Cc: linux-sound@vger.kernel.org, lgirdwood@gmail.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+	perex@perex.cz, tiwai@suse.com, shenghao-ding@ti.com,
+	kevin-lu@ti.com, baojun.xu@ti.com, niranjan.hy@ti.com,
+	l-badrinarayanan@ti.com, devarsht@ti.com, v-singh1@ti.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/4] ASoC: codecs: Add TAS675x quad-channel audio
+ amplifier driver
+Message-ID: <8eb47e54-12e1-4f92-a488-09485df035c6@sirena.org.uk>
+References: <20260401024210.28542-1-sen@ti.com>
+ <20260401024210.28542-3-sen@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: gpu: mali-valhall-csf: Document i.MX952
- support
-To: Guangliu Ding <guangliu.ding@nxp.com>, Liviu Dudau <liviu.dudau@arm.com>
-Cc: "Daniel Baluta (OSS)" <daniel.baluta@oss.nxp.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Alice Ryhl <aliceryhl@google.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <frank.li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "imx@lists.linux.dev" <imx@lists.linux.dev>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, Jiyu Yang <jiyu.yang@nxp.com>
-References: <20260331-master-v1-0-65c8e318d462@nxp.com>
- <20260331-master-v1-1-65c8e318d462@nxp.com> <acva1Xt8V4k9-uG8@e142607>
- <AM0PR04MB47073E9E8B5C704BCF5D9F72F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
- <99a1da55-d6e5-4d11-abaa-8c85283ab5f2@oss.nxp.com>
- <AM0PR04MB4707B3E37DFE7AEE587DBA2AF350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
- <aczv0R0aQRmHKdvt@e142607>
- <AM0PR04MB4707335CC7035232D44E6ED9F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
- <2f4c4063-daf6-48f2-b830-9f58dc7af80d@kernel.org>
- <AM0PR04MB4707D758EC8B08C6D42F3A82F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
- <253608f3-8b47-428d-a703-97dcd9731628@kernel.org>
- <AM0PR04MB47075AF2C5863FC665285CA9F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <AM0PR04MB47075AF2C5863FC665285CA9F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="6Krvfc3UkUAr2EV/"
+Content-Disposition: inline
+In-Reply-To: <20260401024210.28542-3-sen@ti.com>
+X-Cookie: "Yo baby yo baby yo."
 
-On 01/04/2026 13:27, Guangliu Ding wrote:
->>>>
->>>> We discuss only the lack of compatibility in terms of DT, how DT sees
->>>> compatible devices.
->>>>
->>>> And lack of driver code is clear indication that devices are
->>>> compatible in terms how DT understands it. Feel encouraged to bring
->>>> actual arguments in commit msgs in the future.
->>>>
->>>> Best regards,
->>>> Krzysztof
->>>
->>> So the best approach is only reserve "arm,mali-valhall-csf" for now,
->>> since currently there is no need for an additional compatible entry from a DT
->> compatibility perspective.
->>> We can introduce "nxp,imx952-mali" in future commits if hardware or
->>> driver differences actually require it, and include more detailed justification
->> in the commit message. Right?
->>
->> So does that mean you decided not to read writing bindings document?
-> 
-> Actually, I followed the compatible string of gpu node in imx952.dtsi during
-> code work since they share the same GPU IP.
->          gpu: gpu@4d900000 {
->              compatible = "nxp,imx95-mali", "arm,mali-valhall-csf"; > 
-> 
-> Is this line in writing bindings document that you want to mention about?
-> Could you please share more suggestions about the patch optimization?
-> 		DO add new compatibles in case there are new features or bugs.
 
-Please read entire file. I feel like you avoid doing this and just ask
-me to give you shortcut.
+--6Krvfc3UkUAr2EV/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-There is more than one point from that trivial writing bindings file
-which applies here.
+On Tue, Mar 31, 2026 at 09:42:07PM -0500, Sen Wang wrote:
 
-Best regards,
-Krzysztof
+> The TAS675x (TAS6754, TAS67524) are quad-channel, digital-input
+> Class-D amplifiers with an integrated DSP, controlled over I2C.
+> They support I2S and TDM serial audio interfaces.
+
+> +static int tas675x_dapm_sleep_event(struct snd_soc_dapm_widget *widget,
+> +				    struct snd_kcontrol *kcontrol, int event)
+> +{
+> +	struct snd_soc_component *component = snd_soc_dapm_to_component(widget->dapm);
+> +	int ret = 0;
+> +
+> +	switch (event) {
+> +	case SND_SOC_DAPM_POST_PMU:
+> +		ret = pm_runtime_resume_and_get(component->dev);
+> +		break;
+> +	case SND_SOC_DAPM_PRE_PMD:
+> +		pm_runtime_mark_last_busy(component->dev);
+> +		pm_runtime_put_autosuspend(component->dev);
+> +		break;
+> +	}
+> +	return ret < 0 ? ret : 0;
+> +}
+
+I'm confused what's going on here, there's runtime PM management in the
+ASoC core - isn't this just duplicating what's there?
+
+> +static int tas675x_runtime_resume(struct device *dev)
+> +{
+
+> +       if (!to_i2c_client(dev)->irq)
+> +               schedule_delayed_work(&tas->fault_check_work,
+> +                                     msecs_to_jiffies(TAS675X_FAULT_CHECK_INTERVAL_MS));
+
+This is the only place where we start the fault checking but runtime PM
+can be disabled in configuration and we also start runtime PM in the
+active state so potentially might never suspend and resume.  probe()
+should kick off the work as well.
+
+> +static int tas675x_init_device(struct tas675x_priv *tas)
+> +{
+> +	struct regmap *regmap = tas->regmap;
+> +	unsigned int val;
+> +	int ret, i;
+> +
+> +	/* Clear POR fault flag to prevent IRQ storm */
+> +	regmap_read(regmap, TAS675X_POWER_FAULT_LATCHED_REG, &val);
+
+
+> +static int tas675x_i2c_probe(struct i2c_client *client)
+> +{
+
+> +	if (client->irq) {
+> +		ret = devm_request_threaded_irq(tas->dev, client->irq, NULL,
+> +						tas675x_irq_handler,
+> +						IRQF_ONESHOT | IRQF_TRIGGER_FALLING,
+> +						"tas675x-fault", tas);
+> +		if (ret)
+> +			return dev_err_probe(tas->dev, ret, "Failed to request IRQ\n");
+> +	}
+
+We request the interrupt here...
+
+> +	INIT_DELAYED_WORK(&tas->fault_check_work, tas675x_fault_check_work);
+
+> +	ret = tas675x_power_on(tas);
+> +	if (ret)
+> +		return ret;
+
+...before we do _power_on() which is what calls _hw_init() and clears any
+faults that were latched in the registers.  This means that if there is
+something there we'll handle it through the normal interrupt handling
+flow and the rest won't buy is much, probably better to reorder the init
+vs the interrupt request.
+
+--6Krvfc3UkUAr2EV/
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnNQtwACgkQJNaLcl1U
+h9DEZgf+JmeogiHBNBqjFfUuOhJrTON5+mFF7hOVQfKBu9BY+B38erPJbUHdDG09
+SieFXCx3Unz3J/GpJpszArF4KH7B9fBfpCkCGzhlhs3tPRFVFG4mO+L9OX+DfDG5
+qzonRXx6T+gIhIewRMtwCiAJJnXR0Gw/qqtLJGhQQfqQFpXETK/Pwrq1eipF7CWh
+aYcRkZd4lQjdxdknUGP/KTC/govAq+0KS5XYDkQkX+zKxsOw2tBsNz2JgB4Cdj4v
+rkf4AM4G3g51yIvmjerUjlgxK8WVOm6w96ThZVN5hZXr5B0qaOiIuEAs8DV88FDi
+V6DR47In130joJMHqrfZFIRZBaR9Hw==
+=hPV1
+-----END PGP SIGNATURE-----
+
+--6Krvfc3UkUAr2EV/--
