@@ -1,354 +1,164 @@
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010019.outbound.protection.outlook.com [52.101.228.19])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011040.outbound.protection.outlook.com [40.107.130.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6CF64F5E0;
-	Wed,  1 Apr 2026 09:10:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F692857EA;
+	Wed,  1 Apr 2026 09:11:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.40
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775034655; cv=fail; b=X8FaEI02T/Jw1ZGGRIP649PwPizfUSqljQpcdjs8cRhseUh1IxM5Cj5Q/pI6sFKOjuZhGuN7TDZBx/wF5Zz0ZMBd7hw4T6z5ufaJlRqOAkhyxPGbGX7iHkfAa3qA9qiv6L+xrd1fDPdcLiQS5rjnklecBdee4Gi4Eu61JwFIarU=
+	t=1775034679; cv=fail; b=pNMgAeG2FnQqVFZD6/RZTrTgnBqq/JZzuk8QV64oUO4svjNB/eJF/vpwtSqp2nvQiAJiJizdd8HPh/XABpvikrMREWP5JQDTt4q0RoSE1nhWfV/XQkS54BO96Q79qRJawTjxLu3+/AE4fhhHS0uBOMkSmf/diZlpA9WyEyVDmLo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775034655; c=relaxed/simple;
-	bh=U9tSWwv17Di56cxFGDHA+H7r7khDeopYIS5Q6n3XirQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=YV9Pn6RIlqfsJodbjGgpDphmYSpiL+pxBtHA6Eo9aypjLl6WsJfy4hWQnMo2ndBDVrVCtu2wvREiLsy959+Mkly++lzgmty66S0uCCcgcr5uqPuh81K3nJSLjiMAM1iuAdNgCIwsg8D904BwEZhy0aZc6zA3QW5g2TBGFeiL5vA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=q0D8+X2b; arc=fail smtp.client-ip=52.101.228.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	s=arc-20240116; t=1775034679; c=relaxed/simple;
+	bh=awCqBOF5GsbAqasZJdiecFhkmotk8E2OwpDkaSuIvk0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=blDSirnKId9IUHjY2WlmWNqT163HsTUO+iVgfdYPg24QcU1Qw4TTnnfuuN5h8zN28Zl9IIp9FnTpZGqIER4X1YweGdUUtRzEigmKIVuRXOaXzwqaR8PtmetGcFq0rxQB0k8VUQALGOWRfQOiUNftnPvJwRKDHgV3VWFD1rdXO4U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=HeWytHG1; arc=fail smtp.client-ip=40.107.130.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="q0D8+X2b"
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="HeWytHG1"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=S+xXn4c7o2o855ZU80Yf/5qTDmtzVneFHegcUdVa5cf1Jo3tIAGqWcTNJvYojqOwH56iEpIgjBjTBYg6cxp5HS/MNa/bNqJdGbAkZ1/UPgdDyErhE7ucIIOQkfb8xtr9DVba9mnEzJx4Hq1nD4UWmXbn1X+UHptGvURJ8nIpXY0Jd9R+TYkJ5SpJKHCU8jOpb7IMjuj3pAKtH1tILwZDPp7q+FEYfVYUBWPIztOnVZbzzsg9tdZpJ46i8ddkQJNqX8B7yXCxFmmSTx0IUqANWjtYJKnR9Mu/mt/V2pb/LzGg1+5sV1EPKWTPqWQK9VMuxKLQPKH6Ds0mCLfTjQx0zg==
+ b=NuznjFPlq8NbktN1y3fU4lJgRsAtrKV31LNMj0ngpSQxOy9GCay3SFW8T0dh/VlLHBYhj9ShXpZyxj/5vWz2yGAeNkNbods2fr2OmZuy9JBBw3CMIWKBuJbsPd7U2tJ5VZUdDORi/71MAlTLvsAB5esiUSOAM+JVNNnWcsNg4LOVWA80/KO4vRqS830wFWMWuH+Wvg+4RnnDOq84Nf3s9c1MsvnvmVTx494t9F1LjM9fOKIOdTPkqhvoTHWJlz0fjBaY5ryS6OTHbKZa0g89/viBznWS0YRz4xsnRnwibiFnOVdM5aRHXrGxUnGRtQgO1s4PUE7ka4Om3vLhvfKegw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LOWwr7I7lgYu2J3691Q9Q7ourj7Ucy7qEbkAfTjVyio=;
- b=dl+9Nz9Inv6fAxwLFwV6RgXPVWwDyPu/IpFLELYYBNoB0+YquYP/2xye7ykaS/pL0XodcgfV8W9oR7Bl5snlLc/ukeHNLinyRYvvciwhwtvasOZb/h1wUeJth196smKzizocr+uYYqB1P3QxrKfBPiUiAxmxm8X3avQ7yf9VOd757IU6+zbQu+BgDLVn7Mfc17ZdPwqe/Yx2uRclCLa4YO+8MTUI3S9qNGA3ngcdZ0y46hCgrnHLIW5Xm9CPgXOawk9EgDKznfTU9GAlKhPgxX1wwmR11+qK76q0CUzFJdZy9xqvBrqcVkwzvQeIyuv6vLBzhjlVKPb6WhxFHPZvzA==
+ bh=awCqBOF5GsbAqasZJdiecFhkmotk8E2OwpDkaSuIvk0=;
+ b=t+VbTMLk/O7jPkzDpjAQ/wE0a7SvHt9u/gGPX2xNjXPcfDl6E/jeWHzrz3h4pQz6jZqVnw+By2hA/lOBloqKtyQLYQ0w3X5RO4/UwTBmTIrtAxrm/d17AO6fTFX36zhZMQ4ps38bJpI38ujw95vNovwuMUMHY9RwOOgchIxxB9D+PfLgQXojZ8CB+eWIMQ0DB+Ur8jG9DK2hr8H1U292dJUF/YHwki7OB2llMy8iQgfO13M3yaPxPXNFqg5n7y7AYyZJ55baxbE5NHma0Kn6+3fEu40Ubps+sP+1VzgwyazekTdnUMaK5piLqv1NpucqPZHxQMHpyJJFa7hzOBE8oQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LOWwr7I7lgYu2J3691Q9Q7ourj7Ucy7qEbkAfTjVyio=;
- b=q0D8+X2bwlCu8LLKKCyu7CaG+9QkaZ9dtF89n06r7iqO1O3aB2tf9+1VkvxWg9Vo2ltTLsapcvO9TzCpor9UQi/lGQEmux6kPNsnVC6KwXH09ZxTHzNfy0C+xBDgKPTzkkvr+vyuHeR5eackUt+wOx/m1mc4mAh+16xpIXkAjfM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com (2603:1096:400:3e1::6)
- by OSCPR01MB13641.jpnprd01.prod.outlook.com (2603:1096:604:37e::9) with
+ bh=awCqBOF5GsbAqasZJdiecFhkmotk8E2OwpDkaSuIvk0=;
+ b=HeWytHG1M2aOU5DBYHcy7xZcu4yuZ7yhT7FBe8GsmZ/VA51ri/vmNa4zPqsyX+7EFXpgmf0z9mRyqOkretMhYKV0sJC/5qz64Bwkk3xRKdb4vZRX3E5e48OzuB3eAYu0TQ7XRNT5fNPV37rpl6R+c6t5xU3PJpM9cVtBpky8T+zvG1+qZFG0GBfkVNGB99rsm03jqGLSEaKCgK0cYgNeJqqdS1Q3tNZv+Xa9h3W0cgw+hzYC9IihXLvjfz4CwNr3VRDmYIh4b5Wx4/syGBzsNRWk8Nkir4ngbD8sTXtSLIuo45EsKk8WT2uAyxtgpQgWeh9xJF8rSpco+CMuOHJj1g==
+Received: from AM0PR04MB4707.eurprd04.prod.outlook.com (2603:10a6:208:c0::29)
+ by DU4PR04MB11962.eurprd04.prod.outlook.com (2603:10a6:10:617::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.16; Wed, 1 Apr
- 2026 09:10:50 +0000
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8]) by TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8%5]) with mapi id 15.20.9769.016; Wed, 1 Apr 2026
- 09:10:49 +0000
-Date: Wed, 1 Apr 2026 11:10:32 +0200
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: tomm.merciai@gmail.com, peda@axentia.se,
-	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Josua Mayer <josua@solid-run.com>,
-	Ulf Hansson <ulf.hansson@linaro.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 5/6] reset: rzv2h-usb2phy: Convert to regmap API
-Message-ID: <aczhCMdmi9cpkGkM@tom-desktop>
-References: <cover.1774601289.git.tommaso.merciai.xr@bp.renesas.com>
- <0259040014396ea03d58a87c2ce2a3f9eff2b0b6.1774601289.git.tommaso.merciai.xr@bp.renesas.com>
- <283a6336658045be8906ee219620c994e85c7fb8.camel@pengutronix.de>
- <aczRo8HVUFqXKfG_@tom-desktop>
- <0bad9579a953cc069e17a7075a45c9eb9c7a6d8d.camel@pengutronix.de>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0bad9579a953cc069e17a7075a45c9eb9c7a6d8d.camel@pengutronix.de>
-X-ClientProxiedBy: FR0P281CA0245.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:af::6) To TYCPR01MB11947.jpnprd01.prod.outlook.com
- (2603:1096:400:3e1::6)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Wed, 1 Apr
+ 2026 09:11:13 +0000
+Received: from AM0PR04MB4707.eurprd04.prod.outlook.com
+ ([fe80::e918:eca8:f034:698f]) by AM0PR04MB4707.eurprd04.prod.outlook.com
+ ([fe80::e918:eca8:f034:698f%5]) with mapi id 15.20.9632.017; Wed, 1 Apr 2026
+ 09:11:12 +0000
+From: Guangliu Ding <guangliu.ding@nxp.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+CC: Daniel Almeida <daniel.almeida@collabora.com>, Alice Ryhl
+	<aliceryhl@google.com>, Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Frank Li <frank.li@nxp.com>, Sascha Hauer
+	<s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, "dri-devel@lists.freedesktop.org"
+	<dri-devel@lists.freedesktop.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "imx@lists.linux.dev" <imx@lists.linux.dev>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, Jiyu Yang <jiyu.yang@nxp.com>
+Subject: RE: Re: [PATCH 1/2] dt-bindings: gpu: mali-valhall-csf: Document
+ i.MX952 support
+Thread-Topic: Re: [PATCH 1/2] dt-bindings: gpu: mali-valhall-csf: Document
+ i.MX952 support
+Thread-Index: AQHcwbd8KHaYJQuy102Hh0xMmBlXdQ==
+Date: Wed, 1 Apr 2026 09:11:12 +0000
+Message-ID:
+ <AM0PR04MB4707CFEB0D2BEB83174E205AF350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+References: <20260331-master-v1-0-65c8e318d462@nxp.com>
+ <20260331-master-v1-1-65c8e318d462@nxp.com>
+ <20260401-weightless-mule-of-opportunity-57f45e@quoll>
+In-Reply-To: <20260401-weightless-mule-of-opportunity-57f45e@quoll>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AM0PR04MB4707:EE_|DU4PR04MB11962:EE_
+x-ms-office365-filtering-correlation-id: 87f8bbad-e2e6-4650-e29d-08de8fce9f28
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|19092799006|7416014|376014|38070700021|22082099003|56012099003|18002099003;
+x-microsoft-antispam-message-info:
+ RbRWrOu2/zgfW9h50AP/yrHY73zLlNIOpPNnHY63gjlrdhTXH6NilpjgVqY2H4qbP+WqmU8WgDgKWNwn4I4FpqiwQm5yiJ4+KgjjoCVL4o68u/BFJWdlaBtogzEIBugWaKOfQh89YFZhRccKWqNRDkGbz6TmyKqdGApjh3qVaHhyXRB5yaYYl+/k3hCc1Hv0VqVqYzj6vhcWuYO42EJAzYEx1OyIfe2N0E+EZDjqeuG+kczKu0BEPNjjrZcXnP4DCowtNA3EjrfmBUlqVYY4fX1fvVnT5cbit1Jfswj3JBYKpCBf9J+txZZs9/cWjiRrtEoMj2P4s1rxc15Otzf0Qf9MIt5q6Zn1/P5hFqh/xrxK+QIUU3GGvXcnPI7VfUgglqYWzIGtvPX/hLalGSnWbZIQdaS0IhsgZRiQwQlPWkd+qGAuVI041VpaivvBf2seZF5ZOa2I4tsu+G0YfVjX7x9adZvrCDVPPSklaaRqPpiJMh33l0Aobk1LutK5zjdjl3Wvt4grNOXEJpQEg56IAqu8NgirmGUUzDJGLUwnzQxjEXBceN3FiV6+rWYVoxg0n9b5VdDAsMDNmDsTThYFprpsi+pftJ32r66oi49dx9Y6i7i75U/jXqow4e1YEiRUwBuCVfKt/htn7O5tTwbIo9/KrOGQ9SK4yVJAyGf8I8uuZ5ggbE1iRTqnfdM4uBp5KIKmJeF+hlcC0FSVP/L7vOkYIYCTrFRSliljN4oAc5HfMhLFq7wqKxZCWrLjDxQIhNQm2PbNvXy8Wn4DjIjOknMfwrybBkqc2Iw/WGkvqQk=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB4707.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(19092799006)(7416014)(376014)(38070700021)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?piGp+lEQBaK/Zd87ASCZNtojupfQYVtzUnSdCjs9vDrt+ms0VSymAkCfGxOC?=
+ =?us-ascii?Q?wYNziYd+1K5zoF8cE6spwVsxblan+FTAPQTk+HHuloNpflgJM+ROqeqaT5Xl?=
+ =?us-ascii?Q?1UylTO2lZfwvXsv7WhTZMsM1odcspmwsc9PDLRpcn1bz9UTsupD8unu5t3lE?=
+ =?us-ascii?Q?f3c4n+EgpJtYRbqKYvWg5YPG99zo8tKSgbR9dT21wQE9hslDVNuxZHG8msNk?=
+ =?us-ascii?Q?Fqlnnk9JFs403Ol7QPa2sdy86Z65gpufzKPOzlXfIafH891rz43paMzvvwCP?=
+ =?us-ascii?Q?5RegeDzA7ZNLqnjzzsc0EkXfZoGVresXLg0BKINNpSZGRXfElHJ+pxv6l1aq?=
+ =?us-ascii?Q?pXiEmu/mvmRI/gGn3oSXhzx/f1U++eU/x4mQBuImHsnlWS2nXMhDE/zM6XJu?=
+ =?us-ascii?Q?/NlCRYVD5RompeS1H56eDy5+w2GZkF0VeQB6BQj3at4O1TwRcj/lmkyEexhF?=
+ =?us-ascii?Q?ol4EtS2c6exmT9WIymkMkVV6wOPC2T8/SAOZY8nHa3uzwY30m2D65yGVxZNl?=
+ =?us-ascii?Q?BOutYEKyMVSk3rjj43neIyXKmrJGJQnAPf6BI3IGO67isIGwc+CgrmHlv/aH?=
+ =?us-ascii?Q?/LwfxPGPId5f2xtNj5N6jcsm2JaZnim/oMLeonzrkXQ3BmEr5OK2wC4mFbO1?=
+ =?us-ascii?Q?lz7XcCTJsYwD+/gpCfbbk8mrf342B5aFGXhfv4+NkX50e4lsRG8TwbSnR6op?=
+ =?us-ascii?Q?RPwxQuQnt0+sLahqyHlSUi5hGO1pdCmE8dVCSnhKk6UQpIyrfDOJ6vngmNdO?=
+ =?us-ascii?Q?7bAV+2lUL+Hfx/wbC+pG2UYGaIwZpaJE5cerkTqk05XT593ZPdYGbiEIgApo?=
+ =?us-ascii?Q?lOqPtIBsX/Ga4ZhO8NbW5i2v3gfrlAldtKg5EqooPemYi3rHMt9ne/ju1IA+?=
+ =?us-ascii?Q?caAqc6LS7fYxXZW3X00IUVjk5xn1LGLR1Cr+nBBw05RekZHWKP3UPeFd7kmC?=
+ =?us-ascii?Q?39hWeKMQJu/TMXt2nzY3MvkmLhAsnKtN6RRFNsYPR2pfo0ocCgBdIsQoAFvS?=
+ =?us-ascii?Q?WGVuk4+xCP5H5V5og17aUWeLVs/qjJflWOjYWeClbTXbW3J1klY4n9xmTJ1J?=
+ =?us-ascii?Q?7c9UO7Utk7pH3QlEsUIuunlCr0irSQiuYvycK7t/q8cYbduI0dN9W0aAu8ZH?=
+ =?us-ascii?Q?3z/vwTmw657C9TksHYhxzxkNtNxz0OwodPNOIV6TnoNVoUHb58oc7f1JuGap?=
+ =?us-ascii?Q?05sW4X/LwmKSJGjig+HNahmH9UxQHX42wvx89QftS93LrrkP33/Ob6BziD+a?=
+ =?us-ascii?Q?MNM5ILJxHxvjOcMxGKkni9wIbmCadrQqAY42FzjZcSQxKmTL+99KMh8Ua0ts?=
+ =?us-ascii?Q?qMj7SqBzHXlmrqMi6ktd0okeI0QZxfL1PPxlbh3BCjKTDdkicq7JO44j3JtL?=
+ =?us-ascii?Q?1Cblvlooy2KvDmA3l5Dnc+2XzdPozwoti+Coc7Q2hvZ/F5KSdpCC+S0POFe3?=
+ =?us-ascii?Q?Q2aC3EdbmsVa0c3hYqtmklaw51uzUlVnaPk29tMtd42Pz6zIRn9CnuYe3lqw?=
+ =?us-ascii?Q?jMTbpuWDwjGwOBbh2zf0aAkH+l0L7b3flUytOvlxdWazS2pWy45f5NAELWfa?=
+ =?us-ascii?Q?ktpTa++TMr9v3A9QJYfcFlV59beCSqA4V5zPRfiudKSAROV86zKBZp+j8OdV?=
+ =?us-ascii?Q?12ujZlE0QiCnFQL5S23oh5eneIP4K8We2z5eApvIf2Jq8R9LCcXOwwQ/UJVI?=
+ =?us-ascii?Q?oBYT4Q6UZ28/1ZR7dRAVTaaB/oSfYXsnXkMsrgOgjiyjXwQP?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB11947:EE_|OSCPR01MB13641:EE_
-X-MS-Office365-Filtering-Correlation-Id: aa8fbf32-d248-4b69-392f-08de8fce9125
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|52116014|7416014|376014|366016|38350700014|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	6CXh2v0FTwENBgLEJDZVJ1YnIF1cb+ui5/DBHrmj6h3bxSrHKd/na+eJkPO1DZdrFDxdgMvF2AoYt8hlvJe5hMchHEvS4abABLvyPCERIAtiklP2F4R5AtMJBtDfWX159+uqWaE3DLs4T6Jf9zwucs4KZuAq6RcJo5BrCM6I3iUBCpKShcQWmxNl1R6HZZhy0ynnQq35gmCmTr/h0z83kuCq0Y0XFEzTyWpQKi6yHzc3iYs7Q0hH9O6TtetFTQ++XJmiRuKWYOnynNTH3A3EgBjZfxfc0uEpiUJPPrUgu45Q1NJIen2qSy1vIQdv0f/4nH3fn3YGaYmD8N4psVUFYxXenZbrvokkbqVw+rQljet9SX/KsGHAlojGAqUTI+VoGq6ewYc47PycBOXciVS0joEl+EFP8k1CjVlTntnZm8j1vxmmCMAf9HVlXV+U7d/cAU2wMxBEf3HLVqay0pDovNW1RAv4byJ9IUVIJ4L5wdrXbv4/S8hctj5uIE2QKOj18PUxXN57SVlXMXmsIHAfbcpA80rX5GOW5E8SizuCXFsGnKyATLpB/iR5S98z11KnEMKUS6UnzdWSVPd49ntt+QzTL3k1BtQf66xw1I80eo/yOwK4IT/65SypRv8AOnH9G2X8YXjDa6eZ5PHc6GLPCxLAgqpBUdRm3XysVMZx1lgZ3UwwGwIbzcdKcBLOH74mPMeTdyHfrrmPfIoavzbe3aFVbqI1WfXKV1TkiAmeLc41Dix7R/U43lDPOoBKfpxAvXhe0DDzyXNsRvQBQIAceg9YZPWwCdHpRX4JTXcVS3A=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB11947.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(52116014)(7416014)(376014)(366016)(38350700014)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?32d27Fw8/XhtORVpGAxUnaKLR8nU/gPAauTZkYq+ic4IV12JtfMP3IXdO3ZE?=
- =?us-ascii?Q?d40NV55t3Ub8UspEAu7KcUzmAn9MnUkYMgDtPnrNaeF3hUpXlmY2DV38sQj8?=
- =?us-ascii?Q?DlOzu/h24EuIhSHB3FOYO9eeiY3cd7UnYqt0SPgWWt7gqQdRlBpuDYdCcozo?=
- =?us-ascii?Q?gQsN1TFRtzLqhummwzzCkZ9k3weri8Wzg9/Q8Wj52/xFFSeNYDAuOKm8yjJb?=
- =?us-ascii?Q?sWtr/W8xENCNb1wVTniyEN3Ce4ehmADra1vbzFjnatJuM22QMrfFkrCClBsD?=
- =?us-ascii?Q?cZICmClDg+oJVwALj+9kKndX1M+u3dIeoFQCIwKCpYigk1L9QGbogNPZu/Rk?=
- =?us-ascii?Q?uA4t+oXB3ESDSdwvIX3Ybr/CUsQ8TC9Z/FsEbPi0WqE878Bt4+nIgXQf25Af?=
- =?us-ascii?Q?VCARayZhONsEgWkHBmaTbq5Pel6bXU7LaGcvjJbnj3YJozrGyS+wKEy8S59D?=
- =?us-ascii?Q?AaZ7cn3w6UARmpsxLvLX9GpaHZdv3xZEbFinNDPG4PV8yPFBng7/w5ymi4a1?=
- =?us-ascii?Q?x2b3UfaagBbyyQYTM2eB+D8zXxVxp+jJbpQNxNKSR34JYYi7rUJYCUsIJztw?=
- =?us-ascii?Q?ac79gMXPIcBVu8jjeZG0xk6EyTcd09vkVKlg/uIriTf+nLsGtoZG2TNJVL1R?=
- =?us-ascii?Q?1ulzok9nOiLZ3M+eQcvo1JStkQogRVdesCtTua6ToHUf6KORjpKFS8FDs30U?=
- =?us-ascii?Q?sxQYRx/Y+tnhvqxpJlpi8Q7XQwEHCt9aaYhfqGttTAFWGWK+ZxTeyTGA2Dja?=
- =?us-ascii?Q?vFFeZXSYRSWPBBPqeQBMFR/C3nkmrhRzUn22sDMvxRrTtg+vTp0gTC+lHz3i?=
- =?us-ascii?Q?T/B3YBXM48+lfciym98LNbIZReEE+HYJ/RSxKLMyFdYBiziyvQES8lbiC8Ey?=
- =?us-ascii?Q?q3znpHz7R4I10lH6oHP80u0WDYO1GvBP2xsCoSvcPRN4NI6CEunW5aLjxzxX?=
- =?us-ascii?Q?/mE8YaRiSzYdZ+JYCsrI0McAhaHSTkXI5Ewgcy/TEPw/7uePlUi8ktim3+Dq?=
- =?us-ascii?Q?GcJUUprXERPk1zonRgr2EYgYK0dYBS0RyRiZqNLXTrZM4dKwlVxr6mqT0NDE?=
- =?us-ascii?Q?8K949YBAP6R/zbzCLgRTtGBSuW+nrMcoyh5uKaTT9hV64HqoqGDskCnVsYPM?=
- =?us-ascii?Q?vQw04H2NTO4a0BoQfJSaR4lOawmdeW7/w36Zho2H39Ueqhxm0DGvL7seShY2?=
- =?us-ascii?Q?CGo02JDbaowCzJux1g3wFd1IiQIoAgZOWBgMk9a2aIXdTll6Fd92bGtBodqQ?=
- =?us-ascii?Q?36HipxHORFxrkRFekOFuU6dZnMzlyTQBCb/50eOdFZQ/QEZ6eBnS6fkz24RT?=
- =?us-ascii?Q?WqTQyLyc+aR/xTJSH6zTugcKPvezJ2yzFAIXVdjJBqgkeA9jeaEYsFV4Xlem?=
- =?us-ascii?Q?q3EwsH1IXznqhGwwVRtzUrqbOD9QhsbRgNpqMkHkUdon4KkjDST7HhWpl0/e?=
- =?us-ascii?Q?deQgU/col4k2IbXSNgcBUd4XjHnysj8WgKU28hITQpqn0nn/5dGwh3LafiZZ?=
- =?us-ascii?Q?TtcbXhp/qWoX8bTujpJeAcJGuClx3vPDT4mHRe93kSfrCzqH5lo2v8siZA/v?=
- =?us-ascii?Q?YvZutKl/XjfqKCG9PWhXV1Fj1is3xC32elt8VJpuqcuUJ7yXcWpvEA0F1Ls0?=
- =?us-ascii?Q?oL1GsyB9i5FGMcNsz2acVqvkqvKPURgNH8tQFz1IacIh9f40+8acyERowQbw?=
- =?us-ascii?Q?tmFKC3HOeHoVKQ164gCCSkkOeeia15JYx4zSq+3tcAFHt3tQHeYWmkUc3lmo?=
- =?us-ascii?Q?fOc8FmGMCzIDxkmFgDu+EWoU/lHegbqm1LnsSNjpr2Iv2KsYFGKD?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: aa8fbf32-d248-4b69-392f-08de8fce9125
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11947.jpnprd01.prod.outlook.com
+X-OriginatorOrg: nxp.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 09:10:49.8113
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB4707.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 87f8bbad-e2e6-4650-e29d-08de8fce9f28
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Apr 2026 09:11:12.9275
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aLfhxgq1eKrtWH/gWCYEgMQjpzWD6A5baaIcDELtoCsP510bnYAtpp4hEJt0GTUFVvCJ4jja3imVtsEVJiduwkUl38ItKPwII+Wi16PioWZ1UEr+7T/U+memXn9BtWu6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCPR01MB13641
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: hXRf3dDeipqII1+hUr1d6TMFrgGC2TxB2xEl6SdKZ17CF/mGLLGoG1T+s58n7G6Uj9k8XOw31BI72BZ2NEUvmw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB11962
 
-Hi Philipp,
-Thanks for your comments.
+Hi Krzysztof
 
-On Wed, Apr 01, 2026 at 10:23:51AM +0200, Philipp Zabel wrote:
-> On Mi, 2026-04-01 at 10:04 +0200, Tommaso Merciai wrote:
-> > Hi Philipp,
-> > Thanks for your review.
-> > 
-> > On Tue, Mar 31, 2026 at 06:36:45PM +0200, Philipp Zabel wrote:
-> > > On Fr, 2026-03-27 at 19:08 +0100, Tommaso Merciai wrote:
-> > > > Replace raw MMIO accesses (void __iomem *, readl/writel) with
-> > > > regmap_read/regmap_write via devm_regmap_init_mmio(). Regmap
-> > > > provides its own internal locking, so the manual spinlock and
-> > > > scoped_guard() wrappers are no longer needed.
-> > > > 
-> > > > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> > > > ---
-> > > > v8->v9:
-> > > >  - New patch
-> > > > 
-> > > >  drivers/reset/Kconfig               |  1 +
-> > > >  drivers/reset/reset-rzv2h-usb2phy.c | 42 ++++++++++++++++-------------
-> > > >  2 files changed, 24 insertions(+), 19 deletions(-)
-> > > > 
-> > > > diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
-> > > > index 5165006be693..c539ca88518f 100644
-> > > > --- a/drivers/reset/Kconfig
-> > > > +++ b/drivers/reset/Kconfig
-> > > > @@ -257,6 +257,7 @@ config RESET_RZG2L_USBPHY_CTRL
-> > > >  config RESET_RZV2H_USB2PHY
-> > > >  	tristate "Renesas RZ/V2H(P) (and similar SoCs) USB2PHY Reset driver"
-> > > >  	depends on ARCH_RENESAS || COMPILE_TEST
-> > > > +	select REGMAP_MMIO
-> > > >  	help
-> > > >  	  Support for USB2PHY Port reset Control found on the RZ/V2H(P) SoC
-> > > >  	  (and similar SoCs).
-> > > > diff --git a/drivers/reset/reset-rzv2h-usb2phy.c b/drivers/reset/reset-rzv2h-usb2phy.c
-> > > > index 5bdd39274612..4014eff0f017 100644
-> > > > --- a/drivers/reset/reset-rzv2h-usb2phy.c
-> > > > +++ b/drivers/reset/reset-rzv2h-usb2phy.c
-> > > > @@ -5,13 +5,13 @@
-> > > >   * Copyright (C) 2025 Renesas Electronics Corporation
-> > > >   */
-> > > >  
-> > > > -#include <linux/cleanup.h>
-> > > >  #include <linux/delay.h>
-> > > >  #include <linux/io.h>
-> > > >  #include <linux/module.h>
-> > > >  #include <linux/of.h>
-> > > >  #include <linux/platform_device.h>
-> > > >  #include <linux/pm_runtime.h>
-> > > > +#include <linux/regmap.h>
-> > > >  #include <linux/reset.h>
-> > > >  #include <linux/reset-controller.h>
-> > > >  
-> > > > @@ -37,10 +37,9 @@ struct rzv2h_usb2phy_reset_of_data {
-> > > >  
-> > > >  struct rzv2h_usb2phy_reset_priv {
-> > > >  	const struct rzv2h_usb2phy_reset_of_data *data;
-> > > > -	void __iomem *base;
-> > > > +	struct regmap *regmap;
-> > > >  	struct device *dev;
-> > > >  	struct reset_controller_dev rcdev;
-> > > > -	spinlock_t lock; /* protects register accesses */
-> > > >  };
-> > > >  
-> > > >  static inline struct rzv2h_usb2phy_reset_priv
-> > > > @@ -55,10 +54,8 @@ static int rzv2h_usbphy_reset_assert(struct reset_controller_dev *rcdev,
-> > > >  	struct rzv2h_usb2phy_reset_priv *priv = rzv2h_usbphy_rcdev_to_priv(rcdev);
-> > > >  	const struct rzv2h_usb2phy_reset_of_data *data = priv->data;
-> > > >  
-> > > > -	scoped_guard(spinlock, &priv->lock) {
-> > > > -		writel(data->reset2_acquire_val, priv->base + data->reset2_reg);
-> > > > -		writel(data->reset_assert_val, priv->base + data->reset_reg);
-> > > > -	}
-> > > > +	regmap_write(priv->regmap, data->reset2_reg, data->reset2_acquire_val);
-> > > > +	regmap_write(priv->regmap, data->reset_reg, data->reset_assert_val);
-> > > 
-> > > What is the spinlock protecting? acquire/assert registers being set
-> > > together, without another acquire/assert or deassert/release register
-> > > access pair interleaving?
-> > > In that case you still need the lock. Or use regmap_multi_reg_write().
-> > > You could even directly store the sequences as struct reg_sequence in
-> > > rzv2h_usb2phy_reset_of_data.
-> > 
-> > You are correct. Thank you.
-> > As per your suggestion I'm planning to use regmap_multi_reg_write().
-> > 
-> > Plan is to have the:
-> > 
-> > static const struct reg_sequence rzv2h_init_seqs[] = {
-> 
-> Even though the struct is called req_sequence, the whole array is the
-> sequence. Let's call these _seq, singular.
+This is my first upstream contribution. I will improve the patch in v2.
 
-Ack.
+> On Tue, Mar 31, 2026 at 06:12:38PM +0800, Guangliu Ding wrote:
+> > Add compatible string of Mali G310 GPU on i.MX952 board.
+>=20
+> We see this from the diff. Say something useful.
 
-> 
-> > 	{ .reg = 0xc10, .def = 0x67c },
-> > 	{ .reg = 0xc14, .def = 0x1f },
-> 
-> 0x01f for consistency?
+I will improve the description in v2.
 
-Ouch, thank you!
+>=20
+> >
+> > Signed-off-by: Guangliu Ding <guangliu.ding@nxp.com>
+> > Reviewed-by: Jiyu Yang <jiyu.yang@nxp.com>
+>=20
+> And the review should tell you that. Did that review even happen? That's =
+a v1
+> and a single liner patch, so how basics could be missed?
 
-> 
-> > 	{ .reg = 0x600, .def = 0x909 },
-> > };
-> > 
-> > static const struct reg_sequence rzv2h_assert_seqs[] = {
-> > 	{ .reg = 0xb04, .def = 0x303 },
-> > 	{ .reg = 0x000, .def = 0x206 },
-> 
-> Consider setting .delay_us = 11, see below.
+Yes, it's v1. I will remove the Reviewed-by tag in v2.
 
-Thanks for the hint.
+>=20
+> Best regards,
+> Krzysztof
 
-> 
-> > };
-> > 
-> > static const struct reg_sequence rzv2h_deassert_seqs[] = {
-> > 	{ .reg = 0x000, .def = 0x200 },
-> > 	{ .reg = 0xb04, .def = 0x003 },
-> > 	{ .reg = 0x000, .def = 0x000 },
-> > };
-> > 
-> > static const struct rzv2h_usb2phy_reset_of_data rzv2h_reset_of_data = {
-> > 	.init_seqs = rzv2h_init_seqs,
-> > 	.init_nseqs = ARRAY_SIZE(rzv2h_init_seqs),
-> > 	.assert_seqs = rzv2h_assert_seqs,
-> > 	.assert_nseqs = ARRAY_SIZE(rzv2h_assert_seqs),
-> > 	.deassert_seqs = rzv2h_deassert_seqs,
-> > 	.deassert_nseqs = ARRAY_SIZE(rzv2h_deassert_seqs),
-> > 	.reset_reg = 0,
-> > 	.reset_status_bits = BIT(2),
-> > };
-> > 
-> > With that I can use:
-> > 
-> > static int rzv2h_usbphy_reset_assert(struct reset_controller_dev *rcdev,
-> > 				     unsigned long id)
-> > {
-> > 	struct rzv2h_usb2phy_reset_priv *priv = rzv2h_usbphy_rcdev_to_priv(rcdev);
-> > 	const struct rzv2h_usb2phy_reset_of_data *data = priv->data;
-> > 	int ret;
-> > 
-> > 	ret = regmap_multi_reg_write(priv->regmap, data->assert_seqs,
-> > 				     data->assert_nseqs);
-> > 	if (ret)
-> > 		return ret;
-> > 
-> > 	usleep_range(11, 20);
-> 
-> Specifying a delay in rzv2h_assert_seqs[] and setting
-> rzv2h_usb2phy_reset_regconf.can_sleep = true would have the same
-> effect.
-
-Then we can have:
-
-static const struct reg_sequence rzv2h_init_seq[] = {
-	{ .reg = 0xc10, .def = 0x67c },
-	{ .reg = 0xc14, .def = 0x01f },
-	{ .reg = 0x600, .def = 0x909 },
-};
-
-static const struct reg_sequence rzv2h_assert_seq[] = {
-	{ .reg = 0xb04, .def = 0x303 },
-	{ .reg = 0x000, .def = 0x206, .delay_us = 20 },
-};
-
-static const struct reg_sequence rzv2h_deassert_seq[] = {
-	{ .reg = 0x000, .def = 0x200 },
-	{ .reg = 0xb04, .def = 0x003 },
-	{ .reg = 0x000, .def = 0x000 },
-};
-
-static const struct rzv2h_usb2phy_reset_of_data rzv2h_reset_of_data = {
-	.init_seq = rzv2h_init_seq,
-	.init_nseq = ARRAY_SIZE(rzv2h_init_seq),
-	.assert_seq = rzv2h_assert_seq,
-	.assert_nseq = ARRAY_SIZE(rzv2h_assert_seq),
-	.deassert_seq = rzv2h_deassert_seq,
-	.deassert_nseq = ARRAY_SIZE(rzv2h_deassert_seq),
-	.reset_reg = 0,
-	.reset_status_bits = BIT(2),
-};
-
-And I'll add:
-
-static const struct regmap_config rzv2h_usb2phy_reset_regconf = {
-	.reg_bits = 32,
-	.val_bits = 32,
-	.reg_stride = 4,
-	.can_sleep = true,
-};
-
-In this way as you suggested we can drop usleep_range() into 
-rzv2h_usbphy_reset_assert() in thi way I think we can have
-simply:
-
-static int rzv2h_usbphy_reset_assert(struct reset_controller_dev *rcdev,
-				     unsigned long id)
-{
-	struct rzv2h_usb2phy_reset_priv *priv = rzv2h_usbphy_rcdev_to_priv(rcdev);
-
-	return regmap_multi_reg_write(priv->regmap, priv->data->assert_seq,
-				      priv->data->assert_nseq);
-}
-
-What do you think? Thanks.
-
-Kind Regards,
-Tommaso
-
-
-
-> 
-> regards
-> Philipp
