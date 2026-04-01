@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD393363C47;
-	Wed,  1 Apr 2026 20:32:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7859637B002;
+	Wed,  1 Apr 2026 20:40:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775075534; cv=none; b=Ri8nSYzamuyH2w4cgHt374/c857DklP35zGVF7GWJqPeJzxFoBhUHSRnuC02OP2GaEsJIoYFWW33L6gGNq7U0SJWvIANdag765LEQQY5YQVvc678F/zZEJ071Np2eZOFpjnxmLu9v43lgdKflOI2JX1/mHa3Qb0RFQB2RoDGdsw=
+	t=1775076017; cv=none; b=ifwH4EPv4D6E1obL50yzfmGI4Kt0aFUrC+rZu7++bqeQ15Nv38FzlHDnx2jCRdLhe0nxRjaN0einU9fvmcejGn2i60y5Gaj9+QOWPPQzSYt0O313t8mHedZiQmg7kOoYz6CvWmHD9K+u7bUi/3mBmr1+nvx600WezKEWSEpxxCA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775075534; c=relaxed/simple;
-	bh=jBsewHTghAIIn/wUMqhn7I3HEdWZ2HxsTOsAooxpTDw=;
+	s=arc-20240116; t=1775076017; c=relaxed/simple;
+	bh=Twx6Qy0Q6CaPFSgUsx1I5e69oNenyyYz8wjnnuZt1Dk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SwT/VsxQilcqTzTCIx6VjgMx1GItNl+iggS7aIWJyMK2dbmm5MvMzjsxiNlY2EIVULVI7eoBceXoV5pGdDCLM8uqlUjvYcc65/EViqzqi0rUDfOEA5S/HiburTqqUKc6YsjoWsEsMY6/ZreXYJcO/+i92ZYfvC0P0XPeD6oimt0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Za3g2bWc; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=O646hes2b0cgke/m5zuR+86j90x7GIWbmyW2C72RdmaokvwOB1i9FDugs47SGMDeprYMNY499E2wFR0RCPLQdXCjb1pVA3KVCV9eA88/WtNHrFu3RBmxPR7+tKME6rCwkd6MWfNGsepW3MGdqMPM4cmy8LaB7KO0SbkVZ83M/Ds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oD5GHLrd; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Za3g2bWc"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 96BEAC4AF12;
-	Wed,  1 Apr 2026 20:32:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oD5GHLrd"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 09F05C2BCB0;
+	Wed,  1 Apr 2026 20:40:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775075534;
-	bh=jBsewHTghAIIn/wUMqhn7I3HEdWZ2HxsTOsAooxpTDw=;
+	s=k20201202; t=1775076017;
+	bh=Twx6Qy0Q6CaPFSgUsx1I5e69oNenyyYz8wjnnuZt1Dk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Za3g2bWcnInyflFiripNysEfsYnK+m2T4NQzCOCKINQrlbKsEE0QOHxp+5RMznmP1
-	 opGF+oU6HvVWnbAsvTN96/EGGawZok7eAxvfa/BLVezHnBuUjkXmy4fKQoycaPz9Vw
-	 /oxijF/RBwjzUePnuxmaIvGQOioUb/ZkbFktRW+kM6tZQi+edNQUawCbbgV1okjLor
-	 i9Tlx2eTYzGbYpNnr7QSLj7ZjuGhruxXJiJxUZ3GlZZ2EdPF73LfuLkoJHMGzI9Hfw
-	 U4pEpPkZj5KeGVF5nqH/kUs/o4sIZ3VI0qP3tOHDVpTyZXEY3fwUduO/vdmRzWgSqk
-	 7joJeTHswcLMA==
+	b=oD5GHLrdU8jcbdCZXndyaqlMDsj4hKcmiwugvWOhxMxfZmHaZYFiQ5QxNV9K/9Eho
+	 i3dZl5nVYOigKH3gBt1UXPjc+SpYN8PQTBTSpcEnfftfKKrHEMUhQhXHT7bkYhu5lG
+	 umlq2c6PxW1B2j7San0ElSMIKoqNPMR4u4wAFcpCuTxxylJ2kLIIKSbr7OTDWO97nN
+	 bAbJ+bdgmyOrY7CtXT5j408q5IpUdDJkl8CieCAOWbIyHJqrhAEIIxlvzm48q+bwVN
+	 qGhcOsv06k7CDYron6cx6gTrc/MyHUwR72HlcXmzQNCrso6cVsioyG/1ocxfEyV6Mb
+	 GVDtD3dsDcBLw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8DDC610FCAD2;
-	Wed,  1 Apr 2026 20:32:14 +0000 (UTC)
-From: Rudraksha Gupta via B4 Relay <devnull+guptarud.gmail.com@kernel.org>
-Date: Wed, 01 Apr 2026 13:32:16 -0700
-Subject: [PATCH v3 4/4] ARM: dts: qcom: msm8960: expressatt: Add MAX17048
- fuel gauge
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F3E2510FCADA;
+	Wed,  1 Apr 2026 20:40:16 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Wed, 01 Apr 2026 22:40:15 +0200
+Subject: [PATCH v3 2/4] arm64: dts: qcom: sdm845-oneplus: Drop address from
+ framebuffer node
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,103 +41,65 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260401-expressatt_fuel_guage-v3-4-9674cfc0b5a2@gmail.com>
-References: <20260401-expressatt_fuel_guage-v3-0-9674cfc0b5a2@gmail.com>
-In-Reply-To: <20260401-expressatt_fuel_guage-v3-0-9674cfc0b5a2@gmail.com>
+Message-Id: <20260401-beryllium-fb-v3-2-ec7d443402ab@ixit.cz>
+References: <20260401-beryllium-fb-v3-0-ec7d443402ab@ixit.cz>
+In-Reply-To: <20260401-beryllium-fb-v3-0-ec7d443402ab@ixit.cz>
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
+ Conor Dooley <conor+dt@kernel.org>, David Heidelberg <david@ixit.cz>, 
+ Sam Day <me@samcday.com>, Dzmitry Sankouski <dsankouski@gmail.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Rudraksha Gupta <guptarud@gmail.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
+ Petr Hodina <petr.hodina@protonmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1775075533; l=2748;
- i=guptarud@gmail.com; s=20240916; h=from:subject:message-id;
- bh=IonQhp2O6bu8eJNbRzvS3qlnrcCkSyJ1KwFHc6H2q3E=;
- b=Pdcp1JWN4eqttKlHzxOcnyf2fyTy1ZYVoNtr3gjw/2PNsqDxLNOAFRO8X03903ZgO0X0nmn1x
- gmONkSgnit+DIHLMZ74GPxb5UWn0XGgz7XsJlrIKHGYHIF5aHSqsc1M
-X-Developer-Key: i=guptarud@gmail.com; a=ed25519;
- pk=ETrudRugWAtOpr0OhRiheQ1lXM4Kk4KGFnBySlKDi2I=
-X-Endpoint-Received: by B4 Relay for guptarud@gmail.com/20240916 with
- auth_id=211
-X-Original-From: Rudraksha Gupta <guptarud@gmail.com>
-Reply-To: guptarud@gmail.com
+X-Developer-Signature: v=1; a=openpgp-sha256; l=909; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=WpNRtN9KzfW/WJ6Lnvj3M30Ah3OBdedD1ihXX8o//rY=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBpzYKuSCC6LZ70kvSXAg4upE79cW3vXQixDTeb3
+ scUrRZBgiyJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCac2CrgAKCRBgAj/E00kg
+ coLiD/9UMphhTgj7BGZNyxfMKhDjjXFrLIsFmw9p1/UxbPbEqmw8tZtHya8irhlOos/krRoWexS
+ oGURF8JGpTujRx2W65cwnAEAxcCFRIenmEniqS8VWX2q/a/7jnsW0mhqlvuFOcJ/LlkaOyOqIli
+ 8g++dioBLaWUCdaoJJ20aXWAsUVrN5naNv/E3UOeVW77eKhYUTaoQvmAi/u3+WxD0MjELwTv1gq
+ p5PeYHC0wiu3g2K9DJCgeP9kL5MRWOb0vHMzzqvLnWvos6q+THa18bPwlDffVm1XFx88bZ1WOCB
+ NUPLYXYiw54qTPVwHFf7nyhB78op+lpwkW8HDPSH3gFZ72XP7Q+0lIEorKZsW2wkjxhWAS5hiUH
+ fNKz7/DKnFSZfO6tYrSlq/bic2vRj17dAvQ9WSziq3WkvpDwhe927uy2TtAXCbcHgS7TlxudmYU
+ ZnnK6TFUKs7ME9yX4P/RApPOWBG89sxUY7rP2BVn7jLxQ5Ts4q9gH8Uh/s6trwUS2+ggH6fJNok
+ CubrqtV2OzZeCuNQyBsARRnok2W1tcezM4R5czO4hlt9acMkZe0Q/jF23bGXbZ4bmdWRH74/+1p
+ Rkd1RZTutpQ64YmVLfkd9CJIG8DtIqDSjHc7B0ratYAz5JPy9ZtPjjFe41BFSoFn3b/XSCFgdTq
+ yJuCWWeDUkmu3cA==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-From: Rudraksha Gupta <guptarud@gmail.com>
+From: David Heidelberg <david@ixit.cz>
 
-Add MAX17048 fuel gauge support.
+This node has no 'reg' property, so it shouldn't have a unit address
+(after '@') either
 
-Tested by comparing battery capacity readings between upstream (mainline
-max17040 driver) and downstream (Samsung max17048_fuelgauge driver)
-across a full discharge cycle. Upstream reads ~3% lower throughout. Both
-track the discharge curve correctly:
-
-  Upstream:   95 92 88 87 86 87 83 82 80 68 60 55 50 45 40 35 30 20 16 10 10 5 5 1
-  Downstream: 95 94 92 91 91 89 87 86 84 73 64 59 51 48 43 38 33 23 17 14 12 8 6 3
-
-Each pair of readings was collected by checking the upstream capacity
-first, then moving the battery to a second expressatt running downstream
-Android to check its capacity. The battery was then moved back to the
-upstream device for the next reading. This swap occasionally caused the
-upstream capacity to read slightly higher than the previous value
-(e.g. 86 -> 87). When this happened, the reading was retaken after the
-value settled.
-
-Link: https://github.com/LineageOS/android_kernel_samsung_d2/blob/stable/cm-11.0-XNG3C/arch/arm/mach-msm/board-apexq-battery.c
-Link: https://github.com/LineageOS/android_kernel_samsung_d2/blob/stable/cm-11.0-XNG3C/drivers/battery/Makefile#L5
-Link: https://github.com/LineageOS/android_kernel_samsung_d2/blob/stable/cm-11.0-XNG3C/arch/arm/mach-msm/Makefile#L308
-
-Assisted-by: Claude:claude-opus-4.6
+Fixes: b0d5c96e860c ("arm64: dts: qcom: sdm845-oneplus: Add framebuffer")
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Rudraksha Gupta <guptarud@gmail.com>
+Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- .../dts/qcom/qcom-msm8960-samsung-expressatt.dts   | 23 ++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/qcom/qcom-msm8960-samsung-expressatt.dts b/arch/arm/boot/dts/qcom/qcom-msm8960-samsung-expressatt.dts
-index 0e6959f7af6f..e4a5e49a43ec 100644
---- a/arch/arm/boot/dts/qcom/qcom-msm8960-samsung-expressatt.dts
-+++ b/arch/arm/boot/dts/qcom/qcom-msm8960-samsung-expressatt.dts
-@@ -186,6 +186,22 @@ &gsbi5_serial {
- 	status = "okay";
- };
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+index 6b7378cf4d493..05b8d656b5fc4 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+@@ -72,7 +72,7 @@ chosen {
  
-+&gsbi5_i2c {
-+	status = "okay";
-+
-+	fuel-gauge@36 {
-+		compatible = "maxim,max17048";
-+		reg = <0x36>;
-+		maxim,double-soc;
-+		maxim,rcomp = /bits/ 8 <0x62>;
-+		maxim,alert-low-soc-level = <2>;
-+		interrupts-extended = <&tlmm 67 IRQ_TYPE_EDGE_FALLING>;
-+		pinctrl-0 = <&fuelgauge_alert_pin>;
-+		pinctrl-names = "default";
-+		wakeup-source;
-+	};
-+};
-+
- &gsbi7 {
- 	qcom,mode = <GSBI_PROT_I2C>;
+ 		stdout-path = "serial0:115200n8";
  
-@@ -587,6 +603,13 @@ touchkey_irq_pin: touchkey-irq-state {
- 		bias-disable;
- 	};
+-		framebuffer: framebuffer@9d400000 {
++		framebuffer {
+ 			compatible = "simple-framebuffer";
+ 			memory-region = <&cont_splash_mem>;
  
-+	fuelgauge_alert_pin: fuelgauge-alert-state {
-+		pins = "gpio67";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
- 	touchkey_i2c_pins: touchkey-i2c-state {
- 		pins = "gpio71", "gpio72";
- 		function = "gpio";
 
 -- 
 2.53.0
