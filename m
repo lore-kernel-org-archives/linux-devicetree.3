@@ -1,61 +1,63 @@
-Received: from mail-qv1-f98.google.com (mail-qv1-f98.google.com [209.85.219.98])
+Received: from mail-qt1-f228.google.com (mail-qt1-f228.google.com [209.85.160.228])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C4673D994
-	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 01:07:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BA9626D4F9
+	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 01:07:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775005635; cv=none; b=gg4J45GmGDFnwxquRWMy8aNEb5VfnTjEutddHKpEPvZwCOXidL241PLB6CDjlMgd3c7H107OW1M7bXFCCvfXxE4ZuG7q6QbA094OD5tpHrkJ8blxllkk9IrTssVQAWZGxKftIviLrCxTSG1dSNIzlcKBqh7BTcouvGiVpuXSAds=
+	t=1775005636; cv=none; b=hjNy63KThUMSHPgi5s5RuJUjYR+PzxGFT59P60u6mhTTy/pn65GA4JqyFNuJ35S0LQaYtdBvnmvvXvQdiHrKxPMx09iotVz2g5GNMuzFU4J86HK8oERoaQ1X61YGQe3A1r/ZQp4YYzCkUiEHYToqXQ6IMAsOaUYqvfsP0/EUtFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775005635; c=relaxed/simple;
-	bh=nmpffVr1ddnUBluqFttiTj9kAP/yyikUvrgSsTApo3M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Cb1JfP59t4klz5qSkWgH8X30Kp7myBsP8nuwl4QXPDKLtya9QJcZYrvSy/BO14NG0BSOj4vEL+KaDW1o4yMKcmexdL0k6+YIudGAK97S2yokIemNT4k3SukN0RFY4iFlo/aGrfT00NfNC0buFSbhwWwJ9eyl2WtJ04sPtywRN9s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ausil.us; spf=pass smtp.mailfrom=ausil.us; dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b=kYkilypr; arc=none smtp.client-ip=209.85.219.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ausil.us
+	s=arc-20240116; t=1775005636; c=relaxed/simple;
+	bh=YOfFbIpwiNDmQQ6SnW9JqzlFwsdx7DsINX0gVz2lQkI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ueeuOuO7Wr7hFNC4/T3lxTvpAJfa/EJv0Tmyg2akvLcfJxp1J6U74J+/0EKSbPK1+IyiEusR1T+uEJH2enVTBxpZgzrzJ0IwzXJJIUWPgW1ElNBWZsT9SweMoqTYCieh/5hotTzShE/NO275LUsPjLHD8CXdkCM0pucXew6mTUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ausil.us; spf=pass smtp.mailfrom=ausil.us; dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b=OnxyZw4G; arc=none smtp.client-ip=209.85.160.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ausil.us
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ausil.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b="kYkilypr"
-Received: by mail-qv1-f98.google.com with SMTP id 6a1803df08f44-8a05c18d3e2so4698736d6.1
-        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 18:07:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b="OnxyZw4G"
+Received: by mail-qt1-f228.google.com with SMTP id d75a77b69052e-50bc115f206so36983021cf.3
+        for <devicetree@vger.kernel.org>; Tue, 31 Mar 2026 18:07:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ausil.us; s=google; t=1775005631; x=1775610431; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=1OvbiweTCjhtUC8AZj2mAbljTB73GnHpwQYyOLsvAGY=;
-        b=kYkilyprptEVqqPqoy68kQJW7kvC0r8Snn/6KPjPfJ4TF4QSdQkcgk7UWocZv2I2oy
-         4wD2y61PCBdVKpRo61r7k7zYfBfHsgitDQlBu2Q5FpP4pgEyiqjRjb/3wJzq5+U6V3VU
-         05EdkFRNK//CuTEpHxDh6mShvnHdpxwKHdrAf07NBjD7MeAJauBYcFQizkALL53pPDVA
-         Rn1qPxnqEl0/zAeP6DJEtW5hZf/CxHonjbOSK/GhWw+dtQEu0vDCB0cHSzsZYMnwna1S
-         CLYPT3vyV2Ztlf1XbrKqo6edOanUNUqV21NHamW98W0HqYpy58yd4PbIO/nSEnqbTYHP
-         oz5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775005631; x=1775610431;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=ausil.us; s=google; t=1775005633; x=1775610433; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1OvbiweTCjhtUC8AZj2mAbljTB73GnHpwQYyOLsvAGY=;
-        b=Qgl50s3u7feFtdavd3Cb2bI5i/C2vx/r0Za1oJl0N73Zu3kdafKqVQ62FbhsjzrMD+
-         LrTkGseaNw631kQ2dgXnsNrI+ecx63Z4mRV0TfwIYlUVkDvUltbvs3mG5JYr7azRCNUp
-         JOj/AJwcAJSs70KjIJ/7oaXQAyj9AF91DZVEin4DH1pHQda1gnSA1oL9+/T8OoKS/5HH
-         y5gBcgHNB1liAdW0HwGNCDE6qiaWACRRBT3YSZpwL6MCi8MmHqudSJKYRPP5UpP8E7uN
-         AyU5nNNwrZrd4vIgL/96RLdPrduZDBTizXY51/3ho/ManimbjqPzlhTW4jTtFmoZNcYp
-         C10A==
-X-Forwarded-Encrypted: i=1; AJvYcCUGHPjft2TZwzFrkgPAqcWRJBlLcqVPsG/WlbnfKN+JrPAbpefUiRGWpg0REhj78QRng9bsZnVV/aKE@vger.kernel.org
-X-Gm-Message-State: AOJu0YwHPAFzG7lafZf7cxCgoayOnnyPElQm+Vjx09xLokeN92mMR3z8
-	s2S0S7u322JuUxwWzQ1sa7AaiII5OQ+7L0qKM3fgk9O+T4SUKjxuQ9o+5Hf8t3hdQ9kjV9xVqib
-	6wFYIqBP3FG4oCR+Dmma33g8JD/wkbIslzpMc
-X-Gm-Gg: ATEYQzxZbf5g/ZNFKmsbcykiqqbHoP+TXUc/S8Kj5hsskhz7/o8npbIb+8deXmzhBS6
-	cdkbBs8xvKMTlZoXjWSAWg+lu9IFf71QgdQmYHNkG7nlRr89zPx+7m+c11n8G9chlZqenFFjRJG
-	IJFSoBPx0kqQrFPbLFWa3tDq6QI+AuNb+zXcdii3roA63/IoQHpayqkM9w/071Z+pzn6SksY57g
-	B6iCjMLI6CI+UH5UgV19ayApRh0OzqpjspyqydOC6NT8Im2mCDuRv9SPlTH/elL6qLVEl121rBk
-	fFSRU0CNwAzvd7x6iN1eozRkM21JUWkxm5U09NwIiTrKwwZPJ34RcO+pgheYFGJK6j2FiGNaGMu
-	dWl8yhkSPFXPOAldPOCx31t3Lr/QMSUqMQjJVtHRZO2Yt
-X-Received: by 2002:a05:6214:4412:b0:89c:8769:1e50 with SMTP id 6a1803df08f44-8a4430c6838mr23940876d6.16.1775005631508;
-        Tue, 31 Mar 2026 18:07:11 -0700 (PDT)
+        bh=C8HDblj7fRKJtovg4Bo+ljGQF5b9QTgQki2w/2Xqdco=;
+        b=OnxyZw4GNnXjdeeuPTAyfq0jECRuFr0n1HQEHu4lUSGZzEWQ4kdaSX/i2NZJY2uheZ
+         aZ/tLBKGQ99zkuPiz9K7etxNygv7dLI4TYQXwwAPLmgEsZaS+XxLrpWrJgYXxCWR3EuR
+         eeOB6vVFLvAB0TusUuRr4svW1ARsRhXKIxhgDkSMHEdck2KcQkVzyHk6Z7Z24MYEUcev
+         iAD8UobkUZDoHn9YD9hMklFk2jWUHiWTHfsuQxBb5ZPOfeXcUpx3lftxtJQNALVLU85G
+         fSBF4PqKvAfJEMr7YJSdyOymdGM41asgsSyuuGH/IPBrMOfmknsXLfAvyCGv+tA9cjan
+         6D1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775005633; x=1775610433;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=C8HDblj7fRKJtovg4Bo+ljGQF5b9QTgQki2w/2Xqdco=;
+        b=WtiL64XOf9dqasVRaaItlRtEkdRLF65VQ2fsWKLhPZ8lMZeAgEMMqX+DwMdEzyH9H7
+         NhY6Su5La8SUGpNvrewwbudFd0jgWXGiuHIBwsoq518Kjv1onwB7GggeYvbc8IE4Ceyg
+         nWMJ88ubsgRluanZ6HbjFuldNFc5OXfS4awHO0idGjz4HozcHVcRkJFYOZWPTlG+4vqW
+         cvbI/eyqJwaewjG8pK1mV69uBnT80Pz2tFbDljDu2qA4s3vqNZqkIOYYpCvOWom7kifU
+         wOMqZ2BqDpNpEH/P+Y0jFo1RbEw2sedUJkhblp1FRdZR1GBAoqC5Nv8B5XwBPGPqkibF
+         DqUg==
+X-Forwarded-Encrypted: i=1; AJvYcCWKrEAZTTvcOU/ugwnGHeeeyBT3TsTsSFrTZcpVoOwLwLysv9cTtdgV1zdZUoJe1l5UHlsdsvm0XihK@vger.kernel.org
+X-Gm-Message-State: AOJu0YxfaYWERMphYQHsWjZUdz+EBWAfVHP1vB9mzMMbOZGk57ygA+ae
+	7X7azDz6jPUHOPsDYs8XOFh8/dOIX96faPHGXOIY96n34F3SOe80MQI4glJIpAcUsDOOU8MhsSa
+	UJXKiUuleXVvdBrZRIHWoxMklOroHVtnDvUXv
+X-Gm-Gg: ATEYQzzyTroj9mXIQH8HhNypwyy8rkRXyldwblPAqFiL7FEo2PvUq3ZrFQdwtdIimoz
+	nQOOdVmFdxNoe8sdu0RSaiu0j0JBzdJ0B7QIf0/WZ2+akJU7YDAtsN8Mms1Tfr5phFkDK9pYokF
+	wZezUYZWOM19ZBo9pWZlbiypGn2RNzoQYUMIJ93k9LKGJLaPy4tVN9smLexcE3a8uXtrEZoFcG1
+	wRdRqyZY5cTbsy9XjyybqqbbDqVwE+UkMXFTGKB8BqyS2cCPEm+i91MSzcNaOIjNT6uDLwwkdRi
+	Z+JQOtaIQ9TiqyOfNdTUhZEPhzrBi1kREksbeCoCGXAzv/8Yb02by29dZsXUfsTHjvFtdSNbt8T
+	lvKlb3HzFZOo5uvwnkk6MFi2n9Ocd6oupb8uHltVSq+T/
+X-Received: by 2002:a05:622a:10c:b0:509:3f5d:4fb4 with SMTP id d75a77b69052e-50d3bc15895mr25873091cf.20.1775005633089;
+        Tue, 31 Mar 2026 18:07:13 -0700 (PDT)
 Received: from ryac.ausil.us (207-179-239-100.mtco.net. [207.179.239.100])
-        by smtp-relay.gmail.com with ESMTPS id 6a1803df08f44-89ecd72ecd5sm14105766d6.15.2026.03.31.18.07.10
+        by smtp-relay.gmail.com with ESMTPS id 6a1803df08f44-89ecd72ecd5sm14105766d6.15.2026.03.31.18.07.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 31 Mar 2026 18:07:11 -0700 (PDT)
+        Tue, 31 Mar 2026 18:07:13 -0700 (PDT)
 X-Relaying-Domain: ausil.us
 From: dennis@ausil.us
 To: Rob Herring <robh@kernel.org>,
@@ -80,11 +82,14 @@ Cc: FUKAUMI Naoki <naoki@radxa.com>,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 0/3] Add support for Orange Pi 5 Pro
-Date: Tue, 31 Mar 2026 20:07:04 -0500
-Message-ID: <20260401010707.2584962-1-dennis@ausil.us>
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v5 1/3] dt-bindings: arm: rockchip: Add Orange Pi 5 Pro
+Date: Tue, 31 Mar 2026 20:07:05 -0500
+Message-ID: <20260401010707.2584962-2-dennis@ausil.us>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260401010707.2584962-1-dennis@ausil.us>
+References: <20260401010707.2584962-1-dennis@ausil.us>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -95,62 +100,26 @@ Content-Transfer-Encoding: 8bit
 
 From: Dennis Gilmore <dennis@ausil.us>
 
-This series adds initial support for Orange Pi 5 Pro. The network
-driver was just added. The only thing missing is the second HDMI port
-that is connected via a DP to HDMI adaptor
+Add compatible string for the Orange Pi 5 Pro.
 
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Dennis Gilmore <dennis@ausil.us>
+---
+ Documentation/devicetree/bindings/arm/rockchip.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-The series was tested against Linux 7.0-rc2
-
-Please take a look.
-
-Thank you,
-
-Dennis Gilmore
-
-Changes in v5:
-- define a connector node for Type-A port, and list the regulator as its VBUS supply explicitly.
-- Requires https://lore.kernel.org/all/20260217-typea-vbus-v1-1-657b4e55a4c2@flipper.net/
-- link to v4 https://lore.kernel.org/linux-devicetree/20260310031002.3921234-1-dennis@ausil.us/
-
-Changes in v4:
-- rename vcc3v3_pcie20 copied from rk3588s-orangepi-5.dts to vcc3v3_phy1 to match the schematic
-- use vcc_3v3_s3 as the supply not vcc5v0_sys for PCIe
-- remove the definition for vcc3v3_pcie_m2 as it does not really exist
-  as a regulator
-
-- link to v3 https://lore.kernel.org/linux-devicetree/20260306024634.239614-1-dennis@ausil.us/
-
-Changes in v3:
-- moved leds from gpio-leds to pwm-leds
-- remove disable-wp from sdio
-- rename vcc3v3_pcie_eth regulator to vcc3v3_pcie_m2 to reflect the
-  purppose
-- actually clean up the delete lines and comments missed in v2
-- link to v2 https://lore.kernel.org/linux-devicetree/20260304025521.210377-1-dennis@ausil.us/
-
-Changes in v2:
-- moved items not shared by orangepi 5/5b/5 Pro from dtsi to 5 and 5b
-  dts files
-- removed all the comments and deleted properties from 5 Pro dts
-- Link to v1 https://lore.kernel.org/linux-devicetree/20260228205418.2944620-1-dennis@ausil.us/
-
-
-Dennis Gilmore (3):
-  dt-bindings: arm: rockchip: Add Orange Pi 5 Pro
-  arm64: dts: rockchip: refactor items from Orange Pi 5/b to prep for
-    Pro
-  arm64: dts: rockchip: Add Orange Pi 5 Pro board support
-
- .../devicetree/bindings/arm/rockchip.yaml     |   1 +
- arch/arm64/boot/dts/rockchip/Makefile         |   1 +
- .../dts/rockchip/rk3588s-orangepi-5-pro.dts   | 320 ++++++++++++++++++
- .../boot/dts/rockchip/rk3588s-orangepi-5.dts  | 184 ++++++++++
- .../boot/dts/rockchip/rk3588s-orangepi-5.dtsi | 202 +----------
- .../boot/dts/rockchip/rk3588s-orangepi-5b.dts | 181 ++++++++++
- 6 files changed, 700 insertions(+), 189 deletions(-)
- create mode 100644 arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-pro.dts
-
+diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Documentation/devicetree/bindings/arm/rockchip.yaml
+index ae77ded9fe47..3c6b83a84463 100644
+--- a/Documentation/devicetree/bindings/arm/rockchip.yaml
++++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
+@@ -1320,6 +1320,7 @@ properties:
+         items:
+           - enum:
+               - xunlong,orangepi-5
++              - xunlong,orangepi-5-pro
+               - xunlong,orangepi-5b
+           - const: rockchip,rk3588s
+ 
 -- 
 2.53.0
 
