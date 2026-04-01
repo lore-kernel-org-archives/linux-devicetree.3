@@ -1,87 +1,147 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB2B63A8742;
-	Wed,  1 Apr 2026 13:07:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A13303A8742
+	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 13:07:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775048836; cv=none; b=VFTjl3YOrpJWLSoufSaoe9TDs55k6T621dtXwgY8LxrkIByrwNGUSQ/6uoGvVyNxuy7Wlh/pq6VUJl3vfCdD+8OAjCmVExiSZCmIk/W5AZPhtAYwP3L67nwanhqqRE7HnlLJiINitB8bwBarjoRVCV0e1ArQvt8dLc8IjtVUNco=
+	t=1775048848; cv=none; b=ZucXalh+iuJpwh7ZE/3kJ3eiDOlfvdUMHFr1zBuA9MqQ8Sfr1LO7BihtjMqmjTKnEIPwpEDwpbkiXH3QsbUbnfWx9rn/+UGnjv6epeYsWAak5oeKTtXcqg6m/irhWn5SCcdfZIYldZzr4wf7YONd2V9YRWsLdesvm+jWN/ux+uU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775048836; c=relaxed/simple;
-	bh=3ZKzNrUwMIHn6dhPALdVNb5G43e3YDmvzJegFVvQeAU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RnjyYEtzbromusTC9caAAtREVQeOv5D+jokm3r0SmfeyZ63lFVlVwUP0QOkPekEef5unbEGERabHQjJeZQgPBU/jGjuR6FbuOEDeYAuQbEk3sHJWrWE35aL27z8LHmCJ2UlvpxJDtQgR2Tjx1lqN636GMrcZLojNgEQIqF8wA5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=INthCzna; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775048848; c=relaxed/simple;
+	bh=qkKhweAY//5zkyFTaHxIoNtX5ZAftxTc8VW+g8ChTNQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EgyaKuXjOVapFQ67V5PBtPgIB1NwkJqdYE33mTGD4wirY2uUhj7N1VPPSRselc9stjeNlECdJsBhhVFLf7cLTDR4wUdlA9ECRZbSOFGHoqi+jV/EKGZahFjh+WPkCBlyW3UXxORL6T0GkfQCl/5XnLmGYxVWICzqIM75deV8aVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hCLyhLq9; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="INthCzna"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8D89C116C6;
-	Wed,  1 Apr 2026 13:07:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hCLyhLq9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57748C4CEF7
+	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 13:07:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775048836;
-	bh=3ZKzNrUwMIHn6dhPALdVNb5G43e3YDmvzJegFVvQeAU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=INthCzna6u4qZOg0xCpIEj8XgnOT8J6+WweNGRff2a25OzhsScGaDe/NfK8Ui7F3l
-	 wcTL+2r9CDDzCj/l07TgY8TB9h4YVwGKQcm0rcM/Zv/9ojn48m8CPSDtGZOw77ANDt
-	 sfCilYhtStkjFswMw91yoOQ5xV93i7lH/wJFwnErfso0A9CWWM4R+usOtg1D5Fpgs8
-	 ghj2KTWVIhVXoUNnNRQpRkKCO3mGZb6Gl1J4PQVARp7mDZgSf+mNnVcB0V97pn/ubR
-	 Pmx0E3NhmWZaBn4eJriAz+LXHrVC4nL/e+hnd4zJ2noc8gT2MwaPO86Jeix0SK1BwC
-	 t592VqBC2Hsqg==
-Date: Wed, 1 Apr 2026 21:07:13 +0800
-From: Yixun Lan <dlan@kernel.org>
-To: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Ze Huang <huang.ze@linux.dev>
-Cc: Junzhong Pan <panjunzhong@linux.spacemit.com>,
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Yao Zi <me@ziyao.cc>
-Subject: Re: [PATCH v4 0/2] phy: spacemit: Add USB2 PHY support for K3 SoC
-Message-ID: <20260401130713-GKD976850@kernel.org>
-References: <20260305-11-k3-usb2-phy-v4-0-15554fb933bc@kernel.org>
- <20260326001443-GKB777612@kernel.org>
+	s=k20201202; t=1775048848;
+	bh=qkKhweAY//5zkyFTaHxIoNtX5ZAftxTc8VW+g8ChTNQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=hCLyhLq9J/ABM35Wm9QbJqi43kKXh6/dw9CehFhu2Besy5HzT2WIJH3zD5+Y9ERm5
+	 +E/XTl5UXX65p6AXBsh03PlV7GHbHtmOPh+yjKD2uOckbLKRG2CB3ekMy8Zd6cyC0I
+	 GL8V3DDmxCzVcS7sMJ0AmECQhSZQoj68QIE5B8SN+Xp90JKzdUGnqEFuaCXteKcKso
+	 wDpQzWzEz3P/cUwCutXDRyS5LzZowNNPIXfXBdQWfF0udlBeCd0C3Bk0uj2O4eR25C
+	 QkDEo3oH7AYk52tsx89xJrRQPG1BzIxcB+dckzi1TeYKbeeBpyGRvAu4C1rxj6/NUo
+	 SIRTpUpzJsBcw==
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6634bb959a2so8522867a12.1
+        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 06:07:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCU6YeYPIT221HO+LCkC0jNmNWzjyDEalJpQ6U1Af9Wsfg/PFsanf5KfHbAuaeFtw3u2nWzXujcFdMxS@vger.kernel.org
+X-Gm-Message-State: AOJu0YwQCIW8LzNGYYcOX+/zjnr1Jt8KfJjkXU/FFzFcFw/2qaqBuFJF
+	HD9+3gJbiNDjIhQJ0TUBUWaPGnEDt+vu7sgDdS7MG7RZr/aqM5rOK39dX4xth1HI+ILXHmRy22s
+	EMdU4J8L8zubsEz9XHBqqrNG5LCBWTQ==
+X-Received: by 2002:a05:6402:20da:b0:66b:a96e:5ed8 with SMTP id
+ 4fb4d7f45d1cf-66db9b254a3mr1461970a12.25.1775048846845; Wed, 01 Apr 2026
+ 06:07:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260326001443-GKB777612@kernel.org>
+References: <20260401-pcie-intel-gw-v3-0-63b008c5b7b2@dev.tdt.de>
+ <20260401-pcie-intel-gw-v3-7-63b008c5b7b2@dev.tdt.de> <177503985369.3634917.6461713197883659054.robh@kernel.org>
+In-Reply-To: <177503985369.3634917.6461713197883659054.robh@kernel.org>
+From: Rob Herring <robh@kernel.org>
+Date: Wed, 1 Apr 2026 08:07:15 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqL2JW6zecCJGhFiJYraSGRNJGRsZ+oWJ+=4JWY5GD9SPQ@mail.gmail.com>
+X-Gm-Features: AQROBzCjMQjJuu3vbBIWhN2h98fV7ysRTiNf73QbP1lvot8_B7A0rVK0McGfb7g
+Message-ID: <CAL_JsqL2JW6zecCJGhFiJYraSGRNJGRsZ+oWJ+=4JWY5GD9SPQ@mail.gmail.com>
+Subject: Re: [PATCH v3 7/7] dt-bindings: PCI: intel,lgm-pcie: Add atu resource
+To: Florian Eckert <fe@dev.tdt.de>
+Cc: linux-pci@vger.kernel.org, Eckert.Florian@googlemail.com, 
+	Rahul Tanwar <rtanwar@maxlinear.com>, linux-kernel@vger.kernel.org, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Sajid Dalvi <sdalvi@google.com>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Ajay Agarwal <ajayagarwal@google.com>, devicetree@vger.kernel.org, 
+	Johan Hovold <johan+linaro@kernel.org>, Conor Dooley <conor+dt@kernel.org>, ms@dev.tdt.de, 
+	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Vinod Koul,
+On Wed, Apr 1, 2026 at 5:37=E2=80=AFAM Rob Herring (Arm) <robh@kernel.org> =
+wrote:
+>
+>
+> On Wed, 01 Apr 2026 11:31:43 +0200, Florian Eckert wrote:
+> > The 'atu' information is already set in the dwc core, if it is specifie=
+d
+> > in the devicetree. The driver uses its own default, if not set in the
+> > devicetree. This information is hardware specific and should therefore =
+be
+> > maintained in the devicetree rather than in the source.
+> >
+> > To be backward compatibile, this field is not mandatory. If 'atu'
+> > resource is not specified in the devicetree, the driver=E2=80=99s defau=
+lt value
+> > is used.
+> >
+> > Old DTS entry for PCIe:
+> >
+> > reg =3D <0xd1000000 0x1000>,
+> >       <0xd3000000 0x20000>,
+> >       <0xd0c41000.0x1000>;
+> > reg-names =3D "dbi", "config", "app";
+> >
+> > New DTS entry for PCIe:
+> >
+> > reg =3D <0xd1000000 0x1000>,
+> >       <0xd10c0000 0x1000>,
+> >       <0xd3000000 0x20000>,
+> >      <0xd0c41000.0x1000>;
+> > reg-names =3D "dbi", "atu", "config", "app";
 
-On 08:14 Thu 26 Mar     , Yixun Lan wrote:
-> Hi Vinod Koul,
-> 
-> On 01:00 Thu 05 Mar     , Yixun Lan wrote:
-> > The series trys to add USB2 PHY support for SpacemiT K3 SoC, while 
-> > patch [1/2] implement a disconnect function which is needed during
-> > next connection.
-> > 
-> > No DTS part has been inclueded in this series, instead I plan to
-> > submit them later while adding USB host support.
-> > 
-> > I've collected all patches and pushed a complete review branch here[1],
-> > for people who interested to test easily, which include DTS and necessary
-> > changes, other patches may still need to improve, but sufficient for
-> > verifying the functionality.
-> > 
-> > Link: https://github.com/spacemit-com/linux/tree/WIP/k3/usb2 [1]
-> > 
-> 
-> Just want to ping this, Can you queue it for v7.1? Thanks
-> 
-Ping again, I'd like to see USB2.0 support in v7.1 for SpacemiT K3
-SoC.. and I think this phy patch is the only dependency that waiting
-for, the USB DWC[1], and hub[2] patch already merged
+This is also wrong. But the diff of the example shows the old vs. new,
+so there's really no reason for any of this in the commit msg.
 
-Link: https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git/commit/?h=usb-next&id=c05cf9d274daf72dc7e433480cf2e0e888f6bd89 [1] 
-Link: https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git/commit/?h=usb-next&id=00b4fe5be06aecd6426930de86b7cffc2330f4b8 [2]
-
--- 
-Yixun Lan (dlan)
+> >
+> > Signed-off-by: Florian Eckert <fe@dev.tdt.de>
+> > ---
+> >  Documentation/devicetree/bindings/pci/intel-gw-pcie.yaml | 6 +++++-
+> >  1 file changed, 5 insertions(+), 1 deletion(-)
+> >
+>
+> My bot found errors running 'make dt_binding_check' on your patch:
+>
+> yamllint warnings/errors:
+>
+> dtschema/dtc warnings/errors:
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/p=
+ci/intel-gw-pcie.example.dtb: pcie@d0e00000 (intel,lgm-pcie): reg-names:1: =
+'config' was expected
+>         from schema $id: http://devicetree.org/schemas/pci/intel-gw-pcie.=
+yaml
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/p=
+ci/intel-gw-pcie.example.dtb: pcie@d0e00000 (intel,lgm-pcie): reg-names:2: =
+'app' was expected
+>         from schema $id: http://devicetree.org/schemas/pci/intel-gw-pcie.=
+yaml
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/p=
+ci/intel-gw-pcie.example.dtb: pcie@d0e00000 (intel,lgm-pcie): reg-names:3: =
+'atu' was expected
+>         from schema $id: http://devicetree.org/schemas/pci/intel-gw-pcie.=
+yaml
+>
+> doc reference errors (make refcheckdocs):
+>
+> See https://patchwork.kernel.org/project/devicetree/patch/20260401-pcie-i=
+ntel-gw-v3-7-63b008c5b7b2@dev.tdt.de
+>
+> The base for the series is generally the latest rc1. A different dependen=
+cy
+> should be noted in *this* patch.
+>
+> If you already ran 'make dt_binding_check' and didn't see the above
+> error(s), then make sure 'yamllint' is installed and dt-schema is up to
+> date:
+>
+> pip3 install dtschema --upgrade
+>
+> Please check and re-submit after running the above command yourself. Note
+> that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+> your schema. However, it must be unset to test all examples with your sch=
+ema.
+>
+>
