@@ -1,271 +1,163 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F7AC3F65E8
-	for <devicetree@vger.kernel.org>; Wed,  1 Apr 2026 10:48:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 539B13F20FA;
+	Wed,  1 Apr 2026 10:50:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775040512; cv=none; b=rxf9H5FS54Y+XUDMNBZFJWUxYnB4wmhJQqhzhm2tOa3GwgfPd8G9D5zNVD1dpKwBHu+swUMrJDNzFioNKJmKXi33XvA6ws/gIpm6gdk+TtxEntX17GQoUJuJa3+nh2bfKttNarB1I/b9k5WlX8u0o3AAE0T5SMlJVy5pBiAAAM0=
+	t=1775040603; cv=none; b=QPjubQLGj7oId1mDj+MFjI3dtrrktFTI0yNxqve40jDskSyGds6+VNg7dT4MRBJ2XwWUBOjONifc/6Y7xhV3NBLWw0tsAWWl3xU7o/Qx+D2AHb4UlU68XF5n0M7Cq55wk0u4IHQMXMlzQDx8YXbEVhxA0m3r5KCp6LrnUTbuUI8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775040512; c=relaxed/simple;
-	bh=WnmubwbV6TBKf+05v/YU+a5eIg/UTf1BQTB4xnDaMwo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=EGxOJCy9+iBnXbZUag6tdB78ZLrLrtbjZg4FBx1Ph92kMX/oFXdSr52L/bFKdO1PxiwBpAjGmv1/1nGb04RXDXeitx1TWqkO2ItG4dRhny8eJrKc/NW8TmHor29B9BlmF3a/ywbxVygbHBqeTVuboCffaGqGM1eRDqs3OmstkmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IPVHYpTC; arc=none smtp.client-ip=209.85.210.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1775040603; c=relaxed/simple;
+	bh=SKkbT0Y7gKmUmfmpaLSgovjxOMrRTTCLtPzeQ2a1S+c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BVaDXJZ/AeSP43oTNliW576QqR3KZMRPOfbfumA8+4cDyhFe5lF7oussMFHr/+YDdesHjBrqfk0CK+R83ZoE87Nwf9V/4DeANYlFggm37WByknph97bAT2wPckpOf6LEHjB6jSd3wsP+JJaD7tCUsNdEadmKoQIbcQ2KC8U/3Sw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hm3JX4kL; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IPVHYpTC"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-82cd6614a90so973024b3a.3
-        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 03:48:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775040510; x=1775645310; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=sgoUalx4qhZodxeYtn1WwXp1uA0k+Poskn9y/TOSsZs=;
-        b=IPVHYpTCXyydt9m5wywhkUx7avJTfoya0p9wFviKFNdWMydjpFpnSNVFVdp625L7tC
-         IIyg8y0/PHYKHwsPCzqaBU/QSQFfCvkic2RFX8jn/tLjFjVi2KT3BFLzc85Mrf0t/K8A
-         D1vzYTvUEPzfbK2mOz48r26SY1TzQDJ0KmZyH3ZX/LXcEHl6cirPM0nLwn12nMGS4mGm
-         LujhqfkMKe96PtTCoynL3p2uwfV9rJPSQ8qLfgQJqzUHndPf9+GqOWv8GS2Yvdd+Mg6l
-         vEOYNz8/Srr/LJnkRc49CjW9XrfNCTDtZtIeYWsUqPwuiVKwyU2P6FtIDrjlqv78t/xp
-         bJZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775040510; x=1775645310;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=sgoUalx4qhZodxeYtn1WwXp1uA0k+Poskn9y/TOSsZs=;
-        b=TzSHCc7Gvfamb/KaXnu934yQAiKywmfaJcnqrUkZwqKrz+doj+Cp8vaFOXx0eSKPuI
-         mWt5e3Ay9sQgYqncgZ3+2M/PNpBglGKfwtyIXFhjgbt/GzJ8bHE9EIybP7HQ2aAnUGlJ
-         ziLpUKqrr57PoBdgPd56CxIOxRNbFmK8ADjJ85vMzmWlDrrltIT5RBc5Ef03lAKQPZEn
-         7DZMvfmwZ6w9awZbfgw8HZ+qi/5Rgf/MDVSnA2Qsq/0GKR/6uN5DH5xLkKHQsUgkVJ3x
-         j1oEre+cTo0UsZKTlzMEPyAbprWbnWV1AUlR7WbKqFjxoLwOkKW8FPec17NtaiKZYiuo
-         XA2A==
-X-Forwarded-Encrypted: i=1; AJvYcCXn02fDPNoAMsgLiFuWyzt7CX3/roP28CO+4V0px/ZDmssx+GXoFue7vRYiUJ5M+9CecEse8SvMjLxb@vger.kernel.org
-X-Gm-Message-State: AOJu0YxGU6IZ6kZnWlcDacuYDl1wsw1cvIO5CCqeD2HzP0cxrkvdMant
-	l69x2xL4VEqdjwQDac20tyKHwLuhku87Uyr5JNrEV6s/ZOp0lU/FVhit
-X-Gm-Gg: ATEYQzyWhLfANGHQuk9mAXqcfBDTLvMMtrAVtgSBPsBAKaLsSptIBTi4Edi7nmTlsdV
-	4MVmH94ySfhshR6dJZeh3UkIbKxAOtIn1YC8ogWFQ52Bb7AznjkYxHAUGK4bQj3nTcoDwlC1gTr
-	Q9/gLhNQdSmq1rvLll2r1liCHVW8inOxd370cOzEpCEYrZBUziRM1E2C9cd3MdBToFIAdQORXbU
-	g1oThxCviDGrdLxvnPLTz+e4zMJQuOpsCPI9F42P3gPIDPPzdffiI/ub1OaE/vwuwagZy5s4cJz
-	hip146m52dJRC10DswSQrZAEpR3QBDku071nqm2QSIGh+SlEXGDrnB+VcaWyCSz3ihx7nv0P2Sa
-	e8+Ejhjy0HMxk2IUnIhrIT2XeLm4zTHFU5cksH6uM2KGkLuZ7063oQs7Y0TNy6Uj6JmTdiEqhEv
-	/RWQY+VRn/miIscAZJwSAOZV4CimypG6F9j8nHYiOo
-X-Received: by 2002:a05:6a00:4fce:b0:827:3e27:161f with SMTP id d2e1a72fcca58-82ce8943bbamr3330711b3a.2.1775040509555;
-        Wed, 01 Apr 2026 03:48:29 -0700 (PDT)
-Received: from localhost.localdomain ([27.61.46.230])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82ca843b818sm17010259b3a.6.2026.04.01.03.48.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Apr 2026 03:48:29 -0700 (PDT)
-From: ASHISH YADAV <ashishyadav78@gmail.com>
-X-Google-Original-From: ASHISH YADAV <Ashish.Yadav@infineon.com>
-To: Guenter Roeck <linux@roeck-us.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ashish Yadav <ashish.yadav@infineon.com>
-Subject: [PATCH v2 2/2] hwmon:(pmbus/xdp720) Add support for efuse xdp720
-Date: Wed,  1 Apr 2026 16:15:50 +0530
-Message-Id: <20260401104550.115715-3-Ashish.Yadav@infineon.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260401104550.115715-1-Ashish.Yadav@infineon.com>
-References: <20260401104550.115715-1-Ashish.Yadav@infineon.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hm3JX4kL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98AB8C4CEF7;
+	Wed,  1 Apr 2026 10:49:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775040602;
+	bh=SKkbT0Y7gKmUmfmpaLSgovjxOMrRTTCLtPzeQ2a1S+c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Hm3JX4kLVItHm5AO8NkBKRnzQbaZI8bRdhGau8By+u3A7V1aRvUcmsXiXA6sViZcV
+	 fahwL8lnXsf0ab6ePC/ImF0cIuVBYmzQGasfv14P//UMO+jExKSNq3ccUrPIwxvkCa
+	 d1fmTNaeM5XH/95fkWmUQZ7m0LSSzQOegFHGWa47atv3yUc20b0t4wRucJS6lOANqh
+	 O4pgj4r1j31aXpj4dPOzpR4KrW9UeFY2Z39LPmsngGzlY4zH3OQtE04qEPI7+XKTi8
+	 FRkl4qyg2G8bNkR1qZ4JaIbOX51L84WVygmnbWdSZQBibCFPb4xWZRt6nOvoNcJnTV
+	 XNHP3dXDYtLHQ==
+Message-ID: <65946b6d-de58-439c-b3cb-cc4efd33e7ef@kernel.org>
+Date: Wed, 1 Apr 2026 11:49:57 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/5] media: iris: Add hardware power on/off ops for
+ X1P42100
+To: Wangao Wang <wangao.wang@oss.qualcomm.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260401-enable_iris_on_purwa-v4-0-ca784552a3e9@oss.qualcomm.com>
+ <UWGD4fZwS2JZvaM77Ofs-c7w5CiwdKc339HhCZl8h0INDCypRHqTfSBm3RjP6a-j6z73KQNJn37MK8-3wuwF_g==@protonmail.internalid>
+ <20260401-enable_iris_on_purwa-v4-2-ca784552a3e9@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+In-Reply-To: <20260401-enable_iris_on_purwa-v4-2-ca784552a3e9@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Ashish Yadav <ashish.yadav@infineon.com>
+On 01/04/2026 11:24, Wangao Wang wrote:
+> On X1P42100 the Iris block has an extra BSE clock. Wire this clock into
+> the power on/off sequence.
+> 
+> The BSE clock is used to drive the Bin Stream Engine, which is a sub-block
+> of the video codec hardware responsible for bitstream-level processing. It
+> is required to be enabled separately from the core clock to ensure proper
+> codec operation.
+> 
+> Signed-off-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
+> ---
+>   drivers/media/platform/qcom/iris/iris_vpu3x.c      | 46 ++++++++++++++++++++++
+>   drivers/media/platform/qcom/iris/iris_vpu_common.h |  1 +
+>   2 files changed, 47 insertions(+)
+> 
+> diff --git a/drivers/media/platform/qcom/iris/iris_vpu3x.c b/drivers/media/platform/qcom/iris/iris_vpu3x.c
+> index fe4423b951b1e9e31d06dffc69d18071cc985731..e6a62b3ca78efeefa2eed267636789a6b405689f 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vpu3x.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vpu3x.c
+> @@ -71,6 +71,44 @@ static void iris_vpu3_power_off_hardware(struct iris_core *core)
+>   	iris_vpu_power_off_hw(core);
+>   }
+> 
+> +static int iris_vpu3_purwa_power_on_hw(struct iris_core *core)
+> +{
+> +	int ret;
+> +
+> +	ret = iris_enable_power_domains(core, core->pmdomain_tbl->pd_devs[IRIS_HW_POWER_DOMAIN]);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = iris_prepare_enable_clock(core, IRIS_HW_CLK);
+> +	if (ret)
+> +		goto err_disable_power;
+> +
+> +	ret = iris_prepare_enable_clock(core, IRIS_BSE_HW_CLK);
+> +	if (ret)
+> +		goto err_disable_hw_clock;
+> +
+> +	ret = dev_pm_genpd_set_hwmode(core->pmdomain_tbl->pd_devs[IRIS_HW_POWER_DOMAIN], true);
+> +	if (ret)
+> +		goto err_disable_bse_hw_clock;
+> +
+> +	return 0;
+> +
+> +err_disable_bse_hw_clock:
+> +	iris_disable_unprepare_clock(core, IRIS_BSE_HW_CLK);
+> +err_disable_hw_clock:
+> +	iris_disable_unprepare_clock(core, IRIS_HW_CLK);
+> +err_disable_power:
+> +	iris_disable_power_domains(core, core->pmdomain_tbl->pd_devs[IRIS_HW_POWER_DOMAIN]);
+> +
+> +	return ret;
+> +}
+> +
+> +static void iris_vpu3_purwa_power_off_hardware(struct iris_core *core)
+> +{
+> +	iris_vpu3_power_off_hardware(core);
+> +	iris_disable_unprepare_clock(core, IRIS_BSE_HW_CLK);
+> +}
+> +
+>   static void iris_vpu33_power_off_hardware(struct iris_core *core)
+>   {
+>   	bool handshake_done = false, handshake_busy = false;
+> @@ -268,6 +306,14 @@ const struct vpu_ops iris_vpu3_ops = {
+>   	.calc_freq = iris_vpu3x_vpu4x_calculate_frequency,
+>   };
+> 
+> +const struct vpu_ops iris_vpu3_purwa_ops = {
+> +	.power_off_hw = iris_vpu3_purwa_power_off_hardware,
+> +	.power_on_hw = iris_vpu3_purwa_power_on_hw,
+> +	.power_off_controller = iris_vpu_power_off_controller,
+> +	.power_on_controller = iris_vpu_power_on_controller,
+> +	.calc_freq = iris_vpu3x_vpu4x_calculate_frequency,
+> +};
+> +
+>   const struct vpu_ops iris_vpu33_ops = {
+>   	.power_off_hw = iris_vpu33_power_off_hardware,
+>   	.power_on_hw = iris_vpu_power_on_hw,
+> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_common.h b/drivers/media/platform/qcom/iris/iris_vpu_common.h
+> index f6dffc613b822341fb21e12de6b1395202f62cde..88a23cbdc06c5b38b4c8db67718cbd538f0e0721 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vpu_common.h
+> +++ b/drivers/media/platform/qcom/iris/iris_vpu_common.h
+> @@ -10,6 +10,7 @@ struct iris_core;
+> 
+>   extern const struct vpu_ops iris_vpu2_ops;
+>   extern const struct vpu_ops iris_vpu3_ops;
+> +extern const struct vpu_ops iris_vpu3_purwa_ops;
+>   extern const struct vpu_ops iris_vpu33_ops;
+>   extern const struct vpu_ops iris_vpu35_ops;
+>   extern const struct vpu_ops iris_vpu4x_ops;
+> 
+> --
+> 2.43.0
+> 
 
-Add the pmbus driver for Infineon XDP720 Digital eFuse Controller.
+Where @ v4 has noone else reviewed this yet or have you forgotten to b4 
+trailers --update ?
 
-Signed-off-by: Ashish Yadav <ashish.yadav@infineon.com>
+Anyway.
+
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+
 ---
-XDP720 Digital eFuse Controller provides accurate system telemetry
-(V, I, P, T) and reports analog current at the IMON pin for post-processing.
-
-The Current and Power measurement depends on the RIMON and GIMON values.
-Please look into data sheet sections 5.4.2 and 5.4.4 for more details:
-https://www.infineon.com/assets/row/public/documents/24/49/infineon-xdp720-001-datasheet-en.pdf
-
-The GIMON (microA/A) depends on the 10th bit of TELEMETRY_AVG PMBUS Register.
-The value of RIMON (kohm) can be provided by the user through device tree using
-infineon,rimon-micro-ohms  property.
----
- drivers/hwmon/pmbus/Kconfig  |   9 +++
- drivers/hwmon/pmbus/Makefile |   1 +
- drivers/hwmon/pmbus/xdp720.c | 123 +++++++++++++++++++++++++++++++++++
- 3 files changed, 133 insertions(+)
- create mode 100644 drivers/hwmon/pmbus/xdp720.c
-
-diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-index fc1273abe357..c419e3ecce90 100644
---- a/drivers/hwmon/pmbus/Kconfig
-+++ b/drivers/hwmon/pmbus/Kconfig
-@@ -702,6 +702,15 @@ config SENSORS_XDP710
- 	  This driver can also be built as a module. If so, the module will
- 	  be called xdp710.
- 
-+config SENSORS_XDP720
-+	tristate "Infineon XDP720 family"
-+	help
-+	  If you say yes here you get hardware monitoring support for Infineon
-+	  XDP720.
-+
-+	  This driver can also be built as a module. If so, the module will
-+	  be called xdp720.
-+
- config SENSORS_XDPE152
- 	tristate "Infineon XDPE152 family"
- 	help
-diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
-index d6c86924f887..1cac7ccae79f 100644
---- a/drivers/hwmon/pmbus/Makefile
-+++ b/drivers/hwmon/pmbus/Makefile
-@@ -68,6 +68,7 @@ obj-$(CONFIG_SENSORS_TPS546D24)	+= tps546d24.o
- obj-$(CONFIG_SENSORS_UCD9000)	+= ucd9000.o
- obj-$(CONFIG_SENSORS_UCD9200)	+= ucd9200.o
- obj-$(CONFIG_SENSORS_XDP710)	+= xdp710.o
-+obj-$(CONFIG_SENSORS_XDP720)	+= xdp720.o
- obj-$(CONFIG_SENSORS_XDPE122)	+= xdpe12284.o
- obj-$(CONFIG_SENSORS_XDPE152)	+= xdpe152c4.o
- obj-$(CONFIG_SENSORS_ZL6100)	+= zl6100.o
-diff --git a/drivers/hwmon/pmbus/xdp720.c b/drivers/hwmon/pmbus/xdp720.c
-new file mode 100644
-index 000000000000..382dc3f9ce80
---- /dev/null
-+++ b/drivers/hwmon/pmbus/xdp720.c
-@@ -0,0 +1,123 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Hardware monitoring driver for Infineon XDP720 Digital eFuse Controller
-+ *
-+ * Copyright (c) 2026 Infineon Technologies. All rights reserved.
-+ */
-+
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/init.h>
-+#include <linux/kernel.h>
-+#include <linux/of_device.h>
-+#include <linux/bitops.h>
-+#include <linux/math64.h>
-+#include "pmbus.h"
-+
-+/*
-+ * The IMON resistor required to generate the system overcurrent protection.
-+ * Arbitrary default Rimon value: 2k Ohm
-+ */
-+#define XDP720_DEFAULT_RIMON 2000000000 /* 2k ohm */
-+#define XDP720_TELEMETRY_AVG 0xE9
-+
-+static struct pmbus_driver_info xdp720_info = {
-+	.pages = 1,
-+	.format[PSC_VOLTAGE_IN] = direct,
-+	.format[PSC_VOLTAGE_OUT] = direct,
-+	.format[PSC_CURRENT_OUT] = direct,
-+	.format[PSC_POWER] = direct,
-+	.format[PSC_TEMPERATURE] = direct,
-+
-+	.m[PSC_VOLTAGE_IN] = 4653,
-+	.b[PSC_VOLTAGE_IN] = 0,
-+	.R[PSC_VOLTAGE_IN] = -2,
-+	.m[PSC_VOLTAGE_OUT] = 4653,
-+	.b[PSC_VOLTAGE_OUT] = 0,
-+	.R[PSC_VOLTAGE_OUT] = -2,
-+	/*
-+	 * Current and Power measurement depends on the RIMON (kOhm) and
-+	 * GIMON(microA/A) values.
-+	 */
-+	.m[PSC_CURRENT_OUT] = 24668,
-+	.b[PSC_CURRENT_OUT] = 0,
-+	.R[PSC_CURRENT_OUT] = -4,
-+	.m[PSC_POWER] = 4486,
-+	.b[PSC_POWER] = 0,
-+	.R[PSC_POWER] = -1,
-+	.m[PSC_TEMPERATURE] = 54,
-+	.b[PSC_TEMPERATURE] = 22521,
-+	.R[PSC_TEMPERATURE] = -1,
-+
-+	.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_VOUT | PMBUS_HAVE_PIN |
-+		   PMBUS_HAVE_TEMP | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_INPUT |
-+		   PMBUS_HAVE_STATUS_TEMP,
-+};
-+
-+static int xdp720_probe(struct i2c_client *client)
-+{
-+	struct pmbus_driver_info *info;
-+	int ret;
-+	u32 rimon;
-+	int gimon;
-+
-+	info = devm_kmemdup(&client->dev, &xdp720_info, sizeof(*info),
-+			    GFP_KERNEL);
-+	if (!info)
-+		return -ENOMEM;
-+
-+	ret = i2c_smbus_read_word_data(client, XDP720_TELEMETRY_AVG);
-+	if (ret < 0) {
-+		dev_err(&client->dev, "Can't get TELEMETRY_AVG\n");
-+		return ret;
-+	}
-+
-+	ret >>= 10; /* 10th bit of TELEMETRY_AVG REG for GIMON Value */
-+	ret &= GENMASK(0, 0);
-+	if (ret == 1)
-+		gimon = 18200; /* output gain 18.2 microA/A */
-+	else
-+		gimon = 9100; /* output gain 9.1 microA/A */
-+
-+	if (of_property_read_u32(client->dev.of_node,
-+				 "infineon,rimon-micro-ohms", &rimon))
-+		rimon = XDP720_DEFAULT_RIMON; /* Default if not set via DT */
-+	if (rimon == 0)
-+		return -EINVAL;
-+
-+	/* Adapt the current and power scale for each instance */
-+	info->m[PSC_CURRENT_OUT] = DIV64_U64_ROUND_CLOSEST((u64)
-+		info->m[PSC_CURRENT_OUT] * rimon * gimon, 1000000000000);
-+	info->m[PSC_POWER] = DIV64_U64_ROUND_CLOSEST((u64)
-+		info->m[PSC_POWER] * rimon * gimon, 1000000000000);
-+
-+	return pmbus_do_probe(client, info);
-+}
-+
-+static const struct of_device_id xdp720_of_match[] = {
-+	{ .compatible = "infineon,xdp720" },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, xdp720_of_match);
-+
-+static const struct i2c_device_id xdp720_id[] = {
-+	{ "xdp720" },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(i2c, xdp720_id);
-+
-+static struct i2c_driver xdp720_driver = {
-+	.driver = {
-+		   .name = "xdp720",
-+		   .of_match_table = xdp720_of_match,
-+	},
-+	.probe = xdp720_probe,
-+	.id_table = xdp720_id,
-+};
-+
-+module_i2c_driver(xdp720_driver);
-+
-+MODULE_AUTHOR("Ashish Yadav <ashish.yadav@infineon.com>");
-+MODULE_DESCRIPTION("PMBus driver for Infineon XDP720 Digital eFuse Controller");
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS("PMBUS");
--- 
-2.39.5
-
+bod
