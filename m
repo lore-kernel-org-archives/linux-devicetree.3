@@ -1,141 +1,201 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EC8931D381
-	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 13:57:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775138236; cv=none; b=JJmeIvyOtAhWDvjN18oGVBnAW1tXdZ89CY52YzWd5h3gFSGBi5TOB8eGzsMGfXJbod2IZ4f7L1S7aObvj4mxDgdySmKKhNc2P4ZH3wji81qluflOK723kQsTzQZcr6jIesIF+9Ghecb2hbwegNivTfKqLYnP8y1UeoqBONnYQ98=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775138236; c=relaxed/simple;
-	bh=FW6ux+5Npv72H+2EYDVr7T1TV5Jv3vXfaDQl4sqmvUM=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=E5yskqqlopuZJSLV1sfC1RDXqYi4AyX89QACYlTWj2wHoL9kk+xUK02oGEdDbd6Jfj4qWiERr3FwirPIfCIoRRNO3iWRml4T+2W5gzTqHDSK5ntSgZ9lnea15IWJmfoDNGdadMbQZZGlFBtpVErrg5w2ZUOj5oSlgM9jQBRT89Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=wOLUQV9h; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFACB3ECBDD
+	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 13:58:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775138333; cv=pass; b=DyIXK+NmctuLbyEUPZvPo6Qd3ra6E6mbrgcKIEjPss6tR6b+0PKvfmlnl3zK/w6d2uWFB2/fx42QLDVMG2cQgvvXDIMnQ5oz1Yt0j11JVnQcAIdiuvTBUs2bYD1FFSmOiCkl40HAzVhBkgYYS7dvsDjKMK8flp7Ih5fxPsdFXRo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775138333; c=relaxed/simple;
+	bh=MuxLGyy0UpsBOYdgd2XPZnijLjNR9TCllHUYIN2aEx4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BGMsdrOG/nD72MG592KXz6KrZY8VvuxXPkJgOTrfzum4IBwHtuubClk4L3fwgRTv+3BPfYV4mawCqZefPjb0wYQ8EQMqXau/A5xTnMYmNSlwOEtdUMwCo/Wde3HRkGzxx1VaFuXKzqYUckqEIYS3w7NcKsyEwArad5reyMa/7Mg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BkzX2F6O; arc=pass smtp.client-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="wOLUQV9h"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4852b81c73aso8207245e9.3
-        for <devicetree@vger.kernel.org>; Thu, 02 Apr 2026 06:57:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BkzX2F6O"
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-2ba9c484e5eso866581eec.1
+        for <devicetree@vger.kernel.org>; Thu, 02 Apr 2026 06:58:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775138330; cv=none;
+        d=google.com; s=arc-20240605;
+        b=J3dRD+T2eVXrsUiFL0SU57ipBGMZAlmIseGqh7sofhnc1dv7/jnW3lPCcjWE8sPnNY
+         CXgtXHfcQDBd7mdBAWT+oH+qqTXv74KhYWcy8kdAngOx6BslNphJ4otERnR8RBfa6vWi
+         r84jRUgBzbv+J1kYOC+eFb8iz4VfEBFUy5Jc8ADfPeU6j+jvtaE5/XnrOhrJ5oo3GCqZ
+         nnVdDMgSv5pApAvTgliPOzZBKC2aCBSbPrdLZj6vhGCUtzblJspjnNwPHMdMX0Ifw+tp
+         XjK1ROC7rGoqFGRFmlWm4YcllPuFfEiCI0sNeQZxWx1zO9DedMzu884o0cfyyoPNZNJt
+         x6Mw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=egjpBljD5amBzEJap42Vm0ePRWfauJeguPCZGqRPuqg=;
+        fh=0gAhYetw7p9XXZQMfQnEyGl206awKdcF1hGg9ckL7zM=;
+        b=MsE9/4/zQ6ilZg/RcrUt2fSq0oAVb3SczV6E/7Y5XClWQMQfSquzHFBNqz0/xdZaQ3
+         kyp6TUWGRqFOiINszzRu4LDCwS0QwpZqPMy4/N79fhUCO7aWjgr7BlKh3+r6fG6rboJE
+         oSp/TxuLAVdxtZ0OGibngLPCVGKUrQED+qC/hz6a39JIz9yw58NzZTv4g9DjYt5MZybg
+         xHdVhWwmZGNhAxkkPHsRRsMZSle9dvpn2PDsDNQLNM+H/GJlLZR/mB4kl2MNv/QNSQci
+         5wr3bKZ2kSDjx7Agf5CJ/tQQLtlUTvC0ApMaWRqS+Ooks0Ybs49/GQe4Ydp5AKKchQwO
+         UZNw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1775138233; x=1775743033; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1775138330; x=1775743130; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=HlqXtAWJ1GByy64qGazEk71FC5c2hQMAqngLM9hJtdA=;
-        b=wOLUQV9hNeSqlDvI8/v7gcHCkJWi/Q7V/JdagLubvKDwKLyy8H8CjOFGzIP//tdjJH
-         Oi1c9rPzs9W5dJOFN0U5AyTFt9lsVg232obxLjrIErcdYn2KpauetjjciO7hu8l40DaQ
-         ZfjFXdaSMjDcp6/NQdeI4GG83o6oVE0c6TxRUCi5I+fKy/BzRy0mzDj6pbBiFoJePTB3
-         35DdoVIeec5S9A8IKNUP3wvsds/Trqbir1VUj834INQ4VF3tTo6FlKh1n4Bo6oMhCIWu
-         RQMD4of5pds0ofS00SQhwdOiZ0IUhfzuvsmzNi/YbTxW9Yj9NJv8sdFElkjBdhcD1/E5
-         tD4Q==
+        bh=egjpBljD5amBzEJap42Vm0ePRWfauJeguPCZGqRPuqg=;
+        b=BkzX2F6Ow+GT0NaIGuubM5YzB7AltV4eZdq/BB1xtSQkJAgqMplEIkkOQsLRiyV0Y+
+         RR+zM11uRjiZu8zmoZZuJqIuPAbbeIgZXmzfEvFX/3+0+HKUiQ6gAI3NC4BJDWupQ9ux
+         MJj+6g2kSmTtgwlRCwxPQHFSmFeRz/FEOCfUZhnLDxlsXqd3Jqe5VxYaQURdQ1Ejyf/e
+         wC/eUKlCyOp1IVwDW2cTUwZznwCe4zD/nEe2NRPltbTgHbVz63pI3yq494W8F7sxz9Kh
+         +zeB7pXY1nGi5R8KUUzrqTRYUrMrogIGjPAqBS10CNnKli5D8HetAI4OZduWLV49amn6
+         fbaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775138233; x=1775743033;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=HlqXtAWJ1GByy64qGazEk71FC5c2hQMAqngLM9hJtdA=;
-        b=mFsD6pBtjBYph2WrFAWcR2B+92Ae09ZXiV3rOkbGroCm3qRNHoLdDJXYJDZkJAQh/o
-         RBc5ax0IPnf4c/gxoxvmHmxMwAAfosWAvYs1dXARprtfN9NQx154wOeb3zMf1Nz/tqHm
-         F7Xysbt+4hd0aAuLqhBxXqDYmGc4kzak5+1RsrKHRNjaNTaw/CTpr5VWA4iXvbB5O0pY
-         A7iA1ci8mA2dRMuulicDKIMbLwSpz8+KQ2OP3Ln0TvobeU0wuu8P98TD6uYTvsG/sNWr
-         xwDgwCIjlXQTCb3X23i5pYktJpLYj7NsndWJTuT7Eepig5+bNvHO3QieNBf0dYdiPhsC
-         orxA==
-X-Forwarded-Encrypted: i=1; AJvYcCWmgIRX5k39nFP3+IcyQmRHqNl7izR0ZYMgl2XdCpS8JemqRhUDiGycfCyOLBg+p1JSWK5tKa7vfcA+@vger.kernel.org
-X-Gm-Message-State: AOJu0YwEMW00wUHn26Qr18y0ZKKWOa54Kkktcv2gqpq2QM4shGbLrn3O
-	bDncYAzgrAtw8bECdWhM73Ac02631+tFVqWvx+Gnm/qLL9AbaS//zFigxwIAmuCz7/c=
-X-Gm-Gg: ATEYQzxyBz3bDJsn3g8cwF+8IOe1w/vXqkRhtO1Whqvv/K5PXloUx7v9C863SuP3LvJ
-	LDklIdi1VqfG61Te4kQGnfapWoPut+aCNpbXRyE5ZkTGblTwsM1mQNT5kYjNjY64q/YAJGY8itf
-	Qn6LIzQDMmhZWhAZYloRI6uKoApAN/AteaATST4n/HfATljDtUYzM6dPZI7v4jhVbLUhZDYvjtu
-	IP54mTjfsrLcmAhhpmJb1tigrngce/n2Q1IjxxKHJc/Aw/FJpVFfLdT5FQlpgISKYzJLF1NGfL/
-	C/UfRHrCZfCfO0FjSywFMkU+LZMpQHW0l2jFRTeE7GrCu+rzCkpGhutG958017A//sZa6Fcan8N
-	+P2qkM93dSc2nIcdQeox97SWsDWFxVfFagkonWyd1lzFDhOQ2dpTzjZ38WRjEQmiF3j6/ckjkQp
-	RsCy1efBYlaF7ShssPNelJ+13CQjyoBmAYfFV/xhAa00h7hMmD8tzJ4siSGkeo3AlQbYa1tjpdZ
-	tjMzJR4rNj26WBw
-X-Received: by 2002:a05:600c:8488:b0:486:f4d2:eac6 with SMTP id 5b1f17b1804b1-488835682c8mr136632325e9.13.1775138232539;
-        Thu, 02 Apr 2026 06:57:12 -0700 (PDT)
-Received: from localhost ([2a00:2381:fd67:101:a0c1:4037:aafe:5dc])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43d1e2c5253sm7388752f8f.9.2026.04.02.06.57.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 02 Apr 2026 06:57:11 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1775138330; x=1775743130;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=egjpBljD5amBzEJap42Vm0ePRWfauJeguPCZGqRPuqg=;
+        b=M8zZ8lxtdXMUUL1zWqBgyWro4egkwLHkP4gqQO3JOSucYZGX/ZCM05vCWep4uC7bWV
+         Cjko2cssrczGHnYheR+05I5rCJHNxk2a9DkY1DqI/+KIyC0jvA+477p/C3lL25eWprdE
+         Rev5+CM00Zuje2Vm5q3DCYfIhz6e5f5kyOUxAwY1Ea/wJ+aAS2hXJqN0gF5YT4s9rGkC
+         SuPylP7R6yCioU9Ow7eQKXDACbBiQGucH+/MVaHHOU0aYCmAX+3w6gOOi+SJ1PAcjq99
+         Fs3g+eH1Mr4IbQHeRbzp+doqZ1WRQArk9NIvtHQMcDaz21Lcx1Nbacw8i1+ZnYyOuOrq
+         YUSQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV6iYDCXYVS5ECKKAXYFjrFVfWgbfu+9EU6d9ksplkiQz4dEN7kzoYOXOVsy0OkZEjPvvTt917xO4Nm@vger.kernel.org
+X-Gm-Message-State: AOJu0YyKMuGfb4oDexuoSmgeN1Qq2R+0BW4Mj1WVG8JgEvuBZjNf5zLq
+	2W9AfjgiHYAAGQ6AIp0f8mWDMwTtQQ/MEBTZjpyo3Kc+j7QJQh6bXg/nm8L3lzoNUp4jx50cSNF
+	S+YlNaxNst6L7+fAIhOvn9LT3hb2kejs=
+X-Gm-Gg: AeBDietA04cVh8MtoB0sf2g8RHXIeqkDUGv1XYP3u0MOII6+CI7nIFinKYRxdEduJSy
+	pa9IhDeWGNWJEIGxxpxTNQnJwbXetYePzcC+alyxB926zXmGGP6ta5EBhMH8GGjaUpZcvmVEhQr
+	/S0WXTvN/s7wz8J8UnJSJ9twB3WKK11A9llvb+VXq5OI0h3BM98WctAZdGFCArUygiQ37EbqSVK
+	baaruWKhwEA+nJJXC3klZI2GTAfx6SHo7VsqEGetY1bXizF9WhctEfOFaU25AA2fxkBb8lVSfLG
+	U7xloiIwyLq4xvtD
+X-Received: by 2002:a05:7300:fd18:b0:2c1:74ad:2ce1 with SMTP id
+ 5a478bee46e88-2c932fb1ceamr3858039eec.28.1775138329593; Thu, 02 Apr 2026
+ 06:58:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20260401104550.115715-1-Ashish.Yadav@infineon.com>
+ <20260401104550.115715-2-Ashish.Yadav@infineon.com> <20260402-enlightened-analytic-leopard-ddc512@quoll>
+In-Reply-To: <20260402-enlightened-analytic-leopard-ddc512@quoll>
+From: ashish yadav <ashishyadav78@gmail.com>
+Date: Thu, 2 Apr 2026 19:28:37 +0530
+X-Gm-Features: AQROBzCeSV-f8plt_LehmRZiHg0cu62n3ej4GjQqzEFgRQwD_gP-JIUq4OFXLks
+Message-ID: <CAJKbuCbs42aMKBXypkQeMNoBwp03aK2rzJp9as0NpZo==Ospng@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: hwmon/pmbus: Add Infineon XDP720
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Ashish Yadav <ashish.yadav@infineon.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 02 Apr 2026 14:57:11 +0100
-Message-Id: <DHIPZHI8BC0M.1GLYIDLUP5SF5@linaro.org>
-Subject: Re: [PATCH v2 6/7] MAINTAINERS: add exynos850-pmu.c to Exynos850
- entry
-From: "Alexey Klimov" <alexey.klimov@linaro.org>
-To: "Sam Protsenko" <semen.protsenko@linaro.org>, "Krzysztof Kozlowski"
- <krzk@kernel.org>
-Cc: <linux-samsung-soc@vger.kernel.org>, "Peter Griffin"
- <peter.griffin@linaro.org>, =?utf-8?q?Andr=C3=A9_Draszik?=
- <andre.draszik@linaro.org>, "Conor Dooley" <conor+dt@kernel.org>, "Alim
- Akhtar" <alim.akhtar@samsung.com>, "Tudor Ambarus"
- <tudor.ambarus@linaro.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-X-Mailer: aerc 0.20.0
-References: <20260401-exynos850-cpuhotplug-v2-0-c5a760a3e259@linaro.org>
- <20260401-exynos850-cpuhotplug-v2-6-c5a760a3e259@linaro.org>
- <f73173b4-f44a-4d01-abec-3366b6561332@kernel.org>
- <CAPLW+4=H_UkjwY2RJFPD9ekJh05MyuhKrymeuUYC4dX1WzF0wg@mail.gmail.com>
-In-Reply-To: <CAPLW+4=H_UkjwY2RJFPD9ekJh05MyuhKrymeuUYC4dX1WzF0wg@mail.gmail.com>
 
-On Wed Apr 1, 2026 at 5:16 PM BST, Sam Protsenko wrote:
-> Hi Krzysztof,
+Hi Krzysztof,
+
+Thanks for your valuable feedback and time.
+Please find my response in-line.
+
+With Best Regards,
+  Ashish Yadav
+
+On Thu, Apr 2, 2026 at 1:14=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.org=
+> wrote:
 >
-> On Wed, Apr 1, 2026 at 9:28=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.o=
-rg> wrote:
->>
->> On 01/04/2026 06:51, Alexey Klimov wrote:
->> > Update Exynos850 entry to include new file
->> > drivers/soc/samsung/exynos850-pmu.c. Add myself as M
->> > there.
->> >
->> > Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
->> > ---
->> >  MAINTAINERS | 2 ++
->> >  1 file changed, 2 insertions(+)
->> >
->> > diff --git a/MAINTAINERS b/MAINTAINERS
->> > index e14e6f874e05..4b28e92b4d9b 100644
->> > --- a/MAINTAINERS
->> > +++ b/MAINTAINERS
->> > @@ -23601,6 +23601,7 @@ F:    include/dt-bindings/clock/samsung,exynos=
-2200-cmu.h
->> >
->> >  SAMSUNG EXYNOS850 SoC SUPPORT
->> >  M:   Sam Protsenko <semen.protsenko@linaro.org>
->> > +M:   Alexey Klimov <alexey.klimov@linaro.org>
->>
->> I am surprised to see this because I did not find many reviews from your
->> side before.
->>
+> On Wed, Apr 01, 2026 at 04:15:49PM +0530, ASHISH YADAV wrote:
+> > From: Ashish Yadav <ashish.yadav@infineon.com>
+> >
+> > Add documentation for the device tree binding of the XDP720 eFuse.
+> >
+> > Signed-off-by: Ashish Yadav <ashish.yadav@infineon.com>
+> > ---
+> > This patch introduces a YAML schema describing the required and optiona=
+l
+> > properties for the XDP720 eFuse device node. It includes details on the
+> > compatible string, register mapping, and rimon-micro-ohms(RIMON).
+> >
+> > The RIMON resistance is installed between the Imon pin and the ground
+> > reference.
 >
-> It was me who advised Alexey to add himself on the list, as he's doing
-> a lot of Exynos850 related work nowadays, and we expect him to
-> continue doing that. If you think it's too early, let's get back to
-> this once there are more patches submitted under his name.
+> Why are you adding second commit msg? Hardware description goes to
+> commit msg. Redundant parts go to /dev/null.
 >
-> Thanks!
 >
->> Please first engage in reviewing of this platform, before assigning
->> yourself as a maintainer.
+  ACK.
 
-Okay, so it was done after Sam's advice. I can do one of these options:
-- drop this patch;
-- move it into separate entry in maintainers file;
-- something else, please suggest.
+> > ---
+> >  .../bindings/hwmon/pmbus/infineon,xdp720.yaml | 51 +++++++++++++++++++
+> >  1 file changed, 51 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/hwmon/pmbus/infin=
+eon,xdp720.yaml
+> >
+> > diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/infineon,xdp=
+720.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,xdp720.ya=
+ml
+> > new file mode 100644
+> > index 000000000000..bbde8ff92ae9
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,xdp720.yam=
+l
+> > @@ -0,0 +1,51 @@
+> > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +
+> > +$id: http://devicetree.org/schemas/hwmon/pmbus/infineon,xdp720.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Infineon XDP720 Digital eFuse Controller
+> > +
+> > +maintainers:
+> > +  - Ashish Yadav <ashish.yadav@infineon.com>
+> > +
+> > +description: |
+> > +  The XDP720 is an eFuse with integrated current sensor and digital
+> > +  controller. It provides accurate system telemetry (V, I, P, T) and
+> > +  reports analog current at the IMON pin for post-processing.
+> > +
+> > +  Datasheet:
+> > +     https://www.infineon.com/assets/row/public/documents/24/49/infine=
+on-xdp720-001-datasheet-en.pdf
+> > +
+> > +properties:
+> > +  compatible:
+> > +    enum:
+> > +      - infineon,xdp720
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  infineon,rimon-micro-ohms:
+> > +    description: |
+>
+> Do not need '|' unless you need to preserve formatting.
+>
+ACK
 
-I don't fancy having loose files (first option).
+> > +      The value of the RIMON resistor, in micro ohms, required to enab=
+le
+> > +      the system overcurrent protection.
+> > +
+>
+> Missing supply
+Could you please provide more info here.
 
-Best regards,
-Alexey.
+> > +required:
+> > +  - compatible
+> > +  - reg
+>
+> Here as well, most likely.
+>
+Could you please provide more info here.
 
+> Best regards,
+> Krzysztof
+>
