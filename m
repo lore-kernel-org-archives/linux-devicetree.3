@@ -1,149 +1,143 @@
-Received: from crab.ash.relay.mailchannels.net (crab.ash.relay.mailchannels.net [23.83.222.42])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013031.outbound.protection.outlook.com [40.107.159.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C003DE426;
-	Thu,  2 Apr 2026 13:47:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=23.83.222.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD862318146;
+	Thu,  2 Apr 2026 13:50:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.31
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775137674; cv=pass; b=KdS6xwVXhRDGo+ZE6a7CxJv6ACibD3nGByCc9kYh6vEA1jqE+TMdmGuqlGc/qddTzzIp/tnfViMfeX/s7JIztNlAEXZrYc72xX2v82vyGj6P8T+j5Ro7F1hgctBRqWZ1B6PnAUmOG6sOUVmy0sQF1p3MYBo9o1cqtEsojD76JOU=
+	t=1775137859; cv=fail; b=lNnYvVE0bvX/c9V5qeNNqFlNFY7BxJDQ92EAdbBwb6vgj7YOxFBHiTC/SEG+TLO0d62uI/jG6HduYTSv0nAUDtuNKWIgVp3QRs9vE3sS0CKI0/lR6Pck+jw9wWc/M280vnoFPMVIPFEVkJDQW56MNsp7iTooC5456R1i38wUAGY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775137674; c=relaxed/simple;
-	bh=HfwniG+5L1/vUjR5I0gIufXUAD5MbX7U/tpLrvyTtRM=;
-	h=Message-ID:MIME-Version:Cc:Subject:To:References:From:In-Reply-To:
-	 Content-Type:Date; b=R265tELrczQevhlSzH9Mw0vvUzwRBUzFWUAqjbTQJ65BV4vS3Vju8S49NXrNPcKY752LW6B+IvQTcjdOzrIIXGAl4LvjCtiEGf3estKhazJ/NeKtdto1z5wzI85vgnBq3A+rh5T6qI1mYhYRALfjE1u+0NHIavhCoVC6DlepAKc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rootcommit.com; spf=pass smtp.mailfrom=rootcommit.com; dkim=pass (2048-bit key) header.d=rootcommit.com header.i=@rootcommit.com header.b=BDLYGgVG; arc=pass smtp.client-ip=23.83.222.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rootcommit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rootcommit.com
+	s=arc-20240116; t=1775137859; c=relaxed/simple;
+	bh=OefKBNgOLzLMfBO+IV/MfYcV3YnYtaz99Xa3917qFZQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=kc2lMGvIw7h46xhZlGLPp3UT9SJv6QTvwdvaTORdMFSY9KOSjfe4IkTUN8Tm2s7/cVXVOo9k90gIxoeY0P11bPnDRBSXZ7cC9DsPXIuGAtM9BE2YiF0HkXOMG9miJvm9jQ75FjOs2w9vMyrne8qO5CNVTMDVb9QXLLL/NEPqkvc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=BTFHiNIN; arc=fail smtp.client-ip=40.107.159.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rootcommit.com header.i=@rootcommit.com header.b="BDLYGgVG"
-X-Sender-Id: hostingeremail|x-authuser|michael.opdenacker@rootcommit.com
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id C07A26085F;
-	Thu, 02 Apr 2026 13:47:43 +0000 (UTC)
-Received: from de-fra-smtpout5.hostinger.io (100-96-137-18.trex-nlb.outbound.svc.cluster.local [100.96.137.18])
-	(Authenticated sender: hostingeremail)
-	by relay.mailchannels.net (Postfix) with ESMTPA id DD54F62A59;
-	Thu, 02 Apr 2026 13:47:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; d=mailchannels.net; s=arc-2022; cv=none;
-	t=1775137663;
-	b=RovvCdvvfwukwBsN2nz76nWfs6SmR/Z+UeNDDffTsYwKPzNes695MWpeeO+OhZ0q1G7sb8
-	u5FqD1wqkkkctMNfxzUHm8q29wCY4OKqudTG+8CL3kQhYv94f4ikpdtziLJm1PPjyq8PPt
-	+cu9kZECycB+p2DTQ3iYosZzM7bW5psUSAiEaNpStcnphxuxd9haf3dyhwgwiOVjUix7y9
-	8Grgf70D3ZAkMf2iWvQ9JL1xkpdWMqUcsKawJ8N0lq5foPJXLx05HJUENLIfkiTYki0GQW
-	hJWzxeKnz6zKTq8Ly6ihbENGCjr925A9Om1lfrdXx5iXq1rognRpMBaW80Z7+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mailchannels.net;
-	s=arc-2022; t=1775137663;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:dkim-signature;
-	bh=9pTUI2TlgXqneSbYx9X2pxr7AltZHVfuaXSJcVjhgWM=;
-	b=0iPTSUMCGXkbzRUaDOEuQX82Tj2v6lazT2LcQcMfbc0nrPuv8MmdUVxRvYFaPCGZRPWL9j
-	wBdLdSeR6ZfyWS6ojaDDrujCE43RAs7Juk3/BuLVjRJpkSTJz5XacU1BhSAYEiIx4hkKyS
-	8iZuEDNe0qA4aWjiQFqxlwrTmGy5zlxISrdYEcE0dyEIWxO29dKKVBHSE0WHYeIBHz6o8F
-	f/o60qA6tVGneex7mTgt8uwkvizRk70QSwLp/OAJSEJtzKnROtlvE5ZZbZ6zlqS1Bknim1
-	QmTFu4dEbbDHJcVd6bNiMuz2tKQXq0/XYYyAEdJjPuNXblqswlHFi7oQQ60x1Q==
-ARC-Authentication-Results: i=1;
-	rspamd-bd48b9d95-l75gk;
-	auth=pass smtp.auth=hostingeremail
- smtp.mailfrom=michael.opdenacker@rootcommit.com
-X-Sender-Id: hostingeremail|x-authuser|michael.opdenacker@rootcommit.com
-X-MC-Relay: Neutral
-X-MailChannels-SenderId:
- hostingeremail|x-authuser|michael.opdenacker@rootcommit.com
-X-MailChannels-Auth-Id: hostingeremail
-X-Bottle-Arch: 007c82427455a440_1775137663607_482617670
-X-MC-Loop-Signature: 1775137663607:2644984533
-X-MC-Ingress-Time: 1775137663606
-Received: from de-fra-smtpout5.hostinger.io (de-fra-smtpout5.hostinger.io
- [148.222.55.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.96.137.18 (trex/7.1.5);
-	Thu, 02 Apr 2026 13:47:43 +0000
-Received: from [IPV6:2001:861:4450:d360:ab76:cd75:446d:1407] (unknown [IPv6:2001:861:4450:d360:ab76:cd75:446d:1407])
-	(Authenticated sender: michael.opdenacker@rootcommit.com)
-	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4fmjpX5GFFz3ws5;
-	Thu,  2 Apr 2026 13:47:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rootcommit.com;
-	s=hostingermail-a; t=1775137653;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9pTUI2TlgXqneSbYx9X2pxr7AltZHVfuaXSJcVjhgWM=;
-	b=BDLYGgVGhTLd5NMndzYGPkVBxtygTd8gDGIJPbLebOKM8s6HO/AF0msMgmX0oGXZAnigJn
-	vU0jUpPwwDlbQEBGUoPL/6R/C9B41kgxXZgWeCVirTQ+gZ4+iiqQOjLKTB+ln1+EXIEz/p
-	4CoSlPX6fmytlimCx2jPyJZMBPMlWgS6fTsbjP/UoHeIQxDvZWF6Kp+xDgZ17lUSDz9ZEu
-	BdtHKth9XAoEmJQc3XjA7AEduecy8zOQ18UZzXVT6g2aEatkil3PRNsPMysXEjMZBHULUr
-	lzt3JLTWpCwTXxMDdNa0hYFgVBWNWTPSDuWonOLHUHZL0rKTQL8fi2zVL8rApw==
-Message-ID: <86b01b44-d030-4201-89da-0c8fc5282c92@rootcommit.com>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="BTFHiNIN"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GGhir8IQXTqmHmHdwGWuPJ0h26Uu7DSukXiLQGwbTR1vwUwj3Id4siv13cv/fJj+wcVGjgw7GuUU2WcO9XCkpq0bH2OTnCQiU3V4IZJHsNdY6aYBsuiZQXDtIFm1YvCW7Jkfjf1Uk7h6/kW3jmxrYQ1V0z6I86s8akKv+WO15SeSRqeeMv9yokVvkwcxDK3WQGULkbU01K5SZ9tVGUd74nIn6T6q6OhM5rNnSrrhVQqJJ0ALJGxVXCporzxezkELlWw1W80v+Qd7XtwTlgPyQMz7b2BsduZleqOIpV7nTC6NcIafQv/luREOCVKMaz3XVVQJs4PWdo8LrgZ2/PLrKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=59xCyg2MLDK436UKcNuLsCVRdsXQZdCI3XdoSy49NWE=;
+ b=ko905sP4bn+ThcrLYNBQV0r4KC9GkSmoxYXkvcSRlgQ153Idg7UTPFSGmV2RqXcZNWa++VP66H4huevJqQFYcRDuv/dOqDog993fNIj+iCobInpM+dDnzLBGCzncI+DpWMnRQg7iFhRccQieuodBPWBZP8ySO4g3fKs/GtD/ePpCaUB3lFiSZbKiJyCfWHeB1fBTmcibJd+OxOKKGyWdvSG9QTOdfQkl2/s91qTk0hqQ/kscm24Edugp6CDXsR6q5z+Z5b+9YFNU+fomaMzPlZsiLMWpr8lh6BMnboBLUY9YhU8Mr8xm8mD/Ws0HBrd194c8Wm+5tXr5VbkqRSCZ/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=59xCyg2MLDK436UKcNuLsCVRdsXQZdCI3XdoSy49NWE=;
+ b=BTFHiNINt8WnI1hQU68FtGXuvmLusIn90N5LkRXZ8hm7rOM4EG4x2ZY2me7jlWss0l7rZ0Iz77VDrXr6eWuyKVzG7LJNuTrUToy14q/mEfT2AHzaTeE2uSQbLS9HpjIxtapSt84KEzuO4rAka1PHgZ+7u4zppVQ5n+7mCobx2Jb+NRZraYhxYgY192vLiHGkldgC4Y+xZDvLxyUxKhxywKxmUM0Qm3o1b2Ymj8otWX6pW9dMIwd9IEzuHZPjW3IWf0A2ZkqMNzft+yXkaibSamWmcqBI/SpAWU7AcVeo0av57Gi5ejnD/4jTh3rK0cdKUxlEfKssgCwRYSNedfaxcQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by AM9PR04MB8745.eurprd04.prod.outlook.com (2603:10a6:20b:43e::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.20; Thu, 2 Apr
+ 2026 13:50:54 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9769.016; Thu, 2 Apr 2026
+ 13:50:54 +0000
+Date: Thu, 2 Apr 2026 09:50:48 -0400
+From: Frank Li <Frank.li@nxp.com>
+To: Florijan Plohl <florijan.plohl@norik.com>
+Cc: Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, upstream@lists.phytec.de
+Subject: Re: [PATCH] arm64: dts: imx{91,93}-phyboard-segin: Add peb-av-18
+ overlay
+Message-ID: <ac50OHuEApM3tRHq@lizhi-Precision-Tower-5810>
+References: <20260402070826.970012-1-florijan.plohl@norik.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260402070826.970012-1-florijan.plohl@norik.com>
+X-ClientProxiedBy: SN7P222CA0007.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:806:124::17) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: michael.opdenacker@rootcommit.com, tglx@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, pjw@kernel.org,
- samuel.holland@sifive.com, unicorn_wang@outlook.com, inochiama@gmail.com,
- daniel.lezcano@linaro.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
- alex@ghiti.fr, liujingqi@lanxincomputing.com, alexander.sverdlin@gmail.com,
- rabenda.cn@gmail.com, dlan@kernel.org, chao.wei@sophgo.com,
- anup@brainfault.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
- sophgo@lists.linux.dev, hanguidong02@gmail.com
-Subject: Re: [PATCH v4 0/5] Add initial Milk-V Duo S board support
-To: Joshua Milas <josh.milas@gmail.com>
-References: <20260328173450.219664-1-josh.milas@gmail.com>
- <88400fa8-4545-49eb-af04-d82b94a89757@rootcommit.com>
- <ac5hFgLav_4oB2QA@sleek>
-Content-Language: en-US
-From: Michael Opdenacker <michael.opdenacker@rootcommit.com>
-In-Reply-To: <ac5hFgLav_4oB2QA@sleek>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Thu,  2 Apr 2026 13:47:32 +0000 (UTC)
-X-CM-Analysis: v=2.4 cv=ALriHGRn c=1 sm=1 tr=0 ts=69ce7375 a=KpaUJEZuatzsP5AJPIWeNw==:617 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=d70CFdQeAAAA:8 a=1lZpniw-9rJIJ0ibxY4A:9 a=QEXdDO2ut3YA:10 a=NcxpMcIZDGm-g932nG_k:22
-X-CM-Envelope: MS4xfJq1AezKYbApVrxu8q0Bcl/ZNMw3JRY+9gtDuIHvl8NarBO/dfeqRT5hYBoQliFHeGDSMvOvSriyAxUyvA9300YUYvwfTfMtaLbJjNz+g7cfrur9pYeJ dvMBxSRkbmxcH2sV5ci9FbnOmiHjERxHIHB+zxRMDDb8ek/Cx3KiZsd8WIxwLE82Tbp5Kkyxpqu+QKDLM3dejXthAcVetHoJ9ggkwCEi0XqXKt2tyJIeygLk jdFInTOrBL+03V2Q7pOTXnfAwjJfuVEgVVOcNe9u7mPVuswFY2y2EuqlUX0lsS1pYpWp5JJuZODxJdWmAeRPiBktVYsKPy/ZRAIdmswjuetVqDdGlCZbv0Du Up1y+XScVxZbsMvmDg3U20gQW4Z4dED5gR6hmu2JWKpRxqZ1z83IuV6G+xs2TBaNjwamtUJ9pZ71k4GSneDI+HGIeqXsAH+NvCxlp21q+YpJQprW6rtTOeqs 0UXZEQLao9fvTvCbgLlHnuqlObXhgglFm9CkM0QS/OSkADW3KXqmwOCwwRMnUE/Dc3imzFQZBWmBD3ffWpyl+ntjFMSErplhHXuoXHxT6rH3sEyFC82HSnP6 jV41waFxekpYpxTZErCnJAtkL9lQ5liKxnO/959K/JbaI4ttkRmHa11e5dbSqeDdr8ryypqcdVBB7VBuxWT1BqAl2UQ1Vo2y+v5BXbhJQV1ckYy4QZIbFGfR BM/SPKUJ4QxTwJr2p/PuQO49vK9SXYwwqxYzi0Ow1BAiDEjmprMFUdxTvNGQwUuYQpIrh0/iEAKFKQcN4EjnSd6bF2p8Gk35MqZMFt/Rjubb1vSt6eKAWHma lBm7LRdtxjyyvTI2GCkXu1SlmMDZYyTz9nTz32mBJ6gD2I3zHMOBz+M6Y2rN0DuR1H3DFSFW//dhGvzFXq3HybwLBNCKXjdjv0UfgcpWm+U8SJf4otvRTz9U qTC+xYDDQtp84zT
- CJB6CFZ9ozu6idNdjXmWOAWD8A5xvibhQ/50SH4UafPIznQ0hVlbeu3g+AABd+Wdw75fb2EGMumavaKd9fmJZT0eFKe2JcWPXO9XVbxFF X8Kwyt7sJcAcr7Ufbg3Gli9qOUKSDyJNgVJDNxTZB1OOkVfBVK2PzqdV
-X-AuthUser: michael.opdenacker@rootcommit.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|AM9PR04MB8745:EE_
+X-MS-Office365-Filtering-Correlation-Id: 74a8a71a-581d-4c69-7995-08de90bedc09
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|52116014|366016|1800799024|19092799006|38350700014|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	rGodIUQJC+uK1sRcOYi0zdGccnczlLvyipEZRu/VMcXIUwnqSJ6btoKKTjHi+cqEfBEcvvIDoEq/WMcvPceL/EtIVcoa2WQRuvw5uvVfCLoOuAYoP81OZLDKl5wVcy7yfPxBxik7UMcAJ3VY9P8i6GHSxVCkwa2QYfL7PoiOObO/KBmSDSRVYRmQYStG8naFllQUS1otN/pWCG1NutSAuuN7rbDBUbcRnU9ceinh9M7DBwJ0pAlpdkYsHhSjUbmIL8g0/sUAZiF43liSXemBKAYSUB8xxwHLzrH3p81yR0NWc9T8Aj6fjUvf0NMWzHX01dLOSwQGboxwhYdmxtLHLvAvHD+d0LgTHTNqCz72xTFHUhAcrtBGEcaGquy4OvofDJvKH4tmbBjZYpRY/I3iDhhomrUXAxMJXT2MbFfGlxvsjpyjzMOrgtu0BjpXZQbPMofoKMctuA6jZnGt02o6lrJrQ5c+YTIpGZJ/JB0wpP71rwElRbv/Uov85iHajr5VklGalXAd6qB2m8jjiYfNFr/3fFWIIsUwzJw3S2301AVYIn4lJyq/1+O2kKfTaleeU5OkWKmWlvKvNEFbssNM3WF8U55Mm6UR9AcUd/mejzgV5KUvyjMbi565zEtSUG0yf9aGYD9BQR9SdAsXaTOq/u4HTAEUff55AWAS4MGJKs4bEO8LcaQhzuGXzjNE7mjwDzW2aXYdPZUGmFbeVmt5Mj/kzlppSBFBnikg953mJkq+wiKav8n/NUW2juoZJ8CsjmLB+yhnPe6MCebKJNZMOpoE1m8Zsra/U9dYpWoP86c=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(52116014)(366016)(1800799024)(19092799006)(38350700014)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?PZKm89oYAi9Dqn33oa16CLzBbR2rJMsmWN7coW8MnI+hQvPP8hVWW0j7WaSA?=
+ =?us-ascii?Q?3EMkIS2PvXK7eEz7S0C6tMqhfVV9D+plXFmHVvOEPcs+/8nFPIkW+mYJ0Yzi?=
+ =?us-ascii?Q?hsSPpzOCi31BH4gvEyHMByWllZQBTVr1d4W/y/HPFCg5zi+yJiiQfQYiiLNX?=
+ =?us-ascii?Q?j4cLo7gf53eD1VNDN3LQIMMlerROu6xiwMY4YWsS1aiuh4bzcmJ+gNTOzsX+?=
+ =?us-ascii?Q?u2WvRt7hmAj19PAtnIAhWzJcl4xX61zsx/BKqmsbm+Rjg+VQLp/JN2xNGlfx?=
+ =?us-ascii?Q?h05C5GWokEwRkJwkgZaBb++RXggHPraIhPfHxoXUA0ReGnmCOY+q5Rd4zHIi?=
+ =?us-ascii?Q?HxYNwrriHmHYKTnPfKaVBTCa6sOEr4F3zjPg4ZqoqKC14/PN3FZqZAOuOulB?=
+ =?us-ascii?Q?gME5rGkA+hXNdlhzuBmX27Bv83PQGnJQcybCgGuaGVVKUTZJnLscoFEQCjLb?=
+ =?us-ascii?Q?INMBIlhfSP045bZ6F2sN22vwIGR3Dct2XwXbyLrJiWd+kXwjec6fncb4fDue?=
+ =?us-ascii?Q?40xzXlQEkL6DJSMidD9/Dq+kwH79nGTgqEen/SQOZnclvCmQ+35wTXCQ7eSG?=
+ =?us-ascii?Q?ZMtAow1iPH/F0hmR1KcvT30HvvOjgzu2ll3Cibtp2MOTiFZhwhJNu3lh0CY1?=
+ =?us-ascii?Q?x0K4LEbNZ9UAXa7OlMRAQjCrJvUx41CmtjPUAv3RRhOuIe+uVWU9tJcB4+ud?=
+ =?us-ascii?Q?KHua2m6X4/nnLdUMta4fQJUGxPrZPt9BITmghWIXR6IRbUveulYx0//Qf3BO?=
+ =?us-ascii?Q?kUhNHeNHjnlUqz1TRsAyI7rRnH0auFZZ0tdyNFZ0mLtYcN28fh7F4ZU8km+L?=
+ =?us-ascii?Q?haAiN5fDvs4lv3jo/kuwZLZZuHOP8Z+6STTOf0+adMLXK4zaC5as71iFznXF?=
+ =?us-ascii?Q?EsRzQvZm4dcoqk5pisfZS8y7/wGdrVRayEQjhtQ+lcmXmky+q/LGY9V7Jgdi?=
+ =?us-ascii?Q?SNABa27UrLkyfeyJk08CRDRw/10hC541fQdMRukOBxiT+gOpyMLFw3xWNoOR?=
+ =?us-ascii?Q?6Iz7ucWWDK6FbG7rCugrAvzOnCnKbOzQfHdjFi9+Fy90ZaSjkBFGnc5rHkGO?=
+ =?us-ascii?Q?Rd3ZzXjmE5LiRWzD4vl+jP10ZeMWBzOqi+HMUvqW/LqJFbEq0y9d8UGgViRC?=
+ =?us-ascii?Q?9iQFF0450MykdhtICXuXXkOgat3TxYvubm3O5TwFqLq3sR0OMEL4Cy9eu3p6?=
+ =?us-ascii?Q?N00xaO9FV2i4JiJ1G7XPiwv9pSdSF3+huvg0tA2aLFnJiC3y/PP/Ba9lSzez?=
+ =?us-ascii?Q?b+Zr5b2gmdigaP1FVbPKtPB8aelALH7P8MfUM+WW6SOcYOx+owZvN6xciTgN?=
+ =?us-ascii?Q?cRFiM3l6MoQUQksAg+sPOXt24AdOxzpoEapYpFekRg/FXhGEVfrm7QKtTByt?=
+ =?us-ascii?Q?/w0CaCWIhD9pCqhtJNrBvMmtUGPL3+mMtyHrYTlj9VozDRtsDTyN83kV4KNx?=
+ =?us-ascii?Q?XFimCYHVKTkjNkz1///1by6cu/lSUS85qkOwL8XTL6+RRAEr8GoGaU5VBgcS?=
+ =?us-ascii?Q?f2ZxAIei6zKJJCsjYiD5JxxjvHXCaNJrPCpYcBY8ZN0x34sbnAWjH3nXJR57?=
+ =?us-ascii?Q?C1Z7vCeYyDdXGgJxQrGKWxOiuJwoRC95QLuePNrM0squGbSg8zp3oKAv9VDA?=
+ =?us-ascii?Q?FAl95bV1JU+Rvw/YFpm6urm85lXOM9CSOychXDPWu8Yxl8Stl2bsLuMiI54d?=
+ =?us-ascii?Q?Hp8r+dr3rupuHhKvR/HBhgYze1frglIEPORY/egV2m993iKU?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 74a8a71a-581d-4c69-7995-08de90bedc09
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2026 13:50:54.4401
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: X1d9jjOyw4ZDsCIhTDW8JpEsrc8yB3otpbpu2LPEcx40ISZAYqzqV+AsZ+EjICgBmNFASR8r6CTkcys+FPxBJw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8745
 
-Hi Joshua
+On Thu, Apr 02, 2026 at 09:08:26AM +0200, Florijan Plohl wrote:
+> Add overlay for the PEB-AV-18 adapter on phyBOARD-Segin-i.MX91/93.
 
-On 4/2/26 2:29 PM, Joshua Milas wrote:
-> Hi Michael,
+what's means PEB-AV-18? Is it random board name?
+
+
+> The supported LCD is Powertip PH800480T032-ZHC19 panel (AC220).
 >
-> Thanks for testing this. I am not seeing that issue on my arm64 or riscv side.
-> I am able to add an IP and do anything I can think of on the arm64 side.
+> Signed-off-by: Florijan Plohl <florijan.plohl@norik.com>
+> ---
+>  arch/arm64/boot/dts/freescale/Makefile        |   4 +
+>  .../imx91-phyboard-segin-peb-av-18.dtso       | 142 ++++++++++++++++++
+>  .../imx93-phyboard-segin-peb-av-18.dtso       | 142 ++++++++++++++++++
+
+Any difference between 91 and 93, can use one overlay file?
+
+Frank
+> --
+> 2.43.0
 >
-> [   96.618687] stmmaceth 4070000.ethernet eth0: Register MEM_TYPE_PAGE_POOL RxQ-0
-> [   96.633977] stmmaceth 4070000.ethernet eth0: PHY [mdio_mux-0.0:01] driver [Generic PHY] (irq=POLL)
-> [   96.676436] dwmac1000: Master AXI performs any burst length
-> [   96.702852] stmmaceth 4070000.ethernet eth0: No Safety Features support found
-> [   96.748740] stmmaceth 4070000.ethernet eth0: IEEE 1588-2002 Timestamp supported
-> [   96.772880] stmmaceth 4070000.ethernet eth0: configuring for phy/internal link mode
-> [ 1359.377528] stmmaceth 4070000.ethernet eth0: Link is Up - 100Mbps/Full - flow control off
->
-> I can do the same on the riscv side but get a unhandled signal for TLS traffic
-> which I believe is unrelated as it doesn't happen on adding an IP.
->
-> I'll send over my configs to see if that helps.
-
-I confirmed I managed to test the eth0 network interface on the riscv 
-side using the configuration you shared. It would take me more time to 
-test on arm64 :D|
-You can send a update with your checkpatch fixes.
-
-Tested-by: Michael Opdenacker <michael.opdenacker@rootcommit.com>
-
-Thanks for everything!
-Cheers
-Michael.
-
--- 
-Root Commit
-Embedded Linux Training and Consulting
-https://rootcommit.com
-
