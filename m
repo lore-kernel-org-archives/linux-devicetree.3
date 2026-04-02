@@ -1,114 +1,77 @@
-Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com [209.85.222.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6594B330647
-	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 06:56:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 228323793AC;
+	Thu,  2 Apr 2026 07:00:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775113015; cv=none; b=MRj+5Q4TGNvTaYX9nulVoWekAr60SRxgI6nApkw0uTdYTHyzgsq1WbFJEwcng8AarH0P5QuY8gTrgujgRGuXzzqIMJijWujHyz9X/9k80M5fqDBRn1cPfY+vp0Py2EaqvAX0g3p3EoHBjgoevXoz/H/s0hiN94E2F7T6hbseG2o=
+	t=1775113216; cv=none; b=kpcbKNrjr7irhSMOP6qqjpuQaHkCqst4qCKue8HEoaE3EYfRJ5iiuTpDuiDXvPCr4x2f5JAnVNApUN/xbrkGryMj8ukNK5XrMONXVZsj3TVmbB/4lNtXByvCkIpOSA6zScx49PPzeUYxvqOdHzD0UO60Wi6vZl3t2TJrX8kpXtc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775113015; c=relaxed/simple;
-	bh=ePSGLsiMhmFVR8HfoS82y6dWU7vjGnh0+ppzLHlH0T8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fKNd9KUfIh+a9FZzxd+YgxjippKHGSLEgIAZXMPdSLLbpmbNCtmjGMl6xz664SsEnMgzgdbZCCd+pP6kFZ9DwvJC0fb1oyom5yqIFpPjyS4dIZqUWhuyJvUfcba71bU+Xi7ImzPjpr6+ivetz5d6seEdH8KVrvP/SIEDIcka24g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f46.google.com with SMTP id a1e0cc1a2514c-94e578a0fa5so286176241.0
-        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 23:56:54 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775113013; x=1775717813;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=yg/9zln3oOsSy7dvNy1b6XIOWPnJXqk+HqcDI8SZtzg=;
-        b=VR+9zWqcUtM8efBkYH7S0Yvk9TXAUO7uI1in/mTyXnJVoBOyo4lDMMkKaE2cTwwMxf
-         ifc5WouUh80hZhoAWU4/7Wi27FAodsYsFvu7fvuhGV8fWxIxpDL+anVVWA1wspNcP7ZT
-         jiLddV0tdj6Fc2nmjZmrrcPwgR/0CJhjQrlo+KVNfW2sZE9ijIkFXr1/jkwbB5Z5P5V4
-         ZzWZPjta1PXmvYAjNzdV0nD6XNkGwb5bbkcGMjcYRz+EYo0ukGtAhI1JIJjLwSEMu8e2
-         lrvdhcuThRX9RdiQKMzMfAzmLSekvm9mUMDCaxLibQ7/f6TiOz14rnEk75VoAKYU+V/U
-         j7Pw==
-X-Forwarded-Encrypted: i=1; AJvYcCVinm2d/BZ7bPECNqq3KyT0pdOiOiMHGn1dSgTBM45evLDZxenSeKTAozuxJTR/aQUAGI8iQgaYOxK6@vger.kernel.org
-X-Gm-Message-State: AOJu0YzBLZmHn/mi9K7VpGNGeYzsgXZ3JNfL+lXv0F3owhZIZBfQGMxZ
-	wrRAmdDtu+bngX7wc4TbHZEBW4so3+iDNwZ5u3rfxWtdPTBcUwLUqrHeXWZlhfgpL2c=
-X-Gm-Gg: ATEYQzyBuWKH/77BM80Zj8tYpxnvIJzSc7BOMSSOLHuQg/t9e6O0bfUoJISHkfG7TJY
-	wx2yGiXK+1tmxJnMIIOAa+SNmhKOXBT2biqkX1PtBQp87lNI+POxU8Gbdm71JlogQqR8uDiybXs
-	FoMitxoBoYE05328knTCH5cXeI6r7pg+4d+Idcb57uhKoC9O7LeFKHIM/CxmIjv2ZeezbvIuHlc
-	2LNiM67nyXNr1bvuRz8tKwXppAPyOj+KEEVCyGrIdZ1/pqV625ihcyi3ujjiKvJF1M/E78P4lcD
-	JL4AYtiFj2a7rH9BO16D2ScB6zu/AsuWifAGmHwt8iB9xTXaGKtOH1FDJIhfoBTDyCJFEXD/rqD
-	nwQVFjDUwd6aI8XUt+177EFNzz7J+ULXnVGxV6UCT1Osk3fu7+LVrkC82rxeasWL8qfM7dFjO/p
-	atqy3U+ZyTUV+8/aXNN9RrvJbyIeGtbyQMzzUP4YUhFiNpYDebzsaMqQjwLQ+pL5B1
-X-Received: by 2002:a05:6102:2922:b0:5ff:c64d:2283 with SMTP id ada2fe7eead31-6056820812bmr2796496137.30.1775113013270;
-        Wed, 01 Apr 2026 23:56:53 -0700 (PDT)
-Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com. [209.85.221.175])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-60582b562bfsm2642353137.0.2026.04.01.23.56.51
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 01 Apr 2026 23:56:52 -0700 (PDT)
-Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-56a9a7e762bso449571e0c.3
-        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 23:56:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCXAcpIJOwFt5Ee/vZh+GlcpsLFf2T6pNP7H1HkZ66bVPLzqLRsDOyqUVAGQUj1dpa3RQ743V/PYHuHY@vger.kernel.org
-X-Received: by 2002:a05:6102:14a5:b0:5ff:d434:b507 with SMTP id
- ada2fe7eead31-6056811633cmr2908434137.17.1775113011410; Wed, 01 Apr 2026
- 23:56:51 -0700 (PDT)
+	s=arc-20240116; t=1775113216; c=relaxed/simple;
+	bh=Zp6JBstHg9TYPkcYDcVvu40/didVJC2h0/MEj+vX6LI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=K4vloFgQR7MjVq8jQbQZPd/3KAZgBJP4Ml8T5Sn9jt5AaTOUk5hpkQYhrtdZ6sqx/T0ykdvE8lGB5Ojjroe4IhwOVXNXg1X2esT9aHTjLiQJCRznl7cIf7/9AGjo1gPcuhgzoHEuBSguetBNU33dP9qPAiC6hCVeE+JUOyBdAjM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WJ0xGEbz; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WJ0xGEbz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E93EC2BCB0;
+	Thu,  2 Apr 2026 07:00:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775113215;
+	bh=Zp6JBstHg9TYPkcYDcVvu40/didVJC2h0/MEj+vX6LI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=WJ0xGEbz33utGMlZXhOxiVfFbl3cql21kSHH7yxPrL7vvfmZtd4uXizh8ISEazjcH
+	 qh103mco5qyFEtR37FJP8MuranZbbVQV2Z8tV91eWJ6ebotT7dPXHsJePkxvGq1F3s
+	 8hqIo/OsfmmYXWMsLJLIXlCwcbAqqVyfBFuSRukQGAVcc5C6L2zEUYt9mmkIqc+qkr
+	 xxfKFAn9szKvOy1BQyM7G+2HHv8Y84j5rL4c3Nfhzqe5Av2prx0UwKqy4MDhvAympw
+	 a6QZ43hcyzOVAzls4WCpZ5c7mperrxCj0WalbZCsPtEg4rZmgOBN5B5NckegrxBOh8
+	 cE+t3s40coz9A==
+Date: Thu, 2 Apr 2026 09:00:13 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] dt-bindings: iio: dac: Add ADI AD5706R
+Message-ID: <20260402-new-venomous-groundhog-e646ee@quoll>
+References: <20260401-dev_ad5706r-v4-0-a785184a8d53@analog.com>
+ <20260401-dev_ad5706r-v4-1-a785184a8d53@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260306104025.43970-1-phucduc.bui@gmail.com> <20260306111912.58388-1-phucduc.bui@gmail.com>
- <20260306111912.58388-4-phucduc.bui@gmail.com> <ac37o-N5lqFMwDCC@google.com>
-In-Reply-To: <ac37o-N5lqFMwDCC@google.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 2 Apr 2026 08:56:40 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdW6y4MkCYR-rgn=FA38ZUE_X=3oQWNOvfdyMo=D5_xoxA@mail.gmail.com>
-X-Gm-Features: AQROBzDLl0x19_opYuA1X41uZg8W0wbeRV35EXp5674jHgoujIYpObmm59iBhFs
-Message-ID: <CAMuHMdW6y4MkCYR-rgn=FA38ZUE_X=3oQWNOvfdyMo=D5_xoxA@mail.gmail.com>
-Subject: Re: [PATCH v3 3/3] input: touchscreen: st1232: add system wakeup support
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: phucduc.bui@gmail.com, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	Jeff LaBundy <jeff@labundy.com>, Bastian Hecht <hechtb@gmail.com>, 
-	Javier Carrasco <javier.carrasco@wolfvision.net>, linux-input@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260401-dev_ad5706r-v4-1-a785184a8d53@analog.com>
 
-Hi Dmitry,
+On Wed, Apr 01, 2026 at 06:20:03PM +0800, Alexis Czezar Torreno wrote:
+> +  vref-supply:
+> +    description:
+> +      Optional external 2.5V voltage reference. If not provided, the
+> +      internal 2.5V reference is used.
+> +
+> +  pwms:
+> +    maxItems: 1
+> +    description:
+> +      Optional PWM connected to the LDAC/TGP/DCK pin for hardware
+> +      triggered DAC updates, toggle, or dither clock generation.
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +    description:
+> +      GPIO connected to the active low RESET pin. If not provided,
+> +      software reset is used.
+> +
+> +  out-en-gpios:
 
-On Thu, 2 Apr 2026 at 07:17, Dmitry Torokhov <dmitry.torokhov@gmail.com> wrote:
-> On Fri, Mar 06, 2026 at 06:19:12PM +0700, phucduc.bui@gmail.com wrote:
-> > From: bui duc phuc <phucduc.bui@gmail.com>
-> >
-> > The ST1232 touchscreen controller can generate an interrupt when the
-> > panel is touched, which may be used as a wakeup source for the system.
-> >
-> > Add support for system wakeup by initializing the device wakeup
-> > capability in probe() based on the "wakeup-source" device property.
-> > When wakeup is enabled, the driver enables IRQ wake during suspend
-> > so that touch events can wake the system.
-> >
-> > If wakeup is not enabled, the driver retains the existing behavior of
-> > disabling the IRQ and powering down the controller during suspend.
->
-> I do not believe this patch is needed: i2c core already handles
-> "wakeup-source" property and manages wakeup IRQ.
+Isn't this just enable-gpios from gpio-consumer-common? Does the device
+have more enable-like GPIOs?
 
-No, it is not needed, as mentioned in the cover letter of v4[1],
-and as tested by me[2].
+Best regards,
+Krzysztof
 
-[1] https://lore.kernel.org/20260309000319.74880-1-phucduc.bui@gmail.com
-[2] https://lore.kernel.org/CAMuHMdUqiaP=COTkKU_jK6Hdii+YJ5+zXnxFkOOnhLri5NakTw@mail.gmail.com
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
