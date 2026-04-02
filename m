@@ -1,515 +1,212 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF0B6399003
-	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 09:29:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FB24396D2A;
+	Thu,  2 Apr 2026 09:29:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775122153; cv=none; b=EO6wrSYLyCDbBntTo20dA49QrkvOWY4YcWmsSnsmEaq4M0tDZjGeReqe4d/QXlNANYGE0BwwTdlQB5mvQKSsbg0F0iOULlkhI5X4i7oVX8JZlLhwDeKoW90/VeGvyUp6j3u/s/sXyOCCEb03Opele2N6/iDSgIano0ZAOl1oRl4=
+	t=1775122155; cv=none; b=dlbfQPS7clldnVrhERTDUiMfbqsEkgrrCU5Z6FuBcFcQ6ECynMe7vspMYcBr07hwWC5GUTIiLCmNAkXXS2PUaBK6rPqozeRZsch/jeLFloW4qQk4T1ksRmOtwosWUZ/ixe77i8Vhs8nHq/JAi0ca5+JyV2/wwgpR1lsO4l/ebH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775122153; c=relaxed/simple;
-	bh=6EUcjJijW8rc8wh1RTKjvOHrDb3PpQGNe3Cnrbfavd0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=M7GCAocbnQdgc1cTo16psR54yxvoR2KNntktTT21vWTSRGEMwmZSPlKU1Ervzh5lCwFKpokI15NuUM9j2yxn58kwQ24mIqXDfm9og1bgruo0n8GKi4Zahpoi2wK/R6yS4PgxuPEuSuew4vehh+2eTcyR2WzgFEh+hGM7E8Yl8sY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=X0gRTA2E; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NJW+OV9c; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1775122155; c=relaxed/simple;
+	bh=kzRJ0oJa/Zcsh1hbeO9DstRQpwVqFH/JmMMnA1SD13o=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=FK3k5RqGfdTAeqLdATznQj1KeUbLJEvVs04/vtJNhcWQPLSiOgkf0VOygEtFfKVBvQoQLkqhXaF26ns2iI4FyyB4cvWKOp4N/PtYBE6q+VMx4qrxy5RPzMS87t7qY3TqbbgV/HEJv6lq75D5PAXc4mnMqVD5TovqgY6vdScU6jA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=bpVyTLM/; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="X0gRTA2E";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NJW+OV9c"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63271h8R3045540
-	for <devicetree@vger.kernel.org>; Thu, 2 Apr 2026 09:29:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=HtBjObk+MAy
-	Dwr/W5dHYl19JESzJDJMYoBzqhZZrP2Q=; b=X0gRTA2ERU/ddRIYjf470RuYVdA
-	dRIOP7djbhU20Ms29/1ievcf+OCVmJwUYHMPZ1G2ATphHZvL5lnFkWk2t6Nfsva7
-	PMAITBBVMJSaaUZVk3fCOjE9YeBP1ZzjEuTaYYYcUC09xYboJs+k/JBq9G9GV05B
-	ivhcxUiwSLBe+u1eeiRO3/pcH5XfMr+bwM+lZbnD+2tMiMfAiF8cfdiyRLXGV6kZ
-	RqDJWoKHSu8v2rqV7mmIQGbNGwOp8xdQDwOQ5+7XQNNSHY06/mYYIqYBKrdKcVMp
-	IgwANlBmd6HHI8PS+Hx4MhZJFwivQb0NH0grsQMH9Hngp4ej7rRIAxgTcFQ==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d9483v5qp-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 02 Apr 2026 09:28:59 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-2c18175fc54so3541963eec.1
-        for <devicetree@vger.kernel.org>; Thu, 02 Apr 2026 02:28:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775122139; x=1775726939; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HtBjObk+MAyDwr/W5dHYl19JESzJDJMYoBzqhZZrP2Q=;
-        b=NJW+OV9c7l68vVXXw+Id4vyjywedHAG7EYYCr7LPAf9lHHwXi2tJeOgSq4p5U8TfM1
-         sEFOU4bRamtFdHOx7M12a9HfqLKa7JQEMzv7i5pPJEbuqcvzKcPCWikebaxnNuqj74Kf
-         WCx+Hpr7FBMT+RQ5exzS2pPW2TerbOnSn/VF5a/w4wssBC7YZ0/eZcHQyaI5CfwtZDml
-         OZac8eoENtIhtTV9gRfv/S6SUrLA2PssvDseMgehJcX6XeicEZ48epnC8jRzC3pONBNJ
-         9JcN+XyvM0nUdGlJ1/9LUfz4/sESFgI01O0sf8HuvCmInB4e+kOjYTVlXETXeYpdUWCi
-         Hvsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775122139; x=1775726939;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=HtBjObk+MAyDwr/W5dHYl19JESzJDJMYoBzqhZZrP2Q=;
-        b=h+DrsYOR0A/oUQ2tq3P97qqEHDTm4G2EexQI1joT8e2kOTMmiIM0VMJablCVhEaNZl
-         XxVow/pWD205Qt6MRGDo0KkAopv+UdSER7WW1TccafCJq3fENlx4ZgRugeMq6LwzMLFk
-         tF+PwUyqhfKwvdEUcfTnqYq4yrN4qS+l5ZsY0M0U3zGSM33noAj1nqEJTCgMxPB9V7/U
-         +A4KkSlkobww9nD6SNP3h3PbCG8g4XbFBMMSDjgSxfau8EzzU4Tacf04QWpTrcOMjW2x
-         BGjkK981MNL7ZuSt+nKIw7bEknCb3zhXFyUy83dWlFROXfe/8gRUEnLZ3cQ4J2UMea0x
-         NPxg==
-X-Forwarded-Encrypted: i=1; AJvYcCUsNenkuJ/k4wNtp2RZe+hIQN02HZ/RqvWIMCbJJjgxdySpuF/H3QsZfKVHOuIDJ3XFkR1G3SOntf+B@vger.kernel.org
-X-Gm-Message-State: AOJu0YyyVd2vkAIt7Y6d2lH90+J8stCj8UWYuYn/aq1BfudIgVFZNEqT
-	pXW9+Qqmx4ONVVU21e6mqRpCQX16vgVnjaDZvrh7J59uQdbsh0iHdcNcXd7Uh9sUbuQpd0k1hhZ
-	brNVqpdsiDYGiotDBrdGDrG2Obyp1Ocby+M6O96X8LghVx7I1RVm2sUHufKLIx96V
-X-Gm-Gg: ATEYQzwU5OD9L8pCCUgTnCsadhvl8XhgPoMMxz5VaLp2xeqttfJ7YKzuq7Q3TnwbxCt
-	rx2pRbzq7ZJmfwWu22/LNo2gsnSs1f4Kwy9X7pqovUuXueLdgEiInmOIdVtg8CwL29Yf/V48uJp
-	MVVCC2X39GPukHRMA1heIhhQWrgGr/7tsDJUOT+T3gQnoRRdgRxyaSaxGEahC67hegFmZWnHSqz
-	nTBwrFTjRF9pjGo/lzFTpy/ashX4Kt1gELnhA+SvQ9+1Z0FLDgfLIcrhr3YWktddiMorBhvQLG+
-	N9/kWhysSLzrqFI6yKrpJyw8B7h67Yak9FTVHfypAp2wDS4N+8at9bSK6f36YTRBwoPqPvNBGKZ
-	2CCuDVHz2FWkIXZBhtRQLNQJCLMRdOnxhUrX9U8qhwlwXcNG7GEQYf3H8+tJX0WDvKKp1nQ/PT7
-	13
-X-Received: by 2002:a05:7300:d50c:b0:2c7:e3a8:2562 with SMTP id 5a478bee46e88-2c930c7640cmr3756959eec.4.1775122138965;
-        Thu, 02 Apr 2026 02:28:58 -0700 (PDT)
-X-Received: by 2002:a05:7300:d50c:b0:2c7:e3a8:2562 with SMTP id 5a478bee46e88-2c930c7640cmr3756931eec.4.1775122138233;
-        Thu, 02 Apr 2026 02:28:58 -0700 (PDT)
-Received: from hu-songchai-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2cafd073194sm951094eec.28.2026.04.02.02.28.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Apr 2026 02:28:57 -0700 (PDT)
-From: Songwei Chai <songwei.chai@oss.qualcomm.com>
-To: andersson@kernel.org, alexander.shishkin@linux.intel.com,
-        mike.leach@linaro.org, konrad.dybcio@oss.qualcomm.com,
-        suzuki.poulose@arm.com, james.clark@arm.com, krzk+dt@kernel.org,
-        conor+dt@kernel.org
-Cc: Songwei Chai <songwei.chai@oss.qualcomm.com>, linux-kernel@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-        coresight@lists.linaro.org, devicetree@vger.kernel.org,
-        gregkh@linuxfoundation.org, Jie Gan <jie.gan@oss.qualcomm.com>
-Subject: [PATCH v13 4/7] qcom-tgu: Add TGU decode support
-Date: Thu,  2 Apr 2026 02:28:35 -0700
-Message-Id: <20260402092838.341295-5-songwei.chai@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260402092838.341295-1-songwei.chai@oss.qualcomm.com>
-References: <20260402092838.341295-1-songwei.chai@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="bpVyTLM/"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id B196E1A30F1;
+	Thu,  2 Apr 2026 09:28:59 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 814D25FDEB;
+	Thu,  2 Apr 2026 09:28:59 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EA28410450A10;
+	Thu,  2 Apr 2026 11:28:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1775122136; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=pzQa4LFTxQ05HmhgeiPTDH3E+TPAwdvNa3fkB5+WstU=;
+	b=bpVyTLM/HvorqoMr7X5qp8JVDT4ql864Pt6NUE/XMakMFkybxl7001h+pLgJx5hZRbaPP7
+	I3tdH3KU3f8CVg4PINMIcvV+KEcYCjih8Jp/+CAumYOC29b7uQ83qkp3srhkyHY1jLctbv
+	ozVjj7WEwk+wH4pQN5i/YQx3dSl9eoVtMGj30lUgtiWyMiMG0/8VPptOxwc61RV6AELufM
+	9kSS4IrEE5i75008f9f1Zj1G/NPBniOcCOL0d49MmlJupJWqr/bnnH3AXkGJzaCJofMiAh
+	TDCK4e/qN5UjcB16PAttrVUzhpUAmV1pF/KRLqmGq+yC0DwkOBn2h3N+3x77OQ==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Date: Thu, 02 Apr 2026 11:26:02 +0200
+Subject: [PATCH v3 07/11] drm/bridge: dw-hdmi: move next_bridge lookup to
+ attach time
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=RYydyltv c=1 sm=1 tr=0 ts=69ce36db cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=p0PFFVR7nGJo5X-0Br8A:9 a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAyMDA4NCBTYWx0ZWRfX91XYVAEYdOmI
- gxGaSIj2xUziRR63ObDRK98ss4wb3qcaxok2ZwlNcnMoEizQCEjb3IETsA/7Jbv51RQkmSL1mid
- yLMs54GO0eL2XRpxJP+z1ozpamyFnVANu0HUTYwWQXWI4Z9zTYb8VjdscKo+CKhJbKNTxGhKP2c
- D5dorLo1nJZalN4S4zt2BxZLtForG2admjoHzKfPLPcTZhW43veoNiHVOYpzHTw891QI6i/K6mL
- R1e1H87vB9Oh6qHSBRbuMdvdkw+hWhuSZd/a+rAvDiHzYvpQYiQNeL5mBEMeyzNmu/NoigCjuhC
- 45dFMhmjfDnSpfjZY5Wbup991AaFV380R4P91So1LcxuqRF8iMGk0O2ycdzBbJHTeXhPkl0jHTl
- cfVGxxx3bzlDJjSYuvlP14X3TxSlbl5K/B2+qSL7LZJtEm2taw7N/2qlKwae6dLIVwI5ME8H12U
- x/K7+D5J/fIoASY6b4w==
-X-Proofpoint-ORIG-GUID: hgEXQaZ8f_Kwpti-AaGJ3Wu4brLioSLA
-X-Proofpoint-GUID: hgEXQaZ8f_Kwpti-AaGJ3Wu4brLioSLA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-02_01,2026-04-02_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 clxscore=1015 adultscore=0 bulkscore=0
- spamscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604020084
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260402-drm-lcdif-dbanc-v3-7-27cd247a0847@bootlin.com>
+References: <20260402-drm-lcdif-dbanc-v3-0-27cd247a0847@bootlin.com>
+In-Reply-To: <20260402-drm-lcdif-dbanc-v3-0-27cd247a0847@bootlin.com>
+To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Liu Ying <victor.liu@nxp.com>, Rob Herring <robh@kernel.org>, 
+ Saravana Kannan <saravanak@kernel.org>
+Cc: Damon Ding <damon.ding@rock-chips.com>, 
+ "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>, 
+ =?utf-8?q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Adam Ford <aford173@gmail.com>, 
+ Alexander Stein <alexander.stein@ew.tq-group.com>, 
+ Christopher Obbard <christopher.obbard@linaro.org>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, 
+ Emanuele Ghidoli <emanuele.ghidoli@toradex.com>, 
+ Fabio Estevam <festevam@denx.de>, 
+ Francesco Dolcini <francesco.dolcini@toradex.com>, 
+ Frieder Schrempf <frieder.schrempf@kontron.de>, 
+ Gilles Talis <gilles.talis@gmail.com>, 
+ =?utf-8?q?Goran_Ra=C4=91enovi=C4=87?= <goran.radni@gmail.com>, 
+ Heiko Schocher <hs@denx.de>, Josua Mayer <josua@solid-run.com>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Marco Felsch <m.felsch@pengutronix.de>, 
+ Martyn Welch <martyn.welch@collabora.com>, 
+ Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>, 
+ Richard Hu <richard.hu@technexion.com>, 
+ Shengjiu Wang <shengjiu.wang@nxp.com>, 
+ Stefan Eichenberger <stefan.eichenberger@toradex.com>, 
+ Vitor Soares <vitor.soares@toradex.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+X-Mailer: b4 0.15.1
+X-Last-TLS-Session-Version: TLSv1.3
 
-Decoding is when all the potential pieces for creating a trigger
-are brought together for a given step. Example - there may be a
-counter keeping track of some occurrences and a priority-group that
-is being used to detect a pattern on the sense inputs. These 2
-inputs to condition_decode must be programmed, for a given step,
-to establish the condition for the trigger, or movement to another
-steps.
+This driver looks up the next_bridge at probe time and stores it in
+hdmi->bridge.next_bridge, but only uses the stored value when attaching,
+and only in the DRM_BRIDGE_ATTACH_NO_CONNECTOR case.
 
-Reviewed-by: Jie Gan <jie.gan@oss.qualcomm.com>
-Signed-off-by: Songwei Chai <songwei.chai@oss.qualcomm.com>
+This will be problematic with an upcoming change, adding an hdmi-connector
+using a device tree overlay when not present. That change is in turn
+necessary to migrate the i.MX LCDIF driver to the bridge-connector.
+
+The problem is that, adding the hdmi-connector via an overlay, devlink
+considers hdmi-connector a consumer of the dw-hdmi device, generating a
+chicken-egg problem:
+
+ * hdmi-connector probe won't be tried until dw-hdmi is probed (devlink)
+ * dw-hdmi probe will defer until it finds the next_bridge (the
+   hdmi-connector wrapper bridge)
+
+In preparation for those changes, move the next_bridge lookup from probe to
+attach, when it is actually used. This allows dw-hdmi to probe, so that the
+hdmi-connector can probe as well.
+
+Also avoid storing the pointer in hdmi->bridge.next_bridge: the value is
+computed when needed, thus a local variable is enough.
+
+Finally, this also allows to slightly improve the code by not doing any DT
+lookup in the !DRM_BRIDGE_ATTACH_NO_CONNECTOR case.
+
+Tested-by: Martyn Welch <martyn.welch@collabora.com>
+Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com> # TQMa8MPxL/MBa8MPxL
+Acked-by: Liu Ying <victor.liu@nxp.com>
+Tested-by: Damon Ding <damon.ding@rock-chips.com> # rk3399
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- .../ABI/testing/sysfs-bus-amba-devices-tgu    |   7 +
- drivers/hwtracing/qcom/tgu.c                  | 157 +++++++++++++++---
- drivers/hwtracing/qcom/tgu.h                  |  27 +++
- 3 files changed, 170 insertions(+), 21 deletions(-)
+Changes in v2:
+- Fix returned error codes
+- Added missing cleanup.h include
+---
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 45 +++++++++++--------------------
+ 1 file changed, 16 insertions(+), 29 deletions(-)
 
-diff --git a/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu b/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
-index 223873789ca6..4ef0d696d3d0 100644
---- a/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
-+++ b/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
-@@ -14,3 +14,10 @@ KernelVersion:	7.1
- Contact:	Jinlong Mao <jinlong.mao@oss.qualcomm.com>, Songwei Chai <songwei.chai@oss.qualcomm.com>
- Description:
- 		(RW) Set/Get the sensed signal with specific step and priority for TGU.
-+
-+What:		/sys/bus/amba/devices/<tgu-name>/step[0:7]_condition_decode/reg[0:3]
-+Date:		April 2026
-+KernelVersion:	7.1
-+Contact:	Jinlong Mao <jinlong.mao@oss.qualcomm.com>, Songwei Chai <songwei.chai@oss.qualcomm.com>
-+Description:
-+		(RW) Set/Get the decode mode with specific step for TGU.
-diff --git a/drivers/hwtracing/qcom/tgu.c b/drivers/hwtracing/qcom/tgu.c
-index 7d69986c3e3d..5b37eb10f863 100644
---- a/drivers/hwtracing/qcom/tgu.c
-+++ b/drivers/hwtracing/qcom/tgu.c
-@@ -18,8 +18,33 @@ static int calculate_array_location(struct tgu_drvdata *drvdata,
- 				    int step_index, int operation_index,
- 				    int reg_index)
- {
--	return operation_index * (drvdata->num_step) * (drvdata->num_reg) +
--		step_index * (drvdata->num_reg) + reg_index;
-+	switch (operation_index) {
-+	case TGU_PRIORITY0:
-+	case TGU_PRIORITY1:
-+	case TGU_PRIORITY2:
-+	case TGU_PRIORITY3:
-+		return operation_index * (drvdata->num_step) *
-+			(drvdata->num_reg) +
-+			step_index * (drvdata->num_reg) + reg_index;
-+	case TGU_CONDITION_DECODE:
-+		return step_index * (drvdata->num_condition_decode) +
-+			reg_index;
-+	default:
-+		break;
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static int check_array_location(struct tgu_drvdata *drvdata, int step,
-+				int ops, int reg)
-+{
-+	int result = calculate_array_location(drvdata, step, ops, reg);
-+
-+	if (result == -EINVAL)
-+		dev_err(drvdata->dev, "check arrary location - Fail\n");
-+
-+	return result;
- }
- 
- static ssize_t tgu_dataset_show(struct device *dev,
-@@ -30,12 +55,26 @@ static ssize_t tgu_dataset_show(struct device *dev,
- 			container_of(attr, struct tgu_attribute, attr);
- 	int index;
- 
--	index = calculate_array_location(drvdata, tgu_attr->step_index,
--					 tgu_attr->operation_index,
--					 tgu_attr->reg_num);
--
--	return sysfs_emit(buf, "0x%x\n",
--			  drvdata->value_table->priority[index]);
-+	index = check_array_location(drvdata, tgu_attr->step_index,
-+			tgu_attr->operation_index, tgu_attr->reg_num);
-+
-+	if (index == -EINVAL)
-+		return index;
-+
-+	switch (tgu_attr->operation_index) {
-+	case TGU_PRIORITY0:
-+	case TGU_PRIORITY1:
-+	case TGU_PRIORITY2:
-+	case TGU_PRIORITY3:
-+		return sysfs_emit(buf, "0x%x\n",
-+				drvdata->value_table->priority[index]);
-+	case TGU_CONDITION_DECODE:
-+		return sysfs_emit(buf, "0x%x\n",
-+				drvdata->value_table->condition_decode[index]);
-+	default:
-+		break;
-+	}
-+	return -EINVAL;
- }
- 
- static ssize_t tgu_dataset_store(struct device *dev,
-@@ -54,13 +93,31 @@ static ssize_t tgu_dataset_store(struct device *dev,
- 		return ret;
- 
- 	guard(spinlock)(&tgu_drvdata->lock);
--	index = calculate_array_location(tgu_drvdata, tgu_attr->step_index,
-+	index = check_array_location(tgu_drvdata, tgu_attr->step_index,
- 					 tgu_attr->operation_index,
- 					 tgu_attr->reg_num);
- 
--	tgu_drvdata->value_table->priority[index] = val;
-+	if (index == -EINVAL)
-+		return index;
-+
-+	switch (tgu_attr->operation_index) {
-+	case TGU_PRIORITY0:
-+	case TGU_PRIORITY1:
-+	case TGU_PRIORITY2:
-+	case TGU_PRIORITY3:
-+		tgu_drvdata->value_table->priority[index] = val;
-+		ret = size;
-+		break;
-+	case TGU_CONDITION_DECODE:
-+		tgu_drvdata->value_table->condition_decode[index] = val;
-+		ret = size;
-+		break;
-+	default:
-+		ret = -EINVAL;
-+		break;
-+	}
- 
--	return size;
-+	return ret;
- }
- 
- static umode_t tgu_node_visible(struct kobject *kobject,
-@@ -77,13 +134,26 @@ static umode_t tgu_node_visible(struct kobject *kobject,
- 	if (tgu_attr->step_index >= drvdata->num_step)
- 		return SYSFS_GROUP_INVISIBLE;
- 
--	if (tgu_attr->reg_num >= drvdata->num_reg)
--		return 0;
-+	switch (tgu_attr->operation_index) {
-+	case TGU_PRIORITY0:
-+	case TGU_PRIORITY1:
-+	case TGU_PRIORITY2:
-+	case TGU_PRIORITY3:
-+		if (tgu_attr->reg_num < drvdata->num_reg)
-+			return attr->mode;
-+		break;
-+	case TGU_CONDITION_DECODE:
-+		if (tgu_attr->reg_num < drvdata->num_condition_decode)
-+			return attr->mode;
-+		break;
-+	default:
-+		break;
-+	}
- 
--	return attr->mode;
-+	return 0;
- }
- 
--static void tgu_write_all_hw_regs(struct tgu_drvdata *drvdata)
-+static ssize_t tgu_write_all_hw_regs(struct tgu_drvdata *drvdata)
- {
- 	int i, j, k, index;
- 
-@@ -91,8 +161,10 @@ static void tgu_write_all_hw_regs(struct tgu_drvdata *drvdata)
- 	for (i = 0; i < drvdata->num_step; i++) {
- 		for (j = 0; j < MAX_PRIORITY; j++) {
- 			for (k = 0; k < drvdata->num_reg; k++) {
--				index = calculate_array_location(
-+				index = check_array_location(
- 							drvdata, i, j, k);
-+				if (index == -EINVAL)
-+					goto exit;
- 
- 				writel(drvdata->value_table->priority[index],
- 					drvdata->base +
-@@ -100,9 +172,23 @@ static void tgu_write_all_hw_regs(struct tgu_drvdata *drvdata)
- 			}
- 		}
- 	}
-+
-+	for (i = 0; i < drvdata->num_step; i++) {
-+		for (j = 0; j < drvdata->num_condition_decode; j++) {
-+			index = check_array_location(drvdata, i,
-+						TGU_CONDITION_DECODE, j);
-+			if (index == -EINVAL)
-+				goto exit;
-+
-+			writel(drvdata->value_table->condition_decode[index],
-+				drvdata->base + CONDITION_DECODE_STEP(i, j));
-+		}
-+	}
- 	/* Enable TGU to program the triggers */
- 	writel(1, drvdata->base + TGU_CONTROL);
-+exit:
- 	TGU_LOCK(drvdata->base);
-+	return index >= 0 ? 0 : -EINVAL;
- }
- 
- static void tgu_set_reg_number(struct tgu_drvdata *drvdata)
-@@ -131,16 +217,26 @@ static void tgu_set_steps(struct tgu_drvdata *drvdata)
- 	drvdata->num_step = TGU_DEVID_STEPS(devid);
- }
- 
-+static void tgu_set_conditions(struct tgu_drvdata *drvdata)
-+{
-+	u32 devid;
-+
-+	devid = readl(drvdata->base + TGU_DEVID);
-+	drvdata->num_condition_decode = TGU_DEVID_CONDITIONS(devid);
-+}
-+
- static int tgu_enable(struct device *dev)
- {
- 	struct tgu_drvdata *drvdata = dev_get_drvdata(dev);
-+	int ret;
- 
- 	guard(spinlock)(&drvdata->lock);
--	drvdata->enabled = true;
- 
--	tgu_write_all_hw_regs(drvdata);
-+	ret = tgu_write_all_hw_regs(drvdata);
-+	if (!ret)
-+		drvdata->enabled = true;
- 
--	return 0;
-+	return ret;
- }
- 
- static void tgu_do_disable(struct tgu_drvdata *drvdata)
-@@ -262,6 +358,14 @@ static const struct attribute_group *tgu_attr_groups[] = {
- 	PRIORITY_ATTRIBUTE_GROUP_INIT(7, 1),
- 	PRIORITY_ATTRIBUTE_GROUP_INIT(7, 2),
- 	PRIORITY_ATTRIBUTE_GROUP_INIT(7, 3),
-+	CONDITION_DECODE_ATTRIBUTE_GROUP_INIT(0),
-+	CONDITION_DECODE_ATTRIBUTE_GROUP_INIT(1),
-+	CONDITION_DECODE_ATTRIBUTE_GROUP_INIT(2),
-+	CONDITION_DECODE_ATTRIBUTE_GROUP_INIT(3),
-+	CONDITION_DECODE_ATTRIBUTE_GROUP_INIT(4),
-+	CONDITION_DECODE_ATTRIBUTE_GROUP_INIT(5),
-+	CONDITION_DECODE_ATTRIBUTE_GROUP_INIT(6),
-+	CONDITION_DECODE_ATTRIBUTE_GROUP_INIT(7),
- 	NULL,
- };
- 
-@@ -269,8 +373,8 @@ static int tgu_probe(struct amba_device *adev, const struct amba_id *id)
- {
- 	struct device *dev = &adev->dev;
- 	struct tgu_drvdata *drvdata;
--	unsigned int *priority;
--	size_t priority_size;
-+	unsigned int *priority, *condition;
-+	size_t priority_size, condition_size;
- 	int ret;
- 
- 	drvdata = devm_kzalloc(dev, sizeof(*drvdata), GFP_KERNEL);
-@@ -288,6 +392,7 @@ static int tgu_probe(struct amba_device *adev, const struct amba_id *id)
- 
- 	tgu_set_reg_number(drvdata);
- 	tgu_set_steps(drvdata);
-+	tgu_set_conditions(drvdata);
- 
- 	ret = sysfs_create_groups(&dev->kobj, tgu_attr_groups);
- 	if (ret) {
-@@ -310,6 +415,16 @@ static int tgu_probe(struct amba_device *adev, const struct amba_id *id)
- 
- 	drvdata->value_table->priority = priority;
- 
-+	condition_size = drvdata->num_condition_decode * drvdata->num_step;
-+
-+	condition = devm_kcalloc(dev, condition_size,
-+				sizeof(*(drvdata->value_table->condition_decode)),
-+				GFP_KERNEL);
-+	if (!condition)
-+		return -ENOMEM;
-+
-+	drvdata->value_table->condition_decode = condition;
-+
- 	drvdata->enabled = false;
- 
- 	pm_runtime_put(&adev->dev);
-diff --git a/drivers/hwtracing/qcom/tgu.h b/drivers/hwtracing/qcom/tgu.h
-index df570c89ffd7..987ea07bd618 100644
---- a/drivers/hwtracing/qcom/tgu.h
-+++ b/drivers/hwtracing/qcom/tgu.h
-@@ -16,6 +16,8 @@
- 	((int)FIELD_GET(GENMASK(17, 10), devid_val))
- #define TGU_DEVID_STEPS(devid_val) \
- 	((int)FIELD_GET(GENMASK(6, 3), devid_val))
-+#define TGU_DEVID_CONDITIONS(devid_val) \
-+	((int)FIELD_GET(GENMASK(2, 0), devid_val))
- #define TGU_BITS_PER_SIGNAL 4
- #define LENGTH_REGISTER 32
- 
-@@ -49,6 +51,7 @@
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+index ab1a6a8783cd..f4a1ebb79716 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+@@ -6,6 +6,8 @@
+  * Copyright (C) 2011-2013 Freescale Semiconductor, Inc.
+  * Copyright (C) 2010, Guennadi Liakhovetski <g.liakhovetski@gmx.de>
   */
- #define STEP_OFFSET 0x1D8
- #define PRIORITY_START_OFFSET 0x0074
-+#define CONDITION_DECODE_OFFSET 0x0050
- #define PRIORITY_OFFSET 0x60
- #define REG_OFFSET 0x4
- 
-@@ -57,6 +60,9 @@
- 	(PRIORITY_START_OFFSET + PRIORITY_OFFSET * priority +\
- 	 REG_OFFSET * reg + STEP_OFFSET * step)
- 
-+#define CONDITION_DECODE_STEP(step, decode) \
-+	(CONDITION_DECODE_OFFSET + REG_OFFSET * decode + STEP_OFFSET * step)
 +
- #define tgu_dataset_rw(name, step_index, type, reg_num)                  \
- 	(&((struct tgu_attribute[]){ {                                   \
- 		__ATTR(name, 0644, tgu_dataset_show, tgu_dataset_store), \
-@@ -68,6 +74,8 @@
- #define STEP_PRIORITY(step_index, reg_num, priority)                     \
- 	tgu_dataset_rw(reg##reg_num, step_index, TGU_PRIORITY##priority, \
- 			reg_num)
-+#define STEP_DECODE(step_index, reg_num) \
-+	tgu_dataset_rw(reg##reg_num, step_index, TGU_CONDITION_DECODE, reg_num)
++#include <linux/cleanup.h>
+ #include <linux/clk.h>
+ #include <linux/delay.h>
+ #include <linux/err.h>
+@@ -2914,9 +2916,20 @@ static int dw_hdmi_bridge_attach(struct drm_bridge *bridge,
+ 	if (WARN_ON((flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) && !hdmi->plat_data->output_port))
+ 		return -EINVAL;
  
- #define STEP_PRIORITY_LIST(step_index, priority) \
- 	{STEP_PRIORITY(step_index, 0, priority), \
-@@ -91,6 +99,14 @@
- 	 NULL                   \
- 	}
- 
-+#define STEP_DECODE_LIST(n) \
-+	{STEP_DECODE(n, 0), \
-+	 STEP_DECODE(n, 1), \
-+	 STEP_DECODE(n, 2), \
-+	 STEP_DECODE(n, 3), \
-+	 NULL               \
+-	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)
+-		return drm_bridge_attach(encoder, hdmi->bridge.next_bridge,
+-					 bridge, flags);
++	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) {
++		struct device_node *remote __free(device_node) =
++			of_graph_get_remote_node(hdmi->dev->of_node,
++						 hdmi->plat_data->output_port, -1);
++		if (!remote)
++			return -ENODEV;
++
++		struct drm_bridge *next_bridge __free(drm_bridge_put) =
++			of_drm_find_and_get_bridge(remote);
++		if (!next_bridge)
++			return -EPROBE_DEFER;
++
++		return drm_bridge_attach(encoder, next_bridge, bridge, flags);
 +	}
-+
- #define PRIORITY_ATTRIBUTE_GROUP_INIT(step, priority)\
- 	(&(const struct attribute_group){\
- 		.attrs = (struct attribute*[])STEP_PRIORITY_LIST(step, priority),\
-@@ -98,11 +114,19 @@
- 		.name = "step" #step "_priority" #priority \
- 	})
  
-+#define CONDITION_DECODE_ATTRIBUTE_GROUP_INIT(step)\
-+	(&(const struct attribute_group){\
-+		.attrs = (struct attribute*[])STEP_DECODE_LIST(step),\
-+		.is_visible = tgu_node_visible,\
-+		.name = "step" #step "_condition_decode" \
-+	})
-+
- enum operation_index {
- 	TGU_PRIORITY0,
- 	TGU_PRIORITY1,
- 	TGU_PRIORITY2,
- 	TGU_PRIORITY3,
-+	TGU_CONDITION_DECODE,
- };
+ 	return dw_hdmi_connector_create(hdmi);
+ }
+@@ -3307,28 +3320,6 @@ static void dw_hdmi_init_hw(struct dw_hdmi *hdmi)
+  * Probe/remove API, used from platforms based on the DRM bridge API.
+  */
  
- /* Maximum priority that TGU supports */
-@@ -117,6 +141,7 @@ struct tgu_attribute {
+-static int dw_hdmi_parse_dt(struct dw_hdmi *hdmi)
+-{
+-	struct device_node *remote;
+-
+-	if (!hdmi->plat_data->output_port)
+-		return 0;
+-
+-
+-	remote = of_graph_get_remote_node(hdmi->dev->of_node,
+-					  hdmi->plat_data->output_port,
+-					  -1);
+-	if (!remote)
+-		return -ENODEV;
+-
+-	hdmi->bridge.next_bridge = of_drm_find_and_get_bridge(remote);
+-	of_node_put(remote);
+-	if (!hdmi->bridge.next_bridge)
+-		return -EPROBE_DEFER;
+-
+-	return 0;
+-}
+-
+ bool dw_hdmi_bus_fmt_is_420(struct dw_hdmi *hdmi)
+ {
+ 	return hdmi_bus_fmt_is_yuv420(hdmi->hdmi_data.enc_out_bus_format);
+@@ -3373,10 +3364,6 @@ struct dw_hdmi *dw_hdmi_probe(struct platform_device *pdev,
+ 	mutex_init(&hdmi->cec_notifier_mutex);
+ 	spin_lock_init(&hdmi->audio_lock);
  
- struct value_table {
- 	unsigned int *priority;
-+	unsigned int *condition_decode;
- };
- 
- static inline void TGU_LOCK(void __iomem *addr)
-@@ -146,6 +171,7 @@ static inline void TGU_UNLOCK(void __iomem *addr)
-  * @value_table: Store given value based on relevant parameters
-  * @num_reg: Maximum number of registers
-  * @num_step: Maximum step size
-+ * @num_condition_decode: Maximum number of condition_decode
-  *
-  * This structure defines the data associated with a TGU device,
-  * including its base address, device pointers, clock, spinlock for
-@@ -160,6 +186,7 @@ struct tgu_drvdata {
- 	struct value_table *value_table;
- 	int num_reg;
- 	int num_step;
-+	int num_condition_decode;
- };
- 
- #endif
+-	ret = dw_hdmi_parse_dt(hdmi);
+-	if (ret < 0)
+-		return ERR_PTR(ret);
+-
+ 	ddc_node = of_parse_phandle(np, "ddc-i2c-bus", 0);
+ 	if (ddc_node) {
+ 		hdmi->ddc = of_get_i2c_adapter_by_node(ddc_node);
+
 -- 
-2.34.1
+2.53.0
 
