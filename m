@@ -1,133 +1,246 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0CD53DD53F
-	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 12:25:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B6823AC0FD;
+	Thu,  2 Apr 2026 12:25:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775132702; cv=none; b=ffxDJia3WZruXdg+zH7Mz8Cmry6ngHshS07IhmAESM91+j3mR8+O/QB2ueuLPVBckkKHenBSV0q8xh9PBMR2qiGpZPkp6Zi8Kk813kEQEQ6PtsP1e96mix4t5n6CONI9bnkU5+lUfRkqga3d2XTMNEg+12Jgg/63yyBzNUjspEw=
+	t=1775132749; cv=none; b=t1XJ/jVZ5umG/GmPMJP9wFG3bAwBPP81mg33QczSKuv0q1xORfjwbejuvriUsc9vRNsG4d71RCwSaAqAyJ1OIf4AeQ8R14eI1L4L0RcTpmcqXWEODobBGBachQDP94WKswHQpgkagX8YIZoLK3WbxK7CU1QUCGBuEeqhFQXoaV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775132702; c=relaxed/simple;
-	bh=VFq9AWUrc9CcWHC7ojF6xOAibaAgS5IkinF3nAaUdvg=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=PhaxsZRTNPoXDcMiSmBEeN3png8nSEMo/QcM6RMex38LAqFpZ+NB103IId9JgirwWEOROjmMS/iTUKnfA49kMMlx5dNdqCyGOIiDQ4WVSdOyMO1Yd7Ksor8BSOAajmd5oX8SHGuiKYf5aMo6Lu3Ezott9eFiSCPaQknfVINkvSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=fI58aKgq; arc=none smtp.client-ip=209.85.208.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1775132749; c=relaxed/simple;
+	bh=A9qss19id8aEDS/Daora8wd8YySFOi8TeljTFjT0/8I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=u/jZS/aagX6hVZuyK1gIlntwFUe6SzPEAcI1sFzAJvbGijBdF2ZWZJtMvWvRkA7jV8K6GKUZxbEDkARe11LTvWZUOxseSt65HFJvQcfDYko3w9/4k4w7Q4vpIZ9pSpmdzYciI41cMip7bIWazpChxx5oyC04+WxR/vSeiooRBzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pjnTwmg9; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="fI58aKgq"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6618bc129acso1078785a12.2
-        for <devicetree@vger.kernel.org>; Thu, 02 Apr 2026 05:25:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1775132699; x=1775737499; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kV57QUhm1LJKEL7ZZkpUHcm6gesGlh2s479uzYXuMeM=;
-        b=fI58aKgq/aSY+7Z0jlFsYNSi0x5D4tu+9WTXceYNuambD3bAFsdlKg+qirj7dcEuts
-         2v6YPKNa8OvP4Q7GCGxf1TuI4QzsFq80O3AaW6VRUSXcLv+fbSOX1mrYLq1I1n2OffSm
-         LRO/YU1TqqOJH/j7lTGWNq3X1VFAE7eJdX+gYbcZT7u1iKu+PeWoeWkywwQor1wOf2Pa
-         Cr9P09ugasZw5iSDqQbL3uNM9akYymOkgikzPomeRz7eP19/hAg/jeGdQLSXplIWEq+Z
-         vLGF0FQMrG26vj1ZdGrZUHWBi3QhQRgaNZjHYftVLgAVAckyxfvkfX+XqpNcpjpD1rJP
-         33Hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775132699; x=1775737499;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=kV57QUhm1LJKEL7ZZkpUHcm6gesGlh2s479uzYXuMeM=;
-        b=VLFOlDBi2PvYOV28lf/QKfD9hxLRfSBTO1GnNfDv5PVb1q3AxBiSrog/m5Hv++XO8x
-         SMlTSegy7w40gDsA5ke5e8xKhYmgNPt4u4CmArGsl8GLSH9RxvaRikNCR9jVFSVJIDSV
-         9ncGTMSkwd4GO4oNKVvipFvvYZI48aRYi7dKv37iclWV//bOwx2ptAvnJfSamTuet8tJ
-         3PbmMd7feYlo1va1vAl2uop0EVrlta5z1r/refo8O2anKW8diyPrTQMVUZvw1BUNj4/S
-         lDCREK2YzuOIN/csVymH+kKJGJtgVsrMmlgoJ4U6av+BscDZfxY895nwX3e5nLoT4Nbl
-         LI6Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUMlWSEiRO3db6XO1fJvXwPiPwMBh/WuMMBI87CNr6OxmbtnQ85kncmte+5JQVdwCufsuJftBtBTfuu@vger.kernel.org
-X-Gm-Message-State: AOJu0YyR5JebqqHf26MwAGfATB6f3ANDhF8YhZmdX+OcwtWqcBh/J8uf
-	Jf5c5d/mB6pz/hySTNhGlkZ0Ev6+3/9iCfp/vbY5zLV0b5Bh8DH7aoR4OK3vfmLyvMc=
-X-Gm-Gg: ATEYQzwkpCnGOA9pXP/ippLoKo4AxbJ2Vm9lZtbxiQLsL420roGa36hbhPVV96h0oKI
-	/Juxrt7R+tiJVRA0Wo+R/hxppAc/g8rD2qE10DJTQMSwuLyr+k0IBb3uIY2X3yHYsGYQ/Snumlm
-	12jHQjQTH6vy1WU2p3PjKtkc+3y410ZQd3svKgDCkfj4gLVsZj7UgmLpxy3f8e7HwXcVVuvVRLh
-	isQRw2A9SHfKeqaG2AldELGqBkMTAyyo4QSGIEV9mYsl+Jd+mh7RE9qQW0DrOQZ0VYi4hWtv2Tp
-	MNqija4urJGNYMKHWaqVBvyAMHdoQouh27/BG13l1ksz0tERzm5+LH7+Us0aRwR1tgcYTDBwBHG
-	1dy7oewg+yIoc1l5v8S9/gUZvZlguw0C7bKMX9DtKc80mQnMnjTobZzhNwtH3pOBSFf2uavk4qK
-	yytCaabVYlsKj9wK66d+2Dgot1CY2+2nB7b6vWPneOmvTP3iJAumZhr3sNeDPqSq9NC7Lzcir00
-	6+EzoUlf2IW7BbPogWt8fwOb4bcinDA63tXhokjsMCCqQA=
-X-Received: by 2002:a17:907:3895:b0:b97:c968:d9ba with SMTP id a640c23a62f3a-b9c1378f46emr488650466b.5.1775132699170;
-        Thu, 02 Apr 2026 05:24:59 -0700 (PDT)
-Received: from localhost (2001-1c00-3b89-c600-71a4-084f-6409-1447.cable.dynamic.v6.ziggo.nl. [2001:1c00:3b89:c600:71a4:84f:6409:1447])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9c3c99ec6esm82792766b.16.2026.04.02.05.24.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 02 Apr 2026 05:24:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pjnTwmg9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88CD2C116C6;
+	Thu,  2 Apr 2026 12:25:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775132748;
+	bh=A9qss19id8aEDS/Daora8wd8YySFOi8TeljTFjT0/8I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=pjnTwmg9tl0xtuonCUtnkNri70pDB+DgXb/5scOyiB9f6uu3ZDGdibxZIDFbUb9af
+	 NgU749vIN9syriB5I91U1otBebcBVNoZo8o48rQuHGbAMifpJ2nAi5hXbcrAwuWt3k
+	 0TNdk1lwQHMh4cbZedqXLbhZvAtgz44GV5fYqe2sQ97foFS8PXNmpnEaCL0ZXjmkIP
+	 w5sLzeGvPxPII9sxopuKBbPuBEgu/LLbx4g/FcPEkdd4BqCkG0vatmSiLW9Wshb6v+
+	 Kjy3DUPuQfkYjhqrGzt0xeRdxZlF0ufUOr52IbHff6OhyRcDh72TnlTq1XVM/dp/ue
+	 DrXS1s4vpmxvQ==
+Date: Thu, 2 Apr 2026 13:25:41 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>, Yixun Lan <dlan@kernel.org>,
+	Joel Stanley <jms@oss.tenstorrent.com>,
+	Drew Fustini <dfustini@oss.tenstorrent.com>,
+	Darshan Prajapati <darshan.prajapati@einfochips.com>,
+	Guodong Xu <guodong@riscstar.com>,
+	Michal Simek <michal.simek@amd.com>,
+	Junhui Liu <junhui.liu@pigmoral.tech>,
+	Heinrich Schuchardt <heinrich.schuchardt@canonical.com>,
+	E Shattow <e@freeshell.de>, Icenowy Zheng <uwu@icenowy.me>,
+	Anup Patel <anup@brainfault.org>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	Ji Sheng Teoh <jisheng.teoh@starfivetech.com>,
+	Hal Feng <hal.feng@starfivetech.com>,
+	Ley Foon Tan <leyfoon.tan@starfivetech.com>,
+	Michael Zhu <michael.zhu@starfivetech.com>
+Subject: Re: [PATCH v1 5/5] riscv: dts: starfive: jhb100: Add JHB100 base DT
+Message-ID: <20260402-shakable-hefty-0164a042b748@spud>
+References: <20260402084019.440708-1-changhuang.liang@starfivetech.com>
+ <20260402084019.440708-6-changhuang.liang@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="37H7PQhY4CmOWSPg"
+Content-Disposition: inline
+In-Reply-To: <20260402084019.440708-6-changhuang.liang@starfivetech.com>
+
+
+--37H7PQhY4CmOWSPg
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 02 Apr 2026 14:24:57 +0200
-Message-Id: <DHIO0VFBOHNX.381P06A2CRHAZ@fairphone.com>
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Luca Weiss"
- <luca.weiss@fairphone.com>
-Cc: "Bjorn Andersson" <andersson@kernel.org>, "Michael Turquette"
- <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Konrad Dybcio" <konradybcio@kernel.org>,
- <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <linux-clk@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/3] dt-bindings: clock: qcom: document the Milos GX
- clock controller
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260306-milos-gxclkctl-v1-0-00b09ee159a7@fairphone.com>
- <20260306-milos-gxclkctl-v1-1-00b09ee159a7@fairphone.com>
- <20260307-inventive-stingray-of-pride-5c2216@quoll>
- <768180d0-bab6-466f-9f5f-54b36f353bd6@kernel.org>
-In-Reply-To: <768180d0-bab6-466f-9f5f-54b36f353bd6@kernel.org>
 
-On Thu Apr 2, 2026 at 10:23 AM CEST, Krzysztof Kozlowski wrote:
-> On 07/03/2026 16:30, Krzysztof Kozlowski wrote:
->>> +
->>> +properties:
->>> +  compatible:
->>> +    enum:
->>> +      - qcom,milos-gxclkctl
->>> +
->>> +  power-domains:
->>> +    description:
->>> +      Power domains required for the clock controller to operate
->>> +    items:
->>> +      - description: GFX power domain
->>> +      - description: GPUCC(CX) power domain
->>> +
->>> +  '#power-domain-cells':
->>> +    const: 1
->>> +
->>> +  reg:
->>> +    maxItems: 1
->>=20
->> reg should be the second property, like you have it in "required" part.
->> I guess you copied it from kaanapali-gxclkctl.yaml, so lesson - qcom
->> bindings have acceptable quality, but not good enough to take as correct
->> starting point.
->>=20
->
-> OTOH, why this entire binding cannot be squashed in Kaanapali one?
-> What's the difference?
+On Thu, Apr 02, 2026 at 01:40:19AM -0700, Changhuang Liang wrote:
+> From: Ley Foon Tan <leyfoon.tan@starfivetech.com>
+>=20
+> Add JHB100 base dtsi and dts. Consist of 4 Dubhe-70 cores, CLINT, PLIC,
+> PMU, UART and 1GB DDR.
+>=20
+> Signed-off-by: Ley Foon Tan <leyfoon.tan@starfivetech.com>
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> ---
+>  MAINTAINERS                                   |   6 +
+>  arch/riscv/boot/dts/starfive/Makefile         |   2 +
+>  .../boot/dts/starfive/jhb100-evb1-eth.dts     |   6 +
+>  arch/riscv/boot/dts/starfive/jhb100-evb1.dtsi |  32 ++
+>  arch/riscv/boot/dts/starfive/jhb100.dtsi      | 326 ++++++++++++++++++
+>  5 files changed, 372 insertions(+)
+>  create mode 100644 arch/riscv/boot/dts/starfive/jhb100-evb1-eth.dts
+>  create mode 100644 arch/riscv/boot/dts/starfive/jhb100-evb1.dtsi
+>  create mode 100644 arch/riscv/boot/dts/starfive/jhb100.dtsi
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 7d10988cbc62..b1892a480c31 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -25306,6 +25306,12 @@ S:	Supported
+>  F:	Documentation/devicetree/bindings/interrupt-controller/starfive,jh810=
+0-intc.yaml
+>  F:	drivers/irqchip/irq-starfive-jh8100-intc.c
+> =20
+> +STARFIVE JHB100 DEVICETREES
+> +M:	Changhuang Liang <changhuang.liang@starfivetech.com>
+> +L:	linux-riscv@lists.infradead.org
+> +S:	Maintained
 
-There's no GMXC power domain on Milos. Apart from that they're
-compatible from a bindings perspective.
+Supported, no?
 
-However it can re-use include/dt-bindings/clock/qcom,kaanapali-gxclkctl.h
-because the GX_CLKCTL_GX_GDSC definition would be identical.
+> +F:	arch/riscv/boot/dts/starfive/jhb100*
+> +
+>  STATIC BRANCH/CALL
+>  M:	Peter Zijlstra <peterz@infradead.org>
+>  M:	Josh Poimboeuf <jpoimboe@kernel.org>
+> diff --git a/arch/riscv/boot/dts/starfive/Makefile b/arch/riscv/boot/dts/=
+starfive/Makefile
+> index 3dd1f05283f7..7cdb75788053 100644
+> --- a/arch/riscv/boot/dts/starfive/Makefile
+> +++ b/arch/riscv/boot/dts/starfive/Makefile
+> @@ -18,3 +18,5 @@ dtb-$(CONFIG_ARCH_STARFIVE) +=3D jh7110-starfive-vision=
+five-2-lite.dtb
+>  dtb-$(CONFIG_ARCH_STARFIVE) +=3D jh7110-starfive-visionfive-2-lite-emmc.=
+dtb
+>  dtb-$(CONFIG_ARCH_STARFIVE) +=3D jh7110-starfive-visionfive-2-v1.2a.dtb
+>  dtb-$(CONFIG_ARCH_STARFIVE) +=3D jh7110-starfive-visionfive-2-v1.3b.dtb
+> +
+> +dtb-$(CONFIG_ARCH_STARFIVE) +=3D jhb100-evb1-eth.dtb
+> diff --git a/arch/riscv/boot/dts/starfive/jhb100-evb1-eth.dts b/arch/risc=
+v/boot/dts/starfive/jhb100-evb1-eth.dts
+> new file mode 100644
+> index 000000000000..62cd046e1224
+> --- /dev/null
+> +++ b/arch/riscv/boot/dts/starfive/jhb100-evb1-eth.dts
+> @@ -0,0 +1,6 @@
+> +// SPDX-License-Identifier: GPL-2.0 OR MIT
+> +/*
+> + * Copyright (c) 2024-2026 StarFive Technology Co., Ltd.
+> + */
+> +
+> +#include "jhb100-evb1.dtsi"
 
-And also the driver (which can be used as-is) would be identical. In
-that driver qcom,kaanapali-gxclkctl.h is used so it makes sense to keep
-with the kaanapali header, or not? Making a qcom,milos-gxclkctl.h with
-the same definition is not wanted?
+What is the point of this file? Is this the base-board?
+Shouldn't it have a specific compatible?
 
-Regards
-Luca
+Can the SoM be used without a base board? I've got no info about this
+board appearing on google, do you even have pictures of it or any
+documentation?
+I see this
+https://www.starfivetech.com/en/index.php?s=3Dhardware&c=3Dshow&id=3D22
+and
+https://www.starfivetech.com/en/index.php?s=3Dhardware&c=3Dshow&id=3D23
+but the former doesn't look like it needs a base-board and the latter is
+called "evb3", so is not what's here?
+
+Not got enough info to really do any kind of review here.
+
+> diff --git a/arch/riscv/boot/dts/starfive/jhb100-evb1.dtsi b/arch/riscv/b=
+oot/dts/starfive/jhb100-evb1.dtsi
+> new file mode 100644
+> index 000000000000..462b6fb7953b
+> --- /dev/null
+> +++ b/arch/riscv/boot/dts/starfive/jhb100-evb1.dtsi
+> @@ -0,0 +1,32 @@
+> +// SPDX-License-Identifier: GPL-2.0 OR MIT
+> +/*
+> + * Copyright (c) 2024-2026 StarFive Technology Co., Ltd.
+> + */
+> +
+> +#include "jhb100.dtsi"
+> +
+> +/ {
+> +	model =3D "StarFive JHB100 EVB-1";
+> +	compatible =3D "starfive,jhb100-evb1", "starfive,jhb100";
+> +
+> +	aliases {
+> +		serial6 =3D &uart6;
+> +	};
+> +
+> +	chosen {
+> +		stdout-path =3D "serial6:115200n8";
+> +	};
+> +
+> +	cpus {
+> +		timebase-frequency =3D <5000000>;
+> +	};
+> +
+> +	memory@40000000 {
+> +		device_type =3D "memory";
+> +		reg =3D <0x0 0x40000000 0x0 0x40000000>;	/* 1GB */
+> +	};
+> +};
+> +
+> +&uart6 {
+> +	status =3D "okay";
+> +};
+
+> +		cpu2: cpu@2 {
+> +			compatible =3D "starfive,dubhe-70", "riscv";
+> +			riscv,isa =3D "rv64imafdcbh";
+> +			riscv,isa-base =3D "rv64i";
+> +			riscv,isa-extensions =3D "i", "m", "a", "f", "d", "c", "b", "h", "zba=
+", "zbb",
+> +					       "zbc", "zbs", "zicbom", "zicbop", "zicboz", "zicntr",
+> +					       "zicond", "zicsr", "zifencei", "zihintpause",
+> +					       "zihpm", "svinval", "svnapot", "sscofpmf";
+> +			riscv,cbom-block-size =3D <64>;
+> +			riscv,cbop-block-size =3D <64>;
+> +			riscv,cboz-block-size =3D <64>;
+> +			d-cache-block-size =3D <64>;
+> +			d-cache-sets =3D <512>;
+> +			d-cache-size =3D <32768>;
+> +			d-tlb-sets =3D <1>;
+> +			d-tlb-size =3D <16>;
+> +			device_type =3D "cpu";
+> +			i-cache-block-size =3D <64>;
+> +			i-cache-sets =3D <512>;
+> +			i-cache-size =3D <32768>;
+> +			i-tlb-sets =3D <1>;
+> +			i-tlb-size =3D <24>;
+> +			mmu-type =3D "riscv,sv48";
+> +			next-level-cache =3D <&l2c2>;
+> +			reg =3D <0x2>;
+
+reg after compatible please.
+
+> +			tlb-split;
+> +
+> +			cpu2_intc: interrupt-controller {
+> +				compatible =3D "riscv,cpu-intc";
+> +				interrupt-controller;
+> +				#interrupt-cells =3D <1>;
+> +			};
+> +		};
+
+--37H7PQhY4CmOWSPg
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCac5gRQAKCRB4tDGHoIJi
+0mq/AQCdGRhH7fMsETbsHy/7XAwGdd6dyCgef5Ry/G9ZUAIsYQD/QcGn7v8E4xpq
+1187O7K4oldFt4xV97meM3SOU86bkAI=
+=u85q
+-----END PGP SIGNATURE-----
+
+--37H7PQhY4CmOWSPg--
