@@ -1,139 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012053.outbound.protection.outlook.com [52.101.43.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08BCD370D68;
-	Thu,  2 Apr 2026 16:38:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775147894; cv=none; b=mBkuIZpiTHMQovEuV4LbJb6Z1YLJZUnaGr5vuEAwGMOM4ng5DuO76VlHLblcXy/ndfeVljacaSYIvNIgYmr/138dqa8VQq/XFL/teXC+kILjn+Xbt5Vjna7Hr5bWKI9Spunctwagwi3JgbyKKMtGG50MSdnQBeOQ+/pnWtN2Umg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775147894; c=relaxed/simple;
-	bh=fF3Ykzr27nyMSlSsMQcX3vecDssK82kkXmf+rB9WeEY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=C79oeUFC+kDt0xsPziw92sjrusWN4imjgFQmCGPbNAeEBMcjNziYPpHep1Jsavd0RMozUyUfrsHiw5EaYPhpW9dPOc/HvXdo3h/A1meYV2bVWluiELkKDbQZtaQA5x/knjK+i2pFT58SEgsiPHhuzGXYwMT9fXGgoP8kSDriAd0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jSK6DCcB; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F18EB3C942D;
+	Thu,  2 Apr 2026 16:38:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775147946; cv=fail; b=R9WfBdU6aRqvOwc6pBi9hhKQmsOleGcTfONQGtYCx4PEDi+TA/UbymHf1joW/+LxmT0RaszI2flRqq2FLeMV5pvWtbzoHbXFD9ApM3Dm2/WMIpN6nE1HTn7NdTfLvvfSlv9Dqs69SRayZBZKUo6LGtWqr++M9UdqQpJE5FUPzXs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775147946; c=relaxed/simple;
+	bh=RSe2UXaMiXwTlFp39bmMJgs544KlRbR1SoRB2aJCzeU=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=JSJ2F2+f02RNC3TAu6Rr8rneu2Kp4MwKAtIIXDt+afOX3BFa+ZfzkU2X38pzubc9e9DDA/WDkjNwMRybkS51sg3X/ivMYUZijGH+thYIgoqiBkL6B/MpoH32QEkM4HtyZv1GetU5ZhlPFFemzUq6xin81cJMKqw08OBVM1XHemU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=YV1Nlpfg; arc=fail smtp.client-ip=52.101.43.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jSK6DCcB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46334C116C6;
-	Thu,  2 Apr 2026 16:38:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775147893;
-	bh=fF3Ykzr27nyMSlSsMQcX3vecDssK82kkXmf+rB9WeEY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=jSK6DCcB/4lGKXrzGJnX5Z9eAm266MxxZ0ddRgTukpWDdvp9vbTYOVhtZuylX/ciQ
-	 Ht+iJjrnte/n6AgbPEJbSO/hbaL+BTCIs0VuaqN13oQ0n51YpAuI7UEcp5enIFLCZ+
-	 7GZQ6Kah8+bbLjkzdOIh90AlozwpnAKvg5GlEWgaYWNV6BREpX3PsgR1rlDJQITLVt
-	 flT+dFmbcZuDYxQOLbKUka7VBsKr0r5mD1pbDxgf7Ic9aWURwasPJfsjO8szJjog0W
-	 Otsq0hqtYFj/PukXdqtltTaoEGIXKoNvqn/i7UvyAvcHysExGl0B327Jel6JhsXN6x
-	 5jib+PctkjJ5g==
-Message-ID: <3f3235ef-a792-4676-b702-4c5516249155@kernel.org>
-Date: Thu, 2 Apr 2026 18:38:06 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="YV1Nlpfg"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Kzdp6e0RDv8OrIWfuz7G6LdZL9eRZcu6aWLQiop3FKOYk7F73+yA7LnwXWnRA1QeecA7CS7Jpp0KBm0D1G3Zf80h1NDmQq0j0hAe8sUNh3jHhTblULss4VLEEhHOIlluOOUlYYNug2jp06mXe43u4kDZ+/h6j7TGnbrjyj3HmdGAfeiFnL680bO2MJSesCfquKtEANju8iILfO0bXCcW3ptpWEWRLHL2jmC9/8bDQLYh2Xq9xNvF1UhkGSeLi4j49q46rbqbgTY/oypCQiDQpPaKiMAtWbuel+m02J1/auTVO2yuyAM1bH6ESsexRjNdLSPMDsH6OMq68eJTOwum6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+gGP+SqqBinVX/QK2u1mNG3NnIANWWEBL89nQ/UBtz0=;
+ b=iAgQquxNvWQQHq/SXCm6mRtmK4wrPwNqNJ9AKX3dX90bGf4z6n8ZSr7fUd2iSN1kbGTvwVilPvpZNwJT6PO7z4F5Yi8MFzjTugAb6NisNXtpeM4QB8nxbcQztZHdzzn3hl+Oxqs3y1BYSH/xVCXmhL8JrEZFOYsm1RTuvoGEWw20R9k7hjWQOXSebM+Sh1PkuYqpL+7/skxuL/yckzR0Ye7S1/VOfGrMVpWWDq0zuTqaReThO7UZYBJjAciyrOvi/ufP/BurS0rPiCkVXP9eD/lnLq3larR4N6PTUgMVHUwIl6Keok34msgEOxwppjqaCm4ZZ+NtaOtmUwK+OKcRdQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+gGP+SqqBinVX/QK2u1mNG3NnIANWWEBL89nQ/UBtz0=;
+ b=YV1Nlpfg5G5YQUABEjJzL043nLHnWsSHI38ilSdIAAp2TSJD9Pu+1zTQ3YNsDId6jNG+761eCHu0w0FyiXSsx0FnDVVtxI/PF8OFEZ8BorYtbVhtRaDmY4PHcu9Dl9TwQ/ERQOkaPGP9I5cxMUR8KgQs7r+NC61z5Y9Kan4JtXo=
+Received: from DS7P220CA0020.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:223::10) by
+ BY5PR12MB4084.namprd12.prod.outlook.com (2603:10b6:a03:205::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.19; Thu, 2 Apr
+ 2026 16:38:55 +0000
+Received: from DS3PEPF0000C37A.namprd04.prod.outlook.com
+ (2603:10b6:8:223:cafe::2b) by DS7P220CA0020.outlook.office365.com
+ (2603:10b6:8:223::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.18 via Frontend Transport; Thu,
+ 2 Apr 2026 16:38:54 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ DS3PEPF0000C37A.mail.protection.outlook.com (10.167.23.4) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Thu, 2 Apr 2026 16:38:54 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 2 Apr
+ 2026 11:38:53 -0500
+Received: from xhdshubhraj40.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Thu, 2 Apr 2026 11:38:50 -0500
+From: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+To: <linux-kernel@vger.kernel.org>
+CC: <git@amd.com>, <shubhrajyoti.datta@gmail.com>, Shubhrajyoti Datta
+	<shubhrajyoti.datta@amd.com>, Srinivas Neeli <srinivas.neeli@amd.com>,
+	"Michal Simek" <michal.simek@amd.com>, Linus Walleij <linusw@kernel.org>,
+	"Bartosz Golaszewski" <brgl@kernel.org>, Rob Herring <robh@kernel.org>,
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, <linux-gpio@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
+Subject: [PATCH 1/2] dt-bindings: gpio: Add eio gpio node to gpio-zynq
+Date: Thu, 2 Apr 2026 22:08:39 +0530
+Message-ID: <20260402163840.938417-2-shubhrajyoti.datta@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260402163840.938417-1-shubhrajyoti.datta@amd.com>
+References: <20260402163840.938417-1-shubhrajyoti.datta@amd.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/6] arm64: dts: qcom: milos: Add Adreno 810 GPU and GMU
- nodes
-To: Alexander Koskovich <akoskovich@pm.me>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>, Luca Weiss
- <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260331-adreno-810-v1-0-725801dbb12b@pm.me>
- <20260331-adreno-810-v1-6-725801dbb12b@pm.me>
- <20260402-military-arrogant-woodpecker-4ab9b5@quoll>
- <182d58c1-21fb-4cab-8ce7-26f07d63d246@kernel.org>
- <_oKtywl2hPElduEp5xQuU-pvfR8_24TNztuXf3Il3DaaddUmg04Z27u2uYnUtox8G44_zuniSoDZTSJMMW44-HNTXLFJkKCjslAeEe96u9Y=@pm.me>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <_oKtywl2hPElduEp5xQuU-pvfR8_24TNztuXf3Il3DaaddUmg04Z27u2uYnUtox8G44_zuniSoDZTSJMMW44-HNTXLFJkKCjslAeEe96u9Y=@pm.me>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF0000C37A:EE_|BY5PR12MB4084:EE_
+X-MS-Office365-Filtering-Correlation-Id: 22cbd5cd-51af-4c57-ce53-08de90d6546f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|7416014|82310400026|1800799024|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	fgr11iTbGNe9IYx54SZDcT+2FH0JB2yxjcf5cFGw509Np9nR7LrEaqU01kzFJxq0yIZqvI8AS/YtpvZ9yXc05Ap3ftHktYdSoVDbEiNO96mPEHZHAKf9IY0gy1MGTe7kltRyosKZS7dh2sQsvtmj0DH6agCFDxlMMEwM43Scj8lx21Tb/Hr7xweOs8kxAGYyzqJ0WLP7apkr96pJuJbw1c1oeob4jMFjxOLmKpmUV7CqA5ZB4zNMFeyNI6yOroCmOjUuJGftx6PTTGeSnu2o8tUMn9gzuRwvEgBMXOeY1NiI4jM2mv1r2Pe5hbyAnDVULTn6/kXMJBIxQG8pgZjwtvJX5gQW3ZkeqP1J5ATxGZLIXqMkMwbONFLjGJze6KoqjMC9bT816/Kip/MiqvPpNTmpg+QguTI36THEX34OhP81ydAWTxi7nR/UyLJ3OLpdX38xiZWCTvsSQr3O8avqinNagbEbGT2XBwbrWTcQv2gfs/do32XBHx6saZWwUUP8yVbclFd8pcS5iioxWtq2mOcOWmxv7O9qeTYbT1R+xQ6WIcdxZ61zz+s5rUUMvoXSh3UylWhx2Z82oci7Wbt78xFIlVc2830Zq0kPpdREAnryD86+CGqUkOVVRLXkAzTvvcgjv1loWeugK6l+3fSv2LgmJ80NEnjsSk1C5+7EnlJq68WaTrC/ky0s1iLjYpSQVFuN/TknsUVZxZt+Z3s/Qo9ukYVrtwdkjVK5SgAiHzx2UDQ7cm98m7wbs50t7kFwPE1QPKMy+FXx/7Cy5uyoUA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(7416014)(82310400026)(1800799024)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	YbDdu4SL1JwpANftQl9hsshlp7MyaLHmtNj/6DF71qsE3FMSB0GzKORnvR7jKK42+OigTfTJmV2UtFu7EV3QPmvYGDdRr4elJBQ2zl8qiQMGO7WB2efJ5orEKjpmdnfIUpUz6SnegzpniO/Y0SHCbrX2dwDY1Egk/yh5Cbz/N8Gr7P4zMzOELspXAWMPIbAfgX/Ctd25imiCk0V8gLQhdd0fL/FqXcMZCJyddLX5NHLDNM+kNq51FgOh0SgVcp5yZUW1m6YRV/ewnifudA4ECxLmDUiWcCgd9z9hh1XQVLx478XcA3QqO45si5csjGCWaDiS++y9Q9I61G39d60SeCgnvPD/+jioNwOiNDSCRgKqNvdTcv8mxdxM5vhzN4fZprgT/pjre4UzoN5gTAJFGBl4PCl2ufy1PelXbCxQnzYyOnAwBJ5Z1LSfUPoKXBg6
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2026 16:38:54.6390
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22cbd5cd-51af-4c57-ce53-08de90d6546f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS3PEPF0000C37A.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4084
 
-On 02/04/2026 18:36, Alexander Koskovich wrote:
->>>> @@ -7,6 +7,7 @@
->>>>  #include <dt-bindings/clock/qcom,milos-dispcc.h>
->>>>  #include <dt-bindings/clock/qcom,milos-gcc.h>
->>>>  #include <dt-bindings/clock/qcom,milos-gpucc.h>
->>>> +#include <dt-bindings/clock/qcom,kaanapali-gxclkctl.h>
->>>
->>> Why? My next from 27th Match does not have Milos in that binding. Was it
->>> added? It's worth mentioning in commit msg.
->>>
->>
->> Now I checked in the cover letter - that patch was rejected. You cannot
->> depend on rejected patch and still claim that this patchset is ready for
->> merging. This patchset should be somehow marked that it depends on stuff
->> which is wrong, usually I recommend marking it as RFC with explanation
->> in cover letter WHY this is RFC (because it cannot be merged).
-> 
-> I don't see where the gxclkctl milos patch was rejected, there were some minor
-> comments that need to be addressed in a v2 though, is that what you mean by it
-> being rejected?
+Add the EIO gpio node to the device tree.
+The EIO GPIO block exposes only bank 0 and bank 1 to
+multiplexed I/O pins, providing a fixed total of 52 GPIO lines
+(2 banks × 26 pins). Enforce this hardware constraint by requiring
+exactly 52 entries in gpio-line-names for the EIO variant.
 
-There is no v2, so that patch at that time could not go in, could not be
-accepted, could not be used as a working dependency.
+Signed-off-by: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+---
 
-> 
-> Will just mark v2 of this series as RFC.
+ .../devicetree/bindings/gpio/gpio-zynq.yaml        | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
+diff --git a/Documentation/devicetree/bindings/gpio/gpio-zynq.yaml b/Documentation/devicetree/bindings/gpio/gpio-zynq.yaml
+index 5e2496379a3c..b8dd279753a5 100644
+--- a/Documentation/devicetree/bindings/gpio/gpio-zynq.yaml
++++ b/Documentation/devicetree/bindings/gpio/gpio-zynq.yaml
+@@ -16,6 +16,7 @@ properties:
+       - xlnx,zynqmp-gpio-1.0
+       - xlnx,versal-gpio-1.0
+       - xlnx,pmc-gpio-1.0
++      - xlnx,eio-gpio-1.0
+ 
+   reg:
+     maxItems: 1
+@@ -30,7 +31,7 @@ properties:
+ 
+   gpio-line-names:
+     description: strings describing the names of each gpio line
+-    minItems: 58
++    minItems: 52
+     maxItems: 174
+ 
+   interrupt-controller: true
+@@ -89,6 +90,17 @@ allOf:
+           minItems: 116
+           maxItems: 116
+ 
++  - if:
++      properties:
++        compatible:
++          enum:
++            - xlnx,eio-gpio-1.0
++    then:
++      properties:
++        gpio-line-names:
++          minItems: 52
++          maxItems: 52
++
+ required:
+   - compatible
+   - reg
+-- 
+2.34.1
 
-
-Best regards,
-Krzysztof
