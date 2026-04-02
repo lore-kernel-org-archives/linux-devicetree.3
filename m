@@ -1,157 +1,90 @@
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 327743D813F
-	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 11:21:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F34253845CA;
+	Thu,  2 Apr 2026 11:22:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775128924; cv=none; b=Zh3bTkO8C5piuqrdL28XffjUn7Zyh76tY9fC6ydlraGKAXWeYi9jCtlbnErYmPGYRwxe5H0G8vRSgHCknD4qjo1WH63LAUkEAT4YMEJpb/aaxdehJsMr3hWBOUu+QEv2yBsVZWSTL+bVL81akn5nOQt2ZCw9URDrgAG1HKR79ag=
+	t=1775128934; cv=none; b=rVbtnvhd8lAF4ePsoPnnfKhReznI0U4OmQKMPWOCNaNtGJsjF5i1qMtNOAGeVUEGodf+mddxAJHy7lf6DmNyJxS3PyrdmnYuzGGWIlouT00xf2swz4YQQenPgiRa6ALaVwsV5FnuoJGI4ZpJDdf3Ssx4173dRK4p12hz9dB9ti4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775128924; c=relaxed/simple;
-	bh=RcX9LDtuyetHVfHjlsGuK7xjHia6Sb6Hr4bV/1hbpVg=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=UPVnrrlrPbIIns5in60gtuZoeIhf1dbaW3PSZWe8YxYFIAooLXmidEdb0c/JvpJhagfSGCWdgGr428wN6tYrCVebgbirOsl4bbvUlwIHs/U8ZvY6XsePWVSAXuAsXXX1E0GUSdIfTRQF42iZ5VcZehPeaMthmz0xRiqlVcIp2mw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.dev; spf=none smtp.mailfrom=linux.spacemit.com; arc=none smtp.client-ip=54.92.39.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
-X-QQ-mid: esmtpgz11t1775128897tbf21170d
-X-QQ-Originating-IP: kxlUxpWpaYTKTqzcSIXGMtW5WoW7m1TS67JGq45OFYc=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 02 Apr 2026 19:21:35 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 4623887784994959119
-X-QQ-CSender: troy.mitchell@linux.spacemit.com
-Sender: troy.mitchell@linux.spacemit.com
+	s=arc-20240116; t=1775128934; c=relaxed/simple;
+	bh=vOejG/o2vgTiL96r4KfF9lxCPFRYRio/B74Q+h9vJzk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DFmfr1lnfEuZd2cv1GQKIXXydXiVtPt6jgomIX8rPRvVHeWEdSuOFROXN6HW+g+OogyN3qx4sRM/BgsKnLo6LNjpXaS51168c5J0X7HTkBYjtuHe8v+QXy3YfhkZWUNu0cABwvxWV+iFYpS/kdVwA1A0d2S6w8jMMPAWDqoIVGo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dB3xkxlT; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dB3xkxlT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DEC3C116C6;
+	Thu,  2 Apr 2026 11:22:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775128933;
+	bh=vOejG/o2vgTiL96r4KfF9lxCPFRYRio/B74Q+h9vJzk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dB3xkxlTYeSej9QDvRTtV98uCh7LC1p+TH8yFKHa5eyTyegAb81YraxS6B0qkjvQ3
+	 j8yJpHXj1t5CUy8Ix49hMVEr5kVjV3gq8mcauAbUnSVGe4whJCmVJ/qIOjfPBo8hAI
+	 e8UV0n5eLuuPRo/Hdupb60M6egpzaR6RSvw2yfN8Ilm9AZGEtm3m2ClGA37anYHsWe
+	 gke6ZmZ63kP3xwfeloBOBP8FjYAqGVqI75FzbIbdzDA///ymtqXaMzO5zRDM35pVQf
+	 JK69Dp3qgq4MMk+EFcWcPhgwHxJ+oNMk3jwKpX/QARKWdZfb9cdEC7vXWR69FVnMmd
+	 5ktSKdPGcYatQ==
+Date: Thu, 2 Apr 2026 12:22:02 +0100
+From: Mark Brown <broonie@kernel.org>
+To: "karthik.s" <karthik.s@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] ASoC: codecs: wcd937x: Add conditional regulator
+ control for wcd937x
+Message-ID: <ec716d06-3c7b-496e-9605-761346d78ad9@sirena.org.uk>
+References: <20260402070854.2804291-1-karthik.s@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 02 Apr 2026 19:21:34 +0800
-Message-Id: <DHIMOCFZSFXX.2XZEQBRXLISKN@linux.dev>
-Cc: "Ulf Hansson" <ulf.hansson@linaro.org>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Adrian Hunter" <adrian.hunter@intel.com>, "Paul
- Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
- Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, "Yixun Lan"
- <dlan@kernel.org>, "Michael Opdenacker"
- <michael.opdenacker@rootcommit.com>, "Javier Martinez Canillas"
- <javierm@redhat.com>, <linux-mmc@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>, "Anand Moon"
- <linux.amoon@gmail.com>, "Trevor Gamblin" <tgamblin@baylibre.com>
-Subject: Re: [PATCH v5 5/9] riscv: dts: spacemit: k1: add SD card controller
- and pinctrl support
-From: "Troy Mitchell" <troy.mitchell@linux.dev>
-To: "Iker Pedrosa" <ikerpedrosam@gmail.com>, "Troy Mitchell"
- <troy.mitchell@linux.dev>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260330-orangepi-sd-card-uhs-v5-0-bd853604322d@gmail.com>
- <20260330-orangepi-sd-card-uhs-v5-5-bd853604322d@gmail.com>
- <aco9oLumPh4OZtIo@kernel.org>
- <CABdCQ=MFcDPnzcYUEkbQyu_0qZt=aDD04p1kyxCMuVt7Av_P1Q@mail.gmail.com>
-In-Reply-To: <CABdCQ=MFcDPnzcYUEkbQyu_0qZt=aDD04p1kyxCMuVt7Av_P1Q@mail.gmail.com>
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NjnaxRGIoVtrU0Po5BGq0P/WeCd94Kdq2ifnaNbGEqNI8S7p4EfTnp7G
-	BJyFaB7tbr07t1KMRuTx1oXt5uBkgjYIfg0GY4Uw1S/Y3gSCOx7Bf1ZfdwLh6C3E11Y/eRH
-	CDOC+QqWm1NreH3232MCUCtLGjqMKi2f3ViHsdi4UA7ooBgsj7fokOJRbjBcusX56alUVIo
-	+sMRj7X694oypP+s6Q3PUQ+/WEydDm62f8X1NmthhnIW9hzL2Xowqzr6w2eTF57KVv0klP8
-	ZVRQj9f2Ijgrjn5PQZdOZtSxleArKt+mueZQakzfu6DFuUGPUCCwMKF3KQahTgkBTOAXJyc
-	qJgtvZIxllBfgwzUtDCXpXtgtvwjKQfcIiNByJTA/Vm2krX8gkSRMalEIY/Zw2wbYc9k/2Q
-	2W5MPjuqncIk/pAn5BLfaGSxj+AOvQysfQOGDTsL2bqeEAFGaRVka8HmFAizgGGPOUQOtJW
-	8MC+dd2kQ4HEDGMAc7qxucf30cHpUfVpMMzQopxI4roKWxnvOZC8df0f3XV0MZr/LViDrgD
-	3h6QK+PY+SHp7GuT5lmhgV+nYBHPETUeMy2YOXyN7IAfSlUi1NHTd0EXV75Y/6l2rY7eVdX
-	UbXH0Vi2uETythQ3ueph5qxEt/7K2ageKQTVmXiDqQaPd8klmxwBZrUJEUuX0IuOt9zalzW
-	S4G1gMcownBHGXBD6PMOE3VuJ2Pij/ht+mT1Hz1TrCYP7ujPr7HCOzfSfoW+MZ5htm9m6Wf
-	81miDn8h0KbHfXkSs9bWUKaYyrN7l9SqElhqbjI+/iuGHR/CzYK0fBTIdCUL2ogT0aHzcj1
-	9QL13NxBCotNXM65HIIi84a9vy29K0PO5ig8BPjunGMV4xg/FNwNdzCJEK1ii6MV2f05Di8
-	uY8zHGYC2wLFa73asDTN//ndr2nq5P3sFWtKAoLkeHVDJeaIVk3tSmYP1PAhCvU3GBMXbIk
-	lMghr3fCVDRP3hTNHGmVIP0sBWy7VqpP9E7UY+IexqkjGUi4/AWh6WgP+AUNczNRmJL0h8k
-	NqjoYNW6AioF9rAcm+uXItX2tE4pzF9N9SvVmKar66u6BkzTdfMd3jLoePja0=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5HPYIqv3H3hDBw+U"
+Content-Disposition: inline
+In-Reply-To: <20260402070854.2804291-1-karthik.s@oss.qualcomm.com>
+X-Cookie: <doogie> dpkg has bugs?  no way!
 
-On Wed Apr 1, 2026 at 4:53 PM CST, Iker Pedrosa wrote:
-> El lun, 30 mar 2026 a las 11:08, Troy Mitchell
-> (<troy.mitchell@linux.dev>) escribi=C3=B3:
->>
->> On Mon, Mar 30, 2026 at 16:38:06 CST, Iker Pedrosa wrote:
->> > Add SD card controller infrastructure for SpacemiT K1 SoC with complet=
-e
->> > pinctrl support for both standard and UHS modes.
->> >
->> > - Add sdhci0 controller definition with clocks, resets and interrupts
->> > - Add mmc1_cfg pinctrl for 3.3V standard SD operation
->> > - Add mmc1_uhs_cfg pinctrl for 1.8V UHS high-speed operation
->> > - Configure appropriate drive strength and power-source properties
->> >
->> > This provides complete SD card infrastructure that K1-based boards can
->> > enable.
->> >
->> > Tested-by: Anand Moon <linux.amoon@gmail.com>
->> > Tested-by: Trevor Gamblin <tgamblin@baylibre.com>
->> > Signed-off-by: Iker Pedrosa <ikerpedrosam@gmail.com>
->> > ---
->> >  arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi | 40 +++++++++++++++++++=
-+++++++++
->> >  arch/riscv/boot/dts/spacemit/k1.dtsi         | 13 +++++++++
->> >  2 files changed, 53 insertions(+)
->> >
->> > diff --git a/arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi b/arch/riscv=
-/boot/dts/spacemit/k1-pinctrl.dtsi
->> > index b13dcb10f4d66022d27307de73a6ea3287e97441..8d82011f1af666fb78c282=
-a2abcc0cb88f962053 100644
->> > --- a/arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi
->> > +++ b/arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi
->> > @@ -570,4 +570,44 @@ pwm14-1-pins {
->> >                       drive-strength =3D <32>;
->> >               };
->> >       };
->> > +
->> > +     mmc1_cfg: mmc1-cfg {
->> > +             mmc1-data-cmd-pins {
->> > +                     pinmux =3D <K1_PADCONF(104, 0)>,   /* mmc1_d3 */
->> > +                              <K1_PADCONF(105, 0)>,   /* mmc1_d2 */
->> > +                              <K1_PADCONF(106, 0)>,   /* mmc1_d1 */
->> > +                              <K1_PADCONF(107, 0)>,   /* mmc1_d0 */
->> > +                              <K1_PADCONF(108, 0)>;   /* mmc1_cmd */
->> > +                     bias-pull-up =3D <1>;
->> > +                     drive-strength =3D <7>;
->> I'm a bit concerned about this value. Looking at the downstream 6.6 code=
-, 3.3V uses DS4,
->> which equals 13mA. Since 7mA maps to DS0, what's the reasoning for using=
- it here?
-                ^^^^ wrong current
->> Do we have any documentation or measurement to back this up?
->
-> Thank you for catching this! You're absolutely right to question these
-> drive strength values.
->
-> Looking back at my development process, I remember hitting signal
-> integrity issues in the early stages of this driver development. As a
-> quick solution, I lowered the drive strength values, which seemed to
-> resolve the immediate problems, and I moved on without revisiting the
-> electrical characteristics.
->
-> After your feedback, I investigated this properly by comparing with
-> the vendor kernel. It uses:
-> - 3.3V mode: PAD_3V_DS4 (19mA)
-> - 1.8V UHS mode: PAD_1V8_DS3 (42mA)
->
-> My original values were indeed backwards from both electrical theory
-> and proven vendor implementation. Testing with the corrected values
-> (19mA/42mA) confirms SD card is working.
->
-> I'll send v6 with the corrected drive strength values: drive-strength
-> =3D <19> for 3.3V and drive-strength =3D <42> for 1.8V UHS modes.
-Yes, 19mA for 3.3V and 42mA for 1.8V are correct.
-I realized I cited an incorrect value in my previous message (the 13mA).
-Please CC me when you send v6.
 
-                                    - Troy
+--5HPYIqv3H3hDBw+U
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Thu, Apr 02, 2026 at 12:38:54PM +0530, karthik.s wrote:
+> Add has_always_on_supplies for managing regulators. Indicates that
+> the codec supply regulators are always enabled by the system and
+> must not be requested or enabled by the codec driver.
+
+> +  qcom,always-on-supply:
+> +    type: boolean
+> +    description: Indicates that the codec supply regulators are always enabled
+> +                 by the system and must not be requested or enabled by the codec
+> +                 driver.
+> +
+
+Why would we want that?  The regulator core already has perfectly good
+support for always on supplies.
+
+--5HPYIqv3H3hDBw+U
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnOUVkACgkQJNaLcl1U
+h9CgCQf/erCGtb0YkhIvIZ/85ly/3UxqDmicCet18Va8ENqtqI2xzUFvcEYcpb2m
+Nr9ED3JUCQJSR0P71zf5rclE/t1b1bvHJ8X0KJP9x+2k/frLxIt6VbpKHsPIxsaF
+Bmx4p9/RGfj/RRhv61M9nXInJF5kO1w5JdPLtpf2cqTdjpLJUHUolDgajPljnAEc
+WqBi0bJ9aLQWeuSHmYtE2bdMv5bVVBcDRYKCMmJML4QuVTazIjKh5rXozw5Qo5ir
+F3MkKDe1JRbA2+pfcWn4kEdAY9NmBg6tCrwYtB4EjYEx3i04G8OkfppNhwSk/ZsU
+9hy00+z+bDzvV0hAF4xC2iDVSahonA==
+=ulkT
+-----END PGP SIGNATURE-----
+
+--5HPYIqv3H3hDBw+U--
