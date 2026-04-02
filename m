@@ -1,153 +1,303 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3C30318B96
-	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 10:53:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A7F13909B5;
+	Thu,  2 Apr 2026 10:54:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775127185; cv=none; b=aLPX3WHxWTP9OF/yJ8tN6nDmOXh9iSqqrDTa8RKyT+Zgyh69vcPs5qHpQlCoGW3W+DeCsGluWEchMpbkA2TNoq/+DxmRhOJpXrzIgzFVaue9R3IrLJFZ1mkyXl220SPCVWWDysYQpsympXegDsBZq9RGpKXl7H+Zo7BECoLS6QI=
+	t=1775127294; cv=none; b=EU9fPgenbwPCRBDa94pVr6HLWIX2MaQZeavhxvo34icRC2UOXpqF3YzSD7LEhUClk8W4PtADiMmQh4nmKGZl2TJYEDljAmBE1EEdsPr19QU7QG5tUKFg26Z4EERmRxLvpZ+d4pb4ABj1lMbNzXxZFeF37Id8VA72TZLV9vFqq0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775127185; c=relaxed/simple;
-	bh=fJF+CQ34GAc96FQ9I5iJV5TGKNk9YFLboer/co68qD8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=J+tmd2d2y1i8NS/cNCXB3QY5dWi2s+09xQo4hyriRB06dURspHRRaGymprALYtIoABFzcmSAml4liGUKmDKjQv0aATW5HuwK9m7LDWpJpFSZxF4TO8657dfi8kj42trWAdcnNc/18UKegDW1j451pSbVMHOQsY1/x7F1INes+TM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eWCqppI/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CwOfD4Go; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1775127294; c=relaxed/simple;
+	bh=yu+8oG5/vysrBcPtnEEY6FRRgmxHcASnTPWwE6Flr78=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d5AC4VD4g1BBfzOPCnejBvYsxocIjt5q5O6AOcRNT1Pm6ZjiwjW4946YVDKgwer4TYnuJg3saGsGXsbLqSHlVM8kLtJt8uvGYOWXmY4hG4Vz/C1QEbv6/W881b8e7O8pIes+JbKNEI/mMo0Oc6LuIJKiPwtV/bwYTI3oaDt1Oks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=a/t6YWte; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eWCqppI/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CwOfD4Go"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6326tVHH548321
-	for <devicetree@vger.kernel.org>; Thu, 2 Apr 2026 10:53:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=l4iRJumm4Lhs7az5pTlL2cgissYVmIQLzEM
-	V5QdhHj8=; b=eWCqppI/7uU8Lairm0RTEiWtb7ITgdA4H4G0L5DFypEUDih52sj
-	6hcESnnkqHpKyQRnclqe1LmGTTaxxzidpodN0JCWTWbEJLDpPn86z4v3Hd/5NwoV
-	dBplbhsc7d1MUsIAiHJKTP1Kv0XECg4v96hphNfMSfKTGU205VD795Ikz5/q1Oa2
-	pRfHE5e0ZJHIixri7M84IZ0xSa96v6MUW4kkyY+G6Qc7evyhUIZiQU9MUVk9qiK8
-	ZU5aBsjfdCV8Bamfv8aGoPv7iW6f7J0zoZISe4AGEMe0ISZyib9QIUL3xTprAlse
-	mXtosAUxJ5sXjC/2batmmjL4db9vnZzzu9w==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d94vvmba9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 02 Apr 2026 10:53:02 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-35d9467e85aso718903a91.0
-        for <devicetree@vger.kernel.org>; Thu, 02 Apr 2026 03:53:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775127182; x=1775731982; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=l4iRJumm4Lhs7az5pTlL2cgissYVmIQLzEMV5QdhHj8=;
-        b=CwOfD4GoTQPE/dcfeqAShcpmujK6bpoBjoh9A2S74R4Jt0P3xzZO8vECjr4rfz5m/h
-         mtigHgNxJfDZaXGyl0+9iD4KlJPnQCpkV2COvQi6hWWegazvkKum4HpXh0QM4nHzR5k+
-         7/i10m5sqhxRe+sK9pFXZNJk1NGoOczhsPz/qk0b8yPiPCKb3W+H01BU5fTcjMwwEwjY
-         weqwTPwL7/HnngKcYZnbwb8SlmnSR+eqtNhnAFYacuFs/xjpWKiGL/IAJYve10l6Yc8/
-         eB6+aRQ38Myh9e6cD2GrdhxbgMPzhgU9pkKQGiZl8//dQliyyeJkUin51LjR+SudYfQJ
-         EMlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775127182; x=1775731982;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=l4iRJumm4Lhs7az5pTlL2cgissYVmIQLzEMV5QdhHj8=;
-        b=SUqQl97qN4Yak/1dFOckQ6vPS2NC87Vj7uqGUTAsbOgZZvk/b7zcA94bhSxfz/slaN
-         lR/pOId8ogXnvnfeCYwzs0CLdg/bG7V+xETEahNtzFy/YsTQA6qWCnz8SeWHGSsxGVu/
-         bcOdmuFQG00HGyWp7DW2+BQFuRNuCwnOQrOv6s7Cfo1JjEKDSVFwA1LsWG6d0osHWL7m
-         6I8T/oDQuo+X0l8/Ur67eQmaL0RK2t4gWmq3cy2GtsoaewE0/u0jMXCFOGpFfA47oqeF
-         lqzsca0d2hGIX8UgDGJ0Ujbg4Lk9KYOZx6m144y8DBUEwjoFzj5mIbYq3LZVmPPRUVzY
-         8soA==
-X-Forwarded-Encrypted: i=1; AJvYcCVivE0975Uafile++Ibjnu5enUF8XnSnzia2qIA9s19wPd8LxUw2h9w+O6L07MalxztdiJLwqou1jfL@vger.kernel.org
-X-Gm-Message-State: AOJu0YwlAaKQLaCD+OZMa/WjeB/2Jr3FTzThBDpR5iPqNbKeQI8Gy33a
-	h3QiWFZVWhK/NupqL5gFlvtjty5QammBr6lxcRUDq8uvTgKV2PXYYJVnP7Sq3s96BydY7s6ZxHe
-	QHgaJuZ02ZnOBHEFTi76QLFEH3FVh8DR6HAhuiXDZhQr+FfzIi/hDeDlASz5UAXf/
-X-Gm-Gg: AeBDiesa4rFeVbAa5xHojhpnnr8rog9EtelsMdU8y5dV2biDu56EacTMwap8ViYmUT9
-	ZDdBaMq2EM8tXoKjSm/n/KZigoQ24OMydWFgwqECXPj7C9eqJnqKLTOxjyHaFb5XVZ++FQNWyab
-	gAzeJVEtwzWIpl3TiZQ7uM2VqI7aoaIRQfdUR9BjVLQ5zeKKbqbVa9rIbSIPKWUdBzfN1olEEvy
-	efclvDNB1lCn8cPIf0wjznUZDm2+E/i/wPZcRSiOUbzNx9lMHpnAnrg/eDYYn0V4QdsufYcX2sf
-	lHuK5JCzNsf4z0MrJZniC5bCpj7u3KImZy6+x156sBfaHavbOWJEE2ACtDK5AOUAe4n/IdnO9yz
-	tzWVLLbXN/WfRurWptQxtPK95LboNV4OxJTdke9pEzZFLc0U1b5wu2Sk=
-X-Received: by 2002:a17:90a:dfc3:b0:35c:1695:24a0 with SMTP id 98e67ed59e1d1-35dd410bc07mr2599632a91.30.1775127181685;
-        Thu, 02 Apr 2026 03:53:01 -0700 (PDT)
-X-Received: by 2002:a17:90a:dfc3:b0:35c:1695:24a0 with SMTP id 98e67ed59e1d1-35dd410bc07mr2599620a91.30.1775127181212;
-        Thu, 02 Apr 2026 03:53:01 -0700 (PDT)
-Received: from hu-anupkulk-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35dd368f538sm3464203a91.14.2026.04.02.03.52.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Apr 2026 03:53:00 -0700 (PDT)
-From: Anup Kulkarni <anup.kulkarni@oss.qualcomm.com>
-To: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: mukesh.savaliya@oss.qualcomm.com, viken.dadhaniya@oss.qualcomm.com,
-        Anup Kulkarni <anup.kulkarni@oss.qualcomm.com>
-Subject: [PATCH v1] arm64: dts: qcom: Enable CAN RX via GPIO expander
-Date: Thu,  2 Apr 2026 16:22:53 +0530
-Message-Id: <20260402105253.3009382-1-anup.kulkarni@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="a/t6YWte"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 631M9oxR115373;
+	Thu, 2 Apr 2026 10:54:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=0RVIWJ
+	4ylqtORZ1L+Mwi1bTJovcNPY/rDERTjKhDyF4=; b=a/t6YWtepXkgy3HnC1LPNl
+	NR+Sa0T2m4F5OUreTADI9RhCPsGdkaq2wKrdARBIMfuSA4P3rIph73h5RWyUHcy0
+	vYl6+ty77D+/tt99X7WPZDxLhObX+/xdhalR/HkVr2Y2FlQXpP9MXCCy6F4Xe/1t
+	QiF3hzYQqahWCGn7Qjlm2QEhZbi4N8E2Fdn+H4BRg2qwa2cvFUdcL+JWnNTe6Nlf
+	XVNv7IZjqcNrzu9yObzkou48pXnS8lfA6b5Cy/0MtNlQWh5RWesV3xnFTUTXDzDX
+	OoyGhs/Hq0hNeXpVtXUV5h0JJQopD2GLU818VVJ8mI/3VIaPgFokCSoEYCp4QRUw
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4d66q3ccfd-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 02 Apr 2026 10:54:25 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 6327koKJ008685;
+	Thu, 2 Apr 2026 10:54:24 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4d6v11sfrv-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 02 Apr 2026 10:54:24 +0000
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 632AsKD952298136
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 2 Apr 2026 10:54:20 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4C46B2004E;
+	Thu,  2 Apr 2026 10:54:20 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 789E220040;
+	Thu,  2 Apr 2026 10:54:15 +0000 (GMT)
+Received: from [9.123.14.142] (unknown [9.123.14.142])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  2 Apr 2026 10:54:15 +0000 (GMT)
+Message-ID: <51761fcf-955f-45e2-97a5-2b49d8e79d04@linux.ibm.com>
+Date: Thu, 2 Apr 2026 16:24:14 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/3] arm64,ppc64le/kdump: pass dm-crypt keys to kdump
+ kernel
+To: Coiby Xu <coxu@redhat.com>, kexec@lists.infradead.org,
+        linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+        devicetree@vger.kernel.org
+Cc: Arnaud Lefebvre <arnaud.lefebvre@clever-cloud.com>,
+        Baoquan he <bhe@redhat.com>, Dave Young <dyoung@redhat.com>,
+        Kairui Song <ryncsn@gmail.com>, Pingfan Liu <kernelfans@gmail.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
+        Thomas Staudt <tstaudt@de.ibm.com>, Will Deacon <will@kernel.org>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Saravana Kannan <saravanak@kernel.org>,
+        open list <linux-kernel@vger.kernel.org>
+References: <20260225060347.718905-1-coxu@redhat.com>
+ <20260225060347.718905-4-coxu@redhat.com>
+Content-Language: en-US
+From: Sourabh Jain <sourabhjain@linux.ibm.com>
+In-Reply-To: <20260225060347.718905-4-coxu@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAyMDA5NyBTYWx0ZWRfX0O6+brRgfnFJ
- C2jTyjR2UCiS/k3UozNf5ulgxpxC55NCbgs6z+2Yf2yxxGS8qbRnZDB3VoAwW5PYpqs5at7XLaC
- svcK9qEDQSSWYd/E3Srkd3bfa+qE+l7I6M8MESGqQRPlAV9/d/Nk9S7+0tp5uBcxYZyT0V2PiJn
- P40H4JHKlBelt8GUbBeUO3OePKHDZ6vi4v3f7YcTitVetWgNeOkXZErKP+TMnJLHU55rgkhQx6y
- Sbyy7fG3vCCK1VEZMvwOoP182/g6hBj5EK6cKkxtcvRIwjNxSoV5qSwskTyHXsNwQw4pmb7DUOh
- J3whHyq0p6oBPL7oxxnoMcAyEVlK+5blh7jPK38+nnx2h65rKBe2eXRcPrXSXeHRYJnGQDHkKhG
- GxFZVhEYdclDYKccfODkyZohXKwd7kZOHGunog+lOlszCpygficWWmwKwJJ5q7ngw+pO7NmNu90
- 3YC6ZSXa5F4X1qRjkkA==
-X-Authority-Analysis: v=2.4 cv=DJSCIiNb c=1 sm=1 tr=0 ts=69ce4a8e cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=HURNEOczjUzzROzEHuAA:9 a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-ORIG-GUID: YbyJtAb0L9n6uXHW5KMlRlZVix7yHbtO
-X-Proofpoint-GUID: YbyJtAb0L9n6uXHW5KMlRlZVix7yHbtO
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: 1IJpf8nhQkcVXt5GniLlCr3XWgW66IQM
+X-Authority-Analysis: v=2.4 cv=frzRpV4f c=1 sm=1 tr=0 ts=69ce4ae1 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=20KFwNOVAAAA:8 a=NEAV23lmAAAA:8 a=b2T7Ds_qAAAA:8 a=pGLkceISAAAA:8
+ a=Z4Rwk6OoAAAA:8 a=VnNF1IyMAAAA:8 a=CgUfrdhd2qi-7wTTnboA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=thWvoDmNLqknv6kuXhLH:22 a=HkZW87K1Qel5hWWM3VKY:22
+X-Proofpoint-ORIG-GUID: x_IWhrErDeETCiTEFlITfxiDIXysEuLj
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAyMDA5NyBTYWx0ZWRfX4FDLit6NpI3L
+ shC2rKHIH4E6HToakFkgZdHxWXdbkbPhbeADWr0jBlBnA5PNnlA7MfMtUl8VyQk5+vLGbLfZ82Z
+ fMEhRxMXapCTYXQUzQw8z3uBrDVdmEOeYrDLjR3ZDkkAlgpJ/EpseC2rxJCCw4T4MALgUtFvSpi
+ rkpL2TCWdgvkaOZUWdQABxYoXOvIirYnjQBDxcjrjT3bCxWtrdT4AgGSi0bpn1h32jQCkeRMNkO
+ 8ycQMVRnS4Kz8Nx8XDtY1QdhUQ9eO4RePsUBiNd0hVeH1x5UepoLHv/YZQPm40io7TiKUjOLBkf
+ 7rDk2GXzJhphRwRJzGScyjFo0rg+fHeriBkLeXUw7wpJ5L7G7PfND2ADZKSaaYZIW9U9MzXzKEg
+ rhoSnAlIKyZOEE94DL3ZLYiXUkRjpIzLFxvXh6Osg/59lN6LpVl8yTLgny/Vnj/oQyvpbSxi+c0
+ bkZ0+M4Dq/Uk/a8tQqA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-02_01,2026-04-02_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 bulkscore=0 clxscore=1011 malwarescore=0
- adultscore=0 impostorscore=0 spamscore=0 lowpriorityscore=0 phishscore=0
+ impostorscore=0 spamscore=0 priorityscore=1501 malwarescore=0 clxscore=1011
+ lowpriorityscore=0 bulkscore=0 adultscore=0 suspectscore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604020097
 
-Few CAN controllers, part of RTSS sub-system on LeMans, route
-their RX signal through a I2C GPIO expander at address 0x3b.
-RTSS subsystem is an MCU like sub-system on LeMans with independent
-booting capability through OSPI interface and supports peripherals like
-RGMII, CAN-FD, UART, I2C, SPI etc.
 
-Describe this hardware wiring by configuring the expander GPIO 4 pin as
-hog with output-high, asserting the selected line during boot.
 
-Signed-off-by: Anup Kulkarni <anup.kulkarni@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/lemans-evk.dts | 7 +++++++
- 1 file changed, 7 insertions(+)
+On 25/02/26 11:33, Coiby Xu wrote:
+> CONFIG_CRASH_DM_CRYPT has been introduced to support LUKS-encrypted
+> device dump target by addressing two challenges [1],
+>   - Kdump kernel may not be able to decrypt the LUKS partition. For some
+>     machines, a system administrator may not have a chance to enter the
+>     password to decrypt the device in kdump initramfs after the 1st kernel
+>     crashes
+>
+>   - LUKS2 by default use the memory-hard Argon2 key derivation function
+>     which is quite memory-consuming compared to the limited memory reserved
+>     for kdump.
+>
+> To also enable this feature for ARM64 and PowerPC, the missing piece is
+> to let the kdump kernel know where to find the dm-crypt keys which are
+> randomly stored in memory reserved for kdump. Introduce a new device
+> tree property dmcryptkeys [2] as similar to elfcorehdr to pass the
+> memory address of the stored info of dm-crypt keys to the kdump kernel.
+> Since this property is only needed by the kdump kernel, it won't be
+> exposed to user space.
+>
+> [1] https://lore.kernel.org/all/20250502011246.99238-1-coxu@redhat.com/
+> [2] https://github.com/devicetree-org/dt-schema/pull/181
+>
+> Cc: Arnaud Lefebvre <arnaud.lefebvre@clever-cloud.com>
+> Cc: Baoquan he <bhe@redhat.com>
+> Cc: Dave Young <dyoung@redhat.com>
+> Cc: Kairui Song <ryncsn@gmail.com>
+> Cc: Pingfan Liu <kernelfans@gmail.com>
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: Krzysztof Kozlowski <krzk@kernel.org>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Thomas Staudt <tstaudt@de.ibm.com>
+> Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
+> Cc: Will Deacon <will@kernel.org>
+> Cc: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
+> Signed-off-by: Coiby Xu <coxu@redhat.com>
+> ---
+>   arch/arm64/kernel/machine_kexec_file.c |  4 ++++
+>   arch/powerpc/kexec/elf_64.c            |  4 ++++
+>   drivers/of/fdt.c                       | 21 +++++++++++++++++++++
+>   drivers/of/kexec.c                     | 19 +++++++++++++++++++
+>   4 files changed, 48 insertions(+)
+>
+> diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
+> index fba260ad87a9..e31fabed378a 100644
+> --- a/arch/arm64/kernel/machine_kexec_file.c
+> +++ b/arch/arm64/kernel/machine_kexec_file.c
+> @@ -134,6 +134,10 @@ int load_other_segments(struct kimage *image,
+>   
+>   		kexec_dprintk("Loaded elf core header at 0x%lx bufsz=0x%lx memsz=0x%lx\n",
+>   			      image->elf_load_addr, kbuf.bufsz, kbuf.memsz);
+> +
+> +		ret = crash_load_dm_crypt_keys(image);
+> +		if (ret)
+> +			goto out_err;
+>   	}
+>   #endif
+>   
+> diff --git a/arch/powerpc/kexec/elf_64.c b/arch/powerpc/kexec/elf_64.c
+> index 5d6d616404cf..ea50a072debf 100644
+> --- a/arch/powerpc/kexec/elf_64.c
+> +++ b/arch/powerpc/kexec/elf_64.c
+> @@ -79,6 +79,10 @@ static void *elf64_load(struct kimage *image, char *kernel_buf,
+>   			goto out;
+>   		}
+>   
+> +		ret = crash_load_dm_crypt_keys(image);
+> +		if (ret)
+> +			goto out;
+> +
+>   		/* Setup cmdline for kdump kernel case */
+>   		modified_cmdline = setup_kdump_cmdline(image, cmdline,
+>   						       cmdline_len);
+> diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
+> index 331646d667b9..2967e4aff807 100644
+> --- a/drivers/of/fdt.c
+> +++ b/drivers/of/fdt.c
+> @@ -866,6 +866,26 @@ static void __init early_init_dt_check_for_elfcorehdr(unsigned long node)
+>   		 elfcorehdr_addr, elfcorehdr_size);
+>   }
+>   
+> +static void __init early_init_dt_check_for_dmcryptkeys(unsigned long node)
+> +{
+> +	const char *prop_name = "linux,dmcryptkeys";
+> +	const __be32 *prop;
+> +
+> +	if (!IS_ENABLED(CONFIG_CRASH_DM_CRYPT))
+> +		return;
+> +
+> +	pr_debug("Looking for dmcryptkeys property... ");
+> +
+> +	prop = of_get_flat_dt_prop(node, prop_name, NULL);
+> +	if (!prop)
+> +		return;
+> +
+> +	dm_crypt_keys_addr = dt_mem_next_cell(dt_root_addr_cells, &prop);
+> +
+> +	/* Property only accessible to crash dump kernel */
+> +	fdt_delprop(initial_boot_params, node, prop_name);
+> +}
+> +
+>   static unsigned long chosen_node_offset = -FDT_ERR_NOTFOUND;
+>   
+>   /*
+> @@ -1097,6 +1117,7 @@ int __init early_init_dt_scan_chosen(char *cmdline)
+>   
+>   	early_init_dt_check_for_initrd(node);
+>   	early_init_dt_check_for_elfcorehdr(node);
+> +	early_init_dt_check_for_dmcryptkeys(node);
+>   
+>   	rng_seed = of_get_flat_dt_prop(node, "rng-seed", &l);
+>   	if (rng_seed && l > 0) {
+> diff --git a/drivers/of/kexec.c b/drivers/of/kexec.c
+> index c4cf3552c018..fbd253f0d3c5 100644
+> --- a/drivers/of/kexec.c
+> +++ b/drivers/of/kexec.c
+> @@ -423,6 +423,25 @@ void *of_kexec_alloc_and_setup_fdt(const struct kimage *image,
+>   		if (ret)
+>   			goto out;
+>   
+> +		if (image->dm_crypt_keys_addr != 0) {
+> +			ret = fdt_appendprop_addrrange(fdt, 0, chosen_node,
+> +						       "linux,dmcryptkeys",
+> +						       image->dm_crypt_keys_addr,
+> +						       image->dm_crypt_keys_sz);
+> +
+> +			if (ret)
+> +				goto out;
+> +
+> +			/*
+> +			 * Avoid dmcryptkeys from being stomped on in kdump kernel by
+> +			 * setting up memory reserve map.
+> +			 */
+> +			ret = fdt_add_mem_rsv(fdt, image->dm_crypt_keys_addr,
+> +					      image->dm_crypt_keys_sz);
+> +			if (ret)
+> +				goto out;
+> +		}
+> +
+>   #ifdef CONFIG_CRASH_DUMP
+>   		/* add linux,usable-memory-range */
+>   		ret = fdt_appendprop_addrrange(fdt, 0, chosen_node,
 
-diff --git a/arch/arm64/boot/dts/qcom/lemans-evk.dts b/arch/arm64/boot/dts/qcom/lemans-evk.dts
-index a1ef4eba2a20..b8371bdf9933 100644
---- a/arch/arm64/boot/dts/qcom/lemans-evk.dts
-+++ b/arch/arm64/boot/dts/qcom/lemans-evk.dts
-@@ -615,6 +615,13 @@ expander3: gpio@3b {
- 		interrupts-extended = <&tlmm 39 IRQ_TYPE_LEVEL_LOW>;
- 		pinctrl-0 = <&expander3_int>;
- 		pinctrl-names = "default";
-+
-+		rtss-can-sel-hog {
-+			gpio-hog;
-+			gpios = <4 GPIO_ACTIVE_HIGH>;
-+			output-high;
-+			line-name = "rtss-can-sel";
-+		};
- 	};
- 
- 	eeprom@50 {
--- 
-2.34.1
+The above changes look good to me.
+
+Feel free to add:
+Reviewed-by: Sourabh Jain <sourabhjain@linux.ibm.com>
+
+But while reading crash_load_dm_crypt_keys() I noticed a possibility of a
+double free at the address pointed by `keys_header`:
+
+In crash_load_dm_crypt_keys()/crash_dump_dm_crypt.c
+     snip...
+
+     kbuf.buffer = keys_header;
+
+     snip....
+
+     r = kexec_add_buffer(&kbuf);
+     if (r) {
+         pr_err("Failed to call kexec_add_buffer, ret=%d\n", r);
+         kvfree((void *)kbuf.buffer);                           <--- 
+First Free
+         return r;
+     }
+
+Since `keys_header` is not reset, the next call to build_keys_header()
+will cause a double free at `keys_header`.
+
+static int build_keys_header(void)
+{
+
+     snip...
+
+     if (keys_header != NULL)
+         kvfree(keys_header);
+
+     snip...
+}
+
+What do you think?
+
+- Sourabh Jain
 
