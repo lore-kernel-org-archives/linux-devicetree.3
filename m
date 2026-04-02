@@ -1,125 +1,143 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B2829BDAB
-	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 01:50:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775094626; cv=none; b=sxhhBATaD+ijpLviBk2rFzEzTugJU4LhZi6zOzyUBwd8DE+xbWjBbeChjAl/V/qVWxNCIZuJomhPpsu5gVLYHeRAAu3A8YW7jb5/IGujZ9pznWYtp/+omtb4q8237FBnsvGYTMLkHVU+6wLlCcysSncJ9fGlBtXaDG6C/UQYVC8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775094626; c=relaxed/simple;
-	bh=i+qa8LFElGO/iEfmlJd0dsiKNQB6N02kRGf3foWMBmU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tUspiAeaOe/Pk9Ytqilw7hkBrKSJ6+ZqmOeA5Uo7ZclswB4sMEfVCI5qOvlp39ol5wXFSXN7Esv1jMxa+K2KadFLrsSl8DATk2UF4NTgjG1sFRtKeBni1JPA4bZ7yWcR+BvI1umFPxm7Lq+59pKBHIp7iHvmBnX6FZQmjoI+Umc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=L/2ICOPD; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Tlo90BzJ; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D9FE30F545
+	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 01:54:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775094858; cv=pass; b=hUThBQC8em4DiLPmfTpWsN5VBdGSSZv6v5/AECaoUCkqw5xj6Jra5JPeMGI7uZQoipj1FSsC9F8Y7qrkLGzJF1mK0wOc5kwfIso3uMj67knNV1a2L3zTfN2O25yfOSLq69+t9Aes0ymRpRsyqG6zUOJgrRhpuWrPBGMlSJ4lb4Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775094858; c=relaxed/simple;
+	bh=ZgdAy4qNSHyKJtotTutzlKM7jv1dqpgGb4Vak3LPpxA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VTnfwG9cOA8G//WTZlu/CS95r9uQedOFNE/G6/hL2rghugvS3K4cZHOH4bP/DkdKFtBA0WVLiVAWk34TefUnrvnqFA6SKYjHgCiow1Jcudr0kD+Gsi7IhmK9+p6PrQVRdppp3+SicHrgXJmlmQZ+h1daCrHhk9rZRUmg3p6HbvI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Ww7PwDxv; arc=pass smtp.client-ip=74.125.224.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="L/2ICOPD";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Tlo90BzJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1775094624;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uUiSeqS9PkkLaNVQ/zvAdXBaf2XPU2fS5cvEfFpiuvg=;
-	b=L/2ICOPDuIfncIgeVukEMLbWA7jZGE8/ek4gI8Ytl7MUgsEHDbsXC0T5MGd37hoySF1AdL
-	8CKmyzFxXDvAecF0Xqw/pAPamXA3zbhNXEy1Ut+pRqhcJNvL4g1L7zvU20brFVbj7EZQvq
-	WksWOkrgtp10x6l30LjfFqpecwUWMfQ=
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-393-u0pvTh7lO5u-rgy6OQvb2A-1; Wed, 01 Apr 2026 21:50:21 -0400
-X-MC-Unique: u0pvTh7lO5u-rgy6OQvb2A-1
-X-Mimecast-MFC-AGG-ID: u0pvTh7lO5u-rgy6OQvb2A_1775094620
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2b24305cb3cso3105155ad.2
-        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 18:50:21 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Ww7PwDxv"
+Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-6501725d888so328886d50.0
+        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 18:54:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775094855; cv=none;
+        d=google.com; s=arc-20240605;
+        b=lL1Hb6rFdVgEpJYxPlCjU/ze8JJXBe9J4FD9s00NWss5T/JvQXoxtscgQOaI2jZBRA
+         wNGoUzEtIyhthmAP2U9Tv/eGLPG0q3LZWBtHacDiv1sp0VHItLrHXregsDB3gKsLQpH6
+         OedBRcVWPHg6vF3RKMzFLByvKvnjJ9VR3EYfWjvRZOS473ChKn6hia251YTtVbBARAeM
+         Di+zHJVIfVnO6iNpchFgZMAmDbjk5Px6ZlhXc79f3zCINjdxzFJyU976VEgsE7AtShsO
+         EMfx4mjzS44vKJ4d6WcLydBnanX9nNuxg/JanRqeuEPfIxw7o+BK0YyvmeVQGh6cOPEa
+         2M4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=kiceuLyx91rPyzndVsPjUqGeAIHXDkrelSUnbkKBTJU=;
+        fh=07WrvDMeYmcFZSDO7mdv1zcQaTwLDBdOwO0ZJ9YkWTo=;
+        b=IzNIT7fpD6Dyc1/s65rumCOWSyXgGsSQ6t7r34yms9J9WgVeHCiMY4YVtfhUmR5FsP
+         5vamVVvVW3h9qJ3oYCec5HWfKRpu7XS19VJagb7+pxdNw5E5Z1pH8InT3VXKJsNCX92E
+         Z4hOhjCdAm6opQpjFVZwf7wm0qaoRyhCKhAyNt+TAaVoJPj8LoM0irZVpa1A34SeN/XR
+         hssGqQp7iBw0eG9Z1pMp5jwgSdQU5qJ+MbbhSnRJPCI5RxFRzpZNCHZBSwdIoBSBxLN1
+         Bh6YCf+Z8E0wKbCA8P/nlI3/yjM6XjPxi/QE4iLg3DyZ/UOA+EPuqbNsTloqJl9mPuLO
+         rEnw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1775094620; x=1775699420; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=uUiSeqS9PkkLaNVQ/zvAdXBaf2XPU2fS5cvEfFpiuvg=;
-        b=Tlo90BzJMjYLhTlZAd26UUmCe25FeUoIJxCiaBwoCzZ6W0V3tygen9hNzz5jF9/vns
-         LAOsWC2H0xBu7s9a+7JY3T/8RqQqa5/fX8zhaDSnIvvZDV+U/Gqw5XHPwuUXyc53TiJ2
-         wYuIuCPN1MUECulBFqS+wR/P9+oOPkTAz9d5wsjoIyr+SgIu0K3RG4Eej41MQK2yU2Yv
-         gprLZzYato66BdbHdlK9kUJpZBOnLPSBWmMUFn2XqzKj2xVaxX6fg2tneeF/PlPoiSXB
-         atqz5J24wJwVUgAaVUmj1uBf4nOX1qzveDZdsaG3o54rlQbuC35s4v7DzVNkBEJXXf//
-         NtHQ==
+        d=chromium.org; s=google; t=1775094855; x=1775699655; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kiceuLyx91rPyzndVsPjUqGeAIHXDkrelSUnbkKBTJU=;
+        b=Ww7PwDxv5MVp3tsNlTeE3CT0Oz5MhiebXjUc4q6rFMf/GmFYPBDczuil0bH3TBySVW
+         cQ7fkOrw3Fs2HWzDJLfsnjY/hZHPdGI6yfTW7uszLmZv0eLNZdu2a/xGZzT5b/Uebxp/
+         Dl/sKqbTT84G8zvSDyy7UpAWWhRqTBa6rXzvU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775094620; x=1775699420;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=uUiSeqS9PkkLaNVQ/zvAdXBaf2XPU2fS5cvEfFpiuvg=;
-        b=H+Lf44mhvT4Awk/ErX4HiCOx5Ir9Uzi9qwOpFi7PggcI916WxjY9A33HtSiGoay30P
-         RziMQRQvD7yDkwkoRcC787vMJnP9wlflXt44/7OEsKHbpUxDqLaC2zjLf64905RXHbfb
-         TZBvR9dmT1m+wdz3Kww5ibLRK2Szg/01rQ2KvGdS4dAY25nWwY2JUBdW2KcU+oLvGgVT
-         ECADeoatrp+Rwe7qnj6WzksZ9jq4yZgmfSXKxxfB9NUoIn57/vQirYyH23pCM2iD7sYt
-         Ugicnb6e55yABuSkqKTzZY5pV0vYeXi+BMjYhCQfs2L3c/u915TR5CiFYD0TRZ6HgV5n
-         Re/A==
-X-Forwarded-Encrypted: i=1; AJvYcCUl01QJ4hny8SLicENEsLfar/hfPEghZ3O/wXUtEg0Q4kQo5U+ldSeJIngt+DyZDvgT8x3qsotr5YJl@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz9XmRPApVwkYjgnr47uZQMS4/qGBazzs6tf8w645tml7w9nZVH
-	Zl/aWzNfsQCO2JpuhLR39Z9u5E7tuV0p8gwawJ1bKao9I1v3hYkTrt6HkPy2tJE/IN3IKS0pAe6
-	niCSZavGHXBz3At7OsXlZaNEAUwSEQcEhNviOWzlzjwN5rPtwShpFa/FbaNGToEI=
-X-Gm-Gg: ATEYQzx1xlTbwETeWoPeQAXTsYTNvKJDPkB1z1V9gJ89UqzQH3zHQ48YWtbrX1MuZo5
-	uHi4nlKqSKXlKAGHoAmtJeHNeLfpsEXkeSJc6uFjasyqHEJnTt6L+LtR/hyBTAnlrwiaDE5IitY
-	rqrbajxfBpfZlEjpZHlKH5kFmlsJGgs2IlGD6kMlA4tVD+JNT1GnUmTv37y15ns8yQTMkOb02B3
-	p2TVrxQMrbDReqFevmKx5HIE01mWGfvkpQLHJ4kKm9NKODb1QRgYQaPi+B3xktCj0H07/Xg+CxL
-	+8Lp8mUy5EbNg8eHKWCo+E+Ez44cXBLjvt2YC7+BHafZm7l1h2DzF3JwtpMf38FmD6BOp5zs/3j
-	20Hio+CES0w==
-X-Received: by 2002:a17:903:2282:b0:2b2:49a7:a5bc with SMTP id d9443c01a7336-2b269caa786mr54155335ad.39.1775094620316;
-        Wed, 01 Apr 2026 18:50:20 -0700 (PDT)
-X-Received: by 2002:a17:903:2282:b0:2b2:49a7:a5bc with SMTP id d9443c01a7336-2b269caa786mr54155025ad.39.1775094619683;
-        Wed, 01 Apr 2026 18:50:19 -0700 (PDT)
-Received: from localhost ([49.65.225.51])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b2749cbd9fsm9680585ad.75.2026.04.01.18.50.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Apr 2026 18:50:19 -0700 (PDT)
-Date: Thu, 2 Apr 2026 09:46:37 +0800
-From: Coiby Xu <coxu@redhat.com>
-To: Baoquan He <bhe@redhat.com>
-Cc: kexec@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linuxppc-dev@lists.ozlabs.org, devicetree@vger.kernel.org, Will Deacon <will@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, 
-	"maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Vivek Goyal <vgoyal@redhat.com>, Dave Young <dyoung@redhat.com>, 
-	"open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v5 1/3] crash_dump/dm-crypt: Don't print in arch-specific
- code
-Message-ID: <ac3J_pWwyUNOy034@Rk>
-References: <20260225060347.718905-1-coxu@redhat.com>
- <20260225060347.718905-2-coxu@redhat.com>
- <actzxO1p6OlmK2gp@fedora>
+        d=1e100.net; s=20251104; t=1775094855; x=1775699655;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=kiceuLyx91rPyzndVsPjUqGeAIHXDkrelSUnbkKBTJU=;
+        b=UtVZW1YQ6fy/2W5dxKe59vLKmIvRye6RQ03pEms5n3s6l2RFWAZpy/aNKpnJXJ8q8/
+         pydU6yz7s/eCiokrvz2ZtHu0t8CFn0uqZC5sNh4kHZfM57i0pk0S/Zyr9S2uJfH8asvp
+         ib92ONg6LW+Wiyr18QYiU/hNW5EvYbqyV6a7qgg3MZ6iNZ9YZ2MlEa8ki7SsygORKscv
+         lFl9+i/v4HZ8YhldEo59dorujgVrMxrL6MYW5mNToEJOBqrv+8VKxIABzRECQiCCLxo1
+         7LSrhQQsHG1rVw6UsIJiniXfrYsRUm2mi/ZOIVu3BYmtbji/gURxPz6Vov4Nl3K5Rz6j
+         SMMw==
+X-Forwarded-Encrypted: i=1; AJvYcCX1GWPm2dIVXcyLQFpODo9iYuh9zKG0/RnDpbSlCJos91jp6qf8U6eD/X42/cLr01Mzrb3MVnW3Bo+1@vger.kernel.org
+X-Gm-Message-State: AOJu0YzxPfWgNFcC78ogXAU4aF48Pn0UaTld81i1NjjZsNQeAnxgp0j3
+	xk+3FYA4nvkbxvfYLWr1+BJwRdLAxBRLvao0JwdjBpeLtqsbZgwfNu/5eP4ZbbGawWX7vSxQpgI
+	X7HvqcUIdJMl6Zr92tQRVm+Gnfo2sZha55I1P8j64
+X-Gm-Gg: AeBDievcbEvcVgD5oYTaEJoL09tbtIV5VGCmIj6x5hVhZYacV3aV1cenRIOpURneyUg
+	gOjBVzU/QiiKMm1MXCVu5tzK8MFOs/a1XiYaPh4adDgTUHJSBON6nGvTnTZYNJN2X9lE/EWP6B+
+	tLRQmLXAKF+fi4ij2yX30uzKwHNgB1Q4Y89oAssPYgX44+0hGwKx4c1aGWNbWMI+L+jOdjFn6zt
+	CgpUxMrsi0HSNYdnnbG5wpSO/nFjrhBANBXVJuTi3Vvp79XrJ41uPEv9TkmJ/fnRTABcAFU0Y8p
+	czxK6K5d3MNv6h2v3BfArktr+KGZ1C5V+sirtn0idQ==
+X-Received: by 2002:a53:df45:0:b0:64e:abca:564a with SMTP id
+ 956f58d0204a3-6502fdd0ac9mr5063421d50.22.1775094855220; Wed, 01 Apr 2026
+ 18:54:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <actzxO1p6OlmK2gp@fedora>
+References: <20260324-send-upstream-v2-0-521ce8afff86@chromium.org> <20260325-naughty-hungry-wapiti-658e83@quoll>
+In-Reply-To: <20260325-naughty-hungry-wapiti-658e83@quoll>
+From: Jingyuan Liang <jingyliang@chromium.org>
+Date: Wed, 1 Apr 2026 18:54:03 -0700
+X-Gm-Features: AQROBzDfrwBIaLEV9wnEuLry8lUVCQVrP4uxpF2MQpcY1Q98CokyJ5Vf0yATg4k
+Message-ID: <CAEe3GZFWiUG5ET2oQ42+KvO-TMy2Eq02tR0UMaTbACJ0=V8D0A@mail.gmail.com>
+Subject: Re: [PATCH v2 00/11] Add spi-hid transport driver
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Mark Brown <broonie@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-input@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-spi@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, hbarnor@chromium.org, tfiga@chromium.org, 
+	Jarrett Schultz <jaschultz@microsoft.com>, Dmitry Antipov <dmanti@microsoft.com>, 
+	Angela Czubak <acz@semihalf.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Mar 31, 2026 at 03:12:04PM +0800, Baoquan He wrote:
->On 02/25/26 at 02:03pm, Coiby Xu wrote:
->> When the vmcore dumping target is not a LUKS-encrypted target, it's
->> expected that there is no dm-crypt key thus no need to return -ENOENT.
->> Also print more logs in crash_load_dm_crypt_keys. The benefit is
->> arch-specific code can be more succinct.
->>
->> Suggested-by: Will Deacon <will@kernel.org>
->> Signed-off-by: Coiby Xu <coxu@redhat.com>
->> ---
->>  arch/x86/kernel/kexec-bzimage64.c | 6 +-----
->>  kernel/crash_dump_dm_crypt.c      | 7 +++++--
->>  2 files changed, 6 insertions(+), 7 deletions(-)
+On Wed, Mar 25, 2026 at 1:49=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
+g> wrote:
 >
->Acked-by: Baoquan He <bhe@redhat.com>
+> On Tue, Mar 24, 2026 at 06:39:33AM +0000, Jingyuan Liang wrote:
+> > This series picks up the spi-hid driver work originally started by
+> > Microsoft. The patch breakdown has been modified and the implementation
+> > has been refactored to address upstream feedback and testing issues. We
+> > are submitting this as a new series while keeping the original sign-off
+> > chain to reflect the history.
+> >
+> > Same as the original series, there is a change to HID documentation, so=
+me
+> > HID core changes to support a SPI device, the SPI HID transport driver,
+> > and HID over SPI Device Tree binding. We have added the HID over SPI AC=
+PI
+> > support, power management, panel follower, and quirks for Ilitek touch
+> > controllers.
+> >
+> > Original authors: Jarrett Schultz <jaschultz@microsoft.com>,
+> >                 Dmitry Antipov <dmanti@microsoft.com>
+> > Link: https://lore.kernel.org/r/86b63b7b-afda-d7f4-7bfa-175085d5a8ef@gm=
+ail.com
+> >
+> > Signed-off-by: Jingyuan Liang <jingyliang@chromium.org>
+> > ---
+> > Changes in v2:
+> > - Fix style problems and remove unnecessary fields from the DT binding =
+file
+>
+> Style and removal? So other comments were skipped?
+>
+> Please write detailed changelogs, otherwise it feels you just ignore
+> parts of the feedback.
+>
+> Best regards,
+> Krzysztof
+>
 
-Thank Baoquan for ack'ing the kexec/kdump part of this patch set!
-
--- 
-Best regards,
-Coiby
-
+Comments are either resolved or awaiting further confirmation. I will
+add more details
+to v2 changelog in v3.
