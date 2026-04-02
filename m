@@ -1,103 +1,182 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0C8729D266;
-	Thu,  2 Apr 2026 13:37:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775137082; cv=none; b=EPrpLtTsphHe5zLfm3wU1e5/HVx/9yHrkLahmh+dA7xCdGR6Ap+HcBDt3Ne6IKlfov1wH7nuZVQLbdFIyLv+dPxAQ2gtQZ1bgauXd/YdEB871j57vM72l2MXzQ7AkWcKQL1sHjJNllYCq/7TGtv/9j6tRACcwKac3itbhAX7faY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775137082; c=relaxed/simple;
-	bh=bq0TF4RnqiidM1cV3rqx3snJ+Hzj+u9hvrZVbBcoz0E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XNaqdMqSwqzxffhfumMzio6EJJX4bNmp2v8SuXB3mC5agbrbrF1RdN1ikOLCJA53PBLbwY77fhh8VNb8NXPcIw8etv2/nVpNpTV8QtGou5LP/5z3hD3UR941KB94KbbQo/yzOlLcBCvalGdhjoWGQOHjR5KgoiUT/BgnIk8zlIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=bCQgimxv; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F75317DFE7
+	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 13:41:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775137268; cv=pass; b=DZEzYTuxP1fv+JiXoeBiq5iACaaqEIp6dpYP8RQXksujrTfFu3EVhbURhO9uzGO7PYrTyL17d2u1BEfksUeVpXN307xTIyBYLF85GFb2BfyhCz0pD8dZolOeoGUNlFgYXoVMkRnrfZQPd2bM0SwNlPN3aO0o/6pp3eEl+sLKyaE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775137268; c=relaxed/simple;
+	bh=j31LenoTy1uKvnVqhIeRFwZCEF7f7Cchst3+394Z+mY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kDorZgmOWRfwo+t0JjQm2f2j6S7sCIxVdFWeUiGy36+wswkOSkaBdkjyNKujKcAOBwdn+57XHKvNyAUKCam11nl87x6Q6RMiUkFWe+aJaPGYtp6TinPuS1hcpY6pVzk3wpNZi9r31nn3vSPAQxYkQvXCAyTaITH3HWfVF4B2+g0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j4NxVPk/; arc=pass smtp.client-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="bCQgimxv"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 9D25A40E00DE;
-	Thu,  2 Apr 2026 13:37:57 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id pyNyIPbI3TZd; Thu,  2 Apr 2026 13:37:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1775137075; bh=JXSTWyXJ+TnyRw0WBxA8l+YYXyO0fVka0N6NTBeoq8Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bCQgimxvGmerirQlClnnYZmqi+uWMoqL95VwwSjtIF+Vf5UgtTcb7MS8LHreRfpek
-	 GoKJE6bZ4mED1jv5T74akOqGqj6cVX0+gMq4JPJ5IXhW1g4caBQiG82F44yKCaUpHB
-	 JKWGY6mrqIRGR7O4FfRKFTim4d0LlcNUNCcKJP5mrqJnhW7Zn6VsSiEjgSCPhKlRdY
-	 Vz5bw9JgpcSP6iZZbF2pLqppz547O8r9pCTuwtdspA8PUUwCXcWPbXdcKb8H+KtEnA
-	 vYV5UH9kk2R5DT86KkZXWL5/mET7B7l3QZkYztBFJ7a0PvDzmo/YIDl+Eg84lF8N0f
-	 cXFNcJJV2IRYckfYEkZhkVrhIiorIFlejmBkiW959HnGweu56QSzj2gTTWdAAaJrrS
-	 sh9Pp0D8Htj2up7P8oufGTYxoz9qRnLmpXA57NNz0RGrJXhZpOkLL3aR1nA9urPhxQ
-	 tbt47maHxAeQaYmg6AyhXHj67cdIJvhQE/sb9BqBhp83IhtTGVjXBGdkhdgPdJ185q
-	 K69pAch9YdpEB836VpaYWFh+Ip6YTtKtLGaP4i3L7l4LcOjBagTb6CrVT7jaRTwuHJ
-	 Al4nQrXZYlR6lYI26Sosm0aZwIokhEkI8od4RIJbjj59kdoSLsB5B75aVXY5ViEq95
-	 e1RjUlJ3M2nuatbtPJRqSTio=
-Received: from zn.tnic (p5de8e020.dip0.t-ipconnect.de [93.232.224.32])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with UTF8SMTPSA id 59DDE40E0031;
-	Thu,  2 Apr 2026 13:36:50 +0000 (UTC)
-Date: Thu, 2 Apr 2026 15:36:44 +0200
-From: Borislav Petkov <bp@alien8.de>
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: corbet@lwn.net, skhan@linuxfoundation.org, catalin.marinas@arm.com,
-	will@kernel.org, chenhuacai@kernel.org, kernel@xen0n.name,
-	maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
-	chleroy@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
-	aou@eecs.berkeley.edu, alex@ghiti.fr, tglx@kernel.org,
-	mingo@redhat.com, dave.hansen@linux.intel.com, hpa@zytor.com,
-	robh@kernel.org, saravanak@kernel.org, akpm@linux-foundation.org,
-	bhe@redhat.com, vgoyal@redhat.com, dyoung@redhat.com,
-	rdunlap@infradead.org, peterz@infradead.org,
-	pawan.kumar.gupta@linux.intel.com, feng.tang@linux.alibaba.com,
-	dapeng1.mi@linux.intel.com, kees@kernel.org, elver@google.com,
-	paulmck@kernel.org, lirongqing@baidu.com, rppt@kernel.org,
-	leitao@debian.org, ardb@kernel.org, jbohac@suse.cz,
-	cfsworks@gmail.com, tangyouling@kylinos.cn,
-	sourabhjain@linux.ibm.com, ritesh.list@gmail.com,
-	hbathini@linux.ibm.com, eajames@linux.ibm.com, guoren@kernel.org,
-	songshuaishuai@tinylab.org, kevin.brodsky@arm.com,
-	vishal.moola@gmail.com, junhui.liu@pigmoral.tech, coxu@redhat.com,
-	fuqiang.wang@easystack.cn, liaoyuanhong@vivo.com,
-	takahiro.akashi@linaro.org, james.morse@arm.com,
-	lizhengyu3@huawei.com, x86@kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
-	kexec@lists.infradead.org
-Subject: Re: [PATCH v12 00/15] arm64/riscv: Add support for crashkernel CMA
- reservation
-Message-ID: <20260402133644.GBac5w7OYl9MwvVxY_@fat_crate.local>
-References: <20260402072701.628293-1-ruanjinjie@huawei.com>
- <20260402113137.GAac5Tmc5b7SL98KdY@fat_crate.local>
- <c6eb858c-5275-6fdc-b6e9-bd6d4b169e05@huawei.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j4NxVPk/"
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-2ba9c484e5eso848036eec.1
+        for <devicetree@vger.kernel.org>; Thu, 02 Apr 2026 06:41:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775137267; cv=none;
+        d=google.com; s=arc-20240605;
+        b=OpeNUpkJmNU536u8RxI+Ywf5CX/gsJzFTmWrmSxBAAdb8J/r5Hc9S02UzYgyDMgAyU
+         SAmp/qwRFuYiGGD5uuRUiw7p4pNH0Ln6eiBni/YU6N7tAUjGKTZbpIAsSCbvjp1UeHN+
+         Gy/JOxK9FUfe5mL2R3S2N2MJt6Kr/xFGx6mv+wI7R5XmoKGwlTjpYavCtUpfgDbo+iLH
+         TNrag8hl+Af1HEgcJcv3kiz2gO00Dg02yHZlz9tSlXPdBfWCvM1FHo/3ROa5MY4B5piM
+         f0s32N16I/10q6WOt3mfR/V5BKMF3yRzSic5wlAEWst5nQT4eAvuDHXwcwaQXF2d5g5i
+         OOuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bzprnD2NwNOBSnHYwPc+3qZ075TLzZE8A65ElDi788w=;
+        fh=hPZaVLy5eC1/wWzBkZFMgOA0hVs6l7hp4b9usQngk+8=;
+        b=TKKSWL9HNTmTy56Ln0rCAZLuAHVnpYCtC+XNPG1AlFcSsIm+8YaHXH5xAgLSI4mWGx
+         7OdL5FyPYoEDKnQhRKoaLDok2vzrxIYXUxB6xXe4k3+IxV0wXOjs1/ntiNI7J6IYn6vI
+         4Z6hRJ+RennO8kIYoOgI34b0eAlKYzxZmhWs0iFsPCARyBZyzb7JNUajlalZ7k6xVUq3
+         YaNHTxJtM6ZE1DrRqMUiW+SY8y4MrQ1iAV8yrJFK+2HEm6OtCReDpbhXqqhfhSWnMmgk
+         lVKSac/+cjPaLudiZ7w0uAnuotQZp36SDEKqtthTu1qljXoFIxcLSqH8hIzCD8+M5gI+
+         yALQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1775137267; x=1775742067; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bzprnD2NwNOBSnHYwPc+3qZ075TLzZE8A65ElDi788w=;
+        b=j4NxVPk/PM1awsgXhlfTfVYzAKhaJQNehx6pOV2xBxITHH41UhQl78uR/B0EkJhypd
+         hbnNBew+l6HZNje03eJHF1H3n9ju1Xso16r3T79VH1VYUuCUejQ0Hq64vajrQT71n5Em
+         scBp5WgoUIi1mAdn/g5JKLq6C92LRoLH3tR9zaAGD9UDZEBEsMaEkNvAWdDI43oarqiA
+         0M2RTCyNuYj5GFoqNYI0GsoPpq8lqLYWMlhooJwuyy/KrJAbsrFe4iyDaMjI0JiquHZo
+         tAmCGyomiH+g8N8+kmRbY4mFD5DGH6v1GBb0JfFhoiXjdqSTgN3CU7N+STVTUd5fCjrz
+         QFuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775137267; x=1775742067;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=bzprnD2NwNOBSnHYwPc+3qZ075TLzZE8A65ElDi788w=;
+        b=S9NjNCAVVG8khnYSY8Q5pHVzXqGsmn0zdPeeoUvxaEIJYhIoGZYhukw5yp3s9dEmk5
+         11csT/71sVxnnyXoKx4dzd35GtcXv6r08CHOGMvAqG9aeZKcQo0zZOWFC23jpnYpiGrP
+         FFchWqhH2i/qsJIF2s5RqdsWuPIqkzbyIARrHz7bzHaRGOBxSsZWgMKgS9oj2c1jGZcR
+         qJrlQ/RSvYuCzoXMfIjqoBRw1PlRR7a97U3p2Cx1itmAZZKYY0LK2ZHtH8AEljIIyaMJ
+         YUK63nYpkfDbKf5tVdcKEc8F4XQaKRZhCcnZJ8nBexpXk140OfzANFa+U9bDDX8qWr4o
+         T0HA==
+X-Forwarded-Encrypted: i=1; AJvYcCVMMDb0cNKllMUYgWIz0fD1TLS4t/Z37MClSATD+qQp/nuo6/QrziNc1/t0DC9cRUJKsVRB7h0o/T4q@vger.kernel.org
+X-Gm-Message-State: AOJu0YzR5BeaZxtw1vTF8gO6qh+TBUM0AK5i4VtIzl77oSy+oiVd4Xnm
+	ejTWBbchjHU2NIpZUcc//1k1UDIoNE+HxpXHx9m88V16daOMROvV+cGQQFPKPy4XgEExjtUFazT
+	okayy3BK82IWEwnhDjAUYXH7744DrMI4=
+X-Gm-Gg: AeBDiespvr0evjDHjh+7/3GuyVvZOQUOnN88NljQE5P6s1mOyGGPdZS+dewAUWKEiaP
+	X55JLOWLtaCyU0H4VujJGEyb9Agewc+e6yFlB9Q532bYIMlpYYI7TKGCdEwwBnBF3GMfCxCxQmt
+	WP12wpSA5o5hQ7HoPeyQ1+gntmHDEcOrg7H3isg5F3Ps0LFXVcEFGRXNSsY4NZbSjDmCB9fKco9
+	DyvpO4wo0oNDMYlbMLRZ7G81n/XCoBleKqynoJR+OeyVG/hJbtVSx9VFd4GLhAA0SR1mIMvSGvl
+	n/M3Ug==
+X-Received: by 2002:a05:7301:f83:b0:2cb:4b8f:b2bd with SMTP id
+ 5a478bee46e88-2cb4b8fb38cmr464544eec.6.1775137266531; Thu, 02 Apr 2026
+ 06:41:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <c6eb858c-5275-6fdc-b6e9-bd6d4b169e05@huawei.com>
+References: <20260330102345.37065-1-Ashish.Yadav@infineon.com>
+ <20260330102345.37065-2-Ashish.Yadav@infineon.com> <177487146147.2070608.2849563543220120287.robh@kernel.org>
+In-Reply-To: <177487146147.2070608.2849563543220120287.robh@kernel.org>
+From: ashish yadav <ashishyadav78@gmail.com>
+Date: Thu, 2 Apr 2026 19:10:53 +0530
+X-Gm-Features: AQROBzDpt0f9VPS6lmST0qZzeJ30vGsEijfXAAYlIHDTMAUfdpzcYnc60p6UGko
+Message-ID: <CAJKbuCaPxeFdc-Y4XjRoXy=Ck6Ne6j1c0TJYmz0bmn1GqgWwmQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings: hwmon/pmbus: Add Infineon XDP720
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, Ashish Yadav <ashish.yadav@infineon.com>, 
+	Guenter Roeck <linux@roeck-us.net>, linux-hwmon@vger.kernel.org, 
+	devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Apr 02, 2026 at 07:47:53PM +0800, Jinjie Ruan wrote:
-> Thank you for the reminder and for your patience. I apologize for the
-> frequent updates; I am becoming more familiar with the community's
-> workflow.
+Hi Rob,
 
-Yap, and you can use that time while waiting to learn about it:
+Thanks for your feedback and time.
 
-Documentation/process/
+'make dt_binding_check' issue is address in:
+https://lore.kernel.org/all/20260401104550.115715-1-Ashish.Yadav@infineon.c=
+om/
 
--- 
-Regards/Gruss,
-    Boris.
+With Best Regards
+   Ashish Yadav
 
-https://people.kernel.org/tglx/notes-about-netiquette
+On Mon, Mar 30, 2026 at 5:21=E2=80=AFPM Rob Herring (Arm) <robh@kernel.org>=
+ wrote:
+>
+>
+> On Mon, 30 Mar 2026 15:53:44 +0530, ASHISH YADAV wrote:
+> > From: Ashish Yadav <ashish.yadav@infineon.com>
+> >
+> > Add documentation for the device tree binding of the XDP720 eFuse.
+> >
+> > Signed-off-by: Ashish Yadav <ashish.yadav@infineon.com>
+> > ---
+> >
+> > This patch introduces a YAML schema describing the required and optiona=
+l
+> > properties for the XDP720 eFuse device node. It includes details on the
+> > compatible string, register mapping, and rimon-micro-ohms(RIMON).
+> >
+> > The RIMON resistance is installed between the Imon pin and the ground
+> > reference.
+> > ---
+> >  .../bindings/hwmon/pmbus/infineon,xdp720.yaml | 52 +++++++++++++++++++
+> >  1 file changed, 52 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/hwmon/pmbus/infin=
+eon,xdp720.yaml
+> >
+>
+> My bot found errors running 'make dt_binding_check' on your patch:
+>
+> yamllint warnings/errors:
+>
+> dtschema/dtc warnings/errors:
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/h=
+wmon/pmbus/infineon,xdp720.yaml: properties:infineon,rimon-micro-ohms: '$re=
+f' should not be valid under {'const': '$ref'}
+>         hint: Standard unit suffix properties don't need a type $ref
+>         from schema $id: http://devicetree.org/meta-schemas/core.yaml
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/h=
+wmon/pmbus/infineon,xdp720.yaml: properties:infineon,rimon-micro-ohms: '$re=
+f' should not be valid under {'const': '$ref'}
+>         hint: Standard unit suffix properties don't need a type $ref
+>         from schema $id: http://devicetree.org/meta-schemas/core.yaml
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/h=
+wmon/pmbus/infineon,xdp720.example.dtb: hwmon@11 (infineon,xdp720): infineo=
+n,rimon-micro-ohms: 1098000000 is not of type 'array'
+>         from schema $id: http://devicetree.org/schemas/property-units.yam=
+l
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/h=
+wmon/pmbus/infineon,xdp720.example.dtb: hwmon@11 (infineon,xdp720): infineo=
+n,rimon-micro-ohms: 1098000000 is not of type 'array'
+>         from schema $id: http://devicetree.org/schemas/property-units.yam=
+l
+>
+> doc reference errors (make refcheckdocs):
+>
+> See https://patchwork.kernel.org/project/devicetree/patch/20260330102345.=
+37065-2-Ashish.Yadav@infineon.com
+>
+> The base for the series is generally the latest rc1. A different dependen=
+cy
+> should be noted in *this* patch.
+>
+> If you already ran 'make dt_binding_check' and didn't see the above
+> error(s), then make sure 'yamllint' is installed and dt-schema is up to
+> date:
+>
+> pip3 install dtschema --upgrade
+>
+> Please check and re-submit after running the above command yourself. Note
+> that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+> your schema. However, it must be unset to test all examples with your sch=
+ema.
+>
