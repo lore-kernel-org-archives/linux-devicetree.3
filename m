@@ -1,41 +1,68 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E7FE42E9757
-	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 15:11:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5147223AB8D
+	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 15:15:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775142694; cv=none; b=dRSKqlb+lssQpGqzP2PY2Gf0TZMysRXLgG3nyIAsI0zgOl73AxiZCmF0748LLuwKVb7SFgwm3al4dW7mPtboBzQt6p0kEBAzNpGnrX62RFq7MpIWs9hop+NZOfM17hUBV3yJsDw0OqhttTjw6mRTRwit4FxZI9SjCFfLTMZlr2g=
+	t=1775142905; cv=none; b=JfYWoQ9o8BOZfAds7X5QpS22i8bgW2zc9kKMY4YbVIVMLiMCN59OGILB/IU/mXVXVrlFgNUZD3Cku8mVs2/lYKVYkEacXTZ6KMA+f1H5WP5jmzWGYcDjghKf8Y9pEzVoE7+ha3Anfvm8fNL/3+bRA9Nk42AYhy9s+Cr1C4cleIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775142694; c=relaxed/simple;
-	bh=Cu6uyomYmnumjabskOuIe1bm69rCQyKSO2rE7I8UmIw=;
+	s=arc-20240116; t=1775142905; c=relaxed/simple;
+	bh=Wus51/A5TXZ0C83VrwImP/P+7klhk6dGV/W8j6rkqYo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LKa7ml1pPIKWtmPV2ud1kO4g/ibCQ87dRIpnrfewprR+oWq8o2HDEsZbdDoROLwY+2wa8FUvXUpOHoK7fM68YqgyfLbkmvlFlNhk7Ov1WzctecXp2VsnmaZofDaDbiz3yipOUXhMEv4vdtyaz4Lgr0YWn7uAfgg+ys6ifKtTLlg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=AB8j4l+T; arc=none smtp.client-ip=217.140.110.172
+	 Content-Type:Content-Disposition:In-Reply-To; b=RczBSbTCPV/zfYdasZPycD5+Vv5VxZji0xqC5fiPRMpHdQDdExNrjR6+OKEFmEBXtbV0nfdahBhxLh9XngJlx0r8WQ9t69fSSAXk7QZnPWhkFBJtg2qUlUSmIlFRC5Jjm6QTAWzqRU9nAdxhoOhl9Pdrmq5LJtAiYehWzDPiGxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=amJ8x04F; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="AB8j4l+T"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="amJ8x04F"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4FD201596
-	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 08:11:26 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E66DF1596
+	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 08:14:56 -0700 (PDT)
 Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id D340F3F7D8
-	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 08:11:31 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 817A83F7D8
+	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 08:15:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1775142692; bh=Cu6uyomYmnumjabskOuIe1bm69rCQyKSO2rE7I8UmIw=;
+	t=1775142902; bh=Wus51/A5TXZ0C83VrwImP/P+7klhk6dGV/W8j6rkqYo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=AB8j4l+T5lk6vmv+TrqsMahRbzp6kNezbdbEVIXAkAwvZd6Oo7A1+lcUjJnr6E8Sl
-	 +5j4nDLihu+tF1nxj/Hwa/cpPXMKxQBtdup0LuOOM98orhO9AGGQ2IHkGf613Khv0R
-	 fXb2lbaD4DWR37phqPAui2YUgqBtDMkvnlb64eVI=
-Date: Thu, 2 Apr 2026 16:11:22 +0100
+	b=amJ8x04F/KJ6PsEuK+YAdCQOCTkR5yXuAVxppUSt/wohOcjXBX7m3z11ce9D9DU02
+	 uhFEynpAVcUjPLfhcphqalCqQanYCocND0QuhSXS0vh9tJKKT2FBiwulpmlpaZpLMr
+	 qgwltXPIwMOgdVtT+7dQhu//fLMIECpDirysRvPg=
+Date: Thu, 2 Apr 2026 16:14:41 +0100
 From: Liviu Dudau <liviu.dudau@arm.com>
-To: Khushal Chitturi <khushalchitturi@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	sudeep.holla@kernel.org, lpieralisi@kernel.org, pawel.moll@arm.com,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: arm: arm,vexpress-scc: convert to DT schema
-Message-ID: <ac6HGqZM15ijTZFl@e142607>
-References: <20260331172959.35745-1-khushalchitturi@gmail.com>
+To: Guangliu Ding <guangliu.ding@nxp.com>
+Cc: "Daniel Baluta (OSS)" <daniel.baluta@oss.nxp.com>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <frank.li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	Jiyu Yang <jiyu.yang@nxp.com>
+Subject: Re: Re: Re: Re: Re: [PATCH 1/2] dt-bindings: gpu: mali-valhall-csf:
+ Document i.MX952 support
+Message-ID: <ac6H4SHdNqKEXgIK@e142607>
+References: <acva1Xt8V4k9-uG8@e142607>
+ <AM0PR04MB47073E9E8B5C704BCF5D9F72F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+ <99a1da55-d6e5-4d11-abaa-8c85283ab5f2@oss.nxp.com>
+ <AM0PR04MB4707B3E37DFE7AEE587DBA2AF350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+ <aczv0R0aQRmHKdvt@e142607>
+ <AM0PR04MB4707335CC7035232D44E6ED9F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+ <ac05OpEMjKMd8CXy@e142607>
+ <AM0PR04MB4707604AF2C445971C7474EFF350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+ <ac1T282yvpdAp_TP@e142607>
+ <AM0PR04MB470716BD5A538CFBB6685C87F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,140 +72,170 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260331172959.35745-1-khushalchitturi@gmail.com>
+In-Reply-To: <AM0PR04MB470716BD5A538CFBB6685C87F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
 
-Hello,
-
-Thanks for your patch, I have some suggestions to improve it.
-
-On Tue, Mar 31, 2026 at 10:59:59PM +0530, Khushal Chitturi wrote:
-> Convert the ARM Versatile Express Serial Configuration Controller
-> bindings to DT schema.
+On Wed, Apr 01, 2026 at 06:03:28PM +0000, Guangliu Ding wrote:
+> Hi Liviu
 > 
-> Signed-off-by: Khushal Chitturi <khushalchitturi@gmail.com>
-> ---
-> Note:
-> * This patch is part of the GSoC2026 application process for device tree bindings conversions
-> * https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Device-Tree-Bindings
+> Thanks a lot for your sharing.
 > 
->  .../bindings/arm/arm,vexpress-scc.yaml        | 51 +++++++++++++++++++
->  .../devicetree/bindings/arm/vexpress-scc.txt  | 33 ------------
->  2 files changed, 51 insertions(+), 33 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/arm/arm,vexpress-scc.yaml
->  delete mode 100644 Documentation/devicetree/bindings/arm/vexpress-scc.txt
+> > On Wed, Apr 01, 2026 at 03:59:23PM +0000, Guangliu Ding wrote:
+> > > Hi Liviu
+> > >
+> > > > On Wed, Apr 01, 2026 at 10:31:01AM +0000, Guangliu Ding wrote:
+> > > > > Hi Liviu
+> > > > >
+> > > > > > On Wed, Apr 01, 2026 at 09:43:12AM +0000, Guangliu Ding wrote:
+> > > > > > > Hi Daniel
+> > > > > > >
+> > > > > > > > On 4/1/26 11:48, Guangliu Ding wrote:
+> > > > > > > > > [You don't often get email from guangliu.ding@nxp.com.
+> > > > > > > > > Learn why this is important at
+> > > > > > > > > https://aka.ms/LearnAboutSenderIdentification
+> > > > > > > > > ]
+> > > > > > > > >
+> > > > > > > > > Hi Liviu
+> > > > > > > > >
+> > > > > > > > > Thanks for your review. Please refer to my comments below:
+> > > > > > > > >
+> > > > > > > > >> On Tue, Mar 31, 2026 at 06:12:38PM +0800, Guangliu Ding
+> > wrote:
+> > > > > > > > >>> Add compatible string of Mali G310 GPU on i.MX952 board.
+> > > > > > > > >>>
+> > > > > > > > >>> Signed-off-by: Guangliu Ding <guangliu.ding@nxp.com>
+> > > > > > > > >>> Reviewed-by: Jiyu Yang <jiyu.yang@nxp.com>
+> > > > > > > > >>> ---
+> > > > > > > > >>>
+> > > > > > > > >>> Documentation/devicetree/bindings/gpu/arm,mali-valhall-c
+> > > > > > > > >>> sf.y
+> > > > > > > > >>> aml
+> > > > > > > > >>> | 1
+> > > > > > > > >>> +
+> > > > > > > > >>>  1 file changed, 1 insertion(+)
+> > > > > > > > >>>
+> > > > > > > > >>> diff --git
+> > > > > > > > >>> a/Documentation/devicetree/bindings/gpu/arm,mali-valhall
+> > > > > > > > >>> -csf
+> > > > > > > > >>> .yam
+> > > > > > > > >>> l
+> > > > > > > > >> b/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.
+> > > > > > > > >> yaml
+> > > > > > > > >>> index 8eccd4338a2b..6a10843a26e2 100644
+> > > > > > > > >>> ---
+> > > > > > > > >>> a/Documentation/devicetree/bindings/gpu/arm,mali-valhall
+> > > > > > > > >>> -csf
+> > > > > > > > >>> .yam
+> > > > > > > > >>> l
+> > > > > > > > >>> +++ b/Documentation/devicetree/bindings/gpu/arm,mali-val
+> > > > > > > > >>> +++ hall
+> > > > > > > > >>> +++ -csf
+> > > > > > > > >>> +++ .yam
+> > > > > > > > >>> +++ l
+> > > > > > > > >>> @@ -20,6 +20,7 @@ properties:
+> > > > > > > > >>>            - enum:
+> > > > > > > > >>>                - mediatek,mt8196-mali
+> > > > > > > > >>>                - nxp,imx95-mali            # G310
+> > > > > > > > >>> +              - nxp,imx952-mali           # G310
+> > > > > > > > >> Can you explain why this is needed? Can it not be covered
+> > > > > > > > >> by the existing compatible?
+> > > > > > > > > There are functional differences in GPU module (GPUMIX)
+> > > > > > > > > between
+> > > > > > > > > i.MX95 and i.MX952. So they cannot be fully covered by a
+> > > > > > > > > single existing
+> > > > > > compatible.
+> > > > > > > > > On i.MX952, The GPU clock is controlled by hardware GPU
+> > > > > > > > > auto clock-gating mechanism, while the GPU clock is
+> > > > > > > > > managed explicitly by the
+> > > > > > > > driver on i.MX95.
+> > > > > > > > > Because of these behavioral differences, separate
+> > > > > > > > > compatible strings "nxp,imx95-mali" and "nxp,imx952-mali"
+> > > > > > > > > are needed to allow the driver to handle the two variants
+> > > > > > > > > independently and to keep room for future
+> > > > > > > > divergence.
+> > > > > > > >
+> > > > > > > >
+> > > > > > > > This information should be added in the commit message
+> > > > > > > > explaining why
+> > > > > > > >
+> > > > > > > > the change is needed.
+> > > > > > > >
+> > > > > > > >
+> > > > > > > > But then where is the driver code taking care of these diferences?
+> > > > > > > >
+> > > > > > >
+> > > > > > > Yes. Currently the driver does not require "nxp,imx952-mali" string.
+> > > > > > > However, when GPU ipa_counters are enabled to calculate the
+> > > > > > > GPU busy_time/idle_time for GPU DVFS feature, they will
+> > > > > > > conflict with the hardware GPU auto clock‑gating mechanism,
+> > > > > > > causing GPU clock to remain
+> > > > > > always on.
+> > > > > > > In such cases, ipa_counters need to be disabled so that the
+> > > > > > > GPU auto clock‑gating mechanism can operate normally, using
+> > > > "nxp,imx952-mali"
+> > > > > > string.
+> > > > > >
+> > > > > > OK, I understand that you're following guidance from some other
+> > > > > > senior people on how to upstream patches so you've tried to
+> > > > > > create the smallest patchset to ensure that it gets reviewed and
+> > > > > > accepted, but in this case we need to see the other patches as
+> > > > > > well to decide if your approach is the right one and we do need
+> > > > > > a separate compatible
+> > > > string.
+> > > > > >
+> > > > > > If enabling GPU ipa_counters causes the clocks to get stuck
+> > > > > > active, that feels like a hardware bug, so figuring out how to
+> > > > > > handle that is more important than adding a compatible string.
+> > > > > >
+> > > > > > Either add the patch(es) that use the compatible to this series
+> > > > > > in v2, or put a comment in the commit message on where we can
+> > > > > > see the
+> > > > driver changes.
+> > > > > >
+> > > > >
+> > > > > According to discussions with the GPU vendor, this is a hardware
+> > > > > limitation of Mali-G310 rather than a hardware bug, and it has
+> > > > > been addressed in newer Mali GPU families.
+> > > >
+> > > > I represent the said GPU vendor and I think I know what you're
+> > > > talking about, but you're taking the wrong approach. All G310s have
+> > > > a problem where in order to enable access to the ipa_counters the
+> > > > automatic clock gating gets disabled. So the solution that needs to
+> > > > be implemented when we add support for IPA_COUNTERs will apply to all
+> > GPUs, not just MX952.
+> > >
+> > > Yes. We have bring-up G310 (V2) GPU on both i.MX95 and i.MX952. And
+> > > auto clock gating mechanism is firstly introduced in i.MX952 (not supported
+> > on i.MX95).
+> > > According to your update, solution needs to be implemented to all GPUs
+> > > which support auto clock gating mechanism after IPA_COUNTERs are
+> > supported in the driver, right?
+> > 
+> > A solution is needed, yes.
+> > 
+> > > What's your suggestions for 952 gpu dtb node?
+> > 
+> > There is no IPA_COUNTER use in Panthor at the moment. Unless your DVFS
+> > controller uses that, I would suggest that we don't introduce a compatible for
+> > 952 until the time we add support for reading the counters.
+> > 
+> > It helps if you think in terms of what is already in upstream, rather than mixing
+> > with the tests that uses kbase code. Does your hardware need extra code in
+> > upstream in order to function? If so, where is that code? If not, then let's not
+> > introduce the compatible until we are absolutely sure we need it because we
+> > have code specific to that SoC. For everything else we will implement an
+> > architecture fix if needed.
+> > 
 > 
-> diff --git a/Documentation/devicetree/bindings/arm/arm,vexpress-scc.yaml b/Documentation/devicetree/bindings/arm/arm,vexpress-scc.yaml
-> new file mode 100644
-> index 000000000000..7870410211a0
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/arm/arm,vexpress-scc.yaml
-> @@ -0,0 +1,51 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/arm/arm,vexpress-scc.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: ARM Versatile Express Serial Configuration Controller
-> +
-> +maintainers:
-> +  - Pawel Moll <pawel.moll@arm.com>
+> Got it. The following compatible string is the correct choice since the GPU on
+> i.MX952 is fully compatible with the GPU on i.MX95 now.
+> compatible = "nxp,imx95-mali", "arm,mali-valhall-csf";
+> 
+> I will not mix tests with kbase code in the following upstream patches for panthor driver.
 
-I'm not sure Pawel wants to be maintainer for this file, maybe add me and Sudeep
-instead. I'd also wait until Pawel replies.
-
-> +
-> +description: |
-> +  Test chips for ARM Versatile Express platform implement SCC (Serial
-> +  Configuration Controller) interface, used to set initial conditions
-> +  for the test chip.
-> +
-> +  In some cases its registers are also mapped in normal address space
-> +  and can be used to obtain runtime information about the chip internals
-> +  (like silicon temperature sensors) and as interface to other subsystems
-> +  like platform configuration control and power management.
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - pattern: "^arm,vexpress-scc,[a-z0-9_-]+$"
-
-This is way too generic. I suggest you have a look at bindings/arm/arm,vexpress-juno.yaml
-and see how we defined the possible values for the compatible string there. For the initial
-conversion I would suggest you only define as valid the "arm,vexpress-scc,v2p-ca15_a7" value
-but in a way similar to Juno's file so that it can be extended in the future.
+OK. I think if you drop patch 2/3 from your series you can send a v3.
 
 Best regards,
 Liviu
-
-> +      - const: arm,vexpress-scc
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    bus {
-> +        #address-cells = <2>;
-> +        #size-cells = <2>;
-> +
-> +        scc@7fff0000 {
-> +            compatible = "arm,vexpress-scc,v2p-ca15_a7", "arm,vexpress-scc";
-> +            reg = <0 0x7fff0000 0 0x1000>;
-> +            interrupts = <0 95 4>;
-> +        };
-> +    };
-> +...
-> diff --git a/Documentation/devicetree/bindings/arm/vexpress-scc.txt b/Documentation/devicetree/bindings/arm/vexpress-scc.txt
-> deleted file mode 100644
-> index ae5043e42e5d..000000000000
-> --- a/Documentation/devicetree/bindings/arm/vexpress-scc.txt
-> +++ /dev/null
-> @@ -1,33 +0,0 @@
-> -ARM Versatile Express Serial Configuration Controller
-> ------------------------------------------------------
-> -
-> -Test chips for ARM Versatile Express platform implement SCC (Serial
-> -Configuration Controller) interface, used to set initial conditions
-> -for the test chip.
-> -
-> -In some cases its registers are also mapped in normal address space
-> -and can be used to obtain runtime information about the chip internals
-> -(like silicon temperature sensors) and as interface to other subsystems
-> -like platform configuration control and power management.
-> -
-> -Required properties:
-> -
-> -- compatible value: "arm,vexpress-scc,<model>", "arm,vexpress-scc";
-> -		    where <model> is the full tile model name (as used
-> -		    in the tile's Technical Reference Manual),
-> -		    eg. for Coretile Express A15x2 A7x3 (V2P-CA15_A7):
-> -	compatible = "arm,vexpress-scc,v2p-ca15_a7", "arm,vexpress-scc";
-> -
-> -Optional properties:
-> -
-> -- reg: when the SCC is memory mapped, physical address and size of the
-> -       registers window
-> -- interrupts: when the SCC can generate a system-level interrupt
-> -
-> -Example:
-> -
-> -	scc@7fff0000 {
-> -		compatible = "arm,vexpress-scc,v2p-ca15_a7", "arm,vexpress-scc";
-> -		reg = <0 0x7fff0000 0 0x1000>;
-> -		interrupts = <0 95 4>;
-> -	};
-> -- 
-> 2.53.0
-> 
 
 -- 
 ====================
