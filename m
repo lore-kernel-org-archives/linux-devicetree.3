@@ -1,173 +1,157 @@
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA9B3D3D09
-	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 11:17:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 327743D813F
+	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 11:21:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775128633; cv=none; b=dttWNT7ISKChHQrtSGAt17BHXWAo9e1HM61ZBspGwEpdmIRBDEs4Yj7Svqb+0qtTQx20EJceLNfBctfcbjeGvf30m5ZBIWIdj5uliMeBOdqw2AI7JnW++WOUUKw7CDe6lxwiX/bbzVIGiiRsx1UMkiYesukwHbF/fVjSi4eATYA=
+	t=1775128924; cv=none; b=Zh3bTkO8C5piuqrdL28XffjUn7Zyh76tY9fC6ydlraGKAXWeYi9jCtlbnErYmPGYRwxe5H0G8vRSgHCknD4qjo1WH63LAUkEAT4YMEJpb/aaxdehJsMr3hWBOUu+QEv2yBsVZWSTL+bVL81akn5nOQt2ZCw9URDrgAG1HKR79ag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775128633; c=relaxed/simple;
-	bh=ZTxCNY3HZlQxWzT/XhybbngDtPXeM9/mHZE+xe6f8uQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TCk7eAe1WjsXXtrIH822yifL0veFkn8m5jTzFI/lP77x0WBsv2empWy63B9KEfjenoSWBrst/T+xLSfjYqkwhthqRxNlUZuIYSl6fHEGvIy0YW29T6uFHhqQCc8bYfI/TgLomTyag1HRsFlwbvP0d1x/1iRIos9KkGfDsquMuHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Nx+uhBkZ; arc=none smtp.client-ip=209.85.167.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Nx+uhBkZ"
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5a2bf521011so109175e87.2
-        for <devicetree@vger.kernel.org>; Thu, 02 Apr 2026 04:17:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1775128626; x=1775733426; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8CTLIiuy4GwEXuXqqFRnPUythaJJJv+IJU5B35u3XdE=;
-        b=Nx+uhBkZdOtyYft2LbXPdI9r1V9PPg3MUbkuVjvMcYgfwgk/m88qHa7tr+LobkYGXW
-         br3QTQD/bn/1XxBJDibpS7ToCRAbaqgxmZIiVz/hdp93W1iGMrFc5WPUnAmVkUvPznVp
-         ZXqMjTImnRlJh78gm348mvqD2s8IvNMJKWRy4SuCBaJlnhPMR9ZQyTtov+I+uRWPe/AS
-         rtCbCIM69oDOK4TZQkZCeF2VPVJA60BZrN+1JR4I0rrBv1uiakQyQO0RQx5plaI6cgZr
-         zEbNd0vBf5dq//AeCrt82PWnWXTm4DHWLANE1VUsI+VZ7RED1CKWGWviM/T+1xg0uXEJ
-         xtdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775128626; x=1775733426;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=8CTLIiuy4GwEXuXqqFRnPUythaJJJv+IJU5B35u3XdE=;
-        b=iY1sG+/xoTI9UlSBIGCK3dbtIBm7MzWmCtScsxLflv3bJmc4+Zrb1pa1YTz6FGcow8
-         rPq60ppPz+lxC8bQPsUrRbgk22Pvzdvp9TGmlDtvDemUm4EosazPU9PLbS65g6uaSKIS
-         hn+5GzhGrjw7wi4N7QB0Ur0YITCsum9EQJB6D5JmPP6zuPVk4Z8wllQgM3EW6m1CtVDz
-         O1Az2fEyxsphrNQCGWkaZ8fbTu1WqsMdwGyvrwSur1QgBlRWyBUjLLNUemadC3RBhSmB
-         08yrocOkyM1mtMZNLDi9INjJxJHsmUctNNx6M2aS4AiX0wqE2NMCktsMcjHIwHd67kM8
-         t1sA==
-X-Forwarded-Encrypted: i=1; AJvYcCWldrPdGuIH26uTE1dExBFpeL0U5CP2oTmZ9yND4R4DJctA0I8+Jyhec3d7LSw63dMgKuFlquBTf1my@vger.kernel.org
-X-Gm-Message-State: AOJu0YwBHFX0bhMd/JgMvhYDu5Yc+62Qkj0rkgMzDYy47PCwgL4RpHV9
-	X/qziEJq6fjULn/7vJc/oxPHwFtYZ3mHl32xLzMQHg6J+TxrkW5C38yfCb7RPLfqFvw=
-X-Gm-Gg: ATEYQzzYofgMu9Qj+sTiNmEtasTA+7K4FxdvpK+joPkcM+aA9d+Y/3iskpqNyP9p2lB
-	4yKPLsWi8ZbvbskzqxCyzIpJfnaGueeDb4Z1/HlZ8HW3UzFn83EqUpxw5+lDMv5H79eArWc8HDd
-	7JaPaPdOPe0olsRB+T/zUSjaEidbT73XU47OouvbY26T6yIN0qLqMVO7IRzSbW03dIqzEaayizL
-	82igXEbFMndGw4xEQPJI1kmUm/rAtY40IPt4w4nRUaqnFC6BytPrXay8DVach9U6MNyGThtIODh
-	gZuuadrCsQOFxxnEElaMALoU+EFeExPi3TJCP/WP5gdmnOF2m60PyT8Wu6/p0y75FzJmaDwD3yZ
-	JUG8CUSnR/ot/OJjtc+PVDXjGxm/TdNTY/WqWldDdttv32oxwt0qoafi9UpfWHxjXf9G3UtKYFQ
-	TgajA0u+RmudNXda4kbdnDTR6zxbQjEcLh+4rI+CygqVAIuHNp97YyyO4QI+4ATxuDjn7Hby1WM
-	vBYTA==
-X-Received: by 2002:a05:6512:39d3:b0:5a2:b53b:a457 with SMTP id 2adb3069b0e04-5a2c1f27b2cmr1333288e87.3.1775128626156;
-        Thu, 02 Apr 2026 04:17:06 -0700 (PDT)
-Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a2c6cc8417sm617709e87.41.2026.04.02.04.17.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 02 Apr 2026 04:17:05 -0700 (PDT)
-Message-ID: <c099bf8f-7a29-4138-85a3-e2669807aca5@linaro.org>
-Date: Thu, 2 Apr 2026 14:16:58 +0300
+	s=arc-20240116; t=1775128924; c=relaxed/simple;
+	bh=RcX9LDtuyetHVfHjlsGuK7xjHia6Sb6Hr4bV/1hbpVg=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=UPVnrrlrPbIIns5in60gtuZoeIhf1dbaW3PSZWe8YxYFIAooLXmidEdb0c/JvpJhagfSGCWdgGr428wN6tYrCVebgbirOsl4bbvUlwIHs/U8ZvY6XsePWVSAXuAsXXX1E0GUSdIfTRQF42iZ5VcZehPeaMthmz0xRiqlVcIp2mw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.dev; spf=none smtp.mailfrom=linux.spacemit.com; arc=none smtp.client-ip=54.92.39.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+X-QQ-mid: esmtpgz11t1775128897tbf21170d
+X-QQ-Originating-IP: kxlUxpWpaYTKTqzcSIXGMtW5WoW7m1TS67JGq45OFYc=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 02 Apr 2026 19:21:35 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 4623887784994959119
+X-QQ-CSender: troy.mitchell@linux.spacemit.com
+Sender: troy.mitchell@linux.spacemit.com
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] arm64: dts: qcom: sdm845-shift-axolotl: Enable
- sdcard
-To: david@ixit.cz, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Dylan Van Assche <me@dylanvanassche.be>
-Cc: linux-arm-msm@vger.kernel.org, Petr Hodina <phodina@protonmail.com>,
- Casey Connolly <casey.connolly@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Alexander Martinz <amartinz@shiftphones.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260402-axolotl-misc-p1-v3-0-8934e9db6831@ixit.cz>
- <20260402-axolotl-misc-p1-v3-1-8934e9db6831@ixit.cz>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <20260402-axolotl-misc-p1-v3-1-8934e9db6831@ixit.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 02 Apr 2026 19:21:34 +0800
+Message-Id: <DHIMOCFZSFXX.2XZEQBRXLISKN@linux.dev>
+Cc: "Ulf Hansson" <ulf.hansson@linaro.org>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "Adrian Hunter" <adrian.hunter@intel.com>, "Paul
+ Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
+ Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, "Yixun Lan"
+ <dlan@kernel.org>, "Michael Opdenacker"
+ <michael.opdenacker@rootcommit.com>, "Javier Martinez Canillas"
+ <javierm@redhat.com>, <linux-mmc@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>, "Anand Moon"
+ <linux.amoon@gmail.com>, "Trevor Gamblin" <tgamblin@baylibre.com>
+Subject: Re: [PATCH v5 5/9] riscv: dts: spacemit: k1: add SD card controller
+ and pinctrl support
+From: "Troy Mitchell" <troy.mitchell@linux.dev>
+To: "Iker Pedrosa" <ikerpedrosam@gmail.com>, "Troy Mitchell"
+ <troy.mitchell@linux.dev>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260330-orangepi-sd-card-uhs-v5-0-bd853604322d@gmail.com>
+ <20260330-orangepi-sd-card-uhs-v5-5-bd853604322d@gmail.com>
+ <aco9oLumPh4OZtIo@kernel.org>
+ <CABdCQ=MFcDPnzcYUEkbQyu_0qZt=aDD04p1kyxCMuVt7Av_P1Q@mail.gmail.com>
+In-Reply-To: <CABdCQ=MFcDPnzcYUEkbQyu_0qZt=aDD04p1kyxCMuVt7Av_P1Q@mail.gmail.com>
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NjnaxRGIoVtrU0Po5BGq0P/WeCd94Kdq2ifnaNbGEqNI8S7p4EfTnp7G
+	BJyFaB7tbr07t1KMRuTx1oXt5uBkgjYIfg0GY4Uw1S/Y3gSCOx7Bf1ZfdwLh6C3E11Y/eRH
+	CDOC+QqWm1NreH3232MCUCtLGjqMKi2f3ViHsdi4UA7ooBgsj7fokOJRbjBcusX56alUVIo
+	+sMRj7X694oypP+s6Q3PUQ+/WEydDm62f8X1NmthhnIW9hzL2Xowqzr6w2eTF57KVv0klP8
+	ZVRQj9f2Ijgrjn5PQZdOZtSxleArKt+mueZQakzfu6DFuUGPUCCwMKF3KQahTgkBTOAXJyc
+	qJgtvZIxllBfgwzUtDCXpXtgtvwjKQfcIiNByJTA/Vm2krX8gkSRMalEIY/Zw2wbYc9k/2Q
+	2W5MPjuqncIk/pAn5BLfaGSxj+AOvQysfQOGDTsL2bqeEAFGaRVka8HmFAizgGGPOUQOtJW
+	8MC+dd2kQ4HEDGMAc7qxucf30cHpUfVpMMzQopxI4roKWxnvOZC8df0f3XV0MZr/LViDrgD
+	3h6QK+PY+SHp7GuT5lmhgV+nYBHPETUeMy2YOXyN7IAfSlUi1NHTd0EXV75Y/6l2rY7eVdX
+	UbXH0Vi2uETythQ3ueph5qxEt/7K2ageKQTVmXiDqQaPd8klmxwBZrUJEUuX0IuOt9zalzW
+	S4G1gMcownBHGXBD6PMOE3VuJ2Pij/ht+mT1Hz1TrCYP7ujPr7HCOzfSfoW+MZ5htm9m6Wf
+	81miDn8h0KbHfXkSs9bWUKaYyrN7l9SqElhqbjI+/iuGHR/CzYK0fBTIdCUL2ogT0aHzcj1
+	9QL13NxBCotNXM65HIIi84a9vy29K0PO5ig8BPjunGMV4xg/FNwNdzCJEK1ii6MV2f05Di8
+	uY8zHGYC2wLFa73asDTN//ndr2nq5P3sFWtKAoLkeHVDJeaIVk3tSmYP1PAhCvU3GBMXbIk
+	lMghr3fCVDRP3hTNHGmVIP0sBWy7VqpP9E7UY+IexqkjGUi4/AWh6WgP+AUNczNRmJL0h8k
+	NqjoYNW6AioF9rAcm+uXItX2tE4pzF9N9SvVmKar66u6BkzTdfMd3jLoePja0=
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 
-On 4/2/26 12:54, David Heidelberg via B4 Relay wrote:
-> From: Casey Connolly <casey.connolly@linaro.org>
-> 
-> The SHIFT6mq features an sdcard slot, add it.
-> 
-> Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Co-developed-by: David Heidelberg <david@ixit.cz>
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
->   arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts | 44 +++++++++++++++++++++++
->   1 file changed, 44 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
-> index 740eb22550724..b05f04a621e5b 100644
-> --- a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
-> +++ b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
-> @@ -600,6 +600,24 @@ &qupv3_id_1 {
->   	status = "okay";
->   };
->   
-> +&sdhc_2 {
-> +	pinctrl-0 = <&sdc2_default_state &sdc2_card_det_n>;
+On Wed Apr 1, 2026 at 4:53 PM CST, Iker Pedrosa wrote:
+> El lun, 30 mar 2026 a las 11:08, Troy Mitchell
+> (<troy.mitchell@linux.dev>) escribi=C3=B3:
+>>
+>> On Mon, Mar 30, 2026 at 16:38:06 CST, Iker Pedrosa wrote:
+>> > Add SD card controller infrastructure for SpacemiT K1 SoC with complet=
+e
+>> > pinctrl support for both standard and UHS modes.
+>> >
+>> > - Add sdhci0 controller definition with clocks, resets and interrupts
+>> > - Add mmc1_cfg pinctrl for 3.3V standard SD operation
+>> > - Add mmc1_uhs_cfg pinctrl for 1.8V UHS high-speed operation
+>> > - Configure appropriate drive strength and power-source properties
+>> >
+>> > This provides complete SD card infrastructure that K1-based boards can
+>> > enable.
+>> >
+>> > Tested-by: Anand Moon <linux.amoon@gmail.com>
+>> > Tested-by: Trevor Gamblin <tgamblin@baylibre.com>
+>> > Signed-off-by: Iker Pedrosa <ikerpedrosam@gmail.com>
+>> > ---
+>> >  arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi | 40 +++++++++++++++++++=
++++++++++
+>> >  arch/riscv/boot/dts/spacemit/k1.dtsi         | 13 +++++++++
+>> >  2 files changed, 53 insertions(+)
+>> >
+>> > diff --git a/arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi b/arch/riscv=
+/boot/dts/spacemit/k1-pinctrl.dtsi
+>> > index b13dcb10f4d66022d27307de73a6ea3287e97441..8d82011f1af666fb78c282=
+a2abcc0cb88f962053 100644
+>> > --- a/arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi
+>> > +++ b/arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi
+>> > @@ -570,4 +570,44 @@ pwm14-1-pins {
+>> >                       drive-strength =3D <32>;
+>> >               };
+>> >       };
+>> > +
+>> > +     mmc1_cfg: mmc1-cfg {
+>> > +             mmc1-data-cmd-pins {
+>> > +                     pinmux =3D <K1_PADCONF(104, 0)>,   /* mmc1_d3 */
+>> > +                              <K1_PADCONF(105, 0)>,   /* mmc1_d2 */
+>> > +                              <K1_PADCONF(106, 0)>,   /* mmc1_d1 */
+>> > +                              <K1_PADCONF(107, 0)>,   /* mmc1_d0 */
+>> > +                              <K1_PADCONF(108, 0)>;   /* mmc1_cmd */
+>> > +                     bias-pull-up =3D <1>;
+>> > +                     drive-strength =3D <7>;
+>> I'm a bit concerned about this value. Looking at the downstream 6.6 code=
+, 3.3V uses DS4,
+>> which equals 13mA. Since 7mA maps to DS0, what's the reasoning for using=
+ it here?
+                ^^^^ wrong current
+>> Do we have any documentation or measurement to back this up?
+>
+> Thank you for catching this! You're absolutely right to question these
+> drive strength values.
+>
+> Looking back at my development process, I remember hitting signal
+> integrity issues in the early stages of this driver development. As a
+> quick solution, I lowered the drive strength values, which seemed to
+> resolve the immediate problems, and I moved on without revisiting the
+> electrical characteristics.
+>
+> After your feedback, I investigated this properly by comparing with
+> the vendor kernel. It uses:
+> - 3.3V mode: PAD_3V_DS4 (19mA)
+> - 1.8V UHS mode: PAD_1V8_DS3 (42mA)
+>
+> My original values were indeed backwards from both electrical theory
+> and proven vendor implementation. Testing with the corrected values
+> (19mA/42mA) confirms SD card is working.
+>
+> I'll send v6 with the corrected drive strength values: drive-strength
+> =3D <19> for 3.3V and drive-strength =3D <42> for 1.8V UHS modes.
+Yes, 19mA for 3.3V and 42mA for 1.8V are correct.
+I realized I cited an incorrect value in my previous message (the 13mA).
+Please CC me when you send v6.
 
-If card detection is broken and disabled, then likely card detection
-GPIO can be omitted, no?
-
-> +	pinctrl-names = "default";
-> +
-> +	vmmc-supply = <&vreg_l21a_2p95>;
-> +	vqmmc-supply = <&vreg_l13a_2p95>;
-> +
-> +	bus-width = <4>;
-> +	/*
-> +	 * Card detection is broken, but because the battery must be removed
-> +	 * to insert the card, we use this rather than the broken-cd property
-> +	 * which would just waste CPU cycles polling.
-> +	 */
-> +	non-removable;
-> +
-> +	status = "okay";
-> +};
-> +
->   &slpi_pas {
->   	firmware-name = "qcom/sdm845/SHIFT/axolotl/slpi.mbn";
->   
-> @@ -609,6 +627,32 @@ &slpi_pas {
->   &tlmm {
->   	gpio-reserved-ranges = <0 4>, <81 4>;
->   
-> +	sdc2_default_state: sdc2-default-state {
-> +		clk-pins {
-> +			pins = "sdc2_clk";
-> +			drive-strength = <16>;
-> +			bias-disable;
-> +		};
-> +
-> +		cmd-pins {
-> +			pins = "sdc2_cmd";
-> +			drive-strength = <10>;
-> +			bias-pull-up;
-> +		};
-> +
-> +		data-pins {
-> +			pins = "sdc2_data";
-> +			drive-strength = <10>;
-> +			bias-pull-up;
-> +		};
-> +	};
-> +
-> +	sdc2_card_det_n: sd-card-det-n-state {
-> +		pins = "gpio126";
-> +		function = "gpio";
-> +		bias-disable;
-> +	};
-> +
->   	sde_dsi_active: sde-dsi-active-state {
->   		pins = "gpio6", "gpio11";
->   		function = "gpio";
-> 
-
--- 
-Best wishes,
-Vladimir
+                                    - Troy
