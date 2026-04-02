@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ED6C36D9FE;
-	Thu,  2 Apr 2026 18:08:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 079AE254B1F;
+	Thu,  2 Apr 2026 18:16:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775153293; cv=none; b=NMdps3LxbheDyy8DtVabBeEccOGWg/9kI/5I4ZOJsFUEYsTSAF9gkmfD5NLV7h/Kq0jmU4a6Pw9iioJLrMNujnKMdY8ZkEhG9iwPt68pxC85E46RJa0/LfxA+WhVql8bMbUvwsBoeG5LLfWDxVOXjSvusHTcI/pPfGTNSZ2scSU=
+	t=1775153776; cv=none; b=r6F00cj8VTCLcZK9Eo+Dhi+yJF4sLq0RfmDuxtTtR4nFvJLjnWPrpw0eWDg06l66RQxV9zT61tKSY/nbpy97mwR15lwJp0YRdYfRQOE0yMf1/YPlxT2tXxdtgMDRQO7jRdT3pVyVRXZou/jvh1DC8PfxnCwkoahDMhlhdQjsAAY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775153293; c=relaxed/simple;
-	bh=/N8OatrR1ZMXXHUVkwCXF5bvIo9DDJWSh07nx01MuDs=;
+	s=arc-20240116; t=1775153776; c=relaxed/simple;
+	bh=GHooBRGIfnrcwMwKPbI3wXJX80T4Gb60IUwbLdhm+2k=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IYgoNUPf+5KimfMsgVAhe05/Hy102CtEcfSPTKoir2YARzjiR77IeqHfj0BrOAOoAyJnpgsLYjkh1NeDQmABrOtbXD+NlOOrGrP22iaOjJHm5g1uqf94lvf7q8KB/p3/2kV/so8ODakoNkCYpdV+s3mXnqx8wlZ2yNuOK1e8siI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lo1dRpwI; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=g546pe9S/G28Q3tnyDUfTmPOH0NAsP8P9nKlIcUUEzbYztoEv0Ebc/bfwJOTgvVWWvTIZZ7ViAPQaQXKz6WafD/QyyW+84J1o9v1UDO1NB96m0KGrohyLHiDrIcDOJS2EelC52Zrl9vyUSSfJs+tmxv0Xd1bDfxs27uP4LAGYFI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lm3zb5UK; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lo1dRpwI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E278AC116C6;
-	Thu,  2 Apr 2026 18:08:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lm3zb5UK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63792C116C6;
+	Thu,  2 Apr 2026 18:16:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775153293;
-	bh=/N8OatrR1ZMXXHUVkwCXF5bvIo9DDJWSh07nx01MuDs=;
+	s=k20201202; t=1775153775;
+	bh=GHooBRGIfnrcwMwKPbI3wXJX80T4Gb60IUwbLdhm+2k=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=lo1dRpwIEWZ/NSljB4eSpHEDzIQmTo/0LKH4YVvjRzBv6+W0hSA67+EsGz0lUWLQY
-	 Br4Qvq17Tzv+1DxWilgdTTP32UQAS3XC8+OZy9zvoaGywTLw2XZDn/cGRtJil2OMvh
-	 aWYd+kVF+k+wc0xW5dedQJUGB1qpGUjs+6VdD/rMUEVV7hQkNt3/OMyScUgtIOaTgS
-	 Cbyx3WCwXvy5R6OsXsbdK3k1nPTzmuHHiruSkiyX/w/x/raXh4j1mizQAeVIl3C5AX
-	 LDboUYN34oXoQ6ZyLWrTPgadv1gXiIKRFElWF3Zxm7y/GzoGCLLSHSdShSaBlQZSnF
-	 E4RcmZvSSWLVg==
-Message-ID: <54786a14-e6eb-48e4-96a3-500a7e9b4de4@kernel.org>
-Date: Thu, 2 Apr 2026 20:08:08 +0200
+	b=Lm3zb5UKQcb5r/IpqFr7xMiVTLS4KSDb/SsFNksNxx4egzvj6/XTkcEYTyXp23pq4
+	 mm80dcdr7hff2M1wrx3lI/crRdkwV74f1fsJ8IvWqU85go7CvdlkjINEofqpfzkiZa
+	 1af6xKyEn+0CTRYz25qDNbl5tAc0A8s237k/DSDUmxkzI/FPcKRlS13nL6nGWQ1RVH
+	 RLPckct7Qb3a5fV2tGzQvzoEvGYXZSVYODFr1LBw2cGLud6C1xX8hzulF1A1fVLj/s
+	 Y0gBB2bc0+xvXXuCPpB33E3Xz/E9cRDv2OOszxJ2k177+8jNT4ifYuZaaPAteacH4U
+	 /hjfPUDveqYsg==
+Message-ID: <620e305f-c43f-427a-be69-a00edf4bdc16@kernel.org>
+Date: Thu, 2 Apr 2026 20:16:10 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,15 +35,22 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] PCI: amd-mdb: Add amd,versal2-cpm6-host compatible
-To: Sai Krishna Musham <sai.krishna.musham@amd.com>, bhelgaas@google.com,
- lpieralisi@kernel.org, kw@linux.com, mani@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, cassel@kernel.org
-Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, michal.simek@amd.com,
- bharat.kumar.gogada@amd.com, thippeswamy.havalige@amd.com
-References: <20260402180006.486229-1-sai.krishna.musham@amd.com>
- <20260402180006.486229-3-sai.krishna.musham@amd.com>
+Subject: Re: [PATCH 4/4] arm64: defconfig: Enable CAMCC driver on Qualcomm
+ Glymur SoC
+To: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+ Imran Shaik <imran.shaik@oss.qualcomm.com>,
+ Taniya Das <taniya.das@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260402-glymur_camcc-v1-0-e8da05a21da7@oss.qualcomm.com>
+ <20260402-glymur_camcc-v1-4-e8da05a21da7@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,42 +96,22 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260402180006.486229-3-sai.krishna.musham@amd.com>
+In-Reply-To: <20260402-glymur_camcc-v1-4-e8da05a21da7@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 02/04/2026 20:00, Sai Krishna Musham wrote:
-> Add "amd,versal2-cpm6-host" to the OF match table of the AMD MDB PCIe
-> host controller driver.
+On 02/04/2026 08:15, Jagadeesh Kona wrote:
+> Enable camera clock controller driver for camera functionality on
+> Qualcomm Glymur-CRD and similar other platforms with Glymur SoC.
 > 
-> The Versal2 CPM6 host controller is DesignWare-based and supports
-> PCIe Gen6 operation at up to 64 GT/s per lane. It is currently
-> handled by the same driver and match data (NULL) as the existing
-> MDB host controller, but CPM6 uses a newer IP revision and differs
-> in legacy INTx register offsets.
-> 
-> Use a separate compatible to allow CPM6-specific handling once legacy
-> interrupt support is validated.
-> 
-> Signed-off-by: Sai Krishna Musham <sai.krishna.musham@amd.com>
+> Signed-off-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
 > ---
->  drivers/pci/controller/dwc/pcie-amd-mdb.c | 3 +++
->  1 file changed, 3 insertions(+)
+>  arch/arm64/configs/defconfig | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> diff --git a/drivers/pci/controller/dwc/pcie-amd-mdb.c b/drivers/pci/controller/dwc/pcie-amd-mdb.c
-> index 3c6e837465bb..325bf7aad657 100644
-> --- a/drivers/pci/controller/dwc/pcie-amd-mdb.c
-> +++ b/drivers/pci/controller/dwc/pcie-amd-mdb.c
-> @@ -511,6 +511,9 @@ static const struct of_device_id amd_mdb_pcie_of_match[] = {
->  	{
->  		.compatible = "amd,versal2-mdb-host",
->  	},
-> +	{
-> +		.compatible = "amd,versal2-cpm6-host",
-> +	},
 
-So devices are fully compatible. Fix your compatibility in the binding
-and drop this.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
