@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 663881C861D;
-	Thu,  2 Apr 2026 16:36:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08BCD370D68;
+	Thu,  2 Apr 2026 16:38:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775147809; cv=none; b=ErPd7QBK/gi7laAWJBwk4yA84SuHpNl0Zp4XudMXyZYob9ffmaz4yiOFAhDai7NHL11hCjvXEkT7B/8gcbYvqthZIKRbldNi1AZwZY/CIFw1/x21VHrAZv3moEZ2AKkCXg01l9+txZqx+013ax2EwaekFB1z88iJtG8HHlZbd1I=
+	t=1775147894; cv=none; b=mBkuIZpiTHMQovEuV4LbJb6Z1YLJZUnaGr5vuEAwGMOM4ng5DuO76VlHLblcXy/ndfeVljacaSYIvNIgYmr/138dqa8VQq/XFL/teXC+kILjn+Xbt5Vjna7Hr5bWKI9Spunctwagwi3JgbyKKMtGG50MSdnQBeOQ+/pnWtN2Umg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775147809; c=relaxed/simple;
-	bh=ZziQI+L2TPJPg9vzRV+c96lmFlIjt5A3GhQ/nKXHWTg=;
+	s=arc-20240116; t=1775147894; c=relaxed/simple;
+	bh=fF3Ykzr27nyMSlSsMQcX3vecDssK82kkXmf+rB9WeEY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=D5uZsFDgzfZOM7hSUvhG9ZfRHMsTpvy9kM6XES8Jk1NSXWtgRPMIiMlecJUFwgTWNu6WnJuBwW7UI1Xs34x+ciKbrlSt8E2IlDp5oP/XT/9zPdqKk3SFeWwuZzJRgEj5G0QGar6cnaUsjWeYq6r9PVQ7A/sNoxBtmnemVzkrRFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o74/Yl2v; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=C79oeUFC+kDt0xsPziw92sjrusWN4imjgFQmCGPbNAeEBMcjNziYPpHep1Jsavd0RMozUyUfrsHiw5EaYPhpW9dPOc/HvXdo3h/A1meYV2bVWluiELkKDbQZtaQA5x/knjK+i2pFT58SEgsiPHhuzGXYwMT9fXGgoP8kSDriAd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jSK6DCcB; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o74/Yl2v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01F82C116C6;
-	Thu,  2 Apr 2026 16:36:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jSK6DCcB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46334C116C6;
+	Thu,  2 Apr 2026 16:38:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775147809;
-	bh=ZziQI+L2TPJPg9vzRV+c96lmFlIjt5A3GhQ/nKXHWTg=;
+	s=k20201202; t=1775147893;
+	bh=fF3Ykzr27nyMSlSsMQcX3vecDssK82kkXmf+rB9WeEY=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=o74/Yl2vwckDQCqDswuI2eZoPtoMfkyoF/DjNlbERA7Vd06FDP5GZ3aJrgnjgadGL
-	 KsBsubE+NUZDFO+9i86lMoQT6reVgwozlVnz5Lod1tKM47lqemfW6MHDTvcaNcKich
-	 pJE0kaXKFZQTN9jvQfE/d+NG5MLWlAQNd+OUXPCXC3Ts8+i34SW9Kyd/ADrluAqf7a
-	 9YH4RL6ys3DWE9qhgAhwEOQX0pBKNdouXe/NpOw+o7J1RJYORnSeQFloxxYPN2ouui
-	 qy3irQ2Yozh0oKlsPcEvc4Kz2xUSdvHeZhK6DlEEJ2HzAEkm7sOuAqRtYT2L6vPglF
-	 NOwiPpwJECdOQ==
-Message-ID: <6cee7587-a7f6-4e69-893f-4c89dd0aa2bf@kernel.org>
-Date: Thu, 2 Apr 2026 18:36:43 +0200
+	b=jSK6DCcB/4lGKXrzGJnX5Z9eAm266MxxZ0ddRgTukpWDdvp9vbTYOVhtZuylX/ciQ
+	 Ht+iJjrnte/n6AgbPEJbSO/hbaL+BTCIs0VuaqN13oQ0n51YpAuI7UEcp5enIFLCZ+
+	 7GZQ6Kah8+bbLjkzdOIh90AlozwpnAKvg5GlEWgaYWNV6BREpX3PsgR1rlDJQITLVt
+	 flT+dFmbcZuDYxQOLbKUka7VBsKr0r5mD1pbDxgf7Ic9aWURwasPJfsjO8szJjog0W
+	 Otsq0hqtYFj/PukXdqtltTaoEGIXKoNvqn/i7UvyAvcHysExGl0B327Jel6JhsXN6x
+	 5jib+PctkjJ5g==
+Message-ID: <3f3235ef-a792-4676-b702-4c5516249155@kernel.org>
+Date: Thu, 2 Apr 2026 18:38:06 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,19 +35,28 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] dt-bindings: usb: dwc3-xilinx: Add MMI USB support
- on Versal Gen2 platform
-To: "Pandey, Radhey Shyam" <radheys@amd.com>,
- Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-Cc: gregkh@linuxfoundation.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, michal.simek@amd.com, Thinh.Nguyen@synopsys.com,
- p.zabel@pengutronix.de, linux-usb@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, git@amd.com
-References: <20260330190304.1841593-1-radhey.shyam.pandey@amd.com>
- <20260330190304.1841593-2-radhey.shyam.pandey@amd.com>
- <20260331-jellyfish-of-pragmatic-prowess-a230fc@quoll>
- <3d64cd29-d981-4e84-8106-8085250fc502@amd.com>
+Subject: Re: [PATCH 6/6] arm64: dts: qcom: milos: Add Adreno 810 GPU and GMU
+ nodes
+To: Alexander Koskovich <akoskovich@pm.me>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>, Luca Weiss
+ <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260331-adreno-810-v1-0-725801dbb12b@pm.me>
+ <20260331-adreno-810-v1-6-725801dbb12b@pm.me>
+ <20260402-military-arrogant-woodpecker-4ab9b5@quoll>
+ <182d58c1-21fb-4cab-8ce7-26f07d63d246@kernel.org>
+ <_oKtywl2hPElduEp5xQuU-pvfR8_24TNztuXf3Il3DaaddUmg04Z27u2uYnUtox8G44_zuniSoDZTSJMMW44-HNTXLFJkKCjslAeEe96u9Y=@pm.me>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -93,68 +102,38 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <3d64cd29-d981-4e84-8106-8085250fc502@amd.com>
+In-Reply-To: <_oKtywl2hPElduEp5xQuU-pvfR8_24TNztuXf3Il3DaaddUmg04Z27u2uYnUtox8G44_zuniSoDZTSJMMW44-HNTXLFJkKCjslAeEe96u9Y=@pm.me>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 31/03/2026 11:18, Pandey, Radhey Shyam wrote:
->> On Tue, Mar 31, 2026 at 12:33:01AM +0530, Radhey Shyam Pandey wrote:
->>> Versal Gen2 platform multimedia integrated (MMI) module has a USB3.2 Gen
->>> 2x1 Dual Role Device IP. Introduce a new compatibility string to support
->>> it. The USB wrapper registers reside in the MMI UDH system-level control
->>> registers (SLCR) block, so instead of a dedicated reg property, add
->>> xlnx,usb-syscon phandle with four cells specifying register offsets for
->>> USB2 PHY, USB3 PHY, USB DRD, and USB power configuration within the SLCR.
+On 02/04/2026 18:36, Alexander Koskovich wrote:
+>>>> @@ -7,6 +7,7 @@
+>>>>  #include <dt-bindings/clock/qcom,milos-dispcc.h>
+>>>>  #include <dt-bindings/clock/qcom,milos-gcc.h>
+>>>>  #include <dt-bindings/clock/qcom,milos-gpucc.h>
+>>>> +#include <dt-bindings/clock/qcom,kaanapali-gxclkctl.h>
 >>>
->>> Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
->>> ---
->>> Changes for v2:
->>> - Add blank line after compatible as suggested by Krzysztof.
->>> - Retain the mmi suffix in the compatible string, as this USB 3.2 Gen2
->>>    IP from Synopsys is part of the dedicated Multimedia Interface. The
->>>    Versal Gen2 platform also includes a separate USB 2.0 controller,
->>>    and the mmi suffix uniquely distinguishes between the two USB
->>>    controllers. MMI is an independent subsystem particularly targeted for
->>>    deployment in Multi-Media related applications. The MMI block include
->>>    following submodules: UDH: USB3.2 Gen 2x1 Dual Role Device, DisplayPort
->>>    Transmit Controller, Security Module (ESM) for DisplayPort and HDMI
->>>    Controllers, DP AUX-I2C PHY.
->>> - For MMI USB define parent address space i.e UDH block.
->>> - Fix inconsistent MHz spacing to use SI convention with spaces.
->>> - Move description before $ref and items in xlnx,usb-syscon property.
->>> - Restore original zynqmp-dwc3 example, add new versal2-mmi-dwc3 example.
->>> - Use 'usb' node name (without unit address) for versal2 example since
->>>    it has no reg property.
->>> - Use 1/1 address/size configuration in versal2 example, use lowercase
->>>    hex in syscon offsets.
->>> ---
->>>   .../devicetree/bindings/usb/dwc3-xilinx.yaml  | 70 ++++++++++++++++++-
->>>   1 file changed, 67 insertions(+), 3 deletions(-)
+>>> Why? My next from 27th Match does not have Milos in that binding. Was it
+>>> added? It's worth mentioning in commit msg.
 >>>
->>> diff --git a/Documentation/devicetree/bindings/usb/dwc3-xilinx.yaml b/Documentation/devicetree/bindings/usb/dwc3-xilinx.yaml
->>> index d6823ef5f9a7..5e31b961aff7 100644
->>> --- a/Documentation/devicetree/bindings/usb/dwc3-xilinx.yaml
->>> +++ b/Documentation/devicetree/bindings/usb/dwc3-xilinx.yaml
->>> @@ -15,6 +15,8 @@ properties:
->>>         - enum:
->>>             - xlnx,zynqmp-dwc3
->>>             - xlnx,versal-dwc3
->>> +          - xlnx,versal2-mmi-dwc3
->> I am not going to ask the same questions.
+>>
+>> Now I checked in the cover letter - that patch was rejected. You cannot
+>> depend on rejected patch and still claim that this patchset is ready for
+>> merging. This patchset should be somehow marked that it depends on stuff
+>> which is wrong, usually I recommend marking it as RFC with explanation
+>> in cover letter WHY this is RFC (because it cannot be merged).
 > 
-> I have provided the explanation in v2 changelog.
-> Retain the mmi suffix in the compatible string, as this USB 3.2 Gen2
-> IP from Synopsys is part of the dedicated Multimedia Interface. The
-> Versal Gen2 platform also includes a separate USB 2.0 controller,
-> and the mmi suffix uniquely distinguishes between the two USB
-> controllers.
-> 
-> Let me know if you still have reservation in this approach (using
-> <vendor>,<soc>-<subsystem>-<ip>). Or any other alternative
-> based on IP version etc please suggest.
+> I don't see where the gxclkctl milos patch was rejected, there were some minor
+> comments that need to be addressed in a v2 though, is that what you mean by it
+> being rejected?
 
-Commit msg must explain that you have two different devices. And then
-explain what is the difference between versal2-dwc3 and versal2-mmi-dwc3.
+There is no v2, so that patch at that time could not go in, could not be
+accepted, could not be used as a working dependency.
+
+> 
+> Will just mark v2 of this series as RFC.
+
+
 
 Best regards,
 Krzysztof
