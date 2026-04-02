@@ -1,100 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0C7427E07E;
-	Thu,  2 Apr 2026 08:45:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3D893C278C
+	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 08:45:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775119540; cv=none; b=GmNoK9JYbMD3kHVxqZ4FB/tJIOw0m1TEB0bzoQmJ+kX5bHS2Q+K9k2W2vB93jEKWuBWfBD0q5ERV5MUxpFoL/dMexpTDpz3FIX5Brx1m+r/a5OrtIDlcYMnLqa1KfCBsPpUpU1gQ9D7nhZRX2JBe4FRvArwmhT9UGYIdrH/5wFE=
+	t=1775119552; cv=none; b=DXgLYe9MjYsViMAknP9Iurm3glp/Hk+XsgVQNbu6bNszae95FjQLYBcFNP5Vjjy1eMEuQ7UuzgzX3bLW+8MBclMoL03csvh5irTZyyjfRO8N1NlfOeTIv1buIIT9Y+70zNPS7bm8Iu8u159hQoytWzB8J5EFu76O6ncOCMdG89I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775119540; c=relaxed/simple;
-	bh=V3UdNh7a3zjzaowP6Plt+uXPgl/eEE5i/3NhvecpYUI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ujueUBNcTzyUEYRngO5N2IVHKZU/ZyWq1npcsfBFhgwtEbTUgXKuDt5Pks5kl8yg0UUkG23BUjmOes1CqX/IWIpiyYbZkghMTaT4TX93mhFDPzL9Od2CIaRqGOQq+TffABvPwLRNp2pAxuKm8ida3NXFiKV1PKKmBB6W9Sbo0mU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fL/5Ds+a; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775119552; c=relaxed/simple;
+	bh=elSSYXaQiu0A5lBgM08eBjafoWyayI5FV2gno1nTSlQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FQtvehWQbIjZBhugpbrWM32S71k4r708+gfXCnVtQOtJlnr4Lx46gUM74gs3k1BDuNT3lK/5k3q1xpH/ZRCVP7R0eDisDqJJKsfSJ2TSWuTSt5pDAgN8JP4T4ehzBKDQHXN/MK0/7XeSTEL6qjZPR6Cyl3fYfih5BA2/ml5Wtgo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Nvt1mO6G; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fL/5Ds+a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE6CAC116C6;
-	Thu,  2 Apr 2026 08:45:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775119540;
-	bh=V3UdNh7a3zjzaowP6Plt+uXPgl/eEE5i/3NhvecpYUI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=fL/5Ds+aDJOkEcMyy54ZGxgK14oU8EZKkk4PQFVjvsiUwIM0aosQTdAGDdNWkq0yv
-	 9FIIGUbvq8JqPqbNUmXEw4JNW2uk0JYHm2mGSWZ8aiqJCa2kStPu3nNpN7PBCyAfYS
-	 bQRi4TpzmxGOzbJYcGDIfWYpkTHVFq9DY9vShJUHc8F2+gtp5AmxhX6bXEGUK6asQK
-	 kruwzGXAQoSH4wXVmhV1YHYmjW6DBnydMG3E+4vYhtCaR7CZ37eGg6b6iLFaRez90c
-	 n567VSipiN5rHvzpTYkN+eUDAr4RoS24IMKXhhM3CpWc7vPIKpSXODEHPpcfwBoxfb
-	 mc8R6cFDQ1VEg==
-Date: Thu, 2 Apr 2026 10:45:37 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Sheng Kun Chang <nothingchang@mirrorstack.ai>
-Cc: jic23@kernel.org, lars@metafoo.de, Michael.Hennerich@analog.com, 
-	dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org, gregkh@linuxfoundation.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	linux-iio@vger.kernel.org, linux-staging@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: iio: accel: add binding for
- adi,adis16203
-Message-ID: <20260402-fair-wakeful-okapi-3c6dba@quoll>
-References: <20260401162458.88110-1-nothingchang@mirrorstack.ai>
- <20260401162458.88110-2-nothingchang@mirrorstack.ai>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Nvt1mO6G"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4887f49ec5aso8464635e9.1
+        for <devicetree@vger.kernel.org>; Thu, 02 Apr 2026 01:45:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1775119549; x=1775724349; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=elSSYXaQiu0A5lBgM08eBjafoWyayI5FV2gno1nTSlQ=;
+        b=Nvt1mO6Gxb9wjMZnbfGWU6KOes2J/I/XtdiBqLj7t0X5GJQXaVEkleuzMUSy88+zP1
+         VK2kqPgMZaYr8QlQCiirHTO4oE6RypoILnxsfvYYioAzAihhXi8Y/SU4OvQmTXHSxZps
+         LDIAFwZJA+Yhc9Okkv7Go7H3gntU2evSOLqKjwV6fK5SnNXwU/61gA0oaSMmAGLcefri
+         uSzQvJxZeY3m8nHfWlZPjH8MnSzjfGLaKX3rZgenjZQ83dDuC92aXOoD10plQMyMmY7z
+         GrplZyxr73khsbQikK73rp/Pa/qSG1N6qNqpWmh+JcWOqFVMoyUpite5yDuWAOtw7c2L
+         UTSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775119549; x=1775724349;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=elSSYXaQiu0A5lBgM08eBjafoWyayI5FV2gno1nTSlQ=;
+        b=hYpG1hUDdSlrlyJ/ws5jpmkQRrkzp9Ev5xry+GZBz8PoKb/qt1khARuMobAG2YfPG3
+         WUuv4bcpxfI6pS/6CxgQJuuCfrRj1z1baIXBydvBU2tovQ/o7a6N3xMGDL1afdGQ2kox
+         omX3/pnlV/29rvZ/eJsbH+Q7VSHw/3NHwis0VuB85SBvxmqoruUVukBzRuYp8bkQNMnJ
+         RXh+8D/2BqUJVHinRaN6d1BnU5DHw5Qe7a5o9YGzdGzT2pybPzLKw6cKzqK1hjaGumzK
+         uBueM4ou2w6GnCTCwGGxyCnXFPhHENRJ0hg/EktedAxjrjt4Hpnf30BcKbReD72rboyz
+         IhCw==
+X-Forwarded-Encrypted: i=1; AJvYcCWah1JoAqPKYq/YuiE3cnyJ1QgGneGgKsrgrWO3Xa10iG+O4aUWHNCE3rMIZYpZUvgSM0ya+8xR/XPH@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx/c4ZhwZrCMl4u+tCSLU800QngFs7F3kuUzjJ5tWGlNuguWqCO
+	kV6pfMlE9uR76y55qMjTMhdaPG9XgbBCMlXyYwlX46lKVrF+CieEYLa9j555g29jSFU=
+X-Gm-Gg: ATEYQzxSLXn3x8vYEgDLr/dAYJt+RjpUSIDHYmWfMDpcieELNvigyzfPuuDPvxIc23U
+	STbuocY7iTynsHj+jWHqoCs3solFJkc2MSCcinjvktd1clPdjXxdZW1fkG2se/4hqHEPdK6uTGR
+	LA8FcPeljxPOfnM4TUN+ouyVXhm0CdC/vN0GRajXdqjNQLqeEVW0FFSqzOj6cPbQGYKo8Rcu79P
+	yYvPR19/qMsfp45PmpwIv7bS6rRgCyMMZJfeHATOIpfKuY7UY57aukj6GbxpTtHLUryp+JKmhDd
+	J1e64SIxMRzI0H6rRV6wulvyDyD6YtdSb9tEhgOoZ6/OOM37DY49oDquwwnermBhmpqbjPGvwwc
+	5P4rALRJ0S1BJ4lrfzjR/BG4tRxFVriybuUzfsaFMztO15Ck7QmElsQ0yGCZWlPfGE3ItIt0Hnd
+	xJOBG3nZ6PnryBV9FXujms7R4ElTV/4Zk=
+X-Received: by 2002:a05:600c:8903:b0:485:4533:9c47 with SMTP id 5b1f17b1804b1-48883595155mr86661735e9.22.1775119549263;
+        Thu, 02 Apr 2026 01:45:49 -0700 (PDT)
+Received: from [10.11.12.108] ([79.115.63.48])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4888a63c963sm55395375e9.4.2026.04.02.01.45.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 02 Apr 2026 01:45:49 -0700 (PDT)
+Message-ID: <d9c714fa-988c-4b0d-b756-c6e7a40da587@linaro.org>
+Date: Thu, 2 Apr 2026 11:45:42 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260401162458.88110-2-nothingchang@mirrorstack.ai>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/3] Exynos850 APM-to-AP mailbox support
+To: Alexey Klimov <alexey.klimov@linaro.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Sam Protsenko <semen.protsenko@linaro.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jassi Brar <jassisinghbrar@gmail.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>, linux-samsung-soc@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260402-exynos850-ap2apm-mailbox-v2-0-ca5ffdff99d4@linaro.org>
+Content-Language: en-US
+From: Tudor Ambarus <tudor.ambarus@linaro.org>
+In-Reply-To: <20260402-exynos850-ap2apm-mailbox-v2-0-ca5ffdff99d4@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Apr 01, 2026 at 04:24:55PM +0000, Sheng Kun Chang wrote:
-> Add devicetree binding documentation for the Analog Devices
-> ADIS16203 Programmable 360 Degrees Inclinometer, in preparation
-> for moving the driver out of staging.
+Hi!
 
-A nit, subject: drop second/last, redundant "binding for". The
-"dt-bindings" prefix is already stating that these are bindings.
-See also:
-https://elixir.bootlin.com/linux/v6.17-rc3/source/Documentation/devicetree/bindings/submitting-patches.rst#L18
+On 4/2/26 5:20 AM, Alexey Klimov wrote:
+> This patch series introduces support for the APM-to-AP mailbox on the
 
-> 
-> Signed-off-by: Sheng Kun Chang <nothingchang@mirrorstack.ai>
-> ---
->  .../bindings/iio/accel/adi,adis16203.yaml     | 52 +++++++++++++++++++
->  1 file changed, 52 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/accel/adi,adis16203.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/accel/adi,adis16203.yaml b/Documentation/devicetree/bindings/iio/accel/adi,adis16203.yaml
-> new file mode 100644
-> index 000000000..6c5e2833c
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/accel/adi,adis16203.yaml
-> @@ -0,0 +1,52 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/accel/adi,adis16203.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: ADIS16203 Programmable 360 Degrees Inclinometer
-> +
-> +maintainers:
-> +  - Jonathan Cameron <jic23@kernel.org>
-> +
-> +description: |
-> +  Programmable 360 degrees inclinometer with SPI interface.
-> +    https://www.analog.com/en/products/adis16203.html
-> +
-> +properties:
-> +  compatible:
-> +    const: adi,adis16203
+If AP initiates the communication and APM responds, shouldn't this be called
+AP-to-APM mailbox?
 
-So everything looks exactly the same as adi,adis16201. Put it there. You
-probably copied it already, because you made exactly same
-issues/mistakes.
-
-Best regards,
-Krzysztof
-
+Cheers,
+ta
