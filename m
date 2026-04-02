@@ -1,169 +1,189 @@
-Received: from ixit.cz (ixit.cz [185.100.197.86])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E993D413D;
-	Thu,  2 Apr 2026 09:57:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9BB03D9048;
+	Thu,  2 Apr 2026 09:57:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775123827; cv=none; b=Wsr9GJ1LCZh2l76xA+0bXq615CLjm1+MU2UC5PeL7ICQbpYYisaSgXbBd/hC4K0LJtJruqyHIZQt8iOat0/CyHkZYCaKYySpxhEJIGMlZc2hgpamjT6dO1td2nWY8dyB2pkIYWTYndfFPd6utX5YT0Yf4v/7mttAYvGxNcK/4qU=
+	t=1775123847; cv=none; b=Fg4Zkuko5r6gutxVraLq0ZLaks9h4itK7nuvCsa6jKt5ATcCcu62PmffLTWn/6ZEfp5J0EDLq2dCx1TY77VGCgBQIzpIqL4DZ2R3/M/pbERlN5srVCAdE5WHKOOf04Mpp+H/+oDAlmenhiysFTfuY8jNMNa90/WZotRpSsFeoJw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775123827; c=relaxed/simple;
-	bh=9Jn9IOfU4aKXXM9fUZpTsfxtdRQm0gjbnRq2k7tEogI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=synXjGujEjHLkIiKoSb5fAmyLrSitOcQcqt1KzDu1cPaEA3WqiSVafdSAxLOss8Y4Lkep3/jPkcNsQShD6Q1/qE3zIPuLqasS466EPbYCx4KukZ63qihD2BGODAy8z2yyNwx4ktnyjENm0QO7NCSNsIuq/1VQvthPkbqMKhVVx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=gwlEcT7s; arc=none smtp.client-ip=185.100.197.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1775123847; c=relaxed/simple;
+	bh=qN55qyi151Z2WjW3JkqhczNInnenaAJJPjh3YpSr1Jc=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=uBf1xZ2T/+yat+LiesUTYKBh5Pgh/+/V/BzMDJnC/eau45VOyyYQr30cKo2unKHZCAe00+reM72lk+UZvcTNaqoxhzc8m57U3ADfx/AYFlWmjD/Mlta6SDQT9Bq655/TWYxCSClBpvF3xYspCxZJleeZGb67ABPe21LViZ4nfLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=yfijbib2; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="gwlEcT7s"
-Received: from [192.168.32.16] (78-80-122-36.customers.tmcz.cz [78.80.122.36])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id C68A55340EF2;
-	Thu, 02 Apr 2026 11:56:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1775123811;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=ET2roK5qgUzwddLbdzaoLCAK/BEoy/JuSPV9BnfsP0Q=;
-	b=gwlEcT7soGnJL426W/24sK0327L9Ztihf+GsV8QaTV0f6UIi3esMvnE/TPg+C0WokFl1EZ
-	MKnLerfI3EkSmOGebyHO+QcZj3hlpJk7No2Gkc057deMqi7dJynO4dGKYKFTTBGhcwAWTM
-	tSbhewMNOtuAckl9p8/nEhS2IFubB7Q=
-Message-ID: <5d2609a5-08dd-41aa-8ead-6c09c91223ef@ixit.cz>
-Date: Thu, 2 Apr 2026 11:56:50 +0200
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="yfijbib2"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id E3FFE4E428AF;
+	Thu,  2 Apr 2026 09:57:21 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9D1985FDEB;
+	Thu,  2 Apr 2026 09:57:21 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7C86B10451269;
+	Thu,  2 Apr 2026 11:57:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1775123839; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=TzIlBZUzn8rERbKkbHZzxtwdaqOzw3k+NsqvcFKNCOI=;
+	b=yfijbib28QgvpYc1jycPgfP1cf9QlbzNBZPIME3kRP5Xwzo0Fpz2NwFpnPf06+Xjf9yrXM
+	6uuWK4eFgEvIZhk76Xf49zo84Sdl+IF0IoEQb5+i1WM2DUb3EusPkbBHlYMeiAA4BJVNiD
+	vt47wimSQQrjgiHUnJFI4InJ1gHobtAsHy9LoffndKHE/0YLZZZ/BJwmQYqgbbOZTNQ+vZ
+	LURJAa5eADPjbU5jOI1nysQWc1RG3SXKJyJtoMYO9TWdAV4FeQMk9g7nn4ObSocBWzCZzI
+	8tJ+zX2CCZC3ytW+hDX0ggKrWl0uTImJlY2zAZfMQzcBxT68f4JFiL8TuprB9g==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] arm64: dts: qcom: sdm845-shift-axolotl: Enable
- sdcard
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Dylan Van Assche <me@dylanvanassche.be>
-Cc: linux-arm-msm@vger.kernel.org, Petr Hodina <phodina@protonmail.com>,
- Casey Connolly <casey.connolly@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Alexander Martinz <amartinz@shiftphones.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260401-axolotl-misc-p1-v2-0-f3af384bbb50@ixit.cz>
- <20260401-axolotl-misc-p1-v2-1-f3af384bbb50@ixit.cz>
- <a5fbcb92-dedf-423c-8721-59838da60980@oss.qualcomm.com>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <a5fbcb92-dedf-423c-8721-59838da60980@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 02 Apr 2026 11:57:03 +0200
+Message-Id: <DHIKVMUU8P8R.2QUPO5LAU6BLO@bootlin.com>
+Subject: Re: [PATCH v2 06/10] drm/bridge: dw-hdmi: warn on unsupported
+ attach combination
+Cc: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
+ =?utf-8?q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>, "Hui Pu"
+ <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>,
+ <dri-devel@lists.freedesktop.org>, <imx@lists.linux.dev>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, "Adam Ford" <aford173@gmail.com>, "Alexander
+ Stein" <alexander.stein@ew.tq-group.com>, "Christopher Obbard"
+ <christopher.obbard@linaro.org>, "Daniel Scally"
+ <dan.scally@ideasonboard.com>, "Emanuele Ghidoli"
+ <emanuele.ghidoli@toradex.com>, "Fabio Estevam" <festevam@denx.de>,
+ "Francesco Dolcini" <francesco.dolcini@toradex.com>, "Frieder Schrempf"
+ <frieder.schrempf@kontron.de>, "Gilles Talis" <gilles.talis@gmail.com>,
+ =?utf-8?q?Goran_Ra=C4=91enovi=C4=87?= <goran.radni@gmail.com>, "Heiko
+ Schocher" <hs@denx.de>, "Josua Mayer" <josua@solid-run.com>, "Kieran
+ Bingham" <kieran.bingham@ideasonboard.com>, "Marco Felsch"
+ <m.felsch@pengutronix.de>, "Martyn Welch" <martyn.welch@collabora.com>,
+ "Oleksij Rempel" <o.rempel@pengutronix.de>, "Peng Fan" <peng.fan@nxp.com>,
+ "Richard Hu" <richard.hu@technexion.com>, "Shengjiu Wang"
+ <shengjiu.wang@nxp.com>, "Stefan Eichenberger"
+ <stefan.eichenberger@toradex.com>, "Vitor Soares"
+ <vitor.soares@toradex.com>
+To: "Damon Ding" <damon.ding@rock-chips.com>, "Marek Vasut" <marex@denx.de>,
+ "Stefan Agner" <stefan@agner.ch>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Frank Li"
+ <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix
+ Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>,
+ "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Liu Ying"
+ <victor.liu@nxp.com>, "Rob Herring" <robh@kernel.org>, "Saravana Kannan"
+ <saravanak@kernel.org>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.20.1
+References: <20260330-drm-lcdif-dbanc-v2-0-c7f2af536a24@bootlin.com>
+ <20260330-drm-lcdif-dbanc-v2-6-c7f2af536a24@bootlin.com>
+ <d9b5c826-e0eb-4c0a-989b-48aa12fdbaef@rock-chips.com>
+In-Reply-To: <d9b5c826-e0eb-4c0a-989b-48aa12fdbaef@rock-chips.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 02/04/2026 11:23, Konrad Dybcio wrote:
-> On 4/1/26 6:51 PM, David Heidelberg via B4 Relay wrote:
->> From: Casey Connolly <casey.connolly@linaro.org>
+Hello Damon,
+
+On Thu Apr 2, 2026 at 11:14 AM CEST, Damon Ding wrote:
+> Hi Luca,
+>
+> On 3/31/2026 3:25 AM, Luca Ceresoli wrote:
+>> dw-hdmi can operate in two different modes, depending on the platform da=
+ta
+>> as set by the driver:
 >>
->> The SHIFT6mq features an sdcard slot, add it.
+>>   A. hdmi->plat_data->output_port =3D 0:
+>>      the HDMI output (port@1) in device tree is not used
 >>
->> Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
->> Signed-off-by: David Heidelberg <david@ixit.cz>
+>>   B. hdmi->plat_data->output_port =3D 1:
+>>      the HDMI output (port@1) is parsed to find the next bridge
+>>
+>> Only case B is supported when the DRM_BRIDGE_ATTACH_NO_CONNECTOR flag is
+>> passed to the attach callback. Emit a warning when this is violated. Als=
+o
+>> return -EINVAL which would be returned by drm_bridge_attach() right afte=
+r
+>> anyway.
+>>
+>> Reviewed-by: Liu Ying <victor.liu@nxp.com>
+>> Tested-by: Martyn Welch <martyn.welch@collabora.com>
+>> Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com> # TQMa8MPxL=
+/MBa8MPxL
+>> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 >> ---
->>   arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts | 44 +++++++++++++++++++++++
->>   1 file changed, 44 insertions(+)
+>> Note: Returning when the warning triggers does not change the functional
+>> behaviour of this function. It is not strictly necessary in this patch b=
+ut
+>> it will have to be done anyway in the following patch.
+>> ---
+>>   drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 4 ++++
+>>   1 file changed, 4 insertions(+)
 >>
->> diff --git a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
->> index 740eb22550724..c394350998c26 100644
->> --- a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
->> +++ b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
->> @@ -600,6 +600,24 @@ &qupv3_id_1 {
->>   	status = "okay";
->>   };
->>   
->> +&sdhc_2 {
->> +	status = "okay";
-> 
-> couple nits:
-> 
-> Status should be last, although the file is all over the place
-> 
+>> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm=
+/bridge/synopsys/dw-hdmi.c
+>> index 0296e110ce65..ab1a6a8783cd 100644
+>> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+>> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+>> @@ -2910,6 +2910,10 @@ static int dw_hdmi_bridge_attach(struct drm_bridg=
+e *bridge,
+>>   {
+>>   	struct dw_hdmi *hdmi =3D bridge->driver_private;
+>>
+>> +	/* DRM_BRIDGE_ATTACH_NO_CONNECTOR requires a remote-endpoint to the ne=
+xt bridge */
+>> +	if (WARN_ON((flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) && !hdmi->plat_da=
+ta->output_port))
+>> +		return -EINVAL;
 >> +
->> +	pinctrl-names = "default";
->> +	pinctrl-0 = <&sdc2_default_state &sdc2_card_det_n>;
-> 
-> preferably in this order
-> 
-> xxx
-> xxx-names
-> 
-> [...]
-> 
->> +	sdc2_default_state: sdc2-default-state {
->> +		clk-pins {
->> +			pins = "sdc2_clk";
->> +			bias-disable;
->> +			drive-strength = <16>;
-> 
-> All other pin definitions in this file have the bias property below
-> drive-strength (like the card_det_n node you're adding)
-> 
-> other than that
-> 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> 
+>>   	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)
+>>   		return drm_bridge_attach(encoder, hdmi->bridge.next_bridge,
+>>   					 bridge, flags);
+>>
+>
+> Since many older Rockchip platforms (RK3288, RK3399, etc.) lack a
+> hdmi-connector node linked to the HDMI DT node, which corresponds to
+> case A. Could we relax this restriction and treat cases where
+> DRM_BRIDGE_ATTACH_NO_CONNECTOR is set but hdmi->plat_data->output_port =
+=3D
+> 0 as a new case C?
+>
+> For Rockchip platforms, the HDMI driver invokes dw_hdmi_bind() to attach
+> the Synopsys bridge. This sequence differs from that on the XNP
+> platform, but is similar to the Allwinner implementation.
+>
+> If we treat the case where DRM_BRIDGE_ATTACH_NO_CONNECTOR is set and
+> hdmi->plat_data->output_port =3D 0 as -EINVAL, I will have to modify the
+> HDMI DT configuration for all Rockchip platforms when adapting to the
+> bridge-connector framework.
+>
+> The patch that adapts to the bridge-connector framework and has been
+> verified OK on RK3399 is attached.
 
-Thanks for catching these, I completly missed that sorting is non-compliant. New 
-revision sent w/ ur R-b :)
+I saw this only after sending v3. Anyway, replying now.
 
-David
+I'm not sure I follow completely your reasoning, but one aspect is that we
+can (and should) convert drivers in small groups independently as I'm doing
+with this series for the i.MX8MP and involved drivers and you are doing for
+the analogix_dp in another series. Converting all (or large sets) at once
+would just be not doable realistically.
 
-> Konrad
+And so I suggest you send a separate series to convert the Rockchip drivers
+based on dw-hdmi. Please Cc me, I'll be glad to review it.
 
--- 
-David Heidelberg
+Also, it's not clear to me why we need a case C. We already have two cases
+(A and B, the old and new way) and we should convert to case B unless there
+is a strong reason. If Rockchip dts are missing a hdmi-connector node you
+can reuse the fixup module in patch 8.
 
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
