@@ -1,191 +1,98 @@
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 488D03890F9;
-	Thu,  2 Apr 2026 07:26:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.187
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F9EB3909A9;
+	Thu,  2 Apr 2026 07:26:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775114788; cv=none; b=lPJyiXsQHmg0MXcHDP/HYX4OYCqNZFcbDmAZ519nm+cuD3eab/qVfAM0DIo4oJIetNNFFgQ9uu10ooJD72BCt86sp85Fy1ykHLXZh39A50iipMpppRxu6tmKhgAC6qrMA0/wEu/B3NFxlH1a99amJcPDeb6+darlk6SCOSWyiJc=
+	t=1775114789; cv=none; b=syIuEnOjlsqRo0Td24Chc5zuB1P7vpAIrt+4M8olHL2dynWbm4GJ4zFbm4AhN4s8s5Tl3MtiXDzYNzX6L/zFCTw4bOgwWEGo+m4tQX6wRLv/HEpk5tSxIC7q7d2mHERdSaGjfo8d+3rRgsTClmRVGhM0l24L+7ZCMMCkxVggwyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775114788; c=relaxed/simple;
-	bh=4IcwnM+8eh0oZ2o0TECNrndiG61mivthPKypCs9zu+s=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AemJV6EAOK6GNHhDkxJKsBV4iCGHzRTmbWFvaG99204JjHWkUHBNAwqZ2S6pNqpSHuL/rT9BOxH3/gf3V/To8iC3VM/2ZX9LsVuzPTM0r0DLgPXBSY2DQYAc4jloFfXxnltYQqzpDbZukSsKnvj7SC9s0kk4J4V0MIHKlFLSTWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=EiEbnqQU; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=EiEbnqQU; arc=none smtp.client-ip=45.249.212.187
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1775114789; c=relaxed/simple;
+	bh=blzi+T4vd5l4tALbxLrPzAlbbRECYcrNpOOCXZdxEDk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P7o6FaMn0hsSUIadvAuUGengl9wlfLqrdY1dx3lpysvGYDvU9xjSqFdFvrekZo/glwe9mxYaKsUG7F/r7Ftr2qfamLy1lbyytnKDDbofNv3bbgPPX+7hR/lMFwGVZrqU19zVGNgj+y4m/SfnUeGUp3fwNjBUDysBQowm7U2VWxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S14FL0JZ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="EiEbnqQU";
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="EiEbnqQU"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=arGtLSYVMJnA8Jj6p3DzGt8cbJyT3GiVPFMXgPgtn5c=;
-	b=EiEbnqQUhIhamDHQUhbfbnTNWxE7tuEb0TXsVY6BiKUtF9bK/ziaPVhV0yi9BgVoDuooO5TpA
-	sJWye9fu1EO362BcR9zRzuw28HbNbKyUJ2/ByF0rEj/mkWP3IV/syNKgdWS2Pf0ik0JI4sE6Eqp
-	AZhHgjpzPaop/12xLxrOwnY=
-Received: from canpmsgout03.his.huawei.com (unknown [172.19.92.159])
-	by szxga01-in.huawei.com (SkyGuard) with ESMTPS id 4fmYLR1g76z1BG2K;
-	Thu,  2 Apr 2026 15:26:07 +0800 (CST)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=arGtLSYVMJnA8Jj6p3DzGt8cbJyT3GiVPFMXgPgtn5c=;
-	b=EiEbnqQUhIhamDHQUhbfbnTNWxE7tuEb0TXsVY6BiKUtF9bK/ziaPVhV0yi9BgVoDuooO5TpA
-	sJWye9fu1EO362BcR9zRzuw28HbNbKyUJ2/ByF0rEj/mkWP3IV/syNKgdWS2Pf0ik0JI4sE6Eqp
-	AZhHgjpzPaop/12xLxrOwnY=
-Received: from mail.maildlp.com (unknown [172.19.162.223])
-	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4fmYD01XwBzpStp;
-	Thu,  2 Apr 2026 15:20:32 +0800 (CST)
-Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
-	by mail.maildlp.com (Postfix) with ESMTPS id C79AE40561;
-	Thu,  2 Apr 2026 15:26:21 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by dggpemf500011.china.huawei.com
- (7.185.36.131) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Thu, 2 Apr
- 2026 15:26:18 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
-	<will@kernel.org>, <chenhuacai@kernel.org>, <kernel@xen0n.name>,
-	<maddy@linux.ibm.com>, <mpe@ellerman.id.au>, <npiggin@gmail.com>,
-	<chleroy@kernel.org>, <pjw@kernel.org>, <palmer@dabbelt.com>,
-	<aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <tglx@kernel.org>,
-	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
-	<hpa@zytor.com>, <robh@kernel.org>, <saravanak@kernel.org>,
-	<akpm@linux-foundation.org>, <bhe@redhat.com>, <vgoyal@redhat.com>,
-	<dyoung@redhat.com>, <rdunlap@infradead.org>, <peterz@infradead.org>,
-	<pawan.kumar.gupta@linux.intel.com>, <feng.tang@linux.alibaba.com>,
-	<dapeng1.mi@linux.intel.com>, <kees@kernel.org>, <elver@google.com>,
-	<paulmck@kernel.org>, <lirongqing@baidu.com>, <rppt@kernel.org>,
-	<leitao@debian.org>, <ardb@kernel.org>, <jbohac@suse.cz>,
-	<cfsworks@gmail.com>, <tangyouling@kylinos.cn>, <sourabhjain@linux.ibm.com>,
-	<ritesh.list@gmail.com>, <hbathini@linux.ibm.com>, <eajames@linux.ibm.com>,
-	<guoren@kernel.org>, <songshuaishuai@tinylab.org>, <kevin.brodsky@arm.com>,
-	<vishal.moola@gmail.com>, <junhui.liu@pigmoral.tech>, <coxu@redhat.com>,
-	<fuqiang.wang@easystack.cn>, <liaoyuanhong@vivo.com>,
-	<takahiro.akashi@linaro.org>, <james.morse@arm.com>, <lizhengyu3@huawei.com>,
-	<x86@kernel.org>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
-	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<kexec@lists.infradead.org>
-CC: <ruanjinjie@huawei.com>
-Subject: [PATCH v12 12/15] LoongArch: kexec: Use crash_prepare_headers() helper to simplify code
-Date: Thu, 2 Apr 2026 15:26:58 +0800
-Message-ID: <20260402072701.628293-13-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260402072701.628293-1-ruanjinjie@huawei.com>
-References: <20260402072701.628293-1-ruanjinjie@huawei.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S14FL0JZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6963AC2BCB3;
+	Thu,  2 Apr 2026 07:26:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775114789;
+	bh=blzi+T4vd5l4tALbxLrPzAlbbRECYcrNpOOCXZdxEDk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=S14FL0JZWL6qg7m8F40cl5pAxVUDbN2pm/RXu3fvuAMv9tyD3fhtUCYvt7qEiXMGY
+	 Iqx9FYReEemJcRhxPyw26Z1lNNVqiMNxiUysxMlEUfyZ7yRNndLuQqfnPr1QKrYKVQ
+	 d31qPl/5MRUQDrZicnF49mCooe2xh/Hn/T8DQYBbIuqR+6afg5fr6oIucm2+GIITpI
+	 qihyv8ZtiHzCbYfkf+Vr1xs4n83GGIXAjb29GAeOSKcGhLWhsx7FDbwx6fASpuk7X2
+	 zUgTWcVv/Y8kHk4lNVCxFQAYqBdVvnzK4rB/VFnIA8VRILFMlraHy+39GJsoipr+DT
+	 5bjF3dwhQqJEQ==
+Date: Thu, 2 Apr 2026 09:26:26 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Nora Schiffer <nora.schiffer@ew.tq-group.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Nishanth Menon <nm@ti.com>, 
+	Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>, 
+	Siddharth Vadapalli <s-vadapalli@ti.com>, Roger Quadros <rogerq@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux@ew.tq-group.com
+Subject: Re: [PATCH net-next v3 1/2] dt-bindings: net: ti:
+ k3-am654-cpsw-nuss: Add ti,j722s-cpsw-nuss compatible
+Message-ID: <20260402-discreet-sparkling-turkey-ce23e9@quoll>
+References: <e7ec1b928357d1240a962a88dc6ac67fd2c92357.1774958552.git.nora.schiffer@ew.tq-group.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- dggpemf500011.china.huawei.com (7.185.36.131)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <e7ec1b928357d1240a962a88dc6ac67fd2c92357.1774958552.git.nora.schiffer@ew.tq-group.com>
 
-Use the newly introduced crash_prepare_headers() function to replace
-the existing prepare_elf_headers(), allocate cmem and exclude crash kernel
-memory in the crash core, which reduce code duplication.
+On Wed, Apr 01, 2026 at 02:05:42PM +0200, Nora Schiffer wrote:
+> The J722S CPSW3G is mostly identical to the AM64's, but additionally
+> supports SGMII. The AM64 compatible ti,am642-cpsw-nuss is used as a
+> fallback.
+> 
+> Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
+> ---
+> 
+> v2: keep ti,am642-cpsw-nuss as a fallback
+> v3: resubmission for net-next, no changes
+> 
+>  .../bindings/net/ti,k3-am654-cpsw-nuss.yaml   | 20 ++++++++++++-------
+>  1 file changed, 13 insertions(+), 7 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/net/ti,k3-am654-cpsw-nuss.yaml b/Documentation/devicetree/bindings/net/ti,k3-am654-cpsw-nuss.yaml
+> index a959c1d7e643a..70d25f5ff1cfe 100644
+> --- a/Documentation/devicetree/bindings/net/ti,k3-am654-cpsw-nuss.yaml
+> +++ b/Documentation/devicetree/bindings/net/ti,k3-am654-cpsw-nuss.yaml
+> @@ -53,13 +53,19 @@ properties:
+>    "#size-cells": true
+>  
+>    compatible:
+> -    enum:
+> -      - ti,am642-cpsw-nuss
+> -      - ti,am654-cpsw-nuss
+> -      - ti,j7200-cpswxg-nuss
+> -      - ti,j721e-cpsw-nuss
+> -      - ti,j721e-cpswxg-nuss
+> -      - ti,j784s4-cpswxg-nuss
+> +    oneOf:
+> +      - items:
 
-Only the following two architecture functions need to be implemented:
-- arch_get_system_nr_ranges(). Use for_each_mem_range to traverse
-  and pre-count the max number of memory ranges.
+s/items/enum/. No need to make it a list, wasn't list before. It is not
+making code more readable.
 
-- arch_crash_populate_cmem(). Use for_each_mem_range to traverse
-  and collect the memory ranges and fills them into cmem.
+> +          - enum:
+> +              - ti,am642-cpsw-nuss
+> +              - ti,am654-cpsw-nuss
+> +              - ti,j7200-cpswxg-nuss
+> +              - ti,j721e-cpsw-nuss
+> +              - ti,j721e-cpswxg-nuss
 
-Cc: Huacai Chen <chenhuacai@kernel.org>
-Cc: WANG Xuerui <kernel@xen0n.name>
-Reviewed-by: Sourabh Jain <sourabhjain@linux.ibm.com>
-Acked-by: Baoquan He <bhe@redhat.com>
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
----
- arch/loongarch/kernel/machine_kexec_file.c | 46 +++++++---------------
- 1 file changed, 14 insertions(+), 32 deletions(-)
-
-diff --git a/arch/loongarch/kernel/machine_kexec_file.c b/arch/loongarch/kernel/machine_kexec_file.c
-index 167392c1da33..3d0386ee18ef 100644
---- a/arch/loongarch/kernel/machine_kexec_file.c
-+++ b/arch/loongarch/kernel/machine_kexec_file.c
-@@ -56,51 +56,33 @@ static void cmdline_add_initrd(struct kimage *image, unsigned long *cmdline_tmpl
- }
- 
- #ifdef CONFIG_CRASH_DUMP
--
--static int prepare_elf_headers(void **addr, unsigned long *sz)
-+unsigned int arch_get_system_nr_ranges(void)
- {
--	int ret, nr_ranges;
--	uint64_t i;
-+	int nr_ranges = 2; /* for exclusion of crashkernel region */
- 	phys_addr_t start, end;
--	struct crash_mem *cmem;
-+	uint64_t i;
- 
--	nr_ranges = 2; /* for exclusion of crashkernel region */
- 	for_each_mem_range(i, &start, &end)
- 		nr_ranges++;
- 
--	cmem = kmalloc_flex(*cmem, ranges, nr_ranges);
--	if (!cmem)
--		return -ENOMEM;
-+	return nr_ranges;
-+}
-+
-+int arch_crash_populate_cmem(struct crash_mem *cmem)
-+{
-+	phys_addr_t start, end;
-+	uint64_t i;
- 
--	cmem->max_nr_ranges = nr_ranges;
--	cmem->nr_ranges = 0;
- 	for_each_mem_range(i, &start, &end) {
--		if (cmem->nr_ranges >= cmem->max_nr_ranges) {
--			ret = -ENOMEM;
--			goto out;
--		}
-+		if (cmem->nr_ranges >= cmem->max_nr_ranges)
-+			return -ENOMEM;
- 
- 		cmem->ranges[cmem->nr_ranges].start = start;
- 		cmem->ranges[cmem->nr_ranges].end = end - 1;
- 		cmem->nr_ranges++;
- 	}
- 
--	/* Exclude crashkernel region */
--	ret = crash_exclude_mem_range(cmem, crashk_res.start, crashk_res.end);
--	if (ret < 0)
--		goto out;
--
--	if (crashk_low_res.end) {
--		ret = crash_exclude_mem_range(cmem, crashk_low_res.start, crashk_low_res.end);
--		if (ret < 0)
--			goto out;
--	}
--
--	ret = crash_prepare_elf64_headers(cmem, true, addr, sz);
--
--out:
--	kfree(cmem);
--	return ret;
-+	return 0;
- }
- 
- /*
-@@ -168,7 +150,7 @@ int load_other_segments(struct kimage *image,
- 		void *headers;
- 		unsigned long headers_sz;
- 
--		ret = prepare_elf_headers(&headers, &headers_sz);
-+		ret = crash_prepare_headers(true, &headers, &headers_sz, NULL);
- 		if (ret < 0) {
- 			pr_err("Preparing elf core header failed\n");
- 			goto out_err;
--- 
-2.34.1
+Best regards,
+Krzysztof
 
