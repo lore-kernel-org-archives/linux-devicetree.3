@@ -1,84 +1,87 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F7C737CD21
-	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 06:16:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC42637CD55
+	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 06:16:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775110575; cv=none; b=Q4EHNdJLAW6TAuxF0wxnqNsrQ9otw1UWN03HZ9OuFa9MicghBzlG8mfCzoIgbr9zTF38okVxsrseSIUhgW2Ffc8MOfIECeTU3X0pKN+L26cLLx7rCCnVT5ITDOHD9rksMMUIDaG26Ew5GhBx1vj4voU35InnpJS9PqJvGKopbyQ=
+	t=1775110581; cv=none; b=LRTPT6S8dncedQjpqH4v2lr42k0ytEMaEyspJKldKEl2QioqRX8F380eESNihtYx0DLb6NJx9XQQ4vAJ2hKZbSL1sOrqco7uCm43IMf+4hBChpUJf2lbar5U77SYSufxVyctwR7V0ezG5mgeyZhFOpK80MsIzSQjduWy27JOstQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775110575; c=relaxed/simple;
-	bh=Gg5vcc/3RVUkhCzfHW9ClSxYoLFdUKduZUXpgADLaxk=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=V3xjl/TViAmiphv8HjvlAvbaaahk4bdjTQKXj+0B+suDa3Ad0kc+HQkvdSKZyeXBmeGXJe6cM48eAYV0Gug7KVwap5VETnEIk7jL0JY6O8V1q+guyFQ3gF7TiuBqu+YtHe3iSrdhhekk9J/vqk4nBYOb1d+bpP0+RPIcBGlh2bQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mpkiiCCl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BX8jSw47; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1775110581; c=relaxed/simple;
+	bh=7LBiolQCnRZvqemjauhhN/YGc6Gd2qjG+eDMRoIX6zs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=hXU+yaWKFDsjqKMmvK/1lwvHm1lC1Qi3d1hhblq7JkDrxHnjxvQsYqIzViTJu1tnbQh5vlxCTbbeVlJqRL353/3C2HG68BIP6fhWmiKx0AZsDr0a+IlNVQZvSBwZbh+lld1H04PrBSvnDPyybvXAjw1+P6eTi+QRaTHl2DLo6BE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=L/ugsWhw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RCo/XH48; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mpkiiCCl";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BX8jSw47"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 631M4M4o3044352
-	for <devicetree@vger.kernel.org>; Thu, 2 Apr 2026 06:16:13 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="L/ugsWhw";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RCo/XH48"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 631M3vVs1128506
+	for <devicetree@vger.kernel.org>; Thu, 2 Apr 2026 06:16:19 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=mPXcXgDL9LwDyWtOO4mR1I
-	5ylhidkezebiRyWUGe/Dc=; b=mpkiiCClfhcAZN65/rew0mZFXobfwL5wza81m5
-	XItLq9DnoTd8W63BrJ+/Q25LEt6KVwXL9ObeoEGTDNGf9rjbtqhdRygKfkfbvYCR
-	DdAt7knuBEY+8OPTMKGswo02BMF6NVk5F4D9darb+WPhoyvmM+pdEkA0Z53X42eJ
-	TPZBBH59zQSawhS1ihSnfWbzUZBRvq+qQOATD1i2W64y4RksgPcqvA0RN+bLHtV6
-	XLVuxvMSRFlOh2EuB298CD065RWJq5vQuH84ixpA2375wHGIHBcppIFsD8liGZVz
-	2JMee+yMU+vVpn8XkMR8/QpDygXi6TgMbXCm5cVNoYdvpg/A==
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	lwKlEZFKuVVGAIbg74e0t2WyYC1u6+RUM14UYJG2vAA=; b=L/ugsWhwoTOFjJHf
+	LvIbFoT2oxUhJO06YHPYHIe9c2eyEKOsYRgssoPTivqN2FwPZSr9Aw6zXTYol07V
+	FLgQrc5XsWobaA/k0R7sW63/71w6KsFHTsaxh7486Ue58Z2y+hrE6yVETJvjWjFb
+	WNAYe5O8VNOY+NLLamnzEeXTXAMqxtF4EnqRveevA+TZt+eC1U+O0AlCRc1o6ZM+
+	sTZXpdZYy9QcZQT+KCjF2HCE3PRkSOZqC+N3UUITSHlDQUXtjq0XBZ5bSIqb11S7
+	30hsoTcyxRTeEhTKEc0rJoCC+qo/klVimIhz6c/5oSYvpdyxYSVURu1x9bCQMhPT
+	mIOWWA==
 Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d9483u9nr-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d96k9ahfx-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 02 Apr 2026 06:16:13 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2b0bf2b3879so13550865ad.1
-        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 23:16:13 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 02 Apr 2026 06:16:18 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2b2523e0299so15291515ad.3
+        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 23:16:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775110573; x=1775715373; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=mPXcXgDL9LwDyWtOO4mR1I5ylhidkezebiRyWUGe/Dc=;
-        b=BX8jSw479mjGmzMDKFudN8Rz1iiXrOtUCIU0YeV3XcQqZ6Gbp1jjNfuUlMwIjtwUYE
-         PQtvOJOCQcoj6hT0SdABcbF8jMwxYhdg5jM0MawbH+RP1Zf7oR+yH8cbTb0jcP60ZOJT
-         gj5njttYrH03lGGHFp2PntobDq2FzY4iKiyKTM5t949ftcIFlj3GjbvhQWoyv5h2nBtm
-         BvT4kZHWLj4/3ZUEBuoYV5/cNYJkgeLYfxa+Arf5LZplVB7WFLNN9zfCarbkm5WMUkOn
-         1EQnEG3U1KRGpKccsUzukYrZ5OgqNa7YQgbCRNzbzJcIRebKN6ZvD7gsVv2DaiuZulha
-         WN8Q==
+        d=oss.qualcomm.com; s=google; t=1775110578; x=1775715378; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=lwKlEZFKuVVGAIbg74e0t2WyYC1u6+RUM14UYJG2vAA=;
+        b=RCo/XH48oFYPkTRAWH0niKdupeKx0345JujHMrx15LpFlDqKWV+hYWbj2rQh/eDKM9
+         xaRZ9pM27BcUkn4rlIiWDEReQgy3mg/SCERZ/B8Z1z0+O7MMgUI6jnk0TnxHEqhWZqxf
+         yIOQ6FI9lgs77y/NhmckCLAh/OqODSQhvUECe0aHtUjucob+9R8ytUsQDVysnZWOUbcs
+         wXLv9pvJRX7mPUEkh7XOQ9Aty7N86zcVUwBd6awcafh0qI+82y4gzzB2mrPcfTSs3Kzi
+         CZMRi500dOYr/asX1/1RwuxvaXMHIHDpdwPIZCQML+Z44lOfN19BmiaAJ3eov4gsJi/I
+         1ZKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775110573; x=1775715373;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=mPXcXgDL9LwDyWtOO4mR1I5ylhidkezebiRyWUGe/Dc=;
-        b=XaeqTzys9QoUc83YBjTgdNeyietLwry06w101kELBLI9xwxRU12lR3DYRoIoMMK4MZ
-         4jA3Ncjk3cG/lbSSMnTE2prK4q7raj9szTVXcnnqWjf69nDpMPACdt8fsnVt5Sc1acBN
-         EtEpzG4F0Ck2rGKN4zuCOY1/pruQELJUwwOvHgw7T+ovk7XIlglPegqFPZZGqPChdxHi
-         rEFkCTvaB8l5TemcU67oLtmLbGdCPVAAPIEiJHr1eCHoWON2BdF1B8fcFOl8QwKOq9H0
-         4kHn++BGj0051QLedKWoZBRk/kUHXh4dDy9P67OuXec4V7mwJVDAtMW3necuy2+l7PvW
-         jyVQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUsk55MgrSn0pkYJhJT1E7cc9pAJcEJnGZLuEXMt0/avaAwoPeIZUvMRAGthRY8GmkEiNmH8FKQZrV4@vger.kernel.org
-X-Gm-Message-State: AOJu0YwpZd1HPSMX2h9sZUug13FcaM3jF9HIrGXGPzkpMvvFvlaKocEX
-	gJf+/PLSQLEHJZYtAGKj3sNHoyyB/IQFq5nn/aADD9w6r3URRztFqZ0vpKgwGeE4FyrrZr7Ac0h
-	WUpfDO80g112pQJJUUvJkNLXMVGoYIEFw087DsTzCR8o899B4fF5uhp1mDlDpVQ9K
-X-Gm-Gg: AeBDietEIW6SA1p2ACha1nLnqW6nmS4f1O1M16JK5Qm3xACqf8eLFqlcWexqEnRdSTH
-	iDLcszTUvLQ7XTgpYxoJ15XOYCPmJ0KSIJm7WIhIVInNStOU69AfFIqaPnKThq65NgaVRcuSZjl
-	xTsnqb3ITM7xJqbL+x4xlZZ8M/q6XJk4GgbivL4+20fCN8glvNA4DI7x6EgOpiNXWYEJlmMS7lL
-	jJGwLBbR2b+XRhlqgb+mmN7qXUSW8Z3T/+QDxPakocNgIX8aCCIcUZlBjaA2sSf/1fhnQAHCzHY
-	JhjuzUg6ZGwXoOK2XF0SYf0T27Vg/Pwo/cR07keFIP9l3aURl6ZhGWOh3wc/PwK8l/qw5l84Ew5
-	ye6Njg2NsEp89OFPnWB5HFC+ei+RtvRIpg7MxSFUiE07NBrVn9Y2Z
-X-Received: by 2002:a17:902:e785:b0:2b0:a980:367c with SMTP id d9443c01a7336-2b269ae0363mr63090815ad.2.1775110572799;
-        Wed, 01 Apr 2026 23:16:12 -0700 (PDT)
-X-Received: by 2002:a17:902:e785:b0:2b0:a980:367c with SMTP id d9443c01a7336-2b269ae0363mr63090645ad.2.1775110572384;
-        Wed, 01 Apr 2026 23:16:12 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1775110578; x=1775715378;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=lwKlEZFKuVVGAIbg74e0t2WyYC1u6+RUM14UYJG2vAA=;
+        b=gR7Vw33vL6fK7IMSDLTuwPuaNK8vGNUtID87kMWplhUFZNv5tHhWcgtXBHgTbTG26t
+         wQNxcQ7C+1DgTnE5yb03HnwIIMnypLXgAeBoANVz0BgazgzanxVaujTcmYm5SivSMnYz
+         A3qGi9pefId6GKcLd0FENwPZppjbEb6fNnESpMyYnXz5vTEDGlmPFvbKKtRlpcsxKUwJ
+         FHLv6rhZGt0AVMy7uGjDuS7kaCvhbgEWFx3uKp05nMVaXMJ+5Del9a5jOQY/1oRabffk
+         nITmXQixO5oJo6UgE956vbDIRVVO7KzVjF5sZpDeA79R3ghiN9xl8Lkf6P0q4jv9G2c5
+         DGPw==
+X-Forwarded-Encrypted: i=1; AJvYcCUm/xz/b7wtp+pBDO3qsON+1JjrzsN1GUPIQOTb0BSTRnUf9Qqdm74JA70+DIMWtAQg9/UdoUD0QwEM@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw8god1GF2wXNZh4Nyxw4yH/IeUtGRDzvQ3FjYdRjm4MSVn1dTG
+	1GnxYNaoyomgEBsgSP5nJyCivBo3bgSYj6MwbCI/FkvQRkoqAX8Aagq8j4+ecxiKuFQdhwqQnnN
+	1X0kyOXix3xfRG/JC+N6P9U/FJrusEiy3naKRlOrbuOyCg8wWbPYStnlAmFG8AM8D
+X-Gm-Gg: AeBDiesPR0tyry0Lbui+3sV2gBrNY8SXuMcyFxK9R90vC+4PoITTdTX71RraCyQL0oV
+	JyrGlRtYD3N5I3X9oAOMs8mBhooIMIE8w/zXXsiwtAr57lEsvZdvqQSueV+KkhkuN+KNs93bphY
+	hBvoFV+JRL56KM96BmBtIKIm8o0RP4S3llZNyR61zPyKF8TWCe0oZ8cz9mUUs1yAFd27s/9jNsV
+	/fgYT38iCgHWzwl4fuoBpqo/BtZkqRD5e+SyOAWuwbdq4bpkGMbf49A9lC/pPlwuxi9TksydQKz
+	V43Zj/HWnH9Q6dVCPybfKBFdLCblRvxys7sHAYjw45rhUHI1HHD2MxsvdoWqZUXuHTarcW/f0j1
+	LpwFLPv7e3iKOrjXBCoMdsE8BckCWjeDyjZCBNSCrUBTANZ0ZKW9I
+X-Received: by 2002:a17:902:c94d:b0:2b0:659e:97bb with SMTP id d9443c01a7336-2b269ce4fb4mr66874245ad.46.1775110577885;
+        Wed, 01 Apr 2026 23:16:17 -0700 (PDT)
+X-Received: by 2002:a17:902:c94d:b0:2b0:659e:97bb with SMTP id d9443c01a7336-2b269ce4fb4mr66873845ad.46.1775110577405;
+        Wed, 01 Apr 2026 23:16:17 -0700 (PDT)
 Received: from hu-jkona-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b2749cbc58sm16538615ad.78.2026.04.01.23.16.07
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b2749cbc58sm16538615ad.78.2026.04.01.23.16.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Apr 2026 23:16:11 -0700 (PDT)
+        Wed, 01 Apr 2026 23:16:16 -0700 (PDT)
 From: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
-Subject: [PATCH 0/4] Add camera clock controller support on Glymur platform
-Date: Thu, 02 Apr 2026 11:45:42 +0530
-Message-Id: <20260402-glymur_camcc-v1-0-e8da05a21da7@oss.qualcomm.com>
+Date: Thu, 02 Apr 2026 11:45:43 +0530
+Subject: [PATCH 1/4] dt-bindings: clock: qcom: Add Glymur camera clock
+ controller
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -87,10 +90,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAI4JzmkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDEwND3fScytzSovjkxNzkZN2UVCNDcxPTlCRTiyQloJaCotS0zAqwcdG
- xtbUACmE4v14AAAA=
-X-Change-ID: 20260401-glymur_camcc-de21745db58b
+Message-Id: <20260402-glymur_camcc-v1-1-e8da05a21da7@oss.qualcomm.com>
+References: <20260402-glymur_camcc-v1-0-e8da05a21da7@oss.qualcomm.com>
+In-Reply-To: <20260402-glymur_camcc-v1-0-e8da05a21da7@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
         Michael Turquette <mturquette@baylibre.com>,
         Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -105,55 +107,197 @@ Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Authority-Analysis: v=2.4 cv=RYydyltv c=1 sm=1 tr=0 ts=69ce09ad cx=c_pps
+X-Authority-Analysis: v=2.4 cv=doLWylg4 c=1 sm=1 tr=0 ts=69ce09b2 cx=c_pps
  a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=HjKqFMqo481W0hlq81sA:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAyMDA1MyBTYWx0ZWRfX1dj1T3vTKa64
- iNw/hGVputAQbP0hdXZ3H4PkS+nHlHRgNkKYu4JA+/EORIOkL3C6Ees0QETmc2SFWeDYJWYdu6E
- hMaY5W8UKXO+lkoz6QuJs1SLDh2lf1JiNbSmIZxUMA6Zrs0zQViDFfOignxReF5oqhwp29+IsTg
- tN4h0ziVl83ZAXxmZHtrBkvXDxZIBebuNFvP10R2clpBRZ3zM+h2assfcdCi/bkwCog1iCLEFc2
- htM5jO47uAyx0KzrcqrzNoImQN6uSEi5SY2VgzTBUeFY2aHZA5zByN+GuoBQ8yZQlt7y0ZlWZiV
- UL/DfQLnTpxhE7pDWMYkgLZHzmop4KCzR5x8M1wsj84EpSn5IwhT+RZ8lBfs6+Qok7VDMuFgpUu
- BGqv+3ToMulkG6kGl/ZFBa8PrnO9mZqgRnu8/oi+FN8hmpdi5EzAFzHpwwjsZrL4qS2fFBgJ5fJ
- e9W4M1kQUe78CIkSySQ==
-X-Proofpoint-ORIG-GUID: V-wV4ZmLdznqNLwZiSKSAAHGTcKqcxvH
-X-Proofpoint-GUID: V-wV4ZmLdznqNLwZiSKSAAHGTcKqcxvH
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=Dk9EUgma8fqr-VUMxRAA:9 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: xyY4_XYvw4M0tKsLxpu1keebipU-QOZG
+X-Proofpoint-GUID: xyY4_XYvw4M0tKsLxpu1keebipU-QOZG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAyMDA1MyBTYWx0ZWRfX8ySXSQsi9biU
+ gZU7WJjAR3fPUQHAN9gLCCayHs8bV1NUtpka/IjlObL2alAdsgtwL8uzeE+WXKSamhNh/miU6Iq
+ KKNhpCp7s3FERvFUaS+2XpbBZJlmW/GVe9/lR27ZizZ7xjwzaSTBSjKdHyutv6W0wKVo8pHLZgW
+ AK9JnG4PCqBykrQIX7T6Z0CNJmIMWPRZCS86GC1vEX3+K7fQF6TM8rQ3U/MDCTlVYrrKd7dsNQx
+ 3h6zINiIUt0MiGgcpp29hjb4ldRMrtaqL+sWct9gv0yIlKU8MOH3HRcV4s++cdYbxIVjWH6r0av
+ GCAljC82QmCVSTuaMH+9cYhAH8SBQfBi3m7NFE32Vbh8MdCVV4FF4XmEeDNk1fd9NDghQLhuX1D
+ k24OzVB68zK1eT5noI4rJLnZSDj5EONmg1fQjlMok21l7HJJe2t58TqXk6ZbTD5CqlvtlU8ST45
+ Lo/eHykbyaDzqq+MTig==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-02_01,2026-04-01_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 clxscore=1015 adultscore=0 bulkscore=0
- spamscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604020053
+ phishscore=0 bulkscore=0 impostorscore=0 spamscore=0 suspectscore=0
+ clxscore=1015 lowpriorityscore=0 malwarescore=0 priorityscore=1501
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2604020053
 
-Add support for camera clock controller on Glymur platform
-for camera clients to be able to request for camcc clocks.
+Add device tree bindings for the camera clock controller on
+Qualcomm Glymur SoC.
 
 Signed-off-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
 ---
-Jagadeesh Kona (4):
-      dt-bindings: clock: qcom: Add Glymur camera clock controller
-      clk: qcom: camcc-glymur: Add camera clock controller driver
-      arm64: dts: qcom: glymur: Add camera clock controller support
-      arm64: defconfig: Enable CAMCC driver on Qualcomm Glymur SoC
+ .../bindings/clock/qcom,x1e80100-camcc.yaml        |   3 +
+ include/dt-bindings/clock/qcom,glymur-camcc.h      | 122 +++++++++++++++++++++
+ 2 files changed, 125 insertions(+)
 
- .../bindings/clock/qcom,x1e80100-camcc.yaml        |    3 +
- arch/arm64/boot/dts/qcom/glymur.dtsi               |   16 +
- arch/arm64/configs/defconfig                       |    1 +
- drivers/clk/qcom/Kconfig                           |   10 +
- drivers/clk/qcom/Makefile                          |    1 +
- drivers/clk/qcom/camcc-glymur.c                    | 2280 ++++++++++++++++++++
- include/dt-bindings/clock/qcom,glymur-camcc.h      |  122 ++
- 7 files changed, 2433 insertions(+)
----
-base-commit: bd0f139e5fc11182777b81cefc3893ea508544ec
-change-id: 20260401-glymur_camcc-de21745db58b
+diff --git a/Documentation/devicetree/bindings/clock/qcom,x1e80100-camcc.yaml b/Documentation/devicetree/bindings/clock/qcom,x1e80100-camcc.yaml
+index 938a2f1ff3fca899b5708101df7f8aa07e943336..93a379a4347cfc83f647e6f52d2af2713cd06514 100644
+--- a/Documentation/devicetree/bindings/clock/qcom,x1e80100-camcc.yaml
++++ b/Documentation/devicetree/bindings/clock/qcom,x1e80100-camcc.yaml
+@@ -8,12 +8,14 @@ title: Qualcomm Camera Clock & Reset Controller on x1e80100
+ 
+ maintainers:
+   - Bryan O'Donoghue <bryan.odonoghue@linaro.org>
++  - Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+ 
+ description: |
+   Qualcomm camera clock control module provides the clocks, resets and power
+   domains on x1e80100.
+ 
+   See also:
++    include/dt-bindings/clock/qcom,glymur-camcc.h
+     include/dt-bindings/clock/qcom,x1e80100-camcc.h
+ 
+ allOf:
+@@ -22,6 +24,7 @@ allOf:
+ properties:
+   compatible:
+     enum:
++      - qcom,glymur-camcc
+       - qcom,x1e80100-camcc
+ 
+   reg:
+diff --git a/include/dt-bindings/clock/qcom,glymur-camcc.h b/include/dt-bindings/clock/qcom,glymur-camcc.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..0c93fc77ef268b5971e671c57ea5cfca3d630471
+--- /dev/null
++++ b/include/dt-bindings/clock/qcom,glymur-camcc.h
+@@ -0,0 +1,122 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#ifndef _DT_BINDINGS_CLK_QCOM_CAM_CC_GLYMUR_H
++#define _DT_BINDINGS_CLK_QCOM_CAM_CC_GLYMUR_H
++
++/* CAM_CC clocks */
++#define CAM_CC_BPS_AHB_CLK					0
++#define CAM_CC_BPS_CLK						1
++#define CAM_CC_BPS_CLK_SRC					2
++#define CAM_CC_BPS_FAST_AHB_CLK					3
++#define CAM_CC_CAMNOC_AXI_NRT_CLK				4
++#define CAM_CC_CAMNOC_AXI_RT_CLK				5
++#define CAM_CC_CAMNOC_AXI_RT_CLK_SRC				6
++#define CAM_CC_CAMNOC_DCD_XO_CLK				7
++#define CAM_CC_CAMNOC_XO_CLK					8
++#define CAM_CC_CCI_0_CLK					9
++#define CAM_CC_CCI_0_CLK_SRC					10
++#define CAM_CC_CCI_1_CLK					11
++#define CAM_CC_CCI_1_CLK_SRC					12
++#define CAM_CC_CORE_AHB_CLK					13
++#define CAM_CC_CPAS_AHB_CLK					14
++#define CAM_CC_CPAS_BPS_CLK					15
++#define CAM_CC_CPAS_FAST_AHB_CLK				16
++#define CAM_CC_CPAS_IFE_0_CLK					17
++#define CAM_CC_CPAS_IFE_1_CLK					18
++#define CAM_CC_CPAS_IFE_LITE_CLK				19
++#define CAM_CC_CPAS_IPE_NPS_CLK					20
++#define CAM_CC_CPHY_RX_CLK_SRC					21
++#define CAM_CC_CSI0PHYTIMER_CLK					22
++#define CAM_CC_CSI0PHYTIMER_CLK_SRC				23
++#define CAM_CC_CSI1PHYTIMER_CLK					24
++#define CAM_CC_CSI1PHYTIMER_CLK_SRC				25
++#define CAM_CC_CSI4PHYTIMER_CLK					26
++#define CAM_CC_CSI4PHYTIMER_CLK_SRC				27
++#define CAM_CC_CSID_CLK						28
++#define CAM_CC_CSID_CLK_SRC					29
++#define CAM_CC_CSID_CSIPHY_RX_CLK				30
++#define CAM_CC_CSIPHY0_CLK					31
++#define CAM_CC_CSIPHY1_CLK					32
++#define CAM_CC_CSIPHY4_CLK					33
++#define CAM_CC_FAST_AHB_CLK_SRC					34
++#define CAM_CC_GDSC_CLK						35
++#define CAM_CC_ICP_AHB_CLK					36
++#define CAM_CC_ICP_CLK						37
++#define CAM_CC_ICP_CLK_SRC					38
++#define CAM_CC_IFE_0_CLK					39
++#define CAM_CC_IFE_0_CLK_SRC					40
++#define CAM_CC_IFE_0_DSP_CLK					41
++#define CAM_CC_IFE_0_FAST_AHB_CLK				42
++#define CAM_CC_IFE_1_CLK					43
++#define CAM_CC_IFE_1_CLK_SRC					44
++#define CAM_CC_IFE_1_DSP_CLK					45
++#define CAM_CC_IFE_1_FAST_AHB_CLK				46
++#define CAM_CC_IFE_LITE_AHB_CLK					47
++#define CAM_CC_IFE_LITE_CLK					48
++#define CAM_CC_IFE_LITE_CLK_SRC					49
++#define CAM_CC_IFE_LITE_CPHY_RX_CLK				50
++#define CAM_CC_IFE_LITE_CSID_CLK				51
++#define CAM_CC_IFE_LITE_CSID_CLK_SRC				52
++#define CAM_CC_IPE_NPS_AHB_CLK					53
++#define CAM_CC_IPE_NPS_CLK					54
++#define CAM_CC_IPE_NPS_CLK_SRC					55
++#define CAM_CC_IPE_NPS_FAST_AHB_CLK				56
++#define CAM_CC_IPE_PPS_CLK					57
++#define CAM_CC_IPE_PPS_FAST_AHB_CLK				58
++#define CAM_CC_JPEG_CLK						59
++#define CAM_CC_JPEG_CLK_SRC					60
++#define CAM_CC_MCLK0_CLK					61
++#define CAM_CC_MCLK0_CLK_SRC					62
++#define CAM_CC_MCLK1_CLK					63
++#define CAM_CC_MCLK1_CLK_SRC					64
++#define CAM_CC_MCLK2_CLK					65
++#define CAM_CC_MCLK2_CLK_SRC					66
++#define CAM_CC_MCLK3_CLK					67
++#define CAM_CC_MCLK3_CLK_SRC					68
++#define CAM_CC_MCLK4_CLK					69
++#define CAM_CC_MCLK4_CLK_SRC					70
++#define CAM_CC_MCLK5_CLK					71
++#define CAM_CC_MCLK5_CLK_SRC					72
++#define CAM_CC_MCLK6_CLK					73
++#define CAM_CC_MCLK6_CLK_SRC					74
++#define CAM_CC_MCLK7_CLK					75
++#define CAM_CC_MCLK7_CLK_SRC					76
++#define CAM_CC_PLL0						77
++#define CAM_CC_PLL0_OUT_EVEN					78
++#define CAM_CC_PLL0_OUT_ODD					79
++#define CAM_CC_PLL1						80
++#define CAM_CC_PLL1_OUT_EVEN					81
++#define CAM_CC_PLL2						82
++#define CAM_CC_PLL3						83
++#define CAM_CC_PLL3_OUT_EVEN					84
++#define CAM_CC_PLL4						85
++#define CAM_CC_PLL4_OUT_EVEN					86
++#define CAM_CC_PLL5						87
++#define CAM_CC_PLL5_OUT_EVEN					88
++#define CAM_CC_QDSS_DEBUG_CLK					89
++#define CAM_CC_QDSS_DEBUG_CLK_SRC				90
++#define CAM_CC_QDSS_DEBUG_XO_CLK				91
++#define CAM_CC_SLEEP_CLK					92
++#define CAM_CC_SLEEP_CLK_SRC					93
++#define CAM_CC_SLOW_AHB_CLK_SRC					94
++#define CAM_CC_XO_CLK_SRC					95
++
++/* CAM_CC power domains */
++#define CAM_CC_BPS_GDSC						0
++#define CAM_CC_IFE_0_GDSC					1
++#define CAM_CC_IFE_1_GDSC					2
++#define CAM_CC_IPE_0_GDSC					3
++#define CAM_CC_TITAN_TOP_GDSC					4
++
++/* CAM_CC resets */
++#define CAM_CC_BPS_BCR						0
++#define CAM_CC_ICP_BCR						1
++#define CAM_CC_IFE_0_BCR					2
++#define CAM_CC_IFE_1_BCR					3
++#define CAM_CC_IPE_0_BCR					4
++#define CAM_CC_QDSS_DEBUG_BCR					5
++
++#endif
 
-Best regards,
 -- 
-Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+2.34.1
 
