@@ -1,86 +1,191 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD5843EE1EF
-	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 14:52:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E7FE42E9757
+	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 15:11:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775141584; cv=none; b=TbM5N/9BWs9e32Ss+AYzCgH6rr88/CsP4FCC5/i9ZzCI/0mCYFJ42rQcN6pYXjqggaHVcfIgGducB4KfxUMdO17jAf8AO+9hldnGRaeg5B3g4ITgQeH/K4lBxfqxV1fkA1Zt7/6bp8DIYn6iCSyqI7DIy0W564I6KISUEG0XNBk=
+	t=1775142694; cv=none; b=dRSKqlb+lssQpGqzP2PY2Gf0TZMysRXLgG3nyIAsI0zgOl73AxiZCmF0748LLuwKVb7SFgwm3al4dW7mPtboBzQt6p0kEBAzNpGnrX62RFq7MpIWs9hop+NZOfM17hUBV3yJsDw0OqhttTjw6mRTRwit4FxZI9SjCFfLTMZlr2g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775141584; c=relaxed/simple;
-	bh=Rrlj+jv0dYusYMqV/Gk1346M6zmQ4iEIcTFJGDNeEcM=;
+	s=arc-20240116; t=1775142694; c=relaxed/simple;
+	bh=Cu6uyomYmnumjabskOuIe1bm69rCQyKSO2rE7I8UmIw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n/kS6EMS5t08V+Z2MVSQ1Nttpxl7LmwywbHPqHckH+rS06KP1HRF8DQTaax9mPTkGnvdXX4Y/pZHwoQTRTIXytILo9Jp0rjtwmvgN4NpAyjonQ8cBu5uW3qY1dyioAM3fVwC3L6CNZ7Qfk2aRcD/APKf6CFlwdtT4Dbcmz6XB+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=ZM6RUddz; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=LKa7ml1pPIKWtmPV2ud1kO4g/ibCQ87dRIpnrfewprR+oWq8o2HDEsZbdDoROLwY+2wa8FUvXUpOHoK7fM68YqgyfLbkmvlFlNhk7Ov1WzctecXp2VsnmaZofDaDbiz3yipOUXhMEv4vdtyaz4Lgr0YWn7uAfgg+ys6ifKtTLlg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=AB8j4l+T; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="ZM6RUddz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=Rrlj
-	+jv0dYusYMqV/Gk1346M6zmQ4iEIcTFJGDNeEcM=; b=ZM6RUddzmn6xrerW8+4n
-	xSJFNeIo0QTmVoY3qYtd5nvDWgiTpXSyiFtGZhvURYzNnZS6RByGk8bGnwxHYO4H
-	cA6Gc4kiuccak9sYUnEAaItfoB/sNCIJDQ7z5LZw0YdRnx73n+pRP/3Vbr8WfFqt
-	jT510PL2j/FT1BJuIPPgyqHAQs01s20xnEnjGIzkCoB6pkS8PGn0aEqcubpLf9c5
-	prMgBhOaeOL/7BsfW6di9EMrqeFG0xwfiuNxg2f2aQ4Y/JuKJmDrYxQ8pouf1p10
-	im5kIPyGJeB9LxkKRYyYTV8gMXinZSFwnZMmMb3VnTWzV5IAQO9Cx55YWa5n/8T6
-	PA==
-Received: (qmail 2544522 invoked from network); 2 Apr 2026 16:52:56 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 2 Apr 2026 16:52:56 +0200
-X-UD-Smtp-Session: l3s3148p1@wSgVW3tOoa5UhsJN
-Date: Thu, 2 Apr 2026 16:52:55 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-renesas-soc@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-Subject: Re: [RFC PATCH] dt-bindings: incomplete-devices: allow additional
- properties
-Message-ID: <ac6Cx9t7AKShRIWY@shikoro>
-References: <20260402123444.14177-2-wsa+renesas@sang-engineering.com>
- <c2095c20-834d-4f52-aa82-07f0cd6fb228@kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="AB8j4l+T"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4FD201596
+	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 08:11:26 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id D340F3F7D8
+	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 08:11:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1775142692; bh=Cu6uyomYmnumjabskOuIe1bm69rCQyKSO2rE7I8UmIw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=AB8j4l+T5lk6vmv+TrqsMahRbzp6kNezbdbEVIXAkAwvZd6Oo7A1+lcUjJnr6E8Sl
+	 +5j4nDLihu+tF1nxj/Hwa/cpPXMKxQBtdup0LuOOM98orhO9AGGQ2IHkGf613Khv0R
+	 fXb2lbaD4DWR37phqPAui2YUgqBtDMkvnlb64eVI=
+Date: Thu, 2 Apr 2026 16:11:22 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Khushal Chitturi <khushalchitturi@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	sudeep.holla@kernel.org, lpieralisi@kernel.org, pawel.moll@arm.com,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: arm: arm,vexpress-scc: convert to DT schema
+Message-ID: <ac6HGqZM15ijTZFl@e142607>
+References: <20260331172959.35745-1-khushalchitturi@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="oiEgiLf5RpMBkNh/"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <c2095c20-834d-4f52-aa82-07f0cd6fb228@kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260331172959.35745-1-khushalchitturi@gmail.com>
 
+Hello,
 
---oiEgiLf5RpMBkNh/
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thanks for your patch, I have some suggestions to improve it.
 
+On Tue, Mar 31, 2026 at 10:59:59PM +0530, Khushal Chitturi wrote:
+> Convert the ARM Versatile Express Serial Configuration Controller
+> bindings to DT schema.
+> 
+> Signed-off-by: Khushal Chitturi <khushalchitturi@gmail.com>
+> ---
+> Note:
+> * This patch is part of the GSoC2026 application process for device tree bindings conversions
+> * https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Device-Tree-Bindings
+> 
+>  .../bindings/arm/arm,vexpress-scc.yaml        | 51 +++++++++++++++++++
+>  .../devicetree/bindings/arm/vexpress-scc.txt  | 33 ------------
+>  2 files changed, 51 insertions(+), 33 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/arm/arm,vexpress-scc.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/arm/vexpress-scc.txt
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/arm,vexpress-scc.yaml b/Documentation/devicetree/bindings/arm/arm,vexpress-scc.yaml
+> new file mode 100644
+> index 000000000000..7870410211a0
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/arm/arm,vexpress-scc.yaml
+> @@ -0,0 +1,51 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/arm/arm,vexpress-scc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: ARM Versatile Express Serial Configuration Controller
+> +
+> +maintainers:
+> +  - Pawel Moll <pawel.moll@arm.com>
 
-> This solves nothing - the entire point is to have warning for
-> 'broken-usage-of-incorrect-compatible'.
+I'm not sure Pawel wants to be maintainer for this file, maybe add me and Sudeep
+instead. I'd also wait until Pawel replies.
 
-Ok, this answers my question. Thanks!
+> +
+> +description: |
+> +  Test chips for ARM Versatile Express platform implement SCC (Serial
+> +  Configuration Controller) interface, used to set initial conditions
+> +  for the test chip.
+> +
+> +  In some cases its registers are also mapped in normal address space
+> +  and can be used to obtain runtime information about the chip internals
+> +  (like silicon temperature sensors) and as interface to other subsystems
+> +  like platform configuration control and power management.
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - pattern: "^arm,vexpress-scc,[a-z0-9_-]+$"
 
+This is way too generic. I suggest you have a look at bindings/arm/arm,vexpress-juno.yaml
+and see how we defined the possible values for the compatible string there. For the initial
+conversion I would suggest you only define as valid the "arm,vexpress-scc,v2p-ca15_a7" value
+but in a way similar to Juno's file so that it can be extended in the future.
 
---oiEgiLf5RpMBkNh/
-Content-Type: application/pgp-signature; name="signature.asc"
+Best regards,
+Liviu
 
------BEGIN PGP SIGNATURE-----
+> +      - const: arm,vexpress-scc
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +required:
+> +  - compatible
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    bus {
+> +        #address-cells = <2>;
+> +        #size-cells = <2>;
+> +
+> +        scc@7fff0000 {
+> +            compatible = "arm,vexpress-scc,v2p-ca15_a7", "arm,vexpress-scc";
+> +            reg = <0 0x7fff0000 0 0x1000>;
+> +            interrupts = <0 95 4>;
+> +        };
+> +    };
+> +...
+> diff --git a/Documentation/devicetree/bindings/arm/vexpress-scc.txt b/Documentation/devicetree/bindings/arm/vexpress-scc.txt
+> deleted file mode 100644
+> index ae5043e42e5d..000000000000
+> --- a/Documentation/devicetree/bindings/arm/vexpress-scc.txt
+> +++ /dev/null
+> @@ -1,33 +0,0 @@
+> -ARM Versatile Express Serial Configuration Controller
+> ------------------------------------------------------
+> -
+> -Test chips for ARM Versatile Express platform implement SCC (Serial
+> -Configuration Controller) interface, used to set initial conditions
+> -for the test chip.
+> -
+> -In some cases its registers are also mapped in normal address space
+> -and can be used to obtain runtime information about the chip internals
+> -(like silicon temperature sensors) and as interface to other subsystems
+> -like platform configuration control and power management.
+> -
+> -Required properties:
+> -
+> -- compatible value: "arm,vexpress-scc,<model>", "arm,vexpress-scc";
+> -		    where <model> is the full tile model name (as used
+> -		    in the tile's Technical Reference Manual),
+> -		    eg. for Coretile Express A15x2 A7x3 (V2P-CA15_A7):
+> -	compatible = "arm,vexpress-scc,v2p-ca15_a7", "arm,vexpress-scc";
+> -
+> -Optional properties:
+> -
+> -- reg: when the SCC is memory mapped, physical address and size of the
+> -       registers window
+> -- interrupts: when the SCC can generate a system-level interrupt
+> -
+> -Example:
+> -
+> -	scc@7fff0000 {
+> -		compatible = "arm,vexpress-scc,v2p-ca15_a7", "arm,vexpress-scc";
+> -		reg = <0 0x7fff0000 0 0x1000>;
+> -		interrupts = <0 95 4>;
+> -	};
+> -- 
+> 2.53.0
+> 
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmnOgsMACgkQFA3kzBSg
-Kba8Bg/9FhSl8BuQxJj9LsGIdkzOgo1EcSO+VDnT9ZHm8IJGa0UzsfCk2wb+ApWa
-FVtyCkmDHUwsYnducuqjQ4gTR0wcLIvfMqLtsDNnYnoZ7AsoWqvRbVeXLcxGedOj
-Qzn6gfwHifKKYkQDXql4AbF/0z3N/hnZF0lIVaFCOkSRFU1U2+VykTaHOaHI7iy8
-eerbHoFKeCEhmZKlDJCpwVTuLS7TWupXNrdntX/98KsBIiLJmGZUlnNzVGhvWj0D
-StllQmMveC7v6IR48cFvFzZJo4WfDBdFb7W2K8oUDLGAmwaPHg058lun6vMjiIku
-JsskUngUncqOwd44gKWjQevN9DMRQYpnOt8D/qdHR4TcYmnD3hgZqFaSyLmZSAiO
-lxS7H/H8NGgmeYev5Yw7mbiP6Wlvi2RNTl5lWPCzS/RGqfwKvRe73Bui4ubsKlvs
-iUcsFG0bOGsWj5vyFp5uZSz1pMX7VdB4pigsRwkmk4a8UO7cLvC7StJksNdGZiuo
-fwgEWR75pZNVHi9slLDVf+SCXdY7lD+f6TW6OxrO8FJUMc3rFeinNf6Sp2XCNzRm
-fchXrbkRY9r+6KRs8hVr6t0vTt5Q77IyLWuil9higH5tc/6GDrifGVjDVclIvbvu
-fk7rpm0Yg9/LrIi31/bMvq9FjtrrWFLIw5bt/urU3gFd6EB5xaY=
-=9NZf
------END PGP SIGNATURE-----
-
---oiEgiLf5RpMBkNh/--
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
