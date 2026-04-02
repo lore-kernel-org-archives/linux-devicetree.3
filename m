@@ -1,138 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 954602E0412;
-	Thu,  2 Apr 2026 13:20:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5439A2ED17B;
+	Thu,  2 Apr 2026 13:20:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775136001; cv=none; b=jz/h2U8fZlH07kLhGvvEA8tzDfM8xV4YixOY024ec9NsR965OVYi4IyoivtY1RXrksaNTJRkaHA0bgZv7SL879ppOq+GmKFFFmW3lYDzjs5TGU29jp5E/svKdDLTkeSkJbp/CNlePzFSlz2bERhjVuvJau7qoU0tlFZ7q94LVT4=
+	t=1775136028; cv=none; b=X7eSoHcW1V83plk4cKkLb4BxngHkW6pKQjpquYnw8GYyieiIuIrv/YhnQLFibMg1KkupSObToK4viAEWBLYzXtxr6UWnHsRnSFiw9hI7MxXlEN9xdOIBeUkW2MR/vtk89/7NkJ1MQFQQiuipXi6uxN+7Btyn9/SdsOu7WAnS7a0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775136001; c=relaxed/simple;
-	bh=ecLaU4G/54jqRCpPPFTWuBYhs3EGYAaVEUPDTgbRrhQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GZrQ9BHihGoX9hi5BiH5x0kgxpwPsFzl3AcLtk/WG/oZN3xVwtLXgiB75zApB1MXPTouevmGFaRmTv8ygAwE2QTj1qtJo1/PGEJynefLMx3o9LoyzzIu4mGV1p85KuE+tyTPCgwV+0JMYpjayT+V2x3GoAeaQeroY14+M00mO7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jPo8kula; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775136028; c=relaxed/simple;
+	bh=kxfvKNpnPUSSNDsRLFTl96/5/ILvsbADfQ2wGRvooMM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sr8OPlVWaIwJGeud8T4ToF8VxtyWLFEhys7slAPGyqWIEYFTvQCE6BcnICZpmxUmUfi+ihz3yn41wwyRhQvBni+URkYoNapw/yVqMECHlaOfnFLr+QUbg6sLrLgM2EmxL9oO67Na1+a4bOtEQbOR1digUkjaP+yDa7/BbS5IQ74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=t1nEGBxJ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jPo8kula"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39E6CC116C6;
-	Thu,  2 Apr 2026 13:19:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="t1nEGBxJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68D92C116C6;
+	Thu,  2 Apr 2026 13:20:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775136001;
-	bh=ecLaU4G/54jqRCpPPFTWuBYhs3EGYAaVEUPDTgbRrhQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=jPo8kulaL1+fw0qkc9ETqp7HMGr0ezo/x/z6Fw6pBb8A7XM9xmsY0EUj+WLY8Noc5
-	 9CzYgbSZjkYepNTDmPHNxeA2V6TP+8b1cYvob2tfe0KAsZcdVtwH/CJIsRZAznaesh
-	 EfCbTCSMOOvzf0CjBbD9kLF/iopWhfUwD8ekZhsGrrlwdpyszYcffukWKGV/wkw3iE
-	 SUDm0HHD1iCT+jNVCu1fldDWaERURDAYUe9QV4LIHBqPWBrL8VNN8mrVTCHIDNQCot
-	 AR9vSymJagT8uSEI27YslZj5c4b9yLkTaZ3WuVnIJApSUQGLcs+y3gTTrWxOCKFWms
-	 xfVfQvEVx/nlw==
-Message-ID: <991f781f-e188-480f-933b-b9a342166446@kernel.org>
-Date: Thu, 2 Apr 2026 15:19:56 +0200
+	s=k20201202; t=1775136028;
+	bh=kxfvKNpnPUSSNDsRLFTl96/5/ILvsbADfQ2wGRvooMM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=t1nEGBxJ9Kfliv4fWM09v8L1FScradPi6PiRsS/6ogQ3RwdA1Gjp6lfjzBzdddWRg
+	 6dUpBO7GsS3cApLkha8kV3wYuqRQK6RYvNsy4Twgjbj5GY4jUFkZH9V+5oxDusaCYt
+	 3ihCHmFu6VTxoeKR9EwWLpB2hsK+uYmtH5siRKH2l//4G7HuE0QThOKHmxrxtMAvlb
+	 Y71RWM70hG2iYuk9gwIGoLnfQ+yvE1AV7hPQpPajhVdPLvhlLG2n3j4gpv1jWwudnR
+	 m6jJwpSCrtVlNFoDArNlKIO4PVA6jcASWne/TLofayzEfmcoY5WiTk4KKeMsXwCwB7
+	 amiabYDqEOBkA==
+Date: Thu, 2 Apr 2026 14:20:22 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Biju Das <biju.das.jz@bp.renesas.com>
+Cc: "biju.das.au" <biju.das.au@gmail.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	"magnus.damm" <magnus.damm@gmail.com>,
+	"linux-spi@vger.kernel.org" <linux-spi@vger.kernel.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH 0/2] Add Renesas RZ/G3L RSPI support
+Message-ID: <f6fd2e18-d5f8-40fe-a4d2-7894bd232da7@sirena.org.uk>
+References: <20260304074907.9697-1-biju.das.jz@bp.renesas.com>
+ <TY3PR01MB1134614237922A87C70AA685C8651A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: clock: qcom: document the Milos GX clock
- controller
-To: Luca Weiss <luca.weiss@fairphone.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260306-milos-gxclkctl-v1-0-00b09ee159a7@fairphone.com>
- <20260306-milos-gxclkctl-v1-1-00b09ee159a7@fairphone.com>
- <20260307-inventive-stingray-of-pride-5c2216@quoll>
- <768180d0-bab6-466f-9f5f-54b36f353bd6@kernel.org>
- <DHIO0VFBOHNX.381P06A2CRHAZ@fairphone.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <DHIO0VFBOHNX.381P06A2CRHAZ@fairphone.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ZMZYnA4LzdkTRpE/"
+Content-Disposition: inline
+In-Reply-To: <TY3PR01MB1134614237922A87C70AA685C8651A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+X-Cookie: <doogie> dpkg has bugs?  no way!
 
-On 02/04/2026 14:24, Luca Weiss wrote:
->>>> +  '#power-domain-cells':
->>>> +    const: 1
->>>> +
->>>> +  reg:
->>>> +    maxItems: 1
->>>
->>> reg should be the second property, like you have it in "required" part.
->>> I guess you copied it from kaanapali-gxclkctl.yaml, so lesson - qcom
->>> bindings have acceptable quality, but not good enough to take as correct
->>> starting point.
->>>
->>
->> OTOH, why this entire binding cannot be squashed in Kaanapali one?
->> What's the difference?
-> 
-> There's no GMXC power domain on Milos. Apart from that they're
-> compatible from a bindings perspective.
 
-Ah, right, I missed only two items here.
+--ZMZYnA4LzdkTRpE/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> 
-> However it can re-use include/dt-bindings/clock/qcom,kaanapali-gxclkctl.h
-> because the GX_CLKCTL_GX_GDSC definition would be identical.
+On Thu, Apr 02, 2026 at 01:00:28PM +0000, Biju Das wrote:
 
-Indeed and you use the same driver, so the header can be re-used. This
-should be explained in the commit msg.
+> Gentle ping.
 
-> 
-> And also the driver (which can be used as-is) would be identical. In
-> that driver qcom,kaanapali-gxclkctl.h is used so it makes sense to keep
-> with the kaanapali header, or not? Making a qcom,milos-gxclkctl.h with
-> the same definition is not wanted?
-> 
-Best regards,
-Krzysztof
+There's strongly negative feedback from Krzysztof...
+
+Please don't send content free pings and please allow a reasonable time
+for review.  People get busy, go on holiday, attend conferences and so=20
+on so unless there is some reason for urgency (like critical bug fixes)
+please allow at least a couple of weeks for review.  If there have been
+review comments then people may be waiting for those to be addressed.
+
+Sending content free pings adds to the mail volume (if they are seen at
+all) which is often the problem and since they can't be reviewed
+directly if something has gone wrong you'll have to resend the patches
+anyway, so sending again is generally a better approach though there are
+some other maintainers who like them - if in doubt look at how patches
+for the subsystem are normally handled.
+
+--ZMZYnA4LzdkTRpE/
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnObRUACgkQJNaLcl1U
+h9AIlAf+NGIq1DfBznaGP8gy3kdvIvyTbdfendU94b4R9X/2C0az+sqVo5OWIeu1
+yNl+4sURxpch24eD1Iub1KIrchQhMVYQb2PtmPi0xAAhx5A/Ro5TZ9E+kUC+0ecb
+4DHxRh1A1vTia1GRfulmFl4FkkcTo/rTpVCEMeCf4XBlUPRyb0BURaM2i3vISydn
+UyetbA2E8hw5cEh+NQvBqymwSKUnqLW+4C03COpHzfmYf0jepr9c3hgutyDiCDiz
+hV2fkR5OXi7FO/rOy07Psnwogcc9CxRjUlC/XbnvhFPWLPbCVcDgDL0DuRTgW0LV
+42LGxWjN2q9eEpbILnU0OWW2J3G5Xw==
+=ZThu
+-----END PGP SIGNATURE-----
+
+--ZMZYnA4LzdkTRpE/--
