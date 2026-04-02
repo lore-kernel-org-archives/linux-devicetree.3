@@ -1,741 +1,225 @@
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010046.outbound.protection.outlook.com [52.101.228.46])
+Received: from mail-m3285.qiye.163.com (mail-m3285.qiye.163.com [220.197.32.85])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 442C419F40A;
-	Thu,  2 Apr 2026 09:12:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775121154; cv=fail; b=JRjCk+eJuxfwIssE1kkmn+0nKl0OStNarH2SwfYDOURNNFtBMy/6XiSQ6BymHfFcyBGeieGwPqHBY9muyScCWXGCQgssMFrPjNm16XghOfmicuXsiRKBqhOula9jWKLJSRBZ/mr5LSw1709O7g1FusRetbl1ZAl80u3IMrAB8m4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775121154; c=relaxed/simple;
-	bh=+DWA2PUM+x2ZVzHzkCOABf0aeGcrTahod8MrOV93LOg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=eIFex7uLPOwl0GQYR8s/LS+97FgQ2zeUdIr9qbOUvc+xPcH9T3UZLtl6vYep+CfxJ96ULt9Bq39IC75KMWvq/fzljwvrd4IWM4eR/jB3l89czT/saPP6RXCYBkB3jqjWh7J0ca0/jrd0ObKm+SykRVXD1dWdpFG7eqDjaGxtyZI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=iLUJudyr; arc=fail smtp.client-ip=52.101.228.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C1C23644CC;
+	Thu,  2 Apr 2026 09:15:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.85
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775121311; cv=none; b=c6r5w1jRnjjQtgVY+qMnhP6wQ6UYU6nvKPoHvZQuPAWHsAzLPs98WgoUkiJIEy+DJel/psoEEH+61t44LpEL7MzYKHUjOW2ymVQTh4PNQgFCbx72i1T1/PP2Z0BebSn2QlFTn6WvB+mIN0+vj8w2k7RyLqkECTtG22bpx5htigI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775121311; c=relaxed/simple;
+	bh=aFtK8sQ8qOWs+W8tyZzAuGXF23VLU5IYLBNIEWLnsN8=;
+	h=Content-Type:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To; b=hLXOtSLhGahBOb7dVcbKOYkH/vifHs9wFB5r2jSHVPQ07vb0zff/wHijb695JZnk3BvfSx6lW1Wx5weOWG/RKdAHJoPZOLnWjs3w8DvVLT6PennnJMbMjDsZhBurXEaPKZTVf3WuiV56RYh+N9shH3Vf94j3i9m/tidXgUM248s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=hwYGHIkS; arc=none smtp.client-ip=220.197.32.85
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="iLUJudyr"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h7uA2P6jMsJT95v3CUI6RYFK5hvJ/Z5JIqsVqleV5sc5i6nHoO3s5LBIAP5Rv5q6rLF+3CUp/t2n0UouVeaxd1c1LgEjvq0BhX6A6dWE/pBTn52wrZJSf9C7dbPlsGENwQhE0jKo3i+BxV1c4yR5wh+l/zxAmRRY5coxG+wY8BxisyMyuxVsvGVdWsr2JFSjLnghd7bppnwIjnE3mYNogJwhPBh+4WPoTt8EE9lS5TBRPGwuyqVJXENii3XZmLuJCVZfabTJh8t/TVJi5XnDLO8455cPYTBLT1NU/OOoFjdrVdZTapGsjHOtweIKfWcgyZiyBSuNKIVqYR8gbcOYVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H7QELm9x2PGsQyAhdwZzl3QnWql1DyrAYx7zeHfvTuY=;
- b=Iu39LB0spVeF1uS/+l6l78dnZhNlnH4qvLvjLZLrEEe5wgLPfiL6Y8iWOtkD/Psy0sRLf/OpW7wgEUg7VtWOnnuwtvtwkaJSBEzy8USrn8LOeoGjXRuQMXMV/xNbg46CCatLXkxmOyjW4zulRxNamPHRtrgAtTVaYO+XHnZKFyJj5U20yoyNOc/POAfxJk4JmRkK8O3t6+2fMKilNWYOp8Djwq4q1kR1fqMq11YeSFaEK/c0H9DIoyEKLrG0Kaz0lCz+NNt6OyRN66saLQWRzkT1eawMDfDLiMDE56EWxSZx+pWRbkBvEJpSyQrHNjvaBKPUXPHqpPkIz88vkN2Eog==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H7QELm9x2PGsQyAhdwZzl3QnWql1DyrAYx7zeHfvTuY=;
- b=iLUJudyrGHxPPlOpHAMfjJAuFIxBnKzmcriZyZSRFU/UjdaKyGncXbKMwRzOdd1ODr7SOIdWFzaRKjwzh6WYurmc44iu7UQFeilYmVpD59r4GEnNehgAoqBrbX9mBAPqXoD8j2D1GnR+uQmON8TxSC411oD5X4aR+2xrhlsaDAM=
-Received: from TYCPR01MB11332.jpnprd01.prod.outlook.com (2603:1096:400:3c0::7)
- by OSOPR01MB12233.jpnprd01.prod.outlook.com (2603:1096:604:2d9::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Thu, 2 Apr
- 2026 09:12:29 +0000
-Received: from TYCPR01MB11332.jpnprd01.prod.outlook.com
- ([fe80::2511:10cd:e497:4d97]) by TYCPR01MB11332.jpnprd01.prod.outlook.com
- ([fe80::2511:10cd:e497:4d97%5]) with mapi id 15.20.9769.016; Thu, 2 Apr 2026
- 09:12:29 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: John Madieu <john.madieu.xa@bp.renesas.com>, Geert Uytterhoeven
-	<geert+renesas@glider.be>, Kuninori Morimoto
-	<kuninori.morimoto.gx@renesas.com>, Vinod Koul <vkoul@kernel.org>, Mark Brown
-	<broonie@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>
-CC: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
-	<sboyd@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li
-	<Frank.Li@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, magnus.damm
-	<magnus.damm@gmail.com>, Thomas Gleixner <tglx@kernel.org>, Jaroslav Kysela
-	<perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Philipp Zabel
-	<p.zabel@pengutronix.de>, Claudiu.Beznea <claudiu.beznea@tuxon.dev>, Fabrizio
- Castro <fabrizio.castro.jz@renesas.com>, Prabhakar Mahadev Lad
-	<prabhakar.mahadev-lad.rj@bp.renesas.com>, John Madieu
-	<john.madieu@gmail.com>, "linux-renesas-soc@vger.kernel.org"
-	<linux-renesas-soc@vger.kernel.org>, "linux-clk@vger.kernel.org"
-	<linux-clk@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "dmaengine@vger.kernel.org"
-	<dmaengine@vger.kernel.org>, "linux-sound@vger.kernel.org"
-	<linux-sound@vger.kernel.org>, John Madieu <john.madieu.xa@bp.renesas.com>
-Subject: RE: [PATCH v2 20/24] arm64: dts: renesas: r9a09g047: Add R-Car Sound
- support
-Thread-Topic: [PATCH v2 20/24] arm64: dts: renesas: r9a09g047: Add R-Car Sound
- support
-Thread-Index: AQHcwoCEVUfmI1IRgEClmiB49koC4bXLfD5w
-Date: Thu, 2 Apr 2026 09:12:28 +0000
-Message-ID:
- <TYCPR01MB1133275941F1468B1F4863E888651A@TYCPR01MB11332.jpnprd01.prod.outlook.com>
-References: <20260402090524.9137-1-john.madieu.xa@bp.renesas.com>
- <20260402090524.9137-21-john.madieu.xa@bp.renesas.com>
-In-Reply-To: <20260402090524.9137-21-john.madieu.xa@bp.renesas.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYCPR01MB11332:EE_|OSOPR01MB12233:EE_
-x-ms-office365-filtering-correlation-id: 5fda1f0f-75b4-48f5-e11b-08de9097f6d6
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|376014|1800799024|366016|38070700021|22082099003|18002099003|56012099003;
-x-microsoft-antispam-message-info:
- NS0J+ycBrjkPs/QCWQgxqzCL4LVa/EFTKeEQ3WMNz7329az3S1V4n9c151BCfXcjCsz2UKbO5cH7ePC+8uLnj6RYH2OTF8jv+S5bgWZ3Cenxf4ErFcVfVXmRfJf4cUgqV9zWYjG9N8cxOKZ9dzj3uDBMRGQA1Sujv2CLLeUrncmeLPYWfti8k+4OItZ3MZDhSAEbCYn7cDMbwuB8w2OS55VA3NFwlfdRmCC5hHxo7E/54MmmLNp9FgHjsYfp1MSXnXpWxRjKYoKA0GFxFbew+qY9y6GvQeBdoUGKnopRtD9pCKLrksX2ggwMHl8YEeX3YfnvO3FNlVcBJ92Yk4ycBgfEGCPop66/+MnaS+9C8ku5mPK3X3H+79H+qtDMoDvmesX5hAJu3lHvkUL9YthI6aGrXpueIFfSNRjPZn5TI7fp3HA1ScHyDKEE7KGR5NZs5GBVwnVe/MrgntWxPm1RZ1ikaJxmUo3YJO4rZRXpcU4U9o/75OAYHCBQdpigvvS+7p99WG53XV6tx4vVoRfpYwDZvOQN0mim/fhuvGYPJhnmKgd5tyof+Nf4q6NaAXb8JG3Yszt+fQNumxc+gSSZ3fRkNY37O1h5jK1DjqFRVnl2n8EG1NeSp9/eaYDdv3xP0iOY0UKXTQBPM5Semoo+Bs/HqWM+1gCmkj0hLdb5VxDFu8p1tzJcoL62g7qnyFc9CJfeNy/R4dvzyP74Lfs9pyXPEc2sBuq+1VR+RvlsFotHe6j6wPzVAnQz/4FjmztaGEz4ZF0xo+tbWFm+lD3SIgwzOeeJb+wFdXNFPZV2cD0=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB11332.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(38070700021)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?EThqV//cgvb5DL1zCekmYmaYBXYGb6dVAiXAOwtMlaO1jIzeI/Xh5IY1tUDE?=
- =?us-ascii?Q?7wEeTg5xV0LAYM0vPbhiSVtBax2RmrneCGhtmSKMbnN5+Tf5UPAfwW2g8qug?=
- =?us-ascii?Q?//Ru2FdU+bu/4RXmjaV8gTHjBbSzq8T5xHgS+utZ4Iw3pO3xMxOSysDGolhE?=
- =?us-ascii?Q?aMyeJFEECDFPs6NmCCV4r15/whDN4oFxMJ/JTY4iX9Ze+F6pGrQRCzIBn9dx?=
- =?us-ascii?Q?aEmn1MPfY43xVviEJx4z5Sx1Z6Z3+48DxoDx8U3btQ/V+gM+tGFHuwyKgmPr?=
- =?us-ascii?Q?VQHhAYxtrliOFG8dOLBxdL3Q+oC8C46qmr1dQTGeTjGYDMsClEVttAwosY4+?=
- =?us-ascii?Q?MIMhJljIYBsuE7gKpC121q72XgN4NCrRtElacLXKXsGopWJNls/BdNAHO239?=
- =?us-ascii?Q?8uSAYXQbnXiZZT5uQcQnYhBUF+ih1XcjG1Slud6kJf5pWLHez1jNld6Vxrmv?=
- =?us-ascii?Q?d0NRsvpYz1qEM3SqyPfJm36bf81qEYF2gE1w5YpDL1W1WIodM+giBfKH2Z4O?=
- =?us-ascii?Q?kZF7sEa7RlozrsGdEufiLP4SaAEKMUmlb0qZCtNJjR3eD6oKsUKvmVvZA/9O?=
- =?us-ascii?Q?8IGxXT3Elqd0JkAeov06Mx/lQIgqT8foRSzZ9T5PYftR9ncHjXiaAG+yX5NI?=
- =?us-ascii?Q?Jx3DatHPuasr4tWWlZT9aQTSBZ09PTd6CcbEBTMiRGa+XBK3CZYNDKqfySmi?=
- =?us-ascii?Q?G1MKOHEsDiI0WqzoCEiWtNQtH42fPXZYLPldPSFiF2ZAodxE6ngSwetl1nxr?=
- =?us-ascii?Q?HsAL9Ta9SxMU7mCvOuSfP/IrgogwgGerMLnncPoI/vQNgeSk9tuIeJEstINX?=
- =?us-ascii?Q?bCvT/s4Y2leYQcPL9Lx1ePpAIvRjPSVZbHIlsyN6QANjdYbHz9/RsIa1/srp?=
- =?us-ascii?Q?Roz0mnp/lADIW3GhR8boEtxb8KICBB6IL37UpKMDZxzUZykk0iNv4ij+CeCM?=
- =?us-ascii?Q?comc5WhizH0OImlKoJrjXWsaMdPY6OLQflEIQsMzRQJWW0Q9dgAvHeK1pEyn?=
- =?us-ascii?Q?kyYbdRMDE0ZukhCn3d77CjM1iND+uyZag6h8zdAIwjLkeq9B6kKhpXIKdLA+?=
- =?us-ascii?Q?00zQimvPCt2e90r9g5j+fOcteyBD+iHbql3OQKKMJrYL2RRB9Kjto5eXVFnA?=
- =?us-ascii?Q?pnirKqJlpX6r8ojWq3+ciJc9p2vu9UHKV4OmBJkOJeLVmfRmInr7UGbBxV4G?=
- =?us-ascii?Q?yHlLlLo/NEbEuKIW4YTGJNnR3/X/wGAhTUCPSm45TcLrfOnsg/ruk3XCqR/0?=
- =?us-ascii?Q?7veyEAeyWKljHkw590UkHAy6vOenbhokD/q0U5lg6OQgEsrf3k8xi/WUKnFq?=
- =?us-ascii?Q?tLewOrtnxXs3c/rpcKIPMB0onKZ/GbNu9CV1RwNoDNey6hs9ox7IprCAwP7x?=
- =?us-ascii?Q?CSCzb1SpTvqgaflcKJzqDD6ooFLq9mvJvTl22GsTSJsuOwwj+rbyEWp2AfEN?=
- =?us-ascii?Q?oHL8KSKYWipVd54JrhRoumyM0YRJ5slYVmZVzhbWw7quFnig3b+9ryEyi94G?=
- =?us-ascii?Q?TsGa1krvBhzkHDWyrhvMuTUaF99NncF0GJchdMI7R2cVtTHJ19+TnO1ZQFkD?=
- =?us-ascii?Q?zTwJ7P1OfM6zNHmpxDw1nw76A94tdEJUQoAvBEgz36cgkN/jNRvyQCtakFfD?=
- =?us-ascii?Q?rHUbm7B/PFUDeR0zXSD/Q2RW80QsctXLjjyLHzuE14ZM3eKt7NavO8UDnapy?=
- =?us-ascii?Q?eezD+3BN/YzqqlgYDzSDy4OdN+7UWIPHsRt35wryPF7xSNANoR/PXP9OR9Au?=
- =?us-ascii?Q?6nOvZlMSMw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="hwYGHIkS"
+Received: from [172.16.12.43] (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 394c8157d;
+	Thu, 2 Apr 2026 17:14:53 +0800 (GMT+08:00)
+Content-Type: multipart/mixed; boundary="------------pA08w6av2CYGH1v5Vjy6t1NO"
+Message-ID: <d9b5c826-e0eb-4c0a-989b-48aa12fdbaef@rock-chips.com>
+Date: Thu, 2 Apr 2026 17:14:53 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11332.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5fda1f0f-75b4-48f5-e11b-08de9097f6d6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Apr 2026 09:12:28.8411
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +Rv3dqxnfGg9eng+Wz9x5bwCGqMP9exFJEFQWv9avjeq+QZXY7nbh0Ze5Ao0eemDZRQGgh4xW+ur42rHsmfXNab/aLNQpzxzgYgO/WoKpGM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSOPR01MB12233
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 06/10] drm/bridge: dw-hdmi: warn on unsupported attach
+ combination
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>,
+ Stefan Agner <stefan@agner.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Liu Ying <victor.liu@nxp.com>, Rob Herring <robh@kernel.org>,
+ Saravana Kannan <saravanak@kernel.org>
+Cc: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
+ =?UTF-8?Q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>,
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Adam Ford <aford173@gmail.com>,
+ Alexander Stein <alexander.stein@ew.tq-group.com>,
+ Christopher Obbard <christopher.obbard@linaro.org>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
+ Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
+ Fabio Estevam <festevam@denx.de>,
+ Francesco Dolcini <francesco.dolcini@toradex.com>,
+ Frieder Schrempf <frieder.schrempf@kontron.de>,
+ Gilles Talis <gilles.talis@gmail.com>,
+ =?UTF-8?B?R29yYW4gUmHEkWVub3ZpxIc=?= <goran.radni@gmail.com>,
+ Heiko Schocher <hs@denx.de>, Josua Mayer <josua@solid-run.com>,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Marco Felsch <m.felsch@pengutronix.de>,
+ Martyn Welch <martyn.welch@collabora.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>,
+ Richard Hu <richard.hu@technexion.com>, Shengjiu Wang
+ <shengjiu.wang@nxp.com>,
+ Stefan Eichenberger <stefan.eichenberger@toradex.com>,
+ Vitor Soares <vitor.soares@toradex.com>
+References: <20260330-drm-lcdif-dbanc-v2-0-c7f2af536a24@bootlin.com>
+ <20260330-drm-lcdif-dbanc-v2-6-c7f2af536a24@bootlin.com>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <20260330-drm-lcdif-dbanc-v2-6-c7f2af536a24@bootlin.com>
+X-HM-Tid: 0a9d4d795e9303a3kunme69324b095241
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1ktWUFJV1kPCRoVCBIfWUFZQ0pNT1YeT00dQxkaTUgaShhWFRQJFh
+	oXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0tIVUpLSUJNS0
+	pVSktLVUtZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=hwYGHIkSikuofpTSHFwebC8Z6feWaoUJ3dbqqnt9MZuAJBUbRzjDoxXGvxcOn4j9NkNUUDiNbucKPIduKZrvAmo8ZgTvnE+WmB9N+e3tldsjk8dwC5SwWopcFHloVqwkfPXzAgbjILPvIGv1x74neMWR2lXN4dpR+i+rgG7KmPs=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=2uJAsa6K7YXQMIGwXKQObtdIlbK0ldqP5sBHg2+Uhn0=;
+	h=date:mime-version:subject:message-id:from;
 
-Hi John,
+This is a multi-part message in MIME format.
+--------------pA08w6av2CYGH1v5Vjy6t1NO
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thanks for the patch
+Hi Luca,
 
-> -----Original Message-----
-> From: John Madieu <john.madieu.xa@bp.renesas.com>
-> Sent: 02 April 2026 10:05
-> Subject: [PATCH v2 20/24] arm64: dts: renesas: r9a09g047: Add R-Car Sound=
- support
-
-Typo RZ/G3E sound support??
-
-Cheers,
-Biju
-
-
->=20
-> Add the rzg3e_sound node for the RZ/G3E SoC with all sub-components:
->=20
-> - SSI (Serial Sound Interface) units 0-9
-> - SSIU (Serial Sound Interface Unit) units 0-27
-> - SRC (Sample Rate Converter) units 0-9
-> - CTU (Channel Transfer Unit) units 0-7
-> - DVC (Digital Volume Control) units 0-1
-> - MIX (Mixer) units 0-1
->=20
-> Wire up all 5 DMA controllers (dmac0-dmac4) for each audio sub-node with =
-repeated channel names, so
-> that the DMA core can pick the first available controller.
->=20
-> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
+On 3/31/2026 3:25 AM, Luca Ceresoli wrote:
+> dw-hdmi can operate in two different modes, depending on the platform data
+> as set by the driver:
+> 
+>   A. hdmi->plat_data->output_port = 0:
+>      the HDMI output (port@1) in device tree is not used
+> 
+>   B. hdmi->plat_data->output_port = 1:
+>      the HDMI output (port@1) is parsed to find the next bridge
+> 
+> Only case B is supported when the DRM_BRIDGE_ATTACH_NO_CONNECTOR flag is
+> passed to the attach callback. Emit a warning when this is violated. Also
+> return -EINVAL which would be returned by drm_bridge_attach() right after
+> anyway.
+> 
+> Reviewed-by: Liu Ying <victor.liu@nxp.com>
+> Tested-by: Martyn Welch <martyn.welch@collabora.com>
+> Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com> # TQMa8MPxL/MBa8MPxL
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 > ---
->=20
-> Changes:
->=20
-> v2:
->  - Remove 2-cells specifier on audio DMA assignment
->  - Do not update DMAC #dma-cells anymore
->=20
->  arch/arm64/boot/dts/renesas/r9a09g047.dtsi | 502 +++++++++++++++++++++
->  1 file changed, 502 insertions(+)
->=20
-> diff --git a/arch/arm64/boot/dts/renesas/r9a09g047.dtsi b/arch/arm64/boot=
-/dts/renesas/r9a09g047.dtsi
-> index 1ff48c8f98e1..b1e567d71c26 100644
-> --- a/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
-> @@ -918,6 +918,508 @@ rsci9: serial@12803000 {
->  			status =3D "disabled";
->  		};
->=20
-> +		snd_rzg3e: sound@13c00000 {
-> +			/*
-> +			 * #sound-dai-cells is required
-> +			 *
-> +			 * Single DAI : #sound-dai-cells =3D <0>; <&snd_rzg3e>;
-> +			 * Multi  DAI : #sound-dai-cells =3D <1>; <&snd_rzg3e N>;
-> +			 */
-> +			/*
-> +			 * #clock-cells is required for audio_clkout0/1/2/3
-> +			 *
-> +			 * clkout       : #clock-cells =3D <0>;   <&snd_rzg3e>;
-> +			 * clkout0/1/2/3: #clock-cells =3D <1>;   <&snd_rzg3e N>;
-> +			 */
-> +			compatible =3D "renesas,r9a09g047-sound";
-> +			reg =3D <0 0x13c00000 0 0x10000>, /* SCU */
-> +			      <0 0x13c20000 0 0x10000>, /* ADG */
-> +			      <0 0x13c30000 0 0x1000>,  /* SSIU */
-> +			      <0 0x13c31000 0 0x1F000>, /* SSI */
-> +			      <0 0x13c50000 0 0x10000>; /* Audio DMAC peri peri */
-> +			reg-names =3D "scu", "adg", "ssiu", "ssi", "audmapp";
-> +			clocks =3D <&cpg CPG_MOD 245>,
-> +				 <&cpg CPG_MOD 394>,
-> +				 <&cpg CPG_MOD 393>,
-> +				 <&cpg CPG_MOD 392>,
-> +				 <&cpg CPG_MOD 391>,
-> +				 <&cpg CPG_MOD 390>,
-> +				 <&cpg CPG_MOD 389>,
-> +				 <&cpg CPG_MOD 388>,
-> +				 <&cpg CPG_MOD 387>,
-> +				 <&cpg CPG_MOD 386>,
-> +				 <&cpg CPG_MOD 385>,
-> +				 <&cpg CPG_MOD 381>,
-> +				 <&cpg CPG_MOD 380>,
-> +				 <&cpg CPG_MOD 379>,
-> +				 <&cpg CPG_MOD 378>,
-> +				 <&cpg CPG_MOD 377>,
-> +				 <&cpg CPG_MOD 376>,
-> +				 <&cpg CPG_MOD 375>,
-> +				 <&cpg CPG_MOD 374>,
-> +				 <&cpg CPG_MOD 373>,
-> +				 <&cpg CPG_MOD 372>,
-> +				 <&cpg CPG_MOD 371>,
-> +				 <&cpg CPG_MOD 370>,
-> +				 <&cpg CPG_MOD 371>,
-> +				 <&cpg CPG_MOD 370>,
-> +				 <&cpg CPG_MOD 368>,
-> +				 <&cpg CPG_MOD 369>,
-> +				 <&cpg CPG_MOD 251>,
-> +				 <&cpg CPG_MOD 252>,
-> +				 <&cpg CPG_MOD 253>,
-> +				 <&cpg CPG_MOD 250>,
-> +				 <&cpg CPG_MOD 384>,
-> +				 <&cpg CPG_MOD 246>,
-> +				 <&cpg CPG_MOD 247>,
-> +				 <&cpg CPG_MOD 382>,
-> +				 <&cpg CPG_MOD 361>,
-> +				 <&cpg CPG_MOD 360>,
-> +				 <&cpg CPG_MOD 359>,
-> +				 <&cpg CPG_MOD 358>,
-> +				 <&cpg CPG_MOD 357>,
-> +				 <&cpg CPG_MOD 356>,
-> +				 <&cpg CPG_MOD 355>,
-> +				 <&cpg CPG_MOD 354>,
-> +				 <&cpg CPG_MOD 353>,
-> +				 <&cpg CPG_MOD 352>,
-> +				 <&cpg CPG_MOD 248>,
-> +				 <&cpg CPG_MOD 249>;
-> +			clock-names =3D "ssi-all",
-> +				      "ssi.9", "ssi.8",
-> +				      "ssi.7", "ssi.6",
-> +				      "ssi.5", "ssi.4",
-> +				      "ssi.3", "ssi.2",
-> +				      "ssi.1", "ssi.0",
-> +				      "src.9", "src.8",
-> +				      "src.7", "src.6",
-> +				      "src.5", "src.4",
-> +				      "src.3", "src.2",
-> +				      "src.1", "src.0",
-> +				      "mix.1", "mix.0",
-> +				      "ctu.1", "ctu.0",
-> +				      "dvc.0", "dvc.1",
-> +				      "clk_a", "clk_b",
-> +				      "clk_c", "clk_i",
-> +				      "ssif_supply",
-> +				      "scu", "scu_x2",
-> +				      "scu_supply",
-> +				      "adg.ssi.9", "adg.ssi.8",
-> +				      "adg.ssi.7", "adg.ssi.6",
-> +				      "adg.ssi.5", "adg.ssi.4",
-> +				      "adg.ssi.3", "adg.ssi.2",
-> +				      "adg.ssi.1", "adg.ssi.0",
-> +				      "audmapp", "adg";
-> +			power-domains =3D <&cpg>;
-> +			resets =3D <&cpg 225>,
-> +				 <&cpg 235>,
-> +				 <&cpg 234>,
-> +				 <&cpg 233>,
-> +				 <&cpg 232>,
-> +				 <&cpg 231>,
-> +				 <&cpg 230>,
-> +				 <&cpg 229>,
-> +				 <&cpg 228>,
-> +				 <&cpg 227>,
-> +				 <&cpg 226>,
-> +				 <&cpg 236>,
-> +				 <&cpg 238>,
-> +				 <&cpg 237>;
-> +			reset-names =3D "ssi-all",
-> +				      "ssi.9", "ssi.8",
-> +				      "ssi.7", "ssi.6",
-> +				      "ssi.5", "ssi.4",
-> +				      "ssi.3", "ssi.2",
-> +				      "ssi.1", "ssi.0",
-> +				      "scu", "adg",
-> +				      "audmapp";
-> +			status =3D "disabled";
+> Note: Returning when the warning triggers does not change the functional
+> behaviour of this function. It is not strictly necessary in this patch but
+> it will have to be done anyway in the following patch.
+> ---
+>   drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 4 ++++
+>   1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> index 0296e110ce65..ab1a6a8783cd 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> @@ -2910,6 +2910,10 @@ static int dw_hdmi_bridge_attach(struct drm_bridge *bridge,
+>   {
+>   	struct dw_hdmi *hdmi = bridge->driver_private;
+>   
+> +	/* DRM_BRIDGE_ATTACH_NO_CONNECTOR requires a remote-endpoint to the next bridge */
+> +	if (WARN_ON((flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) && !hdmi->plat_data->output_port))
+> +		return -EINVAL;
 > +
-> +			rcar_sound,ctu {
-> +				ctu00: ctu-0 { };
-> +				ctu01: ctu-1 { };
-> +				ctu02: ctu-2 { };
-> +				ctu03: ctu-3 { };
-> +				ctu10: ctu-4 { };
-> +				ctu11: ctu-5 { };
-> +				ctu12: ctu-6 { };
-> +				ctu13: ctu-7 { };
-> +			};
-> +
-> +			rcar_sound,dvc {
-> +				dvc0: dvc-0 {
-> +					dmas =3D <&dmac0 0x1db3>, <&dmac1 0x1db3>,
-> +					       <&dmac2 0x1db3>, <&dmac3 0x1db3>,
-> +					       <&dmac4 0x1db3>;
-> +					dma-names =3D "tx", "tx", "tx", "tx", "tx";
-> +				};
-> +				dvc1: dvc-1 {
-> +					dmas =3D <&dmac0 0x1db4>, <&dmac1 0x1db4>,
-> +					       <&dmac2 0x1db4>, <&dmac3 0x1db4>,
-> +					       <&dmac4 0x1db4>;
-> +					dma-names =3D "tx", "tx", "tx", "tx", "tx";
-> +				};
-> +			};
-> +
-> +			rcar_sound,mix {
-> +				mix0: mix-0 { };
-> +				mix1: mix-1 { };
-> +			};
-> +
-> +			rcar_sound,src {
-> +				src0: src-0 {
-> +					interrupts =3D <GIC_SPI 902 IRQ_TYPE_LEVEL_HIGH>;
-> +					dmas =3D <&dmac0 0x1d9f>, <&dmac0 0x1da9>,
-> +					       <&dmac1 0x1d9f>, <&dmac1 0x1da9>,
-> +					       <&dmac2 0x1d9f>, <&dmac2 0x1da9>,
-> +					       <&dmac3 0x1d9f>, <&dmac3 0x1da9>,
-> +					       <&dmac4 0x1d9f>, <&dmac4 0x1da9>;
-> +					dma-names =3D "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx",=
- "tx";
-> +				};
-> +				src1: src-1 {
-> +					interrupts =3D <GIC_SPI 903 IRQ_TYPE_LEVEL_HIGH>;
-> +					dmas =3D <&dmac0 0x1da0>, <&dmac0 0x1daa>,
-> +					       <&dmac1 0x1da0>, <&dmac1 0x1daa>,
-> +					       <&dmac2 0x1da0>, <&dmac2 0x1daa>,
-> +					       <&dmac3 0x1da0>, <&dmac3 0x1daa>,
-> +					       <&dmac4 0x1da0>, <&dmac4 0x1daa>;
-> +					dma-names =3D "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx",=
- "tx";
-> +				};
-> +				src2: src-2 {
-> +					interrupts =3D <GIC_SPI 904 IRQ_TYPE_LEVEL_HIGH>;
-> +					dmas =3D <&dmac0 0x1da1>, <&dmac0 0x1dab>,
-> +					       <&dmac1 0x1da1>, <&dmac1 0x1dab>,
-> +					       <&dmac2 0x1da1>, <&dmac2 0x1dab>,
-> +					       <&dmac3 0x1da1>, <&dmac3 0x1dab>,
-> +					       <&dmac4 0x1da1>, <&dmac4 0x1dab>;
-> +					dma-names =3D "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx",=
- "tx";
-> +				};
-> +				src3: src-3 {
-> +					interrupts =3D <GIC_SPI 905 IRQ_TYPE_LEVEL_HIGH>;
-> +					dmas =3D <&dmac0 0x1da2>, <&dmac0 0x1dac>,
-> +					       <&dmac1 0x1da2>, <&dmac1 0x1dac>,
-> +					       <&dmac2 0x1da2>, <&dmac2 0x1dac>,
-> +					       <&dmac3 0x1da2>, <&dmac3 0x1dac>,
-> +					       <&dmac4 0x1da2>, <&dmac4 0x1dac>;
-> +					dma-names =3D "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx",=
- "tx";
-> +				};
-> +				src4: src-4 {
-> +					interrupts =3D <GIC_SPI 906 IRQ_TYPE_LEVEL_HIGH>;
-> +					dmas =3D <&dmac0 0x1da3>, <&dmac0 0x1dad>,
-> +					       <&dmac1 0x1da3>, <&dmac1 0x1dad>,
-> +					       <&dmac2 0x1da3>, <&dmac2 0x1dad>,
-> +					       <&dmac3 0x1da3>, <&dmac3 0x1dad>,
-> +					       <&dmac4 0x1da3>, <&dmac4 0x1dad>;
-> +					dma-names =3D "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx",=
- "tx";
-> +				};
-> +				src5: src-5 {
-> +					interrupts =3D <GIC_SPI 907 IRQ_TYPE_LEVEL_HIGH>;
-> +					dmas =3D <&dmac0 0x1da4>, <&dmac0 0x1dae>,
-> +					       <&dmac1 0x1da4>, <&dmac1 0x1dae>,
-> +					       <&dmac2 0x1da4>, <&dmac2 0x1dae>,
-> +					       <&dmac3 0x1da4>, <&dmac3 0x1dae>,
-> +					       <&dmac4 0x1da4>, <&dmac4 0x1dae>;
-> +					dma-names =3D "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx",=
- "tx";
-> +				};
-> +				src6: src-6 {
-> +					interrupts =3D <GIC_SPI 908 IRQ_TYPE_LEVEL_HIGH>;
-> +					dmas =3D <&dmac0 0x1da5>, <&dmac0 0x1daf>,
-> +					       <&dmac1 0x1da5>, <&dmac1 0x1daf>,
-> +					       <&dmac2 0x1da5>, <&dmac2 0x1daf>,
-> +					       <&dmac3 0x1da5>, <&dmac3 0x1daf>,
-> +					       <&dmac4 0x1da5>, <&dmac4 0x1daf>;
-> +					dma-names =3D "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx",=
- "tx";
-> +				};
-> +				src7: src-7 {
-> +					interrupts =3D <GIC_SPI 909 IRQ_TYPE_LEVEL_HIGH>;
-> +					dmas =3D <&dmac0 0x1da6>, <&dmac0 0x1db0>,
-> +					       <&dmac1 0x1da6>, <&dmac1 0x1db0>,
-> +					       <&dmac2 0x1da6>, <&dmac2 0x1db0>,
-> +					       <&dmac3 0x1da6>, <&dmac3 0x1db0>,
-> +					       <&dmac4 0x1da6>, <&dmac4 0x1db0>;
-> +					dma-names =3D "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx",=
- "tx";
-> +				};
-> +				src8: src-8 {
-> +					interrupts =3D <GIC_SPI 910 IRQ_TYPE_LEVEL_HIGH>;
-> +					dmas =3D <&dmac0 0x1da7>, <&dmac0 0x1db1>,
-> +					       <&dmac1 0x1da7>, <&dmac1 0x1db1>,
-> +					       <&dmac2 0x1da7>, <&dmac2 0x1db1>,
-> +					       <&dmac3 0x1da7>, <&dmac3 0x1db1>,
-> +					       <&dmac4 0x1da7>, <&dmac4 0x1db1>;
-> +					dma-names =3D "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx",=
- "tx";
-> +				};
-> +				src9: src-9 {
-> +					interrupts =3D <GIC_SPI 911 IRQ_TYPE_LEVEL_HIGH>;
-> +					dmas =3D <&dmac0 0x1da8>, <&dmac0 0x1db2>,
-> +					       <&dmac1 0x1da8>, <&dmac1 0x1db2>,
-> +					       <&dmac2 0x1da8>, <&dmac2 0x1db2>,
-> +					       <&dmac3 0x1da8>, <&dmac3 0x1db2>,
-> +					       <&dmac4 0x1da8>, <&dmac4 0x1db2>;
-> +					dma-names =3D "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx",=
- "tx";
-> +				};
-> +			};
-> +
-> +			rcar_sound,ssi {
-> +				ssi0: ssi-0 {
-> +					interrupts =3D <GIC_SPI 889 IRQ_TYPE_LEVEL_HIGH>;
-> +				};
-> +				ssi1: ssi-1 {
-> +					interrupts =3D <GIC_SPI 890 IRQ_TYPE_LEVEL_HIGH>;
-> +				};
-> +				ssi2: ssi-2 {
-> +					interrupts =3D <GIC_SPI 891 IRQ_TYPE_LEVEL_HIGH>;
-> +				};
-> +				ssi3: ssi-3 {
-> +					interrupts =3D <GIC_SPI 892 IRQ_TYPE_LEVEL_HIGH>;
-> +				};
-> +				ssi4: ssi-4 {
-> +					interrupts =3D <GIC_SPI 893 IRQ_TYPE_LEVEL_HIGH>;
-> +				};
-> +				ssi5: ssi-5 {
-> +					interrupts =3D <GIC_SPI 894 IRQ_TYPE_LEVEL_HIGH>;
-> +				};
-> +				ssi6: ssi-6 {
-> +					interrupts =3D <GIC_SPI 895 IRQ_TYPE_LEVEL_HIGH>;
-> +				};
-> +				ssi7: ssi-7 {
-> +					interrupts =3D <GIC_SPI 896 IRQ_TYPE_LEVEL_HIGH>;
-> +				};
-> +				ssi8: ssi-8 {
-> +					interrupts =3D <GIC_SPI 897 IRQ_TYPE_LEVEL_HIGH>;
-> +				};
-> +				ssi9: ssi-9 {
-> +					interrupts =3D <GIC_SPI 898 IRQ_TYPE_LEVEL_HIGH>;
-> +				};
-> +			};
-> +
-> +			rcar_sound,ssiu {
-> +				ssiu00: ssiu-0 {
-> +					dmas =3D <&dmac0 0x1d61>, <&dmac0 0x1d62>,
-> +					       <&dmac1 0x1d61>, <&dmac1 0x1d62>,
-> +					       <&dmac2 0x1d61>, <&dmac2 0x1d62>,
-> +					       <&dmac3 0x1d61>, <&dmac3 0x1d62>,
-> +					       <&dmac4 0x1d61>, <&dmac4 0x1d62>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +				ssiu01: ssiu-1 {
-> +					dmas =3D <&dmac0 0x1d63>, <&dmac0 0x1d64>,
-> +					       <&dmac1 0x1d63>, <&dmac1 0x1d64>,
-> +					       <&dmac2 0x1d63>, <&dmac2 0x1d64>,
-> +					       <&dmac3 0x1d63>, <&dmac3 0x1d64>,
-> +					       <&dmac4 0x1d63>, <&dmac4 0x1d64>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +				ssiu02: ssiu-2 {
-> +					dmas =3D <&dmac0 0x1d65>, <&dmac0 0x1d66>,
-> +					       <&dmac1 0x1d65>, <&dmac1 0x1d66>,
-> +					       <&dmac2 0x1d65>, <&dmac2 0x1d66>,
-> +					       <&dmac3 0x1d65>, <&dmac3 0x1d66>,
-> +					       <&dmac4 0x1d65>, <&dmac4 0x1d66>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +				ssiu03: ssiu-3 {
-> +					dmas =3D <&dmac0 0x1d67>, <&dmac0 0x1d68>,
-> +					       <&dmac1 0x1d67>, <&dmac1 0x1d68>,
-> +					       <&dmac2 0x1d67>, <&dmac2 0x1d68>,
-> +					       <&dmac3 0x1d67>, <&dmac3 0x1d68>,
-> +					       <&dmac4 0x1d67>, <&dmac4 0x1d68>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +				ssiu10: ssiu-4 {
-> +					dmas =3D <&dmac0 0x1d69>, <&dmac0 0x1d6a>,
-> +					       <&dmac1 0x1d69>, <&dmac1 0x1d6a>,
-> +					       <&dmac2 0x1d69>, <&dmac2 0x1d6a>,
-> +					       <&dmac3 0x1d69>, <&dmac3 0x1d6a>,
-> +					       <&dmac4 0x1d69>, <&dmac4 0x1d6a>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +				ssiu11: ssiu-5 {
-> +					dmas =3D <&dmac0 0x1d6b>, <&dmac0 0x1d6c>,
-> +					       <&dmac1 0x1d6b>, <&dmac1 0x1d6c>,
-> +					       <&dmac2 0x1d6b>, <&dmac2 0x1d6c>,
-> +					       <&dmac3 0x1d6b>, <&dmac3 0x1d6c>,
-> +					       <&dmac4 0x1d6b>, <&dmac4 0x1d6c>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +				ssiu12: ssiu-6 {
-> +					dmas =3D <&dmac0 0x1d6d>, <&dmac0 0x1d6e>,
-> +					       <&dmac1 0x1d6d>, <&dmac1 0x1d6e>,
-> +					       <&dmac2 0x1d6d>, <&dmac2 0x1d6e>,
-> +					       <&dmac3 0x1d6d>, <&dmac3 0x1d6e>,
-> +					       <&dmac4 0x1d6d>, <&dmac4 0x1d6e>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +				ssiu13: ssiu-7 {
-> +					dmas =3D <&dmac0 0x1d6f>, <&dmac0 0x1d70>,
-> +					       <&dmac1 0x1d6f>, <&dmac1 0x1d70>,
-> +					       <&dmac2 0x1d6f>, <&dmac2 0x1d70>,
-> +					       <&dmac3 0x1d6f>, <&dmac3 0x1d70>,
-> +					       <&dmac4 0x1d6f>, <&dmac4 0x1d70>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +				ssiu20: ssiu-8 {
-> +					dmas =3D <&dmac0 0x1d71>, <&dmac0 0x1d72>,
-> +					       <&dmac1 0x1d71>, <&dmac1 0x1d72>,
-> +					       <&dmac2 0x1d71>, <&dmac2 0x1d72>,
-> +					       <&dmac3 0x1d71>, <&dmac3 0x1d72>,
-> +					       <&dmac4 0x1d71>, <&dmac4 0x1d72>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +				ssiu21: ssiu-9 {
-> +					dmas =3D <&dmac0 0x1d73>, <&dmac0 0x1d74>,
-> +					       <&dmac1 0x1d73>, <&dmac1 0x1d74>,
-> +					       <&dmac2 0x1d73>, <&dmac2 0x1d74>,
-> +					       <&dmac3 0x1d73>, <&dmac3 0x1d74>,
-> +					       <&dmac4 0x1d73>, <&dmac4 0x1d74>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +				ssiu22: ssiu-10 {
-> +					dmas =3D <&dmac0 0x1d75>, <&dmac0 0x1d76>,
-> +					       <&dmac1 0x1d75>, <&dmac1 0x1d76>,
-> +					       <&dmac2 0x1d75>, <&dmac2 0x1d76>,
-> +					       <&dmac3 0x1d75>, <&dmac3 0x1d76>,
-> +					       <&dmac4 0x1d75>, <&dmac4 0x1d76>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +				ssiu23: ssiu-11 {
-> +					dmas =3D <&dmac0 0x1d77>, <&dmac0 0x1d78>,
-> +					       <&dmac1 0x1d77>, <&dmac1 0x1d78>,
-> +					       <&dmac2 0x1d77>, <&dmac2 0x1d78>,
-> +					       <&dmac3 0x1d77>, <&dmac3 0x1d78>,
-> +					       <&dmac4 0x1d77>, <&dmac4 0x1d78>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +				ssiu30: ssiu-12 {
-> +					dmas =3D <&dmac0 0x1d79>, <&dmac0 0x1d7a>,
-> +					       <&dmac1 0x1d79>, <&dmac1 0x1d7a>,
-> +					       <&dmac2 0x1d79>, <&dmac2 0x1d7a>,
-> +					       <&dmac3 0x1d79>, <&dmac3 0x1d7a>,
-> +					       <&dmac4 0x1d79>, <&dmac4 0x1d7a>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +				ssiu31: ssiu-13 {
-> +					dmas =3D <&dmac0 0x1d7b>, <&dmac0 0x1d7c>,
-> +					       <&dmac1 0x1d7b>, <&dmac1 0x1d7c>,
-> +					       <&dmac2 0x1d7b>, <&dmac2 0x1d7c>,
-> +					       <&dmac3 0x1d7b>, <&dmac3 0x1d7c>,
-> +					       <&dmac4 0x1d7b>, <&dmac4 0x1d7c>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +				ssiu32: ssiu-14 {
-> +					dmas =3D <&dmac0 0x1d7d>, <&dmac0 0x1d7e>,
-> +					       <&dmac1 0x1d7d>, <&dmac1 0x1d7e>,
-> +					       <&dmac2 0x1d7d>, <&dmac2 0x1d7e>,
-> +					       <&dmac3 0x1d7d>, <&dmac3 0x1d7e>,
-> +					       <&dmac4 0x1d7d>, <&dmac4 0x1d7e>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +				ssiu33: ssiu-15 {
-> +					dmas =3D <&dmac0 0x1d7f>, <&dmac0 0x1d80>,
-> +					       <&dmac1 0x1d7f>, <&dmac1 0x1d80>,
-> +					       <&dmac2 0x1d7f>, <&dmac2 0x1d80>,
-> +					       <&dmac3 0x1d7f>, <&dmac3 0x1d80>,
-> +					       <&dmac4 0x1d7f>, <&dmac4 0x1d80>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +				ssiu40: ssiu-16 {
-> +					dmas =3D <&dmac0 0x1d81>, <&dmac0 0x1d82>,
-> +					       <&dmac1 0x1d81>, <&dmac1 0x1d82>,
-> +					       <&dmac2 0x1d81>, <&dmac2 0x1d82>,
-> +					       <&dmac3 0x1d81>, <&dmac3 0x1d82>,
-> +					       <&dmac4 0x1d81>, <&dmac4 0x1d82>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +				ssiu41: ssiu-17 {
-> +					dmas =3D <&dmac0 0x1d83>, <&dmac0 0x1d84>,
-> +					       <&dmac1 0x1d83>, <&dmac1 0x1d84>,
-> +					       <&dmac2 0x1d83>, <&dmac2 0x1d84>,
-> +					       <&dmac3 0x1d83>, <&dmac3 0x1d84>,
-> +					       <&dmac4 0x1d83>, <&dmac4 0x1d84>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +				ssiu42: ssiu-18 {
-> +					dmas =3D <&dmac0 0x1d85>, <&dmac0 0x1d86>,
-> +					       <&dmac1 0x1d85>, <&dmac1 0x1d86>,
-> +					       <&dmac2 0x1d85>, <&dmac2 0x1d86>,
-> +					       <&dmac3 0x1d85>, <&dmac3 0x1d86>,
-> +					       <&dmac4 0x1d85>, <&dmac4 0x1d86>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +				ssiu43: ssiu-19 {
-> +					dmas =3D <&dmac0 0x1d87>, <&dmac0 0x1d88>,
-> +					       <&dmac1 0x1d87>, <&dmac1 0x1d88>,
-> +					       <&dmac2 0x1d87>, <&dmac2 0x1d88>,
-> +					       <&dmac3 0x1d87>, <&dmac3 0x1d88>,
-> +					       <&dmac4 0x1d87>, <&dmac4 0x1d88>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +				ssiu50: ssiu-20 {
-> +					dmas =3D <&dmac0 0x1d89>, <&dmac0 0x1d8a>,
-> +					       <&dmac1 0x1d89>, <&dmac1 0x1d8a>,
-> +					       <&dmac2 0x1d89>, <&dmac2 0x1d8a>,
-> +					       <&dmac3 0x1d89>, <&dmac3 0x1d8a>,
-> +					       <&dmac4 0x1d89>, <&dmac4 0x1d8a>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +				ssiu60: ssiu-21 {
-> +					dmas =3D <&dmac0 0x1d8b>, <&dmac0 0x1d8c>,
-> +					       <&dmac1 0x1d8b>, <&dmac1 0x1d8c>,
-> +					       <&dmac2 0x1d8b>, <&dmac2 0x1d8c>,
-> +					       <&dmac3 0x1d8b>, <&dmac3 0x1d8c>,
-> +					       <&dmac4 0x1d8b>, <&dmac4 0x1d8c>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +				ssiu70: ssiu-22 {
-> +					dmas =3D <&dmac0 0x1d8d>, <&dmac0 0x1d8e>,
-> +					       <&dmac1 0x1d8d>, <&dmac1 0x1d8e>,
-> +					       <&dmac2 0x1d8d>, <&dmac2 0x1d8e>,
-> +					       <&dmac3 0x1d8d>, <&dmac3 0x1d8e>,
-> +					       <&dmac4 0x1d8d>, <&dmac4 0x1d8e>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +				ssiu80: ssiu-23 {
-> +					dmas =3D <&dmac0 0x1d8f>, <&dmac0 0x1d90>,
-> +					       <&dmac1 0x1d8f>, <&dmac1 0x1d90>,
-> +					       <&dmac2 0x1d8f>, <&dmac2 0x1d90>,
-> +					       <&dmac3 0x1d8f>, <&dmac3 0x1d90>,
-> +					       <&dmac4 0x1d8f>, <&dmac4 0x1d90>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +				ssiu90: ssiu-24 {
-> +					dmas =3D <&dmac0 0x1d91>, <&dmac0 0x1d92>,
-> +					<&dmac1 0x1d91>, <&dmac1 0x1d92>,
-> +					<&dmac2 0x1d91>, <&dmac2 0x1d92>,
-> +					<&dmac3 0x1d91>, <&dmac3 0x1d92>,
-> +					<&dmac4 0x1d91>, <&dmac4 0x1d92>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +				ssiu91: ssiu-25 {
-> +					dmas =3D <&dmac0 0x1d93>, <&dmac0 0x1d94>,
-> +					       <&dmac1 0x1d93>, <&dmac1 0x1d94>,
-> +					       <&dmac2 0x1d93>, <&dmac2 0x1d94>,
-> +					       <&dmac3 0x1d93>, <&dmac3 0x1d94>,
-> +					       <&dmac4 0x1d93>, <&dmac4 0x1d94>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +				ssiu92: ssiu-26 {
-> +					dmas =3D <&dmac0 0x1d95>, <&dmac0 0x1d96>,
-> +					       <&dmac1 0x1d95>, <&dmac1 0x1d96>,
-> +					       <&dmac2 0x1d95>, <&dmac2 0x1d96>,
-> +					       <&dmac3 0x1d95>, <&dmac3 0x1d96>,
-> +					       <&dmac4 0x1d95>, <&dmac4 0x1d96>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +				ssiu93: ssiu-27 {
-> +					dmas =3D <&dmac0 0x1d97>, <&dmac0 0x1d98>,
-> +					       <&dmac1 0x1d97>, <&dmac1 0x1d98>,
-> +					       <&dmac2 0x1d97>, <&dmac2 0x1d98>,
-> +					       <&dmac3 0x1d97>, <&dmac3 0x1d98>,
-> +					       <&dmac4 0x1d97>, <&dmac4 0x1d98>;
-> +					dma-names =3D "tx", "rx", "tx", "rx", "tx", "rx", "tx", "rx", "tx",=
- "rx";
-> +				};
-> +			};
-> +		};
-> +
->  		wdt1: watchdog@14400000 {
->  			compatible =3D "renesas,r9a09g047-wdt", "renesas,r9a09g057-wdt";
->  			reg =3D <0 0x14400000 0 0x400>;
-> --
-> 2.25.1
+>   	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)
+>   		return drm_bridge_attach(encoder, hdmi->bridge.next_bridge,
+>   					 bridge, flags);
+> 
 
+Since many older Rockchip platforms (RK3288, RK3399, etc.) lack a 
+hdmi-connector node linked to the HDMI DT node, which corresponds to 
+case A. Could we relax this restriction and treat cases where 
+DRM_BRIDGE_ATTACH_NO_CONNECTOR is set but hdmi->plat_data->output_port = 
+0 as a new case C?
+
+For Rockchip platforms, the HDMI driver invokes dw_hdmi_bind() to attach 
+the Synopsys bridge. This sequence differs from that on the XNP 
+platform, but is similar to the Allwinner implementation.
+
+If we treat the case where DRM_BRIDGE_ATTACH_NO_CONNECTOR is set and 
+hdmi->plat_data->output_port = 0 as -EINVAL, I will have to modify the 
+HDMI DT configuration for all Rockchip platforms when adapting to the 
+bridge-connector framework.
+
+The patch that adapts to the bridge-connector framework and has been 
+verified OK on RK3399 is attached.
+
+Best regards,
+Damon
+
+--------------pA08w6av2CYGH1v5Vjy6t1NO
+Content-Type: text/plain; charset=UTF-8;
+ name="dw_hdmi-rockchip_test_env_20260402.patch"
+Content-Disposition: attachment;
+ filename="dw_hdmi-rockchip_test_env_20260402.patch"
+Content-Transfer-Encoding: base64
+
+ZGlmZiAtLWdpdCBhL2FyY2gvYXJtNjQvYm9vdC9kdHMvcm9ja2NoaXAvcmszMzk5LWV2Yi1p
+bmQuZHRzIGIvYXJjaC9hcm02NC9ib290L2R0cy9yb2NrY2hpcC9yazMzOTktZXZiLWluZC5k
+dHMKaW5kZXggNzBhZWUxYWI5MDRjLi41YTc4ZTc0MWYxMTMgMTAwNjQ0Ci0tLSBhL2FyY2gv
+YXJtNjQvYm9vdC9kdHMvcm9ja2NoaXAvcmszMzk5LWV2Yi1pbmQuZHRzCisrKyBiL2FyY2gv
+YXJtNjQvYm9vdC9kdHMvcm9ja2NoaXAvcmszMzk5LWV2Yi1pbmQuZHRzCkBAIC0xNyw2ICsx
+Nyw3IEBAIGFsaWFzZXMgewogCiAJY2hvc2VuIHsKIAkJc3Rkb3V0LXBhdGggPSAic2VyaWFs
+MjoxNTAwMDAwbjgiOworCQlib290YXJncyA9ICJyb290PVBBUlRVVUlEPTYxNGUwMDAwLTAw
+MDAgcm9vdHdhaXQiOwogCX07CiAKIAl2Y2M1djBfc3lzOiByZWd1bGF0b3ItdmNjNXYwLXN5
+cyB7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL3N5bm9wc3lzL2R3LWhk
+bWkuYyBiL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2Uvc3lub3BzeXMvZHctaGRtaS5jCmluZGV4
+IGFkYTQ1ZThiM2UyYy4uMGU5N2UxODNhOGIzIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vYnJpZGdlL3N5bm9wc3lzL2R3LWhkbWkuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYnJp
+ZGdlL3N5bm9wc3lzL2R3LWhkbWkuYwpAQCAtMjkxNCw3ICsyOTE0LDcgQEAgc3RhdGljIGlu
+dCBkd19oZG1pX2JyaWRnZV9hdHRhY2goc3RydWN0IGRybV9icmlkZ2UgKmJyaWRnZSwKIAog
+CS8qIERSTV9CUklER0VfQVRUQUNIX05PX0NPTk5FQ1RPUiByZXF1aXJlcyBhIHJlbW90ZS1l
+bmRwb2ludCB0byB0aGUgbmV4dCBicmlkZ2UgKi8KIAlpZiAoV0FSTl9PTigoZmxhZ3MgJiBE
+Uk1fQlJJREdFX0FUVEFDSF9OT19DT05ORUNUT1IpICYmICFoZG1pLT5wbGF0X2RhdGEtPm91
+dHB1dF9wb3J0KSkKLQkJcmV0dXJuIC1FSU5WQUw7CisJCXJldHVybiAwOwogCiAJaWYgKGZs
+YWdzICYgRFJNX0JSSURHRV9BVFRBQ0hfTk9fQ09OTkVDVE9SKSB7CiAJCXN0cnVjdCBkZXZp
+Y2Vfbm9kZSAqcmVtb3RlIF9fZnJlZShkZXZpY2Vfbm9kZSkgPQpAQCAtMzYyOCw3ICszNjI4
+LDcgQEAgc3RydWN0IGR3X2hkbWkgKmR3X2hkbWlfYmluZChzdHJ1Y3QgcGxhdGZvcm1fZGV2
+aWNlICpwZGV2LAogCWlmIChJU19FUlIoaGRtaSkpCiAJCXJldHVybiBoZG1pOwogCi0JcmV0
+ID0gZHJtX2JyaWRnZV9hdHRhY2goZW5jb2RlciwgJmhkbWktPmJyaWRnZSwgTlVMTCwgMCk7
+CisJcmV0ID0gZHJtX2JyaWRnZV9hdHRhY2goZW5jb2RlciwgJmhkbWktPmJyaWRnZSwgTlVM
+TCwgRFJNX0JSSURHRV9BVFRBQ0hfTk9fQ09OTkVDVE9SKTsKIAlpZiAocmV0KSB7CiAJCWR3
+X2hkbWlfcmVtb3ZlKGhkbWkpOwogCQlyZXR1cm4gRVJSX1BUUihyZXQpOwpkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL3JvY2tjaGlwL0tjb25maWcgYi9kcml2ZXJzL2dwdS9kcm0v
+cm9ja2NoaXAvS2NvbmZpZwppbmRleCBlN2Y0OWZlODQ1ZWEuLjY5YjgzMmQwYzhjNCAxMDA2
+NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3JvY2tjaGlwL0tjb25maWcKKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL3JvY2tjaGlwL0tjb25maWcKQEAgLTc2LDYgKzc2LDcgQEAgY29uZmlnIFJP
+Q0tDSElQX0RXX0RQCiAKIGNvbmZpZyBST0NLQ0hJUF9EV19IRE1JCiAJYm9vbCAiUm9ja2No
+aXAgc3BlY2lmaWMgZXh0ZW5zaW9ucyBmb3IgU3lub3BzeXMgRFcgSERNSSIKKwlzZWxlY3Qg
+RFJNX0JSSURHRV9DT05ORUNUT1IKIAloZWxwCiAJICBUaGlzIHNlbGVjdHMgc3VwcG9ydCBm
+b3IgUm9ja2NoaXAgU29DIHNwZWNpZmljIGV4dGVuc2lvbnMKIAkgIGZvciB0aGUgU3lub3Bz
+eXMgRGVzaWduV2FyZSBIRE1JIGRyaXZlci4gSWYgeW91IHdhbnQgdG8KZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9yb2NrY2hpcC9kd19oZG1pLXJvY2tjaGlwLmMgYi9kcml2ZXJz
+L2dwdS9kcm0vcm9ja2NoaXAvZHdfaGRtaS1yb2NrY2hpcC5jCmluZGV4IDBkYzFlYjVkMmFl
+My4uMTc0YTEwYzFkN2MyIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vcm9ja2NoaXAv
+ZHdfaGRtaS1yb2NrY2hpcC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9yb2NrY2hpcC9kd19o
+ZG1pLXJvY2tjaGlwLmMKQEAgLTEzLDYgKzEzLDcgQEAKICNpbmNsdWRlIDxsaW51eC9yZWd1
+bGF0b3IvY29uc3VtZXIuaD4KIAogI2luY2x1ZGUgPGRybS9icmlkZ2UvZHdfaGRtaS5oPgor
+I2luY2x1ZGUgPGRybS9kcm1fYnJpZGdlX2Nvbm5lY3Rvci5oPgogI2luY2x1ZGUgPGRybS9k
+cm1fZWRpZC5oPgogI2luY2x1ZGUgPGRybS9kcm1fb2YuaD4KICNpbmNsdWRlIDxkcm0vZHJt
+X3Byb2JlX2hlbHBlci5oPgpAQCAtNTQyLDYgKzU0Myw3IEBAIHN0YXRpYyBpbnQgZHdfaGRt
+aV9yb2NrY2hpcF9iaW5kKHN0cnVjdCBkZXZpY2UgKmRldiwgc3RydWN0IGRldmljZSAqbWFz
+dGVyLAogCXN0cnVjdCBkcm1fZGV2aWNlICpkcm0gPSBkYXRhOwogCXN0cnVjdCBkcm1fZW5j
+b2RlciAqZW5jb2RlcjsKIAlzdHJ1Y3Qgcm9ja2NoaXBfaGRtaSAqaGRtaTsKKwlzdHJ1Y3Qg
+ZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yOwogCWludCByZXQ7CiAKIAlpZiAoIXBkZXYtPmRl
+di5vZl9ub2RlKQpAQCAtNjE5LDcgKzYyMSwxNCBAQCBzdGF0aWMgaW50IGR3X2hkbWlfcm9j
+a2NoaXBfYmluZChzdHJ1Y3QgZGV2aWNlICpkZXYsIHN0cnVjdCBkZXZpY2UgKm1hc3RlciwK
+IAkJZ290byBlcnJfYmluZDsKIAl9CiAKLQlyZXR1cm4gMDsKKwljb25uZWN0b3IgPSBkcm1f
+YnJpZGdlX2Nvbm5lY3Rvcl9pbml0KGRybSwgZW5jb2Rlcik7CisJaWYgKElTX0VSUihjb25u
+ZWN0b3IpKSB7CisJCXJldCA9IFBUUl9FUlIoY29ubmVjdG9yKTsKKwkJZGV2X2VycihoZG1p
+LT5kZXYsICJGYWlsZWQgdG8gaW5pdGlhbGl6ZSBicmlkZ2VfY29ubmVjdG9yXG4iKTsKKwkJ
+Z290byBlcnJfYmluZDsKKwl9CisKKwlyZXR1cm4gZHJtX2Nvbm5lY3Rvcl9hdHRhY2hfZW5j
+b2Rlcihjb25uZWN0b3IsIGVuY29kZXIpOwogCiBlcnJfYmluZDoKIAlkcm1fZW5jb2Rlcl9j
+bGVhbnVwKGVuY29kZXIpOwo=
+
+--------------pA08w6av2CYGH1v5Vjy6t1NO--
