@@ -1,139 +1,130 @@
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 998BA3CCFC3
-	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 18:47:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFBDD332EBD;
+	Thu,  2 Apr 2026 19:15:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775155656; cv=none; b=THqxdG8w7R0sKQl1fCbj1XbI/k+noKKwJUKU2yAzBBbVJdrv7Z2Rxaq3aoYMl007BK47nqHtLcLmjxtCXvkftU+SEzfNSKwRHCkwBYUNK5lSeATZzLqnj3PlbXTI7G3oLpJK8pjcKqH50rYENhclc2dmifHcdF6TI+ZTi6NXYbk=
+	t=1775157354; cv=none; b=rv84ryPKFFNB0APrbws/Hjwn4EpquTaKAp0v0/bEimHvZd5VqC9IYpSMD+W45Wp1Q4R48A86tOMp/SDscEhDekjWnDdyGubtE/h6OCDanr9vbVCoNykLrpK2mc48h89ckwLaIYvyaXrGVMMD0O8Z8Vpb4kDj6L0aaKsiZ4LbdgQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775155656; c=relaxed/simple;
-	bh=OVudXei1XMX+Hk0vFE/KI/maetr0rgXz6TaXIWcvCYw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=N3VtgWBHWAWUMrgUd+YjMhGSne4sdhHyzA8185iuQ0YtQirEdg9X5k+vLWRPJjBNjo928uWobV5hw7W93YpSsoq8vtuF57fOSpXmMLZeY8S8jz2Gkcu+Fs1qg30FzCUbI9fd7F9JUJO+qX3riAqiTQ/bqHU7KiBLGUuy5simfZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=owql1B9m; arc=none smtp.client-ip=74.125.82.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1775157354; c=relaxed/simple;
+	bh=vmcgmx2b1d+sEcCkP/PVuRC1VBB/6wisaD/PfN6lEgU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=gv7y1qLNI3/+TaAIH1WLhs5ZTe70ZqWqXuRwzUXiiqKw/Llagnl19p1M4/KDFUN4Z9LnQaibvSLkapsrHvqUuZ7THnJCX6HmoaBc+k8Qd9HpbkGldqcJxtYs6XKqp0abmZ1/389IcDs4Y2jPy1kgPYMaOkXMucZUdqYr4zIa1v0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ACLWA4K/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="owql1B9m"
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-2c56aa62931so2681592eec.0
-        for <devicetree@vger.kernel.org>; Thu, 02 Apr 2026 11:47:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1775155654; x=1775760454; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=MpykImWK6bjT2nlpOYqPcIo7o07mstIYTD+Wq8ULKFw=;
-        b=owql1B9mcaC0eOg4VNCiuhWkg/5iwr+DNvkHZxi74p7vcNh9DPI4i07VvHU+En21OV
-         JAUuKT0JDx6TZuVOtXRpCE/0xDlh2MVYPJrILlRAb3k81bHYVpWhwptxA3ZVwbDuR5VX
-         gy8HWzaysceZNknsMiL2bEF9dTt7vz6FrbuFZhbaZTjgxx69m7YgQi/ARDsBSy/PqAf8
-         o1EreyeoCam0/B0LrFd3QvOysLr3QcU0hoyPo0mTnfm16nHWic0BNWhXFe8jU/9nDi96
-         giuIi/h5SowRAI2FEma/5EgETouteSIOZiszBjvyro1Y7U9XLZkD0p4glfnsrjYkRSPC
-         h2Lw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775155654; x=1775760454;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=MpykImWK6bjT2nlpOYqPcIo7o07mstIYTD+Wq8ULKFw=;
-        b=R+Im/h0u6pTZPZFjrJkdMg+5NH7oJ7SbddcX460a0MNvgI+MlDsI5cwoSpo0rbS3xq
-         8hm12xe6UDgybODam0K6S4/clbGqmKmmZmGE42uERBzO7kXSMlPpxWQgw08E2EGyb65N
-         szfNH04DTt5lqBKrp7KhgwCAL5F/TMs7vcMO/ZCjNrIcchgux6b9gmRKXGPLPHqngLlZ
-         vczR0qCdNW9vEUYEzKgWg7lyxJToKQ9UnDfPHh71YCkxaOvqHHS6vlTWZluVx8h/xM4i
-         3p2qQflZLn8YUuEGXDkCfJdaW+q6Y9NsSsVsXLxr1QJwwXOLtK4WujlbXkeGfbXp7sow
-         k1WQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVmajgMPsRsKOGDk2mbRJO7LPnc7Jdr7Z3dr3j3D3fKvNWEZL1Dg95tDNAkaEKfmEhh/0iHrdWC+Umg@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy0o+cPvrxZUtQJp404E2fcbAInzAtrARqRBF9EDO+/wMsP4jRW
-	IIl/P8uv2QlmOslp3bkg6Iomy0hdFSS9nXednsHWr8XbvOKOd9AqAyka7LwUnsUdHg==
-X-Gm-Gg: AeBDiesyDK3++IlxyvpiXM7rFBrFBSdrWX+QSoOK0K4H0wfbtLv+bCa1JmL/O6JkLmq
-	iU0o59vhszeAgDa182/YBUpQdL5SYq3K6uFRSbYq19WNvRPgZ7UwOQkeYROc2H7xKVIBpphZiTX
-	1ihOfduz2Z0TWtYoEywUQg9bIoy8wRJwbFPsgkO8btmJqWIGrSy2KkcRKKMOw6h47rh5QyCPWNS
-	tQdQy/rS8Ecvdk5c4KnnoKgbZ8PWzIhEU+m49SMuo2DulHDu3So9+rJqkiQXYT3C71P8hUTczta
-	kQ6kZVSZXs6FA70aeEth77Ldc3Jmh/GwtUBFzQPwLP+VEx2AS1okijS34R5r4oCZ/VBbejPNd5Q
-	OY9iC1joXt9lH4yc6V/ppgdwwe30dH1pnFHxD5reAd62VXCg4vtxqc2ryqSCHZeHl+aFtPWIwsT
-	5xmrqF7M4t8hBO1dePXDQNDItFbcFh5eMQwHZh1K9A1b18F4LaTl7R0ylDe1YZEjZ7ICoQ/0WdI
-	f3L5oODtmQqXTKEKYTnXaJt8Q==
-X-Received: by 2002:a05:7300:e8a7:b0:2c6:31f0:a025 with SMTP id 5a478bee46e88-2cbfc4623eemr138794eec.27.1775155653050;
-        Thu, 02 Apr 2026 11:47:33 -0700 (PDT)
-Received: from ?IPV6:2a00:79e0:2e7c:8:2412:bdd2:9fa6:2acc? ([2a00:79e0:2e7c:8:2412:bdd2:9fa6:2acc])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2ca7c20b2b1sm3319049eec.18.2026.04.02.11.47.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 02 Apr 2026 11:47:32 -0700 (PDT)
-Message-ID: <017b8552-87e2-4409-ae34-9a3ab7365a68@google.com>
-Date: Thu, 2 Apr 2026 11:47:30 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ACLWA4K/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14F68C19424;
+	Thu,  2 Apr 2026 19:15:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775157354;
+	bh=vmcgmx2b1d+sEcCkP/PVuRC1VBB/6wisaD/PfN6lEgU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=ACLWA4K/rONuT/BL90yp++j7/3xrb5B5OQf3g2JPW6l720NbNNp3SSm/8J5Mgaceb
+	 UWKzxQQhANPSfCK6QAe13QhTTebPFAVO423WF5pr7RkNGTwX9E9YTc5+JKTcPojZ3a
+	 UqTGUVXq3S2nYZAqXTdF/s5tnMMEYDR5gyhQeFRkQtNXcETPYjkm7oH30QhYFHYYjA
+	 ATQ94DMK9ylk1OpYEZ0dQ64d4dgWdyOwT96KHBQx/hT8JGn874+RN1VF18arYlqZwX
+	 gE/6rbYguIo5aDSA2b2Qv6bekgiFffQz/EKXinMwc4m6xBrOvmOkEy6t4GIB5vM5Qt
+	 brJbfW796RMzQ==
+From: Mark Brown <broonie@kernel.org>
+To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: mohammad.rafi.shaik@oss.qualcomm.com, linux-sound@vger.kernel.org, 
+ lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, johan@kernel.org, 
+ dmitry.baryshkov@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, srini@kernel.org, val@packett.cool, 
+ mailingradian@gmail.com
+In-Reply-To: <20260402081118.348071-1-srinivas.kandagatla@oss.qualcomm.com>
+References: <20260402081118.348071-1-srinivas.kandagatla@oss.qualcomm.com>
+Subject: Re: [PATCH v9 00/13] ASoC: qcom: q6dsp: few fixes and enhancements
+Message-Id: <177514411128.51134.5760476545108119591.b4-ty@b4>
+Date: Thu, 02 Apr 2026 16:35:11 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 6/6] usb: typec: tcpm/tcpci_maxim: deprecate WAR for
- setting charger mode
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
- Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jagan Sridharan <badhri@google.com>, Mark Brown <broonie@kernel.org>,
- Matti Vaittinen <mazziesaccount@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>, Sebastian Reichel
- <sre@kernel.org>, Peter Griffin <peter.griffin@linaro.org>,
- Tudor Ambarus <tudor.ambarus@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, RD Babiera <rdbabiera@google.com>,
- Kyle Tso <kyletso@google.com>
-References: <20260331-max77759-charger-v10-0-76f59233c369@google.com>
- <20260331-max77759-charger-v10-6-76f59233c369@google.com>
- <ac5-OzwQkczTWtMg@kuha>
-Content-Language: en-US
-From: Amit Sunil Dhamne <amitsd@google.com>
-In-Reply-To: <ac5-OzwQkczTWtMg@kuha>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev-efa4b
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3225; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=vmcgmx2b1d+sEcCkP/PVuRC1VBB/6wisaD/PfN6lEgU=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBpzsBmINEhPyOy4OqH/NAYGmbM3RkQgB5HkyK6p
+ JqKnv02sGCJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCac7AZgAKCRAk1otyXVSH
+ 0E3oB/9vVI1XIIBBGP5Y+VBEm3Fvl1zALIOd1g0AY23zTjIUPgiEL52amWfgkGZNkR7tiyGKqJh
+ CYHy4h5g7SmSv+M7e1CnqvHZ+HCsBkLLYiTw0WoJAIfmuSVDnz0fYcJakh/zpmw14YoOtpCcEPK
+ rql/Eee22r5qfXFR0a+xBY43harNzZOamJKhMRZW10t3eU48OrSbi7WNKuAhPhF7jWZqlGda4ND
+ SI+dQpDHKjcuzTtG9Z8j2IisVTHr5my2q8zVR40Wu90CcVUcniXgScFZ/LnCtb1BtwuTgHZeu23
+ Bb4bLuo0kdtQ3fpen+VI4kf2KdFk0M5E9L8fxKrqEcTh7YTZ
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Hi Heikki,
+On Thu, 02 Apr 2026 08:11:05 +0000, Srinivas Kandagatla wrote:
+> ASoC: qcom: q6dsp: few fixes and enhancements
+> 
+> This patchset contains few fixes for the bugs hit during testing with
+> Monza EVK platform
+> - around array out of bounds access on dai ids which keep extending but
+>   the drivers seems to have hardcoded some numbers, fix this and clean
+> the mess up
+> - fix few issues discovered while trying to shut down dsp.
+> - flooding rpmsg with write requests due to not resetting queue pointer,
+>   fix this resetting the pointer in trigger stop.
+> - possible multiple graph opens which can result in open failures.
+> 
+> [...]
 
-On 4/2/26 7:33 AM, Heikki Krogerus wrote:
-> Hi Amit,
->
->> +static int get_vbus_regulator_handle(struct max_tcpci_chip *chip)
->> +{
->> +	if (IS_ERR_OR_NULL(chip->vbus_reg)) {
->> +		chip->vbus_reg = devm_regulator_get_exclusive(chip->dev,
->> +							      "vbus");
-> Sorry to go back to this, but why can't you just get the regulator in
-> max_tcpci_probe()?
+Applied to
 
-Thanks for calling this out. This was an intentional design decision to 
-break a circular dependency.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.1
 
-The charger driver is guaranteed to probe after the TCPC driver due to a 
-power supply dependency (the TCPC is a supplier of power for the Battery 
-Charger). However, the charger driver is also the regulator provider for 
-VBUS out (when Type-C goes into source mode).
+Thanks!
 
-Because of this, the regulator handle will not be available during the 
-TCPC driver's probe. If we tried to fetch it in max_tcpci_probe() and 
-returned -EPROBE_DEFER, it would create a probe deadlock, as the charger 
-would then never probe. Therefore, I made the decision to get the 
-regulator handle lazily and on-demand.
+[01/13] ASoC: qcom: q6apm: move component registration to unmanaged version
+        https://git.kernel.org/broonie/sound/c/6ec1235fc941
+[02/13] ASoC: qcom: q6apm: remove child devices when apm is removed
+        https://git.kernel.org/broonie/sound/c/4a0e1bcc98f7
+[03/13] ASoC: qcom: qdsp6: topology: check widget type before accessing data
+        https://git.kernel.org/broonie/sound/c/d5bfdd28e0cd
+[04/13] ASoC: qcom: q6apm-lpass-dai: Fix multiple graph opens
+        https://git.kernel.org/broonie/sound/c/69acc488aaf3
+[05/13] ASoC: qcom: q6apm-dai: reset queue ptr on trigger stop
+        https://git.kernel.org/broonie/sound/c/cab45ab95ce7
+[06/13] ASoC: dt-bindings: qcom: add LPASS LPI MI2S dai ids
+        https://git.kernel.org/broonie/sound/c/e46957f27c60
+[07/13] ASoC: qcom: common: validate cpu dai id during parsing
+        https://git.kernel.org/broonie/sound/c/d49ee8faefec
+[08/13] ASoC: qcom: qdsp6: lpass-ports: add support for LPASS LPI MI2S dais
+        https://git.kernel.org/broonie/sound/c/bcd0df1ebc9d
+[09/13] ASoC: qcom: q6dsp: Add Senary MI2S audio interface support
+        https://git.kernel.org/broonie/sound/c/ae0de4e50f8f
+[10/13] ASoC: qcom: qdapm-lpass-dai: correct the error message
+        https://git.kernel.org/broonie/sound/c/8f542c7c4aa9
+[11/13] ASoC: qcom: q6apm-lpass-dai: move graph start to trigger
+        https://git.kernel.org/broonie/sound/c/b54a38af7138
+[12/13] ASoC: qcom: qdsp6: remove search for module iid in hot path
+        https://git.kernel.org/broonie/sound/c/d8b4163038dc
+[13/13] ASoC: qcom: q6apm: Add support for early buffer mapping on DSP
+        https://git.kernel.org/broonie/sound/c/8ea6e25c8536
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
-Amit
+Mark
 
->
-> thanks,
->
->> +		if (IS_ERR_OR_NULL(chip->vbus_reg)) {
->> +			dev_err(chip->dev,
->> +				"Failed to get vbus regulator handle\n");
->> +			return -ENODEV;
->> +		}
->> +	}
->> +
->> +	return 0;
->> +}
