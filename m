@@ -1,93 +1,90 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB5223E3D9F
-	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 12:34:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D9E30B53C
+	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 12:35:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775133301; cv=none; b=V0xB0vU+WI9uF2Xrb2vgph1H0FSDdc3gKnborg4u6Dy/k0ePqBiFWbvsMBLBUE9AyBlfeIzLovKjsvIbCdrK58sCvljvlFCQfmMr86h9OQCYN3EYvsF8rWkypCuL5Tqyx/A6XmSHhvvTXcHf/5nhCBuh29kQ8KfHUzI1o8z7ojk=
+	t=1775133338; cv=none; b=sHL50y0xAJHg/k+qNQWzWyraZa849trRJ7ch+nQtXp0RYIOx/a62L7cq1pNbXIWRnD+1LSjdUJK1LLMSNnrFg42qvPxn5QbM6WO5Lcl5JoE2i/cHH20RtvuCKKWbg7dxdcseLTuSVfIaMp8vmrC5ygzO4q4wAmMdtF65CvTstIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775133301; c=relaxed/simple;
-	bh=eStbQ7NN4DXExlNiybRaL/c4YiUBu327h6xKiFmu5+8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sSqrtCLY5Iws8VAoQWVo/mGOCNFRPHV6DJm9ymMTsP+nTiHaMVsGVHSMqRuXPOJmWXp6ixscbKoCsacQNQjIH18vWE92kKEvFFfBsUnxZ2uBI7m0YKqNfKy69VN6GDN44FSHODiXFikebx2diOra6BAUbhuWS0cvrxZ8105JYTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=iGFoLekf; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="iGFoLekf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=from:to:cc:subject:date:message-id
-	:mime-version:content-transfer-encoding; s=k1; bh=W+cQeTx6S4ds4B
-	GxhLTkBNyd3ZcV8I13pYxsoMZUT50=; b=iGFoLekfb3tjdf+zr9G0MBfFHkXsLc
-	B02doBOEM4d0cjom2rr8mU6m0QugV1Ku8x5NZ0TM2AFW0/z7EQuN/HzKUxPOBLiS
-	CtwwpReFyWILxqzHqOBZ/1rR9mVGEz6SkSU6sKg+oMz0r0T+KjH6Xx9Q3eqStwoS
-	1AJ1+qjr8tmTh+2RhzgwIbX63iigY3tBCECmd8QVoaacJ0R5njoU3pdkNastmhI1
-	vEuzoaYKFJc6ScdqNT7cHJ/dTkFPcd4AdGPj6xof0NAyxXT0lVqf2FYX8gyQRIRJ
-	SLHJO2E4TJdJvshjq78oRs51ndV9UdJWc4Qetn6mc+on4KdIr93b604Q==
-Received: (qmail 2500123 invoked from network); 2 Apr 2026 14:34:49 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 2 Apr 2026 14:34:49 +0200
-X-UD-Smtp-Session: l3s3148p1@1mIhbXlO1INUhsJN
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: linux-renesas-soc@vger.kernel.org
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org
-Subject: [RFC PATCH] dt-bindings: incomplete-devices: allow additional properties
-Date: Thu,  2 Apr 2026 14:27:00 +0200
-Message-ID: <20260402123444.14177-2-wsa+renesas@sang-engineering.com>
-X-Mailer: git-send-email 2.51.0
+	s=arc-20240116; t=1775133338; c=relaxed/simple;
+	bh=sJdvW6MLp8yBgH3UDvbpSEu67skPh2aEa5Orm+cvDOY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=AvwwXB/RCaDMrCkn7kL6C2yWe5L3hhaRXfHn0lXIburlzsbo6JFV1N+kA3P13iT1OVIclXVcDj8xiHKe2Tf7SGlCb+mFlhA89JEu3oMBkm1rhVEVdroVydkAq7Ggdh4tnp6yB7UPHrSB9EsujhGdJCPxBh+qlcgmsqyJ884hZ8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1w8HGY-0004sU-7C; Thu, 02 Apr 2026 14:35:18 +0200
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1w8HGX-003NKC-1q;
+	Thu, 02 Apr 2026 14:35:17 +0200
+Received: from pza by lupine with local (Exim 4.98.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1w8HGX-000000009WP-1xQg;
+	Thu, 02 Apr 2026 14:35:17 +0200
+Message-ID: <be36f3adb1cc0391035d45d273e132b95caa506d.camel@pengutronix.de>
+Subject: Re: [PATCH v10 0/5] Add USB2.0 VBUS mux driver and extend
+ rzv2h-usb2phy reset for RZ/G3E support
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, 
+	tomm.merciai@gmail.com, peda@axentia.se
+Cc: linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com, Fabrizio
+ Castro <fabrizio.castro.jz@renesas.com>, Lad Prabhakar
+ <prabhakar.mahadev-lad.rj@bp.renesas.com>,  Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>,  Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Arnd Bergmann <arnd@arndb.de>, Ulf
+ Hansson <ulf.hansson@linaro.org>, Josua Mayer <josua@solid-run.com>,
+ devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org
+Date: Thu, 02 Apr 2026 14:35:17 +0200
+In-Reply-To: <cover.1775047175.git.tommaso.merciai.xr@bp.renesas.com>
+References: <cover.1775047175.git.tommaso.merciai.xr@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: p.zabel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Linux test infrastructure is rightfully handled as 'incomplete devices.'
-It may need additional properties, though, like this mailbox test entry:
+On Mi, 2026-04-01 at 17:16 +0200, Tommaso Merciai wrote:
+> Dear All,
+>=20
+> The series adds:
+>  - A new mux driver for RZ/V2H USB VBENCTL VBUS_SEL
+>  - Updates to the rzv2h-usb2phy reset driver/bindings to support RZ/G3E.
+>=20
+> Merge strategy, if any:
+>=20
+> - patches 1/5 can go through the MUX tree
+> - patches 2-5/5 can go through the Reset tree
 
-mailbox_test_send_to_recv@c1000000 {
-        compatible = "mailbox-test";
-        broken-usage-of-incorrect-compatible;
-        reg = <0x0 0xc1000000 0x0 0x100>;
-        mboxes = <&mfis 0 (MFIS_CHANNEL_IICR | MFIS_CHANNEL_TX)>,
-                 <&mfis 0 (MFIS_CHANNEL_EICR | MFIS_CHANNEL_RX)>;
-        mbox-names = "tx", "rx";
- };
+Patches 2-5 applied to reset/next, thanks!
 
-So, allow additional properties to prevent:
+[2/5] dt-bindings: reset: renesas,rzv2h-usb2phy: Add '#mux-state-cells' pro=
+perty
+      https://git.pengutronix.de/cgit/pza/linux/commit/?id=3D6a1b6f7e56dc
+[3/5] dt-bindings: reset: renesas,rzv2h-usb2phy: Document RZ/G3E USB2PHY re=
+set
+      https://git.pengutronix.de/cgit/pza/linux/commit/?id=3D63be00249dd9
+[4/5] reset: rzv2h-usb2phy: Convert to regmap API
+      https://git.pengutronix.de/cgit/pza/linux/commit/?id=3D890628c8d0f1
+[5/5] reset: rzv2h-usb2phy: Add support for VBUS mux controller registratio=
+n
+      https://git.pengutronix.de/cgit/pza/linux/commit/?id=3Df62fcdf8ab82
 
-.../arch/arm64/boot/dts/renesas/r8a78000-ironhide.dtb: mailbox_test_send_to_recv@c1000000 (mailbox-test): 'broken-usage-of-incorrect-compatible', 'mbox-names', 'mboxes', 'reg' do not match any of the regexes: '^pinctrl-[0-9]+$'
-
-Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
----
-
-Maybe this is not worth the hazzle because these testing bindings should
-never be used in production DTs. During development, however, this is
-useful because it reduces noise, so real bugs become more visible.
-
-If this is not applicable for reasons I overlooked, another approach
-could be to use 'broken-usage-of-incorrect-compatible' as an early exit
-in fixup_node_props() of the validator?
-
-RFC because of all of the above. Is this worth it?
-
- Documentation/devicetree/bindings/incomplete-devices.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/Documentation/devicetree/bindings/incomplete-devices.yaml b/Documentation/devicetree/bindings/incomplete-devices.yaml
-index 4bb6c0141e9f..8f6df738f5e9 100644
---- a/Documentation/devicetree/bindings/incomplete-devices.yaml
-+++ b/Documentation/devicetree/bindings/incomplete-devices.yaml
-@@ -282,4 +282,4 @@ required:
-   - compatible
-   - broken-usage-of-incorrect-compatible
- 
--additionalProperties: false
-+additionalProperties: true
--- 
-2.51.0
-
+regards
+Philipp
