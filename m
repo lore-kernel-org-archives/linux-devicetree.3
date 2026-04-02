@@ -1,45 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34F9B31F9A4;
-	Thu,  2 Apr 2026 07:54:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2828F194AD7;
+	Thu,  2 Apr 2026 07:58:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775116479; cv=none; b=Yo1To5rZWQH/4GW7yDs3a1h72obDG/ouJl4syQockyreAb0ldXrUl5ltyXNtKLZgtiUnjMuRsFr2EMlH+5ZEubqXDJ320+potT/Xyx/QBcjffPxGI1zJgxHyhvIAQfUhNJ5tCrnW+taMsFEbPD6ci6q5HK7KoFpQYUQu/LgPJG4=
+	t=1775116682; cv=none; b=tADTGhlJBOir4tmWC//4t6A9GX1piGBIuIz6gLCicX6xkuq4k6FdzA/G6/Cwce+wQFWm7DdZ4G/OllTGtwuWgGkIcD4u9pThY3kO67I/u/IYqho7sz3/68r4ymodHOLsvI/+ATEtMVbRpXqk8yJGMMZderu4ijNu3c3MXdwItMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775116479; c=relaxed/simple;
-	bh=yXV6i0CL0I215a59ZFoO7hKU8QSfjUiamRtwBT/qvfg=;
+	s=arc-20240116; t=1775116682; c=relaxed/simple;
+	bh=dmzEjMz+G0kGZ86c7hnlol8UGuYu8HaYTRIYsCVzu4g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=vEkgxSV/TsR1JA4qhp2toGOtgXxnYZATdRyxSvJM5HiVEIa9GVvo1qLz8Z37nsXpK5TS4K7eoiogW3te0w+ewETAmlorcDzLzmYEXPE3HxTLrSpkeviMXYtFn/D/Q7j9bHUnKQ93vzkGhtfrk7SHeNWXqhtOebS5TAvyhsDPh8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QMKPOnr+; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=uFy7ji7GMGAVwQuRv9uAjDLRqAIr+mkJ4IhtekF0UAtkxrbphZA1+ZIlCCRmverFw3XMAb6fLqEIyT1sfWaXhuJG+zaXG727WpiF8/r/J37BRkszq+aEuAiHxHtkRt0QihZzcqJS1oLEgzbLweq2em80KJ4F2ec+cpUdn2ZfVZk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VjZ/eeqr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QMKPOnr+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 476F0C19423;
-	Thu,  2 Apr 2026 07:54:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VjZ/eeqr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2521FC19423;
+	Thu,  2 Apr 2026 07:58:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775116478;
-	bh=yXV6i0CL0I215a59ZFoO7hKU8QSfjUiamRtwBT/qvfg=;
+	s=k20201202; t=1775116681;
+	bh=dmzEjMz+G0kGZ86c7hnlol8UGuYu8HaYTRIYsCVzu4g=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QMKPOnr+WHZsKX8oPneDuTUwD/dldExVM8H3Fyi/bHiYpvAyetfxWRu+NxbNB3TcO
-	 0P+dwGMU/F5bP0GN8mBTWU3HyKK2AIKh275Evv02sZ0Mzlm/fLdYmbPdQYgSDe1tAY
-	 N9pa6gIg7swDkp7myGrff2vN/24hyPs3qgILdJpRA4VLanLjdr7sonklY+N2Tzpgxq
-	 C8NlYHwCzDt18KUsnR/+WK1I8xHU1plAlLO6dhcE7azQmJ4sXOkKkZkZkwecnL+3wa
-	 o5/oT9GIF/q6hAS4PVshYGsOD6PHsHDiB4gmh+c1psXCSZStjX7oqSrIG9y1NEYHA7
-	 fwjlDwxnAW5pg==
-Date: Thu, 2 Apr 2026 09:54:36 +0200
+	b=VjZ/eeqrI8C+38ObBE+mYnEkkApVuzxGZSYasUYMzxD0PNPmUnD+W2Hk6Ea2hW3/c
+	 znNaLRljOm1YPBZb9wGOHniUFUR+6DUt7ylQICrDzpOCjkuuPujlh5mPdGHNdVEfQF
+	 WhrXmX1DCQXu9MU5Y8xYzu1nUFTA4F/i4dr6h0FSH5j4gOjRdrk0lbr9Ex3/Wv357k
+	 1pWmc+CA3gQ8ciQmV2ecQBDGY2yH9diri7j+t8kzcuuFB+kGZ1+y90fPQ45cdbfUkt
+	 epc6s7LE2RPsRrKg1z4XWSucu1FQ6JWubSZU7oZJEteDAbzP8UZmC/FYrMoAulyROM
+	 Jno7reZ2hfXgA==
+Date: Thu, 2 Apr 2026 09:57:59 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Sen Wang <sen@ti.com>
-Cc: linux-sound@vger.kernel.org, broonie@kernel.org, lgirdwood@gmail.com, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org, perex@perex.cz, tiwai@suse.com, shenghao-ding@ti.com, 
-	kevin-lu@ti.com, baojun.xu@ti.com, niranjan.hy@ti.com, l-badrinarayanan@ti.com, 
-	devarsht@ti.com, v-singh1@ti.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] ASoC: codecs: Add TAS675x quad-channel audio
- amplifier driver
-Message-ID: <20260402-righteous-gifted-kestrel-0ae70e@quoll>
-References: <message-id-of-your-RFC-cover-letter>
- <20260401223239.1638881-1-sen@ti.com>
- <20260401223239.1638881-3-sen@ti.com>
+To: Daniel Golle <daniel@makrotopia.org>
+Cc: Olivia Mackall <olivia@selenic.com>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Sean Wang <sean.wang@mediatek.com>, linux-crypto@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: rng: mtk-rng: add SMC-based TRNG
+ variants
+Message-ID: <20260402-towering-transparent-malamute-1e44b8@quoll>
+References: <0a951e34b7030e514091d6c0922c5982ae349221.1775090165.git.daniel@makrotopia.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,33 +48,108 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260401223239.1638881-3-sen@ti.com>
+In-Reply-To: <0a951e34b7030e514091d6c0922c5982ae349221.1775090165.git.daniel@makrotopia.org>
 
-On Wed, Apr 01, 2026 at 05:28:43PM -0500, Sen Wang wrote:
+On Thu, Apr 02, 2026 at 01:37:02AM +0100, Daniel Golle wrote:
+> Add compatible strings for MediaTek SoCs where the hardware random number
+> generator is accessed via a vendor-defined Secure Monitor Call (SMC)
+> rather than direct MMIO register access:
+> 
+>   - mediatek,mt7981-rng
+>   - mediatek,mt7987-rng
+>   - mediatek,mt7988-rng
+> 
+> These variants require no reg, clocks, or clock-names properties since
+> the RNG hardware is managed by ARM Trusted Firmware-A.
+> 
+> Relax the $nodename pattern to also allow 'rng' in addition to the
+> existing 'rng@...' pattern.
+> 
+> Add a second example showing the minimal SMC variant binding.
+> 
+> Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+> ---
+> v2: express compatibilities with fallback
+> 
+>  .../devicetree/bindings/rng/mtk-rng.yaml      | 28 ++++++++++++++++---
+>  1 file changed, 24 insertions(+), 4 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/rng/mtk-rng.yaml b/Documentation/devicetree/bindings/rng/mtk-rng.yaml
+> index 7e8dc62e5d3a6..34648b53d14c6 100644
+> --- a/Documentation/devicetree/bindings/rng/mtk-rng.yaml
+> +++ b/Documentation/devicetree/bindings/rng/mtk-rng.yaml
+> @@ -11,12 +11,13 @@ maintainers:
+>  
+>  properties:
+>    $nodename:
+> -    pattern: "^rng@[0-9a-f]+$"
+> +    pattern: "^rng(@[0-9a-f]+)?$"
+>  
+>    compatible:
+>      oneOf:
+>        - enum:
+>            - mediatek,mt7623-rng
+> +          - mediatek,mt7981-rng
+>        - items:
+>            - enum:
+>                - mediatek,mt7622-rng
+> @@ -25,6 +26,11 @@ properties:
+>                - mediatek,mt8365-rng
+>                - mediatek,mt8516-rng
+>            - const: mediatek,mt7623-rng
+> +      - items:
+> +          - enum:
+> +              - mediatek,mt7987-rng
+> +              - mediatek,mt7988-rng
+> +          - const: mediatek,mt7981-rng
+>  
+>    reg:
+>      maxItems: 1
+> @@ -38,9 +44,19 @@ properties:
+>  
+>  required:
+>    - compatible
+> -  - reg
+> -  - clocks
+> -  - clock-names
 > +
-> +static const struct dev_pm_ops tas675x_pm_ops = {
-> +	SYSTEM_SLEEP_PM_OPS(tas675x_system_suspend, tas675x_system_resume)
-> +	RUNTIME_PM_OPS(tas675x_runtime_suspend, tas675x_runtime_resume, NULL)
-> +};
-> +
-> +static const struct of_device_id tas675x_of_match[] = {
-> +	{ .compatible = "ti,tas6754",  .data = (void *)TAS6754 },
-> +	{ .compatible = "ti,tas67524", .data = (void *)TAS6754 },
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          not:
 
-I did not look detailed, but this ^^^
+As requested last time - drop
 
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, tas675x_of_match);
-> +
-> +static const struct i2c_device_id tas675x_i2c_id[] = {
-> +	{ "tas6754",  TAS6754 },
-> +	{ "tas67524", TAS6754 },
+> +            contains:
+> +              const: mediatek,mt7981-rng
+> +    then:
 
-... and this ^^^ clearly states devices are compatible, unlike your
-binding is stating
+missing constraints for mediatek,mt7981-rng. So does it have IO space
+and clocks or not?
 
-> +	{ }
+> +      required:
+> +        - reg
+> +        - clocks
+> +        - clock-names
+>  
+>  additionalProperties: false
+>  
+> @@ -53,3 +69,7 @@ examples:
+>              clocks = <&infracfg CLK_INFRA_TRNG>;
+>              clock-names = "rng";
+>      };
+> +  - |
+> +    rng {
+> +            compatible = "mediatek,mt7981-rng";
+
+No improvements.
+
+Also, make the example complete since binding claims you have clocks and
+reg.
+
+I am not sure it should be even same file, but if you are making it same
+file, then make it correct.
 
 Best regards,
 Krzysztof
