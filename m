@@ -1,85 +1,133 @@
-Received: from gate2.alliedtelesis.co.nz (gate2.alliedtelesis.co.nz [202.36.163.20])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0BC133B6DC
-	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 02:41:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.36.163.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BA191DC985;
+	Thu,  2 Apr 2026 02:44:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775097673; cv=none; b=NwUnFK9Z7JjbCrh70RdPpl6lbitZt623oGanEaz98fODo+MAAHgRc6H/7GcxgdE4G5mhP940Ap4QagXHNhqBP4AYSs8w2EelNSL1NYEnY2IUvdN9U41xJk0Sj84Fn4AwnpT84wP9BP3r3eD9Yo6jCra/ygzIJJZDnpB6dAbCgI4=
+	t=1775097894; cv=none; b=Zgtlnzg/G+/Mj+VmTqZP7lqLT2hMsiVOagrFLqLp4OUt8lUY2aTBR+rC0GEDPSRZxNmDp8X/qGPMSKcAEWqpWwlT3IZnz4t44C7x1qh+v2cGCC72VdylyrGZpzBLMPO6xLoUuXBU2PbEkWiLnkNuB1YMBdtB3w7hwqsbAosAZ0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775097673; c=relaxed/simple;
-	bh=uBq3wy+ZkRfRU6a8NfLXf7qFVhOvHNrWrhBb0Qowdds=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DcFwdsruipbP++FD8oVp+hIuuD69iaw8RHGsDhQScrwXgkU0a8EeTTzFeukjEkRwT5ZhJn0VZnpeKwlDGXo7ZA5hhDnePzJMjYYdfmd9ZMOPAii5SqEoWJr7Bz9QS+9/VQS1aA8F05oTt5p7Idmt/EbyfQ+11JjnjVS+QSFLPU8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz; spf=pass smtp.mailfrom=alliedtelesis.co.nz; dkim=pass (2048-bit key) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.b=FQCqTe8k; arc=none smtp.client-ip=202.36.163.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=alliedtelesis.co.nz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alliedtelesis.co.nz
+	s=arc-20240116; t=1775097894; c=relaxed/simple;
+	bh=rx9xKdXJN71RUiaBeg38q4nVQgqAHlUDWmMLMw+OMRE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GK60UGCX0+pNzjmPC6/YMDU13rvyPJQ6ymYQp4Vl2MHQsvf8A80jfY6xnpOhAu7RbxKJywJkAkytnPaJPPsfuyvW0h1RHb1oGlny2jsOk2QmsJyiGRFA3bSH8gZBScZUDTQhgwTIcib8LERW1qQJSI0LkZdLdxBTfGTNpnbP8H0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KqZ01y7B; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=alliedtelesis.co.nz header.i=@alliedtelesis.co.nz header.b="FQCqTe8k"
-Received: from svr-chch-seg1.atlnz.lc (mmarshal3.atlnz.lc [10.32.18.43])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by gate2.alliedtelesis.co.nz (Postfix) with ESMTPS id BB1132C0453;
-	Thu,  2 Apr 2026 15:41:07 +1300 (NZDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alliedtelesis.co.nz;
-	s=mail181024; t=1775097667;
-	bh=d5wE9VJa1070n7d6nhlkbBW4peM5MBKHmKNDf/i37oM=;
-	h=From:To:Cc:Subject:Date:From;
-	b=FQCqTe8k1MO4CbQNqYdjC8v+LHOv6pm94v4NR5zFzns2Mj/9rOl5Zyr/LZ8ILtK9G
-	 F2X2Fmig4skecatoGJlEaRh9Nv/9id8jKokS8zfyfYucYFxn9oyMTviG/VVALbjPmX
-	 edO6qY/gOMcSoYBHb5Y5GZLpElymWwlNOrAr7FYBl4elonJeZ55Vr6NpA0gUnjdPaB
-	 oL2jxQzAWfhjtI5sfLC3NkRorb4P3uiwDW0K6+aWqHTPw7Jiz9QQY34n3ueYUwvf2V
-	 R6fAgkEUsp1er9UzEagfR8ru1PDTJTHr4d1fqVNBeQIOpb5+SCU2+4hW9LK1uYoIfl
-	 8HjJ26NdWi06Q==
-Received: from pat.atlnz.lc (Not Verified[10.32.16.33]) by svr-chch-seg1.atlnz.lc with Trustwave SEG (v8,2,6,11305)
-	id <B69cdd7430000>; Thu, 02 Apr 2026 15:41:07 +1300
-Received: from chrisp-dl.ws.atlnz.lc (chrisp-dl.ws.atlnz.lc [10.33.22.12])
-	by pat.atlnz.lc (Postfix) with ESMTP id 7B9F413EE37;
-	Thu,  2 Apr 2026 15:41:07 +1300 (NZDT)
-Received: by chrisp-dl.ws.atlnz.lc (Postfix, from userid 1030)
-	id 75E502809B9; Thu,  2 Apr 2026 15:41:07 +1300 (NZDT)
-From: Chris Packham <chris.packham@alliedtelesis.co.nz>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux@roeck-us.net
-Cc: devicetree@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chris Packham <chris.packham@alliedtelesis.co.nz>
-Subject: [PATCH v4 0/2] hwmon: pmbus: Sony APS-379
-Date: Thu,  2 Apr 2026 15:40:58 +1300
-Message-ID: <20260402024101.4136697-1-chris.packham@alliedtelesis.co.nz>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KqZ01y7B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73027C4CEF7;
+	Thu,  2 Apr 2026 02:44:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775097894;
+	bh=rx9xKdXJN71RUiaBeg38q4nVQgqAHlUDWmMLMw+OMRE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=KqZ01y7BcMo3KNVYIEoZ/bcbwlHEokEwhhP0jPfvq21ZKJyXPqQSPvlCtu3in1Llm
+	 r637XNyzJfxmLlAfwJc+24ZWBv9J2TF94o8vWKzbabJAn9WVwBatdRj+nbD1tV56AG
+	 4qRQ2hzzEDNQcuTivUkNrbuJuQIrXBD9gJvICz1tmjEXft+nwWzIDdX/RwEJgne9SQ
+	 5iQcbhGhE/k19kAQCbBVixW1hI/i8d82XPkU+m1Zlzv4wi9PsSitNGj4vwAPjo8EPs
+	 Fi70xhpMEtUfnS5C814UiFgshcw1xajJx8y1Z42Vlqn5VkZ11sN+ZrH3Qt7hb+355c
+	 o3NGYS2O/Ga4A==
+Date: Wed, 1 Apr 2026 19:44:52 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: Radim =?utf-8?B?S3LEjW3DocWZ?= <radim.krcmar@oss.qualcomm.com>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Adrien Ricciardi <aricciardi@baylibre.com>,
+	Nicolas Pitre <npitre@baylibre.com>,
+	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
+	Atish Patra <atish.patra@linux.dev>,
+	Atish Kumar Patra <atishp@rivosinc.com>,
+	Vasudevan Srinivasan <vasu@rivosinc.com>,
+	Ved Shanbhogue <ved@rivosinc.com>,
+	yunhui cui <cuiyunhui@bytedance.com>,
+	Chen Pei <cp0613@linux.alibaba.com>,
+	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+	Weiwei Li <liwei1518@gmail.com>, guo.wenjia23@zte.com.cn,
+	liu.qingtao2@zte.com.cn,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Tony Luck <tony.luck@intel.com>, Babu Moger <babu.moger@amd.com>,
+	Peter Newman <peternewman@google.com>,
+	Fenghua Yu <fenghua.yu@intel.com>,
+	James Morse <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>,
+	Dave Martin <Dave.Martin@arm.com>, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org, x86@kernel.org,
+	Rob Herring <robh@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>, Robert Moore <robert.moore@intel.com>,
+	Sunil V L <sunilvl@ventanamicro.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-riscv <linux-riscv-bounces@lists.infradead.org>
+Subject: Re: [PATCH RFC v2 08/17] RISC-V: QoS: add resctrl interface for
+ CBQRI controllers
+Message-ID: <ac3YJMI2U/zGEBM0@x1>
+References: <20260128-ssqosid-cbqri-v2-0-dca586b091b9@kernel.org>
+ <20260128-ssqosid-cbqri-v2-8-dca586b091b9@kernel.org>
+ <DHH5NGQGQYBE.31X8OI8AKTYRU@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-SEG-SpamProfiler-Analysis: v=2.4 cv=EcprQ+mC c=1 sm=1 tr=0 ts=69cdd743 a=KLBiSEs5mFS1a/PbTCJxuA==:117 a=A5OVakUREuEA:10 a=RPtVrnf-bw8RX5avTx0A:9 a=3ZKOabzyN94A:10
-X-SEG-SpamProfiler-Score: 0
-x-atlnz-ls: pat
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <DHH5NGQGQYBE.31X8OI8AKTYRU@oss.qualcomm.com>
 
-This series add support for the PMBus hwmon on the Sony
-APS-379 power supply module. There's some deviations from
-the PMBus specification that need to be dealt with.
+On Tue, Mar 31, 2026 at 07:48:27PM +0200, Radim Krčmář wrote:
+> 2026-01-28T12:27:29-08:00, Drew Fustini <fustini@kernel.org>:
+> > Add interface for CBQRI controller drivers to make use of the resctrl
+> > filesystem.
+> >
+> > Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
+> > Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
+> > Signed-off-by: Drew Fustini <fustini@kernel.org>
+> > ---
+> 
+> Hi Drew, I have just a few minor comments as I noticed that you plan to
+> send a new version soon, so I'll try for a review then...
 
-Chris Packham (2):
-  dt-bindings: trivial-devices: Add sony,aps-379
-  hwmon: pmbus: Add support for Sony APS-379
+Thanks for reviewing.
 
- .../devicetree/bindings/trivial-devices.yaml  |   2 +
- Documentation/hwmon/aps-379.rst               |  58 ++++++
- Documentation/hwmon/index.rst                 |   1 +
- drivers/hwmon/pmbus/Kconfig                   |   6 +
- drivers/hwmon/pmbus/Makefile                  |   1 +
- drivers/hwmon/pmbus/aps-379.c                 | 178 ++++++++++++++++++
- 6 files changed, 246 insertions(+)
- create mode 100644 Documentation/hwmon/aps-379.rst
- create mode 100644 drivers/hwmon/pmbus/aps-379.c
+> > diff --git a/arch/riscv/kernel/qos/qos_resctrl.c b/arch/riscv/kernel/qos/qos_resctrl.c
+> > +static int cbqri_probe_controller(struct cbqri_controller_info *ctrl_info,
+> > +				  struct cbqri_controller *ctrl)
+> > +{
+> > +	int err = 0, status;
+> > +	u64 reg;
+> [...]
+> > +	ctrl->base = ioremap(ctrl_info->addr, ctrl_info->size);
+> > +	if (!ctrl->base) {
+> > +		pr_warn("%s(): goto err_release_mem_region", __func__);
+> 
+> Missing "err = -E...".
 
---=20
-2.53.0
+Good point, I will fix.
 
+> 
+> > +		goto err_release_mem_region;
+> > +	}
+> [...]
+> > +		ctrl->ver_minor = reg & CBQRI_CC_CAPABILITIES_VER_MINOR_MASK;
+> > +		ctrl->ver_major = reg & CBQRI_CC_CAPABILITIES_VER_MAJOR_MASK;
+> 
+> Major version is shifted.
+
+Thanks, I will fix.
+
+> 
+> > +
+> > +		ctrl->cc.supports_alloc_op_flush_rcid = (reg >> CBQRI_CC_CAPABILITIES_FRCID_SHIFT)
+> > +			& CBQRI_CC_CAPABILITIES_FRCID_MASK;
+> 
+> FIELD_GET() could be used to make the mask+shift pattern nicer when
+> defined by GENMASK().
+
+Good point, I will switch to GENMASK and FIELD_GET.
+
+Thanks,
+Drew
