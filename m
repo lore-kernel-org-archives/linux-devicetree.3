@@ -1,90 +1,107 @@
-Received: from mail-244116.protonmail.ch (mail-244116.protonmail.ch [109.224.244.116])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC4A92FD1B5
-	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 14:28:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77F553264F5;
+	Thu,  2 Apr 2026 14:34:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775140138; cv=none; b=fM60DSvM7gIK7agB1nk6RGoYaERbU2VnPHa2u8PVt1go2i0iyL4Ud1SWm/wQESU5g9WvpJly94alLdMhToKWZXKsdCipWCztzs9HzXwKtamoCF97ej6kFPki5yw8zBmjq0J/pH4/BN+eNzYPsmeqok+0WFKbNv4WmNaZcyyUjHc=
+	t=1775140466; cv=none; b=nhf9fZrGarPhYRAx8ljXWKsk1uK9L6sdXArzNKEu0uUCDIKf2ff9wbS0xPfIoPsG2LBmTa7pNxHPLr20kT4PRAMqxU21FE01AbLHZ7xTdD8jJ+Zzj+3/eKg77AgKX52m3WEaPIN8opEA8sFVjawMKYclgbv/LAfMa/ZSiO3fLRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775140138; c=relaxed/simple;
-	bh=aUiDU6NtU4crFe7j/IYe7KoI0Gyp57fBYvaYUZmymHo=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ETD+ayLyeo5iT4z55T1REKmMIszF6fBa3Y4R6835sXeln7GX2uOy2hCfPFEsQgIoUcU8kCtaHsy9BX741/IHJ/VLyyW/h8rEf12mnIpeovxbexHAb6i3Wuh9bJunn8aImsfGR6Xq63B2sxU17DqjTsekgJcBahPfuX0B3pLdu7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=gm8SVwu5; arc=none smtp.client-ip=109.224.244.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1775140466; c=relaxed/simple;
+	bh=x8FTCBu1ZLI3XgysCKTdvPU6t29kanGzc/hDoIDWGbY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=i0jJ6d2LXXzMrBh3WCb1yQN0bwWgtTWDOpQv/esTcJiLgRf2eiRCCyj29EtLMtMNKiUWGvuf1GgeQI6knnNrk1BoJfPgIOmhDakomR1ZQkxBpSJiEHaEPK4y/wcI6PRRM0UaX/2NO9bBiDycltzjfsOI4SCIXfWYtuQ/so3r3ZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EjIY+mhc; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="gm8SVwu5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1775140127; x=1775399327;
-	bh=61zlP1aorHbsMAHfSZBm3dDR0SYcYTVTWR5dLhiSR7Q=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=gm8SVwu5v9JMT85/BjOj8bg24O4S/6ijwXdJcduK0TvdrxF4BpPACbUjOFhPoghwa
-	 SyIHO4TnJVj/yfnBD+ImYFKMrciJ/W4vJJPm0aDAHJAmhHga6qYkJB8rXVIYCLlbKt
-	 IsXu7TvPiKFB05y6OOfc0OQqo6hjCERuf2Cj0t14SusruyWzXu3q3sFgpuA1CjC0UN
-	 D3rhg85Aho8OGW9KK9NJNK7ZYq6wjTLpKCBYjkTnfsOA74pSR7eYOotPT8qrQBvXhY
-	 iN0ymU8lSxqeSNuwr75FGkF5a+pXfDc6glvaPwcrgxY4/F8Nd7UTEsAuEiYB4hxrkv
-	 iWBq4HQJLIrRw==
-Date: Thu, 02 Apr 2026 14:28:43 +0000
-To: Krzysztof Kozlowski <krzk@kernel.org>
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Akhil P Oommen <akhilpo@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6/6] arm64: dts: qcom: milos: Add Adreno 810 GPU and GMU nodes
-Message-ID: <R7Ih8jyIY_3BU4y0YERxTj8EaSkmFovmHoVqcbBcUfad9nn0UGonyc4othMA9YsIYlHtnkinSVCNdZgqFxa_B-2nTPDT3MlJud5LpE8jfWc=@pm.me>
-In-Reply-To: <20260402-military-arrogant-woodpecker-4ab9b5@quoll>
-References: <20260331-adreno-810-v1-0-725801dbb12b@pm.me> <20260331-adreno-810-v1-6-725801dbb12b@pm.me> <20260402-military-arrogant-woodpecker-4ab9b5@quoll>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: 8ca7a17b3f3180d3444524a81e6eb8372a481313
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EjIY+mhc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1775140465; x=1806676465;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=x8FTCBu1ZLI3XgysCKTdvPU6t29kanGzc/hDoIDWGbY=;
+  b=EjIY+mhcI75LgVxPYHgJ2V4TP+l49VgS2LfFxavGz2DHhnDQ5i0v57gg
+   /O64Uzk/SYCg07Mb6jjlCj44aN+LERXhlY0fnwKfAxbC6ZIyxD58rPkcs
+   FhpdLuceIH4Y3vxzWarNvs7bSsiqJYst8hYlzZpDf3jVqiO/1GvGTHjCS
+   qkLj4CbaItlXDLSPKN2D5pCsIFOV4HPdrcFxsgLeVkWHTn2As8R31SFMm
+   5R8W5cVwU2nYHdvuZ9rcFd04E2qKTX8IH3iZuZ2cGeL5tku1S4En85ksa
+   WQf+4ooR9cB6ggU5AsTS3E2PT9X3z3I4pelULqT2Ju7txO2cxmiPOvyPr
+   Q==;
+X-CSE-ConnectionGUID: vz1A3FZ2SZuwwmTum+/nJg==
+X-CSE-MsgGUID: ht2ZhEF8RUW9vf2xXSG7yA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11746"; a="75919745"
+X-IronPort-AV: E=Sophos;i="6.23,155,1770624000"; 
+   d="scan'208";a="75919745"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Apr 2026 07:34:24 -0700
+X-CSE-ConnectionGUID: IRj/dYM7SrK+dXdHhMcULw==
+X-CSE-MsgGUID: r//BrWwvSb+p2ltV6o1Cnw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,155,1770624000"; 
+   d="scan'208";a="227258049"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa007.jf.intel.com with ESMTP; 02 Apr 2026 07:34:19 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id CF25D95; Thu, 02 Apr 2026 16:34:17 +0200 (CEST)
+Date: Thu, 2 Apr 2026 17:33:31 +0300
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: amitsd@google.com
+Cc: =?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jagan Sridharan <badhri@google.com>,
+	Mark Brown <broonie@kernel.org>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sebastian Reichel <sre@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	RD Babiera <rdbabiera@google.com>, Kyle Tso <kyletso@google.com>
+Subject: Re: [PATCH v10 6/6] usb: typec: tcpm/tcpci_maxim: deprecate WAR for
+ setting charger mode
+Message-ID: <ac5-OzwQkczTWtMg@kuha>
+References: <20260331-max77759-charger-v10-0-76f59233c369@google.com>
+ <20260331-max77759-charger-v10-6-76f59233c369@google.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260331-max77759-charger-v10-6-76f59233c369@google.com>
 
-On Thursday, April 2nd, 2026 at 4:19 AM, Krzysztof Kozlowski <krzk@kernel.o=
-rg> wrote:
+Hi Amit,
 
-> On Wed, Apr 01, 2026 at 02:17:44AM +0000, Alexander Koskovich wrote:
-> > Add GPU and GMU devicetree nodes for the Adreno 810 GPU found on
-> > Qualcomm SM7635 (Milos) based devices.
-> >
-> > Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
-> > ---
-> >  arch/arm64/boot/dts/qcom/milos.dtsi | 148 ++++++++++++++++++++++++++++=
-++++++++
-> >  1 file changed, 148 insertions(+)
-> >
-> > diff --git a/arch/arm64/boot/dts/qcom/milos.dtsi b/arch/arm64/boot/dts/=
-qcom/milos.dtsi
-> > index 621f05820826..a8feb0339804 100644
-> > --- a/arch/arm64/boot/dts/qcom/milos.dtsi
-> > +++ b/arch/arm64/boot/dts/qcom/milos.dtsi
-> > @@ -7,6 +7,7 @@
-> >  #include <dt-bindings/clock/qcom,milos-dispcc.h>
-> >  #include <dt-bindings/clock/qcom,milos-gcc.h>
-> >  #include <dt-bindings/clock/qcom,milos-gpucc.h>
-> > +#include <dt-bindings/clock/qcom,kaanapali-gxclkctl.h>
->=20
-> Why? My next from 27th Match does not have Milos in that binding. Was it
-> added? It's worth mentioning in commit msg.
+> +static int get_vbus_regulator_handle(struct max_tcpci_chip *chip)
+> +{
+> +	if (IS_ERR_OR_NULL(chip->vbus_reg)) {
+> +		chip->vbus_reg = devm_regulator_get_exclusive(chip->dev,
+> +							      "vbus");
 
-They use the same driver and the GX_CLKCTL_GX_GDSC definition would be
-identical, so the header can be reused. I'll mention it in the commit
-msg for v2.
+Sorry to go back to this, but why can't you just get the regulator in
+max_tcpci_probe()?
 
->=20
-> Also, please keep alphabetical sort of the includes, k < m.
+thanks,
 
-Fixed in v2.
+> +		if (IS_ERR_OR_NULL(chip->vbus_reg)) {
+> +			dev_err(chip->dev,
+> +				"Failed to get vbus regulator handle\n");
+> +			return -ENODEV;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
 
->=20
-> Best regards,
-> Krzysztof
->=20
-> 
+-- 
+heikki
