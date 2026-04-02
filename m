@@ -1,225 +1,253 @@
-Received: from mail-m3285.qiye.163.com (mail-m3285.qiye.163.com [220.197.32.85])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C1C23644CC;
-	Thu,  2 Apr 2026 09:15:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.85
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0796D3033FB
+	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 09:16:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775121311; cv=none; b=c6r5w1jRnjjQtgVY+qMnhP6wQ6UYU6nvKPoHvZQuPAWHsAzLPs98WgoUkiJIEy+DJel/psoEEH+61t44LpEL7MzYKHUjOW2ymVQTh4PNQgFCbx72i1T1/PP2Z0BebSn2QlFTn6WvB+mIN0+vj8w2k7RyLqkECTtG22bpx5htigI=
+	t=1775121376; cv=none; b=f3u7SnNU8GpB7KPlumkLG1tl20UYbCev0Hlxduyr3rvFs3j4vh6is+sFwX1ZdCO3FNHDfo/4y/wqN6uhX2ITdtYBECSjLih8pZk46o5xLvOhw0xWrSd3QDk/kPHxKuh0VMIDJtfsFkYpMmLiwWtZxcQ8uwUKidsAJGqYf5I0hRg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775121311; c=relaxed/simple;
-	bh=aFtK8sQ8qOWs+W8tyZzAuGXF23VLU5IYLBNIEWLnsN8=;
-	h=Content-Type:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To; b=hLXOtSLhGahBOb7dVcbKOYkH/vifHs9wFB5r2jSHVPQ07vb0zff/wHijb695JZnk3BvfSx6lW1Wx5weOWG/RKdAHJoPZOLnWjs3w8DvVLT6PennnJMbMjDsZhBurXEaPKZTVf3WuiV56RYh+N9shH3Vf94j3i9m/tidXgUM248s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=hwYGHIkS; arc=none smtp.client-ip=220.197.32.85
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="hwYGHIkS"
-Received: from [172.16.12.43] (unknown [58.22.7.114])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 394c8157d;
-	Thu, 2 Apr 2026 17:14:53 +0800 (GMT+08:00)
-Content-Type: multipart/mixed; boundary="------------pA08w6av2CYGH1v5Vjy6t1NO"
-Message-ID: <d9b5c826-e0eb-4c0a-989b-48aa12fdbaef@rock-chips.com>
-Date: Thu, 2 Apr 2026 17:14:53 +0800
+	s=arc-20240116; t=1775121376; c=relaxed/simple;
+	bh=lKxAnDkf8y9Tu/2Kt0MCOSDxPDaqZ7RNNKk8rE3g71I=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=pmwedpRlPTRrI9D+S7uEP+9SwFDxrVhG3f2AMl4Bs5iOowgdFXfYJCJ3qF7R8oiX21TciowjYmQQJatzp/fyV/8/eU8oBYxCsXavGEoidjaIQUldr/IWa94esTt4g/+kOsqL02V0yCXQmHFYGNcle8bMt5zimpw+XW0ICsTkJLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1w8E9W-0006Tm-4L; Thu, 02 Apr 2026 11:15:50 +0200
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1w8E9V-003Lnm-1y;
+	Thu, 02 Apr 2026 11:15:49 +0200
+Received: from pza by lupine with local (Exim 4.98.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1w8E9V-000000004T7-2DNj;
+	Thu, 02 Apr 2026 11:15:49 +0200
+Message-ID: <5dd7ddb50b71de737aae6ad4d11bd28fa52443a9.camel@pengutronix.de>
+Subject: Re: [PATCH v6 02/10] reset: Add Realtek basic reset support
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Yu-Chun Lin <eleanor.lin@realtek.com>, mturquette@baylibre.com, 
+	sboyd@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ 	cylee12@realtek.com, afaerber@suse.com, jyanchou@realtek.com
+Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-realtek-soc@lists.infradead.org, james.tai@realtek.com, 
+	cy.huang@realtek.com, stanley_chang@realtek.com
+Date: Thu, 02 Apr 2026 11:15:49 +0200
+In-Reply-To: <20260402073957.2742459-3-eleanor.lin@realtek.com>
+References: <20260402073957.2742459-1-eleanor.lin@realtek.com>
+	 <20260402073957.2742459-3-eleanor.lin@realtek.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/10] drm/bridge: dw-hdmi: warn on unsupported attach
- combination
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>,
- Stefan Agner <stefan@agner.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Liu Ying <victor.liu@nxp.com>, Rob Herring <robh@kernel.org>,
- Saravana Kannan <saravanak@kernel.org>
-Cc: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
- =?UTF-8?Q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>,
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Adam Ford <aford173@gmail.com>,
- Alexander Stein <alexander.stein@ew.tq-group.com>,
- Christopher Obbard <christopher.obbard@linaro.org>,
- Daniel Scally <dan.scally@ideasonboard.com>,
- Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
- Fabio Estevam <festevam@denx.de>,
- Francesco Dolcini <francesco.dolcini@toradex.com>,
- Frieder Schrempf <frieder.schrempf@kontron.de>,
- Gilles Talis <gilles.talis@gmail.com>,
- =?UTF-8?B?R29yYW4gUmHEkWVub3ZpxIc=?= <goran.radni@gmail.com>,
- Heiko Schocher <hs@denx.de>, Josua Mayer <josua@solid-run.com>,
- Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Marco Felsch <m.felsch@pengutronix.de>,
- Martyn Welch <martyn.welch@collabora.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>,
- Richard Hu <richard.hu@technexion.com>, Shengjiu Wang
- <shengjiu.wang@nxp.com>,
- Stefan Eichenberger <stefan.eichenberger@toradex.com>,
- Vitor Soares <vitor.soares@toradex.com>
-References: <20260330-drm-lcdif-dbanc-v2-0-c7f2af536a24@bootlin.com>
- <20260330-drm-lcdif-dbanc-v2-6-c7f2af536a24@bootlin.com>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <20260330-drm-lcdif-dbanc-v2-6-c7f2af536a24@bootlin.com>
-X-HM-Tid: 0a9d4d795e9303a3kunme69324b095241
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFDSUNOT01LS0k3V1ktWUFJV1kPCRoVCBIfWUFZQ0pNT1YeT00dQxkaTUgaShhWFRQJFh
-	oXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0tIVUpLSUJNS0
-	pVSktLVUtZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=hwYGHIkSikuofpTSHFwebC8Z6feWaoUJ3dbqqnt9MZuAJBUbRzjDoxXGvxcOn4j9NkNUUDiNbucKPIduKZrvAmo8ZgTvnE+WmB9N+e3tldsjk8dwC5SwWopcFHloVqwkfPXzAgbjILPvIGv1x74neMWR2lXN4dpR+i+rgG7KmPs=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=2uJAsa6K7YXQMIGwXKQObtdIlbK0ldqP5sBHg2+Uhn0=;
-	h=date:mime-version:subject:message-id:from;
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: p.zabel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-This is a multi-part message in MIME format.
---------------pA08w6av2CYGH1v5Vjy6t1NO
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-Hi Luca,
-
-On 3/31/2026 3:25 AM, Luca Ceresoli wrote:
-> dw-hdmi can operate in two different modes, depending on the platform data
-> as set by the driver:
-> 
->   A. hdmi->plat_data->output_port = 0:
->      the HDMI output (port@1) in device tree is not used
-> 
->   B. hdmi->plat_data->output_port = 1:
->      the HDMI output (port@1) is parsed to find the next bridge
-> 
-> Only case B is supported when the DRM_BRIDGE_ATTACH_NO_CONNECTOR flag is
-> passed to the attach callback. Emit a warning when this is violated. Also
-> return -EINVAL which would be returned by drm_bridge_attach() right after
-> anyway.
-> 
-> Reviewed-by: Liu Ying <victor.liu@nxp.com>
-> Tested-by: Martyn Welch <martyn.welch@collabora.com>
-> Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com> # TQMa8MPxL/MBa8MPxL
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+On Do, 2026-04-02 at 15:39 +0800, Yu-Chun Lin wrote:
+> From: Cheng-Yu Lee <cylee12@realtek.com>
+>=20
+> Define the reset operations backed by a regmap-based register interface
+> and prepare the reset controller to be registered through the reset
+> framework.
+>=20
+> Since the reset controllers on Realtek SoCs often share the same register
+> space with the clock controllers, this common framework is designed to
+> extract the regmap and device tree node from the parent device
+> (e.g., an auxiliary device parent).
+>=20
+> Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
+> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
 > ---
-> Note: Returning when the warning triggers does not change the functional
-> behaviour of this function. It is not strictly necessary in this patch but
-> it will have to be done anyway in the following patch.
+> Changes in v6:
+> - Remove the global header include/linux/reset/realtek.h and use a local =
+common.h
+> instead.
+> - Extract regmap and of_node directly from the parent device.
+> - Remove struct rtk_reset_initdata. Now, pass struct rtk_reset_data direc=
+tly when
+> calling rtk_reset_controller_add().
 > ---
->   drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 4 ++++
->   1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-> index 0296e110ce65..ab1a6a8783cd 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-> @@ -2910,6 +2910,10 @@ static int dw_hdmi_bridge_attach(struct drm_bridge *bridge,
->   {
->   	struct dw_hdmi *hdmi = bridge->driver_private;
->   
-> +	/* DRM_BRIDGE_ATTACH_NO_CONNECTOR requires a remote-endpoint to the next bridge */
-> +	if (WARN_ON((flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) && !hdmi->plat_data->output_port))
-> +		return -EINVAL;
+>  MAINTAINERS                    |  1 +
+>  drivers/reset/Kconfig          |  1 +
+>  drivers/reset/Makefile         |  1 +
+>  drivers/reset/realtek/Kconfig  |  3 ++
+>  drivers/reset/realtek/Makefile |  2 +
+>  drivers/reset/realtek/common.c | 85 ++++++++++++++++++++++++++++++++++
+>  drivers/reset/realtek/common.h | 29 ++++++++++++
+>  7 files changed, 122 insertions(+)
+>  create mode 100644 drivers/reset/realtek/Kconfig
+>  create mode 100644 drivers/reset/realtek/Makefile
+>  create mode 100644 drivers/reset/realtek/common.c
+>  create mode 100644 drivers/reset/realtek/common.h
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 07e73bf621b0..8f355896583b 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -22240,6 +22240,7 @@ L:	devicetree@vger.kernel.org
+>  L:	linux-clk@vger.kernel.org
+>  S:	Supported
+>  F:	Documentation/devicetree/bindings/clock/realtek*
+> +F:	drivers/reset/realtek/*
+>  F:	include/dt-bindings/clock/realtek*
+>  F:	include/dt-bindings/reset/realtek*
+> =20
+> diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
+> index 7ce151f6a7e4..03be1931f264 100644
+> --- a/drivers/reset/Kconfig
+> +++ b/drivers/reset/Kconfig
+> @@ -398,6 +398,7 @@ config RESET_ZYNQMP
+> =20
+>  source "drivers/reset/amlogic/Kconfig"
+>  source "drivers/reset/hisilicon/Kconfig"
+> +source "drivers/reset/realtek/Kconfig"
+>  source "drivers/reset/spacemit/Kconfig"
+>  source "drivers/reset/starfive/Kconfig"
+>  source "drivers/reset/sti/Kconfig"
+> diff --git a/drivers/reset/Makefile b/drivers/reset/Makefile
+> index fc0cc99f8514..4407d1630070 100644
+> --- a/drivers/reset/Makefile
+> +++ b/drivers/reset/Makefile
+> @@ -2,6 +2,7 @@
+>  obj-y +=3D core.o
+>  obj-y +=3D amlogic/
+>  obj-y +=3D hisilicon/
+> +obj-y +=3D realtek/
+>  obj-y +=3D spacemit/
+>  obj-y +=3D starfive/
+>  obj-y +=3D sti/
+> diff --git a/drivers/reset/realtek/Kconfig b/drivers/reset/realtek/Kconfi=
+g
+> new file mode 100644
+> index 000000000000..99a14d355803
+> --- /dev/null
+> +++ b/drivers/reset/realtek/Kconfig
+> @@ -0,0 +1,3 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +config RESET_RTK_COMMON
+> +	bool
+
+Please make this build-testable with COMPILE_TEST.
+
+> diff --git a/drivers/reset/realtek/Makefile b/drivers/reset/realtek/Makef=
+ile
+> new file mode 100644
+> index 000000000000..b59a3f7f2453
+> --- /dev/null
+> +++ b/drivers/reset/realtek/Makefile
+> @@ -0,0 +1,2 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +obj-$(CONFIG_RESET_RTK_COMMON) +=3D common.o
+> diff --git a/drivers/reset/realtek/common.c b/drivers/reset/realtek/commo=
+n.c
+> new file mode 100644
+> index 000000000000..ea7ff27117e7
+> --- /dev/null
+> +++ b/drivers/reset/realtek/common.c
+> @@ -0,0 +1,85 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (C) 2019 Realtek Semiconductor Corporation
+> + */
 > +
->   	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)
->   		return drm_bridge_attach(encoder, hdmi->bridge.next_bridge,
->   					 bridge, flags);
-> 
+> +#include <linux/device.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/regmap.h>
+> +#include "common.h"
+> +
+> +static inline struct rtk_reset_data *to_rtk_reset_controller(struct rese=
+t_controller_dev *r)
+> +{
+> +	return container_of(r, struct rtk_reset_data, rcdev);
+> +}
+> +
+> +static inline struct rtk_reset_desc *rtk_reset_get_desc(struct rtk_reset=
+_data *data,
+> +							unsigned long idx)
+> +{
+> +	return &data->descs[idx];
+> +}
+> +
+> +static int rtk_reset_assert(struct reset_controller_dev *rcdev,
+> +			    unsigned long idx)
+> +{
+> +	struct rtk_reset_data *data =3D to_rtk_reset_controller(rcdev);
+> +	struct rtk_reset_desc *desc =3D rtk_reset_get_desc(data, idx);
+> +	u32 mask =3D desc->write_en ? (0x3 << desc->bit) : BIT(desc->bit);
+> +	u32 val  =3D desc->write_en ? (0x2 << desc->bit) : 0;
+> +
+> +	return regmap_update_bits(data->regmap, desc->ofs, mask, val);
+> +}
+> +
+> +static int rtk_reset_deassert(struct reset_controller_dev *rcdev,
+> +			      unsigned long idx)
+> +{
+> +	struct rtk_reset_data *data =3D to_rtk_reset_controller(rcdev);
+> +	struct rtk_reset_desc *desc =3D rtk_reset_get_desc(data, idx);
+> +	u32 mask =3D desc->write_en ? (0x3 << desc->bit) : BIT(desc->bit);
+> +	u32 val  =3D mask;
+> +
+> +	return regmap_update_bits(data->regmap, desc->ofs, mask, val);
+> +}
+> +
+> +static int rtk_reset_status(struct reset_controller_dev *rcdev,
+> +			    unsigned long idx)
+> +{
+> +	struct rtk_reset_data *data =3D to_rtk_reset_controller(rcdev);
+> +	struct rtk_reset_desc *desc =3D rtk_reset_get_desc(data, idx);
+> +	u32 val;
+> +	int ret;
+> +
+> +	ret =3D regmap_read(data->regmap, desc->ofs, &val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return !((val >> desc->bit) & 1);
+> +}
+> +
+> +static const struct reset_control_ops rtk_reset_ops =3D {
+> +	.assert   =3D rtk_reset_assert,
+> +	.deassert =3D rtk_reset_deassert,
+> +	.status   =3D rtk_reset_status,
+> +};
+> +
+> +/* The caller must initialize data->rcdev.nr_resets and data->descs befo=
+re
+> + * calling rtk_reset_controller_add().
+> + */
+> +int rtk_reset_controller_add(struct device *dev,
+> +			     struct rtk_reset_data *data)
+> +{
+> +	struct device *parent =3D dev->parent;
+> +
+> +	data->regmap =3D dev_get_regmap(parent, NULL);
+> +	if (!data->regmap)
+> +		return -ENODEV;
+> +
+> +	data->rcdev.owner     =3D THIS_MODULE;
 
-Since many older Rockchip platforms (RK3288, RK3399, etc.) lack a 
-hdmi-connector node linked to the HDMI DT node, which corresponds to 
-case A. Could we relax this restriction and treat cases where 
-DRM_BRIDGE_ATTACH_NO_CONNECTOR is set but hdmi->plat_data->output_port = 
-0 as a new case C?
+The rtk_reset_desc arrays used by this code live in the calling module,
+so it would be better to let the caller initialize .owner as well.
 
-For Rockchip platforms, the HDMI driver invokes dw_hdmi_bind() to attach 
-the Synopsys bridge. This sequence differs from that on the XNP 
-platform, but is similar to the Allwinner implementation.
+It doesn't make a difference in practice, since CONFIG_RESET_RTK_COMMON
+isn't tristate (right now).
 
-If we treat the case where DRM_BRIDGE_ATTACH_NO_CONNECTOR is set and 
-hdmi->plat_data->output_port = 0 as -EINVAL, I will have to modify the 
-HDMI DT configuration for all Rockchip platforms when adapting to the 
-bridge-connector framework.
 
-The patch that adapts to the bridge-connector framework and has been 
-verified OK on RK3399 is attached.
-
-Best regards,
-Damon
-
---------------pA08w6av2CYGH1v5Vjy6t1NO
-Content-Type: text/plain; charset=UTF-8;
- name="dw_hdmi-rockchip_test_env_20260402.patch"
-Content-Disposition: attachment;
- filename="dw_hdmi-rockchip_test_env_20260402.patch"
-Content-Transfer-Encoding: base64
-
-ZGlmZiAtLWdpdCBhL2FyY2gvYXJtNjQvYm9vdC9kdHMvcm9ja2NoaXAvcmszMzk5LWV2Yi1p
-bmQuZHRzIGIvYXJjaC9hcm02NC9ib290L2R0cy9yb2NrY2hpcC9yazMzOTktZXZiLWluZC5k
-dHMKaW5kZXggNzBhZWUxYWI5MDRjLi41YTc4ZTc0MWYxMTMgMTAwNjQ0Ci0tLSBhL2FyY2gv
-YXJtNjQvYm9vdC9kdHMvcm9ja2NoaXAvcmszMzk5LWV2Yi1pbmQuZHRzCisrKyBiL2FyY2gv
-YXJtNjQvYm9vdC9kdHMvcm9ja2NoaXAvcmszMzk5LWV2Yi1pbmQuZHRzCkBAIC0xNyw2ICsx
-Nyw3IEBAIGFsaWFzZXMgewogCiAJY2hvc2VuIHsKIAkJc3Rkb3V0LXBhdGggPSAic2VyaWFs
-MjoxNTAwMDAwbjgiOworCQlib290YXJncyA9ICJyb290PVBBUlRVVUlEPTYxNGUwMDAwLTAw
-MDAgcm9vdHdhaXQiOwogCX07CiAKIAl2Y2M1djBfc3lzOiByZWd1bGF0b3ItdmNjNXYwLXN5
-cyB7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL3N5bm9wc3lzL2R3LWhk
-bWkuYyBiL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2Uvc3lub3BzeXMvZHctaGRtaS5jCmluZGV4
-IGFkYTQ1ZThiM2UyYy4uMGU5N2UxODNhOGIzIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYnJpZGdlL3N5bm9wc3lzL2R3LWhkbWkuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYnJp
-ZGdlL3N5bm9wc3lzL2R3LWhkbWkuYwpAQCAtMjkxNCw3ICsyOTE0LDcgQEAgc3RhdGljIGlu
-dCBkd19oZG1pX2JyaWRnZV9hdHRhY2goc3RydWN0IGRybV9icmlkZ2UgKmJyaWRnZSwKIAog
-CS8qIERSTV9CUklER0VfQVRUQUNIX05PX0NPTk5FQ1RPUiByZXF1aXJlcyBhIHJlbW90ZS1l
-bmRwb2ludCB0byB0aGUgbmV4dCBicmlkZ2UgKi8KIAlpZiAoV0FSTl9PTigoZmxhZ3MgJiBE
-Uk1fQlJJREdFX0FUVEFDSF9OT19DT05ORUNUT1IpICYmICFoZG1pLT5wbGF0X2RhdGEtPm91
-dHB1dF9wb3J0KSkKLQkJcmV0dXJuIC1FSU5WQUw7CisJCXJldHVybiAwOwogCiAJaWYgKGZs
-YWdzICYgRFJNX0JSSURHRV9BVFRBQ0hfTk9fQ09OTkVDVE9SKSB7CiAJCXN0cnVjdCBkZXZp
-Y2Vfbm9kZSAqcmVtb3RlIF9fZnJlZShkZXZpY2Vfbm9kZSkgPQpAQCAtMzYyOCw3ICszNjI4
-LDcgQEAgc3RydWN0IGR3X2hkbWkgKmR3X2hkbWlfYmluZChzdHJ1Y3QgcGxhdGZvcm1fZGV2
-aWNlICpwZGV2LAogCWlmIChJU19FUlIoaGRtaSkpCiAJCXJldHVybiBoZG1pOwogCi0JcmV0
-ID0gZHJtX2JyaWRnZV9hdHRhY2goZW5jb2RlciwgJmhkbWktPmJyaWRnZSwgTlVMTCwgMCk7
-CisJcmV0ID0gZHJtX2JyaWRnZV9hdHRhY2goZW5jb2RlciwgJmhkbWktPmJyaWRnZSwgTlVM
-TCwgRFJNX0JSSURHRV9BVFRBQ0hfTk9fQ09OTkVDVE9SKTsKIAlpZiAocmV0KSB7CiAJCWR3
-X2hkbWlfcmVtb3ZlKGhkbWkpOwogCQlyZXR1cm4gRVJSX1BUUihyZXQpOwpkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL3JvY2tjaGlwL0tjb25maWcgYi9kcml2ZXJzL2dwdS9kcm0v
-cm9ja2NoaXAvS2NvbmZpZwppbmRleCBlN2Y0OWZlODQ1ZWEuLjY5YjgzMmQwYzhjNCAxMDA2
-NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3JvY2tjaGlwL0tjb25maWcKKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL3JvY2tjaGlwL0tjb25maWcKQEAgLTc2LDYgKzc2LDcgQEAgY29uZmlnIFJP
-Q0tDSElQX0RXX0RQCiAKIGNvbmZpZyBST0NLQ0hJUF9EV19IRE1JCiAJYm9vbCAiUm9ja2No
-aXAgc3BlY2lmaWMgZXh0ZW5zaW9ucyBmb3IgU3lub3BzeXMgRFcgSERNSSIKKwlzZWxlY3Qg
-RFJNX0JSSURHRV9DT05ORUNUT1IKIAloZWxwCiAJICBUaGlzIHNlbGVjdHMgc3VwcG9ydCBm
-b3IgUm9ja2NoaXAgU29DIHNwZWNpZmljIGV4dGVuc2lvbnMKIAkgIGZvciB0aGUgU3lub3Bz
-eXMgRGVzaWduV2FyZSBIRE1JIGRyaXZlci4gSWYgeW91IHdhbnQgdG8KZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9yb2NrY2hpcC9kd19oZG1pLXJvY2tjaGlwLmMgYi9kcml2ZXJz
-L2dwdS9kcm0vcm9ja2NoaXAvZHdfaGRtaS1yb2NrY2hpcC5jCmluZGV4IDBkYzFlYjVkMmFl
-My4uMTc0YTEwYzFkN2MyIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vcm9ja2NoaXAv
-ZHdfaGRtaS1yb2NrY2hpcC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9yb2NrY2hpcC9kd19o
-ZG1pLXJvY2tjaGlwLmMKQEAgLTEzLDYgKzEzLDcgQEAKICNpbmNsdWRlIDxsaW51eC9yZWd1
-bGF0b3IvY29uc3VtZXIuaD4KIAogI2luY2x1ZGUgPGRybS9icmlkZ2UvZHdfaGRtaS5oPgor
-I2luY2x1ZGUgPGRybS9kcm1fYnJpZGdlX2Nvbm5lY3Rvci5oPgogI2luY2x1ZGUgPGRybS9k
-cm1fZWRpZC5oPgogI2luY2x1ZGUgPGRybS9kcm1fb2YuaD4KICNpbmNsdWRlIDxkcm0vZHJt
-X3Byb2JlX2hlbHBlci5oPgpAQCAtNTQyLDYgKzU0Myw3IEBAIHN0YXRpYyBpbnQgZHdfaGRt
-aV9yb2NrY2hpcF9iaW5kKHN0cnVjdCBkZXZpY2UgKmRldiwgc3RydWN0IGRldmljZSAqbWFz
-dGVyLAogCXN0cnVjdCBkcm1fZGV2aWNlICpkcm0gPSBkYXRhOwogCXN0cnVjdCBkcm1fZW5j
-b2RlciAqZW5jb2RlcjsKIAlzdHJ1Y3Qgcm9ja2NoaXBfaGRtaSAqaGRtaTsKKwlzdHJ1Y3Qg
-ZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yOwogCWludCByZXQ7CiAKIAlpZiAoIXBkZXYtPmRl
-di5vZl9ub2RlKQpAQCAtNjE5LDcgKzYyMSwxNCBAQCBzdGF0aWMgaW50IGR3X2hkbWlfcm9j
-a2NoaXBfYmluZChzdHJ1Y3QgZGV2aWNlICpkZXYsIHN0cnVjdCBkZXZpY2UgKm1hc3RlciwK
-IAkJZ290byBlcnJfYmluZDsKIAl9CiAKLQlyZXR1cm4gMDsKKwljb25uZWN0b3IgPSBkcm1f
-YnJpZGdlX2Nvbm5lY3Rvcl9pbml0KGRybSwgZW5jb2Rlcik7CisJaWYgKElTX0VSUihjb25u
-ZWN0b3IpKSB7CisJCXJldCA9IFBUUl9FUlIoY29ubmVjdG9yKTsKKwkJZGV2X2VycihoZG1p
-LT5kZXYsICJGYWlsZWQgdG8gaW5pdGlhbGl6ZSBicmlkZ2VfY29ubmVjdG9yXG4iKTsKKwkJ
-Z290byBlcnJfYmluZDsKKwl9CisKKwlyZXR1cm4gZHJtX2Nvbm5lY3Rvcl9hdHRhY2hfZW5j
-b2Rlcihjb25uZWN0b3IsIGVuY29kZXIpOwogCiBlcnJfYmluZDoKIAlkcm1fZW5jb2Rlcl9j
-bGVhbnVwKGVuY29kZXIpOwo=
-
---------------pA08w6av2CYGH1v5Vjy6t1NO--
+regards
+Philipp
