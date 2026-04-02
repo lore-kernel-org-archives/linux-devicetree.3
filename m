@@ -1,88 +1,69 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3D5E3B2FD9;
-	Thu,  2 Apr 2026 08:14:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5603128150F;
+	Thu,  2 Apr 2026 08:17:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775117694; cv=none; b=mqfPyOi6vGu/hxOtFYzHf6xeXbvRvz/JSvl0QUjVeoScaZqGeoYbxG0KP7GcqP6h2ZYqxIzjw/CGMyq8VOjE5z50aEc6pc3PmaccBy1UBBqu8LRf9KGdGmsfQ5rA9l7bvMvi1dl2DZiDPaMA9JbULB3rtWm5Hc2qZTCAhZlX8OU=
+	t=1775117854; cv=none; b=fvJm8b0FnYaRbg4ban9ipDru+nB4dz0FMISyWIL9yjosn6dm0PNVbPbJbRy+OqNHuPXExG3zG/Ktixh8xLnq6LT9krJNHsbOjMGN6iQYMHTWlfQo5j/x7GqF+v6GqkJQPIfDonl5YqR14gOH1uj+hYeC3Cu3x9gsWrNzdMUGOos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775117694; c=relaxed/simple;
-	bh=nMY6C9pMt7VeS4KgMH5mOiPqRP+qUHKboMu77924Xeo=;
-	h=From:To:Cc:Subject:Date:Message-Id; b=UXqcWfoO4eCp4bO0XihKSMoGw+4gKL2nLsgNPZDe3YGvpKtTWWHjRjQDrybuiCjxOgR5X7svvb9GXXHs1abqRZ0deoy8UAmHoFNpSDa5aMatmjT5IBY5k2fs8Q99XzrbVFG+TjbBRCej3CR8TT47Q3skutI6IlpHP05MLgjrP/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=LN6a4tPy; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1775117854; c=relaxed/simple;
+	bh=0k/6HiZL8r/iCmuuOr9Vgz8qBuzBN39ZPlsoOZJZuY8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qx0Fosl+VO4N8oUiW1A77oBdoRjGzK1oHCTMuEdmdBDBUUqAYdTArj2NILzpRiMB79gd6Puctf2JDtltN/YVa2NN1NU3h/XDq4ICMHudWsL+G+z08p1qghSLEqbilksk3Du2sQYBRyjmmB45SgMgzjWAb+2MmmkvU7GNSJXRcAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XjaF3RhX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="LN6a4tPy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id; bh=sjepgizR3xZzZsc
-	pwm+JF7uT0zoTKekz9Z6EodbvlT0=; b=LN6a4tPymskhc1EAuIGAOyuewxot/Ia
-	qpFywgtc3KCRDyTmFcouCSIBBvRxX7LFMNkStUYPcdO1DKLCxnh7fXA1hTYcOV4V
-	mzLvBQGQVM3KnzI4OJLwXA1nexWGvZUnwRpQOVzH+Hv+hPFzjjHrNAAg9s5c+TlS
-	HUVzXS0ORU0w=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgCX5UBEJc5pC9uuUw--.170S2;
-	Thu, 02 Apr 2026 16:14:00 +0800 (CST)
-From: Wenliang Yan <wenliang202407@163.com>
-To: linux@roeck-us.net,
-	Jean Delvare <jdelvare@suse.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Wenliang Yan <wenliang202407@163.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v7 0/8] hwmon: (ina3221) Various improvement and add support for SQ52210
-Date: Thu,  2 Apr 2026 04:13:42 -0400
-Message-Id: <20260402081350.65559-1-wenliang202407@163.com>
-X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID:QCgvCgCX5UBEJc5pC9uuUw--.170S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ZF43AF4kWr1ftrW5JFW7XFb_yoW8Xw4xpa
-	yIkw45Wry3Xr1xXa9Ikw47Cryjq3y3JF129r97J3y0vF4Yv3W7ZrZ2gws0yw1DKr9rKFy8
-	XayxWFnxKasrArDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUfrc-UUUUU=
-X-CM-SenderInfo: xzhqzxhdqjjiisuqlqqrwthudrp/xtbC6AhpPWnOJUiupgAA32
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XjaF3RhX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A64ABC116C6;
+	Thu,  2 Apr 2026 08:17:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775117854;
+	bh=0k/6HiZL8r/iCmuuOr9Vgz8qBuzBN39ZPlsoOZJZuY8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=XjaF3RhX97IXIbCCVm/LHVkfrhEmrbRgqJtyVVzyd1Bu5qoQFuLykvx2jo3Kt3RMn
+	 e3EUf5XZHleFbalag+RfJbhO9oA0m7eYAta5xa2/e+U8OI19sTNUOHBwYOV6NjhQeD
+	 Pfx8LSGtpsh3G6hl7UyAAZ1LuXhp8hxdM0z1jRGC7cM7ItOY2j2dGcElkNHqcdDgzj
+	 t2B4NmeUIC923E0M4TVTXp7IGvldIjTyEDy0moP1ISbGBEiVjulpGMxc4U7hVekrQS
+	 YyqCXB9wrMxfo8zPXJFNolO9iY2otfWItJXlfO9Ip3qewvnaDvmzy6e/eL7W/pheUU
+	 gkRJhM52C+8kQ==
+Date: Thu, 2 Apr 2026 10:17:31 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Alexander Koskovich <akoskovich@pm.me>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
+	Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+	Marijn Suijten <marijn.suijten@somainline.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>, 
+	linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/6] dt-bindings: display/msm/gmu: Document Adreno 810 GMU
+Message-ID: <20260402-noisy-frigatebird-of-chivalry-fafff1@quoll>
+References: <20260331-adreno-810-v1-0-725801dbb12b@pm.me>
+ <20260331-adreno-810-v1-1-725801dbb12b@pm.me>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260331-adreno-810-v1-1-725801dbb12b@pm.me>
 
-Changes in v7:
-- Fixed unnecessary semicolon in ina3221_read_value()
-  (reported by kernel test robot)
+On Wed, Apr 01, 2026 at 02:16:54AM +0000, Alexander Koskovich wrote:
+> Document Adreno 810 GMU in the dt-binding specification.
+> 
+> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+> ---
+>  .../devicetree/bindings/display/msm/gmu.yaml       | 32 ++++++++++++++++++++++
+>  1 file changed, 32 insertions(+)
 
-I will address any additional feedback in the next version.
-Thank you for your time
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
----
-v6: https://lore.kernel.org/linux-hwmon/20260225090324.112145-1-wenliang202407@163.com/
-v5: https://lore.kernel.org/linux-hwmon/20260119121446.17469-1-wenliang202407@163.com/
-v4: https://lore.kernel.org/linux-hwmon/20260114081741.111340-1-wenliang202407@163.com/
-v3: https://lore.kernel.org/linux-hwmon/20251120081921.39412-1-wenliang202407@163.com/
-v2: https://lore.kernel.org/linux-hwmon/20251118125148.95603-1-wenliang202407@163.com/
-v1: https://lore.kernel.org/linux-hwmon/20251111080546.32421-1-wenliang202407@163.com/
-
-Wenliang Yan (8):
-  dt-bindings: hwmon: ti,ina3221: Add SQ52210
-  hwmon: (ina3221) Add support for SQ52210
-  hwmon: (ina3221) Pre-calculate current and power LSB
-  hwmon: (ina3221) Support alert configuration
-  hwmon: (ina3221) Introduce power attribute and alert characteristics
-  hwmon: (ina3221) Modify the 'ina3221_read_value' function
-  hwmon: (ina3221) Support alert_limit_write function and write/read
-    functions for 'power' attribute
-  hwmon: (ina3221) Modify write/read functions for 'in' and 'curr'
-    attribute
-
- .../devicetree/bindings/hwmon/ti,ina3221.yaml |  15 +-
- Documentation/hwmon/ina3221.rst               |  24 +
- drivers/hwmon/ina3221.c                       | 548 +++++++++++++++++-
- 3 files changed, 571 insertions(+), 16 deletions(-)
-
--- 
-2.17.1
+Best regards,
+Krzysztof
 
