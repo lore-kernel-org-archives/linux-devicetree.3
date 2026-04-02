@@ -1,135 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com [209.85.167.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E47ED76025;
-	Thu,  2 Apr 2026 18:18:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 893FF37C110
+	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 18:32:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775153905; cv=none; b=kU0K1c7P1t8vL0K9q0BTimz9Bbs/okbLNbY6Wp3H7HyCSQ3QD2lwU/wFtQ14zrBf/kS9qeC9rEIyp3TmaFdDnEkFJFdtSfpxErVcI3ZRMS1dupTAD6BRWTY0n1EeUInr8BUK/8MbYNrufltsXk/bsV6ar82vPJmvxyDRsaYamKM=
+	t=1775154732; cv=none; b=AV2J4YQ8VNWU1FwsJUO38nR6lYdnF6XF8OPHl0CFNSdWSqRoA+O4gxX78IC81GFPvfmpPD+FXes6csHSykeVokBd/VAWoT610uvK/vYBHYcPxn/qXkAXx93vadrOLPbZt/DR6bLTgiNFqm8tp8HSKhanzn4EuGEGYMoGHWMNCOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775153905; c=relaxed/simple;
-	bh=Tf2Kp1jgjSPwCnmONv8P9pixGo0QMU+jy5wlrFyEb4w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R7oek7CWy4bEdeMPaGa8iosbIR2p5k8PWxCvTY3QWNdYjDaJcqr45kHx6CIt926MZ+YdPNzU7mRkL0PHdZV9nKB6HaI5oxLKYLkoxnnX4mk2D7qqwodtc/S0Hpd4D8t9QGFyLhnB5LNk30KCkHXyR7BnCBl24d0Npx3gLQilLig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CvKp0BHy; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775154732; c=relaxed/simple;
+	bh=A7rPbhe9tHHV4d32kmPILTC+TeE/L3PdKVHCOt46Bvo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gPZnYDi0v4KTb+Vq28aCauCz3B6BnqdrxXxUKctJOJoSPwi1/VV4zGUN6t1wYk0hmHUvj52HKJoola6veSjFO9u8IK0xB7XxMgOlhEIowEe4G1a7vkJi0pgPx/Zk+kTVgrQ0iQNUiwdy1upsEovJ4L1nIpYXDvdRg7NEtDtIMzI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WjgAYgli; arc=none smtp.client-ip=209.85.167.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CvKp0BHy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BDBDC116C6;
-	Thu,  2 Apr 2026 18:18:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775153904;
-	bh=Tf2Kp1jgjSPwCnmONv8P9pixGo0QMU+jy5wlrFyEb4w=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=CvKp0BHyEBX7BXjk0OCRxbGug+YtQLJ5OVqD9ex2Esf0J672IFSVb1i5fAM2I7XEv
-	 jjzkHOnw1u9gBdl0sC4HlTUzkWnF/5BpkYWOGTT6V06mRv9xog035jtDdsQnOjnANP
-	 2YkquFp7T3fVl+xXiXHYh/fqVBUYjjtZYNEPThft7hz2tq0TDqraqjNJvUFiV9CDpU
-	 t3/gK3du9AQe6Bl/csaum5F6TR7YOPP92Q8KFhaiymJ+RNm7Nh8HtV3Tz4AKUsE3QS
-	 iz3chMAQDSIdD/cTs/ogtrr/VUD1SkrHS31nxi5ybYzgV31Cc6KcHc/X9WDUTG9B0x
-	 OHU2RmpAhizaA==
-Message-ID: <6eeb24a9-e2ee-4727-af25-5dfbb95bad59@kernel.org>
-Date: Thu, 2 Apr 2026 20:18:19 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WjgAYgli"
+Received: by mail-oi1-f181.google.com with SMTP id 5614622812f47-463f00cda04so682425b6e.2
+        for <devicetree@vger.kernel.org>; Thu, 02 Apr 2026 11:32:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1775154730; x=1775759530; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=F+5HXFm4K8EljZXquMjN18Vn+rr53ZK3oDrIhR9XX/Q=;
+        b=WjgAYgli0ZEdBBt6gpMBnmA5Wu9DdEq36MA2VPihvjSAU73blYQBa16R8f+4k50IRZ
+         xaShqedrqWkK6JNW+LnVKnaZcFoNlfY8BxOp3Lwe1BEbbasVxHwoyqfyPo5ogKWYHVx6
+         5IulvpQuEDe91QuEb/Lok/oso2bqrfkeqxdLAphTjytRaFKOSm6pJrB+I8kcOUvbHHi1
+         HSOAM1AK7dX/SWvc6X7CxEVomdD7VG83IzvuGG5qXbzRAl1U13Y+BdchhpU1B1HbmlM9
+         qBeIdhf5um2GNOWobG8zmynjH2aqpcdc7Mk7qArAYqXj1a/Wly0P9IwtOd8JjKmaAkQ1
+         pjFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775154730; x=1775759530;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=F+5HXFm4K8EljZXquMjN18Vn+rr53ZK3oDrIhR9XX/Q=;
+        b=BMB/JUARTMEczSfpyAHTHHe3RE6pXGKhwK6kv2Adqq+KTZT7y1qqtIZzpmDmhKwi4N
+         o7x3NpePGjFbgVYao1ve5lT1lEELp11rpD9X26lMPDul2OcXQOmkmeX0keb21lbLXh5s
+         Fkyi3qEGC832SNOXYwLQOTIhDQkLjaBuvs+OiRM0ZZ1wc0uRu+X3kOoY1AMKqFv8yUjc
+         B91BF8S+IR0urVzW3c0t/MlIdagSa/M86K3LPIiumBWzjBIC/mAVMUzmNgkXwsGnXvfQ
+         LuBPjhIE4RDPIl5ydueG3Gs6jMMo/9GGHe+MuNzNRM3jw/wlf1xbKKwcjksMx648shrB
+         VYtQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW1M2WyJEvfLRiHDJaerr8bCIfWLsF+v17aHYPrd2LoBO/iLgn8aXY96HF9jbUNODxgebcFEkpM+BFA@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywr+sgHHJbY8Wlc/LTGgHygoprcPXfqirRdWdOmzieYMbTWk3yi
+	NIYwe/UClAxS7SX4uc/1pZEWYk7d2PbGFCCvBcmx6cim/sxIXGs0niB7hWwYQhYq
+X-Gm-Gg: ATEYQzzrMZvhpOO/+Im1YHBj/qFL/DOr2Y2vbmL3AoWamJbVw8MZ4cZgCXg8Omjjz5L
+	brl3cJRFOsfhF/dbUoveX9e6Up21xin884EiAkCsPTCgCiciM7BVAUa2AKUMy1VZy0gUbF23mBh
+	Cd05ALZVOe+MRjPWGpEm1iQLtnWnSh9EhqDGz6Mkn7DXyGZGP2bROWO5gaNSFnuyfmKkXoI5Swi
+	DFby+Qc8iAcsRbQ6VGYC7HfBf+YpGhyzMQ3vFvLJu4KtYTQkcKILuYGw7kKBggSaYAV33hZhyYm
+	wURJPAXMAOgz5Oj+U4np59eoZwVWVbuboQus5F8afVobVoiTIY+gSPbKcjUBUYMms11IuZ+Pih1
+	LUpGtfDwwwXW0E4sdxfbHqq5HDnez8KBi5lRblLtYfyubBMRjejMbdKM0dXHCY1IQzr7bu833Ez
+	k2aOTaxL2cd9NO2/PJZ9uL1JQRhYIOPY0qI6+2GCuIp26pFDUJdXvJwv/fJXwXzZXO1qDG3iI=
+X-Received: by 2002:a05:6808:6618:b0:45e:f0af:5148 with SMTP id 5614622812f47-46ef791a130mr217257b6e.30.1775154730369;
+        Thu, 02 Apr 2026 11:32:10 -0700 (PDT)
+Received: from localhost (104-48-214-220.lightspeed.snantx.sbcglobal.net. [104.48.214.220])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7dba72fcb47sm2720585a34.15.2026.04.02.11.32.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 02 Apr 2026 11:32:09 -0700 (PDT)
+From: Steev Klimaszewski <threeway@gmail.com>
+To: dmitry.baryshkov@oss.qualcomm.com
+Cc: abhinav.kumar@linux.dev,
+	andersson@kernel.org,
+	bod@kernel.org,
+	bryan.odonoghue@linaro.org,
+	conor+dt@kernel.org,
+	david@ixit.cz,
+	devicetree@vger.kernel.org,
+	dikshita.agarwal@oss.qualcomm.com,
+	johan+linaro@kernel.org,
+	konrad.dybcio@oss.qualcomm.com,
+	konradybcio@kernel.org,
+	krzk+dt@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	robh@kernel.org,
+	stanimir.varbanov@linaro.org,
+	threeway@gmail.com,
+	vikash.garodia@oss.qualcomm.com
+Subject: Re: [PATCH v4 0/6] media: iris: enable SM8350 and SC8280XP support
+Date: Thu,  2 Apr 2026 13:32:09 -0500
+Message-ID: <20260402183209.27159-1-threeway@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <ebzdn3aplm76xkvljwpg6v4mid7ljslhzwnf45u4obgwhcnckh@rtdv64on3y6b>
+References: <ebzdn3aplm76xkvljwpg6v4mid7ljslhzwnf45u4obgwhcnckh@rtdv64on3y6b>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] arm64: dts: qcom: glymur: Add camera clock controller
- support
-To: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
- Imran Shaik <imran.shaik@oss.qualcomm.com>,
- Taniya Das <taniya.das@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260402-glymur_camcc-v1-0-e8da05a21da7@oss.qualcomm.com>
- <20260402-glymur_camcc-v1-3-e8da05a21da7@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
- QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
- +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
- ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
- 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
- hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
- tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
- 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
- naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
- hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
- whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
- Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
- MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
- OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
- GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
- 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
- YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
- 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
- BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
- JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
- 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
- YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
- qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
- RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
- Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
- H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
- dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
- AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
- jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
- zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
- XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260402-glymur_camcc-v1-3-e8da05a21da7@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 02/04/2026 08:15, Jagadeesh Kona wrote:
-> Add support for camera clock controller for camera clients to
-> be able to request for camera clocks on Glymur SoC's.
-> 
-> Signed-off-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/glymur.dtsi | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
-> index f23cf81ddb77a4138deeb4e00dd8b316930a2feb..c32f0b84db2f38ec567485e36e8e50529e886775 100644
-> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
-> @@ -4163,6 +4163,22 @@ usb_mp: usb@a400000 {
->  			status = "disabled";
->  		};
->  
-> +		camcc: clock-controller@ade0000 {
-> +			compatible = "qcom,glymur-camcc";
-> +			reg = <0 0x0ade0000 0 0x20000>;
+Hi Dmitry,
 
-Please use hex, also for '0'.
+> Thanks for the additional testing!
 
-> +			clocks = <&gcc GCC_CAMERA_AHB_CLK>,
-> +				 <&rpmhcc RPMH_CXO_CLK>,
-> +				 <&rpmhcc RPMH_CXO_CLK_A>,
-> +				 <&sleep_clk>;
+> This might be:
+> - A bug in the firmware
+> - A bug in the Gen1 support in the Iris driver.
+> - A bug in totem (heh).
 
-> 
+> Would you mind sharing details, which video were you trying to play (at
+> least, the codec that it used, please).
+
+> Also, does it kill the playback afterwards? Can you start another
+> playing stream afterwards?
+
+The video that does not work seems to be 
+
+  Metadata:
+    major_brand     : M4V
+    minor_version   : 1
+    compatible_brands: isomavc1mp42
+    creation_time   : 2025-08-04T19:42:21.000000Z
+  Duration: 00:00:35.24, start: 0.000000, bitrate: 6291 kb/s
+  Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(progressive), 1280x720 [SAR 1:1 DAR 16:9], 6126 kb/s, 23.98 fps, 23.98 tbr, 24k tbn (default)
+    Metadata:
+      creation_time   : 2025-08-04T19:42:21.000000Z
+      handler_name    : ETI ISO Video Media Handler
+      vendor_id       : [0][0][0][0]
+      encoder         : Elemental H.264
+  Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 159 kb/s (default)
 
 
-Best regards,
-Krzysztof
+However, a video that *does* work is
+
+Stream #0:0: Video: av1 (libdav1d) (Main), yuv420p(tv, bt709), 1920x1080, 23.98 fps, 23.98 tbr, 1k tbn
+    Metadata:
+      HANDLER_NAME    : ISO Media file produced by Google Inc.
+      VENDOR_ID       : [0][0][0][0]
+      DURATION        : 00:05:16.732000000
+  Stream #0:1(eng): Audio: opus, 48000 Hz, stereo, fltp, start 0.007000
+    Metadata:
+      DURATION        : 00:05:16.744000000
+  Stream #0:2: Video: mjpeg (Baseline), yuvj420p(pc, bt470bg/unknown/unknown), 1280x720, 90k tbr, 90k tbn (attached pic)
+    Metadata:
+      filename        : cover.jpg
+      mimetype        : image/jpeg
+
+I do not have a ton of videos to test, so I just used 2 that are on my system.
+
+This is not just with totem, showtime shows the same issue.  If I let the video
+play, it plays just fine, however, if I attempt to skip forward, back, or even
+play *after* the video has played, then I see the smmu fault 
+
+ arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0xd51e3e00, fsynr=0x600002, cbfrsynra=0x2a00, cb=6
+ arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x2a00
+ arm-smmu 15000000.iommu: FSYNR0 = 00600002 [S1CBNDX=96 PLVL=2]
+ qcom-iris aa00000.video-codec: sys error (type: 1, session id:ff, data1:1, data2:deadbead)
+
+If I exit and re-launch totem, it will play the video through, but again, if I
+attempt to skip forward, back or play once it has finished the video, then again
+the smmu fault occurs.
+
+totem and showtime both use gstreamer, and show the issue. showtime replaces
+totem as the media player on modern gnome systems.  mpv and vlc do *not* show
+the issue, but they also do not appear to use iris/venus at all.
+
+Totem is version 43.2-11
+Showtime is version 50~rc2
+
+Host system is Kali, which is essentially Debian Testing.
+
+-- steev
