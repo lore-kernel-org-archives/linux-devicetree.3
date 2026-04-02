@@ -1,189 +1,275 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F355E38B14C
-	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 09:23:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F9D3376BF4;
+	Thu,  2 Apr 2026 09:27:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775121793; cv=none; b=aOLHFwsLFgO3cZ7zv5az4qiLvdBv1NjN6xPzO8m3RU/wpqXCAVcsq+YuMjk58fcoXvtXk2O/4lBKOHu3t1ua6xq6pjO66AoesKN9I1nHVgxMYSH0k+Xhya5RV0WGKZHPLdoBdj+0pc+nbFOD4TKvpGXlIcihC+znKYVybaaHd9w=
+	t=1775122089; cv=none; b=Sp1tSE82Q36rFW3/icqLFKtimrvV4H5Jokoh5SGUHuiExhUGedQFkpj+9QghmgkwluXJCkMZJCKcYegzJ3DnkANmG64rdQxKg+Q4A/SXZqWfYR/mIsutEhAYNVC81XvsgisCy+vWbofFtMS4808KjHD0mjDlZ89GughJo8J2uC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775121793; c=relaxed/simple;
-	bh=q9j+367l79vYQecpLmaLpTtH+va4Wtpz6t3r4tF7vyk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Pses3bqnzJDSsv9qlqgUAEUVoZp/K/stDr0JgLH+xyuBhsbD8aNaRz2P3tvHY64gtIHkNst1OfZZr3enaHeNbpNn0JzvNsKAcjSAvg716+uada7rPdomx/1wauRFlBjJQ/Bbtv95QVT+SDmggj7FGtPpKdUbHQw6g0NPkDILOfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YWV/tnlY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RyB6PIU+; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1775122089; c=relaxed/simple;
+	bh=gMRZAHgcfFpRFiiaPQkPdDqznN/krRbjnbMRMQrzy3I=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Rifs+KRErP8ucAH64QfJXO7Jgz/OYnkDxZ4sdpWbBl8AWwwxwVMPch9N8MguzwuGOAb08mYHX8uhulsR4Nw7TxgG38Zf/F+GVGZ8E4GpULa5TfASlxIOGJAiHeggyO54tNVoARfeNw8HHp2a9XFUeZR3ow6mLjuo8Bh4gtQACeg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=M/RjTFpE; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YWV/tnlY";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RyB6PIU+"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6328SEFW353578
-	for <devicetree@vger.kernel.org>; Thu, 2 Apr 2026 09:23:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	CvBiLwxg7AThsdO3zDQ/KZkqwxu86EBPRQfQ963Utkc=; b=YWV/tnlYRJfUMLIy
-	TtfMrPl/X9K4U9R2hhggX70fmeuj6hM48rj0ijQQ2B6Wq2K5SMtGijcEJukjAj8M
-	lVuF/OIetpvHMnQ0Hhf5THmXOxvQE6nmf99mtqySBVKD/pKjmwDWU8mf/HPWEpob
-	iHQ8f72tHMNybvcn9j6lfoA90SRSp2IjmvtxwO1Umz+udXJWJUMSsLebEr4V/NJI
-	PmhSIlz+eEMHAdVOTSwqULAaAXwccXutUPY/gVS5gAY0skDcc3ja+dhCzK9TB647
-	FCPunDFOkpJ52jdlYZaq+NETM8ePB5ZHo/MRACM2yfTyScRzLX4G9cYSaCp+Dlxm
-	6aVKzw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d9myh8730-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 02 Apr 2026 09:23:09 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-8cfe29579d5so20442885a.3
-        for <devicetree@vger.kernel.org>; Thu, 02 Apr 2026 02:23:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775121789; x=1775726589; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=CvBiLwxg7AThsdO3zDQ/KZkqwxu86EBPRQfQ963Utkc=;
-        b=RyB6PIU+8Z75WmgIYMOW/t0EF/0/ulbziOBxFX5/0xI1AUFVEgZnUjurh0o+Nr2hjj
-         5zk4XHDvC1k51q4EzSZY/s4ehOsVd9vjZULZVWD3E8GxKJ4YcvKuxZuUK7uM2Zyl2z2/
-         dTpgXQQQqtoUZDYUhYWJ25x90z38ZVeYFAHlb6HxfPi7bjfI+oY6oifLFhVyF2uCzI8j
-         Ym/FvKVRpVb3FoxK9THdF37BdtaCYuX6puCXlz+8fqVBY/D8ko7/NE7TGI+18PfITUMd
-         uBoUiwZFqfRz9C+aNEtZOCe605I7xoDGkaeRtlxgtv/Nv4o4QfbVSlY1Jko+NpEHKH9G
-         rHRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775121789; x=1775726589;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=CvBiLwxg7AThsdO3zDQ/KZkqwxu86EBPRQfQ963Utkc=;
-        b=GqS6yIYrWpNI5sFS9TeoSzOjrbRR8SdjOS/y+UO9skYSIwl2dZC7Ifdr1ZY3jR0nXw
-         6j0+g82WOZu2pxMXseKN2hi9w0XNvMyiATTb1f01pkz5O5bNUaJQD8KavVfsxndyd6MK
-         JaWrGnana6cpB5NGWnhelMGyxe/kvQwMFKNTy/ObQu0IcD32bsm6fOP3lUCQOzS6oNkz
-         XEEv1SUH6+3LH2pWzJpmRvlDkdsFxiSfqIio2KCKFEEaQSY7hofIloMZA0G5AGbP8UUh
-         VQOiiGps60Q41Kdgpqr9VtnpswHfNJVwJzHe4eO6WwKsvwAgRS1RlVSEMPmiWdfkHo0n
-         MoPw==
-X-Forwarded-Encrypted: i=1; AJvYcCXkokJaLyuqJOkXv3GU7caEoBrZidn319LhbJywbu9PgR6Olw0fpyQLw7NuDCjxjF3vk+a4RV8rGAFK@vger.kernel.org
-X-Gm-Message-State: AOJu0YzWrQWi20Vl5mTiwpHjja7vQA5PD8o+7c6LDtzli36Qv/zRjiTa
-	jFLLQbpuFkKqWoDA3B83PNPKaILWZWHD7B6GSbMJY81nS2vJ3+HSZcOnjtoeMGJEYXQf6HnnTDJ
-	XgGCJXR4KsP++VlYWmW8S19rkPQ/C3BxoACXlDymxgBChIqHq11gtZWszTkTJF5zJ
-X-Gm-Gg: ATEYQzw+iXn0f67Non5RLeMSYxZjxgRV/UMEcGfKroLhBxuCqInwXr8MJr/YFYq+RB3
-	vdYrg45D8JtW3rNjtCYcMZFyPh7fE821VPoh2nlLsWhrpAW8DKJj+d1kkzWyiinDJwuipxyJcGr
-	3QxyCqR8vEoLNcYVK/gHA3ZqleLdBaiEZ86FvsRhRMCmds9cQSzmn6k8gCWUAieprDQX0MCYD26
-	I66k3z9vzJKYe1v8kLF/80a69Vs1ea2HhCKa7MHA2SndpqJYvfcalFDFycXSeTKNxz3QFYpZGob
-	UqD+tzKlehthiVdaNLrXpfmmTJOisHCCuRE0YiIB2ajg94RGjgN//ZvqDf2B+EZJlZaGjqMBtO3
-	+lyuQMUEq+2TdEdDALj6rfx40iZwm66JCDTSQOx3tFJY1cAoOyPq1s0mMAe3YjzVgTKAS3N/b47
-	eblMI=
-X-Received: by 2002:a05:622a:1818:b0:50b:8ccc:a41f with SMTP id d75a77b69052e-50d3bd5723bmr73354221cf.6.1775121789014;
-        Thu, 02 Apr 2026 02:23:09 -0700 (PDT)
-X-Received: by 2002:a05:622a:1818:b0:50b:8ccc:a41f with SMTP id d75a77b69052e-50d3bd5723bmr73354031cf.6.1775121788564;
-        Thu, 02 Apr 2026 02:23:08 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9c3cec6cc4sm65225266b.32.2026.04.02.02.23.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 02 Apr 2026 02:23:07 -0700 (PDT)
-Message-ID: <a5fbcb92-dedf-423c-8721-59838da60980@oss.qualcomm.com>
-Date: Thu, 2 Apr 2026 11:23:05 +0200
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="M/RjTFpE"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 472E7C5997A;
+	Thu,  2 Apr 2026 09:28:22 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 99F855FDEB;
+	Thu,  2 Apr 2026 09:27:50 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A725810450A10;
+	Thu,  2 Apr 2026 11:27:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1775122067; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=hNltrT681hiTQbE3LGT048Wx1XJA0ekV7Io5cPmIrZM=;
+	b=M/RjTFpEHWGpIz1DiOGq2rb5j81ppWs+giQBMPZIUw11Dbhns1gowQY1/+iF4Vm+ncLO4j
+	bsAK/Lezzs5m60qgcuZOCq+LGuY7kEX+wyTACozmVLhWjwZg8Dx2FR4Fz0uUJrJ8dGb5xf
+	PnZgLeGwSvVIyeX1kOFqp+RbqWs9yvbK88jEHnweZUGXM6CN9qfXTTebxvt9RbfTjOyVqC
+	Ru8JymYRkf97+IhAs+c0hlgBbc+s8gnfZfkJ1fJhbBL8+u3hmAmBfdJZbPF4ivYjh/JVCh
+	vYu71Yb6apxbkH+vEgnNgbb8sYAWNSR7Ty/COntGXtEmuh4q+XYcw3s6gx6fIQ==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Subject: [PATCH v3 00/11] drm/mxsfb/lcdif: use
+ DRM_BRIDGE_ATTACH_NO_CONNECTOR and the bridge-connector
+Date: Thu, 02 Apr 2026 11:25:55 +0200
+Message-Id: <20260402-drm-lcdif-dbanc-v3-0-27cd247a0847@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] arm64: dts: qcom: sdm845-shift-axolotl: Enable
- sdcard
-To: david@ixit.cz, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Dylan Van Assche <me@dylanvanassche.be>
-Cc: linux-arm-msm@vger.kernel.org, Petr Hodina <phodina@protonmail.com>,
-        Casey Connolly <casey.connolly@linaro.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Alexander Martinz <amartinz@shiftphones.com>,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        phone-devel@vger.kernel.org
-References: <20260401-axolotl-misc-p1-v2-0-f3af384bbb50@ixit.cz>
- <20260401-axolotl-misc-p1-v2-1-f3af384bbb50@ixit.cz>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260401-axolotl-misc-p1-v2-1-f3af384bbb50@ixit.cz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: jIJBeWvHr3XIyl2n85AbEgMtgZIDWMQI
-X-Proofpoint-ORIG-GUID: jIJBeWvHr3XIyl2n85AbEgMtgZIDWMQI
-X-Authority-Analysis: v=2.4 cv=JII2csKb c=1 sm=1 tr=0 ts=69ce357d cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=Mtb5h6N5A-RCbQxWbuYA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAyMDA4MyBTYWx0ZWRfX4m+LRHMqv08l
- ldDfDJMnhNj/ltOJpESMM97+uAEh/CXavwOzBR6ltuPNPaNzghaaWiiOKa/J23CoPqDmbtNWm00
- QtRW6sdP+kEuFxztSaIVBov8Tixe6Gomu9k+yNyg/psLZFAUAMozrqtZOP4rsPtbGEZtV/XaOll
- AW+hKMrDwMTn00IuM2dIKKlSUJWWdmhmDS3E1pmS/5pNM8QdsQWHrKbDj7xcPki8f86Ue2vFc/p
- z91gBnBrlPpxLdU2YsiTdEhocNFAhx0Gn7fdgTrDVGMVYTMG0eHpciIs7ci3xFVrz9bwuY8yFcw
- CgkYs1DWhDp8DKrPRue/77vafOnNAmSXE0tZPjAVnAdaO0BPwxqX3Rt0w6+UohNYGAAm2ls+cSL
- qGS9cDDaICxGjx6E4tncboeNr8U4SQfI1mbR506YgZ7C6qIxArRItDTcTa+ZxZWOY0yZEucbEDV
- 89FK0i/BrHXLV1WvVuQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-02_01,2026-04-02_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 phishscore=0 priorityscore=1501
- lowpriorityscore=0 spamscore=0 clxscore=1015 bulkscore=0 suspectscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2604020083
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIACM2zmkC/23NTQ7CIBCG4as0rMXQAUt15T2MC8qPnaQFAw3RN
+ L27tHGh0eX7JfPMTJKNaBM5VTOJNmPC4EvwXUV0r/zNUjSlCTBoGGcNNXGkgzboqOmU17Tlxhx
+ Fy0EaS8rVPVqHj028XEv3mKYQn9uDXK/r2wL2Y+WaMirkUTFRc24lO3chTAP6vQ4jWbUMHwL/I
+ 0ARtHSg3IE3CsS3sCzLC0Gyn/zyAAAA
+X-Change-ID: 20260306-drm-lcdif-dbanc-83dd948327de
+To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Liu Ying <victor.liu@nxp.com>, Rob Herring <robh@kernel.org>, 
+ Saravana Kannan <saravanak@kernel.org>
+Cc: Damon Ding <damon.ding@rock-chips.com>, 
+ "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>, 
+ =?utf-8?q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Adam Ford <aford173@gmail.com>, 
+ Alexander Stein <alexander.stein@ew.tq-group.com>, 
+ Christopher Obbard <christopher.obbard@linaro.org>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, 
+ Emanuele Ghidoli <emanuele.ghidoli@toradex.com>, 
+ Fabio Estevam <festevam@denx.de>, 
+ Francesco Dolcini <francesco.dolcini@toradex.com>, 
+ Frieder Schrempf <frieder.schrempf@kontron.de>, 
+ Gilles Talis <gilles.talis@gmail.com>, 
+ =?utf-8?q?Goran_Ra=C4=91enovi=C4=87?= <goran.radni@gmail.com>, 
+ Heiko Schocher <hs@denx.de>, Josua Mayer <josua@solid-run.com>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Marco Felsch <m.felsch@pengutronix.de>, 
+ Martyn Welch <martyn.welch@collabora.com>, 
+ Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>, 
+ Richard Hu <richard.hu@technexion.com>, 
+ Shengjiu Wang <shengjiu.wang@nxp.com>, 
+ Stefan Eichenberger <stefan.eichenberger@toradex.com>, 
+ Vitor Soares <vitor.soares@toradex.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+X-Mailer: b4 0.15.1
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 4/1/26 6:51 PM, David Heidelberg via B4 Relay wrote:
-> From: Casey Connolly <casey.connolly@linaro.org>
-> 
-> The SHIFT6mq features an sdcard slot, add it.
-> 
-> Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
->  arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts | 44 +++++++++++++++++++++++
->  1 file changed, 44 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
-> index 740eb22550724..c394350998c26 100644
-> --- a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
-> +++ b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
-> @@ -600,6 +600,24 @@ &qupv3_id_1 {
->  	status = "okay";
->  };
->  
-> +&sdhc_2 {
-> +	status = "okay";
+This series modernizes the i.mx8mp LCDIF driver to use the
+bridge-connector, which is the current best practice in DRM.
 
-couple nits:
+== Call for testing on i.MX8MP boards (especially those using HDMI)!
 
-Status should be last, although the file is all over the place 
+For who tested v1 or v2 (thanks!): some patches have changed so I had to
+drop your Tested-by on them. A new round of test would still be useful.
 
-> +
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&sdc2_default_state &sdc2_card_det_n>;
+This series applies changes to how video output devices are probed on
+i.MX8MP, especially those using HDMI. Even though I have put care in not
+breaking anything, there could potentially be pitfalls I haven't realized,
+causing regressions on existing boards.
 
-preferably in this order
+I have thus added in Cc all developers which appeared active on dts files
+for imx8mp boards involving video. I would appreciate testing on as many
+boards as possible, along with a Tested-by tag, or a report about any
+issues encountered.
 
-xxx
-xxx-names
+Thanks in advance to all testers!
 
-[...]
+== Review recommendation
 
-> +	sdc2_default_state: sdc2-default-state {
-> +		clk-pins {
-> +			pins = "sdc2_clk";
-> +			bias-disable;
-> +			drive-strength = <16>;
+I recommend reviewing patches in this order to be understood more
+effectively:
 
-All other pin definitions in this file have the bias property below
-drive-strength (like the card_det_n node you're adding)
+ * Cover letter
+ * Patches 1-6: small preliminary cleanups (can be applied independently)
+ * Patch 11: the goal of this series, but would not work alone
+ * Patch 10: lets patch 11 work; but in turn it can't work alone
+ * Patch 8+9: lets patch 10 work; but in turn it can't work alone
+ * Patch 7: lets patch 8 work
 
-other than that
+== Series description
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+This series is not strictly related to DRM bridge hotplug, it is rather a
+preparation step. Introducing hotplug would need two different approaches:
+one for the new way, for drivers using bridge-connector and
+DRM_BRIDGE_ATTACH_NO_CONNECTOR, another for drivers using the "old, legacy
+way" where the last bridge is supposed to instantiate the
+drm_connector. Hotplug is complicated enough in one case, so it makes sense
+to only support the new way.
 
-Konrad
+The hardware I'm working on is an i.MX8MP, whose LCDIF driver is still
+using the old way. So this series converts to the new way as a preparation
+step.
+
+Patch 11 does the conversion, which is simple. However this would introduce
+a regression on some boards. Here's why:
+
+There are 3 instances of the LCDIF in i.MX8MP:
+
+ * LCDIF1, driving the DSI output
+ * LCDIF2, driving the LVDS output
+ * LCDIF3, driving the HDMI output
+
+The device drivers of peripherals connected to LCDIF1 and LCDIF2 already
+support the DRM_BRIDGE_ATTACH_NO_CONNECTOR flag. So far so good.
+
+LCDIF3 is more tricky. The HDMI pipeline is:
+
+  LCDIF3 -> fsl,imx8mp-hdmi-pvi -> fsl,imx8mp-hdmi-tx -> HDMI connector
+
+The fsl,imx8mp-hdmi-tx (hdmi-tx) does not support
+DRM_BRIDGE_ATTACH_NO_CONNECTOR, but it is based on the dw-hdmi component
+which supports it by simply changing a setting in the driver platform
+data. Patch 10 does this switch.
+
+However, for that switch to work, the device tree must describe the HDMI
+connector (compatible = "hdmi-connector").
+
+Unfortunately not all device trees in mainline have an hdmi-connector
+node. Adding one is easy, but would break existing hardware upgrading to a
+newer kernel without upgrading the device tree blob. This is addressed by
+patch 8+9 reusing an existing approach to add such a node to the live device
+tree at init time using a device tree overlay for boards which don't have
+one.
+
+Finally, patch 8+9 cannot work alone because of a bad interaction between
+devlink and device tree overlays. Patch 7 solves that.
+
+Tested on the Avnet MSC SM2-MB-EP1 board which currently has no
+"hdmi-connector" in the upstream device tree.
+
+== Grand plan
+
+This is part of the work to support hotplug of DRM bridges. The grand plan
+was discussed in [0].
+
+Here's the work breakdown (➜ marks the current series):
+
+ 1. … add refcounting to DRM bridges struct drm_bridge,
+      based on devm_drm_bridge_alloc()
+    A. ✔ add new alloc API and refcounting (v6.16)
+    B. ✔ convert all bridge drivers to new API (v6.17)
+    C. ✔ kunit tests (v6.17)
+    D. ✔ add get/put to drm_bridge_add/remove() + attach/detach()
+         and warn on old allocation pattern (v6.17)
+    E. … add get/put on drm_bridge accessors
+       1. ✔ drm_bridge_chain_get_first_bridge(), add cleanup action (v6.18)
+       2. ✔ drm_bridge_get_prev_bridge() (v6.18)
+       3. ✔ drm_bridge_get_next_bridge() (v6.19)
+       4. ✔ drm_for_each_bridge_in_chain() (v6.19)
+       5. ✔ drm_bridge_connector_init (v6.19)
+       6. … protect encoder bridge chain with a mutex
+       7. … of_drm_find_bridge
+          a. ✔ add of_drm_get_bridge() (v7.0),
+	       convert basic direct users (v7.0-v7.1)
+	  b. ✔ convert direct of_drm_get_bridge() users, part 2 (v7.0)
+	  c. ✔ convert direct of_drm_get_bridge() users, part 3 (v7.0)
+	  d. ✔… convert direct of_drm_get_bridge() users, part 4
+	        (some v7.1, some pending)
+	  e.   convert bridge-only drm_of_find_panel_or_bridge() users
+       8. drm_of_find_panel_or_bridge, *_of_get_bridge
+       9. ✔ enforce drm_bridge_add before drm_bridge_attach (v6.19)
+    F. ✔ debugfs improvements
+       1. ✔ add top-level 'bridges' file (v6.16)
+       2. ✔ show refcount and list lingering bridges (v6.19)
+ 2. … handle gracefully atomic updates during bridge removal
+    A. ✔ Add drm_bridge_enter/exit() to protect device resources (v7.0)
+    B. … protect private_obj removal from list
+    C. ✔ Add drm_bridge_clear_and_put() (v7.1)
+ 3. … DSI host-device driver interaction
+ 4. ✔ removing the need for the "always-disconnected" connector
+ 5. ➜ Migrate i.MX LCDIF driver to bridge-connector
+ 6.   DRM bridge hotplug
+    A.   Bridge hotplug management in the DRM core
+    B.   Device tree description
+
+[0] https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-0-9d6f2c9c3058@bootlin.com/#t
+
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+---
+Changes in v3:
+- Patch 8: simplified overlay, handle of_overlay_fdt_apply() errors, use
+  of_graph_get_endpoint_by_regs() + add warning in separate patch  
+- Updated cover and mentioned the hardware used for testing
+- Minor fixes to other patches
+- Link to v2: https://patch.msgid.link/20260330-drm-lcdif-dbanc-v2-0-c7f2af536a24@bootlin.com
+
+Changes in v2:
+- Dropped patch removing the loop in lcdif_attach_bridge, adapted following
+  patches as needed, added patch to use __free on the ep pointer
+- Added new cleanup patch (patch 6)
+- Build the fixup module unconditionally
+- patch 7: fix returned error codes
+- patch 1: fix cleanup action
+- Various minor improvements based on reviews, see per-patch changelog
+- Removed bouncing recipients from Cc
+- Link to v1: https://lore.kernel.org/r/20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com
+
+---
+Luca Ceresoli (11):
+      drm/mxsfb/lcdif: simplify remote pointer management using __free
+      drm/mxsfb/lcdif: simplify ep pointer management using __free
+      drm/mxsfb/lcdif: use dev_err_probe() consistently in lcdif_attach_bridge
+      drm/mxsfb/lcdif: move iteration-specific variables declaration inside loop in lcdif_attach_bridge
+      drm/bridge: dw-hdmi: document the output_port field
+      drm/bridge: dw-hdmi: warn on unsupported attach combination
+      drm/bridge: dw-hdmi: move next_bridge lookup to attach time
+      drm/bridge: imx8mp-hdmi-tx-connector-fixup: add an hdmi-connector when missing using a DT overlay at boot time
+      drm/bridge: imx8mp-hdmi-tx-connector-fixup: show a warning when adding the overlay
+      drm/bridge: imx8mp-hdmi-tx: switch to DRM_BRIDGE_ATTACH_NO_CONNECTOR
+      drm/mxsfb/lcdif: use DRM_BRIDGE_ATTACH_NO_CONNECTOR and the bridge-connector
+
+ drivers/gpu/drm/bridge/imx/Kconfig                 | 18 ++++++
+ drivers/gpu/drm/bridge/imx/Makefile                |  2 +
+ .../bridge/imx/imx8mp-hdmi-tx-connector-fixup.c    | 75 ++++++++++++++++++++++
+ .../bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso | 33 ++++++++++
+ drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c        |  1 +
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c          | 49 ++++++--------
+ drivers/gpu/drm/mxsfb/Kconfig                      |  2 +
+ drivers/gpu/drm/mxsfb/lcdif_drv.c                  | 69 ++++++++++----------
+ include/drm/bridge/dw_hdmi.h                       |  6 ++
+ 9 files changed, 192 insertions(+), 63 deletions(-)
+---
+base-commit: 5304ff59fe90c4f89c1ba8fea5e07d4a6673a9bf
+change-id: 20260306-drm-lcdif-dbanc-83dd948327de
+
+Best regards,
+--  
+Luca Ceresoli <luca.ceresoli@bootlin.com>
+
