@@ -1,150 +1,200 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D1432C236B;
-	Thu,  2 Apr 2026 08:26:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88870365A00
+	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 08:29:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775118389; cv=none; b=CfxYKmGoNxlW2U5dBbs0Z34WrH4XC6WbEzWPZRk4bCKkI86PAhM0P+EbrxpA+fUES58fGm2u+c0ZvYKHUYpEFTcgpLaqX1mvmMjulYr/TLWSdQxl8PJNia3ATPvmMkjkOJzJ44Vx5tHEHhLDmle56cQVhDwo3DFJqc475qdOTLc=
+	t=1775118548; cv=none; b=WRHhIBEnVqaUNgdDRjsFiwlCzaYfVOobYqmS5tx8tAPVLmhHCJprR4dIjy4hYAZvLVusXtCX5mee3J89Sse81hRec/JTwAD3jiVspPDUHJfcRHqeZKiKZsV/na9eJZ9JaDzcWDvA0xxLZ2UCWXC2J8NiCedLkSQi+sGhNr/uvtQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775118389; c=relaxed/simple;
-	bh=/OHmXKv2sH/QGyTg/3Ci4IsED/j42m9zA8yzSn2bW+8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XOkvMBWuawwijNmjzAT/ISnkakinsZsa8jJ7R+xoA5QIwsZx54xNfG9BC9dxfvXlQZmvwFrDC06cClhxPzj+oXp1Ckw1Xam5FZrnlZBy9xH8Cx3R5edyIB+9SSz7/RJRXOK1YWDWec2fZ9BJ9BI4+6cIkbDDvrqtZ2ki20lL9yU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h1g6Jgvc; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775118548; c=relaxed/simple;
+	bh=uk0TRGZ/7j2WEcvC0XWuN/juRSLDcXKlLTVCpt473HY=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
+	 References:In-Reply-To; b=adU11v6otI0slKVA9V5S/9GKyul86MuTT/x0L8emL9LwTno3JSiORlBt9LcMInYRnmZQS8qne/fMqzVWYyj4EpN4yW1PQPdSb9n6fXSY00VV4UW4bTK9Y/Ec2KpLeeWsIuccCCi7YEOMHm0KBRukqiw67Mc7b6lDvRrQ+W0apI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=TNUHH2pA; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h1g6Jgvc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEB03C116C6;
-	Thu,  2 Apr 2026 08:26:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775118388;
-	bh=/OHmXKv2sH/QGyTg/3Ci4IsED/j42m9zA8yzSn2bW+8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=h1g6Jgvc+RSYR8yZFTuPGIX2o6TYcTryslmBaxRlXZwuiheOdEqVLUzOub92rXz2o
-	 ZwuHCLiSqfOou3UdGIfB6qyNEXzLYOia1WQIjqjhkNKlYj7X4vG1hntebgdjMEALoT
-	 AyxXPLS1+YilL1x93yO8K0VV/iXbynaqb4KHiZ+cWAh4/IWPD+gkiOLeOSvQEtcDqt
-	 5PDIir+L3e4g5xPAzlByOI9QQvOwCqzr+3c0OMGTgTLHKkeoRCUAZ0yVGuFXk2/JMn
-	 9VGB2MaMDE+5xx+Gkod2XpPOsX6mJ3Fm1aINEBG7hKZ1qJyYSVGHUa9BtoXxrxSSnk
-	 aPQAoCohJS1mA==
-Date: Thu, 2 Apr 2026 10:26:25 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Aleksandrs Vinarskis <alex@vinarskis.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Hans de Goede <hansg@kernel.org>, Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, 
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org, laurentiu.tudor1@dell.com, 
-	Abel Vesa <abel.vesa@oss.qualcomm.com>, Tobias Heider <tobias.heider@canonical.com>, 
-	Val Packett <val@packett.cool>
-Subject: Re: [PATCH 1/4] dt-bindings: platform: introduce EC for Dell XPS 13
- 9345
-Message-ID: <20260402-flounder-of-unexpected-infinity-83b5af@quoll>
-References: <20260401-dell-xps-9345-ec-v1-0-afa5cacd49be@vinarskis.com>
- <20260401-dell-xps-9345-ec-v1-1-afa5cacd49be@vinarskis.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="TNUHH2pA"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id C3CC41A30E9;
+	Thu,  2 Apr 2026 08:29:03 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 837475FDEB;
+	Thu,  2 Apr 2026 08:29:03 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 94AD710450221;
+	Thu,  2 Apr 2026 10:28:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1775118541; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=PUXno5TxkjpeBoSqZm65CbuO+h64L2SVBgOxOmu2oIo=;
+	b=TNUHH2pAZPAMP4NGLsz+uJewT7ce/5mkiukpdC9e/GF/cCgcQr2XiVigjiYOaiqLn0jVFV
+	MT7V55Gngp/p+G3cUIgeeaGjdsunI4FxxTXZV1VCvaZp8Fu1NmDMH4fpCoySsakeh4UzpF
+	lX48nkRylKWcwrlYejZxz4eLsr/mNruwRWad4ESyVHvE9nUIrx3Bx2UJfAcE1I0nEmmVXa
+	l6SnamIUZgMY5xRvEVj9Yq2kwWG4Du2bg3fbFoea5Ew5M1g5zMxgDAAnIdY63ggTOMOue5
+	+WOpPf9dvsdGz8Qf5D4+FLkyjNYPxNRVRz6lM1LRBcgO1HZxCQRpeH0WvglegQ==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260401-dell-xps-9345-ec-v1-1-afa5cacd49be@vinarskis.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 02 Apr 2026 10:28:45 +0200
+Message-Id: <DHIJ00VZ2O0H.1550LBTEFNT83@bootlin.com>
+Cc: "Damon Ding" <damon.ding@rock-chips.com>, "Kory Maincent (TI.com)"
+ <kory.maincent@bootlin.com>, =?utf-8?q?Herv=C3=A9_Codina?=
+ <herve.codina@bootlin.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray"
+ <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
+ <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>, "Adam Ford"
+ <aford173@gmail.com>, "Alexander Stein" <alexander.stein@ew.tq-group.com>,
+ "Christopher Obbard" <christopher.obbard@linaro.org>, "Daniel Scally"
+ <dan.scally@ideasonboard.com>, "Emanuele Ghidoli"
+ <emanuele.ghidoli@toradex.com>, "Fabio Estevam" <festevam@denx.de>,
+ "Francesco Dolcini" <francesco.dolcini@toradex.com>, "Frieder Schrempf"
+ <frieder.schrempf@kontron.de>, "Gilles Talis" <gilles.talis@gmail.com>,
+ =?utf-8?q?Goran_Ra=C4=91enovi=C4=87?= <goran.radni@gmail.com>, "Heiko
+ Schocher" <hs@denx.de>, "Josua Mayer" <josua@solid-run.com>, "Kieran
+ Bingham" <kieran.bingham@ideasonboard.com>, "Marco Felsch"
+ <m.felsch@pengutronix.de>, "Martyn Welch" <martyn.welch@collabora.com>,
+ "Oleksij Rempel" <o.rempel@pengutronix.de>, "Peng Fan" <peng.fan@nxp.com>,
+ "Richard Hu" <richard.hu@technexion.com>, "Shengjiu Wang"
+ <shengjiu.wang@nxp.com>, "Stefan Eichenberger"
+ <stefan.eichenberger@toradex.com>, "Vitor Soares"
+ <vitor.soares@toradex.com>
+To: "Liu Ying" <victor.liu@nxp.com>, "Marek Vasut" <marex@denx.de>, "Stefan
+ Agner" <stefan@agner.ch>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Frank Li"
+ <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix
+ Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>,
+ "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Rob
+ Herring" <robh@kernel.org>, "Saravana Kannan" <saravanak@kernel.org>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH v2 10/10] drm/mxsfb/lcdif: use
+ DRM_BRIDGE_ATTACH_NO_CONNECTOR and the bridge-connector
+X-Mailer: aerc 0.20.1
+References: <20260330-drm-lcdif-dbanc-v2-0-c7f2af536a24@bootlin.com>
+ <20260330-drm-lcdif-dbanc-v2-10-c7f2af536a24@bootlin.com>
+ <1a8b1a34-89bd-436e-8b5c-64ea71e8f333@nxp.com>
+In-Reply-To: <1a8b1a34-89bd-436e-8b5c-64ea71e8f333@nxp.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Apr 01, 2026 at 09:33:10AM +0200, Aleksandrs Vinarskis wrote:
-> Add bindings for Embedded Controller (EC) in Dell XPS 13 9345 (platform
-> codename 'tributo'). It may be partially or fully compatible with EC
-> found in Snapdragon-based Dell Latitude, Inspiron ('thena').
-> 
-> Signed-off-by: Aleksandrs Vinarskis <alex@vinarskis.com>
-> ---
->  .../embedded-controller/dell,xps13-9345-ec.yaml    | 86 ++++++++++++++++++++++
->  MAINTAINERS                                        |  5 ++
->  2 files changed, 91 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml b/Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..30dc6dcd8c9f0312fdb4eafdef96bf0ce4975798
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml
-> @@ -0,0 +1,86 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/embedded-controller/dell,xps13-9345-ec.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Dell XPS 13 9345 Embedded Controller
-> +
-> +maintainers:
-> +  - Aleksandrs Vinarskis <alex@vinarskis.com>
-> +
-> +description:
-> +  The Dell XPS 13 9345 has an Embedded Controller (EC) which handles thermal and power
+Hello Liu,
 
-Please wrap code according to the preferred limit expressed in Kernel
-coding style (checkpatch is not a coding style description, but only a
-tool).  However don't wrap blindly (see Kernel coding style).
+On Thu Apr 2, 2026 at 6:55 AM CEST, Liu Ying wrote:
+> Hi Luca,
+>
+> On Mon, Mar 30, 2026 at 09:25:51PM +0200, Luca Ceresoli wrote:
+>> Convert this driver to DRM_BRIDGE_ATTACH_NO_CONNECTOR and to the
+>> drm_bridge_connector framework which is the current DRM bridge best
+>> practice.
+>>
+>> Tested-by: Martyn Welch <martyn.welch@collabora.com>
+>> Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com> # TQMa8MPxL=
+/MBa8MPxL
+>> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-> +  management. It is communicating with SoC over multiple i2c busses. Particular driver
+>> @@ -86,11 +88,23 @@ static int lcdif_attach_bridge(struct lcdif_drm_priv=
+ate *lcdif)
+>>  					     "Failed to initialize encoder for endpoint%u\n",
+>>  					     of_ep.id);
+>>
+>> -		ret =3D drm_bridge_attach(encoder, bridge, NULL, 0);
+>> +		ret =3D drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO=
+_CONNECTOR);
+>
+> It seems that only analogix-anx6345.c, analogix-anx78xx.c and analogix_dp=
+_core.c
+> don't allow DRM_BRIDGE_ATTACH_NO_CONNECTOR, since they error out when att=
+aching
+> the bridge with the flag:
+>
+> if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) {
+>          DRM_ERROR("Fix bridge driver to make connector optional!");
+>          return -EINVAL;
+> }
+>
+> Looks like i.MX8MP platforms don't use these drivers.
 
-Drop "driver" references and describe what you think EC is doing.
+Exactly. I have checked all the drivers involved with the i.MX8MP and all
+of the support DRM_BRIDGE_ATTACH_NO_CONNECTOR.
 
-> +  is for EC subsystem that handles fan speed control, thermal shutdown, peripherals
-> +  supply including trackpad, touch-row, display.
-> +
-> +properties:
-> +  compatible:
-> +    const: dell,xps13-9345-ec
-> +
-> +  reg:
-> +    const: 0x3b
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  io-channels:
-> +    description:
-> +      ADC channels connected to the 7 onboard thermistors on PMK8550.
-> +      EC requires frequent thermal readings of these channels to perform
-> +      automated fan speed control.
-> +    items:
-> +      - description: ADC channel for sys_therm0
-> +      - description: ADC channel for sys_therm1
-> +      - description: ADC channel for sys_therm2
-> +      - description: ADC channel for sys_therm3
-> +      - description: ADC channel for sys_therm4
-> +      - description: ADC channel for sys_therm5
-> +      - description: ADC channel for sys_therm6
-> +
-> +  io-channel-names:
-> +    items:
-> +      - const: sys_therm0
-> +      - const: sys_therm1
-> +      - const: sys_therm2
-> +      - const: sys_therm3
-> +      - const: sys_therm4
-> +      - const: sys_therm5
-> +      - const: sys_therm6
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - io-channels
-> +  - io-channel-names
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |+
+While converting all drivers is surely a good goal, converting all of them
+at once is not realistically doable. So the approach I took was to convert
+one specifically (lcdif_drv.c) plus all those which would break because
+they are used with the LCDIF.
 
-If there is going to be resend:
-Drop +, I think we don't ever use it in the examples.
+> But, are we completely safe here by adding the flag?  You also mentioned
+> "pitfalls" in commit mesg, which makes me a bit more worried.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+I mentioned potential pitfalls in the cover letter mainly because of the DT
+overlay insertion patch, which is somewhat tricky as it impacts many
+boards.
 
-Best regards,
-Krzysztof
+Additionally it's not easy to spot all usages of this component by parsing
+dozens of dts files, so I might have missed some.
 
+So overall every patch sent has a potential for pitfalls, but for the
+reasons above I think this series has a bit more.
+
+Does this reassure you? :)
+
+>>  		if (ret)
+>>  			return dev_err_probe(dev, ret,
+>>  					     "Failed to attach bridge for endpoint%u\n",
+>>  					     of_ep.id);
+>> +
+>> +		connector =3D drm_bridge_connector_init(lcdif->drm, encoder);
+>
+> Also, kernel doc of drm_bridge_connector.c says:
+>
+>  * To make use of this helper, all bridges in the chain shall report brid=
+ge
+>  * operation flags (&drm_bridge->ops) and bridge output type
+>  * (&drm_bridge->type), as well as the DRM_BRIDGE_ATTACH_NO_CONNECTOR att=
+ach
+>  * flag (none of the bridges shall create a DRM connector directly).
+>
+> Are you sure that we are safe to use this helper?
+
+Yes. I have checked all in-tree dts[i] files for all the 3 LCDIFs.
+
+For the LCDIF3, the pipeline is:
+
+  LCDIF3 -> fsl,imx8mp-hdmi-pvi -> fsl,imx8mp-hdmi-tx -> HDMI connector
+
+And the involved bridges are:
+
+ * fsl,imx8mp-hdmi-pvi has ops =3D 0 (it doesn't set it) because it
+   implements none the optional features mentioned by those flags, and it
+   honors the DRM_BRIDGE_ATTACH_NO_CONNECTOR by propagating it
+
+ * fsl,imx8mp-hdmi-tx is implemented based on dw-hdmi, which sets ops as
+   appropriate and also propagates the DRM_BRIDGE_ATTACH_NO_CONNECTOR flag
+
+ * display-connector (enabled via the DT overlay if needed) sets ops and
+   makes DRM_BRIDGE_ATTACH_NO_CONNECTOR mandatory
+
+The LCDIF2 involves the panel-bridge, display-connector and lvds-decoder
+which also set ops as needed and propagate DRM_BRIDGE_ATTACH_NO_CONNECTOR
+or make it mandatory.
+
+The same applies to the drivers used with the LCDIF1: adv7511, tc358767 and
+the panel bridge.
+
+I assume this answers your doubts. Let me know if it doesn't.
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
