@@ -1,241 +1,116 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 699C63E1232
-	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 15:39:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E17077082D;
+	Thu,  2 Apr 2026 15:44:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775144355; cv=none; b=Gcg4OlhOmS7tLBbvLgUY6VvueMQeUEOPE+3S0orSgF+q3iJNz6qYOBywT15lMKh/pqt9sirKybCiJpBoGloaDpvitzxUlnyKkrSW8m77bsFJSVzQs5WJOy73YEXg2qSf+5MFBmnecIRT1vc4gqyeywifxvA5piSwVmBUTvKo7Rc=
+	t=1775144691; cv=none; b=aJ6zzCfX1wWbp8QsqEoMqMrhmB/IB7WOfNo4dAI1C5gpJisnWdC7fYqcsggna0J+RrCp7uhIbtGKavHSLaUcsadWViHmSAh6LniSFrfhdOpuh/W/iexnffuDwgNYzdTEcRvJUHGJ6QPxCNcH9l+ZDhSUVrnaqW9PrymSkfrcx6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775144355; c=relaxed/simple;
-	bh=X5xP4mH4gp9Nk6yWni1CQCZV7BD84tNaYS8aUYMymWw=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=hgRwFIVh5/CWKB9VC5N3zQbME/UV9zdSfP5fXrjYEy0vhAV6H9Y1Xw3LWgb1GIjBWVzKTNu0F01X9X4P2xTOm4PrOtRKrnVKFg/TF8t4JAUuT/kFBvIYCKd6sCfcWMRyYIKOXIyu1kBkmKMkVWh2n+kk+fK6KKHQvzRlZO8mChM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=QW4Y2tJ9; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1775144691; c=relaxed/simple;
+	bh=ehukUNKCQJJS36gvIjnDSkX0muBe2NdLvE10oXemFaQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C2wk+FhGswwS4/HN/T7UQnBb8B1LDIJZdr7lDQKkA+x1h0HPvOR4Fut5sr1gjB+dPfsjOycEYHpvFOe975xHEtfbqCBEqlyg6UMrd0CoyOcdG4dQ/lgE/7MwTkpxWpIH45nJ2kLonl7epg7+sdnAhijf0pvVq9MGHmjBfuoL0U8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=C6nkODbK; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="QW4Y2tJ9"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-43cfe71e5d3so945963f8f.0
-        for <devicetree@vger.kernel.org>; Thu, 02 Apr 2026 08:39:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1775144351; x=1775749151; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=AwqyVdkU5xmyU+XRaxwsr9L7DuUGafXosoFXRqh5wTY=;
-        b=QW4Y2tJ9GyvI3ZYIflHgFzx6oC7++BpuETK+mbT7e3znsu62gjd9EHSl+OlqEREgZz
-         l7NVlBuZx4+gxIMK+yPLznaftDc13c9/oqtIFyEbuBKRpt7YlHUyrSCg9JSqsSscglXm
-         v3/U27gOfKuY0Z6C3GWnPeBTQwTGvGtHqBmRuoOEx8Xm1q3nEoQvTRXTGHlN5ZEqTOhd
-         LMhJ6QTQ19XwqjpdkTEfqBzOcOUXmSkFBtZCkvrX2Z6BX8bfs08jjJOEKdUoV2VL1Ptk
-         P1AJFwPvExaTIzHcHFj032PK9V2W6hPVN4UaT+U2BV6E5MDtfvwuiTf02yCdH/ft+7sD
-         vdFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775144351; x=1775749151;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=AwqyVdkU5xmyU+XRaxwsr9L7DuUGafXosoFXRqh5wTY=;
-        b=jnlGoA3okgLkcSVXiJ2KZzCi2CogFy6SpRrxEYx4bwJ2V7z5Jp4OS//8Dsi9aVbtVp
-         VF42MIVoNGuo/KtMJVtnPssrjugJZSRTSTVqPT+KoFrI21QyJCsPqEAvKieyqKB9k/JA
-         UiKGG41mAVgxvP0vR83yGpe4EbFol5FEfTXIo1r0Wk/yX9ODAaHRlpH4FvohMcwcRoho
-         D8ABVGY8hd1XtnPYQHd08ZDl+E5ypSrBA9cZA5UthJbY+CrTR4dKKKcER7KMcwqNiiQS
-         HFgYUox/xq+IGiGzDvm1itHdzR36BSp4CjiWuAOC55kSLwzIbPY1s9LxW8vKsOII89Sk
-         imVQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXZe2lNv9nw7PvosI0mTQjBErlSUbZBoRM7BpFkDbUPoGGe4OoqqXIbcB4PEf5X+4nBNgXvx2wGARXk@vger.kernel.org
-X-Gm-Message-State: AOJu0YyOg3g223e0c3P7UTGlEWRGBu87Cqi0wawClS0+qX6b+AvFyXQ6
-	Sy7PSiyzWwZBJfkYfhOScB8wJHMX5iAeM12ORvs4hh/s1qH1la0rDRgn+XILCb+z0Vw=
-X-Gm-Gg: AeBDiessbhxGZRASQy/iVesGpUcLjYDUvA7BR5i1WKVbQi5X2qMPaTXFbBWvnwBMukf
-	KwwVKnSLDDX2VUWRnQOyVPr6B7+dc+FV6dSKsYS4Fbgru+at1ikxJ2RnCX0jZVMxxHZbCR5iD1S
-	soSuPnXS6S++YlgSvCn0tBeUCvhj28SSnP6mBIw1SsNXje3is+XEg5tkbZuKVsiQSClbPnjon7H
-	NEy1XukF8ADUBcuq0kB/LN5l44oukNPOaXRgoNezpRSX1IwGLO/8H6eDSfGmAIfV5dqBXrAJeou
-	jMXr0OgwOmiYrnQRJkxiLMF604iou7DKbSpqOsRm4Bqejp46KRIys/8UwtLYldAePErsBbkT0n3
-	2KMuueU5aCbIvEBuJ4lrW0j0+vml6H6My6/k/vb7//8KoERPGrjwG8FT9j8omaMmMonkCNr21uX
-	6E22fnlD3ReKZo5/uf1zhN0Jl/QAiHewje89w6iMrvEprxW9IOnYZGBsiY/BgaTLsr8Yh+P0AAl
-	28zhtE=
-X-Received: by 2002:a5d:5f45:0:b0:43c:fc5c:aa0b with SMTP id ffacd0b85a97d-43d150fb173mr16260734f8f.42.1775144350679;
-        Thu, 02 Apr 2026 08:39:10 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:ac0e:65b8:7f89:413a? ([2a01:e0a:106d:1080:ac0e:65b8:7f89:413a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43d1e4e52a0sm8533616f8f.30.2026.04.02.08.39.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 02 Apr 2026 08:39:10 -0700 (PDT)
-Message-ID: <5e3e8684-f893-4fb0-879e-9661820f72dd@linaro.org>
-Date: Thu, 2 Apr 2026 17:39:09 +0200
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="C6nkODbK"
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 867FF26EBC;
+	Thu,  2 Apr 2026 17:44:46 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id vuyV9FzdCJHh; Thu,  2 Apr 2026 17:44:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1775144685; bh=ehukUNKCQJJS36gvIjnDSkX0muBe2NdLvE10oXemFaQ=;
+	h=From:To:Cc:Subject:Date;
+	b=C6nkODbKOMKve9s5HPGrE7wCA1yq5h0eCyzorJV6dSwLQYP0Huce2Y1jJd4sDnsGf
+	 HI7u+rGoF01n6biGCJLdqegAWjlyBwc/janTJgtY1HHW0SkgeUyJu2G4TyhGNF8QuY
+	 HOQUfiU2aMTuh59SzkY03Mna0fhDocEyZ75PjB8rnWXcOAuv5dfhkd4FEj6/VKzEt5
+	 pYzRsMx3NXKZIdPJXPbFd0Y8LryML5WhzVn1zXM743CK2NNQGyrPbEB9CHxFnMJwbK
+	 eFsnNdYRKdFAPLyyCXf9MBrqyMXncYC/Pq59AzDIt9POViAw5b9xOdkV0LJdVdUtil
+	 L/nVaQ04QCqBA==
+From: Rustam Adilov <adilov@disroot.org>
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Stanley Chang <stanley_chang@realtek.com>,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Rustam Adilov <adilov@disroot.org>
+Subject: [PATCH v3 0/6] phy: realtek: usb2: support for RTL9607C USB2 PHY
+Date: Thu,  2 Apr 2026 20:44:08 +0500
+Message-ID: <20260402154414.196012-1-adilov@disroot.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 5/8] thermal: khadas-mcu-fan: Add fan config from platform
- data Add regulator support
-To: Ronald Claveau <linux-kernel-dev@aliel.fr>, Lee Jones <lee@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Beniamino Galvani <b.galvani@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>
-Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org
-References: <20260402-add-mcu-fan-khadas-vim4-v1-0-2b12eb4ac7b0@aliel.fr>
- <20260402-add-mcu-fan-khadas-vim4-v1-5-2b12eb4ac7b0@aliel.fr>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260402-add-mcu-fan-khadas-vim4-v1-5-2b12eb4ac7b0@aliel.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 4/2/26 16:27, Ronald Claveau wrote:
-> Replace the hardcoded MAX_LEVEL constant and fan register
-> with values read from platform_data (fan_reg, max_level),
-> as new MCUs need different values.
-> 
-> Optionally acquire and enable a "fan" regulator supply
-> at probe time and on resume,
-> so boards that gate fan power through a regulator are handled.
-> 
-> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
-> ---
->   drivers/thermal/khadas_mcu_fan.c | 43 ++++++++++++++++++++++++++++++++++------
->   1 file changed, 37 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/thermal/khadas_mcu_fan.c b/drivers/thermal/khadas_mcu_fan.c
-> index d35e5313bea41..55b496625e3bd 100644
-> --- a/drivers/thermal/khadas_mcu_fan.c
-> +++ b/drivers/thermal/khadas_mcu_fan.c
-> @@ -13,13 +13,15 @@
->   #include <linux/regmap.h>
->   #include <linux/sysfs.h>
->   #include <linux/thermal.h>
-> -
-> -#define MAX_LEVEL 3
-> +#include <linux/regulator/consumer.h>
->   
->   struct khadas_mcu_fan_ctx {
->   	struct khadas_mcu *mcu;
-> +	unsigned int fan_reg;
->   	unsigned int level;
-> +	unsigned int max_level;
->   	struct thermal_cooling_device *cdev;
-> +	struct regulator *power;
->   };
->   
->   static int khadas_mcu_fan_set_level(struct khadas_mcu_fan_ctx *ctx,
-> @@ -27,8 +29,7 @@ static int khadas_mcu_fan_set_level(struct khadas_mcu_fan_ctx *ctx,
->   {
->   	int ret;
->   
-> -	ret = regmap_write(ctx->mcu->regmap, KHADAS_MCU_CMD_FAN_STATUS_CTRL_REG,
-> -			   level);
-> +	ret = regmap_write(ctx->mcu->regmap, ctx->fan_reg, level);
->   	if (ret)
->   		return ret;
->   
-> @@ -40,7 +41,9 @@ static int khadas_mcu_fan_set_level(struct khadas_mcu_fan_ctx *ctx,
->   static int khadas_mcu_fan_get_max_state(struct thermal_cooling_device *cdev,
->   					unsigned long *state)
->   {
-> -	*state = MAX_LEVEL;
-> +	struct khadas_mcu_fan_ctx *ctx = cdev->devdata;
-> +
-> +	*state = ctx->max_level;
->   
->   	return 0;
->   }
-> @@ -61,7 +64,7 @@ khadas_mcu_fan_set_cur_state(struct thermal_cooling_device *cdev,
->   {
->   	struct khadas_mcu_fan_ctx *ctx = cdev->devdata;
->   
-> -	if (state > MAX_LEVEL)
-> +	if (state > ctx->max_level)
->   		return -EINVAL;
->   
->   	if (state == ctx->level)
-> @@ -83,11 +86,32 @@ static int khadas_mcu_fan_probe(struct platform_device *pdev)
->   	struct device *dev = &pdev->dev;
->   	struct khadas_mcu_fan_ctx *ctx;
->   	int ret;
-> +	const struct khadas_mcu_fan_pdata *pdata = dev_get_platdata(&pdev->dev);
->   
->   	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
->   	if (!ctx)
->   		return -ENOMEM;
-> +
->   	ctx->mcu = mcu;
-> +	ctx->fan_reg   = pdata->fan_reg;
-> +	ctx->max_level = pdata->max_level;
-> +
-> +	ctx->power = devm_regulator_get_optional(dev->parent, "fan");
-> +	if (IS_ERR(ctx->power)) {
-> +		if (PTR_ERR(ctx->power) == -ENODEV)
-> +			ctx->power = NULL;
-> +		else
-> +			return PTR_ERR(ctx->power);
-> +	}
-> +
-> +	if (ctx->power) {
-> +		ret = regulator_enable(ctx->power);
-> +		if (ret) {
-> +			dev_err(dev, "Failed to enable fan power supply: %d\n", ret);
-> +			return ret;
-> +		}
-> +	}
-> +
->   	platform_set_drvdata(pdev, ctx);
->   
->   	cdev = devm_thermal_of_cooling_device_register(dev->parent,
-> @@ -130,6 +154,13 @@ static int khadas_mcu_fan_suspend(struct device *dev)
->   static int khadas_mcu_fan_resume(struct device *dev)
->   {
->   	struct khadas_mcu_fan_ctx *ctx = dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	if (ctx->power) {
-> +		ret = regulator_enable(ctx->power);
+This patch series for Realtek USB2 PHY driver adds support for RTL9607C
+USB2 PHY.
 
-Seems you're missing a regulator_disable() on suspend.
+RTL9607C is a big endian MIPS CPU which is quite far from RTD series SoCs
+supported by realtek usb2 phy driver, but the phy initilization is found
+to be very indentical in most areas.
 
-Neil
+Most of the code was based on the Realtek's usb driver from the GPL tarball
+in [1] and adjusted to fit into the realtek usb2 phy driver code format.
 
-> +		if (ret)
-> +			return ret;
-> +	}
->   
->   	return khadas_mcu_fan_set_level(ctx, ctx->level);
->   }
-> 
+The patch series was split into smaller patches that add/change something
+in the driver that are not exactly related to RTL9607C and that also
+helps for easier review. That also means, patch 5 depends on all the prior
+patches that come before it.
+
+USB2 PHY on RTL9607C is primarly used for its internal OHCI/EHCI controllers.
+
+[1] - https://github.com/jameywine/GPL-for-GP3000/blob/main/linux-5.10.x/arch/mips/rtl9607c/usb.c
+
+---
+Changelog in v3:
+- Patch 2
+ - renamed phy read and functions to "rtk_usb2phy" to not collide with networking API functions
+ - fixed the sparse warnings by creating intermidiate "tmp" variable and then pass it to writel
+ - sligtly adjusted commit message to instead use "default read" not "default phy_read"
+- Patch 4
+ - added the check for reset_control_deassert() just in case
+ - changed mdelay(5) to msleep(5)
+ - changed dev_err and return combo with one dev_err_probe for phy_rst
+- Patch 5
+ - changed mdelay(10) under force_host_disconnect to msleep(10)
+ - removed struct fields with false like force_host_disconnect and more in rtl9607_phy_cfg
+- Patch 6
+ - updated the #endif commend to now include MACH_REALTEK_RTL to reflect if on top
+- Link to v2: https://lore.kernel.org/linux-phy/20260327160638.15134-1-adilov@disroot.org/
+
+Changelog in v2:
+- Patch 5
+ - removed the line about OHCI/EHCI controllers from description.
+ - set the resets to false for RTD SoC devices and changed the
+   commit message to reflect that.
+- Link to v1: https://lore.kernel.org/linux-phy/20260326193419.48419-1-adilov@disroot.org/
+
+Rustam Adilov (6):
+  phy: realtek: usb2: introduce vstatus/new_reg_req variables to driver
+    data
+  phy: realtek: usb2: introduce read and write functions to driver data
+  dt-bindings: phy: realtek,usb2phy.yaml: extend for resets and RTL9607C
+    support
+  phy: realtek: usb2: introduce reset controller struct
+  phy: realtek: usb2: add support for RTL9607C USB2 PHY
+  phy: realtek: Make configs available for MACH_REALTEK_RTL
+
+ .../bindings/phy/realtek,usb2phy.yaml         |  25 ++-
+ drivers/phy/realtek/Kconfig                   |   4 +-
+ drivers/phy/realtek/phy-rtk-usb2.c            | 183 ++++++++++++++++--
+ 3 files changed, 191 insertions(+), 21 deletions(-)
+
+-- 
+2.53.0
 
