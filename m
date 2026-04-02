@@ -1,95 +1,301 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7383A36F40C;
-	Thu,  2 Apr 2026 17:39:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE28435A3A4
+	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 17:44:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775151553; cv=none; b=JSNgij9lSuV0QAtt/aU7z3EDPDONiX5bUIQkM5ojTluaEAT8AtwB/WUVxLu4pgko1DLQwPPHfklcrqkxiWy337+Taqos5O6g30mnNx4su4//fMZjb2t49xvLuWG7t/Hpih8ejDjmTDsWEJw+3kO1tMIHFJccKVq/5GFlW2R5Quo=
+	t=1775151848; cv=none; b=DZAHtRH1VYyvZoZEXdZmGD7lZAxTPmTCogIm0nAa4DXAGzfCPe57EthfYz9vAkjqr1Zgjb9nfRtVki+Bm+yVdSwkPHSx6nNvv6Qsci4AdE9Dngj/Bfjhw38G466K8SkBcxGkgqDyytTYVnd83Zk8Fv02SYcXyR9+mTNkR594FXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775151553; c=relaxed/simple;
-	bh=EzQy8EPCVRqNiDqJ7Hv5+CNhTsBDfSFBM9cjL0Jb2Sg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RnUwVqDi8TyibEo9eEV9UZg4T3InBottH6eDHPx4t1b63Z+HPeiHJOkTsA6pawXrtZaKN7Qi3LLuD6+4T5VViuOGCM96dVtf746STOzSOZ3wDKJ7GRBY8ox31VQeXjyvJaei9MuaUtK7K7YAFUQp4afA/ySp3gf3PavX+x8mDlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EhrFdSYk; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EhrFdSYk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B48A4C116C6;
-	Thu,  2 Apr 2026 17:39:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775151553;
-	bh=EzQy8EPCVRqNiDqJ7Hv5+CNhTsBDfSFBM9cjL0Jb2Sg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=EhrFdSYkWKBxDCwu+Mz0hR/2jRPqdkMAY1sTl2W8WYa26+0+H1r/7wWI4pk/6dBeK
-	 Hbcq5t3GUPcQtxRooZu6FJRu35OUU5KOJnSUTq1+tkBH9u4w0Lx3f6EWB8RVeKLKVm
-	 PSJD91SBIGDTSn4w8A7nFsGC3HXHXWhaSBSVFV1HKWhgRxLjFSWVN6wpnUBrBKZ67C
-	 4f75pWOkhKPZFokJ1gSv5OkSYoq3NyxwGtIn08qbof0QDXPeFyN9oS5+X59WexG+5/
-	 gjqI4SQPIfB6V4CE24YW6OOmqyM2LmYM4REiM8N3iVFmzh0wfh0aLQ/8gj2KnOYW7C
-	 pMhxWpY1j3g3w==
-Date: Thu, 2 Apr 2026 18:39:06 +0100
-From: Mark Brown <broonie@kernel.org>
-To: John Madieu <john.madieu.xa@bp.renesas.com>
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
+	s=arc-20240116; t=1775151848; c=relaxed/simple;
+	bh=p/0dhuzszQ1+qC+mwyCnDxRD2bS6x3CEdhzwJJAcqDQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CiKS4QvXunQvx42PUSXH4m2OYmwIf3hBoDXgYjuntj2fchZa5RAQuOI5FAmKq3LGG2OZLNYVe+fFrWHbVBhivY4chzVmnfsMwhC6vHg2dvyneTIcHnAfDEEYiygxGU8SxN2Nu1Srjk8N9GviZVYfWMCRWqC1vDopZMV12bC/u9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <ore@pengutronix.de>)
+	id 1w8M59-00053A-3n; Thu, 02 Apr 2026 19:43:51 +0200
+Received: from dude04.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::ac] helo=dude04)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ore@pengutronix.de>)
+	id 1w8M58-003PUw-1J;
+	Thu, 02 Apr 2026 19:43:50 +0200
+Received: from ore by dude04 with local (Exim 4.98.2)
+	(envelope-from <ore@pengutronix.de>)
+	id 1w8M58-0000000DVq0-1IRj;
+	Thu, 02 Apr 2026 19:43:50 +0200
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Guenter Roeck <linux@roeck-us.net>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Biju Das <biju.das.jz@bp.renesas.com>, john.madieu@gmail.com,
-	linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCh v3 03/14] ASoC: rsnd: Add reset controller support to
- rsnd_mod
-Message-ID: <9d1e09af-ca2a-462f-90e0-ce7557f361d0@sirena.org.uk>
-References: <20260402162436.12059-1-john.madieu.xa@bp.renesas.com>
- <20260402162436.12059-4-john.madieu.xa@bp.renesas.com>
+	Lee Jones <lee@kernel.org>,
+	Peter Rosin <peda@axentia.se>,
+	Linus Walleij <linusw@kernel.org>
+Cc: Oleksij Rempel <o.rempel@pengutronix.de>,
+	kernel@pengutronix.de,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	David Jander <david@protonic.nl>
+Subject: [PATCH v11 6/6] mux: add NXP MC33978/MC34978 AMUX driver
+Date: Thu,  2 Apr 2026 19:43:49 +0200
+Message-ID: <20260402174349.3220518-7-o.rempel@pengutronix.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260402174349.3220518-1-o.rempel@pengutronix.de>
+References: <20260402174349.3220518-1-o.rempel@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="PhON12K5vhntNuUH"
-Content-Disposition: inline
-In-Reply-To: <20260402162436.12059-4-john.madieu.xa@bp.renesas.com>
-X-Cookie: <doogie> dpkg has bugs?  no way!
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ore@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
+Add a mux-control driver for the 24-to-1 analog multiplexer (AMUX)
+embedded in the NXP MC33978/MC34978 Multiple Switch Detection
+Interface (MSDI) devices.
 
---PhON12K5vhntNuUH
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Assisted-by: Gemini:gemini-3.1-pro Sashiko
+Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+---
+changes v11:
+- no changes
+changes v10:
+- no changes
+changes v9:
+- rename mc33978-mux to mux-mc33978 in the Kconfig help
+- fail if fwnode is NULL
+changes v8:
+- no changes
+changes v7:
+- Simplify the return path and local variable assignment in
+  mc33978_mux_set().
+- Change idle_state to a signed integer to properly handle negative MUX
+  subsystem constants.
+- Default to MUX_IDLE_AS_IS when the "idle-state" device tree property
+  is missing.
+- Explicitly reject MUX_IDLE_DISCONNECT since the hardware does not
+  support disconnecting the multiplexer.
+changes v6:
+- parse optional idle-state property
+- validate idle-state against available AMUX channels
+- lower-case probe error messages
+changes v5:
+- no changes
+changes v4:
+- no changes
+changes v3:
+- no changes
+changes v2:
+- Add missing <linux/err.h> include.
+- Add platform_device_id table
+---
+ drivers/mux/Kconfig       |  14 ++++
+ drivers/mux/Makefile      |   2 +
+ drivers/mux/mc33978-mux.c | 141 ++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 157 insertions(+)
+ create mode 100644 drivers/mux/mc33978-mux.c
 
-On Thu, Apr 02, 2026 at 06:24:25PM +0200, John Madieu wrote:
+diff --git a/drivers/mux/Kconfig b/drivers/mux/Kconfig
+index c68132e38138..ffe92a714096 100644
+--- a/drivers/mux/Kconfig
++++ b/drivers/mux/Kconfig
+@@ -45,6 +45,20 @@ config MUX_GPIO
+ 	  To compile the driver as a module, choose M here: the module will
+ 	  be called mux-gpio.
+ 
++config MUX_MC33978
++	tristate "NXP MC33978/MC34978 Analog Multiplexer"
++	depends on MFD_MC33978
++	help
++	  MC33978/MC34978 24-to-1 analog multiplexer (AMUX) driver.
++
++	  This driver provides mux-control for the analog multiplexer,
++	  which can route switch voltages, temperature, and battery voltage
++	  to an external ADC. Typically used with IIO ADC drivers to measure
++	  analog values from the 22 switch inputs plus temperature and VBATP.
++
++	  To compile the driver as a module, choose M here: the module will
++	  be called mux-mc33978.
++
+ config MUX_MMIO
+ 	tristate "MMIO/Regmap register bitfield-controlled Multiplexer"
+ 	depends on OF
+diff --git a/drivers/mux/Makefile b/drivers/mux/Makefile
+index 6e9fa47daf56..339c44b4d4f4 100644
+--- a/drivers/mux/Makefile
++++ b/drivers/mux/Makefile
+@@ -7,10 +7,12 @@ mux-core-objs			:= core.o
+ mux-adg792a-objs		:= adg792a.o
+ mux-adgs1408-objs		:= adgs1408.o
+ mux-gpio-objs			:= gpio.o
++mux-mc33978-objs		:= mc33978-mux.o
+ mux-mmio-objs			:= mmio.o
+ 
+ obj-$(CONFIG_MULTIPLEXER)	+= mux-core.o
+ obj-$(CONFIG_MUX_ADG792A)	+= mux-adg792a.o
+ obj-$(CONFIG_MUX_ADGS1408)	+= mux-adgs1408.o
+ obj-$(CONFIG_MUX_GPIO)		+= mux-gpio.o
++obj-$(CONFIG_MUX_MC33978)	+= mux-mc33978.o
+ obj-$(CONFIG_MUX_MMIO)		+= mux-mmio.o
+diff --git a/drivers/mux/mc33978-mux.c b/drivers/mux/mc33978-mux.c
+new file mode 100644
+index 000000000000..b44c862f0dbe
+--- /dev/null
++++ b/drivers/mux/mc33978-mux.c
+@@ -0,0 +1,141 @@
++// SPDX-License-Identifier: GPL-2.0-only
++// Copyright (c) 2026 Pengutronix, Oleksij Rempel <kernel@pengutronix.de>
++/*
++ * MC33978/MC34978 Analog Multiplexer (AMUX) Driver
++ *
++ * This driver provides mux-control for the 24-to-1 analog multiplexer.
++ * The AMUX routes one of the following signals to the external AMUX pin:
++ * - Channels 0-13: SG0-SG13 switch voltages
++ * - Channels 14-21: SP0-SP7 switch voltages
++ * - Channel 22: Internal temperature diode
++ * - Channel 23: Battery voltage (VBATP)
++ *
++ * Consumer drivers (typically IIO ADC drivers) use the mux-control
++ * subsystem to select which signal to measure.
++ *
++ * Architecture:
++ * The MC33978 does not have an internal ADC. Instead, it routes analog
++ * signals to an external AMUX pin that must be connected to an external
++ * ADC (such as the SoC's internal ADC). The IIO subsystem is responsible
++ * for coordinating the mux selection and ADC sampling.
++ */
++
++#include <linux/device.h>
++#include <linux/err.h>
++#include <linux/mod_devicetable.h>
++#include <linux/module.h>
++#include <linux/mux/driver.h>
++#include <linux/platform_device.h>
++#include <linux/property.h>
++#include <linux/regmap.h>
++
++#include <linux/mfd/mc33978.h>
++
++/* AMUX_CTRL register field definitions */
++#define MC33978_AMUX_CTRL_MASK	GENMASK(5, 0)	/* 6-bit channel select */
++
++struct mc33978_mux_priv {
++	struct device *dev;
++	struct regmap *map;
++};
++
++static int mc33978_mux_set(struct mux_control *mux, int state)
++{
++	struct mux_chip *mux_chip = mux->chip;
++	struct mc33978_mux_priv *priv = mux_chip_priv(mux_chip);
++	int ret;
++
++	if (state < 0 || state >= MC33978_NUM_AMUX_CH)
++		return -EINVAL;
++
++	ret = regmap_update_bits(priv->map, MC33978_REG_AMUX_CTRL,
++				 MC33978_AMUX_CTRL_MASK, state);
++	if (ret)
++		dev_err(priv->dev, "failed to set AMUX channel %d: %d\n",
++			state, ret);
++
++	return ret;
++}
++
++static const struct mux_control_ops mc33978_mux_ops = {
++	.set = mc33978_mux_set,
++};
++
++static int mc33978_mux_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct mc33978_mux_priv *priv;
++	struct fwnode_handle *fwnode;
++	struct mux_chip *mux_chip;
++	struct mux_control *mux;
++	s32 idle_state;
++	int ret;
++
++	mux_chip = devm_mux_chip_alloc(dev, 1, sizeof(*priv));
++	if (IS_ERR(mux_chip))
++		return dev_err_probe(dev, PTR_ERR(mux_chip), "failed to allocate mux chip\n");
++
++	fwnode = dev_fwnode(dev->parent);
++	if (!fwnode)
++		return dev_err_probe(dev, -ENODEV, "missing parent firmware node\n");
++
++	/* Borrow the parent's firmware node so consumers can find this mux chip */
++	device_set_node(&mux_chip->dev, fwnode);
++
++	priv = mux_chip_priv(mux_chip);
++	priv->dev = dev;
++
++	priv->map = dev_get_regmap(dev->parent, NULL);
++	if (!priv->map)
++		return dev_err_probe(dev, -ENODEV, "failed to get parent regmap\n");
++
++	mux_chip->ops = &mc33978_mux_ops;
++
++	mux = &mux_chip->mux[0];
++	mux->states = MC33978_NUM_AMUX_CH;
++
++	ret = device_property_read_u32(&mux_chip->dev, "idle-state",
++				       (u32 *)&idle_state);
++	if (ret < 0 && ret != -EINVAL) {
++		return dev_err_probe(dev, ret, "failed to parse idle-state\n");
++	} else if (ret == -EINVAL) {
++		mux->idle_state = MUX_IDLE_AS_IS;
++	} else {
++		if (idle_state == MUX_IDLE_DISCONNECT)
++			return dev_err_probe(dev, -EINVAL,
++					     "idle-disconnect not supported by hardware\n");
++		if (idle_state != MUX_IDLE_AS_IS &&
++		    (idle_state < 0 || idle_state >= MC33978_NUM_AMUX_CH))
++			return dev_err_probe(dev, -EINVAL, "invalid idle-state %d\n",
++					     idle_state);
++		mux->idle_state = idle_state;
++	}
++
++	ret = devm_mux_chip_register(dev, mux_chip);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to register mux chip\n");
++
++	platform_set_drvdata(pdev, mux_chip);
++
++	return 0;
++}
++
++static const struct platform_device_id mc33978_mux_id[] = {
++	{ "mc33978-mux", },
++	{ "mc34978-mux", },
++	{ }
++};
++MODULE_DEVICE_TABLE(platform, mc33978_mux_id);
++
++static struct platform_driver mc33978_mux_driver = {
++	.driver = {
++		.name = "mc33978-mux",
++	},
++	.probe = mc33978_mux_probe,
++	.id_table = mc33978_mux_id,
++};
++module_platform_driver(mc33978_mux_driver);
++
++MODULE_AUTHOR("Oleksij Rempel <kernel@pengutronix.de>");
++MODULE_DESCRIPTION("NXP MC33978/MC34978 Analog Multiplexer Driver");
++MODULE_LICENSE("GPL");
+-- 
+2.47.3
 
-> @@ -196,18 +197,29 @@ int rsnd_mod_init(struct rsnd_priv *priv,
-
-> +	ret = reset_control_deassert(rstc);
-> +	if (ret) {
-> +		clk_disable_unprepare(clk);
-> +		return ret;
-> +	}
-
-I'm not seeing a call to reverse this anywhere, I'd expect one on remove
-for symmetry and safety.
-
---PhON12K5vhntNuUH
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnOqboACgkQJNaLcl1U
-h9CD+wf+LWOezezNZwtaEeXaavB6dXlfCEymV9yEiiFBKwdlFlrjLK7OXJCyM6Ja
-20OeTk0o0meGAxohWl2xh+NcjTctwYLPDDe2THT29Y9Bg0O9xQXvUFSqLzFKm8YC
-KWYUUD+zh9BgvXqUfXPD6YSX3TIgvyitxO4a7EcrTcxyNlCYFCBFKiMjxV/Ydd60
-IZpd/Bb2l2YgRscthGvyk0QHz5ZY3FwmKlnlrMDJZbPtkHrb2rIozwP4BPUTZALm
-yF1wchc6fe2nwdXfjBR8sUj/F2TaOBnFCTdX5L8aOVsQ6SYi9stVU74jUxcsLZx+
-fGV30+VjhqJydWNvihmUwDcGbTthDQ==
-=y1B+
------END PGP SIGNATURE-----
-
---PhON12K5vhntNuUH--
