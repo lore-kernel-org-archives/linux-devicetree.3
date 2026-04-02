@@ -1,100 +1,139 @@
-Received: from out-180.mta1.migadu.com (out-180.mta1.migadu.com [95.215.58.180])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5226B1D6BB
-	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 06:42:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B627A4D8CE;
+	Thu,  2 Apr 2026 06:43:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775112175; cv=none; b=ltn9CfEVhKKf5OhEO7/8pRtUJw9OcwO7ARZxWB2LHWpT/zBprYK9M5qg1aXkLj0crvIyAFXLfEr5cW0+HnAJex9CTY+oUYxMuVtF0EDU1y9bEGtANfVx7nWexbiHyTNNtRZKNaQdZcCvIekEtKIWTjHw8MRpvlRgJnXcf0zTwYY=
+	t=1775112216; cv=none; b=pIccImkg7NqRbiCsmx66tG4e0Y6oHwkE7XkAK6wN4ywVbkoHFmiD73qWOvo1mo+CNzRCU+mYCWa2eTRD1KhGAQxyso+5jNI6VEezqvZj/r05Lu229v+NF/WDoFqM3tzEYDlni9/ofZJyOybhD3wB8UrSJ5jbz0eJsmd0i+LCez8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775112175; c=relaxed/simple;
-	bh=sqb2CwDa1Cq0XxXDMv1rUhOVD7diLDVG83sABn513b8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NlRMXuo77sDVvRCd61JzSTLEUuXhlmZpdsGSmeD3RQODmLVFRp42+Tb9oop/ydqA3fVC/Uj9fFHai05rYGPYOMDL7/wNtw3f/dOwWKDqoZEJ4xP22enBFTDgXLV9lwvdlgt6RhPLhu/ePQnlfypcEkVyb5FXJtSOM7vvhB/XpzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=aufk4sGa; arc=none smtp.client-ip=95.215.58.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
+	s=arc-20240116; t=1775112216; c=relaxed/simple;
+	bh=5pJvsUEGXVB/eFmV7VyV1t/gS5WHF4vfE98KTHWbssU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rbh4ugNn25tTh4FGrPTg63Zw0OCmGKXRDWtQ2m7W/a8W+y2pOcCB/LrP+FTh2Z2J9vmY8y30ijRAqtML4oIAevW9lRtQ5kPsvhmm37KDTdDCvJHR2nAmj+ZFu+M9I4tbuWP9kvKpqBUmkN4OynJFdudu3kqUNwpHITcCXJG5Ic0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F+NXctNS; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="aufk4sGa"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=postmarketos.org;
-	s=key1; t=1775112172;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=c4vft3JoOWNIiyb6XKVwI3B9R+MjrgmBnquYhO1fWhg=;
-	b=aufk4sGa1/VsfrFKVTKBD+bQAzhZHFOYjA7t1GCZxLgmfXb2NyQYvB+96qpG5c+y7MADPH
-	mEyuEfFukJTE8wNLMLkoCkOdCRIurohecAAEsSYPTpRo58XHUXMNJfuIUdiMQ1TtQvdC40
-	hHUwXdmfNWqnBU8qzX8qhxvMBtLokoj2P5sAEfZxd2T1FAvfyvLgM7RKGWFEW7hFpblw2k
-	kABwl40Q/iIQ/G8Go8IzMAQXZlCPqSqO15SxwPcEdYyLInVJrtxmHEAcSeArxN2aLqRsn6
-	qf5HbK3xs4CN/q8qtixs9LtS8qqAX8IG0/8d7/JZ0CeHFfjHUBZ390R1XZLBTw==
-From: Paul Sajna <sajattack@postmarketos.org>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Heidelberg <david@ixit.cz>
-Cc: Paul Sajna <sajattack@postmarketos.org>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	phone-devel@vger.kernel.org,
-	~postmarketos/upstreaming@lists.sr.ht,
-	Amir Dahan <system64fumo@tuta.io>,
-	Christopher Brown <crispybrown@gmail.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: [PATCH v8 14/15] arm64: dts: qcom: sdm845-lg-common: Change ipa gsi-loader to 'self', add memory-region
-Date: Wed,  1 Apr 2026 23:42:23 -0700
-Message-ID: <20260401-judyln-dts-v8-14-cf13065e52ab@postmarketos.org>
-In-Reply-To: <20260401-judyln-dts-v8-0-cf13065e52ab@postmarketos.org>
-References: <20260401-judyln-dts-v8-0-cf13065e52ab@postmarketos.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F+NXctNS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94D27C19423;
+	Thu,  2 Apr 2026 06:43:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775112216;
+	bh=5pJvsUEGXVB/eFmV7VyV1t/gS5WHF4vfE98KTHWbssU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=F+NXctNSIZ3dexgIyYgK3nTjZk2WUqV3LFGl+7Vhvdg2IlOgU3TK+Yc4fCrY+wVO6
+	 Rz7tKqXQT/zOJiE6Hlcwf0/MVOORW202DfV8/zNGzxmy57DJbXyJAgqKRpDLoSGTik
+	 FYprEwPySdRvnebamot9Ur6jkJw+vhmDccrql7wTSSfSengejWwBJukB8G/6EyNU6f
+	 scHvcmHshEuCqdFXakL7JcabtixPQkobn49NPJNTSkT20GcVxdzevVlp0i5qU90pEo
+	 C9xKSL12Y8CQb53qOI0LC6fSSztTtDR7ixOimWd1Wzl7YgjhIaw0sSqDNZVaJU13ib
+	 UZ5RdCoeoYs5Q==
+Message-ID: <5d645bb0-22cd-4e96-b8b6-15c4bb83d87d@kernel.org>
+Date: Thu, 2 Apr 2026 08:43:30 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1775112052; l=1064; i=sajattack@postmarketos.org; s=20250422; h=from:subject:message-id; bh=sqb2CwDa1Cq0XxXDMv1rUhOVD7diLDVG83sABn513b8=; b=uJaI33RqM0ctu6/j7WPj0hxJcGzIrcqKZvf9w1DDWFEpH6UPF+d8i+JWHZpuq5g4qpwUaYwl1 zlkiXrGBgbVCq1flq6qdFBuIqp7X9z2DLb2n/BCCbPPNgKVjoE6rWwQ
-X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519; pk=TwacvEOiRJ2P2oAdEqIDrtQTL18QS4FfcHfP/zNsxkQ=
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/5] Exynos850 APM-to-AP mailbox support
+To: Alexey Klimov <alexey.klimov@linaro.org>
+Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Sam Protsenko <semen.protsenko@linaro.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Tudor Ambarus
+ <tudor.ambarus@linaro.org>, Jassi Brar <jassisinghbrar@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>, linux-samsung-soc@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260320-exynos850-ap2apm-mailbox-v1-0-983eb3f296fc@linaro.org>
+ <20260321-beautiful-garnet-magpie-de4fbd@quoll>
+ <DHIB5E66SP7A.110YA5R1OOQHS@linaro.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <DHIB5E66SP7A.110YA5R1OOQHS@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The modem firmware for this device doesn't preload the IPA firmware
-and requires the OS handles that instead. Set qcom,gsi-loader = "self"
-to reflect that.
+On 02/04/2026 04:19, Alexey Klimov wrote:
+> On Sat Mar 21, 2026 at 10:44 AM GMT, Krzysztof Kozlowski wrote:
+>> On Fri, Mar 20, 2026 at 09:15:12PM +0000, Alexey Klimov wrote:
+>>> Hi all,
+>>>
+>>> This patch series introduces support for the APM-to-AP mailbox on the 
+>>> Exynos850 SoC. This mailbox is required for communicating with the APM 
+>>> co-processor using ACPM.
+>>>
+>>> The Exynos850 mailbox operates similarly to the existing gs101 
+>>> implementation, but the register offsets and IRQ mask bits differ. 
+>>> This series abstracts these differences into platform-specific data 
+>>> structures matched via the device tree.
+>>>
+>>> Also, it requires APM-to-AP mailbox clock in CMU_APM block.
+>>>
+>>> In theory this can be split into two series with correct dependecies:
+>>> device tree node requires clock changes to be merged. The suggestion
+>>> is to let this go through Samsung SoC tree with corresponding acks
+>>> if it is okay.
+>>
+>> I don't understand why this cannot be split into two seris
+>> *practically*. What is exactly the dependency between mailbox and DTS,
+>> that it had to be combined here?
+> 
+> Do you suggest to send 3 single patches with proper dependencies
+> description? DT bindings change first, then mailbox change that specifically
+> depends on dt-bindings change and then dts update (which will depend on both)?
+> 
+> I thought that mbox driver change depends implicitly on bindings update?
 
-Ensure the ipa uses the correct memory.
+Please don't answer to a question with a question. Actually three
+questions. If you cannot give argument why there is a dependency, feels
+to me like you send something you do not understand.
 
-ipa 1e40000.ipa: channel 4 limited to 256 TREs
-ipa 1e40000.ipa: IPA driver initialized
-ipa 1e40000.ipa: received modem starting event
-ipa 1e40000.ipa: received modem running event
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
----
- arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
-index 9d82961d527e..85dc4468b6c4 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
-@@ -473,7 +473,9 @@ &gpu {
- };
- 
- &ipa {
--	qcom,gsi-loader = "modem";
-+	qcom,gsi-loader = "self";
-+	memory-region = <&ipa_fw_mem>;
-+
- 	status = "okay";
- };
- 
-
--- 
-2.53.0
-
+Best regards,
+Krzysztof
