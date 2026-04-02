@@ -1,164 +1,173 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2104.outbound.protection.partner.outlook.cn [139.219.17.104])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C173C141D;
-	Thu,  2 Apr 2026 11:14:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.104
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775128495; cv=fail; b=iajLWO29x2vwjBZ0Fz9QeFvyaZczj8WOLw13yjeg2N703TJpgth9TLImUVQXJfaKpe4vGMLREOiAHJQbcvNBOfnh/ZHbXIAxrLbakB0xU6DYM+/JKCw3y4BP/eZeVzEf/pBpIUjAkGwzTfGrJtF9jBh7Vvh0A4noPAGfcGoQMfU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775128495; c=relaxed/simple;
-	bh=Cszf299t3whUzoRr1QmLhh38AGLyWU1UkIzo99XK8Z4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=pfzyZbveQZNivHkUZ4a6E/QRvJsmJornWlQZMMdm7ZR622gkajVyOPtwEMttIBOPfB66qACy3qzFsW8+60dXEwSB7lZAQoZE0yr2WWQ/fuAgTE32BRhSXY6TYun+xbHlYNi09mEsJ1Ox0bhPnxSHB6wYpH41RAu3rCApUbrzuDE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.104
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JQeqILesUBihtgq20PLwOUKV3egGx+kbHFW/fQ56kVESjLsOu6vzGZObRr7qYV44t0hrLLGHn+/mbi4JtzGbgpEvXrSdBbajC1IfPxUY5UuKye0YHOKtdOiqaPlT05Idw6KHDdyOiwVT+YH98BWoXWQpCvjLCGQaHHt7LD19tPNuE5rhpMu11EKpCVcbducpSLePTcfKYI3x6zsAgkjaOjo3Mm1L9tcNNuHOYJ4dAYMAZFvOcrMsC/+o9+LDskdJL+b/3yIdus/7bxul4//sHGtA4OdTT+WjDoyOfpEanCq81lrJBEhJRQiihyKjpw1tJjy3RQffGB7hKnRF3TGTLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DOPAVcdpntAn1IWzAhvBcFGIFKmg130OeMuZSEGrtA4=;
- b=EbTl4BXDr+99B4IaCRW2Tw4RatmTD21iknid3nCSAFh9yv2nYLPCgkMX1djppoVjROPoLb1UV3ETJOJwEROCSPueLkFk0DPnIi5M6xgVCTzZ51hJPtSsh2vxes1FwPFZv69Z1++2CYikJVvwinIw8FBQQv0w1g4Tk6GThKIEFiYIvTH05AxeRXkXILjFj0uL6mL7VpueLTOY8A/OtTtOiqGUq5bwK5do82Q82AAU7xpCBf3hAHNIscjEYvo5E0Uk69fyj5bShmvwfzhtfJ4mrMm13Yty8dOCK7M34gOqq5OquYbqsgK6L5l2R9xvZBfxC6OFQstsJFO8zu1f/p9LuA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1235.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:15::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.18; Thu, 2 Apr
- 2026 08:40:34 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%5])
- with mapi id 15.20.9769.018; Thu, 2 Apr 2026 08:40:34 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Emil Renner Berthing <kernel@esmil.dk>
-Cc: Yixun Lan <dlan@kernel.org>,
-	Joel Stanley <jms@oss.tenstorrent.com>,
-	Drew Fustini <dfustini@oss.tenstorrent.com>,
-	Darshan Prajapati <darshan.prajapati@einfochips.com>,
-	Guodong Xu <guodong@riscstar.com>,
-	Michal Simek <michal.simek@amd.com>,
-	Junhui Liu <junhui.liu@pigmoral.tech>,
-	Heinrich Schuchardt <heinrich.schuchardt@canonical.com>,
-	E Shattow <e@freeshell.de>,
-	Icenowy Zheng <uwu@icenowy.me>,
-	Anup Patel <anup@brainfault.org>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Ji Sheng Teoh <jisheng.teoh@starfivetech.com>,
-	Hal Feng <hal.feng@starfivetech.com>,
-	Ley Foon Tan <leyfoon.tan@starfivetech.com>,
-	Changhuang Liang <changhuang.liang@starfivetech.com>,
-	Michael Zhu <michael.zhu@starfivetech.com>
-Subject: [PATCH v1 3/5] dt-bindings: interrupt-controller: Add StarFive JHB100 plic
-Date: Thu,  2 Apr 2026 01:40:17 -0700
-Message-Id: <20260402084019.440708-4-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260402084019.440708-1-changhuang.liang@starfivetech.com>
-References: <20260402084019.440708-1-changhuang.liang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SHXPR01CA0023.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:1b::32) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA9B3D3D09
+	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 11:17:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775128633; cv=none; b=dttWNT7ISKChHQrtSGAt17BHXWAo9e1HM61ZBspGwEpdmIRBDEs4Yj7Svqb+0qtTQx20EJceLNfBctfcbjeGvf30m5ZBIWIdj5uliMeBOdqw2AI7JnW++WOUUKw7CDe6lxwiX/bbzVIGiiRsx1UMkiYesukwHbF/fVjSi4eATYA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775128633; c=relaxed/simple;
+	bh=ZTxCNY3HZlQxWzT/XhybbngDtPXeM9/mHZE+xe6f8uQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TCk7eAe1WjsXXtrIH822yifL0veFkn8m5jTzFI/lP77x0WBsv2empWy63B9KEfjenoSWBrst/T+xLSfjYqkwhthqRxNlUZuIYSl6fHEGvIy0YW29T6uFHhqQCc8bYfI/TgLomTyag1HRsFlwbvP0d1x/1iRIos9KkGfDsquMuHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Nx+uhBkZ; arc=none smtp.client-ip=209.85.167.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Nx+uhBkZ"
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5a2bf521011so109175e87.2
+        for <devicetree@vger.kernel.org>; Thu, 02 Apr 2026 04:17:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1775128626; x=1775733426; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8CTLIiuy4GwEXuXqqFRnPUythaJJJv+IJU5B35u3XdE=;
+        b=Nx+uhBkZdOtyYft2LbXPdI9r1V9PPg3MUbkuVjvMcYgfwgk/m88qHa7tr+LobkYGXW
+         br3QTQD/bn/1XxBJDibpS7ToCRAbaqgxmZIiVz/hdp93W1iGMrFc5WPUnAmVkUvPznVp
+         ZXqMjTImnRlJh78gm348mvqD2s8IvNMJKWRy4SuCBaJlnhPMR9ZQyTtov+I+uRWPe/AS
+         rtCbCIM69oDOK4TZQkZCeF2VPVJA60BZrN+1JR4I0rrBv1uiakQyQO0RQx5plaI6cgZr
+         zEbNd0vBf5dq//AeCrt82PWnWXTm4DHWLANE1VUsI+VZ7RED1CKWGWviM/T+1xg0uXEJ
+         xtdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775128626; x=1775733426;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=8CTLIiuy4GwEXuXqqFRnPUythaJJJv+IJU5B35u3XdE=;
+        b=iY1sG+/xoTI9UlSBIGCK3dbtIBm7MzWmCtScsxLflv3bJmc4+Zrb1pa1YTz6FGcow8
+         rPq60ppPz+lxC8bQPsUrRbgk22Pvzdvp9TGmlDtvDemUm4EosazPU9PLbS65g6uaSKIS
+         hn+5GzhGrjw7wi4N7QB0Ur0YITCsum9EQJB6D5JmPP6zuPVk4Z8wllQgM3EW6m1CtVDz
+         O1Az2fEyxsphrNQCGWkaZ8fbTu1WqsMdwGyvrwSur1QgBlRWyBUjLLNUemadC3RBhSmB
+         08yrocOkyM1mtMZNLDi9INjJxJHsmUctNNx6M2aS4AiX0wqE2NMCktsMcjHIwHd67kM8
+         t1sA==
+X-Forwarded-Encrypted: i=1; AJvYcCWldrPdGuIH26uTE1dExBFpeL0U5CP2oTmZ9yND4R4DJctA0I8+Jyhec3d7LSw63dMgKuFlquBTf1my@vger.kernel.org
+X-Gm-Message-State: AOJu0YwBHFX0bhMd/JgMvhYDu5Yc+62Qkj0rkgMzDYy47PCwgL4RpHV9
+	X/qziEJq6fjULn/7vJc/oxPHwFtYZ3mHl32xLzMQHg6J+TxrkW5C38yfCb7RPLfqFvw=
+X-Gm-Gg: ATEYQzzYofgMu9Qj+sTiNmEtasTA+7K4FxdvpK+joPkcM+aA9d+Y/3iskpqNyP9p2lB
+	4yKPLsWi8ZbvbskzqxCyzIpJfnaGueeDb4Z1/HlZ8HW3UzFn83EqUpxw5+lDMv5H79eArWc8HDd
+	7JaPaPdOPe0olsRB+T/zUSjaEidbT73XU47OouvbY26T6yIN0qLqMVO7IRzSbW03dIqzEaayizL
+	82igXEbFMndGw4xEQPJI1kmUm/rAtY40IPt4w4nRUaqnFC6BytPrXay8DVach9U6MNyGThtIODh
+	gZuuadrCsQOFxxnEElaMALoU+EFeExPi3TJCP/WP5gdmnOF2m60PyT8Wu6/p0y75FzJmaDwD3yZ
+	JUG8CUSnR/ot/OJjtc+PVDXjGxm/TdNTY/WqWldDdttv32oxwt0qoafi9UpfWHxjXf9G3UtKYFQ
+	TgajA0u+RmudNXda4kbdnDTR6zxbQjEcLh+4rI+CygqVAIuHNp97YyyO4QI+4ATxuDjn7Hby1WM
+	vBYTA==
+X-Received: by 2002:a05:6512:39d3:b0:5a2:b53b:a457 with SMTP id 2adb3069b0e04-5a2c1f27b2cmr1333288e87.3.1775128626156;
+        Thu, 02 Apr 2026 04:17:06 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a2c6cc8417sm617709e87.41.2026.04.02.04.17.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 02 Apr 2026 04:17:05 -0700 (PDT)
+Message-ID: <c099bf8f-7a29-4138-85a3-e2669807aca5@linaro.org>
+Date: Thu, 2 Apr 2026 14:16:58 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1235:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5a26a4e2-118d-4d17-5fee-08de909381de
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|52116014|376014|7416014|366016|1800799024|22082099003|56012099003|18002099003|38350700014|921020;
-X-Microsoft-Antispam-Message-Info:
-	cj7qlRrKKdLzBcyDQBrcgn4M7YwUWPz7ZO1WxVEZqM+rtOjqu7Kw0hgFctMOuNndgghWFrXFW1j/piLXFV+VLhbo8TPm+TjV3XCTlLHmYoZ1NWqbl+JDhHdPBCgxqYUdzy2uWsY9UEyLqQu3W0dqmM8wh3eS+jcf6cUiRLfbWtWcckN6zpp+AIfHvEpnDaSq7suLf+yxtlRHptb9CB7W1lVkYxfUOZKjpxkvx1YK4YlOlfGVN3f8/fD58O79swP1ABXnUZWTpsYlhc0hBrwCxfVDHGKIfYtWtlo+4xsQnfW8NiJn0AqcZsA7dP+Q6TZp1rsYRe6YUlloVuulI0vertA9RQUguOO36GdcaQ435JGDO2BGjlHy/AMeibzMQ5bgm+V9hU2Jd8YxUt4sZXbTwij6GxwzlFtY5hgp/joYAUFZ6aTuyTyc5jEAMh1YnWVYps6jr9WPREVFnEETO9lHvsjkedUAdk+Z7InSPzWVl0SUT4LMvklDp2mXZtN9rhO+pQcBhIzGX0a4Q1rNCV/e01hrEWi/SYJoOYMm6MhsS9GjWgvzaJLXCwrz464qXPL9tfwyTiKikdyoFxsoiD7hsp8zkm6E4cLlN0l4S2lLvQU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(52116014)(376014)(7416014)(366016)(1800799024)(22082099003)(56012099003)(18002099003)(38350700014)(921020);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?3hMgp3MuV/xYqMWQwp+ocLm9OOGBZxwueDShFbsK6+kU20g7OSMDn1/0057f?=
- =?us-ascii?Q?JWrT/eD0DxzbLfAFBpH0EOGOS8SO5lCwC8Lp1b8UHDbtJ7iKby8VSZhXso8l?=
- =?us-ascii?Q?1mrMPd01kaAMgUM17gbBCJ++ZEPWmWT5tsJYTBE3Tw+KG3WS+qHEp7iA+Suj?=
- =?us-ascii?Q?JYL1u+i+FJTa0pcPf6dAwfvFRAIdi75K4Tt5FixEMgZxzbVfkErDGfbRr7ej?=
- =?us-ascii?Q?nwD1ABbHxb/RMoTlnyOTKIJ8tryYflRuvX24hAH73yIioErgDa27J0BmI9DG?=
- =?us-ascii?Q?N5lXPWAFo9TapW0xb+18Saq++1crLapEosfrf/gZD80l1Ad4qIK8gfcpBrVC?=
- =?us-ascii?Q?M2oek+Rh9OX1KbVAripbmdfZQgmTgltIXaMi+aMD+vVOQsQZ2shQ/HUAZZBv?=
- =?us-ascii?Q?JGjRvT2igOWy+WxVAnbw2GOgN68mc2aB+8+RHYBzgERKAnILt1VimKG3Tr/i?=
- =?us-ascii?Q?ZCt+Kk+/6oLn9ahs8nB7Ucc0S1CdKjWUV6MR6B9Lo2br/E1F7Gn3JAXVxX/h?=
- =?us-ascii?Q?yQfmPJEx3whfL2APE0zl6j9QCk0nAeGpH6FYNbap/WnJ6BG3/rymx9dVTZGS?=
- =?us-ascii?Q?aduZ1mVRReKOLLPoL1LkvzWGUoT6EYf3sKIuFj2vnnLts+ERkMXNeeBbFuDQ?=
- =?us-ascii?Q?evf0N36eCI+PfTdPVihpT1PocunL1JgqxLoamKMTJ+evsuI0dhnu1i4omvMa?=
- =?us-ascii?Q?DCEO+jUBxVnvSnnlNv4uGPkZ+u75dMyHdkdRp0Hyuz5Mj1df+MeqYu/Sdyuk?=
- =?us-ascii?Q?q/YPeTVPvTpNplOflam+ixazarbbWa7szibfP4Y4yLrFbn3zz5wF2njPmGqi?=
- =?us-ascii?Q?KVge3vWjxJjLFQdxbt2Z9tlpJwvfyN9xUwpyhYy0bcsJlsu259FGJOYtokyh?=
- =?us-ascii?Q?LdTQZjRP4iYcvZ9uBZAEq7cisw8aSaVCZ0SSohRDJsU3zSSQHYa7o2WnOkdY?=
- =?us-ascii?Q?eRiSd9F7LMkrUpWYdmve6X/TriGkLlYiCrr/yNfWMydtORw58Gy6tv9QVggV?=
- =?us-ascii?Q?M4i78u1D424OlUPuMXR4nf3ySHe/QkNKsvAqoH7OUGWpIvCT3sH0A37Mv5zf?=
- =?us-ascii?Q?iHtKVAy7StbGorx1pEAl3yoJcLENMOHIM3/VC3zXuSW5N+J5PuI4Ral5Nx+0?=
- =?us-ascii?Q?fXwl3JJz/EbyDFW1UWEp4nTP5wuJ6xSXnWLj6ON4F6mFsPuIaTP8dkqtZAsW?=
- =?us-ascii?Q?MzPODd3UlUT2xg9kvjPhACEhuaHtvSjYBqzyAIqsG9gTKbRVkRyjjNspkZWs?=
- =?us-ascii?Q?sUPhbb8IZJD/GdlunalLwz9/3A7hsPFFGZ4fi+kD6/TFgnxmAIllFnIVYB+o?=
- =?us-ascii?Q?KMYbkHyFw0qzyeC8ztLq3+P7ipusZb+fTpsFF7hOIz6LKEXfUpwISmXeYgYg?=
- =?us-ascii?Q?JGgzdqb/4IyVKjFKHrpY9eW/G6xRxnCJy1HFiYXiB4dMO4oYTC8DHMhyQ3WW?=
- =?us-ascii?Q?E/snmm+j9FQZYdrYg/MsqU3RLF5q0RzUC7rB/twoTbYI1QynoprgTpnol8CU?=
- =?us-ascii?Q?hDn9RMCi+TVcWfG6ZKJVK3+26NBe0d7ruXYkY6MTz4uexMAmuCtu1bzQJE22?=
- =?us-ascii?Q?EJvQ4DApshRIuZsNNNv0rJX18qoE63DXjcYywcEfuXAwT0NwDU9mzYo49Ahs?=
- =?us-ascii?Q?o0uaVUbFb9zxco4ydVRbwF9OpHJSm88qKz3Iq89hqzEnN7eBpEUTHg27/x7F?=
- =?us-ascii?Q?NKoxt/+DtbEovZH1kHQ3fE8iUxu+wv7oInJA21KESCEcfVBozYXGTvvqPQKM?=
- =?us-ascii?Q?+nRv85ya3305XVBKe4vUVNnVgfjiUCSGBxrjEP/87bY8mkpsoW/3?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5a26a4e2-118d-4d17-5fee-08de909381de
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2026 08:40:34.7453
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YjzxqHgNMmDnzLVvLtst8difyLWxkb0exTEYrX9S+4njYMjqb0f9Kb0LBCoucY2gsg84ZuV1WZ0xe63ngjTO1LM4iHaOGTpm6z9sv+LGteVqImT/Ub4lUDpqxpaqw+sK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1235
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/3] arm64: dts: qcom: sdm845-shift-axolotl: Enable
+ sdcard
+To: david@ixit.cz, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Dylan Van Assche <me@dylanvanassche.be>
+Cc: linux-arm-msm@vger.kernel.org, Petr Hodina <phodina@protonmail.com>,
+ Casey Connolly <casey.connolly@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Alexander Martinz <amartinz@shiftphones.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260402-axolotl-misc-p1-v3-0-8934e9db6831@ixit.cz>
+ <20260402-axolotl-misc-p1-v3-1-8934e9db6831@ixit.cz>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <20260402-axolotl-misc-p1-v3-1-8934e9db6831@ixit.cz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Ley Foon Tan <leyfoon.tan@starfivetech.com>
+On 4/2/26 12:54, David Heidelberg via B4 Relay wrote:
+> From: Casey Connolly <casey.connolly@linaro.org>
+> 
+> The SHIFT6mq features an sdcard slot, add it.
+> 
+> Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Co-developed-by: David Heidelberg <david@ixit.cz>
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> ---
+>   arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts | 44 +++++++++++++++++++++++
+>   1 file changed, 44 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
+> index 740eb22550724..b05f04a621e5b 100644
+> --- a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
+> +++ b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
+> @@ -600,6 +600,24 @@ &qupv3_id_1 {
+>   	status = "okay";
+>   };
+>   
+> +&sdhc_2 {
+> +	pinctrl-0 = <&sdc2_default_state &sdc2_card_det_n>;
 
-Add compatible string for StarFive JHB100 plic.
+If card detection is broken and disabled, then likely card detection
+GPIO can be omitted, no?
 
-Signed-off-by: Ley Foon Tan <leyfoon.tan@starfivetech.com>
-Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
----
- .../bindings/interrupt-controller/sifive,plic-1.0.0.yaml         | 1 +
- 1 file changed, 1 insertion(+)
+> +	pinctrl-names = "default";
+> +
+> +	vmmc-supply = <&vreg_l21a_2p95>;
+> +	vqmmc-supply = <&vreg_l13a_2p95>;
+> +
+> +	bus-width = <4>;
+> +	/*
+> +	 * Card detection is broken, but because the battery must be removed
+> +	 * to insert the card, we use this rather than the broken-cd property
+> +	 * which would just waste CPU cycles polling.
+> +	 */
+> +	non-removable;
+> +
+> +	status = "okay";
+> +};
+> +
+>   &slpi_pas {
+>   	firmware-name = "qcom/sdm845/SHIFT/axolotl/slpi.mbn";
+>   
+> @@ -609,6 +627,32 @@ &slpi_pas {
+>   &tlmm {
+>   	gpio-reserved-ranges = <0 4>, <81 4>;
+>   
+> +	sdc2_default_state: sdc2-default-state {
+> +		clk-pins {
+> +			pins = "sdc2_clk";
+> +			drive-strength = <16>;
+> +			bias-disable;
+> +		};
+> +
+> +		cmd-pins {
+> +			pins = "sdc2_cmd";
+> +			drive-strength = <10>;
+> +			bias-pull-up;
+> +		};
+> +
+> +		data-pins {
+> +			pins = "sdc2_data";
+> +			drive-strength = <10>;
+> +			bias-pull-up;
+> +		};
+> +	};
+> +
+> +	sdc2_card_det_n: sd-card-det-n-state {
+> +		pins = "gpio126";
+> +		function = "gpio";
+> +		bias-disable;
+> +	};
+> +
+>   	sde_dsi_active: sde-dsi-active-state {
+>   		pins = "gpio6", "gpio11";
+>   		function = "gpio";
+> 
 
-diff --git a/Documentation/devicetree/bindings/interrupt-controller/sifive,plic-1.0.0.yaml b/Documentation/devicetree/bindings/interrupt-controller/sifive,plic-1.0.0.yaml
-index e0267223887e..49d63100bf87 100644
---- a/Documentation/devicetree/bindings/interrupt-controller/sifive,plic-1.0.0.yaml
-+++ b/Documentation/devicetree/bindings/interrupt-controller/sifive,plic-1.0.0.yaml
-@@ -66,6 +66,7 @@ properties:
-               - spacemit,k1-plic
-               - starfive,jh7100-plic
-               - starfive,jh7110-plic
-+              - starfive,jhb100-plic
-               - tenstorrent,blackhole-plic
-           - const: sifive,plic-1.0.0
-       - items:
 -- 
-2.25.1
-
+Best wishes,
+Vladimir
