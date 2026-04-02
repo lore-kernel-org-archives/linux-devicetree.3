@@ -1,186 +1,159 @@
-Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com [209.85.217.52])
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D113DEFF9
-	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 10:31:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775125865; cv=pass; b=mtgdQRM63G7vGxqOTtUFiGHA96kzNaakNReRT/ayo6pxMqxaoYLw0dBnhegmPwLc9HJ4+kRHPVG/yzUun6vZcOuYCXZjB08GS+Fkr1T2Tlq5lan2YTXC6ZYRBDlfxYJyXz14PqhcLmLzfCb8ndFfh2F7QXlLam+KQCFholOV1f0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775125865; c=relaxed/simple;
-	bh=MUZx4Y9OyelgL3hyVBr4k6AAzEQS/l7Wd93ZjmObqWg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eS3/QS3YIekQMtNjQa8Vfn//GCuTtj2A0LniMGkfIJboFntWjX7xKMV8Ffyu67AFdlP/5lHMAGEknEw9hULZDbo/y0CZMyJOqa/F5ZyA8IEH5+AG2ivMyWvaFeGX9BAU6EKB47jbuma+IE1Mb1YEauItuECjq54sih04uBQ66/A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UTxuec0E; arc=pass smtp.client-ip=209.85.217.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E3F13DEFF4
+	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 10:38:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775126307; cv=none; b=um4KUbd5JQ8CScP6vdznuam7d3XOScYfCmrtPl+HS7NC1f7QAw7Yl3AvbS2S45XqvzpVX6zcwxNlSqODTfIWgEnMQXtkg9XC/mKKFIYPQ0OFsPxJdtMczyAJvwQlLx5e+Zp9Mpavfkvnitrrt2jei4dMpdw1Byupm5n5BFzRKz8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775126307; c=relaxed/simple;
+	bh=AVKjDab6bK6ZsKM8zazG+7m2550/Pk15eEN9/XSkp8c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=s1JULDxyMhYOAwLNxaWk7tEUcC8ofgDCom44D64ymVT4M3YBWemFZVYmbQVZ10NchH3jT77WYj2myQkzZNg8O/CZWajXhMxyowpqHhtFfJdPBmpnGgOAG2ZzawrOscxF3G8ZsfPIdFvF/S4V4AgFMEuwCoCTIfvit4WzVsTHjsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ht2E7sZF; arc=none smtp.client-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UTxuec0E"
-Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-60591ade110so245700137.1
-        for <devicetree@vger.kernel.org>; Thu, 02 Apr 2026 03:31:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775125863; cv=none;
-        d=google.com; s=arc-20240605;
-        b=dHpDT86gf7TWFWNuMcQ/zxxAaWoKcQT9mN6W4yQ4mYzH7mx+bwVmA+p2DF/x31ahHX
-         EGAiL8/ncq/zez7vlGUDHKMbzuVEolsGavqRFzRh12/E6iQcLz6sIFSGT5ZJrxTw1w3+
-         hg8zM6hfP7tASgleGxyQumD70xC2XtfkBmmPFwVZ954rXFLwiRBQuzLZuiKWCOSW//zf
-         q7gJSbfTZocgHlze4SpD6AGmbclNxzWL7eZyYGJ4VhYCpK2xrVNF5iIInGkMi1mA6/VH
-         qLJxiThgYRN2jYRcFKRugy6yhfWYGD8l0Rjq9Du/FNFLHDsTIj6oFUuZMrpB9wRXe3be
-         /voA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4Ob4WvASBXKLoNDxbRXnh3mN8JCXap6XQdaiWgxzkgI=;
-        fh=6HGwfqRfgWYe75VK5kB5Hft/nBG6QpDxCWUZ7Juh7Ew=;
-        b=KeTCojgCVg6T9CYSTl1RaYsmcX3R8FR2DZjn9rjz+1tKAdvFluh+OM69xCVg/gFYTQ
-         peo3Uim0DtoX97zV/fWngZaukt3gzwldaDwxzaI8211sil/mqFY2svZriH/KWU+Ux4pm
-         RQECoH0+tz7IS/mJhFoQqPP65+Upmp0PMAjCpAjW61jxNdDC2jMV4gkCmezzuoIFALhq
-         KI37icrHKNoaZ8sG5/HspbyKdhnnOjb6/X//HNGR7ViUK00L3uWLW7TZhEJhl/YA1OZQ
-         slGhuxb9VK92BfMy8uvJgJ6SFqg/ZqxoEZVgIFM7uRErWX4IxjkqaTmnHJ/07bhAHRbX
-         FnOQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ht2E7sZF"
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-2bdd40d3c61so673567eec.1
+        for <devicetree@vger.kernel.org>; Thu, 02 Apr 2026 03:38:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775125863; x=1775730663; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4Ob4WvASBXKLoNDxbRXnh3mN8JCXap6XQdaiWgxzkgI=;
-        b=UTxuec0EMljOElkQdGAzDus6SYqvMppVh9GQZVaCS9Vy8i/LrsHJMDQrYO9CBPBiY4
-         4n3tgBvjxhz/jP2KybP1b4APUcm900XPsGEld37rYe8hJZc2XKHInjZcFm/r9NS2IIzS
-         EgFnCSJqwqBjpEGebQmNhnCiKcAtULdOja8UQ8MaV0GYygeaTwgwMpaswyE0fL+IWQCc
-         Q1qH/i2pcy3MiS8IQY64gMPkxBvjuNw2aBq705zgWD9/Bh43bArg9KYKOhGRFqYAB1GK
-         xDIWNZ/chFP8Ep6TevUE1zSYZTcivEbdBZgh39hINlW3g68r2wDb5oWPg7Ac7KAF31x0
-         SFLQ==
+        d=gmail.com; s=20251104; t=1775126303; x=1775731103; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=QqamXqtOxzBeur4HdUAmKeC/dpeaPCUYwmBwWWj8JfE=;
+        b=Ht2E7sZFt+97q3Ct3fmkbCQXDpYqsACsotIZFfTwXQC9GSahXW8HlcldOYr6ULlWuM
+         A/SvSZSkjXraL26R0NFfK6nuwmhG2Sipt7ewUonV+CsdL4k87nFHfWWK+TYXYqtdunv+
+         xp16AwZP+ci331cnYP5Q1IvSJTxbl7/BH76oIZGMQ8/dde+qSlG5CPhlNoJVQwIEjTQS
+         mtY24VhjT8CS9bA5756NGzTihwJCUJvnlyXqRfwwecQW2CjDZrbSqT2kFzsMRu4JZBD0
+         +C83qprdSPjqMk0N3/5kB9xxQqJA1ZSZhrqka7huJyRr30dOlPiWmyiKl5/MhUXrzBQV
+         7b1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775125863; x=1775730663;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=4Ob4WvASBXKLoNDxbRXnh3mN8JCXap6XQdaiWgxzkgI=;
-        b=hb6N4V0SzRmPWj6rQrW0p07ChEmNPlwaiojmuB3ZbVrUQP7Lq9CJAxtiZPE7cKRGOM
-         1sGWVAmNcy1cvKuSP9xNbTOmy1vFaQqhwuyufrM7s+qxnbOy2cin4vOB6iC9uTCuHSND
-         TkcP1qb0YmPNX5lDVVQcVPcLefwAdK1bXslv112TleeYWsCr5SeZsn2YtqPpGE+9Lz5y
-         0vTKE3bXMRz/KG/0KpSLYWa4n1ei0cRTdH4JUrgwI6P3SkTX7py2uOYb1COeLMp53BmK
-         Sxf7WnBGes/bfR/LWQ5INJ/2kvJil/SwEGpiJs1hAgLwmrq8/DTvQNIzGnNz4tJ/29Zd
-         +2Mw==
-X-Forwarded-Encrypted: i=1; AJvYcCUKilcUXYbaqWfjHKcz0u+jgAG3KSrTrn54dmLE8I9xUmPoEt4je/t/K6/hQEb74d4hkuphIlDEb1T6@vger.kernel.org
-X-Gm-Message-State: AOJu0YxqONmiqQoJOpssSLQBXd+ps8Qx/LCFLWrgH/gwebdkGjcgrBL8
-	lr8Lbk08iri3oDC1o3O762/XRxeQIYwkcJZpZPCSDV+yMVvfGPvzfyCpPMcnaCP72YU1U50GUcV
-	9MhhEw0uIkNtqHHSz6nSXQ6XT+aJzwx0=
-X-Gm-Gg: ATEYQzx+hZuh5cw+RaKYQgpBuGcI7IKsO8qAkhGLzbS0gb5RxGRX7+eruRuKUowUQrB
-	8Q3OBHWS8NNx+LIi/k+lwd6bXRFs2jlypxzDL7j9ehER9YJ4/flGi180NSE3tJtqmuieSVsEYMP
-	1eRJPHiFJXDXlmOqzeZyic3kH+pWdm/aFCmmpfsleMt980HvjDiOMOvKeTVFamJqZaXvGYxaSPk
-	pPB+2lDG+rCb+cBcB+LwZQZrdhZrfQD3JcdaDIJxzwrRkEbGvZGZwH0IRF3OKZtphwr5JE/IkO7
-	xutQn5pkXF3NhsrIUopklMLeDm9LIl3olU1i3Go=
-X-Received: by 2002:a05:6102:5343:b0:605:17b8:16db with SMTP id
- ada2fe7eead31-605681ba7d8mr2632044137.25.1775125862274; Thu, 02 Apr 2026
- 03:31:02 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1775126303; x=1775731103;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=QqamXqtOxzBeur4HdUAmKeC/dpeaPCUYwmBwWWj8JfE=;
+        b=SE0phChTO+cmSxoG35iDwUids6/9gCHp0PJSeQdtZpvHU9oV+o3qOVkSS3q7/zIXCw
+         Obyjj87K9oJ6496F9OXpQXOIibRFPXFuNhvtdrEOqR/680XsYjgb/ZPtYh4qVa0FcyyD
+         0JY+yo1Ll8sB8eNww8Y5yEEM6I3Itprc9B8XVRa/l2p5ahyeO94pPWKJj8JBvEv+N2dB
+         21s2z6TEfG+Bpsc2YuTHTMR2GrYSEay4hkjht/0bSKdHoBWouyMOrjCE/EuEXs3UBZ1t
+         bwnUk6CKax/oeD+nvk3yDw3cOE2pDeyrdOQHorQxiHfIjANTzKsnh2YePg7VdYAJVzw0
+         PFFA==
+X-Gm-Message-State: AOJu0YxLHB+AzrqzVebOh8ruri2WR/IZkWl9x11cYd6B5BJwkUH0d59w
+	HEXJuIB0uKnRVHQRuIxRWIdxQlGmiDvztGE1T/D/rAbNlTQheae+2QqX
+X-Gm-Gg: ATEYQzxwX5KsAonv1qykoiNzgPtigoLGF83TzNr6ajlLxLT2/+ECfoVLMm8/sRI5+vB
+	WbeHaDQIk5rTpDN2vWzYII5IxE0xnhvvrwouCZy/axJbMxx4tf2IAmmL+ybcWxRMoxOeQyLM6+v
+	QdSE2Msii+iAdWldKxHU6PnfOwmfTii3hmqAN137/b5tP5g1XOJ/9brsAXpJ37JzTo5JF+5fEIF
+	C+/svBGWNvk13a55AqTbirBHAEo5wNpq+gd/TsStHW2/v7QPG7MfOpAlZom8KhrHYWKcs/fGkpf
+	haQv8tep4la9b0AAm5pF4UVfurXloqPLF7YcSLcmepBAr4F0VVdiaDBnsUcfZLH1WKkQzYsIwxy
+	D9PyfH3zZDZHKiUxSK0oTZYZDGhfjcwbH3RJ0wVEepEAfU7u/KHdxZXwS9FKICnWJLWjmIeJcM2
+	Jsn+pBWWMsYanqzycWusfV9ue8Ate5+WpNgwIXc+SHMkALgaEUvTYd/1Cxy1KizrMWfFQ3BYx8
+X-Received: by 2002:a05:7300:a90c:b0:2c1:27c:7598 with SMTP id 5a478bee46e88-2c9330aff2emr3510807eec.30.1775126303009;
+        Thu, 02 Apr 2026 03:38:23 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2ca7ce0075fsm2245141eec.24.2026.04.02.03.38.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 02 Apr 2026 03:38:22 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <cce0e8c4-8df3-408c-b3ac-6ede3c4b2cf0@roeck-us.net>
+Date: Thu, 2 Apr 2026 03:38:20 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260331171248.973014-1-gaohan@iscas.ac.cn> <20260331171248.973014-3-gaohan@iscas.ac.cn>
- <MA5PR01MB12500707BE1C6E11EC3F4B94FFE51A@MA5PR01MB12500.INDPRD01.PROD.OUTLOOK.COM>
-In-Reply-To: <MA5PR01MB12500707BE1C6E11EC3F4B94FFE51A@MA5PR01MB12500.INDPRD01.PROD.OUTLOOK.COM>
-From: Han Gao <rabenda.cn@gmail.com>
-Date: Thu, 2 Apr 2026 18:30:49 +0800
-X-Gm-Features: AQROBzCGzBaggmtPSR3_A5qLKsf5xg9SqM3fnlQMsletNH9S6oyqQ5RfqOQtIhM
-Message-ID: <CAAT7Ki_BkfYCN_AJtksOEopU2r0iYPybuEQfm+pMLpsm8+EJkA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] riscv: dts: sophgo: Add dma-coherent to SG2042 PCIe controllers
-To: Chen Wang <unicorn_wang@outlook.com>
-Cc: Han Gao <gaohan@iscas.ac.cn>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Inochi Amaoto <inochiama@gmail.com>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Zixian Zeng <sycamoremoon376@gmail.com>, linux-pci@vger.kernel.org, 
-	devicetree@vger.kernel.org, sophgo@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/2] hwmon: pmbus: Sony APS-379
+To: Chris Packham <chris.packham@alliedtelesis.co.nz>, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260402024101.4136697-1-chris.packham@alliedtelesis.co.nz>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260402024101.4136697-1-chris.packham@alliedtelesis.co.nz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Apr 2, 2026 at 4:44=E2=80=AFPM Chen Wang <unicorn_wang@outlook.com>=
- wrote:
->
->
-> On 4/1/2026 1:12 AM, Han Gao wrote:
-> > SG2042's PCIe root complexes are cache-coherent with the CPU. Mark all
-> > four PCIe controller nodes (pcie_rc0 through pcie_rc3) as dma-coherent
-> > so the kernel uses coherent DMA mappings instead of non-coherent bounce
-> > buffering.
-> >
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
-> > ---
-> >   arch/riscv/boot/dts/sophgo/sg2042.dtsi | 4 ++++
-> >   1 file changed, 4 insertions(+)
-> >
-> > diff --git a/arch/riscv/boot/dts/sophgo/sg2042.dtsi b/arch/riscv/boot/d=
-ts/sophgo/sg2042.dtsi
-> > index 9fddf3f0b3b9..3af770549742 100644
-> > --- a/arch/riscv/boot/dts/sophgo/sg2042.dtsi
-> > +++ b/arch/riscv/boot/dts/sophgo/sg2042.dtsi
-> > @@ -417,6 +417,7 @@ pcie_rc0: pcie@7060000000 {
-> >                       vendor-id =3D <0x1f1c>;
-> >                       device-id =3D <0x2042>;
-> >                       cdns,no-bar-match-nbits =3D <48>;
-> > +                     dma-coherent;
-> >                       msi-parent =3D <&msi>;
-> >                       status =3D "disabled";
-> >               };
-> > @@ -439,6 +440,7 @@ pcie_rc1: pcie@7060800000 {
-> >                       vendor-id =3D <0x1f1c>;
-> >                       device-id =3D <0x2042>;
-> >                       cdns,no-bar-match-nbits =3D <48>;
-> > +                     dma-coherent;
-> >                       msi-parent =3D <&msi>;
-> >                       status =3D "disabled";
-> >               };
-> > @@ -461,6 +463,7 @@ pcie_rc2: pcie@7062000000 {
-> >                       vendor-id =3D <0x1f1c>;
-> >                       device-id =3D <0x2042>;
-> >                       cdns,no-bar-match-nbits =3D <48>;
-> > +                     dma-coherent;
-> >                       msi-parent =3D <&msi>;
-> >                       status =3D "disabled";
-> >               };
-> > @@ -483,6 +486,7 @@ pcie_rc3: pcie@7062800000 {
-> >                       vendor-id =3D <0x1f1c>;
-> >                       device-id =3D <0x2042>;
-> >                       cdns,no-bar-match-nbits =3D <48>;
-> > +                     dma-coherent;
-> >                       msi-parent =3D <&msi>;
-> >                       status =3D "disabled";
-> >               };
-> For binding changes, LGTM. But I have a question regarding this change
-> in dtsi.
->
->  From your patch description, I understand that enabling the
-> `dma-coherent` attribute requires upgrading the firmware `fip.bin`. If a
-> user only updates the kernel (which is relatively easy) but forgets or
-> doesn't know how to upgrade the firmware, enabling `coherent` might
-> cause the kernel to skip all explicit cache maintenance operations.
-> Could this pose a subtle risk?
->
-> Wouldn't it be safer to leave the upstream unchanged in dtsi and allow
-> users to add the `dma-coherent` attribute themselves after they upgrade
-> the firmware?
+On 4/1/26 19:40, Chris Packham wrote:
+> This series add support for the PMBus hwmon on the Sony
+> APS-379 power supply module. There's some deviations from
+> the PMBus specification that need to be dealt with.
+> 
+> Chris Packham (2):
+>    dt-bindings: trivial-devices: Add sony,aps-379
+>    hwmon: pmbus: Add support for Sony APS-379
+> 
+>   .../devicetree/bindings/trivial-devices.yaml  |   2 +
+>   Documentation/hwmon/aps-379.rst               |  58 ++++++
+>   Documentation/hwmon/index.rst                 |   1 +
+>   drivers/hwmon/pmbus/Kconfig                   |   6 +
+>   drivers/hwmon/pmbus/Makefile                  |   1 +
+>   drivers/hwmon/pmbus/aps-379.c                 | 178 ++++++++++++++++++
+>   6 files changed, 246 insertions(+)
+>   create mode 100644 Documentation/hwmon/aps-379.rst
+>   create mode 100644 drivers/hwmon/pmbus/aps-379.c
+> 
 
-In the firmware, fip.bin and devicetree are distributed together.
-So matching issues are unlikely.
+Sashiko still doesn't like it.
 
->
-> I would greatly appreciate your guidance.
->
-> Thanks,
->
-> Chen
->
->
+https://sashiko.dev/#/patchset/20260402024101.4136697-1-chris.packham%40alliedtelesis.co.nz
+
+- Yes, "extracted while probing" is no longer accurate.
+   Maybe add a comment explaining that the exponent is constant.
+   Maybe even use a define ? That would make struct aps_379_data
+   unnecessary.
+
+- Rejecting virtual registers: Why indeed ? Is there a reason ?
 
 Thanks,
-Han
+Guenter
+
