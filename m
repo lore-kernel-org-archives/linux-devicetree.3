@@ -1,260 +1,277 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010069.outbound.protection.outlook.com [52.101.84.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D17A13563F6
-	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 04:47:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775105265; cv=none; b=Kwu+UGP0GglhDVhVdz5caX6AN0VeAm+9ffldlhNjfpJu1rhpfzgHLW+TZWG0wpDdE1yT6LJU46JL9fNy/T8lkxIntGIFwEgDLxKxgZ36xruASyhqErtHrTs+vGvz/hHWCZpMr+SoPxq2vD4e+pVa1wZ+kTySsIr2lhccSqWQpZ8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775105265; c=relaxed/simple;
-	bh=wk2CEsRe94TXY0TOzVrShJauVcawcTr12uXI7AppV/Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UpV2YIbSjibIXU1cz2X6AlfX8gtPoLg3nUNfpypiXaIn7IBPeJxFDmqXxWOmSoZI9aHtGOMcjcL4orPAg1YhnOLVqzeHNWpOLsMfjMF0PaT85kJ/FhujVCBhC1qtNLjCKzmqv4XD5CK8e+nb8SW1fYNMSVQBL4K2WVpwLOfiXqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SEqhM3WP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=A/zLNUCp; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF8C3126D6;
+	Thu,  2 Apr 2026 04:54:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.69
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775105671; cv=fail; b=sUlXpqs2ji4eha8tXDzUVLsSx1MP8Ypfije+VkyTBlOnfah4FDlK63kdah+HbMA8eJubggED+U2n1WFz9FnX+LOztXjiEM9pHfxPUg25jnJ9Kow+ce6Ng7YFEU6mpKhjO5ZMyGe65Ejeuy2vG4x3dOTgzO/9HHN6awlCzQWX5Ts=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775105671; c=relaxed/simple;
+	bh=+kXwQp9ZqyJJtazLgVHcWq5UOdw57maVI61wWjZNTgs=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=qunZaJqQ7ZzJJMYJ2RXTmNLRsVLFMA90PGZAgMXYrPCyJxyk4BGR/jnym8431zRpQvKbP06jRP4wvEGMLa6XEdWlbo8Gy6sllsO4ZYyFKa6+XyQUwWKclcvf06P76mRB93FX6lnJfk+xbynQAo1A/9nfqzZB6L8/GHhiHw9/rXc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=iJp5C9NU; arc=fail smtp.client-ip=52.101.84.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SEqhM3WP";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A/zLNUCp"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 631M4LO94009752
-	for <devicetree@vger.kernel.org>; Thu, 2 Apr 2026 04:47:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=igGS0tjH9YzgaYiuHHy2F++w
-	pOEywQ8Ju4ax1XR2ztU=; b=SEqhM3WPToVXRXdrnsJa5le8wU6bFb8I3c6lPXtS
-	b+LzVnFe67tRzd/skIVSyuH9XK0bfuhWUySShUldL0molg8V5AwCYLML2Fjz6RRN
-	d88JgVDjjdIRz8Q6njwCkaD2CYI1AUS2FDTTrmAY9jdBnLynsawtObJfN3TtZKqZ
-	A4pA/MakLdXz5cbpQchrCSjSYB3GCFAiqjM2VwBwhw3QMSIFNKMwPbeHsiZh2xRT
-	myP3vMK5yw1r0AEZeqGDudv5wRXxwB8ilSVJ0I5aROArtneYB67laeOVzBwh6en3
-	XdDvjJTGWCTWtnyM3uvJJdPIDBq/qKva8UQOPWiSKNiNYA==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d97e02308-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 02 Apr 2026 04:47:42 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-2c7130f88e3so4457980eec.0
-        for <devicetree@vger.kernel.org>; Wed, 01 Apr 2026 21:47:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775105261; x=1775710061; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=igGS0tjH9YzgaYiuHHy2F++wpOEywQ8Ju4ax1XR2ztU=;
-        b=A/zLNUCp/xiTk1fxfGhmIhWVhcbrsnXr2eCEHuDRDCLic5GKWKGUS+59gxY7SoUYKL
-         UEj3JwRgL27fKQr8xTm7/z08KIRgUAszyvSEL5kyNWdUUj9BSF+S/cJCZvphwkuuMHRT
-         qV/WrrSG240aI+87yYs0wEVQyJwJ1EwC4AjeszGVDXBReDkW/Ml6uM0Tz+jZxlJg9shG
-         lcMYrZbMVjJZuP+1t9/jpDETYYRlBG1nMpEDAvc4L3bcFojm8pgXrrYlUyOBOBP0kqea
-         /R1+xIqG5IkaG/6uaIGVXWwj/6qa24M5CdOcY5TUdfwLGHTIbkLRIVXiPFUYiO5XGKYc
-         ZhYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775105261; x=1775710061;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=igGS0tjH9YzgaYiuHHy2F++wpOEywQ8Ju4ax1XR2ztU=;
-        b=X7MiyqWjfg/ZVwMe+o6znDP5WHaHTq8VOLUsMxnImVoGcqGhhEvH8whsn8R0AeSLlc
-         wyokdKQs8Hzz1tEEj5k1auAHSXDsjwCyj/h43GcBFT8l7t/7goa1yhtyQ35k8CC7a6md
-         V7gj8KG7g6ClrT0fRqbDivalT5FTC05f/ufTuposfXgubJKaUohcnxLiev9kEn2gyqwb
-         LalnyBqxIRUWtxV13ZQ1HUELl7/6Eu3UFA8pNIM7mi7bvNz8KVGeepYEp1iAf4WNLlAm
-         umAZEZle/s6k8lo6Fxper9Fx16SYLhL+NwkT1QFERSRj69wfisZkvoGzcYKjhXsN6GuI
-         b7iQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUG2tkN4k8rbAIJQwxcD6E3+Q/1buaKq8gDQaswGSUs9Q1Z+MmVTjLmd9+fFP5tUdDERvUBVjO5kugM@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw73GTXruGNHg6DO+oF2nkR1zdODJV4/06sxFQL1/4Li+dNEtM7
-	YhXI212cdZgr4cugeqfRhhixrxd2aL5s2nUVzYbsHdvXdKSLMG+x3W0bf5iifi+DYO9n7++nbgV
-	059ftYTPjqz6H5sOXA7xY1Kkvy1flHDpnh+oAxLXZ/wji4BavOi9AohMg7vz93SwQ
-X-Gm-Gg: ATEYQzwYUolsQcTVpQBq51hJ9rZkQfweJHpsd11ED6L1v7YO13iUNF8mNpiii7H5njd
-	QxXzRBDA0oNr5F5Sb44cuHMcw12n3H/HghLM+I8zvHUmEkIjYpXkouDgoaEhfZJECkFkvYwEpqU
-	x3YoDCzY8PS/jDxi9H84nwc7rJAIwXWydJH/OAT3BhL0ilX/b4rvpk/v6ndsufJnAAOHx10+PX6
-	/0ATT/MdG99XrOHR8arrlVaMZxSSlr12DAKwfNOepqu+XTgN5RFSaulB4EO+W7UdxNPbq476knr
-	b1v2faHDxDWdIVmUXwQaz1fgcUcOYpLQHiVReuwjL9JI7PUdMvBcF7ME7wSsbDxu8EEio2yESOY
-	4JFsC0YVYsdXA3a0z5zRABFg2tGis5osgSmR6Wm1PxN3PQRh5qIx9K0AMe6bTZtbGiGMP
-X-Received: by 2002:a05:7300:2213:b0:2c5:b972:b436 with SMTP id 5a478bee46e88-2c9329a0e60mr3038430eec.23.1775105261425;
-        Wed, 01 Apr 2026 21:47:41 -0700 (PDT)
-X-Received: by 2002:a05:7300:2213:b0:2c5:b972:b436 with SMTP id 5a478bee46e88-2c9329a0e60mr3038410eec.23.1775105260720;
-        Wed, 01 Apr 2026 21:47:40 -0700 (PDT)
-Received: from hu-qianyu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2ca78df5ec7sm1482412eec.3.2026.04.01.21.47.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Apr 2026 21:47:40 -0700 (PDT)
-Date: Wed, 1 Apr 2026 21:47:38 -0700
-From: Qiang Yu <qiang.yu@oss.qualcomm.com>
-To: Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, johan@kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 3/4] clk: qcom: tcsrcc-glymur: Migrate
- tcsr_pcie_N_clkref_en to clk_ref common helper
-Message-ID: <ac306hTHe3qVORk2@hu-qianyu-lv.qualcomm.com>
-References: <20260331-qref_vote-v1-0-3fd7fbf87864@oss.qualcomm.com>
- <20260331-qref_vote-v1-3-3fd7fbf87864@oss.qualcomm.com>
- <ebce5979-0ab5-47ff-963e-68e27216821d@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="iJp5C9NU"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CVF1kQEbjBN70rc1xbSATEEGsBPAw+yH3UiwyDM8dEKec9fS5lc0JmnlzbgglxmC9W8JzrJSqFkSjAgTB6PDLeKswZC+G8wtU/60UCcpsDh5rI0w6HPhB562pOc66rNYE9pggoNDt3HE7WR/dUd45gjjzbpYxZUZFn1c1LUfdujPQXCHLiDfwcfNcMJc/ZglAOZiWDB9bQr4Wo63xHKjx+XDq6TNHUiRe/vwtvFraJIsYw0hWph1DkAH1Fu886nDQyMUGT3IUQa8DvFkanvWuRex4d4eZFkq8R6zntLvV0+aPH9mBF6mBAadbuS+qhy3Mz/K2r0JaJG1dzZGi0O45w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EvsBRDDp3LyWkzHH+OIM45C3UVT78jLzPxpsGYby3xQ=;
+ b=jRog0AL0DwW7elIT4aMOlDg7QM9nQtATXpWYh3lKq7XsLpxOfOlP9qXLCAtqDcKdgf7BscoqgpfHsjMXMnT0F4XKPnY2+EvHEnYuwXgnICrvpSPQpFppIk5vIp+ogTl4wbhUuGZf4R8SBEK3/RlFCwXcNn7mPOWIZKA4mQGaB7aLF/EZlj+OnxPHqmr+jdgNPm3nS4aMM/G/3FasBiFVO2LSP7JAuSo1QobeHy9tcjfMTIq85T4ICRUqsMDHKerzmH5HFWblvYfLxy3vu5EarDrnwkzjXLCQsfzWxEly31BjZDCCNxMGGmeHxjotPNInM8Qjv95MlDvSKJRjRU1G3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EvsBRDDp3LyWkzHH+OIM45C3UVT78jLzPxpsGYby3xQ=;
+ b=iJp5C9NUzgBS+3tinrv0aw2UlJi+1p4ZSQzlguzA5YIGKcxKdamrxiI+ZOXC36RNi/WyZGVmceKBLAgSR9u8pan27yjXlOSjMfkT8jFnmrfmRFX90nk7cE1ZyHRfIxTVLrUgdeCyUgzsp1CKnKGqYU6rltwDInddH0E2VflYy4nIxGyzcFFTTMvdt6v2BO1TMPzgHBuukdrBgWKwoDEq180OfgUj/idZT7viim0sqU2tHaIoIBL/H+/uPUyNoNz+SIsEJnjY9IaqOSoc6xA9kiYUPebyv8OwSsrRBf1yyRkBSre7ADQI0sHqWCYP2BXNdSV4rQ67QDDK+GlhXorFyA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
+ by AS8PR04MB8994.eurprd04.prod.outlook.com (2603:10a6:20b:42d::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Thu, 2 Apr
+ 2026 04:54:24 +0000
+Received: from AM7PR04MB7046.eurprd04.prod.outlook.com
+ ([fe80::4609:64af:8a4b:fd64]) by AM7PR04MB7046.eurprd04.prod.outlook.com
+ ([fe80::4609:64af:8a4b:fd64%3]) with mapi id 15.20.9769.016; Thu, 2 Apr 2026
+ 04:54:24 +0000
+Message-ID: <1a8b1a34-89bd-436e-8b5c-64ea71e8f333@nxp.com>
+Date: Thu, 2 Apr 2026 12:55:32 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 10/10] drm/mxsfb/lcdif: use
+ DRM_BRIDGE_ATTACH_NO_CONNECTOR and the bridge-connector
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>,
+ Stefan Agner <stefan@agner.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
+Cc: Damon Ding <damon.ding@rock-chips.com>,
+ "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
+ =?UTF-8?Q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>,
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Adam Ford <aford173@gmail.com>,
+ Alexander Stein <alexander.stein@ew.tq-group.com>,
+ Christopher Obbard <christopher.obbard@linaro.org>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
+ Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
+ Fabio Estevam <festevam@denx.de>,
+ Francesco Dolcini <francesco.dolcini@toradex.com>,
+ Frieder Schrempf <frieder.schrempf@kontron.de>,
+ Gilles Talis <gilles.talis@gmail.com>,
+ =?UTF-8?B?R29yYW4gUmHEkWVub3ZpxIc=?= <goran.radni@gmail.com>,
+ Heiko Schocher <hs@denx.de>, Josua Mayer <josua@solid-run.com>,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Marco Felsch <m.felsch@pengutronix.de>,
+ Martyn Welch <martyn.welch@collabora.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>,
+ Richard Hu <richard.hu@technexion.com>, Shengjiu Wang
+ <shengjiu.wang@nxp.com>,
+ Stefan Eichenberger <stefan.eichenberger@toradex.com>,
+ Vitor Soares <vitor.soares@toradex.com>
+References: <20260330-drm-lcdif-dbanc-v2-0-c7f2af536a24@bootlin.com>
+ <20260330-drm-lcdif-dbanc-v2-10-c7f2af536a24@bootlin.com>
+From: Liu Ying <victor.liu@nxp.com>
+Content-Language: en-US
+In-Reply-To: <20260330-drm-lcdif-dbanc-v2-10-c7f2af536a24@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SI2P153CA0025.APCP153.PROD.OUTLOOK.COM
+ (2603:1096:4:190::12) To AM7PR04MB7046.eurprd04.prod.outlook.com
+ (2603:10a6:20b:113::22)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ebce5979-0ab5-47ff-963e-68e27216821d@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=fdGgCkQF c=1 sm=1 tr=0 ts=69cdf4ee cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=kj9zAlcOel0A:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=pj5R1tjK13g_stPiHOsA:9 a=CjuIK1q_8ugA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-ORIG-GUID: Lyk_kME612RdOFUJD4gUbfPmnC5hxxc4
-X-Proofpoint-GUID: Lyk_kME612RdOFUJD4gUbfPmnC5hxxc4
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAyMDAzOSBTYWx0ZWRfX1sTglbGNHehO
- 8i01AnULF9/Pdxe/eYNwXRs0MiiB/a4SXhbV7y9KJDiQpsUpjVd6TV3CnNbLOyBb7JN0BG7Wymm
- 7u38wWRfdaaXF4PvINnylgSAt8O8RipXu9kzbPgMpLgJJq+fx+GYXXrqMFJvegCksWz9r4ZXPhB
- Mjtazh1TSAnuyRiWdkGlZ93mzqGxyQcIhgd1M1DWp3lJ7aLIEO4E5wWuCln9ABGdwhz6Ld/NX9X
- EJ4PjUtdSDypE5i2hO/EBolW0SQXwSdB7GxpU+u4/YklwLN1gnW7ELsVDUogIxKanfaD9Wv1nzY
- yOkStsWHcuMDASZvQgfsN/SoPvqumpeSVdFYjMzjGb6OuB+Y7Cn1FWA8xeXYOpvU+X4sxdimf+P
- jb2IW1KGoABADQyFAhcMSQrw8dmYUdSCpavEzvSQGSToN1rp/cRl/5USWg4HVmo2Q+Buv3RefD1
- wrXMU+e6vW6EEMc1cDA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-02_01,2026-04-01_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 priorityscore=1501 adultscore=0
- malwarescore=0 impostorscore=0 bulkscore=0 phishscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2604020039
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|AS8PR04MB8994:EE_
+X-MS-Office365-Filtering-Correlation-Id: bee08a06-bd1e-4bd8-2035-08de9073e91b
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|7416014|366016|376014|19092799006|1800799024|921020|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+ FQ4YcZxRBwisAxpFCS8KrAmo6gLVARvZWLgQqYKl+DYueAvCkrLFTDV2oIdi7wf4uB50S1k9FtmZEdGn1eDWTXLsa0do0nYgjN7dXWKD9+dCJGdCoXthcDdQNpSktSMkPPE3UmqDFjZmE43nTH+E3QV1j+AEt9wD07YZeFK4BiMUXaeffedlYxGgoxQs0Jx5khPxdU74BthjZBuyAkpG3T/UlYVRSTOYK+QWmsuQ/0fJtez3vV/rwyiTyavGxM14DcfTTWovPxET/StqsTTI7qe9wqpR9ENC5Z8Qxva+tD1Lw4YxEyWS9PukW28tLVaFvXjd8KRlsZSscCFJ0TvboPILpdUV5ZHCglocOh+zzdfkgtfJW+nEoiFSCCgRfsHGYaly7un1D5pTeaBqeElntqRwMcc3S4gnPXFLz1s0BiX62N9GgWrupVKU4ePMQTevK05t5+6TvUoxni+XeROQiX0IpTdhoSaami3rrifUcUmVC5UvAmKs3Aiuuvh2T/BnjJUYXyTeDle83mpcdw59CZz5TQV/pNB29RJXSVuiNiLJi1iTY0TJqkiwYsZ3Zq7C4JL3CkVF9/VqixJOAnkJPSsSSTQhFxbLMPSssqK+gJssXV9VQIvUzSKhxHJAtTvh75AsKI+XlCfv0N9YRKuMYy2X/OiD2rnr9XNY2duN8ee4jn3VwG4FZ+GiU5+z4Is+cXm9elJ4Vh3Z6+jmlmk1SWpOqqMVmX+SxoLkoVp83gh+NCSTN1deCItVx3uJJeHTh9sc5N02BcBnlhzRq3Be8w==
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM7PR04MB7046.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(19092799006)(1800799024)(921020)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?YmNFZ3dYK3VLZXQxYjFZbHR5YzRZWVU4TG5pZStCZTdYWHZHczdXUW1nZktE?=
+ =?utf-8?B?RTJycTR4dnE0ZXpiMTJtOHpyUWlId0ViNFIwRzdhWmd2U3JJQlBrSUdWMWRm?=
+ =?utf-8?B?RnpzeXV3ZWRJV0htK1d3T3hrTlVrdjhkV28yWHMwWnk2K0VsRis3UytFelpH?=
+ =?utf-8?B?czNrQ0FXdU5UQTg3M0hOaXc4dnBBZHlKc3dLc3I1TEhwd25DVVYwcnovTXNV?=
+ =?utf-8?B?Q2c1UlVFaFQ5dkFUVlRCN2ZORHdSc0JuK0xnUUtJeURqZURkaS9kM0JWTWll?=
+ =?utf-8?B?YTNpR1o2Q0dLeGZGaTVFMEZ0T1l5QTBFS1A4U1hSeVU2MGdvT1JZQk5DejJE?=
+ =?utf-8?B?UEl3dE9rRzdyZ2ZDZnZSSmdRbkl1Q0hCVDNSWmphUEZOcDNSS0tsQ1hOVzRC?=
+ =?utf-8?B?SG5IMElKWDljVGVZajRzT1JDZDkvaUwydWs0ODRULzJOd2xkNk9naW5YS2Zj?=
+ =?utf-8?B?LzNyNUsrRUZZUFhjVFI2TUorN205Ky9ma1prVlZhMTNzWDdJcVVmQnBGMHB6?=
+ =?utf-8?B?ZmVtMEdZQXlzTlh0eTBzYW1LMUNlYnA2bG1aYzQvaEdhNEs1QzQwNWVIT3Vy?=
+ =?utf-8?B?YUVkM3JiWXAzMjVPajVkT0lYazV5c3hHTERocUlueVJGdEtoek5GNFQwK0xq?=
+ =?utf-8?B?dnhManE4VUhFYkF3bVArT2FzQWlwaEoyUlJ5cXpqUkpxSmVacU1WK1U3eGRO?=
+ =?utf-8?B?OEh4ZjVVUmRsdzBiOTdNSkNtdXJGa210Y0xZeDZhZE05VUd5R1FDbm9yUDNs?=
+ =?utf-8?B?Z0QyTGRNTW1DOXhNOHFuaC9RNU12eHcrM2h6WjdETHVXRmRCUllld0dzb1dF?=
+ =?utf-8?B?cnQ2NUxSUzhTQ2FSQTUvSFRuZFJDT3lsUlBrMlI2N1laUndSVHo4dU5Ya0Jk?=
+ =?utf-8?B?VzVzTStuZHpwcFFzaDNNdU4vR1dod0RuaEFUYTNZVTFyZTgxMXNZY1lQTGxL?=
+ =?utf-8?B?YnJTN1MyZEo3alZUSi9qcGRRcVFMaVZFUUoySzJjL0thcWw3ekV2V3ZqSzZ5?=
+ =?utf-8?B?amhneXdiY3pxQ1EwRHczKzUvWHhhZVI3ZWVteS9LVTA5V3c3aXBHZlFhZkdL?=
+ =?utf-8?B?Njl0Titja2ZnMFFkR0xHQWhobjg0NW5Jd1pwTDNxWEFiak1laDA4MWVsa04y?=
+ =?utf-8?B?K0FWbmJid09iUGxwU1hKM1lhM3U3bjIzSDVPOWJwdG82YVdOZFdNeWM5M1Rm?=
+ =?utf-8?B?eko0U0FXRm1Mbmc2MVQ0N1VlN1d5NDU0STZSL0IzOER6K21QRGRkTDBPMFNy?=
+ =?utf-8?B?aVFndmZzT1d0aFRoNnV5NFN2SUxBZ3lPUk8xL01ETTcyeXVkNnRta1lRZ0sz?=
+ =?utf-8?B?S2JQUC9RVWM4dC9xakF2SFZqWlFWY003UkRtTDVuRHBGMHZTQWRkWnhVdERW?=
+ =?utf-8?B?dUI5bjFIaGJYZHJPTWlDREJLWko4cy9YUHhmREcvdjJ6ZUdXSXgxSkJCSlBp?=
+ =?utf-8?B?ZTlwM1R3L3RmTWFTYWh0cE9Tc3hEZkxFYnhDYjd3dHMzL1d2b1dxd3FkR3Ra?=
+ =?utf-8?B?SUwydUplWDlxK2RlN1NlWStpSS9uTzE5UFpQbXYvSVRXVjlVWE1QdEIwdW1F?=
+ =?utf-8?B?M1JSdEtIMjVkUlZRS0c0ZU5oT0ozM2kvOUl6R2o0NkV5U1ptb2lNNVE2ZEtY?=
+ =?utf-8?B?Z3VucVZFWXluVldGSDZhbGJRRzVxdXFESjl4bGc4SDBkVFFCbmV3VnpYT29L?=
+ =?utf-8?B?ckNBc053cVJJaEYxVjh4M2JoVDVLRHVEbW9PT0d1TGdNVnorMEpoUHgzVUdF?=
+ =?utf-8?B?QzcxUjJSdnpxaThia0IvY0k3SjZKa0IzckdZYmRiV3pNeE5mVGI5VEJGK2Vz?=
+ =?utf-8?B?Vm14QVhkNFhXTm9Bcmg2UFdKeitneTdISjc4UnlXV0tUdG5QaDV6NlpyL0RF?=
+ =?utf-8?B?S3ZDdnZqL3krWDJTL0dGOUM0MWYwYjFFYWRFRUZEbGcyYkIxUHNOL0tnQWF0?=
+ =?utf-8?B?TlJOSnJ1V2ZoLytzUk5TRmFUNVJiMkRaTGpkZkRHUkNzbGlLWmFONHBnMlFx?=
+ =?utf-8?B?bGVpSUprN0tRcExvRGEzdlAwY0M5Q3dkTGNubUpGUERMbzdxNVNpSVpRSlpo?=
+ =?utf-8?B?REF5V2lZSTM0VHRNWENEZU1pMlB1R1R3aVkycEp0dmUxWDBrL2VmempjSGYr?=
+ =?utf-8?B?SUhSaVZ3YjU1Y2dnYVYwOGNhNk5abkFwZWxJbkwvbVczZllMUnRJdjFVZC9M?=
+ =?utf-8?B?bWpuNlIwQ3NVZ2xFampjb3JEZVh5TWZIS1JaTERsemJMbU5EWmxFaWliMHZW?=
+ =?utf-8?B?bFhQWUR2bENSdTdDWjhITTRqSGZoRERqbExWdW9RQTRnTlhCeE5ZcVNSWGpC?=
+ =?utf-8?B?K2RDdndJY3ZPN3ZMN04wQkZjWXBFbkZ1bXY5aitaV0xuZFlpbWI5QT09?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bee08a06-bd1e-4bd8-2035-08de9073e91b
+X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB7046.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2026 04:54:24.7834
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JsJX7j/7V18Xwv+is2vV4WOhJzP25vSCu9dsywvKD91j0VTH4gFJhJb3j30ZQd/onEov+uDod/xiEGZoYCdEvg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8994
 
-On Wed, Apr 01, 2026 at 10:05:12PM +0530, Taniya Das wrote:
-> 
-> 
-> On 4/1/2026 12:05 PM, Qiang Yu wrote:
-> > Replace local clk_branch-based clkref definitions with descriptor-based
-> > registration via qcom_clk_ref_probe().
-> > 
-> > This keeps the glymur driver focused on clock metadata and reuses common
-> > runtime logic for regulator handling, enable/disable sequencing, and OF
-> > provider wiring.
-> > 
-> > Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
-> > ---
-> >  drivers/clk/qcom/tcsrcc-glymur.c | 340 +++++++++++----------------------------
-> >  1 file changed, 93 insertions(+), 247 deletions(-)
-> > 
-> > diff --git a/drivers/clk/qcom/tcsrcc-glymur.c b/drivers/clk/qcom/tcsrcc-glymur.c
-> > index 9c0edebcdbb12816d1be5249e4f04bcaf02048aa..585f87b23af2d92daef1787b2f38911681c0d8ee 100644
-> > --- a/drivers/clk/qcom/tcsrcc-glymur.c
-> > +++ b/drivers/clk/qcom/tcsrcc-glymur.c
-> > @@ -4,265 +4,115 @@
-> >   */
-> >  
-> >  #include <linux/clk-provider.h>
-> > +#include <linux/clk/qcom.h>
-> >  #include <linux/mod_devicetable.h>
-> >  #include <linux/module.h>
-> > +#include <linux/of.h>
-> >  #include <linux/platform_device.h>
-> >  #include <linux/regmap.h>
-> >  
-> >  #include <dt-bindings/clock/qcom,glymur-tcsr.h>
-> >  
-> > -#include "clk-alpha-pll.h"
-> > -#include "clk-branch.h"
-> > -#include "clk-pll.h"
-> > -#include "clk-rcg.h"
-> > -#include "clk-regmap.h"
-> > -#include "clk-regmap-divider.h"
-> > -#include "clk-regmap-mux.h"
-> > -#include "common.h"
-> > -#include "gdsc.h"
-> > -#include "reset.h"
-> > -
-> > -enum {
-> > -	DT_BI_TCXO_PAD,
-> > -};
-> > -
-> > -static struct clk_branch tcsr_edp_clkref_en = {
-> > -	.halt_reg = 0x60,
-> > -	.halt_check = BRANCH_HALT_DELAY,
-> > -	.clkr = {
-> > -		.enable_reg = 0x60,
-> > -		.enable_mask = BIT(0),
-> > -		.hw.init = &(const struct clk_init_data) {
-> > -			.name = "tcsr_edp_clkref_en",
-> > -			.parent_data = &(const struct clk_parent_data){
-> > -				.index = DT_BI_TCXO_PAD,
-> > -			},
-> > -			.num_parents = 1,
-> > -			.ops = &clk_branch2_ops,
-> > -		},
-> > +static const char * const tcsr_pcie_1_regulators[] = {
-> > +	"vdda-refgen-0p9",
-> > +	"vdda-refgen-1p2",
-> > +	"vdda-qrefrx5-0p9",
-> > +	"vdda-qreftx0-0p9",
-> > +	"vdda-qreftx0-1p2",
-> > +};
-> > +
-> > +static const char * const tcsr_pcie_2_regulators[] = {
-> > +	"vdda-refgen-0p9",
-> > +	"vdda-refgen-1p2",
-> > +	"vdda-qreftx1-0p9",
-> > +	"vdda-qrefrpt0-0p9",
-> > +	"vdda-qrefrpt1-0p9",
-> > +	"vdda-qrefrpt2-0p9",
-> > +	"vdda-qrefrx2-0p9",
-> > +};
-> > +
-> > +static const char * const tcsr_pcie_3_regulators[] = {
-> > +	"vdda-refgen-0p9",
-> > +	"vdda-refgen-1p2",
-> > +	"vdda-qreftx1-0p9",
-> > +	"vdda-qrefrpt0-0p9",
-> > +	"vdda-qrefrpt1-0p9",
-> > +	"vdda-qrefrx1-0p9",
-> > +};
-> > +
-> > +static const char * const tcsr_pcie_4_regulators[] = {
-> > +	"vdda-refgen-0p9",
-> > +	"vdda-refgen-1p2",
-> > +	"vdda-qreftx1-0p9",
-> > +	"vdda-qrefrpt0-0p9",
-> > +	"vdda-qrefrpt1-0p9",
-> > +	"vdda-qrefrpt2-0p9",
-> > +	"vdda-qrefrx2-0p9",
-> > +};
-> > +
-> 
-> TCSR clock refs are just not for PCIe alone, they would have supplies
-> for all the ref clocks. These supplies can also be shared across other
-> clock refs. I think it is not the correct way to handle the supplies, as
-> TCSR does not have the complete supplies map.
->
-We have complete supplies map. You can get it on ipcatlog. Here is example
-for other instances eg USB and EDP:
-- Glymur (eDP): CXO PAD -> TX0 -> RPT0 -> RX0 -> eDP
-- Glymur (USB4_2): CXO PAD -> TX0 -> RPT0 -> RPT1 -> RX1 -> USB4_2
-- Glymur (USB3): CXO PAD -> TX0 -> RPT3 -> RPT4 -> RX4 -> USB3_SS3
+Hi Luca,
 
-I only add supplies for PCIe in this series because USB and EDP vote these
-LDO in their PHY driver. They can remove them in PHY dts node and add same
-regulator list here.
+On Mon, Mar 30, 2026 at 09:25:51PM +0200, Luca Ceresoli wrote:
+> Convert this driver to DRM_BRIDGE_ATTACH_NO_CONNECTOR and to the
+> drm_bridge_connector framework which is the current DRM bridge best
+> practice.
+> 
+> Tested-by: Martyn Welch <martyn.welch@collabora.com>
+> Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com> # TQMa8MPxL/MBa8MPxL
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> 
+> ---
+> 
+> Changes in v2:
+> - Added missing select DRM_DISPLAY_HELPER in Kconfig
+> - Rebased on previous patch changes
+> ---
+>  drivers/gpu/drm/mxsfb/Kconfig     |  2 ++
+>  drivers/gpu/drm/mxsfb/lcdif_drv.c | 16 +++++++++++++++-
+>  2 files changed, 17 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/mxsfb/Kconfig b/drivers/gpu/drm/mxsfb/Kconfig
+> index 264e74f45554..31db7a824a93 100644
+> --- a/drivers/gpu/drm/mxsfb/Kconfig
+> +++ b/drivers/gpu/drm/mxsfb/Kconfig
+> @@ -33,6 +33,8 @@ config DRM_IMX_LCDIF
+>  	select DRM_GEM_DMA_HELPER
+>  	select DRM_PANEL
+>  	select DRM_PANEL_BRIDGE
+> +	select DRM_DISPLAY_HELPER
+> +	select DRM_BRIDGE_CONNECTOR
+>  	help
+>  	  Choose this option if you have an LCDIFv3 LCD controller.
+>  	  Those devices are found in various i.MX SoC (i.MX8MP,
+> diff --git a/drivers/gpu/drm/mxsfb/lcdif_drv.c b/drivers/gpu/drm/mxsfb/lcdif_drv.c
+> index c8ba8f9b1da8..7f07ae24e0dc 100644
+> --- a/drivers/gpu/drm/mxsfb/lcdif_drv.c
+> +++ b/drivers/gpu/drm/mxsfb/lcdif_drv.c
+> @@ -18,6 +18,7 @@
+>  #include <drm/clients/drm_client_setup.h>
+>  #include <drm/drm_atomic_helper.h>
+>  #include <drm/drm_bridge.h>
+> +#include <drm/drm_bridge_connector.h>
+>  #include <drm/drm_drv.h>
+>  #include <drm/drm_encoder.h>
+>  #include <drm/drm_fbdev_dma.h>
+> @@ -57,6 +58,7 @@ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
+>  		struct of_endpoint of_ep;
+>  		struct drm_bridge *bridge;
+>  		struct drm_encoder *encoder;
+> +		struct drm_connector *connector;
+>  		int ret;
+>  
+>  		if (!of_device_is_available(remote))
+> @@ -86,11 +88,23 @@ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
+>  					     "Failed to initialize encoder for endpoint%u\n",
+>  					     of_ep.id);
+>  
+> -		ret = drm_bridge_attach(encoder, bridge, NULL, 0);
+> +		ret = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
 
-- Qiang Yu
+It seems that only analogix-anx6345.c, analogix-anx78xx.c and analogix_dp_core.c
+don't allow DRM_BRIDGE_ATTACH_NO_CONNECTOR, since they error out when attaching
+the bridge with the flag:
+
+if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) {
+         DRM_ERROR("Fix bridge driver to make connector optional!");
+         return -EINVAL;
+}
+
+Looks like i.MX8MP platforms don't use these drivers.
+But, are we completely safe here by adding the flag?  You also mentioned
+"pitfalls" in commit mesg, which makes me a bit more worried.
+
+Sorry for not bringing this up in v1.
+
+>  		if (ret)
+>  			return dev_err_probe(dev, ret,
+>  					     "Failed to attach bridge for endpoint%u\n",
+>  					     of_ep.id);
+> +
+> +		connector = drm_bridge_connector_init(lcdif->drm, encoder);
+
+Also, kernel doc of drm_bridge_connector.c says:
+
+ * To make use of this helper, all bridges in the chain shall report bridge
+ * operation flags (&drm_bridge->ops) and bridge output type
+ * (&drm_bridge->type), as well as the DRM_BRIDGE_ATTACH_NO_CONNECTOR attach
+ * flag (none of the bridges shall create a DRM connector directly).
+
+Are you sure that we are safe to use this helper?
+
+> +		if (IS_ERR(connector))
+> +			return dev_err_probe(dev, PTR_ERR(connector),
+> +					     "Failed to init bridge_connector for endpoint%u\n",
+> +					     of_ep.id);
+> +
+> +		ret = drm_connector_attach_encoder(connector, encoder);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to attach connector for endpoint%u\n",
+> +					     of_ep.id);
+>  	}
+>  
+>  	return 0;
 > 
-> > +static const struct qcom_clk_ref_desc tcsr_cc_glymur_clk_descs[] = {
-> > +	[TCSR_EDP_CLKREF_EN] = {
-> > +		.name = "tcsr_edp_clkref_en",
-> > +		.offset = 0x60,
-> >  	},
-> > -};
-> >
-> 
-> 
-> -- 
-> Thanks,
-> Taniya Das
-> 
+
+-- 
+Regards,
+Liu Ying
