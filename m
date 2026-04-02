@@ -1,248 +1,208 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5147223AB8D
-	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 15:15:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775142905; cv=none; b=JfYWoQ9o8BOZfAds7X5QpS22i8bgW2zc9kKMY4YbVIVMLiMCN59OGILB/IU/mXVXVrlFgNUZD3Cku8mVs2/lYKVYkEacXTZ6KMA+f1H5WP5jmzWGYcDjghKf8Y9pEzVoE7+ha3Anfvm8fNL/3+bRA9Nk42AYhy9s+Cr1C4cleIM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775142905; c=relaxed/simple;
-	bh=Wus51/A5TXZ0C83VrwImP/P+7klhk6dGV/W8j6rkqYo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RczBSbTCPV/zfYdasZPycD5+Vv5VxZji0xqC5fiPRMpHdQDdExNrjR6+OKEFmEBXtbV0nfdahBhxLh9XngJlx0r8WQ9t69fSSAXk7QZnPWhkFBJtg2qUlUSmIlFRC5Jjm6QTAWzqRU9nAdxhoOhl9Pdrmq5LJtAiYehWzDPiGxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=amJ8x04F; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011011.outbound.protection.outlook.com [52.101.125.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7E142FE598;
+	Thu,  2 Apr 2026 15:17:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775143036; cv=fail; b=jXRMjptuM/lXc9akjYytl4p18WieufvGXm/xg/b4E2FSMqtn5XkRsAqvo5DMb8iq37M9ub/19/1UYX5perMOIh4aCTQtqE1QpswhxPLYy8Q9nx+JZxEs975k0XrgvMObnqPfcAZ3UEQxeOBeHR08N/nc9lTyw0GxpR1S2Yy79s8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775143036; c=relaxed/simple;
+	bh=G6316bsj4zBLUN0f9VbVavG2vGXp3X+juRJs2fgjlb0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=Ps6D4MW7Ut+mm6yHwRcWoqe9/LRjQzJtP/pDEu7757LIs0F5fCJtaT4Jj+btQQaRLcu06GQNbpzbChrsbfxGeGqvJESjk22Vcz1pTMWtAguqYiHspc/HOQgE4d/9HAxNZx8WHFWjuAzrjrtMxpAnqEwqWaTLEqCs40nl8YnXrHE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=sXKRk5/r; arc=fail smtp.client-ip=52.101.125.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="amJ8x04F"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E66DF1596
-	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 08:14:56 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 817A83F7D8
-	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 08:15:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1775142902; bh=Wus51/A5TXZ0C83VrwImP/P+7klhk6dGV/W8j6rkqYo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=amJ8x04F/KJ6PsEuK+YAdCQOCTkR5yXuAVxppUSt/wohOcjXBX7m3z11ce9D9DU02
-	 uhFEynpAVcUjPLfhcphqalCqQanYCocND0QuhSXS0vh9tJKKT2FBiwulpmlpaZpLMr
-	 qgwltXPIwMOgdVtT+7dQhu//fLMIECpDirysRvPg=
-Date: Thu, 2 Apr 2026 16:14:41 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Guangliu Ding <guangliu.ding@nxp.com>
-Cc: "Daniel Baluta (OSS)" <daniel.baluta@oss.nxp.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	Steven Price <steven.price@arm.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <frank.li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="sXKRk5/r"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SG+0Stv0cOK6E24B+zzJgJKbweZEGlW4Iz8RvRB/qxPWpJTkj13cS4WHUuCV5Qu6uhe+26wTtag9VkppfDwG78DiptdZIf9NiuRqov5uBINUQsh4R/wlqNb3HM2bd9P8OVXmeDoZpZ5pi2KJ8RbttffSCiadK6v5PuUomjAmJqMGTZ7I4VRIqV6SFG3lMk38I7z0XbUYHiXp4gU1Bia8nWH/9At/BbdkpUQv2kbkx4BEZlVyF/17YD79Hcg1EYuAGQ7l1jvP4UzcAHYbdzQIjY8tEkTqXZwdFpYzj5CRWarOVTCqX7g9IPaJKqbQwCD1kux2TO57A6CgzqvrCQCrBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XL2aq30IEwK2IVB3J8OHrIv1R3W2o70pZfyBiUrokIA=;
+ b=ad5cOTXc6kqMHg9OeHWf0gUbc5RDsa9Dunb8mHtQou8Mrkmy+lUyYt5XNTrfmtPzyiG/A+SrUI8Zj/fJ3M25hKhQ3WW+qoCEu52pecBMLaSFDPZpNr9gpGtU6KYXqSWA3r2sdh8bmNkBZV/r1+v/JekRn7Plb5E0MnYYvO0IhR13i2Bfi7sVg1M9pPxSEKAjGF6/Wja9mNT6nz7EwnjT/c7HMB52PmwpAmZTnIJL1p0axb6J6MVqdb35YRXtOGMwqiW+gsDBnm+Xlj/wHXi1tqbFCeSTY4vxApYTdUD4eSbggQgcxWy+O8BfzwGlhpHrFREuEzPn1f00nxXNzxvtsw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XL2aq30IEwK2IVB3J8OHrIv1R3W2o70pZfyBiUrokIA=;
+ b=sXKRk5/r6P96+ecwbTsoBPWCaUdcvG0ur7NwcbUpy/dp3kPBx0btKR5K5b/TxVNPfZfe6nv/LB1kMemFoOKIKBbhwVO/UZScTfxTXBN20XQyxyz37qxJQ32z/nU+6NMg47p3JiFEABkruRjh527h+HbDxzA/xaj8VHWSy3L+bpE=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TYRPR01MB15808.jpnprd01.prod.outlook.com (2603:1096:405:2c5::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.18; Thu, 2 Apr
+ 2026 15:17:09 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.20.9769.017; Thu, 2 Apr 2026
+ 15:17:09 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Mark Brown <broonie@kernel.org>
+CC: Krzysztof Kozlowski <krzk+dt@kernel.org>, biju.das.au
+	<biju.das.au@gmail.com>, Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Geert
+ Uytterhoeven <geert+renesas@glider.be>, magnus.damm <magnus.damm@gmail.com>,
+	"linux-spi@vger.kernel.org" <linux-spi@vger.kernel.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
 	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	Jiyu Yang <jiyu.yang@nxp.com>
-Subject: Re: Re: Re: Re: Re: [PATCH 1/2] dt-bindings: gpu: mali-valhall-csf:
- Document i.MX952 support
-Message-ID: <ac6H4SHdNqKEXgIK@e142607>
-References: <acva1Xt8V4k9-uG8@e142607>
- <AM0PR04MB47073E9E8B5C704BCF5D9F72F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
- <99a1da55-d6e5-4d11-abaa-8c85283ab5f2@oss.nxp.com>
- <AM0PR04MB4707B3E37DFE7AEE587DBA2AF350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
- <aczv0R0aQRmHKdvt@e142607>
- <AM0PR04MB4707335CC7035232D44E6ED9F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
- <ac05OpEMjKMd8CXy@e142607>
- <AM0PR04MB4707604AF2C445971C7474EFF350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
- <ac1T282yvpdAp_TP@e142607>
- <AM0PR04MB470716BD5A538CFBB6685C87F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Prabhakar
+ Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: RE: [PATCH 0/2] Add Renesas RZ/G3L RSPI support
+Thread-Topic: [PATCH 0/2] Add Renesas RZ/G3L RSPI support
+Thread-Index: AQHcq6tn0LK2JKDugkSgDHRkkiWo8rXL6eUQgAAFrwCAAAA7cIAAGUiAgAACcOA=
+Date: Thu, 2 Apr 2026 15:17:09 +0000
+Message-ID:
+ <TY3PR01MB1134651E4357EC11484AC8E938651A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260304074907.9697-1-biju.das.jz@bp.renesas.com>
+ <TY3PR01MB1134614237922A87C70AA685C8651A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <f6fd2e18-d5f8-40fe-a4d2-7894bd232da7@sirena.org.uk>
+ <TY3PR01MB11346472F87787030828ACFFE8651A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <fb4a0a18-5fde-43a7-8b2f-3b79656e78eb@sirena.org.uk>
+In-Reply-To: <fb4a0a18-5fde-43a7-8b2f-3b79656e78eb@sirena.org.uk>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYRPR01MB15808:EE_
+x-ms-office365-filtering-correlation-id: af74c8e7-a4d4-4a06-a020-08de90cae8a4
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|366016|376014|7416014|38070700021|18002099003|22082099003|56012099003;
+x-microsoft-antispam-message-info:
+ W+nwDbeygotdpVgVG7pdLrOeUQ4AhrcTX5UtZ8uY7sY39tQHNIvW++RmNXtOizhyYegrpPed0S/Fzpck0fo8WTccpzY2lPH20wyYnOOmmvOvpq/FTZJxwkaX4bQX1eaEVC/KWspIB0xTFoNtW65KxNmC+7mUwapPohlhxr/5soc+/n3newQ+lmmikwfwgGYxeDsMLD+VXrkwrjG2z6Lf+6/VHs9XFWs+4vsJg40gl/cPl0MlKwwqAsJGnV7DBOb4WneCcjLzWqz+KShPkDHtvgR/Pp2Hfy4uX8yRQIDvwlgFNz2CC4h3cM2oU0CU4wlsaiGJRduzGtFQNQ6SUlQ3+YAr59LTBLIsPU1T9lP9gzg/7/f2L7r5KC1g4Dn3kUfXRj/qwIDuyS8KmMRJLpxxMfKUBuDOZoauH4ngcuTgz541OgKNQDW8lPysYdborRZ9qoXacV2cgXaCE0PYfV3wkUcjMW5xMOZOpYZLY5mq2frOon0sWLYdgqjeHDsjJTdX4Z+KDcjh5AdtxgJZSBlGT/Un2nL0BlOszYkgfXDQdmcq7sOzJazUB9WEVs7Dmh6++zZu1uJMX2mBVVlSOZcKZPsCqI//cbujBceMdSCikQF9NMSOvBSY31/hY4OWHb0EkHuC8MYh2UsyQRlE9A1nUQv0WSa8UG49Dc4KOIdn+ErFcQ/egQM7P+gu0S9WZutLPLihpyjF7fZjT83P1Mj2f6uUEGx3cvYfWxwBvE4rlJNh2Ttq16JbeJThu11PMS8u0ZjuQY2kAIDzDZPYeaHV78zejmFLQYsk/OkVSI6ARQ8=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(38070700021)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?4cG5iPqE1c1X37U6YjqzbMHh2EAfmOtKS2MjpISDETWyCgassQ8Z413suw6X?=
+ =?us-ascii?Q?N1LzYRRTZS11FVA+TkEGzgbIndWCSRGxhvneWAJA9idUc0V2tVeaDIegRFij?=
+ =?us-ascii?Q?sHubSh6ngnx8uY9c/iZ3ADIf4rM5DbkPxhMwO+20VnMJR1IrPvJwcJ2000eM?=
+ =?us-ascii?Q?PfArfNK0gGx92NO7PvWQbRzchAJ8aXXirzlQf2IGouGZZ/6IG5a5EsT/hbpH?=
+ =?us-ascii?Q?4c0Qu+HEIreaqmbX33dpHkl8GSM+4sW1KCqKD0m/yGaHpjKUemeFaZttakbi?=
+ =?us-ascii?Q?Uh4hWVhLmdtLhqAusct7TXjrJyeiv1IEjKl/BzA780mU5MWL+EUwORLddi9p?=
+ =?us-ascii?Q?a3hvzqpj15l6KwfiHwzsdbPg/t4g8E+ruLs5aJ/9FVBfOAMeRVguH+yhFHGB?=
+ =?us-ascii?Q?1pp+diP8y+u+ie9DZFfUF//I8yoTPuZaBDXlggUnn90kBapcrSuNgLy4xONL?=
+ =?us-ascii?Q?KeUYRlZ0b/r3UTKarbhGQi8+XdCQWBGkwCWQ/qAIBDPOyfKYH98P7NkCgVUk?=
+ =?us-ascii?Q?imPG8CctB2PWK7SIsDcI6nDJ6dQlUa7pnl8Uabwj+sOplgDR8Ov/Y8cFMUdf?=
+ =?us-ascii?Q?N/AGtO5l+ovodXGRACwgMj5HcLQTWB8ivJ5Gnqu7E08IJlm0DqT0AyrwNHib?=
+ =?us-ascii?Q?7ZAz4CKAaSZZyNHA9fCU1BB1i0hOUPWPDM0wRrNcWr1+HvaqR8I8Jb8LDNH7?=
+ =?us-ascii?Q?pChH9R+Ec3yxvJesC6K4FjmLqJYAgqXKDyG9OhLYOUnz2bKTiI/XFIcv9F/9?=
+ =?us-ascii?Q?6gnwNQt0I4rDOSSE4XC7EPSF9DS920w3IBeOSvdHYRCV+HFLIDjpfbEDhf+N?=
+ =?us-ascii?Q?n2bOQASHqY4DFNQoqnV3n0xwgaDv1HGEVGqhgl+DBYtJBNO15iwaPnvGS4xW?=
+ =?us-ascii?Q?vf/zWYR1AJxJBcVm681cUi3ySe2fNA2IhSxLicJWBS8lVyYCIoLA3U1SS0vF?=
+ =?us-ascii?Q?0iztDmbQyxIy0QwSkhkWarGH/C60GNaooeLljxI86eDNwNlcR0S2hizYHptn?=
+ =?us-ascii?Q?cgpcWd5ZfzV8InFW7PeJ5MtrAveRNlL8d3jUkdO2n15TdQP2Qi3ANj0Vixtj?=
+ =?us-ascii?Q?y1ibfhAhdsfuA1E1pMcYeCMvJXULcjR0LQ8SF0o+aQTr2b1DHyiQXYJvt2xP?=
+ =?us-ascii?Q?iDUi05kodmndGNDUIHO4G42JKLH1bTmOr94vm6mTuABibH6hWdaeZoxPJ74i?=
+ =?us-ascii?Q?sfuBx6/JgtiOjQeGUzsbMdGH9IN8cUqaymNJIixm4G276L8rM5XCO3sFAJRJ?=
+ =?us-ascii?Q?EkK2sSyBUwFbg7puLxBGozf2YRjFVfEVm06inir3M1u0phWDoDYEiwzaNGdH?=
+ =?us-ascii?Q?Wt91+XAUNgedHgOHK73+xkBXhjntq7oVwRi63oqfRlLjd2aPbJ7FMfss2Jfa?=
+ =?us-ascii?Q?GB3uvfFd68pXbTNibcbpAIYa262Kso9Gek+0NBDCq4CJUgGEdDBAXEsQEjPf?=
+ =?us-ascii?Q?ulTLAWcF0uqlA5PpgewxsQDXYVcx5iU20J/qKZsoXzUZ22XrXvLCwKW5AAJs?=
+ =?us-ascii?Q?JmiB4pKXM22hHrbJGOSoMhshFNEymwFGghSIzJbYMTG4ojO/JZwrgdCwoVmW?=
+ =?us-ascii?Q?7URP2gytyJc1DJmK2/gdxb24exMlZ++XqeCSqWJLKZ189hHpSnyP+kzANcwB?=
+ =?us-ascii?Q?rWOAMPZokFt0Yt0rGsEFEQ8RlFSA7Lh/Ob7m54GUn/9Vmnv3Ehdi/SQbfrnk?=
+ =?us-ascii?Q?Yj5Zk9Q26XcPfIiojCNL0EjHZDYxz65vcWMwJY3XokA2tBqAuaOFFf6og03a?=
+ =?us-ascii?Q?KNzQSM3NUw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <AM0PR04MB470716BD5A538CFBB6685C87F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: af74c8e7-a4d4-4a06-a020-08de90cae8a4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Apr 2026 15:17:09.3859
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: yB9K72cU8yR2I3NinRDbWg8VX2cn39ykp3XvfsKL3VEbhoGhvZB/kd3zPA0F0RWRe0EoQXdDeRWrAf+5j9P5g4wRKsiDo9LXAFl3o3XkJ80=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYRPR01MB15808
 
-On Wed, Apr 01, 2026 at 06:03:28PM +0000, Guangliu Ding wrote:
-> Hi Liviu
-> 
-> Thanks a lot for your sharing.
-> 
-> > On Wed, Apr 01, 2026 at 03:59:23PM +0000, Guangliu Ding wrote:
-> > > Hi Liviu
+Hi Mark,
+
+Thanks for the feedback.
+
+> -----Original Message-----
+> From: Mark Brown <broonie@kernel.org>
+> Sent: 02 April 2026 15:52
+> Subject: Re: [PATCH 0/2] Add Renesas RZ/G3L RSPI support
+>=20
+> On Thu, Apr 02, 2026 at 01:32:29PM +0000, Biju Das wrote:
+> > > -----Original Message-----
+> > > From: Mark Brown <broonie@kernel.org>
+> > > Sent: 02 April 2026 14:20
+> > > Subject: Re: [PATCH 0/2] Add Renesas RZ/G3L RSPI support
 > > >
-> > > > On Wed, Apr 01, 2026 at 10:31:01AM +0000, Guangliu Ding wrote:
-> > > > > Hi Liviu
-> > > > >
-> > > > > > On Wed, Apr 01, 2026 at 09:43:12AM +0000, Guangliu Ding wrote:
-> > > > > > > Hi Daniel
-> > > > > > >
-> > > > > > > > On 4/1/26 11:48, Guangliu Ding wrote:
-> > > > > > > > > [You don't often get email from guangliu.ding@nxp.com.
-> > > > > > > > > Learn why this is important at
-> > > > > > > > > https://aka.ms/LearnAboutSenderIdentification
-> > > > > > > > > ]
-> > > > > > > > >
-> > > > > > > > > Hi Liviu
-> > > > > > > > >
-> > > > > > > > > Thanks for your review. Please refer to my comments below:
-> > > > > > > > >
-> > > > > > > > >> On Tue, Mar 31, 2026 at 06:12:38PM +0800, Guangliu Ding
-> > wrote:
-> > > > > > > > >>> Add compatible string of Mali G310 GPU on i.MX952 board.
-> > > > > > > > >>>
-> > > > > > > > >>> Signed-off-by: Guangliu Ding <guangliu.ding@nxp.com>
-> > > > > > > > >>> Reviewed-by: Jiyu Yang <jiyu.yang@nxp.com>
-> > > > > > > > >>> ---
-> > > > > > > > >>>
-> > > > > > > > >>> Documentation/devicetree/bindings/gpu/arm,mali-valhall-c
-> > > > > > > > >>> sf.y
-> > > > > > > > >>> aml
-> > > > > > > > >>> | 1
-> > > > > > > > >>> +
-> > > > > > > > >>>  1 file changed, 1 insertion(+)
-> > > > > > > > >>>
-> > > > > > > > >>> diff --git
-> > > > > > > > >>> a/Documentation/devicetree/bindings/gpu/arm,mali-valhall
-> > > > > > > > >>> -csf
-> > > > > > > > >>> .yam
-> > > > > > > > >>> l
-> > > > > > > > >> b/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.
-> > > > > > > > >> yaml
-> > > > > > > > >>> index 8eccd4338a2b..6a10843a26e2 100644
-> > > > > > > > >>> ---
-> > > > > > > > >>> a/Documentation/devicetree/bindings/gpu/arm,mali-valhall
-> > > > > > > > >>> -csf
-> > > > > > > > >>> .yam
-> > > > > > > > >>> l
-> > > > > > > > >>> +++ b/Documentation/devicetree/bindings/gpu/arm,mali-val
-> > > > > > > > >>> +++ hall
-> > > > > > > > >>> +++ -csf
-> > > > > > > > >>> +++ .yam
-> > > > > > > > >>> +++ l
-> > > > > > > > >>> @@ -20,6 +20,7 @@ properties:
-> > > > > > > > >>>            - enum:
-> > > > > > > > >>>                - mediatek,mt8196-mali
-> > > > > > > > >>>                - nxp,imx95-mali            # G310
-> > > > > > > > >>> +              - nxp,imx952-mali           # G310
-> > > > > > > > >> Can you explain why this is needed? Can it not be covered
-> > > > > > > > >> by the existing compatible?
-> > > > > > > > > There are functional differences in GPU module (GPUMIX)
-> > > > > > > > > between
-> > > > > > > > > i.MX95 and i.MX952. So they cannot be fully covered by a
-> > > > > > > > > single existing
-> > > > > > compatible.
-> > > > > > > > > On i.MX952, The GPU clock is controlled by hardware GPU
-> > > > > > > > > auto clock-gating mechanism, while the GPU clock is
-> > > > > > > > > managed explicitly by the
-> > > > > > > > driver on i.MX95.
-> > > > > > > > > Because of these behavioral differences, separate
-> > > > > > > > > compatible strings "nxp,imx95-mali" and "nxp,imx952-mali"
-> > > > > > > > > are needed to allow the driver to handle the two variants
-> > > > > > > > > independently and to keep room for future
-> > > > > > > > divergence.
-> > > > > > > >
-> > > > > > > >
-> > > > > > > > This information should be added in the commit message
-> > > > > > > > explaining why
-> > > > > > > >
-> > > > > > > > the change is needed.
-> > > > > > > >
-> > > > > > > >
-> > > > > > > > But then where is the driver code taking care of these diferences?
-> > > > > > > >
-> > > > > > >
-> > > > > > > Yes. Currently the driver does not require "nxp,imx952-mali" string.
-> > > > > > > However, when GPU ipa_counters are enabled to calculate the
-> > > > > > > GPU busy_time/idle_time for GPU DVFS feature, they will
-> > > > > > > conflict with the hardware GPU auto clock‑gating mechanism,
-> > > > > > > causing GPU clock to remain
-> > > > > > always on.
-> > > > > > > In such cases, ipa_counters need to be disabled so that the
-> > > > > > > GPU auto clock‑gating mechanism can operate normally, using
-> > > > "nxp,imx952-mali"
-> > > > > > string.
-> > > > > >
-> > > > > > OK, I understand that you're following guidance from some other
-> > > > > > senior people on how to upstream patches so you've tried to
-> > > > > > create the smallest patchset to ensure that it gets reviewed and
-> > > > > > accepted, but in this case we need to see the other patches as
-> > > > > > well to decide if your approach is the right one and we do need
-> > > > > > a separate compatible
-> > > > string.
-> > > > > >
-> > > > > > If enabling GPU ipa_counters causes the clocks to get stuck
-> > > > > > active, that feels like a hardware bug, so figuring out how to
-> > > > > > handle that is more important than adding a compatible string.
-> > > > > >
-> > > > > > Either add the patch(es) that use the compatible to this series
-> > > > > > in v2, or put a comment in the commit message on where we can
-> > > > > > see the
-> > > > driver changes.
-> > > > > >
-> > > > >
-> > > > > According to discussions with the GPU vendor, this is a hardware
-> > > > > limitation of Mali-G310 rather than a hardware bug, and it has
-> > > > > been addressed in newer Mali GPU families.
-> > > >
-> > > > I represent the said GPU vendor and I think I know what you're
-> > > > talking about, but you're taking the wrong approach. All G310s have
-> > > > a problem where in order to enable access to the ipa_counters the
-> > > > automatic clock gating gets disabled. So the solution that needs to
-> > > > be implemented when we add support for IPA_COUNTERs will apply to all
-> > GPUs, not just MX952.
-> > >
-> > > Yes. We have bring-up G310 (V2) GPU on both i.MX95 and i.MX952. And
-> > > auto clock gating mechanism is firstly introduced in i.MX952 (not supported
-> > on i.MX95).
-> > > According to your update, solution needs to be implemented to all GPUs
-> > > which support auto clock gating mechanism after IPA_COUNTERs are
-> > supported in the driver, right?
-> > 
-> > A solution is needed, yes.
-> > 
-> > > What's your suggestions for 952 gpu dtb node?
-> > 
-> > There is no IPA_COUNTER use in Panthor at the moment. Unless your DVFS
-> > controller uses that, I would suggest that we don't introduce a compatible for
-> > 952 until the time we add support for reading the counters.
-> > 
-> > It helps if you think in terms of what is already in upstream, rather than mixing
-> > with the tests that uses kbase code. Does your hardware need extra code in
-> > upstream in order to function? If so, where is that code? If not, then let's not
-> > introduce the compatible until we are absolutely sure we need it because we
-> > have code specific to that SoC. For everything else we will implement an
-> > architecture fix if needed.
-> > 
-> 
-> Got it. The following compatible string is the correct choice since the GPU on
-> i.MX952 is fully compatible with the GPU on i.MX95 now.
-> compatible = "nxp,imx95-mali", "arm,mali-valhall-csf";
-> 
-> I will not mix tests with kbase code in the following upstream patches for panthor driver.
+> > > On Thu, Apr 02, 2026 at 01:00:28PM +0000, Biju Das wrote:
+>=20
+> > > > Gentle ping.
+>=20
+> > > There's strongly negative feedback from Krzysztof...
+>=20
+> > I believe Krzysztof is complaining about patch [1] and his comments
+> > were addressed in [2].
+>=20
+> That's really not at all clear from the discussion.
+>=20
+> Please include human readable descriptions of things like commits and iss=
+ues being discussed in e-mail
+> in your mails, this makes them much easier for humans to read especially =
+when they have no internet
+> access.
+> I do frequently catch up on my mail on flights or while otherwise travell=
+ing so this is even more
+> pressing for me than just being about making things a bit easier to read.
 
-OK. I think if you drop patch 2/3 from your series you can send a v3.
+Agreed.
 
-Best regards,
-Liviu
+>=20
+> > > Please don't send content free pings and please allow a reasonable
+> > > time for review.  People get busy, go on holiday, attend conferences
+> > > and so on so unless there is some reason for urgency (like critical
+> > > bug fixes) please allow at least a couple of weeks for review.  If th=
+ere have been review comments
+> then people may be waiting for those to be addressed.
+>=20
+> > > Sending content free pings adds to the mail volume (if they are seen
+> > > at
+> > > all) which is often the problem and since they can't be reviewed
+> > > directly if something has gone wrong you'll have to resend the
+> > > patches anyway, so sending again is generally a better approach
+> > > though there are some other maintainers who like them - if in doubt l=
+ook at how patches for the
+> subsystem are normally handled.
+>=20
+> > There is no pending points, everything addressed in [2]. that is the
+> > reason for sending gentle reminder.
+>=20
+> There's more there than just "make sure you've addressed review comments"=
+.
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+The issues related to flexible DMA names for multiple DMAs are addressed by=
+ the
+commit c2edd7841f58 ("spi: dt-bindings: renesas,rzv2h-rspi: Document dmas p=
+roperty").
+
+It looks like Krzysztof wants strict ordering in bindings for DMA names, if=
+ it is
+a single DMA.
+
+I will wait for his feedback.
+
+Cheers,
+Biju
