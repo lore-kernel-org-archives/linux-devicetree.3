@@ -1,207 +1,189 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA9F3DB625;
-	Thu,  2 Apr 2026 16:54:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CCB913FEE;
+	Thu,  2 Apr 2026 17:01:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.61.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775148873; cv=none; b=NBLIDduZiBXINAH+PX287y2+aX8fJ9VYVCTuQr/Y18GP0cJfwCTl6rKpZGs70OWcQwmrlS7DNjn8KeFYKIsk2mX9l6FADeoDmK8jQ9IpA1aTRF3Ib9ijD4Q1NsuKFF1DMt/8MnTfff0h79tJgplUEhajwqaEBZNrtrnRskb6eCU=
+	t=1775149271; cv=none; b=IslpCJwrEvxZ3/Fhh+nXg11TFjS2/8tuffwNwxPtmhOIrHftuw4252YChOEZVZUp8lTYB3sQ4ZRc8DkV8mBpynYlxhnzjphggzz6vHYEce77to7OmS9I788HRvQ/pbhVn8IKFvaMzDo7nFcVaoQte1fMoTZV7BUmykniCRLJ7YA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775148873; c=relaxed/simple;
-	bh=XQf9Tq6i7D2u4pboaShZxVg4fNp/oWEN3r4bbIsxz6s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=F11kSsTWK9kJHqD6PR7JYCE3j5+/O0zNTD7k8edt/S+/mMGhEoyKld5GLemcYUuy5UCALWRV7FVN2A26BCECFjidFcDE64vaToH1NoR1lyTlZGxHFacWL4fEQZ7esOzhNyr3zt8JBQ4qX3+ALgC67VGl9SYXhuevxGBlIvp40GQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [223.166.95.230])
-	by APP-05 (Coremail) with SMTP id zQCowADndwszn85p_LBMDA--.15885S4;
-	Fri, 03 Apr 2026 00:54:14 +0800 (CST)
-From: Han Gao <gaohan@iscas.ac.cn>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>,
-	Chukun Pan <amadeus@jmu.edu.cn>
-Cc: devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Han Gao <rabenda.cn@gmail.com>,
-	Han Gao <gaohan@iscas.ac.cn>
-Subject: [PATCH v5 2/3] riscv: dts: spacemit: Define the P1 PMIC regulators for OrangePi RV2
-Date: Fri,  3 Apr 2026 00:54:06 +0800
-Message-ID: <6376799689e094253fb1dc0e3e27b491be46e9db.1775148159.git.gaohan@iscas.ac.cn>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1775148159.git.gaohan@iscas.ac.cn>
-References: <cover.1775148159.git.gaohan@iscas.ac.cn>
+	s=arc-20240116; t=1775149271; c=relaxed/simple;
+	bh=2OWqMG9cAvyIiZhUJJh6c3apSC/Ro+i93PaoDjc2ohY=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=TKVkkptBl7UoziHuALmVE7O/18gqh2LaTi7FRbUA/hLWgUqaidMshL48VB2rKkbgx0Rz13lolK+4t1V1zpHbjTcsFKGE72m4D1dF5wgfF8t4PoQiKoeoFeihMR2SAxgKfB4QEkK3WQlElVHTJdW4hqbAUzYU/pmGQw+r4B6Szcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aliel.fr; spf=pass smtp.mailfrom=aliel.fr; dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b=TyDduWOp; arc=none smtp.client-ip=65.21.61.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aliel.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b="TyDduWOp"
+Message-ID: <d0d17d65-893d-44c8-a929-92ba5b71d7f6@aliel.fr>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
+	s=courrier-s1; t=1775149257;
+	bh=2OWqMG9cAvyIiZhUJJh6c3apSC/Ro+i93PaoDjc2ohY=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=TyDduWOpNvxQeMWOJLRKd7O4x57VGwm/FtjFB4aCLFl7jth9inkleHxhtz7dfmZpO
+	 ainHsiv56YhFZcMxmPC6M0wdfV/f5bNz9T4fDyPLaFgxbBcKiYU+Tt4hIw74Jodnmh
+	 wBAzw0LIaUuYcMk2fb2yJxzZTEAN/qFAlVGgh+tQ=
+Date: Thu, 2 Apr 2026 19:00:55 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird Beta
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Subject: Re: [PATCH 5/8] thermal: khadas-mcu-fan: Add fan config from platform
+ data Add regulator support
+To: Neil Armstrong <neil.armstrong@linaro.org>, Lee Jones <lee@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Beniamino Galvani <b.galvani@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>
+Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org
+References: <20260402-add-mcu-fan-khadas-vim4-v1-0-2b12eb4ac7b0@aliel.fr>
+ <20260402-add-mcu-fan-khadas-vim4-v1-5-2b12eb4ac7b0@aliel.fr>
+ <5e3e8684-f893-4fb0-879e-9661820f72dd@linaro.org>
+Content-Language: en-US
+In-Reply-To: <5e3e8684-f893-4fb0-879e-9661820f72dd@linaro.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADndwszn85p_LBMDA--.15885S4
-X-Coremail-Antispam: 1UD129KBjvJXoWxWw4kCFWfAFWDJFWUXF1DKFg_yoW5uF4rpa
-	15ZFsxuF1FkFyxJw45Ww1xta15Wr1Fkasrury0krWrJrW8tFnFkr9rAr1Fy3W8Ja1vvw4Y
-	yrW7uFyxtF1Ig3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUm014x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jryl82xGYIkIc2
-	x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
-	Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UM2
-	8EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r4UJwAS
-	0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2
-	IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0
-	Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2
-	xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
-	JVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67
-	kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY
-	6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0x
-	vEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVj
-	vjDU0xZFpf9x0JUQXo7UUUUU=
-X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiCQ4FDGnOha4xdwABsF
 
-Define the DC power input and the 4v power as fixed regulator supplies.
+On 4/2/26 5:39 PM, Neil Armstrong wrote:
+> On 4/2/26 16:27, Ronald Claveau wrote:
+>> Replace the hardcoded MAX_LEVEL constant and fan register
+>> with values read from platform_data (fan_reg, max_level),
+>> as new MCUs need different values.
+>>
+>> Optionally acquire and enable a "fan" regulator supply
+>> at probe time and on resume,
+>> so boards that gate fan power through a regulator are handled.
+>>
+>> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+>> ---
+>>   drivers/thermal/khadas_mcu_fan.c | 43 ++++++++++++++++++++++++++++++
+>> ++++------
+>>   1 file changed, 37 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/drivers/thermal/khadas_mcu_fan.c b/drivers/thermal/
+>> khadas_mcu_fan.c
+>> index d35e5313bea41..55b496625e3bd 100644
+>> --- a/drivers/thermal/khadas_mcu_fan.c
+>> +++ b/drivers/thermal/khadas_mcu_fan.c
+>> @@ -13,13 +13,15 @@
+>>   #include <linux/regmap.h>
+>>   #include <linux/sysfs.h>
+>>   #include <linux/thermal.h>
+>> -
+>> -#define MAX_LEVEL 3
+>> +#include <linux/regulator/consumer.h>
+>>     struct khadas_mcu_fan_ctx {
+>>       struct khadas_mcu *mcu;
+>> +    unsigned int fan_reg;
+>>       unsigned int level;
+>> +    unsigned int max_level;
+>>       struct thermal_cooling_device *cdev;
+>> +    struct regulator *power;
+>>   };
+>>     static int khadas_mcu_fan_set_level(struct khadas_mcu_fan_ctx *ctx,
+>> @@ -27,8 +29,7 @@ static int khadas_mcu_fan_set_level(struct
+>> khadas_mcu_fan_ctx *ctx,
+>>   {
+>>       int ret;
+>>   -    ret = regmap_write(ctx->mcu->regmap,
+>> KHADAS_MCU_CMD_FAN_STATUS_CTRL_REG,
+>> -               level);
+>> +    ret = regmap_write(ctx->mcu->regmap, ctx->fan_reg, level);
+>>       if (ret)
+>>           return ret;
+>>   @@ -40,7 +41,9 @@ static int khadas_mcu_fan_set_level(struct
+>> khadas_mcu_fan_ctx *ctx,
+>>   static int khadas_mcu_fan_get_max_state(struct
+>> thermal_cooling_device *cdev,
+>>                       unsigned long *state)
+>>   {
+>> -    *state = MAX_LEVEL;
+>> +    struct khadas_mcu_fan_ctx *ctx = cdev->devdata;
+>> +
+>> +    *state = ctx->max_level;
+>>         return 0;
+>>   }
+>> @@ -61,7 +64,7 @@ khadas_mcu_fan_set_cur_state(struct
+>> thermal_cooling_device *cdev,
+>>   {
+>>       struct khadas_mcu_fan_ctx *ctx = cdev->devdata;
+>>   -    if (state > MAX_LEVEL)
+>> +    if (state > ctx->max_level)
+>>           return -EINVAL;
+>>         if (state == ctx->level)
+>> @@ -83,11 +86,32 @@ static int khadas_mcu_fan_probe(struct
+>> platform_device *pdev)
+>>       struct device *dev = &pdev->dev;
+>>       struct khadas_mcu_fan_ctx *ctx;
+>>       int ret;
+>> +    const struct khadas_mcu_fan_pdata *pdata =
+>> dev_get_platdata(&pdev->dev);
+>>         ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
+>>       if (!ctx)
+>>           return -ENOMEM;
+>> +
+>>       ctx->mcu = mcu;
+>> +    ctx->fan_reg   = pdata->fan_reg;
+>> +    ctx->max_level = pdata->max_level;
+>> +
+>> +    ctx->power = devm_regulator_get_optional(dev->parent, "fan");
+>> +    if (IS_ERR(ctx->power)) {
+>> +        if (PTR_ERR(ctx->power) == -ENODEV)
+>> +            ctx->power = NULL;
+>> +        else
+>> +            return PTR_ERR(ctx->power);
+>> +    }
+>> +
+>> +    if (ctx->power) {
+>> +        ret = regulator_enable(ctx->power);
+>> +        if (ret) {
+>> +            dev_err(dev, "Failed to enable fan power supply: %d\n",
+>> ret);
+>> +            return ret;
+>> +        }
+>> +    }
+>> +
+>>       platform_set_drvdata(pdev, ctx);
+>>         cdev = devm_thermal_of_cooling_device_register(dev->parent,
+>> @@ -130,6 +154,13 @@ static int khadas_mcu_fan_suspend(struct device
+>> *dev)
+>>   static int khadas_mcu_fan_resume(struct device *dev)
+>>   {
+>>       struct khadas_mcu_fan_ctx *ctx = dev_get_drvdata(dev);
+>> +    int ret;
+>> +
+>> +    if (ctx->power) {
+>> +        ret = regulator_enable(ctx->power);
+> 
+> Seems you're missing a regulator_disable() on suspend.
+> 
+> Neil
+> 
 
-Define the SpacemiT P1 PMIC voltage regulators and their constraints.
+You right, I will add the regulator_disable on suspend for next version.
+Thanks for your feedback.
 
-Co-developed-by: Chukun Pan <amadeus@jmu.edu.cn>
-Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
-Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
----
- .../boot/dts/spacemit/k1-orangepi-rv2.dts     | 107 ++++++++++++++++++
- 1 file changed, 107 insertions(+)
+>> +        if (ret)
+>> +            return ret;
+>> +    }
+>>         return khadas_mcu_fan_set_level(ctx, ctx->level);
+>>   }
+>>
+> 
 
-diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-index 93880ba7bdfe..a6de3753b876 100644
---- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-@@ -23,6 +23,25 @@ chosen {
- 		stdout-path = "serial0";
- 	};
- 
-+	vcc_5v0: regulator-vcc-5v0 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_5v0";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+	};
-+
-+	vcc4v0: regulator-vcc4v0 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc4v0";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <4000000>;
-+		regulator-max-microvolt = <4000000>;
-+		vin-supply = <&vcc_5v0>;
-+	};
-+
- 	leds {
- 		compatible = "gpio-leds";
- 
-@@ -91,6 +110,94 @@ &i2c8 {
- 	pinctrl-0 = <&i2c8_cfg>;
- 	pinctrl-names = "default";
- 	status = "okay";
-+
-+	pmic@41 {
-+		compatible = "spacemit,p1";
-+		reg = <0x41>;
-+		interrupts = <64>;
-+		vin1-supply = <&vcc4v0>;
-+		vin2-supply = <&vcc4v0>;
-+		vin3-supply = <&vcc4v0>;
-+		vin4-supply = <&vcc4v0>;
-+		vin5-supply = <&vcc4v0>;
-+		vin6-supply = <&vcc4v0>;
-+		aldoin-supply = <&vcc4v0>;
-+		dldoin1-supply = <&buck5>;
-+		dldoin2-supply = <&buck5>;
-+
-+		regulators {
-+			buck1 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3450000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck2 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3450000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck3_1v8: buck3 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck4 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck5: buck5 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3450000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck6 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3450000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			aldo1 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+				regulator-boot-on;
-+			};
-+
-+			dldo1 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+				regulator-boot-on;
-+			};
-+
-+			dldo4 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+				regulator-always-on;
-+			};
-+
-+			dldo5 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+			};
-+
-+			dldo6 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+				regulator-always-on;
-+			};
-+		};
-+	};
- };
- 
- &uart0 {
+
 -- 
-2.47.3
-
+Best regards,
+Ronald
