@@ -1,223 +1,116 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DEB82E22B5
-	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 09:35:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 390792F99B8;
+	Fri,  3 Apr 2026 09:35:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775208936; cv=none; b=aLNgs4fo1J/aVRzP2oiQuUqC/URfBSKj2Cjurl4zHyzUiVVxn6OSCLNOMJhYgbrvnnQIuqh413Z0KBTbqV0TjWq19k+ksO+nb+ym5lEkAQ12faX5tw2xz1OIOV/cUrzof42YhjK+X/IjelVRRXHBJzBnvqkb9ZrkUqsmKxRPMAg=
+	t=1775208941; cv=none; b=saNUCC+iJm/FZ4/zX7D0UVI8Fw+m8SZ62egaW46CRPx8s41dPrqNKfVYvq6c7LZzmmcGT4v+4kr4SJgrJV8SCIB8medlUArhKE3nQvrJzAUZlAz0p2IxwlpAT2EZmmD8N3U/4+IQh2OPuPfDynUBkJzp7U57MmGX5cM7zH1bNbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775208936; c=relaxed/simple;
-	bh=CGaTbTzIdYwuRlEh+YKKBHzWhKzKyqy2VXhXB7t6eBc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oIVeTmW6CLsFwPwvyLUg1/hXvvKwHEvu7n4YoGVJhhio+12ATPrZ0jsqDLO7RKtnZrSaeTJbcu9ncBd5a+wxzgacBA8mGpOGe9lxN0EmRF3lN3eHJ4UrRnccAHJ2On+cjqodWeE/HFxwsGWgRhe7II386+GnIzVxuLN/Lc0PrsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nW3JFyGr; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nW3JFyGr"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4887f49ec5aso23658225e9.1
-        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 02:35:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775208932; x=1775813732; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=b+7bh6JYJimFo01dLJuKHAMSI9ybhWnOBWq0Gz5gOhs=;
-        b=nW3JFyGrzFRpkm/gQghHrjA282BtnDL2ZSyehbBk1sVw1nNcrIoey0HbrEuxFSgSMB
-         9BcFnOLeUUtDFJCdsat99H3hBRwd2EZp35YdP1ubIh2SNNt8I1x0ue8V7hf0Lmh/YLQT
-         aGZjVsCRczSS3HRBsFHdgdC8NcUgjuEanlpzQy3EyapX1iUFBIJLAuAMOXuzZXEIjWZ6
-         HcHn/XlTu+vSkQxpoqg5HlIzKWCZ+tmI4uhWcwHRPER/knm7ym1v328r3aKTVAE5CfhH
-         yz+odeWl2caLXz19LIiJ41l0UxKzLd37e5RRnHgMocLpYEVrTIX6R+npJ347Kz4jBVlI
-         VjkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775208932; x=1775813732;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=b+7bh6JYJimFo01dLJuKHAMSI9ybhWnOBWq0Gz5gOhs=;
-        b=jWSA5Y0tR+/E7UvTix2sDt4BpUUEfsPIc4s87LsiC6KlLNOmwk7TPQ63OvlAGQX6mq
-         /13IoU2+RnuuilLXfdTfA5kQh7ry+bq1jItRYuPmDZqoEv0zYHxv8CQY3igftbNsW18e
-         SLc0VmVfjqeZTctFkvRwqnfrqeRuykaKBh1aY4f/UpZ9CQ+jQo6NJF3+X9geB9TldpyU
-         kBWa04TQBCVFtr3g5Y09H/OzYzVR0nKKDBTRf/+rCit98DU+MJrHZVZGthocaDgg4hY9
-         D2Z1y8B+NW+dTNZQ83WiSBs87rGjWZr/avj9tLq12F8ngcEwVemd8IRMg4hPFx/hs/en
-         NJcg==
-X-Forwarded-Encrypted: i=1; AJvYcCX07RtmnyRYF5ldblCQqOrokbnc8waqprhgZ54UpHnl4Ibe4aC4DI0i+kdB85oh+kI2f5df8z50wPVs@vger.kernel.org
-X-Gm-Message-State: AOJu0YxE5jCJI98G49x31GfwrmEWWA5zjk//JtTmd2ghPiFIDtWuvoZ/
-	oljsNqiEaiCmgdvpsWYDDjSY4dSRT2FNz2BXooRz/Eh9QR03KDgNj4JC
-X-Gm-Gg: ATEYQzzHX7EFdEJ9oaNGw2+AY5uGPuTaHJkCJyEDoKWqkwfnaVj46F/gztEqoLuLTh+
-	CnN+pgcRvTU7YqTm69xqeh7oAjaKXAN3TMfygFmFhIX2MEavXFb+dfwcsUquEIG94VCEbAlgRub
-	x7mUaRnzeJONiR+l3z8nmQjUGayiUKxQATrgUcRWfmEwTwNlbeoGPdShR1ZOfbJmJzMGaY4vQYK
-	hl7uxm5dQxvisT7tHGyUxdnYdsB3p2wV2EW3YsqWNV4N59BQxGbszHh/ApegGT4lsFd5SRZ8tx8
-	acoDXqUt7fu7xtVA5Kb2QThBGoPU8hvrem4m4PpYIJmqyY2oWLgUIEP1oyYKWgMb2nXoWb8YTaf
-	gA0TYAHZhgmJg8zUDzZJ+afkDLrZAoqNYUCTcZSt+kZpVqIkUbb26/w/auxW0i8EGT6QRlgj4nr
-	NA9YXkn0Y6UvoHgcQEugLDGu3tA/6YNlGLODaEOIOyRz4J2lnS6JdeGAE9Bxixo1pISYjgiLISZ
-	rUEjJr70eevTNv7YgpO
-X-Received: by 2002:a05:600c:698d:b0:488:7f49:eae5 with SMTP id 5b1f17b1804b1-48899780926mr36577785e9.16.1775208931761;
-        Fri, 03 Apr 2026 02:35:31 -0700 (PDT)
-Received: from [10.1.4.108] (cust-east-par-46-193-119-166.cust.wifirst.net. [46.193.119.166])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488981e8e66sm16662805e9.10.2026.04.03.02.35.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 03 Apr 2026 02:35:31 -0700 (PDT)
-Message-ID: <c09c1b4e-e557-494a-a261-ed146d3a6dea@gmail.com>
-Date: Fri, 3 Apr 2026 11:35:30 +0200
+	s=arc-20240116; t=1775208941; c=relaxed/simple;
+	bh=3aOgzOA4jLwxhsbvBWrKAOu+pLgm5ki8Y0k6FWbFxsk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=EUSkl4JTdVUtiInZOT6tGLhREBYVxvwrGUYFAmn7GahHu2h0odQuQjN36bfNJHzHTnoiCiEca5jb9ng56DAmxds/mPV+aC6904RbmiSkS9hGHZG8hBmTzLWIRH9Xo8ylr7VF6OppdOC6jLpgjjZssqNZq7KyaEBXuKyIOuKUKLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=162.243.161.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from E0005152DT.eswin.cn (unknown [10.12.96.41])
+	by app1 (Coremail) with SMTP id TAJkCgDXbHHWic9pw4oOAA--.58504S2;
+	Fri, 03 Apr 2026 17:35:19 +0800 (CST)
+From: dongxuyang@eswincomputing.com
+To: mturquette@baylibre.com,
+	sboyd@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	p.zabel@pengutronix.de,
+	huangyifeng@eswincomputing.com,
+	dongxuyang@eswincomputing.com
+Cc: ningyu@eswincomputing.com,
+	linmin@eswincomputing.com,
+	pinkesh.vaghela@einfochips.com
+Subject: [PATCH 0/3] Add driver support for ESWIN EIC7700 HSP clock and reset generator
+Date: Fri,  3 Apr 2026 17:34:59 +0800
+Message-Id: <20260403093459.612-1-dongxuyang@eswincomputing.com>
+X-Mailer: git-send-email 2.31.1.windows.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] net: dsa: microchip: implement KSZ87xx Module 3
- low-loss cable errata
-To: Vladimir Oltean <olteanv@gmail.com>,
- Bastien Curutchet <bastien.curutchet@bootlin.com>
-Cc: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com,
- Andrew Lunn <andrew@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Fidelio Lawson <fidelio.lawson@exotec.com>
-References: <20260326-ksz87xx_errata_low_loss_connections-v1-0-79a698f43626@exotec.com>
- <20260326-ksz87xx_errata_low_loss_connections-v1-0-79a698f43626@exotec.com>
- <20260326-ksz87xx_errata_low_loss_connections-v1-3-79a698f43626@exotec.com>
- <20260326-ksz87xx_errata_low_loss_connections-v1-3-79a698f43626@exotec.com>
- <20260326094211.hdaf4tz7lbjyjznn@skbuf>
-Content-Language: en-US
-From: Fidelio LAWSON <lawson.fidelio@gmail.com>
-In-Reply-To: <20260326094211.hdaf4tz7lbjyjznn@skbuf>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:TAJkCgDXbHHWic9pw4oOAA--.58504S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxAF18tFW7Cw1DCw4xur47CFg_yoW5Gw15pF
+	4DWF95Gr1UXrWxXan3J3W0vFWfX3WfJryakasrXa47Za9IvFyDJr4IyFy5AF97Z348Xr43
+	JF1aq3WUua42yaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBv14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r1q6r43MxkIecxEwVCm-wCF04
+	k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
+	MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr4
+	1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l
+	IxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4
+	A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUmjgxUUUUU=
+X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/
 
-On 3/26/26 10:42, Vladimir Oltean wrote:
-> On Thu, Mar 26, 2026 at 10:10:23AM +0100, Fidelio Lawson wrote:
->> Implement the "Module 3: Equalizer fix for short cables" erratum from
->> Microchip document DS80000687C for KSZ87xx switches.
->>
->> The issue affects short or low-loss cable links (e.g. CAT5e/CAT6),
->> where the PHY receiver equalizer may amplify high-amplitude signals
->> excessively, resulting in internal distortion and link establishment
->> failures.
->>
->> Depending on the selected workaround (1 or 2), the driver writes a
->> specific value to the indirect PHY register
->> using the 6E/6F/A0 indirect access mechanism.
->>
->> The errata fix is applied during global switch initialization when
->> enabled via device tree.
->>
->> Signed-off-by: Fidelio Lawson <fidelio.lawson@exotec.com>
->> ---
->>   drivers/net/dsa/microchip/ksz8.c | 46 ++++++++++++++++++++++++++++++++++++++++
->>   1 file changed, 46 insertions(+)
->>
->> diff --git a/drivers/net/dsa/microchip/ksz8.c b/drivers/net/dsa/microchip/ksz8.c
->> index 78b42cf50ce2..b6f3a1ce85fc 100644
->> --- a/drivers/net/dsa/microchip/ksz8.c
->> +++ b/drivers/net/dsa/microchip/ksz8.c
->> @@ -1901,6 +1901,41 @@ void ksz8_phylink_mac_link_up(struct phylink_config *config,
->>   		ksz8_phy_port_link_up(dev, port, duplex, tx_pause, rx_pause);
->>   }
->>   
->> +static int ksz8_handle_module3_errata(struct ksz_device *dev)
->> +{
->> +	int ret = 0;
-> 
-> "ret" does not need to be zero-initialized. It is unconditionally
-> overwritten by ksz_write8().
-> 
-> And please sort lines with variable declarations in decreasing line
-> length order. Netdev calls this "reverse Christmas tree" ordering and is
-> the preferred coding style.
-> 
->> +	const u16 *regs = dev->info->regs;
->> +	u16 indir_reg = 0x0000;
->> +	u8 indir_val = 0x00;
->> +
->> +	switch (dev->low_loss_wa_mode) {
->> +	case KSZ_LOW_LOSS_WA_1:
->> +		indir_reg = 0x3C;
->> +		indir_val = 0x15;
->> +		break;
->> +	case KSZ_LOW_LOSS_WA_2:
->> +		indir_reg = 0x4C;
->> +		indir_val = 0x40;
-> 
-> Do the 3c and 4c registers have any associated documentation? Do we know
-> what they are or what they do? We should have some macros for them,
-> instead of magic numbers.
-> 
->> +		break;
->> +	default:
->> +		break;
-> 
-> Is it expected that in the default case (no workaround), the code flow
-> writes indir_val = 0x00 to indir_reg = 0x0000? Or would it be better to
-> just exit early without making any change?
-> 
->> +	}
->> +
->> +	mutex_lock(&dev->alu_mutex);
->> +
->> +	ret = ksz_write8(dev, regs[REG_IND_CTRL_0], 0xA0);
->> +
->> +	if (!ret)
->> +		ret = ksz_write8(dev, 0x6F, indir_reg);
->> +
->> +	if (!ret)
->> +		ret = ksz_write8(dev, regs[REG_IND_BYTE], indir_val);
-> 
-> Is this sequence better suited for ksz8_ind_write8()? Perhaps wrapped in
-> another layer similar to ksz8_pme_write8(), once we know what the magic
-> numbers represent in terms of indirect table?
-> 
->> +
->> +	mutex_unlock(&dev->alu_mutex);
->> +
->> +	return ret;
->> +}
->> +
->>   static int ksz8_handle_global_errata(struct dsa_switch *ds)
->>   {
->>   	struct ksz_device *dev = ds->priv;
->> @@ -1915,6 +1950,17 @@ static int ksz8_handle_global_errata(struct dsa_switch *ds)
->>   	if (dev->info->ksz87xx_eee_link_erratum)
->>   		ret = ksz8_ind_write8(dev, TABLE_EEE, REG_IND_EEE_GLOB2_HI, 0);
->>   
->> +	/* KSZ87xx Errata DS80000687C.
->> +	 * Module 3: Equalizer fix for short cables
->> +	 * The receiver of the embedded PHYs is tuned by default
->> +	 * to support long cable length applications.
->> +	 * Because of this, the equalizer in the PHY may amplify
->> +	 * high amplitude receiver signals to the point that
->> +	 * the signal is distorted internally
->> +	 */
->> +	if (!ret && dev->low_loss_wa_enable && ksz_is_ksz87xx(dev))
->> +		ret = ksz8_handle_module3_errata(dev);
->> +
->>   	return ret;
->>   }
->>   
->>
->> -- 
->> 2.53.0
->>
-> 
-> FYI, the driver is in a restructuring process. The ksz88xx_switch_ops
-> will be split out of the common ksz_switch_ops. This will conflict with
-> your series, so you should rebase on top of that much larger set.
-> You can coordinate with Bastien Curutchet to see what is the status:
-> https://lore.kernel.org/netdev/20260313153849.qkfzv5c2u6fepjku@skbuf
+From: Xuyang Dong <dongxuyang@eswincomputing.com>
 
-Hi Vladimir,
-Thanks for the review and for the detailed feedback!
-I’ll apply your suggestions in the next version of the patch.
-Thanks again for the guidance.
+Add support for the ESWIN EIC7700 HSP (high-speed peripherals). The drivers
+provide basic functionality to manage and control the clock and reset
+signals for EIC7700 HSP, including mmc, USB, ethernet, SATA and DMAC.
 
-Best regards,
-Fidelio
+The clock and reset registers are mapped to overlapping I/O address ranges.
+This causes a resource conflict when two drivers attempt to request the
+same region. Use the auxiliary device framework: the main driver
+allocates the shared register region and passes it to auxiliary
+devices, avoiding resource contention and duplicate remapping.
+
+Features:
+Implements support for the ESWIN EIC7700 HSP clock and reset controller.
+Provide API to manage clock and reset signals for the EIC7700 HSP.
+
+Supported chips:
+ESWIN EIC7700 series SoC.
+
+Test:
+Test this patch on the Sifive HiFive Premier P550 (which used the EIC7700
+SoC), include USB and other peripherals. All the drivers of these modules
+use the clock module and reset module.
+
+This patch depends on ESWIN EIC7700 clock controller patch [1], [2] and [3].
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?h=next-20260331&id=8add6d87dc69c0620c7e60bdc6be6b3b0092d9fa
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?h=next-20260331&id=cd44f127c1d42833a32ba0a0965255ee6184f8c1
+[3] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?h=next-20260331&id=858f6273cf003e97c817903a07d8001b483fe40b
+
+Xuyang Dong (3):
+  dt-bindings: clock: Add ESWIN eic7700 HSP clock and reset generator
+  clk: eswin: Add eic7700 HSP clock driver
+  reset: eswin: Add eic7700 HSP reset driver
+
+ .../bindings/clock/eswin,eic7700-hspcrg.yaml  |  63 ++++
+ MAINTAINERS                                   |   3 +
+ drivers/clk/eswin/Kconfig                     |  12 +
+ drivers/clk/eswin/Makefile                    |   1 +
+ drivers/clk/eswin/clk-eic7700-hsp.c           | 339 ++++++++++++++++++
+ drivers/reset/Kconfig                         |  13 +
+ drivers/reset/Makefile                        |   1 +
+ drivers/reset/reset-eic7700-hsp.c             | 151 ++++++++
+ .../dt-bindings/clock/eswin,eic7700-hspcrg.h  |  33 ++
+ .../dt-bindings/reset/eswin,eic7700-hspcrg.h  |  21 ++
+ 10 files changed, 637 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/clock/eswin,eic7700-hspcrg.yaml
+ create mode 100644 drivers/clk/eswin/clk-eic7700-hsp.c
+ create mode 100644 drivers/reset/reset-eic7700-hsp.c
+ create mode 100644 include/dt-bindings/clock/eswin,eic7700-hspcrg.h
+ create mode 100644 include/dt-bindings/reset/eswin,eic7700-hspcrg.h
+
+--
+2.34.1
 
