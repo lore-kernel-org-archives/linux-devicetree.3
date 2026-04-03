@@ -1,123 +1,288 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-186.mta1.migadu.com (out-186.mta1.migadu.com [95.215.58.186])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BFF82D9ECD
-	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 08:23:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A49D311969
+	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 08:23:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.186
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775204595; cv=none; b=M0UyUD5eGS6WtqGQR/sxIPTcdRseciGkizAmjFS2/jaW+AzmWrb3qoI3tTxHVdxAWtHMryv3DhvtngkrASEdLazXo5v90+Ef8ao0K8js/5VWR5kgEot7XAhnSN8GlwH8BEJhfUSUQ+iqmSkGnJCBAIm4qiA9CXBeiSF+MB40Q2Y=
+	t=1775204636; cv=none; b=HaQn3rnZ4q3d9cNm43UMBJ12F4bfPKoJ2wQY7v9STvIAh7Jil35/WShUSdx4w0vNA4+tDXtrM/xr9Il2BNur7f8R02y+BUwWXT5Q45LtSUdT5HkgG/dojGQ8CXDSgr3pwJWZ7/ZLJtme3pJYTrxA4/lq8s6/SPbKIYoP2Gz3Efw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775204595; c=relaxed/simple;
-	bh=23lg71SS1ypLE/10It2aQYW4KhKP+2cYmx1DGLGdzjA=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=P5BJtvg/+WiYh5+T/Y7nX8As8cPe20wVn4rdX8LafaqNA8CMEXJljmjQ1L4QsX9LXKF9Zo6+gC/2GNLEZExOJ67ElcpG9mY0ckRYnnb3Vrv/EdnvnsPPb8uDVrP2MkvjLRAXwn69IvxW2gNmSW2b0/9+SkvflJ3Al0ocPUOkVaU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=x281Uxd+; arc=none smtp.client-ip=209.85.208.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1775204636; c=relaxed/simple;
+	bh=hTsslI0Z4XPKfpQPNF/pjG2gBW6ZCUbjArtm7AN+VYs=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=sONnZepn+MErc0FKK41tT0O+Gd8hQ4DkDtgUoDWXy9Vyj26/CwTS2d2rYmeiX8pIGzOv+STwGmVHKdViyOS1/l70BRTJ2rRtQWNS6ja88J+ApUzN7owVvcu5sKJ3yEu9/MnlsIyHbMnfD3s6jx4Zo3QdygD/o/g5A8346jcapjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=YfzU6jsS; arc=none smtp.client-ip=95.215.58.186
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="x281Uxd+"
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-66e56756220so186889a12.1
-        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 01:23:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1775204593; x=1775809393; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=23lg71SS1ypLE/10It2aQYW4KhKP+2cYmx1DGLGdzjA=;
-        b=x281Uxd+O1epRbfuICmVyPJkXA5SYdzMCZSDDYsaDeMWFjMZydJgqdSsBiP4QkdMTH
-         wdwKFSAQ7txNW6HyUljdoUrfpaGIzbIL8Bd4WlM1ry+xIUjOlpPr48DdUXY9Lvu58rTc
-         O74XJFcQG7oAytQiloE4qjmhbU1siHb+95qe+uXBaLqAfpLPhAJpLeUhqAWeKprmhtia
-         zHIe2TK9cg/K07gEjcgtRR/e3fjO2HTYc5OZbziBYtWFctlonKUrc6ZD1JZNY0PIa3eO
-         M4/wUPjbs5zxDjzf3g25tDZhbg0hUrf2dAOMw/W+2yXnG7EMOd1EGrOJR4v2pLWagNS0
-         ujKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775204593; x=1775809393;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=23lg71SS1ypLE/10It2aQYW4KhKP+2cYmx1DGLGdzjA=;
-        b=hSDQiuBRBU1mSiyKOuSC4q0XtCrQMzyv8mKKymWTAPxqehEyGiWtyO+k211/SqgZOx
-         92YuGEqaCbt3JYEG6wykG4eaXI5m8NN1UdiY9UzGEtI9HjFm9SLn5JHDNQ9EyN+D/alJ
-         YHY7i2absxcqE3jpH8uFd37gwYjm+LmRV6Zx0L1ysnPV7/OkHPBXbYScxf1sQtGxHmmM
-         xxW6gw9L1DgDDo91JelaRK7nCmP0+emkmRL1H81D6gGt6S6VaqJu1yToSmVJAbG9CxgH
-         B/8ElpxT0j/TsoeCtGxyPvyOOY8jWBQHnL5OFQQEmX8ZB2nXHo+24DO4EeafARscStGE
-         Sqmw==
-X-Forwarded-Encrypted: i=1; AJvYcCUDgNdHGoKQRPQQqx5Kn4dWoNsM+ryR2HPuCR83uqVmJ1/k4F9P2GUzmNXts+vwQ6SF89UjwzYmiWKY@vger.kernel.org
-X-Gm-Message-State: AOJu0YzT7/09XLDuIUySBRF6Z6qjqkBYrGNe5WiWcWkVD1flRknpnKs2
-	bkqL27MNUD4Tmvs+k7A7SYBO0GVtBSoQCxXRYGcs+M6ekZVWdjhXj6oILZ8ixo3c8SY=
-X-Gm-Gg: ATEYQzzZqhYEz9ZQaEuU6yvmGmCaBbdUllL8GI9orLyrkOzRpB7hXVxdxFll7fnALbf
-	J3idrvXszZJ3ZRc5/v1ulEHieS3/oJwgrrY4hNGt6Zky7Sggt3rle0ZJ0uut1UjHLwp8FYulwrk
-	0KWYVuhbSzR8JBYZNmqOZ+1rVbDEq2OJ9pBpx2fRLSHY6zFJ+C9HDfdCHX2ETaywebgF2vm4CNv
-	CM7tr8/3PodisL16TAVUAYEhvBJsIis1KOEpFbnxZcdoeiqvhs27yd8QTDbRaQ0tiKykKMDDtoi
-	NtOsveRoampSlebYpBs6yNMJbcpcq8EyqpRC72SQa8wP+t8ewKQPFgOSt3RVEe/9+7cOK6HyyP/
-	TUQfrwUlPZhmrXnkKHheflBiLIgjDI7KRF2zYgUHKqJB4AL7f8qUg+ZJav48eJvyrVusgBFyMWg
-	zG+rT7zAO1HNRVwH+4Lh1PGtg/v71Hn1hcefueKbH/SdmrdAJFOvM7a29IesKiPeVWXYZvtX0nt
-	fhGLl57in8isFNysWgBNTFrJ63v5RsDh7jU
-X-Received: by 2002:a17:906:b391:b0:b96:e593:fd32 with SMTP id a640c23a62f3a-b9c67308377mr71993466b.12.1775204592537;
-        Fri, 03 Apr 2026 01:23:12 -0700 (PDT)
-Received: from localhost (2001-1c04-0504-7401-4b2e-1820-6d24-b264.cable.dynamic.v6.ziggo.nl. [2001:1c04:504:7401:4b2e:1820:6d24:b264])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-66e034d60desm1398832a12.31.2026.04.03.01.23.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 03 Apr 2026 01:23:11 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="YfzU6jsS"
+Date: Fri, 03 Apr 2026 10:23:28 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1775204622;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=f+Y5FvcTlFgFN2SNN70xIA2iRj8AOL6L5zCnK8NYSpA=;
+	b=YfzU6jsSMYkGjW+dM1NzvctmmMgu3rk4l4KeGBkxoE7aSsZDJR2lUFz7oKeTAZ0YbdOzFT
+	COP6uMo8Qza9UTyWgOmccf4tx0910dOXSC9sl/cYe9uUrKpMc8juHNMla3yS8ZsUycQP4s
+	RZ/bLJmOZeZCY22IprH328WgwSaqkbE=
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Frank Wunderlich <frank.wunderlich@linux.dev>
+To: Vladimir Oltean <vladimir.oltean@nxp.com>
+CC: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ Daniel Golle <daniel@makrotopia.org>,
+ Horatiu Vultur <horatiu.vultur@microchip.com>,
+ =?UTF-8?B?QmriiJriiI9ybiBNb3Jr?= <bjorn@mork.no>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Eric Woudstra <ericwouds@gmail.com>, Alexander Couzens <lynxis@fe80.eu>,
+ "Chester A. Unal" <chester.a.unal@arinc9.com>,
+ DENG Qingfang <dqfext@gmail.com>, Sean Wang <sean.wang@mediatek.com>,
+ Felix Fietkau <nbd@nbd.name>
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v4_net-next_5/5=5D_net=3A_pcs=3A_pc?=
+ =?US-ASCII?Q?s-mtk-lynxi=3A_deprecate_=22mediatek=2Cpnswap=22?=
+In-Reply-To: <20260402095300.hujib22ag6g5wkts@skbuf>
+References: <20260119091220.1493761-1-vladimir.oltean@nxp.com> <20260119091220.1493761-6-vladimir.oltean@nxp.com> <e0ad52862d34cf4e0169c9850a7f164f127d0093@linux.dev> <20260326215404.krh6v3mmnqdlndli@skbuf> <d9639ac711ff8f1186a684fa120ba77247669051@linux.dev> <20260330190443.bol5vjfqqitz7kuo@skbuf> <4dbc3dabfdbc3bdf6b8d411e62a27fa8988e3388@linux.dev> <20260402095300.hujib22ag6g5wkts@skbuf>
+Message-ID: <C59EED96-3973-4074-A4D8-C264949D447E@linux.dev>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 03 Apr 2026 10:23:11 +0200
-Message-Id: <DHJDIAVJ89XO.2OH312F9UMLXN@fairphone.com>
-Cc: "Griffin Kroah-Hartman" <griffin.kroah@fairphone.com>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Bjorn Andersson" <andersson@kernel.org>,
- "Konrad Dybcio" <konradybcio@kernel.org>, <linux-input@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>
-Subject: Re: [PATCH v4 3/4] Input: aw86938 - add driver for Awinic AW86938
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Dmitry Torokhov" <dmitry.torokhov@gmail.com>, "Luca Weiss"
- <luca.weiss@fairphone.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260302-aw86938-driver-v4-0-92c865df9cca@fairphone.com>
- <20260302-aw86938-driver-v4-3-92c865df9cca@fairphone.com>
- <aae7fRYaoDHMptyu@google.com> <DHHWDE7QEOTO.1AQ85UBLO8IQG@fairphone.com>
- <ac1DclNOl3ZA5bUg@google.com>
-In-Reply-To: <ac1DclNOl3ZA5bUg@google.com>
+X-Migadu-Flow: FLOW_OUT
 
-On Wed Apr 1, 2026 at 6:11 PM CEST, Dmitry Torokhov wrote:
-> On Wed, Apr 01, 2026 at 04:44:47PM +0200, Luca Weiss wrote:
->> Hi Dmitry,
->>=20
->> On Wed Mar 4, 2026 at 5:56 AM CET, Dmitry Torokhov wrote:
->> > On Mon, Mar 02, 2026 at 11:50:27AM +0100, Griffin Kroah-Hartman wrote:
->> >> Add support for the I2C-connected Awinic AW86938 LRA haptic driver.
->> >>=20
->> >> The AW86938 has a similar but slightly different register layout. In
->> >> particular, the boost mode register values.
->> >> The AW86938 also has some extra features that aren't implemented
->> >> in this driver yet.
->> >>=20
->> >> Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
->> >
->> > Applied, thank you.
->>=20
->> I'm curious, where did you apply these patches? linux-next doesn't have
->> it and I don't see it in your kernel.org repo either.
->> https://git.kernel.org/pub/scm/linux/kernel/git/dtor/input.git/
->>=20
->> Did this slip through the cracks or will these patches still appear
->> there?
->
-> My bad, I think there was a conflict with Dan Carpenter's patch and as a
-> result the series got stuck in my internal queue. My apologies.
->
-> Should be out in 'next' branch now.
->
-> Thanks.
 
-Thanks, appreciate it!
 
-Regards
-Luca
+Am 2=2E April 2026 11:53:00 MESZ schrieb Vladimir Oltean <vladimir=2Eoltea=
+n@nxp=2Ecom>:
+>On Thu, Apr 02, 2026 at 05:50:33AM +0000, Frank Wunderlich wrote:
+>> Hi,
+>
+>Hi,
+>
+>Please don't top-post :(
+
+Sorry about that=2E Try to do better future :)
+
+I keep context for now (not removing my findings from early mail),i hope i=
+t is ok=2E
+
+Maybe daniel or mtk can respond if my understanding is wrong=2E
+
+>> i tried using these properties in sgmiisys0 node (which should be mappe=
+d to mac0 and the mt7530 switch) without success [1]=2E
+>>=20
+>> it looks like these properties are not read somewhere=2E
+>
+>Can you please clarify whether your problem is with the SerDes connected
+>to a switch port or to a GMAC?
+
+From=20my tests it looks like the issue is on switch side=2E
+
+>Because if to a switch port, mt7531_create_sgmii() doesn't have any
+>phandle to the SGMIISYS=2E That was from existing code=2E
+>
+>		pcs =3D mtk_pcs_lynxi_create(priv->dev, NULL, regmap,
+>					   MT7531_PHYA_CTRL_SIGNAL3);
+>
+>The LynxI PCS will be instantiated without a fwnode and only the
+>defaults will apply=2E
+
+This was a good hint, i had only seen the pcs call for mac=2E
+
+>> the flow is
+>>=20
+>> mtk_probe (eth driver)
+>>=20
+>> if (MTK_HAS_CAPS(eth->soc->caps, MTK_SGMII)) {
+>> 	err =3D mtk_sgmii_init(eth);
+>>=20
+>> and there calling mtk_pcs_lynxi_create with the sgmiisys-node (for each=
+ mac, so imho mac0=3Dsgmiisys0)
+>> but handling the sgmiisys only as syscon, not a "real" pcs node [2]=2E
+>>=20
+>> but your new code calls phy_get_tx_polarity and should read out this pr=
+operties, but from subnode "pcs", so next try was
+>>=20
+>> &sgmiisys0 {
+>> 	pcs {
+>> 		rx-polarity =3D <PHY_POL_NORMAL>;
+>> 		tx-polarity =3D <PHY_POL_INVERT>;
+>> 	};
+>> };
+>>=20
+>> which results in completely strange behaviour (looks like sgmiisys1 is =
+mapped to mac0, but based on code in mtk_sgmii_init 0=3D0 should be right):
+>>=20
+>> [    2=2E765218] SGMSYS_QPHY_WRAP_CTRL =3D 0x501, will write 0x500
+>> [    9=2E143849] SGMSYS_QPHY_WRAP_CTRL =3D 0x500, will write 0x501
+>>=20
+>> but nevertheless i tried changing sgmiisys0 to sgmiisys1 and got the da=
+me result as before
+>>=20
+>> [    2=2E713644] SGMSYS_QPHY_WRAP_CTRL =3D 0x501, will write 0x500
+>> [    9=2E061509] SGMSYS_QPHY_WRAP_CTRL =3D 0x500, will write 0x500
+>>=20
+>> i can only change the second serdes with sgmiisys0, but not the first=
+=2E
+>
+>I assume the second SerDes is mapped to a GMAC port which does
+>instantiate the LynxI PCS with a fwnode, right? If so, the behaviour is
+>consistent with the code=2E Only mtk-soc-eth uses mediatek,sgmiisys AFAIC=
+S=2E
+>
+>> mapping between mac and sgmiisys in dts in mt7986a=2Edtsi [3] are like =
+this:
+>>=20
+>> eth: ethernet@15100000 {
+>> 	compatible =3D "mediatek,mt7986-eth";
+>> 	mediatek,sgmiisys =3D <&sgmiisys0>, <&sgmiisys1>;
+>> 	=2E=2E=2E
+>> };
+>>=20
+>> &eth {
+>> 	status =3D "okay";
+>>=20
+>> 	gmac0: mac@0 {
+>> 		compatible =3D "mediatek,eth-mac";
+>> 	=2E=2E=2E
+>> 	};
+>>=20
+>> 	gmac1: mac@1 {
+>> 		compatible =3D "mediatek,eth-mac";
+>> 	=2E=2E=2E
+>> 	};
+>> };
+>>=20
+>> maybe it is time to revive the PCS framework discussion ([4]-[6])?
+>>=20
+>> [1] https://github=2Ecom/frank-w/BPI-Router-Linux/commit/4846a7bb352fe5=
+911136cba33813f099bac035fd
+>> [2] https://elixir=2Ebootlin=2Ecom/linux/v7=2E0-rc4/source/drivers/net/=
+ethernet/mediatek/mtk_eth_soc=2Ec#L5001
+>> [3] https://elixir=2Ebootlin=2Ecom/linux/v7=2E0-rc4/source/arch/arm64/b=
+oot/dts/mediatek/mt7986a=2Edtsi#L528
+>>=20
+>> [4] * https://patchwork=2Ekernel=2Eorg/project/netdevbpf/patch/20250610=
+233134=2E3588011-4-sean=2Eanderson@linux=2Edev/ (v6)
+>> > pcs-framework itself had not yet got a response from netdev maintaine=
+r (only other parts)
+>> [5] * https://patchwork=2Ekernel=2Eorg/project/netdevbpf/patch/20250511=
+201250=2E3789083-4-ansuelsmth@gmail=2Ecom/ (v4)
+>> > discussion: https://lore=2Ekernel=2Eorg/netdev/20250511201250=2E37890=
+83-1-ansuelsmth@gmail=2Ecom/
+>> [6] * https://patchwork=2Ekernel=2Eorg/project/netdevbpf/patch/ba4e3595=
+84a6b3bc4b3470822c42186d5b0856f9=2E1721910728=2Egit=2Edaniel@makrotopia=2Eo=
+rg/
+>> > discussion: https://patchwork=2Ekernel=2Eorg/project/netdevbpf/patch/=
+8aa905080bdb6760875d62cb3b2b41258837f80e=2E1702352117=2Egit=2Edaniel@makrot=
+opia=2Eorg/
+>
+>I'm not exactly sure how device+driver for the PCS devices would help in
+>this case though? Because the LynxI PCS driver would just retrieve the
+>fwnode on its own, rather than it being passed by the mtk_pcs_lynxi_creat=
+e()
+>caller?
+
+Imho it could be more general and cleaner than calling "external" function=
+ in code=2E If pcs acts
+as own device i would see which dtnode is assigned to it=2E=2E=2Ehere i gu=
+essed both calls were
+from mac,but one was from mac and one from switch=2E
+I tried adding prints before the lynxi call,but this does not make it clea=
+n from where it comes (i guess because of threading)=2E=2E=2Ebut this could=
+ be understanding issue on my side=2E
+
+It looked like this:
+
+root@bpi-r3:~# dmesg | grep 'SGMSYS_QPHY_WRAP_CTRL\|pcs'
+[    2=2E155221] mtk_soc_eth 15100000=2Eethernet: create sgmii pcs for mac=
+ #0
+[    2=2E168308] mtk_soc_eth 15100000=2Eethernet: create sgmii pcs for mac=
+ #1
+[    2=2E699744] mt7530-mdio mdio-bus:1f: add lynxi pcs for switch (port5)
+[    2=2E706773] mt7530-mdio mdio-bus:1f: add lynxi pcs for switch (port6)
+[    2=2E707881] SGMSYS_QPHY_WRAP_CTRL =3D 0x501, will write 0x501
+[    9=2E081259] SGMSYS_QPHY_WRAP_CTRL =3D 0x500, will write 0x500
+
+>We need to have a very good model of what happens when the PCS provider
+>goes away, especially in multi-port scenarios=2E It is a similar issue as
+>to what happens when a phy_device goes away=2E
+>https://lore=2Ekernel=2Eorg/netdev/20260311153421=2Eu454m3e4blkstymt@skbu=
+f/
+>
+>I'm not saying "let's not do that", but we'd effectively introducing an
+>issue that currently does not exist, with the PCS lifetime being managed
+>by the consumer=2E
+>
+>Do you have any better idea by now why SGMSYS_QPHY_WRAP_CTRL is 0x501
+>for SGMIISYS #0? Is that its out-of-reset value?
+
+We guess that switch takes this value somehow from an efuse or similar=2E
+
+I have 2 ways to fix this broken state:
+
+1) to keep dts backward compatibility and due to undocumented behaviour i =
+prefer this patch:
+
+--- a/drivers/net/pcs/pcs-mtk-lynxi=2Ec
++++ b/drivers/net/pcs/pcs-mtk-lynxi=2Ec
+@@ -129,6 +129,9 @@ static int mtk_pcs_config_polarity(struct mtk_pcs_lynx=
+i *mpcs,
+ 	unsigned int val =3D 0, tmp;
+ 	int ret;
+=20
++	if (!fwnode)
++		return 0;
++
+ 	if (fwnode_property_read_bool(fwnode, "mediatek,pnswap"))
+ 		default_pol =3D PHY_POL_INVERT;
+
+2) document pcs polarity (i'm still unsure if this is really correct as i =
+cannot measure in hardware,just from software debugging=2E=2E=2Ebut not sur=
+e if the SGMSYS_QPHY_WRAP_CTRL offset is valid on switch regmap too) - it l=
+ooks for me that by default is different between mac and switch side:
+
+<https://github=2Ecom/frank-w/BPI-Router-Linux/commit/f693e2ed24287ce1e125=
+d7f6202e14e263cc564d>
+
+And add dts nodes like this:
+<https://github=2Ecom/frank-w/BPI-Router-Linux/commit/4f7bce943dda614d2443=
+1d63adad65f1117a7f6d>
+
+If i set same polarity to mac it is broken (thats why sgmiisys0 is disable=
+d)=2E I guess the pnswap property means "invert the default behaviour" and =
+not "use inverted polarity compared to standard" and mac and switch use the=
+ same polarity with different values of the corresponding registers=2E
+
+Based on my register documentation of mt7531 ("MT7531_Reference_Manual_for=
+_Development_Board=2Epdf" page 729) i see
+
+000050EC =3D QPHY_WRAP_CTRL
+Bit 0
+1'b1 : inversed TX_BIT_POLARITY TX bit polarity control (TX default invers=
+ed in MT7531)
+
+Where bit 1 is only defined as "RX bit polarity control"
+
+So my guess is that tx is inverted in hardware,but tx-bit is set in efuse =
+to get the POL_NORMAL=2E
+
+I did not find the register in my mt7986 register documentation=2E=2E=2Ese=
+ems complete networking part is missing=2E
+
+I do not expect that board changes polarity in hardware=2E=2E=2E
+
+Regards Frank
