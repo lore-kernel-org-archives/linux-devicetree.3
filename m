@@ -1,22 +1,22 @@
 Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37C3A2ED15D;
-	Fri,  3 Apr 2026 12:52:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7297138553A;
+	Fri,  3 Apr 2026 12:52:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775220725; cv=none; b=cTrICbM8tJNy2BGQH5N0VFM3ZPqlwRa4LOCJVGK1CrwJ0KiT7r5VNd+f8B+yswJuMVr3x4XpYxBhEtEs0+gFzee6AptHoGfyaj/+KJ+Vt1Kskqa3Lz+LXHfyc0uTqE3Twermd5Optpp21W1s9fqkhBvHDZhqrA8M6o2Bx69674g=
+	t=1775220726; cv=none; b=GNmvu5aUG6TcMps42ksdKh/Xj7Q9hU5zV2rGrqaMdxvqejo8YZK79fKsVdMCXtyw1B1Mhkx+w5pQd29K23H/jEkE7JK784fiLxcQpTjEqbQd6LcLrS1MGfVhdef6IdlcEvUmkXM659+QHy2Ms2NNIH98uKKjwPZ9yByDsmMf6D4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775220725; c=relaxed/simple;
-	bh=Hzvx0/zQUsHFHqD5657yCiA4l4uXUNli3Tb3DUrLxzE=;
+	s=arc-20240116; t=1775220726; c=relaxed/simple;
+	bh=z0+zAu+5+RTvBz4XyLDZsIPh6L6jsKUP3GRgVN1J3Zs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qyPAp+9KaMjstBHnhvfr3kXBNo7Vt2P21BgueLGGaCpV+V0h+5Qi9Z5riurheYtfhx6luICamFn/UsV4KNeXx4I6ApcSnWXiKG/OgyDzxKIZK4PLkeiuL6Qz/7frtdi6P2NY0YDmykWTnDxHzEDLXpfc7oASeVxhy/7qllmRGA8=
+	 MIME-Version; b=sA82ORTE7tfl8wjjDG05EOBrCY2Gij9v513MXKKTychmXADbUkPNK2t16pxNnO3vCzQCL8i33JAHBMOJ43PABLJTN3wEb0YNv74r4HpiQioaK42qCBHX2iiyG4uCvV7yvB0AJ5OMRQcj43uF3fS3Uv+gnrNJ31JIA7hre0YcszY=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from localhost.localdomain (unknown [223.166.95.230])
-	by APP-01 (Coremail) with SMTP id qwCowABnDWnlt89pEvwRDA--.20275S4;
-	Fri, 03 Apr 2026 20:51:51 +0800 (CST)
+	by APP-01 (Coremail) with SMTP id qwCowABnDWnlt89pEvwRDA--.20275S5;
+	Fri, 03 Apr 2026 20:51:52 +0800 (CST)
 From: Han Gao <gaohan@iscas.ac.cn>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -33,9 +33,9 @@ Cc: devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Han Gao <rabenda.cn@gmail.com>,
 	Han Gao <gaohan@iscas.ac.cn>
-Subject: [PATCH v8 2/3] riscv: dts: spacemit: Define the P1 PMIC regulators for OrangePi RV2
-Date: Fri,  3 Apr 2026 20:51:47 +0800
-Message-ID: <bf482a21bc520b0fe831367da43826b73056b408.1775220547.git.gaohan@iscas.ac.cn>
+Subject: [PATCH v8 3/3] riscv: dts: spacemit: Enable USB3.0/PCIe on OrangePi RV2
+Date: Fri,  3 Apr 2026 20:51:48 +0800
+Message-ID: <73ff287b98b182cdefbbc16fe73da4641cbd0d92.1775220547.git.gaohan@iscas.ac.cn>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1775220547.git.gaohan@iscas.ac.cn>
 References: <cover.1775220547.git.gaohan@iscas.ac.cn>
@@ -46,12 +46,12 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowABnDWnlt89pEvwRDA--.20275S4
-X-Coremail-Antispam: 1UD129KBjvJXoWxWw4kCFWfAFWDGr1xZrWDArb_yoW5KrW5pa
-	n8ZFsxur4rAFyxJw45Ww1xta15Wr1Ykasrury0krWrJrWUtFnFkr9Fyr1rt3W8Ja1vvw4Y
-	yrW7ZFyxtF1Ig3DanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID:qwCowABnDWnlt89pEvwRDA--.20275S5
+X-Coremail-Antispam: 1UD129KBjvJXoWxXFyDCF45tF45CF4DXw45Awb_yoW5WFyxpF
+	47ursI9as3Ar1rKw43Wa4IgF43Wa1kGFZ3CwnY9F48Jr4vgas09rZayr1rAFn5Jw4kX34a
+	yFyUAFyxGrnFgw7anT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDU0xBIdaVrnRJUUUm214x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jryl82xGYIkIc2
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JrWl82xGYIkIc2
 	x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
 	Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJw
 	A2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS
@@ -63,169 +63,139 @@ X-Coremail-Antispam: 1UD129KBjvJXoWxWw4kCFWfAFWDGr1xZrWDArb_yoW5KrW5pa
 	kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY
 	6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIx
 	AIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVF
-	xhVjvjDU0xZFpf9x0pRRVbgUUUUU=
-X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiBg0GDGnPrIkYKAAAsy
+	xhVjvjDU0xZFpf9x0JUUl1kUUUUU=
+X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiDAUGDGnPqxAcFQAAsX
 
-Define the DC power input and the 4v power as fixed regulator supplies.
+Enable the DWC3 USB 3.0 controller and its associated usbphy2 on the
+OrangePi RV2 board.
 
-Define the SpacemiT P1 PMIC voltage regulators and their constraints.
+The board utilizes a Genesys Logic GL3523 USB3.0 hub.
+
+Define a 3.3v fixed voltage regulator for PCIe and enable PCIe and
+PHY-related Device Tree nodes for the OrangePi RV2.
 
 Co-developed-by: Chukun Pan <amadeus@jmu.edu.cn>
 Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
 Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 ---
- .../boot/dts/spacemit/k1-orangepi-rv2.dts     | 131 ++++++++++++++++++
- 1 file changed, 131 insertions(+)
+ .../boot/dts/spacemit/k1-orangepi-rv2.dts     | 81 +++++++++++++++++++
+ 1 file changed, 81 insertions(+)
 
 diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-index 57ec1cc32b03..f7a1dadaa95f 100644
+index f7a1dadaa95f..5b331bf987db 100644
 --- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
 +++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-@@ -23,6 +23,25 @@ chosen {
+@@ -23,6 +23,15 @@ chosen {
  		stdout-path = "serial0";
  	};
  
-+	vcc_5v0: regulator-vcc-5v0 {
++	pcie_vcc3v3: regulator-pcie-vcc3v3 {
 +		compatible = "regulator-fixed";
-+		regulator-name = "vcc_5v0";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
++		enable-active-high;
++		gpios = <&gpio K1_GPIO(116) GPIO_ACTIVE_HIGH>;
++		regulator-name = "pcie_vcc3v3";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
 +	};
 +
-+	vcc4v0: regulator-vcc4v0 {
+ 	vcc_5v0: regulator-vcc-5v0 {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vcc_5v0";
+@@ -42,6 +51,16 @@ vcc4v0: regulator-vcc4v0 {
+ 		vin-supply = <&vcc_5v0>;
+ 	};
+ 
++	vcc5v0_usb30: regulator-vcc5v0-usb30 {
 +		compatible = "regulator-fixed";
-+		regulator-name = "vcc4v0";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <4000000>;
-+		regulator-max-microvolt = <4000000>;
++		regulator-name = "vcc5v0_usb30";
++		enable-active-high;
++		gpios = <&gpio K1_GPIO(123) GPIO_ACTIVE_HIGH>;
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
 +		vin-supply = <&vcc_5v0>;
 +	};
 +
  	leds {
  		compatible = "gpio-leds";
  
-@@ -91,6 +110,118 @@ &i2c8 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&i2c8_cfg>;
- 	status = "okay";
-+
-+	pmic@41 {
-+		compatible = "spacemit,p1";
-+		reg = <0x41>;
-+		interrupts = <64>;
-+		vin1-supply = <&vcc4v0>;
-+		vin2-supply = <&vcc4v0>;
-+		vin3-supply = <&vcc4v0>;
-+		vin4-supply = <&vcc4v0>;
-+		vin5-supply = <&vcc4v0>;
-+		vin6-supply = <&vcc4v0>;
-+		aldoin-supply = <&vcc4v0>;
-+		dldoin1-supply = <&buck5>;
-+		dldoin2-supply = <&buck5>;
-+
-+		regulators {
-+			buck1 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3450000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck2 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3450000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck3_1v8: buck3 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck4_3v3: buck4 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck5: buck5 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3450000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck6 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3450000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			aldo1 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+				regulator-boot-on;
-+			};
-+
-+			aldo2 {
-+				/* not connected */
-+			};
-+
-+			aldo3 {
-+				/* not connected */
-+			};
-+
-+			aldo4 {
-+				/* not connected */
-+			};
-+
-+			dldo1 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+				regulator-boot-on;
-+			};
-+
-+			dldo2 {
-+				/* not connected */
-+			};
-+
-+			dldo3 {
-+				/* not connected */
-+			};
-+
-+			dldo4 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+				regulator-always-on;
-+			};
-+
-+			dldo5 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+			};
-+
-+			dldo6 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+				regulator-always-on;
-+			};
-+
-+			dldo7 {
-+				/* not connected */
-+			};
-+		};
-+	};
+@@ -54,6 +73,10 @@ led1 {
+ 	};
  };
  
++&combo_phy {
++	status = "okay";
++};
++
+ &eth0 {
+ 	phy-handle = <&rgmii0>;
+ 	phy-mode = "rgmii-id";
+@@ -224,8 +247,66 @@ dldo7 {
+ 	};
+ };
+ 
++&pcie1_phy {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pcie1_3_cfg>;
++	status = "okay";
++};
++
++&pcie1_port {
++	phys = <&pcie1_phy>;
++	vpcie3v3-supply = <&pcie_vcc3v3>;
++};
++
++&pcie1 {
++	vpcie3v3-supply = <&pcie_vcc3v3>;
++	status = "okay";
++};
++
++&pcie2_phy {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pcie2_4_cfg>;
++	status = "okay";
++};
++
++&pcie2_port {
++	phys = <&pcie2_phy>;
++	vpcie3v3-supply = <&pcie_vcc3v3>;
++};
++
++&pcie2 {
++	vpcie3v3-supply = <&pcie_vcc3v3>;
++	status = "okay";
++};
++
  &uart0 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&uart0_2_cfg>;
+ 	status = "okay";
+ };
++
++&usbphy2 {
++	status = "okay";
++};
++
++&usb_dwc3 {
++	dr_mode = "host";
++	#address-cells = <1>;
++	#size-cells = <0>;
++	vbus-supply = <&vcc5v0_usb30>;
++	status = "okay";
++
++	hub_2_0: hub@1 {
++		compatible = "usb5e3,610";
++		reg = <0x1>;
++		peer-hub = <&hub_3_0>;
++		vdd-supply = <&vcc_5v0>;
++	};
++
++	hub_3_0: hub@2 {
++		compatible = "usb5e3,620";
++		reg = <0x2>;
++		peer-hub = <&hub_2_0>;
++		vdd-supply = <&vcc_5v0>;
++	};
++};
 -- 
 2.47.3
 
