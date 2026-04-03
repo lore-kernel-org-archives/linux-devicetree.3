@@ -1,21 +1,20 @@
 Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E70921F131A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C19121A447;
 	Fri,  3 Apr 2026 12:37:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775219859; cv=none; b=I3zT+VOSjLMrqmJGI1rfVtZL1+Qxlh2K57xb0BcmxE2+IZFOoSi34bKAW2V523TntKMzSYcWcfdV3YqG9h5zleknmODsnTQlZ0i3w3I0Uvh//ZZP1lnGP6r8s/4g1wulSdJv05+cR/zI4tvuQghox9MrLvnHElVMRB3q3ahjVHI=
+	t=1775219860; cv=none; b=HN4ORAub3YKPWEyHK6cfb0LWSzaH9enuoRHoYIY2kbwXk6pZE2ydmpFFjugDOIHriWX+FsTePJ2K6uQRanMG+YYhTWj7YfMMMy/RckheUk494c+pUoWu/xRFwq5KPEy16Aa0XgzMugiJ7OrHTd9UDf7V7FCv5CP93UHSxE6J4YI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775219859; c=relaxed/simple;
-	bh=MKrFLZu/k3+Lwop7Y0K/oCC+/Sd9aNsj671ymO3M0dY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qzdL9/XFFX+VmahRKjeNEAYO7wb+Um9oDjKWgSPVgg3QBoaozIXh7RBAHeFzXd7Q8z+Xu2q+QrZxUApqi75Ea4fQHoR6c5FDLuyG6VQEJ1jsUHqjo3xOqhPM0OvgTtUVeD2R6vM7+Btmv5JE8Lx37x+NNHV1uoAdA0XSlnUF4Uc=
+	s=arc-20240116; t=1775219860; c=relaxed/simple;
+	bh=5u7A2PozaJLqdJlt7qmde/AvEj2FCl14kJaAywP7fso=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L7axuTUhWM4AZLqn9XVc0zW7OtgOfU97DAvKphJIHWrTFbdM6R4SRNG//MudGY5ZXjjSThMmqj3EY3Q/DvU3Et7krhWySJstZMlbGIB2zRn6W5p1NzhwmFXFXZpihHMjEkzKCXG0OmPaRjldE/yUOoHiEG7ObDElYIKDYDQTG4I=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from localhost.localdomain (unknown [223.166.95.230])
-	by APP-01 (Coremail) with SMTP id qwCowACXPWmHtM9pCsgRDA--.1349S3;
+	by APP-01 (Coremail) with SMTP id qwCowACXPWmHtM9pCsgRDA--.1349S2;
 	Fri, 03 Apr 2026 20:37:28 +0800 (CST)
 From: Han Gao <gaohan@iscas.ac.cn>
 To: Rob Herring <robh@kernel.org>,
@@ -33,12 +32,10 @@ Cc: devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Han Gao <rabenda.cn@gmail.com>,
 	Han Gao <gaohan@iscas.ac.cn>
-Subject: [PATCH v7 1/3] riscv: dts: spacemit: Enable i2c8 adapter for OrangePi RV2
-Date: Fri,  3 Apr 2026 20:37:23 +0800
-Message-ID: <f9988efabcabb8c97490ea61244cd022c2722c79.1775219669.git.gaohan@iscas.ac.cn>
+Subject: [PATCH v7 0/3] riscv: dts: spacemit: Add PMIC regulators usb pcie
+Date: Fri,  3 Apr 2026 20:37:22 +0800
+Message-ID: <cover.1775219669.git.gaohan@iscas.ac.cn>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1775219669.git.gaohan@iscas.ac.cn>
-References: <cover.1775219669.git.gaohan@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,50 +43,65 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowACXPWmHtM9pCsgRDA--.1349S3
-X-Coremail-Antispam: 1UD129KBjvdXoW7Xry5AF4DWFyxCFyDZFyxZrb_yoW3GrX_CF
-	13Cay09FyUGrWvkFn7Xr1rta1xu3y5KrWSywnaqr1UGa4FgrWfKrWUKFWkJw15WrWjvrW3
-	Jw48tFyxJwnIkjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbkxFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUGwA2048vs2IY02
-	0Ec7CjxVAFwI0_Gr0_Xr1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xv
-	wVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84
-	ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1le2I2
-	62IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcV
-	AFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG
-	0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI
-	1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_
-	Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17
-	CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0
-	I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I
-	8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2Kfnx
-	nUUI43ZEXa7VUjrHUDUUUUU==
-X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiBg0GDGnPrIkRRQAAsW
+X-CM-TRANSID:qwCowACXPWmHtM9pCsgRDA--.1349S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ur15XFW8Zry3Xw17Jr4kXrb_yoW8uw17pr
+	y29r43uw4rXw42y393uws8Jr15KFn5Ar9Igr1UKw18ArnFgay7Za1xtr42vF9xur45tFsr
+	trs7Aw4xur4xZF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+	n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+	17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
+	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+	IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIda
+	VFxhVjvjDU0xZFpf9x0JUd-B_UUUUU=
+X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiBg0GDGnPrIkRQgAAsR
 
-The adapter is used to access the SpacemiT P1 PMIC present in this board.
+Changes in v6:
+ - patch 1:
+   reorder i2c8
+ - patch 3:
+   restore vcc5v0_usb30
+   remove vin-supply from pcie_vcc3v3
+   restore vpcie3v3-supply from pcie2
+   update hub vdd-supply
+ - Link to v6: https://lore.kernel.org/linux-riscv/cover.1775214644.git.gaohan@iscas.ac.cn/
 
-Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
----
- arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts | 6 ++++++
- 1 file changed, 6 insertions(+)
+Han Gao (3):
+  riscv: dts: spacemit: Enable i2c8 adapter for OrangePi RV2
+  riscv: dts: spacemit: Define the P1 PMIC regulators for OrangePi RV2
+  riscv: dts: spacemit: Enable USB3.0/PCIe on OrangePi RV2
 
-diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-index 7b7331cb3c72..57ec1cc32b03 100644
---- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-@@ -87,6 +87,12 @@ &pdma {
- 	status = "okay";
- };
- 
-+&i2c8 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c8_cfg>;
-+	status = "okay";
-+};
-+
- &uart0 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&uart0_2_cfg>;
+ .../boot/dts/spacemit/k1-orangepi-rv2.dts     | 218 ++++++++++++++++++
+ 1 file changed, 218 insertions(+)
+
+
+base-commit: 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f
+prerequisite-patch-id: ef6e9c7b5854d0c08066b72f9a7868db8c2140eb
+prerequisite-patch-id: cfe3800f8c791ec4c63e070af9628e88e0fc31b9
+prerequisite-patch-id: b76493e625ae257c8adcd67874178458420e4d47
+prerequisite-patch-id: 88e01dc92c83bd88ddeb78891d3088209fed8d6b
+prerequisite-patch-id: 60336d10ab8322c70596d0f046b6b5c54bb24b54
+prerequisite-patch-id: 68c4d869548687dc115dd91e2ffb8f4c11482d86
+prerequisite-patch-id: fdadcf964c2cb3406160edb579d99a8d5695f8e6
+prerequisite-patch-id: 73b9e745338b0499b849fa4f7f9508987ab39a59
+prerequisite-patch-id: cd26770c2160c3c31a406bd8a6b01ab666180ae0
+prerequisite-patch-id: e5dfddc32cefae195692da8b80e19adf086e4ad7
+prerequisite-patch-id: 7fd53cbe4977598f26148a4bb1cf692bbdb79a09
+prerequisite-patch-id: 96ebac57bb29619b97fe95422206a685825618e9
+prerequisite-patch-id: 00fac16b52f60383db3140e2885f3f7f8d14dd1a
+prerequisite-patch-id: 3b7a60047b922c48e93599f621cb738856f42354
+prerequisite-patch-id: 275c030b963be05dd1041451f539a130ce614277
+prerequisite-patch-id: 93963424b0871e64276af0e0b2199b52e29b4603
+prerequisite-patch-id: 8383188b1c01ed6280629faaa29c37d699ade241
+prerequisite-patch-id: 5f8126b912b924d63d4a1e0c5eb42d212eb0d369
+prerequisite-patch-id: e80af628a2e0b5f2eeb3cb1b5e7133d08bdd2c4e
+prerequisite-patch-id: 0234a6dca15eb91f98a45a46604ce5b4935048a5
 -- 
 2.47.3
 
