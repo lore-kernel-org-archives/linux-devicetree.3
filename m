@@ -1,157 +1,177 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011051.outbound.protection.outlook.com [40.107.74.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3744352C52
-	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 20:02:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775246556; cv=none; b=jEzsOXp/6xjA1PnWdfyO78eY0CL5Vd3u2ymFIDC2rVWiLOH+WNA2uk1P6NK6RCbq8P9O+OmISAip5CfutBX9K660z8WQh7f1c2KiLLczb9SaZ48til3JnQj2EQc6c9unSiMLeLrXcFhjdgBW+wASh3eDO5SIf73cxXCQNSV92xo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775246556; c=relaxed/simple;
-	bh=crMzeAvRDKSc+oYzWKMBeU0u1eHcNkl52DqLw8sUBNQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EmcQ9W6AVIBs+kgKgACii8Psc6NqfD9+lcbPDr2779hIeBcB8WP73l3hXoYvufGAkNc+4tG8gQcy1OlaS/CD2mJhHxqoSIam8GN+QaT5kEgDhtCJHEf1Z5RT8mysDlbCoczmPNJTYfd88z7ycGo0ut+l0pwk23TMikZnaU7f3A8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AX62KU0S; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jETuYKUc; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3966736164D;
+	Fri,  3 Apr 2026 20:03:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775246582; cv=fail; b=gIYcvAkGuGJj6syfylO2TBurR9qRrVjqiGdbSmDE6IvUHBNJbXFKXL9AqSLBnmNx56mrK90AspnZkDrijTTxPUVxUWPOig6pEZhVCJ2FrwwqJcy5lAqUfYbDUhYGMZY3EWF0kwJ3+iYtwuYIFoqiKWbwUBAWU2NYt3nSvjCJZFQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775246582; c=relaxed/simple;
+	bh=/I/n35VqEYeoJady8K4Wi+jOGLMtGvEq0K2QRjYPHyA=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=gBolme72UUTE3cDJHJwnZOJyrssOP0L7LYQ0Wpu2N1nz9rdUTiW1IhGPRPEO56LacYBKYW1+IY/HuTHST68c9rdCjliQN+XYVg6YHodSgBn8iUfkS6AzR8mwcaIrDr8l5ZHF28Y9yHfiIoxJeqIi3/drzIdDkplUo05BWWj2rPE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=C87jtg4E; arc=fail smtp.client-ip=40.107.74.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AX62KU0S";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jETuYKUc"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 633EZ7q4142094
-	for <devicetree@vger.kernel.org>; Fri, 3 Apr 2026 20:02:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=6SBF5UL6FbQfto/4s8YknHPL
-	hSX/uFdWPyfp8iHTzv0=; b=AX62KU0Sn6FDkeYtRGyaADed8cM90clzxYajwt99
-	Hi6N7yFfwhWio5vGDSBjlfMMzMok1Kj6XFjezvhQb4VmWQTJY+3FMn230Noj92Ux
-	M9DZkRh2cjWidCGlJzxwz0D/WqV1Qjiis/0czp/gxyH8mEV3SVux2hqLbNnFzjjf
-	X4cV9S2ZD4ZQOiiphdbKfTNaL0YWzmahnmyYPCMfddobDqUac1jiWUeJQ+5A/maN
-	OIKqP5CN40x2O0jwMIVJRd6KZQnNwrfUbwDCOSMs9stDfNeA4oNr7YvOq8TfiIOJ
-	QfMCrbH++etGq91UlUynhfsU7hpnsWrVr2Hq+r3gxZ2Y7g==
-Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4da83y284c-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 20:02:34 +0000 (GMT)
-Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-953e00e8ea7so953550241.0
-        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 13:02:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775246553; x=1775851353; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=6SBF5UL6FbQfto/4s8YknHPLhSX/uFdWPyfp8iHTzv0=;
-        b=jETuYKUcx8YPZf2kpeevCrbpZ2X7WZu27r9PKyhV93FCkqFUqERh6mejjYhFKSgrvT
-         TrQRjx5sjr8QWI0GAo2NsjBjA8AKZr7PaZih6LK5O3HEP4w17qeoH/5Joz+/VsoHS59Z
-         uV2i7OAlcRVbr0pV+KJ2t4b9wr5JrZp+nwoMx/h2lpOFHG9Hww5F9fN9o3j5t02UaDEK
-         uNOvG0xJgicPW0ryVTv39W3N20t625Ic6d5gQYLU4G3UBaun0tYeVS4LiCactDAS1MTb
-         rQrdZ4BUewIIawSFX2PEuK3Vt3GmQpLYiw8R6/Zuk3lQg0CZkyHWiXjDlLDQmmHTuZRi
-         MD7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775246553; x=1775851353;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=6SBF5UL6FbQfto/4s8YknHPLhSX/uFdWPyfp8iHTzv0=;
-        b=ARAXZDmpb1GXslvgoxkJ6g+5aVGrFWizhvc22MM/Dd9+Wrr374WylxBCMXRl4svwUg
-         UIV5wCHuWQdqHv5IujZRFNjUJUTRI4iwHfA+p8hO0D8U/lbwQX4lluQ6t52qIF5ymVo1
-         x9J6ifAjDSMFNjBLsp/7X5dOlxjowprhSAcFGBvCkRyPDeF5jBSGPbUv3N7HLi4vcf/B
-         TqF8LJwG+22tpPOCZz+ToBSzmYQ6fYeW2JAPeBP+8G0hwC1Gs28whUO0kq93ZCm/xWf9
-         f51jo4yPDFz4phPB9NDHnAvMgt6m/BVqgzxGCqiPaQUksUx+cjn2EyuTRjKhVjvqCh8U
-         45Qg==
-X-Forwarded-Encrypted: i=1; AJvYcCWa6qsWYRkGUoqlK1lOBCTSu73X10F3bLO8+hfJDOm0hTkxaMEwooHcdWqR8a9Fw4kGhr465UIAACpx@vger.kernel.org
-X-Gm-Message-State: AOJu0YywvSnbLxUXyUJ+lGHGZFxOv9pl0HlJ+epofsnRD/R1csdmYc3q
-	DFR+8haqOOvTaQITNCA7lzjsNoJLOhMS0naHEV+rb6VDQ5t3OgP1JNNF14W2NfYXu8o/bqlYXGu
-	lQpVqYYIikLspbvZd07YhkrdGeh7BrHdIWpPSDC8Hgw4nfgscc/DdMfS5nyLxHAJ0
-X-Gm-Gg: AeBDievUlToWGxf8dnSi8t+enNHuurbG0MrKQLkXoT+tmm3v6yy4K78vx0+9xC5bO82
-	YuZiubUrqJBrwovkVQYbdXTvmYko/6xYFMmFZLZpDQ8ggXF76GbBvdXqNtxl3aZs2X4rUCjq6Er
-	Lq4zrjJp4mn8XNQoO+zX5VVTK/LX3/EaBKUeO4b4Y+6j44+5Ph1iF924c4JTyiO2+Cxxs4ABcae
-	PdmOKYlHwmMGu30FGKBHOln5LDZyHe2NpXCsUcz36rPI36n0JLrs3ESGj98clnJuWTWOpbsOgJT
-	9tgD1Cp+3c3Wc1XUG2wDAv+njVDOyxk3hQe7oY8lK3/WufbQ1Bch1iOLi2OGEx3IybNIzHPwbyk
-	PWdfEjP243K2nNm/1Bjydo66rF6KtrH8DhjsWmc7R6NLqFQ/g6I9egJBUZaYymq7AuzB47Eqv/Z
-	Y2A3P7rqozaRKBB2SQoNeD3ZYRQeGhrNP78X4=
-X-Received: by 2002:a05:6122:e469:b0:56b:a6b4:5902 with SMTP id 71dfb90a1353d-56daba46a67mr1470006e0c.16.1775246553098;
-        Fri, 03 Apr 2026 13:02:33 -0700 (PDT)
-X-Received: by 2002:a05:6122:e469:b0:56b:a6b4:5902 with SMTP id 71dfb90a1353d-56daba46a67mr1469977e0c.16.1775246552613;
-        Fri, 03 Apr 2026 13:02:32 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a2c6cc6033sm1700350e87.48.2026.04.03.13.02.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Apr 2026 13:02:30 -0700 (PDT)
-Date: Fri, 3 Apr 2026 23:02:28 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Luca Weiss <luca.weiss@fairphone.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Alexander Koskovich <akoskovich@pm.me>,
-        ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>
-Subject: Re: [PATCH v2 2/3] clk: qcom: Add support for GXCLK for Milos
-Message-ID: <nxeer7565nk7mcyqucak7cetdgzsueqpvvy7hj52al6743qcox@yvyb5ixtnzpx>
-References: <20260403-milos-gxclkctl-v2-0-95eb94a7d0a4@fairphone.com>
- <20260403-milos-gxclkctl-v2-2-95eb94a7d0a4@fairphone.com>
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="C87jtg4E"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bTGoh1M/ynjIY8jfUMTJsKo8EJPXDqDKotefkPxH4Yytf/TKiOrR0suRr/1PWj/ccbelgSlkKuVQ1B5n4WWfoOvwsjKZflft40AS2Y8RCo6E4DRI3fYHNrtcYlhh+jEWH4nNXJq6EZ+Znve2PCeJX3fqNAFxbGJZe/EMOU5ksQOmCEdTK4Svn1s3O7xCVp18Qc1US+GfIb/f82sFZ+jkBiLzmqxI7mTU9v5n8cVN7+1HaTVX5i6U2x69ORYdHvkUhnWPD1YNaZNJtW/YKgM5CGHtUhYEITdAhSEPllAsPou/fHUM4WaHoxIv4CILC826IRE5ACY6Lm8lzvf7Mc/1pw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YOj7JRjyTxBYQ14BQq54ujWYsZV77W2S4e+viCJtI4U=;
+ b=Z5RQVDTU5ryKNMGB3+Z27tJVPEP2klSL0d5ds7wEZsyg3ABQKe21c8JiOwT4aqjPjPBWe2cGNDUKAuJ6axX0NVGvhCbB/43e4Qg+2yDYlRe0P9aFpv42HvvM//DaspfE0J0yAZ+WvNwuzjvkXUlh01/p3A3Bw5spH+OY78xnuuCk5qR0m4w08IaDu7hnaQb+tzRd7sNG7PT8tZAiYGV8JUiONxEpasYskZY73NGvhF5NCb5JMoFTwjgf7bXwGjbNCvn6WKcFBg1vUAJCrwdhC3aZH5IxqwRpn0APp5mlGfzt9i7szFrjrBozwG2RqfTu6kGkz0HmCHYFN/AaFpj4EQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YOj7JRjyTxBYQ14BQq54ujWYsZV77W2S4e+viCJtI4U=;
+ b=C87jtg4EOUeMAFh5dxDuJ+tOjkKL0b9P6OkkFdnZdAgE3zeir2Uhd3f3leZsXQ9OnATvpyXeT4MWdCHgDcSgytw6Kh2xGoE0oRcMpgzKu6TUFPdgA3RD3+HBEtRXjIKACvus0vGDV14/kbotEEFILYwBItbevOr9fHoykUrul5E=
+Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com (2603:1096:405:35b::6)
+ by OS3PR01MB10008.jpnprd01.prod.outlook.com (2603:1096:604:1df::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Fri, 3 Apr
+ 2026 20:02:58 +0000
+Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com
+ ([fe80::f373:26d6:86c4:6aa3]) by TY6PR01MB17377.jpnprd01.prod.outlook.com
+ ([fe80::f373:26d6:86c4:6aa3%4]) with mapi id 15.20.9769.016; Fri, 3 Apr 2026
+ 20:02:58 +0000
+From: John Madieu <john.madieu.xa@bp.renesas.com>
+To: Mark Brown <broonie@kernel.org>
+CC: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Liam Girdwood
+	<lgirdwood@gmail.com>, Geert Uytterhoeven <geert+renesas@glider.be>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+	<tiwai@suse.com>, magnus.damm <magnus.damm@gmail.com>, Philipp Zabel
+	<p.zabel@pengutronix.de>, Claudiu.Beznea <claudiu.beznea@tuxon.dev>, Biju Das
+	<biju.das.jz@bp.renesas.com>, "john.madieu@gmail.com"
+	<john.madieu@gmail.com>, "linux-sound@vger.kernel.org"
+	<linux-sound@vger.kernel.org>, "linux-renesas-soc@vger.kernel.org"
+	<linux-renesas-soc@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCh v3 10/14] ASoC: rsnd: adg: Add per-SSI ADG and SSIF supply
+ clock management
+Thread-Topic: [PATCh v3 10/14] ASoC: rsnd: adg: Add per-SSI ADG and SSIF
+ supply clock management
+Thread-Index: AQHcwr1pAzAyXF5bLEakh+bcszcXI7XMEE8AgAGzbaA=
+Date: Fri, 3 Apr 2026 20:02:58 +0000
+Message-ID:
+ <TY6PR01MB17377119F7652E03C92211FD0FF5EA@TY6PR01MB17377.jpnprd01.prod.outlook.com>
+References: <20260402162436.12059-1-john.madieu.xa@bp.renesas.com>
+ <20260402162436.12059-11-john.madieu.xa@bp.renesas.com>
+ <9182f54f-c413-4337-ad72-4a847dd58fa5@sirena.org.uk>
+In-Reply-To: <9182f54f-c413-4337-ad72-4a847dd58fa5@sirena.org.uk>
+Accept-Language: en-US, en-GB
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY6PR01MB17377:EE_|OS3PR01MB10008:EE_
+x-ms-office365-filtering-correlation-id: bd0595a5-f38a-4506-0b4a-08de91bc00d3
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|7416014|376014|38070700021|22082099003|18002099003|56012099003;
+x-microsoft-antispam-message-info:
+ 3t6FiJeZafjBdVYIxijlPApkd9PmlAxzUn2YUHPRSB3LpdxRaor4AGEJuNJOd+6EZdzPSZDimO2hGom17oBzxCLmlv+dtHYZ7iTKxrQM7A4Dgr/EiXpl/VwqeA9gBcuBNl9jNb+xk+yqEBKpIPs9p2Qmg66IAaPTS6mbRpqFUFTmv+if3CfbO3g/+7elzqmk/d4FIdWQnsUbeZh/fpMr6i1MkSdlMzOA3f1g0KvFT++V7E2SXopVwzvlLwbv8oxZ+MDFvxWMih3MnvwoEmoFQxB8FXRxohW8yvMuQel+6r5l5Ua/aJg9hsgDhjQffktHfdg0a+qL6p4+VqBl343sVkGEI0jb1bI2hYGgCp29TjHRU388XP5sEN3aR0kq+/a08+Xa4oR5wuSpSdcyiISd0GheSX2zANKtrwSq6FWtAFqi3WZJTdxMd+2zgihShkK/y+1jsehD9c34hO47zR6Xir8l2jAXmPvAlXJk+blVpTZJ0J263cvMUlqGPO3JOsaooZBV1Eniu2mh2h8ffI7RW6ckgyrSRxGoxLv56vbO3ZIPNGU+5pKAgSV2ETu5X3GNJ3oiYHvUhZUGaTwds/cTtnNvSrpW+CBxIiy8VLHS82K7ct+u7gMRrUOOFBaggbtgZWNzUwF9ErLH+qEQOyaBzFbEHN/u//UKIh+3HNJrI2+bAYoAoA4UsGwBh4DUTvADRXQfb81suLcuwbnqqNA0QBPYuPfpPS445Jubif1QlzFpbsniKhhyQEafoB+hIml03mfBV+In/cqonz5W8csjg+NMzGL8QaG3BpwTlCpK7vI=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY6PR01MB17377.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(38070700021)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?OtktiRC0VmqeiqIorBCMyo9v0HOJqoPJBeAv803zCNv3E8tZf4QEcUGhOEMq?=
+ =?us-ascii?Q?Kd1WGYEHO7ixw0DDvUL/WTZ5h3VY/50cLYVeS8Xwqjd7czhYcAQtJnUyJC9B?=
+ =?us-ascii?Q?5FOaAh9hwH71oiVK42ZCyRXAbZmfMOdDPpAl86w42DzZDKJCwKVy0r9YWI0G?=
+ =?us-ascii?Q?OcAAu8sijeryt7VX0N8/gB+oDLt+UNWtIn9/Su7JEn2umxI9jvrbeJOEm1Op?=
+ =?us-ascii?Q?1ty3EcStJmuHa0MJQedFqCTS6yOJfgS/V5I8Yi/XcI/nsUjLQqPA2EpvN9O4?=
+ =?us-ascii?Q?R0zwtO8Nx7+RwyCx7STKrn4n+6m62Dgo4MeT4dVQz7FF+NvY+lY+jDHxh3pz?=
+ =?us-ascii?Q?K3tEOfHrNfhWOYK+9hxUijOjDA7tJbqjLBOV2+2BYqJTwY1Vp3RsyLh8iiS3?=
+ =?us-ascii?Q?a4gGeRzPxKql9vyE7frv3dg8U5Qb4dY//V0qjYrUfaBCwVCVXVA/EMoIKJ3y?=
+ =?us-ascii?Q?SmFs686wJrm1u2TmQrmVWDFZvTcqMr6MpANyi085Npw70/wD7RCp0dFC6QIG?=
+ =?us-ascii?Q?NcYJ9yMAIJCgl4TWFMg30QDofC0ez+ToMz9718/RIBqPXhzEzk+H0QCbTWcE?=
+ =?us-ascii?Q?YW9ObFcR0zI34a0QQ1nU2VYLVIfwGxCla3zQEpuD+FSgJYB9KlHqReacSMIj?=
+ =?us-ascii?Q?djm4jl9Y16YlcDbz57aSacp8/6J9+oQqWcyu4+ZCOs1J4eDxUzDOEBRz93bN?=
+ =?us-ascii?Q?Nn4EVP2RgjdGsUxJUeYqTsIM6ZZnuVxrFgbpfCQcJ1j+zPJMvFsukowJRp3A?=
+ =?us-ascii?Q?Xy/eR9oZjj6K59j901+xypuF2r6re6LGC7qvIrZbnVHZFwuyTXmnuul64uuq?=
+ =?us-ascii?Q?PVP3d99I8waqeBIZX/S7NDBjz3BR038cA0T3wk/MHL/fH9r4FPChbpt2lKp8?=
+ =?us-ascii?Q?O8m2/T8dQMpaetNvYfC/j0yPIQ216HYViyZrbtUc8pYteCxh7bY9SwnEhdpV?=
+ =?us-ascii?Q?5vs6ltQymxXrTqGoN6XVrnszHXsMqJZz9NdxNv3ByXmrwi1BjATBGQqVr8A6?=
+ =?us-ascii?Q?MWgHHc7OEfnVz57jNbvGHnbf3Hn3MJVs3kZFrRnrIIbzPYGBZctI95uZgsLj?=
+ =?us-ascii?Q?lh2wLjAtEnrxkKheIAREWBp+MbFc0EIcxJBYGK9IsN1madvg42JkLZTZth94?=
+ =?us-ascii?Q?JwYhsun4qWGBtUC1Ol40apLnOM5JN5KQVgAK0KOEWogI3FCr21owlKrW0/3Y?=
+ =?us-ascii?Q?t3Gqmt76o4WJ09XkLZKSEamEj4RRugucHAXfQS6RSSNyYOiyeFPAO+CQnBO0?=
+ =?us-ascii?Q?1DkEMc56BBUO51RgqqrUgR0dPtapi5rZr1mAcgG3/SY8QEMm6VS+1yjqXlhK?=
+ =?us-ascii?Q?qFs4DKxmg89fgUqBcrr9JZ1KiMAnBTSuxN+H4W91mRdVYK/1Pc4sta26rsRs?=
+ =?us-ascii?Q?yKhQN3rytoUjZ8OJRPyxqDRO9NOx8NILZWdywVK+ib30XN+lwiKr7OZZh4qN?=
+ =?us-ascii?Q?Lr9wvolIUxQ9U3HosDZHBhDZB+1pGbesRFNuKF6vlspz+gMComrlj9bMLiHQ?=
+ =?us-ascii?Q?9Pr51HPPmrpp9hHzvC2jQVHBpHvUM2yf8mLCub4ZcJF0/qKEMZ32zCdT1osf?=
+ =?us-ascii?Q?8TX/XspLzYtIvpLPBskTI4vkuVWWBqxa0qsfPDgnV8LWW+T5zoBb58EPGhmk?=
+ =?us-ascii?Q?aIPM+uErBz5gqmT9zer4sKvBiGwRPAXrAvM+ocSvhuy3Jbnt2FUNpCGYEQH3?=
+ =?us-ascii?Q?l+MhQtLUYVRDdUzSknnA9rD6j4PquBPAEAiBg3RrEBeprzb5uWBaQU2UoijA?=
+ =?us-ascii?Q?RfYKwE1dqyIr9aB40V27O0M+wtBcArw=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260403-milos-gxclkctl-v2-2-95eb94a7d0a4@fairphone.com>
-X-Authority-Analysis: v=2.4 cv=ar6/yCZV c=1 sm=1 tr=0 ts=69d01cda cx=c_pps
- a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=6H0WHjuAAAAA:8 a=Tg6AtToVi0MBdbWWjBoA:9 a=CjuIK1q_8ugA:10
- a=TOPH6uDL9cOC6tEoww4z:22 a=Soq9LBFxuPC4vsCAQt-j:22
-X-Proofpoint-ORIG-GUID: 67Wh7uFS3X-JptUTKYwIVeL7C8k4yvdw
-X-Proofpoint-GUID: 67Wh7uFS3X-JptUTKYwIVeL7C8k4yvdw
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAzMDE3OSBTYWx0ZWRfXw6i5sajIzuTs
- MdcDZFwGeggSzkVbe0TjNSsrliKE/A1RqkK7LQMNooCmkrfrnRuN9ddRH0vMhx02e7akpZxBiZw
- LQpt+2Tf537f7bcq3mmCtSzC0cFPPye1aUymxLYhhrme0rKdfMWqklK46fiIVN9bem0DwN0gDEn
- nIrQ8UdKwx6jwyYESBspeEBU8s9GzQwG3ONwlAvwXKuK6eynaY3Z0pt3u0YLQ1Ff1ADRQ9/AWkT
- eLCwSYFtI9fS0WOp7oexpuM8eCN6jR57cI/B5l1HmS2pVaNEGjndHuyXuGx4vYQhdAJ/2knkxBg
- TycrQwrq2fZKaBxbuzfllGPY8alX1xgkhMmNNQbSmTHGKt/suP+jq6lLU2EooLHkIAtYS2OVpxW
- bD2bzDzTrIz5Ee8peKODyxD2+/4TVppKH5MM02jGOVLcf13OHTz1SVqh3zFjpDfAVF6s+gpR28P
- 86fG87R/6tzJ6tn+xbQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-03_06,2026-04-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0
- malwarescore=0 phishscore=0 spamscore=0 clxscore=1015 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604030179
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY6PR01MB17377.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd0595a5-f38a-4506-0b4a-08de91bc00d3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Apr 2026 20:02:58.6373
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: djxThjR+/tNycATz/7WTrB/oxkxWJs4h1ft2+GddRocviO4baXdjIEdaDm/VJO0MXlF5GU+5wmgvEzrNllKvY11j7DV0HtIEXV86rSzFbRo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB10008
 
-On Fri, Apr 03, 2026 at 02:03:47PM +0200, Luca Weiss wrote:
-> GXCLKCTL (Graphics GX Clock Controller) is a block dedicated to managing
-> clocks for the GPU subsystem on GX power domain. The GX clock controller
-> driver manages only the GX GDSC and the rest of the resources of the
-> controller are managed by the firmware.
-> 
-> We can use the existing kaanapali driver for Milos as well since the
-> GX_CLKCTL_GX_GDSC supported by the Linux driver requires the same
-> configuration.
-> 
-> Reviewed-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
-> Reviewed-by: Taniya Das <taniya.das@oss.qualcomm.com>
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
-> ---
->  drivers/clk/qcom/Makefile             | 2 +-
->  drivers/clk/qcom/gxclkctl-kaanapali.c | 1 +
->  2 files changed, 2 insertions(+), 1 deletion(-)
-> 
+Hi Mark,
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Thanks for your review.
 
+> -----Original Message-----
+> From: Mark Brown <broonie@kernel.org>
+> Sent: Thursday, April 2, 2026 8:03 PM
+> To: John Madieu <john.madieu.xa@bp.renesas.com>
+> Subject: Re: [PATCh v3 10/14] ASoC: rsnd: adg: Add per-SSI ADG and SSIF
+> supply clock management
+>=20
+> On Thu, Apr 02, 2026 at 06:24:32PM +0200, John Madieu wrote:
+>=20
+> > @@ -376,6 +431,18 @@ int rsnd_adg_ssi_clk_try_start(struct rsnd_mod
+> *ssi_mod, unsigned int rate)
+> >  		(ckr) ?	adg->brg_rate[ADG_HZ_48] :
+> >  			adg->brg_rate[ADG_HZ_441]);
+> >
+> > +	/*
+> > +	 * RZ/G3E: enable per-SSI and supply clocks
+> > +	 * Prepare was done in hw_params
+> > +	 */
+> > +	ret =3D clk_enable(adg->clk_adg_ssi[id]);
+> > +	if (ret)
+> > +		dev_warn(dev, "Cannot enable adg.ssi.%d ADG clock\n", id);
+> > +
+> > +	ret =3D clk_enable(adg->clk_ssif_supply);
+> > +	if (ret)
+> > +		dev_warn(dev, "Cannot enable SSIF supply clock\n");
+> > +
+>=20
+> Should we not return an error if we can't start the clocks for some
+> reason?
 
--- 
-With best wishes
-Dmitry
+Agreed.
+I'll return proper errors with cleanup on clk_enable() failure.
+
+Regards,
+John
