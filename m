@@ -1,235 +1,200 @@
-Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch [79.135.106.30])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A9773CBE6B
-	for <devicetree@vger.kernel.org>; Thu,  2 Apr 2026 23:10:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BAB5273F9;
+	Fri,  3 Apr 2026 00:05:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775171404; cv=none; b=Hu+e5NwXQCk0pgp5XicGvxYh1vbOUqm+hTsVZ1ZlNeTZeTLzbKBKRcedm4nHusJsdtFukVGh0VEMCea7JY0KJkE1lXtM70r477NCwSlkSfADCj8jbiyeFvbXsrFPsoI2orDMpebhrBJ4wKH/0GcXKtvBFMMQiOOiMS1gdw/olCk=
+	t=1775174742; cv=none; b=ryoKoXMvLvfvCjrsCQq5MDMIl1Ujd3OrOfyz8b5UTefnJmGSFUxLeisxVrpI1Wv0Nx7sNoMwfL2Z0KmO4WBkoAFptBL2NrTjcBfR9ggZSHxJAC4wMpTYL3kYcEYPmD/KVh8LuuwdjPg7nfezcWy0MO3slhJPSueWOwkvDtUdtns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775171404; c=relaxed/simple;
-	bh=3Q3lcaFewS+hkk4NINB7rWf+iWeHFu9BfnRTjU2LMXc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nsjdY/98hyCn0SzM28gm9NMHz9J+2a67zw99908hIUN5Ort8+a7I9ellT7gWmQV3ry3PcWCHcs9F2JVj69kdgz+dx6qn0fIb1M8IgAAQZRc8BKyOW5EDZdCHdqRurpBFCgCBWkeNynV/t1nEx8+exIz/JX8VWFj4vDFwWcaNTd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=IeWz7FqG; arc=none smtp.client-ip=79.135.106.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1775174742; c=relaxed/simple;
+	bh=DDsPrUWRkqkmQ41FPpxMfl/fi+0OAAZHRX0ngFqdtlM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PrARX3j1UehEU/jS7tK7yrEpiIZIoUhlD+t29wgM4vmwLRJ6z4aOi+DqFWLCG19qpTnaT0eHxb9V0KbmCpurKGqQ8TnVp02ca3DyJ+UNPAUCZqAhThgNO21D0pr4JXlaDIXdh7Pr9ppdhCfRjXaCrOcj45nb32shY2H98+dHlgE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZbciE94M; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="IeWz7FqG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1775171400; x=1775430600;
-	bh=WX4bPOMZSjt2irRYBq1HhZPC4wVrbp8qxCI5kJ/KmAc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=IeWz7FqGPAXE3HXFWFA2Eo+KaR2q+tPjNW1yyMMJ2wgeVMlhcBKX+kh6nEQV2ZQs+
-	 WeCMjhsHmjaSLOyIbb0jPOzA6pFdqM4/2JUsQHgf5OWtObx99y0xMNIfElVxNviMed
-	 Cyq1GM51aFC47g0AwQHuq9ZeM/YcstaRHT0yPFjSZCmb9xy5IlwJrK459ehVBen0ry
-	 MFiC5O6O9iGXbUFbTX+HBL/jSS8kSPHO6jNweO0UhkgzB/9dtSgt5DNPwidOzxFJSD
-	 K2b5Zl8phZ+EjFMDkI4WOM1yMn9U83DBZFZaNGluKieE/aMBTsuGU7vhTGX7Crne5n
-	 ACkTmid1Xg4wA==
-Date: Thu, 02 Apr 2026 23:09:52 +0000
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Akhil P Oommen <akhilpo@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: Luca Weiss <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Alexander Koskovich <akoskovich@pm.me>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: [PATCH RFC v2 6/6] arm64: dts: qcom: milos: Add Adreno 810 GPU and GMU nodes
-Message-ID: <20260402-adreno-810-v2-6-ce337ca87a9e@pm.me>
-In-Reply-To: <20260402-adreno-810-v2-0-ce337ca87a9e@pm.me>
-References: <20260402-adreno-810-v2-0-ce337ca87a9e@pm.me>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: f2b20852a3778c6a910be6250dd8432973ede2dd
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZbciE94M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9332C116C6;
+	Fri,  3 Apr 2026 00:05:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775174742;
+	bh=DDsPrUWRkqkmQ41FPpxMfl/fi+0OAAZHRX0ngFqdtlM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZbciE94MPpLqbarbdytrfVxhnGPoXIzDHr0xpgX6lWDZAc2KdPYoMU7KugmxL5qv2
+	 WzP/gKxPz/skbJgSK2u6pbzCdnk9aSMfotyhzJ1D7/PDljRAWYeovHmreTE/9QTnYm
+	 NS4ZIwBO8nwD8sD3QZ1Ywyrju9AOBYu8H2JU6RhUDZObKaEzZVF3wQM8B5rmQY6yv8
+	 gBUCiJhyPntOiCUX93lc6p2Kc/vwMKgH84qf8Qe28jxUeRcMAO7wsZNizSuX8ltMFb
+	 1yWxlPGxTXci/sunZ3jL6UuOMZkTU4JHl36A7q7ghsIAirUJFP//wXRkUXwAWl7YOT
+	 ns8uNwXkdjR8g==
+Date: Fri, 3 Apr 2026 08:05:39 +0800
+From: Yixun Lan <dlan@kernel.org>
+To: Han Gao <gaohan@iscas.ac.cn>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Chukun Pan <amadeus@jmu.edu.cn>, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Han Gao <rabenda.cn@gmail.com>
+Subject: Re: [PATCH v5 3/3] riscv: dts: spacemit: Enable USB3.0/PCIe on
+ OrangePi RV2
+Message-ID: <20260403000539-GKB1016296@kernel.org>
+References: <cover.1775148159.git.gaohan@iscas.ac.cn>
+ <cfe646a5549a2b3fc8a4335c3ab4918599615369.1775148159.git.gaohan@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cfe646a5549a2b3fc8a4335c3ab4918599615369.1775148159.git.gaohan@iscas.ac.cn>
 
-Add GPU and GMU devicetree nodes for the Adreno 810 GPU found on
-Qualcomm SM7635 (Milos) based devices.
+Hi Han, 
 
-The qcom,kaanapali-gxclkctl.h header can be reused here because
-Milos uses the same driver and the GX_CLKCTL_GX_GDSC definition
-is identical.
+On 00:54 Fri 03 Apr     , Han Gao wrote:
+> Enable the DWC3 USB 3.0 controller and its associated usbphy2 on the
+> OrangePi RV2 board.
+> 
+> The board utilizes a Genesys Logic GL3523 USB3.0 hub.
+> 
+> Define a 3.3v fixed voltage regulator for PCIe and enable PCIe and
+> PHY-related Device Tree nodes for the OrangePi RV2.
+> 
+> Co-developed-by: Chukun Pan <amadeus@jmu.edu.cn>
+> Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
+> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+> ---
+>  .../boot/dts/spacemit/k1-orangepi-rv2.dts     | 80 +++++++++++++++++++
+>  1 file changed, 80 insertions(+)
+> 
+> diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+> index a6de3753b876..c19952e70c31 100644
+> --- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+> @@ -23,6 +23,15 @@ chosen {
+>  		stdout-path = "serial0";
+>  	};
+>  
+> +	pcie_vcc_3v3: regulator-pcie-vcc3v3 {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "pcie_vcc3v3";
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +		gpio = <&gpio K1_GPIO(116) GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +	};
+> +
+>  	vcc_5v0: regulator-vcc-5v0 {
+>  		compatible = "regulator-fixed";
+>  		regulator-name = "vcc_5v0";
+> @@ -42,6 +51,16 @@ vcc4v0: regulator-vcc4v0 {
+>  		vin-supply = <&vcc_5v0>;
+>  	};
+>  
+> +	vcc5v0_usb30: regulator-vcc5v0-usb30 {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "vcc5v0_usb30";
+> +		enable-active-high;
+> +		gpios = <&gpio K1_GPIO(123) GPIO_ACTIVE_HIGH>;
+> +		regulator-min-microvolt = <5000000>;
+> +		regulator-max-microvolt = <5000000>;
+> +		vin-supply = <&vcc_5v0>;
+> +	};
+> +
+>  	leds {
+>  		compatible = "gpio-leds";
+>  
+> @@ -54,6 +73,10 @@ led1 {
+>  	};
+>  };
+>  
+> +&combo_phy {
+> +	status = "okay";
+> +};
+> +
+>  &eth0 {
+>  	phy-handle = <&rgmii0>;
+>  	phy-mode = "rgmii-id";
+> @@ -200,8 +223,65 @@ dldo6 {
+>  	};
+>  };
+>  
+> +&pcie1_phy {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pcie1_3_cfg>;
+> +	status = "okay";
+> +};
+> +
+> +&pcie1_port {
+> +	phys = <&pcie1_phy>;
+> +	vpcie3v3-supply = <&pcie_vcc_3v3>;
+> +};
+> +
+> +&pcie1 {
+> +	vpcie3v3-supply = <&pcie_vcc_3v3>;
+> +	status = "okay";
+> +};
+> +
+> +&pcie2_phy {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pcie2_4_cfg>;
+> +	status = "okay";
+> +};
+> +
+> +&pcie2_port {
+> +	phys = <&pcie2_phy>;
+> +	vpcie3v3-supply = <&pcie_vcc_3v3>;
+> +};
+> +
+> +&pcie2 {
+> +	vpcie3v3-supply = <&pcie_vcc_3v3>;
+> +	status = "okay";
+> +};
+> +
+>  &uart0 {
+>  	pinctrl-names = "default";
+>  	pinctrl-0 = <&uart0_2_cfg>;
+>  	status = "okay";
+>  };
+> +
+> +&usbphy2 {
+> +	status = "okay";
+> +};
+> +
+> +&usb_dwc3 {
+> +	dr_mode = "host";
+> +	#address-cells = <1>;
+> +	#size-cells = <0>;
+> +	status = "okay";
+Can you put vbus-supply here? see Chukun's patch
+http://lore.kernel.org/r/20260402100007.110201-4-amadeus@jmu.edu.cn
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
----
- arch/arm64/boot/dts/qcom/milos.dtsi | 148 ++++++++++++++++++++++++++++++++=
-++++
- 1 file changed, 148 insertions(+)
+> +
+> +	hub_2_0: hub@1 {
+> +		compatible = "usb5e3,610";
+> +		reg = <0x1>;
+> +		peer-hub = <&hub_3_0>;
+..
+> +		vdd-supply = <&vcc5v0_usb30>;
+I think the vdd is vcc_5v0, while vcc5v0_usb30 is the vbus, if we check
+page 16 of RV2 schematics, GL3523-QFN75 (USB HUB)'s pin V5, VDDP directly
+connect to VCC_5V0
 
-diff --git a/arch/arm64/boot/dts/qcom/milos.dtsi b/arch/arm64/boot/dts/qcom=
-/milos.dtsi
-index 621f05820826..095c58515117 100644
---- a/arch/arm64/boot/dts/qcom/milos.dtsi
-+++ b/arch/arm64/boot/dts/qcom/milos.dtsi
-@@ -3,6 +3,7 @@
-  * Copyright (c) 2025, Luca Weiss <luca.weiss@fairphone.com>
-  */
-=20
-+#include <dt-bindings/clock/qcom,kaanapali-gxclkctl.h>
- #include <dt-bindings/clock/qcom,milos-camcc.h>
- #include <dt-bindings/clock/qcom,milos-dispcc.h>
- #include <dt-bindings/clock/qcom,milos-gcc.h>
-@@ -1224,6 +1225,153 @@ lpass_ag_noc: interconnect@3c40000 {
- =09=09=09qcom,bcm-voters =3D <&apps_bcm_voter>;
- =09=09};
-=20
-+=09=09gpu: gpu@3d00000 {
-+=09=09=09compatible =3D "qcom,adreno-44010000", "qcom,adreno";
-+=09=09=09reg =3D <0x0 0x03d00000 0x0 0x40000>,
-+=09=09=09      <0x0 0x03d9e000 0x0 0x2000>,
-+=09=09=09      <0x0 0x03d61000 0x0 0x800>;
-+=09=09=09reg-names =3D "kgsl_3d0_reg_memory",
-+=09=09=09=09    "cx_mem",
-+=09=09=09=09    "cx_dbgc";
-+
-+=09=09=09interrupts =3D <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH 0>;
-+
-+=09=09=09iommus =3D <&adreno_smmu 0 0x0>;
-+
-+=09=09=09operating-points-v2 =3D <&gpu_opp_table>;
-+
-+=09=09=09qcom,gmu =3D <&gmu>;
-+=09=09=09#cooling-cells =3D <2>;
-+
-+=09=09=09interconnects =3D <&gem_noc MASTER_GFX3D QCOM_ICC_TAG_ALWAYS
-+=09=09=09=09=09 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+=09=09=09interconnect-names =3D "gfx-mem";
-+
-+=09=09=09status =3D "disabled";
-+
-+=09=09=09gpu_zap_shader: zap-shader {
-+=09=09=09=09memory-region =3D <&gpu_microcode_mem>;
-+=09=09=09};
-+
-+=09=09=09gpu_opp_table: opp-table {
-+=09=09=09=09compatible =3D "operating-points-v2-adreno",
-+=09=09=09=09=09     "operating-points-v2";
-+
-+=09=09=09=09opp-264000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <264000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_LOW_SVS_D1>;
-+=09=09=09=09=09opp-peak-kBps =3D <2136718>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0xc8295ffd>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-362000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <362000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_LOW_SVS>;
-+=09=09=09=09=09opp-peak-kBps =3D <2136718>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0xc02c5ffd>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-510000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <510000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_SVS>;
-+=09=09=09=09=09opp-peak-kBps =3D <3972656>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0x882b5ffd>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-644000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <644000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_SVS_L1>;
-+=09=09=09=09=09opp-peak-kBps =3D <5285156>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0x882a5ffd>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-688000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <688000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_SVS_L2>;
-+=09=09=09=09=09opp-peak-kBps =3D <6074218>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0x882a5ffd>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-763000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <763000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_NOM>;
-+=09=09=09=09=09opp-peak-kBps =3D <6671875>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0xa8295ffd>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-895000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <895000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_NOM_L1>;
-+=09=09=09=09=09opp-peak-kBps =3D <8171875>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0x88295ffd>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-960000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <960000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_TURBO>;
-+=09=09=09=09=09opp-peak-kBps =3D <8171875>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0xa8285ffd>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-1050000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <1050000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_TURBO_L1>;
-+=09=09=09=09=09opp-peak-kBps =3D <18597656>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0x88285ffd>;
-+=09=09=09=09};
-+=09=09=09};
-+=09=09};
-+
-+=09=09gmu: gmu@3d37000 {
-+=09=09=09compatible =3D "qcom,adreno-gmu-810.0", "qcom,adreno-gmu";
-+=09=09=09reg =3D <0x0 0x03d37000 0x0 0x68000>;
-+=09=09=09reg-names =3D "gmu";
-+
-+=09=09=09interrupts =3D <GIC_SPI 304 IRQ_TYPE_LEVEL_HIGH 0>,
-+=09=09=09=09     <GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH 0>;
-+=09=09=09interrupt-names =3D "hfi", "gmu";
-+
-+=09=09=09clocks =3D <&gpucc GPU_CC_AHB_CLK>,
-+=09=09=09=09 <&gpucc GPU_CC_CX_GMU_CLK>,
-+=09=09=09=09 <&gpucc GPU_CC_CXO_CLK>,
-+=09=09=09=09 <&gcc GCC_DDRSS_GPU_AXI_CLK>,
-+=09=09=09=09 <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
-+=09=09=09=09 <&gpucc GPU_CC_HUB_CX_INT_CLK>,
-+=09=09=09=09 <&gpucc GPU_CC_DEMET_CLK>;
-+=09=09=09clock-names =3D "ahb",
-+=09=09=09=09      "gmu",
-+=09=09=09=09      "cxo",
-+=09=09=09=09      "axi",
-+=09=09=09=09      "memnoc",
-+=09=09=09=09      "hub",
-+=09=09=09=09      "demet";
-+
-+=09=09=09power-domains =3D <&gpucc GPU_CC_CX_GDSC>,
-+=09=09=09=09=09<&gxclkctl GX_CLKCTL_GX_GDSC>;
-+=09=09=09power-domain-names =3D "cx",
-+=09=09=09=09=09     "gx";
-+
-+=09=09=09iommus =3D <&adreno_smmu 5 0x0>;
-+
-+=09=09=09qcom,qmp =3D <&aoss_qmp>;
-+
-+=09=09=09operating-points-v2 =3D <&gmu_opp_table>;
-+
-+=09=09=09gmu_opp_table: opp-table {
-+=09=09=09=09compatible =3D "operating-points-v2";
-+
-+=09=09=09=09opp-350000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <350000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_LOW_SVS>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-650000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <650000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_SVS>;
-+=09=09=09=09};
-+=09=09=09};
-+=09=09};
-+
- =09=09gxclkctl: clock-controller@3d64000 {
- =09=09=09compatible =3D "qcom,milos-gxclkctl";
- =09=09=09reg =3D <0x0 0x03d64000 0x0 0x6000>;
+> +	};
+> +
+> +	hub_3_0: hub@2 {
+> +		compatible = "usb5e3,620";
+> +		reg = <0x2>;
+> +		peer-hub = <&hub_2_0>;
+> +		vdd-supply = <&vcc5v0_usb30>;
+> +	};
+> +};
+> -- 
+> 2.47.3
+> 
+> 
 
---=20
-2.53.0
-
-
+-- 
+Yixun Lan (dlan)
