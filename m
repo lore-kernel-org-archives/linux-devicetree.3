@@ -1,320 +1,273 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012027.outbound.protection.outlook.com [40.107.209.27])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 389C423909F;
-	Fri,  3 Apr 2026 00:40:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.27
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775176849; cv=fail; b=gKHlzJp3bmLH3ysAYHbqmSVPaMbrtGzatYT4fU2hQkkWxaQ1k51ClPthCVTYTTPz43GZ60uqnzAt60jvjuTlGcRlk7hW58aYz/D8Zf1pV4homCuxBmFk1LQOTPx480sqTKJgd6sy2sbgmXRGhKVBLjsbC5IkWgHlfJeQRSJd6JY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775176849; c=relaxed/simple;
-	bh=dRroiWnTGNYZ7nvtghnYhqKhXLdl3uFwu/TmhvjR+Ko=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=UDqSuCeX+gw7onKCE7LV1p+r5C3ZFA41ye2hdKCdI4Jg9Lh7WKcqZWPD3Dw2tIS1sbf7FdHFu+VO1WYYmv0BlxJhnvMRJfP+owhLGKHTOiBobaPGGRelESMgagnGhO2mIDZKPcqCllLJxJMwV2gTNO2iAwifSkGw1DeZUTgriiE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=Bqk4Bo0j; arc=fail smtp.client-ip=40.107.209.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6BC423F40D
+	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 00:51:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775177495; cv=none; b=YHfTXr20h6ASZd75ecZjfavR3LGkQY8WZJcO3jh65+G0agzRZeM3uB8P0XslRwsdx5UQRGqOEaha9pYZdwutgAmdNBhaoUsjEK1kHCj76bY+yKWhc5w5m8J3+gYLAP+3ETsTkAUT3pdWlV7nEKCG2nWtaGYuvGIl5UBSjVVtWjc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775177495; c=relaxed/simple;
+	bh=MLU3H0vT5l7RkyqJ4axMsnZCk3EEo/xxuxHDjIkeDXs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VOvHSM3tswuJHdSr4XgW3zYdqqk2swDnXHDsc36Avn0LpJ15+ukJsf+IyS2T2vgch7qne2lu54ZXY6+uvG5TArtNvdIJrX1q7HJLojeZ4W/SmrryoxuwdlTyARXAKfITzI6VGR94ruah+/SySeuov2AFlWgSJDjZuyKtSYjcQJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=U6fb1bYX; arc=none smtp.client-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="Bqk4Bo0j"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oojG7pckH8PIAtgSJIXjE7h/MHqlIE1mVdUdaXJfgF+Vkbu4o9irqm32MYVjLTdxLzo3xKFCj1KCcseN/6NzNHqih99AHtujHEoXGvyOIrGW6Uc1TCK1ySSq52Lb1oC2yeQm+18s2JH/+USgzo7ZZBcEIkq7sxIJsLnXgcRh2F+5Rq8yG22w8wpetIwUGgYw2XvcGQCUIqEen+rJ1tEOExGBLPFfcniHjRL9z0jfUSRpcys7Wf3GLf1EME527FwiTs/PG4wCq8uojnDvgZDB52a5qWXIjyx/8QHeEcoy/b6mxVk84DBo4uo/suJRDaBBoEozuKsxUATb8aib/k5QVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6+srbgzonUr8PiL5MI1aBxuMJqLYzRFLO6q1HQjEd5c=;
- b=WX5bbDcARzrxEsz0IOQFJvOmNqBBFTWMtavW3nywFpGEEBVlWTORkdedWA8cbJU7TJBuIGXfWcp5/w49xaFh1nsoNudK3D3FRh4LXMS5J/HWulpece7xwzjgZHOJP0TBbf/32OPBnKOodW7jhaaH3y8gy7Hb0AjnDECNNx/VHBeeVyWSCf5AxTE9Mb/v5dm9x0K7vpKzXyHnWZCdWrpni2xpkZOXi+Ez+BsJYMy6muZShCRYx6N68ztXPDS7H80+72MBs+fQewULaw8Ow6C1xltbG6YfBYLjhKfiIk+MY+HODdp4gC2+34oCCyurkjQur1VLWTKQu0k6pwW9pWzpcA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6+srbgzonUr8PiL5MI1aBxuMJqLYzRFLO6q1HQjEd5c=;
- b=Bqk4Bo0jkjQGiPTzAxmTei2/y1qWoyScbLI1sM9lCuk1md8B2IK6Kn9OgJYBXLlu+rvQnNQZdrhdiwihkItZW4FLi9V3B89m6kzOQUuYy8iaNtwz3EdvVWL1I02S4NtftyYJRFcE0PeTTmDHRLbiq2YDlb37pREiqda3c+wTpPA=
-Received: from MW4P221CA0004.NAMP221.PROD.OUTLOOK.COM (2603:10b6:303:8b::9) by
- DS0PR10MB7052.namprd10.prod.outlook.com (2603:10b6:8:14c::9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9745.28; Fri, 3 Apr 2026 00:40:44 +0000
-Received: from SJ5PEPF00000207.namprd05.prod.outlook.com
- (2603:10b6:303:8b:cafe::d9) by MW4P221CA0004.outlook.office365.com
- (2603:10b6:303:8b::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.18 via Frontend Transport; Fri,
- 3 Apr 2026 00:40:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- SJ5PEPF00000207.mail.protection.outlook.com (10.167.244.40) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Fri, 3 Apr 2026 00:40:42 +0000
-Received: from DFLE215.ent.ti.com (10.64.6.73) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 2 Apr
- 2026 19:40:38 -0500
-Received: from DFLE209.ent.ti.com (10.64.6.67) by DFLE215.ent.ti.com
- (10.64.6.73) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 2 Apr
- 2026 19:40:38 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE209.ent.ti.com
- (10.64.6.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
- Transport; Thu, 2 Apr 2026 19:40:38 -0500
-Received: from [128.247.81.246] (mz02jj9v.dhcp.ti.com [128.247.81.246])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6330ecdJ3489046;
-	Thu, 2 Apr 2026 19:40:38 -0500
-Message-ID: <b35904a2-0913-456f-b89a-f9f45e6a686a@ti.com>
-Date: Thu, 2 Apr 2026 19:40:38 -0500
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="U6fb1bYX"
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-2ba895adfeaso1742762eec.0
+        for <devicetree@vger.kernel.org>; Thu, 02 Apr 2026 17:51:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1775177493; x=1775782293; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Lb2HYWEQxB/om4yhyjxjNip9666HK8Fi8TGkiu9j7VQ=;
+        b=U6fb1bYXSFh8hkp9cNXTZqV0oKW2o3WGWUrIJCFeMAoeuwJh4rs88N+4Ft/69+Akbe
+         yc0JovpEZfrW8+QvEM9WOWM560NZi8j+ES3IivhSWxA+G8l1WPLEvjINJoULkNm/le+a
+         UGkWXcH+Wlj6BoSy9+6OKmwemoOa1Y2eiqXdY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775177493; x=1775782293;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Lb2HYWEQxB/om4yhyjxjNip9666HK8Fi8TGkiu9j7VQ=;
+        b=nJD1Gg3VFasHqhlFtpaUKDqMr/xJZsyETahCbCuUB71ZwuGQPdR5xKbhdzOA7bu0ER
+         qa94FbfsU/VpKpO+C0DKeloggaNDlzXn64pnS7BTxnzG3KkU2r884U22J8OvBv/PO/ON
+         qUBvwic8gLg6nHsMUV09R0G9GgsFUUPWVVRzCa7xUjpVLlzWwSode8KjfWqGgPbhpLNB
+         Day5qs0JMI8xPL7ZZhqS5ju4n9ubKlBHP7NNkBV3I09bdHsB7dcanTzy5zfvTDibQF7p
+         3/+OCS+6vCaTW5yA1oPTWEO78UcmNWWoh/SEp6iz1A+h5180iwg+C4ihe1vwEGzP0gmj
+         5J1A==
+X-Forwarded-Encrypted: i=1; AJvYcCWyr9ixTMRb9CXkMSIpVVHUF2zN610fmxzlQ+TtPLYkbc7Sg+SLJaoPqKdrNihizCQvm29AzZdMCHmd@vger.kernel.org
+X-Gm-Message-State: AOJu0YyxOOCWZpBnGA4SaolS1XQ43Ykhj63wpQdl6aZzY0oStNvWweD8
+	in+cQdqc/bm4yux5LJcStx/hqHTNlm4gnnzbf0YYqMBbUdabE4zO2DAm/M2zg+7zew==
+X-Gm-Gg: AeBDiesABwo2yzWrgp5FTfuerEFwUYbHRKiGotOCT//t1d9PWZjblas4TUmbVEPHT4R
+	dwBLJj4RzAuotBhS2XhC9/1ObErnrXd1irbR0TOSXekXtoV9n+T4wo9i5FUMpQQCBbf+ZFxHWGJ
+	kv2W24SCX8NcuiAA98262gzIXyyPBHVfB+yutmun6MOfhbJL6tRFuZRcf1LpfSzjRuSwilCHkvT
+	mD58lWN0WeqK3kICXMJL35Oh2yryoppi1D4wgG3X1h9cLjQjj1oCeuoBS+Ka0J2Yg11bghyArea
+	LnpmMLf5BSQhOHbjOfW3tz+qF6SdLdBpgJl2+1/FCkZGriW29bvV9Fa8yAFzT+BEsJXRavX5M9U
+	NIZ0gPhNS8X3sC44DPKIYWELvzcSkZ7oQz7+mBVko/qmenDx4wNmfA5iVjUaLZ7Z87IA4ZjYvYZ
+	8+bH1nfsgWEwu/BQ3gZh6FRj8yOB5UuvD/5I/jW4eZhkGc5XQF8qUppRYt1n+uNeqriQMoiKJBH
+	kPtpD1YcGZFayH5DLPD4A==
+X-Received: by 2002:a05:693c:3009:b0:2c1:558c:16f7 with SMTP id 5a478bee46e88-2cbf950392cmr655589eec.6.1775177492780;
+        Thu, 02 Apr 2026 17:51:32 -0700 (PDT)
+Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:5db3:7542:a530:f43a])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2ca78df3b84sm3630074eec.5.2026.04.02.17.51.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 02 Apr 2026 17:51:31 -0700 (PDT)
+From: Douglas Anderson <dianders@chromium.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Alan Stern <stern@rowland.harvard.edu>
+Cc: Robin Murphy <robin.murphy@arm.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Paul Burton <paul.burton@mips.com>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Alexander Lobakin <aleksander.lobakin@intel.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Toshi Kani <toshi.kani@hp.com>,
+	Christoph Hellwig <hch@lst.de>,
+	Alexey Kardashevskiy <aik@ozlabs.ru>,
+	Johan Hovold <johan@kernel.org>,
+	Douglas Anderson <dianders@chromium.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Frank.Li@kernel.org,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	alex@ghiti.fr,
+	alexander.stein@ew.tq-group.com,
+	andre.przywara@arm.com,
+	andrew@codeconstruct.com.au,
+	andrew@lunn.ch,
+	andriy.shevchenko@linux.intel.com,
+	aou@eecs.berkeley.edu,
+	ardb@kernel.org,
+	astewart@tektelic.com,
+	bhelgaas@google.com,
+	brgl@kernel.org,
+	broonie@kernel.org,
+	catalin.marinas@arm.com,
+	chleroy@kernel.org,
+	davem@davemloft.net,
+	david@kernel.org,
+	devicetree@vger.kernel.org,
+	dmaengine@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	gbatra@linux.ibm.com,
+	gregory.clement@bootlin.com,
+	hkallweit1@gmail.com,
+	iommu@lists.linux.dev,
+	jirislaby@kernel.org,
+	joel@jms.id.au,
+	joro@8bytes.org,
+	kees@kernel.org,
+	kevin.brodsky@arm.com,
+	kuba@kernel.org,
+	lenb@kernel.org,
+	lgirdwood@gmail.com,
+	linux-acpi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-cxl@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mips@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-pci@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-serial@vger.kernel.org,
+	linux-snps-arc@lists.infradead.org,
+	linux-usb@vger.kernel.org,
+	linux@armlinux.org.uk,
+	linuxppc-dev@lists.ozlabs.org,
+	m.szyprowski@samsung.com,
+	maddy@linux.ibm.com,
+	mani@kernel.org,
+	maz@kernel.org,
+	miko.lenczewski@arm.com,
+	mpe@ellerman.id.au,
+	netdev@vger.kernel.org,
+	npiggin@gmail.com,
+	osalvador@suse.de,
+	oupton@kernel.org,
+	pabeni@redhat.com,
+	palmer@dabbelt.com,
+	peter.ujfalusi@gmail.com,
+	peterz@infradead.org,
+	pjw@kernel.org,
+	robh@kernel.org,
+	sebastian.hesselbarth@gmail.com,
+	tglx@kernel.org,
+	tsbogend@alpha.franken.de,
+	vgupta@kernel.org,
+	vkoul@kernel.org,
+	will@kernel.org,
+	willy@infradead.org,
+	yangyicong@hisilicon.com,
+	yeoreum.yun@arm.com
+Subject: [PATCH v3 0/9] driver core: Fix some race conditions
+Date: Thu,  2 Apr 2026 17:49:46 -0700
+Message-ID: <20260403005005.30424-1-dianders@chromium.org>
+X-Mailer: git-send-email 2.53.0.1213.gd9a14994de-goog
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] dt-bindings: sound: Add ti,tas675x
-To: Krzysztof Kozlowski <krzk@kernel.org>
-CC: <linux-sound@vger.kernel.org>, <broonie@kernel.org>,
-	<lgirdwood@gmail.com>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>, <devicetree@vger.kernel.org>, <perex@perex.cz>,
-	<tiwai@suse.com>, <shenghao-ding@ti.com>, <kevin-lu@ti.com>,
-	<baojun.xu@ti.com>, <niranjan.hy@ti.com>, <l-badrinarayanan@ti.com>,
-	<devarsht@ti.com>, <v-singh1@ti.com>, <linux-kernel@vger.kernel.org>
-References: <message-id-of-your-RFC-cover-letter>
- <20260401223239.1638881-1-sen@ti.com> <20260401223239.1638881-2-sen@ti.com>
- <20260402-funky-lionfish-of-grandeur-fadba6@quoll>
-Content-Language: en-US
-From: Sen Wang <sen@ti.com>
-In-Reply-To: <20260402-funky-lionfish-of-grandeur-fadba6@quoll>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF00000207:EE_|DS0PR10MB7052:EE_
-X-MS-Office365-Filtering-Correlation-Id: 91b349b8-8bc3-4832-bc5c-08de9119a317
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700016|7416014|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	ItePc/rbmtwcQFFA+mduxuQ/JTw4Eh49BbBlr/QYOUNfvO0BbGQ3l1y9FnCP+QxmN0Wp27Bj/EyLJFyUP9IJrqNKUuGctuawKRWfrmUTPJLbfZB+a+LEhYB2UkdTmRiW87J/gqWtne+xayRkmZ4oHQuVSGjWzRUTv1tlmQiIbz+Rgu5S/2w6Sm39Scqa2wbjn45A672K/LUa9b+0+1rNN2Mn3XIG4ET07i2c/1rfdphxAwuTDMHuO6BM3obzQAO+9gYFLxuwQ5EGmZKm78n4Tus+qCvf1+ybvQRlqFdRZ/nETOPtrt2gZc2NUFRdNQlONfjUmg0ubvxbw2Sbizk9igQF7wN3N+/DqSR/xbtu5ZOCu84EvX80NOC6rOvuMWKbGQKezVz+2XQ62wQdUAHsHbIQtoF+RLcXW6Hdbqa141FEbRVmfqMMWh73GCSrvQIbgfGQ6WlnAq8Ukb1CtFaeBy9YIPkWEyhDsCXsyiMZqWG0xuhUDSi1nD/KkVo8gxb0KcJXJxcXXY3y0CB2qP9+Pm02/+faNDm940ZJYCt9Sby3JGOTs5psdY1drvfvd1h2I6zMhiyKLrMJe4HHQ6VQEFGhtdr+yaYB4BU1NfzV3TZ+eW+P36JJ1RQY+tVQxTtGF79C2ZLZ00AeZLa1ZiYaSC1tnDAvkSPqHkNMz2/LVDcKkWJTkjoCi/Wp83cINytEplDDvZ5mXhqlWTXxRKlCRaPBzEK2uKRHwujtWuTm25I=
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(7416014)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	vDricBuMdeWBVK84QjSXrlb7Cgclm4GgT5BAPIHZl9NoPR43CVmzb3OD+r9sHwL8BtCcTXD6pWka0nlpsHJ+VyudridbrrvwtjuJ4ScZnJb9n5822LG+BCmd8V1Yqg+aMx6HOYnydGSj5ywLL/eJCgD4xcwAZn0lxmpPnpBUDmRg4yfDwYSndExLJwVYaraztoMcqZqf2mEtjuNwC5zv2E4Nnbb6h6ZfInnbmO+Lbs9utku9F8cNXAkVjMdO4GXmi4f/BX06BCXwta5JvIZMOf6SsXN+ulI9BulwXdYGayoARQdHpNWAD8w/Eky+MtCBhHaZYH8c3/oMFx+Ei573rZlB3FJyVXzNiAVjkQcggAgcJwZhf52CcsUdBnuJikiOasaOhwkqJKMcAOhmf5VK3pH/O6UdnH3g27/jfw3wAdSwdXb6BsecB8Mi1pUgJXeB
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2026 00:40:42.8377
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 91b349b8-8bc3-4832-bc5c-08de9119a317
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF00000207.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR10MB7052
+Content-Transfer-Encoding: 8bit
 
-On 4/2/26 02:53, Krzysztof Kozlowski wrote:
-> On Wed, Apr 01, 2026 at 05:28:42PM -0500, Sen Wang wrote:
->> Add device tree binding for the Texas Instruments TAS675x family
->> of four-channel Class-D audio amplifiers with integrated DSP.
->>
->> Signed-off-by: Sen Wang <sen@ti.com>
-> 
+The main goal of this series is to fix the observed bug talked about
+in the first patch ("driver core: Don't let a device probe until it's
+ready"). That patch fixes a problem that has been observed in the real
+world and could land even if the rest of the patches are found
+unacceptable or need to be spun.
 
-Hi Krzysztof, Thank you for your review.
+That said, during patch review Danilo correctly pointed out that many
+of the bitfield accesses in "struct device" are unsafe. I added a
+bunch of patches in the series to address each one.
 
-> Please use subject prefixes matching the subsystem. You can get them for
-> example with 'git log --oneline -- DIRECTORY_OR_FILE' on the directory
-> your patch is touching. For bindings, the preferred subjects are
-> explained here:
-> https://www.kernel.org/doc/html/latest/devicetree/bindings/submitting-patches.html#i-for-patch-submitters
+Danilo said he's most worried about "can_match", so I put that one
+first. After that, I tried to transition bitfields to flags in reverse
+order to when the bitfield was added.
 
-Understood, ASoC: dt-bindings: Add ti,tas67524. Apologies for the oversight.
+Even if transitioning from bitfields to flags isn't truly needed for
+correctness, it seems silly (and wasteful of space in struct device)
+to have some in bitfields and some as flags. Thus I didn't spend time
+for each bitfield showing that it's truly needed for correctness.
 
-> 
->> ---
->>   .../devicetree/bindings/sound/ti,tas675x.yaml | 278 ++++++++++++++++++
-> 
-> Filename matching compatible, one of them.
-> 
->>   1 file changed, 278 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/sound/ti,tas675x.yaml
->>
->> diff --git a/Documentation/devicetree/bindings/sound/ti,tas675x.yaml b/Documentation/devicetree/bindings/sound/ti,tas675x.yaml
->> new file mode 100644
->> index 000000000000..23e4cc77b4ae
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/sound/ti,tas675x.yaml
->> @@ -0,0 +1,278 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/sound/ti,tas675x.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Texas Instruments TAS675x Audio Amplifier
->> +
->> +maintainers:
->> +  - Sen Wang <sen@ti.com>
->> +
->> +description: |
-> 
-> Do not need '|' unless you need to preserve formatting.
-> 
->> +  The TAS675x family (TAS6754, TAS67524) are four-channel, digital-input,
-> 
-> And devices are not compatible?
-> 
+Transition was done semi manually. Presumably someone skilled at
+coccinelle could do a better job, but I just used sed in a heavy-
+handed manner and then reviewed/fixed the results, undoing anything my
+script got wrong. My terrible/ugly script was:
 
-They're compatible, and I didn't have any differentiators for this 
-initial driver. So I should only keep one.
-And also rename ti,tas675x.yaml to ti,tas67524.yaml.
+var=can_match
+caps="${var^^}"
+for f in $(git grep -l "[>\.]${var}[^1-9_a-zA-Z\[]"); do
+  echo $f
+  sed -i~ -e "s/\([a-zA-Z_0-9\.>()-][a-zA-Z_0-9\.>()-]*\)->${var} = true/set_bit(DEV_FLAG_${caps}, \&\\1->flags)/" "$f"
+  sed -i~ -e "s/\([a-zA-Z_0-9\.>()-][a-zA-Z_0-9\.>()-]*\)\.${var} = true/set_bit(DEV_FLAG_${caps}, \&\\1.flags)/" "$f"
+  sed -i~ -e "s/\([a-zA-Z_0-9\.>()-][a-zA-Z_0-9\.>()-]*\)->${var} = false/clear_bit(DEV_FLAG_${caps}, \&\\1->flags)/" "$f"
+  sed -i~ -e "s/\([a-zA-Z_0-9\.>()-][a-zA-Z_0-9\.>()-]*\)\.${var} = false/clear_bit(DEV_FLAG_${caps}, \&\\1.flags)/" "$f"
+  sed -i~ -e "s/\([a-zA-Z_0-9\.>()-][a-zA-Z_0-9\.>()-]*\)->${var} = \([^;]*\)/assign_bit(DEV_FLAG_${caps}, \&\\1->flags, \\2)/" "$f"
+  sed -i~ -e "s/\([a-zA-Z_0-9\.>()-][a-zA-Z_0-9\.>()-]*\)\.${var} = \([^;]*\)/assign_bit(DEV_FLAG_${caps}, \&\\1.flags, \\2)/" "$f"
+  sed -i~ -e "s/\([a-zA-Z_0-9\.>()-][a-zA-Z_0-9\.>()-]*\)->${var}\([^1-9_a-zA-Z\[]\)/test_bit(DEV_FLAG_${caps}, \&\\1->flags)\\2/" "$f"
+  sed -i~ -e "s/\([a-zA-Z_0-9\.>()-][a-zA-Z_0-9\.>()-]*\)\.${var}\([^1-9_a-zA-Z\[]\)/test_bit(DEV_FLAG_${caps}, \&\\1.flags)\\2/" "$f"
+done
 
->> +  automotive Class-D audio amplifiers with load diagnostics and an integrated
->> +  DSP for audio processing.
->> +
->> +allOf:
->> +  - $ref: dai-common.yaml#
->> +
->> +properties:
->> +  compatible:
->> +    enum:
->> +      - ti,tas6754
->> +      - ti,tas67524
-> 
-> Keep alphanumerical order (not natural).
-> 
->> +
->> +  reg:
->> +    maxItems: 1
->> +
->> +  '#sound-dai-cells':
->> +    const: 1
->> +    description: |
->> +      The device exposes three DAIs, selected by index.
->> +        0 - Standard Audio Path (Playback)
->> +        1 - Low-Latency Playback Path (Playback)
->> +        2 - Sensory Feedback (Capture - Vpredict and Isense)
->> +      By default, all four channels of each DAI are active. Runtime
->> +      reconfiguration is available through DAPM widgets.
->> +
->> +  interrupts:
->> +    maxItems: 1
->> +    description:
->> +      Active-low falling-edge interrupt from the FAULT pin. When provided,
->> +      the driver uses IRQ-driven fault reporting instead of polling.
->> +
->> +  pd-gpios:
-> 
-> Use names from gpio-consumer-common
-> 
+NOTE: one potentially "controversial" choice I made in some patches
+was to always reserve a flag ID even if a flag is only used under
+certain CONFIG_ settings. This is a change from how things were
+before. Keeping the numbering consistent and allowing easy
+compile-testing of both CONFIG settings seemed worth it, especially
+since it won't take up any extra space until we've added a lot more
+flags.
 
-Okay
+I only marked the first patch as a "Fix" since it is the only one
+fixing observed problems. Other patches could be considered fixes too
+if folks want.
 
->> +    maxItems: 1
->> +    description:
->> +      GPIO connected to the power-down (PD#) pin, active low. Controls the
->> +      internal digital circuitry power state. When asserted the device enters
->> +      full power-down mode and all register state is lost. Can be omitted if
->> +      PD pin is hardwired or externally controlled.
->> +
->> +  stby-gpios:
->> +    maxItems: 1
->> +    description:
->> +      GPIO connected to the standby (STBY#) pin, active low. Controls the
->> +      analog power stage. When asserted the device enters Deep Sleep mode
->> +      but remains I2C-accessible with registers retained. Can be omitted if
->> +      STBY pin is tied to PD or hardwired.
->> +
->> +  dvdd-supply:
->> +    description:
->> +      Digital logic supply (1.62 V to 3.6 V). All three supply rails must
->> +      be within their recommended operating ranges before the PD pin is
->> +      released.
->> +
->> +  pvdd-supply:
->> +    description:
->> +      Output FET power supply (4.5 V to 19 V). All three supply rails must
->> +      be within their recommended operating ranges before the PD pin is
->> +      released.
->> +
->> +  vbat-supply:
->> +    description:
->> +      Battery supply for the Class-D output stage (4.5 V to 19 V). Optional
->> +      when PVDD and VBAT are connected to the same supply rail. When absent,
->> +      VBAT is assumed hardwired to PVDD.
->> +
->> +  ti,fast-boot:
->> +    type: boolean
->> +    description:
->> +      Skip DC load diagnostic sweep at power-on to reduce boot latency.
->> +      Automatic diagnostics after fault conditions remain enabled. Hardware
->> +      overcurrent protection is always active.
->> +
->> +  ti,audio-slot-no:
->> +    $ref: /schemas/types.yaml#/definitions/uint32
->> +    description:
->> +      TDM slot offset for the standard audio playback path via SDIN1. A value
->> +      of 4 maps to slot 4. If omitted, slot assignment is derived from the
->> +      tx_mask provided via set_tdm_slot(). Without either property, no slot
->> +      mapping is configured.
->> +
->> +  ti,llp-slot-no:
->> +    $ref: /schemas/types.yaml#/definitions/uint32
->> +    description:
->> +      TDM slot offset for the low-latency playback path via SDIN1. If omitted,
->> +      slot assignment is derived from the tx_mask provided via set_tdm_slot().
->> +      Without either property, no slot mapping is configured. Disabled outside
->> +      of LLP mode, and only relevant for TDM formats.
->> +
->> +  ti,vpredict-slot-no:
->> +    $ref: /schemas/types.yaml#/definitions/uint32
->> +    description: |
->> +      In TDM mode, enables Vpredict output and assigns its starting slot;
->> +      four consecutive slots carry Vpredict Ch1-4 on SDOUT1. May coexist
->> +      with ti,isense-slot-no using separate non-overlapping slots.
->> +
->> +      In I2S mode, enables Vpredict output on SDOUT1 (Ch1/Ch2) and SDOUT2
->> +      (Ch3/Ch4). The slot value is unused. Requires a GPIO configured as
->> +      sdout2 for Ch3/Ch4; without it only Ch1/Ch2 are output. Mutually
->> +      exclusive with ti,isense-slot-no; if both are set, Vpredict takes
->> +      priority.
->> +
->> +      Irrelevant in Left-J and Right-J modes.
->> +
->> +  ti,isense-slot-no:
->> +    $ref: /schemas/types.yaml#/definitions/uint32
->> +    description: |
->> +      In TDM mode, enables Isense output and assigns its starting slot;
->> +      four consecutive slots carry Isense Ch1-4 on SDOUT1. May coexist
->> +      with ti,vpredict-slot-no using separate non-overlapping slots.
->> +
->> +      In I2S mode, enables Isense output on SDOUT1 (Ch1/Ch2) and SDOUT2
->> +      (Ch3/Ch4). The slot value is unused. Requires a GPIO configured as
->> +      sdout2 for Ch3/Ch4; without it only Ch1/Ch2 are output. Mutually
->> +      exclusive with ti,vpredict-slot-no; Vpredict takes priority if both
->> +      are set.
->> +
->> +      Irrelevant in Left-J and Right-J modes.
->> +
->> +  ti,gpio1-function:
->> +    $ref: /schemas/types.yaml#/definitions/string
->> +    description: |
-> 
-> Do not need '|' unless you need to preserve formatting.
-> 
+I tested the first patch in the series backported to kernel 6.6 on the
+Pixel phone that was experiencing the race. I added extra printouts to
+make sure that the problem was hitting / addressed. The rest of the
+patches are tested with allmodconfig with arm32, arm64, ppc, and
+x86. I boot tested on an arm64 Chromebook running mainline.
 
-Understood, thanks a lot for your review and the tip. Will post a V3.
+Changes in v3:
+- Use a new "flags" bitfield
+- Add missing \n in probe error message
 
->> +      Function for the GPIO_1 pin. When omitted, GPIO_1 remains in its
->> +      power-on default state.
-> 
-> Best regards,
-> Krzysztof
-> 
+Changes in v2:
+- Instead of adjusting the ordering, use "ready_to_probe" flag
+
+Douglas Anderson (9):
+  driver core: Don't let a device probe until it's ready
+  driver core: Replace dev->can_match with DEV_FLAG_CAN_MATCH
+  driver core: Replace dev->dma_iommu with DEV_FLAG_DMA_IOMMU
+  driver core: Replace dev->dma_skip_sync with DEV_FLAG_DMA_SKIP_SYNC
+  driver core: Replace dev->dma_ops_bypass with DEV_FLAG_DMA_OPS_BYPASS
+  driver core: Replace dev->state_synced with DEV_FLAG_STATE_SYNCED
+  driver core: Replace dev->dma_coherent with DEV_FLAG_DMA_COHERENT
+  driver core: Replace dev->of_node_reused with DEV_FLAG_OF_NODE_REUSED
+  driver core: Replace dev->offline + ->offline_disabled with DEV_FLAGs
+
+ arch/arc/mm/dma.c                             |  4 +-
+ arch/arm/mach-highbank/highbank.c             |  2 +-
+ arch/arm/mach-mvebu/coherency.c               |  2 +-
+ arch/arm/mm/dma-mapping-nommu.c               |  4 +-
+ arch/arm/mm/dma-mapping.c                     | 30 +++----
+ arch/arm64/kernel/cpufeature.c                |  2 +-
+ arch/arm64/mm/dma-mapping.c                   |  2 +-
+ arch/mips/mm/dma-noncoherent.c                |  2 +-
+ arch/powerpc/kernel/dma-iommu.c               |  8 +-
+ .../platforms/pseries/hotplug-memory.c        |  4 +-
+ arch/riscv/mm/dma-noncoherent.c               |  2 +-
+ drivers/acpi/scan.c                           |  3 +-
+ drivers/base/core.c                           | 55 +++++++-----
+ drivers/base/cpu.c                            |  4 +-
+ drivers/base/dd.c                             | 28 +++++--
+ drivers/base/memory.c                         |  2 +-
+ drivers/base/pinctrl.c                        |  2 +-
+ drivers/base/platform.c                       |  2 +-
+ drivers/dma/ti/k3-udma-glue.c                 |  6 +-
+ drivers/dma/ti/k3-udma.c                      |  6 +-
+ drivers/iommu/dma-iommu.c                     |  9 +-
+ drivers/iommu/iommu.c                         |  5 +-
+ drivers/net/pcs/pcs-xpcs-plat.c               |  2 +-
+ drivers/of/device.c                           |  6 +-
+ drivers/pci/of.c                              |  2 +-
+ drivers/pci/pwrctrl/core.c                    |  2 +-
+ drivers/regulator/bq257xx-regulator.c         |  2 +-
+ drivers/regulator/rk808-regulator.c           |  2 +-
+ drivers/tty/serial/serial_base_bus.c          |  2 +-
+ drivers/usb/gadget/udc/aspeed-vhub/dev.c      |  2 +-
+ include/linux/device.h                        | 83 ++++++++++---------
+ include/linux/dma-map-ops.h                   |  6 +-
+ include/linux/dma-mapping.h                   |  2 +-
+ include/linux/iommu-dma.h                     |  4 +-
+ kernel/cpu.c                                  |  4 +-
+ kernel/dma/mapping.c                          | 16 ++--
+ mm/hmm.c                                      |  2 +-
+ 37 files changed, 178 insertions(+), 143 deletions(-)
+
+-- 
+2.53.0.1213.gd9a14994de-goog
 
