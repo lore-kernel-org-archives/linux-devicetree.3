@@ -1,347 +1,108 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DE683BC666;
-	Fri,  3 Apr 2026 13:34:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A217F1A9FBA;
+	Fri,  3 Apr 2026 13:45:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775223278; cv=none; b=SMeRs12R8ykexMUdxnhcNS0lbGaGmUayS7zrNdj+FGjHz64a+H2/sZm+uZsN9BRcZvHU80mg82Ws6dg6Qe74wsM3vFHS0oLrriGocTXnAfXAJ0n97DivccIZBNEiFoD1XHbAHP4NiiIKEL7sq7nWtenOmBhYSop0uaAgCKUYehE=
+	t=1775223922; cv=none; b=I2tn/OWzSZ75FLDDlqv4V2+ZeCKXizrc9MxZw460EIDL/nKoSMtjpanagSVC+rKLf5YQZxb/wv29SS++9TcmbO/fXVfJbwPXbpPim4O1dLccUNSrgs1ocnLCw7LL8Oil5WPiX7PPETmET0S/z4RtEJvMmauYh00VK6/S4xC/VlI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775223278; c=relaxed/simple;
-	bh=L8p4XiFFsqMNGQtAqS9U6S46KPv7W4IR5GnOZCrN/p4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=hoSRTYX6ySSwXDY0xjQ5ZxVFM8RcwHHLNvyr/mts48ibpqWK7y/LZnLyTWc/p9LWeSr2h8oT1VlHXHy7eaqgFCxHsAqts+wYkvFDaKn7BxZFEr001I79a6y11EK5ySdUMXu59eQBIRiBV3IR2py6YZ3reurHlfHXLEKOQYkQO7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=Qrs7oBdw; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1775223922; c=relaxed/simple;
+	bh=8GdJC0f9dgkYeurjPypI7j7QB5DMsXCIWJKiidfLKKo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bmK6+Ji01bl6v7SvowhuHF5nupFyeQ4T0mnadIBQ2+0Xq+727L9rtUQMz2GasK8zwmRTXR3C0uhZnnYm+Mj7fTKR03QyqrdlDQFb+3juFfXRlhqzIfKsDKrSKntfIEFH335hOCqXl/vRMUx2nsFga0jtcwTxA+KGMdE5IgDT9Tw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QTQUVR2s; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="Qrs7oBdw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1775223275; x=1806759275;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=L8p4XiFFsqMNGQtAqS9U6S46KPv7W4IR5GnOZCrN/p4=;
-  b=Qrs7oBdwe+zTFpNXcaoji21HGIsW7DnnUITeocfMGdummHraVbl20CnC
-   QScoSNls2jkaZtgABwO0lSu2JEwtnLbbn4ml/TdacXoYA+pIT52wO4cG4
-   WqHYUm/yOaEBpZSdi6RIUShy0DtzsV+JFTvsgGX/O6JkBhoT/OEhqD+Yj
-   XuCKCkegtkWUMP/41JByPtLOXVE8HJJQ599wb4eIA9ZHqNbjMFOehxPMm
-   I0TM038Qhy1jJk+tMSRn9mcBrsX9LTq6wfnMkU70aqn8GM9KEQL5GHKjw
-   XWKN4wXslFvlSZBvuCCtVRsRDPPh81qZrhA0AEhiTEwty/Aop6bdo3RFd
-   A==;
-X-CSE-ConnectionGUID: af5oL4wRScqpqlSOtoYDHA==
-X-CSE-MsgGUID: sPIn+N64SMObPQtng4KGdQ==
-X-IronPort-AV: E=Sophos;i="6.23,157,1770620400"; 
-   d="scan'208";a="54881213"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Apr 2026 06:34:32 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
- chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.35; Fri, 3 Apr 2026 06:34:13 -0700
-Received: from [127.0.1.1] (10.10.85.11) by chn-vm-ex03.mchp-main.com
- (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Fri, 3 Apr 2026 06:34:10 -0700
-From: Victor Duicu <victor.duicu@microchip.com>
-Date: Fri, 3 Apr 2026 16:32:16 +0300
-Subject: [PATCH v12 1/2] dt-bindings: hwmon: add support for MCP998X
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QTQUVR2s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7723C4CEF7;
+	Fri,  3 Apr 2026 13:45:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775223922;
+	bh=8GdJC0f9dgkYeurjPypI7j7QB5DMsXCIWJKiidfLKKo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=QTQUVR2se3smB4h7J9yKnKkFTdztROpgRCbnuL3juSSeiY05YWwTRTEbkzLZWHRU3
+	 SkEGFUdDhbnHS79n5+02JqlJJ30Mf+UdNumEseA1cL3hMP/ek1cpaD3P+s8ay0lu+4
+	 QfLeYKBWCQ3Osr7CNaaH9AvOfXAZBtL+/eIzzepM7N4kapwCrZ5axaEljkNT4NyZ8M
+	 4LkZpUTiLD6gl2ZnShCvowxyejNXBmOyXSgjpM+kO7Mp5HakXr6hhTGnpdB1m5wY4X
+	 PM3ehTPfT2o/kYlSSIzTvApAQUtybmwZNAHGhzJIiJsA4hUx4GoE3dCasFYYP7v1Xm
+	 t005wEIipftew==
+Date: Fri, 3 Apr 2026 14:45:17 +0100
+From: Mark Brown <broonie@kernel.org>
+To: phucduc.bui@gmail.com
+Cc: kuninori.morimoto.gx@renesas.com, lgirdwood@gmail.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, geert+renesas@glider.be,
+	magnus.damm@gmail.com, perex@perex.cz, tiwai@suse.com,
+	linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] ASoC: renesas: fsi: Fix hang by enabling SPU clock
+Message-ID: <2de5ff3a-fd23-4d26-a06b-749ab6d3e990@sirena.org.uk>
+References: <20260403112655.167593-1-phucduc.bui@gmail.com>
+ <20260403112655.167593-4-phucduc.bui@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260403-add-mcp9982-hwmon-v12-1-b3bfb26ff136@microchip.com>
-References: <20260403-add-mcp9982-hwmon-v12-0-b3bfb26ff136@microchip.com>
-In-Reply-To: <20260403-add-mcp9982-hwmon-v12-0-b3bfb26ff136@microchip.com>
-To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>
-CC: <linux-hwmon@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-	<marius.cristea@microchip.com>, <victor.duicu@microchip.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1775223246; l=7599;
- i=victor.duicu@microchip.com; s=20260213; h=from:subject:message-id;
- bh=L8p4XiFFsqMNGQtAqS9U6S46KPv7W4IR5GnOZCrN/p4=;
- b=sL5RGc2e0rhEztLdT5/RlulOl8m/2AqIA+bo1rwzinAYj9H+BCnkq6eAXewQLYK+seFhu+lMN
- 7nwX51zrrI6DXeDaTHqvW6T7QTAvakyvRLVKK/IO4pEOFJ7OZebT1O+
-X-Developer-Key: i=victor.duicu@microchip.com; a=ed25519;
- pk=/o+aE26HN3Piv9T5t+efqb0aeJw9ErwMPeSC8lYXQsA=
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qaZK7qokCKKffDWt"
+Content-Disposition: inline
+In-Reply-To: <20260403112655.167593-4-phucduc.bui@gmail.com>
+X-Cookie: The Korean War must have been fun.
 
-Add devicetree schema for Microchip MCP998X/33 and MCP998XD/33D
-Multichannel Automotive Temperature Monitor Family.
 
-Signed-off-by: Victor Duicu <victor.duicu@microchip.com>
----
- .../bindings/hwmon/microchip,mcp9982.yaml          | 237 +++++++++++++++++++++
- MAINTAINERS                                        |   6 +
- 2 files changed, 243 insertions(+)
+--qaZK7qokCKKffDWt
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/Documentation/devicetree/bindings/hwmon/microchip,mcp9982.yaml b/Documentation/devicetree/bindings/hwmon/microchip,mcp9982.yaml
-new file mode 100644
-index 000000000000..83dd2bf37e27
---- /dev/null
-+++ b/Documentation/devicetree/bindings/hwmon/microchip,mcp9982.yaml
-@@ -0,0 +1,237 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/hwmon/microchip,mcp9982.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Microchip MCP998X/33 and MCP998XD/33D Temperature Monitor
-+
-+maintainers:
-+  - Victor Duicu <victor.duicu@microchip.com>
-+
-+description: |
-+  The MCP998X/33 and MCP998XD/33D family is a high-accuracy 2-wire
-+  multichannel automotive temperature monitor.
-+  The datasheet can be found here:
-+    https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/DataSheets/MCP998X-Family-Data-Sheet-DS20006827.pdf
-+
-+properties:
-+  compatible:
-+    enum:
-+      - microchip,mcp9933
-+      - microchip,mcp9933d
-+      - microchip,mcp9982
-+      - microchip,mcp9982d
-+      - microchip,mcp9983
-+      - microchip,mcp9983d
-+      - microchip,mcp9984
-+      - microchip,mcp9984d
-+      - microchip,mcp9985
-+      - microchip,mcp9985d
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    minItems: 1
-+    maxItems: 2
-+
-+  interrupt-names:
-+    description:
-+      The chip family has three different interrupt pins divided among them.
-+      The chips without "D" have alert-therm and therm-addr.
-+      The chips with "D" have alert-therm and sys-shtdwn.
-+    minItems: 1
-+    items:
-+      - enum: [alert-therm, therm-addr, sys-shtdwn]
-+      - enum: [therm-addr, sys-shtdwn]
-+
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 0
-+
-+  microchip,enable-anti-parallel:
-+    description:
-+      Enable anti-parallel diode mode operation.
-+      MCP9984/84D/85/85D and MCP9933/33D support reading two external diodes
-+      in anti-parallel connection on the same set of pins.
-+    type: boolean
-+
-+  microchip,parasitic-res-on-channel1-2:
-+    description:
-+      Indicates that the chip and the diodes/transistors are sufficiently far
-+      apart that a parasitic resistance is added to the wires, which can affect
-+      the measurements. Due to the anti-parallel diode connections, channels
-+      1 and 2 are affected together.
-+    type: boolean
-+
-+  microchip,parasitic-res-on-channel3-4:
-+    description:
-+      Indicates that the chip and the diodes/transistors are sufficiently far
-+      apart that a parasitic resistance is added to the wires, which can affect
-+      the measurements. Due to the anti-parallel diode connections, channels
-+      3 and 4 are affected together.
-+    type: boolean
-+
-+  microchip,power-state:
-+    description:
-+      The chip can be set in Run state or Standby state. In Run state the ADC
-+      is converting on all channels at the programmed conversion rate.
-+      In Standby state the host must initiate a conversion cycle by writing
-+      to the One-Shot register.
-+      True value sets Run state.
-+      Chips with "D" in the name can only be set in Run mode.
-+    type: boolean
-+
-+  vdd-supply: true
-+
-+patternProperties:
-+  "^channel@[1-4]$":
-+    description:
-+      Represents the external temperature channels to which
-+      a remote diode is connected.
-+    type: object
-+
-+    properties:
-+      reg:
-+        items:
-+          maxItems: 1
-+
-+      label:
-+        description: Unique name to identify which channel this is.
-+
-+    required:
-+      - reg
-+
-+    additionalProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - vdd-supply
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - microchip,mcp9982d
-+              - microchip,mcp9983d
-+              - microchip,mcp9984d
-+              - microchip,mcp9985d
-+              - microchip,mcp9933d
-+    then:
-+      properties:
-+        interrupt-names:
-+          items:
-+            enum:
-+              - alert-therm
-+              - sys-shtdwn
-+      required:
-+        - microchip,power-state
-+        - microchip,parasitic-res-on-channel1-2
-+    else:
-+      properties:
-+        microchip,power-state: true
-+        interrupt-names:
-+          items:
-+            enum:
-+              - alert-therm
-+              - therm-addr
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - microchip,mcp9983d
-+              - microchip,mcp9984d
-+              - microchip,mcp9985d
-+    then:
-+      required:
-+        - microchip,parasitic-res-on-channel3-4
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - microchip,mcp9982
-+              - microchip,mcp9982d
-+    then:
-+      properties:
-+        microchip,enable-anti-parallel: false
-+      patternProperties:
-+        "^channel@[2-4]$": false
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - microchip,mcp9983
-+              - microchip,mcp9983d
-+    then:
-+      properties:
-+        microchip,enable-anti-parallel: false
-+      patternProperties:
-+        "^channel@[3-4]$": false
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - microchip,mcp9933
-+              - microchip,mcp9933d
-+    then:
-+      patternProperties:
-+        "^channel@[3-4]$": false
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - microchip,mcp9984
-+              - microchip,mcp9984d
-+    then:
-+      properties:
-+        channel@4: false
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        temperature-sensor@4c {
-+            compatible = "microchip,mcp9985";
-+            reg = <0x4c>;
-+
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            microchip,enable-anti-parallel;
-+            microchip,parasitic-res-on-channel1-2;
-+            microchip,parasitic-res-on-channel3-4;
-+            vdd-supply = <&vdd>;
-+
-+            channel@1 {
-+                reg = <1>;
-+                label = "Room Temperature";
-+            };
-+
-+            channel@2 {
-+                reg = <2>;
-+                label = "GPU Temperature";
-+            };
-+        };
-+    };
-+
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e08767323763..026510a4129c 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -17160,6 +17160,12 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/iio/adc/microchip,mcp3911.yaml
- F:	drivers/iio/adc/mcp3911.c
- 
-+MICROCHIP MCP9982 TEMPERATURE DRIVER
-+M:	Victor Duicu <victor.duicu@microchip.com>
-+L:	linux-hwmon@vger.kernel.org
-+S:	Supported
-+F:	Documentation/devicetree/bindings/hwmon/microchip,mcp9982.yaml
-+
- MICROCHIP MMC/SD/SDIO MCI DRIVER
- M:	Aubin Constans <aubin.constans@microchip.com>
- S:	Maintained
+On Fri, Apr 03, 2026 at 06:26:55PM +0700, phucduc.bui@gmail.com wrote:
 
--- 
-2.51.0
+> @@ -1554,6 +1555,11 @@ static int fsi_dai_startup(struct snd_pcm_substrea=
+m *substream,
+>  			   struct snd_soc_dai *dai)
+>  {
+>  	struct fsi_priv *fsi =3D fsi_get_priv(substream);
+> +	int ret;
+> +
+> +	ret =3D clk_prepare_enable(fsi->master->clk_spu);
+> +	if (ret)
+> +		return ret;
+> =20
 
+Should we also be managing the clock during system suspend, or if the
+power consumption doesn't really matter should we just keep it enabled
+all the time and not worry about starting and stopping it?
+
+> +	/* SPU clock is required for FSI register access */
+> +	master->clk_spu =3D devm_clk_get(&pdev->dev, "spu");
+> +	if (IS_ERR(master->clk_spu)) {
+> +		dev_err(&pdev->dev, "Failed to get spu clock\n");
+> +		return PTR_ERR(master->clk_spu);
+> +	}
+> +
+
+This is going to unconditionally require a clock called "spu" on all
+devices using this driver, not just the one SoC you mentioned as
+requiring it.  Presumably this worked at least somewhere (possibly the
+clock is always on, or they're just lucky that something else enables
+it) and this will cause regressions for those platforms?
+
+This should either (ideally) be conditional, or use _optional.
+
+--qaZK7qokCKKffDWt
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnPxGwACgkQJNaLcl1U
+h9B26wf7BKYCzK60pRqnpNOSbpxRukDcC80JyxjYX745AHt2uGxKiA01znXczDBe
+qgIYYPBJWwgrAjAhqv9YBj6ya9xT21+REm1qGbD8ISTO2E1iqCfTUnndUGfs2gQd
+7FW1Pr6ZboxPS11+wiFDijT45mXY1VO8jJtrOfIoIJmt4RBzNbbCCCV1gZ/fUU4N
+dajltmH5YXofA4o/QHZ19GiQvjCPJ5o43FCV7fjceyQo1awZfaDKWSdF4751fyCU
+b512XEBPoxyrrB6gmFrFKu0pIMrdy0hOpnQJ6DcoXRzZkdUI05VHuemLcwuaTmks
+qKonZ/JLfWLk4Qs29ilwYppGx5yQXQ==
+=l0dP
+-----END PGP SIGNATURE-----
+
+--qaZK7qokCKKffDWt--
