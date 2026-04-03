@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73D9B273D76;
-	Fri,  3 Apr 2026 07:15:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09EC228466F;
+	Fri,  3 Apr 2026 07:19:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775200548; cv=none; b=YA1QqXVpW5EixBbu8W+r+iBIJTY20VLnV6CFSJQJYhh2WkgBUlNvdf5sj2nPm689EiFeLZWVHiHzIIU+1tZ1aIA1S49zJlnpmajQ95opdYmbHXFjj5cTsm9GmWrOR8mtlanZU4TrtPFebCp1QdtQXmgW68FybCVj1ERCvMGCoj8=
+	t=1775200784; cv=none; b=d2OZ+tMyVNDPOuKFPWhcvPKK7PX915NYfTweCo0emacJYdg57IY5qq2SfW1e7ymkvrGfU6Xsjbh8EP4pyaZNz0DkU8OKILBl3V5De0SW4GBR6Up2uGEwwrLbwL87ahp+W2nsfyJvy2MvgYJshPKLYy5XLUsFO67V3NsaF0LXeww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775200548; c=relaxed/simple;
-	bh=WJhyVpP2mbMT6vPR+bSx66Fm9uehgEKTzdxXfTc2Xzw=;
+	s=arc-20240116; t=1775200784; c=relaxed/simple;
+	bh=m1ADwcOxnxwgi9JICfWJKWEbH2sRKsuMJFFYWPPxcv4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nXXuXw5957s8Ny/ueSSgauj3MZ/xCajpEvyq2f7jowPXXDqrLZ17c8FlYmTIQEQgEKA7+Tp6QIam6UD1IzSzGXCeBNjEmvdf2lTtWkCed1MkSBHSFSJRK/wwZBQKYCgUcVJ34ecpv2y9nlk5xYEcGpva3YFrRu92mPpVK+caZ8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IgnuzD+8; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=UTRg0CyP8Nd5tdYv27m5+0WRCGOcKsIupITLl7BOgKrG+3DCp8mGCInbHDkgPo6H6pzyQS8YUlb2lHzi2pkzKwrwGuNOw5i2RsSO/5rukJfI5gNYrSt4UThdYblD1tK0ZBoWxwk2IAPe0awIxE2GE78g6Y3G56mR4zeUq9bNrPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eXNZXyvZ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IgnuzD+8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3A37C19424;
-	Fri,  3 Apr 2026 07:15:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eXNZXyvZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A98CC4CEF7;
+	Fri,  3 Apr 2026 07:19:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775200548;
-	bh=WJhyVpP2mbMT6vPR+bSx66Fm9uehgEKTzdxXfTc2Xzw=;
+	s=k20201202; t=1775200783;
+	bh=m1ADwcOxnxwgi9JICfWJKWEbH2sRKsuMJFFYWPPxcv4=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=IgnuzD+8TGutwOIQ/s+ROX+CPf7UpA4nLuBDuPw22fOJmVFX8b47yWD702WCHqtJo
-	 IdKy6oYlSNDXNQb6vwA1ITf+TJqmAgrRwc5csOH0R/4AE3LZb/kasIXlDAwiuZ/ol2
-	 Elb59NU/BSSk4wecnTn3sC6F1KV8qhCfzlZiG5Jp+WhbPq74xPJsmL2IIiPI8dL+wd
-	 2eQ8sGrz/JTcplrWgcWNMzE2pOQ2C1Uxj9Tntrm6z4PCnMQEITq7wuV9gOCB9Lg0ft
-	 zIkY1W4dfviQd1t7NmOFaYohJfQJw0N7N1/b84STctlIxvVBHAaLhF7magquYmoTN5
-	 +vCVCyYA2tYug==
-Message-ID: <883736a2-11e7-4f25-8f0f-8850d877313e@kernel.org>
-Date: Fri, 3 Apr 2026 09:15:43 +0200
+	b=eXNZXyvZIlOcg08m/EQ2P73GvGM/9SSPaUSlrTtNBNl9GCv/RSsZ9Q3Ca2fzLgaYk
+	 /7kYwudBsLjv8Kox6orFzXKxTNyYQE0L9QBRJUtevdVlntGGGBTOSbqJ2uBfn3IGLb
+	 1nmP8mqP7Wj3RKExOK1+u2X3D2hUIJeLiUCEuEgERNWCN660RuXcvAQRmVVC14NOOQ
+	 aDxL4fveaRrt3sfA+Ngu3PFgPZoeHP/hsrOfdk/fdwnc0fSC41TCIMf+W2H+LWk2LD
+	 I8dsAlOwJZJeNP/ylWoXmpJp9eAcBiCJugj2XP1+9Tk5j7DNvjhhtvsN5VaFqIpYVq
+	 /JatP1r6bFkBw==
+Message-ID: <02517021-74cc-4023-98f2-fc7a485b2d2f@kernel.org>
+Date: Fri, 3 Apr 2026 09:19:37 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,19 +35,18 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/3] dt-bindings: media: mediatek-jpeg-encoder: add
- MT8189 compatible string
-To: Jianhua Lin <jianhua.lin@mediatek.com>, nicolas@ndufresne.ca,
- mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com, sirius.wang@mediatek.com,
- vince-wl.liu@mediatek.com, jh.hsu@mediatek.com
-References: <20260403064912.17259-1-jianhua.lin@mediatek.com>
- <20260403064912.17259-3-jianhua.lin@mediatek.com>
+Subject: Re: [PATCH v2 1/4] dt-bindings: sound: Add ti,tas675x
+To: Sen Wang <sen@ti.com>
+Cc: linux-sound@vger.kernel.org, broonie@kernel.org, lgirdwood@gmail.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, perex@perex.cz, tiwai@suse.com,
+ shenghao-ding@ti.com, kevin-lu@ti.com, baojun.xu@ti.com, niranjan.hy@ti.com,
+ l-badrinarayanan@ti.com, devarsht@ti.com, v-singh1@ti.com,
+ linux-kernel@vger.kernel.org
+References: <message-id-of-your-RFC-cover-letter>
+ <20260401223239.1638881-1-sen@ti.com> <20260401223239.1638881-2-sen@ti.com>
+ <20260402-funky-lionfish-of-grandeur-fadba6@quoll>
+ <b35904a2-0913-456f-b89a-f9f45e6a686a@ti.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -93,35 +92,44 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260403064912.17259-3-jianhua.lin@mediatek.com>
+In-Reply-To: <b35904a2-0913-456f-b89a-f9f45e6a686a@ti.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 03/04/2026 08:49, Jianhua Lin wrote:
-> Add the compatible string for the JPEG encoder block found in the
-> MediaTek MT8189 SoC.
+On 03/04/2026 02:40, Sen Wang wrote:
+>>> diff --git a/Documentation/devicetree/bindings/sound/ti,tas675x.yaml b/Documentation/devicetree/bindings/sound/ti,tas675x.yaml
+>>> new file mode 100644
+>>> index 000000000000..23e4cc77b4ae
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/sound/ti,tas675x.yaml
+>>> @@ -0,0 +1,278 @@
+>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>> +%YAML 1.2
+>>> +---
+>>> +$id: http://devicetree.org/schemas/sound/ti,tas675x.yaml#
+>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>> +
+>>> +title: Texas Instruments TAS675x Audio Amplifier
+>>> +
+>>> +maintainers:
+>>> +  - Sen Wang <sen@ti.com>
+>>> +
+>>> +description: |
+>>
+>> Do not need '|' unless you need to preserve formatting.
+>>
+>>> +  The TAS675x family (TAS6754, TAS67524) are four-channel, digital-input,
+>>
+>> And devices are not compatible?
+>>
 > 
-> Unlike some previous SoCs, the MT8189 JPEG encoder requires 34-bit IOVA
-> address space support. Therefore, it is added as a standalone compatible
-> string without falling back to the generic "mediatek,mtk-jpgenc" to
-> ensure the driver applies the correct hardware-specific configurations.
-> 
-> Suggested-by: Krzysztof Kozlowski <krzk@kernel.org>
+> They're compatible, and I didn't have any differentiators for this 
+> initial driver. So I should only keep one.
+> And also rename ti,tas675x.yaml to ti,tas67524.yaml.
 
-Not true.
+No, you should express compatibility. See writing bindings, writing
+schema, example schema docs or DTS101 talk.
 
-> Suggested-by: Rob Herring <robh@kernel.org>
-
-Is this some sort of joke of us?
-
-You received no comments at v5 but "suggested-by" me appeared.
-
-You received comments in v4 but you ignored them completely.
-
-NAK, I am  really getting fed up how absolutely terrible contributions
-from Mediatek are. Mediatek doesn't follow the process, doesn't read the
-documents describing the process, sends code which often fails basic
-build testing.
 
 Best regards,
 Krzysztof
