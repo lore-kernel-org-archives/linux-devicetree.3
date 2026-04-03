@@ -1,147 +1,194 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 990FC32E6BD;
-	Fri,  3 Apr 2026 07:07:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5069976025;
+	Fri,  3 Apr 2026 07:13:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775200041; cv=none; b=qHK0uRBaJa4A5QScDj3J6foQU0Nbiskp7BfgnVT9gm4tNtbmeGf5GXvM3rjGO2pDuNTvvMDDLY8rOu4/T4jzgQVT3zJV3+TlB7dFJkwyHtlIE3UHMNL8w2xRP3nXr4IZxPyUDG8m7lFDvdtpYfn1j+aGv672ckoZIXfMqeREdRI=
+	t=1775200401; cv=none; b=esoxlR8TqvpEKkKIT1XI4vpPAntWB5cWBSMQWI+nmf8A7+RZPO9B3n2+peVmZ2vctIYVwskiUNoLjsC4BGJqwj7Q4b9EfcyRFhvA/SeY8mU0R2zOBGwydLzS9JsrItkUkQK3Sa+4ZXSlrWCZPLuNVE0kRZIqtZWGKrMeKd/PPbQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775200041; c=relaxed/simple;
-	bh=HQ0WzPvVM65rQtVgEMV7CsRIRBV77pyZQcMintELxxM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dgK1iX8HXmS6QW+ENL+Q2edn9szQTGq0HFl6QB2OkDZuJocGB1Yve2eIVseRZ1VdJQv9ZlLTRDySdccLJMzXU6UEMzQ5qyC2iCOPh32Yc0axDmjCDex2ETVW2u+yGwuxoXC/gMONZy54Rma7Q/1uin65z+ncmPQ0m5+W5PGZmqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ZUDJum8C; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1775200401; c=relaxed/simple;
+	bh=y9a/NwpzPTn+rHB+qIBtQXUHu5hMScSHJan2MvfIe3Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZhZtaQ5wyoNeIpailoqAIKU1xSW039r7reigbU4MhmhZG3WRF7tyWCwsVr4rIq4VT1kw9q64KxDo92CZHU5nTl+wTI3FgUxU8DCabM+dq/eNfkW0HBwqwdQjnd6idMKCxabdBm3NHsFa0mz2V8Uh7J3k7hoM2aC/TYy/k29rznE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bzJFXflG; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ZUDJum8C"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id F09D64E428C5;
-	Fri,  3 Apr 2026 07:07:16 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C5C47603C1;
-	Fri,  3 Apr 2026 07:07:16 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 245BA10450279;
-	Fri,  3 Apr 2026 09:07:10 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1775200035; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=HylyLsnRzx35/dYQl7AED0QkFwj94BhsyPXiRhJsHG8=;
-	b=ZUDJum8CnkqVS6ILtmbvfweIflY/nHwxsyu3prVQk3WqMw76Tbb5uTKKwn5F4cTD899pcN
-	C5CPmNDjr4V00dpKDgI33M6cLqyIuflLGpkQkZa27O4lG/G3+Zwys+n4r6w8IpWqXzQJ7E
-	s6p+yvnpVopjMquzxHTNDAqQY6VZ5lj7OXAAV2WI2M58RxHnmIAKDZiDLheBejdWVpyFHx
-	nAkxbgeTq/zIr1vBxwjoyENPKJJru1CCFViGN+1fX42CTyDXS/Q0j4wRnFVZ5TaZ+B3dJE
-	BC5xO+R/wVI+f8dv7xRG92CyPqETP8IT8XpBxsLGLU2BmxFkRD2e+BEwQJY5FQ==
-Date: Fri, 3 Apr 2026 09:07:08 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Cc: "David Gibson" <david@gibson.dropbear.id.au>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Ayush Singh" <ayush@beagleboard.org>, "Geert
- Uytterhoeven" <geert@linux-m68k.org>,
- <devicetree-compiler@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <devicetree-spec@vger.kernel.org>, "Hui Pu"
- <hui.pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>
-Subject: Re: [RFC PATCH 05/15] libfdt: Introduce fdt_first_node()
-Message-ID: <20260403090708.5d7e8ea9@bootlin.com>
-In-Reply-To: <DHHWXNCDAWG9.2LYVXAWG8RBTY@bootlin.com>
-References: <20260210173349.636766-1-herve.codina@bootlin.com>
- <20260210173349.636766-6-herve.codina@bootlin.com>
- <DHHWXNCDAWG9.2LYVXAWG8RBTY@bootlin.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bzJFXflG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1780C4CEF7;
+	Fri,  3 Apr 2026 07:13:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775200400;
+	bh=y9a/NwpzPTn+rHB+qIBtQXUHu5hMScSHJan2MvfIe3Y=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=bzJFXflGrlMGf+PxpYrTP7wy27iL8nryKVhA7m+YvaPaHyspyXt7YOUAFbiZTUBcQ
+	 +yLjd9SqQ1jpN77IzL11YqFLCSIrcRbXzLcelEkpHIxso2Rq5iglFy+glJVjl4jvMy
+	 Yl2FyfgzwfjlEQfA478PmfMl5KzJDVbylD10KdLzFnYHsvsHILzEU7yh7KqIedAg5W
+	 lZpKL4NkK2Io0+KhsFVx/3zXNVH3lW4TzUtC1oNONO19CSshJkXsvTknWiHY2PS8CL
+	 YFH02Q2XCdbuq05sRaVnHEhQ6nUuS9fYeGfTUdvqGvybiCxBZBjS+LqMCmjjcqDhlq
+	 jt+3ydT+3kLVQ==
+Message-ID: <d9bee689-3685-4fd0-862a-f99d53d4974a@kernel.org>
+Date: Fri, 3 Apr 2026 09:13:15 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/3] dt-bindings: media: mediatek-jpeg-decoder: add
+ MT8189 compatible string
+To: Jianhua Lin <jianhua.lin@mediatek.com>, nicolas@ndufresne.ca,
+ mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com, sirius.wang@mediatek.com,
+ vince-wl.liu@mediatek.com, jh.hsu@mediatek.com
+References: <20260403064912.17259-1-jianhua.lin@mediatek.com>
+ <20260403064912.17259-2-jianhua.lin@mediatek.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260403064912.17259-2-jianhua.lin@mediatek.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 7bit
 
-Hi Luca, David,
-
-On Wed, 01 Apr 2026 17:11:15 +0200
-"Luca Ceresoli" <luca.ceresoli@bootlin.com> wrote:
-
-> Hi Hervé, David,
+On 03/04/2026 08:49, Jianhua Lin wrote:
+> Add the compatible string for the JPEG decoder block found in the
+> MediaTek MT8189 SoC.
 > 
-> I'm trying to review the patches that have no feedback so far.
+> Compared to previous generation ICs, the MT8189 JPEG decoder requires
+> 34-bit IOVA address space support and only needs a single clock
+> ("jpgdec") instead of two. Therefore, it is added as a standalone
+> compatible string without falling back to older SoCs.
 > 
-> Being new to the dtc codebase I'm mostly pointing out things that are not
-> clear from a newcomer point of view. I hope this helps anyway.
+> Update the binding schema to include the new compatible string and add
+> an `allOf` block with conditional checks. This enforces the single clock
+> requirement for MT8189 while preserving the two-clock requirement
+> ("jpgdec-smi", "jpgdec") for older SoCs.
 > 
-> On Tue Feb 10, 2026 at 6:33 PM CET, Herve Codina wrote:
-> > In several places, libfdt assumes that a FDT_BEGIN_NODE tag is present
-> > at the offset 0 of the structure block.
-> >
-> > This assumption is not correct. Indeed, a FDT_NOP can be present at the
-> > offset 0 and this is a legit case.  
+> Suggested-by: Krzysztof Kozlowski <krzk@kernel.org>
+
+What?
+
+> Suggested-by: Rob Herring <robh@kernel.org>
+
+Where?
+
+And I would say also - Why?
+
+> Signed-off-by: Jianhua Lin <jianhua.lin@mediatek.com>
+> ---
+>  .../bindings/media/mediatek-jpeg-decoder.yaml | 46 +++++++++++++++----
+>  1 file changed, 38 insertions(+), 8 deletions(-)
 > 
-> I wonder whether this can be proven by showing an example, or the specs, or
-> whatever use case that makes sense.
+> diff --git a/Documentation/devicetree/bindings/media/mediatek-jpeg-decoder.yaml b/Documentation/devicetree/bindings/media/mediatek-jpeg-decoder.yaml
+> index a4aacd3eb189..6596b686980c 100644
+> --- a/Documentation/devicetree/bindings/media/mediatek-jpeg-decoder.yaml
+> +++ b/Documentation/devicetree/bindings/media/mediatek-jpeg-decoder.yaml
+> @@ -15,10 +15,10 @@ description: |-
+>  properties:
+>    compatible:
+>      oneOf:
+> -      - items:
+> -          - enum:
+> -              - mediatek,mt8173-jpgdec
+> -              - mediatek,mt2701-jpgdec
+> +      - enum:
+> +          - mediatek,mt2701-jpgdec
+> +          - mediatek,mt8173-jpgdec
+> +          - mediatek,mt8189-jpgdec
+>        - items:
+>            - enum:
+>                - mediatek,mt7623-jpgdec
+> @@ -32,13 +32,20 @@ properties:
+>      maxItems: 1
+>  
+>    clocks:
+> +    minItems: 1
+>      maxItems: 2
+> -    minItems: 2
+>  
+>    clock-names:
+> -    items:
+> -      - const: jpgdec-smi
+> -      - const: jpgdec
+> +    oneOf:
+> +      - items:
+> +          - const: jpgdec
+> +      - items:
+> +          - const: jpgdec-smi
+> +          - const: jpgdec
+> +
+> +  mediatek,larb:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description: a phandle to the smi_larb node.
+>  
+>    power-domains:
+>      maxItems: 1
+> @@ -60,6 +67,29 @@ required:
+>    - power-domains
+>    - iommus
+>  
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: mediatek,mt8189-jpgdec
+> +    then:
+> +      properties:
+> +        clocks:
+> +          minItems: 1
 
-I can point the device-tree specification and add the following:
---- 8< ---
-Indeed, the FDT_NOP definition according to the device-tree specification [0]
-is the following:
-   The FDT_NOP token will be ignored by any program parsing the device
-   tree. This token has no extra data; so it is followed immediately by
-   the next token, which can be any valid token. A property or node
-   definition in the tree can be overwritten with FDT_NOP tokens to
-   remove it from the tree without needing to move other sections of
-   the tree’s representation in the devicetree blob.
+You are making some random changes to this.
 
-Nothing refers to any location for this tag and it has to be simply ignored.
-Having this tag at offset 0 doesn't make an exception, the tag has to be
-ignored.
+Please go to previous version and read again feedback.
 
-[0] https://github.com/devicetree-org/devicetree-specification/blob/main/source/chapter5-flattened-format.rst?plain=1#L317
---- 8< ---
-
-> 
-> > Introduce fdt_first_node() in order to get the offset of the first node
-> > (first FDT_BEGIN_NODE tag) available in a fdt blob.
-> >
-> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> > ---
-> >  libfdt/fdt.c             | 25 +++++++++++++++++++++++++
-> >  libfdt/libfdt_internal.h |  1 +
-> >  2 files changed, 26 insertions(+)
-> >
-> > diff --git a/libfdt/fdt.c b/libfdt/fdt.c
-> > index 56d4dcb..676c7d7 100644
-> > --- a/libfdt/fdt.c
-> > +++ b/libfdt/fdt.c
-> > @@ -252,6 +252,31 @@ int fdt_check_prop_offset_(const void *fdt, int offset)
-> >  	return offset;
-> >  }
-> >  
-> 
-> Even though this seems to be quite uncommon in this repository, I think
-> documenting new functions would be helpful, especially preconditions,
-> postconditions and parameter values when not obvious.
-> 
-> What about:
-> 
->   Find the initial node with content (FDT_BEGIN_NODE) in a fdt, skipping
->   FDT_NOP [and <other tags> is applicable].
-> 
->   *return: pointer to the first node into the fdt or e negative error value
-
-As you already said, documentation is quite uncommon here.
-
-I would prefer to keep the code consistent and avoid adding documentation for
-some functions and not others.
-
-On the other side, adding some documentation could be beneficial.
-
-David, what do you prefer?
-
-Should I document new functions I introduce?
 
 Best regards,
-Hervé
+Krzysztof
