@@ -1,96 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f193.google.com (mail-pf1-f193.google.com [209.85.210.193])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 960EF246BD5;
-	Fri,  3 Apr 2026 16:21:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 528113CE48D
+	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 16:28:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775233273; cv=none; b=oFpSxkAYfN9JxitdBOcXhG27614dmIJ1i6yLhEI7goQsjIdIjQOY+AX8TnAVUw7beXSntf6C9R4nQaVVD2vUWZ25Lu0uhyip8Lf9Oc/giVmuw+QUoUsZk00QhdrGcqK9dlPzhYsaCQsiKo1a5VKGfhOJoxsjioQn7wQr2MYX95A=
+	t=1775233715; cv=none; b=KBIeI2XhkemXLPRD+rTSqXN+euEQLdDpjuVyj7flgKI54Cuicmpc2bPx0NIbX02DR0BUoyqVozNcJL8nditTPGX9+ePHC1n5zfWICRCyJAXzHTPvOjddjRfchrWxSmSjiXdVNamInSJrBPdAr6DUFDbO+MVyPXOnoEA5XQDrpb4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775233273; c=relaxed/simple;
-	bh=lUkTNzulDtlooVfgkDMb6h1qH+67dzoddlhqIdLFbiM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SM6RQM8hYGu0wy6XpI3tn9R6O4SB8RWAMG3yYteXS1wBO7PClaIsekTw7n92wEBlApHLd3pTScK9F7j26J9xrDpcvgwOMGs5fTL1rfrILU43dgqEtK08lM9kfj+CX3tJB2jEvhn9wILipcwuHBMs3txXJqocIbk9j7BuzCk33gg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C6Tghiy/; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775233715; c=relaxed/simple;
+	bh=aa2PFgD6i6VfPTSuB5Nzc6oa7i1InOLAX1+UAJ3qULU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=eYVVxQowW2mNmW7ZPR5Z55iFf1T11VlCau+Mkzv+hyaHA4u9UA4XJ6iSUEklepV06sBz5iJ3zrhq+/WSK2s3HD8cKvXMyUwYDOqG4QN3IpZZDxGgdwGb/RVKgFXBrBiwpLHMiMrunf8dL+2vZmBCmUMVH1ZqC+JX9r+38/4oFsk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q8XYYRJ1; arc=none smtp.client-ip=209.85.210.193
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C6Tghiy/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36CE5C4CEF7;
-	Fri,  3 Apr 2026 16:21:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775233273;
-	bh=lUkTNzulDtlooVfgkDMb6h1qH+67dzoddlhqIdLFbiM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=C6Tghiy/QK+x9O7SpenV2rcmyZSQWQzhRs5PnFYR13Z9wnpj26EKTT+Y9ANcEQh9R
-	 xyVdsxtd8w11c32zsZ74dVMAQBaayI5yq6qpRDarKvSU5IkgMCoqBgGAO9SVkiU3G0
-	 j+HUBQ3hA/BHlvWb9UDK0USnPy3/YfpF7VxSSYhVMIzj1TUDIDF7rk340YdX/G96as
-	 nNHcQhk4RfLpc95WhJ+emUKKtxjBZqBsRNTC6Ne0xhKDA6yJt/eT1+eOb+OAmO+8JS
-	 4PeyKHJw/3R/rp/oNNbu1ZMhB5OdR/WpIJ3+B63FVTxiaUuoZ4U6myyjBocha5N2TU
-	 At2UpudG9NEiQ==
-Date: Fri, 3 Apr 2026 21:50:59 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Sherry Sun <sherry.sun@nxp.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de, 
-	festevam@gmail.com, lpieralisi@kernel.org, kwilczynski@kernel.org, 
-	bhelgaas@google.com, hongxing.zhu@nxp.com, l.stach@pengutronix.de, 
-	imx@lists.linux.dev, linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH V10 03/13] PCI: dwc: Parse Root Port nodes in
- dw_pcie_host_init()
-Message-ID: <xlsfwtcy3wl6nasmx2w2oys6u4bbnvh24qiwr4pf3v5uz523gz@qvhzqfcs5q2c>
-References: <20260402095107.205439-1-sherry.sun@nxp.com>
- <20260402095107.205439-4-sherry.sun@nxp.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q8XYYRJ1"
+Received: by mail-pf1-f193.google.com with SMTP id d2e1a72fcca58-82d029fd52eso1042395b3a.2
+        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 09:28:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1775233707; x=1775838507; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=nJOmOz2L9YVEihHhZLWaE0nc/BZm+kqpkZgh3ChszGk=;
+        b=Q8XYYRJ1/ukSDk4/1Lu1S9tDOgxqybcpwn11+PwifflPHjQIrCyYNwo24Onls6qP6w
+         oI1INE7RBukDjZtExhh1MnTtxVG08EFGv3EgMq+7rBdBgufJuPS5LQbnNwnzNz+hnrua
+         Co6AJl/AvYz0ofV68Qu8cCxlIzVXi075cUtoN0yQn05YfPeVJTFBKcY5Lc3Qw8S4Pa3T
+         4nVDi1rE67j0j9T+wLglClo9ixOY1u4uqMIOMmW/+2pV4Re8CzOG+kNVqaVND5q3ExJi
+         /wCUkoyDY+JjOas7HCHkZKAKyrIsZLIvUjsDYZmaHC5rpQfQEoQkKW0mIKn6MXrwIGfj
+         1X4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775233707; x=1775838507;
+        h=content-transfer-encoding:in-reply-to:from:references:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=nJOmOz2L9YVEihHhZLWaE0nc/BZm+kqpkZgh3ChszGk=;
+        b=WV5/V6w2TN5GMRaJoaEeKUqoWKuyVdnEehg4XGgDlO96sihp6TxvBs5W2AiwAkbXN8
+         C9kKdIuYRbplWNEJLiXEzr3AdJSpeh4QAMloLfaoYrLXtgg/iWKEeX7PV6o+nuRPeVzT
+         KE5d3EkiOx5nwLWONjg15d35JkkyTpNjim+bgOSEP80dMjoxwlMK42iSl2fthka42FEI
+         49czUTLiQOTCbPVahiBLwRMD/v9FGSJWlX0K0BjE/N1kA5dAO2/gzp3NMSS1+Srgnez8
+         m/+5oKaS9XbzppuNX/1S8HUu73f1hQxCKedIvIpqTTG9YIyHd+v+Xio7GJY+TGnldJDH
+         bvaw==
+X-Forwarded-Encrypted: i=1; AJvYcCVptVFzFYyKHyZg+tg8CJxZ/lS+/IpIv9KgzMZe2laRlUc66da79SEwsDtrFMXzZ6Vev5s163mZsKDz@vger.kernel.org
+X-Gm-Message-State: AOJu0YxWxm994tKJj1rJpB41bNWYz3V/o1NUzA832M3e228gjfJepGWD
+	IxWCGg3z5ZYk/MwYyacJoLtrEsyHGBVx5fgEdG+/4LK6piiOd7tgJS4p
+X-Gm-Gg: AeBDiesm0GUNqFKsA8McTRst+CUIsOzG3JefTEXO7EXgZ3Krv5M4bQJ22honwuh1v6y
+	s7FkptKpx1gqcMBppYEkyYw/gHdE+7Dg2aZxQjyIznmeRxtT5yROTRzqN4ZR0+2EMKmOpnoqQuF
+	i8tlFEuBSVVoQ8UEoT3YDyBE8jtZIeu5whjlS0Tv9LhbgJ1EjL/o5PANGVR7B0dE/wpBz0oHTAW
+	AiWZ8IkgPQKJUTuNuYOjBmnSzEGaiaPZbYmm/NidHccIDKbiwN7NARB0GV+tvazFwuwKTd6RDSI
+	rlSfjOGexfFDkTsTZJyqE7vMnNKF/7RjWJdGP0HKtymtAtL0RNmsqOXcXa0OE7rArzqmZhOyed3
+	onOoxoF+ASaIzvbXNOs4+JJfCrCT8LRaX5GY8fBE9vTmXMPCDKHp0tKkuYi6K3yuY3UpXdr/6B5
+	4dasSzNKkr3zKB/yNVBcxjP36aHsNMHPagbxV4uznh
+X-Received: by 2002:a05:6a00:3902:b0:824:a01f:6335 with SMTP id d2e1a72fcca58-82d0daa3ce1mr3501828b3a.22.1775233706143;
+        Fri, 03 Apr 2026 09:28:26 -0700 (PDT)
+Received: from [10.116.188.94] ([114.254.1.240])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82cf9c3ce13sm6592724b3a.38.2026.04.03.09.28.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 03 Apr 2026 09:28:25 -0700 (PDT)
+Message-ID: <7792fddc-0218-4889-97c8-42eebadbb343@gmail.com>
+Date: Sat, 4 Apr 2026 00:28:17 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260402095107.205439-4-sherry.sun@nxp.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/3] thermal: spacemit: Add support for SpacemiT K1 SoC
+ thermal sensor
+To: Vincent Legoll <legoll@online.fr>, alex@ghiti.fr, aou@eecs.berkeley.edu,
+ conor+dt@kernel.org, daniel.lezcano@linaro.org, devicetree@vger.kernel.org,
+ dlan@gentoo.org, krzk+dt@kernel.org, krzysztof.kozlowski@oss.qualcomm.com,
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-riscv@lists.infradead.org, lukasz.luba@arm.com,
+ p.zabel@pengutronix.de, palmer@dabbelt.com, pjw@kernel.org,
+ rafael@kernel.org, robh@kernel.org, rui.zhang@intel.com,
+ spacemit@lists.linux.dev
+References: <36cca49c-0cb4-42b9-87ae-702df825a4a4@online.fr>
+From: Gong Shuai <gsh517025@gmail.com>
+In-Reply-To: <36cca49c-0cb4-42b9-87ae-702df825a4a4@online.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Apr 02, 2026 at 05:50:57PM +0800, Sherry Sun wrote:
-> Add support for parsing Root Port child nodes in dw_pcie_host_init()
-> using pci_host_common_parse_ports(). This allows DWC-based drivers to
-> specify Root Port properties (like reset GPIOs) in individual Root Port
-> nodes rather than in the host bridge node.
-> 
-> Signed-off-by: Sherry Sun <sherry.sun@nxp.com>
-> ---
->  drivers/pci/controller/dwc/pcie-designware-host.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/pci/controller/dwc/pcie-designware-host.c b/drivers/pci/controller/dwc/pcie-designware-host.c
-> index da152c31bb2e..f6fca984fb34 100644
-> --- a/drivers/pci/controller/dwc/pcie-designware-host.c
-> +++ b/drivers/pci/controller/dwc/pcie-designware-host.c
-> @@ -20,6 +20,7 @@
->  #include <linux/platform_device.h>
->  
->  #include "../../pci.h"
-> +#include "../pci-host-common.h"
->  #include "pcie-designware.h"
->  
->  static struct pci_ops dw_pcie_ops;
-> @@ -581,6 +582,13 @@ int dw_pcie_host_init(struct dw_pcie_rp *pp)
->  
->  	pp->bridge = bridge;
->  
-> +	/* Parse Root Port nodes if present */
-> +	ret = pci_host_common_parse_ports(dev, bridge);
-> +	if (ret && ret != -ENOENT) {
-> +		dev_err(dev, "Failed to parse Root Port nodes: %d\n", ret);
-> +		return ret;
+Hi Vincent,
 
-Won't this change break drivers that parse Root Ports on their own? Either you
-need to modify them also in this change or call this API from imx6 driver and
-let other drivers switch to it in a phased manner.
+On 4/3/2026 8:57 PM, Vincent Legoll wrote:> Hello,
+ >
+ >
+ > I applied this series on top of:
+ >
+ > - next-20260402
+ >
+ > -
+ > 
+https://patchwork.kernel.org/project/linux-riscv/patch/20260330-orangepi-sd-card-uhs-v5-9-bd853604322d@gmail.com/
+ >
+ > I need the the SD card series to boot from SD card.
+ >
+You're absolutely right! We do need the SD series patches.
 
-I perfer the latter.
+I'm actually building the mainline kernel using meta-riscv, and it's 
+default config
+already includes those patches. I completely forgot about that.
 
-- Mani
+Thanks.
 
--- 
-மணிவண்ணன் சதாசிவம்
+ >
+ > I'm also seeing the same "it works" state as Gong Shuai.
+ >
+ > So you can add another:
+ >
+ > Tested-by: Vincent Legoll <legoll@online.fr> # OrangePi-RV2
+ >
+ > Regards
+ >
+ > Thanks
+ >
