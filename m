@@ -1,119 +1,204 @@
-Received: from mail-pf1-f193.google.com (mail-pf1-f193.google.com [209.85.210.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 528113CE48D
-	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 16:28:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B5983CA4B3;
+	Fri,  3 Apr 2026 16:30:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775233715; cv=none; b=KBIeI2XhkemXLPRD+rTSqXN+euEQLdDpjuVyj7flgKI54Cuicmpc2bPx0NIbX02DR0BUoyqVozNcJL8nditTPGX9+ePHC1n5zfWICRCyJAXzHTPvOjddjRfchrWxSmSjiXdVNamInSJrBPdAr6DUFDbO+MVyPXOnoEA5XQDrpb4=
+	t=1775233800; cv=none; b=tXrGWlzfLopREZ53SL1U/lHfbfYHqdJcaQUGGM5APPi2JLOT9k5JvEDNiunXwWVdaZGrLnqyFkp8167ailjHNA2o802Gs4S7vyW5drv4P+1sQjO6eZUYlEVrbmJoC5DGjXfvZAxXbJMfOp4RWjLDwVXC4Agp6v0SdxBUOxcQxnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775233715; c=relaxed/simple;
-	bh=aa2PFgD6i6VfPTSuB5Nzc6oa7i1InOLAX1+UAJ3qULU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=eYVVxQowW2mNmW7ZPR5Z55iFf1T11VlCau+Mkzv+hyaHA4u9UA4XJ6iSUEklepV06sBz5iJ3zrhq+/WSK2s3HD8cKvXMyUwYDOqG4QN3IpZZDxGgdwGb/RVKgFXBrBiwpLHMiMrunf8dL+2vZmBCmUMVH1ZqC+JX9r+38/4oFsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q8XYYRJ1; arc=none smtp.client-ip=209.85.210.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1775233800; c=relaxed/simple;
+	bh=uQCRAOjiV5WXPzI6jcTO694gx4cH1dlQgpFKmqcXA5w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BPO0fj67kA8dUIl7EbB5cAEEhoiwvzJw4FZAhbLWarVVdVEswmO9ZoqDM21k7HtvZtOjH2Y3mfSuV8SHcE0DjmYIJJRXpf5YNhG4DfwCdH24ztJha7ilCbVlQU9nVuFKW5RYJ0wlkVFPBAAARD4scB85XUPuRK6gYcGzeYieK0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d3t2+OAH; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q8XYYRJ1"
-Received: by mail-pf1-f193.google.com with SMTP id d2e1a72fcca58-82d029fd52eso1042395b3a.2
-        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 09:28:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775233707; x=1775838507; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nJOmOz2L9YVEihHhZLWaE0nc/BZm+kqpkZgh3ChszGk=;
-        b=Q8XYYRJ1/ukSDk4/1Lu1S9tDOgxqybcpwn11+PwifflPHjQIrCyYNwo24Onls6qP6w
-         oI1INE7RBukDjZtExhh1MnTtxVG08EFGv3EgMq+7rBdBgufJuPS5LQbnNwnzNz+hnrua
-         Co6AJl/AvYz0ofV68Qu8cCxlIzVXi075cUtoN0yQn05YfPeVJTFBKcY5Lc3Qw8S4Pa3T
-         4nVDi1rE67j0j9T+wLglClo9ixOY1u4uqMIOMmW/+2pV4Re8CzOG+kNVqaVND5q3ExJi
-         /wCUkoyDY+JjOas7HCHkZKAKyrIsZLIvUjsDYZmaHC5rpQfQEoQkKW0mIKn6MXrwIGfj
-         1X4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775233707; x=1775838507;
-        h=content-transfer-encoding:in-reply-to:from:references:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=nJOmOz2L9YVEihHhZLWaE0nc/BZm+kqpkZgh3ChszGk=;
-        b=WV5/V6w2TN5GMRaJoaEeKUqoWKuyVdnEehg4XGgDlO96sihp6TxvBs5W2AiwAkbXN8
-         C9kKdIuYRbplWNEJLiXEzr3AdJSpeh4QAMloLfaoYrLXtgg/iWKEeX7PV6o+nuRPeVzT
-         KE5d3EkiOx5nwLWONjg15d35JkkyTpNjim+bgOSEP80dMjoxwlMK42iSl2fthka42FEI
-         49czUTLiQOTCbPVahiBLwRMD/v9FGSJWlX0K0BjE/N1kA5dAO2/gzp3NMSS1+Srgnez8
-         m/+5oKaS9XbzppuNX/1S8HUu73f1hQxCKedIvIpqTTG9YIyHd+v+Xio7GJY+TGnldJDH
-         bvaw==
-X-Forwarded-Encrypted: i=1; AJvYcCVptVFzFYyKHyZg+tg8CJxZ/lS+/IpIv9KgzMZe2laRlUc66da79SEwsDtrFMXzZ6Vev5s163mZsKDz@vger.kernel.org
-X-Gm-Message-State: AOJu0YxWxm994tKJj1rJpB41bNWYz3V/o1NUzA832M3e228gjfJepGWD
-	IxWCGg3z5ZYk/MwYyacJoLtrEsyHGBVx5fgEdG+/4LK6piiOd7tgJS4p
-X-Gm-Gg: AeBDiesm0GUNqFKsA8McTRst+CUIsOzG3JefTEXO7EXgZ3Krv5M4bQJ22honwuh1v6y
-	s7FkptKpx1gqcMBppYEkyYw/gHdE+7Dg2aZxQjyIznmeRxtT5yROTRzqN4ZR0+2EMKmOpnoqQuF
-	i8tlFEuBSVVoQ8UEoT3YDyBE8jtZIeu5whjlS0Tv9LhbgJ1EjL/o5PANGVR7B0dE/wpBz0oHTAW
-	AiWZ8IkgPQKJUTuNuYOjBmnSzEGaiaPZbYmm/NidHccIDKbiwN7NARB0GV+tvazFwuwKTd6RDSI
-	rlSfjOGexfFDkTsTZJyqE7vMnNKF/7RjWJdGP0HKtymtAtL0RNmsqOXcXa0OE7rArzqmZhOyed3
-	onOoxoF+ASaIzvbXNOs4+JJfCrCT8LRaX5GY8fBE9vTmXMPCDKHp0tKkuYi6K3yuY3UpXdr/6B5
-	4dasSzNKkr3zKB/yNVBcxjP36aHsNMHPagbxV4uznh
-X-Received: by 2002:a05:6a00:3902:b0:824:a01f:6335 with SMTP id d2e1a72fcca58-82d0daa3ce1mr3501828b3a.22.1775233706143;
-        Fri, 03 Apr 2026 09:28:26 -0700 (PDT)
-Received: from [10.116.188.94] ([114.254.1.240])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82cf9c3ce13sm6592724b3a.38.2026.04.03.09.28.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 03 Apr 2026 09:28:25 -0700 (PDT)
-Message-ID: <7792fddc-0218-4889-97c8-42eebadbb343@gmail.com>
-Date: Sat, 4 Apr 2026 00:28:17 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d3t2+OAH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B757CC4CEF7;
+	Fri,  3 Apr 2026 16:29:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775233800;
+	bh=uQCRAOjiV5WXPzI6jcTO694gx4cH1dlQgpFKmqcXA5w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=d3t2+OAHZo0jkm8hzozNa4QRBweKwXcljiFW5lnb6ImG2r0kh/bxvTFk5MGH9pdHQ
+	 y0OmYJ54QNe/FAIJtrxCmSu/AjdYl1AWsXJtdyU8kOuQvesdIxwEfTdO3WZCXxmAXe
+	 2dA2z5XGivG0D0urzxBuNu5sKF/8YawL8d5IDyVD2XI9nhFftRgsDzOf3FVldR9vOF
+	 44tDIAykbbaKNmfzBMTDa6uiAot2E+jOcuaIaFFTWEb6oFFG3yM1hjN/R98jhkWr10
+	 KMqyDUeMPLa0ekmOXVPnfeU23W3Aq/xOeKiDxU7PfV0EkTO8zxhR+z3jql6Oyo317h
+	 FQickyvwtnYaA==
+Date: Fri, 3 Apr 2026 21:59:46 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Sherry Sun <sherry.sun@nxp.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de, 
+	festevam@gmail.com, lpieralisi@kernel.org, kwilczynski@kernel.org, 
+	bhelgaas@google.com, hongxing.zhu@nxp.com, l.stach@pengutronix.de, 
+	imx@lists.linux.dev, linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH V10 04/13] PCI: imx6: Assert PERST# before enabling
+ regulators
+Message-ID: <jwazawvhuoafkhfwpjfgccc3hz6kej7i6iwkh5be2qena2b4di@yzv6e75zezfu>
+References: <20260402095107.205439-1-sherry.sun@nxp.com>
+ <20260402095107.205439-5-sherry.sun@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] thermal: spacemit: Add support for SpacemiT K1 SoC
- thermal sensor
-To: Vincent Legoll <legoll@online.fr>, alex@ghiti.fr, aou@eecs.berkeley.edu,
- conor+dt@kernel.org, daniel.lezcano@linaro.org, devicetree@vger.kernel.org,
- dlan@gentoo.org, krzk+dt@kernel.org, krzysztof.kozlowski@oss.qualcomm.com,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-riscv@lists.infradead.org, lukasz.luba@arm.com,
- p.zabel@pengutronix.de, palmer@dabbelt.com, pjw@kernel.org,
- rafael@kernel.org, robh@kernel.org, rui.zhang@intel.com,
- spacemit@lists.linux.dev
-References: <36cca49c-0cb4-42b9-87ae-702df825a4a4@online.fr>
-From: Gong Shuai <gsh517025@gmail.com>
-In-Reply-To: <36cca49c-0cb4-42b9-87ae-702df825a4a4@online.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260402095107.205439-5-sherry.sun@nxp.com>
 
-Hi Vincent,
+On Thu, Apr 02, 2026 at 05:50:58PM +0800, Sherry Sun wrote:
+> According to the PCIe initialization requirements, PERST# signal should
+> be asserted before applying power to the PCIe device, and deasserted
+> after power and reference clock are stable.
+> 
 
-On 4/3/2026 8:57 PM, Vincent Legoll wrote:> Hello,
- >
- >
- > I applied this series on top of:
- >
- > - next-20260402
- >
- > -
- > 
-https://patchwork.kernel.org/project/linux-riscv/patch/20260330-orangepi-sd-card-uhs-v5-9-bd853604322d@gmail.com/
- >
- > I need the the SD card series to boot from SD card.
- >
-You're absolutely right! We do need the SD series patches.
+Spec wording is not quite like this. Spec mandates asserting PERST# *before*
+stopping refclk and powering down the device and deasserting it *after* applying
+power and refclk stable.
 
-I'm actually building the mainline kernel using meta-riscv, and it's 
-default config
-already includes those patches. I completely forgot about that.
+I believe you want to assert PERST# before enabling regulator to prevent the
+endpoint from functioning? If so, is it due to refclk not available yet or some
+other reason?
 
-Thanks.
+> Currently, the driver enables the vpcie3v3aux regulator in
+> imx_pcie_probe() before PERST# is asserted in imx_pcie_host_init(),
+> which violates the PCIe power sequencing requirements. However, there
+> is no issue so far because PERST# is requested as GPIOD_OUT_HIGH in
+> imx_pcie_probe(), which guarantees that PERST# is asserted before
+> enabling the vpcie3v3aux regulator.
+> 
+> This is prepare for the upcoming changes that will parse the reset
+> property using the new Root Port binding, which will use GPIOD_ASIS
+> when requesting the reset GPIO. With GPIOD_ASIS, the GPIO state is not
+> guaranteed, so explicit sequencing is required.
+> 
+> Fix the power sequencing by:
+> 1. Moving vpcie3v3aux regulator enable from probe to
+>    imx_pcie_host_init(), where it can be properly sequenced with PERST#.
+> 2. Moving imx_pcie_assert_perst() before regulator and clock enable to
+>    ensure correct ordering.
+> 
+> The vpcie3v3aux regulator is kept enabled for the entire PCIe controller
+> lifecycle and automatically disabled on device removal via devm cleanup.
+> 
 
- >
- > I'm also seeing the same "it works" state as Gong Shuai.
- >
- > So you can add another:
- >
- > Tested-by: Vincent Legoll <legoll@online.fr> # OrangePi-RV2
- >
- > Regards
- >
- > Thanks
- >
+vpcie3v3aux handling should be in a separate patch.
+
+- Mani
+
+> Signed-off-by: Sherry Sun <sherry.sun@nxp.com>
+> ---
+>  drivers/pci/controller/dwc/pci-imx6.c | 49 +++++++++++++++++++++------
+>  1 file changed, 39 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
+> index 45d70ae7e04f..948ffb75d122 100644
+> --- a/drivers/pci/controller/dwc/pci-imx6.c
+> +++ b/drivers/pci/controller/dwc/pci-imx6.c
+> @@ -166,6 +166,8 @@ struct imx_pcie {
+>  	u32			tx_swing_full;
+>  	u32			tx_swing_low;
+>  	struct regulator	*vpcie;
+> +	struct regulator	*vpcie_aux;
+> +	bool			vpcie_aux_enabled;
+>  	struct regulator	*vph;
+>  	void __iomem		*phy_base;
+>  
+> @@ -1220,6 +1222,13 @@ static void imx_pcie_disable_device(struct pci_host_bridge *bridge,
+>  	imx_pcie_remove_lut(imx_pcie, pci_dev_id(pdev));
+>  }
+>  
+> +static void imx_pcie_vpcie_aux_disable(void *data)
+> +{
+> +	struct regulator *vpcie_aux = data;
+> +
+> +	regulator_disable(vpcie_aux);
+> +}
+> +
+>  static void imx_pcie_assert_perst(struct imx_pcie *imx_pcie, bool assert)
+>  {
+>  	if (assert) {
+> @@ -1240,6 +1249,24 @@ static int imx_pcie_host_init(struct dw_pcie_rp *pp)
+>  	struct imx_pcie *imx_pcie = to_imx_pcie(pci);
+>  	int ret;
+>  
+> +	imx_pcie_assert_perst(imx_pcie, true);
+> +
+> +	/* Keep 3.3Vaux supply enabled for the entire PCIe controller lifecycle */
+> +	if (imx_pcie->vpcie_aux && !imx_pcie->vpcie_aux_enabled) {
+> +		ret = regulator_enable(imx_pcie->vpcie_aux);
+> +		if (ret) {
+> +			dev_err(dev, "failed to enable vpcie_aux regulator: %d\n",
+> +				ret);
+> +			return ret;
+> +		}
+> +		imx_pcie->vpcie_aux_enabled = true;
+> +
+> +		ret = devm_add_action_or_reset(dev, imx_pcie_vpcie_aux_disable,
+> +					       imx_pcie->vpcie_aux);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+>  	if (imx_pcie->vpcie) {
+>  		ret = regulator_enable(imx_pcie->vpcie);
+>  		if (ret) {
+> @@ -1249,25 +1276,24 @@ static int imx_pcie_host_init(struct dw_pcie_rp *pp)
+>  		}
+>  	}
+>  
+> +	ret = imx_pcie_clk_enable(imx_pcie);
+> +	if (ret) {
+> +		dev_err(dev, "unable to enable pcie clocks: %d\n", ret);
+> +		goto err_reg_disable;
+> +	}
+> +
+>  	if (pp->bridge && imx_check_flag(imx_pcie, IMX_PCIE_FLAG_HAS_LUT)) {
+>  		pp->bridge->enable_device = imx_pcie_enable_device;
+>  		pp->bridge->disable_device = imx_pcie_disable_device;
+>  	}
+>  
+>  	imx_pcie_assert_core_reset(imx_pcie);
+> -	imx_pcie_assert_perst(imx_pcie, true);
+>  
+>  	if (imx_pcie->drvdata->init_phy)
+>  		imx_pcie->drvdata->init_phy(imx_pcie);
+>  
+>  	imx_pcie_configure_type(imx_pcie);
+>  
+> -	ret = imx_pcie_clk_enable(imx_pcie);
+> -	if (ret) {
+> -		dev_err(dev, "unable to enable pcie clocks: %d\n", ret);
+> -		goto err_reg_disable;
+> -	}
+> -
+>  	if (imx_pcie->phy) {
+>  		ret = phy_init(imx_pcie->phy);
+>  		if (ret) {
+> @@ -1780,9 +1806,12 @@ static int imx_pcie_probe(struct platform_device *pdev)
+>  	of_property_read_u32(node, "fsl,max-link-speed", &pci->max_link_speed);
+>  	imx_pcie->supports_clkreq = of_property_read_bool(node, "supports-clkreq");
+>  
+> -	ret = devm_regulator_get_enable_optional(&pdev->dev, "vpcie3v3aux");
+> -	if (ret < 0 && ret != -ENODEV)
+> -		return dev_err_probe(dev, ret, "failed to enable Vaux supply\n");
+> +	imx_pcie->vpcie_aux = devm_regulator_get_optional(&pdev->dev, "vpcie3v3aux");
+> +	if (IS_ERR(imx_pcie->vpcie_aux)) {
+> +		if (PTR_ERR(imx_pcie->vpcie_aux) != -ENODEV)
+> +			return PTR_ERR(imx_pcie->vpcie_aux);
+> +		imx_pcie->vpcie_aux = NULL;
+> +	}
+>  
+>  	imx_pcie->vpcie = devm_regulator_get_optional(&pdev->dev, "vpcie");
+>  	if (IS_ERR(imx_pcie->vpcie)) {
+> -- 
+> 2.37.1
+> 
+
+-- 
+மணிவண்ணன் சதாசிவம்
