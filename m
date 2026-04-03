@@ -1,132 +1,602 @@
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D12413C9ECD
-	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 15:00:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F5E236AB53
+	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 15:07:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775228440; cv=none; b=h1qKeZoYqgaAiv/N1XYL784axEZs28r4Hor+yJtNN1RXo587vbFTYm8uCnAYkEtujvc2W/ulNVpMhtpTu3SIUgiQRjKbcK1JitePFkRO+L/8wEkFCWL4ozz0aOjqD7xTxmivyD3rT5OlQzizj1P6GGHT5xQfqN/r/fH3DL6ytT8=
+	t=1775228862; cv=none; b=jVXJlcWl/3pUeF5d8WZI1A7fWm1vSyd0q3+xRql0dToPR4brwYt7IlxOkoQOs6/LfhKF9+R9dUj5Y6rhAwE+LYWGwR/1R3AenClsx8d3W2V3A13TQtJYLv3wPfru2MD48y5pDn4ZSmIYPn299nUg0bUHf57W8kBs8Yuq9xtqIHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775228440; c=relaxed/simple;
-	bh=TQbe/biy9htlzVQhWhB2WMPTK2E7zpG9vrUxoUGpEvE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TtQby6qWqwqmtJ9B1qtTDhbUafBU8SVrRMsDPb/sKAEGR6llRLPwRT9Gv6eoKUjB4VQJr/ums9z4LCovalwQ4/rr27bPI+/zX0GlWB7K/dsLTOlfNmBdwciuwXREpgoEADuN/bQKn+HIMBB5d20S+2Bn3/QmKdgS/6j3Au2sH54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=IaqiGgtn; arc=none smtp.client-ip=209.85.218.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1775228862; c=relaxed/simple;
+	bh=Jy0Z3lyV2RsN8oiZ1yOi6ize7teFbrFqGxBK5zkSl6A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=u9j2U/dBMjPDfeddiVsnFLkSw1KBbmh2hMcL26JLUkQ3NQZjOqCmWtIR29TwDCh1wZmo2m9atgyYC4vrhwzxJrbSTYXfsV89MqtQb3vgWHeKOxMgoByn7At8FDvIsUMGIgn74/34mTfw6Ib+nwFYFgOfKBMmspNUKmhQTKmz4QA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=C6a+waV0; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=THz/VikQ; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="IaqiGgtn"
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-b941762394aso259408066b.1
-        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 08:00:38 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="C6a+waV0";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="THz/VikQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1775228859;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9VUq3iHyJBlap7+8lACX3iuj8cpAeT8KumT6dvPCbu8=;
+	b=C6a+waV0NZN2gjf0QlepyOz/Ca8kgfHrSXGJ4nC081tq8R1hjGiYJxuTg7s8RLGTi/OI8q
+	bLDajzk9ka5Q3URCE0yjQoi+SJy6CrF9ei8uBtTfF8IesE4qFhPloidAL1IkyBtpGHCiLs
+	dkL4o3wvnT3esCwM0I/8382BVWGGitI=
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-677-F6hY7cj3P_iIh1Y8at8MdA-1; Fri, 03 Apr 2026 11:07:38 -0400
+X-MC-Unique: F6hY7cj3P_iIh1Y8at8MdA-1
+X-Mimecast-MFC-AGG-ID: F6hY7cj3P_iIh1Y8at8MdA_1775228857
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50b802961ecso25942621cf.1
+        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 08:07:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1775228437; x=1775833237; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=7gu4S8y7arrlye5B2e+gfyyz199/jWDrWD1f/lej6PM=;
-        b=IaqiGgtnD57PD+EZwhTfwVxBsgIdHnI0Hq5hMakuxQzFuGOCuC0YCqgIy+GEHW27IB
-         CLTB8dQBlFdzKfsihtllMSkkYV6nwIC23/yR+Wyt54veEYYvMQbyrqAxUvJXUHVb5oIj
-         Vb80w4D0C32pW1AYDiN5fg/XVMecKy+3wKvhECw9OiCpRQ5uDC4+0WXziKXd2QtrtFbp
-         o0T8wFrLmNp+LKjXXqhiEuJBNEtsZrCN+ICRDRLzN7o/YxTm2IiivX5XNWuhIDN9CpXj
-         rO89Ve1jN9WrHJZpjQqiUOp/uO6RViSrha2UAWofPN62883Sjg/YIdX4Bt56+5JYJGB7
-         KIaA==
+        d=redhat.com; s=google; t=1775228857; x=1775833657; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9VUq3iHyJBlap7+8lACX3iuj8cpAeT8KumT6dvPCbu8=;
+        b=THz/VikQoD8NSsHV36RwFDuteMWMNoCORhws6h0ddRuZO1j5eSrX0lUA+9BpVuKrDV
+         SYxnEbUIrUufUauZq/xG8gj4tYV37t1zW3Bfbsd//hws+ZOaR2RbVObXGJPqWxwyVOX/
+         W4xrPhIwwFDeKvFxPNVkJ9ioDav3dRFkWeXlRR+osdUHD0nBO2IIx0DahHGB+7JFeFu5
+         7dwxe/Ye3DRUrycT35SlNU0dV2OgRM7J6QiC9NG0oZYX0kFd0DZ8AkPUIJkh3oyf+Gz2
+         /ftNHqOqWUDf/lfYPrpWbJmuRBvqSLHVznFEKq6SFiGB73kmsQMK7P9ETBfeH2nts22X
+         K32w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775228437; x=1775833237;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=7gu4S8y7arrlye5B2e+gfyyz199/jWDrWD1f/lej6PM=;
-        b=qKpct8cZkyfqlgdoCACFcUvWYaVlsIXKndy9tocWyH5dpmgy9E45OiMk75pW0uNGfv
-         litroO+uIz7n6g7d8HRHlhhJfh3jTIyqFJxWvlntOnSipC9eeTzzCV6l0IgNdL0/MNkD
-         ePsPZcInNeRCACE4PLm+x4GjHyf/+We0cUIW9UL6Zx1aD6+v/ZooFbKfQfXPHDNJgHRG
-         0tZIqQzBMf+YOuLAe76m9O5iNWdWBSBCgzu9mbGndeP+VZNjLsUhi3+8kB+dZ/bXl/vU
-         ClI4bXPStyyyf5u5fxWYgh69gex4qo2nairaiC2cmbvx3SKesGXVHnG50nZHMZULpM0D
-         4QsA==
-X-Forwarded-Encrypted: i=1; AJvYcCUkSyghTZ36hReFJJL1/tixk2/cSiDkLmFnj++O1zXHuSgWjdaXAYCCG4r1ddTfWsCBgwsL2K/DY+9z@vger.kernel.org
-X-Gm-Message-State: AOJu0YxlfB3hi/MOC8vd062+0ACIGBGzwKRKBO6K1k/qs6ftjOnZ9e8+
-	ifns706jO+ymKR6/zMrX4Srx5EtgBrRpDxkPEKH1z6dmEYX5pt2g8i1EDKTpML9Lx0U=
-X-Gm-Gg: AeBDievNqQ2+FinxAyajDmUSkyzlLheiD4cjegx1uqLpdA5Q/3zHLCCaCBVD2qEvF6D
-	ZeWw4y2Mb2CIfGVdF6a2f1QbFp+wGNfRTtGpYLP8Q8Zy4RcIgwSdyUqvb+VwL1bpUijKV+DSvB3
-	wyOPdSH5wntGbu77KtkV+ynCaBd8WhDGWUp3NxWXWp+5Cw/fttlwAMKi3qEv0aCWCxAEMMSUsUY
-	UxpthHyWHF93LXSUBDcjjmr/9I2WV3ojQ3LoN/ijhGUo4WABfM1/0p5EJgBXl2OQQUC1DQfJ1TK
-	+poilFbIm2wBCTRvu+H4Tbf/5C0BLSU+YDEB1xDUBq06iYLXUM4y3Ki/mP0FvNQD9j2PdbPrrxN
-	8DQV1NWXqu6fnQn9q+lUT9KbCcnC/iv0S4L5pXUWUEllsh9JgI+zyJArE8tYhoCnGAQA3UHEwkC
-	08590+c9jAm9xW16mKxcuXJFB2geaecIS89DMiJKY8mHJeWlgZ9qxwf4j8q5YYoqOuXl3f8L058
-	Yff7KyeqrUCYNRHkF6Y9MajUgsiyB+Bvyr78A==
-X-Received: by 2002:a17:907:c819:b0:b9c:5357:15e1 with SMTP id a640c23a62f3a-b9c679a5e68mr178381466b.38.1775228437171;
-        Fri, 03 Apr 2026 08:00:37 -0700 (PDT)
-Received: from otso.local (2001-1c00-3b89-c600-71a4-084f-6409-1447.cable.dynamic.v6.ziggo.nl. [2001:1c00:3b89:c600:71a4:84f:6409:1447])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-66e02f389absm1724648a12.13.2026.04.03.08.00.36
+        d=1e100.net; s=20251104; t=1775228857; x=1775833657;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=9VUq3iHyJBlap7+8lACX3iuj8cpAeT8KumT6dvPCbu8=;
+        b=qmCHn4VxIzAdLUE63fqDavsCz8jKUc3x9OvNkMVmkVPEaXm/5YCM1Z8bupFVQFB+s3
+         QsnBIJgODTkhEJ7Qw93P6R2N6wT6qbZyXrI6ZehjXLkNkZ8cr702a/LV6lHORstJcVz/
+         /dZ0gXxPNY6HijQzJmvTZL0RAJN/IhkJeMx597j9g0aSokXEEcubgHaFEzFXCEzREcya
+         4R8R0cvJKDYXiTMtITtYIrr2JFSJLar0A7LynCeCLGKs9R/lCDv2oz8GwXmUsJ6yj04D
+         ilSFYJOsxzpu6VsoDZt2NXeB1psK4Kl+XCBuJ1SwuClYDGJ2P3KRHbILF4mL2SVg/u9d
+         OIxQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXHaEK1jPI4ajU55fRetkvgzB3n2y9bWwGGZLiGhPpGU+SSh1EBuxx6woaDL1kboC53/pVr8LoG7Lhi@vger.kernel.org
+X-Gm-Message-State: AOJu0YwjJe7qB1etcjH7QDCsnNhyz4tOXdy1bQa/XhAjVARcClgEM+cu
+	hHVm+T9jzWKfups1wtMcZUx6w0nw849vG/umVYJtQyodgcnXy69hKPZ7SLrBVk4nwroIlUv64hO
+	6QtsG0d/J2LqE4rml7EcpzQOkf1iZIlEbHCxDVqxQCobGusFk3EYdwRgisb8Uri4=
+X-Gm-Gg: AeBDiesU67yWyBMvkf076QsTBHVnJ3Ta18GkmnewyPG4D4a9wepyTW5SvLRBNp1N+VQ
+	miZ3CRdzINGKk5mSe9YDD3dbcN7M9G1hvK6llic8/lgsTLu0R8xL+YztQWaz7PqMuN4KYuZbdXw
+	qBgN9TLM98n5yj9m656qtgvEMKLB+HmFfO8sp1RmpIeYyxr8x6uENLfYdGeZh2/t+9xb7ayG/8l
+	sI+63caew2RpJ/mgBOmq5D4aBonHseaH8uVJSzg9edHfTWCPlGX65wkmw2Ly/V4lgkJpdUHHzQy
+	CDEIXoCrpnyRIQ/DS9MCUJf8t2GBWv3Blv66/Nobu7KchglEqymc6PckQzR8M+gsgJ7QDKf1jXe
+	wWoUuJWuHZZEvuA9vZOMJhBi3wMZVmpIuTvrT41V0Bt2D/fLJ3THdE727
+X-Received: by 2002:a05:6214:3116:b0:8a3:a172:46b0 with SMTP id 6a1803df08f44-8a705194a7cmr47589936d6.44.1775228856618;
+        Fri, 03 Apr 2026 08:07:36 -0700 (PDT)
+X-Received: by 2002:a05:6214:3116:b0:8a3:a172:46b0 with SMTP id 6a1803df08f44-8a705194a7cmr47589096d6.44.1775228856001;
+        Fri, 03 Apr 2026 08:07:36 -0700 (PDT)
+Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8a593bf51b6sm60006436d6.17.2026.04.03.08.07.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Apr 2026 08:00:36 -0700 (PDT)
-From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Fri, 03 Apr 2026 17:00:24 +0200
-Subject: [PATCH 2/2] arm64: dts: qcom: milos: Add IMEM node
+        Fri, 03 Apr 2026 08:07:35 -0700 (PDT)
+Date: Fri, 3 Apr 2026 11:07:32 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Yu-Chun Lin <eleanor.lin@realtek.com>
+Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, p.zabel@pengutronix.de,
+	cylee12@realtek.com, afaerber@suse.com, jyanchou@realtek.com,
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-realtek-soc@lists.infradead.org, james.tai@realtek.com,
+	cy.huang@realtek.com, stanley_chang@realtek.com
+Subject: Re: [PATCH v6 07/10] clk: realtek: Add support for MMC-tuned PLL
+ clocks
+Message-ID: <ac_XtHzDpIjHW8xT@redhat.com>
+References: <20260402073957.2742459-1-eleanor.lin@realtek.com>
+ <20260402073957.2742459-8-eleanor.lin@realtek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260403-milos-imem-v1-2-4244ebb47017@fairphone.com>
-References: <20260403-milos-imem-v1-0-4244ebb47017@fairphone.com>
-In-Reply-To: <20260403-milos-imem-v1-0-4244ebb47017@fairphone.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1775228434; l=1119;
- i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=TQbe/biy9htlzVQhWhB2WMPTK2E7zpG9vrUxoUGpEvE=;
- b=wtds/FesU61DwOgHwI2IZtmUWUdtpEuRWDzS9r/ek2UT/3mzDGVqZwNz+x12BgknKrrzIUS5u
- PFjJEXku1ERAo1kOHDG2e6tY2RmIyv/Bvk5C0tdY22r67Uh34eoFDlx
-X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
- pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260402073957.2742459-8-eleanor.lin@realtek.com>
+User-Agent: Mutt/2.3.0 (2026-01-25)
 
-Add a node for the IMEM found on Milos, which contains pil-reloc-info
-and the modem tables for IPA, among others.
+Hi Yu-Chun and Cheng-Yu,
 
-Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
----
- arch/arm64/boot/dts/qcom/milos.dtsi | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+On Thu, Apr 02, 2026 at 03:39:54PM +0800, Yu-Chun Lin wrote:
+> From: Cheng-Yu Lee <cylee12@realtek.com>
+> 
+> Add clk_pll_mmc_ops for enable/disable, prepare, rate control, and status
+> operations on MMC PLL clocks.
+> 
+> Also add clk_pll_mmc_phase_ops to support phase get/set operations.
+> 
+> Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
+> Co-developed-by: Jyan Chou <jyanchou@realtek.com>
+> Signed-off-by: Jyan Chou <jyanchou@realtek.com>
+> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> ---
+> Changes in v6:
+> - Add the headers used in c file to follow the "Include What You Use" principle.
+> - Move to_clk_pll_mmc() from clk-pll.h to clk-pll-mmc.c to limit its scope.
+> - Change offset type from int to unsigned int.
+> ---
+>  MAINTAINERS                       |   8 +
+>  drivers/clk/realtek/Kconfig       |   3 +
+>  drivers/clk/realtek/Makefile      |   2 +
+>  drivers/clk/realtek/clk-pll-mmc.c | 410 ++++++++++++++++++++++++++++++
+>  drivers/clk/realtek/clk-pll.h     |  13 +
+>  5 files changed, 436 insertions(+)
+>  create mode 100644 drivers/clk/realtek/clk-pll-mmc.c
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 8318156a02b5..4b28af4b26b5 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -22245,6 +22245,14 @@ F:	drivers/reset/realtek/*
+>  F:	include/dt-bindings/clock/realtek*
+>  F:	include/dt-bindings/reset/realtek*
+>  
+> +REALTEK SOC PLL CLOCK FOR MMC SUPPORT
+> +M:	Cheng-Yu Lee <cylee12@realtek.com>
+> +M:	Jyan Chou <jyanchou@realtek.com>
+> +M:	Yu-Chun Lin <eleanor.lin@realtek.com>
+> +L:	linux-clk@vger.kernel.org
+> +S:	Supported
+> +F:	drivers/clk/realtek/clk-pll-mmc.c
+> +
+>  REALTEK SPI-NAND
+>  M:	Chris Packham <chris.packham@alliedtelesis.co.nz>
+>  S:	Maintained
+> diff --git a/drivers/clk/realtek/Kconfig b/drivers/clk/realtek/Kconfig
+> index bc47d3f1c452..b31a31e57b3a 100644
+> --- a/drivers/clk/realtek/Kconfig
+> +++ b/drivers/clk/realtek/Kconfig
+> @@ -25,4 +25,7 @@ config RTK_CLK_COMMON
+>  	  multiple Realtek clock implementations, and include integration
+>  	  with reset controllers where required.
+>  
+> +config RTK_CLK_PLL_MMC
+> +	bool
+> +
+>  endif
+> diff --git a/drivers/clk/realtek/Makefile b/drivers/clk/realtek/Makefile
+> index f90dc57fcfdb..fd7d777902c8 100644
+> --- a/drivers/clk/realtek/Makefile
+> +++ b/drivers/clk/realtek/Makefile
+> @@ -7,3 +7,5 @@ clk-rtk-y += clk-pll.o
+>  clk-rtk-y += clk-regmap-gate.o
+>  clk-rtk-y += clk-regmap-mux.o
+>  clk-rtk-y += freq_table.o
+> +
+> +clk-rtk-$(CONFIG_RTK_CLK_PLL_MMC) += clk-pll-mmc.o
+> diff --git a/drivers/clk/realtek/clk-pll-mmc.c b/drivers/clk/realtek/clk-pll-mmc.c
+> new file mode 100644
+> index 000000000000..d28c7027d3f0
+> --- /dev/null
+> +++ b/drivers/clk/realtek/clk-pll-mmc.c
+> @@ -0,0 +1,410 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (C) 2021 Realtek Semiconductor Corporation
+> + * Author: Cheng-Yu Lee <cylee12@realtek.com>
+> + */
+> +
+> +#include <linux/bits.h>
+> +#include <linux/module.h>
+> +#include <linux/regmap.h>
+> +#include "clk-pll.h"
+> +
+> +#define PLL_EMMC1_OFFSET           0x0
+> +#define PLL_EMMC2_OFFSET           0x4
+> +#define PLL_EMMC3_OFFSET           0x8
+> +#define PLL_EMMC4_OFFSET           0xc
+> +#define PLL_SSC_DIG_EMMC1_OFFSET   0x0
+> +#define PLL_SSC_DIG_EMMC3_OFFSET   0xc
+> +#define PLL_SSC_DIG_EMMC4_OFFSET   0x10
+> +
+> +#define PLL_MMC_SSC_DIV_N_VAL      0x1b
+> +
+> +#define PLL_PHRT0_MASK             BIT(1)
+> +#define PLL_PHSEL_MASK             GENMASK(4, 0)
+> +#define PLL_SSCPLL_RS_MASK         GENMASK(12, 10)
+> +#define PLL_SSCPLL_ICP_MASK        GENMASK(9, 5)
+> +#define PLL_SSC_DIV_EXT_F_MASK     GENMASK(25, 13)
+> +#define PLL_PI_IBSELH_MASK         GENMASK(28, 27)
+> +#define PLL_SSC_DIV_N_MASK         GENMASK(23, 16)
+> +#define PLL_NCODE_SSC_EMMC_MASK    GENMASK(20, 13)
+> +#define PLL_FCODE_SSC_EMMC_MASK    GENMASK(12, 0)
+> +#define PLL_GRAN_EST_EM_MC_MASK    GENMASK(20, 0)
+> +#define PLL_EN_SSC_EMMC_MASK       BIT(0)
+> +#define PLL_FLAG_INITAL_EMMC_MASK  BIT(1)
+> +
+> +#define PLL_PHRT0_SHIFT            1
+> +#define PLL_SSCPLL_RS_SHIFT        10
+> +#define PLL_SSCPLL_ICP_SHIFT       5
+> +#define PLL_SSC_DIV_EXT_F_SHIFT    13
+> +#define PLL_PI_IBSELH_SHIFT        27
+> +#define PLL_SSC_DIV_N_SHIFT        16
+> +#define PLL_NCODE_SSC_EMMC_SHIFT   13
+> +#define PLL_FLAG_INITAL_EMMC_SHIFT 8
+> +
+> +#define CYCLE_DEGREES              360
+> +#define PHASE_STEPS                32
+> +#define PHASE_SCALE_FACTOR         1125
+> +
+> +static inline struct clk_pll_mmc *to_clk_pll_mmc(struct clk_hw *hw)
+> +{
+> +	struct clk_regmap *clkr = to_clk_regmap(hw);
+> +
+> +	return container_of(clkr, struct clk_pll_mmc, clkr);
+> +}
+> +
+> +static inline int get_phrt0(struct clk_pll_mmc *clkm, u32 *val)
+> +{
+> +	u32 reg;
+> +	int ret;
+> +
+> +	ret = regmap_read(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC1_OFFSET, &reg);
+> +	if (ret)
+> +		return ret;
+> +
+> +	*val = (reg >> PLL_PHRT0_SHIFT) & PLL_PHRT0_MASK;
 
-diff --git a/arch/arm64/boot/dts/qcom/milos.dtsi b/arch/arm64/boot/dts/qcom/milos.dtsi
-index 4a64a98a434b..1c045743ef77 100644
---- a/arch/arm64/boot/dts/qcom/milos.dtsi
-+++ b/arch/arm64/boot/dts/qcom/milos.dtsi
-@@ -2289,6 +2289,25 @@ scl-pins {
- 			};
- 		};
- 
-+		sram@14680000 {
-+			compatible = "qcom,milos-imem", "syscon", "simple-mfd";
-+			reg = <0x0 0x14680000 0x0 0x2c000>;
-+
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			ranges = <0 0 0x14680000 0x2c000>;
-+
-+			pil-reloc@94c {
-+				compatible = "qcom,pil-reloc-info";
-+				reg = <0x94c 0xc8>;
-+			};
-+
-+			ipa_modem_tables: modem-tables@3000 {
-+				reg = <0x3000 0x2000>;
-+			};
-+		};
-+
- 		apps_smmu: iommu@15000000 {
- 			compatible = "qcom,milos-smmu-500", "qcom,smmu-500", "arm,mmu-500";
- 			reg = <0x0 0x15000000 0x0 0x100000>;
+Sashiko reports the following:
+https://sashiko.dev/#/patchset/20260402073957.2742459-1-eleanor.lin%40realtek.com
 
--- 
-2.53.0
+    With PLL_PHRT0_SHIFT defined as 1 and PLL_PHRT0_MASK as BIT(1) (0x02), shifting
+    right by 1 moves the target bit 1 to position 0, but masking with 0x02 checks
+    position 1 of the shifted value.
+    
+    Will this cause clk_pll_mmc_is_enabled() to always evaluate to false since it
+    expects val == 0x1?
+
+> +	return 0;
+> +}
+> +
+> +static inline int set_phrt0(struct clk_pll_mmc *clkm, u32 val)
+> +{
+> +	return regmap_update_bits(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC1_OFFSET,
+> +				  PLL_PHRT0_MASK, val << PLL_PHRT0_SHIFT);
+> +}
+> +
+> +static inline int get_phsel(struct clk_pll_mmc *clkm, int id, u32 *val)
+> +{
+> +	int ret;
+> +	u32 raw_val;
+> +	u32 sft = id ? 8 : 3;
+
+Put variables in reverse Christmas tree order.
+
+> +
+> +	ret = regmap_read(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC1_OFFSET, &raw_val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	*val = (raw_val >> sft) & PLL_PHSEL_MASK;
+> +	return 0;
+> +}
+> +
+> +static inline int set_phsel(struct clk_pll_mmc *clkm, int id, u32 val)
+> +{
+> +	u32 sft = id ? 8 : 3;
+> +
+> +	return regmap_update_bits(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC1_OFFSET,
+> +				  PLL_PHSEL_MASK << sft, val << sft);
+> +}
+> +
+> +static inline int set_sscpll_rs(struct clk_pll_mmc *clkm, u32 val)
+> +{
+> +	return regmap_update_bits(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC2_OFFSET,
+> +				  PLL_SSCPLL_RS_MASK, val << PLL_SSCPLL_RS_SHIFT);
+> +}
+> +
+> +static inline int set_sscpll_icp(struct clk_pll_mmc *clkm, u32 val)
+> +{
+> +	return regmap_update_bits(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC2_OFFSET,
+> +				  PLL_SSCPLL_ICP_MASK, val << PLL_SSCPLL_ICP_SHIFT);
+> +}
+> +
+> +static inline int get_ssc_div_ext_f(struct clk_pll_mmc *clkm, u32 *val)
+> +{
+> +	u32 raw_val;
+> +	int ret;
+> +
+> +	ret = regmap_read(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC2_OFFSET, &raw_val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	*val = (raw_val & PLL_SSC_DIV_EXT_F_MASK) >> PLL_SSC_DIV_EXT_F_SHIFT;
+> +	return 0;
+> +}
+> +
+> +static inline int set_ssc_div_ext_f(struct clk_pll_mmc *clkm, u32 val)
+> +{
+> +	return regmap_update_bits(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC2_OFFSET,
+> +				  PLL_SSC_DIV_EXT_F_MASK,
+> +				  val << PLL_SSC_DIV_EXT_F_SHIFT);
+> +}
+> +
+> +static inline int set_pi_ibselh(struct clk_pll_mmc *clkm, u32 val)
+> +{
+> +	return regmap_update_bits(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC2_OFFSET,
+> +				  PLL_PI_IBSELH_MASK, val << PLL_PI_IBSELH_SHIFT);
+> +}
+> +
+> +static inline int set_ssc_div_n(struct clk_pll_mmc *clkm, u32 val)
+> +{
+> +	return regmap_update_bits(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC3_OFFSET,
+> +				  PLL_SSC_DIV_N_MASK, val << PLL_SSC_DIV_N_SHIFT);
+> +}
+> +
+> +static inline int get_ssc_div_n(struct clk_pll_mmc *clkm, u32 *val)
+> +{
+> +	int ret;
+> +	u32 raw_val;
+> +
+> +	ret = regmap_read(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC3_OFFSET, &raw_val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	*val = (raw_val & PLL_SSC_DIV_N_MASK) >> PLL_SSC_DIV_N_SHIFT;
+> +	return 0;
+> +}
+> +
+> +static inline int set_pow_ctl(struct clk_pll_mmc *clkm, u32 val)
+> +{
+> +	return regmap_write(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC4_OFFSET, val);
+> +}
+> +
+> +static inline int get_pow_ctl(struct clk_pll_mmc *clkm, u32 *val)
+> +{
+> +	int ret;
+> +	u32 raw_val;
+> +
+> +	ret = regmap_read(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC4_OFFSET, &raw_val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	*val = raw_val;
+> +
+> +	return 0;
+> +}
+> +
+> +static int clk_pll_mmc_phase_set_phase(struct clk_hw *hw, int degrees)
+> +{
+> +	struct clk_hw *hwp = clk_hw_get_parent(hw);
+> +	struct clk_pll_mmc *clkm;
+> +	int phase_id;
+> +	int ret;
+> +	u32 val;
+> +
+> +	if (!hwp)
+> +		return -ENOENT;
+> +
+> +	clkm = to_clk_pll_mmc(hwp);
+> +	phase_id = (hw - &clkm->phase0_hw) ? 1 : 0;
+
+Are you checking to see if these two pointers are the same? If so, what
+do you think about this instead?
+
+    hw == &clkm->phase0_hw
+
+> +	val = DIV_ROUND_CLOSEST(degrees * 100, PHASE_SCALE_FACTOR);
+> +	ret = set_phsel(clkm, phase_id, val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	usleep_range(10, 20);
+> +	return 0;
+> +}
+> +
+> +static int clk_pll_mmc_phase_get_phase(struct clk_hw *hw)
+> +{
+> +	struct clk_hw *hwp;
+> +	struct clk_pll_mmc *clkm;
+> +	int phase_id;
+> +	int ret;
+> +	u32 val;
+> +
+> +	hwp = clk_hw_get_parent(hw);
+> +	if (!hwp)
+> +		return -ENOENT;
+> +
+> +	clkm = to_clk_pll_mmc(hwp);
+> +	phase_id = (hw - &clkm->phase0_hw) ? 1 : 0;
+> +	ret = get_phsel(clkm, phase_id, &val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	val = DIV_ROUND_CLOSEST(val * CYCLE_DEGREES, PHASE_STEPS);
+> +
+> +	return val;
+> +}
+> +
+> +const struct clk_ops rtk_clk_pll_mmc_phase_ops = {
+> +	.set_phase = clk_pll_mmc_phase_set_phase,
+> +	.get_phase = clk_pll_mmc_phase_get_phase,
+> +};
+> +EXPORT_SYMBOL_NS_GPL(rtk_clk_pll_mmc_phase_ops, "REALTEK_CLK");
+> +
+> +static int clk_pll_mmc_prepare(struct clk_hw *hw)
+> +{
+> +	struct clk_pll_mmc *clkm = to_clk_pll_mmc(hw);
+> +
+> +	return set_pow_ctl(clkm, 7);
+> +}
+> +
+> +static void clk_pll_mmc_unprepare(struct clk_hw *hw)
+> +{
+> +	struct clk_pll_mmc *clkm = to_clk_pll_mmc(hw);
+> +
+> +	set_pow_ctl(clkm, 0);
+> +}
+> +
+> +static int clk_pll_mmc_is_prepared(struct clk_hw *hw)
+> +{
+> +	struct clk_pll_mmc *clkm = to_clk_pll_mmc(hw);
+> +	u32 val;
+> +	int ret;
+> +
+> +	ret = get_pow_ctl(clkm, &val);
+> +	if (ret)
+> +		return 1;
+> +
+> +	return val != 0x0;
+> +}
+> +
+> +static int clk_pll_mmc_enable(struct clk_hw *hw)
+> +{
+> +	struct clk_pll_mmc *clkm = to_clk_pll_mmc(hw);
+> +	int ret;
+> +
+> +	ret = set_phrt0(clkm, 1);
+> +	if (ret)
+> +		return ret;
+> +
+> +	udelay(10);
+> +	return 0;
+> +}
+> +
+> +static void clk_pll_mmc_disable(struct clk_hw *hw)
+> +{
+> +	struct clk_pll_mmc *clkm = to_clk_pll_mmc(hw);
+> +
+> +	set_phrt0(clkm, 0);
+> +	udelay(10);
+> +}
+> +
+> +static int clk_pll_mmc_is_enabled(struct clk_hw *hw)
+> +{
+> +	struct clk_pll_mmc *clkm = to_clk_pll_mmc(hw);
+> +	u32 val;
+> +	int ret;
+> +
+> +	ret = get_phrt0(clkm, &val);
+> +	if (ret)
+> +		return 1;
+> +
+> +	return val == 0x1;
+> +}
+> +
+> +static unsigned long clk_pll_mmc_recalc_rate(struct clk_hw *hw, unsigned long parent_rate)
+> +{
+> +	struct clk_pll_mmc *clkm = to_clk_pll_mmc(hw);
+> +	u32 val, ext_f;
+> +	int ret;
+> +
+> +	ret = get_ssc_div_n(clkm, &val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = get_ssc_div_ext_f(clkm, &ext_f);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return parent_rate / 4 * (val + 2) + (parent_rate / 4 * ext_f) / 8192;
+> +}
+> +
+> +static int clk_pll_mmc_determine_rate(struct clk_hw *hw, struct clk_rate_request *req)
+> +{
+
+Should there be a check for a parent rate of zero before the division is
+done?
+
+> +	u32 val = DIV_ROUND_CLOSEST(req->rate * 4, req->best_parent_rate);
+> +
+> +	req->rate = req->best_parent_rate * val / 4;
+> +	return 0;
+> +}
+> +
+> +static int clk_pll_mmc_set_rate(struct clk_hw *hw, unsigned long rate, unsigned long parent_rate)
+> +{
+> +	struct clk_pll_mmc *clkm = to_clk_pll_mmc(hw);
+> +	u32 val = PLL_MMC_SSC_DIV_N_VAL;
+> +	int ret;
+> +
+> +	ret = regmap_update_bits(clkm->clkr.regmap,
+> +				 clkm->ssc_dig_ofs + PLL_SSC_DIG_EMMC1_OFFSET,
+> +				 PLL_FLAG_INITAL_EMMC_MASK, 0x0 << PLL_FLAG_INITAL_EMMC_SHIFT);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = set_ssc_div_n(clkm, val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = set_ssc_div_ext_f(clkm, 1517);
+> +	if (ret)
+> +		return ret;
+> +
+> +	switch (val) {
+> +	case 31 ... 46:
+> +		ret |= set_pi_ibselh(clkm, 3);
+> +		ret |= set_sscpll_rs(clkm, 3);
+> +		ret |= set_sscpll_icp(clkm, 2);
+> +		break;
+> +
+> +	case 20 ... 30:
+> +		ret |= set_pi_ibselh(clkm, 2);
+> +		ret |= set_sscpll_rs(clkm, 3);
+> +		ret |= set_sscpll_icp(clkm, 1);
+> +		break;
+> +
+> +	case 10 ... 19:
+> +		ret |= set_pi_ibselh(clkm, 1);
+> +		ret |= set_sscpll_rs(clkm, 2);
+> +		ret |= set_sscpll_icp(clkm, 1);
+> +		break;
+> +
+> +	case 5 ... 9:
+> +		ret |= set_pi_ibselh(clkm, 0);
+> +		ret |= set_sscpll_rs(clkm, 2);
+> +		ret |= set_sscpll_icp(clkm, 0);
+> +		break;
+> +	}
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_update_bits(clkm->clkr.regmap,
+> +				 clkm->ssc_dig_ofs + PLL_SSC_DIG_EMMC3_OFFSET,
+> +				 PLL_NCODE_SSC_EMMC_MASK,
+> +				 27 << PLL_NCODE_SSC_EMMC_SHIFT);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_update_bits(clkm->clkr.regmap,
+> +				 clkm->ssc_dig_ofs + PLL_SSC_DIG_EMMC3_OFFSET,
+> +				 PLL_FCODE_SSC_EMMC_MASK, 321);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_update_bits(clkm->clkr.regmap,
+> +				 clkm->ssc_dig_ofs + PLL_SSC_DIG_EMMC4_OFFSET,
+> +				 PLL_GRAN_EST_EM_MC_MASK, 5985);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_update_bits(clkm->clkr.regmap,
+> +				 clkm->ssc_dig_ofs + PLL_SSC_DIG_EMMC1_OFFSET,
+> +				 PLL_EN_SSC_EMMC_MASK, 0x1);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_update_bits(clkm->clkr.regmap,
+> +				 clkm->ssc_dig_ofs + PLL_SSC_DIG_EMMC1_OFFSET,
+> +				 PLL_EN_SSC_EMMC_MASK, 0x0);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_update_bits(clkm->clkr.regmap,
+> +				 clkm->ssc_dig_ofs + PLL_SSC_DIG_EMMC1_OFFSET,
+> +				 PLL_FLAG_INITAL_EMMC_MASK,
+> +				 0x1 << PLL_FLAG_INITAL_EMMC_SHIFT);
+
+It looks like the rate and parent rate are not used in this function.
+Will this always end up with the same rate when everything is
+successful?
+
+Brian
 
