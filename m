@@ -1,162 +1,230 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011059.outbound.protection.outlook.com [40.107.74.59])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3F9223A561
-	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 19:58:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775246286; cv=none; b=l1XJiRt9PPXwBGBlR9JqB2O5DkdfKl9NIgLYk86vZzid5n3Q2OVXLpQQyBrBnnbC2sPqwI7AQ4hK8VhIk3JjzjxBBjX1Ei3Cw6d9vrP8CFxjskTasPJhdeXnItvor2ZQdfB4oJOiLPaYTqM7dmR0j+e9vmgSCTV8nCwCfuhcSQw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775246286; c=relaxed/simple;
-	bh=ne4fQSPT/paZXhvg6/03ae9eXNBdUymFwbR5vEGWkC4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l0tKBGkjA9CGQGHK/UVROmU93XNIx7fjJUmT0GALJrJrLUGHjVBwFpGXIzuVTkxiyGwHzWBy0ZIGxkLE/cHzrLgT7NTyuKP7MwA0UoOUjJCO9NzZ89S2Ne5ylui/VE6S2KpnMYNGtl4+0S5v6D+IHaVy+AP+nQmAxYcR7piyLqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VOT6AuIf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QQFC4qZo; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E9B82EAB72;
+	Fri,  3 Apr 2026 20:00:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.59
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775246450; cv=fail; b=dtrz8f+8J37ecCi+W6hlwKO3ftgMoIHSeSg9BaTSaPvS1cZuVz1BL74480Q9kPH4ysMwmyamQGUs3qbl3d6LqsvdOOm7bF4QuiHEFB/K6mrc262lNCbuZDimxyyWDbYtHPj4FHO/qygYXgV5qHo8nVFkBnoOubo+SAs5ZQg5Usk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775246450; c=relaxed/simple;
+	bh=QwpSnRM5n9arGiqjKeuOcE5/xsznZxC5fnQgJ5STJ2s=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=gTkoO9mEWGRT2xP78hJYM2p1wvDjWyEBcKZgRPQQV3ZUy6AQC/PVvRwBr+o6TmEU/YgI09QFU0R5MgbtnpTy+m8sB8sFeZajvqjJNobnIlv5eCT4Ru2CSw8bFnlJvwEtMGpXIlOWsVImHwDV7gXxL1yOqy+VElAlIGZT+AVFiRU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=NctgbzQ2; arc=fail smtp.client-ip=40.107.74.59
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VOT6AuIf";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QQFC4qZo"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 633COs8X823333
-	for <devicetree@vger.kernel.org>; Fri, 3 Apr 2026 19:58:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=zS4CaFvcO0wwdCdDWlSrrF2D
-	SP+yryV8988QUupJBvk=; b=VOT6AuIfZMmf1pQW0PmAjCBny7p5vm2vhdNiGRWB
-	bXE/LT7xEljmoGKaCnInduqOQ16gxR6WJj4ixTTNuL9d3a6k7bDK+6dnvkscDsGP
-	I2BvVipFBMNZpvyheRaFLUqSU3ArwsEE05419+6Ep5ibDXtC962dm/DOYXtA8Vpi
-	9wz6CbotesHg5840a8EKoxCrddJC5QMm6u61Ln91DQvxB+/qrhIXQT5Be5jH7PeN
-	Av4/X6r6B05l/jhZOB62D5y6PvFhFvwSL5LQ6L9Xo3/HfTHdZLfDXeBZ+jXjiQ5G
-	SzlDApzvzSYSQzHfgnZlKQ8QnsrIJd1Bg7JksOSkVpvNbA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4da673ak94-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 19:58:05 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-50d58bed44aso60326501cf.3
-        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 12:58:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775246284; x=1775851084; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=zS4CaFvcO0wwdCdDWlSrrF2DSP+yryV8988QUupJBvk=;
-        b=QQFC4qZog31k/bCn3qE+j29bRo+h+jQs2I6+P2+K4RO/oO92iaLJYSAMIUUYOK4hJe
-         xKJEGaPyBF0j6KdTt6nxJMhQBLmD6f2uq+XMczVCqLwLpxT0ntpiDk0n+mtCscNrSRuh
-         1TvErycftsBX2gC68N7uRW7NIYSXoOMkFJnaUbGQerjc3opO3DUfiLdgWhypTUL5GW46
-         s/SnqCWsuhupudUJueLrx6mSSb4DsbJSrixxepQ92gCs1bA+mDTIUEBvqj4XPdVx3rBW
-         HAgCE0VNzMLJEBYEC/kmJM4Skr3PmHaNnhE4EolHWZV/fgMf8TzI5cDUAMxJRciPt13h
-         Azrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775246284; x=1775851084;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=zS4CaFvcO0wwdCdDWlSrrF2DSP+yryV8988QUupJBvk=;
-        b=pJt24Sio3TsiGNyAt3NTIitPQMRfU2s5kijgwX+99uLvZzM76XRPCj2FwC25S56qqe
-         3ATi3F1bigH3rIR2j/jZJi74BFzdVnUutpmsOM2TqCyPZn/FAxxx5ejXzg5z4CPAsRDp
-         V/cwMNp4CH4LR6yIQPW2AFFTsj8wsCdCEpiaczoo42bgnFlkNdGzbUEa6l7u5tcWHnjo
-         vSkPwyGf25d+Os/FuJjh3n2vGRiOYQ+kanJGJBQ4g0qbxPUaMezNZuHZIG7+PY1GQCN9
-         N1r7szLpOwaiIIaBvKZv5vVF1UDeAQ7onVjeAByCGfonCBeLx8JaRBsoWpFNuyiQPQ50
-         XR9Q==
-X-Forwarded-Encrypted: i=1; AJvYcCXem78ZEzWOyFsqarQ823Kfy39xuzgbkU2/4Sawn6oe5jurjB/+5wDhJah1lqJBi6+QPnxdu3rZQdOB@vger.kernel.org
-X-Gm-Message-State: AOJu0YySrfoXJgXU0S2alcFtajiAL+F0sjUQAWS4/HAu2b/XJe6/pszb
-	LFIdJ++z87Ak9PSd2/KFGGZitC9sUkFd5jrELeDAaCAaCFATbKtt5aOgAJ2l0KM4srUIyHrd4xL
-	JQ6CHiEtwJpqn5tM3bL7q2wkoFopofoB0NALbskfzjHI8Q7WYneq2lkY0+9in5aXx
-X-Gm-Gg: ATEYQzxssnHLwZ0IpG5fJ4kBSLGB2+oU52g0VD4uoe4T+UUDumLA2xHJMZQU6+tfZB+
-	+5Fly4e+Iwl3T9eRoHH9B3nSNU4AiAl031kYGzcyZt5tPsDBYx5IG63WlgkEOOeyoZvfDHesJwc
-	Nyua38raB5G2+CgA64chzMvBRwobJJ1P9Bo44asdACdl5nO0C3ApERtVZqfj016dPfTecJLunHH
-	LbJqRzREtG7/QPhnnMvYAOZXkryrm+smr7OAIYtXBn8lLs7CaLp/4baNn7RGnIGBol87mDQHLwg
-	RbNiMUXS4CXQ7pRQi/nZg+256FK2WsQrwaCnTYcoU1mpmTUk1Y6c/uoXiVYFibrKW4u38ubLDbQ
-	kOk/T1553K0ckt8IDIdZChGlIOaB3ODbyOkHzATfSTr7bXllTG0C7Aqnae9B8oEADcqI0Riz1iC
-	vW7K5UpZDXDzX9D55MMXp2LZ37sQdcv/U5v/A=
-X-Received: by 2002:a05:622a:15:b0:509:1cf9:ea0e with SMTP id d75a77b69052e-50d62a80ddcmr68313981cf.41.1775246284149;
-        Fri, 03 Apr 2026 12:58:04 -0700 (PDT)
-X-Received: by 2002:a05:622a:15:b0:509:1cf9:ea0e with SMTP id d75a77b69052e-50d62a80ddcmr68313681cf.41.1775246283754;
-        Fri, 03 Apr 2026 12:58:03 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-38cd1fdff47sm14814641fa.13.2026.04.03.12.58.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Apr 2026 12:58:01 -0700 (PDT)
-Date: Fri, 3 Apr 2026 22:57:59 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Richard Cochran <richardcochran@gmail.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Arnd Bergmann <arnd@arndb.de>, linux-arm-msm@vger.kernel.org,
-        linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] arm64: defconfig: enable the Qualcomm Nord TLMM
- driver
-Message-ID: <wqleroawdmp56hiraefvc45snovzor26h5qdjcfxsr7w53nvnl@6snvw3qawzu2>
-References: <20260403-nord-tlmm-v1-0-4864f400c700@oss.qualcomm.com>
- <20260403-nord-tlmm-v1-3-4864f400c700@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="NctgbzQ2"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TMywVUh/5LxLUn2FwcVtpgDJU5/TQyLVmy6xaNeCINAD8hoYQr8n64LQqU0HTRt6+SZAGhrIubB+Bb+mjl6qiaQy8bSg6X51++Bo7XJrlQd0oj1QtaNkN8PcejIIeo3yIEXryRDU4K0kkqB+GKz/9HBAWiLf3z1P9qEu2kZ+uJc7VT0QLUn0/uDhyS8tS2C7OoPWHtfzO8crjW7ckVgBtIQ16Ulj4Xkp3EbvqZUasB0Jcsmuj005c2YFxcu1vdXul+wXZD7xGMF6Hn2lOv5v8/MiPTQCj3DESTR9xz6TohC3eB992uevs1ggsY6F2s/gveJv1ak3iMt3wq5VaBBeCw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/x8HkyUEuvHyEbmZTEgJ8qoBI28zEFQ5B27gMyO2/I4=;
+ b=vG1mflcwKscvKV9JuucVVo3kNDMZ91iPT0CEaZFFIV1kxlGBwj9uQaD8sp6zHz4QutpmWcsxK8clFy9ZgUUpNA6iBAsvMePCvb6wb7rgPWSaEvBNMRn0uMGdJJtIcRdVScEIwHAL430qLOimq6PrYsWSsI0qMZZ1Y3Q5Z3VVg8doqWGDeHFU10VxXbagI2R1Lm+5z/QuQ2wXTJIEz4txREb03Xj0XQGfpDnfws43qcWxGuThpMvRA6QhOaK30JDnEQMIQ6Gp7l9C1UyM/G9i6sIIILSnAlxmtFdG+fkovHQCaAYl1iBC7vr6IZML0G8q59Xoo5tfT2Ks8R+QRT8pYg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/x8HkyUEuvHyEbmZTEgJ8qoBI28zEFQ5B27gMyO2/I4=;
+ b=NctgbzQ2FWJSDm1Xv1njQ7mzI3raSu7iFv4lPATQdqw2sHca43hOnfByFJnuMgkdFQchs6WXGVs9JQgVSCZRKr5RMFca5fdUbe6QwYsng9riLBDYxpLmI23193sf/7YGxw9E5NB/89SOKhxCo30up8r/lAIBaQUq4+sr02eYW2Q=
+Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com (2603:1096:405:35b::6)
+ by OS3PR01MB10008.jpnprd01.prod.outlook.com (2603:1096:604:1df::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Fri, 3 Apr
+ 2026 20:00:46 +0000
+Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com
+ ([fe80::f373:26d6:86c4:6aa3]) by TY6PR01MB17377.jpnprd01.prod.outlook.com
+ ([fe80::f373:26d6:86c4:6aa3%4]) with mapi id 15.20.9769.016; Fri, 3 Apr 2026
+ 20:00:46 +0000
+From: John Madieu <john.madieu.xa@bp.renesas.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+CC: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, magnus.damm
+	<magnus.damm@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+	Claudiu.Beznea <claudiu.beznea@tuxon.dev>, Biju Das
+	<biju.das.jz@bp.renesas.com>, "john.madieu@gmail.com"
+	<john.madieu@gmail.com>, "linux-sound@vger.kernel.org"
+	<linux-sound@vger.kernel.org>, "linux-renesas-soc@vger.kernel.org"
+	<linux-renesas-soc@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCh v3 10/14] ASoC: rsnd: adg: Add per-SSI ADG and SSIF supply
+ clock management
+Thread-Topic: [PATCh v3 10/14] ASoC: rsnd: adg: Add per-SSI ADG and SSIF
+ supply clock management
+Thread-Index: AQHcwr1pAzAyXF5bLEakh+bcszcXI7XMjkKAgAEz21A=
+Date: Fri, 3 Apr 2026 20:00:46 +0000
+Message-ID:
+ <TY6PR01MB173776C77BC7D557C87D28E86FF5EA@TY6PR01MB17377.jpnprd01.prod.outlook.com>
+References: <20260402162436.12059-1-john.madieu.xa@bp.renesas.com>
+	<20260402162436.12059-11-john.madieu.xa@bp.renesas.com>
+ <87ika8g74p.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87ika8g74p.wl-kuninori.morimoto.gx@renesas.com>
+Accept-Language: en-US, en-GB
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY6PR01MB17377:EE_|OS3PR01MB10008:EE_
+x-ms-office365-filtering-correlation-id: d1d53465-56bc-4f6b-7cd6-08de91bbb1ef
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|7416014|376014|38070700021|22082099003|18002099003|56012099003;
+x-microsoft-antispam-message-info:
+ 67ajACkIfKxgCL/I01WaMXYtKz0OfN5cBHPZuZ2hauLXXRZThEd4TWoI9Kh6XDovyPPjQmBNl2KDGUOHk1zd1QIR53T8jyVgGuf2PaW36fwnabLvGmxVJQN6NvE3UlfrupYat1TNqcvy+3hC18l7Jk7P4ZbfyhiKz6+akdJq8Q2on53ZWlWeWx1+ctWfkfOiRbTc2qm2zayTQHRPzPS36TJqxVi1XCeW68EpUvGg25YZF0MXZU19RZlzlPhouthV8z8QoGGBYfQds/tP+Bc+qxyNzE2YVJxLS+in7NWFGGSoDs325GbQoFzMZC56YHNqPUlrhOD/51phk8T/NzUuAXXR4XKpESe3cUU/eGoseZbb5rXuFJmvI4142354pNGuBBasfwXNOnbpPFymbx7k4ZKkoULPk1VPaekovteXYBEKWnUzjEzVPvP+7VP9WQBfXwSe3KiGm1aCjIBp6W9uID51j4D+1ZCS89RkmWCTIFTsOgCb3VWM2dQ5Z5zDIc3wnpZmYTpc1PqWaQaYN0jsBfISwVvVkNoeK7PrYovoQQ7LPmaGY2z4tUfcZ2SHH1o7a98UXFXcTevFK8kr23RgQsUiJwD2G6tZJSFq2aOf94hCyjzuVBFBDPeHlTqOtpwf8LsvoDuDPhgTEgjVlgBtBbbLGg0HWj1iz4kthxZdeTSzh7KxEM6SK/gu+eg1IUqbzH2nS9VF39xUToWyFwUVbk/D4xP5E+Q55v7FIbto99J3agr4uvEpu7hlAIPQLEOPIM0ujreIj/KJvlesFxhgO9+4xxsUwLdDnj3ZOGbepXU=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY6PR01MB17377.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(38070700021)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?spShJhuDYN4zsSnHyLs1ApRGdZmqHci6KHyGYfiSoZRAzk43dxtW5YuuSqZb?=
+ =?us-ascii?Q?8/rlyOYePUnv8hCwslZf5ooe3NX25GwRBhdjpfFsbRWL2AKU2IEklNnPdkIF?=
+ =?us-ascii?Q?tR+VQSGalA4yec7XwCiblBSFkZMdpIzpGPKaH/dttiBwzb+jNmOU/N6j86xS?=
+ =?us-ascii?Q?5V8vd9O4EANmzv+00/4ABBfjrNvgUp4udlWVtNscewSugDuXjr7mFVhiWzMf?=
+ =?us-ascii?Q?INf/PDrjI+K1B/eLFlZPm5QzwzabXNeEUN00YXXgRZHd2uz1o/BNaMWFbGx+?=
+ =?us-ascii?Q?sQFLstrVFWSrKS6L2fHuH/E9ObVx4ZUe8NAiiBihT97HGAGLOq46Mf97Qnxk?=
+ =?us-ascii?Q?9zm+ZTwH58Wk/O2/Q9h4VVwFLqg3pbx6eHJgeoYs+dRcw2WMRDvQ+KoyNMW/?=
+ =?us-ascii?Q?2GV43tVgHu8bF4p6rUO1iYChk595qwHpeMYbaYxEejjFQE/294JFNT/6ahkz?=
+ =?us-ascii?Q?VjCVmwjwQbCidFvG6EPMEdB+Nwi51zHLZU4z+t6QjHla/X4VFrSZa9HPMKbn?=
+ =?us-ascii?Q?4WJsoDAv4NrIWA92DZejGq0FgKffgpPAu3BkSRIahAvtBfW3HMhEKDN2ZN8E?=
+ =?us-ascii?Q?gpAAS538zTbHitWCsafOuopkvQHpAWs4gd2y2OquE10XdMG2CYC5Jp6V2Pi/?=
+ =?us-ascii?Q?t8/yQvSi5B3skKu63516vPncmtWVidSvPpAiXxKAHNtvR3Yt/OsC4vn1W5h1?=
+ =?us-ascii?Q?UGm3i8JEnuohGA0+GS4a2OTe+RA+ZFvXY0BYvlI0Zgp8nDIHpbPR3kFOC094?=
+ =?us-ascii?Q?cZ4KbkXmrA5FdvsfhM3UzNlw0+b/18uA3HmWj5YSgtKi66G69548lDxPGoTa?=
+ =?us-ascii?Q?Z/WyDPzci+o64VC2qMRWkn7gBlWeRTmMl2qMLsMBcdtJWhyDIlEJmQiEoE66?=
+ =?us-ascii?Q?8syd6iqAMBN/0ixGnWX10iDbq1UnX5xDpHsud6xg/apC+kWJdJHCrPnr0j2s?=
+ =?us-ascii?Q?zV6J/v2ttpJYv0v4L+hVVqJMwGtveT8chFG/71eDBKFXgIbv7s+l81DIVFiA?=
+ =?us-ascii?Q?DTlrMwj4veG11aAlRKwKPZg2WC4FYjr/KaidhgEjTnwyx/E35ZDCMXRJYwaZ?=
+ =?us-ascii?Q?q64yI8Igx5O/U7KlkRO3dlTzrclk15fSXLjuCmyxpRdN9JHr1BdG1QUDLafa?=
+ =?us-ascii?Q?NyWbFlUihnSQtqRuVis6uYojOq9sX2ZoWt3SECPyv91eaqiEyES11wroMkaW?=
+ =?us-ascii?Q?UE07qvq2it68cya+/S+6D79zWvEc09b/TGZfI8qmYYf28cuaBoAsWAMEPYRn?=
+ =?us-ascii?Q?+pOVg4sqlj/jJt5nDW418TH1wsGF6KLGuGCozFg9QDl90fgeBB8SeidsZHhl?=
+ =?us-ascii?Q?EzYIo6Bdvcxj95PagK6xOkQ5gnFq2kUhwR6yYJkEHT8LG7w68Hwp+scbVKZG?=
+ =?us-ascii?Q?z5pxXpDLYB1LI0mTmKdtoJ5pdaYFJ+mXVGTHdnW9tGmI4lq79LPxT61X60Ed?=
+ =?us-ascii?Q?2RRcMWkMRnfnQEuI5YQWhNZ/mJDwq2WPt/lTu5WzzV/zqWMagWvxcG4Lfroj?=
+ =?us-ascii?Q?OXJ+6Z0VPwGjxWIRkScE/Gh1EfWl1R9ghMmCyjxskxJWVr96MmfGyWe5jhLt?=
+ =?us-ascii?Q?ep/2xChGQw+pJp1GxptBqHVnPyhU1nAgzYgQ/L3yPJTTDl5vwZrIaUtBhUex?=
+ =?us-ascii?Q?7t6GFRt34a2RYILzotVIO4eHKiksKzay5er4KoiHwkq4xUx+Yuanr8+0m3tI?=
+ =?us-ascii?Q?ep1D+Tg+vGNAAxkNBBEIbO1kTLr1pxwaBxEAA7vpAAN9alN+cHJh8EBMk+qW?=
+ =?us-ascii?Q?eF90B1uHbITOr/9z4TCWTiNAZLMyECI=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260403-nord-tlmm-v1-3-4864f400c700@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=erjSD4pX c=1 sm=1 tr=0 ts=69d01bcd cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=jCnpw5DhNY9zVd-FB4MA:9 a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-ORIG-GUID: WjMcu0328W3allleHpn5NbsQtJM1TJE2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAzMDE3NyBTYWx0ZWRfX0Db8BZRFt3Od
- CmA3Mu444cV7v6AjISAl90qs3KSDDwB3CLk0wBPQ9AC51M8foW15nP4XHrW/EEUEUJwjQ4+4nUa
- xNUP3wzNde/opU03gHnUkDQgkbHOoFzq7eL4EOiqQm4b10wfhymU1T9RT7a6stabZHF0E6Ng/iE
- mftsU6RhjJLak0uoZDCtSPgv70/vLCN8Aa8qls265DjLGWyGQKDSEy7AwD9JugXVFDFKvtDDL6v
- YXUHnzd1nO8W+84blVdzN17iEpTvCx71KJr4txBKeJTzf9rajLRDwiM3oYcW23CYcy/FAgB7sKy
- t+VNpi9RMurG6GtmcfXBrwJDue8v8l/F5DjbYhz2V4sWYiiQg5XntuhU0rQDcCObMV2UB6C6hLu
- aFu/1leut7XCeXlwh4mQSwXRDDOE4iqMwqFNFS7mcw86IIChxmBpJilssoLnEjllTNittBxv0Gc
- zvWxn9TVGRxtJncr9/Q==
-X-Proofpoint-GUID: WjMcu0328W3allleHpn5NbsQtJM1TJE2
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-03_06,2026-04-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 lowpriorityscore=0 clxscore=1015 malwarescore=0 bulkscore=0
- priorityscore=1501 suspectscore=0 impostorscore=0 spamscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604030177
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY6PR01MB17377.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d1d53465-56bc-4f6b-7cd6-08de91bbb1ef
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Apr 2026 20:00:46.2890
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: GS8BRWOGWWHVxiVvWPAkvUwRpFJOSgaK+9SdXVMgSUp/nTSaS93biIygUgKwVL/Uxw2a8kQ2lWV3vwAGebRXq0flTKHiMqx2wS6Ln9ne8n4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB10008
 
-On Fri, Apr 03, 2026 at 03:27:57PM +0200, Bartosz Golaszewski wrote:
-> This is required to boot linux on the Nord platforms from Qualcomm.
+Hi Kuninori,
 
-No, we don't enable configs for 'platforms'. Please specify, which
-device needs it.
+Thanks for your review.
 
-> 
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> -----Original Message-----
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> Sent: Friday, April 3, 2026 3:33 AM
+> To: John Madieu <john.madieu.xa@bp.renesas.com>
+> Subject: Re: [PATCh v3 10/14] ASoC: rsnd: adg: Add per-SSI ADG and SSIF
+> supply clock management
+>=20
+>=20
+> Hi John
+>=20
+> > RZ/G3E's ADG module requires explicit clock management for SSI audio
+> > interfaces that differs from R-Car Gen2/Gen3/Gen4:
+> >
+> >  - Per-SSI ADG clocks (adg.ssi.N) for each SSI module
+> >  - A shared SSIF supply clock for the SSI subsystem
+> >
+> > These clocks are acquired using optional APIs, making them transparent
+> > to platforms that do not require them.
+> >
+> > Additionally, since rsnd_adg_ssi_clk_try_start() is called from the
+> > trigger path (atomic context), clk_prepare_enable() cannot be used
+> > directly as clk_prepare() may sleep. Split clock handling into:
+> >
+> >  - hw_params: clk_prepare() - sleepable context
+> >  - trigger (start): clk_enable() - atomic safe
+> >  - trigger (stop): clk_disable() - atomic safe
+> >  - hw_free: clk_unprepare() - sleepable context
+> >
+> > Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
+> > ---
+> (snip)
+> > +int rsnd_adg_ssi_clk_prepare(struct rsnd_mod *ssi_mod) {
+> > +	struct rsnd_priv *priv =3D rsnd_mod_to_priv(ssi_mod);
+> > +	struct rsnd_adg *adg =3D rsnd_priv_to_adg(priv);
+> > +	struct device *dev =3D rsnd_priv_to_dev(priv);
+> > +	int id =3D rsnd_mod_id(ssi_mod);
+> > +	int ret;
+> > +
+> > +	ret =3D clk_prepare(adg->clk_adg_ssi[id]);
+> > +	if (ret) {
+> > +		dev_err(dev, "Cannot prepare adg.ssi.%d ADG clock\n", id);
+> > +		return ret;
+> > +	}
+> > +
+> > +	ret =3D clk_prepare(adg->clk_ssif_supply);
+> > +	if (ret) {
+> > +		dev_err(dev, "Cannot prepare SSIF supply clock\n");
+> > +		clk_unprepare(adg->clk_adg_ssi[id]);
+> > +		return ret;
+> > +	}
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +/*
+> > + * RZ/G3E: Unprepare SSI clocks - call from hw_free (can sleep)  */
+> > +void rsnd_adg_ssi_clk_unprepare(struct rsnd_mod *ssi_mod) {
+> > +	struct rsnd_priv *priv =3D rsnd_mod_to_priv(ssi_mod);
+> > +	struct rsnd_adg *adg =3D rsnd_priv_to_adg(priv);
+> > +	int id =3D rsnd_mod_id(ssi_mod);
+> > +
+> > +	clk_unprepare(adg->clk_adg_ssi[id]);
+> > +	clk_unprepare(adg->clk_ssif_supply);
+> > +}
+>=20
+> Can't we done clk_{un}prepare() at rsnd_adg_clk_control() ?
+> It is the function that ADG is calling clk_{un}prepare().
+> Performing similar processes in multiple locations makes maintenance
+> difficult.
+>=20
+
+This solves both issues (raised by Mark) cleanly.
+I'll move the clk_prepare/unprepared for the per-SSI ADG clocks
+and SSIF supply clock into rsnd_adg_clk_control(), which already
+manages other ADG clocks. Prepare happens once at probe (and resume),
+unprepare at remove (and suspend), and the trigger path only needs
+clk_enable/disable() which is atomic-safe.
+
+This eliminates the hw_params prepare leak concern entirely.
+
+Regards,
+John
+
+> Thank you for your help !!
+>=20
+> Best regards
 > ---
->  arch/arm64/configs/defconfig | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-> index 163b7f0314c90fc45eb6c4aa5e8faa549c60fdf7..31f8cd7cde6fcc8c8da8e69950dd4976ae04cfc4 100644
-> --- a/arch/arm64/configs/defconfig
-> +++ b/arch/arm64/configs/defconfig
-> @@ -675,6 +675,7 @@ CONFIG_PINCTRL_QDF2XXX=y
->  CONFIG_PINCTRL_QDU1000=y
->  CONFIG_PINCTRL_RP1=m
->  CONFIG_PINCTRL_SA8775P=y
-> +CONFIG_PINCTRL_NORD=y
->  CONFIG_PINCTRL_SC7180=y
->  CONFIG_PINCTRL_SC7280=y
->  CONFIG_PINCTRL_SC8180X=y
-> 
-> -- 
-> 2.47.3
-> 
-
--- 
-With best wishes
-Dmitry
+> Kuninori Morimoto
