@@ -1,296 +1,422 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010059.outbound.protection.outlook.com [52.101.193.59])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2ADF32AAAB
-	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 04:10:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 728F11A23A6;
+	Fri,  3 Apr 2026 05:06:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.59
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775189418; cv=pass; b=JkbUuGfHv/1hBkY9RJW1xoZNMrGzGlNgmnS613JLnfDRV+a9ujV48Eq6j1D3Q58cX7jbG5oOc9JzFnaDjQJH7JwvYMj1IGqijC2TKglTkQ3pkiLWdoVxVs8o4jcNWFHlsxFP3yl3LSJfvJpVUp5+XbpGgbabTJKGN4pc/qoUaBw=
+	t=1775192804; cv=fail; b=MNoEmAV7GL3UROiyXgorui/cmY0Q1iXQi7caOEBKYaCXqQ0pR5Qi6UAQWmbpbBVfzFFWVn/c+OW6wyUqAXPeRDeyLkr1yUwV3abV890cQBQ/7RfqdM1CAZKVYEM3MxH35xiwLUp/VBqSnW/CmBgAOZUEVwQIkLgA6jOdF4hQfM0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775189418; c=relaxed/simple;
-	bh=8ppiMXufLA/kFWXI+XW0edobmt25DPORQ9//T8zMYiQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YBQdGvi0nSbdRAoIq0cgwFKV1EQcIObwaiDeGKBw1SyLfRcwAe/7RIkxITz5BnDuMBTyh95iCLZzw5XTYTq3OfPXI8UdOqZyIFdCPVlAlzZ1L8e5l4YU7U3zfx0a2ywfTFYQvvdZYAthm4YjIaS693jG/MoCisKTjW/2XQnMOo4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hWQQ+elv; arc=pass smtp.client-ip=209.85.208.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1775192804; c=relaxed/simple;
+	bh=slVKpp/gvjycgvG/xEwqkLSthvwmANsnoBISOcMv2qQ=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=JJTYbuloZOuJKITrNp2JgCNPDrFunBUGVdIirRHeLucW6Lqw4LF0CbhbMMX+76YQtjMn7hHCh26TXjVR4CS+vn2ZSlRtwDWZ7P+rDIzZ/tGLaFo+wZdvSgAfN74bX461wfAFkT2NW4c4hdy4RipP+fHJP+qh6AHqnR68nLUfL/w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=im5IWJjR; arc=fail smtp.client-ip=52.101.193.59
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hWQQ+elv"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-66e52d8ab73so92246a12.3
-        for <devicetree@vger.kernel.org>; Thu, 02 Apr 2026 21:10:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775189415; cv=none;
-        d=google.com; s=arc-20240605;
-        b=WYdX1G1vdWb/klU+Ry2LSkYlFeyBlr6oNjsZ3Mz/Xw0Y9qodp6wAu1juD8LjCqElIi
-         2jB/ClCQVMaP1a+INQYfxQ2U0ZuXFjkt0Q3c+e8UFm613Hu1RTHrbqZuB4gaU8tvmWGX
-         G4TRS85gzuV71YIhhFVb1fl8YsuzA+cCmnlETsLc66qw+2icu/vR1OUPhzvPeB7fFlYV
-         7fP+UHrH5tzxNRYWLqQ3yVdi5R6b1h594gDd1Rd1n3GBzDqnJA2H8TdXkk2Lcze32yD4
-         9TiMuhpVn70K4a8BYpJrQnM4cFvhnl1sRmmg0SdLjDxYOlujP/43ujukbiOxPGU1Rn9/
-         CQpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MQSjk0t+ENDTZIZmtMaYlDzt00D+esO1IY7w8JmAigY=;
-        fh=yeFEZEMHkEI0EKMK4UlVMWSSqvhpqeBgftdm3L2cP14=;
-        b=YNLzY7IdTzXRbUOg6NBWHsKccomLqxH6u+U4zwC2e7opZtSK0APXVewWAcQtiWETUs
-         5h4XjMZl+ms+wDPlJ+udgWbCLmpHr/dTI7K2mKk5QYiUJaVND+Wl+3MMEn9uWlFEwvyw
-         BRfzDWwIMOsSTngPDsZ5y8SnDYSQZnvGrmYHfL8LultW2fnAR9Q9s+5gH1UUsznJ0Cwq
-         Bk1rA7WA6nn53BDwa9RssO2wGsSZh6+7MdLc+ZX7bQ6bAjmaUH3RauJygs0oPrGTbbZY
-         HVaK1F6dl+opeY+qwburGSr3sQpviVsuJxjePK2ATThbjMnenzGrA28tEMHWzduBh65n
-         1Pcw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775189415; x=1775794215; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=MQSjk0t+ENDTZIZmtMaYlDzt00D+esO1IY7w8JmAigY=;
-        b=hWQQ+elvv/uont9fh6Iyj+yI2QduYtFYYwHAfLua2QXsKNpA/v9TROWY1KCBNOWSoQ
-         mZDdBrMzr7fjArIxZ0bBeplZg9YfRPFHBtpUctkypx1oV8YwcNLIKRjJlAnuTbS9krld
-         U+SPBFAdsGqu75Ne20XAOU5QO6gBdfE2okqMFjTPnfRn1nKmYhk7/2ds4+GC3nmbSjBn
-         OcyZDZrIZfXKC3KgRQJsPgOhnks3oqhT22DKwpk1rn07oUi1704PDbqp3G+H1frQb2+3
-         GUiT65FUigXxaZdt/Zkfy0xRvCCo+AJtB2TQodBraYxzBZZGUsNyO5dDW4hl5zSAs/Fn
-         Qpkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775189415; x=1775794215;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=MQSjk0t+ENDTZIZmtMaYlDzt00D+esO1IY7w8JmAigY=;
-        b=qYslwQVFmJ0iO8CDPECgUKowOZbIOiANV0nQfwSj8g1E+s2snQI8APZLAnLeqLo1vg
-         eVztXR1YPLZCjK6zkvVbCKOYfsRmQw3hgeBD3K5Aj48pGT0jH0ig8LzdTqUymy10o+1W
-         ousGijsyB/sjVT0Tclwn73iRFsS0U+MCuK8xqZpUdPseje00ta/tLUPZzL6QcMyjjGSs
-         17txB5c52/UXSM6X1BHf5wdiAX2GgmMFzsLlebS2RdIa5TSYP4VcIOPIVt76yHkdCdWk
-         kYtwzsvIvZRek5c1hKDIPQDVoop1eytTrD1rYKsJosdbd1qJ8Xu4AveM/iVkR/VJd1GK
-         oMVA==
-X-Forwarded-Encrypted: i=1; AJvYcCWbIDMmldweCDzaU3yE5vbfWictFSGeqt10lD6yEPdy0di4Um4lGQgFLg+uV4k39Yi6V+SUU1vlggj5@vger.kernel.org
-X-Gm-Message-State: AOJu0YxLCebu9SNLFCcJ9xXjQIiSeS94s5BLg+8z1MW6Rniw7zfd3at1
-	zj38ALfQjK9/9HfsPa9agyjeHx2sc+vFjch9b4roW/70c6JX2uQzRJ7FPvjRo1N2DwBstArqkV9
-	TPIPdy3vHJs6zAuy9cULadwMgGCdrZ2k=
-X-Gm-Gg: AeBDievABCaugREdJ0xe7NfkIYUjZTkfQ2KijzTAjj4r0f2KeTPKC4+vZRa7/B09lQK
-	GVOPv2Tm+HIxMiVThd6X+sEftLA8D8Ogf1Gs+dRS+lr5jFbzObD4eMWuoeddX2Uev7S6wYkN6OY
-	QcZHbW1Zz/eBLyFgd+EQEhFgGT061ZQzaM/+SeDYvy6T5iIuvK3tYy0e2paFbJVpydxAnv7u48J
-	RR2TF2dTKg1xvfH555z68K3J50zLeK2sEcv50pIy2yXGNP1aFl5iTbxe1XvvCA0fRkLg2aViGtN
-	HTI/6YFH
-X-Received: by 2002:a05:6402:538d:b0:66e:1971:e43b with SMTP id
- 4fb4d7f45d1cf-66e3e8b71b8mr666558a12.0.1775189414724; Thu, 02 Apr 2026
- 21:10:14 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="im5IWJjR"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Cln+iYQfxJM7NDndAstwqoEvcHU7+RDyOlUiHW/Kojb91eF8mMHz1Npip706NH3s8HildVRtDIN5tPFH7zUYfWFNMin6Yox4nVZ7czf1haCZXgu02g64Lz3+ORGhhvpNmahk01tVWQbM+dGKTx2qst2SAp5RwtgY3Six1r0sZ6y+554m8QjpzNgKy6FqXnr4KVEVGyshBPcVYJ8XldXoeOe0rhn/mm9mc65lGFRLdhIznT61i4oVO05mJ6UPx5EF7Bh5ZoUK+FDGxWhLh+jdAaKSAOlF84YVpXILdqWpkh7vqJ2jYGqDQYcco+ryISA8ATubsQg6F6M/zCRWk4K+PQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WCMFStph61gpNqlOUlWZEfWux8W2aQsnNc9SeSa+a5w=;
+ b=MlgvwK9Zr1CgRID5eOgrFI1L2oJbdIBo1QjSop/53fXOXEg8/VVUT3QlObkTGvcHavVo8/kXY5ec1LecXh35Hyzc6Cx14JUgKtJ/RtrYJKoi4dWueRHxQaRwKDKdbk0lUO27i82i2qKCA690dJJB+Anrnxpe5FG0xt8hBWERQUJKMytvxoD3RNm409F2EocNaRKW7vxUX224Ta5o5KBMeYl1bZ17xptPo0sHY1fWjLj6m/BKZj8XIsELaAikB+kF6KeofBwso/Euz0dHnKmLPWu0GT2Rdy66sslNC2+fv7FNAQi5D/zYy67mtKbKkMuT+b708ZP007d4AwyTHMXTFQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WCMFStph61gpNqlOUlWZEfWux8W2aQsnNc9SeSa+a5w=;
+ b=im5IWJjRneymsxuUGR7dr6xNUab3utoiKCA9/ga5HH0XztuCsAO/F3WFCDLnY6UVAUnybkpTgAlNs0F0sZq4dbeLTr91ErSBZCvTe3R/33Ytr1P/hi1jXDZRRpABZZW+VJBnAw+8TvmfWmE6a8ORbfp3VFK8Oro95V2JYltfng0=
+Received: from SA1P222CA0006.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:22c::7)
+ by SJ0PR10MB5551.namprd10.prod.outlook.com (2603:10b6:a03:3d5::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Fri, 3 Apr
+ 2026 05:06:39 +0000
+Received: from SN1PEPF00026367.namprd02.prod.outlook.com
+ (2603:10b6:806:22c:cafe::a1) by SA1P222CA0006.outlook.office365.com
+ (2603:10b6:806:22c::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.18 via Frontend Transport; Fri,
+ 3 Apr 2026 05:06:39 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ SN1PEPF00026367.mail.protection.outlook.com (10.167.241.132) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Fri, 3 Apr 2026 05:06:37 +0000
+Received: from DFLE207.ent.ti.com (10.64.6.65) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Fri, 3 Apr
+ 2026 00:06:37 -0500
+Received: from DFLE212.ent.ti.com (10.64.6.70) by DFLE207.ent.ti.com
+ (10.64.6.65) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Fri, 3 Apr
+ 2026 00:06:36 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE212.ent.ti.com
+ (10.64.6.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
+ Transport; Fri, 3 Apr 2026 00:06:36 -0500
+Received: from localhost (mz02jj9v.dhcp.ti.com [128.247.81.246])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 63356a9r3847734;
+	Fri, 3 Apr 2026 00:06:36 -0500
+From: Sen Wang <sen@ti.com>
+To: <linux-sound@vger.kernel.org>
+CC: <broonie@kernel.org>, <lgirdwood@gmail.com>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
+	<perex@perex.cz>, <tiwai@suse.com>, <shenghao-ding@ti.com>,
+	<kevin-lu@ti.com>, <baojun.xu@ti.com>, <niranjan.hy@ti.com>,
+	<l-badrinarayanan@ti.com>, <devarsht@ti.com>, <v-singh1@ti.com>,
+	<linux-kernel@vger.kernel.org>, Sen Wang <sen@ti.com>
+Subject: [PATCH v3 1/4] ASoC: dt-bindings: Add ti,tas67524
+Date: Fri, 3 Apr 2026 00:06:19 -0500
+Message-ID: <20260403050627.635591-2-sen@ti.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260403050627.635591-1-sen@ti.com>
+References: <20260403050627.635591-1-sen@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260318071808.817074-1-pavitrakumarm@vayavyalabs.com>
-In-Reply-To: <20260318071808.817074-1-pavitrakumarm@vayavyalabs.com>
-From: Tony He <huangya90@gmail.com>
-Date: Fri, 3 Apr 2026 12:10:03 +0800
-X-Gm-Features: AQROBzC4X2v1r_d4TJ320nBj-a6NY6jBHZE8x221VtpUZqvaP2bJhZ7gsQyG-AU
-Message-ID: <CAAUX2SVmu+_Avs=6ipdJY9iciig4w6DzGNGaH_ZQf+LNqR=KVA@mail.gmail.com>
-Subject: Re: [PATCH v11 0/4] crypto: spacc - Add SPAcc Crypto Driver
-To: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
-Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, herbert@gondor.apana.org.au, robh@kernel.org, 
-	conor+dt@kernel.org, Ruud.Derwig@synopsys.com, 
-	manjunath.hadli@vayavyalabs.com, adityak@vayavyalabs.com, 
-	navami.telsang@vayavyalabs.com, bhoomikak@vayavyalabs.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF00026367:EE_|SJ0PR10MB5551:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0549dcf5-83ea-4c0c-ead7-08de913ec90c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|7416014|36860700016|376014|1800799024|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	knO8V+Hsx3MFRo9KDYQeGIBXwUyWSqrLfgoIlOd9gVON/PZ7bkcNNZwl23nm5pOtOCyu/saG+hdTPA2Y/BYy+xyDfFSWZ3zqlreJedI14gg39qTZhrUsSN68bOJwGgVzIXH2xdVGlDuSDXjMFb4wTT4I16nOoCJg4tRzC6OzjMX4IK48ye0bbyR6eA4n2+5pcDin4FB5V05V9vjg2bW7HxRf2eh5yFdoqcCgDjyp2fkCarl8+h/+2O9VblUt1gen/pLE++6Mf0xv3kl449FS2cQMMKDhGnNd3cPbcPNM38RF9tbfDQYBBAjMn1xaNUyQmZS6GygtLSBgo/SXEoTdcs+GhCxFN32U8EEaIaP5m2WOpokJibOkaUHCFDmSBWcFxL6bj4JZ4zYmZK12qIu2wVvQSIlIi+y4+sbW/T7HXJP7w0CdwYzbG78lPFRtLEHzQZNrz9OQ2GogZs23uPBekXbHG955UP+GA74AKk15mxFUkqpvwT+GZAEjkGM+pD01DuOWAI70R2s1kSpzK86FVC+uSSAjXQgMieGO8D8LX75KVPECGE8t7Fns2JJc9Kd1C/BbstPBa2TIfxhOEcXmcsOxB2nvKidYQOy3otCQBwhnWg6aGg/hWDIF854fNdZnCP6xqqF8LwpH4KwND0N2VTptFEmyE1hEHWLmpVeB4ROq5fUADSO4aHhIdHq7g9X1w49dmo4UilGqokV48LXLaeM/S6owG7uA6P+jftjIsHs=
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(7416014)(36860700016)(376014)(1800799024)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	8E2VKPXYYL+9ePpLEAkN3ap1ZC7vfcq1+QHD0ZwMVcsl4UKLm/H5ayK/moKBNwou5ETAhU1Ff0Gk5smBWbUYT+1ToiPSQjV535weD++I+nslvGyq/MPMsmRrrzCEZaRrTHMEPz2XvT6CHZvVEeFW1hgIvqmTbJhlsjKf8dyyEKz/K3rgZ8D2ldEERPI9sZn1UgnXHzVu7MOz2/NikD7GH7NiyLIiSV8EyFEh27Ls05Nw8fivv7PE/S2FYepfQU/4jVQvmM4jTMYPUr0Eh3CyISQvoD42PzZxSIxvAr9bYZ+2Vh0Q7+PQuncIFrCHzmuHhfZ4Y9CMPkzdr0NyIpuuvtl88isjzE1LAoZYavzlwYMyEkE4CehbdfMsK+++c//TS06wJnlq7tiAdFVwlck06Nfaz1Z5GWC8pzntoY4ebbLjXBIiWLI3zber3HpC7tpW
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2026 05:06:37.9816
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0549dcf5-83ea-4c0c-ead7-08de913ec90c
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF00026367.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR10MB5551
 
-Hi,
+Add device tree binding for the Texas Instruments TAS67524 family
+of four-channel Class-D audio amplifiers with integrated DSP.
 
-I have a question regarding the capabilities of the Synopsys
-SPAcc (Security Protocol Accelerator) in this driver series.
+Signed-off-by: Sen Wang <sen@ti.com>
+---
+Changes in v3:
+ - Renamed ti,tas675x to ti,tas67524.yaml
+ - Removed tas6754 compatible instance
+ - Changed pd-gpios to powerdown-gpios
+ - Cleanup unnessary "|" formatting
 
-From the documentation, SPAcc appears to be more than a generic
-crypto engine and is described as supporting protocol-level
-acceleration (e.g., IPsec, TLS). I would like to clarify the
-exact scope of its offload capabilities, specifically for IPsec
-ESP processing.
+Changes in v2:
+ - None
 
-Is SPAcc capable of handling full ESP packet processing (i.e.,
-beyond basic encryption/decryption and authentication)?
-For example:
+ .../bindings/sound/ti,tas67524.yaml           | 277 ++++++++++++++++++
+ 1 file changed, 277 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/ti,tas67524.yaml
 
-Can it parse ESP packets and perform decapsulation
-(removing ESP headers/trailers and returning the inner
-payload)?
+diff --git a/Documentation/devicetree/bindings/sound/ti,tas67524.yaml b/Documentation/devicetree/bindings/sound/ti,tas67524.yaml
+new file mode 100644
+index 000000000000..b8da1360e698
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/ti,tas67524.yaml
+@@ -0,0 +1,277 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/ti,tas67524.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments TAS67524 Audio Amplifier
++
++maintainers:
++  - Sen Wang <sen@ti.com>
++
++description:
++  The TAS67524 is a four-channel, digital-input, automotive
++  Class-D audio amplifier with load diagnostics and an integrated
++  DSP for audio processing.
++
++allOf:
++  - $ref: dai-common.yaml#
++
++properties:
++  compatible:
++    enum:
++      - ti,tas67524
++
++  reg:
++    maxItems: 1
++
++  '#sound-dai-cells':
++    const: 1
++    description: |
++      The device exposes three DAIs, selected by index.
++        0 - Standard Audio Path (Playback)
++        1 - Low-Latency Playback Path (Playback)
++        2 - Sensory Feedback (Capture - Vpredict and Isense)
++      By default, all four channels of each DAI are active. Runtime
++      reconfiguration is available through DAPM widgets.
++
++  interrupts:
++    maxItems: 1
++    description:
++      Active-low falling-edge interrupt from the FAULT pin. When provided,
++      the driver uses IRQ-driven fault reporting instead of polling.
++
++  powerdown-gpios:
++    maxItems: 1
++    description:
++      GPIO connected to the PD pin, active low. Controls the internal
++      digital circuitry power state. When asserted the device enters
++      full power-down mode and all register state is lost. Can be omitted if
++      PD pin is hardwired or externally controlled.
++
++  standby-gpios:
++    maxItems: 1
++    description:
++      GPIO connected to the STBY pin, active low. Controls the analog
++      power stage. When asserted the device enters Deep Sleep mode but
++      remains I2C-accessible with registers retained. Can be omitted if
++      STBY pin is tied to PD or hardwired.
++
++  dvdd-supply:
++    description:
++      Digital logic supply (1.62 V to 3.6 V). All three supply rails must
++      be within their recommended operating ranges before the PD pin is
++      released.
++
++  pvdd-supply:
++    description:
++      Output FET power supply (4.5 V to 19 V). All three supply rails must
++      be within their recommended operating ranges before the PD pin is
++      released.
++
++  vbat-supply:
++    description:
++      Battery supply for the Class-D output stage (4.5 V to 19 V). Optional
++      when PVDD and VBAT are connected to the same supply rail. When absent,
++      VBAT is assumed hardwired to PVDD.
++
++  ti,fast-boot:
++    type: boolean
++    description:
++      Skip DC load diagnostic sweep at power-on to reduce boot latency.
++      Automatic diagnostics after fault conditions remain enabled. Hardware
++      overcurrent protection is always active.
++
++  ti,audio-slot-no:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      TDM slot offset for the standard audio playback path via SDIN1. A value
++      of 4 maps to slot 4. If omitted, slot assignment is derived from the
++      tx_mask provided via set_tdm_slot(). Without either property, no slot
++      mapping is configured.
++
++  ti,llp-slot-no:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      TDM slot offset for the low-latency playback path via SDIN1. If omitted,
++      slot assignment is derived from the tx_mask provided via set_tdm_slot().
++      Without either property, no slot mapping is configured. Disabled outside
++      of LLP mode, and only relevant for TDM formats.
++
++  ti,vpredict-slot-no:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: |
++      In TDM mode, enables Vpredict output and assigns its starting slot;
++      four consecutive slots carry Vpredict Ch1-4 on SDOUT1. May coexist
++      with ti,isense-slot-no using separate non-overlapping slots.
++
++      In I2S mode, enables Vpredict output on SDOUT1 (Ch1/Ch2) and SDOUT2
++      (Ch3/Ch4). The slot value is unused. Requires a GPIO configured as
++      sdout2 for Ch3/Ch4; without it only Ch1/Ch2 are output. Mutually
++      exclusive with ti,isense-slot-no; if both are set, Vpredict takes
++      priority.
++
++      Irrelevant in Left-J and Right-J modes.
++
++  ti,isense-slot-no:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: |
++      In TDM mode, enables Isense output and assigns its starting slot;
++      four consecutive slots carry Isense Ch1-4 on SDOUT1. May coexist
++      with ti,vpredict-slot-no using separate non-overlapping slots.
++
++      In I2S mode, enables Isense output on SDOUT1 (Ch1/Ch2) and SDOUT2
++      (Ch3/Ch4). The slot value is unused. Requires a GPIO configured as
++      SDOUT2 for Ch3/Ch4; without it only Ch1/Ch2 are output. Mutually
++      exclusive with ti,vpredict-slot-no; Vpredict takes priority if both
++      are set.
++
++      Irrelevant in Left-J and Right-J modes.
++
++  ti,gpio1-function:
++    $ref: /schemas/types.yaml#/definitions/string
++    description:
++      Function for the GPIO_1 pin. When omitted, GPIO_1 remains in its
++      power-on default state.
++    enum:
++      - low           # Output: driven low
++      - auto-mute     # Output: high when all channels are auto-muted
++      - auto-mute-ch4 # Output: high when channel 4 is auto-muted
++      - auto-mute-ch3 # Output: high when channel 3 is auto-muted
++      - auto-mute-ch2 # Output: high when channel 2 is auto-muted
++      - auto-mute-ch1 # Output: high when channel 1 is auto-muted
++      - sdout2        # Output: Routes secondary serial data output 2
++      - sdout1        # Output: Re-routes secondary serial data output 1
++      - warn          # Output: warning signal (OTW, CBC)
++      - fault         # Output: fault signal (OTSD, OC, DC)
++      - clock-sync    # Output: clock synchronisation
++      - invalid-clock # Output: high when clock is invalid
++      - high          # Output: driven high
++      - mute          # Input: external mute control
++      - phase-sync    # Input: phase synchronisation
++      - sdin2         # Input: secondary SDIN2 for I2S/LJ/RJ ch3/ch4
++      - deep-sleep    # Input: asserted transitions device to Deep Sleep
++      - hiz           # Input: asserted transitions device to Hi-Z
++      - play          # Input: asserted transitions device to Play
++      - sleep         # Input: asserted transitions device to Sleep
++
++  ti,gpio2-function:
++    $ref: /schemas/types.yaml#/definitions/string
++    description:
++      Function for the GPIO_2 pin. When omitted, GPIO_2 remains in its
++      power-on default state.
++    enum:
++      - low           # Output: driven low
++      - auto-mute     # Output: high when all channels are auto-muted
++      - auto-mute-ch4 # Output: high when channel 4 is auto-muted
++      - auto-mute-ch3 # Output: high when channel 3 is auto-muted
++      - auto-mute-ch2 # Output: high when channel 2 is auto-muted
++      - auto-mute-ch1 # Output: high when channel 1 is auto-muted
++      - sdout2        # Output: Routes secondary serial data output 2
++      - sdout1        # Output: Re-routes secondary serial data output 1
++      - warn          # Output: warning signal (OTW, CBC)
++      - fault         # Output: fault signal (OTSD, OC, DC)
++      - clock-sync    # Output: clock synchronisation
++      - invalid-clock # Output: high when clock is invalid
++      - high          # Output: driven high
++      - mute          # Input: external mute control
++      - phase-sync    # Input: phase synchronisation
++      - sdin2         # Input: secondary SDIN2 for I2S/LJ/RJ ch3/ch4
++      - deep-sleep    # Input: asserted transitions device to Deep Sleep
++      - hiz           # Input: asserted transitions device to Hi-Z
++      - play          # Input: asserted transitions device to Play
++      - sleep         # Input: asserted transitions device to Sleep
++
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++    properties:
++      port@0:
++        $ref: audio-graph-port.yaml#
++        unevaluatedProperties: false
++        description: Standard audio playback port (DAI 0).
++
++      port@1:
++        $ref: audio-graph-port.yaml#
++        unevaluatedProperties: false
++        description: Low-latency playback port (LLP) (DAI 1).
++
++      port@2:
++        $ref: audio-graph-port.yaml#
++        unevaluatedProperties: false
++        description: Sensory feedback capture port (DAI 2).
++
++  port:
++    $ref: audio-graph-port.yaml#
++    unevaluatedProperties: false
++
++required:
++  - compatible
++  - reg
++  - '#sound-dai-cells'
++  - dvdd-supply
++  - pvdd-supply
++
++anyOf:
++  - required: [powerdown-gpios]
++  - required: [standby-gpios]
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        amplifier@70 {
++            compatible = "ti,tas67524";
++            reg = <0x70>;
++            #sound-dai-cells = <1>;
++            sound-name-prefix = "TAS0";
++
++            standby-gpios = <&main_gpio0 33 GPIO_ACTIVE_LOW>;
++
++            dvdd-supply = <&dvdd_1v8>;
++            pvdd-supply = <&pvdd_12v>;
++            vbat-supply = <&vbat_12v>;
++
++            ti,audio-slot-no = <0>;
++            ti,llp-slot-no = <4>;
++            ti,vpredict-slot-no = <0>;
++            ti,isense-slot-no = <4>;
++
++            ti,gpio2-function = "warn";
++
++            ports {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                port@0 {
++                    reg = <0>;
++
++                    tas0_audio_ep: endpoint {
++                        dai-format = "dsp_b";
++                        remote-endpoint = <&be_tas0_audio_ep>;
++                    };
++                };
++
++                port@1 {
++                    reg = <1>;
++
++                    tas0_anc_ep: endpoint {
++                        remote-endpoint = <&be_tas0_anc_ep>;
++                    };
++                };
++
++                port@2 {
++                    reg = <2>;
++
++                    tas0_fb_ep: endpoint {
++                        remote-endpoint = <&be_tas0_fb_ep>;
++                    };
++                };
++            };
++        };
++    };
+-- 
+2.43.0
 
-Does it handle sequence number processing and/or
-anti-replay checks?
-
-Or is it limited to crypto operations where the
-driver/software stack (e.g., Linux XFRM) must handle all
-protocol-level processing such as SA lookup, replay
-protection, and packet decapsulation?
-
-In other words, should SPAcc be treated as:
-
-a protocol-aware data-path accelerator for ESP
-(with partial packet processing), or
-
-a pure crypto offload engine where all IPsec
-semantics remain in software?
-
-Clarifying this would help understand how the driver is
-expected to integrate with the Linux IPsec/XFRM framework.
-
-Thanks.
-
-Tony
-
-On Wed, Mar 18, 2026 at 3:22=E2=80=AFPM Pavitrakumar Managutte
-<pavitrakumarm@vayavyalabs.com> wrote:
->
-> Add the driver for SPAcc(Security Protocol Accelerator), which is a
-> crypto acceleration IP from Synopsys. The SPAcc supports multiple ciphers=
-,
-> hashes and AEAD algorithms with various modes. The driver currently suppo=
-rts
-> below
->
-> hash:
-> - cmac(aes)
-> - xcbc(aes)
-> - cmac(sm4)
-> - xcbc(sm4)
-> - hmac(md5)
-> - md5
-> - hmac(sha1)
-> - sha1
-> - sha224
-> - sha256
-> - sha384
-> - sha512
-> - hmac(sha224)
-> - hmac(sha256)
-> - hmac(sha384)
-> - hmac(sha512)
-> - sha3-224
-> - sha3-256
-> - sha3-384
-> - sha3-512
-> - hmac(sm3)
-> - sm3
-> - michael_mic
->
-> changelog:
->   v1->v2 changes:
->     - Added local_bh_disable() and local_bh_enable() for the below calls.
->       a. for ciphers skcipher_request_complete()
->       b. for aead aead_request_complete()
->       c. for hash ahash_request_complete()
->     - dt-bindings updates
->       a. removed snps,vspacc-priority and made it into config option
->       b. renamed snps,spacc-wdtimer to snps,spacc-internal-counter
->       c. Added description to all properties
->     - Updated corresponding dt-binding changes to code
->
->   v2->v3 changes:
->     - cra_init and cra_exit replaced with init_tfm and exit_tfm for hashe=
-s.
->     - removed mutex_lock/unlock for spacc_skcipher_fallback call
->     - dt-bindings updates
->      a. updated SOC related information
->      b. renamed compatible string as per SOC
->    - Updated corresponding dt-binding changes to code
->
->   v3->v4 changes:
->    - removed snps,vspacc-id from the dt-bindings
->    - removed mutex_lock from ciphers
->    - replaced magic numbers with macros
->    - removed sw_fb variable from struct mode_tab and associated code from=
- the
->      hashes
->    - polling code is replaced by wait_event_interruptible
->
->   v4->v5 changes:
->    - Updated to register with the crypto-engine
->    - Used semaphore to manage SPAcc device hardware context pool
->    - This patchset supports Hashes only
->    - Dropping the support for Ciphers and AEADs in this patchset
->    - Added Reviewed-by tag on the Device tree patch since it was reviewed=
- on
->      v4 patch by Krzysztof Kozlowski and Rob Herring (Arm)
->
->   v5->v6 changes:
->    - Removed CRYPTO_DEV_SPACC_CIPHER and CRYPTO_DEV_SPACC_AEAD Kconfig op=
-tions,
->      since the cipher and aead support is not part of this patchset
->    - Dropped spacc_skcipher.o and spacc_aead.o from Makefile to fix build=
- errors
->      reported by kernel test robot
->    - Added Reported-by and Closes tags as suggested
->
->   v6->v7 changes:
->    - Fixed build error reported by Kernel test robot
->    - Added Reported-by and Closes tags as suggested
->
->   v7->v8 changes:
->    - Fixed misleading comment: Clarified that only HMAC key pre-processin=
-g
->      is done in software, while the actual HMAC operation is performed by
->      hardware
->    - Simplified do_shash() function signature by removing unused paramete=
-rs
->    - Updated all do_shash() call sites to use new simplified signature
->    - Fixed commit message formatting by adding "crypto: spacc - <subject>=
-" to
->      all patches
->    - used __free() for scope based resource management
->
->   v8->v9 changes:
->    - Updated the software fallback implementation to use HASH_FBREQ_ON_ST=
-ACK
->    - Corrected dynamic allocation of statesize and reqsize in init_tfm
->    - Fixed synchronization issues in the digest request
->
->   v9->v10 changes:
->    - Fixed unused variable warning
->
->   v10->v11 changes:
->    - Removed the redundant crypto_alloc_ahash in the init_tfm function
->    - Removed the redundant crypto_free_ahash in exit_tfm function
->    - Removed the redundant crypto_ahash_setkey call in setkey function
->
-> Pavitrakumar Managutte (4):
->   dt-bindings: crypto: Document support for SPAcc
->   crypto: spacc - Add SPAcc ahash support
->   Add SPAcc AUTODETECT Support
->   crypto: spacc - Add SPAcc Kconfig and Makefile
->
->  .../bindings/crypto/snps,dwc-spacc.yaml       |   50 +
->  drivers/crypto/Kconfig                        |    1 +
->  drivers/crypto/Makefile                       |    1 +
->  drivers/crypto/dwc-spacc/Kconfig              |   88 +
->  drivers/crypto/dwc-spacc/Makefile             |    8 +
->  drivers/crypto/dwc-spacc/spacc_ahash.c        |  886 ++++++
->  drivers/crypto/dwc-spacc/spacc_core.c         | 2413 +++++++++++++++++
->  drivers/crypto/dwc-spacc/spacc_core.h         |  827 ++++++
->  drivers/crypto/dwc-spacc/spacc_device.c       |  276 ++
->  drivers/crypto/dwc-spacc/spacc_device.h       |  236 ++
->  drivers/crypto/dwc-spacc/spacc_hal.c          |  374 +++
->  drivers/crypto/dwc-spacc/spacc_hal.h          |  114 +
->  drivers/crypto/dwc-spacc/spacc_interrupt.c    |  328 +++
->  drivers/crypto/dwc-spacc/spacc_manager.c      |  610 +++++
->  14 files changed, 6212 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/crypto/snps,dwc-spa=
-cc.yaml
->  create mode 100644 drivers/crypto/dwc-spacc/Kconfig
->  create mode 100644 drivers/crypto/dwc-spacc/Makefile
->  create mode 100644 drivers/crypto/dwc-spacc/spacc_ahash.c
->  create mode 100644 drivers/crypto/dwc-spacc/spacc_core.c
->  create mode 100644 drivers/crypto/dwc-spacc/spacc_core.h
->  create mode 100644 drivers/crypto/dwc-spacc/spacc_device.c
->  create mode 100644 drivers/crypto/dwc-spacc/spacc_device.h
->  create mode 100644 drivers/crypto/dwc-spacc/spacc_hal.c
->  create mode 100644 drivers/crypto/dwc-spacc/spacc_hal.h
->  create mode 100644 drivers/crypto/dwc-spacc/spacc_interrupt.c
->  create mode 100644 drivers/crypto/dwc-spacc/spacc_manager.c
->
->
-> base-commit: c708d3fad4217f23421b8496e231b0c5cee617a0
-> --
-> 2.25.1
->
->
