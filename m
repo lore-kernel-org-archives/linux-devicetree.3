@@ -1,141 +1,273 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 778333D5670;
-	Fri,  3 Apr 2026 17:08:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 255493CF03E
+	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 17:20:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775236118; cv=none; b=ehgdCJQ+mAk43OP1Oy5BakehhQL+7Al5EVlcTHxoQ2e8YdShUAs/sn1/g+BzNAnBW9VUThsmRHBPDt8+9nIcCcScHX6qVVYFGHgA1doGf+gZ6jiaFMvsh++MO6MM8E2DFon7FYFf6AUL2EcwtAOLfS4TPiLQcaGamh2316Q9H78=
+	t=1775236841; cv=none; b=SMaYoxEisja3bxUPUfolAxWANNOCUVbotxbEdxwzgp7Lvfl/S3aJnLe7hvrm2wsTpSD6xHK04DMSl1Br/p5SA1YZQzkoLyRKexZJc2qoxyctonCIMq+j0YDe5u+B9ItkyHOhWWPjtVwCou3JrEHmf4yEnaM4VAyqidD2EXByT2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775236118; c=relaxed/simple;
-	bh=TdrKbk/IAUXNS6Sk9zy9AdX94k46z6QijMe7AIc7bWA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=XxQqnmeQdkQEVBcSp41fq2Q+fMh0Hh6ViBLDckot+2AeXz0NtLg7lwSzqsD9fmke5fynUALLxEuXmwu1e8lcmD731zNqSqgPQmAviEjFMsB/Lo2tACtuA9ZPrKR8nmnt9W0zp7KLpDTtklgfTrdgw91TLhAo10jjKnIcY/Jnr24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lj5P/7sn; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775236841; c=relaxed/simple;
+	bh=wJ4SGi+RUgIhsJJAdoRj67zG6o+9Ks6jcb+OggrbsfE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=a14qKauTVIsyfDNad4Gzz259jVK0OvImY7kzIYrMubUWWZxB7vZEEVWTKQ+r0ndHtjUNJ4gliw5Wp7kAxVGndM494IgU2x7L7tf1KKUXdD49HfKCM6/agJ7r+XBvzwYXVKev2sJfBUfUJ1MaP7pT9CkzCy+Sqa4Bch0MraoTB04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TZExL75a; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=izQOt2Be; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lj5P/7sn"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 519D7C4AF19;
-	Fri,  3 Apr 2026 17:08:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775236118;
-	bh=TdrKbk/IAUXNS6Sk9zy9AdX94k46z6QijMe7AIc7bWA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Lj5P/7snoFUsjral5txOxDHgw9vRFkIdWG6hA6XGpF/oNTs/Q7IFxbsYNMdwgXUrp
-	 CLgtgGidd75uqZsFjOuaT2STcZsx3Xqm9KoD8UCcj1kEEeobnbtvxANsEMQokHeFDq
-	 hEsw1IRvmER1lPC2SGDpoxC13QmvIj05Dd8Kup9GDAUR8zYicV+ar2bXiWtXxuCz9S
-	 Z40F3Ku3ehs+kFjQr6bykCrC3zhbyaNwTDklkshawPnA7DjAXBtlPyNq0o3IxuZQ59
-	 2auLFyKEoiQ6JKdHTopHFyHSDkVj5cnDg/my1jZd9KhFVa7deZYG4lD76f0G530UTl
-	 5enlCA/qA8LfQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 45F77E85385;
-	Fri,  3 Apr 2026 17:08:38 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Fri, 03 Apr 2026 19:08:40 +0200
-Subject: [PATCH WIP v3 11/11] arm64: dts: qcom: sdm845-google: Add STM FTS
- touchscreen support
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TZExL75a";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="izQOt2Be"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 633EVd8P947591
+	for <devicetree@vger.kernel.org>; Fri, 3 Apr 2026 17:20:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	w8V39+f9OWvpwnJiINSpQbKQIemQW2g5kxmXopgAHlw=; b=TZExL75al14O3yLM
+	hCBa44uZKs372wBO4QEEPh9kk8IL7LxzCRgoFoSW3eK4bgdY+BSB/4GCxwwZvj/2
+	SMmSDhWHiby6RYcnoQmNjd6rwOQPp2PKv7cL3OX/p03c8odXIfYW7BinrNlZ64e1
+	UGCCMOeVLqiny/0x/Zj+LYaw0HtHLSwlANRV9SPJ6NivGkG23S413T0jl+NFBM7X
+	iTM7fagd7BQ67t7KttylhWBE3nR2RM14gW8fluGSey+0PijZi3IsGqtlPMRGgqPE
+	Od03efzR0kewHYYZKm5TG7GrqU2SJP4oz+KJ3wf3ww0+A3FZT2q1aXMT4QGcdyNz
+	VBlczw==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d9xwfkcd8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 17:20:38 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-354c0234c1fso2247443a91.2
+        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 10:20:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1775236837; x=1775841637; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=w8V39+f9OWvpwnJiINSpQbKQIemQW2g5kxmXopgAHlw=;
+        b=izQOt2BeoKmVzZkhV5RnGN2dQS4eO+DQ86LvX8Z4c8M8PO64fRFXkLhdv6rtUbbbuO
+         0ix4IsM8lq3+8tDxtowPJ0Oi7K5LpF9XDjiwETHjkp4lzwqldfLhAGE+beS1SdBmehX5
+         6wxO680WltKukxpYqGJibMzUxFOBrZjYPsFx933CKW0J8hcnrKnysZVqVQ+BBeuq3ILO
+         mdogv8oPL0CYEQcFnD/M0OajUSK49aklmfG3YNa7M8ElhYms9o4B7+wrhzVUlqr/42nU
+         LrcoimoRGX6DUcAsxmQfTVsdc4MPh+ZdTmYqRUZyf6TqspxspUfn9E8Z5A7nCw8c4/zP
+         ieAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775236837; x=1775841637;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=w8V39+f9OWvpwnJiINSpQbKQIemQW2g5kxmXopgAHlw=;
+        b=jrX3Cxo+s0VRTvz+yziw64cFvFLb/uUZ2FTkyy3vsi9G7y/YjzOTXeoI2dQUknwuH7
+         XvnGT3IZiVjxNgXMys3BKxn26gn5W9pwRQ63R0M+qW3MzAjF/n/DlLWjvhdT6YFDyLTi
+         wvcnPuEcSZZPangYlZaxEHfDPIsLMfqsrKbvqdaJC2yAppRJJTtIRBe8eXugi647RvX5
+         1WiwcWadJrCczdVog1GC7IM5qrPwKu4/LoZndkC6ph0fA2PtE/S02mMqN8v0ev79uZWO
+         4cXQjJ+V3NY0eHDkJNt+Q571dBodS8aCoqS4iYd0JZrbKxDzQPDnyAaz5l1mADBEwK39
+         6EZA==
+X-Forwarded-Encrypted: i=1; AJvYcCVMZVkVRSUP1QkOURh9Slt0TUWG4Qm+cMeymlyp7R3ynTacpdOR271Hnz0ltcjjnCSRmkjkdjj4I9t1@vger.kernel.org
+X-Gm-Message-State: AOJu0YwcRRFStKzuhSWs1hM115JC2hVRq1oUJJeFtCAxpkfUOGK0mPXl
+	CWCtwLZBD/NDnTNhFkx87H06hxy0MWT6xyBHijESAzOBSIVImvF6pIx0ZD20WVVV7CYFOnYl3Nf
+	5tG/zKNJrmKYzMO8cysb1woBwb7LJfEUhUV6LPcjKnL6Kw+guoKXQHmeXPXne9+ei
+X-Gm-Gg: AeBDietbI/KdtGN3B4I22+K3ssXC1kHBpCF/mYP0x3riNJCZC7+8zxfZIK9pmni3n7v
+	Krldt8XqMXlwBLmCALFvJYxMHw8t0LNbe9asOfrlqS6MMI05oCwOHF1Ci3zULI/cT9QPD0Snfah
+	bWmvVKquieOgUklZBWoVYTBRVKpDKHYSrTyRRFGKb24WKILchyJ6pIQaUPkhUHqfyp7tYlk6spt
+	SFTUcADlLnsQg/ZDXjZJWofWxHvo+sw2ktz5O9ZNRtL0MbLZbQwbQTak1qBBdEQQdl7d5p5QMfp
+	0Roxg4Bsebo3zmHqXCXRRS4O9iSbFZMwSYyc6TtlbHSq1hl3p63KOOgHMDJA9JekCUOZRfrtaTZ
+	YuIOBqBsnb2XlVdMa9nT65NhuahJABa2lWZCoOMk/ChSeik+6s38=
+X-Received: by 2002:a17:90b:4ac7:b0:35d:a2aa:3b05 with SMTP id 98e67ed59e1d1-35de678f96fmr3529421a91.5.1775236837119;
+        Fri, 03 Apr 2026 10:20:37 -0700 (PDT)
+X-Received: by 2002:a17:90b:4ac7:b0:35d:a2aa:3b05 with SMTP id 98e67ed59e1d1-35de678f96fmr3529399a91.5.1775236836568;
+        Fri, 03 Apr 2026 10:20:36 -0700 (PDT)
+Received: from [192.168.29.116] ([49.37.147.30])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35dd367bfb1sm6322767a91.10.2026.04.03.10.20.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 03 Apr 2026 10:20:36 -0700 (PDT)
+Message-ID: <0375e235-0b8a-458c-a797-d5b341dc60b9@oss.qualcomm.com>
+Date: Fri, 3 Apr 2026 22:50:29 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260403-stmfts5-v3-11-5da768cfd201@ixit.cz>
-References: <20260403-stmfts5-v3-0-5da768cfd201@ixit.cz>
-In-Reply-To: <20260403-stmfts5-v3-0-5da768cfd201@ixit.cz>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Henrik Rydberg <rydberg@bitmath.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Petr Hodina <petr.hodina@protonmail.com>, linux-input@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1795; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=TQFq+PWyeQhZg/mK5NDBcGQfwDmMOnudDkXhMTWZo0k=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBpz/QQaX/GLHPgoCPSGD4vNqAN8c8Vp77YqqTST
- i8q9/7tueKJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCac/0EAAKCRBgAj/E00kg
- cnt3EAC9+/iOdH/C6Es8Y3zt7BHJHf73YRjGK9TxmQWh0Se913LW/Ngdu9eFlAJWY68ZVPNjmVQ
- fz1LCUrEtsNRrP6s7heETZ+K/mqf/w2eUlTxqf1HET5boZNzsCktlhmZdoKCssdMlnv43oebS10
- I5Vk+JD8virH49O9TKrew6a+jI1giQqXSwSz3LfCGo0TaVTPYhmui1VI50ths7OddPmZ6HXHi3N
- XV4Gz2OWsBluDhNmPrCVBCwFXcjNolDz5jpeZcUEAlIczTmx0NdhGx+6djhB0HZ3We7WsbdyjL2
- 6AGdgeIbfDwb/Wkx5YjSFgk+3fb+aqDi1DCobwtW12vOmp4E1LUNq8Vn2Cu8k8Jvpd5HccMpjDK
- Yk1r5QGsPcrwnH/9LX69W+5nT74tYVGtULwB8Rkd5q9E0QFp0XST3zfBGdT+RwuJL7PhHuGMh6U
- O1vX5VOfABaqlEAVllwLw06IcmAUPhtO229992eu/kc3i5RAdybgdklByl4cMq8qTwdcuCB3kbB
- DC1Fj6lCVj5NJ27yaa4GiQ0ZlfC1/cHmBYNhnk+9oAe12lDGa0YoZruthb6uyZMSbDb2qgeEqY/
- zurHwlr0x55LAv4y5pM00T9QB3Rc+fGWK4RJoWy+zJLIyrQwKTaDeZxf3LtdeO6ZKtpbf5D7zvD
- iYVCEiUAlCVnGyg==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 1/3] soc: qcom: ice: Add OPP-based clock scaling
+ support for ICE
+To: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>,
+        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+        "Martin K. Petersen" <martin.petersen@oracle.com>,
+        Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-scsi@vger.kernel.org
+References: <20260302-enable-ufs-ice-clock-scaling-v7-0-669b96ecadd8@oss.qualcomm.com>
+ <20260302-enable-ufs-ice-clock-scaling-v7-1-669b96ecadd8@oss.qualcomm.com>
+ <a616c056-f9aa-420c-a543-7f1539e9e886@oss.qualcomm.com>
+ <ac/L6y5B+6SyTNuE@hu-arakshit-hyd.qualcomm.com>
+Content-Language: en-US
+From: Harshal Dev <harshal.dev@oss.qualcomm.com>
+In-Reply-To: <ac/L6y5B+6SyTNuE@hu-arakshit-hyd.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: jFbFjvUY2YqDPZ96JmLbiR1rCSPtLo1C
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAzMDE1NSBTYWx0ZWRfX7vBnEXwJfXJD
+ awbfVLWXK/lEDHYko+ExMmrDjaLtmPKUZenPsckzQ49tK0H5TxV0fBmcUswtcyg4xQEGqdFmQGb
+ p5m2lwoj1XSEN+DA6zDfR+7l6p0hjPACOp/sgJzMdt6xPaQF9+68MlvM9G9D3kgfZqUbFNfypR5
+ 1O8TjWdubM99XEeEpv3Ts40sdTewUwTXAsYHLrWFh5t9L0QK6acNMD8T90mzutyGicESvU5iegk
+ 7ijzJ6ejQYJQUJLECRGmZB+YjrrCKDSZhp9IM+3kVwQC/ynK6yBsZi4dAOpQNMEOOe8MYRhWqRX
+ vWfeKxIiHOabMmI/JZd2rsmGk50meSJeRVI40llwRwFbs86YHc9Gb3mMmA2e4s5Gegg1bTrSyZB
+ XlLR4EqJ/sBFLpgcYZo+2/h+7x2sNBSUYDZQoJBwOyooOBTiPQXwjIgZyq6WUkvbwu75KxgtRPu
+ F4dyF09/aVM3V7qugBw==
+X-Proofpoint-ORIG-GUID: jFbFjvUY2YqDPZ96JmLbiR1rCSPtLo1C
+X-Authority-Analysis: v=2.4 cv=fOo0HJae c=1 sm=1 tr=0 ts=69cff6e6 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=pj5RAjPJ5lVSI15MjsbsBQ==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=dSs25HfLhZsUXQcnLhoA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-03_05,2026-04-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015 malwarescore=0
+ suspectscore=0 priorityscore=1501 phishscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604030155
 
-From: Petr Hodina <petr.hodina@protonmail.com>
 
-Basic touchscreen connected to second i2c bus.
 
-Signed-off-by: Petr Hodina <petr.hodina@protonmail.com>
-Co-developed-by: David Heidelberg <david@ixit.cz>
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts | 19 ++++++++++++++++++-
- arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi  |  2 +-
- 2 files changed, 19 insertions(+), 2 deletions(-)
+On 4/3/2026 7:47 PM, Abhinaba Rakshit wrote:
+> On Mon, Mar 30, 2026 at 08:09:35PM +0530, Harshal Dev wrote:
+>>> +/**
+>>> + * qcom_ice_scale_clk() - Scale ICE clock for DVFS-aware operations
+>>> + * @ice: ICE driver data
+>>> + * @target_freq: requested frequency in Hz
+>>> + * @round_ceil: when true, selects nearest freq >= @target_freq;
+>>> + *              otherwise, selects nearest freq <= @target_freq
+>>> + *
+>>> + * Selects an OPP frequency based on @target_freq and the rounding direction
+>>> + * specified by @round_ceil, then programs it using dev_pm_opp_set_rate(),
+>>> + * including any voltage or power-domain transitions handled by the OPP
+>>> + * framework. Updates ice->core_clk_freq on success.
+>>> + *
+>>> + * Return: 0 on success; -EOPNOTSUPP if no OPP table; -EINVAL in-case of
+>>> + *         incorrect flags; or error from dev_pm_opp_set_rate()/OPP lookup.
+>>> + */
+>>> +int qcom_ice_scale_clk(struct qcom_ice *ice, unsigned long target_freq,
+>>> +		       bool round_ceil)
+>>
+>> Any particular reason for choosing round_ceil? Using round_floor would have
+>> saved the need for caller to pass negation of scale_up.
+> 
+> There isn’t a strong technical reason for choosing round_ceil specifically.
+> The choice was mainly influenced by the earlier discussion here:
+> https://lore.kernel.org/all/15495f8a-37b0-4768-9ee1-05fd6c70034e@oss.qualcomm.com/
+>  
+> Also, this helper isn’t necessarily limited to the current caller.
+> We might see additional users in the future where the semantics align more
+> naturally with flags like scale_down, which map cleanly to a round_ceil‑style selection.
+> That said, I agree that using round_floor could simplify the current callsite by
+> avoiding the negation of scale_up.
+> 
+> I don’t have a strong objection to switching it if you feel that would be
+> more cleaner for now.
+>
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
-index fa89be500fb85..8fb988130b551 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
-@@ -26,7 +26,24 @@ &i2c2 {
- 
- 	status = "okay";
- 
--	/* ST,FTS @ 49 */
-+	touchscreen@49 {
-+		compatible = "st,stmfts5";
-+		reg = <0x49>;
-+
-+		pinctrl-0 = <&touchscreen_irq_n>, <&touchscreen_reset>;
-+		pinctrl-names = "default";
-+
-+		interrupts-extended = <&tlmm 125 IRQ_TYPE_LEVEL_LOW>;
-+
-+		mode-switch-gpios = <&tlmm 136 GPIO_ACTIVE_HIGH>;
-+		reset-gpios = <&tlmm 99 GPIO_ACTIVE_LOW>;
-+
-+		avdd-supply = <&vreg_l14a_1p8>;
-+		vdd-supply = <&vreg_l19a_3p3>;
-+
-+		touchscreen-size-x = <1080>;
-+		touchscreen-size-y = <2160>;
-+	};
- };
- 
- &mdss_dsi0 {
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-index 6930066857768..4653c63ec26d2 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-@@ -466,7 +466,7 @@ touchscreen_reset: ts-reset-state {
- 		bias-pull-up;
- 	};
- 
--	touchscreen_pins: ts-pins-gpio-state {
-+	touchscreen_irq_n: ts-irq-n-gpio-state {
- 		pins = "gpio125";
- 		function = "gpio";
- 		drive-strength = <2>;
+No issues, you can choose to do it if you spin a v8 of this patch series.
+  
+>>> +{
+>>> +	unsigned long ice_freq = target_freq;
+>>> +	struct dev_pm_opp *opp;
+>>> +	int ret;
+>>> +
+>>> +	if (!ice->has_opp)
+>>> +		return -EOPNOTSUPP;
+>>> +
 
--- 
-2.53.0
+[...]
 
+>>> +
+>>>  static struct qcom_ice *qcom_ice_create(struct device *dev,
+>>> -					void __iomem *base)
+>>> +					void __iomem *base,
+>>> +					bool is_legacy_binding)
+>>
+>> You don't need to introduce is_legacy_binding.
+>>
+>> Since you only need to add the OPP table when this function gets called from ICE probe,
+>> you should not touch this function. Instead, you should call devm_pm_opp_of_add_table()
+>> in ICE probe before calling qcom_ice_create() then once qcom_ice_create() is success, you
+>> can store the clk rate in the returned qcom_ice *engine ptr by calling clk_get_rate().
+> 
+> This was added as part of the review comment from Krzysztof:
+> https://lore.kernel.org/all/20260128-daft-seriema-of-promotion-c50eb5@quoll/
+>  
+> While I agree moving this to qcom_ice_probe would be more cleaner without needing
+> to change the API, most of our initializing code for driver by parsing the DT node
+> happens through qcom_ice_create, which keeps qcom_ice_probe much simpler.
+> Please let me know, if you think otherwise. 
+>
+
+Seems like a suggestion from Krzysztof and not something based on strong opinion. Again,
+you can choose to do this if you spin a v8, I feel it's cleaner.
+  
+> Also, I don't see any reason for moving the clk_get_rate() logic to qcom_ice_probe
+> though as it will not be set on legacy targets in that case.
+
+I thought only new DT nodes will be specifying the OPP table requiring us to store the
+clk rate and restore later. If legacy DT nodes also possess the OPP table, then ignore
+this comment.
+
+> 
+>>>  {
+>>>  	struct qcom_ice *engine;
+>>> +	int err;
+>>>  
+>>>  	if (!qcom_scm_is_available())
+>>>  		return ERR_PTR(-EPROBE_DEFER);
+>>> @@ -584,6 +640,26 @@ static struct qcom_ice *qcom_ice_create(struct device *dev,
+>>>  	if (IS_ERR(engine->core_clk))
+>>>  		return ERR_CAST(engine->core_clk);
+>>>  
+>>> +	/*
+>>> +	 * Register the OPP table only when ICE is described as a standalone
+>>> +	 * device node. Older platforms place ICE inside the storage controller
+>>> +	 * node, so they don't need an OPP table here, as they are handled in
+>>> +	 * storage controller.
+>>> +	 */
+>>> +	if (!is_legacy_binding) {
+>>> +		/* OPP table is optional */
+>>> +		err = devm_pm_opp_of_add_table(dev);
+>>> +		if (err && err != -ENODEV) {
+>>> +			dev_err(dev, "Invalid OPP table in Device tree\n");
+>>> +			return ERR_PTR(err);
+>>> +		}
+>>> +		engine->has_opp = (err == 0);
+>>
+>> Let's keep it readable and simple. engine->has_opps = true; here and false in error handle above.
+> 
+> Well there are 3 cases to it:
+> 
+> 1. err == 0 which implies devm_pm_opp_of_add_table is successful and we can set engine->has_opp =true.
+> 2. err == -ENODEV which implies there is no opp table in the DT node.
+>    In that case, we don't fail the driver simply go ahead and log in the check below.
+>    This is done since OPP-table is optional.
+> 3. err == any other error code. Something very wrong happened with devm_pm_opp_of_add_table
+>    and driver should fail.
+> 
+> Hence, we have the condition (err == 0) for setting has_opp flag.
+
+My suggestion is you either explain this in concise comments or simplify the assignment of has_opp
+to make it obvious.
+
+Regards,
+Harshal
+
+>  
+> Abhinaba Rakshit
 
