@@ -1,273 +1,247 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 255493CF03E
-	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 17:20:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 199703D3324
+	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 17:33:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775236841; cv=none; b=SMaYoxEisja3bxUPUfolAxWANNOCUVbotxbEdxwzgp7Lvfl/S3aJnLe7hvrm2wsTpSD6xHK04DMSl1Br/p5SA1YZQzkoLyRKexZJc2qoxyctonCIMq+j0YDe5u+B9ItkyHOhWWPjtVwCou3JrEHmf4yEnaM4VAyqidD2EXByT2Q=
+	t=1775237631; cv=none; b=dzUi/Iuz9IeN657mDtZuvH3kNKUTxuRn9G9JYbyB2AT4xFe4ISrQXDzVTlJkzszSPBAkLcOC5cFxk8r7RUL9ydXxv2JAC+2PwlhxLqT92+hCESp+D529BioRonNRa8RbX13BOMUmZwNlX4ufrdOObkKKHu5iyY2MVHiUJPKD2l8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775236841; c=relaxed/simple;
-	bh=wJ4SGi+RUgIhsJJAdoRj67zG6o+9Ks6jcb+OggrbsfE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=a14qKauTVIsyfDNad4Gzz259jVK0OvImY7kzIYrMubUWWZxB7vZEEVWTKQ+r0ndHtjUNJ4gliw5Wp7kAxVGndM494IgU2x7L7tf1KKUXdD49HfKCM6/agJ7r+XBvzwYXVKev2sJfBUfUJ1MaP7pT9CkzCy+Sqa4Bch0MraoTB04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TZExL75a; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=izQOt2Be; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1775237631; c=relaxed/simple;
+	bh=lquwIt3pxmUHrqV0hylBWdUZ9FzuojFhb4iwrjx2pmw=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jqOshw5Yjw3puYQFdXmw+17+x8o2ExOkqehBGOc3Y7Rxw7QZrrlV7YE0sLaDVvAmz4B2H/0MrOK3MvI8Wi2QtDNp9YJ0aC/NugZMPXPMQifO7vcDOWSIpHlO66FM+PRj74D/rxYo5KJBEIJ8BqXU47D7Tbt+viQ07EYBMoSGRWU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=at2SJ6nb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KN1j6/XE; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TZExL75a";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="izQOt2Be"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 633EVd8P947591
-	for <devicetree@vger.kernel.org>; Fri, 3 Apr 2026 17:20:38 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="at2SJ6nb";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KN1j6/XE"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 633Bqusd3780201
+	for <devicetree@vger.kernel.org>; Fri, 3 Apr 2026 17:33:49 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	w8V39+f9OWvpwnJiINSpQbKQIemQW2g5kxmXopgAHlw=; b=TZExL75al14O3yLM
-	hCBa44uZKs372wBO4QEEPh9kk8IL7LxzCRgoFoSW3eK4bgdY+BSB/4GCxwwZvj/2
-	SMmSDhWHiby6RYcnoQmNjd6rwOQPp2PKv7cL3OX/p03c8odXIfYW7BinrNlZ64e1
-	UGCCMOeVLqiny/0x/Zj+LYaw0HtHLSwlANRV9SPJ6NivGkG23S413T0jl+NFBM7X
-	iTM7fagd7BQ67t7KttylhWBE3nR2RM14gW8fluGSey+0PijZi3IsGqtlPMRGgqPE
-	Od03efzR0kewHYYZKm5TG7GrqU2SJP4oz+KJ3wf3ww0+A3FZT2q1aXMT4QGcdyNz
-	VBlczw==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d9xwfkcd8-1
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=WhdmUQMs0c12v3Jvg9TgqF
+	jhlSe7hCaVqUcHAfWSqgE=; b=at2SJ6nbgXLGzolnsKGvZCjdDEWefMJ7i4Dpv3
+	bybqmytK2vg4v876pkVJOa2bZrGAv4MKclN4uMMtGxwh91oQzbsxDNGRa58/VhS4
+	BbrQHyLuDD9yXqWFj5febnt7YArMUMX0/xI284Dp380kkwM03/Qf6kPZTK/WGJ2Q
+	jSGPB6O8ahVFfm7/WUaV+PCtjGKPAbeRc3BSnNMxGkVIFs7T61AaXwjxsJuWs3oF
+	C9QFkl+QYZqn68jv6wXoGn5AfPAl3t/8q62uhJbuusZHA56HyP/moH+g0UJB7Me4
+	EZOlYrvN5KRap8GkrICEUQ0KYSb2ghDrdOPvBRjLpVfRQw3A==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4da663j9g0-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 17:20:38 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-354c0234c1fso2247443a91.2
-        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 10:20:37 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 17:33:47 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-c76c6280732so2566043a12.0
+        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 10:33:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775236837; x=1775841637; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=w8V39+f9OWvpwnJiINSpQbKQIemQW2g5kxmXopgAHlw=;
-        b=izQOt2BeoKmVzZkhV5RnGN2dQS4eO+DQ86LvX8Z4c8M8PO64fRFXkLhdv6rtUbbbuO
-         0ix4IsM8lq3+8tDxtowPJ0Oi7K5LpF9XDjiwETHjkp4lzwqldfLhAGE+beS1SdBmehX5
-         6wxO680WltKukxpYqGJibMzUxFOBrZjYPsFx933CKW0J8hcnrKnysZVqVQ+BBeuq3ILO
-         mdogv8oPL0CYEQcFnD/M0OajUSK49aklmfG3YNa7M8ElhYms9o4B7+wrhzVUlqr/42nU
-         LrcoimoRGX6DUcAsxmQfTVsdc4MPh+ZdTmYqRUZyf6TqspxspUfn9E8Z5A7nCw8c4/zP
-         ieAA==
+        d=oss.qualcomm.com; s=google; t=1775237626; x=1775842426; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=WhdmUQMs0c12v3Jvg9TgqFjhlSe7hCaVqUcHAfWSqgE=;
+        b=KN1j6/XE1watPmnFdhIuCmoFOhKdohe25WGM1tDxg//XYHDecClRdit5b0u9rFrlRP
+         NYykJn771DmpLWZFkmfHejlv0At6dmtrJqFcnA5vUju9aoSjKXcW3oRonMWQ1uVxBPzD
+         1PKN69ZD5MqZSCH+Xcjo8b7rGH7/a7b60mFMXO6nig0g00BvS8kIf1Z5ChLWOx847htM
+         mf3h/DV2KSg0yvN2/RanrydVsU/4Yu03VwEPGxgyo+RA0LWVZXbFu0zqOV5mUROLQy1N
+         pf79aJ+TzT5o9/JhqLk2dM1KPOUb7aW/QeKswZCdj1yk++LRfoVrheZxlRg4dJY8hGGJ
+         /g7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775236837; x=1775841637;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=w8V39+f9OWvpwnJiINSpQbKQIemQW2g5kxmXopgAHlw=;
-        b=jrX3Cxo+s0VRTvz+yziw64cFvFLb/uUZ2FTkyy3vsi9G7y/YjzOTXeoI2dQUknwuH7
-         XvnGT3IZiVjxNgXMys3BKxn26gn5W9pwRQ63R0M+qW3MzAjF/n/DlLWjvhdT6YFDyLTi
-         wvcnPuEcSZZPangYlZaxEHfDPIsLMfqsrKbvqdaJC2yAppRJJTtIRBe8eXugi647RvX5
-         1WiwcWadJrCczdVog1GC7IM5qrPwKu4/LoZndkC6ph0fA2PtE/S02mMqN8v0ev79uZWO
-         4cXQjJ+V3NY0eHDkJNt+Q571dBodS8aCoqS4iYd0JZrbKxDzQPDnyAaz5l1mADBEwK39
-         6EZA==
-X-Forwarded-Encrypted: i=1; AJvYcCVMZVkVRSUP1QkOURh9Slt0TUWG4Qm+cMeymlyp7R3ynTacpdOR271Hnz0ltcjjnCSRmkjkdjj4I9t1@vger.kernel.org
-X-Gm-Message-State: AOJu0YwcRRFStKzuhSWs1hM115JC2hVRq1oUJJeFtCAxpkfUOGK0mPXl
-	CWCtwLZBD/NDnTNhFkx87H06hxy0MWT6xyBHijESAzOBSIVImvF6pIx0ZD20WVVV7CYFOnYl3Nf
-	5tG/zKNJrmKYzMO8cysb1woBwb7LJfEUhUV6LPcjKnL6Kw+guoKXQHmeXPXne9+ei
-X-Gm-Gg: AeBDietbI/KdtGN3B4I22+K3ssXC1kHBpCF/mYP0x3riNJCZC7+8zxfZIK9pmni3n7v
-	Krldt8XqMXlwBLmCALFvJYxMHw8t0LNbe9asOfrlqS6MMI05oCwOHF1Ci3zULI/cT9QPD0Snfah
-	bWmvVKquieOgUklZBWoVYTBRVKpDKHYSrTyRRFGKb24WKILchyJ6pIQaUPkhUHqfyp7tYlk6spt
-	SFTUcADlLnsQg/ZDXjZJWofWxHvo+sw2ktz5O9ZNRtL0MbLZbQwbQTak1qBBdEQQdl7d5p5QMfp
-	0Roxg4Bsebo3zmHqXCXRRS4O9iSbFZMwSYyc6TtlbHSq1hl3p63KOOgHMDJA9JekCUOZRfrtaTZ
-	YuIOBqBsnb2XlVdMa9nT65NhuahJABa2lWZCoOMk/ChSeik+6s38=
-X-Received: by 2002:a17:90b:4ac7:b0:35d:a2aa:3b05 with SMTP id 98e67ed59e1d1-35de678f96fmr3529421a91.5.1775236837119;
-        Fri, 03 Apr 2026 10:20:37 -0700 (PDT)
-X-Received: by 2002:a17:90b:4ac7:b0:35d:a2aa:3b05 with SMTP id 98e67ed59e1d1-35de678f96fmr3529399a91.5.1775236836568;
-        Fri, 03 Apr 2026 10:20:36 -0700 (PDT)
-Received: from [192.168.29.116] ([49.37.147.30])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35dd367bfb1sm6322767a91.10.2026.04.03.10.20.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 03 Apr 2026 10:20:36 -0700 (PDT)
-Message-ID: <0375e235-0b8a-458c-a797-d5b341dc60b9@oss.qualcomm.com>
-Date: Fri, 3 Apr 2026 22:50:29 +0530
+        d=1e100.net; s=20251104; t=1775237626; x=1775842426;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WhdmUQMs0c12v3Jvg9TgqFjhlSe7hCaVqUcHAfWSqgE=;
+        b=RH5nDzf+FfL7UjkxMO3ivMrp+KvFU9GmhyDoNPsOyVD4pMlqXKIF80Z2ujX2Fv/noM
+         Fxuj5+yncCq/mZvjwxcb7Xq5m7pAIhGbabrXkGCHeED01w3NKUfLR+yXPOn8oc8DdCSr
+         FOOqyVumGP3iW2pW6FLnLc3bRdyS9q8wtfQgAzLhtT0bw4gsOXSSn8OLAO8LV6d8jD7+
+         rnGL3Wq7QsEZUmv0rfrZvmYAsXSpaG+iFd6bxDWHw2uIchO8AzHJ7hS4U5KmjfAwrsrB
+         7haUMBIsF3xSVhaca+zg1QzOEsO2gEFl4x7YDk4os8rTPpQLE6keXUWUwE7tUwCLSeED
+         HWSA==
+X-Forwarded-Encrypted: i=1; AJvYcCUU1jbBNcOEet5rF20HAAGUIMDVF1I2C0NomQvj79H1+nv/4StxFHSzg7cazNImYwU4zpe8BfPwbsxj@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx8f7u/+FH9AIkDFmgIyBoy43eMD7U29P4eRHdo8QTfFrq2oS4C
+	W5qhJjKRKaq8RdUN33hu5ywuMP31QOkr2PhW+oZ+7BKFtBdyjDjT0/z7JCbcrpbDUU8bvXNHHAA
+	WpC35VQ2HHl741/ZB9OC1YZnOYRktfjFvzFzDuZFJbDfjS2Zat8DbcNPSC5LSMOuB
+X-Gm-Gg: AeBDieuZxj/xn+MHnxZFvMGXsC75PoY7ismBh5TvXx2+1v/KcQv1f/dx9P6ZEeQsGll
+	XG4vkJAcpEzd6c+1tHloBgfU0XDkzWaIVVJHGEAUYZgyOUP1ZEdp4cYglnacUN5L3+ZAWiOdjaT
+	bynJYWAtGJDlvypCqc80N3tFewcxYj2RQ94jI1SYgdB6c5TBCN5H9rAaNhqLpK9SnHfV6+6O8Kt
+	61XqFDgUbZNu8rdUWjQW6On3TVo3hy+aTZ9+m8pLWf+Uoyro3+cIrqvPWlzQrughlL8S+BTH7fE
+	FFPIFWHSO+EtlpvtDaKbInPHMjg6ZFo5NZpbmTnSSXx8TGYPdv3V7Ty2YckUU/S9QisOeSkmmun
+	8IVydsDFQDs08ufdXO8zW3vtewTechEkHKbM9eruA+/BuL7gycpEd7c5F
+X-Received: by 2002:aa7:88d1:0:b0:82c:9e00:f958 with SMTP id d2e1a72fcca58-82d0d743763mr3740156b3a.0.1775237626169;
+        Fri, 03 Apr 2026 10:33:46 -0700 (PDT)
+X-Received: by 2002:aa7:88d1:0:b0:82c:9e00:f958 with SMTP id d2e1a72fcca58-82d0d743763mr3740120b3a.0.1775237625642;
+        Fri, 03 Apr 2026 10:33:45 -0700 (PDT)
+Received: from hu-krichai-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82cf9b3e169sm6359125b3a.18.2026.04.03.10.33.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 03 Apr 2026 10:33:45 -0700 (PDT)
+From: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Subject: [PATCH v9 0/3] PCI: Add support for PCIe WAKE# interrupt
+Date: Fri, 03 Apr 2026 23:03:32 +0530
+Message-Id: <20260403-wakeirq_support-v9-0-1cbecf3b58d7@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/3] soc: qcom: ice: Add OPP-based clock scaling
- support for ICE
-To: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
-Cc: Herbert Xu <herbert@gondor.apana.org.au>,
-        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOz5z2kC/3XP2wrCMAwG4FeRXltJux4yr3wPEam11eKhs9Wpy
+ N7dThCF6U3gD+RL8iDZpeAymY4eJLk25BCPJdTjEbFbc9w4GtYlEw5cMgaCXs3OhXRa5kvTxHS
+ mXgorVsYwtJKUqSY5H24vcb4oeRvyOab7a0Er++7b0gOrlRSoUMIx7bnlYGcx58npYvY2Hg6TU
+ khPtuqL4T8YVRgFXiLzteAg/zD6zSjgDIeMLgyshcIaK+Cg/zD4YSpWDRnsn0IDRvcHo/nBdF3
+ 3BIk/+A+KAQAA
+X-Change-ID: 20251104-wakeirq_support-f54c4baa18c5
+To: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+        Pavel Machek <pavel@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Danilo Krummrich <dakr@kernel.org>,
+        Bjorn Helgaas <bhelgaas@google.com>,
+        Bartosz Golaszewski <brgl@bgdev.pl>, Linus Walleij <linusw@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>,
+        Saravana Kannan <saravanak@kernel.org>,
+        Linus Walleij <linusw@kernel.org>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-pci@vger.kernel.org, linux-gpio@vger.kernel.org,
+        quic_vbadigan@quicinc.com, sherry.sun@nxp.com,
+        driver-core@lists.linux.dev, devicetree@vger.kernel.org,
+        Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
         Manivannan Sadhasivam <mani@kernel.org>,
-        "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-        "Martin K. Petersen" <martin.petersen@oracle.com>,
-        Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-scsi@vger.kernel.org
-References: <20260302-enable-ufs-ice-clock-scaling-v7-0-669b96ecadd8@oss.qualcomm.com>
- <20260302-enable-ufs-ice-clock-scaling-v7-1-669b96ecadd8@oss.qualcomm.com>
- <a616c056-f9aa-420c-a543-7f1539e9e886@oss.qualcomm.com>
- <ac/L6y5B+6SyTNuE@hu-arakshit-hyd.qualcomm.com>
-Content-Language: en-US
-From: Harshal Dev <harshal.dev@oss.qualcomm.com>
-In-Reply-To: <ac/L6y5B+6SyTNuE@hu-arakshit-hyd.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: jFbFjvUY2YqDPZ96JmLbiR1rCSPtLo1C
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAzMDE1NSBTYWx0ZWRfX7vBnEXwJfXJD
- awbfVLWXK/lEDHYko+ExMmrDjaLtmPKUZenPsckzQ49tK0H5TxV0fBmcUswtcyg4xQEGqdFmQGb
- p5m2lwoj1XSEN+DA6zDfR+7l6p0hjPACOp/sgJzMdt6xPaQF9+68MlvM9G9D3kgfZqUbFNfypR5
- 1O8TjWdubM99XEeEpv3Ts40sdTewUwTXAsYHLrWFh5t9L0QK6acNMD8T90mzutyGicESvU5iegk
- 7ijzJ6ejQYJQUJLECRGmZB+YjrrCKDSZhp9IM+3kVwQC/ynK6yBsZi4dAOpQNMEOOe8MYRhWqRX
- vWfeKxIiHOabMmI/JZd2rsmGk50meSJeRVI40llwRwFbs86YHc9Gb3mMmA2e4s5Gegg1bTrSyZB
- XlLR4EqJ/sBFLpgcYZo+2/h+7x2sNBSUYDZQoJBwOyooOBTiPQXwjIgZyq6WUkvbwu75KxgtRPu
- F4dyF09/aVM3V7qugBw==
-X-Proofpoint-ORIG-GUID: jFbFjvUY2YqDPZ96JmLbiR1rCSPtLo1C
-X-Authority-Analysis: v=2.4 cv=fOo0HJae c=1 sm=1 tr=0 ts=69cff6e6 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=pj5RAjPJ5lVSI15MjsbsBQ==:17
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1775237619; l=4614;
+ i=krishna.chundru@oss.qualcomm.com; s=20230907; h=from:subject:message-id;
+ bh=lquwIt3pxmUHrqV0hylBWdUZ9FzuojFhb4iwrjx2pmw=;
+ b=QXHiJZg8wKuUbnPRDefxKLKofMd2Hk//kpYpGCOguqCazl1tI4dSFeEgjPx3SLlmZYoib9O7B
+ pJsk97SePNcD5M71XJY7KBn/d/1IUOfBLASlz2yrkMzmJKqUWandkNL
+X-Developer-Key: i=krishna.chundru@oss.qualcomm.com; a=ed25519;
+ pk=10CL2pdAKFyzyOHbfSWHCD0X0my7CXxj8gJScmn1FAg=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAzMDE1NiBTYWx0ZWRfX0WXhR7soWnSz
+ +hnAyY+CE2JEN2Y8cgeAh8NKkbBtPPOK98Of/I3P59A9Ipm6Y22WJdFurL2axHX/DiEGnPIX329
+ 5PakMKXDc+KDGu9Z0Kr1u6qeKbaphYEBToyzRWhaGZn+GFqcDakUHw3CtXF+PAwtEXtTcdQwvqV
+ vn1/hLMnnygzVYhJVFiXviRzT3qG1kkpjqeygp1LKEmeJZiq9GVRjUd4h2ODycAk3Mx7uSjVVur
+ Aq7y0FaL5Edmfz7pET5gBgAya+quO5JjiPpUNrpCHobElJopU7+TEDtdW+/ZTqpKO6MBP/sH+oK
+ sz2s/lZFdxZtH1YmDfc295at2bVPFr+YyVgEV7jZ0ucIFF/PpMtumbwhQ6+9N9B6XRxdx/wUMYx
+ Vjkkx++KxeVtIvrVBy4ZSUPeoaJqQYC8malzIep5r/n+mGvdFoXHld/H+MXgGxMbDMIw0ytG6IP
+ /dpBbAI3fiJePIa070A==
+X-Proofpoint-GUID: 8SkQ9QlHgSst4K3d2qJdNt40bCE7TN0Q
+X-Proofpoint-ORIG-GUID: 8SkQ9QlHgSst4K3d2qJdNt40bCE7TN0Q
+X-Authority-Analysis: v=2.4 cv=Acu83nXG c=1 sm=1 tr=0 ts=69cff9fd cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=dSs25HfLhZsUXQcnLhoA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Ikd4Dj_1AAAA:8 a=s8YR1HE3AAAA:8
+ a=bBQ1TlrZeL130n7Dx0UA:9 a=QEXdDO2ut3YA:10 a=_Vgx9l1VpLgwpw_dHYaR:22
+ a=jGH_LyMDp9YhSvY-UuyI:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-03_05,2026-04-03_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015 malwarescore=0
- suspectscore=0 priorityscore=1501 phishscore=0 adultscore=0 bulkscore=0
+ spamscore=0 suspectscore=0 adultscore=0 clxscore=1015 priorityscore=1501
+ phishscore=0 impostorscore=0 bulkscore=0 lowpriorityscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604030155
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604030156
 
+PCIe WAKE# interrupt is needed for bringing back PCIe device state from
+D3cold to D0.
 
+This is pending from long time, there was two attempts done previously to
+add WAKE# support[1], [2]. Those series tried to add support for legacy
+interrupts along with WAKE#. Legacy interrupts are already available in
+the latest kernel and we can ignore them. For the wake IRQ the series is
+trying to use interrupts property define in the device tree.
 
-On 4/3/2026 7:47 PM, Abhinaba Rakshit wrote:
-> On Mon, Mar 30, 2026 at 08:09:35PM +0530, Harshal Dev wrote:
->>> +/**
->>> + * qcom_ice_scale_clk() - Scale ICE clock for DVFS-aware operations
->>> + * @ice: ICE driver data
->>> + * @target_freq: requested frequency in Hz
->>> + * @round_ceil: when true, selects nearest freq >= @target_freq;
->>> + *              otherwise, selects nearest freq <= @target_freq
->>> + *
->>> + * Selects an OPP frequency based on @target_freq and the rounding direction
->>> + * specified by @round_ceil, then programs it using dev_pm_opp_set_rate(),
->>> + * including any voltage or power-domain transitions handled by the OPP
->>> + * framework. Updates ice->core_clk_freq on success.
->>> + *
->>> + * Return: 0 on success; -EOPNOTSUPP if no OPP table; -EINVAL in-case of
->>> + *         incorrect flags; or error from dev_pm_opp_set_rate()/OPP lookup.
->>> + */
->>> +int qcom_ice_scale_clk(struct qcom_ice *ice, unsigned long target_freq,
->>> +		       bool round_ceil)
->>
->> Any particular reason for choosing round_ceil? Using round_floor would have
->> saved the need for caller to pass negation of scale_up.
-> 
-> There isn’t a strong technical reason for choosing round_ceil specifically.
-> The choice was mainly influenced by the earlier discussion here:
-> https://lore.kernel.org/all/15495f8a-37b0-4768-9ee1-05fd6c70034e@oss.qualcomm.com/
->  
-> Also, this helper isn’t necessarily limited to the current caller.
-> We might see additional users in the future where the semantics align more
-> naturally with flags like scale_down, which map cleanly to a round_ceil‑style selection.
-> That said, I agree that using round_floor could simplify the current callsite by
-> avoiding the negation of scale_up.
-> 
-> I don’t have a strong objection to switching it if you feel that would be
-> more cleaner for now.
->
+This series is using gpio property instead of interrupts, from
+gpio desc driver will allocate the dedicate IRQ.
 
-No issues, you can choose to do it if you spin a v8 of this patch series.
-  
->>> +{
->>> +	unsigned long ice_freq = target_freq;
->>> +	struct dev_pm_opp *opp;
->>> +	int ret;
->>> +
->>> +	if (!ice->has_opp)
->>> +		return -EOPNOTSUPP;
->>> +
+Bjorn,
+Can you take this series through PCI branch, once other subsystem
+maintainers give us ACK. 
 
-[...]
+WAKE# is added in dts schema and merged based on this patch.
+https://lore.kernel.org/all/20250515090517.3506772-1-krishna.chundru@oss.qualcomm.com/
 
->>> +
->>>  static struct qcom_ice *qcom_ice_create(struct device *dev,
->>> -					void __iomem *base)
->>> +					void __iomem *base,
->>> +					bool is_legacy_binding)
->>
->> You don't need to introduce is_legacy_binding.
->>
->> Since you only need to add the OPP table when this function gets called from ICE probe,
->> you should not touch this function. Instead, you should call devm_pm_opp_of_add_table()
->> in ICE probe before calling qcom_ice_create() then once qcom_ice_create() is success, you
->> can store the clk rate in the returned qcom_ice *engine ptr by calling clk_get_rate().
-> 
-> This was added as part of the review comment from Krzysztof:
-> https://lore.kernel.org/all/20260128-daft-seriema-of-promotion-c50eb5@quoll/
->  
-> While I agree moving this to qcom_ice_probe would be more cleaner without needing
-> to change the API, most of our initializing code for driver by parsing the DT node
-> happens through qcom_ice_create, which keeps qcom_ice_probe much simpler.
-> Please let me know, if you think otherwise. 
->
+[1]: https://lore.kernel.org/all/b2b91240-95fe-145d-502c-d52225497a34@nvidia.com/T/
+[2]: https://lore.kernel.org/all/20171226023646.17722-1-jeffy.chen@rock-chips.com/
 
-Seems like a suggestion from Krzysztof and not something based on strong opinion. Again,
-you can choose to do this if you spin a v8, I feel it's cleaner.
-  
-> Also, I don't see any reason for moving the clk_get_rate() logic to qcom_ice_probe
-> though as it will not be set on legacy targets in that case.
+Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+---
+Changes in v9:
+- Call device_init_wakeup() only if
+  dev_pm_set_dedicated_shared_wake_irq() succeeds (Mani).
+- Change the IRQ_TYPE from IRQ_TYPE_EDGE_FALLING to IRQ_TYPE_LEVEL_LOW (Mani).
+- Link to v8: https://lore.kernel.org/r/20260313-wakeirq_support-v8-0-48a0a702518a@oss.qualcomm.com
 
-I thought only new DT nodes will be specifying the OPP table requiring us to store the
-clk rate and restore later. If legacy DT nodes also possess the OPP table, then ignore
-this comment.
+Changes in v8:
+- Moved the stub functions under CONFIG_OF_IRQ(mani).
+- Added the description of how dev_pm_set_dedicated_shared_wake_irq()
+  works.
+- Link to v7: https://lore.kernel.org/r/20260218-wakeirq_support-v7-0-0d4689830207@oss.qualcomm.com
 
-> 
->>>  {
->>>  	struct qcom_ice *engine;
->>> +	int err;
->>>  
->>>  	if (!qcom_scm_is_available())
->>>  		return ERR_PTR(-EPROBE_DEFER);
->>> @@ -584,6 +640,26 @@ static struct qcom_ice *qcom_ice_create(struct device *dev,
->>>  	if (IS_ERR(engine->core_clk))
->>>  		return ERR_CAST(engine->core_clk);
->>>  
->>> +	/*
->>> +	 * Register the OPP table only when ICE is described as a standalone
->>> +	 * device node. Older platforms place ICE inside the storage controller
->>> +	 * node, so they don't need an OPP table here, as they are handled in
->>> +	 * storage controller.
->>> +	 */
->>> +	if (!is_legacy_binding) {
->>> +		/* OPP table is optional */
->>> +		err = devm_pm_opp_of_add_table(dev);
->>> +		if (err && err != -ENODEV) {
->>> +			dev_err(dev, "Invalid OPP table in Device tree\n");
->>> +			return ERR_PTR(err);
->>> +		}
->>> +		engine->has_opp = (err == 0);
->>
->> Let's keep it readable and simple. engine->has_opps = true; here and false in error handle above.
-> 
-> Well there are 3 cases to it:
-> 
-> 1. err == 0 which implies devm_pm_opp_of_add_table is successful and we can set engine->has_opp =true.
-> 2. err == -ENODEV which implies there is no opp table in the DT node.
->    In that case, we don't fail the driver simply go ahead and log in the check below.
->    This is done since OPP-table is optional.
-> 3. err == any other error code. Something very wrong happened with devm_pm_opp_of_add_table
->    and driver should fail.
-> 
-> Hence, we have the condition (err == 0) for setting has_opp flag.
+Changes in v7:
+- Updated the commit text (Mani).
+- Couple of nits like using pci_err instead of dev_err,
+  use platform_pci_configure_wake(), platform_pci_remove_wake() instead
+  of calling directly calling pci_configure_of_wake_gpio() & pci_remove_of_wake_gpio() etc (Mani).
+- Add a new fwnode_gpiod_get() API that wraps fwnode_gpiod_get_index(..0..), similar to
+  devm_fwnode_gpiod_get() (Mani).
+- Link to v6: https://lore.kernel.org/r/20251127-wakeirq_support-v6-0-60f581f94205@oss.qualcomm.com
 
-My suggestion is you either explain this in concise comments or simplify the assignment of has_opp
-to make it obvious.
+Changes in v6:
+- Change the name to dev_pm_set_dedicated_shared_wake_irq() and make the
+  changes pointed by (Rafael). 
+- Link to v5: https://lore.kernel.org/r/20251107-wakeirq_support-v5-0-464e17f2c20c@oss.qualcomm.com
 
-Regards,
-Harshal
+Changes in v5:
+- Enable WAKE# irq only when there is wake -gpios defined in its device
+  tree node (Bjorn).
+- For legacy bindings for direct atach check in root port if we haven't
+  find the wake in the endpoint node.
+- Instead of hooking wake in driver bound case, do it in the framework
+  irrespective of the driver state (Bjorn).
+- Link to v4: https://lore.kernel.org/r/20250801-wake_irq_support-v4-0-6b6639013a1a@oss.qualcomm.com
 
->  
-> Abhinaba Rakshit
+Changes in v4:
+- Move wake from portdrv to core framework to endpoint (Bjorn).
+- Added support for multiple WAKE# case (Bjorn). But traverse from
+  endpoint upstream port to root port till you get WAKE#. And use
+  IRQF_SHARED flag for requesting interrupts.
+- Link to v3: https://lore.kernel.org/r/20250605-wake_irq_support-v3-0-7ba56dc909a5@oss.qualcomm.com
+
+Changes in v3:
+- Update the commit messages, function names etc as suggested by Mani.
+- return wake_irq if returns error (Neil).
+- Link to v2: https://lore.kernel.org/r/20250419-wake_irq_support-v2-0-06baed9a87a1@oss.qualcomm.com
+
+Changes in v2:
+- Move the wake irq teardown after pcie_port_device_remove
+  and move of_pci_setup_wake_irq before pcie_link_rcec (Lukas)
+- teardown wake irq in shutdown also.
+- Link to v1: https://lore.kernel.org/r/20250401-wake_irq_support-v1-0-d2e22f4a0efd@oss.qualcomm.com
+
+---
+Krishna Chaitanya Chundru (3):
+      PM: sleep: wakeirq: Add support for dedicated shared wake IRQ setup
+      gpio: Add fwnode_gpiod_get() helper
+      PCI: Add support for PCIe WAKE# interrupt
+
+ drivers/base/power/wakeirq.c  | 39 ++++++++++++++++++++---
+ drivers/pci/of.c              | 74 +++++++++++++++++++++++++++++++++++++++++++
+ drivers/pci/pci.c             | 10 ++++++
+ drivers/pci/pci.h             |  2 ++
+ drivers/pci/probe.c           |  2 ++
+ drivers/pci/remove.c          |  1 +
+ include/linux/gpio/consumer.h |  9 ++++++
+ include/linux/of_pci.h        |  4 +++
+ include/linux/pci.h           |  2 ++
+ include/linux/pm_wakeirq.h    |  6 ++++
+ 10 files changed, 144 insertions(+), 5 deletions(-)
+---
+base-commit: d8a9a4b11a137909e306e50346148fc5c3b63f9d
+change-id: 20251104-wakeirq_support-f54c4baa18c5
+
+Best regards,
+-- 
+Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
 
