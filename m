@@ -1,129 +1,99 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09B202D9EE7
-	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 12:08:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D1FC1C84DE;
+	Fri,  3 Apr 2026 12:25:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775218130; cv=none; b=RHyz8Vkjsa0f7YjAEwT7VmLHjNSCQtpYfNEE+0EbZTmGnpHkrIP4CgMyVWimH+neqyX4nbHH6r75qRDXrNkpqfx/rjdzzvC8gN8TlgNBfDSUzC/OCsDj/8nwlo0Ge4CYerJgU7ZIIASTdO1icSlnz6Qmmk85uzMzVNizu7t7JIY=
+	t=1775219104; cv=none; b=qrLMuWm/zS5Cad5kvZKv4Cgdfg72h3ACiBkxZRY74eU5n1IU675LxsppcZKeEzksf72xNrUpFj9XyHM2pG13GcDzf0dWhUeNnQOwGcbhqFVghThM/XWApyXk17VQXx/7pL4/OTxrBznXB/ZkXKwg2ydv7nLF9GDZfz71dOtVu0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775218130; c=relaxed/simple;
-	bh=W78zLFEUBYK3Umfr5VFantLvQf8xy7/WNThoCj7zKjE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oIlzfrQ0PACI4hi43sPgtjOcLjrTsjMPGR4xn8EqqR3crJA9ajU5muYMe8wFNI1XI0MGpViIQOSR3U0f6ZZ3hQQKAQSYrQv2YILHpxjtLJHqFOyWC0Ic24xfh0a79KP9vxh8QPd+sqMkmXTf8sulxUERq54TSADcpIiiCWjggGs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lQ6AMxUx; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1775219104; c=relaxed/simple;
+	bh=YBB0a5Z0US+tCgH29GBJlYwUGww6QrhiSOHrdpyPaNo=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=mLe18e7R5T6cEhY8kqzXvfHjauXJ/DimYXOX8fgv0d53z6Ni8OtKE+8kCIJQ6dwxmLsXqslc0wwmrb4kuCKJDvEKJB56Q4BRD0bqnKzWERZDi2zFvJelcl4+NaO20XPYIl2UVc7TparQSQ407Z45LcQpd6TDLde4Waeu97okyOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uai9vXXy; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lQ6AMxUx"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2aae4816912so11470755ad.2
-        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 05:08:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775218128; x=1775822928; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=5wmsZ7aJLbe+iLC+rK57UUTbvfLEuAbzyuSZU/YdcCM=;
-        b=lQ6AMxUx7TuvJrBxIElEKe5hsMDfoOTuP5KcomwZlVh4lBnac78pzHHyZRAJ1ukB6B
-         wx8FncOvdqVj6xdzUznyiOuhSR0IafaNsi1/v1Yk36+faZ/5pz5r6etPkeSAGReFSVJP
-         XXLVoVEjUlJ6CUQfAaixyBrj7pEq7tcKb6mkZquM8MVMptIG3vNmTKTz2iPPGSbSc0nj
-         gLZVWg7ugWy/gFWPFj4RfDXOAlJAt+CUrtOsjhPj2wmkC0Pbt5yEWCWd0XlNqsay5AX2
-         bCSXuqfjRUVhsRwZk6lmr+t4ogoS3wmBpjySr6+rcJr+3BUCIYTmPdDwbuvoiTyJQCVk
-         pD1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775218128; x=1775822928;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=5wmsZ7aJLbe+iLC+rK57UUTbvfLEuAbzyuSZU/YdcCM=;
-        b=b+UHrwIU49IYg5sxd4g70SyRxx+78j57PbZTXZFv2dzf/mzhkhwNZ3OIfgPakAi4Ql
-         EWO4vbrUOG17L71ubmXJausjPNm09EX2jcjw+j4xYW4Eet5/rmU6w5Uem16XYaGxW1UF
-         Gs4shJxt7ivN7pN7l3Z8RmZVuR1+apbuag4op6jp8PvOk2o2Z/xZUw+7EZD5fR+7Nke2
-         Tw5B+hnqtn1Z1bJkT6sDCA1b+w7LTmV2KAWE+/Mz6boqial3scKuWv4p4ZwtphTUbKh8
-         WTBLOKrAvH/UZ066YMNdV5UeG95IVWsM8ebkHgPRuJKFGr6mGa1rQEGDAVNCv8gIMr4n
-         kFLQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXJZA11rwl9C4ZA3XZmWnfx5f9//jryrSk8aXH+kwpjSMgCfYSMtD5aT6QoH32MiUFjmKmgoDSE5/lE@vger.kernel.org
-X-Gm-Message-State: AOJu0YyTz3RzreNEVLn5woCNycqAe4/5HZ3VfmTlf8rhDUQGlkgr4QxH
-	CW4Z73wAOLAlLBZUM5c/4J71ibYGEMvdiFDvbFRWOzlPMiwAQejUkjVH
-X-Gm-Gg: AeBDiest5Uoen3K9bvcFF0JlACs+rxVQEE2+MrkwWeWlBP+gEvEEcE+yaBPvcXHkb9P
-	dP+kz/UqahMzC8X8LTDXfTWNgQt6QxksSQywbJc8kl1fbexMV8JK41T1Tf07ADGsLPOWuu5550u
-	D1QFbTxNG7gJ5HP5b89r83ZiGTeTsQTATRyGuljuvn/vn4KNJ1MD/V5Nte2UuKE/d163XUFFqQw
-	v36/AsI2fIe+0tVLioNpnQ8+5lRd0At042Z/uT+hTnc4GvZab2uREQiRMx+AxB9R/nWxDaybXGc
-	GOGdFsYTBhLHTWmozh8+sMjZU7u/wzbm9wq/Mrec5CueQsiWuRQqHh9yMxi/fYvUhKeq3CV0GAU
-	MjNn2xbLIBBI3KFVCP/qjatU2uBAowLY94BNCZfgRF3I8v+lACNHtZH6DdHfvB5NbBuqj3eUNJS
-	WEHKPlPwiLq8zXrFDXOA==
-X-Received: by 2002:a17:903:3c47:b0:2b0:67a7:5c4b with SMTP id d9443c01a7336-2b281802d24mr32407485ad.28.1775218128287;
-        Fri, 03 Apr 2026 05:08:48 -0700 (PDT)
-Received: from nuvole ([144.202.86.13])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b274979d5csm55240055ad.38.2026.04.03.05.08.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Apr 2026 05:08:47 -0700 (PDT)
-From: Pengyu Luo <mitltlatltl@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Pengyu Luo <mitltlatltl@gmail.com>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] arm64: dts: qcom: sc8280xp: Add ADSP FastRPC node
-Date: Fri,  3 Apr 2026 20:07:52 +0800
-Message-ID: <20260403120753.105869-1-mitltlatltl@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uai9vXXy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96408C4CEF7;
+	Fri,  3 Apr 2026 12:25:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775219103;
+	bh=YBB0a5Z0US+tCgH29GBJlYwUGww6QrhiSOHrdpyPaNo=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+	b=Uai9vXXyLyf6xKfUGk/qXBMZpLUymY+LVPJdKAuKYKFWKNIkRjqg2CKaXZ4OldSnm
+	 pJ1Hs2HuxY2CoqnSj+RyJOd+qLQkXszyao4NdUJlFHYPI/qC8Yfl/61SW5eMvk3e+W
+	 XrJTiU7zTbwdRNM+H0laEnihdOM3TAGRvRMs7s+Dsw0t8E1hkm/hAUAsSE1vSeE/Lf
+	 5xA3n2drPpSEvZsw018vFo596mCGsHFwN8lGqAZxmIw26FZOdB1Lxf7d5zufMWRdul
+	 LCPulyK8z9jule6rj+E/CX1TWrUEFudB+3tM2E8MEJcB2YNCUu1LIeaK7SikfZAfEw
+	 YdV/USXxDRYhA==
+Date: Fri, 03 Apr 2026 07:25:01 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>, 
+ Jonathan Cameron <Jonathan.Cameron@huawei.com>, linux-iio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Jonathan Cameron <jic23@kernel.org>, Andy Shevchenko <andy@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Ariana Lazar <ariana.lazar@microchip.com>
+In-Reply-To: <20260403-mcp47feb02-fix2-v1-1-da60c773550e@microchip.com>
+References: <20260403-mcp47feb02-fix2-v1-0-da60c773550e@microchip.com>
+ <20260403-mcp47feb02-fix2-v1-1-da60c773550e@microchip.com>
+Message-Id: <177521910182.3087622.7420461822795760783.robh@kernel.org>
+Subject: Re: [PATCH 1/2] dt-bindings: iio: dac: add support for Microchip
+ MCP48FEB02 to MCP47FEB02
 
-Add the FastRPC node to enable offloading compute tasks to the ADSP
-via the FastRPC framework.
 
-Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
----
- arch/arm64/boot/dts/qcom/sc8280xp.dtsi | 27 ++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+On Fri, 03 Apr 2026 13:50:13 +0300, Ariana Lazar wrote:
+> This is the device tree schema for iio driver for Microchip
+> MCP48FxBy1/2/4/8 series of buffered voltage output Digital-to-Analog
+> Converters with nonvolatile or volatile memory on top of MCP47FEB02.
+> The families support up to 8 output channels and have 8-bit, 10-bit or
+> 12-bit resolution.
+> 
+> The I2C (MCP47F(E/V)BXX) and SPI (MCP48F(E/V)BXX) DAC families were merged
+> into the same dt-binding file.
+> 
+> Fixes: 4ba12d304175 ("dt-bindings: iio: dac: adding support for Microchip MCP47FEB02")
+> Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
+> Link: https://lore.kernel.org/all/20260216-shiny-itunes-00a31d1f4db7@spud/
+> ---
+>  .../bindings/iio/dac/microchip,mcp47feb02.yaml     | 291 +++++++++++++++------
+>  MAINTAINERS                                        |   1 -
+>  2 files changed, 217 insertions(+), 75 deletions(-)
+> 
 
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-index 761f229e8f47..ee02acd18856 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-@@ -2966,6 +2966,33 @@ IPCC_MPROC_SIGNAL_GLINK_QMP
- 				label = "lpass";
- 				qcom,remote-pid = <2>;
- 
-+				fastrpc {
-+					compatible = "qcom,fastrpc";
-+					qcom,glink-channels = "fastrpcglink-apps-dsp";
-+					label = "adsp";
-+					qcom,non-secure-domain;
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					compute-cb@3 {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <3>;
-+						iommus = <&apps_smmu 0x0c03 0x0>;
-+					};
-+
-+					compute-cb@4 {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <4>;
-+						iommus = <&apps_smmu 0x0c04 0x0>;
-+					};
-+
-+					compute-cb@5 {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <5>;
-+						iommus = <&apps_smmu 0x0c05 0x0>;
-+					};
-+				};
-+
- 				gpr {
- 					compatible = "qcom,gpr";
- 					qcom,glink-channels = "adsp_apps";
--- 
-2.53.0
+My bot found errors running 'make dt_binding_check' on your patch:
+
+yamllint warnings/errors:
+./Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml:245:22: [error] string value is redundantly quoted with any quotes (quoted-strings)
+
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.example.dts:22.20-39.13: Warning (i2c_bus_reg): /example-0/i2c/dac@60: I2C bus unit address format error, expected "0"
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260403-mcp47feb02-fix2-v1-1-da60c773550e@microchip.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
