@@ -1,67 +1,38 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7779E3ACA65
-	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 13:55:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C243290AD;
+	Fri,  3 Apr 2026 13:58:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775224530; cv=none; b=AuXVjAUU/gYCBzChSJxbB4LceqLipotNILGMWEzmXQ0DiA9vm2ODYQvWNEMXMhAZEqdXSb/AGCFOpa31b1hEdSHa8FZkdjLE7n9WMwllqOlBBd5mjn43HtY4jN2gCb4EEzMej63hqshkq6ov0+tTJAn+mi7D3qiHQHgi2J+0X/U=
+	t=1775224734; cv=none; b=Sw46Wbc6sKf4Y0KBh+tk//5JahigWcoLBsIJ8Eptec7YByEQtELWTeNTLqbl5V6g3LxzVIap0WDY/kHDCyj3GCCXA8bpbevPqsnGUzQV3HWDPkV+Q124wlurHSA6kKqTkHOK/iu9VBdTHgcvhcb6+IZOSL22rkhiT7/CjjZBpTw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775224530; c=relaxed/simple;
-	bh=WiO7xxC4vnoDFEP8yYgqIU+yonljli5p0uLIYnjF80c=;
+	s=arc-20240116; t=1775224734; c=relaxed/simple;
+	bh=s+dU1/g0RifyG4LIuYKHQ+oCFbdwqSv3LSZS2ks+Cb0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jeR+/P5wlTgM9XZ0ekpvzZUDLmiFTKG+3toG7wIHdSH2otSvfFoSVyU6NGso4Be6kncji6IwPOLHQKc7vQWYDH/PfdVdrNPT2o7pb0tgyB/aotdDohPbbHIcrPlNGUfwu53loGVrkcTpA2KfROKrMLelV8nRomC0L7lTxcnbB5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=4j0QMeLi; arc=none smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	 In-Reply-To:To:Cc; b=dp5uXA73sHbdnfn1SEvMHkUnxa3aJF95okTlEYfnWVp/AQqeptGE764YcWWsJToSFiG38sb6YyoPKdn/0hCwsmSJ6pRlw+105O/ps3RdVpO6+TXmihXDQsE+fJWnvXINyxuiLngmCrIjE7ascWA0kyK7pJbMHd15rVp+QfBy6Co=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i81/UDh8; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="4j0QMeLi"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-b9358bc9c50so272185666b.1
-        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 06:55:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1775224523; x=1775829323; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Xu/QbQrF+RhfA92z9P5YF9wreIVJO9r1YHQM8M/36Jg=;
-        b=4j0QMeLid4kOG+UcPl45sYTvbZMQn7MK59ELOOB1UTelF9wBWCF9eXKLcEY8tuyQvt
-         AKiX6dZmt/TG+9WQBiIfw2iBRZK/3UNmHr/Idx0N6lUIPfwgGPDgHzk5iegkISC3dCqE
-         /YntSiHddnLvw6fXA0wgoBFiTXGUEYJume8Bn/fT4K4Hz4n1s7c90rcTW2rpRzw+3SPJ
-         brGvhfLo30ADRWBM8QVzpERzVj+t9WAqunOC5II1wrOqtDmqkCgF39AtJ3poq/i74lvL
-         q8ZEDuDouyN5DoM+NtfmepBTiL9d/+b3DVgHTng+Lq+PLRurdwtB3ZLlMjCbN60UeuDG
-         6Iig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775224523; x=1775829323;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Xu/QbQrF+RhfA92z9P5YF9wreIVJO9r1YHQM8M/36Jg=;
-        b=Y4IL84r/A4YA4wFEptr/Smu/UIQ+Clo83mhIKkK95ih2RIvMIOyhxVsymXURFaRaiw
-         ehvyv5mSlpGJXeBsm0X/mOABJKuxIsLjCHggqVystbf/1WfYBbjQHMnY41UJ5DVK5Fi6
-         tR7VmM/nqssXP7D0m6dfrfovH3F1Lo2N+mCDjks9rUP2jOJgKwR+UddSevx9MYvutpJl
-         lWle/J4Dxu34biEndgjZ9KucXEZdIGSdL3U44oWOagI67fk5IpRxM2UYl1Wufvp75nJJ
-         JojHm/fk6FJkt9o14ZafUSHlUgUnX56oCB05IVZxiY+mlle0B7J+s1s5YWHdeEKo9RpR
-         Pgzw==
-X-Forwarded-Encrypted: i=1; AJvYcCVCUiSWBN55J+mSc9Ed/v4e3xsk4OYldScXbp9oyqj5pL4m9HyD62fbd36nLiWKR4jUwItjIggiVizw@vger.kernel.org
-X-Gm-Message-State: AOJu0YyPiiWIIQ/xvTn2PD/4U9Q6qQ6HMcDHnCckNMzjqmifKQprsitx
-	R8ixKTM3OXdE3UI28vc0YKfpRAItkhupf4V/vIkAhRBFO7mwMyx6UlwJlfuDWYh1yGw=
-X-Gm-Gg: AeBDiev2g2T9SOHMydGxZrkc1IydaUXcTJhtdCHQizPcj6KWy4DlVzBAoEfpCKGega9
-	Sc6X8uZEWSBArK0p/Zw326RyE72IXmSRtHyfXaNjvCnUOfeg5zVuGbIIQTqACLCaTuAJBjVRUyU
-	/flkynpoajDQsQ7zHpNvrMtbBrzhah4KFKELUbk/AczbkNMLQ6kkvXugBXmCR0AVyfg5z8xQ073
-	OExHiLt/uzz+hOj1EDD6dVo/n5qAOoXHyeEFCUmSudoBfLHaCdL9KmEAxTjJzUSq0S7qQN0+XSY
-	FaequZZoSCgD7miugpnPwLk5DhYgLb4pVJZ0n7YgXZp6OWNSxb2ZuELKM6EuvlffPDSYhB/Y1R1
-	40X2XXSF1vYnu5xe2GXk9Di/sZu2T/6kfmTyasRYYe8Yl0LLT2X0soiHW56yRwNcy5/lVVaO4Ra
-	o4+/3OeTP605DnANDeH9isY1Khk8PvOTpFJjDqZpf22C7fVB0t9MvsT9FKp7Qg9hPS0a3g3RkTw
-	J8ytzuPYSo/6s9t4C2sKMxuqOuEV/1M+ct6Bw==
-X-Received: by 2002:a17:906:6a0c:b0:b9b:5164:906a with SMTP id a640c23a62f3a-b9c672a4f0cmr157218266b.4.1775224523388;
-        Fri, 03 Apr 2026 06:55:23 -0700 (PDT)
-Received: from otso.local (2001-1c00-3b89-c600-71a4-084f-6409-1447.cable.dynamic.v6.ziggo.nl. [2001:1c00:3b89:c600:71a4:84f:6409:1447])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9c3c972e28sm198057266b.1.2026.04.03.06.55.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Apr 2026 06:55:23 -0700 (PDT)
-From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Fri, 03 Apr 2026 15:52:53 +0200
-Subject: [PATCH v2 7/7] arm64: dts: qcom: milos-fairphone-fp6: Enable WiFi
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i81/UDh8"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CF887C19423;
+	Fri,  3 Apr 2026 13:58:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775224733;
+	bh=s+dU1/g0RifyG4LIuYKHQ+oCFbdwqSv3LSZS2ks+Cb0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=i81/UDh8mQTWjgDyfogKB3F32uFPxuSqMRDQ18i1Moy9FAVJIg+9sVaKSjI8t1Dtj
+	 OD7zSDxTQ5mj7ard7mdDt8+klAghQaWHZUPmgJhuBp9zrl0FLIFvLPgYVR8l6CZYB3
+	 Y+XbOKCxV136HNhu/Ho/fl1XvybVXHq/PIpx0fsj9YPGN7VH26k7yIwXK+m1kTb8a3
+	 s4C9g+AyMovsJ7OVzaESNrfoRAFG/acTI+jAOlznGp4kj5ngR0BmEiQoPozGFxp8z0
+	 bR8ntFEWxXqRgEZkHqbzXsN40S7Rg/SUKOHg7SM4WE59IgnTR12ByHfM1yPabr7Lmo
+	 /o+nyREP6eyxg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BC36EE8536F;
+	Fri,  3 Apr 2026 13:58:53 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Fri, 03 Apr 2026 15:58:46 +0200
+Subject: [PATCH v3 1/5] dt-bindings: nfc: nxp,nci: Document PN557
+ compatible
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,91 +41,72 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260403-milos-fp6-bt-wifi-v2-7-393322b27c5f@fairphone.com>
-References: <20260403-milos-fp6-bt-wifi-v2-0-393322b27c5f@fairphone.com>
-In-Reply-To: <20260403-milos-fp6-bt-wifi-v2-0-393322b27c5f@fairphone.com>
+Message-Id: <20260403-oneplus-nfc-v3-1-fbdce57d63c1@ixit.cz>
+References: <20260403-oneplus-nfc-v3-0-fbdce57d63c1@ixit.cz>
+In-Reply-To: <20260403-oneplus-nfc-v3-0-fbdce57d63c1@ixit.cz>
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Alexander Koskovich <AKoskovich@pm.me>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, 
- Marcel Holtmann <marcel@holtmann.org>, 
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
- Balakrishna Godavarthi <quic_bgodavar@quicinc.com>, 
- Rocky Liao <quic_rjliao@quicinc.com>, 
- Johannes Berg <johannes@sipsolutions.net>, 
- Jeff Johnson <jjohnson@kernel.org>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
- linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
- Luca Weiss <luca.weiss@fairphone.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1775224512; l=1686;
- i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=WiO7xxC4vnoDFEP8yYgqIU+yonljli5p0uLIYnjF80c=;
- b=9xLHPNbkt0sV/SMYIy8WN5UbmrF1+a9f7EhbS1150zHQgK2ZkM3gLMQ3RUV3bSz9ea71I2aJt
- R2qV50g74/zAGlFDurH8tXrwoGm2tG7BDnEuEDClBZR1UMTaig0kdCg
-X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
- pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
+ Conor Dooley <conor+dt@kernel.org>, Alexander Martinz <amartinz@shift.eco>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Casey Connolly <casey.connolly@linaro.org>, 
+ Alexander Martinz <amartinz@shiftphones.com>
+Cc: Petr Hodina <petr.hodina@protonmail.com>, 
+ biemster <l.j.beemster@gmail.com>, netdev@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, oe-linux-nfc@lists.linux.dev, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=801; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=XAr0YPSe88hbZiI1E3SbtdYUk0kg/OIc+A90H6b4IMY=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBpz8ebxDmaJwjzyRUTYj1d8k6YnudHVAbaS8Z0z
+ WZS8g3mTjuJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCac/HmwAKCRBgAj/E00kg
+ ctP8D/4tH7JBKTPHlQxYPJDFWKPPaCb8sX95ulLhQltIx4eKz3/rdyOWz0DVGxLHyOCCxXY+yh1
+ vzOjvHlM1+uUlUT9fKALTgVHIdK/ekiYEWh9mvzTGp2+XYyC7nYZgu2872UpcAy+K2+4bErVOx1
+ vnlPUbSMj6EdN2g65b9zQhWzRdqwZ7b3coCjU0mtV2h4ZcFCPSfxIvGnS9B7C0NwG7D6/RW9Ut2
+ AQZoHQL0gu7+MWSV1yKGqtPsH2kqmcLEefupzPJLXArS88YX7uDL4Nev1ce3ypTeOXoEibVSTII
+ QzQo+FMLr++ILDXmsHhdjN+Fr+Zke5f/5S+Y600rSwJRr6AV08BKSYl9KY43HU3/56xBpd8/Mav
+ Z6wkL0vn1o/orT6cZ/Vqzc0Q6TWsbsLjZ/pdG7kMrgqbF2K8VBpc5OTACiWDYCu//khwO7wY1Db
+ o38e2ilcAT8DfwBsuOLPvpfIZ7gxTrYLimWc0kA/ovvliXQ6qr2sEdI9CrPEJeLQh28vcbovgaI
+ 3XtUwbjF2FG9yL304R39Xj7ALJMBvegnY2xHZxOhKgHpA+wLIL0YpnFn/IpLpmIj2jm5Im0D44p
+ BXy6Z2nBYxDge68OwsDc5MHwLJRJID7+wvxCiuPEsWOyb6KiTUVoOKZ10cTXO3aim+fnaANu56i
+ yuA0YIIcTPCechA==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-Configure and enable the WiFi node, and add the required pinctrl to
-provide the sleep clock from the PMK8550 (PMK7635) to WCN6755.
+From: David Heidelberg <david@ixit.cz>
 
-Thanks to Alexander Koskovich for helping with the bringup, adding
-the missing pinctrl to make the WPSS stop crashing.
+The PN557 uses the same hardware as the PN553 but ships with
+firmware compliant with NCI 2.0.
 
-Link: https://lore.kernel.org/linux-arm-msm/DBF7OWAWQ94M.FSCP4DPF8ZJY@fairphone.com/
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Document PN557 as a compatible device.
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
+ Documentation/devicetree/bindings/net/nfc/nxp,nci.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts b/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
-index db72418b7195..d8ac495ca7c8 100644
---- a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
-+++ b/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
-@@ -242,7 +242,7 @@ wcn6750-pmu {
+diff --git a/Documentation/devicetree/bindings/net/nfc/nxp,nci.yaml b/Documentation/devicetree/bindings/net/nfc/nxp,nci.yaml
+index 364b361511808..4f3847f64983b 100644
+--- a/Documentation/devicetree/bindings/net/nfc/nxp,nci.yaml
++++ b/Documentation/devicetree/bindings/net/nfc/nxp,nci.yaml
+@@ -18,6 +18,7 @@ properties:
+               - nxp,nq310
+               - nxp,pn547
+               - nxp,pn553
++              - nxp,pn557
+           - const: nxp,nxp-nci-i2c
  
- 		clocks = <&rpmhcc RPMH_RF_CLK1>;
- 
--		pinctrl-0 = <&bluetooth_enable_default>;
-+		pinctrl-0 = <&bluetooth_enable_default>, <&pmk8550_sleep_clk_default>;
- 		pinctrl-names = "default";
- 
- 		regulators {
-@@ -766,6 +766,17 @@ &pmiv0104_eusb2_repeater {
- 	qcom,tune-usb2-preem = /bits/ 8 <0x6>;
- };
- 
-+&pmk8550_gpios {
-+	pmk8550_sleep_clk_default: sleep-clk-default-state {
-+		pins = "gpio5";
-+		function = "func1";
-+		input-disable;
-+		output-enable;
-+		bias-disable;
-+		power-source = <0>;
-+	};
-+};
-+
- &pmr735b_gpios {
- 	s1j_enable_default: s1j-enable-default-state {
- 		pins = "gpio1";
-@@ -1049,3 +1060,9 @@ &usb_1_hsphy {
- 
- 	status = "okay";
- };
-+
-+&wifi {
-+	qcom,calibration-variant = "Fairphone_Gen_6";
-+
-+	status = "okay";
-+};
+   enable-gpios:
 
 -- 
 2.53.0
+
 
