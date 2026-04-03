@@ -1,196 +1,399 @@
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011040.outbound.protection.outlook.com [40.107.74.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F2D3225403;
-	Fri,  3 Apr 2026 21:21:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.40
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775251312; cv=fail; b=N8AE4HE5//nU38sA7V2OhtTl89Q3xfLlggi4TZmr2nBpEr0nJnuf+GF4Hu2f8gQeV7jnjnaq3vkH/4TAY49WBAy7YbF3vLHIj13D/6VXabjIfx7ZJYoK7cj6YaKuDlmFQKUXLqOiDkdqBVITmCsHOUp49C2gtzrGpLGr5FKqPAI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775251312; c=relaxed/simple;
-	bh=H0/KWXUsMsOP8SUCIZPsj1QGU1qMRifjuv8m164m3Fg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=UvtLNJHGqRpa+89+dmN1ta4QIIwdfHDNZCa0fT8Qu5n9yGkbFY1mRhuvV9ahb0J5cRRqIBtnoFm9LffKrm813CoIajtoB33NQM1/E9c/bryUXpg/lGwIPvW614BBaU3Eh9FD22vc+W6eSl3nDeG+ruG3lg3HXpcnMC1CNmSI1RU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=EaN8Vhqz; arc=fail smtp.client-ip=40.107.74.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9824371053
+	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 21:41:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775252505; cv=none; b=JyZ5u1WwgJZsQ8fI3AznwBhEicLrKJ3yCcg1icTVCnbwVbpydPLinyUbPM2GZosJ8n/V58uJ6p45e+RCw0UNf9xtijAjzX6HrAPXs9ASZgJ2F89EuLKbiLzTOHFOnkp2HUojnHo8gfdProR2IZBvPtT/Y79Q5YlOVMLCfUCMQkI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775252505; c=relaxed/simple;
+	bh=aNqo3VMozaVfeBSUz7AnkpMWki798TmNnJ8/9zzdduE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CSzc5Rehx8fCGpI4+4kHfesPK5InFtvZqEdrwTyibnE9/c+3v/eI9OKPKy8vX8bcOUF+H/hxLaAOSc6fnSApR49h2Ejb7eU9ieqNqFpz8wJX4h+fEhshe8Gwk2uvgTw73bUp1NFxJ3F3qxRibNjWTRO1kxdkbBpL2UsMzIG7DYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UiaUNzmM; arc=none smtp.client-ip=209.85.161.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="EaN8Vhqz"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Kx2xV6i56ro0uq5ZYvSbOpITaMMDobIfdilIlUHJum6x7qR9HPUWshASsHe93HqBf418mbMBxUvoTeRs1tbBbySvZ0lmw4lYPKlodpbWnuI8IO4haipTeSxQw0uTMi4fO5qlIDSG/QnBF0VDUI6VWsHAbbIGWvlOOqKBKkUOBCOScBQfBYlkmFo842Z45XmHWEiAxPLEzr+U3jeqncM3ClDr2bz5lbFRYaBV3LJyJH8FxSgXepj1XOt1XTNSObH3rCd3MzWtkUV1GnARLEA+2xvBEOEW7ZyOCAk95xWy6AilAAmcUrXGZfC1lNMPHHpWDtcAMp8YO21kzygWn0sIIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tOqx5fgmiIGTFtxj7PUfQCTLw6fq9QBCpndenkzK97c=;
- b=Pqynbjhud/PUGiGu1S7YBg8loydz7e5hla9phlL0hKuUttI06BUB6pDAx64CgJQs2mClxYr47oliiOQY61c3TRX5Iad88Ug0Vt1td/ltqED3asvc/cfTa5veVMTd0me6NGJhkoLkaNF8UAmqBlXzclEqFVh/qeKOX0Ggjus+yT5cjTrGIKSUkP3uIT0DVF/XSqqhXk38bHhx5uj80HF6KmSMZmtLZHSfvu2d7AENQI6vgIjoLdFzFQOkAW4W7AIhbTguYHFuqxx9wIIFa5mBsn2e51jCAeIhIrFHGnohncRK1c9SF1aWpuJP0RTBip9vdY5BjoSAwCkKhMFpal/6gw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tOqx5fgmiIGTFtxj7PUfQCTLw6fq9QBCpndenkzK97c=;
- b=EaN8Vhqz+UTjBM37twmsJCzQRUakgm+vKWHkouRDxI3OiRD7N9swYfRgo3zy4phwhK9PaBAsrcFgD6UC9an0V2ls0ShZFkEophm5k4lS5J5fJPVk5P1R9CIfymmtjQrCdsIJv1NOaHUUoHTUdqy1nH5+FSdzYvdKkCctIm6UjtE=
-Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com (2603:1096:405:35b::6)
- by TYYPR01MB12160.jpnprd01.prod.outlook.com (2603:1096:405:f3::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.18; Fri, 3 Apr
- 2026 21:21:48 +0000
-Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com
- ([fe80::f373:26d6:86c4:6aa3]) by TY6PR01MB17377.jpnprd01.prod.outlook.com
- ([fe80::f373:26d6:86c4:6aa3%4]) with mapi id 15.20.9769.016; Fri, 3 Apr 2026
- 21:21:48 +0000
-From: John Madieu <john.madieu.xa@bp.renesas.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-CC: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, magnus.damm
-	<magnus.damm@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
-	Claudiu.Beznea <claudiu.beznea@tuxon.dev>, Biju Das
-	<biju.das.jz@bp.renesas.com>, "john.madieu@gmail.com"
-	<john.madieu@gmail.com>, "linux-sound@vger.kernel.org"
-	<linux-sound@vger.kernel.org>, "linux-renesas-soc@vger.kernel.org"
-	<linux-renesas-soc@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCh v3 12/14] ASoC: rsnd: Add rsnd_adg_mod_get() for PM
- support
-Thread-Topic: [PATCh v3 12/14] ASoC: rsnd: Add rsnd_adg_mod_get() for PM
- support
-Thread-Index: AQHcwr1vTvvLfxccmk6jO9MBmGq++rXMkvcAgAFG1uA=
-Date: Fri, 3 Apr 2026 21:21:48 +0000
-Message-ID:
- <TY6PR01MB17377DBAABCD821F7426C8CB3FF5EA@TY6PR01MB17377.jpnprd01.prod.outlook.com>
-References: <20260402162436.12059-1-john.madieu.xa@bp.renesas.com>
-	<20260402162436.12059-13-john.madieu.xa@bp.renesas.com>
- <87fr5cg6cl.wl-kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87fr5cg6cl.wl-kuninori.morimoto.gx@renesas.com>
-Accept-Language: en-US, en-GB
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY6PR01MB17377:EE_|TYYPR01MB12160:EE_
-x-ms-office365-filtering-correlation-id: 3d339990-cea2-4178-fb41-08de91c703e1
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|7416014|376014|38070700021|56012099003|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- Qg0PUhhFuzJnjKILtaXIFCPKbrpIqbUXfF9qOqorOU04F1g/uXqPhzo+MsaaImbme82Kai9ESHjMQne3OWIaaTGhX/PQnXXt9pm6Sf8y2b3eJBlrYfBs0Ae5TsrhNx2Ru36aAyGjdOGqviLqPAU6eXE5hy7bKVzsT4EtZHbR53RjEaTMnsVNvC/9kS0cK4mwLmMF6LlEEHmySL9Zh8OinY3HgIeL7tYYVNM4pV5VlUYQPYTIA+vLasXzxNL4uYzF2aiD+QYj+ZlYDYCWr+AbP0dGcWUBC411GQuum1oPX0okGMpqhOiOCB2jSj9db7rtQNV8AeZX0q9VGHsdGThrEZG2vd7KdP8MlPkFAtAYgy0ZWAIoGvvfySENeVrC1ZlhifY3dwuxqTCFDrJwQqU8L5IkZ7dfmLXj3kMWVfU8II5nqEL2f6lZkepPebueUYXX4diPRta2R+fZ++rE6UdJqIAGo86ZiU1Rs7QDkx+RE41EdxhcBdj/lTKlV+v1rcfWP1ihEF4Uiid5UFYu+E2c4xDyRYpk4BCf8yghkzSkacv949Z/UaKZ+UJ/na+6/JuXSvZ3EiOZc4Y0mFDzhjLRxzVEP3O6zCxSAjnIriIuZ2nBynU+kZivlb9mqz/5GuaT3UWy0ShIQChyytN8BeCyGVIOKlj1ritw1fKyHvgaajbNoHT7KyG//TsCvEqYV8OL1y/VCUwkkovA8OQLNFJDohvfHlMF6cE8uLV7TX1EdK3jmUgWWz6YOQrOi3Cf2u6AJyfzghQ7Y+3g0lbHFNd6HI+d5s2fgH7QYRqHUlgfHZM=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY6PR01MB17377.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(38070700021)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?PNC2KbWnfNoFsKEeQc9knONH38NfhKgAv4ax0kueaUygTp0NHeyP03dqP6Wn?=
- =?us-ascii?Q?bULy1Pca7M+LvwrMRTz4RA46kkvPiebB5jvf8i1QAeUtI8cw3VuU004jJoHJ?=
- =?us-ascii?Q?RqrsWsaBZkG9XPK+lvVqZReBrACqVCSTTqlPC3UJW48wShT23qjZJOuIDxI4?=
- =?us-ascii?Q?nluxFABrkzyhrJ0p66C6Rt5btFccfPufgyvD5KUQEW3XWZYA48yWQw4s+AWx?=
- =?us-ascii?Q?pr8iI7cHXCRZt0Iwz41UZKW+xQPkpE2+bdqcquJ3kkJ6i/iBM8RMG8AW7gZF?=
- =?us-ascii?Q?0d0kxvCKM5tfFN8emGGc6iG9NnJE9Hhi5Sd1LVYh8n975r9IUfYOA18HoAzH?=
- =?us-ascii?Q?cjgu1DNqD1VcSYcvsncjEBvReBWi9aaFHMIuXiY/4FyG2ANtkG3NJAjiu1dQ?=
- =?us-ascii?Q?Q3nO8z5ZEJyC3V01Iy1gp/e6lRqPjaiDP2SPOODA9wy4ROs8ErN+FGkSLugX?=
- =?us-ascii?Q?rGk4FsKR/ZzNw0AQg536mA0ieGupC2B9yVd9cMfoZ0En/t6bjHlU5fCSroG/?=
- =?us-ascii?Q?Hs7gGkMpGng2mw8MXiSpPWFmKkZd+IUsJHVMaF+r3ZQy3jyNftYpBFfZIe0N?=
- =?us-ascii?Q?MZ0+lh8WC6+/2KXuuf1MRWSb+8s4KkcNcEL+yka3vM14wANnh8RNtkrm6Gt2?=
- =?us-ascii?Q?CZz2oyNePytrSZjMtWH5VHiCVm4y2dcXQIS3INp21VwNQM8VJAyiBSBrrM5S?=
- =?us-ascii?Q?IGDgGUo20pFF93fTh0rG6w1LgHcA1b/8FIXzImd/K3PEUH8snO+4C6JOCdnX?=
- =?us-ascii?Q?7ojf+9LGeEdX+U0SIklVkxQ6bTlpkMIVJaTymmlx7BRV4qHyrwnI9/k0Lcac?=
- =?us-ascii?Q?+7TU5VbXXkvCUu6krcpoHJN0jY+Cjx8DmRv4LepvQhCWitJq2qTvbs19dxsk?=
- =?us-ascii?Q?NwrcbzGjkXbCAZYzSi2BWHb7NZ6bGMKcOCMf4nEkc9mWCRPvn7M9rk3R61Ac?=
- =?us-ascii?Q?DBoatxHZ3jjfFb5wt9b8kq0TiRVlx2bvxOtvHbPmi8Xp/ITIXdpJICTupBeq?=
- =?us-ascii?Q?mM9WUZRtVmXxpGd61+ZaUH1wLwSEyq9CCLD2ebhSLhJm4h/TlmDLv45r6dz/?=
- =?us-ascii?Q?ckxvvIhnrN9JjOQAvDk21cD1tJkfq470YxCvYriPKBJoP3nHQratpauN8KZQ?=
- =?us-ascii?Q?lS1PfTohkmHoDRdUSn5ZPiNprXT4o+mtBVdW2LpWI70+NGlXnovHP7gpRRQH?=
- =?us-ascii?Q?kJvLjAIYeX/BPHpw8BYHQmegkcJGu3tpFlAa2lkvY5GhYYVpo6MHBZQJclMe?=
- =?us-ascii?Q?QK8GdNQJjWJfuQlvHvf1DIeEXMZEINhmdW43Ubqi4P6tOwYA32bciNODVJ9A?=
- =?us-ascii?Q?xXtLccwas8G2R8bVQq+9UEPvxN8PfrZw0fsYxitH+mve0V0YawEiQYpb9nGz?=
- =?us-ascii?Q?+tYoycboWyLq52wLe6k4pkSC0EY6tKfvD33pYbQMm/9sL1SV9o2mSeJadOqu?=
- =?us-ascii?Q?IhyhUoPuPLjfHnxwy7sxLmTQfmiWPWzkAXRpN5drjDUrZk1efLP325GXAqKE?=
- =?us-ascii?Q?ma+xlUyfeAY1hqFESNPLMKGTPaO72QXyQ/0NI0jn1jI/9BJA9hdoJ8bjqWqH?=
- =?us-ascii?Q?nnbgFasdaIjG6QNaL7vwrq1hjnupHNAtvc/653o9nBkUa6wAARdiwOz+EnVv?=
- =?us-ascii?Q?Qk0wdzei0ic/L6fTkzPbiny5tAlh1JE2LxTYOIrnRS/uE5ioBzdtd8cfqZzD?=
- =?us-ascii?Q?VdkfuSoq86ajWvUxjzDcZQnz9romfMGNG4IoPMyRtBmL2aCYFBWka1u/b4Re?=
- =?us-ascii?Q?q91sexPz6VTFtyCTGgVKu54dGgeNH/c=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UiaUNzmM"
+Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-67f921159c0so1026067eaf.3
+        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 14:41:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1775252502; x=1775857302; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=LVNcwvGWChEYY43mjLuxLc5r/Yw+nmvsqVmyVp0sV/4=;
+        b=UiaUNzmM5opWIzreUxi8kKeI0EQbHvFnUCZpS6Gll9SbV5DskLdlqOc/oBizh6NKza
+         OFQSDo2Nf4SLG+8YVtM0mzQ2vX8/4DI0IjZZo1d4yjCMJ5gclETo5PIhnIYDmD1k4UGk
+         6A1Zo1S2jvTcLD9F7kSHlQAqJsWTVDsA/SYOD2RXwrT6hmNoAggbcfcPinyxom6L4oi9
+         aGDhf5c/S7xpK4ZzKi0/Z82TjRJ6lOuL5VXyYLoG71rfBnpT6TPjv2r3tV+zi10y8LND
+         fPEt1+M8JJYUixHifQPSqBD9x/PF7iVVlL9FxqhCHLIDiX4YFuquo/LUmhoxygmoSx3M
+         DjKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775252502; x=1775857302;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=LVNcwvGWChEYY43mjLuxLc5r/Yw+nmvsqVmyVp0sV/4=;
+        b=HSI2wOYYfxzdyTNtcb0LNS3ph/iDBo9YQDYnAx8iH8Awc2pOXAefQoBmcq1qP1pZPK
+         xe4iiwYHh3VqovhRq4CuU4nYURAKRhoIFJ7nMgQlRJVwxUccj/JTLY52eCu6nDEh/+3F
+         HCNIo1Y7RYQfVFcX6ySB9u31jWct/tCEpJzTzre0g4ynPG24yZ3FZQnMH7TVfRI/qzvU
+         ItciFkgFmofnhsCAXAJawL0wuuwniKVu3zXzloFwDErqo/2QzT7sw4Bt6e1WDf45ZDs0
+         0gfyizpYaRiW4Wyole1vc+9V8rQ2RAL5V3bprO9lfm/KQjWJUF4V1H7ZXGXCRiP4ieoh
+         mCaQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXyUhQPLBkiyf2a4QsK9yk9nH2cY7WKpXxvo7sMaFp7z+YsuYnpYvfi9Wc8YupbrvYnUaVFTf6/uBg6@vger.kernel.org
+X-Gm-Message-State: AOJu0YyujSaNKaa7N6ZR8/2aVqPlu/tCY35GMTcPvnd0+/37IM5k8J3g
+	XYjmcCVHMuAd7vSnUvibBj1UpMs10KZ3yT9QygjnGdjGkj6FQiDtCOB7
+X-Gm-Gg: ATEYQzxufjNDAqB4nxc6mRnwrfBwaPJIP3m7uin7+JS7ZWxMrPA79ER/mUE5//WUg4o
+	7lpQKc6yuxPSDS1WZkd0rvVVf1MUdg/CF9Rd5evfIoH4njay4EXQKaJizQ+wRjIfDE06Fqf/qOs
+	bvNyeTJixo/hbC6RgDf31WrEk+94DEruqcYQWWF95bns6DlcCXApUSZOEjjyN3+hbuDhR+a3fd+
+	YMhqUGyPzdmIl1UAktbcnc72smSuoJECSubU9JI9pA/BLc98Za4a14UR1zSjKtVNl9AWuIkd1BU
+	LenBCf4JCi6+mB0nj9oa5k9tPhcHYJmEdaVTSA2M1ZV7fCGnYRqArE1opqVXNBaPKnUnRyXqjW6
+	mq/7vf1mGZfAMhEc93JUAyypqna7KUSLTROxLFDdkbXUbub22dHACqnU7O903leisRR3x9vxYw4
+	UT/hzXb9/yFyJd2yBdquswu7RQ1C9woYvzjLe7JuoJza+4Fe6wlRS3wAAu/E8hPvWTfxFeZEU=
+X-Received: by 2002:a05:6820:8c3:b0:67e:d8c:9f87 with SMTP id 006d021491bc7-6821d23dad7mr2348863eaf.5.1775252501679;
+        Fri, 03 Apr 2026 14:41:41 -0700 (PDT)
+Received: from localhost (104-48-214-220.lightspeed.snantx.sbcglobal.net. [104.48.214.220])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-682ba3cbe72sm1309071eaf.11.2026.04.03.14.41.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 03 Apr 2026 14:41:41 -0700 (PDT)
+From: Steev Klimaszewski <threeway@gmail.com>
+To: vikash.garodia@oss.qualcomm.com
+Cc: abhinav.kumar@linux.dev,
+	andersson@kernel.org,
+	bod@kernel.org,
+	bryan.odonoghue@linaro.org,
+	conor+dt@kernel.org,
+	david@ixit.cz,
+	devicetree@vger.kernel.org,
+	dikshita.agarwal@oss.qualcomm.com,
+	dmitry.baryshkov@oss.qualcomm.com,
+	johan+linaro@kernel.org,
+	konrad.dybcio@oss.qualcomm.com,
+	konradybcio@kernel.org,
+	krzk+dt@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	robh@kernel.org,
+	stanimir.varbanov@linaro.org,
+	threeway@gmail.com
+Subject: Re: media: iris: enable SM8350 and SC8280XP support
+Date: Fri,  3 Apr 2026 16:41:39 -0500
+Message-ID: <20260403214140.7307-1-threeway@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <a1dcd0e3-db1c-4752-9473-7934e69198a3@oss.qualcomm.com>
+References: <a1dcd0e3-db1c-4752-9473-7934e69198a3@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY6PR01MB17377.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3d339990-cea2-4178-fb41-08de91c703e1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Apr 2026 21:21:48.2699
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: LI8PdZ9jZlNlh0pSjK6OIlu816bjENfWgZEZew5wtjQpVp5kfydYmCGUELhB1AeTSfHLNA46HPx+GsAjC5LTaaWzSDX69SSUw2lf8atFenU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB12160
+Content-Transfer-Encoding: 8bit
 
-Hi Kuninori,
+Hi Vikash,
 
-Thanks for your review.
+>> This is not just with totem, showtime shows the same issue.  If I let the video
+>> play, it plays just fine, however, if I attempt to skip forward, back, or even
+>> play *after* the video has played, then I see the smmu fault
+>>
+>>   arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0xd51e3e00, fsynr=0x600002, cbfrsynra=0x2a00, cb=6
 
-> -----Original Message-----
-> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> Sent: Friday, April 3, 2026 3:50 AM
-> To: John Madieu <john.madieu.xa@bp.renesas.com>
-> Cc: Mark Brown <broonie@kernel.org>; Liam Girdwood <lgirdwood@gmail.com>;
-> Geert Uytterhoeven <geert+renesas@glider.be>; Rob Herring
-> <robh@kernel.org>; Krzysztof Kozlowski <krzk+dt@kernel.org>; Conor Dooley
-> <conor+dt@kernel.org>; Jaroslav Kysela <perex@perex.cz>; Takashi Iwai
-> <tiwai@suse.com>; magnus.damm <magnus.damm@gmail.com>; Philipp Zabel
-> <p.zabel@pengutronix.de>; Claudiu.Beznea <claudiu.beznea@tuxon.dev>; Biju
-> Das <biju.das.jz@bp.renesas.com>; john.madieu@gmail.com; linux-
-> sound@vger.kernel.org; linux-renesas-soc@vger.kernel.org;
-> devicetree@vger.kernel.org; linux-kernel@vger.kernel.org
-> Subject: Re: [PATCh v3 12/14] ASoC: rsnd: Add rsnd_adg_mod_get() for PM
-> support
->=20
->=20
-> Hi John
->=20
-> > Add rsnd_adg_mod_get() to retrieve the ADG module handle.
-> >
-> > This is preparation for system suspend/resume support, where the PM
-> > callbacks need to access the ADG module to manage its clock and reset
-> > state. Other modules (SSI, SRC, CTU, MIX, DVC) already have their
-> > getters exported.
-> >
-> > Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
-> > ---
->=20
-> This is just a comment.
-> The reason why other modules has getting function is it is needed on
-> rsnd_parse_connect_xxx() which is called in __rsnd_dai_probe().
->=20
-> > @@ -618,6 +618,7 @@ int rsnd_adg_set_cmd_timsel_gen2(struct rsnd_mod
-> *cmd_mod,
-> >  #define rsnd_adg_clk_disable(priv)	rsnd_adg_clk_control(priv, 0)
-> >  int rsnd_adg_clk_control(struct rsnd_priv *priv, int enable);  void
-> > rsnd_adg_clk_dbg_info(struct rsnd_priv *priv, struct seq_file *m);
-> > +struct rsnd_mod *rsnd_adg_mod_get(struct rsnd_priv *priv);
->=20
-> The user of rsnd_adg_mod_get() is only ADG, no need to add it on rsnd.h ?
->=20
+> please log the info about which "iova=0xd51e3e00" buffer is faulting in
+> this case
 
-Agreed. FYI, I'll simply drop this patch and merge the getter helper
-while adding suspend/resume for SRC.
+I will include the diff that I applied against my kernel, in case this isn't the
+correct information, but I get the following output in EL2:
 
-Regards,
-John
+arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0xd516d400, fsynr=0x600002, cbfrsynra=0x2a00, cb=6
+arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x2a00
+arm-smmu 15000000.iommu: FSYNR0 = 00600002 [S1CBNDX=96 PLVL=2]
+qcom-iris aa00000.video-codec: sys error (type: 1, session id:ff, data1:11, data2:deadbead)
+qcom-iris aa00000.video-codec: session error for command: 0, event id:1004, session id:79756000
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000dd000000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000d7800000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=0 iova=0x00000000d8c00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=1 iova=0x00000000d8a00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=2 iova=0x00000000d8800000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=3 iova=0x00000000d8600000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=4 iova=0x00000000d8400000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=9 idx=0 iova=0x00000000dd780000 size=498176 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000da000000 size=19472128 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000d6000000 size=19472128 attr=0x4
+qcom-iris aa00000.video-codec: session error for command: 0, event id:1004, session id:79756000
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000dd000000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000d7800000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=0 iova=0x00000000d8c00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=1 iova=0x00000000d8a00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=2 iova=0x00000000d8800000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=3 iova=0x00000000d8600000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=4 iova=0x00000000d8400000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=9 idx=0 iova=0x00000000dd780000 size=498176 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000da000000 size=19472128 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000d6000000 size=19472128 attr=0x4
+qcom-iris aa00000.video-codec: session error for command: 0, event id:1004, session id:79756000
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000dd000000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000d7800000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=0 iova=0x00000000d8c00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=1 iova=0x00000000d8a00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=2 iova=0x00000000d8800000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=3 iova=0x00000000d8600000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=4 iova=0x00000000d8400000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=9 idx=0 iova=0x00000000dd780000 size=498176 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000da000000 size=19472128 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000d6000000 size=19472128 attr=0x4
+qcom-iris aa00000.video-codec: session error for command: 0, event id:1004, session id:79756000
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000dd000000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000d7800000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=0 iova=0x00000000d8c00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=1 iova=0x00000000d8a00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=2 iova=0x00000000d8800000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=3 iova=0x00000000d8600000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=4 iova=0x00000000d8400000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=9 idx=0 iova=0x00000000dd780000 size=498176 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000da000000 size=19472128 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000d6000000 size=19472128 attr=0x4
+qcom-iris aa00000.video-codec: session error for command: 0, event id:1004, session id:79756000
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000dd000000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000d7800000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=0 iova=0x00000000d8c00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=1 iova=0x00000000d8a00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=2 iova=0x00000000d8800000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=3 iova=0x00000000d8600000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=4 iova=0x00000000d8400000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=9 idx=0 iova=0x00000000dd780000 size=498176 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000da000000 size=19472128 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000d6000000 size=19472128 attr=0x4
+qcom-iris aa00000.video-codec: session error for command: 0, event id:1004, session id:79756000
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000dd000000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000d7800000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=0 iova=0x00000000d8c00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=1 iova=0x00000000d8a00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=2 iova=0x00000000d8800000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=3 iova=0x00000000d8600000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=4 iova=0x00000000d8400000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=9 idx=0 iova=0x00000000dd780000 size=498176 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000da000000 size=19472128 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000d6000000 size=19472128 attr=0x4
+qcom-iris aa00000.video-codec: session error for command: 0, event id:1004, session id:79756000
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000dd000000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000d7800000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=0 iova=0x00000000d8c00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=1 iova=0x00000000d8a00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=2 iova=0x00000000d8800000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=3 iova=0x00000000d8600000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=4 iova=0x00000000d8400000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=9 idx=0 iova=0x00000000dd780000 size=498176 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000da000000 size=19472128 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000d6000000 size=19472128 attr=0x4
 
-> Thank you for your help !!
->=20
-> Best regards
-> ---
-> Kuninori Morimoto
+And the following output in EL2:
+
+arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0xd516d400, fsynr=0x600002, cbfrsynra=0x2a00, cb=6
+arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x2a00
+arm-smmu 15000000.iommu: FSYNR0 = 00600002 [S1CBNDX=96 PLVL=2]
+qcom-iris aa00000.video-codec: sys error (type: 1, session id:ff, data1:1, data2:deadbead)
+qcom-iris aa00000.video-codec: session error for command: 0, event id:1004, session id:28644000
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000dd000000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000d7800000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=0 iova=0x00000000d8c00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=1 iova=0x00000000d8a00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=2 iova=0x00000000d8800000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=3 iova=0x00000000d8600000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=4 iova=0x00000000d8400000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=9 idx=0 iova=0x00000000dd780000 size=498176 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000da000000 size=19472128 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000d6000000 size=19472128 attr=0x4
+qcom-iris aa00000.video-codec: session error for command: 0, event id:1004, session id:28644000
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000dd000000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000d7800000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=0 iova=0x00000000d8c00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=1 iova=0x00000000d8a00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=2 iova=0x00000000d8800000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=3 iova=0x00000000d8600000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=4 iova=0x00000000d8400000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=9 idx=0 iova=0x00000000dd780000 size=498176 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000da000000 size=19472128 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000d6000000 size=19472128 attr=0x4
+qcom-iris aa00000.video-codec: session error for command: 0, event id:1004, session id:28644000
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000dd000000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000d7800000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=0 iova=0x00000000d8c00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=1 iova=0x00000000d8a00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=2 iova=0x00000000d8800000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=3 iova=0x00000000d8600000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=4 iova=0x00000000d8400000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=9 idx=0 iova=0x00000000dd780000 size=498176 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000da000000 size=19472128 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000d6000000 size=19472128 attr=0x4
+qcom-iris aa00000.video-codec: session error for command: 0, event id:1004, session id:28644000
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000dd000000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000d7800000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=0 iova=0x00000000d8c00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=1 iova=0x00000000d8a00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=2 iova=0x00000000d8800000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=3 iova=0x00000000d8600000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=4 iova=0x00000000d8400000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=9 idx=0 iova=0x00000000dd780000 size=498176 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000da000000 size=19472128 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000d6000000 size=19472128 attr=0x4
+qcom-iris aa00000.video-codec: session error for command: 0, event id:1004, session id:28644000
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000dd000000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000d7800000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=0 iova=0x00000000d8c00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=1 iova=0x00000000d8a00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=2 iova=0x00000000d8800000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=3 iova=0x00000000d8600000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=4 iova=0x00000000d8400000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=9 idx=0 iova=0x00000000dd780000 size=498176 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000da000000 size=19472128 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000d6000000 size=19472128 attr=0x4
+qcom-iris aa00000.video-codec: session error for command: 0, event id:1004, session id:28644000
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000dd000000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000d7800000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=0 iova=0x00000000d8c00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=1 iova=0x00000000d8a00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=2 iova=0x00000000d8800000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=3 iova=0x00000000d8600000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=4 iova=0x00000000d8400000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=9 idx=0 iova=0x00000000dd780000 size=498176 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000da000000 size=19472128 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000d6000000 size=19472128 attr=0x4
+qcom-iris aa00000.video-codec: session error for command: 0, event id:1004, session id:28644000
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000dd000000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=3 idx=0 iova=0x00000000d7800000 size=5652480 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=0 iova=0x00000000d8c00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=1 iova=0x00000000d8a00000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=2 iova=0x00000000d8800000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=3 iova=0x00000000d8600000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=8 idx=4 iova=0x00000000d8400000 size=1445888 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=9 idx=0 iova=0x00000000dd780000 size=498176 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000da000000 size=19472128 attr=0x4
+qcom-iris aa00000.video-codec: buf_type=10 idx=0 iova=0x00000000d6000000 size=19472128 attr=0x4
+
+
+
+And the diff I had to come up with to get this output is:
+
+
+
+diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c b/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
+index 8e864c239e29..a57a0e4971c8 100644
+--- a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
++++ b/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
+@@ -214,7 +214,7 @@ static void iris_hfi_gen1_event_seq_changed(struct iris_inst *inst,
+        iris_inst_sub_state_change_drc_last(inst);
+ }
+
+-static void
++static noinline void
+ iris_hfi_gen1_sys_event_notify(struct iris_core *core, void *packet)
+ {
+        struct hfi_msg_event_notify_pkt *pkt = packet;
+@@ -235,7 +235,25 @@ iris_hfi_gen1_sys_event_notify(struct iris_core *core, void *packet)
+        schedule_delayed_work(&core->sys_error_handler, msecs_to_jiffies(10));
+ }
+
+-static void
++static noinline void iris_dump_inst_buffers(struct iris_inst *inst)
++{
++       struct iris_buffer *buf;
++       int i;
++
++       for (i = 0; i < BUF_TYPE_MAX; i++) {
++               list_for_each_entry(buf, &inst->buffers[i].list, list) {
++                       if (!buf->device_addr)
++                               continue;
++                       dev_err(inst->core->dev,
++                               "buf_type=%d idx=%u iova=%pad size=%zu attr=0x%x\n",
++                               i, buf->index,
++                               &buf->device_addr, buf->buffer_size,
++                               buf->attr);
++               }
++       }
++}
++
++static noinline void
+ iris_hfi_gen1_event_session_error(struct iris_inst *inst, struct hfi_msg_event_notify_pkt *pkt)
+ {
+        switch (pkt->event_data1) {
+@@ -263,7 +281,7 @@ iris_hfi_gen1_event_session_error(struct iris_inst *inst, struct hfi_msg_event_n
+        }
+ }
+
+-static void iris_hfi_gen1_session_event_notify(struct iris_inst *inst, void *packet)
++static noinline void iris_hfi_gen1_session_event_notify(struct iris_inst *inst, void *packet)
+ {
+        struct hfi_msg_event_notify_pkt *pkt = packet;
+
+@@ -593,7 +611,7 @@ static const struct iris_hfi_gen1_response_pkt_info pkt_infos= {
+        },
+ };
+
+-static void iris_hfi_gen1_handle_response(struct iris_core *core, void *response)
++static noinline void iris_hfi_gen1_handle_response(struct iris_core *core, void *response)
+ {
+        struct hfi_pkt_hdr *hdr = (struct hfi_pkt_hdr *)response;
+        const struct iris_hfi_gen1_response_pkt_info *pkt_info;
+@@ -631,6 +649,8 @@ static void iris_hfi_gen1_handle_response(struct iris_core *core, void *response
+                if (inst) {
+                        mutex_lock(&inst->lock);
+                        iris_hfi_gen1_session_event_notify(inst, hdr);
++                       if (inst->state == IRIS_INST_ERROR)
++                               iris_dump_inst_buffers(inst);
+                        mutex_unlock(&inst->lock);
+                } else {
+                        iris_hfi_gen1_sys_event_notify(core, hdr);
+diff --git a/drivers/media/platform/qcom/iris/iris_utils.c b/drivers/media/platform/qcom/iris/iris_utils.c
+index cfc5b576ec56..45f349bd8b71 100644
+--- a/drivers/media/platform/qcom/iris/iris_utils.c
++++ b/drivers/media/platform/qcom/iris/iris_utils.c
+@@ -74,9 +74,9 @@ int iris_wait_for_session_response(struct iris_inst *inst, bool is_flush)
+        return 0;
+ }
+
+-struct iris_inst *iris_get_instance(struct iris_core *core, u32 session_id)
++noinline struct iris_inst *iris_get_instance(struct iris_core *core, u32 session_id)
+ {
+-       struct iris_inst *inst;
++       struct iris_inst *inst = NULL;
+
+        mutex_lock(&core->lock);
+        list_for_each_entry(inst, &core->instances, list) {
+diff --git a/drivers/media/platform/qcom/iris/iris_vidc.c b/drivers/media/platform/qcom/iris/iris_vidc.c
+index bd38d84c9cc7..5cc47e900c83 100644
+--- a/drivers/media/platform/qcom/iris/iris_vidc.c
++++ b/drivers/media/platform/qcom/iris/iris_vidc.c
+@@ -168,17 +168,8 @@ int iris_open(struct file *filp)
+        mutex_init(&inst->lock);
+        mutex_init(&inst->ctx_q_lock);
+
+-       INIT_LIST_HEAD(&inst->buffers[BUF_BIN].list);
+-       INIT_LIST_HEAD(&inst->buffers[BUF_ARP].list);
+-       INIT_LIST_HEAD(&inst->buffers[BUF_COMV].list);
+-       INIT_LIST_HEAD(&inst->buffers[BUF_NON_COMV].list);
+-       INIT_LIST_HEAD(&inst->buffers[BUF_LINE].list);
+-       INIT_LIST_HEAD(&inst->buffers[BUF_DPB].list);
+-       INIT_LIST_HEAD(&inst->buffers[BUF_PERSIST].list);
+-       INIT_LIST_HEAD(&inst->buffers[BUF_SCRATCH_1].list);
+-       INIT_LIST_HEAD(&inst->buffers[BUF_SCRATCH_2].list);
+-       INIT_LIST_HEAD(&inst->buffers[BUF_VPSS].list);
+-       INIT_LIST_HEAD(&inst->buffers[BUF_PARTIAL].list);
++       for (int i = 0; i < BUF_TYPE_MAX; i++)
++               INIT_LIST_HEAD(&inst->buffers[i].list);
+        init_completion(&inst->completion);
+        init_completion(&inst->flush_completion);
+
+
+Please let me know if this is the information you are after, and if not, could
+you provide a patch to help me get it?  I had to noinline a lot of things, as
+you can see, otherwise I was just getting null dereferences when trying to get
+the buffers.
+
+> Regards,
+> Vikash
+
+-- steev
