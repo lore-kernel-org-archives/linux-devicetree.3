@@ -1,280 +1,298 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F757280A51
-	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 14:17:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E7EB1D61A3
+	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 14:22:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775225847; cv=none; b=oO1Sh666awQeVCmV53Pp5efpsU56K0j6EDNdMpJBlRO411Y+S7ZbkSopwMJxmG//zWsvI/YLZWAE810fKkcZ5nMYrES/6C9H/H0/Q5LcfRlp8kaJopS5NPYDwozaQxJdO/W0dWn0ANbfFMMLCUUWE3m0Y6jDF3Wf1POSGX0LRc0=
+	t=1775226127; cv=none; b=clXUHG73fVQucOAqWPJ1DbAwwKFeV44fwKR6w9IARlnzfz7XGsywoqu5NHjCeG94QmxFvR3+66ZyT/ppc15ZqgEVyACMqRAeeZY3Q2aQPOBxjnOJYvOANHdbZ0u/Dq3P1vSrEQPYqXhDVPtUdrS0ZcY5eKVEMRKztaqVSuqNtFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775225847; c=relaxed/simple;
-	bh=x1GMrzZmo29qt8wAIiATRsd4Ew8aTktyUtdtWzc8bns=;
+	s=arc-20240116; t=1775226127; c=relaxed/simple;
+	bh=uEN7fGevsYun/ye4tomwsN5hANnptUfzEO6ThhwrvUU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hIp3KGVckFMnDXRuKU62zM6hxKqCsJ156edDHexOrT19UnAQwiaGyxSLbKMFPrUtiEK/rUewyZsgTLan520tc11GAIk8b+XJ4YPGs54w/5w7qMXKlhS822ZfWuQucS5iTevRq2ZVMTPtHN4g2+WHIeKZFiGhzIkLFwAyMEZRBmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JdVjTWHZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BH5ixiLn; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=qGlx25VHbvNyKJWHrd9MFm7oQilLH3twmE5wvYui245NpmfAuONBAOi8H2klBIPO4LAXnEVZ1VY+0Cy5a9XX+ZJJ129rGoXPLZOWKrhkLqKJuW1Y28uVx8R/bhfGkS4CZmWH98zI+i9DorIZa8uoSFPASrgjsjs9YU8LnKvw/hE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=XF0SvdLp; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=I+uRsnkb; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JdVjTWHZ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BH5ixiLn"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 633B2LqX1464040
-	for <devicetree@vger.kernel.org>; Fri, 3 Apr 2026 14:17:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	5gzzElj7aj1o4ak21+gPFFPTZzAOuQGBCbltKvS4sOY=; b=JdVjTWHZhnX/UUTs
-	US/THmy3mz2Xa8Y2GMeul+tYXJQVpgljkJE9SbpFpUb1v/n4a26CXodZsXV4morx
-	f2jBz9GJ50hx+L7u9KYSkAKzUlDX0odKG2mQ5pAnv2P5UBInmtshHlL+8p3RhjnA
-	TeZSHgE7QVhS/215Bu92zbv87M9mDFofgjcM7jOjXdgV9ULnhdHak5N3LhCGhjSc
-	VV0xyQWlR+RhUkJOvtgPfmZvQiE9/2Ix2vdDB7u7+Wi8TMvk0wxXY+5YPCdzgSqj
-	eFbaSlMCPNDFHADUmbTblqwcHGWvUzHkcwDRodCcbY9Gv7hbQvNgMpPnwwg3B0MR
-	lNIN0w==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dacam8gvc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 14:17:25 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2b24a00d12cso22350025ad.1
-        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 07:17:25 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="XF0SvdLp";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="I+uRsnkb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1775226125;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aFaUzbzw3UwrOKQve5iqMJ9GUoUB8a24kPcMKP3uvaA=;
+	b=XF0SvdLpLPgltQGBPqCLsJ+C19iSfZ8zww6exow7uISUbAig8Ok1P+NUzBcv9HCJ1RW3JU
+	3pbxgnWjHIFakJ8ci9QlBeHA4+c/cDXL2jd/BwoxVB23GqUbjw6Ue0t4JaFXQd8+6j4wnn
+	pOtOe01MVTydoa22wX5/Cff+BYB041M=
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-674--m5chX03NTeLvslhWlxCkA-1; Fri, 03 Apr 2026 10:22:04 -0400
+X-MC-Unique: -m5chX03NTeLvslhWlxCkA-1
+X-Mimecast-MFC-AGG-ID: -m5chX03NTeLvslhWlxCkA_1775226124
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5093025ffecso31012721cf.0
+        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 07:22:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775225844; x=1775830644; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=5gzzElj7aj1o4ak21+gPFFPTZzAOuQGBCbltKvS4sOY=;
-        b=BH5ixiLncUHMnAHNIYIOuQoCUIH+KxoXKgsRSWPLYXMPJoA1GTmDAe8XsOqXawAayv
-         IqWW44SqeLVvdx+WWzpYb/OXG9MGCvkewJWn0RSRALXtNj43RRYXaOOLA7YjGrw2NANT
-         FLJDwx0jGhv022qsB7K/IRNXtUXSAzkKIxe9ekY38BTFRMlw/vFBOQSzPPZH/bf1ZTeP
-         D0kl4ja/6ugYBe1pVZ121sIZktYuv/vIooFxVbqUE+cuQbDydWJVRMad7L1G3HI6y8E3
-         VXpV5mO/oCXS5IInLra/XfxWzROMCBA12H/pdFR+asye7WrfpUJZMayfANaizvIlWnz3
-         F2jw==
+        d=redhat.com; s=google; t=1775226124; x=1775830924; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=aFaUzbzw3UwrOKQve5iqMJ9GUoUB8a24kPcMKP3uvaA=;
+        b=I+uRsnkbwRpuyKIR/8sT9AAe+i2ldf/RXE2X7wK9iqVBQa7ArYgwIE1ZnTYgTyiy2x
+         ZCMGQOMrAnxz4rPtEKQ2Fmz6F+L5qFzPRBB9JzxYw1s4B2nr5/5LMeWObGmlQJKvVywJ
+         JSzNJR8TFGXmGZUy6McX8hdo0Yg/5Jz4uNrhlvRE2nC1Qvt/F/nCWlNKgXzpEHZ1RNBC
+         9rJMIX0HSyleBqYV4GHotGeF8/9H2IRmma8YCzo6qnGXZtAwhyZRwpzBzxktVfPmeqd4
+         Xr/goA9PhUOdhnoTqxkT7WaakO+GNzQrAsOtsrgk5akQWV7yC8J9CJIIyYpo7ZxiFx0A
+         5aMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775225844; x=1775830644;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=5gzzElj7aj1o4ak21+gPFFPTZzAOuQGBCbltKvS4sOY=;
-        b=qQPGBIKlkdQ5QQax0c2L0dIpCsDoa9cUJTk8lisoufuWih5EFzB422sYwsZ3Rdv3QQ
-         C3YaDpzfFTiNJ1/7h4IzopwILioT11uvrPZt/tYh8uq/cxvmH2WLgA1BaZt/gH4hLS5W
-         hcEzORI+KdTqd7Ihyhp+3szP7YUsb3B4mE/kw+y1cKaP/2qXHJVcqoeYvdONOXcwtpJ4
-         QdHXCyqr2Iv8dZ4kRJxLPnuaT7+/wn3lXx+3xzSbaSsIVVw4YXovsGZZwIIqIjP8wnyI
-         p/Zv8AwWc+NqQPNGNWbWb1INnTQ/o0YB1e+Tty8EMU/OZ4n8WM1E055GYkMAHOt5M9Mk
-         KfFw==
-X-Forwarded-Encrypted: i=1; AJvYcCWLA5LELHP1DwnGQ+Hj+xc+g8wkGl+6y4Miwg0Y4vEnbAjzuzvOcz0G8tsCIYZa+FOU12Y5sq72g/4L@vger.kernel.org
-X-Gm-Message-State: AOJu0YxfvAUcer9bStvoFUDSa2VROnNLf1DaFomEqXF5T4D5D6hhVevv
-	tB6BJBruwhBaVr1TI0+TCuj6dtAfRUhlT/nObloXJ37xjbLyzayYx2zjpgwtzU5isSJaZHIqBAv
-	28d2V26rqu5/jLAmaqELyjPvF9EueEpGkObhnIOWIBj2DK3nLifMtyVNwzacNMfMuesXzv8CY
-X-Gm-Gg: AeBDieu1njmbCqaDtoEF2ANZREqrJumcceO8o6mvflRkKTmSCp2brCt6YULcEyBNmO4
-	cd5/cJTUj8VIy4Jiwn5iPbHRILKtJvZTaK6c6UTYTpAP6suIM944UykOVeV1tREdB2DGQBLl5pD
-	clZgcQsz4MM1DhP7x6gzAZG9fTEvV+HLG3Dvx78OE/qXQ+pXUcc88R98gBGGQggofJvpcE+/ck3
-	KrpnT/bU6J+Sb3czm4xmM16+dL6yDQr//Rf0xXWpngNNksSoNInJaC0Olqdk0DR98e0BkTKtzht
-	y41YuiKJOAtHbM+AqoQnbCMP3Fg/QvJxaCRgFKc3i042FX7iJpmHrx/txl41ijVAg8G4XEiPvBJ
-	3sS26JfGpT/oeGvaHNnhr8p3C00fjjFCRuBP8wZ3FqKzosbT7VdqQBHfiB7U=
-X-Received: by 2002:a17:902:f552:b0:2b0:7d6f:4627 with SMTP id d9443c01a7336-2b2817ad6camr33018945ad.37.1775225843850;
-        Fri, 03 Apr 2026 07:17:23 -0700 (PDT)
-X-Received: by 2002:a17:902:f552:b0:2b0:7d6f:4627 with SMTP id d9443c01a7336-2b2817ad6camr33018455ad.37.1775225843132;
-        Fri, 03 Apr 2026 07:17:23 -0700 (PDT)
-Received: from hu-arakshit-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b2749c38adsm75917555ad.69.2026.04.03.07.17.17
+        d=1e100.net; s=20251104; t=1775226124; x=1775830924;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=aFaUzbzw3UwrOKQve5iqMJ9GUoUB8a24kPcMKP3uvaA=;
+        b=b6pI/ZuSPoQw7OPmTaOthI/xYvLurSM9JhiAgOqwJpnf9KMnTouZstAntAEAXBCt4H
+         Xx49Gq9LLX3UZn4H8+W/fMF/AUSy50PNEf2Zatj/U/cqVYGe7k9n3UeAQIxfyiEsd5p9
+         5Ewc6nMdLbRw2OzK03/vP8/ZUH9HOVWLSrTniQeUVve61JFummGUPoZDy/TRvrn55bpL
+         5Zv3lVIlgTX3BtF/Z34qX28rvikXz7yNKh3qmVwJDsYajq3sNc3FGjF7aCsgT2SARBsk
+         AdJG49F0U9bmNvdtG/maPMz/friZ+zT5jnVnGzaihs+IqynP7EusbiNvsrfWTYQxpc6a
+         Jsmw==
+X-Forwarded-Encrypted: i=1; AJvYcCXdVHJSAaPoN7qSnOQVSBbuwqHB2G6azca1/irR5KTBZkrFtwaF77EnpIy5IJYPoC5FICGdon2P8uAe@vger.kernel.org
+X-Gm-Message-State: AOJu0YwYd6wIHPaTngvBlyAaRuAmMfKCIHPwJUO8IifnDA3096478cBS
+	lZixNIt2mFI73u4ZUeBvokdxVz9wpy85a414reiJXOQn9sAII4fwEgy60ddaJkeFblm4im9As5k
+	wFL6nnQtFRo/drRcUj5vHEl5xag0Y3cbb9yKTzJ0N/eU6D2HIQhp3DkqIAVbPBsU=
+X-Gm-Gg: ATEYQzzLDYXIL9kMwbPe40A7FS0b4mZm9r18nJRdIH9l3dOvio/lA9V6YeESLkpYr7X
+	Fk2HKqAOayIp0DKCMH9mURH08l6kwLYGwRnKOTNioXrKMc0houHJ58LDFEI0YUnNzxqATvhZ0YM
+	/UHrXiv9+zGVJIA/DsfWcxQnqMJHMRwvDVEUM9JN9n83OLevtJqUiaaKCyI1ZwZaFTNtRwW0k64
+	wLfHRe1Zn9y1Y1oxM1V1M/Z0I+4RrN37vwnKaQu/M50vQ0USv+TU6TJ89ywHFJFcb4sf4krlJgd
+	3xn29AQCiBG4ubFiWMW9U5lXKchjHWujALRtUcba3bQ3cfJvg8a7u/b0r9uuuZTSSiMUQn9F1wZ
+	RJxlFAjSkNAoy9vAqvD9VexKHGRWzyR6c/MVyxM7OhoYM5oRWdXVLPIYu
+X-Received: by 2002:a05:620a:25c9:b0:8c7:1118:c514 with SMTP id af79cd13be357-8d41c3b4678mr430490185a.17.1775226123827;
+        Fri, 03 Apr 2026 07:22:03 -0700 (PDT)
+X-Received: by 2002:a05:620a:25c9:b0:8c7:1118:c514 with SMTP id af79cd13be357-8d41c3b4678mr430484085a.17.1775226123228;
+        Fri, 03 Apr 2026 07:22:03 -0700 (PDT)
+Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-8d2a8c29f00sm427002585a.45.2026.04.03.07.22.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Apr 2026 07:17:22 -0700 (PDT)
-Date: Fri, 3 Apr 2026 19:47:15 +0530
-From: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
-To: Harshal Dev <harshal.dev@oss.qualcomm.com>
-Cc: Herbert Xu <herbert@gondor.apana.org.au>,
-        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-        "Martin K. Petersen" <martin.petersen@oracle.com>,
-        Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-scsi@vger.kernel.org
-Subject: Re: [PATCH v7 1/3] soc: qcom: ice: Add OPP-based clock scaling
- support for ICE
-Message-ID: <ac/L6y5B+6SyTNuE@hu-arakshit-hyd.qualcomm.com>
-References: <20260302-enable-ufs-ice-clock-scaling-v7-0-669b96ecadd8@oss.qualcomm.com>
- <20260302-enable-ufs-ice-clock-scaling-v7-1-669b96ecadd8@oss.qualcomm.com>
- <a616c056-f9aa-420c-a543-7f1539e9e886@oss.qualcomm.com>
+        Fri, 03 Apr 2026 07:22:02 -0700 (PDT)
+Date: Fri, 3 Apr 2026 10:21:59 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Yu-Chun Lin <eleanor.lin@realtek.com>
+Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, p.zabel@pengutronix.de,
+	cylee12@realtek.com, afaerber@suse.com, jyanchou@realtek.com,
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-realtek-soc@lists.infradead.org, james.tai@realtek.com,
+	cy.huang@realtek.com, stanley_chang@realtek.com
+Subject: Re: [PATCH v6 03/10] clk: realtek: Introduce a common probe()
+Message-ID: <ac_NB8y414PtbtqM@redhat.com>
+References: <20260402073957.2742459-1-eleanor.lin@realtek.com>
+ <20260402073957.2742459-4-eleanor.lin@realtek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <a616c056-f9aa-420c-a543-7f1539e9e886@oss.qualcomm.com>
-X-Proofpoint-GUID: 8hn5ljH53dLH62xpNTPbC6m2xa0cuxAU
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAzMDEyNyBTYWx0ZWRfXzhuuV5P/nBLe
- /MEJG51qPzBtXdQG7JcD7M+PVx/+Au2zb/DzeYKBDzF35dbbhLQGMQrLJqt9V2ZObJNdf3Gr0mP
- X0cqWwdZOciwubZhVbre+RowpRiBA0fv0NAs3HtTrGRv9G2R26JCBKTC6ck+mKXDmR8lFHvVmkQ
- 9N3CvmCjl6GPadm0lQr4sHDrDCwWeBIohyLVSwgbGi5oV9DcAxix9+Z7jbzfQxz94qlEOTWv2Mi
- iWQWsaHVMzeFCINeryvIBrmmOTE3fRiQxywWVw68NgO1AmtcGTdnMXI8yeAT9NsHpRuv4cmfq8F
- Ma8pBaIYASzMadhl7A7E6k7eg8t4MAk2b6HUf8gPNlKA5kPswEh1xUt0HWWWKHUlKJJZHRxxi0i
- 7a1OS22zm5Tvy82TnOCGZp5fU9Tt44XRRZTSwjFxxh0+yfrlni5siydJ00G9pMLDxCUaPWULado
- BkupuLkm/3Ah1fi/NHA==
-X-Proofpoint-ORIG-GUID: 8hn5ljH53dLH62xpNTPbC6m2xa0cuxAU
-X-Authority-Analysis: v=2.4 cv=ULXQ3Sfy c=1 sm=1 tr=0 ts=69cfcbf5 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=32UUs-Vz8nlSIkZsdJkA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-03_04,2026-04-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 bulkscore=0 clxscore=1015 spamscore=0
- phishscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604030127
+In-Reply-To: <20260402073957.2742459-4-eleanor.lin@realtek.com>
+User-Agent: Mutt/2.3.0 (2026-01-25)
 
-On Mon, Mar 30, 2026 at 08:09:35PM +0530, Harshal Dev wrote:
-> > +/**
-> > + * qcom_ice_scale_clk() - Scale ICE clock for DVFS-aware operations
-> > + * @ice: ICE driver data
-> > + * @target_freq: requested frequency in Hz
-> > + * @round_ceil: when true, selects nearest freq >= @target_freq;
-> > + *              otherwise, selects nearest freq <= @target_freq
-> > + *
-> > + * Selects an OPP frequency based on @target_freq and the rounding direction
-> > + * specified by @round_ceil, then programs it using dev_pm_opp_set_rate(),
-> > + * including any voltage or power-domain transitions handled by the OPP
-> > + * framework. Updates ice->core_clk_freq on success.
-> > + *
-> > + * Return: 0 on success; -EOPNOTSUPP if no OPP table; -EINVAL in-case of
-> > + *         incorrect flags; or error from dev_pm_opp_set_rate()/OPP lookup.
-> > + */
-> > +int qcom_ice_scale_clk(struct qcom_ice *ice, unsigned long target_freq,
-> > +		       bool round_ceil)
+Hi Cheng-Yu,
+
+On Thu, Apr 02, 2026 at 03:39:50PM +0800, Cheng-Yu Lee wrote:
+> Add rtk_clk_probe() to set up the shared regmap, register clock hardware,
+> and add the clock provider.
 > 
-> Any particular reason for choosing round_ceil? Using round_floor would have
-> saved the need for caller to pass negation of scale_up.
-
-There isn’t a strong technical reason for choosing round_ceil specifically.
-The choice was mainly influenced by the earlier discussion here:
-https://lore.kernel.org/all/15495f8a-37b0-4768-9ee1-05fd6c70034e@oss.qualcomm.com/
- 
-Also, this helper isn’t necessarily limited to the current caller.
-We might see additional users in the future where the semantics align more
-naturally with flags like scale_down, which map cleanly to a round_ceil‑style selection.
-That said, I agree that using round_floor could simplify the current callsite by
-avoiding the negation of scale_up.
-
-I don’t have a strong objection to switching it if you feel that would be
-more cleaner for now.
- 
-> > +{
-> > +	unsigned long ice_freq = target_freq;
-> > +	struct dev_pm_opp *opp;
-> > +	int ret;
-> > +
-> > +	if (!ice->has_opp)
-> > +		return -EOPNOTSUPP;
-> > +
-> > +	if (round_ceil)
-> > +		opp = dev_pm_opp_find_freq_ceil(ice->dev, &ice_freq);
-> > +	else
-> > +		opp = dev_pm_opp_find_freq_floor(ice->dev, &ice_freq);
-> > +
-> > +	if (IS_ERR(opp))
-> > +		return PTR_ERR(opp);
-> > +	dev_pm_opp_put(opp);
-> > +
-> > +	ret = dev_pm_opp_set_rate(ice->dev, ice_freq);
-> > +	if (!ret)
-> > +		ice->core_clk_freq = ice_freq;
+> Additionally, if the "#reset-cells" property is present in the device tree,
+> it creates and registers an auxiliary device using the provided aux_name.
+> This allows the dedicated reset driver to bind to this device, enabling
+> both clock and reset drivers to share the same regmap.
 > 
-> Nit: Follow same error handling pattern everywhere in the driver.
-> 	if (ret) {
-> 		dev_err(dev, "error");
-> 		return ret;
-> 	}
-
-Ack
-
-> > +
-> > +	return ret;
-> > +}
-> > +EXPORT_SYMBOL_GPL(qcom_ice_scale_clk);
-> > +
-> >  static struct qcom_ice *qcom_ice_create(struct device *dev,
-> > -					void __iomem *base)
-> > +					void __iomem *base,
-> > +					bool is_legacy_binding)
+> Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
+> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> ---
+> Changes in v6:
+> - Replace direct reset controller initialization with auxiliary device creation.
+> - Add aux_name parameter to rtk_clk_probe() to register the reset auxiliary device.
+> - Simplify rtk_clk_desc because reset data is handled entirely by the auxiliary reset driver.
+> - In Kconfig, change "depends on RESET_CONTROLLER" to "select RESET_CONTROLLER"
+> - Remove unused includes headers and added <linux/auxiliary_bus.h>.
+> ---
+>  MAINTAINERS                  |  1 +
+>  drivers/clk/Kconfig          |  1 +
+>  drivers/clk/Makefile         |  1 +
+>  drivers/clk/realtek/Kconfig  | 28 +++++++++++++++
+>  drivers/clk/realtek/Makefile |  4 +++
+>  drivers/clk/realtek/common.c | 67 ++++++++++++++++++++++++++++++++++++
+>  drivers/clk/realtek/common.h | 37 ++++++++++++++++++++
+>  7 files changed, 139 insertions(+)
+>  create mode 100644 drivers/clk/realtek/Kconfig
+>  create mode 100644 drivers/clk/realtek/Makefile
+>  create mode 100644 drivers/clk/realtek/common.c
+>  create mode 100644 drivers/clk/realtek/common.h
 > 
-> You don't need to introduce is_legacy_binding.
-> 
-> Since you only need to add the OPP table when this function gets called from ICE probe,
-> you should not touch this function. Instead, you should call devm_pm_opp_of_add_table()
-> in ICE probe before calling qcom_ice_create() then once qcom_ice_create() is success, you
-> can store the clk rate in the returned qcom_ice *engine ptr by calling clk_get_rate().
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 8f355896583b..8318156a02b5 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -22240,6 +22240,7 @@ L:	devicetree@vger.kernel.org
+>  L:	linux-clk@vger.kernel.org
+>  S:	Supported
+>  F:	Documentation/devicetree/bindings/clock/realtek*
+> +F:	drivers/clk/realtek/*
+>  F:	drivers/reset/realtek/*
+>  F:	include/dt-bindings/clock/realtek*
+>  F:	include/dt-bindings/reset/realtek*
+> diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
+> index 3d803b4cf5c1..d60f6415b0a3 100644
+> --- a/drivers/clk/Kconfig
+> +++ b/drivers/clk/Kconfig
+> @@ -519,6 +519,7 @@ source "drivers/clk/nuvoton/Kconfig"
+>  source "drivers/clk/pistachio/Kconfig"
+>  source "drivers/clk/qcom/Kconfig"
+>  source "drivers/clk/ralink/Kconfig"
+> +source "drivers/clk/realtek/Kconfig"
+>  source "drivers/clk/renesas/Kconfig"
+>  source "drivers/clk/rockchip/Kconfig"
+>  source "drivers/clk/samsung/Kconfig"
+> diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
+> index f7bce3951a30..69b84d1e7bcc 100644
+> --- a/drivers/clk/Makefile
+> +++ b/drivers/clk/Makefile
+> @@ -140,6 +140,7 @@ obj-$(CONFIG_COMMON_CLK_PISTACHIO)	+= pistachio/
+>  obj-$(CONFIG_COMMON_CLK_PXA)		+= pxa/
+>  obj-$(CONFIG_COMMON_CLK_QCOM)		+= qcom/
+>  obj-y					+= ralink/
+> +obj-$(CONFIG_COMMON_CLK_REALTEK)	+= realtek/
+>  obj-y					+= renesas/
+>  obj-$(CONFIG_ARCH_ROCKCHIP)		+= rockchip/
+>  obj-$(CONFIG_COMMON_CLK_SAMSUNG)	+= samsung/
+> diff --git a/drivers/clk/realtek/Kconfig b/drivers/clk/realtek/Kconfig
+> new file mode 100644
+> index 000000000000..bc47d3f1c452
+> --- /dev/null
+> +++ b/drivers/clk/realtek/Kconfig
+> @@ -0,0 +1,28 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +config COMMON_CLK_REALTEK
+> +	bool "Clock driver for Realtek SoCs"
+> +	depends on ARCH_REALTEK || COMPILE_TEST
+> +	default ARCH_REALTEK
+> +	help
+> +	  Enable the common clock framework infrastructure for Realtek
+> +	  system-on-chip platforms.
+> +
+> +	  This provides the base support required by individual Realtek
+> +	  clock controller drivers to expose clocks to peripheral devices.
+> +
+> +	  If you have a Realtek-based platform, say Y.
+> +
+> +if COMMON_CLK_REALTEK
+> +
+> +config RTK_CLK_COMMON
+> +	tristate "Realtek Clock Common"
+> +	select RESET_CONTROLLER
+> +	select RESET_RTK_COMMON
 
-This was added as part of the review comment from Krzysztof:
-https://lore.kernel.org/all/20260128-daft-seriema-of-promotion-c50eb5@quoll/
- 
-While I agree moving this to qcom_ice_probe would be more cleaner without needing
-to change the API, most of our initializing code for driver by parsing the DT node
-happens through qcom_ice_create, which keeps qcom_ice_probe much simpler.
-Please let me know, if you think otherwise. 
- 
-Also, I don't see any reason for moving the clk_get_rate() logic to qcom_ice_probe
-though as it will not be set on legacy targets in that case.
+select AUXILIARY_BUS ?
 
-> >  {
-> >  	struct qcom_ice *engine;
-> > +	int err;
-> >  
-> >  	if (!qcom_scm_is_available())
-> >  		return ERR_PTR(-EPROBE_DEFER);
-> > @@ -584,6 +640,26 @@ static struct qcom_ice *qcom_ice_create(struct device *dev,
-> >  	if (IS_ERR(engine->core_clk))
-> >  		return ERR_CAST(engine->core_clk);
-> >  
-> > +	/*
-> > +	 * Register the OPP table only when ICE is described as a standalone
-> > +	 * device node. Older platforms place ICE inside the storage controller
-> > +	 * node, so they don't need an OPP table here, as they are handled in
-> > +	 * storage controller.
-> > +	 */
-> > +	if (!is_legacy_binding) {
-> > +		/* OPP table is optional */
-> > +		err = devm_pm_opp_of_add_table(dev);
-> > +		if (err && err != -ENODEV) {
-> > +			dev_err(dev, "Invalid OPP table in Device tree\n");
-> > +			return ERR_PTR(err);
-> > +		}
-> > +		engine->has_opp = (err == 0);
-> 
-> Let's keep it readable and simple. engine->has_opps = true; here and false in error handle above.
+> +	help
+> +	  Common helper code shared by Realtek clock controller drivers.
+> +
+> +	  This provides utility functions and data structures used by
+> +	  multiple Realtek clock implementations, and include integration
+> +	  with reset controllers where required.
+> +
+> +endif
+> diff --git a/drivers/clk/realtek/Makefile b/drivers/clk/realtek/Makefile
+> new file mode 100644
+> index 000000000000..377ec776ee47
+> --- /dev/null
+> +++ b/drivers/clk/realtek/Makefile
+> @@ -0,0 +1,4 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +obj-$(CONFIG_RTK_CLK_COMMON) += clk-rtk.o
+> +
+> +clk-rtk-y += common.o
+> diff --git a/drivers/clk/realtek/common.c b/drivers/clk/realtek/common.c
+> new file mode 100644
+> index 000000000000..c5aea15a3714
+> --- /dev/null
+> +++ b/drivers/clk/realtek/common.c
+> @@ -0,0 +1,67 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (C) 2019 Realtek Semiconductor Corporation
 
-Well there are 3 cases to it:
+If you are making changes here, should the copyrights be updated to
+include 2026?
 
-1. err == 0 which implies devm_pm_opp_of_add_table is successful and we can set engine->has_opp =true.
-2. err == -ENODEV which implies there is no opp table in the DT node.
-   In that case, we don't fail the driver simply go ahead and log in the check below.
-   This is done since OPP-table is optional.
-3. err == any other error code. Something very wrong happened with devm_pm_opp_of_add_table
-   and driver should fail.
+> + * Author: Cheng-Yu Lee <cylee12@realtek.com>
+> + */
+> +
+> +#include <linux/auxiliary_bus.h>
+> +#include <linux/device.h>
+> +#include <linux/mfd/syscon.h>
+> +#include <linux/module.h>
+> +#include <linux/platform_device.h>
+> +#include "common.h"
+> +
+> +static int rtk_reset_controller_register(struct device *dev, const char *aux_name)
+> +{
+> +	struct auxiliary_device *adev;
+> +
+> +	if (!of_property_present(dev->of_node, "#reset-cells"))
+> +		return 0;
+> +
+> +	adev = devm_auxiliary_device_create(dev, aux_name, NULL);
+> +
+> +	if (IS_ERR(adev))
+> +		return PTR_ERR(adev);
+> +	return 0;
 
-Hence, we have the condition (err == 0) for setting has_opp flag. 
+Add newline before return.
 
-> > +
-> > +		if (!engine->has_opp)
-> > +			dev_info(dev, "ICE OPP table is not registered, please update your DT\n");
-> 
-> Since OPP table is optional, I don't understand the reason for requesting the user to add one.
+> +}
+> +
+> +int rtk_clk_probe(struct platform_device *pdev, const struct rtk_clk_desc *desc,
+> +		  const char *aux_name)
+> +{
+> +	int i, ret;
+> +	struct regmap *regmap;
+> +	struct device *dev = &pdev->dev;
 
-This was added as part of the review comment from Konrad:
-https://lore.kernel.org/all/15495f8a-37b0-4768-9ee1-05fd6c70034e@oss.qualcomm.com/
+Put variables in reverse Christmas tree order.
 
-OPP-table are mostly optional across kernel and I guess, this warning helps developers
-to go ahead and update with the OPP-table.
- 
-Abhinaba Rakshit
+> +
+> +	regmap = device_node_to_regmap(pdev->dev.of_node);
+> +	if (IS_ERR(regmap))
+> +		return dev_err_probe(dev, PTR_ERR(regmap), "failed to get regmap\n");
+> +
+> +	for (i = 0; i < desc->num_clks; i++)
+> +		desc->clks[i]->regmap = regmap;
+> +
+> +	for (i = 0; i < desc->clk_data->num; i++) {
+> +		struct clk_hw *hw = desc->clk_data->hws[i];
+> +
+> +		if (!hw)
+> +			continue;
+> +
+> +		ret = devm_clk_hw_register(dev, hw);
+> +
+> +		if (ret) {
+
+Remove newline before if.
+
+> +			dev_warn(dev, "failed to register hw of clk%d: %d\n", i,
+> +				 ret);
+> +			desc->clk_data->hws[i] = NULL;
+
+This chunk doesn't take into account probe deferrals.
+
+Brian
+
