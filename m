@@ -1,209 +1,202 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED8D258ED5;
-	Fri,  3 Apr 2026 08:49:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775206190; cv=none; b=Ez5HLDxapJhyzHMRCRNgzm6SH3x+zkfWq8yQLCvIt5uGAjkM7IwQHRtfnSNk4VGuTYMskg80OxTTKkL9IovQMsTWPwKTr6YwOl5gD+mUXJgXCrD7ufvo0AF6JPNzCQvOAbYliA63NIWZQ3y6G/gXghb/y04MG91pPb8g0lSG6nk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775206190; c=relaxed/simple;
-	bh=9jC53zh6UygCTEqGephW3awhcb1IaIKFF0682qBsSTQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I/VwPbUNyaNiGh5QlaLTn/goX4HwPkLX2kHXe9nIyXutmh4qLR6vvvrZZdo3/uCc4BMA0cSh92x5CuLzTFeSf3+eZILPkmJl9vNCJ1JNxt/YjHxMAjQ4U44ECYqyBZWsr5aT7/bI3NtwnlxfbsqocwCBBd9HbxPu58mpWcJAiWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pK7lNUzq; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB0C93806B3;
+	Fri,  3 Apr 2026 08:54:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=60.244.123.138
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775206492; cv=fail; b=SszwlWlAAzF7kg0eKksFt72hK1jxnX1UGMP/K0wChbtEa2bWcJhRHfUe3pn7b6se+nfE+urjIIGkgC+sFE4dsaRrhsRPtfnjytK/mhKJPQYiZATAufJH+SXCtdfWHM/gAVZjEWjCqahafxDA29Muw26eyMYfTv7iV20jRNKm1Ek=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775206492; c=relaxed/simple;
+	bh=749l+8tmuSGDLXg49Hfrlvxrxrf3wW2fMXTmsAj8E9g=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=OmeXU0G7AEkZvjXwVbkAtfEhzqDU64AZDVCxOA6Aelnk0mtk6JXy9X9iy8Cva0j3DqAwYOL97NkFzFA6jyu7LyuWdURz5/T8s9CbzpbbK1A2AqprKTlFhZwGV8+Gtopi21CNc7OSxP93yRS673INFZunrNBXwHSV7zXtNIgrlXA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=dm4GM8MM; dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b=vJHlTAXM; arc=fail smtp.client-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pK7lNUzq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5999DC4CEF7;
-	Fri,  3 Apr 2026 08:49:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775206190;
-	bh=9jC53zh6UygCTEqGephW3awhcb1IaIKFF0682qBsSTQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pK7lNUzqto0zd4bKtvihnOeaXM2GmhmDe3RQ9NsD3S+6JOEVn3XqQzyisxF+rwn7O
-	 3tJ5YOgIQTRuqSA3ThkLRBUY36A5/SLgPmXZyJ8nIPRedD1kO9Spg31jz0cug9gHxB
-	 8szf9AwloyMQe+tDmDeQb/sCiqbRqcrPHdeVJSFluv1O8+omalALtJAGG1MCXb1MX7
-	 T5H5MJszpvfELqlLR+3skkpXpwkckYhDwWSbPMTm3ZeT3fDgqG2+Un4sbk5+9NNI9Z
-	 e1u6o0RZ2urNI8DCTI8d1Zn9Npqrwt311cMZ9EQ1xuzSG0967ezeFgG2k2VETflATn
-	 uvve4i00IVO3Q==
-Date: Fri, 3 Apr 2026 09:49:42 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Emil Renner Berthing <kernel@esmil.dk>,
-	Joel Stanley <jms@oss.tenstorrent.com>,
-	Drew Fustini <dfustini@oss.tenstorrent.com>,
-	Darshan Prajapati <darshan.prajapati@einfochips.com>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
-	Rob Herring <robh@kernel.org>, Alexandre Ghiti <alex@ghiti.fr>,
-	Anup Patel <anup@brainfault.org>,
-	Hal Feng <hal.feng@starfivetech.com>,
-	Guodong Xu <guodong@riscstar.com>, Yixun Lan <dlan@kernel.org>,
-	Heinrich Schuchardt <heinrich.schuchardt@canonical.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Albert Ou <aou@eecs.berkeley.edu>, E Shattow <e@freeshell.de>,
-	Leyfoon Tan <leyfoon.tan@starfivetech.com>,
-	Junhui Liu <junhui.liu@pigmoral.tech>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Michal Simek <michal.simek@amd.com>, Paul Walmsley <pjw@kernel.org>,
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="dm4GM8MM";
+	dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b="vJHlTAXM"
+X-UUID: c22405a82f3a11f1ae70033691e9ac7d-20260403
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From; bh=749l+8tmuSGDLXg49Hfrlvxrxrf3wW2fMXTmsAj8E9g=;
+	b=dm4GM8MMmxfFf9utn7d1quqUvl9tn2m8Z52qElYNkf8iHpnnYKUgULrB9Lvz1/qAjCEmIdFkvrG8qECR51LkVTJEIvLNsCFdV+Y5aOnjvM4dLdAnbiD0HNGrUvNwvDPZfBVCfoj20cbdGYVITaeegDsNyKxfXMswhkFdreIGHA0=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:669f3032-2bd3-4a94-91f9-86d061b24da4,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:e7bac3a,CLOUDID:d8048da7-e101-400a-acb5-0dbb5a913469,B
+	ulkID:nil,BulkQuantity:0,Recheck:0,SF:80|81|82|83|102|110|111|836|865|888|
+	898,TC:-5,Content:-10|3|15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,Q
+	S:nil,BEC:-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,A
+	RC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: c22405a82f3a11f1ae70033691e9ac7d-20260403
+Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by mailgw01.mediatek.com
+	(envelope-from <jason-jh.lin@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1907524965; Fri, 03 Apr 2026 16:54:43 +0800
+Received: from mtkmbs10n1.mediatek.inc (172.21.101.34) by
+ MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Fri, 3 Apr 2026 16:54:42 +0800
+Received: from SI4PR04CU002.outbound.protection.outlook.com (172.21.101.237)
+ by mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Fri, 3 Apr 2026 16:54:42 +0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GoRiyuB50lQvuRKGeA6MSFNAkRXrfvNM7rP5DVQ1vslZdw7G3jLO+UQPm+lRMynZXf5/8i3UrTDdm+jqSjyQqaWjILRCgHiaGI6srBLYOdb5dHUqLwTPTtkODzNXCECuGAu51zF8ELzijyytUWP7mAxfRF+ObCQS3QUSeyNdaCrLaSOvFglFJxEUwu0XXngqgkeRW5LiOI1/3mGqTdc/S301GkxhZh4TthCJtAWA49kRBSW/ODwFO14Ue567dYak8kVPniqk4PYut+vpg+djVdOcx+7py0xb6gAu0FE5QrjCSXxqvpfuLQseH64rOY+2JSpm4fa5Lg1tQkisK9Ak2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=749l+8tmuSGDLXg49Hfrlvxrxrf3wW2fMXTmsAj8E9g=;
+ b=Z/u7BroJo4sjET3Zd11tbPSF86yvyuqg0E48rTH7bGg41SHZjynTUPT8P+LIpNGPU6CgYQAr6fzq5KFRGJe/zHmXDUw0jRQkTZqSw/TKenD8nl00tm/07QyO+REgDCQ1wsImO3ZekWf+jnIWiy7pY5u2Xb0wbCQ5AXbO6IvinkZNFwe858jd9p8WHJ3y8oY4DLbqHovaE7g+u98qjrbj4cwn+M5uyATa7STgBaVKkZQgCW2KbLVGIGDE+RABVI5M8K9LVtbe+FIQ7D8qj2f/BztVT/xuuI34TshpWcd7V+SiDHw+OjSg3HbFGYfAs0dEIdXZNYXHc5bn0pkJjBGupw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
+ dkim=pass header.d=mediatek.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=749l+8tmuSGDLXg49Hfrlvxrxrf3wW2fMXTmsAj8E9g=;
+ b=vJHlTAXMMRifB4X++EQrnxFS2/0GaXZBilIMCwfNsxdTkEFqB9rTaqrio+GR92rudpbRvrtn+k1I/RxzKkFAF26nBjVpJGE1lL5q2FVj4mElIr/7GJsF4NMC5e1bXp9fWwoDySkLuYDU8RqiMmqPJj7rnWpLMjRCgA9fo1Dmd+U=
+Received: from SEYPR03MB7682.apcprd03.prod.outlook.com (2603:1096:101:149::11)
+ by TYZPR03MB7819.apcprd03.prod.outlook.com (2603:1096:400:464::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.20; Fri, 3 Apr
+ 2026 08:54:39 +0000
+Received: from SEYPR03MB7682.apcprd03.prod.outlook.com
+ ([fe80::1fe4:fb59:1b1:1646]) by SEYPR03MB7682.apcprd03.prod.outlook.com
+ ([fe80::1fe4:fb59:1b1:1646%6]) with mapi id 15.20.9769.020; Fri, 3 Apr 2026
+ 08:54:39 +0000
+From: =?utf-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?= <Jason-JH.Lin@mediatek.com>
+To: Laura Nao <laura.nao@collabora.com>
+CC: =?utf-8?B?R3VhbmdqaWUgU29uZyAo5a6L5YWJ5p2wKQ==?=
+	<Guangjie.Song@mediatek.com>, "robh@kernel.org" <robh@kernel.org>,
+	"kernel@collabora.com" <kernel@collabora.com>,
+	=?utf-8?B?U2lyaXVzIFdhbmcgKOeOi+eak+aYsSk=?= <Sirius.Wang@mediatek.com>,
+	=?utf-8?B?TmFuY3kgTGluICjmnpfmrKPonqIp?= <Nancy.Lin@mediatek.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	"linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	=?utf-8?B?UGF1bC1wbCBDaGVuICjpmbPmn4/pnJYp?= <Paul-pl.Chen@mediatek.com>,
 	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Michael Zhu <michael.zhu@starfivetech.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	JiSheng Teoh <jisheng.teoh@starfivetech.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>
-Subject: Re: [PATCH v1 5/5] riscv: dts: starfive: jhb100: Add JHB100 base DT
-Message-ID: <20260403-pristine-slam-71d8e0093b6f@spud>
-References: <20260402084019.440708-1-changhuang.liang@starfivetech.com>
- <20260402084019.440708-6-changhuang.liang@starfivetech.com>
- <20260402-shakable-hefty-0164a042b748@spud>
- <ZQ4PR01MB1202CB8B853CA7E03531914BF25E2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+	Project_Global_Chrome_Upstream_Group
+	<Project_Global_Chrome_Upstream_Group@mediatek.com>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"richardcochran@gmail.com" <richardcochran@gmail.com>, "krzk+dt@kernel.org"
+	<krzk+dt@kernel.org>, "mturquette@baylibre.com" <mturquette@baylibre.com>,
+	Nicolas Prado <nfraprado@collabora.com>, "p.zabel@pengutronix.de"
+	<p.zabel@pengutronix.de>, =?utf-8?B?U2luZ28gQ2hhbmcgKOW8teiIiOWciyk=?=
+	<Singo.Chang@mediatek.com>, "wenst@chromium.org" <wenst@chromium.org>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "linux-clk@vger.kernel.org"
+	<linux-clk@vger.kernel.org>, "matthias.bgg@gmail.com"
+	<matthias.bgg@gmail.com>, "sboyd@kernel.org" <sboyd@kernel.org>
+Subject: Re: [PATCH v5 23/27] clk: mediatek: Add MT8196 disp-ao clock support
+Thread-Topic: [PATCH v5 23/27] clk: mediatek: Add MT8196 disp-ao clock support
+Thread-Index: AQHcGNelXPSfqVm58E66r9ASuZOvZbXMoqQAgAA8LwCAAX5+AA==
+Date: Fri, 3 Apr 2026 08:54:39 +0000
+Message-ID: <04a1848e3ffb43fae727ca0110d57e81fe88a4a1.camel@mediatek.com>
+References: <2d418383ff2d6ff40ffb3b4f8e2b0c0e665c3b58.camel@mediatek.com>
+	 <20260402100538.27291-1-laura.nao@collabora.com>
+In-Reply-To: <20260402100538.27291-1-laura.nao@collabora.com>
+Accept-Language: zh-TW, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=mediatek.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SEYPR03MB7682:EE_|TYZPR03MB7819:EE_
+x-ms-office365-filtering-correlation-id: f396c047-9ab3-4385-6138-08de915ea3a8
+x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7416014|38070700021|22082099003|18002099003|56012099003;
+x-microsoft-antispam-message-info: gxniqvuysKYY5PL5eU3rg9rRfKBbW134VbRVimALStZ0RkBUEU6vXtKcdKeYk300H5fCdtHdb45yDHdyPRq8kZtwtFnnzROgrOx4dzL9m6+iJQtgEWMUEt/+doo1mGm437YncjCG9RD0KjWIib44s3ijPkwDaz+Z8avGTQ78qv93Od/RFlhC42Cv6eQBgBrTdZ5aKMfbFf/Sz6CeoCJf9Cq1Lj6PgaoaWPyrGYWQDTmF6Bze8eQ+Oxb2zNeVrta0PvGtT03FX+v1lye5uiHkur1IMVWv+4fVnUtzGV7yZ3OJ/fPjt5xI6tCoB/q+8MEmu6w5to6Wr8MDGPXYmD8DJl4czHtYsk1432WfFJzITS25feZ/qlqrjxZVAyGUB9WZiE5EiFmTOuSgOHhXCzf64OIjBV1GVw9+sUkicLsIBYBwpZK3HpjfGAf6nHK9f0GE1vT1JiQN9goX9iIPwk/tD0kF21rzIvbEScFYPuuJyuVjTyGcztvCGGuhg0VglMQrLPp855G1nqhVsGA7x/+v5Wp8+23mQP9wwnmVv0T2OiaIfnVTX4ccIdY3elpP2f2gsuUydn/Xm3fhfO/jOteFMDvY0oyb4A9bjF2VGeH3aTGL2lTFts77Haa88hX/NXURgait4qKvI8bAC7jJewdykvS5rzfa+NKAuP0m2JHyiOyvjKPsfeW6ZiuV1DUQYWe76Xp+h/bx5/+KY5z2OBDzm2+/h7CYynJrSbsVbijo0yV3PsuEdiFe7XrQvdpX3YetX/2r+EI6jw2RNJebPmzXqA==
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SEYPR03MB7682.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(7416014)(38070700021)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?SmNvOGJ1eEIrUVZrbEppMkp6Ulk1Z0poZDAyYUlkdVZLMy8wV3J3bk5weklo?=
+ =?utf-8?B?T0pWR0dtNTdaZjk3ZmFuK2poMzRzVElzVm5kYzBEZjIyWitKeUs4UWFCRUN2?=
+ =?utf-8?B?azdmbk5yYnJFRnIrTVBaNWEzanJHK3JtdFpMQWUvcHFMdm4reCthUkN5OFc3?=
+ =?utf-8?B?VHdnK1ozSFFtU1lnb0o0TWh2R1hBTWgyemZOQVYrR1dxWVRrbTdhYThhcTBZ?=
+ =?utf-8?B?SEo0SWlHMDNEWVVmMDRvdnVnZDNBcXdwR2RaN2R6cjBSd1pra1luaHFQRnJi?=
+ =?utf-8?B?NlV6WjNiUHM1ZEJ1eU1EQVNEZ1puaGVZMTQ2WUtUdjVhZG5lL1hrVUdJeE1o?=
+ =?utf-8?B?Zk9hTHlsQ2haaVIyaE5Vc29UOXhYOXArZ3FsMzZmcnRma0tVT25Pa0Uyc09M?=
+ =?utf-8?B?bElYallRdGdjQ1FtYnJPL0xORlArSkw0N0U1RVc1c3Z6VTgwUzZKd2RDd3lG?=
+ =?utf-8?B?bUxVRDVXb3NvSXMwdEhkUnJKVkx3aG9PdzJURlRZRWZrTVpXMUFPbXVsQnJo?=
+ =?utf-8?B?TEQwelM4YmpBM2VGK3pPUzhIL0NTRHFuZ1gzQ2oxU0FScEYveDhlNUczU0lD?=
+ =?utf-8?B?RUNZZkxrWXZFNWNvckZ5Q3cyVStpVVJPbmNMYWErNGd6cSttSUFiWTIzL1da?=
+ =?utf-8?B?ajhvb1l3aDBrLytNVm1mRnc2V05SRW16M3ByMitVMUFNSHFhdDdkbGpySS9S?=
+ =?utf-8?B?Z2hLOW1OOWpXeG9DdXlUNHFDNDkrODdqdFVkTnRnM0F4STY3U0Q0dDI5Y0Q2?=
+ =?utf-8?B?bEtnSGNOU1RiSWhQaVdST01qdnYrSnB5WjA5aUtmZk1Bc2F1WG1QSzVEQ2E1?=
+ =?utf-8?B?MlB0US9zN1BwZnRLY0FvZWU0NzlhcmgxYytaN2E1aVdKTTdGV0Z5cFVNeEpq?=
+ =?utf-8?B?R05nMVNpZytqMktQNVBENkZpT0JpWlRHcThQZWxZbXZUVE1tRXFWZytxNDIy?=
+ =?utf-8?B?U0E1Nno0NVhUc1lZZ29rZDJOdCtzTlE3dER3dzMzOENveFBtVDIyUzZUSHVE?=
+ =?utf-8?B?M1dobjZjSXlIOVpqR0QyeG9MQkZLbXNJSXFCc3FENDFoTElqZmIrZS94bGlF?=
+ =?utf-8?B?TnMrTk50bW1HZ1JLeHYxOUFpbUdtNWlzWmVIZURtZ3NabVFiMmtrRHVmcitz?=
+ =?utf-8?B?eTltQis0VENacmlhdkVmUWVFMHAwSkRwa1dKYThuQUd6c3FzMEtFVDd2TXlk?=
+ =?utf-8?B?T3JhVURGdy9HaVkwSEZCWFlNOGQ5aFEwbG8wZ1l6OXUrUWREYmlRc1d5aUho?=
+ =?utf-8?B?REJWdXE5ekI1OFFJUjhiQXJpc2trcmJqTGlrbk9kbGt1VUVMbEdteU9zandW?=
+ =?utf-8?B?MEJTT0FuVUlRWEc5OUlnMElENGFEb2Y1aThvSzFmckFXQkZBVVF2c3p2WWVu?=
+ =?utf-8?B?cXQrK2NzTUlyY0IxNDA3WjdCYlNJR1ppZjZsR1g3RmFkRi9rbENIRzJucXNV?=
+ =?utf-8?B?OHRhdnZnSzQ0QSt2Z240dyticTVINk94ZnFOeFQ1eHV0dEdyV0NiN0F2VlFH?=
+ =?utf-8?B?aWg5S3BPOWVESmN3WDdyODZJaThTQkJFL2UvVW1Sd2tKczZPYmx0TXNCQ1Y5?=
+ =?utf-8?B?RU9jQmxqY1FqaUI4Wm5tWjFJYU83MXhJb21TQkdEMHZHZW16YUFmY2dERUpZ?=
+ =?utf-8?B?ZnJnWUlibm9melFVaEhVdTNhLy9zRjF6QXdJeG4xbVQvZSs5VytaalZLem4x?=
+ =?utf-8?B?N0dyaTVJL3BobU1IRWU4RWN0NEx6ZnpDVUZSajhHaDVrNjJYaVRiMUpBdXpI?=
+ =?utf-8?B?bHNSSk1BcXdsbGJEbDVFSTltOG1mTUZERUpoNmg4eDI3U1BGWCtmSzRON1Z3?=
+ =?utf-8?B?bDV0cU1TV2w5RG9EQkhmNHhRY3lNZ0NTd3p1UTdkeXZHN2tvRHJXWXptVE1U?=
+ =?utf-8?B?bWEvVnhmUi9WQWNpejUyL1FuTlZHdkdjQVEyby91MGhxaXpVcDFDeFovNlo0?=
+ =?utf-8?B?Wko0TVVwc2k2bzZ5Wmw2ZzhXN1g1MjZYUUZTeWtyVlE0QURJeHRnMTlvMFNK?=
+ =?utf-8?B?azkraWRHaDlBbDh4eEY1c1doL1NoRmQ4b2lSbzNzY3hTZDdRbVNraFB4RHhJ?=
+ =?utf-8?B?ZTcvTCt1Zms1U2dJcGpJcjZva09aYnVzay9DdVd3YlFlcHdHNUNCSXhReTRs?=
+ =?utf-8?B?RCtxVVdQYTVkQWQ4RlZJUENwZnhGM3hlclVKdU90Q2FvcUhZZ2kxeVkxSnlu?=
+ =?utf-8?B?ZmlsdEk0dlIzanlwbllxQUtLc2VZRGJxTy9TY25lUzVZRWxMdldNSlEvakps?=
+ =?utf-8?B?b01UK3FScEQ0M0w4a0xSQW1lcFVXOTQvT0dWeURzd2tsQTloNU42cmtBWUZx?=
+ =?utf-8?B?UFVtSTZqc2JLMTZMNk9RVWUvR1lqT3lydlhENGQ1cUI2bVNaNkMrYUhOMFpp?=
+ =?utf-8?Q?PgrI0j+Kq3mcLHVU=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <6CEAD2A2AA83B048AFBFEFCA9F6728CC@apcprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="RDIrdRSDWwJQ2NvY"
-Content-Disposition: inline
-In-Reply-To: <ZQ4PR01MB1202CB8B853CA7E03531914BF25E2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+X-Exchange-RoutingPolicyChecked: HIyk6ZbZFJ/WvqlRHv5JMMOi2SEkvC08EMLsZqLJKF6nUIgYgvCSVPb2N4fOWAgBEuxtFCdN0IRMD0FULyX86cyDKA10PCENCI+C8wbJUrKPQThgViJRRies2eTG0yfbLXgmtDV9BMNwPnqxThrj3ajAg5GjiDP4Uu+V9lIMlZiODPMJPaL7Gg65V1wY857tm9b6P0uBz5+B8ECIU7K9JYMDD+KHu5UGZ16LpD8LNDnQF3inbGfQUjaFIVc+k2sA9MTAlBANUxsDl5ZMKKr5UMDHvsWKe72kMVmMb//5tUtBi5JOTxrnnnLWhlTOwEB8/PWkpprOvBN2k0ZxixvQqA==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SEYPR03MB7682.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f396c047-9ab3-4385-6138-08de915ea3a8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Apr 2026 08:54:39.1434
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 7PFMwQSo7GPFNI0MjlKGslA4kXg7tbX+fvpO/l2ofu7MXNcjT3oMHY5RCFmQTfjFR/R3CspH1+s0Q3pkhwVkxyPbcVYwYvVjkJIpywX78R8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR03MB7819
+X-MTK: N
 
-
---RDIrdRSDWwJQ2NvY
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Apr 03, 2026 at 03:06:23AM +0000, Changhuang Liang wrote:
-> Hi, Conor
->=20
-> > On Thu, Apr 02, 2026 at 01:40:19AM -0700, Changhuang Liang wrote:
-> > > From: Ley Foon Tan <leyfoon.tan@starfivetech.com>
-> > >
-> > > Add JHB100 base dtsi and dts. Consist of 4 Dubhe-70 cores, CLINT,
-> > > PLIC, PMU, UART and 1GB DDR.
-> > >
-> > > Signed-off-by: Ley Foon Tan <leyfoon.tan@starfivetech.com>
-> > > Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> > > ---
-> > >  MAINTAINERS                                   |   6 +
-> > >  arch/riscv/boot/dts/starfive/Makefile         |   2 +
-> > >  .../boot/dts/starfive/jhb100-evb1-eth.dts     |   6 +
-> > >  arch/riscv/boot/dts/starfive/jhb100-evb1.dtsi |  32 ++
-> > >  arch/riscv/boot/dts/starfive/jhb100.dtsi      | 326
-> > ++++++++++++++++++
-> > >  5 files changed, 372 insertions(+)
-> > >  create mode 100644 arch/riscv/boot/dts/starfive/jhb100-evb1-eth.dts
-> > >  create mode 100644 arch/riscv/boot/dts/starfive/jhb100-evb1.dtsi
-> > >  create mode 100644 arch/riscv/boot/dts/starfive/jhb100.dtsi
-> > >
-> > > diff --git a/MAINTAINERS b/MAINTAINERS index
-> > > 7d10988cbc62..b1892a480c31 100644
-> > > --- a/MAINTAINERS
-> > > +++ b/MAINTAINERS
-> > > @@ -25306,6 +25306,12 @@ S:	Supported
-> > >  F:
-> > 	Documentation/devicetree/bindings/interrupt-controller/starfive,jh8100
-> > -intc.yaml
-> > >  F:	drivers/irqchip/irq-starfive-jh8100-intc.c
-> > >
-> > > +STARFIVE JHB100 DEVICETREES
-> > > +M:	Changhuang Liang <changhuang.liang@starfivetech.com>
-> > > +L:	linux-riscv@lists.infradead.org
-> > > +S:	Maintained
-> >=20
-> > Supported, no?
-> >=20
-> > > +F:	arch/riscv/boot/dts/starfive/jhb100*
-> > > +
-> > >  STATIC BRANCH/CALL
-> > >  M:	Peter Zijlstra <peterz@infradead.org>
-> > >  M:	Josh Poimboeuf <jpoimboe@kernel.org>
-> > > diff --git a/arch/riscv/boot/dts/starfive/Makefile
-> > > b/arch/riscv/boot/dts/starfive/Makefile
-> > > index 3dd1f05283f7..7cdb75788053 100644
-> > > --- a/arch/riscv/boot/dts/starfive/Makefile
-> > > +++ b/arch/riscv/boot/dts/starfive/Makefile
-> > > @@ -18,3 +18,5 @@ dtb-$(CONFIG_ARCH_STARFIVE) +=3D
-> > > jh7110-starfive-visionfive-2-lite.dtb
-> > >  dtb-$(CONFIG_ARCH_STARFIVE) +=3D
-> > > jh7110-starfive-visionfive-2-lite-emmc.dtb
-> > >  dtb-$(CONFIG_ARCH_STARFIVE) +=3D jh7110-starfive-visionfive-2-v1.2a.=
-dtb
-> > >  dtb-$(CONFIG_ARCH_STARFIVE) +=3D jh7110-starfive-visionfive-2-v1.3b.=
-dtb
-> > > +
-> > > +dtb-$(CONFIG_ARCH_STARFIVE) +=3D jhb100-evb1-eth.dtb
-> > > diff --git a/arch/riscv/boot/dts/starfive/jhb100-evb1-eth.dts
-> > > b/arch/riscv/boot/dts/starfive/jhb100-evb1-eth.dts
-> > > new file mode 100644
-> > > index 000000000000..62cd046e1224
-> > > --- /dev/null
-> > > +++ b/arch/riscv/boot/dts/starfive/jhb100-evb1-eth.dts
-> > > @@ -0,0 +1,6 @@
-> > > +// SPDX-License-Identifier: GPL-2.0 OR MIT
-> > > +/*
-> > > + * Copyright (c) 2024-2026 StarFive Technology Co., Ltd.
-> > > + */
-> > > +
-> > > +#include "jhb100-evb1.dtsi"
-> >=20
-> > What is the point of this file? Is this the base-board?
-> > Shouldn't it have a specific compatible?
-> >=20
-> > Can the SoM be used without a base board? I've got no info about this b=
-oard
-> > appearing on google, do you even have pictures of it or any documentati=
-on?
-> > I see this
-> > https://www.starfivetech.com/en/index.php?s=3Dhardware&c=3Dshow&id=3D22
-> > and
-> > https://www.starfivetech.com/en/index.php?s=3Dhardware&c=3Dshow&id=3D23
-> > but the former doesn't look like it needs a base-board and the latter i=
-s called
-> > "evb3", so is not what's here?
->=20
-> The former is the base board of the EVB1. Currently, we are only carrying=
- out=20
-> upstream work based on the EVB1. The EVB1 base board has reserved slots=
-=20
-
-Except when I look at the first link, the picture doesn't show something
-that is a SoM + base-board, it's just a regular board. If that's the
-case, the breakdown of files doesn't make sense, with jhb100-evb1.dtsi
-sounding like it should be a dts. Usually we talk about base-boards in
-relation to a SoM, like what the mars-cm needs to function.
-
-
-
-> that can accommodate expansion boards to verify more advanced features.=
-=20
-> At present, the jhb100-evb1.dtsi file corresponds to the configuration of=
- the=20
-> EVB1 base board. In the future, we will add dtsi files for the expansion =
-boards.=20
-> The jhb100-evb1-eth.dts file will then be used to combine these dtsi file=
-s to=20
-> generate the final version of the device tree source.
-
-Sounds like here the evb1 is a complete board and jhb100-evb1-eth.dts
-represents some kind of expansion card added to that board?=20
-I think this not correct, since the base-board needs to be usable in
-isolation. Take a look at what rockchip do for rk3588-rock-5b-pcie-ep
-in arch/arm64/boot/dts/rockchip/Makefile/, where these expansion type
-things are dealt with using overlays.
-
---RDIrdRSDWwJQ2NvY
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCac9/JgAKCRB4tDGHoIJi
-0ktcAP9BpkEyrR1n1Wov0YpiTqgbSKS7e8erqIhAJyOOje5XHQD/djuBtwwMJ45C
-xt1SwYjgxAkvlzj3RWeF0wCI9Z22bgc=
-=kSV4
------END PGP SIGNATURE-----
-
---RDIrdRSDWwJQ2NvY--
+W3NuaXBdDQoNCj4gPiA+ICtzdGF0aWMgY29uc3Qgc3RydWN0IG9mX2RldmljZV9pZCBvZl9tYXRj
+aF9jbGtfbXQ4MTk2X3ZkaXNwX2FvW10NCj4gPiA+ID0gew0KPiA+ID4gKwl7IC5jb21wYXRpYmxl
+ID0gIm1lZGlhdGVrLG10ODE5Ni12ZGlzcC1hbyIsIC5kYXRhID0NCj4gPiA+ICZtbV92X21jZCB9
+LA0KPiA+IA0KPiA+IEhpIExhdXJhLA0KPiA+IA0KPiA+IFdlIGFyZSBnb2luZyB0byBzZW5kIG10
+ay1tbXN5cyBkcml2ZXIgZm9yIE1UODE5NiByZWNlbnRseSwgYnV0IHdlDQo+ID4gZm91bmQNCj4g
+PiB0aGUgY29tcGF0aWJsZSBuYW1lIGlzIHVzZWQgaGVyZS4NCj4gPiANCj4gPiBBcyB5b3VyIGNv
+bW1pdCBtZXNzYWdlLCB2ZGlzcC1hbyBpcyBpbnRlZ3JhdGVkIHdpdGggdGhlIG10ay1tbXN5cw0K
+PiA+IGRyaXZlciwgd2hpY2ggcmVnaXN0ZXJzIHRoZSB2ZGlzcC1hbyBjbG9jayBkcml2ZXIgdmlh
+IA0KPiA+IHBsYXRmb3JtX2RldmljZV9yZWdpc3Rlcl9kYXRhKCkuDQo+ID4gDQo+ID4gU2hvdWxk
+bid0IHRoaXMgY29tcGF0aWJsZSBuYW1lIGJlbG9uZyB0byBtbXN5cyBkcml2ZXIgZm9yIE1UODE5
+Nj8NCj4gPiANCj4gDQo+IFRoYXQncyByaWdodCwgbXkgZmF1bHQgZm9yIG1pc3NpbmcgdGhhdCEg
+VGhhbmtzIGZvciB0aGUgaGVhZHMgdXAuDQo+IA0KPiBJJ20gYXdhcmUgQW5nZWxvIGlzIGN1cnJl
+bnRseSByZXN0cnVjdHVyaW5nIG1lZGlhdGVrLWRybSAoaW5jbHVkaW5nIA0KPiBtbXN5cyBhbmQg
+bXV0ZXgpLCBhbmQgdGhhdCBtaWdodCBhZmZlY3QgdGhlIHdheSB2ZGlzcC1hbyBpcyBsb2FkZWQN
+Cj4gdG9vLiANCj4gU28gSSdtIG5vdCBzdXJlIHdoZXRoZXIgaXQgbWFrZXMgc2Vuc2UgdG8gc2Vu
+ZCBhIHBhdGNoIHRvIGZpeCB0aGlzIA0KPiByaWdodCBhd2F5Lg0KDQpPSywgd2UnbGwgdHJ5IHRv
+IGNvbnRhY3QgQW5nZWxvIGZyb20gb3RoZXIgcGxhY2VzLg0KVGhhbmtzIGZvciB5b3VyIGNvbmZp
+cm1hdGlvbiENCg0KUmVnYXJkcywNCkphc29uLUpILkxpbg0KDQo+IA0KPiBCZXN0LA0KPiANCj4g
+TGF1cmENCj4gDQo=
