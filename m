@@ -1,276 +1,209 @@
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010055.outbound.protection.outlook.com [52.101.228.55])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5036F26CE11;
-	Fri,  3 Apr 2026 18:10:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.55
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775239840; cv=fail; b=ZNIumlQnZ+zW25BTsrSLnk94EnsYDKt2+BldvWURbjgv6Ax0uqnAW3q3h7dapO4uU5jL0b2q9kenoFY+jZveVxv1FwGjn88eC0PTSGmwHe5wIX6d7FbwtfCLvMcHNQU6b7riofK+dpTu1SkiaKuJhlBaVreXVWsFx/zmlYFwE8o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775239840; c=relaxed/simple;
-	bh=qzLDLkkWNoo0mOWUf+fxi1J23SDP5k6ng4H81/2ceLM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=L6rv8ELWRDrelPeVimI2ciIa4a532AkhOILixNj+Q62uqDt2Hm9eZ90VH8mLzqI9L32oGUdzFB5HrF61glO634KPyR3Eo2uaouvSYNAxIcIuL2Hiw6uj+6MBa0XNWZ3CioC3oCFKUF/IxsZBUOXslawNq+9YdhrkfvqPJYmvJmE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=KympewJ7; arc=fail smtp.client-ip=52.101.228.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 407C033B6DA
+	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 18:11:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775239889; cv=none; b=sLqQPw0bXxe8HHvbNIOZ3GOkpVXwY7YeWL9bSOtylDEvZyu2Y0byFnVZ+LHpkNQwynH0Yh9Yknr5JAwYYbCLChofvhCm0d7ndCS/IZcePtX9pYfkeoKzffkXQtuSOfqrrxAetmO3xHzp3M5BXp1nm8EPK449X9LnAnineXRi2d8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775239889; c=relaxed/simple;
+	bh=DzF10D1I+97HjEWxl98Cbs7hOuZlV88rFUr6Iuk5fP0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bbYeVUqZ6YyPzfXC+2psr6zKHRDdmgQJp/4p41cchHLko5dF8FpVQR+B5nWV8zETtnFGKbLNs14V1c2ny+evFinDDui+l4YskO7v14KUrXNJezq+I2WBHPnqIZxqqMxaOW96lhqXtgeCTMkz9Nd0KuqL62xik5XC3VtrEDxGAkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BzYT7Vpn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=grb8NrrZ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="KympewJ7"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DwV3kVw8jGa6L5BmOyairIw4b/y/HvTUL6LPMfB8elnlzgi3HqLbmyyfl+WNwsuwdKwuY11CSDi3gj5tgarxIri0WwEJKAveweyIQn5PRBo9TXmQ0v/xhpkWuJvhNM8SIxzM9atpe3TmvuNwMl7drOIrCn7IAXSOSUg3UlDwJhM33LTWU/FtyO9eHMaaVCSk54HSxIrQFpQQTlxp83mDgV9JkfPzeDtuU46atE3fWdCOOcYy4vv8LVH9a5SKItCGHNoH7TJaemt3Iav49QCqYsBP/YvcmPvDiL2zkzHR4UxVtZyI5BNpdVSzly4ESW+yWhg+t9MMF8dbaHxhchEJYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lWf2i1WgyVCcte8rJspsUOe5qskOVXKl32j1sGim7wY=;
- b=nzml30khxo7f32H6LB2cLV5vPSu+4PEk16qY2MNPZeZ5h6X5174c1l1eXb+PaOO8/McBdEeUcTwYFWRPSKZ3lP8QNPDLBRMLheDRxJXhaU0sp4XGvxorD0XRJnh/1YuS6sa3X+g/MdFTtYf8Acsj3Us8Pi0iOBMI/vLl+ZeN4YDrI2HevYiq7M7/LDRT+Ra8ySKCf5a5h7hWQt3abzON5Vi3yPfy9o59PqkpoSCabvD28kSuFv2/WoUMZ4ytgOfoe2Cyzq7mLi1q1JaGA6L4mzZAfB+XoLGVasHOTR8IUUUz3m+7R+/MtG/sAeAoswcXEC4TRoK0LYo4rOUs4T4duw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lWf2i1WgyVCcte8rJspsUOe5qskOVXKl32j1sGim7wY=;
- b=KympewJ7/h0unM19LpbN0IqOXR6VG+opKCsm5V0sHz3M9ql9UMUxtA+56Z/yEsTkt6wu2pRlRbO3N1Ihcc7H7hoCVeiV0UtyhCvZ5i+kd3gEQGa8u8qtYTG2Qp6tHLe+F+hfWtnazYJwFoTMYegk9U7UFvLyEMl1PM1kjvQf9k0=
-Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com (2603:1096:405:35b::6)
- by TY3PR01MB10093.jpnprd01.prod.outlook.com (2603:1096:400:1dd::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.21; Fri, 3 Apr
- 2026 18:10:35 +0000
-Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com
- ([fe80::f373:26d6:86c4:6aa3]) by TY6PR01MB17377.jpnprd01.prod.outlook.com
- ([fe80::f373:26d6:86c4:6aa3%4]) with mapi id 15.20.9769.016; Fri, 3 Apr 2026
- 18:10:35 +0000
-From: John Madieu <john.madieu.xa@bp.renesas.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-CC: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, magnus.damm
-	<magnus.damm@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
-	Claudiu.Beznea <claudiu.beznea@tuxon.dev>, Biju Das
-	<biju.das.jz@bp.renesas.com>, "john.madieu@gmail.com"
-	<john.madieu@gmail.com>, "linux-sound@vger.kernel.org"
-	<linux-sound@vger.kernel.org>, "linux-renesas-soc@vger.kernel.org"
-	<linux-renesas-soc@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCh v3 06/14] ASoC: rsnd: Add RZ/G3E DMA address calculation
- support
-Thread-Topic: [PATCh v3 06/14] ASoC: rsnd: Add RZ/G3E DMA address calculation
- support
-Thread-Index: AQHcwr1cRuCrrqNToE+47UWUvnzZFbXMh2YAgAEcplA=
-Date: Fri, 3 Apr 2026 18:10:35 +0000
-Message-ID:
- <TY6PR01MB17377A19DC4E26C44794D6A99FF5EA@TY6PR01MB17377.jpnprd01.prod.outlook.com>
-References: <20260402162436.12059-1-john.madieu.xa@bp.renesas.com>
-	<20260402162436.12059-7-john.madieu.xa@bp.renesas.com>
- <87mrzkg89l.wl-kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87mrzkg89l.wl-kuninori.morimoto.gx@renesas.com>
-Accept-Language: en-US, en-GB
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY6PR01MB17377:EE_|TY3PR01MB10093:EE_
-x-ms-office365-filtering-correlation-id: 220ca181-1726-423a-3fc2-08de91ac4d98
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|7416014|1800799024|376014|38070700021|18002099003|22082099003|56012099003;
-x-microsoft-antispam-message-info:
- gAKq6D5GhBL0GVG6fmAtQvTwi5wOq2ovdLmEvIVyPbhnY0DIG17+ChYq+d0qM0VbAhxgObMW1w2n+p0KQKH6hyzyQmbmd9YVqQ/tF0pMuZ3/FUKHJvXS2+pUSbEA1n18ZrRkJSCn+/OnyEIFOc1J4eWvI/rAK5uMI8Dk0WNQDuv3XglVnXadR3KG7EnrpJW4UsdEHeA7BD8W4y6wXq2h3XBK8+Gi3YeK8kaR+70jmbij3UQelQP+h+sRUruygm5f5cg4z318A8foxgH4uyeHYQcGtzfwzN3UQ7QFdWCFOEwVglTGm+XDpoR3my3Ws24dVcxIHMvRoeKFX9n6BgpvAtYaqERnAr3+dkKB9TkABvH9dMQII4sc9tc96XapIFNcsur8F/y49ZMnb/JHI7JC/nfiRzMgvv5UNwuuJJ8g2oeiVEPymNTH9KbeKFMeQBlJixpab5kDEmhm8gul6JmrnC+1mn8LEjARtGxFfBb/u4u9KfdBUwX9yB7vs7gk5lBn079aBrxCcSEJyGZYNED+JU7GKycFLmBD/CxFUzUYZvIlRKXmRZVD5pvuNXOPucz2EB6xlRpkLgtmGeb14RaxxKCRtE8z8gSg2sjy4J5TTGvSji5vQhSkjWUna0JsDCRNQXj76V1BCtBL3X9YuZx3KHDP2b3mCa6t11zfL5tdj7uw3qOgRWtg1+nYsmHH7qLE3chh4FabSLe2JVjQIIidpDXqOCcPZ55Sd/5P0edv8gbS9ETdIWm45bJIOd4sRinxuqkMl36SBxpzfIG8HomVb3TKCdhuhTZ4en62ViJJoi0=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY6PR01MB17377.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(1800799024)(376014)(38070700021)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?+aOObm+uF8A5arS+HeRzPLKmmcCEujFdrYLMfXIrQIvLlsj+X05pIhfsizXe?=
- =?us-ascii?Q?+H8Bf5sJ90NZ501RXaufLG1YBZfq1qGRMwbVnENYeRvdpkz+J2kuHJdg+xCm?=
- =?us-ascii?Q?PoDCtRozMKTEaBKoZAs7KcqwrCeFMHr8OD624YvejTpT146iA5+xjVRARmPz?=
- =?us-ascii?Q?EiJdEMCDq/Zb5rSkn0p6AesUnct5lE6HibVuJ1SgiFBgF8gceye+ECQVhVBF?=
- =?us-ascii?Q?udpwnTOtC5A7fIUrCPa/JVDLUrfiATqPu9tWQOTT96ZAxZIQhQujxraN7F0Z?=
- =?us-ascii?Q?ye+MIG7vc5cg9vzAHUJNrTvkZhpgFQNrRsS8wRa3MR9WZB8TzRQ/wBkbF45K?=
- =?us-ascii?Q?uIwD/yWbW2PuDd9eJmm0m0hALmq1IglyKnGQdWEAccR3AL+aNUE7d1qdJ+FE?=
- =?us-ascii?Q?CUCxe9nDRlJsuzFf8rP4u9NAAQ7ohGDfy+ianggA3EFUBM7966+Ycp2oa1q8?=
- =?us-ascii?Q?JQV/X5Kf6F7b8m9RLecFiY4tJT2cGzLunt4nNX9d5ASKhiLGku1RxQfvxmbu?=
- =?us-ascii?Q?NVZOZZOEWVGHC2jbAKJKHJEOKO33/UPIqmdxbNoPuu4AmjrlX35x84u3o5vz?=
- =?us-ascii?Q?FWwJu0oghGeAoyju8hFwXFPt2N0e1Q7XTJME+7e6UcV2PI0sPcc/8X90mT56?=
- =?us-ascii?Q?mlotm+O3lXVKR5mhDr20yX1k6Dk6UyAshyTty+KAY37p8kHAWImqET+2VWnB?=
- =?us-ascii?Q?LY66wURGkytaijbgv+owaslkZsULm3VplYs3x2u4098sZ0yTAbsbb6lWWKXL?=
- =?us-ascii?Q?qRqcoWj9vngxZCN0KzMpbpDQ/aYirnKjRIMDA49UGIDr4ALOQ6IoyR30ON1A?=
- =?us-ascii?Q?rbUUmef6ktRCKWhGuhJjvtQTFFWZkEOjMoJgFLOeM/WUov1suAZmCizne4hi?=
- =?us-ascii?Q?Hxb8obZC792QPCziqDLJ1lungB6f76Spk68PAES02pbaoljE4MyYu5ei9NHi?=
- =?us-ascii?Q?0b4ZN1eDklVWptohyrt7xeE3SP6azoroExSg5aJQRAWtpzgHB+rYXTopBZjs?=
- =?us-ascii?Q?JKjaPCU0ckYg4b3u3FlxpmgyXO3oI1354ZBFKLwUx04jHiUWBPfbt8BxRe/w?=
- =?us-ascii?Q?ZUe+Z3RrWk45RPKYLqU9EUibuvCPU1WhjfVQWRnlXImPu0LZrpNa4aB1SLgC?=
- =?us-ascii?Q?mMjdjAXhxFFrSh1c7HTZjcWnfRAygCXpega6+YB7axrxYf+rY7WD0yrpKV1O?=
- =?us-ascii?Q?lb+YWR43K+StbncdqocjP83uvRxUXOXi7VQk9be86LxqB5l3SnJNCZWQ3acD?=
- =?us-ascii?Q?/kPpL6Yf6xxt5y05lIGXa4cVG1B7gw9TUapKQNb3wh7m8/MF3iVJMgdVKh6a?=
- =?us-ascii?Q?qgzH3CG/Vg2NDIz6KYkx/5yQ8fqiHn8d1AtsoZFMlAP4gMilnrzhCzlXUSGr?=
- =?us-ascii?Q?A5rA4bC1I1GO9SpVWqSHv47w4urFk2w9YjPcDT0icik67TGBy4b3klW5RS3D?=
- =?us-ascii?Q?7yGtOIqpcNvjP2Gw34QvjwXmi7p0w/kkIY/zCYC9a5Y0wn90EYiiNnzQwdpd?=
- =?us-ascii?Q?eBE5AYdBNxRLfOs1SsO1U55cSr0beGHukHpQ9IZqpiLaS7oJSnlZynkPH2Nu?=
- =?us-ascii?Q?5CTcgm+Hk8r6q1gyMkrGHgwuSXefFpu85abPDjZLHA5TZP6zrjrruU0eAMTq?=
- =?us-ascii?Q?Dnlgwzz0I/Bi1W25kGTZuSSs+a3ZpBd/1etySIZnS9ICRACwYJ4mkwtXbrIG?=
- =?us-ascii?Q?n9yCe94fNUs0/EwlQKuTuLsHeAVNyuMEQzkJClwC7WrjU2O8PEr4Ot0GyVha?=
- =?us-ascii?Q?3FlOeAZcNwG0TRuOXqmExmqvxFQ2xvs=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BzYT7Vpn";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="grb8NrrZ"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 633FUqBS3449815
+	for <devicetree@vger.kernel.org>; Fri, 3 Apr 2026 18:11:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=MtXL2iAOtYsDXiVQNN0H4B4e
+	Un0PA2AWtcephXdhd3k=; b=BzYT7VpnNaCzbAEeGMJLxOEOKCN9WybmxMDCSBgl
+	tm0MnN5zuc3xv9CpIfjdxv/vl0gFwfGTGNYgOtqm/685l3EscBg12euGOX14t8yV
+	34uhKLoV+ADzKfwBj4rb2n8WaaiLMGuQ+n8lFQ/5y8wt3Ij9VFR7SRWWv7+TG6fG
+	RxvljS8da59o0N+PAImzYAjF4vZbdL1TlGdMtokuieoxxfCG/s3x9XNVOED1uIEf
+	ZEQV47/zgStC6+c0avfZ8DQN9BmnaSfKniwYhMW57KpA9BFVsHdchTuiW59jeBK2
+	KaQ6cgOnpyRyLPiPmS0k4Ha2vZGu68ifYnaKbIPogeFoCw==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4da8u59usj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 18:11:26 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2b24308165dso55016395ad.1
+        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 11:11:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1775239886; x=1775844686; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=MtXL2iAOtYsDXiVQNN0H4B4eUn0PA2AWtcephXdhd3k=;
+        b=grb8NrrZhbEaybweaS1xEyUYbkM6fAam/VVmhHtfVXSzbQewCeeSsr0+bHS6Zi/wKU
+         5fzb3gB5p0Ds+3Zyb2kmQYsvXK/MA+ijUNcKheo+RuUdy6SjNPWfLG0+7psHyRO08Ran
+         KU+FeTPhI8Dels3XFDjQD8TWssBHwoSlQc00HgRds4VMDKMifXu1FaqvLzhHhrjxyYxY
+         ZV1fj3dF8WfFQ6y0yg2UDWDzlD0CnpScE8isuwD6RhvmhHtucY9D185zrOaIu9OGQ0PD
+         nQDsLnN+wD4UY+13B1jnqtzezZmDp9q4dEnzR65iAt88rm6+AZcBkDPdqCJLSlpUVEOa
+         KN3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775239886; x=1775844686;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=MtXL2iAOtYsDXiVQNN0H4B4eUn0PA2AWtcephXdhd3k=;
+        b=Z79qZBtM1SPSlGIyHPP5OEHAmI6oNkclfyAT0uflqMApWuhsjeypVGIVSQj1iTWn1l
+         3DzxC2+yfCsMjA/br7WhC7iW26So2gEYAkMNQsKJug5UPtjTMkXx5oQbN5o1cv58Sc4N
+         FWatvT7D8GUd0fkoT7uKZ0xW79ErslC+zv4wHJn4chVmanFY/TEwiNtOJDb84+i0unLC
+         GBakdPz86d7Sj0c1v9nu3O1G4CunD91kNAB9Ps4Ga4ekRGcJ08TIUf4SlyM8dY5URjUN
+         0ydoziUFPEkF8fly8LLaK98AZ5t13bNRvVBjrysBYftuxUIfUO+997P7hTLNKmaVWn3c
+         Ucmw==
+X-Forwarded-Encrypted: i=1; AJvYcCUi1R28xiEi1Va3BRSGeh6E7GRyOApVgHSMBTw7xg35Z7avfdrw5DunqromfVeD9w+K1YCZ5elk6BQ3@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyfif8WAV0cjct4T1kyu3UKgD3X/dvEW2jZvs6vEneigNbnkJA/
+	miSRUC/CUHL6mGwRwGHTIPu2xCE0YhQdtFir++DUfdpSlS3dhkHqeXLruwa052siTtjesCtouA8
+	0yGyqJ5fdM5AoUIfzKdP6ah7xBpirBQEk0dvdz/aZEdWB98wKTOajDtnnFT8Q4gh+
+X-Gm-Gg: AeBDieuAk5QHu14IBdIiv8VVpNfEyA70MMFv8B7yH/4aoo92OxTOPYQ/NQxpmDt636v
+	HxPbHd7N3EvkY/+eaStfxkV68/Rj2i255bqZQOZjpySjQJJBaSVe1v94ra2BwdLxm4XZjoRs6xh
+	Z/3GOaIETLuHv6V+N2LKH8bvm4q0uFPJPYG9jqsChGP59jJEVtN5VJE89hosEy5XBv5uPxvxx5h
+	jB1+QXs36zEV1d162mLDQkDr7Crk1i7GiTaDu23DRxOfswV443UMq60ayl27lNSPBU4f4zEr97b
+	cUz7r0e4HkVmBozVRWucYQElVQK/vwUwZtmeE2H7FVJKdjoWPVCORepVdJ16/AotR/IwiLbQ0Kd
+	/XFLxgOExJX+EOolIenYWyw5gqso48t7W+52spT/Mdv6QGZ6QvzDRw3FcjXY=
+X-Received: by 2002:a17:903:a86:b0:2b2:4d78:eeb4 with SMTP id d9443c01a7336-2b281779e2bmr40739985ad.22.1775239885856;
+        Fri, 03 Apr 2026 11:11:25 -0700 (PDT)
+X-Received: by 2002:a17:903:a86:b0:2b2:4d78:eeb4 with SMTP id d9443c01a7336-2b281779e2bmr40739785ad.22.1775239885297;
+        Fri, 03 Apr 2026 11:11:25 -0700 (PDT)
+Received: from hu-arakshit-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b27478bc96sm65435615ad.33.2026.04.03.11.11.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 03 Apr 2026 11:11:24 -0700 (PDT)
+Date: Fri, 3 Apr 2026 23:41:17 +0530
+From: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
+To: Harshal Dev <harshal.dev@oss.qualcomm.com>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>,
+        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+        "Martin K. Petersen" <martin.petersen@oracle.com>,
+        Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-scsi@vger.kernel.org
+Subject: Re: [PATCH v7 2/3] ufs: host: Add ICE clock scaling during UFS clock
+ changes
+Message-ID: <adACxdpwJOt92qLd@hu-arakshit-hyd.qualcomm.com>
+References: <20260302-enable-ufs-ice-clock-scaling-v7-0-669b96ecadd8@oss.qualcomm.com>
+ <20260302-enable-ufs-ice-clock-scaling-v7-2-669b96ecadd8@oss.qualcomm.com>
+ <7fbd9d3f-a313-40dd-9335-799aea5a077a@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY6PR01MB17377.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 220ca181-1726-423a-3fc2-08de91ac4d98
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Apr 2026 18:10:35.5068
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: nE3QQM1tjMKG85ZC5aezYF+nSUnvyZz7lBzltRMJuX3KP7c8gTxY/CVMrBn+65PGk0orN/TPXAs0kycT3jNLMWGhTHTsX7naNPkXMXh9Z7o=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB10093
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7fbd9d3f-a313-40dd-9335-799aea5a077a@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAzMDE2MiBTYWx0ZWRfXy+W8hvfQh7Df
+ bgPfHOXR11jgOhc9XRHvKWf0R1EJvUcfquZwCdRgR8RuLkNSXbHu/Gy6FvU9JiaZaIsGH+OkCnY
+ tIR3WT9RBsgw1IiKDgHmYIeWwolUVsyfRQxWo04gDen+W5Iz0oSZmLBhLfKKNJq9XMgtqlQru/g
+ LzWzLrCJfPgL4DGL+nNY43+J+r+3TfbcHyuoIbEa1o+M41+UujLXMxbi0AAFF+jj9qXyQTXMWPQ
+ G2aw/Mf6CuA7o6sYeb3MXLbck++YaKcDxvvv/yyF1aD121AMBk2k/QGa/bpt82cJNUowl1uJh+M
+ a5NT/cuu2qMqHQyEAqhFN6eZnLEAPu1UC+4BxqdcL5aewWEF+kKbSODnVkJDFX7+UDf0nlwgpbu
+ 6BQG2SzzxEFtrbTrGnxOWeyvqtoM6Cp6+jD2CGpHN9vAzS+KrTK3Y2SZ+Ph6mtkALwR/FZ+xEfs
+ 36OghLqiPL7FhJ2nQGQ==
+X-Authority-Analysis: v=2.4 cv=W5g1lBWk c=1 sm=1 tr=0 ts=69d002ce cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=kj9zAlcOel0A:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=wPS2iYinNOdQAA01N08A:9 a=CjuIK1q_8ugA:10 a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-ORIG-GUID: vY5eUeWcceWrBmp6EkMnIMK0r4wfSMHD
+X-Proofpoint-GUID: vY5eUeWcceWrBmp6EkMnIMK0r4wfSMHD
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-03_05,2026-04-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 suspectscore=0 clxscore=1015 phishscore=0 impostorscore=0
+ malwarescore=0 lowpriorityscore=0 adultscore=0 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604030162
 
-Hi Kuninori,
-
-Thanks for your review.
-
-> -----Original Message-----
-> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> Sent: Friday, April 3, 2026 3:09 AM
-> To: John Madieu <john.madieu.xa@bp.renesas.com>
-> Subject: Re: [PATCh v3 06/14] ASoC: rsnd: Add RZ/G3E DMA address
-> calculation support
->=20
->=20
-> Hi John
->=20
-> Thank you for your patch
->=20
-> > RZ/G3E has different DMA register base addresses and offset
-> > calculations compared to R-Car platforms.
-> >
-> > Add dedicated rsnd_rzg3e_dma_addr() function with dispatch from
-> > rsnd_dma_addr(), following the existing per-generation pattern.
-> >
-> > Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
-> > ---
-> (snip)
-> > diff --git a/sound/soc/renesas/rcar/dma.c
-> > b/sound/soc/renesas/rcar/dma.c index 0afe4636b005..5b63206361ef 100644
-> > --- a/sound/soc/renesas/rcar/dma.c
-> > +++ b/sound/soc/renesas/rcar/dma.c
-> > @@ -496,7 +496,35 @@ static struct rsnd_mod_ops rsnd_dmapp_ops =3D {
-> >   *	SSIU: 0xec541000 / 0xec100000 / 0xec100000 / 0xec400000 / 0xec40000=
-0
-> >   *	SCU : 0xec500000 / 0xec000000 / 0xec004000 / 0xec300000 / 0xec30400=
-0
-> >   *	CMD : 0xec500000 /            / 0xec008000                0xec30800=
-0
-> > + *
-> > + *	ex) G3E case
-> > + *	      mod        / DMAC in    / DMAC out   / DMAC PP in / DMAC pp
-> out
-> > + *	SSI : 0x13C31000 / 0x13C40000 / 0x13C40000
-> > + *	SSIU: 0x13C31000 / 0x13C40000 / 0x13C40000 / 0xEC400000 / 0xEC40000=
-0
-> > + *	SCU : 0x13C00000 / 0x13C10000 / 0x13C14000 / 0xEC300000 / 0xEC30400=
-0
-> > + *	CMD : 0x13C00000 /            / 0x13C18000                0xEC30800=
-0
-> >   */
+On Mon, Mar 30, 2026 at 08:09:51PM +0530, Harshal Dev wrote:
+> >  drivers/ufs/host/ufs-qcom.c | 19 ++++++++++++++++++-
+> >  1 file changed, 18 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/ufs/host/ufs-qcom.c b/drivers/ufs/host/ufs-qcom.c
+> > index 8d119b3223cbdaa3297d2beabced0962a1a847d5..776444f46fe5f00f947e4b0b4dfe6d64e2ad2150 100644
+> > --- a/drivers/ufs/host/ufs-qcom.c
+> > +++ b/drivers/ufs/host/ufs-qcom.c
+> > @@ -305,6 +305,15 @@ static int ufs_qcom_ice_prepare_key(struct blk_crypto_profile *profile,
+> >  	return qcom_ice_prepare_key(host->ice, lt_key, lt_key_size, eph_key);
+> >  }
+> >  
+> > +static int ufs_qcom_ice_scale_clk(struct ufs_qcom_host *host, unsigned long target_freq,
+> > +				  bool round_ceil)
+> > +{
+> > +	if (host->hba->caps & UFSHCD_CAP_CRYPTO)
+> > +		return qcom_ice_scale_clk(host->ice, target_freq, round_ceil);
 > > +
-> > +/* RZ/G3E DMA address macros */
-> > +#define RDMA_SSI_I_N_G3E(addr, i)	(addr ##_reg + 0x0000F000 +
-> (0x1000 * i))
-> > +#define RDMA_SSI_O_N_G3E(addr, i)	(addr ##_reg + 0x0000F000 +
-> (0x1000 * i))
+> > +	return 0;
+> > +}
 > > +
-> > +#define RDMA_SSIU_I_N_G3E(addr, i, j)	(addr ##_reg + 0x0000F000 +
-> (0x1000 * (i)) + (((j) / 4) * 0xA000) + (((j) % 4) * 0x400) - (0x4000 *
-> ((i) / 9) * ((j) / 4)))
-> > +#define RDMA_SSIU_O_N_G3E(addr, i, j)	RDMA_SSIU_I_N_G3E(addr, i, j)
-> > +
-> > +#define RDMA_SSIU_I_P_G3E(addr, i, j)	(addr ##_reg + 0xD87CF000 +
-> (0x1000 * (i)) + (((j) / 4) * 0xA000) + (((j) % 4) * 0x400) - (0x4000 *
-> ((i) / 9) * ((j) / 4)))
-> > +#define RDMA_SSIU_O_P_G3E(addr, i, j)	RDMA_SSIU_I_P_G3E(addr, i, j)
-> > +
-> > +#define RDMA_SRC_I_N_G3E(addr, i)	(addr ##_reg + 0x00010000 +
-> (0x400 * i))
-> > +#define RDMA_SRC_O_N_G3E(addr, i)	(addr ##_reg + 0x00014000 +
-> (0x400 * i))
-> > +
-> > +#define RDMA_SRC_I_P_G3E(addr, i)	(addr ##_reg + 0xD8700000 +
-> (0x400 * i))
-> > +#define RDMA_SRC_O_P_G3E(addr, i)	(addr ##_reg + 0xD8704000 +
-> (0x400 * i))
-> > +
-> > +#define RDMA_CMD_O_N_G3E(addr, i)	(addr ##_reg + 0x00018000 +
-> (0x400 * i))
-> > +#define RDMA_CMD_O_P_G3E(addr, i)	(addr ##_reg + 0xD8708000 +
-> (0x400 * i))
->=20
-> Please add RZ/G3E info on top of rzg3e_dma_addr()
->=20
-> > +/* R-Car DMA address macros */
-> >  #define RDMA_SSI_I_N(addr, i)	(addr ##_reg - 0x00300000 + (0x40 * i)
-> + 0x8)
-> >  #define RDMA_SSI_O_N(addr, i)	(addr ##_reg - 0x00300000 + (0x40 * i)
-> + 0xc)
->=20
-> And R-Car Gen2 info to gen2_dma_addr()
->=20
-> > +rsnd_dma_addr_lookup(struct rsnd_dai_stream *io,
-> > +		     struct rsnd_mod *mod,
-> > +		     const struct rsnd_dma_addr tbl[3][2][3],
-> > +		     int is_play, int is_from)
+> >  static const struct blk_crypto_ll_ops ufs_qcom_crypto_ops = {
+> >  	.keyslot_program	= ufs_qcom_ice_keyslot_program,
+> >  	.keyslot_evict		= ufs_qcom_ice_keyslot_evict,
+> > @@ -339,6 +348,12 @@ static void ufs_qcom_config_ice_allocator(struct ufs_qcom_host *host)
 > >  {
-> > -	struct rsnd_priv *priv =3D rsnd_io_to_priv(io);
-> > -	struct device *dev =3D rsnd_priv_to_dev(priv);
-> > -	phys_addr_t ssi_reg =3D rsnd_gen_get_phy_addr(priv, RSND_BASE_SSI);
-> > -	phys_addr_t src_reg =3D rsnd_gen_get_phy_addr(priv, RSND_BASE_SCU);
-> > +	struct device *dev =3D rsnd_priv_to_dev(rsnd_io_to_priv(io));
->=20
-> Creating lookup() is nice idea.
-> Very nitpick, but do we need to remove priv, and remake dev ?
->=20
-> > @@ -574,20 +671,10 @@ rsnd_gen2_dma_addr(struct rsnd_dai_stream *io,
-> >  	 * out of calculation rule
-> >  	 */
-> >  	if ((id =3D=3D 9) && (busif >=3D 4))
-> > -		dev_err(dev, "This driver doesn't support SSI%d-%d, so far",
-> > -			id, busif);
-> > -
-> > -	/* it shouldn't happen */
-> > -	if (use_cmd && !use_src)
-> > -		dev_err(dev, "DVC is selected without SRC\n");
-> > -
-> > -	/* use SSIU or SSI ? */
-> > -	if (is_ssi && rsnd_ssi_use_busif(io))
-> > -		is_ssi++;
-> > +		dev_err(rsnd_priv_to_dev(priv),
-> > +			"This driver doesn't support SSI%d-%d, so far", id,
-> busif);
->=20
-> Very nitpick, but please keep dev on top.
->=20
+> >  }
+> >  
+> > +static int ufs_qcom_ice_scale_clk(struct ufs_qcom_host *host, unsigned long target_freq,
+> > +				  bool round_ceil)
+> > +{
+> > +	return 0;
+> > +}
+> > +
+> >  #endif
+> >  
+> >  static void ufs_qcom_disable_lane_clks(struct ufs_qcom_host *host)
+> > @@ -1646,8 +1661,10 @@ static int ufs_qcom_clk_scale_notify(struct ufs_hba *hba, bool scale_up,
+> >  		else
+> >  			err = ufs_qcom_clk_scale_down_post_change(hba, target_freq);
+> >  
+> > +		if (!err)
+> > +			err = ufs_qcom_ice_scale_clk(host, target_freq, !scale_up);
+> >  
+> > -		if (err) {
+> > +		if (err && err != -EOPNOTSUPP) {
+> 
+> Using -EOPNOTSUPP here works fine for now. But anyone touching any of the lower APIs called by
+> ufs_qcom_clk_scale_up/down_post_change() needs to ensure they don't return -EOPNOTSUPP, otherwise
+> hibernate exit will be skipped. So this carries a minor risk of breaking.
+> 
+> Since regardless of whether ufs_qcom_clk_scale_up/down_post_change() fails or ufs_qcom_ice_scale_clk()
+> fails, we exit from hibernate and return from this function, I suggest you handle the error for ice_scale
+> separately.
+> 
+> >  			ufshcd_uic_hibern8_exit(hba);
+> >  			return err;
+> >  		}
+> > 
+> 
+> Add the call to ufs_qcom_ice_scale_clk() along with error handle here, and let the above error handle
+> remain untouched.
+> 
+> 		err = ufs_qcom_ice_scale_clk(host, target_freq, !scale_up);
+> 		if (err && err != -EOPNOTSUPP) {
+> 			ufshcd_uic_hibern8_exit(hba);
+>   			return err;
+>   		}
+> 
 
-I'll address your comments in v4, moving each macro on top of the
-appropriate function and keep dev, avoiding remaking it, and also
-pass priv as parameter to rsnd_dma_addr_lookup.
+Right, I did think of this later.
+Yes, this needs change.
+Ack will update in the v8 patchset.
+Thanks.
 
-Regards,
-John
-
->=20
-> Thank you for your help !!
->=20
-> Best regards
-> ---
-> Kuninori Morimoto
+Abhinaba Rakshit
