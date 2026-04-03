@@ -1,199 +1,204 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010051.outbound.protection.outlook.com [52.101.84.51])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C75AF39903E;
-	Fri,  3 Apr 2026 09:55:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775210150; cv=fail; b=tkO8eoFcuEgtBRf3Y0/n1wYYNUEiIs6NeYGHXn9wGcQmt0wwl5u5VBlSiztDOB3TaERfYSJhH59NmVTbtuprg7DdCAm4DC9o/lz7UftQMDM2Gkw06TIDhOQl8z8ZHLOSEBuQcwFvnkseMjV2K9vHnPNZVv1J23IYxe8KDsHWCRc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775210150; c=relaxed/simple;
-	bh=zNC/F/6G39+N4qwna1Wktb3A1P12P2cwz81CJ6a+gjg=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=d9pDhKX5pa4haeCOsvEDwbUMaGYhlyXXY15SJiPlY3JCiEiv6YEMTIBiYe/Sypv+8ouAo02270GlecUT5HdyuL1H0lqLFEvv/VWksNhAsvtMBsTaxjQ0Um8G3OnZF8HnZz5CC05LPfetLQGynSB5xRXqlqgMnf5o2NTDPXSwqP8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=JZpDAxAV; arc=fail smtp.client-ip=52.101.84.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 603E63806D0
+	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 10:04:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775210697; cv=none; b=ghF7X/Q6azKWXMTE2NyhVDgYdS38r6+3bx3ihCjyHJac4qalzR7o8M6VsF+IV0Yg/3V5Grvi1kCOGxCVdF1X/zBIMjgUJ9+3puDh49MPRvpfm4GYcl1+qiV28wy6lYxZvRm2Wg7/QUCRV3qTMN0EGGSDusCls0we+CC3Z9E6Lh4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775210697; c=relaxed/simple;
+	bh=YVJAFOfqRtInttj+SdxLLlYhxTozj6hqjuGCkDM0s6o=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=d/ROKgSWI3kaNIEZLX7aLSMwtoj9u1R90fphshRfcJuAI7+Z1NqBcDjErG3O56GuGdPeIa9SgXAPSLQLpLKc0AnaxY1prWTVxXZw/rYcWTo8Aic9n3dpsVLv24qxFlRX1sAZqV1RLoWQFEj3+Fwoe0xV5i6O2BSZtAXAw8JWmQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nDvDeoOJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OLDN0xG+; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="JZpDAxAV"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jGcVmByhHxyB5T2HZ+EmjAxjlp4ty0XIlomPFP0ZKCfC90nN6tAKgJeNp3hUUAF38n109rj/5BB1qgqAE/YXKNAgbWAngRQfcMZTUrHEGgaBqLGRwa4jZ8Ca1JfGKHHzdMJn6zKv+i++ia6ewyFCS4M7ppBFqTz3VydnqLwP/ualz/+rv+NREYUlggHpUl5pkaic4X6iPmrwYIwd+Vl4Hs863zI8SM3t2VxeEsh44m8fW7MkWlI2WTKBw7jGzwjFhLbA5rubRoNiP7M5C9iUe7B9DiSa11S3qF0OUCcIM8040v7Ne6iaDtjK2Ud18xWv+FvnKU/yGT+Ye3A+du5NZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iajoSyGZP3spIX/q2Xd8HetCCBTjO8zpSFn/iFuCsnc=;
- b=PX7jIJi1O+ZELEcvxIwIGIllwCZzKAlIrNxD4cVoq1iIr8ZdxZ3FJVtgNlpjoF+Sm1JIEQ9AnHUKdu6LmEwTSVydE5MVEX2018FrlUCfvgT3i9f9wi/X3N7GWl1jxiMrcrIM3acFWznarJ4zJF1xz7AR9TTqi+AQXv8l1unkPOp5TuDtlPbAr7E0ZkqFUs/xCMXaEp16LXtKwH0vBNxouAxeAhEfrtRaUvehXEczTPrh+vjO67w80gJEbOFS0fKrING+YaB/46a7QjxAVasSnMBkW1yk0kDgIvuMkruy+F9pePN6ofZb+Rmi2a09TFC6a/Od9DXFKj7FedqDuRz0Cw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iajoSyGZP3spIX/q2Xd8HetCCBTjO8zpSFn/iFuCsnc=;
- b=JZpDAxAV0ft3FlyLKLK4I7QcaxrT2E3xzD+FnbeJ6wq6i+yg7bkbDGGj4+Q/KQEDOsHLSMkZbMWZpBlkE2fxolySWxw/xqlNNp0wvSaUzakuOTkxjfcbizYtye0857KH+WKyXVb/L8s+G/wjz+n7Sbyvm1IjNe8qXr7WQR7yYAM5rB8qKKrYkEepD4siSBtrNvG1CKLqJYDeUwxKVV+GOFe3UnoIkeUUGGxxQwmpUYLr018G2Qpc4cXzJr3fgB3F0iTlg44Vm7AHfdjABSwF+oPCHNkwoP9YDWBKYk/Zb/uWShO16UlCfdbr1bV/Lq0EATzuQrQmrydL9Fg672HeCg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from PAXPR04MB8459.eurprd04.prod.outlook.com (2603:10a6:102:1da::15)
- by GVXPR04MB9928.eurprd04.prod.outlook.com (2603:10a6:150:117::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Fri, 3 Apr
- 2026 09:55:40 +0000
-Received: from PAXPR04MB8459.eurprd04.prod.outlook.com
- ([fe80::4972:7eaa:b9f6:7b5e]) by PAXPR04MB8459.eurprd04.prod.outlook.com
- ([fe80::4972:7eaa:b9f6:7b5e%3]) with mapi id 15.20.9723.030; Fri, 3 Apr 2026
- 09:55:40 +0000
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Date: Fri, 03 Apr 2026 17:57:02 +0800
-Subject: [PATCH v2 2/2] Revert "arm64: dts: imx8mp-kontron: Add support for
- reading SD_VSEL signal"
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260403-imx8m-ldo5-v2-2-53bb33d6b810@nxp.com>
-References: <20260403-imx8m-ldo5-v2-0-53bb33d6b810@nxp.com>
-In-Reply-To: <20260403-imx8m-ldo5-v2-0-53bb33d6b810@nxp.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, 
- Frieder Schrempf <frieder.schrempf@kontron.de>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Peng Fan <peng.fan@nxp.com>
-X-Mailer: b4 0.14.2
-X-ClientProxiedBy: MA5P287CA0086.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1d8::18) To PAXPR04MB8459.eurprd04.prod.outlook.com
- (2603:10a6:102:1da::15)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nDvDeoOJ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OLDN0xG+"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6332tNCO1380367
+	for <devicetree@vger.kernel.org>; Fri, 3 Apr 2026 10:04:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=csPCeGNQRnN1owzDL3PkMg
+	p9VvlLDIVr2HSlp09U0aE=; b=nDvDeoOJDWInCa9EoMTNwaVuW742xaDeC8Kw21
+	6q0f7j/GI/VnB3+fGpzvujvfeQxeoB1iZpYddsJ7Sf6jFPz4OYaWwFefiMHX3HqM
+	vcK9T2CHYon5985yxsXuOJ90FASt8VXO6pAUqXyLF59PbEwN23odMNdJTRonYmqn
+	MIf3aXZyTUNFG0KIYOz2iUeGGjQKry+OpBYo1VrBQhqFNbTCsZaP5CeXlhRIaESX
+	UQdvFG7wZtpY+iCz9I/RUVofU7j8WNx7Rgtlmsb2bdJNadY1NgNw3OxwEXWB9X+t
+	RFl+NyAvTMEHQRAd9viwFiHKxBRF6FIVxFg+t2Swkc/IFUtg==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d9myhcsfy-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 10:04:46 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-82a77f807e4so2285348b3a.3
+        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 03:04:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1775210686; x=1775815486; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=csPCeGNQRnN1owzDL3PkMgp9VvlLDIVr2HSlp09U0aE=;
+        b=OLDN0xG+QRQbcoJ2xBTwv/NWZ7sGg1K8j+1le6h+DL3yJUkV/aRafRefeD/yFVodC9
+         +xvWXoPrgLnSA5Q0sq21phJ21d7aZhMYei+z67hEjd8umWaaePt55mZvQ6i4Q+mxGnos
+         EvbOww7Uzv94HUIWoGQc4L680R14ZMwN3aPgESrHggMZcliSCqdgWT4KjFaJxL3RHWu3
+         3hM4u6sXHVSt7ldUTEBsDMupvQh3otBi4tLEtbxRCJd6lZ2ANHla+dvpDesVX6Kc4x0j
+         Zl1UkgZ3GwSYrspd9s3KNDxTMhmj2SOOKAFhl8Q7wMbsH0qETQZVfB2SO8tPCXP/yZlQ
+         ZWwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775210686; x=1775815486;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=csPCeGNQRnN1owzDL3PkMgp9VvlLDIVr2HSlp09U0aE=;
+        b=WuDAURFvbu0QSlw+bABP9J2a8vVgOEUN0053Fu6ytOBAg23CQh2aYxRrBK6MLPP8JI
+         L1fztRckc+f/yB+xa+rBvhFDr6MdXt6Eb0O+4JfCn5cMgddMZGiD0YFgwSt5MeZgKW/1
+         otHXRlnlyZ+g0/Dgxnc+Wcx0CpLAKcMB6Hl4dBl+Czo13vFmD6lOd2+nMGMu8P1gdx/x
+         mNbSohkQDnK+kCQCFoVPTQ+WwS8SmI6mRENnZn/iomUvX17A9TXcSCZwXQfdxr0Luxi2
+         iptJWX/4Gmp/bNK1ndQWof2cUJ+d9xoIM4BeQjHwp4B9th7RkV/6td/QrxDp6fkUysgv
+         3VSg==
+X-Forwarded-Encrypted: i=1; AJvYcCV9d2ZhtOoeKq4b2JV2c9KVidrSIEzsvj3ZrCnCAyjNxuFLDGyl0sjJdZ+csTD6zvwcM/AOqSwf0B8Z@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw/xG6O4NoU4apE5qErg2CIJ/66ntafn5vn++JkEPH1bwGrtzdZ
+	ySEBS4prmTB59s1IbGb4h6WntX0XOvmub+wYsilnHtYOT+6EWI+G7s2ApCfokSnBlE1Ku1xnnKO
+	7IStiLstpK/vkIUZFtoOSG4dKSaliT7dLADy1/nrthooJL4N1j3fLnxCMYXWa1dJP
+X-Gm-Gg: AeBDievs1up4re6OgbOSIRXGE8LS2X20vuRuZ4YzNathtaA3CRJC5pvb0YC7ojpAKBm
+	WywSdJPyanFE8tZ2weUxDo8CNJNDBo/w5bvAfsu9YvwPVfgAGx9CA1rEWNwCbr0+92o9V6fDBZu
+	6lFdxqtvH2fbYsi+veBljmllzNmwqz7bbiovgX949xwaKQCY7NUBz/8sqSMzqsr1gofQM8f+8Gg
+	beferEqtnPdRrwGwgyDu6CU2rsdWRQuAAuML1EhqCrL0wkiT+7za6f0WijSnSNhCbSICpu6pvtn
+	37ktQRySY2cpQBIBSTvx4NFMm8QFvAE9Jlk+Cjuw6ChwLswgW1rjz8eH1AwG3degWXA6oltVuVb
+	1VPEzBnmM/K9kPJN2u/BM5n4BTkN5W9QtY2MKnS3tSDvy18NJ8H7H9UY=
+X-Received: by 2002:a05:6a00:1bc5:b0:82c:d8c4:365 with SMTP id d2e1a72fcca58-82d0da41c36mr2512498b3a.15.1775210686003;
+        Fri, 03 Apr 2026 03:04:46 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1bc5:b0:82c:d8c4:365 with SMTP id d2e1a72fcca58-82d0da41c36mr2512457b3a.15.1775210685512;
+        Fri, 03 Apr 2026 03:04:45 -0700 (PDT)
+Received: from hu-swatagar-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82cf9b6113dsm5012644b3a.23.2026.04.03.03.04.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 03 Apr 2026 03:04:44 -0700 (PDT)
+From: Swati Agarwal <swati.agarwal@oss.qualcomm.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Icenowy Zheng <uwu@icenowy.me>,
+        Matthias Kaehlcke <mka@chromium.org>,
+        Alexey Charkov <alchark@flipper.net>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Mike Looijmans <mike.looijmans@topic.nl>,
+        Pin-yen Lin <treapking@chromium.org>,
+        =?UTF-8?q?J=20=2E=20Neusch=C3=A4fer?= <j.ne@posteo.net>,
+        Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Swati Agarwal <swati.agarwal@oss.qualcomm.com>
+Subject: [PATCH v7 0/2] Add Genesys logic GL3590 HUB support
+Date: Fri,  3 Apr 2026 15:34:33 +0530
+Message-Id: <20260403100435.3477729-1-swati.agarwal@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR04MB8459:EE_|GVXPR04MB9928:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3307bfdf-f5ed-4f47-852c-08de916729ea
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|52116014|1800799024|19092799006|366016|38350700014|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	L1dOdLXdQXgKUVfpWFJRkKG1A5gT6XdChsnFH9WI5+HA+8gG3c3Ea3iYthnDD4Ub76mK4OHDJ/6whu8aQx2quY+xr47TCE8hL844P3Ye7PzSWemBRIXIRT4LWJ54A5raec+QDiFYy8ftdYr6h8IkLcg/fj3f2hrFRIRKC99+kFDXIhasnqG10eXFrV4uCW/ghvq5BaEf+0aAWuJcyG0grgMQDhsyZeto4HwOgIQhfJBCYz+l1DHQALxejBFwGHYzUOHpBh/030nfak1gijCnEYuJVzRS1GbquH+K/mjz8CE5LrhpQHMetTMwHHxa1cthNnIAYCBhvAWn/UKEQpe2zy9+uPIfzP8Qp8YTQqNxLvQJ8q57TfWXewrR1MsA0/GLq2vT4YGMQqzAhNUUEXQIQgVsqonjxEFaVl7omQU6lowVRjbttBFxv9u9lPRD2E7r9L8qQHEvIXrII5XzNv/wYpWNwwOSwh1ntsJELWKSnSCdtpTfpJsmLUR6DOuYw2wkyn2aPhVQ6TI0dD4B0W0sRRamhMxQrzyeTAlaa/73Ayu3XQUYPXrfgHCh+uNPtgxG/S1U5xB+NunGay80wyV2u+MdJjZSvoYjLLO3QtWB+VmsVmpiAFKPkUxBcBdWJfBLzQbT9B9G9Jro5aiFhG++kvU583jKCrHARHK8cU7LEfNVGoq1YzKegXF6NppMob6GHuRLJ32Dz8yjjsSzE4AGYTVhMpIlHZlxnjk+HDS+z4IoNEMZUTh/uyBZxs8n1CohkukgHfyegJrVZg4ZgHhn9YUfJGtWev6vVVe2oUWIj4A=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB8459.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(52116014)(1800799024)(19092799006)(366016)(38350700014)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aFlWZFNHLzRteXlUWWszVVFCczdRRG96SDBNLzhBNHJYZ2dLMFRFOEQ3YW1i?=
- =?utf-8?B?MVlqKzI3MkZ4N2o1REs5UkhKaWZtaDdRVHdQZmdPYVRpRGdBdUdGYjVFbTVL?=
- =?utf-8?B?b2kxUmc0MXY3VTJLZUtEcTJBaFpWUEtxQS83NGtKdm4rZDlpbGhsazEvUTRP?=
- =?utf-8?B?Vm1XNDVKM0RyOVRjTklrRkIzUjc4VzFuTzJUeDJOSzRjeXI1MWs3M3M0c2g1?=
- =?utf-8?B?d3BreVhFMzk1U1UyZUlYa293bTFISWJrZjR0Kzd2VDdTSnBwdHdmUVZLU1hJ?=
- =?utf-8?B?cWZEYmVTVm5EYlplWmEyamdkaE1yMHRadFU2SHZLOS92SWs1bnRzOGV5SkNL?=
- =?utf-8?B?MFJXYWs3TEFIZjZ0TUNBaHcvd1I2NCtOaDhLQk40a3grVTVTQjB6d1V1Q0h6?=
- =?utf-8?B?Q05jSldwbkhtTThHckZ0WnFyVXlTMmJQU21DOVV3aVRYeDN5dWFGby9mSU5j?=
- =?utf-8?B?Q0FoN0RDUVJEa3lvVU5PaWxaOGJvdGFicVM5d2xJMFpKMVFBN3doRmo1RTFv?=
- =?utf-8?B?ZWIraDVSYzFvdHJ1YjJ3bGgxUjNnUmsrQkJXS1Y2TmdwVVBtcjlsN2RXRHZJ?=
- =?utf-8?B?ZTJncEtlcUd2RGRLbXo3MVVELzQ2dUk3SnR3WXRuWnRVbVpTUXp5bkw3Qjd1?=
- =?utf-8?B?Wkl3Q3ZpZzdZNkx2VG9ocW1pSUwzaTAyNDkrOERXUjVGTWNwNHRNYk5VSmhC?=
- =?utf-8?B?NWNQMXAzbjNBMnkyYVd1Tk1JQ243Z2FtZHAvMDJHcGk3ZFpleWxmSWJ5SlFn?=
- =?utf-8?B?anBQWXNDVFZFb2FwbE5FS3NBTkhrdThIc3g3TjFIVWJvWXdYeTlERDVDVjk2?=
- =?utf-8?B?djdXbU9BSnZaUEFHRXU0T0RUKzRPSUdsZTQ2bG5kN01Xb0lWTmY1ZTFQb01F?=
- =?utf-8?B?M1JadG9zdGEydVV1dElRUUdOQmp4Rjc5WDgyL0g3YkJyNmhoNFpPa0hRSVNt?=
- =?utf-8?B?M01MaFdxbU9lallIYUdiVWQrVzJIVVZaNmdWYzZ2aUc4YWw0YVVWVE9jbWJW?=
- =?utf-8?B?M0h6MFlIbUhvYmc1YTNrTGx5anBuYUdQT2ZjUFVBVWh1a1NzWnhzL2Q1STY0?=
- =?utf-8?B?aUZKTHpPenY1MkZHQXFyZlJDZTZIUjc5YXhPMk1KNTl4bW9GVWJEaUl4dkNE?=
- =?utf-8?B?UHZ4RnMwSm5aR09ZRXd1YXVlWHd6TURvakQyQmRGM1NIOXYvV3BvOTlkRTNQ?=
- =?utf-8?B?UjBCRFVlSVppZi9RbjBhcHpCdzZYZG96VTUrdzdlMXEwYjM3Q0RHQnFqRGs3?=
- =?utf-8?B?MEVhd2F4c3JvRE5WU3hUcTU0Vjl1OWUzSjBaZmNJSTlHRWRTSXNxdk14L1dP?=
- =?utf-8?B?YUdQcmxwN1lmYzZLQWlmM1BXNHZCZ1ZDUXZab0ppb2RHVUxNOHd3WmlYeXIw?=
- =?utf-8?B?MGxlZ1FIRDNrN2NBR2swa3haVGVrT004Y211bXdQK2hZUEgwbnJHKzU1VG4y?=
- =?utf-8?B?a3V3V3EyVUlKUUJYa0NTUm9RMkNnNms5UnBpZ3BNWkZmZEZRREFFU0RrT290?=
- =?utf-8?B?bEU1UmR2YmM2UVdId21xOWFMMVp4VHJieVIwb2ZnU3B2ZmV0SjRQQmpyZ25P?=
- =?utf-8?B?bitrcGFyTWJvaTlmWWF6WVBlbjV3aW9TTFFhd20vYTZiNlNNcjNtYmZUOHky?=
- =?utf-8?B?eEdsVURsL0RBYU1rVnIrOUhzTVU2aVBJQjl5a296RTMwSE9LRUpPbmlTLysr?=
- =?utf-8?B?WDFtZ1dsbjFTWHMwakRJV2twc09adFlIODEvempMQU5uRXJUWFBBNVdLVWpG?=
- =?utf-8?B?OWpvaThnUHlmZytPTzRDRUFaT21IUElmS25DQUlRaThQVG9nUW9hcXpHTUJS?=
- =?utf-8?B?S3RjbUFFaUxJZGpUWlA0ciswL3A2cjJmTVRZLzJvU3AyQno2bGIwbituSTg5?=
- =?utf-8?B?UFc5NzVOeU9HS2xLU0s2dzN2cU1Wcm8xd1BjT0pvNlZJVDVlNVdLWmJlYm1C?=
- =?utf-8?B?U0haMkQ0blhoOHlSZVNUZENQeFUzTk12T3N2eWh6RWZkWXd4NjY2aDh1QTNw?=
- =?utf-8?B?U09tWHlEcU12WVVaTnh2WnpjTUxXRDVjN1VhMGgvREU0UE8rekJtTFNGQWNJ?=
- =?utf-8?B?RDF5a20wQTZmNkhxUXk2TkJsbS9oYnNicjR1Zjd6aTc3bE5odkdPLzdySFlo?=
- =?utf-8?B?WTRrTEpUQmJpanJHYU9CbzhCKzV6MmJFRFFRWlhkeGpjQ2dQQVU4SEp6bmV4?=
- =?utf-8?B?bHRoSlRBRDMwWldOZDVoN1hCU1dXYXI5U1FDOVY3TDZjQXZUbWNmUXp1aDV0?=
- =?utf-8?B?c3dmWmZHUGtUYW05WXZJVysrVzdiZlJUZ2V2eUZLOHRyMkxvYi8wRW5aNmdN?=
- =?utf-8?B?bEZQU0xkeFNvbkxjNDJtRGxGUkFkZzJxOXdkbUcrKzZRYThPT3Jvdz09?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3307bfdf-f5ed-4f47-852c-08de916729ea
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB8459.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2026 09:55:40.5599
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7drn/Y4BPZPcB+f5BQ0otZxOG4YplTjO2gLw4kTkbRhTmyPzBY8d+dpYUYHY5h8FmNq438Vqku+hj/dal+TlUQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB9928
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: WJuNk0SfHfknf3u7eBB0zgpqm43lTEyE
+X-Proofpoint-ORIG-GUID: WJuNk0SfHfknf3u7eBB0zgpqm43lTEyE
+X-Authority-Analysis: v=2.4 cv=JII2csKb c=1 sm=1 tr=0 ts=69cf90be cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=IE0w-zv9y5jEDUWxtIIA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAzMDA4OCBTYWx0ZWRfX+u4R6oOvtIT4
+ KR/LmwFr5ojFhEce0062wKfqrrUx358n5haW1ZkDUAhFgc8RpTkQ3LeXYqu3tbd2gknR/tpgh+o
+ V0PnDUz5VKLUWtSEQJtfIGDUORZQV+6PbFl+YLcfGTsm0PHLZnnBpplYaD/qIfIcf+0JNh9X5i7
+ dDjlLdUApKegXZ6Fr54yyB8aoFrNNwKuDfs5L6s+HqGBHqI8OH04s1pm+xxt2RF7dSBCJVu1z0Z
+ 9v1hl4/nKZLSQoDRX7ECqyeD4JakCC25vdnQXgnyaTVO2tYXc8MFu3zAZlTF4FQJqLrBvW2LA1G
+ yA/YlAc1d8qe8BYbR598K0tu967J50IQX44dehUKVNgXV3ueBD7kvJBUwtNTgBrV90psY07qb11
+ ZWzG/BXGIWadYkq1QJyftl86CgH3KQrG4HJ5RyxVgJz2hjcVCHaSv7ZtVvqN01F6kOWZHoiMlwc
+ qfCdJ8cENziw54aGNlQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-03_03,2026-04-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 impostorscore=0 phishscore=0 priorityscore=1501
+ lowpriorityscore=0 spamscore=0 clxscore=1015 bulkscore=0 suspectscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2604030088
 
-From: Peng Fan <peng.fan@nxp.com>
+Add Genesys logic GL3590 HUB support.
 
-This reverts commit 39e4189d9d63a0b6fc15458ce0136e99ecdfb1b8.
+Changes in v7:
+Split Driver and DT patch for USB1 controller and USB1 HUB support
+Minor nit in commit text of DT binding patch
+Added false status for vdd12 supply wherevr applicable
 
-The board uses SDHC VSELECT to automatically switch between 1.8v and
-3.3v. It does not use GPIO to control the PMIC SD_VSEL signal.
-The original commit intends to read back SD_VSEL value from GPIO,
-but it is wrong. When MUX is configured as SDHC VSELECT, it is
-impossible to read back the value from GPIO controller. Setting SION
-could only enable the input path for the mux function. It could not
-redirect the input to GPIO.
+Changes in v6:
+- Removed vdd12-supply property status for all hubs.
+- Added connections between genesys hub, HD3 port controller and type-C
+  connector as follows.
 
-Fixes: 39e4189d9d63a ("arm64: dts: imx8mp-kontron: Add support for reading SD_VSEL signal")
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
----
- arch/arm64/boot/dts/freescale/imx8mp-kontron-osm-s.dtsi | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+GL3590 USB     HD3SS3220 Type‑C  USB TYPE‑C
+   HUB         Port Controller   Connector
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-kontron-osm-s.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-kontron-osm-s.dtsi
-index bc1a261bb000ed0e8071d214111c12689bc394d0..ea69c639b30b8f7e05bb103074c6481d88560c53 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-kontron-osm-s.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-kontron-osm-s.dtsi
-@@ -311,7 +311,6 @@ reg_nvcc_sd: LDO5 {
- 				regulator-name = "NVCC_SD (LDO5)";
- 				regulator-min-microvolt = <1800000>;
- 				regulator-max-microvolt = <3300000>;
--				sd-vsel-gpios = <&gpio1 4 GPIO_ACTIVE_HIGH>;
- 			};
- 		};
- 	};
-@@ -815,7 +814,7 @@ MX8MP_IOMUXC_SD2_DATA0__USDHC2_DATA0		0x1d0 /* SDIO_A_D0 */
- 			MX8MP_IOMUXC_SD2_DATA1__USDHC2_DATA1		0x1d0 /* SDIO_A_D1 */
- 			MX8MP_IOMUXC_SD2_DATA2__USDHC2_DATA2		0x1d0 /* SDIO_A_D2 */
- 			MX8MP_IOMUXC_SD2_DATA3__USDHC2_DATA3		0x1d0 /* SDIO_A_D3 */
--			MX8MP_IOMUXC_GPIO1_IO04__USDHC2_VSELECT		0x400001d0
-+			MX8MP_IOMUXC_GPIO1_IO04__USDHC2_VSELECT		0x1d0
- 		>;
- 	};
- 
-@@ -827,7 +826,7 @@ MX8MP_IOMUXC_SD2_DATA0__USDHC2_DATA0		0x1d4 /* SDIO_A_D0 */
- 			MX8MP_IOMUXC_SD2_DATA1__USDHC2_DATA1		0x1d4 /* SDIO_A_D1 */
- 			MX8MP_IOMUXC_SD2_DATA2__USDHC2_DATA2		0x1d4 /* SDIO_A_D2 */
- 			MX8MP_IOMUXC_SD2_DATA3__USDHC2_DATA3		0x1d4 /* SDIO_A_D3 */
--			MX8MP_IOMUXC_GPIO1_IO04__USDHC2_VSELECT		0x400001d0
-+			MX8MP_IOMUXC_GPIO1_IO04__USDHC2_VSELECT		0x1d0
- 		>;
- 	};
- 
-@@ -839,7 +838,7 @@ MX8MP_IOMUXC_SD2_DATA0__USDHC2_DATA0		0x1d6 /* SDIO_A_D0 */
- 			MX8MP_IOMUXC_SD2_DATA1__USDHC2_DATA1		0x1d6 /* SDIO_A_D1 */
- 			MX8MP_IOMUXC_SD2_DATA2__USDHC2_DATA2		0x1d6 /* SDIO_A_D2 */
- 			MX8MP_IOMUXC_SD2_DATA3__USDHC2_DATA3		0x1d6 /* SDIO_A_D3 */
--			MX8MP_IOMUXC_GPIO1_IO04__USDHC2_VSELECT		0x400001d0
-+			MX8MP_IOMUXC_GPIO1_IO04__USDHC2_VSELECT		0x1d0
- 		>;
- 	};
- 
+
+HS HUB                           HS con
+
+ |------------------------------------|
+
+SS HUB          HD3-out          SBU con
+
+ |--------------------|
+
+                HD3-in           SS con
+                |---------------------|
+
+Changes in v5:
+Updated comment description in DT.
+Updated vdd-supply status for other hubs in bindings.
+
+Changes in v4:
+Updated power supply property for hub.
+Updated details for all 4 ports of hub.
+
+Changes in v3:
+Updated binding properties for genesys hub.
+
+Changes in v2:
+Add Genesys Logic GL3590 hub support.
+Rename hd3ss3220_ instance for primary port controller.
+
+Link to v6:
+https://lore.kernel.org/all/20260318040644.3591478-1-swati.agarwal@oss.qualcomm.com/
+
+Link to v5:
+https://lore.kernel.org/all/20260122092852.887624-1-swati.agarwal@oss.qualcomm.com/
+
+Link to v4:
+https://lore.kernel.org/all/20260120103312.2174727-1-swati.agarwal@oss.qualcomm.com/
+
+Link to v3:
+https://lore.kernel.org/all/20251220063537.3639535-1-swati.agarwal@oss.qualcomm.com/
+
+Link to v2:
+https://lore.kernel.org/all/20251216120749.94007-1-swati.agarwal@oss.qualcomm.com/
+
+Link to v1:
+https://lore.kernel.org/all/20251203-swati-v1-1-250efcb4e6a7@oss.qualcomm.com/
+
+
+Swati Agarwal (2):
+  dt-bindings: usb: Add Genesys Logic GL3590 hub
+  usb: misc: onboard_usb_hub: Add Genesys Logic GL3590 hub support
+
+ .../bindings/usb/genesys,gl850g.yaml           | 18 ++++++++++++++++++
+ drivers/usb/misc/onboard_usb_dev.c             |  1 +
+ drivers/usb/misc/onboard_usb_dev.h             |  8 ++++++++
+ 3 files changed, 27 insertions(+)
 
 -- 
-2.37.1
+2.34.1
 
