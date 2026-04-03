@@ -1,321 +1,276 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010055.outbound.protection.outlook.com [52.101.228.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0B443D564B
-	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 17:45:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775238346; cv=none; b=CpWP3XSHj4k9MhoVylSW0RhPmjqZN1WN3qUrnBEH/TBC+oAE7RZuAnSmnDfIpR8JPf9yFMn8CxPx/tWqMCX3c4uRGo2kZBtx7Heg9UQFxDZeIQgl5B19m7oAxiJyFdPulBXRvbJ4w0G+g+SM+wsCXo6jvHSfmEtgmlKkY9CA8U8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775238346; c=relaxed/simple;
-	bh=793ilWMo0AtuO5x03/HxCDAGDn8y9fcCAsLObzmOWQo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XFUsmNjPvM6WrccTqfQA23fpGtyNSa4wweX07OXG1eQax4WcK/iSUC4INKEjHmi7yDxfmDnL3USx/OgusjvqPkmR6LNPnZMcdKzBgxp+POtKH8DIx9zoc42E5P32YfKk/Yrx4oXFirnckAyob90+JVZ5IvFabiT7bDuXYNmMxV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KFRVUBvZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=d/WuHH5l; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5036F26CE11;
+	Fri,  3 Apr 2026 18:10:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.55
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775239840; cv=fail; b=ZNIumlQnZ+zW25BTsrSLnk94EnsYDKt2+BldvWURbjgv6Ax0uqnAW3q3h7dapO4uU5jL0b2q9kenoFY+jZveVxv1FwGjn88eC0PTSGmwHe5wIX6d7FbwtfCLvMcHNQU6b7riofK+dpTu1SkiaKuJhlBaVreXVWsFx/zmlYFwE8o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775239840; c=relaxed/simple;
+	bh=qzLDLkkWNoo0mOWUf+fxi1J23SDP5k6ng4H81/2ceLM=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=L6rv8ELWRDrelPeVimI2ciIa4a532AkhOILixNj+Q62uqDt2Hm9eZ90VH8mLzqI9L32oGUdzFB5HrF61glO634KPyR3Eo2uaouvSYNAxIcIuL2Hiw6uj+6MBa0XNWZ3CioC3oCFKUF/IxsZBUOXslawNq+9YdhrkfvqPJYmvJmE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=KympewJ7; arc=fail smtp.client-ip=52.101.228.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KFRVUBvZ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="d/WuHH5l"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 633Fkdue2707240
-	for <devicetree@vger.kernel.org>; Fri, 3 Apr 2026 17:45:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	BcRbm4HgwKmiNI6qxpLJK0dsTMaJBwVAMn+5K7yoUOs=; b=KFRVUBvZOe2C0zgk
-	e8tSDQsHTE3yxdNVLr4Csc4+WzEaw/yFbEGpPxRr+o7SdiPO2uIIxWKQCeYai7f1
-	8VOMvMRjoCwtBIUerLOoj9EIwHjuwwSTCOM+n8NEBK9k2LpOXYsnYFEq4UVeHXgo
-	zTddW1L4sMsncNekJEOFJRldvhmP9CZ5P+LmbXbOzdhhL3C4+h55g2JlKYGkLV/D
-	GAMkmb1gg+b5j3buQe28PQ4EOlv1T0oEU6s97UklIjxIouG54erk5HZ22DEMRwpt
-	Jrec8/3gieGPqSQDQx6j5q9oY/aGigao8fza4VtqinJco7GEd5+5YKwuRqfdVzE4
-	EOH/Zw==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d9yfjk9hx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 17:45:43 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-c7424d91b2dso1138560a12.1
-        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 10:45:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775238343; x=1775843143; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=BcRbm4HgwKmiNI6qxpLJK0dsTMaJBwVAMn+5K7yoUOs=;
-        b=d/WuHH5lFxa8ac31yVvkE1mnCTTbt+vrZMSrmCXUiQq566hCa3A4uVvz4SPwS5sQHR
-         7uo2++yErR0dd1xrQk+P+kEF1LWOZSwWaen6qRTFo/5A6KY66qdef+2KUEYnvZiyxfrV
-         9PFQ0sntFFrEWVWDy+Xpess6qbBMoWdJUrbmbsEMwMGH/vmQZEmKjumthP1OiVMy2Khn
-         6OmBhtjSwNrCzL+HbPB2kxXoe2ZVRJOvXbqNweWIqduUXD6ifcAsOc1Dn/ALFmdBwKFA
-         wQ3XLfm6BNDlfJVgIAUHeCo+dH3hUJWP8oBx25Kj/Ugwg0IojjP8h80ebxB7Jp0L0XuF
-         JdOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775238343; x=1775843143;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=BcRbm4HgwKmiNI6qxpLJK0dsTMaJBwVAMn+5K7yoUOs=;
-        b=mjqf8Nq/60rNvvwEj3vrDKX4MiNg6CNkqAiCLPhDV7YjxgM2CpiuH2TMyTprx7lxro
-         s1OkNPJcC10e2nnmuztzY+r9v3WkSba3TeIY0XsDhWjfo1Q+TfgoT2ozG5dTay76m8Gd
-         8NsLdg8VXTKvosaCoYEZH3PcUuZfeQ7ApxdvnJPc7VwU253MnZqJYGH4xgD1H+nMM+OJ
-         Z0Ypkz11xC/Y8qMU+GIiJ8M1TqUhAobFIAd3RkJ+N62QEl2QRsTknHKq+9VheOjbzWdR
-         SZSOM8yPOl2PekRk0kO3O2QSyk5RUgXlDs9vU8f8SE9ygjBQIPjN6xoyTlK6e6m11wO2
-         yqlQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWIXFOJK2egGbagPqjjK2ZwQ5dWKbVYloxBBUCgbFkUZjWtyGEDYMQghbwoAewd03UckoTK73EdiGbo@vger.kernel.org
-X-Gm-Message-State: AOJu0YxN45nY9Z/sJZmIl2aiaFbR5hktI2+r3yFiKgEB0E1d2GI03lDw
-	Fcuil85c4LS3yIxajX8MV2CqSH+e0ZOj4lNByWo+X7ZOoPyhXURN8AOkuZdRwrcMCnat41lhMf0
-	VZ8wxuaphWT7kgnUIiQKzs3xTvIKe62OTXFQz1TOTYcpTTd2Zwptr1VJxpLpTwqn/
-X-Gm-Gg: ATEYQzzTGmwtSLk5zSypdcrBSNzyiATd+UrdJxQkAxl85mQmOUVANBmDwn6vSlfy/j4
-	/pQiLhb/A3NWM6A1dH9RODIBrTnCurWkVC/Be232QDMcHv+sKG2jXLEnYr46TGK/9GT5RfpsPgN
-	2o7KTyjAA/NLuXJxfXrZtI4Rkt6akx96uaH8dHomZuDJPYlq9ZHIqnyaxdK3Fqyrk7u8sE4Zdl9
-	GsXCGn3CHii3y3qDuJzJuyHQ/iGhlYoL9BohJWnVaqokNH8V77hqRZQQHOFzzXU9iBH1J0hAjD6
-	vGF3x0oJlTqxId6tHls03vyHZjEtXD0C8LcMSgr/M6xESGTatcb3+MGV0xDKljwJj0qFqu4oDu9
-	/2H8idVNU9Y06h/ZLq0/KyGSuL/tcJiaBDIVbMbcQXUbetjJTs+tk31cj
-X-Received: by 2002:a05:6a21:9995:b0:39c:4ca1:345b with SMTP id adf61e73a8af0-39f2efadfc1mr3753192637.38.1775238342824;
-        Fri, 03 Apr 2026 10:45:42 -0700 (PDT)
-X-Received: by 2002:a05:6a21:9995:b0:39c:4ca1:345b with SMTP id adf61e73a8af0-39f2efadfc1mr3753157637.38.1775238342245;
-        Fri, 03 Apr 2026 10:45:42 -0700 (PDT)
-Received: from [192.168.29.31] ([49.43.227.38])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c76c6563597sm6988128a12.16.2026.04.03.10.45.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 03 Apr 2026 10:45:41 -0700 (PDT)
-Message-ID: <547c006b-231c-430c-a69e-f80334c4f81f@oss.qualcomm.com>
-Date: Fri, 3 Apr 2026 23:15:32 +0530
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="KympewJ7"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DwV3kVw8jGa6L5BmOyairIw4b/y/HvTUL6LPMfB8elnlzgi3HqLbmyyfl+WNwsuwdKwuY11CSDi3gj5tgarxIri0WwEJKAveweyIQn5PRBo9TXmQ0v/xhpkWuJvhNM8SIxzM9atpe3TmvuNwMl7drOIrCn7IAXSOSUg3UlDwJhM33LTWU/FtyO9eHMaaVCSk54HSxIrQFpQQTlxp83mDgV9JkfPzeDtuU46atE3fWdCOOcYy4vv8LVH9a5SKItCGHNoH7TJaemt3Iav49QCqYsBP/YvcmPvDiL2zkzHR4UxVtZyI5BNpdVSzly4ESW+yWhg+t9MMF8dbaHxhchEJYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lWf2i1WgyVCcte8rJspsUOe5qskOVXKl32j1sGim7wY=;
+ b=nzml30khxo7f32H6LB2cLV5vPSu+4PEk16qY2MNPZeZ5h6X5174c1l1eXb+PaOO8/McBdEeUcTwYFWRPSKZ3lP8QNPDLBRMLheDRxJXhaU0sp4XGvxorD0XRJnh/1YuS6sa3X+g/MdFTtYf8Acsj3Us8Pi0iOBMI/vLl+ZeN4YDrI2HevYiq7M7/LDRT+Ra8ySKCf5a5h7hWQt3abzON5Vi3yPfy9o59PqkpoSCabvD28kSuFv2/WoUMZ4ytgOfoe2Cyzq7mLi1q1JaGA6L4mzZAfB+XoLGVasHOTR8IUUUz3m+7R+/MtG/sAeAoswcXEC4TRoK0LYo4rOUs4T4duw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lWf2i1WgyVCcte8rJspsUOe5qskOVXKl32j1sGim7wY=;
+ b=KympewJ7/h0unM19LpbN0IqOXR6VG+opKCsm5V0sHz3M9ql9UMUxtA+56Z/yEsTkt6wu2pRlRbO3N1Ihcc7H7hoCVeiV0UtyhCvZ5i+kd3gEQGa8u8qtYTG2Qp6tHLe+F+hfWtnazYJwFoTMYegk9U7UFvLyEMl1PM1kjvQf9k0=
+Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com (2603:1096:405:35b::6)
+ by TY3PR01MB10093.jpnprd01.prod.outlook.com (2603:1096:400:1dd::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.21; Fri, 3 Apr
+ 2026 18:10:35 +0000
+Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com
+ ([fe80::f373:26d6:86c4:6aa3]) by TY6PR01MB17377.jpnprd01.prod.outlook.com
+ ([fe80::f373:26d6:86c4:6aa3%4]) with mapi id 15.20.9769.016; Fri, 3 Apr 2026
+ 18:10:35 +0000
+From: John Madieu <john.madieu.xa@bp.renesas.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+CC: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, magnus.damm
+	<magnus.damm@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+	Claudiu.Beznea <claudiu.beznea@tuxon.dev>, Biju Das
+	<biju.das.jz@bp.renesas.com>, "john.madieu@gmail.com"
+	<john.madieu@gmail.com>, "linux-sound@vger.kernel.org"
+	<linux-sound@vger.kernel.org>, "linux-renesas-soc@vger.kernel.org"
+	<linux-renesas-soc@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCh v3 06/14] ASoC: rsnd: Add RZ/G3E DMA address calculation
+ support
+Thread-Topic: [PATCh v3 06/14] ASoC: rsnd: Add RZ/G3E DMA address calculation
+ support
+Thread-Index: AQHcwr1cRuCrrqNToE+47UWUvnzZFbXMh2YAgAEcplA=
+Date: Fri, 3 Apr 2026 18:10:35 +0000
+Message-ID:
+ <TY6PR01MB17377A19DC4E26C44794D6A99FF5EA@TY6PR01MB17377.jpnprd01.prod.outlook.com>
+References: <20260402162436.12059-1-john.madieu.xa@bp.renesas.com>
+	<20260402162436.12059-7-john.madieu.xa@bp.renesas.com>
+ <87mrzkg89l.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87mrzkg89l.wl-kuninori.morimoto.gx@renesas.com>
+Accept-Language: en-US, en-GB
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY6PR01MB17377:EE_|TY3PR01MB10093:EE_
+x-ms-office365-filtering-correlation-id: 220ca181-1726-423a-3fc2-08de91ac4d98
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|7416014|1800799024|376014|38070700021|18002099003|22082099003|56012099003;
+x-microsoft-antispam-message-info:
+ gAKq6D5GhBL0GVG6fmAtQvTwi5wOq2ovdLmEvIVyPbhnY0DIG17+ChYq+d0qM0VbAhxgObMW1w2n+p0KQKH6hyzyQmbmd9YVqQ/tF0pMuZ3/FUKHJvXS2+pUSbEA1n18ZrRkJSCn+/OnyEIFOc1J4eWvI/rAK5uMI8Dk0WNQDuv3XglVnXadR3KG7EnrpJW4UsdEHeA7BD8W4y6wXq2h3XBK8+Gi3YeK8kaR+70jmbij3UQelQP+h+sRUruygm5f5cg4z318A8foxgH4uyeHYQcGtzfwzN3UQ7QFdWCFOEwVglTGm+XDpoR3my3Ws24dVcxIHMvRoeKFX9n6BgpvAtYaqERnAr3+dkKB9TkABvH9dMQII4sc9tc96XapIFNcsur8F/y49ZMnb/JHI7JC/nfiRzMgvv5UNwuuJJ8g2oeiVEPymNTH9KbeKFMeQBlJixpab5kDEmhm8gul6JmrnC+1mn8LEjARtGxFfBb/u4u9KfdBUwX9yB7vs7gk5lBn079aBrxCcSEJyGZYNED+JU7GKycFLmBD/CxFUzUYZvIlRKXmRZVD5pvuNXOPucz2EB6xlRpkLgtmGeb14RaxxKCRtE8z8gSg2sjy4J5TTGvSji5vQhSkjWUna0JsDCRNQXj76V1BCtBL3X9YuZx3KHDP2b3mCa6t11zfL5tdj7uw3qOgRWtg1+nYsmHH7qLE3chh4FabSLe2JVjQIIidpDXqOCcPZ55Sd/5P0edv8gbS9ETdIWm45bJIOd4sRinxuqkMl36SBxpzfIG8HomVb3TKCdhuhTZ4en62ViJJoi0=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY6PR01MB17377.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(1800799024)(376014)(38070700021)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?+aOObm+uF8A5arS+HeRzPLKmmcCEujFdrYLMfXIrQIvLlsj+X05pIhfsizXe?=
+ =?us-ascii?Q?+H8Bf5sJ90NZ501RXaufLG1YBZfq1qGRMwbVnENYeRvdpkz+J2kuHJdg+xCm?=
+ =?us-ascii?Q?PoDCtRozMKTEaBKoZAs7KcqwrCeFMHr8OD624YvejTpT146iA5+xjVRARmPz?=
+ =?us-ascii?Q?EiJdEMCDq/Zb5rSkn0p6AesUnct5lE6HibVuJ1SgiFBgF8gceye+ECQVhVBF?=
+ =?us-ascii?Q?udpwnTOtC5A7fIUrCPa/JVDLUrfiATqPu9tWQOTT96ZAxZIQhQujxraN7F0Z?=
+ =?us-ascii?Q?ye+MIG7vc5cg9vzAHUJNrTvkZhpgFQNrRsS8wRa3MR9WZB8TzRQ/wBkbF45K?=
+ =?us-ascii?Q?uIwD/yWbW2PuDd9eJmm0m0hALmq1IglyKnGQdWEAccR3AL+aNUE7d1qdJ+FE?=
+ =?us-ascii?Q?CUCxe9nDRlJsuzFf8rP4u9NAAQ7ohGDfy+ianggA3EFUBM7966+Ycp2oa1q8?=
+ =?us-ascii?Q?JQV/X5Kf6F7b8m9RLecFiY4tJT2cGzLunt4nNX9d5ASKhiLGku1RxQfvxmbu?=
+ =?us-ascii?Q?NVZOZZOEWVGHC2jbAKJKHJEOKO33/UPIqmdxbNoPuu4AmjrlX35x84u3o5vz?=
+ =?us-ascii?Q?FWwJu0oghGeAoyju8hFwXFPt2N0e1Q7XTJME+7e6UcV2PI0sPcc/8X90mT56?=
+ =?us-ascii?Q?mlotm+O3lXVKR5mhDr20yX1k6Dk6UyAshyTty+KAY37p8kHAWImqET+2VWnB?=
+ =?us-ascii?Q?LY66wURGkytaijbgv+owaslkZsULm3VplYs3x2u4098sZ0yTAbsbb6lWWKXL?=
+ =?us-ascii?Q?qRqcoWj9vngxZCN0KzMpbpDQ/aYirnKjRIMDA49UGIDr4ALOQ6IoyR30ON1A?=
+ =?us-ascii?Q?rbUUmef6ktRCKWhGuhJjvtQTFFWZkEOjMoJgFLOeM/WUov1suAZmCizne4hi?=
+ =?us-ascii?Q?Hxb8obZC792QPCziqDLJ1lungB6f76Spk68PAES02pbaoljE4MyYu5ei9NHi?=
+ =?us-ascii?Q?0b4ZN1eDklVWptohyrt7xeE3SP6azoroExSg5aJQRAWtpzgHB+rYXTopBZjs?=
+ =?us-ascii?Q?JKjaPCU0ckYg4b3u3FlxpmgyXO3oI1354ZBFKLwUx04jHiUWBPfbt8BxRe/w?=
+ =?us-ascii?Q?ZUe+Z3RrWk45RPKYLqU9EUibuvCPU1WhjfVQWRnlXImPu0LZrpNa4aB1SLgC?=
+ =?us-ascii?Q?mMjdjAXhxFFrSh1c7HTZjcWnfRAygCXpega6+YB7axrxYf+rY7WD0yrpKV1O?=
+ =?us-ascii?Q?lb+YWR43K+StbncdqocjP83uvRxUXOXi7VQk9be86LxqB5l3SnJNCZWQ3acD?=
+ =?us-ascii?Q?/kPpL6Yf6xxt5y05lIGXa4cVG1B7gw9TUapKQNb3wh7m8/MF3iVJMgdVKh6a?=
+ =?us-ascii?Q?qgzH3CG/Vg2NDIz6KYkx/5yQ8fqiHn8d1AtsoZFMlAP4gMilnrzhCzlXUSGr?=
+ =?us-ascii?Q?A5rA4bC1I1GO9SpVWqSHv47w4urFk2w9YjPcDT0icik67TGBy4b3klW5RS3D?=
+ =?us-ascii?Q?7yGtOIqpcNvjP2Gw34QvjwXmi7p0w/kkIY/zCYC9a5Y0wn90EYiiNnzQwdpd?=
+ =?us-ascii?Q?eBE5AYdBNxRLfOs1SsO1U55cSr0beGHukHpQ9IZqpiLaS7oJSnlZynkPH2Nu?=
+ =?us-ascii?Q?5CTcgm+Hk8r6q1gyMkrGHgwuSXefFpu85abPDjZLHA5TZP6zrjrruU0eAMTq?=
+ =?us-ascii?Q?Dnlgwzz0I/Bi1W25kGTZuSSs+a3ZpBd/1etySIZnS9ICRACwYJ4mkwtXbrIG?=
+ =?us-ascii?Q?n9yCe94fNUs0/EwlQKuTuLsHeAVNyuMEQzkJClwC7WrjU2O8PEr4Ot0GyVha?=
+ =?us-ascii?Q?3FlOeAZcNwG0TRuOXqmExmqvxFQ2xvs=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v20 06/10] power: reset: Add psci-reboot-mode driver
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, Bjorn Andersson <andersson@kernel.org>,
-        Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
-        Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Andy Yan
- <andy.yan@rock-chips.com>,
-        Matthias Brugger <matthias.bgg@gmail.com>,
-        Mark Rutland <mark.rutland@arm.com>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        John Stultz
- <john.stultz@linaro.org>,
-        Moritz Fischer <moritz.fischer@ettus.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Sudeep Holla
- <sudeep.holla@kernel.org>,
-        Florian Fainelli <florian.fainelli@broadcom.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-        Andre Draszik <andre.draszik@linaro.org>,
-        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
-        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, Srinivas Kandagatla <srini@kernel.org>
-References: <20260304-arm-psci-system_reset2-vendor-reboots-v20-0-cf7d346b8372@oss.qualcomm.com>
- <20260304-arm-psci-system_reset2-vendor-reboots-v20-6-cf7d346b8372@oss.qualcomm.com>
- <acaMPgRALnoUIHMC@lpieralisi>
- <93a78bc2-4fd1-41bd-bf4a-b433b06fc218@oss.qualcomm.com>
- <ac0trUGsRBLPS+ux@lpieralisi>
- <da6f4566-a719-409b-80a9-40ca89e3e721@oss.qualcomm.com>
- <ac/hru3IIiU0+Lp9@lpieralisi>
-Content-Language: en-US
-From: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-In-Reply-To: <ac/hru3IIiU0+Lp9@lpieralisi>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: o1P_nsoSNmwaTLbxgN5l7AeMbS5_1Vcz
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAzMDE1OCBTYWx0ZWRfX4WN+U0ubPY9O
- 38zXmURWY4wdM7SuCQ2q7dmTgjB50iRmj3AvLWvJjiPbKJKM3bDXeBRusgyuiPT041/densjxez
- 5OCYOI0Z17Mp6DKgUf8/YtGooT+Q14mkDhD4KUe/NgmS+MAkmSfCBiUXDDmfyagSKOx54z4CBHN
- hL0OCXbYUHxyIYa/NDv7RVFIngbY/ZH96BBQ9x4dXij0t+rIhewaAOMQVDRtqsLJI5rBGvk9rZG
- rDTM2rD+O8m1GJj1cjHfFr60dXuYpVS044uf9ed6kb/7wk38NbpjZu1hGKxKkf6lCsb6UbCzQlb
- 0NVQbZuU5BpdLka+wZEy5mKC1Tku8UefDzmQ6fl/Bz8jmQozL65gXg7Qe3wKd0lQ0rOP62ahQQb
- c3aY6KVYDZiEsBIwGw6BL5urIkfAJntO0oroV6OPNd4jN5hGPOfwhBGQC9Tbut+85r5pFJSJveF
- kfLwAhG25FM5K7T/nHw==
-X-Authority-Analysis: v=2.4 cv=OrpCCi/t c=1 sm=1 tr=0 ts=69cffcc7 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=2dos1RgzJhmu1+008kacPQ==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=F0Qtw4M1lXcpx3oWCRwA:9 a=QEXdDO2ut3YA:10 a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-ORIG-GUID: o1P_nsoSNmwaTLbxgN5l7AeMbS5_1Vcz
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-03_05,2026-04-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 adultscore=0 suspectscore=0 phishscore=0
- lowpriorityscore=0 spamscore=0 bulkscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604030158
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY6PR01MB17377.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 220ca181-1726-423a-3fc2-08de91ac4d98
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Apr 2026 18:10:35.5068
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: nE3QQM1tjMKG85ZC5aezYF+nSUnvyZz7lBzltRMJuX3KP7c8gTxY/CVMrBn+65PGk0orN/TPXAs0kycT3jNLMWGhTHTsX7naNPkXMXh9Z7o=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB10093
 
+Hi Kuninori,
 
+Thanks for your review.
 
-On 03-04-2026 21:20, Lorenzo Pieralisi wrote:
-> On Fri, Apr 03, 2026 at 12:05:27AM +0530, Shivendra Pratap wrote:
->>
->>
->> On 01-04-2026 20:07, Lorenzo Pieralisi wrote:
->>> On Tue, Mar 31, 2026 at 11:30:09PM +0530, Shivendra Pratap wrote:
->>>>
->>>>
->>>> On 27-03-2026 19:25, Lorenzo Pieralisi wrote:
->>>>> On Wed, Mar 04, 2026 at 11:33:06PM +0530, Shivendra Pratap wrote:
->>>>>> PSCI supports different types of resets like COLD reset, ARCH WARM
->>
->> [snip..]
->>
->>>>>> + * Predefined reboot-modes are defined as per the values
->>>>>> + * of enum reboot_mode defined in the kernel: reboot.c.
->>>>>> + */
->>>>>> +static struct mode_info psci_resets[] = {
->>>>>> +	{ .mode = "warm", .magic = REBOOT_WARM},
->>>>>> +	{ .mode = "soft", .magic = REBOOT_SOFT},
->>>>>> +	{ .mode = "cold", .magic = REBOOT_COLD},
->>>
->>> These strings match the command userspace issue right ? I think that we
->>> should make them match the corresponding PSCI reset types, the list above
->>> maps command to reboot_mode values and those can belong to any reboot
->>> mode driver to be honest they don't make much sense in a PSCI reboot
->>> mode driver only.
->>>
->>> It is a question for everyone here: would it make sense to make these
->>> predefined resets a set of strings, eg:
->>>
->>> psci-system-reset
->>> psci-system-reset2-arch-warm-reset
->>>
->>> and then vendor resets:
->>>
->>> psci-system-reset2-vendor-reset
->>
->> Can you share bit more details on this? We are already defining the string
->> from userspace in the struct - eg: ".mode = "warm".
-> 
-> "warm","soft","cold" are not strictly speaking PSCI concepts and mean nothing
-> well defined to user space and even if they did, they would not belong in
-> the PSCI reboot mode driver but in generic code.
-> 
-> Spelling out what a reset is might help instead, again, this is just my
-> opinion, I don't know how the semantics of resets have been handled thus
-> far.
-> 
-> If userspace issues a LINUX_REBOOT_CMD_RESTART2 with arg, say,
-> "psci-system-reset2-arch-warm-reset" it is pretty clear what it wants
-> to do in PSCI.
+> -----Original Message-----
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> Sent: Friday, April 3, 2026 3:09 AM
+> To: John Madieu <john.madieu.xa@bp.renesas.com>
+> Subject: Re: [PATCh v3 06/14] ASoC: rsnd: Add RZ/G3E DMA address
+> calculation support
+>=20
+>=20
+> Hi John
+>=20
+> Thank you for your patch
+>=20
+> > RZ/G3E has different DMA register base addresses and offset
+> > calculations compared to R-Car platforms.
+> >
+> > Add dedicated rsnd_rzg3e_dma_addr() function with dispatch from
+> > rsnd_dma_addr(), following the existing per-generation pattern.
+> >
+> > Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
+> > ---
+> (snip)
+> > diff --git a/sound/soc/renesas/rcar/dma.c
+> > b/sound/soc/renesas/rcar/dma.c index 0afe4636b005..5b63206361ef 100644
+> > --- a/sound/soc/renesas/rcar/dma.c
+> > +++ b/sound/soc/renesas/rcar/dma.c
+> > @@ -496,7 +496,35 @@ static struct rsnd_mod_ops rsnd_dmapp_ops =3D {
+> >   *	SSIU: 0xec541000 / 0xec100000 / 0xec100000 / 0xec400000 / 0xec40000=
+0
+> >   *	SCU : 0xec500000 / 0xec000000 / 0xec004000 / 0xec300000 / 0xec30400=
+0
+> >   *	CMD : 0xec500000 /            / 0xec008000                0xec30800=
+0
+> > + *
+> > + *	ex) G3E case
+> > + *	      mod        / DMAC in    / DMAC out   / DMAC PP in / DMAC pp
+> out
+> > + *	SSI : 0x13C31000 / 0x13C40000 / 0x13C40000
+> > + *	SSIU: 0x13C31000 / 0x13C40000 / 0x13C40000 / 0xEC400000 / 0xEC40000=
+0
+> > + *	SCU : 0x13C00000 / 0x13C10000 / 0x13C14000 / 0xEC300000 / 0xEC30400=
+0
+> > + *	CMD : 0x13C00000 /            / 0x13C18000                0xEC30800=
+0
+> >   */
+> > +
+> > +/* RZ/G3E DMA address macros */
+> > +#define RDMA_SSI_I_N_G3E(addr, i)	(addr ##_reg + 0x0000F000 +
+> (0x1000 * i))
+> > +#define RDMA_SSI_O_N_G3E(addr, i)	(addr ##_reg + 0x0000F000 +
+> (0x1000 * i))
+> > +
+> > +#define RDMA_SSIU_I_N_G3E(addr, i, j)	(addr ##_reg + 0x0000F000 +
+> (0x1000 * (i)) + (((j) / 4) * 0xA000) + (((j) % 4) * 0x400) - (0x4000 *
+> ((i) / 9) * ((j) / 4)))
+> > +#define RDMA_SSIU_O_N_G3E(addr, i, j)	RDMA_SSIU_I_N_G3E(addr, i, j)
+> > +
+> > +#define RDMA_SSIU_I_P_G3E(addr, i, j)	(addr ##_reg + 0xD87CF000 +
+> (0x1000 * (i)) + (((j) / 4) * 0xA000) + (((j) % 4) * 0x400) - (0x4000 *
+> ((i) / 9) * ((j) / 4)))
+> > +#define RDMA_SSIU_O_P_G3E(addr, i, j)	RDMA_SSIU_I_P_G3E(addr, i, j)
+> > +
+> > +#define RDMA_SRC_I_N_G3E(addr, i)	(addr ##_reg + 0x00010000 +
+> (0x400 * i))
+> > +#define RDMA_SRC_O_N_G3E(addr, i)	(addr ##_reg + 0x00014000 +
+> (0x400 * i))
+> > +
+> > +#define RDMA_SRC_I_P_G3E(addr, i)	(addr ##_reg + 0xD8700000 +
+> (0x400 * i))
+> > +#define RDMA_SRC_O_P_G3E(addr, i)	(addr ##_reg + 0xD8704000 +
+> (0x400 * i))
+> > +
+> > +#define RDMA_CMD_O_N_G3E(addr, i)	(addr ##_reg + 0x00018000 +
+> (0x400 * i))
+> > +#define RDMA_CMD_O_P_G3E(addr, i)	(addr ##_reg + 0xD8708000 +
+> (0x400 * i))
+>=20
+> Please add RZ/G3E info on top of rzg3e_dma_addr()
+>=20
+> > +/* R-Car DMA address macros */
+> >  #define RDMA_SSI_I_N(addr, i)	(addr ##_reg - 0x00300000 + (0x40 * i)
+> + 0x8)
+> >  #define RDMA_SSI_O_N(addr, i)	(addr ##_reg - 0x00300000 + (0x40 * i)
+> + 0xc)
+>=20
+> And R-Car Gen2 info to gen2_dma_addr()
+>=20
+> > +rsnd_dma_addr_lookup(struct rsnd_dai_stream *io,
+> > +		     struct rsnd_mod *mod,
+> > +		     const struct rsnd_dma_addr tbl[3][2][3],
+> > +		     int is_play, int is_from)
+> >  {
+> > -	struct rsnd_priv *priv =3D rsnd_io_to_priv(io);
+> > -	struct device *dev =3D rsnd_priv_to_dev(priv);
+> > -	phys_addr_t ssi_reg =3D rsnd_gen_get_phy_addr(priv, RSND_BASE_SSI);
+> > -	phys_addr_t src_reg =3D rsnd_gen_get_phy_addr(priv, RSND_BASE_SCU);
+> > +	struct device *dev =3D rsnd_priv_to_dev(rsnd_io_to_priv(io));
+>=20
+> Creating lookup() is nice idea.
+> Very nitpick, but do we need to remove priv, and remake dev ?
+>=20
+> > @@ -574,20 +671,10 @@ rsnd_gen2_dma_addr(struct rsnd_dai_stream *io,
+> >  	 * out of calculation rule
+> >  	 */
+> >  	if ((id =3D=3D 9) && (busif >=3D 4))
+> > -		dev_err(dev, "This driver doesn't support SSI%d-%d, so far",
+> > -			id, busif);
+> > -
+> > -	/* it shouldn't happen */
+> > -	if (use_cmd && !use_src)
+> > -		dev_err(dev, "DVC is selected without SRC\n");
+> > -
+> > -	/* use SSIU or SSI ? */
+> > -	if (is_ssi && rsnd_ssi_use_busif(io))
+> > -		is_ssi++;
+> > +		dev_err(rsnd_priv_to_dev(priv),
+> > +			"This driver doesn't support SSI%d-%d, so far", id,
+> busif);
+>=20
+> Very nitpick, but please keep dev on top.
+>=20
 
-ok. got it.
+I'll address your comments in v4, moving each macro on top of the
+appropriate function and keep dev, avoiding remaking it, and also
+pass priv as parameter to rsnd_dma_addr_lookup.
 
-so it predef-modes.
+Regards,
+John
 
-reboot psci-system-reset2-arch-warm-reset =>goes for => ARCH WARM RESET.
-etc..
-
-> 
-> Again, it is a suggestion, comments welcome.
-> 
->> yes we can move away from enum reboot_mode and use custom psci defines one -
->> Ack.
->>
->>>
->>
->> [snip ..]
->>
->>>>>> +
->>>>>> +/*
->>>>>> + * arg1 is reset_type(Low 32 bit of magic).
->>>>>> + * arg2 is cookie(High 32 bit of magic).
->>>>>> + * If reset_type is 0, cookie will be used to decide the reset command.
->>>>>> + */
->>>>>> +static int psci_reboot_mode_write(struct reboot_mode_driver *reboot, u64 magic)
->>>>>> +{
->>>>>> +	u32 reset_type = REBOOT_MODE_ARG1(magic);
->>>>>> +	u32 cookie = REBOOT_MODE_ARG2(magic);
->>>>>> +
->>>>>> +	if (reset_type == 0) {
->>>>>> +		if (cookie == REBOOT_WARM || cookie == REBOOT_SOFT)
->>>>>> +			psci_set_reset_cmd(true, 0, 0);
->>>>>> +		else
->>>>>> +			psci_set_reset_cmd(false, 0, 0);
->>>>>> +	} else {
->>>>>> +		psci_set_reset_cmd(true, reset_type, cookie);
->>>>>> +	}
->>>>>
->>>>> I don't think that psci_set_reset_cmd() has the right interface (and this
->>>>> nested if is too complicated for my taste). All we need to pass is reset-type
->>>>> and cookie (and if the reset is one of the predefined ones, reset-type is 0
->>>>> and cookie is the REBOOT_* cookie).
->>>>>
->>>>> Then the PSCI firmware driver will take the action according to what
->>>>> resets are available.
->>>>>
->>>>> How does it sound ?
->>>>
->>>> So we mean these checks will move to the psci driver? Sorry for re-iterating
->>>> the question.
->>>
->>> Given what I say above, I believe that something we can do is mapping the magic
->>> to an enum like:
->>>
->>> PSCI_SYSTEM_RESET
->>> PSCI_SYSTEM_RESET2_ARCH_SYSTEM_WARM_RESET
->>> PSCI_SYSTEM_RESET2_VENDOR_RESET
->>>
->>> and can add a probe function into PSCI driver similar to psci_has_osi_support() but
->>> to probe for SYSTEM_RESET2 and initialize the predefined strings accordingly,
->>> depending on its presence.
->>
->> Not able to get it cleanly.
->>
->> 1. Will move away from reboot_mode enum for pre-defined modes and define new
->> enum defining these modes- fine.
->> 2. get SYSTEM_RESET2 is supported from psci exported function -- fine, but
->> how we use it here now, as we do not want to send the reset_cmd from
->> psci_set_reset_cmd now?
-> 
-> You do keep psci_set_reset_cmd() but all it is used for is setting a struct
-> shared with the PSCI driver where you initialize the enum above, possibly
-> with a cookie if it is a vendor reset.
-> 
->> 3. For pre-defined modes, warm/soft or cold - reset_type and cookie, both
->> are zero, sys_reset2 or sys_reset2 decides the ARCH reset vs cold reset.
->> 4. For vendor-rest , we use sys_reset2 with reset_type and cookie.
-> 
-> Yes.
-
-Ack.
-
-
->> All above is done in reboot_notifier call at psci-reboot-mode.
->> --
->>
->> Now in the final restart_notifier->psci_sys_reset --
->>
->> If panic is in progress, we do not use any of the cmd based reset params and
->> go with the legacy reset. So we need to preserve the values that were set
->> from psci-reboot-mode.
->>
->> Did not understand the proposed suggestion in above usecase. Need more input
->> on this.
-> 
-> I explained above. The reboot mode driver sets the command to carry out
-> depending on the string coming from user space and whether PSCI supports
-> SYSTEM_RESET2 or not.
-
-got it. working on it. thanks.
-
-
->> --
->>
->> One other option is to have a restart_notifier in psci-reboot-mode, with
->> lesser priority than psci_sys_rest and then handle all the case including
->> panic and sys_reset2.
-> 
-> No.
-
-Ack.
-
-thanks,
-Shivendra
+>=20
+> Thank you for your help !!
+>=20
+> Best regards
+> ---
+> Kuninori Morimoto
