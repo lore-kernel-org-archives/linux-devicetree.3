@@ -1,64 +1,75 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB32B280A51;
-	Fri,  3 Apr 2026 15:50:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B7AE3ACA65
+	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 16:09:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775231415; cv=none; b=QkWXfzpNpBCZsLuWbVACeJFJZLKeDO35nrXsZaBp3Ac0sX0BvcuCdDGgm7YYk6kBvR3XJncIjVayBv3x7S2qOlFN56s26P7w5LdgnBAMVPgezjx9oIwbopcZT1goIRxWo8jh4Nezz/yaHJZRdaG0nFwWo+23AhspdKFFff/TtuY=
+	t=1775232554; cv=none; b=JWdQBL39LIHFDmkmQaphuOeE2GqJtOO/sjHrsXc1pypdDLrg4TSiY1p+n6JzozJiYHHyl7hvyIRdcg3VxXFqlkGVGhfMwG+tfDCnsWkuUvkg5gly0RMTlviE7zGBFMtJWt/1wfKK2Aeg2kUOLqWZmlU7MksHSu+ReNdZSBUuPxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775231415; c=relaxed/simple;
-	bh=prDkm53R9Cx3R2od50UsMKn7PCFX4EJS2fF/vGLBeYU=;
+	s=arc-20240116; t=1775232554; c=relaxed/simple;
+	bh=CghEAyURPKNDWNh1KF3hIuxOiGfdcuCeOXvU4p4PtB8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QEMpH+aXEB/zsje/yqMmwiIqQst/BTlWK/ZzYyj3oFPGw1yaZvwuqwHZGIcZ+4OoW8xp2Tb5KyNDR4szpubx8HaCGESiMirGJ2FfFNEQCdLpjivia7glUFuR/u5KFddxVSrZ3u5dYDkFQiOQ1JDCz7mcddvAZm4VQB05W/Ls00U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e5GZrzyd; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=QfLw0Xzy73dhSpLC/IPRv5d8YoMp/7gptGpXyZuJ/5qtn4AjZyyG4CGvNxpD2cEHSCMWOtQzanLiH9MsExANURtLdBH5Un+RA3Qrv64R56wKa9zf+re+nwu4T20SKBcB2hDKA5LvXeOxdxdFRtKfHS4cqKmzUHfvwCYyUNJAOSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=L97T2VHG; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e5GZrzyd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D5ACC4CEF7;
-	Fri,  3 Apr 2026 15:50:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775231415;
-	bh=prDkm53R9Cx3R2od50UsMKn7PCFX4EJS2fF/vGLBeYU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=e5GZrzydQ2eNeHFUBs9hO1fUN+M1I8zyAlUGnlyzZGlI8bmoj9tvyC9z2wahuOdQ5
-	 LXXGDAmcQAlHqZUETS8/fFbv54dKFLy3/k9ZNFt21WfWTtsp4Ra500/Z5Syi0vUr/z
-	 rPw3ckbhNW0C8/WtfFCND8YxyvTtgarI7GCHgPMwYS4qcjsPNz5Ju5OA/e2G8nScau
-	 V/l3tkNRyj3mAq1yc/hhlQKYkPKFTr8N2gmfO1H6sf09bUz6DMGAEUbbnXNun1w88e
-	 OdOXkB3nNsLjjdeAnCG4pJGmh6673d7Fd3Q0Y9feSbMVZe8LXj6reXhdH8xKg5tH8h
-	 Oy2mPR9IEGiYg==
-Date: Fri, 3 Apr 2026 17:50:06 +0200
-From: Lorenzo Pieralisi <lpieralisi@kernel.org>
-To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, Bjorn Andersson <andersson@kernel.org>,
-	Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
-	Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Andy Yan <andy.yan@rock-chips.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Mark Rutland <mark.rutland@arm.com>,
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="L97T2VHG"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 64AF0C59F65;
+	Fri,  3 Apr 2026 16:09:43 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 60FDA603C1;
+	Fri,  3 Apr 2026 16:09:11 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BEC96104500F6;
+	Fri,  3 Apr 2026 18:09:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1775232549; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=AzjEQefN6xPDjXEYIiHo2SUJdWU1/vP2x5cFXraZjkk=;
+	b=L97T2VHGtwNjfPaEhWyiSnZG6k7C48S4htZ3xdXMja4I35x1Vha2dpAMX0WNGYblzxbrUv
+	w/aoNXMJkcAGsxHBGwMvC3v4AK9Us0ZAofbj1Jge/XAkKyW2WBLtAg7c7meeTov3m/kL37
+	0CrL3m46nLSt5nrUBSgCoKk3+eRsC35eLXnauDPjPd+NzRjQe8faib+rb+JcFj482nTsHb
+	3XncxjjRBpnDjNtz4yAKJu6tsmqEtJkodT5r8GkMTLIdOt2ARjdq1uvll/xIID23MOSaNo
+	KuHxucXkddWY+UP1yY+7J186BSJZy4E1fhoGtY3cQDGv+ydRID09gV/+YIKJFA==
+Date: Fri, 3 Apr 2026 18:09:00 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	John Stultz <john.stultz@linaro.org>,
-	Moritz Fischer <moritz.fischer@ettus.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Ulf Hansson <ulf.hansson@linaro.org>,
 	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Saenz Julienne <nsaenz@kernel.org>, Lee Jones <lee@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Shree Ramamoorthy <s-ramamoorthy@ti.com>,
+	Jerome Neanne <jerome.neanne@baylibre.com>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Dmitry Osipenko <digetx@gmail.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Joseph Chen <chenjh@rock-chips.com>,
+	Chris Zhong <zyw@rock-chips.com>,
+	Zhang Qing <zhangqing@rock-chips.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Jonathan =?iso-8859-1?Q?Neusch=E4fer?= <j.neuschaefer@gmx.net>,
+	Lubomir Rintel <lkundrak@v3.sk>, Julien Panis <jpanis@baylibre.com>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	Alexander Kurz <akurz@blala.de>,
 	Krzysztof Kozlowski <krzk@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-	Andre Draszik <andre.draszik@linaro.org>,
-	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, Srinivas Kandagatla <srini@kernel.org>
-Subject: Re: [PATCH v20 06/10] power: reset: Add psci-reboot-mode driver
-Message-ID: <ac/hru3IIiU0+Lp9@lpieralisi>
-References: <20260304-arm-psci-system_reset2-vendor-reboots-v20-0-cf7d346b8372@oss.qualcomm.com>
- <20260304-arm-psci-system_reset2-vendor-reboots-v20-6-cf7d346b8372@oss.qualcomm.com>
- <acaMPgRALnoUIHMC@lpieralisi>
- <93a78bc2-4fd1-41bd-bf4a-b433b06fc218@oss.qualcomm.com>
- <ac0trUGsRBLPS+ux@lpieralisi>
- <da6f4566-a719-409b-80a9-40ca89e3e721@oss.qualcomm.com>
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	"Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
+Subject: Re: (subset) [PATCH 05/15] dt-bindings: rtc: ingenic,rtc: Use
+ generic power-controller schema
+Message-ID: <177523251875.1559844.9690289848283345069.b4-ty@b4>
+References: <20260316-power-controller-v1-5-92c80e5e1744@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -67,154 +78,22 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <da6f4566-a719-409b-80a9-40ca89e3e721@oss.qualcomm.com>
+In-Reply-To: <20260316-power-controller-v1-5-92c80e5e1744@nxp.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Apr 03, 2026 at 12:05:27AM +0530, Shivendra Pratap wrote:
-> 
-> 
-> On 01-04-2026 20:07, Lorenzo Pieralisi wrote:
-> > On Tue, Mar 31, 2026 at 11:30:09PM +0530, Shivendra Pratap wrote:
-> > > 
-> > > 
-> > > On 27-03-2026 19:25, Lorenzo Pieralisi wrote:
-> > > > On Wed, Mar 04, 2026 at 11:33:06PM +0530, Shivendra Pratap wrote:
-> > > > > PSCI supports different types of resets like COLD reset, ARCH WARM
-> 
-> [snip..]
-> 
-> > > > > + * Predefined reboot-modes are defined as per the values
-> > > > > + * of enum reboot_mode defined in the kernel: reboot.c.
-> > > > > + */
-> > > > > +static struct mode_info psci_resets[] = {
-> > > > > +	{ .mode = "warm", .magic = REBOOT_WARM},
-> > > > > +	{ .mode = "soft", .magic = REBOOT_SOFT},
-> > > > > +	{ .mode = "cold", .magic = REBOOT_COLD},
-> > 
-> > These strings match the command userspace issue right ? I think that we
-> > should make them match the corresponding PSCI reset types, the list above
-> > maps command to reboot_mode values and those can belong to any reboot
-> > mode driver to be honest they don't make much sense in a PSCI reboot
-> > mode driver only.
-> > 
-> > It is a question for everyone here: would it make sense to make these
-> > predefined resets a set of strings, eg:
-> > 
-> > psci-system-reset
-> > psci-system-reset2-arch-warm-reset
-> > 
-> > and then vendor resets:
-> > 
-> > psci-system-reset2-vendor-reset
-> 
-> Can you share bit more details on this? We are already defining the string
-> from userspace in the struct - eg: ".mode = "warm".
+On Mon, 16 Mar 2026 22:47:40 +0800, Peng Fan (OSS) wrote:
+> Convert the binding to use the generic power-controller schema instead by
+> referencing power-controller.yaml and removing the local
+> `system-power-controller` property definition.
 
-"warm","soft","cold" are not strictly speaking PSCI concepts and mean nothing
-well defined to user space and even if they did, they would not belong in
-the PSCI reboot mode driver but in generic code.
+Applied, thanks!
 
-Spelling out what a reset is might help instead, again, this is just my
-opinion, I don't know how the semantics of resets have been handled thus
-far.
+[05/15] dt-bindings: rtc: ingenic,rtc: Use generic power-controller schema
+        https://git.kernel.org/abelloni/c/0452290110cc
 
-If userspace issues a LINUX_REBOOT_CMD_RESTART2 with arg, say,
-"psci-system-reset2-arch-warm-reset" it is pretty clear what it wants
-to do in PSCI.
+Best regards,
 
-Again, it is a suggestion, comments welcome.
-
-> yes we can move away from enum reboot_mode and use custom psci defines one -
-> Ack.
-> 
-> > 
-> 
-> [snip ..]
-> 
-> > > > > +
-> > > > > +/*
-> > > > > + * arg1 is reset_type(Low 32 bit of magic).
-> > > > > + * arg2 is cookie(High 32 bit of magic).
-> > > > > + * If reset_type is 0, cookie will be used to decide the reset command.
-> > > > > + */
-> > > > > +static int psci_reboot_mode_write(struct reboot_mode_driver *reboot, u64 magic)
-> > > > > +{
-> > > > > +	u32 reset_type = REBOOT_MODE_ARG1(magic);
-> > > > > +	u32 cookie = REBOOT_MODE_ARG2(magic);
-> > > > > +
-> > > > > +	if (reset_type == 0) {
-> > > > > +		if (cookie == REBOOT_WARM || cookie == REBOOT_SOFT)
-> > > > > +			psci_set_reset_cmd(true, 0, 0);
-> > > > > +		else
-> > > > > +			psci_set_reset_cmd(false, 0, 0);
-> > > > > +	} else {
-> > > > > +		psci_set_reset_cmd(true, reset_type, cookie);
-> > > > > +	}
-> > > > 
-> > > > I don't think that psci_set_reset_cmd() has the right interface (and this
-> > > > nested if is too complicated for my taste). All we need to pass is reset-type
-> > > > and cookie (and if the reset is one of the predefined ones, reset-type is 0
-> > > > and cookie is the REBOOT_* cookie).
-> > > > 
-> > > > Then the PSCI firmware driver will take the action according to what
-> > > > resets are available.
-> > > > 
-> > > > How does it sound ?
-> > > 
-> > > So we mean these checks will move to the psci driver? Sorry for re-iterating
-> > > the question.
-> > 
-> > Given what I say above, I believe that something we can do is mapping the magic
-> > to an enum like:
-> > 
-> > PSCI_SYSTEM_RESET
-> > PSCI_SYSTEM_RESET2_ARCH_SYSTEM_WARM_RESET
-> > PSCI_SYSTEM_RESET2_VENDOR_RESET
-> > 
-> > and can add a probe function into PSCI driver similar to psci_has_osi_support() but
-> > to probe for SYSTEM_RESET2 and initialize the predefined strings accordingly,
-> > depending on its presence.
-> 
-> Not able to get it cleanly.
-> 
-> 1. Will move away from reboot_mode enum for pre-defined modes and define new
-> enum defining these modes- fine.
-> 2. get SYSTEM_RESET2 is supported from psci exported function -- fine, but
-> how we use it here now, as we do not want to send the reset_cmd from
-> psci_set_reset_cmd now?
-
-You do keep psci_set_reset_cmd() but all it is used for is setting a struct
-shared with the PSCI driver where you initialize the enum above, possibly
-with a cookie if it is a vendor reset.
-
-> 3. For pre-defined modes, warm/soft or cold - reset_type and cookie, both
-> are zero, sys_reset2 or sys_reset2 decides the ARCH reset vs cold reset.
-> 4. For vendor-rest , we use sys_reset2 with reset_type and cookie.
-
-Yes.
-
-> All above is done in reboot_notifier call at psci-reboot-mode.
-> --
-> 
-> Now in the final restart_notifier->psci_sys_reset --
-> 
-> If panic is in progress, we do not use any of the cmd based reset params and
-> go with the legacy reset. So we need to preserve the values that were set
-> from psci-reboot-mode.
-> 
-> Did not understand the proposed suggestion in above usecase. Need more input
-> on this.
-
-I explained above. The reboot mode driver sets the command to carry out
-depending on the string coming from user space and whether PSCI supports
-SYSTEM_RESET2 or not.
-
-> --
-> 
-> One other option is to have a restart_notifier in psci-reboot-mode, with
-> lesser priority than psci_sys_rest and then handle all the case including
-> panic and sys_reset2.
-
-No.
-
-Thanks,
-Lorenzo
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
