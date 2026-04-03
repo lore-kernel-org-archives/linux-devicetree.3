@@ -1,87 +1,64 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 253583793B1
-	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 14:40:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44A8433C19E
+	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 14:42:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775227260; cv=none; b=rY9IE+x8S+mKUB1ZkNX1Cqxk5P+5UrkR+Hof8HsyR6IryXGa8gupHczchQc6Qur03I1XIP/AXw+/MWHzjT/TXGqqqvy0bHOzyYAxmYdQunYxJS8ntqSJwkfTUCacLkFxR1fcTgXiiOjU4lIInRyOm/QHLz0KsVeiQQoPScRxPG0=
+	t=1775227333; cv=none; b=aX33K8/z98VgsxpS2cHjLKmiq9YQKhZLnYuS4g6P0lanuXP1QjMPG/qCR+aDZvH0Zl66AN4w6TesLEOZ4Ukad/H0RGlNdO9+/gCFslQo8TbDtTvsUalfk9SNXQsneAliatLziO7v0TLTG0QI4y8/cck062V4aajG7rNpXWUwVDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775227260; c=relaxed/simple;
-	bh=hqDimrSMzepFthCtzmR0fJb6vVYY2mFGikCgt7E7+tM=;
+	s=arc-20240116; t=1775227333; c=relaxed/simple;
+	bh=3vVkIcNYIIdq5Dkb4dWOz1OUuravUKeK17twdeeJ21g=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u0Y62Fzomuruojh8dFZhprnj64jKFBuqkyuSNSRsK5Ww4vuQjr0/kAEq8GakuRcJ5Wo96D7vc30FPVIZ0K4zWp8kz0VLiBKzbuWviI25UPMBqozHKqwHhp6IM0Z5q9Q0CYzkCWcHLfooCGQLL1N2N0a1n/q3HlAWhS9e5lqJEGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dN9Z3Axb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=d0lFZFjh; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=AAuQfZRupKPA1iZptbmFpSQXEsmT44rbjYbzmpbQQqwA3zJJSVtpDA5d5JMeKKyP6oHGHIvHEwWPaek2c1QgSQzFqyzX+uTijhE5uyoWu14YDo1LtBjsoAtP8mGZNNUAtLBXfS/CNO8Mr2UcpC/sTAXIuHndDDR14tvApNhu0fg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smile.fr; spf=pass smtp.mailfrom=smile.fr; dkim=pass (1024-bit key) header.d=smile.fr header.i=@smile.fr header.b=OrdMA92W; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smile.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smile.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dN9Z3Axb";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="d0lFZFjh"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63373qvj3449814
-	for <devicetree@vger.kernel.org>; Fri, 3 Apr 2026 14:40:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	fkEap+7cVRiLD3H7Kd8AKQiASxfaidJM15fB8m3Xao8=; b=dN9Z3Axb9sGFmQtw
-	rf+NadN5/VRs/kJn8urz3yGOUOUhudfMs5jkbsE1clbjQSRHMm3PpSy37bPqUgc1
-	MzV6Y5mzGG0mBEfQDwLJW3DF79M9nsdKcEoNnlU03gkF5ky5Zg5YnZGgoHPtDtV6
-	mXt1CgaSZbRcmUq4E6/DawKrOwX6o6rFaKcxzCHLI/CsvIj0CfIRbZtPbjMg92lp
-	eIg2AUiNfzptKPjtj7pqEdOQ+FAaK3SGcxNwR9pJZFxkapkvY2w9hyxqKlJOg8P7
-	nvDuOX/1jtr44icwP4p5XKCCpYB7qnDm5d9jXnyXaEWLDYAQCTDFIr+LZSJgh3wk
-	doRHwA==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4da8u598x8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 14:40:57 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50937cf66b5so83409341cf.3
-        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 07:40:57 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=smile.fr header.i=@smile.fr header.b="OrdMA92W"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-48334ee0aeaso18575825e9.1
+        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 07:42:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775227257; x=1775832057; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
+        d=smile.fr; s=google; t=1775227331; x=1775832131; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=fkEap+7cVRiLD3H7Kd8AKQiASxfaidJM15fB8m3Xao8=;
-        b=d0lFZFjhlzNTLUR0l3ouvYQ+JCfHFhyHaidb16CtRjHAhXk50pFfyK5TjQ+fgBaGlm
-         E4b29iRZ9XRWbaD9pS9UKzKpOL8KbAV4bYojNCDmlLtec5xujnT5NvaB99ZkT1ikBeBg
-         PPeTDmXJlhG+HCyCr0VkPUVPgcNGJuK2JoHtS61uwXe4gXiCL2bd89zmmRimnaney6ZJ
-         FZ4hxX4RxkMCF4WHT8z/dtlNxFzNnOW5b4emk8I3556oKrm1jMiXhEa8g1iUt8dp1zhD
-         H9mXS1VcYGDSl5Vl0+dDvvkJokGIqtKaakeSrg9kiD4pgfY3B3tTsfqAdUFZBPEYdGDb
-         CzMA==
+        bh=LWTR6rblr2fx5wm1rQ9MFyWeL459JHJEvbHasb5FYls=;
+        b=OrdMA92Whdc4h/UpXzNfoRN2hywQJKhrLrECsCzJ+ROaAaNAAqizS7imk8S0Kd0bch
+         1qKteftT5zcnYQN/BjsTvgGuWVaNrFpHja3qjbzQIEu5zsMbqCLeXYA58/JREdjO8oW5
+         kVBv1z6V3nbsnj5RurqMUlI3lyyhk6Yvd89hc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775227257; x=1775832057;
-        h=content-transfer-encoding:in-reply-to:from:content-language
+        d=1e100.net; s=20251104; t=1775227331; x=1775832131;
+        h=content-transfer-encoding:in-reply-to:content-language:from
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=fkEap+7cVRiLD3H7Kd8AKQiASxfaidJM15fB8m3Xao8=;
-        b=SU44OpDySwbLcR4oyIsuxKumlwVu7HU/VK1I3u/JKwuOTHItHvt9qlboBro4xVfgNm
-         LSWWnzRVkY7iSJwiSBwjVyWyvUcIuksq4uiLGJlfoOxvDw9c3L57kygQwFXsrRtN+IR8
-         KZk7jQxRRDzM9CcqwEevhvpwMbqmcCitYcXwl0jIQvzNHO0eX+pvyKtPecTYDMvfKprP
-         r3/tqy1HFKulklemEPi46tUHcY0ZhMQomQ2qqA2HRtOQlY8bNJHXjw7S5cvuEJ4bHXB3
-         B417ws/LgzDozRB1N33/nLdns6sW9EOu3pk/Ia9mhuvu5CvISRh0Z+v3h4QRvthTA/t+
-         ng6Q==
-X-Forwarded-Encrypted: i=1; AJvYcCXzHu6MCUfnrilquRTtj8rAP/v/pRA3slJHheNEyb5cXMIYTUbqMEEUMPU8gZ0/fUmoG/aA6yYzQTLk@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzp+dKhHgvI7O14NvgF6RyIqZ1P+EzGnUtUCjwXoZNw/ED+/i7Q
-	Vr8tmS6T6pWM3QOONmYSruihxD3wwvUNQiVX2ScE+RXj9gvnaz2OroShEbKB9iZObEhGUMIZXLL
-	ds1hKmVFLD2jzJJkuTlRnDsaC1a/DfnGU62uYZMqxoSTpiTxIvAH6bHV92QqSU67O
-X-Gm-Gg: ATEYQzwzSlZ7DZiPXVMfeq0SBh6ZXCA3cM8Mnpe5CorHqwMBzg08F4T57q9IgHWry6f
-	/8rS6B8V1o1bnXwRruzAPTXF9mN9CEa9IMpwALRjW9jr6EaWZ0F8oupqvMbvj0eUhfFxV/JceML
-	YUEqjDQr0a7/JtTbsRyGzffcQnV3ijzvxvulMjECLjr8t7eWj34BsfjNWmHo4vLCCujs7zvHMTq
-	EoaMuP85jZmg42CYdu+poNJUFNbqrcvtXZHIwjU4tq5gArpD0Y0tg8j77kEIr9v64XVSFTQqL7r
-	TCAcFL5SAi3U7x+WxuKxv0QaO3hKB8IR0DR/cvAphC3j0shYy3CCymMMjIM6cRKVDrsa9RxaotH
-	2iKQ+P0/9bR974FeAT0/D8ovd+oU4GT+0xKsrCcbTeB2jYwuWrr7mXV6f+iY9zK2NdVstnrZriP
-	xu6Br2kSya
-X-Received: by 2002:a05:622a:986:b0:50b:3c78:de09 with SMTP id d75a77b69052e-50d62a3dd40mr46478411cf.34.1775227257327;
-        Fri, 03 Apr 2026 07:40:57 -0700 (PDT)
-X-Received: by 2002:a05:622a:986:b0:50b:3c78:de09 with SMTP id d75a77b69052e-50d62a3dd40mr46478051cf.34.1775227256925;
-        Fri, 03 Apr 2026 07:40:56 -0700 (PDT)
-Received: from ?IPV6:2a05:6e02:1041:c10:ae20:597c:99b8:d161? ([2a05:6e02:1041:c10:ae20:597c:99b8:d161])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488981de7fesm22558685e9.9.2026.04.03.07.40.55
+        bh=LWTR6rblr2fx5wm1rQ9MFyWeL459JHJEvbHasb5FYls=;
+        b=osNwT4su0nN3JYAKKJm+AJrfAWyk4orbocup1uCCdCKy9WQHjLOkjlCglScXjyZ7ER
+         H+SdafyTFpMcQJ1UeEAd1VXdnpKy3UDIuPyUNUbu6ndvgjbu9wxOUkVFgG3PLjCB+VCO
+         /qx/bYd8QyvKvGLROVaw6QXKjSXLbRCu/KFA79p3cVJaa19JDZ9btY0STSulpBFjx6D4
+         /zlisVqTlyz09B8aRF6xUTlw59MVHp7jr3ytOAnPTI6PMjskSeKe8pyEQ9Tmfv8EMEs/
+         oRrPwN3QIreYQuwyhnnm1tBPVN6dVhbIp+GBL2OFKuoImu+gyvQPsKqLo/hxia0rfHGe
+         OJag==
+X-Forwarded-Encrypted: i=1; AJvYcCXrx/3EMX661KBub1xqAxo24ZnTlomG6bagH25SUgpYgHCkTBkqH7mE9IYWuOdisQnbN8LEJ+LHxK6R@vger.kernel.org
+X-Gm-Message-State: AOJu0YwATD1RMSkgIxCXA7LgQGu9C/gXqVDMzVgZqjpfzi2EiNV+n2FY
+	IYXgpl81LWd/SFSn3RdfzV1FBO5C9bB9jeQNkFcvU3szv5Khkub9q5/J5MKW9iq5xnU=
+X-Gm-Gg: ATEYQzy+TBZEDbE0Jbw8z34yjjGYzn5Mlo1AzvQda4hZE6I5Mov/EgmqPbCp8lGD1wW
+	alw/XjaNRtCWbz/IBWEO4uVTiYRTgoSJuI8+ehKUQ0oN7dGL3O51TMcddNfDIa5oKqMvWuU2p2+
+	m2fuBUtIXWD5sH75pblBtTrxxOJ8xB2Q8OsYeFjoaBU45cshraz7Ur8ckr08kR5MnV/cgqv58+U
+	kq5tmnSqIG6ETiq2luQJpU3B2GPJHT+MYhT83xcHI7dZWhajuTDLXPxQ+4og5LujGH0x/9LeG98
+	sz9G5RwIbof8N4S6/awyHIe40QHvye5mJN6S4jPixLc8L4t9P3Fbh3sDnSuJFQOH8g13JFr9eZo
+	WW0Fj3rBiEjHZeQkHAubhjE5izwmvhdTDqV8qMeEt1w2ZL5y5Vd7WW0dACEa0pyhADbDTHvOv0G
+	Ucq1KPFzhcYthnRON9yuV+M8/+tLxCcWiriSFjAuuqNV8quvC/RWT6FUqtIPhkf65ylk9LDbj5k
+	VLK0d0axxI7GJAKajt0GV+Ebji7Nfi2upPa/HqDZ+Sb3xQcCuB4GJtoWIk5Modlyw==
+X-Received: by 2002:a05:600c:4e14:b0:483:6a8d:b2f9 with SMTP id 5b1f17b1804b1-488996afed9mr53212995e9.5.1775227330527;
+        Fri, 03 Apr 2026 07:42:10 -0700 (PDT)
+Received: from ?IPV6:2a01:cb05:94a2:a200:2ad9:827a:59cb:148a? (2a01cb0594a2a2002ad9827a59cb148a.ipv6.abo.wanadoo.fr. [2a01:cb05:94a2:a200:2ad9:827a:59cb:148a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4889cb46adcsm45021385e9.4.2026.04.03.07.42.09
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 03 Apr 2026 07:40:56 -0700 (PDT)
-Message-ID: <8c548166-af30-4b5b-be2b-15199322d343@oss.qualcomm.com>
-Date: Fri, 3 Apr 2026 16:40:54 +0200
+        Fri, 03 Apr 2026 07:42:10 -0700 (PDT)
+Message-ID: <5725f03b-2750-428f-ae66-5f1a24dd0714@smile.fr>
+Date: Fri, 3 Apr 2026 16:42:09 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,71 +66,120 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] dt-bindings: timer: fsl,imxgpt: add compatible string
- fsl,imx25-epit
-To: Mark Brown <broonie@kernel.org>
-Cc: Frank Li <Frank.li@nxp.com>, Daniel Lezcano <daniel.lezcano@linaro.org>,
-        Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>,
-        "open list:CLOCKSOURCE, CLOCKEVENT DRIVERS" <linux-kernel@vger.kernel.org>,
-        "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
-        "open list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE" <imx@lists.linux.dev>,
-        "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>,
-        Stephen Rothwell <sfr@canb.auug.org.au>
-References: <20260211214947.3705328-1-Frank.Li@nxp.com>
- <aaiIdS0zRPBY81aE@mai.linaro.org>
- <ac9ztfwZMrZZgTeP@lizhi-Precision-Tower-5810>
- <77a77b79-a489-41a8-98c0-00242cbdf24f@oss.qualcomm.com>
- <3ba9e33e-8d58-469c-9c21-5861c0f6c5eb@sirena.org.uk>
-Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <3ba9e33e-8d58-469c-9c21-5861c0f6c5eb@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAzMDEzMSBTYWx0ZWRfX+Vr78Yx6oNt6
- FGyTjedY3gncgcX/mic57SdQGqkChnA5jEXViCKZPGMEIXmlWmfQuHMXW1gO0+a1d6UPfAQYz9O
- hJyzg0luOWC9jCKU0Ya+RI349YtHwuaM/WYMvRCA/0Y/CMzIuuFov9v9IAvHXhZiT4euBaAb6Bo
- dA+vEN11HUc12dcLn7vKzr6WG3Z9FBAVO/m7NiRYrub7xr80884wJ5v84lGoXEsNOQv/pwDgXTO
- UXFoRKNJxantaDEoaqQiEb3MpkYVuZYe0CfD2JdJ7ts1idyWZOSkBd/zBzf915kMCW3yOJoH0QL
- sDKyQ6nWgaFfKwLCuY/24lLTpSpU7tqx/QshQRWa0bApJ3QLtUdMWEx8rd3JMK0PtwRHK9RKXyk
- 0wY4mdk/ewKArn7ZlZAUeHB+pTjq2MJaBSztKm+6nmlolweH72rK8QpruRdyncRT0zaY6aKccPZ
- SwM9L5GtdM+gEHXbL5A==
-X-Authority-Analysis: v=2.4 cv=W5g1lBWk c=1 sm=1 tr=0 ts=69cfd179 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=pdw9z0OCORkzPJei4WQA:9
- a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-ORIG-GUID: t7csZdihGrGveM20r5z25KaFxzBWLgcU
-X-Proofpoint-GUID: t7csZdihGrGveM20r5z25KaFxzBWLgcU
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-03_04,2026-04-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 suspectscore=0 clxscore=1015 phishscore=0 impostorscore=0
- malwarescore=0 lowpriorityscore=0 adultscore=0 spamscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604030131
+Subject: Re: [PATCH] arm64: dts: ti: k3-j721e-main: Update delay select values
+ for MMC1/2 subsystems
+To: Moteen Shah <m-shah@ti.com>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-omap@vger.kernel.org
+Cc: conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
+ kristo@kernel.org, vigneshr@ti.com, nm@ti.com, stable@vger.kernel.org
+References: <20260218203823.1825554-1-romain.naour@smile.fr>
+ <8d4a2839-5b1e-479e-a462-dbbc3d016020@ti.com>
+From: Romain Naour <romain.naour@smile.fr>
+Content-Language: fr, en-US
+In-Reply-To: <8d4a2839-5b1e-479e-a462-dbbc3d016020@ti.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 4/3/26 13:43, Mark Brown wrote:
-> On Fri, Apr 03, 2026 at 10:15:49AM +0200, Daniel Lezcano wrote:
->> On 4/3/26 10:00, Frank Li wrote:
-> 
->>> Can't find it at linux-next master branch, anything wrong!
-> 
->> The patch is in timer/next but may be linux-next disabled my branch
-> 
-> I have a timers/drivers/next branch in your git tree in -next but
-> no record of anything else.  That branch was last updated on January
-> 20th.  If you want something else adding let me know.
+Hello Moteen, All,
 
-No it is ok, I had a confusion in my branches. I updated the wrong one. 
-Now it is fixed.
+Le 31/03/2026 à 14:19, Moteen Shah a écrit :
+> Hey Romain,
+> 
+> Thanks for the patch
+> 
+> On 19/02/26 02:08, Romain Naour wrote:
+>> The previous SPRSP36J datasheet recommends to set ti,otap-del-sel-sd-hs
+>> value to 0 for MMC1 and MMC2 interfaces. These values were updated in
+>> kernel 6.5. As a result we have some occasional regression with ultra
+>> high speed DDR50 SDXC cards while mounting the rootfs:
+> 
+> This error shouldn't be limited to just DDR50, were you seeing similar behavior
+> with other speed modes?
 
-Thanks
+I have a followup patch to enable back the SDR104 support with j721e SoC (SR 1.1
+and 2.0) and I noticed the same behavior with some "specific" SDcards.
+
+The J721e SR 1.0 doesn't support SDR104 due to an errata.
+Nowadays, even the TI J721e EVM board revA (reference board) uses a SR1.1 SoC.
+
+See the post on TI forum with further analysis:
+
+https://e2e.ti.com/support/processors-group/processors/f/processors-forum/1626659/dra829j-q1-mmcsd-ultra-high-speed-uhs-modes-issues
+
+It turnout that the kernel is not able to detect UHS speed with some SDcards
+vendors after uboot initialized them with UHS speed (SDR104). I'm not sure why.
+
+Still, the datasheet was updated with a new set of timing values for HS and
+legacy speed.
+
+Maybe I should remove the part about SD card initialization issues, it may be
+related to another issue.
+
+>>
+>>    mmc1: error -110 whilst initialising SD card
+>>
+>> A similar issue may occur with u-boot after a reboot while
+>> initialising the SD card:
+>>
+>>    mmc_init: -110, time 67
+>>
+>> Update the delay values for legacy and high speed modes, based on
+>> the latest revised datasheet SPRSP36K released in April 2024 [1].
+>>
+>>    (MMC1/2 - SD/SDIO Interface): Updated/Changed the
+>>    "OTAPDLYENA, DELAY ENABLE" and "OTAPDLYSEL, DELAY VALUE" for the
+>>    Default Speed and High Speed modes from "0x0" to "0x1"
+>>
+>> [1] Table 6-86. MMC1/2 DLL Delay Mapping for All Timing Modes, in
+>> https://www.ti.com/lit/ds/symlink/tda4vm.pdf,
+>> (SPRSP36K – SEPTEMBER 2021 – REVISED APRIL 2024)
+>>
+>> Cc: stable@vger.kernel.org # 6.5+
+>> Fixes: af398252d68e ("arm64: dts: ti: k3-j721e-main: Update delay select
+>> values for MMC subsystems")
+>> Signed-off-by: Romain Naour <romain.naour@smile.fr>
+>> ---
+>>   arch/arm64/boot/dts/ti/k3-j721e-main.dtsi | 8 ++++----
+>>   1 file changed, 4 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/arch/arm64/boot/dts/ti/k3-j721e-main.dtsi b/arch/arm64/boot/dts/
+>> ti/k3-j721e-main.dtsi
+>> index d5fd30a01032..418e6010ef1f 100644
+>> --- a/arch/arm64/boot/dts/ti/k3-j721e-main.dtsi
+>> +++ b/arch/arm64/boot/dts/ti/k3-j721e-main.dtsi
+>> @@ -1643,8 +1643,8 @@ main_sdhci1: mmc@4fb0000 {
+>>           clocks = <&k3_clks 92 5>, <&k3_clks 92 0>;
+>>           assigned-clocks = <&k3_clks 92 0>;
+>>           assigned-clock-parents = <&k3_clks 92 1>;
+>> -        ti,otap-del-sel-legacy = <0x0>;
+>> -        ti,otap-del-sel-sd-hs = <0x0>;
+>> +        ti,otap-del-sel-legacy = <0x1>;
+>> +        ti,otap-del-sel-sd-hs = <0x1>;
+>>           ti,otap-del-sel-sdr12 = <0xf>;
+>>           ti,otap-del-sel-sdr25 = <0xf>;
+>>           ti,otap-del-sel-sdr50 = <0xc>;
+>> @@ -1671,8 +1671,8 @@ main_sdhci2: mmc@4f98000 {
+>>           clocks = <&k3_clks 93 5>, <&k3_clks 93 0>;
+>>           assigned-clocks = <&k3_clks 93 0>;
+>>           assigned-clock-parents = <&k3_clks 93 1>;
+>> -        ti,otap-del-sel-legacy = <0x0>;
+>> -        ti,otap-del-sel-sd-hs = <0x0>;
+>> +        ti,otap-del-sel-legacy = <0x1>;
+>> +        ti,otap-del-sel-sd-hs = <0x1>;
+>>           ti,otap-del-sel-sdr12 = <0xf>;
+>>           ti,otap-del-sel-sdr25 = <0xf>;
+>>           ti,otap-del-sel-sdr50 = <0xc>;
+> 
+> 
+> Reviewed-by: Moteen Shah <m-shah@ti.com>
+
+Thanks!
+
+Best regards,
+Romain
+
+> 
+> Regards,
+> Moteen
+> 
+
