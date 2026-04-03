@@ -1,85 +1,87 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC30532AABD
-	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 14:11:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DE5F3C3BF2
+	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 14:11:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775225479; cv=none; b=EClb0oQPbu214jEgSYyysxSNKJnsD3sjCODie4l/NZQKFP6cSwv4QaCjdp1RjxawPvqPhAm5CPw++HXFVTnvBnt2WqwFfNeO/h1IXrHRFIR7JytzP4ZCNx3r0urqK+Wyc1nqkUnvqtGGNVZ1zkZfGnefKqQAOhi2LTTcHQmx3YI=
+	t=1775225482; cv=none; b=YztEokaE2D5bC2IDhusPAuyptjosXdIisshpl0MmDRnw5NwISTZr+N22hfHnXR5UUeLcikoBQK35Kh8vMVOtINdMJ0/7obimri4iCDarJBAhme3fzEE358HUdwYTAUZvqsXedFyzGFNUnOLpO8X8MyKvBQmEgwgW1ICtQ5Mg+qU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775225479; c=relaxed/simple;
-	bh=bOXv5no4MAWQOEW9V06BfniX4jR7WqwQEv8zNJzFKjE=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Pc3JwW5Uu+SoIqAWqBAT+NjVOKOUXl5d34pKTBSNRkJyfb45xbIIQ/+/Iz69rAKegX5qR/O+FI7pc4q8UXxbdadTRYudQuWwUfxJC7z87Sj36t/1mt3ZoOlz4fJMJ5kgIyue9kIFpm6KUvWRCCOyE64vKxT0Ct9szlV601Fx/U4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EYcp/at6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WL+4p3xr; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1775225482; c=relaxed/simple;
+	bh=L1Pg2DImq+7vjEK2v2ttUsGwFkHZDAv0iSDem33OKRQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Ilr/lzMaSHtYB5IVX3BHunjLlGSFNtoMV84+8RTN7wSCuRh+VMcsRes217KOkh3jyD8uVMGpq8BlWHrw691Fv3SCNLymP5lX5jwRWgVikd4InPOi3KdbazJL/vnncXZo4qGrMWFMdBUdosws8B+c3wjEN13kLCE898zFs+8j2n8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EcyAPVel; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cFcK0k+V; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EYcp/at6";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WL+4p3xr"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 633BqAuZ3780374
-	for <devicetree@vger.kernel.org>; Fri, 3 Apr 2026 14:11:18 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EcyAPVel";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cFcK0k+V"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 633B1feU1453615
+	for <devicetree@vger.kernel.org>; Fri, 3 Apr 2026 14:11:20 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=Ak0121RuG6v7YOkffH9TIK
-	cZmfyYZTZh/TEYYgpplzs=; b=EYcp/at6YkIud9Mw4d7e01CnEjmOCwqteWpIio
-	JvwuaVE/SfCd7F6nsJ8uxxIu3OLR0QqYvEdBsz7w/ZVJNOCTlicNgrIuQpIZnq+P
-	OempG9b9I7ZNF+YTHRFKX2I5PbfB2gDXIuOexUYqgjdtCzfj6XfaQI4P436W4jwK
-	QnRPffXdKyaveddgpYd86U+lSNbzzsYTCIq3BatT4MHSht7wXLwTlaY5N63zDFVO
-	shspOHYIxW++nRZIgFW0OkWlLt8yCFkZUhbc85NXQScA4JCFgFJdVoBEdaVo9xIv
-	o0FXReuNruf3e4fezcH8Y9FEYHvLGTstSFgKdXxBmgWtTTBg==
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4da663hp25-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	WsllSCq6C84HtAi0olm1ZV7KgvkWp5Ncx0XiKo5lP7E=; b=EcyAPVelvaa5q0Ae
+	Cd03BKFaJdKDuiErQ5Z8e2QsKjw0/HtWQuA+v2LV//QepPWXC01dJIWWGUIn1thB
+	sFQlk7YM1HSIlKUGGuY+wV3NteMXk1dsKCi3Mfy3yInlJ0rLL22jqTQOv7u+ABFF
+	IOt0scZyMnRHwyfzboPCdn+yuWe+Jb+b2zXpqRmzd6YWH37iV67pZWQXNOoQ+Esy
+	a7oziANpEuULfNwbiwo2cfh4QrjaianVDrDkzSG7sMQ+OfJ4YMJpDj7QI8jbYSiL
+	SoFonZi69c5atCImW1USQ3olcMz3yx2nJ62+te5em9QTHZouTiACaeZZfIEMQBZq
+	YEhhLg==
+Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dacam8g6u-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 14:11:17 +0000 (GMT)
-Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-950bdef305cso690980241.0
-        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 07:11:17 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 14:11:19 +0000 (GMT)
+Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-9484dbd65a7so691207241.1
+        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 07:11:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775225477; x=1775830277; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ak0121RuG6v7YOkffH9TIKcZmfyYZTZh/TEYYgpplzs=;
-        b=WL+4p3xrAQSspYsizUnRWnqO9ahNdo8XvDDwUO2GEeogOhT759KVQ48SXKXSdYS4aS
-         GPi1M5fC0zxohisC+U1V3zyrNH3jAtkCBwxTo1vVcyxn1ux38Qdk3U/b8TkLSpD22iRx
-         ohygXkpV3AAe0BImZyzJe/dYWZUM5PKORG6eQHv77CkOnVO4WcKdWjnBUe9cH5yuEEG3
-         cPBR2o/QpnwznxogUjsQguxrW3QuWgTa/zaUExfHWfo6nU74/ZbeK2IqS6mP67bz5bq3
-         FVl2UdJKwzeyf4Yuuf/WV5s70/Lqhqdz6Me92zWx5rZttsXHSQQJGYmkRfl3PWY0H0mQ
-         pQCA==
+        d=oss.qualcomm.com; s=google; t=1775225479; x=1775830279; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=WsllSCq6C84HtAi0olm1ZV7KgvkWp5Ncx0XiKo5lP7E=;
+        b=cFcK0k+VSFXJYOx0PXYFp269qraLc7yPmLo9nph4NETADjLgNwXYqZ8OGWCfNYcp9z
+         i0QOmCOPdzY/iO+5/GpdqKDD8S1uIOD4YbCgRtRS4Pa94uZIDb2uWRYKai4ZGmCR1bs4
+         o9bmgamv9fExYugcFopwp0XHNSF2qII0mDCeZEy+pyDQJi1tRFbFnM9eFpBk/5CRn1Xx
+         v0lu2ApIrt7PXFMCWI941ctR3DA6vbhcYXj+leX8CyorJubwTzll/qp4qEdtpZIWbe/b
+         UBbjbaUB40uj0WifUvE1dCkPQhx2Os/tCI8cqtUq8enrJ0IPJdwZjP9NrbBsjABcMcMT
+         s35g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775225477; x=1775830277;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Ak0121RuG6v7YOkffH9TIKcZmfyYZTZh/TEYYgpplzs=;
-        b=U89RkvjeQ4rbFshVEyagHezh5sFk488BDYFGqwjP3dDSvqMcTLn4GCwmzojNYU1LMD
-         L7eE7OPZtin2ii5tvDT6kd/6vzLWLGLlQ1BKTqJk2dDmRKflcsL9qw0swARprz2ZGqk6
-         UACO6mBKQPyh62c0dTfLIa1kfeJ2C5TgSVpC3W5ORPJUVqmwjcKDFJQo2zD9ugKRFAjb
-         +FhQSQqk+0CzWV5+e+NBdfe8+EzOY/fpRhgd55mN1YNyLQPfghZYeJMRWVIeBPVhhEnK
-         l62HzpaVXSJ0JtUX7TomZxGdaBLHepfSoDDyu6OCD/HBMMYL3iIyDVomKdYWB/nMcFA1
-         qm8g==
-X-Forwarded-Encrypted: i=1; AJvYcCUFBDBMOQK2jM2iDvxFK9BpY6QVrnW+9P71XDEpXcGjnol5wDtm/icx9sH4AwYykPjVzJVORTCatjqL@vger.kernel.org
-X-Gm-Message-State: AOJu0YzUThnsUZ9ykAlUepgfXMyUSa7Pg4GVrFuuRobFI04YH70+lUGg
-	c/+BW/OijY/sX7Z+naoIoiOJvsChFK6OeFOxUcOcPF4JB4nTzc1SyIvyLcfglhk4wZBpWPVf2jJ
-	nEWjc0a9JTkjkqJHQhF+E3fnpDAM7mf9KLVeo0EsPwuPFsPYYtVR4AuksOqWPOwEN
-X-Gm-Gg: AeBDieuk8ViN6a+N5SFw/ICMLYlXeI13CxEduq/G1EHJiLm12trcCSlg0CJYSZi9w3N
-	r40OO1JJNJJlNyFIEg9Kn2V+m30J0Mj31k4UkO/QJwRFwsHonOWLQgXXAcuvAC/Yw30e7eDTw74
-	tFPqptdYS3nn1wWyOfYSE9vVSZXehP6PgipxkpPWQc437B1sfoIcoFeDeV8V1er/aTDmKkia78F
-	ufedeSkuc2ZpzmY65QylxEoTgsY1DFz2s89qOuprhYopxuPD2Th26SFhOofr0PKxd2pVPEdHyLK
-	tn93auNYMBMiop3BrFM3QfjCPADzmiJRFlLOw6qQXvQxM3Mk0DTzpOhVRjnTT5ltYNBUdalf0p/
-	lr+EvJqKPGgJ/uozW0hae/tMYdUi4L4LAQQq7JZNSq85IfJjWFjA=
-X-Received: by 2002:a05:6102:c05:b0:602:a9f3:74ca with SMTP id ada2fe7eead31-605a4cda9aamr904529137.3.1775225476831;
-        Fri, 03 Apr 2026 07:11:16 -0700 (PDT)
-X-Received: by 2002:a05:6102:c05:b0:602:a9f3:74ca with SMTP id ada2fe7eead31-605a4cda9aamr904512137.3.1775225476386;
-        Fri, 03 Apr 2026 07:11:16 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1775225479; x=1775830279;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=WsllSCq6C84HtAi0olm1ZV7KgvkWp5Ncx0XiKo5lP7E=;
+        b=swnomoD6GTfSHtwErLt54CGqsJJ5flqF6DqMNEURVw1aP8hcOTxYJ70hLmHV+gVzr9
+         qHdhRiIdnpX0FUjj9l3dG/kurTo7RxBmF2XQuAU54Ndyy8XfO0g2A9ehOwE/tdqGyVCz
+         EUPIlnOzHDN5FJ2GfHjtKArzfAaCGWWLFRRdNYlOhOIUGyX84CrkRrZDN4ZHS6rOEOZ0
+         JRutwYkCMZ/txafYWMFzDeU4JrrIcYkZBp3L8c28wr1Ax2VeaeYWffyiLWni+DKlF441
+         o+7bU6t2woknG+/R8Tfzl63UAJT4X5NjrjCGdMbDHUVlwo6lFH0md5la9lMZZkd92ry0
+         lJmA==
+X-Forwarded-Encrypted: i=1; AJvYcCWRG/+sTvsQTqc7LfcsiOoqlYa+uPODO84nQCKQRecryZol5mYCRuGZAq+zG3LOSz2xTZ+lHpQLy5Ri@vger.kernel.org
+X-Gm-Message-State: AOJu0YySnYfZOTN7FtriQHO7S3X56BssbtwuF+F63h5k6FMovnhIB8+w
+	jLo9OAFkoEYroY18maHj082VMuSKWFUH69dah+Qu/B+V2VnWQjSMzHFp6VVgS9xYtLZeMxAf+Vx
+	Y77BQOYOGDYjObbW4pU4zTKxqCBV1HM+JhegKwte1FNiWgTIFRVCry+y2h3j8t+O6
+X-Gm-Gg: AeBDiettdbTPd5Xc/RSfThcZIrm1OLGDQIfj3ycP/SkztsmXp/oywyrALvKvGjodiwS
+	w9fvq1oYa3tvb4BTVxMZ1meVqKVmT1b4df+Ay68zDOFjha41Ic9gQhUaIHj4gucW9sbx6oyj9b5
+	pe9rpvMLHdk1h/IQYDbNUnX0sJxbEENMD+62ia3Bnzaj2826tA8brEWCkH23UaFojBCiwvCKVEK
+	ahndwXcFzWYVvsQqvxUAOFH5m0YnJh6ZGr66x0Ouor7GNtkwGSx9LpxNSUwc4zO8kzccxmdrGDs
+	7bqHQQHIHcmpsVEwMaPWybbg2DMTds6h5VYq0nc/vBQJKDJ2ZG9Lzmr+syn6chKTDuxqabxMxn6
+	eOktkzelArMIR6zpPpjXEq863afuTW+H9wP9Yf2PTsjkJLYm7mzw=
+X-Received: by 2002:a05:6102:b14:b0:605:26eb:cc1a with SMTP id ada2fe7eead31-605a512c49dmr1023749137.29.1775225479146;
+        Fri, 03 Apr 2026 07:11:19 -0700 (PDT)
+X-Received: by 2002:a05:6102:b14:b0:605:26eb:cc1a with SMTP id ada2fe7eead31-605a512c49dmr1023693137.29.1775225478720;
+        Fri, 03 Apr 2026 07:11:18 -0700 (PDT)
 Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:129d:59e8:f7c9:47ca])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48899d1b19esm30127315e9.6.2026.04.03.07.11.14
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48899d1b19esm30127315e9.6.2026.04.03.07.11.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Apr 2026 07:11:15 -0700 (PDT)
+        Fri, 03 Apr 2026 07:11:17 -0700 (PDT)
 From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [PATCH 0/7] clk: qcom: add support for the clock controllers on
- Nord platforms
-Date: Fri, 03 Apr 2026 16:10:48 +0200
-Message-Id: <20260403-nord-clks-v1-0-018af14979fd@oss.qualcomm.com>
+Date: Fri, 03 Apr 2026 16:10:49 +0200
+Subject: [PATCH 1/7] dt-bindings: clock: qcom: Document the Nord SoC TCSR
+ Clock Controller
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,10 +90,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAGjKz2kC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDEwNj3bz8ohTd5JzsYt2UFDNjQ6NUw7TUVCMloPqCotS0zAqwWdGxtbU
- AOheiAFsAAAA=
-X-Change-ID: 20260403-nord-clks-dd6312e1fee2
+Message-Id: <20260403-nord-clks-v1-1-018af14979fd@oss.qualcomm.com>
+References: <20260403-nord-clks-v1-0-018af14979fd@oss.qualcomm.com>
+In-Reply-To: <20260403-nord-clks-v1-0-018af14979fd@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
         Michael Turquette <mturquette@baylibre.com>,
         Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -105,93 +106,116 @@ To: Bjorn Andersson <andersson@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         netdev@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Prasanna Tolety <quic_ptolety@quicinc.com>
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2236;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2692;
  i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=bOXv5no4MAWQOEW9V06BfniX4jR7WqwQEv8zNJzFKjE=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBpz8p2v0k2rAI65RDWxc+efefhhHyFKwStNVoEd
- 2l+pclv00OJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCac/KdgAKCRAFnS7L/zaE
- w4o/D/98MMzUfvftRA0YBGho+hJx/yGRnPaABBnva5bGm42lmB+hhbf0MFNI6A/HYKcH1C8VTkt
- kJk5uysIipeTyeQesyPy5BSgAQM+PApgxWnE0HTA309RvWzPawSfxHjg/eHb0+z+1oEB0v0/Xo2
- 20Qm2yFIpEbOF7JJ4xXZjblyYV0QEsTNP/UQyjhiio2cNh0cklLE15szjLgfZKmYO2PpK0l/t+M
- RB844d+Nh1NxDXYkeC9u8iGsL0QPMf18B4i5td2RiTbXEBS7i/W7EzC3T2NBBxHhMU+EM9ij32Y
- EpOB7JHY7TOxzIv0XMrVz/sP8U4lAMLMT2/PAmP/8P+dqGORodVkelbv1AMB6EERya8NUyJBg4l
- TuQr9+Nwkp1jDGDDHWCl9fh1BRGySxPC0BGQg2VtIaCDWWAioEsJmV++KkpW7H+2yuODXAvSsqN
- UXFPFIrxXe6E23aaZCmYHR/8PPSnlWp94+r1/pStBUvo72BoXzfh37FVcMg/Tzc3LbzVttyIB7s
- 6l3xGmCMxm/qJU/wRsFrTT3t8aFyFFFGFs84QURgXHdwa/Fh+clpIMatDTcLTEVgKvE3esldg9/
- E5+Qs5DHwxGUxb9eBHHHdQX/viCvKIr1ONaQeYothyw1io8sCLSqxzg5BJXpWE7tEKc5hhoiSGO
- hMLczT8U1aFX3nQ==
+ bh=AyAcliCUWAjW4ermeATIw1vRy5W7EApnIO59761YyJ4=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBpz8p61WK7iqwgWTqIT3d25ee38kUXCXkqpyJ6r
+ FgZKPVKeRKJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCac/KegAKCRAFnS7L/zaE
+ w3SiEACncAOXhvb/hs6HH1RnCDpjmnKuFWxxLWGVxpOA3RwOaIsHNb1QcDJr9TVuGJI8wILaBjT
+ qFhM8dvMNEX4DGuPtBJ1Glex71WHMZispIkBrW1yjewa2h0v5Ml/8CfpIi3Nk3yIHAlLetFf/L6
+ zu67cZuBFDGZplvVw4ujwBbHjCSQXMxKjJVK7WDo4rcR8ugHLJz+foKk0hFOBmBz2LPoWXVEvN2
+ hZPb0BKBCM/pr3TvbahEzfXlWQBLJUGFfogABxUmC8XKrX7TLJcqoC0HI3RWJ1M2Q8AEs8w+d+v
+ mvjaWwm3c5H5WTHnfDMtI7oZGRtipyl7Z2YSNeDoyaPEnsdjqZ3Zm6D3+NpAaRdpN3YW3Ep4Y2r
+ Zmird7FcbmaLM4vS7TX0SOQhFDJ3z6hls0on+bEkrc2kqB0J+aA3Gm45ojIR2EXegZtKdhnGxVs
+ +j+erGv7NB6yHtKw8tRKzGtHCSz4Pa2ZrPA464X98b4+w5svKG3zDsvQ5dJlY65nEcZzvh9vzN/
+ CiRdS+9I7gpBMI2rup9aJKleIxf8vcDcwr6Jzpj4pB7wZ315aQLEIroiZ6OYsQpMYReVT6dJylc
+ Xs/fDMcdlkEI+8Vwcj5mKfhrf4CyHMz4tp/riexu9rZw2bNXcGymgiZ3eprvSky4inqqrS7HQOC
+ zmQXyIIrGNk3OTQ==
 X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
  fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAzMDEyNiBTYWx0ZWRfX+7ffCaJ4Llrg
- cIhW86CtfoMtr3my/6QmvJD8CDM4W9qY+RzBEwk1lkfjEXztb5+6gMan+M6ZH+nhLKOVGHz9pdk
- Mjuz2uSW7P5AY2spsDn5rSUhk3uTRQvnFBm114DN1jkgy2r+o9NUdt1J9Tv4aEBEIgWOGRlTajY
- j6Xz9QAMgT09tmFApme/5y8AIUEmhE4+Ldl13vA1e5DfGfhN0F9UOw1bx5zF6rMUoM7wkJ5paYv
- amvycLS1miSqVQOSb4btFNyc4OHjDX0FjYY5bFzKOV2fa5w/+dwpqLnCB9VQ9fbc41zO5A2fadb
- p4ybEr8FDPBcoKYAkJ5xYKtewxYMDzWXr/CSQ2AcOpekxBV/4sAEmxRA6jzNlfyu9/F31z6vQGo
- V78LX+JrnXV5eCsNraaSWVNG2ENkUjFinUlH+ar35ZHjzMmMVDWJzi/p9Pec1sm3G3kzFakbZwX
- 3tIcbYYG5HW9KvMIMJQ==
-X-Proofpoint-GUID: 1Se4c8c16HknZ09XxWrJu9pDO6JdbnAF
-X-Proofpoint-ORIG-GUID: 1Se4c8c16HknZ09XxWrJu9pDO6JdbnAF
-X-Authority-Analysis: v=2.4 cv=Acu83nXG c=1 sm=1 tr=0 ts=69cfca85 cx=c_pps
- a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-GUID: BPWnHFFqxrehNSwtuXl1F8c5qq7pBnmW
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAzMDEyNiBTYWx0ZWRfX9SEXcJT0/SMk
+ 9//e7F5YZ/zVLR9weZBAgepOAPR7wmFHAd06n0ES+hzhzd/fN7o/GLJYK1C1zZ/v/wSvEKKt7NO
+ eYBAIKrJvCpxG+E7YP7JCXWnT4yQFMIr+Z8IqbeY4/imeJlYAOhFPuCuM/RTBVDLdi4VWfjP1uJ
+ ghZHrSsFYZwy9eeIRj/egFvE5ucqmROX80gIoIhYlcgmwXP8pUhVTUoScjiXsEt2F0XYmQWV4M/
+ LBAPTnvGpRlWN5MwjfTG4EWeSgMZbrNhbMhcei2OXn3hDJQ55abhCVdI1DNYyYZQk/v+D6paO5b
+ BT16SnyLQixO5LCT8f1+8XptWF9XHkydZGilsVSpJCGFhi329bqsP81JLHXJaZ9pKBP2IUIS9Yd
+ CfmTr8PVDZ3wCwDz3cueNGx4UaiJKwGSL5q1hhVuzINhtehDejd1y4IL0Q06EY0KMVI1gjEX4o+
+ yg+BnzqBxgfLwLixCSw==
+X-Proofpoint-ORIG-GUID: BPWnHFFqxrehNSwtuXl1F8c5qq7pBnmW
+X-Authority-Analysis: v=2.4 cv=ULXQ3Sfy c=1 sm=1 tr=0 ts=69cfca88 cx=c_pps
+ a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=j00SveKyaAADyE5UejcA:9 a=QEXdDO2ut3YA:10 a=TD8TdBvy0hsOASGTdmB-:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
+ a=yi_j7UWu5214FLn0tX0A:9 a=QEXdDO2ut3YA:10 a=TOPH6uDL9cOC6tEoww4z:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-03_04,2026-04-03_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 adultscore=0 clxscore=1015 priorityscore=1501
- phishscore=0 impostorscore=0 bulkscore=0 lowpriorityscore=0 malwarescore=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 clxscore=1015 spamscore=0
+ phishscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0 impostorscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604030126
 
-This documents the gcc, tcsr and rpmhcc support in Nord platforms and
-adds corresponding drivers as well as enables them in arm64 defconfig.
+From: Taniya Das <taniya.das@oss.qualcomm.com>
 
+The Nord SoC TCSR block provides CLKREF clocks for DP, PCIe, UFS, SGMII
+and USB.
+
+Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+[Shawn: Use compatible qcom,nord-tcsrcc rather than qcom,nord-tcsr]
+Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
-Bartosz Golaszewski (1):
-      arm64: defconfig: enable clock controller drivers for Qualcomm Nord
+ .../bindings/clock/qcom,sm8550-tcsr.yaml           |  2 ++
+ include/dt-bindings/clock/qcom,nord-tcsrcc.h       | 26 ++++++++++++++++++++++
+ 2 files changed, 28 insertions(+)
 
-Prasanna Tolety (1):
-      clk: qcom: rpmh: Add support for Nord rpmh clocks
+diff --git a/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml b/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml
+index ae9aef0e54e8b8b85bc70e6096d524447091f39e..1ccdf4b0f5dd390417821494cdb97d8f4ed26c58 100644
+--- a/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml
++++ b/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml
+@@ -17,6 +17,7 @@ description: |
+   See also:
+   - include/dt-bindings/clock/qcom,eliza-tcsr.h
+   - include/dt-bindings/clock/qcom,glymur-tcsr.h
++  - include/dt-bindings/clock/qcom,nord-tcsrcc.h
+   - include/dt-bindings/clock/qcom,sm8550-tcsr.h
+   - include/dt-bindings/clock/qcom,sm8650-tcsr.h
+   - include/dt-bindings/clock/qcom,sm8750-tcsr.h
+@@ -29,6 +30,7 @@ properties:
+           - qcom,glymur-tcsr
+           - qcom,kaanapali-tcsr
+           - qcom,milos-tcsr
++          - qcom,nord-tcsrcc
+           - qcom,sar2130p-tcsr
+           - qcom,sm8550-tcsr
+           - qcom,sm8650-tcsr
+diff --git a/include/dt-bindings/clock/qcom,nord-tcsrcc.h b/include/dt-bindings/clock/qcom,nord-tcsrcc.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..3f0e2ff7acc72c10d00488c48ec17af8ea6de06e
+--- /dev/null
++++ b/include/dt-bindings/clock/qcom,nord-tcsrcc.h
+@@ -0,0 +1,26 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#ifndef _DT_BINDINGS_CLK_QCOM_TCSR_CC_NORD_H
++#define _DT_BINDINGS_CLK_QCOM_TCSR_CC_NORD_H
++
++/* TCSR_CC clocks */
++#define TCSR_DP_RX_0_CLKREF_EN					0
++#define TCSR_DP_RX_1_CLKREF_EN					1
++#define TCSR_DP_TX_0_CLKREF_EN					2
++#define TCSR_DP_TX_1_CLKREF_EN					3
++#define TCSR_DP_TX_2_CLKREF_EN					4
++#define TCSR_DP_TX_3_CLKREF_EN					5
++#define TCSR_PCIE_CLKREF_EN					6
++#define TCSR_UFS_CLKREF_EN					7
++#define TCSR_USB2_0_CLKREF_EN					8
++#define TCSR_USB2_1_CLKREF_EN					9
++#define TCSR_USB2_2_CLKREF_EN					10
++#define TCSR_USB3_0_CLKREF_EN					11
++#define TCSR_USB3_1_CLKREF_EN					12
++#define TCSR_UX_SGMII_0_CLKREF_EN				13
++#define TCSR_UX_SGMII_1_CLKREF_EN				14
++
++#endif
 
-Taniya Das (5):
-      dt-bindings: clock: qcom: Document the Nord SoC TCSR Clock Controller
-      dt-bindings: clock: qcom-rpmhcc: Add support for Nord SoCs
-      dt-bindings: clock: qcom: Add Nord Global Clock Controller
-      clk: qcom: Add TCSR clock driver for Nord SoC
-      clk: qcom: gcc: Add multiple global clock controller driver for Nord SoC
-
- .../devicetree/bindings/clock/qcom,nord-gcc.yaml   |   58 +
- .../devicetree/bindings/clock/qcom,nord-negcc.yaml |   60 +
- .../devicetree/bindings/clock/qcom,nord-nwgcc.yaml |   55 +
- .../devicetree/bindings/clock/qcom,rpmhcc.yaml     |    1 +
- .../bindings/clock/qcom,sm8550-tcsr.yaml           |    2 +
- arch/arm64/configs/defconfig                       |    2 +
- drivers/clk/qcom/Kconfig                           |   17 +
- drivers/clk/qcom/Makefile                          |    2 +
- drivers/clk/qcom/clk-rpmh.c                        |   20 +
- drivers/clk/qcom/gcc-nord.c                        | 1901 +++++++++++++++++++
- drivers/clk/qcom/negcc-nord.c                      | 1987 ++++++++++++++++++++
- drivers/clk/qcom/nwgcc-nord.c                      |  688 +++++++
- drivers/clk/qcom/segcc-nord.c                      | 1609 ++++++++++++++++
- drivers/clk/qcom/tcsrcc-nord.c                     |  337 ++++
- include/dt-bindings/clock/qcom,nord-gcc.h          |  147 ++
- include/dt-bindings/clock/qcom,nord-negcc.h        |  124 ++
- include/dt-bindings/clock/qcom,nord-nwgcc.h        |   69 +
- include/dt-bindings/clock/qcom,nord-segcc.h        |   98 +
- include/dt-bindings/clock/qcom,nord-tcsrcc.h       |   26 +
- 19 files changed, 7203 insertions(+)
----
-base-commit: 3b058d1aeeeff27a7289529c4944291613b364e9
-change-id: 20260403-nord-clks-dd6312e1fee2
-
-Best regards,
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+2.47.3
 
