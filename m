@@ -1,432 +1,170 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from seahorse.cherry.relay.mailchannels.net (seahorse.cherry.relay.mailchannels.net [23.83.223.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 473B23C9432
-	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 15:29:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775230192; cv=none; b=jl9eTq8uFPZ3WbOqLM0rGaKqwZrSM+oIE8VvGD6HJTX4DZiyESdftNzgv46T6ffxg8AxtkpDw+xbEYhfldvZzVqU+Yz/B67E3h7ozspIZE6/aEjn/grXLVkcuFr44Wyp+fKpPNvvf6Nzr5U+PH0sX87WOjs8zK4YuiTVb+MRbL0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775230192; c=relaxed/simple;
-	bh=azM1FxOBwJK1J6RwOxXGbo05i5gRwPzpoJYbOGaoUpg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a2bB2mNcg0dnH9v9DgBEelxjGOekhwth9GXn3pJ62E4Uo8NjuKf57Db9/wH4jEx6Kdxs7uoowfDNCIVmBHmUu9K1xK80PN0cB4e2d2zA8V4qZa713XhxQTGvOJNjTnd7QOEkf6diDvP3rid8DflLNTb0vQIpNATyAu5YNE/jw0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QkpNEEFa; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=jP2qsSwD; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 997EC23ABA8;
+	Fri,  3 Apr 2026 15:38:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=23.83.223.161
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775230729; cv=pass; b=fw/HVPecdMKXiwjExCBTEWdLDagcsvgtofRkqv+YVbpzN+d4gmsFBBuO2Qocd0XB61SDXFOpei1vOcvKmutfy3lz+fjyOYKXfy5aaxqpfaXwJT61F3NDsRsotXO4/s/6aqUSNaeuk29OdswXLo1TJ74ZY56wpGhLWghNFFk6jKo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775230729; c=relaxed/simple;
+	bh=66aIWb+bdnJRjf0S3pgNBTYc9+jV2JGl1jqzb6xpZ5U=;
+	h=From:Subject:Message-Id:MIME-Version:Content-Type:To:Cc:Date; b=rsk7VqkzRh9KkQTvFQQHlGaTvmrtjC8KkuTcQho4LnRj7UA6QuLsUpHhFxR8D0JoWbHllcRRwRRFZ2d2kxuogjgTIFx3CxeslgIrT3f/K6ElFPF1Cc4xKAv8gck7Z7aIjxpnE5rxI3hKXjkusz/R1V+4FhPiQYLM86v6FCr0Wws=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com; spf=pass smtp.mailfrom=smankusors.com; dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b=m+Gw345u; arc=pass smtp.client-ip=23.83.223.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smankusors.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QkpNEEFa";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="jP2qsSwD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1775230190;
+	dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b="m+Gw345u"
+X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id 4F29B4C2DBC;
+	Fri, 03 Apr 2026 09:23:34 +0000 (UTC)
+Received: from de-fra-smtpout2.hostinger.io (100-96-162-196.trex-nlb.outbound.svc.cluster.local [100.96.162.196])
+	(Authenticated sender: hostingeremail)
+	by relay.mailchannels.net (Postfix) with ESMTPA id 487174C29F5;
+	Fri, 03 Apr 2026 09:23:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; d=mailchannels.net; s=arc-2022; cv=none;
+	t=1775208212;
+	b=G8oisKrwJ1l/HnSMp+O/HMBN5ATBRopm1oaKhKjsxS8kGzarYG7g3C93+OnIcaFMtipbtF
+	vjqX6UMqZn7LCvBTi1TW1OpkI7gmKQ1skLjHeJOC0yKazuj6AJbkLJD6pgvN0V1iVHdE9a
+	UxWOmbkmJbsCbq2iS/ifVZ04wsWatpMBcVq8qIRKJI3CyqS3NYwUwpOc2O4TgeBmkmMCvx
+	f1TTzp6jNR8Je52A/3yvUDOzVolYcNXzvHRITiLcF0MVnDy78I9vcwRjeLsm5fSp704fdt
+	XBmp3GEX9uUUulfbO5HdcS7IZ2GFHgBEEe8pT9RAF+04J8aAg7qhKp6/CYw1SQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mailchannels.net;
+	s=arc-2022; t=1775208212;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=I9vnOEy2SnXABq64qUkV4dXXkUgE/P3rvcB6DgffOz4=;
-	b=QkpNEEFaHXRxrNbT1G3LPZljfrbelcXqm3Oh2V9d40EYXs2RPXaOYMrdKZtMbLsf8jTVXl
-	ePWrbHF4r24ALB6PxsChgRjthKhE4Iq+r+vVqxq/a5zFZmYBrECesRGcnolvpzxxkkD+Pu
-	JR+e71cktmDQhCDCg5+8eUAKX782zoI=
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-360-0SHT-pt3PyWkbwHkICM4bg-1; Fri, 03 Apr 2026 11:29:48 -0400
-X-MC-Unique: 0SHT-pt3PyWkbwHkICM4bg-1
-X-Mimecast-MFC-AGG-ID: 0SHT-pt3PyWkbwHkICM4bg_1775230188
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-8d3e4c19307so297487685a.1
-        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 08:29:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1775230188; x=1775834988; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=I9vnOEy2SnXABq64qUkV4dXXkUgE/P3rvcB6DgffOz4=;
-        b=jP2qsSwDJ11hBlRN66b2NTwRICMPcasyqMZWFX6TkvmPtpau0Tkto3FZytWraKdcuL
-         Z8f9g7hdgLafy2Tks2cD6hcubUpu0VYhWxgOsUaPFjO7PsF2t+6z0Y2IWukE/pFadcen
-         zTIptZAs4VERRso9aw0ZQOppqaJFM2DSRRsch7jsaPWRVtwU2OrdFxWYUU9VQ2ZzQw6k
-         J4NP1sDqjGkOHqEJRh7wvCde1Vg7a6RHyg0hAv8cm2fSl00g+BKYkvmgmk5I2TPtAUYS
-         GPtQVyahKltTF41W/X6T/Vg4NitNQoQvbI59P7nk3fD1gz+GgvI+8al9aChIBCRGh9RA
-         tJ0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775230188; x=1775834988;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=I9vnOEy2SnXABq64qUkV4dXXkUgE/P3rvcB6DgffOz4=;
-        b=JdM+gDEwq+BMLA9bPlMyKi0FqbLL7w+rxOX3ukZQSWXTleEDWZ5qrj5BTLhS/jB2zU
-         eRWDkBpQgHlwM2i44mHoI4PHymISFftP7+U5nuTZAVZTgXARj8+MHzVTOuMMvTq37/nU
-         rFftg3nP864DG0boBVTfK+SOdUjA4mwmBUdN3dQ8q4kNEp5gVxIiDrhqfhurl+Y6yiV2
-         847YNQBa/J7/8DiAbmnk8pY0DXgQ8mQBKAXeDoAmsZqVvruTWdZEPnVWzuotgJ5Du4WA
-         nvcLtBq/nXHSCIVOnZ/YKW4gaGqMc5DAjWYsktjxzd6rnpCmgAuQxH4hTPOdP9Jo9ehz
-         Pt9Q==
-X-Forwarded-Encrypted: i=1; AJvYcCV4fyrZ+S61310Qst2HUzV1E+s+EtEQ1edVjTkukm2pXqFO2NDw3qd8XeAOm1v/tCn34IH6RhZMDWxo@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxf0//4dVUSj4qqlBwqiC66OONHM7k9zbtIW3hR/LybQBPpL3o9
-	5Aa2WokJbL0fgJY5i6BBLRYoLSFkRinPMAjhRy7SoH3WxxsS2KMBlgy1+nZjXQrOXM8DbAFRoNH
-	kuBX65Ysl7GxC1rHTN43vW4FQQydgvXnHsaprHC4CLKTPNXxgK6Dx1nNkefN5g6Y=
-X-Gm-Gg: ATEYQzwr5PazeCBxXJSmTDfZGcKITqCn0CLMUoH54crWzLoxnMg8q6cAVXfbYePHGuA
-	cXM7tQm7lQ6eRkeA1lPxVrtN4mb8cQ3PNKNTxUY51p4RS+0CDUBFi+Vy9l/070cQIRQSYw+QTGq
-	lFI1olSUwlN5UiPhfTItUeLBio5TXEYwfuKxugoapSirY4wdxs7H6rkXGQLVR1KwDBZS3p8mdOR
-	ZV2UcwGVPSsHR3aWy8WO6MogAU0c2TNBu9wCoehKMM16pWP+k9seZR775fChm2Lzy9cD9L/ITST
-	pOi9V1p5+dTsLCa6l5bye66v8xo/O/4OWvlkAsC/tGdJcSJiylW2Ztk+hmfYGdgQTW9UaOi01XG
-	mkS6G1GErzLlSNACG0NEG0dQciYENbneAW4S96y0iNvMxTJHuu46GUgoB
-X-Received: by 2002:a05:620a:44d3:b0:8cd:93b7:ebbd with SMTP id af79cd13be357-8d41e9206a4mr465045285a.60.1775230187623;
-        Fri, 03 Apr 2026 08:29:47 -0700 (PDT)
-X-Received: by 2002:a05:620a:44d3:b0:8cd:93b7:ebbd with SMTP id af79cd13be357-8d41e9206a4mr465040385a.60.1775230187049;
-        Fri, 03 Apr 2026 08:29:47 -0700 (PDT)
-Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-8d43e17d30esm188410185a.6.2026.04.03.08.29.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Apr 2026 08:29:46 -0700 (PDT)
-Date: Fri, 3 Apr 2026 11:29:44 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Yu-Chun Lin <eleanor.lin@realtek.com>
-Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, p.zabel@pengutronix.de,
-	cylee12@realtek.com, afaerber@suse.com, jyanchou@realtek.com,
-	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-realtek-soc@lists.infradead.org, james.tai@realtek.com,
-	cy.huang@realtek.com, stanley_chang@realtek.com
-Subject: Re: [PATCH v6 09/10] clk: realtek: Add RTD1625-ISO clock controller
- driver
-Message-ID: <ac_c6BkBQyvvOpeq@redhat.com>
-References: <20260402073957.2742459-1-eleanor.lin@realtek.com>
- <20260402073957.2742459-10-eleanor.lin@realtek.com>
+	 content-transfer-encoding:content-transfer-encoding:dkim-signature;
+	bh=yFVHNGHk5kTfuOncaVGOWPAMBNUlAY7jMU0/aoPowls=;
+	b=Q7zo8P/mN9gMG3wtHY+5rUG5I8TpSOh/l4VdZcFc3DQyN5NSQ7SfSx/o4LHiYVAu6usOFH
+	aW+jOrWenmzmX7n1bkaeP/H/8Bk/FoT1azx2HCUcWix2V3djoYMvbr67HUlrN9aWiugC3e
+	CzkOh2PnP8l3YT0VVbKbWqKFJSTY5td2ZysbUxJ2UyVKxHBnYC9sZmusgc0RviqAAn2Afq
+	1tFelmH6GE6xYQRcdzVITr+7ZcT6KXNbGm1RLYwrKf7Jrop53b9mm2Duw1JgTCUX40ByYR
+	wy7lukk44dBI5QPp3V21FQqO/Kes/kx842Aw9zWtc4WganuirRg6v/xuzc80Kw==
+ARC-Authentication-Results: i=1;
+	rspamd-bd48b9d95-mj7k8;
+	auth=pass smtp.auth=hostingeremail smtp.mailfrom=linux@smankusors.com
+X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: hostingeremail|x-authuser|linux@smankusors.com
+X-MailChannels-Auth-Id: hostingeremail
+X-Versed-Shelf: 3ab720a23a149024_1775208214152_1178420929
+X-MC-Loop-Signature: 1775208214152:1316233226
+X-MC-Ingress-Time: 1775208214152
+Received: from de-fra-smtpout2.hostinger.io ([TEMPUNAVAIL]. [148.222.55.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.96.162.196 (trex/7.1.5);
+	Fri, 03 Apr 2026 09:23:34 +0000
+Received: from [172.17.0.2] (unknown [180.253.47.239])
+	(Authenticated sender: linux@smankusors.com)
+	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4fnCv33qqCz3wpf;
+	Fri,  3 Apr 2026 09:23:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smankusors.com;
+	s=hostingermail-a; t=1775208194;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=yFVHNGHk5kTfuOncaVGOWPAMBNUlAY7jMU0/aoPowls=;
+	b=m+Gw345uZJJGZP+TwbUzrRuxDg/N+kpdPk+sJKKAXUERSeZH5AyB8hrdTCXkwz60sJ8jEK
+	YvBfDpcWfpT3sxUZN/qP5UuD6kR2mBE6fA9wjJQsfMEk1s0Gr/Lk6fw11m/QVF8Fb40KXG
+	/edx+qeq+jF9KJQBLk4gmQbXRRYlIzodduLpgPAUqZRFgl9DeDJSZ8ljPFulpPo5rinXBf
+	WoUWO9Z0IGTdYAcTwKPN47d62lBhrJBDRjepegOLWxdFrfkB/GH/UJh0h1189N+5fMck/1
+	vmW3H8fvTqDK13JQb8QQ7U4LbdCmvspYRGiAMI0vTyVWmsEAJaFnIUCHh+rwPg==
+From: Antony Kurniawan Soemardi <linux@smankusors.com>
+Subject: [PATCH v2 0/3] iio: adc: qcom-pm8xxx-xoadc: add support for
+ reading channel labels from DT
+Message-Id: <20260403-pm8xxx-xoadc-label-v2-0-29b50bf821e6@smankusors.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260402073957.2742459-10-eleanor.lin@realtek.com>
-User-Agent: Mutt/2.3.0 (2026-01-25)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAOKGz2kC/22NQQ6CMBBFr0Jm7ZhSEZCV9zAsBtpKI7Sko6SGc
+ HcriTuX7yX//RVYB6sZmmyFoBfL1rsE8pBBP5C7a7QqMUghS3GSOc5THWPE6En1OFKnRywqMsp
+ URpR0gTScgzY27tFbm3iw/PThvX8s+df+cuW/3JKjQCGrWpwVqUJ1V57IPV7sAx97P0G7bdsHa
+ dmi0LkAAAA=
+X-Change-ID: 20260321-pm8xxx-xoadc-label-47afdf7f06a9
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
+ phone-devel@vger.kernel.org, 
+ Antony Kurniawan Soemardi <linux@smankusors.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1775208191; l=2103;
+ i=linux@smankusors.com; s=20250609; h=from:subject:message-id;
+ bh=66aIWb+bdnJRjf0S3pgNBTYc9+jV2JGl1jqzb6xpZ5U=;
+ b=+q8xl12f3pu58HFsrYqQFbmPTXsTJ6WF3KoLPgeNJb74fvU2s+KwajhqEL2/aVRhhkKK8/iTp
+ qE9sX9TWWKWABnwbvHXBm41n5cSACwG8UfUXdmbQsySL0Yv3RW2JquU
+X-Developer-Key: i=linux@smankusors.com; a=ed25519;
+ pk=65wTy06fJl2/h/EJwjr704YG+yjHFhZObJBWzzK+N00=
+Date: Fri,  3 Apr 2026 09:23:11 +0000 (UTC)
+X-CM-Analysis: v=2.4 cv=Ceda56rl c=1 sm=1 tr=0 ts=69cf8702 a=EXl8KfDnlL3m3zOSb15mOw==:117 a=EXl8KfDnlL3m3zOSb15mOw==:17 a=IkcTkHD0fZMA:10 a=VwQbUJbxAAAA:8 a=wxLWbCv9AAAA:8 a=_3edPfKAy5zYfz3TofwA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=QJY96suAAestDpCc5Gi9:22
+X-CM-Envelope: MS4xfB/sn2ihC4TU8lKKknX4CdxobJuoXCeC8RzVt7/nNBLhoThXmVvJD3xIJjbnGtQkuB9IXJ6IasHaVabtqZvkeoJg8ERzRBMaOFSpvU1/2PZWaO3E5PNr 2jKhE2TeX8Uf/KrHnokwJNQfYvDAfmyS8FhWQv8jyZJPV6kYZsmMNmOVtBb76o/4sbOMc5VyUDNnFqhC0MK3o67Y05xrDg3maZrfkqsmxADXE1UpJFMRv2NP eml5kLk3nMvKSZi8O5tCXkZPcDo0FDE2O4ayc4bf9cpdz21dX791EXUx9tR+vXNQqnDVXaFUggZlrP0dm1ZJc2CIuGC9BGOvZYddUUfeG7wrDlUSF2jw/eKT rWrgJbkHwLU8zdRg2e1zkcoVES9umCsr56S31iVT1G4f7EZTdV6kwQJYGNHnP9nGFiOXdC/V4FBpEalKhHQ9LeaPO4ItBrDnB+opQaUWm8NeylS2GHMHHAZ1 iSSIJL9PvaVBIvMi9bJN03qWrMqs6JLRj1C9pViJLTzSic7EszOhhBirPOJW4EwbpMIsfagggqZtR4zEQURCBknYyHyNe4tWf4hy3Fb/0aEaNipyip8JBNij gqWSX7jH+ghtBBEHnR+U00MHXM220x5AAarrSM5ewoV0hEKc3sb7n0LBdbf6R8ZhySxS8ST3vXfBCJZ64hZAGrVNtFNpHtM5h/J7QW6eH0QQLA==
+X-AuthUser: linux@smankusors.com
 
-Hi Yu-Chun,
+This series adds support for reading channel labels from the device tree
+in the Qualcomm PM8xxx XOADC driver, along with the corresponding DT
+updates for the PM8921 PMIC. Redundant error logging in pm8xxx_read_raw
+is also removed, as returning -EINVAL is sufficient when the channel is
+not found.
 
-On Thu, Apr 02, 2026 at 03:39:56PM +0800, Yu-Chun Lin wrote:
-> From: Cheng-Yu Lee <cylee12@realtek.com>
-> 
-> Add support for the ISO (Isolation) domain clock controller on the Realtek
-> RTD1625 SoC. This controller manages clocks in the always-on power domain,
-> ensuring essential services remain functional even when the main system
-> power is gated.
-> 
-> Since the reset controller shares the same register space with the ISO
-> clock controller, it is instantiated as an auxiliary device by the core
-> clock driver. This patch also includes the corresponding auxiliary reset
-> driver to handle the ISO domain resets.
-> 
-> Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
-> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
-> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
-> ---
-> Changes in v6:
-> - Add the headers used in c file to follow the "Include What You Use" principle.
-> - Move struct rtk_reset_desc arrays from the clock driver to the dedicated reset driver.
-> - Implement and register a dedicated reset auxiliary driver.
-> ---
->  drivers/clk/realtek/Makefile              |   1 +
->  drivers/clk/realtek/clk-rtd1625-iso.c     | 144 ++++++++++++++++++++++
->  drivers/reset/realtek/Makefile            |   2 +-
->  drivers/reset/realtek/reset-rtd1625-iso.c |  96 +++++++++++++++
->  4 files changed, 242 insertions(+), 1 deletion(-)
->  create mode 100644 drivers/clk/realtek/clk-rtd1625-iso.c
->  create mode 100644 drivers/reset/realtek/reset-rtd1625-iso.c
-> 
-> diff --git a/drivers/clk/realtek/Makefile b/drivers/clk/realtek/Makefile
-> index c992f97dfbc7..1680435e1e0f 100644
-> --- a/drivers/clk/realtek/Makefile
-> +++ b/drivers/clk/realtek/Makefile
-> @@ -10,3 +10,4 @@ clk-rtk-y += freq_table.o
->  
->  clk-rtk-$(CONFIG_RTK_CLK_PLL_MMC) += clk-pll-mmc.o
->  obj-$(CONFIG_COMMON_CLK_RTD1625) += clk-rtd1625-crt.o
-> +obj-$(CONFIG_COMMON_CLK_RTD1625) += clk-rtd1625-iso.o
-> diff --git a/drivers/clk/realtek/clk-rtd1625-iso.c b/drivers/clk/realtek/clk-rtd1625-iso.c
-> new file mode 100644
-> index 000000000000..027a131363f9
-> --- /dev/null
-> +++ b/drivers/clk/realtek/clk-rtd1625-iso.c
-> @@ -0,0 +1,144 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) 2024 Realtek Semiconductor Corporation
-> + * Author: Cheng-Yu Lee <cylee12@realtek.com>
-> + */
-> +
-> +#include <dt-bindings/clock/realtek,rtd1625-clk.h>
-> +#include <linux/array_size.h>
-> +#include <linux/init.h>
-> +#include <linux/module.h>
-> +#include <linux/of_device.h>
-> +#include <linux/platform_device.h>
-> +#include "clk-regmap-gate.h"
-> +
-> +#define RTD1625_ISO_CLK_MAX	19
-> +#define RTD1625_ISO_RSTN_MAX	29
-> +#define RTD1625_ISO_S_CLK_MAX	5
-> +#define RTD1625_ISO_S_RSTN_MAX	5
-> +
-> +static CLK_REGMAP_GATE_NO_PARENT(clk_en_usb_p4, 0, 0x4, 0, 0);
-> +static CLK_REGMAP_GATE_NO_PARENT(clk_en_usb_p3, 0, 0x4, 1, 0);
-> +static CLK_REGMAP_GATE(clk_en_misc_cec0, "clk_en_misc", 0, 0x4, 2, 0);
-> +static CLK_REGMAP_GATE_NO_PARENT(clk_en_cbusrx_sys, 0, 0x4, 3, 0);
-> +static CLK_REGMAP_GATE_NO_PARENT(clk_en_cbustx_sys, 0, 0x4, 4, 0);
-> +static CLK_REGMAP_GATE_NO_PARENT(clk_en_cbus_sys, 0, 0x4, 5, 0);
-> +static CLK_REGMAP_GATE_NO_PARENT(clk_en_cbus_osc, 0, 0x4, 6, 0);
-> +static CLK_REGMAP_GATE_NO_PARENT(clk_en_i2c0, 0, 0x4, 9, 0);
-> +static CLK_REGMAP_GATE_NO_PARENT(clk_en_i2c1, 0, 0x4, 10, 0);
-> +static CLK_REGMAP_GATE_NO_PARENT(clk_en_etn_250m, 0, 0x4, 11, 0);
-> +static CLK_REGMAP_GATE_NO_PARENT(clk_en_etn_sys, 0, 0x4, 12, 0);
-> +static CLK_REGMAP_GATE_NO_PARENT(clk_en_usb_drd, 0, 0x4, 13, 0);
-> +static CLK_REGMAP_GATE_NO_PARENT(clk_en_usb_host, 0, 0x4, 14, 0);
-> +static CLK_REGMAP_GATE_NO_PARENT(clk_en_usb_u3_host, 0, 0x4, 15, 0);
-> +static CLK_REGMAP_GATE_NO_PARENT(clk_en_usb, 0, 0x4, 16, 0);
-> +static CLK_REGMAP_GATE_NO_PARENT(clk_en_vtc, 0, 0x4, 17, 0);
-> +static CLK_REGMAP_GATE(clk_en_misc_vfd, "clk_en_misc", 0, 0x4, 18, 0);
-> +
-> +static struct clk_regmap *rtd1625_clk_regmap_list[] = {
+Tested on Sony Xperia SP (PM8921):
+> cat /sys/bus/iio/devices/iio\:device0/in_voltage7_label
+usb_vbus
+> cat /sys/bus/iio/devices/iio\:device0/in_temp12_label
+ref_muxoff
+> sensors
+iio_hwmon-isa-0000
+Adapter: ISA adapter
+vbat:        267.86 V
+dcin:          4.82 kV
+...
+chg_temp:    +1071.4°C
 
-static const? Same for some others below as well.
+Note: the sensor readings above are incorrect due to pending calibration
+fixes are not included in this series. This patch only addresses label
+visibility. The values are expected to be wrong until the calibration
+fixes lands separately.
 
-> +	&clk_en_usb_p4.clkr,
-> +	&clk_en_usb_p3.clkr,
-> +	&clk_en_misc_cec0.clkr,
-> +	&clk_en_cbusrx_sys.clkr,
-> +	&clk_en_cbustx_sys.clkr,
-> +	&clk_en_cbus_sys.clkr,
-> +	&clk_en_cbus_osc.clkr,
-> +	&clk_en_i2c0.clkr,
-> +	&clk_en_i2c1.clkr,
-> +	&clk_en_etn_250m.clkr,
-> +	&clk_en_etn_sys.clkr,
-> +	&clk_en_usb_drd.clkr,
-> +	&clk_en_usb_host.clkr,
-> +	&clk_en_usb_u3_host.clkr,
-> +	&clk_en_usb.clkr,
-> +	&clk_en_vtc.clkr,
-> +	&clk_en_misc_vfd.clkr,
-> +};
-> +
-> +static struct clk_hw_onecell_data rtd1625_iso_clk_data = {
-> +	.num = RTD1625_ISO_CLK_MAX,
-> +	.hws = {
-> +		[RTD1625_ISO_CLK_EN_USB_P4]      = &__clk_regmap_gate_hw(&clk_en_usb_p4),
-> +		[RTD1625_ISO_CLK_EN_USB_P3]      = &__clk_regmap_gate_hw(&clk_en_usb_p3),
-> +		[RTD1625_ISO_CLK_EN_MISC_CEC0]   = &__clk_regmap_gate_hw(&clk_en_misc_cec0),
-> +		[RTD1625_ISO_CLK_EN_CBUSRX_SYS]  = &__clk_regmap_gate_hw(&clk_en_cbusrx_sys),
-> +		[RTD1625_ISO_CLK_EN_CBUSTX_SYS]  = &__clk_regmap_gate_hw(&clk_en_cbustx_sys),
-> +		[RTD1625_ISO_CLK_EN_CBUS_SYS]    = &__clk_regmap_gate_hw(&clk_en_cbus_sys),
-> +		[RTD1625_ISO_CLK_EN_CBUS_OSC]    = &__clk_regmap_gate_hw(&clk_en_cbus_osc),
-> +		[RTD1625_ISO_CLK_EN_I2C0]        = &__clk_regmap_gate_hw(&clk_en_i2c0),
-> +		[RTD1625_ISO_CLK_EN_I2C1]        = &__clk_regmap_gate_hw(&clk_en_i2c1),
-> +		[RTD1625_ISO_CLK_EN_ETN_250M]    = &__clk_regmap_gate_hw(&clk_en_etn_250m),
-> +		[RTD1625_ISO_CLK_EN_ETN_SYS]     = &__clk_regmap_gate_hw(&clk_en_etn_sys),
-> +		[RTD1625_ISO_CLK_EN_USB_DRD]     = &__clk_regmap_gate_hw(&clk_en_usb_drd),
-> +		[RTD1625_ISO_CLK_EN_USB_HOST]    = &__clk_regmap_gate_hw(&clk_en_usb_host),
-> +		[RTD1625_ISO_CLK_EN_USB_U3_HOST] = &__clk_regmap_gate_hw(&clk_en_usb_u3_host),
-> +		[RTD1625_ISO_CLK_EN_USB]         = &__clk_regmap_gate_hw(&clk_en_usb),
-> +		[RTD1625_ISO_CLK_EN_VTC]         = &__clk_regmap_gate_hw(&clk_en_vtc),
-> +		[RTD1625_ISO_CLK_EN_MISC_VFD]    = &__clk_regmap_gate_hw(&clk_en_misc_vfd),
-> +		[RTD1625_ISO_CLK_MAX] = NULL,
-> +	},
-> +};
-> +
-> +static const struct rtk_clk_desc rtd1625_iso_desc = {
-> +	.clk_data = &rtd1625_iso_clk_data,
-> +	.clks     = rtd1625_clk_regmap_list,
-> +	.num_clks = ARRAY_SIZE(rtd1625_clk_regmap_list),
-> +};
-> +
-> +static CLK_REGMAP_GATE_NO_PARENT(clk_en_irda, 0, 0x4, 6, 1);
-> +static CLK_REGMAP_GATE_NO_PARENT(clk_en_ur10, 0, 0x4, 8, 1);
-> +
-> +static struct clk_regmap *rtd1625_iso_s_clk_regmap_list[] = {
-> +	&clk_en_irda.clkr,
-> +	&clk_en_ur10.clkr,
-> +};
-> +
-> +static struct clk_hw_onecell_data rtd1625_iso_s_clk_data = {
-> +	.num = RTD1625_ISO_S_CLK_MAX,
-> +	.hws = {
-> +		[RTD1625_ISO_S_CLK_EN_IRDA] = &__clk_regmap_gate_hw(&clk_en_irda),
-> +		[RTD1625_ISO_S_CLK_EN_UR10] = &__clk_regmap_gate_hw(&clk_en_ur10),
-> +		[RTD1625_ISO_S_CLK_MAX] = NULL,
-> +	},
-> +};
-> +
-> +static const struct rtk_clk_desc rtd1625_iso_s_desc = {
-> +	.clk_data = &rtd1625_iso_s_clk_data,
-> +	.clks     = rtd1625_iso_s_clk_regmap_list,
-> +	.num_clks = ARRAY_SIZE(rtd1625_iso_s_clk_regmap_list),
-> +};
-> +
-> +static int rtd1625_iso_probe(struct platform_device *pdev)
-> +{
-> +	const struct rtk_clk_desc *desc;
-> +
-> +	desc = of_device_get_match_data(&pdev->dev);
-> +	if (!desc)
-> +		return -EINVAL;
-> +	return rtk_clk_probe(pdev, desc, "iso_rst");
+Signed-off-by: Antony Kurniawan Soemardi <linux@smankusors.com>
+---
+Changes in v2:
+- Remove redundant error logging in pm8xxx_read_raw, since -EINVAL is
+  sufficient to report failures.
+- Reword the uncommon Tested-by commit tag to freeform text
+- Link to v1: https://lore.kernel.org/r/20260326-pm8xxx-xoadc-label-v1-0-027805dad4db@smankusors.com
 
-Add newline before return.
+Changes since original patch:
+- The label is now read from the platform description (device tree)
+  instead of the internal datasheet name.
+- Link to original patch:
+  https://lore.kernel.org/all/20251028-pm8xxx-xoadc-fix-v1-1-b000e1036e41@smankusors.com/
 
-> +}
-> +
-> +static const struct of_device_id rtd1625_iso_match[] = {
-> +	{.compatible = "realtek,rtd1625-iso-clk", .data = &rtd1625_iso_desc},
-> +	{.compatible = "realtek,rtd1625-iso-s-clk", .data = &rtd1625_iso_s_desc},
-> +	{ /* sentinel */ }
-> +};
-> +
-> +static struct platform_driver rtd1625_iso_driver = {
-> +	.probe = rtd1625_iso_probe,
-> +	.driver = {
-> +		.name = "rtk-rtd1625-iso-clk",
-> +		.of_match_table = rtd1625_iso_match,
-> +	},
-> +};
-> +
-> +static int __init rtd1625_iso_init(void)
-> +{
-> +	return platform_driver_register(&rtd1625_iso_driver);
-> +}
-> +subsys_initcall(rtd1625_iso_init);
-> +
-> +MODULE_DESCRIPTION("Realtek RTD1625 ISO Controller Driver");
-> +MODULE_AUTHOR("Cheng-Yu Lee <cylee12@realtek.com>");
-> +MODULE_LICENSE("GPL");
-> +MODULE_IMPORT_NS("REALTEK_CLK");
-> diff --git a/drivers/reset/realtek/Makefile b/drivers/reset/realtek/Makefile
-> index 8ca1fa939f10..26b3ddc75ada 100644
-> --- a/drivers/reset/realtek/Makefile
-> +++ b/drivers/reset/realtek/Makefile
-> @@ -1,2 +1,2 @@
->  # SPDX-License-Identifier: GPL-2.0-only
-> -obj-$(CONFIG_RESET_RTK_COMMON) += common.o reset-rtd1625-crt.o
-> +obj-$(CONFIG_RESET_RTK_COMMON) += common.o reset-rtd1625-crt.o reset-rtd1625-iso.o
+---
+Antony Kurniawan Soemardi (3):
+      ARM: dts: qcom: pm8921: add labels for ADC channels
+      iio: adc: qcom-pm8xxx-xoadc: remove redundant error logging in pm8xxx_read_raw
+      iio: adc: qcom-pm8xxx-xoadc: add support for reading channel labels
 
-Some comment as the previous patch. CONFIG_RESET_RTK_COMMON is expected
-to be common, right? If so, a SoC-specific driver shouldn't be listed
-here.
+ arch/arm/boot/dts/qcom/pm8921.dtsi  | 12 ++++++++++++
+ drivers/iio/adc/qcom-pm8xxx-xoadc.c | 34 +++++++++++++++++++++-------------
+ 2 files changed, 33 insertions(+), 13 deletions(-)
+---
+base-commit: 5619b098e2fbf3a23bf13d91897056a1fe238c6d
+change-id: 20260321-pm8xxx-xoadc-label-47afdf7f06a9
 
-> diff --git a/drivers/reset/realtek/reset-rtd1625-iso.c b/drivers/reset/realtek/reset-rtd1625-iso.c
-> new file mode 100644
-> index 000000000000..f2a0478382ae
-> --- /dev/null
-> +++ b/drivers/reset/realtek/reset-rtd1625-iso.c
-> @@ -0,0 +1,96 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) 2026 Realtek Semiconductor Corporation
-> + */
-> +
-> +#include <dt-bindings/reset/realtek,rtd1625.h>
-> +#include <linux/auxiliary_bus.h>
-> +#include <linux/device.h>
-> +#include <linux/errno.h>
-> +#include <linux/of.h>
-> +#include <linux/slab.h>
-> +#include "common.h"
-> +
-> +#define RTD1625_ISO_RSTN_MAX	29
-> +#define RTD1625_ISO_S_RSTN_MAX	5
-> +
-> +static struct rtk_reset_desc rtd1625_iso_reset_descs[] = {
-
-static const?
-
-> +	[RTD1625_ISO_RSTN_VFD]                 = { .ofs = 0x88, .bit = 0 },
-> +	[RTD1625_ISO_RSTN_CEC0]                = { .ofs = 0x88, .bit = 2 },
-> +	[RTD1625_ISO_RSTN_CEC1]                = { .ofs = 0x88, .bit = 3 },
-> +	[RTD1625_ISO_RSTN_CBUSTX]              = { .ofs = 0x88, .bit = 5 },
-> +	[RTD1625_ISO_RSTN_CBUSRX]              = { .ofs = 0x88, .bit = 6 },
-> +	[RTD1625_ISO_RSTN_USB3_PHY2_XTAL_POW]  = { .ofs = 0x88, .bit = 7 },
-> +	[RTD1625_ISO_RSTN_UR0]                 = { .ofs = 0x88, .bit = 8 },
-> +	[RTD1625_ISO_RSTN_GMAC]                = { .ofs = 0x88, .bit = 9 },
-> +	[RTD1625_ISO_RSTN_GPHY]                = { .ofs = 0x88, .bit = 10 },
-> +	[RTD1625_ISO_RSTN_I2C_0]               = { .ofs = 0x88, .bit = 11 },
-> +	[RTD1625_ISO_RSTN_I2C_1]               = { .ofs = 0x88, .bit = 12 },
-> +	[RTD1625_ISO_RSTN_CBUS]                = { .ofs = 0x88, .bit = 13 },
-> +	[RTD1625_ISO_RSTN_USB_DRD]             = { .ofs = 0x88, .bit = 14 },
-> +	[RTD1625_ISO_RSTN_USB_HOST]            = { .ofs = 0x88, .bit = 15 },
-> +	[RTD1625_ISO_RSTN_USB_PHY_0]           = { .ofs = 0x88, .bit = 16 },
-> +	[RTD1625_ISO_RSTN_USB_PHY_1]           = { .ofs = 0x88, .bit = 17 },
-> +	[RTD1625_ISO_RSTN_USB_PHY_2]           = { .ofs = 0x88, .bit = 18 },
-> +	[RTD1625_ISO_RSTN_USB]                 = { .ofs = 0x88, .bit = 19 },
-> +	[RTD1625_ISO_RSTN_TYPE_C]              = { .ofs = 0x88, .bit = 20 },
-> +	[RTD1625_ISO_RSTN_USB_U3_HOST]         = { .ofs = 0x88, .bit = 21 },
-> +	[RTD1625_ISO_RSTN_USB3_PHY0_POW]       = { .ofs = 0x88, .bit = 22 },
-> +	[RTD1625_ISO_RSTN_USB3_P0_MDIO]        = { .ofs = 0x88, .bit = 23 },
-> +	[RTD1625_ISO_RSTN_USB3_PHY1_POW]       = { .ofs = 0x88, .bit = 24 },
-> +	[RTD1625_ISO_RSTN_USB3_P1_MDIO]        = { .ofs = 0x88, .bit = 25 },
-> +	[RTD1625_ISO_RSTN_VTC]                 = { .ofs = 0x88, .bit = 26 },
-> +	[RTD1625_ISO_RSTN_USB3_PHY2_POW]       = { .ofs = 0x88, .bit = 27 },
-> +	[RTD1625_ISO_RSTN_USB3_P2_MDIO]        = { .ofs = 0x88, .bit = 28 },
-> +	[RTD1625_ISO_RSTN_USB_PHY_3]           = { .ofs = 0x88, .bit = 29 },
-> +	[RTD1625_ISO_RSTN_USB_PHY_4]           = { .ofs = 0x88, .bit = 30 },
-> +};
-> +
-> +static struct rtk_reset_desc rtd1625_iso_s_reset_descs[] = {
-> +	[RTD1625_ISO_S_RSTN_ISOM_MIS] = { .ofs = 0x310, .bit = 0, .write_en = 1 },
-> +	[RTD1625_ISO_S_RSTN_GPIOM]    = { .ofs = 0x310, .bit = 2, .write_en = 1 },
-> +	[RTD1625_ISO_S_RSTN_TIMER7]   = { .ofs = 0x310, .bit = 4, .write_en = 1 },
-> +	[RTD1625_ISO_S_RSTN_IRDA]     = { .ofs = 0x310, .bit = 6, .write_en = 1 },
-> +	[RTD1625_ISO_S_RSTN_UR10]     = { .ofs = 0x310, .bit = 8, .write_en = 1 },
-> +};
-> +
-> +static int rtd1625_iso_reset_probe(struct auxiliary_device *adev,
-> +				   const struct auxiliary_device_id *id)
-> +{
-> +	struct device *dev = &adev->dev;
-> +	struct device *parent = dev->parent;
-> +	struct rtk_reset_data *data;
-> +
-> +	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-> +	if (!data)
-> +		return -ENOMEM;
-> +
-> +	if (of_device_is_compatible(parent->of_node, "realtek,rtd1625-iso-s-clk")) {
-> +		data->descs           = rtd1625_iso_s_reset_descs;
-> +		data->rcdev.nr_resets = RTD1625_ISO_S_RSTN_MAX;
-> +	} else {
-> +		data->descs           = rtd1625_iso_reset_descs;
-> +		data->rcdev.nr_resets = RTD1625_ISO_RSTN_MAX;
-> +	}
-> +	return rtk_reset_controller_add(dev, data);
-
-Newline before return.
-
-> +}
-> +
-> +static const struct auxiliary_device_id rtd1625_iso_reset_ids[] = {
-> +	{
-> +		.name = "clk_rtk.iso_rst",
-> +	},
-
-I would combine the { .name } all on one line.
-
-Brian
-
-
-> +	{ /* sentinel */ }
-> +};
-> +MODULE_DEVICE_TABLE(auxiliary, rtd1625_iso_reset_ids);
-> +
-> +static struct auxiliary_driver rtd1625_iso_driver = {
-> +	.probe = rtd1625_iso_reset_probe,
-> +	.id_table = rtd1625_iso_reset_ids,
-> +	.driver = {
-> +		.name = "rtd1625-iso-reset",
-> +	},
-> +};
-> +module_auxiliary_driver(rtd1625_iso_driver);
-> +
-> +MODULE_LICENSE("GPL");
-> +MODULE_IMPORT_NS("REALTEK_RESET");
-> -- 
-> 2.34.1
-> 
+Best regards,
+--
+Antony Kurniawan Soemardi <linux@smankusors.com>
 
