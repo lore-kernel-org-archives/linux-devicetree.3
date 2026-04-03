@@ -1,82 +1,69 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51CF2DECB2
-	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 13:01:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+Received: from smtpfb1-g21.free.fr (smtpfb1-g21.free.fr [212.27.42.9])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 48DD83921D1;
+	Fri,  3 Apr 2026 13:03:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775221274; cv=none; b=ofIYMWNa64fLCeZF5VXP2iQNUIWDJ0B3DgMI8sJtshCrsBEJrNHEUvYrjuegEkgIP8WHGUMRpBHpbZqAOoBBtlDGsG302amgNTDZ/dsK6PaT7cYkMl1D6tvfp/yjW5FKzV3vS9LG+cNQxyxs7b8aSiPDlSRlZCIPJ/+MlQcJL4g=
+	t=1775221413; cv=none; b=ESDAezU+WPxCe2TdIaLME499iK8Q4vhVBN0dvP854kTNvS/nGmxkRTgPmWyg4oYYHud8fbpg+32+/aDzPGYmNMR5sNoa0NBZ0csIcfk59l2vSRcN2fCHLaxUxF876iT8/5aDF/hQjVym9nLz3WXtV7wxgpAAcCepBNd3AZoXCwc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775221274; c=relaxed/simple;
-	bh=viZ2BYLfE7Jb+K6yLXxVTA1IC1vVaIvF++RPVD4z8nQ=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=ffrEC5uOx6t9VhdeXz31gVjLe0fx0xxxJ7Vgbofw4f1+7exDNXevrbvQ2ertwXCMSo6dJyrBpfqf9nLv4SyY7YIXd/XL007Kr7pJ7hS1v2Mu92CWPR8IFWSTVWrfDtaV+0cQ1D0oC/x7gqm1+4unpoe1e4AgaWY3q5lO6kXG0nA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=fT6U9tO4; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="fT6U9tO4"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 1E23F1A3127;
-	Fri,  3 Apr 2026 13:01:09 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id DC5B7603C1;
-	Fri,  3 Apr 2026 13:01:08 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 10E12104500C5;
-	Fri,  3 Apr 2026 15:01:05 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1775221268; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=HN6EflbtZf6vQPoHUqakFtjSTjuC/o+6ozjBJwvQ8dg=;
-	b=fT6U9tO4FYDa6gDRuzKKtX3r9jJ+vW2jWCXQvM3ucjB8wWrDIuc1Mmr4dreXEKBND0IBtN
-	0OoV7t3rVHsuEvWboZdnnJ1rfmLEyjIZmlc17IBiMUGOO0lFoERtOP7i4hWORStrU5wYOw
-	74IJU1RwfOdof2G2n/2hSjfBttmfsE2wVPk9CitM7CIgIH02Ep76+uZ71250SwRYwmyn46
-	ot8aw0GDCSt0fMTW5iLKJuIKK8ZJx2lYFFD9+/VhFC8XwE7wQ8q3xG1eSDPf7UNJfXlSl3
-	DEQHviUByHHamqXmnfgxEmIBE/ab+qyN5m/Y57qyYe9exQRzue/4gGXrj/mRDQ==
+	s=arc-20240116; t=1775221413; c=relaxed/simple;
+	bh=+9FACoYqa7lh5gsKw23xvcRykRBv/FQQ5JtfDVe7hfM=;
+	h=Message-ID:Date:MIME-Version:In-Reply-To:To:From:Subject:
+	 Content-Type; b=j8uFS6GO5NPGQCoYPcx+yj4sFtHjd+Ij4JP8eDp11/7HP25fXiIdUT9KhKFpoiUwu33FiDxZ6cgSsSH+teIWoZhnbFoIfhc2glXyxGLz7hESe/AvM+Rf/gltkJx++IBPqgt3etBhOqNkmYv5wPW+7HYkLlTVKZwiz7aV7YfBmA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=online.fr; spf=pass smtp.mailfrom=online.fr; arc=none smtp.client-ip=212.27.42.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=online.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=online.fr
+Received: from smtp5-g21.free.fr (smtp5-g21.free.fr [212.27.42.5])
+	by smtpfb1-g21.free.fr (Postfix) with ESMTP id 190E5834762;
+	Fri,  3 Apr 2026 14:57:59 +0200 (CEST)
+Received: from [10.0.0.2] (unknown [82.65.243.93])
+	(Authenticated sender: legoll@free.fr)
+	by smtp5-g21.free.fr (Postfix) with ESMTPSA id 8B5F36014E;
+	Fri,  3 Apr 2026 14:57:26 +0200 (CEST)
+Message-ID: <36cca49c-0cb4-42b9-87ae-702df825a4a4@online.fr>
+Date: Fri, 3 Apr 2026 14:57:26 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH 2/3] clk: eswin: Add eic7700 HSP clock driver
-From: =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
-To: dongxuyang@eswincomputing.com
-Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org, 
- krzk+dt@kernel.org, conor+dt@kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- p.zabel@pengutronix.de, huangyifeng@eswincomputing.com, 
- ningyu@eswincomputing.com, linmin@eswincomputing.com, 
- pinkesh.vaghela@einfochips.com
-In-Reply-To: <20260403093612.725-1-dongxuyang@eswincomputing.com>
-References: <20260403093459.612-1-dongxuyang@eswincomputing.com>
- <20260403093612.725-1-dongxuyang@eswincomputing.com>
-Date: Fri, 03 Apr 2026 15:00:55 +0200
-Message-Id: <177522125518.65868.10463060970678520217.b4-review@b4>
-X-Mailer: b4 0.15.1
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+In-Reply-To: <20260119-patchv2-k1-thermal-v3-0-3d82c9ebe8a4@163.com>
+To: alex@ghiti.fr, aou@eecs.berkeley.edu, conor+dt@kernel.org,
+ daniel.lezcano@linaro.org, devicetree@vger.kernel.org, dlan@gentoo.org,
+ krzk+dt@kernel.org, krzysztof.kozlowski@oss.qualcomm.com,
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-riscv@lists.infradead.org, lukasz.luba@arm.com,
+ p.zabel@pengutronix.de, palmer@dabbelt.com, pjw@kernel.org,
+ rafael@kernel.org, robh@kernel.org, rui.zhang@intel.com,
+ spacemit@lists.linux.dev, gsh517025@gmail.com
+From: Vincent Legoll <legoll@online.fr>
+Subject: Re: [PATCH v3 0/3] thermal: spacemit: Add support for SpacemiT K1 SoC
+ thermal sensor
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, 03 Apr 2026 17:36:12 +0800, dongxuyang@eswincomputing.com <dongxuyang@eswincomputing.com> wrote:
-> diff --git a/drivers/clk/eswin/clk-eic7700-hsp.c b/drivers/clk/eswin/clk-eic7700-hsp.c
-> new file mode 100644
-> index 000000000000..65ad9e762ee9
-> --- /dev/null
-> +++ b/drivers/clk/eswin/clk-eic7700-hsp.c
-> @@ -0,0 +1,339 @@
-> [ ... skip 64 lines ... ]
-> +{
-> +	struct eic7700_hsp_clk_gate *gate = to_gate_clk(hw);
-> +	unsigned long flags;
-> +	u32 reg;
-> +
-> +	spin_lock_irqsave(gate->lock, flags);
+Hello,
 
-You can use guard(spinlock_irqsave)(gate->lock) instead, and drop the unlock.
 
--- 
-Benoît Monin, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+I applied this series on top of:
+
+- next-20260402
+
+- 
+https://patchwork.kernel.org/project/linux-riscv/patch/20260330-orangepi-sd-card-uhs-v5-9-bd853604322d@gmail.com/
+
+I need the the SD card series to boot from SD card.
+
+
+I'm also seeing the same "it works" state as Gong Shuai.
+
+So you can add another:
+
+Tested-by: Vincent Legoll <legoll@online.fr> # OrangePi-RV2
+
+Regards
+
+Thanks
 
