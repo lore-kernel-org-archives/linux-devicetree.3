@@ -1,170 +1,220 @@
-Received: from seahorse.cherry.relay.mailchannels.net (seahorse.cherry.relay.mailchannels.net [23.83.223.161])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 997EC23ABA8;
-	Fri,  3 Apr 2026 15:38:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=23.83.223.161
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775230729; cv=pass; b=fw/HVPecdMKXiwjExCBTEWdLDagcsvgtofRkqv+YVbpzN+d4gmsFBBuO2Qocd0XB61SDXFOpei1vOcvKmutfy3lz+fjyOYKXfy5aaxqpfaXwJT61F3NDsRsotXO4/s/6aqUSNaeuk29OdswXLo1TJ74ZY56wpGhLWghNFFk6jKo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775230729; c=relaxed/simple;
-	bh=66aIWb+bdnJRjf0S3pgNBTYc9+jV2JGl1jqzb6xpZ5U=;
-	h=From:Subject:Message-Id:MIME-Version:Content-Type:To:Cc:Date; b=rsk7VqkzRh9KkQTvFQQHlGaTvmrtjC8KkuTcQho4LnRj7UA6QuLsUpHhFxR8D0JoWbHllcRRwRRFZ2d2kxuogjgTIFx3CxeslgIrT3f/K6ElFPF1Cc4xKAv8gck7Z7aIjxpnE5rxI3hKXjkusz/R1V+4FhPiQYLM86v6FCr0Wws=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com; spf=pass smtp.mailfrom=smankusors.com; dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b=m+Gw345u; arc=pass smtp.client-ip=23.83.223.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smankusors.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB32B280A51;
+	Fri,  3 Apr 2026 15:50:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775231415; cv=none; b=QkWXfzpNpBCZsLuWbVACeJFJZLKeDO35nrXsZaBp3Ac0sX0BvcuCdDGgm7YYk6kBvR3XJncIjVayBv3x7S2qOlFN56s26P7w5LdgnBAMVPgezjx9oIwbopcZT1goIRxWo8jh4Nezz/yaHJZRdaG0nFwWo+23AhspdKFFff/TtuY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775231415; c=relaxed/simple;
+	bh=prDkm53R9Cx3R2od50UsMKn7PCFX4EJS2fF/vGLBeYU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QEMpH+aXEB/zsje/yqMmwiIqQst/BTlWK/ZzYyj3oFPGw1yaZvwuqwHZGIcZ+4OoW8xp2Tb5KyNDR4szpubx8HaCGESiMirGJ2FfFNEQCdLpjivia7glUFuR/u5KFddxVSrZ3u5dYDkFQiOQ1JDCz7mcddvAZm4VQB05W/Ls00U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e5GZrzyd; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b="m+Gw345u"
-X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id 4F29B4C2DBC;
-	Fri, 03 Apr 2026 09:23:34 +0000 (UTC)
-Received: from de-fra-smtpout2.hostinger.io (100-96-162-196.trex-nlb.outbound.svc.cluster.local [100.96.162.196])
-	(Authenticated sender: hostingeremail)
-	by relay.mailchannels.net (Postfix) with ESMTPA id 487174C29F5;
-	Fri, 03 Apr 2026 09:23:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; d=mailchannels.net; s=arc-2022; cv=none;
-	t=1775208212;
-	b=G8oisKrwJ1l/HnSMp+O/HMBN5ATBRopm1oaKhKjsxS8kGzarYG7g3C93+OnIcaFMtipbtF
-	vjqX6UMqZn7LCvBTi1TW1OpkI7gmKQ1skLjHeJOC0yKazuj6AJbkLJD6pgvN0V1iVHdE9a
-	UxWOmbkmJbsCbq2iS/ifVZ04wsWatpMBcVq8qIRKJI3CyqS3NYwUwpOc2O4TgeBmkmMCvx
-	f1TTzp6jNR8Je52A/3yvUDOzVolYcNXzvHRITiLcF0MVnDy78I9vcwRjeLsm5fSp704fdt
-	XBmp3GEX9uUUulfbO5HdcS7IZ2GFHgBEEe8pT9RAF+04J8aAg7qhKp6/CYw1SQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mailchannels.net;
-	s=arc-2022; t=1775208212;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:dkim-signature;
-	bh=yFVHNGHk5kTfuOncaVGOWPAMBNUlAY7jMU0/aoPowls=;
-	b=Q7zo8P/mN9gMG3wtHY+5rUG5I8TpSOh/l4VdZcFc3DQyN5NSQ7SfSx/o4LHiYVAu6usOFH
-	aW+jOrWenmzmX7n1bkaeP/H/8Bk/FoT1azx2HCUcWix2V3djoYMvbr67HUlrN9aWiugC3e
-	CzkOh2PnP8l3YT0VVbKbWqKFJSTY5td2ZysbUxJ2UyVKxHBnYC9sZmusgc0RviqAAn2Afq
-	1tFelmH6GE6xYQRcdzVITr+7ZcT6KXNbGm1RLYwrKf7Jrop53b9mm2Duw1JgTCUX40ByYR
-	wy7lukk44dBI5QPp3V21FQqO/Kes/kx842Aw9zWtc4WganuirRg6v/xuzc80Kw==
-ARC-Authentication-Results: i=1;
-	rspamd-bd48b9d95-mj7k8;
-	auth=pass smtp.auth=hostingeremail smtp.mailfrom=linux@smankusors.com
-X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: hostingeremail|x-authuser|linux@smankusors.com
-X-MailChannels-Auth-Id: hostingeremail
-X-Versed-Shelf: 3ab720a23a149024_1775208214152_1178420929
-X-MC-Loop-Signature: 1775208214152:1316233226
-X-MC-Ingress-Time: 1775208214152
-Received: from de-fra-smtpout2.hostinger.io ([TEMPUNAVAIL]. [148.222.55.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.96.162.196 (trex/7.1.5);
-	Fri, 03 Apr 2026 09:23:34 +0000
-Received: from [172.17.0.2] (unknown [180.253.47.239])
-	(Authenticated sender: linux@smankusors.com)
-	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4fnCv33qqCz3wpf;
-	Fri,  3 Apr 2026 09:23:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smankusors.com;
-	s=hostingermail-a; t=1775208194;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=yFVHNGHk5kTfuOncaVGOWPAMBNUlAY7jMU0/aoPowls=;
-	b=m+Gw345uZJJGZP+TwbUzrRuxDg/N+kpdPk+sJKKAXUERSeZH5AyB8hrdTCXkwz60sJ8jEK
-	YvBfDpcWfpT3sxUZN/qP5UuD6kR2mBE6fA9wjJQsfMEk1s0Gr/Lk6fw11m/QVF8Fb40KXG
-	/edx+qeq+jF9KJQBLk4gmQbXRRYlIzodduLpgPAUqZRFgl9DeDJSZ8ljPFulpPo5rinXBf
-	WoUWO9Z0IGTdYAcTwKPN47d62lBhrJBDRjepegOLWxdFrfkB/GH/UJh0h1189N+5fMck/1
-	vmW3H8fvTqDK13JQb8QQ7U4LbdCmvspYRGiAMI0vTyVWmsEAJaFnIUCHh+rwPg==
-From: Antony Kurniawan Soemardi <linux@smankusors.com>
-Subject: [PATCH v2 0/3] iio: adc: qcom-pm8xxx-xoadc: add support for
- reading channel labels from DT
-Message-Id: <20260403-pm8xxx-xoadc-label-v2-0-29b50bf821e6@smankusors.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e5GZrzyd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D5ACC4CEF7;
+	Fri,  3 Apr 2026 15:50:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775231415;
+	bh=prDkm53R9Cx3R2od50UsMKn7PCFX4EJS2fF/vGLBeYU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=e5GZrzydQ2eNeHFUBs9hO1fUN+M1I8zyAlUGnlyzZGlI8bmoj9tvyC9z2wahuOdQ5
+	 LXXGDAmcQAlHqZUETS8/fFbv54dKFLy3/k9ZNFt21WfWTtsp4Ra500/Z5Syi0vUr/z
+	 rPw3ckbhNW0C8/WtfFCND8YxyvTtgarI7GCHgPMwYS4qcjsPNz5Ju5OA/e2G8nScau
+	 V/l3tkNRyj3mAq1yc/hhlQKYkPKFTr8N2gmfO1H6sf09bUz6DMGAEUbbnXNun1w88e
+	 OdOXkB3nNsLjjdeAnCG4pJGmh6673d7Fd3Q0Y9feSbMVZe8LXj6reXhdH8xKg5tH8h
+	 Oy2mPR9IEGiYg==
+Date: Fri, 3 Apr 2026 17:50:06 +0200
+From: Lorenzo Pieralisi <lpieralisi@kernel.org>
+To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Bjorn Andersson <andersson@kernel.org>,
+	Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+	Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Andy Yan <andy.yan@rock-chips.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	John Stultz <john.stultz@linaro.org>,
+	Moritz Fischer <moritz.fischer@ettus.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+	Andre Draszik <andre.draszik@linaro.org>,
+	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, Srinivas Kandagatla <srini@kernel.org>
+Subject: Re: [PATCH v20 06/10] power: reset: Add psci-reboot-mode driver
+Message-ID: <ac/hru3IIiU0+Lp9@lpieralisi>
+References: <20260304-arm-psci-system_reset2-vendor-reboots-v20-0-cf7d346b8372@oss.qualcomm.com>
+ <20260304-arm-psci-system_reset2-vendor-reboots-v20-6-cf7d346b8372@oss.qualcomm.com>
+ <acaMPgRALnoUIHMC@lpieralisi>
+ <93a78bc2-4fd1-41bd-bf4a-b433b06fc218@oss.qualcomm.com>
+ <ac0trUGsRBLPS+ux@lpieralisi>
+ <da6f4566-a719-409b-80a9-40ca89e3e721@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAOKGz2kC/22NQQ6CMBBFr0Jm7ZhSEZCV9zAsBtpKI7Sko6SGc
- HcriTuX7yX//RVYB6sZmmyFoBfL1rsE8pBBP5C7a7QqMUghS3GSOc5THWPE6En1OFKnRywqMsp
- URpR0gTScgzY27tFbm3iw/PThvX8s+df+cuW/3JKjQCGrWpwVqUJ1V57IPV7sAx97P0G7bdsHa
- dmi0LkAAAA=
-X-Change-ID: 20260321-pm8xxx-xoadc-label-47afdf7f06a9
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
- phone-devel@vger.kernel.org, 
- Antony Kurniawan Soemardi <linux@smankusors.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1775208191; l=2103;
- i=linux@smankusors.com; s=20250609; h=from:subject:message-id;
- bh=66aIWb+bdnJRjf0S3pgNBTYc9+jV2JGl1jqzb6xpZ5U=;
- b=+q8xl12f3pu58HFsrYqQFbmPTXsTJ6WF3KoLPgeNJb74fvU2s+KwajhqEL2/aVRhhkKK8/iTp
- qE9sX9TWWKWABnwbvHXBm41n5cSACwG8UfUXdmbQsySL0Yv3RW2JquU
-X-Developer-Key: i=linux@smankusors.com; a=ed25519;
- pk=65wTy06fJl2/h/EJwjr704YG+yjHFhZObJBWzzK+N00=
-Date: Fri,  3 Apr 2026 09:23:11 +0000 (UTC)
-X-CM-Analysis: v=2.4 cv=Ceda56rl c=1 sm=1 tr=0 ts=69cf8702 a=EXl8KfDnlL3m3zOSb15mOw==:117 a=EXl8KfDnlL3m3zOSb15mOw==:17 a=IkcTkHD0fZMA:10 a=VwQbUJbxAAAA:8 a=wxLWbCv9AAAA:8 a=_3edPfKAy5zYfz3TofwA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=QJY96suAAestDpCc5Gi9:22
-X-CM-Envelope: MS4xfB/sn2ihC4TU8lKKknX4CdxobJuoXCeC8RzVt7/nNBLhoThXmVvJD3xIJjbnGtQkuB9IXJ6IasHaVabtqZvkeoJg8ERzRBMaOFSpvU1/2PZWaO3E5PNr 2jKhE2TeX8Uf/KrHnokwJNQfYvDAfmyS8FhWQv8jyZJPV6kYZsmMNmOVtBb76o/4sbOMc5VyUDNnFqhC0MK3o67Y05xrDg3maZrfkqsmxADXE1UpJFMRv2NP eml5kLk3nMvKSZi8O5tCXkZPcDo0FDE2O4ayc4bf9cpdz21dX791EXUx9tR+vXNQqnDVXaFUggZlrP0dm1ZJc2CIuGC9BGOvZYddUUfeG7wrDlUSF2jw/eKT rWrgJbkHwLU8zdRg2e1zkcoVES9umCsr56S31iVT1G4f7EZTdV6kwQJYGNHnP9nGFiOXdC/V4FBpEalKhHQ9LeaPO4ItBrDnB+opQaUWm8NeylS2GHMHHAZ1 iSSIJL9PvaVBIvMi9bJN03qWrMqs6JLRj1C9pViJLTzSic7EszOhhBirPOJW4EwbpMIsfagggqZtR4zEQURCBknYyHyNe4tWf4hy3Fb/0aEaNipyip8JBNij gqWSX7jH+ghtBBEHnR+U00MHXM220x5AAarrSM5ewoV0hEKc3sb7n0LBdbf6R8ZhySxS8ST3vXfBCJZ64hZAGrVNtFNpHtM5h/J7QW6eH0QQLA==
-X-AuthUser: linux@smankusors.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <da6f4566-a719-409b-80a9-40ca89e3e721@oss.qualcomm.com>
 
-This series adds support for reading channel labels from the device tree
-in the Qualcomm PM8xxx XOADC driver, along with the corresponding DT
-updates for the PM8921 PMIC. Redundant error logging in pm8xxx_read_raw
-is also removed, as returning -EINVAL is sufficient when the channel is
-not found.
+On Fri, Apr 03, 2026 at 12:05:27AM +0530, Shivendra Pratap wrote:
+> 
+> 
+> On 01-04-2026 20:07, Lorenzo Pieralisi wrote:
+> > On Tue, Mar 31, 2026 at 11:30:09PM +0530, Shivendra Pratap wrote:
+> > > 
+> > > 
+> > > On 27-03-2026 19:25, Lorenzo Pieralisi wrote:
+> > > > On Wed, Mar 04, 2026 at 11:33:06PM +0530, Shivendra Pratap wrote:
+> > > > > PSCI supports different types of resets like COLD reset, ARCH WARM
+> 
+> [snip..]
+> 
+> > > > > + * Predefined reboot-modes are defined as per the values
+> > > > > + * of enum reboot_mode defined in the kernel: reboot.c.
+> > > > > + */
+> > > > > +static struct mode_info psci_resets[] = {
+> > > > > +	{ .mode = "warm", .magic = REBOOT_WARM},
+> > > > > +	{ .mode = "soft", .magic = REBOOT_SOFT},
+> > > > > +	{ .mode = "cold", .magic = REBOOT_COLD},
+> > 
+> > These strings match the command userspace issue right ? I think that we
+> > should make them match the corresponding PSCI reset types, the list above
+> > maps command to reboot_mode values and those can belong to any reboot
+> > mode driver to be honest they don't make much sense in a PSCI reboot
+> > mode driver only.
+> > 
+> > It is a question for everyone here: would it make sense to make these
+> > predefined resets a set of strings, eg:
+> > 
+> > psci-system-reset
+> > psci-system-reset2-arch-warm-reset
+> > 
+> > and then vendor resets:
+> > 
+> > psci-system-reset2-vendor-reset
+> 
+> Can you share bit more details on this? We are already defining the string
+> from userspace in the struct - eg: ".mode = "warm".
 
-Tested on Sony Xperia SP (PM8921):
-> cat /sys/bus/iio/devices/iio\:device0/in_voltage7_label
-usb_vbus
-> cat /sys/bus/iio/devices/iio\:device0/in_temp12_label
-ref_muxoff
-> sensors
-iio_hwmon-isa-0000
-Adapter: ISA adapter
-vbat:        267.86 V
-dcin:          4.82 kV
-...
-chg_temp:    +1071.4°C
+"warm","soft","cold" are not strictly speaking PSCI concepts and mean nothing
+well defined to user space and even if they did, they would not belong in
+the PSCI reboot mode driver but in generic code.
 
-Note: the sensor readings above are incorrect due to pending calibration
-fixes are not included in this series. This patch only addresses label
-visibility. The values are expected to be wrong until the calibration
-fixes lands separately.
+Spelling out what a reset is might help instead, again, this is just my
+opinion, I don't know how the semantics of resets have been handled thus
+far.
 
-Signed-off-by: Antony Kurniawan Soemardi <linux@smankusors.com>
----
-Changes in v2:
-- Remove redundant error logging in pm8xxx_read_raw, since -EINVAL is
-  sufficient to report failures.
-- Reword the uncommon Tested-by commit tag to freeform text
-- Link to v1: https://lore.kernel.org/r/20260326-pm8xxx-xoadc-label-v1-0-027805dad4db@smankusors.com
+If userspace issues a LINUX_REBOOT_CMD_RESTART2 with arg, say,
+"psci-system-reset2-arch-warm-reset" it is pretty clear what it wants
+to do in PSCI.
 
-Changes since original patch:
-- The label is now read from the platform description (device tree)
-  instead of the internal datasheet name.
-- Link to original patch:
-  https://lore.kernel.org/all/20251028-pm8xxx-xoadc-fix-v1-1-b000e1036e41@smankusors.com/
+Again, it is a suggestion, comments welcome.
 
----
-Antony Kurniawan Soemardi (3):
-      ARM: dts: qcom: pm8921: add labels for ADC channels
-      iio: adc: qcom-pm8xxx-xoadc: remove redundant error logging in pm8xxx_read_raw
-      iio: adc: qcom-pm8xxx-xoadc: add support for reading channel labels
+> yes we can move away from enum reboot_mode and use custom psci defines one -
+> Ack.
+> 
+> > 
+> 
+> [snip ..]
+> 
+> > > > > +
+> > > > > +/*
+> > > > > + * arg1 is reset_type(Low 32 bit of magic).
+> > > > > + * arg2 is cookie(High 32 bit of magic).
+> > > > > + * If reset_type is 0, cookie will be used to decide the reset command.
+> > > > > + */
+> > > > > +static int psci_reboot_mode_write(struct reboot_mode_driver *reboot, u64 magic)
+> > > > > +{
+> > > > > +	u32 reset_type = REBOOT_MODE_ARG1(magic);
+> > > > > +	u32 cookie = REBOOT_MODE_ARG2(magic);
+> > > > > +
+> > > > > +	if (reset_type == 0) {
+> > > > > +		if (cookie == REBOOT_WARM || cookie == REBOOT_SOFT)
+> > > > > +			psci_set_reset_cmd(true, 0, 0);
+> > > > > +		else
+> > > > > +			psci_set_reset_cmd(false, 0, 0);
+> > > > > +	} else {
+> > > > > +		psci_set_reset_cmd(true, reset_type, cookie);
+> > > > > +	}
+> > > > 
+> > > > I don't think that psci_set_reset_cmd() has the right interface (and this
+> > > > nested if is too complicated for my taste). All we need to pass is reset-type
+> > > > and cookie (and if the reset is one of the predefined ones, reset-type is 0
+> > > > and cookie is the REBOOT_* cookie).
+> > > > 
+> > > > Then the PSCI firmware driver will take the action according to what
+> > > > resets are available.
+> > > > 
+> > > > How does it sound ?
+> > > 
+> > > So we mean these checks will move to the psci driver? Sorry for re-iterating
+> > > the question.
+> > 
+> > Given what I say above, I believe that something we can do is mapping the magic
+> > to an enum like:
+> > 
+> > PSCI_SYSTEM_RESET
+> > PSCI_SYSTEM_RESET2_ARCH_SYSTEM_WARM_RESET
+> > PSCI_SYSTEM_RESET2_VENDOR_RESET
+> > 
+> > and can add a probe function into PSCI driver similar to psci_has_osi_support() but
+> > to probe for SYSTEM_RESET2 and initialize the predefined strings accordingly,
+> > depending on its presence.
+> 
+> Not able to get it cleanly.
+> 
+> 1. Will move away from reboot_mode enum for pre-defined modes and define new
+> enum defining these modes- fine.
+> 2. get SYSTEM_RESET2 is supported from psci exported function -- fine, but
+> how we use it here now, as we do not want to send the reset_cmd from
+> psci_set_reset_cmd now?
 
- arch/arm/boot/dts/qcom/pm8921.dtsi  | 12 ++++++++++++
- drivers/iio/adc/qcom-pm8xxx-xoadc.c | 34 +++++++++++++++++++++-------------
- 2 files changed, 33 insertions(+), 13 deletions(-)
----
-base-commit: 5619b098e2fbf3a23bf13d91897056a1fe238c6d
-change-id: 20260321-pm8xxx-xoadc-label-47afdf7f06a9
+You do keep psci_set_reset_cmd() but all it is used for is setting a struct
+shared with the PSCI driver where you initialize the enum above, possibly
+with a cookie if it is a vendor reset.
 
-Best regards,
---
-Antony Kurniawan Soemardi <linux@smankusors.com>
+> 3. For pre-defined modes, warm/soft or cold - reset_type and cookie, both
+> are zero, sys_reset2 or sys_reset2 decides the ARCH reset vs cold reset.
+> 4. For vendor-rest , we use sys_reset2 with reset_type and cookie.
 
+Yes.
+
+> All above is done in reboot_notifier call at psci-reboot-mode.
+> --
+> 
+> Now in the final restart_notifier->psci_sys_reset --
+> 
+> If panic is in progress, we do not use any of the cmd based reset params and
+> go with the legacy reset. So we need to preserve the values that were set
+> from psci-reboot-mode.
+> 
+> Did not understand the proposed suggestion in above usecase. Need more input
+> on this.
+
+I explained above. The reboot mode driver sets the command to carry out
+depending on the string coming from user space and whether PSCI supports
+SYSTEM_RESET2 or not.
+
+> --
+> 
+> One other option is to have a restart_notifier in psci-reboot-mode, with
+> lesser priority than psci_sys_rest and then handle all the case including
+> panic and sys_reset2.
+
+No.
+
+Thanks,
+Lorenzo
