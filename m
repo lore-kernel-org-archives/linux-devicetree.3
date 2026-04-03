@@ -1,67 +1,41 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cp2.siel.si (cp2.siel.si [46.19.12.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B9DE2F12CF
-	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 08:28:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D8342DC76A;
+	Fri,  3 Apr 2026 08:29:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.19.12.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775204892; cv=none; b=F1hhbmpJ2aEVke7uCHAV/NiizEdnBHACZfPVbituaes5NGs015qCfzuv1c7oJe1/Jdw7MsitviEGQKC1TILR2Ak3IhOHqxG/uLSHLlnMBfYM5U84UkiQwNJz5g5U86cq090TRGT+ELEpwXqCl/z47aoYpinYju2Dvvviy/bHoX0=
+	t=1775204952; cv=none; b=cZ/iJ3QQSFy88Mm0yrUSHb/NDg4prCvcH35rv+ZihOkCIeCeYpRsyGEvkCLztBISu0XE9GTpzhQmCHjwWQJjccafLe8eJoskR+t7Lc7hfOdErUxlwzJCGmJucdaPPTg7N5BtzDWdHjCsQR6cRQzoVJ1QPBt3zrOgTFxDhiKJhlc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775204892; c=relaxed/simple;
-	bh=P6tV/NSJ8+hcqtrJ1A4O5Qb4o4cfCFtJU4ZhtKEtKlw=;
+	s=arc-20240116; t=1775204952; c=relaxed/simple;
+	bh=7hsMRWPDSH/DXgvbG4YrjCTJi0ukPsFS73y526akbmw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=luUKWIcU4AA24QXiC1X7k+kPmw59QzaGxiBtNnOLltHO7M5lYWLG2PJ/MeKmuj9LV4KfyeXPrYkW1i3oWjX0qWzN3s8MO6vhhLM8eBX/2vZnDryAxazDv93Sq9lQHyEZfiT9KoEvxRfFcoWcoZC/5GqahB2A0fspAzHcJKZ14LA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UnaVtn+1; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=MSWieyjZ4w8OFoZPLpmTqCrd6GvGQO0cpltLUEV23WMlkOnoZO65pgsU0LaNxZpR3jGPLKdyMKsxVI1l91wKtQKZkaKnCiaLm9XugB6OZhyj+vozNOhNLnyGKQrigShhuxO/Kh6FvfgmNHyeyIMOb2MXzKuATnqR/I8WARTcEqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com; spf=pass smtp.mailfrom=norik.com; dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b=HkLIlFth; arc=none smtp.client-ip=46.19.12.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=norik.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UnaVtn+1"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-48374014a77so20893805e9.3
-        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 01:28:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775204889; x=1775809689; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=BbH7f0R2O6m5QabRfcMy7zKu4Ni2chMwcIYJDUdBZQs=;
-        b=UnaVtn+137YiMT9e8E+q4C7cn7LiL/AbYE5ApJMFzZg9Rrx6GXW+wyfJw8yENzmIYW
-         pMO5G6BrDOhTpc9Z9MhdqL1yn+6HVZ4D+OEQid+RUdUwU+lUuQbplyWLfEPSWn2ggzK8
-         auSOfYmgBJV/QD2xrL8HFqLZbtSaSrIWstxCz9tCX3KHofCoGFKZq1k7s8CT/wa1cNNs
-         6NMQp1J4B5H2/1dQKM/K+fEXX9SEzFaBaCPFlh+vlxtTAt9NB3VR9VZrjgsZ1rTqSCxN
-         3NJXq8JrcRP02z78Ohh1LDvAtqDz4UBDD24kuFPIQ9pmSc8IQOAS8LI2VUb2I9baxorf
-         YpqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775204889; x=1775809689;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=BbH7f0R2O6m5QabRfcMy7zKu4Ni2chMwcIYJDUdBZQs=;
-        b=sQXIMF2R9Zw5sSbcarKAaAwhNhLZkH60YM9ps0Blwitjsi0jRupsRYyU9HuFeQa9H5
-         P7vzNwNpuWS/TXnJyugRTuGEKxHRhNu2OAZUTQPxgu1PelUj9WfCWVc4T2/w/UDD1tPk
-         uQwn2Cib0xYKVRToUQiK8+sBeriIgAHK3DaQJkU51Iesa9KxIOivJqXTD1JJv4ckAYf7
-         7vn0coYGalZ3CPJnglrv1dIIbyIh2ZP5OBfdtVaBFONuDVo1Fa8DYGZMkdlSIk/4h39o
-         ALglbtU+UhrJ8RDDYBTo6ku+zL+VWmO/o1GMdLBhpplqd3qPkUuvL2l3ZbEJ9e/6zwqc
-         x7pQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVoiIWKXBYpIYQFNQHV3lE3exZdyB+qOJHtlmIA0KSfXif19WPB3ZCWTXXv9YXmgzj1M5BCmbRE96+7@vger.kernel.org
-X-Gm-Message-State: AOJu0YwuPGI3xYrsN0kvdwKDQNDm5lPI4mvJwOGIBgYJZLMgGccSnBEc
-	k2DB8k9DI3iRATn5R9v2rr+InbkHY89MZO6bSwdFulEa0HbBiOwBu49L
-X-Gm-Gg: ATEYQzy2Ye9YMwh5BiA2VOrKrG7ZnnNE+idYwxbXTdA0qm4UbkbO7ugeeVDHqpV2Cd4
-	E/iAFLMDq5GyCwHGdn/7G/3S34Fito1D9JikouEwQGPF1yR9QwDrtKocRf+LKid5R+K4KOvx4yg
-	INKbTOZDdnSevlbIuh+uf9FDwdjF+O2g8N7S27eAphh2r6aWEF2aKRqyEN0PWURmtx/8CZ1mcao
-	GNfSqcpmRNPzH/riZi7oIG96pbR/1ex5X38MY1kbGUQo28HolcVzOfpiXCwemi21rZMNUgQElol
-	uF23Y9fCTTJwd4XwTgJLCta/a51E1WZ8QLar4N1lwEyyauwYjpeerIdjuOwZ3Iw4onTtWnmYT1t
-	NqJhHN8XeCeXw5UIoFaCN5caKqIanRRH0iZesZV8ZiUDfj9E/Oo4GD9DoB20e+fsown0qqj0Vv1
-	YK+vB3liPLdT66qHCsWRR7CIQ8oXcvUBVFCOl3jox/ozMPhNoRco1xke8ZzInbKaMRgQkBNG++U
-	BcoOTavzw==
-X-Received: by 2002:a05:600c:4688:b0:485:2c61:9457 with SMTP id 5b1f17b1804b1-4889970ea7bmr33974195e9.10.1775204889311;
-        Fri, 03 Apr 2026 01:28:09 -0700 (PDT)
-Received: from [10.1.4.108] (cust-east-par-46-193-119-166.cust.wifirst.net. [46.193.119.166])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488982e3244sm14946025e9.12.2026.04.03.01.28.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 03 Apr 2026 01:28:09 -0700 (PDT)
-Message-ID: <72c9a165-74bb-42a5-b5fe-67bfa2c8ce2e@gmail.com>
-Date: Fri, 3 Apr 2026 10:28:08 +0200
+	dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b="HkLIlFth"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=norik.com;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=YjFUAr5TF9qMHsoiwD86cKQNGRB+CzXIhSoVtDvqsOU=; b=HkLIlFthMtqIU2FWjoXhuHCrK1
+	CNV810xc7IAnUy03WGQmFdqV5TE/yzzWXxDdsomaDk32vH+a28yFp2LDT57+sVO5Rp/IGFkJJz4OR
+	OGJnUSW7W5sz7ruEDjHvyDgsabOz0mFVJzDEjxtoemUR7U077UNr6GyXWyjXWO/y0MHto/QyswYTO
+	4IFPlY1e7yICBfCZJw40FSSjzJZ+FJuQjQbm1Pg3dVL7b95kt5BSZ0VvEF+B/6QNeHd27EPS1F4r2
+	hTHfS1DMZvGEl2r2wcsukPns3KYUmMsqnUaMmUJ7R6ywD4cuEA6dXOwTZBGxMzcXOe4Vgw/+uMwce
+	QA4D8lmw==;
+Received: from 86-58-88-254.dynamic.telemach.net ([86.58.88.254]:30374 helo=[192.168.1.122])
+	by cp2.siel.si with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.99.1)
+	(envelope-from <florijan.plohl@norik.com>)
+	id 1w8Zto-0000000AR5L-0548;
+	Fri, 03 Apr 2026 10:29:03 +0200
+Message-ID: <56b9e133-74b9-4e59-a40c-c7637c080fd8@norik.com>
+Date: Fri, 3 Apr 2026 10:29:00 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,113 +43,78 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: dsa: microchip: add KSZ low-loss cable
- errata properties
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com,
- Vladimir Oltean <olteanv@gmail.com>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Fidelio Lawson <fidelio.lawson@exotec.com>
-References: <20260326-ksz87xx_errata_low_loss_connections-v1-0-79a698f43626@exotec.com>
- <20260326-ksz87xx_errata_low_loss_connections-v1-1-79a698f43626@exotec.com>
- <521cf729-50d2-44c1-8c96-c1fba2127b9d@lunn.ch>
+Subject: Re: [PATCH] arm64: dts: imx{91,93}-phyboard-segin: Add peb-av-18
+ overlay
+To: Frank Li <Frank.li@nxp.com>
+Cc: Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, upstream@lists.phytec.de
+References: <20260402070826.970012-1-florijan.plohl@norik.com>
+ <ac50OHuEApM3tRHq@lizhi-Precision-Tower-5810>
 Content-Language: en-US
-From: Fidelio LAWSON <lawson.fidelio@gmail.com>
-In-Reply-To: <521cf729-50d2-44c1-8c96-c1fba2127b9d@lunn.ch>
+From: Florijan Plohl <florijan.plohl@norik.com>
+In-Reply-To: <ac50OHuEApM3tRHq@lizhi-Precision-Tower-5810>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - cp2.siel.si
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - norik.com
+X-Get-Message-Sender-Via: cp2.siel.si: authenticated_id: florijan.plohl@norik.com
+X-Authenticated-Sender: cp2.siel.si: florijan.plohl@norik.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On 3/26/26 13:14, Andrew Lunn wrote:
-> On Thu, Mar 26, 2026 at 10:10:21AM +0100, Fidelio Lawson wrote:
->> Microchip KSZ87xx switches are affected by the "Module 3: Equalizer fix
->> for short cables" erratum described in DS80000687C.
->> The embedded PHY receivers are tuned for long, high-loss cables,
->> which may cause signal distortion when operated with short or low-loss
->> cabling such as CAT5e or CAT6. In these cases,
->> the PHY may fail to establish a link due to internal over-amplification.
+Hello,
+
+On 4/2/26 15:50, Frank Li wrote:
+> On Thu, Apr 02, 2026 at 09:08:26AM +0200, Florijan Plohl wrote:
+>> Add overlay for the PEB-AV-18 adapter on phyBOARD-Segin-i.MX91/93.
+> what's means PEB-AV-18? Is it random board name?
+The PEB-AV-18 is PHYTEC designation for Audio/Video adapter modules that can
+be used to connect displays on their boards.
+
+I will improve commit message to add more such information in v2.
+
+>
+>
+>> The supported LCD is Powertip PH800480T032-ZHC19 panel (AC220).
 >>
->> Two workarounds are provided by Microchip, each configuring a different
->> indirect register value to adjust the PHY equalizer settings.
+>> Signed-off-by: Florijan Plohl <florijan.plohl@norik.com>
+>> ---
+>>   arch/arm64/boot/dts/freescale/Makefile        |   4 +
+>>   .../imx91-phyboard-segin-peb-av-18.dtso       | 142 ++++++++++++++++++
+>>   .../imx93-phyboard-segin-peb-av-18.dtso       | 142 ++++++++++++++++++
+> Any difference between 91 and 93, can use one overlay file?
+>
+> Frank
+
+Can you suggest how to do so?
+
+There are imx93-pinfunc.h and imx91-pinfunc.h which are not unified
+between imx91 and imx93.
+
+So we can only create common dtsi like so:
+
+imx91-93-phyboard-segin-peb-av-18.dtsi
+
+and still use separate dtsos:
+
+imx91-phyboard-segin-peb-av-18.dtso
+imx93-phyboard-segin-peb-av-18.dtso
+
+Is that your idea?
+
+BR,
+
+Florijan Plohl
+
+>> --
+>> 2.43.0
 >>
->> This patch introduces two new device tree properties to enable and
->> select the appropriate workaround:
->>
->>    - microchip,low-loss-errata-enable: boolean enabling the feature
->>    - microchip,low-loss-errata: selects workaround 1 or 2 (default: 1)
->>
->> These properties allow board designers to opt into the errata fix
->> according to the targeted cable characteristics of their platform.
-> 
-> Does the errata give any indication how the two different workarounds
-> differ? How would a user decided which to use?
-> 
-> I also question if this should be a DT property. The length of the
-> cables is not a property of the board.
-> 
-> A PHY tunable would better reflect the same board can be used with
-> different cables, with different lengths/quality.
-> 
-> 	  Andrew
-
-Hi Andrew,
-Thanks for the review.
-Regarding the difference between the two workarounds:
-Microchip’s errata does provide some insight into how they behave and 
-when each should be used.
-Workaround 1 modifies the PHY equalizer settings by adjusting an 
-indirect register (0x3c).
-According to Microchip’s support article:
-
-“The above register change makes the equalizer’s compensation range 
-wider, and therefore cables with various characteristics can be 
-tolerated. Adjust equalizer EQ training algorithm to cover a few type of 
-short cables issue. Also is appropriate for board‑to‑board connection 
-and port‑to‑port connection with the capacitor AC coupling mode.”
-
-Microchip also explains that although the default value in register 0x3c 
-handles standard short Ethernet cables (CAT‑5/CAT‑5e), a more optimized 
-value (0x15) provides better tolerance for corner cases, especially very 
-short or board‑to‑board links:
-
-“Based on tests, a more optimized equalizer adjustment value 0x15 is 
-better for all corner cases of the short cable and short distance 
-connection for port‑to‑port or board‑to‑board cases.”
-
-So Workaround 1 primarily widens and optimizes the DSP equalizer EQ 
-compensation range, and is expected to solve most short/low‑loss cable 
-issues.
-Workaround 2 is intended for the cases where Workaround 1 is not sufficient.
-This one adjusts the receiver low‑pass filter bandwidth, effectively 
-reducing the high‑frequency component of the received signal:
-
-“Based on the root cause above, adjust the receiver low pass filter to 
-reduce the high frequency component to keep the receive signal within a 
-reasonable range when using CAT‑5E and CAT‑6 cable.”
-
-So Workaround 2 is a more aggressive filtering approach, applied only 
-when the EQ adjustment alone does not stabilize the link on CAT‑5e/CAT‑6 
-short cable scenarios.
-
-
-Regarding the question of whether this should be exposed through a PHY 
-tunable:
-I understand your concern. The erratum is indeed linked to cable 
-characteristics, not the board itself.
-Since this patch modifies registers that belong to the DSA switch 
-itself, and not the PHY driver, I’m not entirely sure it would be 
-architecturally correct to expose these adjustments as PHY tunables. The 
-workarounds target internal receiver/equalizer settings inside the 
-KSZ87xx switch block, accessed via the switch’s indirect register 
-mechanism, not via a standard phy_device.
-Given that, I’m unsure whether mapping these switch‑level registers into 
-the PHY tunables framework would be appropriate or even feasible.
-What do you think?
-
-Best regards,
-Fidelio
-
