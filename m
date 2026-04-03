@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D16A31691A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 479282DEA9B;
 	Fri,  3 Apr 2026 16:55:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775235335; cv=none; b=OO19xijSZX09Gstg+J+7LEVlk2AKk05/u/as8NMXBDJjfQZrDsXbam1ykGtqRyvA/Lo3rihRSIt7RB30eX//DSCs43aaxylK+AycbZDZbnLlm53scft2XNWDqOn4lDopth41B8LeHFPW8P4bLGhuhXNT5zrsnrlCEOGkZKo0Jnc=
+	t=1775235335; cv=none; b=eNKvUOWpoARyC29TCc0yjjqyk7ESyZkRtu0DEJvIuwppzw097PY6xjSkzxuhnuXHwZH/q77Ik0hzgkbNBCAnx6sonKF4S1XvzMkKObol0s23AcaaBIjkaRWgAL9hi3CSzrNKSqjTA1BrIKYwqilwNFb0Qmfk2qceYZOWCCOEuVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1775235335; c=relaxed/simple;
-	bh=/tzQuZ/U/5XUWUWrTbV+stwVTQRPCnc9ujggvi8xkgE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=iEG9x835B33Fvt8L4jvapxVlj7zIo688oHmvBMFXMC+kBsLVOt+TItFDvCIEH/cj7yLc9Umrpz2cqrUNs1uYkVSnQfSnK3mBzRM/VTdYDd6cAjbCBeH5ICIAi3fyKBVZi1aIG3sh/2St7MxDy0K14gyuORxzPrk01x+c0DgzjUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=p+a3LlXW; arc=none smtp.client-ip=10.30.226.201
+	bh=azPIcXHFapkiczhjKkBzlN9iLe+KM6jGYv3hkG7Ipqo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Z9aL5guGU1OqmAJn7uBwA+4l0iAiRjIj2ez3N21CNRvrxuJ4LLwj0MNwoemAMPeKwxy2J1GBbZK4S2yYcPl1nnDo5/P91iz9kOb5A1gmziJozc7iUzaMS3XInI4EmjfdOnU6tzDOEgA4uXpqbC7SdBOHhwb/oMIoaUlwaDsK3eA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tqBQ62me; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="p+a3LlXW"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2DB97C2BCB2;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tqBQ62me"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 040AFC19421;
 	Fri,  3 Apr 2026 16:55:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1775235335;
-	bh=/tzQuZ/U/5XUWUWrTbV+stwVTQRPCnc9ujggvi8xkgE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=p+a3LlXW+FQvX97pw8oCJmlWc+nyHoFdWNzJfJCUYt4vOUwPVRZ17Xzxceax9fX2q
-	 9bxinSAa9KWrUperEcZOcin7FHk7shErm3y1MF3UQMuD+OWYsPvSOh1IE9DTBb6JOR
-	 2yp4mvnvJAgkrrSa7OInEX1UJgxEi7psSsYk2TOjH91RZLDPBeStVmgL36XdyZ9+T8
-	 MWQGbn753ubTDJg6zah9aHQF0vBxry/1gbabuZgqwb3PRhlf2PWXfYsFPaTkAkXU8U
-	 8o77eF7YjgnlpoC6gvAoumM6Ebu/P7Ov4cwAG0Io0VG7Pz3f06901uosshjCKSXIl2
-	 Tg1H5meUg4cag==
+	bh=azPIcXHFapkiczhjKkBzlN9iLe+KM6jGYv3hkG7Ipqo=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=tqBQ62mejOhH5P1tZW8XKqf7VpZoJ7to7fXHiDUHTDPFxQrkXWECjb7PmqCLKxlqr
+	 UvUosS1s11QVw5mqRbPlqeclhhWoanjZwqMJ0of7JkPEZbtA8+9DvpW+KqpwHBEpyx
+	 IzjxUdLN4rva9tBpMW6JKCChZfm6yZyjQj9ni4GUuAxN+TZtN7qYs3Jl9EHj8kXly5
+	 c/OB0JzD6J5VAzdO3cbiSFqqpNLy8aHyhCI9XSj1gOSEdW3qy3FUt942YwbXJg//FY
+	 iPbY66IsLCqkjDpKA1yjzXfr2VIxPoBo3i9TGbPyy5Hlp3Lrg+rBLJxI/5w05nDfzX
+	 ycgLX+4FeUSkg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 227CCE85385;
-	Fri,  3 Apr 2026 16:55:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EC492E85381;
+	Fri,  3 Apr 2026 16:55:34 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Fri, 03 Apr 2026 18:55:34 +0200
-Subject: [PATCH 2/2] arm64: dts: qcom: sdm845-xiaomi-beryllium: Fix
- compatible strings
+Subject: [PATCH 0/2] Correct Xiaomi Poco F1 compatible strings and
+ evaluation.
+Date: Fri, 03 Apr 2026 18:55:32 +0200
+Message-Id: <20260403-beryllium-compat-string-v1-0-0a6b9cb55a20@ixit.cz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,9 +41,10 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260403-beryllium-compat-string-v1-2-0a6b9cb55a20@ixit.cz>
-References: <20260403-beryllium-compat-string-v1-0-0a6b9cb55a20@ixit.cz>
-In-Reply-To: <20260403-beryllium-compat-string-v1-0-0a6b9cb55a20@ixit.cz>
+X-B4-Tracking: v=1; b=H4sIAATxz2kC/x3MQQ5AMBBA0avIrE1SJZK6ili0NZiEkilCxN01l
+ m/x/wORhClCkz0gdHLkNSQUeQZ+smEk5D4ZtNK1qlSJjuSeZz4W9Ouy2R3jLhxG9L6ojDPKatN
+ Dqjehga//3Hbv+wGNbIWgaQAAAA==
+X-Change-ID: 20260403-beryllium-compat-string-cc149b90a29d
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -57,73 +58,45 @@ Cc: Petr Hodina <petr.hodina@protonmail.com>,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1901; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=690; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=MZ+eRzNq9NMrcA+OAcR5yU63SqPRgMpiRYCCd8HwqP8=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBpz/EFpP7IbtRoFPW4edA+U04N6Pc6pM0G+LVN7
- C3zBYwhtZiJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCac/xBQAKCRBgAj/E00kg
- cibnD/90wPlkMiUxRKz4ioLPT7dxEjWGGLbcRHmehrjszOfYOWW+qBJer0xSYC3ZsCBjjU6SKM1
- rvZYC3o7ABd2McxVfIHRU3ie2+oHtftxK4vwhAsE6fwysdObacccajWqFgbsjMgarB+oqK1mdRi
- F7xwDJg52n84DzAA7qSvCWpHyK7jhq5YGH36e5Nqf8UFYZQ/RLDOCIfAsfxrL+KktCwvSU22IuV
- oUqpzWXJmMqH7X4/GdBUyUdXNcbkgQKwHLHN7P46/f6jZgslBbOSx94h0dyqStV/7GdxC4yWteU
- Lrw9ydsB5ZQUzpdVt/ciFWqFrlZrmpvgRs1dumBxSOeEPtaX6K39gsapqKCyHM8auhdfNPb/EOh
- Hsg+me4KMM0WpW2aEMnfzuKUC5ryJnESYqyZ1HAL0HeCyHUgslwYMekJNaF6nRMXyizP7p7oWlg
- HL4Awf0pKgRN7Ye2FqgSdTB91evclizQLvIc9MiFF9iWs1/Yf7M1qK2Bv0aFICj0a841RUBmosu
- YPGayHt1jJxTBpuoSLiFRHkmIqP6CH/1uk4gAVsbssAJAfSWQL3l/MV0ujbjj54yyohEcNSD61b
- 5RQPgZWxCcpFozH22PrmjX5uksh2zfAqYRk6AUjOIiyxCHMI/SmXN737PyYGl6GMTiJM7KdcMch
- TTwWS/sdui65m7w==
+ bh=azPIcXHFapkiczhjKkBzlN9iLe+KM6jGYv3hkG7Ipqo=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBpz/EFee5WwJT1VYWmq7xJrHYCNXiTOXM+QC7SN
+ XkMMXcqPniJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCac/xBQAKCRBgAj/E00kg
+ cs3zD/4qFUbU3XPuDX751Hdq2PMwz5080NUcDhWGea/Rll5v2JlJVC8TVQKOQIGkFe/ywILLgA3
+ Iwt7QlLUuSYCJfhp3cSs9A9hldfs+HvqLiCJdlpBdonU0tU3EHKrvP8SyZezHg/UGaRQeutstuF
+ jjJ3W2FoG79rC561oDf63FiuuHZWhPaW39WMKAoC4dOnAXB47SbvJ8yDIFDSilAmgg+TrPbGA6y
+ BDZ92Gj8lGj6V8TdYI0gMobdqiyX0CrCWDCe4frgLe4ooMUA4zx12PZkOmYSlIaKTPKxWN2ROYq
+ wvvRYaUiY/I/Zv3fZkmruLvo583Rx27RCswrGQFEudbrFOgRX6EkU8NzrO4obtAvIyJP1CRdZPk
+ EqWCMLJNmOv10xgT4FVCrsnIUt402G7nhjef/Aqfs1c+SxnrgOiYTmt1KV6QL0thxFC6UMUkUzU
+ iVQGkrXBgqBMgXFUqYd8uDxREk8e4gd4DbQofXDuV3GqIF97hSURSKFz0mBaYTLsAp0ZnET/PrY
+ N4W26A4PZW1rHz45qyXb0x8h+qAvbFSPNCb9vOS7MU4BVkQ8mW15vEMLl7Vrq1OBrAE7pUaJf0N
+ A8iIg8jz/D4rdZLph2c8u+2fkEEXGJmlKg2YnfScEbEWp8PV3PO7laoVOJe+yClje1k1AYprSvv
+ xDZPiHJUohhtbtQ==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
 X-Original-From: David Heidelberg <david@ixit.cz>
 Reply-To: david@ixit.cz
 
-From: Jens Reidel <adrian@travitia.xyz>
-
-The most specific strings should come first (panel variant included),
-then the more generic ones (device and SoC).
-
-This is necessary for hexagonrpcd to guess the HexagonFS path for the
-device. It tries all of the compatible entries, but if none for
-xiaomi,beryllium existed it wouldn't be able to guess it.
-
-Fixes: bcf429831ecb ("arm64: dts: qcom: sdm845-xiaomi-beryllium-ebbg: introduce Xiaomi Poco F1 EBBG variant")
-Fixes: dd6459a0890a ("arm64: dts: qcom: split beryllium dts into common dtsi and tianma dts")
-Signed-off-by: Jens Reidel <adrian@travitia.xyz>
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-ebbg.dts   | 2 +-
- arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-tianma.dts | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+David Heidelberg (1):
+      dt-bindings: arm: qcom: Add Xiaomi Poco F1 Tianma variant bindings
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-ebbg.dts b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-ebbg.dts
-index 2d6f0e382a6cb..d157622f84d13 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-ebbg.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-ebbg.dts
-@@ -6,7 +6,7 @@
- 
- / {
- 	model = "Xiaomi Pocophone F1 (EBBG)";
--	compatible = "xiaomi,beryllium-ebbg", "qcom,sdm845";
-+	compatible = "xiaomi,beryllium-ebbg", "xiaomi,beryllium", "qcom,sdm845";
- };
- 
- &display_panel {
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-tianma.dts b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-tianma.dts
-index b58964cde8342..71816a9f33b48 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-tianma.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-tianma.dts
-@@ -6,7 +6,7 @@
- 
- / {
- 	model = "Xiaomi Pocophone F1 (Tianma)";
--	compatible = "xiaomi,beryllium", "qcom,sdm845";
-+	compatible = "xiaomi,beryllium-tianma", "xiaomi,beryllium", "qcom,sdm845";
- };
- 
- &display_panel {
+Jens Reidel (1):
+      arm64: dts: qcom: sdm845-xiaomi-beryllium: Fix compatible strings
 
+ Documentation/devicetree/bindings/arm/qcom.yaml             | 10 ++++++++--
+ arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-ebbg.dts   |  2 +-
+ arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-tianma.dts |  2 +-
+ 3 files changed, 10 insertions(+), 4 deletions(-)
+---
+base-commit: cc13002a9f984d37906e9476f3e532a8cdd126f5
+change-id: 20260403-beryllium-compat-string-cc149b90a29d
+
+Best regards,
 -- 
-2.53.0
+David Heidelberg <david@ixit.cz>
 
 
