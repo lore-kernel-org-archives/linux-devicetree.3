@@ -1,113 +1,126 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEDDD38F255
-	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 10:15:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA54E3A168A
+	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 10:17:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775211329; cv=none; b=mhsOKJbKEoxjtPBfobnbx7ZuValyF7fvsfDhEqhPfvvcr9OSzEblMtYFOmJ0+LJMrdRpJL3bumts1a5SchrA1f336C4+g7C4fDRZ/9MmlyaRuK5Spv4ggVHkG8IEyYm4Smg/rfume4hfDpVkpbxXG6In6TfW+2AOElrrm+YMX/I=
+	t=1775211466; cv=none; b=iJY7wWHbSO7YEgfXO/sG49yRqYOEaoVht0FtduC8aR5GyVeWKOo9cPLvnvXJ75ruePL3i4MiQJmUYz8iJNi4J8pi0WIcSKBKbAHfrQ5X/iB8q8Tk0CCuLriDz//9lglP0AIvEt0EslOpOLYHYO4BSOhOdTcS4jHdVTpxTt+Ne8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775211329; c=relaxed/simple;
-	bh=7i8J/fbN7z0SDl2RldQ6zv/iIja95/EoYFcW92yxPco=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=IL+wNVVveLSlmcgwqyiu5uzK1TL7wl82oyGkP5ow2mHFJkxmwZtpZEKrBFbdNJfaxeaVGkLnuZaCYSrmXvgYBeL+prp7i0SLgz/wXU+06h95jPbYowMVDer3k95al7joVPL1d/8/6ufRJaGxA+wtBbeTUnsEaIOBwjbeVJ4R6Dw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qYcoeav5; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1775211466; c=relaxed/simple;
+	bh=d/v4XeoiWFEOFAaH3W/eNFweATx6olzCtwWK+dE1fQE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=jmpc18whcu8XWT1+4h29aUnlaO18eQUl9J2bpYrH8j6xqEddga1dU2zC5AhbbKQWplZYh9uaKs2XBvOgxG8nYMnC+Sne0hqdYaMU6py91yC4zFIgAZbMQoMOVwfWIKy7iBYD8I4P2cyqJycuF5E6+N74fe+TS2mXcMC2MY1mfUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=aDInQkxx; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qYcoeav5"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2b2503753efso14598925ad.0
-        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 03:15:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="aDInQkxx"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-43d17bb1c1dso1608095f8f.2
+        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 03:17:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775211326; x=1775816126; darn=vger.kernel.org;
-        h=references:in-reply-to:message-id:date:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=tordCEdMdCISPKuHP1P7HVkOG9Rk7horQHJTiIOMN44=;
-        b=qYcoeav5Jgh6JG5CnQJLkcmYqjsY1PlCjfw8J+573oX6CfJph3zwhG055pv1/LhJD1
-         AacYzkviEHxOrrrc7wh5uT+3ASADEXLGI0bq2p+1DaNh+LeiqTLaJ99TOa/jFaGdl7Vk
-         w/zOgwi+PY/q+PTlZ2XxoV5iucti2ZGw2mczJDM5K7vlySDcRtE+a4q/DRcS9BGPTVxr
-         p4XA3ix0b3MbctswZ2ewAmFFyug7bnVz/LhmT9ZZXw/MvSnbZXvJqwmG6fdr8M0tB0Ma
-         H7ElKbClPSC8uUo7q6gFjNaTJDBJTcVCZMknN+bQAfoXhmuusJnRgCo5bQerzK0SllSm
-         sVsg==
+        d=linaro.org; s=google; t=1775211461; x=1775816261; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=d/v4XeoiWFEOFAaH3W/eNFweATx6olzCtwWK+dE1fQE=;
+        b=aDInQkxxkCYy0vyDhVJGYB38p/hCgGUxQ0BaaP3++gpOMAwLy0bAWC8wKjKuf6IRJJ
+         1eNB5vJUUQlPdA3bZuvi4X4oS4TWlLw+UScaQ5qeTkq2vDUHiePR9wluVtqCSQ9vCWuA
+         8uj2LtvbfPbe7k4ncMf5JkQOpEUy4Jc57qsnCNRzE+prgF6UlYnaDk/r4mflompe6C/l
+         Xzafc3ZBfy31q1iWSJrdp03govsQUwrMvqlqpsRFCMJdshWqFZktFhe+YuOgG+JBXUgY
+         GoMROXUYtYAWklQFA4X8jie6+Kw3Fo751h6eHZ+y0wCeqA+P9wNra0betG3CheRfl/Rh
+         2Y1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775211326; x=1775816126;
-        h=references:in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1775211461; x=1775816261;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=tordCEdMdCISPKuHP1P7HVkOG9Rk7horQHJTiIOMN44=;
-        b=EKU2VDthsTj0KAzZ1foAE46N1GSKlsCtHSZg+t0pZfwrZ/AdZBZo9VjlJVfVJpT91q
-         kwYYRgjpPlT4n4mBx/hK+ZQ9fmO+4Iv1tnRfNpDLwfb7+Kl36LB6n0oA7WbG3s4G+MaE
-         1lT2j+tdw/0YyYePPTglwzJXpQs3nJ0P4K3twJY7cxMRtplhkTkCdZtrHWk1CM2DzB2c
-         et4KMxBVWs2+hssO65raol2Tf8JB3J7wyal+T2qzt8TrDTldRpfXFeE41k0eS5WHT2Ez
-         TydWPrszBI7PE2UzoIFcsJoqJ6mtndmfA+bPqkXSEc65/P8ki9KYSAZDRD9eG0JFCXqb
-         qEVA==
-X-Forwarded-Encrypted: i=1; AJvYcCVQYC4o2yUSqFwfwlsbBlhl/xzsKLN/slhx1ekFnaI8dgg+xcXJygE/C7VFP0mFtiE25BKDfkC+nFEq@vger.kernel.org
-X-Gm-Message-State: AOJu0YyxRLzNpyN3RGjdQenLdE2kt9K6roOoKFfbtq7k9AX20+RuCiYY
-	tuwvQqiWTj/dbmOAEKiwfKtlOoNuR/Wq+5gvvg3U0ydrrhmU/d6j+Ibb
-X-Gm-Gg: AeBDievvoeRiOElSUQVz3TvhcWn33ZO2xD0LrGR/XxKGYVkyUXb3YvFKArRP9y9MMYR
-	u1jIhmIRdW/MJwvnRLJcJB+ysVQXH5OtjgRORh0XPsaMzOE9IVVtuhPIEZUNhue1uzqdnqme1Iv
-	4wkZu4bmzcMiBXRgevEDnsnB6Ca3RvRyGpS50ju2GvbaC4Y5yk1tp2ZBurcU2pt/8KhzDUwWiy8
-	AH25gycvxYOPd5okNN/pjpC3ijaez4PbRVlgLa6OvzHOG4O71Pjr4ONuG91Pb/ibRnz2+rJT/aU
-	NnWPy4hQadAKPEHajW+xSbPoU3+t2cm4ozllxSemEpX1I/NmXerGA9Ih7foA2kC0pDykPsPfA36
-	jv2ZnfqrgbleJ6U/azg7XHLYl0yiFJDwQznkq2883LYz73YiEf82dITe0NChPbQxaBQ83ciIOyO
-	8q52JRSp5it4Bq+8OH+6ukW8eO5Esr0RF2V3S9jx+/xc1TKSNqyZrt2wF/r5q+4cU=
-X-Received: by 2002:a17:903:388e:b0:2b2:6df1:1112 with SMTP id d9443c01a7336-2b281969a70mr25700175ad.40.1775211326126;
-        Fri, 03 Apr 2026 03:15:26 -0700 (PDT)
-Received: from ubuntu.localdomain ([27.217.83.168])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b2747341a8sm54383675ad.3.2026.04.03.03.15.23
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 03 Apr 2026 03:15:25 -0700 (PDT)
-From: Zaixiang Xu <zaixiang.xu.dev@gmail.com>
-To: linux@roeck-us.net
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	zaixiang.xu.dev@gmail.com
-Subject: [PATCH v5 3/3] hwmon: (sht3x) Add support for GXCAS GXHT30 sensor
-Date: Fri,  3 Apr 2026 18:14:56 +0800
-Message-Id: <1775211296-63722-4-git-send-email-zaixiang.xu.dev@gmail.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1775211296-63722-1-git-send-email-zaixiang.xu.dev@gmail.com>
-References: <1775211296-63722-1-git-send-email-zaixiang.xu.dev@gmail.com>
+        bh=d/v4XeoiWFEOFAaH3W/eNFweATx6olzCtwWK+dE1fQE=;
+        b=Npyj9gfidselNmWuLTm7HqSjTJYDrK7DhrJvypBz4kL5rS1msfo8N+uqsEifRbHdTM
+         xnAt4OPnx+B5c0fPyOBgMzOuaNqU4jzwtLJmFcgeLyBe1ErxDEcRtH1V3QxkNW20KMUk
+         IzwP6qxNQ/6+3FHecCP7/ZNVgXchGCfKeu0DPloAQNRnGdhxxa5ZSv1KrWNlDcYf+Hpa
+         2Hn2ANNgXwP/1K52k9e9EPR32+QRpcwzLhpl198SPtU2ORlJZ0ltndeWvcIF00E09EgR
+         fdEBNMoasnD/gydvAcJgWgAFCSZNuBRrn0FXtOJgwLmjpjaLnhVL1pj3CNGxl7nAaeqd
+         xsnw==
+X-Forwarded-Encrypted: i=1; AJvYcCVMAr2AMdy/xOxaaw0JPjyDYykcH6QIaSyeiSlIQdY6/CKhUXUUBuJFDoGt6NfQvrLZJv5t+1oxvaio@vger.kernel.org
+X-Gm-Message-State: AOJu0YyiRiegR07Gi5JKwSsNavwt4IvoA+Er8tF0iFV/CV4+IbUyM8KX
+	+eetKHlMtDkGDWn/YuaVsim/KPYgxV6ntUBw3Skuge6SRlRk1fDe9THEc+GcdhQN69w=
+X-Gm-Gg: AeBDiet4J9aDNEVaqMtvoFqA7dkxxk3QPW9DrfvqqUT45sGr+/y0+ujYTMbsFnLK/SR
+	g2BZluKyiHr9r3OZ0ZDWQwSbYqVk9ZNFeAfyXYqn0pH1GdmMnFuw8+fVfeY2LWbg2lrUBWCBw+5
+	hW2WbprsF6vxxcvRdNYElrYfP7iyvxq5wCMlWbIyHPGd3fPWd5CgUMnF9UUoDatDfo/UBRVK5/w
+	TGgKxSGgMSf4jO7fksY54TTjrrm5qTjO0UoPq6ff4BI/e7HEL1H4hicDcF5SYQXuPjHNFW6wTGD
+	JZnJP03ZGCRtfDicx3I3ChbOTTbwV91bT73t2cD8XQcXVXEjoiPQhQkufXeJC0kpcDKBaECSNeX
+	PNZylZGssBSvuEyVd57aIsCNyMJ5UMnSphZ3ItSYMT6SVb7LVE6KWedT6w2p0BXu8q+SeT6C6Rb
+	ajm+uznENutKYfIeB9KwdqvK1OoGX2
+X-Received: by 2002:a05:6000:4201:b0:43c:f976:b8ee with SMTP id ffacd0b85a97d-43d292dab19mr3932897f8f.26.1775211460610;
+        Fri, 03 Apr 2026 03:17:40 -0700 (PDT)
+Received: from draszik.lan ([212.129.76.92])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43d1e2a71f7sm16791493f8f.1.2026.04.03.03.17.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 03 Apr 2026 03:17:40 -0700 (PDT)
+Message-ID: <01ffe5d3aca040edcedb084386ab6e195cb93013.camel@linaro.org>
+Subject: Re: [PATCH v2 2/7] dt-bindings: soc: samsung: exynos-pmu: add
+ samsung,pmu-intr-gen phandle
+From: =?ISO-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
+To: Alexey Klimov <alexey.klimov@linaro.org>, Sam Protsenko	
+ <semen.protsenko@linaro.org>, linux-samsung-soc@vger.kernel.org, Krzysztof
+ Kozlowski <krzk@kernel.org>, Peter Griffin <peter.griffin@linaro.org>,
+ Conor Dooley	 <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>,
+  Krzysztof Kozlowski	 <krzk+dt@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, 	devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Fri, 03 Apr 2026 11:17:47 +0100
+In-Reply-To: <20260401-exynos850-cpuhotplug-v2-2-c5a760a3e259@linaro.org>
+References: <20260401-exynos850-cpuhotplug-v2-0-c5a760a3e259@linaro.org>
+	 <20260401-exynos850-cpuhotplug-v2-2-c5a760a3e259@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-8+build1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-The GXCAS GXHT30 is a humidity and temperature sensor that is software
-compatible with the Sensirion SHT3x series.
+Hi Alexey,
 
-Add the "gxht30" chip name to the i2c_device_id table to allow I2C core
-matching. For Device Tree instantiation, this driver relies on the I2C
-core fallback matching or DT compatible fallbacks (e.g., matching
-"gxcas,gxht30" with "sensirion,sht30").
+On Wed, 2026-04-01 at 05:51 +0100, Alexey Klimov wrote:
+> Some Exynos-based SoCs, for instance Exynos850, require access
+> to the pmu interrupt generation register region which is exposed
+> as a syscon. Update the exynos-pmu bindings documentation to
+> reflect this.
 
-Signed-off-by: Zaixiang Xu <zaixiang.xu.dev@gmail.com>
----
- drivers/hwmon/sht3x.c | 2 ++
- 1 file changed, 2 insertions(+)
+You could mention that this is similar to the existing google,...
+one due to same requirement, hence a new and more general property.
 
-diff --git a/drivers/hwmon/sht3x.c b/drivers/hwmon/sht3x.c
-index 08306ccb6d0b..abcc7b4abe5a 100644
---- a/drivers/hwmon/sht3x.c
-+++ b/drivers/hwmon/sht3x.c
-@@ -934,6 +934,7 @@ static const struct i2c_device_id sht3x_ids[] = {
- 	{"sht3x", sht3x},
- 	{"sts3x", sts3x},
- 	{"sht85", sht3x},
-+	{"gxht30", sht3x},
- 	{}
- };
- 
-@@ -948,5 +949,6 @@ module_i2c_driver(sht3x_i2c_driver);
- 
- MODULE_AUTHOR("David Frey <david.frey@sensirion.com>");
- MODULE_AUTHOR("Pascal Sachs <pascal.sachs@sensirion.com>");
-+MODULE_AUTHOR("Zaixiang Xu <zaixiang.xu.dev@gmail.com>");
- MODULE_DESCRIPTION("Sensirion SHT3x humidity and temperature sensor driver");
- MODULE_LICENSE("GPL");
--- 
-2.34.1
+>=20
+> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+> ---
+> =C2=A0.../devicetree/bindings/soc/samsung/exynos-pmu.yaml=C2=A0=C2=A0=C2=
+=A0 | 18 ++++++++++++++++++
+> =C2=A01 file changed, 18 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yam=
+l b/Documentation/devicetree/bindings/soc/samsung/exynos-
+> pmu.yaml
+> index 76ce7e98c10f..92acdfd5d44e 100644
+> --- a/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml
+> +++ b/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml
+> @@ -110,6 +110,11 @@ properties:
+> =C2=A0=C2=A0=C2=A0=C2=A0 description:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Node for reboot method
+> =C2=A0
+> +=C2=A0 samsung,pmu-intr-gen-syscon:
+> +=C2=A0=C2=A0=C2=A0 $ref: /schemas/types.yaml#/definitions/phandle
+> +=C2=A0=C2=A0=C2=A0 description:
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Phandle to PMU interrupt generation inter=
+face.
+> +
+> =C2=A0=C2=A0 google,pmu-intr-gen-syscon:
 
+Please keep alphabetical order of vendors.
+
+Cheers,
+Andre'
