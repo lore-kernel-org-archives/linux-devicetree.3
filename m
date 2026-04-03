@@ -1,270 +1,151 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1710733E7
-	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 08:09:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71D19339870
+	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 08:10:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775203765; cv=none; b=tuQG9FsGTbRkdGBavIflddpIily9bh0yf9NO0I/DBoZlpsdRsE5vqVC4fBd4aM5Q8ouIq0c3noaq8P+beKox/IW+aWVhrqS/2wf+qmNPEDLQlo9OSJKtaRhk3++LQNS+cXloQR1l7h7JGKi0HgnosgvODkTThmhJa+qVpV/aaKk=
+	t=1775203811; cv=none; b=r4RCXzOaWOEGq292bhmycUejLrNhPanQOTZUOsCoy74cLI6qI3KlMuA5vBOFbsxtunywy7cau0/VMfd3ewYC/zewLM50Sw9Mjb/EQpeGPWLXe2J+MkpztvJv1EB5vncBxb2ckPE+evo8lQZHxMN0jt3ZpQm5Wzbqup9KPAAz1/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775203765; c=relaxed/simple;
-	bh=VXCsauP+Z1gOYiKZ4PNqbm6HsOdURbg18M59hGnLtm0=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=NqWQfQoZCFkmPXarEygYrGvuznOHj8HChQAGKgiD0GT+yaA3HI+a4BvSHlSHXlPtnPv54rNmpG5WkV+2lUrJqv7E+RheuzihMArThom6Sa6I8vWIphygoxzWrsl4RtFTpUWL39BeyYauy1Lb6hiDdO0b2aYHVqdw+iWYwMQ1XQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=ca5SeQ6v; arc=none smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1775203811; c=relaxed/simple;
+	bh=w4iloriSlK8kznmyqJnVQZrzmn3qqOsRH37L7AvSFdI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qnYCAlLeyj90TGMN3LP2HA1ARiUnA5T0VM4ZN8gbRuV6LPoi1bVoVr/4hUGHcEiPAA0irwhXHrqaKJFoOuf82bLe5n7gY70CBzChlyo7j7eS85ySVHvf5RQWzR1kvkFX1QM/ng/U+fWmYlF/knk3irHHXTniwDtY29Dz3tGllJI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SAlay7OM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=M9hL8CoK; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="ca5SeQ6v"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-66a33f61d80so2994661a12.0
-        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 01:09:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SAlay7OM";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="M9hL8CoK"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6336E1V23772909
+	for <devicetree@vger.kernel.org>; Fri, 3 Apr 2026 08:10:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=3yxxuGjGRSktiOSFeurkfNMNMudjTni1PnN
+	qFP61cks=; b=SAlay7OM5cJHl5zc5svK6HLlTmllvm6qvO8B3OEMGUNL2vx+R/m
+	9imWmfELIzjPpHzsJi0lgYxXqhlxKY/2nG/4oRTSl5MYmvTyj5yunplFH8vYf4Za
+	WMsIFtieSLkpiorWwQyj/O/bF/sgvkcnZ/8zEQKhXBbVSbMxdYrCdul1yubbc+Ly
+	2oGl8U8jqB+/iCbcCPCTVWVlAo7mzT/+whJNxd+zjxD7xvSSzS6kBhppmUCKXZbU
+	StM2x2oKzmdMTeszpDl2b+QMvwdWUfpNHDqrk77Lou/toiBH9kSJKpI09DqjkDzh
+	DDcXi1c8jfRJaG+n0BeWrA672wkxfSSoZVA==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d9wcs258t-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 08:10:09 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-b630753cc38so2799026a12.1
+        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 01:10:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1775203761; x=1775808561; darn=vger.kernel.org;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8Xb5q3glRQmv4yoLtws8RCHguDjoOvEO7Ky6Ff+GZds=;
-        b=ca5SeQ6vQsVHNFrnGoeB049W0OM3+KD/6bSqGetZjSiBR3Dp8IrR0V+SkTozG9+3Uy
-         MVuJ8wVL8QLurQ+Mrm2MNdkYSr5EEOYed+pZYyO96zHCAZ3pvJ0xaDY/2FTWw+3swBzi
-         eBZ8I1QfuAEwdT/8BlaR138c1DPDSCyF9hbtnceNlHcWqBM3aLuv5wk5pGmta7yt9oxN
-         8tGFXsSdf3y7p6qLjJXQBkacE1jLQ27pBVtzyoeNIQh8Z7rEwPVCzp7BH8aV7edlknN6
-         50N0dkIaGySIdnyhqcYyB4FRLYTym9a0RYrjC4AjnfUQBuX2MTTuvP03c0oc4g/cKZXF
-         vAfQ==
+        d=oss.qualcomm.com; s=google; t=1775203808; x=1775808608; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=3yxxuGjGRSktiOSFeurkfNMNMudjTni1PnNqFP61cks=;
+        b=M9hL8CoKZLmvCFUfqkTX5dh57htw7ggb83AOG0ZfiixMRZktV5Ck/a4GvofaqJOU/v
+         Kbm5M9IneW4TUAzh/1NpkoUvy+5Y0+P1EEsgieM+Kr0ufdizpCVbT8Z7mGs/8sKI7i7E
+         hcC+fa1r8iQySYJwyEESMiq5I7MQ26y7d22aYPREy+sD+LcWcccue7VKIkI86UiSZDac
+         SIYiZLO0u2JlJft/xsLyZbIltHx8cWCHWU2L87NHPuKcWf8FtJ7TimVHkx+lYLl5WUvp
+         akYf1cdbh1aVt+Nkbaxc0slcMQ3jlMRarrB+QT8ziPBU94NM+KNQGZkBa8wnwI71ehNJ
+         JyvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775203761; x=1775808561;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=8Xb5q3glRQmv4yoLtws8RCHguDjoOvEO7Ky6Ff+GZds=;
-        b=hch0s7+RbmkDetLwXm23YEkJiUmKg0sazSyjWvJi1/mQKA1Lql3xP2g42w9KN8Z/2u
-         0sjJMTrMejGygOlOhUtVqz6bdGqoV1qRZD5UXYGIsimbj7JEDiWl+G7gnrsRO0JdhjnU
-         c/ZAWwap26ufteDDbpjTUK6751jb1qHvhnNyCzW/Hf0BvUPXCiulB4I8FUzQ5egBbSTC
-         id+TjW3/bqi2Pw7tEyI6ktGtyLeVpM++/cxvJx9QFoULNujg1ZXthWs7Ii4zETfEttZD
-         gH/0igUOXZP99IOoTVjJC5OdK3MaoKwJkeiDPQasf/pSNpDnmA2FZCZW4B6dw37yEeMU
-         +mZg==
-X-Forwarded-Encrypted: i=1; AJvYcCWifHSzATtIcXkyVBNnwXrx2uaNa7ZVeAQ+LeNQ1+DuxxA/ZSMMHcE4eBP5j3+ACyjbXfTWNbqZFo9j@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw3l/SkLa/v8TYfzrVdPgiBCHeKlqBurZZPJZOr3Frn1IWzxSPB
-	XNIZAhvls0OpGKkik3OPFZ0RJDBWOxJ6oCbZjmEAV3lMZC3MpdLzM1+uRXp8legONVY=
-X-Gm-Gg: ATEYQzwoEmMJbX3MNq76UsX5MWTA7s2Ma2yTAn4JO7XYQrc+J5I0N2eA/AImteGgNTn
-	xgdNCwXFCHBSuQ/PjpO1fpKtpetFZtEDZuPCiSiVF0S0IR1MfX+oOgnTYF9Oy32es1J38xMEHoI
-	NBiVeFtQPPy9dd7b69jfo5MsCM0TDvlJPOJZb/fvP9EY57eMCPJxNajAmgtYMBEjgx0glDkfWXv
-	pqg2KPgDGiKD6/ut+NVx0m0s5s4Agin0y9U3z4rlAypy5AmapDRHYYCovXgE290lzf+3r7Sy+no
-	nwfwTDSNALgzOsU9zV3q/tK7fd3O7SJKH1BeixQ9RCzL6DfPZwYnH6rLWHTjz52rg6avl728A1X
-	zRdtVPglsrZoA3Wy8y+648WYmGGdDX1qE2tBnIYW9K0wQsg+89W6D9m/K3jVw5JoUp4Q0aoYYC/
-	+HWgmdA7IxSI4QTnGxZTay5IUYMQM+Df/aW3vsww/5GT7X4bK2zG+hfdMYjPeU+BEcN9ZMY4swd
-	XIBASFlc6GlhYhhX/KkZWGPffXJ+vaZqQQm
-X-Received: by 2002:a17:907:d91:b0:b9c:393b:f6a7 with SMTP id a640c23a62f3a-b9c67957d43mr100406866b.31.1775203761272;
-        Fri, 03 Apr 2026 01:09:21 -0700 (PDT)
-Received: from localhost (2001-1c04-0504-7401-4b2e-1820-6d24-b264.cable.dynamic.v6.ziggo.nl. [2001:1c04:504:7401:4b2e:1820:6d24:b264])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9c3c99ec7csm174541566b.14.2026.04.03.01.09.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 03 Apr 2026 01:09:20 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1775203808; x=1775808608;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3yxxuGjGRSktiOSFeurkfNMNMudjTni1PnNqFP61cks=;
+        b=iZin4Na31p0FC9B5lTYCX2cB/OQVYmZTghxEyeZUcgk4blOSTs/V5ikENxbmFtPfTX
+         JfV+QKMWVxAzh7r95rBU7ksvsCGSkv+CIxFx10yesaoxmfOQXaNLOmUNL1j1M5PTnLtK
+         k/kJy4DcEQmpscrVlgKV6oZGuqgUTP0ldi5NJyRDjRfQUj4SfxLHVRjKzMpWEE0AkUvh
+         tTpYXmplXI14pxJI4wlwHSAOL/f5EuQWKnWN7DJ48C5M0MR19SPv4sIwGNQIcY9Zfudi
+         LI8CH2Y8A2q27rf9JLybFo34JM+8LfkWsu0tftEaNOcbz2ob/9ZoDC/2yPtE6Ox46rl0
+         E28g==
+X-Forwarded-Encrypted: i=1; AJvYcCWEvJ6jk889rSlLTLXDt0OYfdgzKoPDfRYLp9Hl9fvz42HZoJbRkON+E+pJUInTjWEhIFH14n6LuVbM@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy+O+DQNW9jciXUjFC/CW84FQI+VPRJ2pnKTKxuL46LLcqOPAuN
+	2ns6gyXbkHRSKO7GL+FRKuqfvkn7v9rt0NalN4ucjW+H6gx/yEcZ/zlEtfN6oyPDKxUE9UDF/yQ
+	zLS/oKQwAyYo1XHfWKkSVa/E4dSz4lWVHlBmJYISdfNmcMlAMmXktiDEPAUA6Fwi8
+X-Gm-Gg: AeBDietqXR1QhfHcJeTNezM4xOO9rTN7HqLOsqWD21b93Ee+Z1XUwD8NqGTG5h37G9c
+	TFja7EiIAgXhDmZxuokYiFqjULlOjD7SLuxtcAxJaRist/NeDGGzj+lBa4+9BjBpAR2TsuqHLy2
+	YyLm28PMJAib412awen4PZAwO/VtDCh9nWQO+2Vqao+wft9YM1bobQLkcxVPcLBHP1okecfVbIu
+	DzqIwz8tqSJMfPuIjMBcq7sZUfJAOU8/W2nyyJZF5LB+L1VmrFjS2BD0hVo8Bhk5pXHzfpa4lfJ
+	LNh4xvW5j8rqsLOnYKKxY6Khv55NcYAR4LzrtC/QxznKEXa6WW2/fYnxVunFIJbW3Yi7oM8rFKf
+	H2bTe7D9kpOkTsFZ2azCJ41Y0UAyL/b150DY6XqcuP6TAyLIs
+X-Received: by 2002:a05:6a00:2e85:b0:82c:6aee:b21a with SMTP id d2e1a72fcca58-82d0dba215cmr2162806b3a.45.1775203808248;
+        Fri, 03 Apr 2026 01:10:08 -0700 (PDT)
+X-Received: by 2002:a05:6a00:2e85:b0:82c:6aee:b21a with SMTP id d2e1a72fcca58-82d0dba215cmr2162769b3a.45.1775203807745;
+        Fri, 03 Apr 2026 01:10:07 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82cf9b23c6asm6989864b3a.10.2026.04.03.01.10.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 03 Apr 2026 01:10:07 -0700 (PDT)
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Will Deacon <will@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Robin Murphy <Robin.Murphy@arm.com>
+Cc: Robin Murphy <robin.murphy@arm.com>, linux-arm-kernel@lists.infradead.org,
+        iommu@lists.linux.dev, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Subject: [PATCH v2] dt-bindings: arm-smmu: qcom: Add compatible for Hawi SoC
+Date: Fri,  3 Apr 2026 13:39:56 +0530
+Message-ID: <20260403080956.2714415-1-mukesh.ojha@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 03 Apr 2026 10:09:20 +0200
-Message-Id: <DHJD7P2TXQTH.1TQ4YQQ21A6CS@fairphone.com>
-To: "Vladimir Zapolskiy" <vladimir.zapolskiy@linaro.org>, "Luca Weiss"
- <luca.weiss@fairphone.com>
-Cc: "Bryan O'Donoghue" <bod@kernel.org>, "Konrad Dybcio"
- <konradybcio@kernel.org>, "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Robert Foss" <rfoss@kernel.org>,
- <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <linux-media@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Krzysztof
- Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>, "Todor Tomov"
- <todor.too@gmail.com>, "Mauro Carvalho Chehab" <mchehab@kernel.org>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Bjorn Andersson" <andersson@kernel.org>
-Subject: Re: [PATCH v4 0/3] Add CAMSS support for SM6350
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260216-sm6350-camss-v4-0-b9df35f87edb@fairphone.com>
- <2a108976-374a-46e1-968d-7befa4369a74@linaro.org>
-In-Reply-To: <2a108976-374a-46e1-968d-7befa4369a74@linaro.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: wA7Ul8KbPm7Ey4e2hwGJU0y4tVEQpNDK
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAzMDA3MSBTYWx0ZWRfX7zPcndONnb3X
+ MN/FKRrg6+G4plq4Y4iQA/yNGEkgP4WSMs6YAVV0kWw503HQooxUMjv1icOxkd/CpPhZTtRmJ9I
+ VhxjENyVJ4DFmYmZKghYTfNXR5epQ6lvdm8c0AcjRZbMGm8Mex0HrGHzV45KgPHPGSzBRLEHHYX
+ NmEnSA1DzG3+TaaElm3rtjwonwOw4Qo91iIqGanT7sFeYFDSVprKVzskow34kX+kVo0QCScmFYX
+ fPN5gQ2cmNA8tJmtnBSXyJxhOuNGFRiT7BHNiT6jNEaC6/eRyR9/jw7RSKHI9e8ginFw6LK+kVQ
+ lkRb3hTQSvUYk/ObcMniNPNDW70IMJAcYkhAWnLe1auxKJ+7hB3ll2id/BaACLNmCrQ3S/dcyPT
+ vbv+v7KzfXiF5z0zLvVB+8A6CxALdYMVwlEnGkp09Evtfk0t69A1lLwkZFndKj7Z+J0q3m8lp8s
+ 2D6ihxbrRYa9KiCmfrA==
+X-Authority-Analysis: v=2.4 cv=ZuPg6t7G c=1 sm=1 tr=0 ts=69cf75e1 cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
+ a=V65sNsENKvr6zZljLJ4A:9 a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-GUID: wA7Ul8KbPm7Ey4e2hwGJU0y4tVEQpNDK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-03_02,2026-04-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0 phishscore=0
+ priorityscore=1501 malwarescore=0 clxscore=1015 impostorscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2604030071
 
-Hi Vladimir,
+Qualcomm Hawi SoC include apps smmu that implements arm,mmu-500, which
+is used to translate device-visible virtual addresses to physical
+addresses. Add compatible for these items.
 
-On Tue Mar 31, 2026 at 12:49 AM CEST, Vladimir Zapolskiy wrote:
-> Hi Luca,
->
-> On 2/16/26 10:54, Luca Weiss wrote:
->> Add bindings, driver and dts to support the Camera Subsystem on the
->> SM6350 SoC.
->>=20
->> These patches were tested on a Fairphone 4 smartphone with WIP sensor
->> drivers (Sony IMX576 and IMX582), the camera pipeline works properly as
->> far as I can tell.
->>=20
->> Though when stopping the camera stream, the following clock warning
->> appears in dmesg. But it does not interfere with any functionality,
->> starting and stopping the stream works and debugcc is showing 426.4 MHz
->> while the clock is on, and 'off' while it's off.
->>=20
->> Any suggestion how to fix this, is appreciated.
->
-> I've looked at CAMCC recently, and I do notice that SM6350 CAMCC does not
-> set '.use_rpm =3D true' flag for whatever reason.
->
-> If you find a free minute, can you test the change below?..
+Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+---
+Changes in v2:
+ - Added qcom in the subject as Hawi is a Qualcomm SoC.
 
-Unfortunately that change does not resolve the "gcc_camera_axi_clk
-status stuck at 'on'" warning.
 
-fairphone-fp4:~$ cat /sys/bus/platform/drivers/sm6350-camcc/ad00000.clock-c=
-ontroller/power/runtime_status=20
-active
+ Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-fairphone-fp4:~$ cat /sys/bus/platform/drivers/sm6350-camcc/ad00000.clock-c=
-ontroller/power/runtime_status
-suspended
-
->
-> ----8<----
-> diff --git a/drivers/clk/qcom/camcc-sm6350.c b/drivers/clk/qcom/camcc-sm6=
-350.c
-> index 7df12c1311c6..ba880e4edcaf 100644
-> --- a/drivers/clk/qcom/camcc-sm6350.c
-> +++ b/drivers/clk/qcom/camcc-sm6350.c
-> @@ -1880,6 +1880,7 @@ static const struct qcom_cc_desc camcc_sm6350_desc =
-=3D {
->   	.num_clks =3D ARRAY_SIZE(camcc_sm6350_clocks),
->   	.gdscs =3D camcc_sm6350_gdscs,
->   	.num_gdscs =3D ARRAY_SIZE(camcc_sm6350_gdscs),
-> +	.use_rpm =3D true,
->   };
->  =20
->   static const struct of_device_id camcc_sm6350_match_table[] =3D {
-> ----8<----
->
-> This change could be considered to be included in any case, I believe.
-
-I guess this change is now the way to enable pm_runtime, I had this
-series 3 years ago in February 2023:
-https://lore.kernel.org/linux-arm-msm/20230213-sm6350-camcc-runtime_pm-v3-0=
--d35e0d833cc4@fairphone.com/
-
-But I never followed up due to me not understanding pm_runtime well and
-no direct need for it.
-
-But I guess reviving that with use_rpm =3D true, add power-domains &
-required-opps to dt-bindings and sm6350.dtsi should be a good idea?
-
-Regards
-Luca
-
->
->> [ 5738.590980] ------------[ cut here ]------------
->> [ 5738.591009] gcc_camera_axi_clk status stuck at 'on'
->> [ 5738.591049] WARNING: CPU: 0 PID: 6918 at drivers/clk/qcom/clk-branch.=
-c:87 clk_branch_toggle+0x170/0x190
->> [ 5738.591081] Modules linked in:
->> [ 5738.591099] CPU: 0 UID: 10000 PID: 6918 Comm: plasma-camera Tainted: =
-G        W           6.17.0-00057-ge6b67db49622 #71 NONE
->> [ 5738.591118] Tainted: [W]=3DWARN
->> [ 5738.591126] Hardware name: Fairphone 4 (DT)
->> [ 5738.591136] pstate: 604000c5 (nZCv daIF +PAN -UAO -TCO -DIT -SSBS BTY=
-PE=3D--)
->> [ 5738.591150] pc : clk_branch_toggle+0x170/0x190
->> [ 5738.591164] lr : clk_branch_toggle+0x170/0x190
->> [ 5738.591177] sp : ffff800086ed3980
->> [ 5738.591184] x29: ffff800086ed3990 x28: 0000000000000001 x27: ffff8000=
-86ed3cd8
->> [ 5738.591208] x26: 0000000000000000 x25: ffffda14fcfbd250 x24: 00000000=
-00000000
->> [ 5738.591230] x23: 0000000000000000 x22: ffffda14fc38bce0 x21: 00000000=
-00000000
->> [ 5738.591252] x20: ffffda14fd33e618 x19: 0000000000000000 x18: 00000000=
-000064c8
->> [ 5738.591274] x17: 0000000000000000 x16: 00001ae003667e9e x15: ffffda14=
-fd2a07b0
->> [ 5738.591295] x14: 0000000000000000 x13: 6f27207461206b63 x12: 75747320=
-73757461
->> [ 5738.591317] x11: 0000000000000058 x10: 0000000000000018 x9 : ffffda14=
-fd2a0838
->> [ 5738.591338] x8 : 0000000000057fa8 x7 : 0000000000000a16 x6 : ffffda14=
-fd2f8838
->> [ 5738.591360] x5 : ffff0001f6f59788 x4 : 0000000000000a15 x3 : ffff25ec=
-f9d7e000
->> [ 5738.591381] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff0000=
-baf5c100
->> [ 5738.591403] Call trace:
->> [ 5738.591412]  clk_branch_toggle+0x170/0x190 (P)
->> [ 5738.591429]  clk_branch2_disable+0x1c/0x30
->> [ 5738.591445]  clk_core_disable+0x5c/0xb4
->> [ 5738.591462]  clk_disable+0x38/0x60
->> [ 5738.591478]  camss_disable_clocks+0x44/0x78
->> [ 5738.591496]  vfe_put+0x7c/0xc0
->> [ 5738.591512]  vfe_set_power+0x40/0x50
->> [ 5738.591528]  pipeline_pm_power_one+0x14c/0x150
->> [ 5738.591546]  pipeline_pm_power+0x74/0xf4
->> [ 5738.591561]  v4l2_pipeline_pm_use+0x54/0x9c
->> [ 5738.591577]  v4l2_pipeline_pm_put+0x14/0x40
->> [ 5738.591592]  video_unprepare_streaming+0x18/0x24
->> [ 5738.591608]  __vb2_queue_cancel+0x4c/0x314
->> [ 5738.591626]  vb2_core_streamoff+0x24/0xc8
->> [ 5738.591643]  vb2_ioctl_streamoff+0x58/0x98
->> [ 5738.591657]  v4l_streamoff+0x24/0x30
->> [ 5738.591672]  __video_do_ioctl+0x430/0x4a8
->> [ 5738.591689]  video_usercopy+0x2ac/0x680
->> [ 5738.591705]  video_ioctl2+0x18/0x40
->> [ 5738.591720]  v4l2_ioctl+0x40/0x60
->> [ 5738.591734]  __arm64_sys_ioctl+0x90/0xf0
->> [ 5738.591750]  invoke_syscall.constprop.0+0x40/0xf0
->> [ 5738.591769]  el0_svc_common.constprop.0+0x38/0xd8
->> [ 5738.591785]  do_el0_svc+0x1c/0x28
->> [ 5738.591801]  el0_svc+0x34/0xe8
->> [ 5738.591820]  el0t_64_sync_handler+0xa0/0xe4
->> [ 5738.591838]  el0t_64_sync+0x198/0x19c
->> [ 5738.591854] ---[ end trace 0000000000000000 ]---
->>=20
->> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
->> ---
->> Changes in v4:
->> - Update power-domain-names order (Krzysztof)
->> - Make hex numbers lower case in init seq (David)
->> - Pick up tags
->> - Link to v3: https://lore.kernel.org/r/20260213-sm6350-camss-v3-0-30a84=
-5b0b7cc@fairphone.com
->
-> Should find some time myself to issue RBs, sorry for the delay.
->
->> Changes in v3:
->> - Update dt-bindings to include everything related to camss
->> - Update regulator names
->> - Remove slow_ahb_src
->> - Link to v2: https://lore.kernel.org/r/20251114-sm6350-camss-v2-0-d1ff6=
-7da33b6@fairphone.com
->>=20
->> Changes in v2:
->> - Remove prefix from interconnect-names
->> - Move 'top' power-domain to the top of list
->> - Update regulator supply names
->> - Link to v1: https://lore.kernel.org/r/20251024-sm6350-camss-v1-0-63d62=
-6638add@fairphone.com
->>=20
->> ---
->> Luca Weiss (3):
->>        dt-bindings: media: camss: Add qcom,sm6350-camss
->>        media: qcom: camss: Add SM6350 support
->>        arm64: dts: qcom: sm6350: Add CAMSS node
->>=20
->>   .../bindings/media/qcom,sm6350-camss.yaml          | 471 +++++++++++++=
-++++++++
->>   arch/arm64/boot/dts/qcom/sm6350.dtsi               | 233 ++++++++++
->>   .../platform/qcom/camss/camss-csiphy-3ph-1-0.c     | 125 ++++++
->>   drivers/media/platform/qcom/camss/camss-vfe.c      |   2 +
->>   drivers/media/platform/qcom/camss/camss.c          | 261 ++++++++++++
->>   drivers/media/platform/qcom/camss/camss.h          |   1 +
->>   6 files changed, 1093 insertions(+)
->> ---
->> base-commit: 3daf23347bb5f4a375d0101ed29c97ce1a99721b
->> change-id: 20251024-sm6350-camss-9c404bf9cfdd
->>=20
->> Best regards,
+diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+index 27d25bc98cbe..06fb5c8e7547 100644
+--- a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
++++ b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+@@ -93,6 +93,7 @@ properties:
+         items:
+           - enum:
+               - qcom,glymur-smmu-500
++              - qcom,hawi-smmu-500
+               - qcom,kaanapali-smmu-500
+               - qcom,milos-smmu-500
+               - qcom,qcm2290-smmu-500
+-- 
+2.53.0
 
