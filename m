@@ -1,185 +1,174 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44A8433C19E
-	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 14:42:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADFC234028B
+	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 14:44:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775227333; cv=none; b=aX33K8/z98VgsxpS2cHjLKmiq9YQKhZLnYuS4g6P0lanuXP1QjMPG/qCR+aDZvH0Zl66AN4w6TesLEOZ4Ukad/H0RGlNdO9+/gCFslQo8TbDtTvsUalfk9SNXQsneAliatLziO7v0TLTG0QI4y8/cck062V4aajG7rNpXWUwVDU=
+	t=1775227495; cv=none; b=n3+9eibnwkeljf/LVQ6Rxxn+qdEW0mUsCQ4YSmL6Xg4L3FFUFdC2EuVz3d8StEFODdjDiqHvdBPJea8WFyNf71QdAfaXOw8aA9IaNjlsJFz3DU7R2L5TMGaJVmi5glH/CSSGvw/0WgMG7DIMfwJ38GHxfci+udAUTH5mWaqkOFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775227333; c=relaxed/simple;
-	bh=3vVkIcNYIIdq5Dkb4dWOz1OUuravUKeK17twdeeJ21g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AAuQfZRupKPA1iZptbmFpSQXEsmT44rbjYbzmpbQQqwA3zJJSVtpDA5d5JMeKKyP6oHGHIvHEwWPaek2c1QgSQzFqyzX+uTijhE5uyoWu14YDo1LtBjsoAtP8mGZNNUAtLBXfS/CNO8Mr2UcpC/sTAXIuHndDDR14tvApNhu0fg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smile.fr; spf=pass smtp.mailfrom=smile.fr; dkim=pass (1024-bit key) header.d=smile.fr header.i=@smile.fr header.b=OrdMA92W; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smile.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smile.fr
+	s=arc-20240116; t=1775227495; c=relaxed/simple;
+	bh=MxjZZDZZaEuYiPY927jOxN57562k/MZjNJFyBvG4prg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=leyHGn4bRWKi2IFG9WPLRgZTSbKip/aLVNJBmKCASRSqq///OlRd2vk9w+3Zn9w9jammkXzOJ8+bnZnTZ99gvMS6h6b/D0LkHewEdTVFekNG4/mWVaPSDMVrCFnWWO37sy5/v6xdtcrigGV4kzjE+VKU1r/XSIwnrp5Z6/SXQ5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ayJlZJxt; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=M5r6JxQa; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=smile.fr header.i=@smile.fr header.b="OrdMA92W"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-48334ee0aeaso18575825e9.1
-        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 07:42:12 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ayJlZJxt";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="M5r6JxQa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1775227492;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fYCobLYtX3TeLAHy+p2pLXBgriU/XzUui5ACleydfI8=;
+	b=ayJlZJxtgxIpiscjYw+fubbHmBUMY3FKXQUv1WoGsKzBQS6Bt+tCpp/hGmc+o5Gw4kGsxk
+	l6R3iiC3VqUks8YDI56JfjT5C3QfNg6pVfGPz2XFkfivFnGNjiGZIMUYbGHsiO1UvKJb1v
+	RFEE7+dIQtsrul3mK1hAgFl0MZZk0Fk=
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-479-Hvh8XnNzM0u-MLxQlxsJQQ-1; Fri, 03 Apr 2026 10:44:51 -0400
+X-MC-Unique: Hvh8XnNzM0u-MLxQlxsJQQ-1
+X-Mimecast-MFC-AGG-ID: Hvh8XnNzM0u-MLxQlxsJQQ_1775227491
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50b44f7b7bbso56391001cf.3
+        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 07:44:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=smile.fr; s=google; t=1775227331; x=1775832131; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=LWTR6rblr2fx5wm1rQ9MFyWeL459JHJEvbHasb5FYls=;
-        b=OrdMA92Whdc4h/UpXzNfoRN2hywQJKhrLrECsCzJ+ROaAaNAAqizS7imk8S0Kd0bch
-         1qKteftT5zcnYQN/BjsTvgGuWVaNrFpHja3qjbzQIEu5zsMbqCLeXYA58/JREdjO8oW5
-         kVBv1z6V3nbsnj5RurqMUlI3lyyhk6Yvd89hc=
+        d=redhat.com; s=google; t=1775227491; x=1775832291; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fYCobLYtX3TeLAHy+p2pLXBgriU/XzUui5ACleydfI8=;
+        b=M5r6JxQap+FAZSBq0GEPxSQW0FvWbYodX8dBvnvn6uKNs+d++LuJR/r2kIFm1R2UXL
+         4XjIMAhwvuTySzcobvh/I0dHOzbWvkwFEc33zCzTTmc7iyQ5m9lRmBYRSBScIP1NDZtK
+         Ht+NEmScv45Pq+2XxVhp3Bb1tBGm3x8L4xZGh7gJWfUKKB1UH4q4Mcdtc5/yGXSHM+6w
+         67lmoT8DHU2eyxg07Wn5G/SR2vyeGNoS1lRyD/c94eIBCDsoStmVz+09Ap11X9L2fCPt
+         djVKSITd1NB8gp7c1Dxa76BzZZ673ks5ZbozFxIg1eZFJtGsiCMC8Ga0sMeaKTlR9mMm
+         nEgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775227331; x=1775832131;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=LWTR6rblr2fx5wm1rQ9MFyWeL459JHJEvbHasb5FYls=;
-        b=osNwT4su0nN3JYAKKJm+AJrfAWyk4orbocup1uCCdCKy9WQHjLOkjlCglScXjyZ7ER
-         H+SdafyTFpMcQJ1UeEAd1VXdnpKy3UDIuPyUNUbu6ndvgjbu9wxOUkVFgG3PLjCB+VCO
-         /qx/bYd8QyvKvGLROVaw6QXKjSXLbRCu/KFA79p3cVJaa19JDZ9btY0STSulpBFjx6D4
-         /zlisVqTlyz09B8aRF6xUTlw59MVHp7jr3ytOAnPTI6PMjskSeKe8pyEQ9Tmfv8EMEs/
-         oRrPwN3QIreYQuwyhnnm1tBPVN6dVhbIp+GBL2OFKuoImu+gyvQPsKqLo/hxia0rfHGe
-         OJag==
-X-Forwarded-Encrypted: i=1; AJvYcCXrx/3EMX661KBub1xqAxo24ZnTlomG6bagH25SUgpYgHCkTBkqH7mE9IYWuOdisQnbN8LEJ+LHxK6R@vger.kernel.org
-X-Gm-Message-State: AOJu0YwATD1RMSkgIxCXA7LgQGu9C/gXqVDMzVgZqjpfzi2EiNV+n2FY
-	IYXgpl81LWd/SFSn3RdfzV1FBO5C9bB9jeQNkFcvU3szv5Khkub9q5/J5MKW9iq5xnU=
-X-Gm-Gg: ATEYQzy+TBZEDbE0Jbw8z34yjjGYzn5Mlo1AzvQda4hZE6I5Mov/EgmqPbCp8lGD1wW
-	alw/XjaNRtCWbz/IBWEO4uVTiYRTgoSJuI8+ehKUQ0oN7dGL3O51TMcddNfDIa5oKqMvWuU2p2+
-	m2fuBUtIXWD5sH75pblBtTrxxOJ8xB2Q8OsYeFjoaBU45cshraz7Ur8ckr08kR5MnV/cgqv58+U
-	kq5tmnSqIG6ETiq2luQJpU3B2GPJHT+MYhT83xcHI7dZWhajuTDLXPxQ+4og5LujGH0x/9LeG98
-	sz9G5RwIbof8N4S6/awyHIe40QHvye5mJN6S4jPixLc8L4t9P3Fbh3sDnSuJFQOH8g13JFr9eZo
-	WW0Fj3rBiEjHZeQkHAubhjE5izwmvhdTDqV8qMeEt1w2ZL5y5Vd7WW0dACEa0pyhADbDTHvOv0G
-	Ucq1KPFzhcYthnRON9yuV+M8/+tLxCcWiriSFjAuuqNV8quvC/RWT6FUqtIPhkf65ylk9LDbj5k
-	VLK0d0axxI7GJAKajt0GV+Ebji7Nfi2upPa/HqDZ+Sb3xQcCuB4GJtoWIk5Modlyw==
-X-Received: by 2002:a05:600c:4e14:b0:483:6a8d:b2f9 with SMTP id 5b1f17b1804b1-488996afed9mr53212995e9.5.1775227330527;
-        Fri, 03 Apr 2026 07:42:10 -0700 (PDT)
-Received: from ?IPV6:2a01:cb05:94a2:a200:2ad9:827a:59cb:148a? (2a01cb0594a2a2002ad9827a59cb148a.ipv6.abo.wanadoo.fr. [2a01:cb05:94a2:a200:2ad9:827a:59cb:148a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4889cb46adcsm45021385e9.4.2026.04.03.07.42.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 03 Apr 2026 07:42:10 -0700 (PDT)
-Message-ID: <5725f03b-2750-428f-ae66-5f1a24dd0714@smile.fr>
-Date: Fri, 3 Apr 2026 16:42:09 +0200
+        d=1e100.net; s=20251104; t=1775227491; x=1775832291;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=fYCobLYtX3TeLAHy+p2pLXBgriU/XzUui5ACleydfI8=;
+        b=kSKOvIu+TVl+5nzVGEuxesEhPhb7DBZw7KH0fj9amy02i1SWboVu8ev//Q53W5V8CU
+         qsPn/uQ5udLZtr0lLanv4ee/XTFjKBSyQOhNEdAMop5vzBfAXc9gfz0JKbWZUB9If9Fy
+         G5mpBUSKh0Vy3fM8mXTfm/dvMi48XalfUN0M5QInopN/uw1qFVymx8nR0lEQ5DV/CEKU
+         Kmrc69zNT7ivWWu3q3WYbDTQF2+zeRBSaW2UyeTWmhqrgMbLYPBSnm59mHMlcccLeuNW
+         ko4d5jUSQVJUw1hkJNOSh58lgI5IABAlfmRmGG2Hq4p3HJPZ5tIC2byQRlZmiNGX9wYJ
+         FX6w==
+X-Forwarded-Encrypted: i=1; AJvYcCXtSz54g7pTx9ocCdoW/DpSgM3RjWHpdClp8TzIzxt9oYBmj56CFwi6Kw3qPnighv6jH/sCIGDwIy0u@vger.kernel.org
+X-Gm-Message-State: AOJu0YyItgev5mcfVvzDXRrZiJ8gePGPVG7eCcvWyoqFvpb6fV+um8R4
+	KdL59g6OdmP2TbX+oe1vDIxxi/7cYTIJXFaWQtuMIDk13Js0oO0U3JEhGa9g+jN67e8Lqg/ym4Y
+	1XTwUR3Ppf7llLj5xDPGP3FCNcT+WU7Dxum1fBLIwUcriOZNrAhF1BpjVLEum2ec=
+X-Gm-Gg: AeBDievmoqy+Gqi05w2dFieLOyY4R/D4C/js2D9vgCVlG4RV/zFk1DfWz+MlxaMirwG
+	QXFA88J/48/iMZpadpzD0m1PVpshVp3ylWCAltBVHNFR4G5lrvQiy9ZSRdnVWAqHh8RYPgCDF94
+	Pzeg8mBmfSMEMLSpcZVKUPEVBfzLzPAYJFEADyIhz+WKeZ7A1ClVzb6DzN3mIpry3ifICq4WUp3
+	cHrpudqbm3jaaQ9N+BQ0/Q6Il5Y7HmjOS4uyoe0beat9mi3GN/hpxOGMK8KpzHGPKPvdcweT9gj
+	FBGVG0FT4zkbhVf1SEO5P7+KJxg7JERo2QGpQaA8z4pkqBMQw0xkiRZpiR/PBgfsObHwOSIdN48
+	toT1kPSZR/+3fkggxncZjxNSeSaSg1p4ehQRoeuX1S5S8PHN4JGRiK1ca
+X-Received: by 2002:a05:6214:2a8c:b0:89c:6252:4a4a with SMTP id 6a1803df08f44-8a704caf687mr51587066d6.49.1775227491176;
+        Fri, 03 Apr 2026 07:44:51 -0700 (PDT)
+X-Received: by 2002:a05:6214:2a8c:b0:89c:6252:4a4a with SMTP id 6a1803df08f44-8a704caf687mr51586656d6.49.1775227490715;
+        Fri, 03 Apr 2026 07:44:50 -0700 (PDT)
+Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8a593ee25c9sm58197296d6.22.2026.04.03.07.44.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 03 Apr 2026 07:44:50 -0700 (PDT)
+Date: Fri, 3 Apr 2026 10:44:47 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Yu-Chun Lin <eleanor.lin@realtek.com>
+Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, p.zabel@pengutronix.de,
+	cylee12@realtek.com, afaerber@suse.com, jyanchou@realtek.com,
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-realtek-soc@lists.infradead.org, james.tai@realtek.com,
+	cy.huang@realtek.com, stanley_chang@realtek.com
+Subject: Re: [PATCH v6 04/10] clk: realtek: Add support for phase locked
+ loops (PLLs)
+Message-ID: <ac_SX1UJRqiBH2iM@redhat.com>
+References: <20260402073957.2742459-1-eleanor.lin@realtek.com>
+ <20260402073957.2742459-5-eleanor.lin@realtek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: ti: k3-j721e-main: Update delay select values
- for MMC1/2 subsystems
-To: Moteen Shah <m-shah@ti.com>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-omap@vger.kernel.org
-Cc: conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
- kristo@kernel.org, vigneshr@ti.com, nm@ti.com, stable@vger.kernel.org
-References: <20260218203823.1825554-1-romain.naour@smile.fr>
- <8d4a2839-5b1e-479e-a462-dbbc3d016020@ti.com>
-From: Romain Naour <romain.naour@smile.fr>
-Content-Language: fr, en-US
-In-Reply-To: <8d4a2839-5b1e-479e-a462-dbbc3d016020@ti.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260402073957.2742459-5-eleanor.lin@realtek.com>
+User-Agent: Mutt/2.3.0 (2026-01-25)
 
-Hello Moteen, All,
+Hi Cheng-Yu and Yu-Chun,
 
-Le 31/03/2026 à 14:19, Moteen Shah a écrit :
-> Hey Romain,
+On Thu, Apr 02, 2026 at 03:39:51PM +0800, Yu-Chun Lin wrote:
+> From: Cheng-Yu Lee <cylee12@realtek.com>
 > 
-> Thanks for the patch
+> Provide a full set of PLL operations for programmable PLLs and a read-only
+> variant for fixed or hardware-managed PLLs.
 > 
-> On 19/02/26 02:08, Romain Naour wrote:
->> The previous SPRSP36J datasheet recommends to set ti,otap-del-sel-sd-hs
->> value to 0 for MMC1 and MMC2 interfaces. These values were updated in
->> kernel 6.5. As a result we have some occasional regression with ultra
->> high speed DDR50 SDXC cards while mounting the rootfs:
-> 
-> This error shouldn't be limited to just DDR50, were you seeing similar behavior
-> with other speed modes?
+> Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
+> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> ---
+> +static int clk_pll_set_rate(struct clk_hw *hw, unsigned long rate,
+> +			    unsigned long parent_rate)
+> +{
+> +	struct clk_pll *clkp = to_clk_pll(hw);
+> +	const struct freq_table *fv;
+> +	int ret;
+> +
+> +	fv = ftbl_find_by_rate(clkp->freq_tbl, rate);
+> +	if (!fv || fv->rate != rate)
+> +		return -EINVAL;
+> +
+> +	if (clkp->seq_pre_set_freq) {
+> +		ret = regmap_multi_reg_write(clkp->clkr.regmap, clkp->seq_pre_set_freq,
+> +					     clkp->num_seq_pre_set_freq);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	ret = regmap_update_bits(clkp->clkr.regmap, clkp->freq_reg,
+> +				 clkp->freq_mask, fv->val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (clkp->seq_post_set_freq) {
+> +		ret = regmap_multi_reg_write(clkp->clkr.regmap, clkp->seq_post_set_freq,
+> +					     clkp->num_seq_post_set_freq);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	if (is_power_on(clkp)) {
+> +		ret = wait_freq_ready(clkp);
 
-I have a followup patch to enable back the SDR104 support with j721e SoC (SR 1.1
-and 2.0) and I noticed the same behavior with some "specific" SDcards.
+I should have checked Sashiko before I hit send on my last review.
+https://sashiko.dev/#/patchset/20260402073957.2742459-1-eleanor.lin%40realtek.com
 
-The J721e SR 1.0 doesn't support SDR104 due to an errata.
-Nowadays, even the TI J721e EVM board revA (reference board) uses a SR1.1 SoC.
+It suggested the following:
 
-See the post on TI forum with further analysis:
+    In the Common Clock Framework, .set_rate executes under the prepare_lock
+    mutex, while .enable and .disable execute under the enable_lock spinlock.
+    
+    Could an interleaved clk_pll_enable() corrupt the hardware state by running
+    its seq_power_on sequence concurrently with these multi-step register
+    updates? 
+    
+    There also appears to be a potential race condition later in this function:
+    
+        if (is_power_on(clkp)) {
+            ret = wait_freq_ready(clkp);
+            ...
+        }
+    
+    If .disable() powers off the PLL right before wait_freq_ready() is called,
+    will wait_freq_ready() poll a disabled PLL and erroneously return
+    -ETIMEDOUT? Is a private spinlock needed to serialize these operations?
 
-https://e2e.ti.com/support/processors-group/processors/f/processors-forum/1626659/dra829j-q1-mmcsd-ultra-high-speed-uhs-modes-issues
-
-It turnout that the kernel is not able to detect UHS speed with some SDcards
-vendors after uboot initialized them with UHS speed (SDR104). I'm not sure why.
-
-Still, the datasheet was updated with a new set of timing values for HS and
-legacy speed.
-
-Maybe I should remove the part about SD card initialization issues, it may be
-related to another issue.
-
->>
->>    mmc1: error -110 whilst initialising SD card
->>
->> A similar issue may occur with u-boot after a reboot while
->> initialising the SD card:
->>
->>    mmc_init: -110, time 67
->>
->> Update the delay values for legacy and high speed modes, based on
->> the latest revised datasheet SPRSP36K released in April 2024 [1].
->>
->>    (MMC1/2 - SD/SDIO Interface): Updated/Changed the
->>    "OTAPDLYENA, DELAY ENABLE" and "OTAPDLYSEL, DELAY VALUE" for the
->>    Default Speed and High Speed modes from "0x0" to "0x1"
->>
->> [1] Table 6-86. MMC1/2 DLL Delay Mapping for All Timing Modes, in
->> https://www.ti.com/lit/ds/symlink/tda4vm.pdf,
->> (SPRSP36K – SEPTEMBER 2021 – REVISED APRIL 2024)
->>
->> Cc: stable@vger.kernel.org # 6.5+
->> Fixes: af398252d68e ("arm64: dts: ti: k3-j721e-main: Update delay select
->> values for MMC subsystems")
->> Signed-off-by: Romain Naour <romain.naour@smile.fr>
->> ---
->>   arch/arm64/boot/dts/ti/k3-j721e-main.dtsi | 8 ++++----
->>   1 file changed, 4 insertions(+), 4 deletions(-)
->>
->> diff --git a/arch/arm64/boot/dts/ti/k3-j721e-main.dtsi b/arch/arm64/boot/dts/
->> ti/k3-j721e-main.dtsi
->> index d5fd30a01032..418e6010ef1f 100644
->> --- a/arch/arm64/boot/dts/ti/k3-j721e-main.dtsi
->> +++ b/arch/arm64/boot/dts/ti/k3-j721e-main.dtsi
->> @@ -1643,8 +1643,8 @@ main_sdhci1: mmc@4fb0000 {
->>           clocks = <&k3_clks 92 5>, <&k3_clks 92 0>;
->>           assigned-clocks = <&k3_clks 92 0>;
->>           assigned-clock-parents = <&k3_clks 92 1>;
->> -        ti,otap-del-sel-legacy = <0x0>;
->> -        ti,otap-del-sel-sd-hs = <0x0>;
->> +        ti,otap-del-sel-legacy = <0x1>;
->> +        ti,otap-del-sel-sd-hs = <0x1>;
->>           ti,otap-del-sel-sdr12 = <0xf>;
->>           ti,otap-del-sel-sdr25 = <0xf>;
->>           ti,otap-del-sel-sdr50 = <0xc>;
->> @@ -1671,8 +1671,8 @@ main_sdhci2: mmc@4f98000 {
->>           clocks = <&k3_clks 93 5>, <&k3_clks 93 0>;
->>           assigned-clocks = <&k3_clks 93 0>;
->>           assigned-clock-parents = <&k3_clks 93 1>;
->> -        ti,otap-del-sel-legacy = <0x0>;
->> -        ti,otap-del-sel-sd-hs = <0x0>;
->> +        ti,otap-del-sel-legacy = <0x1>;
->> +        ti,otap-del-sel-sd-hs = <0x1>;
->>           ti,otap-del-sel-sdr12 = <0xf>;
->>           ti,otap-del-sel-sdr25 = <0xf>;
->>           ti,otap-del-sel-sdr50 = <0xc>;
-> 
-> 
-> Reviewed-by: Moteen Shah <m-shah@ti.com>
-
-Thanks!
-
-Best regards,
-Romain
-
-> 
-> Regards,
-> Moteen
-> 
+Brian
 
