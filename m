@@ -1,294 +1,171 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010041.outbound.protection.outlook.com [52.101.228.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D75AF265CD9
-	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 00:55:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775177738; cv=none; b=kPbM1BVeEUmxCLCD6LDkYwC0xs8RYF8ltUs0xco0rGWqpPZNbNIlUEPTWONQXmEL4gOltq+4YoyqQlRgZPbF3l6jZyR/U3ZDc+fZPbUdU9ZA+J+n3tzGF3ZJe8+MRfecFAZBY6qa9p6QUPM/nGK98zsDLiN9dlEgpWx51tXrvfA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775177738; c=relaxed/simple;
-	bh=o4o4VWomoGx5V3QEAWPY2HRs8htKnWKxHZRr3VyZN2M=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lBGm40edysN4RMLvEhTpbDNsejxxtxrNG5wxSk1DtjXHFrVjnsRITOrZGh4/XO1dGvcPiBlL0dRP6BKOSzqklYSkqH4uQtdssELGwToRbp60R3ZtFN3HsEpV7hgi+YSWGkF8Z+u6AYyjbMr3Ymp8FUrvIY2XsurcXzzdwMS70bA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ciP6up7P; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KUEwmG/k; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC54523909F;
+	Fri,  3 Apr 2026 01:06:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775178378; cv=fail; b=W625nsa9OZVBEgAhPjClcYEFdyPIgE/GVTHJbVYj0andekonwIRs5z7dcS2rS6GENcsrt+JODL2PkQpcyeQjCVbTFJ+5g9KcVpiABIZggmca9ux5jaKTBMY47RK/5qpBlDIgrCe+VJmmSUMjypmX7ghwX034XW82HSuzoAY5YGg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775178378; c=relaxed/simple;
+	bh=1Tk2nc42xBVJsiHfQlEIGLB6pW2hSqej65ieCMrFm7o=;
+	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=FcCxnNtbURnhAOPUG0KcD06DYiH8/+/+x+rwEjquvwin/elI2jMX/CIYjEn/zUAkPjcEM5tBDOGIU/sXVnq/xlKDkCH4WCkbaNVffLGXLvT0ofTAfG7dq3IAd6K6VUADK48DJylgGIY+7skmlllMKoBdsUkkKxdsNaUnSNluIbA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=dYRauVUn; arc=fail smtp.client-ip=52.101.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ciP6up7P";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KUEwmG/k"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 632G4WHX2255110
-	for <devicetree@vger.kernel.org>; Fri, 3 Apr 2026 00:55:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+LmXWb6B0z5aADS7d20VvyutgCAilEfvrpT8THmEORg=; b=ciP6up7PuV4GW7U2
-	cTKDB4Wq+akXag+8doEjQVb+OpWvsVsd4eUPklhWNHDyetv+YRyeUkHAZTYPspEZ
-	K35YGH9yDtv7OP7CRWjhqAEZtZkkTM17ZJ7l95TFtY4T7krR8uRLCVSx7XgCQBWk
-	3UQLiZz2RF6mKyUY2lBustytfzGz3AornbupjkojS6cCNUDDL+JVtujstRHbB4Oz
-	ZmKQ0Br7EVGeLF7ZdEtFQq/6bpTpRq+wBfMvI6P2mhZGazPj2neixyM0noIlkblp
-	1efzpR5RFbcs7XterIgrzbu657DwAkq3MojmYtN75pGjucCVhN9DMyyEWh786sj5
-	xNapeA==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d9n4t399q-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 00:55:35 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-2c895e7de52so3188650eec.0
-        for <devicetree@vger.kernel.org>; Thu, 02 Apr 2026 17:55:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775177735; x=1775782535; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=+LmXWb6B0z5aADS7d20VvyutgCAilEfvrpT8THmEORg=;
-        b=KUEwmG/kM3kyDFgW838KR4Y8h5hYtbfm91ojOjY/T9SzeCbhh5ticNDqmD/vFQkI53
-         9gFPD0pT9lIcf33cVTCX5KRArMfwA+AUJqUSQF8U2Z2iNewoE2d9XEnSi+UdxWSibUzJ
-         +UmqoDM7Np08CYgkhYnM5jqmNWkd+0xttJcdbs+KdZ2EJOpWe8uaD1NiahlFIy0NB3O9
-         ASTPhqLj1YUYGweGc5sSvHMz3SASoYHFfx+uw3OGj9uRoUSgpc0u7Jcg44qnoEtrEKNH
-         dKucPYdYog/eQoUr0Sk44r3KaJOd/2wywCXBgIrBjSKX2RuGkoY4dsBhveXwEfcilNRL
-         es+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775177735; x=1775782535;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=+LmXWb6B0z5aADS7d20VvyutgCAilEfvrpT8THmEORg=;
-        b=NmucLZC1HwaXTsZNPzwfe04bFRFgpr3uVmBtey/Eq+qs+mJSwv9H2ZCyRe0cTZ6HsC
-         Zfj7edvcjqzXN6wMkqePuSvbFxIeNmq55KsrtrVlbeUTumj4aSUWoXkv902vSdSbTfow
-         KuePoUoiyOGFcYmhj9/8zXCgPX+VFslb1ed/8+X7Ab0Q5FTo+N/SoVV3nL8sUolngJRM
-         VYpIw5hDPao7EQsMOfL1Qdz5Gqd6QOiheqz52MR2uizdJWekDEdoGyM7n5lkPdo00TR7
-         AwW7qqkBDRn641UlY9j6M6X/Bz0OqbUZM2e8P2IIfotaZdwoCricj5TuNB3g8YhYVwuO
-         8UXQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWUKpmd593hIEzN4vO8SssjE1pcOj6g3LFfv66rli6iabn6UDODD5xCw4axPzNAvhgskv4hoa8P3Win@vger.kernel.org
-X-Gm-Message-State: AOJu0YyADrRjQKaHPSicFImFZkFmwqVCtZeGV6dRDqtxkYxS+GLRINgK
-	EZpo8q+yiJ0ef9yjA/12ZT+k6vzcLVx/Icr9oJXCOjg+r5Ta4dD1sZGaiTAu2Dye/QmsTK7Jyn1
-	NnKbNfTqvz/hT/Op77GXjDFXH7jB3iEPnXgs5F+oG8CW6hWCgfMvfgXiiyb4VcCXa
-X-Gm-Gg: AeBDietPcQlsrhq6kdqJSD+VrPYrquEG/iNzOhDaDGBX5BKIV9aDUD7ceeIl5879T/m
-	YfhJWz0gMn06kra1xwfaDwGut7EBxiN3Y/uGW/d4OeNyeBESZ+Rh2BV2n+8ws3W3XtjXyQ+jRin
-	DuBUdkv9fxNKOO+Z3N6q621FVlQ+saB1+8XbJY4W2+5xO5Kvw3Mx+2OyIUQSaqUd9Ny3e0IRbJE
-	KmaZ3CmsGM0UO1x7/9QjyO7Z11gsoasSLJCMe2G/FowQkHOuXVgJxbWtST/bQLR14R5bDX/yydo
-	SnUJeGgkvr+vd0dmG2avDTNrRImssmepAh/3CPFztZ+F29sI/jxOA4daeYKlksCvuBwUQAsTdTj
-	tkVUy2uhvBHJ+q/DGj60j1zmRAgTE2vW8g3B0yj4GUBuPHhYeTVB0VG8ehh5oIOfC/N7IgYLMeg
-	==
-X-Received: by 2002:a05:7300:fd09:b0:2c7:3a7:c7a7 with SMTP id 5a478bee46e88-2cbfc55b4d9mr641855eec.25.1775177734505;
-        Thu, 02 Apr 2026 17:55:34 -0700 (PDT)
-X-Received: by 2002:a05:7300:fd09:b0:2c7:3a7:c7a7 with SMTP id 5a478bee46e88-2cbfc55b4d9mr641846eec.25.1775177733978;
-        Thu, 02 Apr 2026 17:55:33 -0700 (PDT)
-Received: from hu-fenglinw-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2ca7cf010d7sm3750800eec.25.2026.04.02.17.55.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Apr 2026 17:55:33 -0700 (PDT)
-From: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-Date: Thu, 02 Apr 2026 17:55:12 -0700
-Subject: [PATCH v2 2/2] spmi: spmi-pmic-arb: add support for PMIC arbiter
- v8.5
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="dYRauVUn"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xH/G35nIttCc03QtLDiBJFjbmGEzUWu+cGyGy1bc2Jd712PuAYDZSZrq59BiOyQM8caTgRBXtnSFeeK2a0SVmJQFlsnaREunw154zdUNLD2rUXY10f9uKCDHsC38Bw3b1Tzn3VWQRRJgBz7chNMp74WkP4dsgEPaiW7imdrv+sjQNuLyUIMdpMeGWZZdSAnE5uoeKQXhoy1hygIAPPAa5GuyDq3qx3jcGx8PgMxiQDs1pTg7/6GjLy0ns0y5idDlTYDWbd6kcC3vHXceVoe/1eu6FnHlyh137I5UR92r2mlZB2knfE4MSFZLbM2/heA20BnvRJKJTUoKoI4kwAhxZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+VVGZ2YzeuXoohzH9kAU+YBFqr9qTjTiVTGPqVoR2Yg=;
+ b=AC6W2QZT+GAEmEnBFjP/X0wmfFrCw+TFQRn9azi5w9P+qAvy0VEsDZAmIDXIodP9QSrgSwtMxXWYlzz3JHieZctPYrXDwQYTkbsEwyEuWJUxgvp2mbu7NR86qM7YFkB5ZzduQHNs/sWKtZYGc2eyonRh7Fc/Kdp9wCTxECiRzwkRPzL59LFAyK67E/H2cbz3LWBcFTT8OngXbXr+eZTgd+bUdX/pt9GuYFRCCRJSd7rs81HfHcDbn/8EN2eguQ3i5W4pMFB+fD2WthXtVW3LdvQyO2wAXTWH33xNbTiFFU3jWwYMmyCYZ6IhQUJpSltMy4Lh/PZE4wiS3daU5rGttw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+VVGZ2YzeuXoohzH9kAU+YBFqr9qTjTiVTGPqVoR2Yg=;
+ b=dYRauVUnu9DLOUMvOz72XMeBxBnLNU2/OTp2fjkinomLBokDrlOYf7zjNlk02FUB7k68x5SBV2dVUvGrMS3Vv2xiM45E1Lq/4MvitVoDAU3IQzsT9VWvQ4cQ0geEdZL+HwgXDzP4I4Ihe4NkQ6Co7iYlsi0xBVWryjjRYXoAmo4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from TY3PR01MB11797.jpnprd01.prod.outlook.com (2603:1096:400:373::8)
+ by TYVPR01MB10798.jpnprd01.prod.outlook.com (2603:1096:400:2af::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.19; Fri, 3 Apr
+ 2026 01:06:13 +0000
+Received: from TY3PR01MB11797.jpnprd01.prod.outlook.com
+ ([fe80::1868:c915:c230:a383]) by TY3PR01MB11797.jpnprd01.prod.outlook.com
+ ([fe80::1868:c915:c230:a383%5]) with mapi id 15.20.9769.017; Fri, 3 Apr 2026
+ 01:06:13 +0000
+Message-ID: <87o6k0g8e3.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: John Madieu <john.madieu.xa@bp.renesas.com>
+Cc: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	john.madieu@gmail.com,
+	linux-sound@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCh v3 05/14] ASoC: rsnd: Add audmacpp clock and reset support for RZ/G3E
+In-Reply-To: <20260402162436.12059-6-john.madieu.xa@bp.renesas.com>
+References: <20260402162436.12059-1-john.madieu.xa@bp.renesas.com>
+	<20260402162436.12059-6-john.madieu.xa@bp.renesas.com>
+User-Agent: Wanderlust/2.15.9 Emacs/29.3 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Fri, 3 Apr 2026 01:06:13 +0000
+X-ClientProxiedBy: TYWPR01CA0048.jpnprd01.prod.outlook.com
+ (2603:1096:400:17f::18) To TY3PR01MB11797.jpnprd01.prod.outlook.com
+ (2603:1096:400:373::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260402-hawi-spmi-v2-2-0bbe811fe3f4@oss.qualcomm.com>
-References: <20260402-hawi-spmi-v2-0-0bbe811fe3f4@oss.qualcomm.com>
-In-Reply-To: <20260402-hawi-spmi-v2-0-0bbe811fe3f4@oss.qualcomm.com>
-To: Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
-        David Collins <david.collins@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org, kernel@oss.qualcomm.com,
-        Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-X-Mailer: b4 0.16-dev-17187
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1775177731; l=4558;
- i=fenglin.wu@oss.qualcomm.com; s=20260324; h=from:subject:message-id;
- bh=o4o4VWomoGx5V3QEAWPY2HRs8htKnWKxHZRr3VyZN2M=;
- b=7Tewj3gUARuhHCumfreKaI2qe6D1A7FspwfLsaHSWa0Vjm9DCQ+p7aUhQEkmml4ETr66bAdMk
- gMOYw2XYCOmDjSWvqFaCtOY5puIcUG3VTVYdffpyHTYYIH32y4PfSSZ
-X-Developer-Key: i=fenglin.wu@oss.qualcomm.com; a=ed25519;
- pk=hJdt3E7o54lql+miD2GaxwF74cDyhgNwMbmFOZ46bRU=
-X-Proofpoint-ORIG-GUID: Pg_iV2n9ggk_viS74qDp6PDCzi1KQwfa
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAzMDAwNiBTYWx0ZWRfX7e462Zis1A2j
- +DtG7z/4NvLk9esWetWoHC9qYN49NCqx5bYCc1IokG/dhG4IHZO+xbD2zF8cngkztGFjIiqpCLl
- I+A49fnTKKmnr+XDIl5OaV/gU3HMzfKLR4sdamQkV1fpmQgsWQKw5t2bdtgF3y5i6RxpN0CGG6l
- Y8qpAD67GQTBq3CPgtJUiebYnibyAq5rOCokVQsxGawgwdZcjlqLk6j0oGMuZ3Xl3h5C6EUmwgx
- pRWJKS8L1RwIm6eTVhYrbyxJ7pNpfrjYL+3QRe+Qk1a6eMGaxWP/KEDi5YdxptU3w40ITL4TMec
- bQstl59NACO8ZOKqH7e8UdQt47XJd1sHJ3QtLEXxn/H3Xhu0zwZuDbTDQCzhDrcw9A1zqALGPoO
- UkuoZFj6vEtOOj8lYga94r+QU9gaXRS25xWlSJ4YmqSE9Z/lZ46c8o1RB55Z8lz008FUTOyavET
- GnQABu1qBMngoUW3oqg==
-X-Proofpoint-GUID: Pg_iV2n9ggk_viS74qDp6PDCzi1KQwfa
-X-Authority-Analysis: v=2.4 cv=Ap/jHe9P c=1 sm=1 tr=0 ts=69cf1007 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=qQkTAZUf_KvMCO389TYA:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-02_04,2026-04-02_05,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 malwarescore=0 spamscore=0 clxscore=1015
- bulkscore=0 impostorscore=0 adultscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604030006
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY3PR01MB11797:EE_|TYVPR01MB10798:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8c62a511-85c0-468c-67de-08de911d332c
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|52116014|366016|1800799024|38350700014|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	Wu3mFetdMVh34VlHCCngycMWulOM+xtd+jgCrkesePDFo7ZuEkoYmMsHDAgLkR79OcNpT/HBD0ecdipr/vGptPlSuRgWA0w/Ms/ffvsJjJQriQlF6pS91jMykXlfm/hNS42O+8gXdGJ2Bl+TT0TTeKz8NXedPR4lPwldWNXDvOUIhxAh/ohoFwsY2NfVEA96+tnW+ZHIlHpZ/VrQ8E61xL7NjF47oNIZ/16CB/+h0+Vr+wy+vJibEPb9xGnvcHSwY8a6YYUMwWQEMDNkS9rBC0tFdCeVJHsOHtySmuZromPsQScTUUjFdNe+ZV5zPVaOuh+LIserKFOr73pw+OOseGX6md8u7X8PgkYg39Uexvj1qS3wSMtCrt6TDzu82nj1CndT/D8TIk/t7pfZUCXgznmf6kI+O8D6Rvj6/T1AUqCimWgvl0bJtigctMz/9MV4jrHnc6uegDzHoYdemmGzPJCX2iryOENbwaOXqg86ROUB5iVYOruA7cv1Fp6rSL7pmyqt/bJEh7aq1thhhVS9sf5iLI+0rFxSSeaLSRqa4Dtlb3gVLZ1Jb8D349n7L+uSgWH/pd8Ae3Yse2V7pPoj6OpI44FfTKcFmaFDxwdOkouBQVWUM25XY6sYcrfTkchkxeq6j2JUjf0xg9iNv72CI1c6HgaJSbG1LW7NJXcPwZo3CnXip8TNX/2OQ2FP7oP6TmpibJgCw1W9fctxvXqVgxAuPTVO0hFuU0WziBKlxpl1FG0up09jlN9MFmGPioiAwI0+xD88uQwwT+xce48zuNNlyLuHiM3krRDX5xmBW4w=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11797.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(52116014)(366016)(1800799024)(38350700014)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?ecjkyr0uwHHIhq7LXHlKp6LtCTD8LqyoT15UIPpfXJiShB1g9XVckKebjBiZ?=
+ =?us-ascii?Q?o+sWeKlZgjpwj99zE3dPKzD4uBeLZHQoc2+UsiXmds2Ilb6oEmJvHvHgZcd6?=
+ =?us-ascii?Q?RfgX03BMEg6lVY7q2LLw9OoEQ/c9rrfCXEk0AhTRcvWF1KjkFdFNOod3390J?=
+ =?us-ascii?Q?dgJOpVGjyQm8AeM8IsE9TdbWzlRA8tXokMCeviGxG9PL6BPS9iCGOdGP9VS1?=
+ =?us-ascii?Q?CuAnbXq1SuygGEWFyeWAI2bcSztWgHmkWAoiTxXxrKXeCgpGBcyT3rM7DF9v?=
+ =?us-ascii?Q?oo2A2dbBGHwMrRUQOAcMrwEzJFh/vrnf7Z7HJW3H6G3eS6T8WnOjVqAdxtPT?=
+ =?us-ascii?Q?E15wRgh7WfLhpJK4nfStbtIgFEcbfjEMxQc89At5emU7pnFYSzQYZIdR3mug?=
+ =?us-ascii?Q?kE4PT6WuUieHywpTBEr1i1yQ3b4JWXHTD++amYZt6aBe61w17yXIf8DswyaO?=
+ =?us-ascii?Q?ttb/bE3tKWvrvmVED9KS00oMQRqzWlLwpY6X8X9sNnLzb633IFhyZcUYrrHx?=
+ =?us-ascii?Q?6PruHZ7ECnzv0GFlLKcMDV9RxM8VNQx4TqY7hZgpR+X3LMpzJbeqddlCE4fR?=
+ =?us-ascii?Q?N4SQ5R70akpe/hsjV5bV+FwoheC/3zWo+YWyXbyY6oRNKSGnFjFSinY41nRJ?=
+ =?us-ascii?Q?7flfxjKeoFMNVIgWodbO10f03Ypq2yo7mbxfIg+bcqkscRoWc+8GZsxpLrqi?=
+ =?us-ascii?Q?OGtMW12o76r4VobPs/POwSrlm4Pi45u+EQ2+RpKd0a0vkQlJtZpEDzniNqdS?=
+ =?us-ascii?Q?VLl0NBloR/39qeuhv342al5dDsF85w5bXA6MkM1oE0UdHm5YRHAc/Jy2xh6n?=
+ =?us-ascii?Q?h1UuytUFIrUD3H96yGGj6Bg03BkP4BXlj1Nn2UJ7bMwW+BtBs5PMn8VOXwOa?=
+ =?us-ascii?Q?RuzOrvaruGxl601xpbj9tQbvGrufthbuSesn2RHCf9GmaQbOOrxQNr3XmRGQ?=
+ =?us-ascii?Q?Ba7pSS+yazWLr7v8bOBd98jaarn87ejmbDxpfM5aVPi0zC8My7UqBOkXwrUa?=
+ =?us-ascii?Q?GS2RQnH/Dj/6iDyN6xcTvUATmygBIGOL1RK62RxtMbF22TXYJ9rsR5f20QDz?=
+ =?us-ascii?Q?0kPeAWJTfkxDroEaoke4X8GatYnaLR06R4Vbfy+tAZX4PGR6qaZIOlr2uH0M?=
+ =?us-ascii?Q?NfzsI0Ta7OGo1gVcClt7pLIRq6Zv1iLtDdOzY+L0Xj0xb7z01yxmap4/oE3R?=
+ =?us-ascii?Q?96bvd34US3fazq2y+k8S33hhqvxhnURzN1srKAL0MvYRi6ZTz4Ad0PTQmwg4?=
+ =?us-ascii?Q?sBB6Bu2qjfcAzem7gfpGmD52sUNDqjFAg/Hnj8HNmDoNXJeLNLL0MBJaojQi?=
+ =?us-ascii?Q?r88ucTOfwmunJocaJ1toLIlyRdmYYgqWKs1rbLrDxhIXIOLhYqUaqW4O7c14?=
+ =?us-ascii?Q?iLQBK2NOU9cQGjXVXgAKehBIAy5eSZAMAQabp6P7ij/vevtuLJZzUakzO+Vj?=
+ =?us-ascii?Q?szWGTAMiz/MeEQjHtPRq+Njinh8K2rWrQlaHQ4DoHxcMd3hv1I4Wg/SMICAi?=
+ =?us-ascii?Q?p6NIU3y5EETBr3a/AKKt1WpAsf8I6jt57WhAViyAfhJ1aWZZnqUTVojERgSp?=
+ =?us-ascii?Q?QAXnlz+fULnZ0+nYOIaezYCM6IMHQgH0IlQuVn3nuDJ6TfR/2A8MyCOGHQl/?=
+ =?us-ascii?Q?oWqo/D1k/6qjd0crLU3HIUoA7jTb+2HFPfjONwUJNmE5hyzkdAWtkYjtIM6w?=
+ =?us-ascii?Q?XHlRYKLkAjtXeLpJVznmnPlX1k0+twJSxjamOgyoMyQRSh02cHp7PXL5lzVF?=
+ =?us-ascii?Q?W0a/Ut0FuRg9vs4V8Imt28yEv23jDLlP+5tKcGBA1uCR380XlnO3?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c62a511-85c0-468c-67de-08de911d332c
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11797.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2026 01:06:13.3051
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pgKMHqZnb3XDbfwewPkQdwsDTUeMsSIG0bjZkj1tAupXW8iJQNy+hI5ayzbyiG4eE3B+y6DgMY+gyR9v8YDfFChEVVho6CDvRAWa2tf35vZDtMJLbbDeGobzpByRWN2x
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYVPR01MB10798
 
-PMIC arbiter v8.5 is an extension of PMIC arbiter v8 that updated
-the definition of the channel status register bit fields. Add support
-to handle this difference.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+Hi John
+
+Thank you for your patch
+
+> RZ/G3E requires additional audmapp clock and reset lines for
+> Audio DMA-PP operation.
+> 
+> Add global audmacpp clock/reset management in rsnd_dma_probe()
+> using optional APIs to remain transparent to other platforms.
+> 
+> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
+> ---
+(snip)
+> --- a/sound/soc/renesas/rcar/rsnd.h
+> +++ b/sound/soc/renesas/rcar/rsnd.h
+> @@ -623,6 +623,13 @@ void rsnd_adg_clk_dbg_info(struct rsnd_priv *priv, struct seq_file *m);
+>  struct rsnd_priv {
+>  
+>  	struct platform_device *pdev;
+> +
+> +	/*
+> +	 * below value will be filled on rsnd_dma_probe()
+> +	 */
+> +	struct clk *audmapp_clk;
+> +	struct reset_control *audmapp_rstc;
+
+I think it is DMA specific.
+I think we can move it to struct rsnd_dma, instead of in rsnd_priv ?
+
+Thank you for your help !!
+
+Best regards
 ---
- drivers/spmi/spmi-pmic-arb.c | 69 ++++++++++++++++++++++++++++++++++++++------
- 1 file changed, 60 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/spmi/spmi-pmic-arb.c b/drivers/spmi/spmi-pmic-arb.c
-index 69f8d456324a..deeaa39bb647 100644
---- a/drivers/spmi/spmi-pmic-arb.c
-+++ b/drivers/spmi/spmi-pmic-arb.c
-@@ -28,6 +28,7 @@
- #define PMIC_ARB_VERSION_V5_MIN		0x50000000
- #define PMIC_ARB_VERSION_V7_MIN		0x70000000
- #define PMIC_ARB_VERSION_V8_MIN		0x80000000
-+#define PMIC_ARB_VERSION_V8P5_MIN	0x80050000
- #define PMIC_ARB_INT_EN			0x0004
- 
- #define PMIC_ARB_FEATURES		0x0004
-@@ -63,11 +64,34 @@
- #define SPMI_OWNERSHIP_PERIPH2OWNER(X)	((X) & 0x7)
- 
- /* Channel Status fields */
--enum pmic_arb_chnl_status {
--	PMIC_ARB_STATUS_DONE	= BIT(0),
--	PMIC_ARB_STATUS_FAILURE	= BIT(1),
--	PMIC_ARB_STATUS_DENIED	= BIT(2),
--	PMIC_ARB_STATUS_DROPPED	= BIT(3),
-+struct pmic_arb_chnl_status_mask {
-+	u8	done;
-+	u8	failure;
-+	u8	crc;
-+	u8	parity;
-+	u8	nack;
-+	u8	denied;
-+	u8	dropped;
-+};
-+
-+static const struct pmic_arb_chnl_status_mask chnl_status_mask = {
-+	.done		= BIT(0),
-+	.failure	= BIT(1),
-+	.crc		= 0,
-+	.parity		= 0,
-+	.nack		= 0,
-+	.denied		= BIT(2),
-+	.dropped	= BIT(3),
-+};
-+
-+static const struct pmic_arb_chnl_status_mask chnl_status_mask_v8p5 = {
-+	.done		= BIT(0),
-+	.failure	= BIT(1),
-+	.crc		= BIT(2),
-+	.parity		= BIT(3),
-+	.nack		= BIT(4),
-+	.denied		= BIT(5),
-+	.dropped	= BIT(6),
- };
- 
- /* Command register fields */
-@@ -201,6 +225,7 @@ struct spmi_pmic_arb_bus {
-  * @max_periphs:	Number of elements in apid_data[]
-  * @buses:		per arbiter buses instances
-  * @buses_available:	number of buses registered
-+ * @chnl_status_mask:	Bit masks of channel status fields
-  */
- struct spmi_pmic_arb {
- 	void __iomem		*rd_base;
-@@ -214,6 +239,7 @@ struct spmi_pmic_arb {
- 	int			max_periphs;
- 	struct spmi_pmic_arb_bus *buses[PMIC_ARB_MAX_BUSES];
- 	int			buses_available;
-+	const struct pmic_arb_chnl_status_mask *chnl_status_mask;
- };
- 
- /**
-@@ -312,6 +338,7 @@ static int pmic_arb_wait_for_done(struct spmi_controller *ctrl,
- {
- 	struct spmi_pmic_arb_bus *bus = spmi_controller_get_drvdata(ctrl);
- 	struct spmi_pmic_arb *pmic_arb = bus->pmic_arb;
-+	const struct pmic_arb_chnl_status_mask *mask;
- 	u32 status = 0;
- 	u32 timeout = PMIC_ARB_TIMEOUT_US;
- 	u32 offset;
-@@ -323,30 +350,49 @@ static int pmic_arb_wait_for_done(struct spmi_controller *ctrl,
- 
- 	offset = rc;
- 	offset += PMIC_ARB_STATUS;
-+	mask = pmic_arb->chnl_status_mask;
- 
- 	while (timeout--) {
- 		status = readl_relaxed(base + offset);
- 
--		if (status & PMIC_ARB_STATUS_DONE) {
--			if (status & PMIC_ARB_STATUS_DENIED) {
-+		if (status & mask->done) {
-+			if (status & mask->denied) {
- 				dev_err(&ctrl->dev, "%s: %#x %#x: transaction denied (%#x)\n",
- 					__func__, sid, addr, status);
- 				return -EPERM;
- 			}
- 
--			if (status & PMIC_ARB_STATUS_FAILURE) {
-+			if (status & mask->failure) {
- 				dev_err(&ctrl->dev, "%s: %#x %#x: transaction failed (%#x) reg: 0x%x\n",
- 					__func__, sid, addr, status, offset);
- 				WARN_ON(1);
- 				return -EIO;
- 			}
- 
--			if (status & PMIC_ARB_STATUS_DROPPED) {
-+			if (status & mask->dropped) {
- 				dev_err(&ctrl->dev, "%s: %#x %#x: transaction dropped (%#x)\n",
- 					__func__, sid, addr, status);
- 				return -EIO;
- 			}
- 
-+			if (status & mask->crc) {
-+				dev_err(&ctrl->dev, "%s: %#x %#x: CRC error (%#x)\n",
-+					__func__, sid, addr, status);
-+				return -EIO;
-+			}
-+
-+			if (status & mask->parity) {
-+				dev_err(&ctrl->dev, "%s: %#x %#x: parity error (%#x)\n",
-+					__func__, sid, addr, status);
-+				return -EIO;
-+			}
-+
-+			if (status & mask->nack) {
-+				dev_err(&ctrl->dev, "%s: %#x %#x: NACK error (%#x)\n",
-+					__func__, sid, addr, status);
-+				return -EIO;
-+			}
-+
- 			return 0;
- 		}
- 		udelay(1);
-@@ -2033,6 +2079,11 @@ static int spmi_pmic_arb_probe(struct platform_device *pdev)
- 	else
- 		pmic_arb->ver_ops = &pmic_arb_v8;
- 
-+	if (hw_ver < PMIC_ARB_VERSION_V8P5_MIN)
-+		pmic_arb->chnl_status_mask = &chnl_status_mask;
-+	else
-+		pmic_arb->chnl_status_mask = &chnl_status_mask_v8p5;
-+
- 	err = pmic_arb->ver_ops->get_core_resources(pdev, core);
- 	if (err)
- 		return err;
-
--- 
-2.43.0
-
+Kuninori Morimoto
