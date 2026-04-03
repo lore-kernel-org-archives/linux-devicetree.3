@@ -1,602 +1,285 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F5E236AB53
-	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 15:07:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72E7E26F46F;
+	Fri,  3 Apr 2026 15:07:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775228862; cv=none; b=jVXJlcWl/3pUeF5d8WZI1A7fWm1vSyd0q3+xRql0dToPR4brwYt7IlxOkoQOs6/LfhKF9+R9dUj5Y6rhAwE+LYWGwR/1R3AenClsx8d3W2V3A13TQtJYLv3wPfru2MD48y5pDn4ZSmIYPn299nUg0bUHf57W8kBs8Yuq9xtqIHg=
+	t=1775228876; cv=none; b=oE2n3T4z+O2zqjizuObtmG4rF3y9NYcA252Tmm1LDOKs/EY9d/dH2GDmWqLjDUyGeU+YPb+7M+GiS7q2GZ+JSqjx2qhOddUrZktlpZygAp5QaJcJf8Uji4WGbFubv2AACeBZK9PuGHm2CHFLKyYvbCEDAoGDAIkr+wY1jsHzd8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775228862; c=relaxed/simple;
-	bh=Jy0Z3lyV2RsN8oiZ1yOi6ize7teFbrFqGxBK5zkSl6A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u9j2U/dBMjPDfeddiVsnFLkSw1KBbmh2hMcL26JLUkQ3NQZjOqCmWtIR29TwDCh1wZmo2m9atgyYC4vrhwzxJrbSTYXfsV89MqtQb3vgWHeKOxMgoByn7At8FDvIsUMGIgn74/34mTfw6Ib+nwFYFgOfKBMmspNUKmhQTKmz4QA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=C6a+waV0; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=THz/VikQ; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1775228876; c=relaxed/simple;
+	bh=MBl//kVf0h7ViOMDV5/e95VwI4Fm6fUWPiijBlkByPo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=A5U1XR/PDQCn7D9sq3FND6mdLhCoB7Htj5+kO/XhQHi1YsQf3T7VOPBrTdjR5EraPuYfXnhmPD9TsnLbXN6MihsZktT111L6X0EMlkJHVdYtzJPtEp2y9aFokClJHm8ZjrSr22sAVlJv5NJEfLG9RVAZ3qOzZo5sqmfd7mc/xqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tNVDfreg; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="C6a+waV0";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="THz/VikQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1775228859;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9VUq3iHyJBlap7+8lACX3iuj8cpAeT8KumT6dvPCbu8=;
-	b=C6a+waV0NZN2gjf0QlepyOz/Ca8kgfHrSXGJ4nC081tq8R1hjGiYJxuTg7s8RLGTi/OI8q
-	bLDajzk9ka5Q3URCE0yjQoi+SJy6CrF9ei8uBtTfF8IesE4qFhPloidAL1IkyBtpGHCiLs
-	dkL4o3wvnT3esCwM0I/8382BVWGGitI=
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-677-F6hY7cj3P_iIh1Y8at8MdA-1; Fri, 03 Apr 2026 11:07:38 -0400
-X-MC-Unique: F6hY7cj3P_iIh1Y8at8MdA-1
-X-Mimecast-MFC-AGG-ID: F6hY7cj3P_iIh1Y8at8MdA_1775228857
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50b802961ecso25942621cf.1
-        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 08:07:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1775228857; x=1775833657; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9VUq3iHyJBlap7+8lACX3iuj8cpAeT8KumT6dvPCbu8=;
-        b=THz/VikQoD8NSsHV36RwFDuteMWMNoCORhws6h0ddRuZO1j5eSrX0lUA+9BpVuKrDV
-         SYxnEbUIrUufUauZq/xG8gj4tYV37t1zW3Bfbsd//hws+ZOaR2RbVObXGJPqWxwyVOX/
-         W4xrPhIwwFDeKvFxPNVkJ9ioDav3dRFkWeXlRR+osdUHD0nBO2IIx0DahHGB+7JFeFu5
-         7dwxe/Ye3DRUrycT35SlNU0dV2OgRM7J6QiC9NG0oZYX0kFd0DZ8AkPUIJkh3oyf+Gz2
-         /ftNHqOqWUDf/lfYPrpWbJmuRBvqSLHVznFEKq6SFiGB73kmsQMK7P9ETBfeH2nts22X
-         K32w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775228857; x=1775833657;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=9VUq3iHyJBlap7+8lACX3iuj8cpAeT8KumT6dvPCbu8=;
-        b=qmCHn4VxIzAdLUE63fqDavsCz8jKUc3x9OvNkMVmkVPEaXm/5YCM1Z8bupFVQFB+s3
-         QsnBIJgODTkhEJ7Qw93P6R2N6wT6qbZyXrI6ZehjXLkNkZ8cr702a/LV6lHORstJcVz/
-         /dZ0gXxPNY6HijQzJmvTZL0RAJN/IhkJeMx597j9g0aSokXEEcubgHaFEzFXCEzREcya
-         4R8R0cvJKDYXiTMtITtYIrr2JFSJLar0A7LynCeCLGKs9R/lCDv2oz8GwXmUsJ6yj04D
-         ilSFYJOsxzpu6VsoDZt2NXeB1psK4Kl+XCBuJ1SwuClYDGJ2P3KRHbILF4mL2SVg/u9d
-         OIxQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXHaEK1jPI4ajU55fRetkvgzB3n2y9bWwGGZLiGhPpGU+SSh1EBuxx6woaDL1kboC53/pVr8LoG7Lhi@vger.kernel.org
-X-Gm-Message-State: AOJu0YwjJe7qB1etcjH7QDCsnNhyz4tOXdy1bQa/XhAjVARcClgEM+cu
-	hHVm+T9jzWKfups1wtMcZUx6w0nw849vG/umVYJtQyodgcnXy69hKPZ7SLrBVk4nwroIlUv64hO
-	6QtsG0d/J2LqE4rml7EcpzQOkf1iZIlEbHCxDVqxQCobGusFk3EYdwRgisb8Uri4=
-X-Gm-Gg: AeBDiesU67yWyBMvkf076QsTBHVnJ3Ta18GkmnewyPG4D4a9wepyTW5SvLRBNp1N+VQ
-	miZ3CRdzINGKk5mSe9YDD3dbcN7M9G1hvK6llic8/lgsTLu0R8xL+YztQWaz7PqMuN4KYuZbdXw
-	qBgN9TLM98n5yj9m656qtgvEMKLB+HmFfO8sp1RmpIeYyxr8x6uENLfYdGeZh2/t+9xb7ayG/8l
-	sI+63caew2RpJ/mgBOmq5D4aBonHseaH8uVJSzg9edHfTWCPlGX65wkmw2Ly/V4lgkJpdUHHzQy
-	CDEIXoCrpnyRIQ/DS9MCUJf8t2GBWv3Blv66/Nobu7KchglEqymc6PckQzR8M+gsgJ7QDKf1jXe
-	wWoUuJWuHZZEvuA9vZOMJhBi3wMZVmpIuTvrT41V0Bt2D/fLJ3THdE727
-X-Received: by 2002:a05:6214:3116:b0:8a3:a172:46b0 with SMTP id 6a1803df08f44-8a705194a7cmr47589936d6.44.1775228856618;
-        Fri, 03 Apr 2026 08:07:36 -0700 (PDT)
-X-Received: by 2002:a05:6214:3116:b0:8a3:a172:46b0 with SMTP id 6a1803df08f44-8a705194a7cmr47589096d6.44.1775228856001;
-        Fri, 03 Apr 2026 08:07:36 -0700 (PDT)
-Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8a593bf51b6sm60006436d6.17.2026.04.03.08.07.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Apr 2026 08:07:35 -0700 (PDT)
-Date: Fri, 3 Apr 2026 11:07:32 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Yu-Chun Lin <eleanor.lin@realtek.com>
-Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, p.zabel@pengutronix.de,
-	cylee12@realtek.com, afaerber@suse.com, jyanchou@realtek.com,
-	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-realtek-soc@lists.infradead.org, james.tai@realtek.com,
-	cy.huang@realtek.com, stanley_chang@realtek.com
-Subject: Re: [PATCH v6 07/10] clk: realtek: Add support for MMC-tuned PLL
- clocks
-Message-ID: <ac_XtHzDpIjHW8xT@redhat.com>
-References: <20260402073957.2742459-1-eleanor.lin@realtek.com>
- <20260402073957.2742459-8-eleanor.lin@realtek.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tNVDfreg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E4C6C2BCAF;
+	Fri,  3 Apr 2026 15:07:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775228876;
+	bh=MBl//kVf0h7ViOMDV5/e95VwI4Fm6fUWPiijBlkByPo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=tNVDfregz0Oo7WeU26r7V03urlU7jBW3Tvif+avKYtKi87XKZzPMMtZjFcI0ZLJHs
+	 MM0hjD9LY7DnR8jZ6zkYso6GQ91+1WoB3gZg+uw4dtvJZLza1tksLnKHGTPQ8WZtze
+	 digTKFzrJ3E/YiOiNoCFwewfuJMENmVi8xXem1C1LGsxGvKABcBmabYujBMHjUbdbe
+	 Sgq6e+5DjLv3p6Jq8aP8wJxUJ2r2+ZEPYMODN5PiGVUvm7dQZZYuzmomBUvTk7Tzax
+	 NkD126yUg7BSLrdXLQ04FPXjm/FjpixWVReuyDKYu35ynAhitDWYuj0GFfxJnt62UK
+	 u57yvp2YgvnnA==
+Message-ID: <c87d229c-137c-4e59-99cc-a97ef04f6e1b@kernel.org>
+Date: Fri, 3 Apr 2026 16:07:50 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260402073957.2742459-8-eleanor.lin@realtek.com>
-User-Agent: Mutt/2.3.0 (2026-01-25)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/3] Add CAMSS support for SM6350
+To: Luca Weiss <luca.weiss@fairphone.com>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Todor Tomov <todor.too@gmail.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>
+References: <20260216-sm6350-camss-v4-0-b9df35f87edb@fairphone.com>
+ <2a108976-374a-46e1-968d-7befa4369a74@linaro.org>
+ <4SLDL62Oin3XdiLjUEC_YAVA-m1dKV4j_8_RolU6NJFWCIWtem6e6sCb9n7OIHbcIWBfWdXx_vZy5mXCAbWUDg==@protonmail.internalid>
+ <DHJD7P2TXQTH.1TQ4YQQ21A6CS@fairphone.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <DHJD7P2TXQTH.1TQ4YQQ21A6CS@fairphone.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Yu-Chun and Cheng-Yu,
-
-On Thu, Apr 02, 2026 at 03:39:54PM +0800, Yu-Chun Lin wrote:
-> From: Cheng-Yu Lee <cylee12@realtek.com>
+On 03/04/2026 09:09, Luca Weiss wrote:
+> Hi Vladimir,
 > 
-> Add clk_pll_mmc_ops for enable/disable, prepare, rate control, and status
-> operations on MMC PLL clocks.
+> On Tue Mar 31, 2026 at 12:49 AM CEST, Vladimir Zapolskiy wrote:
+>> Hi Luca,
+>>
+>> On 2/16/26 10:54, Luca Weiss wrote:
+>>> Add bindings, driver and dts to support the Camera Subsystem on the
+>>> SM6350 SoC.
+>>>
+>>> These patches were tested on a Fairphone 4 smartphone with WIP sensor
+>>> drivers (Sony IMX576 and IMX582), the camera pipeline works properly as
+>>> far as I can tell.
+>>>
+>>> Though when stopping the camera stream, the following clock warning
+>>> appears in dmesg. But it does not interfere with any functionality,
+>>> starting and stopping the stream works and debugcc is showing 426.4 MHz
+>>> while the clock is on, and 'off' while it's off.
+>>>
+>>> Any suggestion how to fix this, is appreciated.
+>>
+>> I've looked at CAMCC recently, and I do notice that SM6350 CAMCC does not
+>> set '.use_rpm = true' flag for whatever reason.
+>>
+>> If you find a free minute, can you test the change below?..
 > 
-> Also add clk_pll_mmc_phase_ops to support phase get/set operations.
+> Unfortunately that change does not resolve the "gcc_camera_axi_clk
+> status stuck at 'on'" warning.
 > 
-> Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
-> Co-developed-by: Jyan Chou <jyanchou@realtek.com>
-> Signed-off-by: Jyan Chou <jyanchou@realtek.com>
-> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
-> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
-> ---
-> Changes in v6:
-> - Add the headers used in c file to follow the "Include What You Use" principle.
-> - Move to_clk_pll_mmc() from clk-pll.h to clk-pll-mmc.c to limit its scope.
-> - Change offset type from int to unsigned int.
-> ---
->  MAINTAINERS                       |   8 +
->  drivers/clk/realtek/Kconfig       |   3 +
->  drivers/clk/realtek/Makefile      |   2 +
->  drivers/clk/realtek/clk-pll-mmc.c | 410 ++++++++++++++++++++++++++++++
->  drivers/clk/realtek/clk-pll.h     |  13 +
->  5 files changed, 436 insertions(+)
->  create mode 100644 drivers/clk/realtek/clk-pll-mmc.c
+> fairphone-fp4:~$ cat /sys/bus/platform/drivers/sm6350-camcc/ad00000.clock-controller/power/runtime_status
+> active
 > 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 8318156a02b5..4b28af4b26b5 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -22245,6 +22245,14 @@ F:	drivers/reset/realtek/*
->  F:	include/dt-bindings/clock/realtek*
->  F:	include/dt-bindings/reset/realtek*
->  
-> +REALTEK SOC PLL CLOCK FOR MMC SUPPORT
-> +M:	Cheng-Yu Lee <cylee12@realtek.com>
-> +M:	Jyan Chou <jyanchou@realtek.com>
-> +M:	Yu-Chun Lin <eleanor.lin@realtek.com>
-> +L:	linux-clk@vger.kernel.org
-> +S:	Supported
-> +F:	drivers/clk/realtek/clk-pll-mmc.c
-> +
->  REALTEK SPI-NAND
->  M:	Chris Packham <chris.packham@alliedtelesis.co.nz>
->  S:	Maintained
-> diff --git a/drivers/clk/realtek/Kconfig b/drivers/clk/realtek/Kconfig
-> index bc47d3f1c452..b31a31e57b3a 100644
-> --- a/drivers/clk/realtek/Kconfig
-> +++ b/drivers/clk/realtek/Kconfig
-> @@ -25,4 +25,7 @@ config RTK_CLK_COMMON
->  	  multiple Realtek clock implementations, and include integration
->  	  with reset controllers where required.
->  
-> +config RTK_CLK_PLL_MMC
-> +	bool
-> +
->  endif
-> diff --git a/drivers/clk/realtek/Makefile b/drivers/clk/realtek/Makefile
-> index f90dc57fcfdb..fd7d777902c8 100644
-> --- a/drivers/clk/realtek/Makefile
-> +++ b/drivers/clk/realtek/Makefile
-> @@ -7,3 +7,5 @@ clk-rtk-y += clk-pll.o
->  clk-rtk-y += clk-regmap-gate.o
->  clk-rtk-y += clk-regmap-mux.o
->  clk-rtk-y += freq_table.o
-> +
-> +clk-rtk-$(CONFIG_RTK_CLK_PLL_MMC) += clk-pll-mmc.o
-> diff --git a/drivers/clk/realtek/clk-pll-mmc.c b/drivers/clk/realtek/clk-pll-mmc.c
-> new file mode 100644
-> index 000000000000..d28c7027d3f0
-> --- /dev/null
-> +++ b/drivers/clk/realtek/clk-pll-mmc.c
-> @@ -0,0 +1,410 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) 2021 Realtek Semiconductor Corporation
-> + * Author: Cheng-Yu Lee <cylee12@realtek.com>
-> + */
-> +
-> +#include <linux/bits.h>
-> +#include <linux/module.h>
-> +#include <linux/regmap.h>
-> +#include "clk-pll.h"
-> +
-> +#define PLL_EMMC1_OFFSET           0x0
-> +#define PLL_EMMC2_OFFSET           0x4
-> +#define PLL_EMMC3_OFFSET           0x8
-> +#define PLL_EMMC4_OFFSET           0xc
-> +#define PLL_SSC_DIG_EMMC1_OFFSET   0x0
-> +#define PLL_SSC_DIG_EMMC3_OFFSET   0xc
-> +#define PLL_SSC_DIG_EMMC4_OFFSET   0x10
-> +
-> +#define PLL_MMC_SSC_DIV_N_VAL      0x1b
-> +
-> +#define PLL_PHRT0_MASK             BIT(1)
-> +#define PLL_PHSEL_MASK             GENMASK(4, 0)
-> +#define PLL_SSCPLL_RS_MASK         GENMASK(12, 10)
-> +#define PLL_SSCPLL_ICP_MASK        GENMASK(9, 5)
-> +#define PLL_SSC_DIV_EXT_F_MASK     GENMASK(25, 13)
-> +#define PLL_PI_IBSELH_MASK         GENMASK(28, 27)
-> +#define PLL_SSC_DIV_N_MASK         GENMASK(23, 16)
-> +#define PLL_NCODE_SSC_EMMC_MASK    GENMASK(20, 13)
-> +#define PLL_FCODE_SSC_EMMC_MASK    GENMASK(12, 0)
-> +#define PLL_GRAN_EST_EM_MC_MASK    GENMASK(20, 0)
-> +#define PLL_EN_SSC_EMMC_MASK       BIT(0)
-> +#define PLL_FLAG_INITAL_EMMC_MASK  BIT(1)
-> +
-> +#define PLL_PHRT0_SHIFT            1
-> +#define PLL_SSCPLL_RS_SHIFT        10
-> +#define PLL_SSCPLL_ICP_SHIFT       5
-> +#define PLL_SSC_DIV_EXT_F_SHIFT    13
-> +#define PLL_PI_IBSELH_SHIFT        27
-> +#define PLL_SSC_DIV_N_SHIFT        16
-> +#define PLL_NCODE_SSC_EMMC_SHIFT   13
-> +#define PLL_FLAG_INITAL_EMMC_SHIFT 8
-> +
-> +#define CYCLE_DEGREES              360
-> +#define PHASE_STEPS                32
-> +#define PHASE_SCALE_FACTOR         1125
-> +
-> +static inline struct clk_pll_mmc *to_clk_pll_mmc(struct clk_hw *hw)
-> +{
-> +	struct clk_regmap *clkr = to_clk_regmap(hw);
-> +
-> +	return container_of(clkr, struct clk_pll_mmc, clkr);
-> +}
-> +
-> +static inline int get_phrt0(struct clk_pll_mmc *clkm, u32 *val)
-> +{
-> +	u32 reg;
-> +	int ret;
-> +
-> +	ret = regmap_read(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC1_OFFSET, &reg);
-> +	if (ret)
-> +		return ret;
-> +
-> +	*val = (reg >> PLL_PHRT0_SHIFT) & PLL_PHRT0_MASK;
+> fairphone-fp4:~$ cat /sys/bus/platform/drivers/sm6350-camcc/ad00000.clock-controller/power/runtime_status
+> suspended
+> 
+>>
+>> ----8<----
+>> diff --git a/drivers/clk/qcom/camcc-sm6350.c b/drivers/clk/qcom/camcc-sm6350.c
+>> index 7df12c1311c6..ba880e4edcaf 100644
+>> --- a/drivers/clk/qcom/camcc-sm6350.c
+>> +++ b/drivers/clk/qcom/camcc-sm6350.c
+>> @@ -1880,6 +1880,7 @@ static const struct qcom_cc_desc camcc_sm6350_desc = {
+>>    	.num_clks = ARRAY_SIZE(camcc_sm6350_clocks),
+>>    	.gdscs = camcc_sm6350_gdscs,
+>>    	.num_gdscs = ARRAY_SIZE(camcc_sm6350_gdscs),
+>> +	.use_rpm = true,
+>>    };
+>>
+>>    static const struct of_device_id camcc_sm6350_match_table[] = {
+>> ----8<----
+>>
+>> This change could be considered to be included in any case, I believe.
+> 
+> I guess this change is now the way to enable pm_runtime, I had this
+> series 3 years ago in February 2023:
+> https://lore.kernel.org/linux-arm-msm/20230213-sm6350-camcc-runtime_pm-v3-0-d35e0d833cc4@fairphone.com/
+> 
+> But I never followed up due to me not understanding pm_runtime well and
+> no direct need for it.
+> 
+> But I guess reviving that with use_rpm = true, add power-domains &
+> required-opps to dt-bindings and sm6350.dtsi should be a good idea?
+> 
+> Regards
+> Luca
+> 
+>>
+>>> [ 5738.590980] ------------[ cut here ]------------
+>>> [ 5738.591009] gcc_camera_axi_clk status stuck at 'on'
+>>> [ 5738.591049] WARNING: CPU: 0 PID: 6918 at drivers/clk/qcom/clk-branch.c:87 clk_branch_toggle+0x170/0x190
+>>> [ 5738.591081] Modules linked in:
+>>> [ 5738.591099] CPU: 0 UID: 10000 PID: 6918 Comm: plasma-camera Tainted: G        W           6.17.0-00057-ge6b67db49622 #71 NONE
+>>> [ 5738.591118] Tainted: [W]=WARN
+>>> [ 5738.591126] Hardware name: Fairphone 4 (DT)
+>>> [ 5738.591136] pstate: 604000c5 (nZCv daIF +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+>>> [ 5738.591150] pc : clk_branch_toggle+0x170/0x190
+>>> [ 5738.591164] lr : clk_branch_toggle+0x170/0x190
+>>> [ 5738.591177] sp : ffff800086ed3980
+>>> [ 5738.591184] x29: ffff800086ed3990 x28: 0000000000000001 x27: ffff800086ed3cd8
+>>> [ 5738.591208] x26: 0000000000000000 x25: ffffda14fcfbd250 x24: 0000000000000000
+>>> [ 5738.591230] x23: 0000000000000000 x22: ffffda14fc38bce0 x21: 0000000000000000
+>>> [ 5738.591252] x20: ffffda14fd33e618 x19: 0000000000000000 x18: 00000000000064c8
+>>> [ 5738.591274] x17: 0000000000000000 x16: 00001ae003667e9e x15: ffffda14fd2a07b0
+>>> [ 5738.591295] x14: 0000000000000000 x13: 6f27207461206b63 x12: 7574732073757461
+>>> [ 5738.591317] x11: 0000000000000058 x10: 0000000000000018 x9 : ffffda14fd2a0838
+>>> [ 5738.591338] x8 : 0000000000057fa8 x7 : 0000000000000a16 x6 : ffffda14fd2f8838
+>>> [ 5738.591360] x5 : ffff0001f6f59788 x4 : 0000000000000a15 x3 : ffff25ecf9d7e000
+>>> [ 5738.591381] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff0000baf5c100
+>>> [ 5738.591403] Call trace:
+>>> [ 5738.591412]  clk_branch_toggle+0x170/0x190 (P)
+>>> [ 5738.591429]  clk_branch2_disable+0x1c/0x30
+>>> [ 5738.591445]  clk_core_disable+0x5c/0xb4
+>>> [ 5738.591462]  clk_disable+0x38/0x60
+>>> [ 5738.591478]  camss_disable_clocks+0x44/0x78
+>>> [ 5738.591496]  vfe_put+0x7c/0xc0
+>>> [ 5738.591512]  vfe_set_power+0x40/0x50
+>>> [ 5738.591528]  pipeline_pm_power_one+0x14c/0x150
+>>> [ 5738.591546]  pipeline_pm_power+0x74/0xf4
+>>> [ 5738.591561]  v4l2_pipeline_pm_use+0x54/0x9c
+>>> [ 5738.591577]  v4l2_pipeline_pm_put+0x14/0x40
+>>> [ 5738.591592]  video_unprepare_streaming+0x18/0x24
+>>> [ 5738.591608]  __vb2_queue_cancel+0x4c/0x314
+>>> [ 5738.591626]  vb2_core_streamoff+0x24/0xc8
+>>> [ 5738.591643]  vb2_ioctl_streamoff+0x58/0x98
+>>> [ 5738.591657]  v4l_streamoff+0x24/0x30
+>>> [ 5738.591672]  __video_do_ioctl+0x430/0x4a8
+>>> [ 5738.591689]  video_usercopy+0x2ac/0x680
+>>> [ 5738.591705]  video_ioctl2+0x18/0x40
+>>> [ 5738.591720]  v4l2_ioctl+0x40/0x60
+>>> [ 5738.591734]  __arm64_sys_ioctl+0x90/0xf0
+>>> [ 5738.591750]  invoke_syscall.constprop.0+0x40/0xf0
+>>> [ 5738.591769]  el0_svc_common.constprop.0+0x38/0xd8
+>>> [ 5738.591785]  do_el0_svc+0x1c/0x28
+>>> [ 5738.591801]  el0_svc+0x34/0xe8
+>>> [ 5738.591820]  el0t_64_sync_handler+0xa0/0xe4
+>>> [ 5738.591838]  el0t_64_sync+0x198/0x19c
+>>> [ 5738.591854] ---[ end trace 0000000000000000 ]---
+>>>
+>>> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+>>> ---
+>>> Changes in v4:
+>>> - Update power-domain-names order (Krzysztof)
+>>> - Make hex numbers lower case in init seq (David)
+>>> - Pick up tags
+>>> - Link to v3: https://lore.kernel.org/r/20260213-sm6350-camss-v3-0-30a845b0b7cc@fairphone.com
+>>
+>> Should find some time myself to issue RBs, sorry for the delay.
+>>
+>>> Changes in v3:
+>>> - Update dt-bindings to include everything related to camss
+>>> - Update regulator names
+>>> - Remove slow_ahb_src
+>>> - Link to v2: https://lore.kernel.org/r/20251114-sm6350-camss-v2-0-d1ff67da33b6@fairphone.com
+>>>
+>>> Changes in v2:
+>>> - Remove prefix from interconnect-names
+>>> - Move 'top' power-domain to the top of list
+>>> - Update regulator supply names
+>>> - Link to v1: https://lore.kernel.org/r/20251024-sm6350-camss-v1-0-63d626638add@fairphone.com
+>>>
+>>> ---
+>>> Luca Weiss (3):
+>>>         dt-bindings: media: camss: Add qcom,sm6350-camss
+>>>         media: qcom: camss: Add SM6350 support
+>>>         arm64: dts: qcom: sm6350: Add CAMSS node
+>>>
+>>>    .../bindings/media/qcom,sm6350-camss.yaml          | 471 +++++++++++++++++++++
+>>>    arch/arm64/boot/dts/qcom/sm6350.dtsi               | 233 ++++++++++
+>>>    .../platform/qcom/camss/camss-csiphy-3ph-1-0.c     | 125 ++++++
+>>>    drivers/media/platform/qcom/camss/camss-vfe.c      |   2 +
+>>>    drivers/media/platform/qcom/camss/camss.c          | 261 ++++++++++++
+>>>    drivers/media/platform/qcom/camss/camss.h          |   1 +
+>>>    6 files changed, 1093 insertions(+)
+>>> ---
+>>> base-commit: 3daf23347bb5f4a375d0101ed29c97ce1a99721b
+>>> change-id: 20251024-sm6350-camss-9c404bf9cfdd
+>>>
+>>> Best regards,
+> 
 
-Sashiko reports the following:
-https://sashiko.dev/#/patchset/20260402073957.2742459-1-eleanor.lin%40realtek.com
+What about taking the clock out of hardware gated mode ?
 
-    With PLL_PHRT0_SHIFT defined as 1 and PLL_PHRT0_MASK as BIT(1) (0x02), shifting
-    right by 1 moves the target bit 1 to position 0, but masking with 0x02 checks
-    position 1 of the shifted value.
-    
-    Will this cause clk_pll_mmc_is_enabled() to always evaluate to false since it
-    expects val == 0x1?
+┌─[deckard@sagittarius-a] - [~/Development/qualcomm/qlt-kernel] - [Fri 
+Apr 03, 16:05]
+└─[$]> git diff
+diff --git a/drivers/clk/qcom/gcc-sm6350.c b/drivers/clk/qcom/gcc-sm6350.c
+index a4d6dff9d0f7f..f98cb35bcd408 100644
+--- a/drivers/clk/qcom/gcc-sm6350.c
++++ b/drivers/clk/qcom/gcc-sm6350.c
+@@ -909,8 +909,6 @@ static struct clk_branch gcc_camera_ahb_clk = {
+  static struct clk_branch gcc_camera_axi_clk = {
+         .halt_reg = 0x17018,
+         .halt_check = BRANCH_HALT,
+-       .hwcg_reg = 0x17018,
+-       .hwcg_bit = 1,
+         .clkr = {
+                 .enable_reg = 0x17018,
+                 .enable_mask = BIT(0),
 
-> +	return 0;
-> +}
-> +
-> +static inline int set_phrt0(struct clk_pll_mmc *clkm, u32 val)
-> +{
-> +	return regmap_update_bits(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC1_OFFSET,
-> +				  PLL_PHRT0_MASK, val << PLL_PHRT0_SHIFT);
-> +}
-> +
-> +static inline int get_phsel(struct clk_pll_mmc *clkm, int id, u32 *val)
-> +{
-> +	int ret;
-> +	u32 raw_val;
-> +	u32 sft = id ? 8 : 3;
-
-Put variables in reverse Christmas tree order.
-
-> +
-> +	ret = regmap_read(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC1_OFFSET, &raw_val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	*val = (raw_val >> sft) & PLL_PHSEL_MASK;
-> +	return 0;
-> +}
-> +
-> +static inline int set_phsel(struct clk_pll_mmc *clkm, int id, u32 val)
-> +{
-> +	u32 sft = id ? 8 : 3;
-> +
-> +	return regmap_update_bits(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC1_OFFSET,
-> +				  PLL_PHSEL_MASK << sft, val << sft);
-> +}
-> +
-> +static inline int set_sscpll_rs(struct clk_pll_mmc *clkm, u32 val)
-> +{
-> +	return regmap_update_bits(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC2_OFFSET,
-> +				  PLL_SSCPLL_RS_MASK, val << PLL_SSCPLL_RS_SHIFT);
-> +}
-> +
-> +static inline int set_sscpll_icp(struct clk_pll_mmc *clkm, u32 val)
-> +{
-> +	return regmap_update_bits(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC2_OFFSET,
-> +				  PLL_SSCPLL_ICP_MASK, val << PLL_SSCPLL_ICP_SHIFT);
-> +}
-> +
-> +static inline int get_ssc_div_ext_f(struct clk_pll_mmc *clkm, u32 *val)
-> +{
-> +	u32 raw_val;
-> +	int ret;
-> +
-> +	ret = regmap_read(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC2_OFFSET, &raw_val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	*val = (raw_val & PLL_SSC_DIV_EXT_F_MASK) >> PLL_SSC_DIV_EXT_F_SHIFT;
-> +	return 0;
-> +}
-> +
-> +static inline int set_ssc_div_ext_f(struct clk_pll_mmc *clkm, u32 val)
-> +{
-> +	return regmap_update_bits(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC2_OFFSET,
-> +				  PLL_SSC_DIV_EXT_F_MASK,
-> +				  val << PLL_SSC_DIV_EXT_F_SHIFT);
-> +}
-> +
-> +static inline int set_pi_ibselh(struct clk_pll_mmc *clkm, u32 val)
-> +{
-> +	return regmap_update_bits(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC2_OFFSET,
-> +				  PLL_PI_IBSELH_MASK, val << PLL_PI_IBSELH_SHIFT);
-> +}
-> +
-> +static inline int set_ssc_div_n(struct clk_pll_mmc *clkm, u32 val)
-> +{
-> +	return regmap_update_bits(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC3_OFFSET,
-> +				  PLL_SSC_DIV_N_MASK, val << PLL_SSC_DIV_N_SHIFT);
-> +}
-> +
-> +static inline int get_ssc_div_n(struct clk_pll_mmc *clkm, u32 *val)
-> +{
-> +	int ret;
-> +	u32 raw_val;
-> +
-> +	ret = regmap_read(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC3_OFFSET, &raw_val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	*val = (raw_val & PLL_SSC_DIV_N_MASK) >> PLL_SSC_DIV_N_SHIFT;
-> +	return 0;
-> +}
-> +
-> +static inline int set_pow_ctl(struct clk_pll_mmc *clkm, u32 val)
-> +{
-> +	return regmap_write(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC4_OFFSET, val);
-> +}
-> +
-> +static inline int get_pow_ctl(struct clk_pll_mmc *clkm, u32 *val)
-> +{
-> +	int ret;
-> +	u32 raw_val;
-> +
-> +	ret = regmap_read(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC4_OFFSET, &raw_val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	*val = raw_val;
-> +
-> +	return 0;
-> +}
-> +
-> +static int clk_pll_mmc_phase_set_phase(struct clk_hw *hw, int degrees)
-> +{
-> +	struct clk_hw *hwp = clk_hw_get_parent(hw);
-> +	struct clk_pll_mmc *clkm;
-> +	int phase_id;
-> +	int ret;
-> +	u32 val;
-> +
-> +	if (!hwp)
-> +		return -ENOENT;
-> +
-> +	clkm = to_clk_pll_mmc(hwp);
-> +	phase_id = (hw - &clkm->phase0_hw) ? 1 : 0;
-
-Are you checking to see if these two pointers are the same? If so, what
-do you think about this instead?
-
-    hw == &clkm->phase0_hw
-
-> +	val = DIV_ROUND_CLOSEST(degrees * 100, PHASE_SCALE_FACTOR);
-> +	ret = set_phsel(clkm, phase_id, val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	usleep_range(10, 20);
-> +	return 0;
-> +}
-> +
-> +static int clk_pll_mmc_phase_get_phase(struct clk_hw *hw)
-> +{
-> +	struct clk_hw *hwp;
-> +	struct clk_pll_mmc *clkm;
-> +	int phase_id;
-> +	int ret;
-> +	u32 val;
-> +
-> +	hwp = clk_hw_get_parent(hw);
-> +	if (!hwp)
-> +		return -ENOENT;
-> +
-> +	clkm = to_clk_pll_mmc(hwp);
-> +	phase_id = (hw - &clkm->phase0_hw) ? 1 : 0;
-> +	ret = get_phsel(clkm, phase_id, &val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	val = DIV_ROUND_CLOSEST(val * CYCLE_DEGREES, PHASE_STEPS);
-> +
-> +	return val;
-> +}
-> +
-> +const struct clk_ops rtk_clk_pll_mmc_phase_ops = {
-> +	.set_phase = clk_pll_mmc_phase_set_phase,
-> +	.get_phase = clk_pll_mmc_phase_get_phase,
-> +};
-> +EXPORT_SYMBOL_NS_GPL(rtk_clk_pll_mmc_phase_ops, "REALTEK_CLK");
-> +
-> +static int clk_pll_mmc_prepare(struct clk_hw *hw)
-> +{
-> +	struct clk_pll_mmc *clkm = to_clk_pll_mmc(hw);
-> +
-> +	return set_pow_ctl(clkm, 7);
-> +}
-> +
-> +static void clk_pll_mmc_unprepare(struct clk_hw *hw)
-> +{
-> +	struct clk_pll_mmc *clkm = to_clk_pll_mmc(hw);
-> +
-> +	set_pow_ctl(clkm, 0);
-> +}
-> +
-> +static int clk_pll_mmc_is_prepared(struct clk_hw *hw)
-> +{
-> +	struct clk_pll_mmc *clkm = to_clk_pll_mmc(hw);
-> +	u32 val;
-> +	int ret;
-> +
-> +	ret = get_pow_ctl(clkm, &val);
-> +	if (ret)
-> +		return 1;
-> +
-> +	return val != 0x0;
-> +}
-> +
-> +static int clk_pll_mmc_enable(struct clk_hw *hw)
-> +{
-> +	struct clk_pll_mmc *clkm = to_clk_pll_mmc(hw);
-> +	int ret;
-> +
-> +	ret = set_phrt0(clkm, 1);
-> +	if (ret)
-> +		return ret;
-> +
-> +	udelay(10);
-> +	return 0;
-> +}
-> +
-> +static void clk_pll_mmc_disable(struct clk_hw *hw)
-> +{
-> +	struct clk_pll_mmc *clkm = to_clk_pll_mmc(hw);
-> +
-> +	set_phrt0(clkm, 0);
-> +	udelay(10);
-> +}
-> +
-> +static int clk_pll_mmc_is_enabled(struct clk_hw *hw)
-> +{
-> +	struct clk_pll_mmc *clkm = to_clk_pll_mmc(hw);
-> +	u32 val;
-> +	int ret;
-> +
-> +	ret = get_phrt0(clkm, &val);
-> +	if (ret)
-> +		return 1;
-> +
-> +	return val == 0x1;
-> +}
-> +
-> +static unsigned long clk_pll_mmc_recalc_rate(struct clk_hw *hw, unsigned long parent_rate)
-> +{
-> +	struct clk_pll_mmc *clkm = to_clk_pll_mmc(hw);
-> +	u32 val, ext_f;
-> +	int ret;
-> +
-> +	ret = get_ssc_div_n(clkm, &val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = get_ssc_div_ext_f(clkm, &ext_f);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return parent_rate / 4 * (val + 2) + (parent_rate / 4 * ext_f) / 8192;
-> +}
-> +
-> +static int clk_pll_mmc_determine_rate(struct clk_hw *hw, struct clk_rate_request *req)
-> +{
-
-Should there be a check for a parent rate of zero before the division is
-done?
-
-> +	u32 val = DIV_ROUND_CLOSEST(req->rate * 4, req->best_parent_rate);
-> +
-> +	req->rate = req->best_parent_rate * val / 4;
-> +	return 0;
-> +}
-> +
-> +static int clk_pll_mmc_set_rate(struct clk_hw *hw, unsigned long rate, unsigned long parent_rate)
-> +{
-> +	struct clk_pll_mmc *clkm = to_clk_pll_mmc(hw);
-> +	u32 val = PLL_MMC_SSC_DIV_N_VAL;
-> +	int ret;
-> +
-> +	ret = regmap_update_bits(clkm->clkr.regmap,
-> +				 clkm->ssc_dig_ofs + PLL_SSC_DIG_EMMC1_OFFSET,
-> +				 PLL_FLAG_INITAL_EMMC_MASK, 0x0 << PLL_FLAG_INITAL_EMMC_SHIFT);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = set_ssc_div_n(clkm, val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = set_ssc_div_ext_f(clkm, 1517);
-> +	if (ret)
-> +		return ret;
-> +
-> +	switch (val) {
-> +	case 31 ... 46:
-> +		ret |= set_pi_ibselh(clkm, 3);
-> +		ret |= set_sscpll_rs(clkm, 3);
-> +		ret |= set_sscpll_icp(clkm, 2);
-> +		break;
-> +
-> +	case 20 ... 30:
-> +		ret |= set_pi_ibselh(clkm, 2);
-> +		ret |= set_sscpll_rs(clkm, 3);
-> +		ret |= set_sscpll_icp(clkm, 1);
-> +		break;
-> +
-> +	case 10 ... 19:
-> +		ret |= set_pi_ibselh(clkm, 1);
-> +		ret |= set_sscpll_rs(clkm, 2);
-> +		ret |= set_sscpll_icp(clkm, 1);
-> +		break;
-> +
-> +	case 5 ... 9:
-> +		ret |= set_pi_ibselh(clkm, 0);
-> +		ret |= set_sscpll_rs(clkm, 2);
-> +		ret |= set_sscpll_icp(clkm, 0);
-> +		break;
-> +	}
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_update_bits(clkm->clkr.regmap,
-> +				 clkm->ssc_dig_ofs + PLL_SSC_DIG_EMMC3_OFFSET,
-> +				 PLL_NCODE_SSC_EMMC_MASK,
-> +				 27 << PLL_NCODE_SSC_EMMC_SHIFT);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_update_bits(clkm->clkr.regmap,
-> +				 clkm->ssc_dig_ofs + PLL_SSC_DIG_EMMC3_OFFSET,
-> +				 PLL_FCODE_SSC_EMMC_MASK, 321);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_update_bits(clkm->clkr.regmap,
-> +				 clkm->ssc_dig_ofs + PLL_SSC_DIG_EMMC4_OFFSET,
-> +				 PLL_GRAN_EST_EM_MC_MASK, 5985);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_update_bits(clkm->clkr.regmap,
-> +				 clkm->ssc_dig_ofs + PLL_SSC_DIG_EMMC1_OFFSET,
-> +				 PLL_EN_SSC_EMMC_MASK, 0x1);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_update_bits(clkm->clkr.regmap,
-> +				 clkm->ssc_dig_ofs + PLL_SSC_DIG_EMMC1_OFFSET,
-> +				 PLL_EN_SSC_EMMC_MASK, 0x0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_update_bits(clkm->clkr.regmap,
-> +				 clkm->ssc_dig_ofs + PLL_SSC_DIG_EMMC1_OFFSET,
-> +				 PLL_FLAG_INITAL_EMMC_MASK,
-> +				 0x1 << PLL_FLAG_INITAL_EMMC_SHIFT);
-
-It looks like the rate and parent rate are not used in this function.
-Will this always end up with the same rate when everything is
-successful?
-
-Brian
-
+---
+bod
