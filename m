@@ -1,497 +1,185 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDF08371CFB
-	for <devicetree@vger.kernel.org>; Fri,  3 Apr 2026 08:18:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C08B7175A7B;
+	Fri,  3 Apr 2026 08:19:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775204293; cv=none; b=r2FpD/MkAH56tY4xdt58a8cMTKCYiGpWtgfEbiG3NEoZ6HnAxXNW/dBMyI7OtiUunDORRxSrY/hrFVjM0KuDfb8ctZ//pAgSmRFbOVbkDXhXVGDtfd7AeIF//7nBvX1z4mKjnb2DPxk/Lo+DACtHYwJDyUZQdGcceL/Ui3dkbDA=
+	t=1775204371; cv=none; b=EVSt8eaaadOBd+YlF3VYIYeqBzQyxw1AhbR/VY/s7KMGnqnUxT0dWeueN97DjN3ktvIhzZIFpI1MlAZiZ25g4WOEikIhZx8FMDyb22FPPmu/uPzGKaSQD0MT+P+I2ZrIT6SfIKmOVjGA0ucUCmo5ZCXuSoRm/B3L4eRLIC1CHBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775204293; c=relaxed/simple;
-	bh=aOlO5RTXXkab+Eb8Y3HbTOkGkD3BJoZszYg0vGQAPv0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bq/a6BgINYMpEwTnD+Auvbac+YqOfA5el5Sea0hrCU8X7vBqf37gHtJjwF+KAD/88Fzl5+9a3xrZQZw4KB97stq8kxYu9gGaNecle9+TbSjneC+OE54f+fFuSa9WZOPRdMs99CoogKXhkvM+HEsqJ+FkuMA+CDjpU+EOKifBzUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=K1XoZOEu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Evbc6uKl; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1775204371; c=relaxed/simple;
+	bh=QQAhwLx44g9tpfTgf2mOOWm0i1b5zm6qaOCMuBNlY3w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VCWwnJPpTMJJp34bgvLzhSpt8e7uYOIKv1RNenbdV6ZD5o7zBs2JH87QoqdQ1vcXyW27Xn54h7K7qQOo6sxTbcNsCKLpy5wBhwMA9BaVnSpuRvI8ue+t6P3a5D6ALdFpQyvUYB9UVqDL+R5wP7FTLdJwIfvlhAH8cTRhO6V0IV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=uX6DuT2B; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="K1XoZOEu";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Evbc6uKl"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63344e7W823327
-	for <devicetree@vger.kernel.org>; Fri, 3 Apr 2026 08:18:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	9QNzfSdzILrWECJHe9a3GABkzGiAZJ8sMLoAMIu4d80=; b=K1XoZOEub4XArpi6
-	pCrba6juViBq0SgqN3LlX1rYYJktiOi9U0wq/Z8bSFyWZ9rujk4MFEFAKnuxp3X1
-	YTozswlhOuRapxkajIC4BAyT8uyfBdnrSnh6KDaa8qyeE6IcKh85Ojh2esSnVV/f
-	ilocT1gvYKNr9dhqycGy8UiFy07EvEmvt0RRg/whJhIUdhKpo1TU3KlvWKH+sxP9
-	N/WbYjppFbTEintCP9Cs9i1ZVe1PbWxrm4w+42co7crrm+T97BmBybKbU6e11IEx
-	Xfy5FfK2twplcNkopqpHBkHBzCwmlduTK5Jtrg/1GmfFH5hm8BdLLzhd+g93LvqB
-	fG1lAg==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4da6738pb8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 08:18:11 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-82d02942266so1731822b3a.1
-        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 01:18:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775204290; x=1775809090; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=9QNzfSdzILrWECJHe9a3GABkzGiAZJ8sMLoAMIu4d80=;
-        b=Evbc6uKlR7liSYioXOrlMwdfbp4WXazL73twO0E0KMV4I1ru6zeoz29VNK74uGDVPq
-         ra0A3QlhPYfESHd2JySPXyx3vi0Qcz3faYVSVrd+HC/VyzmzFWeOm90V1r6fSTxTfT22
-         sQhJu4LMSPrhHEVvdAr8hiI5KWitzUefLaIdBVWJDrvFpZ0b4gAxcr8ySHfjGkoOKrfz
-         9p6zJntR3Xc+of8GnSo84/DoPSORnnf8o7HRGMOGkax7MElT6Fxvdks1y5LovW7dwqQh
-         i7Ote8+sINdd+oKFflH2Do1RoAH8TVi8Rr28GRBI1JExtYM/fsx3/ppuoi8BMOOu1E6S
-         2jkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775204290; x=1775809090;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=9QNzfSdzILrWECJHe9a3GABkzGiAZJ8sMLoAMIu4d80=;
-        b=HlkHjUAany+Ewp4ToqC/phXvxYJjIJyfiSxH9eHsaIWfnZ1Q07v4XBuZ34JQsoOEs3
-         Q7Z2hIP8ZswoobDdPRn4O6SQaqcoIDhS1Hrtwi16Z7jeYO7nYxOb09TpC/lumb2LnbDR
-         cE+qaZod3ume6yRr8wqFay1xJujMLobkpkON8zU3DiTwHmDLBVdwFA+INVM4uoIkwXQX
-         NCUiw11yYyNKGhZWjSixu5vHDEmiPpFvLjlz5xprtj3uc+s3vyyh+ae+QBhmr/QJEeLQ
-         FqsoFVB/4f8tO4K3XSq/avm+SnGwv2rG0ur11w9uwjkcrl3xgBjw8gX2CNTlFqc/XOYd
-         XE9g==
-X-Forwarded-Encrypted: i=1; AJvYcCVQFFgxtAv1KX2vzTAE4+E+1QoJ6S5TGYp+T6VJkf/vlErmX68P3vLBno6txOBm8azi8ml9OwQyi/H3@vger.kernel.org
-X-Gm-Message-State: AOJu0YzGIcnwI2gWK+alhCep6XSckU8PlOfXvYn/diMFsN1BvWuHygsI
-	gQb1YJgpjj5CGJnM+LVlJwaUCY6/KLGdLD4YZuqKkgmG72s2zUKjLs8tjQLwu/S+5migYmJRNZH
-	EdIJYPrQ6tk2FSMZ4tZ8g97lCOLavwBPio2hl7LlIiOJ+5/J900GLKifTJup67lXu
-X-Gm-Gg: AeBDieusEwMn0oiQo7gIQjGX02qm8aXJhynJg5pmBeHxwW0au33ow7lvv2AuSMC24Om
-	EnNVqV0VxIul9mEZC5PO1aTzmzTcgLp8Q0dCFDRmwW9LXJbe2oKtE14+U5HqWC/0Hx8d6zUQsVD
-	K1kwaPXbihs6uLTXpUgvFvVenM4qV5OUo9orHUGTLnW5hcEMVj0gUhk2/eUTFcg98w5uLxMc8/Q
-	Pfc8fL2nEsuhX4fN3Nw1r3pCDYQHecIzAtN9SDIn2TuCqTHY6IM8ol4ekUCg3PQzekGp7brWe6N
-	NlV3dGKAoaXm/Bg6iiFaSEjxFQr66N0L9p3ZB0zFCzRw42AhlvudUSYLokiVl1InF/desj2oHvp
-	p5EAZXKTO+qhQ5cQ4u4T3LR12Fy2ZZyMp6T9qaQF5BqAYRXZ5UnmFaPvxDZRxBAYx3hwH+v9UEX
-	oocsXjU7O2rfZdXnwGew==
-X-Received: by 2002:a05:6a00:3027:b0:824:93e4:2ddf with SMTP id d2e1a72fcca58-82d0da3f8afmr2144231b3a.13.1775204290342;
-        Fri, 03 Apr 2026 01:18:10 -0700 (PDT)
-X-Received: by 2002:a05:6a00:3027:b0:824:93e4:2ddf with SMTP id d2e1a72fcca58-82d0da3f8afmr2144205b3a.13.1775204289818;
-        Fri, 03 Apr 2026 01:18:09 -0700 (PDT)
-Received: from [10.133.33.157] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82cf9a24039sm5313994b3a.0.2026.04.03.01.18.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 03 Apr 2026 01:18:09 -0700 (PDT)
-Message-ID: <10de33b0-b613-405e-832e-852202dc776e@oss.qualcomm.com>
-Date: Thu, 2 Apr 2026 10:04:32 +0800
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="uX6DuT2B"
+Received: from ideasonboard.com (static.170.20.224.46.clients.your-server.de [46.224.20.170])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9467516C5;
+	Fri,  3 Apr 2026 10:18:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1775204283;
+	bh=QQAhwLx44g9tpfTgf2mOOWm0i1b5zm6qaOCMuBNlY3w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=uX6DuT2BEtS8kqUKmO2p4nF5DQihCT27d1Z/oSCJNxBGGUA56Lns19TrrN3F3o1Mn
+	 ijIwV8k6hkoPvOOLgL9iWjr/a3CPcafIOp595XAmx6aSxgA4kJAPBRJRv4dMH9aA6K
+	 YppX/4rE9aeG8h1UvdKJzTr/Rf0ATz/0xgB1NDpg=
+Date: Fri, 3 Apr 2026 10:19:24 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Antoine Bouyer <antoine.bouyer@nxp.com>
+Cc: julien.vuillaumier@nxp.com, alexi.birlinger@nxp.com, 
+	daniel.baluta@nxp.com, peng.fan@nxp.com, frank.li@nxp.com, 
+	jacopo.mondi@ideasonboard.com, laurent.pinchart@ideasonboard.com, mchehab@kernel.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, shawnguo@kernel.org, 
+	s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, Jai Luthra <jai.luthra@ideasonboard.com>, 
+	paul elder <paul.elder@ideasonboard.com>
+Subject: Re: [RFC v1 01/11] media: uapi: v4l2-isp: Add v4l2 ISP extensible
+ statistics definitions
+Message-ID: <ac93m33MhldSpYDj@zed>
+References: <20260123080938.3367348-1-antoine.bouyer@nxp.com>
+ <20260123080938.3367348-2-antoine.bouyer@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 2/7] qcom-tgu: Add TGU driver
-To: Jie Gan <jie.gan@oss.qualcomm.com>, andersson@kernel.org,
-        alexander.shishkin@linux.intel.com, mike.leach@linaro.org,
-        konrad.dybcio@oss.qualcomm.com, suzuki.poulose@arm.com,
-        james.clark@arm.com, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
-        devicetree@vger.kernel.org, gregkh@linuxfoundation.org
-References: <20260317032639.2393221-1-songwei.chai@oss.qualcomm.com>
- <20260317032639.2393221-3-songwei.chai@oss.qualcomm.com>
- <a0a9fa9d-5438-48e0-b3de-def97d4214bf@oss.qualcomm.com>
-Content-Language: en-US
-From: "Songwei.Chai" <songwei.chai@oss.qualcomm.com>
-In-Reply-To: <a0a9fa9d-5438-48e0-b3de-def97d4214bf@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=erjSD4pX c=1 sm=1 tr=0 ts=69cf77c3 cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=pxWJ9DaTX99kDjaxMB4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-ORIG-GUID: ZRVXNZztdMyXGwavmcwttCtglRAjz6lY
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAzMDA3MiBTYWx0ZWRfXx1DTKn67Ieiz
- z6J2eAmbiu6FBtR4B2cQZGeHqI/vCDwpAvwOgo8JCAZgO/WL8EwLxTQlBMq2WeTTgo3uWtQpWC/
- vfFpaVhC8SO95z0KkvwZqlvhHE2+mD5S+ZaGrjRBcvEyg6wxreN2irfGsCpYJuavoHV+wnOdHJK
- eoHtRpiAcKvL18Jkkm5vqHEUqPVaO9An3dGAAE+LB1fWoDsTR1+0yv0DRGhgYfiN1PDFd0o8S9j
- WCjjR1gl3jPGl2leGKwdUhWTiPu8iu1buemtHZpTIVRldhbokNInQJ5BSiekslGYlDytZdag3+/
- 9cvd0dhoOHuwWzmYi3sTMNRtNZocQwEOsF6a5FOVjDZ1XAKHq4U4jAwvi/KXTbAElK5sWasl1pX
- m+lyBz9jSNp2FxvGOyLWBM1gcxknYtTDYB1qXC66WDLdMpc0+VVAsXL8dAInTz6WSL+9dbVjKrC
- 1jPg64bnUL18rrT6Uig==
-X-Proofpoint-GUID: ZRVXNZztdMyXGwavmcwttCtglRAjz6lY
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-03_02,2026-04-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 lowpriorityscore=0 clxscore=1015 malwarescore=0 bulkscore=0
- priorityscore=1501 suspectscore=0 impostorscore=0 spamscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604030072
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260123080938.3367348-2-antoine.bouyer@nxp.com>
 
+Hello Antoine
 
-On 3/27/2026 10:16 AM, Jie Gan wrote:
+   in cc Jai and Paul
+
+Jai and Paul are working on upstreaming new ISP formats which would
+benefit from usage of extensible stats.
+
+No pressure of course, just wanted to check how things are progressing
+on your side. Do you have an updated version of this patch which can
+be taken in ? Should we sync and work on an updated version ?
+
+Thanks!
+   j
+
+On Fri, Jan 23, 2026 at 09:09:28AM +0100, Antoine Bouyer wrote:
+> Extend the v4l2-isp extensible format introduced for isp parameters buffer
+> to the statistics buffer as well.
 >
+> Like for ISP configuration purpose, that will help supporting various ISP
+> hardware versions reporting different statistics data with less impact on
+> userspace.
 >
-> On 3/17/2026 11:26 AM, Songwei Chai wrote:
->> Add driver to support device TGU (Trigger Generation Unit).
->> TGU is a Data Engine which can be utilized to sense a plurality of
->> signals and create a trigger into the CTI or generate interrupts to
->> processors. Add probe/enable/disable functions for tgu.
->>
->> Signed-off-by: Songwei Chai <songwei.chai@oss.qualcomm.com>
->> ---
->>   .../ABI/testing/sysfs-bus-amba-devices-tgu    |   9 +
->>   drivers/Makefile                              |   1 +
->>   drivers/hwtracing/Kconfig                     |   2 +
->>   drivers/hwtracing/qcom/Kconfig                |  18 ++
->>   drivers/hwtracing/qcom/Makefile               |   3 +
->>   drivers/hwtracing/qcom/tgu.c                  | 183 ++++++++++++++++++
->>   drivers/hwtracing/qcom/tgu.h                  |  51 +++++
->>   7 files changed, 267 insertions(+)
->>   create mode 100644 
->> Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
->>   create mode 100644 drivers/hwtracing/qcom/Kconfig
->>   create mode 100644 drivers/hwtracing/qcom/Makefile
->>   create mode 100644 drivers/hwtracing/qcom/tgu.c
->>   create mode 100644 drivers/hwtracing/qcom/tgu.h
->>
->> diff --git a/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu 
->> b/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
->> new file mode 100644
->> index 000000000000..ead237bb7d89
->> --- /dev/null
->> +++ b/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
->> @@ -0,0 +1,9 @@
->> +What:        /sys/bus/amba/devices/<tgu-name>/enable_tgu
->> +Date:        March 2026
->> +KernelVersion    7.1
->> +Contact:    Jinlong Mao <jinlong.mao@oss.qualcomm.com>, Songwei Chai 
->> <songwei.chai@oss.qualcomm.com>
->> +Description:
->> +        (RW) Set/Get the enable/disable status of TGU
->> +        Accepts only one of the 2 values -  0 or 1.
->> +        0 : disable TGU.
->> +        1 : enable TGU.
->> diff --git a/drivers/Makefile b/drivers/Makefile
->> index 53fbd2e0acdd..82b712a12a26 100644
->> --- a/drivers/Makefile
->> +++ b/drivers/Makefile
->> @@ -177,6 +177,7 @@ obj-$(CONFIG_RAS)        += ras/
->>   obj-$(CONFIG_USB4)        += thunderbolt/
->>   obj-$(CONFIG_CORESIGHT)        += hwtracing/coresight/
->>   obj-y                += hwtracing/intel_th/
->> +obj-y                += hwtracing/qcom/
->>   obj-$(CONFIG_STM)        += hwtracing/stm/
->>   obj-$(CONFIG_HISI_PTT)        += hwtracing/ptt/
->>   obj-y                += android/
->> diff --git a/drivers/hwtracing/Kconfig b/drivers/hwtracing/Kconfig
->> index 911ee977103c..8a640218eed8 100644
->> --- a/drivers/hwtracing/Kconfig
->> +++ b/drivers/hwtracing/Kconfig
->> @@ -7,4 +7,6 @@ source "drivers/hwtracing/intel_th/Kconfig"
->>     source "drivers/hwtracing/ptt/Kconfig"
->>   +source "drivers/hwtracing/qcom/Kconfig"
->> +
->>   endmenu
->> diff --git a/drivers/hwtracing/qcom/Kconfig 
->> b/drivers/hwtracing/qcom/Kconfig
->> new file mode 100644
->> index 000000000000..d6f6d4b0f28e
->> --- /dev/null
->> +++ b/drivers/hwtracing/qcom/Kconfig
->> @@ -0,0 +1,18 @@
->> +# SPDX-License-Identifier: GPL-2.0-only
->> +#
->> +# QCOM specific hwtracing drivers
->> +#
->> +menu "Qualcomm specific hwtracing drivers"
->> +
->> +config QCOM_TGU
->> +    tristate "QCOM Trigger Generation Unit driver"
->> +    help
->> +      This driver provides support for Trigger Generation Unit that is
->> +      used to detect patterns or sequences on a given set of signals.
->> +      TGU is used to monitor a particular bus within a given region to
->> +      detect illegal transaction sequences or slave responses. It is 
->> also
->> +      used to monitor a data stream to detect protocol violations 
->> and to
->> +      provide a trigger point for centering data around a specific 
->> event
->> +      within the trace data buffer.
->> +
->> +endmenu
->> diff --git a/drivers/hwtracing/qcom/Makefile 
->> b/drivers/hwtracing/qcom/Makefile
->> new file mode 100644
->> index 000000000000..5a0a868c1ea0
->> --- /dev/null
->> +++ b/drivers/hwtracing/qcom/Makefile
->> @@ -0,0 +1,3 @@
->> +# SPDX-License-Identifier: GPL-2.0
->> +
->> +obj-$(CONFIG_QCOM_TGU) += tgu.o
->> diff --git a/drivers/hwtracing/qcom/tgu.c b/drivers/hwtracing/qcom/tgu.c
->> new file mode 100644
->> index 000000000000..58c19f12f3d7
->> --- /dev/null
->> +++ b/drivers/hwtracing/qcom/tgu.c
->> @@ -0,0 +1,183 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +/*
->> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
->> + */
->> +
->> +#include <linux/amba/bus.h>
->> +#include <linux/device.h>
->> +#include <linux/err.h>
->> +#include <linux/io.h>
->> +#include <linux/kernel.h>
->> +#include <linux/module.h>
->> +#include <linux/of.h>
->> +#include <linux/pm_runtime.h>
->> +
->> +#include "tgu.h"
->> +
->> +static void tgu_write_all_hw_regs(struct tgu_drvdata *drvdata)
->> +{
->> +    TGU_UNLOCK(drvdata->base);
->> +    /* Enable TGU to program the triggers */
->> +    writel(1, drvdata->base + TGU_CONTROL);
->> +    TGU_LOCK(drvdata->base);
->> +}
->> +
->> +static int tgu_enable(struct device *dev)
->> +{
->> +    struct tgu_drvdata *drvdata = dev_get_drvdata(dev);
->> +
->> +    guard(spinlock)(&drvdata->lock);
->> +    if (drvdata->enabled)
->> +        return -EBUSY;
->> +
->> +    tgu_write_all_hw_regs(drvdata);
->> +    drvdata->enabled = true;
->> +
->> +    return 0;
->> +}
->> +
->> +static void tgu_do_disable(struct tgu_drvdata *drvdata)
->> +{
->> +    TGU_UNLOCK(drvdata->base);
->> +    writel(0, drvdata->base + TGU_CONTROL);
->> +    TGU_LOCK(drvdata->base);
->> +
->> +    drvdata->enabled = false;
->> +}
->> +
->> +static void tgu_disable(struct device *dev)
->> +{
->> +    struct tgu_drvdata *drvdata = dev_get_drvdata(dev);
->> +
->> +    guard(spinlock)(&drvdata->lock);
->> +    if (!drvdata->enabled)
->> +        return;
->> +
->> +    tgu_do_disable(drvdata);
->> +}
->> +
->> +static ssize_t enable_tgu_show(struct device *dev,
->> +                   struct device_attribute *attr, char *buf)
->> +{
->> +    struct tgu_drvdata *drvdata = dev_get_drvdata(dev);
->> +    bool enabled;
->> +
->> +    guard(spinlock)(&drvdata->lock);
->> +    enabled = drvdata->enabled;
->> +
->> +    return sysfs_emit(buf, "%d\n", !!enabled);
->> +}
->> +
->> +/* enable_tgu_store - Configure Trace and Gating Unit (TGU) 
->> triggers. */
->> +static ssize_t enable_tgu_store(struct device *dev,
->> +                struct device_attribute *attr,
->> +                const char *buf,
->> +                size_t size)
->> +{
->> +    unsigned long val;
->> +    int ret;
->> +
->> +    ret = kstrtoul(buf, 0, &val);
->> +    if (ret || val > 1)
->> +        return -EINVAL;
->> +
->> +    if (val) {
->> +        ret = pm_runtime_resume_and_get(dev);
->> +        if (ret)
->> +            return ret;
->> +        ret = tgu_enable(dev);
->> +        if (ret) {
->> +            pm_runtime_put(dev);
->> +            return ret;
->> +        }
->> +    } else {
->> +        tgu_disable(dev);
->> +        pm_runtime_put(dev);
+> The `v4l2_isp_stats_buffer` reuses the `v4l2_isp_params_buffer` container
+> definitions, with similar header, versions and flags. V0 and V1 versions
+> are provided to match with params versions. On the other side, ENABLE and
+> DISABLE flags are not really meaningfull for statistics purpose. So VALID
+> and INVALID flags are introduced. Purpose is to force ISP driver to
+> validate a statistics buffer, before it is consumed by userspace.
 >
-> Sorry I didnt observe this issue with my previous check.
+> Signed-off-by: Antoine Bouyer <antoine.bouyer@nxp.com>
+> ---
+>  include/uapi/linux/media/v4l2-isp.h | 85 +++++++++++++++++++++++++++++
+>  1 file changed, 85 insertions(+)
 >
-> echo 0 to the disabled device will result in the pm_runtime reference 
-> number goes to negative. We dont need pm_runtime_put(dev) when we try 
-> to disable a diabled device.
+> diff --git a/include/uapi/linux/media/v4l2-isp.h b/include/uapi/linux/media/v4l2-isp.h
+> index 779168f9058e..ed1279b86694 100644
+> --- a/include/uapi/linux/media/v4l2-isp.h
+> +++ b/include/uapi/linux/media/v4l2-isp.h
+> @@ -99,4 +99,89 @@ struct v4l2_isp_params_buffer {
+>  	__u8 data[] __counted_by(data_size);
+>  };
 >
-> Thanks,
-> Jie
-Thanks for your careful catch here, Jie.
-"pm_runtime_put(dev);" will be removed here in next version.
->
->> +    }
->> +
->> +    return size;
->> +}
->> +static DEVICE_ATTR_RW(enable_tgu);
->> +
->> +static struct attribute *tgu_common_attrs[] = {
->> +    &dev_attr_enable_tgu.attr,
->> +    NULL,
->> +};
->> +
->> +static const struct attribute_group tgu_common_grp = {
->> +    .attrs = tgu_common_attrs,
->> +    NULL,
->> +};
->> +
->> +static const struct attribute_group *tgu_attr_groups[] = {
->> +    &tgu_common_grp,
->> +    NULL,
->> +};
->> +
->> +static int tgu_probe(struct amba_device *adev, const struct amba_id 
->> *id)
->> +{
->> +    struct device *dev = &adev->dev;
->> +    struct tgu_drvdata *drvdata;
->> +    int ret;
->> +
->> +    drvdata = devm_kzalloc(dev, sizeof(*drvdata), GFP_KERNEL);
->> +    if (!drvdata)
->> +        return -ENOMEM;
->> +
->> +    drvdata->dev = &adev->dev;
->> +    dev_set_drvdata(dev, drvdata);
->> +
->> +    drvdata->base = devm_ioremap_resource(dev, &adev->res);
->> +    if (IS_ERR(drvdata->base))
->> +        return PTR_ERR(drvdata->base);
->> +
->> +    spin_lock_init(&drvdata->lock);
->> +
->> +    ret = sysfs_create_groups(&dev->kobj, tgu_attr_groups);
->> +    if (ret) {
->> +        dev_err(dev, "failed to create sysfs groups: %d\n", ret);
->> +        return ret;
->> +    }
->> +
->> +    drvdata->enabled = false;
->> +
->> +    pm_runtime_put(&adev->dev);
->> +
->> +    return 0;
->> +}
->> +
->> +static void tgu_remove(struct amba_device *adev)
->> +{
->> +    struct device *dev = &adev->dev;
->> +
->> +    sysfs_remove_groups(&dev->kobj, tgu_attr_groups);
->> +
->> +    tgu_disable(dev);
->> +}
->> +
->> +static const struct amba_id tgu_ids[] = {
->> +    {
->> +        .id = 0x000f0e00,
->> +        .mask = 0x000fffff,
->> +    },
->> +    { 0, 0, NULL },
->> +};
->> +
->> +MODULE_DEVICE_TABLE(amba, tgu_ids);
->> +
->> +static struct amba_driver tgu_driver = {
->> +    .drv = {
->> +        .name = "qcom-tgu",
->> +        .suppress_bind_attrs = true,
->> +    },
->> +    .probe = tgu_probe,
->> +    .remove = tgu_remove,
->> +    .id_table = tgu_ids,
->> +};
->> +
->> +module_amba_driver(tgu_driver);
->> +
->> +MODULE_AUTHOR("Songwei Chai <songwei.chai@oss.qualcomm.com>");
->> +MODULE_AUTHOR("Jinlong Mao <jinlong.mao@oss.qualcomm.com>");
->> +MODULE_DESCRIPTION("Qualcomm Trigger Generation Unit driver");
->> +MODULE_LICENSE("GPL");
->> diff --git a/drivers/hwtracing/qcom/tgu.h b/drivers/hwtracing/qcom/tgu.h
->> new file mode 100644
->> index 000000000000..dd7533b9d735
->> --- /dev/null
->> +++ b/drivers/hwtracing/qcom/tgu.h
->> @@ -0,0 +1,51 @@
->> +/* SPDX-License-Identifier: GPL-2.0 */
->> +/*
->> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
->> + */
->> +
->> +#ifndef _QCOM_TGU_H
->> +#define _QCOM_TGU_H
->> +
->> +/* Register addresses */
->> +#define TGU_CONTROL        0x0000
->> +#define TGU_LAR        0xfb0
->> +#define TGU_UNLOCK_OFFSET    0xc5acce55
->> +
->> +static inline void TGU_LOCK(void __iomem *addr)
->> +{
->> +    do {
->> +        /* Wait for things to settle */
->> +        mb();
->> +        writel_relaxed(0x0, addr + TGU_LAR);
->> +    } while (0);
->> +}
->> +
->> +static inline void TGU_UNLOCK(void __iomem *addr)
->> +{
->> +    do {
->> +        writel_relaxed(TGU_UNLOCK_OFFSET, addr + TGU_LAR);
->> +        /* Make sure everyone has seen this */
->> +        mb();
->> +    } while (0);
->> +}
->> +
->> +/**
->> + * struct tgu_drvdata - Data structure for a TGU (Trigger Generator 
->> Unit)
->> + * @base: Memory-mapped base address of the TGU device
->> + * @dev: Pointer to the associated device structure
->> + * @lock: Spinlock for handling concurrent access to private data
->> + * @enabled: Flag indicating whether the TGU device is enabled
->> + *
->> + * This structure defines the data associated with a TGU device,
->> + * including its base address, device pointers, clock, spinlock for
->> + * synchronization, trigger data pointers, maximum limits for various
->> + * trigger-related parameters, and enable status.
->> + */
->> +struct tgu_drvdata {
->> +    void __iomem *base;
->> +    struct device *dev;
->> +    spinlock_t lock;
->> +    bool enabled;
->> +};
->> +
->> +#endif
+> +/**
+> + * enum v4l2_isp_stats_version - V4L2 ISP statistics versioning
+> + *
+> + * @V4L2_ISP_STATS_VERSION_V0: First version of the V4L2 ISP statistics format
+> + *			       (for compatibility)
+> + * @V4L2_ISP_STATS_VERSION_V1: First version of the V4L2 ISP statistics format
+> + *
+> + * V0 and V1 are identical, and comply with V4l2 ISP parameters versions. So
+> + * both V0 and V1 refers to the first version of the V4L2 ISP statistics
+> + * format.
+> + *
+> + * Future revisions of the V4L2 ISP statistics format should start from the
+> + * value of 2.
+> + */
+> +enum v4l2_isp_stats_version {
+> +	V4L2_ISP_STATS_VERSION_V0 = 0,
+> +	V4L2_ISP_STATS_VERSION_V1,
+> +};
+> +
+> +#define V4L2_ISP_PARAMS_FL_BLOCK_VALID		(1U << 0)
+> +#define V4L2_ISP_PARAMS_FL_BLOCK_INVALID	(1U << 1)
+> +
+> +/*
+> + * Reserve the first 8 bits for V4L2_ISP_STATS_FL_* flag.
+> + *
+> + * Driver-specific flags should be defined as:
+> + * #define DRIVER_SPECIFIC_FLAG0     ((1U << V4L2_ISP_STATS_FL_DRIVER_FLAGS(0))
+> + * #define DRIVER_SPECIFIC_FLAG1     ((1U << V4L2_ISP_STATS_FL_DRIVER_FLAGS(1))
+> + */
+> +#define V4L2_ISP_STATS_FL_DRIVER_FLAGS(n)       ((n) + 8)
+> +
+> +/**
+> + * struct v4l2_isp_stats_block_header - V4L2 extensible statistics block header
+> + * @type: The statistics block type (driver-specific)
+> + * @flags: A bitmask of block flags (driver-specific)
+> + * @size: Size (in bytes) of the statistics block, including this header
+> + *
+> + * This structure represents the common part of all the ISP statistics blocks.
+> + * Each statistics block shall embed an instance of this structure type as its
+> + * first member, followed by the block-specific statistics data.
+> + *
+> + * The @type field is an ISP driver-specific value that identifies the block
+> + * type. The @size field specifies the size of the parameters block.
+> + *
+> + * The @flags field is a bitmask of per-block flags V4L2_STATS_ISP_FL_* and
+> + * driver-specific flags specified by the driver header.
+> + */
+> +struct v4l2_isp_stats_block_header {
+> +	__u16 type;
+> +	__u16 flags;
+> +	__u32 size;
+> +} __attribute__((aligned(8)));
+> +
+> +/**
+> + * struct v4l2_isp_stats_buffer - V4L2 extensible statistics data
+> + * @version: The statistics buffer version (driver-specific)
+> + * @data_size: The statistics data effective size, excluding this header
+> + * @data: The statistics data
+> + *
+> + * This structure contains the statistics information of the ISP hardware,
+> + * serialized for userspace into a data buffer. Each statistics block is
+> + * represented by a block-specific structure which contains a
+> + * :c:type:`v4l2_isp_stats_block_header` entry as first member. Driver
+> + * populates the @data buffer with statistics information of the ISP blocks it
+> + * intends to share to userspace. As a consequence, the data buffer effective
+> + * size changes according to the number of ISP blocks that driver intends to
+> + * provide and is set by the driver in the @data_size field.
+> + *
+> + * The statistics buffer is versioned by the @version field to allow modifying
+> + * and extending its definition. Driver shall populate the @version field to
+> + * inform the userpsace about the version it intends to use. The userspace will
+> + * parse and handle the @data buffer according to the data layout specific to
+> + * the indicated version.
+> + *
+> + * For each ISP block that driver wants to report, a block-specific structure
+> + * is appended to the @data buffer, one after the other without gaps in
+> + * between. Driver shall populate the @data_size field with the effective
+> + * size, in bytes, of the @data buffer.
+> + */
+> +struct v4l2_isp_stats_buffer {
+> +	__u32 version;
+> +	__u32 data_size;
+> +	__u8 data[] __counted_by(data_size);
+> +};
+> +
+>  #endif /* _UAPI_V4L2_ISP_H_ */
+> --
+> 2.52.0
 >
