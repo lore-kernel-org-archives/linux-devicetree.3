@@ -1,105 +1,93 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 266EA3A543E
-	for <devicetree@vger.kernel.org>; Sat,  4 Apr 2026 08:52:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8BE03A874E;
+	Sat,  4 Apr 2026 09:51:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775292781; cv=none; b=blgDjo1bNmGQpwsHOdvas/GTmX/m6Q5xsUtkkEr+NKtxZDFtepEWOTc7sD/gdsDeTVjGBF49EmTwuHnecp/nQAftuA0WalYKWu7bqyDhmGszzzsMJeogXtSpvGXdRjtWpZUfmn8x9/NjG1G6oTGUKGPTm/go3fjpS0Zk9dyIA94=
+	t=1775296273; cv=none; b=eFtQhk/hSdDRIt3Xpt7akjd4wElFAVpKVGxl8FtwLNKYdFOGjLSbpLELLsnUxwV8RImyDqn3iD6aXJWomeecXDjs5TBnFg+jnctdQVSWlWOkUSpJWo3QGXWY6fmhZTwesrNELGLmLLMFoKw1QQTaGhHggI+1JDfd14pxiMkNup0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775292781; c=relaxed/simple;
-	bh=r1C3lzsUtmiKNwW2H1WNOIIKo2YXJF/eTqmy+2rXq2k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jzmI8CfijBCjJrQC0B284BLiOLlNMuievrvejVSBBLsISiwLEKqYzhnEU/BB2kiyOsPZqM8qROEzNXWCPFZZu0faMlcwJCAsLNKvY4TuMYzZxiQFPv+K0rCy8ZdydlIE2arvsN6/RbtQqP7tPEV9QTSWPSHxJh2Nh1vK0cVCHBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ilHZxwiS; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1775296273; c=relaxed/simple;
+	bh=Vra/2k6XZsVtXYstalJUyiUNk9QEEovbJYAM7Cw82Tc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=TP1Ll6H2OOH5DY+fDTE5+ZcWHhAv4dBH91cqCQKXbwqyIC1bRFusGhBMY6CtK5tLvAMpJjMq9RelUmKDiX3A3nm1hbTMMXa29n1shRavSD3ND5ma9IqUa5OF3dx6f3o3Wuoi8vOJiZ0e6OxdlDtkGRSJ8dFd1oG2Un7tS+im8Bw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LDu9fJE3; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ilHZxwiS"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-35c238f1063so1538657a91.1
-        for <devicetree@vger.kernel.org>; Sat, 04 Apr 2026 01:52:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775292777; x=1775897577; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=q2aER+v8jW6q498vOyMse8nH8+3QEx9bRFbFB8BhKt0=;
-        b=ilHZxwiSdG8X9hUGqDHJeS75iaqdyDoR/FhFXcsofIBQQUaHkczvlkMvhCSiWN7vLt
-         OFn3P+F0jGS98EpPUx0CUSPjNZAlzLDAzsK89WyDIghGrxPzHQ3In7+eFhtHfRJYHuPx
-         vVZhhrGtO4rMGoWxOnpvVVs3Xj+g+AS2zEbmQYhC7QbhUKb4NtrPATb49B8kPnJJfw8O
-         c9wyFlo+EJWTkF1F8d7LnSAv5dcyftRHKrOK3XHTw+C+zQSUwQUCPoysZrD7Scm1zAOH
-         sTLqSoF/iOUM4xHFqR28tUgJ68qUAtomDJVuvsx0y3JOYi0B1H0LgPEOSRMtBKuGovpA
-         r6kQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775292777; x=1775897577;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=q2aER+v8jW6q498vOyMse8nH8+3QEx9bRFbFB8BhKt0=;
-        b=rVbflOQ4FIXq5XaoQLYpLBvHUllQzWIppobJsXfQhh0pxF1aIXuxMWm6AR84OqnRGt
-         Y1LF6rf5sTkvPalE+wsPcUVaLIw/Rvc6S83AkQHCPAg+HmZzj+IvbkAldj2S83g1cLdO
-         jhC5nokKbtyRqSbN3zDI7vj5D1KD/VsJXdyF6f7NeUysXXKn8D9P0IiKv9P4NnR7jNGi
-         oh2YZ+FvRzhf+tZUGMXEUzD3Lfs1UQVDHbNFyAqOzT4EiaadzwaBjAABlk9Q/vT/MxRO
-         nWNLtRnhVkHIsslPlQObeUsWf65BXiHCxi3iNnjlaBB+aG0VygoQES0uueAjChMrm349
-         ma0A==
-X-Forwarded-Encrypted: i=1; AJvYcCV+gjOEGIIpsi1Ex4MAHmRYS1HOI+JfyOnK+5Z8oJyylo02o2yPtwVbwh7PK1uFko+ncfHYIix3Vufy@vger.kernel.org
-X-Gm-Message-State: AOJu0YxZgS0qXup7xPgMhlWtPRcuooSXz8JqNhQbM6+y6DCN7cJYiLs/
-	0bG2PR8o3QRwE1q1xjcVlw3LagtCz5gLnvRhGHY3mKUhqR2/Eh2EOdvKKqmDpgTA
-X-Gm-Gg: AeBDievn3awPfpNhe2aVtWHGA+1/8AHro0bCSMqbMnQrxDj6FzeDXxkt7nI2CBauKHa
-	WM6joRvWZySAqC/4ADfmebVvLPj/yAwVWMNhslugtisuanczGGT8XJTbfWhEH2B+yn3wbAMXP26
-	u7gxiMVEmzJ99L4f5a3BfrqnN6bj+pWee19DECnLR8lZq09+Vt4kFw3wqGQBFjiVW2LbZZzfw83
-	JyHia5sqYt/NQ9mgx8nRY1+DCIaXGF2mKTVOPDoC0y2RNJmRGVDawbLYvDpiXyxi0JdWLXqX6GL
-	SOigGYBl/ev2RagK6FPaAGkGAwuMjcQ1bJY4TtaMqNB8nHMpa0WaGjQXzJT8A27C1SIsUJMM11V
-	jnxZYUzgHg4SE97TLlSnm11s8G/yCdP4lkXV6HiAToK85VRjC+R2+DqOXMD+YEg8y6SGR2Unu/E
-	FUF9Leuvgr9MFWZf5llEgQ
-X-Received: by 2002:a17:90b:5348:b0:35b:e690:c5ad with SMTP id 98e67ed59e1d1-35de69d2217mr4814877a91.25.1775292777269;
-        Sat, 04 Apr 2026 01:52:57 -0700 (PDT)
-Received: from fedora ([122.173.28.250])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35dd367bfb1sm7954011a91.10.2026.04.04.01.52.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 04 Apr 2026 01:52:56 -0700 (PDT)
-Date: Sat, 4 Apr 2026 14:22:17 +0530
-From: ShiHao <i.shihao.999@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: brgl@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, rric@kernel.org, linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	i.shihao.999@gmail.com
-Subject: Re: [PATCH v2] dt-bindings: gpio: cavium,thunder-8890: Convert to DT
- schema
-Message-ID: <adDRQbpl1lBinbij@fedora>
-References: <20260330080108.24294-1-i.shihao.999@gmail.com>
- <20260331-invisible-certain-albatross-844cff@quoll>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LDu9fJE3"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 86B24C4AF0B;
+	Sat,  4 Apr 2026 09:51:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775296273;
+	bh=Vra/2k6XZsVtXYstalJUyiUNk9QEEovbJYAM7Cw82Tc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=LDu9fJE3oTegn1m9SKdvQjC3f/+Yn+DcBaOZx7BT04wuTAmH5mbIjWm+28Z6Xfobc
+	 B7eYbel8Fx8JZntqeIojGPOO70LK+RP7Gvq3ncycMxjolwaBFukiXjo7RbvbGprpal
+	 K88GTGpCPiDCQpwqrywbNqpVd16ZR38euvnx4Fl4pWWi1TTo3uh6+xd/C8IhN9c1rp
+	 uAzQwZ/BWQ0d/IoPTij8EtctgEQa2rak0Y4ZR5B9uP3gBwUWgeseXADaHQ7mhgMP3e
+	 uTfOGnzBwAI39bDYtXMnHNSk5Atre7xmaVLwXdeYpcio2tmkZ5ZseB/41bV7pQFExw
+	 k56d8lvjyr4Tw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 76893E88D96;
+	Sat,  4 Apr 2026 09:51:13 +0000 (UTC)
+From: Joe Sandom via B4 Relay <devnull+jsandom.axon.com@kernel.org>
+Date: Sat, 04 Apr 2026 10:50:55 +0100
+Subject: [PATCH 2/5] arm64: dts: qcom: sm8550-hdk: update PCIe port label
+ reference
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260331-invisible-certain-albatross-844cff@quoll>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260404-rb5gen2-dts-v1-2-895f8fc494fc@axon.com>
+References: <20260404-rb5gen2-dts-v1-0-895f8fc494fc@axon.com>
+In-Reply-To: <20260404-rb5gen2-dts-v1-0-895f8fc494fc@axon.com>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Joe Sandom <jsandom@axon.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1775296270; l=718;
+ i=jsandom@axon.com; s=20260319; h=from:subject:message-id;
+ bh=J5wHGXLHT9ZEeK8mCO8+XsWDq4+eMfiE3/aGssrA40c=;
+ b=8KhRPaMM/0TP0sqFFPcbk9SQSIB6QkEqGo2pUq0EVkwjG7L1cW2ahYbIaFpumWN7ALvoaApmB
+ /hDYcxyfeqdBpSpyPAcPP2OnCB/hfZHBpzC7to3rDPCQldBstrpcEc9
+X-Developer-Key: i=jsandom@axon.com; a=ed25519;
+ pk=Q/yflwj2WhkgBVTskrS9Vl5oScD0Bp3vTzDi+OxskTo=
+X-Endpoint-Received: by B4 Relay for jsandom@axon.com/20260319 with
+ auth_id=687
+X-Original-From: Joe Sandom <jsandom@axon.com>
+Reply-To: jsandom@axon.com
 
-On Tue, Mar 31, 2026 at 09:30:56AM +0200, Krzysztof Kozlowski wrote:
->
-> This binding is odd and not used, so you should follow guidelines I gave
-> more than a year ago and updated recently and NOT convert it.
-> 
-> Or rather answer - why this cannot be removed instead? What is the
-> benefit of this binding? Is any other project using it?
-> 
-> 
-> Best regards,
-> Krzysztof
-> 
+From: Joe Sandom <jsandom@axon.com>
 
-Indeed this binding has no active user and i think it is good to be removed
-entirely because no driver no dts sources are using it , it seems abandoned.
-Please let me know if I need to resend it if it needs to be removed.Thanks
-for your time.
+Update the pcieport0 reference to pcie0_port0 to match the label
+rename in sm8550.dtsi.
 
-Best regards,
- Seihae no driver no dts sources are using it , it seens abandoned.
- Please let me know if i need to resend it if it neeeds to be removed.Thanks
- for your time.
+Signed-off-by: Joe Sandom <jsandom@axon.com>
+---
+ arch/arm64/boot/dts/qcom/sm8550-hdk.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm8550-hdk.dts b/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
+index ee13e6136a8259d28540e718851e094f74ead278..e821b731bdc496c872703723df02ae9b9b0233b5 100644
+--- a/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
++++ b/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
+@@ -1012,7 +1012,7 @@ &pcie0 {
+ 	status = "okay";
+ };
+ 
+-&pcieport0 {
++&pcie0_port0 {
+ 	wifi@0 {
+ 		compatible = "pci17cb,1107";
+ 		reg = <0x10000 0x0 0x0 0x0 0x0>;
+
+-- 
+2.34.1
 
 
