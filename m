@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACFB5246BD5;
-	Sat,  4 Apr 2026 05:20:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B0FC78F3A;
+	Sat,  4 Apr 2026 05:23:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775280046; cv=none; b=in9s3flupqcdqz/Ymv3Y8YnY/IUH1XbzfMX0Bp1VOQa8BIwP4kVHSsoDHGN/TOwbIw94zafqpz4hAvRyeWnYwaDWHuKjXx8FoHEFVmstRCb8l7175NvUYxf2TRejY8RHK0P/SJfNgEPhPUBwN7TscTWurafyLug/PwOO0szWSy4=
+	t=1775280214; cv=none; b=nAwm/1qt4b7YaNbbuZIZ1gVdsc8XbJAt7pWSx/G9hFrdoUDEzno6SKTadWCtDgd7lNXjCdaF/83Cr3XR6N8efahUQf7R92JKLgIb5BiuVed+rIBMJ4phqH8os/WEklXyOrmNF1jyTA0Pjle/cpSfyG4S2REt5ZFMdWdEK4fRTnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775280046; c=relaxed/simple;
-	bh=kDXVFbUfUhxEG0eO7UpSFNa8b9FjrMBpZPRvJMRjKF8=;
+	s=arc-20240116; t=1775280214; c=relaxed/simple;
+	bh=MQnhOwAcY0MULoy5VoyguAMOxknrLZE9Pvyf/H26/qw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Prhof8n0HcewJ0x43kklIE1LBJjDDQecGsDWur9Er62r7OQCkjDmbZOncmqpOZEBy7PoKYhEZeWCN1dzXMShMTXrofkbxKUY4LSrbj5VvazsdeTK39PEdQPpcWRb4eB+cHvSZTwCjkvmG1/M3QBOZ9l1pnRIR4PGoB9TGJ3qi9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aEwP95GL; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=S8Fi/LsczRwFKoPCGbR0jPzQcRZy/KJ8X0AvnDfy6SaHv6UJKtfA62BNpSlLcoKpY6iiFZIL96zsgGGkc2x6WMqVUQuep9pm7cqJU2OM95uQVqe/hbmniMVcGExQbxWABozFSOFGxcG4zq5EjZ95/yhhhnc/rMwncZiNM3j8nnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T64S2V53; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aEwP95GL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ADFDC19423;
-	Sat,  4 Apr 2026 05:20:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T64S2V53"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B248C19423;
+	Sat,  4 Apr 2026 05:23:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775280046;
-	bh=kDXVFbUfUhxEG0eO7UpSFNa8b9FjrMBpZPRvJMRjKF8=;
+	s=k20201202; t=1775280214;
+	bh=MQnhOwAcY0MULoy5VoyguAMOxknrLZE9Pvyf/H26/qw=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=aEwP95GLCIXLwTjst7bsamUNFjSFDop0FFU6HYf9Zewcv11afVv/nEqAdTEOG+cfG
-	 dtv1CtdTQFk9j2oJ4rsaSiMVcMUuKcgDZfvV2TyPBaUId7NB4X2KhWrKtf86V6pv4D
-	 1xzPW1+m+pwuP2qXaNULyB+5crIjhIeyI1eyuqImvcRgrcCoSprKzBKIjOV+Q+YMqf
-	 HmKdfLB04yXCylyqpd1/HLQwkq+LKIjikUuBgz2HqaH2plXj1HdCO2EGqVul5vyi5A
-	 5pRH8CYLXMNANu6lT2xId2pHLWh2EvV00lW57aSz0k4L1sPP5mSU2qKceCA5HHje8Y
-	 IB55YFM2mH97A==
-Message-ID: <0b4c3a01-6dbe-49bb-b2d9-f9e2f6677c59@kernel.org>
-Date: Sat, 4 Apr 2026 07:20:40 +0200
+	b=T64S2V53qm31Ji0Dm+aiQCDZvoGhTh/rF0iuFxNAZmDz54gNh4DJD72UJX9rFFPhO
+	 23BIzhyusLL+yATcP17+bw25hP66hdvDtbCrKykgHZC97cM8TyQHsEjHoCLlJTjzMu
+	 Z3Z81p4+CcZZp4Dsx7cF5kMv4MiY3ThP3sAkcGGdgVIbJJaZcAz90nEt8FaEKY8SPY
+	 6w27RkDEhIJAVbrSVzPdKabSotTCK2ngDd/XiTSUha1tlkvEztg6FSwes8imf3AHZo
+	 PEj1Q0DX2aEHe52VGBJqsgBGxENNLrsvtDaqV6sQvKYnGry7ZDNQsodwdeA73VSPL0
+	 O3yw+Ge4emklg==
+Message-ID: <95face24-deaf-47c4-935d-0b48b5141371@kernel.org>
+Date: Sat, 4 Apr 2026 07:23:29 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,20 +35,19 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] dt-bindings: sound: Add ti,tas675x
-To: Sen Wang <sen@ti.com>
-Cc: linux-sound@vger.kernel.org, broonie@kernel.org, lgirdwood@gmail.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, perex@perex.cz, tiwai@suse.com,
- shenghao-ding@ti.com, kevin-lu@ti.com, baojun.xu@ti.com, niranjan.hy@ti.com,
- l-badrinarayanan@ti.com, devarsht@ti.com, v-singh1@ti.com,
- linux-kernel@vger.kernel.org
-References: <message-id-of-your-RFC-cover-letter>
- <20260401223239.1638881-1-sen@ti.com> <20260401223239.1638881-2-sen@ti.com>
- <20260402-funky-lionfish-of-grandeur-fadba6@quoll>
- <b35904a2-0913-456f-b89a-f9f45e6a686a@ti.com>
- <02517021-74cc-4023-98f2-fc7a485b2d2f@kernel.org>
- <0a73ae00-5d57-4701-88dc-9a861d44a2c5@ti.com>
+Subject: Re: [PATCH ath-next v4 0/6] wifi: ath12k: Enable IPQ5424 AHB WiFi
+ device
+To: Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
+ Raj Kumar Bhagat <raj.bhagat@oss.qualcomm.com>,
+ Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, ath12k@lists.infradead.org,
+ Saravanakumar Duraisamy <quic_saradura@quicinc.com>,
+ Sowmiya Sree Elavalagan <sowmiya.elavalagan@oss.qualcomm.com>
+References: <20260402-ath12k-ipq5424-v4-0-cd1e0f0a6c88@oss.qualcomm.com>
+ <5a606f7d-6665-4b0c-bbbe-32538b2315b6@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -94,66 +93,36 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <0a73ae00-5d57-4701-88dc-9a861d44a2c5@ti.com>
+In-Reply-To: <5a606f7d-6665-4b0c-bbbe-32538b2315b6@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 04/04/2026 05:40, Sen Wang wrote:
-> On 4/3/26 02:19, Krzysztof Kozlowski wrote:
->> On 03/04/2026 02:40, Sen Wang wrote:
->>>>> diff --git a/Documentation/devicetree/bindings/sound/ti,tas675x.yaml b/Documentation/devicetree/bindings/sound/ti,tas675x.yaml
->>>>> new file mode 100644
->>>>> index 000000000000..23e4cc77b4ae
->>>>> --- /dev/null
->>>>> +++ b/Documentation/devicetree/bindings/sound/ti,tas675x.yaml
->>>>> @@ -0,0 +1,278 @@
->>>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>>>> +%YAML 1.2
->>>>> +---
->>>>> +$id: http://devicetree.org/schemas/sound/ti,tas675x.yaml#
->>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>>>> +
->>>>> +title: Texas Instruments TAS675x Audio Amplifier
->>>>> +
->>>>> +maintainers:
->>>>> +  - Sen Wang <sen@ti.com>
->>>>> +
->>>>> +description: |
->>>>
->>>> Do not need '|' unless you need to preserve formatting.
->>>>
->>>>> +  The TAS675x family (TAS6754, TAS67524) are four-channel, digital-input,
->>>>
->>>> And devices are not compatible?
->>>>
->>>
->>> They're compatible, and I didn't have any differentiators for this
->>> initial driver. So I should only keep one.
->>> And also rename ti,tas675x.yaml to ti,tas67524.yaml.
+On 03/04/2026 11:13, Baochen Qiang wrote:
 >>
->> No, you should express compatibility. See writing bindings, writing
->> schema, example schema docs or DTS101 talk.
+>>  .../bindings/net/wireless/qcom,ipq5332-wifi.yaml   |  1 +
+>>  drivers/net/wireless/ath/ath12k/ahb.c              | 36 +++++----
+>>  drivers/net/wireless/ath/ath12k/ahb.h              |  1 +
+>>  drivers/net/wireless/ath/ath12k/ce.h               | 13 ++-
+>>  drivers/net/wireless/ath/ath12k/core.h             |  1 +
+>>  drivers/net/wireless/ath/ath12k/wifi7/ahb.c        |  8 ++
+>>  drivers/net/wireless/ath/ath12k/wifi7/hal.c        |  7 ++
+>>  drivers/net/wireless/ath/ath12k/wifi7/hal.h        |  3 +
+>>  .../net/wireless/ath/ath12k/wifi7/hal_qcn9274.c    | 88 ++++++++++++++++++++
+>>  .../net/wireless/ath/ath12k/wifi7/hal_qcn9274.h    |  1 +
+>>  drivers/net/wireless/ath/ath12k/wifi7/hw.c         | 93 +++++++++++++++++++++-
+>>  11 files changed, 231 insertions(+), 21 deletions(-)
+>> ---
+>> base-commit: 15551ababf6d4e857f2101366a0c3eaa86dd822c
+>> change-id: 20260331-ath12k-ipq5424-cddb63a46a97
 >>
 > 
-> Thank you for clarifying Krzysztof, DTS101 talk is immensely helpful.
+> only nit in patch 2/6, so for patches 2-6/6:
 > 
-> Regarding the compatibles, if I use ti,tas67524 as a fallback:
-> 
->    compatible:
->      oneOf:
->        - items:
->          - enum:
->            - ti,tas6754
->          - const: ti,tas67524
->        - const: ti,tas67524
-> 
-> Does this look correct? I've also seen some bindings use 'enum' even for 
-> single values under oneOf, but I'm assuming 'const' is preferred for 
-> single entries as advocated in the example schema?
+> Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
 
-Concept is correct. You have incomplete indentation, but this will be
-pointed out by yamllint during dt_binding_check, so be sure that
-yamlling and dtschema Python packages are installed.
+It does not work like this. Replying to cover letter causes that all
+patches will get it. Provide detailed review and response to each email
+in such case.
 
 Best regards,
 Krzysztof
