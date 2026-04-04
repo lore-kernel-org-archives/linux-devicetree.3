@@ -1,128 +1,64 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B0FC78F3A;
-	Sat,  4 Apr 2026 05:23:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE3B729D27A;
+	Sat,  4 Apr 2026 07:04:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775280214; cv=none; b=nAwm/1qt4b7YaNbbuZIZ1gVdsc8XbJAt7pWSx/G9hFrdoUDEzno6SKTadWCtDgd7lNXjCdaF/83Cr3XR6N8efahUQf7R92JKLgIb5BiuVed+rIBMJ4phqH8os/WEklXyOrmNF1jyTA0Pjle/cpSfyG4S2REt5ZFMdWdEK4fRTnc=
+	t=1775286267; cv=none; b=uY/mZMYlOC9zex9YzrescTJ5uTHm03jGpuurSEeQwVyi15N8NisfvNcWtTC1bFCXZb6YPRtA3A+yL/rxd5wbR8q2ZXVtP5A5IwkmywhEuzDim1PZk4LiHwZ89zgidT0/T92bO/JylZCB3CUj/Tj9ECEsLbFddVU9Q8Swi6SIt5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775280214; c=relaxed/simple;
-	bh=MQnhOwAcY0MULoy5VoyguAMOxknrLZE9Pvyf/H26/qw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=S8Fi/LsczRwFKoPCGbR0jPzQcRZy/KJ8X0AvnDfy6SaHv6UJKtfA62BNpSlLcoKpY6iiFZIL96zsgGGkc2x6WMqVUQuep9pm7cqJU2OM95uQVqe/hbmniMVcGExQbxWABozFSOFGxcG4zq5EjZ95/yhhhnc/rMwncZiNM3j8nnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T64S2V53; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775286267; c=relaxed/simple;
+	bh=g4ulReymsmUnl3J7OQb0CYj2AnQQkrXyzbEsQR2OgT8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eeMpzh/muHNKuDiKTgXmABMAfeNPHSPAZIymtvyROZx0bDVmzw9THsk/TOOAxwVkiqlgfq+4OwqedabSGLYeIGF8q0gLxceGIXwR5xqL7i7oAxncauoGudzO/5KE2cfVKUJZ05ZUacbIs1j12kmYO3NIZ4pQR2Aqndzrxk7e/R4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rG/MF/QJ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T64S2V53"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B248C19423;
-	Sat,  4 Apr 2026 05:23:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rG/MF/QJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7DE0C19423;
+	Sat,  4 Apr 2026 07:04:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775280214;
-	bh=MQnhOwAcY0MULoy5VoyguAMOxknrLZE9Pvyf/H26/qw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=T64S2V53qm31Ji0Dm+aiQCDZvoGhTh/rF0iuFxNAZmDz54gNh4DJD72UJX9rFFPhO
-	 23BIzhyusLL+yATcP17+bw25hP66hdvDtbCrKykgHZC97cM8TyQHsEjHoCLlJTjzMu
-	 Z3Z81p4+CcZZp4Dsx7cF5kMv4MiY3ThP3sAkcGGdgVIbJJaZcAz90nEt8FaEKY8SPY
-	 6w27RkDEhIJAVbrSVzPdKabSotTCK2ngDd/XiTSUha1tlkvEztg6FSwes8imf3AHZo
-	 PEj1Q0DX2aEHe52VGBJqsgBGxENNLrsvtDaqV6sQvKYnGry7ZDNQsodwdeA73VSPL0
-	 O3yw+Ge4emklg==
-Message-ID: <95face24-deaf-47c4-935d-0b48b5141371@kernel.org>
-Date: Sat, 4 Apr 2026 07:23:29 +0200
+	s=k20201202; t=1775286267;
+	bh=g4ulReymsmUnl3J7OQb0CYj2AnQQkrXyzbEsQR2OgT8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=rG/MF/QJ8k6cdUaNHWXW3lB1GGa6SC8biMa9QI030QboI2Rp6IzXpZnuLkDil6nK2
+	 43IF89kBH61akifxk6sTyHRYS99e4rXUrJvsqXlH3c50gmsn6D/U9S5GJ5YvctFTqH
+	 uexeEX8X7cYL7Ons1Xs6Uk+y8zL3Wbxnt2uOA2rGDivZzLXh/ZU1a8d3Vt/VeZTWN+
+	 R6aDeDtPqPg4/RvOh99ny4uTLvC+h4eH/05sYWbTXTZ0dXNhoh2yJW+xEgXcMlDms/
+	 O/qKXe5/lag1egv6pdwBEDteG10N1qhJ27jl0fjLAcqaYWxIXArMslM9cWHU59txef
+	 X6uPpAG+8Kf3w==
+Date: Sat, 4 Apr 2026 09:04:24 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Victor Duicu <victor.duicu@microchip.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, marius.cristea@microchip.com
+Subject: Re: [PATCH v12 1/2] dt-bindings: hwmon: add support for MCP998X
+Message-ID: <20260404-accurate-discreet-poodle-2bf04f@quoll>
+References: <20260403-add-mcp9982-hwmon-v12-0-b3bfb26ff136@microchip.com>
+ <20260403-add-mcp9982-hwmon-v12-1-b3bfb26ff136@microchip.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH ath-next v4 0/6] wifi: ath12k: Enable IPQ5424 AHB WiFi
- device
-To: Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
- Raj Kumar Bhagat <raj.bhagat@oss.qualcomm.com>,
- Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, ath12k@lists.infradead.org,
- Saravanakumar Duraisamy <quic_saradura@quicinc.com>,
- Sowmiya Sree Elavalagan <sowmiya.elavalagan@oss.qualcomm.com>
-References: <20260402-ath12k-ipq5424-v4-0-cd1e0f0a6c88@oss.qualcomm.com>
- <5a606f7d-6665-4b0c-bbbe-32538b2315b6@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <5a606f7d-6665-4b0c-bbbe-32538b2315b6@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260403-add-mcp9982-hwmon-v12-1-b3bfb26ff136@microchip.com>
 
-On 03/04/2026 11:13, Baochen Qiang wrote:
->>
->>  .../bindings/net/wireless/qcom,ipq5332-wifi.yaml   |  1 +
->>  drivers/net/wireless/ath/ath12k/ahb.c              | 36 +++++----
->>  drivers/net/wireless/ath/ath12k/ahb.h              |  1 +
->>  drivers/net/wireless/ath/ath12k/ce.h               | 13 ++-
->>  drivers/net/wireless/ath/ath12k/core.h             |  1 +
->>  drivers/net/wireless/ath/ath12k/wifi7/ahb.c        |  8 ++
->>  drivers/net/wireless/ath/ath12k/wifi7/hal.c        |  7 ++
->>  drivers/net/wireless/ath/ath12k/wifi7/hal.h        |  3 +
->>  .../net/wireless/ath/ath12k/wifi7/hal_qcn9274.c    | 88 ++++++++++++++++++++
->>  .../net/wireless/ath/ath12k/wifi7/hal_qcn9274.h    |  1 +
->>  drivers/net/wireless/ath/ath12k/wifi7/hw.c         | 93 +++++++++++++++++++++-
->>  11 files changed, 231 insertions(+), 21 deletions(-)
->> ---
->> base-commit: 15551ababf6d4e857f2101366a0c3eaa86dd822c
->> change-id: 20260331-ath12k-ipq5424-cddb63a46a97
->>
+On Fri, Apr 03, 2026 at 04:32:16PM +0300, Victor Duicu wrote:
+> Add devicetree schema for Microchip MCP998X/33 and MCP998XD/33D
+> Multichannel Automotive Temperature Monitor Family.
 > 
-> only nit in patch 2/6, so for patches 2-6/6:
-> 
-> Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+> Signed-off-by: Victor Duicu <victor.duicu@microchip.com>
+> ---
+>  .../bindings/hwmon/microchip,mcp9982.yaml          | 237 +++++++++++++++++++++
+>  MAINTAINERS                                        |   6 +
+>  2 files changed, 243 insertions(+)
 
-It does not work like this. Replying to cover letter causes that all
-patches will get it. Provide detailed review and response to each email
-in such case.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
+
