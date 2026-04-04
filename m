@@ -1,307 +1,112 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A48D327C0D;
-	Sat,  4 Apr 2026 18:49:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3C962777EA;
+	Sat,  4 Apr 2026 19:28:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775328582; cv=none; b=Et0WwWg3oHjzhkHRs4R5RoTednP5JjDqdx3MD5kCSPusMmsCULXH4sFZHuMN4rgOgd5R7d1NDqWbPomTX3mJlq0hQ8Pzi2Mi3lc+7UUQ0d6/GSGme6On8v8aa4/X2IWonRvh75wMi+k0rzlfiDVDLRmpewu8u5tTtJC+E1BP6Ec=
+	t=1775330889; cv=none; b=PIgNZb3wHX0pxWh8ZaMnuzwB89piO5dCQujUEN1P+kRoOkcvM4YI0JgBo+p1Z3U4RA2Oa7qr3AnPViQZ+flhoF7NsxwMw3mu0+xMyJajwP8hcShnApVhpJxq61AJO2b/34xuZsIZVnS2cKH1d2luyYFwdVNlD+/giArl5p4bupA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775328582; c=relaxed/simple;
-	bh=Gjnm+BCpDUYp5JIG5gAcz6hI2/fKMUF0+quefTEOqLE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=BovutD4n3a1VP9TeeHLWMTVPB0z+vh5qKHffiyS7EhWIX0ExxdBb2DqoRWvtbR9Etfa9cPv7/qYYiCELYnTsVKiZ6NoGnKUwz4DEcdiUvRWhaFRcioXi8ZRd0D6moD+LXV38032RdW0oKc+/Ai6PVHDM/qF57DUGCxxo9BBtJGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=NSioNvWr; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1775330889; c=relaxed/simple;
+	bh=dSJX9GOFRFbixYNAI6Hfa0AxdTI5h2mwNMjm5R1g/V0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=F35yIF6opoZ08VomRa3z5YwMbw82WdabTBNjPCE2xw3AnQd1D/eiwEV7P0JJhScL15iTnfQVgMZXO9ozmmUzgmq46Jw4f/bvNBrvtq6wY4O7TpOoUcwXockppM8RWiLWfkRmlI/XEPqGhmBC8RIqN4wi0ok2FBI4PMNekdTlTEM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=elb9Ub8A; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="NSioNvWr"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6C29118EE6E;
-	Sat,  4 Apr 2026 20:49:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1775328577; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=D8WfbgG8z1lQF1hnqRptlhs37W1XwP07P11T/RE55bg=;
-	b=NSioNvWriUEkgTiQBAtVBpfTUIWErXNu/QKQT5NofTtsQn0pc3JhasQobZsHA23WC6AkdB
-	J6Gg2O4FkLnLGwJuObKFsMeG4Bf1rLQJAESuqZvTzugur3us4YACUZylToNkF/zqjWFdT8
-	EZISedFJkAD2eguOzdTUDPwk0dT6nB0+tYesk6QPCgKAlvyR7lem6SeOfY21gwBT/2pjtY
-	tsy2rQjMCrgTZpXOtz8RTHRTBZDztoge5cPRfPKeXHEnAYSnTth0VqrSwpHaqlU80E4lVd
-	ZNlmy3tGwJqStkk4dj2UDtWP8hwLf49SxRp9EEHNqurlC30mm37rfb5wi+Ek2g==
-From: Caleb James DeLisle <cjd@cjdns.fr>
-To: linux-phy@lists.infradead.org
-Cc: naseefkm@gmail.com,
-	vkoul@kernel.org,
-	neil.armstrong@linaro.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux-mips@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Caleb James DeLisle <cjd@cjdns.fr>
-Subject: [PATCH v2 2/2] phy: econet: Add PCIe PHY driver for EcoNet EN751221 and EN7528 SoCs.
-Date: Sat,  4 Apr 2026 18:49:18 +0000
-Message-Id: <20260404184918.2184070-3-cjd@cjdns.fr>
-In-Reply-To: <20260404184918.2184070-1-cjd@cjdns.fr>
-References: <20260404184918.2184070-1-cjd@cjdns.fr>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="elb9Ub8A"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1775330888; x=1806866888;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=dSJX9GOFRFbixYNAI6Hfa0AxdTI5h2mwNMjm5R1g/V0=;
+  b=elb9Ub8AEgSbvRF87bLgpaaY5QQdyhCBpWacgynpiabhnQ3Lh5KAwYdm
+   jlLhGVhS8uH1xGfGBubagkVJk3agDAwfj7uqcri/9xU/MXaSZs/MVm0p1
+   fbtaxHVRl4b11D2CkC9WobDld02hdmT4JvM3X2nRQquwj4kKSL1s5z68j
+   q1tnkQg89/aF7jhUSnp5m2otEhqewoAg2KT3XgL9Ry5XHLESbO5SvwBnZ
+   PkFSw0gbWqETV3PrK8UGK3WXMR6DjGIVFOIXw6nC1gQKU1SX9iqBlA/Gl
+   i/gpoKY8kQLDhvkH6QuxeO02R1AHUD763XVkHvAzHAlZyBqbP0yE6gEg6
+   A==;
+X-CSE-ConnectionGUID: 9XaBhVTGQbGjRtlQx7DgCg==
+X-CSE-MsgGUID: HaE+U3leStuiEkKP2C6KRQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11749"; a="86972448"
+X-IronPort-AV: E=Sophos;i="6.23,160,1770624000"; 
+   d="scan'208";a="86972448"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Apr 2026 12:28:07 -0700
+X-CSE-ConnectionGUID: QAFtupCCQBWHlDi7j2iLXw==
+X-CSE-MsgGUID: DXTNmmgLTYO7Zn40+WsJkg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,160,1770624000"; 
+   d="scan'208";a="229164035"
+Received: from abityuts-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.247])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Apr 2026 12:28:04 -0700
+Date: Sat, 4 Apr 2026 22:28:01 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Antony Kurniawan Soemardi <linux@smankusors.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org, phone-devel@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] iio: adc: qcom-pm8xxx-xoadc: add support for
+ reading channel labels
+Message-ID: <adFmQeMVKB125lgJ@ashevche-desk.local>
+References: <20260403-pm8xxx-xoadc-label-v2-0-29b50bf821e6@smankusors.com>
+ <20260403-pm8xxx-xoadc-label-v2-3-29b50bf821e6@smankusors.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260403-pm8xxx-xoadc-label-v2-3-29b50bf821e6@smankusors.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Introduce support for EcoNet PCIe PHY controllers found in EN751221
-and EN7528 SoCs, these SoCs are not identical but are similar, each
-having one Gen1 port, and one Gen1/Gen2 port.
+On Fri, Apr 03, 2026 at 09:23:21AM +0000, Antony Kurniawan Soemardi wrote:
+> Implement the .read_label callback to allow userspace to identify ADC
+> channels via the "label" property in the device tree. The name field in
+> pm8xxx_chan_info is renamed to label to better reflect its purpose. If
+> no label is provided in the device tree, it defaults to the hardware
+> datasheet name.
+> 
+> The change has been tested on Sony Xperia SP (PM8921).
 
-Co-developed-by: Ahmed Naseef <naseefkm@gmail.com>
-Signed-off-by: Ahmed Naseef <naseefkm@gmail.com>
-[cjd@cjdns.fr: add EN751221 support and refactor for clarity]
-Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
----
- MAINTAINERS                   |   1 +
- drivers/phy/Kconfig           |  12 +++
- drivers/phy/Makefile          |   1 +
- drivers/phy/phy-econet-pcie.c | 180 ++++++++++++++++++++++++++++++++++
- 4 files changed, 194 insertions(+)
- create mode 100644 drivers/phy/phy-econet-pcie.c
+...
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 1b016212e4cb..b2d37c7c80af 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -9177,6 +9177,7 @@ M:	Caleb James DeLisle <cjd@cjdns.fr>
- L:	linux-mips@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/phy/econet,en751221-pcie-phy.yaml
-+F:	drivers/phy/phy-econet-pcie.c
- 
- ECRYPT FILE SYSTEM
- M:	Tyler Hicks <code@tyhicks.com>
-diff --git a/drivers/phy/Kconfig b/drivers/phy/Kconfig
-index 227b9a4c612e..9aad68829d72 100644
---- a/drivers/phy/Kconfig
-+++ b/drivers/phy/Kconfig
-@@ -66,6 +66,18 @@ config PHY_CAN_TRANSCEIVER
- 	  functional modes using gpios and sets the attribute max link
- 	  rate, for CAN drivers.
- 
-+config PHY_ECONET_PCIE
-+	tristate "EcoNet PCIe-PHY Driver"
-+	depends on ECONET || COMPILE_TEST
-+	depends on OF
-+	select GENERIC_PHY
-+	select REGMAP_MMIO
-+	help
-+	  Say Y here to add support for EcoNet PCIe PHY driver.
-+	  This driver create the basic PHY instance and provides initialize
-+	  callback for PCIe GEN1 and GEN2 ports. This PHY is found on
-+	  EcoNet SoCs including EN751221 and EN7528.
-+
- config PHY_GOOGLE_USB
- 	tristate "Google Tensor SoC USB PHY driver"
- 	select GENERIC_PHY
-diff --git a/drivers/phy/Makefile b/drivers/phy/Makefile
-index f49d83f00a3d..42959ed383fd 100644
---- a/drivers/phy/Makefile
-+++ b/drivers/phy/Makefile
-@@ -9,6 +9,7 @@ obj-$(CONFIG_GENERIC_PHY)		+= phy-core.o
- obj-$(CONFIG_GENERIC_PHY_MIPI_DPHY)	+= phy-core-mipi-dphy.o
- obj-$(CONFIG_PHY_AIROHA_PCIE)		+= phy-airoha-pcie.o
- obj-$(CONFIG_PHY_CAN_TRANSCEIVER)	+= phy-can-transceiver.o
-+obj-$(CONFIG_PHY_ECONET_PCIE)		+= phy-econet-pcie.o
- obj-$(CONFIG_PHY_GOOGLE_USB)		+= phy-google-usb.o
- obj-$(CONFIG_USB_LGM_PHY)		+= phy-lgm-usb.o
- obj-$(CONFIG_PHY_LPC18XX_USB_OTG)	+= phy-lpc18xx-usb-otg.o
-diff --git a/drivers/phy/phy-econet-pcie.c b/drivers/phy/phy-econet-pcie.c
-new file mode 100644
-index 000000000000..d2c6e0c1f331
---- /dev/null
-+++ b/drivers/phy/phy-econet-pcie.c
-@@ -0,0 +1,180 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Author: Caleb James DeLisle <cjd@cjdns.fr>
-+ *	   Ahmed Naseef <naseefkm@gmail.com>
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/phy/phy.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+
-+/* Rx detection timing for EN751221: 16*8 clock cycles  */
-+#define EN751221_RXDET_VAL		16
-+
-+/* Rx detection timing when in power mode 3 */
-+#define EN75_RXDET_P3_REG		0xa28
-+#define EN75_RXDET_P3_MASK		GENMASK(17, 9)
-+
-+/* Rx detection timing when in power mode 2 */
-+#define EN75_RXDET_P2_REG		0xa2c
-+#define EN75_RXDET_P2_MASK		GENMASK(8, 0)
-+
-+/* Rx impedance */
-+#define EN75_RX_IMPEDANCE_REG		0xb2c
-+#define EN75_RX_IMPEDANCE_MASK		GENMASK(13, 12)
-+enum en75_rx_impedance {
-+	EN75_RX_IMPEDANCE_100_OHM	= 0,
-+	EN75_RX_IMPEDANCE_95_OHM	= 1,
-+	EN75_RX_IMPEDANCE_90_OHM	= 2,
-+};
-+
-+/* PLL Invert clock */
-+#define EN75_PLL_PH_INV_REG		0x4a0
-+#define EN75_PLL_PH_INV_MASK		BIT(5)
-+
-+struct en75_phy_op {
-+	u32 reg;
-+	u32 mask;
-+	u32 val;
-+};
-+
-+struct en7528_pcie_phy {
-+	struct regmap *regmap;
-+	const struct en75_phy_op *data;
-+};
-+
-+/* Port 0 PHY: set LCDDS_CLK_PH_INV for PLL operation */
-+static const struct en75_phy_op en7528_phy_gen1[] = {
-+	{
-+		.reg = EN75_PLL_PH_INV_REG,
-+		.mask = EN75_PLL_PH_INV_MASK,
-+		.val = 1,
-+	},
-+	{ /* sentinel */ }
-+};
-+
-+/* EN7528 Port 1 PHY: Rx impedance tuning, target R -5 Ohm */
-+static const struct en75_phy_op en7528_phy_gen2[] = {
-+	{
-+		.reg = EN75_RX_IMPEDANCE_REG,
-+		.mask = EN75_RX_IMPEDANCE_MASK,
-+		.val = EN75_RX_IMPEDANCE_95_OHM,
-+	},
-+	{ /* sentinel */ }
-+};
-+
-+/* EN751221 Port 1 PHY, set RX detect to 16*8 clock cycles */
-+static const struct en75_phy_op en751221_phy_gen2[] = {
-+	{
-+		.reg = EN75_RXDET_P3_REG,
-+		.mask = EN75_RXDET_P3_MASK,
-+		.val = EN751221_RXDET_VAL,
-+	},
-+	{
-+		.reg = EN75_RXDET_P2_REG,
-+		.mask = EN75_RXDET_P2_MASK,
-+		.val = EN751221_RXDET_VAL,
-+	},
-+	{ /* sentinel */ }
-+};
-+
-+static int en75_pcie_phy_init(struct phy *phy)
-+{
-+	struct en7528_pcie_phy *ephy = phy_get_drvdata(phy);
-+	const struct en75_phy_op *data = ephy->data;
-+	int i, ret;
-+	u32 val;
-+
-+	for (i = 0; data[i].mask || data[i].val; i++) {
-+		if (i)
-+			usleep_range(1000, 2000);
-+
-+		val = field_prep(data[i].mask, data[i].val);
-+
-+		ret = regmap_update_bits(ephy->regmap, data[i].reg,
-+					 data[i].mask, val);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct phy_ops en75_pcie_phy_ops = {
-+	.init	= en75_pcie_phy_init,
-+	.owner	= THIS_MODULE,
-+};
-+
-+static int en75_pcie_phy_probe(struct platform_device *pdev)
-+{
-+	struct regmap_config regmap_config = {
-+		.reg_bits = 32,
-+		.val_bits = 32,
-+		.reg_stride = 4,
-+	};
-+	struct device *dev = &pdev->dev;
-+	const struct en75_phy_op *data;
-+	struct phy_provider *provider;
-+	struct en7528_pcie_phy *ephy;
-+	void __iomem *base;
-+	struct phy *phy;
-+	int i;
-+
-+	data = of_device_get_match_data(dev);
-+	if (!data)
-+		return -EINVAL;
-+
-+	ephy = devm_kzalloc(dev, sizeof(*ephy), GFP_KERNEL);
-+	if (!ephy)
-+		return -ENOMEM;
-+
-+	ephy->data = data;
-+
-+	base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(base))
-+		return PTR_ERR(base);
-+
-+	/* Set max_register to highest used register */
-+	for (i = 0; data[i].mask || data[i].val; i++)
-+		if (data[i].reg > regmap_config.max_register)
-+			regmap_config.max_register = data[i].reg;
-+
-+	ephy->regmap = devm_regmap_init_mmio(dev, base, &regmap_config);
-+	if (IS_ERR(ephy->regmap))
-+		return PTR_ERR(ephy->regmap);
-+
-+	phy = devm_phy_create(dev, dev->of_node, &en75_pcie_phy_ops);
-+	if (IS_ERR(phy))
-+		return PTR_ERR(phy);
-+
-+	phy_set_drvdata(phy, ephy);
-+
-+	provider = devm_of_phy_provider_register(dev, of_phy_simple_xlate);
-+
-+	return PTR_ERR_OR_ZERO(provider);
-+}
-+
-+static const struct of_device_id en75_pcie_phy_ids[] = {
-+	{ .compatible = "econet,en7528-pcie-gen1", .data = en7528_phy_gen1 },
-+	{ .compatible = "econet,en7528-pcie-gen2", .data = en7528_phy_gen2 },
-+	{ .compatible = "econet,en751221-pcie-gen1", .data = en7528_phy_gen1 },
-+	{ .compatible = "econet,en751221-pcie-gen2", .data = en751221_phy_gen2 },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, en75_pcie_phy_ids);
-+
-+static struct platform_driver en75_pcie_phy_driver = {
-+	.probe = en75_pcie_phy_probe,
-+	.driver = {
-+		.name = "econet-pcie-phy",
-+		.of_match_table = en75_pcie_phy_ids,
-+	},
-+};
-+module_platform_driver(en75_pcie_phy_driver);
-+
-+MODULE_AUTHOR("Caleb James DeLisle <cjd@cjdns.fr>");
-+MODULE_DESCRIPTION("EcoNet PCIe PHY driver");
-+MODULE_LICENSE("GPL");
+> +	ret = fwnode_property_read_string(fwnode, "label", &ch->label);
+> +	if (ret)
+> +		ch->label = hwchan->datasheet_name;
+
+Branch is not needed.
+
+	ch->label = hwchan->datasheet_name;
+	fwnode_property_read_string(fwnode, "label", &ch->label);
+
+will have the same effect. But if you want to handle errors, you may do
+
+	if (fwnode_property_present(...)) {
+		ret = fwnode_property_read_string(...);
+		if (ret)
+			return ret;
+	} else {
+		...assign default...
+	}
+
+
 -- 
-2.39.5
+With Best Regards,
+Andy Shevchenko
+
 
