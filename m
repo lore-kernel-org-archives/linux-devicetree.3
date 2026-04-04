@@ -1,52 +1,51 @@
 Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 690CF3246EB;
-	Sat,  4 Apr 2026 03:41:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 908D417C69;
+	Sat,  4 Apr 2026 03:43:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775274092; cv=none; b=ccgCnE9pMhYkbBgQ5h2PePJ+FPtrGsFzt9FILVcPfrSAsJcwbmamHZI8Jyx7QEZg8LmQvIXfPqFt4+pYdCcjW2JwPHFYlqn+aSAL4GtGVky2E4A6SvrwnDP5dWwPir2A2X8/+1X4MK3FmdMaoDWjFAPZzOEjg34K/5RpjbOdCC4=
+	t=1775274216; cv=none; b=G4loR/o3D8Msy/J1PmbTCNYuA/1f4yQlL2ct+MyIYIcs/SJdnAb8+RXIMiYEBkYReB648qR1QLWBDGejDs7uffrfqd/G6acxVZi49fwgoVCRAxyo67zgcIZrYQptBsqaBoqbuoRcYotPoalVAjJ7h1YJ1EduRFZTe7QL/UcpCkI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775274092; c=relaxed/simple;
-	bh=q++nQVep0JbuGC13ierZL9G8PIDJwvhIiVuaFhHHv8M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ITvwF7MFW8vacbf1WVPBNQaIENemRSDbhULcgn4ImHPOCv5UnxUC4nQBB8Z6xfhRL3JpofG9rLD5VRdtw4kXa+ywDvXsqUIiHwQm8Q4IK401dOTYsrUzJscaVf0d6Z+UcaKxXwRCMKAJ7ibYhLtA2ypCzJxjN5Gnfx2oBv/rFWU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=EEToSnKe; arc=none smtp.client-ip=178.251.229.89
+	s=arc-20240116; t=1775274216; c=relaxed/simple;
+	bh=vvCVqDDVStkJkc9NKUXU2iYZdkgv0UGiI9StFyJwVAk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MAzz/M2lAP4lZq6Szy9Pw51UVm2D7TouPtZLdJpp6CjQ50GVrFkKGemkUluw7hagz8xqreCHcHggfeO0tU/t6Op+UKkjvOmMFCg28Fq5zUykJR1Uwj4oL7iq9z6cdc0EedYOidUY3cx1wJ4lF3laZ1bOO+r2gzAvOqswZT0qzlo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=YxZMy/AU; arc=none smtp.client-ip=178.251.229.89
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="EEToSnKe"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3E699112C1D;
-	Sat,  4 Apr 2026 05:41:25 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="YxZMy/AU"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C7580113117;
+	Sat,  4 Apr 2026 05:43:29 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1775274088; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=ApgxGQ153IAfgJWC/bMyIf2DW/ZJRfgpNGeMYExnZEE=;
-	b=EEToSnKeWDrAtLrTk/ulw4nZTqY+G8oP2hUaEgq50oYXnXijFe8nIlzb+aeQa05ZHoPDiD
-	TZtOmxkB5Udt/8u52CxGCoYdCz+DDgvpGf6q16zVIsZR8fmq3SN/CSLoFmL7KD1zbFYiuz
-	AW/Xt6TyHQL5J1Zx0o4kekQx8A6g9u+T7RgQc0+4qoT95wykDS9M4pVb6IcaayvfiFfFGd
-	5t2qXKWG5D0DrXjw8pFo0IghpJNsyXbsxexXDjQnlmYvtN9WaZ6eezAfDs5sMmawMIhdHk
-	Q26+UqM+Ug2CcCAXGLBNzAmEJWiOB1FbGCqz/XT6D7rRB2i3eVn/9cHUDr+Wmw==
+	s=dkim; t=1775274211; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=4hF/UZsnpFDnbqzEFubXStIBtyAjilEUCbOOhDOiXh8=;
+	b=YxZMy/AUdnhgzCHYFnyX1go8N7BcNuUY2LtjG2QuG3xWosMyRYYxDlqJxB1lkMi/ajyf0A
+	oJ6ZYkLhxe2qjhzzLvHhA1OE8jrn5fK2u5QKYJjwpa6BYnZglyZJOXnHG9cMQFMNaGBu/I
+	x8e5j+5hhvUlxqSusWh6+InyiwwoICxgncVr5YYYVqz2C2nsqNE27+M6IuLzBHZPfdY77p
+	5Rf+YHNZUmWQtAo4nHaFggA5hwJatotzLPUPwpFdl5ygxQT29K/nLRWGCowQgN84XjgEbG
+	QYC9o8PlIwrCJdPnXnfnzfnH0e/4WmFAH36pmyu1k6+mhCfi+BJGRACEKgrGLQ==
 From: Marek Vasut <marex@nabladev.com>
 To: devicetree@vger.kernel.org
 Cc: Marek Vasut <marex@nabladev.com>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
 	Conor Dooley <conor+dt@kernel.org>,
 	David Airlie <airlied@gmail.com>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Liu Ying <victor.liu@nxp.com>,
 	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Maxime Ripard <mripard@kernel.org>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
 	Rob Herring <robh@kernel.org>,
-	Robert Foss <rfoss@kernel.org>,
+	Sam Ravnborg <sam@ravnborg.org>,
 	Simona Vetter <simona@ffwll.ch>,
+	Thierry Reding <thierry.reding@gmail.com>,
 	Thomas Zimmermann <tzimmermann@suse.de>,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: display: bridge: lt9211: Require data-lanes on DSI input ports
-Date: Sat,  4 Apr 2026 05:40:18 +0200
-Message-ID: <20260404034123.340818-1-marex@nabladev.com>
+Subject: [PATCH 1/2] dt-bindings: display: simple: Move AUO 21.5" FHD to dual-link
+Date: Sat,  4 Apr 2026 05:42:49 +0200
+Message-ID: <20260404034321.341210-1-marex@nabladev.com>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -57,102 +56,59 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-The Lontium LT9211 is capable of 1..4 DSI lanes per input DSI port,
-describe the lane count for each input port in the schema.
+AU Optronics Corporation 21.5" FHD (1920x1080) color TFT LCD panel
+is a dual-link LVDS panel. Move it into the correct schema, which is
+panel-simple-lvds-dual-ports.yaml.
 
 Signed-off-by: Marek Vasut <marex@nabladev.com>
 ---
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>
 Cc: Conor Dooley <conor+dt@kernel.org>
 Cc: David Airlie <airlied@gmail.com>
-Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: Jonas Karlman <jonas@kwiboo.se>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>
 Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: Liu Ying <victor.liu@nxp.com>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Cc: Maxime Ripard <mripard@kernel.org>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>
 Cc: Rob Herring <robh@kernel.org>
-Cc: Robert Foss <rfoss@kernel.org>
+Cc: Sam Ravnborg <sam@ravnborg.org>
 Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Thierry Reding <thierry.reding@gmail.com>
 Cc: Thomas Zimmermann <tzimmermann@suse.de>
 Cc: devicetree@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org
 Cc: linux-kernel@vger.kernel.org
 ---
-NOTE: For example Linux kernel driver does already use that information
-      and fails to probe if it is missing. There are currently no intree
-      users for this binding, so no new warnings will be generated once
-      this is applied, but a new user is about to be added.
----
- .../display/bridge/lontium,lt9211.yaml        | 37 ++++++++++++++++++-
- 1 file changed, 35 insertions(+), 2 deletions(-)
+ .../bindings/display/panel/panel-simple-lvds-dual-ports.yaml    | 2 ++
+ .../devicetree/bindings/display/panel/panel-simple.yaml         | 2 --
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml
-index 9a6e9b25d14a9..5264fb2b68b78 100644
---- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml
-+++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml
-@@ -36,18 +36,50 @@ properties:
- 
-     properties:
-       port@0:
--        $ref: /schemas/graph.yaml#/properties/port
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-         description:
-           Primary MIPI DSI port-1 for MIPI input or
-           LVDS port-1 for LVDS input or DPI input.
- 
-+        properties:
-+          endpoint:
-+            $ref: /schemas/media/video-interfaces.yaml#
-+            unevaluatedProperties: false
-+
-+            properties:
-+              data-lanes:
-+                description: array of physical DSI data lane indexes.
-+                minItems: 1
-+                items:
-+                  - const: 1
-+                  - const: 2
-+                  - const: 3
-+                  - const: 4
-+
-       port@1:
--        $ref: /schemas/graph.yaml#/properties/port
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-         description:
-           Additional MIPI port-2 for MIPI input or LVDS port-2
-           for LVDS input. Used in combination with primary
-           port-1 to drive higher resolution displays
- 
-+        properties:
-+          endpoint:
-+            $ref: /schemas/media/video-interfaces.yaml#
-+            unevaluatedProperties: false
-+
-+            properties:
-+              data-lanes:
-+                description: array of physical DSI data lane indexes.
-+                minItems: 1
-+                items:
-+                  - const: 1
-+                  - const: 2
-+                  - const: 3
-+                  - const: 4
-+
-       port@2:
-         $ref: /schemas/graph.yaml#/properties/port
-         description:
-@@ -99,6 +131,7 @@ examples:
-             reg = <0>;
- 
-             endpoint {
-+              data-lanes = <1 2 3 4>;
-               remote-endpoint = <&dsi0_out>;
-             };
-           };
+diff --git a/Documentation/devicetree/bindings/display/panel/panel-simple-lvds-dual-ports.yaml b/Documentation/devicetree/bindings/display/panel/panel-simple-lvds-dual-ports.yaml
+index 548f5ac14500a..2215bc10bd67c 100644
+--- a/Documentation/devicetree/bindings/display/panel/panel-simple-lvds-dual-ports.yaml
++++ b/Documentation/devicetree/bindings/display/panel/panel-simple-lvds-dual-ports.yaml
+@@ -40,6 +40,8 @@ properties:
+       - auo,g185han01
+         # AU Optronics Corporation 19.0" (1280x1024) TFT LCD panel
+       - auo,g190ean01
++        # AU Optronics Corporation 21.5" FHD (1920x1080) color TFT LCD panel
++      - auo,t215hvn01
+         # BOE AV123Z7M-N17 12.3" (1920x720) LVDS TFT LCD panel
+       - boe,av123z7m-n17
+         # Kaohsiung Opto-Electronics Inc. 10.1" WUXGA (1920 x 1200) LVDS TFT LCD panel
+diff --git a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
+index 9b8fa03f7cbc4..eec78daf946cc 100644
+--- a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
++++ b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
+@@ -61,8 +61,6 @@ properties:
+       - auo,p238han01
+         # AU Optronics Corporation 31.5" FHD (1920x1080) TFT LCD panel
+       - auo,p320hvn03
+-        # AU Optronics Corporation 21.5" FHD (1920x1080) color TFT LCD panel
+-      - auo,t215hvn01
+         # Shanghai AVIC Optoelectronics 7" 1024x600 color TFT-LCD panel
+       - avic,tm070ddh03
+         # BOE AV101HDT-a10 10.1" 1280x720 LVDS panel
 -- 
 2.53.0
 
