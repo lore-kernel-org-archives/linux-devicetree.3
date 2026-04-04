@@ -1,137 +1,88 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A9371D5CC6
-	for <devicetree@vger.kernel.org>; Sat,  4 Apr 2026 02:22:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775269366; cv=pass; b=nlbQPIkJq9WievFtkKzHAUab8X6rl86nk4JwTzKZL8gN5F9jI52LldWBRp2pQRkmSvYL0Qx3J9euP0DXF4B98l5OdnrpsILGxLlgAgCgggFUaN8K7XqQZ90NDQ9fJFTEGFVZv3hxugI8R6E9A1q80gcGWxZDwG5tPW5Rea55cgU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775269366; c=relaxed/simple;
-	bh=/hWhENbGx7zICTQg6PDtChhg2P/n5TmOwT8urHL/KaE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=W5dp5fcaE08KoiW5KxffnN5jlGGsyruhM4JF4jej6/w8TD2JPMYjJBaCuqvkJw4ZuVJwbPCaJu0ccK7GrcCvAuF815LFF/e3lGTsNEWW0dyhqhbhFo+MCfKVpbvldj7g8/hmTUs3sroX/gK/BGTI0tS6KXokZjIMO1oAl3MfLiQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thingy.jp; spf=pass smtp.mailfrom=0x0f.com; dkim=pass (1024-bit key) header.d=thingy.jp header.i=@thingy.jp header.b=Okp9vbCb; arc=pass smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thingy.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0x0f.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BB0B1C84DE;
+	Sat,  4 Apr 2026 03:16:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775272566; cv=none; b=g/lT/bfDlHR4Cc/RdhLzWCrFL11JPnsZXz9Bna27A5ABsb2OKjGPFyg/09C6f0/HKtOg14ua5wgJKJQpaUeU+B/QAYXgsAVcyX9oWv79+6NCKrU+StO4qxcs0kgDgH0/8NtZSs/HzcTLY7lc7NpevDvYpie81bMy+2rzH5U7c0o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775272566; c=relaxed/simple;
+	bh=OiA/EBiA4K4f20ZyYpTH5r9/Q39LqAb3VffWQuH4Eso=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZNfCf+1SlwIiK9V7iLRTMD3su1/BSL/nI3gWuLBVvd8rJ4Bqrjbl9x7DAqZXUi/zSbJfnHKPu1u9DwutQ/fT18G8sIoBP/e63+3QyZOaE5WcqVe7n0VPEh4x/KBCUW3t1NvGd6CK9HzwjbdT5fkMArT6vYmwNMPBflWymT1eeug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I2odijld; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thingy.jp header.i=@thingy.jp header.b="Okp9vbCb"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3591cc98871so1036313a91.3
-        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 19:22:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775269363; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Y+iqeUvJk1UDTVPnq9cC1x6qBAbn5UYjh17UOUVxnqwIKLTN4r/hQ+bjqsz/2Dl+5S
-         6P4nw0nUhH3Ohu7H1P9zsJDHyP6AqiDdLvEEsBzPvc5+gbVwQkXOhLvOVaqfIHDD0GXH
-         2GDVYFZENWzwIusP4fI3SQ+NJqYXSyv6hOwrgO2QhTniaMQVl9whfgTAbAQPkuDaFzF/
-         8THPDckm3GAAMJHroRZqIpMlZWntNtJWNJkG6CI5XmiT/Ca3jS+q0EzwWEj/7MlKqMpV
-         LgfR/J+tP3RjmcENYtyeCS0re0bgk2wnYFa8s+wVSglAyVb+GzT7DJEzSLb4sSb6j3VQ
-         oG9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=/hWhENbGx7zICTQg6PDtChhg2P/n5TmOwT8urHL/KaE=;
-        fh=V/Xva3s9OgtYcMXZg8j83qo+1lGO8KXP6ztUyocbkvw=;
-        b=hk4hiZzGU0phrQ1GTXQbqBYPDBfZfSfEe6EkNH+iA2eid5PeApniJTssm0MLtM52jA
-         WgPNaaclB5IfVoHUcee+8D4F7fujwk2pPEYDI1ErPIMSr3o3SSw5aGlAme2dquK7/SV1
-         TJYm5E2lVJcCnYfcwnP9AlnUJF1/2DkStKRvgH2nuzrFDhYvWi8G5cYP2Gs/3MRB7VxT
-         aP+hGros6mMBcjNex57sJqIHgCCZx7w7YNVOA3oSQK5nckpndGfiHeA+KglEILL+aocF
-         hUzJC7trNSFt+loyyDy6YjwrirIIdakKfU0ZLn3upxDPpyzFtnDgrFGmNJirKj4KUn+9
-         Weeg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thingy.jp; s=google; t=1775269363; x=1775874163; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=/hWhENbGx7zICTQg6PDtChhg2P/n5TmOwT8urHL/KaE=;
-        b=Okp9vbCb3GJrCB4rz3pEygTvIK8RRWiFuWrYA46g4XIi9m2s6Pk5rl9FBn3nkUYUoy
-         jeBrmnjvM2dlkfsZwqyhALrNl2f8W4BHCaBW8b1tPyQHI0qoffPe1MPTQchbDEIB4/8P
-         IkJt/kjap+h27zdmZdPXwkctqaI7peXBX1iUs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775269363; x=1775874163;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/hWhENbGx7zICTQg6PDtChhg2P/n5TmOwT8urHL/KaE=;
-        b=sMsKvUuZdRVuHldKs1FLC9T01ELOkDshDqmz9W/Gl1wr7JUIeY4r1v4tIU2YM7n4GS
-         WyXSHzEq0+iolKexFvVBZv0cVuFoOnbPxInYIFS9er7IpwKgH6ELaGFM1BBlHD3nLBKg
-         EeIBzg0KLHM32ld3Yf/z7t6C+DwO+4yYfqYgDOjt4AHVaYFeeg6SxQWbKr7XsMbjOpHG
-         5Ub6x7Lw2R9hK6W8I33OTFN76h6aW/1QZELnDzcNn5TTldQd5i93DdbqsdSoAgpVvWzd
-         otRPFovbf7RiUGg1nsLnT786HTMgJc+iLA3cztEg0ddl6V3/FIVFhFUTD+REzv6c3Af5
-         7M9Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWpZG2tsSm4iaIMlX30zCJwGT0xURZDSRtPFUhrag6rSTeyIeo7gT57J+wzXiamDVckI9dYH0RkuWmR@vger.kernel.org
-X-Gm-Message-State: AOJu0YzzaZa6M9QWa1z6bEqdg1Wy6SfIs17r7DpFQf5XmADu3VUTI6Jn
-	pxM1x9dV1S85d9ttIPCj8eYnxi538GUbrvGrC6c33dUbAvAXWvoFB54ot5xfW6tOinnJzHJbQ/C
-	7hhYN+LjGNHASQrPBHQoiaqo1qpqa35iX2Ad9sTpNfA==
-X-Gm-Gg: AeBDieuiCoTLlC0J2VEM5ecdht/uUXMpzfGJUP9zTnnxuLSYewM/pPRtCECNjBG1zP5
-	btSJj+jyAXW3ZllL++hXiZTTyoZH9WT9/1pVTuBOw2hkXWC4oJXB1ysimolJq2xuFhbH+P+q3R4
-	ISNo8Us6rxmjqWcvc7NFgzHdh5LnsCdzRzRb7dqoyFWCgmXUfdOQ7rjd9zD+VIA1kdBVnUnQkEx
-	4hrjM9nwhIEIjLH9xo+9XNlIF4VQD0pBAZzuUQXK26j/IKvzUlM8AzoEq/5Dek1LIOiKrVMfskg
-	tsMJ
-X-Received: by 2002:a05:6a20:3ca1:b0:39f:2c98:27d9 with SMTP id
- adf61e73a8af0-39f2e9f5f45mr5093358637.0.1775269363601; Fri, 03 Apr 2026
- 19:22:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I2odijld"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78915C4CEF7;
+	Sat,  4 Apr 2026 03:16:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775272565;
+	bh=OiA/EBiA4K4f20ZyYpTH5r9/Q39LqAb3VffWQuH4Eso=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=I2odijldKRSXMKo82KQ4jvLQMRFRbMeTHsNQpO+DxWFaDFNEle/K/QX8raBqNLTr1
+	 OEGAskf7B3vQDbGLz4jTTidoIeyF9QjeurdVpTOFnuFuxdLPInK21Ng9V3pmPb7fIa
+	 GqPuj+CXYy30WLrhuv+bqySLqmsxPCZegYbdOIDgEi4bHG2TKQjYMSckqj13gG62C9
+	 sWpZ4qEsOT4ObMuHhfhTb1Qv5g0C1E6X3W2lKYObOnXfZvXA6dwcwY1+hivt6maoc8
+	 AthMfNPCWIAwMDExdkaXpIpSKgNR2WUY8hdGEYanaRqQxjHl0zuewFIR1QJXvgyLVc
+	 tkeaTLgeFkghA==
+Date: Sat, 4 Apr 2026 08:45:52 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Sai Krishna Musham <sai.krishna.musham@amd.com>
+Cc: bhelgaas@google.com, lpieralisi@kernel.org, kw@linux.com, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, cassel@kernel.org, 
+	linux-pci@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	michal.simek@amd.com, bharat.kumar.gogada@amd.com, thippeswamy.havalige@amd.com
+Subject: Re: [PATCH 2/2] PCI: amd-mdb: Add amd,versal2-cpm6-host compatible
+Message-ID: <iruxyxjoaozkt5xigchqnqvik5blbxxy7vubmadtcn5jyjnwzn@lvdnttblbx3f>
+References: <20260402180006.486229-1-sai.krishna.musham@amd.com>
+ <20260402180006.486229-3-sai.krishna.musham@amd.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260331215735.2783770-1-daniel@thingy.jp> <20260401-rousing-stylish-toucan-44bddf@quoll>
-In-Reply-To: <20260401-rousing-stylish-toucan-44bddf@quoll>
-From: Daniel Palmer <daniel@thingy.jp>
-Date: Sat, 4 Apr 2026 11:22:32 +0900
-X-Gm-Features: AQROBzBaNfA_9-Y-7BiFjIavLb5ftRVK0Uv1krSk6e1bjdkjGAkXTdWkK_iGrt8
-Message-ID: <CAFr9PX=F3Qvyo25HwB139Jk4_+5Rw50GBg=3BJb6bcsk58tL=Q@mail.gmail.com>
-Subject: Re: [PATCH] of/platform: Don't include reserved memory compatibles
- that aren't needed
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: robh@kernel.org, saravanak@kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260402180006.486229-3-sai.krishna.musham@amd.com>
 
-Hi Krzysztof,
+On Thu, Apr 02, 2026 at 11:30:06PM +0530, Sai Krishna Musham wrote:
+> Add "amd,versal2-cpm6-host" to the OF match table of the AMD MDB PCIe
+> host controller driver.
+> 
+> The Versal2 CPM6 host controller is DesignWare-based and supports
+> PCIe Gen6 operation at up to 64 GT/s per lane. It is currently
+> handled by the same driver and match data (NULL) as the existing
+> MDB host controller, but CPM6 uses a newer IP revision and differs
+> in legacy INTx register offsets.
+> 
+> Use a separate compatible to allow CPM6-specific handling once legacy
+> interrupt support is validated.
+> 
+> Signed-off-by: Sai Krishna Musham <sai.krishna.musham@amd.com>
+> ---
+>  drivers/pci/controller/dwc/pcie-amd-mdb.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/pci/controller/dwc/pcie-amd-mdb.c b/drivers/pci/controller/dwc/pcie-amd-mdb.c
+> index 3c6e837465bb..325bf7aad657 100644
+> --- a/drivers/pci/controller/dwc/pcie-amd-mdb.c
+> +++ b/drivers/pci/controller/dwc/pcie-amd-mdb.c
+> @@ -511,6 +511,9 @@ static const struct of_device_id amd_mdb_pcie_of_match[] = {
+>  	{
+>  		.compatible = "amd,versal2-mdb-host",
+>  	},
+> +	{
+> +		.compatible = "amd,versal2-cpm6-host",
 
-On Wed, 1 Apr 2026 at 19:54, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->
-> On Wed, Apr 01, 2026 at 06:57:35AM +0900, Daniel Palmer wrote:
-> > There are a number of very platform specific compatibles for reserved
-> > memory that the vast majority of people don't need and they waste
-> > 196/200 bytes each.
->
-> We don't want #ifdefs in the code because they are more difficult to
-> maintain and review. Following your approach we would need to add such
-> ifdefs in multiple other places, so I am not convinced it is worth.
+As Krzysztof commented, if the PCIe IP is compatible with an older version,
+'amd,versal2-mdb-host' in this case, you don't need to add the new compatible
+to the driver. Just document the new one with fallback to the old compatible in
+the binding and let the driver work with the old compatible.
 
-I sort of disagree here. At the moment these compatibles are not
-coupled to the code that uses them at all.
-If that code gets deleted or moved for some reason, the Kconfig symbol
-they belong to will disappear but since these compatibles aren't
-coupled to them and are in a file on the other side of the kernel
-it'll be easy to miss them.
-If they are wrapped in something that links them back to where they
-are used grep or whatever indexer can spot them.
+- Mani
 
-> And this file should not be having different rules than rest of drivers.
-
-There are other places with #ifdefs in match tables. It would be nice
-if there was a nicer way to do it in C but there doesn't seem to be.
-It would be nice if vendor specific stuff wasn't in the core code but
-I don't see a nice way of fixing that either.
-And if you want to see some of the more crazy examples of match tables
-take a look here:
-https://elixir.bootlin.com/linux/v7.0-rc6/source/drivers/cpufreq/cpufreq-dt-platdev.c
-
-Since these matches are not the size of the compatible string but
-actually 200 bytes on 64 bit machines the two megatables in that
-driver will consume about 40K. It doesn't seem like much but DT is
-being used by systems that have megabytes of RAM like a RISC-V
-softcore on an FPGA. I think they might prefer to have a 40K of usable
-memory over 40K of tables that don't contain any values that are
-actually used on their machine ever... and it could be cleaned up
-easily by wrapping each of the vendor specific chunks in the Kconfig
-symbol for their platform.
-
-Cheers,
-
-Daniel
+-- 
+மணிவண்ணன் சதாசிவம்
