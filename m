@@ -1,55 +1,56 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB1C03164D6;
-	Sat,  4 Apr 2026 18:35:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94B3C3164D6;
+	Sat,  4 Apr 2026 18:36:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775327760; cv=none; b=vEkt4h35FqazoNwi2KkdPfy7l9LoPcHo2XXazuETgS076o34SYC8GkX164426W/kkPfVcks5ZCetgGD7LH7el3M4rlsXDh5PoeQfAQU9hZx8rrRDHu07vcT2NMjsznnXkmv8MAYu5L/L0JWw+nDE2B0rZlBoylU37cQqWBgEHlA=
+	t=1775327807; cv=none; b=miNsvpCJOIC0YufWxuBuAj78chpz6s0D3pVvjIXFlVZuRLBLgS0xmEcnr7709Y2p+RjCSInAgjgyikOy2MmstNDQN6NFHsICtbqea+CLopUzjPzXBoQsWOk5cQhemAS5sBrHynsM/0yv5032ko+bquJ8h22EusZkuiJdj87dFJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775327760; c=relaxed/simple;
-	bh=oCEFMSwXzF9OYvDstMxjlqgvlBwICSIRMALNepv+hvg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lshjR2RsUhuxzDnNsuGc7RyfLrO/uHe/cF2frjJt5VrkWezLk/d3KlLf3+1CGuUAaXtJAi7cCA6LE3ff4nvXUZ1jc0UrknpylLnZoFEmpPPt/+FsmjELNg2Vb1eppv8cfvbAHa6VdJRX/uIx6+k8jxn/swRLaVb2hPpPcCi8E8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=ViRbAUtR; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1775327807; c=relaxed/simple;
+	bh=FcHjXu3O4cMSKOl3m+/FjzMc37LArBaBp3+RRI87ErA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=VB+nUbXjpi6cs/0OqNJaQe3Bi1/Eom77HHm5FQpxDODsACBwPRxUzoAYah9cdXmEUV6j5x9V8yg4DpPGXc3f2wsUWe+PH5D3QJkvw2VqsOMfu7OCiz4yXBXnbtew82keaX6AwOb3Xun6PWOkIrv1L49j99HiOsPq2sPhynCc33s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=Zt4tlIEu; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="ViRbAUtR"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5EF60113200;
-	Sat,  4 Apr 2026 20:35:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1775327757; h=from:subject:date:message-id:to:cc:mime-version:
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="Zt4tlIEu"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DA3E818DDE0;
+	Sat,  4 Apr 2026 20:29:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1775327346; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=NSBm8CQ9KV1sZc8xqRJrGb0nqJcw/MhMvwITjTm4MlU=;
-	b=ViRbAUtRvwhoms+GPAP50uGr+Fp0PaHUne+gjQOz+eAmdLPm7y0XhoHq4vwoY1j4vwGZiq
-	OFxMEJMjVq7q5t4IWVCuReOUCQcDeO2YwfwTUdjqiCDOVU58T62n5vcFqawha1xaZKQEZ0
-	X3vrGhWvNAShQ1aweYxL0DXdk8hT9mcc5poluSoIvX7oqZ1sZOSMh8HVVOgb3F1L68eVcc
-	rd5N4QorFVSLTLj/RlnZqyosbDQjqtW4rV+LUeqvde2p2JSogw2vXDdr/odeb0S2vQXOcQ
-	hz6OkvMGiyjgwnmwY+Tr5X6YPA8TbUys9pj8u6OPZpLPe7iAvIOy/jE+PKojiQ==
-From: Marek Vasut <marex@nabladev.com>
-To: linux-sound@vger.kernel.org
-Cc: Marek Vasut <marex@nabladev.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Fabio Estevam <festevam@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Takashi Iwai <tiwai@suse.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>,
+	bh=dFP8gIvgqds8v1GE3FytFp2lu1cC4gYgYzSFTR33IVg=;
+	b=Zt4tlIEu9aIMYbGsSWeGg9zgec7T/EG/eEvtazs0qAwcyKjuYOqgyeJmHiRqKd3KR7diFd
+	+RvCdF8P88Gnj2cEXUsG4CTyrSIxL29+Nnr1MSEp1YaetnTCg7/qUb0Vcfhz21O4yJOgSP
+	+2XLpbJiN0PNQghS7KG4wlcN4+xDuXL/OdIJF/hyN/Ai/UP0kMf81A+5vVb4YnwS1zByYJ
+	O21moPNIoIg9JppN7om0sInQT6ZdTwxzbE0b8vR3PXYpolr8HNm3hTKhRBtUvRynY8H1l3
+	1tTNwtSAqJ9Ds4Le9H5DZ8ClLxIeeolsowKnnByU1z8mMc6AeDCuVRb9Rp2Y2w==
+From: Caleb James DeLisle <cjd@cjdns.fr>
+To: linux-pci@vger.kernel.org
+Cc: linux-mips@vger.kernel.org,
+	naseefkm@gmail.com,
+	ryder.lee@mediatek.com,
+	helgaas@kernel.org,
+	lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	mani@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	ansuelsmth@gmail.com,
+	linux-mediatek@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org
-Subject: [PATCH v2 2/2] ASoC: fsl_sai: Add RX/TX BCLK swap support
-Date: Sat,  4 Apr 2026 20:35:01 +0200
-Message-ID: <20260404183547.46509-2-marex@nabladev.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260404183547.46509-1-marex@nabladev.com>
-References: <20260404183547.46509-1-marex@nabladev.com>
+	Caleb James DeLisle <cjd@cjdns.fr>
+Subject: [PATCH v4 1/2] dt-bindings: PCI: mediatek: Add support for EcoNet EN7528
+Date: Sat,  4 Apr 2026 18:28:53 +0000
+Message-Id: <20260404182854.2183651-2-cjd@cjdns.fr>
+In-Reply-To: <20260404182854.2183651-1-cjd@cjdns.fr>
+References: <20260404182854.2183651-1-cjd@cjdns.fr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -59,88 +60,62 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-Add support for setting the Bit Clock Swap bit in CR2 register
-via new "fsl,sai-bit-clock-swap" DT property. This bit swaps the
-bit clock used by the transmitter or receiver in asynchronous mode,
-i.e. makes transmitter use RX_BCLK and TX_SYNC, and vice versa,
-makes receiver use TX_BCLK and RX_SYNC.
+Introduce EcoNet EN7528 SoC compatible in MediaTek PCIe controller
+binding.
 
-Signed-off-by: Marek Vasut <marex@nabladev.com>
----
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Fabio Estevam <festevam@gmail.com>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Nicolin Chen <nicoleotsuka@gmail.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Shengjiu Wang <shengjiu.wang@gmail.com>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: Xiubo Li <Xiubo.Lee@gmail.com>
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-sound@vger.kernel.org
-Cc: linuxppc-dev@lists.ozlabs.org
----
-V2: Update email, rebase on next
----
- sound/soc/fsl/fsl_sai.c | 7 ++++++-
- sound/soc/fsl/fsl_sai.h | 2 ++
- 2 files changed, 8 insertions(+), 1 deletion(-)
+EcoNet PCIe controller has the same configuration model as
+Mediatek v2 but is initialized more similarly to an MT7621
+PCIe.
 
-diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-index bd336d2e4cb38..87a40e2b9fdf7 100644
---- a/sound/soc/fsl/fsl_sai.c
-+++ b/sound/soc/fsl/fsl_sai.c
-@@ -355,6 +355,9 @@ static int fsl_sai_set_dai_fmt_tr(struct snd_soc_dai *cpu_dai,
- 	unsigned int ofs = sai->soc_data->reg_offset;
- 	u32 val_cr2 = 0, val_cr4 = 0;
+Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
+---
+ .../bindings/pci/mediatek-pcie.yaml           | 26 +++++++++++++++++++
+ 1 file changed, 26 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml b/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml
+index 0b8c78ec4f91..7e1b0876c291 100644
+--- a/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml
++++ b/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml
+@@ -14,6 +14,7 @@ properties:
+     oneOf:
+       - enum:
+           - airoha,an7583-pcie
++          - econet,en7528-pcie
+           - mediatek,mt2712-pcie
+           - mediatek,mt7622-pcie
+           - mediatek,mt7629-pcie
+@@ -226,6 +227,31 @@ allOf:
  
-+	if (sai->is_bit_clock_swap)
-+		val_cr2 |= FSL_SAI_CR2_BCS;
+         mediatek,pbus-csr: false
+ 
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: econet,en7528-pcie
++    then:
++      properties:
++        clocks:
++          maxItems: 1
 +
- 	if (!sai->is_lsb_first)
- 		val_cr4 |= FSL_SAI_CR4_MF;
++        clock-names:
++          maxItems: 1
++
++        reset: false
++
++        reset-names: false
++
++        power-domains: false
++
++        mediatek,pbus-csr: false
++
++      required:
++        - phys
++        - phy-names
++
+ unevaluatedProperties: false
  
-@@ -453,7 +456,8 @@ static int fsl_sai_set_dai_fmt_tr(struct snd_soc_dai *cpu_dai,
- 	}
- 
- 	regmap_update_bits(sai->regmap, FSL_SAI_xCR2(tx, ofs),
--			   FSL_SAI_CR2_BCP | FSL_SAI_CR2_BCD_MSTR, val_cr2);
-+			   FSL_SAI_CR2_BCS | FSL_SAI_CR2_BCP | FSL_SAI_CR2_BCD_MSTR,
-+			   val_cr2);
- 	regmap_update_bits(sai->regmap, FSL_SAI_xCR4(tx, ofs),
- 			   FSL_SAI_CR4_MF | FSL_SAI_CR4_FSE |
- 			   FSL_SAI_CR4_FSP | FSL_SAI_CR4_FSD_MSTR, val_cr4);
-@@ -1507,6 +1511,7 @@ static int fsl_sai_probe(struct platform_device *pdev)
- 	sai->soc_data = of_device_get_match_data(dev);
- 
- 	sai->is_lsb_first = of_property_read_bool(np, "lsb-first");
-+	sai->is_bit_clock_swap = of_property_read_bool(np, "fsl,sai-bit-clock-swap");
- 
- 	base = devm_platform_get_and_ioremap_resource(pdev, 0, &sai->res);
- 	if (IS_ERR(base))
-diff --git a/sound/soc/fsl/fsl_sai.h b/sound/soc/fsl/fsl_sai.h
-index af967833b6eda..6d84e5ff2258e 100644
---- a/sound/soc/fsl/fsl_sai.h
-+++ b/sound/soc/fsl/fsl_sai.h
-@@ -118,6 +118,7 @@
- 
- /* SAI Transmit and Receive Configuration 2 Register */
- #define FSL_SAI_CR2_SYNC	BIT(30)
-+#define FSL_SAI_CR2_BCS		BIT(29)
- #define FSL_SAI_CR2_BCI		BIT(28)
- #define FSL_SAI_CR2_MSEL_MASK	(0x3 << 26)
- #define FSL_SAI_CR2_MSEL_BUS	0
-@@ -301,6 +302,7 @@ struct fsl_sai {
- 	struct fsl_sai_dl_cfg *dl_cfg;
- 	unsigned int dl_cfg_cnt;
- 	bool mclk_direction_output;
-+	bool is_bit_clock_swap;
- 
- 	unsigned int mclk_id[2];
- 	unsigned int mclk_streams;
+ examples:
 -- 
-2.53.0
+2.39.5
 
