@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8C6F3A8750;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93913A901C;
 	Sat,  4 Apr 2026 09:51:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775296273; cv=none; b=NL9Kg8awlJ7cJZTEYhqgffBjYmoljlinTkW90K7knd2WFpVSmH1iES11j8phLsiQWAA1luBGrFY+FncDQImgWuyckAAxcg7zbQdv5Rssr78AJfQvysihpyW2t7IwDtZKuUlTSAp+8lv8594jqqmW6WqTbHxLetFF2X4bSradTcg=
+	t=1775296273; cv=none; b=d+2qTFJocuL5SXHOHaG2E2vdYQVvxXfZd+9Rzwnkpe9pdHnizIPHWhA/n9BO0Kfc2dhjtVBnnaSV/yZVS9RZXD6XXGtzByPmazKhVtKT2Mq4hU502SEqf4B77sxdMgY2dLI/78jte3WiOyhOunMpKUqFgM1c3Jde/RTatSmGTa8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1775296273; c=relaxed/simple;
-	bh=pf7w5tEPxeOOou+A5EAQoMnY3SiSO2iuLXfRP9MTBGw=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=CPX7GzHrQKOVpv6I9eQHitahyfw6dr99VbnNrgzL3u5LiHxfPerX1+ugj7Sx/ddxAqnfRs/3OPBS/IvHYHFCcnpt74HFml+kM5VUOt3wfPdquHjDJ6rYf4ZAOr++kDY2Vc5wogg9k0GD/jQy7bEdjTttbvkDbYClgMN0BfBvKB0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bvWKbutA; arc=none smtp.client-ip=10.30.226.201
+	bh=YhzONHcHnPtcdh0oJCQOSgrpKU4uyFrSXxBNxGXJ9Hg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=BuGNG5rzHmGaSHLTkFBAV0fTKVs9iYLa4MOT1+E0gnmET2ABtG6GCgOpp/wTROJ1igeQqn4c4hPSb+VcxUGcHqLeHrogBHqQLw/01zohwxcCy77NS0OzifKn+rCin/JJRdEAWnaNQLNVAtGghtI/J0zQfm1pOG1KZS6Qp1SEQdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NgsqiTau; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bvWKbutA"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 61533C19421;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NgsqiTau"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 95916C2BCB0;
 	Sat,  4 Apr 2026 09:51:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1775296273;
-	bh=pf7w5tEPxeOOou+A5EAQoMnY3SiSO2iuLXfRP9MTBGw=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=bvWKbutAi7I1s3qfdCR1W1A1zUmrvyCazlz8JJSqn6gTbAUFBlq12cf4dbjbdzhTM
-	 /727A72Lp8+KA24XnuaLMOuP++L6MbJpI79MDGzVfgQpsvZf2/0R67GSVZbZWB9Ibi
-	 rYSZYYinogzdw7HngQbuIKsfD+LNv84wZTtrHI2wofyRR7yb0d254ykcek2cpTjT0K
-	 Qnm51JcYN1LYQItmSUmK0EStOMr44FGTIHmwP2MsCBBV6kw8I7PfcRbkktwn+TyqDx
-	 bC+vPgT+tvLdnhMLXy6JhNg5jbUiUvFsFhVsLu6Ia0uB3lMxbqzJhITnKShl0TNlLJ
-	 qdZPI6Wab4oWg==
+	bh=YhzONHcHnPtcdh0oJCQOSgrpKU4uyFrSXxBNxGXJ9Hg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=NgsqiTaudFNsHsj44QWNue9B35JUIrA5LPJEyQXiLzUbzVYuHy2YujvlPzr0qTKNK
+	 33+uXEz6V/WsFpQH/wViYpi+zdy+O930GjThoOOml8SCuKB5gXsaG3BPeBexzA/Al2
+	 nF2fRzr2hxlMaMg8IYfKWb42O/tLlp6BYOsF79b/e/S+lOXFIR7IqNp2zQKOY6quSx
+	 Yx+ELyye0g4DY1I9wN8uFhT5+pVzXDSFQ2cVo7nrn362cHRyfVM2s+BVGuu4dOpl1x
+	 67/U2kl+hTJ5+imbjXRS7mcDPDaUw3bdLwqjSteZWaqGshy/Bc0Njq36mpMzEwQ443
+	 KSse4IDOJwMbQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4E225E88D90;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8AEC4E88D8B;
 	Sat,  4 Apr 2026 09:51:13 +0000 (UTC)
 From: Joe Sandom via B4 Relay <devnull+jsandom.axon.com@kernel.org>
-Subject: [PATCH 0/5] arm64: dts: qcom: add QCS8550 RB5Gen2 support
-Date: Sat, 04 Apr 2026 10:50:53 +0100
-Message-Id: <20260404-rb5gen2-dts-v1-0-895f8fc494fc@axon.com>
+Date: Sat, 04 Apr 2026 10:50:56 +0100
+Subject: [PATCH 3/5] arm64: dts: qcom: sm8550-qrd: update PCIe port label
+ reference
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,10 +41,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAP3e0GkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDEwMT3aIk0/TUPCPdlJJiXUMLg+SUVIMkc0OzZCWgjoKi1LTMCrBp0bG
- 1tQBwNxKLXQAAAA==
-X-Change-ID: 20260404-rb5gen2-dts-180cde0b716c
+Message-Id: <20260404-rb5gen2-dts-v1-3-895f8fc494fc@axon.com>
+References: <20260404-rb5gen2-dts-v1-0-895f8fc494fc@axon.com>
+In-Reply-To: <20260404-rb5gen2-dts-v1-0-895f8fc494fc@axon.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -51,11 +51,11 @@ To: Bjorn Andersson <andersson@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Joe Sandom <jsandom@axon.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1775296270; l=1631;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1775296270; l=716;
  i=jsandom@axon.com; s=20260319; h=from:subject:message-id;
- bh=pf7w5tEPxeOOou+A5EAQoMnY3SiSO2iuLXfRP9MTBGw=;
- b=PQNR4qc+QRQmaWCTDKAfsavia3smfw0tdbcQvNnxWMbOcp6cpL75Jrot+IXFhLwx4GSnnE5Ck
- Ud+/OLc1uv8BwQly/+AOlIvjKgEToO+yCc3VqDqMBiYYqWQM+cNPUF+
+ bh=biasXB222hzEaLoXAD4N9CkWdtezEit9QdECECb0yUM=;
+ b=NB1JN8WQ/Bx3FQNESndN4DFVm4b95WoTwn8wy/OjSS+N9jn1Vomh5e6wGWscmfQpmk02Xp6qN
+ /Hf3CMNDwddAoTns434Ee4AHlyMOTdXJV3pTibRfj55BnMFlJUDU2OE
 X-Developer-Key: i=jsandom@axon.com; a=ed25519;
  pk=Q/yflwj2WhkgBVTskrS9Vl5oScD0Bp3vTzDi+OxskTo=
 X-Endpoint-Received: by B4 Relay for jsandom@axon.com/20260319 with
@@ -63,42 +63,31 @@ X-Endpoint-Received: by B4 Relay for jsandom@axon.com/20260319 with
 X-Original-From: Joe Sandom <jsandom@axon.com>
 Reply-To: jsandom@axon.com
 
-This series adds device tree support for the Thundercomm RB5Gen2
-development kit, based on the Qualcomm QCS8550 chipset.
+From: Joe Sandom <jsandom@axon.com>
 
-Patches 1-3 prepare the SM8550 device tree by adding MHI register regions
-and port labels to the PCIe controller nodes, then update the existing
-HDK and QRD board files to match the renamed labels.
-
-Patches 4-5 add the dt-bindings documentation and the board device tree
-for the RB5Gen2. This initial submission covers the main board; the vision
-mezzanine will be supported in a follow-up series.
-
-Product page:
-https://www.thundercomm.com/product/qualcomm-rb5-gen-2-development-kit
+Update the pcieport0 reference to pcie0_port0 to match the label
+rename in sm8550.dtsi.
 
 Signed-off-by: Joe Sandom <jsandom@axon.com>
 ---
-Joe Sandom (5):
-      arm64: dts: qcom: sm8550: add PCIe MHI register regions and port labels
-      arm64: dts: qcom: sm8550-hdk: update PCIe port label reference
-      arm64: dts: qcom: sm8550-qrd: update PCIe port label reference
-      dt-bindings: arm: qcom: document QCS8550 RB5Gen2 board
-      arm64: dts: qcom: qcs8550: add QCS8550 RB5Gen2 board support
+ arch/arm64/boot/dts/qcom/sm8550-qrd.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- Documentation/devicetree/bindings/arm/qcom.yaml |    6 +
- arch/arm64/boot/dts/qcom/Makefile               |    1 +
- arch/arm64/boot/dts/qcom/qcs8550-rb5gen2.dts    | 1610 +++++++++++++++++++++++
- arch/arm64/boot/dts/qcom/sm8550-hdk.dts         |    2 +-
- arch/arm64/boot/dts/qcom/sm8550-qrd.dts         |    2 +-
- arch/arm64/boot/dts/qcom/sm8550.dtsi            |   14 +-
- 6 files changed, 1627 insertions(+), 8 deletions(-)
----
-base-commit: af241225893ac4933bb8f0615f2dfda8ea2326ce
-change-id: 20260404-rb5gen2-dts-180cde0b716c
+diff --git a/arch/arm64/boot/dts/qcom/sm8550-qrd.dts b/arch/arm64/boot/dts/qcom/sm8550-qrd.dts
+index 2fb2e0be5e4c6b597f20f332cdf063daa2664205..cf63109ff7bf7b6fc827f108e22e82b8b04273c1 100644
+--- a/arch/arm64/boot/dts/qcom/sm8550-qrd.dts
++++ b/arch/arm64/boot/dts/qcom/sm8550-qrd.dts
+@@ -912,7 +912,7 @@ &pcie0 {
+ 	status = "okay";
+ };
+ 
+-&pcieport0 {
++&pcie0_port0 {
+ 	wifi@0 {
+ 		compatible = "pci17cb,1107";
+ 		reg = <0x10000 0x0 0x0 0x0 0x0>;
 
-Best regards,
 -- 
-Joe Sandom <jsandom@axon.com>
+2.34.1
 
 
