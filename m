@@ -1,191 +1,293 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A950C189BB6
-	for <devicetree@vger.kernel.org>; Sat,  4 Apr 2026 00:04:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775261065; cv=pass; b=mOk8cTZfbIRNa6tRUvSs96DJHAANhk/1WiEhPWGZ4JkrL5MZb8ux50M+xQifbL+cVkslh+rx1/JXqhw1X3LhBLOe8IdtbGZGO49w1UE+Z/04uDKtScqcQmqKEC3B6CRL1jpQkbm4ySxaYe/HlIV2Nwyjm0hOC9N8yP3//CrDBmM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775261065; c=relaxed/simple;
-	bh=bMqGxuMveB8N/Dnc0BM4cz72pAu4ebVe5GE38KXtUWU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=I+/14G0qHMUvTWTW2aSKI5WFDqSmvwlYWmx8K9I2NTJ+5yvbX5Z9G1d381dLdeQplFGLd65iKamTa8YfrdF9nbMUyWKj8iSR2LQ9zpeCsOQDuPRwRH15Vpgi3vUN9CNHCJohkeKhI2HWyb1yuCa5GjcvEifQ+MTQSWoD6gkPmmo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=C8N0QcZK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Bdf0SyQ9; arc=pass smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9162935959
+	for <devicetree@vger.kernel.org>; Sat,  4 Apr 2026 00:07:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775261244; cv=none; b=RdLKEDxcXJ2M/yLJyIGXx3DYO55iJEod6owEfGEmJ7IxPSGwarIB7JnOtYGfjXLGvzGyFBoIizJNLDcQl/ba9pKbPF6cDgxfvYYEDsvC38mnaOFREAM7fAtnLk/SmZvDDSvztnoAL9eV09r7wW4qDMBGv+Iukqr8BIchYjugOVY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775261244; c=relaxed/simple;
+	bh=4U6qcOnXRz1y4XkIRO6Hkkenfy7He0XdH8Hlg7ak3cg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=G56scVQ5IhbV73i6Cf79YVM0AW90En+cAha6VsMt2E29ofeWT1Y55mvYhcoJrVndUgT1UjKyZHHN0ZPkAi+zHGTeLrHSGw8Q1fzWdUTUl6dc7/9EnKP1wJiXeA3/x/BN2gfSmZVDB2gEKdvx8L7H0BemW9tbvMOh2q3nSe8jSac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=PwkM0ca5; arc=none smtp.client-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="C8N0QcZK";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Bdf0SyQ9"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 633FuxJD258422
-	for <devicetree@vger.kernel.org>; Sat, 4 Apr 2026 00:04:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=mVBhn/j5Zs87fQ99Bokk2uut
-	cUriWDK6vQARo+vqRZA=; b=C8N0QcZKfCGryNLnc5Kq2sr6nIkkbjtShCuOsa1Q
-	94ZkT3IMd9eJxIsU465A23791xIA4BIVlAsDqAkiYS4rJd8ru/oY6k8vP1u9x6w/
-	R9gCVYKQlnluvk6WW3rjAVUYjx2xzvHUArKCYpmF7hK5s54yvOqlMM68Q32+FlIi
-	ZtPIvKHssH7+8GULrBWjSMNSjKxFvKWlff1piSgHd+tuSPsEib9j62P03yK3WPCW
-	/qxFDsp87u8/96OUWNzb5dPjsiFWXvW71LVXso03x4FzhBH2iN2ZHoZFrwfOcqHK
-	OIj7B+omz2AfkS9YPwP7xC0MO1c5d8SZR4R+mG5ZIriyhQ==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dagn213mn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 04 Apr 2026 00:04:19 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2b2489af602so21956965ad.1
-        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 17:04:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775261058; cv=none;
-        d=google.com; s=arc-20240605;
-        b=HwgTzvEnfAZxjP62isPddHizYqzDThdARKxL6UJf05JYyQP4qXZjMsRTY4zTlhcBk3
-         sT0WJVwXLchM97axnl2X3w0N1qeVC9EKvr94Ft+e9YoOWrp6Tdqzf20Zp6dN7ZppkCtM
-         lECYU4ee+6Crtz+ss0vq7wfqi6dV6o6Ws7skOCx6abwvrzmpEgBaFTvClMzeWh7xTgSu
-         KO80007wuhjsbKmSlH2yH2wLTFMkPEcRGarpLFiQ845K6N0ath+gao1PrPGOHPr4nk0J
-         +v0Sg8UDXMI9uYZFn0uojQhlNg6etYpbUak7w04H5wG3H6FLS+XJNhToAsMNptjyUWur
-         fSzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=mVBhn/j5Zs87fQ99Bokk2uutcUriWDK6vQARo+vqRZA=;
-        fh=NL8UFhBySFXKei7B4d6rncu7GyDTL7LtdUclY0kG30k=;
-        b=jnk4dir1YS66MvgBZwmuwsjEAQnQpzY67khD81KLjRBjUUGv7qGZLvYtNQeF0OHncH
-         K1oeG4+jig7McoVQhFWIVrSXEo9Lt7H+8KqPjdJrW0WP44mfjyC1wGphmwhnkd75GKIn
-         iG3C68Z/f2DOAU2HHkzL14hAk+z46mhOPL9eUCF+ynt3IcpX+WGkg/1LpoNhKmPwyBeZ
-         2JnPMFfbyYg+CxDdLeVST0Cw0e6gCDmAFBb12ksjmLrC9xHcOja9RbelEbfKCbaP3RVb
-         uPgGoHDnQZvQhOOYh5bCz3kZmxzZBmLQFPqj7CkyVp6d4I/m4y35R+X5xNyKSgDNXcbO
-         AUPg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="PwkM0ca5"
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-2c1632faeb9so4450974eec.0
+        for <devicetree@vger.kernel.org>; Fri, 03 Apr 2026 17:07:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775261058; x=1775865858; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=mVBhn/j5Zs87fQ99Bokk2uutcUriWDK6vQARo+vqRZA=;
-        b=Bdf0SyQ9MCQ7nmJZhdYt0+siCzt6UaXOJle4UzLA2MJlkPabow5/huroo48Q7tvutV
-         gx8kjYhoB66+lDH2N0iIeBX/jafFYxpMvtBCxSlze5vKUNa+gX5WdIYos7nLwyDDQDSo
-         IiJWb9hH4m8yRFpTijIGyS0seaIYTAaQKi1We0Nq55UeA8DWE77ELr6/hSqsIhKIGDaZ
-         tUZbTbMvnENBNfaD59kub/zx/7OWM047kGqjBuyH10FT8c0lMgdIJ2EBjA/nH2v3GpD3
-         P8R+cNPmeQbj91wtUBKXBJSrXEjF2DNmVnTKAEcKbsZhE2in8ss/F2KXZ3REy1IxRvNu
-         5/wQ==
+        d=chromium.org; s=google; t=1775261240; x=1775866040; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=KGKsMy9vhlN9yvdnOvYy+R4lmavPYuTzTATeThGwgQc=;
+        b=PwkM0ca5QROQeAiqfW1iW3X5spqYFYnS/2L8X2vcFUpdpBz6vLqXtTdxRmqYTeF6q/
+         NDi5p9sCrUEvbIK5uHiC57+gLzcOEIBYv7aCk5GMpae+1/ZnhWFUDq8sr72nlwgdVNST
+         nHX5BJ12zprQxgF4o/WMCad7kw+xm3w03KRW8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775261058; x=1775865858;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1775261240; x=1775866040;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mVBhn/j5Zs87fQ99Bokk2uutcUriWDK6vQARo+vqRZA=;
-        b=Rfu050H1TpxkoLVOT9+j2WV5iepLa8B6RusYpm9dWeSLti2jis39E6dG2nQ6sCT8E+
-         sJnkdQw63Iy4zJSaHcMDyYJT+sZxY9GiGa0617UIrb/iAL+w9Sm6U3r1WdEwaD8Ov5+x
-         FdjG03AO6HszV2rfUTR0yvLYkdPaWd6cNjobiIgZo8W/wFMNBXbQ8K4ys2cDyxg/Aob+
-         EGx7h7F+4MrB0wQaWcW5on+WIufhFzr1YwDscaFqDGp5nKs+JtHjZa7i3c8algKksfSr
-         sdgrHwtzi6PFm7tmFG4yD3/cQCL5RrNqKhaxhyoLkWmtlb7ExHCdN6OnubBz3f/Km4Y4
-         adjQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUB1COn3y4ej770p1yS1dZ4ecoAvoAF47AWMsuJfRrUgVty66+U5y8GTs94WzJkl5z+o7mM6ehRr8rH@vger.kernel.org
-X-Gm-Message-State: AOJu0YykfcI+ePegaM4xpij1TsTOIXba7ARxzx9aXLkGnSygZH8nJ3Wo
-	DjdsH8d+JPsYwsdWNTJCJSJrqMcoX3nDgIJ0rJk3M7CpJIL9KsvBt06anioFVEndU3n/fd2LZjO
-	TqYQMZ1Z6XR626iPHEXYG5H35mKDSLGhYVnPjp2oW6xXJ6dn+Q1ph2/0gSq5rMrOerdyXF4lqMw
-	4bPl5dWly1L2oNvbQURnKdKv5aQl9XyomR30Lbzg8=
-X-Gm-Gg: AeBDieu6JMUZaDN0ljfdDNRNg6pKN6m8N2qcsT6uPEm7D1rWH2jbxIKJehNXnijhzX/
-	2AHWaj9G18+gLT19jv+LRliM9KpLlf2ByuKVjh3bjLN46xSFORJK1gnqNTLS24eGZYQvolPigjL
-	2HnBCXrA33W09/KmGvrfn9RZjBklPUIAesNdGMEe7Bcm+Aw7jLb35cSLTyeKdY+u17mkfiRTJ+l
-	rbZmvA=
-X-Received: by 2002:a17:902:f709:b0:2b0:ac1e:9730 with SMTP id d9443c01a7336-2b277e36491mr72789915ad.14.1775261058093;
-        Fri, 03 Apr 2026 17:04:18 -0700 (PDT)
-X-Received: by 2002:a17:902:f709:b0:2b0:ac1e:9730 with SMTP id
- d9443c01a7336-2b277e36491mr72789565ad.14.1775261057567; Fri, 03 Apr 2026
- 17:04:17 -0700 (PDT)
+        bh=KGKsMy9vhlN9yvdnOvYy+R4lmavPYuTzTATeThGwgQc=;
+        b=msoPaSJQvRJAVFi5hAnJRMyGDu/qxdyLgiecTpYD7hnFrDGc9EvxIx0LY5Yy1U6w1/
+         mlw3OkMa/K55AngkS+Of/pQjf43S/IXGkj5Yoe+L9i7BtgKIhxfWypWdwtJNMQf8nfK6
+         jqp/2wy4eH9KQjeAKfXLv3RdXT/JPfybQYyyjSVR/92WK2KEV3msk/YQB5tJeUgvRNwU
+         8q3f/+mk1+g2YqrdsQ7+w32yDjcF7k4mDDoTHX/RjBXfh+coRd5Pj6v8zRUrxkWG5/Nz
+         oWLfMh/r3P6n8xyTK9A1itkqHRMONhwOVbmVCUdqdQDm5mjsD8E5/I7xnCHh4m0abAMY
+         zUIg==
+X-Forwarded-Encrypted: i=1; AJvYcCW7/hANyU3lFcn698WG2hmmtAQ1yV8hlZWiHkSvenmOoC8Yu9rrqfPCGSjvbQ00FVTsdPzV4lgoD9g6@vger.kernel.org
+X-Gm-Message-State: AOJu0YwnIR9YjVNQke8eVu3VKvDbJX7nCoKHqq/fB7RY5EMjm6zoZ/SI
+	dcRDndv6llvKkDtRQhAt43MQA6a/l33l8/WPn/7J49cCoF/4B4RAGJVqi9bCbR6afA==
+X-Gm-Gg: AeBDiev2sLG3xO8FxzTFTQRYpY3idGIOHK+ShP4nAalOc3IMi3dzd9CB8LHfJC6l/Ah
+	7dUk5JSm+qDT8UDpouXbGuDBzRJxK/z8Lnf1b15kvQ6nuG6eaowXmOW+JRdHfqob34+/PblIctv
+	Xv8O1QXebfRJdZJdWYgIICEFeb4TKcgwNdeFMb6eihjCxHOnelnoNKFWc19O25/eCzRSe4JKneE
+	txMZgB3S9TVHYDvZ80wwRF3/zkoHVR1/HK8L7CgL4x2XeXIGB8AJrwGiG9fFlozOlNLpM21+nMl
+	0DD6BilYxJO6yt0zaZpi9p7lb/kvyLfNCr/j2bljifRzEaMWqNxn2C6DMhZEqX677xw8q+h/eh5
+	jC/zPyad7t+xk5dFfwkZr1FN9pSo66xtXET1iEmswGIhm3dZoRU5RRuPILykVQkdUuDLizqwG4e
+	fMPpKGDSB3omyKwWFS143mc17PbS5OaZD0iJhF3oVa8cNH48+fSObRAwMnFPGncdKmpJxS3J2T7
+	GCenbRERP0=
+X-Received: by 2002:a05:7300:5722:b0:2c7:ea98:da0 with SMTP id 5a478bee46e88-2cbfbc8aeb9mr2680118eec.19.1775261240285;
+        Fri, 03 Apr 2026 17:07:20 -0700 (PDT)
+Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:a8b6:55b2:3eb6:2c0e])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2ca79e1d93bsm6520716eec.12.2026.04.03.17.07.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 03 Apr 2026 17:07:19 -0700 (PDT)
+From: Douglas Anderson <dianders@chromium.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Alan Stern <stern@rowland.harvard.edu>
+Cc: Saravana Kannan <saravanak@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Eric Dumazet <edumazet@google.com>,
+	Johan Hovold <johan@kernel.org>,
+	Leon Romanovsky <leon@kernel.org>,
+	Alexander Lobakin <aleksander.lobakin@intel.com>,
+	Alexey Kardashevskiy <aik@ozlabs.ru>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Douglas Anderson <dianders@chromium.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Frank.Li@kernel.org,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	alex@ghiti.fr,
+	alexander.stein@ew.tq-group.com,
+	andre.przywara@arm.com,
+	andrew@codeconstruct.com.au,
+	andrew@lunn.ch,
+	andriy.shevchenko@linux.intel.com,
+	aou@eecs.berkeley.edu,
+	ardb@kernel.org,
+	bhelgaas@google.com,
+	brgl@kernel.org,
+	broonie@kernel.org,
+	catalin.marinas@arm.com,
+	chleroy@kernel.org,
+	davem@davemloft.net,
+	david@kernel.org,
+	devicetree@vger.kernel.org,
+	dmaengine@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	gbatra@linux.ibm.com,
+	gregory.clement@bootlin.com,
+	hkallweit1@gmail.com,
+	iommu@lists.linux.dev,
+	jirislaby@kernel.org,
+	joel@jms.id.au,
+	joro@8bytes.org,
+	kees@kernel.org,
+	kevin.brodsky@arm.com,
+	kuba@kernel.org,
+	lenb@kernel.org,
+	lgirdwood@gmail.com,
+	linux-acpi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-cxl@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mips@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-pci@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-serial@vger.kernel.org,
+	linux-snps-arc@lists.infradead.org,
+	linux-usb@vger.kernel.org,
+	linux@armlinux.org.uk,
+	linuxppc-dev@lists.ozlabs.org,
+	m.szyprowski@samsung.com,
+	maddy@linux.ibm.com,
+	mani@kernel.org,
+	maz@kernel.org,
+	miko.lenczewski@arm.com,
+	mpe@ellerman.id.au,
+	netdev@vger.kernel.org,
+	npiggin@gmail.com,
+	osalvador@suse.de,
+	oupton@kernel.org,
+	pabeni@redhat.com,
+	palmer@dabbelt.com,
+	peter.ujfalusi@gmail.com,
+	peterz@infradead.org,
+	pjw@kernel.org,
+	robh@kernel.org,
+	sebastian.hesselbarth@gmail.com,
+	tglx@kernel.org,
+	tsbogend@alpha.franken.de,
+	vgupta@kernel.org,
+	vkoul@kernel.org,
+	will@kernel.org,
+	willy@infradead.org,
+	yangyicong@hisilicon.com,
+	yeoreum.yun@arm.com
+Subject: [PATCH v4 0/9] driver core: Fix some race conditions
+Date: Fri,  3 Apr 2026 17:04:54 -0700
+Message-ID: <20260404000644.522677-1-dianders@chromium.org>
+X-Mailer: git-send-email 2.53.0.1213.gd9a14994de-goog
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <a1dcd0e3-db1c-4752-9473-7934e69198a3@oss.qualcomm.com>
- <20260403214140.7307-1-threeway@gmail.com> <uiv4w3eptbniohzanp753f3wtwt4efjxupdro7kom2kgycco7f@nks5b4ctxty7>
- <47061b6c-8589-492b-888e-3550c878e072@linaro.org>
-In-Reply-To: <47061b6c-8589-492b-888e-3550c878e072@linaro.org>
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Sat, 4 Apr 2026 03:04:05 +0300
-X-Gm-Features: AQROBzCHfiSEFgykc--8quwVwkz3slXjV5fcPMrhEohl8fqeroSmIXA1wvDwueo
-Message-ID: <CAO9ioeUjYrR6fWSxm2DP-AhEMa8ZxSKE5CfQq=s9BhAqWA-5=A@mail.gmail.com>
-Subject: Re: media: iris: enable SM8350 and SC8280XP support
-To: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>
-Cc: Steev Klimaszewski <threeway@gmail.com>, vikash.garodia@oss.qualcomm.com,
-        abhinav.kumar@linux.dev, andersson@kernel.org, bod@kernel.org,
-        conor+dt@kernel.org, david@ixit.cz, devicetree@vger.kernel.org,
-        dikshita.agarwal@oss.qualcomm.com, johan+linaro@kernel.org,
-        konrad.dybcio@oss.qualcomm.com, konradybcio@kernel.org,
-        krzk+dt@kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-        mchehab@kernel.org, robh@kernel.org, stanimir.varbanov@linaro.org
-Content-Type: text/plain; charset="UTF-8"
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAzMDIxNiBTYWx0ZWRfX8sYexNJiBHmA
- 144nhL1FSzQohWMZ6HQc6JbS/zkeQo77rOYNwCMqgoqNfGoykBgysIzzymxZjU2P3qO2wCELXU3
- xVHgJTEdK12hUWxLk6YxC7nRt+YD2vvi/22SWCCmtd7mY4lVryPkVgm2yFir+rOvKSHEEe0CxMI
- aVvYf9fd2Jxrgu2KEXti8dRWn9WT0DlL3sV/d9B5AL6gFH3u95OLj971kkd9VHzzFaLXq6X+mwF
- RGW3J/RA+b/ycgN3eZDS6C4+ykHv+FcVT5yBP/PnH7IBiu1oEuco90W9i4C3S2xIxhvo1Qz9PAW
- dflulXAFbWOkUaZQufbpPQamcalTeH+TIQIlaRcuQW5g9My0lp4qfs8jylYMaulcMGXLlAL6eLJ
- CVJidH3wyZ3Czn3xcds1Ov58DC6DukQZ+3rMwBQKbNOe/guWRkckU523gX4twj/aR/JVWYf3Yjt
- RJHXP0gj4PS1vO5u5Xw==
-X-Authority-Analysis: v=2.4 cv=Cc4FJbrl c=1 sm=1 tr=0 ts=69d05583 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=rJkE3RaqiGZ5pbrm-msn:22 a=KKAkSRfTAAAA:8 a=n3mMJPqUfPv-MVqFI_IA:9
- a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: T2kSED__3F7KaxWfsA2NtX3k_YAp2DzA
-X-Proofpoint-ORIG-GUID: T2kSED__3F7KaxWfsA2NtX3k_YAp2DzA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-03_07,2026-04-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 impostorscore=0 suspectscore=0
- lowpriorityscore=0 bulkscore=0 phishscore=0 spamscore=0 clxscore=1015
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2604030216
+Content-Transfer-Encoding: 8bit
 
-On Sat, 4 Apr 2026 at 03:00, Bryan O'Donoghue
-<bryan.odonoghue@linaro.org> wrote:
->
-> On 03/04/2026 22:59, Dmitry Baryshkov wrote:
-> > On Fri, Apr 03, 2026 at 04:41:39PM -0500, Steev Klimaszewski wrote:
-> >> Hi Vikash,
-> >>
-> >>>> This is not just with totem, showtime shows the same issue.  If I let the video
-> >>>> play, it plays just fine, however, if I attempt to skip forward, back, or even
-> >>>> play*after* the video has played, then I see the smmu fault
-> >>>>
-> >>>>    arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0xd51e3e00, fsynr=0x600002, cbfrsynra=0x2a00, cb=6
-> >>> please log the info about which "iova=0xd51e3e00" buffer is faulting in
-> >>> this case
-> >> I will include the diff that I applied against my kernel, in case this isn't the
-> >> correct information, but I get the following output in EL2:
-> >
-> > But these logs don't capture, which buffers are causing the IOMMU error.
->
-> I'd be interested to see if we can run this test on venus - instead of iris.
+The main goal of this series is to fix the observed bug talked about
+in the first patch ("driver core: Don't let a device probe until it's
+ready"). That patch fixes a problem that has been observed in the real
+world and could land even if the rest of the patches are found
+unacceptable or need to be spun.
 
-At least when I tried testing it, venus wouldn't even boot the
-firmware on SC8280XP, citing UC_REGION error:
+That said, during patch review Danilo correctly pointed out that many
+of the bitfield accesses in "struct device" are unsafe. I added a
+bunch of patches in the series to address each one.
 
-2026-04-03T01:51:05.376407+03:00 rohan kernel: qcom-venus
-aa00000.video-codec: non legacy binding
-2026-04-03T01:51:05.437232+03:00 rohan kernel: qcom-venus
-aa00000.video-codec: invalid setting for UC_REGION
-2026-04-03T01:51:05.437838+03:00 rohan kernel: qcom-venus
-aa00000.video-codec: failed to reset venus core
-2026-04-03T01:51:05.437850+03:00 rohan kernel: qcom-venus
-aa00000.video-codec: probe with driver qcom-venus failed with error
--22
+Danilo said he's most worried about "can_match", so I put that one
+first. After that, I tried to transition bitfields to flags in reverse
+order to when the bitfield was added.
 
+Even if transitioning from bitfields to flags isn't truly needed for
+correctness, it seems silly (and wasteful of space in struct device)
+to have some in bitfields and some as flags. Thus I didn't spend time
+for each bitfield showing that it's truly needed for correctness.
 
->
-> Konrad's patches are still floating around somewhere.
+Transition was done semi manually. Presumably someone skilled at
+coccinelle could do a better job, but I just used sed in a heavy-
+handed manner and then reviewed/fixed the results, undoing anything my
+script got wrong. My terrible/ugly script was:
 
-I think it was captured by Steev:
+var=can_match
+caps="${var^^}"
+for f in $(git grep -l "[>\.]${var}[^1-9_a-zA-Z\[]"); do
+  echo $f
+  sed -i~ -e "s/\([a-zA-Z_0-9\.>()-][a-zA-Z_0-9\.>()-]*\)->${var} = true/set_bit(DEV_FLAG_${caps}, \&\\1->flags)/" "$f"
+  sed -i~ -e "s/\([a-zA-Z_0-9\.>()-][a-zA-Z_0-9\.>()-]*\)\.${var} = true/dev_set_${caps}(\&\\1)/" "$f"
+  sed -i~ -e "s/\([a-zA-Z_0-9\.>()-][a-zA-Z_0-9\.>()-]*\)->${var} = false/clear_bit(DEV_FLAG_${caps}, \&\\1->flags)/" "$f"
+  sed -i~ -e "s/\([a-zA-Z_0-9\.>()-][a-zA-Z_0-9\.>()-]*\)\.${var} = false/dev_clear_${caps}(\&\\1)/" "$f"
+  sed -i~ -e "s/\([a-zA-Z_0-9\.>()-][a-zA-Z_0-9\.>()-]*\)->${var} = \([^;]*\)/assign_bit(DEV_FLAG_${caps}, \&\\1->flags, \\2)/" "$f"
+  sed -i~ -e "s/\([a-zA-Z_0-9\.>()-][a-zA-Z_0-9\.>()-]*\)\.${var} = \([^;]*\)/dev_assign_${caps}(\&\\1, \\2)/" "$f"
+  sed -i~ -e "s/\([a-zA-Z_0-9\.>()-][a-zA-Z_0-9\.>()-]*\)->${var}\([^1-9_a-zA-Z\[]\)/test_bit(DEV_FLAG_${caps}, \&\\1->flags)\\2/" "$f"
+  sed -i~ -e "s/\([a-zA-Z_0-9\.>()-][a-zA-Z_0-9\.>()-]*\)\.${var}\([^1-9_a-zA-Z\[]\)/dev_${caps}(\&\\1)\\2/" "$f"
+done
 
-> This is much better than the previous venus patchset where accessing the
-> hardware decoding would cause the machine to hard reset at least!
+From v3 to v4, I transitioned to accessor functions with another ugly
+sed script. I had git format the old patches, then transformed them
+with:
+
+for f in *.patch; do
+  echo $f
+  sed -i~ -e "s/test_and_set_bit(DEV_FLAG_\([^,]*\), \&\(.*\)->flags)/dev_test_and_set_\\L\\1(\\2)/" "$f"
+  sed -i~ -e "s/test_and_set_bit(DEV_FLAG_\([^,]*\), \(.*\)\.flags)/dev_test_and_set_\\L\\1(\\2)/" "$f"
+  sed -i~ -e "s/test_bit(DEV_FLAG_\([^,]*\), \&\(.*\)->flags)/dev_\\L\\1(\\2)/" "$f"
+  sed -i~ -e "s/test_bit(DEV_FLAG_\([^,]*\), \(.*\)\.flags)/dev_\\L\\1(\\2)/" "$f"
+  sed -i~ -e "s/set_bit(DEV_FLAG_\([^,]*\), \&\(.*\)->flags)/dev_set_\\L\\1(\\2)/" "$f"
+  sed -i~ -e "s/set_bit(DEV_FLAG_\([^,]*\), \(.*\)\.flags)/dev_set_\\L\\1(\\2)/" "$f"
+  sed -i~ -e "s/clear_bit(DEV_FLAG_\([^,]*\), \&\(.*\)->flags)/dev_clear_\\L\\1(\\2)/" "$f"
+  sed -i~ -e "s/clear_bit(DEV_FLAG_\([^,]*\), \(.*\)\.flags)/dev_clear_\\L\\1(\\2)/" "$f"
+  sed -i~ -e "s/assign_bit(DEV_FLAG_\([^,]*\), \&\(.*\)->flags, \(.*\))/dev_assign_\\L\\1(\\2, \\3)/" "$f"
+  sed -i~ -e "s/assign_bit(DEV_FLAG_\([^,]*\), \(.*\)\.flags, \(.*\))/dev_assign_\\L\\1(\\2, \\3)/" "$f"
+done
+
+...and then did a few manual touchups for spacing.
+
+NOTE: one potentially "controversial" choice I made in some patches
+was to always reserve a flag ID even if a flag is only used under
+certain CONFIG_ settings. This is a change from how things were
+before. Keeping the numbering consistent and allowing easy
+compile-testing of both CONFIG settings seemed worth it, especially
+since it won't take up any extra space until we've added a lot more
+flags.
+
+I only marked the first patch as a "Fix" since it is the only one
+fixing observed problems. Other patches could be considered fixes too
+if folks want.
+
+I tested the first patch in the series backported to kernel 6.6 on the
+Pixel phone that was experiencing the race. I added extra printouts to
+make sure that the problem was hitting / addressed. The rest of the
+patches are tested with allmodconfig with arm32, arm64, ppc, and
+x86. I boot tested on an arm64 Chromebook running mainline.
+
+Changes in v4:
+- Use accessor functions for flags
+
+Changes in v3:
+- Use a new "flags" bitfield
+- Add missing \n in probe error message
+
+Changes in v2:
+- Instead of adjusting the ordering, use "ready_to_probe" flag
+
+Douglas Anderson (9):
+  driver core: Don't let a device probe until it's ready
+  driver core: Replace dev->can_match with dev_can_match()
+  driver core: Replace dev->dma_iommu with dev_dma_iommu()
+  driver core: Replace dev->dma_skip_sync with dev_dma_skip_sync()
+  driver core: Replace dev->dma_ops_bypass with dev_dma_ops_bypass()
+  driver core: Replace dev->state_synced with dev_state_synced()
+  driver core: Replace dev->dma_coherent with dev_dma_coherent()
+  driver core: Replace dev->of_node_reused with dev_of_node_reused()
+  driver core: Replace dev->offline + ->offline_disabled with accessors
+
+ arch/arc/mm/dma.c                             |   4 +-
+ arch/arm/mach-highbank/highbank.c             |   2 +-
+ arch/arm/mach-mvebu/coherency.c               |   2 +-
+ arch/arm/mm/dma-mapping-nommu.c               |   4 +-
+ arch/arm/mm/dma-mapping.c                     |  28 ++--
+ arch/arm64/kernel/cpufeature.c                |   2 +-
+ arch/arm64/mm/dma-mapping.c                   |   2 +-
+ arch/mips/mm/dma-noncoherent.c                |   2 +-
+ arch/powerpc/kernel/dma-iommu.c               |   8 +-
+ .../platforms/pseries/hotplug-memory.c        |   4 +-
+ arch/riscv/mm/dma-noncoherent.c               |   2 +-
+ drivers/acpi/scan.c                           |   2 +-
+ drivers/base/core.c                           |  53 +++++---
+ drivers/base/cpu.c                            |   4 +-
+ drivers/base/dd.c                             |  28 ++--
+ drivers/base/memory.c                         |   2 +-
+ drivers/base/pinctrl.c                        |   2 +-
+ drivers/base/platform.c                       |   2 +-
+ drivers/dma/ti/k3-udma-glue.c                 |   6 +-
+ drivers/dma/ti/k3-udma.c                      |   6 +-
+ drivers/iommu/dma-iommu.c                     |   9 +-
+ drivers/iommu/iommu.c                         |   5 +-
+ drivers/net/pcs/pcs-xpcs-plat.c               |   2 +-
+ drivers/of/device.c                           |   6 +-
+ drivers/pci/of.c                              |   2 +-
+ drivers/pci/pwrctrl/core.c                    |   2 +-
+ drivers/regulator/bq257xx-regulator.c         |   2 +-
+ drivers/regulator/rk808-regulator.c           |   2 +-
+ drivers/tty/serial/serial_base_bus.c          |   2 +-
+ drivers/usb/gadget/udc/aspeed-vhub/dev.c      |   2 +-
+ include/linux/device.h                        | 120 ++++++++++++------
+ include/linux/dma-map-ops.h                   |   6 +-
+ include/linux/dma-mapping.h                   |   2 +-
+ include/linux/iommu-dma.h                     |   3 +-
+ kernel/cpu.c                                  |   4 +-
+ kernel/dma/mapping.c                          |  12 +-
+ mm/hmm.c                                      |   2 +-
+ 37 files changed, 206 insertions(+), 142 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.53.0.1213.gd9a14994de-goog
+
