@@ -1,70 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 173492367CF;
-	Sun,  5 Apr 2026 23:02:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F0B3845DC;
+	Sun,  5 Apr 2026 23:30:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775430154; cv=none; b=hWINH8PN0VfpmZnX1u9F+Fwf0HQhJ1VHrzjaOVufwUO8wbSbd1ASfdMJGsQC9ZzoneYa9Uau+D/itqEublfrfExYBC0iPN00Ny+t3QG+Rp03kLrdV/AVoOGb7wFi8vsFlUJugBnsFlnOgmvRIROP1hwwbJPWCBEg/XDhkKoUdXI=
+	t=1775431826; cv=none; b=GCCrzqzM6LgYbdeHXfHF/MSXoZy0thC7GtswZeLE5ATtK7lthrAUhC7cxyXvGOn9y9TKBnx5heAF4Q0c5tQ9dKhXFDDxcKxpE/FdmalBh6uMYBRbwDrQth7fruvT633cm+wOcPfU2P9NAQ8A7uQVUSGUl1w3KXCQBEthPw4rKAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775430154; c=relaxed/simple;
-	bh=AWRDv3dYlnVLH8M78Vu/CRSLMGyviOHStxu9JnvTLnw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LgUdfB2DVS3Lkz/K3VSXyIPfAl123KgxIp5/2ApxnsSs+HvjYEPKcggSf22VXN/e/AytZGFtTkVSatygB76vep6v+L5WwCpEC4+f1UWol1b4zEWs+zFFYOenHGJ0BUqJcWYvriXEnMSTzOgRQF5JsZNmEL7YfRskVPsy4SHhUck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UpzF/e9r; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775431826; c=relaxed/simple;
+	bh=oZdMCxFFsKsHF3vPt2TMwnzgmvwBXv7RaDyF0hwzf/k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UJ03/lEXbxwOMM9gwYtIRJ3/LzBzSeBAy/qhWI5vVQjZcph01W2PB9RzVQBWszbD7pK+vMGVZNtnYg7yUAt6hhUCCfo1ebekWupGaLoSEv62XOW2+Nc61LmR2+WQjkcjfSBhfG7X9Lyn7ShreVSRFCpCteXxDpKJ5+g4Q2wuenM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=xKFwlgt5; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=KtyCJdO2; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UpzF/e9r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79783C116C6;
-	Sun,  5 Apr 2026 23:02:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775430153;
-	bh=AWRDv3dYlnVLH8M78Vu/CRSLMGyviOHStxu9JnvTLnw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=UpzF/e9rwQePgER3O3lp0nBHskFh1r5QwllSDnOagkLDwHKjaTORIw7K9coLH64V0
-	 PGXQPHqr16Q5sUNKKeyfDFxqA4l7DC84eTjXRjmowSeEFND7sppO8MAOSRLR3k52U9
-	 QxcQa1xtY8BNepGVzXmoXhJaXAU0rI+PFyJRiHZSi16WBiWP0wcXF/E0F14QtxaFgs
-	 yvBTadJEMccztoUW1Bah+Yp+TZUFOFUrGzGlIkqDolEiDn95vYYNFhTnw7tlCtccC9
-	 J/JONU5FDfO5YC7WqXDBtgZYFj1aROmgydSxjxLNcexqpbkZTFIfjBgQzVRmnOYVHD
-	 5mUWMPHZ93uIA==
-Message-ID: <954a1202-e9b7-47ce-b218-a576e41d2512@kernel.org>
-Date: Mon, 6 Apr 2026 00:02:28 +0100
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="xKFwlgt5";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="KtyCJdO2"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4fppbc1zVHz9vLq;
+	Mon,  6 Apr 2026 01:30:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1775431820;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=+jHb+JyP7bouVvbJS6iybJ47vr1k59g9Nt6WxRh6bSY=;
+	b=xKFwlgt5dLTpp0s6z9T7rH5/p9b4Bc+ZIH6otswQ0WsO4sTNmGQXl912S3Rliw6vr8+592
+	UAV4S5FqRxI/Z182mvDb6VsxFJhTPkOfam8Y5foSv5L0NwDXv2gQq67dRD9Hy2UFkY8yM2
+	kcksnSbaGA1sS3TipeAAlR/Bw2Co2eumyooUGrPLGlKu1roT3eQ0Lcm1cHRE7oUAj2lCPU
+	DNJC0I9sh947zRQw7mrHPvvJphQ8yI0W6GhPFugTLqFNJXb2yXcsQIkfVJLV7IsSB8dHKy
+	xtOER29x+aNL5+0neC2QR6V4g58wl7dWUgg35Wuw0vtg2vmQBE56HjDBRVo7dQ==
+From: Marek Vasut <marek.vasut@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1775431818;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=+jHb+JyP7bouVvbJS6iybJ47vr1k59g9Nt6WxRh6bSY=;
+	b=KtyCJdO20lWjeKdZHXO5PEQMA0Mt0bdGjX44BnGCW3eiC9uZgwNsEcjAHuxH7GzeL6c9FR
+	lvQ1EcM4r0il10Di7Jfm5WdI6SnpkhUmL6po3yklbCLW0SwvyytL7gtuh+euhehqbU5l6Y
+	i0vyCnLuuz7xCsRk6R+GBtnLBh1A/9mJzS1khs7tYvuuOaSEG6Ef8Rjuti7XO4+C9adFkF
+	utNczADP+itlnnw5oxD3nUGz7LxEqrmc11WuagbPnWYh0eA/txE7D73auZnELye7A3qWv+
+	f90c5kCh9iqoXKJKSTXnBvdWLsPiRlP13ZUWlcuUi4PyKXDmIYjE4q2s0Egw4A==
+To: netdev@vger.kernel.org
+Cc: Marek Vasut <marek.vasut@mailbox.org>,
+	"Rob Herring (Arm)" <robh@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Aleksander Jan Bajkowski <olek2@wp.pl>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Eric Dumazet <edumazet@google.com>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Ivan Galkin <ivan.galkin@axis.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Michael Klein <michael@fossekall.de>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Vladimir Oltean <vladimir.oltean@nxp.com>,
+	devicetree@vger.kernel.org
+Subject: [net-next,PATCH v6 1/3] dt-bindings: net: realtek,rtl82xx: Keep property list sorted
+Date: Mon,  6 Apr 2026 01:29:56 +0200
+Message-ID: <20260405233008.148974-1-marek.vasut@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/3] media: qcom: camss: CAMSS Offline Processing
- Engine support
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
- vladimir.zapolskiy@linaro.org, kieran.bingham@ideasonboard.com,
- robh@kernel.org, krzk+dt@kernel.org, andersson@kernel.org,
- konradybcio@kernel.org, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, johannes.goede@oss.qualcomm.com,
- mchehab@kernel.org
-References: <xy6TKmdveRx4cMshSHEUGZ7s3lbsurWcsc2vq05A7_N4bCialR7EelZitouugtZDkpFCAghjqY4NDdSQEIPprw==@protonmail.internalid>
- <20260323125824.211615-1-loic.poulain@oss.qualcomm.com>
- <055a7281-3e41-4e26-a8c8-5e28d69c0685@kernel.org>
- <CAFEp6-2NniQquVrw_V8P_cyUayMMY0SPC8hgczjB3ef5zx7e5A@mail.gmail.com>
- <j1jExQP2GCnHhjXkyuhDn_d0CP50oZDMyso3CFfkygb7Ww_9Z3L93P8Px0KjTQAqU5jzr2I41V1_2ZdQOQqfxA==@protonmail.internalid>
- <20260405194851.GA3972481@killaraus.ideasonboard.com>
- <d5bb1f75-f55f-43e6-8160-bacc4088b0a2@kernel.org>
- <zZSYnBEVwbsoC3zAxYw3b-FDBES5SVplE8_8v55ro9lhsRrCnB3xietqoJ41CLDv5iHdFFvfWF7ZgO1QFjrQiQ==@protonmail.internalid>
- <20260405204722.GF1213462@killaraus.ideasonboard.com>
-Content-Language: en-US
-From: Bryan O'Donoghue <bod@kernel.org>
-In-Reply-To: <20260405204722.GF1213462@killaraus.ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 176992d66fa91593939
+X-MBO-RS-META: tas54gdpejf6p13pajydx49tzghb4dcn
 
-On 05/04/2026 21:47, Laurent Pinchart wrote:
->> So actually I've shifted my focus on Hamoa to IFE/IPP.
-> I'd love to get stats out of the IFE 🙂
+Sort the documented properties alphabetically, no functional change.
 
-Yeah, I'm fiddling with stats on Hamoa IFE right now.
-
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Marek Vasut <marek.vasut@mailbox.org>
 ---
-bod
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Aleksander Jan Bajkowski <olek2@wp.pl>
+Cc: Andrew Lunn <andrew@lunn.ch>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Eric Dumazet <edumazet@google.com>
+Cc: Florian Fainelli <f.fainelli@gmail.com>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>
+Cc: Ivan Galkin <ivan.galkin@axis.com>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Michael Klein <michael@fossekall.de>
+Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Russell King <linux@armlinux.org.uk>
+Cc: Vladimir Oltean <vladimir.oltean@nxp.com>
+Cc: devicetree@vger.kernel.org
+Cc: netdev@vger.kernel.org
+---
+V2: No change
+V3: No change
+V4: Add AB from Rob
+V5: No change
+V6: No change
+---
+ .../devicetree/bindings/net/realtek,rtl82xx.yaml          | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml b/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
+index 2b5697bd7c5df..eafcc2f3e3d66 100644
+--- a/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
++++ b/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
+@@ -40,15 +40,15 @@ properties:
+ 
+   leds: true
+ 
+-  realtek,clkout-disable:
++  realtek,aldps-enable:
+     type: boolean
+     description:
+-      Disable CLKOUT clock, CLKOUT clock default is enabled after hardware reset.
++      Enable ALDPS mode, ALDPS mode default is disabled after hardware reset.
+ 
+-  realtek,aldps-enable:
++  realtek,clkout-disable:
+     type: boolean
+     description:
+-      Enable ALDPS mode, ALDPS mode default is disabled after hardware reset.
++      Disable CLKOUT clock, CLKOUT clock default is enabled after hardware reset.
+ 
+   wakeup-source:
+     type: boolean
+-- 
+2.53.0
+
