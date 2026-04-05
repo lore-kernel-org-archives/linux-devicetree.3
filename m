@@ -1,70 +1,434 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A8AA1DED40;
-	Sun,  5 Apr 2026 21:29:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85BD017A31E;
+	Sun,  5 Apr 2026 21:45:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775424580; cv=none; b=prW6dthydNEtwSGLy3m7YpWxFpyWEyX+nGH7TwSKK0ql7yMfeYueiIPSXkvPypGmfUBSIOfPSM9CvILgtpPwxGlDAKUF7rxI1Qy0DgVPqq1VEIQcGjfwKa2DXF7M35N5PmIK1EJ0IwzxKQbtrjnSLrUgOmnt8lOGHDKxN+cZkcI=
+	t=1775425547; cv=none; b=YA7Liimx1ayibfJi5/jN+oD1eXh8PPqbEaAJeGRzZrtB3HosXYMASNvIH+IXWLndc23R0cCardWK7j/j/lRyg5LNh0E8bNdKAiLdreA6crNl6uMnlhovWljFFopXxFSZS2M5OSPLkt0y9qVLdxocWGvFL5BTxRMh/rMXxrtVIOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775424580; c=relaxed/simple;
-	bh=dXS+FxVq4LEDJe2HdwsZRG/n6zVumhKsjswpD80SDYI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QvuNXthMrWHU+iAapyioT/xIl7NzYjBTzc+458cyf4J2Q5plZTVuA0+Fg+JOQ9EwxtLRXkJ+zb1W3D/8QynbQ4+Mve6uh291AUyQWCxBo+bX0e7/MryFuJKtrObwgtML9H4HGydHWo12B0MfkVJGYqRFfXGXwTInw9TfL568jwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CFcRW3Oz; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775425547; c=relaxed/simple;
+	bh=PqdifVWuHqeZEPWOsDp78YcovlCq6Q0AzxgG27WSl24=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QcuTtHZiXonFZ4MDVpWBJDVLNxRGPzcPYRqvmzEVnt6mrEiUaOmCk3Iv6H8CunN3vMpgT2bcZrPfsi9wNgTt0PHapBuORRyMf/KGzYPSv1ixJMwLj3hHUsStWAq2xaC+YBOBpVI7YYyYmZQSbZljwGYwCU0tB2it/T7Ah8senPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QvkVXYVg; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CFcRW3Oz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 842FFC116C6;
-	Sun,  5 Apr 2026 21:29:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QvkVXYVg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 895AAC116C6;
+	Sun,  5 Apr 2026 21:45:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775424580;
-	bh=dXS+FxVq4LEDJe2HdwsZRG/n6zVumhKsjswpD80SDYI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=CFcRW3OzyCZSgsAI1ltCYmjXiLFSGvw78h3AbwATNn+RCFdXjBC7MHJWhX3wqgtdA
-	 Gd6564oMCqKTZJQueKZyr40MvlHHCy16ss9pvizJAEgjWLU4w46fXW4YRVW3NS3CZ8
-	 +Ipnw4TmagFK1rxLNR5VzyepLc1TZSGthe+owM8ZR6aS7LPGNXKHAvqv/rK8LUtGl8
-	 eG7zxFqHue5khgWGgI9XTU3hHGDGLmVkYpVbiXSC7EbqR6P+1mEHgXW8blWwaR8H+z
-	 46iFwbEcnqm89JnTD9Vcj7nalN3fWefzkDtba6C+2FiEW0HdpIePsVfNLYlD76ZnLa
-	 YYDuhajrWhDzg==
-Message-ID: <bf820340-4831-44c5-97e7-fb738dca6325@kernel.org>
-Date: Sun, 5 Apr 2026 22:29:35 +0100
+	s=k20201202; t=1775425547;
+	bh=PqdifVWuHqeZEPWOsDp78YcovlCq6Q0AzxgG27WSl24=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=QvkVXYVguODmXLSnl09y0a2kNkUuJ/Da7Vfjj9DtLL7guQY43m9t+hLnGkNi+AWap
+	 Ko1hJuNfARGLj9ucFsCUfHbuljaDgymE3ubBtb+aWuUrXsdquqKnxvppFI5es0b1/W
+	 1pFBjuKoEks2OqWLqQTpbvfCCNgvii8nonrPl7HRcqKSEmSMnTQTOwxQuqXsGbyeds
+	 7AUy615bvs9OH2d8nYQzcANR5pB0tk8GV3C6cPXSl6DbpInL5g0fGeGpwmWcrWOoVY
+	 KY8w83f+rpFqnbOsBSl1gWRBJ+Hfs9OX8STBTUqIt7oVYCfLHxXxNFlACWT34gu5UC
+	 b34qeqy3ezQKA==
+Date: Sun, 5 Apr 2026 23:45:44 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Andrea della Porta <andrea.porta@suse.com>
+Cc: linux-pwm@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Naushir Patuck <naush@raspberrypi.com>, Stanimir Varbanov <svarbanov@suse.de>
+Subject: Re: [PATCH 2/3] pwm: rp1: Add RP1 PWM controller driver
+Message-ID: <adLTwOTbkJ0VQXy6@monoceros>
+References: <cover.1775223441.git.andrea.porta@suse.com>
+ <28e29fbfc20c0b8a115d006233c2759d8f49e639.1775223441.git.andrea.porta@suse.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/3] media: qcom: camss: CAMSS Offline Processing
- Engine support
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
- vladimir.zapolskiy@linaro.org, kieran.bingham@ideasonboard.com,
- robh@kernel.org, krzk+dt@kernel.org, andersson@kernel.org,
- konradybcio@kernel.org, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, johannes.goede@oss.qualcomm.com,
- mchehab@kernel.org
-References: <xy6TKmdveRx4cMshSHEUGZ7s3lbsurWcsc2vq05A7_N4bCialR7EelZitouugtZDkpFCAghjqY4NDdSQEIPprw==@protonmail.internalid>
- <20260323125824.211615-1-loic.poulain@oss.qualcomm.com>
- <055a7281-3e41-4e26-a8c8-5e28d69c0685@kernel.org>
- <CAFEp6-2NniQquVrw_V8P_cyUayMMY0SPC8hgczjB3ef5zx7e5A@mail.gmail.com>
- <j1jExQP2GCnHhjXkyuhDn_d0CP50oZDMyso3CFfkygb7Ww_9Z3L93P8Px0KjTQAqU5jzr2I41V1_2ZdQOQqfxA==@protonmail.internalid>
- <20260405194851.GA3972481@killaraus.ideasonboard.com>
- <d5bb1f75-f55f-43e6-8160-bacc4088b0a2@kernel.org>
- <zZSYnBEVwbsoC3zAxYw3b-FDBES5SVplE8_8v55ro9lhsRrCnB3xietqoJ41CLDv5iHdFFvfWF7ZgO1QFjrQiQ==@protonmail.internalid>
- <20260405204722.GF1213462@killaraus.ideasonboard.com>
-Content-Language: en-US
-From: Bryan O'Donoghue <bod@kernel.org>
-In-Reply-To: <20260405204722.GF1213462@killaraus.ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="adsc23vehck6wpjh"
+Content-Disposition: inline
+In-Reply-To: <28e29fbfc20c0b8a115d006233c2759d8f49e639.1775223441.git.andrea.porta@suse.com>
 
-On 05/04/2026 21:47, Laurent Pinchart wrote:
-> Temporal denoising can also be more tricky in an inline ISP.
 
-Funny you should mention that, to my knowledge, this is the only 
-functional thing BPS/IPE has that IFE/PIX does not.
+--adsc23vehck6wpjh
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 2/3] pwm: rp1: Add RP1 PWM controller driver
+MIME-Version: 1.0
 
----
-bod
+Hello Andrea,
+
+On Fri, Apr 03, 2026 at 04:31:55PM +0200, Andrea della Porta wrote:
+> From: Naushir Patuck <naush@raspberrypi.com>
+>=20
+> The Raspberry Pi RP1 southbridge features an embedded PWM
+> controller with 4 output channels, alongside an RPM interface
+> to read the fan speed on the Raspberry Pi 5.
+>=20
+> Add the supporting driver.
+>=20
+> Signed-off-by: Naushir Patuck <naush@raspberrypi.com>
+> Co-developed-by: Stanimir Varbanov <svarbanov@suse.de>
+> Signed-off-by: Stanimir Varbanov <svarbanov@suse.de>
+> Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
+> ---
+>  drivers/pwm/Kconfig   |  10 ++
+>  drivers/pwm/Makefile  |   1 +
+>  drivers/pwm/pwm-rp1.c | 244 ++++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 255 insertions(+)
+>  create mode 100644 drivers/pwm/pwm-rp1.c
+>=20
+> diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
+> index 6f3147518376a..22e4fc6385da2 100644
+> --- a/drivers/pwm/Kconfig
+> +++ b/drivers/pwm/Kconfig
+> @@ -625,6 +625,16 @@ config PWM_ROCKCHIP
+>  	  Generic PWM framework driver for the PWM controller found on
+>  	  Rockchip SoCs.
+> =20
+> +config PWM_RP1
+
+I prefer PWM_RASPBERRYPI1, or PWM_RASPBERRYPI_RP1 here.
+
+> +	tristate "RP1 PWM support"
+> +	depends on MISC_RP1 || COMPILE_TEST
+> +	depends on HWMON
+> +	help
+> +	  PWM framework driver for Raspberry Pi RP1 controller
+> +
+> +	  To compile this driver as a module, choose M here: the module
+> +	  will be called pwm-rp1.
+> +
+>  config PWM_SAMSUNG
+>  	tristate "Samsung PWM support"
+>  	depends on PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS || COMPILE_TEST
+> diff --git a/drivers/pwm/Makefile b/drivers/pwm/Makefile
+> index 0dc0d2b69025d..895a7c42fe9c0 100644
+> --- a/drivers/pwm/Makefile
+> +++ b/drivers/pwm/Makefile
+> @@ -56,6 +56,7 @@ obj-$(CONFIG_PWM_RENESAS_RZG2L_GPT)	+=3D pwm-rzg2l-gpt.o
+>  obj-$(CONFIG_PWM_RENESAS_RZ_MTU3)	+=3D pwm-rz-mtu3.o
+>  obj-$(CONFIG_PWM_RENESAS_TPU)	+=3D pwm-renesas-tpu.o
+>  obj-$(CONFIG_PWM_ROCKCHIP)	+=3D pwm-rockchip.o
+> +obj-$(CONFIG_PWM_RP1)		+=3D pwm-rp1.o
+>  obj-$(CONFIG_PWM_SAMSUNG)	+=3D pwm-samsung.o
+>  obj-$(CONFIG_PWM_SIFIVE)	+=3D pwm-sifive.o
+>  obj-$(CONFIG_PWM_SL28CPLD)	+=3D pwm-sl28cpld.o
+> diff --git a/drivers/pwm/pwm-rp1.c b/drivers/pwm/pwm-rp1.c
+> new file mode 100644
+> index 0000000000000..0a1c1c1dd27e9
+> --- /dev/null
+> +++ b/drivers/pwm/pwm-rp1.c
+> @@ -0,0 +1,244 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * pwm-rp1.c
+> + *
+> + * Raspberry Pi RP1 PWM.
+> + *
+> + * Copyright =A9 2026 Raspberry Pi Ltd.
+> + *
+> + * Author: Naushir Patuck (naush@raspberrypi.com)
+> + *
+> + * Based on the pwm-bcm2835 driver by:
+> + * Bart Tanghe <bart.tanghe@thomasmore.be>
+> + */
+
+Please add a paragraph here named "Limitations" in the same format as
+several other drivers describing how the driver behaves on disable and
+configuration changes (can glitches occur? Is the currently running
+period completed or aborted?)
+
+> +#include <linux/bitops.h>
+> +#include <linux/clk.h>
+> +#include <linux/err.h>
+> +#include <linux/hwmon.h>
+> +#include <linux/io.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pwm.h>
+> +
+> +#define PWM_GLOBAL_CTRL		0x000
+> +#define PWM_CHANNEL_CTRL(x)	(0x014 + ((x) * 0x10))
+> +#define PWM_RANGE(x)		(0x018 + ((x) * 0x10))
+> +#define PWM_PHASE(x)		(0x01C + ((x) * 0x10))
+> +#define PWM_DUTY(x)		(0x020 + ((x) * 0x10))
+> +
+> +/* 8:FIFO_POP_MASK + 0:Trailing edge M/S modulation */
+> +#define PWM_CHANNEL_DEFAULT	(BIT(8) + BIT(0))
+> +#define PWM_CHANNEL_ENABLE(x)	BIT(x)
+> +#define PWM_POLARITY		BIT(3)
+> +#define SET_UPDATE		BIT(31)
+> +#define PWM_MODE_MASK		GENMASK(1, 0)
+> +
+> +#define NUM_PWMS		4
+
+Please prefix all #defines by something driver specific (e.g. RP1_PWM_).
+
+> +
+> +struct rp1_pwm {
+> +	void __iomem	*base;
+> +	struct clk	*clk;
+> +};
+> +
+> +static const struct hwmon_channel_info * const rp1_fan_hwmon_info[] =3D {
+> +	HWMON_CHANNEL_INFO(fan, HWMON_F_INPUT),
+> +	NULL
+> +};
+> +
+> +static umode_t rp1_fan_hwmon_is_visible(const void *data, enum hwmon_sen=
+sor_types type,
+> +					u32 attr, int channel)
+> +{
+> +	umode_t mode =3D 0;
+> +
+> +	if (type =3D=3D hwmon_fan && attr =3D=3D hwmon_fan_input)
+> +		mode =3D 0444;
+> +
+> +	return mode;
+> +}
+> +
+> +static int rp1_fan_hwmon_read(struct device *dev, enum hwmon_sensor_type=
+s type,
+> +			      u32 attr, int channel, long *val)
+> +{
+> +	struct rp1_pwm *rp1 =3D dev_get_drvdata(dev);
+> +
+> +	if (type !=3D hwmon_fan || attr !=3D hwmon_fan_input)
+> +		return -EOPNOTSUPP;
+> +
+> +	*val =3D readl(rp1->base + PWM_PHASE(2));
+> +
+> +	return 0;
+> +}
+
+I don't like having hwmon bits in pwm drivers. Is the PWM only usable
+for a fan? I guess the hwmon parts should be dropped and a pwm-fan
+defined in dt.
+
+> +static const struct hwmon_ops rp1_fan_hwmon_ops =3D {
+> +	.is_visible =3D rp1_fan_hwmon_is_visible,
+> +	.read =3D rp1_fan_hwmon_read,
+> +};
+> +
+> +static const struct hwmon_chip_info rp1_fan_hwmon_chip_info =3D {
+> +	.ops =3D &rp1_fan_hwmon_ops,
+> +	.info =3D rp1_fan_hwmon_info,
+> +};
+> +
+> +static void rp1_pwm_apply_config(struct pwm_chip *chip, struct pwm_devic=
+e *pwm)
+> +{
+> +	struct rp1_pwm *rp1 =3D pwmchip_get_drvdata(chip);
+> +	u32 value;
+> +
+> +	value =3D readl(rp1->base + PWM_GLOBAL_CTRL);
+> +	value |=3D SET_UPDATE;
+> +	writel(value, rp1->base + PWM_GLOBAL_CTRL);
+> +}
+> +
+> +static int rp1_pwm_request(struct pwm_chip *chip, struct pwm_device *pwm)
+> +{
+> +	struct rp1_pwm *rp1 =3D pwmchip_get_drvdata(chip);
+> +
+> +	writel(PWM_CHANNEL_DEFAULT, rp1->base + PWM_CHANNEL_CTRL(pwm->hwpwm));
+
+Please add a comment about what this does.
+
+> +	return 0;
+> +}
+> +
+> +static void rp1_pwm_free(struct pwm_chip *chip, struct pwm_device *pwm)
+> +{
+> +	struct rp1_pwm *rp1 =3D pwmchip_get_drvdata(chip);
+> +	u32 value;
+> +
+> +	value =3D readl(rp1->base + PWM_CHANNEL_CTRL(pwm->hwpwm));
+> +	value &=3D ~PWM_MODE_MASK;
+> +	writel(value, rp1->base + PWM_CHANNEL_CTRL(pwm->hwpwm));
+> +
+> +	rp1_pwm_apply_config(chip, pwm);
+
+What is the purpose of this call?
+
+> +}
+> +
+> +static int rp1_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
+> +			 const struct pwm_state *state)
+> +{
+> +	struct rp1_pwm *rp1 =3D pwmchip_get_drvdata(chip);
+> +	unsigned long clk_rate =3D clk_get_rate(rp1->clk);
+> +	unsigned long clk_period;
+> +	u32 value;
+> +
+> +	if (!clk_rate) {
+> +		dev_err(&chip->dev, "failed to get clock rate\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	/* set period and duty cycle */
+> +	clk_period =3D DIV_ROUND_CLOSEST(NSEC_PER_SEC, clk_rate);
+
+DIV_ROUND_CLOSEST is wrong here. (I don't go into details as .apply()
+should be dropped.)
+
+> +	writel(DIV_ROUND_CLOSEST(state->duty_cycle, clk_period),
+
+Dividing by the result of a division loses precision.
+
+> +	       rp1->base + PWM_DUTY(pwm->hwpwm));
+> +
+> +	writel(DIV_ROUND_CLOSEST(state->period, clk_period),
+> +	       rp1->base + PWM_RANGE(pwm->hwpwm));
+> +
+> +	/* set polarity */
+> +	value =3D readl(rp1->base + PWM_CHANNEL_CTRL(pwm->hwpwm));
+> +	if (state->polarity =3D=3D PWM_POLARITY_NORMAL)
+> +		value &=3D ~PWM_POLARITY;
+> +	else
+> +		value |=3D PWM_POLARITY;
+> +	writel(value, rp1->base + PWM_CHANNEL_CTRL(pwm->hwpwm));
+> +
+> +	/* enable/disable */
+> +	value =3D readl(rp1->base + PWM_GLOBAL_CTRL);
+> +	if (state->enabled)
+> +		value |=3D PWM_CHANNEL_ENABLE(pwm->hwpwm);
+> +	else
+> +		value &=3D ~PWM_CHANNEL_ENABLE(pwm->hwpwm);
+> +	writel(value, rp1->base + PWM_GLOBAL_CTRL);
+> +
+> +	rp1_pwm_apply_config(chip, pwm);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct pwm_ops rp1_pwm_ops =3D {
+> +	.request =3D rp1_pwm_request,
+> +	.free =3D rp1_pwm_free,
+> +	.apply =3D rp1_pwm_apply,
+
+Please implement the waveform callbacks instead of .apply().
+
+> +};
+> +
+> +static int rp1_pwm_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct device *hwmon_dev;
+> +	struct pwm_chip *chip;
+> +	struct rp1_pwm *rp1;
+> +	int ret;
+> +
+> +	chip =3D devm_pwmchip_alloc(dev, NUM_PWMS, sizeof(*rp1));
+> +	if (IS_ERR(chip))
+> +		return PTR_ERR(chip);
+> +
+> +	rp1 =3D pwmchip_get_drvdata(chip);
+> +
+> +	rp1->base =3D devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(rp1->base))
+> +		return PTR_ERR(rp1->base);
+> +
+> +	rp1->clk =3D devm_clk_get_enabled(dev, NULL);
+> +	if (IS_ERR(rp1->clk))
+> +		return dev_err_probe(dev, PTR_ERR(rp1->clk), "clock not found\n");
+
+Please start error messages with a capital letter.
+
+> +
+> +	ret =3D devm_clk_rate_exclusive_get(dev, rp1->clk);
+
+After this call you can determine the rate just once and fail if it's =3D=3D
+0.
+
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "fail to get exclusive rate\n");
+> +
+> +	chip->ops =3D &rp1_pwm_ops;
+> +
+> +	platform_set_drvdata(pdev, chip);
+> +
+> +	ret =3D devm_pwmchip_add(dev, chip);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to register PWM chip\n");
+> +
+> +	hwmon_dev =3D devm_hwmon_device_register_with_info(dev, "rp1_fan_tach",=
+ rp1,
+> +							 &rp1_fan_hwmon_chip_info,
+> +							 NULL);
+> +
+> +	if (IS_ERR(hwmon_dev))
+> +		return dev_err_probe(dev, PTR_ERR(hwmon_dev),
+> +				     "failed to register hwmon fan device\n");
+> +
+> +	return 0;
+> +}
+> +
+> +static int rp1_pwm_suspend(struct device *dev)
+> +{
+> +	struct rp1_pwm *rp1 =3D dev_get_drvdata(dev);
+> +
+> +	clk_disable_unprepare(rp1->clk);
+> +
+> +	return 0;
+> +}
+> +
+> +static int rp1_pwm_resume(struct device *dev)
+> +{
+> +	struct rp1_pwm *rp1 =3D dev_get_drvdata(dev);
+> +
+> +	return clk_prepare_enable(rp1->clk);
+
+Hmm, if this fails and then the driver is unbound, the clk operations
+are not balanced.
+
+> +}
+> +
+> +static DEFINE_SIMPLE_DEV_PM_OPS(rp1_pwm_pm_ops, rp1_pwm_suspend, rp1_pwm=
+_resume);
+> +
+> +static const struct of_device_id rp1_pwm_of_match[] =3D {
+> +	{ .compatible =3D "raspberrypi,rp1-pwm" },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, rp1_pwm_of_match);
+> +
+> +static struct platform_driver rp1_pwm_driver =3D {
+> +	.probe =3D rp1_pwm_probe,
+> +	.driver =3D {
+> +		.name =3D "rp1-pwm",
+> +		.of_match_table =3D rp1_pwm_of_match,
+> +		.pm =3D pm_ptr(&rp1_pwm_pm_ops),
+> +	},
+> +};
+> +module_platform_driver(rp1_pwm_driver);
+> +
+> +MODULE_DESCRIPTION("RP1 PWM driver");
+> +MODULE_AUTHOR("Naushir Patuck <naush@raspberrypi.com>");
+> +MODULE_LICENSE("GPL");
+> --=20
+> 2.35.3
+>=20
+
+Best regards
+Uwe
+
+--adsc23vehck6wpjh
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmnS2AUACgkQj4D7WH0S
+/k5mswf/TUCC5nF0OuTSMULn2cuRQsH3gFVXNmkEYbMWCM98yGoh8gYDk7aNdIl5
+8FfYhADd4LPjWTlKa+Tg/NoZoPeonvIhodfvRo30AaomnEdeAnI56Shk8OMelwI4
+xjbwHyQq0Ar0RKJRz5AU8GAGj/ShBgGWOIBEnFnbWSBHVDD/b56vGvQul3ZSCygZ
+Q1aI7kQZLEpF9MYoALdasc1SxrDLzfO5zL2CV7umpmwsnVSF66Dpr5PSLk6PYzMT
+owBTgJhmsqX/0E1cI9Krv+5HxtdF1pVUwcavvuRVbW5Uyk7BktiB7GhQKWU6qaBn
+s0UM6EisqsrFM7ILp5gdRe34lso6Zg==
+=hAUy
+-----END PGP SIGNATURE-----
+
+--adsc23vehck6wpjh--
