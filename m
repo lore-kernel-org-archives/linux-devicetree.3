@@ -1,76 +1,47 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424AE2DFA4A;
-	Sun,  5 Apr 2026 23:30:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 954C9224B05;
+	Sun,  5 Apr 2026 23:45:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775431832; cv=none; b=IMoW5dR19VGl65dRw9NweB1HhnKnX0z1iqzkf/Ll8FEYionQQ4CdzsfV4eDyMf7msXaZErr9KGidgJ/v7+nOLgYY80GnfZ01SmcR4TpRYRIuPUrn/O9qF2JJJ/19wC8LiT4rPiJw9kK7gdBGodwtGEPq3F7M9RXLbsEyknWug1A=
+	t=1775432720; cv=none; b=tejMW6tTtVhkBEkimKSNgD4AkWmntpSEbuh0y1fBZD8yqfitvCufkieKrCGjRiLD/sfBvsf91wOnxs96LH0WFN1DxrbSRqlxOUKppiTh65vj3TM+VTCNvByCm0sTevOwOvaEJzLA5WTlkppRL7A3hlu1VHJvmHW8lo+ZVLv8AGU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775431832; c=relaxed/simple;
-	bh=EIqS/wy299HVT+M392ZIG44fj9oaUgBGJbrmIS+sL+s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GMzqENProsVOCFXHDhtVrfqwI9yA9jkWP7zOmIP+Z3rm20xxt1LpgbQP8zkWoHDy/t+RGJLQCiQaZOZbuMD/bgNg1MOH0CLZIZ81E4Kkfu1l+O58sPwgTMigE53LLr5IolfWezS3Mn4RoS7nIGXxoez8m0nUGMiQ4wieW6C3IP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Wj/lqACU; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Fcx+0IA6; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1775432720; c=relaxed/simple;
+	bh=dR5gGmLlm04j6mL/1zDGDOkPVSrIAHCOQ6TsiyOJnAY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m+XIEMweV/S1H5guPhnHawwR4motkRg9myJruWQWtQWT7JEvBCFinDo7fvznGS5FtSI9nzxvDFN1YRSuxnAIBVdpoD3j2LFKv1jj1qfp6aQGlqhgrUNRjJgMgGv+/DyvXRO9IY7tda4g0P0llx5IcYjEXpAZcSn5up/88KdBUjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=LcNDIM3H; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Wj/lqACU";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Fcx+0IA6"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4fppbk6770z9tYX;
-	Mon,  6 Apr 2026 01:30:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1775431826;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HGGs2NiaUZQb+KcVmsGvFT28sKiZnPQuwRMHoqq1xTg=;
-	b=Wj/lqACUnG4kIAxPcW7+A+yICeMmvsw2I3X+0FDOXU9Zw3MHh8ypJQJJVfjjAV9r32RIRV
-	uyn9veYh5QS3Qu/9ZYHiiub4zcYNfricU5EB232DzElZDm3CsSekL2fTZwG8WtvHhOkdAn
-	fUpVt+U3rrp2x4MvezcuEnJ0fr3WuNHU+P1u0gsfvudQttRxRS3pcYUTyINeSb/C2Ws1pG
-	wV1Q7DtxNcpm2CYLs1lW+eZCgk6HF+uVRXFZTgh/7u66ZRf5d47z4QT1p8/kmE5+szDJye
-	1UTGKN1fc7Ac2ax3t3Dzv2aZfUp/WQks0Qlbp3Irb+HYWJWWumxi9UTSYvVGWw==
-From: Marek Vasut <marek.vasut@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1775431825;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HGGs2NiaUZQb+KcVmsGvFT28sKiZnPQuwRMHoqq1xTg=;
-	b=Fcx+0IA6LSeEQrwQotf93WufKUCDlrWLj0G02aGvLIe00EBCksk+RRRd234JimiZ13i6uY
-	J1T1rjWPduGNV7PliAg3+Za7MXmg+3jDKfzSujlN6puCWrCfZZ3tJzDMRxhm4Q0h2AifwH
-	jKXq/h1sTGbw6GzUXV3CzJKQx8CcD9wfvhJDm45ZDHnJPdLF6B1BzikaAFz70XaQFbYhyU
-	yqaXcR0Pe8AQ/V9q6lTon4HootqcyDaqrlJSkdB6mlMcKPdb6364Ukk530QgYZzhbpNqp7
-	yeenAFOhy8FoR7ReOgGXXQvJLoi2/NQpOAaLTw/+/MIlAUugbXvr1ReyDpa0Aw==
-To: netdev@vger.kernel.org
-Cc: Marek Vasut <marek.vasut@mailbox.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Aleksander Jan Bajkowski <olek2@wp.pl>,
-	Andrew Lunn <andrew@lunn.ch>,
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="LcNDIM3H"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3023310691F;
+	Mon,  6 Apr 2026 01:45:07 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1775432708; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=RUTS7upNpLkTBiHL9ns+U6Df2SUgQJVHGQwhcxcvFRY=;
+	b=LcNDIM3HPQuciGulhzK+KLe9COYslDtIr+t8yNKEK7nFacsdGS9b91hbQGta4FKR4H81f5
+	UuktUcxpKjG2VpeeK9Fniv4liduD9O8JcTmzRJ7TuUQ3oe6BDCQlX9HI3U+TIBnQtDqk/l
+	WaiOKyeCF5Vj82N1Zuc/8t4uRVlDJo4lj389pZV5vjz73P4PZxiIkMvs7JnPMJxWYjMYeX
+	DxCFGswKJ2wGMBZcWhtKz8vEaY2ofATT9Z58uWJ+jNwIsmB/LhJSjfZiMFSkvbe4lquyIp
+	r/LEhw6L3WS/dtogxYFhCBIkMmDSK4R5VOnlZD2WnqcSwRrvK8Qg0ldXP17msg==
+From: Marek Vasut <marex@nabladev.com>
+To: devicetree@vger.kernel.org
+Cc: Marek Vasut <marex@nabladev.com>,
+	Baojun Xu <baojun.xu@ti.com>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Eric Dumazet <edumazet@google.com>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Ivan Galkin <ivan.galkin@axis.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+	Kevin Lu <kevin-lu@ti.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Michael Klein <michael@fossekall.de>,
-	Paolo Abeni <pabeni@redhat.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
 	Rob Herring <robh@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	devicetree@vger.kernel.org
-Subject: [net-next,PATCH v6 3/3] net: phy: realtek: Add property to enable SSC
-Date: Mon,  6 Apr 2026 01:29:58 +0200
-Message-ID: <20260405233008.148974-3-marek.vasut@mailbox.org>
-In-Reply-To: <20260405233008.148974-1-marek.vasut@mailbox.org>
-References: <20260405233008.148974-1-marek.vasut@mailbox.org>
+	Shenghao Ding <shenghao-ding@ti.com>,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org
+Subject: [PATCH v2] ASoC: dt-bindings: ti,tas2552: Add sound-dai-cells
+Date: Mon,  6 Apr 2026 01:44:35 +0200
+Message-ID: <20260405234502.154227-1-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -78,221 +49,76 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 6469e66c7026fe7bb1a
-X-MBO-RS-META: duksatsdw568pcyj1xcaujemr3wawfnm
+X-Last-TLS-Session-Version: TLSv1.3
 
-Add support for spread spectrum clocking (SSC) on RTL8211F(D)(I)-CG,
-RTL8211FS(I)(-VS)-CG, RTL8211FG(I)(-VS)-CG PHYs. The implementation
-follows EMI improvement application note Rev. 1.2 for these PHYs.
+Add missing sound-sai-cells for this codec into schema.
+At the same time, drop trailing spaces from description.
 
-The current implementation enables SSC for both RXC and SYSCLK clock
-signals. Introduce DT properties 'realtek,clkout-ssc-enable',
-'realtek,rxc-ssc-enable' and 'realtek,sysclk-ssc-enable' which control
-CLKOUT, RXC and SYSCLK SSC spread spectrum clocking enablement on these
-signals.
-
-Signed-off-by: Marek Vasut <marek.vasut@mailbox.org>
+Fixes: 506e0825a4c9 ("ASoC: dt-bindings: Convert ti,tas2552 to DT schema")
+Signed-off-by: Marek Vasut <marex@nabladev.com>
 ---
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Aleksander Jan Bajkowski <olek2@wp.pl>
-Cc: Andrew Lunn <andrew@lunn.ch>
+Cc: Baojun Xu <baojun.xu@ti.com>
 Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Eric Dumazet <edumazet@google.com>
-Cc: Florian Fainelli <f.fainelli@gmail.com>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>
-Cc: Ivan Galkin <ivan.galkin@axis.com>
-Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Kevin Lu <kevin-lu@ti.com>
 Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Michael Klein <michael@fossekall.de>
-Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>
 Cc: Rob Herring <robh@kernel.org>
-Cc: Russell King <linux@armlinux.org.uk>
-Cc: Vladimir Oltean <vladimir.oltean@nxp.com>
+Cc: Shenghao Ding <shenghao-ding@ti.com>
 Cc: devicetree@vger.kernel.org
-Cc: netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-sound@vger.kernel.org
 ---
-V2: Split SSC clock control for each CLKOUT, RXC, SYSCLK signal
-V3: Update RTL8211FVD PHYCR2 comment to state this PHY has PHYCR2 register,
-    but SSC configuration is not supported due to different layout.
-V4: - Perform all SSC configuration before disabling CLKOUT
-    - Perform all SSC configuration in the same order as in the SSC appnote
-    - Rebase on current next, retest using spectrum analyzer again
-V5: s@SCC@SSC@ typo
-V6: Drop RTL8211F_SSC_CLKOUT write in favor of setting PHYCR2 bit 7,12,13
+V2: Add missing ref to dai-common and unevaluatedProperties
 ---
- drivers/net/phy/realtek/realtek_main.c | 127 +++++++++++++++++++++++++
- 1 file changed, 127 insertions(+)
+ .../devicetree/bindings/sound/ti,tas2552.yaml       | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/phy/realtek/realtek_main.c b/drivers/net/phy/realtek/realtek_main.c
-index 023e47ad605bd..f31969de3ba99 100644
---- a/drivers/net/phy/realtek/realtek_main.c
-+++ b/drivers/net/phy/realtek/realtek_main.c
-@@ -75,10 +75,18 @@
+diff --git a/Documentation/devicetree/bindings/sound/ti,tas2552.yaml b/Documentation/devicetree/bindings/sound/ti,tas2552.yaml
+index 10369aa5f0a86..85e3ebd2acd84 100644
+--- a/Documentation/devicetree/bindings/sound/ti,tas2552.yaml
++++ b/Documentation/devicetree/bindings/sound/ti,tas2552.yaml
+@@ -12,8 +12,8 @@ maintainers:
+   - Baojun Xu <baojun.xu@ti.com>
  
- #define RTL8211F_PHYCR2				0x19
- #define RTL8211F_CLKOUT_EN			BIT(0)
-+#define RTL8211F_SYSCLK_SSC_EN			BIT(3)
- #define RTL8211F_PHYCR2_PHY_EEE_ENABLE		BIT(5)
-+#define RTL8211F_CLKOUT_SSC_EN			BIT(7)
-+#define RTL8211F_CLKOUT_SSC_CAP			GENMASK(13, 12)
+ description: >
+-  The TAS2552 can receive its reference clock via MCLK, BCLK, IVCLKIN pin or 
+-  use the internal 1.8MHz. This CLKIN is used by the PLL. In addition to PLL, 
++  The TAS2552 can receive its reference clock via MCLK, BCLK, IVCLKIN pin or
++  use the internal 1.8MHz. This CLKIN is used by the PLL. In addition to PLL,
+   the PDM reference clock is also selectable: PLL, IVCLKIN, BCLK or MCLK.
  
- #define RTL8211F_INSR				0x1d
+   For system integration the dt-bindings/sound/tas2552.h header file provides
+@@ -34,6 +34,9 @@ properties:
+     maxItems: 1
+     description: gpio pin to enable/disable the device
  
-+/* RTL8211F SSC settings */
-+#define RTL8211F_SSC_PAGE			0xc44
-+#define RTL8211F_SSC_RXC			0x13
-+#define RTL8211F_SSC_SYSCLK			0x17
++  '#sound-dai-cells':
++    const: 0
 +
- /* RTL8211F LED configuration */
- #define RTL8211F_LEDCR_PAGE			0xd04
- #define RTL8211F_LEDCR				0x10
-@@ -215,6 +223,9 @@ MODULE_LICENSE("GPL");
- struct rtl821x_priv {
- 	bool enable_aldps;
- 	bool disable_clk_out;
-+	bool enable_clkout_ssc;
-+	bool enable_rxc_ssc;
-+	bool enable_sysclk_ssc;
- 	struct clk *clk;
- 	/* rtl8211f */
- 	u16 iner;
-@@ -278,6 +289,12 @@ static int rtl821x_probe(struct phy_device *phydev)
- 						   "realtek,aldps-enable");
- 	priv->disable_clk_out = of_property_read_bool(dev->of_node,
- 						      "realtek,clkout-disable");
-+	priv->enable_clkout_ssc = of_property_read_bool(dev->of_node,
-+							"realtek,clkout-ssc-enable");
-+	priv->enable_rxc_ssc = of_property_read_bool(dev->of_node,
-+						     "realtek,rxc-ssc-enable");
-+	priv->enable_sysclk_ssc = of_property_read_bool(dev->of_node,
-+							"realtek,sysclk-ssc-enable");
+ required:
+   - compatible
+   - reg
+@@ -41,7 +44,10 @@ required:
+   - iovdd-supply
+   - avdd-supply
  
- 	phydev->priv = priv;
+-additionalProperties: false
++allOf:
++  - $ref: dai-common.yaml#
++
++unevaluatedProperties: false
  
-@@ -707,6 +724,104 @@ static int rtl8211f_config_phy_eee(struct phy_device *phydev)
- 			  RTL8211F_PHYCR2_PHY_EEE_ENABLE, 0);
- }
- 
-+static int rtl8211f_config_clkout_ssc(struct phy_device *phydev)
-+{
-+	struct rtl821x_priv *priv = phydev->priv;
-+	struct device *dev = &phydev->mdio.dev;
-+	int ret;
-+
-+	/* The value is preserved if the device tree property is absent */
-+	if (!priv->enable_clkout_ssc)
-+		return 0;
-+
-+	/* RTL8211FVD has PHYCR2 register, but configuration of CLKOUT SSC
-+	 * is not currently supported by this driver due to different bit
-+	 * layout.
-+	 */
-+	if (phydev->drv->phy_id == RTL_8211FVD_PHYID)
-+		return 0;
-+
-+	/* Unnamed registers from EMI improvement parameters application note 1.2 */
-+	ret = phy_write_paged(phydev, 0xd09, 0x10, 0xcf00);
-+	if (ret < 0) {
-+		dev_err(dev, "CLKOUT SSC initialization failed: %pe\n", ERR_PTR(ret));
-+		return ret;
-+	}
-+
-+	/* Enable CLKOUT SSC and CLKOUT SSC Capability using PHYCR2
-+	 * bits 7, 12, 13. This matches the register 25 write 0x38C3
-+	 * from the EMI improvement parameters application note 1.2
-+	 * section 2.3, without affecting unrelated bits.
-+	 */
-+	ret = phy_set_bits(phydev, RTL8211F_PHYCR2,
-+			   RTL8211F_CLKOUT_SSC_CAP | RTL8211F_CLKOUT_SSC_EN);
-+	if (ret < 0) {
-+		dev_err(dev, "CLKOUT SSC enable failed: %pe\n", ERR_PTR(ret));
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int rtl8211f_config_rxc_ssc(struct phy_device *phydev)
-+{
-+	struct rtl821x_priv *priv = phydev->priv;
-+	struct device *dev = &phydev->mdio.dev;
-+	int ret;
-+
-+	/* The value is preserved if the device tree property is absent */
-+	if (!priv->enable_rxc_ssc)
-+		return 0;
-+
-+	/* RTL8211FVD has PHYCR2 register, but configuration of RXC SSC
-+	 * is not currently supported by this driver due to different bit
-+	 * layout.
-+	 */
-+	if (phydev->drv->phy_id == RTL_8211FVD_PHYID)
-+		return 0;
-+
-+	ret = phy_write_paged(phydev, RTL8211F_SSC_PAGE, RTL8211F_SSC_RXC, 0x5f00);
-+	if (ret < 0) {
-+		dev_err(dev, "RXC SSC configuration failed: %pe\n", ERR_PTR(ret));
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int rtl8211f_config_sysclk_ssc(struct phy_device *phydev)
-+{
-+	struct rtl821x_priv *priv = phydev->priv;
-+	struct device *dev = &phydev->mdio.dev;
-+	int ret;
-+
-+	/* The value is preserved if the device tree property is absent */
-+	if (!priv->enable_sysclk_ssc)
-+		return 0;
-+
-+	/* RTL8211FVD has PHYCR2 register, but configuration of SYSCLK SSC
-+	 * is not currently supported by this driver due to different bit
-+	 * layout.
-+	 */
-+	if (phydev->drv->phy_id == RTL_8211FVD_PHYID)
-+		return 0;
-+
-+	ret = phy_write_paged(phydev, RTL8211F_SSC_PAGE, RTL8211F_SSC_SYSCLK, 0x4f00);
-+	if (ret < 0) {
-+		dev_err(dev, "SYSCLK SSC configuration failed: %pe\n", ERR_PTR(ret));
-+		return ret;
-+	}
-+
-+	/* Enable SSC */
-+	ret = phy_set_bits(phydev, RTL8211F_PHYCR2, RTL8211F_SYSCLK_SSC_EN);
-+	if (ret < 0) {
-+		dev_err(dev, "SYSCLK SSC enable failed: %pe\n", ERR_PTR(ret));
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
- static int rtl8211f_config_init(struct phy_device *phydev)
- {
- 	struct device *dev = &phydev->mdio.dev;
-@@ -723,6 +838,18 @@ static int rtl8211f_config_init(struct phy_device *phydev)
- 	if (ret)
- 		return ret;
- 
-+	ret = rtl8211f_config_rxc_ssc(phydev);
-+	if (ret)
-+		return ret;
-+
-+	ret = rtl8211f_config_sysclk_ssc(phydev);
-+	if (ret)
-+		return ret;
-+
-+	ret = rtl8211f_config_clkout_ssc(phydev);
-+	if (ret)
-+		return ret;
-+
- 	ret = rtl8211f_config_clk_out(phydev);
- 	if (ret) {
- 		dev_err(dev, "clkout configuration failed: %pe\n",
+ examples:
+   - |
+@@ -54,6 +60,7 @@ examples:
+         audio-codec@41 {
+             compatible = "ti,tas2552";
+             reg = <0x41>;
++            #sound-dai-cells = <0>;
+             vbat-supply = <&reg_vbat>;
+             iovdd-supply = <&reg_iovdd>;
+             avdd-supply = <&reg_avdd>;
 -- 
 2.53.0
 
