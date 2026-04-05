@@ -1,116 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BA9D2F069D;
-	Sun,  5 Apr 2026 19:22:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 252D12D73B6;
+	Sun,  5 Apr 2026 19:31:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775416940; cv=none; b=LP7BPn5wZVlLf5U4Z5HBIcOBLLhoHxFLBR0GaF5/T4QICLlKJ0zvrg5Adl9yYl0Os5+RXSbf4sZvoHWVYmDTFMribyff5jA1yg7BlzAdVPEfnOwKATczFYlf4f+2/4vMyaC34IE2Xr+6eCUJkR+Cwdav2Pzx0pkVBkL9OkJVNYk=
+	t=1775417485; cv=none; b=Qe2VFwzb7iM5eaN/oqLb8MNVgZy1mRMiu7MozHcdqoGpl1mfylmL0nWu+tj8yJPjecBErS+xLDR0xMBrafwszYAPAlf9V7+pqcEWOZSv2tx2XfGJ6ja2Pluv2KyFUw4TP7WfOybDg4PIh3MKCCTQILKcnO17z78H3RmSg10F95k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775416940; c=relaxed/simple;
-	bh=mZUV/W122YoheOkQInkEZtIizl/Cy+NtGl6p4rKlHPE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IKGhGrwJJXEH8Q3M1slLNew2CtAXnVPdxp7U1S/F8wwzGD631ZY3s6JU4EIVMpLJFsnRWf/4buV1CWvGA6rM+1DhnSViHUeorVQ8jOuzOoee2bAnOH8NXRBqiABj4t73NS7cE3bGcnL7i7hPNvDUsTDfjfVafc6axYhQorKLfF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dqdD/D/k; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dqdD/D/k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 333B9C116C6;
-	Sun,  5 Apr 2026 19:22:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775416940;
-	bh=mZUV/W122YoheOkQInkEZtIizl/Cy+NtGl6p4rKlHPE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dqdD/D/kmcVPjm9ZXKLCCwtAl9aDngIjEOoA2ewy0oWtT+sHyQkXrOqx3XEdVws2z
-	 rSE8yo5EqyrvKl3KXqDAw8QPNaPL7bDuio5Cw3cWmXy7vYm2tffAiWbSQQXV0DFYWi
-	 T+z4SuGsjHMJ30qtosyx9UtlC0WlTHFeFe0X9Fx8EXnSe1G04GRnrduZzi8OLuQtcJ
-	 sgIrKN+Ue6v6pXfpZfTgG4vuHJAXhrbNs7aQ30ty5xJ3u8K5U/qr5frY9wH7gNTe0r
-	 qqfx55AOF8L6N/2+zufe6UkUHUtFSd2iXqH/eiYI0Gv9nBDIS6+I7XsEyp3R6AaCXq
-	 TsL6nPRpy0xCA==
-Date: Sun, 5 Apr 2026 14:22:16 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Richard Cochran <richardcochran@gmail.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Shawn Guo <shengchao.guo@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, linux-arm-msm@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] pinctrl: qcom: add the TLMM driver for the Nord
- platforms
-Message-ID: <adKz2wirCJ5n3OpK@baldur>
-References: <20260403-nord-tlmm-v1-0-4864f400c700@oss.qualcomm.com>
- <20260403-nord-tlmm-v1-2-4864f400c700@oss.qualcomm.com>
+	s=arc-20240116; t=1775417485; c=relaxed/simple;
+	bh=2dVl60hE7BeqeGzYbWqK1g4D9jJ/S/AdvJuWwlKqYIU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OvaqLBXzid7V4dTqB/ixdKiJJvNH4SNLA0gVmrTn88WzxA6F7OsgfpHMO4b8wB4D5du4STC2fVPvubjfpvAoft82NlvQ2x3vsUXcPoaTFlJxNWRTGaSMtz2kBbS/TPRtdyzski2xV2ou0DuFF+DkLqZVBW9X1Pl9fzm1TAjCEs0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [223.166.95.230])
+	by APP-05 (Coremail) with SMTP id zQCowADnfBB3uNJpOkKeDA--.25923S2;
+	Mon, 06 Apr 2026 03:31:04 +0800 (CST)
+From: Han Gao <gaohan@iscas.ac.cn>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Yixun Lan <dlan@kernel.org>,
+	Vincent Legoll <legoll@online.fr>
+Cc: devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Han Gao <rabenda.cn@gmail.com>,
+	Han Gao <gaohan@iscas.ac.cn>
+Subject: [PATCH v9 0/3] riscv: dts: spacemit: Add PMIC regulators usb pcie
+Date: Mon,  6 Apr 2026 03:30:40 +0800
+Message-ID: <cover.1775417019.git.gaohan@iscas.ac.cn>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260403-nord-tlmm-v1-2-4864f400c700@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowADnfBB3uNJpOkKeDA--.25923S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Aw1kXF4DJw17uF48uw4fuFg_yoW8urW8pr
+	y2vr45Zw4rXw42y393u39xJryY9Fn5Ar9xWr1UKw18ArnFgay7Za1xtr42vF9xur45tFnr
+	trs7Aw4xuw4xAFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
+	628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
+	IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
+	MI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJV
+	WUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
+	6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYx
+	BIdaVFxhVjvjDU0xZFpf9x0JUd-B_UUUUU=
+X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiDAgIDGnSelYyaAAAsN
 
-On Fri, Apr 03, 2026 at 03:27:56PM +0200, Bartosz Golaszewski wrote:
-[..]
-> diff --git a/drivers/pinctrl/qcom/pinctrl-nord.c b/drivers/pinctrl/qcom/pinctrl-nord.c
-[..]
-> +enum nord_functions {
-> +	msm_mux_gpio,
-> +	msm_mux_aoss_cti,
-> +	msm_mux_atest_char0,
-> +	msm_mux_atest_char1,
-> +	msm_mux_atest_char2,
-> +	msm_mux_atest_char3,
-> +	msm_mux_atest_char_start,
-> +	msm_mux_atest_usb20,
-> +	msm_mux_atest_usb21,
-> +	msm_mux_aud_intfc0_clk,
-> +	msm_mux_aud_intfc0_data0,
-> +	msm_mux_aud_intfc0_data1,
-> +	msm_mux_aud_intfc0_data2,
-> +	msm_mux_aud_intfc0_data3,
-> +	msm_mux_aud_intfc0_data4,
-> +	msm_mux_aud_intfc0_data5,
-> +	msm_mux_aud_intfc0_data6,
-> +	msm_mux_aud_intfc0_data7,
+Changes in v8:
+ - Collected Tested-by from Vincent Legoll
+ - patch 3:
+   remove vpcie3v3-supply form pcie2
+ - Link to v8: https://lore.kernel.org/linux-riscv/cover.1775220547.git.gaohan@iscas.ac.cn/
 
-Keeping functions like this split per pin forces the DT author to
-write per-pin states. We avoid this by dropping/adjusting the function
-suffix.
+Han Gao (3):
+  riscv: dts: spacemit: Enable i2c8 adapter for OrangePi RV2
+  riscv: dts: spacemit: Define the P1 PMIC regulators for OrangePi RV2
+  riscv: dts: spacemit: Enable USB3.0/PCIe on OrangePi RV2
 
-The only case where we want to see a suffix for a given endpoint is when
-it's necessary to allow us to select some secondary function of that pin
-(e.g. we've seen QUP SE instances that spread their 4 pins pair-wise
-across only two pins, with two different functions).
+ .../boot/dts/spacemit/k1-orangepi-rv2.dts     | 217 ++++++++++++++++++
+ 1 file changed, 217 insertions(+)
 
-[..]
-> +	msm_mux_qup3_se0_l0_mira,
-> +	msm_mux_qup3_se0_l0_mirb,
-> +	msm_mux_qup3_se0_l1_mira,
-> +	msm_mux_qup3_se0_l1_mirb,
 
-Here's such example, where the first two pins of qup3_se0 have two
-different mappings on gpio 102/103 (for some reason). So, we somehow
-need two functions for these.
+base-commit: 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f
+prerequisite-patch-id: ef6e9c7b5854d0c08066b72f9a7868db8c2140eb
+prerequisite-patch-id: cfe3800f8c791ec4c63e070af9628e88e0fc31b9
+prerequisite-patch-id: b76493e625ae257c8adcd67874178458420e4d47
+prerequisite-patch-id: 88e01dc92c83bd88ddeb78891d3088209fed8d6b
+prerequisite-patch-id: 60336d10ab8322c70596d0f046b6b5c54bb24b54
+prerequisite-patch-id: 68c4d869548687dc115dd91e2ffb8f4c11482d86
+prerequisite-patch-id: fdadcf964c2cb3406160edb579d99a8d5695f8e6
+prerequisite-patch-id: 73b9e745338b0499b849fa4f7f9508987ab39a59
+prerequisite-patch-id: cd26770c2160c3c31a406bd8a6b01ab666180ae0
+prerequisite-patch-id: e5dfddc32cefae195692da8b80e19adf086e4ad7
+prerequisite-patch-id: 7fd53cbe4977598f26148a4bb1cf692bbdb79a09
+prerequisite-patch-id: 96ebac57bb29619b97fe95422206a685825618e9
+prerequisite-patch-id: 00fac16b52f60383db3140e2885f3f7f8d14dd1a
+prerequisite-patch-id: 3b7a60047b922c48e93599f621cb738856f42354
+prerequisite-patch-id: 275c030b963be05dd1041451f539a130ce614277
+prerequisite-patch-id: 93963424b0871e64276af0e0b2199b52e29b4603
+prerequisite-patch-id: 8383188b1c01ed6280629faaa29c37d699ade241
+prerequisite-patch-id: 5f8126b912b924d63d4a1e0c5eb42d212eb0d369
+prerequisite-patch-id: e80af628a2e0b5f2eeb3cb1b5e7133d08bdd2c4e
+prerequisite-patch-id: 0234a6dca15eb91f98a45a46604ce5b4935048a5
+-- 
+2.47.3
 
-> +	msm_mux_qup3_se0_l2,
-> +	msm_mux_qup3_se0_l3,
-> +	msm_mux_qup3_se0_l4,
-> +	msm_mux_qup3_se0_l5,
-> +	msm_mux_qup3_se0_l6,
-
-But in order to select qup3_se0 muxing on pins 102-108 the DT author
-need to write 6 different pinctrl states; where 1-2 should suffice.
-
-[..]
-> +static const struct msm_pingroup nord_groups[] = {
-[..]
-> +	[102] = PINGROUP(102, qspi0, qup3_se0_l0_mira, qup3_se0_l1_mirb, _, _, _, _, _, _, _, _),
-> +	[103] = PINGROUP(103, qspi1, qup3_se0_l1_mira, qup3_se0_l0_mirb, _, _, _, _, _, _, _, _),
-> +	[104] = PINGROUP(104, qspi_clk, qup3_se0_l2, _, _, _, _, _, _, _, _, _),
-> +	[105] = PINGROUP(105, qspi_cs0_n, qup3_se0_l3, gcc_gp5_clk, _, _, _, _, _, _, _, _),
-> +	[106] = PINGROUP(106, qspi2, qup3_se0_l4, gcc_gp6_clk, _, _, _, _, _, _, _, _),
-> +	[107] = PINGROUP(107, qspi3, qup3_se0_l5, _, _, _, _, _, _, _, _, _),
-> +	[108] = PINGROUP(108, qspi_cs1_n, qup3_se0_l6, qdss_gpio, _, _, _, _, _, _, _, _),
-
-Regards,
-Bjorn
