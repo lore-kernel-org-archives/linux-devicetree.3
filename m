@@ -1,89 +1,135 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EB3123D7FF;
-	Sun,  5 Apr 2026 12:02:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 362A529E117;
+	Sun,  5 Apr 2026 13:28:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775390570; cv=none; b=Tiv4Eql/vzwchH3UTdgjl1SiHbDap3dYlXhYMNI/tFwCJCY/vb82+1mMxpBdtXZh96IXK7CI8i1zC1mhK7lPxfvXzFWn5OQDFtK4Jj96el+FY2dTqSfb5HsuUjQpCbZwZL9X1pXOMsGgRi3CyF8rOidKG75qN3tNGqjWPM+Qg9A=
+	t=1775395694; cv=none; b=JhBBIOTXnAQt6AxVvxPSEVAD+PaqaihexBqqzUa+Dd9J3CtwCz5oZrvvrpVLNfIkNVfIAO6+NV5DoaSO5lspD3278sXHAC/rqK97Wx/s4EDdBp/0oHlETXqkMM31rQtcmxHezR9ulLu+W0QvDZ0pjCpakIrr3HwxnkUYojbv1NA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775390570; c=relaxed/simple;
-	bh=VwXIPBbp0EIzPNtpB2Kh8OUpJCymQVJw7CRWHLQnyH0=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=RqDOFt27ZNxrFENXuruO+Ekqfojuw3AoOrjtsYPmZIHOmk9qOLWGNFrMpIG3Vz6aL1uKf2naHhamaRhJoWZ0RLHscqargu0pP7lI9wWRnaY4f9EEfzApV6CUlMILuf6AuBUOk5Gyz/a690ghjPilDRrArpP1zg9nYqi6JLK+xOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qQwwCeNj; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775395694; c=relaxed/simple;
+	bh=v12eyFNx5o85b2ZGpakdYCN9+1ToSv+BEIH3AgjWRzY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=We16Hnzw5XolIBPsC+/SuRXfKQDQORZJ1ur6XKUbQScmzScjmRCIg5Rnh+8FY+NtOLMkI6d56kV9NUtWih4NrpRVS3KY8obGz6SUF1uGTnDygbnPfylzoMlLZZmxvEirmW7PKUZsN7r6q0a4hD0XLYVcZZGBTXqrQjIF0wP44VA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WpHTPrFY; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qQwwCeNj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17E64C19424;
-	Sun,  5 Apr 2026 12:02:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WpHTPrFY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E302C116C6;
+	Sun,  5 Apr 2026 13:28:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775390569;
-	bh=VwXIPBbp0EIzPNtpB2Kh8OUpJCymQVJw7CRWHLQnyH0=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To:From;
-	b=qQwwCeNj+saJT57yAG47jboL8X78w4/j6WpBJ1RZ4sp8PWbMz7XsL9EDbWtj55Eiv
-	 28aGEHxX84zqCSRKzt5WxDYhK2mKne18FSkXEYY++OZ6+IBYaBKFZkA86MS9bLh9Oc
-	 BYyORiDakrz6RnLk4LVZHvUx8P1LQpa7pCp8fHnA1nA9F6ZvrAlepEALLMXhhTHNG5
-	 7JaVWay0RJB3NcEhdmqtS8VF3DnUGPXm4QkCgawXIaUT/QfRxlFCiXeEIfDZt6r6xg
-	 I3uj6fM0ROLbqxk5+qZJNhPISl9Q1iNQvp6vF94UFTOtVMPHy01bKsqbxAmGzThrrM
-	 mtqWeRGNpMg3w==
+	s=k20201202; t=1775395693;
+	bh=v12eyFNx5o85b2ZGpakdYCN9+1ToSv+BEIH3AgjWRzY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=WpHTPrFYlydv0naDku8xttYoGvb1ztSIxNLshFtSAa8cwyCaLbHTDQIeDexEs+DTi
+	 vMntM2T3lLKApxXtKFnsoy8xMdxB1Qi0yG8ZiJFJAV3td4Sg1PHlbwcAa2LQp2Drti
+	 q8OlA+mXikVZe6e9nw7NLgBhqjHFT3FjDf3bAFEnF/4sdhzCwXKFod7eDgArBS+kVN
+	 RQHVJI7lzH0ez3J8RG/DfsTALa+rSyHmyTf60bVDHhny8qu2QEhVFFdvsO0sSB0EMx
+	 9h9nBYZP1MfeAR1Tp42FfXSIwc9WOx3mVBqmQeRhh60nU8Tx0JWWnc+UXofvraExeI
+	 1Vtm1tBuHSgCg==
+Message-ID: <9211dae3-3d74-43ae-9c38-31af1266afc3@kernel.org>
+Date: Sun, 5 Apr 2026 15:28:06 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/5] arm64: dts: qcom: Few dtc W=1 warning fixes
+To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
+ Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+ Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Abel Vesa <abel.vesa@oss.qualcomm.com>,
+ Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
+ Maulik Shah <maulik.shah@oss.qualcomm.com>,
+ Qiang Yu <qiang.yu@oss.qualcomm.com>,
+ Taniya Das <taniya.das@oss.qualcomm.com>,
+ Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+ Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Varadarajan Narayanan <quic_varada@quicinc.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+References: <20260404-dts-qcom-w-1-fixes-v1-0-b8a9e6806e0a@oss.qualcomm.com>
+ <23755291-8b53-4926-899e-8d3d1d8ea91d@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <23755291-8b53-4926-899e-8d3d1d8ea91d@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Sun, 05 Apr 2026 14:02:33 +0200
-Message-Id: <DHL7FCNQ20PA.2K03T8MNSO9TT@kernel.org>
-Subject: Re: [PATCH v4 0/9] driver core: Fix some race conditions
-Cc: "Douglas Anderson" <dianders@chromium.org>, "Rafael J . Wysocki"
- <rafael@kernel.org>, "Alan Stern" <stern@rowland.harvard.edu>, "Saravana
- Kannan" <saravanak@kernel.org>, "Christoph Hellwig" <hch@lst.de>, "Eric
- Dumazet" <edumazet@google.com>, "Johan Hovold" <johan@kernel.org>, "Leon
- Romanovsky" <leon@kernel.org>, "Alexander Lobakin"
- <aleksander.lobakin@intel.com>, "Alexey Kardashevskiy" <aik@ozlabs.ru>,
- "Robin Murphy" <robin.murphy@arm.com>, "Andrew Morton"
- <akpm@linux-foundation.org>, <Frank.Li@kernel.org>, "Jason Gunthorpe"
- <jgg@ziepe.ca>, <alex@ghiti.fr>, <alexander.stein@ew.tq-group.com>,
- <andre.przywara@arm.com>, <andrew@codeconstruct.com.au>, <andrew@lunn.ch>,
- <andriy.shevchenko@linux.intel.com>, <aou@eecs.berkeley.edu>,
- <ardb@kernel.org>, <bhelgaas@google.com>, <brgl@kernel.org>,
- <broonie@kernel.org>, <catalin.marinas@arm.com>, <chleroy@kernel.org>,
- <davem@davemloft.net>, <david@kernel.org>, <devicetree@vger.kernel.org>,
- <dmaengine@vger.kernel.org>, <driver-core@lists.linux.dev>,
- <gbatra@linux.ibm.com>, <gregory.clement@bootlin.com>,
- <hkallweit1@gmail.com>, <iommu@lists.linux.dev>, <jirislaby@kernel.org>,
- <joel@jms.id.au>, <joro@8bytes.org>, <kees@kernel.org>,
- <kevin.brodsky@arm.com>, <kuba@kernel.org>, <lenb@kernel.org>,
- <lgirdwood@gmail.com>, <linux-acpi@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-aspeed@lists.ozlabs.org>,
- <linux-cxl@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-mips@vger.kernel.org>, <linux-mm@kvack.org>,
- <linux-pci@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <linux-serial@vger.kernel.org>, <linux-snps-arc@lists.infradead.org>,
- <linux-usb@vger.kernel.org>, <linux@armlinux.org.uk>,
- <linuxppc-dev@lists.ozlabs.org>, <m.szyprowski@samsung.com>,
- <maddy@linux.ibm.com>, <mani@kernel.org>, <maz@kernel.org>,
- <miko.lenczewski@arm.com>, <mpe@ellerman.id.au>, <netdev@vger.kernel.org>,
- <npiggin@gmail.com>, <osalvador@suse.de>, <oupton@kernel.org>,
- <pabeni@redhat.com>, <palmer@dabbelt.com>, <peter.ujfalusi@gmail.com>,
- <peterz@infradead.org>, <pjw@kernel.org>, <robh@kernel.org>,
- <sebastian.hesselbarth@gmail.com>, <tglx@kernel.org>,
- <tsbogend@alpha.franken.de>, <vgupta@kernel.org>, <vkoul@kernel.org>,
- <will@kernel.org>, <willy@infradead.org>, <yangyicong@hisilicon.com>,
- <yeoreum.yun@arm.com>
-To: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260404000644.522677-1-dianders@chromium.org>
- <2026040539-sponge-publisher-2b42@gregkh>
-In-Reply-To: <2026040539-sponge-publisher-2b42@gregkh>
+Content-Transfer-Encoding: 7bit
 
-On Sun Apr 5, 2026 at 7:27 AM CEST, Greg Kroah-Hartman wrote:
-> Anyway, this looks great, unless there are any objections, other than
-> the "needs to be undefined", which a follow-on patch can handle, I'll
-> queue them up next week for 7.1-rc1.
+On 05/04/2026 12:24, Krishna Kurapati wrote:
+> 
+> 
+> On 4/4/2026 3:20 PM, Krzysztof Kozlowski wrote:
+>> Not marking stable as these do not have actual impact on user, but still
+>> warnings are not desired.
+>>
+>> Best regards,
+>> Krzysztof
+>>
+>> ---
+>> Krzysztof Kozlowski (5):
+>>        arm64: dts: qcom: glymur: Fix USB simple_bus_reg warning
+>>        arm64: dts: qcom: glymur: Fix cache and SRAM simple_bus_reg warnings
+>>        arm64: dts: qcom: glymur: Fix USB simple_bus_reg warnings
+> 
+> This third one must be "arm64: dts: qcom: ipq5424". I think its 
+> mistakenly written as glymur.
+> 
 
-Sounds good, for the series:
+Indeed.
 
-Reviewed-by: Danilo Krummrich <dakr@kernel.org>
+Best regards,
+Krzysztof
