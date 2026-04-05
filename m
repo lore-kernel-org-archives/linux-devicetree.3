@@ -1,85 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB23277C96;
-	Sun,  5 Apr 2026 21:48:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CCDE17B50F;
+	Sun,  5 Apr 2026 21:59:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775425694; cv=none; b=ToE19DqcJRL+Pm8KfIGEUpB542vhiIpFoC8+GYnWdksXfX5UIXbFU1BWZC5pVAuUXTGbQ1Z7sXH0Yk/aG47SEysS1fYLJkfqPOZiAKPI1dQ03ksckzh/zQbdQR+8uK4HZOzlvSrW15VSeye5dRQJ3/PIAfKxcgO5muu8dhvPOb4=
+	t=1775426387; cv=none; b=Dnqs8k4e71zBiA8XAVgjbAXWDELqzisNjjyeI5/b+pxDEzDXcJ7KoKwT9zqgIVOrPxvvL9xb7PpZoJVrEIsj62GQZXSXrpri8VjW6MldasFhbxgS5P0B1yve+OYkX46ILqlp7ebzYgN5HgUY0mN1g2G5aiFY6LBbCks3OWiD5zE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775425694; c=relaxed/simple;
-	bh=RGKOBQD3Q6ynJpf+CVXJt8bXlPhMYn8DmenV7P8v5uU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bGCsz9jeLroXThm9kbIxgnp6M6yoZXWdm+joBwa+o8EHCUuXkleXIIdvL0vmogIFWVGSGHFqACL/weAgym3eTlAXYyKKyUEjqjrDl0d8iCil4wQaK4b3l4rbBqTWxk0aXcEBCYuZA2j/dpcwQpNu/rTGkrdIMPhB+IPgXo2g+rc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h2cd3RH0; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775426387; c=relaxed/simple;
+	bh=MZNUFi8yolT6aQUoB/vtAsxmU189jDW1XJ3mYuqqJU8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=i97mC98I78JtzK9PuU3Mm/L3pAf0bwexAtw/HQLXQupD7A0kXA7xlfrIhs4O0Xi8uBAAFJZABpk/zIY7lPaQiosNeqhezPAREoxJ5yPuMiI3+yglXO9u+nK9o+Y2DtR4c+Ebwcc7PRhABnbRKBew2tlRjEluP49hcE2FcBp8KyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=fYO8GHPJ; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h2cd3RH0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35856C116C6;
-	Sun,  5 Apr 2026 21:48:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775425693;
-	bh=RGKOBQD3Q6ynJpf+CVXJt8bXlPhMYn8DmenV7P8v5uU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=h2cd3RH0ZY08IBHKfzRhqB1K337C4FVOO0qZeUhgJ98d7JrCfsytmVl2STQdmGtT2
-	 V+RVFGYTZ23wOpPPrLOHGoV4eHcy5cM5eDMC5lgLCR3eExlwsZDWHMq/d8gJkI6VvU
-	 Zr7nuTWMp8UHOXg2PgAqXkVwTHFQfta+3FhqerqtiqYEcKur4+NSrxhJf651hyCb/v
-	 7ZPdMtvFW0KK7UoiiyKpcsTOvTX4CcSoAbmsG8PKl1VCZduFJh3m5iRKZ/8ZmmQKoh
-	 5BLFJWEjdcSrWIeVPfAGO9mIhfLf0lzEtHjznnaru3ByDryUnP7MesLZZmLK2NadNG
-	 f67igLD70FYKQ==
-Date: Sun, 5 Apr 2026 23:48:10 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Andrea della Porta <andrea.porta@suse.com>
-Cc: linux-pwm@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Naushir Patuck <naush@raspberrypi.com>, Stanimir Varbanov <svarbanov@suse.de>
-Subject: Re: [PATCH 3/3] arm64: dts: broadcom: rp1: Add PWM node
-Message-ID: <adLYU8EUzk7kIuwl@monoceros>
-References: <cover.1775223441.git.andrea.porta@suse.com>
- <ef79e974c6680202294a4cfde7cc791753bf1b3e.1775223441.git.andrea.porta@suse.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="fYO8GHPJ"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4fpmb26LCHz9sl4;
+	Sun,  5 Apr 2026 23:59:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1775426382;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ti02GCS8WYepRt+Ng0w1SPSsT5rII3vNDFgxuu2wZz4=;
+	b=fYO8GHPJ2w9Sj3dzyfXpU++cIf6KcDfByLcXI9h7UU68W3U0DRuOtcTZg0N14k4xHEcXk9
+	QsHLBLmgwtuP+2gKyqBlm4nGND5GwfZ+NJ/xOD+zMiMt/8QCGLVzw7ax6GKfd0H3YErTCG
+	iDVybZnUQnWp+gJRhH2tXZRhvP6W1S+vSwbe93xiBKKPOGB2itm8BU7O1Vb8hoRk1u+qHO
+	qSGHo6May1Xhm+VUDv/MKNz6mMR6JkDWMEX0sQs0Qkky02JqnhZ2csnMbZYgyjvDfg8c0p
+	qv8EcE4aIFjJbbLuBYsZFH969CSeP1rBDaiwhViOESI/SxBPnM659PMLw+3J/g==
+Message-ID: <22564dd5-c2b5-46ec-b083-6239a3ff5a2f@mailbox.org>
+Date: Sun, 5 Apr 2026 23:59:39 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="a2ld2b4dw2q6x2ai"
-Content-Disposition: inline
-In-Reply-To: <ef79e974c6680202294a4cfde7cc791753bf1b3e.1775223441.git.andrea.porta@suse.com>
+Subject: Re: [net-next,PATCH v5 3/3] net: phy: realtek: Add property to enable
+ SSC
+To: Aleksander Jan Bajkowski <olek2@wp.pl>, netdev@vger.kernel.org
+Cc: "David S. Miller" <davem@davemloft.net>, Andrew Lunn <andrew@lunn.ch>,
+ Conor Dooley <conor+dt@kernel.org>, Eric Dumazet <edumazet@google.com>,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Ivan Galkin <ivan.galkin@axis.com>,
+ Jakub Kicinski <kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Michael Klein <michael@fossekall.de>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>, devicetree@vger.kernel.org
+References: <20260326210704.58912-1-marek.vasut@mailbox.org>
+ <20260326210704.58912-3-marek.vasut@mailbox.org>
+ <a03960a2-f313-4c12-98f2-d032ce4a45ad@wp.pl>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <a03960a2-f313-4c12-98f2-d032ce4a45ad@wp.pl>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: gja1sh77d7xw1qxacetsgq4njcw9hwu6
+X-MBO-RS-ID: b05c571556b657abfb4
 
+On 4/5/26 10:23 PM, Aleksander Jan Bajkowski wrote:
 
---a2ld2b4dw2q6x2ai
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH 3/3] arm64: dts: broadcom: rp1: Add PWM node
-MIME-Version: 1.0
+Hi,
 
-Hello,
-
-The "rp1" in the Subject is very irritating. Better make this:
-
-	arm64: dts: broadcom: rpi-5: Add rp1 PWM node
-
-or similar.
-Best regards
-Uwe
-
---a2ld2b4dw2q6x2ai
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmnS2JgACgkQj4D7WH0S
-/k7/BAgAraQetvLdiGHxyhhuRl+/9A1OzV4ZpgpJrRstQExDxilsE9zghRdQUCrx
-NbXRR2E5MTy9JtG2qDM0oW587E2dF96ywTvExIY3LQIsz7qjHLb+fF20bbp8bKOX
-A7WEwiBze2iC1QbIETJJjmgMBoSIx9fGK2kZXexhor2xucynUQunuMGPLBu1i/HU
-rAyhYUblL8/RqRlpfTt8Zx1eyo3UaavEznhai+isamY6euA8e8LWK6mvj6YKUAD3
-J7TGSn6vmzbR2WFeAL5XHql8OM7wfwurPoxCYVE/L8Btc53r3g4AzIaefq+HmzfW
-xC7bOVcru5Oiv5/QMxSoB0vt+PExMg==
-=d13v
------END PGP SIGNATURE-----
-
---a2ld2b4dw2q6x2ai--
+>> +static int rtl8211f_config_clkout_ssc(struct phy_device *phydev)
+>> +{
+>> +    struct rtl821x_priv *priv = phydev->priv;
+>> +    struct device *dev = &phydev->mdio.dev;
+>> +    int ret;
+>> +
+>> +    /* The value is preserved if the device tree property is absent */
+>> +    if (!priv->enable_clkout_ssc)
+>> +        return 0;
+>> +
+>> +    /* RTL8211FVD has PHYCR2 register, but configuration of CLKOUT SSC
+>> +     * is not currently supported by this driver due to different bit
+>> +     * layout.
+>> +     */
+>> +    if (phydev->drv->phy_id == RTL_8211FVD_PHYID)
+>> +        return 0;
+>> +
+>> +    /* Unnamed registers from EMI improvement parameters application 
+>> note 1.2 */
+>> +    ret = phy_write_paged(phydev, 0xd09, 0x10, 0xcf00);
+>> +    if (ret < 0) {
+>> +        dev_err(dev, "CLKOUT SSC initialization failed: %pe\n", 
+>> ERR_PTR(ret));
+>> +        return ret;
+>> +    }
+>> +
+>> +    ret = phy_write(phydev, RTL8211F_SSC_CLKOUT, 0x38c3);
+> 
+> Only registers 0x10–0x17 require paged operations. The remaining registers
+> are mapped directly into the PHY address space. This is mentioned in commit
+> 650e55f224a575cdb18c984b95036109519502d1. Paged and direct access return
+> the same results. With this in mind, I believe that RTL8211F_SSC_CLKOUT is
+> an alias for RTL8211F_PHYCR2 and is described on page 45 of the 
+> datasheet[1].
+> 
+> 1. RTL8211F(I)-CG/RTL8211FD(I)-CG Datasheet
+This is a good point indeed, I think I can simply set PHYCR2 bits 
+7,12,13 to enable the CLKOUT SSC ?
