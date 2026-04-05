@@ -1,106 +1,178 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from siberian.tulip.relay.mailchannels.net (siberian.tulip.relay.mailchannels.net [23.83.218.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C4C82D4816;
-	Sun,  5 Apr 2026 17:00:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775408426; cv=none; b=OpBfLNcJ19/uyWnJRqzHHohUk7wXHxGxVq13G8Lvk013qWWAchInbXSuEF/1ys775YpSGNK/ndZ8bo3FTx2fhAvWjeTM7VXjjx3xOCoQyk3ZEvkG1PSvH8miPK59xFDBtZAdJH5VQME78pagAGncXPUKFU7WFF8U3ZvG1C93Iy8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775408426; c=relaxed/simple;
-	bh=7RinMIgD/mBUiJpF1jyOGuCOHbDKTi/0fzzc5+uGT1U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dEESaynT7epJF2Cv0Ppkdqf/T6nr806ehyxweIlss9tGEcYb/WW8T15CvCRb9wRHUB1Irz2+iLJR8VLSB5hr1/jRCwb2JUMcW7VXpbivjM/P1lzTLp7vyBEK4M2yJdP71R60mszkiRaeq2KTWab407jiv35XA20E0j5VjK2eF0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XVbb57zM; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0BE912D1F1;
+	Sun,  5 Apr 2026 17:01:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=23.83.218.246
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775408507; cv=pass; b=mzJDI30rX+3LZNT3s9OaOZ2whN8zKHXC6Q5JsKsO9PbCxcrHm3XoXliQots0uUTp/ZXByZCikP/NV0C16WU94trEYqUH9lWqZ04Ua2ft90ts/bBOZpjnVF7UscrWf5G4tou4xGegvjEwUz93zy9PQO25i14lKX0y6N3yJMCyREU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775408507; c=relaxed/simple;
+	bh=Ejvm1mF+34uxQNchjGqwX3gtS0hDoCRWgPN3CAGoRFE=;
+	h=From:Subject:Message-Id:MIME-Version:Content-Type:To:Cc:Date; b=a7w1yATiKcCO+RDO1w061PHdhJuTUgFSK6Znqqrn+agG1JS5iEYUMRoUN/554ERqpXJo/rrls+LEupqUnYgWaaz0e34RjGBwXtyoQK48MtWZMi36c8+d+j/oZTKZYUoWMUVzG4QITAeThTs3C6PkWikVkTodm4RjGOIUkSFYz9U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com; spf=pass smtp.mailfrom=smankusors.com; dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b=AwNPWxN1; arc=pass smtp.client-ip=23.83.218.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smankusors.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XVbb57zM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A4F7C116C6;
-	Sun,  5 Apr 2026 17:00:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775408425;
-	bh=7RinMIgD/mBUiJpF1jyOGuCOHbDKTi/0fzzc5+uGT1U=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=XVbb57zMmaf+rsoseeot3i1zMj74d9p06gFHLFWw4qIKPEh6BYSZcP+peGOkU5X/6
-	 WWACFTOR2TlHD0HjumeBAS8v71o3Bl9240oLHHnG80nQtV5CCOtDfYYEylq897ivTC
-	 gqF38omE6cSj0Z0tQP3RwsrVQzzJkU1LUn9z6p6jRS6RbI+7BmS76eSYTZRnpG9I5y
-	 jpPbt5Mb8Xhhq2HtIzQMGrKK9zNoki7cC4RV71aZLDeafWGd1ZGAn41LpwpZ5w5rtU
-	 yBVHKUfIrmYdbuJLwl7PUdaprBDz4MG8NH5IegJgh29TKSigIpbtcz4f93JgiLG4gU
-	 yHlzF0ljyEAGw==
-Message-ID: <32fc8606-d475-4cc0-b2a1-c5549aef402f@kernel.org>
-Date: Sun, 5 Apr 2026 19:00:20 +0200
+	dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b="AwNPWxN1"
+X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id 4FAB18C14AA;
+	Sun, 05 Apr 2026 16:52:23 +0000 (UTC)
+Received: from fr-int-smtpout21.hostinger.io (100-96-162-196.trex-nlb.outbound.svc.cluster.local [100.96.162.196])
+	(Authenticated sender: hostingeremail)
+	by relay.mailchannels.net (Postfix) with ESMTPA id 26AE28C1411;
+	Sun, 05 Apr 2026 16:52:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; d=mailchannels.net; s=arc-2022; cv=none;
+	t=1775407940;
+	b=lsOqrX42vQSdlOe4+u/P7UAJl86eKKTIivhGFWIyz7XjLR5M5Ie+OnSbLa0jXzozKHiDjX
+	+CJz2wK2qYDK3BbHot1Z7Wvl+F/WGbKggtdTz5EQufjLBTFACzHBi9dHXFVmP/xMRBo49v
+	zKYSfFa/x4CMcn8bAK26+P3gSTrhBRvnewlhM126P+Si6xM0iEJ2809TpEIIOaEbO0QOEJ
+	v+A2mX55yled+TXDrO/3veXGemQuLMdFmieykBucVEkOuV3AgKa6A0WgGKqVHySJ742ORk
+	DvHVpuM6M/GQMqE4E9Rj6vJ2pxx/Yv6KdTlqYtJnElrckcX+NGiVLdW1CykZ0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mailchannels.net;
+	s=arc-2022; t=1775407940;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:dkim-signature;
+	bh=SGWkcrHLVZBbKHZdiamVXthl2/ys9O6HhTded3iU7kU=;
+	b=J6DzBe1GglRp+skrs9VSRIqEnNyflZgBGIDYUia3hBDuMW+LN8f0szSedvw2EEBvY8skFs
+	q5xLIveSrR+jlrY/jZMeL3uaSBJx9oY7dAjKBiujLl/AdBwBiuPe2Z1bf5hVivuJGBR82W
+	DFYIdCohCZOp7SKHYxFHJu2rBjnFEWlYevO/Q7I//RUdSqKMYdaU3XVmiIY0Z+HcCGFFd2
+	oh50wcnWqqkFUwDP7JKIYbFQZRJTWb0JmgHDc1KWHCgK4YsMnwsX3BfxeHDRyeyRVfupzw
+	F2E29uU2VcANY/lw/TYnmBTvz5+ozpwMJUQXEUNjYtyXeIW5qBzKKVb3EER75g==
+ARC-Authentication-Results: i=1;
+	rspamd-bd48b9d95-7lsvd;
+	auth=pass smtp.auth=hostingeremail smtp.mailfrom=linux@smankusors.com
+X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: hostingeremail|x-authuser|linux@smankusors.com
+X-MailChannels-Auth-Id: hostingeremail
+X-Thread-Thoughtful: 647ec49d56d22680_1775407942932_4024220470
+X-MC-Loop-Signature: 1775407942932:2020132877
+X-MC-Ingress-Time: 1775407942932
+Received: from fr-int-smtpout21.hostinger.io ([TEMPUNAVAIL]. [148.222.54.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.96.162.196 (trex/7.1.5);
+	Sun, 05 Apr 2026 16:52:22 +0000
+Received: from [172.17.0.2] (unknown [180.247.251.74])
+	(Authenticated sender: linux@smankusors.com)
+	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4fpdm80xm5z1xmt;
+	Sun,  5 Apr 2026 16:52:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smankusors.com;
+	s=hostingermail-a; t=1775407931;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=SGWkcrHLVZBbKHZdiamVXthl2/ys9O6HhTded3iU7kU=;
+	b=AwNPWxN1q/KK17OPx8k+QsQ5VOKOioxN3B6MOZtlDfjLj5XHiIf0R/mJQ7NPD0K6QEF1G+
+	IsfQ2EXLtoQRtg1+LJ8/KIA5aIHWNVhWrbB6T6ckhJ4weBViWdpND25BbHGGjs8AbVzLS6
+	TK0587GfspmwkRNJiG2vtcYNN6bRYUkwbkWy58CT8OLFZ48aS68ax5CD1LBksMkJzrvERo
+	Kig9VFLIJbrOgi7q2kZR87qKnbclj+Q1FqfizxrgYGSUCLI2dL5fwPmkdB+ybOWPz27GOx
+	cdm90WnYsPLTGwlFhfal9OzhyRCRuPDP32BL2fC7Wyy68t/rW4GcdzL8Nwyd9Q==
+From: Antony Kurniawan Soemardi <linux@smankusors.com>
+Subject: [PATCH v3 0/3] iio: adc: qcom-pm8xxx-xoadc: add support for
+ reading channel labels from DT
+Message-Id: <20260405-pm8xxx-xoadc-label-v3-0-9fe179c283ec@smankusors.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] ASoC: Add support for GPIOs driven amplifiers
-To: Herve Codina <herve.codina@bootlin.com>, Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Christophe Leroy
- <christophe.leroy@csgroup.eu>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-References: <20260330101610.57942-1-herve.codina@bootlin.com>
- <4daaa17d-5673-4efa-92ce-4f2ce87eb812@sirena.org.uk>
- <20260330173944.3fdc27ec@bootlin.com>
- <27e23c7b-4aca-41d2-96b8-df02c52e8121@sirena.org.uk>
- <20260330184128.68a4e779@bootlin.com>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <20260330184128.68a4e779@bootlin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIACeT0mkC/23NQQ6CMBCF4auYrq0ZBijgynsYFy1tpREoabWpI
+ dzdQmJcyPJ/yXwzE6+cUZ6cDzNxKhhv7JgiPx5I2/HxrqiRqQkCMsgxo9NQxxhptFy2tOdC9bS
+ ouJa60sB4Q9Lh5JQ2cUOvt9Sd8U/r3tuPkK3rl2N7XMgoUMCqhlJyWUhx8QMfHy9vnT+1diCrG
+ fDnFJDvOpgcbEQJQteYKfbnLMvyAROyhq4BAQAA
+X-Change-ID: 20260321-pm8xxx-xoadc-label-47afdf7f06a9
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
+ phone-devel@vger.kernel.org, 
+ Antony Kurniawan Soemardi <linux@smankusors.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1775407927; l=2427;
+ i=linux@smankusors.com; s=20250609; h=from:subject:message-id;
+ bh=Ejvm1mF+34uxQNchjGqwX3gtS0hDoCRWgPN3CAGoRFE=;
+ b=AM5FjeUtNuBk7wTiHcsisTO6mn4c93LxD2rfperT1s5O3k0IrR6wsG+cwz2PIb6XGDxc2+4il
+ phgoEb5wOBwDQuLrTUAAP6EwCsIuNHq2CL+2xTAcsOVB89YgE63a6Ei
+X-Developer-Key: i=linux@smankusors.com; a=ed25519;
+ pk=65wTy06fJl2/h/EJwjr704YG+yjHFhZObJBWzzK+N00=
+Date: Sun,  5 Apr 2026 16:52:07 +0000 (UTC)
+X-CM-Envelope: MS4xfLpUBOISr39bgW0PB4sUOyf3l8Le8d9RFCOofAwBW9szaZphhGHo2Q3qgdSmVoB7BkgvDJiRZLLXtOeLeHMDaezGn0iCM78wtozLdHkHrxERaLT1HlTA fDb1P6jnUO7/IcZZ7cewf7fiQGbO8jLScjsCy9Z5ngHLqPO/MMaWPS1zwX6hUQxLTGbE2rdL9qKk47AO6vQgfBaov9CIvuXXNPyH+Ql8UrMzx/z1hCNahGOw z88kBgNND0MQ+brYVDLBear4xyIwZmYrcRxnYjXjvLdhcojSd42y+rgb3tKzQdZjNogF3Zpg1qf4PMmIPfKgcoe4QvaKlvtd4NWQ8QTFgDV92Nj7kpLlBOl4 Z5ZYiKFKpws45BTt+lvYN/DP0X+g8Ks2vGpqiupbW+zpeJFnwqyE/M/PVL8Zn+vLlWuTqLhKSUKfZc/7lOTPiBrbHosPBtNhbKBf7MOiqBhMLSa1RTwdzbMC rUFU/jYABiiRlY64m78TPpdyG/zFdByYIuQsd94v/mYpen7gQhqmqJLMDMieYgj38Eww5KNWJCaOP3DSPPme8zWL9351uq0Q/eS5mM4Tnix6xkaRcQaHBgPf Uy3R063Q3W29kUrtJNf0/9ndzMv/K3osEVyWd8bg7eGoRAqzdA8cVoPP4a6EkgPxz7Rk+7lWTKBxUaisxUyJ2rtiz/+IGTqylsCXYcsM2jjebRhVsR08qg64 K4qA/Nr38/O6CxFkkxXInI9vZsmtx4nvmvrfPb8E8Tu5B0nepyPSYA==
+X-CM-Analysis: v=2.4 cv=ZbRPNdVA c=1 sm=1 tr=0 ts=69d2933b a=iMBLmzX4nuXcozcv68JNPw==:117 a=iMBLmzX4nuXcozcv68JNPw==:17 a=IkcTkHD0fZMA:10 a=VwQbUJbxAAAA:8 a=wxLWbCv9AAAA:8 a=_3edPfKAy5zYfz3TofwA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=QJY96suAAestDpCc5Gi9:22
+X-AuthUser: linux@smankusors.com
 
-Hi Mark,
+This series adds support for reading channel labels from the device tree
+in the Qualcomm PM8xxx XOADC driver, along with the corresponding DT
+updates for the PM8921 PMIC. Also removes the redundant error logs when
+reading values, as returning -EINVAL and -ETIMEDOUT are sufficient to
+report failures.
 
-Le 30/03/2026 à 18:41, Herve Codina a écrit :
-> On Mon, 30 Mar 2026 16:48:54 +0100
-> Mark Brown <broonie@kernel.org> wrote:
-> 
->> On Mon, Mar 30, 2026 at 05:39:44PM +0200, Herve Codina wrote:
->>> Mark Brown <broonie@kernel.org> wrote:
->>
->>>> This sounds a lot like simple-amplifier.c?
->>
->>> The gpio driven amplifier proposed is more generic and can handle
->>> more complex design. I.e. op-amp + resistor and/or line (mute,
->>> bypass) switching. Hardwares handled by this driver are a superset
->>> of just dio2125 and so simple-amplifier.c.
->>
->>> IMHO, it makes sense to have a specific driver for those kind
->>> of hardware design.
->>
->> Right, and if it's a superset it feels like it should all be one driver
->> rather than two separate ones.
-> 
-> Also, it is worth noting that simple-amplifier.c considered a stereo
-> amplifier (left + right).
-> 
-> Considering the two op-amp available in dio2125 as just two op-amp used
-> in two separated mono channel with additional component to switch related
-> to resistors (independant switching for each channel) means that almost
-> everything proposed in audio-gpio-amp have to be duplicated (gain, mute,
-> bypass per channel) instead of just instantiate two audio-gpio-amps.
-> 
-> On the other hand, there is no reason to handle a stereo component in
-> audio-gpio-amp. Further more with the hardware I have handling a stereo
-> component doesn't make sense. Indeed, I only have independent mono lines
-> with their own resistor switched amplification circuitry.
-> 
-> I could merge everything in one .c file but only a few part of source code
-> will be common to simple-amplifier and audio-gpio-amp. IMHO the resulting
-> merged code will look like two different drivers merged in one .c file.
+Tested on Sony Xperia SP (PM8921):
+> cat /sys/bus/iio/devices/iio\:device0/in_voltage7_label
+usb_vbus
+> cat /sys/bus/iio/devices/iio\:device0/in_temp12_label
+ref_muxoff
+> sensors
+iio_hwmon-isa-0000
+Adapter: ISA adapter
+vbat:        267.86 V
+dcin:          4.82 kV
+...
+chg_temp:    +1071.4°C
 
-Following explanation from Herve I have the feeling that combining the 
-two drivers into a single one will bring more complexity for little benefit.
+Note: the sensor readings above are incorrect due to pending calibration
+fixes are not included in this series. This patch only addresses label
+visibility. The values are expected to be wrong until the calibration
+fixes lands separately.
 
-Do you still think it is worth having a combined driver allthough they 
-address quite different setups ?
+Signed-off-by: Antony Kurniawan Soemardi <linux@smankusors.com>
+---
+Changes in v3:
+- Simplify label assignment logic by removing the unnecessary
+  conditional branch.
+- Remove redundant error logging in pm8xxx_read_channel_rsv, since
+  -ETIMEDOUT is sufficient to report failures.
+- Link to v2: https://lore.kernel.org/r/20260403-pm8xxx-xoadc-label-v2-0-29b50bf821e6@smankusors.com
 
-Thanks
-Christophe
+Changes in v2:
+- Remove redundant error logging in pm8xxx_read_raw, since -EINVAL is
+  sufficient to report failures.
+- Reword the uncommon Tested-by commit tag to freeform text
+- Link to v1: https://lore.kernel.org/r/20260326-pm8xxx-xoadc-label-v1-0-027805dad4db@smankusors.com
+
+Changes since original patch:
+- The label is now read from the platform description (device tree)
+  instead of the internal datasheet name.
+- Link to original patch:
+  https://lore.kernel.org/all/20251028-pm8xxx-xoadc-fix-v1-1-b000e1036e41@smankusors.com/
+
+---
+Antony Kurniawan Soemardi (3):
+      ARM: dts: qcom: pm8921: add labels for ADC channels
+      iio: adc: qcom-pm8xxx-xoadc: remove redundant error logs when reading values
+      iio: adc: qcom-pm8xxx-xoadc: add support for reading channel labels
+
+ arch/arm/boot/dts/qcom/pm8921.dtsi  | 12 ++++++++++++
+ drivers/iio/adc/qcom-pm8xxx-xoadc.c | 34 ++++++++++++++++++++--------------
+ 2 files changed, 32 insertions(+), 14 deletions(-)
+---
+base-commit: 5619b098e2fbf3a23bf13d91897056a1fe238c6d
+change-id: 20260321-pm8xxx-xoadc-label-47afdf7f06a9
+
+Best regards,
+--
+Antony Kurniawan Soemardi <linux@smankusors.com>
+
