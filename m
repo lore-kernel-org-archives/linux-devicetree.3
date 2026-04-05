@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD6E234CFD6;
-	Sun,  5 Apr 2026 08:09:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B15D1552FD;
+	Sun,  5 Apr 2026 08:11:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775376584; cv=none; b=M0QiiAtSG5Wqn0yX3XD0xf9Eu2HOLpAIaDa2eXnyvZS+hf046Z5gjVlMH/ggblYuoY0MXI49V4Aj7P74vEFI5jPWXMb4SKjnr3zQgzhhz1qHTEmfT6ZqqE3/ESgo91dvOrFnmODZYze40laloCSyCw66Ov6PRtCmjx4+cnAKcrI=
+	t=1775376672; cv=none; b=l+0bl/C+oEcL26CPlYuLCX/HRFDejU5JA8EvR43UPaST7cSSQsUTwhX/QuNdWC08F0t90+vU+fty3Mikyh/hilmkaN32P6ec3PdhEfzG+O8jm1uIqclFexp2nJQzpU0RMIkAWQodZY2u3ryO8ZTjWbNS2Co2fg9rNo/iS8F+xVg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775376584; c=relaxed/simple;
-	bh=tmwI+VqD0Msey8y4xzbIo39Fptd9tbedOvW8qNkYZAY=;
+	s=arc-20240116; t=1775376672; c=relaxed/simple;
+	bh=LXj6V1TltBxNcB6eUSVw1XojZwydV9ttSejwUOKNY3c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KUz6O/tX/FDW2libSmxtM6FLY9RQej9l1/u/yXGOpJMQhSir8o5xfzp6YP8dJYlbnxJTNdhlO+xmvFbQ7dI7pdE8Z/Mtk+QV30JaY3LfBKaGPO1ArzEKvwlY7hXIfaEzpJrVSdMPAYmDTT3yfJh7AKe+AJN2z+BSLMzOt7Cvq5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GGQdgBbm; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ww5op2RZYNacbdEa3K7rp3bj1BNdtIfz9h9KPs+rzXoa23BL5UmBJMLKlrspXMdmPOHCKa0JKisPxeM2ZpHZDWlIMOFY79AQeGGyfp3jF1rGf3sZcIfqpsvzRDaNdUOJmGAEcGwV1QY+D5cKPCsw0LQvAbgxtA+q+lnG4jly2BI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cticqeNl; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GGQdgBbm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8DDDC116C6;
-	Sun,  5 Apr 2026 08:09:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cticqeNl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A633C116C6;
+	Sun,  5 Apr 2026 08:11:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775376584;
-	bh=tmwI+VqD0Msey8y4xzbIo39Fptd9tbedOvW8qNkYZAY=;
+	s=k20201202; t=1775376671;
+	bh=LXj6V1TltBxNcB6eUSVw1XojZwydV9ttSejwUOKNY3c=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=GGQdgBbmxN2ecBSt7z+PQHKqlxJyp16EXZ7lvUbvr4ZxxHQ43V3FWb9USUj8Eb9YS
-	 i7xU8eND2CQD0I6q8RsU/p7O30XTrPKLHCOjy+bw0Rddh2Qcjg+MOHj/3AEQOMe0Eu
-	 K5q6RjAH96cmfuQY5Yc04TAI4ffGG1455YddgPWstLLu5k8luAJu/ndBNX7jTgMdDo
-	 CIDu1eSyN0notTHpbdtXiRHXFjfPe77qfaA28orsQrWglZgqp6sJzXUgXG5AO8u4Rw
-	 2mAHvMAIrK93/8Voi+vIV0tZWBIQb2VXNWNh1UFdwlrpisWbtIU1AuSwSd9QL7q+D7
-	 seteuZPefoE8w==
-Date: Sun, 5 Apr 2026 10:09:41 +0200
+	b=cticqeNlaJxizDcQDRvjhsuVc/ryigIqLLhw4tlruDTNk4w3mg3OgB7IOrXroohwS
+	 Heyt3zpCuW3N2uMobIZJQIT3pCYwCvlu5Zlr8Gx3aTWw+qN6s2Y0X29jspo9gqxRzS
+	 eUBz5CyOGTUnr6nimkh8c3MA9iiTJwrHCu5FbljenjsudtE+nRzWvDxJP7JM9iwYvA
+	 P/Apmu4c0/S0wtNfwtJA3eZak7d3vW8ox115IJ1RbrDBsGT5QbfB/g7XjnJimD3Hcy
+	 SFXbi0C+KSFESxTplz5DOV+7Nthry1w4f0rimuaw7gtSleQh5h4tSItVySsoTgAzO4
+	 cKoeg9hlitHfA==
+Date: Sun, 5 Apr 2026 10:11:09 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Marek Vasut <marex@nabladev.com>
-Cc: devicetree@vger.kernel.org, Baojun Xu <baojun.xu@ti.com>, 
-	Conor Dooley <conor+dt@kernel.org>, Kevin Lu <kevin-lu@ti.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Shenghao Ding <shenghao-ding@ti.com>, linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org
-Subject: Re: [PATCH] ASoC: dt-bindings: ti,tas2552: Add sound-dai-cells
-Message-ID: <20260405-wild-neon-dachshund-80cbd2@quoll>
-References: <20260404033709.340026-1-marex@nabladev.com>
+To: Joe Sandom <jsandom@axon.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/5] dt-bindings: arm: qcom: document QCS8550 RB5Gen2
+ board
+Message-ID: <20260405-congenial-smoky-yak-104d1e@quoll>
+References: <20260404-rb5gen2-dts-v1-0-895f8fc494fc@axon.com>
+ <20260404-rb5gen2-dts-v1-4-895f8fc494fc@axon.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,23 +46,20 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260404033709.340026-1-marex@nabladev.com>
+In-Reply-To: <20260404-rb5gen2-dts-v1-4-895f8fc494fc@axon.com>
 
-On Sat, Apr 04, 2026 at 05:36:56AM +0200, Marek Vasut wrote:
->    For system integration the dt-bindings/sound/tas2552.h header file provides
-> @@ -34,6 +34,9 @@ properties:
->      maxItems: 1
->      description: gpio pin to enable/disable the device
->  
-> +  '#sound-dai-cells':
-> +    const: 0
-> +
+On Sat, Apr 04, 2026 at 10:50:57AM +0100, Joe Sandom wrote:
+> Document the Qualcomm RB5gen2 from Thundercomm based on the
+> QCS8550 chipset from Qualcomm.
+> 
+> [1] https://www.thundercomm.com/product/qualcomm-rb5-gen-2-development-kit/
+> 
+> Signed-off-by: Joe Sandom <jsandom@axon.com>
+> ---
+>  Documentation/devicetree/bindings/arm/qcom.yaml | 6 ++++++
+>  1 file changed, 6 insertions(+)
 
-missing ref to dai-common and unevaluatedProperties.
-
->  required:
->    - compatible
->    - reg
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
