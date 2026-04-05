@@ -1,82 +1,37 @@
-Received: from iguana.tulip.relay.mailchannels.net (iguana.tulip.relay.mailchannels.net [23.83.218.253])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C5E17D2;
-	Sun,  5 Apr 2026 17:30:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=23.83.218.253
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775410238; cv=pass; b=fuursaOU4Ro/n10BpQN8kC6nMw58J3GU1TpfU/mLDGsIk2XJU7Qmi0Xk/tMj05+15XJ+g4MxquyG4bJ7duTfBXSD6J3KRc/EMqSCZCiBH8D7RbgJfoRSMCPt4nVRIC54wfLjI/y085/s8hYz15U8vfsUwLhXrLqIm63DHUGxO4o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775410238; c=relaxed/simple;
-	bh=tbUp5zFUpe1TTvoQKrxt+Nlmg9h/6PCCg1ziNfU842U=;
-	h=From:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc:Date; b=Dapz03E5jqSOiXWaHD+GmechXt9+G9deiemOAsWwd82TrSwr2xKT0AJt+RIJujXQ0AnQplUCtV7U1nmVWWF0/aD5POHn6K4suSidDdVB3/cxZi7sFwoJLkjSap1EHBNIjNqK7hsIlofgQ+QxC6eZ8ynIMIlEXifV3hw1EAmCriQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com; spf=pass smtp.mailfrom=smankusors.com; dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b=b9W1fboh; arc=pass smtp.client-ip=23.83.218.253
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smankusors.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7787128AB0B;
+	Sun,  5 Apr 2026 17:36:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775410598; cv=none; b=F2eUr1V+Y93v37Bk6VT8XuANG80BrJLemsgRvgCASsV2Cp2trqwuKBgbUvgKeJJf12T+5hqZQwdUPpzI3nvIXX0Z1TxnNobQp5Uf/UiF/hYGVDYWKXjpnS6gyDgfa929WegmMrDD2rVTPPqrTQxPaJvDfyFjmfeuLu5xKl4HH4A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775410598; c=relaxed/simple;
+	bh=ZpadFe1RBUAmpGQkjkYP0sG88PfUKH1EwDULVQ2W8pg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=dmbgy6FzkItkZQ7yY7/oGSbhGxT2sURhNOegrnK2PUx9V1qKrQS8i0yMrnJ03+WTgIJPrZJUtQlTZDMZMQJJWgewHPObtUWQd0wQer6QerXZjR30vCQWhlRzp/1CO/7+h2qcHiisDrm2xPTF/aLwxyLCaLAhxUDuuzGN1zjpsQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DkIFgdIh; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b="b9W1fboh"
-X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id 53B867E143E;
-	Sun, 05 Apr 2026 16:52:24 +0000 (UTC)
-Received: from fr-int-smtpout21.hostinger.io (100-96-162-172.trex-nlb.outbound.svc.cluster.local [100.96.162.172])
-	(Authenticated sender: hostingeremail)
-	by relay.mailchannels.net (Postfix) with ESMTPA id E08DE7E1510;
-	Sun, 05 Apr 2026 16:52:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; d=mailchannels.net; s=arc-2022; cv=none;
-	t=1775407942;
-	b=eE7n/QU8ho6sM4MEqI3cgOETFOQlddv/whEYwCK35JiKnhqijxJTkwFPq7TPOrUBP9H51N
-	TEAvtlopz9glGM2xETd5V9pvl1f08nN3kbvV7tLswiXXbDLshXs9m4Z8ssE5UcBWgmaLo4
-	HENQn/ZXQYQBme9YBz7MViNhd1aQU56yIDiioEDtVhyJGErmLJIXJdQagH9HLvCeoH2hf7
-	xKuVgvv66ASmDCoKRjVNkBAN04cr5zMlY2cuh7aOZUl1S1QeHin7XZ1yw+7I7ix6+DJH6Z
-	aCpquTQh8Ix23RtROXPWHO17Kudsn1lqPWHiotskX+pcuYuM/gMK3+OmqzXjCQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mailchannels.net;
-	s=arc-2022; t=1775407942;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:dkim-signature;
-	bh=Df6meE+IzbisONhLxipM53ma1q9jZudZjiD3KFI5uHA=;
-	b=UlVy0ltt+6xA/QPFENgzboh8O5fyBvCBpBtvvwOJoISOgGfT1GAmfzQTbEbQkclrpldQro
-	b34rVYg8wsXQt51jOD74A3Ps6cdLUrsH4bs53Sqij6RzlchI86SOveCB8dCRSnZ6Xt3ZvD
-	l3XsamVPyGvYnlNahG2MLsxpURtiswI75dIm6V0lRGZe7C+xzXnXJ+EALpVwE6qRs0c4v1
-	bFJiUonA31LmXmCsbm0tSBCZXDTm7uwoNcZc41awBiO/b+y7+CI6mrWTKBoqM/8sLgZl4d
-	fR1wmlOrvMpQzj+ZuY/uGsotI0j36xc0PZ+YoDdxJPcaB2uFfADxxoDdb6r53g==
-ARC-Authentication-Results: i=1;
-	rspamd-bd48b9d95-hcb2s;
-	auth=pass smtp.auth=hostingeremail smtp.mailfrom=linux@smankusors.com
-X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: hostingeremail|x-authuser|linux@smankusors.com
-X-MailChannels-Auth-Id: hostingeremail
-X-Ruddy-Versed: 5634013042ce584c_1775407944239_2452233281
-X-MC-Loop-Signature: 1775407944239:657969050
-X-MC-Ingress-Time: 1775407944239
-Received: from fr-int-smtpout21.hostinger.io (fr-int-smtpout21.hostinger.io
- [148.222.54.33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.96.162.172 (trex/7.1.5);
-	Sun, 05 Apr 2026 16:52:24 +0000
-Received: from [172.17.0.2] (unknown [180.247.251.74])
-	(Authenticated sender: linux@smankusors.com)
-	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4fpdmD06b8z1xmj;
-	Sun,  5 Apr 2026 16:52:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smankusors.com;
-	s=hostingermail-a; t=1775407938;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Df6meE+IzbisONhLxipM53ma1q9jZudZjiD3KFI5uHA=;
-	b=b9W1fboh58wU8MaoPwQmhw5OkHxXlFRvjOqsSXNkaoSEOfwmNbkV3tWzFFvJU25m9Yrgo9
-	G1xtri1KyU5WiRER8xTN0wIGMfTKV54CJnTkZQOd+JD8OArivr3C7PZ9OgrTS2xB/VeeXn
-	LsxSAOFs4IooRBAcBFQG4I42O5H8EcwHi2Xr+N+pqcDLORFn6PAoBFdXR3f5kffDJXAzL8
-	G7Ti9NiyKAtvDKnX0cFXa4yu+Ajg4rXG+8WOl8Yzq6qGawtnU40ZO70b7Qcxu6LAhzgzh7
-	iZuMKnC7/0CP2PadFiK+iNjvL15+r+w2APzUZEKkNfr+N5YA8GSXdZNv0wys2A==
-From: Antony Kurniawan Soemardi <linux@smankusors.com>
-Subject: [PATCH v3 1/3] ARM: dts: qcom: pm8921: add labels for ADC channels
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DkIFgdIh"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 03D6BC116C6;
+	Sun,  5 Apr 2026 17:36:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775410598;
+	bh=ZpadFe1RBUAmpGQkjkYP0sG88PfUKH1EwDULVQ2W8pg=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=DkIFgdIhHtO549nrAG9jrxyG8Ckd/fzfmVkNAww9KepAUZ08+DKu8uQa+iYEA/MfH
+	 18mbvPC8sAwQT93038dnBV6W/Bg2wYhaxSJd3p4BoDJnE6rxanmErTTYDo3g85jjeN
+	 2mP/bYkxeJDIwNJCaZvT60JQpxLe1/av5ITuGEH1pGOTt/P1lIMDse7jfRPcyXKqAX
+	 z20a2J19ujUsIANHShh2t8s1Tu+VklHMiYNbm9llrh1ztd0eMb5BgWHnGMFbiwOCG0
+	 FmFawirugSzZW7B/PtIVQqOdr2RoeVWgd5Os8WY/d09IqiylSfNa+RZ2dpbOIvz75D
+	 WQQzPlMyQ3XDw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E959DE9D814;
+	Sun,  5 Apr 2026 17:36:37 +0000 (UTC)
+From: Markus Probst via B4 Relay <devnull+markus.probst.posteo.de@kernel.org>
+Subject: [PATCH v6 0/2] Introduce Synology Microp driver
+Date: Sun, 05 Apr 2026 19:36:27 +0200
+Message-Id: <20260405-synology_microp_initial-v6-0-08fde474b6c9@posteo.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -85,114 +40,145 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260405-pm8xxx-xoadc-label-v3-1-9fe179c283ec@smankusors.com>
-References: <20260405-pm8xxx-xoadc-label-v3-0-9fe179c283ec@smankusors.com>
-In-Reply-To: <20260405-pm8xxx-xoadc-label-v3-0-9fe179c283ec@smankusors.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+X-B4-Tracking: v=1; b=H4sIAJud0mkC/4XP32rDIBgF8FcpXs/if2Ou9h5jFKOfrdDGTlNZK
+ X33uXSwrBB2eYTz83w3VCBHKKjf3FCGGktMYwvqZYPcwY57wNG3jBhhinCicLmO6Zj2190pupz
+ OuzjGKdojJkF76/SghVGotc8ZQvyc5bf3R87wcWkfTI/HX7/fNF1SRjXOlzLt2iQPFQNI0VEwp
+ JOurxwtJ/1UKBWPyhF8wdZIE7RjQQfTVzo3BlsAu3Q6xanfVL0lODuFvgcdYplSvs6XVzov+vf
+ ISjHBwYUAHpQQnXs9pzJB2nqYzcqWTrfusOYY3hmjeODUyWeHLxzK1x3eHOuVdUJxywh9dsTCY
+ WTdEc0hgnHvh447K54duXTMuiObw7QbOjL4IM2fPff7/QvXPtyMbwIAAA==
+X-Change-ID: 20260306-synology_microp_initial-0f7dac7b7496
+To: Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Lee Jones <lee@kernel.org>, 
+ Pavel Machek <pavel@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
- phone-devel@vger.kernel.org, 
- Antony Kurniawan Soemardi <linux@smankusors.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1775407927; l=1924;
- i=linux@smankusors.com; s=20250609; h=from:subject:message-id;
- bh=tbUp5zFUpe1TTvoQKrxt+Nlmg9h/6PCCg1ziNfU842U=;
- b=2CqmTLbLhUfCILiV+IlIJs71ChZ3kOOD87rzW12xq20KPHQa+6DoDZz5twB26fQTBJJ8HsqbO
- UJ6W8V3kzLCB9cv+JdYLmbAYLv8eAZJO9cP0kh+qMpz8Yvr9VJv5MXA
-X-Developer-Key: i=linux@smankusors.com; a=ed25519;
- pk=65wTy06fJl2/h/EJwjr704YG+yjHFhZObJBWzzK+N00=
-Date: Sun,  5 Apr 2026 16:52:11 +0000 (UTC)
-X-CM-Analysis: v=2.4 cv=Gq4Q+V1C c=1 sm=1 tr=0 ts=69d29342 a=iMBLmzX4nuXcozcv68JNPw==:117 a=iMBLmzX4nuXcozcv68JNPw==:17 a=IkcTkHD0fZMA:10 a=EUspDBNiAAAA:8 a=wxLWbCv9AAAA:8 a=rt3x4hDEALvJiYIjBx4A:9 a=QEXdDO2ut3YA:10 a=QJY96suAAestDpCc5Gi9:22
-X-CM-Envelope: MS4xfA/IKxqvFQOP7VDXLiSMGTo4HyrkQk+du/KO39bBhGarA/AK25aYeKDBpSA2ULL45Fz2nGU3XgH/xXyqw9pTE3ESvoMMFzFyON1fbv6qjLFRW5tjZKCa eA3sAtIY9z0Ezshp11/vZxLzMI19i1FfxmVLMCJQQhU5sav9VgwNPEWbNxnjclZY0nBd+7xCo5qNHwn73crJ3gnDLA+MWOB8amPIwpFvubrA3VMsGN96jHO5 f56gJlqH9e/dU0zHdyVPztPXmg+TbrrTgMjiMXy8AzFa5rGwXP4s/+4E89iKxGicZP5ybHw458eoXxZq80Y3Fr1KSbBFESw+OYNEk8AS6bYW+TmTic+AJtd6 aT+jLU4Y5kVqtBOkQAjkDRR1GfaSygEEDYAWc3VS99/WBfPRLDINrwD+ZUrtK92AsS4OhZdqbVDlsvsXx4GwGa+o6mCLaCDL08DBO58A3yG4fYTyJZaQYX+A IPeRmIqLTJpRkKjm7sOws8Dd0NcrfIDqcXC4dsJD9wbXr0sLXc8yjTnos48RSKvgOEqK5XLYv+NBhYU9yPXuR8fygROwLtHd6N0kvjzOVnNAyYI89LazWo8q g9otrk34KXdB6OhXmUb4qw+6DCQswHIcROF5wl2XtAONVWzbahIM9YXL2Ja3JakqjtLy4rFwn2e0LW8P3+OgoVzmENrbXemCgJFyDmfxGHzz6iZujVa7PUKA xEgOCULNbC5PgBzyEHds0soienYpupLN2bUoJJ90v5hB+3W91OebsQ==
-X-AuthUser: linux@smankusors.com
+ Conor Dooley <conor+dt@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: platform-driver-x86@vger.kernel.org, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, Markus Probst <markus.probst@posteo.de>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4512;
+ i=markus.probst@posteo.de; h=from:subject:message-id;
+ bh=ZpadFe1RBUAmpGQkjkYP0sG88PfUKH1EwDULVQ2W8pg=;
+ b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBp0p2iiqDvp4Z4mFyTjdzh/Ho0sUfzo1JeyMMq9
+ YZQ1StbUBOJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCadKdohsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9JozxAAmvxYifkeeVBXmgE7yhC/ymyrYc/nXJa
+ 8SrlZFsj7KAvcKGcSkhMKncVY+GWszqpD7ooNFVaLDG/h5r1lBsiezMhXSF5zvQVbzueRVFDJa9
+ ktwx6y02OM+XqVXFk55BQXL4IRq0h62VL6VsgikebOtvCyhkjI4XWEnxbFxq2woqbvzbmfTukFH
+ J/Gf34vVRZ61B/tjdDm5y1KVc86IM6sIdZvL7ZzcktixLUZVr9SxIEJ7F7Sqyn9kSLdvWmi0/Sn
+ 6uCutaT72DHGZRWpB8PU4hZI+EAA2OR8oXxaVaJkBUfEJ3bLdGw9HaavaxQ8DWrIMI/KwFxpld9
+ IMlbc87JNJ2yb/Auur7teHUqtyYlgJ5Hk8ETQW/d0RSqoCmQ+UmJJdxItz1HHPiPahXZ7a6/fAy
+ LSSCWp552+Dy+ABu4C+HTMXmqUU8m+XD9nCy1m1QXo5ufbwHfLJvkCYl5cvVAgTqWIJHKBDI5ZA
+ WurrI6R+Y3KEM+ngBW10izvfsEY03p6+C+OTTE1Wmhe4QRr/ws+OP8z1axgkmPL8l3BiFDRthJD
+ xW6xytQRmatgPIXpTM4ygR46f2JHQ/uXdnpqT5FsqZj7aBxZMCf3NKyOvAHc9f6qfPaWU3dxt3g
+ elVl0JacAZ3VimNCzTYnN6RfiJC5mk7k2QN98yOUthcc5dUa6VU8=
+X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
+ fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
+X-Endpoint-Received: by B4 Relay for markus.probst@posteo.de/default with
+ auth_id=680
+X-Original-From: Markus Probst <markus.probst@posteo.de>
+Reply-To: markus.probst@posteo.de
 
-Add label properties to all XOADC ADC channel nodes in the PM8921 PMIC
-device tree. This allows userspace and drivers to identify channels by
-name rather than relying on datasheet name.
+Synology uses a microcontroller in their NAS devices connected to a
+serial port to control certain LEDs, fan speeds, a beeper, to handle
+proper shutdown and restart, buttons and fan failures.
 
-Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Antony Kurniawan Soemardi <linux@smankusors.com>
+This patch series depends on the rust led abstraction [1] and the rust
+serdev abstraction [2].
+
+This is only a initial version of the driver able to control LEDs.
+The following rust abstractions would be required, to implement the
+remaining features:
+- hwmon (include/linux/hwmon.h)
+- input (include/linux/input.h)
+- sysoff handler + hardware protection shutdown (include/linux/reboot.h)
+
+[1] https://lore.kernel.org/rust-for-linux/20260329-rust_leds-v13-0-21a599c5b2d1@posteo.de/
+[2] https://lore.kernel.org/rust-for-linux/20260313-rust_serdev-v3-0-c9a3af214f7f@posteo.de/
+
+Signed-off-by: Markus Probst <markus.probst@posteo.de>
 ---
- arch/arm/boot/dts/qcom/pm8921.dtsi | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+Changes in v6:
+- moved devicetree bindings patch at the end of the set
+- remove several patches
+- move of id table from model.rs to synology_microp.rs
+- remove the model! macro
+- use if blocks in devicetree schema to narrow down the
+  fan-failure-gpios property
+- add multiple devicetree examples to test if blocks
+- Link to v5: https://lore.kernel.org/r/20260329-synology_microp_initial-v5-0-27cb80bdf591@posteo.de
 
-diff --git a/arch/arm/boot/dts/qcom/pm8921.dtsi b/arch/arm/boot/dts/qcom/pm8921.dtsi
-index 535cb6a2543f69bc30abc89bff4e14a19147ce38..15246f4bd2672ccd4fc3359b66541d53d4da88b4 100644
---- a/arch/arm/boot/dts/qcom/pm8921.dtsi
-+++ b/arch/arm/boot/dts/qcom/pm8921.dtsi
-@@ -75,50 +75,62 @@ pm8921_xoadc: xoadc@197 {
- 
- 			vcoin: adc-channel@0 {
- 				reg = <0x00 0x00>;
-+				label = "vcoin";
- 			};
- 
- 			vbat: adc-channel@1 {
- 				reg = <0x00 0x01>;
-+				label = "vbat";
- 			};
- 
- 			dcin: adc-channel@2 {
- 				reg = <0x00 0x02>;
-+				label = "dcin";
- 			};
- 
- 			vph_pwr: adc-channel@4 {
- 				reg = <0x00 0x04>;
-+				label = "vph_pwr";
- 			};
- 
- 			batt_therm: adc-channel@8 {
- 				reg = <0x00 0x08>;
-+				label = "batt_therm";
- 			};
- 
- 			batt_id: adc-channel@9 {
- 				reg = <0x00 0x09>;
-+				label = "batt_id";
- 			};
- 
- 			usb_vbus: adc-channel@a {
- 				reg = <0x00 0x0a>;
-+				label = "usb_vbus";
- 			};
- 
- 			die_temp: adc-channel@b {
- 				reg = <0x00 0x0b>;
-+				label = "die_temp";
- 			};
- 
- 			ref_625mv: adc-channel@c {
- 				reg = <0x00 0x0c>;
-+				label = "ref_625mv";
- 			};
- 
- 			ref_1250mv: adc-channel@d {
- 				reg = <0x00 0x0d>;
-+				label = "ref_1250mv";
- 			};
- 
- 			chg_temp: adc-channel@e {
- 				reg = <0x00 0x0e>;
-+				label = "chg_temp";
- 			};
- 
- 			ref_muxoff: adc-channel@f {
- 				reg = <0x00 0x0f>;
-+				label = "ref_muxoff";
- 			};
- 		};
- 	};
+Changes in v5:
+- add esata led support
+- use different compatible for each model
+- add visibility modifier to of_device_table macro
+- fix match data missing when using PRP0001
+- Link to v4: https://lore.kernel.org/r/20260320-synology_microp_initial-v4-0-0423ddb83ca4@posteo.de
 
--- 
-2.34.1
+Changes in v4:
+- convert to monolithic driver and moved it into drivers/platform
+- removed mfd rust abstraction
+- moved dt-bindings to embedded-controller
+- Link to v3: https://lore.kernel.org/r/20260313-synology_microp_initial-v3-0-ad6ac463a201@posteo.de
+
+Changes in v3:
+- remove `default n` from Kconfig entry, as n is the default already.
+- select RUST_SERIAL_DEV_BUS_ABSTRACTIONS in Kconfig
+- add mfd rust abstraction
+- split core and led parts into their own driver. It should now be considered a
+  MFD device.
+- split led part of dt binding into its own file
+- Link to v2: https://lore.kernel.org/r/20260308-synology_microp_initial-v2-0-9389963f31c5@posteo.de
+
+Changes in v2:
+- fix missing tabs in MAINTAINERS file
+- remove word binding from patch subject
+- add missing signed-off-by
+- add missing help entry in Kconfig
+- add missing spdx license headers
+- remove no-check{,-cpu}-fan properties from the dt-bindings and replace
+  them with the check_fan module parameter
+- use patternProperties for leds in dt-bindings
+- license dt-binding as GPL-2.0-only OR BSD-2-Clause
+- move driver from staging tree into mfd tree and mark it as work in
+  progress inside Kconfig
+- only register alert and usb led if fwnode is present
+- Link to v1: https://lore.kernel.org/r/20260306-synology_microp_initial-v1-0-fcffede6448c@posteo.de
+
+---
+Markus Probst (2):
+      platform: Add initial synology microp driver
+      dt-bindings: embedded-controller: Add synology microp devices
+
+ .../synology,ds923p-microp.yaml                    | 112 +++++++++
+ MAINTAINERS                                        |   6 +
+ drivers/platform/Kconfig                           |   2 +
+ drivers/platform/Makefile                          |   1 +
+ drivers/platform/synology_microp/Kconfig           |  13 +
+ drivers/platform/synology_microp/Makefile          |   3 +
+ drivers/platform/synology_microp/TODO              |   7 +
+ drivers/platform/synology_microp/command.rs        |  55 ++++
+ drivers/platform/synology_microp/led.rs            | 276 +++++++++++++++++++++
+ drivers/platform/synology_microp/model.rs          |  49 ++++
+ .../platform/synology_microp/synology_microp.rs    | 109 ++++++++
+ 11 files changed, 633 insertions(+)
+---
+base-commit: b6c7d19951061de1be08fb8f5714e630b24bcc1c
+change-id: 20260306-synology_microp_initial-0f7dac7b7496
+prerequisite-change-id: 20251217-rust_serdev-ee5481e9085c:v3
+prerequisite-patch-id: 52b17274481cc770c257d8f95335293eca32a2c5
+prerequisite-patch-id: eec47e5051640d08bcd34a9670b98804449cad52
+prerequisite-patch-id: f24b68c71c3f69371e8ac0251efca0a023b31cc4
+prerequisite-patch-id: 3dfc1f7e5ecd3e0dd65d676aeb16f55260847b25
+prerequisite-change-id: 20251114-rust_leds-a959f7c2f7f9:v13
+prerequisite-patch-id: 818700f22dcb9676157c985f82762d7c607b861e
+prerequisite-patch-id: b15ffa7d95d9260151bfb116b259c4473f721c82
+prerequisite-patch-id: 8c47e0d107530f577a1be0b79f8ee791f95d3cbe
+
 
