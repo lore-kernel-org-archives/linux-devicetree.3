@@ -1,233 +1,71 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2CD62FFDCB;
-	Sun,  5 Apr 2026 19:31:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDFB3EEBA;
+	Sun,  5 Apr 2026 19:40:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775417488; cv=none; b=Wm3OUVi9vOYArPceaRPY7Je4bvCgGG2+yXXPh2wFyQKcyJJIIwgIfYfu96fQ2/8XpM/Hl/XW5TwHQzRszDm5HMGtfB04SIsRdprksAveJeYfchLkcNyLKCWMCwNla/bthEsvKobSZ/qUkSU0p4xIKtZjbz0IVsBE92xOyySQk0A=
+	t=1775418031; cv=none; b=kXJqRxpZ9f20wJyJURDxULh8ggOFDMVAl0XmMNzahWxPXn/HDe8Ac9B6+2ORs6YKIWYfgOzL09Wkz33tOHvRbEquw90NlUozmhdNDs2XisHQg6xQVTrvccEWvEP7wpZFRnEGp7KxzbRJucBwBg7NOU45NCcfFLdUv9177FiUlxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775417488; c=relaxed/simple;
-	bh=FlXeHaf/Hjion+ulpn7jEEn9Nkb/OY96ass0KI1nsro=;
+	s=arc-20240116; t=1775418031; c=relaxed/simple;
+	bh=I/LXPhVZUXpJLFAt2eNg78hLH9qBagkX0Ukc+vgDL+Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XYVKF4bbXIdrj5mAv8iRIJQGAZIn5D08zRDB+PZ93Vf+bNcwJgxyP3MPV/Yha4PsaHXjxIaFhpulY38BpiGyOWz5ffvwc8+nqk1ceGSNfCWP1Gq6JDqc0zyXhD8IH6EkLWAdQe9yINkaKB6N3WZp2KoeTfkBM780T1JK8Ur8BGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [223.166.95.230])
-	by APP-05 (Coremail) with SMTP id zQCowADnfBB3uNJpOkKeDA--.25923S4;
-	Mon, 06 Apr 2026 03:31:05 +0800 (CST)
-From: Han Gao <gaohan@iscas.ac.cn>
-To: Rob Herring <robh@kernel.org>,
+	 MIME-Version:Content-Type; b=ZV08fdnTHhcSyFzE2m7Yp/wZnrE3KAmRSbEy1/UDTU7jTEfS2XAAAD2cObZDOyU40ZTHapgZ4Y/QCgmEoBAUbNyWqAz2vD7q4TQ9qJrzZJDCPKIOWtf9qJT2FZaYkkn3jMXhfU8yl3vsKatDiMPwEUKDGvynDmrYss1pZk6LwYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TUzYFxxc; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TUzYFxxc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7DD1C116C6;
+	Sun,  5 Apr 2026 19:40:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775418031;
+	bh=I/LXPhVZUXpJLFAt2eNg78hLH9qBagkX0Ukc+vgDL+Q=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=TUzYFxxc69ufAtW99TBPI5GuVOmVQ5x22CvwsYiaJWT+bZ6Hc+JF4PV+FX9MFjSIf
+	 uIOjPST7XMm8XxiaCCu6CGPZjhyQqhf28jpccIDRU6/h6Kw7HlIdez1htuHUl1pl7c
+	 fcGGrXQxKttNcQdDAc1ai3XTztgEMJOgTV63PzUNcgGEqZjsLeLhF4/z/a6JSOpWAL
+	 PASfgWQW4KFOtiL30jLnxz9V9Rxve/ZRgHT1sj9CDoYvvCdqf9KzO72lB/xarxYRO/
+	 FcyvAyCj4ga02OIjj5nePnJrr1V1Ao0pSeyDdxPy4unns6Lk080Fwm6VoP4pGqkzFO
+	 0OAGae5ycyc0A==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>,
-	Vincent Legoll <legoll@online.fr>
-Cc: devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Han Gao <rabenda.cn@gmail.com>,
-	Han Gao <gaohan@iscas.ac.cn>,
-	Chukun Pan <amadeus@jmu.edu.cn>
-Subject: [PATCH v9 2/3] riscv: dts: spacemit: Define the P1 PMIC regulators for OrangePi RV2
-Date: Mon,  6 Apr 2026 03:30:42 +0800
-Message-ID: <193370a69e1cc3e4d8c4eb57bfea208e29ac75d8.1775417019.git.gaohan@iscas.ac.cn>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1775417019.git.gaohan@iscas.ac.cn>
-References: <cover.1775417019.git.gaohan@iscas.ac.cn>
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: glymur-crd: Enable DisplayPort support
+Date: Sun,  5 Apr 2026 14:40:13 -0500
+Message-ID: <177541802139.2061229.1405284827659543234.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260330-glymur-enable-displayport-v1-1-1543ad6dac3a@oss.qualcomm.com>
+References: <20260330-glymur-enable-displayport-v1-1-1543ad6dac3a@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADnfBB3uNJpOkKeDA--.25923S4
-X-Coremail-Antispam: 1UD129KBjvJXoWxWw4kCFWfAFWDGr1xZrWDArb_yoW5Kw13pa
-	n8ZFsxuF4rAFyxJw45Ww1xta15Wr1Fkasrury0krWrJrWUtFnF9r9Fyr1rt3W8Ja1vvw4Y
-	yrWUZFyxtF1Ig3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUm214x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jryl82xGYIkIc2
-	x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
-	Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UM2
-	8EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr1j6F4U
-	JwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7
-	IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4U
-	M4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2
-	kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkE
-	bVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67
-	AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI
-	42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMI
-	IF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVF
-	xhVjvjDU0xZFpf9x0JUQXo7UUUUU=
-X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiDAgIDGnSelYyawABsP
 
-Define the DC power input and the 4v power as fixed regulator supplies.
 
-Define the SpacemiT P1 PMIC voltage regulators and their constraints.
+On Mon, 30 Mar 2026 17:24:08 +0300, Abel Vesa wrote:
+> The two Type-C ports found on Glymur CRD are DisplayPort alternate mode
+> capable. Everything is in place already for the USB, but for DisplayPort
+> the controllers need to be enabled.
+> 
+> So enable the related DisplayPort controller for each of these two
+> ports. Also define the supported link frequencies for each output.
+> 
+> [...]
 
-Co-developed-by: Chukun Pan <amadeus@jmu.edu.cn>
-Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
-Tested-by: Vincent Legoll <legoll@online.fr> # OrangePi-RV2
-Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
----
- .../boot/dts/spacemit/k1-orangepi-rv2.dts     | 131 ++++++++++++++++++
- 1 file changed, 131 insertions(+)
+Applied, thanks!
 
-diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-index 57ec1cc32b03..f7a1dadaa95f 100644
---- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-@@ -23,6 +23,25 @@ chosen {
- 		stdout-path = "serial0";
- 	};
- 
-+	vcc_5v0: regulator-vcc-5v0 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_5v0";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+	};
-+
-+	vcc4v0: regulator-vcc4v0 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc4v0";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <4000000>;
-+		regulator-max-microvolt = <4000000>;
-+		vin-supply = <&vcc_5v0>;
-+	};
-+
- 	leds {
- 		compatible = "gpio-leds";
- 
-@@ -91,6 +110,118 @@ &i2c8 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&i2c8_cfg>;
- 	status = "okay";
-+
-+	pmic@41 {
-+		compatible = "spacemit,p1";
-+		reg = <0x41>;
-+		interrupts = <64>;
-+		vin1-supply = <&vcc4v0>;
-+		vin2-supply = <&vcc4v0>;
-+		vin3-supply = <&vcc4v0>;
-+		vin4-supply = <&vcc4v0>;
-+		vin5-supply = <&vcc4v0>;
-+		vin6-supply = <&vcc4v0>;
-+		aldoin-supply = <&vcc4v0>;
-+		dldoin1-supply = <&buck5>;
-+		dldoin2-supply = <&buck5>;
-+
-+		regulators {
-+			buck1 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3450000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck2 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3450000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck3_1v8: buck3 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck4_3v3: buck4 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck5: buck5 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3450000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			buck6 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3450000>;
-+				regulator-ramp-delay = <5000>;
-+				regulator-always-on;
-+			};
-+
-+			aldo1 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+				regulator-boot-on;
-+			};
-+
-+			aldo2 {
-+				/* not connected */
-+			};
-+
-+			aldo3 {
-+				/* not connected */
-+			};
-+
-+			aldo4 {
-+				/* not connected */
-+			};
-+
-+			dldo1 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+				regulator-boot-on;
-+			};
-+
-+			dldo2 {
-+				/* not connected */
-+			};
-+
-+			dldo3 {
-+				/* not connected */
-+			};
-+
-+			dldo4 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+				regulator-always-on;
-+			};
-+
-+			dldo5 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+			};
-+
-+			dldo6 {
-+				regulator-min-microvolt = <500000>;
-+				regulator-max-microvolt = <3400000>;
-+				regulator-always-on;
-+			};
-+
-+			dldo7 {
-+				/* not connected */
-+			};
-+		};
-+	};
- };
- 
- &uart0 {
+[1/1] arm64: dts: qcom: glymur-crd: Enable DisplayPort support
+      commit: b4cfbee0df3540b36b78e9d8e3c6d93f3206fecc
+
+Best regards,
 -- 
-2.47.3
-
+Bjorn Andersson <andersson@kernel.org>
