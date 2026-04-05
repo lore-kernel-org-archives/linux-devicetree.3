@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29824DDCD;
-	Sun,  5 Apr 2026 07:32:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0825C1A9FB7;
+	Sun,  5 Apr 2026 07:38:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775374343; cv=none; b=RktOteMcMyUJdQTaPK9GHQB1fOuUVYpqwZ+fZK9VnuuhN2mppoIWSFizZ5v4+a7csmKaC5EeMu7Axf1SvJ0DWAPriONxmVOk/AacdNR9A7h+Kk/rDqB24dfUgSLib9/C+R5WQeNvRzzuhqADqf1Rxhjio770ZP5E0DjM26PLvtk=
+	t=1775374714; cv=none; b=WiiyaD+7CMGlUDk9DfuMqjcw8rHnXnLRYn8CS08yfxkRJ0iCsloqXrEuoBKbbofDlKtcliHw1kz9a1jisBHG6wxU0d02SjqE5V5FNnEpy539WYKyKPJqn0t+BmykrFDOM6HEPTgZBcx4pCf/qWtvt0b9JKgkX0USmtNXWvr2wXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775374343; c=relaxed/simple;
-	bh=0EOmgSmZQHdpU9boeuf7jKexVd54Hiw/ztad9oO6RD8=;
+	s=arc-20240116; t=1775374714; c=relaxed/simple;
+	bh=OwcwXniupGprGdJDwCn+eH/DBAf8FCEkpPX0H7B118c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lAyNDYPsVW1BMx0TK4jGwXGokDKGN4kVSMm2H+kvVQAG/7WXKnKQew6Yljn1o8cS84tfDsmE5bz8IvogWuDIvTQYpbDz4bKYrsooNOc8AulcdbgCoWKEUcScPfFTu5lfo4AbtlR0ihIG5eqMBGETwXbucaVUZw1pnmzUKbWkxMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xon4QGKn; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=uTOi3Wx1Fsq4Vc+uOFCWAWBYOZBcm55Om/JB585mVvqMMxE+8yLafhMo0yFNpir1K9KUGKCb3Z+Vo/hU0nHvhAhv1bkzYQcmn3ulphYyEnHgJznkFor3zxHidPmC2OllV854gE6rpkWg6kTu+dL55D2fucVg4e/rUAm4P89P83I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iv+G8JE1; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xon4QGKn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30663C116C6;
-	Sun,  5 Apr 2026 07:32:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iv+G8JE1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A28FC116C6;
+	Sun,  5 Apr 2026 07:38:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775374342;
-	bh=0EOmgSmZQHdpU9boeuf7jKexVd54Hiw/ztad9oO6RD8=;
+	s=k20201202; t=1775374713;
+	bh=OwcwXniupGprGdJDwCn+eH/DBAf8FCEkpPX0H7B118c=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Xon4QGKnOkxjtFC5zcuw9kpWZap0n6ZN2XUrGurQbL+NO1QkB8pGBVoldRFGOWD3v
-	 TWchyvzq+El1vBk8Tiw92xzvhVDCbxWFBSw5qYQWjn+LqGHaWzuHhCKhl63Dqhlffa
-	 ma0y8plj62wEzfJlZsi8Tl7mc1FzlaGwP0EBvuXgtOW8SdaR8LnWYDH4kWDaWQ2RYV
-	 qrwrHpUCW93IRk7gEO342eNJGHWJgFpvJ3+NgMjmYmx4XTYZ9WfbWz+D60LH5wyj5J
-	 REqyb/VPPB9VRK7Pp9L1ko5GsKTwkHqwBOVS7pBwHBkVoqiB4rvNaPg/0nsA90u8/5
-	 ECU8dRQrXUJpg==
-Date: Sun, 5 Apr 2026 09:32:20 +0200
+	b=Iv+G8JE1mBM42WyuJ9BmPic09CFbRwYVaN2hS67Our1G5RzszX2qg/5RV4owQ8+76
+	 riLdmUR8DApIy4WrqlOshmd0ewMuymlbd5Zyxft2BDVIRmGk6/Wu06yXFt5srVeqP3
+	 IfZB4snvuM7Tj7cDFkIzbiZBjADviN+vD+yOaTpLaKjL4YiXrcGw+y7y8Qmk7zg/s7
+	 UfUApUAVJaWlx3guzaASJa2xWS5MiHMQ2xQkwbljF727ig0unE+/TVEc8Tz3MBiv+1
+	 zs5+VUufOduQPLvHt9+ZFk3cWyH1OovAvHdNWt3JcqNzRlilM87hgSs3AUB199dLtj
+	 2zz/+o+yYFIKQ==
+Date: Sun, 5 Apr 2026 09:38:31 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: phucduc.bui@gmail.com
-Cc: kuninori.morimoto.gx@renesas.com, broonie@kernel.org, 
-	lgirdwood@gmail.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	geert+renesas@glider.be, magnus.damm@gmail.com, perex@perex.cz, tiwai@suse.com, 
-	linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: sound: renesas,fsi: Add support for
- multiple clocks
-Message-ID: <20260405-ultramarine-orangutan-of-wholeness-bbcc6b@quoll>
-References: <20260403112655.167593-1-phucduc.bui@gmail.com>
- <20260403112655.167593-2-phucduc.bui@gmail.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Richard Cochran <richardcochran@gmail.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Shawn Guo <shengchao.guo@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, linux-arm-msm@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: pinctrl: describe the TLMM controller
+ on Qualcomm Nord platforms
+Message-ID: <20260405-burrowing-magnificent-cougar-a923aa@quoll>
+References: <20260403-nord-tlmm-v1-0-4864f400c700@oss.qualcomm.com>
+ <20260403-nord-tlmm-v1-1-4864f400c700@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,52 +48,102 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260403112655.167593-2-phucduc.bui@gmail.com>
+In-Reply-To: <20260403-nord-tlmm-v1-1-4864f400c700@oss.qualcomm.com>
 
-On Fri, Apr 03, 2026 at 06:26:53PM +0700, phucduc.bui@gmail.com wrote:
-> From: bui duc phuc <phucduc.bui@gmail.com>
+On Fri, Apr 03, 2026 at 03:27:55PM +0200, Bartosz Golaszewski wrote:
+> Add a DT binding document describing the TLMM pin controller available
+> on the Nord platforms from Qualcomm.
+
+That's the first time name Nord appears on the lists (except OnePlus
+Nord!) and I do not see soc-info with explanation. I know what the Nord
+is, but others might not, and if I complain to other patchsets that way
+I should complain also here.
+
+The easiest is to send soc-info patch with explanations before this one.
+
 > 
-> The FSI on r8a7740 requires the SPU clock to be enabled
-> before accessing its registers.
-> Without this clock, register access may lead to a system
-> hang.
-> Add support for the "spu" clock so it can be managed by
-> the driver.
-> The binding is also extended to allow additional clocks,
-> as FSIB may require more clock inputs, while FSIA
-> typically uses fewer.
-
-Please wrap commit message according to Linux coding style / submission
-process (neither too early nor over the limit):
-https://elixir.bootlin.com/linux/v6.4-rc1/source/Documentation/process/submitting-patches.rst#L597
-
-And not after every sentece, BTW.
-
-> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+> Co-developed-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 > ---
->  .../devicetree/bindings/sound/renesas,fsi.yaml       | 12 ++++++++++--
->  1 file changed, 10 insertions(+), 2 deletions(-)
+>  .../bindings/pinctrl/qcom,nord-tlmm.yaml           | 206 +++++++++++++++++++++
+>  1 file changed, 206 insertions(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/sound/renesas,fsi.yaml b/Documentation/devicetree/bindings/sound/renesas,fsi.yaml
-> index df91991699a7..225cd8d369bb 100644
-> --- a/Documentation/devicetree/bindings/sound/renesas,fsi.yaml
-> +++ b/Documentation/devicetree/bindings/sound/renesas,fsi.yaml
-> @@ -38,7 +38,11 @@ properties:
->      maxItems: 1
->  
->    clocks:
-> -    maxItems: 1
-> +    minItems: 1
-> +    maxItems: 8
+> diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,nord-tlmm.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,nord-tlmm.yaml
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..b1fdaa24a045469e3dec512ce0200f240daa1959
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/pinctrl/qcom,nord-tlmm.yaml
+> @@ -0,0 +1,206 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/pinctrl/qcom,nord-tlmm.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm Technologies, Inc. Nord TLMM block
+> +
+> +maintainers:
+> +  - Bartosz Golaszewski <brgl@kernel.org>
+> +
+> +description: |
 
-Needs valid descriptions.
+Drop |
+
+> +  Top Level Mode Multiplexer pin controller in Qualcomm Nord SoC.
+> +
+> +allOf:
+> +  - $ref: /schemas/pinctrl/qcom,tlmm-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,nord-tlmm
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  gpio-reserved-ranges:
+> +    minItems: 1
+> +    maxItems: 74
+
+I guess rather 90 (half of gpios could be reserved in theory...)
 
 > +
-> +  clock-names:
-> +    description: List of necessary clock names.
+> +  gpio-line-names:
+> +    maxItems: 180
 
-Instead constrain it. See also writing-bindings, writing-schema or
-example-schema documents.
+pattern in "pins" says 181 gpios.
+
+> +
+> +patternProperties:
+> +  "-state$":
+> +    oneOf:
+> +      - $ref: "#/$defs/qcom-nord-tlmm-state"
+> +      - patternProperties:
+> +          "-pins$":
+> +            $ref: "#/$defs/qcom-nord-tlmm-state"
+> +        additionalProperties: false
+> +
+> +$defs:
+> +  qcom-nord-tlmm-state:
+> +    type: object
+> +    description:
+> +      Pinctrl node's client devices use subnodes for desired pin configuration.
+> +      Client device subnodes use below standard properties.
+> +    $ref: qcom,tlmm-common.yaml#/$defs/qcom-tlmm-state
+> +    unevaluatedProperties: false
+> +
+> +    properties:
+> +      pins:
+> +        description:
+> +          List of gpio pins affected by the properties specified in this
+> +          subnode.
+> +        items:
+> +          oneOf:
+> +            - pattern: "^gpio([0-9]|[1-9][0-9]|1[0-7][0-9]|180])$"
 
 Best regards,
 Krzysztof
