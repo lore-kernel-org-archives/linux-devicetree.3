@@ -1,98 +1,170 @@
-Received: from out-188.mta0.migadu.com (out-188.mta0.migadu.com [91.218.175.188])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 883EF1E520A
-	for <devicetree@vger.kernel.org>; Sun,  5 Apr 2026 20:00:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3C021146C;
+	Sun,  5 Apr 2026 20:11:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775419250; cv=none; b=FLSsYVKUW9fUafIol90lwKDCwV1VITx4tsXkd57spmoZXpsfkcNqvHdG9uaUQLxqmbPNc/rG0SenlUbhYBodhG7IViUDYHeDrimsvA4FaQ5HFpvj0QOL+rOT7lnXua+M3KieR2RJiorS+xLjkloS2NpKOQtkbuVvyfPZJIzFLuM=
+	t=1775419894; cv=none; b=BISBakL5bfFF2e37cZ4jq2foQtUPqI6tViS+2LSiZBb58x2v3f4DWwAy+a1jF6ZJDKPae975oVArDKA982wo4LrG7FFos6Z/5GCXpT5OCvcv+AxHqZ7j90p8bJ3wMPoFoWLLcNryvTbnm8oQXolks+PSKlcNlEhFIZi0MufRmls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775419250; c=relaxed/simple;
-	bh=ZiDzvy9g8YeHXrCmFIA1c5UVC87GbHKPehKmuGItu2Q=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=g/fFZfRRrpHfs5MNgKVD0liD/1+XmX1DgfcZpIFhxnlqaQIH+lBjGV5k9eJ225CNwAqaA0ftosmfFBde9OsUzacd5gmd9w1CJmceV204D3Z6CMlkx/cmzv7p8m+GUIlypxxCMi4KBcHIUFbQll/wQnByiS5PisXVg/UWxzKLf44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=FSN+apLq; arc=none smtp.client-ip=91.218.175.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
+	s=arc-20240116; t=1775419894; c=relaxed/simple;
+	bh=ZpgSNsNB++9ZqtP3uBY2idnLE9J0ydHdGFZvmstIwMk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B6s/naF/JI/UL8fBevEWAD63oVTfHsHCQ3qqCGfXWSqfbK83ADPupBFRUOb+EN1eKpwvcCzQsI6+zlitlNY6iNcGAcF5tUXq7Qsd3Ltmr0zV33RIiDJF5QBhBWFUOj/OoXmzoeSBt0C+lPS9DdnnmguAK8hL/FGVlvIyOAVgCO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=mNG9f3Dz; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="FSN+apLq"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="mNG9f3Dz"
+Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
+	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 4E2DB6AF;
+	Sun,  5 Apr 2026 22:10:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1775419805;
+	bh=ZpgSNsNB++9ZqtP3uBY2idnLE9J0ydHdGFZvmstIwMk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=mNG9f3DzliYKAr++51bzH3jAp4vUGfxzn05biwxAMoMpPEkXxoycoKpSJsbzmdFZ+
+	 C2AfR4S0IBYX0LLkXf/sl/sX4VbVaAq5YHBvw/y2USdYLEyISTpVP8l+5Wi43GlGeC
+	 iTS+ysKuOZqvGT/kUM+W5HrMB+CNWwFAzWTyvRS0=
+Date: Sun, 5 Apr 2026 23:11:29 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Bryan O'Donoghue <bod@kernel.org>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	vladimir.zapolskiy@linaro.org, kieran.bingham@ideasonboard.com,
+	robh@kernel.org, krzk+dt@kernel.org, andersson@kernel.org,
+	konradybcio@kernel.org, linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, johannes.goede@oss.qualcomm.com,
+	mchehab@kernel.org
+Subject: Re: [RFC PATCH 2/3] media: qcom: camss: Add CAMSS Offline Processing
+ Engine driver
+Message-ID: <20260405201129.GB1213462@killaraus.ideasonboard.com>
+References: <20260323125824.211615-1-loic.poulain@oss.qualcomm.com>
+ <m61yNNvSrw6AIq7_-g2h7VQLmGJ_5iCLg5JTlfQDcL5LlBq37ifAeXw-K3AlRBck5Mb4uVQq0pzeBNAybQNk4w==@protonmail.internalid>
+ <20260323125824.211615-3-loic.poulain@oss.qualcomm.com>
+ <1ba54ec0-be51-4694-a79b-f272e76303d2@kernel.org>
+ <X-Lw_zi1o015-V1Cv4dY_ik6SfTB8TTcLmn1l-Ta7UviYTJ6gwMBn4B4ulYwjd_Aetul5xUt0T6ln9E-Hl5h4g==@protonmail.internalid>
+ <CAFEp6-3ziXJTYADOFj--rZL5TumroXuW+=SnUQ9XakRxHT-ypg@mail.gmail.com>
+ <12194cc0-0960-486c-be7e-1a22d95de340@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=postmarketos.org;
-	s=key1; t=1775419245;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FtQWo7SPBOy19WmyZnDtoAnLJVMVBtDnao6e0gn/1ds=;
-	b=FSN+apLqcH/AutdytzyxoMspUV7oB6q+WSduFxE6RBD/J8v+kB2YVSgPiwqGoNNKf4kZP0
-	bj5BWNziET5fNIwYw99gusWPEXWa9ZjtIoYwLtNexYjRjJD/fv6oef4Vg0T8A5PpHpxvwA
-	63LBy8T1485OBBq41Z/ysqREDa+pnmYDPlAGlNvSiNdVtkmqUnG04D9aP8GwjZYQDs/c9E
-	uVYq77FOGzrgwXu8bfzVRcx1jhKniXbhrkmeTVlHFKgaO7BmgbQ6GGxfRGyXjXFcCyK9/D
-	Q9YpisMSxleDIPPtmZotma1x+XHUSvorYpyfZeD7MVfKk805VgwV0w8GBFH96Q==
-Date: Sun, 05 Apr 2026 20:00:42 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: "Paul Sajna" <sajattack@postmarketos.org>
-Message-ID: <842023c40ae28b529f848e50d46cf589c09f3983@postmarketos.org>
-TLS-Required: No
-Subject: Re: [PATCH v7 00/15] arm64: dts: qcom: sdm845-lg: Improve hardware
- support in devicetree
-To: "Bjorn Andersson" <andersson@kernel.org>, "Konrad Dybcio"
- <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "David Heidelberg" <david@ixit.cz>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht, "Amir Dahan"
- <system64fumo@tuta.io>, "Christopher Brown" <crispybrown@gmail.com>,
- "Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>, "Dmitry Baryshkov"
- <dmitry.baryshkov@oss.qualcomm.com>, "Pavel Machek" <pavel@ucw.cz>
-In-Reply-To: <177541802142.2061229.9094394728986735362.b4-ty@kernel.org>
-References: <20260331-judyln-dts-v7-0-87217b15fefb@postmarketos.org>
- <177541802142.2061229.9094394728986735362.b4-ty@kernel.org>
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <12194cc0-0960-486c-be7e-1a22d95de340@kernel.org>
 
-April 5, 2026 at 7:40 PM, "Bjorn Andersson" <andersson@kernel.org mailto:=
-andersson@kernel.org?to=3D%22Bjorn%20Andersson%22%20%3Candersson%40kernel=
-.org%3E > wrote:
-> Applied, thanks!
->=20
->=20[01/15] arm64: dts: qcom: sdm845-lg-common: Sort nodes and properties
->  commit: 6a9e8df732014c1c758bd3cd6254b5b4cb273c7f
-> [02/15] arm64: dts: qcom: sdm845-lg-judyln: Add firmware nodes, change =
-path
->  commit: b9afe8581c0e14b7b56e2314dc7f9597bf23ef67
-> [03/15] arm64: dts: qcom: sdm845-lg-judyp: Define firmware paths for ju=
-dyp
->  commit: 8f4c53ae286bd6a113245ad53ce957e623374cf0
-> [04/15] arm64: dts: qcom: sdm845-lg-common: Enable venus
->  commit: e9f611de7ab51540c0cf246df6b7d4d99f4cec64
-> [05/15] arm64: dts: qcom: sdm845-lg-common: Enable qups and their dma c=
-ontrollers
->  commit: 4ec3045c969a326c458c53ca65bde5749e575d52
-> [06/15] arm64: dts: qcom: sdm845-lg: Add uarts and Bluetooth
->  commit: e746ed5af3084e9534135679c55e69eced0c657f
-> [07/15] arm64: dts: qcom: sdm845-lg-judyln: Add battery and charger
->  commit: 995c258982429db93db103fc26fcb3a0acd6a5ee
-> [08/15] arm64: dts: qcom: sdm845-lg-common: Add LEDs
->  commit: b49722c8a18cdd11f49357f3b8be23549f76a506
-> [09/15] arm64: dts: qcom: sdm845-lg-judyln: Add lab/ibb
->  commit: 2e7cdd400b6a4e67c27fc3e839342824b51d01ff
-> [10/15] arm64: dts: qcom: sdm845-lg-judyln: Add display panel
->  commit: c6c66aa3ef33dc3076c6dac64003b29bd9515b58
-> [11/15] arm64: dts: qcom: sdm845-lg: Add wifi nodes
->  commit: eb8fa32085261a07d763e9d616b3c206d0be82ff
-> [12/15] arm64: dts: qcom: sdm845-lg-common: Add chassis-type
->  commit: a5a5ad9848980e1019ca841fe057afb83debecfa
+On Tue, Mar 24, 2026 at 11:00:21AM +0000, Bryan O'Donoghue wrote:
+> On 23/03/2026 15:31, Loic Poulain wrote:
 
-I'm new at this, so there might be some mistakes/misunderstandings, but I=
- sent a v8 with 1 tiny change for Konrad you might want to apply that ins=
-tead.=20
-And=20also the last 3 patches that got stuck in my mailserver didn't appl=
-y? I resent them manually with git send-email.
+[snip]
+
+> >>> +static void ope_prog_stripe(struct ope_ctx *ctx, struct ope_stripe *stripe)
+> >>> +{
+> >>> +     struct ope_dev *ope = ctx->ope;
+> >>> +     int i;
+> >>> +
+> >>> +     dev_dbg(ope->dev, "Context %p - Programming S%u\n", ctx, ope_stripe_index(ctx, stripe));
+> >>> +
+> >>> +     /* Fetch Engine */
+> >>> +     ope_write_rd(ope, OPE_BUS_RD_CLIENT_0_UNPACK_CFG_0, stripe->src.format);
+> >>> +     ope_write_rd(ope, OPE_BUS_RD_CLIENT_0_RD_BUFFER_SIZE,
+> >>> +                  (stripe->src.width << 16) + stripe->src.height);
+> >>> +     ope_write_rd(ope, OPE_BUS_RD_CLIENT_0_ADDR_IMAGE, stripe->src.addr);
+> >>> +     ope_write_rd(ope, OPE_BUS_RD_CLIENT_0_RD_STRIDE, stripe->src.stride);
+> >>> +     ope_write_rd(ope, OPE_BUS_RD_CLIENT_0_CCIF_META_DATA,
+> >>> +                  FIELD_PREP(OPE_BUS_RD_CLIENT_0_CCIF_MD_PIX_PATTERN, stripe->src.pattern));
+> >>> +     ope_write_rd(ope, OPE_BUS_RD_CLIENT_0_CORE_CFG, OPE_BUS_RD_CLIENT_0_CORE_CFG_EN);
+> >>> +
+> >>> +     /* Write Engines */
+> >>> +     for (i = 0; i < OPE_WR_CLIENT_MAX; i++) {
+> >>> +             if (!stripe->dst[i].enabled) {
+> >>> +                     ope_write_wr(ope, OPE_BUS_WR_CLIENT_CFG(i), 0);
+> >>> +                     continue;
+> >>> +             }
+> >>> +
+> >>> +             ope_write_wr(ope, OPE_BUS_WR_CLIENT_ADDR_IMAGE(i), stripe->dst[i].addr);
+> >>> +             ope_write_wr(ope, OPE_BUS_WR_CLIENT_IMAGE_CFG_0(i),
+> >>> +                          (stripe->dst[i].height << 16) + stripe->dst[i].width);
+> >>> +             ope_write_wr(ope, OPE_BUS_WR_CLIENT_IMAGE_CFG_1(i), stripe->dst[i].x_init);
+> >>> +             ope_write_wr(ope, OPE_BUS_WR_CLIENT_IMAGE_CFG_2(i), stripe->dst[i].stride);
+> >>> +             ope_write_wr(ope, OPE_BUS_WR_CLIENT_PACKER_CFG(i), stripe->dst[i].format);
+> >>> +             ope_write_wr(ope, OPE_BUS_WR_CLIENT_CFG(i),
+> >>> +                          OPE_BUS_WR_CLIENT_CFG_EN + OPE_BUS_WR_CLIENT_CFG_AUTORECOVER);
+> >>> +     }
+> >>> +
+> >>> +     /* Downscalers */
+> >>> +     for (i = 0; i < OPE_DS_MAX; i++) {
+> >>> +             struct ope_dsc_config *dsc = &stripe->dsc[i];
+> >>> +             u32 base = ope_ds_base[i];
+> >>> +             u32 cfg = 0;
+> >>> +
+> >>> +             if (dsc->input_width != dsc->output_width) {
+> >>> +                     dsc->phase_step_h |= DS_RESOLUTION(dsc->input_width,
+> >>> +                                                        dsc->output_width) << 30;
+> >>> +                     cfg |= OPE_PP_CLC_DOWNSCALE_MN_DS_CFG_H_SCALE_EN;
+> >>> +             }
+> >>> +
+> >>> +             if (dsc->input_height != dsc->output_height) {
+> >>> +                     dsc->phase_step_v |= DS_RESOLUTION(dsc->input_height,
+> >>> +                                                        dsc->output_height) << 30;
+> >>> +                     cfg |= OPE_PP_CLC_DOWNSCALE_MN_DS_CFG_V_SCALE_EN;
+> >>> +             }
+> >>> +
+> >>> +             ope_write_pp(ope, OPE_PP_CLC_DOWNSCALE_MN_DS_CFG(base), cfg);
+> >>> +             ope_write_pp(ope, OPE_PP_CLC_DOWNSCALE_MN_DS_IMAGE_SIZE_CFG(base),
+> >>> +                          ((dsc->input_width - 1) << 16) + dsc->input_height - 1);
+> >>> +             ope_write_pp(ope, OPE_PP_CLC_DOWNSCALE_MN_DS_MN_H_CFG(base), dsc->phase_step_h);
+> >>> +             ope_write_pp(ope, OPE_PP_CLC_DOWNSCALE_MN_DS_MN_V_CFG(base), dsc->phase_step_v);
+> >>> +             ope_write_pp(ope, OPE_PP_CLC_DOWNSCALE_MN_CFG(base),
+> >>> +                          cfg ? OPE_PP_CLC_DOWNSCALE_MN_CFG_EN : 0);
+> >>> +     }
+> >>> +}
+> >>
+> >> So - this is where the CDM should be used - so that you don't have to do
+> >> all of these MMIO writes inside of your ISR.
+> >
+> > Indeed, and that also the reason stripes are computed ahead of time,
+> > so that they can be further 'queued' in a CDM.
+> > 
+> >> Is that and additional step after the RFC ?
+> > The current implementation (without CDM) already provides good results
+> > and performance, so CDM can be viewed as a future enhancement.
+> 
+> That's true but then the number of MMIO writes per ISR is pretty small 
+> right now. You have about 50 writes here.
+> 
+> > As far as I understand, CDM could also be implemented in a generic way
+> > within CAMSS, since other CAMSS blocks make use of CDM as well.
+> > This is something we should discuss further.
+>
+> My concern is even conservatively if each module adds another 10 ? 
+> writes by the time we get to denoising, sharpening, lens shade 
+> correction, those writes could easily look more like 100.
+> 
+> What user-space should submit is well documented data-structures which 
+> then get translated into CDM buffers by the OPE and IFE for the various 
+> bits of the pipeline.
+
+The mali-c55 driver does this, it translates the ISP parameters buffers
+to a list of register values in userspace context, when the buffer is
+queued. In the IRQ handler, it then either copies those values to
+registers with MMIO writes, or use a DMA engine, depending on the
+platform. The rppx1 driver does something similar, with a different
+format for the buffer containing the register values.
+
+I think this architecture could be replicated here. This translation in
+userspace context ensures that work at IRQ time is limited. The driver
+can use whatever DMA engine is available depending on the platform, and
+we can also force usage of MMIO for debugging or development purpose.
+That way, development of ISP features is decoupled from development of
+CDM support, enabling parallel development if desired, and faster
+plaform enablement that allows starting the userspace side of the work
+quicker.
+
+-- 
+Regards,
+
+Laurent Pinchart
