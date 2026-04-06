@@ -1,214 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99E591E1C11;
-	Mon,  6 Apr 2026 14:59:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C6FE2DF717
+	for <devicetree@vger.kernel.org>; Mon,  6 Apr 2026 15:02:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775487575; cv=none; b=J/Pesy/DtOmOUwzDZTcni4bHk/11Az67jD6k/OCHp6KJf2GTJuBbjJG19d5wqVmmiZezUwyBAZGUCfNLyX/bL8In++lWVm6RnCy+82kdX8FO26fYGjuCCe0r9mr4xG9Qn2YLwzb6/ut0l7yachfneXjOI+ZkuTNzQaKffFN0POA=
+	t=1775487754; cv=none; b=Y061HBS3knqpKTONy5Cqh+fdG8pecoVcMPcA4bJf9j/L1P74RKwaisNXZlmqR3fNbxqMrQOcQMA98bfJc2hD/wjkbrsAHRJDwxpI+BrgbNm/lq7m4vGKKqMiGzQh1WbtrkxvBItM94TBzqbL3drdfPWl/T7g+Eanx+xoVN2tINg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775487575; c=relaxed/simple;
-	bh=uEmBSd1tlnJ/ovVDlRDlYxhKYDiTSMla3a7v3NjwOQU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SA9u7Riu6j/aOywUlY4WPdNVX25YC4eealdtMX704U0ah94Y3yh5R0wFN4S0Sg666PoFyYPyplSWPatwcY1ISLT51clR9wX2XO+SVq4/6VsqqlJIJryH324cNlG57xmbGHjBRtitkg2iCNSx6YuPc/aZhggiwASYzP1lquY+DHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oBaNRd4c; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775487754; c=relaxed/simple;
+	bh=Vx0S0OEPsMTxWc2pbFyYxITTLhXEIs8IJVVZZBki8hc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JEoMAOPIqHixODq7ZZ7CPEAapOtk0lQNk39Q5Y97GzW/raaAFR+sbMJ3PRJomqUzW/25fqKhRIyBupHbpXT/7jIteV6nmep6tmwwOIw6+fIV4JNDDADcwl0IOCDj9DZms218HRSfntr9BeOWFfHoJJhy9D3UJO70CoeafNfjciU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=crzihiZK; arc=none smtp.client-ip=209.85.161.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oBaNRd4c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F163DC2BC9E;
-	Mon,  6 Apr 2026 14:59:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775487575;
-	bh=uEmBSd1tlnJ/ovVDlRDlYxhKYDiTSMla3a7v3NjwOQU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=oBaNRd4cQE+r20OuEVVAnUyY2Xq/bI6xRq1P3xTx3Zwne9YWkmnGGtx9NY7oQKRiC
-	 1T1Cb0MgripkrDcxQ6IlpR4KA5yEwpNkXSkkQrPapB+p4KvAyjHVU9P0i6G7EOieUl
-	 6aBZ1ylaRo5D077RWrw35W6To4xAcenGJ+d8bqNUTG+4fOzfD2KdZ9FqqA48rd4sK0
-	 vISGEzIpmEnIvc3/dM9RQVA4VTB5OyUk4F8KNJDQadRXhl9KsymtKSuxboXCq9bkHi
-	 vrm7ePAX22/5E2rirr4BIGvTB4wZ3W/ABtDyrCTGlcQPUFCf1TK3H+9uPlnx5F08nR
-	 Yhda8lPBxZnPQ==
-Date: Mon, 6 Apr 2026 09:59:28 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-Cc: Mathieu Poirier <mathieu.poirier@linaro.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Luca Weiss <luca.weiss@fairphone.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, aiqun.yu@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com, 
-	trilok.soni@oss.qualcomm.com, yijie.yang@oss.qualcomm.com, linux-arm-msm@vger.kernel.org, 
-	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
-Subject: Re: [PATCH v4 6/7] remoteproc: qcom: pas: Add late attach support
- for subsystems
-Message-ID: <adPI2w5tVGCdo_x3@baldur>
-References: <20260310-knp-soccp-v4-0-0a91575e0e7e@oss.qualcomm.com>
- <20260310-knp-soccp-v4-6-0a91575e0e7e@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="crzihiZK"
+Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6830f4f34c9so1384590eaf.3
+        for <devicetree@vger.kernel.org>; Mon, 06 Apr 2026 08:02:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1775487751; x=1776092551; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=zOYm5VbuAYu3Ygkfd4vye3tA8nAqOV5PzA2/v5FO7a0=;
+        b=crzihiZK3iznSPHdTQNFCTyY9tRwubZfyHEDspKG2XK2CWhL5Yqbd+Fmg/GdZGmMK4
+         uFtPptj5BZY8Jq2do2wLwLQAdNRr3wePMLbJoMzXTwfRVUUJ7m3YRACdiJ8A7WQH5cG+
+         L4wnVXckvLC/av90wdZ6+L+ItetoVONB2UbRlH+YYsSYvJgFyc5FwiJGYERwGKqYqOw6
+         HqEg7pQckRKHVKVIGKAnVO4AzWTD3mylSaPKk0rlmwEs5QfeH84KW0jywgWxIJpY/p+s
+         8DC+UNxI3ko2UftMUYUaRNWTjdeXMTxD+A1m4+LtagnAOZqq5oHVloCKwyfqcTPhgvMg
+         4nPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775487751; x=1776092551;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=zOYm5VbuAYu3Ygkfd4vye3tA8nAqOV5PzA2/v5FO7a0=;
+        b=KWjath752BttYyv/zc3Ne/vsNlfOrak7y+5BaCj04v5+pEsqNPSGyhKMUdvVQYev4a
+         H1CibZKH7kAEPYYPPLWXC+Uc3GwczBUy5XGb2nY7B2t0uSQ15Db4d640i7yWSQSYKflt
+         ELtRxIM1nic1sNIbqEJhJJwxAR1paBEIP+Yc9gMsvIfIUcFkzeyJ5yPyyaZQUIcWBFes
+         maJk8DjGj1SJpKtOu4G5+YoJhpa/bbNuIvzI5iMmeeNTen2H9JF6RbuD+dhDbU5tHtrw
+         uYNxeHxf9cE/tTLuCUvty7O1hheczUKHZVs3QZ9nzG03xW4WM38cpqNgr5Q8TLsCK4LP
+         wsPg==
+X-Forwarded-Encrypted: i=1; AJvYcCVlPsOcpJuqEb2EXbwnTQR9HuT6U6PKvxDVvy/QM1FeHzzgiQP9e9Ai1MEwEBdDRK6q+bqlWwwATq1r@vger.kernel.org
+X-Gm-Message-State: AOJu0YzNSKON1pgYvDffIU2aBKi9nWkDaglLd6P667NDnhCE9MiqPaV0
+	wtSmDsNUwg06tnVaSdk2nJwqqhqa+oBCdMycAT13BzmgTCy42hYZ7+yHmI0hezwTJ+IDnLUhWqW
+	QQKxi
+X-Gm-Gg: AeBDieuQKEQFh71X+uiss9l9JfIMeh5ngxzE5F8a6BVXVVaLHGWYc1r5nD9xxwCgIg+
+	85TPedxpoHZY1MH87mrXSumDeQwktg/yWbFRlJxasTCr/hKaUfsKTZS4lZb7m+NpRsK/vXx//nZ
+	1RI9BgArlPMZ0KadLZPIhULK1ynVPM8d5hK4oEUIZcsfgvp++BTSjzqzQwL0+ipIp5qOSlfiHK8
+	9DbhEUyykadw5f5usTNGSfUhHqQPTSOj2c/dNXoyLuWoXrR1fmYl1XKCfeIVBPueAov6dcna0SV
+	D6FeEjDG5849WtLsTOwzpCfjIPZiUSX6G38j/QLLC5hFhzfM5oyT5u5hxZ+KZWUKj1EBJk6I1li
+	t2le+tp9tp15C2uOiEX+dx1f28B1kpYQfOfZBxbocwLc0zmNHMwfo0XFeGPijSn9HwjjLE7362A
+	UYxlund3vGpz9pYMnSL346fG0+rNRHmnCQjMBXqW0SoFuPhLsCJVan2OyPB+JDibIgHXZEbYo=
+X-Received: by 2002:a05:6820:2905:b0:682:ecb8:c38 with SMTP id 006d021491bc7-682ecb811c6mr6352466eaf.42.1775487751272;
+        Mon, 06 Apr 2026 08:02:31 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:90d7:b13f:c53:8ca3? ([2600:8803:e7e4:500:90d7:b13f:c53:8ca3])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-68448c1c15dsm3873975eaf.0.2026.04.06.08.02.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 06 Apr 2026 08:02:30 -0700 (PDT)
+Message-ID: <b2d4ae51-f827-44d0-94a6-2a3db6d681d9@baylibre.com>
+Date: Mon, 6 Apr 2026 10:02:29 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260310-knp-soccp-v4-6-0a91575e0e7e@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 4/4] iio: adc: ad4691: add SPI offload support
+To: "Sabau, Radu bogdan" <Radu.Sabau@analog.com>,
+ Lars-Peter Clausen <lars@metafoo.de>,
+ "Hennerich, Michael" <Michael.Hennerich@analog.com>,
+ Jonathan Cameron <jic23@kernel.org>, "Sa, Nuno" <Nuno.Sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+ <ukleinek@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>,
+ "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
+References: <20260403-ad4692-multichannel-sar-adc-driver-v6-0-fa2a01a57c4e@analog.com>
+ <20260403-ad4692-multichannel-sar-adc-driver-v6-4-fa2a01a57c4e@analog.com>
+ <1d0d41c8-7867-4459-a91a-a2c6774b1885@baylibre.com>
+ <LV9PR03MB84145906CC191F6AB8D2D3DAF75DA@LV9PR03MB8414.namprd03.prod.outlook.com>
+ <420dba4a-0c31-47bc-b84a-5d29702b115e@baylibre.com>
+ <LV9PR03MB8414CB15DEC3EBBDB8F5FDD0F75DA@LV9PR03MB8414.namprd03.prod.outlook.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <LV9PR03MB8414CB15DEC3EBBDB8F5FDD0F75DA@LV9PR03MB8414.namprd03.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Mar 10, 2026 at 03:03:22AM -0700, Jingyi Wang wrote:
-> From: Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
+On 4/6/26 9:16 AM, Sabau, Radu bogdan wrote:
 > 
-> Subsystems can be brought out of reset by entities such as bootloaders.
-> As the irq enablement could be later than subsystem bring up, the state
-> of subsystem should be checked by reading SMP2P bits and performing ping
-> test.
 > 
-> A new qcom_pas_attach() function is introduced. if a crash state is
-> detected for the subsystem, rproc_report_crash() is called. If the
-> subsystem is ready either at the first check or within a 5-second timeout
-> and the ping is successful, it will be marked as "attached". The ready
-> state could be set by either ready interrupt or handover interrupt.
+>> -----Original Message-----
+>> From: David Lechner <dlechner@baylibre.com>
+>> Sent: Monday, April 6, 2026 4:44 PM
 > 
-
-The whole use case of early booting SoCCP is to get the charger and USB
-Type-C running early - so that charging and USB Type-C works in UEFI.
-
-If SMP2P indicates that it was booted, but it's still not there...then
-there's no reason to wait another 5 seconds - it's not there.
-
-> If "early_boot" is set by kernel but "subsys_booted" is not completed
-> within the timeout, It could be the early boot feature is not supported
-> by other entities. In this case, the state will be marked as RPROC_OFFLINE
-> so that the PAS driver can load the firmware and start the remoteproc. As
-> the running state is set once attach function is called, the watchdog or
-> fatal interrupt received can be handled correctly.
+> ...
 > 
-> Signed-off-by: Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
-> Co-developed-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-> Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-[..]
-> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
-[..]
-> +static int qcom_pas_attach(struct rproc *rproc)
-[..]
-> +	if (!ret)
-> +		ret = irq_get_irqchip_state(pas->q6v5.ready_irq,
-> +					    IRQCHIP_STATE_LINE_LEVEL, &ready_state);
-> +
-> +	/*
-> +	 * smp2p allocate irq entry can be delayed, irq_get_irqchip_state will get -ENODEV,
-
-This on the other hand, sounds like a bug in the smp2p driver. If we can
-acquire the interrupt without getting EPROBE_DEFER, then we should not
-get -ENODEV when reading the irq state.
-
-> +	 * the 5 seconds timeout is set to wait for this, after the entry is allocated, smp2p
-> +	 * will call the qcom_smp2p_intr and complete the timeout in the ISR.
-
-If this indeed is the problem you're working around with the 5 second
-delay - then stop. Fix the issue instead!
-
-Also, this comment conflicts with the reasoning for the ping and the 5
-second thing in the commit message.
-
-Regards,
-Bjorn
-
-> +	 */
-> +	if (unlikely(ret == -ENODEV) || unlikely(!ready_state)) {
-> +		ret = wait_for_completion_timeout(&pas->q6v5.subsys_booted,
-> +						  msecs_to_jiffies(EARLY_ATTACH_TIMEOUT_MS));
-> +
-> +		/*
-> +		 * The bootloader may not support early boot, mark the state as
-> +		 * RPROC_OFFLINE so that the PAS driver can load the firmware and
-> +		 * start the remoteproc.
-> +		 */
-> +		if (!ret) {
-> +			dev_err(pas->dev, "Timeout on waiting for subsystem interrupt\n");
-> +			pas->rproc->state = RPROC_OFFLINE;
-> +			ret = -ETIMEDOUT;
-> +			goto disable_running;
-> +		}
-> +
-> +		/* Only ping the subsystem if ready_state is set */
-> +		ret = irq_get_irqchip_state(pas->q6v5.ready_irq,
-> +					    IRQCHIP_STATE_LINE_LEVEL, &ready_state);
-> +
-> +		if (ret)
-> +			goto disable_running;
-> +
-> +		if (!ready_state) {
-> +			ret = -EINVAL;
-> +			goto disable_running;
-> +		}
-> +	}
-> +
-> +	ret = qcom_q6v5_ping_subsystem(&pas->q6v5);
-> +
-> +	if (ret) {
-> +		dev_err(pas->dev, "Failed to ping subsystem, assuming device crashed\n");
-> +		rproc_report_crash(rproc, RPROC_FATAL_ERROR);
-> +		goto disable_running;
-> +	}
-> +
-> +	pas->q6v5.handover_issued = true;
-> +
-> +	return 0;
-> +
-> +disable_running:
-> +	pas->q6v5.running = false;
-> +
-> +	return ret;
-> +}
-> +
->  static const struct rproc_ops qcom_pas_ops = {
->  	.unprepare = qcom_pas_unprepare,
->  	.start = qcom_pas_start,
-> @@ -518,6 +603,7 @@ static const struct rproc_ops qcom_pas_ops = {
->  	.parse_fw = qcom_pas_parse_firmware,
->  	.load = qcom_pas_load,
->  	.panic = qcom_pas_panic,
-> +	.attach = qcom_pas_attach,
->  };
->  
->  static const struct rproc_ops qcom_pas_minidump_ops = {
-> @@ -823,7 +909,7 @@ static int qcom_pas_probe(struct platform_device *pdev)
->  	pas->proxy_pd_count = ret;
->  
->  	ret = qcom_q6v5_init(&pas->q6v5, pdev, rproc, desc->crash_reason_smem,
-> -			     desc->load_state, qcom_pas_handover);
-> +			     desc->load_state, desc->early_boot, qcom_pas_handover);
->  	if (ret)
->  		goto detach_proxy_pds;
->  
-> @@ -855,6 +941,15 @@ static int qcom_pas_probe(struct platform_device *pdev)
->  
->  	pas->pas_ctx->use_tzmem = rproc->has_iommu;
->  	pas->dtb_pas_ctx->use_tzmem = rproc->has_iommu;
-> +
-> +	if (pas->q6v5.early_boot) {
-> +		ret = qcom_q6v5_ping_subsystem_init(&pas->q6v5, pdev);
-> +		if (ret)
-> +			dev_warn(&pdev->dev, "Falling back to firmware load\n");
-> +		else
-> +			pas->rproc->state = RPROC_DETACHED;
-> +	}
-> +
->  	ret = rproc_add(rproc);
->  	if (ret)
->  		goto remove_ssr_sysmon;
-> diff --git a/drivers/remoteproc/qcom_q6v5_wcss.c b/drivers/remoteproc/qcom_q6v5_wcss.c
-> index c27200159a88..859141589ed7 100644
-> --- a/drivers/remoteproc/qcom_q6v5_wcss.c
-> +++ b/drivers/remoteproc/qcom_q6v5_wcss.c
-> @@ -1011,7 +1011,7 @@ static int q6v5_wcss_probe(struct platform_device *pdev)
->  	if (ret)
->  		return ret;
->  
-> -	ret = qcom_q6v5_init(&wcss->q6v5, pdev, rproc, desc->crash_reason_smem, NULL, NULL);
-> +	ret = qcom_q6v5_init(&wcss->q6v5, pdev, rproc, desc->crash_reason_smem, NULL, false, NULL);
->  	if (ret)
->  		return ret;
->  
+>>>
+>>> This is bad documentation on my part. "channel byte" isn't used anymore,
+>>> this is previous version behaviour. Right now, only 16-bits worth of actual
+>>> channel data are used.
+>>>
+>> Then why do we need the shift if there is no other data? Can't we rework
+>> the SPI message so that there is no shift?
 > 
-> -- 
-> 2.25.1
+> I thought the shift is needed since DMA size is 32 bits, and value comes on the
+> upper word 16 bits, not on the lower ones as for CNV Burst.
+
+That should only happen if we are reading 32-bits instead of 16 bits.
+We should be able to set up the SPI xfers so that we only read 16 bits.
+
 > 
+> Manual Mode layout: TX [CMD_HI CMD_LO DUMMY DUMMY], RX [DATA_HI DATA_LO DUMMY DUMMY]
+
+> CNV Burst layout: TX [REG_HI REG_LO DUMMY DUMMY], RX [DUMMY DUMMY DATA_HI DATA_LO]
+
+This can be split in two xfers.
+
+CNV Burst layout:
+	TX [REG_HI REG_LO]
+	RX [DATA_HI DATA_LO]
+
+And we could even set bits_per_word to 16 so that the data is CPU
+endian instead of big endian when doing SPI offloading.
+
