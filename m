@@ -1,367 +1,134 @@
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2017C4204E
-	for <devicetree@vger.kernel.org>; Mon,  6 Apr 2026 05:23:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775452990; cv=pass; b=hrmgg/rcq3uD3BugR4uQh9VrqkPQs5lAE4xXKircb1i2gRKInDwYPfEZfGYJG6Qsch+doVMDuo+Sbd3BDqWsTpeAq4mpSOR6WSi95NS03lhHXGs9ILEwsuCu5kYQbbL+hL7JQcTGlZeUMwGwRQ1YvEI482q+yDU+Ov55OXsVmE0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775452990; c=relaxed/simple;
-	bh=pmqmGi74XFifJGe/W8o2WSMJ56SPmq5USqQVfpfONnQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rSKG9gITWF1C+Z+jNj8vFwH0Nk7TbKBznW+oduoTFA+xBYskgxtdGV9TBpImGaLc+JzQS0FoJw1cO/X88OeYqHbGwyb6iB3+F6ly2UVKG3jGO8ms3oEgoRZSvBVVDl2jWYKt/RjGGCAXGf3WMYyGab6t9gVrTdynpql1n2A0cz8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pOIeWLij; arc=pass smtp.client-ip=74.125.82.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AE0F30F7F3;
+	Mon,  6 Apr 2026 05:37:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775453877; cv=none; b=oEvIxd7RrSeIIXRXG8ETSrmDHDw2fMvUvd66yzcay+tkuVGrCMEjvUWmKxjs/b80ZZRBXBDQMPGRIdluOsiwzs/+5UI1UrptoGbp96sBbVqzsRoMnOVPl6+s/76eYrUCosnihjytcVTXNqnx+m1p/fUO1Fk5+EXKlyo+NoLBSXU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775453877; c=relaxed/simple;
+	bh=xka/BNXeDp1uVX3YvaVlduhAM3DwanV8Z8eOEaO0BA8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=p/wVIU7JUUzN0RhmzgRcHQWgbKLJ3blOjnts2Cx3G+aYNZ2KaYZKuUcd/KfVBN3s4ABY2ni/W5+w2wt+US9zhwVBjuL+PWblqk/FuALBUZ4cWsw98wkbxuiBxVsbWL6hbNPZp0bQjEFZLi4N1iBo1LuRH8GGc+22ffpfL34bn00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=quicinc.com; spf=pass smtp.mailfrom=quicinc.com; dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com header.b=A+mibHOU; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=quicinc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quicinc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pOIeWLij"
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-2c56aa62931so8087905eec.0
-        for <devicetree@vger.kernel.org>; Sun, 05 Apr 2026 22:23:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775452988; cv=none;
-        d=google.com; s=arc-20240605;
-        b=d2n7d3ZYE+GwwPN2e4l9EDte2exiW1VO6nOPkpdQPmxO4hW4hyiXkAdiszT6LBIpkP
-         cqoI8OKhFU0k+qCB4kw1YGX8D+tgZZm8r39sQH/jJ0QV6EsZQoDGY6ZzKbjlYYWvzvSf
-         9YighZIbDyTWojCaQAJMTA7eIpcl7e6TcAl2Fx33d9hxatDreiKaCGCQFqD/R4vZkOTM
-         bgn4UEZTowDYdrTLdh/7UQnwd0KTNr5WlcvEMPZMt9/GFK6rcAlW0EMkuN4pwyUDSfzp
-         EEPHqE0qoIVSUqgqT06dCB6r6Oh9956ETzdVhVh0nnPaIiNxg5reasKdiskWAVGwZZ5h
-         zkXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=JScUNGYjYXJk6pL/6v5D9MekunPJMAuMgF+LVrfPZzI=;
-        fh=JY/s5GKHVZtPjarR+Fwl63L59wN62d3jUzC+MscFCtw=;
-        b=LqRAeFCj+SuSE3Lcvvoqzm+DXk225CD6DIA+Sal6+YJpfY3VMMo7wBmrsTTVPaBWtd
-         ry+PF2Kie8UVM0mZ1pKRLytDA6SCIeSB+xe3pT1tzbFFrFaAweCSfXvShKQSZn8L7rtv
-         80Xcr4rKBMCgJ1vjfihrQIuaPMUWzZsefiNRhOQDnVbvV8Tf1ptDZhKhHUpky0M50Y9B
-         nfc1HjkB+f7o4OOiQq5zGjWRmc6njEXNbdqdhzSSdK5xZtNpdWfTOswpqvdt4udM3hFC
-         8jScETTxvovHhDpnupAnjF59G8w8YTy/eoQUFcGbe89oQiw/S5la0loAjP270GsEFdH6
-         Ao2A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775452988; x=1776057788; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=JScUNGYjYXJk6pL/6v5D9MekunPJMAuMgF+LVrfPZzI=;
-        b=pOIeWLijWihELSgWT1lL2bXY8E2P1aSlHQb6tnJUfjOBRRpD85o7uDxFtvRVhH116V
-         l7QeK9mHxs1ILWvkCATHVkiwiZ0j0H0RYg4ptC5WPPQ/l34TKRqot5fjK96MAeEDG9eq
-         tnGh7T56mGv6hLlIeT2mCnkzCRxMcpApz4SqnfT50UNzMMdCiRo4/0Q/0DR8aRE48T+N
-         6u5Ep0rzXEdCkmn/6my2tMNKBJFqz3vSEirFUSwWpbmU6AqdwSY74MTzvpMwH1srOsbB
-         bJbfP4PM0IdawARib9F9PihJgWvsih5oOef5/7c+i/tclq4tF5QYV7hJ7teUtsFgEOQg
-         ctgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775452988; x=1776057788;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=JScUNGYjYXJk6pL/6v5D9MekunPJMAuMgF+LVrfPZzI=;
-        b=TEzvNOgc1zSNi1NrBgLz/6DKVNyCxR+OC/1wLSWddUJWXHr/fOVYr7WOU3ogODMg7B
-         7HWmTQ+kx76r1ZGr5zf6B47IY4QdluME7S1y5lffMVTes+I/fKCsMKfDnnhOgYF/F+I0
-         4HiB9hjPO6Pm9Nlp0N+UjS3LJJ1cRhPtHeimt6U3IMdQM39YtVKx8QxrZqvr1MeF4NdB
-         UKx3iPXxjANFJpaqYYmf0zL1drlaj7aSlsHYOkype0ZhOT20hH2gGSQVcja/0fO/uAFH
-         flyQyw5HACTfd2gAvaDbLStJw2Y2R1cVp9dpISbhsHdC+0oJmj54q0CpMjgZ5LiwG+tA
-         y1ag==
-X-Forwarded-Encrypted: i=1; AJvYcCWCWbQ/ppHUEAwzzJxulVsYl+A5aehHOtQL/XvxYKAkdGcgKOrHPpWzSuNBMxSCuQWa4GKq2ebiHxzb@vger.kernel.org
-X-Gm-Message-State: AOJu0YyjiW+dCoQBCIZtvmT3EvCgdQqbySIsUm5RmJHm2Mi9o6+bcngC
-	eg02SlrnPMCmuXN6hXbIxmoyZCYV3yWRwXBmUguvAAq2Dl0l6zDV7E9qduT3RRprXVtFHqdZH3g
-	eMbRBb30yszN6FHZcwI1q1v51KK/UuiY=
-X-Gm-Gg: AeBDiesw0nPSDCL31oqbo4+tHC5tyjbkN7aNMyNS7hwihxYboUxxRH8NgWYuxIIzlQj
-	ulUlytKUKhBF87cw0jOXamp7OyoXLI7oenKXKP+PSRRzA0XHPSZ9K5v5ip4nO2GEKpFlfMpHOCO
-	Ey0QMpKMgyeeE1szUpm5arYmIkUNxTbVSYoV+8OHFWzfp8dTVK9vkkbtaEzC30y4UywC4hPQssb
-	oz21lVX1bujPp7/jqhQZgwUQRIfKPVtUh5JXjFS5rMqsRkG47zCOfKNMnL4d9XT5O4AaxOs8jJw
-	XxawBVuC
-X-Received: by 2002:a05:7300:371f:b0:2c5:76d1:7f95 with SMTP id
- 5a478bee46e88-2cbfc763331mr5665654eec.28.1775452988149; Sun, 05 Apr 2026
- 22:23:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com header.b="A+mibHOU"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 635Kxn4d2469655;
+	Mon, 6 Apr 2026 05:37:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	/YyI5TkSACvWGUvK14TlwFeP5qGh6tpysJTkDEm526Q=; b=A+mibHOUDJ/oj1zW
+	ypd7zDy9gjx00mlFsB5NZKJrWKCg+WlOfweD/H8MDGW5uT1NRIY9+Emyozzbi59D
+	LuzXdyO+Wvjnns5L31ZdbEPFWekNhFqxeUxBCIF9tIfN4WqFlAKVHvFH6AlUctxK
+	lgRU22QG/wUScuc0n2ozu76RtoL2CPYsHQFoEjx5GAJInQxuFM91EQsfEM+YVBgg
+	P2GEAUF7XsyrXayJmiwijFLiDGdp7N5zU8LN3vuGtreqgY6Xp8qkZp7XvfHM8Y6l
+	sIzoFucUGPWj5wDz75Go1V5ElosLypVqOw/XtioyjQtqHoY74OJ9iGzV5NeqcU9V
+	5CxdqQ==
+Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com [199.106.103.254])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dar0mm53s-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 06 Apr 2026 05:37:45 +0000 (GMT)
+Received: from nasanex01c.na.qualcomm.com (nasanex01c.na.qualcomm.com [10.45.79.139])
+	by NASANPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTPS id 6365biBn020888
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 6 Apr 2026 05:37:44 GMT
+Received: from [10.217.219.207] (10.80.80.8) by nasanex01c.na.qualcomm.com
+ (10.45.79.139) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Sun, 5 Apr
+ 2026 22:37:39 -0700
+Message-ID: <ab0a0a53-9a54-4cc1-9e07-fee4891d7516@quicinc.com>
+Date: Mon, 6 Apr 2026 11:07:36 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260401104550.115715-1-Ashish.Yadav@infineon.com>
- <20260401104550.115715-3-Ashish.Yadav@infineon.com> <258dd77a-a8d9-4540-a32a-91a3f13c6ed5@roeck-us.net>
- <CAJKbuCbrqRHcy28TvhkQxh6eiLb1RpWYekx5WXPj6S=qO8CNvQ@mail.gmail.com>
-In-Reply-To: <CAJKbuCbrqRHcy28TvhkQxh6eiLb1RpWYekx5WXPj6S=qO8CNvQ@mail.gmail.com>
-From: ashish yadav <ashishyadav78@gmail.com>
-Date: Mon, 6 Apr 2026 10:52:55 +0530
-X-Gm-Features: AQROBzChv8k9FUYO_LpJsrRFW6RPcKfcAPDVPpp64oX5hyy_4TND2QYXYKyXuMw
-Message-ID: <CAJKbuCZveZx4BytbeaEU2x9z0m92HPbBUZYSpJ8StUEkwq+cqg@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] hwmon:(pmbus/xdp720) Add support for efuse xdp720
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Ashish Yadav <ashish.yadav@infineon.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 01/13] soc: qcom: geni-se: Refactor geni_icc_get() and
+ make qup-memory ICC path optional
+To: Praveen Talari <praveen.talari@oss.qualcomm.com>,
+        Andi Shyti
+	<andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski
+	<krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "Mukesh Kumar
+ Savaliya" <mukesh.savaliya@oss.qualcomm.com>,
+        Viken Dadhaniya
+	<viken.dadhaniya@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        <linux-arm-msm@vger.kernel.org>, <linux-i2c@vger.kernel.org>,
+        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <bjorn.andersson@oss.qualcomm.com>,
+        <dmitry.baryshkov@oss.qualcomm.com>, <konrad.dybcio@oss.qualcomm.com>
+CC: <prasad.sodagudi@oss.qualcomm.com>, <aniket.randive@oss.qualcomm.com>,
+        <chandana.chiluveru@oss.qualcomm.com>,
+        <jyothi.seerapu@oss.qualcomm.com>, <chiluka.harish@oss.qualcomm.com>
+References: <20260227061544.1785978-1-praveen.talari@oss.qualcomm.com>
+ <20260227061544.1785978-2-praveen.talari@oss.qualcomm.com>
+Content-Language: en-US
+From: Mukesh Kumar Savaliya <quic_msavaliy@quicinc.com>
+In-Reply-To: <20260227061544.1785978-2-praveen.talari@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01c.na.qualcomm.com (10.45.79.139)
+X-QCInternal: smtphost
+X-Proofpoint-ORIG-GUID: qHLzcZzxQ7RVI3yD_tKE2EkmmtgFJ2mM
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA2MDA1MSBTYWx0ZWRfX/37BpdPEmBkT
+ o3HiItxOcwn356DWnUKQ3TjuNuy9lpDqevAwJ6sdt7ytmTGarEuTL5X9E6I+exHtF4vIa4J/dhS
+ BIpj2Q0k2cNxlg6+zcre0SyJpORRZENxe037FMoVYcJTJc7NZbGYS9/QOpP1U2eZlopuDONAYmn
+ XlTpYmi9mf7A0SIO+hTZGJBSqShYQ3YpSdDBlHFKWO0bmHDiCVOur8rmRrhpQI341c/uKP5gdTK
+ w34TBdr0mtcX492bmwlqtN0Gs4krL1hJ7YO4FwIImpmMR7vL+91As8NsWfZUmbtbRtfAsfSYFOK
+ t9n7Lgkla1jh8drD0ZYhh6Lejetd8W6jzkFs4iFBQbPLQL0OoQ9NfjHeYZXcuno5tvJR0odNi9W
+ zryy7IZZ/D9WJsRyDMSIAFRl4rfF+RlwMp2Geao5avyiTQlxD9tndsT0zDQZ2hYMKE4tSn4/ZDp
+ khxB/noWFVouwpFdr2w==
+X-Authority-Analysis: v=2.4 cv=PpaergM3 c=1 sm=1 tr=0 ts=69d346a9 cx=c_pps
+ a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=oWXG0iUhOD6hS4_7Al8A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: qHLzcZzxQ7RVI3yD_tKE2EkmmtgFJ2mM
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-06_01,2026-04-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0
+ suspectscore=0 priorityscore=1501 malwarescore=0 impostorscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604060051
 
-Hi Guenter,
-
-I hope you=E2=80=99re doing well.
-
-I=E2=80=99m writing to provide an update regarding the m[PSC_POWER] issue
-identified in the following
-patchset: https://sashiko.dev/#/patchset/20260401104550.115715-1-Ashish.Yad=
-av%40infineon.com.
-
-The discrepancy was caused by an incorrect divisor in the power
-calculation. Specifically:
-info->m[PSC_POWER] =3D DIV64_U64_ROUND_CLOSEST((u64) info->m[PSC_POWER]
-* rimon * gimon, 1000000000000);
-
-The divisor should be 10^15 rather than 10^12.
-With this correction, the [PSC_POWER] value scales correctly to 163.29
-(previously 16329).
-
-I will include this fix in the next version of the patch.
-Apologies for any inconvenience this may have caused, and thank you
-for your time and feedback.
-
-With Best Regards,
-   Ashish Yadav
 
 
-On Thu, Apr 2, 2026 at 7:39=E2=80=AFPM ashish yadav <ashishyadav78@gmail.co=
-m> wrote:
->
-> Hi Guenter,
->
-> Thanks for your valuable feedback and time.
-> Please find my response in-line.
->
-> With Best Regards,
->   Ashish Yadav
->
-> On Wed, Apr 1, 2026 at 9:26=E2=80=AFPM Guenter Roeck <linux@roeck-us.net>=
- wrote:
-> >
-> > Hi,
-> >
-> > On 4/1/26 03:45, ASHISH YADAV wrote:
-> > > From: Ashish Yadav <ashish.yadav@infineon.com>
-> > >
-> > > Add the pmbus driver for Infineon XDP720 Digital eFuse Controller.
-> > >
-> > > Signed-off-by: Ashish Yadav <ashish.yadav@infineon.com>
-> > > ---
-> > > XDP720 Digital eFuse Controller provides accurate system telemetry
-> > > (V, I, P, T) and reports analog current at the IMON pin for post-proc=
-essing.
-> > >
-> > > The Current and Power measurement depends on the RIMON and GIMON valu=
-es.
-> > > Please look into data sheet sections 5.4.2 and 5.4.4 for more details=
-:
-> > > https://www.infineon.com/assets/row/public/documents/24/49/infineon-x=
-dp720-001-datasheet-en.pdf
-> > >
-> > > The GIMON (microA/A) depends on the 10th bit of TELEMETRY_AVG PMBUS R=
-egister.
-> > > The value of RIMON (kohm) can be provided by the user through device =
-tree using
-> > > infineon,rimon-micro-ohms  property.
-> >
-> > Please have a look at
-> >
-> > https://sashiko.dev/#/patchset/20260401104550.115715-1-Ashish.Yadav%40i=
-nfineon.com
-> >
-> > Main concern is the power measurement range, but also please use 100000=
-0000000ULL
-> > as suggested.
->
-> Sure, We will look into it and get back to you.
->
-> > Thanks,
-> > Guenter
-> >
-> > > ---
-> > >   drivers/hwmon/pmbus/Kconfig  |   9 +++
-> > >   drivers/hwmon/pmbus/Makefile |   1 +
-> > >   drivers/hwmon/pmbus/xdp720.c | 123 ++++++++++++++++++++++++++++++++=
-+++
-> > >   3 files changed, 133 insertions(+)
-> > >   create mode 100644 drivers/hwmon/pmbus/xdp720.c
-> > >
-> > > diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfi=
-g
-> > > index fc1273abe357..c419e3ecce90 100644
-> > > --- a/drivers/hwmon/pmbus/Kconfig
-> > > +++ b/drivers/hwmon/pmbus/Kconfig
-> > > @@ -702,6 +702,15 @@ config SENSORS_XDP710
-> > >         This driver can also be built as a module. If so, the module =
-will
-> > >         be called xdp710.
-> > >
-> > > +config SENSORS_XDP720
-> > > +     tristate "Infineon XDP720 family"
-> > > +     help
-> > > +       If you say yes here you get hardware monitoring support for I=
-nfineon
-> > > +       XDP720.
-> > > +
-> > > +       This driver can also be built as a module. If so, the module =
-will
-> > > +       be called xdp720.
-> > > +
-> > >   config SENSORS_XDPE152
-> > >       tristate "Infineon XDPE152 family"
-> > >       help
-> > > diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makef=
-ile
-> > > index d6c86924f887..1cac7ccae79f 100644
-> > > --- a/drivers/hwmon/pmbus/Makefile
-> > > +++ b/drivers/hwmon/pmbus/Makefile
-> > > @@ -68,6 +68,7 @@ obj-$(CONFIG_SENSORS_TPS546D24)     +=3D tps546d24.=
-o
-> > >   obj-$(CONFIG_SENSORS_UCD9000)       +=3D ucd9000.o
-> > >   obj-$(CONFIG_SENSORS_UCD9200)       +=3D ucd9200.o
-> > >   obj-$(CONFIG_SENSORS_XDP710)        +=3D xdp710.o
-> > > +obj-$(CONFIG_SENSORS_XDP720) +=3D xdp720.o
-> > >   obj-$(CONFIG_SENSORS_XDPE122)       +=3D xdpe12284.o
-> > >   obj-$(CONFIG_SENSORS_XDPE152)       +=3D xdpe152c4.o
-> > >   obj-$(CONFIG_SENSORS_ZL6100)        +=3D zl6100.o
-> > > diff --git a/drivers/hwmon/pmbus/xdp720.c b/drivers/hwmon/pmbus/xdp72=
-0.c
-> > > new file mode 100644
-> > > index 000000000000..382dc3f9ce80
-> > > --- /dev/null
-> > > +++ b/drivers/hwmon/pmbus/xdp720.c
-> > > @@ -0,0 +1,123 @@
-> > > +// SPDX-License-Identifier: GPL-2.0+
-> > > +/*
-> > > + * Hardware monitoring driver for Infineon XDP720 Digital eFuse Cont=
-roller
-> > > + *
-> > > + * Copyright (c) 2026 Infineon Technologies. All rights reserved.
-> > > + */
-> > > +
-> > > +#include <linux/i2c.h>
-> > > +#include <linux/module.h>
-> > > +#include <linux/init.h>
-> > > +#include <linux/kernel.h>
-> > > +#include <linux/of_device.h>
-> > > +#include <linux/bitops.h>
-> > > +#include <linux/math64.h>
-> > > +#include "pmbus.h"
-> > > +
-> > > +/*
-> > > + * The IMON resistor required to generate the system overcurrent pro=
-tection.
-> > > + * Arbitrary default Rimon value: 2k Ohm
-> > > + */
-> > > +#define XDP720_DEFAULT_RIMON 2000000000 /* 2k ohm */
-> > > +#define XDP720_TELEMETRY_AVG 0xE9
-> > > +
-> > > +static struct pmbus_driver_info xdp720_info =3D {
-> > > +     .pages =3D 1,
-> > > +     .format[PSC_VOLTAGE_IN] =3D direct,
-> > > +     .format[PSC_VOLTAGE_OUT] =3D direct,
-> > > +     .format[PSC_CURRENT_OUT] =3D direct,
-> > > +     .format[PSC_POWER] =3D direct,
-> > > +     .format[PSC_TEMPERATURE] =3D direct,
-> > > +
-> > > +     .m[PSC_VOLTAGE_IN] =3D 4653,
-> > > +     .b[PSC_VOLTAGE_IN] =3D 0,
-> > > +     .R[PSC_VOLTAGE_IN] =3D -2,
-> > > +     .m[PSC_VOLTAGE_OUT] =3D 4653,
-> > > +     .b[PSC_VOLTAGE_OUT] =3D 0,
-> > > +     .R[PSC_VOLTAGE_OUT] =3D -2,
-> > > +     /*
-> > > +      * Current and Power measurement depends on the RIMON (kOhm) an=
-d
-> > > +      * GIMON(microA/A) values.
-> > > +      */
-> > > +     .m[PSC_CURRENT_OUT] =3D 24668,
-> > > +     .b[PSC_CURRENT_OUT] =3D 0,
-> > > +     .R[PSC_CURRENT_OUT] =3D -4,
-> > > +     .m[PSC_POWER] =3D 4486,
-> > > +     .b[PSC_POWER] =3D 0,
-> > > +     .R[PSC_POWER] =3D -1,
-> > > +     .m[PSC_TEMPERATURE] =3D 54,
-> > > +     .b[PSC_TEMPERATURE] =3D 22521,
-> > > +     .R[PSC_TEMPERATURE] =3D -1,
-> > > +
-> > > +     .func[0] =3D PMBUS_HAVE_VIN | PMBUS_HAVE_VOUT | PMBUS_HAVE_PIN =
-|
-> > > +                PMBUS_HAVE_TEMP | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATU=
-S_INPUT |
-> > > +                PMBUS_HAVE_STATUS_TEMP,
-> > > +};
-> > > +
-> > > +static int xdp720_probe(struct i2c_client *client)
-> > > +{
-> > > +     struct pmbus_driver_info *info;
-> > > +     int ret;
-> > > +     u32 rimon;
-> > > +     int gimon;
-> > > +
-> > > +     info =3D devm_kmemdup(&client->dev, &xdp720_info, sizeof(*info)=
-,
-> > > +                         GFP_KERNEL);
-> > > +     if (!info)
-> > > +             return -ENOMEM;
-> > > +
-> > > +     ret =3D i2c_smbus_read_word_data(client, XDP720_TELEMETRY_AVG);
-> > > +     if (ret < 0) {
-> > > +             dev_err(&client->dev, "Can't get TELEMETRY_AVG\n");
-> > > +             return ret;
-> > > +     }
-> > > +
-> > > +     ret >>=3D 10; /* 10th bit of TELEMETRY_AVG REG for GIMON Value =
-*/
-> > > +     ret &=3D GENMASK(0, 0);
-> > > +     if (ret =3D=3D 1)
-> > > +             gimon =3D 18200; /* output gain 18.2 microA/A */
-> > > +     else
-> > > +             gimon =3D 9100; /* output gain 9.1 microA/A */
-> > > +
-> > > +     if (of_property_read_u32(client->dev.of_node,
-> > > +                              "infineon,rimon-micro-ohms", &rimon))
-> > > +             rimon =3D XDP720_DEFAULT_RIMON; /* Default if not set v=
-ia DT */
-> > > +     if (rimon =3D=3D 0)
-> > > +             return -EINVAL;
-> > > +
-> > > +     /* Adapt the current and power scale for each instance */
-> > > +     info->m[PSC_CURRENT_OUT] =3D DIV64_U64_ROUND_CLOSEST((u64)
-> > > +             info->m[PSC_CURRENT_OUT] * rimon * gimon, 1000000000000=
-);
-> > > +     info->m[PSC_POWER] =3D DIV64_U64_ROUND_CLOSEST((u64)
-> > > +             info->m[PSC_POWER] * rimon * gimon, 1000000000000);
-> > > +
-> > > +     return pmbus_do_probe(client, info);
-> > > +}
-> > > +
-> > > +static const struct of_device_id xdp720_of_match[] =3D {
-> > > +     { .compatible =3D "infineon,xdp720" },
-> > > +     {}
-> > > +};
-> > > +MODULE_DEVICE_TABLE(of, xdp720_of_match);
-> > > +
-> > > +static const struct i2c_device_id xdp720_id[] =3D {
-> > > +     { "xdp720" },
-> > > +     {}
-> > > +};
-> > > +MODULE_DEVICE_TABLE(i2c, xdp720_id);
-> > > +
-> > > +static struct i2c_driver xdp720_driver =3D {
-> > > +     .driver =3D {
-> > > +                .name =3D "xdp720",
-> > > +                .of_match_table =3D xdp720_of_match,
-> > > +     },
-> > > +     .probe =3D xdp720_probe,
-> > > +     .id_table =3D xdp720_id,
-> > > +};
-> > > +
-> > > +module_i2c_driver(xdp720_driver);
-> > > +
-> > > +MODULE_AUTHOR("Ashish Yadav <ashish.yadav@infineon.com>");
-> > > +MODULE_DESCRIPTION("PMBus driver for Infineon XDP720 Digital eFuse C=
-ontroller");
-> > > +MODULE_LICENSE("GPL");
-> > > +MODULE_IMPORT_NS("PMBUS");
-> >
+On 2/27/2026 11:45 AM, Praveen Talari wrote:
+> The "qup-memory" interconnect path is optional and may not be defined
+> in all device trees. Unroll the loop-based ICC path initialization to
+> allow specific error handling for each path type.
+> 
+> The "qup-core" and "qup-config" paths remain mandatory and will fail
+> probe if missing, while "qup-memory" is now handled as optional and
+> skipped when not present in the device tree.
+> 
+> Co-developed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Praveen Talari <praveen.talari@oss.qualcomm.com>
+> ---
+> v1->v2:
+> Bjorn:
+> - Updated commit text.
+> - Used local variable for more readable.
+> ---
+>   drivers/soc/qcom/qcom-geni-se.c | 36 +++++++++++++++++----------------
+>   1 file changed, 19 insertions(+), 17 deletions(-)
+> 
+
+Reviewed-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+[...]
+
