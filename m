@@ -1,159 +1,108 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtpbg150.qq.com (smtpbg150.qq.com [18.132.163.193])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E692EAD15
-	for <devicetree@vger.kernel.org>; Mon,  6 Apr 2026 15:38:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09BD426CE2D;
+	Mon,  6 Apr 2026 15:51:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.132.163.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775489919; cv=none; b=MaF+vD1xQCWgDtsC/RK72gKGVgRz8WEmATB7hAOrP79Dc3SbF6KEy9nk9twU4cXnNj22iPRa6aGd3JtEPPUe6NSpawvx+qwjhnKInB62hEWzVVjNmqhqR3fXOJ9bauvnQc4eXIYfJ1tmWHIxZpfKBMutBFdfOVa6Q1dTQdJ6OrI=
+	t=1775490666; cv=none; b=ktnRtE4bT3TiNjUYh/KO9q3R4URFdKplM+9HWAIIroJ6hrFQZxGF0x1OoKJHe4lG2IPYOTahmUcB+UPHoOWvGxFW2VMJ+O+CvNgBHkuX6d62A89pBZtvr3ycuEha9vv4Zjc/7IHAnNMAwaOu/VY+OMsTLziMAKYicAE4UuMhylg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775489919; c=relaxed/simple;
-	bh=49+ciCmPwibB8Kivb7U6s7rioMxVkCMH2tw+szOi/dI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EH6feIzEy11i77tQQuVhlRP25OpvfD2LikAYX1yFuLLu9G3mVd4xAVIuzvodUFo6cPrGdKLHMvFaxhpBMCIJqJIuTn8HXl1cHTXMv5QDsY8fAh5u/IlMdnirIsdhfBE0QGehK1izZ/YQcaWI56dS46+XOu4+Qb7zyS3baqAm3Xg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hE+7lcrb; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=p9c/4YdS; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hE+7lcrb";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="p9c/4YdS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1775489915;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=v5Zet8J4rK0+1tdnDTvli0Ek2YpzZgM64BeAXaz+iIs=;
-	b=hE+7lcrbCIrCYPnUlAOayIuHYA0ZZAqTbwNHHNawG47tsx7WuJYbcqTJ7Vf3SkjK8Rk5Ya
-	KUG52t90s2y+XWkJLQX4y9DqPCYVWsDHz3r3Hpi2Is47QQftsVW6gpoAsw3IxrBvPZKoBT
-	lyd5e2DVpLeTJAffyTD7Y+bHeDDxdtY=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-448-G2_DlorYMNSyjtmbyKVWJg-1; Mon, 06 Apr 2026 11:38:34 -0400
-X-MC-Unique: G2_DlorYMNSyjtmbyKVWJg-1
-X-Mimecast-MFC-AGG-ID: G2_DlorYMNSyjtmbyKVWJg_1775489914
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-8d60fca52b9so341950385a.0
-        for <devicetree@vger.kernel.org>; Mon, 06 Apr 2026 08:38:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1775489914; x=1776094714; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-transfer-encoding
-         :content-disposition:mime-version:references:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=v5Zet8J4rK0+1tdnDTvli0Ek2YpzZgM64BeAXaz+iIs=;
-        b=p9c/4YdSmbaz/BYOo4azgYDqeaHh4Nzc4tdTb2T3AwKbb2PWYCQuS1KbEp+qe0qUN6
-         0sSCP6oj2PUHdF75z2PHXenbAU6B37i5WStrMkfcaPRz7itFP2jIiGQ3Z57jiN00G9kd
-         nUHYpLZntphglHXlJe1BNxFQpzobCNv6ZWsCysUfjYsC88CBtplPcxwo8GngcPAQs4y6
-         QE0bgWor6HoKNYrEaPhkJ1XGzTu4o3kTljtE99u32eandYrruF/bcUXLvE8y7Ep2Kj/F
-         cMvMOoCb6UIflmqUSOihBYZCP5AgqT+Df69dNarmA9PSdKBuu4MeHpiMWhDGHtrT23/Z
-         qG8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775489914; x=1776094714;
-        h=user-agent:in-reply-to:content-transfer-encoding
-         :content-disposition:mime-version:references:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=v5Zet8J4rK0+1tdnDTvli0Ek2YpzZgM64BeAXaz+iIs=;
-        b=b6kPU3kr4Z4enk5Gch3Dt0g0TSbjTz5PIXZFTLwijrwZNnu7ggD9lgT4Jw/TTKMJaB
-         sCMpPU5vBy8M5jBb5s8POmghZS1nzWBFeSO4zL655MxmzspBmvqS/WToh06EYYL70+wG
-         sR1fNHF4UJs1gTCvsFqKpZAT1LJxZRC8kyuVpF2MHjkPnerlXX5oXcNbWi/RLRCIBEz4
-         kkBCZ6l77OKz7Q1tH1qDAinSIkt/650IfQClpkF+FgVS0TXmx6S/fco+pLoHy6UyQ3Qi
-         D+GFjVH72jQhyCn3YtM9P0M18OOzxv4B7lzozVFoZofbip2u84aso0DUl2TpciYEBTka
-         UBnw==
-X-Forwarded-Encrypted: i=1; AJvYcCU0b48RFGW/xTw838B3eIDJADuRCpVGFIp+oRQFtETFxJLv93OgpeX6yznQGmCuL1xmYzhoVHBjVRQl@vger.kernel.org
-X-Gm-Message-State: AOJu0YzYXZzTxJH/g2smcDLm5dUtdnYZynx8QVM8whPIXX/cHYoc58dk
-	auHTd0J4Jb80bEsNsh5cNSiZF25SiUkHAQ+f9X+5lteeZynxE9HLxL7ArSz9fURsJCXu/XdI5au
-	7yN0xBAHSG5yDVHo/Ca1zlCN0z9exRMzM+hTJt5ayG1RIjGA7k2LuDxJD4LVdmDQ=
-X-Gm-Gg: AeBDiesKXBwhqsOkxXquFhSSoABThpzWyilBlYNOr+cEna9ixghjya8YQ2hXoasmQPk
-	JRr2QxPsrYnsOJ6+J6tPuOqLc0HTKcckJH9aO1ZRoiNoiUA3AcsLzY0W+OqadgQ2GkG9icbd22c
-	x4PmBcFM7eJ7a+igZ/+1HLtMaRrp87JI1OpPhjIN1LjodGJhxvfnBAZyryZNSSWO5nJRkEuqGVQ
-	411rsoZg2M8jAZgcFD+U/S/o9jU57h4+V6Lw760hFdFksalXCr1g2lqVLQW1C6q/3101mE9/iYW
-	YFlMO6NICCRSYhZXBm8HBJ9hsMCMRKeOZKzc/De3ejrCgj5bis1xG4OPv0FaaoI2n9UjGxjuCVm
-	k3//4z3IZ9tJR6tFRdVc2SOilL+OlpxyKUHd/lP5gRipiGlthqjF2rtfK
-X-Received: by 2002:a05:620a:4490:b0:8cf:d510:3b5f with SMTP id af79cd13be357-8d41c8a82a0mr1883134785a.31.1775489913888;
-        Mon, 06 Apr 2026 08:38:33 -0700 (PDT)
-X-Received: by 2002:a05:620a:4490:b0:8cf:d510:3b5f with SMTP id af79cd13be357-8d41c8a82a0mr1883128785a.31.1775489913310;
-        Mon, 06 Apr 2026 08:38:33 -0700 (PDT)
-Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-8d2a5393a07sm1099166585a.4.2026.04.06.08.38.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 06 Apr 2026 08:38:32 -0700 (PDT)
-Date: Mon, 6 Apr 2026 11:38:30 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, arm-scmi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH RFC 0/2] clk: scmi: =?utf-8?Q?D?=
- =?utf-8?Q?T_support_for_SCMI_clock_rate_rounding_modes_=28per=E2=80=91clo?=
- =?utf-8?Q?ck?= policy)
-Message-ID: <adPTdg4RJpkjc4Cg@redhat.com>
-References: <20260306-scmi-clk-round-v1-0-61e2a5df9051@nxp.com>
+	s=arc-20240116; t=1775490666; c=relaxed/simple;
+	bh=UA1pIDqZTcN0wblz4FqWp/DqMz+poNs9kVactYjBrxo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=rNwWUzdWLWrfEh1DZLLfZBC4NruXrPxXVSJ5ox1lSA1aToLtns/9HzZwjgYoy3y2tqv0Kb4BUHsGOwoumi1YQwdcpmeg+pJmkWQmXQm4WmhGQipZDmUPo3weLWUkBbdm82eP3N4o45spZWg8ctQsg5ntuYw98pI5WUSqu3526IM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=18.132.163.193
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: zesmtpsz5t1775490607t015ef3cd
+X-QQ-Originating-IP: 6hbAr8UySjcB8zecLV1wQa7GbFzaP8lEedladUubDsI=
+Received: from [192.168.30.32] ( [116.234.14.100])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 06 Apr 2026 23:50:05 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 9436570935921105278
+EX-QQ-RecipientCnt: 10
+From: Xilin Wu <sophon@radxa.com>
+Subject: [PATCH 0/2] pwm: clk-pwm: Add GPIO support for constant output
+ levels
+Date: Mon, 06 Apr 2026 23:50:00 +0800
+Message-Id: <20260406-clk-pwm-gpio-v1-0-40d2f3a20aff@radxa.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260306-scmi-clk-round-v1-0-61e2a5df9051@nxp.com>
-User-Agent: Mutt/2.3.0 (2026-01-25)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDEwMz3eScbN2C8lzd9ILMfF3zNDPjJGMLSwOLRFMloJaCotS0zAqwcdG
+ xEH5xaVJWanIJyAyl2loAFH4y/nAAAAA=
+X-Change-ID: 20260406-clk-pwm-gpio-7f63b38908a5
+To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Nikita Travkin <nikita@trvn.ru>
+Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ Xilin Wu <sophon@radxa.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1293; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=UA1pIDqZTcN0wblz4FqWp/DqMz+poNs9kVactYjBrxo=;
+ b=owGbwMvMwCVmdFg0fe08Iz/G02pJDJmXr+n+OtZd4r/p2/L8D1raZxbr3ghIMH3m2u10rNJYs
+ 5J/e+nsjlIWBjEuBlkxRRaFeIa57JW5156KlerBzGFlAhnCwMUpABNxsWL47yRtoz/ndvOLORlG
+ 2YW21hvnvJAQd1RVO6bKajhn+VV5W4b/pbd2xed5OFmfSbDyWBMj4nfrf8KkqvgqUe5tnf0MXVd
+ ZAA==
+X-Developer-Key: i=sophon@radxa.com; a=openpgp;
+ fpr=205F009D07796DD6E516752E32C31567AD9E324E
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: OHFB8ysKYMMnNYH5jddxhIytVYIU95tLqO7r6r0BENkgD4GHYt2aLQRE
+	yW6V1R52xmdCE3OxJdk6OLe7LdZs3HCX+EFHcaAdDHifNmaSvKw+QJTHIk+0104P3/7MEJA
+	pNvZgHx1+f8x29fChg0gduxZtF1QWW95Yy700JCf6IiFca8uRKdcASy6ooB3G76Kz76aAFJ
+	rd56GKqj+SNWN87OgWMf3G2HxDJz0jtRL0Un0B8AvmLbfYeD17CkU+fIdjkblHjIJ3B0gx9
+	Vcz7skx6mtpxdvKNVdJdTg4LP5PSlcETk9NcbHIAzRt6SbZ1Cqz/+qzDle3R2OyUhDhoL+0
+	btaWr75QPpzZ59kiBam+jHZ5PTyrqFjtccgq1H43t8hBk58w4e6i0GaGs3iK9h7Q3v0tNyG
+	f/x83KyHSa3OV0VkaUbdRs8nQjSjpV12pikYB1NapT9XbsFGuPWr7oXwyjHHt/XnUexG8v6
+	M5js/Q4T7NJTvyxBjaKeg0RwU6jTUFGtTh4jJ+6yJDaF5KblgdRtzMrWu6aQOCgD0kphgvU
+	9HkPN5Yot8nJWYY/x6aW//R8LX/9Rrrw3D56WKvlJmEQc8ijmNlm2OMoJ6kF4R/E4WJf38O
+	8tmVJ90Q/8931MC8MsoEd5K3oYeYrClpWiHKe0HlV9uMe8snYwfWrpCqulI27HeYPmKxxBp
+	MZxho9dozxo/b9wELRzf8KTrDlgxsFV0APzjexc3/+j7nVbo2bNu1b8GB6eoCEeMI/Blcim
+	OvxVM/dLq7RCzvveAMqb2TkRiuIh//H930a2MorU6BYWJZYqAqiXbQNqGxmJLHhZJYnJSuh
+	X4uUu58r7+eLOSkJOr37k6j5/7agOOj37RJfesK9NUQHMXFZq/T6uq7K5rC9Hbj3WtdF1m5
+	zN457efkR10lVZyYUjjq33wFAr0+rwKXER5qRwOFKYSPZLWgak9qMCO+X1FBJg2tTQEnUJJ
+	JJcKMtkdWad9fQguiP9x5ZoETKXaaY1u+svGBcaQUXc/dLQJfx9uT3zEvh0g1RjzeBn/zMf
+	D12XJDSCD/Y5pGqh5l71+Ey0qgAKNz8Rn9w5nBfxyUJj6/BgqVpTwA9Vmpsvl+4c7AFWMvE
+	RX8PfuMDI7w
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 
-Hi Peng,
+The clk-pwm driver uses a clock with duty cycle control to generate
+PWM output. However, when the PWM is disabled or a 0%/100% duty cycle
+is requested, the clock must be stopped, and the resulting pin level
+is undefined and hardware-dependent.
 
-On Fri, Mar 06, 2026 at 02:20:11PM +0800, Peng Fan (OSS) wrote:
-> The ARM SCMI specification (DEN0056E) defines rounding‑mode flags for the
-> CLOCK_RATE_SET command, allowing a client to request that the firmware
-> round a requested clock rate down, up, or autonomously choose the
-> closest achievable rate.
-> This series introduces DT support in the SCMI clock provider to carry a
-> per‑clock rounding policy from the device tree into the SCMI protocol.
-> 
-> Patch 1 adds dt‑bindings constants for rounding modes:
-> ROUND_DOWN, ROUND_UP, ROUND_AUTO.
-> 
-> Patch 2 extends the SCMI clock provider to optionally support
-> "#clock-cells = <2>", where the second cell encodes the rounding mode.
-> The first consumer that references a given clock latches the per‑clock
-> policy. Subsequent consumers of the same clock must specify the same
-> mode; otherwise, the request is rejected to avoid non‑deterministic
-> behavior. The selected mode is passed through to the SCMI Clock protocol
-> and mapped to the corresponding CLOCK_SET_* flag.
-> 
-> Patch 2 includes changes to drivers/clk/clk-scmi.c and drivers/firmware
-> arm_scmi/clock.c, it is hard to separate the changes without breaking,
-> so I put the changes in one patch.
-> 
-> This design adopts a per‑clock policy model, not per‑consumer. The rounding
-> mode is applied by the provider per clock (index).
-> All consumers of the same clock must agree on the rounding mode.
-> Conflicting per‑consumer requests for the same clock are invalid and
-> are rejected during phandle translation.
-> 
-> This avoids silent clobbering and preserves deterministic behavior.
-> 
-> Existing device trees using #clock-cells = <1> continue to work and
-> default to ROUND_DOWN, exactly as before.
-> 
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+This series adds optional GPIO and pinctrl support to the clk-pwm
+driver. When a GPIO and pinctrl states ("default" for clock mux,
+"gpio" for GPIO mode) are provided in the device tree, the driver
+switches the pin to GPIO mode and drives a deterministic output level
+for disabled/0%/100% states. For normal PWM output the pin is switched
+back to its clock function mux. If no GPIO is provided, the driver
+falls back to the original clock-only behavior.
 
-My high level feedback about this:
+Signed-off-by: Xilin Wu <sophon@radxa.com>
+---
+Xilin Wu (2):
+      dt-bindings: pwm: clk-pwm: add optional GPIO and pinctrl properties
+      pwm: clk-pwm: add GPIO and pinctrl support for constant output levels
 
-1) Since you are making changes to the DT schema for the clock-cells,
-   does the SCMI DT schema document also need to be updated to allow
-   clock-cells to be 1 or 2?
+ Documentation/devicetree/bindings/pwm/clk-pwm.yaml | 36 ++++++++++-
+ drivers/pwm/pwm-clk.c                              | 72 ++++++++++++++++++++--
+ 2 files changed, 101 insertions(+), 7 deletions(-)
+---
+base-commit: 2febe6e6ee6e34c7754eff3c4d81aa7b0dcb7979
+change-id: 20260406-clk-pwm-gpio-7f63b38908a5
 
-2) For the ROUND_XXX constants, I would prefix them with something
-   since the existing ROUND names are fairly generic sounding. Maybe
-   CLK_SCMI_?
-
-Brian
+Best regards,
+--  
+Xilin Wu <sophon@radxa.com>
 
