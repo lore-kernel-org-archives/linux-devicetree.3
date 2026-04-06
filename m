@@ -1,268 +1,163 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5FE33262F
-	for <devicetree@vger.kernel.org>; Mon,  6 Apr 2026 12:32:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775478757; cv=pass; b=alA5o+HCiWSaaK364e1Xo8QOdJCcNzvTIGVt/D2MhLC+XUoja1G2evbIKj+ThjZmydi9sPkqB/Sd1r1sU3GgAulGRA2xPQpo/9d0w/opwBrNSWGixJA5KeagrPD2PrkNrlGAp/JM0ITqIEtS72aiEoVpXFzUZb/67x5WQFxbINQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775478757; c=relaxed/simple;
-	bh=NnYpzCjbOPa23Fsh/bL9Mp8xGA8K8foKfgmggy1BxJY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=flKKli7/AgqVUcWRXYcx13CdvnvjgUI/CCI+SZpdlVXgnLYBFak7D94svNyfjr0GeBN3rl8mN/q/+0zte58cw7HwVSWrEsnsGFs6/0Oi5wa068zC1zx/zpbBwhIW0h9qzq1QyvRfrRvus98SMZqBFQENMv/Nskwexjbs2CK7C3w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O+gwmV90; arc=pass smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O+gwmV90"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-c76b6f9a50eso1175845a12.2
-        for <devicetree@vger.kernel.org>; Mon, 06 Apr 2026 05:32:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775478756; cv=none;
-        d=google.com; s=arc-20240605;
-        b=J3vWmOhyGpl0XqceO/uliVFax1jvKuZ9CJWoDCrpNNkc3M0+bJHCJTiXoA11dFQblt
-         RbMjQerQow4xNar4OpDYvYzclUCG0vQBAh40R20O3a3XYECyMaHA6+CRtQ0rsHkcpxaz
-         +SodfrCjECXBvsBndiGEJD6h6Ub0ObfxAmfd0JsTQeImSGD+K6DmqEuYY2f7mulF+I1l
-         NwCmTM55Z9P2vZXLiXBiDigtUVnOQxVYWH6Y5memdxGGSwogF94uZ7CAGg/h87a9EaTA
-         MCHX0OBCMzxJP2sLBmi2F4OXho8DAp73eZlAWvLyy3feYhEjYlGFXwvXTTzjCP/6DSlS
-         HYkA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=BpJLMv/PN8ttKmYeWwPZWYWOIWYBgFzlU3AGL8Sjwio=;
-        fh=tQ0e291tplF/R2k0o+eUzRNwFgGto6rysg3CTw5VH4s=;
-        b=YJ1v1q5oyFQ8ChEl5UvpZQ9hS9XKj6myqSHQZvyhfmcu58J92iYVQgaT+DXXoWniIn
-         uqDrykuIRsueUkYUqXyCxZZUvBkwd33OohUAM7bsGImDN0ZigFsq6wvJ0XeU8eLDhRZx
-         i6EHj0/uEXNIlReBX4cYIoBRkohO3Ho2vQra2nlzrVVZR1wVg9oHUd2rvCeYURvTi4zZ
-         9hUlOWGH/ORIvShGtwKdEvK+QAfCzU7T/FeN4O2jZFt6v/UdumXppax2JhgesvdVFeZ7
-         eavky3ayi61WDmNsI8Mp4PnbAYisMKN3MC2ANzNuSxeKXPuoGAUQBVHp+KWw4eIHP0xB
-         B+tw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775478756; x=1776083556; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=BpJLMv/PN8ttKmYeWwPZWYWOIWYBgFzlU3AGL8Sjwio=;
-        b=O+gwmV90EhAzTgPuoR/DsXbd+e9m+urrblot0oqEfepq1stiHBFtmLgYMfWsY5Ou69
-         qZZfLKBS3BHQm3uksntzh3Qlw8OWhlulDCefBzcsfX9Petd2uoNDNyN1EpdhXQKd0cMU
-         frffudik7CBD0hNmH78A1KVPwJ2BEdVkJwo5fWUcNFYRCUwL+FblB8EDUXLfbh21o7rJ
-         gu9A48ydiN4oerKVEmWNRPGqYqhER/tydRxGqxdF4gSVSbl+Qyz14BNHC11MHqOEJdZV
-         +q22SqbktD/uAGNqCqM4xn4gYL6w9/osCCfksKprAI1KYwRliuhuIt1T4e2LWN8K5+Zd
-         LRFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775478756; x=1776083556;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=BpJLMv/PN8ttKmYeWwPZWYWOIWYBgFzlU3AGL8Sjwio=;
-        b=rnAgUlIbQvSZO15rAjeQcrhRSVyNheWKfVeOymj25+CDC1l7EnOlrjAcSed47oEBB+
-         jck0gE7gpkLECoWkOgkZJe+MhpZUFw9lkLTYhCPbzeTuGWRmVK9YR0oh/8RcTwRMmLlb
-         m5LxN6WYvP/AUU9+rZuxfBAiNQ9tjZs7AMS1bMR2vt0LBlz8zHoAR5pJM2V5WURkylRh
-         jb4cWJnxV5jz1oWYj30r4FNhtft7EUIfxNiCZ9Zn1aTQs0MLpM/lUTGVZU15PAtw5hVu
-         z6RuYANlX2zScH9yITbGdXgfdfWe2nyVdcC6BWSZaVVGlheuX2CohvhQ0Q75eR6N+OAs
-         n/NA==
-X-Forwarded-Encrypted: i=1; AJvYcCVeG/611jDJHFTNPrtKmWrtkmXOVB+3GPhqcSlnZipHwdPs5/e4h74qqi2+KtzGMZoxe4Qn0rtkxVZ+@vger.kernel.org
-X-Gm-Message-State: AOJu0YxzO73PbCwcP2rumG1UplXiArTOj3WFTSSm3w58EnwZ0FT9opO2
-	tfmHfZDvbKpetBjBqGVVm9Y7gzEi1hso3IiYwBCWKmo2hFrGf4BlZpntDe32DIpFJ8dsBHtQz4l
-	8oi2WmEE3GZ6vwO6lMFx82aUqTzUqYok=
-X-Gm-Gg: AeBDiev/Bk/QAMJHkDf9jcKtfMQzZBQy7VUCBazvVMqzTm956P47uxXtZgj7ZJfzOHN
-	aGJ3nYue7/cmhe3VB5/tQsKxyFUcwRiSSnpXNJ5p7hH6DXkKZcythxldgQS5VDnfx/GvntCE+FD
-	38QjDpHUT6B/JtfosPTvg/niYDZDmVTHCRQo2XPVSG4S4GUVWYg+8QTVwGPsyGPpEAN8R0nszvq
-	5UsbJ2mh+NIuw9ThdzYnJb6TJHZVt9EiGSiHm133Jyz1BosRIiQ0k1B3su+680GJx0Jd1b5zE3i
-	0PU3ysZeSp7QDutrCXvljxKHyDKVMDLG13EUbA==
-X-Received: by 2002:a17:903:2c04:b0:2b0:5075:96d1 with SMTP id
- d9443c01a7336-2b28176a618mr133938205ad.24.1775478755494; Mon, 06 Apr 2026
- 05:32:35 -0700 (PDT)
+Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 024353368BA;
+	Mon,  6 Apr 2026 12:35:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.175.24.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775478910; cv=none; b=S7RveF25mjPIzNDxUfj6WGdB9DrnSKP0mRKQHHtZNwmiWoZkbDX6UvpJEp9Z8AvxMbgpzN4S4PxdmRNlyVexQhG+DqdAnKWjmSxN2QuFwSu+uvhpGKr5wyxF2L55Kqew2H80mh6WqgVhUiFhILrr8FcLqAyJQosXDWrVJNRr/bU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775478910; c=relaxed/simple;
+	bh=NPrPqiCgKJF1cunXDwSkfsikoy1YG9Oo6bjJxlTMuxw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kKV4vgAqaoYzH77XR9HQUkKE4J528Nrq7jQ8iWX1dCgEYlWOJ35sbXuoSYlyboXq5c7OhieEZ7qKEAeTOfswO42k1UL5m4bmD41C9qVZIgHxT92BeJX+t0LQsQ/vjpzlaJUUl86UQtLYs7OH/67GbTTKWHbKYFRjcJi8VgIc0So=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de; spf=pass smtp.mailfrom=alpha.franken.de; arc=none smtp.client-ip=193.175.24.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpha.franken.de
+Received: from uucp by elvis.franken.de with local-rmail (Exim 3.36 #1)
+	id 1w9jAQ-00040r-00; Mon, 06 Apr 2026 14:34:58 +0200
+Received: by alpha.franken.de (Postfix, from userid 1000)
+	id D45FBC0988; Mon,  6 Apr 2026 14:31:29 +0200 (CEST)
+Date: Mon, 6 Apr 2026 14:31:29 +0200
+From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+To: =?iso-8859-1?Q?Th=E9o?= Lebrun <theo.lebrun@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-mips@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
+	Gregory CLEMENT <gregory.clement@bootlin.com>,
+	=?iso-8859-1?Q?Beno=EEt?= Monin <benoit.monin@bootlin.com>,
+	Tawfik Bayouk <tawfik.bayouk@mobileye.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Andrew Lunn <andrew@lunn.ch>
+Subject: Re: [PATCH v7 0/3] Add MACB/GEM instances on EyeQ5, and their PHYs
+Message-ID: <adOnoepPSI4QRKWI@alpha.franken.de>
+References: <20260225-macb-phy-v7-0-d3c9842ec931@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260403112655.167593-1-phucduc.bui@gmail.com>
- <20260403112655.167593-4-phucduc.bui@gmail.com> <87v7e5t16l.wl-kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87v7e5t16l.wl-kuninori.morimoto.gx@renesas.com>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Mon, 6 Apr 2026 19:32:22 +0700
-X-Gm-Features: AQROBzA0_93mm2t7r0WlUl14fX7SUBUPYxStZohF-_IJd-zBH4HmuI7FuU4RnJY
-Message-ID: <CAABR9nGUyTkDmB0SgKAuM1Pp75L=m1q4bLSfhobm98TswDnt8w@mail.gmail.com>
-Subject: Re: [PATCH 3/3] ASoC: renesas: fsi: Fix hang by enabling SPU clock
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: broonie@kernel.org, lgirdwood@gmail.com, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, geert+renesas@glider.be, 
-	magnus.damm@gmail.com, perex@perex.cz, tiwai@suse.com, 
-	linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260225-macb-phy-v7-0-d3c9842ec931@bootlin.com>
 
-Hi Morimoto-san, Mark,
-
-Thank you for your review.
-
-> If it is needed for register access,
-
-Yes, enabling this clock is essential as it functions as a bus bridge clock=
-.
-Currently, the SPU clock is still enabled by the bootloader. In legacy
-kernels (v4.2 and earlier) using the Armadillo board-file/defconfig, this
-clock remained active after boot, allowing the FSI to function correctly.
-However, after migrating to a full Device Tree (DTS) implementation,
-the kernel's unused clock cleanup mechanism disables the SPU clock
-because it isn't explicitly claimed. This leads to a system hang every
-time aplay is executed, as the FSI registers become inaccessible
-without this clock.
-
-> you need to call it on
-> fsi_hw_startup/shutdown() which cares suspend/resume too.
-
-I previously attempted to manage the clock within fsi_hw_startup/
-shutdown, but the system would hang when stopping aplay
-(e.g., via Ctrl+C). This happens because certain cleanup operations,
-such as fsi_irq_disable(), are performed after fsi_hw_shutdown()
-finishes. These operations require register access, which triggers a
-system hang if the SPU clock has already been disabled. Therefore,
-I moved the clock management to fsi_dai_startup/shutdown to ensure
-the clock remains active throughout the entire lifecycle of the stream.
-
-Furthermore, my testing shows that using dai_startup/shutdown
-eliminates the need for explicit Suspend/Resume handling for this clock.
-Since the ALSA framework typically invokes the hw_ callbacks during
-power management transitions rather than the dai_ ones, the SPU clock
-state remains stable, preventing any illegal register access during
-these transitions.
-
-> As Mark mentioned, it should be optional.
-> Otherwise it breaks compatibility.
-
-You are right. I will implement it this way in v2.
-
-> And we already have fsi_clk_init() for clock initialize.
-> spu should be handled in it.
-
-> Now, it is called if clock master (A.
-
-> (A)     if (fsi_is_clk_master(fsi)) {
->                 if (fsi->clk_cpg)
->                         fsi_clk_init(dev, fsi, 0, 1, 1,
->                                      fsi_clk_set_rate_cpg);
->                 else
->                         fsi_clk_init(dev, fsi, 1, 1, 0,
->                                      fsi_clk_set_rate_external);
->         }
-
-You are right. Currently, our FSIA is configured as a slave,
-so it never executes the clk_init() function.
-
-> I think it (A) can be checked inside fsi_clk_init().
-> fsi_clk_init() is now called when .set_fmt, but it can be called
-> at _probe() timing ?
-
-Yes. I can handle the implementation/coding side of this.
-
-> Should we also be managing the clock during system suspend, or if the
-> power consumption doesn't really matter should we just keep it enabled
-> all the time and not worry about starting and stopping it?
-
-Regarding the SPU clock management, I haven't measured the exact
-power consumption of this block yet. However, to keep the code simple
-and ensure maximum stability for register access (avoiding system
-hangs during cleanup), I am open to enabling it once in fsi_probe()
-if you find the dynamic management in dai_startup/shutdown
-unnecessary.
-
-> This is going to unconditionally require a clock called "spu" on all
-> devices using this driver, not just the one SoC you mentioned as
-> requiring it.  Presumably this worked at least somewhere (possibly the
-> clock is always on, or they're just lucky that something else enables
-> it) and this will cause regressions for those platforms?
-> This should either (ideally) be conditional, or use _optional.
-
-Thank you for your suggestion. I will switch to using
-devm_clk_get_optional() in the v2
-
-Best regards,
-Phuc
-
-On Mon, Apr 6, 2026 at 6:52=E2=80=AFAM Kuninori Morimoto
-<kuninori.morimoto.gx@renesas.com> wrote:
->
->
-> Hi
->
-> Thank you for the patch
->
-> > From: bui duc phuc <phucduc.bui@gmail.com>
-> >
-> > The FSI on r8a7740 requires the SPU clock to be enabled
-> > before accessing its registers.
-> > Without this clock, register access may lead to a system
-> > hang.
-> > Retrieve the "spu" clock in probe and enable it during
-> > DAI startup. Disable the clock on shutdown to match the
-> > audio stream lifecycle.
-> > This ensures safe register access and prevents system
-> > hangs during audio playback.
-> > This is required even if the FSI functional clock is
-> > enabled, as internal units depend on the SPU clock.
-> >
-> > Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
-> > ---
-> (snip)
-> > @@ -1554,6 +1555,11 @@ static int fsi_dai_startup(struct snd_pcm_substr=
-eam *substream,
-> >                            struct snd_soc_dai *dai)
-> >  {
-> >         struct fsi_priv *fsi =3D fsi_get_priv(substream);
-> > +       int ret;
-> > +
-> > +       ret =3D clk_prepare_enable(fsi->master->clk_spu);
-> > +       if (ret)
-> > +               return ret;
-> >
-> >         fsi_clk_invalid(fsi);
->
-> If it is needed for register access, you need to call it on
-> fsi_hw_startup/shutdown() which cares suspend/resume too.
->
-> And I guess it need to count user, because we have FSI-A / FSI-B ?
->
-> > @@ -1963,6 +1970,13 @@ static int fsi_probe(struct platform_device *pde=
-v)
-> >         master->core            =3D core;
-> >         spin_lock_init(&master->lock);
-> >
-> > +       /* SPU clock is required for FSI register access */
-> > +       master->clk_spu =3D devm_clk_get(&pdev->dev, "spu");
-> > +       if (IS_ERR(master->clk_spu)) {
-> > +               dev_err(&pdev->dev, "Failed to get spu clock\n");
-> > +               return PTR_ERR(master->clk_spu);
-> > +       }
->
-> As Mark mentioned, it should be optional. Otherwise it breaks compatibili=
-ty.
-> And we already have fsi_clk_init() for clock initialize.
-> spu should be handled in it.
->
-> Now, it is called if clock master (A.
->
-> (A)     if (fsi_is_clk_master(fsi)) {
->                 if (fsi->clk_cpg)
->                         fsi_clk_init(dev, fsi, 0, 1, 1,
->                                      fsi_clk_set_rate_cpg);
->                 else
->                         fsi_clk_init(dev, fsi, 1, 1, 0,
->                                      fsi_clk_set_rate_external);
->         }
->
-> I think it (A) can be checked inside fsi_clk_init().
-> fsi_clk_init() is now called when .set_fmt, but it can be called
-> at _probe() timing ?
->
-> Thank you for your help !!
->
-> Best regards
+On Wed, Feb 25, 2026 at 05:55:21PM +0100, Théo Lebrun wrote:
+> EyeQ5 SoCs integrate two GEM instances. A system-controller register
+> region named "OLB" has some control over the Ethernet PHY integration.
+> 
+> Extend the current OLB ecosystem with a new generic PHY driver.
+>  - OLB is carried by one main platform driver: clk-eyeq.
+>  - It instantiates auxiliary devices: reset-eyeq & pinctrl-eyeq5.
+>  - We add a new one: phy-eyeq5-eth.
+> 
+> Here we update dt-bindings to indicate OLB is a PHY provider. Then we
+> add MACB/GEM instances in the devicetree, and the PHYs on the eval
+> board.
+> 
+> About related patches:
+> 
+>  - PHY patches are incoming to add the driver. Patches used to be [2] in
+>    the same series.
+> 
+>  - clk patches are incoming to make clk-eyeq instantiate this new
+>    auxiliary device. They also ensure we get a dev->of_node assigned.
+>    Patches used to be [2] in the same series.
+> 
+> Have a nice day,
+> Thanks!
+> Théo
+> 
+> [0]: https://lore.kernel.org/lkml/20250627-macb-v2-15-ff8207d0bb77@bootlin.com/
+> [1]: https://lore.kernel.org/lkml/20251022-macb-eyeq5-v2-0-7c140abb0581@bootlin.com/
+> 
+> Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
 > ---
-> Kuninori Morimoto
+> Changes in v7:
+> - Separate PHY / clk / MIPS patches into three series.
+> - Rebase onto v7.0-rc1 and test on EyeQ5. Nothing to report.
+> - Link to v6: https://lore.kernel.org/r/20260127-macb-phy-v6-0-cdd840588188@bootlin.com
+> 
+> Changes in v6:
+> - Rebase upon v6.19-rc7; nothing to report.
+> - Add new patch "phy: sort Kconfig and Makefile".
+> - phy-eyeq5-eth: drop useless explicit __iomem cast to
+>   dev_get_platdata() return value.
+> - I did *not* drop the Kconfig `default MACH_EYEQ5` nor driver
+>   `dev_dbg()`. I think both are useful and should be kept. See
+>   last revision discussion here:
+>   https://lore.kernel.org/lkml/DFGSMN8268O0.33TYCQDBVHUHZ@bootlin.com/
+> - Link to v5: https://lore.kernel.org/r/20251215-macb-phy-v5-0-a9dfea39da34@bootlin.com
+> 
+> Changes in v5:
+> - phy-eyeq5-eth:
+>   - fix #includes: add delay, gfp_types, module and drop array_size,
+>     bug, cleanup, container_of, lockdep, mutex.
+>   - eq5_phy_xlate(): avoid magic value, use EQ5_PHY_COUNT.
+>   - use dev_err_probe() in error cases of devm_phy_create() and
+>     devm_of_phy_provider_register().
+> - 3x Reviewed-by: Luca Ceresoli.
+> - Add Neil Armstrong to Cc as new PHY subsystem reviewer.
+> - Rebase on v6.19-rc1, tested on hardware, no changes.
+> - Link to v4: https://lore.kernel.org/r/20251124-macb-phy-v4-0-955c625a81a7@bootlin.com
+> 
+> Changes in v4:
+> - Append my SoB to Jerome's patch:
+>   [PATCH v4 3/7] clk: eyeq: use the auxiliary device creation helper
+> - Rebase on net-next & linux-{clk,mips,phy}. Nothing to report.
+> - Link to v3: https://lore.kernel.org/r/20251119-macb-phy-v3-0-e9a7be186a33@bootlin.com
+> 
+> Changes in v3:
+> - Take Philipp Zabel's Reviewed-by & Acked-by trailers on reset patch.
+> - Take Thomas Bogendoerfer's two Acked-by trailers on DT patches.
+> - Rebase on net-next & test on target. Nothing to report.
+> - Link to v2: https://lore.kernel.org/r/20251101-macb-phy-v2-0-c1519eef16d3@bootlin.com
+> 
+> Changes in v2:
+> - Take Acked-by: Conor Dooley on dt-bindings-patch.
+> - s/%ld/%tu/ for printing ptrdiff_t; warnings on 32-bit archs.
+>   Reported by NIPA's netdev/build_32bit test.
+>   https://patchwork.kernel.org/project/netdevbpf/patch/20251021-macb-eyeq5-v1-7-3b0b5a9d2f85@bootlin.com/
+>   https://netdev.bots.linux.dev/static/nipa/1014126/14277857/build_32bit/stderr
+> - Link to v1: https://lore.kernel.org/r/20251022-macb-phy-v1-0-f29f28fae721@bootlin.com
+> 
+> Changes since MACB V1:
+> - Drop the old "mobileye,olb" properties from DT patches; found while
+>   running dtbs_check and dt_binding_check.
+> - Drop all patches targeting net-next. That is MACB dt-bindings patch
+>   and MACB driver code. See there here [1].
+> - Link to v1: https://lore.kernel.org/lkml/20251021-macb-eyeq5-v1-0-3b0b5a9d2f85@bootlin.com/
+> 
+> Past versions of MACB patches:
+>  - March 2025: [PATCH net-next 00/13] Support the Cadence MACB/GEM
+>    instances on Mobileye EyeQ5 SoCs
+>    https://lore.kernel.org/lkml/20250321-macb-v1-0-537b7e37971d@bootlin.com/
+>  - June 2025: [PATCH net-next v2 00/18] Support the Cadence MACB/GEM
+>    instances on Mobileye EyeQ5 SoCs
+>    https://lore.kernel.org/lkml/20250627-macb-v2-0-ff8207d0bb77@bootlin.com/
+>  - August 2025: [PATCH net v3 00/16] net: macb: various fixes & cleanup
+>    https://lore.kernel.org/lkml/20250808-macb-fixes-v3-0-08f1fcb5179f@bootlin.com/
+> 
+> ---
+> Théo Lebrun (3):
+>       dt-bindings: soc: mobileye: OLB is an Ethernet PHY provider on EyeQ5
+>       MIPS: mobileye: eyeq5: add two Cadence GEM Ethernet controllers
+>       MIPS: mobileye: eyeq5-epm: add two Cadence GEM Ethernet PHYs
+> 
+>  .../bindings/soc/mobileye/mobileye,eyeq5-olb.yaml  |  7 +++-
+>  arch/mips/boot/dts/mobileye/eyeq5-epm5.dts         | 26 +++++++++++++
+>  arch/mips/boot/dts/mobileye/eyeq5.dtsi             | 45 ++++++++++++++++++++++
+>  3 files changed, 77 insertions(+), 1 deletion(-)
+> ---
+> base-commit: 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f
+> change-id: 20251022-macb-phy-21bc4e1dfbb7
+
+seried applied to mips-next
+
+Thomas.
+
+-- 
+Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
+good idea.                                                [ RFC1925, 2.3 ]
