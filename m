@@ -1,62 +1,62 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2D9533689B
-	for <devicetree@vger.kernel.org>; Mon,  6 Apr 2026 12:22:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDBEC336896
+	for <devicetree@vger.kernel.org>; Mon,  6 Apr 2026 12:22:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775478130; cv=none; b=GZBSX3vUHuRTxAwK/mrsl3/166eR8xorfUOqJhHguv6eay2O/Lo/mHm1b+9Q90HPwD1r6Mkn+5s9Be+aY0mZzrjFQipor+e1DKBgxjtqRzsm8+PJ48kqoz4zhtxkR1dZITxxFzQewT2B/Oe6Af2JEP6k4yjazE7yQXhD6AIQy84=
+	t=1775478132; cv=none; b=O8fcHzZsuhi42GYrCiTK+Yy/itV0ELLpuesyTvQnn017EvdOsrv7dLfytzRyrs7IdkB/xo3rBbOQwhY/rCS+GR0v02yyLaJ9KVkGRQnonYSTs9EmrjxCl0DkrPTuVId6fA1rKkyhQXBwDNxamf4EKZQITlCiUlrovXpR0mYqD38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775478130; c=relaxed/simple;
-	bh=dUmq1bCgnXSYPpzyyUZ91Q/dm9ZA7x6kgjW+jplNRGA=;
+	s=arc-20240116; t=1775478132; c=relaxed/simple;
+	bh=FGICL6rCnzR2xBx7znjm8kay3nHJtrtjUE8oTd6G4ec=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=S6pFgLHBz9UHzicn6ISJcQ1fQIexruqFzdbDcQtXHajfHlsE6B1Yv2AwLXZsBI4O6Qqdd2fm3DfXxAJvNDDUx1V7NZN3wVbanUsRVfVU21hBJjleYycSZUZHvVe9R7Lt3adhSzySr7N+P0duCRaRsyJ3tAl5gn7nqtTAEXvSAxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PaxK6Ah1; arc=none smtp.client-ip=209.85.128.44
+	 MIME-Version; b=ksO3k3qHborzbgnfAXhpoCEv8p/hNbSkm57KLCggKLaozk446gomB/an5f6VvZ9jfrBqwADvYsydqzwM1yr1HOjrT/HNoi1cqg3YKHaM6AE7j3Z/dcp6kdLrtEuDekOtYYuuUOVVye+Ma0l6XCyFjlbheLy5P97L1mMV3jPDuYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IrC7UiEA; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PaxK6Ah1"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-488879b2e6aso33305315e9.1
-        for <devicetree@vger.kernel.org>; Mon, 06 Apr 2026 05:22:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IrC7UiEA"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-488b0046078so9336545e9.1
+        for <devicetree@vger.kernel.org>; Mon, 06 Apr 2026 05:22:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775478127; x=1776082927; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1775478129; x=1776082929; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=T56ha3pRTv143HhiMkZiaVjrLruG2xGjWZpcJKG0gmo=;
-        b=PaxK6Ah10jRM0ZzqenW/aoYIWDq2D6thFTa6WS+1d0HMnIxKMQjBOL6RhZiv0XcCBn
-         n3UYnp4DJc9GT76/QzV6vuIx8dBFLv7MdkY8fnxVQvUuBjdtzd51ANlnAutTWPxCVKye
-         XPRytojEpY4eetr0tmdcxlgr4e4b7tDPkgHsyrppOC6Ha7vgWcyN+FkZAv2qXRGUaEn8
-         cPE9akWoFPi717hocERg7Iyg6hBPZR5SIB78EfC0nlWwoz0MRH/eFcgWhtT9yGOgCoIL
-         frl8ijEH3LL0YyIUcE0FJlsOlV61MCHRGuG7Y3D+F7/KTxQaf4O/Ej0IVITfI3j0L0P3
-         DprQ==
+        bh=8VseLj579mCf5xJUoXWavgASRskM+JIsaJ/nTASKO84=;
+        b=IrC7UiEAC5Owf3pxqIwjDw8VVlc9HyFALXPHYSdmykqqQcd/6i23sVqn026W7m+8/g
+         uYdyUisOJZg0KRTxLRvOl8SbtWQqZ6zgn7Ap49rpduSv0KgFJBmIOtnuqAoEs+6AhcgQ
+         WsYjWwJg5LHxrCC1KdmuP4MIhkBycAI1wvgBDYZ/kIOQ6uSEOKffgzhV2NHv8fFlpr0Z
+         yNUwGyELsMmxZ/jCOxijFBE/9W85Z6tZhaoTWZTg0Cav9XNUHNg72pT3E/vCgJwgyoNy
+         7QgrK4vNyUiTLLMoW4ynlZHahb+es3WLpWPJoTt1t8BBt6idJ52OT+fkSdxPOkSMP49p
+         KdgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775478127; x=1776082927;
+        d=1e100.net; s=20251104; t=1775478129; x=1776082929;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=T56ha3pRTv143HhiMkZiaVjrLruG2xGjWZpcJKG0gmo=;
-        b=ndXHlOfh3OAtufCFfi5sP4pnMJ0IqMLxECbsePSqbY6v5TVE16IrEf/IPGM+Wty0Sv
-         llzC49WzkdzE6M2gsM3YG5KdjgoiAb7FQh1kWGUCsAdeVYulDj13/ekL1dBKlrshHnXu
-         VnR9dG8xwGFVbr9v+3euHDg1f2qRJ+rtX7LFyQURng2byZZZ3D9AnT8bMFp5K32oJFTr
-         OfDefuBKH+PjYdqFTDSe8vayqACiPuwo6tUa9v1+K1mq8urAomukdtjVxWsDcWBQ2xsO
-         7SwR3ru6BtiU1EbhOsbxXNTh4vxqUFa4VKnDl5oewMA/TErtaB42UUF4Wy0UfFY5A3+X
-         C1JA==
-X-Gm-Message-State: AOJu0YxJl9xmY9PKglCCWBfOAC+F87l111fP1SetkyxjNpGrR0W8K2XL
-	PXDtjJsN8ndR6EabLCcJJRJRGgrBvXNZ6+vPDO3z3s7uE5NkEN8YUx5f
-X-Gm-Gg: AeBDieunpoNiHlvaT0K9Vr5z44gUHoqkeaiKKqgcjOt1rph6XljYEgu53YIvjRuPIpC
-	qYxlZH2Ka1C9TdDZMsztx11CxSpvQLr3LmAVZnD8MUZuxHA4ukxZUj8Kx6RA9J8vPIi4ZA6tqUR
-	QFALi5wCpTChE/QSVG3Ls5gID+zVjwLQWhnJHzUtoCF1MB0sdsvY7VkpZdNWjLWHRx/0nMBLbCI
-	f7MZjvAsKqPyLXEPfxwinL1pyzB+2eFFmUHpXwnrFJ8LtHz06Gg15fzJS+AxBYBUDjncWsmaZsr
-	hs/ulYZWnlZy1skjFE6XbabzET0+81jjfQSsaMzOT2TS1c7s5Z4mFLnkA46f1kE1jLZV1IHIbem
-	Ds3gNoKFoWN7J04Zfzbb4WuHmEptoAJEwsMd+fdz9q5tnVUezmy6w8uDLsql15wTI4A63CvZrmD
-	sFcvaZkjsWah8/qPUWEYS6frFsb0+5JjgYieaHI2eFEZjKmyY7TQ==
-X-Received: by 2002:a05:600c:3550:b0:487:1108:48b8 with SMTP id 5b1f17b1804b1-488996cd8edmr161253875e9.2.1775478126933;
-        Mon, 06 Apr 2026 05:22:06 -0700 (PDT)
+        bh=8VseLj579mCf5xJUoXWavgASRskM+JIsaJ/nTASKO84=;
+        b=YAhr41ikLvFntiTI4QWrHWAQzerRqz2ykuRkhk/T5Qr5Ma3WWkGCGd1MLg8JPa1i8K
+         Buk0opHR3jO9yUiuhZzeUOLM7svERV2uIXR8/4YBMXOeDJJQ/lLAtbkTX18e8vlD7L73
+         e4xNhUwJO6mws7I/i3+9gqJG3Usb3uZaBK/8X2KUxNIQmFfzJvrPZj4h9SESoFfK2JLn
+         0F3Si2KPnKTJ8MRxOnYt7VQLih7DnefgGjuxTxcuW9vTjp8AD+3JyLLWX5rgc5XY4zap
+         mB7zMiPk/p1M/tpUzkwrsi/bVMxAkW8cmFizToRnFPuue8nDGlD5QEXRPJb5GMnnBGG4
+         SWNQ==
+X-Gm-Message-State: AOJu0Ywuit1hW4fBVpNYEznWU2HNqK9EIat7BWN2BfKKApKgpUuaVylR
+	c2WA5UbiWRiq8+13YZ4E8IQMZtjBnBgadspeFbXctpTOewxd39NbFL5F
+X-Gm-Gg: AeBDieuhXDV1iNQadxaRFbDMSNKomRCprIkrHcpPEUfhgLlgOiIWuJeFXMkP4+IdI49
+	+wgbtPZoDet4z3npC0URuNvz6P8JIG7jTMbqSZ3NTjn8a7sXLgpXhUjUCZ9Uvu8I5MqG+L2Orel
+	OJ1D0a8inb5moKDVY5Urm1EdTxaMdgR5jNddgjUmyVfq4Ryck/s3L4YRneROqjEWhliocPxYg2c
+	Xvs6/hOQJ8nGPtxS0+lwLITTZp6XQ9PFCupP9YvF1RVmtM6zU90BrjPixqpnjnCUuWF65WO5fM2
+	R2TRJ9+ik7x1zl0AdBbNP8mW5XMieCRW4/ztIWMdQWJMiQtFbWPZmZ9W92s4V7HUmxh24vLsDIV
+	QncqKrTLZvWKdEBfRnjtmvMGDZBLrYU1RMQ4+G4bKU/mVj7kvpNLbk1Z3RJNM3csZxuto5MvdCk
+	Bc6pcaWrVMyHkLadVKs9QEFfIc2TGdj6CeHVWmTnYsXdYfHmGvtg==
+X-Received: by 2002:a05:600c:3b23:b0:485:17a7:b9c7 with SMTP id 5b1f17b1804b1-488996ecd50mr171236535e9.10.1775478129078;
+        Mon, 06 Apr 2026 05:22:09 -0700 (PDT)
 Received: from SMW024614.wbi.nxp.com ([128.77.115.158])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48899d1c148sm138541595e9.5.2026.04.06.05.22.04
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48899d1c148sm138541595e9.5.2026.04.06.05.22.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 06 Apr 2026 05:22:06 -0700 (PDT)
+        Mon, 06 Apr 2026 05:22:08 -0700 (PDT)
 From: Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -67,9 +67,9 @@ To: Rob Herring <robh@kernel.org>,
 	Daniel Baluta <daniel.baluta@nxp.com>
 Cc: devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH RFC 2/3] dt-bindings: dsp: fsl,dsp: remove reserved memory definitions
-Date: Mon,  6 Apr 2026 05:20:24 -0700
-Message-ID: <20260406122025.4515-3-laurentiumihalcea111@gmail.com>
+Subject: [PATCH RFC 3/3] dt-bindings: dsp: fsl,dsp: remove descriptions for common properties
+Date: Mon,  6 Apr 2026 05:20:25 -0700
+Message-ID: <20260406122025.4515-4-laurentiumihalcea111@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260406122025.4515-1-laurentiumihalcea111@gmail.com>
 References: <20260406122025.4515-1-laurentiumihalcea111@gmail.com>
@@ -83,42 +83,48 @@ Content-Transfer-Encoding: 8bit
 
 From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
 
-There's no need to define the DT nodes referenced by the node's phandle.
-Remove them.
+"mboxes", "power-domains", and "memory-region" are common properties,
+which should be already documented. As such, descriptions referencing
+old .txt binding files provide no additional information. Thus, remove
+them.
 
 Signed-off-by: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
 ---
- .../devicetree/bindings/dsp/fsl,dsp.yaml        | 17 -----------------
- 1 file changed, 17 deletions(-)
+ Documentation/devicetree/bindings/dsp/fsl,dsp.yaml | 10 ----------
+ 1 file changed, 10 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml b/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml
-index 7970f90781c2..65ed26aa3308 100644
+index 65ed26aa3308..d483a229c292 100644
 --- a/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml
 +++ b/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml
-@@ -153,23 +153,6 @@ examples:
-   - |
-     #include <dt-bindings/clock/imx8mp-clock.h>
-     #include <dt-bindings/reset/imx8mp-reset-audiomix.h>
--    dsp_reserved: dsp@92400000 {
--      reg = <0x92400000 0x1000000>;
--      no-map;
--    };
--    dsp_vdev0vring0: vdev0vring0@942f0000 {
--      reg = <0x942f0000 0x8000>;
--      no-map;
--    };
--    dsp_vdev0vring1: vdev0vring1@942f8000 {
--      reg = <0x942f8000 0x8000>;
--      no-map;
--    };
--    dsp_vdev0buffer: vdev0buffer@94300000 {
--      compatible = "shared-dma-pool";
--      reg = <0x94300000 0x100000>;
--      no-map;
--    };
+@@ -44,17 +44,10 @@ properties:
+     minItems: 3
  
-     dsp: dsp@3b6e8000 {
-       compatible = "fsl,imx8mp-hifi4";
+   power-domains:
+-    description:
+-      List of phandle and PM domain specifier as documented in
+-      Documentation/devicetree/bindings/power/power_domain.txt
+     minItems: 1
+     maxItems: 4
+ 
+   mboxes:
+-    description:
+-      List of <&phandle type channel> - 2 channels for TXDB, 2 channels for RXDB
+-      or - 1 channel for TX, 1 channel for RX, 1 channel for RXDB
+-      (see mailbox/fsl,mu.txt)
+     maxItems: 3
+ 
+   mbox-names:
+@@ -64,9 +57,6 @@ properties:
+       - const: rxdb
+ 
+   memory-region:
+-    description:
+-      phandle to a node describing reserved memory (System RAM memory)
+-      used by DSP (see bindings/reserved-memory/reserved-memory.txt)
+     maxItems: 4
+ 
+   firmware-name:
 -- 
 2.43.0
 
