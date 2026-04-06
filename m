@@ -1,33 +1,24 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69C653191BD;
-	Mon,  6 Apr 2026 14:43:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C0E2DB7B4;
+	Mon,  6 Apr 2026 14:46:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775486585; cv=none; b=CgdGxW1wjzFKd406DXmfKk9ted4/eAvKo4n+EJqciwNIW7dYAZXQRQeoFjCfw83bs5t65HkSRjWKpHctgUCxsZB3Rjp5ENEjae5+41j3ItbD8s6JL8idWXe4/qAcgtPCLBa0x7rxKOllpTyRQd9CisLbNBlGof+tgckMTZKgwig=
+	t=1775486788; cv=none; b=cApj9j+YR/Al5u+qEbNjFuT0KvJuspGwj4RnxKvuQlzZnNbWMniKHKGG3Zt9jia86ng/TKb5pN+cVqwCFpZP/Whz5V3pR2gW+6+P5mN/4GBJJSiombdZiD67q8SKyATS4o0o4wElbun5IPczaSnD8mCPNpxK2Bv60tZx/dUb20E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775486585; c=relaxed/simple;
-	bh=ApNdW19i/LuL6qU+6B5aKj6aak2kjqBjXqYT6YTUH8M=;
+	s=arc-20240116; t=1775486788; c=relaxed/simple;
+	bh=En2b39jdFS5QMB/Ya52UshE/Amn98guN52WOng8pSGE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JFB5BxuixOB9EXcN8Uw2YCGHKqyIPUcmrMYoQwTJdQ5aULRD3y613d3knXEBy5sRVy96reYHNOoIbIwBy6GkTQ8Xs5rJSFEsx15pDfGzQYRGj4sJW/uRFjFFucEhMW/RP3jT+KQj3x/rkZCYxZsUQslSnjhCH6nlAncrpL3NAME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V4us0LBe; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V4us0LBe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D380C4CEF7;
-	Mon,  6 Apr 2026 14:42:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775486585;
-	bh=ApNdW19i/LuL6qU+6B5aKj6aak2kjqBjXqYT6YTUH8M=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=V4us0LBeMNlNE28B0Gc1edZUs9wzGuAg2OpPHG8ti6bb1ag7LZnBSGzsw9GErVKbW
-	 UgNeoBruXIXs5Rs2gIXtl9ktzXMUEnpLGesp6YL0mELhO0sIm1A/KDJB14WnSfa/ki
-	 ng1kwea0l6qcK1rWnofB8mJsV/Dd5iO5fhci25FOWoxRGA9uTgrqUIZdjaMWELTKJY
-	 iodVUm5dUGk7Cp2Zh/gYfbBd4hInOwrDpt7cYCNs8ra30JaiyD8efsmTsn3m/UWY4Y
-	 QQaasksXLpzxoBgQJCG8Il0R+OwB7C4XqIas8XSLXxNjUpEu6h99aEot3u3yI939b0
-	 F0gvQyV7+eheA==
-Message-ID: <0b785ee4-7d15-4a9d-a820-20ea15225ea1@kernel.org>
-Date: Mon, 6 Apr 2026 16:42:56 +0200
+	 In-Reply-To:Content-Type; b=tKAkgAzcBiFqRwupz3RkwR1iWII5IWEwvKsA0igMKohjCHlX7fYr54hRi6cq3YR3gW82IJUA0FutROS8s00TI2lcLHDok5NQ6hhgBWEr4Z3m4dFDUTCzfX7HVfjyXftzEr1gEGRwMhToxSzN3MlZ6+sHFIloW8mPG0J75ozuEu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [192.168.0.101] (unknown [123.118.218.47])
+	by APP-05 (Coremail) with SMTP id zQCowAAHmQwux9Nps+a1DA--.49435S2;
+	Mon, 06 Apr 2026 22:46:07 +0800 (CST)
+Message-ID: <3538ad96-1dec-4bfd-9671-d351b385b4be@iscas.ac.cn>
+Date: Mon, 6 Apr 2026 22:46:06 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,206 +26,73 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/2] dt-bindings: embedded-controller: Add synology
- microp devices
-To: Markus Probst <markus.probst@posteo.de>
-Cc: Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Lee Jones <lee@kernel.org>,
- Pavel Machek <pavel@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- platform-driver-x86@vger.kernel.org, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org
-References: <20260405-synology_microp_initial-v6-0-08fde474b6c9@posteo.de>
- <20260405-synology_microp_initial-v6-2-08fde474b6c9@posteo.de>
- <20260406-ancient-amethyst-poodle-1ba0b2@quoll>
- <63fbd1a5cddc5b79302056fa7b01a790aca8ba8e.camel@posteo.de>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: Devicetree spec: Specifying /cpus/cpu@* unit address format?
+To: Rob Herring <robh@kernel.org>, David Gibson <david@gibson.dropbear.id.au>
+Cc: devicetree-spec@vger.kernel.org, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Alexandre Ghiti <alex@ghiti.fr>, Chen Wang <unicorn_wang@outlook.com>,
+ Inochi Amaoto <inochiama@gmail.com>, devicetree@vger.kernel.org,
+ linux-riscv@lists.infradead.org, sophgo@lists.linux.dev
+References: <00ddad5a-02f5-474e-af9c-11ce7716ddfc@iscas.ac.cn>
+ <adHofcKAr7C5YCSA@zatzit>
+ <CAL_JsqJFv3+UJ-bjLGk0i7Wc+spsowCrqQZ_s3P4gN8r1W-Q-w@mail.gmail.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <63fbd1a5cddc5b79302056fa7b01a790aca8ba8e.camel@posteo.de>
+From: Vivian Wang <wangruikang@iscas.ac.cn>
+In-Reply-To: <CAL_JsqJFv3+UJ-bjLGk0i7Wc+spsowCrqQZ_s3P4gN8r1W-Q-w@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAAHmQwux9Nps+a1DA--.49435S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Gr47uFWUKr13Xw45XFWUJwb_yoWkCrX_Wa
+	yj9r4DAr1DZay3Kasayr4rZasF9rWrCrZ8X3yUJwsrWa4kXFyDWFn3Gr1kZFn3Aw4jvw1a
+	kr98ZF47C3yxWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbs8YjsxI4VW3JwAYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0
+	cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z2
+	80aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAK
+	zVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx
+	8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF
+	7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI
+	8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AK
+	xVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI
+	8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280
+	aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43
+	ZEXa7IU8fpnPUUUUU==
+X-CM-SenderInfo: pzdqw2pxlnt03j6l2u1dvotugofq/
 
-On 06/04/2026 16:22, Markus Probst wrote:
-> On Mon, 2026-04-06 at 09:59 +0200, Krzysztof Kozlowski wrote:
->> On Sun, Apr 05, 2026 at 07:36:29PM +0200, Markus Probst wrote:
->>> Add the Synology Microp devicetree bindings. Those devices are
->>> microcontrollers found on Synology NAS devices. They are connected to a
->>> serial port on the host device.
+On 4/6/26 20:48, Rob Herring wrote:
+> On Sat, Apr 4, 2026 at 11:43 PM David Gibson
+> <david@gibson.dropbear.id.au> wrote:
+>> On Fri, Apr 03, 2026 at 06:06:17PM +0800, Vivian Wang wrote:
+>>> (Also posted at: https://github.com/devicetree-org/devicetree-specification/issues/86 )
 >>>
->>> Those devices are used to control certain LEDs, fan speeds, a beeper, to
->>> handle buttons, fan failures and to properly shutdown and reboot the
->>> device.
+>>> Hi all,
 >>>
->>> This includes the following compatible ids:
->>>  - synology,ds923p-microp
->>>  - synology,ds918p-microp
->>>  - synology,ds214play-microp
->>>  - synology,ds225p-microp
->>>  - synology,ds425p-microp
->>>  - synology,ds710p-microp
->>>  - synology,ds1010p-microp
->>>  - synology,ds723p-microp
->>>  - synology,ds1522p-microp
->>>  - synology,rs422p-microp
->>>  - synology,ds725p-microp
->>>  - synology,ds118-microp
->>>  - synology,ds124-microp
->>>  - synology,ds223-microp
->>>  - synology,ds223j-microp
->>>  - synology,ds1823xsp-microp
->>>  - synology,rs822p-microp
->>>  - synology,rs1221p-microp
->>>  - synology,rs1221rpp-microp
->>>  - synology,ds925p-microp
->>>  - synology,ds1525p-microp
->>>  - synology,ds1825p-microp
->>
->> Drop, we see this in the diff.
-> A prior review commit suggested I should add them [1].
-> So only synology,ds923p-microp in the Subject then?
-
-I do not see how this list resolves my comment. Really, explain my how
-listing part of binding answers WHY they are not compatible?
-
-
-> 
-> [1]
-> https://lore.kernel.org/all/20260330-delicate-sassy-mayfly-ebcca7@quoll/
-> 
->>
+>>> Presently, there seems to be some confusion in the community about the
+>>> format of unit addresses for "/cpus/cpu@*" nodes for a CPU with ID > 9, e.g.
 >>>
->>> Signed-off-by: Markus Probst <markus.probst@posteo.de>
->>> ---
->>>  .../synology,ds923p-microp.yaml                    | 112 +++++++++++++++++++++
->>>  MAINTAINERS                                        |   1 +
->>>  2 files changed, 113 insertions(+)
+>>>     cpu@??? {
+>>>         reg = <10>;
+>>>         /* reg = <0xa>; */ /* This should be equivalent */
+>>>     }
 >>>
->>> diff --git a/Documentation/devicetree/bindings/embedded-controller/synology,ds923p-microp.yaml b/Documentation/devicetree/bindings/embedded-controller/synology,ds923p-microp.yaml
->>> new file mode 100644
->>> index 000000000000..4518e9b74be1
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/embedded-controller/synology,ds923p-microp.yaml
->>> @@ -0,0 +1,112 @@
->>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>> +%YAML 1.2
->>> +---
->>> +$id: http://devicetree.org/schemas/embedded-controller/synology,ds923p-microp.yaml#
->>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>> +
->>> +title: Synology NAS on-board Microcontroller
->>> +
->>> +maintainers:
->>> +  - Markus Probst <markus.probst@posteo.de>
->>> +
->>> +description: |
->>> +  Synology Microp is a microcontroller found in Synology NAS devices.
->>> +  It is connected to a serial port on the host device.
->>> +
->>> +  It is necessary to properly shutdown and reboot the NAS device and
->>> +  provides additional functionality such as led control, fan speed control,
->>> +  a beeper and buttons on the NAS device.
->>> +
->>> +properties:
->>> +  compatible:
->>> +    enum:
->>> +      - synology,ds923p-microp
->>> +      - synology,ds918p-microp
->>> +      - synology,ds214play-microp
->>> +      - synology,ds225p-microp
->>> +      - synology,ds425p-microp
->>> +      - synology,ds710p-microp
->>> +      - synology,ds1010p-microp
->>> +      - synology,ds723p-microp
->>> +      - synology,ds1522p-microp
->>> +      - synology,rs422p-microp
->>> +      - synology,ds725p-microp
->>> +      - synology,ds118-microp
->>> +      - synology,ds124-microp
->>> +      - synology,ds223-microp
->>> +      - synology,ds223j-microp
->>> +      - synology,ds1823xsp-microp
->>> +      - synology,rs822p-microp
->>> +      - synology,rs1221p-microp
->>> +      - synology,rs1221rpp-microp
->>> +      - synology,ds925p-microp
->>> +      - synology,ds1525p-microp
->>> +      - synology,ds1825p-microp
->>
->> So we already talked about this and you were told to use compatibility.
->> Your driver clearly states several of these are compatible, so I am
->> confused that I do not see it expressed here.
-> The driver does not have all functionality implemented yet.
+>>>
+>>> Should this be a decimal "cpu@10", or hexadecimal "cpu@a"? I can't find
+>>> any explicit specification.
+>> It should be hex.  That's a general convention for unit addresses.
+>> Before flattened trees, OF essentially never used decimal
+>> representations of things.
+> The only decimal usage in FDT were mistakes.
 
-Either this drivers works or not. If it works, explain me how they are
-not compatible.
+Thanks for this. This is clear enough for me.
 
-> 
-> A few examples of differences not yet visible in the driver:
-> - synology,ds214play-microp is the only model in the current list to
-> have an cpu fan
-> - 4 of the models are arm based and need a different shutdown behaviour
-> - different amount of fans (already present in the binding via fan-
-> failure-gpios)
-> 
-> I could try to group them together, but Synology does not document the
-> exact difference between them.
-> 
-> As Rob mentioned [2], I need to be able to handle unexpected
-> differences without qurik properties.
+> Rather than worrying about what the spec says, please worry about what
+> the tools check.
 
-I did not object that.
+Since, as you two said, there is an established convention, I agree that
+convention is enough here.
 
+Thanks,
+Vivian "dramforever" Wang
 
-Best regards,
-Krzysztof
