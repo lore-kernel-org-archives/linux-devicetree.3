@@ -1,65 +1,93 @@
-Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3E5FA3368BF;
-	Mon,  6 Apr 2026 12:37:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.175.24.41
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DAD936E498
+	for <devicetree@vger.kernel.org>; Mon,  6 Apr 2026 12:49:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775479062; cv=none; b=iIWHArlAqok0o5aMF1/YxsnKH/NKDZ81B46ViTJ3wX49nmI2FGfGFZA3UnYw7cR0fw6UpeCjHbBAPok/19E9JoTVdS6k7z1f9JZ8puK7fmNRWuw4BN8eLQTlnZdRQGu3+EGcAYJ5Yg8BiiNKrjs3moDMkQhz+f8y5LukPXIlaQM=
+	t=1775479744; cv=none; b=SSdANFHHMBugLXQdNTHnzGDlmGLsTnqrWoQxdVBOBHezRlmizvl6eqSVNeNwMffqUy/7o8T1fje69rJepYVwphbBBBsqWCcbj+77KTxClTxZc2qCFEHaWB0jFkfkIFHDnYulyCuhi2ioXUqIHw8ZBCMR+EfNA03XYF+rSseHcQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775479062; c=relaxed/simple;
-	bh=jDWo6+SjLg0ECrFBwUS2wSfSOs3ThAS24loBQlJOI9c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i+lsCRj558Q/mhUEpRj0ABvQdLAUSaQJjyrdmskeYeTm3tAlszoMn/JbOMCWFzDpgz3EtrMsRqMq3uZ1/AMQOi6Izhtj5dMZLKp8q61ufrktDy++ijzv4KdL1Ks3ZUbOH9Gmit3Z06rGsZ6io9a4AuLCNsPWpYUN2tCVfjInz8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de; spf=pass smtp.mailfrom=alpha.franken.de; arc=none smtp.client-ip=193.175.24.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpha.franken.de
-Received: from uucp by elvis.franken.de with local-rmail (Exim 3.36 #1)
-	id 1w9jD1-000441-00; Mon, 06 Apr 2026 14:37:39 +0200
-Received: by alpha.franken.de (Postfix, from userid 1000)
-	id 1F503C0256; Mon,  6 Apr 2026 14:37:11 +0200 (CEST)
-Date: Mon, 6 Apr 2026 14:37:11 +0200
-From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-To: Caleb James DeLisle <cjd@cjdns.fr>
-Cc: linux-mips@vger.kernel.org, naseefkm@gmail.com, mturquette@baylibre.com,
-	sboyd@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, ryder.lee@mediatek.com,
-	jianjun.wang@mediatek.com, lpieralisi@kernel.org,
-	kwilczynski@kernel.org, mani@kernel.org, bhelgaas@google.com,
-	vkoul@kernel.org, neil.armstrong@linaro.org, p.zabel@pengutronix.de,
-	matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
-	nbd@nbd.name, ansuelsmth@gmail.com, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org, linux-mediatek@lists.infradead.org,
-	linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 8/8] mips: dts: Add PCIe to EcoNet EN751221
-Message-ID: <adOo9xZxXT3FkufM@alpha.franken.de>
-References: <20260309131818.74467-1-cjd@cjdns.fr>
- <20260309131818.74467-9-cjd@cjdns.fr>
+	s=arc-20240116; t=1775479744; c=relaxed/simple;
+	bh=1xKAa+PmppcswDIZ9pTEbngJ2OJ2BeS/GY3dfaa7/T4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kaOHQl6LuE8ybM8+QTcQYXWYJo393MbSy+E/n5ILXC/TG1tk/6M45RkmMGx2rF4TdmEGrUe3mMkx3hKHQW/YfM/zHN88SNm93LZl13tIB/5wKL0FRyMFVz6E/5BbIc5BrBQoaIXxBniK0EXcQMBzLhc/A2/wJJW0NmAk3EIESwY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g7aj0ce0; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g7aj0ce0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27B69C4CEF7
+	for <devicetree@vger.kernel.org>; Mon,  6 Apr 2026 12:49:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775479744;
+	bh=1xKAa+PmppcswDIZ9pTEbngJ2OJ2BeS/GY3dfaa7/T4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=g7aj0ce0coQJdeZPkirlUShfaiPIPTIvaqCFe4IrEThY6PEZuCv07crRmwKsd+Uo+
+	 xlEgpmYylk8jyPBfW5UrguBqAFg6WWNzgwA62nt0N7pJIT2ilFYf2D2/06pUmORv7T
+	 bSeILY7bxzcGRVKxPwgWke/AdLNYqH+VyWRT1uWsmVsik8aqMzSdCgSvgBqml98nnb
+	 3HSPxJTXiH/hR7xcuzL3riyKf9P7zX0T6wGu/ch//MdAKL9LtopnaE0Pz5CYBhXC8l
+	 aziKq2GXHnG+bpD4DwU9M+s7t7M2WIkH9FE4atkFDopek+OXDRbIlwImZiTr87oaCT
+	 /e3Pm1TxFmtcw==
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-66e6d9610d8so3080751a12.0
+        for <devicetree@vger.kernel.org>; Mon, 06 Apr 2026 05:49:04 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCUd9Pdz42F1uYMRrwQT5yREDI8jFbjYrAveiKcPkCOaXeUEfZZKO7RiVB9+lHhBqc6n58SuC0yb6ktq@vger.kernel.org
+X-Gm-Message-State: AOJu0YyN9TgPdMiPgPC7KRbs9iF6bh4Fqf7GobNmAcIEuhUomy4/X+CC
+	+HI/EywZxnpMGSZr8rch4jjKFnwrFMpExKzFNFMUClOD/yJMj1HXVg7yrHLssFgd0weSHyDJJA2
+	37vMtSQZoi5KlnamxfPJV2RveoehjHg==
+X-Received: by 2002:a17:907:9617:b0:b9c:4fa:9141 with SMTP id
+ a640c23a62f3a-b9c672a5d61mr620807066b.9.1775479742733; Mon, 06 Apr 2026
+ 05:49:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260309131818.74467-9-cjd@cjdns.fr>
+References: <00ddad5a-02f5-474e-af9c-11ce7716ddfc@iscas.ac.cn> <adHofcKAr7C5YCSA@zatzit>
+In-Reply-To: <adHofcKAr7C5YCSA@zatzit>
+From: Rob Herring <robh@kernel.org>
+Date: Mon, 6 Apr 2026 07:48:51 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqJFv3+UJ-bjLGk0i7Wc+spsowCrqQZ_s3P4gN8r1W-Q-w@mail.gmail.com>
+X-Gm-Features: AQROBzC4_AzDK3DGYWlPXKw1OmT3onlC3gJu87rKdHQYHaYN_zOxh7MaJpfvdwg
+Message-ID: <CAL_JsqJFv3+UJ-bjLGk0i7Wc+spsowCrqQZ_s3P4gN8r1W-Q-w@mail.gmail.com>
+Subject: Re: Devicetree spec: Specifying /cpus/cpu@* unit address format?
+To: David Gibson <david@gibson.dropbear.id.au>, Vivian Wang <wangruikang@iscas.ac.cn>
+Cc: devicetree-spec@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Alexandre Ghiti <alex@ghiti.fr>, Chen Wang <unicorn_wang@outlook.com>, 
+	Inochi Amaoto <inochiama@gmail.com>, devicetree@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, sophgo@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Mar 09, 2026 at 01:18:18PM +0000, Caleb James DeLisle wrote:
-> Add PCIe based on EN7528 PCIe driver, also add two MT76 wifi devices
-> to SmartFiber XP8421-B.
-> 
-> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
-> ---
->  arch/mips/boot/dts/econet/en751221.dtsi       | 114 ++++++++++++++++++
->  .../econet/en751221_smartfiber_xp8421-b.dts   |  21 ++++
->  arch/mips/econet/Kconfig                      |   2 +
->  3 files changed, 137 insertions(+)
-> 
+On Sat, Apr 4, 2026 at 11:43=E2=80=AFPM David Gibson
+<david@gibson.dropbear.id.au> wrote:
+>
+> On Fri, Apr 03, 2026 at 06:06:17PM +0800, Vivian Wang wrote:
+> > (Also posted at: https://github.com/devicetree-org/devicetree-specifica=
+tion/issues/86 )
+> >
+> > Hi all,
+> >
+> > Presently, there seems to be some confusion in the community about the
+> > format of unit addresses for "/cpus/cpu@*" nodes for a CPU with ID > 9,=
+ e.g.
+> >
+> >     cpu@??? {
+> >         reg =3D <10>;
+> >         /* reg =3D <0xa>; */ /* This should be equivalent */
+> >     }
+> >
+> >
+> > Should this be a decimal "cpu@10", or hexadecimal "cpu@a"? I can't find
+> > any explicit specification.
+>
+> It should be hex.  That's a general convention for unit addresses.
+> Before flattened trees, OF essentially never used decimal
+> representations of things.
 
-applied to mips-next
+The only decimal usage in FDT were mistakes.
 
-Thomas.
+Rather than worrying about what the spec says, please worry about what
+the tools check. Unfortunately, this is still only checked for
+specific bus types and the default is not checked.
 
--- 
-Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
-good idea.                                                [ RFC1925, 2.3 ]
+Rob
