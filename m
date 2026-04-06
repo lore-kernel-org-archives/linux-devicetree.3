@@ -1,42 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46D3B4086A;
-	Mon,  6 Apr 2026 22:44:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E7C239657A;
+	Mon,  6 Apr 2026 22:49:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775515492; cv=none; b=uNU5n5xVodFOOpPIu/Q+F2F4ODKqMRx8dUs9yX7kiTmZ/o+VmyBpAo9GQ/N61HUXfmk3aQlytrfVfRDO7hovnwfbwBIFkyt1qFhO75XIOGthHLQ01e290rcMbZrwbv6d052G04VSvvyEUeD9OJPqkHdi6gXQT2IYR8Ibvi3+Z0Q=
+	t=1775515791; cv=none; b=Cipwx+6OjaLoFxdgF+klQ7B+x7pcCeZ+VuF7+JbLew9lmNJDmjFD4vSL1kPXpyo4ivaA/rB6UkSTwsom7lE4+wjw/5ELUgaj+BQhEI2BYxr5ZJ5CZF0kW/YaK+BvUEmHCP06BALuiP6t3th8VliqInE9yTqO4O+p06NX17D+BsU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775515492; c=relaxed/simple;
-	bh=/CFkjj3+/ryJNmY/lsY7aA8MiXH1RADOaeMkoWo/D8k=;
+	s=arc-20240116; t=1775515791; c=relaxed/simple;
+	bh=FyE5chWO2fuq/tQbfJ07wSv55K/bw5O7LsX5IWssCPM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GNtylILJyvS/TILoopwvkSbRi6WVM4AjGBOMbxyDHoSFduWMoJCFF9kcdJpn7erGFQk+KNB65Vlq45by0lW20le35LYEirpgKeWvDTqT26cr3RjkXvZ1R3oXTtx9+Hh8Y/bBEhoUEw00aRZIdgAR9pXPotXC7o5siOxU7gABqgI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EM5pjeN2; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=bSQsxqyfNg8sEvlBNtdFswq6RriJXQlTJoMIH/jr/PmDdHL7sdXo77YW2ritvA0mQ91zJwCFdBO1LWUboe/Momjp/E9foEblFBS9asxJ1NWxfGHeX490gCH9UxxnVeQyQbp+5H4iMsVpYCgRCnQoxzcNqlcWMQGDNQfa0RVoLjs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bB0AkAbq; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EM5pjeN2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7FEEC4CEF7;
-	Mon,  6 Apr 2026 22:44:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bB0AkAbq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81021C4CEF7;
+	Mon,  6 Apr 2026 22:49:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775515492;
-	bh=/CFkjj3+/ryJNmY/lsY7aA8MiXH1RADOaeMkoWo/D8k=;
+	s=k20201202; t=1775515790;
+	bh=FyE5chWO2fuq/tQbfJ07wSv55K/bw5O7LsX5IWssCPM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=EM5pjeN24OlBuzeIUZaAj67WpWNdd51wLFrdqCN5TBn2E1JljBiXiMlInEEMMH655
-	 J29e+Ji13DiNYtXJfcfz9elrmbqNpWkm2LSm+5CxHCar29TjRK/olpnOHHH3mVxg3f
-	 NnfFMmz3Qh4e8Fw6rP9UpgSVHGRJDGmeflmpiP5T+X4tKvgJ0xfcY6UEis39qd8sU3
-	 RM18oNoACBr1RW8+zmeXt6ntBXtw5sU+3IpXiwZziCN4n7mQmaibphoRJZiyWkaogj
-	 4B5Ig+l/Dkf/ztI4fgyWNuB0GtcYjQQCvlLhdULSd5RnMZGkY2/0oXoHmPcxPfJm8V
-	 FOPf9jbPslZ7g==
-Date: Mon, 6 Apr 2026 17:44:50 -0500
+	b=bB0AkAbqbIU4DzATNBFiiP9iCv4p81N4QtyPb+DniD8jmcwOs5QsI/ouikq25ykXU
+	 AjnXmDxqPPZB7GUe14SEIY05xVSNR6h/OpVzoXGquU3Kq2dwpPX/g8UgLLewFNRXFh
+	 s2WUoNzX9WnG3/Z5a/ewYug0D7RE8T9gA7+CUud/eQ1hzYuun0JRr1oe7G8P60aQTF
+	 +9hctQZulm/+8b/6nC7XwHKo5TgUDRYWagF5RtVAo76KOXL96G+DhdzAM3X53eEr4p
+	 f6nBhggrwT/a8rNhKTF2tSsF115+3DSAuHmVercSVVeatG71l079zs1ZVJDu4fLDjH
+	 FLO34HF2dDLaQ==
+Date: Mon, 6 Apr 2026 17:49:48 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Vivian Wang <wangruikang@iscas.ac.cn>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Viresh Kumar <vireshk@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org, Viresh Kumar <viresh.kumar@linaro.org>,
-	devicetree@vger.kernel.org, Nishanth Menon <nm@ti.com>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>
-Subject: Re: [PATCH] dt-bindings: opp-v2: Fix example 3 CPU reg value
-Message-ID: <177551548862.54189.5385282573432382422.robh@kernel.org>
-References: <20260403-dt-bindings-opp-v2-hex-cpu-reg-v1-1-38a4968ab515@iscas.ac.cn>
+To: Jameson Thies <jthies@google.com>
+Cc: abhishekpandit@chromium.org, akuchynski@chromium.org,
+	devicetree@vger.kernel.org, chrome-platform@lists.linux.dev,
+	bleung@chromium.org, conor+dt@kernel.org,
+	linux-kernel@vger.kernel.org, heikki.krogerus@linux.intel.com,
+	linux-usb@vger.kernel.org, krzk+dt@kernel.org,
+	gregkh@linuxfoundation.org
+Subject: Re: [PATCH v1 1/2] dt-bindings: chrome: Add cros-ec-ucsi
+ compatibility to typec binding
+Message-ID: <177551578813.60654.5045933666200538178.robh@kernel.org>
+References: <20260403223357.1896403-1-jthies@google.com>
+ <20260403223357.1896403-2-jthies@google.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,31 +48,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260403-dt-bindings-opp-v2-hex-cpu-reg-v1-1-38a4968ab515@iscas.ac.cn>
+In-Reply-To: <20260403223357.1896403-2-jthies@google.com>
 
 
-On Fri, 03 Apr 2026 18:34:29 +0800, Vivian Wang wrote:
-> Example 3 is a dual-cluster example, meaning that the CPU nodes should
-> have reg values 0x0, 0x1, 0x100, 0x101. The example incorrectly uses
-> decimal 0, 1, 100, 101 instead, which seems unintended. Use the correct
-> hexadecimal values.
+On Fri, 03 Apr 2026 22:33:26 +0000, Jameson Thies wrote:
+> Chrome OS devices with discrete power delivery controllers (PDCs) allow
+> the host to read port status and control port behavior through a USB
+> Type-C Connector System Software (UCSI) interface with the embedded
+> controller (EC). This uses a separate interface driver than other
+> Chrome OS devices with a Type-C port manager in the EC FW. Those use
+> a host command interface supported by cros-ec-typec. Add a cros-ec-ucsi
+> compatibility string to the existing cros-ec-typec binding.
 > 
-> Even though the value doesn't change for the first two CPUs, 0 and 1 in
-> example 3 are changed to 0x0 and 0x1 respectively for consistency. Other
-> examples all have reg less than 10, so they have not been changed.
+> Additionally, update maintainer list to reflect cros-ec-ucsi and
+> cros-ec-typec driver maintainers.
 > 
-> Signed-off-by: Vivian Wang <wangruikang@iscas.ac.cn>
+> Signed-off-by: Jameson Thies <jthies@google.com>
 > ---
-> Found while trying to figure out if cpu@* unit addresses are supposed to
-> be decimal or hexadecimal. This is AFAICT the only place in-tree where
-> an arm/arm64 DTS uses multi-digit decimal. See also:
-> 
-> - https://lore.kernel.org/devicetree-spec/00ddad5a-02f5-474e-af9c-11ce7716ddfc@iscas.ac.cn/
-> - https://github.com/devicetree-org/devicetree-specification/issues/86
-> ---
->  Documentation/devicetree/bindings/opp/opp-v2.yaml | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
+>  .../bindings/chrome/google,cros-ec-typec.yaml | 19 +++++++++++++++----
+>  1 file changed, 15 insertions(+), 4 deletions(-)
 > 
 
-Applied, thanks!
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
