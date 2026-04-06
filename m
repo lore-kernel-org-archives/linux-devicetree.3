@@ -1,284 +1,268 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA48023183C;
-	Mon,  6 Apr 2026 12:32:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775478752; cv=none; b=TzontE2fjJfdHhHRtPpTdMXNF1jv0h8JKYJwxqBBli3JsG54bM8T8iuSWgqa4slSQ0yE6p33mbZASSnx75Uh31H4JXipU+73MtTcWHYZNLlHr0ei449TOEM8PCkXczD8Q8scjpC0YrfbT2RO7OqRHfvelFNeOyJyzw6b9qm2yEs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775478752; c=relaxed/simple;
-	bh=93nmLJJXcQ6fbQNQAA8dv7doCKMICW/nB+1lRWqwYHo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g8T7fU5mjT1cqVIvVNCldAvkW4ui+CVxZuk4uHyfUdOxko0GuAeB8w6jkSkwepLcU2rLtOgngA2va5STbhvzsklK+v4KqZ5WUX11K/MfUH/eO+IRvMzKhzB3VMUjhSM8wQIikNtWzX+0oTOxLkWkVArkWJfq4F60v3GqyLnvkuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lhA2M99E; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5FE33262F
+	for <devicetree@vger.kernel.org>; Mon,  6 Apr 2026 12:32:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775478757; cv=pass; b=alA5o+HCiWSaaK364e1Xo8QOdJCcNzvTIGVt/D2MhLC+XUoja1G2evbIKj+ThjZmydi9sPkqB/Sd1r1sU3GgAulGRA2xPQpo/9d0w/opwBrNSWGixJA5KeagrPD2PrkNrlGAp/JM0ITqIEtS72aiEoVpXFzUZb/67x5WQFxbINQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775478757; c=relaxed/simple;
+	bh=NnYpzCjbOPa23Fsh/bL9Mp8xGA8K8foKfgmggy1BxJY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=flKKli7/AgqVUcWRXYcx13CdvnvjgUI/CCI+SZpdlVXgnLYBFak7D94svNyfjr0GeBN3rl8mN/q/+0zte58cw7HwVSWrEsnsGFs6/0Oi5wa068zC1zx/zpbBwhIW0h9qzq1QyvRfrRvus98SMZqBFQENMv/Nskwexjbs2CK7C3w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O+gwmV90; arc=pass smtp.client-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lhA2M99E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04476C4CEF7;
-	Mon,  6 Apr 2026 12:32:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775478752;
-	bh=93nmLJJXcQ6fbQNQAA8dv7doCKMICW/nB+1lRWqwYHo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=lhA2M99EkjAwe+FN/1VCsNK9m24alwkE/NK/wPHgYL6t+G0DaaJXpKwu40r/r/soj
-	 5HQ7O1JXwC0jsj3nd3QsIe+b4ST0d3mbwoe2EWvqyHiTFFVID1eIw1a8VXY3c5R+RQ
-	 Wxgb+F2IcMCgNb84sx/QI5X+XnVGFBPc6eCUZa2NJE9P6MolHOW7rbgtaL9UFXAqYX
-	 DQpnIYJfSc0wtVOSnoI5Yf+puNm79LwU/XRHJcF5S0u/R53+ZUtpAL2O3cMQl0M1OM
-	 NSU3hKVKZI8/EJPCRUHc354L4tXGQUb4nDVzRFy7PRGYpj6MqmYBgXqUJJsLYQxITY
-	 XAwKLeZtWs3Yw==
-Date: Mon, 6 Apr 2026 07:32:27 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Aleksandrs Vinarskis <alex@vinarskis.com>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Hans de Goede <hansg@kernel.org>, Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	platform-driver-x86@vger.kernel.org, laurentiu.tudor1@dell.com, 
-	Abel Vesa <abel.vesa@oss.qualcomm.com>, Tobias Heider <tobias.heider@canonical.com>, 
-	Val Packett <val@packett.cool>
-Subject: Re: [PATCH v2 2/4] platform: arm64: dell-xps-ec: new driver
-Message-ID: <adOl-iVGAyiA-QSx@baldur>
-References: <20260404-dell-xps-9345-ec-v2-0-c977c3caa81f@vinarskis.com>
- <20260404-dell-xps-9345-ec-v2-2-c977c3caa81f@vinarskis.com>
- <6be0cefb-72e4-4a8a-8668-45994db6c5d8@linaro.org>
- <P9IQ5Penud7CH3Yfn0bw0RXJfIhFhFGksRjP-aZwLoAxmajMfeOtLEItrcWOXwVjHE_zObIA8SYjcPVR9dkAk9KgDYLun0DJJ6dBIU-IRDI=@vinarskis.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O+gwmV90"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-c76b6f9a50eso1175845a12.2
+        for <devicetree@vger.kernel.org>; Mon, 06 Apr 2026 05:32:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775478756; cv=none;
+        d=google.com; s=arc-20240605;
+        b=J3vWmOhyGpl0XqceO/uliVFax1jvKuZ9CJWoDCrpNNkc3M0+bJHCJTiXoA11dFQblt
+         RbMjQerQow4xNar4OpDYvYzclUCG0vQBAh40R20O3a3XYECyMaHA6+CRtQ0rsHkcpxaz
+         +SodfrCjECXBvsBndiGEJD6h6Ub0ObfxAmfd0JsTQeImSGD+K6DmqEuYY2f7mulF+I1l
+         NwCmTM55Z9P2vZXLiXBiDigtUVnOQxVYWH6Y5memdxGGSwogF94uZ7CAGg/h87a9EaTA
+         MCHX0OBCMzxJP2sLBmi2F4OXho8DAp73eZlAWvLyy3feYhEjYlGFXwvXTTzjCP/6DSlS
+         HYkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=BpJLMv/PN8ttKmYeWwPZWYWOIWYBgFzlU3AGL8Sjwio=;
+        fh=tQ0e291tplF/R2k0o+eUzRNwFgGto6rysg3CTw5VH4s=;
+        b=YJ1v1q5oyFQ8ChEl5UvpZQ9hS9XKj6myqSHQZvyhfmcu58J92iYVQgaT+DXXoWniIn
+         uqDrykuIRsueUkYUqXyCxZZUvBkwd33OohUAM7bsGImDN0ZigFsq6wvJ0XeU8eLDhRZx
+         i6EHj0/uEXNIlReBX4cYIoBRkohO3Ho2vQra2nlzrVVZR1wVg9oHUd2rvCeYURvTi4zZ
+         9hUlOWGH/ORIvShGtwKdEvK+QAfCzU7T/FeN4O2jZFt6v/UdumXppax2JhgesvdVFeZ7
+         eavky3ayi61WDmNsI8Mp4PnbAYisMKN3MC2ANzNuSxeKXPuoGAUQBVHp+KWw4eIHP0xB
+         B+tw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1775478756; x=1776083556; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=BpJLMv/PN8ttKmYeWwPZWYWOIWYBgFzlU3AGL8Sjwio=;
+        b=O+gwmV90EhAzTgPuoR/DsXbd+e9m+urrblot0oqEfepq1stiHBFtmLgYMfWsY5Ou69
+         qZZfLKBS3BHQm3uksntzh3Qlw8OWhlulDCefBzcsfX9Petd2uoNDNyN1EpdhXQKd0cMU
+         frffudik7CBD0hNmH78A1KVPwJ2BEdVkJwo5fWUcNFYRCUwL+FblB8EDUXLfbh21o7rJ
+         gu9A48ydiN4oerKVEmWNRPGqYqhER/tydRxGqxdF4gSVSbl+Qyz14BNHC11MHqOEJdZV
+         +q22SqbktD/uAGNqCqM4xn4gYL6w9/osCCfksKprAI1KYwRliuhuIt1T4e2LWN8K5+Zd
+         LRFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775478756; x=1776083556;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=BpJLMv/PN8ttKmYeWwPZWYWOIWYBgFzlU3AGL8Sjwio=;
+        b=rnAgUlIbQvSZO15rAjeQcrhRSVyNheWKfVeOymj25+CDC1l7EnOlrjAcSed47oEBB+
+         jck0gE7gpkLECoWkOgkZJe+MhpZUFw9lkLTYhCPbzeTuGWRmVK9YR0oh/8RcTwRMmLlb
+         m5LxN6WYvP/AUU9+rZuxfBAiNQ9tjZs7AMS1bMR2vt0LBlz8zHoAR5pJM2V5WURkylRh
+         jb4cWJnxV5jz1oWYj30r4FNhtft7EUIfxNiCZ9Zn1aTQs0MLpM/lUTGVZU15PAtw5hVu
+         z6RuYANlX2zScH9yITbGdXgfdfWe2nyVdcC6BWSZaVVGlheuX2CohvhQ0Q75eR6N+OAs
+         n/NA==
+X-Forwarded-Encrypted: i=1; AJvYcCVeG/611jDJHFTNPrtKmWrtkmXOVB+3GPhqcSlnZipHwdPs5/e4h74qqi2+KtzGMZoxe4Qn0rtkxVZ+@vger.kernel.org
+X-Gm-Message-State: AOJu0YxzO73PbCwcP2rumG1UplXiArTOj3WFTSSm3w58EnwZ0FT9opO2
+	tfmHfZDvbKpetBjBqGVVm9Y7gzEi1hso3IiYwBCWKmo2hFrGf4BlZpntDe32DIpFJ8dsBHtQz4l
+	8oi2WmEE3GZ6vwO6lMFx82aUqTzUqYok=
+X-Gm-Gg: AeBDiev/Bk/QAMJHkDf9jcKtfMQzZBQy7VUCBazvVMqzTm956P47uxXtZgj7ZJfzOHN
+	aGJ3nYue7/cmhe3VB5/tQsKxyFUcwRiSSnpXNJ5p7hH6DXkKZcythxldgQS5VDnfx/GvntCE+FD
+	38QjDpHUT6B/JtfosPTvg/niYDZDmVTHCRQo2XPVSG4S4GUVWYg+8QTVwGPsyGPpEAN8R0nszvq
+	5UsbJ2mh+NIuw9ThdzYnJb6TJHZVt9EiGSiHm133Jyz1BosRIiQ0k1B3su+680GJx0Jd1b5zE3i
+	0PU3ysZeSp7QDutrCXvljxKHyDKVMDLG13EUbA==
+X-Received: by 2002:a17:903:2c04:b0:2b0:5075:96d1 with SMTP id
+ d9443c01a7336-2b28176a618mr133938205ad.24.1775478755494; Mon, 06 Apr 2026
+ 05:32:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <P9IQ5Penud7CH3Yfn0bw0RXJfIhFhFGksRjP-aZwLoAxmajMfeOtLEItrcWOXwVjHE_zObIA8SYjcPVR9dkAk9KgDYLun0DJJ6dBIU-IRDI=@vinarskis.com>
+References: <20260403112655.167593-1-phucduc.bui@gmail.com>
+ <20260403112655.167593-4-phucduc.bui@gmail.com> <87v7e5t16l.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87v7e5t16l.wl-kuninori.morimoto.gx@renesas.com>
+From: Bui Duc Phuc <phucduc.bui@gmail.com>
+Date: Mon, 6 Apr 2026 19:32:22 +0700
+X-Gm-Features: AQROBzA0_93mm2t7r0WlUl14fX7SUBUPYxStZohF-_IJd-zBH4HmuI7FuU4RnJY
+Message-ID: <CAABR9nGUyTkDmB0SgKAuM1Pp75L=m1q4bLSfhobm98TswDnt8w@mail.gmail.com>
+Subject: Re: [PATCH 3/3] ASoC: renesas: fsi: Fix hang by enabling SPU clock
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: broonie@kernel.org, lgirdwood@gmail.com, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, geert+renesas@glider.be, 
+	magnus.damm@gmail.com, perex@perex.cz, tiwai@suse.com, 
+	linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Apr 05, 2026 at 08:48:25PM +0000, Aleksandrs Vinarskis wrote:
-> On Sunday, April 5th, 2026 at 02:29, Bryan O'Donoghue <bryan.odonoghue@linaro.org> wrote:
-> 
-> > On 04/04/2026 13:55, Aleksandrs Vinarskis wrote:
-> > > Introduce EC driver for Dell XPS 13 9345 (codename 'tributo') which may
-> > > partially of fully compatible with Snapdragon-based Dell Latitude,
-> > > Inspiron ('thena'). Primary function of this driver is unblock EC's
-> > > thermal management, specifically to provide it with necessary
-> > > information to control device fans, peripherals power.
-> > >
-> > > The driver was developed primarily by analyzing ACPI DSDT's _DSM and
-> > > i2c dumps of communication between SoC and EC. Changes to Windows
-> > > driver's behavior include increasing temperature feed loop from ~50ms
-> > > to 100ms here.
-> > >
-> > > While Xps's EC is rather complex and controls practically all device
-> > > peripherals including touch row's brightness and special keys such as
-> > > mic mute, these do not go over this particular i2c interface.
-> > >
-> > > Not yet implemented features:
-> > > - On lid-close IRQ event is registered. Windows performs what to
-> > >    appears to be thermistor constants readout, though its not obvious
-> > >    what it used for.
-> > > - According to ACPI's _DSM there is a method to readout fans' RPM.
-> > > - Initial thermistor constants were sniffed from Windows, these can be
-> > >    likely fine tuned for better cooling performance.
-> > > - There is additional temperature reading that Windows sents to EC but
-> > >    more rare than others, likely SoC T_j / TZ98 or TZ4. This is the only
-> > >    thermal zone who's reading can exceed 115C without triggering thermal
-> > >    shutdown.
-> > > - Given similarities between 'tributo' and 'thena' platforms, including
-> > >    EC i2c address, driver can be potentially extended to support both.
-> > >
-> > > Signed-off-by: Aleksandrs Vinarskis <alex@vinarskis.com>
-> > > ---
-> > >   MAINTAINERS                          |   1 +
-> > >   drivers/platform/arm64/Kconfig       |  12 ++
-> > >   drivers/platform/arm64/Makefile      |   1 +
-> > >   drivers/platform/arm64/dell-xps-ec.c | 267 +++++++++++++++++++++++++++++++++++
-> > >   4 files changed, 281 insertions(+)
-> > >
-> > > diff --git a/MAINTAINERS b/MAINTAINERS
-> > > index a5d175559f4468dfe363b319a1b08d3425f4d712..c150f57b60706224e5b24b0dfb3d8a9b81f36398 100644
-> > > --- a/MAINTAINERS
-> > > +++ b/MAINTAINERS
-> > > @@ -7240,6 +7240,7 @@ DELL XPS EMBEDDED CONTROLLER DRIVER
-> > >   M:	Aleksandrs Vinarskis <alex@vinarskis.com>
-> > >   S:	Maintained
-> > >   F:	Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml
-> > > +F:	drivers/platform/arm64/dell-xps-ec.c
-> > >
-> > >   DELTA AHE-50DC FAN CONTROL MODULE DRIVER
-> > >   M:	Zev Weiss <zev@bewilderbeest.net>
-> > > diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kconfig
-> > > index 10f905d7d6bfa5fad30a0689d3a20481268c781e..0bc8f016032bb05cb3a7cc50bdf1092da04153bc 100644
-> > > --- a/drivers/platform/arm64/Kconfig
-> > > +++ b/drivers/platform/arm64/Kconfig
-> > > @@ -33,6 +33,18 @@ config EC_ACER_ASPIRE1
-> > >   	  laptop where this information is not properly exposed via the
-> > >   	  standard ACPI devices.
-> > >
-> > > +config EC_DELL_XPS
-> > > +	tristate "Dell XPS 9345 Embedded Controller driver"
-> > > +	depends on ARCH_QCOM || COMPILE_TEST
-> > > +	depends on I2C
-> > > +	depends on IIO
-> > > +	help
-> > > +	  Driver for the Embedded Controller in the Qualcomm Snapdragon-based
-> > > +	  Dell XPS 13 9345, which handles thermal management and fan speed
-> > > +	  control.
-> > > +
-> > > +	  Say M or Y here to include this support.
-> > > +
-> > >   config EC_HUAWEI_GAOKUN
-> > >   	tristate "Huawei Matebook E Go Embedded Controller driver"
-> > >   	depends on ARCH_QCOM || COMPILE_TEST
-> > > diff --git a/drivers/platform/arm64/Makefile b/drivers/platform/arm64/Makefile
-> > > index 60c131cff6a15bb51a49c9edab95badf513ee0f6..6768dc6c2310837374e67381cfc729bed1fdaaef 100644
-> > > --- a/drivers/platform/arm64/Makefile
-> > > +++ b/drivers/platform/arm64/Makefile
-> > > @@ -6,6 +6,7 @@
-> > >   #
-> > >
-> > >   obj-$(CONFIG_EC_ACER_ASPIRE1)	+= acer-aspire1-ec.o
-> > > +obj-$(CONFIG_EC_DELL_XPS)	+= dell-xps-ec.o
-> > >   obj-$(CONFIG_EC_HUAWEI_GAOKUN)	+= huawei-gaokun-ec.o
-> > >   obj-$(CONFIG_EC_LENOVO_YOGA_C630) += lenovo-yoga-c630.o
-> > >   obj-$(CONFIG_EC_LENOVO_THINKPAD_T14S) += lenovo-thinkpad-t14s.o
-> > > diff --git a/drivers/platform/arm64/dell-xps-ec.c b/drivers/platform/arm64/dell-xps-ec.c
-> > > new file mode 100644
-> > > index 0000000000000000000000000000000000000000..bf1495fbe473ccdb82b95a66b56e8525f782cc8e
-> > > --- /dev/null
-> > > +++ b/drivers/platform/arm64/dell-xps-ec.c
-> > > @@ -0,0 +1,267 @@
-> > > +// SPDX-License-Identifier: GPL-2.0-only
-> > > +/*
-> > > + * Copyright (c) 2026, Aleksandrs Vinarskis <alex@vinarskis.com>
-> > > + */
-> > > +
-> > > +#include <linux/array_size.h>
-> > > +#include <linux/dev_printk.h>
-> > > +#include <linux/device.h>
-> > > +#include <linux/devm-helpers.h>
-> > > +#include <linux/err.h>
-> > > +#include <linux/i2c.h>
-> > > +#include <linux/iio/consumer.h>
-> > > +#include <linux/interrupt.h>
-> > > +#include <linux/jiffies.h>
-> > > +#include <linux/module.h>
-> > > +#include <linux/pm.h>
-> > > +#include <linux/unaligned.h>
-> > > +#include <linux/workqueue.h>
-> > > +
-> > > +#define DELL_XPS_EC_SUSPEND_CMD		0xb9
-> > > +#define DELL_XPS_EC_SUSPEND_MSG_LEN	64
-> > > +
-> > > +#define DELL_XPS_EC_TEMP_CMD0		0xfb
-> > > +#define DELL_XPS_EC_TEMP_CMD1		0x20
-> > > +#define DELL_XPS_EC_TEMP_CMD3		0x02
-> > > +#define DELL_XPS_EC_TEMP_MSG_LEN	6
-> > > +#define DELL_XPS_EC_TEMP_POLL_JIFFIES	msecs_to_jiffies(100)
-> > > +
-> > > +/*
-> > > + * Format:
-> > > + * - header/unknown (2 bytes)
-> > > + * - per-thermistor entries (3 bytes): thermistor_id, param1, param2
-> > > + */
-> > > +static const u8 dell_xps_ec_thermistor_profile[] = {
-> > > +	0xff, 0x54,
-> > > +	0x01, 0x00, 0x2b,	/* sys_therm0 */
-> > > +	0x02, 0x44, 0x2a,	/* sys_therm1 */
-> > > +	0x03, 0x44, 0x2b,	/* sys_therm2 */
-> > > +	0x04, 0x44, 0x28,	/* sys_therm3 */
-> > > +	0x05, 0x55, 0x2a,	/* sys_therm4 */
-> > > +	0x06, 0x44, 0x26,	/* sys_therm5 */
-> > > +	0x07, 0x44, 0x2b,	/* sys_therm6 */
-> > > +};
-> > > +
-> > > +/*
-> > > + * Mapping from IIO channel name to EC command byte
-> > > + */
-> > > +static const struct {
-> > > +	const char *name;
-> > > +	u8 cmd;
-> > > +} dell_xps_ec_therms[] = {
-> > > +	/* TODO: 0x01 is sent only occasionally, likely TZ98 or TZ4 */
-> > > +	{ "sys_therm0", 0x02 },
-> > > +	{ "sys_therm1", 0x03 },
-> > > +	{ "sys_therm2", 0x04 },
-> > > +	{ "sys_therm3", 0x05 },
-> > > +	{ "sys_therm4", 0x06 },
-> > > +	{ "sys_therm5", 0x07 },
-> > > +	{ "sys_therm6", 0x08 },
-> > > +};
+Hi Morimoto-san, Mark,
+
+Thank you for your review.
+
+> If it is needed for register access,
+
+Yes, enabling this clock is essential as it functions as a bus bridge clock=
+.
+Currently, the SPU clock is still enabled by the bootloader. In legacy
+kernels (v4.2 and earlier) using the Armadillo board-file/defconfig, this
+clock remained active after boot, allowing the FSI to function correctly.
+However, after migrating to a full Device Tree (DTS) implementation,
+the kernel's unused clock cleanup mechanism disables the SPU clock
+because it isn't explicitly claimed. This leads to a system hang every
+time aplay is executed, as the FSI registers become inaccessible
+without this clock.
+
+> you need to call it on
+> fsi_hw_startup/shutdown() which cares suspend/resume too.
+
+I previously attempted to manage the clock within fsi_hw_startup/
+shutdown, but the system would hang when stopping aplay
+(e.g., via Ctrl+C). This happens because certain cleanup operations,
+such as fsi_irq_disable(), are performed after fsi_hw_shutdown()
+finishes. These operations require register access, which triggers a
+system hang if the SPU clock has already been disabled. Therefore,
+I moved the clock management to fsi_dai_startup/shutdown to ensure
+the clock remains active throughout the entire lifecycle of the stream.
+
+Furthermore, my testing shows that using dai_startup/shutdown
+eliminates the need for explicit Suspend/Resume handling for this clock.
+Since the ALSA framework typically invokes the hw_ callbacks during
+power management transitions rather than the dai_ ones, the SPU clock
+state remains stable, preventing any illegal register access during
+these transitions.
+
+> As Mark mentioned, it should be optional.
+> Otherwise it breaks compatibility.
+
+You are right. I will implement it this way in v2.
+
+> And we already have fsi_clk_init() for clock initialize.
+> spu should be handled in it.
+
+> Now, it is called if clock master (A.
+
+> (A)     if (fsi_is_clk_master(fsi)) {
+>                 if (fsi->clk_cpg)
+>                         fsi_clk_init(dev, fsi, 0, 1, 1,
+>                                      fsi_clk_set_rate_cpg);
+>                 else
+>                         fsi_clk_init(dev, fsi, 1, 1, 0,
+>                                      fsi_clk_set_rate_external);
+>         }
+
+You are right. Currently, our FSIA is configured as a slave,
+so it never executes the clk_init() function.
+
+> I think it (A) can be checked inside fsi_clk_init().
+> fsi_clk_init() is now called when .set_fmt, but it can be called
+> at _probe() timing ?
+
+Yes. I can handle the implementation/coding side of this.
+
+> Should we also be managing the clock during system suspend, or if the
+> power consumption doesn't really matter should we just keep it enabled
+> all the time and not worry about starting and stopping it?
+
+Regarding the SPU clock management, I haven't measured the exact
+power consumption of this block yet. However, to keep the code simple
+and ensure maximum stability for register access (avoiding system
+hangs during cleanup), I am open to enabling it once in fsi_probe()
+if you find the dynamic management in dai_startup/shutdown
+unnecessary.
+
+> This is going to unconditionally require a clock called "spu" on all
+> devices using this driver, not just the one SoC you mentioned as
+> requiring it.  Presumably this worked at least somewhere (possibly the
+> clock is always on, or they're just lucky that something else enables
+> it) and this will cause regressions for those platforms?
+> This should either (ideally) be conditional, or use _optional.
+
+Thank you for your suggestion. I will switch to using
+devm_clk_get_optional() in the v2
+
+Best regards,
+Phuc
+
+On Mon, Apr 6, 2026 at 6:52=E2=80=AFAM Kuninori Morimoto
+<kuninori.morimoto.gx@renesas.com> wrote:
+>
+>
+> Hi
+>
+> Thank you for the patch
+>
+> > From: bui duc phuc <phucduc.bui@gmail.com>
 > >
-> > You could probably retrieve these strings from the dt if you really need
-> > them.
+> > The FSI on r8a7740 requires the SPU clock to be enabled
+> > before accessing its registers.
+> > Without this clock, register access may lead to a system
+> > hang.
+> > Retrieve the "spu" clock in probe and enable it during
+> > DAI startup. Disable the clock on shutdown to match the
+> > audio stream lifecycle.
+> > This ensures safe register access and prevents system
+> > hangs during audio playback.
+> > This is required even if the FSI functional clock is
+> > enabled, as internal units depend on the SPU clock.
 > >
-> > I don't think you need static consts in your driver though you could
-> > just as easily do `sprintf("sys_therm%d\n", i) where you use
-> > ec_therms[i].name - the name is only used to print errors and you have
-> > the index of the channel when you do.
+> > Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+> > ---
+> (snip)
+> > @@ -1554,6 +1555,11 @@ static int fsi_dai_startup(struct snd_pcm_substr=
+eam *substream,
+> >                            struct snd_soc_dai *dai)
+> >  {
+> >         struct fsi_priv *fsi =3D fsi_get_priv(substream);
+> > +       int ret;
+> > +
+> > +       ret =3D clk_prepare_enable(fsi->master->clk_spu);
+> > +       if (ret)
+> > +               return ret;
 > >
-> > It would be nicer to get the strings from DT - certainly make the string
-> > names mandatory but, then let the DT specify those names.
+> >         fsi_clk_invalid(fsi);
+>
+> If it is needed for register access, you need to call it on
+> fsi_hw_startup/shutdown() which cares suspend/resume too.
+>
+> And I guess it need to count user, because we have FSI-A / FSI-B ?
+>
+> > @@ -1963,6 +1970,13 @@ static int fsi_probe(struct platform_device *pde=
+v)
+> >         master->core            =3D core;
+> >         spin_lock_init(&master->lock);
 > >
-> > Either that or just do the sprintf("sys_therm%d\n", i); for the index,
-> > whichever you wish yourself.
-> 
-> Hi Bryan,
-> 
-> Will answer here to all three comments about `sys_thermX`.
-> 
-> The reason I have added them as static consts here, and defined them in
-> the schema is because the order of the channels matters:
-> 1. On my XPS (UEFI v2.11.0) changes in sys_therm2 immediately result in
->    changes in fan speeds. Other channels seemingly have no affect, at
->    least when spoofed one by one, implying that EC cares which value
->    is which.
-> 2. As I do not know internals of the EC firmware, even if today the other
->    thermistor channels ordering is seemingly not relevant, we cannot be
->    sure it will not change with EC firmware upgrade.
-> 
-> I have reconstructed the order of channels by comparing i2c data dumps
-> and real-time temps on Windows, eg. sys_therm0 is sent to EC under id 0x02
-> and represents the TZ71 (around dram on XPS). There is no other reason to
-> have the names of the channels in this driver except for enforcing the
-> channel mapping, so `sprintf("sys_therm%d\n", i)` wouldn't be useful.
-> 
-> By allowing source and sink to define the names and not enforcing it in
-> schema we lose ability to force the correct order, there is no way of
-> knowing whether "lpddr5-therm" or "ssd-therm" goes first. By forcing
-> "sys_thermX" convention, one would need to figure which one is which,
-> for example by referring to laptop schematics. I assume, "thena"'s
-> schematics has thermistors labeled as "sys_thermX"?
-> 
-> I do agree that labels of the ADC nodes could be more useful for the
-> user. So far I followed the example of sc8280xp platforms that define
-> ADC channels with "sys_thermX". Perhaps, we could separate the
-> io-channel-names and ADC node labels then? eg:
-> 
-
-The general guidance for such naming questions is to follow naming from
-the schematics, whenever available.
-
-> + io-channel-names = "sys_therm0",
-> + 		     "sys_therm1",
-> ...
-> 
-> + &pmk8550_vadc {
-> +	sys_therm0: channel@14c {
-> + 		reg = <PM8350_ADC7_GPIO3_100K_PU(1)>;
-> + 		qcom,hw-settle-time = <200>;
-> + 		qcom,ratiometric;
-> + 		label = "lpddr5x-therm";
-> 
-> Though not sure if such approach is 'legal'?
-
-I might be missing something, but that does look legal. Your node's
-label follows (what I assume to be) the naming in the schematics and you
-provide a human-friendly label.
-
-
-PS. Once we have these adc channels in place, I presume there's also a
-TM that would allow us to wire them up as cooling-maps, to throttle the
-CPUs? Similar to "skin-temp-thermal" in x13s.
-
-Regards,
-Bjorn
+> > +       /* SPU clock is required for FSI register access */
+> > +       master->clk_spu =3D devm_clk_get(&pdev->dev, "spu");
+> > +       if (IS_ERR(master->clk_spu)) {
+> > +               dev_err(&pdev->dev, "Failed to get spu clock\n");
+> > +               return PTR_ERR(master->clk_spu);
+> > +       }
+>
+> As Mark mentioned, it should be optional. Otherwise it breaks compatibili=
+ty.
+> And we already have fsi_clk_init() for clock initialize.
+> spu should be handled in it.
+>
+> Now, it is called if clock master (A.
+>
+> (A)     if (fsi_is_clk_master(fsi)) {
+>                 if (fsi->clk_cpg)
+>                         fsi_clk_init(dev, fsi, 0, 1, 1,
+>                                      fsi_clk_set_rate_cpg);
+>                 else
+>                         fsi_clk_init(dev, fsi, 1, 1, 0,
+>                                      fsi_clk_set_rate_external);
+>         }
+>
+> I think it (A) can be checked inside fsi_clk_init().
+> fsi_clk_init() is now called when .set_fmt, but it can be called
+> at _probe() timing ?
+>
+> Thank you for your help !!
+>
+> Best regards
+> ---
+> Kuninori Morimoto
