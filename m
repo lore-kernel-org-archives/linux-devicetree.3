@@ -1,54 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5613C386541;
-	Mon,  6 Apr 2026 15:22:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5CEA386560;
+	Mon,  6 Apr 2026 15:23:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775488970; cv=none; b=d0uUNJzovyGcJnXU64sfuMTOHNNb047O8sK/Q8aeF5Xw3QsXdon1sSPwkdhQWfcNDgdZh4eCz5TR6tjWKQ7ns3nX4khKP3YOPb0zzssIoe/S1lpMz0z45nReUvzWETgDuJLXqfdrnLMbp4R6fLSHd/ZInX72rE5EgC1G9R6Kdec=
+	t=1775488997; cv=none; b=VqyIv/4Ez4RBAc/9Z9Oa9fC1Wrz5JrxX1/8V0i9Y6mcOziVYVybBGloo9PXHwYlBqraZkCQ6/6nzItxdL1qksQO0Qt6MKvNbO2ppxzOobMXxYJUTqu0rNTM2H4DAAJsxRfX0HWGomerdBkK3K3Kiy9/UxFJFlQRpymBHBwiBxiI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775488970; c=relaxed/simple;
-	bh=iC5RuUkjr4YheJjq+5kXm0uCQrLTCZePxmO0UJuDLJI=;
+	s=arc-20240116; t=1775488997; c=relaxed/simple;
+	bh=bvFoonxCf8WLzymd5qml2n7ctrYkhx4TliqKM3gW/QI=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=MvsIPdmVPD43ZcPOHmlQ7OfBNlw0mvhAFhts5gi5i5hmuBmv8amMmR1HeFpBPoUa1LOQArVaF8sPaRzSAhnIPLGnY7qvIViv4xHMWIwETlBC9oqGb8MRmhdi0FnE9v5q/lZy27kGNUtB6xhEqSdDgki31hw5Ih/68ofyROyxOAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vFbjQkjD; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version:Content-Type; b=LOSWMipZqybPkwZcg6evIJIGO6NV/Jgi6+O4IapGu9GcKi2iPLuY5GWRUv1XT87FtKp1IV4x0QXneXJVxVeftiUpf8LMkxfNWPjZkRNJUkD5bduGA22byGwaBqXVzSoFDKmEk1z2ebQ1mpyjuw3TjjJhPz1fnq3BmY+j9lWBOww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nbMenJFe; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vFbjQkjD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9718C4CEF7;
-	Mon,  6 Apr 2026 15:22:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nbMenJFe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85913C4CEF7;
+	Mon,  6 Apr 2026 15:23:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775488969;
-	bh=iC5RuUkjr4YheJjq+5kXm0uCQrLTCZePxmO0UJuDLJI=;
+	s=k20201202; t=1775488996;
+	bh=bvFoonxCf8WLzymd5qml2n7ctrYkhx4TliqKM3gW/QI=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=vFbjQkjDICQPatHELDGaZzMGsOG7IMqZS8Nx0QZ7vwFj+aO7qSZLsXOzn/2N3Aj8P
-	 GQaS+U+vr2nDy11N5l6FpMnGTPxVQCPaO44HkAA0aJr7qr1c6F5Nfjt8wEOGHEdnaG
-	 uvklpS8YoFvJ8yZ4D9kHX5qNvlrRjscjnj6mvcxJIR/OHxiuHuUTfNloMmaxYvV1hs
-	 p9NclkJ/ClxVwPY7sllotz/eUaHLFeDjYUhXB7y9xDxfCsmLWmVlApD9hr+Nsa2eDI
-	 rE+YsIJ/4bKRYOWBWiKAMG5g4+q2szxGIIDSDYo+GQLzupJ/idfiqks9ySg9L9GvoR
-	 THwzn+tommHiQ==
+	b=nbMenJFeEz+Z/Zml8dcWX4LEU/Z88D4LxBofGRb9sdy7MyfiYgxIE1XYuGjqzd29H
+	 4veNzf5vgkMQ54JwYuC4SWiW7HMKh60D0P4n5OMwXQgvawJOqjDzs9Qgyf7kGSDS6s
+	 FENKeDqLfV0KaA/6ihHB5hkBQgcXa4lYA0V8bNIJkDGQ0ZYpZ1OH5QksFc4wcbswKw
+	 E2ig6t0VrIj82rP+HKfBeU9gzIAFQmI8jsWWuf9yXDY/eTeJisaAJiamqEYMl6444W
+	 c/UQ+OxtdSR4qKyOCiDHovl4cHilgWLas29eJxIwKlt26YrMe5jfolDwhY/nvNk8aa
+	 d6m8+TYDdcb2A==
 From: Mark Brown <broonie@kernel.org>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Alexander Koskovich <AKoskovich@pm.me>, 
- Liam Girdwood <lgirdwood@gmail.com>, Bartosz Golaszewski <brgl@kernel.org>, 
- Marcel Holtmann <marcel@holtmann.org>, 
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
- Balakrishna Godavarthi <quic_bgodavar@quicinc.com>, 
- Rocky Liao <quic_rjliao@quicinc.com>, 
- Johannes Berg <johannes@sipsolutions.net>, 
- Jeff Johnson <jjohnson@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
- linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-In-Reply-To: <20260403-milos-fp6-bt-wifi-v2-0-393322b27c5f@fairphone.com>
-References: <20260403-milos-fp6-bt-wifi-v2-0-393322b27c5f@fairphone.com>
-Subject: Re: (subset) [PATCH v2 0/7] Enable Bluetooth and WiFi on Fairphone
- (Gen. 6)
-Message-Id: <177548144839.46304.13972601101594073712.b4-ty@b4>
-Date: Mon, 06 Apr 2026 14:17:28 +0100
+To: devicetree@vger.kernel.org, Marek Vasut <marex@nabladev.com>
+Cc: Baojun Xu <baojun.xu@ti.com>, Conor Dooley <conor+dt@kernel.org>, 
+ Kevin Lu <kevin-lu@ti.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Shenghao Ding <shenghao-ding@ti.com>, linux-kernel@vger.kernel.org, 
+ linux-sound@vger.kernel.org
+In-Reply-To: <20260405234502.154227-1-marex@nabladev.com>
+References: <20260405234502.154227-1-marex@nabladev.com>
+Subject: Re: [PATCH v2] ASoC: dt-bindings: ti,tas2552: Add sound-dai-cells
+Message-Id: <177547742376.46304.5180387312715335840.b4-ty@b4>
+Date: Mon, 06 Apr 2026 13:10:23 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -58,32 +47,29 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.16-dev-67696
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1248; i=broonie@kernel.org;
- h=from:subject:message-id; bh=iC5RuUkjr4YheJjq+5kXm0uCQrLTCZePxmO0UJuDLJI=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBp08/EHCSvABc5+hfj7LywcFO5vIyiMIyPbeR7h
- ppJ03irVwuJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCadPPxAAKCRAk1otyXVSH
- 0KVpB/9S4D+rqQdrlGK7dDEaMH4ZQMEuGOMsBF05rICalPIeS+4HrqIdPQlTVFXQS+2FvhlW2v9
- 05Q1bZHOQZs52JJs+bbrwIb+9HnsD4fm4Fcq/CwxMBFfcb3D/8Uh7op9NLC9TMkaPvIlEyMVD4V
- 2eZIcjoyQ3ZyIsPzOqGIEKPo5UdI+TQyvmwOYnNcJ7Pg/Ft7ElkHEieBdQ7gR8SjyUegXQSAXNJ
- Lklhvvjd7b4qNJo6F8BDqvjelJFrUH+BSDJI63aYQTuDG5KvMSdQqyGFYjyO6PyvaEmtsmtpWY1
- OBo9Osy1m0mMXQWQCHFcbL50CpXYNDkWKuhxF3yLVZDqBqGq
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1117; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=bvFoonxCf8WLzymd5qml2n7ctrYkhx4TliqKM3gW/QI=;
+ b=owGbwMvMwMWocq27KDak/QLjabUkhszL5x+Gf3vp5BJYmKtYE/7+GOvyjk3brRqis/kqWfe8e
+ jo/41ZDJ6MxCwMjF4OsmCLL2mcZq9LDJbbOfzT/FcwgViaQKQxcnAIwkf332P/wbUn5dN4hyuxE
+ pIJQ+RNe/i6htXyLd2nuqeOMee83+1xzXNfGcJMPab+1jkYYKwQmb+dvYbc+23jU7833JJ66NSf
+ rT+b5rvxvvrBP7IXX3j//3vYs9NiQz+Y/6d6hJUfz+UvV32mIlRr9TcibsfpqWe4UfsGu14tttw
+ eIG1j+avUTaW6Z2GSyz09HVv9Cf46Gxrt0hczDpsW/vd89/Kjo8LZx9VRBUaaj0axeIvLzNkoy2
+ mnsN1t4c9+Hjbd3vysMrctivcwmz2jJlvZz8Qn/g2yhceUf+LYIupgpd2vYpi68IfLovkRuecBJ
+ y32CbtGKgkrtNd3f2pL8mcKE/a+//HXfrn1S1IRUR9UwAA==
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Fri, 03 Apr 2026 15:52:46 +0200, Luca Weiss wrote:
-> Enable Bluetooth and WiFi on Fairphone (Gen. 6)
-> 
-> Add the required bits to enable Bluetooth and WiFi on the Milos
-> SoC-based Fairphone (Gen. 6) smartphone.
+On Mon, 06 Apr 2026 01:44:35 +0200, Marek Vasut wrote:
+> ASoC: dt-bindings: ti,tas2552: Add sound-dai-cells
 
 Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.1
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.0
 
 Thanks!
 
-[1/7] regulator: dt-bindings: qcom,qca6390-pmu: Document WCN6755 PMU
-      https://git.kernel.org/broonie/regulator/c/b043657c35e5
+[1/1] ASoC: dt-bindings: ti,tas2552: Add sound-dai-cells
+      https://git.kernel.org/broonie/sound/c/5075d08e72af
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
