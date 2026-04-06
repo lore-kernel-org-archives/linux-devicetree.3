@@ -1,62 +1,62 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7679C313E18
-	for <devicetree@vger.kernel.org>; Mon,  6 Apr 2026 08:34:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59D90314B76
+	for <devicetree@vger.kernel.org>; Mon,  6 Apr 2026 08:34:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775464457; cv=none; b=SBZ3QcvWhSqu/CofAHEMuEmdPmV/K4Z+gWeOVP/Yl30MGKQ3ZKXcAYQ23ugkZy94xdw78TRUA6AllJxl+CiZ5j2tI76896OWVydy156yBpW4UVr7qvE7bC6jPIgpSdU4ef0FmMzmgkTbz2gp4PiPymnAXUignH+s6iqM45nyL3A=
+	t=1775464457; cv=none; b=hTmKagktnnCS5UeAn/NaBHVNiU12aTDk7StLoVQeiD58vz+HvyPHiT4DsQQdhJYGfQEC6HWpWzsygNu0fXfQ26w3hjJl0JMmpAySSEhYYgqm6r1POTqW5co1rEp6MaX+YLEC7lf0Jd0zJr66nBXaExOpBDuZUEIK5DT8ZL0qNJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1775464457; c=relaxed/simple;
-	bh=5z2Lt475ih30u0uu9IUM4wQFEZ0cO66tCDGHP3YblIQ=;
+	bh=PKFdbLOtezmddcHtLj3hd26ATJxGdOHkO0A6JXK5y1k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HCajiZyqMgV0X6n4rzxRdMCSC4OKcD2X+zehssZR4Dy+iDf1BY1u5A1LPU+PhVWtYJ0MpLS9za5i3DgLw5RmV0cQIxAsZhqnLf/AC9pS8qPjZdQ7t4zkmfwFzmK4e2z3VAZXNhiEojcJkRrE3MabVMi6nzC9szIs7y2Wfs2XKpg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=msn01Gi/; arc=none smtp.client-ip=209.85.128.50
+	 MIME-Version; b=GpsQaLtWrI7TPgDokAvVVc9dQYFIFc2LstSbz5RIMIB7l1n/jFvbvtngRlbQqpR/6cFpkAngfLim1y+NtjLFmzyIopXJvJWT6wcQ3ZIqo5DBTW/bSNCgtclaKy8hw/IJzPCMZkEgeePxiVPy5ZZz1XQORgLq936qP6YQGDEdkN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nPrg17J6; arc=none smtp.client-ip=209.85.128.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="msn01Gi/"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-488aa77a06eso17250245e9.0
-        for <devicetree@vger.kernel.org>; Mon, 06 Apr 2026 01:34:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nPrg17J6"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4887eca00c4so24998545e9.2
+        for <devicetree@vger.kernel.org>; Mon, 06 Apr 2026 01:34:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775464454; x=1776069254; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1775464455; x=1776069255; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=P1yXHDnp7NzX4AEU8wqvHpHmrt4Gh/6rFiKDv6uZxQk=;
-        b=msn01Gi/giJQEUlNrdQWG3oxFi4uHdqYk1mXN0wK0y9epZMxtsXhr01/XbI6pQ3Rao
-         fRNJeTT9ZSpL/seuy4IKc1wIQzHnKFDzTbDNZ+hwWtPnJ0dgJUZ4c7zPiUbeNYcl/NNI
-         0TmHEvT4WH6+j7vCDRuXlzy56oIisznAyvJXoBL5KaVOqLONAz/WlUCZ3M62D8P0I9P+
-         9+YkNdaJepDXZC23opL3fShSxTTh8MazAun9HoiRKm4K04DOp/gVY6SBNGejrW3lvyNN
-         HSWklwJoftXoxC0r8p3QksKPd34rrNsSbBoGTcfeFnKhpYpk49KbcYm4ywQrXGL/X6KD
-         7Y9g==
+        bh=B403X2O1b8FGNNeGhrK0Mv2epOELGQnn1++DaG9H56c=;
+        b=nPrg17J6MUGv37+qQEBDroKwLphphUtKoDh3nVw3Ad2Z8EWod3JLAuoNG8JsbrcmP1
+         Dpf2rYSUfoGwdiG5QA9/S8QBIw0XHADUKuK2i7kI0ppxF44Zh2VpHdmuLgrOXzgyAPh9
+         xj8r34Mvyjm6F8hJI8aWewae1FuuSbK/bJX10q4ARY9kGB3z7II3Ba2E11oruGHwagmp
+         7pj1KqcqxzrA/2aJG/7TmA06GXkuTtMbDqWNMUNpyybL8VW4W/SKYN9WWmPxgjJkKsXF
+         /3aYIU27H2QqTrVLoZfoYohKTgpI4dl4sRn1sWUuKBzF9kSiaf8qljt2rzfH9iN537bo
+         13fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775464454; x=1776069254;
+        d=1e100.net; s=20251104; t=1775464455; x=1776069255;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=P1yXHDnp7NzX4AEU8wqvHpHmrt4Gh/6rFiKDv6uZxQk=;
-        b=ldKg8USnAjS4/KrzwWqAmbFUFoBqAvh6RsVlLzGOhHTUKIBSEA94ZI/BmZ9W5pnsIv
-         Xr3zw6gHvp0l0QMuGw0Lr07SWmd17L9nxhfpj94vRLL64sGJb+Q0cK/BjTm3nWNftsbg
-         3OB8U7GdWJ/w4pO4o8T8cH4KWc7iTOM4yMJl3AfKmiUIKalSRT9RKBAuQWGvVdKryo1A
-         wPxdxxHopES7QFZii3ivY0vJxcr75WAHzPLkv1AS6MySWPP6j8PturjFgFzSatV0LWpX
-         n/5OZy6IeQeESiGSBVnDMtcH/uI+ik1UvOCjz0+Dfao0FSsctVAFTL6+MK3lIaVu3f8w
-         LPdQ==
-X-Gm-Message-State: AOJu0Yy0cSkripoxcZnkLKP9HO9/SpKBHRKr1yJmCUSs5Wl/x8CIyjIa
-	e37dybodNEejcN6vqTUhBrWbdQ1JPKWmihNEFamEtQ7bvNPVrYid2IXr
-X-Gm-Gg: AeBDieuW5DWbdd3fsV7sOmwC7pCsp0bI2+mSOC3iAubXYk0UM2BxN74wRHt0B4oFdja
-	XzZG6JANttyw3ZRb8MQRFODE2anjxxvoBiKrAqmMK+mS1O8NMeH/K+j62WwrSVg1y9g5VjoLMzb
-	m7L1YEf7UhJZUft8GrhPWTz23NzIF7CyXYCjdy9KT465+W4oCwUWNLXPuKJcMmAM5EuDPlPvnhh
-	XDESMkK661OK9tYQc8FxxDMsPptDWAJgIU4YtHIG27B4cZm5ilqR3iMj1OV0iw7M9AKAwEiLVXx
-	EiIJlvlohgQ1VX4GPt60U5EPkwRdnk0y9XuR+wPR3PTypyzyzc1LkyqD+80FqA00cwB2u2grB/X
-	QrF8ZzuNoNj+qjQ5NG8u/fDEjohsAKWU3lqj2y8NRpuoeeDvc2ENa5Rzr9LI7qwDNxohfTx7OCq
-	30vIy0IgYPnz/v
-X-Received: by 2002:a05:600c:1f96:b0:487:4eb:d125 with SMTP id 5b1f17b1804b1-48899753e5fmr174508545e9.9.1775464453706;
-        Mon, 06 Apr 2026 01:34:13 -0700 (PDT)
+        bh=B403X2O1b8FGNNeGhrK0Mv2epOELGQnn1++DaG9H56c=;
+        b=cvR9MXx/7KNpQ8U+X4i80twk+OkYUNFo3cREiRYeRE0uI+noFvR5AZfuGhD877IO5L
+         hltv5gBrwF3JUucQ3XC19Pe0ZgBDqz8IOr8/yTFGUaOxYJ0bIpn+RIh99DNGpEWTvTZQ
+         NKrh8Tuh/qGRYjZ7dg3of3TVOTidbDa5KlnqC4iPLzqwzkdPH/XY+4+eoC5YzuIyYnDm
+         Npii0XA/3jDXHDfNjkqXg78HZp70o1nMpOEfOCAUQydbXNK76u+RWMvpaEdLSOA5nb+8
+         l12Sm1GmAOVXpUcAMQH/qvgniQFTTFHm0pBCICymHxUCoP5mUhDAL/xkQRf9a3wHVzup
+         29pg==
+X-Gm-Message-State: AOJu0YwCgF1kBXqf0XwvSacfvluepItKoaR+1eGtzTVhIamAsv/jA6tB
+	/I06ibvwTz0wmN6rcslT7ER2EmYQw9wrmzQU9TujveDiYo8MsHSX4qVy
+X-Gm-Gg: AeBDies5b8Xoh416Chak0JSe6pSTKxHmge/mqdrNNPh4tx/vvsELGIgbCC8qvapcuH4
+	Z4KLLMmL6xdV4m30uJV04zQov1O4Dp3G513a8OOXeoVfRUxt8CF2J6Yo5C1Al0aL78rREb5zm/v
+	hERZ4dnXwC5AaRP0eoywfrMya1c2biiuDxWV95PYY0xoMkms+sm9QU1FkHgPOpdcNKvRCih+3V1
+	BUuGDB6zMo5Dj1ZQQN7HHoQot/EH63dVNsYv4quqKS65qzP3LBc/qX/B8DlWLQGToaQ0OKsWoNl
+	kA9R6twn2F7JUwUlKPSpYn/QMV6HmrDXObnDI+TxpKLdgYHfPONWjxRUY86E3w+bSsUjTx7ekNu
+	gBAcL1e/AIppdozCkkUuIImDPAfY3FHWKUfs0I8WnFvKfNVv/dgu4kn+CD6NB3VfTnCKvXXSASZ
+	9Jtfyrc+dPn9Rl
+X-Received: by 2002:a05:600c:4753:b0:486:fcc7:d6a with SMTP id 5b1f17b1804b1-4889976eb60mr170893355e9.13.1775464454721;
+        Mon, 06 Apr 2026 01:34:14 -0700 (PDT)
 Received: from xeon ([188.163.112.56])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48899e7e83fsm84241315e9.24.2026.04.06.01.34.12
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48899e7e83fsm84241315e9.24.2026.04.06.01.34.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 06 Apr 2026 01:34:13 -0700 (PDT)
+        Mon, 06 Apr 2026 01:34:14 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -69,9 +69,9 @@ To: Rob Herring <robh@kernel.org>,
 Cc: devicetree@vger.kernel.org,
 	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 1/9] ARM: tegra: lg-x3: Complete video device graph
-Date: Mon,  6 Apr 2026 11:33:56 +0300
-Message-ID: <20260406083404.31359-2-clamor95@gmail.com>
+Subject: [PATCH v1 2/9] ARM: tegra: lg-x3: Set PMIC's RTC address
+Date: Mon,  6 Apr 2026 11:33:57 +0300
+Message-ID: <20260406083404.31359-3-clamor95@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260406083404.31359-1-clamor95@gmail.com>
 References: <20260406083404.31359-1-clamor95@gmail.com>
@@ -83,319 +83,28 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add front and rear camera nodes and interlink them with Tegra CSI and VI.
-Adjust camera PMIC voltages to better fit requirements and fix the focuser
-node.
+LG X3 devices have the PMIC's RTC module located at a non-standard
+address. Set the correct address.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts |  28 ++++
- arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts |  46 ++++++
- arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi  | 154 +++++++++++++++++--
- 3 files changed, 214 insertions(+), 14 deletions(-)
+ arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts b/arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts
-index cc14e6dca770..1b21d7628c8c 100644
---- a/arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts
-+++ b/arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts
-@@ -12,6 +12,18 @@ aliases {
- 		mmc2 = &sdmmc1; /* WiFi */
- 	};
- 
-+	host1x@50000000 {
-+		vi@54080000 {
-+			csi@800 {
-+				/delete-node/ channel@1;
-+			};
-+
-+			ports {
-+				/delete-node/ port@1;
-+			};
-+		};
-+	};
-+
- 	pinmux@70000868 {
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&state_default>;
-@@ -116,6 +128,22 @@ rmi4-f11@11 {
- 		};
- 	};
- 
-+	i2c@7000c500 {
-+		camera-pmic@7d {
-+			vt_1v2_front: ldo1 {
-+				regulator-name = "vt_1v2_dig";
-+				regulator-min-microvolt = <1200000>;
-+				regulator-max-microvolt = <1200000>;
-+			};
-+
-+			vt_2v7_front: ldo2 {
-+				regulator-name = "vt_2v7_vana";
-+				regulator-min-microvolt = <2700000>;
-+				regulator-max-microvolt = <2700000>;
-+			};
-+		};
-+	};
-+
- 	spi@7000dc00 {
- 		dsi@2 {
- 			/*
-diff --git a/arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts b/arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts
-index 414117fd4382..896639599c12 100644
---- a/arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts
-+++ b/arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts
-@@ -118,6 +118,52 @@ rmi4-f1a@1a {
- 		};
- 	};
- 
-+	i2c@7000c500 {
-+		/* Aptina 1/6" HD SOC (MT9M114) */
-+		front-camera@48 {
-+			compatible = "onnn,mt9m114";
-+			reg = <0x48>;
-+
-+			clocks = <&tegra_car TEGRA30_CLK_CSUS>;
-+
-+			reset-gpios = <&gpio TEGRA_GPIO(BB, 5) GPIO_ACTIVE_LOW>;
-+
-+			vddio-supply = <&vio_1v8_front>;
-+			vdd-supply = <&vt_1v8_front>;
-+			vaa-supply = <&vt_2v8_front>;
-+
-+			orientation = <0>; /* Front camera */
-+
-+			assigned-clocks = <&tegra_car TEGRA30_CLK_VI_SENSOR>,
-+					  <&tegra_car TEGRA30_CLK_CSUS>;
-+			assigned-clock-rates = <24000000>;
-+			assigned-clock-parents = <&tegra_car TEGRA30_CLK_PLL_P>,
-+						 <&tegra_car TEGRA30_CLK_VI_SENSOR>;
-+
-+			port {
-+				front_camera_output: endpoint {
-+					bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-+					link-frequencies = /bits/ 64 <384000000>;
-+					remote-endpoint = <&csib_input>;
-+				};
-+			};
-+		};
-+
-+		camera-pmic@7d {
-+			vt_1v8_front: ldo1 {
-+				regulator-name = "vt_1v8_dig";
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+			};
-+
-+			vt_2v8_front: ldo2 {
-+				regulator-name = "vt_2v8_vana";
-+				regulator-min-microvolt = <2800000>;
-+				regulator-max-microvolt = <2800000>;
-+			};
-+		};
-+	};
-+
- 	spi@7000dc00 {
- 		dsi@2 {
- 			/*
 diff --git a/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi b/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
-index 768e201456d8..d2a5904cebed 100644
+index d2a5904cebed..60e8a19aa70e 100644
 --- a/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
 +++ b/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
-@@ -3,6 +3,7 @@
- #include <dt-bindings/input/gpio-keys.h>
- #include <dt-bindings/input/input.h>
- #include <dt-bindings/leds/common.h>
-+#include <dt-bindings/media/video-interfaces.h>
- #include <dt-bindings/mfd/max77620.h>
- #include <dt-bindings/thermal/thermal.h>
+@@ -1297,7 +1297,8 @@ pwr_i2c: i2c@7000d000 {
  
-@@ -74,6 +75,91 @@ trustzone@bfe00000 {
- 	};
+ 		pmic: max77663@1c {
+ 			compatible = "maxim,max77663";
+-			reg = <0x1c>;
++			reg = <0x1c>, <0x48>;
++			reg-names = "pmic", "rtc";
  
- 	host1x@50000000 {
-+		vi@54080000 {
-+			status = "okay";
-+
-+			csi@800 {
-+				status = "okay";
-+
-+				avdd-dsi-csi-supply = <&avdd_dsi_csi>;
-+
-+				/* CSI-A */
-+				channel@0 {
-+					reg = <0>;
-+
-+					nvidia,mipi-calibrate = <&csi 0>; /* CSIA pad */
-+
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0>;
-+
-+						csia_input: endpoint {
-+							data-lanes = <1 2>;
-+							remote-endpoint = <&rear_camera_output>;
-+						};
-+					};
-+
-+					port@1 {
-+						reg = <1>;
-+
-+						csia_output: endpoint {
-+							remote-endpoint = <&vi_ppa_input>;
-+						};
-+					};
-+				};
-+
-+				/* CSI-B */
-+				channel@1 {
-+					reg = <1>;
-+
-+					nvidia,mipi-calibrate = <&csi 1>; /* CSIB pad */
-+
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0>;
-+
-+						csib_input: endpoint {
-+							data-lanes = <3>;
-+							remote-endpoint = <&front_camera_output>;
-+						};
-+					};
-+
-+					port@1 {
-+						reg = <1>;
-+
-+						csib_output: endpoint {
-+							remote-endpoint = <&vi_ppb_input>;
-+						};
-+					};
-+				};
-+			};
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					vi_ppa_input: endpoint {
-+						remote-endpoint = <&csia_output>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					vi_ppb_input: endpoint {
-+						remote-endpoint = <&csib_output>;
-+					};
-+				};
-+			};
-+		};
-+
- 		lcd: dc@54200000 {
- 			rgb {
- 				status = "okay";
-@@ -1112,29 +1198,68 @@ dw9714: coil@c {
- 			compatible = "dongwoon,dw9714";
- 			reg = <0x0c>;
- 
--			enable-gpios = <&gpio TEGRA_GPIO(R, 1) GPIO_ACTIVE_HIGH>;
-+			powerdown-gpios = <&gpio TEGRA_GPIO(R, 1) GPIO_ACTIVE_LOW>;
- 
- 			vcc-supply = <&vcc_focuser>;
- 		};
- 
-+		/* SONY IMX111 1/4" BSI */
-+		rear-camera@10 {
-+			compatible = "sony,imx111";
-+			reg = <0x10>;
-+
-+			clocks = <&tegra_car TEGRA30_CLK_CSUS>;
-+
-+			reset-gpios = <&gpio TEGRA_GPIO(K, 4) GPIO_ACTIVE_LOW>;
-+
-+			iovdd-supply = <&vio_1v8_rear>;
-+			dvdd-supply = <&vdd_1v2_rear>;
-+			avdd-supply = <&vdd_2v7_rear>;
-+
-+			orientation = <1>; /* Rear camera */
-+			rotation = <90>;
-+
-+			nvmem = <&m24c08>;
-+			lens-focus = <&dw9714>;
-+
-+			assigned-clocks = <&tegra_car TEGRA30_CLK_VI_SENSOR>,
-+					  <&tegra_car TEGRA30_CLK_CSUS>;
-+			assigned-clock-rates = <24000000>;
-+			assigned-clock-parents = <&tegra_car TEGRA30_CLK_PLL_P>,
-+						 <&tegra_car TEGRA30_CLK_VI_SENSOR>;
-+
-+			port {
-+				rear_camera_output: endpoint {
-+					data-lanes = <1 2>;
-+					bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-+					link-frequencies = /bits/ 64 <542400000>;
-+					remote-endpoint = <&csia_input>;
-+				};
-+			};
-+		};
-+
-+		/* rear camera sensor eeprom m24c08 from ST */
-+		m24c08: eeprom@50 {
-+			compatible = "atmel,24c08";
-+			reg = <0x50>;
-+
-+			/* if high then WP is on, if low then off */
-+			wp-gpios = <&gpio TEGRA_GPIO(K, 3) GPIO_ACTIVE_HIGH>;
-+
-+			/* it is not OTP but writing is unwanted */
-+			read-only;
-+			pagesize = <16>;
-+			num-addresses = <1>;
-+
-+			vcc-supply = <&vio_1v8_rear>;
-+		};
-+
- 		camera-pmic@7d {
- 			compatible = "ti,lp8720";
- 			reg = <0x7d>;
- 
- 			enable-gpios = <&gpio TEGRA_GPIO(BB, 4) GPIO_ACTIVE_HIGH>;
- 
--			vt_1v2_front: ldo1 {
--				regulator-name = "vt_1v2_dig";
--				regulator-min-microvolt = <1200000>;
--				regulator-max-microvolt = <1200000>;
--			};
--
--			vt_2v7_front: ldo2 {
--				regulator-name = "vt_2v7_vana";
--				regulator-min-microvolt = <2700000>;
--				regulator-max-microvolt = <2700000>;
--			};
--
- 			vdd_2v7_rear: ldo3 {
- 				regulator-name = "8m_2v7_vana";
- 				regulator-min-microvolt = <2700000>;
-@@ -1348,10 +1473,11 @@ vdd_1v2_mhl: ldo7 {
- 					maxim,active-fps-source = <MAX77620_FPS_SRC_NONE>;
- 				};
- 
--				ldo8 {
-+				avdd_dsi_csi: ldo8 {
- 					regulator-name = "avdd_dsi_csi";
- 					regulator-min-microvolt = <1200000>;
- 					regulator-max-microvolt = <1200000>;
-+					regulator-boot-on;
- 
- 					maxim,active-fps-source = <MAX77620_FPS_SRC_NONE>;
- 				};
+ 			interrupts = <GIC_SPI 86 IRQ_TYPE_LEVEL_HIGH>;
+ 			#interrupt-cells = <2>;
 -- 
 2.51.0
 
