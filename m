@@ -1,217 +1,133 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010001.outbound.protection.outlook.com [52.101.84.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 938151A262D;
-	Mon,  6 Apr 2026 07:51:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.1
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775461885; cv=fail; b=rLsegYNHJnRcKNLQYWA6eC0X+YDkYRvwrXfv/S9ok5MgJfI9eJegydgQloxtIPZNbhuM5jISSSeTM4mKPAZSgaGUyOz8lfyNqFN+CAz4yS95VFL9JSUQzGtp5fpTf7yrBbSdfgyoAx7Q2beHJKYqUWlf5Djvb0O6c6kv3Fw8yJY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775461885; c=relaxed/simple;
-	bh=nxjfKt79L4PMHg8cRu41qgIv1Kv3iVthHpEteDnD7sc=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=GG9N/q9QwkgirM6ft34YUP+rBRqZkYokhEDZXFc6b4BN6FLDn16QmSt70NoxjjkRQyJXakZ/0oX57nGd7IY4ozlqerr48wQG4xZ6twJjvKBVvA2ens1giFsMvc2SiKpD/pLEU4UWcno7GTt/iHTG9FbMT+0Op2dfN1So/56zMRM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=jT8FJUiB; arc=fail smtp.client-ip=52.101.84.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9604E370D47
+	for <devicetree@vger.kernel.org>; Mon,  6 Apr 2026 07:51:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775461889; cv=none; b=DeqQ47rxrpOSm3yMv0wCoz8rBlLobYrXTpy5ksftwLZSlOTPvGFsl+tQCfwN0sQHF39IyRn+Fj0/rJQYVaF883w4dBPCuQUTPLHHwj2SjCNv1ddebZZ31bBXIz9QlZKhVARykm4VRC4A8Q4RRrb2EkgzHhfHWTNplaLI7Z9a+lU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775461889; c=relaxed/simple;
+	bh=SEmsAqHjWzSjMRRIk9zZE76RG8HXzQCV9AOLnG25kjU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Mbd285gFzSPVt623AqgbNWNr7TwVD9sVsP2i/CzEk/Qjrw+Lo8Ec2GZmHFNbXpkhHiYAWEmjdYpM0n6VFUZ6Rg+pzuv+un8mYe7gfhsJdPEg2+TQNI7uqJJMYsSDqJJsacEYwQKiyF2gr8JZhmEsYraxdDMHLRpNDVBn9vpOLxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZwINUzzN; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="jT8FJUiB"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HE/dioKZZ6dii+tG272HxND0/+VxNBkEDK37/y7w2sA7ac+PKZ2RRohSCbXm4S/3biKcol8s6ugtO6f19xPFAkib7SUaWffSfJSvPIFqFHTxXnFB4Og6vOMNeKFG7YSc/nK58Dq4T3XB07U+xcwzAA3mhdrZScQ0AT4IzcA0YKD7VMdsVIKSlwVbhYJTtVWSs5uQudAmzb4RDlgsp29bPRHVkfNIx6ZUYR5qXSKfkeRwnVYjj6PEz2yDai/W7ro4iG57/Ezjdjz9c74uTIIyGhQ7phOj9sCfqcibH7nu0gn0yxE8TQLzVxi8u/anTwEFOjZWUyrqclji+FYkLC86lw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6QF3WvKyJzuR2UeQ2pteKdiOOyznY6z90PyrVch19Dc=;
- b=FjjNDWqexoLnpLe4HmYtsA5aRcPN93M4drzBam7XhQwbh2CpHZqkAjjQ66yOq3oBfzGSBU4ZIh2x80KUW/L/4tNom1jYO8061+m6C93AhLkvYSO4E3csYpSsWY54JPZlkXHBQoHMhNsrmUPBISWVIh6G14B0gzspU6ydlbDW0LMWLXVaLa77Me61+joOMZCstmWMLtzZbE//JGx/8ygp6eOZ8Nd0/nLhUnTI2ktVoZ8J7BJLxkzJZtZzujqyUt5pNMeNee2xUXiUgiLWHuenS1vJlM4Pyhkz0DK0XjAbEDBYztPEwPbCTJsb3Q/42Mw87F/NQGqcT0olGIcp2b17MA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6QF3WvKyJzuR2UeQ2pteKdiOOyznY6z90PyrVch19Dc=;
- b=jT8FJUiBja29m8IBa2jOxE8l+Sqd1lgebEffCHnRL6kiLbBvq7PkJK16re+Un1aavF/LBLz7P8deYqI29zg0co/yr+GqDxemsD9Hmoz1YiEHC2D9idspkvjQDoibgE5VAPDiU/QQSa5qCBPcxTmqZWZbqxCfcNosIRsTw+A8wdAAa6Y3H4zPVHw7g8Mx8/IRg6dS52GtvWbg0Dsym1BIZr1IxXye6N54taDYsyoV7HJR8/Q6+SPXJJzj1gmYf3PUU//aSd+IPdJTglbqKM1aEosR2hRjqGLRO1pIGyzWZdHDkRNyzcsDVQmQvwnO7USmmx2jRthU4blI0wkVZzZwaQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from DU0PR04MB9251.eurprd04.prod.outlook.com (2603:10a6:10:352::15)
- by AM9PR04MB8652.eurprd04.prod.outlook.com (2603:10a6:20b:43f::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.19; Mon, 6 Apr
- 2026 07:51:19 +0000
-Received: from DU0PR04MB9251.eurprd04.prod.outlook.com
- ([fe80::5c3a:1a67:2e02:20d0]) by DU0PR04MB9251.eurprd04.prod.outlook.com
- ([fe80::5c3a:1a67:2e02:20d0%5]) with mapi id 15.20.9769.016; Mon, 6 Apr 2026
- 07:51:19 +0000
-Message-ID: <0ee87f3d-64a8-48de-a213-e3ea604a85a9@oss.nxp.com>
-Date: Mon, 6 Apr 2026 10:50:52 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/8] can: flexcan: Add NXP S32N79 SoC support
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
- Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-can@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, NXP S32 Linux Team <s32@nxp.com>,
- Christophe Lizzi <clizzi@redhat.com>, Alberto Ruiz <aruizrui@redhat.com>,
- Enric Balletbo <eballetb@redhat.com>, Eric Chanudet <echanude@redhat.com>
-References: <20260326135825.3428856-1-ciprianmarian.costea@oss.nxp.com>
-Content-Language: en-US
-From: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
-In-Reply-To: <20260326135825.3428856-1-ciprianmarian.costea@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0336.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ea::9) To DU0PR04MB9251.eurprd04.prod.outlook.com
- (2603:10a6:10:352::15)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZwINUzzN"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-488b8efed61so151865e9.1
+        for <devicetree@vger.kernel.org>; Mon, 06 Apr 2026 00:51:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1775461887; x=1776066687; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=6rsA0Hj8nsuRsqpJ4sAx6KrXhjtnw96EIBhafsErWLc=;
+        b=ZwINUzzNNI8BbGWL6v3rkB+wPTIdXxQejjVYahnNib1osa1x/NQYZwEYxxynCMqJP9
+         s6KQT/m5J4daGTGUSxZBTkwigjXpTc0wwak2L9fBQf4oCcw7kkxAocDzqO1zjNSApv+3
+         2X+vvWn0hjkyMB+i743QD94T0E3zS+YUiUaNa+ND3JlawJqo80ViM7JPyoA8oR+nuZ7E
+         ULzAmR3ZW7oPzHo4x6UlT8CZ7fgTAzLbqP69rmw/tO0Wvi3Yu9FeG1Q63dG7t95iwG4A
+         ark/uhhpZh41s7E/1BfcYcDQhGzMjGw+16Ar1FKDf5nGq+OKzwsxC/hbWLL0iNHw3Gw0
+         cTig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775461887; x=1776066687;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6rsA0Hj8nsuRsqpJ4sAx6KrXhjtnw96EIBhafsErWLc=;
+        b=azvH5TAmqh45vl6yJdi4ssIJYfjTGmDZkkkd5q/rPzzkiTtfpIGZIFnniJQqcDV+nT
+         SwFitvSiveDliaLZqizlGtAhLW9B0IHuNkCigJx4MCbH8NPfR5kek9P5tt4YeAHBdU/3
+         0L6y0YZ4E/y9dXpRGgWPvKeZYL/AAAfjw4SmD5Rmatrq7fol3j/ErKBlJ57iL+RrgimU
+         2j/gR5w6/qPHPyOfMq9skPeDBfbEIDSKXNlU0M3VP68ifbQSJ7QQyddPSp6jqCsjfY62
+         aEWAnmK7HXk+hgQzowK3tJthKAFmf9mpjbCEOFJ83c2Cis5KlGGjne5e1x6hvFx1szNA
+         SPFg==
+X-Forwarded-Encrypted: i=1; AJvYcCX17SgdRLw1BEPHmO+2Mjuq57702fUWHu1P71k03g5J2Yi+631QgbRt3RRPnjY8YfJstU7H0Zmf7CPR@vger.kernel.org
+X-Gm-Message-State: AOJu0YyrfPX18m1SwLdzYIf6qTNJGPzNB/IdG+b2B3ET1TwA0PtkzTzb
+	8wAh9L5Eb/Tf4yJvTMDTCLSwxdyIKsnCDTLc+Ye/5CgxHF+R74tkM1Z8
+X-Gm-Gg: AeBDiesvgDQ7xiNyDx0g7+D2DnIAp3nLpFsHUbWHzccPZ2sTZM+bla0RpYQ3sauoHAD
+	63M0eoXTH6fBpoWnxlBpltZDiZLRKHwqfXVxsw5Zoqe/03YM0dUUFl1f2LTL7cOM6nmTyJaIcci
+	avS7yiEaejM3Dx447AdZnORXt06HOwGI0DQMvbpNxmvY9QTjDOzhPFb6ChMcj/W4XDiito7okcf
+	8s0qyGkmCjyVrRs1D21IgM9wXoJ0DmFMd0lvUg7gSiRM7j5MGD3oIpJ0biqy2fpoVgH85bqOJdQ
+	g0K6N3My1n1Yic7SxHhiNuhhYPDQkQjJ6KAntTaxDHxX8RZvoQP1jqG2RRafBJFsSnWnxbUc5zr
+	7jNAfbE17rzeJEDWut0bVc74cnY3KEf+7EmKdyfpBOyG1Bxb8YXFy4tIznVAXOhrlOfkLcQCxOt
+	+BHVI+Cf7P37is
+X-Received: by 2002:a05:600c:c0cf:b0:485:3c2e:60d5 with SMTP id 5b1f17b1804b1-4889945f8e8mr108708845e9.2.1775461886934;
+        Mon, 06 Apr 2026 00:51:26 -0700 (PDT)
+Received: from xeon ([188.163.112.56])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488b739e00bsm20393525e9.10.2026.04.06.00.51.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 06 Apr 2026 00:51:26 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5 0/2] rtc: max77686: convert to i2c_new_ancillary_device
+Date: Mon,  6 Apr 2026 10:51:12 +0300
+Message-ID: <20260406075114.25672-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU0PR04MB9251:EE_|AM9PR04MB8652:EE_
-X-MS-Office365-Filtering-Correlation-Id: 39910a20-0daf-41b0-0342-08de93b149f7
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|7416014|19092799006|1800799024|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	a+xt4kXeQ6uatTWi7MFzpalQipY5GwH360Hd5gOhL35PENASyZBPguPaw72yZ/92g4Z6eSKgEE9+/P3H5aIWNteKMkoeIKQQ9lp7FomvcE3wzCDwZJ+VuP2ZwMXQdBJvY+FvA2OuMXZZzADRMoHrRbdhUUl7bTYMEYbMwItoqXLYbMh2C97t904TtfLgTKd2xlfcOcPhoRl2WQPax3JN4RgvT16eMSW+yUWcgElSFpr0CGX/xwibFUfWst3Ks0Y884BNKEy8wpee9+PYXl+4sgPNKcCIu10Tp6cJKS7HfrbnJn6cuQtN6S/g6YbQdGa+4LF3zLg5I1ruHo0hOgVYXWN5sUpQHdsgJh8527G97R6AqwihV5UXPuoZAeDJJ2jjCD2w/VcMXki9sNVU9EB9fI9/tp45orSbs5/1zlaTSqWJwAhcIz1SwDnD85/osZjXCYgd1YwGsVgSJPqCzvrK2Q2lE8l/47udX37Av2HqqZ7UbE9dWku28PDVmljqvTFBIG5KemmqTbKXez27Vmjxk38hRGbqRy2XwhudjiEh6N2mCZsH0d1KwnbqKwqGdP6HQKXdieQTGx1hjZXAR9UA6/2d73wvjSTkh/iEeu14EQr1I4S9V8iSp4cJd3Hfhpqjvmo00ZNPtZ84KDHTwiAJzgYK9ZCkjPj00d5cwWRZ7SKyVzypPLVeonUvKHCc4RuB8M1nwM1Zm5Dk1HXp6DRaECmaPDOfg8S009Ha1eMyFRw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU0PR04MB9251.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(19092799006)(1800799024)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cWdqWHJYbXFURnBZUkxWU1hxY2VYVm1Cc1AvU20xaHpUREhkaVpxcE5peitt?=
- =?utf-8?B?TS9DYklwZHhlVnMvdklXSnU4TUlHK3Q5bnlIMDdpTlM1Q0kvQ1VtOTNDWWZG?=
- =?utf-8?B?ZXI5aTJEZFRQRU5yWlpIVmd1cjVEU2IwSE9PNlFSQmJvMlNIcGtuQjFsSTIx?=
- =?utf-8?B?LzNySkJkaDdCemFnSGlENVhoT2lWZGxnbE1aRjBVUTdHclV3bzVrNTJMS0VD?=
- =?utf-8?B?Lzd0ZG5OSmFsZ2pGOXMyTjd1dVNmRXN5VjdKTC9HaEdDcnNFdWlIZzJQNmFt?=
- =?utf-8?B?bzZqMmFHMFQxYktYUklXZndhTjVpd0pOc0hXS254TWRsaFZac2RZTHpnRS92?=
- =?utf-8?B?cTA2QjBYWGkxVFZ2Wit1dHQ3aElnc1EzOEtOT0o4dFo2dkxqdFVQdkZwTHlT?=
- =?utf-8?B?QUpRejZKQVNMT1hTSkl5dnUrWDh3MHQ4MXdtcXRDSFllV1RvVVE5OUMveUp6?=
- =?utf-8?B?aXE5UFg5Yk10WXZpcVdwNWZFU3FMNEJnb1NmVitqQjdvOTFzOW9mNTUzemdm?=
- =?utf-8?B?L1dlTXpOd2w5b0plYzJ5djNDYm1DaGxzUDQ3Qm0yUXRCREZ3Y1ZPQmhsa1o5?=
- =?utf-8?B?R05ITnhtSnIxUitNTFkvc1Y3cUpYQlU5dmNHL0R3Q0p4djdtLzZ0WEtpSHdS?=
- =?utf-8?B?SVFHZFNxMVdwK09LTXk0ejVnc3BiNVF0NUtqa2Y0bXlaVmVlVHlSd0t4TERs?=
- =?utf-8?B?b2V1ZE8rdThiZk8wb2J1eUFaMjRLWVVQWCt4QzhFcnZoVDFPQ2hQVmlQMjNw?=
- =?utf-8?B?OHp2MW9XUXQvRWdBaUcrVTgrNEFpbitScUI2c1FobTRUT2dTWVRoQmxsM053?=
- =?utf-8?B?MFdMQWhCdkF1NVJzUWZtWkEwY3BWRDM5T0dUQ1ptcFMxTlp2MzNycVJON0JF?=
- =?utf-8?B?VXVwbC9sMDRaR1RXU1pCZE12YktpSW9IWTErL3R2SThVeE9IUTJrVFl3K3Fv?=
- =?utf-8?B?Q1RtTWkraG8vYUJ4RUlmem5Sak92YmNickFCUVAzRUluVFdxb2hHNk5OYTcx?=
- =?utf-8?B?NFVMeVplRjRJM1JZRHVMNHlqcm1GcWV5Y2JBcjRZZkhUMVp1WXpia2U2ekpN?=
- =?utf-8?B?anp0cG42SUh0Z08yTWlZWDJDa1BiYkt3SmdLT1k0akZyaHpYdUdxRmRsQlVS?=
- =?utf-8?B?SmVWeUVyb20yYmhtS25IQXMyV0F6SEpGbXV3S04waENmMmRBZjU1MjgxQ0ov?=
- =?utf-8?B?eklyb0Eybk9aQmRERXNGUC9nTURrTWhiaCsrQWg5M2ZFUXh0Y3hHTmFCc3ZS?=
- =?utf-8?B?c2hLcm1ya0F0dC9JdFcwdzBFSlJYMjdIM1l2S3ZVZDZLTGxDYXZvSDBqeDBs?=
- =?utf-8?B?ZUlxOUV3UHlZcXJnWEd5K3RSSFV0elkzanlRMitCcHBTeWdVUUVteEMxVjAr?=
- =?utf-8?B?Q0QrQ1FIZWNYS2VUU0lQd2FQL2ZlVThRdTlIVGQzSGhWT1JFM05pWTdlUm9j?=
- =?utf-8?B?OXIvN1RpZUowRWxOUXBhVjB5RThHeXhpOFRYVmxBdFA3SGQxL2pRejkxa1Ez?=
- =?utf-8?B?OFRPbGVRUHBodlRZZVo2ZW0zTDEzWWZKVFVHTzl4R1luR2JQbTJObHRtODZx?=
- =?utf-8?B?Q3RJRVFkcDVpbFNXdzA4RTMxR050WnQ0WjRPT3F6TUhvTjZIWVFXQThJVm5S?=
- =?utf-8?B?a3lRanhOUU41T014cmE5WlZ2Tm9xdGlpSW5xNlplSFlFRjlyQVZZMm14eWxF?=
- =?utf-8?B?MjEvS2tYUVRLZTNSNmhIY2pvNmVFZHhXSml2WmRPcmNTNTU0aFNZdlNoc1BL?=
- =?utf-8?B?Yk5iak8ycSsrRzZrUWJpSHp2NCtvUVhiTnlMaVlFY2VZNjBmQVkybHhYVkpD?=
- =?utf-8?B?eU5sT0dZclorRmpNb2Jud0J4bWNtUHQwekt6OEpCdzduMTduZWdkK0QvZFhQ?=
- =?utf-8?B?cDhWSTFDVzFTVVdydkdCbFRxRTA5c3JGWVo3cU43VHRjVTZSYldOeWg2eTln?=
- =?utf-8?B?S3doRGNvVUs5T01BTVlGUE9LMWJRNS9EdDkvT0RsTnNmOFFXT0VoLzFpbnVi?=
- =?utf-8?B?cGpOU0FWMEM0bkJ1YVEycVJiK3NXcVR5TEZnOFZzMlQ4cGZiWHdxeUZZOHVT?=
- =?utf-8?B?SXgxVmVHRW0xaCt2SEZyUVpXMGd5L0doSlJKaWU1dHRDYTBLdmJvR3gxYTNx?=
- =?utf-8?B?L2RYOTRpUUVkM2dqelc5aHhBWUxNSUYzb2xuZ0dRcDhoamlRMForNjlhc010?=
- =?utf-8?B?R01BNVN2LzR3TkdqWnRNanQzbXNEMnEyQUoxWFR3R1QrOW9LaGpYT0hrakVN?=
- =?utf-8?B?a2c1d2JKOVk3YVF4QmpWQXZYRE93Z2JPdWZ3ZTkwcFZDVXl0K0RFUENoRm11?=
- =?utf-8?B?ZC9FdnVSa0ovelBQT2FvUW5rU05mbEhjUExadHErUjV2T2Z0NXFvZ2tnUTVj?=
- =?utf-8?Q?svKkTASa/5eDCymM=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 39910a20-0daf-41b0-0342-08de93b149f7
-X-MS-Exchange-CrossTenant-AuthSource: DU0PR04MB9251.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2026 07:51:19.5878
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lHOj8JYlYqoz28UM6SHdiUtXX07UIEv7aHadCt/mLAe+A6JiDgUCDS7himhjjgGhs246hV6qhFHVMRZLccUCXCpOCPMI4bbET1E4XIp80yA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8652
+Content-Transfer-Encoding: 8bit
 
-On 3/26/2026 3:58 PM, Ciprian Costea wrote:
-> From: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
-> 
+Convert RTC I2C device creation from devm_i2c_new_dummy_device() to
+i2c_new_ancillary_device() to enable the use of a device tree-specified
+RTC address instead of a hardcoded value. If the device tree does not
+provide an address, use hardcoded values as a fallback.
 
-Hello Marc,
+This addresses an issue with the MAX77663 PMIC, which can have the RTC at
+different I2C positions (either 0x48, like the MAX77714, or 0x68, like
+the MAX77620). The MAX77620 value is used as the default. The I2C position
+of the MAX77663 is factory-set and cannot be detected from the chip
+itself.
 
-I was wondering if you had a chance to look at v4 of this series.
-I've integrated all your suggestions from v3. Please let me know if you
-see any further issues.
+I have tested this patch on LG Optimus Vu P895 with max77663 PMIC and
+non-default RTC position. RTC is registered correctly.
 
-Best Regards,
-Ciprian
+---
+Changes in v5
+- fixed pincontrol schema
+- dropped applied patches
 
-> This patch series adds FlexCAN support for the NXP S32N79 SoC.
-> 
-> The S32N79 is an automotive-grade processor from NXP with multiple
-> FlexCAN instances. The FlexCAN IP integration on S32N79 differs from
-> other SoCs in the interrupt routing - it uses two separate interrupt
-> lines:
->    - one interrupt for mailboxes 0-127
->    - one interrupt for bus error detection and device state changes
-> 
-> The CAN controllers are connected through an irqsteer interrupt
-> controller in the RCU (Resource Control Unit) domain.
-> 
-> This series:
->    1. Splits flexcan_irq() into dedicated handlers for multi-IRQ platforms
->    2. Adds dt-bindings documentation for S32N79 FlexCAN
->    3. Introduces FLEXCAN_QUIRK_IRQ_BERR to handle the two-interrupt
->       configuration
->    4. Adds S32N79 device data and compatible string to the driver
->    5. Adds FlexCAN device tree nodes for S32N79 SoC
->    6. Enables FlexCAN devices on the S32N79-RDB board
-> 
-> Tested on S32N79-RDB board with CAN and CAN FD communication.
-> 
-> v4 -> v3
-> - flexcan_chip_interrupts_enable(): disable/enable all IRQ lines
->    (not just dev->irq) during IMASK register writes
-> - Split rx/tx masks per mailbox IRQ line (struct flexcan_mb_irq) so
->    each handler on S32G2 only processes its own MB range
-> - Added received Acked-by tag on DT bindings patch
-> 
-> v3 -> v2
-> - Split flexcan_irq() into dedicated handlers (flexcan_irq_mb,
->    flexcan_irq_boff, flexcan_irq_berr) to fix duplicate event
->    processing when multiple IRQ lines run concurrently (new patch).
-> - Added flexcan_irq_esr() handler composing state + berr for S32N79
-> - Ordered quirks used by s32n devtype data by value.
-> 
-> v2 -> v1
-> - Renamed FLEXCAN_QUIRK_NR_IRQ_2 to FLEXCAN_QUIRK_IRQ_BERR to better
-> describe the actual hardware feature
-> - Appended new quirk at the end
-> - Switched from platform_get_irq to platform_get_irq_byname usage
-> - Updated interrupt description in dt-bindings
-> 
-> Ciprian Marian Costea (8):
->    can: flexcan: use dedicated IRQ handlers for multi-IRQ platforms
->    can: flexcan: disable all IRQ lines in
->      flexcan_chip_interrupts_enable()
->    can: flexcan: split rx/tx masks per mailbox IRQ line
->    dt-bindings: can: fsl,flexcan: add NXP S32N79 SoC support
->    can: flexcan: add FLEXCAN_QUIRK_IRQ_BERR quirk
->    can: flexcan: add NXP S32N79 SoC support
->    arm64: dts: s32n79: add FlexCAN nodes
->    arm64: dts: s32n79: enable FlexCAN devices
-> 
->   .../bindings/net/can/fsl,flexcan.yaml         |  30 ++-
->   arch/arm64/boot/dts/freescale/s32n79-rdb.dts  |  12 +
->   arch/arm64/boot/dts/freescale/s32n79.dtsi     |  50 ++++
->   drivers/net/can/flexcan/flexcan-core.c        | 249 +++++++++++++++---
->   drivers/net/can/flexcan/flexcan.h             |  12 +-
->   5 files changed, 316 insertions(+), 37 deletions(-)
-> 
+Changes in v4
+- adjusted pinconfig node naming
+- changed interrupt in the example
+- fixed indentation in the example
+- corrected pinconfig node name in the example
+- commit "dt-bindings: gpio: trivial-gpio: remove max77620 compatible"
+  squashed with the converting patch for this compatible
+
+Changes in v3
+- max77620 files converted to DT schema.
+
+Changes in v2
+- dropped patch that changes max77686 and adjusted max77620 where max77663
+  is described.
+---
+
+Svyatoslav Ryhel (2):
+  regulator: dt-bindings: regulator-max77620: convert to DT schema
+  dt-bindings: pinctrl: pinctrl-max77620: convert to DT schema
+
+ .../pinctrl/maxim,max77620-pinctrl.yaml       |  98 ++++++++
+ .../bindings/pinctrl/pinctrl-max77620.txt     | 127 ----------
+ .../regulator/maxim,max77620-regulator.yaml   |  99 ++++++++
+ .../bindings/regulator/regulator-max77620.txt | 222 ------------------
+ 4 files changed, 197 insertions(+), 349 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/maxim,max77620-pinctrl.yaml
+ delete mode 100644 Documentation/devicetree/bindings/pinctrl/pinctrl-max77620.txt
+ create mode 100644 Documentation/devicetree/bindings/regulator/maxim,max77620-regulator.yaml
+ delete mode 100644 Documentation/devicetree/bindings/regulator/regulator-max77620.txt
+
+-- 
+2.51.0
 
