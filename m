@@ -1,68 +1,66 @@
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAC10313E3F
-	for <devicetree@vger.kernel.org>; Mon,  6 Apr 2026 08:30:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F247826290
+	for <devicetree@vger.kernel.org>; Mon,  6 Apr 2026 08:32:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775464218; cv=none; b=LUfjZ5MGgdz+GqUjjL+0W9Z9WPTFFtfD+Qg/UROpI5UYw7hlnOQ6b50m6HkVVzRznGdYgr9BdfjfjHBBZYJu+9xxgplfbcsCmEGh6XDU7wtSW7o/x32wD7onTNoMSjHQJI1zTk51UoO/sSyDXg88DsR55zRZSjrvYf+zLA7x5t8=
+	t=1775464345; cv=none; b=aashM3afE5JzHyJ4PfKapd1Ke2HMosZs8zKnHXP0M7vlLRcxCNr49NEtXGHypX1yh4THfe3nX6emKj+6sFEOsGxTd+fOarw5pMZEScmAwaAZ13SxAqGHVc/gQJEx/FCJSlvg+fmVFjJGiM0VqY+judTsqepft+P4tytrG5Yuej8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775464218; c=relaxed/simple;
-	bh=L+zjCaASV8eC5Xeu78ztEo1YtyxhiKV/KuPydI1zhnI=;
+	s=arc-20240116; t=1775464345; c=relaxed/simple;
+	bh=igxfLzjNRzlg/VIKwNlvJVJy0GbqwQZ5ZRoK9S4PnPo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=neEt7bvjXqCAg28gAoKyNLee3fkP3Wfaefgv9bseGdBl+iX+xabjV3FOBqQDaqfvRxMCtNCatz4+7/HQgaIbqbx3IPL0W9ZdsPTum1ZVd0mcExWWdQVpLAmbVUONfIhyuRFFZMNHP9ZNn8q78jVUAaNc08YsrkkRItYlPSU/Ct4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=bgtcsrVh; arc=none smtp.client-ip=209.85.208.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	 In-Reply-To:Content-Type; b=DSn7/H9z6Js4KxRhHJotkKV+ZJV/SQYMpSkRxwHFi3kLgem0P3JDljdXPnmTFftlIOqaD69/IbOrAG1V1NAGpS9EvVh5mrrAaMl3iu6nPgMApo0p6tutYO0aJp/AXIXZbDTuGIzacaDUghhPkm64ih+edMXzBARG4iy6qMaS6U0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GmUz+v2c; arc=none smtp.client-ip=209.85.210.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="bgtcsrVh"
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-66e6d9610d8so2804195a12.0
-        for <devicetree@vger.kernel.org>; Mon, 06 Apr 2026 01:30:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GmUz+v2c"
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-82a893d289bso1543322b3a.0
+        for <devicetree@vger.kernel.org>; Mon, 06 Apr 2026 01:32:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1775464214; x=1776069014; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1775464343; x=1776069143; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=U4k25bC6pQIW8dbVgLC4WK4MeZOyKN/cf2hTHzPYsao=;
-        b=bgtcsrVhFTTksjh27JDfo4d/DvzYpzh/YftE3Ur8ukTeB69GdbumIviAS4F6xryuf2
-         YZqGS22Qedpvo4iilL940Pn1zDRAepmbt2ASQfbwyiQTwOOxBSDDXCiK35diA6ZjHN8F
-         E/0Yd8l0IPBhkIaksDU0XbC0slqIaf+AXSvbmrd/C5mhKLI0kQjcrix5cMo9AT2UFpKT
-         vhkCs07Qp2wdcRbLnXftVbzaKsdphyXi4Pnx0WVswsD+YUn18EAkRR4hoyELHcr9uyto
-         tk5FKJOjmEiXaREBRiQCKan6mZOFRYpY+A5X5VS9MzqofsVt7Etb3SLo6O/rlURMa+z/
-         ZNIw==
+        bh=MB0F9SKYr6+JVse3TW9scM+eJP0jATRzNvx3luR3WWo=;
+        b=GmUz+v2c0R3jjxouaf+THoETYPhFXd0OdDV2qVtrNBptcqrXP6P2vgAtjsnKqARH3m
+         GA1jedlwacWICEQSv61fJdaEswRiMkLPFGGj9ZakUIMOZP8hMwPSfuar3/4zEcDZysYn
+         09fMK53cEW8l05JntsGt7E8ca0NxN09CHi+iYyIkKVERGemCF0vAW956HuhPMYYXfvpH
+         GxKr5AEMtgnGN8CBAC9/zoqM0Cxuc94GKIE/rtmdXj0tlQsWLt3lEuc3R7GeS+LeqV79
+         rPLlSbNV5/g5nUJsDs2YQIzejzSMyLuii+p0/VqQB9wQDJufD4S9KAjy95oOZ9R6GrFC
+         W9TA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775464214; x=1776069014;
+        d=1e100.net; s=20251104; t=1775464343; x=1776069143;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=U4k25bC6pQIW8dbVgLC4WK4MeZOyKN/cf2hTHzPYsao=;
-        b=tIrZBOTgIJ9Vf7i6mRmKHrVF8L/EHIr8Pn2Va6ermpJ7aFQsQ6hZRNV+fSqLseLo9v
-         Do0N0r6B+K625Qu/K9rys+8bCuWlbcHwvJezfNkVkCIgl/iekO/AOlUS4dEv4brYR3+w
-         J5dHR24VegYKxPFVb4ZUc9FB8AfH3CDa4wD89g/h2gCwQtFQE7a6g2ndc9CO/1E1C6a/
-         7I8EshROEl6pAOXGmUSVan8y7UqxZtEo9cfoSmx8K56yQkkJbVcyklXvWePj7tv9K8R+
-         +/vK4zfkhp2MlHSignD/nqyuoxyCRLOtQDiucynGTmOKwicJO2v4HIO4bwRNC9meuXS9
-         FOFg==
-X-Forwarded-Encrypted: i=1; AJvYcCVe6pYLrBb6yxINUlUT6cul1piKTLRTkmc9/Y8zjkPktY1vipiYj0KHcCDFsgvHWg4eFXAoS94R9Lrv@vger.kernel.org
-X-Gm-Message-State: AOJu0YwpGf8LWQdWC1vxUsDwGek/CvmwKM8asJCsLWNNM8uKSFoqjpLy
-	KD4rE9xL/S5R6gtCI+b+ULJ+CB59+Yw/PFwVnEEx1Se/LeS4VuEH38Q9f/H2uZkF+Cw=
-X-Gm-Gg: AeBDiesPbtom3z+Gr4RPNygaKLn5K/HSiyzNc5Ec6Bw6Q0jr+54bDQBCRBDwXpG/Qaj
-	LlGC/Pt8kZ86SwdInB883Iw05hqRTFbAjBbKqh7/4a15fZfIGUcBWKRnFhDNyr5dfiMjZgA6N5j
-	72oK/vP8jnrNqeiBGkXwj84X8o/AwXEop9SMomTT/gYOR+yADSreaViwMsCXQ8rynhfLSB4HG1k
-	CJTuxeGeIdRmoNbErNd4JP9imVfZ7Y2r5VfCmhtWAo/RuAGjPpgG3UH4syn+6EGIeILSHSNlR/u
-	w9E886ZA1OkiM4cnXmwnzCstjBLL0DbmV3kCmadozN4WmlaQiz/PjJHflJEw0klYJK/X+foyyjT
-	Kqy4yQmNwKz40JqflEsf2k5v0wBdGXy3oBB8qPdJiZfgeFBoJ7llZiFyhksazDM0rcBSi7euzXm
-	6PhThB/x/B+8nYZbUBliSTqatvaeYna9Hsef5dLEanF93Qyzip+jD+CKnxpIygOtu4CUr8LI8AM
-	jroPJOB9e+UCdMyoxsF5H8qoLhiTI464FyhOy1lUhbxB0R+uTb00FeVaR+izPh7ELH20DoXNLxW
-	qZF5CMEVEOewAQ==
-X-Received: by 2002:a17:907:6d0c:b0:b9c:94a3:317d with SMTP id a640c23a62f3a-b9c94a3345fmr366588166b.37.1775464213853;
-        Mon, 06 Apr 2026 01:30:13 -0700 (PDT)
-Received: from ?IPV6:2001:1c06:2302:5600:7555:cca3:bbc4:648b? (2001-1c06-2302-5600-7555-cca3-bbc4-648b.cable.dynamic.v6.ziggo.nl. [2001:1c06:2302:5600:7555:cca3:bbc4:648b])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9c3ca94715sm467753366b.21.2026.04.06.01.30.12
+        bh=MB0F9SKYr6+JVse3TW9scM+eJP0jATRzNvx3luR3WWo=;
+        b=Vz8RVkX3tAJRzFRzA771xFKBuoC0pUtJR7pAc2Gxe7m5dRIGju7o+Ej1eXxS8FzFR0
+         UWk1luv9luf0fjUCnl3cSx0HC2aPc5ab2QQvPKaXn9q4S8OGyLkHeAp1lTnviGKQSmCw
+         l4qFMnKmBGA2XsSG6qhmG5JYnKvXFeMAkCs/9NtSSqvF3URWy0FOQnwztqIDv13U2erY
+         0AA2hOU0VyF3t7CcxFLGjxnamMB4CctZzxl/r3YEqc3aLdQBz6UgRRCu+z/xMpxfhjPP
+         /ouBEcY4+87b7SszGsJVLUb43Ne+8hAc3FhJRSBlZFWsSTBbMUFO+/dRDTSKQr4YJw/u
+         fa8A==
+X-Forwarded-Encrypted: i=1; AJvYcCX+PZwz9kWBgFs9907Vkpkdv6o0HfZlzjTPpaQiZVQItmaCrROK1g/Bxbk7cS5vrqxOffXPpZjVC8mb@vger.kernel.org
+X-Gm-Message-State: AOJu0YyVZ+zK0H5dym6E+l+dzYplL5RudaM8EG4P7m0mn1SmGK4JYVys
+	EkkB5OPXGnrcjwRKTzUBitw1v2Z4tDyAHA4FzoDie2bEM9NKkUBO/iBu
+X-Gm-Gg: AeBDievLLYtH1o0St9e8ppZZkOBQojJnMy72svBoZaRIwP/QNuP3mhCqcMeDVAnp71P
+	WwahUUNOjDZdX9iCTXq2Ygy0cy+xt2v8fYDRxEX/vYqywyF5UMDYAbMf9STYTq5WRaNrJxkW5xY
+	ZmgAG78y2WaI6hw5tTwPdCxNAXH4RSEoSHX2MNFLDjrpnWk/b4ytEzSfN5PrUNaEbC1zBRMYEfh
+	vz65B5kQG6DUQ4acrXuX0JxqqQH9Fm2ENa2pOb6tuxMkSI2BnmHaYL5kZhEmBd52gF1rCO/Ylh3
+	l0aKb9Dg6U0osI7ZxyBwjtSITOmjCNIsdMJBFghyOmGNklSfT4E3dlE6JjZG8mw/X9pKKmz1o9F
+	HPSwl2fn7gbJRa3YfnvSN5RICkqah2OuSlkiEKizf4ouXeajqxmPg5sHxVNAVnEMkUQRG+/2ZE+
+	Mcbo+Hc8LXKlqNoXLDzBxR711VODOOgjo+D60+/q23EDh9jAw=
+X-Received: by 2002:a05:6a00:1745:b0:82c:21df:807a with SMTP id d2e1a72fcca58-82d0db6ac7bmr11028578b3a.26.1775464343129;
+        Mon, 06 Apr 2026 01:32:23 -0700 (PDT)
+Received: from [172.16.20.13] ([136.226.252.245])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82cf9b6113dsm12306813b3a.23.2026.04.06.01.32.15
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 06 Apr 2026 01:30:13 -0700 (PDT)
-Message-ID: <02f5a943-bfbd-46d8-a7f1-7f3a5d54ac65@linaro.org>
-Date: Mon, 6 Apr 2026 09:30:12 +0100
+        Mon, 06 Apr 2026 01:32:22 -0700 (PDT)
+Message-ID: <68015824-8b8a-4349-a681-163a8ca3b5bc@gmail.com>
+Date: Mon, 6 Apr 2026 14:02:14 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,494 +68,181 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] platform: arm64: dell-xps-ec: new driver
-To: Aleksandrs Vinarskis <alex@vinarskis.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
- laurentiu.tudor1@dell.com, Abel Vesa <abel.vesa@oss.qualcomm.com>,
- Tobias Heider <tobias.heider@canonical.com>, Val Packett <val@packett.cool>
-References: <20260404-dell-xps-9345-ec-v2-0-c977c3caa81f@vinarskis.com>
- <20260404-dell-xps-9345-ec-v2-2-c977c3caa81f@vinarskis.com>
- <6be0cefb-72e4-4a8a-8668-45994db6c5d8@linaro.org>
- <P9IQ5Penud7CH3Yfn0bw0RXJfIhFhFGksRjP-aZwLoAxmajMfeOtLEItrcWOXwVjHE_zObIA8SYjcPVR9dkAk9KgDYLun0DJJ6dBIU-IRDI=@vinarskis.com>
+Subject: Re: [PATCH v2 2/2] drm: bridge: ti-sn65dsi83: Add support for
+ dual-link LVDS video mode
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, andrzej.hajda@intel.com,
+ neil.armstrong@linaro.org, rfoss@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, marex@denx.de,
+ valentin@compulab.co.il, philippe.schenker@toradex.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20260312043743.261475-1-tessolveupstream@gmail.com>
+ <20260312043743.261475-3-tessolveupstream@gmail.com>
+ <DH0X6JQP0ZIW.3F4LJLIEMWH8M@bootlin.com>
+ <9a9e13a5-411a-40bc-b52f-4345e7f6b92e@gmail.com>
+ <DH5S3RB2XZ31.3C994FZK5U4OV@bootlin.com>
 Content-Language: en-US
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-In-Reply-To: <P9IQ5Penud7CH3Yfn0bw0RXJfIhFhFGksRjP-aZwLoAxmajMfeOtLEItrcWOXwVjHE_zObIA8SYjcPVR9dkAk9KgDYLun0DJJ6dBIU-IRDI=@vinarskis.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: tessolveupstream@gmail.com
+In-Reply-To: <DH5S3RB2XZ31.3C994FZK5U4OV@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05/04/2026 21:48, Aleksandrs Vinarskis wrote:
-> On Sunday, April 5th, 2026 at 02:29, Bryan O'Donoghue <bryan.odonoghue@linaro.org> wrote:
+
+
+On 18-03-2026 14:22, Luca Ceresoli wrote:
+> Hello Sudarshan,
 > 
->> On 04/04/2026 13:55, Aleksandrs Vinarskis wrote:
->>> Introduce EC driver for Dell XPS 13 9345 (codename 'tributo') which may
->>> partially of fully compatible with Snapdragon-based Dell Latitude,
->>> Inspiron ('thena'). Primary function of this driver is unblock EC's
->>> thermal management, specifically to provide it with necessary
->>> information to control device fans, peripherals power.
+> On Wed Mar 18, 2026 at 6:53 AM CET, tessolveupstream wrote:
+>>>> +	if (ctx->dual_link_video_mode) {
+>>>> +		regmap_write(ctx->regmap, REG_RC_LVDS_PLL, 0x05);
+>>>> +		regmap_write(ctx->regmap, REG_RC_PLL_EN, 0x00);
+>>>> +		regmap_write(ctx->regmap, REG_DSI_CLK, 0x53);
+>>>> +		regmap_write(ctx->regmap, REG_LVDS_FMT, 0x6f);
+>>>> +		regmap_write(ctx->regmap, REG_LVDS_VCOM, 0x00);
+>>>> +		regmap_write(ctx->regmap,
+>>>> +			     REG_VID_CHA_VERTICAL_DISPLAY_SIZE_LOW, 0x00);
+>>>> +		regmap_write(ctx->regmap,
+>>>> +			     REG_VID_CHA_VERTICAL_DISPLAY_SIZE_HIGH, 0x00);
+>>>> +		regmap_write(ctx->regmap,
+>>>> +			     REG_VID_CHA_HSYNC_PULSE_WIDTH_LOW, 0x10);
+>>>> +		regmap_write(ctx->regmap,
+>>>> +			     REG_VID_CHA_HORIZONTAL_BACK_PORCH, 0x28);
+>>>> +		regmap_write(ctx->regmap,
+>>>> +			     REG_VID_CHA_VERTICAL_BACK_PORCH, 0x00);
+>>>> +		regmap_write(ctx->regmap,
+>>>> +			     REG_VID_CHA_HORIZONTAL_FRONT_PORCH, 0x00);
+>>>> +		regmap_write(ctx->regmap,
+>>>> +			     REG_VID_CHA_VERTICAL_FRONT_PORCH, 0x00);
+>>>> +	}
 >>>
->>> The driver was developed primarily by analyzing ACPI DSDT's _DSM and
->>> i2c dumps of communication between SoC and EC. Changes to Windows
->>> driver's behavior include increasing temperature feed loop from ~50ms
->>> to 100ms here.
->>>
->>> While Xps's EC is rather complex and controls practically all device
->>> peripherals including touch row's brightness and special keys such as
->>> mic mute, these do not go over this particular i2c interface.
->>>
->>> Not yet implemented features:
->>> - On lid-close IRQ event is registered. Windows performs what to
->>>     appears to be thermistor constants readout, though its not obvious
->>>     what it used for.
->>> - According to ACPI's _DSM there is a method to readout fans' RPM.
->>> - Initial thermistor constants were sniffed from Windows, these can be
->>>     likely fine tuned for better cooling performance.
->>> - There is additional temperature reading that Windows sents to EC but
->>>     more rare than others, likely SoC T_j / TZ98 or TZ4. This is the only
->>>     thermal zone who's reading can exceed 115C without triggering thermal
->>>     shutdown.
->>> - Given similarities between 'tributo' and 'thena' platforms, including
->>>     EC i2c address, driver can be potentially extended to support both.
->>>
->>> Signed-off-by: Aleksandrs Vinarskis <alex@vinarskis.com>
->>> ---
->>>    MAINTAINERS                          |   1 +
->>>    drivers/platform/arm64/Kconfig       |  12 ++
->>>    drivers/platform/arm64/Makefile      |   1 +
->>>    drivers/platform/arm64/dell-xps-ec.c | 267 +++++++++++++++++++++++++++++++++++
->>>    4 files changed, 281 insertions(+)
->>>
->>> diff --git a/MAINTAINERS b/MAINTAINERS
->>> index a5d175559f4468dfe363b319a1b08d3425f4d712..c150f57b60706224e5b24b0dfb3d8a9b81f36398 100644
->>> --- a/MAINTAINERS
->>> +++ b/MAINTAINERS
->>> @@ -7240,6 +7240,7 @@ DELL XPS EMBEDDED CONTROLLER DRIVER
->>>    M:	Aleksandrs Vinarskis <alex@vinarskis.com>
->>>    S:	Maintained
->>>    F:	Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml
->>> +F:	drivers/platform/arm64/dell-xps-ec.c
->>>
->>>    DELTA AHE-50DC FAN CONTROL MODULE DRIVER
->>>    M:	Zev Weiss <zev@bewilderbeest.net>
->>> diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kconfig
->>> index 10f905d7d6bfa5fad30a0689d3a20481268c781e..0bc8f016032bb05cb3a7cc50bdf1092da04153bc 100644
->>> --- a/drivers/platform/arm64/Kconfig
->>> +++ b/drivers/platform/arm64/Kconfig
->>> @@ -33,6 +33,18 @@ config EC_ACER_ASPIRE1
->>>    	  laptop where this information is not properly exposed via the
->>>    	  standard ACPI devices.
->>>
->>> +config EC_DELL_XPS
->>> +	tristate "Dell XPS 9345 Embedded Controller driver"
->>> +	depends on ARCH_QCOM || COMPILE_TEST
->>> +	depends on I2C
->>> +	depends on IIO
->>> +	help
->>> +	  Driver for the Embedded Controller in the Qualcomm Snapdragon-based
->>> +	  Dell XPS 13 9345, which handles thermal management and fan speed
->>> +	  control.
->>> +
->>> +	  Say M or Y here to include this support.
->>> +
->>>    config EC_HUAWEI_GAOKUN
->>>    	tristate "Huawei Matebook E Go Embedded Controller driver"
->>>    	depends on ARCH_QCOM || COMPILE_TEST
->>> diff --git a/drivers/platform/arm64/Makefile b/drivers/platform/arm64/Makefile
->>> index 60c131cff6a15bb51a49c9edab95badf513ee0f6..6768dc6c2310837374e67381cfc729bed1fdaaef 100644
->>> --- a/drivers/platform/arm64/Makefile
->>> +++ b/drivers/platform/arm64/Makefile
->>> @@ -6,6 +6,7 @@
->>>    #
->>>
->>>    obj-$(CONFIG_EC_ACER_ASPIRE1)	+= acer-aspire1-ec.o
->>> +obj-$(CONFIG_EC_DELL_XPS)	+= dell-xps-ec.o
->>>    obj-$(CONFIG_EC_HUAWEI_GAOKUN)	+= huawei-gaokun-ec.o
->>>    obj-$(CONFIG_EC_LENOVO_YOGA_C630) += lenovo-yoga-c630.o
->>>    obj-$(CONFIG_EC_LENOVO_THINKPAD_T14S) += lenovo-thinkpad-t14s.o
->>> diff --git a/drivers/platform/arm64/dell-xps-ec.c b/drivers/platform/arm64/dell-xps-ec.c
->>> new file mode 100644
->>> index 0000000000000000000000000000000000000000..bf1495fbe473ccdb82b95a66b56e8525f782cc8e
->>> --- /dev/null
->>> +++ b/drivers/platform/arm64/dell-xps-ec.c
->>> @@ -0,0 +1,267 @@
->>> +// SPDX-License-Identifier: GPL-2.0-only
->>> +/*
->>> + * Copyright (c) 2026, Aleksandrs Vinarskis <alex@vinarskis.com>
->>> + */
->>> +
->>> +#include <linux/array_size.h>
->>> +#include <linux/dev_printk.h>
->>> +#include <linux/device.h>
->>> +#include <linux/devm-helpers.h>
->>> +#include <linux/err.h>
->>> +#include <linux/i2c.h>
->>> +#include <linux/iio/consumer.h>
->>> +#include <linux/interrupt.h>
->>> +#include <linux/jiffies.h>
->>> +#include <linux/module.h>
->>> +#include <linux/pm.h>
->>> +#include <linux/unaligned.h>
->>> +#include <linux/workqueue.h>
->>> +
->>> +#define DELL_XPS_EC_SUSPEND_CMD		0xb9
->>> +#define DELL_XPS_EC_SUSPEND_MSG_LEN	64
->>> +
->>> +#define DELL_XPS_EC_TEMP_CMD0		0xfb
->>> +#define DELL_XPS_EC_TEMP_CMD1		0x20
->>> +#define DELL_XPS_EC_TEMP_CMD3		0x02
->>> +#define DELL_XPS_EC_TEMP_MSG_LEN	6
->>> +#define DELL_XPS_EC_TEMP_POLL_JIFFIES	msecs_to_jiffies(100)
->>> +
->>> +/*
->>> + * Format:
->>> + * - header/unknown (2 bytes)
->>> + * - per-thermistor entries (3 bytes): thermistor_id, param1, param2
->>> + */
->>> +static const u8 dell_xps_ec_thermistor_profile[] = {
->>> +	0xff, 0x54,
->>> +	0x01, 0x00, 0x2b,	/* sys_therm0 */
->>> +	0x02, 0x44, 0x2a,	/* sys_therm1 */
->>> +	0x03, 0x44, 0x2b,	/* sys_therm2 */
->>> +	0x04, 0x44, 0x28,	/* sys_therm3 */
->>> +	0x05, 0x55, 0x2a,	/* sys_therm4 */
->>> +	0x06, 0x44, 0x26,	/* sys_therm5 */
->>> +	0x07, 0x44, 0x2b,	/* sys_therm6 */
->>> +};
->>> +
->>> +/*
->>> + * Mapping from IIO channel name to EC command byte
->>> + */
->>> +static const struct {
->>> +	const char *name;
->>> +	u8 cmd;
->>> +} dell_xps_ec_therms[] = {
->>> +	/* TODO: 0x01 is sent only occasionally, likely TZ98 or TZ4 */
->>> +	{ "sys_therm0", 0x02 },
->>> +	{ "sys_therm1", 0x03 },
->>> +	{ "sys_therm2", 0x04 },
->>> +	{ "sys_therm3", 0x05 },
->>> +	{ "sys_therm4", 0x06 },
->>> +	{ "sys_therm5", 0x07 },
->>> +	{ "sys_therm6", 0x08 },
->>> +};
->>
->> You could probably retrieve these strings from the dt if you really need
->> them.
->>
->> I don't think you need static consts in your driver though you could
->> just as easily do `sprintf("sys_therm%d\n", i) where you use
->> ec_therms[i].name - the name is only used to print errors and you have
->> the index of the channel when you do.
->>
->> It would be nicer to get the strings from DT - certainly make the string
->> names mandatory but, then let the DT specify those names.
->>
->> Either that or just do the sprintf("sys_therm%d\n", i); for the index,
->> whichever you wish yourself.
-> 
-> Hi Bryan,
-> 
-> Will answer here to all three comments about `sys_thermX`.
-> 
-> The reason I have added them as static consts here, and defined them in
-> the schema is because the order of the channels matters:
-
-Two different things.
-
-You have an array of strings here which you only use to print two error 
-messages, you always know the index, so you don't need those strings.
-
-At the same time, you could read the assigned names in the DT if you 
-_really_ care to print the names.
-
-You don't match the static names in the .c file to the .dts so the 
-consts here serve no purpose.
-
-Ideally you'd read the names out of DT - which is what I recommend. You 
-then print the name you read from the DT via an index.
-
-> 1. On my XPS (UEFI v2.11.0) changes in sys_therm2 immediately result in
->     changes in fan speeds. Other channels seemingly have no affect, at
->     least when spoofed one by one, implying that EC cares which value
->     is which.
-> 2. As I do not know internals of the EC firmware, even if today the other
->     thermistor channels ordering is seemingly not relevant, we cannot be
->     sure it will not change with EC firmware upgrade.
-
-But the PCB maps certain ADC channels to certain thermistors the lpddr5 
-thermistor always maps to the lpddr5 thermistor and adc input 0 on the 
-EC, that won't change with a firmware upgrade, the PCB is the PCB.
-
-> I have reconstructed the order of channels by comparing i2c data dumps
-> and real-time temps on Windows, eg. sys_therm0 is sent to EC under id 0x02
-> and represents the TZ71 (around dram on XPS). There is no other reason to
-> have the names of the channels in this driver except for enforcing the
-> channel mapping, so `sprintf("sys_therm%d\n", i)` wouldn't be useful.
-> 
-> By allowing source and sink to define the names and not enforcing it in
-> schema we lose ability to force the correct order, there is no way of
-> knowing whether "lpddr5-therm" or "ssd-therm" goes first. 
-
-But there is, by looking at the schematics. You have the correct order 
-now and it maps to what the schematics say, I checked.
-
-By forcing
-> "sys_thermX" convention, one would need to figure which one is which,
-> for example by referring to laptop schematics. I assume, "thena"'s
-> schematics has thermistors labeled as "sys_thermX"?
-> 
-> I do agree that labels of the ADC nodes could be more useful for the
-> user. So far I followed the example of sc8280xp platforms that define
-> ADC channels with "sys_thermX". Perhaps, we could separate the
-> io-channel-names and ADC node labels then? eg:
-
-I mean it doesn't matter a whole lot to me how the source and the sink 
-connect in DT.
-
-BTW if we denoted the source and the sink lpddr5 today and the firmware 
-was changed the name of the mapping would be wrong but the functional 
-conneciton would still be correct.
-
-So I'm not very concerned about source/sink names, its a bike shed
-
-> + io-channel-names = "sys_therm0",
-> + 		     "sys_therm1",
-> ...
-> 
-> + &pmk8550_vadc {
-> +	sys_therm0: channel@14c {
-> + 		reg = <PM8350_ADC7_GPIO3_100K_PU(1)>;
-> + 		qcom,hw-settle-time = <200>;
-> + 		qcom,ratiometric;
-> + 		label = "lpddr5x-therm";
-> 
-> Though not sure if such approach is 'legal'?
-
-I mean the important thing is what user-space "sees" right ? I believe 
-the label here is that but, please check.
-
-A list of sys_therm0 entries in the dropdown from waybar is 100% meh, 
-but if I can see "CPU temp" spike I suddenly have useful information.
-
-
-> 
-> Alex
-> 
->>
->>> +
->>> +struct dell_xps_ec {
->>> +	struct device *dev;
->>> +	struct i2c_client *client;
->>> +	struct iio_channel *therm_channels[ARRAY_SIZE(dell_xps_ec_therms)];
->>> +	struct delayed_work temp_work;
->>> +};
->>> +
->>> +static int dell_xps_ec_suspend_cmd(struct dell_xps_ec *ec, bool suspend)
->>> +{
->>> +	u8 buf[DELL_XPS_EC_SUSPEND_MSG_LEN] = {};
->>> +	int ret;
->>> +
->>> +	buf[0] = DELL_XPS_EC_SUSPEND_CMD;
->>> +	buf[1] = suspend ? 0x01 : 0x00;
->>> +	/* bytes 2..63 remain zero */
->>> +
->>> +	ret = i2c_master_send(ec->client, buf, sizeof(buf));
->>> +	if (ret < 0)
->>> +		return ret;
->>> +
->>> +	return 0;
->>> +}
->>> +
->>> +static int dell_xps_ec_send_temp(struct dell_xps_ec *ec, u8 cmd_byte,
->>> +				 int milli_celsius)
->>> +{
->>> +	u8 buf[DELL_XPS_EC_TEMP_MSG_LEN];
->>> +	u16 deci_celsius;
->>> +	int ret;
->>> +
->>> +	/* Convert milli-Celsius to deci-Celsius (Celsius * 10) */
->>> +	deci_celsius = milli_celsius / 100;
->>> +
->>> +	buf[0] = DELL_XPS_EC_TEMP_CMD0;
->>> +	buf[1] = DELL_XPS_EC_TEMP_CMD1;
->>> +	buf[2] = cmd_byte;
->>> +	buf[3] = DELL_XPS_EC_TEMP_CMD3;
->>> +	put_unaligned_le16(deci_celsius, &buf[4]);
->>> +
->>> +	ret = i2c_master_send(ec->client, buf, sizeof(buf));
->>> +	if (ret < 0)
->>> +		return ret;
->>> +
->>> +	return 0;
->>> +}
->>> +
->>> +static void dell_xps_ec_temp_work_fn(struct work_struct *work)
->>> +{
->>> +	struct dell_xps_ec *ec = container_of(work, struct dell_xps_ec,
->>> +					      temp_work.work);
->>> +	int val, ret, i;
->>> +
->>> +	for (i = 0; i < ARRAY_SIZE(dell_xps_ec_therms); i++) {
->>> +		if (!ec->therm_channels[i])
->>> +			continue;
->>> +
->>> +		ret = iio_read_channel_processed(ec->therm_channels[i], &val);
->>> +		if (ret < 0) {
->>> +			dev_err_ratelimited(ec->dev,
->>> +					    "Failed to read thermistor %s: %d\n",
->>> +					    dell_xps_ec_therms[i].name, ret);
->>> +			continue;
->>> +		}
->>> +
->>> +		ret = dell_xps_ec_send_temp(ec, dell_xps_ec_therms[i].cmd, val);
->>> +		if (ret < 0) {
->>> +			dev_err_ratelimited(ec->dev,
->>> +					    "Failed to send temp for %s: %d\n",
->>> +					    dell_xps_ec_therms[i].name, ret);
->>> +		}
->>> +	}
->>> +
->>> +	schedule_delayed_work(&ec->temp_work, DELL_XPS_EC_TEMP_POLL_JIFFIES);
->>> +}
->>> +
->>> +static irqreturn_t dell_xps_ec_irq_handler(int irq, void *data)
->>> +{
->>> +	struct dell_xps_ec *ec = data;
->>> +
->>> +	/*
->>> +	 * TODO: IRQ is fired on lid-close. Follow Windows example to read out
->>> +	 *       the thermistor thresholds and potentially fan speeds.
->>> +	 */
->>> +	dev_info_ratelimited(ec->dev, "IRQ triggered! (irq=%d)\n", irq);
->>> +
->>> +	return IRQ_HANDLED;
->>> +}
->>> +
->>> +static int dell_xps_ec_probe(struct i2c_client *client)
->>> +{
->>> +	struct device *dev = &client->dev;
->>> +	struct dell_xps_ec *ec;
->>> +	int ret, i;
->>> +
->>> +	ec = devm_kzalloc(dev, sizeof(*ec), GFP_KERNEL);
->>> +	if (!ec)
->>> +		return -ENOMEM;
->>> +
->>> +	ec->dev = dev;
->>> +	ec->client = client;
->>> +	i2c_set_clientdata(client, ec);
->>> +
->>> +	/* Set default thermistor profile */
->>> +	ret = i2c_master_send(client, dell_xps_ec_thermistor_profile,
->>> +			      sizeof(dell_xps_ec_thermistor_profile));
->>> +	if (ret < 0)
->>> +		return dev_err_probe(dev, ret, "Failed to set thermistor profile\n");
->>> +
->>> +	/* Get IIO channels for thermistors */
->>> +	for (i = 0; i < ARRAY_SIZE(dell_xps_ec_therms); i++) {
->>> +		ec->therm_channels[i] =
->>> +			devm_iio_channel_get(dev, dell_xps_ec_therms[i].name);
->>> +		if (IS_ERR(ec->therm_channels[i])) {
->>> +			ret = PTR_ERR(ec->therm_channels[i]);
->>> +			ec->therm_channels[i] = NULL;
->>> +			if (ret == -EPROBE_DEFER)
->>> +				return ret;
->>> +			dev_warn(dev, "Thermistor %s not available: %d\n",
->>> +				 dell_xps_ec_therms[i].name, ret);
->>> +		}
->>> +	}
->>> +
->>> +	/* Start periodic temperature reporting */
->>> +	ret = devm_delayed_work_autocancel(dev, &ec->temp_work,
->>> +					   dell_xps_ec_temp_work_fn);
->>> +	if (ret)
->>> +		return ret;
->> \n
->>> +	schedule_delayed_work(&ec->temp_work, DELL_XPS_EC_TEMP_POLL_JIFFIES);
->>> +	dev_dbg(dev, "Started periodic temperature reporting to EC every %d ms\n",
->>> +		jiffies_to_msecs(DELL_XPS_EC_TEMP_POLL_JIFFIES));
->>> +
->>> +	/* Request IRQ for EC events */
->>> +	ret = devm_request_threaded_irq(dev, client->irq, NULL,
->>> +					dell_xps_ec_irq_handler,
->>> +					IRQF_ONESHOT, dev_name(dev), ec);
->>> +	if (ret < 0)
->>> +		return dev_err_probe(dev, ret, "Failed to request IRQ\n");
->>> +
->>> +	return 0;
->>> +}
->>> +
->>> +/*
->>> + * Notify EC of suspend
->>> + *
->>> + * This will:
->>> + * - Cut power to display/trackpad/keyboard/touchrow, wake-up source still works
->>> + */
->>> +static int dell_xps_ec_suspend(struct device *dev)
->>> +{
->>> +	struct dell_xps_ec *ec = dev_get_drvdata(dev);
->>> +
->>> +	cancel_delayed_work_sync(&ec->temp_work);
->>> +
->>> +	return dell_xps_ec_suspend_cmd(ec, true);
->>> +}
->>> +
->>> +/*
->>> + * Notify EC of resume
->>> + *
->>> + * This will undo the suspend actions
->>> + * Without the resume signal, device would wake up but be forced back into
->>> + * suspend by EC within seconds
->>> + */
->>> +static int dell_xps_ec_resume(struct device *dev)
->>> +{
->>> +	struct dell_xps_ec *ec = dev_get_drvdata(dev);
->>> +	int ret;
->>> +
->>> +	ret = dell_xps_ec_suspend_cmd(ec, false);
->>> +	if (ret)
->>> +		return ret;
->>> +
->>> +	schedule_delayed_work(&ec->temp_work, DELL_XPS_EC_TEMP_POLL_JIFFIES);
->>> +	return 0;
->>> +}
->>> +
->>> +static const struct of_device_id dell_xps_ec_of_match[] = {
->>> +	{ .compatible = "dell,xps13-9345-ec" },
->>> +	{}
->>> +};
->>> +MODULE_DEVICE_TABLE(of, dell_xps_ec_of_match);
->>> +
->>> +static const struct i2c_device_id dell_xps_ec_i2c_id[] = {
->>> +	{ "dell-xps-ec" },
->>> +	{}
->>> +};
->>> +MODULE_DEVICE_TABLE(i2c, dell_xps_ec_i2c_id);
->>> +
->>> +static const struct dev_pm_ops dell_xps_ec_pm_ops = {
->>> +	SYSTEM_SLEEP_PM_OPS(dell_xps_ec_suspend, dell_xps_ec_resume)
->>> +};
->>> +
->>> +static struct i2c_driver dell_xps_ec_driver = {
->>> +	.driver = {
->>> +		.name = "dell-xps-ec",
->>> +		.of_match_table = dell_xps_ec_of_match,
->>> +		.pm = &dell_xps_ec_pm_ops,
->>> +	},
->>> +	.probe = dell_xps_ec_probe,
->>> +	.id_table = dell_xps_ec_i2c_id,
->>> +};
->>> +module_i2c_driver(dell_xps_ec_driver);
->>> +
->>> +MODULE_AUTHOR("Aleksandrs Vinarskis <alex@vinarskis.com>");
->>> +MODULE_DESCRIPTION("Dell XPS 13 9345 Embedded Controller");
->>> +MODULE_LICENSE("GPL");
+>>> I guess these hard-coded values are sepcific to your panel. They must
+>>> instead be computed based on the timings in order to work for every panel.
 >>>
 >>
+>> The hard-coded values were initially derived from the TI DSI Tuner output
+>> during our bring-up testing. TI had also mentioned that when PATGEN is
+>> enabled with dual-LVDS output on the SN65DSI84, the horizontal timings
+>> must be divided by 2. They also noted that the current driver does not
+>> appear to divide the horizontal timings when PATGEN is enabled in
+>> dual-LVDS mode.
 >>
+>> Based on that suggestion, we had tried adjusting the horizontal timing
+>> registers accordingly to match the tuner output.
+>> Could you please advise how these register values are expected to be
+>> derived from the mode timings so that they work correctly for different
+>> panels?
+> 
+> Well, the principle is quite simple:
+> 
+>  1. the panel docs tell you which timings the panel needs, e.g. HBP must be
+>     10 clock cycles
+> 
+>  2. your panel description in dts or implementation in a panel driver will
+>     then be written accordingly
+> 
+>  3. the ti-sn65dsi83 driver will receive a struct drm_display_mode* with
+>     these values
+> 
+>  4. based on those values it sets the registers so the SN65DSI84 uses the
+>     timings required by the panel (with a bit of math if needed):
+> 
+> 	regmap_write(ctx->regmap, REG_VID_CHA_HORIZONTAL_BACK_PORCH,
+> 		     mode->htotal - mode->hsync_end);
+> 
+> Same for all other timings.
+> 
+> Ti is more complicated if more cases need to be handled, such as dual-LVDS,
+> and the chip documentation is vague about what must be done in those cases.
+> 
+> I suggested next steps to move forward in reply to the cover letter.
+>
+
+Thank you so much for your suggestion.
+ 
+>>>> @@ -965,9 +1001,15 @@ static int sn65dsi83_host_attach(struct sn65dsi83 *ctx)
+>>>>
+>>>>  	dsi->lanes = dsi_lanes;
+>>>>  	dsi->format = MIPI_DSI_FMT_RGB888;
+>>>> -	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
+>>>> -			  MIPI_DSI_MODE_VIDEO_NO_HFP | MIPI_DSI_MODE_VIDEO_NO_HBP |
+>>>> -			  MIPI_DSI_MODE_VIDEO_NO_HSA | MIPI_DSI_MODE_NO_EOT_PACKET;
+>>>> +	if (ctx->dual_link_video_mode)
+>>>> +		dsi->mode_flags = MIPI_DSI_MODE_VIDEO;
+>>>> +	else
+>>>> +		dsi->mode_flags = MIPI_DSI_MODE_VIDEO |
+>>>> +				  MIPI_DSI_MODE_VIDEO_BURST |
+>>>> +				  MIPI_DSI_MODE_VIDEO_NO_HFP |
+>>>> +				  MIPI_DSI_MODE_VIDEO_NO_HBP |
+>>>> +				  MIPI_DSI_MODE_VIDEO_NO_HSA |
+>>>> +				  MIPI_DSI_MODE_NO_EOT_PACKET;
+>>>
+>>> There is no explanation about this, can you elaborate on why?
+>>>
+>>> I'm working on bringing up a dual-LVDS panel on a board with the SN65DSI84,
+>>> and the removing MIPI_DSI_MODE_VIDEO_BURST seems to help, but I still have
+>>> no idea why. Should you have any info, maybe from TI, it would be very
+>>> interesting.
+>>>
+>>
+>> During our earlier bring-up, TI mentioned that one possible reason for the DSI
+>> REFCLK not behaving as expected could be that the DSI output is configured in
+>> burst mode instead of non-burst mode. In burst mode the DSI clock may not be
+>> continuous, whereas non-burst mode provides a more predictable DSI clock.
+> 
+> Uhm, this is a bit vague. They basically said "burst can be more
+> problematic than continuous", which is obvious, and "try disabling burst
+> and see whether it helps" with no explanation on why one works and not the
+> other. Shoudl you have more info from them you'd be welcome to share it. In
+> particular, is disabling burst mode specifically related to dual-LVDS, or
+> just a way to (try to) get rid of some problems without a clear
+> understanding?
+> 
+> On my side I also have a dual-LVDS panel connected to a SN65DSI84, which
+> works only by disabling burst mode. I haven't tried upstreaming it because
+> I don't have an explanation of why it fixes the panel and so I have no idea
+> how to teach the driver when it should disable burst mode.
+> 
+> Additionally inyour patch you remove many other flags. Any explanation from
+> those?
+>
+
+Thanks for your inputs.
+ 
+I wanted to share a quick observation from our side. With your suggested 3
+patches (links below), the panel started working after simplifying the 
+dsi-> mode_flags:
+ 
+https://lore.kernel.org/all/20260226-ti-sn65dsi83-dual-lvds-fixes-and-test-pattern-v1-1-2e15f5a9a6a0@bootlin.com/
+ 
+https://lore.kernel.org/all/20260226-ti-sn65dsi83-dual-lvds-fixes-and-test-pattern-v1-2-2e15f5a9a6a0@bootlin.com/
+ 
+https://lore.kernel.org/lkml/20260309-ti-sn65dsi83-dual-lvds-fixes-and-test-pattern-v2-1-e6aaa7e1d181@bootlin.com/
+ 
+Earlier configuration:
+ 
+MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
+MIPI_DSI_MODE_VIDEO_NO_HFP | MIPI_DSI_MODE_VIDEO_NO_HBP |
+MIPI_DSI_MODE_VIDEO_NO_HSA | MIPI_DSI_MODE_NO_EOT_PACKET;
+ 
+Working configuration:
+ 
+MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_NO_HSA |
+MIPI_DSI_MODE_NO_EOT_PACKET;
+ 
+From our testing, removing MIPI_DSI_MODE_VIDEO_BURST along with the NO_HFP/NO_HBP 
+flags results in stable LVDS output in dual-link mode.
+ 
+Could you please suggest how you would prefer to handle this change for 
+upstreaming?
+ 
+> Best regards,
+> Luca
+> 
+> --
+> Luca Ceresoli, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com
 
