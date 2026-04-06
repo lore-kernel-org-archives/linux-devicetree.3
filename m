@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5CEA386560;
-	Mon,  6 Apr 2026 15:23:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 560B9386541;
+	Mon,  6 Apr 2026 15:23:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775488997; cv=none; b=VqyIv/4Ez4RBAc/9Z9Oa9fC1Wrz5JrxX1/8V0i9Y6mcOziVYVybBGloo9PXHwYlBqraZkCQ6/6nzItxdL1qksQO0Qt6MKvNbO2ppxzOobMXxYJUTqu0rNTM2H4DAAJsxRfX0HWGomerdBkK3K3Kiy9/UxFJFlQRpymBHBwiBxiI=
+	t=1775489009; cv=none; b=gSUEwohUOGO0kuydDXdJ/ijZYdjErqqpJy0tdG1ZJru6/ZBq25c1+5g2Yi9GjvbMDwwqAHMn7SyrzeEWhQFKqEpCNZLWBoi3px5yz2WSykqihp6La0mxx3MoiI9ChuNqthlhZPORAbDfrpF4kyO2fkbiJO7aC4Bti+/QS8/Tc3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775488997; c=relaxed/simple;
-	bh=bvFoonxCf8WLzymd5qml2n7ctrYkhx4TliqKM3gW/QI=;
+	s=arc-20240116; t=1775489009; c=relaxed/simple;
+	bh=8sz7HhWogtz4bAQCE5wYiwQaMtdydphZtxifA1hPwuk=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=LOSWMipZqybPkwZcg6evIJIGO6NV/Jgi6+O4IapGu9GcKi2iPLuY5GWRUv1XT87FtKp1IV4x0QXneXJVxVeftiUpf8LMkxfNWPjZkRNJUkD5bduGA22byGwaBqXVzSoFDKmEk1z2ebQ1mpyjuw3TjjJhPz1fnq3BmY+j9lWBOww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nbMenJFe; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version:Content-Type; b=X2gi97dcttK9mLdSxQDZPw/h1FzcdfQdf9zpfWrudIWGUfCmLpqsGlXRXJGwE2R9Zb94mNa/QxiNSbd2Er05jNkWfip2j210zeCRyGHRu284PZFHoqFs0htg9///X7qTuL31gGXPTfJlylBp93GNtRIbK8Bpz/0aK/y0XzB8WzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JxGowwph; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nbMenJFe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85913C4CEF7;
-	Mon,  6 Apr 2026 15:23:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JxGowwph"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 606E9C4CEF7;
+	Mon,  6 Apr 2026 15:23:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775488996;
-	bh=bvFoonxCf8WLzymd5qml2n7ctrYkhx4TliqKM3gW/QI=;
+	s=k20201202; t=1775489009;
+	bh=8sz7HhWogtz4bAQCE5wYiwQaMtdydphZtxifA1hPwuk=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=nbMenJFeEz+Z/Zml8dcWX4LEU/Z88D4LxBofGRb9sdy7MyfiYgxIE1XYuGjqzd29H
-	 4veNzf5vgkMQ54JwYuC4SWiW7HMKh60D0P4n5OMwXQgvawJOqjDzs9Qgyf7kGSDS6s
-	 FENKeDqLfV0KaA/6ihHB5hkBQgcXa4lYA0V8bNIJkDGQ0ZYpZ1OH5QksFc4wcbswKw
-	 E2ig6t0VrIj82rP+HKfBeU9gzIAFQmI8jsWWuf9yXDY/eTeJisaAJiamqEYMl6444W
-	 c/UQ+OxtdSR4qKyOCiDHovl4cHilgWLas29eJxIwKlt26YrMe5jfolDwhY/nvNk8aa
-	 d6m8+TYDdcb2A==
+	b=JxGowwphFFyvSXJXYQQo/kmBovF+wt19ELu2SwJ/5hMdelbW+QDZqzX81YaZ6JccB
+	 WPz5PIQ3J+5+EFdrNp4ELcmOrvmQnZ/U0Efbrn6RrXVrSm+wk/D4yRXLGsbIms6bTa
+	 OA7xqN6eYU7PHEtplBa7vBskI0DjGcEPcjiuQEH7Vy7iEdinhDc3o1RGMEubRSysxh
+	 GDNFB1zPyAs5gPByvCxBmiZ+oaQ1LSHyhBxFbQVDjeCDDLNHifOzgHyAjYKjSOn2VN
+	 JKCD1ngIAbg4Ez5/hl0Qz0mltJ2BHwb4t6OBwu9FqaEybPBEjKde6jbWztElrAmfb/
+	 BKtyH6LZ+UDVw==
 From: Mark Brown <broonie@kernel.org>
-To: devicetree@vger.kernel.org, Marek Vasut <marex@nabladev.com>
-Cc: Baojun Xu <baojun.xu@ti.com>, Conor Dooley <conor+dt@kernel.org>, 
- Kevin Lu <kevin-lu@ti.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
- Shenghao Ding <shenghao-ding@ti.com>, linux-kernel@vger.kernel.org, 
- linux-sound@vger.kernel.org
-In-Reply-To: <20260405234502.154227-1-marex@nabladev.com>
-References: <20260405234502.154227-1-marex@nabladev.com>
-Subject: Re: [PATCH v2] ASoC: dt-bindings: ti,tas2552: Add sound-dai-cells
-Message-Id: <177547742376.46304.5180387312715335840.b4-ty@b4>
-Date: Mon, 06 Apr 2026 13:10:23 +0100
+To: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260406075114.25672-1-clamor95@gmail.com>
+References: <20260406075114.25672-1-clamor95@gmail.com>
+Subject: Re: (subset) [PATCH v5 0/2] rtc: max77686: convert to
+ i2c_new_ancillary_device
+Message-Id: <177548097517.46304.8142229926923155566.b4-ty@b4>
+Date: Mon, 06 Apr 2026 14:09:35 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,29 +48,36 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.16-dev-67696
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1117; i=broonie@kernel.org;
- h=from:subject:message-id; bh=bvFoonxCf8WLzymd5qml2n7ctrYkhx4TliqKM3gW/QI=;
- b=owGbwMvMwMWocq27KDak/QLjabUkhszL5x+Gf3vp5BJYmKtYE/7+GOvyjk3brRqis/kqWfe8e
- jo/41ZDJ6MxCwMjF4OsmCLL2mcZq9LDJbbOfzT/FcwgViaQKQxcnAIwkf332P/wbUn5dN4hyuxE
- pIJQ+RNe/i6htXyLd2nuqeOMee83+1xzXNfGcJMPab+1jkYYKwQmb+dvYbc+23jU7833JJ66NSf
- rT+b5rvxvvrBP7IXX3j//3vYs9NiQz+Y/6d6hJUfz+UvV32mIlRr9TcibsfpqWe4UfsGu14tttw
- eIG1j+avUTaW6Z2GSyz09HVv9Cf46Gxrt0hczDpsW/vd89/Kjo8LZx9VRBUaaj0axeIvLzNkoy2
- mnsN1t4c9+Hjbd3vysMrctivcwmz2jJlvZz8Qn/g2yhceUf+LYIupgpd2vYpi68IfLovkRuecBJ
- y32CbtGKgkrtNd3f2pL8mcKE/a+//HXfrn1S1IRUR9UwAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1439; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=8sz7HhWogtz4bAQCE5wYiwQaMtdydphZtxifA1hPwuk=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBp08/uU1CTT3KzlibXts1Z+4QpiWB+gZDbBH1Gf
+ 0VS4JHW22OJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCadPP7gAKCRAk1otyXVSH
+ 0CrWB/wKShVledqP+QvT73mmRrRJOPaCli+wTDZaMbA1jrXuDYaYP0fkyzNOEmqIWRsf9lNnLtC
+ +k9PvlQvBI50/i+SiC7vjfQ4cchL66zGQnNR3HufeyIGHvHdKlMe/RfeFVLqL3SBcXVmNX2kzkc
+ drIU5oBzZbV1d/FRPMziKZzM0kDZwspd6vdxBTu7JjBkU51TaNsqHhxQ4OtGbDLrLQ+o1O/g9r8
+ f6RAX0EFxTWKGNNNKBTyepCWj1+xGvb5oIjYQYsUeIqXbMHhW56ccX/AeUnrwZGUBgua2Yyqnin
+ w6xWvnfOKE1iMSsdK4vct2mPv0bDujkxeTELdZEgs2jdgr0B
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Mon, 06 Apr 2026 01:44:35 +0200, Marek Vasut wrote:
-> ASoC: dt-bindings: ti,tas2552: Add sound-dai-cells
+On Mon, 06 Apr 2026 10:51:12 +0300, Svyatoslav Ryhel wrote:
+> rtc: max77686: convert to i2c_new_ancillary_device
+> 
+> Convert RTC I2C device creation from devm_i2c_new_dummy_device() to
+> i2c_new_ancillary_device() to enable the use of a device tree-specified
+> RTC address instead of a hardcoded value. If the device tree does not
+> provide an address, use hardcoded values as a fallback.
+> 
+> [...]
 
 Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.0
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.1
 
 Thanks!
 
-[1/1] ASoC: dt-bindings: ti,tas2552: Add sound-dai-cells
-      https://git.kernel.org/broonie/sound/c/5075d08e72af
+[1/2] regulator: dt-bindings: regulator-max77620: convert to DT schema
+      https://git.kernel.org/broonie/regulator/c/881dd6b2ff82
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
