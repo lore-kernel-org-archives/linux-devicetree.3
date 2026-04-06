@@ -1,101 +1,61 @@
-Received: from out-171.mta1.migadu.com (out-171.mta1.migadu.com [95.215.58.171])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A35D1231A23;
-	Mon,  6 Apr 2026 15:30:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C72026B764;
+	Mon,  6 Apr 2026 15:30:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775489415; cv=none; b=KtDY4RLUsphbUUa469rjXj9Z3hcETSd3f55epv7h5QxdG246MauV1oUnyUkXLiqXYiChxZtjUlsgZPWzxWLg5StrlQkrWyJxuck8ByYqCnduk0WCw3gNkFTjxCBIF2ZoXlNBNoWyxJDlZmKaMDkGf1MPEe/mK3/1v2j8Qj5GiwY=
+	t=1775489440; cv=none; b=gtRSJdOYCEGeezQox38kp3O8UIpzic2RBxgYjsQgtItRMOl0wXfM1RuhiPk3BAYYdjOJrgko8udp2NJZPtrYb3oS8aHOsOGY9Cg5ghvOwTRAxVCycxw+AylFN7CiEa5uvUYvKhDDeMNO2FhPPRKIv2K2MbLh6oV4ppE95bQLf98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775489415; c=relaxed/simple;
-	bh=qY8HXRLd3rg8UeZmh2bcc4S7RvrC1Vew4Crqm0UVq88=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=n/zycIhjOvk+LFLi4UMoNGtHY6nkp63TaECyB+CK96jiKU8JVM7XAxl+pZcz2weNw3mx+M43avzzJhANwqpiNf+mNmrnHdrQulxGh694p/NUog6FAQ8FNxTipa7h/gCF1ToFx1M5y9zKetbdRSNANOTCWiOIc7HVnOit8uyph9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=FEdhD5UU; arc=none smtp.client-ip=95.215.58.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
+	s=arc-20240116; t=1775489440; c=relaxed/simple;
+	bh=LDjJlJmuOzTWy74Nn0yC7pN0AJ7gm1ZbIoZKkfLC0iI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=JFnkiOkb0IF4kawvOktxskflc5yus5Bupe7iCTpfCnhzrIMaqsVC6O4wsOPXTvVY/SoWVeRBx82ZFVvBNNzkBlvlxiO037VCMfL7bpJNIexahLIdDcow2i3FLln4AtMFgmnSn36/41BB59tWtCLehkwbdqMzoJWFn9JWaoTgKJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=egJC01RC; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="FEdhD5UU"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="egJC01RC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 739AFC2BCB0;
+	Mon,  6 Apr 2026 15:30:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775489440;
+	bh=LDjJlJmuOzTWy74Nn0yC7pN0AJ7gm1ZbIoZKkfLC0iI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=egJC01RChEg3XaPOJZLzXSgjgNyooqWxgYJ10fX9QHFXMWJPDBZ8AoQus6+iphM8x
+	 QF1XzAGmDejTMxAuqUDmxcxpdFd5SS/n5qMUEXI/K2B0K+81euGoXD948aAFfH9awB
+	 8McfBmfd4oXw4LjrVGfSFLCSbfSXXVb1vJcweBKlXNZWL4JJc4nuL/ibzGZ0da4mbe
+	 OSEh1OKp6lUyUEpbqf2G5NkxE/6IRmnrREtvC4S3P+LOsRQBYaexFU9LTkmV4ZxWtG
+	 1aEq0/WiumllW6GY4373jJfsPBFDU5efiR+OwvNFmqcn9l8TMUETEdyM8BYrFvNl+d
+	 wcR6BEVNf4muQ==
+Date: Mon, 6 Apr 2026 08:30:38 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Ivan Vecera <ivecera@redhat.com>
+Cc: netdev@vger.kernel.org, Arkadiusz Kubalewski
+ <arkadiusz.kubalewski@intel.com>, Jiri Pirko <jiri@resnulli.us>, Michal
+ Schmidt <mschmidt@redhat.com>, Petr Oros <poros@redhat.com>, Prathosh
+ Satish <Prathosh.Satish@microchip.com>, Simon Horman <horms@kernel.org>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>, linux-kernel@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ devicetree@vger.kernel.org, Pasi Vaananen <pvaanane@redhat.com>
+Subject: Re: [PATCH net-next v2 0/5] dpll: zl3073x: add ref-sync pair
+ support
+Message-ID: <20260406083038.0690bafb@kernel.org>
+In-Reply-To: <20260328080624.593916-1-ivecera@redhat.com>
+References: <20260328080624.593916-1-ivecera@redhat.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=postmarketos.org;
-	s=key1; t=1775489411;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Cl3MtyC0ml8bgrz0gHQfCrzWUIfK4oCJ4cASNn7ldtc=;
-	b=FEdhD5UUJEAxm6EKJXJ0/H+8PuEjb+nCod/U7iJixCFyku4NCJ7wfxD/pB8W2uu6tx89NZ
-	ruOIcWKXsnjNDFf4xkyOPRay87EHEcRsH8I1AMmw66PI92PAZ/CnOEJRWRrkrxb+EX8yXO
-	QJUA9r92sqSTkwMSrZoOYVFKcXrrjbqLnqpZD/I+UQ/IRy0trZpZSkuXhWcOj8AuxRcdsY
-	Ol2xr7blGEOxpvNhyz0Ead8/Y3c0J6ya6JZMsvmRaL/YKLHPKbh/3SmlQbzAd/n0tHx9tA
-	hqd4UsQH432TJfB8SzCs2f3xMbjBDDsoz1RJGKPxU7mY73gvoR9OXbX8ss8PFA==
-Date: Mon, 06 Apr 2026 15:30:05 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: "Paul Sajna" <sajattack@postmarketos.org>
-Message-ID: <f63f25751b5db2ee5420ec4c12e36271ca22a864@postmarketos.org>
-TLS-Required: No
-Subject: Re: [PATCH v7 00/15] arm64: dts: qcom: sdm845-lg: Improve hardware
- support in devicetree
-To: "Bjorn Andersson" <andersson@kernel.org>, "Konrad Dybcio"
- <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "David Heidelberg" <david@ixit.cz>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht, "Amir Dahan"
- <system64fumo@tuta.io>, "Christopher Brown" <crispybrown@gmail.com>,
- "Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>, "Dmitry Baryshkov"
- <dmitry.baryshkov@oss.qualcomm.com>, "Pavel Machek" <pavel@ucw.cz>
-In-Reply-To: <177541802142.2061229.9094394728986735362.b4-ty@kernel.org>
-References: <20260331-judyln-dts-v7-0-87217b15fefb@postmarketos.org>
- <177541802142.2061229.9094394728986735362.b4-ty@kernel.org>
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-April 5, 2026 at 7:40 PM, "Bjorn Andersson" <andersson@kernel.org mailto:=
-andersson@kernel.org?to=3D%22Bjorn%20Andersson%22%20%3Candersson%40kernel=
-.org%3E > wrote:
+On Sat, 28 Mar 2026 09:06:19 +0100 Ivan Vecera wrote:
+> This series adds Reference-Sync pair support to the ZL3073x DPLL driver.
+> A Ref-Sync pair consists of a clock reference and a low-frequency sync
+> signal (e.g. 1 PPS) where the DPLL locks to the clock reference but
+> phase-aligns to the sync reference.
 
-> Applied, thanks!
->=20
->=20[01/15] arm64: dts: qcom: sdm845-lg-common: Sort nodes and properties
->  commit: 6a9e8df732014c1c758bd3cd6254b5b4cb273c7f
-> [02/15] arm64: dts: qcom: sdm845-lg-judyln: Add firmware nodes, change =
-path
->  commit: b9afe8581c0e14b7b56e2314dc7f9597bf23ef67
-> [03/15] arm64: dts: qcom: sdm845-lg-judyp: Define firmware paths for ju=
-dyp
->  commit: 8f4c53ae286bd6a113245ad53ce957e623374cf0
-> [04/15] arm64: dts: qcom: sdm845-lg-common: Enable venus
->  commit: e9f611de7ab51540c0cf246df6b7d4d99f4cec64
-> [05/15] arm64: dts: qcom: sdm845-lg-common: Enable qups and their dma c=
-ontrollers
->  commit: 4ec3045c969a326c458c53ca65bde5749e575d52
-> [06/15] arm64: dts: qcom: sdm845-lg: Add uarts and Bluetooth
->  commit: e746ed5af3084e9534135679c55e69eced0c657f
-> [07/15] arm64: dts: qcom: sdm845-lg-judyln: Add battery and charger
->  commit: 995c258982429db93db103fc26fcb3a0acd6a5ee
-> [08/15] arm64: dts: qcom: sdm845-lg-common: Add LEDs
->  commit: b49722c8a18cdd11f49357f3b8be23549f76a506
-> [09/15] arm64: dts: qcom: sdm845-lg-judyln: Add lab/ibb
->  commit: 2e7cdd400b6a4e67c27fc3e839342824b51d01ff
-> [10/15] arm64: dts: qcom: sdm845-lg-judyln: Add display panel
->  commit: c6c66aa3ef33dc3076c6dac64003b29bd9515b58
-> [11/15] arm64: dts: qcom: sdm845-lg: Add wifi nodes
->  commit: eb8fa32085261a07d763e9d616b3c206d0be82ff
-> [12/15] arm64: dts: qcom: sdm845-lg-common: Add chassis-type
->  commit: a5a5ad9848980e1019ca841fe057afb83debecfa
->=20
->=20Best regards,
-> --=20
->=20Bjorn Andersson <andersson@kernel.org>
->
-
-Please apply 13-15. 15 is the only change in v8, so what you've pulled he=
-re from v7 is fine.
+Hi Ivan, FWIW we're waiting for the DT review here.
+I suspect some of the DT maintainers are AFK for Easter.
