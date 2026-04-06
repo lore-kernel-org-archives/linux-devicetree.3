@@ -1,88 +1,151 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 539183932C0;
-	Mon,  6 Apr 2026 18:13:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3214731F987;
+	Mon,  6 Apr 2026 18:32:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775499215; cv=none; b=toJiALXM4hYe3bFfcb15O1tOAi4vFDoDGboVdLz/6LiPl4ZiRSPlpShC/hahApRdXRnbI0Pl/fYhPwEQeedoaBIFKHlW7YS6j+EbltaKMCCXq9qXMPWse9unO4oB3ibS5hEKScx2KTURdBCNlpncEtxBHx90KlMhYxg7ljVyJME=
+	t=1775500350; cv=none; b=b9EdHvkn/tmnMBLoN/cZKGN8d35nxXNwdwrLnn+U5rNvMragRnyNS12QXBDOZHkIv/UVHccSLnN2nJoVtkcfcpMPqlSfEGsqKXvn4xG0pArwwLS5tEgLV+VRhnJXhlxT4eLd2sGicqAv1RxAN/zC0obt0yIKr5pwD23wkuo91bg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775499215; c=relaxed/simple;
-	bh=Fsbxr1KoI6nvNJg1iQcsK0ER51AzQq33E2rDDFIUpTE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bUpTTcI4bxcysgjRqXgTY097PGbi6gSQcWTAypl7+iYi16pI/gkBbCmqSHGiRxrcyqPgKsD9SKYImgnGtXryQg/EcSMw0r9QNoeiZKO+Hu7ekgepAu0TsZzVMtM+6FnGfm1ZgCSFFA9Yn/YBjoOm3VRT52DYTicGFWtJQ3yWPoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=HPtLwA4i; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1775500350; c=relaxed/simple;
+	bh=mRvcgifm/AktIi3My4k3BEDKPpqyw8q5/lvuiNW98OU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kcxgSenGLNNY5fte/LW1HiWo+q2XeYGXw3x5d+RX0d6YiEirCzE/obaeRLJNa/e7ucyIfK8BvWsPYaQ1gVs+hOkebw+GY+KxRc0PaS4/bzjGxx1QpGRDdPBIkV62XezOPp5fRXDMICTjUcxFqtqjOfmCzGW7WaD9DKahI/yBE3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XegBjLNc; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="HPtLwA4i"
-Received: from [127.0.0.1] (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 6E0A727143;
-	Mon,  6 Apr 2026 20:13:29 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id 6faqmuIb3mDs; Mon,  6 Apr 2026 20:13:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1775499204; bh=Fsbxr1KoI6nvNJg1iQcsK0ER51AzQq33E2rDDFIUpTE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HPtLwA4i3jzwxFGuYS2km+VjEA3rmAC9POyflymmmEGyyHdy/XlHrZaeVa5YMbG5k
-	 Xp2BM1kgOa1giOrjgcj8QFAWU1GBrSKhDxJhaCswrbQQ70loXJn1TOPg8YV7NRXV6o
-	 glKkpV+LQS0cr2zl3IIQQSBIhJOJHw3tUIHJm7ZgR3ptAPwRoi5CtTPqwlmeOb/AKH
-	 C2qKYWZaVd3o+EI9m+rqStqgyg7kQ9kcAg/inDvrFVulI8Wall6M+/o/IuPps0gkQT
-	 R8vETunyScMLbQwP+AepcZoZE6TBXbTNuP3QwUkAzN/rPtx+B5S2nyss5xtnUM8c8L
-	 +k2JqtzugFp0g==
-From: Rustam Adilov <adilov@disroot.org>
-To: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XegBjLNc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1775500349; x=1807036349;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=mRvcgifm/AktIi3My4k3BEDKPpqyw8q5/lvuiNW98OU=;
+  b=XegBjLNcefMZIhxuDaxMzauXQvadc8hWtO1pcT6sJlrhitk885CSCGK2
+   BPpef44f5Ei5tRjrfhPWg22ouSuR0WkQzRZaBkYaUvH85dunpGyrylW/C
+   uQdD1mTKgiHvSV2nxJ3wvx/ib1uOAyH32x6CptZtOdIeXL+K+Gx9c9Z1C
+   uHHcv9Xb1O9pVL7oBRK++LTxSAD4vH/BkQahiVuNsep1TiLrR3lb/M9Cv
+   wh4rFY+qsVKXPtBNy6A/r4dbVYQzxAAVHJPDuW/PYsNvDMAmdROpJLf4b
+   HBqJpYzvvgrjtkj6HtqvfyR12iLnBdHhBzprKtfcCo49wBPPeHFNVaQBE
+   w==;
+X-CSE-ConnectionGUID: Nh1/RAiyQQuCbhkc5U+oGg==
+X-CSE-MsgGUID: WHQ4ixrFSBmDoDviZmKS1g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11751"; a="94035288"
+X-IronPort-AV: E=Sophos;i="6.23,164,1770624000"; 
+   d="scan'208";a="94035288"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Apr 2026 11:32:29 -0700
+X-CSE-ConnectionGUID: cYX+WabTRW6WKMOHF5N76g==
+X-CSE-MsgGUID: lQRF+0mCSSeap8/67nWlNg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,164,1770624000"; 
+   d="scan'208";a="232343414"
+Received: from dalessan-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.73])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Apr 2026 11:32:25 -0700
+Date: Mon, 6 Apr 2026 21:32:22 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: "Torreno, Alexis Czezar" <AlexisCzezar.Torreno@analog.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>,
+	"Hennerich, Michael" <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	"Sa, Nuno" <Nuno.Sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Stanley Chang <stanley_chang@realtek.com>,
-	linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Rustam Adilov <adilov@disroot.org>
-Subject: [PATCH v4 6/6] phy: realtek: Make configs available for MACH_REALTEK_RTL
-Date: Mon,  6 Apr 2026 23:12:28 +0500
-Message-ID: <20260406181228.25892-7-adilov@disroot.org>
-In-Reply-To: <20260406181228.25892-1-adilov@disroot.org>
-References: <20260406181228.25892-1-adilov@disroot.org>
+	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4 2/2] iio: dac: ad5706r: Add support for AD5706R DAC
+Message-ID: <adP8NnvAjAxDOJ-x@ashevche-desk.local>
+References: <20260401-dev_ad5706r-v4-0-a785184a8d53@analog.com>
+ <20260401-dev_ad5706r-v4-2-a785184a8d53@analog.com>
+ <ac0yEfGzqsbkZh86@ashevche-desk.local>
+ <PH0PR03MB63516A449873005315ACFF02F15DA@PH0PR03MB6351.namprd03.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <PH0PR03MB63516A449873005315ACFF02F15DA@PH0PR03MB6351.namprd03.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Add the MACH_REALTEK_RTL to the if statement to make the config
-options available for Realtek RTL SoCs as well.
+On Mon, Apr 06, 2026 at 07:04:44AM +0000, Torreno, Alexis Czezar wrote:
+> > On Wed, Apr 01, 2026 at 06:20:04PM +0800, Alexis Czezar Torreno wrote:
 
-Signed-off-by: Rustam Adilov <adilov@disroot.org>
----
- drivers/phy/realtek/Kconfig | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+...
 
-diff --git a/drivers/phy/realtek/Kconfig b/drivers/phy/realtek/Kconfig
-index 75ac7e7c31ae..76f9215d8b94 100644
---- a/drivers/phy/realtek/Kconfig
-+++ b/drivers/phy/realtek/Kconfig
-@@ -3,7 +3,7 @@
- # Phy drivers for Realtek platforms
- #
- 
--if ARCH_REALTEK || COMPILE_TEST
-+if ARCH_REALTEK || MACH_REALTEK_RTL || COMPILE_TEST
- 
- config PHY_RTK_RTD_USB2PHY
- 	tristate "Realtek RTD USB2 PHY Transceiver Driver"
-@@ -29,4 +29,4 @@ config PHY_RTK_RTD_USB3PHY
- 	  DWC3 USB IP. This driver will do the PHY initialization
- 	  of the parameters.
- 
--endif # ARCH_REALTEK || COMPILE_TEST
-+endif # ARCH_REALTEK || MACH_REALTEK_RTL || COMPILE_TEST
+> > > +static int ad5706r_regmap_write(void *context, const void *data,
+> > > +size_t count) {
+> > > +	struct ad5706r_state *st = context;
+> > > +	unsigned int num_bytes;
+> > 
+> > Currently only 1 and 2 bytes are supported, right? Any updates are planned on
+> > this in the future?
+> 
+> Yes only 1 and 2 bytes, no future extension. Should I make num_bytes a 'u8'?
+> 
+> > > +	u16 reg;
+
+> > > +	cmd = AD5706R_RD_MASK | (reg & AD5706R_ADDR_MASK);
+> > > +	put_unaligned_be16(cmd, st->tx_buf);
+> > 
+> > > +	memset(st->tx_buf + 2, 0, num_bytes);
+> > 
+> > I would use &st->tx_buf[2] here and below for the sake of consistency with
+> > put_unaligned_*().
+> 
+> Will edit for consistnency.
+> 
+> > > +	ret = spi_sync_transfer(st->spi, &xfer, 1);
+> > > +	if (ret)
+> > > +		return ret;
+> > > +
+> > > +	/* Ignore the first two bytes (echo during command) */
+> > > +	if (num_bytes == AD5706R_SINGLE_BYTE_LEN)
+> > > +		put_unaligned_be16(st->rx_buf[2], val_buf);
+> > 
+> > The comment wants to explain why it's required to put 2 bytes anyway.
+> 
+> Will add clearer comments for this
+> 
+> > > +	else
+> > > +		memcpy(val_buf, st->rx_buf + 2, num_bytes);
+> > 
+> > However with the above question in mind, if it's all about 1 or 2 bytes, can't we
+> > simply use the same approach everywhere, like put_unaligned_*()?
+> 
+> For consistency, put_unaligned_*() can work. 
+> 
+> Although since rx_buf is u8, this line:
+> 
+>      memcpy(val_buf, &st->rx_buf[2], num_bytes);
+> 
+> Will look like this for 2 bytes:
+> 
+>     x = get_unaligned_be16( &st->rx_buf[2] )
+>     put_unaligned_be16( x, val_buf )
+> 
+> I suppose the mem* commands looks cleaner
+
+We optimise it a bit, so what you are going to have is something like
+
+	if (num_bytes == 1)
+		x = &st->rx_buf[2];
+	else if (num_bytes == 2)
+		x = get_unaligned...(...);
+	else
+		return -EINVAL;
+
+	put_unaligned...(...);
+
 -- 
-2.53.0
+With Best Regards,
+Andy Shevchenko
+
 
