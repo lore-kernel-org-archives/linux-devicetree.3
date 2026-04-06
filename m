@@ -1,271 +1,298 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012048.outbound.protection.outlook.com [52.101.48.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1914D2ECEB9;
-	Mon,  6 Apr 2026 07:18:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775459886; cv=none; b=R9e86PogtGmK2qwuP30wd6f4HdaClTCkaAVZBc9ZYwmOjc0Yqq7BSCb/zmOQtefXU6IFNpMmtFiX9N3vzhj3y/jiyuxu2a53jZqJH8bVPvKEdQyVEJjhho7ZFHpKgN5SYazHrvPcEbnr8YIQXJyFA4vXWzN64OpDstuP8trlrT8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775459886; c=relaxed/simple;
-	bh=7ZkXD4ajEYgtinjI4c7n46SAKoWNi+4MBlPnGyE/k1A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=bGjh9DEoMem0YJ5MtxJcvwrbB6Ne50n7ylI+whkAjmGXZcwPzVM8B3G/AVHSjbHEsKj+94hrdsxEr1FGx3gCs2X6J7QFNp+XaPoRIWYiCdqFB+spBUbTr2FihMDPzbXed9ftCNNbOs7XoqEjp6KNxvdF3nRII/i4fpQmv/NDShE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=BntRf7nX; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82417217F27;
+	Mon,  6 Apr 2026 07:21:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775460064; cv=fail; b=fiqNKOYXo6cPM2mTbErpgfASJvaimC5sXHsFTpFHz6LOd8+v6MZDLYaJ6gjbGUhApgJZAlgij6Ib2TLYxSlvu6MFVRjnYSvuNW7Y86hpIn7p2DZpRX4EdfACtvwNA3nlaycp/RWsV3hQ7cKaDVjJatakfYR27z4s5SEcr2nzL30=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775460064; c=relaxed/simple;
+	bh=on2UMFcyTNpkdkD/ekV54/gksQXwJinMMIxFpx0SuoA=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=Nrg/CCdiAKhgd//HRNuACaMZeOIDzEmIlNvj2HbIVGlRgiJX9A8MZPGw8HBTpnjqbfZ4q+3VKeFhrPIwRPQ4k4FzKoV0kJbEmViXAujYbfmuC8c5AvOPYFscwxv6YxCem2wX7j/SOOwnFUFEGp3YcWwNcZMwqXhjpD6tLyLyQGk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Y+NAF58o; arc=fail smtp.client-ip=52.101.48.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="BntRf7nX"
-Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6366Vhdd2069476;
-	Mon, 6 Apr 2026 03:18:03 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=NAO1k
-	/pU+S99b0SYA5d3zS6lixdJRWVatarPcTT77Xs=; b=BntRf7nXtwxiTnzokvLg+
-	oyHarIrL4NXpeAYhinv4y7KRFftBz8UFsZB62ErjY7AJfi3QuQQrnAWMM16obDPC
-	c7mgw1ipN1N88nXnb+GoprS0G8QyAX4hHfYsqxBkJn58kATz4CBe4PncevZ7ZH4r
-	mkRgmsaXDdlMNWgMxe6T62NTppXb15jLQRVvR0EB7ZXxSZddX+BXeaTeMfpP87qn
-	FfaMTenIKsOCWcr2HDD7BXlOuF+ZU1+y9NaWF05fCbiIzOe6qVXCJTzdJ5ez5CFm
-	Ud4OyhqQV02A+HbqhAkXFcPKPlvhiJ2vx4+utsSCUDVEbtF0Epu4oeSXLJmpJbXd
-	g==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4davg262s6-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 06 Apr 2026 03:18:02 -0400 (EDT)
-Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 6367I11e018057
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 6 Apr 2026 03:18:01 -0400
-Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
- ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Mon, 6 Apr 2026 03:18:01 -0400
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
- ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Mon, 6 Apr 2026 03:18:01 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Mon, 6 Apr 2026 03:18:01 -0400
-Received: from HYB-VFz9h4bIQxi.ad.analog.com (HYB-VFz9h4bIQxi.ad.analog.com [10.118.4.28])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6367HhUx004461;
-	Mon, 6 Apr 2026 03:17:54 -0400
-From: Jan Carlo Roleda <jancarlo.roleda@analog.com>
-Date: Mon, 6 Apr 2026 15:17:06 +0800
-Subject: [PATCH v3 2/2] dt-bindings: leds: Document LTC3208 Multidisplay
- LED Driver
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Y+NAF58o"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ej7KROzp5occIc3u3XoMtDl9XZHBxgLhewrJ5GYxZnEJDb9L2HwUdz0Wt1WspG8qzFdyJn1ajSdC+nI1E0wOwAdjx+nf06ohTicqB+XQVgG0mOhOtYoGx4akdBI8OAhF9cIWTnmqbIBH5mdhaysxRR3348m4sQcvQN8dc/zJGd1jaLOm5O4dGz1OaA/HwchHvol/TOGuzq2gZYGhb+IHF1unUZ8gVnUs967C7EpfOxOKCHi0tlD2s1/BVIMntb6iaqj9Ei8wkkRnHsiH4QHgpDgN84Wj1aOyHTwLrV8rUIIpRn7WxewWPqhZsNItlRIs3WNr0TPFo/BUPrC2cLWUOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LWPwHWQqNUnxkoMco2rP1VC4sq2MNepMZX6/V40A1JU=;
+ b=nvH8g+W3Xd1LijaiYskjlXCH4dkdufub31ikaNyQWlUa3EX48DCtB9gI6j3x53TbN/2tl0GX49PA7b5i9Be3jbMA7omkLeH/f0I/9Wv8Lv87UNlhNtt4MWdpyE/JOn+VkbjRCyHHN/ds5pqB2cP+WcgThpQI9c5eZkeTWTZt3ppmfL6WpMQ1JVb0HX2r3JSNHq1HskP/N6yWRR7E1GnY5l+Qno05ST2CPFU7cJTYPVmarAWlzhetqxIa2hb+NY+0QyfCdhXxqHRNEfEnr5EOaHS36Xo6Nz4QzUIjDHvaE+QjAAnXAYVtLlNbSQHaUODALyUgPwTr+Euz9W/Y1Zx+XA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LWPwHWQqNUnxkoMco2rP1VC4sq2MNepMZX6/V40A1JU=;
+ b=Y+NAF58ob30Vw1QALqYT6ynJ010rP7jpExd0fDG3JO/wRUzMRdjSz7LiRHcXZ4Db+ZMbCyaYmB+QXzYHM3lJMONyKpVbU0bpBuxwhSSNnJB310D1WPvNbPaygZ94Vlrc2UR3YJS7AuJ4x2lrhd60Luh7//Ty33JNIUiuWQVeYpeAtLoaabyZq5qhvKA5cCTAf9kdCpGknN6kBxUfYojFzQzsw+y/Uq6410Ri0BXB2vuf53idlBGTcme/ulisLQvRVQjOJmJ1Kde7skFlvgjKJHmszMwqdZRq5P/SgH9HWHmmSApr1a14bHgwss3Qo1JucH8b0riATrL8c5NAx1qlDg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BN5PR12MB9511.namprd12.prod.outlook.com (2603:10b6:408:2a9::14)
+ by PH8PR12MB6867.namprd12.prod.outlook.com (2603:10b6:510:1ca::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Mon, 6 Apr
+ 2026 07:21:00 +0000
+Received: from BN5PR12MB9511.namprd12.prod.outlook.com
+ ([fe80::4d8d:5f91:6c3c:dc8c]) by BN5PR12MB9511.namprd12.prod.outlook.com
+ ([fe80::4d8d:5f91:6c3c:dc8c%4]) with mapi id 15.20.9769.018; Mon, 6 Apr 2026
+ 07:21:00 +0000
+Message-ID: <5e1d8c14-d5bc-47f1-83a1-969170adb0be@nvidia.com>
+Date: Mon, 6 Apr 2026 12:50:52 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] memory: tegra: Add T238 MC support
+To: Jon Hunter <jonathanh@nvidia.com>, krzk@kernel.org, robh@kernel.org,
+ conor+dt@kernel.org, =thierry.reding@kernel.org, sumitg@nvidia.com
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org
+References: <20260331112347.3897841-1-amhetre@nvidia.com>
+ <20260331112347.3897841-2-amhetre@nvidia.com>
+ <1ec86de6-9282-46fb-bdba-521ac25b5fc8@nvidia.com>
+Content-Language: en-US
+From: Ashish Mhetre <amhetre@nvidia.com>
+In-Reply-To: <1ec86de6-9282-46fb-bdba-521ac25b5fc8@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BMXP287CA0011.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:b00:2c::21) To BN5PR12MB9511.namprd12.prod.outlook.com
+ (2603:10b6:408:2a9::14)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260406-upstream-ltc3208-v3-2-7f0b1d20ee7a@analog.com>
-References: <20260406-upstream-ltc3208-v3-0-7f0b1d20ee7a@analog.com>
-In-Reply-To: <20260406-upstream-ltc3208-v3-0-7f0b1d20ee7a@analog.com>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
-        Rob Herring
-	<robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
-	<conor+dt@kernel.org>
-CC: <linux-kernel@vger.kernel.org>, <linux-leds@vger.kernel.org>,
-        <devicetree@vger.kernel.org>,
-        Jan Carlo Roleda <jancarlo.roleda@analog.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1775459863; l=4824;
- i=jancarlo.roleda@analog.com; s=20260317; h=from:subject:message-id;
- bh=7ZkXD4ajEYgtinjI4c7n46SAKoWNi+4MBlPnGyE/k1A=;
- b=3FVcmmWqJil6hk87E70C7Ccr+TcxB1qZeEiUj+6FgX/7ibmV5hasHZGRYfR+slBZ1t4SpKxFy
- v2j5egeVeO/DGmmvdMDAXaBL2/8e3/otf+Jmlo5N7HTahePXOFGR6th
-X-Developer-Key: i=jancarlo.roleda@analog.com; a=ed25519;
- pk=zPMh+eO6/Mj6tqaie75BLiTLQvE3f9pck0UejKLmLMc=
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Authority-Analysis: v=2.4 cv=Q5zfIo2a c=1 sm=1 tr=0 ts=69d35e2a cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=uXIjobp8t2wMuQ0fPvqm:22 a=gEfo2CItAAAA:8
- a=gAnH3GRIAAAA:8 a=VwQbUJbxAAAA:8 a=vwDbgPTT2OTVLz-ngJwA:9 a=QEXdDO2ut3YA:10
- a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA2MDA2OSBTYWx0ZWRfX3RwaC5wUbjo1
- 1JywANgZ2dGJPDhFnZeImMmoFSXgZnMr/rF8py9R97YGLXydBOV/yub7qBZJGm5mEbQgRtd9xoM
- SHZPd0z61M6me3+OXIZSP7Jbh8vLetk+hKDeWYSFtXKygGe2hLykzzt4LIicvcd/0dUWSX1TWCl
- e87pTSBrtBQ136OUCrXLdcZVQGcJK1WZpAs3t4l1NG/NMpslZnAZhoofuBNts2sjOUSWyjBs8Sj
- C2ppBeDHaw9sTuAh1u7sWur5Mm1kIz2V/Ln1p41HyG0Gz47oCgRXuffuWl3n674L5D0h0FXDL5i
- ne6+IVjAMv5xO3774WVJizGKxh9pmvre8w5B3w1hS3hzzjbvIjc4Z9ugSBDEuomtu1qEuaLIi+i
- zFMc6BGLwQ4lnvDrs6o8x4YNCYLXDvyI/iFV6SljF46F1Jle/jmey1VYRnFpjKgtiq58azXRyKl
- KCXrOdRVjVKxR/hObHw==
-X-Proofpoint-ORIG-GUID: iiwBfCGYOuacunVJ-fMNiweYbGa0Ys_b
-X-Proofpoint-GUID: iiwBfCGYOuacunVJ-fMNiweYbGa0Ys_b
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-06_02,2026-04-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 spamscore=0 adultscore=0 malwarescore=0
- lowpriorityscore=0 phishscore=0 impostorscore=0 bulkscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2604060069
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN5PR12MB9511:EE_|PH8PR12MB6867:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9812257e-cac6-454a-8b86-08de93ad0de2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	Pxcw64xcIv+9lDsqxX+kdeLn4rrdlqLgMuhNJsNEkrSYA2t0RwBbQdB7Un5Zv3WxDMmHp0kwSTLs99LEG+RKt0GGL29aZonTmUsHWqK5eigI9EIKYzA2RGPgwlck0IhsgQlBxb/WLGzzuER46PlcwJmQVVHbhKYfDgwNwWAYMA87hSCk/lETZzo+ZSpnQDtUgfljv6c2PWdPyw57IQGf0ZGPLhGJ/WtKB1VmbLoNeb3HFu7LJ1EdFGNn2ZHMEZPDnCS61aD5tUB6A2xigd/BoXSYUWZ6s0gtndovePncP/Zqd/uZdEgo1LT6+dyK+zck29+VDQnesmwr2L7xce4ZFBWNO1+Ce1ELVOxlsDG/9KPdGZrR53PP8HTJcU1p5PLOv9l5rIL9Msmecd/QvYgFR1jVU14ejdylWfnzuEeo1tuw19H0e92J2YIbgavxKN1wJpGXR2l0H4SLsZP7+JhegVy2bpkntaodtTuJDPQEkFZwt/OUx+8iUxBhEaSKAMFTwt/+9E8g422QeOjTnghq9ZNq/n4M73mAbIzRMWaUgIETq8HgKP16PSEqhcfBNqIJgEz4RQnJW7gk6tKpril9HZzZTLFKksIb6BU2YfnV+zAt3pQGToBrbHFgiwV9Uvbp+WXW6z70yQsrMCeWBhFdmZRE3jaJ337rHmcgKfsDwwIWFgn56Rtktj784DG+7MAR3Tgbzf0VpR5SGC1d0ONo266HQY9qik7JRzJCYrPf4eE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN5PR12MB9511.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SGNqUkIwcTJpSE8xUmxRaHZBRHN2RVdsLzh6ZkpjVDlqQ2JGbCtmTU1BSXlW?=
+ =?utf-8?B?MCtpU0o1Vm5jZ1dCcEZDelRSWkRLLzMyVVp2Qkk3MTArZHViRnRvaE85MCth?=
+ =?utf-8?B?OW05RG84M3pvQzlZMGlPRll4RXFRWmRubVRzK2tjWnFtUVF5Q0Z1Rit5QXVV?=
+ =?utf-8?B?OURVWjUzRndBa0FwMTgyWXMvVkw0VElUbThOL0Y5QmZUelhyb2dIRExja0ln?=
+ =?utf-8?B?S1A3NGVGUWhFYkdMYXl1bmQ0SUx1ay9zRnJBZDZkTEZ1eVZ1cGhpNW01c2wv?=
+ =?utf-8?B?MDV2L3FlZmlwNjJCRFhlZUx1RTZSQytWc2ROeVBid0ozRVhEQUtLdGdqRlBL?=
+ =?utf-8?B?TjVKWVh0aWxmT0tYc3FwakFnZkRCL0JkcWJURTdaLzJSQUhlRCsrdUludGFE?=
+ =?utf-8?B?ZVNod0Q1aktSRWtmcWNtRS9zalJ2MHJ5MTQvQ2hBZTkzTklWV3NBVXE0T2Er?=
+ =?utf-8?B?S2xORHU3bi95dnMxczNlS0UyZ3M1SUlvS29LUENILzJXTHByVk5JQTVlM1J2?=
+ =?utf-8?B?NzJGOGJOemxaelBtRGloWVpGOUYvLzJVYlk2TEhQRXczaWtqR0luZW5USmNl?=
+ =?utf-8?B?UjhXd3RjcHM1M0paUGJqZ0dreEFnUEpiRldPUjZFODI3QldrdHVHM0NYMmNl?=
+ =?utf-8?B?N3hKTjNENXlkQ29XeU40bW42K3FEc2ZkckFUbHNpVXVkM0sycDl1cjE1cEVi?=
+ =?utf-8?B?SEtzcElRbjdLV0R4OE96UXpCTi9JelVXbDFDQk43RHgzUG1YbzhXaFp2SFJI?=
+ =?utf-8?B?Z1c0N280WFNsczFyeWEvbGZ1UCtXRDVXYnczbXR4NUwxUE15Z3dIRFBjZnFO?=
+ =?utf-8?B?cExxY2NYaUJZUjJ4RW5RUzhMU0VwTmVSZ3Q1SHhkZEExSlFacnBUOHVwYUZp?=
+ =?utf-8?B?M0tyTUFJTEs2L2NRZlJPcWR5Y283K3VHdFFlc0hsdmxWV09YSjZLeU5yWDZx?=
+ =?utf-8?B?TDlpMmx5dnY0L1R6bWJ4aTRYaVkvSTF6czNpeG9RaHlGdkpPcks1NnBhS1l0?=
+ =?utf-8?B?REV0RTAxNFpaOTN3ZGxmSDdHYVlyRkxiVHNMVzdFUmZZYkxNTWFmdjFwbjN2?=
+ =?utf-8?B?aUZLbjVMV2U2dkpIOTBpd05GSjcxeTlZRVBLQVhodkRoS0o0NHhQWkU5M3E1?=
+ =?utf-8?B?TnpVd3JIUVkyeDdwL3ZyRy9CdWxGVC9wNXBFR09xTUFuNmlnLzJ3TFA2SjFH?=
+ =?utf-8?B?elc0ay9nZlZLbW5aYmNFNS9yRUpwbVAyRE5oaG1aREJuVU9PY1g2NWY4cG5k?=
+ =?utf-8?B?ZXd4NGQ0WW9NTm5CNTQ5dHROeFExcmxrNmtSYjBVME85Y0tud01DVWRQWkpt?=
+ =?utf-8?B?SmZvZ0w2bTE0N2w5eEszcTJSWU5uOUZyTG9IMU9NU0Y5d081NXN0dWc5MXBl?=
+ =?utf-8?B?Sm0rdGJ6T1R2cDRZZVkyNUV2Z2RMN1c4ejZxTXFtWE5FSmNiYmRPdlFJUlQr?=
+ =?utf-8?B?R0U1UjFMZ1ZPTDgxbDZ1b3cxVUc2dzdNZitaVEFHQTdDVzMyMTlhNk94ZGx4?=
+ =?utf-8?B?dGxZNVRTZmI4UnBqVjZ1bCtRTzNpNlBaUExYVEZoRGJLS3IxMGMva29Ba2ZV?=
+ =?utf-8?B?M0VFTXhNZ3daYU5SOWhBMS9mYy9mRVRlTkIyK0lzdUZoaHdpclVjVnpVVTMw?=
+ =?utf-8?B?b21HUDljZm5XT2hNam1iUE4rd3FYU0FwSTNsRzd0dW5zSjB0aGdPZUw1THNS?=
+ =?utf-8?B?aUd5UjV1dXdmUTZaM2NjZXBiKzZFZTM4cWdYblB4Wnl5bEZya2JqQ284T2dn?=
+ =?utf-8?B?N01nODZGQ0NvSU91ZUdza3QycU44Qk1TSTUvRUc4dGo5TjFRbFljYXdQY3RY?=
+ =?utf-8?B?SWhEbFZneDRrWmZFNW1JeDR5Zm54c3NWa0RQUDNPV1Vpb2lFQitsMjdmZHNR?=
+ =?utf-8?B?MkhiRFJzeDVRbU9jakFiY3VGTlJySlR0ck9VUzdRd1ZYeHZSWDlqSTFqQTZI?=
+ =?utf-8?B?MUM0L2NGN3UzcTUxYVNqcW9HNGNubEhXaEx0NXZEMWpuWlZRMXdwTGRYM1dr?=
+ =?utf-8?B?QUQzSi9jRVNpV3N3Zjd5WnM5bU03TnF4Z2xpSFcvb1FUdXR1NVJwUXorN3RE?=
+ =?utf-8?B?YktLU2VNbXhpOHd1ZS9MR1FOK3VsYUlYOFVzUXl5ditQWTFSTG9Wd1gxcUxa?=
+ =?utf-8?B?d0VFNUtkeW1vbW5jeWgrL1JqcUc3N0s4QXBsMVAvSG9rcWljeHk0cXZ3cFg4?=
+ =?utf-8?B?dk5QeHNJQ0Rtdm81UkJ0S05sTmptNkFTUkEyUVd0bGZOb2daQzVqbU53bFlh?=
+ =?utf-8?B?Y2xUdnoxS3RYY2lQSzJwNnBsUDlvVFJudW5XVHhyNWQ2a2NkWk15ODlDYlNp?=
+ =?utf-8?B?a0NMdytuMng3QWNteUlxM0thN0lJOXc1TGxUUDlXNmlaNTNvSHJ1UT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9812257e-cac6-454a-8b86-08de93ad0de2
+X-MS-Exchange-CrossTenant-AuthSource: BN5PR12MB9511.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2026 07:21:00.7781
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6aKAku6brYjKrtCNnjn5HU4DiJi2Sc8b+oZwLOrgmrED96eZZkEd+s+/UVVJ+QAQtW1sSDGdEdJ68xJ53oQXvw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6867
 
-Add Documentation for LTC3208 Multidisplay LED Driver.
 
-Signed-off-by: Jan Carlo Roleda <jancarlo.roleda@analog.com>
----
- .../devicetree/bindings/leds/adi,ltc3208.yaml      | 129 +++++++++++++++++++++
- MAINTAINERS                                        |   1 +
- 2 files changed, 130 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/leds/adi,ltc3208.yaml b/Documentation/devicetree/bindings/leds/adi,ltc3208.yaml
-new file mode 100644
-index 000000000000..2d53cf70e572
---- /dev/null
-+++ b/Documentation/devicetree/bindings/leds/adi,ltc3208.yaml
-@@ -0,0 +1,129 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+# Copyright (c) 2026 Analog Devices, Inc.
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/leds/adi,ltc3208.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: LTC3208 Multidisplay LED Controller from Linear Technologies (Now Analog Devices)
-+
-+maintainers:
-+  - Jan Carlo Roleda <jancarlo.roleda@analog.com>
-+
-+description:
-+  The LTC3208 is a multidisplay LED controller that can support up to 1A to all
-+  connected LEDs.
-+
-+  The datasheet for this device can be found in
-+  https://www.analog.com/en/products/ltc3208.html
-+
-+properties:
-+  compatible:
-+    const: adi,ltc3208
-+
-+  reg:
-+    maxItems: 1
-+
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 0
-+
-+  adi,disable-camhl-pin:
-+    type: boolean
-+    description:
-+      Configures whether the external CAMHL pin is disabled.
-+      If disabled then the output pins associated with CAM will always select
-+      the CAM register's high half-byte brightness.
-+
-+  adi,cfg-enrgbs-pin:
-+    type: boolean
-+    description:
-+      Configures which channel the ENRGBS pin toggles when it receives a signal.
-+      ENRGBS pin controls the SUB channel's output pins if this is set,
-+      or RGB channel's output pins if this is unset.
-+
-+  adi,disable-rgb-aux4-dropout:
-+    type: boolean
-+    description:
-+      Configures the RGB and AUX4 dropout signals to be disabled.
-+
-+  adi,aux1-channel:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description:
-+      LED Channel that the AUX1 output pin mirrors its brightness level from.
-+    enum: [aux, main, sub, cam]
-+    default: aux
-+
-+  adi,aux2-channel:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description:
-+      LED Channel that the AUX2 output pin mirrors its brightness level from.
-+    enum: [aux, main, sub, cam]
-+    default: aux
-+
-+  adi,aux3-channel:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description:
-+      LED Channel that the AUX3 output pin mirrors its brightness level from.
-+    enum: [aux, main, sub, cam]
-+    default: aux
-+
-+  adi,aux4-channel:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description:
-+      LED Channel that the AUX4 output pin mirrors its brightness level from.
-+    enum: [aux, main, sub, cam]
-+    default: aux
-+
-+patternProperties:
-+  "^led@[0-7]$":
-+    type: object
-+    $ref: /schemas/leds/common.yaml#
-+    unevaluatedProperties: false
-+    properties:
-+      reg:
-+        description:
-+          LED Channel Number. each channel maps to a specific channel group used
-+          to configure the brightness level of the output pins corresponding to
-+          the channel.
-+        enum:
-+          - 0 # Main Channel (8-bit brightness)
-+          - 1 # Sub Channel (8-bit brightness)
-+          - 2 # AUX Channel (4-bit brightness)
-+          - 3 # Camera Channel, Low-side byte (4-bit brightness)
-+          - 4 # Camera Channel, High-side byte (4-bit brightness)
-+          - 5 # Red Channel (4-bit brightness)
-+          - 6 # Blue Channel (4-bit brightness)
-+          - 7 # Green Channel (4-bit brightness)
-+    required:
-+      - reg
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/leds/common.h>
-+    i2c {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+
-+      led-controller@1b {
-+        compatible = "adi,ltc3208";
-+        reg = <0x1b>;
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        adi,disable-camhl-pin;
-+        adi,cfg-enrgbs-pin;
-+        adi,disable-rgb-aux4-dropout;
-+
-+        led@0 {
-+          reg = <0>;
-+        };
-+      };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 48bae02057d5..97072e906928 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -15131,6 +15131,7 @@ M:	Jan Carlo Roleda <jancarlo.roleda@analog.com>
- L:	linux-leds@vger.kernel.org
- S:	Maintained
- W:	https://ez.analog.com/linux-software-drivers
-+F:	Documentation/devicetree/bindings/leds/adi,ltc3208.yaml
- F:	drivers/leds/leds-ltc3208.c
- 
- LTC4282 HARDWARE MONITOR DRIVER
+On 3/31/2026 5:08 PM, Jon Hunter wrote:
+>
+>
+> On 31/03/2026 12:23, Ashish Mhetre wrote:
+>> Add Memory Controller driver support for Tegra238 SOC, including:
+>> - MC client definitions with Tegra238-specific stream IDs
+>> - Reuse of Tegra234 ICC operations for bandwidth management via BPMP-FW
+>> - Device tree compatible string "nvidia,tegra238-mc"
+>>
+>> Export tegra234_mc_icc_ops so it can be shared with the Tegra238 MC
+>> driver, as both SoCs use the same ICC aggregation and bandwidth
+>> management logic.
+>>
+>> Signed-off-by: Ashish Mhetre <amhetre@nvidia.com>
+>> ---
+>>   drivers/memory/tegra/Makefile   |   1 +
+>>   drivers/memory/tegra/mc.c       |   3 +
+>>   drivers/memory/tegra/mc.h       |   6 +
+>>   drivers/memory/tegra/tegra234.c |   2 +-
+>>   drivers/memory/tegra/tegra238.c | 395 ++++++++++++++++++++++++++++++++
+>>   5 files changed, 406 insertions(+), 1 deletion(-)
+>>   create mode 100644 drivers/memory/tegra/tegra238.c
+>>
+>> diff --git a/drivers/memory/tegra/Makefile 
+>> b/drivers/memory/tegra/Makefile
+>> index 6334601e6120..0d50e37d43af 100644
+>> --- a/drivers/memory/tegra/Makefile
+>> +++ b/drivers/memory/tegra/Makefile
+>> @@ -10,6 +10,7 @@ tegra-mc-$(CONFIG_ARCH_TEGRA_210_SOC) += tegra210.o
+>>   tegra-mc-$(CONFIG_ARCH_TEGRA_186_SOC) += tegra186.o
+>>   tegra-mc-$(CONFIG_ARCH_TEGRA_194_SOC) += tegra186.o tegra194.o
+>>   tegra-mc-$(CONFIG_ARCH_TEGRA_234_SOC) += tegra186.o tegra234.o
+>> +tegra-mc-$(CONFIG_ARCH_TEGRA_238_SOC) += tegra186.o tegra238.o
+>>   tegra-mc-$(CONFIG_ARCH_TEGRA_264_SOC) += tegra186.o tegra264.o
+>>     obj-$(CONFIG_TEGRA_MC) += tegra-mc.o
+>> diff --git a/drivers/memory/tegra/mc.c b/drivers/memory/tegra/mc.c
+>> index d620660da331..10ef3c323e22 100644
+>> --- a/drivers/memory/tegra/mc.c
+>> +++ b/drivers/memory/tegra/mc.c
+>> @@ -49,6 +49,9 @@ static const struct of_device_id 
+>> tegra_mc_of_match[] = {
+>>   #ifdef CONFIG_ARCH_TEGRA_234_SOC
+>>       { .compatible = "nvidia,tegra234-mc", .data = &tegra234_mc_soc },
+>>   #endif
+>> +#ifdef CONFIG_ARCH_TEGRA_238_SOC
+>> +    { .compatible = "nvidia,tegra238-mc", .data = &tegra238_mc_soc },
+>> +#endif
+>
+> It is always better/preferred for the dt-binding patch to be 1st in 
+> the series. The above does not exist until after patch 2 is applied.
+>
 
--- 
-2.43.0
+Ack, I will resend with correct ordering.
+
+>>   #ifdef CONFIG_ARCH_TEGRA_264_SOC
+>>       { .compatible = "nvidia,tegra264-mc", .data = &tegra264_mc_soc },
+>>   #endif
+>> diff --git a/drivers/memory/tegra/mc.h b/drivers/memory/tegra/mc.h
+>> index 649b54369263..d0da4a5f192d 100644
+>> --- a/drivers/memory/tegra/mc.h
+>> +++ b/drivers/memory/tegra/mc.h
+>> @@ -238,6 +238,11 @@ extern const struct tegra_mc_soc tegra194_mc_soc;
+>>     #ifdef CONFIG_ARCH_TEGRA_234_SOC
+>>   extern const struct tegra_mc_soc tegra234_mc_soc;
+>> +extern const struct tegra_mc_icc_ops tegra234_mc_icc_ops;
+>> +#endif
+>> +
+>> +#ifdef CONFIG_ARCH_TEGRA_238_SOC
+>> +extern const struct tegra_mc_soc tegra238_mc_soc;
+>>   #endif
+>
+> Does this work? Tegra238 is dependent upon stuff in Tegra234, but 
+> there is no guarantee that both of these CONFIG options are always 
+> enabled?
+>
+
+Good point, thanks for catching this Jon. If CONFIG_ARCH_TEGRA_238_SOC
+is enabled without CONFIG_ARCH_TEGRA_234_SOC, the build would fail
+since tegra234_mc_icc_ops wouldn't be compiled or declared.
+I'll fix this in V2 with combined Tegra234 and Tegra238 SOC guard for 
+struct.
+
+>>     #ifdef CONFIG_ARCH_TEGRA_264_SOC
+>> @@ -256,6 +261,7 @@ extern const struct tegra_mc_ops tegra30_mc_ops;
+>>   #if defined(CONFIG_ARCH_TEGRA_186_SOC) || \
+>>       defined(CONFIG_ARCH_TEGRA_194_SOC) || \
+>>       defined(CONFIG_ARCH_TEGRA_234_SOC) || \
+>> +    defined(CONFIG_ARCH_TEGRA_238_SOC) || \
+>>       defined(CONFIG_ARCH_TEGRA_264_SOC)
+>>   extern const struct tegra_mc_ops tegra186_mc_ops;
+>>   #endif
+>> diff --git a/drivers/memory/tegra/tegra234.c 
+>> b/drivers/memory/tegra/tegra234.c
+>> index 87b22038a5fb..9fbd34d4abe0 100644
+>> --- a/drivers/memory/tegra/tegra234.c
+>> +++ b/drivers/memory/tegra/tegra234.c
+>> @@ -1125,7 +1125,7 @@ static int tegra234_mc_icc_get_init_bw(struct 
+>> icc_node *node, u32 *avg, u32 *pea
+>>       return 0;
+>>   }
+>>   -static const struct tegra_mc_icc_ops tegra234_mc_icc_ops = {
+>> +const struct tegra_mc_icc_ops tegra234_mc_icc_ops = {
+>>       .xlate = tegra_mc_icc_xlate,
+>>       .aggregate = tegra234_mc_icc_aggregate,
+>>       .get_bw = tegra234_mc_icc_get_init_bw,
+>> diff --git a/drivers/memory/tegra/tegra238.c 
+>> b/drivers/memory/tegra/tegra238.c
+>> new file mode 100644
+>> index 000000000000..5abdca16a275
+>> --- /dev/null
+>> +++ b/drivers/memory/tegra/tegra238.c
+>> @@ -0,0 +1,395 @@
+>> +// SPDX-License-Identifier: GPL-2.0-only
+>> +/*
+>> + * Copyright (C) 2026, NVIDIA CORPORATION.  All rights reserved.
+>> + */
+>
+> ...
+>
+>> +const struct tegra_mc_soc tegra238_mc_soc = {
+>> +    .num_clients = ARRAY_SIZE(tegra238_mc_clients),
+>> +    .clients = tegra238_mc_clients,
+>> +    .num_address_bits = 40,
+>> +    .num_channels = 8,
+>> +    .client_id_mask = 0x1ff,
+>> +    .intmasks = tegra238_mc_intmasks,
+>> +    .num_intmasks = ARRAY_SIZE(tegra238_mc_intmasks),
+>> +    .has_addr_hi_reg = true,
+>> +    .ops = &tegra186_mc_ops,
+>> +    .icc_ops = &tegra234_mc_icc_ops,
+>> +    .ch_intmask = 0x0000ff00,
+>> +    .global_intstatus_channel_shift = 8,
+>> +    /*
+>> +     * Additionally, there are lite carveouts but those are not 
+>> currently
+>> +     * supported.
+>> +     */
+>
+> I don't know what this means?
+>
+
+I have kept this comment similar to Tegra234. tegra_mc_get_carveout_info()
+function uses num_carveouts variable as upper limit for supported carveouts.
+On top of it, there are few lite carveouts which are supported by SOC 
+but are
+not used by the driver.
+It's redundant info IMO and can be removed from both Tegra234 and Tegra238.
+Jon, Can you please share your thoughts on this?
+
+Thanks,
+Ashish Mhetre
+
+>> +    .num_carveouts = 32,
+>> +    .regs = &tegra20_mc_regs,
+>> +    .handle_irq = tegra30_mc_irq_handlers,
+>> +    .num_interrupts = ARRAY_SIZE(tegra30_mc_irq_handlers),
+>> +    .mc_addr_hi_mask = 0x3,
+>> +    .mc_err_status_type_mask = (0x7 << 28),
+>> +};
+>
+> Jon
+>
 
