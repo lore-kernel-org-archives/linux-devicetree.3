@@ -1,221 +1,332 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BACA4381B0A;
-	Mon,  6 Apr 2026 14:20:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.135.77
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775485257; cv=fail; b=PNMGXlZXl/6W311Nx5OKy31KbEqK+ylrmJ0fHVdMPd1v4vDyTvxait7kmiz9RrUNe6wst4RNXVeFbP/EEqP7D6lUl1JLTAckfjTej9Zr0+Wj7CxYnEJ8uZ6X7kV67+U0DXxZGFi7Y9mkF1nxYKT/bJisqnsYcEnSWk5HGSbCMyI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775485257; c=relaxed/simple;
-	bh=kIGvrhUTesAveC61LlC5yqunsQBl1oSlkT1NZH0yL+I=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=fo/em4BHNS/Op3WKK8YxGGV5N40BEy5sFUN769ksr8Gg1T6wPrFA3thbL8OnnhCU5vkoHiNxWJOba/aNGKSdA2GC4jb5EBecgKu5Rn/jGaBNWqf1evRNP5AwSS+XvE4pBSUFzn1BPPBTDUHIuqEQEo2fCWBzLBArUGR3Dy2i4aQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=fyVrT3j0; arc=fail smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 940103822B3
+	for <devicetree@vger.kernel.org>; Mon,  6 Apr 2026 14:22:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.65
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775485328; cv=none; b=a8LyXCVpWQVcTedwVABQuAcjOCNpgLIQOhDT+6tk8yzesHRkzqpE6J+MqrTas6sTjM+e0PewiYJRCbrVQ9zM2wdEYEhkEh/OMKVcGEkKXW5aSChaRlg4HAkgGQYHjzZ0w2VsZqlDBundSF4wFpKccVImBdD8w2szJaiFiJ0mRXU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775485328; c=relaxed/simple;
+	bh=UBXWFPuSNY/BHboqm2+3K5ZyhtL+9cptJ1+bRiMdJh4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=lPIrA0hlBBQclWdCB55ecTbw4gdIQEP+tepgFJOoWA2Sf+Uoq9nnxP4PnHUN3C93hAwd1+Q2FbF3PqKoqPq61G52BvYdKUVjf8xv0sXCHFMdmeynAOYcJ0CFDFhVA7+USZinMf87Imi0SQwajRxw5cRLcRVQ5SSRuJstCxJyhH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=ULXOEqD2; arc=none smtp.client-ip=185.67.36.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="fyVrT3j0"
-Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 636DFgT91037505;
-	Mon, 6 Apr 2026 10:20:36 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=kIGvr
-	hUTesAveC61LlC5yqunsQBl1oSlkT1NZH0yL+I=; b=fyVrT3j0z5fMR6lxAju3D
-	qdB3lpfPQ2XiqrwvYTNeoz2fRccgQS7fviOViNXbk956osms0y6nhht4kktcX0BQ
-	22prL38SaQK03cccdWru0apxsK+bm1CjLMxKt/XAqE9FDhmZkb1hh5IE4LDjrPkq
-	f/coyfcpiNUsNsEuEwiYQcf8aho08KZFZeHr4qQQyLhnf3h9aWpmK5WqPwodh372
-	CxQPhUXmXQmb8ssCDMZwmTT1/zJgSd2Lqknfd/p0nocDZzaOkQT3B0PdripNye5V
-	sQiBYrgiJ1VIuqJZ1HA3pEwwu0kUh1vIUaJxVKJId+3gmZQ8sgfaZ9qapH/T8uTa
-	w==
-Received: from ph7pr06cu001.outbound.protection.outlook.com (mail-westus3azon11010012.outbound.protection.outlook.com [52.101.201.12])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4dc13gwb1b-2
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 06 Apr 2026 10:20:36 -0400 (EDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=H3ja5y7MkAVyJcJtocUG53QcUcEbPVaUMhjmowJRedYPUcn4FIlv6V7LngyaMNB1wBIJ5qKgqp0FOlb7aMu4qyNPY4yEMV0CidFwPeJfC+aArOPapevx8WGNEULPXw79qfGfH20zpg21nWJpC2wbkNGZPWQXxY5Fj6jUarQ6Mx1I/tsUqczC5DtDddMVZbK/qTQjWxX6bMWS2FEqUPi4xUdz4GhR3MWlJckIdJQVBF1GKUK/XKsu47RfMN9snSXuqwJ5xOIasUBTCoUzd5P+cbYUplKpcN01rX86Qo0ApNYZ4TKy0V3QxUYQaxZYDHkZVNPGinQfqsL9PpiTGyzNyQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kIGvrhUTesAveC61LlC5yqunsQBl1oSlkT1NZH0yL+I=;
- b=TBnrXstWf9gVvipw0ozMOEK5yBU/mZR+eKcrZ4ZidpEt+qDDneRb9TEz0dbfnu0dbwBHVolH3VgAWK1O2IUPhKSGwl4m45Gedu4YUKZDrY/UtbXq/0jA1Qrh47BiLZE0cxzQamRU1iIPniY5pxgSL2I8b6/uXvrIX4Hl3i0YTmkextV7CqKTFVCYwIxtLL/sNOhnWx6Na+VrWN+DL8f3bjn4OnfHYFd+yNM7OKqGj6GI2oN57cOyb4Ixv9737KAJotpibb6Db10S7mmrOG6XQbImKAslUcT5y/5Zri+Eh3VHO/RimHkuO/TQp/N1LPi2+h7+KJeCyrwZYRHqSdtOYw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
- dkim=pass header.d=analog.com; arc=none
-Received: from LV9PR03MB8414.namprd03.prod.outlook.com (2603:10b6:408:367::23)
- by SJ0PR03MB7026.namprd03.prod.outlook.com (2603:10b6:a03:4e8::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.20; Mon, 6 Apr
- 2026 14:20:31 +0000
-Received: from LV9PR03MB8414.namprd03.prod.outlook.com
- ([fe80::d661:7c16:d052:cc81]) by LV9PR03MB8414.namprd03.prod.outlook.com
- ([fe80::d661:7c16:d052:cc81%6]) with mapi id 15.20.9769.018; Mon, 6 Apr 2026
- 14:20:31 +0000
-From: "Sabau, Radu bogdan" <Radu.Sabau@analog.com>
-To: David Lechner <dlechner@baylibre.com>,
-        Lars-Peter Clausen
-	<lars@metafoo.de>,
-        "Hennerich, Michael" <Michael.Hennerich@analog.com>,
-        Jonathan Cameron <jic23@kernel.org>, "Sa, Nuno" <Nuno.Sa@analog.com>,
-        Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof
- Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        =?utf-8?B?VXdlIEtsZWluZS1Lw7ZuaWc=?= <ukleinek@kernel.org>,
-        Liam Girdwood
-	<lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Linus Walleij
-	<linusw@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Philipp Zabel
-	<p.zabel@pengutronix.de>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan
-	<skhan@linuxfoundation.org>
-CC: "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        "linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>,
-        "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-        "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
-Subject: RE: [PATCH v6 4/4] iio: adc: ad4691: add SPI offload support
-Thread-Topic: [PATCH v6 4/4] iio: adc: ad4691: add SPI offload support
-Thread-Index:
- AQHcw1l5C7eBe1gr9kKzzEquafv7BrXPELuAgAK5+HCAABcC4IAAIQJAgAAQ8wCAAAXa8A==
-Date: Mon, 6 Apr 2026 14:20:31 +0000
-Message-ID:
- <LV9PR03MB8414A8775346A72826D4C9CFF75DA@LV9PR03MB8414.namprd03.prod.outlook.com>
-References:
- <20260403-ad4692-multichannel-sar-adc-driver-v6-0-fa2a01a57c4e@analog.com>
- <20260403-ad4692-multichannel-sar-adc-driver-v6-4-fa2a01a57c4e@analog.com>
- <22b44acb-bfb5-4b97-8fa2-aeb4aec704c2@baylibre.com>
- <LV9PR03MB8414CB6B07EA81FB5A42436AF75DA@LV9PR03MB8414.namprd03.prod.outlook.com>
- <LV9PR03MB8414C570998C4C1EE59ABFBBF75DA@LV9PR03MB8414.namprd03.prod.outlook.com>
- <LV9PR03MB8414BB41577A8B5A0432463FF75DA@LV9PR03MB8414.namprd03.prod.outlook.com>
- <83971700-ea17-4fd5-8985-68c798222800@baylibre.com>
-In-Reply-To: <83971700-ea17-4fd5-8985-68c798222800@baylibre.com>
-Accept-Language: en-US
-Content-Language: en-GB
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: LV9PR03MB8414:EE_|SJ0PR03MB7026:EE_
-x-ms-office365-filtering-correlation-id: a51becd4-4574-4443-1a3b-08de93e7a8c1
-x-ld-processed: eaa689b4-8f87-40e0-9c6f-7228de4d754a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|376014|7416014|38070700021|921020|22082099003|18002099003|56012099003;
-x-microsoft-antispam-message-info:
- RQYH6jGKZgcdd/++be1jDSqAs0rvsCjF5kSWhsNy8RjWBS9ZTdpezanPHeZYzWfRfz6ByAUCwOBGK+J0Akd5fJgiAz+Go7HFMZPxHWQ9wJMtkgJS0EoGEbZ6JO38iCvEacsBM8vHp5n7zNzmjTDeAt9A2+dvIthXyKahcNejtBYOel3GTgs5AGWKbA8h6KF3jLYZFQHXj02uwLaGfytkLh45ZMc9BsUxOQDspCZZnB8sNws60kqBs5O9d+O5ws1UfZDVOOeMaw703yXm0D0wrRkRjcCvUlUPNRizCLocOeMmh7aGjUugesUIXK/mx5VE9E1VauMwDiIf/+/xxcBnylJDmlixydxKraA6M6gJZxA5TK8HzDx/O3OcPWSI8SwUVixIMeJ5vX2p/NgdBjZ0GkYdZLTPwfPAVG9EkH8vvqtW8ZQ2UuobwseS17pg+HD0ViX+OOlBHujgj29ItqSaJEM+b7BiJNw5MwbmBWRpPpFCJ3Vp3FEZAo/IPtDaocFBtfOVGhWm/63v0/vobUlkdJAS/1MEr/Ef6pk3MAD73aMoYjd6eQq3Qq8QyrHeiq4ek5x9A6o+MDBZANkxvu3ovTU22VikUOZS0q2G9PCW1GvZtVuyzVi6UZmsYuuKmATP0pG/tsRPpm8IrMqsskwk777Ua8o3ba92ZsJJdrE7lhejs3WhVjuRxpPpNrKVHbdhkhRiqJ0PUJrJRFZekOemrj6gUT6JWqwv6dINsJ0BtsXs9E8sEb64IO5VAkmKFp9LujBmrhTjLGNGqJfphFsn9sXUev45tVBFkV0o9M00wOQFxl2ftDpWGeNyC+FQ/21N
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV9PR03MB8414.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(38070700021)(921020)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?S2hFdjNST1FSdDBWOGRIYlpjUjBEQnB2WlZLQy9tc0FtVWkyTlgyaURQVjlB?=
- =?utf-8?B?aFdlNmFTQVJlN3IyUTNLWHVZTFQ2bk1qaWtJSGNpSDFhaVJqalFkU1F3c2VI?=
- =?utf-8?B?ckJzN1FDZHlZOHlnNzhtRlZBa3BLMVJRR3NLOXJENHgyYzhXR2lpdUhuV2Vk?=
- =?utf-8?B?bG13NW03N2ZZYVk3eDY0eUVQUHpLcUh6WjZ6aGxud2dhVVFkalh6Z1h6dUpq?=
- =?utf-8?B?dWdiZDVpa0V5elNWYnJ2c0FnSzBNRHBuWUo3RUtHbVZpQzJoNGVMQWQ0TVV3?=
- =?utf-8?B?QjVTaCtVS2R5NDkxcUlpL3dmWjdHSWV6TjZiTGJ1Y0ZyWlVCRnhheGxGcG8y?=
- =?utf-8?B?UnY3eDRmK0hGZ05hRDkvaUpLSVI5RFk3eDZxUG00UWJxVUpjaklPNG1jWXZM?=
- =?utf-8?B?K0s5c1lzYjkydkxCdHRSbWQyRnBQc2N3WUNCNGdMQmlqZFhsQVBmSG5BY3RS?=
- =?utf-8?B?aVlRTlFwcTJmdnRmR1IyeDhIUlBzYnIwdHp1NUlQRjcyWklCSjZ2bWhmK3ZE?=
- =?utf-8?B?MHRDSm1HcnBBY0R5TUowbW02TGIxd0lIZ243eGx1bXVyb04zclJaNGlud2V6?=
- =?utf-8?B?SnI0L0p6cm1lQTJLOXJyVDZmNm4yUXlVY1ZDODRWTmpybE0zdVVUSGJsRXRK?=
- =?utf-8?B?WGNOY2x1Y0dJNEZGazgyUkd6akJlZU0wekZuaTBtcnhmdmpQTmpDU0VZYVUz?=
- =?utf-8?B?Yit0KytnYkdoL2hTZDRVRkZDSnQ4V20yenUyZ1lYU3JGZWpIenNQYUtya3hV?=
- =?utf-8?B?UmhzbzJUTXpuckNkT1VJUkVjNEdLeXBkbisrNXNOdUxJcTFRRXFxWHJpSHB4?=
- =?utf-8?B?S0E0ZmR0NGhsRzFxUlprM2FNUGdiQnpsbzRVQ0t3a2pQa0FCNFZnWnBBZzdn?=
- =?utf-8?B?bDJyTjlMeE9MbDVFaWRyZnY3ZEYrcUVMaWlOVTlCZWxwQkU1NnE3YkFIT3FV?=
- =?utf-8?B?Nm05OHhEMTA1Yy9sYlNpbERsQnRWZ0VGeHMrWGZ4Z01CbnhkRjNwQksydGZ5?=
- =?utf-8?B?MUs4QXg2TmpVSERLcUY4b2VZTXRFMWNYNTRzTDduUWN5Y0xLZE5aWkFvYkZT?=
- =?utf-8?B?Y2JpWjY2akkrMW9mTVYrZXBYK0YzaE0wSWI4ekJ3UUdRREIxWmR4b21WT3Z1?=
- =?utf-8?B?Ums5a2w0V1grakxKTU9rOXBYbVJFNWFPRFJzbWtXc2wvck1YZ0hjR0xSVmlD?=
- =?utf-8?B?YkZLUUxvVGhmcy83M3dBR2VzOFVIM2JFMW5YalZxU0MxbTMzN3grbm8yY2oz?=
- =?utf-8?B?eHpFL2VBSFh5bEFVSmFpcldXekJHb2NTQlk1Y1pUa0J3VFJIaEhrdnNyVzBy?=
- =?utf-8?B?UDY1MmFSM2IzSGlyb3VYWHNqNFNrZ2NiMnBranA1c2dhMTVpODBERlFBa2E3?=
- =?utf-8?B?eHhybjd1aE5FdzlJbTNpZlVwc05IZll6N3pka1B3Z2NMNnRyZDFOSnl6RFJl?=
- =?utf-8?B?OGY4Z0h2RHlFSkRoaEg2SmJHckp0dlhkS1NBdWdWUU9ZSlAxZ2hzTDA5QVo3?=
- =?utf-8?B?VG40bjhvWUVMNkxwQkd2QU5WVEE2VTF6dCtpTDAyOGpaRHFFYUtpMVNiY3BH?=
- =?utf-8?B?VGZOWkxrSXJmVnRnTmhqMUc5RUI5d1d2ZU4wdS9panJYU2ozZ0hacDY3b3FS?=
- =?utf-8?B?SmlNYU0vL0pwUThiMFJlTitYRU1MVC8ySWhMM2tNZFk1QTJSVGd6QmkreEMx?=
- =?utf-8?B?UUdETXR5dmh1c1Y5aWxsaThJdjhDRUQ4U2pIeTdPbEhSL0hHTVNiRnNsL3Qy?=
- =?utf-8?B?Yk1DYVBLUEE2SkZ0bVpWUmU3V3NxczIvazIvK1Ntc054RytLYzhWdU5CNmxL?=
- =?utf-8?B?bWtVbE16d3dUT3hrWWp4b211cS84Zi8rZ1RtYmVvRG9FR2x2TXRZM1FXVUJN?=
- =?utf-8?B?dmpQNEFzOFlmcTFKZ1Y0VGkwNmNzSTAzVUhTSWpjdklLS0RSS3plQjFFeFlr?=
- =?utf-8?B?N0FCU0lCbzdqL0FGdG56aUF3Sy9RYzYrRXVKRHVtTWIwUkZHb2pzUGd1ejAx?=
- =?utf-8?B?MlZyaE1vaXg4ODRBTzExRFZ4RUZFZ2VLYk1ENXNJS0xRYmJWVVRMRVdWM2p2?=
- =?utf-8?B?aGk5dEZDSVN2Q1dVWGRzMDhmNnh2OExEWUdkdWYwZzJUdlp6U1BYUEhUUStk?=
- =?utf-8?B?eTByMWN6bFoySDRrRElQMXVnS0ZGdm1hY0hkb1NXdE1EL1ZsSVpyZ242TXBo?=
- =?utf-8?B?M2RTWVZYM1F6alhpSGdFK3dUdGJVVkdUN0M5UkZFaytSYXRSLzJTYTBJMVpN?=
- =?utf-8?B?d2Y0aEF4NXNYUkZkajNpMlJnUEZ6Y2hPQS9vR21ZZGQvMDQvNlQrbzJHekpT?=
- =?utf-8?B?OUR5bXp2WFI4STg3Sjd2TDAvZ3hMazNxYTRGL3lKWUVQNDFnNklSUT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="ULXOEqD2"
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout01.posteo.de (Postfix) with ESMTPS id E7CE8240029
+	for <devicetree@vger.kernel.org>; Mon,  6 Apr 2026 16:22:02 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
+	t=1775485322; bh=F0J/OusokAqx36V5UgnMeuzN1QXVg0TGemABh/0cuA0=;
+	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
+	 MIME-Version:OpenPGP:From;
+	b=ULXOEqD2xWBWVUvEMgRDhuIrOoCxDggDGxK8gD3ne3M3msdmuz7xSWLXZI8MkFILG
+	 u8gdoi7Lna0rHSAcsV8IufZ6eMliAoZCpPCH9+LWprvPbyBeBBPWIguLczdNM/CP00
+	 OTUL4G69xJ0IPycqzVDUutexoakXETwGYEI0DScUgHJ+BliVm1yUGUqwqrkb+QiiKN
+	 Bg6PCau+2uPhKXodURgg8OSC2h1p53mCQ9lA4ckYYJJiOGfZF1i0i6Z4LfBK+fjEfB
+	 KTEiHtzQWkCOJLTWO22ABs3ra3JJnlgH/VVXlDeRyF4be5WzAVORg2NfW40lQ32172
+	 rrPKGvNcPLo3w==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4fqBNS1hqwz6twf;
+	Mon,  6 Apr 2026 16:22:00 +0200 (CEST)
+Message-ID: <63fbd1a5cddc5b79302056fa7b01a790aca8ba8e.camel@posteo.de>
+Subject: Re: [PATCH v6 2/2] dt-bindings: embedded-controller: Add synology
+ microp devices
+From: Markus Probst <markus.probst@posteo.de>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Hans de Goede <hansg@kernel.org>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=	
+ <ilpo.jarvinen@linux.intel.com>, Bryan O'Donoghue
+ <bryan.odonoghue@linaro.org>,  Lee Jones <lee@kernel.org>, Pavel Machek
+ <pavel@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng
+ <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?=
+ Roy Baron	 <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl
+ <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich
+ <dakr@kernel.org>, Rob Herring	 <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley	 <conor+dt@kernel.org>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	platform-driver-x86@vger.kernel.org, linux-leds@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org
+Date: Mon, 06 Apr 2026 14:22:02 +0000
+In-Reply-To: <20260406-ancient-amethyst-poodle-1ba0b2@quoll>
+References: <20260405-synology_microp_initial-v6-0-08fde474b6c9@posteo.de>
+	 <20260405-synology_microp_initial-v6-2-08fde474b6c9@posteo.de>
+	 <20260406-ancient-amethyst-poodle-1ba0b2@quoll>
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+ keydata=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
+ jfGillcaQOqFZ3WwVqyzG1BUfTow==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-8X/o/pnJfJSSCsi8EKsW"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	ev7/b2fGc/tA/Z51c4QKm8KnFvmwP0ZKIMUVflAsQ2R4B6hB4wSiE2MAT0JZYGHFODAn9x+vS/6VU7JVwsHXoYPeM1QnIif4NO2oiVj3n/Uwq/XbOpRpucyYtXn/0ZeQt9FSGNh8gtHaXV+24rSoUAalQyE/0QcwgA5KxpGaX5Cbt4UJ3E9MoA5IQKDESH/m+bZbwM5wM7nZNEtG14jrafdP8mRnnclGPRIwOTuyHpqpRO4QNwqpIJMilcUZ+plJ4nhld0ZgjCBahFtZ3ol9iiBOjRAe5KhNH3RakYypLNVQTpHKrVoukFcJhDp6+FPefD28KFK22uCTZM55PHbBFQ==
-X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: LV9PR03MB8414.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a51becd4-4574-4443-1a3b-08de93e7a8c1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Apr 2026 14:20:31.0752
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: BBoVCMJkgC4aXLcNKJEU4rGGThO2r8aakz00EyQbCZ0xQgrNoHdoUfWRkhTxHYRAoO1TpfpCDIOqXjLEMPru/Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB7026
-X-Authority-Analysis: v=2.4 cv=Af+83nXG c=1 sm=1 tr=0 ts=69d3c134 cx=c_pps
- a=jCxDXDPT0EaKR6BOOOS6sQ==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=OmVn7CZJonkx5R5zMQLL:22 a=IpJZQVW2AAAA:8 a=EBLspJBUUlJ_NnQwIVMA:9
- a=QEXdDO2ut3YA:10 a=IawgGOuG5U0WyFbmm1f5:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA2MDE0MSBTYWx0ZWRfX8sM0SVRgx1vI
- OEZq2k0MAqOtLj09YSSkZiX04HWMbimqRDaLKfDSpG8LlEt7Y0PaUntgcXK3VPJgvc9rxKuL/4Z
- GHVic9JIMUZuVD+I7Mo9Nr/lXzBNnPQcRtOJLXOtfxpcQofIJIAzxGl6NlgZ0RyXOeXM3Fei/a+
- 7YYq0W7bkQqCUmd4XJm2nDPMEHxzaD0R/bDOYq7waY36DuvnvHse24zyEw0f6YsK6QvPKr3/u+s
- VRlwp8zc0kKvDFcpJj/1yV0y8mtnuOqi2+ubCCx4QYIiOa6fgdsApEtmoR5fTl2ev6iiok/CbPL
- 1WTRyW8CJhw1ZHSEFNi6s4uFvMiadNxuoFkhM7rIdLT4Sr/EA83OQboKpoMpEe5mt0yW+FdLESX
- psGfPs0wFRdlpGA0+B49mvY+9inpdhLr65H7I0rbQ9iYqtJ/8l+hQgKmWMAYKo+1G58BQlv08eQ
- xWxrsFGDe5q1qjEwmeQ==
-X-Proofpoint-GUID: YDXCY0PTCtxVs9bArka5aN8TLcMRUY5B
-X-Proofpoint-ORIG-GUID: YDXCY0PTCtxVs9bArka5aN8TLcMRUY5B
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-06_03,2026-04-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 lowpriorityscore=0 adultscore=0
- suspectscore=0 spamscore=0 impostorscore=0 malwarescore=0 bulkscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2604060141
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogRGF2aWQgTGVjaG5lciA8
-ZGxlY2huZXJAYmF5bGlicmUuY29tPg0KPiBTZW50OiBNb25kYXksIEFwcmlsIDYsIDIwMjYgNDo1
-NyBQTQ0KDQouLi4NCg0KPiA+DQo+ID4gSSBhbHNvIGhhdmUgdG8gbWVudGlvbiB0aGF0IHRoZSBv
-dmVyc2FtcGxpbmcgY29tbWl0IHdvdWxkIHRoZW4gaW1wbGVtZW50DQo+ID4gQUQ0NjkxX01BTlVB
-TF9DSEFOTkVMIG1hY3JvIHdoaWNoIHdvdWxkIG1pc3MgdGhlIE9WRVJTQU1QTElORw0KPiA+IGlu
-Zm9tYXNrLCBhbmQgb2ZmbG9hZF9tYW51YWxfY2hhbm5lbHMgd2lsbCBiZSBkZWNsYXJlZCB1c2lu
-ZyBpdC4NCj4gPiBNb3JlIHRoYW4gdGhpcywgdGhhdCBjb21taXQgd291bGQgYWxzbyBhZGQgb3Ro
-ZXINCj4gYWQ0NjkxX21hbnVhbF9jaGFubmVsc1tdDQo+ID4gYW5kIGFkNDY5M19tYW51YWxfY2hh
-bm5lbHNbXSBhcnJheXMgdGhhdCB3b3VsZCB1c2UgdGhhdCBNQUNSTyBhcyB3ZWxsLg0KPiA+DQo+
-ID4gVGhlbiwgY2hpcF9pbmZvIHdvdWxkIGhhdmUgYWQ0NjkxLzkzX2NoYW5uZWxzIGFzc2lnbmVk
-IHRvIGl0IGJ5IGRlZmF1bHQsDQo+ID4gYW5kIGluZGlvX2Rldi0+Y2hhbm5lbHMgd2lsbCBsYXRl
-ciBiZSBhc3NpZ25lZCBhdCBwcm9iZSwgZGVwZW5kaW5nIG9uIHRoZQ0KPiA+IG1vZGUgYW5kIG9m
-ZmxvYWQuDQo+ID4NCj4gPiBJZiBkaWZmZXJlbnQgY2hpcF9pbmZvIHN0cnVjdHMgd291bGQgYmUg
-d2FudGVkIHN0aWxsLCB0aGVuIG15IGJlc3QgZ3Vlc3MgaXMNCj4gPiB0byBoYXZlIGRpZmZlcmVu
-dCBpbmZvIHN0cnVjdHVyZXMgKHBlcmhhcHMgbmV3IHR5cGVzKSBpbiBjaGlwX2luZm8gYnkgZGVm
-YXVsdC4NCj4gPiBTb21ldGhpbmcgbGlrZSAqc3dfaW5mbyBhbmQgKm9mZmxvYWRfaW5mby4NCj4g
-DQo+IFllcywgdGhpcyBpcyBob3cgSSB3b3VsZCBkbyBpdCB0b28uDQo+IA0KDQpPayB0aGVuLCB3
-aWxsIGhhdmUgZGlmZmVyZW50IGNoaXAgaW5mb3MgYW5kIGVhY2ggb25lIHdpbGwgaGF2ZSByZXNw
-ZWN0aXZlIGNoYW5uZWxzDQp0byB0aGVtLiBUaGFua3MgZm9yIHRoaXMsIHRvbyENCg==
+
+--=-8X/o/pnJfJSSCsi8EKsW
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, 2026-04-06 at 09:59 +0200, Krzysztof Kozlowski wrote:
+> On Sun, Apr 05, 2026 at 07:36:29PM +0200, Markus Probst wrote:
+> > Add the Synology Microp devicetree bindings. Those devices are
+> > microcontrollers found on Synology NAS devices. They are connected to a
+> > serial port on the host device.
+> >=20
+> > Those devices are used to control certain LEDs, fan speeds, a beeper, t=
+o
+> > handle buttons, fan failures and to properly shutdown and reboot the
+> > device.
+> >=20
+> > This includes the following compatible ids:
+> >  - synology,ds923p-microp
+> >  - synology,ds918p-microp
+> >  - synology,ds214play-microp
+> >  - synology,ds225p-microp
+> >  - synology,ds425p-microp
+> >  - synology,ds710p-microp
+> >  - synology,ds1010p-microp
+> >  - synology,ds723p-microp
+> >  - synology,ds1522p-microp
+> >  - synology,rs422p-microp
+> >  - synology,ds725p-microp
+> >  - synology,ds118-microp
+> >  - synology,ds124-microp
+> >  - synology,ds223-microp
+> >  - synology,ds223j-microp
+> >  - synology,ds1823xsp-microp
+> >  - synology,rs822p-microp
+> >  - synology,rs1221p-microp
+> >  - synology,rs1221rpp-microp
+> >  - synology,ds925p-microp
+> >  - synology,ds1525p-microp
+> >  - synology,ds1825p-microp
+>=20
+> Drop, we see this in the diff.
+A prior review commit suggested I should add them [1].
+So only synology,ds923p-microp in the Subject then?
+
+[1]
+https://lore.kernel.org/all/20260330-delicate-sassy-mayfly-ebcca7@quoll/
+
+>=20
+> >=20
+> > Signed-off-by: Markus Probst <markus.probst@posteo.de>
+> > ---
+> >  .../synology,ds923p-microp.yaml                    | 112 +++++++++++++=
+++++++++
+> >  MAINTAINERS                                        |   1 +
+> >  2 files changed, 113 insertions(+)
+> >=20
+> > diff --git a/Documentation/devicetree/bindings/embedded-controller/syno=
+logy,ds923p-microp.yaml b/Documentation/devicetree/bindings/embedded-contro=
+ller/synology,ds923p-microp.yaml
+> > new file mode 100644
+> > index 000000000000..4518e9b74be1
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/embedded-controller/synology,ds=
+923p-microp.yaml
+> > @@ -0,0 +1,112 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/embedded-controller/synology,ds923p=
+-microp.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Synology NAS on-board Microcontroller
+> > +
+> > +maintainers:
+> > +  - Markus Probst <markus.probst@posteo.de>
+> > +
+> > +description: |
+> > +  Synology Microp is a microcontroller found in Synology NAS devices.
+> > +  It is connected to a serial port on the host device.
+> > +
+> > +  It is necessary to properly shutdown and reboot the NAS device and
+> > +  provides additional functionality such as led control, fan speed con=
+trol,
+> > +  a beeper and buttons on the NAS device.
+> > +
+> > +properties:
+> > +  compatible:
+> > +    enum:
+> > +      - synology,ds923p-microp
+> > +      - synology,ds918p-microp
+> > +      - synology,ds214play-microp
+> > +      - synology,ds225p-microp
+> > +      - synology,ds425p-microp
+> > +      - synology,ds710p-microp
+> > +      - synology,ds1010p-microp
+> > +      - synology,ds723p-microp
+> > +      - synology,ds1522p-microp
+> > +      - synology,rs422p-microp
+> > +      - synology,ds725p-microp
+> > +      - synology,ds118-microp
+> > +      - synology,ds124-microp
+> > +      - synology,ds223-microp
+> > +      - synology,ds223j-microp
+> > +      - synology,ds1823xsp-microp
+> > +      - synology,rs822p-microp
+> > +      - synology,rs1221p-microp
+> > +      - synology,rs1221rpp-microp
+> > +      - synology,ds925p-microp
+> > +      - synology,ds1525p-microp
+> > +      - synology,ds1825p-microp
+>=20
+> So we already talked about this and you were told to use compatibility.
+> Your driver clearly states several of these are compatible, so I am
+> confused that I do not see it expressed here.
+The driver does not have all functionality implemented yet.
+
+A few examples of differences not yet visible in the driver:
+- synology,ds214play-microp is the only model in the current list to
+have an cpu fan
+- 4 of the models are arm based and need a different shutdown behaviour
+- different amount of fans (already present in the binding via fan-
+failure-gpios)
+
+I could try to group them together, but Synology does not document the
+exact difference between them.
+
+As Rob mentioned [2], I need to be able to handle unexpected
+differences without qurik properties.
+
+[2]
+https://lore.kernel.org/all/CAL_JsqJUVh1YnhmYYj4ara5BheaLOL1oayjtWNuPH53q1d=
+4xXA@mail.gmail.com/
+
+>=20
+> > +
+> > +  fan-failure-gpios:
+> > +    description: GPIOs needed to determine which fans stopped working =
+on a fan failure event.
+> > +    minItems: 2
+> > +    maxItems: 3
+> > +
+> > +required:
+> > +  - compatible
+> > +
+> > +allOf:
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          contains:
+> > +            enum:
+> > +              - synology,ds214play-microp
+> > +              - synology,ds225p-microp
+> > +              - synology,ds710p-microp
+> > +              - synology,ds723p-microp
+> > +              - synology,ds725p-microp
+> > +              - synology,ds118-microp
+> > +              - synology,ds124-microp
+> > +              - synology,ds223-microp
+> > +              - synology,ds223j-microp
+> > +              - synology,ds1823xsp-microp
+> > +              - synology,rs822p-microp
+> > +              - synology,rs1221p-microp
+> > +              - synology,rs1221rpp-microp
+> > +              - synology,ds1825p-microp
+> > +    then:
+> > +      properties:
+> > +        fan-failure-gpios: false
+> > +    else:
+> > +      required:
+> > +        - fan-failure-gpios
+> > +
+> > +additionalProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    #include <dt-bindings/leds/common.h>
+> > +    #include <dt-bindings/gpio/gpio.h>
+> > +
+> > +    embedded-controller {
+> > +      compatible =3D "synology,ds923p-microp";
+> > +
+> > +      fan-failure-gpios =3D <&gpio 68 GPIO_ACTIVE_HIGH>, <&gpio 69 GPI=
+O_ACTIVE_HIGH>;
+>=20
+> Keep only one example, they are basically the same. Difference in one
+> property does not need a new example.
+Ok, it seemed like a nice convenient way to automatically test the if
+blocks.
+
+Thanks
+- Markus Probst
+
+>=20
+> Best regards,
+> Krzysztof
+
+--=-8X/o/pnJfJSSCsi8EKsW
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmnTwYcbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSuvQP/R05IvbCcdzV2GletCfZ
+vcDMyCA7SUlLB0jf/hQt+TMa8meJuI9+6ia4W4p9euleYMiqVaV3HTHZRMn1owRT
+X4if0fOMYSWfBsy1mJU4FgxeFvi8BCmxWIzBQI5TAsW1+s3I5aNeElAHc79PWDtQ
+PDKy4XWhICi1f8tjBPyTVmMitMoUgS79QyRqfWI3FjVAdk5DuWSkmr+jc4DO/Egq
+QxOKiCcKBEvr4V8liub7DSAqpBqb+yzRpaSPYihNrWOHB9vBTFqKSC+rxgqC5QKo
+XNF8OEA0uetkwpRRe3idnkSGVlQVvosz+dP+RVx2ko3Pe0jmdkYLFoRbPSdGR3aF
+ftn1LYVafVpOwUCmxbCi/nCcDkW0Ln2BvMmYmSftUgZGD4sIRDnLkkwUE4Xc25Z9
+tpdIqJu+3rCXNkjj6Ymde1ErKT+evXFpMRpSb+OWADk4wbqmtD/lhAYisGRSz3cJ
+SpsS0dVc4Ju35bW//UfN7H5zLI9VyGOrnwWceIJ7FvuX3OwjrZyKRoSht47JSZ5U
+NlP6T/2u+G6AeuG3131aEfTVzKs9mQvU5ZXvVVKKER8mbcpuPAgGke1/FTVe7/Bk
+ecH8UubtkfB0fRBDAykQP2koarEdKlT0HWVD8CTWIKGya7xhWngy3NkJjY6J2pzx
+M8vTFxMHMC12u6fav9kXfAh7
+=tKjT
+-----END PGP SIGNATURE-----
+
+--=-8X/o/pnJfJSSCsi8EKsW--
