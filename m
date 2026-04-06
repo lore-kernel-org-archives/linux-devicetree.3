@@ -1,60 +1,62 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7BF0318B9C
-	for <devicetree@vger.kernel.org>; Mon,  6 Apr 2026 12:22:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8D52883F
+	for <devicetree@vger.kernel.org>; Mon,  6 Apr 2026 12:22:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775478123; cv=none; b=GppLkoiocMiNGW0x5bEXSBE7zLB/ooHNOgQj4jnr0gwdNqTgIqrePOsTX/TeX/MDvwa40bh9KVdGjL/p7FXJZYHCIcmAItsTCsfrJnyFww2Xvyk462MpI452fnAT5azctZb/hCFjt5wVQqOJOTCzgz3XaM1anXn0AXIsift4EtY=
+	t=1775478128; cv=none; b=Fi+9jNxnpyps8sh7HemaUaTGnKEEdbACBxD0OJd3m10cOvj44cU2STge+tWF4vLAhDpy1OW6IFV8E6CeGqpehDedb7SYtrLrZwqn4icCa7r4KoomB7FCM5o4zDXuCgHJIcCM6cTaUjPAqjH1rbjkdR7A9+VE2JhcLJ8ERWv5078=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775478123; c=relaxed/simple;
-	bh=lGHgI1JIe+sWn6wQseGpmPyz4c4cXG9smc3s5v94fd0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VVxsmS2LfJM1n2X8+HaumF8aHnDyQdWOZdYDXEJieTv0YKY2ovhtASTlQmvGz45at4bMaUFb/+bPlZf9Q8kGHSHNOsbqGCJPoZULMS+usgGhGdjgoSURCAC7HgtlP347Z4XzjwNTV4zXZ6+PxI1GWXTdoKCeFT25JmaKyHmkJGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n0oXtrIZ; arc=none smtp.client-ip=209.85.128.49
+	s=arc-20240116; t=1775478128; c=relaxed/simple;
+	bh=Np9G5gcYFMRDuiPyTq0cvGyuqHDcYL3rC/5ZpAUxG2M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dXv8VcsTwPl90BPi3Vx3941rreNqQyhlc9slddklcbeHpaCXv+6ddGqbMdM9ZD9JHmpfE/TDNJR051cNrtfFg2q/sTqHtpUhrkD99wYpvYyenPu9sBrTiD3IhDHypZk+Rd4FnMR3IbvRVwQeGmrs+z4IpqZAcQqoRGNSQE5DbMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jgfFvznL; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n0oXtrIZ"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-488b0046078so9335545e9.1
-        for <devicetree@vger.kernel.org>; Mon, 06 Apr 2026 05:22:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jgfFvznL"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-488a29e6110so18544635e9.3
+        for <devicetree@vger.kernel.org>; Mon, 06 Apr 2026 05:22:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775478120; x=1776082920; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=D1Ib7KIoqjZFUSzNWhbYzkMnF3PEw+9LcP+ImCBKEuM=;
-        b=n0oXtrIZNbFGiXjB7HMM1iqZjGH5KknhC2DdELAdowTGFjuVIeDwjWYYN6jhD+MG/e
-         cDKQ4S0VHoBKVJDuxxSwB1OQ4GYBkaipWN3LE/7UJl81lyA8s5L0YerkSLqVPkTTqffz
-         byu0Rz1dWaP2w4D19HR1EZbiW/Zc9dR3n0OHHZLJYJx/bhIwJBbkdguX+ybX6oYdQtuF
-         0CZVdw1P4+Tw9aP9yt3O1Y8GaYOGFMabS9yNnEzRDhLxKufZVK34pZKHwdyvrEDxC7bS
-         SOr4Qtbek+zDqypdbjdLjgT96pnqsyvd2kfcFjZ6XRsiCLL+Klj8kcS/I+Jcyk3HAdP5
-         8Dag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775478120; x=1776082920;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1775478124; x=1776082924; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=D1Ib7KIoqjZFUSzNWhbYzkMnF3PEw+9LcP+ImCBKEuM=;
-        b=Bf7gc2jVlChBp9GLYLPXmxnMmHay5o5xyUbZqRSedEAZCUTMeRtqHXwv3E6ov2ODaN
-         C0CLr5Jvefaz6OJcWEgAQi0keweGKNy0X+kWXkxCQjKaTg3CmbfOr9yvSbydkRGLlj2q
-         aJwEfsAF7Yh62QKPSTQNYmoMBIGiMNGUd5TTBZ8NhY8r6EPJC+x+LRvuB0EgxugoR2TQ
-         a0A2A2vu8HHtTd82kSKiBGr80Zg2EFc8SiriLv0JjwIOd/iWmY+IXlm6HN/aJWI+8NPj
-         kkpF2wvl8QPqRbnS9GPYcUnaoMB5XSLJCjVW9e+AUbleS/B6FWH+GB4eD4InmfACkVjG
-         Qq5w==
-X-Gm-Message-State: AOJu0YzUkxcXr3BUsbAESQNmr9pfR9XJn+0l4591t1T95rYj0rR/pAD4
-	EafY+uz5j3ihuDWaKIHtp1/aYlsZjTIc2ktrCoZ+GkEtEtbQZ6QgooiT
-X-Gm-Gg: AeBDieusjs1KEQUvHLcXUcGK23uGx+bkuNkHnpujkugxtAL47v2hvdo0yP6qEVHkqT3
-	qgIPmuRSPw6CsXcfgAf6ohbfk01CT9TNWFx1m14XBdhfnZ9kZMIVm3Pm8uY7VQNZFi57n5Pjf6Y
-	a2rPMVMe5b2wrN/E4DzxJAe2QMrP9HtBBaRsjbnOYjgDLtrvb2gqq+2+mkXeT7dydp+mMA7SjUN
-	Aq3Rxg4VxiX48NVVWuViyVu7MMqHDWOhVy5ezGUQTPLYbsKyu5nvNXW+AazJCPTJoRrGupLZ2Tt
-	wuOCjtjP6GFrQs8ajyWvCAfoAm62cQMORtRPkHV2gpo9hUVkw91owfQvgsCIkbk2R/aP3H3M3vC
-	Xb9jqZcqB4UhJddDb01Ibs4ywYZNdWfioDvpWMj0qpIaKtf/NjBALZNLKRW6RaMjLMIEgkLGAsC
-	YUjiA//xf8/RZwMlm4cyzxD0MNwZTOzqPyR2Zv71j3hnQVNieCbA==
-X-Received: by 2002:a05:600c:358b:b0:485:4135:5c92 with SMTP id 5b1f17b1804b1-488995cb858mr221859825e9.0.1775478119735;
-        Mon, 06 Apr 2026 05:21:59 -0700 (PDT)
+        bh=83XcChL1tExGxBWHgy0Os9L6mT6GQg50d1hbYCCziig=;
+        b=jgfFvznLYGoS9VgEk4ZAX8GxpDK/i6Ddqc8jrcel1NhyHROwW+U1Ji1nONfGiRaWUH
+         tAY26uRctq2MapmDe//mBVvuaeQVDyKgLC6qiG9POfHZMDUiP3675YLlHa53RwXoOuhI
+         Iu7HDYY7nYP+oIecYqLcdaMj/58IOVCQSt1AI+FRv7rwVl6byFQ8EeS2fcaDgTSc3syC
+         fehhbsGyzWDUhGiVa8ZyZZAJeSI0xov8SHz9dONCxa/2Cy68sjtC5hqpTCeFwdugYxaP
+         lMteGqnUkgTHSnZIWDIzNmJ2vyBlK8PDzAfp8F0/C82y2z5eX313c0LR1B2fefxkM0aA
+         XzAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775478124; x=1776082924;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=83XcChL1tExGxBWHgy0Os9L6mT6GQg50d1hbYCCziig=;
+        b=aVmg69w5bXE20fA+b7+i5BbhBkzUtJp9e+hevApxvwQP+zhrS6oQvLi041ZGUH4o/Y
+         qk1uQcCPEA7U3qe0uIAVW8jMb8KPXc5Uel6vq8K//419pWGdiT4w5uhpwdqQRXiPsAXe
+         AoPOdm5H4QMITPTtw9+tVtJ4aaGpq6LjTIi+6qtR1JWqwdW4nOvGvIuqRVB/Xsv+/Yw4
+         BkEPfoFIts0QOn2wOg8jvHYAlH+zgDSQH9dmO+ewIb0zxozhs7JrsRk6nLehBxv7o+Jn
+         MM3RdC0Ao2B2osouUrMzOJe4NusO+l33VKObVE/OcOJ9Ww6cji8eKDscqvdyllQzpCt9
+         Oumg==
+X-Gm-Message-State: AOJu0YzDn2X7l3RgpqfsgXgdMpP5HO6r7gHbODNN46buVbSz5t/ZF1WH
+	9/czqE6AJS6SD724LZ7roBCfOrNMKM02k7ZT3vLMRJxtT11HFI+7H9H6
+X-Gm-Gg: AeBDietHnDar13wIMnToge5Ln1oQtonyKm2wnZlnBr9mC/DorfshtAQxyyg7M9eCu3m
+	fMa5uy1SQiR7z8qQrqNNjVLbvN6H/8hi4x5pIURomkpGbEe/bQfRbKoujNcOO819DW1jvP3lKhi
+	3eUuVhH0ULj3vH/UQpX+dxZA2pqx+rTtpcd0/i7lbZkwK8EWSte1M+S9QL4m4U9cDZA+cJYhf2i
+	V4ODM1QwWdewXbiP/1pQI+BKdTVoR8Efr4EBSRfxMlH8ZoP1zQz6BdMWmghfLXzegPS7oRWXhC+
+	BzQ61ethFSWnzH9PZ+rp24oJrIAFEtHcrv5XrPL0BtAAfR1VcTBZv6JL4o+qIF9PPQYWES+JmJA
+	M/3jVyOTwiT5xfVoSx5gFI5EqWGA/ylgbt+23ufZZHqULNlmyLiB7g0sQD7mQyeaCYANhT6jnKO
+	oatirQQuLacNpbrG+pm6WXH6OXYYZFLCIKgKDoPKokuV2P07nAww==
+X-Received: by 2002:a05:600c:8216:b0:488:ba19:da25 with SMTP id 5b1f17b1804b1-488ba19dbc2mr1321785e9.12.1775478123954;
+        Mon, 06 Apr 2026 05:22:03 -0700 (PDT)
 Received: from SMW024614.wbi.nxp.com ([128.77.115.158])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48899d1c148sm138541595e9.5.2026.04.06.05.21.57
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48899d1c148sm138541595e9.5.2026.04.06.05.22.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 06 Apr 2026 05:21:59 -0700 (PDT)
+        Mon, 06 Apr 2026 05:22:02 -0700 (PDT)
 From: Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -65,10 +67,12 @@ To: Rob Herring <robh@kernel.org>,
 	Daniel Baluta <daniel.baluta@nxp.com>
 Cc: devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH RFC 0/3] dt-bindings: dsp: fsl,dsp: small cleanup
-Date: Mon,  6 Apr 2026 05:20:22 -0700
-Message-ID: <20260406122025.4515-1-laurentiumihalcea111@gmail.com>
+Subject: [PATCH RFC 1/3] dt-bindings: dsp: fsl,dsp: drop references to SOF programming model
+Date: Mon,  6 Apr 2026 05:20:23 -0700
+Message-ID: <20260406122025.4515-2-laurentiumihalcea111@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260406122025.4515-1-laurentiumihalcea111@gmail.com>
+References: <20260406122025.4515-1-laurentiumihalcea111@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -79,51 +83,183 @@ Content-Transfer-Encoding: 8bit
 
 From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
 
-Hello everyone,
+Compatible names ending in "-dsp" are associated with the SOF programming
+model, which, at the moment has no devicetree users in the upstream
+kernel. Furthermore, the binding either doesn't document all of the
+required properties (e.g. "port" children are missing,
+"memory-region-names" is undocumented) or the properties that are
+documented are wrong (e.g. fsl,imx8ulp-hifi4 needs 2 reserved memory
+regions, not 1).
 
-So, with this patch series, we attempt to tidy up the fsl,dsp binding a
-bit. Most importantly (and the reason why this was sent as an RFC), I'd
-like to remove the compatibles corresponding to the SOF programming model
-(i.e. the compatibles ending in "-dsp") from the binding. The reasons are
-explained in the commit message, but basically the problem we're dealing
-with is that we have a binding file in which two relatively different
-programming models have been crammed together.
+Since the two programming models (SOF and non-SOF) have some differences,
+it would make more sense for the 8 series DSP bindings to follow the same
+pattern used for MX95's CM7 (i.e. one or more binding files, including the
+common fsl,sof-cpu.yaml).
 
-Since at the moment there's no plan to upstream the devicetrees making use
-of the SOF programming model, we are stuck having to also take the SOF
-programming model into consideration when making changes to the binding
-(even if said changes only target the RPROC programming model).
+Given all of this, and since, at the moment, there's no plan to upstream
+the devicetrees making use of this programming model anytime soon, drop all
+the references to the SOF programming model from the binding docuemnt as an
+attempt to clean it up.
 
-Now, since there's no devicetree users in the upstream kernel for the SOF
-programming model, I'd like to permanently remove it from the fsl,dsp
-binding. If the SOF devicetrees are ever upstreamed then I think the
-bindings should follow the model of fsl,imx95-cm7.yaml (i.e. one binding
-per chip or group of chips, including the common fsl,sof-cpu)
+Signed-off-by: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+---
+ .../devicetree/bindings/dsp/fsl,dsp.yaml      | 67 ++-----------------
+ .../bindings/mailbox/arm,mhuv2.yaml           |  8 +--
+ 2 files changed, 9 insertions(+), 66 deletions(-)
 
-As for the other projects, u-boot seems to have a devicetree node using
-the "fsl,imx8mp-dsp" compatible (node has status "disabled", though)
-defined at "arch/arm/dts/imx8mp.dtsi". The node configuration seems to
-follow that which was used in the upstream kernel and modified via
-commit f048f2126fcc ("arm64: dts: imx8mp: Configure dsp node for rproc
-usage") to use the RPROC programming model.
-
-If need be, I can send a patch to u-boot in which we configure the DT
-node for RPROC like we did in Linux.
-
-Let me know if this series would be acceptable given the current
-situation.
-
-Thanks!
-
-Laurentiu Mihalcea (3):
-  dt-bindings: dsp: fsl,dsp: drop references to SOF programming model
-  dt-bindings: dsp: fsl,dsp: remove reserved memory definitions
-  dt-bindings: dsp: fsl,dsp: remove descriptions for common properties
-
- .../devicetree/bindings/dsp/fsl,dsp.yaml      | 94 +------------------
- .../bindings/mailbox/arm,mhuv2.yaml           |  8 +-
- 2 files changed, 9 insertions(+), 93 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml b/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml
+index e610b7636a08..7970f90781c2 100644
+--- a/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml
++++ b/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml
+@@ -17,10 +17,6 @@ description: |
+ properties:
+   compatible:
+     enum:
+-      - fsl,imx8qxp-dsp
+-      - fsl,imx8qm-dsp
+-      - fsl,imx8mp-dsp
+-      - fsl,imx8ulp-dsp
+       - fsl,imx8qxp-hifi4
+       - fsl,imx8qm-hifi4
+       - fsl,imx8mp-hifi4
+@@ -59,18 +55,18 @@ properties:
+       List of <&phandle type channel> - 2 channels for TXDB, 2 channels for RXDB
+       or - 1 channel for TX, 1 channel for RX, 1 channel for RXDB
+       (see mailbox/fsl,mu.txt)
+-    minItems: 3
+-    maxItems: 4
++    maxItems: 3
+ 
+   mbox-names:
+-    minItems: 3
+-    maxItems: 4
++    items:
++      - const: tx
++      - const: rx
++      - const: rxdb
+ 
+   memory-region:
+     description:
+       phandle to a node describing reserved memory (System RAM memory)
+       used by DSP (see bindings/reserved-memory/reserved-memory.txt)
+-    minItems: 1
+     maxItems: 4
+ 
+   firmware-name:
+@@ -110,7 +106,6 @@ allOf:
+         compatible:
+           contains:
+             enum:
+-              - fsl,imx8qxp-dsp
+               - fsl,imx8qxp-hifi4
+     then:
+       properties:
+@@ -123,7 +118,6 @@ allOf:
+         compatible:
+           contains:
+             enum:
+-              - fsl,imx8qm-dsp
+               - fsl,imx8qm-hifi4
+     then:
+       properties:
+@@ -135,9 +129,7 @@ allOf:
+         compatible:
+           contains:
+             enum:
+-              - fsl,imx8mp-dsp
+               - fsl,imx8mp-hifi4
+-              - fsl,imx8ulp-dsp
+               - fsl,imx8ulp-hifi4
+     then:
+       properties:
+@@ -149,39 +141,6 @@ allOf:
+         compatible:
+           contains:
+             enum:
+-              - fsl,imx8qxp-hifi4
+-              - fsl,imx8qm-hifi4
+-              - fsl,imx8mp-hifi4
+-              - fsl,imx8ulp-hifi4
+-    then:
+-      properties:
+-        memory-region:
+-          minItems: 4
+-        mboxes:
+-          maxItems: 3
+-        mbox-names:
+-          items:
+-            - const: tx
+-            - const: rx
+-            - const: rxdb
+-    else:
+-      properties:
+-        memory-region:
+-          maxItems: 1
+-        mboxes:
+-          minItems: 4
+-        mbox-names:
+-          items:
+-            - const: txdb0
+-            - const: txdb1
+-            - const: rxdb0
+-            - const: rxdb1
+-  - if:
+-      properties:
+-        compatible:
+-          contains:
+-            enum:
+-              - fsl,imx8mp-dsp
+               - fsl,imx8mp-hifi4
+     then:
+       required:
+@@ -191,22 +150,6 @@ allOf:
+ additionalProperties: false
+ 
+ examples:
+-  - |
+-    #include <dt-bindings/firmware/imx/rsrc.h>
+-    #include <dt-bindings/clock/imx8-clock.h>
+-    dsp@596e8000 {
+-        compatible = "fsl,imx8qxp-dsp";
+-        reg = <0x596e8000 0x88000>;
+-        clocks = <&adma_lpcg IMX_ADMA_LPCG_DSP_IPG_CLK>,
+-                 <&adma_lpcg IMX_ADMA_LPCG_OCRAM_IPG_CLK>,
+-                 <&adma_lpcg IMX_ADMA_LPCG_DSP_CORE_CLK>;
+-        clock-names = "ipg", "ocram", "core";
+-        power-domains = <&pd IMX_SC_R_MU_13B>,
+-                        <&pd IMX_SC_R_MU_2A>;
+-        mbox-names = "txdb0", "txdb1", "rxdb0", "rxdb1";
+-        mboxes = <&lsio_mu13 2 0>, <&lsio_mu13 2 1>, <&lsio_mu13 3 0>, <&lsio_mu13 3 1>;
+-        memory-region = <&dsp_reserved>;
+-    };
+   - |
+     #include <dt-bindings/clock/imx8mp-clock.h>
+     #include <dt-bindings/reset/imx8mp-reset-audiomix.h>
+diff --git a/Documentation/devicetree/bindings/mailbox/arm,mhuv2.yaml b/Documentation/devicetree/bindings/mailbox/arm,mhuv2.yaml
+index 3828d77f6316..d6ab66f6f3d5 100644
+--- a/Documentation/devicetree/bindings/mailbox/arm,mhuv2.yaml
++++ b/Documentation/devicetree/bindings/mailbox/arm,mhuv2.yaml
+@@ -192,16 +192,16 @@ examples:
+         };
+ 
+         mhu_client: dsp@596e8000 {
+-            compatible = "fsl,imx8qxp-dsp";
++            compatible = "fsl,imx8qxp-hifi4";
+             reg = <0 0x596e8000 0 0x88000>;
+             clocks = <&adma_lpcg 0>, <&adma_lpcg 1>, <&adma_lpcg 2>;
+             clock-names = "ipg", "ocram", "core";
+             power-domains = <&pd 0>, <&pd 1>;
+-            mbox-names = "txdb0", "txdb1", "rxdb0", "rxdb1";
++            mbox-names = "tx", "rx", "rxdb";
+             mboxes = <&mhu_tx 2 0>, //data-transfer protocol with 5 windows, mhu-tx
+-                     <&mhu_tx 3 0>, //data-transfer protocol with 7 windows, mhu-tx
+                      <&mhu_rx 2 27>, //doorbell protocol channel 2, doorbell 27, mhu-rx
+                      <&mhu_rx 0 0>;  //data-transfer protocol with 1 window, mhu-rx
+-            memory-region = <&dsp_reserved>;
++            memory-region = <&dsp_vdev0buffer>, <&dsp_vdev0vring0>,
++                            <&dsp_vdev0vring1>, <&dsp_reserved>;
+         };
+     };
 -- 
 2.43.0
 
