@@ -1,61 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C72026B764;
-	Mon,  6 Apr 2026 15:30:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51B81258EDA;
+	Mon,  6 Apr 2026 15:31:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775489440; cv=none; b=gtRSJdOYCEGeezQox38kp3O8UIpzic2RBxgYjsQgtItRMOl0wXfM1RuhiPk3BAYYdjOJrgko8udp2NJZPtrYb3oS8aHOsOGY9Cg5ghvOwTRAxVCycxw+AylFN7CiEa5uvUYvKhDDeMNO2FhPPRKIv2K2MbLh6oV4ppE95bQLf98=
+	t=1775489478; cv=none; b=r3Yuc3X01vgJAX4RmZI7HgfD4MDXg3SafvbkP3fJqWGpKX36M492y0EQegAqJXpYANIQsANJBOwKtfFPVbE+H/GS3jnYkXSJMLXaY1TzvJKq0nVCoO7xEGOZg+IOf8awOYrEltQLXPHQFM0GwhVE6haI9K7lyGJsdso8nxiWdR8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775489440; c=relaxed/simple;
-	bh=LDjJlJmuOzTWy74Nn0yC7pN0AJ7gm1ZbIoZKkfLC0iI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JFnkiOkb0IF4kawvOktxskflc5yus5Bupe7iCTpfCnhzrIMaqsVC6O4wsOPXTvVY/SoWVeRBx82ZFVvBNNzkBlvlxiO037VCMfL7bpJNIexahLIdDcow2i3FLln4AtMFgmnSn36/41BB59tWtCLehkwbdqMzoJWFn9JWaoTgKJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=egJC01RC; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775489478; c=relaxed/simple;
+	bh=S6MR2YNBRSzDuJOiJOdwNpywu7sQ3wKTTf2citvbdNA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=mQeqwIfnar3yFDVEkkpnvIPF10Th4P0UtJaaDA1kQ5+v5usUcR3g0NaoEM2dhZ3KF3btfZxJEsAaraYn91Ym4GJmREwoFYgoLSD12W3I+LAWUSH77cYgUZvP4vPXWlRVCMh/sMAkVozVvn5FXMSY5tQd3FB8TIN+V4hjQRZJR14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=d9NfMqx/; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="egJC01RC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 739AFC2BCB0;
-	Mon,  6 Apr 2026 15:30:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775489440;
-	bh=LDjJlJmuOzTWy74Nn0yC7pN0AJ7gm1ZbIoZKkfLC0iI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=egJC01RChEg3XaPOJZLzXSgjgNyooqWxgYJ10fX9QHFXMWJPDBZ8AoQus6+iphM8x
-	 QF1XzAGmDejTMxAuqUDmxcxpdFd5SS/n5qMUEXI/K2B0K+81euGoXD948aAFfH9awB
-	 8McfBmfd4oXw4LjrVGfSFLCSbfSXXVb1vJcweBKlXNZWL4JJc4nuL/ibzGZ0da4mbe
-	 OSEh1OKp6lUyUEpbqf2G5NkxE/6IRmnrREtvC4S3P+LOsRQBYaexFU9LTkmV4ZxWtG
-	 1aEq0/WiumllW6GY4373jJfsPBFDU5efiR+OwvNFmqcn9l8TMUETEdyM8BYrFvNl+d
-	 wcR6BEVNf4muQ==
-Date: Mon, 6 Apr 2026 08:30:38 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Ivan Vecera <ivecera@redhat.com>
-Cc: netdev@vger.kernel.org, Arkadiusz Kubalewski
- <arkadiusz.kubalewski@intel.com>, Jiri Pirko <jiri@resnulli.us>, Michal
- Schmidt <mschmidt@redhat.com>, Petr Oros <poros@redhat.com>, Prathosh
- Satish <Prathosh.Satish@microchip.com>, Simon Horman <horms@kernel.org>,
- Vadim Fedorenko <vadim.fedorenko@linux.dev>, linux-kernel@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
- devicetree@vger.kernel.org, Pasi Vaananen <pvaanane@redhat.com>
-Subject: Re: [PATCH net-next v2 0/5] dpll: zl3073x: add ref-sync pair
- support
-Message-ID: <20260406083038.0690bafb@kernel.org>
-In-Reply-To: <20260328080624.593916-1-ivecera@redhat.com>
-References: <20260328080624.593916-1-ivecera@redhat.com>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="d9NfMqx/"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B61A9112349;
+	Mon,  6 Apr 2026 17:31:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1775489475; h=from:subject:date:message-id:to:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=xTqqo0bM2Xp/vABBfMxTtslTbC0nEcFdtU9RVWpzvC0=;
+	b=d9NfMqx/h4AterwS3pb9uaO184+AEpR9/8Mm0vRvs9yLYWBbiUUr0V5H+81Jdjoh0vbiA3
+	A2J+qhLil58e1MlrZebVNYvehykoCA5MxzaQE8VqsCOURduIF3P7stxf0sodc2o3M7r1hy
+	6WWmNSpk92X6H4x0dgjtkWbtWfKSk/DxPBFKIDtCNibREu0z3QJuK3eEF/JIcq9orKnxxY
+	idfyFswFphl+FYR9vhGCb2/+4LKCM3e0QbCV36okK+Nt+ofOTmDsA6GBHFTvp1W2qWFRwy
+	IFipw4+Mq8QhrdYPO+zQjtg71kprF/iHhTGmFJKCfkdjznlhTCPoRJofsT4ZWQ==
+Message-ID: <41641a5c-8da1-4696-888c-454e6bf2eea2@nabladev.com>
+Date: Mon, 6 Apr 2026 16:49:53 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] arm64: dts: imx8mn-vhip4-evalboard-v2: Correct
+ interrupt flags
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>,
+ Fedor Ross <fedor.ross@ifm.com>, Shawn Guo <shawnguo@kernel.org>,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, Viorel Suman <viorel.suman@nxp.com>,
+ devicetree@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260406063810.25531-4-krzysztof.kozlowski@oss.qualcomm.com>
+ <20260406063810.25531-5-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <20260406063810.25531-5-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Sat, 28 Mar 2026 09:06:19 +0100 Ivan Vecera wrote:
-> This series adds Reference-Sync pair support to the ZL3073x DPLL driver.
-> A Ref-Sync pair consists of a clock reference and a low-frequency sync
-> signal (e.g. 1 PPS) where the DPLL locks to the clock reference but
-> phase-aligns to the sync reference.
+On 4/6/26 8:38 AM, Krzysztof Kozlowski wrote:
+> GPIO_ACTIVE_x flags are not correct in the context of interrupt flags.
+> These are simple defines so they could be used in DTS but they will not
+> have the same meaning:
+> 1. GPIO_ACTIVE_HIGH = 0 => IRQ_TYPE_NONE
+> 2. GPIO_ACTIVE_LOW  = 1 => IRQ_TYPE_EDGE_RISING
+> 
+> Correct the interrupt flags, assuming the author of the code wanted the
+> same logical behavior behind the name "ACTIVE_xxx", this is:
+> ACTIVE_LOW  => IRQ_TYPE_LEVEL_LOW
+> 
+> Fixes: 5eb7405db99b ("arm64: dts: imx8mn: Add ifm VHIP4 EvalBoard v1 and v2")
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Hi Ivan, FWIW we're waiting for the DT review here.
-I suspect some of the DT maintainers are AFK for Easter.
+Reviewed-by: Marek Vasut <marex@nabladev.com>
