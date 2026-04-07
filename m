@@ -1,251 +1,134 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0844E3A9629
-	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 11:55:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5158C2FF
+	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 12:06:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775562954; cv=none; b=Lxq60SFf9i7CMfccslo9VDXOF9Mizzer1mkKiPf0GD9GqxpsjLU5kE+qXm9VDtkiNjy6ep9lKjkxORmf8/cOydHvvNKEsCN0W3ZNXISH4zMNtZKvMjx9lBWy9PZTW2NDtjiam2Ep0+mJL3QXJACFGgpY/AeVQ4Xoe6fZkjoDJlI=
+	t=1775563590; cv=none; b=V/SuBLyB2BNEflucekFLO/tHyyQI6Ww2dykK5iNyalef9GfM7ztPr2ciPoqbnFPxMq38EUuSJMm2uSCqsKGifhcPMNnQrVkjMIteXgWleqPsfVXq8ANv6pQ1vdzfksVPjMy3VB4m0G0t+TwSs1fZAtUrTS7AQF1JRwjilBTSyMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775562954; c=relaxed/simple;
-	bh=FOpSnu178zIxAiHDc0irzy/CfVx7Q/ZjSlET4ZfSK1k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=skxExL3F0koJv/OqlZLGTO9atoKBZ9ipDzPPz9y5kRHoHpM14NuRPgjM9VTpsq19n3gMKG7mN58hPC38CMUQ8j0bBIC5OHd+qN4cBRacp1KJ1rYXRkOPQj5MQuXq/4n90pz7Iv9u8k4E0+iuAUXpXqfqosIC6am1mFdqmZgPxNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nNtIkqnO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ExXFDvkZ; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nNtIkqnO";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ExXFDvkZ"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6376lCLd2580027
-	for <devicetree@vger.kernel.org>; Tue, 7 Apr 2026 11:55:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	qG8+mDHWV547mjLnhWzemhJkdZY9nVnc5fhkU34nyfk=; b=nNtIkqnO885JYuwc
-	CrN+53ry0PlOLotYozEGW8VGw85288DqK9PCrotsNbEe2eEowaaeM734a+Uyhiwb
-	iFZedjH1KN2xawjAQ2GgiyJp8epnQNbAqCX83ooVSZ6HL50bnIv5MAq7wxKfIdbx
-	oK3aH8qTMlVQj5FFHHlxBxrxAW0myTNo+ppE1MO1Jc9CRiHruw2WmaVvcMOgvo1/
-	HKvnZtFpzTzMuY4yyVf4Ix74M0kb0gw6kzuSHhjho52tSSTUAF5DDjXU22PkHWgl
-	LzBTKf0IgXDZBjx8LYXV8OpHAPQzfIgOtruVh5nqXsAj7Fbq7V83/1vC2/s4vPIn
-	YHU2LQ==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dcmsf2k27-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 11:55:51 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50d8c183c2eso19108111cf.0
-        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 04:55:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775562951; x=1776167751; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=qG8+mDHWV547mjLnhWzemhJkdZY9nVnc5fhkU34nyfk=;
-        b=ExXFDvkZWqRt5uOkAd4rcw/ozxUzxPZMKj6syrTnzpeFnD3p666T6Cu5tdyBdC96Dk
-         SD37QAbwSrRml0EqnUHRkI1bRWsZE/rBldrGNBKq5Amo9j1AlRM877TeSefC0WcZhz8N
-         U0l9/QjjGoi0nY6mW9c8T/GAz+8gutEBWJa5ylzNi+Vv3mMtIOw8t+I9i8o4m6ToU5aC
-         qhSGmuU6xK8eTHBXEaoShUcFcKUaIT6T+6UzpWWXOxxsA0lIEf27ac8tj2/aez3kHkJF
-         5WRjzE1A8dHmoAmuM3eZ7tGLqtO0klMcHNFJQLWgIvxToCtdYlYg13HW8DzwpSZr0eQv
-         uO+w==
+	s=arc-20240116; t=1775563590; c=relaxed/simple;
+	bh=RLEQaCwlrPnS44zbzdgyul2aW2ANkVmjK7JC5gW/u4M=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=P9IhC08VN5ldoRBmCUZ9TF/LCn5JC9LLSoLh5cJ5pIzxCxuDj2dB5iQHdkK69HHUbRAhqKZcASTR3fQjd24gQR0i8pUJDhFM2KH/wiod62pmigtdKQxGGjs2KZ/f+tLW53TcehWvqPce15zrSxgzG278lifRKbg6C8rILcoZV64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-56d9c4f7f0bso3519612e0c.2
+        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 05:06:27 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775562951; x=1776167751;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=qG8+mDHWV547mjLnhWzemhJkdZY9nVnc5fhkU34nyfk=;
-        b=nhjuq8/IgCGr/HP3CXZlc09Pae60Q2HIdPOl1bj/q/SAK6xRuV9bwxyXLcN2ftlvz8
-         iG9Wfp2x50yhUEfvzlDAmy6+7ktryoE8ATutjrVIecFRMMT6fEfL7aGYLD7jc4RtSfs/
-         uU/cWkU3hhlV9QyKfGUQrmewJwNyo19H4uVgCzW2SgQqgvwOkorEHajiWKE59yqK6GuT
-         0NWhheFSDPrGx2xd4siXvrO5dePIASFT7kK/Yrnu4mPSLs77+/lUXc27LddAB1KgmmJP
-         IlShaxTA9WPzAccvg8NShB+iXQuuMejOpbMCsZLK9DOUKQkdn05QOLzev07M+9KIlE+1
-         IzAQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXPfCQFlj4+s7lKUVfXaJVUS02kSp3OTqXThvaKfEFQcT57R05M1pWQkwiVOfgRum/hS/TKc6BJmWiz@vger.kernel.org
-X-Gm-Message-State: AOJu0YzGyefQRw/corVBHLlH7kqYxtSg0cfXA+u9G+sNel7mxYabdUCC
-	TOtoip5y+mc5F20KY8freGUuQDbcM9quKo33C4oHUDv2q+K7AaWWW3EDc9qrORydSFRcGNjAstb
-	MmvM9RsmVlcDNJS7J+kN/AmH4XVqvD963n2DzP6NHksGmqPp5MqW9F3KXlFSmqIqE
-X-Gm-Gg: AeBDieuT3KFNy6VT89N3a0dCuU/tYQcYWQP37WKZzj8GweVyuGOH5uwouhG41EQvlsn
-	ddrR9ryaizfr9NkcFJxLdyv08LDv8g2KFT2rsmg/GIzuopwHhNBrmUnpzH6+lR29LrlZniorXSf
-	T8MpiqjtO+Fi98Y3oQX1d3ZyH8NO/Gg2LGff3yLBFDOeQX3KLLYO4EKdlgMCfUVVqNAdw7QMYLt
-	5yvAXxSzmYASyAmXkNXiOYiFUKXnqX/yCvUVQkSOrNe7iu6J+Yp4+JkcWSUXHdWl9e9J2W9l7cV
-	2jLfj0HinI+lIxjw0XK9cE5PPknJ2Cc5HLsnoX6CyGHgnKjZWaNzOO20SPU96CbNr9SXRrNYVtO
-	VRr1Uak4dLVczD219QNMjYn7MnP3tkTRmEyXln5N1D4cekup3SP+xreqH0UnjdIdN3Tt9qgNRr1
-	hLAv4=
-X-Received: by 2002:a05:620a:4442:b0:8d2:394a:d3f3 with SMTP id af79cd13be357-8d4184d407fmr1523186985a.2.1775562951304;
-        Tue, 07 Apr 2026 04:55:51 -0700 (PDT)
-X-Received: by 2002:a05:620a:4442:b0:8d2:394a:d3f3 with SMTP id af79cd13be357-8d4184d407fmr1523184085a.2.1775562950733;
-        Tue, 07 Apr 2026 04:55:50 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-66e034c8065sm4406902a12.28.2026.04.07.04.55.47
+        d=1e100.net; s=20251104; t=1775563587; x=1776168387;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=4MGYxkmthcoZTlDIjYHdP2FYlzdY22eALuxJJY+zxh4=;
+        b=Sy8s4S0bYE+mECPGfMlYvmuaIhBf2WJK143YIFPMmmN9i92cVwSB0/dj+xWVHpMDVj
+         u9qSq2y0QyijOxuEcW0h1tsvZLJErw219pQCr2ZoP7R7d524ALCX/k/HlLiCHrRwEnAF
+         lN6zX3D6FpKUmqFiL94qskK2h5zJTKFIw/qfqYUDk8Vn13axDXJBj13FvFIZ+eTd0IPO
+         H5Ld+lUzvzXniZjBpk8/betEByFyTlWP03OkO9ZKlfecZiPsDBjS9SGy4y2N4VLpuDd2
+         P1cGb+tB3jMr5/KPMXmB7gEcW0eYMS7T/DrQIt2ggAlylXTo8oAg+ekofgfJzV3MwAhp
+         4cCw==
+X-Forwarded-Encrypted: i=1; AJvYcCU2Cqm1M3/75S/ZGqhZEX9mCkN/EtcoVpc2zp7+Aw8Nu67OcHRbv3WivVgmzbD4Ez5R8QfU3xdzYg/q@vger.kernel.org
+X-Gm-Message-State: AOJu0YynnZDwdEm+Ba0Bk316UtczqTBi3plBfy5Hk4xMaw0Y8E4Gy78c
+	pv7wlOv0IOkt3ZmxABivYl20CD2y2DtQUQdnMQTcmhwJwVCeKXFkiobFkn8hiERv
+X-Gm-Gg: AeBDieu+NQsxn5uylIdEJWf32r59gA0b0G+FwrRyem/WGqgkogwcOlGw2DIDs5jrBTZ
+	hu3i/e4mADf6cVLlB6uHTsKj9fkXFTxdI1LvMh1oTPRCBtLLrGVu8UpgzHqpIykLXp4NgnDSnQN
+	IwPuADuZ0xH9KGHxtKAwkmIq3/EMbHbeuHsLZpm5lqEWeWiGJKqzjbbeFxUuAesq4Lx/n/3qu6E
+	q89KZJdGrr6DMPy/SZcedrvMnvqdwfMjBv/caxtmTmMgX0YQ5UkZz2FmE2Jl2O6hsRArGiKFrAz
+	M5ZqfKVjA1eeeS1NM/0XFPhPluvRdWa1PHh5JhoRsMUVBSgUM2sP0DKrOmHT3X96i+O1YByrTN/
+	Q4A160/03h3zf9AcuR3tOeQ7YfWYX4fF8TWleff8cBmKlmLGFmHIGyC6chnZDWE3DHmRWSP4zrE
+	1mL3ueaTL2I0PNrY9ry1KtxMr8oAlv4lto2yMUUk0VMaatlXhkGlKMIACtEwI6+tde
+X-Received: by 2002:a05:6122:340c:b0:56b:7ec9:f54 with SMTP id 71dfb90a1353d-56dab9a174cmr6183006e0c.9.1775563586689;
+        Tue, 07 Apr 2026 05:06:26 -0700 (PDT)
+Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com. [209.85.221.173])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-56d9ba81b53sm18365924e0c.4.2026.04.07.05.06.26
+        for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 07 Apr 2026 04:55:49 -0700 (PDT)
-Message-ID: <3c59c265-e26f-4db4-b151-7a9c725f71ff@oss.qualcomm.com>
-Date: Tue, 7 Apr 2026 13:55:46 +0200
+        Tue, 07 Apr 2026 05:06:26 -0700 (PDT)
+Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-56d95bc93e3so3168635e0c.1
+        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 05:06:26 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCXhfLvqb0Gr7kz6HWixVTEw4spumzqs1jRmMUfH24QVcMjB9lTUYtRUnq+YsjOyKWXbrToIICy9UJXY@vger.kernel.org
+X-Received: by 2002:a05:6122:4891:b0:56d:aa1f:e48a with SMTP id
+ 71dfb90a1353d-56dab9dd9c9mr6282392e0c.12.1775563586213; Tue, 07 Apr 2026
+ 05:06:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/3] arm64: dts: qcom: Add Samsung Galaxy Book4 Edge
- DTS/DTSI
-To: Maxim Storetvedt <mstoretv@cern.ch>, andersson@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: marcus@nazgul.ch, marijn.suijten@somainline.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, abel.vesa@linaro.org,
-        abel.vesa@oss.qualcomm.com, johan@kernel.org, konradybcio@kernel.org,
-        kirill@korins.ky
-References: <p3mhtj2rp6y2ezuwpd2gu7dwx5cbckfu4s4pazcudi4j2wogtr@4yecb2bkeyms>
- <20260322160317.424797-1-mstoretv@cern.ch>
- <20260322160317.424797-4-mstoretv@cern.ch>
- <881975ea-cc16-4b26-9672-731c146a1ba8@oss.qualcomm.com>
- <40e31e2f-84ff-425c-a7e9-f2df4210ddbc@cern.ch>
- <892fe03c-f3d5-4b6c-b821-95dad55fdade@oss.qualcomm.com>
- <f6323f22-27c8-4ae5-83d3-59831b62b5da@cern.ch>
- <12ee3569-16a6-4787-a874-bc802a50175f@oss.qualcomm.com>
- <e6134dd0-6672-44ce-8ced-41fc3e21e474@cern.ch>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <e6134dd0-6672-44ce-8ced-41fc3e21e474@cern.ch>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA3MDExMiBTYWx0ZWRfX5Co3E4MWIcyV
- WCTHHYXqVlq2u8YSl36XInAkp7XIckRZyZVf8IaYqp4aE1pNAWJYp8A1aJSNp9s31SfWAkV8tsJ
- jV1HWjtDp8r9CFRc35rZu9qLYZhgJ302Gv+50E7m4IP0avdaLasMDR2r1udsExkryPvsm3uOqb3
- TCkL0cvwtIJAEXKgVok9OlhN9sAQZqYnhcl4YWwuhF/k7FUQ5nsvnCqN7woqQClHww8WATu87ab
- wly0BXpzza9XyMp+6qtoV+OlQZECaG0S/Bu3E8pCL4LchXd5r8fta9E5qRsqCFm65V8h4HjmOA0
- ogAKhVANJvR/Ce77uTe8MX8OZqs389789ODTfbhVsTlxLe2J9psDENj7NrNNPJzUk2xazT07BWW
- i6ODtWP26pabFSVOjN9tndeoysUg/59yBS3vOLvPhcAyHnBp2PGCvYbun4vjwT9b/Wje6z1g8EM
- TVc/ndGm/397suQnyxA==
-X-Proofpoint-ORIG-GUID: WeOrRG1HIks3nddk2OK0rbK8OC9-kvBZ
-X-Proofpoint-GUID: WeOrRG1HIks3nddk2OK0rbK8OC9-kvBZ
-X-Authority-Analysis: v=2.4 cv=DcInbPtW c=1 sm=1 tr=0 ts=69d4f0c7 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=VwQbUJbxAAAA:8 a=PNdW6hRCZpnURY4oElQA:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-07_02,2026-04-07_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 spamscore=0 phishscore=0 impostorscore=0
- suspectscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
- definitions=main-2604070112
+References: <20260328000031.94645-1-marek.vasut+renesas@mailbox.org> <20260328000031.94645-4-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260328000031.94645-4-marek.vasut+renesas@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 7 Apr 2026 14:06:15 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVOHaQU0qAYYQV3u7bAm3jzKmQM=btnpFaToxGxPrVGXA@mail.gmail.com>
+X-Gm-Features: AQROBzBNV8VVoIPRYTToqrCO0lTdjZgYrqxs7rGtDCmLPkMo9NmWHxs4WMpk4YA
+Message-ID: <CAMuHMdVOHaQU0qAYYQV3u7bAm3jzKmQM=btnpFaToxGxPrVGXA@mail.gmail.com>
+Subject: Re: [RFC][PATCH 3/4] ARM: dts: renesas: r8a7740: Add ZT/ZTR trace
+ clock on R-Mobile A1
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
+	Michael Turquette <mturquette@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Stephen Boyd <sboyd@kernel.org>, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 3/31/26 6:34 PM, Maxim Storetvedt wrote:
-> 
-> 
-> On 3/30/26 12:41, Konrad Dybcio wrote:
->> On 3/26/26 7:30 PM, Maxim Storetvedt wrote:
->>>
->>>
->>> On 3/26/26 12:33, Konrad Dybcio wrote:
->>>> On 3/25/26 7:30 PM, Maxim Storetvedt wrote:
->>>>>
->>>>>
->>>>> On 3/23/26 13:17, Konrad Dybcio wrote:
->>>>>> On 3/22/26 5:03 PM, Maxim Storetvedt wrote:
->>>>>>> Adds devicetrees for the 14-inch and 16-inch SKUs of the Samsung Galaxy Book4 Edge.
->>>>>>>
->>>>>>> These use a common dtsi derived from nodes that were able to work on Linux
->>>>>>> from the initial Galaxy Book4 Edge DTS by Marcus:
->>>>>>>
->>>>>>> Link: https://lore.kernel.org/all/p3mhtj2rp6y2ezuwpd2gu7dwx5cbckfu4s4pazcudi4j2wogtr@4yecb2bkeyms/
->>>>>>>
->>>>>>> combined with the ongoing patch for the Honor Magicbook Art 14, and its downstream by
->>>>>>> Valentin Manea, which shares device similarities:
->>>>>>
->>>>>> [...]
->>>>>>
->>>>>>> +&i2c8 {
->>>>>>> +	clock-frequency = <400000>;
->>>>>>> +
->>>>>>> +	status = "okay";
->>>>>>> +
->>>>>>> +	touchscreen@5d {
->>>>>>> +		compatible = "hid-over-i2c";
->>>>>>> +		reg = <0x5d>;
->>>>>>> +
->>>>>>> +		hid-descr-addr = <0x1>;
->>>>>>> +		interrupts-extended = <&tlmm 34 IRQ_TYPE_LEVEL_LOW>;
->>>>>>> +
->>>>>>> +		vdd-supply = <&vreg_misc_3p3>;
->>>>>>> +		/* Lower power supply is not enoug to work. */
->>>>>>> +		// vddl-supply = <&vreg_l15b_1p8>;
->>>>>>
->>>>>> How should we interpret that?
->>>>>>
->>>>>
->>>>> This was in the original patch, but using that same regulator appears to
->>>>> be enough to also get touchscreen working on the 16" book4e. That said,
->>>>> it still does not work on the 14". Something to revisit later...
->>>>>
->>>>>>
->>>>>> [...]
->>>>>>
->>>>>>> +&panel {
->>>>>>> +	compatible = "samsung,atna40cu07", "samsung,atna33xc20";
->>>>>>
->>>>>> I think it'd make sense to move the compatible from 'common' to the
->>>>>> 16in DTS then too
->>>>>>
->>>>>>> +	enable-gpios = <&pmc8380_3_gpios 4 GPIO_ACTIVE_HIGH>;
->>>>>>
->>>>>> this matches the common definition
->>>>>>
->>>>>>> +	power-supply = <&vreg_edp_3p3>;
->>>>>>
->>>>>> ditto
->>>>>>
->>>>>>> +	no-hpd;
->>>>>>
->>>>>> really??
->>>>>>
->>>>> One less thing to debug while previously attempting to work around the
->>>>> "illegal link rate" error, which turned out to be related to eDP 1.4
->>>>> (similar to the sp11). I've kept it as-is in case other SKUs attempt
->>>>> booting from this dts, such as the x1e80100 16" (as it might be getting
->>>>> a black screen using the current x1e84100 16" dts, though this is not
->>>>> fully tested).
->>>>
->>>> So do the 80100 and 84100-equipped SKUs of the laptop come with different
->>>> displays?
->>>>
->>>> Konrad
->>>
->>> So far assumed both 16" variants to be fairly similar, though one
->>> valiant 16" 80100 user over in the debug thread did try to boot via the
->>> 84100 dts, with no success. Instead having the screen go dark after the
->>> first post-tux kernel prints.
->>
->> Does switching to the generic edp-panel compatible (which will parse the
->> EDID and try not to be overly smart about it) help here?
->>
->>> This was strapped together via WSL though, so could be there was
->>> something else at fault, but strange it didn't at least fall back to a
->>> visible initramfs shell.
->>
->> You mean the kernel had been compiled via WSL? That shouldn't be a problem..
->>
->> Konrad
-> 
-> Kernel was one shared by me in advance (same I've been using as a
-> daily), so it should be OK, but there was an uphill battle in creating
-> the modified system image afaik (that would boot).
-> 
-> Can only speculate until there is another go at this, but could likewise
-> be something completely unrelated that's simple to fix, e.g. older mesa
-> in image, but final attempt at boot used a dts with gpu node enabled.
+Hi Marek,
 
-FWIW the GPU and display engine are completely disjoint, so mesa itself
-shouldn't be an issue (unless something was caught in a restart loop due
-to poor error handling.. I've seen that N years ago but have no clue
-that would still be a problem nowadays)
+On Sat, 28 Mar 2026 at 01:00, Marek Vasut
+<marek.vasut+renesas@mailbox.org> wrote:
+> Add ZT trace bus and ZTR trace clock on the R-Mobile A1.
+>
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-Konrad
+Thanks for your patch!
+
+> --- a/arch/arm/boot/dts/renesas/r8a7740.dtsi
+> +++ b/arch/arm/boot/dts/renesas/r8a7740.dtsi
+> @@ -551,9 +551,9 @@ cpg_clocks: cpg_clocks@e6150000 {
+>                         clock-output-names = "system", "pllc0", "pllc1",
+>                                              "pllc2", "r",
+>                                              "usb24s",
+> -                                            "i", "zg", "b", "m1", "hp",
+> -                                            "hpp", "usbp", "s", "zb", "m3",
+> -                                            "cp";
+> +                                            "i", "zg", "b", "m1", "ztr", "zt",
+> +                                            "hp", "hpp", "usbp", "s", "zb",
+> +                                            "m3", "cp";
+
+The order of the names must match the indices in the DT bindings below.
+Else consumers end up with a wrong parent clock, leading to issues
+like the I2C controller driver failing to probe because its parent
+clock is out of range.
+
+>                 };
+>
+>                 /* Variable factor clocks (DIV6) */
+> diff --git a/include/dt-bindings/clock/r8a7740-clock.h b/include/dt-bindings/clock/r8a7740-clock.h
+> index 1b3fdb39cc426..8a8816b2ff6ac 100644
+> --- a/include/dt-bindings/clock/r8a7740-clock.h
+> +++ b/include/dt-bindings/clock/r8a7740-clock.h
+> @@ -24,6 +24,8 @@
+>  #define R8A7740_CLK_ZB         14
+>  #define R8A7740_CLK_M3         15
+>  #define R8A7740_CLK_CP         16
+> +#define R8A7740_CLK_ZTR                17
+> +#define R8A7740_CLK_ZT         18
+
+Append at the end, good.
+
+>
+>  /* MSTP1 */
+>  #define R8A7740_CLK_CEU21      28
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
