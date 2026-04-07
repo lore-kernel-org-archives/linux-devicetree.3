@@ -1,185 +1,115 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A19D0379981
-	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 19:58:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5357D2857C7;
+	Tue,  7 Apr 2026 19:59:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775591902; cv=none; b=szbw/muP75OPy2d9X4T/pkU0CtVFfWj2WWIZKuZvnERMO04dpP/11dHVzpcw7NAN6nab31k/SzJx7LeVrXALxOMAwSJMQhIqIaQeeh9tLGqJEMTG2FhstILOcWBortWhsCegVN/cAjxrOIpIf1r1QCQaCCK2ez7AvILDtHkNsjU=
+	t=1775591994; cv=none; b=Gft/UFaQjrxjB+k/aghZ1uagnC+bRdpXm2M5eY8i684iNjGGZtN0VK9u9As6AE3OxUCE2NyEmfa/6eUA7tv1iiFgeltSczPkqNrwszAo8iveSagGbWJ8YWLfW1DQaC6GplPPYlEoR69XSwnzd81ks9beTfpC2zn45Hyr+Rd40t0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775591902; c=relaxed/simple;
-	bh=y4dVmADXE1jrgnpP8JxM8NIiyhlZTgiZlr2F7Lxkn1E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H4KzVTwKaOpp5BNENoXxm5hXAiBaEOZ5Homs6YIZonq5HhayF7ED+lBBD1rePrL9bzna7Qbg2ezJErbTcpuDN2xnrh+NmTNPaKYa3YtwEen336BNQT5+gLdoA1cqzdN4bLDLyMIR83Qz4jRI1g5gXwg5U8JqLYxSNkyThRh02nI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PCl+0Qft; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=RyA++f8I; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1775591994; c=relaxed/simple;
+	bh=pYuHavi5abtxtQo86RD6iUdHemSooVE5Ngheliv9udw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JZn1W1EGE1ZghuIqXFc3IcRi702ihR6IUKQc0veFMFa/LyrvLN6xGtfZGO+3AjsK0f1YqLKUQ8stOocY9aiNxNI8WoeelJYC29hM+BOlUe2hlWOebQk4fjG1FhNurEACrEsWuynFl3PcSNpk8KLUFq3q4MQPthCkWbQlzFan2kc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eIBhm67r; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PCl+0Qft";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="RyA++f8I"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1775591899;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1lyCZReF7n3h9ZzIFPxE3qqalSIjCxvP1fRMXtPh+/M=;
-	b=PCl+0QftAHAk4m+3BX4t2/KeXAQEw+Vn5GBy+UoTUcBWluvK8cWPqRG/KoqC1/mWOVP/NW
-	UwVfWesSCGnqOqMUrZJ2jxu2Uwp/cbTWG5eFv88GVI9aJgUtvPfD3aUGpWVLT/fA9OdgtC
-	ay/kW+VGk+rGkazfFgWH+TnUAz5fqBg=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-241-llg5LagQP9KZiiaG7kVKdQ-1; Tue, 07 Apr 2026 15:58:16 -0400
-X-MC-Unique: llg5LagQP9KZiiaG7kVKdQ-1
-X-Mimecast-MFC-AGG-ID: llg5LagQP9KZiiaG7kVKdQ_1775591896
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-8cfd0a23243so1968424085a.2
-        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 12:58:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1775591896; x=1776196696; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=1lyCZReF7n3h9ZzIFPxE3qqalSIjCxvP1fRMXtPh+/M=;
-        b=RyA++f8Ih12FK15i7ABmKwIM+6g6yAijIcCVkmWSpH6uzCYH6Wy7PGrF78VX41wadG
-         0Vkoj8tlGPCl8ZQwXYlqdOsh7VJaufUSBK2Q+TsOjcgFTn/FufjmqHr7v84XoE2TjPI2
-         eZOmzgcOCrlMLnt9AoaxELh/Oy9uWcaTYEZitDrSXyb+Fpd723fvdJMNTF3W9bPtJ5HR
-         ePr3DJPkpxGWIW//Toe+/lZLsh4+2OgqTsJLYHOy63mR6kIULcklAe7tLrR9EimZToC2
-         QeO4I9qQJkVLvOX7/ZWfm3TxnfOcsWg7h7zrrmyTbPQBv7BY+01UwdLLKujhjNxTKQ6H
-         gzAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775591896; x=1776196696;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=1lyCZReF7n3h9ZzIFPxE3qqalSIjCxvP1fRMXtPh+/M=;
-        b=db9TYJBz6WnNUIoSjjyVR6KuWSqKtrA0c/JGu+geymizE1v02+80GhvQNmO5kKKfTh
-         3qiUk/d116bhrkxeBI/LmO7A87texNYPSZurBwth6bBaxqif2Lv4AhOIZEAnjWwdajg7
-         YcxxTiT9VyJYttMTUkCyn0+8Yhx/CN6tkiJidO87vVtN/gsRAc+ss0cGToRdjKW5mccC
-         GT9W0JADT5slcXlDT7Iu3I7FmnUjanj/Aly0FHyQ3H+Y/b0iI/4Z56uLy2wLKtRXCSSz
-         nf0G8zamkOeuzYOsay/tglkDt76J9GfTi+FVX9a9CLwXx3zyFnRu61Ox8kat/cUGM0mZ
-         W39Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWd+flWglicIvaGtB1uCOW5RuGfwIwBBqFxamSEC5YEgA5FRHOXfuPS1GbpbjCO0aV6y+rpiCzgJrjg@vger.kernel.org
-X-Gm-Message-State: AOJu0YyHlscXMNyF+f13E8sAUYr2qLKSPZfKvwFYRRglqqhUkgVTKE5U
-	Nu40gvXT3dV5DxevPeDMtsCP9H46VMT4kyHqutE1zwnsK1ZZIORg4rYo5oFnPs+8ZZ7Uk4Fzgku
-	mYRpg7g/ro3+FxqkXca4x11B4qJQTaq8heEZ1X8vnLjxpW2L+cqvLyPqABBb6hVI=
-X-Gm-Gg: AeBDieueP/fuz97am01EUO1wC00PPzR5SiWWtyBqHXtDzWoLKVCT2Ghda4FjLkfjoTo
-	CQznZD4gn+Wyf/PvSd4T02qyJUN8MaU7sd8ErZ/6t+X4n4lroHUJxCkDgqK29oLCj+twXHduGpE
-	VbikZwi2ehThGA4uvqxgwmECd6EyQxt40LwTUfpgOo3EXW2h/CL4IBMxp+NtitjC29uAFVz2HXO
-	JiSlrXAtfxQrCoKn2VYVr1YQk3lWL5xSz74K1OEmKGfXplGQgh4OcBUWOk0G9XRJaDCrzhErOUf
-	WBDuBbkIEjCqr0xy5bgKXDtC+/F7x+ZFRBAMxoXek6zy0Z4jtHt4ICWMfB3sEqZf1V4yHjg2KRI
-	yy8Uyb4O+qOLy058/Lns=
-X-Received: by 2002:a05:620a:2844:b0:8cd:9653:61de with SMTP id af79cd13be357-8d41e1427e7mr2498364485a.50.1775591895841;
-        Tue, 07 Apr 2026 12:58:15 -0700 (PDT)
-X-Received: by 2002:a05:620a:2844:b0:8cd:9653:61de with SMTP id af79cd13be357-8d41e1427e7mr2498360685a.50.1775591895273;
-        Tue, 07 Apr 2026 12:58:15 -0700 (PDT)
-Received: from redhat.com ([2600:382:772d:3619:ed0:4a9c:acd6:3fc9])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-8d2a8648c17sm1388436585a.33.2026.04.07.12.58.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Apr 2026 12:58:14 -0700 (PDT)
-Date: Tue, 7 Apr 2026 15:58:12 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Marek Vasut <marex@nabladev.com>
-Cc: linux-clk@vger.kernel.org, Peng Fan <peng.fan@nxp.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Michael Walle <michael@walle.cc>, Rob Herring <robh@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/6] clk: fsl-sai: Add i.MX8M support with 8 byte
- register offset
-Message-ID: <adVh1JLI-qfXLdMt@redhat.com>
-References: <20260406215150.176599-1-marex@nabladev.com>
- <20260406215150.176599-2-marex@nabladev.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eIBhm67r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A29DAC19421;
+	Tue,  7 Apr 2026 19:59:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775591993;
+	bh=pYuHavi5abtxtQo86RD6iUdHemSooVE5Ngheliv9udw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=eIBhm67r5dSO85MvNEGiZ8R1ufZjYqsLJoJobv1y9/uQ/dfGTuamws7miTfaShDks
+	 tCfRYRVUmuUvla1MOIJrV80rlZpOs4z/j6U2AOYwAtsLA9lk08l5RutHaGKl04YD/g
+	 inJ0IrkS7zLTIJ76lNXOewDzqS/88HgvspBJJNe/KRtmHsGvbAFJ2WyR5nI7maw9ii
+	 LR9by0jkVP+0bhSSAT7wxHdYba2omwg6pWLgcivjrjJGc8he5wCcot8NZGHPmnmv9W
+	 NoR3SHabVmZqrkaaa73AczmkxoOv3GHDIERvuIsokYzTuMzL4SvuLN9eMnRGmDSxj9
+	 h038/RT2sjzNw==
+Message-ID: <8e4ee378-113e-463d-8b21-eeef74b84120@kernel.org>
+Date: Tue, 7 Apr 2026 21:59:49 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260406215150.176599-2-marex@nabladev.com>
-User-Agent: Mutt/2.3.0 (2026-01-25)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/4] ARM: dts: qcom: msm8960: expressatt: Sort node
+ references and includes
+To: guptarud@gmail.com, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260401-expressatt_fuel_guage-v3-0-9674cfc0b5a2@gmail.com>
+ <20260401-expressatt_fuel_guage-v3-1-9674cfc0b5a2@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260401-expressatt_fuel_guage-v3-1-9674cfc0b5a2@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Marek,
-
-On Mon, Apr 06, 2026 at 11:49:42PM +0200, Marek Vasut wrote:
-> The i.MX8M/Mini/Nano/Plus variant of the SAI IP has control registers
-> shifted by +8 bytes and requires additional bus clock. Add support for
-> the i.MX8M variant of the IP with this register shift and additional
-> clock.
+On 01/04/2026 22:32, Rudraksha Gupta via B4 Relay wrote:
+> From: Rudraksha Gupta <guptarud@gmail.com>
 > 
-> Reviewed-by: Brian Masney <bmasney@redhat.com>
-> Reviewed-by: Peng Fan <peng.fan@nxp.com>
-> Signed-off-by: Marek Vasut <marex@nabladev.com>
-> ---
-> Cc: Brian Masney <bmasney@redhat.com>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Michael Turquette <mturquette@baylibre.com>
-> Cc: Michael Walle <michael@walle.cc>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Stephen Boyd <sboyd@kernel.org>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-clk@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> ---
-> V2: Update commit message, align it with the bindings one
-> V3: - Rebase on current next, update mail address
->     - Pick ancient RB from Peng, although this may be outdated
->       https://patchwork.kernel.org/project/alsa-devel/patch/20241226162234.40141-2-marex@denx.de/
->     - Optionally enable "bus" clock, which are needed on MX8M to operate
->       register file
-> V4: Add RB from Brian
-> ---
->  drivers/clk/Kconfig       |  2 +-
->  drivers/clk/clk-fsl-sai.c | 27 +++++++++++++++++++++++----
->  2 files changed, 24 insertions(+), 5 deletions(-)
+> Reorganize the DTS file for consistency with other msm8960 board files.
 > 
-> diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
-> index cc8743b11bb1f..9f7f391a5615a 100644
-> --- a/drivers/clk/Kconfig
-> +++ b/drivers/clk/Kconfig
-> @@ -255,7 +255,7 @@ config COMMON_CLK_FSL_FLEXSPI
->  
->  config COMMON_CLK_FSL_SAI
->  	bool "Clock driver for BCLK of Freescale SAI cores"
-> -	depends on ARCH_LAYERSCAPE || COMPILE_TEST
-> +	depends on ARCH_LAYERSCAPE || ARCH_MXC || COMPILE_TEST
->  	help
->  	  This driver supports the Freescale SAI (Synchronous Audio Interface)
->  	  to be used as a generic clock output. Some SoCs have restrictions
-> diff --git a/drivers/clk/clk-fsl-sai.c b/drivers/clk/clk-fsl-sai.c
-> index cba45e07562da..336aa8477d0ea 100644
-> --- a/drivers/clk/clk-fsl-sai.c
-> +++ b/drivers/clk/clk-fsl-sai.c
-> @@ -26,11 +26,17 @@ struct fsl_sai_clk {
->  	spinlock_t lock;
->  };
->  
-> +struct fsl_sai_data {
-> +	unsigned int	offset;	/* Register offset */
-> +};
-> +
->  static int fsl_sai_clk_probe(struct platform_device *pdev)
->  {
->  	struct device *dev = &pdev->dev;
-> +	const struct fsl_sai_data *data = device_get_match_data(dev);
->  	struct fsl_sai_clk *sai_clk;
->  	struct clk_parent_data pdata = { .index = 0 };
-> +	struct clk *clk_bus;
->  	void __iomem *base;
->  	struct clk_hw *hw;
->  
-> @@ -42,19 +48,23 @@ static int fsl_sai_clk_probe(struct platform_device *pdev)
->  	if (IS_ERR(base))
->  		return PTR_ERR(base);
->  
-> +	clk_bus = devm_clk_get_optional_enabled(dev, "bus");
+> Assisted-by: Claude:claude-opus-4.6
+> Signed-off-by: Rudraksha Gupta <guptarud@gmail.com>
+> ---
+>  .../dts/qcom/qcom-msm8960-samsung-expressatt.dts   | 408 +++++++++++----------
+>  1 file changed, 207 insertions(+), 201 deletions(-)
+> 
 
-This patch needs to include <linux/clk.h> and drop it from patch 6 to
-keep bisectability.
+Sorry, but no. We are not taking Claude as one determining coding style.
+Are we going to do the work again the moment we come with proper tool?
 
-Brian
+Same comment as usually - this is highly invasive change which should be
+done with dts linter, not LLM, not manually.
 
+Best regards,
+Krzysztof
