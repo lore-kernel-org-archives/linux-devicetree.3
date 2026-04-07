@@ -1,144 +1,88 @@
-Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 185B333D4F3;
-	Tue,  7 Apr 2026 15:56:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.156.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 258F03CAE80;
+	Tue,  7 Apr 2026 15:56:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775577371; cv=none; b=dVw4tZfAtXuEbfgAh0YdqjoTg3ZKWa21Fifxh432mbHK9L6GxF+p4tLiw1x6g/39eI5UmbWNuDIrw/xsr9G2dO6HVLN2jNyM05hyXQtPlnMCY38KM6TO0NAxQn4dwIk3RSpMi1EhKV7bpsSmVNu+BFRg6HBsYDgMpkPR0ubEn4w=
+	t=1775577376; cv=none; b=ixVO9D7vWldKR+du+fBS5TiEe3A9S6lljh+XgTr5nu/T+9HCQiAG35xl4h34sFwcnro1V4cZ53Z+jjmNflOs+ifenC1dyGsfIo2GwJ4KCjst0IZkloQY3qUTYDw0Qkb/CuInlbhjo3sXUtxjwsl/UA169M4ZxoYEBvuOs0GmvHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775577371; c=relaxed/simple;
-	bh=tlfkevO3OEheBee/4CcpLIsOqpAub1U+qU6JYBCuvmQ=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fR1QNYysObC3FbIQVZQb6WhMfwwObI+oXYWn+7lMZKtVMsVq8q3AVOF/UdCdBWTwJbkhjOUXrlLnq7FOSEfkvg+Xpvtyth12eEnqQqsbtPM76LBjaqJgMpFo9UCOgRyU5WaTns3CEg4w56odKgJ5LCDo0eBkzApOIhHe0acOYrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=LdJ8wfBT; arc=none smtp.client-ip=67.231.156.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	s=arc-20240116; t=1775577376; c=relaxed/simple;
+	bh=kKVaSD68I82lrf7EdLaozoBbTRiXgOxzcIxlQDL2K7E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EzqyfTDOTVeA3mcdWlG+rgLIAeuwVU0X4Oea2jJ8yWavj4d8Oo8oEKPMrr6Nbj1Q5sr1QVSanJLEy4QgLDdir8W9O5aYFYiiboAZT3ZCKy4upmx86ThADXQiMEMxQh9z/qS8PZp/Vs8U8CrdOXY9n0ilmLJBEZKAaKgXvsthAR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pV8qL3aj; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="LdJ8wfBT"
-Received: from pps.filterd (m0431383.ppops.net [127.0.0.1])
-	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 637DbuhR560624;
-	Tue, 7 Apr 2026 08:35:19 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pfpt0220; bh=/fKSUdkJa8S13Mjb9Z4zDuPVR
-	YpCHCVQdrMjRNCPKMo=; b=LdJ8wfBTkcpz59fhBWnyk92ZrCf3kmOTBve6pMYsZ
-	Xq6DmtB1ZOnBFwvE5DU2bTwcsTCc9KlVch5c9yKRJLiGrq7M8xAHfDdqm8nQ5qLt
-	UONiDsn8pZp620JkARrBYSd8oOEy0Yic6qJq8bujpVF5qb5eGc4HiV/X6lj4zUN4
-	1INZCeJpPgnSFIZfIplOpTLGPJj4AjLZw2hmR0ceVYczMDyEOKOe2p21DuFalQx+
-	MMzkXp42sp866c73S0U5+LIS51tWe42TntezxECGIv00MmDIKd/KecSnQH4dFa5y
-	uh0KzS4DzCBmYCa1td/pIyEd6qClKM5et+1Pk7DILX06w==
-Received: from dc5-exch05.marvell.com ([199.233.59.128])
-	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4dcms6t0j0-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 07 Apr 2026 08:35:19 -0700 (PDT)
-Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
- DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Tue, 7 Apr 2026 08:35:18 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
- (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Tue, 7 Apr 2026 08:35:18 -0700
-Received: from hyd1soter3.marvell.com (unknown [10.29.37.12])
-	by maili.marvell.com (Postfix) with ESMTP id 144AF3F7043;
-	Tue,  7 Apr 2026 08:35:15 -0700 (PDT)
-From: Geetha sowjanya <gakula@marvell.com>
-To: <linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>
-CC: <mark.rutland@arm.com>, <will@kernel.org>, <krzk+dt@kernel.org>
-Subject: [PATCH v4 1/2] dt-bindings: perf: marvell: Add CN20K DDR PMU binding
-Date: Tue, 7 Apr 2026 21:05:10 +0530
-Message-ID: <20260407153511.4250-2-gakula@marvell.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20260407153511.4250-1-gakula@marvell.com>
-References: <20260407153511.4250-1-gakula@marvell.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pV8qL3aj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CA43C116C6;
+	Tue,  7 Apr 2026 15:56:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775577374;
+	bh=kKVaSD68I82lrf7EdLaozoBbTRiXgOxzcIxlQDL2K7E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=pV8qL3ajZHsm2r5R4szem/dgFPmkoe7AJ3g1+duiZ+fe+ptJLVtyz43rhDX9KVXZz
+	 fuHpW+vqsY7s3VfsONbRWyM+J7qxnZbNE4yi7jj+T0Hkgz5e1bbSth3lmlWnym0Ljx
+	 S6bNdwgi2g+SvowNsf47knFhymCeff9k/PGP6q3T87SPmeiDCqobz/GB/yRFBM8g2K
+	 cfdVQ6WMTEBalAe1K33Lkc3T6+Lwo9/lfet05DADZm1lPy9htz6Q/y9HBwmfVXjhH7
+	 b/FqNA65lrFaM0bnwvz7WWs45qLfeT5UhTsI6LIejlyi1u2xwJ2jgtHTsIoVGL+TQL
+	 PCfcqF7cY6naQ==
+Date: Tue, 7 Apr 2026 16:56:07 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>, Yixun Lan <dlan@kernel.org>,
+	Joel Stanley <jms@oss.tenstorrent.com>,
+	Drew Fustini <dfustini@oss.tenstorrent.com>,
+	Darshan Prajapati <darshan.prajapati@einfochips.com>,
+	Guodong Xu <guodong@riscstar.com>,
+	Michal Simek <michal.simek@amd.com>,
+	Junhui Liu <junhui.liu@pigmoral.tech>,
+	Heinrich Schuchardt <heinrich.schuchardt@canonical.com>,
+	E Shattow <e@freeshell.de>, Icenowy Zheng <uwu@icenowy.me>,
+	Anup Patel <anup@brainfault.org>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	Ji Sheng Teoh <jisheng.teoh@starfivetech.com>,
+	Hal Feng <hal.feng@starfivetech.com>,
+	Ley Foon Tan <leyfoon.tan@starfivetech.com>,
+	Michael Zhu <michael.zhu@starfivetech.com>
+Subject: Re: [PATCH v1 3/5] dt-bindings: interrupt-controller: Add StarFive
+ JHB100 plic
+Message-ID: <20260407-profanity-immovable-8831ce85c92c@spud>
+References: <20260402084019.440708-1-changhuang.liang@starfivetech.com>
+ <20260402084019.440708-4-changhuang.liang@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Authority-Analysis: v=2.4 cv=D+p37PRj c=1 sm=1 tr=0 ts=69d52437 cx=c_pps
- a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
- a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
- a=qit2iCtTFQkLgVSMPQTB:22 a=gEfo2CItAAAA:8 a=M5GUcnROAAAA:8
- a=cxBr6QS3EhuSzrwsu80A:9 a=sptkURWiP4Gy88Gu7hUp:22 a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-GUID: aIddzSPyhTQsTsOx42NFllAPZdh7bDh8
-X-Proofpoint-ORIG-GUID: aIddzSPyhTQsTsOx42NFllAPZdh7bDh8
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA3MDE0MiBTYWx0ZWRfX6UWrvcnQA6kQ
- Lf3UC07svgYOl393ZvYGxtekNyxFr/5+Hm1GuIne0A6z+P7rhDu1J7c0dwWHcZsYznf+nCVQ1Mt
- 8aDhAc/DjTtY3sDVC1ysME/qBO2u59qSHLXgJapR18ueaq/GqWEDVM8H/iSR3CiRDz3belGXlaW
- J35/mvPhfK6qHJKxUTYRTYw8/kjkB7X20RgTavWMRWeOs6IMrG3rzbB1NIDYW3nSlIxo4HnX7dL
- 71prORYksreA6jpmKmeVVnyR11Kdru+UXYtUHbYBSnTHKTc8ah5nTjgXXOPWD2i2uVcAqzFdXlf
- CU4KlWGulY7k+W196l+zbIyzahSVXlt+vIsiE5C+7RArNynNixBQBxyTrcqurtxCl+D2q3PHpqD
- 09sXvbaURukFVfQITl3aBJXnmYs6P8RD+d14tBD37a/TCwL4zDYJAWSgh1FRUSxaTrkt8CXEnog
- mY8fPVZefyu6e9ARl5w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-07_03,2026-04-07_02,2025-10-01_01
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="217orH3naVFNgJh5"
+Content-Disposition: inline
+In-Reply-To: <20260402084019.440708-4-changhuang.liang@starfivetech.com>
 
-Marvell CN20K SoCs integrate a DDR Performance Monitoring Unit (PMU)
-associated with the DDR controller. The block provides hardware counters
-to monitor DDR traffic and performance events and is accessed via a
-dedicated MMIO region.
 
-The CN20K DDR PMU is functionally equivalent to the CN10K DDR PMU, with
-minor register offset differences. This binding documents the CN20K
-variant and introduces a specific compatible string to allow software
-to distinguish between the two implementations.
+--217orH3naVFNgJh5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Signed-off-by: Geetha sowjanya <gakula@marvell.com>
----
- .../bindings/perf/marvell-cn20k-ddr-pmu.yaml  | 39 +++++++++++++++++++
- 1 file changed, 39 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/perf/marvell-cn20k-ddr-pmu.yaml
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
-diff --git a/Documentation/devicetree/bindings/perf/marvell-cn20k-ddr-pmu.yaml b/Documentation/devicetree/bindings/perf/marvell-cn20k-ddr-pmu.yaml
-new file mode 100644
-index 000000000000..78a0cd9a7b1f
---- /dev/null
-+++ b/Documentation/devicetree/bindings/perf/marvell-cn20k-ddr-pmu.yaml
-@@ -0,0 +1,39 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/perf/marvell-cn20k-ddr-pmu.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Marvell CN20K DDR performance monitor
-+
-+description:
-+  Performance Monitoring Unit (PMU) for the DDR controller
-+  in Marvell CN20K SoCs.
-+
-+maintainers:
-+  - Geetha sowjanya <gakula@marvell.com>
-+
-+properties:
-+  compatible:
-+    const: marvell,cn20k-ddr-pmu
-+
-+  reg:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    bus {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
-+        ddr-pmu@c200000000 {
-+            compatible = "marvell,cn20k-ddr-pmu";
-+            reg = <0xc200 0x00000000 0x0 0x100000>;
-+        };
-+    };
--- 
-2.25.1
+--217orH3naVFNgJh5
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCadUpFwAKCRB4tDGHoIJi
+0nbNAP4kJZeFXD2T2VobaPVjr05AVbsKND5OjDdmel49DW/IegD/akLREK7WuFJj
+/VLoORSCc2fpVmR7BTd0U5IA6gXhhgg=
+=h6oR
+-----END PGP SIGNATURE-----
+
+--217orH3naVFNgJh5--
