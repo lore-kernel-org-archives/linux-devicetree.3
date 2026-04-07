@@ -1,110 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13CE238A712;
-	Tue,  7 Apr 2026 06:44:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D201F25E469
+	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 06:46:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775544241; cv=none; b=qbPFDIBZWCs3O3ap4neIFG9gKgNs2K4N0VRT2NuolqJasiLbsBf3D5NAzJPyTewvPx/wuEBJAhNXd6Devt8oV5RrFP64HkSoCekC9lbcOXTbxBq+nmsJ1WVPG0Ur/wMc/tgVWjI0mQOOLkzzP1bQBFnCX+FCJ2J2FgP6HEkcmkQ=
+	t=1775544363; cv=none; b=klUQZW4nJyK3D5h2eJkFTg3VeLdfEAKoHYuq+oVYXChs3ICR61ZAQH+tr3TAUh4DFHBFQaPSIjQZcqdFztJAtbHbRAQ1o0AcxPov6WfDwhTj0pyOyyhhMCFOhBtiAE+vKGcImK4zI/oZSITQ6HK5U3qUBHhQpx+MA5SClzhNcXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775544241; c=relaxed/simple;
-	bh=To0TOgWdk+Eg3vCUJ0MvI1sSRqScB4zFZ3xj+H7iwWk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nCPEpFH0FOA7T08s4JZROz9NGFI1FEVulcdOSPaqkybxmvoRpSmJJjGN0JF5wC24znSHqlw95d7w4juLoXnEDZPZvnDvbehTTYZj0aGoHH+r+rVP95KsxQMAVu7JyjqqvREg9Ux7Kg32iOZLkiC78/gbWL+WB5xtHxNqD6LBAfE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LZjh3z+o; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775544363; c=relaxed/simple;
+	bh=HQrrDxtcwGK/iFtT/P2zPZVACxKuiHJKiRSBVfBJrg8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tqL0QSWKTqp6X1GR2lirEyGjbPP9pWMpJDSdyhKFwBIrGc3+1vJzerpbkt1HlLVxYuINBlBEVIzk+rLtN46EboPjg2M+qciF8IYkJ19s98qzf5EXv8M0K0vSUMs41iPQsAluX1mP1zz58qmIBTOzryrxIdtUCDg8lzmfPPA93mc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cjKSvIT2; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LZjh3z+o"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BD69CC19424;
-	Tue,  7 Apr 2026 06:44:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775544240;
-	bh=To0TOgWdk+Eg3vCUJ0MvI1sSRqScB4zFZ3xj+H7iwWk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=LZjh3z+oKpl3+fFSh3fpCOIeXeEibbIAZ45Tgut4/0L/2VtEpuqkd/hV4xtxpTlOh
-	 cLOataclZiWmnVO3IfQErs9jpIl7IEmDGlk0VHqBQh2aLB/KVkhlwGHQFq1N3ABBy3
-	 TQIEg+oURUJrG2/4PWittvzZEYw+AHGJSiEASktUgCWSA6yTnYNfAgoeUZiH5PBeOB
-	 e8wYJM1toLafK4tHjGT/TASxIqpz4dTOBYeiaqIR2f8sEItLE5m26kFo0Qk6GSmIMp
-	 yW/MdmNbFGrsra4/hHrYIsEOW1tVz1R9U2IrMLDull3Qhv7/+xj6TjSefd+fLTEI+i
-	 DWiXaQ0S530+Q==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ACE07E9D832;
-	Tue,  7 Apr 2026 06:44:00 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Tue, 07 Apr 2026 08:43:56 +0200
-Subject: [PATCH v5 3/3] arm64: dts: qcom: sdm845-xiaomi-beryllium: Enable
- ath10k host-cap skip quirk
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cjKSvIT2"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2b2ae8a0103so3183495ad.0
+        for <devicetree@vger.kernel.org>; Mon, 06 Apr 2026 23:46:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1775544361; x=1776149161; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=jAMR1Z9vtKESST/3iamBPofUUiGDt2llp0rFYa+EoSw=;
+        b=cjKSvIT2zTtOhzSef/a1Z7cwD50mwrbaenkO6Q44QJJ2cphkSbAG2+GnERqh1721zL
+         DJcxJ3YfDMqb1mudRRiKAD1oplFuIMCMDFnOzro9Grd0Hjs6Km1EV0Eg33gCg+U96/kb
+         T1t3lTWYGMz3vCsG461UUO9Dqc8SWOUz0ADRz81XKyOSNvpEg4UsN9/Se7cMcsJ7lh3D
+         RLxC4Xjl/AJbncBd9RhJmkOzaCDmWCVubgs00+E3Of7WOZBi3KIhJBmj7vcYcYezSiAH
+         8vgw05S4+46dnm3pYy7R/NQqmNK9U8PJMdQlIIaewe2u9fcDxkqMTIYbIvROZhW++Ear
+         MMvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775544361; x=1776149161;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=jAMR1Z9vtKESST/3iamBPofUUiGDt2llp0rFYa+EoSw=;
+        b=pAAYh5+ZEBJD8Q5eiL7gUKUgAVRoMW2OSzDzKlQR6qTQFlqO4LmMv7IwZ4m5nt6kVI
+         K0SInho9ErgSXQucs3EXRD0C7nqlK3fWwASaEZsx4qVoG+cZvjGL/BJIldX7KTFNmus4
+         TPIYItpLfqxSqjs3JZXrKsKMTpV/T5GbRutXaZTHMEN8WFviztIUAUJFEdlHhMVjJudE
+         svDUdU87MFLcrmNIaR7kgNmr7mN9jmbhEA0T01AWVYjOA17j5mfixTWv/a5L4lv+WslQ
+         +b5ovlAcxnVghgtmh9y5kN78udGsTb1zUoE0l1885iwnAwTU8UX1WwcB1r2iNrhU1WqJ
+         g35g==
+X-Forwarded-Encrypted: i=1; AJvYcCUg1+t/M+5UTPWoytFVzmZtqOU5QLdbqe7rxK+Vmsd2OWpwHY+FAuK2gjr0xHzxNOcMbnQN8+IxU+HT@vger.kernel.org
+X-Gm-Message-State: AOJu0YyCFquXWgtCYK5Urfsyjdz5bzmtg8CrVZSXojwhSYLuZBaplIxp
+	kZY6/Z8lVgfmNrNUqPFqgj+Pvb4NrktQVWu0uHbEKhVh2LAmNJ5PoUUD
+X-Gm-Gg: AeBDievUcaK2661JClnQmqkucoOFt8rN4p49cgb4/zy+Nx71G5LqZM8mJsXyE+qOKx0
+	W8CNP/Ay5DcwRlx1lCpM3x7LRB3dn1i2YBy+g/jALWFxc3mKGqe5G9zxgssjXBNW86V251SMFRE
+	rYziw2SYY2URvntRsPuRcGSm+040oClJx2KmmDC07A+/Rg6yL9MTjWCrmtrZk+VEE6KexdJL2uA
+	aBa99UmHVpdqN2b2jOkenRlEuzSHOrwFRstMjTgum4YH193NkYa9TAbJF6+ZZeOKo1EMMedjwoL
+	U4LWgy4CjcAm1lbtVo2AlwMjLlqfZEaeR9KM6ZEbH38KM3dFckjf0HXs8VXlLx22JXZ6zoyEA2J
+	dRX5HUz1L7I+bnmh68UFcv3U1VfYwp5T7P8f8IiVIrHArYb9ZGDLSu4MIAE7x7jD6gaqIsI2kRd
+	cmcXcaG2JGH1XgY2AKRnlAhVEW+uSET6HRPVMg1sm+dR4vPoKOQ5tHAJ3Rvxu6Nx6SEHEu1vU=
+X-Received: by 2002:a17:902:c943:b0:2ad:9b86:ddc2 with SMTP id d9443c01a7336-2b2816e6c38mr156290835ad.22.1775544361064;
+        Mon, 06 Apr 2026 23:46:01 -0700 (PDT)
+Received: from [172.19.1.48] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b2749a475fsm154607025ad.61.2026.04.06.23.45.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 06 Apr 2026 23:46:00 -0700 (PDT)
+Message-ID: <289da0f4-7a08-4876-8157-5226a0598f1a@gmail.com>
+Date: Tue, 7 Apr 2026 14:45:59 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260407-skip-host-cam-qmi-req-v5-3-dfa8a05c6538@ixit.cz>
-References: <20260407-skip-host-cam-qmi-req-v5-0-dfa8a05c6538@ixit.cz>
-In-Reply-To: <20260407-skip-host-cam-qmi-req-v5-0-dfa8a05c6538@ixit.cz>
-To: Johannes Berg <johannes@sipsolutions.net>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Paul Sajna <sajattack@postmarketos.org>
-Cc: Baochen Qiang <baochen.qiang@oss.qualcomm.com>, 
- Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Amit Pundir <amit.pundir@linaro.org>, linux-wireless@vger.kernel.org, 
- devicetree@vger.kernel.org, ath10k@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=932; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=DU/dXePFyTa55SQv+lhHqY4KIdvjaGH0tSQ5egVr5Ig=;
- b=kA0DAAgBYAI/xNNJIHIByyZiAGnUp66g1k1G2PXK1XLApKqh8rZQqnP+rM1X6ccdHnoc1CQiZ
- YkCMwQAAQgAHRYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJp1KeuAAoJEGACP8TTSSByrA0P/3wf
- qabD5CEeb4B4+PsJgKOZY/BrgJN1A4Zdw5C35f3dwpNPtBQTwOkxEcSCHj5GYoAtZRGeJWCr+0Z
- 6Za616Xc2FfWBQa3wtnFtArLaTN58RK4j9patgL5m1lOe+iXo9A8ZyowzTRgnLA3jvxqfibnXdU
- Cab7tJzP2IyopQE4WpkfMYjj6PbA72EmXSMtVqBpPr73FIyYL1rSswZ52gOxhVIGOx6SAaZg+4c
- KsKnhg03Fzx7Y3UKTFqJ2JYMadV/h+GgmL4PfmYQqcLUtEcMm8BBRPiVFKGproGfkJ6hDA59JFH
- CVwyIV3QEC8op9GElbGGXsiAq0XbBFo+qvLme+gDcpTakvz1EzLv/bfYG+SPP9K4a1LlklC5Ehl
- AX+zAk15id1qDONaAxEvMqmb3cGD13a+fh+2UIdFC85hqzpGzUYqUZR1HtQmwu00VcA40aMZ1OC
- 2YgTBb6/gn82TMc4560FcTrUfrifRtAe1/jzgA1JvZsFhZHb+cCT2TqqduU7OmB4HfUxlWW/dm+
- 776t78Z0IxeMPAMYeg2sSjUubPOWtuRYWn1A/dpuXxY2+75D6wlD/mukE0f+FzRdqVIQ8zImbK9
- fxQTk8iTFc8OkBhZ6pTMXKdAKOP5igNOcTaLWDJlAmQ74V63pcGF7c3fFwrZU38fc94/eSp9NM8
- hmeoN
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/3] i2c: ma35d1: Add support for MA35D1 I2C controller
+To: andi.shyti@kernel.org, ychuang3@nuvoton.com
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, Krzysztof Kozlowski <krzk@kernel.org>
+References: <20260316063726.41048-1-zychennvt@gmail.com>
+Content-Language: en-US
+From: zychen <zychennvt@gmail.com>
+In-Reply-To: <20260316063726.41048-1-zychennvt@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Amit Pundir <amit.pundir@linaro.org>
+Hi Andi and Krzysztof,
 
-The Wi-Fi firmware used on Xiaomi Poco F1 (beryllium) phone doesn't
-support the host-capability QMI request, so add a quirk to skip it on
-this device.
+I'm following up on this series. As detailed in the change log, v2 addresses the feedback from v1 regarding the modernization of legacy code.
 
-Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+I am preparing v3 to address minor formatting issues in Patch 3 (DTS). Before sending it out, I would highly appreciate any technical feedback on the driver logic in Patch 2 to ensure it aligns with your expectations.
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
-index 1298485c42142..950bbcc3bf91f 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
-@@ -661,5 +661,6 @@ &wifi {
- 	vdd-3.3-ch1-supply = <&vreg_l23a_3p3>;
- 
- 	qcom,calibration-variant = "xiaomi_beryllium";
-+	qcom,snoc-host-cap-skip-quirk;
- };
- 
+Best regards,
+Zi-Yu
 
--- 
-2.53.0
-
-
+Zi-Yu Chen 於 2026/3/16 下午 02:37 寫道:
+> This series adds support for the I2C controller found in the Nuvoton
+> MA35D1 SoC. The driver supports controller and optional target mode
+> and runtime power management.
+> 
+> The implementation has been tested on the Nuvoton MA35D1 SOM board.
+> 
+> Changes in v2:
+>   - Overall:
+>     - Rebase on linux-i2c/i2c-next
+>     - Switched terminology from "master/slave" to "controller/target".
+>       
+>   - Patch 1 (dt-bindings):
+>     - Simplified description and fixed 'reg' size in example.
+> 
+>   - Patch 2 (driver):
+>     - Modernized using devm_*, generic device properties, and FIELD_PREP/GENMASK.
+>     - Optimized power management by moving clock control to runtime PM.
+>     - Simplified code by removing redundant .remove(), .owner, and inlines.
+>     - Added dev_err_probe() and default bus frequency handling.
+>     
+>   - Patch 3 (dts):
+>     - Moved i2c aliases to board dts and reordered nodes alphabetically.
+> 
+>   -Link to v1: https://lore.kernel.org/r/20260302020822.13936-1-zychennvt@gmail.com
+> 
+> Zi-Yu Chen (3):
+>   dt-bindings: i2c: nuvoton,ma35d1-i2c: Add MA35D1 I2C controller
+>   i2c: ma35d1: Add Nuvoton MA35D1 I2C driver support
+>   arm64: dts: nuvoton: Add I2C nodes for MA35D1 SoC
+> 
+>  .../bindings/i2c/nuvoton,ma35d1-i2c.yaml      |  63 ++
+>  .../boot/dts/nuvoton/ma35d1-som-256m.dts      |  18 +-
+>  arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       |  60 ++
+>  drivers/i2c/busses/Kconfig                    |  13 +
+>  drivers/i2c/busses/Makefile                   |   1 +
+>  drivers/i2c/busses/i2c-ma35d1.c               | 792 ++++++++++++++++++
+>  6 files changed, 946 insertions(+), 1 deletion(-)
+>  create mode 100644 Documentation/devicetree/bindings/i2c/nuvoton,ma35d1-i2c.yaml
+>  create mode 100644 drivers/i2c/busses/i2c-ma35d1.c
+> 
