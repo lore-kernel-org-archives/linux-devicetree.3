@@ -1,138 +1,168 @@
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 752123603E4
-	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 15:11:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1880363C61
+	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 15:19:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775574688; cv=none; b=IhK9seKovwTaPkM8pMi7yeRo5nsURhhy4mzD7yzUQ0+JFCtNRO91gm4ywIw8JTX1nsmEGzTll7bmKDucsnOZyN0RMBHf4SjzLMgTl0qxIhCkNPpDthlP6CnIJeF2ZLmsmwDSTPZuOgI8RjB+iWUowi2aeST5YjpVJlA5AAQoOBM=
+	t=1775575179; cv=none; b=UyrLApKz9QFv5m8v3g6xe8xKcgOGQtyMq78XJd0jVI0q6WyhIHAh0z+63GtHirbpRuwVudL/ekG5x6a3+0R0Lc6Bp2wll5NAyaVNaXwbacQxDF7hJb6CegDtAEu+1U9aqA+BzZF2Yk6IMrPfMuvKStTeX51034m8p+3gdKSYcHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775574688; c=relaxed/simple;
-	bh=XnHGDE7VPDkthZ+NJoEGvNwIAX/8Td+XCz0h8UYR6uA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NSSj+EEjmQKnxV1bhMzdM287Cc+d1l74ZCHobYXhNKuup4Xl8mv5cqMgIWui4DVLvetGNegZCoMJKKLU7QwUwg21OTiuWpHlG8KiqZtRpPzMt2hv5YQvaA7LVSTdq28f4uzWtdHXfsGOCqIeikBk7DY+iU5z7Ti32Ma8akVI0JY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=CfESMLXs; arc=none smtp.client-ip=209.85.208.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1775575179; c=relaxed/simple;
+	bh=Esr4m/CWzlzGxIEXM4jv9Iy3Hrt7tqhgId2RGV+BjP0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Rz81w6tNBjjwc6nrLwmFHFU+LruolWd2ojz4bByMS4/6svtAD/MbxCYXn493L2RvrQj/w8VssQ4/fLXhD3xIitAnG91eh5dIvDK20rIiLdIFzpNr7J0b/fZ3AHivxcEjyi9vVVya/jiTJqEX+PzWudk3DfZzVAQVm0SAdeCfmsA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=K6cdDzB7; arc=none smtp.client-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="CfESMLXs"
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6634bb959a2so6932146a12.1
-        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 08:11:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="K6cdDzB7"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-82418b0178cso2351090b3a.1
+        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 08:19:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1775574685; x=1776179485; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=DW9/t5H928zsdNymoXJFEIFtWYYaTCLmqIgH1LiUfqs=;
-        b=CfESMLXsXkMaNCVZucuJ8QEB0IAoYiWEuBwxZ5Vaf7PGSqNua3DX6TH6buyo4P8Z7K
-         EakEugpOO/uin7WQx7Cf0fe5YloTb1LcqtVLX2oAihEv0zZlVaTkctdWtWi6FfTe1wGw
-         DynzZDwMp5YnJ5QfZJV6T0ezaByXR0IdUFKhHxQg0wszTtWF51tgWp/b3sWcsOfwhi9p
-         8B+ZaHcvxwGXjsEcSxzvSUrAVCyZf74/+LiX4K9BUzisxVAwDd/RYoATtsSVdSEhX5hX
-         E2FuqT7uYlm4V+yoBQhWSIn3GYPjYsE6Y9nPsKAO3jbOeNvUMW3T7hVEChIP4eyLwS6t
-         7j0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775574685; x=1776179485;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+        d=linaro.org; s=google; t=1775575178; x=1776179978; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=DW9/t5H928zsdNymoXJFEIFtWYYaTCLmqIgH1LiUfqs=;
-        b=Ys9IJT6iRUFaX1c8Cm5j4akqG02wb1q/8bfZ8QvegKd6647YU2niPyiaEoqi0k9u83
-         cQ75TRiQfLicd/cDOydeBwvlIP0iVjjCWzMqtMprH9cZetkuF7T3MLnwUF+PNsxG2AHH
-         CLeJh2wuPDS/ybdUYE9piWEmv+FhBjn4OzEPoLbknqiPEaFI47NKUY4nz104H9WySOI7
-         BulB+ZbDrrMg49H3oSbeEQjUc+eUZg0LUxdx0jCo58AXEEpKstLg++ieU9Szyyp3vRXN
-         Y6oJI5JYs8uvXROcPcS+eErGQubBp3WURqPE4SsA/QBuWqPUPwKBvgwY/rYdzHuUaZ6F
-         z5FQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWIUcqvEEcSvvNpwOG4Wa25HhB982KwkFh0fSTjn0qhUDV4vj8Gk/uiO9jKdgc4WDU5bLBQZAZrPQyw@vger.kernel.org
-X-Gm-Message-State: AOJu0YxnU1fdl25dFDIlWMaSZyPYjiACcwE3Q55gaKdlO9digc3/hP5E
-	hqbPEL2zeC8FVOAjjfWB0qBXqMixwsmqfttCQV0slY1PwVcd1kt3parmg/9xhOEPv0Y=
-X-Gm-Gg: AeBDietgzlxaoZO01ljc6exLOw82vkZqXsk2awfg3lpwKqyq/Bqhng3ViKfNK5C+PBI
-	KWL4+JwEpSyuoiGLwXjNH7Vs+LbAL8aQoJxMYXfNIla+5sTcFvtyjrrPZT2QPKx2J4IcNyfN6+x
-	Sz0qK37NPgygBh5Z5DBhjcy6j7MBvaSi1fWbcIjWyBmEZTVTK3OSBfeW9UI2se8mfuly1H67jGN
-	3o2/OeFlJMgoEqG7I0smoqGo98HxBgx1ZIZK4w9YkHfj1J1TSi133iOBxdltJZmbXBGPEu7pZgH
-	dXdHhfQfg3YxzXMGwA3xPz0lKbJkwaEEtpliZY7PGdYkPvdKAbakSaIZH7nJ5Ga8fPQav3cs4Ni
-	Z9WOUGBkR9fJ7SA63JCMy693hBAZtiLOR9EWreZmcRhilfSmZ4Milzhp7bCv2ge1iXN9efaHwMo
-	W0urclV4uINZBKuE9QGGnQeE+rMOfry8uSqTjmLLD7zS0jJks2kBw4D4sOxWIzGX5O5mqN7gY9Q
-	x0H4g==
-X-Received: by 2002:a05:6402:50ce:b0:66c:17d5:c18f with SMTP id 4fb4d7f45d1cf-66e3f86ed59mr8156709a12.21.1775574684793;
-        Tue, 07 Apr 2026 08:11:24 -0700 (PDT)
-Received: from [172.16.220.101] (144-178-202-139.static.ef-service.nl. [144.178.202.139])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-66e6f10834asm2753326a12.15.2026.04.07.08.11.24
+        bh=px+aTSO680+yUdTUoCh2tkBc+4urCGyGCdnmZi+tHi8=;
+        b=K6cdDzB7ua+XmUA45Lin2VIetbvOKK/wffm12AUzyrjYmXFM7xFiV/uSKyfro+dRGI
+         LvOmiOJV7FGxpHyU6Qqgw4m6wNQpOYsAmIDUGtVsqSUf0JOPvZxq1HdtJCD0zvjC4amt
+         EJHElZY0TavY/qe0hyynWCUYg1LJoD1dirDPUG/cenqb/huHbhPe8qIFIKHpDjHNHiMn
+         ldzB/5QgnWWAEWaWJW718D4B357YF2H//3LSJwybmqoWrnFyJu05+MubTS6iMVdOjHSv
+         GQDi/1WTw7OD/Wr8w+PdFxf65c8jGRRsFZYNworRYp/sUl0/9uwCSsg+vMvNmMDJqES5
+         yJCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775575178; x=1776179978;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=px+aTSO680+yUdTUoCh2tkBc+4urCGyGCdnmZi+tHi8=;
+        b=ME9TvwOlQ4so5+KzvvxDKoUckI+4DloiG6MXjrgIH/+ygDWVX1yszl48RbXf21DVZC
+         SHAFi6dYBbwODkQ9+nbjeewnqvGr3g6IBn8WMPjMEcpfqr6NHJTMqZqAvkFz6GawxoF6
+         AObt1f8gSLQerSthwcX73ir99CpJXpNjAcafXSsWtDO8JyLepV6h3tUc4UkBU0PLaTsY
+         u2Pz40hPy6HeIInd/XRboKE7o135uNMM8MJkIGjVmd2frq5hfYqgwXkI5XsxcUHCHjQI
+         d0ov5bBClH9cLOTZQqFDNlCm+RxAJY6uWvxLc4F4oAh06uJnIpMVtNSI637iCGXdllW2
+         V7qQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWRrYtjrsMzObKssjXWPAw0HfEi6QMTRN9GXjPX1X0XInf5euNj3lxJt/QtOumPiX2uoGrGY1AQvyDx@vger.kernel.org
+X-Gm-Message-State: AOJu0YwpBY6wpK+KguxgHqceN1jRpPh9F66Zr86/W9Y0yb2hFS9DfPAi
+	5H/jNVWjOY4G0J9AvCtgtVIkzdOWehMrjrMIEUAh5CoCa1W50uf9HpJYGqCtw35kam8=
+X-Gm-Gg: AeBDieuwH2TfSyIUoA+CwsfneBTjekqBqNEmJytr4rzHICf+12HthDnFH4kAmxZbQRF
+	0uhSrYR/3jw6w1VPS53pUPD4M9ipTCLd5TlnJM6qglUdzAaAoF0FaZ3U0WHLi7olOIWMLKwHe5o
+	Nt986NNvV38JSyjCMBNnZHWUw6CjjLzEqSuxYOO2o86IgLVK+0iqf2TPHtd0KytVZw9KF3kVMdp
+	IY+VBlKujksWLaMKE5o3VU03NbTbh+NSesHM5/yO/Rg2f1Nqpn1/lJ10G9fcB+Yg9pa8WDcn+ww
+	UDyYyczuxarWHvROuIodYGjUreQ4YBPFV4NjN60VyIkjIhLwMxI0s1Sj5GmiSORtbR0aU301/Tj
+	e+vdBu0FhdskpSPc0LzgBsydlaDhGJQ7/3C7kQ31I1OWw08ZUxQl80Lw0nZCPuf7eTeKCll5Zbq
+	zMWcRM4xvLhhncF5VT8Od4UqxpjPA=
+X-Received: by 2002:a05:6a00:3926:b0:7f7:2f82:9904 with SMTP id d2e1a72fcca58-82d0da2c50cmr17909669b3a.5.1775575177733;
+        Tue, 07 Apr 2026 08:19:37 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:97a2:befd:d439:79fb])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82cf9c6ba2fsm18101364b3a.45.2026.04.07.08.19.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Apr 2026 08:11:24 -0700 (PDT)
-From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Tue, 07 Apr 2026 17:11:11 +0200
-Subject: [PATCH v2 2/2] arm64: dts: qcom: milos: Add IMEM node
+        Tue, 07 Apr 2026 08:19:37 -0700 (PDT)
+Date: Tue, 7 Apr 2026 09:19:34 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Peng Fan <peng.fan@oss.nxp.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH v2 2/3] remoteproc: imx_rproc: Pass bootaddr to SM
+ CPU/LMM reset vector
+Message-ID: <adUghiyZbe3fmcNX@p14s>
+References: <20260327-imx943-rproc-v2-0-a547a3588730@nxp.com>
+ <20260327-imx943-rproc-v2-2-a547a3588730@nxp.com>
+ <acqjS440STRl2sK2@p14s>
+ <acs2PAZq2k3zjmDW@shlinux89>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260407-milos-imem-v2-2-5084a490340c@fairphone.com>
-References: <20260407-milos-imem-v2-0-5084a490340c@fairphone.com>
-In-Reply-To: <20260407-milos-imem-v2-0-5084a490340c@fairphone.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1775574682; l=1301;
- i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=XnHGDE7VPDkthZ+NJoEGvNwIAX/8Td+XCz0h8UYR6uA=;
- b=4r4wSsKQia86L9Pquz3QkVW7rgmralJ7ILdiFqwdAPoJfUtb8NjluAJ4VxxVoj21GuYBjqkuX
- MerAUeEaflbAWWUUM1tue7CrAZtjHeqexC7bumYG4A3YKRbNpv1VpVH
-X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
- pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <acs2PAZq2k3zjmDW@shlinux89>
 
-Add a node for the IMEM found on Milos, which contains pil-reloc-info
-and the modem tables for IPA, among others.
+On Tue, Mar 31, 2026 at 10:49:32AM +0800, Peng Fan wrote:
+> On Mon, Mar 30, 2026 at 10:22:35AM -0600, Mathieu Poirier wrote:
+> >On Fri, Mar 27, 2026 at 10:42:03AM +0800, Peng Fan (OSS) wrote:
+> >> From: Peng Fan <peng.fan@nxp.com>
+> >> 
+> >> Cortex-M[7,33] processors use a fixed reset vector table format:
+> >> 
+> >>   0x00  Initial SP value
+> >>   0x04  Reset vector
+> >>   0x08  NMI
+> >>   0x0C  ...
+> >>   ...
+> >>   IRQ[n]
+> >> 
+> >> In ELF images, the corresponding layout is:
+> >> 
+> >> reset_vectors:  --> hardware reset address
+> >>         .word __stack_end__
+> >>         .word Reset_Handler
+> >>         .word NMI_Handler
+> >>         .word HardFault_Handler
+> >>         ...
+> >>         .word UART_IRQHandler
+> >>         .word SPI_IRQHandler
+> >>         ...
+> >> 
+> >> Reset_Handler:  --> ELF entry point address
+> >>         ...
+> >> 
+> >> The hardware fetches the first two words from reset_vectors and populates
+> >> SP with __stack_end__ and PC with Reset_Handler. Execution proceeds from
+> >> Reset_Handler.
+> >> 
+> >> However, the ELF entry point does not always match the hardware reset
+> >> address. For example, on i.MX94 CM33S:
+> >> 
+> >>   ELF entry point:     0x0ffc211d
+> >>   hardware reset base: 0x0ffc0000 (default reset value, sw programmable)
+> >>
+> >
+> >But why?  Why can't the ELF image be set to the right reset base?
+> 
+> Per zephyr general link script[1]:
+> ENTRY(CONFIG_KERNEL_ENTRY)
+> 
+> CONFIG_KERNEL_ENTRY(_start) is the first instruction that Cortex-M starts to
+> execute.
+> 
+> config KERNEL_ENTRY
+>         string "Kernel entry symbol"
+>         default "__start"
+>         help
+>           Code entry symbol, to be set at linking phase.
+> 
+> The hardware reset base is different: it is the address where the hardware
+> fetches the initial MSP and PC values from the vector table. Hardware uses
+> this base to initialize the stack pointer and program counter, and only then
+> does the Cortex‑M begin execution at the reset handler.
 
-Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
----
-Not happy about the names of the subnodes. pil-reloc-sram is not allowed
-it seems. Glymur calls it "pil-sram@94c", not sure this is wanted?
+That part is clear.
 
-Please advice.
----
- arch/arm64/boot/dts/qcom/milos.dtsi | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+> 
+> Aligning the ELF entry point with the hardware reset base on Cortex‑M systems
+> is possible, but it comes with several risks.
 
-diff --git a/arch/arm64/boot/dts/qcom/milos.dtsi b/arch/arm64/boot/dts/qcom/milos.dtsi
-index 4a64a98a434b..0c69d5810f5e 100644
---- a/arch/arm64/boot/dts/qcom/milos.dtsi
-+++ b/arch/arm64/boot/dts/qcom/milos.dtsi
-@@ -2289,6 +2289,26 @@ scl-pins {
- 			};
- 		};
- 
-+		sram@14680000 {
-+			compatible = "qcom,milos-imem", "mmio-sram";
-+			reg = <0x0 0x14680000 0x0 0x2c000>;
-+			ranges = <0 0 0x14680000 0x2c000>;
-+
-+			no-memory-wc;
-+
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			pilreloc-sram@94c {
-+				compatible = "qcom,pil-reloc-info";
-+				reg = <0x94c 0xc8>;
-+			};
-+
-+			ipa_modem_tables: modemtables-sram@3000 {
-+				reg = <0x3000 0x2000>;
-+			};
-+		};
-+
- 		apps_smmu: iommu@15000000 {
- 			compatible = "qcom,milos-smmu-500", "qcom,smmu-500", "arm,mmu-500";
- 			reg = <0x0 0x15000000 0x0 0x100000>;
+I'm not asking to align the ELF entry point with the hardware reset base.  All I
+want is to have the correct start address embedded in the ELF file to avoid
+having to use a mask.
 
--- 
-2.53.0
-
+> 1, Semantic mismatch (ELF vs. hardware behavior)
+> 2, Debuggers may attempt to set breakpoints or start execution at the entry symbol
+> 
+> [1] https://elixir.bootlin.com/zephyr/v4.4.0-rc1/source/include/zephyr/arch/arm/cortex_m/scripts/linker.ld#L103
+> 
+> Regards
+> Peng.
+> > 
