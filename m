@@ -1,147 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BE553264DD;
-	Tue,  7 Apr 2026 12:22:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AFE93A6EE9;
+	Tue,  7 Apr 2026 12:23:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775564526; cv=none; b=l5k36G4vaUeyZDUCHmflP+0wxe/Evfje/yiIN99sSaJUDfnYhWy3mKZOTlulilRrOOavwNohGgncu5gOFDlOASIix1SZfAqwrXRxuIZ0Nu5Y2MrmHUwBT3rfX0jrrNT1/2uUCt//04KjctYPYoN1G5POBHDORhSAHuwTKHqucWs=
+	t=1775564613; cv=none; b=Ac3L2AdrJvaSXxQg3McYRD/xUfoz2Pqpi9S7qKNPw8rL5nvHbbHgAPL0AKT1fyzS0jDXIcpoFRYb3eWJ5aXLTaQqf01lNNPAWCZwN/OWxRI/cIze56fTgkxoO5DFjfyrVNwPgV4gnrnaHPaSPi26GndcPOTL4GFMHqodQju9XYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775564526; c=relaxed/simple;
-	bh=1TUefvz+H4xd3k5G8cPa8kcWF0qvRfqQhOoDSIGLRRA=;
+	s=arc-20240116; t=1775564613; c=relaxed/simple;
+	bh=udq5QbeRCScW+LsK/TRGpVNCFeuozgsH3RVfc5Pvj3U=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=K8ujSTC2z2qjbBWVSi3+b4XmRCeypTV4HLoOijoDws756OKwlYy4cQqFDGJdIzoVBz9233gfnsezgIuntDx1SDJJB+oTHOzslTXIV+Wy+rj91CQYWlseToNF5AtTOsAXEXvBb+k64U828rCEWhCKyOg6TPO2wQY7pMOX9I+l9G8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WBRLLt3J; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=rPlWnTKENIEGq2Uu32jnT8w/tTp/6PrIf21kS0TPOogUTQtUIbFOcfMD5UqqRkD3iM1oxYvnmlAtCT3AfSO7/N02+9B+Vlu9jcsmJsiWq8GPUtterbA/nLz72fwW02QvO667KIn0DUJi9Ns9CHQf8bmHyMf/VXtJUP7nrkZgaoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=h/Z7DM5a; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WBRLLt3J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D0FEC2BCAF;
-	Tue,  7 Apr 2026 12:22:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775564526;
-	bh=1TUefvz+H4xd3k5G8cPa8kcWF0qvRfqQhOoDSIGLRRA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WBRLLt3J4nen368FHwrZJK8G4/4b8C2Fa7uQuPmXLQx3zj71M1fllC2QTJRMcZz6i
-	 C5cLGq5hrRE1fRmJuBd0jTbZM/pS3Xyl5l38HQq4B93AHI1uTVledqn2rZ0R8Gvn5k
-	 tFGIZSsw8V9VCqRsmj94HfM/VYOxwGQW9Pj7+xx9r4UaVdbFrLob3vs/p70YtBSk+S
-	 /dx2v9Q5hw2sWMba+f1TtQBocMt8jpZj8IHKgwz0BHtxpasectx+pNDfp2CdGa2XzH
-	 hKDgW3McD3gTo6guNmsNE0bRxG5zxFxvBDQBQcfCB2BwrXvm91vmwo+g44wqNNHpmU
-	 0Ov7lsG+YNyZA==
-Date: Tue, 7 Apr 2026 17:51:56 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Sherry Sun <sherry.sun@nxp.com>
-Cc: "robh@kernel.org" <robh@kernel.org>, 
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>, 
-	Frank Li <frank.li@nxp.com>, "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>, 
-	"kernel@pengutronix.de" <kernel@pengutronix.de>, "festevam@gmail.com" <festevam@gmail.com>, 
-	"lpieralisi@kernel.org" <lpieralisi@kernel.org>, "kwilczynski@kernel.org" <kwilczynski@kernel.org>, 
-	"bhelgaas@google.com" <bhelgaas@google.com>, Hongxing Zhu <hongxing.zhu@nxp.com>, 
-	"l.stach@pengutronix.de" <l.stach@pengutronix.de>, "imx@lists.linux.dev" <imx@lists.linux.dev>, 
-	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, 
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH V10 03/13] PCI: dwc: Parse Root Port nodes in
- dw_pcie_host_init()
-Message-ID: <raoddpjy27hf7xoivte7nq2qd56ty2aq42av64lsgzxvzpz7pf@zq27d5nv7wwj>
-References: <20260402095107.205439-1-sherry.sun@nxp.com>
- <20260402095107.205439-4-sherry.sun@nxp.com>
- <xlsfwtcy3wl6nasmx2w2oys6u4bbnvh24qiwr4pf3v5uz523gz@qvhzqfcs5q2c>
- <VI0PR04MB121147E4D3F9FDC95391C1153925AA@VI0PR04MB12114.eurprd04.prod.outlook.com>
- <gxqcmujdzlzcoawn4rkttasftuyusqtvycu7oagogxaw4yggeo@ww6rjdwbyj2w>
- <VI0PR04MB12114DFBAB7D1537A9A0A7CEB925AA@VI0PR04MB12114.eurprd04.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="h/Z7DM5a"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1775564611; x=1807100611;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=udq5QbeRCScW+LsK/TRGpVNCFeuozgsH3RVfc5Pvj3U=;
+  b=h/Z7DM5aeUwVez9/HKXHuw4TcFpRR+fTwb0R616SkxoQE671HeNrfTX0
+   BntpUUJo2dCKQ42K65zr6K4ddzuwrNnWHm9a2LPrfLxcsgGiAGCzbDINg
+   3C0fdrkVWYhCxO2DDCceUxSD9JMEe7FMXZVSS02Flx1AW7JuhfcP/VS1u
+   8c1JMyEqM+vxKsPc0JXzL4KagZT+kVhoGhdvYtuzZt2mlTYl+/1fBXqur
+   0CCJuyQgpV3Gl6aOgusGMRrwgQZCBPiLAnw5I60hvcOlt6IGuHp62Pt+l
+   4VoDLCXNKlrFhsvXDd3Ovu5CFnnu1vQjUDJtrXi49pqTuh0XqJdHuaSw7
+   Q==;
+X-CSE-ConnectionGUID: HF/jYj6oStyzkyV/lZHZgg==
+X-CSE-MsgGUID: WFBz5nkIQWucDRI0pHYC0Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11752"; a="76420277"
+X-IronPort-AV: E=Sophos;i="6.23,165,1770624000"; 
+   d="scan'208";a="76420277"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Apr 2026 05:23:31 -0700
+X-CSE-ConnectionGUID: DPVsHRSKRxaJc40fhJ/89A==
+X-CSE-MsgGUID: kD9ZACXwT3ej17ecdX7ixw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,165,1770624000"; 
+   d="scan'208";a="223856369"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa010.fm.intel.com with ESMTP; 07 Apr 2026 05:23:28 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 54CC195; Tue, 07 Apr 2026 14:23:27 +0200 (CEST)
+Date: Tue, 7 Apr 2026 15:22:38 +0300
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Jameson Thies <jthies@google.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	abhishekpandit@chromium.org, bleung@chromium.org,
+	akuchynski@chromium.org, gregkh@linuxfoundation.org,
+	devicetree@vger.kernel.org, chrome-platform@lists.linux.dev,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 2/2] usb: typec: cros_ec_ucsi: Load driver from OF and
+ ACPI definitions
+Message-ID: <adT3DiyjvDk0y9R9@kuha>
+References: <20260403223357.1896403-1-jthies@google.com>
+ <20260403223357.1896403-3-jthies@google.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <VI0PR04MB12114DFBAB7D1537A9A0A7CEB925AA@VI0PR04MB12114.eurprd04.prod.outlook.com>
+In-Reply-To: <20260403223357.1896403-3-jthies@google.com>
 
-On Tue, Apr 07, 2026 at 09:18:58AM +0000, Sherry Sun wrote:
-> > On Tue, Apr 07, 2026 at 03:21:30AM +0000, Sherry Sun wrote:
-> > > > On Thu, Apr 02, 2026 at 05:50:57PM +0800, Sherry Sun wrote:
-> > > > > Add support for parsing Root Port child nodes in
-> > > > > dw_pcie_host_init() using pci_host_common_parse_ports(). This
-> > > > > allows DWC-based drivers to specify Root Port properties (like
-> > > > > reset GPIOs) in individual Root Port nodes rather than in the host bridge
-> > node.
-> > > > >
-> > > > > Signed-off-by: Sherry Sun <sherry.sun@nxp.com>
-> > > > > ---
-> > > > >  drivers/pci/controller/dwc/pcie-designware-host.c | 8 ++++++++
-> > > > >  1 file changed, 8 insertions(+)
-> > > > >
-> > > > > diff --git a/drivers/pci/controller/dwc/pcie-designware-host.c
-> > > > > b/drivers/pci/controller/dwc/pcie-designware-host.c
-> > > > > index da152c31bb2e..f6fca984fb34 100644
-> > > > > --- a/drivers/pci/controller/dwc/pcie-designware-host.c
-> > > > > +++ b/drivers/pci/controller/dwc/pcie-designware-host.c
-> > > > > @@ -20,6 +20,7 @@
-> > > > >  #include <linux/platform_device.h>
-> > > > >
-> > > > >  #include "../../pci.h"
-> > > > > +#include "../pci-host-common.h"
-> > > > >  #include "pcie-designware.h"
-> > > > >
-> > > > >  static struct pci_ops dw_pcie_ops; @@ -581,6 +582,13 @@ int
-> > > > > dw_pcie_host_init(struct dw_pcie_rp *pp)
-> > > > >
-> > > > >         pp->bridge = bridge;
-> > > > >
-> > > > > +       /* Parse Root Port nodes if present */
-> > > > > +       ret = pci_host_common_parse_ports(dev, bridge);
-> > > > > +       if (ret && ret != -ENOENT) {
-> > > > > +               dev_err(dev, "Failed to parse Root Port nodes: %d\n", ret);
-> > > > > +               return ret;
-> > > >
-> > > > Won't this change break drivers that parse Root Ports on their own?
-> > > > Either you need to modify them also in this change or call this API
-> > > > from imx6 driver and let other drivers switch to it in a phased manner.
-> > > >
-> > > > I perfer the latter.
-> > >
-> > > Hi Mani, sorry I didn't fully get your point here, there are no
-> > > changes to this part V10, for drivers that parse Root Ports on their
-> > > own, here pci_host_common_parse_ports() will return -ENOENT, so
-> > > nothing break as we discussed this in V8
-> > https://lore.ke/
-> > rnel.org%2Fall%2Fdcl3bdljrdzgeaybrg3dc5uaxkebkjns7pajix6mxxftao5g4m%40
-> > vm3ywyyp4ujh%2F&data=05%7C02%7Csherry.sun%40nxp.com%7Cd9faef64b
-> > 8154bdbc6ee08de94724b22%7C686ea1d3bc2b4c6fa92cd99c5c301635%7C0%
-> > 7C0%7C639111415791802118%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1
-> > hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIl
-> > dUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=POsurqr9RqBCnaQyeXDK2HQTN
-> > a4Nc0tfl7thSiM9qHA%3D&reserved=0.
-> > >
-> >
-> > So if this API gets called first, it will acquire PERST# from the Root Port node
-> > and if the controller drivers try to do the same in their own parsing code,
-> > PERST# request will return -EBUSY and the probe will fail.
-> >
-> > On the other hand, if the controller drivers parse PERST# first, this API will
-> > return -EBUSY and will result in probe failure.
-> >
-> > Only way to fix this issue would be to call this API from imx6 driver for now
-> > and start migrating other drivers later.
-> >
+On Fri, Apr 03, 2026 at 10:33:27PM +0000, Jameson Thies wrote:
+> Add support for cros_ec_ucsi to load based on "google,cros-ec-ucsi"
+> compatible devices and "GOOG0021" ACPI nodes.
 > 
-> Ok, get your point here. Your assumption is based on the premise that the controller
-> driver parse the reset-gpios in the Root Port node, not that most controller drivers
-> now use reset under the host bridge node. For reset-gpios in the Root Port node,
-> they should eventually switch to this common API.
+> Signed-off-by: Jameson Thies <jthies@google.com>
+
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+
+> ---
+>  drivers/usb/typec/ucsi/cros_ec_ucsi.c | 26 ++++++++++++++++++++++++--
+>  1 file changed, 24 insertions(+), 2 deletions(-)
 > 
-
-Not many, but still some and it is paramount to not regress them. That's my
-point.
-
-> Anyway, I will call this API in imx6 driver at this stage to avoid impact other platforms.
-> 
-
-Sounds good!
-
-- Mani
+> diff --git a/drivers/usb/typec/ucsi/cros_ec_ucsi.c b/drivers/usb/typec/ucsi/cros_ec_ucsi.c
+> index 6bca2dce211c..251aa7251ce6 100644
+> --- a/drivers/usb/typec/ucsi/cros_ec_ucsi.c
+> +++ b/drivers/usb/typec/ucsi/cros_ec_ucsi.c
+> @@ -5,11 +5,13 @@
+>   * Copyright 2024 Google LLC.
+>   */
+>  
+> +#include <linux/acpi.h>
+>  #include <linux/container_of.h>
+>  #include <linux/dev_printk.h>
+>  #include <linux/jiffies.h>
+>  #include <linux/mod_devicetable.h>
+>  #include <linux/module.h>
+> +#include <linux/of.h>
+>  #include <linux/platform_data/cros_ec_commands.h>
+>  #include <linux/platform_data/cros_usbpd_notify.h>
+>  #include <linux/platform_data/cros_ec_proto.h>
+> @@ -257,7 +259,6 @@ static void cros_ucsi_destroy(struct cros_ucsi_data *udata)
+>  static int cros_ucsi_probe(struct platform_device *pdev)
+>  {
+>  	struct device *dev = &pdev->dev;
+> -	struct cros_ec_dev *ec_data = dev_get_drvdata(dev->parent);
+>  	struct cros_ucsi_data *udata;
+>  	int ret;
+>  
+> @@ -265,9 +266,16 @@ static int cros_ucsi_probe(struct platform_device *pdev)
+>  	if (!udata)
+>  		return -ENOMEM;
+>  
+> +	/* ACPI and OF FW nodes for cros_ec_ucsi are children of the ChromeOS EC. If the
+> +	 * cros_ec_ucsi device has an ACPI or OF FW node, its parent is the ChromeOS EC device.
+> +	 * Platforms without a FW node for cros_ec_ucsi may add it as a subdevice of cros_ec_dev.
+> +	 */
+>  	udata->dev = dev;
+> +	if (is_acpi_device_node(dev->fwnode) || is_of_node(dev->fwnode))
+> +		udata->ec = dev_get_drvdata(dev->parent);
+> +	else
+> +		udata->ec = ((struct cros_ec_dev *)dev_get_drvdata(dev->parent))->ec_dev;
+>  
+> -	udata->ec = ec_data->ec_dev;
+>  	if (!udata->ec)
+>  		return dev_err_probe(dev, -ENODEV, "couldn't find parent EC device\n");
+>  
+> @@ -348,10 +356,24 @@ static const struct platform_device_id cros_ucsi_id[] = {
+>  };
+>  MODULE_DEVICE_TABLE(platform, cros_ucsi_id);
+>  
+> +static const struct acpi_device_id cros_ec_ucsi_acpi_device_ids[] = {
+> +	{ "GOOG0021", 0 },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(acpi, cros_ec_ucsi_acpi_device_ids);
+> +
+> +static const struct of_device_id cros_ucsi_of_match[] = {
+> +	{ .compatible = "google,cros-ec-ucsi", },
+> +	{}
+> +};
+> +MODULE_DEVICE_TABLE(of, cros_ucsi_of_match);
+> +
+>  static struct platform_driver cros_ucsi_driver = {
+>  	.driver = {
+>  		.name = KBUILD_MODNAME,
+>  		.pm = &cros_ucsi_pm_ops,
+> +		.acpi_match_table = cros_ec_ucsi_acpi_device_ids,
+> +		.of_match_table = cros_ucsi_of_match,
+>  	},
+>  	.id_table = cros_ucsi_id,
+>  	.probe = cros_ucsi_probe,
+> -- 
+> 2.53.0.1213.gd9a14994de-goog
 
 -- 
-மணிவண்ணன் சதாசிவம்
+heikki
