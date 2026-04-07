@@ -1,147 +1,117 @@
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2173399342
-	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 09:50:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775555408; cv=pass; b=hDE8FOp8RDT2EBZ3IpBC3yngSrrNRT53nSgvcy/FxRp9jjTGdOubVzUlqKc9MEl+XkSwu1iDjFek1/TZfif/Zv4+OwTr9mJbm52Nz7NV3e5fOglVkvqHHcr5CReaMRlw71hiYcv3cSln7ZjJZYfTwHKU82ejP96K+x0U8b/tOLo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775555408; c=relaxed/simple;
-	bh=97UWIPqM844FoFFO9G2TTuAy5vOhw2svUbJZXfGxgzg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=atzNLLAkGfFjJu/t95zM2bkOmkHPVVusqhR7/qR4deVY+UmRY7+vS/cctDCzdTcCHawP8zJwvrgkOe9FNFdtZtludmFz7TGj75VbLAHL5pVjGVLKLf63rR3S9E7YZEqlGh2nRgYsYhAqYgnXoTjkrdkNExHEcLacYziHgjkCsTQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YbUVJjLR; arc=pass smtp.client-ip=209.85.215.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EA1039A7E5;
+	Tue,  7 Apr 2026 09:50:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775555419; cv=none; b=fjzPHUbXbkWTwch4ls68Eupy0yVZKvxKEaoqcC6SD8fGdBXwrkrJrfW/Ktp9xaCOdhua3D8cPybR4qaR4xzN9yf1XnFJ02Xcg596ho/X6XOYlJWHjKIa08k6siGUcV1esNZoBLSRarilLi2yukMLukWgE28V5WgFW8KlNzBx9Xg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775555419; c=relaxed/simple;
+	bh=piwacNlPnviF2p7z7QdXwwrwVrCQDT2X8uRCwatEFjc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Sl3UJku0Y0vx1foDYMoJpycc/fz70zQ+ren3bykEVYI6gNdH9vp0SptZrVkvrHnKoFSGOETXAS5qAthh4pl3SV9gg3RWHL8IrLqVj+qziqeWiW8hakpnWWi7QGBP/lxifYab9uGz2R1fDnXWsn29oRNY6MhsaFXs5H3vo9+HODY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yqfo+aPu; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YbUVJjLR"
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-c76b9efc299so1944197a12.0
-        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 02:50:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775555407; cv=none;
-        d=google.com; s=arc-20240605;
-        b=JP3UOngvg9KUoXOT4+h7KWcJwzpAu9+IUbulm2tq+d98myoDOtlcExMCA2v31jkkqC
-         aXF2qiY3HZRgEk20whFZLc6x5zAwWocZcXbD0VNS97QR8iswY8mjTgfJ3x5l0vnUpQyC
-         Sslaoxtdy3oPXOaHtP+ajgj+oC8dFD20IyMzeT7TMQaO7X3dcAheyY4d9R0JAiNNb/te
-         3d0YgH3zeZ56l6JUq5f0vP5695PAWQKuNLLxaAFhhSZtY+nmq8ufXWHKtQanGxD1oJDE
-         RA+ch2EullMjXJP8Vi+sb5v0V6eAr92g1IJPNpGCfiIrSruWX5Cg/xq1TdTMB1BsKyiI
-         68gA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=376jX0gFHlCYVWXCTvgc/4jS/LPYKaeyewgyhax41kY=;
-        fh=fP5NWmgQXtEgsyGEZ+9FUMwh1Nifxn8Isu8r5QCZuPw=;
-        b=SZt2Ed1CMOHqtJDK+kjR/4ExRrgeJv9bJGEE8K1yvPOuou3793ohmbuin8NZIxf1EJ
-         /QJ+C5xR+YqwvR282gPCjUIHICvQxOX5X1EX6FoI5hVJUZl69kWQ+5enNVeeg6zO5dVN
-         JKpkbC/OLdnGhK0NjkiL75SHic6f6uDe0T604D5IubmsiCzaSvwRcI0vv/gR78Lb+qpT
-         Ep+D0WsCFcjGdjFNHPxbABuihSAMrFdJwAJAQbdAe0W04fGcYc4W2xZPdWJdtLeJ9lxm
-         P2oOI1ZHgbgU2eWGTjew8Ybh2kXuaBQdfq20PEMRZYZarCGUrYXkPLberGoomW6mmt1j
-         771g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775555407; x=1776160207; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=376jX0gFHlCYVWXCTvgc/4jS/LPYKaeyewgyhax41kY=;
-        b=YbUVJjLRW5P/uPBJME2QFwElczvioBQcPoBEQBXT8bXGHU+fpBjqtIkrZg/TE8+JKF
-         nYC5XbOGzd9+DzMg3jFZ1fYrneuk03e35Vepl28/NHEXfRu6enJ1KElgL/LV+ZHAJXQ0
-         JYxX4Os1DmJGqJJsG5H98RXtvQvZ3PgV9upjUxEJ0IpeeM4cwPHDm4mp0Uj+fukqlnEQ
-         CwznbH7H63omM3jGIjdZFRaCZpSgDDHtyTOIEzbpAnELm+92rpYyKcycpLkiUKR7Ll6K
-         WY5u762PFZ5orDqML0eGLxd9uZEjAt2urrJsr43R/ETjhbbmg0xqohrjv1pO1zpGNnai
-         QUng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775555407; x=1776160207;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=376jX0gFHlCYVWXCTvgc/4jS/LPYKaeyewgyhax41kY=;
-        b=HpnNdtofTPZK7BRTNt2vqTQZhcv8hCO5sdEJQT7gV2OINOqHOm4CIsXTB8SVw34xZ+
-         XFVQt+PnOuOs7WhzcVW7BcrxUyMozhh66s8YTMYt82cMRCq1wTyXmWFvDBLr9fLiOr5C
-         FZ2VmrstgRAR2UNzB7iRs1IkstTIlVHTVJFITHJXpwsBRJFJr82y5u6B4DfBewr1H+s+
-         ti+WzZngTQOW0exBwTwOB1kFYRPYl1fVxO2JgRHH9ueRR2iSKb08SMLqXBQ56hZQcodn
-         2gJlldvevtrOS6mS9T9Bs3tIcqKoMQk6atkdaAGhmFhQ4YW/NjzdVmNab7VcrtQ1laUn
-         TD8Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWc1Zn1Mf/5/RoziZHcjrXL0PIFrBphQOBeJhFexuiM6D05zVFjZN5w1fnYTouluntN6bkSvRHyGj+V@vger.kernel.org
-X-Gm-Message-State: AOJu0YwkATC7b1ahXUuX0e3dZDqmnLc7F8IgvggBXqcoEqH98sh5U/mm
-	w1jQEzaLkEtPXu9XxLBFkSyKT+VcjvoL91VrO9GDLF/6vyE6FA2fW4Tiw2ZQ3K0BUkDYZQmkgyn
-	TExKmEpj0p68sTMPsZQqmDaN5yZFABMI=
-X-Gm-Gg: AeBDieuTszc5hD3NSUMHt9pX9dPrp24/VltThmajza0O9yFayXMfMvWsIZ4Nkcl/xsM
-	NzITdNGD5mWegZIQx4t2j0xILKS9Pt8yDqa1i5/lMuyaIfjHigoH7gfPjptNL9jR9uB7N0d5ACq
-	bwRDRiy49p4XNjpKeSlTCm3djY+1K/PvWvD36Bbx71JIVRIt5DHAIXlJGxjqJlmMbARqU810k9a
-	jHMIuBVJUj75dCqGUviwzoeFBW/HlUYEYUlegjXkBBvLG9lZsxzEDUDXnYjbsNOBwCdendH6dR2
-	sr3YNcI=
-X-Received: by 2002:a17:903:3b8c:b0:2b2:ade7:820d with SMTP id
- d9443c01a7336-2b2ade7a263mr29495345ad.22.1775555407014; Tue, 07 Apr 2026
- 02:50:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yqfo+aPu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66DB3C2BCB0;
+	Tue,  7 Apr 2026 09:50:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775555419;
+	bh=piwacNlPnviF2p7z7QdXwwrwVrCQDT2X8uRCwatEFjc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Yqfo+aPuQy7MakwJvye20yfzuYf/671WZSbffCmgLpI/Fvgx8Yy0GEk5Sz4ixAUWl
+	 x/Ks8k63tGo1RE28tmuedz6fZcXc3N2MpItFQN4+DHSRnnPNQkLSCd6+Z5Ii1ptFWn
+	 PrgVCoEjVEUQ8x9MJ22u6Qjj/Ao2XFoDds5d5Y5zFzlwgE0q63Pr3qRcLsNTbPB7JX
+	 ypwC0jCa3LzpKueybTxUALhRhOV3znJhSg44KzfMDaMOnBwuBH0Xg952RCN12GgzFn
+	 0itfKvMuGYXBowvdYRM8ir+oQhOOgwEjnGHmvRfLUbsZRTnCTjnUg3dfJMq0pplr09
+	 Wv8RaEotFYT8g==
+Message-ID: <6b52fae8-ff95-4f2f-9754-af083644f8fd@kernel.org>
+Date: Tue, 7 Apr 2026 11:50:12 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260406063810.25531-4-krzysztof.kozlowski@oss.qualcomm.com> <20260406063810.25531-6-krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20260406063810.25531-6-krzysztof.kozlowski@oss.qualcomm.com>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Tue, 7 Apr 2026 17:49:55 +0800
-X-Gm-Features: AQROBzBDsI8MMkaElAEIhn9Rq7nCFmivdfNIApAyidNH2a8-Ops7NCH-H1ksaJQ
-Message-ID: <CAA+D8ANg9CEpaGGpUQ8D7AWuMkk-A_+HKtedFAp+ZYxHMV_MZA@mail.gmail.com>
-Subject: Re: [PATCH 3/3] arm64: dts: imx8mp-ab2: Correct interrupt flags
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Marek Vasut <marex@nabladev.com>, Peng Fan <peng.fan@nxp.com>, 
-	Fedor Ross <fedor.ross@ifm.com>, Shawn Guo <shawnguo@kernel.org>, 
-	Shengjiu Wang <shengjiu.wang@nxp.com>, Viorel Suman <viorel.suman@nxp.com>, devicetree@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/19] dt-bindings: display/panel: himax,hx83102: describe
+ Waveshare panel
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Cong Yang <yangcong5@huaqin.corp-partner.google.com>,
+ Ondrej Jirman <megi@xff.cz>, Javier Martinez Canillas <javierm@redhat.com>,
+ Jagan Teki <jagan@edgeble.ai>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
+References: <20260401-waveshare-dsi-touch-v1-0-5e9119b5a014@oss.qualcomm.com>
+ <20260401-waveshare-dsi-touch-v1-1-5e9119b5a014@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260401-waveshare-dsi-touch-v1-1-5e9119b5a014@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Apr 6, 2026 at 2:39=E2=80=AFPM Krzysztof Kozlowski
-<krzysztof.kozlowski@oss.qualcomm.com> wrote:
->
-> GPIO_ACTIVE_x flags are not correct in the context of interrupt flags.
-> These are simple defines so they could be used in DTS but they will not
-> have the same meaning:
-> 1. GPIO_ACTIVE_HIGH =3D 0 =3D> IRQ_TYPE_NONE
-> 2. GPIO_ACTIVE_LOW  =3D 1 =3D> IRQ_TYPE_EDGE_RISING
->
-> Correct the interrupt flags, assuming the author of the code wanted the
-> same logical behavior behind the name "ACTIVE_xxx", this is:
-> ACTIVE_LOW  =3D> IRQ_TYPE_LEVEL_LOW
->
-> Fixes: bf68c18150ef ("arm64: dts: imx8mp-ab2: add support for NXP i.MX8MP=
- audio board (version 2)")
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Thanks for the fix.
-
-Reviewed-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-
-Best regards
-Shengjiu Wang
+On 01/04/2026 09:26, Dmitry Baryshkov wrote:
+> Describe Waveshare 12.3-DSI-TOUCH-A panel which allegedly uses HX83102
+> as a panel controller.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
->  arch/arm64/boot/dts/freescale/imx8mp-ab2.dts | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-ab2.dts b/arch/arm64/bo=
-ot/dts/freescale/imx8mp-ab2.dts
-> index dbbc0df0e3d1..443e4fd5b9bf 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mp-ab2.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx8mp-ab2.dts
-> @@ -281,7 +281,7 @@ pca9450: pmic@25 {
->                 compatible =3D "nxp,pca9450c";
->                 reg =3D <0x25>;
->                 interrupt-parent =3D <&gpio1>;
-> -               interrupts =3D <3 GPIO_ACTIVE_LOW>;
-> +               interrupts =3D <3 IRQ_TYPE_LEVEL_LOW>;
->                 pinctrl-0 =3D <&pinctrl_pmic>;
->
->                 regulators {
-> --
-> 2.51.0
->
->
+>  Documentation/devicetree/bindings/display/panel/himax,hx83102.yaml | 2 ++
+
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
