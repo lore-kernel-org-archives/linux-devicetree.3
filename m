@@ -1,142 +1,147 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F7D83947A9
-	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 12:18:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775564330; cv=pass; b=eqlDm8tQ4tC4KbBX362E1WggFpMW9irJug4UQUEqaLKZgoBeOS6EBYDDlsbCUF1Kviaqag3vDZoTroHFSMG7V+koRWQ1sQa2Ft/4AT9zAYUAcxUbZWk5Ia+beLjj7LMrJultWx2ZRppU4bJ6P+pt8zCj69ENMI1vB/1TCb6xd7s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775564330; c=relaxed/simple;
-	bh=QiXTocBbUPCne/DLRORZwb1CjVYu9NENBmKQCLcJLiU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MzFAv8mGi2HWA4zPV4XIZlgaFMl9BvLeMMcm7ZPUol1d8m3EFnsHcH7VoDJM11rSgTRelQ3BoY+6uIdoQAOjkOBWRtlaeAdU5hcexEirFp40UVmTHZ5h/zoEAqxXkBFuQvFbBW8V6aNXmIX1wUb8fqGhRjDHbcf22AR2yC1eFsQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rICtNVZH; arc=pass smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BE553264DD;
+	Tue,  7 Apr 2026 12:22:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775564526; cv=none; b=l5k36G4vaUeyZDUCHmflP+0wxe/Evfje/yiIN99sSaJUDfnYhWy3mKZOTlulilRrOOavwNohGgncu5gOFDlOASIix1SZfAqwrXRxuIZ0Nu5Y2MrmHUwBT3rfX0jrrNT1/2uUCt//04KjctYPYoN1G5POBHDORhSAHuwTKHqucWs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775564526; c=relaxed/simple;
+	bh=1TUefvz+H4xd3k5G8cPa8kcWF0qvRfqQhOoDSIGLRRA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=K8ujSTC2z2qjbBWVSi3+b4XmRCeypTV4HLoOijoDws756OKwlYy4cQqFDGJdIzoVBz9233gfnsezgIuntDx1SDJJB+oTHOzslTXIV+Wy+rj91CQYWlseToNF5AtTOsAXEXvBb+k64U828rCEWhCKyOg6TPO2wQY7pMOX9I+l9G8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WBRLLt3J; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rICtNVZH"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-358d80f60ccso3135080a91.3
-        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 05:18:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775564329; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Ubf78nBoh8MFBCcLGQgXfFjT7IW6n854r3Jen7qOjwj/AwTFvipLSeQLUQG22MpfIG
-         4DDwzJOQIxVhfv9uRVNlEn0UxtETtLyxEO6qQtX//75Ob/36eFCISP3Mq6kPN+hBtUlJ
-         vAZSlBvk0fzctSGUTxdkijdKM6tCcfFDb0oEhBB0X6gzc8lig8vOoMMol+KO9r8gLRha
-         cSH/dC1W1jB70X9ZJD8lQF6PVd1lG++vLHASOmYHoPor9ldvgKMwq7MUUSuzMEaosbNn
-         yKmLfZZQ7Wx0xaBN24CHpSLJt6ToyZw6j3gdfB6hT7XllVl51d6VK8V4jLyd4MEbuMSa
-         uKwQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=QiXTocBbUPCne/DLRORZwb1CjVYu9NENBmKQCLcJLiU=;
-        fh=EDnj2Mq8+y/Bfoa/QkdlA28vWvD9NIkBvI2pyfDstL0=;
-        b=UmTFO7F78OiO8Yj8k0eiJclFrDTNk1HJDNqqRT+ppFI8YHaJTjIpU9siP+Q5zXBEMo
-         oQun2OS+vlhCi+pax0DlTDhyFqgYIf2wy7aFpiFQYolrodFN/HkxJh4Knm5zIzJkUiO9
-         NW6MTMV+R9RCWj2C0VE07a93VQWKcfh9IY3tuJoAaJgGcpLUsihLii/X/YJTZ9U4Xnj+
-         WHYHCnTZ2xdgP8q7wb93D6WXv2N4r0lJa0f7RfIeRtBtJB5FR9/WtgielGHG4C8kgXm6
-         1yL9LyiSnwiM5FF3OtHGTsoD9W3FLBfEdfIdgA5dTqnOWrNiWIU8ErYPl0QeLWTap+pJ
-         GQhQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775564329; x=1776169129; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=QiXTocBbUPCne/DLRORZwb1CjVYu9NENBmKQCLcJLiU=;
-        b=rICtNVZHlvuEUQMSQ3hmhy+UE1jTn05fdRuyIpvZRQohV5ylwLp46uksjIIeQfnVDQ
-         E7VpxBFr3aDPGpD76EtlwyOzeWPxFzUQPHWARZA2l5RAjxGwZ5ZzWU940X0vVMPxkQxU
-         skyV2xLZWXuGYTP2EZK89gdbtR6p5D5OPPptb3iMmGGoTNtERM6jCGMyNd+89NuQ5arC
-         uY2GedKblbTJgqfxW/eL/pt8c4ZoayDrbZ4f1oHxiE6CuV16kQu7V747bcP5gdnFDuUS
-         FsgTMTk5E/DXBR0DzorvE/ajiNUGMAAXu8d/hij0g253zyuNcpRpfDslyRvpYdnxyNYu
-         6eqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775564329; x=1776169129;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=QiXTocBbUPCne/DLRORZwb1CjVYu9NENBmKQCLcJLiU=;
-        b=ATHpDk/EyJSK+ZSYPIRExgBZmZ4scwji0S6+Kqe+jmPKNpR0ZFlS9ayi3TOmOTJrvf
-         sMguUeWuC2asuyUXKrhFkvt5apUIWl9J5FZLr2hzK91Dbjjx5y7mXDLcmU4SkM+cegVc
-         k+tUMPVpkmCYGs/Hw7nkxdtQvdX6VjL7e0fRx452/cs8dROWBq8dMJRVTdEst86Q6jOe
-         bekstQAZ2UewMyy4B31s1FYewQMrhkJ/TvunQlEjT7Cj7R++l5uXoJGoM4K4ESpkja4Y
-         Gq8NI3C1+sHQjzb7Q2krzj0Tadv+iq6yntXUanzcxx0kh/X+NeXvdc8yxBWh/BtdOUJb
-         nm3w==
-X-Forwarded-Encrypted: i=1; AJvYcCU5QJ6GzPLzquepP+rMJn7/1bJTblAhrnGkOm2DmdytzO0asO1k5WqcIf0XjB3+tePhU3RgOhHDvxtQ@vger.kernel.org
-X-Gm-Message-State: AOJu0YyK8B78mOQzgWPrNORqAIwY+xY0CMC+3jSKOHnqHLpqcFD4dz0S
-	1/KleZjk8u/IzX1O/tz4syZjW2FMnJtA5aTXzZJjI8oze+4uu4cWGkFncjLaoG0O6m4/8kqRT4S
-	uapQ+Oyxw9eWQ+nQrPT0qx+Y0U7dF7GI=
-X-Gm-Gg: AeBDieu5VQhjPDqwOQR2w2TcrCLWvBcIQerGxKT83xgkD1/V6aRNuH2RYnKVMVsx2A7
-	+rNo0Qf684P/8e3o5zdmlxEM4QpzFDupujWAcnMKheWIUD+t8GM2vPTbVH7OQypX5Jbs3GLKIap
-	uupNOGZM1lOP7kh02SVa2YGgNGFGw+GpT8TxRjRZc3wPrczvsDQ2D3ykBWMx//I2f/3IvNNpPHp
-	6SpPsEBalde/t9JTWcv/5wMJNqe7VtAp2RVlEt4KvQECesVroAXNRgxzAbzZ2mtWc67FLlKNefO
-	BeYwYG/O+P07F5VV5VuA0yuNcCRL8QJUp4bJWA==
-X-Received: by 2002:a17:90b:3c85:b0:35b:e553:9cc2 with SMTP id
- 98e67ed59e1d1-35de6977d09mr15551822a91.26.1775564328881; Tue, 07 Apr 2026
- 05:18:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WBRLLt3J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D0FEC2BCAF;
+	Tue,  7 Apr 2026 12:22:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775564526;
+	bh=1TUefvz+H4xd3k5G8cPa8kcWF0qvRfqQhOoDSIGLRRA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=WBRLLt3J4nen368FHwrZJK8G4/4b8C2Fa7uQuPmXLQx3zj71M1fllC2QTJRMcZz6i
+	 C5cLGq5hrRE1fRmJuBd0jTbZM/pS3Xyl5l38HQq4B93AHI1uTVledqn2rZ0R8Gvn5k
+	 tFGIZSsw8V9VCqRsmj94HfM/VYOxwGQW9Pj7+xx9r4UaVdbFrLob3vs/p70YtBSk+S
+	 /dx2v9Q5hw2sWMba+f1TtQBocMt8jpZj8IHKgwz0BHtxpasectx+pNDfp2CdGa2XzH
+	 hKDgW3McD3gTo6guNmsNE0bRxG5zxFxvBDQBQcfCB2BwrXvm91vmwo+g44wqNNHpmU
+	 0Ov7lsG+YNyZA==
+Date: Tue, 7 Apr 2026 17:51:56 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Sherry Sun <sherry.sun@nxp.com>
+Cc: "robh@kernel.org" <robh@kernel.org>, 
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>, 
+	Frank Li <frank.li@nxp.com>, "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>, 
+	"kernel@pengutronix.de" <kernel@pengutronix.de>, "festevam@gmail.com" <festevam@gmail.com>, 
+	"lpieralisi@kernel.org" <lpieralisi@kernel.org>, "kwilczynski@kernel.org" <kwilczynski@kernel.org>, 
+	"bhelgaas@google.com" <bhelgaas@google.com>, Hongxing Zhu <hongxing.zhu@nxp.com>, 
+	"l.stach@pengutronix.de" <l.stach@pengutronix.de>, "imx@lists.linux.dev" <imx@lists.linux.dev>, 
+	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, 
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH V10 03/13] PCI: dwc: Parse Root Port nodes in
+ dw_pcie_host_init()
+Message-ID: <raoddpjy27hf7xoivte7nq2qd56ty2aq42av64lsgzxvzpz7pf@zq27d5nv7wwj>
+References: <20260402095107.205439-1-sherry.sun@nxp.com>
+ <20260402095107.205439-4-sherry.sun@nxp.com>
+ <xlsfwtcy3wl6nasmx2w2oys6u4bbnvh24qiwr4pf3v5uz523gz@qvhzqfcs5q2c>
+ <VI0PR04MB121147E4D3F9FDC95391C1153925AA@VI0PR04MB12114.eurprd04.prod.outlook.com>
+ <gxqcmujdzlzcoawn4rkttasftuyusqtvycu7oagogxaw4yggeo@ww6rjdwbyj2w>
+ <VI0PR04MB12114DFBAB7D1537A9A0A7CEB925AA@VI0PR04MB12114.eurprd04.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260403112655.167593-1-phucduc.bui@gmail.com>
- <20260403112655.167593-4-phucduc.bui@gmail.com> <87v7e5t16l.wl-kuninori.morimoto.gx@renesas.com>
- <CAABR9nGUyTkDmB0SgKAuM1Pp75L=m1q4bLSfhobm98TswDnt8w@mail.gmail.com> <87a4vfu0mz.wl-kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87a4vfu0mz.wl-kuninori.morimoto.gx@renesas.com>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Tue, 7 Apr 2026 19:18:37 +0700
-X-Gm-Features: AQROBzBRZftGMEKWFlfQx7m6sTV7mWUH_AhSwIbAfVFsIBCiqbQ3JqmVTbVg1mc
-Message-ID: <CAABR9nH-1eBPFxtzVR6QBE1=esDN8x=hZpAkRSCO-TLmn0tRKA@mail.gmail.com>
-Subject: Re: [PATCH 3/3] ASoC: renesas: fsi: Fix hang by enabling SPU clock
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: broonie@kernel.org, lgirdwood@gmail.com, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, geert+renesas@glider.be, 
-	magnus.damm@gmail.com, perex@perex.cz, tiwai@suse.com, 
-	linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <VI0PR04MB12114DFBAB7D1537A9A0A7CEB925AA@VI0PR04MB12114.eurprd04.prod.outlook.com>
 
-Hi Morimoto-san,
+On Tue, Apr 07, 2026 at 09:18:58AM +0000, Sherry Sun wrote:
+> > On Tue, Apr 07, 2026 at 03:21:30AM +0000, Sherry Sun wrote:
+> > > > On Thu, Apr 02, 2026 at 05:50:57PM +0800, Sherry Sun wrote:
+> > > > > Add support for parsing Root Port child nodes in
+> > > > > dw_pcie_host_init() using pci_host_common_parse_ports(). This
+> > > > > allows DWC-based drivers to specify Root Port properties (like
+> > > > > reset GPIOs) in individual Root Port nodes rather than in the host bridge
+> > node.
+> > > > >
+> > > > > Signed-off-by: Sherry Sun <sherry.sun@nxp.com>
+> > > > > ---
+> > > > >  drivers/pci/controller/dwc/pcie-designware-host.c | 8 ++++++++
+> > > > >  1 file changed, 8 insertions(+)
+> > > > >
+> > > > > diff --git a/drivers/pci/controller/dwc/pcie-designware-host.c
+> > > > > b/drivers/pci/controller/dwc/pcie-designware-host.c
+> > > > > index da152c31bb2e..f6fca984fb34 100644
+> > > > > --- a/drivers/pci/controller/dwc/pcie-designware-host.c
+> > > > > +++ b/drivers/pci/controller/dwc/pcie-designware-host.c
+> > > > > @@ -20,6 +20,7 @@
+> > > > >  #include <linux/platform_device.h>
+> > > > >
+> > > > >  #include "../../pci.h"
+> > > > > +#include "../pci-host-common.h"
+> > > > >  #include "pcie-designware.h"
+> > > > >
+> > > > >  static struct pci_ops dw_pcie_ops; @@ -581,6 +582,13 @@ int
+> > > > > dw_pcie_host_init(struct dw_pcie_rp *pp)
+> > > > >
+> > > > >         pp->bridge = bridge;
+> > > > >
+> > > > > +       /* Parse Root Port nodes if present */
+> > > > > +       ret = pci_host_common_parse_ports(dev, bridge);
+> > > > > +       if (ret && ret != -ENOENT) {
+> > > > > +               dev_err(dev, "Failed to parse Root Port nodes: %d\n", ret);
+> > > > > +               return ret;
+> > > >
+> > > > Won't this change break drivers that parse Root Ports on their own?
+> > > > Either you need to modify them also in this change or call this API
+> > > > from imx6 driver and let other drivers switch to it in a phased manner.
+> > > >
+> > > > I perfer the latter.
+> > >
+> > > Hi Mani, sorry I didn't fully get your point here, there are no
+> > > changes to this part V10, for drivers that parse Root Ports on their
+> > > own, here pci_host_common_parse_ports() will return -ENOENT, so
+> > > nothing break as we discussed this in V8
+> > https://lore.ke/
+> > rnel.org%2Fall%2Fdcl3bdljrdzgeaybrg3dc5uaxkebkjns7pajix6mxxftao5g4m%40
+> > vm3ywyyp4ujh%2F&data=05%7C02%7Csherry.sun%40nxp.com%7Cd9faef64b
+> > 8154bdbc6ee08de94724b22%7C686ea1d3bc2b4c6fa92cd99c5c301635%7C0%
+> > 7C0%7C639111415791802118%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1
+> > hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIl
+> > dUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=POsurqr9RqBCnaQyeXDK2HQTN
+> > a4Nc0tfl7thSiM9qHA%3D&reserved=0.
+> > >
+> >
+> > So if this API gets called first, it will acquire PERST# from the Root Port node
+> > and if the controller drivers try to do the same in their own parsing code,
+> > PERST# request will return -EBUSY and the probe will fail.
+> >
+> > On the other hand, if the controller drivers parse PERST# first, this API will
+> > return -EBUSY and will result in probe failure.
+> >
+> > Only way to fix this issue would be to call this API from imx6 driver for now
+> > and start migrating other drivers later.
+> >
+> 
+> Ok, get your point here. Your assumption is based on the premise that the controller
+> driver parse the reset-gpios in the Root Port node, not that most controller drivers
+> now use reset under the host bridge node. For reset-gpios in the Root Port node,
+> they should eventually switch to this common API.
+> 
 
-> Ah... is it because PIO transfer ?
-> I have 100% forgotten, but FSI doesn't support RX DMA...
+Not many, but still some and it is paramount to not regress them. That's my
+point.
 
-That is correct. Currently, the Armadillo board lacks DMA and HDMI support
-after the transition to DTS, so FSI is limited to FSIA in PIO mode. I plan =
-to
-investigate those drivers further once the FSI implementation is finalized.
+> Anyway, I will call this API in imx6 driver at this stage to avoid impact other platforms.
+> 
 
-> Hmm... fsi_dai_trigger() seems strange.
-> It seems (A) stops clock, and (B) sets register after that.
-> Is this the reason why you get error ? I think (A) and (B) should be
-> reversed. The balance between SNDRV_PCM_TRIGGER_START, and with
-> __fsi_suspend() are also not good.
-> If so, can you use hw_start/stop() ?
+Sounds good!
 
-Thank you for the guidance. After reordering the sequence and moving the
-SPU power control to fsi_hw_start/shutdown, the system hang is now resolved=
-.
+- Mani
 
-> Basically, concept of this driver is that power/clock is enabled/disabled
-> when trigger() was called (except suspend/resume).
-> While your testing may be correct from an ALSA point of view, but setting
-> configuring it in multiple places will lead to confusion.
-
-I see your point. I agree that keeping the power/clock management centraliz=
-ed
-in trigger() is a much cleaner approach.
-
-By the way, I=E2=80=99d like to discuss the fsidiv clock handling.
-In the legacy implementation, it was handled here:
-https://elixir.bootlin.com/linux/v7.0-rc7/source/drivers/sh/clk/cpg.c.
-Currently, this has not been ported to the Common Clock Framework (CCF) for
-R8A7740, and it resides in a different register range from the core CPG.
-For v2, would you prefer that I implement a small clock provider for
-fsidiv within
-the FSI driver, or should it be added under drivers/clk/renesas/?
-
-Best regards,
-Phuc
+-- 
+மணிவண்ணன் சதாசிவம்
