@@ -1,114 +1,117 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A62BD126C17;
-	Tue,  7 Apr 2026 20:43:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB770379EF2;
+	Tue,  7 Apr 2026 20:44:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775594639; cv=none; b=gTqNarSf4KKjDK/ZHVK+bg/ErxV2d6Xrq6soI4w7tYJeJdoMHuTfQZHzKmAiEEMSdgcuvY5qRwk/RNi04DtR+d41f6vQRjj+Ce4phuX6bjuts4gsaOZEXW5A89HpTypgAzCmb+i8/okVl1JYzv8Ngn1d1hpslvPBG2+CfKZEoc4=
+	t=1775594645; cv=none; b=ouskxI0tTTZTFyVxCWTBrZ3uT1Is+lkGi2iiX10sAhGOzZfUP2J5/wJT1wCrpu3bCn+CGL5IwUtr7PB/jHIuKfvtmM2Ugcf58ta25LgltipdHkRMovAL1dtrZtpHrF/1h06y7mKzu4tTg5F5iU3w/jkDsVKyXWGZrEiQwF2BYXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775594639; c=relaxed/simple;
-	bh=YhCoOesFESnyP2eXXEBOGVFxil+4mp0wWKUKVMGuzvU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=o7rIiLJ/zZ2lbNeJzzrYY3VbcSkgYtciuFuvOljOdzfq6nQm2LNFk+48EWAAX90vEj818LsUDSBU9yQLKaxb0JIveNkMQtFcU83haD0WswXS47y7V6qOTFE73uVdEc/qmZVX3myAK/walpZ4baYahfwLkPpDsm32sswKSDB9bk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=XoqEXqCS; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1775594645; c=relaxed/simple;
+	bh=ds5g5d0oS4MQyIT0BsNumaIh8fLF8x9rw6OQMpQU+uY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bLbSMO9d+HBxTVxviyN2ZFvK9l4Z5lket1LiRDJDdtfRc/Btf7wpJU/Qw74PeI1Mv7WfpNCpoqy1yWpQs5V5ydo7rxfhkMxY4hdv/6OiFNpdugMSkW01Y+P9Yb0ejulFEs1peaimNmdw7fPw9eOnKIHPTee4h3/L01vhcj03uig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uHhCe4tP; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="XoqEXqCS"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A44C71133A1;
-	Tue,  7 Apr 2026 22:43:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1775594635;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=0qDMvEa0Jw+oL6gpJC9BWCEzvy6EY33JpQ3Z5WgQZlM=;
-	b=XoqEXqCSh8OBtAjLkoTyqIo0TD3AH9zsMs/bDH36roCN6J6Gjr9bf7yi9Jay6r8Ny4bQsG
-	tMW0pjrl17wS+7iaOWqdZi0xPFk7LqaKqm4wqVoVRigtCXlSB5ksuFrpbvlGee9T9ti7mW
-	xlRoLPx6W1iAauy0zHBhNLR4IdTTK/AvJFqSG5xb/2HfyaIY5dHBQrphEab10s3nse3ZyN
-	RrMp3g8Og/dsWajMIK53rYZyh3uBItP3tvMhVgvP609W9e30xScWGdWnAft1nQbTCoDUAq
-	joTU1xN2Xmf3Y6SK5gaJjbtg9zOaPM/t0QFKGNRMiyL2LslD5VxWJTyO6/9p9g==
-Message-ID: <31043295-d026-4219-b72f-d6daa9a32c01@nabladev.com>
-Date: Tue, 7 Apr 2026 22:43:53 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uHhCe4tP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12689C116C6;
+	Tue,  7 Apr 2026 20:44:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775594645;
+	bh=ds5g5d0oS4MQyIT0BsNumaIh8fLF8x9rw6OQMpQU+uY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=uHhCe4tPmGbkZTpZN9Rrs8D9dJOiIv2+bHWFiMZ05TIVDwiWNoTVOdsISivUCHNdY
+	 uCuf/fSBK6RrsOStoyi2Okr5nk4MOznSQj10P3JNd/6irEulWYqNBPnKslaDUQIJ3f
+	 Hj+V7I+uJcQFzJAgHHV+lrK9Gb8PQDExW7z4fv93cQW++Ewq9qBpP2QPRoWGq0l6Et
+	 /r7HB6hAI23z8VWUxp+IfNQ/IyUTqRyP1I0y1UyTHm5Jv28gWGNiAAO2XFgdEKBAc0
+	 y5vUDrgnoN632A0GrlK152WVlrb87NPl6IEJCSqpqS1eBli2miQHa6Za+VbO/ZGA8h
+	 fBG0bbMHEtcfQ==
+Date: Tue, 7 Apr 2026 15:44:02 -0500
+From: Rob Herring <robh@kernel.org>
+To: Ryan Chen <ryan_chen@aspeedtech.com>
+Cc: Jeremy Kerr <jk@codeconstruct.com.au>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	"andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	"linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: Re: [PATCH v28 2/4] dt-bindings: i2c: ast2600-i2c.yaml: Add
+ global-regs and enable-dma properties
+Message-ID: <20260407204402.GA3641251-robh@kernel.org>
+References: <20260330-upstream_i2c-v28-0-17bdae39c5cb@aspeedtech.com>
+ <20260330-upstream_i2c-v28-2-17bdae39c5cb@aspeedtech.com>
+ <20260331-fanatic-certain-bustard-fb13bc@quoll>
+ <TY2PPF5CB9A1BE6F267C60EEC34B6A75400F253A@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
+ <09cbc12bea5707f794e139ea1bfafac82c2d2c12.camel@codeconstruct.com.au>
+ <TY2PPF5CB9A1BE6EA5BABE55EB8A7003D22F253A@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
+ <72517fcf99a7453841ee75243dc54e735c10238f.camel@codeconstruct.com.au>
+ <TY2PPF5CB9A1BE64B7988CD85A7189164E1F253A@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/6] clk: fsl-sai: Extract clock setup into
- fsl_sai_clk_register()
-To: Brian Masney <bmasney@redhat.com>
-Cc: linux-clk@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Michael Walle
- <michael@walle.cc>, Rob Herring <robh@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260406215150.176599-1-marex@nabladev.com>
- <20260406215150.176599-5-marex@nabladev.com> <adVU-VgLI0MCIjz7@redhat.com>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <adVU-VgLI0MCIjz7@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <TY2PPF5CB9A1BE64B7988CD85A7189164E1F253A@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
 
-On 4/7/26 9:03 PM, Brian Masney wrote:
+On Tue, Mar 31, 2026 at 07:30:58AM +0000, Ryan Chen wrote:
+> > Subject: Re: [PATCH v28 2/4] dt-bindings: i2c: ast2600-i2c.yaml: Add global-regs
+> > and enable-dma properties
+> > 
+> > Hi Ryan,
+> > 
+> > > > Sounds reasonable, but before you do so, how are you planning to
+> > > > manage the allocation of DMA channels across multiple i2c peripherals?
+> > > >
+> > > The AST2600 I2C hardware has only one can use DMA at a time.
+> > > To avoid the complexity of managing DMA channel contention, I plan to
+> > > use buffer mode by default for all controllers, which still provides
+> > > better performance than byte mode without requiring DMA channel
+> > allocation.
+> > 
+> > OK, but your wording there ("by default") implies that DMA is still selectable
+> > for one controller peripheral. In which case: you still have the problem of
+> > managing DMA channel contention, but now it's at runtime instead.
+> > 
+> > So my question still stands: how are you planning to enforce that DMA is only
+> > enabled for one controller?
+> > 
+> > Or are you planning to disable I2C DMA entirely on AST2600?
+> Yes, This is my intent to do.
+> Disable I2C DMA entirely on AST2600.
+> If I remove DMA, should can I keep byte and buffer for sysfs? 
 
-[...]
+28 versions and it's still not clear when you need what mode. Sigh. The 
+only thing better about sysfs then it's not my problem, but that really 
+doesn't sound much better.
 
->> +static int fsl_sai_clk_register(struct device *dev, void __iomem *base,
->> +				spinlock_t *lock, struct clk_divider *div,
->> +				struct clk_gate *gate, struct clk_hw **hw,
->> +				const int gate_bit, const int dir_bit,
->> +				const int div_reg, char *name)
->> +{
->> +	const struct fsl_sai_data *data = device_get_match_data(dev);
->> +	struct clk_parent_data pdata = { .index = 0 };
->> +	struct clk_hw *chw;
->> +	char *cname;
->> +
->> +	gate->reg = base + data->offset + I2S_CSR;
->> +	gate->bit_idx = gate_bit;
->> +	gate->lock = lock;
->> +
->> +	div->reg = base + div_reg;
->> +	div->shift = CR2_DIV_SHIFT;
->> +	div->width = CR2_DIV_WIDTH;
->> +	div->lock = lock;
->> +
->> +	cname = devm_kasprintf(dev, GFP_KERNEL, "%s.%s",
->> +			       of_node_full_name(dev->of_node), name);
->> +	if (!cname)
->> +		return -ENOMEM;
->> +
->> +	chw = devm_clk_hw_register_composite_pdata(dev, cname,
->> +						   &pdata, 1, NULL, NULL,
->> +						   &div->hw,
->> +						   &clk_divider_ops,
->> +						   &gate->hw,
->> +						   &clk_gate_ops,
->> +						   CLK_SET_RATE_GATE);
->> +	if (IS_ERR(hw))
->> +		return PTR_ERR(hw);
-> 
-> s/hw/chw/ on the two lines above.
-> 
->> +
->> +	*hw = chw;
->> +
->> +	/* Set clock direction */
->> +	writel(dir_bit, base + div_reg);
-> 
-> The previous behavior of the code was to call writel() and then register
-> the clk. This flips it. Just to be sure no regressions are introduced,
-> should we keep the old behavior?
-I believe this is the correct ordering -- if the clock registration 
-fails, the clock direction is not going to be configured into hardware. 
-The clock driver does not operate the clock direction bit after this 
-write, so whether this write happens before or after the clock 
-registration has no other impact.
+DMA is only going to be useful for transfers above a certain size. If 
+you are doing the typical SMBus style register accesses, then DMA is 
+completely useless. The setup DMA overhead is going to be greater than 
+just directly reading/writing the I2C controller FIFOs. What's the size 
+that makes DMA useful? 16, 32, 64 bytes? Something greater than the max 
+size in buffer mode probably. Really, provide some data that DMA gives 
+better performance and/or less CPU usage. If you set some minimum size 
+and request DMA only above that size, is there really that much 
+contention? If there's some specific device that really needs DMA, then 
+make that device's driver request it and reserve it. 
 
-The rest of the items are addressed in V5, thanks !
+For byte mode, there's not a clear need nor description of why. Someone 
+once long ago asked for it... Who cares, if they really want it, then 
+the issue needs to be described. If a certain device requires certain 
+timing that byte mode provides, then that should be some property the 
+driver for the device communicates to the controller. No need for DT 
+nor sysfs in that case.
+
+Rob
