@@ -1,76 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90D2B38A71E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1E5F3921C0;
 	Tue,  7 Apr 2026 07:00:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775545237; cv=none; b=TPmQl1kbHwnwg0VUm/ubtWdUSjka9iUf118sbueG0akzLYyxmoGvSf6WSO5wf9ZKHo7uTlwRzejNZThqX8ro0UTNXshUdA8nip+z4sJ3SUB23fsTg+RV8aSLwVy4d7sOWjOW2OGss8FX81HxhyKAHjlqKGgiLB50oI6MC3DM9sI=
+	t=1775545242; cv=none; b=nv1jVd8jF0mUAlSdLIvSBGaIXijaSxYFgZg4pP4+BDpL5ABIGimCRYme2+r+KBEsXbVOCMKpo3dTZqD4smPz+pq7F0GEWm5buqOV5+6jBANnX9es3mXlWjXGbtvohr3UM1e+FI26/QWKGwaBb7CCVktnidrbzQiu88hBP09fQN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775545237; c=relaxed/simple;
-	bh=KC++AGYaCPtqG8OBRYariCPXzGcrTMUsx7ei4Bja4QQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KYuINtAvkjHRgRN4tr69i2+g8dc13AQwTfbQdUAohKVYl4664Ov5cMRgsTgnBZfd6ubkiNWnOSk6kLghUjO0tTWj/5GPWESs+ODsPk8PhreEDhYphZEUqV0NeJnUpW2cSbc9f/ghpmC/a9SSo+p1OFaM0w2PFLEMD4pkcD4weX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ID+ItTp7; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ID+ItTp7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0586C2BC9E;
-	Tue,  7 Apr 2026 07:00:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775545237;
-	bh=KC++AGYaCPtqG8OBRYariCPXzGcrTMUsx7ei4Bja4QQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ID+ItTp7caZBgfAvTzsBBhnu+06DZg8amfvbRzMgapVy7TeBPfTaFvCHtLpFAUgdL
-	 eeuD/Xu1FrRMlPI+2Y1030XGlUuYiwfwaqLRnwH5/MRcYfUNAdCNSY3MklSX+iRraM
-	 fAWrGvdBqkb9SkFe9TpW49HFMbQlMJO43AocZHd3WGebXzFBE8px7btC61C5vxHbHA
-	 CK3fsSwQ3L9BckdTvbOsr6f8dvrTGU0W2tABUqAv+avJwYgzOF3J7XhD2rfu0+lcpb
-	 8+lnHxcgCnCm9LUX/wQFq8HygHNV12Txti/e+VkoJPEQj9oMai/03ruRT0f+BYrq0Z
-	 JDgkz2L6pGhbA==
-Date: Tue, 7 Apr 2026 09:00:34 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: ASHISH YADAV <ashishyadav78@gmail.com>
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Ashish Yadav <ashish.yadav@infineon.com>
-Subject: Re: [PATCH v3 1/2] dt-bindings: hwmon/pmbus: Add Infineon XDP720
-Message-ID: <20260407-monumental-mastiff-of-sunshine-fb27ab@quoll>
-References: <20260406101647.109667-1-Ashish.Yadav@infineon.com>
- <20260406101647.109667-2-Ashish.Yadav@infineon.com>
+	s=arc-20240116; t=1775545242; c=relaxed/simple;
+	bh=Baq+UbIgzaL4fuwo1eAiTLYHgANmfzRmCPOtKq5siEA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=urOjJEk7XSxUL1nb/oHlNR7OAnktg6pgMB5frNGcsAx8jGyR2fwglSijW/7jnI3jSqzPRKprbzw0DBkyLeaejKzh5RpbQ3II1tv3eQ+AFpLrQsf6BiQKLzGU5CaRuORj2nXEiPwUUJFYlarLW53C/AUltZyoVViX3Je1P4XXK1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn; spf=pass smtp.mailfrom=jmu.edu.cn; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jmu.edu.cn
+Received: from localhost.localdomain (unknown [116.25.94.42])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 39c3690ca;
+	Tue, 7 Apr 2026 15:00:28 +0800 (GMT+08:00)
+From: Chukun Pan <amadeus@jmu.edu.cn>
+To: gaohan@iscas.ac.cn
+Cc: alex@ghiti.fr,
+	amadeus@jmu.edu.cn,
+	aou@eecs.berkeley.edu,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	dlan@kernel.org,
+	krzk+dt@kernel.org,
+	legoll@online.fr,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	palmer@dabbelt.com,
+	pjw@kernel.org,
+	rabenda.cn@gmail.com,
+	robh@kernel.org,
+	spacemit@lists.linux.dev
+Subject: Re: [PATCH v9 3/3] riscv: dts: spacemit: Enable USB3.0/PCIe on OrangePi RV2
+Date: Tue,  7 Apr 2026 15:00:22 +0800
+Message-Id: <20260407070022.645614-1-amadeus@jmu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <dba1428ac649dbc6d3fe4c58f0c6d24bb7432b9f.1775417019.git.gaohan@iscas.ac.cn>
+References: <dba1428ac649dbc6d3fe4c58f0c6d24bb7432b9f.1775417019.git.gaohan@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260406101647.109667-2-Ashish.Yadav@infineon.com>
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9d66be1d2903a2kunm1b4f0c4c66ad55
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWS1ZQUlXWQ8JGhUIEh9ZQVlDHhpKVk4ZTBlITkMaSxgaHVYeHw5VEwETFhoSFy
+	QUDg9ZV1kYEgtZQVlKSk1VSU5VQk9VT0lZV1kWGg8SFR0UWUFZT0tIVUpLSU9PT0tVSktLVUtZBg
+	++
 
-On Mon, Apr 06, 2026 at 03:46:46PM +0530, ASHISH YADAV wrote:
-> From: Ashish Yadav <ashish.yadav@infineon.com>
-> 
-> Add documentation for the device tree binding of the XDP720 eFuse.
-> This patch introduces a YAML schema describing the required and optional
+Hi,
 
-Redundant parts was supposed to go to /dev/null.
+> +	pcie_vcc3v3: regulator-pcie-vcc3v3 {
+> +		compatible = "regulator-fixed";
+> +		enable-active-high;
+> +		gpios = <&gpio K1_GPIO(116) GPIO_ACTIVE_HIGH>;
+> +		regulator-name = "pcie_vcc3v3";
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
 
-You already said this in the first sentence.
+Please add: `vin-supply = <&vcc_5v0>;`
 
-Also, there is no such thing as YAML schema.
+> +	vcc5v0_usb30: regulator-vcc5v0-usb30 {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "vcc5v0_usb30";
+> +		enable-active-high;
+> +		gpios = <&gpio K1_GPIO(123) GPIO_ACTIVE_HIGH>;
 
+Could you place `regulator-name` under `gpios`?
 
-> properties for the XDP720 eFuse device node. It includes details on the
-> compatible string, register mapping,supply and rimon-micro-ohms(RIMON).
+	vcc5v0_usb30: regulator-vcc5v0-usb30 {
+		compatible = "regulator-fixed";
+		enable-active-high;
+		gpios = <&gpio K1_GPIO(123) GPIO_ACTIVE_HIGH>;
+		regulator-name = "vcc5v0_usb30";
+		regulator-min-microvolt = <5000000>;
+		regulator-max-microvolt = <5000000>;
+		vin-supply = <&vcc_5v0>;
+	};
 
-So nothing here is useful - nothing explains the hardware, so drop all
-this and keep only first sentence. Or say something useful about
-hardware.
+> +&pcie1 {
+> +	vpcie3v3-supply = <&pcie_vcc3v3>;
 
-> 
-> Signed-off-by: Ashish Yadav <ashish.yadav@infineon.com>
-> ---
+Redundant vpcie3v3-supply.
 
-Best regards,
-Krzysztof
+> +	status = "okay";
+> };
 
+Thanks,
+Chukun
