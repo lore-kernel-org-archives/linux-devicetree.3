@@ -1,30 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A11723C0608;
-	Tue,  7 Apr 2026 15:36:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E928F3C3423;
+	Tue,  7 Apr 2026 15:36:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775576194; cv=none; b=J9iGX7T/GuqKo5KhL+wknw8VmFXjGsH02c+4laYRzsPXU7bkubr19eb1wZ64jel+y07KpsY0b3mr34Z+0LBuEPdNNvnO69gHHiXZoDfY1XCAL+GHJ6/cGPVDLCiQWzcEwwuhSc4chFKvzKrW2Vvn3jnSLNxwO5dBs+FuPRGAKOo=
+	t=1775576197; cv=none; b=CzQ69bxI+HX48u8bY8TvDHBcLS+sqfDiesCFyOGsNYEUuGwKsRvVsO9Pz20ncnkB4iuadjM0RrzxW7sv/vPdo2uIDyyVbvEz1cZnUdEF7YWtNjRQTudbkyjsMdIUIAYWE+5TzRMuRkWFci5e5lPsThVb3ZXHJ0bk+gN2Txfe9e8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775576194; c=relaxed/simple;
-	bh=ABxAA5KZ/KapiXOpjczLnUMUzIzNvPjTLK6gf04IbsE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gEd/KTvpAoDlkCveF+rnDzz+a5bqTYj4LqJg/loDSb4j4ZgQLgTZnAvVuoEct1i2NveeTE/LxjEtA345K+ksgyJy7F+wTCec32P0zQ5Cr923sfhKWBGoPUlehgo/8xuJ6O4HdcjDKdccMxG5Di8ZQ/Xj6ox+6wewQ8Hsg4o7yeU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hQUsOU3U; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775576197; c=relaxed/simple;
+	bh=+i/v/5Bz6CBBWsw0gSI2PCxHpGurnmksUFqsg15Zrig=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=F/qEPNgb7dXfZUI7K0lBOeEkSL2ae7SkKrd0n2ZpNvqQLMQc+5Lxv1L39I+BixT80xO8CRYW16diL6Ytnr42XFr+P5iJYoNhM5c55pLsfcjgAEFruzEqoLiq1tYS8dOLx4nZVHyqvbCpDskiH+ptZAmavYn1F+rNeuK03RQAn2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=u6ogPDjJ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hQUsOU3U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 558DBC2BC9E;
-	Tue,  7 Apr 2026 15:36:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="u6ogPDjJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E6E2C116C6;
+	Tue,  7 Apr 2026 15:36:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775576193;
-	bh=ABxAA5KZ/KapiXOpjczLnUMUzIzNvPjTLK6gf04IbsE=;
-	h=From:To:Cc:Subject:Date:From;
-	b=hQUsOU3Uzl+VJPQp1QH/hgCeLbC0eX/7fvknsVJUlhO2+/t5aSgA/jlRYeX2kU7X3
-	 Ht7kXF9ZvQtq3aBbYEc3a3OrWr2oivkyMD7ec2ouKstm6Dk60gJMv3LT+v+OasIP6X
-	 c3kyH+UmVMKwYtOvy/OgxNQ0N2BOTnkttN7Hd+ITmJxML6WXlrDfvBoocB8cZFlPGb
-	 aVObMlthpE08esKZxa83X7lg+CeWA1huSXKXRB2J2iKajV0XYTD4DKVIaCdUv8F9cj
-	 GmGt0BYtifHJkkT7mudyZvwkjm8kdUMUJ2R3XZIcZfvgdyhfFm88gurpw1Vx2PFFV4
-	 9iz38NYkjN2lQ==
+	s=k20201202; t=1775576196;
+	bh=+i/v/5Bz6CBBWsw0gSI2PCxHpGurnmksUFqsg15Zrig=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=u6ogPDjJjwLCIB3AD0FvfnINgnXNs1H1hYuWTZMhGKSIQjNYzuMArH97KIR1r+m7u
+	 RqLlWRKV2uxkyTdK0xtcAg+2lfzDoNjtv1GdBgWiRmFo5NnrjPCqpnD2P4osWPYYJF
+	 fUXB7ilyABM2ztGS+8+HK20+6vnNggXugnuZU20SXMJW+D4htKQS4+oGQyWc8ufbxt
+	 tA4W6Pr/fMZm4tIzv4+aPGXN/wGokKbXuWHjkicFxj+LCbTqk6gbMew6fEZxpRarwB
+	 1bdbjjLOOfPf496X1ok+rMPfeODMQDgrr3X2Ja4X0reX51fDNNfCa8cJc5fCIWwHbM
+	 au/zddGqmJNDA==
 From: Conor Dooley <conor@kernel.org>
 To: linux-riscv@lists.infradead.org
 Cc: conor@kernel.org,
@@ -38,44 +39,61 @@ Cc: conor@kernel.org,
 	Alexandre Ghiti <alex@ghiti.fr>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/3] pic64gx semantic conflict "fixes"
-Date: Tue,  7 Apr 2026 16:36:22 +0100
-Message-ID: <20260407-rely-speculate-dae3a81ea1fc@spud>
+Subject: [PATCH 1/3] riscv: dts: microchip: add tsu clock to macb on pic64gx
+Date: Tue,  7 Apr 2026 16:36:23 +0100
+Message-ID: <20260407-laundry-clubhouse-86450e4acdfc@spud>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260407-rely-speculate-dae3a81ea1fc@spud>
+References: <20260407-rely-speculate-dae3a81ea1fc@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=876; i=conor.dooley@microchip.com; h=from:subject:message-id; bh=ZvQZVBPK2T2jYfJjkn4XV7btTIb5sUPd6RKn8R0yH5o=; b=owGbwMvMwCVWscWwfUFT0iXG02pJDJlXVcqDtTOklpm03lDYcUPNXO315Fb1CVrlczlfKJ40W se5xGl5RykLgxgXg6yYIkvi7b4WqfV/XHY497yFmcPKBDKEgYtTACZid46R4c3l9hm5uS1hylf/ Ln6lqu7EI/l+B6uR6rqLr1qVn2xcfZXhn+m9l4/ubA4JqK2YUJnaLLJVfZHgE1bBm+rR+u9Fdwi wswAA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1659; i=conor.dooley@microchip.com; h=from:subject:message-id; bh=NLbe8+yUuxA8smHy5fVkynrXQ8TpWNyhFeATwq1MbaY=; b=owGbwMvMwCVWscWwfUFT0iXG02pJDJlXVSpyZzNpPLv/iDXsEN/twv3Ls9aYTtJKEBQM2Jv9V /PVpnm/OkpZGMS4GGTFFFkSb/e1SK3/47LDuectzBxWJpAhDFycAjCR2GCGf1ZHhP4f8+UXcb7K xatjxaP8h7GK7XDCw8lepxP1s2uiHRkZnj/Uvuw9X9qTd+P8H+t/vLl94+EF/oj8m0xnVi9KLZO +xwYA
 X-Developer-Key: i=conor.dooley@microchip.com; a=openpgp; fpr=F9ECA03CF54F12CD01F1655722E2C55B37CF380C
 Content-Transfer-Encoding: 8bit
 
 From: Conor Dooley <conor.dooley@microchip.com>
 
-CC: Conor Dooley <conor.dooley@microchip.com>
-CC: Daire McNamara <daire.mcnamara@microchip.com>
-CC: Rob Herring <robh@kernel.org>
-CC: Krzysztof Kozlowski <krzk+dt@kernel.org>
-CC: Paul Walmsley <pjw@kernel.org>
-CC: Palmer Dabbelt <palmer@dabbelt.com>
-CC: Albert Ou <aou@eecs.berkeley.edu>
-CC: Alexandre Ghiti <alex@ghiti.fr>
-CC: linux-riscv@lists.infradead.org
-CC: devicetree@vger.kernel.org
-CC: linux-kernel@vger.kernel.org
+In increment mode, the tsu clock for the macb is provided separately to
+the pck, usually the same clock as the reference to the rtc provided by
+an off-chip oscillator. pclk is 150 MHz typically, and the reference is
+either 100 MHz or 125 MHz, so having the tsu clock is required for
+correct rate selection.
 
-Conor Dooley (3):
-  riscv: dts: microchip: add tsu clock to macb on pic64gx
-  riscv: dts: microchip: update pic64gx gpio interrupts to better match
-    the SoC
-  riscv: dts: microchip: sort pic64gx i2c nodes alphanumerically
+Signed-off-by: Conor Dooley <conor.dooley@microchip.com>
+---
+ arch/riscv/boot/dts/microchip/pic64gx.dtsi | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
- .../dts/microchip/pic64gx-curiosity-kit.dts   | 63 +++++++++++--------
- arch/riscv/boot/dts/microchip/pic64gx.dtsi    | 40 +++++++++---
- 2 files changed, 70 insertions(+), 33 deletions(-)
-
+diff --git a/arch/riscv/boot/dts/microchip/pic64gx.dtsi b/arch/riscv/boot/dts/microchip/pic64gx.dtsi
+index c164d7bc270a2..e9ec376b1776b 100644
+--- a/arch/riscv/boot/dts/microchip/pic64gx.dtsi
++++ b/arch/riscv/boot/dts/microchip/pic64gx.dtsi
+@@ -459,8 +459,8 @@ mac0: ethernet@20110000 {
+ 			interrupts = <64>, <65>, <66>, <67>, <68>, <69>;
+ 			/* Filled in by a bootloader */
+ 			local-mac-address = [00 00 00 00 00 00];
+-			clocks = <&clkcfg CLK_MAC0>, <&clkcfg CLK_AHB>;
+-			clock-names = "pclk", "hclk";
++			clocks = <&clkcfg CLK_MAC0>, <&clkcfg CLK_AHB>, <&refclk>;
++			clock-names = "pclk", "hclk", "tsu_clk";
+ 			resets = <&mss_top_sysreg CLK_MAC0>;
+ 			status = "disabled";
+ 		};
+@@ -475,8 +475,8 @@ mac1: ethernet@20112000 {
+ 			interrupts = <70>, <71>, <72>, <73>, <74>, <75>;
+ 			/* Filled in by a bootloader */
+ 			local-mac-address = [00 00 00 00 00 00];
+-			clocks = <&clkcfg CLK_MAC1>, <&clkcfg CLK_AHB>;
+-			clock-names = "pclk", "hclk";
++			clocks = <&clkcfg CLK_MAC0>, <&clkcfg CLK_AHB>, <&refclk>;
++			clock-names = "pclk", "hclk", "tsu_clk";
+ 			resets = <&mss_top_sysreg CLK_MAC1>;
+ 			status = "disabled";
+ 		};
 -- 
 2.53.0
 
