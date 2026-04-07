@@ -1,196 +1,146 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD59C3A3E73
-	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 11:41:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1E13AE6F7;
+	Tue,  7 Apr 2026 11:42:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775562100; cv=none; b=gEqY81LVhJmYAgFsFnteOmFeqrmfHaVj2jWefT9KMBt4CMH02O0z6lOeJSVJwx9b48UKlzXdiCFobNqQU5ersYQCKQZvfrwuyXP2APUrw//bH/7AGAgrEUpDH5N4p4he4MQwnnkq+VG6+IjF4hU5wMrQvw3FU3eS2FiCVoFT5Ew=
+	t=1775562156; cv=none; b=Sgr+tW9w88Zjp2ifYIsxWLHBRfvz7im87TT0vv/32WpJj6jjxTa8TuzWyan47PJmyCGrAcvgKtZqoHWgczdQEIGXhkUt+z8ZXg4LQz+vidHcuIvZKF/B5YVKsiD2BezkR6Z11s9HFwz/hG/JOHlKhbTTypf/Y8cWTDUFhkZPTUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775562100; c=relaxed/simple;
-	bh=KfFwVmD/+DRHV1yhUV++VONoQQRwDN/eMXQTswkMROs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pqrTAc8ZNdBzUZXQGHE0nZOxwIAq+gAgamcpqMHK65Cja+kGP5+HQmaPK6j7Pea1pD2lheKilcY8PEGWSgOVNMAu7SzfB5vLAOKl6I4eO7puNxybxN6SqoJ/MRYws6ElsbWFppHxXyk4PCQBxrbf27/40Q94YD7GltxvBOox1yo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cmNvdwTM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SMh8jYDE; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1775562156; c=relaxed/simple;
+	bh=gUqig0acgfJgnMnKDKHU0GHRv8tSmRk9cAa9+z78I+k=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=j7/3drdgCHuev7UGkbptRE23P9yKSCDHEXunsfW76BXFrL4fy3n4+mkgV3xEif9X3xjgVuNFzwAurioAeAPjdeK9MrXXCD6aPryvz49imk/SOsMroBm0dXNelhZjEv/+/D9+aAPdSuU4TnmA8l6e6FVfzREdO+6FDgPkc+9S/RM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=wQxxLNsb; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cmNvdwTM";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SMh8jYDE"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6376vWYk1403540
-	for <devicetree@vger.kernel.org>; Tue, 7 Apr 2026 11:41:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Lf+Ywg2srIxXPZ7iig9OairiEFnv9txmyLal9ilQAMM=; b=cmNvdwTMOSIVsA6V
-	AxiQ7nYXlwyBNSpRUfWA27tWi3OGOsezsSp6BsQmbSyQF8cyAAM71EaGSWtqXzEf
-	7gZmzf8YplIZBV7XDejCHyCHZRsNdQTd6bNnf6n/CUy8DZcojILbfd5AbyW8yRx6
-	QnKPZ30lLoym+hOdN+O9GnplYZKq1R4x9KhihnDE7d6h9bMBSQ40crITy56hEcX/
-	rfrbQEtzHbOmcsebbvd7aa4mG3KGDEsyZNWMlznDD4l0IPElud7Ln/6VDbHjexHm
-	H25neNLhRhbJ98mzabS+Q9iZaiHF25bOBKoN1DuuXzwidQVd7F8GxodM/22hXBEv
-	/cDiiA==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dcmr8ahkw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 11:41:37 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8a016b99579so21878236d6.0
-        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 04:41:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775562097; x=1776166897; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Lf+Ywg2srIxXPZ7iig9OairiEFnv9txmyLal9ilQAMM=;
-        b=SMh8jYDESsWx7IVFYJMq4FXrUS5/TgKODghahNFPPe329vsv7dJlnLlSkx1hSykf+I
-         yhm878GCqAbx13/hhMh735BcwVj//nfc186pIyS46LefEhLtW2ya5xHJlr5icnqVCtbE
-         p97frNhMD2heGLuOD9PpH9UeAYELQFwFY94CU6XnPpNmg7hNft396u72lOAdeDWxcWna
-         ZFlEC26XlpiU/E8p9tgBbKDnHuzT4YvxihyHBxAZk2IFDqytB+tHFzTGJ7yY9vOoRCf6
-         iG984HcXkpnEg/afabRoFuj/G2mPXS3N+SRvmoo6rJcUpDydt1ovIQHJstW7rRw3EmGL
-         lj6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775562097; x=1776166897;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Lf+Ywg2srIxXPZ7iig9OairiEFnv9txmyLal9ilQAMM=;
-        b=X0lGfvfOAoFB4aZu1CEbzgTDwpqjPiiosLOEtf+UsT3IsUd3tbY2KoL/fJKu0e9ZYN
-         n8qgHqhzoPGrEKD7tTBY3/rfGi3ECLc8bfQ8LacC2W5GQr7ld1JOyIdBzwaUvX3V+VPr
-         HlJ9FjpQLSNzKd76g2nScCXp9gZBST3WdyqXH4+AkRmSPdLNdRAEKCR2shK1CfDwf4Vb
-         9nmoRgatM3+3a0tqbmTeooysqQew1y4SouzzKybL7ed+BrtQFqsMYrQZBBifc1UsnKxa
-         /K0Lgty30Mi2kFEMC4SWDR5fMLRBgEX7ha4rt0VjIgQfGTrnMrsG6lZacTr1D2e7Tdg9
-         nsMw==
-X-Forwarded-Encrypted: i=1; AJvYcCVKhrF679gaj0zM14PXcaujm5s6bQBnf2nWUaw7KA6Pj920o6IZ1/WL0yWQXho0dlkC2YNJN4RR3ut3@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz22QKWPp9aZ79ShR4T5AFXx4eMgEQVYH7VWYavYkkStMJF/CMP
-	iKstu4mZt3sJKF7S6q43alV+htx1/rf+Ay7Uq99Ko6e4Wr2bUSjl0EOokICYM0dMeXXxKaLhPaM
-	uAkhgbNL3hmCGkVhF8rK7KrUFAdm3XGoq+kqdN/B+dCCdaja+GeQtAk24hpSaQBz8
-X-Gm-Gg: AeBDieu427KhtayYVkmC4pO+Bdn+p9lnSezaS1TCiT2LwNN+3e0ig3HBm+4SULBy9Wb
-	N+UrBa3Cu9XO93IHc4tDqf9pGm/u1oYlmd7mLropnhZ2mAGnCkBhEusfSrvge1E1ARJJkuHwDmy
-	LBTJVlSdN9TcWsV9kGa/paDT7cpps443DFBofjcFlm0dXsQGQS84UsDJu/wDzEDE8jX7vbOk6r6
-	E8/fcYlCkn0yyp9/Y55WbXTPj5o0eILihbQEycx6IDs/D/VUywwGszHjey+Rh9ZTP0RWbCKS/Z2
-	cRIz+ns6teWanOgC0mp7uNIuaJhYMtBH93Qfn5UcAEMaf5VC36W+jHpF6g7HEPrZI27IhFcYhzr
-	MEmW6Io0M0Tf+xYk50wJELiR9gxZiQjRNrDql4d72uUyNjSngHdlZ5DTvkmPptCwKlhq/0oF3TF
-	O+Db8=
-X-Received: by 2002:a05:6214:d4a:b0:89c:ec59:87d1 with SMTP id 6a1803df08f44-8a7023b5ce4mr195898046d6.1.1775562097282;
-        Tue, 07 Apr 2026 04:41:37 -0700 (PDT)
-X-Received: by 2002:a05:6214:d4a:b0:89c:ec59:87d1 with SMTP id 6a1803df08f44-8a7023b5ce4mr195897746d6.1.1775562096834;
-        Tue, 07 Apr 2026 04:41:36 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9c3cff17basm549986366b.50.2026.04.07.04.41.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 07 Apr 2026 04:41:35 -0700 (PDT)
-Message-ID: <238b23bf-a180-4dfc-a896-955b1559bee7@oss.qualcomm.com>
-Date: Tue, 7 Apr 2026 13:41:33 +0200
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="wQxxLNsb"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id AB61B4E42936;
+	Tue,  7 Apr 2026 11:42:31 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 5FED9603C7;
+	Tue,  7 Apr 2026 11:42:31 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E539210450022;
+	Tue,  7 Apr 2026 13:42:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1775562150; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=mdH8deOysMUfQPgp4dNeBsArN3+MZM5twmMArAbHy7E=;
+	b=wQxxLNsbSEDSOp5HHm9s+CVb58WNn5g7Ps99w2wScQPkBiLkKWW79eXfANLV/040X86s1f
+	BazmH6ZBOJq5qQpFwri9rnpsXMNvRyeGMWb6opXgVw8dy61qw2Ae2+dFrBlJCdKJDTTnLE
+	uNFSFRDu/RcNmGBuVM2bZMYKHt/Yzvs4cOnmAyP01RfZN7HFfGINr0An8uoEo2aWCVkxXs
+	fhnJifIMGjSN17kc/MXlGOULTECv64iHytf0zuY1MhNX/6ocLsaM4ACrhJDKMox2tXiqRT
+	5BYj1heWQ5leqkSDJl5IuVmGnCmCEeWgUusXIR0rmNKJDNVzZb8ueYLDciDy5A==
+Date: Tue, 7 Apr 2026 13:42:24 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Cc: "David Gibson" <david@gibson.dropbear.id.au>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "Ayush Singh" <ayush@beagleboard.org>, "Geert
+ Uytterhoeven" <geert@linux-m68k.org>,
+ <devicetree-compiler@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <devicetree-spec@vger.kernel.org>, "Hui Pu"
+ <hui.pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>
+Subject: Re: [RFC PATCH 09/15] Introduce structured tag value definition
+Message-ID: <20260407134224.3f621289@bootlin.com>
+In-Reply-To: <DHHWXWJD78XO.5RNDZHYZE0U4@bootlin.com>
+References: <20260210173349.636766-1-herve.codina@bootlin.com>
+	<20260210173349.636766-10-herve.codina@bootlin.com>
+	<DHHWXWJD78XO.5RNDZHYZE0U4@bootlin.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] Add remoteproc PAS loader for SoCCP on Glymur DT
-To: Ananthu C V <ananthu.cv@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-References: <20260403-glymur-soccp-v3-1-f0e8d57f11ba@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260403-glymur-soccp-v3-1-f0e8d57f11ba@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: 048hBOphT3QbDjoZDYZZzEv_ewrPGoee
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA3MDEwOSBTYWx0ZWRfXwA/kbjJ8WUud
- c0YF97ZE/K4KaVwruO4h0522/GQPt+TZOdHfmBpPFEkxrZ/yOiBlCQWk6/DZyT/dyW78GtUtpMe
- //xoLKTwDXFl6K16zpcpETxaWkFSs+LrPYuQ9zzLy4p5Poe7q0E/NwJvxSZUVZwncgxH+AZI22J
- TByb40ui3OY1UsasYLtXrRxyEvVb4kIK2EuHWxRK1ODIrntSVW22QzYVINPBQzlhDCBcuaO68jb
- QBWws7HkZIJdNZiGhI6y+4PEUiiCXMXipWUxGEel3rOB2iwk13/ksPtETOdnjZadKX/efvj0ej4
- El55adTYeO1/HmJunvQhwjxmufLPX8gGgVGxMpW1F5wyow3GtqServiDPWh4n8xu3Xw95gut88U
- CtVnBbzCoDt3iixwVM0XGSODtU/8RHNKWinYjo4odAg7iGS9qQUM309YZNz9MNUgXu5s8rfXo4z
- poj6Vpp46VgLx1hjmTg==
-X-Proofpoint-GUID: 048hBOphT3QbDjoZDYZZzEv_ewrPGoee
-X-Authority-Analysis: v=2.4 cv=A/hc+aWG c=1 sm=1 tr=0 ts=69d4ed71 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=5n-PmyvWcR_NXkHpHqYA:9 a=QEXdDO2ut3YA:10
- a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-07_02,2026-04-07_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0 clxscore=1015
- phishscore=0 priorityscore=1501 impostorscore=0 bulkscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604070109
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 4/3/26 1:39 PM, Ananthu C V wrote:
-> From: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+Hi Luca,
+
+On Wed, 01 Apr 2026 17:11:35 +0200
+"Luca Ceresoli" <luca.ceresoli@bootlin.com> wrote:
+
+> On Tue Feb 10, 2026 at 6:33 PM CET, Herve Codina wrote:
+> > The goal of structured tag values is to ease the introduction of new
+> > tags in future releases with the capability for an already existing
+> > release to ignore those structured tags. In order to do that data length
+> > related to the unknown tag needs to be identify.  
+>                                          ^
+> 					 identified
+
+Will be fixed in the next iteration.
+
 > 
-> Signed-off-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-> Co-developed-by: Ananthu C V <ananthu.cv@oss.qualcomm.com>
-> Signed-off-by: Ananthu C V <ananthu.cv@oss.qualcomm.com>
-> ---
+> > Also a flag is present  
+>  "Also add a flag"
 
-[...]
+Will be updated in the next iteration.
 
-> +		remoteproc_soccp: remoteproc-soccp@d00000 {
+> 
+> > to tell an old release if this tag can be simply skipped or must lead to
+> > an error.
+> >
+> > Structured tag value is defined on 32bit and is defined as follow:
+> >
+> > Bits  | 31 | 30       | 29             28 | 27    0|
+> > ------+----+----------+-------------------+--------+
+> > Fields| 1  | CAN_SKIP | DATA_LNG_ENCODING | TAG_ID |
+> > ------+----+----------+-------------------+--------+
+> >
+> > Bit 31 is always set to 1 to identified a structured tag value.  
+>                                ^
+> 			       identify
+> 
+> > Bit 30 (CAN_SKIP) is set to 1 if the tag can be safely ignore when its  
+>                                                          ^
+> 							 ignored
 
-remoteproc-soccp@ ->remoteproc@
+Both will be fixed in the next iteration.
 
-> +			compatible = "qcom,glymur-soccp-pas", "qcom,kaanapali-soccp-pas";
-> +			reg = <0x0 0x00d00000 0x0 0x200000>;
-> +
-> +			interrupts-extended = <&intc GIC_SPI 167 IRQ_TYPE_EDGE_RISING>,
-> +					      <&soccp_smp2p_in 0 IRQ_TYPE_EDGE_RISING>,
-> +					      <&soccp_smp2p_in 1 IRQ_TYPE_EDGE_RISING>,
-> +					      <&soccp_smp2p_in 2 IRQ_TYPE_EDGE_RISING>,
-> +					      <&soccp_smp2p_in 3 IRQ_TYPE_EDGE_RISING>,
-> +					      <&soccp_smp2p_in 9 IRQ_TYPE_EDGE_RISING>;
-> +			interrupt-names = "wdog",
-> +					  "fatal",
-> +					  "ready",
-> +					  "handover",
-> +					  "stop-ack",
-> +					  "pong";
-> +
-> +			clocks = <&rpmhcc RPMH_CXO_CLK>;
-> +			clock-names = "xo";
-> +
-> +			power-domains = <&rpmhpd RPMHPD_CX>,
-> +					<&rpmhpd RPMHPD_MX>;
-> +			power-domain-names = "cx",
-> +					     "mx";
-> +
-> +			memory-region = <&soccp_mem>,
-> +					<&soccpdtb_mem>;
-> +
-> +			qcom,smem-states = <&soccp_smp2p_out 0>,
-> +					   <&soccp_smp2p_out 8>;
-> +			qcom,smem-state-names = "stop",
-> +						"ping";
-> +
-> +			status = "disabled";
+> 
+> 
+> > TAG_ID value is not a known value (unknown tag). If the CAN_SKIP bit is
+> > set to 0 this tag must not be ignored and an error should be reported
+> > when its TAG_ID value is not a known value (unknown tag).
+> >
+> > Bits 29..28 (DATA_LNG_ENCODING) indicates the length of the data related  
+> 
+> I think "LEN" is more common than "LNG".
 
-Let's drop this line, no one should desire to run a system without SoCCP
+Agree, will be changed.
 
-> +
-> +			glink-edge {
-> +				interrupts-extended = <&ipcc IPCC_MPROC_SOCCP
-> +							     IPCC_MPROC_SIGNAL_GLINK_QMP
-> +							     IRQ_TYPE_EDGE_RISING>;
-> +				mboxes = <&ipcc IPCC_MPROC_SOCCP
-> +						IPCC_MPROC_SIGNAL_GLINK_QMP>;
-> +				qcom,remote-pid = <19>;
-> +				label = "soccp";
-> +
-> +			};
+...
+> >
+> > +/* Tag values flags */
+> > +#define FDT_TAG_STRUCTURED	(1<<31)
+> > +#define FDT_TAG_SKIP_SAFE	(1<<30)  
+> 
+> This is called CAN_SKIP in the commit message and SKIP_SAFE here. Using a
+> consistent name would be better IMO.
 
-Stray \n above
+I will use SKIP_SAFE and so update the commit message accordingly in the next
+iteration.
 
-Konrad
+> 
+> > +#define FDT_TAG_DATA_MASK	(3<<28)
+> > +#define FDT_TAG_DATA_NONE	(0<<28)
+> > +#define FDT_TAG_DATA_1CELL	(1<<28)
+> > +#define FDT_TAG_DATA_2CELLS	(2<<28)
+> > +#define FDT_TAG_DATA_LNG	(3<<28)  
+> 
+> I find _LNG (or _LEN) misleading: this is not the length, but rather an
+> enum value telling you the length is stored in the next cell. What about
+> FDT_TAG_DATA_VARLEN?
+
+Yes indeed, VARLEN is better.
+I will use FDT_TAG_DATA_VARLEN in the next iteration.
+
+Best regards,
+Hervé
