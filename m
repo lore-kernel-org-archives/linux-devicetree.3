@@ -1,73 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EC413CD8C2;
-	Tue,  7 Apr 2026 15:58:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C09C3AB269;
+	Tue,  7 Apr 2026 16:02:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775577537; cv=none; b=ewRVHkDtuqzrBvhmQwiBJG0wJqjxzQ3skpjCxxtu/vleZTTHZeRb/M0sDPbqAejyBpusKYtqQ0bw4italoK9i7ldE8ptVld2jMVXoGKDRlFHEoK0SPnTHWpSrJmEXWOLiQoCgUd/sAMc/yI1gNElqTRzgypz5Grg0TuBUqsbeUo=
+	t=1775577729; cv=none; b=QxT/qXFp4lTV9tGFwWbwhEDDQtxDg4aBtQzP+ICiXhl5n4okrQtZhGl3DhZ+gi03ZpxGg9GkwONCkFOUKTnhzof5d7Iu/Lkq0Z8ncJrNhxeR8uhB2z0Fjj2vHhgLxO2Lgzr0LTWvkNpP3NvdYcr5z0/P6Y3VWVeh10eqX1emKGI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775577537; c=relaxed/simple;
-	bh=TEBmDXZxfoylzayLoImD9f83TDN7UFj5PT/ooCHo/pE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DXx4yq+5wPadKcmRJCUiQOIrUJTYKpGjGTIXOhuJ4pKRGU3tjdyKVr9O/ewqi8JLvBjnVMnoWv0gEGzQDcFQrmxmG48M7QjYf2wdkz2S+R5IlHmgiKkkwHRj3JqraxNphgVwD0clcTHo9wVKSx6MyizDyPXOiXBNSqUEFj0ODUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P/A0GQAE; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P/A0GQAE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAFADC116C6;
-	Tue,  7 Apr 2026 15:58:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775577535;
-	bh=TEBmDXZxfoylzayLoImD9f83TDN7UFj5PT/ooCHo/pE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=P/A0GQAER99pMshKDfI4+lG7NIrvoLgx5VQKDXq6M9ZrBD6cKJBjrEaP3sw5kLTxw
-	 WBmtHfqfzGliltFcQSEF2Gh6MhRCC58UE6Pi8rpsijqVzVriZOICTd7JZ0hTyr+j0n
-	 CKU0LbtsQrrbSSQzhotHWtDDqAIkPFGWVhd7BKmxyH/wRdkozoNOSvyOBhhOdqUwLP
-	 KqBN+Ax2LVX9gSumBPioB44snz+6aYh+b0gBgY0zlh6eZ3GZBGNMBrVB54/1DHeqsP
-	 Ut7WfdZy+4HL88aD1vcO56n+Kde5QMR+JphkFX6rj7PWyksqFbaBHCibP1n+yLG1wx
-	 3eauoVfg0o4FA==
-Date: Tue, 7 Apr 2026 10:58:54 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	David Airlie <airlied@gmail.com>, Robert Foss <rfoss@kernel.org>,
-	Adrien Grassein <adrien.grassein@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
-	Jonas Karlman <jonas@kwiboo.se>,
+	s=arc-20240116; t=1775577729; c=relaxed/simple;
+	bh=Nr4k76+J1u6CJEEdYYHDVJMf0Tw9s5qO6XDeJjFJGKA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N9W8P3CobiGjXIilQA7vBfNBy2i9z2ECHM8mUBqQY/qggWdFhfLjTyQmFp2PTURI2c5nJ8DYBnqWSZGvJQIqRxsM4u11G5VibEaeY3xlZ8LkmCJ6GZTnkItbcCbxIFDvnCJzOwPgXhD1duV7xHzSaZbVylSpkhn+zFgmuT8uEss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.43])
+	by APP-01 (Coremail) with SMTP id qwCowAAHsGtrKtVpwzeIDA--.50509S2;
+	Wed, 08 Apr 2026 00:01:49 +0800 (CST)
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Thomas Gleixner <tglx@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Andrzej Hajda <andrzej.hajda@intel.com>
-Subject: Re: [PATCH] dt-bindings: display: lt8912b: Drop redundant endpoint
- properties
-Message-ID: <177557753204.2632125.5233948727561913335.robh@kernel.org>
-References: <20260316134606.57070-2-krzysztof.kozlowski@oss.qualcomm.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Chen Wang <unicorn_wang@outlook.com>,
+	Inochi Amaoto <inochiama@gmail.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>
+Cc: Han Gao <rabenda.cn@gmail.com>,
+	Zixian Zeng <sycamoremoon376@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	devicetree@vger.kernel.org,
+	sophgo@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Subject: [PATCH] riscv: dts: sophgo: reduce SG2042 MSI count to 16
+Date: Wed,  8 Apr 2026 00:01:43 +0800
+Message-ID: <20260407160143.1182430-1-zhengxingda@iscas.ac.cn>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260316134606.57070-2-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowAAHsGtrKtVpwzeIDA--.50509S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7GFW3WFWrWryrtr1fGF4fuFg_yoWkGFb_Cw
+	1fCa4I9FZ8Ga92kF1kZrs5CFyUZw4FywnYy3s7Gr15Ka4Fvr1UWFWqqw4jv3WYkrWYgryx
+	WrZxtFW8Cw17ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb3xFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+	Cr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr0_Gr
+	1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+	n2IY04v7MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+	17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
+	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+	IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
+	C2KfnxnUUI43ZEXa7sRidbbtUUUUU==
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
+The SG2042 MSI controller has one 32-bit doorbell register, and each bit
+corresponds to an interrupt. At a glance, it seems that the MSI
+controller can support 32 interrupts; however the PCI MSI capability
+only supports 16-bit messages, which makes the high 16 interrupts
+unusable in such way.
 
-On Mon, 16 Mar 2026 14:46:07 +0100, Krzysztof Kozlowski wrote:
-> The "endpoint" node references video-interfaces.yaml schema with
-> "unevaluatedProperties: false" which means that all properties from
-> referenced schema apply.  Listing some of them with ": true" is simply
-> redundant and does not make this code easier to read.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/display/bridge/lontium,lt8912b.yaml    | 3 ---
->  1 file changed, 3 deletions(-)
-> 
+Reduce the MSI count to 16 to prevent producing MSI message values that
+cannot fit 16-bit integers.
 
-Applied, thanks!
+Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+---
+ arch/riscv/boot/dts/sophgo/sg2042.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/riscv/boot/dts/sophgo/sg2042.dtsi b/arch/riscv/boot/dts/sophgo/sg2042.dtsi
+index 9fddf3f0b3b99..9f1820a7b5a9f 100644
+--- a/arch/riscv/boot/dts/sophgo/sg2042.dtsi
++++ b/arch/riscv/boot/dts/sophgo/sg2042.dtsi
+@@ -234,7 +234,7 @@ msi: msi-controller@7030010304 {
+ 			reg-names = "clr", "doorbell";
+ 			msi-controller;
+ 			#msi-cells = <0>;
+-			msi-ranges = <&intc 64 IRQ_TYPE_EDGE_RISING 32>;
++			msi-ranges = <&intc 64 IRQ_TYPE_EDGE_RISING 16>;
+ 		};
+ 
+ 		rpgate: clock-controller@7030010368 {
+-- 
+2.52.0
 
