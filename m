@@ -1,42 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C03B140DFD3;
-	Tue,  7 Apr 2026 18:38:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A56C233A718;
+	Tue,  7 Apr 2026 18:40:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775587125; cv=none; b=OS4dw5rsDK+3ffxNo7f5qP7ZwYZFPVKewBwWf9+zSxjvfKGgHPWIhLsAsKkG0TFK1vu7SWXUn/DfAL9fSp+fmttHtHHI4WuJv9yY1Vt0DgpYbY8UmDRUxGTZu1YzIB+eeDjyZmV932GkkoYgwg0TFhGKQw1QrnaMe6IfjtmMZLg=
+	t=1775587257; cv=none; b=jJmitEt4m5ejeN+cPwpjpkAfDABHHENGRj1J6AbKQEZe3LBwvyjQZhVhrhJJ2+6wLKlZMHtav0Nx/Deb39lSsS/mZoJln5UvO+qxrvO/gvF2g8+5rOMyOWiEnRgaiy7jT8KErOcX2rMiKgjAWj6/YeqXVuy37LVJQ8zwlFREjbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775587125; c=relaxed/simple;
-	bh=R4dSxcoytsAQ1cK7ok8AIjYXHxmPPtrYNQ9CPFagY2c=;
+	s=arc-20240116; t=1775587257; c=relaxed/simple;
+	bh=ctBJBNAL2sZVwDJhXMphkJ4Ne0SfUaEL20su6jHmPpQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lph1ajKEXORKmjBKZcZs3/X5RYo+OlLyGA2h2OR/qgr1tMqQPM2afbTNU+nc/LO8oKqH882qPphW4l5Vb56C/cygZM9xYz53cPBEsp3NW0jFlS0vtJ4tPhb2TOdi8f6p1dYNd38raXP3k0oej8TjObypWkIjTAUSt+F7lY+0tws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JIexl56u; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=br8oIp4UdY+/aQw72CbwbSRMp3BoS+NOupN+AmbOPV4iXJiPi70YPRSQdWPpFP23mRJWnJv5afDOrTI+gkCYfzUtsQDzQoH+ZGtACElcbAwFDuI5yy3rz0qosDDk/tX/j99UAOQECVXeRP1rDJfHcAq4w8dUXq7l9ZDixXA2JQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sI/mLUzr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JIexl56u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13C84C116C6;
-	Tue,  7 Apr 2026 18:38:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sI/mLUzr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DA0BC116C6;
+	Tue,  7 Apr 2026 18:40:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775587125;
-	bh=R4dSxcoytsAQ1cK7ok8AIjYXHxmPPtrYNQ9CPFagY2c=;
+	s=k20201202; t=1775587257;
+	bh=ctBJBNAL2sZVwDJhXMphkJ4Ne0SfUaEL20su6jHmPpQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JIexl56ul26Axs/KNp3BIfLAGE3nLIY2O1RV+z4DT+pAwd+7eYWlviaAdeN5MOxdy
-	 8qHY3tThIX0ur4sRbE76vdJ02ZzifhUqVmL3K8mQl6wxycms7PrvC3eW/HjDX8bB8z
-	 /OEmGLB/PJ8mdzzj0zDJ5QdzhQeyXfvCa9WN4Ga/OFmG5sMZceqcQG6Ku055qIhhlr
-	 HfvetfREGQuuOzKdTlRHSCVamgBLv4zG2VmvgK5QnYsEYps/5eL50wrwHNolWBmsba
-	 7pbVDr92FfqZupk9DqT9e/cxuzZDhe5k/KV2df7VsbHnmrH7DUiRko7ADV8CyvcAx2
-	 U/xsyEZkft4Sg==
-Date: Tue, 7 Apr 2026 13:38:43 -0500
-From: Rob Herring <robh@kernel.org>
-To: Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
-Cc: lgirdwood@gmail.com, broonie@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, john.stultz@linaro.org,
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] ASoC: dt-bindings: hisilicon: Convert hi6210 I2S to
- dt-schema
-Message-ID: <20260407183843.GA3355079-robh@kernel.org>
-References: <20260327092106.4233-1-chaitanya.msabnis@gmail.com>
+	b=sI/mLUzrYB0p0h7F+qggqo+B7Iixi3QUIFCsUfYOUxnIZWiwOZgq7ZpCn339TFSkK
+	 /Bh2Vxl6Ng5B8rBSa7tzwXMlVhRi7hjYXswf7R7EHaz2nIvV0fNuEvc/AbusGP/y5Z
+	 9c3TZdbLIIDHjOYNTGyTt4Rx6zte92EOWG+3mssFLmsgbzu7+UhULF/innTCtcaPkX
+	 OznSjTzMz2iwVcW5IICmamnUgnIMPjy87/mqyizz+/U7eoWymD5sbqpL8dMZBNbDYh
+	 zFpClBRqO00vxOHRu2DZyvpCjlwNyxQWuLHoeEhS1p4r1EmCZeFwUri8Ixtmza/hrn
+	 6NnjaEZ03aDRg==
+Date: Tue, 7 Apr 2026 13:40:55 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>, linux-gpio@vger.kernel.org,
+	linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-kernel@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>
+Subject: Re: [PATCH v2 2/3] dt-bindings: pinctrl: sun55i-a523: increase IRQ
+ banks number
+Message-ID: <177558725508.3367275.431498004414263153.robh@kernel.org>
+References: <20260327113006.3135663-1-andre.przywara@arm.com>
+ <20260327113006.3135663-3-andre.przywara@arm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,92 +49,25 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260327092106.4233-1-chaitanya.msabnis@gmail.com>
+In-Reply-To: <20260327113006.3135663-3-andre.przywara@arm.com>
 
-On Fri, Mar 27, 2026 at 02:51:06PM +0530, Chaitanya Sabnis wrote:
-> Convert the Hisilicon hi6210 I2S controller hardware binding from
-> legacy plain text to modern YAML dt-schema format.
+
+On Fri, 27 Mar 2026 11:30:05 +0000, Andre Przywara wrote:
+> The Allwinner A523 SoC implements 10 GPIO banks in the first pinctrl
+> instance, but it skips the first bank (PortA), so their index goes from
+> 1 to 10. The same is actually true for the IRQ banks: there are registers
+> for 11 banks, though the first bank is not implemented (RAZ/WI).
+> In contrast to previous SoCs, the count of the IRQ banks starts with this
+> first unimplemented bank, so we need to provide an interrupt for it.
+> And indeed the A523 user manual lists an interrupt number for PortA, so we
+> need to increase the maximum number of interrupts per pin controller to 11,
+> to be able to assign the correct interrupt number for each bank.
 > 
-> During the conversion, the order of the dma-names properties in the
-> example was corrected to "tx", "rx" to match the official property
-> description, resolving a contradiction in the original text binding.
-> 
-> Signed-off-by: Chaitanya Sabnis  <chaitanya.msabnis@gmail.com>
+> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
 > ---
->  .../bindings/sound/hisilicon,hi6210-i2s.txt   | 42 ----------
->  .../bindings/sound/hisilicon,hi6210-i2s.yaml  | 80 +++++++++++++++++++
->  2 files changed, 80 insertions(+), 42 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/sound/hisilicon,hi6210-i2s.txt
->  create mode 100644 Documentation/devicetree/bindings/sound/hisilicon,hi6210-i2s.yaml
+>  .../bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml   | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/sound/hisilicon,hi6210-i2s.txt b/Documentation/devicetree/bindings/sound/hisilicon,hi6210-i2s.txt
-> deleted file mode 100644
-> index 7a296784eb37..000000000000
-> --- a/Documentation/devicetree/bindings/sound/hisilicon,hi6210-i2s.txt
-> +++ /dev/null
-> @@ -1,42 +0,0 @@
-> -* Hisilicon 6210 i2s controller
-> -
-> -Required properties:
-> -
-> -- compatible: should be one of the following:
-> -   - "hisilicon,hi6210-i2s"
-> -- reg: physical base address of the i2s controller unit and length of
-> -   memory mapped region.
-> -- interrupts: should contain the i2s interrupt.
-> -- clocks: a list of phandle + clock-specifier pairs, one for each entry
-> -  in clock-names.
-> -- clock-names: should contain following:
-> -   - "dacodec"
-> -   - "i2s-base"
-> -- dmas: DMA specifiers for tx dma. See the DMA client binding,
-> -  Documentation/devicetree/bindings/dma/dma.txt
-> -- dma-names: should be "tx" and "rx"
-> -- hisilicon,sysctrl-syscon: phandle to sysctrl syscon
-> -- #sound-dai-cells: Should be set to 1 (for multi-dai)
-> -   - The dai cell indexes reference the following interfaces:
-> -       0: S2 interface
-> -       (Currently that is the only one available, but more may be
-> -        supported in the future)
-> -
-> -Example for the hi6210 i2s controller:
-> -
-> -i2s0: i2s@f7118000{
-> -	compatible = "hisilicon,hi6210-i2s";
-> -	reg = <0x0 0xf7118000 0x0 0x8000>; /* i2s unit */
-> -	interrupts = <GIC_SPI 123 IRQ_TYPE_LEVEL_HIGH>; /* 155 "DigACodec_intr"-32 */
-> -	clocks = <&sys_ctrl HI6220_DACODEC_PCLK>,
-> -		 <&sys_ctrl HI6220_BBPPLL0_DIV>;
-> -	clock-names = "dacodec", "i2s-base";
-> -	dmas = <&dma0 15 &dma0 14>;
-> -	dma-names = "rx", "tx";
-> -	hisilicon,sysctrl-syscon = <&sys_ctrl>;
-> -	#sound-dai-cells = <1>;
-> -};
-> -
-> -Then when referencing the i2s controller:
-> -	sound-dai = <&i2s0 0>; /* index 0 => S2 interface */
-> -
-> diff --git a/Documentation/devicetree/bindings/sound/hisilicon,hi6210-i2s.yaml b/Documentation/devicetree/bindings/sound/hisilicon,hi6210-i2s.yaml
-> new file mode 100644
-> index 000000000000..5171f984630b
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/hisilicon,hi6210-i2s.yaml
-> @@ -0,0 +1,80 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/hisilicon,hi6210-i2s.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: HiSilicon hi6210 I2S controller
-> +
-> +maintainers:
-> +  - John Stultz <john.stultz@linaro.org>
 
-That email hasn't worked for years. I would suggest putting the 
-HiSilicon maintainer down for anything HiSilicon related.
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
-With that,
-
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
