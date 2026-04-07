@@ -1,300 +1,155 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69FFC39C00C
-	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 09:12:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E5C139C00C
+	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 09:12:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775553145; cv=none; b=qqMiO6MeIkkIwQzgDLB+RzK4eG9dFaln3AWHW6Az2kT9fdyRRndEY/H6Oemx+ZoaK+w9QAqVN/SbNLLKVFSIdm+kiM6Fha6v238AlzK7IIRyoQrB5f+WEacodARHB5s6sRrk3SCtv7iK2jngqyfIhyWR4RbLax3kAfztXJcy0/c=
+	t=1775553165; cv=none; b=eWEVGISOZNMRWRV98Mrh61nVQ+tIyKMaLxFuQe3ZncbfMPBxg3oHocYq40ul6Zvgavc1LnL8+ODPHsUFM5lfIXtdyuJdF8MW6imp8ki43VBp09sb/LyOcPFtyzNF6hTO/IQ6Dfrkr1sfZSQSDTj8mOFdq1VS5pL3xCi4vBK0KLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775553145; c=relaxed/simple;
-	bh=qAvcd8KV8i0oCeUFeItRYTgvHsO+kk5Prfmf2cHu3nU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ASfSTkNR3nV4jVEVjbSxhKNWO6n3WjUkRnhDJ6Nmd9em664gta3bAvFgucLTIqQFHMAd6AQy3xxj6yRAfLOMuvrRGO1VNXTXUeY5P1dAR4aUXZ9SWcrtDCCRvGZhvoFvjbjQhv43c8KMRaGBwcHkAP26fgkP8JNSoEgacoSGtSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V22sHbm+; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1775553165; c=relaxed/simple;
+	bh=m4OOjO1VZrIFqaVj+/tWZtl2Q2KKnNTdWD448cP9p10=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hEqXE1VitndyHakGM2jn/Z6Iz8WpvLjLU9ruepicHNk5hshRNi23Uw8AI0zpt2Vsxi7+wu4h/VU0MLPByCrxwNqma2vmfv1WViOkYm34vbzkbTkmDa4bfNMXIYjmYk/PlPbwVzJu+PITtp2cT8jLglJmWj6AL3QA+FrtZ9xLExc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mwOTzdze; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ea+jMZII; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V22sHbm+"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4836d9d54f6so7568545e9.1
-        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 02:12:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mwOTzdze";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ea+jMZII"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6376XZ4Z2550172
+	for <devicetree@vger.kernel.org>; Tue, 7 Apr 2026 09:12:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ZH7NJeeL+W0a0G40QLryaXbsSTbVab4mx59PHbCSQMk=; b=mwOTzdzegibL1bSr
+	r/heC0qre9CYMHscG2vVaL5iFH3flu0z/iRSiHX3GR3HS+PE5grXy80vnbf4xX5+
+	p4wT+Q2Z4gghcMPJ0V9zbSrWVU5TwjO3Iff8KqDoV1vYy+34XkxwBaFnuD5fd4bc
+	4ZayZbW8/zgtj1JF814Xiu+TsCbzOv8BCVA1mtiTBu8MW8u694zbqFLPqsT7nCdv
+	M9m7gAp1lFaXYoE6jC971Srnmh3XDM2C2PLFwrV81eTPfHGea1SnMxVUHLtNes82
+	/n1YkGfhs4G3DzqpfERK4V+nvevNVxH/qBadqmWCwSu0Idvh7dw3B6VOciDLY+PK
+	8QlKAQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dcmrea07h-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 09:12:43 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-8d63aeaaedaso80745185a.2
+        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 02:12:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775553142; x=1776157942; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=MQ7KewCbuwaOxvClMzMc1+LqgmYOmarKwkVc4uUvJpU=;
-        b=V22sHbm+3dpcbBwjOuJKBN+bfe3lnvKPSgGt1Q3R9OSBULR0IWfiG2ikfSrhlZJhRR
-         T7drvY9X4MuXi1Bbsu5xD/xL9cXNIGOhPFmAfTfFkMPB+TGKcC5PfTYqTxc8gVgRiPgp
-         Fi0/PJmohViwitPbpO01+OL6DK6slIJSxj42P+M5yXdzgpykAfcA1tvZ+NdDqBXXshw6
-         ZL+u30wUkdHxJ320CULaEdJCNaOmdxK1PbvFcYenVArK+Xl4jS6z5CjBg/PiE3LLBl2r
-         3wN4CzP6wqV0ifxK7v4YqkM42TH/lQs8DGr8hajeUP3/N8h3jw/srBOdffhpagohxHju
-         WkNg==
+        d=oss.qualcomm.com; s=google; t=1775553162; x=1776157962; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=ZH7NJeeL+W0a0G40QLryaXbsSTbVab4mx59PHbCSQMk=;
+        b=Ea+jMZIIp8vt20on9d0VdK03PPqKu3zphrVEel6SFzAwP7gUJz+dxHQD+AMyeJu354
+         GYDp2R5bbNZ245kuXRGDHTDbrml9YTbAfpGZkEIqly7YZPomNGUFiAPJteUDi8igs84r
+         yAgkdM0FHtwlKeMGVyFKgZdJTTmD7OLdoBdYiY7ts6ZgcQ6vJzIZiUNM4FU6kB6ZuZs2
+         22So9zniOFsVgtoqo9WLSwWr4ue5RpFIJ37CGd3g35pZbuh42jM1Mk0Lg6WMLcunUYSC
+         l6H8GtJX/irVOI2H7P/FbQSnCi+3tIPc5oJLH5dFFUqbwLHw8bFYo9I54GRgsw0DEOiV
+         tJRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775553142; x=1776157942;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=MQ7KewCbuwaOxvClMzMc1+LqgmYOmarKwkVc4uUvJpU=;
-        b=jsuzhpIjXvtwZu3vOZZNHuNmdU+fNv2yztTZCNHgiXZ6RCmMQSX491QtA0kZFhSdeE
-         bRADwJnpcZWPhjRjLaApF4TNHHvob1beFQ2pJ0BKfWs5gIs12P1vj89UAdQF32vLaqY7
-         hGxD/2//ysnebl7ZVKsPSwfETI32FxukfzeJ21aB4KQMxDo8akuX1emW9M04N9RWqh+1
-         RXTuvXM/pHgZTmmdV0MRhuVPNRxv5w7+r+qJDrQRNeA659PE7umLVtFF2TZO7KYVz/xU
-         GFVCsvaDZM5xrCoCUyGOxDwmRL4LR3iHda1M6msnNbQ+RFhUW7J8mkWO/uWvoUIY57f0
-         qIrw==
-X-Forwarded-Encrypted: i=1; AJvYcCVDe1EQLVoT+ne1nlyfVEfqdFuEzB+EXIuz0vT/O9xb9m2nFHb4w9Utn6TYgc1Wo+TRtPvDMaFWOFct@vger.kernel.org
-X-Gm-Message-State: AOJu0YwjhthXhFdpoAAfDDF9vjMSc9Bm8bI2sl4cE44P6bCqYjQtWdab
-	0tU81+wNFZHGDwL11Qz9C9znWfYEOmikhRYdVth5o+RwfufFZhcdjFgi
-X-Gm-Gg: AeBDieuEk+Aa41JrQsiNP65S21EWGdda+9mdc/4Mbwex+89TAIWC+rpew805VsUH8zf
-	LLFyEhBLG+fKzEnLUoLBhwLfMksrS7NnAsjX1xXQZNE1RgEQ6y/KnMQNGb6DOAqo+6HteAD7a+m
-	jxIHhDhuMfNuS8puJzQLcsrMDi+sTnUjhpcC0NKJ8GEsj6NM6k8HEjcbC8TjxYNOi9kB4ceNffy
-	/Dv/0jMjGlATdSp0ePokn0bA3Flo0jjJciSyAA2YjxQAIF3fRcpTTzBXqc07kaYmPYYpplZdESu
-	q35lOZ+dKpCNZ0dIhHbDGT77V9Pv9oZeSN7UaXeU9cE88jyMJ1Jlr4XiSTbWPO3o7dz2/EyriA8
-	dVQq9mHi1Plk+Rb5LrWHBK6huQEAS72ADu4Jr6JCdutbkG2U/sthm+x7OsGGGbG+ZAWnUoK0+vX
-	4zxoFrRN+nuwgmoIs=
-X-Received: by 2002:a05:600c:1381:b0:487:1fbb:5a28 with SMTP id 5b1f17b1804b1-488996b43b5mr125472385e9.1.1775553141252;
-        Tue, 07 Apr 2026 02:12:21 -0700 (PDT)
-Received: from skbuf ([2a02:2f04:d50a:b400:41ba:75e1:d08f:8974])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4887e829c43sm521212815e9.5.2026.04.07.02.12.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Apr 2026 02:12:20 -0700 (PDT)
-Date: Tue, 7 Apr 2026 12:12:17 +0300
-From: Vladimir Oltean <olteanv@gmail.com>
-To: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
-Cc: Jakub Kicinski <kuba@kernel.org>, UNGLinuxDriver@microchip.com,
-	andrew@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	pabeni@redhat.com, horms@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, woojung.huh@microchip.com,
-	linux@armlinux.org.uk, Steen.Hegelund@microchip.com,
-	daniel.machon@microchip.com, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v2 4/9] net: dsa: lan9645x: add basic dsa driver
- for LAN9645X
-Message-ID: <20260407091217.rrwzho3lcmfip3y5@skbuf>
-References: <20260324-dsa_lan9645x_switch_driver_base-v2-4-f7504e3b0681@microchip.com>
- <20260329195629.2789129-1-kuba@kernel.org>
- <c1b824a3e597b37df133053f6b216e9196b130d5.camel@microchip.com>
+        d=1e100.net; s=20251104; t=1775553162; x=1776157962;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ZH7NJeeL+W0a0G40QLryaXbsSTbVab4mx59PHbCSQMk=;
+        b=grHTNlc/zQmY2HT1ADnTNWqnf6x8NVGGNg7jcfi2x3Mw4SasTQG0aoUGz2KqF8IK/0
+         Egx11NmSkNyp0b5LneOC0/XEkvoWOEnsHo3Qsy3B81syeG5UMQ80nBeIAwj5UvBvXGln
+         BVvDFMn6ECVY9Q99pOKDCl4ojBslHjpQPVz1qxVAmSP+RSWkEKbXws8RfZEG/eMaEbJ8
+         JrhwTwGqxWalu46NxypmoAfYy1YhjxnIli2QQWvWrCPlIX1bcK+a0x7KOZJCHVyQNXKl
+         98SF3ArE8CNOS5kkWjARFX0+oW87jVhGi4Pck8qFLOK7rge7xYtO2tHydk9dWBSNssnJ
+         u41g==
+X-Forwarded-Encrypted: i=1; AJvYcCX4DwJdNDvArDNQHzoTjUs5tFZumDbGzalhn74MbKEFE33hKrh1yAecwR6sr2e0KHmDXcG6kMpladVv@vger.kernel.org
+X-Gm-Message-State: AOJu0YxzAUs/gSBofKfzPuIFfkjEnNw+XH/ddYrL3rJQqDM1OXAlDfy9
+	2Wx0AFsy5ahyNpHFBXLNdwiP+EGGvuuKKaWCN93kzpkXzmUZMI371550E59Oc8fp/FXxAWrTpm0
+	yQ21oTMdL1XU3RdKS1oGDribLhaGNFLZqRRUagLRT5kJ4HxyHMVPvcrqSTrXR/y6s
+X-Gm-Gg: AeBDiesjgDPsPlEV1JzibV94nba3sFFiADqPFXJuBg++zX1jCMd1r/0FK1xxZZnLOMH
+	Acj98baSpaj74P5zpx+i0i95hDNtrdu9Xelm+85xOUaGrjLHhZOFKqe9qlTgJcKLlEPlALSQx5t
+	S71x1ucs3jjaI3F9Sx1o0Z66Nx7OC/e24ArBMbm08EXxUoDlWdG+QTPjw4kH70W/tj8IGcCNj8B
+	IxqpkhJpXU1uVqUA9t94aAA9WapWyMY5kcnhzVx14qI9axTPoB6g3wAOiMWBwsRzsQTV4rd5PBm
+	De9da6KH39RS8diykvCUYS+iU+BcnYjAv8lpe53uGvJz4ARZxW7nOrKtt5oNmZXgPGXFPuMoElG
+	hEdwyAnK7p8Y5aWzTapfxnJoQFYD3rAjrZcbIoHwrtskWAAWQ0lcgQaq+LdKEeRP1Rmt8IG6tH1
+	b/CE0=
+X-Received: by 2002:ac8:5853:0:b0:50d:aae1:7078 with SMTP id d75a77b69052e-50daae17569mr2878431cf.1.1775553162410;
+        Tue, 07 Apr 2026 02:12:42 -0700 (PDT)
+X-Received: by 2002:ac8:5853:0:b0:50d:aae1:7078 with SMTP id d75a77b69052e-50daae17569mr2878061cf.1.1775553161873;
+        Tue, 07 Apr 2026 02:12:41 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9d0edd4264sm19703366b.36.2026.04.07.02.12.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 07 Apr 2026 02:12:40 -0700 (PDT)
+Message-ID: <d986e1b6-afa4-4e39-a586-2ca119ccd42c@oss.qualcomm.com>
+Date: Tue, 7 Apr 2026 11:12:36 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c1b824a3e597b37df133053f6b216e9196b130d5.camel@microchip.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7/7] arm64: dts: qcom: sm8750: Correct DPU VBIF address
+ space size
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov
+ <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Kuogee Hsieh <quic_khsieh@quicinc.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>
+References: <20260402-dts-qcom-display-regs-v1-0-daa54ab448a3@oss.qualcomm.com>
+ <20260402-dts-qcom-display-regs-v1-7-daa54ab448a3@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260402-dts-qcom-display-regs-v1-7-daa54ab448a3@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=OKEXGyaB c=1 sm=1 tr=0 ts=69d4ca8b cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=fzqTxgmSy3qf8bfLeY0A:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: 6vfCqHUGCakYYs8pAzkbNG57TJU6XveZ
+X-Proofpoint-ORIG-GUID: 6vfCqHUGCakYYs8pAzkbNG57TJU6XveZ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA3MDA4MyBTYWx0ZWRfXyAv8PVjK9tj5
+ Uu3qzycPne72nCnznxuXtFZGuIsph8rkHZSxm57IRDrMUOl2rQC9hF8l6t3FTeZDFDBOXC1UCsD
+ gUFZ+whsJ5eGFTt6jKpeN+rAqZDCi6Uxcgk9xg+6Dos8GZ/5+v6g3AbL9zfiYephI8U+D0TfBXc
+ AZYjcPz+URPM0iaBQkCmhHqJdnileL0+ekrIBb6pvZ1cz2DD/TEQBjfnWEiVfVJq0Die76Bnni0
+ Bt9Yyz1c9thqsOE1hyfNafuTAhzZCM+qEMUNL77LFh+2utIyU+QVSH4BnAqhc81h0FWdFFrQwLB
+ JVpRsLVK/5ENCjlbgaFt71QFSK6g9xSHoq+cbA3waE/9EGpw+og1sl9lhRUsvINsXxyOIYrkXul
+ TxVwr4+rOJ1lfJZW4CAWWfAgiLJCrs22PkzhEXzvqtaF1FTB+a4lMBxX+VKcPNpL1tr3LmPGyIk
+ a3argFe8JuDwilTk75Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-07_02,2026-04-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 priorityscore=1501 spamscore=0 impostorscore=0 lowpriorityscore=0
+ clxscore=1015 adultscore=0 malwarescore=0 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604070083
 
-On Wed, Apr 01, 2026 at 01:46:19PM +0200, Jens Emil Schulz Ostergaard wrote:
-> On Sun, 2026-03-29 at 12:56 -0700, Jakub Kicinski wrote:
-> > EXTERNAL EMAIL: Do not click links or open attachments unless you know the content is safe
-> > 
-> > This is an AI-generated review of your patch. The human sending this
-> > email has considered the AI review valid, or at least plausible.
-> > ---
-> > Subject: net: dsa: lan9645x: add basic dsa driver for LAN9645X
-> > 
-> > This commit adds a basic DSA driver for the Microchip LAN9645X switch. It
-> > includes initialization, port module setup for NPI, CPU, and front ports,
-> > and phylink integration for MAC side configuration.
-> > 
-> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_npi.c b/drivers/net/dsa/microchip/lan9645x/lan9645x_npi.c
-> > --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_npi.c
-> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_npi.c
-> > [ ... ]
-> > > +static void disable_conduit_ipv6(struct lan9645x *lan9645x,
-> > > +                              struct net_device *conduit)
-> > > +{
-> > > +     struct inet6_dev *dev_v6;
-> > > +
-> > > +     if (!conduit)
-> > > +             return;
-> > > +
-> > > +     /* IPv6 on the conduit will generate frames bypassing our tag driver, so
-> > > +      * they lack an IFH. This will be garbage in garbage out and we want to
-> > > +      * avoid this.
-> > > +      */
-> > > +     rtnl_lock();
-> > > +     dev_v6 = __in6_dev_get(conduit);
-> > > +     if (dev_v6) {
-> > > +             WRITE_ONCE(dev_v6->cnf.disable_ipv6, 1);
-> > > +             dev_warn(lan9645x->dev, "Disabled IPv6 on conduit device: %s\n",
-> > > +                      netdev_name(conduit));
-> > > +     }
-> > > +     rtnl_lock();
-> > > +}
-> > 
-> > Does directly modifying dev_v6->cnf.disable_ipv6 bypass the proper sysctl
-> > teardown path (addrconf_disable_ipv6) and leave the IPv6 stack in an
-> > inconsistent state on the conduit device by failing to clean up routes,
-> > addresses, and MLD memberships?
-> > 
-> > Is it a layering violation for a switch driver to alter the networking
-> > configuration of an external upper device, especially since this change
-> > isn't reverted during driver unbind?
+On 4/2/26 1:45 PM, Krzysztof Kozlowski wrote:
+> VBIF register range is 0x3000 long, so correct the code even though
+> missing part seems without practical impact.
 > 
-> Yes this will bypass the sysctl teardown path. I can change this to instead
-> read disable_ipv6 state and warn the user that their device is misconfigured.
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
 
-I don't want to have to deal with a DSA driver altering the conduit
-configuration outside of the DSA core. NACK to any attempts of trying
-this.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Define "garbage in, garbage out" for your case. The packets are sent to
-random ports? Normally, switches are configured by their drivers to drop
-those packets that don't contain DSA tags. You can also do that, by
-setting up the switch to require an injection prefix.
-
-> > [ ... ]
-> > > +     /* Configure IFH prefix mode for NPI port. */
-> > > +     lan_rmw(SYS_PORT_MODE_INCL_XTR_HDR_SET(LAN9645X_TAG_PREFIX_LONG) |
-> > > +             SYS_PORT_MODE_INCL_INJ_HDR_SET(LAN9645X_TAG_PREFIX_NONE),
-> > > +             SYS_PORT_MODE_INCL_XTR_HDR |
-> > > +             SYS_PORT_MODE_INCL_INJ_HDR,
-> > > +             lan9645x,
-> > > +             SYS_PORT_MODE(p->chip_port));
-> > 
-> > Setting LAN9645X_TAG_PREFIX_NONE means the hardware interprets the first
-> > bytes of any frame received from the host as an IFH command structure.
-> > 
-> > Does this allow a local user to transmit crafted frames (for example, via
-> > raw sockets or standard protocols) whose MAC address bytes map to malicious
-> > IFH commands, thereby bypassing VLAN isolation or flooding the switch?
-> > 
-> > Should the hardware be configured to require a strict prefix, such as
-> > LAN9645X_TAG_PREFIX_LONG, for injected frames to prevent this?
-> 
-> A prefix offers no protection against the described scenario. The current
-> configuration is correct. If a prefix is configured frames MUST contain the
-> prefix. With the conduit exposed in userspace this is not something we can
-> guarantee.
-
-The short prefix prevents user space from sending frames by mistake
-which will reach the wire (daemons attaching to all interfaces, like for DHCP).
-It still allows user space to intentionally inject frames into the
-switch (for example from XDP on the conduit).
-
-I recommend you go for the short prefix and drop the conduit alterations.
-
-> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
-> > --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
-> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
-> > [ ... ]
-> > > +static int lan9645x_setup(struct dsa_switch *ds)
-> > > +{
-> > > +     struct lan9645x *lan9645x = ds->priv;
-> > > +     struct device *dev = lan9645x->dev;
-> > > +     u32 all_phys_ports;
-> > > +     int err;
-> > > +
-> > > +     lan9645x->num_phys_ports = ds->num_ports;
-> > > +     all_phys_ports = GENMASK(lan9645x->num_phys_ports - 1, 0);
-> > > +
-> > > +     err = lan9645x_reset_switch(lan9645x);
-> > > +     if (err)
-> > > +             return err;
-> > > +
-> > > +     lan9645x->ports = devm_kcalloc(lan9645x->dev, lan9645x->num_phys_ports,
-> > > +                                    sizeof(struct lan9645x_port *),
-> > > +                                    GFP_KERNEL);
-> > 
-> > Since the DSA .setup callback can be invoked multiple times during the
-> > platform device's lifetime (for example, when the DSA master interface is
-> > unbound and bound again), does using devm_kcalloc here cause a memory leak?
-> > Should these allocations be moved to .probe or managed with kcalloc and
-> > freed in .teardown?
-> > 
-> 
-> Hmm I do not think this is right? I think dsa_tree_teardown is called from
-> dsa_switch_remove which is called by the switch drivers .remove.
-> 
-> So I do not think you can get multiple setup/teardown cycles during the device
-> lifetime?
-> 
-> As far as I can tell both felix and ksz use device managed allocations in their
-> setup callback.
-
-It's valid feedback in general. In a multi-switch tree, ds->ops->setup()
-is called when the tree is complete, and ds->ops->teardown() when the
-first switch disappears. If there are 2 switches and you unbind and
-rebind the driver from A, then switch B will see a ds->ops->teardown()
-call followed by ds->ops->setup().
-
-In your case, since the switch doesn't support cascading, it probably
-doesn't matter. But the LLM doesn't have the context to know that.
-
-> > [ ... ]
-> > > +     /* Set all the entries to obey VLAN. */
-> > > +     for (int i = 0; i < PGID_ENTRIES; ++i)
-> > > +             lan_wr(ANA_PGID_CFG_OBEY_VLAN_SET(1),
-> > > +                    lan9645x, ANA_PGID_CFG(i));
-> > 
-> > PGID_ENTRIES is defined as 89, so this loop initializes indices 0 through
-> > 88. Since the CPU port is index 9, its source PGID is PGID_SRC + CPU_PORT
-> > (80 + 9 = 89).
-> > 
-> > Is index 89 left uninitialized, breaking the OBEY_VLAN rule and allowing
-> > CPU-injected frames to leak across VLAN boundaries?
-> > 
-> 
-> No I this misunderstands OBEY_VLAN. When set the vlan table can control
-> whether cpu copy from the pgid table is enabled. It makes no sense for PGID 89.
-
-Explain that in a comment.
-
-> > [ ... ]
-> > > +     /* Multicast to all front ports */
-> > > +     lan_wr(all_phys_ports, lan9645x, ANA_PGID(PGID_MC));
-> > > +
-> > > +     /* IP multicast to all front ports */
-> > > +     lan_wr(all_phys_ports, lan9645x, ANA_PGID(PGID_MCIPV4));
-> > > +     lan_wr(all_phys_ports, lan9645x, ANA_PGID(PGID_MCIPV6));
-> > > +
-> > > +     /* Unicast to all front ports */
-> > > +     lan_wr(all_phys_ports, lan9645x, ANA_PGID(PGID_UC));
-> > > +
-> > > +     /* Broadcast to all ports */
-> > > +     lan_wr(BIT(CPU_PORT) | all_phys_ports, lan9645x, ANA_PGID(PGID_BC));
-> > 
-> > PGID_BC includes BIT(CPU_PORT) and all_phys_ports (which includes the NPI
-> > port). Will this forward broadcast frames to both the CPU extraction queue
-> > and the NPI port's normal egress queue, causing duplicate frames for the host?
-> > 
-> > Conversely, the multicast masks and PGID_UC exclude BIT(CPU_PORT). Does
-> > this cause them to bypass the CPU extraction queue entirely, thereby
-> > lacking the LONG extraction prefix and breaking the host's DSA tagger parsing?
-> > 
-> 
-> No this is not how it works. Generally when you configure the CPU port to use
-> an NPI port, the hardware manages this internally. You do you have to start
-> using the npi port number all of a sudden.
-
-The comment is fair though. Why would you set all_phys_ports to
-GENMASK(lan9645x->num_phys_ports - 1, 0) when you can compute the mask
-of user ports which are enabled? It seems sloppy at best, and also
-contradictory (comments say "all front ports", but code includes the NPI
-port in this mask).
-
-> > [ ... ]
-> > > +int lan9645x_port_setup(struct dsa_switch *ds, int port)
-> > > +{
-> > > +     struct dsa_port *dp = dsa_to_port(ds, port);
-> > > +     struct lan9645x *lan9645x = ds->priv;
-> > > +     struct lan9645x_port *p;
-> > > +
-> > > +     p = lan9645x_to_port(lan9645x, port);
-> > > +
-> > > +     if (dp->dn) {
-> > > +             p->rx_internal_delay =
-> > > +                     of_property_present(dp->dn, "rx-internal-delay-ps");
-> > > +             p->tx_internal_delay =
-> > > +                     of_property_present(dp->dn, "tx-internal-delay-ps");
-> > > +     }
-> > 
-> > These are standard integer properties specifying delays in picoseconds. If
-> > a user explicitly disables the delay via devicetree using a value of 0,
-> > will of_property_present evaluate to true and enable the hardware delay
-> > anyway? Should of_property_read_u32 be used instead to check the value?
-> 
-> A value of 0 is not allowed per the bindings. The bindings enforce that if this
-> is present the value must be 2000.
-
-Bindings may change. Please use of_property_read_u32().
+Konrad
