@@ -1,68 +1,66 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC5C33ADB5
-	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 17:32:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 997F233F38B
+	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 17:32:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775583155; cv=none; b=M/4dN7vbadXk1R+RzUCfMT9IXzMpwmgGymsacpR9X9RNsPyrwQb/n56heierhLxB7HbdFJeUk7NW7pjpjh4fIVuOZ31gba74B6baTaUiJbefYKmnro7l14myOpIRgKssSktX1CrqOQfuYjLnsx3BJrq6B41sRur7UiLGU+dRAXM=
+	t=1775583160; cv=none; b=beVaBkd9o0dGWh+jstti3jzNGtW6JzkDq/b1cz8xJHalVqMT9UlOn8ry4+TpSdigh9+7keEiKBHHwEqtt8/KzDANFdzVVqUKzefU68+oOpSuxe72wbJXRuZd+wDDN1t6x5GllGbTE4zOARDgeH7Udll23KFOycsmds0fHmvu7LY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775583155; c=relaxed/simple;
-	bh=3iTaWqF8+gWTPbH2uoiDam/URnuG24c+X7Vqq65/fIY=;
+	s=arc-20240116; t=1775583160; c=relaxed/simple;
+	bh=96IxDbYipWYISMVgppXL6FngvjfItqxe5eExWZvHusY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tcfGhBMZ1tz3G8nINDm7bFJXvMwfBbfaZfzo1qUun+E4oK/uJtygoCGb1rugOO6DHgwlbfxRZBxIoty3vb2pGhD09mj8bpXjMMlr4AukDWXNneriMP7Lhu1e5eBSfwKCXHaGF0+C5bsEWiBs7paD+Sn0kA5Zf8qhAenY/H+6e+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=FHn6q41D; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	 In-Reply-To:Content-Type; b=DxSZUt1qoWURglBVpcBK4EAi2WdPCTKNE0VhuFCDYk3b8oBE6dmMkZMrTuhaXZtF91n4EVTZbSDNWNRUiezViw5WLOrd9FbIS47BG4ToVbtRCuGjKirNoGCUJ+j3kN5uxWx6qyR5oW/LDZWLPD5NDFUGin+6mHSYHmtJDEnliqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yx5zLUD0; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="FHn6q41D"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-43cf8fe9c2aso3141640f8f.2
-        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 10:32:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yx5zLUD0"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-35d971fbcddso82326a91.1
+        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 10:32:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1775583151; x=1776187951; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:from:references:cc:to:subject:reply-to:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=c4d7m9Tc639YX9TJeHeW7NZzxdH9MumFBbuDN7m5vKk=;
-        b=FHn6q41DYSh0khfygtQHJxjyAalGmMr6OfMsruhZO+5Jp6hGcMoeEVuxsRptcbPxWF
-         0PNA8g3qYF62WkL53vk03WdxJ7PrWNAgm81onY9FwfPBVxtY0KME/8PBpP0itWAcjTvB
-         5ff2j9caGrUaNblAYxJSs7/IuaAzQDhNFEkbfg2XpZuCt157I0ntpXxGuqhFBtV/WTEh
-         jP2qON9fabbmIQaK28niDt8plIXzAtxmxGNNc4HLz3hMmjDoTI/OHmgfoJRcw72ayzkj
-         jV3ODj3+jT8cS3CG0nDVLqYyueYV9u59SZK9b5zezDfTUhPc32ukViwsRVYtEcnwKgsS
-         22ew==
+        d=gmail.com; s=20251104; t=1775583159; x=1776187959; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=DmBs1pC2+g4fvvLGZVFgA2jNmZXb31c2twmWE1SEdkI=;
+        b=Yx5zLUD0D98VSchcM5q0WsiF43qX7a/WVj24nEDg7+n377PgxJ8au5Xo109o3GNTol
+         mhAoR6lkXuTkOUNcMOuCqXQv8s7FYOnlFBsKKuqG9jsHD7qKWUES6Gnw0Lw8S3kK6lIB
+         8fHY3SGV0HZO0zClvzq1JHeh5ATov+jV2Ohh1l3NM9NcuTvUMAWlIfdUiyJcBVPL2zgR
+         QWg2KMst/aeld5RViaoa8TFTWLuE0yn4ExAu38/D39+puW20hNzidBl7BHjG1u2t1yjy
+         /Ge8vKiyg8ipp5lIU2nEWdSkfGuo8NMR+yEWDXOOsM2uOXfm7FjAZG0L4IGo4onJLwTJ
+         myBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775583151; x=1776187951;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:from:references:cc:to:subject:reply-to:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=c4d7m9Tc639YX9TJeHeW7NZzxdH9MumFBbuDN7m5vKk=;
-        b=esC+rXbpQuLnSmKEAiZQNjpVXvkL6mAoh21ExG4XhnwCPHPqDgF/Ar48IvI2KVmbGb
-         57ijhwJei8Oz2Rx+Fc1afT2MRb2dhN364OZ+XW1YadhBsRX88PeQROFcS6FTtrXh3Ruc
-         UdvbftmPdyXuo7SdFs2f8YXlrGaP6D9kcqB7gDIajECsniCaknXUNWBoIZf1vMiYW6lj
-         vKopBSDNMFWwP7QhA7s4jcJX/CzPbvTLgQowWkH2DYKOYhuojeVpGDMgnQvEiNmT9rYY
-         HJtlNaVxXHPiprTjYSA+3KSH5aUKg9ATvNnDZ1yfebBXrnaGSYjYWa09lunFdBfw6YyO
-         eCKA==
-X-Forwarded-Encrypted: i=1; AJvYcCU42/fQ1jV9RuxzqTrZxpGnRlsOpRGA+IBOcDHRm7Pu81SUzZBPfleUwFeB3iNWQxaqtQFKnYCaRKd3@vger.kernel.org
-X-Gm-Message-State: AOJu0YzyoLeu1IuHjH4CTEu6e9uTScxwiPV/Ykjx82WmiL58s9hBtB+r
-	Qt6Se8eBW8S1QpxsDjQufwrOQbttdOzi1uWy51aiKDvUxf+dAV8aRxCDTJ5g8VTVgno=
-X-Gm-Gg: AeBDiev0PW40cHS0isbdHcAWhtcCpTPT0twEwT39OiHIZcBAnNe3ACBxcaNVUPKESc8
-	HRovvDCFfM840qMnq4nCz8abENtUpdMbbtb3AKQIXB5sr3N27bRpYNdNWmQ6/t39JptDcDO92SG
-	fQgx7Xsc/oGk/T7ISY48hmoAGFPXzAEq/SIrGzggWKx+RP5lCUXSCN28P6dYo13oZ4gXNRvRjq8
-	GFmZDQXSzBtSXJ7dL4t159GsHa2W9VbsvDoJYR/oW5y/5VNUT25Fa/SnO9V63eRDUZvFm8b00ba
-	95P+EHx5CHKoeJ7ZwGuhjhh84k7iFFSEEATigLTow1zQ1jWxKACkiH3fl3msaGoFoVr7KGUN7Y+
-	tfVj8Epcp2JDp5zhP0pOh/+PpLRQuQ4pntizlY9dgzerZx046y7RqYTGEjbvnLQJAlr69Xg2Kpr
-	wY+1hcEHB/k0ah429GWoLD95au2CkiddeejNjn1XKbfOnZriRJ66pum6eqwIGDxaGI7xYpX10TO
-	cVv9j4=
-X-Received: by 2002:a05:6000:1842:b0:43c:f3c9:3815 with SMTP id ffacd0b85a97d-43d29277055mr25949772f8f.3.1775583150955;
-        Tue, 07 Apr 2026 10:32:30 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:405b:6cdd:f27a:d661? ([2a01:e0a:106d:1080:405b:6cdd:f27a:d661])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43d1e4d29bbsm52635802f8f.21.2026.04.07.10.32.29
+        d=1e100.net; s=20251104; t=1775583159; x=1776187959;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=DmBs1pC2+g4fvvLGZVFgA2jNmZXb31c2twmWE1SEdkI=;
+        b=bAR01lUl/cBq7lolKnJuiOkBaevmbJIMimK1OKBsidLrHCnskDuRLa0Iw5vHQji32R
+         DIO5r3lejb8XAPJM8Kv0yqfzpYU7kKULdyYJ48MfURV/PZByAJuEDZrHWM45MS86IzTB
+         PZzRJPsdJkm3sICmKpPlmMIMugh4FRz81bVqcw5xIX6V3sNQ4ORFjHRd4m+lTMOq3aoy
+         f/ttTScRc6J28j9pOMXsP9ZhTzefZGE40I8aKXKbeJTyZJXwKUsLC4FU/xkghJjddAeQ
+         Xnv2nwwVA9xKZ5OTHCO9w9ZJVgSwVfTJ7IeK7ucn3wGiuYRLr1uYVviTLxKJpW+0lfTA
+         DOQQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXc1Xy/4rFMazhVIukQcYeY79b/ZiWOAODmAW0ux9nM5z2RqfZ2THH5aj4NHgZuFJbrA7NHIPpmyjXQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YzT8zcIFDLRpuRSGcEjnP64HiKyVYz77KC+yMZCAuysuehQAGm5
+	eHtJLSoXPxGOhaihHjD9TisMi1cOsNvG1UOF0lZMbqZI05RqNWBLlVH1
+X-Gm-Gg: AeBDies/RBG/FLI9Hm7bbMUsLGQALmGCHq9XuXEhdp+uWF4SXHTC9a0hDnG6JWYtGEx
+	36fCvowvVXmrckx0A19uyRajtZvYcicBmAobr4Fad1SuJQLZPexZFmIW49sCRVq2r4YCylDh0M0
+	zRfoHTbNFYMlnfBUFgBeJqGwqqwinqEwjuLj8ta9i83j8y5r1AmrGsg+acNnLPhbwxIcSAtfJcM
+	UOndHngsgijPHsjJ+rzM1uNL6yKx4LbeXAURmNXK8smPNtmEjB5SICpvceY6eWckAteIggR93+8
+	yeMfOn6MkzVB3RJVDE3fK6o+pIdOVL0g4Y1G5ZyICm7KbzktCn3rwXTy5cmFGbnyKcjPSsAUb8n
+	SpzeDObohaBHXf4CLKD/yTtFe03MDjV9rIAwXJ+tL1UNWImTZL70XV/cMIgxLQgdR8ZrrME/OD6
+	QD93PJ9p5WuPBKhI5P3RZLuHX9k6WKH1u0qrr2CmYHiB+qjs5IjQ==
+X-Received: by 2002:a17:90b:2e46:b0:359:8957:7285 with SMTP id 98e67ed59e1d1-35de591e9bcmr14232090a91.3.1775583158886;
+        Tue, 07 Apr 2026 10:32:38 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35e27d255easm26902a91.5.2026.04.07.10.32.35
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 07 Apr 2026 10:32:30 -0700 (PDT)
-Message-ID: <ab8e8dfb-1b89-4533-9d00-b7b09de5dee8@linaro.org>
-Date: Tue, 7 Apr 2026 19:32:29 +0200
+        Tue, 07 Apr 2026 10:32:37 -0700 (PDT)
+Message-ID: <1dd8324a-8cb8-43e2-9117-c52c37f1ad96@gmail.com>
+Date: Tue, 7 Apr 2026 10:32:34 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,112 +68,28 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 2/5] arm64: dts: qcom: sm8550: add PCIe port labels
-To: Joe Sandom <jsandom@axon.com>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+Subject: Re: [PATCH 1/2] dt-bindings: fpga: add binding for Technologic
+ Systems TS-73xx FPGA
+To: Phil Pemberton <philpem@philpem.me.uk>, Moritz Fischer <mdf@kernel.org>,
+ Xu Yilun <yilun.xu@intel.com>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260407-rb5gen2-dts-v2-0-d0c7f447ee73@axon.com>
- <20260407-rb5gen2-dts-v2-2-d0c7f447ee73@axon.com>
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260407-rb5gen2-dts-v2-2-d0c7f447ee73@axon.com>
+Cc: Tom Rix <trix@redhat.com>, linux-fpga@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260407172730.1779804-1-philpem@philpem.me.uk>
+ <20260407172730.1779804-2-philpem@philpem.me.uk>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20260407172730.1779804-2-philpem@philpem.me.uk>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 4/7/26 17:46, Joe Sandom wrote:
-> Add labels to the root port nodes (pcie0_port0, pcie1_port0) to
-> allow board DTS files to reference them for adding endpoint devices
-> to each pcie root port.
+On 4/7/26 10:27, Phil Pemberton wrote:
+> Add device tree binding documentation for the Altera Cyclone II FPGA
+> found on Technologic Systems TS-7300 series boards, programmed via a
+> CPLD memory-mapped interface.
 > 
-> Update the pcieport0 reference to pcie0_port0 in sm8550-hdk.dts and
-> sm8550-qrd.dts to match the label rename in sm8550.dtsi.
-> 
-> Signed-off-by: Joe Sandom <jsandom@axon.com>
-> ---
->   arch/arm64/boot/dts/qcom/sm8550-hdk.dts | 2 +-
->   arch/arm64/boot/dts/qcom/sm8550-qrd.dts | 2 +-
->   arch/arm64/boot/dts/qcom/sm8550.dtsi    | 4 ++--
->   3 files changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8550-hdk.dts b/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
-> index ee13e6136a8259d28540e718851e094f74ead278..e821b731bdc496c872703723df02ae9b9b0233b5 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
-> @@ -1012,7 +1012,7 @@ &pcie0 {
->   	status = "okay";
->   };
->   
-> -&pcieport0 {
-> +&pcie0_port0 {
->   	wifi@0 {
->   		compatible = "pci17cb,1107";
->   		reg = <0x10000 0x0 0x0 0x0 0x0>;
-> diff --git a/arch/arm64/boot/dts/qcom/sm8550-qrd.dts b/arch/arm64/boot/dts/qcom/sm8550-qrd.dts
-> index 2fb2e0be5e4c6b597f20f332cdf063daa2664205..cf63109ff7bf7b6fc827f108e22e82b8b04273c1 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8550-qrd.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm8550-qrd.dts
-> @@ -912,7 +912,7 @@ &pcie0 {
->   	status = "okay";
->   };
->   
-> -&pcieport0 {
-> +&pcie0_port0 {
->   	wifi@0 {
->   		compatible = "pci17cb,1107";
->   		reg = <0x10000 0x0 0x0 0x0 0x0>;
-> diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-> index 055ca931c04859f3a312eb9921aeb7a8cc676822..54308cbde40732da072177eab533582c155df590 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-> @@ -2098,7 +2098,7 @@ opp-16000000-3 {
->   				};
->   			};
->   
-> -			pcieport0: pcie@0 {
-> +			pcie0_port0: pcie@0 {
->   				device_type = "pci";
->   				reg = <0x0 0x0 0x0 0x0 0x0>;
->   				bus-range = <0x01 0xff>;
-> @@ -2300,7 +2300,7 @@ opp-32000000-4 {
->   				};
->   			};
->   
-> -			pcie@0 {
-> +			pcie1_port0: pcie@0 {
->   				device_type = "pci";
->   				reg = <0x0 0x0 0x0 0x0 0x0>;
->   				bus-range = <0x01 0xff>;
-> 
+> Signed-off-by: Phil Pemberton <philpem@philpem.me.uk>
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-
-Thanks,
-Neil
+Reviewed-by: Florian Fainelli <f.fainelli@gmail.com>
+-- 
+Florian
