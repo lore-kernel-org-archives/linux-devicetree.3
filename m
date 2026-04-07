@@ -1,57 +1,70 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1E13AE6F7;
-	Tue,  7 Apr 2026 11:42:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7388022D7B5;
+	Tue,  7 Apr 2026 11:43:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775562156; cv=none; b=Sgr+tW9w88Zjp2ifYIsxWLHBRfvz7im87TT0vv/32WpJj6jjxTa8TuzWyan47PJmyCGrAcvgKtZqoHWgczdQEIGXhkUt+z8ZXg4LQz+vidHcuIvZKF/B5YVKsiD2BezkR6Z11s9HFwz/hG/JOHlKhbTTypf/Y8cWTDUFhkZPTUM=
+	t=1775562193; cv=none; b=S5YET52PDXnWMFFOjUQo60Gxsd3Ev4keoMTlQw1G0KkVOB9m46lIikcKqfj0oIXn0GCLzx0dvylioMsn8Rbi28yUrC+BBvR0hXp8wozh/ZcSPUVk5J0xRtmZr8CWk29mWK/eFiLFHyyuuP7VLI3tCupvDRycz1VZUJMOgbFhwzw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775562156; c=relaxed/simple;
-	bh=gUqig0acgfJgnMnKDKHU0GHRv8tSmRk9cAa9+z78I+k=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=j7/3drdgCHuev7UGkbptRE23P9yKSCDHEXunsfW76BXFrL4fy3n4+mkgV3xEif9X3xjgVuNFzwAurioAeAPjdeK9MrXXCD6aPryvz49imk/SOsMroBm0dXNelhZjEv/+/D9+aAPdSuU4TnmA8l6e6FVfzREdO+6FDgPkc+9S/RM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=wQxxLNsb; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1775562193; c=relaxed/simple;
+	bh=nHrM03wRuMc4wMBBtQ8fqkoqDTyblmWSd3XLIUHzVpg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=sqL0VqY1lj7mC7OxGRIgoPHIogQ6t+AOWxvYIsxJsICxVlcgR3e2mICO9QtiwZlRn9TG/02Z/rF/hqF9i7JoHkBoN4TOaFv+/wSss+IWADJ9/qNrmzy9jvzvcWJg7dWkPaWLm4QX8BYRD6h2t/X56jUf3QnK84ZO8GE5RqeS9nc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=lqLvqhF3; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="wQxxLNsb"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id AB61B4E42936;
-	Tue,  7 Apr 2026 11:42:31 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 5FED9603C7;
-	Tue,  7 Apr 2026 11:42:31 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E539210450022;
-	Tue,  7 Apr 2026 13:42:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1775562150; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=mdH8deOysMUfQPgp4dNeBsArN3+MZM5twmMArAbHy7E=;
-	b=wQxxLNsbSEDSOp5HHm9s+CVb58WNn5g7Ps99w2wScQPkBiLkKWW79eXfANLV/040X86s1f
-	BazmH6ZBOJq5qQpFwri9rnpsXMNvRyeGMWb6opXgVw8dy61qw2Ae2+dFrBlJCdKJDTTnLE
-	uNFSFRDu/RcNmGBuVM2bZMYKHt/Yzvs4cOnmAyP01RfZN7HFfGINr0An8uoEo2aWCVkxXs
-	fhnJifIMGjSN17kc/MXlGOULTECv64iHytf0zuY1MhNX/6ocLsaM4ACrhJDKMox2tXiqRT
-	5BYj1heWQ5leqkSDJl5IuVmGnCmCEeWgUusXIR0rmNKJDNVzZb8ueYLDciDy5A==
-Date: Tue, 7 Apr 2026 13:42:24 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Cc: "David Gibson" <david@gibson.dropbear.id.au>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Ayush Singh" <ayush@beagleboard.org>, "Geert
- Uytterhoeven" <geert@linux-m68k.org>,
- <devicetree-compiler@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <devicetree-spec@vger.kernel.org>, "Hui Pu"
- <hui.pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>
-Subject: Re: [RFC PATCH 09/15] Introduce structured tag value definition
-Message-ID: <20260407134224.3f621289@bootlin.com>
-In-Reply-To: <DHHWXWJD78XO.5RNDZHYZE0U4@bootlin.com>
-References: <20260210173349.636766-1-herve.codina@bootlin.com>
-	<20260210173349.636766-10-herve.codina@bootlin.com>
-	<DHHWXWJD78XO.5RNDZHYZE0U4@bootlin.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="lqLvqhF3"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=m8+dxvmtECNtO6/nlvcPTQOUYVBF4c5AJ3AT7nnB+dY=; b=lqLvqhF3ilaOrBHq8SKJmK6IJv
+	ypuf7HzVvhUCp4JK/C6quvv7u1N0L0XY1DKGnEA1k+Ndys6s+N3Wk7jq5JErjE4ECWaiCx9p/sZ2d
+	VYVwGQNJgfLe8a6FmhdGP9TAwUHztx/BWLd0bMB6/rzoRADtoKpdVJ3P7wiThH6Q2OkKPr05rOFMO
+	hFMEeMNFS6VfhK6GJgUr17EZtyp+LVe9VxQHJXq27a8J7d9DtDwy0VEawEQJ/7gBoijtc9C0+3EZX
+	E2/q+dw/V1jczghDcQiMUlstZKNp1eJYg/nK+HgT4ZYt1lVvqZt0wDNBpBIFmHw70zsJQHRmXtZOj
+	Nb8wtueA==;
+Received: from sslproxy08.your-server.de ([78.47.166.52])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <nora.schiffer@ew.tq-group.com>)
+	id 1wA4pn-000IJI-0U;
+	Tue, 07 Apr 2026 13:43:07 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy08.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <nora.schiffer@ew.tq-group.com>)
+	id 1wA4pl-000PKA-1n;
+	Tue, 07 Apr 2026 13:43:06 +0200
+From: Nora Schiffer <nora.schiffer@ew.tq-group.com>
+To: Nishanth Menon <nm@ti.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Tero Kristo <kristo@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Siddharth Vadapalli <s-vadapalli@ti.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux@ew.tq-group.com,
+	Nora Schiffer <nora.schiffer@ew.tq-group.com>
+Subject: [PATCH v4 0/5] J722S SGMII support
+Date: Tue,  7 Apr 2026 13:42:32 +0200
+Message-ID: <cover.1775559102.git.nora.schiffer@ew.tq-group.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -60,87 +73,57 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-Virus-Scanned: Clear (ClamAV 1.4.3/27964/Tue Apr  7 08:24:40 2026)
 
-Hi Luca,
+The J722S CPSW and SERDES are very similar to the variants found on the
+AM64, but they additionally support SGMII. Introduce new compatible
+strings for the J722S to add this support to the drivers.
 
-On Wed, 01 Apr 2026 17:11:35 +0200
-"Luca Ceresoli" <luca.ceresoli@bootlin.com> wrote:
+This is a prerequisite for the Single-Pair Ethernet interface of the
+TQ-Systems MBa67xx baseboard for the TQMa67xx SoM, which will be
+submitted separately.
 
-> On Tue Feb 10, 2026 at 6:33 PM CET, Herve Codina wrote:
-> > The goal of structured tag values is to ease the introduction of new
-> > tags in future releases with the capability for an already existing
-> > release to ignore those structured tags. In order to do that data length
-> > related to the unknown tag needs to be identify.  
->                                          ^
-> 					 identified
+For SGMII to actually work on the J722S, the am65-cpsw needs to be extended
+as well, which has been submitted for net-next:
+https://patchwork.kernel.org/project/netdevbpf/list/?series=1078111
 
-Will be fixed in the next iteration.
+Fallback compatible strings allow for the patches to be applied in any
+order and to go through different trees without breaking existing
+functionality.
 
-> 
-> > Also a flag is present  
->  "Also add a flag"
+v4:
+- remove redundant items: level from DT binding YAMLs
 
-Will be updated in the next iteration.
+v3:
+- Drop am65-cpsw changes from this series, they need to go through net-next
+- Fix missing PHY_GMII_SEL_RGMII_ID_MODE and PHY_GMII_SEL_FIXED_TX_DELAY in
+  gmii-sel driver for RGMII delay mode configuration
 
-> 
-> > to tell an old release if this tag can be simply skipped or must lead to
-> > an error.
-> >
-> > Structured tag value is defined on 32bit and is defined as follow:
-> >
-> > Bits  | 31 | 30       | 29             28 | 27    0|
-> > ------+----+----------+-------------------+--------+
-> > Fields| 1  | CAN_SKIP | DATA_LNG_ENCODING | TAG_ID |
-> > ------+----+----------+-------------------+--------+
-> >
-> > Bit 31 is always set to 1 to identified a structured tag value.  
->                                ^
-> 			       identify
-> 
-> > Bit 30 (CAN_SKIP) is set to 1 if the tag can be safely ignore when its  
->                                                          ^
-> 							 ignored
+v2:
+- Keep support for the AM64 compatible strings as a fallback, adjust commit
+  messages
+- Drop reference to AM64_CPSW_QUIRK_CUT_THRU flag, which only exists in the
+  TI vendor kernel
 
-Both will be fixed in the next iteration.
+Nora Schiffer (5):
+  dt-bindings: phy: ti: phy-j721e-wiz: Add ti,j722s-wiz-10g compatible
+  dt-bindings: phy: ti: phy-gmii-sel: Add ti,j722s-phy-gmii-sel
+    compatible
+  phy: ti: phy-j721e-wiz: add support for J722S SoC family
+  phy: ti: gmii-sel: add support for J722S SoC family
+  arm64: dts: ti: k3-j722s-main: use J722S compatibles for WIZ, gmii-sel
+    and CPSW3G
 
-> 
-> 
-> > TAG_ID value is not a known value (unknown tag). If the CAN_SKIP bit is
-> > set to 0 this tag must not be ignored and an error should be reported
-> > when its TAG_ID value is not a known value (unknown tag).
-> >
-> > Bits 29..28 (DATA_LNG_ENCODING) indicates the length of the data related  
-> 
-> I think "LEN" is more common than "LNG".
+ .../bindings/phy/ti,phy-gmii-sel.yaml         | 23 +++++++++++-------
+ .../bindings/phy/ti,phy-j721e-wiz.yaml        | 19 +++++++++------
+ arch/arm64/boot/dts/ti/k3-j722s-main.dtsi     | 12 ++++++++--
+ drivers/phy/ti/phy-gmii-sel.c                 | 13 ++++++++++
+ drivers/phy/ti/phy-j721e-wiz.c                | 24 +++++++++++++++++++
+ 5 files changed, 73 insertions(+), 18 deletions(-)
 
-Agree, will be changed.
+-- 
+TQ-Systems GmbH | Mühlstraße 2, Gut Delling | 82229 Seefeld, Germany
+Amtsgericht München, HRB 105018
+Geschäftsführer: Detlef Schneider, Rüdiger Stahl, Stefan Schneider
+https://www.tq-group.com/
 
-...
-> >
-> > +/* Tag values flags */
-> > +#define FDT_TAG_STRUCTURED	(1<<31)
-> > +#define FDT_TAG_SKIP_SAFE	(1<<30)  
-> 
-> This is called CAN_SKIP in the commit message and SKIP_SAFE here. Using a
-> consistent name would be better IMO.
-
-I will use SKIP_SAFE and so update the commit message accordingly in the next
-iteration.
-
-> 
-> > +#define FDT_TAG_DATA_MASK	(3<<28)
-> > +#define FDT_TAG_DATA_NONE	(0<<28)
-> > +#define FDT_TAG_DATA_1CELL	(1<<28)
-> > +#define FDT_TAG_DATA_2CELLS	(2<<28)
-> > +#define FDT_TAG_DATA_LNG	(3<<28)  
-> 
-> I find _LNG (or _LEN) misleading: this is not the length, but rather an
-> enum value telling you the length is stored in the next cell. What about
-> FDT_TAG_DATA_VARLEN?
-
-Yes indeed, VARLEN is better.
-I will use FDT_TAG_DATA_VARLEN in the next iteration.
-
-Best regards,
-Hervé
