@@ -1,60 +1,60 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE6C3B47D8
-	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 12:52:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60E963B47C1
+	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 12:53:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775566324; cv=none; b=ZuJFsL69/7ZSvsFI+SAoOm7uLJjvKQg592BoFGbYo9hEZRv4P9HhYB7IqxW7yBF4c5BVspVRDNo/xy9dVRepSK5pLKv++854ysP9/MX8htY1YwD7GScgBv0d7x6LFUgkbKoDJn8JQq8zv62cWrjXVKL4Xs8F8aRzaJGGdmwNFFM=
+	t=1775566387; cv=none; b=clrtIrrHMN8RUMPmQUVFKMz3kw4ON9rRAZkilKsMg2nQ33wOKB8LXs9iunoEJu3emCh4hjKnuWh4BpBZfu09aFrc8wwr6wn+/+YhZLnFFuWtsl4DRoHhcxNPtm/J9t3gbuO/zpiUWTWC8KVYj5QxxJKeqsZe/RaZtMq3LTGpRGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775566324; c=relaxed/simple;
-	bh=MLG70cZPHbMVCayA98g50Pt9/HRyo+CUlZFeaApT25E=;
+	s=arc-20240116; t=1775566387; c=relaxed/simple;
+	bh=RCVkgvU8wrx3yykBBPWnaa5epvqaL9BLmZRlWagspkE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VSdpWXXITTFcIGIHUOd70Azv/Vyf/siTnKlRos+Ju3ER/pWHWSnoQfphlgyZeEEQiBZqsaK5LBROTgTEnLDe9cOwBhqmr3EwFvmo6TnJ5kZeJTwjribHCCUQ1ZsvpRqIvTUVKxDQdTiUqMhfxM6g1TvXdfHYYwzKoGEnnvJU3PM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=arduino.cc; spf=pass smtp.mailfrom=arduino.cc; dkim=pass (1024-bit key) header.d=arduino.cc header.i=@arduino.cc header.b=Y/mxi5YA; arc=none smtp.client-ip=209.85.128.45
+	 MIME-Version; b=rH3O7hjxNoRGC32nvldyYcicNmppp2suh43aJQ3WKxlGXR/imGLcdGZAISFLJD6xX/MzqofETk2iIl9uNlB9fVc7w8Lh9vP8Vy2WmMQvFnlD1AOOBSgV8izB4d+uzIVFBXECjxt+ChChr0qCvedrUyfxKNznu8n/hShlxNGy+mE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=arduino.cc; spf=pass smtp.mailfrom=arduino.cc; dkim=pass (1024-bit key) header.d=arduino.cc header.i=@arduino.cc header.b=d/FZ3aNp; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=arduino.cc
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arduino.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arduino.cc header.i=@arduino.cc header.b="Y/mxi5YA"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-488b8bc6bc9so9296255e9.3
-        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 05:52:03 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arduino.cc header.i=@arduino.cc header.b="d/FZ3aNp"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-48897fd88ebso36527565e9.2
+        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 05:53:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=arduino.cc; s=google; t=1775566322; x=1776171122; darn=vger.kernel.org;
+        d=arduino.cc; s=google; t=1775566385; x=1776171185; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=MLG70cZPHbMVCayA98g50Pt9/HRyo+CUlZFeaApT25E=;
-        b=Y/mxi5YA/BCplCMMWTMw5nOiv2fJ0VCWQW1kQ6Rx4qBJJw6W6j3bnHMy00Z6hQ5xQI
-         GQ80bB26YuECqLSUbvDGSWp/ULU0EMSDX8W+U/0/NVPt6a9NlMLgX89vOixBwzk7duUd
-         Du33ONIeNXVNXpEmm+um0/+mK+VOjmWgmAXBA=
+        bh=RCVkgvU8wrx3yykBBPWnaa5epvqaL9BLmZRlWagspkE=;
+        b=d/FZ3aNpC+XX3+Rbje4+YmHFtabaLJoWU3mDTH6xVcUkdpx8mBezPCqXMxNBhOTL82
+         R4BKy0jctzuogYHww07q98WOsPYEk6/YcwSu1a8y1V42Pzpul+36qN4qPsZqcQeKpVZV
+         0wstGgsoYIGzd5DTjBWByQXzYz897Tgnwy8Hc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775566322; x=1776171122;
+        d=1e100.net; s=20251104; t=1775566385; x=1776171185;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=MLG70cZPHbMVCayA98g50Pt9/HRyo+CUlZFeaApT25E=;
-        b=pjFF6BlHumk3LYvCa01h+OkobPF8r/B+1gRfpe7girLrDeP61AUWWuAgooIrBFo6+I
-         Z56khZ6EW1x8tuJr11kWRPxpSW87Zah2qvSQ5SxlfZV2iiDTZF5hHrcsPL5NSWftL3Wc
-         5ljz9CxlI/lV/I5gAXBgtonyN8g9E188BYsd2n8ql+K8VHCfLgqNc63pkt7M3opSffzI
-         l2Rykh/6QhlNHf1aLn3asBj5qMImKXgzlzLSaTjh+HLIu9MbHNhMAYdZ3PdsD/Hi56MF
-         DpTgYW7HLDrNHr56GgqimGLP3ITKBD5/E+GIO1Lvn8j5BahBzHrvf/cGdMXONiWls9LA
-         8vpQ==
-X-Forwarded-Encrypted: i=1; AJvYcCW7qk8/2Of59HS91B3+u0d532Y9GqrQEk69nftwPOVmTUMK7eYtLcs4evOnsbdp4u7PiOriGOfigMpj@vger.kernel.org
-X-Gm-Message-State: AOJu0YxPosZlP8wUkFIDQ6KaRuofJZHnn0b7gtGk3qk4rLAPMlsixo5z
-	CDu1BdiCWyVufSK3CWtqwOWkXgLEG4k+mwsDz8IRC1Tp38gNjFEca4TjeyKUF2QWLaQ=
-X-Gm-Gg: AeBDietvwHhvF5R9bCXLH+VurUJnXTQRqhtPyZLPnZfX4/LSRUYfBymIrPXCNSR+55A
-	BhfC8xLA7+wpUg7gP+ToWKq8VBtPcG1Mnrq5GLFR+0shoTQLQq3ZJkEFhCK6caQ6/4bB4+tyCpZ
-	XEp7f87oEb3g0Til7Vc31zoW8SMlCm55205+Z9CrI736Exx+/6g9/HJL6/CLGrxS/q1xwg68aYe
-	sk5gur/RmJarvQ72WEOoiBfCSZB+3GKCRFOHh6fo+3YvVMqoSRNIGLi8qsYVBbSbZRqx61B192X
-	0nOCvnCIRA9/rTCeG7SOHPBjbaRKwKP8KDM6q60qlUuod6IxcJq0czAP2e2nvbo41RdUDbZsLHp
-	df8YXx7l29fZ3BlAFJ9pvkptqUMX1HPL8+jwWDbNB+gRV8aN4zEqLlYML9dOY+mCc+JTDo7qy+a
-	dG5aOYzaWAsveKJ7IQN72T3ePmohv8nszLbHFepfgtnbdIDYjCsZwYCqcJ
-X-Received: by 2002:a05:600c:3b18:b0:487:12c:e7e1 with SMTP id 5b1f17b1804b1-4889970dccdmr220831905e9.11.1775566321939;
-        Tue, 07 Apr 2026 05:52:01 -0700 (PDT)
+        bh=RCVkgvU8wrx3yykBBPWnaa5epvqaL9BLmZRlWagspkE=;
+        b=B17vPIsgVjNs4gEIl+a8uQ1LqOMT8YgwVhvfg8Ty9Ax+ldtYWxBNgvXhmCRo9J4ppH
+         Xb508BNiNHnzqR4/l12Pc7YprxaWqLIu8HCdEEKOgmcWa0lyJ2ZfoPzqVennThEyrYGy
+         pub1tO4oj5GSlZSiJLgrvZAT5vArwgDsmb+KsM/KPzj+hjujyv/crYpcDvs1jm3Nles0
+         r+DLdj62TYa7xiAW1+Q0D5hcnD+FUG6LneJz07hcLkFmgn5idXxAnpsm0303SNalf7M6
+         fnJRk1eiiLiO1Lu/4WcQeXhSnGTjTcXApUH0mr8hr59JRKWDmug7Lv/ezirkLdMTh//e
+         CoHw==
+X-Forwarded-Encrypted: i=1; AJvYcCVlBxiGvjizDg7ooOaQW5T5S1qOBCNQAXlV7kTzGC+HuRvel5dRF4ySAeMJC9sa22EnzKhILhvXVSnm@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzaf8qg382K++wQaVQHzyk1kWpJq0woFccyjtF8cMJjhb7zcpDX
+	QdfjV53hwj4qOlSXe8CP87U4mPtihoCOAK9e+vGJ/mqVlF89SjS78hkAvnbWXoN41nE=
+X-Gm-Gg: AeBDievucEesEqDloVAiV5MYpBCpULz40qIYJzgYyf8T/XowmV4l5ZzuPmqa9NQZgnT
+	GRKq1luK3ZOhYWV3bFpvE3+1+B/zgQ8TcjtozqzP89YDaFl8X1wFznFITd84wxR1QPoXnOFEfx1
+	TMJNmYHA0uv1PRqNCTi2CoB11gwepumjdGJEkohGUxHOtZEn+axwol68s2yBLDW9E/klbKF8RuU
+	X5Y0CAlGM5m3exRBoJ+ZFYviN7+PHTDMk/UUM9PBE/wmB5UOY6cfobBaw6AbGVu3kRaOUBboP0k
+	416PZYkUwueHUmys3t4mPhnyfoH+MMlb29KUNQlt3GAJ2PS3fBDCwMqXjca4rKpo92ylwJEUA44
+	nWceb7FrCnHg9Nu1UJsbUYfPPm3Lw1Ij6CUe6UFNZjnphH5NznPGdM+GJ/oQYCTysQHvdO22Bnt
+	tU3OcoLT+x7QCA544Uk7UwFiqfI0YtV8w9iJLgwKvMhplRZrHHMbCKOXBPreQAwFhccnY=
+X-Received: by 2002:a05:600c:c8d:b0:486:fb69:4960 with SMTP id 5b1f17b1804b1-48899794fe6mr225654285e9.19.1775566384726;
+        Tue, 07 Apr 2026 05:53:04 -0700 (PDT)
 Received: from riccardo-work (public.toolboxoffice.it. [213.215.163.27])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48893f39027sm365288315e9.2.2026.04.07.05.52.00
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488a8ddfde7sm416273855e9.5.2026.04.07.05.53.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Apr 2026 05:52:01 -0700 (PDT)
+        Tue, 07 Apr 2026 05:53:04 -0700 (PDT)
 From: Riccardo Mereu <r.mereu.kernel@arduino.cc>
 To: dmitry.baryshkov@oss.qualcomm.com
 Cc: airlied@gmail.com,
@@ -80,12 +80,12 @@ Cc: airlied@gmail.com,
 	tzimmermann@suse.de,
 	yangcong5@huaqin.corp-partner.google.com,
 	Riccardo Mereu <r.mereu@arduino.cc>
-Subject: Re: [PATCH 13/19] drm/panel: jadard-jd9365da-h3: set prepare_prev_first
-Date: Tue,  7 Apr 2026 14:51:59 +0200
-Message-ID: <20260407125159.282144-1-r.mereu.kernel@arduino.cc>
+Subject: Re: [PATCH 14/19] drm/panel: jadard-jd9365da-h3: support Waveshare DSI panels
+Date: Tue,  7 Apr 2026 14:53:01 +0200
+Message-ID: <20260407125301.282253-1-r.mereu.kernel@arduino.cc>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260401-waveshare-dsi-touch-v1-13-5e9119b5a014@oss.qualcomm.com>
-References: <20260401-waveshare-dsi-touch-v1-13-5e9119b5a014@oss.qualcomm.com>
+In-Reply-To: <20260401-waveshare-dsi-touch-v1-14-5e9119b5a014@oss.qualcomm.com>
+References: <20260401-waveshare-dsi-touch-v1-14-5e9119b5a014@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -94,12 +94,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Wed, 01 Apr 2026 10:26:32 +0300 Dmitry Baryshkov wrote:
+On Wed, 01 Apr 2026 10:26:33 +0300 Dmitry Baryshkov wrote:
 >From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->Sending DSI commands from the prepare() callback requires DSI link to be
->up at that point. For DSI hosts is guaranteed only if the panel driver
->sets the .prepare_prev_first flag. Set it to let these panels work with
->the DSI hosts which don't power on the link in their .mode_set callback.
+>Add configuration for Waveshare DSI panels using JD9365 controller.
 >
 >Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
