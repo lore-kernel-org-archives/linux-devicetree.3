@@ -1,156 +1,282 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AFE93A6EE9;
-	Tue,  7 Apr 2026 12:23:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26FCE3A75BE
+	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 12:24:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775564613; cv=none; b=Ac3L2AdrJvaSXxQg3McYRD/xUfoz2Pqpi9S7qKNPw8rL5nvHbbHgAPL0AKT1fyzS0jDXIcpoFRYb3eWJ5aXLTaQqf01lNNPAWCZwN/OWxRI/cIze56fTgkxoO5DFjfyrVNwPgV4gnrnaHPaSPi26GndcPOTL4GFMHqodQju9XYg=
+	t=1775564683; cv=none; b=r3Kz1ok56U7NeP8JOxrLxkpNcOkGMkeE5dJuJ9p5/hB9Iynt5QVBFpc+OZ33QxXn2sgCR1ONhOp76AJA9jm+G1tNgXbRTX8MioTOrESGLi7AZgddMgrXMwWvBs92o+eupj/YxLrbwaxyHom5LnA8/JdzUSpg95H410RE2Ej01v4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775564613; c=relaxed/simple;
-	bh=udq5QbeRCScW+LsK/TRGpVNCFeuozgsH3RVfc5Pvj3U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rPlWnTKENIEGq2Uu32jnT8w/tTp/6PrIf21kS0TPOogUTQtUIbFOcfMD5UqqRkD3iM1oxYvnmlAtCT3AfSO7/N02+9B+Vlu9jcsmJsiWq8GPUtterbA/nLz72fwW02QvO667KIn0DUJi9Ns9CHQf8bmHyMf/VXtJUP7nrkZgaoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=h/Z7DM5a; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1775564683; c=relaxed/simple;
+	bh=DCksdefG4+7Hn4R1WfwpjiMI9jt22Fvjxj4rYi0p75k=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=b6WTE3EtTvq5HUZXWl4GXbuU+DTu444qoKEQCCCadViiFfKBxFWT4jzzEHulY2hVSGKIo6CJkNrUV8sMgANolO954rYDgPAqkDaKYtyyydXjSxc6WPdx9CevexYaqo2wmFy3wOkNwcEX56S344guLB5GooaIatJjzljiOaMVrXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=GTHAQlwF; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="h/Z7DM5a"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1775564611; x=1807100611;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=udq5QbeRCScW+LsK/TRGpVNCFeuozgsH3RVfc5Pvj3U=;
-  b=h/Z7DM5aeUwVez9/HKXHuw4TcFpRR+fTwb0R616SkxoQE671HeNrfTX0
-   BntpUUJo2dCKQ42K65zr6K4ddzuwrNnWHm9a2LPrfLxcsgGiAGCzbDINg
-   3C0fdrkVWYhCxO2DDCceUxSD9JMEe7FMXZVSS02Flx1AW7JuhfcP/VS1u
-   8c1JMyEqM+vxKsPc0JXzL4KagZT+kVhoGhdvYtuzZt2mlTYl+/1fBXqur
-   0CCJuyQgpV3Gl6aOgusGMRrwgQZCBPiLAnw5I60hvcOlt6IGuHp62Pt+l
-   4VoDLCXNKlrFhsvXDd3Ovu5CFnnu1vQjUDJtrXi49pqTuh0XqJdHuaSw7
-   Q==;
-X-CSE-ConnectionGUID: HF/jYj6oStyzkyV/lZHZgg==
-X-CSE-MsgGUID: WFBz5nkIQWucDRI0pHYC0Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11752"; a="76420277"
-X-IronPort-AV: E=Sophos;i="6.23,165,1770624000"; 
-   d="scan'208";a="76420277"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Apr 2026 05:23:31 -0700
-X-CSE-ConnectionGUID: DPVsHRSKRxaJc40fhJ/89A==
-X-CSE-MsgGUID: kD9ZACXwT3ej17ecdX7ixw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,165,1770624000"; 
-   d="scan'208";a="223856369"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa010.fm.intel.com with ESMTP; 07 Apr 2026 05:23:28 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 54CC195; Tue, 07 Apr 2026 14:23:27 +0200 (CEST)
-Date: Tue, 7 Apr 2026 15:22:38 +0300
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Jameson Thies <jthies@google.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	abhishekpandit@chromium.org, bleung@chromium.org,
-	akuchynski@chromium.org, gregkh@linuxfoundation.org,
-	devicetree@vger.kernel.org, chrome-platform@lists.linux.dev,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 2/2] usb: typec: cros_ec_ucsi: Load driver from OF and
- ACPI definitions
-Message-ID: <adT3DiyjvDk0y9R9@kuha>
-References: <20260403223357.1896403-1-jthies@google.com>
- <20260403223357.1896403-3-jthies@google.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="GTHAQlwF"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 367A7C5B198;
+	Tue,  7 Apr 2026 12:25:12 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 652F1603C7;
+	Tue,  7 Apr 2026 12:24:38 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F18FC10450208;
+	Tue,  7 Apr 2026 14:24:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1775564676; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=b0ENdEqj8AxClh5NQ7AAI8El3zuWxsI/YokB4GsXKG4=;
+	b=GTHAQlwFIgQWS+8tsZ2W1j5kIkD0RTr1rpIrTzlnIZrPvHq8/4Q1TpxgqHVwjatP0Xxoj2
+	cnZ5/UP34j1PzWJ4+IOttpVj4Fpp0hfRhCMqIo7Kr6KuuxrhoMfi/fOSHIaf/F65ecKxcF
+	R0Fouvy7XWlNbkRyxyWfRSV2hTb51TUpwjSq1UAB+VcLhiW9aQhQwPN35IIRbs8rpB4fhK
+	3A/fK01hH6ZaE26k9jAeLExmqJ01upujd2dljxNX3+8+jJmNNyzWMoVqa9NFqd0bcykpp+
+	DVoQUaPo2HCUFc5Evy2RBovY2pQ9SJq02emrZKIo0CsJWFW3qvVXDx8MjtwOeg==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Subject: [PATCH v4 00/11] drm/mxsfb/lcdif: use
+ DRM_BRIDGE_ATTACH_NO_CONNECTOR and the bridge-connector
+Date: Tue, 07 Apr 2026 14:24:14 +0200
+Message-Id: <20260407-drm-lcdif-dbanc-v4-0-247a16e61ef9@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260403223357.1896403-3-jthies@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAG/31GkC/23N0QqCMBTG8VeRXbc4nrOcddV7RBdzmzlQF5tII
+ b57U4IKu/x/cH5nYtEGZyM7ZRMLdnTR+T6F2GVMN6q/We5MaoaABRAU3ISOt9q4mptK9ZqXZMx
+ RlITSWJau7sHW7rGKl2vqxsXBh+f6YMyX9W0hbKwx58CFPCoQOZGVcK68H1rX77Xv2KKN+CXQH
+ wGToGWNqj5QoVBsBfoIAnArUBJQaoNCKiiF/BXmeX4BHBfyYjQBAAA=
+X-Change-ID: 20260306-drm-lcdif-dbanc-83dd948327de
+To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Liu Ying <victor.liu@nxp.com>, Rob Herring <robh@kernel.org>, 
+ Saravana Kannan <saravanak@kernel.org>
+Cc: Damon Ding <damon.ding@rock-chips.com>, 
+ "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>, 
+ =?utf-8?q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Adam Ford <aford173@gmail.com>, 
+ Alexander Stein <alexander.stein@ew.tq-group.com>, 
+ Christopher Obbard <christopher.obbard@linaro.org>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, 
+ Emanuele Ghidoli <emanuele.ghidoli@toradex.com>, 
+ Fabio Estevam <festevam@denx.de>, 
+ Francesco Dolcini <francesco.dolcini@toradex.com>, 
+ Frieder Schrempf <frieder.schrempf@kontron.de>, 
+ Gilles Talis <gilles.talis@gmail.com>, 
+ =?utf-8?q?Goran_Ra=C4=91enovi=C4=87?= <goran.radni@gmail.com>, 
+ Heiko Schocher <hs@denx.de>, Josua Mayer <josua@solid-run.com>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Marco Felsch <m.felsch@pengutronix.de>, 
+ Martyn Welch <martyn.welch@collabora.com>, 
+ Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>, 
+ Richard Hu <richard.hu@technexion.com>, 
+ Shengjiu Wang <shengjiu.wang@nxp.com>, 
+ Stefan Eichenberger <stefan.eichenberger@toradex.com>, 
+ Vitor Soares <vitor.soares@toradex.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+X-Mailer: b4 0.15.1
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Apr 03, 2026 at 10:33:27PM +0000, Jameson Thies wrote:
-> Add support for cros_ec_ucsi to load based on "google,cros-ec-ucsi"
-> compatible devices and "GOOG0021" ACPI nodes.
-> 
-> Signed-off-by: Jameson Thies <jthies@google.com>
+This series modernizes the i.mx8mp LCDIF driver to use the
+bridge-connector, which is the current best practice in DRM.
 
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+== Call for testing on i.MX8MP boards (especially those using HDMI)!
 
-> ---
->  drivers/usb/typec/ucsi/cros_ec_ucsi.c | 26 ++++++++++++++++++++++++--
->  1 file changed, 24 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/usb/typec/ucsi/cros_ec_ucsi.c b/drivers/usb/typec/ucsi/cros_ec_ucsi.c
-> index 6bca2dce211c..251aa7251ce6 100644
-> --- a/drivers/usb/typec/ucsi/cros_ec_ucsi.c
-> +++ b/drivers/usb/typec/ucsi/cros_ec_ucsi.c
-> @@ -5,11 +5,13 @@
->   * Copyright 2024 Google LLC.
->   */
->  
-> +#include <linux/acpi.h>
->  #include <linux/container_of.h>
->  #include <linux/dev_printk.h>
->  #include <linux/jiffies.h>
->  #include <linux/mod_devicetable.h>
->  #include <linux/module.h>
-> +#include <linux/of.h>
->  #include <linux/platform_data/cros_ec_commands.h>
->  #include <linux/platform_data/cros_usbpd_notify.h>
->  #include <linux/platform_data/cros_ec_proto.h>
-> @@ -257,7 +259,6 @@ static void cros_ucsi_destroy(struct cros_ucsi_data *udata)
->  static int cros_ucsi_probe(struct platform_device *pdev)
->  {
->  	struct device *dev = &pdev->dev;
-> -	struct cros_ec_dev *ec_data = dev_get_drvdata(dev->parent);
->  	struct cros_ucsi_data *udata;
->  	int ret;
->  
-> @@ -265,9 +266,16 @@ static int cros_ucsi_probe(struct platform_device *pdev)
->  	if (!udata)
->  		return -ENOMEM;
->  
-> +	/* ACPI and OF FW nodes for cros_ec_ucsi are children of the ChromeOS EC. If the
-> +	 * cros_ec_ucsi device has an ACPI or OF FW node, its parent is the ChromeOS EC device.
-> +	 * Platforms without a FW node for cros_ec_ucsi may add it as a subdevice of cros_ec_dev.
-> +	 */
->  	udata->dev = dev;
-> +	if (is_acpi_device_node(dev->fwnode) || is_of_node(dev->fwnode))
-> +		udata->ec = dev_get_drvdata(dev->parent);
-> +	else
-> +		udata->ec = ((struct cros_ec_dev *)dev_get_drvdata(dev->parent))->ec_dev;
->  
-> -	udata->ec = ec_data->ec_dev;
->  	if (!udata->ec)
->  		return dev_err_probe(dev, -ENODEV, "couldn't find parent EC device\n");
->  
-> @@ -348,10 +356,24 @@ static const struct platform_device_id cros_ucsi_id[] = {
->  };
->  MODULE_DEVICE_TABLE(platform, cros_ucsi_id);
->  
-> +static const struct acpi_device_id cros_ec_ucsi_acpi_device_ids[] = {
-> +	{ "GOOG0021", 0 },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(acpi, cros_ec_ucsi_acpi_device_ids);
-> +
-> +static const struct of_device_id cros_ucsi_of_match[] = {
-> +	{ .compatible = "google,cros-ec-ucsi", },
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(of, cros_ucsi_of_match);
-> +
->  static struct platform_driver cros_ucsi_driver = {
->  	.driver = {
->  		.name = KBUILD_MODNAME,
->  		.pm = &cros_ucsi_pm_ops,
-> +		.acpi_match_table = cros_ec_ucsi_acpi_device_ids,
-> +		.of_match_table = cros_ucsi_of_match,
->  	},
->  	.id_table = cros_ucsi_id,
->  	.probe = cros_ucsi_probe,
-> -- 
-> 2.53.0.1213.gd9a14994de-goog
+For who tested previous versions (thanks!): some patches have changed
+ingnificantly in v2 and v3 so I had to drop your Tested-by on them. A new
+round of test would still be useful.
 
--- 
-heikki
+This series applies changes to how video output devices are probed on
+i.MX8MP, especially those using HDMI. Even though I have put care in not
+breaking anything, there could potentially be pitfalls I haven't realized,
+causing regressions on existing boards.
+
+I have thus added in Cc all developers which appeared active on dts files
+for imx8mp boards involving video. I would appreciate testing on as many
+boards as possible, along with a Tested-by tag, or a report about any
+issues encountered.
+
+Thanks in advance to all testers!
+
+== Review recommendation
+
+I recommend reviewing patches in this order to be understood more
+effectively:
+
+ * Cover letter
+ * Patches 1-6: small preliminary cleanups (can be applied independently)
+ * Patch 11: the goal of this series, but would not work alone
+ * Patch 10: lets patch 11 work; but in turn it can't work alone
+ * Patch 8+9: lets patch 10 work; but in turn it can't work alone
+ * Patch 7: lets patch 8 work
+
+== Series description
+
+This series is not strictly related to DRM bridge hotplug, it is rather a
+preparation step. Introducing hotplug would need two different approaches:
+one for the new way, for drivers using bridge-connector and
+DRM_BRIDGE_ATTACH_NO_CONNECTOR, another for drivers using the "old, legacy
+way" where the last bridge is supposed to instantiate the
+drm_connector. Hotplug is complicated enough in one case, so it makes sense
+to only support the new way.
+
+The hardware I'm working on is an i.MX8MP, whose LCDIF driver is still
+using the old way. So this series converts to the new way as a preparation
+step.
+
+Patch 11 does the conversion, which is simple. However this would introduce
+a regression on some boards. Here's why:
+
+There are 3 instances of the LCDIF in i.MX8MP:
+
+ * LCDIF1, driving the DSI output
+ * LCDIF2, driving the LVDS output
+ * LCDIF3, driving the HDMI output
+
+The device drivers of peripherals connected to LCDIF1 and LCDIF2 already
+support the DRM_BRIDGE_ATTACH_NO_CONNECTOR flag. So far so good.
+
+LCDIF3 is more tricky. The HDMI pipeline is:
+
+  LCDIF3 -> fsl,imx8mp-hdmi-pvi -> fsl,imx8mp-hdmi-tx -> HDMI connector
+
+The fsl,imx8mp-hdmi-tx (hdmi-tx) does not support
+DRM_BRIDGE_ATTACH_NO_CONNECTOR, but it is based on the dw-hdmi component
+which supports it by simply changing a setting in the driver platform
+data. Patch 10 does this switch.
+
+However, for that switch to work, the device tree must describe the HDMI
+connector (compatible = "hdmi-connector").
+
+Unfortunately not all device trees in mainline have an hdmi-connector
+node. Adding one is easy, but would break existing hardware upgrading to a
+newer kernel without upgrading the device tree blob. This is addressed by
+patch 8+9 reusing an existing approach to add such a node to the live device
+tree at init time using a device tree overlay for boards which don't have
+one.
+
+Finally, patch 8+9 cannot work alone because of a bad interaction between
+devlink and device tree overlays. Patch 7 solves that.
+
+Tested on the Avnet MSC SM2-MB-EP1 board which currently has no
+"hdmi-connector" in the upstream device tree.
+
+== Grand plan
+
+This is part of the work to support hotplug of DRM bridges. The grand plan
+was discussed in [0].
+
+Here's the work breakdown (➜ marks the current series):
+
+ 1. … add refcounting to DRM bridges struct drm_bridge,
+      based on devm_drm_bridge_alloc()
+    A. ✔ add new alloc API and refcounting (v6.16)
+    B. ✔ convert all bridge drivers to new API (v6.17)
+    C. ✔ kunit tests (v6.17)
+    D. ✔ add get/put to drm_bridge_add/remove() + attach/detach()
+         and warn on old allocation pattern (v6.17)
+    E. … add get/put on drm_bridge accessors
+       1. ✔ drm_bridge_chain_get_first_bridge(), add cleanup action (v6.18)
+       2. ✔ drm_bridge_get_prev_bridge() (v6.18)
+       3. ✔ drm_bridge_get_next_bridge() (v6.19)
+       4. ✔ drm_for_each_bridge_in_chain() (v6.19)
+       5. ✔ drm_bridge_connector_init (v6.19)
+       6. … protect encoder bridge chain with a mutex
+       7. … of_drm_find_bridge
+          a. ✔ add of_drm_get_bridge() (v7.0),
+	       convert basic direct users (v7.0-v7.1)
+	  b. ✔ convert direct of_drm_get_bridge() users, part 2 (v7.0)
+	  c. ✔ convert direct of_drm_get_bridge() users, part 3 (v7.0)
+	  d. ✔… convert direct of_drm_get_bridge() users, part 4
+	        (some v7.1, some pending)
+	  e.   convert bridge-only drm_of_find_panel_or_bridge() users
+       8. drm_of_find_panel_or_bridge, *_of_get_bridge
+       9. ✔ enforce drm_bridge_add before drm_bridge_attach (v6.19)
+    F. ✔ debugfs improvements
+       1. ✔ add top-level 'bridges' file (v6.16)
+       2. ✔ show refcount and list lingering bridges (v6.19)
+ 2. … handle gracefully atomic updates during bridge removal
+    A. ✔ Add drm_bridge_enter/exit() to protect device resources (v7.0)
+    B. … protect private_obj removal from list
+    C. ✔ Add drm_bridge_clear_and_put() (v7.1)
+ 3. … DSI host-device driver interaction
+ 4. ✔ removing the need for the "always-disconnected" connector
+ 5. ➜ Migrate i.MX LCDIF driver to bridge-connector
+ 6.   DRM bridge hotplug
+    A.   Bridge hotplug management in the DRM core
+    B.   Device tree description
+
+[0] https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-0-9d6f2c9c3058@bootlin.com/#t
+
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+---
+Changes in v4:
+- Patch 8: fix dtso warning
+- Patch 9: add missing \n in warning
+- Patch 11: improve commit message
+- Link to v3: https://patch.msgid.link/20260402-drm-lcdif-dbanc-v3-0-27cd247a0847@bootlin.com
+
+Changes in v3:
+- Patch 8: simplified overlay, handle of_overlay_fdt_apply() errors, use
+  of_graph_get_endpoint_by_regs() + add warning in separate patch  
+- Updated cover and mentioned the hardware used for testing
+- Minor fixes to other patches
+- Link to v2: https://patch.msgid.link/20260330-drm-lcdif-dbanc-v2-0-c7f2af536a24@bootlin.com
+
+Changes in v2:
+- Dropped patch removing the loop in lcdif_attach_bridge, adapted following
+  patches as needed, added patch to use __free on the ep pointer
+- Added new cleanup patch (patch 6)
+- Build the fixup module unconditionally
+- patch 7: fix returned error codes
+- patch 1: fix cleanup action
+- Various minor improvements based on reviews, see per-patch changelog
+- Removed bouncing recipients from Cc
+- Link to v1: https://lore.kernel.org/r/20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com
+
+---
+Luca Ceresoli (11):
+      drm/mxsfb/lcdif: simplify remote pointer management using __free
+      drm/mxsfb/lcdif: simplify ep pointer management using __free
+      drm/mxsfb/lcdif: use dev_err_probe() consistently in lcdif_attach_bridge
+      drm/mxsfb/lcdif: move iteration-specific variables declaration inside loop in lcdif_attach_bridge
+      drm/bridge: dw-hdmi: document the output_port field
+      drm/bridge: dw-hdmi: warn on unsupported attach combination
+      drm/bridge: dw-hdmi: move next_bridge lookup to attach time
+      drm/bridge: imx8mp-hdmi-tx-connector-fixup: add an hdmi-connector when missing using a DT overlay at boot time
+      drm/bridge: imx8mp-hdmi-tx-connector-fixup: show a warning when adding the overlay
+      drm/bridge: imx8mp-hdmi-tx: switch to DRM_BRIDGE_ATTACH_NO_CONNECTOR
+      drm/mxsfb/lcdif: use DRM_BRIDGE_ATTACH_NO_CONNECTOR and the bridge-connector
+
+ drivers/gpu/drm/bridge/imx/Kconfig                 | 18 ++++++
+ drivers/gpu/drm/bridge/imx/Makefile                |  2 +
+ .../bridge/imx/imx8mp-hdmi-tx-connector-fixup.c    | 75 ++++++++++++++++++++++
+ .../bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso | 30 +++++++++
+ drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c        |  1 +
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c          | 49 ++++++--------
+ drivers/gpu/drm/mxsfb/Kconfig                      |  2 +
+ drivers/gpu/drm/mxsfb/lcdif_drv.c                  | 69 ++++++++++----------
+ include/drm/bridge/dw_hdmi.h                       |  6 ++
+ 9 files changed, 189 insertions(+), 63 deletions(-)
+---
+base-commit: 9558119259ea082c551ac3d9af912eba8ba6a99e
+change-id: 20260306-drm-lcdif-dbanc-83dd948327de
+
+Best regards,
+--  
+Luca Ceresoli <luca.ceresoli@bootlin.com>
+
