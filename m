@@ -1,84 +1,104 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6823D395DB7;
-	Tue,  7 Apr 2026 15:26:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 633B6364938;
+	Tue,  7 Apr 2026 15:28:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775575623; cv=none; b=mtCYv0Ik0LNprP8g1HujbvoRbVuP27xV4KqBORh0m07A8lxjywsOm+xZY3Dp1Bmh2fPG6IANHaWGQBpN/18eXd2lXdm8zptsrY9C/Phn8R9I/Y+yi8VOtW9aDfY2lEbGJlTYomj57RusQ46CS+tp4auZNj/wybn+u2X/0d38dbQ=
+	t=1775575743; cv=none; b=ZITYfbpYwF+RPSk1nEhuCl6tuRZVW3gCQftYVi4bPsZmzE8B+cB8/DNjlNFT/4xfhh9+plDPH1Zg4AHsIqv6K2pdDi1faT7/5UD0uV1d+g9ZW7MvswiHOceGrcSava7CZBDp6Nbv0vs9kYvsn2cMqyr0SvTal7v752ClG1YbBas=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775575623; c=relaxed/simple;
-	bh=yejeZoVKUZHFqV0XnneKPKsQ6iizI4tcdjOQnPqwsiA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Gm/6ceTgEA2U+s5jVcawNY9xx4ftfQWTzVDj17Suw6GUxyjIsG5k6hBj7lBuYEDEPY181pJC1Pm3yE8bsOUZfs400FI/yP3Ubb70wbOOSD6CkiAvixbkCkr4j1FlgACmwhCux+YMcxlwpATHoZFLlLPBj4t6138I4vGe3bqoEzw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=dskD0HjT; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="dskD0HjT"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 880FC10E334;
-	Tue,  7 Apr 2026 17:26:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1775575608;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=dU+Do44yz0TIhjMzxEB+m3FIC55S78YfYxFAve6i/V8=;
-	b=dskD0HjT2yjD5SVz9KueEeydV9WOAkhnuwUCHbXkQhY0tivDOX65200j+rnWwwFvO/+0nr
-	FpETLL7rrumCu4VM+5Eco73mD0bedt8pgfn4LCi0Ed5HRv1hiSQU3PvCbb/nB9/joHwGSA
-	fgxCU/TkTBvOKL82MAYhmC0k9yddbPRFSUTXhFNTN4eQpnufWc4ayeJFPOnvyg9uZXBoHf
-	ExQZEiTa59u1GMQNuOfDFD1s75Sr9RcJfNOzZQwRkFQOzR1dCxP+0b7MSYQ8t6GMIBoEfR
-	OtuXK35zZgP5sVrlgWtitZcIV5N0svb6ebVCQ9lp77GSDkhqFxJd7hmm4efc1g==
-Message-ID: <5c0f6900-bb37-4c9f-8052-5d17e21180ec@nabladev.com>
-Date: Tue, 7 Apr 2026 17:26:45 +0200
+	s=arc-20240116; t=1775575743; c=relaxed/simple;
+	bh=SNiQltIrN90HlK6s2eEERqwSsfzvbAvIfMh58w6VNfY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ByQ7taSl3c6gOEZHMWNbOCM3mo7bd3IsRQCC2xOPPRDuJdiPs1FUfPWpij2rNcSNQYGpli/x26o40ZwFTt3jtrN/xMfx8B4dofWROeWtbV8AvKSm+2/dI7AfBfzB9mzrh/UczpryQTEPkImCle4Rb+iX4pFaMtk6D1+AlHZorf8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [223.166.95.230])
+	by APP-05 (Coremail) with SMTP id zQCowAB3zhGSItVpaxDVDA--.63755S2;
+	Tue, 07 Apr 2026 23:28:19 +0800 (CST)
+From: Han Gao <gaohan@iscas.ac.cn>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Yixun Lan <dlan@kernel.org>,
+	Chukun Pan <amadeus@jmu.edu.cn>
+Cc: devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Han Gao <rabenda.cn@gmail.com>,
+	Han Gao <gaohan@iscas.ac.cn>
+Subject: [PATCH v10 0/3] riscv: dts: spacemit: Add PMIC regulators usb pcie
+Date: Tue,  7 Apr 2026 23:28:13 +0800
+Message-ID: <cover.1775575436.git.gaohan@iscas.ac.cn>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] arm64: dts: imx8mp: Add DT overlays for DH i.MX8M Plus
- DHCOM SoM and boards
-To: linux-arm-kernel@lists.infradead.org, Frank Li <Frank.Li@nxp.com>
-Cc: Christoph Niedermaier <cniedermaier@dh-electronics.com>,
- Conor Dooley <conor+dt@kernel.org>, Fabio Estevam <festevam@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Rob Herring <robh@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- devicetree@vger.kernel.org, imx@lists.linux.dev, kernel@dh-electronics.com,
- linux-kernel@vger.kernel.org
-References: <20260326044411.222907-1-marex@nabladev.com>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <20260326044411.222907-1-marex@nabladev.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAB3zhGSItVpaxDVDA--.63755S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ZFyxtw1fWF4xWrW7uFyUKFg_yoW8uF1UpF
+	y2vr43Zw45Xw42y39xu39xJr1Y9F1rAr9xWr1UKw18ArnFgay7Za1xtr47ZF9xur45tFnr
+	trs7Ar4xuw4xZF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9j14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+	n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+	17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
+	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+	IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
+	C2KfnxnUUI43ZEXa7VUbGQ6JUUUUU==
+X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiBgwKDGnVHKkVxgAAsW
 
-On 3/26/26 5:43 AM, Marek Vasut wrote:
-> Add DT overlays to support DH i.MX8M Plus DHCOM SoM variants and carrier
-> board expansion modules. The following DT overlays are implemented:
-> - SoM:
->    - DH 660-x00 SoM with 1xRMII PHY
->    - DH 660-x00 SoM with 2xRMII PHY
-> - PDK2:
->    - DH 505-200 Display board in edge connector X12 via direct LVDS
->    - DH 531-100 SPI/I2C board in header X21
->    - DH 531-200 SPI/I2C board in header X22
->    - DH 560-200 Display board in edge connector X12
-> - PDK3:
->    - DH 505-200 Display board in edge connector X36 via direct LVDS
->    - DH 531-100 SPI/I2C board in header X40
->    - DH 531-200 SPI/I2C board in header X41
->    - DH 560-300 Display board in edge connector X36
->    - EA muRata 2AE M.2 A/E-Key card in connector X20
->    - NXP SPF-29853-C1 MINISASTOCSI with OV5640 sensor in connector X31
->    - NXP SPF-29853-C1 MINISASTOCSI with OV5640 sensor in connector X29
-> - PicoITX:
->    - DH 626-100 Display board in edge connector X2
-Hello Frank,
+Changes in v10:
+ - patch 3:
+   add vin-supply in pcie_vcc3v3
+   reorder vcc5v0_usb30
+   remove vpcie3v3-supply form pcie1
+ - Link to v9: https://lore.kernel.org/linux-riscv/cover.1775417019.git.gaohan@iscas.ac.cn
 
-I know I was sending quite a few DTOs recently. Is this set still on 
-your review list, or was this one missed ?
+Han Gao (3):
+  riscv: dts: spacemit: Enable i2c8 adapter for OrangePi RV2
+  riscv: dts: spacemit: Define the P1 PMIC regulators for OrangePi RV2
+  riscv: dts: spacemit: Enable USB3.0/PCIe on OrangePi RV2
 
-Thank you for reviewing the DTOs so actively, it really helps a lot !
+ .../boot/dts/spacemit/k1-orangepi-rv2.dts     | 217 ++++++++++++++++++
+ 1 file changed, 217 insertions(+)
+
+
+base-commit: 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f
+prerequisite-patch-id: ef6e9c7b5854d0c08066b72f9a7868db8c2140eb
+prerequisite-patch-id: cfe3800f8c791ec4c63e070af9628e88e0fc31b9
+prerequisite-patch-id: b76493e625ae257c8adcd67874178458420e4d47
+prerequisite-patch-id: 88e01dc92c83bd88ddeb78891d3088209fed8d6b
+prerequisite-patch-id: 60336d10ab8322c70596d0f046b6b5c54bb24b54
+prerequisite-patch-id: 68c4d869548687dc115dd91e2ffb8f4c11482d86
+prerequisite-patch-id: fdadcf964c2cb3406160edb579d99a8d5695f8e6
+prerequisite-patch-id: 73b9e745338b0499b849fa4f7f9508987ab39a59
+prerequisite-patch-id: cd26770c2160c3c31a406bd8a6b01ab666180ae0
+prerequisite-patch-id: e5dfddc32cefae195692da8b80e19adf086e4ad7
+prerequisite-patch-id: 7fd53cbe4977598f26148a4bb1cf692bbdb79a09
+prerequisite-patch-id: 96ebac57bb29619b97fe95422206a685825618e9
+prerequisite-patch-id: 00fac16b52f60383db3140e2885f3f7f8d14dd1a
+prerequisite-patch-id: 3b7a60047b922c48e93599f621cb738856f42354
+prerequisite-patch-id: 275c030b963be05dd1041451f539a130ce614277
+prerequisite-patch-id: 93963424b0871e64276af0e0b2199b52e29b4603
+prerequisite-patch-id: 8383188b1c01ed6280629faaa29c37d699ade241
+prerequisite-patch-id: 5f8126b912b924d63d4a1e0c5eb42d212eb0d369
+prerequisite-patch-id: e80af628a2e0b5f2eeb3cb1b5e7133d08bdd2c4e
+prerequisite-patch-id: 0234a6dca15eb91f98a45a46604ce5b4935048a5
+-- 
+2.47.3
+
