@@ -1,128 +1,116 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FC593B0AFB;
-	Tue,  7 Apr 2026 16:44:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E86A833D503;
+	Tue,  7 Apr 2026 16:46:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775580273; cv=none; b=nNx77FSHtFbggBfqbYtLwJLIxJ100ZYnr8PWjK9+SEcWcG5goY4fvstLLIDR1OJQ1SxuNv76S/zOJ7vgSiYUKmvoOGIs81GYC6tY9SLzOltWBjwWh1b9mGwnhNmp+NcXV9zEueZzfgqFzd3GkxczTEJ8CTSssJpLOtaEVs4oNOI=
+	t=1775580381; cv=none; b=O7L+7YYiCtHt3VtboRz3HNP6Z8eK0jJJEIEzl9PJn9u3clA0g+YIzInOpREz0rVwFtoundUMJvJVdz3QwwntFlPPvGT2qyaCCKk0bOaXQze7p4OKacrpzWhmdeqvE7AeEfFQbT0ZXZc+mhCzIQp7+Mxe+Ioj7Ub8GvOCPpI86LQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775580273; c=relaxed/simple;
-	bh=tzAHSt3LwUV+zUY7OFeTugp4DpaoHhCkfNf8sFWlEik=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Y4XdfAErM+xecxFaDXNLicSxZONvkQPwOkMbjItVdCSD26CZTHFEpjcBYa6X2F9YzNOwRYzrrxBvZF2wiwar+UhvXDiWQMmRCN9Mq2rSTZywSIcYuYTi5sUjnVBbLA1WPTJOyIW5y4x/UaQP8WRm0waXrA12QiWKd4PgW1v2Rxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=i8dCHVSr; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1775580381; c=relaxed/simple;
+	bh=jfLmHt1jktt0gZSNnRJIWqA9vOHoNxlluJSTbjHBDRo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CYd7iocOHF7y7YkUedGjh2+yTlhsiJb39qFshvzQy2XUrNEV+pLJKP5dusaTgz+3gad2gixA2955mA5/3qa8o0xk3cF4Fmtrs8SQ0xvpoPO3Y5EYPZu855kRjkjTAj/a0Ztx/Y1pnj0dC7H6qe4ohch7yKxcWnIWruchmjJKEJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h6wO7jZc; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="i8dCHVSr"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id DE06EC5B197;
-	Tue,  7 Apr 2026 16:45:03 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 0F472603C7;
-	Tue,  7 Apr 2026 16:44:30 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0356210450232;
-	Tue,  7 Apr 2026 18:44:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1775580269; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=gYD2Gjc7rJAWjSj6Vd95CTKmwmb1Qo9EnEgV9KuScQY=;
-	b=i8dCHVSrbdLIfTgUf0ATghhiCbAkPfZ+hg+HYZm1T7vRuPn9nM365iw//rxbJxn2IV3RrF
-	y2iNelHa8JI+vIlW7Jw3pZyhDEzM+H3F7p5PGiHN0a1UhSBflZ62pV404P8nVeUHlPcI4o
-	92Iu+P+e8uUjSAgUDe76x+jP06FxVi7N4d08wjFFEKM8waWBvCZP6XlrxG25V68Vx+oJD1
-	azKI46CwinPIpbzPS9kdbj0eK+LWBTCsixWVbXZVS0mr5f+y0TKv43e4uXa1qGOyIOlkRK
-	pmb8i37oacuj5bgYbOm2bhnHxELVahVJGqNVafD3sy76IQv3ZH47iSzt+m7Bog==
-Date: Tue, 7 Apr 2026 18:44:23 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Cc: "David Gibson" <david@gibson.dropbear.id.au>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Ayush Singh" <ayush@beagleboard.org>, "Geert
- Uytterhoeven" <geert@linux-m68k.org>,
- <devicetree-compiler@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <devicetree-spec@vger.kernel.org>, "Hui Pu"
- <hui.pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>
-Subject: Re: [RFC PATCH 15/15] Introduce v18 dtb version
-Message-ID: <20260407184423.3060f1cd@bootlin.com>
-In-Reply-To: <DHHX3P5TS0D3.VWALCUNJ7LGL@bootlin.com>
-References: <20260210173349.636766-1-herve.codina@bootlin.com>
-	<20260210173349.636766-16-herve.codina@bootlin.com>
-	<DHHX3P5TS0D3.VWALCUNJ7LGL@bootlin.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h6wO7jZc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9DDEC2BC9E;
+	Tue,  7 Apr 2026 16:46:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775580380;
+	bh=jfLmHt1jktt0gZSNnRJIWqA9vOHoNxlluJSTbjHBDRo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=h6wO7jZcg4aNPOQrWHOhNLdbekoQktYJqWUNQsp+GDUo4DidxnxTBevcZPrYNSkQm
+	 b0Zpscj7pEN/dyg8at9pYhpnElDP/lZzfb2mFmuf7RLkc5s/FTa2+KyiXPU+0l2esV
+	 zvT4Mrw1ilWm6WHArGNOhTZmg9pENuM14mNB2FPrM0xZ/lvE9P35K8HTm5iYeOHukE
+	 vKyyuyd1roocRtmi5p4O/78y3ylnOwgc/GhhgHBJRw273s09JfxXU3CrWO/GIynztB
+	 Ox6JmzGuOBpC6oiBWcnmwM8Y+x3IBJywAri1bRBJCst5Zrebbmes/Kb3uQ3Aq74j3H
+	 r2PKXY2OSgY5A==
+Date: Tue, 7 Apr 2026 11:46:18 -0500
+From: Rob Herring <robh@kernel.org>
+To: Shi Hao <i.shihao.999@gmail.com>
+Cc: krzk+dt@kernel.org, andi.shyti@kernel.org, conor+dt@kernel.org,
+	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, daniel.baluta@nxp.com,
+	simona.toaca@nxp.com, d-gole@ti.com, m-chawdhry@ti.com
+Subject: Re: [PATCH] dt-bindings: i2c: cnxt,cx92755-i2c: Convert to DT schema
+Message-ID: <20260407164618.GA2903702-robh@kernel.org>
+References: <20260323174236.147507-1-i.shihao.999@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260323174236.147507-1-i.shihao.999@gmail.com>
 
-Hi Luca,
-
-On Wed, 01 Apr 2026 17:19:09 +0200
-"Luca Ceresoli" <luca.ceresoli@bootlin.com> wrote:
-
-> On Tue Feb 10, 2026 at 6:33 PM CET, Herve Codina wrote:
-> > This v18 version will add support for
-> >   - Structured tags.
-> >     Those tags value definition will allow old libfdt, dtc and other
-> >     tools to skip unknown tags if encountered in future dtb version.  
+On Mon, Mar 23, 2026 at 11:12:36PM +0530, Shi Hao wrote:
+> Convert the Conexant Digicolor I2C bindings to DT schema.
 > 
-> "old" seems to imply that versions released before today will be able to
-> wkip unknown tags. I think this should be clarified along the lines of:
+> Signed-off-by: Shi Hao <i.shihao.999@gmail.com>
+> ---
 > 
->   libfdt, dtc and other tools implementing version v18 will be able to wkip
->   unknown tags in dtbs generated with later versions of dtc
+> Note:
+> This patch is part of the GSoC2026 application process for device tree
+> bindings conversions https://github.com/LinuxFoundationGSoC/ProjectIde
+> as/wiki/GSoC-2026-Device-Tree-Bindings
+> ---
+>  .../bindings/i2c/cnxt,cx92755-i2c.yaml        | 51 +++++++++++++++++++
+>  .../devicetree/bindings/i2c/i2c-digicolor.txt | 25 ---------
+>  2 files changed, 51 insertions(+), 25 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/i2c/cnxt,cx92755-i2c.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/i2c/i2c-digicolor.txt
+> 
+> diff --git a/Documentation/devicetree/bindings/i2c/cnxt,cx92755-i2c.yaml b/Documentation/devicetree/bindings/i2c/cnxt,cx92755-i2c.yaml
+> new file mode 100644
+> index 000000000000..669397bbc571
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/i2c/cnxt,cx92755-i2c.yaml
+> @@ -0,0 +1,51 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/i2c/cnxt,cx92755-i2c.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Conexant Digicolor I2C controller
+> +
+> +allOf:
+> +  - $ref: /schemas/i2c/i2c-controller.yaml#
+> +
+> +maintainers:
+> +  - Baruch Siach <baruch@tkos.co.il>
+> +
+> +properties:
+> +  compatible:
+> +    const: cnxt,cx92755-i2c
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  clock-frequency:
+> +    default: 100000
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - clocks
 
-Yes, I will add this clarification in the next iteration.
+> +  - '#address-cells'
+> +  - '#size-cells'
 
-> 
-> >   - dt_flags header field.
-> >     For now this flag field is set to 0. It is a placeholder for future
-> >     dtb version and could be used to store some dtb related information
-> >     such as the kind of dtb.  
-> 
-> Is this intended for DT addons?
-> 
-> You may mention a realistiv use case here.
+These 2 are required by i2c-controller.yaml already, so you can drop 
+them. Otherwise, I don't know what issue Krzysztof sees either.
 
-Intended, maybe not. Used by addons, yes, for sure.
+With that,
 
-What do you think if I add the following:
-    For instance, the future addons format will use this field to
-    clearly identify that the dtb is an addon dtb.
-
-...
-> >
-> > Compared to previous version, it is worth noting that the dtb is not  
->                                                                ^
-> 				                        "dtb version"
-> 
-> > downgrade for all modification but only when unknown tags are removed  
->   ^
->   downgraded for any
-> 
-> 
-> > due a property modification.  
->   ^
->   "due to a ..."
-> 
-> I'm not sure I got what you mean by the initial "Compared to previous
-> version". Version(s) of what?
-> 
-> If I just remove those 4 words the sentence seems OK to me BTW.
-
-Is the following clearer?
-
-    It is worth noting that with this v18 version, the dtb version is not
-    downgraded for any modification but only when unknown tags are removed
-    due to a property modification. In v17 or older version any modification
-    led to a dtb version downgrade.
-
-Best regards,
-Hervé
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
