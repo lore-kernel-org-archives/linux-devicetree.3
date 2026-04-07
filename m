@@ -1,86 +1,85 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA5E378D98
-	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 21:14:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 682652DF717
+	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 21:17:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775596463; cv=none; b=KJVRhxPuluZZayX2UYspKMzAtu7E6wjrRhwdaMhjb5M9SpNRw8oM6J5j4MJn616Psj54yu2DT3WMqeBENoZ8QoFuOpw6HY/B8C3jIeGUqNQGR7O+1F/UIffWdZW90gGshd8fEHQ+JimzIyR+9hsuCmI5D0mvHNJO/HuTweRUt5s=
+	t=1775596664; cv=none; b=La2jsuG0yA11jS/LaUf8Z2G3n96o8JLY/IJnq2MTnvxrLZPMH4P9Febxessf5eRTrGX8bdYKLAz1ztwmfhIBWmPFzLll8ax8KUwa4wV0104vxkEyyB/nvHU8h3xRd7OT258TbDHz0bzo8uR5J6I/y9IIMnP/QheUKg3Qt9oT7I8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775596463; c=relaxed/simple;
-	bh=qYIk0cEiLICphXq8rqf1DCIt1hLJBQAnyEeh6cGtG20=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QgLpAMVk4/6a+9XxaoKQI5Gm24Cr9L2rhvtZ5wtaI1iveo0WZeyE85ayTQMWP/wog9zejUQGugMpL0JGUoV+yb4VnzBacNcDybfUnnTSPxKwAW9J/SC8Qh2ZGTWW8Fd1vLIHxLWLnuAh206hgi3Slo88V9eXY4qjUo7gy13cTH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LOFsKHBp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XDqkarUU; arc=none smtp.client-ip=205.220.180.131
+	s=arc-20240116; t=1775596664; c=relaxed/simple;
+	bh=CW2mmqVPJOfpQ+uwXf2PtNaHas3MeOWFcHTYfSdcq0A=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=lMHABwDbgwSu51nt74a9rORcqZ9nnbzpLUAeT1DKCPE0WYDcQWnqJ+qXr4axD8kXMDTcr0wMwiSbiAKMxSpR/OIFu/COgtyvjWIQqU9t4v87EMTxCJOxZZ2QFWNj8fMbpuqLb24TjpF5kzdfC3ka1GeY2vXpSEwX/QovcEBzhEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=L9Z7GZ1Q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CRTrAy0U; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LOFsKHBp";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XDqkarUU"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 637J6DUp2580035
-	for <devicetree@vger.kernel.org>; Tue, 7 Apr 2026 21:14:21 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="L9Z7GZ1Q";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CRTrAy0U"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 637JcesC2009327
+	for <devicetree@vger.kernel.org>; Tue, 7 Apr 2026 21:17:42 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	e1Kutq6gg7YsIbs7+s2mX6Bpa2oe9QoQec3Qm6sEQPs=; b=LOFsKHBpQitMeY9c
-	aojgScYXyCWOxcgZhyCgBYPSQEixwd/0kB+woNggVOUIfgfIL50JFG+Y01acYsfE
-	cVxrR0HR+OsnVgZKe7bks1CM6IBVFrir8JKsz7y5relci/Za9HBGkspO4tgeHTkm
-	miXRmFcjgqrFYwuXEhOIVgffdGpagyFSN0ArsqcUYgekaU4lIzodYcBhW4q1znWQ
-	nKEHtAaFnrfuvUJgW0GEDR0VqO1kL9aseXIxjW9gMTN6v8bL34UHg2ndO9Ra7WDm
-	fDvfV8cNxOaFFAasjDtHTuJ0Itf3yqaOXYsfsIIaW7gciUfIHSTs3iPiJP/z3HbX
-	R8zeJg==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dcmsf4nwc-1
+	uEwzIG/WP3KfeGGQytAvkF+cLGebDaMgBafkG54molA=; b=L9Z7GZ1Q3EFl1S+D
+	FtFp7TyJHqGUwFpXxRrSIYRA6txv+kkIweUM48X00KEOV6T6z0Cfhchg0Zj3BLbF
+	Z+e0ZUKbBQyQ+V75gWyVBd+fZvhGxjoRj0yIv5DZ3gaQAQYgls2I/T1q2hvze8lY
+	uhtGm2yx691Or2svpfLQvIgv0zFO2MI94EdaY98w+vvBE3IZcAo2GfVrmySKhE6S
+	W1hagftbsjrgTXR2AFh6Ic6/f1AViEoBHwQLyY1TnbqddzDkye3o5x6SmE4+2/jU
+	p+UNWjbhw9618Fa2eU5S7SOTk2D+ZLu7CQe/xMEZSUtT38ihJ7ier+XgGEceV3oz
+	EyD1xQ==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dcmrrvkt1-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 21:14:20 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2b258636d16so56481575ad.2
-        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 14:14:20 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 21:17:42 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-82c83bd48afso3106070b3a.3
+        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 14:17:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775596460; x=1776201260; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=e1Kutq6gg7YsIbs7+s2mX6Bpa2oe9QoQec3Qm6sEQPs=;
-        b=XDqkarUUn7dcjmvNvYtwVl97jyP1nh1Yrax2RDNaH1+4yZ0OXQR9jUMsSnJ4VPn5Ga
-         JJlOGZ4qJ02KCW7MvnRzeJ7t0ZWRJ0DZRx49hD8am9ntOr8Z/1hr9R6JDHhW/S5BzED9
-         /4541fCt/8CJcgwdjmO+nXau5HmOReE2GMUjgFKIIDNNSxz4iwOHxbl2mxM99cMAQcQr
-         u598XUjVtwnEgWeHMBsvKqB50TNeDWS7BH4HXRWUaF0mn3uyETDlBd0RCWcuKM+qxCpx
-         16RHfS2Mb4FTO9qmYFdr8E0umQ5D09HAwb9/qphlSrSBZNXH4Tj7k/Wd7sanxFPFUsb1
-         pQcQ==
+        d=oss.qualcomm.com; s=google; t=1775596661; x=1776201461; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=uEwzIG/WP3KfeGGQytAvkF+cLGebDaMgBafkG54molA=;
+        b=CRTrAy0UVS9NLszitUdA2d/it7gkgpWC4UKWYkiv9MOlufKlaPh/zgQ0caiEoTpOsp
+         qLQl7mSxkvVRYHy9FtH5fzD5TMk9TNWo0zFuL1ptpXzgxj52GKb5iW9tT6CdbBVXROxG
+         nlBrGz4MyFy4+x+FJ85STZxJm5e3/+ODAtSaMiiAwGK/LMT86Ksg3yu3d5zicS2bA2HX
+         DrBPz+lH4ZphvoCq85ecUet8kzboxWIzByRUsS1yMTbfyzTZi1T6o5OWv2etyxaFxuCz
+         ztT/ZkdOS7h6S8Z2crQNBHP7fplLCb/Y2YS5hB1UlCCQvM0izSuURqtzc303cnsdkRJS
+         cFGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775596460; x=1776201260;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=e1Kutq6gg7YsIbs7+s2mX6Bpa2oe9QoQec3Qm6sEQPs=;
-        b=AkvGDFMraGdAHXLrtbLOzYjsMFWe1KRzccIcCTnm6YvLFkuNpclM49kgh1w52UXH5x
-         7gsXbDf4+pvpLjTG9Ja88ksLKgq8XqcI7rvOIjek+pMbkPsz5mfujyHG5+aUT0s9q/Im
-         IiWbFWD/qh37nD/BpAOKst2pELxRbkugilGlCm9NcAiQR5/triboa4QI8z+gxWieiTMl
-         4tEeSF/oFBCplXoz+dWrCHqXz7+YpQv7gyBeIKmbg9VHeqXxU1HXTC6KjOCPjhh0iwk7
-         rX+rddthtllfYsr1JJifQmaNx667g4W7nhv+AzrQ/qK3eXC8NUOauGbWzo9qEsOopiqJ
-         L7ag==
-X-Forwarded-Encrypted: i=1; AJvYcCWjABcahce9nH1iwDFVNez70SkMZcJUfsxJAoVdfggx/341TB1Mk22tl3RoqzlScGUtoexA8mgg1vfS@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy27zw77wifPCk9XjmplCzNxNSjacm1jAxeBXmB8S4DQM7ZM18t
-	VMQMcCS1eX88tKom4RAf//+ZNwIBdLY081hY0sTT9W26OV/KtRSQO9h99wF2G/U24X0F8M2oqzt
-	68du3/MXwnN7ifBq60JwQzvED47dIJcCkZYps2BcnOWcpA2q1spQhdc/4KSk4ijwv
-X-Gm-Gg: AeBDiev1+6carVpKJbvxglFz+Ce5hXu0/MjLCZXLmNmiLEHNKHIZMcIMiWcF/Hyuw4A
-	ba+tDIJtatVPITdIB0DgzrwiNXjtMUUaGf3IHMgqkexjVXvdBeeaBL4m+X84adCoX6mipM3oYbN
-	LBtvJLGqhIZjrSQ4ZA9WxQ5yxK8/EJaCGll3Rv4UvA+nCn4pBnZG8+yY4riRgRi+7EOf9oQbwaB
-	ulLYFMVKZyYGIusMIbqMxK+7iBimBUH23HCaUhRWCBLPCgKieXOfQlnZDgAwLVjHznFsR4a+xFn
-	tnRsWWE30lQpYJn46KGy/8kWBsxI5VQkdQ4lJPikvgmLTbmzy3rzz8C2PfcW/YoHtieJLHLOwRX
-	sn3ptm2wGKqrAtcslmy2NW1AI1/TKOuvE1L2nQlBE5ssA7Q==
-X-Received: by 2002:a17:902:f78f:b0:2b2:4d78:eec2 with SMTP id d9443c01a7336-2b281821ca2mr197860715ad.18.1775596459662;
-        Tue, 07 Apr 2026 14:14:19 -0700 (PDT)
-X-Received: by 2002:a17:902:f78f:b0:2b2:4d78:eec2 with SMTP id d9443c01a7336-2b281821ca2mr197860515ad.18.1775596459201;
-        Tue, 07 Apr 2026 14:14:19 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1775596661; x=1776201461;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:from:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=uEwzIG/WP3KfeGGQytAvkF+cLGebDaMgBafkG54molA=;
+        b=cP+dXlqlh6YKfBEOIKmMXHBCF3w40ccG/nYc9XQARQBJdHk0gDS0KHAw0kCZ5v8xZS
+         h4u0m3MVZgH9gIQoJ9+NYmxOiNervKNLRR9eYxGy2Od7HNd9yKJ7HR36I5Rk3J6+cutv
+         4NYBf84xx7vAL/FyR9YxB7omFCnjbkjEnFogCYScYkei+edKdu//j6JtGgtJXCV5OO9i
+         cfJTb9Ndubp9LpdCpkquNXqZYIdM0d6Z7GXDmQxhjtioh5T+q1U8L1TWx4RqlNq9mStP
+         SwQEot9cXLteJLAcimTb0j9I3nV9YblrvHLMbWsxLCB0zow9ZqXgCY8adw+irjNSuhyK
+         e2Ew==
+X-Forwarded-Encrypted: i=1; AJvYcCU3TUAwIvYM1uM+yCYAb/8g7WhNSr0BsH1Vn7cxjD4ulevxGx8fgjlCVMXj71HYvpgXW092cNoisAT/@vger.kernel.org
+X-Gm-Message-State: AOJu0YzMv93FyMpKL1+oOd+OQFPirMxS7+97GT2X+nZZax1xigp/O2/F
+	i/gAuSLhl5aXrfg7dh3i4sNl8YOYWmvUt1epbBMfSgzKrBKWtgfYuSptB5ZhSgkLKvmKnUl/4jU
+	NXeSjh/7XPCV4zfFIUhgdx6EMGhSjsxO59bI3kALsyHwQdKN7C0/8j0wMDgTD5B7B
+X-Gm-Gg: AeBDiev3xCJvnVYkeLSTGAzymsGO9dRVSaZvj83QX7uBaA1ms0uHWrqsQ7OdHEKurr0
+	0kWaCoJ9jMFXhtlMxNgW5jx/nj1C8nqJBdllFeF9AVyU5g+THMbSS3xtLAw/8FIkspNC/LysU/P
+	rhDruiRVAFIS3mJjGgd7BeUEIl5aM/c4HZhQvBsomaAg4bbqPeONefjnhYPJh93XBIv6b9qAq1t
+	7S3pshI07BIKpfyD0UCUwhHAuSQAxXCzZcr2+7Frx4K5GGJe5CIuVc8Arn88TdbDt6ttxcCBfdo
+	bGbit4WcSc0KzJwc/21gpL5SQSuTjkt4y9y/9LROanuXwGIbmMrYCw0e1qzj56ymXttDxpQWmBe
+	rB8nisX7ATwN4dxi93TjWzH90G7W08NaEYgblYqtuTwJklw==
+X-Received: by 2002:a05:6a00:1ac9:b0:82d:24f:2516 with SMTP id d2e1a72fcca58-82d0da2b115mr16522200b3a.11.1775596661252;
+        Tue, 07 Apr 2026 14:17:41 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1ac9:b0:82d:24f:2516 with SMTP id d2e1a72fcca58-82d0da2b115mr16522166b3a.11.1775596660698;
+        Tue, 07 Apr 2026 14:17:40 -0700 (PDT)
 Received: from [192.168.1.8] ([106.222.229.237])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b27472d233sm186754435ad.2.2026.04.07.14.14.12
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82cf9b6113dsm16813935b3a.23.2026.04.07.14.17.31
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 07 Apr 2026 14:14:18 -0700 (PDT)
-Message-ID: <f85253a3-e03b-4f33-a7ae-df18ba01fd8b@oss.qualcomm.com>
-Date: Wed, 8 Apr 2026 02:44:10 +0530
+        Tue, 07 Apr 2026 14:17:39 -0700 (PDT)
+Message-ID: <27e2e6c8-fd8b-446a-9ef5-802e1af0fb2b@oss.qualcomm.com>
+Date: Wed, 8 Apr 2026 02:47:29 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,7 +89,12 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH RFC v2 4/6] drm/msm/a8xx: use pipe protect slot 15 for
  last-span-unbound feature
-To: Alexander Koskovich <akoskovich@pm.me>,
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+To: Alexander Koskovich <akoskovich@pm.me>
+Cc: Luca Weiss <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
         Rob Clark <robin.clark@oss.qualcomm.com>,
         Dmitry Baryshkov
  <lumag@kernel.org>,
@@ -106,83 +110,87 @@ To: Alexander Koskovich <akoskovich@pm.me>,
         Conor Dooley <conor+dt@kernel.org>,
         Konrad Dybcio <konradybcio@kernel.org>,
         Bjorn Andersson <andersson@kernel.org>
-Cc: Luca Weiss <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 References: <20260402-adreno-810-v2-0-ce337ca87a9e@pm.me>
  <20260402-adreno-810-v2-4-ce337ca87a9e@pm.me>
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+ <f85253a3-e03b-4f33-a7ae-df18ba01fd8b@oss.qualcomm.com>
 Content-Language: en-US
-In-Reply-To: <20260402-adreno-810-v2-4-ce337ca87a9e@pm.me>
+In-Reply-To: <f85253a3-e03b-4f33-a7ae-df18ba01fd8b@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA3MDE5MyBTYWx0ZWRfX7mOj568eWsep
- gPWWk14V/L0RPzmu+SZ74NUMXpfDUqaWvmJyAFiX0wdyAZIwltqlV7LOoIP7C7UOB5fg4DP5Wnm
- gouifNXqzcKtaUwHlLj5RkU1X5Rcgr1AzN5ABoCaBeyXUIrDp/12SKPUHwHwXcJ2Qf7jGPn/MgW
- h9BcZAvJVJrG6ZcfoqK34xNMrtfGQuy4iHTi1dpvOSkRnqEM+xgLkxbmDeExSDhtzgKPOoy5uja
- p/WvlJCt4qHyX2MmDP0UQUUDE6qxpRFtKXMLJ/GzFDi07jWdZQuhREqgc+5gTP1LeRVz6tkNs3Y
- Yuxqhkn8GfG++xBVaD5SP4t3AAxRZDgMrJd/2eDWLJB75uf1Aom5L7gGRIAO1JSh6/YMAz+3qNi
- 9zIuKXxPgonUYdeN3KuN0kjkT+s/3ZeNE8i+sylwY7hQsIfoDmm+zi5+kh/3cLSvVddzjE/zdVE
- GW9vRJwaK967/VFiywg==
-X-Proofpoint-ORIG-GUID: ex1nPGMUG4aZEUsPwit9vnQoO1bocCbb
-X-Proofpoint-GUID: ex1nPGMUG4aZEUsPwit9vnQoO1bocCbb
-X-Authority-Analysis: v=2.4 cv=DcInbPtW c=1 sm=1 tr=0 ts=69d573ac cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=oIjhDLspr5RTlLLUpj0f1A==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA3MDE5NCBTYWx0ZWRfX6QoNevbWk/Wt
+ QnM4cqD8jKLIrdKd1m66+yfpNlRCPpoFgsQsp7qGEtzJ7kq5opbtR0wlNRmwJYL//0QOqJOV0L2
+ S5dyIXm+8Tc9f0AqMaH8sGIms3FZtDTd524BreWtv5Lc2AlHP+sPh0Kxyr8jgvhpLTsxqfxvni3
+ yocE8DwWXTIolX5G00t2rpneEV2n6SzEGLTyNSC6vacaNr3zpswegxvNCAAKD1i4ZPC5oSBtcg8
+ SaWlGnVDqLipblSH6dtfVG6eWkexkncykwn78D9fvBgxWeB15XG9Bwm4GQ69pOciyENUxP7WPgy
+ FaldxeBtQNH7BQ6rR6z7WVP1l4JB0Wh5EwbQxNOtAAV0WhfLCX0pZAaYeDcu5Neq7S9+DmgQfwm
+ vWCIadmLxpamm5Hhfgr3CzlPy/wroNIyywbhirVm1EETaHfYUhB2BOxVAgjiZGoRNJO2tVe60Oo
+ llKi9OPLg0fpTJdIBVw==
+X-Proofpoint-GUID: IMNMaAdMCPqNpOCtGGEuMJ_eRXM0skvq
+X-Proofpoint-ORIG-GUID: IMNMaAdMCPqNpOCtGGEuMJ_eRXM0skvq
+X-Authority-Analysis: v=2.4 cv=LquiDHdc c=1 sm=1 tr=0 ts=69d57476 cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=oIjhDLspr5RTlLLUpj0f1A==:17
  a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=bYgO6XzdekrPMLAnqt8A:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=qS-k9e48XBCiOm6aCyoA:9 a=QEXdDO2ut3YA:10
+ a=IoOABgeZipijB_acs4fv:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-07_04,2026-04-07_05,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 spamscore=0 phishscore=0 impostorscore=0
- suspectscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
+ lowpriorityscore=0 priorityscore=1501 adultscore=0 phishscore=0
+ impostorscore=0 spamscore=0 suspectscore=0 clxscore=1015 bulkscore=0
  malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
- definitions=main-2604070193
+ definitions=main-2604070194
 
-On 4/3/2026 4:39 AM, Alexander Koskovich wrote:
-> A8XX GPUs have two sets of protect registers: 64 global slots and 16
-> pipe specific slots. The last-span-unbound feature is only available
-> on pipe protect registers, and should always target pipe slot 15.
+On 4/8/2026 2:44 AM, Akhil P Oommen wrote:
+> On 4/3/2026 4:39 AM, Alexander Koskovich wrote:
+>> A8XX GPUs have two sets of protect registers: 64 global slots and 16
+>> pipe specific slots. The last-span-unbound feature is only available
+>> on pipe protect registers, and should always target pipe slot 15.
+>>
+>> This matches the downstream driver which hardcodes pipe slot 15 for
+>> all A8XX GPUs (GRAPHICS.LA.15.0.r1) and resolves protect errors on
+>> A810.
+>>
+>> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
 > 
-> This matches the downstream driver which hardcodes pipe slot 15 for
-> all A8XX GPUs (GRAPHICS.LA.15.0.r1) and resolves protect errors on
-> A810.
+> Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 > 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
-
-Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-
--Akhil
-
-> ---
->  drivers/gpu/drm/msm/adreno/a8xx_gpu.c | 9 +++++----
->  1 file changed, 5 insertions(+), 4 deletions(-)
+> -Akhil
 > 
-> diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-> index 8b4b022d9a6b..102d5e751536 100644
-> --- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-> @@ -252,11 +252,12 @@ static void a8xx_set_cp_protect(struct msm_gpu *gpu)
->  	}
->  
->  	/*
-> -	 * Last span feature is only supported on PIPE specific register.
-> -	 * So update those here
-> +	 * Last span setting is only being applied to the last pipe specific
-> +	 * register. Hence duplicate the last span from protect reg into the
-> +	 * BR and BV protect reg pipe 15.
->  	 */
-> -	a8xx_write_pipe(gpu, PIPE_BR, REG_A8XX_CP_PROTECT_PIPE(protect->count_max), final_cfg);
-> -	a8xx_write_pipe(gpu, PIPE_BV, REG_A8XX_CP_PROTECT_PIPE(protect->count_max), final_cfg);
-> +	a8xx_write_pipe(gpu, PIPE_BR, REG_A8XX_CP_PROTECT_PIPE(15), final_cfg);
-> +	a8xx_write_pipe(gpu, PIPE_BV, REG_A8XX_CP_PROTECT_PIPE(15), final_cfg);
->  
->  	a8xx_aperture_clear(gpu);
->  }
+>> ---
+>>  drivers/gpu/drm/msm/adreno/a8xx_gpu.c | 9 +++++----
+>>  1 file changed, 5 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+>> index 8b4b022d9a6b..102d5e751536 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+>> +++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+>> @@ -252,11 +252,12 @@ static void a8xx_set_cp_protect(struct msm_gpu *gpu)
+>>  	}
+>>  
+>>  	/*
+>> -	 * Last span feature is only supported on PIPE specific register.
+>> -	 * So update those here
+>> +	 * Last span setting is only being applied to the last pipe specific
+>> +	 * register. Hence duplicate the last span from protect reg into the
+>> +	 * BR and BV protect reg pipe 15.
+
+Not sure why you modified the comment. The original comment is accurate.
+LS feature is present only in the last PIPE specific protect register.
+
+-Akhil.
+
+>>  	 */
+>> -	a8xx_write_pipe(gpu, PIPE_BR, REG_A8XX_CP_PROTECT_PIPE(protect->count_max), final_cfg);
+>> -	a8xx_write_pipe(gpu, PIPE_BV, REG_A8XX_CP_PROTECT_PIPE(protect->count_max), final_cfg);
+>> +	a8xx_write_pipe(gpu, PIPE_BR, REG_A8XX_CP_PROTECT_PIPE(15), final_cfg);
+>> +	a8xx_write_pipe(gpu, PIPE_BV, REG_A8XX_CP_PROTECT_PIPE(15), final_cfg);
+>>  
+>>  	a8xx_aperture_clear(gpu);
+>>  }
+>>
 > 
 
