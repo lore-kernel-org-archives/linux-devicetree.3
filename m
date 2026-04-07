@@ -1,188 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012026.outbound.protection.outlook.com [40.107.200.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E70253C9ED6;
-	Tue,  7 Apr 2026 15:43:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775576598; cv=none; b=KnCld2I4UM/gUc0iTRsHDYEpcfhigwC3EZMXtIuLEVvPOHDtPFo+SR3iJJeFxDRV+WwxsQIz2AOZzDbnY4YFdR2cDyCLjArsDZ7umkOPC3v0wbA+Zw51XY+o0Rv5dIjtEcvrBAteT/Lx1pfyD67L0XIOAprSvYCnVWeyQZexpD8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775576598; c=relaxed/simple;
-	bh=r+FSZeLHIqlsWPbl2Ro25yNq+E1Vx6IeiDR61rp9gAM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CcyO3IgBwXkZB9aKZmGQ919KPVFxjtRBZt4YNEoFOAg7j+8Gk2lozqyXoTtxwzZuThAXoZMfo0/fK3jVf149OluPXSmSrEfuZyjJwuLlGTqFmnwmuF46T3fgcQflPTW4rnU5vLbQDBzMk5UHY00DQhhozY+E3mA6uJVXdPTGB8M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tBC+xmcC; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF57F3C73FF;
+	Tue,  7 Apr 2026 15:43:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.26
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775576624; cv=fail; b=Ozw5c6ccMJigFzALPFmrvnZis1EWXj4LUa9QUWw+VKjr7QdOss2WMAylJsFixQcDBYRDv/jQ8h4gqypGRrexumaJ9tQN3MHglvAUDarh6TqDHSimqg5v4xzGrFzpLO6W06nazrZoYw5NplN5zqws/4D1iHGQVTEiCqE5FN5mn+8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775576624; c=relaxed/simple;
+	bh=SJG6Vxa/ueZrHVSDdTYb8spOdqd5SwlrBgcQb81mnBE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=kX+g6PYI07ty7loM2SeDmrmHXmfi5r7g2UgXsqJCuFYxFCkhu2BqbavLhy6Rl2A4kJIS3mzjcJhUb6usOlwRTtHUUCPdrHk8nEdqSf/YiDEFPnCrmJQ9YveYMtKAlTHPCVg3Jr8TCvoikcexP7togPXynLkxkuKONrqSG9D3PII=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=axon.com; spf=pass smtp.mailfrom=axon.com; dkim=pass (1024-bit key) header.d=axon.com header.i=@axon.com header.b=LkmUlq55; arc=fail smtp.client-ip=40.107.200.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=axon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tBC+xmcC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A1E4C19424;
-	Tue,  7 Apr 2026 15:43:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775576595;
-	bh=r+FSZeLHIqlsWPbl2Ro25yNq+E1Vx6IeiDR61rp9gAM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tBC+xmcCFxnqDl3cHvlYvyDQC6t9GSpomSbeKl62GfoU5KQtHF8M3bsEUxajJ0HyL
-	 zaUf8hc4K2jx0rIYcPNsXZLjxFA6pojpFD56oLU+3cL1HX1P/N9hFLtt1/H0VIq+1x
-	 VKx5UASiIgjVNkfeiSEw86MbAj9OUtVQwjjVXXmF0bfNaOlLv2t7WZ/fTcMnnUXFQA
-	 9c9e1LXPhxWpYwb5xsRpcc6gkG1GH2jtYewOZIcrtYiIMydQiGlT4DNjrBC+gqkCoE
-	 fSL1shYqAgC/vk37+oqbWf6BxJW4cVe/y9/J3G5+p8D5J6nrdXpkmh537PPeEB5DaL
-	 xperOoNUhCImg==
-Date: Tue, 7 Apr 2026 16:43:09 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
+	dkim=pass (1024-bit key) header.d=axon.com header.i=@axon.com header.b="LkmUlq55"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Nuk3c50BwZiG2Z2nf/BcKRMVo05cF50+cNQ1rnpqYF0X3bG/NNOWEwBes5333v68iJmxkAy32jekFeRtBLSnYvEMuhRKoUoQco7DGq/8oBUu6NTTiFrpGY3b7rNDwkyOY7wH5fYzPcv7gBPKs+yspI406Hb34bpffW2XxlyLEOkst73TIPCCuSvOJL+KOtozl+BSNaMEJ3udSPdGxrWB+xhuxiSXOHgxtWDztKf6vXM93URDPHO9k48x+fS4Vd7escer5nmdWG4TK0DJDfRNdwVe11Ud7P1eOR+h5LAKqYEyfsh1uk+t2Uzd8Z2Mtbw+3u4iLqakGjp0B9pc7dK+AQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LsM++JFHzZMQKqWLTQlTNIc4wMTym52LTTsDeJmXu3I=;
+ b=uiAAppKEjuHbmtvZf4rnpeEeNFcqXTc1TLLvCGGg1b/7Goz9WjkLcXGUPUZ04edFNDO9O0S19NHoCkzQI7wwpYHsIOjz6U3JP57WOxqWgSVH6WJ3rWwaeoSgT2eDzwgKY0+3wSiY3EGG1SH1rwUb6OQ6k2fnWpnLBZkIAFju+v9ZL7Q7K2tUUiLA5Nn+O9GfVMVBOrY1oc51Kp9eSxJ0u7c1fvBR25JGd5KTC69gaja4BJWb/ogGXsKt2C8+OsYU+FU5zyugboBiD6pw01BEt17+SOvnjGPv/3THcKrAs+fhF4Hy4ME/hS9t6WrbruvpW8BO7JXAb7vgw3viDVfxpw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=axon.com; dmarc=pass action=none header.from=axon.com;
+ dkim=pass header.d=axon.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axon.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LsM++JFHzZMQKqWLTQlTNIc4wMTym52LTTsDeJmXu3I=;
+ b=LkmUlq553wqEMap7QPgtazgu0PsJUDL4+qDD9f3BtHvn2nAh2IRp4waVwASabn1Rid50jopLSOg1yNIYwMnzkwZvMsjbB+1+kOA1Tl+rXDoOHOThl0bZ6/nnj25lg8rSXGjR6EwP9pza4oYnUSX/yKrYqlKLiDF8YA8EimksUP8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axon.com;
+Received: from SA2PR10MB4524.namprd10.prod.outlook.com (2603:10b6:806:118::8)
+ by MW4PR10MB6463.namprd10.prod.outlook.com (2603:10b6:303:220::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Tue, 7 Apr
+ 2026 15:43:30 +0000
+Received: from SA2PR10MB4524.namprd10.prod.outlook.com
+ ([fe80::f41d:e38a:4741:e76c]) by SA2PR10MB4524.namprd10.prod.outlook.com
+ ([fe80::f41d:e38a:4741:e76c%4]) with mapi id 15.20.9769.018; Tue, 7 Apr 2026
+ 15:43:30 +0000
+Date: Tue, 7 Apr 2026 16:43:27 +0100
+From: Joe Sandom <jsandom@axon.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Chen Wang <unicorn_wang@outlook.com>,
-	Inochi Amaoto <inochiama@gmail.com>,
-	Alexey Charkov <alchark@gmail.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Keguang Zhang <keguang.zhang@gmail.com>, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Ley Foon Tan <leyfoon.tan@starfivetech.com>
-Subject: Re: [PATCH v1 12/13] soc: starfive: Add socinfo driver for JHB100 SoC
-Message-ID: <20260407-vigorous-clustered-79d62b6fa20a@spud>
-References: <20260403054945.467700-1-changhuang.liang@starfivetech.com>
- <20260403054945.467700-13-changhuang.liang@starfivetech.com>
+	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 5/5] arm64: dts: qcom: qcs8550: add QCS8550 RB5Gen2 board
+ support
+Message-ID: <20260407154327.pbexm4jkttp6rdjl@linaro>
+References: <20260404-rb5gen2-dts-v1-0-895f8fc494fc@axon.com>
+ <20260404-rb5gen2-dts-v1-5-895f8fc494fc@axon.com>
+ <ehlhjfzekjnscro4ffydjhzfuiqhfkuyuxrk42x53cturzi4do@74y5k5ee6bv7>
+ <20260407113925.4imd3lxkcrq47pu3@linaro>
+ <s4g54pra266y6p2j3f4fps56naw4hm4vzuai5sgpf7sdbbewj2@3j2tkqd3qgdn>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <s4g54pra266y6p2j3f4fps56naw4hm4vzuai5sgpf7sdbbewj2@3j2tkqd3qgdn>
+X-ClientProxiedBy: PA7P264CA0173.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:36f::9) To SA2PR10MB4524.namprd10.prod.outlook.com
+ (2603:10b6:806:118::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/VAzyku+3yIu6BpE"
-Content-Disposition: inline
-In-Reply-To: <20260403054945.467700-13-changhuang.liang@starfivetech.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PR10MB4524:EE_|MW4PR10MB6463:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1e8926fa-83ef-4aa4-6ccb-08de94bc6b11
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|366016|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	10QNCEpWWu4wW3+aF7/cWd3yO1gsQ8K02ymoK3BHtUBJlhtTe1sv/rbN5Eklh4PgwmYHWoTQJM4o/IG0t6M2bUZljgD6dSV7ArwvTjjDoAL5dh/mKlPcn1sDL9u4SSc0K3QlpZJk6yqYVoDgKpDImzFhCB2J0KD0Br3NhIQOTDIoxWvV2v2+z9pOjzY0NsmLGe5+LteSAlW3fkPsPndxO5tx/mvqYzaJ22PS2ruA/oNW2cauz2PutFKnY5crsh191XXRU5W540qCnrwMnFTB1WNjAjrddwFSSywLg9ub9IuW6MrBkPh+aB8ZTnbtQMWGY7okGhVpeHk8drNRvvguKqWr4L+oQsN9Jg5Jcu8dG9guzmoU2HCPVj9umwTY3Q0sz5cVnkZuuBvg3GenhCASXGgJntBMgtT/7bYU+sI/rpeUzejCTFKf94TjsOCjmAFg8atoRvo1N2dbE4b1E3ohu7zq1/+FBEzFCucBAOW6CXWCaP4nvWspH0Vv36d2goszCX/9rq7ZhVnAcIucttECt96mrEPXRsz51NS5SJ2yDfgm1ZhigPy7t1qUy0FnRJCVsLx8De4ySaNKvQqIPRGgJdby2X61JdOOcx0Zt+xiHnKludJCxhvNPuP8UKAWS8I2fixzi1jpu9mXwDJprIwULtrcZr7kE+T9PNHIm/KZ5ozSYlhsPgs7+v6ULodNxyZjFQk2nIqxaukTv9rMeBbZsorfgqjm8/drcsELxI4yn9Q=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA2PR10MB4524.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?533DzV6JhSEC6Vo+YqI1ysqIpyL05bzuVWLs/P8kBuVWcztrpxgWN500J3aT?=
+ =?us-ascii?Q?brtLKfMzsZx1qkLrfcFDSk9r8OZMM4BAeMUktBaS+Lo4YskpbY1Bjsurt17j?=
+ =?us-ascii?Q?dpSJT2MNuoHj+NEtWtLym1QE5lk+uoE1+yTj6Z8aJNXN5pHWGQT/fLdlMuUR?=
+ =?us-ascii?Q?UdnRGqXOvdZhFl7TNwaWnMkubzBT1dQFXPedPjGx60e9uL5HOJCv79+aelVg?=
+ =?us-ascii?Q?ZwHvOOeEvJRVG/k+TPqo3t+jGj2Tz8rxczYRbPYDkAkwXMlX6CrQoamCGk/0?=
+ =?us-ascii?Q?64NkG4QbiP8bgurRseAeN2TFYPKjGfk1LjK6sBiKIzxIfmANjOXmtaFH5/1A?=
+ =?us-ascii?Q?aB3cFfTYZkq88ESPXjdkuCoHNBhAoZW+8/xXHWgkwwWicOahfjwkduESMAxC?=
+ =?us-ascii?Q?1zsx7jtizamnunFE0C7XIbyr9ge7BUAsffSSxZrj/R6pAkDbLkQbi+ipCXy4?=
+ =?us-ascii?Q?5MMJSUEExeSQJsmDJNMrM8GsdPag4MfgbxJkqMuVRqeNSxgIwZAuOZk+bCSH?=
+ =?us-ascii?Q?Oa3lxIuI0LjXG1ik40dE2EYiwlWyjZsiZCgg2ugjWYS6uKMDMO4g1NsV7vLO?=
+ =?us-ascii?Q?TrgOQoRhASrP+r3MDkr1Mbe4FlHYoqBZ1SqL3o23S92CiT2CkKP3i4/7tfLT?=
+ =?us-ascii?Q?OKBJT2aMVrEMvnV7VO7UAj0mVr7c5b1mD2PSxj1hhY9QbhovsIIMx92kVhYO?=
+ =?us-ascii?Q?DVxpXoGq4HOSTe/gm7vjTOrJNv8b4/7LWImA1O0NQkQLjt2EuHEEed48LnU3?=
+ =?us-ascii?Q?fNUxbMjwrBP1VyXOamZX2EJoc3j8DyhplYe2YlZKvbSkNwiXwSHKf2m5vp5V?=
+ =?us-ascii?Q?5ws3m3iWr17B+Ks1h7hyfAhnzMhmdJveZ9PluHQnsteGlGAj6JfVTdrYXsO6?=
+ =?us-ascii?Q?kcx9hSLSlkwBtptar2sQNwvrxeVmLarU6QWvaz4JFXSQGmt+XQOp1r/QD9Jt?=
+ =?us-ascii?Q?hNL9WPehgx2tMxVu4/gUxnusT3yoKBt4nEjLForuPAApm/nLzEIu4b6+AEhr?=
+ =?us-ascii?Q?OPOcU+JxpEsaWnIgkc9JW2ChUkfHaYr5kizoLe5WMrJt7y3pTrnFM5aDzsfr?=
+ =?us-ascii?Q?l/qW4ynqUHFw57skwxiZMxu9lV2N8grhAiyDlW1LAC8xJETNuX62xhFmO6l1?=
+ =?us-ascii?Q?KfX9ktajQKpdCBhLROHBhN29ts++u4/xqb7oX83Hmce8QNPBunL27CHm5nQ+?=
+ =?us-ascii?Q?jM7DGtWoaj41axd9AKrZlHwsLwRYgFxejCMaUb7btZH9c2ubRKggj8WiTfv1?=
+ =?us-ascii?Q?2nGdG0wQuJ9o4zvPu/XG/UWrIiixwcfkXxhyP1BwJ7mD5IcnzUwXcQat1wQv?=
+ =?us-ascii?Q?WZtHkBqbphexc06Kj+nP9Pc8Fd7QxKbNde7NCzzSvsQLXc2Z1EWAKoPx42tS?=
+ =?us-ascii?Q?E9XoyCKwPLALuAr22kAjTjG8ylPHmYs0ftPCfgdHm7ZrpeAIn/K1y+l6YcSQ?=
+ =?us-ascii?Q?XoTHs0Ha5q2rdYZw9jWLgY2ceGeKue80lFoZ/qtdDmZgbmBaeSrVMYYJ8Rkz?=
+ =?us-ascii?Q?rMVn12thK2kZuASRisTSZcUMQwi22lgUtM68ndk93L2fNUC+i0U6QQhufR3c?=
+ =?us-ascii?Q?KMpJRHmgcocaPpkMggD9jSm8YNV+EN5H+WdZIWO96sn/1tVnc8ZVS40jzMyr?=
+ =?us-ascii?Q?uyXLNdqaawqyBTvs2AkxcZWkdmk15Dxqu1z1kHkKCtHmpf9hr0N6N6pCuIFU?=
+ =?us-ascii?Q?0Ts3Z4yKNTCoDNpuN/XLSnku3EFnJMhYB8jyd8wKlvgpzRgT?=
+X-OriginatorOrg: axon.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e8926fa-83ef-4aa4-6ccb-08de94bc6b11
+X-MS-Exchange-CrossTenant-AuthSource: SA2PR10MB4524.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2026 15:43:30.5894
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: b575368d-7461-447d-a9a4-f90f22962981
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8b4ZV38GM0t3gki/Gj49t16+Ytz8j9Nb6yJAGU6TKSo9S5zcaR17tdK7GEJ6pdHF4O7NMzaBewuaw2y9cxDxVQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR10MB6463
 
-
---/VAzyku+3yIu6BpE
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Apr 02, 2026 at 10:49:44PM -0700, Changhuang Liang wrote:
-> Add socinfo driver for JHB100 SoC. Currently available for distinguishing
-> between the two reversions, A0 and A1.
->=20
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> ---
->  MAINTAINERS                                   |  6 ++
->  drivers/soc/Kconfig                           |  1 +
->  drivers/soc/Makefile                          |  1 +
->  drivers/soc/starfive/Kconfig                  |  6 ++
->  drivers/soc/starfive/Makefile                 |  2 +
->  drivers/soc/starfive/socinfo/Kconfig          | 11 +++
->  drivers/soc/starfive/socinfo/Makefile         |  2 +
->  drivers/soc/starfive/socinfo/jhb100-socinfo.c | 90 +++++++++++++++++++
->  8 files changed, 119 insertions(+)
->  create mode 100644 drivers/soc/starfive/Kconfig
->  create mode 100644 drivers/soc/starfive/Makefile
->  create mode 100644 drivers/soc/starfive/socinfo/Kconfig
->  create mode 100644 drivers/soc/starfive/socinfo/Makefile
->  create mode 100644 drivers/soc/starfive/socinfo/jhb100-socinfo.c
->=20
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index eb5f6a383146..32bd94a0b94c 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -25325,6 +25325,12 @@ S:	Maintained
->  F:	drivers/reset/starfive/reset-starfive-jhb1*
->  F:	include/dt-bindings/reset/starfive,jhb1*.h
-> =20
-> +STARFIVE JHB100 SOCINFO DRIVER
-> +M:	Changhuang Liang <changhuang.liang@starfivetech.com>
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/hwinfo/starfive,jhb100-socinfo.yaml
-> +F:	drivers/soc/starfive/socinfo/jhb100-socinfo.c
-
-Make sure you add the drivers/soc/starfive directory back to the
-starfive soc drivers entry.
-
-> +
->  STARFIVE JHB100 SYSCON
->  M:	Changhuang Liang <changhuang.liang@starfivetech.com>
->  S:	Maintained
-> diff --git a/drivers/soc/Kconfig b/drivers/soc/Kconfig
-> index a2d65adffb80..b3b01fc38139 100644
-> --- a/drivers/soc/Kconfig
-> +++ b/drivers/soc/Kconfig
-> @@ -24,6 +24,7 @@ source "drivers/soc/renesas/Kconfig"
->  source "drivers/soc/rockchip/Kconfig"
->  source "drivers/soc/samsung/Kconfig"
->  source "drivers/soc/sophgo/Kconfig"
-> +source "drivers/soc/starfive/Kconfig"
->  source "drivers/soc/sunxi/Kconfig"
->  source "drivers/soc/tegra/Kconfig"
->  source "drivers/soc/ti/Kconfig"
-> diff --git a/drivers/soc/Makefile b/drivers/soc/Makefile
-> index c9e689080ceb..009f85ff891a 100644
-> --- a/drivers/soc/Makefile
-> +++ b/drivers/soc/Makefile
-> @@ -30,6 +30,7 @@ obj-y				+=3D renesas/
->  obj-y				+=3D rockchip/
->  obj-$(CONFIG_SOC_SAMSUNG)	+=3D samsung/
->  obj-y				+=3D sophgo/
-> +obj-y				+=3D starfive/
->  obj-y				+=3D sunxi/
->  obj-$(CONFIG_ARCH_TEGRA)	+=3D tegra/
->  obj-y				+=3D ti/
-> diff --git a/drivers/soc/starfive/Kconfig b/drivers/soc/starfive/Kconfig
-> new file mode 100644
-> index 000000000000..04b020083d3e
-> --- /dev/null
-> +++ b/drivers/soc/starfive/Kconfig
-> @@ -0,0 +1,6 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +menu "StarFive SoC (System On Chip) specific Drivers"
-> +
-> +source "drivers/soc/starfive/socinfo/Kconfig"
-> +
-> +endmenu
-> diff --git a/drivers/soc/starfive/Makefile b/drivers/soc/starfive/Makefile
-> new file mode 100644
-> index 000000000000..ca1e609b8104
-> --- /dev/null
-> +++ b/drivers/soc/starfive/Makefile
-> @@ -0,0 +1,2 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +obj-y +=3D socinfo/
-> diff --git a/drivers/soc/starfive/socinfo/Kconfig b/drivers/soc/starfive/=
-socinfo/Kconfig
-> new file mode 100644
-> index 000000000000..0a20382da5d3
-> --- /dev/null
-> +++ b/drivers/soc/starfive/socinfo/Kconfig
-> @@ -0,0 +1,11 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +
-> +config STARFIVE_JHB100_SOCINFO
-> +	tristate "StarFive JHB100 SoC Information"
-> +	depends on ARCH_STARFIVE || COMPILE_TEST
-> +	select SOC_BUS
-> +	default ARCH_STARFIVE
-
-This can just be default y, since it depends on ARCH_STARFIVE.
-
-> +	help
-> +	  Include support for the SoC bus socinfo for the StarFive JHB100 SoC
-> +	  platforms to provide information about the SoC family and variant
-> +	  to user space.
-
---/VAzyku+3yIu6BpE
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCadUmDAAKCRB4tDGHoIJi
-0uepAQC7ntfH69ktomW75v5F61miSN/mOMGDvnF71s+HhCw7dgD/YPqMuQE+EzM/
-6pRWppBsT1NXKoSi6ShyMVOAGmLNrws=
-=iV1Y
------END PGP SIGNATURE-----
-
---/VAzyku+3yIu6BpE--
+On Tue, Apr 07, 2026 at 06:01:34PM +0300, Dmitry Baryshkov wrote:
+> On Tue, Apr 07, 2026 at 12:39:25PM +0100, Joe Sandom wrote:
+> > On Sun, Apr 05, 2026 at 12:20:23AM +0300, Dmitry Baryshkov wrote:
+> > > On Sat, Apr 04, 2026 at 10:50:58AM +0100, Joe Sandom via B4 Relay wrote:
+> > > > +
+> > > > +	wcn7850-pmu {
+> > > > +		compatible = "qcom,wcn7850-pmu";
+> > > > +
+> > > > +		pinctrl-names = "default";
+> > > > +		pinctrl-0 = <&wlan_en>, <&bt_default>, <&pmk8550_sleep_clk>;
+> > > 
+> > > swctrl?
+> > Bundled into bt_default since it's tied to BT
+> 
+> It's not. It's either WiFi or BT.
+Ack. Will fix in v2.
+> 
+> > > 
+> > > > +
+> > > > +		wlan-enable-gpios = <&tlmm 80 GPIO_ACTIVE_HIGH>;
+> > > > +		bt-enable-gpios = <&tlmm 81 GPIO_ACTIVE_HIGH>;
+> > > 
+> 
+> [...]
+> 
+> > > > +	iommu-map = <0x0 &apps_smmu 0x1400 0x1>,
+> > > > +		    <0x100 &apps_smmu 0x1401 0x1>,
+> > > > +		    <0x208 &apps_smmu 0x1402 0x1>,
+> > > > +		    <0x210 &apps_smmu 0x1403 0x1>,
+> > > > +		    <0x218 &apps_smmu 0x1404 0x1>,
+> > > > +		    <0x300 &apps_smmu 0x1407 0x1>,
+> > > > +		    <0x400 &apps_smmu 0x1408 0x1>,
+> > > > +		    <0x500 &apps_smmu 0x140c 0x1>,
+> > > > +		    <0x501 &apps_smmu 0x140e 0x1>;
+> > > > +
+> > > > +	/delete-property/ msi-map;
+> > > 
+> > > Why?
+> > I tried extending the msi-map to cover the RIDs from the QPS615
+> > PCIe switch (matching the iommu-map entries), but this caused
+> > ITS MAPD command timeouts. From what I could gather, deleting
+> > msi-map forces the PCIe controller to fall back to the internal
+> > iMSI-RX module, where this worked properly.
+> > 
+> > For reference, I checked the RB3gen2 since it also uses a QPS615
+> > and there doesn't seem to be any msi-map defined (in kodiak.dtsi).
+> > 
+> > Any recommendations to resolve this properly?
+> 
+> Maybe Mani knows. Please mention this in the commit message at least.
+> 
+Will do.
+> > > 
+> > > > +
+> > > > +	status = "okay";
+> > > > +};
+> > > > +
+> 
+> -- 
+> With best wishes
+> Dmitry
+Thanks for the review Dmitry
