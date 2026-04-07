@@ -1,174 +1,362 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011001.outbound.protection.outlook.com [52.101.57.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 718F2374187
-	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 04:09:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775534983; cv=none; b=MX5uIYz+sUX61qRXIcDgtFOZ7SedTpJziJ2SBqGuu+31cFsqt14jY/iDAuHY+QJ7LLlQai+d9da7QPBLqccPGuDYdPjwlTpw7XFJiQ8cbBWM/3gjaMh68vQD5Jk/Zr89+0WRMscxyJDGYv5GxN33b9ziXvpqsurjcM5BAAmX05k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775534983; c=relaxed/simple;
-	bh=EvIHw2ewIj4mTh4EQu3rpuiCLWZfjujuPlNXzm4rxGs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kPaFk6yPMNFQCq8hnuFi7L6yfVqProsjow/sZk/zkGW540a5dRT2myTRsiwtUwhwSoKW50RF1nhHC10WRDWGDNDTbqNeLxD8PFWnaBLnenLpIqZTF0oXdrxerwRFZQoKw0RzIluFgeRQutdwUBkiQdH9dJrSs+2/qomi5VQXxMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DXodyB5G; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PQVeje15; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FB7A272803;
+	Tue,  7 Apr 2026 04:10:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.1
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775535028; cv=fail; b=heB1AwiPRIdpsEUO6pdXuoSP8UAmYSWHUTBam6gfbMQpLMs1edXIBdVWYsvztCk5VMAp3UnNRQLF2xQ8/1ooyN5LlMof75ooHIC/vB0VgGKBWurTW5GVhc9jCsZAoMJFkw5rpBQ9iPYL65SwZBhmwY6+Tu0DcG0zw5gTSeTvS/Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775535028; c=relaxed/simple;
+	bh=9NVjM++DB0OvU8/eI845XwDRoAlMP+w70cmPK5/yDCU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=DbQgeYLPgEy3ZQd+Xz/+lzTdEN90o+0+/v6laBuXY69KqIewh3siEXrnSWxXO8IjZ3T7LSP87a5ttyiEZ6D4vcHRe3pK638FSTgbJ9SG6vT+WO/ftbXWnXTJ3LguhK/1/dlN3La5vuCE2yQx8QuliAzZvtZD0NJDlT/Y7CtR914=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=uZDmyQLe; arc=fail smtp.client-ip=52.101.57.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DXodyB5G";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PQVeje15"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 636LQ7F23536841
-	for <devicetree@vger.kernel.org>; Tue, 7 Apr 2026 04:09:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	U1PBnRYiMHE9bP8gBrDCBrqQHKpcg5j89FyJ6YAHP68=; b=DXodyB5GNWbqa7rI
-	zquYJZH8hdIIYk2xGVEWCHzdnp04LITO+wtlwTFGUU8SAKoxHiHUMts6/E2pYd5p
-	jswPG4d+duFtsrws98P7lr9w8xCpjqkXcyDkzZEhiHNyRFN0qRm7q/cAesOi9oU6
-	DktKQJBSGGGQzaoWeiBPVV77/jLH9J/tkhCYNvZD4W9BXZXu1YszOj99rsBKfacy
-	7Q7dS7t170TZOwTn07iyjfclkBvlmmrQjftPefcZeymxMPJhf/matEZ1mxpglF8Z
-	shY64o+HgpPKPG0q+mGLwbIg6Jp8vd3ZW0p7IAy0svEJoA0c5O7gTsfVVeJsnoGK
-	jiS/tg==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dcmra0xx9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 04:09:41 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-358f058973fso5558503a91.1
-        for <devicetree@vger.kernel.org>; Mon, 06 Apr 2026 21:09:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775534981; x=1776139781; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=U1PBnRYiMHE9bP8gBrDCBrqQHKpcg5j89FyJ6YAHP68=;
-        b=PQVeje15QIjnOeHtwK7zVlgs0SqPJek1ui4WCvwY//3Q0nWuMh5JqZrFojG32Aoa4b
-         M9MgOeM4T5OVMxglVD5sBkRJhcl+vpyQNbTbr9mORrWQy3e5n1lSZpewbvZNxq04G5s/
-         3dL5/4zNVep69CFIHJIUZUs8NA/b/gglTBS28CY33968v66IcSHnSfJXCRC1hjFynUst
-         MpqzMuRWa4aQiKjxzODcNO8W3Aae+lASh4GaumaP3961Puu4PUOcro2/yRlYtxvdbng9
-         iWDR0nWxIHDrsKpLqga8TURp/3VE5TG7lsZ8dlAa6WaRafV5iHLYNcDsXaNcUv8fFrDV
-         Dfng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775534981; x=1776139781;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=U1PBnRYiMHE9bP8gBrDCBrqQHKpcg5j89FyJ6YAHP68=;
-        b=oq1CDEYdqDBUzYz88ZJcoxkVDJZlWhfkKkHhp3lcafdUS7WyXEBWNl3W8CYeH2OF0y
-         bEludsZknsOsRoE2AM6PUxITBHvztGC7+54v4sBPYDJ12PlBgRodCDTVZpyDwiqcg8i8
-         nE1pVJUn4IEuXTMAcjprgeaWB+HAdsbxLSU0BfoaYvdku94sUmiELxnOrnIAroTTU/Nt
-         iYm6w3PW/JpaDsZ+8gjvVKV85P9NJMNBueVG/xOiSFSnfenmVwJN73vwvBSQJlp9xk20
-         IT92Km7XVUNPHTuNJ9wwKMq6J8R2fHzkQ3FhIB7h4NaunV7Lg24iDTxLvWWaORVnIQAh
-         BMPw==
-X-Forwarded-Encrypted: i=1; AJvYcCUi71RD7ULWgDrNCpLA1anIyNwZa3oKRIATmHK4rVDyjfofCfvwtLQlUjZ4bTMYO4RSie08mMGsNL6U@vger.kernel.org
-X-Gm-Message-State: AOJu0YxUpFC8xGotRpOE1/R4OfvljhrzxCsVKJ4byWKPYx5jhRD9QNim
-	JqZ1LeQ/PeJkXxFgRaY/GqZwaDfRKk8MkpVfmmxbNrlUyqpCEj6EJkYbdiBQz/NrtpmAfLlyJEO
-	bL4rN6BjBpq+l/Je8Fb2TV1OOetzOqeSmuHlsjdKJTxjX0CSuBNM5mBMR7a6AXOPh
-X-Gm-Gg: AeBDiesjv949oHMVlX2qTNwbKi+foswR/L9wZ8MOnRX90c2OqbfBud3me2Ty/voUbfV
-	ysu3l0QuBd35jY24+evzwL4wk3l1BiAkv0qgLu1So0BEWK777ta/axzWv1Ohf0cCJYA7040eTkZ
-	b9gP9/y0CM6pQql0gHY/WvwQZZrfdjIFpQE24YFgBHy9wp7BetxVCmQ9Ijwu5PmRzfVAhApLLSt
-	mRPUz1+kxTK167lbIQFBeYGC+7YBgwfggl6yIjueyOkUvX6pCPMJf8TzFpPc9hXfy9djY2QGa6i
-	9FP0Nk4013GNgFOAkdgCqAJfCuni4VDwEDyokh/NYldOdw7qnHOyNo4sjecpCTVfP+qX3CQSpSi
-	jWVnunF+oEDW+oy+A2nHTuTcXTMCfBiBZz8cZbXUgBR+k/c13WQ==
-X-Received: by 2002:a05:6a20:9144:b0:39c:4af6:4309 with SMTP id adf61e73a8af0-39f2ee00378mr16706176637.12.1775534980694;
-        Mon, 06 Apr 2026 21:09:40 -0700 (PDT)
-X-Received: by 2002:a05:6a20:9144:b0:39c:4af6:4309 with SMTP id adf61e73a8af0-39f2ee00378mr16706057637.12.1775534978399;
-        Mon, 06 Apr 2026 21:09:38 -0700 (PDT)
-Received: from [10.152.196.198] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c76c659bedesm13411678a12.30.2026.04.06.21.09.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 06 Apr 2026 21:09:38 -0700 (PDT)
-Message-ID: <27cddc5f-888d-4f80-94dd-fb650f4985ea@oss.qualcomm.com>
-Date: Tue, 7 Apr 2026 09:39:32 +0530
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="uZDmyQLe"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eK8k/apzIx6azRWKoECcS1BUbdbzDZbPVDF3s0vbHZHIBQY6Jd99HA4czQVxk41LOc2R928VmWPhclaVKdUQjNaWUPU6BRaF/4ggDhR77zZKoM03rjY49O+huoVQvHjHq7kv1jC/Qqw6REFVivGRSMJXrMZhGvuMRuRZE+XHxmXSVkZn7Qcl6CQKgHjD11Wq38XohRCfH4XbQmE/3vle4RIO55cBBoL6G+De2rXt/oD+oE46bYw90uKlsgHyk0nD1vwigkgFsvJAkJO+889rRnlky7xDeWeOb3yNdV971G9TkfG7o7pSl1WKv1dOL7NDRrsoao9l4jacnfdW4NxuCw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=t+H2RiAe/2/ZqiIJ+1H6rmNZYZeMvkI8tCp0XrmOQ0M=;
+ b=YEJVuXeVgzywGq7S6laR5yAriE8nSRSE1cPj4cDZhQNq8+to0ttNDsLt/ouZys4j1tg1ZGwDVUqP74JKiuXIXcJR2c2ZX0sflD7px/OkPrpBnTl1QJ0yniDeZzv6vyy0ACnGA28XCuPx2cgSs0s/X3t6oN5Pn27gvWAvhgfvs9S9JRW/EIyHDVoIan93EU+aXiQibnPu/WkgtRKairyuByQk1BECBR4klkvxr82XbEY4fPF/EtOmyZ8Tkux8YciI9zXH4ylhKKGr+0Uz9+HgFTTH3PRDA+b2NLLAx4SkQqOgbl6v1c1cm3AWSQ20iRhgtBHYsl7RfWcKHhbGfCr5DA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=t+H2RiAe/2/ZqiIJ+1H6rmNZYZeMvkI8tCp0XrmOQ0M=;
+ b=uZDmyQLefJFvEC7AR+fE8trZD+nu2kP72vyUmowYfeytfb8/Na2jvIZE3k+/tg/8sOBvrXJffIBB+5qPMc6Jb3uBsbNzOHdA/ZestFMc4FnS/3xFJRp1grVd/r7OBSLnuqqvDI/53plCnOtII/wD42qbg7v4VSnBaIpBa1bnLJEOHgMdXe52fMrNGIVrm7nWx2LSTim0KuGnaYggAhyLhkdmDCOzICA3l8rNrkB97iNhD/6SktLdGeYl7lhdMZudYrhmosF2qga149o1zDEXk637kUWUJOtFb5dfi3HxqAI7XKZbSjDGE9xFGL0/fzgP51XfNfbQW5YCZPKaig4yVQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by DS0PR12MB7876.namprd12.prod.outlook.com (2603:10b6:8:148::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Tue, 7 Apr
+ 2026 04:10:16 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%4]) with mapi id 15.20.9769.015; Tue, 7 Apr 2026
+ 04:10:15 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+To: Thierry Reding <thierry.reding@kernel.org>,
+ Aaron Kling <webgeek1234@gmail.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] Revert "arm64: tegra: Disable ISO SMMU for Tegra194"
+Date: Tue, 07 Apr 2026 13:09:10 +0900
+Message-ID: <oPjOdaRsQES6O8jgrehMZw@nvidia.com>
+In-Reply-To:
+ <CALHNRZ8Zs2Zp80OgoU6R54=n76JgiYGbMvWD2iP9HpUFYO2big@mail.gmail.com>
+References:
+ <20251101-tegra194-dc-mmu-v1-0-8401c45d8f13@gmail.com>
+ <aZQ-cMn-3vI7UH7t@orome>
+ <CALHNRZ8Zs2Zp80OgoU6R54=n76JgiYGbMvWD2iP9HpUFYO2big@mail.gmail.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: TYCP286CA0270.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:455::16) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH ath-next v4 0/6] wifi: ath12k: Enable IPQ5424 AHB WiFi
- device
-To: Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, ath12k@lists.infradead.org,
-        Saravanakumar Duraisamy <quic_saradura@quicinc.com>,
-        Sowmiya Sree Elavalagan <sowmiya.elavalagan@oss.qualcomm.com>
-References: <20260402-ath12k-ipq5424-v4-0-cd1e0f0a6c88@oss.qualcomm.com>
- <5a606f7d-6665-4b0c-bbbe-32538b2315b6@oss.qualcomm.com>
- <95face24-deaf-47c4-935d-0b48b5141371@kernel.org>
- <09fb6efd-646b-4d0d-a0f3-9f6ce4b38442@oss.qualcomm.com>
-Content-Language: en-US
-From: Raj Kumar Bhagat <raj.bhagat@oss.qualcomm.com>
-In-Reply-To: <09fb6efd-646b-4d0d-a0f3-9f6ce4b38442@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: VaInZqoT6DtJjujgPwzzCivfotgveGoK
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA3MDAzNiBTYWx0ZWRfX9dYY2b69Sa7A
- EZhifyyzSFVAVwYLjSXInGpngA6JgctpKmR8+6dLD/Ej04ZaYJ1116W+TG5rMtuGXEBSQJ8XaQd
- N5in5PXRY7DYxCSFeu6VCiZPp8Wc0A1ifS/lCS9UFWHXmAYdrJIYCKvh1p9U5FrVieSKP0XvDXx
- 7edYnR7b+JGBKJJHOL8t52DIERwXq9F/stqUVvro1jAvqVqVuzBiVSmmDCQFnc6sRdmn8sFhRK+
- 0q4AdmrISp7P8+qlWcZ7cRIzd+7XVGPsNX33gHevamXIJ1xtUzQHvQF+pgZYbmqFgDocRbDl+pQ
- 0sSBmEbzTE8QMnW4wA3cmEgxIFwpf0IBZKW2SiIq4XQVHqaYgqSlsTxFv1RBh8od6oJE896/iz7
- wZw83t91aHM4xb7FURdH/9omMUqB54BnzQ0E2LuchqDM6t1kUDrjJa6BGPVtUEIRlc4EwMCn3Ik
- EfFnHRrznJ62QVhTHiA==
-X-Authority-Analysis: v=2.4 cv=BKGDalQG c=1 sm=1 tr=0 ts=69d48385 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=1nfJcm5jcH8UclV2M8MA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-GUID: VaInZqoT6DtJjujgPwzzCivfotgveGoK
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-07_01,2026-04-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 phishscore=0 clxscore=1015 bulkscore=0 suspectscore=0
- spamscore=0 impostorscore=0 malwarescore=0 priorityscore=1501 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604070036
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|DS0PR12MB7876:EE_
+X-MS-Office365-Filtering-Correlation-Id: bde10ecb-7210-4583-8d54-08de945b92ac
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|10070799003|376014|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	KeSgNyu6LnlJITXnVIr6q40RYY/EiFe2XdeERPmFkAoFRpN4K0k1gUvaW4V27KG7HKi6zmqT+sZItlUotG2orE7ejruKNaqZaR6v3+sva1MmSVxU/YO0LRhIbhL8wUW5wh5d5Q8NUV35+mfAQe5hPEe2iicIRqTOuRKxx9r6FkdqaPydOECrV2QlduYYnuvtpUn8x+LwcqPDY1Swm6D0AMVI7mDWlaWOp9mizlKqSGysf00FmZB+o10z4L1t+mM5wJElUV+3G9BGgt3VbobbnFOk/h06uGv0Tv1XTlXLINDTyQnqljSvu8yQi/7l7wt4XJ/lof/e5Y9pnnvbhpdPNvCB5pWFMbakvDgzj+Y3WEKDvj4QQkvfT4xyMpi5Fn5YY+rbJzHaKz2PcBJK9bR+r7i/pvGCv+ubQynKEWveSudpNJflsvRBwidwlDr2Nk8O0uaFnuSIbLd9PEUx3iZ6+06lgM5ZA/o5gZIhkPVwt891/Cip4rLvkKjFIQ8A7cPeRZ2Kwfn2TmJmNi+1UFj5TLdZb/fOn4KLRJFvj8t7jbmSPMcBNDbEATONtChLryewSOLTgezk69Aob77lHqmKHKH2lpShNEuIbya/ITiQe6JkTAvYJv37Y4pDWsgBvWJW1UOf1qqkYPy0ODO2y5ty6BRclxXInMt4tfdmweQxlsBPu3fq+AXilJTqVqhYRhBojXe2TwwrkV2G6HSjhuHlJ1nG4gPQfIMrhpc+EkE60IM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(10070799003)(376014)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dEZ2STVKeHpWOTQ5SzI4WitPb1plMWJIVWlvMllHR1BhWVpESEsrSGpQNTRz?=
+ =?utf-8?B?bnEwQWtQTkdPaFhuQ0NHckk0MHNKT0NEeDc2RGVIYXAwRXRlUTR3elM2NkRD?=
+ =?utf-8?B?MjIzNll4T0k0eC9qR083RzU1cUUrbkZnaE5LaU9yNm9hS0xMUmt3ZWV5Z3Bs?=
+ =?utf-8?B?cDdpTzA0NVVTVnR2MW5tZk56eklwM2JBOHFPOWNoa1AyVWp2Mzg5NDk3dCtD?=
+ =?utf-8?B?azRVV3ZVbnY0aUJsand2VzM0RUl0em9PYnUzUTk3d1NsZE93L29TSXIvWHds?=
+ =?utf-8?B?QlBrd1JiWUJMejVzbnZacmhNNXZqR3ZGbVdQc1gwQWovVUJHNmZIY3krRDVJ?=
+ =?utf-8?B?UkRWK05OeXhmdVRZTVVBejYrWHNZdE5GS3lYWDB5aEpMZWxDWGV2eGRPdWYw?=
+ =?utf-8?B?WCt6ZXRHZThyNmJNVGY4UVYvWHE2Zm53b2g3Q05pZlBEamNsZ0NuSXk1MmJx?=
+ =?utf-8?B?M2htcmE4b2Z2ay92WFJvcGF0UGhIQ0VQTmRtRzBJUElidU1NVkQ4bGtKQW8w?=
+ =?utf-8?B?KzRJRjZMUlpick10QjJ3NHB3WlZ2UElFUjRXVERGQXRTc3lPOVNHcC9RNEVT?=
+ =?utf-8?B?UGl1VHI3UHRRTXpGKzh0Y0czWExwa2o2Z0RhaXhmcFFHVTRHSnRod2dIT3FI?=
+ =?utf-8?B?VGN4dlZvTjJUSWR5SVdXMmpBVEV6Q1I2QXhUb3lZM0RzOWo0K09sQmNpNytu?=
+ =?utf-8?B?TmhDM2dNV25sY3J5ZnR4VDhiM0d4SDRZZkxRZmNDNUF1L0Z4Tk1HbE56QTFx?=
+ =?utf-8?B?Mm91SG02OTZNanJoSHVWUFVieGU0Z1J2TEM1bkI4THcwV25uL2JKUkVhTkJs?=
+ =?utf-8?B?ZjJGRzczVVdmb3p4ZWpweTFUcmlTbWZwUGEwb0lBTmlMcGIwL0pLQ21MUlVJ?=
+ =?utf-8?B?Z09WdFM4THZUZXk2VThoMUVKbXBXZEtsN2xLeGtVQWRKRXFta20veVBYSGtX?=
+ =?utf-8?B?MUJobXFIZGFFSDVKamI3YnFrUStFYmxPOXhDSnV0Znh6MlR6cml5RlJSQXBy?=
+ =?utf-8?B?Nk1lRk1ZbXFycEFPWGlsN05lQ2t0RnJkcEV0VUNJS0tQbWVwdHVNU09TNzZR?=
+ =?utf-8?B?SFQ4WW5Pc1dWRUNPbWF5RWJtcUkzeUpaem9PWnNjeTBwT3pXeE8xdjd1RFZL?=
+ =?utf-8?B?aXR2SVQyYXdveFVmY0JYaEJWWDNWVWk1OTBDTTVZL3RDd1ArWVFHTHVsYmZ3?=
+ =?utf-8?B?amkrOTNvTXZsNkt3WHJFckMya2x6eEVvNWJud3BuNi96VmFrdVdxVExaMHJO?=
+ =?utf-8?B?czRVdzVRU0puNEd2Z2s4MjkwMDVMRzhCN1BOTGo2dThTVjJKbnFuUTUvRUdI?=
+ =?utf-8?B?K3F2RFFmL2lGUDdkdk1RZ3VsQmRrNExXRFpna3dtdlpzeUtKQythUXBnTnRm?=
+ =?utf-8?B?ekhacytNWjJpalRqeG1scndpaHdRNm9QQWxPTUlhM3ZkUUl3c1pWZjJka0p3?=
+ =?utf-8?B?RXZZbFJEZm5aRmgyaUtvVHlTaDA3RXpqakdDME9yUk1JK05nQVkrZktCRE9Z?=
+ =?utf-8?B?ZGE0WjVEU2NPbnZZOG5UbElnSlZrTCs4YzA2ZnhJWS9UQWYwZW5ySjJ1NVln?=
+ =?utf-8?B?VDJjUEpTWFNNRXhSdzFiMEN1dmlTMlVscC83L1VZdlJzeEVYRGR3YWZGZktJ?=
+ =?utf-8?B?ZXFFQ2l0bVVGa2FMajQwd2s0MGtXekpJOU8xZHZHVjBxNlpQVlE0clVVVjhT?=
+ =?utf-8?B?QVBPdmRXeVdMcEFzc09uYU9nTWw0dy9uU3ZMbnlOemVsbmFyWXJZQzkxeUxV?=
+ =?utf-8?B?QXZBQnRlbEd1NlFqK3Z1NnU3K2RiY3JnRjlaTmxSMkw0WHBPSG9ScHI1YWt1?=
+ =?utf-8?B?ZzlyRStEdU9UWjJ1KzI1eXJVQmxGUU9zUTRMMGZqb1FzOEtoeE8vZjV6dEYv?=
+ =?utf-8?B?aW03b2QxMS9tMEhjZlJ0M1MvVXVDUGZaSWlDUytvUGsyMS8rSGN6UXNJWGd6?=
+ =?utf-8?B?WUlSZjFVZS9HYmFONXJwQVl0NzgrVmxGWUd2SSt3Y3IxN2FwL0pFRmZLM0t3?=
+ =?utf-8?B?cFFIcGNmUnZjWXBGMjE2c0RHdm90cnR2dUtFdG9rb3BKZENKeFVmeDlFdzBK?=
+ =?utf-8?B?NGdRWmUrenFMUGxhL2NmMWNpOWVIUzhUVm9qaXM5QkxERXkzUEdncVp2b01H?=
+ =?utf-8?B?NTFyREU2VmM5bWs2cUxUdDRtR3pqM3ovczJLdFNnSlhGcGxkYll2OEwvRWpr?=
+ =?utf-8?B?dHZRWXhiQlhnWGVoL000a2hUZ1Z5eG0vdW5uMXJTUWtvbS91UkFBU1FWMm9Y?=
+ =?utf-8?B?REt3ZFc2Vmg4c0hqc0JXb2k1a0o1S0x5d2drZlFBcXBybHJDaS8rbjltTFVp?=
+ =?utf-8?B?SzU4SkxzMnRkUVlQd1hOb2p1OHZ3MzdWWXVPdEgrd1RDeEZCcmI2Q3JJQ3pS?=
+ =?utf-8?Q?JjMHGKURGalzGoU885v2LhPxLCHdJVJK4FDfgFxgL33mT?=
+X-MS-Exchange-AntiSpam-MessageData-1: sx68VacuApn/rA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bde10ecb-7210-4583-8d54-08de945b92ac
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2026 04:10:15.8667
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tYz95akY5uQcCc+LGvn/0urRa4pgewPZQ/l4LuG4VZQhdt7mj545qTmOKSM8NY/DXOPZBBRjahKy3CR1q+xRXg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7876
 
-On 07-04-2026 07:53, Baochen Qiang wrote:
-> 
-> 
-> On 4/4/2026 1:23 PM, Krzysztof Kozlowski wrote:
->> On 03/04/2026 11:13, Baochen Qiang wrote:
->>>>
->>>>   .../bindings/net/wireless/qcom,ipq5332-wifi.yaml   |  1 +
->>>>   drivers/net/wireless/ath/ath12k/ahb.c              | 36 +++++----
->>>>   drivers/net/wireless/ath/ath12k/ahb.h              |  1 +
->>>>   drivers/net/wireless/ath/ath12k/ce.h               | 13 ++-
->>>>   drivers/net/wireless/ath/ath12k/core.h             |  1 +
->>>>   drivers/net/wireless/ath/ath12k/wifi7/ahb.c        |  8 ++
->>>>   drivers/net/wireless/ath/ath12k/wifi7/hal.c        |  7 ++
->>>>   drivers/net/wireless/ath/ath12k/wifi7/hal.h        |  3 +
->>>>   .../net/wireless/ath/ath12k/wifi7/hal_qcn9274.c    | 88 ++++++++++++++++++++
->>>>   .../net/wireless/ath/ath12k/wifi7/hal_qcn9274.h    |  1 +
->>>>   drivers/net/wireless/ath/ath12k/wifi7/hw.c         | 93 +++++++++++++++++++++-
->>>>   11 files changed, 231 insertions(+), 21 deletions(-)
->>>> ---
->>>> base-commit: 15551ababf6d4e857f2101366a0c3eaa86dd822c
->>>> change-id: 20260331-ath12k-ipq5424-cddb63a46a97
->>>>
->>>
->>> only nit in patch 2/6, so for patches 2-6/6:
->>>
->>> Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
->>
->> It does not work like this. Replying to cover letter causes that all
->> patches will get it. Provide detailed review and response to each email
->> in such case.
-> 
-> Got it, thank you!
+On Monday, April 6, 2026 4:49=E2=80=AFPM Aaron Kling wrote:
+> On Tue, Feb 17, 2026 at 4:13=E2=80=AFAM Thierry Reding
+> <thierry.reding@kernel.org> wrote:
+> >
+> > On Tue, Feb 17, 2026 at 12:53:54PM +0900, Mikko Perttunen wrote:
+> > > On Thursday, January 22, 2026 7:22=E2=80=AFPM Mikko Perttunen wrote:
+> > > > On Tuesday, December 9, 2025 1:21=E2=80=AFPM Aaron Kling wrote:
+> > > > > On Mon, Nov 3, 2025 at 12:05=E2=80=AFPM Aaron Kling <webgeek1234@=
+gmail.com> wrote:
+> > > > > >
+> > > > > > On Mon, Nov 3, 2025 at 5:07=E2=80=AFAM Thierry Reding <thierry.=
+reding@gmail.com> wrote:
+> > > > > > >
+> > > > > > > On Sat, Nov 01, 2025 at 06:13:26PM -0500, Aaron Kling wrote:
+> > > > > > > > On Sat, Nov 1, 2025 at 6:01=E2=80=AFPM Aaron Kling via B4 R=
+elay
+> > > > > > > > <devnull+webgeek1234.gmail.com@kernel.org> wrote:
+> > > > > > > > >
+> > > > > > > > > From: Aaron Kling <webgeek1234@gmail.com>
+> > > > > > > > >
+> > > > > > > > > This reverts commit ebea268ea583ba4970df425dfef8c8e21d0a4=
+e12.
+> > > > > > > > >
+> > > > > > > > > Mmu is now being enabled for the display controllers.
+> > > > > > > > >
+> > > > > > > > > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> > > > > > > > > ---
+> > > > > > > > >  arch/arm64/boot/dts/nvidia/tegra194.dtsi | 2 +-
+> > > > > > > > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > > > > > > > >
+> > > > > > > > > diff --git a/arch/arm64/boot/dts/nvidia/tegra194.dtsi b/a=
+rch/arm64/boot/dts/nvidia/tegra194.dtsi
+> > > > > > > > > index 1399342f23e1c4f73b278adc66dfb948fc30d326..854ed6d46=
+aa1d8eedcdfbae1fdde1374adf40337 100644
+> > > > > > > > > --- a/arch/arm64/boot/dts/nvidia/tegra194.dtsi
+> > > > > > > > > +++ b/arch/arm64/boot/dts/nvidia/tegra194.dtsi
+> > > > > > > > > @@ -1807,7 +1807,7 @@ iommu@10000000 {
+> > > > > > > > >                         #iommu-cells =3D <1>;
+> > > > > > > > >
+> > > > > > > > >                         nvidia,memory-controller =3D <&mc=
+>;
+> > > > > > > > > -                       status =3D "disabled";
+> > > > > > > > > +                       status =3D "okay";
+> > > > > > > > >                 };
+> > > > > > > > >
+> > > > > > > > >                 smmu: iommu@12000000 {
+> > > > > > > > >
+> > > > > > > > > --
+> > > > > > > > > 2.51.0
+> > > > > > > > >
+> > > > > > > > >
+> > > > > > > >
+> > > > > > > > Question for Jon as the author of the commit being reverted=
+. The
+> > > > > > > > commit message states "we do not have a way to pass frame-b=
+uffer
+> > > > > > > > memory from the bootloader to the kernel". If I understand =
+this
+> > > > > > > > correctly, this is talking about seamless handoff. What doe=
+s this have
+> > > > > > > > to do with enabling mmu on the display controllers? Seamles=
+s does not
+> > > > > > > > work on any tegra arch as far as I'm aware, but Tegra194 is=
+ the only
+> > > > > > > > one that doesn't have mmu enabled for the dc's. But enablin=
+g mmu
+> > > > > > > > allows for better and faster memory allocation. My initial =
+attempts to
+> > > > > > > > enable this didn't work because I tried to attach them to t=
+he main mmu
+> > > > > > > > unit, see the related freedesktop issue [0]. After noticing=
+ in the
+> > > > > > > > downstream dt that the dc's are on a separate unit, I made =
+it work.
+> > > > > > > > And so far, it seems to work just as well as Tegra186. Then=
+ when I was
+> > > > > > > > packaging up the change to submit, I found that this had be=
+en
+> > > > > > > > explicitly disabled. But I'm not seeing why. Am I missing s=
+ome
+> > > > > > > > additional factors?
+> > > > > > >
+> > > > > > > This isn't seamless handoff to the Tegra DRM driver for displ=
+ay, but
+> > > > > > > rather to simple-framebuffer. While this does technically wor=
+k, it also
+> > > > > > > causes a spew of SMMU faults during early boot because the fi=
+rmware does
+> > > > > > > not properly pass the SMMU mapping information to the kernel.
+> > > > > > >
+> > > > > > > In a nutshell what happens is that the firmware sets up the d=
+isplay
+> > > > > > > controller to scan out from a reserved memory region, but it =
+does so
+> > > > > > > without involving the SMMU, so it uses physical addresses dir=
+ectly. When
+> > > > > > > the kernel boots and the SMMU is enabled the continued access=
+es from
+> > > > > > > display hardware cause SMMU faults (because there is no mappi=
+ng for the
+> > > > > > > framebuffer addresses).
+> > > > > > >
+> > > > > > > That said, we did solve these issues and this may not be happ=
+ening
+> > > > > > > anymore with the most recent L4T releases, so it may be okay =
+to revert
+> > > > > > > this now. We should find out exactly which release includes a=
+ll the
+> > > > > > > needed changes so that it can be referenced in the commit mes=
+sage. I
+> > > > > > > want to avoid people running new kernels with an old L4T rele=
+ase and
+> > > > > > > then seeing these errors without any reference as to why that=
+ might
+> > > > > > > suddenly happen.
+> > > > > >
+> > > > > > For reference, I have rolled back my Android usecase to use the=
+ L4T
+> > > > > > r32.7.6 bootloaders on T194 for a variety of reasons. So I am u=
+sing
+> > > > > > cboot as the final bootloader and not edk2 as in L4T r34/r35. I=
+ have a
+> > > > > > pending cboot patch to support simple-framebuffer handoff, but =
+haven't
+> > > > > > fully verified it as tegra-drm is currently unable to takeover =
+from
+> > > > > > simplefb like openrm does for t234. But all that to say that si=
+nce I
+> > > > > > no longer use r35 for t194 I don't have the setup to easily ver=
+ify
+> > > > > > which point release works here and what doesn't.
+> > > > >
+> > > > > Any further thoughts on this patch?
+> > > > >
+> > > > > Aaron
+> > > >
+> > > > FWIW,
+> > > >
+> > > > looks like the edk2 patch to update iommu-addresses --
+> > > >
+> > > > commit 6071946461389221d2314cbbae0377610b5b1f6a
+> > > > Author: Jan Bobek <jbobek@nvidia.com>
+> > > > Date:   Tue Mar 21 00:15:27 2023 +0000
+> > > >
+> > > >     feat(NvDisplayControllerDxe): update FDT with framebuffer info
+> > > >
+> > > >     On ready-to-boot and whenever FDT is installed, update FDT with
+> > > >     framebuffer mode information, base address and size.
+> > > >
+> > > >     Signed-off-by: Jan Bobek <jbobek@nvidia.com>
+> > > >     Reviewed-by: Ashish Singhal <ashishsingha@nvidia.com>
+> > > >
+> > > > is in since r36.2
+> > > >
+> > > > $ git tag --contains 6071946461389221d2314cbbae0377610b5b1f6a | gre=
+p "^r"
+> > > > r36.2
+> > > > r36.3.0
+> > > > r36.4.0
+> > > > r36.4.3
+> > > > r36.4.4
+> > > > r36.4.5
+> > > > r38.2
+> > > > r38.4
+> > > >
+> > > > Not so good for T194 since r36 only supports Orin.
+> > > >
+> > > > I'll look into getting this cherry-picked to r35.
+> > > >
+> > > > Mikko
+> > > >
+> > > >
+> > >
+> > > I looked into this and it appears a version of this is in r35, but it
+> > > only supports T234. However, I also found that at one point, L4T
+> > > bootloader configuration has been modified to place the display
+> > > controllers into SMMU bypass until otherwise configured by the kernel
+> > > -- which the kernel does in tegra_mc_probe_device.
+> > >
+> > > I think that means there is still potential for an issue where the
+> > > display continues to be on between tegra_mc_probe_device and tegradrm
+> > > reconfiguring it. However, I cannot reproduce that happening -- most
+> > > likely the display is being turned off before that because of a clock
+> > > or power domain being turned off.
+> > >
+> > > In any case, this means that we no longer need to pass the
+> > > framebuffer's information to the kernel. I think it would be good to
+> > > have some clarity to ensure the issue described above cannot happen,
+> > > but otherwise we should be able to enable IOMMU.
+> >
+> > The problem would happen if you enable some sort of early framebuffer
+> > support, such as simple-drm or simple-framebuffer. Maybe even efifb. I
+> > think it'd still be worth getting the iommu-addresses code into r35 if
+> > for nothing else but to have a bit more of a safety buffer for the
+> > future.
+> >
+> > If we don't and for some reason decide that we want early framebuffer
+> > support, it might be too late to get UEFI updated for Tegra194. I recal=
+l
+> > that the UEFI code for Tegra194 is different from the one for Tegra234,
+> > so it is probably not as trivial as a simple cherry-pick, but I'll try
+> > to do some digging and find the code that does this for Xavier.
+>=20
+> Any updates on this?
 
-will address the nit in patch 2/6.
-As intended in next version, will have your Reviewed-by tag for patches
-2-6/6.
+FWIW, in my testing with L4T versions with UEFI firmware, I'm not seeing=20
+any issues even if efifb is enabled. My inclination would be to merge,=20
+and we can work on issues related to early framebuffer separately.
+
+Outside adding support to r35, one option is to make it so TegraDRM has=20
+to explicitly call tegra_mc_probe_device (not necessarily directly) when=20
+it has quiesced the hardware during probe. This would not allow seamless=20
+early framebuffer transition, but otherwise it should work. Implementing=20
+this for tegra-smmu would also allow us to get rid of the IOMMU API=20
+paths in TegraDRM and Host1x, which would be a great boon.
+
+Cheers
+Mikko
+
+>=20
+> Aaron
+
+
+
+
