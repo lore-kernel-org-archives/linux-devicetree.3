@@ -1,200 +1,115 @@
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F903A257F
-	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 08:21:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775550066; cv=pass; b=XCdlQ9DqYdWzXTjtpTJKAiIw6ZoeZ81/eO3/qCHP2j5HRz2C7bDPTFxys4vJzLtB/eFZNNyXePE9jSuYpGUB3LI40oalVd7ivnUx8GUxflWHLD2LGPQZ+D/7J5ini06mLn0QWbmoHH0JuhAlt1mZ4hbZM81LSKLhLjyUvxtaCTQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775550066; c=relaxed/simple;
-	bh=Qg1cBh282b3adVb2ppjf9AqleTOEcC98vfshrCTnT7s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=t+dS84LcsvX2drjOQDxgzEPrqzFw1qx870nzOk0gv/pRPLjI/Udv9RSelfv/8UKajlbu3VsRDWvN5iM1bnqP2+U48k1ZvoZAgsLGsQEY4XzfrPWXLr1wLV1ioJhp31zC6EoL+1QyNfiGZYLbm6VFXrAEJYJLn8Ni99HbSv6bLJQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XhfzWEfN; arc=pass smtp.client-ip=209.85.219.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B12AB3A257F
+	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 08:21:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775550110; cv=none; b=FaUuqg5Oc6RRZCzMZ8bmmTitA54RVJLYuDicnQgsjvxRXRWqX6QvqesOu/3KjEza/laL+FGp16vF8La/p4Kh9EkC0jQv7eN8J5f1XX69VbzBKcAsLcG/sQI8PS5kTZdiUYlYwDDpTxUpOgTuNI80Koy1cMB13IsudZF03TGdAds=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775550110; c=relaxed/simple;
+	bh=GrX5EJt4t9cQ0y5PJf5xNnceKPLkSMXbMni6kC0vHEA=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=dFkV4PxcpvUPtCT0FnLixJEebuaGPPBuSVPJamHch1cJWK0q454hhpazlRu5FasHDnaQbSRlS5tjj9dIPfAi2W6XM64epEFLYmJEMWOlGIiPHw+yFVVsE1mXIpgEiB/aaYESECa8QmW/5PdfYPFxpHI2Pp0UwHLq4Tx4p/FqoWM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=2p3KwyGA; arc=none smtp.client-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XhfzWEfN"
-Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-8a154cc6a48so61584806d6.0
-        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 01:21:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775550063; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Bj4ue3nEyXTW0eZ8srnbij3O6GLzxobOvakseSAhu/ZhC7t2p22XufN3PbhzrKmgwv
-         bZQqEZtzljBKriMoge5mZcn8awVvH7gjImHpIPpoH0J3ii/cOgAjr/306/nm+yS8feP6
-         1+/jHytvx7zOp2IwqcPVt2T2AF6mT/7ZZpv/wyVM+m29sJmA/NPZgo7Z/lvw1AFK576w
-         o9T0GPXguUYyCzCFsK1HBXZSQShAymrk6RzQA8HjuBY9+Uwhz2NNJSyup4YvuAGj7jzT
-         u94ZObueMPFkvLME1JHJPt66RGKw9x9a//uCNI1H+t1W19yS91OI1tP4FS6n2Xrkphk2
-         zz5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2/PLRkpetLF6qpK6ewdWqtNt7+OhKgQIPHRbLKcPeEY=;
-        fh=3xD4KkX+O1s5vK+Uu+dKKC4qLjIHW9Au8PKtw2h3fcQ=;
-        b=U7Q+3z/kS70hL9d+gZpYmEc7AnNaxnvmpX4npXJlG/YZhnh3Ls8MvboC5t7cRAza+J
-         KD09z4xkLbhb0OnjqRigR0/wVMVN3/uKXvlr7h9ErwlfUIhi7vePBRtJTQLKUau9Azpl
-         lMMdT0KU8DtBDCK9xRrHKVRIXTLqS2dN+M5OPJjqzovJkU2VexqQCZxYXj9gVaPBtV21
-         8qWVRAvNHqvooSwUinTRFqfrl/3jMoqYChNMuaQcEsz507a5ZauICOaxLFl4pO5DEiWj
-         VZ2SPSfHhyssbc/Dwk+Gm3LiX6M7mcRmh+YAa6FzO4vTAXsIy9TL7B4ZTJlqYCB4r0Rh
-         lMtg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="2p3KwyGA"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-66bb4d4fcb4so1830464a12.2
+        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 01:21:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775550063; x=1776154863; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
+        d=fairphone.com; s=fair; t=1775550107; x=1776154907; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=2/PLRkpetLF6qpK6ewdWqtNt7+OhKgQIPHRbLKcPeEY=;
-        b=XhfzWEfNNlqaz4UUUZpR/e+7lsUNjcU5jSueh2ShYmzWNcs8l28I5f20qSZrO6ukfc
-         Pgjfz5/bkgO2qljXfgCSUmuCsAUT/ZjtKAKLr6UXbGDs22p6MY34JvN4pR/zKrdxH/0m
-         lcscGftcZTE8gSLZ+dZVQe+3S9nk28QI7IxAg2s6YQHPPSJl7Pm6YiJ+AFm/QTNRUqqy
-         ONgshKVcOb0UWzO08ah+iD0Certh21y+fc9wk3mhpgBo0u62WlDuuFtxzGUd8PmvWczn
-         QpN3glH9oX9L/r514KE88VFdTxbF88j5ZTPXT/AhOE4ynr3lHMfqx+eWBvesnwz7ijyK
-         5BbA==
+        bh=61qWV5sp3TCv0+h+N/I/PUI4iC1Lq3vzfWty1ImfKAk=;
+        b=2p3KwyGA/dKlU1tpK/sdHOTXlcKnBJLR36sSHWBQUul6dl1xvxMzUz5qOMgHD48V2Y
+         HYmsAtUUJt0GFdXiQ5B0reuR+2cJhahNvaUXbHPG3ZNUL0C/O7DpfGiwoNd6LSkM+hLz
+         2wjhySye0BQOnm4wAejTHtFchMH4wWx268uAzqL6JTPKYRkTMvl4BNQqNrGfX0nszMU+
+         xH9bL8pKJPTXllaTbI5q85ENnev7r3kTsSLhLvkWDnlKgMGMOzcMnsnTgz1avn1+ftxE
+         jMOzUhnln7k1uCztmg0oSuxQ+xyFc4Xf2Y7JFDTtzruAo4kJ8nBOAFG7C0h7aF8O4nLZ
+         wmNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775550063; x=1776154863;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=2/PLRkpetLF6qpK6ewdWqtNt7+OhKgQIPHRbLKcPeEY=;
-        b=GpWpONbmQcXRJEWjUgJhWk6t7Kp5ydcYlt5WasqSkHfoD0l1r3SdJfAGYC4/xhXROt
-         oPbkX7jQyYFGkHlo/K6qpN6Q0rsSLmzLMRG0YGnslSp65SdGiVpuM2CjYo9xfebP+gAT
-         SNmCYLKdIjnnOexv75W6CPj6/emuHOHWKfe3uWZg1q0P/E+EdoEJUDx7kyrFqF3t11F3
-         FSYl/D+8B0tXWEpQLNjVYeq4VzvQXPsesJYqWOKdq12tWkBKX0iLA7T/8M8brcXYVGEY
-         4WUdRJK8+5mMk8WJllhmtXonpFZMYnAfs9TCAiD3Lu5sjXpTLA/a32HDqDC9bEe36I/f
-         lBAw==
-X-Forwarded-Encrypted: i=1; AJvYcCXRkjMkPck5KuIKDGjT+DVoobVH/fiZR7Ttv8oqQFCwJQbga246VGvC6wpIwHrmPJ0dzrd/uazbYSDh@vger.kernel.org
-X-Gm-Message-State: AOJu0YxYHSO30F/2kMI2qnN2j8tdE2U2HcQDmtIC2HDgs7O3KAq8Ogqj
-	9oyEh6TmrQkV80I0gBj6RrKhMZHTHB6zSnkQ1yVH5XcVk9DNI1Suko5kTvpSOM+VNPP4Uhzj85p
-	LVT+0squRsytOlThutr61JodzQJYjbLg=
-X-Gm-Gg: AeBDieu1PgekozO8IftwYftYXr1BRLsDmEwFPi+DqEPdbPKrgb3LTh+pVQw26qT0kRe
-	E6DocCkFQPqwNe0B1O4tOZ3Fcm/JRDVyCF+KsoFlMT/ZNja48D4Yyyh2/KVHgCBMPXE38S9b/dA
-	KxYesgayrDHRzk4LCssEssptsQekDO8tVjVB9HCIHXjRgCiLvE+A7GuqeaRDDBfZwrI/guANvfk
-	NLc8u769qDPVBtlbuRdsDpScKXQ8FwdqPLc3DwtFKaDJvC2O0sClDzhGfWVv5M5KGbi436sf2yA
-	WygPSQqRx9ciuOVQL/9LdexsrV9u++YQQwS1jw0=
-X-Received: by 2002:a05:6214:2247:b0:899:ecd8:d266 with SMTP id
- 6a1803df08f44-8a7028a94b4mr273928136d6.20.1775550063531; Tue, 07 Apr 2026
- 01:21:03 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1775550107; x=1776154907;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=61qWV5sp3TCv0+h+N/I/PUI4iC1Lq3vzfWty1ImfKAk=;
+        b=KtCuXhffFWtKBz0dzPnYqGpBXItRh1OsRIIbPSIAcgKex+nbmgRgXZd5BAAgBQ6wVA
+         rfRaziPYLiVfQoZv6M4+8tAIBAkHHIepULV9FfR5CBC+4h+hHcelYDyABJXaQoHG2sxi
+         jNi3ga1uWYOttoe3lfddhK+qyJTjt7yBsCHXH2Y4EpAONSNW0v6PvmQpSCnBX/IhQ+y0
+         MHHrXaxwTMItarIARaQRi4+4FpD3yXrgceHgqoZQAW0zOeVGIrOSiA+6sFCn3y9PbYZt
+         N3EID4MMlKdAbt0QnyQWHEBO/OYMuxWztAJ45F9Kishcfl2CuzXaClbxF1IvZXPUYFsD
+         Y2xg==
+X-Forwarded-Encrypted: i=1; AJvYcCUjkquSPIVUqTkfJNcs6bfFTDIp+KrTme005Gb2FhCbEyxFyW5IMFlPooYl7t7nLuofa0XlB5423rWs@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywu3JFgCFaQuh5RyW+phXZgBxL5z2abYyf+FBzMza088lca4yhY
+	majG++JJtzdhwAS23HMjROTKCgFSdXiA0hJ1trWQHWpUWPmgAzfxsJWv8kv1g14IXfA=
+X-Gm-Gg: AeBDievXmrhGedagR91QpNxgN/KgjUhxrxRf5JxyP2C2B2Q7LaMEg0kesfppDEXiW3z
+	ClEU9nYnygJg1uW7a++/5ahMOIeWhqHbOROfCh5fW6TXkpB39gLs8o1yEFiFUJdVQ5OGA5EG0KS
+	9Ep306UkQFRjTEKjdUvZiojypxw85WZx8ir8nFYxx6MiHVzKO08unE7Cn9qmte44riCdbeWB7QB
+	P50/e41ZnfuFCIEz9fx2k3Igwh/Y+uDRHxp5UIu1tEw8zWfWfT4zEJ31qL35Q3+eszU/HZiKXlx
+	FCnZsYzAWE3bt+nmcGq/UHh9Xu3BMHBYzkyBfQk6fpKv1kLrYFoc6P9RcCrWxOjNeUeJTPXHr/8
+	DUUn3jjFOkYFjUW7Xq1E7W3C7s8/wW0N/jcNDvj7q1eCYjXM773R7Xljf4ldyNKlcelb17vrY8n
+	XqazG4rXVH8baIljK3LuNsbfj7xmPKdmX+fmXwdGZuSTLCztYZXc+Xt1YM8lCVlRCIejkIF1/Ml
+	BGlj3k=
+X-Received: by 2002:a17:907:c002:b0:b9b:6869:bab0 with SMTP id a640c23a62f3a-b9c672f45b8mr892867266b.2.1775550106969;
+        Tue, 07 Apr 2026 01:21:46 -0700 (PDT)
+Received: from localhost (144-178-202-139.static.ef-service.nl. [144.178.202.139])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9c3d028831sm525473666b.59.2026.04.07.01.21.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 07 Apr 2026 01:21:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260327114842.1300284-1-iansdannapel@gmail.com>
- <20260327114842.1300284-4-iansdannapel@gmail.com> <adSgQJa/8ZPlzPbO@yilunxu-OptiPlex-7050>
-In-Reply-To: <adSgQJa/8ZPlzPbO@yilunxu-OptiPlex-7050>
-From: Ian Dannapel <iansdannapel@gmail.com>
-Date: Tue, 7 Apr 2026 10:20:51 +0200
-X-Gm-Features: AQROBzCvZFmOBhNN1Ozi1tHPyAdgkPxiQnmrsvUxmnFBvR5Z3_2-fIjOS2_VhLw
-Message-ID: <CAKrir7jWnoG4TXHOH5r658GaXL4fBcEP4BUMqHnFu4_ZVJ-o_Q@mail.gmail.com>
-Subject: Re: [PATCH v6 3/3] fpga-mgr: Add Efinix SPI programming driver
-To: Xu Yilun <yilun.xu@linux.intel.com>
-Cc: linux-fpga@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, mdf@kernel.org, yilun.xu@intel.com, 
-	trix@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	neil.armstrong@linaro.org, heiko@sntech.de, marex@nabladev.com, 
-	prabhakar.mahadev-lad.rj@bp.renesas.com, dev@kael-k.io
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 07 Apr 2026 10:21:46 +0200
+Message-Id: <DHMRZE7498YA.2K983P59ETZ7S@fairphone.com>
+Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Bjorn
+ Andersson" <andersson@kernel.org>, "Konrad Dybcio"
+ <konradybcio@kernel.org>, <~postmarketos/upstreaming@lists.sr.ht>,
+ <phone-devel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/2] dt-bindings: sram: qcom,imem: Add the Milos
+ compatible
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Luca Weiss"
+ <luca.weiss@fairphone.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260403-milos-imem-v1-0-4244ebb47017@fairphone.com>
+ <20260403-milos-imem-v1-1-4244ebb47017@fairphone.com>
+ <20260405-rampant-green-harrier-eaf680@quoll>
+In-Reply-To: <20260405-rampant-green-harrier-eaf680@quoll>
 
-Hi,
-thanks for the quick review.
+On Sun Apr 5, 2026 at 9:54 AM CEST, Krzysztof Kozlowski wrote:
+> On Fri, Apr 03, 2026 at 05:00:23PM +0200, Luca Weiss wrote:
+>> Add compatible for Milos SoC IMEM.
+>>=20
+>> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+>> ---
+>>  Documentation/devicetree/bindings/sram/qcom,imem.yaml | 1 +
+>>  1 file changed, 1 insertion(+)
+>>=20
+>> diff --git a/Documentation/devicetree/bindings/sram/qcom,imem.yaml b/Doc=
+umentation/devicetree/bindings/sram/qcom,imem.yaml
+>> index c63026904061..38488e28a6b4 100644
+>> --- a/Documentation/devicetree/bindings/sram/qcom,imem.yaml
+>> +++ b/Documentation/devicetree/bindings/sram/qcom,imem.yaml
+>> @@ -19,6 +19,7 @@ properties:
+>>        - enum:
+>>            - qcom,apq8064-imem
+>>            - qcom,ipq5424-imem
+>> +          - qcom,milos-imem
+>
+> Wasn't this imem binding supposed to stop growing and switch to a
+> different style?
 
-On Tue, Apr 7, 2026 at 8:33=E2=80=AFAM Xu Yilun <yilun.xu@linux.intel.com> =
-wrote:
->
-> > diff --git a/drivers/fpga/Makefile b/drivers/fpga/Makefile
-> > index aeb89bb13517..21eb0ef1fc2e 100644
-> > --- a/drivers/fpga/Makefile
-> > +++ b/drivers/fpga/Makefile
-> > @@ -24,6 +24,7 @@ obj-$(CONFIG_FPGA_MGR_VERSAL_FPGA)  +=3D versal-fpga.=
-o
-> >  obj-$(CONFIG_FPGA_MGR_MICROCHIP_SPI) +=3D microchip-spi.o
-> >  obj-$(CONFIG_FPGA_MGR_LATTICE_SYSCONFIG)     +=3D lattice-sysconfig.o
-> >  obj-$(CONFIG_FPGA_MGR_LATTICE_SYSCONFIG_SPI) +=3D lattice-sysconfig-sp=
-i.o
-> > +obj-$(CONFIG_FPGA_MGR_EFINIX_SPI)    +=3D efinix-spi.o
-> >  obj-$(CONFIG_ALTERA_PR_IP_CORE)              +=3D altera-pr-ip-core.o
-> >  obj-$(CONFIG_ALTERA_PR_IP_CORE_PLAT) +=3D altera-pr-ip-core-plat.o
->
-> This is the tail of "FPGA Manager Drivers", move it here.
-All right
->
-> ...
->
-> > +static int efinix_spi_write_init(struct fpga_manager *mgr,
-> > +                              struct fpga_image_info *info,
-> > +                              const char *buf, size_t count)
-> > +{
-> > +     struct device *dev =3D &mgr->dev;
->
-> Why do you make this change? This is just one-time usage, and in some
-> other functions you don't make the same change. Please delete it.
-Will revert it
->
-> > +     struct efinix_spi_conf *conf =3D mgr->priv;
-> > +     struct spi_transfer assert_cs =3D {
-> > +             .cs_change =3D 1,
-> > +     };
-> > +     struct spi_message message;
-> > +     int ret;
-> > +
-> > +     if (info->flags & FPGA_MGR_PARTIAL_RECONFIG) {
-> > +             dev_err(dev, "Partial reconfiguration not supported\n");
-> > +             return -EOPNOTSUPP;
-> > +     }
-> > +
-> > +     /*
-> > +      * Efinix passive SPI configuration requires chip select to stay
-> > +      * asserted from reset until the bitstream is fully clocked in.
-> > +      * Lock the SPI bus so no other device can toggle CS between the
-> > +      * reset pulse and the write/complete transfers.
-> > +      */
-> > +     spi_bus_lock(conf->spi->controller);
-> > +     spi_message_init_with_transfers(&message, &assert_cs, 1);
-> > +     ret =3D spi_sync_locked(conf->spi, &message);
-> > +     if (ret) {
-> > +             spi_bus_unlock(conf->spi->controller);
-> > +             return ret;
-> > +     }
-> > +
-> > +     /* Reset with CS asserted */
-> > +     efinix_spi_reset(conf);
-> > +
-> > +     return 0;
-> > +}
-> > +
-> > +static int efinix_spi_write(struct fpga_manager *mgr, const char *buf,
-> > +                         size_t count)
-> > +{
-> > +     struct device *dev =3D &mgr->dev;
->
-> ditto.
->
-> > +     struct spi_transfer write_xfer =3D {
-> > +             .tx_buf =3D buf,
-> > +             .len =3D count,
-> > +             .cs_change =3D 1, /* Keep CS asserted */
->
-> Move this comment to its first appearance.
->
-> ...
->
-> > +static const struct of_device_id efinix_spi_of_match[] =3D {
-> > +     { .compatible =3D "efinix,trion-config", },
-> > +     {}
-> > +};
-> > +MODULE_DEVICE_TABLE(of, efinix_spi_of_match);
-> > +
-> > +static const struct spi_device_id efinix_ids[] =3D {
-> > +     { "trion-config", 0 },
-> > +     { "titanium-config", 0 },
-> > +     { "topaz-config", 0 },
->
-> Since you've trimmed of_match_table, any reason to keep 3
-> spi_device_ids? IIUC you could keep them in sync.
-I don't see any reason to have other IDs, will drop them.
+Then I missed the memo. Is this written anywhere (apart from LKML)?
 
-I would also rename the file from efinix-spi.c to efinix-config.c to
-match the dt bindings
+Regards
+Luca
