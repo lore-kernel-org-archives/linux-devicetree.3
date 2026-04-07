@@ -1,178 +1,111 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4AAF2E8DEA;
-	Tue,  7 Apr 2026 14:46:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C585333D4F3
+	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 14:57:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775573176; cv=none; b=nMqxZjpw6irU/CxoI3PbOw9AWH82PWQyZw1EJt4IAOC2ahcnFYt9H9gVScUb+e509R12CoEHN468t4uur/D142gjvtng4VTD/nopplzVZ++vuWtVN5M9ITBjr5WND7z/IKaRwPMzXH6Ll6UBOsTTp+LcEyjdsO/9VaW4cF+fpTI=
+	t=1775573880; cv=none; b=AbL4MJNXqA2rW5Y9f5eOX5EHnxh89PazES9RoPo9+HpQWd2CLMOQ0ADx1I1E3Z4oQxCyJyeNPlSFEFj5pf9eEw8AK+7hTi9nSbx4zHfWnD6n0F2NZmaPzRP7uHm/oCJ0UIsoykIjUfdkIHBHczoo2BYKqo4XO9JzAn1OtWkxmEs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775573176; c=relaxed/simple;
-	bh=MBh1A7ZOApVu6tgjYRrDMhGn2k6yHcaWaU2mTjTyE84=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gxJhl7sUMlLIs2kbQV4rj71f9j8oax3yMm8o5OmNGKOxOWU662p3pKPv+J84vR4gjMVAPGC59BQ7S2Ct7YWGB57I23rRLkY8LZgo7fd/3NINc8TmXYH2PQPw5pW4c7j+Zx4o+aOGdB+D/QCQOJ6+Qu1jNdQTlUXD+tBlzgRHlpY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GwCshkM5; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1775573880; c=relaxed/simple;
+	bh=cyqmsmFaUhWO0usCsRhXLb1p8EfZ2EfkZtfAQtdHSG0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FMcV8hEyoCxsE/4lqNvK5+BtHVma7jw35vbCQMchUnRTsP6oaGZxF8MK96ocWS20ciicerpMAO/f8Yxwr24bunPJzZXt+sEm2CcmbsvBFYO0sGLUbluZs/syo8kqJZHRZDGKfmp+YLnqXl33vBew8iN1ARhMDhdIp0S6tGNq4z4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AcGu+MWK; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GwCshkM5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1775573172; x=1807109172;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=MBh1A7ZOApVu6tgjYRrDMhGn2k6yHcaWaU2mTjTyE84=;
-  b=GwCshkM56ClNa6VVT1J6eTAT5SKj3E21fgXjqZ3MEfyE3ci11/E9lyLG
-   9mPXjiiJ9VjoKToGdXrshVdxWtS2bPW7Sjoj47gTaB9HMco58ljrm2YGq
-   mKlHXAIXAlPsf+F6CqRTnHwDt01EjVY8kzzxaycKGzI0x+JneItSeRcSm
-   rY7fPWP2Hy6e+E6hGfmU2DBR/W6uQyumXjy3ifB89voKuoIkffWk1qIB7
-   Qc8v8PlkIlSOPgmpODJyFwRhVewUzQPeX1fZ4pDXmNeslXMisgy4lqAED
-   GwcUEykRPW/Ub7C2SiBSOKGLM4fV+0go9uhWJGdMcNGXTVQikC4NOKWrk
-   g==;
-X-CSE-ConnectionGUID: zX+nWBAXRfGRjVjLzqwVqQ==
-X-CSE-MsgGUID: QGE1r1qzRjaLi7FU8x9J4w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11752"; a="87241310"
-X-IronPort-AV: E=Sophos;i="6.23,165,1770624000"; 
-   d="scan'208";a="87241310"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Apr 2026 07:46:10 -0700
-X-CSE-ConnectionGUID: gvCoZNvwQiGe5nCmpGl+Jg==
-X-CSE-MsgGUID: Eh7srEzQQkiEWGlZvU5wOQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,165,1770624000"; 
-   d="scan'208";a="228450985"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.182])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Apr 2026 07:46:07 -0700
-Date: Tue, 7 Apr 2026 17:46:05 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AcGu+MWK"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-43ba1f3fa7eso5419753f8f.2
+        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 07:57:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1775573877; x=1776178677; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=2khtJu6y4LBtKzkynEVHeXEXsp2G3dQZozt2yDEDQ5I=;
+        b=AcGu+MWKaxBlR9OCuaRg/7FY7dedBby8JeBdw3lXPsl+7J9IQeRFcI96xzHyd3rbOX
+         Sp+Pp7Evcke/1ZnhMNLq1M8hAe6jD9GZb0N7uqHadPus/OspDp4N/Vj3Lsl7famsIb8q
+         tln/3snA0MZJVlTfzmYD33emyfNcZayHPSVrLHhywnNGFOgkB0pZOSoUHzNtdWiau+iX
+         s6KIapwhGmoJ387YqVtSmoY9PuhBp49gmdTBZQ60PWS/zN09gXYLySbmHmqLmxJLQ8E3
+         ZOX/38psK82LqIUX+JPUDocBMNY5ESGhIbjmkEbL6AUA0qaneI70yFhjUJI6zmD8O6mp
+         89vA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775573877; x=1776178677;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=2khtJu6y4LBtKzkynEVHeXEXsp2G3dQZozt2yDEDQ5I=;
+        b=Kd9KIbMrt+qkfIlhy3ZzLOknjMlq3GVC+mNJ+xsTuOqVdZA+rhaVyd+1HRNoLM5aWP
+         JwwA2WGEOUkKu0Hb7MK4gTMV0QYBJMjf91WQdU2EF2xUBMy8+youi+jrf3DpcHBkImJ0
+         Jo87Qe5YpkLuj8I75h5Tk5+cAu+bWa1jS601r2LaBlGhGKV15jU0U6FVI/1RuBWxsTdH
+         cr4uBb4ifR8baKTt75jHCTa1wCenADwVdSE8GXXfzgHeY/kQpRPrshy85uyrTjkpaGJZ
+         jXw53UCWLTYtesM3auPw79tv1T/fCQFWeqK5C82dCZraxaYob5yZ3tHS3jc6Qpn/tyBE
+         yRqQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUDTJ3UBScxhad3hj3RM/yF9ESzso1Jo0J3VbDUpA1yPImdw+ARgcnnhZUfIYPd2O6qDL3OMO/u+aaw@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxtr7YGJGQGgJgZCKnm91ygQ9RSwgZt1wLSjw9nHjveiqnpNmX6
+	Pxqp9fn86BGfaXqb9tOTM7A0OF+2AWECPxpJmcriyvrH+FJPwCIzrmJm
+X-Gm-Gg: AeBDiev81cled9rHXgs2Av4XIi/qk8TDbXqKWst52GCx6twWC/RZ9qvVzHhHElKb7Z1
+	0oQC1W9YVo/gGfyPklaoJvy81VvY4MgPWxjyeczu0PbOcuLzZWuejcSnHHwTUI3YJVJKM5Jx3uU
+	lpYIV5aDwLmCQvEzdfMEfWTkvvpe4Th2fDFP50BrPgryqaAcvueW5LnHIkzeg1w09fkKXyV+W7d
+	3YSzBNC/6z9qysx7L204W3FYIgmLSI4f73+DCTMng9YtihnVlybPxRlb64wytLEUDKw5MRWkpQ/
+	HgstRZVlEb+9GIhS/aXl8WswQUJdpTuMTkROCzalrrcLp5OHphCDaipITJSobcM9vy0qvxYuvx2
+	o2hBkGy9FYKvFrWfS77vR6Gr3XZ2fZieqhpIY77FEefN4VHEuPcCQaSzrUUkAHe8Kvde7CX1vJG
+	I3Zhz198eueAojpZZiR7nUUnwG1RD2MrOFW40tDmk2SGTSJwh6
+X-Received: by 2002:a05:6000:401f:b0:43d:2be:e4e with SMTP id ffacd0b85a97d-43d292ff520mr25307993f8f.46.1775573876941;
+        Tue, 07 Apr 2026 07:57:56 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:23c4:a758:8a01:3f9a:11a8:20c3:fe58])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43d1e2c5253sm45207018f8f.9.2026.04.07.07.57.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 07 Apr 2026 07:57:56 -0700 (PDT)
+From: Biju <biju.das.au@gmail.com>
+X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
+To: Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/2] iio: dac: ad5706r: Add support for AD5706R DAC
-Message-ID: <adUYrSWiX-oexxGN@ashevche-desk.local>
-References: <20260407-dev_ad5706r-v5-0-a4c7737b6ae9@analog.com>
- <20260407-dev_ad5706r-v5-2-a4c7737b6ae9@analog.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+	linux-spi@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH v3 0/2] Add Renesas RZ/G3L RSPI support
+Date: Tue,  7 Apr 2026 15:57:49 +0100
+Message-ID: <20260407145753.101840-1-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260407-dev_ad5706r-v5-2-a4c7737b6ae9@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Tue, Apr 07, 2026 at 11:39:45AM +0800, Alexis Czezar Torreno wrote:
-> Add support for the Analog Devices AD5706R, a 4-channel 16-bit
-> current output digital-to-analog converter with SPI interface.
-> 
-> Features:
->   - 4 independent DAC channels
->   - Hardware and software LDAC trigger
->   - Configurable output range
->   - PWM-based LDAC control
->   - Dither and toggle modes
->   - Dynamically configurable SPI speed
+From: Biju Das <biju.das.jz@bp.renesas.com>
 
-Mostly okay, see minor comments below, the main one is about treating void * as
-__be16/__be32 * without any validation.
+This patch series adds binding and driver support for RSPI IP found on the
+RZ/G3L SoC. The RSPI is compatible with RZ/V2H RSPI, but has 2 clocks
+compared to 3 on RZ/V2H.
 
-...
+v2->v3:
+ * Added ordered DMA names for the dma-names property.
+ * Dropped the tag from bindings as there is a change related to dma-names
+   property.
+v1->v2:
+ * Rebased to next
+ * Collected tags
 
-> +static int ad5706r_regmap_write(void *context, const void *data, size_t count)
-> +{
-> +	struct ad5706r_state *st = context;
-> +	unsigned int num_bytes, val;
-> +	u16 reg;
-> +
-> +	reg = get_unaligned_be16(data);
-> +	num_bytes = ad5706r_reg_len(reg);
-> +
-> +	struct spi_transfer xfer = {
-> +		.tx_buf = st->tx_buf,
-> +		.len = num_bytes + 2,
-> +	};
+Biju Das (2):
+  dt-bindings: spi: renesas,rzv2h-rspi: Document RZ/G3L SoC
+  spi: rzv2h-rspi: Add support for RZ/G3L (R9A08G046)
 
-> +	val = get_unaligned_be32(data);
-
-Is it safe? The data is void *, no size of it is counted here...
-
-> +	put_unaligned_be32(val, st->tx_buf);
-> +
-> +	/* For single byte, copy the data to the correct position */
-> +	if (num_bytes == AD5706R_SINGLE_BYTE_LEN)
-> +		st->tx_buf[2] = st->tx_buf[3];
-> +
-> +	return spi_sync_transfer(st->spi, &xfer, 1);
-> +}
-
-> +static int ad5706r_regmap_read(void *context, const void *reg_buf,
-> +			       size_t reg_size, void *val_buf, size_t val_size)
-> +{
-> +	struct ad5706r_state *st = context;
-> +	unsigned int num_bytes;
-> +	u16 reg, cmd, val;
-> +	int ret;
-> +
-> +	reg = get_unaligned_be16(reg_buf);
-> +	num_bytes = ad5706r_reg_len(reg);
-> +
-> +	/* Full duplex, device responds immediately after command */
-> +	struct spi_transfer xfer = {
-> +		.tx_buf = st->tx_buf,
-> +		.rx_buf = st->rx_buf,
-> +		.len = 2 + num_bytes,
-> +	};
-> +
-> +	cmd = AD5706R_RD_MASK | (reg & AD5706R_ADDR_MASK);
-> +	put_unaligned_be16(cmd, st->tx_buf);
-
-For the consistency's sake use &st->tx_buf[0].
-
-> +	put_unaligned_be16(0, &st->tx_buf[2]);
-> +
-> +	ret = spi_sync_transfer(st->spi, &xfer, 1);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Extract value from response (skip 2-byte command echo) */
-> +	if (num_bytes == AD5706R_SINGLE_BYTE_LEN)
-> +		val = st->rx_buf[2];
-> +	else if (num_bytes == AD5706R_DOUBLE_BYTE_LEN)
-> +		val = get_unaligned_be16(&st->rx_buf[2]);
-> +	else
-> +		return -EINVAL;
-> +
-> +	put_unaligned_be16(val, val_buf);
-> +
-> +	return 0;
-> +}
-
-...
-
-> +#define AD5706R_CHAN(_channel) {				\
-> +	.type = IIO_CURRENT,					\
-> +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |		\
-> +			      BIT(IIO_CHAN_INFO_SCALE),	\
-
-Missing indentation at the end with tabs.
-
-> +	.output = 1,						\
-> +	.indexed = 1,						\
-> +	.channel = _channel,					\
-> +}
+ .../bindings/spi/renesas,rzv2h-rspi.yaml      | 28 +++++++++++++++++++
+ drivers/spi/spi-rzv2h-rspi.c                  |  8 ++++++
+ 2 files changed, 36 insertions(+)
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.43.0
 
