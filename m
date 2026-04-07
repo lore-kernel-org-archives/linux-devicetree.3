@@ -1,48 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC9B11A4F2F;
-	Tue,  7 Apr 2026 16:13:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5781C30F55F;
+	Tue,  7 Apr 2026 16:14:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775578393; cv=none; b=ixmN94qCKYVylLXmLDc2xO69ymBXOuGN15wyxEKZw7c0q8vDmymOK0smQnziECLb4/2wSRH2XiSRgMFTEG/zayvSUR/SqHyHiLtKdyUIn/1S93H1KksIDalvlFXGXgx9f0VoP0y5F4OJRTAhr1IUiItLdx2rslDPSNFRb488U/o=
+	t=1775578477; cv=none; b=GYZ0C/AP6/qRVGbrGOYVQczrPswK99R7mm4NO9W6qEwKQVlt0NtXWMxXTJ6UTbNGvP59Eg0U9fwWkhXJnDGiTu8RzrHSDsnaYJ0pJGk6KmxG3Nf4Ziymku7fw6RJICA/FpVX3J3zG1iGO0nweCoCBB64whglcQuzjTzr3P/nwA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775578393; c=relaxed/simple;
-	bh=BU7sBThUtcK5sM5FxqZ5b7vi7KzzAI5uMjGipaSr3Kg=;
+	s=arc-20240116; t=1775578477; c=relaxed/simple;
+	bh=no4UEZFQcYB0LKd9v3lZJDFUspSbil4sfM/5uLMFUEE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IqIC6kCPnh1ltLvKRsiI1mx03FZgHFbHw8zgQXf8Hcql9zaew0tizXwt4l8F5jnZrhNyhZL3CGyxZWOaJ3bdKl94JZ1WuUCcA85ST0NiXQTW3trog6vCdZsIoPBr36NUwXSwiH5lDRtcXWGoHuG9OiFsRx3H8ZSdhrNwYh39heM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JvI26XIl; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=Uy0MgCVWsjSKNyaqB7QaH6hJX4Cw+QXIqe/MKPHHw8bGfDFH3YXLO8G8w99K0htDb3Ws3I1zC66uWJcEDYLF+WZurKztqZWUL1d3OITkK2QQT5p4hgdTKm+bqwmMo8ujfGnHe8zqcca6xfXywyKEyWpHiZAwR2nI3pfGf8cuuSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KXIKxyDg; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JvI26XIl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE2BAC19424;
-	Tue,  7 Apr 2026 16:13:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KXIKxyDg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C13B4C116C6;
+	Tue,  7 Apr 2026 16:14:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775578393;
-	bh=BU7sBThUtcK5sM5FxqZ5b7vi7KzzAI5uMjGipaSr3Kg=;
+	s=k20201202; t=1775578477;
+	bh=no4UEZFQcYB0LKd9v3lZJDFUspSbil4sfM/5uLMFUEE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JvI26XIlfrxoKpynrw8j4j7F84fpqZ0MBBnmWNCTPUleDTf1CEeu1KL5dp1YvHz8E
-	 /RX1Sg9E9GvNsWWfRgZEj1QLuU5ryQVU26UHUh7g9bW0t8LSw16PM3bKf89G+iuIUm
-	 K0Kiw33NFbSa38MegXdGR2FskZmYoDDCv0CCuWzRzGi7z+u/yXr66Zg+ObVVavGcV6
-	 ElndDPXe7l9jTml6WLGemlcNuZMkTAIeQL4BnvdsIa2RfTeMpvM917oF/Pgq+v8ED3
-	 fQXsyQJs3hNrQratHD8jEVIFxi/NXb2A9VsBqk03WY9z9n36nERQOEDk1W3z+nHjOL
-	 w7ZjGJR5PZOLg==
-Date: Tue, 7 Apr 2026 11:13:11 -0500
-From: Rob Herring <robh@kernel.org>
-To: Qiang Yu <qiang.yu@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
+	b=KXIKxyDg8FURhlgtTqowsilbqLkXsYuAZuqFYFabH7q74VuTTjAvFmqxNqrigBf63
+	 rRDNOa89wXQBvJZ3oEA57XyewxylOZxKs38xDAGTaiqmj0/0LHbXBa/yTdN0Resa8b
+	 GcnL1cJ832IIXHXIphQsF1WooppBcw0pBH9sRvsDylhROfDNssZzI/2wsq1nCu8JZ0
+	 4QdvDnNetX76aLhQUnT9EPsbwk2GB+oDscNDni37HTQergtnXCjPp5pXHhH7jmB7uZ
+	 hlBr2mXYmfpLyRQxPlORm+54m9IMCRgoeGyw+NB5yPd4bzamisojoJ4rjPRjRUC3RG
+	 fhhrk+Fl18dRQ==
+Date: Tue, 7 Apr 2026 11:14:35 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: linux-sunxi@lists.linux.dev, Chen-Yu Tsai <wens@csie.org>,
+	linux-arm-kernel@lists.infradead.org,
+	Linus Walleij <linusw@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/5] dt-bindings: phy: qcom,sc8280xp-qmp-pcie-phy: Add
- support for glymur Gen5 x8 bifurcation mode
-Message-ID: <20260407161311.GA2666255-robh@kernel.org>
-References: <20260323-glymur_gen5x8_phy_0323-v2-0-ce0fc07f0e52@oss.qualcomm.com>
- <20260323-glymur_gen5x8_phy_0323-v2-1-ce0fc07f0e52@oss.qualcomm.com>
+	Michal Piekos <michal.piekos@mmpsystems.pl>,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Samuel Holland <samuel@sholland.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Jernej Skrabec <jernej.skrabec@gmail.com>
+Subject: Re: [PATCH 3/5] dt-bindings: pinctrl: sun55i-a523: increase IRQ bank
+ number
+Message-ID: <177557847448.2708408.13454310555266452178.robh@kernel.org>
+References: <20260323110151.2352832-1-andre.przywara@arm.com>
+ <20260323110151.2352832-4-andre.przywara@arm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,140 +51,25 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260323-glymur_gen5x8_phy_0323-v2-1-ce0fc07f0e52@oss.qualcomm.com>
+In-Reply-To: <20260323110151.2352832-4-andre.przywara@arm.com>
 
-On Mon, Mar 23, 2026 at 12:15:28AM -0700, Qiang Yu wrote:
-> The Glymur SoC has pcie3a and pcie3b PHYs that can operate in two modes:
+
+On Mon, 23 Mar 2026 12:01:49 +0100, Andre Przywara wrote:
+> The Allwinner A523 SoC implements 10 GPIO banks in the first pinctrl
+> instance, but it skips the first bank (PortA), so their index goes from
+> 1 to 10. The same is actually true for the IRQ banks: there are registers
+> for 11 banks, though the first bank is not implemented (RAZ/WI).
+> In contrast to previous SoCs, the count of the IRQ banks starts with this
+> first unimplemented bank, so we need to provide an interrupt for it.
+> And indeed the A523 user manual lists an interrupt number for PortA, so we
+> need to increase the maximum number of interrupts per pin controller to 11,
+> to be able to assign the correct interrupt number for each bank.
 > 
-> 1. Independent 4-lane mode: Each PHY operates as a separate PCIe Gen5
->    4-lane interface, compatible with qcom,glymur-qmp-gen5x4-pcie-phy
-> 2. Bifurcation mode (8-lane): pcie3a phy acts as leader and pcie3b phy as
->    follower to form a single 8-lane PCIe Gen5 interface
-> 
-> In bifurcation mode, the hardware design requires controlling additional
-> resources beyond the standard pcie3a PHY configuration:
-> 
-> - pcie3b's aux_clk (phy_b_aux)
-> - pcie3b's phy_gdsc power domain
-> - pcie3b's bcr/nocsr reset
-> 
-> Add qcom,glymur-qmp-gen5x8-pcie-phy compatible string to document this
-> 8-lane bifurcation configuration.
-> 
-> The phy_b_aux clock is used as the 6th clock instead of pipediv2,
-> requiring the clock-names enum to be extended to support both
-> [phy_b_aux, pipediv2] options at index 5. This follows the existing
-> pattern used for [rchng, refgen] clocks at index 3.
-> 
-> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
+> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
 > ---
->  .../bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml   | 45 ++++++++++++++++++----
->  1 file changed, 37 insertions(+), 8 deletions(-)
+>  .../bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml   | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml
-> index 3a35120a77ec0ceb814a1cdcacff32fef32b4f7b..25717bc9be98824e38f3c27c3299fbd1f2e7e299 100644
-> --- a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml
-> +++ b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml
-> @@ -18,6 +18,7 @@ properties:
->      enum:
->        - qcom,glymur-qmp-gen4x2-pcie-phy
->        - qcom,glymur-qmp-gen5x4-pcie-phy
-> +      - qcom,glymur-qmp-gen5x8-pcie-phy
->        - qcom,kaanapali-qmp-gen3x2-pcie-phy
->        - qcom,qcs615-qmp-gen3x1-pcie-phy
->        - qcom,qcs8300-qmp-gen4x2-pcie-phy
-> @@ -68,20 +69,23 @@ properties:
->        - const: ref
->        - enum: [rchng, refgen]
->        - const: pipe
-> -      - const: pipediv2
-> +      - enum: [phy_b_aux, pipediv2]
->  
->    power-domains:
-> -    maxItems: 1
-> +    minItems: 1
-> +    maxItems: 2
 
-Once there is more than 1, you have to define the order and what each 
-one is for.
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
->  
->    resets:
->      minItems: 1
-> -    maxItems: 2
-> +    maxItems: 4
->  
->    reset-names:
->      minItems: 1
->      items:
->        - const: phy
->        - const: phy_nocsr
-> +      - const: phy_b
-> +      - const: phy_b_nocsr
->  
->    vdda-phy-supply: true
->  
-> @@ -183,6 +187,7 @@ allOf:
->              enum:
->                - qcom,glymur-qmp-gen4x2-pcie-phy
->                - qcom,glymur-qmp-gen5x4-pcie-phy
-> +              - qcom,glymur-qmp-gen5x8-pcie-phy
->                - qcom,qcs8300-qmp-gen4x2-pcie-phy
->                - qcom,sa8775p-qmp-gen4x2-pcie-phy
->                - qcom,sa8775p-qmp-gen4x4-pcie-phy
-> @@ -201,6 +206,17 @@ allOf:
->          clock-names:
->            minItems: 6
->  
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - qcom,glymur-qmp-gen5x8-pcie-phy
-> +    then:
-> +      properties:
-> +        power-domains:
-> +          minItems: 2
-
-else:
-  maxItems: 1
-
-> +
->    - if:
->        properties:
->          compatible:
-> @@ -223,11 +239,24 @@ allOf:
->          reset-names:
->            minItems: 2
->      else:
-> -      properties:
-> -        resets:
-> -          maxItems: 1
-> -        reset-names:
-> -          maxItems: 1
-> +      if:
-> +        properties:
-> +          compatible:
-> +            contains:
-> +              enum:
-> +                - qcom,glymur-qmp-gen5x8-pcie-phy
-> +      then:
-> +        properties:
-> +          resets:
-> +            minItems: 4
-> +          reset-names:
-> +            minItems: 4
-> +      else:
-> +        properties:
-> +          resets:
-> +            maxItems: 1
-> +          reset-names:
-> +            maxItems: 1
->  
->    - if:
->        properties:
-> 
-> -- 
-> 2.34.1
-> 
