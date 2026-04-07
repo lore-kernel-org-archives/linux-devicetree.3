@@ -1,47 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4629A3A3831;
-	Tue,  7 Apr 2026 07:50:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F68122A80D;
+	Tue,  7 Apr 2026 08:00:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775548244; cv=none; b=apeULu1j7mkTn9G4xJlJhgdtA1PHuZgMdwHbpO97z17qis9S8Y7n4+a9Shv5CgMLD/FI9tVx92pnT8KpG5moGqj/kqgFipnmUHyf44V/PyMYQW8Y3sHJxDsud4bi01Eg3prNJv4TdxzYQsppjKFXzlWqfKbdcI4/9hZqCrcRHT8=
+	t=1775548822; cv=none; b=LD4CmR4w4W5NYTDZ539outMuiwXOuwgi+3CRvDEw8xd9lY54+afTdOVltu+kgWpszu9qVAkjzDENcZKjP+Nq4kmXKf3yxvL8/HLC42hfgTiQgIahBipr00WiDQHs4HvFJrHPd/qNGTFkWt0BYyBNNZu69ocPTtKAgqXX8mBi/MU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775548244; c=relaxed/simple;
-	bh=V9L0KgtiKRhBAbkYtOsVEM62GU0dI0FGYEnsgKtc70Y=;
+	s=arc-20240116; t=1775548822; c=relaxed/simple;
+	bh=rHrJHZY3qKMTUorqxjetQ3vNRjHoOGWipORPYTlnWcw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=f7wHnmSc/ZvGdBcIHIaOQfqgnYJ+hACgqu+uITzcYCbS+XqovOKjmBgutDECXgxrev2nL40FwAKVxrp25fwttRF31mp8yEnxFF6ohaVOFssGY7w1DpKCb9bmQpxJV1mS7fYpNEoZF8f2QlwW3a6h+pVq+GqCmRxNh0VKrUafqXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oPXw++5u; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=ufofmX/JZBjrHE0qwKfubQTIbCYHF/RCX8b4LFamZpoDrOCjut8U34lEWzPo/VSCUiaUsRl5/XawCBIjEPFhdZoQ9iiGv0iP9ygvjvuRHvYKll/Z1sKdShUv9iQph0RYZ83+1XS+GrSmlgmmQkm34/vTLynqNKq0BzSzW8igluc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dtz+EQ+A; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oPXw++5u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BD90C116C6;
-	Tue,  7 Apr 2026 07:50:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dtz+EQ+A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31486C116C6;
+	Tue,  7 Apr 2026 08:00:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775548243;
-	bh=V9L0KgtiKRhBAbkYtOsVEM62GU0dI0FGYEnsgKtc70Y=;
+	s=k20201202; t=1775548821;
+	bh=rHrJHZY3qKMTUorqxjetQ3vNRjHoOGWipORPYTlnWcw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=oPXw++5uE3nR3/HNEy5uVeVDsAFaPTiiKKqGHTjB4Rn22ReQsMHvGC/mi78bptaXw
-	 w7SeJfUJy8pui3uEJLY+/QNbZsP8bBvrgvWvCsK42E4lU2+aKLFSS3LAZTWvE+yoLB
-	 aiUFlPUSHLs6ydgC5O6V30QmiHiK5jQOeBeutcouIdNVlzoHD1QHVIieIj/B76z9r1
-	 oGEfUQIlHyvebi3G8m4oOKTKbXJB3l5d0JarBHW9+bHIJWWir+kTIZJX8dVbilx3y8
-	 4KJmzAFEJpRvi0mIV4d91tejY8s4mfl105Kz/Qqw1IPNo00G+tDNcmt4Cd3QHKkfsz
-	 PC5YzSAe7r93w==
-Date: Tue, 7 Apr 2026 09:50:41 +0200
+	b=Dtz+EQ+A8xG8udTTdM1HoVFU8+4hJXxPzbMZIP+SUCij4EeRR5307rc9i8cFmudGK
+	 QaMMWdbz0ya9goGUhPoHncL9DTx6f7B3dxKgxyPX5k11sYorU7PzaAiOFnGVi/OXsJ
+	 /TV7esJHLFqWcsj+iJIGB4q/NQ+qqQHiUybCJI28W1/o6rR8+qMGEeRSa6/51fBse0
+	 w+IxG+KNgONRpniAzCX8MjOL2xT9wG2Vteorm3WY/2mDJvIBGmRm7SipmkDyvHMgZF
+	 j0QGGxIpHx45bAnbxBrOZ8oCXFanzTVbSEPNPraWjPoN+wMjZjztjIK81sZscEEkNP
+	 ozzv8ti9CK2Lg==
+Date: Tue, 7 Apr 2026 10:00:19 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jia Wang <wangjia@ultrarisc.com>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Jingoo Han <jingoohan1@gmail.com>, 
-	Xincheng Zhang <zhangxincheng@ultrarisc.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-pci@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 3/4] dt-bindings: PCI: Add UltraRISC DP1000 PCIe
- controller
-Message-ID: <20260407-uptight-tody-of-weather-ae1e35@quoll>
-References: <20260407-ultrarisc-pcie-v2-0-2aa2a19a7fb3@ultrarisc.com>
- <20260407-ultrarisc-pcie-v2-3-2aa2a19a7fb3@ultrarisc.com>
+To: Marek Vasut <marex@nabladev.com>
+Cc: devicetree@vger.kernel.org, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Robert Foss <rfoss@kernel.org>, 
+	Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: display: bridge: lt9211: Require data-lanes
+ on DSI input ports
+Message-ID: <20260407-invaluable-pretty-leopard-1e8dfc@quoll>
+References: <20260404034123.340818-1-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,136 +49,92 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260407-ultrarisc-pcie-v2-3-2aa2a19a7fb3@ultrarisc.com>
+In-Reply-To: <20260404034123.340818-1-marex@nabladev.com>
 
-On Tue, Apr 07, 2026 at 10:40:54AM +0800, Jia Wang wrote:
-> Add UltraRISC DP1000 SoC PCIe controller devicetree bindings.
+On Sat, Apr 04, 2026 at 05:40:18AM +0200, Marek Vasut wrote:
+> The Lontium LT9211 is capable of 1..4 DSI lanes per input DSI port,
+> describe the lane count for each input port in the schema.
 > 
-> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
 > ---
->  .../bindings/pci/ultrarisc,dp1000-pcie.yaml        | 103 +++++++++++++++++++++
->  1 file changed, 103 insertions(+)
+> Cc: Andrzej Hajda <andrzej.hajda@intel.com>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
+> Cc: Jonas Karlman <jonas@kwiboo.se>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Neil Armstrong <neil.armstrong@linaro.org>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Robert Foss <rfoss@kernel.org>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: devicetree@vger.kernel.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-kernel@vger.kernel.org
+> ---
+> NOTE: For example Linux kernel driver does already use that information
+>       and fails to probe if it is missing. There are currently no intree
+
+The first sentence must be part of the commit msg. That is important
+reason why you are doing this... but I don't see how you achieve any of
+this. Look:
+
+
+>       users for this binding, so no new warnings will be generated once
+>       this is applied, but a new user is about to be added.
+
+What warnings? How?
+
+> ---
+>  .../display/bridge/lontium,lt9211.yaml        | 37 ++++++++++++++++++-
+>  1 file changed, 35 insertions(+), 2 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/pci/ultrarisc,dp1000-pcie.yaml b/Documentation/devicetree/bindings/pci/ultrarisc,dp1000-pcie.yaml
-> new file mode 100644
-> index 000000000000..d0517130e127
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/pci/ultrarisc,dp1000-pcie.yaml
-> @@ -0,0 +1,103 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/pci/ultrarisc,dp1000-pcie.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: UltraRISC DP1000 PCIe Host Controller
-> +
-> +description: |
+> diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml
+> index 9a6e9b25d14a9..5264fb2b68b78 100644
+> --- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml
+> +++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml
+> @@ -36,18 +36,50 @@ properties:
+>  
+>      properties:
+>        port@0:
+> -        $ref: /schemas/graph.yaml#/properties/port
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
 
-Do not need '|' unless you need to preserve formatting.
+OK, that's correct.
 
-> +  UltraRISC DP1000 SoC PCIe host controller is based on the DesignWare PCIe IP.
-> +  This binding describes the UltraRISC specific extensions to the base
-> +  DesignWare PCIe binding.
+> +        unevaluatedProperties: false
+>          description:
+>            Primary MIPI DSI port-1 for MIPI input or
+>            LVDS port-1 for LVDS input or DPI input.
+>  
+> +        properties:
+> +          endpoint:
+> +            $ref: /schemas/media/video-interfaces.yaml#
+> +            unevaluatedProperties: false
 
-Drop sentence. Do not describe in description what the binding
-describes. It's circular / repetitive. Just describe that.
+That's correct.
 
 > +
-> +maintainers:
-> +  - Xincheng Zhang <zhangxincheng@ultrarisc.com>
-> +  - Jia Wang <wangjia@ultrarisc.com>
-> +
-> +allOf:
-> +  - $ref: /schemas/pci/snps,dw-pcie.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: ultrarisc,dp1000-pcie
-> +
-> +  reg:
-> +    items:
-> +      - description: Data Bus Interface (DBI) registers.
-> +      - description: PCIe configuration space region.
-> +
-> +  reg-names:
-> +    items:
-> +      - const: dbi
-> +      - const: config
-> +
-> +  num-lanes:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    enum: [4, 16]
-> +    description: Number of lanes to use.
-> +
-> +  max-link-speed:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    const: 4
+> +            properties:
+> +              data-lanes:
+> +                description: array of physical DSI data lane indexes.
+> +                minItems: 1
+> +                items:
+> +                  - const: 1
+> +                  - const: 2
+> +                  - const: 3
+> +                  - const: 4
 
-If const then deducible from the compatible. Drop the property.
+That's almost redundant in this context - it was already there - and the
+point is that it solves noting in the problem you had. Binding still
+does not validate the ABI and does not match it, still.
 
-> +    description: Maximum PCIe link speed supported.
-> +
-> +  interrupts:
-> +    description: List of interrupt specifiers used by the controller
-
-Drop description. Obvious.
-
-> +    items:
-> +      - description: MSI interrupt
-> +      - description: Legacy INTA interrupt
-> +      - description: Legacy INTB interrupt
-> +      - description: Legacy INTC interrupt
-> +      - description: Legacy INTD interrupt
-> +
-> +  interrupt-names:
-> +    items:
-> +      - const: msi
-> +      - const: inta
-> +      - const: intb
-> +      - const: intc
-> +      - const: intd
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reg-names
-> +  - interrupts
-> +  - interrupt-names
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    soc {
-> +      #address-cells = <2>;
-> +      #size-cells = <2>;
-> +
-> +      pcie_x16: pcie@21000000 {
-
-Drop unused label
-
-> +        compatible = "ultrarisc,dp1000-pcie";
-
-reg, names and ranges go here. Please follow DTS coding style.
-
-> +        #address-cells = <3>;
-> +        #size-cells = <2>;
-> +        #interrupt-cells = <1>;
-> +        reg = <0x0 0x21000000 0x0 0x01000000>,
-> +              <0x0 0x4fff0000 0x0 0x00010000>;
-> +        reg-names = "dbi", "config";
-> +        device_type = "pci";
-> +        dma-coherent;
-> +        bus-range = <0x0 0xff>;
-> +        num-lanes = <16>;
-> +        ranges = <0x81000000  0x0 0x4fbf0000  0x0 0x4fbf0000  0x0 0x00400000>,
-> +                 <0x82000000  0x0 0x40000000  0x0 0x40000000  0x0 0x0fbf0000>,
-> +                 <0xc3000000 0x40 0x00000000 0x40 0x00000000  0xd 0x00000000>;
-> +
-> +        max-link-speed = <4>;
-
-Drop, compatible defines this.
+Since commit foo bar, driver needs data-lanes, so what you need to do is
+allow them and to require them. You can also specify their constraints
+if device can be configured multiple ways, up to 4 lanes.
 
 Best regards,
 Krzysztof
