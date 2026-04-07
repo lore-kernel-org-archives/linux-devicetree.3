@@ -1,124 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D83C233D503;
-	Tue,  7 Apr 2026 16:40:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FC593B0AFB;
+	Tue,  7 Apr 2026 16:44:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775580006; cv=none; b=YXTbIlXPJVSiUWwUBqzBEgPl31hvpNIhqpvvoCjIH+4jJ9bNQuG5YhXYdkzAp6So0JBzfMMB9jNNUnPICLj3ynBsRNitouU/NK4ba/fB48XDZwMX/3kNJ/KBpAQY3di2KbmPsZ7JSef+RLl3NlVOvOadthl/4jc6T5QfSIf6Fg0=
+	t=1775580273; cv=none; b=nNx77FSHtFbggBfqbYtLwJLIxJ100ZYnr8PWjK9+SEcWcG5goY4fvstLLIDR1OJQ1SxuNv76S/zOJ7vgSiYUKmvoOGIs81GYC6tY9SLzOltWBjwWh1b9mGwnhNmp+NcXV9zEueZzfgqFzd3GkxczTEJ8CTSssJpLOtaEVs4oNOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775580006; c=relaxed/simple;
-	bh=MMjTxiRt182mA+d7a01NisWAIFu2aQYhIc1cD9yuTHw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GoRE7RdumsheFlp0rglpSP1x2Np8/Z9yQZ06VC64iq1Js6Gn0APnrlMcR/6SkX+0SdCsObjaKV2+SNwm95Iar1eVANjW0ZJMoSzdafbX6moDdYkP22hlOhlqudcKiiN8rQ2JhpLljaq2t2YxnXxlv88NmFaeZk9c5DOeO2nlzzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qrxM0ol8; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775580273; c=relaxed/simple;
+	bh=tzAHSt3LwUV+zUY7OFeTugp4DpaoHhCkfNf8sFWlEik=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Y4XdfAErM+xecxFaDXNLicSxZONvkQPwOkMbjItVdCSD26CZTHFEpjcBYa6X2F9YzNOwRYzrrxBvZF2wiwar+UhvXDiWQMmRCN9Mq2rSTZywSIcYuYTi5sUjnVBbLA1WPTJOyIW5y4x/UaQP8WRm0waXrA12QiWKd4PgW1v2Rxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=i8dCHVSr; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qrxM0ol8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47868C19424;
-	Tue,  7 Apr 2026 16:40:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775580006;
-	bh=MMjTxiRt182mA+d7a01NisWAIFu2aQYhIc1cD9yuTHw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qrxM0ol8CZsj8NJDI8i3IHumeMUPnvV5/d+aKFk8P2d+irl/3aG2tFOknzGbXlL5B
-	 TRW3hLQvNVuopxMRi7djN4HYqDOG6Ci9dGFdIrzdzQLDeaZ9YVPquIRDIVrE2382Ik
-	 sA6KhKkiLfxrKkj0xm0zbjzFBK/jFVoddIjC39gY+reZvYHopkYrNRxbf8yho2HtIy
-	 2/OWpoe144YCHotDsm/s/M58lmNI6ToQlkAtU3Z41n18FhtgSbUjHcOa6+h1sz33K1
-	 CRgxgQfAMrm+84RJzJ7LH/7KYMiYT3Ktc5hLSZrKhy7rB1ZOz4CTGfGeMiVuAVy2Q9
-	 hMR4nFG5Dbaiw==
-Date: Tue, 7 Apr 2026 11:40:04 -0500
-From: Rob Herring <robh@kernel.org>
-To: Aaron Kling <webgeek1234@gmail.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Teguh Sobirin <teguh@sobir.in>
-Subject: Re: [PATCH v3 1/2] dt-bindings: display: panel: Add ChipWealth
- CH13726A AMOLED driver
-Message-ID: <20260407164004.GA2715665-robh@kernel.org>
-References: <20260323-ch13726a-v3-0-e28b6f97fe80@gmail.com>
- <20260323-ch13726a-v3-1-e28b6f97fe80@gmail.com>
- <20260324-dexterous-snake-of-progress-ea8783@quoll>
- <CALHNRZ-TAQmcwYr9iW+j+S5Egh11C0LpPeY1SO=hgDdvG8otqQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="i8dCHVSr"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id DE06EC5B197;
+	Tue,  7 Apr 2026 16:45:03 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 0F472603C7;
+	Tue,  7 Apr 2026 16:44:30 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0356210450232;
+	Tue,  7 Apr 2026 18:44:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1775580269; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=gYD2Gjc7rJAWjSj6Vd95CTKmwmb1Qo9EnEgV9KuScQY=;
+	b=i8dCHVSrbdLIfTgUf0ATghhiCbAkPfZ+hg+HYZm1T7vRuPn9nM365iw//rxbJxn2IV3RrF
+	y2iNelHa8JI+vIlW7Jw3pZyhDEzM+H3F7p5PGiHN0a1UhSBflZ62pV404P8nVeUHlPcI4o
+	92Iu+P+e8uUjSAgUDe76x+jP06FxVi7N4d08wjFFEKM8waWBvCZP6XlrxG25V68Vx+oJD1
+	azKI46CwinPIpbzPS9kdbj0eK+LWBTCsixWVbXZVS0mr5f+y0TKv43e4uXa1qGOyIOlkRK
+	pmb8i37oacuj5bgYbOm2bhnHxELVahVJGqNVafD3sy76IQv3ZH47iSzt+m7Bog==
+Date: Tue, 7 Apr 2026 18:44:23 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Cc: "David Gibson" <david@gibson.dropbear.id.au>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "Ayush Singh" <ayush@beagleboard.org>, "Geert
+ Uytterhoeven" <geert@linux-m68k.org>,
+ <devicetree-compiler@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <devicetree-spec@vger.kernel.org>, "Hui Pu"
+ <hui.pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>
+Subject: Re: [RFC PATCH 15/15] Introduce v18 dtb version
+Message-ID: <20260407184423.3060f1cd@bootlin.com>
+In-Reply-To: <DHHX3P5TS0D3.VWALCUNJ7LGL@bootlin.com>
+References: <20260210173349.636766-1-herve.codina@bootlin.com>
+	<20260210173349.636766-16-herve.codina@bootlin.com>
+	<DHHX3P5TS0D3.VWALCUNJ7LGL@bootlin.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CALHNRZ-TAQmcwYr9iW+j+S5Egh11C0LpPeY1SO=hgDdvG8otqQ@mail.gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Mar 24, 2026 at 11:01:33AM -0500, Aaron Kling wrote:
-> On Tue, Mar 24, 2026 at 4:08 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> >
-> > On Mon, Mar 23, 2026 at 12:08:32PM -0500, Aaron Kling wrote:
-> > > The Chip Wealth Technology CH13726A AMOLED driver is a single chip
-> > > solution for MIPI-DSI. This is used for the AYN Thor bottom panel.
-> > >
-> > > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> > > ---
-> > >  .../display/panel/chipwealth,ch13726a.yaml         | 65 ++++++++++++++++++++++
-> > >  1 file changed, 65 insertions(+)
-> > >
-> > > diff --git a/Documentation/devicetree/bindings/display/panel/chipwealth,ch13726a.yaml b/Documentation/devicetree/bindings/display/panel/chipwealth,ch13726a.yaml
-> > > new file mode 100644
-> > > index 0000000000000000000000000000000000000000..5d964900795653401a871994bcf6403cdeaad64f
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/display/panel/chipwealth,ch13726a.yaml
-> > > @@ -0,0 +1,65 @@
-> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/display/panel/chipwealth,ch13726a.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: Chip Wealth Technology CH13726A AMOLED driver
-> > > +
-> > > +maintainers:
-> > > +  - Neil Armstrong <neil.armstrong@linaro.org>
-> > > +
-> > > +description:
-> > > +  Chip Wealth Technology CH13726A is a single-chip solution
-> > > +  for AMOLED connected using a MIPI-DSI video interface.
-> >
-> > Here you describe the hardware, including what I asked last time -
-> > explain why this is ayntec thor panel, but not chipwealth,ch13726a.
-> >
-> > Then also name the file as the compatible. If you do not know the part
-> > (model?) number, then why do you think filename should be called
-> > ch13726a?
+Hi Luca,
+
+On Wed, 01 Apr 2026 17:19:09 +0200
+"Luca Ceresoli" <luca.ceresoli@bootlin.com> wrote:
+
+> On Tue Feb 10, 2026 at 6:33 PM CET, Herve Codina wrote:
+> > This v18 version will add support for
+> >   - Structured tags.
+> >     Those tags value definition will allow old libfdt, dtc and other
+> >     tools to skip unknown tags if encountered in future dtb version.  
 > 
-> The vendor source release for the AYN Thor calls the 'panel' ch13726a,
-> but per the data sheet for said part, it's a chip used in various
-> panels, not a panel itself. The handling for various panels using this
-> chip will share a lot of similarities since the chip is what the
-> kernel driver will talk to. The alternative would be having separate
-> drivers and bindings for every panel that will be mostly duplicated.
-> This is the case for multiple things supported in the kernel already,
-> such as the vtdr6130 which is currently described as a unique panel
-> but is in fact the part number for a ddic. And I will need to refactor
-> that for another device I have in the pipeline. In fact, all the
-> device panels I need to submit in this context reference ddic's and
-> not unique panel models. I'm waiting to see what gets approved for
-> this series before sending the rest of those in.
+> "old" seems to imply that versions released before today will be able to
+> wkip unknown tags. I think this should be clarified along the lines of:
 > 
-> If I add something to the description like 'This chip is not a panel
-> itself, but is used to control various panels', would that be
-> sufficient? Or does the kernel need a new way to describe ddic's
-> separately from panels, since this seems to be common now?
+>   libfdt, dtc and other tools implementing version v18 will be able to wkip
+>   unknown tags in dtbs generated with later versions of dtc
 
-So sounds like the compatible should be '"ayntec,thor-panel-bottom", 
-"chipwealth,ch13726a"' with the filename being chipwealth,ch13726a.yaml. 
-At least that is how we do most cases where we know the underlying chip.
+Yes, I will add this clarification in the next iteration.
 
-Rob
+> 
+> >   - dt_flags header field.
+> >     For now this flag field is set to 0. It is a placeholder for future
+> >     dtb version and could be used to store some dtb related information
+> >     such as the kind of dtb.  
+> 
+> Is this intended for DT addons?
+> 
+> You may mention a realistiv use case here.
+
+Intended, maybe not. Used by addons, yes, for sure.
+
+What do you think if I add the following:
+    For instance, the future addons format will use this field to
+    clearly identify that the dtb is an addon dtb.
+
+...
+> >
+> > Compared to previous version, it is worth noting that the dtb is not  
+>                                                                ^
+> 				                        "dtb version"
+> 
+> > downgrade for all modification but only when unknown tags are removed  
+>   ^
+>   downgraded for any
+> 
+> 
+> > due a property modification.  
+>   ^
+>   "due to a ..."
+> 
+> I'm not sure I got what you mean by the initial "Compared to previous
+> version". Version(s) of what?
+> 
+> If I just remove those 4 words the sentence seems OK to me BTW.
+
+Is the following clearer?
+
+    It is worth noting that with this v18 version, the dtb version is not
+    downgraded for any modification but only when unknown tags are removed
+    due to a property modification. In v17 or older version any modification
+    led to a dtb version downgrade.
+
+Best regards,
+Hervé
