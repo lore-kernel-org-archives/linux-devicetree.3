@@ -1,196 +1,431 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 682652DF717
-	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 21:17:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D032037BE9E;
+	Tue,  7 Apr 2026 21:18:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775596664; cv=none; b=La2jsuG0yA11jS/LaUf8Z2G3n96o8JLY/IJnq2MTnvxrLZPMH4P9Febxessf5eRTrGX8bdYKLAz1ztwmfhIBWmPFzLll8ax8KUwa4wV0104vxkEyyB/nvHU8h3xRd7OT258TbDHz0bzo8uR5J6I/y9IIMnP/QheUKg3Qt9oT7I8=
+	t=1775596739; cv=none; b=PBbuTlABtL4/AozMAKEgzTAlAfdvP/1eYTFqictaJ9QznOGFTqhDZiwy59HkL8gq8uMWjerhFinsAvW6eaIi12w8aPjFMBhiBdjTbqTGcCWAVeC8mtWwsPDyK8DV3fp4U9eNB3lGQUAalhveYsznlEaRdUw4sMjtxMENaihKhs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775596664; c=relaxed/simple;
-	bh=CW2mmqVPJOfpQ+uwXf2PtNaHas3MeOWFcHTYfSdcq0A=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=lMHABwDbgwSu51nt74a9rORcqZ9nnbzpLUAeT1DKCPE0WYDcQWnqJ+qXr4axD8kXMDTcr0wMwiSbiAKMxSpR/OIFu/COgtyvjWIQqU9t4v87EMTxCJOxZZ2QFWNj8fMbpuqLb24TjpF5kzdfC3ka1GeY2vXpSEwX/QovcEBzhEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=L9Z7GZ1Q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CRTrAy0U; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1775596739; c=relaxed/simple;
+	bh=jSas5rEgazXp/utX9MWhYT/lQGoP3bZZEhUIVuNcmOA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kGZwNNZP0apIqqWvpKQTzyoK78EzvfNgb2nMJ654FFrXxilLtfofHohOQLCMOErPzO4N1eZ40Fwyj3temhAvB/qt7sFiNPuzSXqZ5aqD97qCTx+IZNoFZbvt6yK/sPY2PyV2Sm6wi1y2TIbAD9814pdQLhnynUZoRfe4y0vpKeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=L8FY55zD; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="L9Z7GZ1Q";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CRTrAy0U"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 637JcesC2009327
-	for <devicetree@vger.kernel.org>; Tue, 7 Apr 2026 21:17:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	uEwzIG/WP3KfeGGQytAvkF+cLGebDaMgBafkG54molA=; b=L9Z7GZ1Q3EFl1S+D
-	FtFp7TyJHqGUwFpXxRrSIYRA6txv+kkIweUM48X00KEOV6T6z0Cfhchg0Zj3BLbF
-	Z+e0ZUKbBQyQ+V75gWyVBd+fZvhGxjoRj0yIv5DZ3gaQAQYgls2I/T1q2hvze8lY
-	uhtGm2yx691Or2svpfLQvIgv0zFO2MI94EdaY98w+vvBE3IZcAo2GfVrmySKhE6S
-	W1hagftbsjrgTXR2AFh6Ic6/f1AViEoBHwQLyY1TnbqddzDkye3o5x6SmE4+2/jU
-	p+UNWjbhw9618Fa2eU5S7SOTk2D+ZLu7CQe/xMEZSUtT38ihJ7ier+XgGEceV3oz
-	EyD1xQ==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dcmrrvkt1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 21:17:42 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-82c83bd48afso3106070b3a.3
-        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 14:17:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775596661; x=1776201461; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=uEwzIG/WP3KfeGGQytAvkF+cLGebDaMgBafkG54molA=;
-        b=CRTrAy0UVS9NLszitUdA2d/it7gkgpWC4UKWYkiv9MOlufKlaPh/zgQ0caiEoTpOsp
-         qLQl7mSxkvVRYHy9FtH5fzD5TMk9TNWo0zFuL1ptpXzgxj52GKb5iW9tT6CdbBVXROxG
-         nlBrGz4MyFy4+x+FJ85STZxJm5e3/+ODAtSaMiiAwGK/LMT86Ksg3yu3d5zicS2bA2HX
-         DrBPz+lH4ZphvoCq85ecUet8kzboxWIzByRUsS1yMTbfyzTZi1T6o5OWv2etyxaFxuCz
-         ztT/ZkdOS7h6S8Z2crQNBHP7fplLCb/Y2YS5hB1UlCCQvM0izSuURqtzc303cnsdkRJS
-         cFGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775596661; x=1776201461;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=uEwzIG/WP3KfeGGQytAvkF+cLGebDaMgBafkG54molA=;
-        b=cP+dXlqlh6YKfBEOIKmMXHBCF3w40ccG/nYc9XQARQBJdHk0gDS0KHAw0kCZ5v8xZS
-         h4u0m3MVZgH9gIQoJ9+NYmxOiNervKNLRR9eYxGy2Od7HNd9yKJ7HR36I5Rk3J6+cutv
-         4NYBf84xx7vAL/FyR9YxB7omFCnjbkjEnFogCYScYkei+edKdu//j6JtGgtJXCV5OO9i
-         cfJTb9Ndubp9LpdCpkquNXqZYIdM0d6Z7GXDmQxhjtioh5T+q1U8L1TWx4RqlNq9mStP
-         SwQEot9cXLteJLAcimTb0j9I3nV9YblrvHLMbWsxLCB0zow9ZqXgCY8adw+irjNSuhyK
-         e2Ew==
-X-Forwarded-Encrypted: i=1; AJvYcCU3TUAwIvYM1uM+yCYAb/8g7WhNSr0BsH1Vn7cxjD4ulevxGx8fgjlCVMXj71HYvpgXW092cNoisAT/@vger.kernel.org
-X-Gm-Message-State: AOJu0YzMv93FyMpKL1+oOd+OQFPirMxS7+97GT2X+nZZax1xigp/O2/F
-	i/gAuSLhl5aXrfg7dh3i4sNl8YOYWmvUt1epbBMfSgzKrBKWtgfYuSptB5ZhSgkLKvmKnUl/4jU
-	NXeSjh/7XPCV4zfFIUhgdx6EMGhSjsxO59bI3kALsyHwQdKN7C0/8j0wMDgTD5B7B
-X-Gm-Gg: AeBDiev3xCJvnVYkeLSTGAzymsGO9dRVSaZvj83QX7uBaA1ms0uHWrqsQ7OdHEKurr0
-	0kWaCoJ9jMFXhtlMxNgW5jx/nj1C8nqJBdllFeF9AVyU5g+THMbSS3xtLAw/8FIkspNC/LysU/P
-	rhDruiRVAFIS3mJjGgd7BeUEIl5aM/c4HZhQvBsomaAg4bbqPeONefjnhYPJh93XBIv6b9qAq1t
-	7S3pshI07BIKpfyD0UCUwhHAuSQAxXCzZcr2+7Frx4K5GGJe5CIuVc8Arn88TdbDt6ttxcCBfdo
-	bGbit4WcSc0KzJwc/21gpL5SQSuTjkt4y9y/9LROanuXwGIbmMrYCw0e1qzj56ymXttDxpQWmBe
-	rB8nisX7ATwN4dxi93TjWzH90G7W08NaEYgblYqtuTwJklw==
-X-Received: by 2002:a05:6a00:1ac9:b0:82d:24f:2516 with SMTP id d2e1a72fcca58-82d0da2b115mr16522200b3a.11.1775596661252;
-        Tue, 07 Apr 2026 14:17:41 -0700 (PDT)
-X-Received: by 2002:a05:6a00:1ac9:b0:82d:24f:2516 with SMTP id d2e1a72fcca58-82d0da2b115mr16522166b3a.11.1775596660698;
-        Tue, 07 Apr 2026 14:17:40 -0700 (PDT)
-Received: from [192.168.1.8] ([106.222.229.237])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82cf9b6113dsm16813935b3a.23.2026.04.07.14.17.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 07 Apr 2026 14:17:39 -0700 (PDT)
-Message-ID: <27e2e6c8-fd8b-446a-9ef5-802e1af0fb2b@oss.qualcomm.com>
-Date: Wed, 8 Apr 2026 02:47:29 +0530
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="L8FY55zD"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 60CDF113423;
+	Tue,  7 Apr 2026 23:18:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1775596736; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Vn/GYy0xfQKgpHTLHwTCBBPYUF8zvBC2XqkNf21WRgQ=;
+	b=L8FY55zD/uj2ADlZfIsHeOJp59JuVPv+y5V7MZgkxqk0ILB8iC4yHnKhZi7otS33Mx8Iiy
+	QjiTrWH7cv4H7mH7aqEETv1LDeFCMOjY/Z8jq6HAupwy7eEOuVH+KB34mbhQJTeJ2l5L+v
+	j22I4Oc2Jm+w2WAbN3G7MgatEeHd+bJ/OhNiVI7bIo+XfUkUXm3x3H9iK6X3a3pLBn9bZP
+	2zSbrcVno4Kn/ejOmT+dQOklA2XtnlRRLdSW6gQRhhzEycMOo5wv/WsNJqnAwLObP3nYP0
+	IP245sPYHaphXv/535ytYoQ+L7ZaN6jlXqG6BIggC+p+hK99XHrqaiBzzTqo5Q==
+From: Marek Vasut <marex@nabladev.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marex@nabladev.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Fabio Estevam <festevam@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 2/6] arm64: dts: imx8mm: imx8mp: Add legacy board DTOs for Data Modul i.MX8M Mini and Plus eDM SBC
+Date: Tue,  7 Apr 2026 23:17:28 +0200
+Message-ID: <20260407211850.79881-2-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260407211850.79881-1-marex@nabladev.com>
+References: <20260407211850.79881-1-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v2 4/6] drm/msm/a8xx: use pipe protect slot 15 for
- last-span-unbound feature
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-To: Alexander Koskovich <akoskovich@pm.me>
-Cc: Luca Weiss <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov
- <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>
-References: <20260402-adreno-810-v2-0-ce337ca87a9e@pm.me>
- <20260402-adreno-810-v2-4-ce337ca87a9e@pm.me>
- <f85253a3-e03b-4f33-a7ae-df18ba01fd8b@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <f85253a3-e03b-4f33-a7ae-df18ba01fd8b@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA3MDE5NCBTYWx0ZWRfX6QoNevbWk/Wt
- QnM4cqD8jKLIrdKd1m66+yfpNlRCPpoFgsQsp7qGEtzJ7kq5opbtR0wlNRmwJYL//0QOqJOV0L2
- S5dyIXm+8Tc9f0AqMaH8sGIms3FZtDTd524BreWtv5Lc2AlHP+sPh0Kxyr8jgvhpLTsxqfxvni3
- yocE8DwWXTIolX5G00t2rpneEV2n6SzEGLTyNSC6vacaNr3zpswegxvNCAAKD1i4ZPC5oSBtcg8
- SaWlGnVDqLipblSH6dtfVG6eWkexkncykwn78D9fvBgxWeB15XG9Bwm4GQ69pOciyENUxP7WPgy
- FaldxeBtQNH7BQ6rR6z7WVP1l4JB0Wh5EwbQxNOtAAV0WhfLCX0pZAaYeDcu5Neq7S9+DmgQfwm
- vWCIadmLxpamm5Hhfgr3CzlPy/wroNIyywbhirVm1EETaHfYUhB2BOxVAgjiZGoRNJO2tVe60Oo
- llKi9OPLg0fpTJdIBVw==
-X-Proofpoint-GUID: IMNMaAdMCPqNpOCtGGEuMJ_eRXM0skvq
-X-Proofpoint-ORIG-GUID: IMNMaAdMCPqNpOCtGGEuMJ_eRXM0skvq
-X-Authority-Analysis: v=2.4 cv=LquiDHdc c=1 sm=1 tr=0 ts=69d57476 cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=oIjhDLspr5RTlLLUpj0f1A==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=qS-k9e48XBCiOm6aCyoA:9 a=QEXdDO2ut3YA:10
- a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-07_04,2026-04-07_05,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 priorityscore=1501 adultscore=0 phishscore=0
- impostorscore=0 spamscore=0 suspectscore=0 clxscore=1015 bulkscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
- definitions=main-2604070194
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 4/8/2026 2:44 AM, Akhil P Oommen wrote:
-> On 4/3/2026 4:39 AM, Alexander Koskovich wrote:
->> A8XX GPUs have two sets of protect registers: 64 global slots and 16
->> pipe specific slots. The last-span-unbound feature is only available
->> on pipe protect registers, and should always target pipe slot 15.
->>
->> This matches the downstream driver which hardcodes pipe slot 15 for
->> all A8XX GPUs (GRAPHICS.LA.15.0.r1) and resolves protect errors on
->> A810.
->>
->> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
-> 
-> Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-> 
-> -Akhil
-> 
->> ---
->>  drivers/gpu/drm/msm/adreno/a8xx_gpu.c | 9 +++++----
->>  1 file changed, 5 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
->> index 8b4b022d9a6b..102d5e751536 100644
->> --- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
->> +++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
->> @@ -252,11 +252,12 @@ static void a8xx_set_cp_protect(struct msm_gpu *gpu)
->>  	}
->>  
->>  	/*
->> -	 * Last span feature is only supported on PIPE specific register.
->> -	 * So update those here
->> +	 * Last span setting is only being applied to the last pipe specific
->> +	 * register. Hence duplicate the last span from protect reg into the
->> +	 * BR and BV protect reg pipe 15.
+Add legacy board revision compatibility DT overlays for both i.MX8M Mini
+and Plus eDM SBC boards. This adds adjustments to support legacy board
+revisions.
 
-Not sure why you modified the comment. The original comment is accurate.
-LS feature is present only in the last PIPE specific protect register.
+Signed-off-by: Marek Vasut <marex@nabladev.com>
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Fabio Estevam <festevam@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Sascha Hauer <s.hauer@pengutronix.de>
+Cc: devicetree@vger.kernel.org
+Cc: imx@lists.linux.dev
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
+V2: Deduplicate the DTOs further
+V3: New patch split from the original megapatch
+---
+ arch/arm64/boot/dts/freescale/Makefile        | 36 ++++++-
+ ...edm-sbc-overlay-edm-sbc-imx8mm-rev900.dtso | 18 ++++
+ ...bc-overlay-edm-sbc-imx8mp-lvds-rev900.dtso | 41 ++++++++
+ ...bc-overlay-edm-sbc-imx8mp-lvds-rev902.dtso | 14 +++
+ ...edm-sbc-overlay-edm-sbc-imx8mp-rev900.dtso | 97 +++++++++++++++++++
+ ...edm-sbc-overlay-edm-sbc-imx8mp-rev902.dtso | 69 +++++++++++++
+ 6 files changed, 273 insertions(+), 2 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-overlay-edm-sbc-imx8mm-rev900.dtso
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-rev900.dtso
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-rev902.dtso
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-rev900.dtso
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-rev902.dtso
 
--Akhil.
-
->>  	 */
->> -	a8xx_write_pipe(gpu, PIPE_BR, REG_A8XX_CP_PROTECT_PIPE(protect->count_max), final_cfg);
->> -	a8xx_write_pipe(gpu, PIPE_BV, REG_A8XX_CP_PROTECT_PIPE(protect->count_max), final_cfg);
->> +	a8xx_write_pipe(gpu, PIPE_BR, REG_A8XX_CP_PROTECT_PIPE(15), final_cfg);
->> +	a8xx_write_pipe(gpu, PIPE_BV, REG_A8XX_CP_PROTECT_PIPE(15), final_cfg);
->>  
->>  	a8xx_aperture_clear(gpu);
->>  }
->>
-> 
+diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
+index fbfd0e79f118d..09ea330884ad4 100644
+--- a/arch/arm64/boot/dts/freescale/Makefile
++++ b/arch/arm64/boot/dts/freescale/Makefile
+@@ -144,6 +144,10 @@ imx8mm-data-modul-edm-sbc-overlay-edm-mod-imx8mm-lvds-mi1010z1t-1cp11-dtbs := \
+ 	imx8mm-data-modul-edm-sbc.dtb \
+ 	imx8mm-data-modul-edm-sbc-overlay-edm-mod-imx8mm-lvds-mi1010z1t-1cp11.dtbo
+ 
++imx8mm-data-modul-edm-sbc-overlay-edm-sbc-imx8mm-rev900-dtbs := \
++	imx8mm-data-modul-edm-sbc.dtb \
++	imx8mm-data-modul-edm-sbc-overlay-edm-sbc-imx8mm-rev900.dtbo
++
+ dtb-$(CONFIG_ARCH_MXC) += imx8mm-data-modul-edm-sbc.dtb \
+ 			  imx8mm-data-modul-edm-sbc-overlay-edm-mod-imx8mm-lvds-g070y2-l01.dtb \
+ 			  imx8mm-data-modul-edm-sbc-overlay-edm-mod-imx8mm-lvds-g070y2-l01.dtbo \
+@@ -158,7 +162,9 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mm-data-modul-edm-sbc.dtb \
+ 			  imx8mm-data-modul-edm-sbc-overlay-edm-mod-imx8mm-lvds-mi0700a2t-30.dtb \
+ 			  imx8mm-data-modul-edm-sbc-overlay-edm-mod-imx8mm-lvds-mi0700a2t-30.dtbo \
+ 			  imx8mm-data-modul-edm-sbc-overlay-edm-mod-imx8mm-lvds-mi1010z1t-1cp11.dtb \
+-			  imx8mm-data-modul-edm-sbc-overlay-edm-mod-imx8mm-lvds-mi1010z1t-1cp11.dtbo
++			  imx8mm-data-modul-edm-sbc-overlay-edm-mod-imx8mm-lvds-mi1010z1t-1cp11.dtbo \
++			  imx8mm-data-modul-edm-sbc-overlay-edm-sbc-imx8mm-rev900.dtb \
++			  imx8mm-data-modul-edm-sbc-overlay-edm-sbc-imx8mm-rev900.dtbo
+ 
+ dtb-$(CONFIG_ARCH_MXC) += imx8mm-ddr4-evk.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mm-emcon-avari.dtb
+@@ -338,6 +344,24 @@ imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-mi1010z1t-1cp11-dtbs := \
+ 	imx8mp-data-modul-edm-sbc.dtb \
+ 	imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-mi1010z1t-1cp11.dtbo
+ 
++imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-rev900-dtbs := \
++	imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-rev900.dtb \
++	imx8mp-data-modul-edm-sbc-overlay-edm-mod-imx8mm-lvds-g070y2-l01.dtbo \
++	imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-rev900.dtbo
++
++imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-rev902-dtbs := \
++	imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-rev902.dtb \
++	imx8mp-data-modul-edm-sbc-overlay-edm-mod-imx8mm-lvds-g070y2-l01.dtbo \
++	imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-rev902.dtbo
++
++imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-rev900-dtbs := \
++	imx8mp-data-modul-edm-sbc.dtb \
++	imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-rev900.dtbo
++
++imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-rev902-dtbs := \
++	imx8mp-data-modul-edm-sbc.dtb \
++	imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-rev902.dtbo
++
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-data-modul-edm-sbc.dtb \
+ 			  imx8mp-data-modul-edm-sbc-overlay-edm-mod-imx8mm-lvds-g070y2-l01.dtb \
+ 			  imx8mp-data-modul-edm-sbc-overlay-edm-mod-imx8mm-lvds-g070y2-l01.dtbo \
+@@ -366,7 +390,15 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-data-modul-edm-sbc.dtb \
+ 			  imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-mi0700a2t-30.dtb \
+ 			  imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-mi0700a2t-30.dtbo \
+ 			  imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-mi1010z1t-1cp11.dtb \
+-			  imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-mi1010z1t-1cp11.dtbo
++			  imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-mi1010z1t-1cp11.dtbo \
++			  imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-rev900.dtb \
++			  imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-rev900.dtbo \
++			  imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-rev902.dtb \
++			  imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-rev902.dtbo \
++			  imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-rev900.dtb \
++			  imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-rev900.dtbo \
++			  imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-rev902.dtb \
++			  imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-rev902.dtbo
+ 
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-debix-model-a.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-debix-som-a-bmb-08.dtb
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-overlay-edm-sbc-imx8mm-rev900.dtso b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-overlay-edm-sbc-imx8mm-rev900.dtso
+new file mode 100644
+index 0000000000000..14038215f298c
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-overlay-edm-sbc-imx8mm-rev900.dtso
+@@ -0,0 +1,18 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (C) 2023-2026 Marek Vasut
++ */
++/dts-v1/;
++/plugin/;
++
++&fec1 {
++	phy-handle = <&fec1_phy_ath>;
++};
++
++&fec1_phy_ath {
++	status = "okay";
++};
++
++&fec1_phy_bcm {
++	status = "disabled";
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-rev900.dtso b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-rev900.dtso
+new file mode 100644
+index 0000000000000..427585b78e45d
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-rev900.dtso
+@@ -0,0 +1,41 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright 2023-2026 Marek Vasut
++ */
++/dts-v1/;
++/plugin/;
++
++&{/} {
++	reg_panel_vcc_raw: regulator-panel-vcc-raw {
++		compatible = "regulator-fixed";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_panel_vcc_reg>;
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		regulator-name = "PANEL_VCC";
++	};
++};
++
++&panel {
++	power-supply = <&reg_panel_vcc_raw>;
++};
++
++&reg_backlight_en_level {
++	status = "disabled";
++};
++
++&reg_backlight_pwm_level {
++	status = "disabled";
++};
++
++&reg_panel_bl_supply {
++	status = "disabled";
++};
++
++&reg_panel_bl {
++	gpio = <&gpio3 0 0>;
++};
++
++&reg_panel_vcc {
++	status = "disabled";
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-rev902.dtso b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-rev902.dtso
+new file mode 100644
+index 0000000000000..a21fea27e0b41
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-rev902.dtso
+@@ -0,0 +1,14 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright 2023-2026 Marek Vasut
++ */
++/dts-v1/;
++/plugin/;
++
++&reg_panel_bl {
++	gpio = <&gpio3 0 0>;
++};
++
++&reg_panel_vcc {
++	enable-gpios = <&gpio3 6 0>;
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-rev900.dtso b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-rev900.dtso
+new file mode 100644
+index 0000000000000..ec861aa64541e
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-rev900.dtso
+@@ -0,0 +1,97 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (C) 2023-2026 Marek Vasut
++ */
++/dts-v1/;
++/plugin/;
++
++#include "imx8mp-pinfunc.h"
++
++&eeprom900 {
++	status = "okay";
++};
++
++&eeprom902 {
++	status = "disabled";
++};
++
++&eqos {	/* First ethernet */
++	phy-handle = <&phy_eqos_ath>;
++};
++
++&fec {	/* Second ethernet */
++	/* pinctrl_wifi is ENET2_INT# */
++	pinctrl-0 = <&pinctrl_fec &pinctrl_wifi>;
++	phy-handle = <&phy_fec_ath>;
++};
++
++&gpiolvds {
++	status = "disabled";
++};
++
++/*
++ * External pull ups on R242 and R243 on I2C2_SCL_3V3 and I2C2_SDA_3V3
++ * are not populated on this early board revision, activate in-SoC pull
++ * up resistors instead to work around the missing external pull ups.
++ */
++&pinctrl_i2c2 {
++	fsl,pins = <
++		MX8MP_IOMUXC_I2C2_SCL__I2C2_SCL			0x400001c4
++		MX8MP_IOMUXC_I2C2_SDA__I2C2_SDA			0x400001c4
++	>;
++};
++
++&pinctrl_i2c2_gpio {
++	fsl,pins = <
++		MX8MP_IOMUXC_I2C2_SCL__GPIO5_IO16		0x1c4
++		MX8MP_IOMUXC_I2C2_SDA__GPIO5_IO17		0x1c4
++	>;
++};
++
++&pcie_phy {
++	status = "disabled";
++};
++
++&pcie {
++	status = "disabled";
++};
++
++&phy_eqos_ath {
++	/*
++	 * The software support for combination of EEE capable PHY and EEE
++	 * capable MAC is so far missing from the Linux kernel. By default,
++	 * the AR8035 PHY does enable EEE functionality on the PHY side,
++	 * while the EQoS/DWMAC MAC expects to handle the EEE functionality
++	 * on the MAC side. Because the Linux kernel is currently unable to
++	 * align EEE configuration of the PHY and MAC, enabling EEE leads
++	 * to unreliable link. Disable EEE until the kernel support is in
++	 * place.
++	 */
++	eee-broken-100tx;
++	eee-broken-1000t;
++	status = "okay";
++};
++
++&phy_eqos_bcm {
++	status = "disabled";
++};
++
++&phy_fec_ath {
++	status = "okay";
++};
++
++&phy_fec_bcm {
++	status = "disabled";
++};
++
++&reg_pcie0 {
++	status = "disabled";
++};
++
++&tpm {
++	status = "disabled";
++};
++
++&uart4 {
++	status = "disabled";
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-rev902.dtso b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-rev902.dtso
+new file mode 100644
+index 0000000000000..0141b5d77c6bd
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-rev902.dtso
+@@ -0,0 +1,69 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (C) 2024-2026 Marek Vasut
++ */
++/dts-v1/;
++/plugin/;
++
++#include "imx8mp-pinfunc.h"
++
++&pinctrl_hog_misc {
++	fsl,pins = <
++		/* ENET_WOL# -- shared by both PHYs */
++		MX8MP_IOMUXC_GPIO1_IO10__GPIO1_IO10		0x40000090
++
++		/* PG_V_IN_VAR# */
++		MX8MP_IOMUXC_NAND_CE0_B__GPIO3_IO01		0x40000000
++		/* CSI2_PD_1V8 */
++		MX8MP_IOMUXC_NAND_DATA02__GPIO3_IO08		0x0
++		/* CSI2_RESET_1V8# */
++		MX8MP_IOMUXC_NAND_DATA03__GPIO3_IO09		0x0
++
++		/* DIS_USB_DN1 */
++		MX8MP_IOMUXC_SAI2_RXFS__GPIO4_IO21		0x0
++		/* DIS_USB_DN2 */
++		MX8MP_IOMUXC_SAI2_RXC__GPIO4_IO22		0x0
++
++		/* EEPROM_WP_1V8# */
++		MX8MP_IOMUXC_NAND_DQS__GPIO3_IO14		0x100
++		/* PCIE_CLK_GEN_CLKPWRGD_PD_1V8# */
++		MX8MP_IOMUXC_SAI5_RXD0__GPIO3_IO21		0x0
++		/* GRAPHICS_PRSNT_1V8# */
++		MX8MP_IOMUXC_SAI1_TXD6__GPIO4_IO18		0x40000000
++
++		/* CLK_CCM_CLKO1_3V3 */
++		MX8MP_IOMUXC_GPIO1_IO14__CCM_CLKO1		0x10
++	>;
++};
++
++&pinctrl_pcie0 {
++	fsl,pins = <
++		/* M2_PCIE_RST# */
++		MX8MP_IOMUXC_GPIO1_IO05__GPIO1_IO05		0x2
++		/* M2_W_DISABLE1_1V8# */
++		MX8MP_IOMUXC_SAI5_RXD2__GPIO3_IO23		0x2
++		/* M2_W_DISABLE2_1V8# */
++		MX8MP_IOMUXC_SAI5_RXD3__GPIO3_IO24		0x2
++		/* CLK_M2_32K768 */
++		MX8MP_IOMUXC_GPIO1_IO00__CCM_EXT_CLK1		0x14
++		/* M2_PCIE_WAKE# */
++		MX8MP_IOMUXC_GPIO1_IO06__GPIO1_IO06		0x40000140
++		/* M2_PCIE_CLKREQ# */
++		MX8MP_IOMUXC_I2C4_SCL__PCIE_CLKREQ_B		0x61
++	>;
++};
++
++&pinctrl_uart4 {
++	fsl,pins = <
++		MX8MP_IOMUXC_UART4_RXD__UART4_DCE_RX		0x49
++		MX8MP_IOMUXC_UART4_TXD__UART4_DCE_TX		0x49
++	>;
++};
++
++&gpiowifi {
++	status = "disabled";
++};
++
++&uart4 {
++	status = "disabled";
++};
+-- 
+2.53.0
 
