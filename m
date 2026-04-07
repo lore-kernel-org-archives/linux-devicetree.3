@@ -1,127 +1,112 @@
 Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85430399015;
-	Tue,  7 Apr 2026 08:34:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F043039A054;
+	Tue,  7 Apr 2026 08:51:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775550884; cv=none; b=B8pP77hh/p8czJQPIXJEsdyFjS0z3i5JHLSYqhem+oK43nPjfZ8M9m+8LwmGRaQfmakBQl1o2koxlYP0hQsz0FqBCzQ2GmvYPDINfIFxmNX/BfxGHL1rUx/sUcIL57AeFSx5fZnTJsF1+WBcUFjzSz/UgWGzuYlux+4THi7k/B4=
+	t=1775551885; cv=none; b=UK1AJ87u+pbmryDX5UQwQjyRkVXxswasY7cTbAGEv6ojqfrUq2wejgqJ3LKeRP2jFmbw0grptmMDd4LEv3fKf3Yy8Exy8lAk2fMaKw5MGn168EcW4Kb4+Qh5rkjGT3IsK5AyAsp4mgpoKeiy4O9nLUv1wE7rXuvHjAedxq3SGkw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775550884; c=relaxed/simple;
-	bh=ll5Xf8OgLSwzLu5gj1f8oU0LLlZwJOhEZFC7iIA9WeM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GnDSw73FJVR3s38fKH1PKEbfPVHXBIDLw5Mz8eFUca13spXVPmqmdKxs0Qa6PZtzOdaF3HUh7irSFatyMI8Iyzy+yr2rmhF+j8WXOcIE8mV6uba2pOknMj9G9bbKophZsSl/rbV7uQEPhZd+WnQCnp9uHhJawO43ZtG2rnclHo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=xkGzOt2f; arc=none smtp.client-ip=185.246.85.4
+	s=arc-20240116; t=1775551885; c=relaxed/simple;
+	bh=Ahg9vdJz943hFz5wvxcMOJCGbsqUVvccdAeDILnAfNA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WSrAlTKz30QwMnlABbjb4TQtM1eLfR+owkyDl+73Zef6neVuuj1GdQUFOp8klSgQu64NaOCVvjdBVu9QAxgyQT9dUPooogczkUK2rmZpVbsM8OFZz1OuyH3zOxVdQzeNh1rowHRhwPjFHREhmaBp4h37MOHZuSNf+d5C1P/GqFY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=sPibANfZ; arc=none smtp.client-ip=185.246.85.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="xkGzOt2f"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="sPibANfZ"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 032084E4294F;
-	Tue,  7 Apr 2026 08:34:26 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 11AF24E42942;
+	Tue,  7 Apr 2026 08:51:20 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id AA828603C7;
-	Tue,  7 Apr 2026 08:34:26 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 901F310450169;
-	Tue,  7 Apr 2026 10:34:19 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D0D3E603C7;
+	Tue,  7 Apr 2026 08:51:19 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E5E5A1045021A;
+	Tue,  7 Apr 2026 10:51:12 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1775550865; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=MeVAzDBoyGqpo2KSnPfszamlpaudEQsSPJY6g/H6Ddc=;
-	b=xkGzOt2fHZy8K/uSb8zZSe7krpsMuTwa9sV0dleOZNXCZ0Rcr1V7kjqWPldKOwQVt8psTM
-	2hwNspJcP04jPOiA9hsbPXa19xKzO9a1DIRyJhEX6oNnIwPiYbDNv66rWw1CXzVi4aSsv7
-	RZJurmrlgJNgpZPP7uggfsMrRrrvjUoo2EK2LNoCcC7LoiVn8cVo/GTbjuDj7dgGJk9/C/
-	rJtt6dqYnnlxuANE4gZbL6y3vbWEwGICizQSymY3chIhzLn0DuMYt89JYpjNcS6Z6fTXNo
-	pT+lmzsH2H86Ege+Vey2IbLFm+6y9o4jUJSycrPmaiOdEn5M2wFBOqDV6GEeCQ==
-Message-ID: <c2026868-35ff-4b5e-a0e2-bf6b3f6b75ce@bootlin.com>
-Date: Tue, 7 Apr 2026 10:34:18 +0200
+	t=1775551876; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=34dWfgt8RETdYQ5i5Y66cncGUqJhP18j4DDELxo0hGY=;
+	b=sPibANfZWhfnKBLE0Ea+NqC9VsMh/cBKgwtdSHBZm0qqIWzea5XPbCJdo15H/SCQf0j35m
+	HG6rxYYRRUkt6hsu2zAyLkcET/Ydo5k8yrWqHNgtG4u8DtyG9vyGZhlnT82EyJn2lpJ7ON
+	EZhVPr/h8K1Y3kbbglCR8/A0ZZ/nyAcwpG6MOFjtbMiF4ao0sWnHM7EVteoHLon11awjTQ
+	m+bDotlSnd/wdnET1OGw1Fkjo4eqVPLlKCiLkS1na8BcM33oM6vaUJw597k2UA6B+ZsahC
+	+OedEPJprPzHCQt+phHrRLBZC9L5l64rYkPYnrAqI/D/qiLirCcBidj8fNO2NA==
+Date: Tue, 7 Apr 2026 10:51:11 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Cc: "David Gibson" <david@gibson.dropbear.id.au>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "Ayush Singh" <ayush@beagleboard.org>, "Geert
+ Uytterhoeven" <geert@linux-m68k.org>,
+ <devicetree-compiler@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <devicetree-spec@vger.kernel.org>, "Hui Pu"
+ <hui.pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>
+Subject: Re: [RFC PATCH 06/15] libfdt: Don't assume that a FDT_BEGIN_NODE
+ tag is available at offset 0
+Message-ID: <20260407105111.10178de4@bootlin.com>
+In-Reply-To: <DHHWY06CRC21.XENO1ENNAV55@bootlin.com>
+References: <20260210173349.636766-1-herve.codina@bootlin.com>
+	<20260210173349.636766-7-herve.codina@bootlin.com>
+	<DHHWY06CRC21.XENO1ENNAV55@bootlin.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: net: Add schema for LAN75XX compatible
- USB Ethernet controllers
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Aaro Koskinen <aaro.koskinen@iki.fi>,
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-omap@vger.kernel.org
-References: <20260403-b4-var-som-om44-lan7500-v1-0-0dadde850143@bootlin.com>
- <20260403-b4-var-som-om44-lan7500-v1-1-0dadde850143@bootlin.com>
- <20260405-smoky-spectacular-koel-dbfcda@quoll>
-Content-Language: en-US
-From: Thomas Richard <thomas.richard@bootlin.com>
-In-Reply-To: <20260405-smoky-spectacular-koel-dbfcda@quoll>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-Hello Krzysztof,
+Hi Luca, David,
 
-On 4/5/26 10:06 AM, Krzysztof Kozlowski wrote:
-> On Fri, Apr 03, 2026 at 09:02:23PM +0200, Thomas Richard wrote:
->> Create schema for LAN75XX compatible USB Ethernet controllers. The smsc75xx
->> driver only supports LAN7500 and LAN7505 devices.
->>
->> Signed-off-by: Thomas Richard <thomas.richard@bootlin.com>
->> ---
->>  .../devicetree/bindings/net/microchip,lan75xx.yaml | 52 ++++++++++++++++++++++
->>  1 file changed, 52 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/net/microchip,lan75xx.yaml b/Documentation/devicetree/bindings/net/microchip,lan75xx.yaml
->> new file mode 100644
->> index 0000000000000000000000000000000000000000..b84022976044ffec2024cff9fc0aa5016723abed
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/net/microchip,lan75xx.yaml
-> 
-> Rather microchip,lan7500.yaml. Wildcards don't really scale when you
-> have 75yy coming which does not fit into this binding.
-> 
-> 
->> @@ -0,0 +1,52 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/net/microchip,lan75xx.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Microchip LAN7500/LAN7505 USB Ethernet Controllers
->> +
->> +maintainers:
->> +  - Thomas Richard <thomas.richard@bootlin.com>
->> +
->> +description:
->> +  Device tree properties for LAN75XX compatible USB Ethernet controller.
->> +
->> +allOf:
->> +  - $ref: ethernet-controller.yaml#
->> +
->> +properties:
->> +  compatible:
->> +    items:
-> 
-> Drop items, that's enum directly.
-> 
->> +      - enum:
->> +          - usb424,7500
->> +          - usb424,7505
-> 
-> But you should notice that this is exactly the same as 95xx, so why it
-> cannot go there? Because of the wildcard 95xx naming? That's not a
-> reason.
+On Wed, 01 Apr 2026 17:11:42 +0200
+"Luca Ceresoli" <luca.ceresoli@bootlin.com> wrote:
 
-Yes I noticed. I did not put them in 95xx because it is not the same
-driver. Isn't that a valid reason?
+> On Tue Feb 10, 2026 at 6:33 PM CET, Herve Codina wrote:
+> > In several places, libfdt assumes that a FDT_BEGIN_NODE tag is present
+> > at the offset 0 of the structure block.
+> >
+> > This assumption is not correct. Indeed, a FDT_NOP can be present at the
+> > offset 0 and this is a legit case.
+> >
+> > fdt_first_node() has been introduce recently to get the offset of the  
+>                             ^
+> 			    introduced
 
-Best Regards,
-Thomas
+Will be fixed in the next iteration.
 
+...
+> >  int fdt_next_node(const void *fdt, int offset, int *depth)
+> >  {
+> > -	int nextoffset = 0;
+> > +	int nextoffset = offset;
+> >  	uint32_t tag;
+> >
+> > +	if (offset <= 0) {  
+> 
+> What is the difference between 0 and a engative value?
+
+I will add a comment in the code.
+
+0 means that we want the next node from the first node.
+
+The negative value is an invalid value. In that case we start from the
+first node. This was the behavior of the code without my modification and
+I kept the same behavior in that case.
+
+> 
+> This is where the parameter value is not obvious to the newcomer and I'd
+> love seeing it concisely documented.
+
+David, is functions documentation expected ?
+
+I can add to this documentation if you want it.
+
+Best regards,
+Hervé
