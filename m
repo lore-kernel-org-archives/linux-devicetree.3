@@ -1,162 +1,315 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B20762F28E3
-	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 10:30:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775557824; cv=none; b=pXZlnU1UJrQ3G4emMRt4KdJ7BSusc/UCfNEui8oX3DrpwZfJHKVBONnaFyVPIQM2k7UiD1dnXsy4ZbPnX6JGe+nq+rByTXCPeGHwTeT0Zk6kQgr4w8Pzy39CV87pJvRCn2iWJrP3TZbzgvRn/aiMw3Dz8+GDD2GNIZsiO3F3lko=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775557824; c=relaxed/simple;
-	bh=kfFx7m0Kla4Oibk5jdaHYReFM8hCk3zhSmSJxrtCcHs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=o9dOwHm08MTm4cRE6A1ylFHsSblLJCEeZc/uHOaDfC8l0adVXyVfMn0iMcKUKfYF3+9FvnCWyHB3RkIApWbdhgiZaECfoo14hDlgmW7Beo5CW1/p8bjl3rpkeOusNEsQyq6g+f6y3LTeGeJ5ss70A4dHIa0UWkvI9uB66HydRtU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lXS8Wm+/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CTVYR1O7; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5656338B7DB
+	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 10:30:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.179
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775557832; cv=pass; b=HpXzCtaKHDS18N3d83ohbmFY8wYxy+1OuBbylLPkVOrYKnsiGdXkca4E2lOVuRw3l6iVoBz+WgGvIytZYplB3SlVLFOT6jhkI0LDmot93WT4Wdwj8OGkshAjupOa/2s6nUcuJ3ev125/Gg9yImP4s9XQuFKfkxIAPHnAWEMIRpE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775557832; c=relaxed/simple;
+	bh=Ba+EPBIXHLX5yi91gfChxyHyKGIt/RO5OcF1N/vWGsQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=itlqbRjpt3LnyFpBvaNKskMjCD1unhaU/wzJs/byWLFHq1CEEdO9GR4bU3gND1xcW1/nI7dWd1mZOTIFiANGLkn/fiYjPuDBzPnGKPiMQyaff/OhYp+Df4KSBqxNtUFmVe4P5V1aaoXqRXNjToYAAWa7b9NvOjF89ts7o1AXZjo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OhPqlvBj; arc=pass smtp.client-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lXS8Wm+/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CTVYR1O7"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6376XZHk2550172
-	for <devicetree@vger.kernel.org>; Tue, 7 Apr 2026 10:30:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	NmHqlg54vBPFph368wjHJzU6/A3tTDeU3UW0DJZT35g=; b=lXS8Wm+/sHuYTbr2
-	fUqPTFB7C3j4FBWch5Llgs8xNJuJJYrCNg7YOtmT7ptcFOkjJw+ccSw6GGEetUWA
-	NmcvLOBQfrclKzZvB2yeVhaejt5P/duE2mCawpkgXS/N9f6OVu7xO5nIOG2xHma4
-	yyaIgtpQ9AnrtBvp2kIUYJvkuseEJ6Bg8KiHinvJx2sg/AMvuKDmFkLT1RIUGD+n
-	OlBk0cJNWTywB/6VWkVSPSM7wE6wGs34z7698N7ViBWr6pw2krIlr94Bb1NGt/NY
-	RBfCTeYjtEuN3DT5e9hh7PEJkC90tISQVUVaJtLgjorh3WGre0/iPbCqyhQO6ET2
-	EL041g==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dcmrea9yv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 10:30:22 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-8cfd003bfe2so131127585a.0
-        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 03:30:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OhPqlvBj"
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-2c156c4a9efso6085543eec.1
+        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 03:30:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775557830; cv=none;
+        d=google.com; s=arc-20240605;
+        b=OjhdMGS2kTH+A8Nx2AdCPjhrnRRyGTt/3GGQ6LF73ztMccZf/TaWoBDgd0WZO8bx7K
+         CvYqHn27noC2vxObDSc1NXci6JNJ0cpLkXIREuLTABxq/FIi3fnMxnsWwJFuLsMvQcaY
+         rcjFk+Z5TDb0kmdzT/kcOh3GsrtIDU0v06DOWzWkpcD7urfZ0yCdHflmKg9uAYQLZBg9
+         H9+F8O5lmacqw2li+FVlYiRqPLy+pMwphVQuqFAStX2yQ6edgzbyzxQCEn2LhrjrE8yt
+         /fhj9w22Esbcki7JoVuNWF3FSPoJHqk6Kcn2Z7hKK7IYJUbvs1NExM+ZtnX2zqGFpdkj
+         5hMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=LU59ZAtUrZsopurC7wrRYfVPPQHDPwx0HnnnYqVagoU=;
+        fh=nW4QBJrmtm6Xfst4ugSTCC8xnqGpFffwwIwgrbD4Oqw=;
+        b=YQdxtHko51vVkiamhmAY21zYUkhIaLwX082oAqIUauMv+VnxJSfy2TpHJ8/bVNwP++
+         XrJQtwEq6yzol9fgRVKbt1bhIg1quKPq3gWlpLczL8TzSkUvLVRbPjRK9L/qwIqG+6Jg
+         A2PdkDV1Bg72yoY5KeuxgdHsk3FLHKMbmOc2XCRzrfuibQx9JzvaNjQEZeMyibZJlB1I
+         Etttu02mGu2kYcgX4+ZGe2aXxp4zibcuLS7Xjax9IVyh7qXeYGB3FdBgMQ1XM6ZCocg7
+         cxY3z1M8Xgrcx+T7D8d/Krut9NDyv35MXBar14BqbUJDNrJO6hzh62mIW++9UO8tPD7h
+         xBSw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775557822; x=1776162622; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=NmHqlg54vBPFph368wjHJzU6/A3tTDeU3UW0DJZT35g=;
-        b=CTVYR1O73IVZAI8xtynf6UaLBP6t867+i1O9xoL2JqN3/TE5kdo/u9+V/M5hW1g03S
-         K34UfxF7P+Whayh1rZrzBl0nCD2pxdYghlXxH7FR3GT964ca0blhC8VoWlobfMDTMax0
-         7mMvWW9QTY/2xMQpYg2PVl2mTWT30jYIVXVCfVGlgMoNnpz1cGh4MwWF/TsiZf71yaCX
-         rRIxyxmhn1EhbWHvnkHyONSlBasBP/xWofVWpWJbebiTUTh1EpC1gcZUupnMQ/zxZlQj
-         fgznqRyaYp89QVWQuh9BMIRjf8pupdLjp9CzpYR+Z+X3FdiGn97jmFc1vrLpWFOFCrRU
-         gxMg==
+        d=gmail.com; s=20251104; t=1775557830; x=1776162630; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=LU59ZAtUrZsopurC7wrRYfVPPQHDPwx0HnnnYqVagoU=;
+        b=OhPqlvBjov9tH41oQAt6fX3Pqt0VWiTl7dBBEHS98f1PL5X/aWBMrx5rE/aKiiiIoi
+         IgS1LePj7T+Vq4NKcyERWizj7xY6LnMq7Xo1pGTsCSD5chXG9Y+MaKgBOgNsSfqqLq8h
+         KqbFLhcUpEX5q953l/dTWUUURp9rtP5Bk8uQDwxtYIaT/vxDaCPc8FEYeTRT79b7R1Cn
+         uA7TuKnSQOHg9RqE/i5OR6Qm6vCNY3c6oyX92DMle+tR+RkJh4KfAMMDZzen0fKU4o5+
+         zTluE8ocuABIS1gfmc6p6Jysciamji/cnVZCH2dfsuZE5KPe3dfQJ0r8Gk4s30+eL0Hq
+         LKSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775557822; x=1776162622;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=NmHqlg54vBPFph368wjHJzU6/A3tTDeU3UW0DJZT35g=;
-        b=n9Un1KnsXtO7HeSPy8k7Jl2zz+QpM41xncXJB7lDb4SoLX5Y7E9cM2ymy3L7h8ogRr
-         ROujI8SdZ9D8smyKK+ChOj0KC4ri6NWNZwzVzTEh+tKvwQFGXkbEgmQ3kRBuylegjO04
-         RTAjxUuSF+Pyyw+bcDwclsD48JLvTcVRqoEXKCRESmXUBgyEmDpc+G3UijXfWLR1mRUv
-         n/U8ybN9EwVpIgZ//k8Q8yI/qZfwKY8XrjwEKWFNTnd56EufIUo7vgDSpj4WdfUDDKJu
-         Bvk+WkAVpaLcC+JG7K8BZBVbNRRt3hIJdeUYZdGoyXwNhaqQVjaYJQeiYOoTxCbI64e5
-         lQGA==
-X-Forwarded-Encrypted: i=1; AJvYcCXY1m1amuXDJei2fa1JsTCJUxJoyf4Pwq6wobZXI2o/V9/XsxvyW2CzIsBANRJD/s+XuCi06i8Q1WaN@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzz+AQV0ry7XU+Xby6iOFIjjYxtvbn62guT6B/SVd9tJ8f+ti49
-	fs67TIngeEnR1lEAHTm3/0I/TmeIj1lTyGJu7ZlTdEXZay2dnwEIxELl+B649OQvNoiRpm7R6P8
-	3xFKvhc07qEvrlVBWeRxLzLFuSaNTBrrgB6Y7MlMERbAuc9dno513bSU3EG1DCOkU
-X-Gm-Gg: AeBDieseX/ebtwXBtxAbUctvyasTEFZF7ELbVDuMt7i7B+1cu2krBZ3WQtmXswYWICu
-	bqCYidLwrR6byBF1Uh8LNrPVDQxmzHuMIB0w111X0tgQT7pzMyksNGKzM71t6bPGK3wa1wjWWi+
-	VvSU1f1kWCOSXi01CK056rFi6a47/tz3VSNFOlcymVJaW+Hu/vmL2z/jRGMT9zlQgPYFDUmazBf
-	OKnf88qaKJEX1w6kEDA0KVUbwL1NJIOO7qx9Qwo5OTUUTg/O1p7kCnOAxxUljfb8HCajPeoyFmk
-	UC1UaxhYpwaHSQ6SXRIrFGkb5bmUL/VWdwImlk1StDR2mqLVhT7HE9fckeNmAGsG2OXfuKXCXP4
-	WDQjwyCNauAOxLMkYlA6y097BLZVSzZBotYPxiaHQWm2876PSRDgwEKk53xI7W4+6yzaoyCZQHF
-	bYDkA=
-X-Received: by 2002:a05:620a:199d:b0:8cf:c757:f1e8 with SMTP id af79cd13be357-8d41e81fe78mr1565719285a.7.1775557821885;
-        Tue, 07 Apr 2026 03:30:21 -0700 (PDT)
-X-Received: by 2002:a05:620a:199d:b0:8cf:c757:f1e8 with SMTP id af79cd13be357-8d41e81fe78mr1565714485a.7.1775557821327;
-        Tue, 07 Apr 2026 03:30:21 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-66e033a74e8sm4185135a12.16.2026.04.07.03.30.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 07 Apr 2026 03:30:20 -0700 (PDT)
-Message-ID: <9788748f-fd4b-474e-9378-8ffdb9b18527@oss.qualcomm.com>
-Date: Tue, 7 Apr 2026 12:30:16 +0200
+        d=1e100.net; s=20251104; t=1775557830; x=1776162630;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=LU59ZAtUrZsopurC7wrRYfVPPQHDPwx0HnnnYqVagoU=;
+        b=ssvnJU1lhee2XcyCW045vrF23hUcx1xjBbWrn73Go/abxo2qPSmI2N+Hi2mCh7oFOp
+         3Holy5fiRaEzHate9c2Qli36DNMxl4szOntF7dIx7rnHlSxomBNJgr9zb8lDisOhNOq/
+         K7EE/KLvqX3wdPEY+R+qRT7hg6NQmiPaD9VUr+S8Bac9AjnxCmZCxg1Bwn8koQ+BwgD3
+         PmVOeoHkiUGAroPun+k4VeG7tiMYW6pLXog3eAlNs519DZfctJoW+oXdbLRKyZcbPnAA
+         DIWj7QBFCc50zmmi4mC28B1s5a/aiqUYgHKCic26pbDH5C+I/BXgzZDgGuxE7ODmNZxp
+         mYtw==
+X-Forwarded-Encrypted: i=1; AJvYcCXKswOsMmec9KwNG7JKeetNPn8rUSY1+VSvMrFg3zuC9U9nTdArdBa5pemGq7RkS9yNolJ+B/wSE5Ms@vger.kernel.org
+X-Gm-Message-State: AOJu0YyvPwxpv2bvr0r0icrtb86CGIzBXchHohrIG0wFaaxDB5Ekt78R
+	ZsZsCjuQb3tx9iw00hW1EeGkfUkwJFzXM2h+qBpHLAKaQBNSbAMev6Qc41rpYiSePyxfooy+zWD
+	iXYoeXXrfH3drGRUMmDdhJrEHNmo+AUk=
+X-Gm-Gg: AeBDievfmivPOpPvtwkaImrie4/ZFlKTqELoiucvp7wL2DjO4sGdLcQ1WCacypP3yGw
+	NCzKE+lDbViGXdllIqNU9BNL3bYD1UrojXWWO3kvp2YPM1hl0sUM+8gYnUEeWmkznmMIKgoFKfR
+	v79B5ipbOImtqqQca9WVynTbef9UFBLllB7tDbcYYDbkfz9rw3uukIkn5QNZAsSu+2ID6tm5c1d
+	V7jk2BXW0A64euL5bOTmFRyfPA++AMVhSjzv43m5rYGr6h+2ApT+uBZh6J5ZlMeJrNJL9LVSsOE
+	JlMG7pTDD2DMM+Egcbw=
+X-Received: by 2002:a05:7300:6d23:b0:2a4:3593:466c with SMTP id
+ 5a478bee46e88-2cbf9fe2d96mr8206822eec.8.1775557830390; Tue, 07 Apr 2026
+ 03:30:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/6] arm64: dts: qcom: milos: Add IPA node
-To: Luca Weiss <luca.weiss@fairphone.com>, Alex Elder <elder@kernel.org>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller"
- <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Alexander Koskovich <akoskovich@pm.me>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
-        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260403-milos-ipa-v1-0-01e9e4e03d3e@fairphone.com>
- <20260403-milos-ipa-v1-5-01e9e4e03d3e@fairphone.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260403-milos-ipa-v1-5-01e9e4e03d3e@fairphone.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=OKEXGyaB c=1 sm=1 tr=0 ts=69d4dcbe cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=6H0WHjuAAAAA:8 a=EUspDBNiAAAA:8 a=apJo_pz1HnjGAtgFfvkA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22 a=Soq9LBFxuPC4vsCAQt-j:22
-X-Proofpoint-GUID: FwSg3UZJIMmHmVDFwo1gGaEKwJyTEo7O
-X-Proofpoint-ORIG-GUID: FwSg3UZJIMmHmVDFwo1gGaEKwJyTEo7O
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA3MDA5NyBTYWx0ZWRfX8TmmF3DQZ/gO
- ZleU87wNvRWqiMNjEXbMN+vjS1EZNDmHxcme8NuN25mGelZIJ+9/fz8TQafEOGm130IWd4SoJKg
- 5Ea93i8xPzXZaf+tjpO4bJgAEmGIM2cF6MDTlQ0MVOjNnye23pLaZSNbrVMfij9VK+Nl+IW1WLn
- w0P6jZLjuQ4fR7B4kdVgzy2myDphKiBoq87NGhUe+qSk3UmeIdb2l7YXEDLTX1IshiSFsusLfW8
- d0vt2b3nvyCM7wea4wPvg673f50EXL508x2m5jI6GIvIaMcfSmPIgEZ9hWvhnNds4exyUInpAzF
- dnYS05hopRPN6qIK1GhJLNc7z2ib1Tq3SG8THZCaMM+voSGg23yA8W3ZgjWS7T8XBLV8eVJx9kS
- tCRdUrs952TgDD/24Do1Zfv098UBPC9Qrn7gjR08wVYuluhwpspogemcq1R6CwyjNjkC94byLCJ
- vNnseNcxHEVKqUa2X5w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-07_02,2026-04-07_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 spamscore=0 impostorscore=0 lowpriorityscore=0
- clxscore=1015 adultscore=0 malwarescore=0 suspectscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604070097
+References: <20260406101647.109667-1-Ashish.Yadav@infineon.com> <20260406101647.109667-3-Ashish.Yadav@infineon.com>
+In-Reply-To: <20260406101647.109667-3-Ashish.Yadav@infineon.com>
+From: ashish yadav <ashishyadav78@gmail.com>
+Date: Tue, 7 Apr 2026 16:00:18 +0530
+X-Gm-Features: AQROBzCqb84kfIhnX1-X0hgBC6HBnxqF1ScBqNXT6675NCDCLNPgDaeYR8SOFQc
+Message-ID: <CAJKbuCYuor3AstSOuzEK_byqwgdkLsaE9Z9k7kfb3WKpyjK4=g@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] hwmon:(pmbus/xdp720) Add support for efuse xdp720
+To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Ashish Yadav <ashish.yadav@infineon.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 4/3/26 6:43 PM, Luca Weiss wrote:
-> Add the description of the IPA block in the Milos SoC.
-> 
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Hi Guenter,
+
+In this patch, info about vdd-vin-supply is added through
+devm_regulator_get_enable().
+https://lore.kernel.org/all/20260406101647.109667-2-Ashish.Yadav@infineon.c=
+om/
+
+Thanks & Regards
+   Ashish Yadav
+
+On Mon, Apr 6, 2026 at 3:47=E2=80=AFPM ASHISH YADAV <ashishyadav78@gmail.co=
+m> wrote:
+>
+> From: Ashish Yadav <ashish.yadav@infineon.com>
+>
+> Add the pmbus driver for Infineon XDP720 Digital eFuse Controller.
+>
+> Signed-off-by: Ashish Yadav <ashish.yadav@infineon.com>
 > ---
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-Konrad
-
-
-> +			iommus = <&apps_smmu 0x4a0 0x0>,
-> +				 <&apps_smmu 0x4a2 0x0>;
-
-P.S.
-
-I don't know what's the scope of upstream IPA today, but it seems like
-there's two additional SIDs: 0x4a1 attached to an "ipa_smmu_wlan"
-subnode and another one (0x4a4) called ipa_smmu_11ad, perhaps for
-some tighter integration with ath1xk_ahb?
-
-But again, I don't know much.
-
-Konrad
+> XDP720 Digital eFuse Controller provides accurate system telemetry
+> (V, I, P, T) and reports analog current at the IMON pin for post-processi=
+ng.
+>
+> The Current and Power measurement depends on the RIMON and GIMON values.
+> Please look into data sheet sections 5.4.2 and 5.4.4 for more details:
+> https://www.infineon.com/assets/row/public/documents/24/49/infineon-xdp72=
+0-001-datasheet-en.pdf
+>
+> The GIMON (microA/A) depends on the 10th bit of TELEMETRY_AVG PMBUS Regis=
+ter.
+> The value of RIMON (kohm) can be provided by the user through device tree=
+ using
+> infineon,rimon-micro-ohms  property.
+> ---
+>  drivers/hwmon/pmbus/Kconfig  |   9 +++
+>  drivers/hwmon/pmbus/Makefile |   1 +
+>  drivers/hwmon/pmbus/xdp720.c | 128 +++++++++++++++++++++++++++++++++++
+>  3 files changed, 138 insertions(+)
+>  create mode 100644 drivers/hwmon/pmbus/xdp720.c
+>
+> diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
+> index fc1273abe357..c419e3ecce90 100644
+> --- a/drivers/hwmon/pmbus/Kconfig
+> +++ b/drivers/hwmon/pmbus/Kconfig
+> @@ -702,6 +702,15 @@ config SENSORS_XDP710
+>           This driver can also be built as a module. If so, the module wi=
+ll
+>           be called xdp710.
+>
+> +config SENSORS_XDP720
+> +       tristate "Infineon XDP720 family"
+> +       help
+> +         If you say yes here you get hardware monitoring support for Inf=
+ineon
+> +         XDP720.
+> +
+> +         This driver can also be built as a module. If so, the module wi=
+ll
+> +         be called xdp720.
+> +
+>  config SENSORS_XDPE152
+>         tristate "Infineon XDPE152 family"
+>         help
+> diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
+> index d6c86924f887..1cac7ccae79f 100644
+> --- a/drivers/hwmon/pmbus/Makefile
+> +++ b/drivers/hwmon/pmbus/Makefile
+> @@ -68,6 +68,7 @@ obj-$(CONFIG_SENSORS_TPS546D24)       +=3D tps546d24.o
+>  obj-$(CONFIG_SENSORS_UCD9000)  +=3D ucd9000.o
+>  obj-$(CONFIG_SENSORS_UCD9200)  +=3D ucd9200.o
+>  obj-$(CONFIG_SENSORS_XDP710)   +=3D xdp710.o
+> +obj-$(CONFIG_SENSORS_XDP720)   +=3D xdp720.o
+>  obj-$(CONFIG_SENSORS_XDPE122)  +=3D xdpe12284.o
+>  obj-$(CONFIG_SENSORS_XDPE152)  +=3D xdpe152c4.o
+>  obj-$(CONFIG_SENSORS_ZL6100)   +=3D zl6100.o
+> diff --git a/drivers/hwmon/pmbus/xdp720.c b/drivers/hwmon/pmbus/xdp720.c
+> new file mode 100644
+> index 000000000000..8729a771f216
+> --- /dev/null
+> +++ b/drivers/hwmon/pmbus/xdp720.c
+> @@ -0,0 +1,128 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/*
+> + * Hardware monitoring driver for Infineon XDP720 Digital eFuse Controll=
+er
+> + *
+> + * Copyright (c) 2026 Infineon Technologies. All rights reserved.
+> + */
+> +
+> +#include <linux/i2c.h>
+> +#include <linux/module.h>
+> +#include <linux/init.h>
+> +#include <linux/kernel.h>
+> +#include <linux/of_device.h>
+> +#include <linux/bitops.h>
+> +#include <linux/math64.h>
+> +#include "pmbus.h"
+> +
+> +/*
+> + * The IMON resistor required to generate the system overcurrent protect=
+ion.
+> + * Arbitrary default Rimon value: 2k Ohm
+> + */
+> +#define XDP720_DEFAULT_RIMON 2000000000 /* 2k ohm */
+> +#define XDP720_TELEMETRY_AVG 0xE9
+> +
+> +static struct pmbus_driver_info xdp720_info =3D {
+> +       .pages =3D 1,
+> +       .format[PSC_VOLTAGE_IN] =3D direct,
+> +       .format[PSC_VOLTAGE_OUT] =3D direct,
+> +       .format[PSC_CURRENT_OUT] =3D direct,
+> +       .format[PSC_POWER] =3D direct,
+> +       .format[PSC_TEMPERATURE] =3D direct,
+> +
+> +       .m[PSC_VOLTAGE_IN] =3D 4653,
+> +       .b[PSC_VOLTAGE_IN] =3D 0,
+> +       .R[PSC_VOLTAGE_IN] =3D -2,
+> +       .m[PSC_VOLTAGE_OUT] =3D 4653,
+> +       .b[PSC_VOLTAGE_OUT] =3D 0,
+> +       .R[PSC_VOLTAGE_OUT] =3D -2,
+> +       /*
+> +        * Current and Power measurement depends on the RIMON (kOhm) and
+> +        * GIMON(microA/A) values.
+> +        */
+> +       .m[PSC_CURRENT_OUT] =3D 24668,
+> +       .b[PSC_CURRENT_OUT] =3D 0,
+> +       .R[PSC_CURRENT_OUT] =3D -4,
+> +       .m[PSC_POWER] =3D 4486,
+> +       .b[PSC_POWER] =3D 0,
+> +       .R[PSC_POWER] =3D -1,
+> +       .m[PSC_TEMPERATURE] =3D 54,
+> +       .b[PSC_TEMPERATURE] =3D 22521,
+> +       .R[PSC_TEMPERATURE] =3D -1,
+> +
+> +       .func[0] =3D PMBUS_HAVE_VIN | PMBUS_HAVE_VOUT | PMBUS_HAVE_PIN |
+> +                  PMBUS_HAVE_TEMP | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_=
+INPUT |
+> +                  PMBUS_HAVE_STATUS_TEMP,
+> +};
+> +
+> +static int xdp720_probe(struct i2c_client *client)
+> +{
+> +       struct pmbus_driver_info *info;
+> +       int ret;
+> +       u32 rimon;
+> +       int gimon;
+> +
+> +       info =3D devm_kmemdup(&client->dev, &xdp720_info, sizeof(*info),
+> +                           GFP_KERNEL);
+> +       if (!info)
+> +               return -ENOMEM;
+> +
+> +       ret =3D devm_regulator_get_enable(&client->dev, "vdd-vin");
+> +       if (ret)
+> +               return dev_err_probe(&client->dev, ret,
+> +                       "failed to enable vdd-vin supply\n");
+> +
+> +       ret =3D i2c_smbus_read_word_data(client, XDP720_TELEMETRY_AVG);
+> +       if (ret < 0) {
+> +               dev_err(&client->dev, "Can't get TELEMETRY_AVG\n");
+> +               return ret;
+> +       }
+> +
+> +       ret >>=3D 10; /* 10th bit of TELEMETRY_AVG REG for GIMON Value */
+> +       ret &=3D GENMASK(0, 0);
+> +       if (ret =3D=3D 1)
+> +               gimon =3D 18200; /* output gain 18.2 microA/A */
+> +       else
+> +               gimon =3D 9100; /* output gain 9.1 microA/A */
+> +
+> +       if (of_property_read_u32(client->dev.of_node,
+> +                                "infineon,rimon-micro-ohms", &rimon))
+> +               rimon =3D XDP720_DEFAULT_RIMON; /* Default if not set via=
+ DT */
+> +       if (rimon =3D=3D 0)
+> +               return -EINVAL;
+> +
+> +       /* Adapt the current and power scale for each instance */
+> +       info->m[PSC_CURRENT_OUT] =3D DIV64_U64_ROUND_CLOSEST((u64)
+> +               info->m[PSC_CURRENT_OUT] * rimon * gimon, 1000000000000UL=
+L);
+> +       info->m[PSC_POWER] =3D DIV64_U64_ROUND_CLOSEST((u64)
+> +               info->m[PSC_POWER] * rimon * gimon, 1000000000000000ULL);
+> +
+> +       return pmbus_do_probe(client, info);
+> +}
+> +
+> +static const struct of_device_id xdp720_of_match[] =3D {
+> +       { .compatible =3D "infineon,xdp720" },
+> +       {}
+> +};
+> +MODULE_DEVICE_TABLE(of, xdp720_of_match);
+> +
+> +static const struct i2c_device_id xdp720_id[] =3D {
+> +       { "xdp720" },
+> +       {}
+> +};
+> +MODULE_DEVICE_TABLE(i2c, xdp720_id);
+> +
+> +static struct i2c_driver xdp720_driver =3D {
+> +       .driver =3D {
+> +                  .name =3D "xdp720",
+> +                  .of_match_table =3D xdp720_of_match,
+> +       },
+> +       .probe =3D xdp720_probe,
+> +       .id_table =3D xdp720_id,
+> +};
+> +
+> +module_i2c_driver(xdp720_driver);
+> +
+> +MODULE_AUTHOR("Ashish Yadav <ashish.yadav@infineon.com>");
+> +MODULE_DESCRIPTION("PMBus driver for Infineon XDP720 Digital eFuse Contr=
+oller");
+> +MODULE_LICENSE("GPL");
+> +MODULE_IMPORT_NS("PMBUS");
+> --
+> 2.39.5
+>
