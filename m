@@ -1,231 +1,365 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2E33381C4
-	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 02:40:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3C7124964F;
+	Tue,  7 Apr 2026 02:41:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775529636; cv=none; b=Xk7K9/1Jso632fvXrNGC4852BPsBgMYhr0TbnMLIpSYEzknu7S3un+tHl7MYzigQtV6JDHWz4do42gs5onxwXN6ECqrwYXRw4+s5BkOp0xkOgRv8Dptq6bKLXAax6dRTTROk8H85tpGfMgksUJdNjaIzLBtIZJvV8WuhnRmQzbE=
+	t=1775529713; cv=none; b=emwQ8XMsGOCUoVdiR0cBRB9tPMb91F2Q4Ugq8tCZlUevYbRuZ5A4OApg01GUr9OBP4EohgQI7u1KmlfqWMkRAj0LBOeo4ESAAI41A1a/b6O3Xe/6QIyLuQcm3MmyVa/l4cLZPDHAx2z9XbP2MPG9F4axQl4JQ8ZL5c3nQqmnmdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775529636; c=relaxed/simple;
-	bh=6nLuycy9ugL1PICvbpZ1+CdVUuin2IvkNY5gP/mgO6o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MzI8kb5WCRtb6bs5VJfWCjfvot9CneXBnXLYlxSgy+/nXhalH1RriK3eV5pkACc5B4QA0RxJiARMHtCMluRGpNC0CxkVYYikklO2aQ5rtFaXhkVmn8KqCJR4sRprzpnUX7BNhwDSYFjjLG5Rx4mt4Uogbk2nXv4ToKyfITBvQzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FraAhuGX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jYzLRmso; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1775529713; c=relaxed/simple;
+	bh=7wH4CUVSABYbyxJiVvKBz9fZ4ImUCjDKwqKg5zvqdYo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=tRE2ScukQHzYXuDd/cMsjCnS9RDUfaTo/UohOta7ZRWgcPD+oNxkhwQMsNrzwa08GPXt/3FuTNb8br2lxfmOERDKbyFxwSkmagfMUgD/q0R4b6qL0DWFsvZBzSF/rXYcaWSgMI0t7qJaRHUXAqufGsSQs/vKmOZDI6c3xGyeoRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=UhphyyQE; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FraAhuGX";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jYzLRmso"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 636LQM8Z493331
-	for <devicetree@vger.kernel.org>; Tue, 7 Apr 2026 02:40:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	0sxWiIfGcKWwZ0QvbsOJvsjsTrks99xzrJstDrIFAZE=; b=FraAhuGX0h8bJK8U
-	yUTiV3UkjuVeGdijZgCFCpNHqsrgUdIZ9DZXUCw0sIVutMmaqi9sVwF1HamNbAnd
-	pUiT2tpimvrn8RfNrWoM/BopFnioo2eMbsdGmELbUjtlf1cgy/KwSNmhf1lBNmWi
-	imuCCz6mWPZyRBzJMoTTkT6JxB85oObSDgzGQELITTwEys9rbuyo72U3IuEg25Zh
-	mD9yii3HTEcdDBKjzi78cE4hkbe5JoTPHv57QYiXMqj9MVhV/RBLsfhBhKm+TPKj
-	vSVaSOnvfSYYPpBnXl2axfb5GeVwP+Hr/dx4Mmi7p9NsBz77u8KSye6u3r+L407g
-	BR6+Cw==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dcmr8rpbh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 02:40:34 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2b23c909256so65439875ad.0
-        for <devicetree@vger.kernel.org>; Mon, 06 Apr 2026 19:40:34 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="UhphyyQE"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775529634; x=1776134434; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=0sxWiIfGcKWwZ0QvbsOJvsjsTrks99xzrJstDrIFAZE=;
-        b=jYzLRmso2yS5khJXVM4yyPXsidoVAX1z1sZ18wbskxjffkIfO28zIo9fRpEdiWOT1p
-         p1et3CSOITQcDhXZpWGsrrAbJDLM6BAE02dZZG+9pqVySax1uSF+N/QaRvAtRQqwzLVY
-         L1gr9w7E3Nkobc/5e7ri3z+w9tIQJFVBOkWCZWCglGtNR0c5gItYgLuSEzJ6QDXIuuE4
-         Bc3Ev59B3UHi1ZfLhmdeQz9Q5HvCZqM/mP/cAFoEFhTVT1F4XscA0i1lcVdzgFxAi0r/
-         KPRV3T7ewj5fLwVxUMu86jaqtemnaUgPild/I2KiNmNR4ffWwp89afVQ42GieUlFiRCm
-         k2eg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775529634; x=1776134434;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=0sxWiIfGcKWwZ0QvbsOJvsjsTrks99xzrJstDrIFAZE=;
-        b=Zzrr9L9dj3S+V8Wcfpwb36Nf2+uCvXzAiGp4I22a2fdArR24I0NIovCtkGNizAMSTZ
-         wlspinjc6w16yVXFw8aPRAsNsmEjmszwwVewySS9nwVVG3kpM4Agbnpe+b8AZBa8nCEy
-         in2UVY1Z4Gmm9b8j6qYi81EBGQrVFllhduRv5BU/xEaRh3Jkktu6bgvkfxprtidcV5Uv
-         qbWfrbmXA9f69QI1UnD0znjT477oOucnByYqgbX51l4xWVKL5DPiA4r8BF+sKDiG7ncl
-         tmQOeGYn599/s8bb51kPYIytGpqUDNZGBTdvsw+UIScrOJAHrpDJgrxTe3l9UKUalWii
-         52YA==
-X-Forwarded-Encrypted: i=1; AJvYcCWeu1mCr1BCbC3sasSO2iblt3lYOG+gxZMzHrL8sVr07/MelZmbam/doicWqyHToiQWeffAOuvQZ9wP@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyaa95yVctnKjuvz0+9RtMTCCCx8BJFF13LpSDpNlxMsqFncOWk
-	yVMkyyz/f/QuxTNbKF7ngRIFxUESF1H3ZkoFZUFe8C2C1+67/yq6q3s1xM/YvfBioYkQj4k66WK
-	ohv12CtC5fFgLmyLeJC6lxqtuWbdcRXSkVZIZUiJ5ZQwgsMti8YSG4xzf5vW69lWc
-X-Gm-Gg: AeBDieuzfNRp2lYJz8zxn0hq6ozjexGAX/qVj2xGHJLK5d4AUmmFkVkg7hcCO8XdGd6
-	g+8c1SRiNgZf+yxlUShdZsdmE3i+8Gv8xnCwnBBlf90SlypFGUJZOiFvIgPRuOpTGLSsP6LwH1k
-	bVzkwG2mQH4PS1Fp5uyqnra39mHRpaNJJ8hR1YK3o/s+MR4RtMkB9SPArFpTF/SdYuXQjgus8Eg
-	ZqN5TypADevXD9Kt//gORQquIpUO6/D4N43wSguvd/jt/r3la5gtuYX461jQ2VBeU5K1IWg8Vqz
-	dvStTFVzfAsB6MxCBzIiDKhGPc+x5FM1t/SuiWQ4cnY62lRptxT80Zhnn2udhLZ0QPG7GBQxEN1
-	3/LQ5Nw1MBrcLRSGQyIHFYbrfOg6h9KLmZ07+/DLPEp1JdjNlsTt7lXYg23aTGcpqsHFpF0ajIr
-	O9faAIPWukdcc8orK/
-X-Received: by 2002:a05:6a20:9389:b0:39b:e9e1:699f with SMTP id adf61e73a8af0-39f2eda70ebmr15601193637.12.1775529633675;
-        Mon, 06 Apr 2026 19:40:33 -0700 (PDT)
-X-Received: by 2002:a05:6a20:9389:b0:39b:e9e1:699f with SMTP id adf61e73a8af0-39f2eda70ebmr15601152637.12.1775529633148;
-        Mon, 06 Apr 2026 19:40:33 -0700 (PDT)
-Received: from [10.133.33.209] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c76c65935cbsm13954195a12.26.2026.04.06.19.40.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 06 Apr 2026 19:40:32 -0700 (PDT)
-Message-ID: <9b1bd10e-5ddf-4f35-be6a-cde4f157fd40@oss.qualcomm.com>
-Date: Tue, 7 Apr 2026 10:40:26 +0800
+	d=ultrarisc.com; s=dkim; h=Received:From:Date:Subject:
+	MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	References:In-Reply-To:To:Cc; bh=o1FGTaF3dcPMsxY42oExBawsES1XeSE
+	iAjyQXxbaZuQ=; b=UhphyyQE78aFm89gACKrDQ3CssbuIvSn22hDsKFY0dLGeb7
+	P+/QY4uxntZ+5tRZtlzD7CsTFndQOseWlDsgHuJRyWIgvgyq3kmp6zeJAZ3roOG2
+	o3pEgZ7jFyV5l7Gnqdadgre1M81SN+KdpAEOfpdIQ3nfl42P0EzfvpDwUvo0=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwDXEELwbtRpBZsBAA--.862S6;
+	Tue, 07 Apr 2026 10:42:16 +0800 (CST)
+From: Jia Wang <wangjia@ultrarisc.com>
+Date: Tue, 07 Apr 2026 10:40:55 +0800
+Subject: [PATCH v2 4/4] PCI: ultrarisc: Add UltraRISC DP1000 PCIe Root
+ Complex driver
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/7] remoteproc: core: set recovery_disabled when doing
- rproc_add()
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Bartosz Golaszewski <brgl@kernel.org>, aiqun.yu@oss.qualcomm.com,
-        tingwei.zhang@oss.qualcomm.com, trilok.soni@oss.qualcomm.com,
-        yijie.yang@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Luca Weiss <luca.weiss@fairphone.com>,
-        Konrad Dybcio <konradybcio@kernel.org>
-References: <20260310-knp-soccp-v4-0-0a91575e0e7e@oss.qualcomm.com>
- <20260310-knp-soccp-v4-5-0a91575e0e7e@oss.qualcomm.com>
- <CAMRc=MedT32COu-B_TsrN+jCrHjde2v5gnA6WOUmMQ2dEBY6WQ@mail.gmail.com>
- <ce24a2sgg4b6wymoxwgl2ve6np2nxn2wuxfqxfpmvqqrpvgouf@xihd6ziqwu4m>
- <CAMRc=MfRxhXXdAEX+Gm-vJbQGJZ7QRL6RM2CbhcLiqicyvftdg@mail.gmail.com>
- <ymo3kf4bsaz5yh4uwpk6dapfuzujepru3szaa4ujge7vtv43ka@skc5xgejj6aw>
- <9bdc6b6d-ddf0-47af-b1ed-8d1e75bf30c2@oss.qualcomm.com>
- <c6qnvfiknlaofts2kdahbaweiufqitnuni6bhqoxznhxp5zdto@m4i5thd57wx7>
- <ef36a946-ba7d-4588-b94f-4287f3ea6105@oss.qualcomm.com>
- <adPLDWz6_QmBa8w1@baldur>
-Content-Language: en-US
-From: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-In-Reply-To: <adPLDWz6_QmBa8w1@baldur>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 6ayCHNw39vnWvugDT87-XZdKu19op0Xk
-X-Proofpoint-ORIG-GUID: 6ayCHNw39vnWvugDT87-XZdKu19op0Xk
-X-Authority-Analysis: v=2.4 cv=c9abhx9l c=1 sm=1 tr=0 ts=69d46ea2 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=jyXJO2DQ50KPEQLR6RgA:9 a=QEXdDO2ut3YA:10
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA3MDAyNCBTYWx0ZWRfX4hoBg9dL3GOl
- x4VstNXXpiQROIWrj31YsKpP39EmpCICGy8ogs1odaIaWw4aialcZSlEr9XkdpM1w0ObzGsjfDv
- kyN86k3uwBZ52JMRlGwUpDsUBrgqi4OmF60QFOeJqP4UddwmlIaYwK1JWGkmv+NIv04pfjSrUi3
- +Omm3JJqh+TuXwm116D8iD6OqNMFpDzKnW2oNkaGXPq4hIgD64mIfDaNQDJkXEBOxGyFXSPAJZR
- 6eVIu1YVTUz2jqyquVe7FntDAN8cvWUcXcy7dSC691hI5YjikWZonhPF1oTfgJRVps21cPEvkRy
- h5sHO2vBOdsaYGZ8hR+9jtHT9ma6CrbLdaqfP+Z9FSCmwuyFduufU1CnoBYqmesSYBEmUOzIn2k
- pydL4Mo2ElShyjNlQdcm3oT0brpZv3dBuL2la7Pxoku0NPLX93pdb9b8FjDbgCxyy2y8wkqP2kG
- hiiNeTsE5F8tI+3yTow==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-07_01,2026-04-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 adultscore=0 suspectscore=0 priorityscore=1501
- bulkscore=0 spamscore=0 phishscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604070024
+Message-Id: <20260407-ultrarisc-pcie-v2-4-2aa2a19a7fb3@ultrarisc.com>
+References: <20260407-ultrarisc-pcie-v2-0-2aa2a19a7fb3@ultrarisc.com>
+In-Reply-To: <20260407-ultrarisc-pcie-v2-0-2aa2a19a7fb3@ultrarisc.com>
+To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, Jingoo Han <jingoohan1@gmail.com>, 
+ Xincheng Zhang <zhangxincheng@ultrarisc.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
+ Jia Wang <wangjia@ultrarisc.com>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1775529665; l=8849;
+ i=wangjia@ultrarisc.com; s=20260309; h=from:subject:message-id;
+ bh=fs0I1ayH8Xs+O7/3QcQeWEBF1CQvjtgkc+Ct9VHp04Q=;
+ b=sbTT0D/+mLIJccApso6Xb3AfVDXU4KLBdQbFlIWQGRIhls9mvqWWNVQV3oxskUDaTKbm1xjwk
+ LRAlqul582aC3kOHLN+vRxI1fGQXGV3hllpKOWBlX1bI3e00zfyY/Mh
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=XvYkrelqJIIzobY7j+nIg8rsfv5kzaOzuc1UPhd087U=
+X-CM-TRANSID:AQAAfwDXEELwbtRpBZsBAA--.862S6
+X-Coremail-Antispam: 1UD129KBjvJXoW3JFyktr43Xr45KryrGw1kuFg_yoWfAF1rpa
+	15CFWFyF4UJF45uF4Skas5AF1aq3ZxurWUGFZFgw12g3ZIyryDXFyv9343tF97GF4jgry3
+	K3Wjka4UGan8XwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUQj14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
+	kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
+	z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr
+	1UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJVWx
+	Jr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2I
+	x0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8
+	JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2
+	ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wrylc2xSY4AK6svPMxAIw28IcxkI7VAKI48JMxC2
+	0s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI
+	0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE
+	14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2
+	IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0pRiF4iUUUUU=
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAKEWnTLbsAJgAAsQ
 
+From: Xincheng Zhang <zhangxincheng@ultrarisc.com>
 
+Add DP1000 SoC PCIe Root Complex driver.
 
-On 4/6/2026 11:04 PM, Bjorn Andersson wrote:
-> On Thu, Mar 19, 2026 at 01:44:48PM +0800, Jingyi Wang wrote:
->>
->>
->> On 3/19/2026 1:23 PM, Dmitry Baryshkov wrote:
->>> On Thu, Mar 19, 2026 at 12:36:15PM +0800, Jingyi Wang wrote:
->>>>
->>>>
->>>> On 3/13/2026 10:37 AM, Dmitry Baryshkov wrote:
->>>>> On Wed, Mar 11, 2026 at 01:39:50AM -0700, Bartosz Golaszewski wrote:
->>>>>> On Wed, 11 Mar 2026 03:11:42 +0100, Dmitry Baryshkov
->>>>>> <dmitry.baryshkov@oss.qualcomm.com> said:
->>>>>>> On Tue, Mar 10, 2026 at 06:50:30AM -0700, Bartosz Golaszewski wrote:
->>>>>>>>
->>>>>>>> Ideally things like this would be passed to the rproc core in some kind of a
->>>>>>>> config structure and only set when registration succeeds. This looks to me
->>>>>>>> like papering over the real issue and I think it's still racy as there's no
->>>>>>>> true synchronization.
->>>>>>>>
->>>>>>>> Wouldn't it be better to take rproc->lock for the entire duration of
->>>>>>>> rproc_add()? It's already initialized in rproc_alloc().
->>>>>>>
->>>>>>> It would still be racy as rproc_trigger_recovery() is called outside of
->>>>>>> the lock. Instead the error cleanup path (and BTW, rproc_del() path too)
->>>>>>> must explicitly call cancel_work_sync() on the crash_handler work (and
->>>>>>> any other work items that can be scheduled).
->>>>>>>
->>>>>>
->>>>>> This looks weird TBH. For example: rproc_crash_handler_work() takes the lock,
->>>>>> but releases it right before calling inspecting rproc->recovery_disabled and
->>>>>> calling rproc_trigger_recovery(). It looks wrong, I think it should keep the
->>>>>> lock and rptoc_trigger_recovery() should enforce it being taken before the
->>>>>> call.
->>>>>
->>>>> Yes. Nevertheless the driver should cancel the work too.
->>>>>
->>>>
->>>> Hi Dmitry & Bartosz,
->>>>
->>>> rproc_crash_handler_work() may call rproc_trigger_recovery() and
->>>> rproc_add() may call rproc_boot(), both the function have already
->>>> hold the lock. And the lock cannot protect resources like glink_subdev
->>>> in the patch.
->>>>
->>>> And there is a possible case for cancel_work, rproc_add tear down call
->>>> cancel work and wait for the work finished, the reboot run successfully,
->>>> and the tear down continued and the resources all released, including sysfs
->>>> and glink_subdev.
->>>>
->>>> Indeed recovery_disabled is kind of hacky.
->>>> The root cause for this issue is that for remoteproc with RPROC_OFFLINE
->>>> state, the rproc_start will be called asynchronously, but for the remoteproc
->>>> with RPROC_DETACHED, the attach function is called directly, the failure
->>>> in this path will cause the rproc_add() fail and the resource release.
->>>> I think the current patch can be dropped, we are thinking about make rproc_attach
->>>> called asynchronously to avoid this race.
->>>
->>> Isn't this patch necessary for SoCCP bringup? If not, why did you
->>> include it into the series?
->>>
->> yes, will squash to soccp patch in next versoin.
-> 
-> I'm sorry, but that doesn't make sense to me.
-> 
-> The SoCCP patch adds support for attaching SoCCP. This change tries to
-> address a generic problem shared across all remoteproc drivers (that
-> does attach?).
-> 
-> I think you should interpret Dmitry's comment as "why is this part of
-> this series, please fix this problem in a separate series".
-> 
-> Regards,
-> Bjorn
+Signed-off-by: Xincheng Zhang <zhangxincheng@ultrarisc.com>
+Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+---
+ drivers/pci/controller/dwc/Kconfig           |  12 ++
+ drivers/pci/controller/dwc/Makefile          |   1 +
+ drivers/pci/controller/dwc/pcie-designware.h |  22 ++++
+ drivers/pci/controller/dwc/pcie-ultrarisc.c  | 188 +++++++++++++++++++++++++++
+ 4 files changed, 223 insertions(+)
 
-Sorry I might misunderstand this comment, this patch only address problem for
-remoteproc that does attach, I will send a separate series to make rproc_attach
-called asynchronously
+diff --git a/drivers/pci/controller/dwc/Kconfig b/drivers/pci/controller/dwc/Kconfig
+index d0aa031397fa..06f7d98259cd 100644
+--- a/drivers/pci/controller/dwc/Kconfig
++++ b/drivers/pci/controller/dwc/Kconfig
+@@ -548,4 +548,16 @@ config PCIE_VISCONTI_HOST
+ 	  Say Y here if you want PCIe controller support on Toshiba Visconti SoC.
+ 	  This driver supports TMPV7708 SoC.
+ 
++config PCIE_ULTRARISC
++	tristate "UltraRISC PCIe host controller"
++	depends on ARCH_ULTRARISC || COMPILE_TEST
++	select PCIE_DW_HOST
++	select PCI_MSI
++	default y if ARCH_ULTRARISC
++	help
++	  Enables support for the PCIe controller in the UltraRISC SoC.
++	  This driver supports UR-DP1000 SoC.
++	  By default, this symbol is enabled when ARCH_ULTRARISC is active,
++	  requiring no further configuration on that platform.
++
+ endmenu
+diff --git a/drivers/pci/controller/dwc/Makefile b/drivers/pci/controller/dwc/Makefile
+index 67ba59c02038..884c46b78e01 100644
+--- a/drivers/pci/controller/dwc/Makefile
++++ b/drivers/pci/controller/dwc/Makefile
+@@ -38,6 +38,7 @@ obj-$(CONFIG_PCIE_RCAR_GEN4) += pcie-rcar-gen4.o
+ obj-$(CONFIG_PCIE_SPACEMIT_K1) += pcie-spacemit-k1.o
+ obj-$(CONFIG_PCIE_STM32_HOST) += pcie-stm32.o
+ obj-$(CONFIG_PCIE_STM32_EP) += pcie-stm32-ep.o
++obj-$(CONFIG_PCIE_ULTRARISC) += pcie-ultrarisc.o
+ 
+ # The following drivers are for devices that use the generic ACPI
+ # pci_root.c driver but don't support standard ECAM config access.
+diff --git a/drivers/pci/controller/dwc/pcie-designware.h b/drivers/pci/controller/dwc/pcie-designware.h
+index ae6389dd9caa..88dcb0e7943a 100644
+--- a/drivers/pci/controller/dwc/pcie-designware.h
++++ b/drivers/pci/controller/dwc/pcie-designware.h
+@@ -69,6 +69,8 @@
+ 
+ /* Synopsys-specific PCIe configuration registers */
+ #define PCIE_PORT_FORCE			0x708
++/* Bit[7:0] LINK_NUM: Link Number. Not used for endpoint */
++#define PORT_LINK_NUM_MASK		GENMASK(7, 0)
+ #define PORT_FORCE_DO_DESKEW_FOR_SRIS	BIT(23)
+ 
+ #define PCIE_PORT_AFR			0x70C
+@@ -96,6 +98,26 @@
+ #define PCIE_PORT_LANE_SKEW		0x714
+ #define PORT_LANE_SKEW_INSERT_MASK	GENMASK(23, 0)
+ 
++/*
++ * PCIE_TIMER_CTRL_MAX_FUNC_NUM: Timer Control and Max Function Number
++ * Register.
++ * This register holds the ack frequency, latency, replay, fast link
++ * scaling timers, and max function number values.
++ * Bit[30:29] FAST_LINK_SCALING_FACTOR: Fast Link Timer Scaling Factor.
++ *   0x0 (SF_1024):Scaling Factor is 1024 (1ms is 1us).
++ *     When the LTSSM is in Config or L12 Entry State, 1ms
++ *     timer is 2us, 2ms timer is 4us and 3ms timer is 6us.
++ *   0x1 (SF_256): Scaling Factor is 256 (1ms is 4us)
++ *   0x2 (SF_64): Scaling Factor is 64 (1ms is 16us)
++ *   0x3 (SF_16): Scaling Factor is 16 (1ms is 64us)
++ */
++#define PCIE_TIMER_CTRL_MAX_FUNC_NUM	0x718
++#define PORT_FLT_SF_MASK	GENMASK(30, 29)
++#define PORT_FLT_SF_VAL_1024	0x0
++#define PORT_FLT_SF_VAL_256	0x1
++#define PORT_FLT_SF_VAL_64	0x2
++#define PORT_FLT_SF_VAL_16	0x3
++
+ #define PCIE_PORT_DEBUG0		0x728
+ #define PORT_LOGIC_LTSSM_STATE_MASK	0x3f
+ #define PORT_LOGIC_LTSSM_STATE_L0	0x11
+diff --git a/drivers/pci/controller/dwc/pcie-ultrarisc.c b/drivers/pci/controller/dwc/pcie-ultrarisc.c
+new file mode 100644
+index 000000000000..0da37efa8680
+--- /dev/null
++++ b/drivers/pci/controller/dwc/pcie-ultrarisc.c
+@@ -0,0 +1,188 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * DWC PCIe RC driver for UltraRISC DP1000 SoC
++ *
++ * Copyright (C) 2026 UltraRISC Technology (Shanghai) Co., Ltd.
++ */
++
++#include <linux/clk.h>
++#include <linux/delay.h>
++#include <linux/interrupt.h>
++#include <linux/init.h>
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/of_device.h>
++#include <linux/pci.h>
++#include <linux/platform_device.h>
++#include <linux/resource.h>
++#include <linux/regmap.h>
++#include <linux/types.h>
++
++#include "pcie-designware.h"
++
++#define PCIE_CUS_CORE          0x400000
++
++#define LTSSM_ENABLE           BIT(7)
++#define FAST_LINK_MODE         BIT(12)
++#define HOLD_PHY_RST           BIT(14)
++#define L1SUB_DISABLE          BIT(15)
++
++struct ultrarisc_pcie {
++	struct dw_pcie *pci;
++	u32 irq_mask[MAX_MSI_CTRLS];
++};
++
++static struct pci_ops ultrarisc_pci_ops = {
++	.map_bus = dw_pcie_own_conf_map_bus,
++	.read = pci_generic_config_read32,
++	.write = pci_generic_config_write32,
++};
++
++static int ultrarisc_pcie_host_init(struct dw_pcie_rp *pp)
++{
++	struct pci_host_bridge *bridge = pp->bridge;
++
++	bridge->ops = &ultrarisc_pci_ops;
++
++	return 0;
++}
++
++static void ultrarisc_pcie_pme_turn_off(struct dw_pcie_rp *pp)
++{
++	/*
++	 * DP1000 does not support sending PME_Turn_Off from the RC.
++	 * Keep this callback empty to skip the generic MSG TLP path.
++	 */
++}
++
++static const struct dw_pcie_host_ops ultrarisc_pcie_host_ops = {
++	.init = ultrarisc_pcie_host_init,
++	.pme_turn_off = ultrarisc_pcie_pme_turn_off,
++};
++
++static int ultrarisc_pcie_start_link(struct dw_pcie *pci)
++{
++	u32 val;
++	u8 cap_exp;
++
++	val = dw_pcie_readl_dbi(pci, PCIE_CUS_CORE);
++	val &= ~FAST_LINK_MODE;
++	dw_pcie_writel_dbi(pci, PCIE_CUS_CORE, val);
++
++	val = dw_pcie_readl_dbi(pci, PCIE_TIMER_CTRL_MAX_FUNC_NUM);
++	FIELD_MODIFY(PORT_FLT_SF_MASK, &val, PORT_FLT_SF_VAL_64);
++	dw_pcie_writel_dbi(pci, PCIE_TIMER_CTRL_MAX_FUNC_NUM, val);
++
++	cap_exp = dw_pcie_find_capability(pci, PCI_CAP_ID_EXP);
++	val = dw_pcie_readl_dbi(pci, cap_exp + PCI_EXP_LNKCTL2);
++	FIELD_MODIFY(PCI_EXP_LNKCTL2_TLS, &val, PCI_EXP_LNKCTL2_TLS_16_0GT);
++	dw_pcie_writel_dbi(pci, cap_exp + PCI_EXP_LNKCTL2, val);
++
++	val = dw_pcie_readl_dbi(pci, PCIE_PORT_FORCE);
++	FIELD_MODIFY(PORT_LINK_NUM_MASK, &val, 0);
++	dw_pcie_writel_dbi(pci, PCIE_PORT_FORCE, val);
++
++	val = dw_pcie_readl_dbi(pci, cap_exp + PCI_EXP_DEVCTL2);
++	FIELD_MODIFY(PCI_EXP_DEVCTL2_COMP_TIMEOUT, &val, 0x6);
++	dw_pcie_writel_dbi(pci, cap_exp + PCI_EXP_DEVCTL2, val);
++
++	val = dw_pcie_readl_dbi(pci, PCIE_CUS_CORE);
++	val &= ~(HOLD_PHY_RST | L1SUB_DISABLE);
++	val |= LTSSM_ENABLE;
++	dw_pcie_writel_dbi(pci, PCIE_CUS_CORE, val);
++
++	return 0;
++}
++
++static const struct dw_pcie_ops dw_pcie_ops = {
++	.start_link = ultrarisc_pcie_start_link,
++};
++
++static int ultrarisc_pcie_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct ultrarisc_pcie *pcie;
++	struct dw_pcie *pci;
++	struct dw_pcie_rp *pp;
++	int ret;
++
++	pcie = devm_kzalloc(dev, sizeof(*pcie), GFP_KERNEL);
++	if (!pcie)
++		return -ENOMEM;
++
++	pci = devm_kzalloc(dev, sizeof(*pci), GFP_KERNEL);
++	if (!pci)
++		return -ENOMEM;
++
++	pci->dev = dev;
++	pci->ops = &dw_pcie_ops;
++
++	/* Set a default value suitable for at most 16 in and 16 out windows */
++	pci->atu_size = SZ_8K;
++
++	pcie->pci = pci;
++
++	pp = &pci->pp;
++
++	platform_set_drvdata(pdev, pcie);
++
++	pp->irq = platform_get_irq(pdev, 1);
++	if (pp->irq < 0)
++		return pp->irq;
++
++	pp->num_vectors = MAX_MSI_IRQS;
++	/* No L2/L3 Ready indication is available on this platform. */
++	pp->skip_l23_ready = true;
++	pp->ops = &ultrarisc_pcie_host_ops;
++
++	ret = dw_pcie_host_init(pp);
++	if (ret) {
++		dev_err(dev, "Failed to initialize host\n");
++		return ret;
++	}
++
++	return 0;
++}
++
++static int ultrarisc_pcie_suspend_noirq(struct device *dev)
++{
++	struct ultrarisc_pcie *pcie = dev_get_drvdata(dev);
++	struct dw_pcie *pci = pcie->pci;
++
++	return dw_pcie_suspend_noirq(pci);
++}
++
++static int ultrarisc_pcie_resume_noirq(struct device *dev)
++{
++	struct ultrarisc_pcie *pcie = dev_get_drvdata(dev);
++	struct dw_pcie *pci = pcie->pci;
++
++	return dw_pcie_resume_noirq(pci);
++}
++
++static const struct dev_pm_ops ultrarisc_pcie_pm_ops = {
++	NOIRQ_SYSTEM_SLEEP_PM_OPS(ultrarisc_pcie_suspend_noirq,
++				  ultrarisc_pcie_resume_noirq)
++};
++
++static const struct of_device_id ultrarisc_pcie_of_match[] = {
++	{
++		.compatible = "ultrarisc,dp1000-pcie",
++	},
++	{},
++};
++MODULE_DEVICE_TABLE(of, ultrarisc_pcie_of_match);
++
++static struct platform_driver ultrarisc_pcie_driver = {
++	.driver = {
++		.name	= "ultrarisc-pcie",
++		.of_match_table = ultrarisc_pcie_of_match,
++		.suppress_bind_attrs = true,
++		.pm = &ultrarisc_pcie_pm_ops,
++	},
++	.probe = ultrarisc_pcie_probe,
++};
++module_platform_driver(ultrarisc_pcie_driver);
++
++MODULE_DESCRIPTION("UltraRISC DP1000 DWC PCIe host controller");
++MODULE_LICENSE("GPL");
 
-Thanks,
-Jingyi
-
+-- 
+2.34.1
 
