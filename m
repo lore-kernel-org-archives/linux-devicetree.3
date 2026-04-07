@@ -1,315 +1,158 @@
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5656338B7DB
-	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 10:30:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775557832; cv=pass; b=HpXzCtaKHDS18N3d83ohbmFY8wYxy+1OuBbylLPkVOrYKnsiGdXkca4E2lOVuRw3l6iVoBz+WgGvIytZYplB3SlVLFOT6jhkI0LDmot93WT4Wdwj8OGkshAjupOa/2s6nUcuJ3ev125/Gg9yImP4s9XQuFKfkxIAPHnAWEMIRpE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775557832; c=relaxed/simple;
-	bh=Ba+EPBIXHLX5yi91gfChxyHyKGIt/RO5OcF1N/vWGsQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=itlqbRjpt3LnyFpBvaNKskMjCD1unhaU/wzJs/byWLFHq1CEEdO9GR4bU3gND1xcW1/nI7dWd1mZOTIFiANGLkn/fiYjPuDBzPnGKPiMQyaff/OhYp+Df4KSBqxNtUFmVe4P5V1aaoXqRXNjToYAAWa7b9NvOjF89ts7o1AXZjo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OhPqlvBj; arc=pass smtp.client-ip=74.125.82.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E0263A9002
+	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 10:38:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775558303; cv=none; b=YFjQ076FA99xiC9HcdJ0bwwTzGvaun7ORotYtT3uog1ic0WBAkJArg3vgtLcKAfx/0PBv4td1Wxm/ulthlGJainIy4pZQb3ffTjcND7Usb6svixAc41C4YsDvPSGZ8hjGQzYk/lX+O6ICX32JsGzYYYN84pso1wt6POa9unfyhk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775558303; c=relaxed/simple;
+	bh=pG/8VuhPAHUopEyOrDM0yRnbbv6CUyYjLv9n4BTdsLM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=b+LxIWcpcoRSwK8BY6HmJ1rgJXvQoQVptksIKWl+B/DC79KeurgWlEala8p3uJ/oAYyFXm8mggXgzs3axXvAn/603G46LfN715dd26fHaf7SM5+h3HCVPsbuL1B3ZdJPWVJwcveWOJyFSwG84zV/Q0GWC/TaJuVNKyrm6Yys8NY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RMy5Iguu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=J8CzWIxL; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OhPqlvBj"
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-2c156c4a9efso6085543eec.1
-        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 03:30:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775557830; cv=none;
-        d=google.com; s=arc-20240605;
-        b=OjhdMGS2kTH+A8Nx2AdCPjhrnRRyGTt/3GGQ6LF73ztMccZf/TaWoBDgd0WZO8bx7K
-         CvYqHn27noC2vxObDSc1NXci6JNJ0cpLkXIREuLTABxq/FIi3fnMxnsWwJFuLsMvQcaY
-         rcjFk+Z5TDb0kmdzT/kcOh3GsrtIDU0v06DOWzWkpcD7urfZ0yCdHflmKg9uAYQLZBg9
-         H9+F8O5lmacqw2li+FVlYiRqPLy+pMwphVQuqFAStX2yQ6edgzbyzxQCEn2LhrjrE8yt
-         /fhj9w22Esbcki7JoVuNWF3FSPoJHqk6Kcn2Z7hKK7IYJUbvs1NExM+ZtnX2zqGFpdkj
-         5hMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=LU59ZAtUrZsopurC7wrRYfVPPQHDPwx0HnnnYqVagoU=;
-        fh=nW4QBJrmtm6Xfst4ugSTCC8xnqGpFffwwIwgrbD4Oqw=;
-        b=YQdxtHko51vVkiamhmAY21zYUkhIaLwX082oAqIUauMv+VnxJSfy2TpHJ8/bVNwP++
-         XrJQtwEq6yzol9fgRVKbt1bhIg1quKPq3gWlpLczL8TzSkUvLVRbPjRK9L/qwIqG+6Jg
-         A2PdkDV1Bg72yoY5KeuxgdHsk3FLHKMbmOc2XCRzrfuibQx9JzvaNjQEZeMyibZJlB1I
-         Etttu02mGu2kYcgX4+ZGe2aXxp4zibcuLS7Xjax9IVyh7qXeYGB3FdBgMQ1XM6ZCocg7
-         cxY3z1M8Xgrcx+T7D8d/Krut9NDyv35MXBar14BqbUJDNrJO6hzh62mIW++9UO8tPD7h
-         xBSw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RMy5Iguu";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="J8CzWIxL"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6376WljY1584681
+	for <devicetree@vger.kernel.org>; Tue, 7 Apr 2026 10:38:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	cT9ak/hEG6D0P8APAV5wjPhc3R+jHNLKgpne0/0WKMg=; b=RMy5IguugJnpzQcg
+	6o4jFwvz/jof/LMb+A55OA39sxPk5pXFxj9Fh5Qmo7aLp6Nsa26/8gYDmhnskaji
+	6YLsdjnWowtMYHv11fASCJYU0C6tgbpnHM6qAK3W971O7700m6QqLOh0TiBt1Vau
+	zO/jCxtoF+8cNJQXLjEtLPqmF6+S/xFA7dAR/gE2X5wEeCy3o8C1MLsV8kIZENWX
+	I6yApgT/jmP7ZVJ6KGMSRR2yEPkFWq+tBOR/Oe5RpW3CtzGBGNod4BI3t2ZbymFi
+	zNwdsxqwzZ+skdNosmSVewIE5MCf8iNNPK5PT+hYEZAL3mekPuTplXkMAsz/uVhS
+	ucLxRA==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dcmr9tahk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 10:38:21 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-8a016b99579so21729736d6.0
+        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 03:38:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775557830; x=1776162630; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=LU59ZAtUrZsopurC7wrRYfVPPQHDPwx0HnnnYqVagoU=;
-        b=OhPqlvBjov9tH41oQAt6fX3Pqt0VWiTl7dBBEHS98f1PL5X/aWBMrx5rE/aKiiiIoi
-         IgS1LePj7T+Vq4NKcyERWizj7xY6LnMq7Xo1pGTsCSD5chXG9Y+MaKgBOgNsSfqqLq8h
-         KqbFLhcUpEX5q953l/dTWUUURp9rtP5Bk8uQDwxtYIaT/vxDaCPc8FEYeTRT79b7R1Cn
-         uA7TuKnSQOHg9RqE/i5OR6Qm6vCNY3c6oyX92DMle+tR+RkJh4KfAMMDZzen0fKU4o5+
-         zTluE8ocuABIS1gfmc6p6Jysciamji/cnVZCH2dfsuZE5KPe3dfQJ0r8Gk4s30+eL0Hq
-         LKSA==
+        d=oss.qualcomm.com; s=google; t=1775558300; x=1776163100; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=cT9ak/hEG6D0P8APAV5wjPhc3R+jHNLKgpne0/0WKMg=;
+        b=J8CzWIxLDuu02BO+ivJlbnjDFCqSVyx/e6altj7vDtl7lMEjEa3o/+rYFYhWEKRuwo
+         oXpzpwfNmgz3NAmWQ8Im5VeMaEo1z+Ujur6/Kkn5gWjaVYdRZE2ZzULdqRj5o2keffsC
+         fIxEs7guE/WC8Pn4tXNAhX4VQsDhqR8x1AG27PAFbE+UXw8zYVtA4b4bEU8QSOJDaTaH
+         iKb9psXzo/CNyTe/MLC9IyAXmmwaWw+Z97QtiQmQeCe17JG4uat9J+EI2VNFQ/VlK7mu
+         eQ/oLJfcroO/IsnD4aDLViwf/P7fsO4M3WEe5lUpF+x+Sb/t2vcDoDuEtB3hN1xsvrJW
+         PIIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775557830; x=1776162630;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=LU59ZAtUrZsopurC7wrRYfVPPQHDPwx0HnnnYqVagoU=;
-        b=ssvnJU1lhee2XcyCW045vrF23hUcx1xjBbWrn73Go/abxo2qPSmI2N+Hi2mCh7oFOp
-         3Holy5fiRaEzHate9c2Qli36DNMxl4szOntF7dIx7rnHlSxomBNJgr9zb8lDisOhNOq/
-         K7EE/KLvqX3wdPEY+R+qRT7hg6NQmiPaD9VUr+S8Bac9AjnxCmZCxg1Bwn8koQ+BwgD3
-         PmVOeoHkiUGAroPun+k4VeG7tiMYW6pLXog3eAlNs519DZfctJoW+oXdbLRKyZcbPnAA
-         DIWj7QBFCc50zmmi4mC28B1s5a/aiqUYgHKCic26pbDH5C+I/BXgzZDgGuxE7ODmNZxp
-         mYtw==
-X-Forwarded-Encrypted: i=1; AJvYcCXKswOsMmec9KwNG7JKeetNPn8rUSY1+VSvMrFg3zuC9U9nTdArdBa5pemGq7RkS9yNolJ+B/wSE5Ms@vger.kernel.org
-X-Gm-Message-State: AOJu0YyvPwxpv2bvr0r0icrtb86CGIzBXchHohrIG0wFaaxDB5Ekt78R
-	ZsZsCjuQb3tx9iw00hW1EeGkfUkwJFzXM2h+qBpHLAKaQBNSbAMev6Qc41rpYiSePyxfooy+zWD
-	iXYoeXXrfH3drGRUMmDdhJrEHNmo+AUk=
-X-Gm-Gg: AeBDievfmivPOpPvtwkaImrie4/ZFlKTqELoiucvp7wL2DjO4sGdLcQ1WCacypP3yGw
-	NCzKE+lDbViGXdllIqNU9BNL3bYD1UrojXWWO3kvp2YPM1hl0sUM+8gYnUEeWmkznmMIKgoFKfR
-	v79B5ipbOImtqqQca9WVynTbef9UFBLllB7tDbcYYDbkfz9rw3uukIkn5QNZAsSu+2ID6tm5c1d
-	V7jk2BXW0A64euL5bOTmFRyfPA++AMVhSjzv43m5rYGr6h+2ApT+uBZh6J5ZlMeJrNJL9LVSsOE
-	JlMG7pTDD2DMM+Egcbw=
-X-Received: by 2002:a05:7300:6d23:b0:2a4:3593:466c with SMTP id
- 5a478bee46e88-2cbf9fe2d96mr8206822eec.8.1775557830390; Tue, 07 Apr 2026
- 03:30:30 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1775558300; x=1776163100;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=cT9ak/hEG6D0P8APAV5wjPhc3R+jHNLKgpne0/0WKMg=;
+        b=ozsssEbya18NKcd7PHzp4ol475dVGxrV1VuJCKHrXrC/L1yuYs7YCKdR1kD2m5oxAO
+         CajxQUA0R1sxRp3I3ZKAnn2D9T4kb7acee+2fgvgnGEIMjVIQX+m5dohpuHepCYIgy3S
+         Y/4htmxUO6qmmrup7N+/NeGMqE9R+KNgNjC4wv3Kmjvubsqap6fMqbgazmOzcdY6Wap5
+         z58/k/6NBhkjhWQMPdRmhELQPG232fF8Ms75aiGXBHIjoNZJlUvmiORPytpK64njeDMp
+         /pDlLowedliTMtcdDq5HiEi77R6k1491+GFtrwNYSeno1AMstOy5+jcfiwsOolO4EF7f
+         k99Q==
+X-Forwarded-Encrypted: i=1; AJvYcCVuoSigkoqA17vMciCdKNh2vp3RzFK5Itz5w7j9UORC4JJIDFja8R1mn38Wnw5aO9IYY5fDAl1YOtNr@vger.kernel.org
+X-Gm-Message-State: AOJu0YzOWaSbgKVBR8kQNe6I0AxEv4SqzrmUn8SxgOIF2vyzdb0fzrO5
+	Kz07Xu0dmqPPDCbcwf9fjwp7/SlJCKBogGERuQRVsOZBPoM7B4TnBp5cYPMLwEbnoKRU0QQekY/
+	JgFtxvdVQTOGSfepR810n6C/m1S8KveKo1+rKXkcejWO4oxrRgKyw83eNtPxalSuK
+X-Gm-Gg: AeBDieuweSOqEMDxJ8sn7yJxcrfKxiSRM1Dx3ML3yxG9N6QES4+gWvs8+Mc4hfcmmwB
+	KNrWns6otSLFAmLa5z07tJGgS/ECr3LfP/SDtxB2y5rjT8E4aRJ8ha0ISDh2cdNSR3azXVcW0Oc
+	FdLOFZQEWAM8xbpVjD1JifFGk6rZS/Bcu1b1cBLxw/RLDKclWiZ5IyPtSm8pskfgD6IYJ6hY3Dv
+	kQznKbmkwfq0fBP9MIqL2md/qgY8dMW5NqB1cqZZz3THVdDlM+twXRNJl4MFqJfo0Hmu4SN5NGW
+	l2FaErahezmQ6AdmBAZoIAw5fOzomM5YlFVYtKtSKKBJN3Cgj0vbtl0U5cWpQp5x6UmK/WcWMjX
+	RWj+In7JiILrLYJwmfSxfu7GPPdh+14Jq9dbkJOYeW9SbgKagBZAyj60hFt30K/AL6dIbVONQp6
+	2K97g=
+X-Received: by 2002:a05:6214:c8b:b0:89e:9fd6:f78 with SMTP id 6a1803df08f44-8a704ea5d59mr210870256d6.6.1775558300350;
+        Tue, 07 Apr 2026 03:38:20 -0700 (PDT)
+X-Received: by 2002:a05:6214:c8b:b0:89e:9fd6:f78 with SMTP id 6a1803df08f44-8a704ea5d59mr210869966d6.6.1775558299965;
+        Tue, 07 Apr 2026 03:38:19 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9c3cff19c0sm539698866b.48.2026.04.07.03.38.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 07 Apr 2026 03:38:18 -0700 (PDT)
+Message-ID: <588004fe-6ede-4065-afbf-eed620caf380@oss.qualcomm.com>
+Date: Tue, 7 Apr 2026 12:38:16 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260406101647.109667-1-Ashish.Yadav@infineon.com> <20260406101647.109667-3-Ashish.Yadav@infineon.com>
-In-Reply-To: <20260406101647.109667-3-Ashish.Yadav@infineon.com>
-From: ashish yadav <ashishyadav78@gmail.com>
-Date: Tue, 7 Apr 2026 16:00:18 +0530
-X-Gm-Features: AQROBzCqb84kfIhnX1-X0hgBC6HBnxqF1ScBqNXT6675NCDCLNPgDaeYR8SOFQc
-Message-ID: <CAJKbuCYuor3AstSOuzEK_byqwgdkLsaE9Z9k7kfb3WKpyjK4=g@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] hwmon:(pmbus/xdp720) Add support for efuse xdp720
-To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Ashish Yadav <ashish.yadav@infineon.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: Add Motorola Edge 30 (dubai) DTS
+To: Val Packett <val@packett.cool>, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
+        Tony Luck <tony.luck@intel.com>,
+        "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260403054417.167917-1-val@packett.cool>
+ <20260403054417.167917-2-val@packett.cool>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260403054417.167917-2-val@packett.cool>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=SMdykuvH c=1 sm=1 tr=0 ts=69d4de9d cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ePosGYAZjQQ63RukehsA:9 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA3MDA5OCBTYWx0ZWRfX4Y2HRrK/7AnA
+ 2OV71JKwEGJlTnsaRiMoTZIhzCDofIMv5lZs+n6TUXfYc9oMCrkWIbzmEcRxPng+JW7CBjgLF/u
+ vn5+hjJaw78rYcO/gHxaRNOjOfO/2uWF3SDkb0zYKKTZaOv1lXqWoMjW47JfsW+F7xcHrQe69X5
+ ZKRjdi94YeP3RO7cXHC8w6tXulpJmNiNAb8+df2FKaMNa//ppm0wZdFd3rPPMZo9sN4VwN/1/lE
+ CMYbpJNjOFkq3bTYOVarBBxIuv23r1cvcAmnigcNgb2CSlVcib4jDU6/UVUbrGVcbeYoo2Ly31X
+ 1d7hz/pqB/crbt1a/X045WO8Z23sOjIckAx1gm+lHWRkY5aepKrnTuqgEgNpKS0uIq4jkwqbu5f
+ KjZsuiwXfMNQgw7BY8/JSjt4CbxQ3LUsmoVaakeAOlJCjNz+RcsD2RdqOw7x4Hg+QcuKqrmOBPN
+ m7/3TIceFOlxEdMOogA==
+X-Proofpoint-GUID: XYIJHGoFTe4Nc2LdDmbCZ2GxaKr46ZoP
+X-Proofpoint-ORIG-GUID: XYIJHGoFTe4Nc2LdDmbCZ2GxaKr46ZoP
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-07_02,2026-04-07_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 adultscore=0 lowpriorityscore=0 phishscore=0
+ impostorscore=0 priorityscore=1501 suspectscore=0 bulkscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604070098
 
-Hi Guenter,
-
-In this patch, info about vdd-vin-supply is added through
-devm_regulator_get_enable().
-https://lore.kernel.org/all/20260406101647.109667-2-Ashish.Yadav@infineon.c=
-om/
-
-Thanks & Regards
-   Ashish Yadav
-
-On Mon, Apr 6, 2026 at 3:47=E2=80=AFPM ASHISH YADAV <ashishyadav78@gmail.co=
-m> wrote:
->
-> From: Ashish Yadav <ashish.yadav@infineon.com>
->
-> Add the pmbus driver for Infineon XDP720 Digital eFuse Controller.
->
-> Signed-off-by: Ashish Yadav <ashish.yadav@infineon.com>
+On 4/3/26 7:33 AM, Val Packett wrote:
+> The Motorola Edge 30 is a smartphone released in 2022.
+> 
+> This commit has the following features working:
+> - Display (simplefb)
+> - Touchscreen
+> - Power and volume buttons
+> - Storage (UFS 3.1)
+> - Battery (ADSP battmgr)
+> - USB (Type-C, 2.0, dual-role)
+> - Wi-Fi and Bluetooth (WCN6750 hw1.0)
+> 
+> Signed-off-by: Val Packett <val@packett.cool>
 > ---
-> XDP720 Digital eFuse Controller provides accurate system telemetry
-> (V, I, P, T) and reports analog current at the IMON pin for post-processi=
-ng.
->
-> The Current and Power measurement depends on the RIMON and GIMON values.
-> Please look into data sheet sections 5.4.2 and 5.4.4 for more details:
-> https://www.infineon.com/assets/row/public/documents/24/49/infineon-xdp72=
-0-001-datasheet-en.pdf
->
-> The GIMON (microA/A) depends on the 10th bit of TELEMETRY_AVG PMBUS Regis=
-ter.
-> The value of RIMON (kohm) can be provided by the user through device tree=
- using
-> infineon,rimon-micro-ohms  property.
+> v2: Apply suggestions from Konrad
+
+"fix bug" :P
+
+> v1: https://lore.kernel.org/all/20260329103055.96649-2-val@packett.cool/
 > ---
->  drivers/hwmon/pmbus/Kconfig  |   9 +++
->  drivers/hwmon/pmbus/Makefile |   1 +
->  drivers/hwmon/pmbus/xdp720.c | 128 +++++++++++++++++++++++++++++++++++
->  3 files changed, 138 insertions(+)
->  create mode 100644 drivers/hwmon/pmbus/xdp720.c
->
-> diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-> index fc1273abe357..c419e3ecce90 100644
-> --- a/drivers/hwmon/pmbus/Kconfig
-> +++ b/drivers/hwmon/pmbus/Kconfig
-> @@ -702,6 +702,15 @@ config SENSORS_XDP710
->           This driver can also be built as a module. If so, the module wi=
-ll
->           be called xdp710.
->
-> +config SENSORS_XDP720
-> +       tristate "Infineon XDP720 family"
-> +       help
-> +         If you say yes here you get hardware monitoring support for Inf=
-ineon
-> +         XDP720.
-> +
-> +         This driver can also be built as a module. If so, the module wi=
-ll
-> +         be called xdp720.
-> +
->  config SENSORS_XDPE152
->         tristate "Infineon XDPE152 family"
->         help
-> diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
-> index d6c86924f887..1cac7ccae79f 100644
-> --- a/drivers/hwmon/pmbus/Makefile
-> +++ b/drivers/hwmon/pmbus/Makefile
-> @@ -68,6 +68,7 @@ obj-$(CONFIG_SENSORS_TPS546D24)       +=3D tps546d24.o
->  obj-$(CONFIG_SENSORS_UCD9000)  +=3D ucd9000.o
->  obj-$(CONFIG_SENSORS_UCD9200)  +=3D ucd9200.o
->  obj-$(CONFIG_SENSORS_XDP710)   +=3D xdp710.o
-> +obj-$(CONFIG_SENSORS_XDP720)   +=3D xdp720.o
->  obj-$(CONFIG_SENSORS_XDPE122)  +=3D xdpe12284.o
->  obj-$(CONFIG_SENSORS_XDPE152)  +=3D xdpe152c4.o
->  obj-$(CONFIG_SENSORS_ZL6100)   +=3D zl6100.o
-> diff --git a/drivers/hwmon/pmbus/xdp720.c b/drivers/hwmon/pmbus/xdp720.c
-> new file mode 100644
-> index 000000000000..8729a771f216
-> --- /dev/null
-> +++ b/drivers/hwmon/pmbus/xdp720.c
-> @@ -0,0 +1,128 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/*
-> + * Hardware monitoring driver for Infineon XDP720 Digital eFuse Controll=
-er
-> + *
-> + * Copyright (c) 2026 Infineon Technologies. All rights reserved.
-> + */
-> +
-> +#include <linux/i2c.h>
-> +#include <linux/module.h>
-> +#include <linux/init.h>
-> +#include <linux/kernel.h>
-> +#include <linux/of_device.h>
-> +#include <linux/bitops.h>
-> +#include <linux/math64.h>
-> +#include "pmbus.h"
-> +
-> +/*
-> + * The IMON resistor required to generate the system overcurrent protect=
-ion.
-> + * Arbitrary default Rimon value: 2k Ohm
-> + */
-> +#define XDP720_DEFAULT_RIMON 2000000000 /* 2k ohm */
-> +#define XDP720_TELEMETRY_AVG 0xE9
-> +
-> +static struct pmbus_driver_info xdp720_info =3D {
-> +       .pages =3D 1,
-> +       .format[PSC_VOLTAGE_IN] =3D direct,
-> +       .format[PSC_VOLTAGE_OUT] =3D direct,
-> +       .format[PSC_CURRENT_OUT] =3D direct,
-> +       .format[PSC_POWER] =3D direct,
-> +       .format[PSC_TEMPERATURE] =3D direct,
-> +
-> +       .m[PSC_VOLTAGE_IN] =3D 4653,
-> +       .b[PSC_VOLTAGE_IN] =3D 0,
-> +       .R[PSC_VOLTAGE_IN] =3D -2,
-> +       .m[PSC_VOLTAGE_OUT] =3D 4653,
-> +       .b[PSC_VOLTAGE_OUT] =3D 0,
-> +       .R[PSC_VOLTAGE_OUT] =3D -2,
-> +       /*
-> +        * Current and Power measurement depends on the RIMON (kOhm) and
-> +        * GIMON(microA/A) values.
-> +        */
-> +       .m[PSC_CURRENT_OUT] =3D 24668,
-> +       .b[PSC_CURRENT_OUT] =3D 0,
-> +       .R[PSC_CURRENT_OUT] =3D -4,
-> +       .m[PSC_POWER] =3D 4486,
-> +       .b[PSC_POWER] =3D 0,
-> +       .R[PSC_POWER] =3D -1,
-> +       .m[PSC_TEMPERATURE] =3D 54,
-> +       .b[PSC_TEMPERATURE] =3D 22521,
-> +       .R[PSC_TEMPERATURE] =3D -1,
-> +
-> +       .func[0] =3D PMBUS_HAVE_VIN | PMBUS_HAVE_VOUT | PMBUS_HAVE_PIN |
-> +                  PMBUS_HAVE_TEMP | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_=
-INPUT |
-> +                  PMBUS_HAVE_STATUS_TEMP,
-> +};
-> +
-> +static int xdp720_probe(struct i2c_client *client)
-> +{
-> +       struct pmbus_driver_info *info;
-> +       int ret;
-> +       u32 rimon;
-> +       int gimon;
-> +
-> +       info =3D devm_kmemdup(&client->dev, &xdp720_info, sizeof(*info),
-> +                           GFP_KERNEL);
-> +       if (!info)
-> +               return -ENOMEM;
-> +
-> +       ret =3D devm_regulator_get_enable(&client->dev, "vdd-vin");
-> +       if (ret)
-> +               return dev_err_probe(&client->dev, ret,
-> +                       "failed to enable vdd-vin supply\n");
-> +
-> +       ret =3D i2c_smbus_read_word_data(client, XDP720_TELEMETRY_AVG);
-> +       if (ret < 0) {
-> +               dev_err(&client->dev, "Can't get TELEMETRY_AVG\n");
-> +               return ret;
-> +       }
-> +
-> +       ret >>=3D 10; /* 10th bit of TELEMETRY_AVG REG for GIMON Value */
-> +       ret &=3D GENMASK(0, 0);
-> +       if (ret =3D=3D 1)
-> +               gimon =3D 18200; /* output gain 18.2 microA/A */
-> +       else
-> +               gimon =3D 9100; /* output gain 9.1 microA/A */
-> +
-> +       if (of_property_read_u32(client->dev.of_node,
-> +                                "infineon,rimon-micro-ohms", &rimon))
-> +               rimon =3D XDP720_DEFAULT_RIMON; /* Default if not set via=
- DT */
-> +       if (rimon =3D=3D 0)
-> +               return -EINVAL;
-> +
-> +       /* Adapt the current and power scale for each instance */
-> +       info->m[PSC_CURRENT_OUT] =3D DIV64_U64_ROUND_CLOSEST((u64)
-> +               info->m[PSC_CURRENT_OUT] * rimon * gimon, 1000000000000UL=
-L);
-> +       info->m[PSC_POWER] =3D DIV64_U64_ROUND_CLOSEST((u64)
-> +               info->m[PSC_POWER] * rimon * gimon, 1000000000000000ULL);
-> +
-> +       return pmbus_do_probe(client, info);
-> +}
-> +
-> +static const struct of_device_id xdp720_of_match[] =3D {
-> +       { .compatible =3D "infineon,xdp720" },
-> +       {}
-> +};
-> +MODULE_DEVICE_TABLE(of, xdp720_of_match);
-> +
-> +static const struct i2c_device_id xdp720_id[] =3D {
-> +       { "xdp720" },
-> +       {}
-> +};
-> +MODULE_DEVICE_TABLE(i2c, xdp720_id);
-> +
-> +static struct i2c_driver xdp720_driver =3D {
-> +       .driver =3D {
-> +                  .name =3D "xdp720",
-> +                  .of_match_table =3D xdp720_of_match,
-> +       },
-> +       .probe =3D xdp720_probe,
-> +       .id_table =3D xdp720_id,
-> +};
-> +
-> +module_i2c_driver(xdp720_driver);
-> +
-> +MODULE_AUTHOR("Ashish Yadav <ashish.yadav@infineon.com>");
-> +MODULE_DESCRIPTION("PMBus driver for Infineon XDP720 Digital eFuse Contr=
-oller");
-> +MODULE_LICENSE("GPL");
-> +MODULE_IMPORT_NS("PMBUS");
-> --
-> 2.39.5
->
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
+Konrad
