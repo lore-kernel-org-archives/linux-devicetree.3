@@ -1,131 +1,116 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5677233D505;
-	Tue,  7 Apr 2026 15:09:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09F5935AC29
+	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 15:11:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775574581; cv=none; b=jkiR4fYmwfHhRnN5bVpJqAHBnqBi0TjqG00g+blfYNLgVAzcIN5LUVrM96qo9WH6KWJklf6YylPahsMPRB/tR9xLuQNSZ1xRfItQDYFQo2KoNlw7I3c5J4cEn1wrbBaecS1B7FxtVAiZRRw0ij5as2/qpwX1WlT9P/QTORF9smI=
+	t=1775574686; cv=none; b=J7nbNYG8I8m7x+J4bLqqm4gMgSUDaGup0my/KbcldBMsT0Ska2jVx2FZzEHCGOV74LZZdR/S+cWPhjuWwuQ2mgj6ZZycvE/DWK/iuapG506df2iwFBcMQ9qJb2NWsyubuRjON2ts9AUiN+g5zqaCdLGOunpfxGAlMJxYKqKaX2k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775574581; c=relaxed/simple;
-	bh=dkcbGVCRR5JfW5kZaQmLiuBhWaoFEwvQeU9ASSY32kk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Csazu8yGm3kHb2RnJnijsebcS29wevpTS7kNnCNaz9izaAhDKbEH7sN6ZtoArlHdLCY5BowsVFzPaOrAYF/8o4bvHTVCshPsJpS+2ORgsE5Z6nQ4o7riIaFmjTnoV3GfN6ehXV67KkRcJYO8jJlx2YZIjMgJRXJRkQJRH1SiAV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=gfQT8L/e; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1775574686; c=relaxed/simple;
+	bh=lqy09Kbj3O0yY7bdWaeGADHmmTFPdpTQhu87yGhEEm4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=NmRXXmK0ZjweF5jCPn/8/O5bWkj0FyQB7ztrqh83Vah9DI0yQeCO0rjT+6OyFRa7lnrokifEV9WLiM+zW1VnuJtCd6kEMSjZlfiUvlzq/INy0KMXCckojFylHdGeo5FNsVuc3hRAKHNCgo7yb228A/FawZSdJBpOtjUFPIJvPJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=pLYnKQY4; arc=none smtp.client-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="gfQT8L/e"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B98CF10E33C;
-	Tue,  7 Apr 2026 17:09:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1775574576;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=fUKRr3PIBlTzdV7W5Whjo5YyCw0hsjFvMeaap8RDMWk=;
-	b=gfQT8L/ePFsPjNOlKK7k4A8ISlVQUwClinREShy/diZqB70BOY43EQwB6JhIiJJHrtQWet
-	xaxDxyWLPzX1j2RvMm8/jtZinzR9neA6m/dPmrHL2ZTh0TivcHbMT8SXrRIXyZmAc2eQmC
-	uWb3saPAGAaNFP5DG1xfevjSqP+YDyCQL3itj/wcesOIM26SANxL4snTrnLa8CbIMkOjG/
-	uv6ELiglcBwNlO992owG7IPXHLH6FufdjnKXibgtwZvknkRkApNMm0ql+ASjKi9r+CwxTJ
-	f2aqkyl7QcFb8opXCWp0DlBHIqEN0r0td1ZbL6mU+F7VbO+LynOsSEPK5ztzeQ==
-Message-ID: <c3a9c4eb-92ce-48c2-83ff-18c7ce03acd9@nabladev.com>
-Date: Tue, 7 Apr 2026 16:51:45 +0200
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="pLYnKQY4"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-66e8cc747d8so4193956a12.1
+        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 08:11:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1775574683; x=1776179483; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Z8SJTbEuOYF9evENY//TwKuH5EWpBQYR81rCvHlGJIQ=;
+        b=pLYnKQY4990byypb+jPCD3xWBqcofEyEeYsfxFDO+VURl7LNMqfoEP3PKVm5X7LRh9
+         JVZZKccGi0XQpkOOv6BroI2kBRhatjUf8qk2wDIsg5w/6PCQ48OnnNAgr5YyjoC337vo
+         mO8ETurkEpUKQUDNyplMSt9U6NL7s8cyfcjZOGubG2a7qCzuhGvKEIJk2C7q16gho9xX
+         BZUEw6bNjuRTVZtWuybtIXACoILmnUEwwTBa4X4tinNC2htQEWsMmQPeUeZMHgqBCGGC
+         /pRQlySh7XO/9nbiImz/PlYJQ6vXUrhAF7Dj/lcnk9C/fHlH4z06LiMgNeXaSrxZDU59
+         c1aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775574683; x=1776179483;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Z8SJTbEuOYF9evENY//TwKuH5EWpBQYR81rCvHlGJIQ=;
+        b=ir/gUcRpXYvzNHNYTJSB/iJqMf1RF1Il2X53tsauRPOODwH45Lo5kbxnAYGo2GJu3h
+         ++rCgMQGfoEt9Gt9cKiYNdNWIKucCFEj/sLIJ6konAVcCH1MyzObw/JwRxP795vheWrl
+         MRfH5VzwptmhtQM6BqixO259d4TMYMY++aafupXdJM9YoH5YssCt4+NQUi12Rr9xLjbJ
+         TgJnmhXTcH66ROhxOW5W4EaZVLedhgsvrhjld0ki5FfTUrlBI9ZXsXB4uBPZhXKDsGE9
+         tw9F/sMoVUtXTJprUqlRll2cCZiGtySJrKTlPzTkJTgM4KWrnjTK1PBo1szWLTb2ihiL
+         WJ4w==
+X-Forwarded-Encrypted: i=1; AJvYcCVQ20TyWY2bKo6WWWE4vGEWhopuh+ReSsgRR3+EXb6ZiKR5OA68+F+Zejrp/zhFSiK81pnE4Me7+Syk@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz9c4InXj/2NUfNap5hlzpbeG7apUpfe2bcMVyi4WrL2ev1ekzh
+	2gIOZeVRmgPKM6ZmWZz1NYX0CCyIS0Y8IzLXlxzB6ZjaDPTn7wT5TFhbqmzyJE3kYzFAF2cUHzC
+	tBqlZLO4=
+X-Gm-Gg: AeBDievauAJRJHBo2f29hTP7YdWnJQOoGnJdX8//Qa94Ma26BiVMD77olOiHn+40rGU
+	sovWmrL+KfpLFgoP0sqBLPrdkvkmROz76a3aLpdMMS5ZZvzOjRA0aaXnPYs9dFKMS815+S+67xT
+	ZKi5yAnG74LQHadX0oqmU2cjRVI+W4/aNbwELXVblExicukssG87On7ttpV6bTEkrZBF3Y3kyT/
+	bTdRqnFoeAZwpCOJaSeYaGqFyeaf3eHBMSkH2b9pFUPwaNBMrVPVyTx33VeACqA5iqlSYU7F+Jo
+	j/cg3iYnoy90LeiXJOdb0ElTipCEUxP2YH+b8jDKGPxO5e20irH8h5FeJQy4bFKgB+TCEDJLk/4
+	sBeBQPFrpDptL5BAwiXecO1aYmfx0yLwQheVAXLXhOay7b92mOG7SmLgWrsR6H+3HTVNvBt3XZk
+	tsgLD9+aD2FmNaeix1nPeLEO4tPkxvT2/OGFIQkh7t2Xt0k7Ew9/RbgHopRqxHBqVvQUHaD7X7y
+	lP59w==
+X-Received: by 2002:a05:6402:430f:b0:66e:c7c2:fdbf with SMTP id 4fb4d7f45d1cf-66ec7c2fe80mr4857561a12.22.1775574683352;
+        Tue, 07 Apr 2026 08:11:23 -0700 (PDT)
+Received: from [172.16.220.101] (144-178-202-139.static.ef-service.nl. [144.178.202.139])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-66e6f10834asm2753326a12.15.2026.04.07.08.11.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 07 Apr 2026 08:11:22 -0700 (PDT)
+From: Luca Weiss <luca.weiss@fairphone.com>
+Subject: [PATCH v2 0/2] Describe IMEM on Milos
+Date: Tue, 07 Apr 2026 17:11:09 +0200
+Message-Id: <20260407-milos-imem-v2-0-5084a490340c@fairphone.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: display: bridge: lt9211: Require data-lanes
- on DSI input ports
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: devicetree@vger.kernel.org, Andrzej Hajda <andrzej.hajda@intel.com>,
- Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Robert Foss <rfoss@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260404034123.340818-1-marex@nabladev.com>
- <20260407-invaluable-pretty-leopard-1e8dfc@quoll>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <20260407-invaluable-pretty-leopard-1e8dfc@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22Oyw6CMBREf4XctTWlNBhZ+R+GRYsXuca22BaCI
+ fy75bF0eZKZMzNDQE8YoMpm8DhSIGcTiFMGTafsExk9EoPgouSSF8zQ2wVGBg0rFC+kEPIqSwW
+ p0Htsadpk93rnMOgXNnE1HAmPnyGtxD0GWgVkjTOGYpVZnCI7lgSsio5CdP673RvzrfHvyZgzz
+ qSQErWWF55fbq0i33fO4jnJoV6W5QfcU+CF6wAAAA==
+X-Change-ID: 20260403-milos-imem-3a034224946a
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1775574682; l=726;
+ i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
+ bh=lqy09Kbj3O0yY7bdWaeGADHmmTFPdpTQhu87yGhEEm4=;
+ b=t8ws3HTAXyiAvzcnuJZO0pMo5EnFg9ixXGNLiV3mKbIx6VrCOeei/HrOt1so0kG4xP8sVq5th
+ mJ4nKteG69fA4vCNYdvSfXyfeKsdgwFKv0bLmM07dUzEHmHv0oSUalh
+X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
+ pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 
-On 4/7/26 10:00 AM, Krzysztof Kozlowski wrote:
+Add a compatible and describe the IMEM for the Milos SoC.
 
->> NOTE: For example Linux kernel driver does already use that information
->>        and fails to probe if it is missing. There are currently no intree
-> 
-> The first sentence must be part of the commit msg. That is important
-> reason why you are doing this... but I don't see how you achieve any of
-> this. Look:
-> 
-> 
->>        users for this binding, so no new warnings will be generated once
->>        this is applied, but a new user is about to be added.
-> 
-> What warnings? How?
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+Changes in v2:
+- Use mmio-sram for describing IMEM
+- Link to v1: https://patch.msgid.link/20260403-milos-imem-v1-0-4244ebb47017@fairphone.com
 
-There are no in-tree users of this binding, so no DT checker warnings 
-will be produced on existing in-tree DTs. I am in the process of adding 
-a DTO which uses this binding now in arm64: dts: imx8mm: imx8mp: Add 
-DTOs for Data Modul i.MX8M Mini and Plus eDM SBC
+---
+Luca Weiss (2):
+      dt-bindings: sram: Document qcom,milos-imem
+      arm64: dts: qcom: milos: Add IMEM node
 
->> ---
->>   .../display/bridge/lontium,lt9211.yaml        | 37 ++++++++++++++++++-
->>   1 file changed, 35 insertions(+), 2 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml
->> index 9a6e9b25d14a9..5264fb2b68b78 100644
->> --- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml
->> +++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml
->> @@ -36,18 +36,50 @@ properties:
->>   
->>       properties:
->>         port@0:
->> -        $ref: /schemas/graph.yaml#/properties/port
->> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> 
-> OK, that's correct.
-> 
->> +        unevaluatedProperties: false
->>           description:
->>             Primary MIPI DSI port-1 for MIPI input or
->>             LVDS port-1 for LVDS input or DPI input.
->>   
->> +        properties:
->> +          endpoint:
->> +            $ref: /schemas/media/video-interfaces.yaml#
->> +            unevaluatedProperties: false
-> 
-> That's correct.
-> 
->> +
->> +            properties:
->> +              data-lanes:
->> +                description: array of physical DSI data lane indexes.
->> +                minItems: 1
->> +                items:
->> +                  - const: 1
->> +                  - const: 2
->> +                  - const: 3
->> +                  - const: 4
-> 
-> That's almost redundant in this context - it was already there - and the
-> point is that it solves noting in the problem you had. Binding still
-> does not validate the ABI and does not match it, still.
-> 
-> Since commit foo bar, driver needs data-lanes, so what you need to do is
-> allow them and to require them. You can also specify their constraints
-> if device can be configured multiple ways, up to 4 lanes.
-Please pardon my ignorance, what exactly do you propose I change in this 
-patch ?
+ Documentation/devicetree/bindings/sram/sram.yaml |  1 +
+ arch/arm64/boot/dts/qcom/milos.dtsi              | 20 ++++++++++++++++++++
+ 2 files changed, 21 insertions(+)
+---
+base-commit: 83acad05dee54a5cff0c98dd7962e55d4c6b145a
+change-id: 20260403-milos-imem-3a034224946a
+
+Best regards,
+--  
+Luca Weiss <luca.weiss@fairphone.com>
+
