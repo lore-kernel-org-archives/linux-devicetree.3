@@ -1,258 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C362F60CC;
-	Tue,  7 Apr 2026 13:27:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4E2A3B775D;
+	Tue,  7 Apr 2026 13:27:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775568433; cv=none; b=n64wZke4PM3kvBMvqyF+xQtwx6NFlQWP+YjL4pxFKPC5ikD575b74qzHCUx7xHInmlzVTYdcN10fQEKFjHPg4HYqSBVTVq6LYlApaouW84IjI4v2h1ApKwbbydLGPvv93hkUEJ1zTeuSAZc5juhgIHW4J9KKyJKTkzR5KccYhe8=
+	t=1775568442; cv=none; b=QGfaL3c8F28eoxRx97dmjA9UbGthqlEJWg5HY3GKXVZMIc8BGl0wCMPnU0IJVUBA4GUOLDWcsbrL3c+RY+4mRCeo+NQBaaof91uU6Sqn/fCzU7WGZjmZ7BLPI59OBGWyJJcTYD9ANEd5YOO8+jCrOrdS7ExReHuatNuSaVO1UM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775568433; c=relaxed/simple;
-	bh=NbvYPznNh5YF7BLCPc0vkkphiqZCgi6sGlSzqTEKe4c=;
+	s=arc-20240116; t=1775568442; c=relaxed/simple;
+	bh=fhPqAy2sH7e5DJmy7s69GNuUU+WKtR6pPLbpxVTvfCU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ByqzeXlOShuDm3SAt23FO807xZtYjoWXqA8C0sk72W+GXs8qf8l/QDi6D51xKnM37BIhcJyLMMa8Pl+QOrDK/AnkeJjbCjgCvyfsjJ8WxUrl3vSMwOUeRXuJhzhDENeGD/vIIpTalyGXhyPmDC7uFFx6ovbXlLgD0MRKOrcjnvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ch1UitFu; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=V0Y3s1ON7sURYC/7vz16ddy8okKRd18U+B9CYINWEkygFTbeVvrPJEdUU22yRXPmQQRb3Sn5QSwy6lBkaeNtBhBVhjEP/zP6TGMmjj/hrniagTa9iWzp4HLGiaqbh5VppjF+C1p2+penBQ0sJkQIOEYH+VLrXyclpPMiQL0cGBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=BZCSfvhG; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ch1UitFu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B371EC19424;
-	Tue,  7 Apr 2026 13:27:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775568433;
-	bh=NbvYPznNh5YF7BLCPc0vkkphiqZCgi6sGlSzqTEKe4c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Ch1UitFu4B4nmanDqFPopy62LPM5Pa7VCdL0eyDdf5CyqE/KW9DvFpWntJtqIdMcK
-	 VA3pt1Hd+/ORLe3VqOo52fYtUYdhO1OVGn1d2rDmvdHLnbOMZEZLoTzlJlNfcMA2+A
-	 tiGCzXFaXeMOJY+JiFf+cZLBxShZEPA1GrmBdxOMqI5hfOmchhwxzsUOf87hgWZlo6
-	 3fsXhARMFVOONtS+hz54n1CFbZC9OD4BjLwcE2QdqxSPbSACZrZoI/LNaMMWmgd6RK
-	 CQADol0qm36nT5JbY4vzh9DTz7tR5XNvqaUG5glthTYqXI7YyJAxHmuTCt826rbtYR
-	 v9jLAXWxsKnsg==
-Date: Tue, 7 Apr 2026 18:57:03 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Sherry Sun <sherry.sun@nxp.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de, 
-	festevam@gmail.com, lpieralisi@kernel.org, kwilczynski@kernel.org, 
-	bhelgaas@google.com, hongxing.zhu@nxp.com, l.stach@pengutronix.de, 
-	imx@lists.linux.dev, linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH V11 02/12] PCI: host-generic: Add common helpers for
- parsing Root Port properties
-Message-ID: <lnzprzrdwra7pn7d6m3sbj5pvjy64blwpjl6i3lmlnfbyho63b@czpyhpgz5vum>
-References: <20260407104154.2842132-1-sherry.sun@nxp.com>
- <20260407104154.2842132-3-sherry.sun@nxp.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="BZCSfvhG"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=IUe9COmHpHLq20IfDV7wBf0fs3/+ozBHLuEm1gRfjmQ=; b=BZCSfvhG87/QSajNbHNCC3NuB4
+	/W7rNrQu3UatpnJolElrFKOZq4jMof0N2Rt1geik4YqdBd3IP/DQcBOg5A7gQw3AT8mK0wp9rlqDg
+	FV4mFajmd/brcgrS4FcrpjbVvrHE2GjkAWpTwPX9TEZW5WqyXGbcuIcpzVv5Yl8IARAQ=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wA5ko-00F81f-Uo; Tue, 07 Apr 2026 14:42:02 +0200
+Date: Tue, 7 Apr 2026 14:42:02 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: PK Lee <pkleequanta@gmail.com>
+Cc: robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+	conor+dt@kernel.org, joel@jms.id.au, andrew@codeconstruct.com.au,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+	Jason-Hsu@quantatw.com, p.k.lee@quantatw.com
+Subject: Re: [PATCH v12 2/2] arm: dts: aspeed: ventura: add Meta Ventura BMC
+Message-ID: <435616b8-8d4c-4814-8f21-d667755473f1@lunn.ch>
+References: <20260226055521.1655243-1-pkleequanta@gmail.com>
+ <20260226055521.1655243-3-pkleequanta@gmail.com>
+ <258747f4-9da5-44da-8eb9-24f8a8cbff3a@lunn.ch>
+ <CAK8yEODCyYxkggU+7=xzWFcXP6RMTpNbHyYRHZhahX7=b6reqA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260407104154.2842132-3-sherry.sun@nxp.com>
+In-Reply-To: <CAK8yEODCyYxkggU+7=xzWFcXP6RMTpNbHyYRHZhahX7=b6reqA@mail.gmail.com>
 
-On Tue, Apr 07, 2026 at 06:41:44PM +0800, Sherry Sun wrote:
-> Introduce generic helper functions to parse Root Port device tree nodes
-> and extract common properties like reset GPIOs. This allows multiple
-> PCI host controller drivers to share the same parsing logic.
+On Tue, Apr 07, 2026 at 05:05:12PM +0800, PK Lee wrote:
+> > > +&mac3 {
+> > > +     status = "okay";
+> > > +     phy-mode = "rmii";
+> > > +     pinctrl-names = "default";
+> > > +     pinctrl-0 = <&pinctrl_rmii4_default>;
+> > > +     fixed-link {
+> > > +             speed = <100>;
+> > > +             full-duplex;
+> > > +     };
+> >
+> > What is on the other end of this fixed link?
 > 
-> Define struct pci_host_port to hold common Root Port properties
-> (currently only reset GPIO descriptor) and add
-> pci_host_common_parse_ports() to parse Root Port nodes from device tree.
+> The other end of this fixed link is the CPU port of a Marvell 88E6393X
+> switch. We are using this switch in unmanaged mode rather than using
+> the DSA subsystem. Therefore, we use a fixed-link to force the mac3 to
+> 100Mbps full-duplex RMII to match the CPU port configuration.
+
+You are mixing up terms. The 88E6393X does not have a dedicated port
+for connecting to the host CPU. Any port can be connected to the host,
+using DSA tags. And all the ports are 1G or faster, so it seems odd to
+limit it to 100Mbps. There is something consider a CPU port, but that
+connects the internal Z80 CPU to the switch fabric.
+
+> > > +};
+> > > +
+> > > +&mdio0 {
+> > > +     status = "okay";
+> > > +};
+> >
+> > If there are no devices on the bus, why enable it?
 > 
-> Also add the 'ports' list to struct pci_host_bridge for better maintain
-> parsed Root Port information.
-> 
-> Signed-off-by: Sherry Sun <sherry.sun@nxp.com>
-> ---
->  drivers/pci/controller/pci-host-common.c | 77 ++++++++++++++++++++++++
->  drivers/pci/controller/pci-host-common.h | 16 +++++
->  drivers/pci/probe.c                      |  1 +
->  include/linux/pci.h                      |  1 +
->  4 files changed, 95 insertions(+)
-> 
-> diff --git a/drivers/pci/controller/pci-host-common.c b/drivers/pci/controller/pci-host-common.c
-> index d6258c1cffe5..0fb6991dde7b 100644
-> --- a/drivers/pci/controller/pci-host-common.c
-> +++ b/drivers/pci/controller/pci-host-common.c
-> @@ -9,6 +9,7 @@
->  
->  #include <linux/kernel.h>
->  #include <linux/module.h>
-> +#include <linux/gpio/consumer.h>
->  #include <linux/of.h>
->  #include <linux/of_address.h>
->  #include <linux/of_pci.h>
-> @@ -17,6 +18,82 @@
->  
->  #include "pci-host-common.h"
->  
-> +/**
-> + * pci_host_common_delete_ports - Cleanup function for port list
-> + * @data: Pointer to the port list head
-> + */
-> +void pci_host_common_delete_ports(void *data)
-> +{
-> +	struct list_head *ports = data;
-> +	struct pci_host_port *port, *tmp;
-> +
-> +	list_for_each_entry_safe(port, tmp, ports, list)
-> +		list_del(&port->list);
-> +}
-> +EXPORT_SYMBOL_GPL(pci_host_common_delete_ports);
-> +
-> +/**
-> + * pci_host_common_parse_port - Parse a single Root Port node
-> + * @dev: Device pointer
-> + * @bridge: PCI host bridge
-> + * @node: Device tree node of the Root Port
-> + *
-> + * Returns: 0 on success, negative error code on failure
-> + */
-> +static int pci_host_common_parse_port(struct device *dev,
-> +				      struct pci_host_bridge *bridge,
-> +				      struct device_node *node)
-> +{
-> +	struct pci_host_port *port;
-> +	struct gpio_desc *reset;
-> +
-> +	reset = devm_fwnode_gpiod_get(dev, of_fwnode_handle(node),
-> +				      "reset", GPIOD_ASIS, "PERST#");
+> We intentionally enable it so user-space tools can access the switch
+> registers. I have added a comment in v13 to clarify this.
 
-Sorry, I missed this earlier.
+Why would user space want to access the switch registers for an
+unmanaged switch? It sounds like you are using Marvells SDK in
+userspace to manage the switch, rather than using DSA.
 
-Since PERST# is optional, you cannot reliably detect whether the Root Port
-binding intentionally skipped the PERST# GPIO or legacy binding is used, just by
-checking for PERST# in Root Port node.
-
-So this helper should do 3 things:
-
-1. If PERST# is found in Root Port node, use it.
-2. If not, check the RC node and if present, return -ENOENT to fallback to the
-legacy binding.
-3. If not found in both nodes, assume that the PERST# is not present in the
-design, and proceed with parsing Root Port binding further.
-
-But there is one more important limitation here. Right now, this API only
-handles PERST#. But if another vendor tries to use it and if they need other
-properties such as PHY, clocks etc... those resources should be fetched
-optionally only by this helper. But if the controller has a hard dependency on
-those resources, the driver will fail to operate.
-
-I don't think we can fix this limitation though and those platforms should
-ensure that the resource dependency is correctly modeled in DT binding and the
-DTS is validated properly. It'd be good to mention this in the kernel doc of
-this API.
-
-> +	if (IS_ERR(reset))
-> +		return PTR_ERR(reset);
-> +
-> +	port = devm_kzalloc(dev, sizeof(*port), GFP_KERNEL);
-> +	if (!port)
-> +		return -ENOMEM;
-> +
-> +	port->reset = reset;
-> +	INIT_LIST_HEAD(&port->list);
-> +	list_add_tail(&port->list, &bridge->ports);
-> +
-> +	return 0;
-> +}
-> +
-> +/**
-> + * pci_host_common_parse_ports - Parse Root Port nodes from device tree
-> + * @dev: Device pointer
-> + * @bridge: PCI host bridge
-> + *
-> + * This function iterates through child nodes of the host bridge and parses
-> + * Root Port properties (currently only reset GPIO).
-> + *
-> + * Returns: 0 on success, -ENOENT if no ports found, other negative error codes
-> + * on failure
-> + */
-> +int pci_host_common_parse_ports(struct device *dev, struct pci_host_bridge *bridge)
-> +{
-> +	int ret = -ENOENT;
-> +
-> +	for_each_available_child_of_node_scoped(dev->of_node, of_port) {
-> +		if (!of_node_is_type(of_port, "pci"))
-> +			continue;
-> +		ret = pci_host_common_parse_port(dev, bridge, of_port);
-> +		if (ret)
-> +			return ret;
-
-As Sashiko flagged, you need to make sure that devm_add_action_or_reset() is
-added even during the error path:
-https://sashiko.dev/#/patchset/20260407104154.2842132-1-sherry.sun%40nxp.com?part=2
-
-- Mani
-
-> +	}
-> +
-> +	if (ret)
-> +		return ret;
-> +
-> +	return devm_add_action_or_reset(dev, pci_host_common_delete_ports,
-> +					&bridge->ports);
-> +}
-> +EXPORT_SYMBOL_GPL(pci_host_common_parse_ports);
-> +
->  static void gen_pci_unmap_cfg(void *ptr)
->  {
->  	pci_ecam_free((struct pci_config_window *)ptr);
-> diff --git a/drivers/pci/controller/pci-host-common.h b/drivers/pci/controller/pci-host-common.h
-> index b5075d4bd7eb..37714bedb625 100644
-> --- a/drivers/pci/controller/pci-host-common.h
-> +++ b/drivers/pci/controller/pci-host-common.h
-> @@ -12,6 +12,22 @@
->  
->  struct pci_ecam_ops;
->  
-> +/**
-> + * struct pci_host_port - Generic Root Port properties
-> + * @list: List node for linking multiple ports
-> + * @reset: GPIO descriptor for PERST# signal
-> + *
-> + * This structure contains common properties that can be parsed from
-> + * Root Port device tree nodes.
-> + */
-> +struct pci_host_port {
-> +	struct list_head	list;
-> +	struct gpio_desc	*reset;
-> +};
-> +
-> +void pci_host_common_delete_ports(void *data);
-> +int pci_host_common_parse_ports(struct device *dev, struct pci_host_bridge *bridge);
-> +
->  int pci_host_common_probe(struct platform_device *pdev);
->  int pci_host_common_init(struct platform_device *pdev,
->  			 struct pci_host_bridge *bridge,
-> diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
-> index eaa4a3d662e8..629ae08b7d35 100644
-> --- a/drivers/pci/probe.c
-> +++ b/drivers/pci/probe.c
-> @@ -677,6 +677,7 @@ static void pci_init_host_bridge(struct pci_host_bridge *bridge)
->  {
->  	INIT_LIST_HEAD(&bridge->windows);
->  	INIT_LIST_HEAD(&bridge->dma_ranges);
-> +	INIT_LIST_HEAD(&bridge->ports);
->  
->  	/*
->  	 * We assume we can manage these PCIe features.  Some systems may
-> diff --git a/include/linux/pci.h b/include/linux/pci.h
-> index 8f63de38f2d2..a73ea81ce88f 100644
-> --- a/include/linux/pci.h
-> +++ b/include/linux/pci.h
-> @@ -636,6 +636,7 @@ struct pci_host_bridge {
->  	int		domain_nr;
->  	struct list_head windows;	/* resource_entry */
->  	struct list_head dma_ranges;	/* dma ranges resource list */
-> +	struct list_head ports;		/* Root Port list (pci_host_port) */
->  #ifdef CONFIG_PCI_IDE
->  	u16 nr_ide_streams; /* Max streams possibly active in @ide_stream_ida */
->  	struct ida ide_stream_ida;
-> -- 
-> 2.37.1
-> 
-
--- 
-மணிவண்ணன் சதாசிவம்
+	Andrew
