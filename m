@@ -1,73 +1,33 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012029.outbound.protection.outlook.com [52.101.53.29])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BF1733555B;
-	Tue,  7 Apr 2026 05:46:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.29
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775540808; cv=fail; b=hxyXDPy+O944eOiK4aZzdeE3hy5O00WVIO2VWlojr/audNaHnO8AbDSuZdniWPvJIg9WueItq67G57XMQDb3/1L12Fmne3g6CALt3i0yu2S+Jd1H6Kilx8H3YPWERAJT39mvpycLf69La+ns9JXHKNKBrZZFjnHyIZFams0UhKc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775540808; c=relaxed/simple;
-	bh=h8EymtbYsefz8eybDT0+pLtFFjjn0cNHRrPKBJPdHk0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=AlOSLrAeIQJM0nB5CBdPCG4u4h3FotcrW1V0PcxsT0dkuTNy0/eDJ9lDKczZSP4vZIIzq9uk/YjRS5GoMRFuBf5lW1V5ezP/RRVohGx+uvnsoebwABYqnK5IJ+KQpZoDtsDAfLicvs44bS+WI3NbZMYqLFr1RrXH9RX5B/R+1u0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=G1oLbn6T; arc=fail smtp.client-ip=52.101.53.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8111B378D95;
+	Tue,  7 Apr 2026 05:53:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775541230; cv=none; b=bqtCWTJfqb94AXVb1ruyPuoi7BdH7tvNYa5rnhmqNk7dCUc4bCoZ81c9B/8lQAorqIqunNfheuSHHQBs3LdXy0URe/5T4hD8bMjy+C3K9s9eCBtkDLlsfmr+P7iZvwti6ZrmAnEaQSgVjk/ZA1BhjzxLNR1PP/bzwkeHbaykSIg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775541230; c=relaxed/simple;
+	bh=doGvoPU+sXAQUCjtfGMhgrSg+5rPkM5MHTStao+BUgI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=goc6QB2xsE9S7uJkY9mNb8kjkevlc9AJEjgTn9gspmorSEOt7qgVOEzicjKnB1100ued6EGKgNsWzBE0HXLIBv2Fh+/nKln2VgD9SkIuWi9FA3KR3fGWXn+a40YHi4/jSZh+1iw2J/nPJeOOcS5Ksapo+WVzuIdUoEbQ4IjAO7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UqCASRnN; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="G1oLbn6T"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hmxis/zNawhDHyKwiqz8HAiNxpH7+zNzD8Nis8OxEAPbrkhLCz103FzzMO7EyNzaWrBQFoCvg1Bt91MgpMHOWzI9Gj8Tv7SjerysR2EMcT5TX3w69UQMMaycyHUgsvTM2scUV+0L4vm0KmZRFKZwqdF4cfOqaUfXvo7ndJ1aV7LwYQFKCkKv/hXENj5NVCyxv8HfbfSm4WhWVObq17f8p/vEga+7ecF/LBVwSAE+BwLKIpZByLUw9d7LWr4zDbdqSazCC3JQtTyz1qAoqejhccazYbsX6LlmV0r8S+UxWqithnvIAcGa5FfQ+N+Y6SMDrzOIftxDVqFhvVv1N34P0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Xf5X065ReSVajiDXnu4qNzcMlVH+et5ZYvUKjhvP7TY=;
- b=cVjxfjA+V0jwxDPPhDeVxO1LTuuaXzWjBMe4vS4CV3yegSp9R0gSaGiLOhy7e1gO4hSP7YexH8zxlNVe2QJeh15cfhrG/aCH/5lfKLfNsZMxZ8LTgxCgUMnHA4xDmSEP3Qji4w58fk4yhUhhpWgaKhaS0a+3fes9v2AlBHFt1OKI6MNXdm8V7vtSsIPRPaUuDiMoxhzvgxv0xSsH0ofWADri7CjHIUlMIWyGJKIgrx4DX4xseHkIeS9LLdgLTxcxxGhB9lTlDYc2oWWc4C0G0LGxgGYmE+tLTyXZ+McqiasNJsIsFWNd5+qZZ7x7Xg1i5MtcEVM+ZO9emFILt1wpjg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Xf5X065ReSVajiDXnu4qNzcMlVH+et5ZYvUKjhvP7TY=;
- b=G1oLbn6TWAprtNKP9iNdxVW/hvV5xku4pFF0cQeOJcQN8EY6v1TZBCg8rV2Xj0IeM/13NbBJB2y5+HLZkkodeSdjJngtydPbiCkMlr3PShZYCkLn6W2iMvYtA2r3XQy+fCa4/S4Qw7SFvqhNGgJFUxFYQM/KfrPXNxAr6pZr2y8=
-Received: from BY3PR05CA0033.namprd05.prod.outlook.com (2603:10b6:a03:39b::8)
- by PH0PR10MB997616.namprd10.prod.outlook.com (2603:10b6:510:37f::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Tue, 7 Apr
- 2026 05:46:44 +0000
-Received: from SJ1PEPF00001CDC.namprd05.prod.outlook.com
- (2603:10b6:a03:39b:cafe::62) by BY3PR05CA0033.outlook.office365.com
- (2603:10b6:a03:39b::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.32 via Frontend Transport; Tue,
- 7 Apr 2026 05:46:44 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- SJ1PEPF00001CDC.mail.protection.outlook.com (10.167.242.4) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Tue, 7 Apr 2026 05:46:43 +0000
-Received: from DFLE205.ent.ti.com (10.64.6.63) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 7 Apr
- 2026 00:46:35 -0500
-Received: from DFLE209.ent.ti.com (10.64.6.67) by DFLE205.ent.ti.com
- (10.64.6.63) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 7 Apr
- 2026 00:46:35 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE209.ent.ti.com
- (10.64.6.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
- Transport; Tue, 7 Apr 2026 00:46:35 -0500
-Received: from [10.24.50.20] (moteen-ubuntu-desk.dhcp.ti.com [10.24.50.20])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6375kVv51968249;
-	Tue, 7 Apr 2026 00:46:32 -0500
-Message-ID: <62dd6a7f-7a5b-4939-a18d-8b763f6e8f9b@ti.com>
-Date: Tue, 7 Apr 2026 11:16:30 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UqCASRnN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF7F8C116C6;
+	Tue,  7 Apr 2026 05:53:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775541230;
+	bh=doGvoPU+sXAQUCjtfGMhgrSg+5rPkM5MHTStao+BUgI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=UqCASRnN4A2J44tXZ2iZb1BGqburHcHcRTnN6KLCw34b0fJTg5SgaOC2o/EOG8bHK
+	 VKOOog6LNleLD0Og+6OvcWxUsncfsKy0I6HnDvcHmsq2frwwMjoZn+ksRVxvddZvFl
+	 rFxQ9iHpsHEmcmXjmnW0V/PqdkAPRsOJ3U+S4+CmRYqnuLiYtF7p/dh7WkEuMAfEeF
+	 7WMr2UDIZgQbKUg8dFzahJpQEasxP2GtiIadcUSulNAdf1As/bHgJ89VSqJyrdFppU
+	 mGD6hJjqmyos+GURMbESh3Ny/hu1FGby3kF0KjpNonq529TrUu3/T8x0Vd16XI8RUS
+	 8iWFrYpVddenQ==
+Message-ID: <0c78744d-6bdb-4b0e-a0bc-039bb6527476@kernel.org>
+Date: Tue, 7 Apr 2026 07:53:45 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -77,102 +37,116 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3 1/2] ti,j721e-system-controller.yaml: Allow
  audio-refclk as clock-controller child
-To: Krzysztof Kozlowski <krzk@kernel.org>
-CC: <krzk+dt@kernel.org>, <robh@kernel.org>, <conor+dt@kernel.org>,
-	<nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <u-kumar1@ti.com>, <gehariprasath@ti.com>,
-	<y-abhilashchandra@ti.com>
+To: Moteen Shah <m-shah@ti.com>
+Cc: krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, nm@ti.com,
+ vigneshr@ti.com, kristo@kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ u-kumar1@ti.com, gehariprasath@ti.com, y-abhilashchandra@ti.com
 References: <20260330094459.128648-1-m-shah@ti.com>
  <20260330094459.128648-2-m-shah@ti.com>
  <20260331-flashy-hilarious-whale-6e606c@quoll>
+ <62dd6a7f-7a5b-4939-a18d-8b763f6e8f9b@ti.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Moteen Shah <m-shah@ti.com>
-In-Reply-To: <20260331-flashy-hilarious-whale-6e606c@quoll>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <62dd6a7f-7a5b-4939-a18d-8b763f6e8f9b@ti.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CDC:EE_|PH0PR10MB997616:EE_
-X-MS-Office365-Filtering-Correlation-Id: 96bb3ffc-2460-47f2-a418-08de94690cb0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|36860700016|82310400026|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	M9E/9zPQHEac2QbcfH6sn7pWEM1320p49IV/Nao6M4fTe75tHT8E5T//ASvFuDII81f7r9xbBDVezoFJInvG59jE3fwPdQo2SMjxKJXjEGPVy8Brd4IBCbTtHXFm0dLdSMGpMp1uBAyzMDBwL6SumIVsYzkjs2ko6yx1o5UaU+2jbpXxyR0Q8j6ZjIXEYbUPDzzPNqZ3Hx0kcCoESWy+9qhgRMvpzzzILgWggliwpD70JzTNbvZW2HhTSCUHq27g/SrzE5c+oI+Rvm5AnT4p1G0+TxYYicvww9OjpxyT5QAnmvGJXWh493YCHmIAb2tyqlVJiwMgiCgRPphhsGyI6Vfj3OkgriRIgKnzPx0eH8+xweccdFimrTTMqpfbO4PkUpcg9AxVpxDJ0Y5G6JlghLvzksLQTHzvdaQSd5JxO/1aO6TWDijKIcA/fbstutUlPF+CNZuNxdISLxLC3AGtLKhJqodWVNPv/7foxgXitihHvEUOURsZGd0WMNepP6KX3Rrm9iA6wYLODx1N2F4wZqE9ypL7ctwIm35mqWcVm245ETD3P04zT/6KksnQpgzSVWWHhWNHGV3gMPNEK1FnSSwMX4SCJot0d4fh3j1/6TJUIHrE8uJRaDPlVjJAGV8wHM0bEH6zxZuIXWx6LrfS9rhkf/o2JAi5g2rb/6zlrN6mSZNqeMolQFUch4Be0VpO6xFF8RzGiWr784uVgsgEGCbyYTkLhzzxmcSj6KySEFNk7yHCCD1hZshoHqs8rWRVNJR4nuwpjd8RJmuXpy+jZA==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700016)(82310400026)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	wK+W1+j+WrsYR2LT5mnocaZ6fs3YXyGaOfET51rW7tcwD2NtnkH8cWM8Ihf2+JTRy0kCTsw3TZS+nJNXucSMzCiqYpjVKmjxwNx+Nnu3/eZBEtfwwbjtbDt+aFplxKeSa52CVXgDkSfsu7aFwXIetT3a/2yrqEm3Rrz+DJLUcW2BQdDfG8Fgubo/zicKqWKZ/iZejez1lz79pdQuHjMgMC8/mWJDPle3CecI9N2z+zIlkpCnEhXjzga9+f7woXDG+bhRclpx3KSoGHcBpGeycxrp99AQ5ikO2JYwk40iBWEG3cwDNY62RK0clViu56D+aOoH41rlJfM5wgzUygeGQfqUCsGAXwg9Puk6FeRO/q0hsa6g5T6SSQuF2Gnu1J82avH5peOe0xyMUTRknguESeDfH9+YEr+vDz6akpW0agzw3yxgsVtMGwkd8vqW6Mq8
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2026 05:46:43.7203
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 96bb3ffc-2460-47f2-a418-08de94690cb0
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00001CDC.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR10MB997616
 
-Hey Krzysztof,
-
-On 31/03/26 12:39, Krzysztof Kozlowski wrote:
-> On Mon, Mar 30, 2026 at 03:14:58PM +0530, Moteen Shah wrote:
->> The ti,j721e-system-controller binding currently only allows
->> clock-controller@ child nodes to reference the ti,am654-ehrpwm-tbclk
->> schema. However, the system controller on J721S2 also contains audio
-> J721S2 or AM62?
->
->> reference clock controllers (ti,am62-audio-refclk) that use the same
->> clock-controller@XXXX naming pattern.
+On 07/04/2026 07:46, Moteen Shah wrote:
+> Hey Krzysztof,
+> 
+> On 31/03/26 12:39, Krzysztof Kozlowski wrote:
+>> On Mon, Mar 30, 2026 at 03:14:58PM +0530, Moteen Shah wrote:
+>>> The ti,j721e-system-controller binding currently only allows
+>>> clock-controller@ child nodes to reference the ti,am654-ehrpwm-tbclk
+>>> schema. However, the system controller on J721S2 also contains audio
+>> J721S2 or AM62?
 >>
->> Hence, extend the clock-controller pattern to accept either ehrpwm-tbclk
->> or audio-refclk schemas using a oneOf constraint.
+>>> reference clock controllers (ti,am62-audio-refclk) that use the same
+>>> clock-controller@XXXX naming pattern.
+>>>
+>>> Hence, extend the clock-controller pattern to accept either ehrpwm-tbclk
+>>> or audio-refclk schemas using a oneOf constraint.
+>>>
+>>> Signed-off-by: Moteen Shah <m-shah@ti.com>
+>>> ---
+>>>   .../bindings/soc/ti/ti,j721e-system-controller.yaml         | 6 ++++--
+>>>   1 file changed, 4 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/soc/ti/ti,j721e-system-controller.yaml b/Documentation/devicetree/bindings/soc/ti/ti,j721e-system-controller.yaml
+>>> index f3bd0be3b279..d5d84a8f1257 100644
+>>> --- a/Documentation/devicetree/bindings/soc/ti/ti,j721e-system-controller.yaml
+>>> +++ b/Documentation/devicetree/bindings/soc/ti/ti,j721e-system-controller.yaml
+>>> @@ -53,9 +53,11 @@ patternProperties:
+>>>   
+>>>     "^clock-controller@[0-9a-f]+$":
+>>>       type: object
+>>> -    $ref: /schemas/clock/ti,am654-ehrpwm-tbclk.yaml#
+>>> +    oneOf:
+>>> +      - $ref: /schemas/clock/ti,am654-ehrpwm-tbclk.yaml#
+>>> +      - $ref: /schemas/clock/ti,am62-audio-refclk.yaml#
+>> Alphanumerical order.
 >>
->> Signed-off-by: Moteen Shah <m-shah@ti.com>
->> ---
->>   .../bindings/soc/ti/ti,j721e-system-controller.yaml         | 6 ++++--
->>   1 file changed, 4 insertions(+), 2 deletions(-)
+>> There is no ti,am62 in the top level compatibles, so why am62 is here?
+>> Top level has j721s2 but this ti,am62-audio-refclk.yaml only am62.
 >>
->> diff --git a/Documentation/devicetree/bindings/soc/ti/ti,j721e-system-controller.yaml b/Documentation/devicetree/bindings/soc/ti/ti,j721e-system-controller.yaml
->> index f3bd0be3b279..d5d84a8f1257 100644
->> --- a/Documentation/devicetree/bindings/soc/ti/ti,j721e-system-controller.yaml
->> +++ b/Documentation/devicetree/bindings/soc/ti/ti,j721e-system-controller.yaml
->> @@ -53,9 +53,11 @@ patternProperties:
->>   
->>     "^clock-controller@[0-9a-f]+$":
->>       type: object
->> -    $ref: /schemas/clock/ti,am654-ehrpwm-tbclk.yaml#
->> +    oneOf:
->> +      - $ref: /schemas/clock/ti,am654-ehrpwm-tbclk.yaml#
->> +      - $ref: /schemas/clock/ti,am62-audio-refclk.yaml#
-> Alphanumerical order.
->
-> There is no ti,am62 in the top level compatibles, so why am62 is here?
-> Top level has j721s2 but this ti,am62-audio-refclk.yaml only am62.
->
-> Best regards,
-> Krzysztof
+>> Best regards,
+>> Krzysztof
+> 
+> The "ti,am62-audio-refclk" compatible refers to a shared audio reference 
+> clock IP block that was first introduced/named on AM62 but is present on 
+> other TI K3 SoCs as well, including J721S2. The compatible string 
+> identifies the IP block, not the SoC family.
+> 
+> This is already an established pattern — 
+> k3-j784s4-j742s2-main-common.dtsi uses the same compatible for the 
+> J784S4/J742S2 audio refclk node.
 
-The "ti,am62-audio-refclk" compatible refers to a shared audio reference 
-clock IP block that was first introduced/named on AM62 but is present on 
-other TI K3 SoCs as well, including J721S2. The compatible string 
-identifies the IP block, not the SoC family.
+Please read carefully writing-bindings doc.
 
-This is already an established pattern — 
-k3-j784s4-j742s2-main-common.dtsi uses the same compatible for the 
-J784S4/J742S2 audio refclk node.
-
-The ti,j721e-system-controller.yaml binding (which covers 
-ti,j721s2-system-controller) already lists ti,am62-audio-refclk as an 
-allowed clock-controller child, which was updated in patch 1/2 of this 
-series to make room for this node.
 
 Best regards,
-Moteen Shah
-
+Krzysztof
