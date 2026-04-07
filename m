@@ -1,155 +1,421 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011069.outbound.protection.outlook.com [52.101.65.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E5C139C00C
-	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 09:12:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775553165; cv=none; b=eWEVGISOZNMRWRV98Mrh61nVQ+tIyKMaLxFuQe3ZncbfMPBxg3oHocYq40ul6Zvgavc1LnL8+ODPHsUFM5lfIXtdyuJdF8MW6imp8ki43VBp09sb/LyOcPFtyzNF6hTO/IQ6Dfrkr1sfZSQSDTj8mOFdq1VS5pL3xCi4vBK0KLs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775553165; c=relaxed/simple;
-	bh=m4OOjO1VZrIFqaVj+/tWZtl2Q2KKnNTdWD448cP9p10=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hEqXE1VitndyHakGM2jn/Z6Iz8WpvLjLU9ruepicHNk5hshRNi23Uw8AI0zpt2Vsxi7+wu4h/VU0MLPByCrxwNqma2vmfv1WViOkYm34vbzkbTkmDa4bfNMXIYjmYk/PlPbwVzJu+PITtp2cT8jLglJmWj6AL3QA+FrtZ9xLExc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mwOTzdze; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ea+jMZII; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6712D39B49C;
+	Tue,  7 Apr 2026 09:14:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.69
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775553275; cv=fail; b=PF/0vwbgLuYs5k5nPq+090IWkpHEIOQB2Tai31xmOlHATY3YHwNqHGVhPx5/key2vfXSa4v1sC9EfjJAYAiSSKujyiSoWaInA99GfIk645aMpqvUluED6kk4aByZZg/pFwZYn/D+xpDCR6E2Iyhq6hZs6h9UFn/xc3Kh+4TEIT8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775553275; c=relaxed/simple;
+	bh=aI2HNDgC9WBi405D9QTczJNVXD5qXYW+ZJNVnXetnwI=;
+	h=From:Date:Subject:Content-Type:Message-Id:To:Cc:MIME-Version; b=mzDxxIx51K62gj0suxd59eq0jCNqz7soo2ybi196ZmoLcfqs/TqBlooHX5EgDunbYjvKZNwWQYLWRQxloTipegPE06IQeHR7ynPpEEBQBGiNGWMaUncVP2H2aO8eOinNZ77laxxlz8TQCSfUx717Qd8ZCiTux+QCrpwb0jkY7Z8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=OwIUSwvR; arc=fail smtp.client-ip=52.101.65.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mwOTzdze";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ea+jMZII"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6376XZ4Z2550172
-	for <devicetree@vger.kernel.org>; Tue, 7 Apr 2026 09:12:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ZH7NJeeL+W0a0G40QLryaXbsSTbVab4mx59PHbCSQMk=; b=mwOTzdzegibL1bSr
-	r/heC0qre9CYMHscG2vVaL5iFH3flu0z/iRSiHX3GR3HS+PE5grXy80vnbf4xX5+
-	p4wT+Q2Z4gghcMPJ0V9zbSrWVU5TwjO3Iff8KqDoV1vYy+34XkxwBaFnuD5fd4bc
-	4ZayZbW8/zgtj1JF814Xiu+TsCbzOv8BCVA1mtiTBu8MW8u694zbqFLPqsT7nCdv
-	M9m7gAp1lFaXYoE6jC971Srnmh3XDM2C2PLFwrV81eTPfHGea1SnMxVUHLtNes82
-	/n1YkGfhs4G3DzqpfERK4V+nvevNVxH/qBadqmWCwSu0Idvh7dw3B6VOciDLY+PK
-	8QlKAQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dcmrea07h-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 09:12:43 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-8d63aeaaedaso80745185a.2
-        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 02:12:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775553162; x=1776157962; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ZH7NJeeL+W0a0G40QLryaXbsSTbVab4mx59PHbCSQMk=;
-        b=Ea+jMZIIp8vt20on9d0VdK03PPqKu3zphrVEel6SFzAwP7gUJz+dxHQD+AMyeJu354
-         GYDp2R5bbNZ245kuXRGDHTDbrml9YTbAfpGZkEIqly7YZPomNGUFiAPJteUDi8igs84r
-         yAgkdM0FHtwlKeMGVyFKgZdJTTmD7OLdoBdYiY7ts6ZgcQ6vJzIZiUNM4FU6kB6ZuZs2
-         22So9zniOFsVgtoqo9WLSwWr4ue5RpFIJ37CGd3g35pZbuh42jM1Mk0Lg6WMLcunUYSC
-         l6H8GtJX/irVOI2H7P/FbQSnCi+3tIPc5oJLH5dFFUqbwLHw8bFYo9I54GRgsw0DEOiV
-         tJRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775553162; x=1776157962;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ZH7NJeeL+W0a0G40QLryaXbsSTbVab4mx59PHbCSQMk=;
-        b=grHTNlc/zQmY2HT1ADnTNWqnf6x8NVGGNg7jcfi2x3Mw4SasTQG0aoUGz2KqF8IK/0
-         Egx11NmSkNyp0b5LneOC0/XEkvoWOEnsHo3Qsy3B81syeG5UMQ80nBeIAwj5UvBvXGln
-         BVvDFMn6ECVY9Q99pOKDCl4ojBslHjpQPVz1qxVAmSP+RSWkEKbXws8RfZEG/eMaEbJ8
-         JrhwTwGqxWalu46NxypmoAfYy1YhjxnIli2QQWvWrCPlIX1bcK+a0x7KOZJCHVyQNXKl
-         98SF3ArE8CNOS5kkWjARFX0+oW87jVhGi4Pck8qFLOK7rge7xYtO2tHydk9dWBSNssnJ
-         u41g==
-X-Forwarded-Encrypted: i=1; AJvYcCX4DwJdNDvArDNQHzoTjUs5tFZumDbGzalhn74MbKEFE33hKrh1yAecwR6sr2e0KHmDXcG6kMpladVv@vger.kernel.org
-X-Gm-Message-State: AOJu0YxzAUs/gSBofKfzPuIFfkjEnNw+XH/ddYrL3rJQqDM1OXAlDfy9
-	2Wx0AFsy5ahyNpHFBXLNdwiP+EGGvuuKKaWCN93kzpkXzmUZMI371550E59Oc8fp/FXxAWrTpm0
-	yQ21oTMdL1XU3RdKS1oGDribLhaGNFLZqRRUagLRT5kJ4HxyHMVPvcrqSTrXR/y6s
-X-Gm-Gg: AeBDiesjgDPsPlEV1JzibV94nba3sFFiADqPFXJuBg++zX1jCMd1r/0FK1xxZZnLOMH
-	Acj98baSpaj74P5zpx+i0i95hDNtrdu9Xelm+85xOUaGrjLHhZOFKqe9qlTgJcKLlEPlALSQx5t
-	S71x1ucs3jjaI3F9Sx1o0Z66Nx7OC/e24ArBMbm08EXxUoDlWdG+QTPjw4kH70W/tj8IGcCNj8B
-	IxqpkhJpXU1uVqUA9t94aAA9WapWyMY5kcnhzVx14qI9axTPoB6g3wAOiMWBwsRzsQTV4rd5PBm
-	De9da6KH39RS8diykvCUYS+iU+BcnYjAv8lpe53uGvJz4ARZxW7nOrKtt5oNmZXgPGXFPuMoElG
-	hEdwyAnK7p8Y5aWzTapfxnJoQFYD3rAjrZcbIoHwrtskWAAWQ0lcgQaq+LdKEeRP1Rmt8IG6tH1
-	b/CE0=
-X-Received: by 2002:ac8:5853:0:b0:50d:aae1:7078 with SMTP id d75a77b69052e-50daae17569mr2878431cf.1.1775553162410;
-        Tue, 07 Apr 2026 02:12:42 -0700 (PDT)
-X-Received: by 2002:ac8:5853:0:b0:50d:aae1:7078 with SMTP id d75a77b69052e-50daae17569mr2878061cf.1.1775553161873;
-        Tue, 07 Apr 2026 02:12:41 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9d0edd4264sm19703366b.36.2026.04.07.02.12.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 07 Apr 2026 02:12:40 -0700 (PDT)
-Message-ID: <d986e1b6-afa4-4e39-a586-2ca119ccd42c@oss.qualcomm.com>
-Date: Tue, 7 Apr 2026 11:12:36 +0200
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="OwIUSwvR"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YBnT92K8ycNXTOAg4Yd+r87QFL1aAgEnYCKgo3biFNXNtKuVAWThbJtTMz111k39at65XLlyHhz75WQBKMFkCIw3PllVrDH8OvL3ZAdv5qzxVkBn1f+R5gZDL6LJZNfHfvRWQca7LOpWkrpD9FPRGtz+/y0TjUtv5HhQIxeYF7DVKDCh6hFXo0IxzI3pzWE8kop7rZeJ7o0gf+80ql6/kEUUEojQEg2etq1p5AVE3H1UvFjj26sxDc9GZxYtBi76JdVNTRt6NPGf93EL+4rbnHDyJl87A4wUB/u6/5qoPTULLjVcr1cD9uUiR6N1OXyOGhwUGn9EFPfWTwEWosowmQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2MF/MN+b3hlwGByNR9lp9Gu7rUx4bnKbrtd71HML+zI=;
+ b=HEvfw2vxuffdMpQXBv65WvTT0vIuH6li8SmI/Vryn3nrUMyRAl9UbS/tVOkXQcpC7HMI635FOeZ+ArICLLHIgcYizdD0VNAIv1+TpQ6CweqQhw0PrsorBE+H5hQbtE12368zsMp229aZWXfBU4YdpzYdk0SeEJB72bfs1dr8TdFHDYZVrYXLvuLIeAC2HYWvM2NG9G97au0rrM7hQwPV7WpmBX0ynTQUJe0GNmltZ8o/Xowaoi+Sb+tpOoHCP7ljEWNsw6yifmtI9pubs17sq9Acgq2C5jqiL/IasX+0pLTeXQO3MlGJzq8H7yBFAx0xrsloQegHk1xk+ixQSVVtcw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2MF/MN+b3hlwGByNR9lp9Gu7rUx4bnKbrtd71HML+zI=;
+ b=OwIUSwvRlACUUdYZYVmNQUWLG7bdHWf/2VsSGnnl7KVZqKrVbF6j99gGNEUWLjYcP+TMjV6Br+h9H25fcRIADTLNMXIem8ySMse58R8y2Lcg1+5uF6b7yg79GiNgVit8ddvHdHpW0YUSLlMA0qQW4VRQV9fdkWx/rWc/eiZp0uQaPKLECXS7r2RSDwWKCjhnFSYZFZZ/JKNJ+Vd14Yk8lrr0vWymsmN6X4UK5H5aEvhz3c90e5sqQHwpI6PV4cjbkLSUGVUkv+vslA+1CdzL1aTrE0rV69zRwaHDe5LyNwlT0Gm70wIcdqutBiiMv3/v39dXxQN+KOK8gaQdAc16Jw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
+ by AS8PR04MB8069.eurprd04.prod.outlook.com (2603:10a6:20b:3f5::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Tue, 7 Apr
+ 2026 09:14:30 +0000
+Received: from AM7PR04MB7046.eurprd04.prod.outlook.com
+ ([fe80::4609:64af:8a4b:fd64]) by AM7PR04MB7046.eurprd04.prod.outlook.com
+ ([fe80::4609:64af:8a4b:fd64%3]) with mapi id 15.20.9769.016; Tue, 7 Apr 2026
+ 09:14:30 +0000
+From: Liu Ying <victor.liu@nxp.com>
+Date: Tue, 07 Apr 2026 17:15:31 +0800
+Subject: [PATCH] arm64: dts: imx93-9x9-qsb: Add tianma,tm050rdh03 panel
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260407-tianma-tm050rdh03-imx93-9x9-qsb-v1-1-24d514a62fdc@nxp.com>
+X-B4-Tracking: v=1; b=H4sIADLL1GkC/x3NQQ6DIBBA0auYWTvJVKyKVzFdQJnWWUAVSENiv
+ LvE5dv8f0DiKJxgbg6I/Jckv1DxaBt4ryZ8GcVVQ0fdQD2NmMUEbzB7elJ0KykUX7RCXTTuyeL
+ AvbXWsXI0Qa1skT9S7sPyOs8Lb1NibHEAAAA=
+To: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Liu Ying <victor.liu@nxp.com>
+X-Mailer: b4 0.13.0
+X-ClientProxiedBy: SG2P153CA0021.APCP153.PROD.OUTLOOK.COM (2603:1096:4:c7::8)
+ To AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/7] arm64: dts: qcom: sm8750: Correct DPU VBIF address
- space size
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov
- <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Kuogee Hsieh <quic_khsieh@quicinc.com>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>
-References: <20260402-dts-qcom-display-regs-v1-0-daa54ab448a3@oss.qualcomm.com>
- <20260402-dts-qcom-display-regs-v1-7-daa54ab448a3@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260402-dts-qcom-display-regs-v1-7-daa54ab448a3@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=OKEXGyaB c=1 sm=1 tr=0 ts=69d4ca8b cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=fzqTxgmSy3qf8bfLeY0A:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-GUID: 6vfCqHUGCakYYs8pAzkbNG57TJU6XveZ
-X-Proofpoint-ORIG-GUID: 6vfCqHUGCakYYs8pAzkbNG57TJU6XveZ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA3MDA4MyBTYWx0ZWRfXyAv8PVjK9tj5
- Uu3qzycPne72nCnznxuXtFZGuIsph8rkHZSxm57IRDrMUOl2rQC9hF8l6t3FTeZDFDBOXC1UCsD
- gUFZ+whsJ5eGFTt6jKpeN+rAqZDCi6Uxcgk9xg+6Dos8GZ/5+v6g3AbL9zfiYephI8U+D0TfBXc
- AZYjcPz+URPM0iaBQkCmhHqJdnileL0+ekrIBb6pvZ1cz2DD/TEQBjfnWEiVfVJq0Die76Bnni0
- Bt9Yyz1c9thqsOE1hyfNafuTAhzZCM+qEMUNL77LFh+2utIyU+QVSH4BnAqhc81h0FWdFFrQwLB
- JVpRsLVK/5ENCjlbgaFt71QFSK6g9xSHoq+cbA3waE/9EGpw+og1sl9lhRUsvINsXxyOIYrkXul
- TxVwr4+rOJ1lfJZW4CAWWfAgiLJCrs22PkzhEXzvqtaF1FTB+a4lMBxX+VKcPNpL1tr3LmPGyIk
- a3argFe8JuDwilTk75Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-07_02,2026-04-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 spamscore=0 impostorscore=0 lowpriorityscore=0
- clxscore=1015 adultscore=0 malwarescore=0 suspectscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604070083
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|AS8PR04MB8069:EE_
+X-MS-Office365-Filtering-Correlation-Id: a18e1e1e-0f73-4a8c-575f-08de94861350
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|19092799006|376014|7416014|52116014|38350700014|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	L35dJR+kgsb8WeJrvgzD3r6WYCWYAJjJz1bqb4ckWs06xzHo/nzX2kWl3iFo2FOckmsxeg7G3ZGyMNillZjnkxDdzp6TuckcVSEcH9yfwjHyY1/7nZ9NRtP+HiAQpMYRHMTbpe7zZ8CT0Ympjkdnfk614yv/ECJOdDZPK9j+CSGi4kRCra3hzmfxtxGQqfBR96kYuWF9UJluhVfLQQnhZz2CD585MyXvcQi6/fVIRLzZdaHrgpyVw3x/uCAvsJbL5OBL2LiUYXqtwGcyKj8Kr5zRrODY/USgCIV6LGOH5gLHMCynPT6s0uap296+lD0IQT6Zd6XZvKTLMo4+34dWeMEgJFMU/XcxrKj9rLvBXTr006WAW029gdZ77cNH8vVcAGtUDuNg0LURIdKTtTu2P0RvIyR6rG3yOk12gXJJ/suWYdF6pKIOd1uyUWqJxpR7g2WOZQo6bnRka0qn+6GQMW2yOp/n+313ufxcvvnq2RF+sx9slceHq0Kt4GdIJnl+LJUsfiOp+CXYibF0d31hIyKxgEpbtw67b9DXpfu3M/nMsrsUwidLpauoBbsr3a39Bt/n2TzpVwVvuU4mUJMTXAOf5hvcRiSiHSXqxOmuOddUdf1u4b4R7paE9EevbzcKLVWiASVY2XrzmfkGf/HYuad5GgnhKVegfHSI2qPqgyPSWPiACwd9wpsdFE67PI2jln8XE+dTG9MirMMcnem2fmNj7ybxS7TQ57kpyZB8iY61WGPY/UefY7PEYHUaRPtlq3aSRMnoZfydlXO/Kf0nvGqf8zJSDH2WtCdEAfbC3Xg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM7PR04MB7046.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(19092799006)(376014)(7416014)(52116014)(38350700014)(56012099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MXM1NUM4alNzNmNiZTZ2TnJXS3BRMG5YK05EazNvYXBVQTZxMFo0N0Q0L0s4?=
+ =?utf-8?B?bThkdDM1eXArYzJLZ1plVjN6YndQQU5pOUhUWjhPRnVwNTcxZ05VTHlKRFgv?=
+ =?utf-8?B?WU9vVmU3bUFVVjh4UUhBaGIyNVNOM2NUY3EvUDRYQnNZUjZOa0pZbGp6L1ZB?=
+ =?utf-8?B?bjRjSEdyVnpOQ0ozaEM0RndtQ2ZOUGtKVXAzUWdBTnZoSldMNVFzb3VWRHA4?=
+ =?utf-8?B?aVZIYk5RaU9hbnNURHBPU0Q0N0dpL1ltSDk1b1Z2dlZnN296RVhTOStUWkFE?=
+ =?utf-8?B?Zk5ZM2FEN3NPaUdnVHJvRU43YjNQOVRwS0pPRTk1NUpzeVNLTUgyRjd1R1Fp?=
+ =?utf-8?B?L3dVamtET1prUjlqMFJVdU9jUXlmT1VnRkd4TllnS0Z2VVptWW9LVjdHZ3Zs?=
+ =?utf-8?B?QldQM045UHVRcmJIbytzS1ZLdS93cEgrbjhxa1BBdXUwbmtVU21VLzR2N2Vo?=
+ =?utf-8?B?ckI5b25XZG5vSy9EZ0RFdVRnVThvNCtYcDgxUEYwa3REeXZKeXJIVlVndHdF?=
+ =?utf-8?B?U2ZhdFFhN1VycG5xWHZORE1qRTVIS1pxK2Zvd2Y3b2poWFdIbk05OVBHRXd0?=
+ =?utf-8?B?cVhVTmE5RW41RW4wa21SNkh2bGVReGdmeWFscnhSQWMwMXpuRW9jV0pNRXps?=
+ =?utf-8?B?c1RjVlE0WVNjZGxpMVJIZGtkVEdDOUZtTVo0VTN3ZGxJWkY3QTB0eWVJQnoy?=
+ =?utf-8?B?Slo4b284QWczSlRvS0VhbFZkNGpZbTh0VjBmc1hFUFpqUHpEQ1RHNFlyb2ty?=
+ =?utf-8?B?MFB5ZVo3MHptWFJZQzcwQU4zZU5LQjZDcjVvamp1MkM0NCs5c1psZGY5TGI1?=
+ =?utf-8?B?ejhRWXZnN3lDYlVGV0VsRXlwK05NWTVLQ09nUkV6WHdrU2dheXFzWnp0L3ky?=
+ =?utf-8?B?OVhVaW1DeTdKNW9VUDlWc3ROWHFPV1R2d3Z0eXVieFIvYStBSWhKQVNRRWxZ?=
+ =?utf-8?B?bUhRZG5QdXRXR3g0enBGZFR3alpRY2ROaG5PUmlmVDVremhuakh4SEhpY3J3?=
+ =?utf-8?B?OGkzSDVRSXYvQUJaUkwxSnNUaEhXQ1B1WVFoTVJDNU1sNnhhT3BrZTZvb292?=
+ =?utf-8?B?a2owTzRXdkhGTXA5RHg0dVJKWGFzdVhWOVdIYmpkaEcwNmpEcjhRYm5QaGVn?=
+ =?utf-8?B?em9xNDM3REJPTmNnZS9FVGkzc2J3N3dIa3dyYkhoWEVPaUZrd2dHcGdwNmdm?=
+ =?utf-8?B?WWV5ck1jTFYyOW9CT2tSaWc2eUVUU3pWVS9lWGFqNHJvalhLYWI3a1dLVFpk?=
+ =?utf-8?B?S1J2V0NTM0NWR0NWUWgvYXJaMHVMVWlwS21MTTMvRG11YjlwUDRZQ1hDeFFS?=
+ =?utf-8?B?aTNNMWlESklua3V5QndlR2tXZDE2VUlVS3JWdTMxN2pKZ0ZBU2RxRlpTVml5?=
+ =?utf-8?B?VmZmVkpaZ2xqV3o4SnQ0T2YwSU5MSFpmaEJlZ05mY1JxbmNCRUs2TU1BMzR1?=
+ =?utf-8?B?VW93OXFuL2dSUVlNQjZ0akVkVkFpQnN6VzBDRVZDTGQ1SUhjOGFPTGhDU1Ir?=
+ =?utf-8?B?SmlkcEZYcVAzWS9hQ1VqaStSZXRhNXdnbnNoWHdDbk9IRVZRcHdHaDhhNnVR?=
+ =?utf-8?B?Y25oMmtBSHNrV0E4UjZLOW9za3p3aDRVU1N4VnRjWmFZUk5NR2xFZlVlbDlL?=
+ =?utf-8?B?SWtjMUlSQ0VnY2U1T01qVmlPdE5nY0J2ZjNOUXZPTDFXYVZzM1lyeUV2cXZB?=
+ =?utf-8?B?M2Y0clpDd0FRSGtqL3g0aENvNExxQUlOajAzWkhLQkh4aXJ5dmdjUGpwVjZS?=
+ =?utf-8?B?bGQzc0JsNHJhT0lZZkpKKzhYdjNjZnBRNmRkTlpRUmRjeFVsWC9RZTc2RXYr?=
+ =?utf-8?B?WkoyTHYzWEQ3SGZidzl3OWZaam5oVmJuc0plcG9hYUI5MWhUMEZMRHpOMVB6?=
+ =?utf-8?B?bFBvc2UzMzRPUmtoSnUycHByZ1kxakIreERCWFNEZzVLWXhTdCtBdko4aFpZ?=
+ =?utf-8?B?SUVqMkt6eUdwd3IyNXhyU3M5Tjgya3dUelcxRi9kdUR6Qzdkd0ZzQkhBZWwr?=
+ =?utf-8?B?aUZQMlZVei9XTnBpUjFsNzVGcUx2UUlXdWpBM1hCbUk1MXV5TGloYSsvZHcy?=
+ =?utf-8?B?dndZZXk2d3ZEWkhkbFlXU0gwNStWcVpzVG45MHpzd0Z0clhjNFBFRHd2WnRa?=
+ =?utf-8?B?cVpsakYxSzRYMElZR1pBbm1xRmJWQzZLbFBWK3hUOURJS09NSTBzUktwY0Z1?=
+ =?utf-8?B?b1BiSVMzYjMrNzlQRVRkYncyL1docG94Q2tyL29YdDRzMzUxVUNoZlJoanVj?=
+ =?utf-8?B?UkJzZmxUekd0bW5DaXBoOG5RTklZSFZaZ2pkc3ZQQ21uWFp1MVJqdEJHM3Fk?=
+ =?utf-8?B?cElqVzlGNVh3aW9lR2wzK2xaRjZ3czlHSlB6dTlhQitjZy96NjJ2dz09?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a18e1e1e-0f73-4a8c-575f-08de94861350
+X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB7046.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2026 09:14:30.5627
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oB9JOg1UYvq2H2CMERF/0BE/889YKWSgFftuF4Hf3TQJfF3FfXkKKVNkdjMeAPP4c/ejkP1/K7gQ1hXB3BZB+A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8069
 
-On 4/2/26 1:45 PM, Krzysztof Kozlowski wrote:
-> VBIF register range is 0x3000 long, so correct the code even though
-> missing part seems without practical impact.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
+Support tianma,tm050rdh03 DPI panel on i.MX93 9x9 QSB.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+The panel connects with the QSB board through an adapter board[1]
+designed by NXP.
 
-Konrad
+Link: https://www.nxp.com/design/design-center/development-boards-and-designs/parallel-lcd-display:TM050RDH03-41 [1]
+Signed-off-by: Liu Ying <victor.liu@nxp.com>
+---
+ arch/arm64/boot/dts/freescale/Makefile             |   2 +
+ .../imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtsi       | 110 +++++++++++++++++++++
+ .../imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtso       | 106 +-------------------
+ .../freescale/imx93-9x9-qsb-tianma-tm050rdh03.dtso |  14 +++
+ 4 files changed, 127 insertions(+), 105 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
+index 711e36cc2c99..6315fb8390ff 100644
+--- a/arch/arm64/boot/dts/freescale/Makefile
++++ b/arch/arm64/boot/dts/freescale/Makefile
+@@ -455,9 +455,11 @@ dtb-$(CONFIG_ARCH_MXC) += imx93-9x9-qsb.dtb
+ imx93-9x9-qsb-can1-dtbs += imx93-9x9-qsb.dtb imx93-9x9-qsb-can1.dtbo
+ imx93-9x9-qsb-i3c-dtbs += imx93-9x9-qsb.dtb imx93-9x9-qsb-i3c.dtbo
+ imx93-9x9-qsb-ontat-kd50g21-40nt-a1-dtbs += imx93-9x9-qsb.dtb imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtbo
++imx93-9x9-qsb-tianma-tm050rdh03-dtbs += imx93-9x9-qsb.dtb imx93-9x9-qsb-tianma-tm050rdh03.dtbo
+ dtb-$(CONFIG_ARCH_MXC) += imx93-9x9-qsb-can1.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx93-9x9-qsb-i3c.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx93-9x9-qsb-tianma-tm050rdh03.dtb
+ 
+ dtb-$(CONFIG_ARCH_MXC) += imx93-11x11-evk.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx93-11x11-frdm.dtb
+diff --git a/arch/arm64/boot/dts/freescale/imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtsi b/arch/arm64/boot/dts/freescale/imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtsi
+new file mode 100644
+index 000000000000..d167c9fc3b8f
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtsi
+@@ -0,0 +1,110 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright 2026 NXP
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/gpio/gpio.h>
++#include "imx93-pinfunc.h"
++
++&{/} {
++	backlight: backlight {
++		compatible = "gpio-backlight";
++		gpios = <&pcal6524 2 GPIO_ACTIVE_HIGH>;
++	};
++
++	panel {
++		compatible = "ontat,kd50g21-40nt-a1";
++		backlight = <&backlight>;
++		power-supply = <&reg_rpi_3v3>;
++
++		port {
++			panel_in: endpoint {
++				remote-endpoint = <&dpi_to_panel>;
++			};
++		};
++	};
++};
++
++&dpi_bridge {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_lcdif>;
++	status = "okay";
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		port@1 {
++			reg = <1>;
++
++			dpi_to_panel: endpoint {
++				remote-endpoint = <&panel_in>;
++				bus-width = <18>;
++			};
++		};
++	};
++};
++
++&iomuxc {
++	pinctrl_lcdif: lcdifgrp {
++		fsl,pins = <
++			MX93_PAD_GPIO_IO00__MEDIAMIX_DISP_CLK		0x31e
++			MX93_PAD_GPIO_IO01__MEDIAMIX_DISP_DE		0x31e
++			MX93_PAD_GPIO_IO02__MEDIAMIX_DISP_VSYNC		0x31e
++			MX93_PAD_GPIO_IO03__MEDIAMIX_DISP_HSYNC		0x31e
++			MX93_PAD_GPIO_IO04__MEDIAMIX_DISP_DATA00	0x31e
++			MX93_PAD_GPIO_IO05__MEDIAMIX_DISP_DATA01	0x31e
++			MX93_PAD_GPIO_IO06__MEDIAMIX_DISP_DATA02	0x31e
++			MX93_PAD_GPIO_IO07__MEDIAMIX_DISP_DATA03	0x31e
++			MX93_PAD_GPIO_IO08__MEDIAMIX_DISP_DATA04	0x31e
++			MX93_PAD_GPIO_IO09__MEDIAMIX_DISP_DATA05	0x31e
++			MX93_PAD_GPIO_IO10__MEDIAMIX_DISP_DATA06	0x31e
++			MX93_PAD_GPIO_IO11__MEDIAMIX_DISP_DATA07	0x31e
++			MX93_PAD_GPIO_IO12__MEDIAMIX_DISP_DATA08	0x31e
++			MX93_PAD_GPIO_IO13__MEDIAMIX_DISP_DATA09	0x31e
++			MX93_PAD_GPIO_IO14__MEDIAMIX_DISP_DATA10	0x31e
++			MX93_PAD_GPIO_IO15__MEDIAMIX_DISP_DATA11	0x31e
++			MX93_PAD_GPIO_IO16__MEDIAMIX_DISP_DATA12	0x31e
++			MX93_PAD_GPIO_IO17__MEDIAMIX_DISP_DATA13	0x31e
++			MX93_PAD_GPIO_IO18__MEDIAMIX_DISP_DATA14	0x31e
++			MX93_PAD_GPIO_IO19__MEDIAMIX_DISP_DATA15	0x31e
++			MX93_PAD_GPIO_IO20__MEDIAMIX_DISP_DATA16	0x31e
++			MX93_PAD_GPIO_IO21__MEDIAMIX_DISP_DATA17	0x31e
++		>;
++	};
++};
++
++&lcdif {
++	status = "okay";
++};
++
++&media_blk_ctrl {
++	status = "okay";
++};
++
++&pcal6524 {
++	/*
++	 * exp-sel-hog has property 'output-low' while DT overlay doesn't
++	 * support /delete-property/. Both 'output-low' and 'output-high'
++	 * will exist under hog nodes if DT overlay file sets 'output-high'.
++	 * Workaround is to disable this hog and create new hog with
++	 * 'output-high'.
++	 */
++	exp-sel-hog {
++		status = "disabled";
++	};
++
++	exp-high-sel-hog {
++		gpio-hog;
++		gpios = <22 GPIO_ACTIVE_HIGH>;
++		output-high;
++	};
++};
++
++&sai3 {
++	/* disable due to GPIO12 and GPIO17~20 pin conflicts with LCDIF */
++	status = "disabled";
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtso b/arch/arm64/boot/dts/freescale/imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtso
+index d167c9fc3b8f..356533a7b513 100644
+--- a/arch/arm64/boot/dts/freescale/imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtso
++++ b/arch/arm64/boot/dts/freescale/imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtso
+@@ -3,108 +3,4 @@
+  * Copyright 2026 NXP
+  */
+ 
+-/dts-v1/;
+-/plugin/;
+-
+-#include <dt-bindings/gpio/gpio.h>
+-#include "imx93-pinfunc.h"
+-
+-&{/} {
+-	backlight: backlight {
+-		compatible = "gpio-backlight";
+-		gpios = <&pcal6524 2 GPIO_ACTIVE_HIGH>;
+-	};
+-
+-	panel {
+-		compatible = "ontat,kd50g21-40nt-a1";
+-		backlight = <&backlight>;
+-		power-supply = <&reg_rpi_3v3>;
+-
+-		port {
+-			panel_in: endpoint {
+-				remote-endpoint = <&dpi_to_panel>;
+-			};
+-		};
+-	};
+-};
+-
+-&dpi_bridge {
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&pinctrl_lcdif>;
+-	status = "okay";
+-
+-	ports {
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-
+-		port@1 {
+-			reg = <1>;
+-
+-			dpi_to_panel: endpoint {
+-				remote-endpoint = <&panel_in>;
+-				bus-width = <18>;
+-			};
+-		};
+-	};
+-};
+-
+-&iomuxc {
+-	pinctrl_lcdif: lcdifgrp {
+-		fsl,pins = <
+-			MX93_PAD_GPIO_IO00__MEDIAMIX_DISP_CLK		0x31e
+-			MX93_PAD_GPIO_IO01__MEDIAMIX_DISP_DE		0x31e
+-			MX93_PAD_GPIO_IO02__MEDIAMIX_DISP_VSYNC		0x31e
+-			MX93_PAD_GPIO_IO03__MEDIAMIX_DISP_HSYNC		0x31e
+-			MX93_PAD_GPIO_IO04__MEDIAMIX_DISP_DATA00	0x31e
+-			MX93_PAD_GPIO_IO05__MEDIAMIX_DISP_DATA01	0x31e
+-			MX93_PAD_GPIO_IO06__MEDIAMIX_DISP_DATA02	0x31e
+-			MX93_PAD_GPIO_IO07__MEDIAMIX_DISP_DATA03	0x31e
+-			MX93_PAD_GPIO_IO08__MEDIAMIX_DISP_DATA04	0x31e
+-			MX93_PAD_GPIO_IO09__MEDIAMIX_DISP_DATA05	0x31e
+-			MX93_PAD_GPIO_IO10__MEDIAMIX_DISP_DATA06	0x31e
+-			MX93_PAD_GPIO_IO11__MEDIAMIX_DISP_DATA07	0x31e
+-			MX93_PAD_GPIO_IO12__MEDIAMIX_DISP_DATA08	0x31e
+-			MX93_PAD_GPIO_IO13__MEDIAMIX_DISP_DATA09	0x31e
+-			MX93_PAD_GPIO_IO14__MEDIAMIX_DISP_DATA10	0x31e
+-			MX93_PAD_GPIO_IO15__MEDIAMIX_DISP_DATA11	0x31e
+-			MX93_PAD_GPIO_IO16__MEDIAMIX_DISP_DATA12	0x31e
+-			MX93_PAD_GPIO_IO17__MEDIAMIX_DISP_DATA13	0x31e
+-			MX93_PAD_GPIO_IO18__MEDIAMIX_DISP_DATA14	0x31e
+-			MX93_PAD_GPIO_IO19__MEDIAMIX_DISP_DATA15	0x31e
+-			MX93_PAD_GPIO_IO20__MEDIAMIX_DISP_DATA16	0x31e
+-			MX93_PAD_GPIO_IO21__MEDIAMIX_DISP_DATA17	0x31e
+-		>;
+-	};
+-};
+-
+-&lcdif {
+-	status = "okay";
+-};
+-
+-&media_blk_ctrl {
+-	status = "okay";
+-};
+-
+-&pcal6524 {
+-	/*
+-	 * exp-sel-hog has property 'output-low' while DT overlay doesn't
+-	 * support /delete-property/. Both 'output-low' and 'output-high'
+-	 * will exist under hog nodes if DT overlay file sets 'output-high'.
+-	 * Workaround is to disable this hog and create new hog with
+-	 * 'output-high'.
+-	 */
+-	exp-sel-hog {
+-		status = "disabled";
+-	};
+-
+-	exp-high-sel-hog {
+-		gpio-hog;
+-		gpios = <22 GPIO_ACTIVE_HIGH>;
+-		output-high;
+-	};
+-};
+-
+-&sai3 {
+-	/* disable due to GPIO12 and GPIO17~20 pin conflicts with LCDIF */
+-	status = "disabled";
+-};
++#include "imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtsi"
+diff --git a/arch/arm64/boot/dts/freescale/imx93-9x9-qsb-tianma-tm050rdh03.dtso b/arch/arm64/boot/dts/freescale/imx93-9x9-qsb-tianma-tm050rdh03.dtso
+new file mode 100644
+index 000000000000..c233797ec28c
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx93-9x9-qsb-tianma-tm050rdh03.dtso
+@@ -0,0 +1,14 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright 2026 NXP
++ */
++
++#include <dt-bindings/gpio/gpio.h>
++#include "imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtsi"
++
++&{/} {
++	panel {
++		compatible = "tianma,tm050rdh03";
++		enable-gpios = <&pcal6524 8 GPIO_ACTIVE_HIGH>;
++	};
++};
+
+---
+base-commit: 816f193dd0d95246f208590924dd962b192def78
+change-id: 20260407-tianma-tm050rdh03-imx93-9x9-qsb-6e4bbbde3d08
+
+Best regards,
+-- 
+Liu Ying <victor.liu@nxp.com>
+
