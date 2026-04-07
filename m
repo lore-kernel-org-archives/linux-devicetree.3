@@ -1,95 +1,96 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E0DB14F112
-	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 19:57:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A19D0379981
+	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 19:58:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775591857; cv=none; b=QPkJDYke93gh2SNAY9z93t6fzJ4ePU7Vh6ctlMPjaZbFAJ94IzYJ7cKXDkdObfR38P2ulP3bqhFKABlbXPgZOZOA/KRE92T9FTTaZBhxbcVM/MJCswAQd1r3h9uTcMEDiVddlya9lnpQlZwsLw5MZBtWUWgA24WKm5FVfGR2c6g=
+	t=1775591902; cv=none; b=szbw/muP75OPy2d9X4T/pkU0CtVFfWj2WWIZKuZvnERMO04dpP/11dHVzpcw7NAN6nab31k/SzJx7LeVrXALxOMAwSJMQhIqIaQeeh9tLGqJEMTG2FhstILOcWBortWhsCegVN/cAjxrOIpIf1r1QCQaCCK2ez7AvILDtHkNsjU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775591857; c=relaxed/simple;
-	bh=YaMK1wa3MMIxrwEsDAo/lFZHK1vAA8Ru5RJohvf2o18=;
+	s=arc-20240116; t=1775591902; c=relaxed/simple;
+	bh=y4dVmADXE1jrgnpP8JxM8NIiyhlZTgiZlr2F7Lxkn1E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YWRz1EZTI+Eq+gYO53X8V7oH5bWhqvhTROpfKe1tfOBwtVnfxGbgE8KVzi0Y80sbjArEEQvbZXJbf2Zb5qBBgLh6oR/FKEUJDatKIwws/45NVfIloH++MUDM4r7zvDTq98yGSPWeTosDVBurnK+BSaZuR8ZR9P2FYaicPha3/T4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FNuwWYJA; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=D9t7lNKf; arc=none smtp.client-ip=170.10.129.124
+	 Content-Type:Content-Disposition:In-Reply-To; b=H4KzVTwKaOpp5BNENoXxm5hXAiBaEOZ5Homs6YIZonq5HhayF7ED+lBBD1rePrL9bzna7Qbg2ezJErbTcpuDN2xnrh+NmTNPaKYa3YtwEen336BNQT5+gLdoA1cqzdN4bLDLyMIR83Qz4jRI1g5gXwg5U8JqLYxSNkyThRh02nI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PCl+0Qft; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=RyA++f8I; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FNuwWYJA";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="D9t7lNKf"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PCl+0Qft";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="RyA++f8I"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1775591855;
+	s=mimecast20190719; t=1775591899;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=afqKvOBY6UcokwbofYX7GYTJbiVKQVdFWAEZ5QM/NjE=;
-	b=FNuwWYJASDSyJUSgwfZgU1pD91wz1G+pYeFDVsIaHjkoQTtjrWTZP5DCnvZpOZ+d0ZXMiM
-	9UdOWUSzMtOD459uf4Vq58pc+wEfs9Bmw5cZMxiNZ1sAS34h1rLrwI8+GRa2u7gfQ8RTNs
-	s/IWQNFCfp43WsJg3K/rdaMNYi4OIVY=
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=1lyCZReF7n3h9ZzIFPxE3qqalSIjCxvP1fRMXtPh+/M=;
+	b=PCl+0QftAHAk4m+3BX4t2/KeXAQEw+Vn5GBy+UoTUcBWluvK8cWPqRG/KoqC1/mWOVP/NW
+	UwVfWesSCGnqOqMUrZJ2jxu2Uwp/cbTWG5eFv88GVI9aJgUtvPfD3aUGpWVLT/fA9OdgtC
+	ay/kW+VGk+rGkazfFgWH+TnUAz5fqBg=
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-547-vDqkFBO1P36h6eywahqiJQ-1; Tue, 07 Apr 2026 15:57:34 -0400
-X-MC-Unique: vDqkFBO1P36h6eywahqiJQ-1
-X-Mimecast-MFC-AGG-ID: vDqkFBO1P36h6eywahqiJQ_1775591854
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-50b4661881eso68437811cf.0
-        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 12:57:34 -0700 (PDT)
+ us-mta-241-llg5LagQP9KZiiaG7kVKdQ-1; Tue, 07 Apr 2026 15:58:16 -0400
+X-MC-Unique: llg5LagQP9KZiiaG7kVKdQ-1
+X-Mimecast-MFC-AGG-ID: llg5LagQP9KZiiaG7kVKdQ_1775591896
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-8cfd0a23243so1968424085a.2
+        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 12:58:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1775591854; x=1776196654; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1775591896; x=1776196696; darn=vger.kernel.org;
         h=user-agent:in-reply-to:content-disposition:mime-version:references
          :message-id:subject:cc:to:from:date:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=afqKvOBY6UcokwbofYX7GYTJbiVKQVdFWAEZ5QM/NjE=;
-        b=D9t7lNKfmj0NZLfVhnO7KrCgFzVeFSN/0B9x37Y72vjePWg3DnRAgCSqTr8LfJEdgd
-         Ewb/pFkEvbhCRBwNI8frYDISv5HmNv16MECdJC4SUbi0VC/1qmU69szN43/bhElLiZFC
-         aZJg6cZdkS4P+p5SDN5NE6eKXrpppcAeELrugtCGwGENkWuJ/H4XjxQih0Dj0NdxBwT0
-         QusgxssjrW7roRD/gjJH5FE+G6whwIWlezH53qhz5nBfxrIlGFX2KSsW6WFueYoXLR9P
-         BieJVLgfhqtqkA2dbnSDCtwDGOGZVPoor6rDGt2TMckhl3tHc3b+Fan8ApOJfeoP0v5V
-         quog==
+        bh=1lyCZReF7n3h9ZzIFPxE3qqalSIjCxvP1fRMXtPh+/M=;
+        b=RyA++f8Ih12FK15i7ABmKwIM+6g6yAijIcCVkmWSpH6uzCYH6Wy7PGrF78VX41wadG
+         0Vkoj8tlGPCl8ZQwXYlqdOsh7VJaufUSBK2Q+TsOjcgFTn/FufjmqHr7v84XoE2TjPI2
+         eZOmzgcOCrlMLnt9AoaxELh/Oy9uWcaTYEZitDrSXyb+Fpd723fvdJMNTF3W9bPtJ5HR
+         ePr3DJPkpxGWIW//Toe+/lZLsh4+2OgqTsJLYHOy63mR6kIULcklAe7tLrR9EimZToC2
+         QeO4I9qQJkVLvOX7/ZWfm3TxnfOcsWg7h7zrrmyTbPQBv7BY+01UwdLLKujhjNxTKQ6H
+         gzAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775591854; x=1776196654;
+        d=1e100.net; s=20251104; t=1775591896; x=1776196696;
         h=user-agent:in-reply-to:content-disposition:mime-version:references
          :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=afqKvOBY6UcokwbofYX7GYTJbiVKQVdFWAEZ5QM/NjE=;
-        b=X8s1n6j60VYWcGjYui3e1UpCKhQRKH6rkvJkgDOOFQnr7EtUUAxZ6XDveOSI2Wa88Y
-         2dFeZR9fBUdBul7e6nExZZeVzAM6519WsRTxeuseDbqrnrjTNJBJZOd5ip6mzCzSlaXZ
-         FSwMtlu2jF6GWTXS/EB5tejfvDBXl1jTr4+5izGPSrMbB1vVve72PFo0qU+od1yFbPXw
-         /fzvIeB2Dinx94h4l11QqTGsxQB5ltgTBkvWK8gCjl8CphBED+yMooFEBWQJftPSy06s
-         pkHOI7w7rqirP0LPsAE5Emh1yIHgNcaQm2v/lLMYD1z7G8harTPT5jgN1Xwea65bOexl
-         oCSA==
-X-Forwarded-Encrypted: i=1; AJvYcCUx6nlCzNJeUWn8RKCQdQxRmLxYY+Qe0yy+M53Unuw+6HoqwAsGTd57NgyZG+yHGftOtoN9iaIu3rDJ@vger.kernel.org
-X-Gm-Message-State: AOJu0YzwpSM9Y5kWZraudAuXznsQwXi/fhTK0fVrxWlWq1jnL5g49gT0
-	5sv0n0Bdi36WVJwtjqJhOKIjXijNnV74dRtMs7Zd2/oX4ouSO2fAfHogLQvKc449mH6ks8nqm8F
-	RtOnKf+Q3mGqXD3NI0fvveE33jzbt6/3Jdbp3nqDpa1M+U8/FR0zdC3DcI/7B+Hg=
-X-Gm-Gg: AeBDieu4pZqk0pmYESDat3n3lJeEN1LKC6IxhT1tJ7S5MSPmKI++uWUu2kCNhtKofS4
-	T15ppAHSj6auprBiosX1sIMLuNeaP8tJ7qgCRQr61KuAmJ5EmiBaixs+X9Hgnz5iVUJ9wN8gHeq
-	RSzqBcle2Wcdo22cEpIP1dql+jthNJX6PssP01aBYe8WvEe6N8kgVvvA9jrzQOH8qMu+VngL0l0
-	VomD5GYWaad+wYZAarAb3iHCVqxNLxxOM9KZNLdXh+euF+dTHUScoXpB6S0r/h9sLxz36sCuuyz
-	nqc7oyW0laLL6INO2fhjx0wlKQUGBDALlLIJ2n4TX4soBD5ubBS0+x/gktptfGrxzrKU/B8yY8F
-	9x8aVEXRDRQUbM2l7oAY=
-X-Received: by 2002:a05:622a:13d4:b0:50d:83a4:2995 with SMTP id d75a77b69052e-50d83a42dbdmr187698371cf.21.1775591853853;
-        Tue, 07 Apr 2026 12:57:33 -0700 (PDT)
-X-Received: by 2002:a05:622a:13d4:b0:50d:83a4:2995 with SMTP id d75a77b69052e-50d83a42dbdmr187697771cf.21.1775591853165;
-        Tue, 07 Apr 2026 12:57:33 -0700 (PDT)
+        bh=1lyCZReF7n3h9ZzIFPxE3qqalSIjCxvP1fRMXtPh+/M=;
+        b=db9TYJBz6WnNUIoSjjyVR6KuWSqKtrA0c/JGu+geymizE1v02+80GhvQNmO5kKKfTh
+         3qiUk/d116bhrkxeBI/LmO7A87texNYPSZurBwth6bBaxqif2Lv4AhOIZEAnjWwdajg7
+         YcxxTiT9VyJYttMTUkCyn0+8Yhx/CN6tkiJidO87vVtN/gsRAc+ss0cGToRdjKW5mccC
+         GT9W0JADT5slcXlDT7Iu3I7FmnUjanj/Aly0FHyQ3H+Y/b0iI/4Z56uLy2wLKtRXCSSz
+         nf0G8zamkOeuzYOsay/tglkDt76J9GfTi+FVX9a9CLwXx3zyFnRu61Ox8kat/cUGM0mZ
+         W39Q==
+X-Forwarded-Encrypted: i=1; AJvYcCWd+flWglicIvaGtB1uCOW5RuGfwIwBBqFxamSEC5YEgA5FRHOXfuPS1GbpbjCO0aV6y+rpiCzgJrjg@vger.kernel.org
+X-Gm-Message-State: AOJu0YyHlscXMNyF+f13E8sAUYr2qLKSPZfKvwFYRRglqqhUkgVTKE5U
+	Nu40gvXT3dV5DxevPeDMtsCP9H46VMT4kyHqutE1zwnsK1ZZIORg4rYo5oFnPs+8ZZ7Uk4Fzgku
+	mYRpg7g/ro3+FxqkXca4x11B4qJQTaq8heEZ1X8vnLjxpW2L+cqvLyPqABBb6hVI=
+X-Gm-Gg: AeBDieueP/fuz97am01EUO1wC00PPzR5SiWWtyBqHXtDzWoLKVCT2Ghda4FjLkfjoTo
+	CQznZD4gn+Wyf/PvSd4T02qyJUN8MaU7sd8ErZ/6t+X4n4lroHUJxCkDgqK29oLCj+twXHduGpE
+	VbikZwi2ehThGA4uvqxgwmECd6EyQxt40LwTUfpgOo3EXW2h/CL4IBMxp+NtitjC29uAFVz2HXO
+	JiSlrXAtfxQrCoKn2VYVr1YQk3lWL5xSz74K1OEmKGfXplGQgh4OcBUWOk0G9XRJaDCrzhErOUf
+	WBDuBbkIEjCqr0xy5bgKXDtC+/F7x+ZFRBAMxoXek6zy0Z4jtHt4ICWMfB3sEqZf1V4yHjg2KRI
+	yy8Uyb4O+qOLy058/Lns=
+X-Received: by 2002:a05:620a:2844:b0:8cd:9653:61de with SMTP id af79cd13be357-8d41e1427e7mr2498364485a.50.1775591895841;
+        Tue, 07 Apr 2026 12:58:15 -0700 (PDT)
+X-Received: by 2002:a05:620a:2844:b0:8cd:9653:61de with SMTP id af79cd13be357-8d41e1427e7mr2498360685a.50.1775591895273;
+        Tue, 07 Apr 2026 12:58:15 -0700 (PDT)
 Received: from redhat.com ([2600:382:772d:3619:ed0:4a9c:acd6:3fc9])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-50d4aed181asm164262931cf.0.2026.04.07.12.57.31
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-8d2a8648c17sm1388436585a.33.2026.04.07.12.58.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Apr 2026 12:57:32 -0700 (PDT)
-Date: Tue, 7 Apr 2026 15:57:30 -0400
+        Tue, 07 Apr 2026 12:58:14 -0700 (PDT)
+Date: Tue, 7 Apr 2026 15:58:12 -0400
 From: Brian Masney <bmasney@redhat.com>
 To: Marek Vasut <marex@nabladev.com>
-Cc: linux-clk@vger.kernel.org, Michael Walle <mwalle@kernel.org>,
+Cc: linux-clk@vger.kernel.org, Peng Fan <peng.fan@nxp.com>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Michael Turquette <mturquette@baylibre.com>,
 	Michael Walle <michael@walle.cc>, Rob Herring <robh@kernel.org>,
 	Stephen Boyd <sboyd@kernel.org>, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 6/6] clk: fsl-sai: Add MCLK generation support
-Message-ID: <adVhqkj-cFbFBrZH@redhat.com>
+Subject: Re: [PATCH v4 2/6] clk: fsl-sai: Add i.MX8M support with 8 byte
+ register offset
+Message-ID: <adVh1JLI-qfXLdMt@redhat.com>
 References: <20260406215150.176599-1-marex@nabladev.com>
- <20260406215150.176599-6-marex@nabladev.com>
+ <20260406215150.176599-2-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -98,35 +99,19 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260406215150.176599-6-marex@nabladev.com>
+In-Reply-To: <20260406215150.176599-2-marex@nabladev.com>
 User-Agent: Mutt/2.3.0 (2026-01-25)
 
 Hi Marek,
 
-On Mon, Apr 06, 2026 at 11:49:46PM +0200, Marek Vasut wrote:
-> The driver currently supports generating BCLK. There are systems which
-> require generation of MCLK instead. Register new MCLK clock and handle
-> clock-cells = <1> to differentiate between BCLK and MCLK. In case of a
-> legacy system with clock-cells = <0>, the driver behaves as before, i.e.
-> always returns BCLK.
+On Mon, Apr 06, 2026 at 11:49:42PM +0200, Marek Vasut wrote:
+> The i.MX8M/Mini/Nano/Plus variant of the SAI IP has control registers
+> shifted by +8 bytes and requires additional bus clock. Add support for
+> the i.MX8M variant of the IP with this register shift and additional
+> clock.
 > 
-> Note that it is not possible re-use the current SAI audio driver to
-> generate MCLK and correctly enable and disable the MCLK.
-> 
-> If SAI (audio driver) is used to control the MCLK enablement, then MCLK
-> clock is not always enabled, and it is not necessarily enabled when the
-> codec may need the clock to be enabled. There is also no way for the
-> codec node to specify phandle to clock provider in DT, because the SAI
-> (audio driver) is not clock provider.
-> 
-> If SAI (clock driver) is used to control the MCLK enablement, then MCLK
-> clock is enabled when the codec needs the clock enabled, because the
-> codec is the clock consumer and the SAI (clock driver) is the clock
-> provider, and the codec driver can request the clock to be enabled when
-> needed. There is also the usual phandle to clock provider in DT, because
-> the SAI (clock driver) is clock provider.
-> 
-> Acked-by: Michael Walle <mwalle@kernel.org>
+> Reviewed-by: Brian Masney <bmasney@redhat.com>
+> Reviewed-by: Peng Fan <peng.fan@nxp.com>
 > Signed-off-by: Marek Vasut <marex@nabladev.com>
 > ---
 > Cc: Brian Masney <bmasney@redhat.com>
@@ -140,70 +125,61 @@ On Mon, Apr 06, 2026 at 11:49:46PM +0200, Marek Vasut wrote:
 > Cc: linux-clk@vger.kernel.org
 > Cc: linux-kernel@vger.kernel.org
 > ---
-> V2: No change
+> V2: Update commit message, align it with the bindings one
 > V3: - Rebase on current next, update mail address
->     - Update commit message according to clarify the difference between
->       SAI audio and SAI clock driver
->     - Pick ancient AB from Michael, although this may be outdated
->       https://patchwork.kernel.org/project/alsa-devel/patch/20241226162234.40141-4-marex@denx.de/
-> V4: Use the fsl_sai_clk_register() helper.
+>     - Pick ancient RB from Peng, although this may be outdated
+>       https://patchwork.kernel.org/project/alsa-devel/patch/20241226162234.40141-2-marex@denx.de/
+>     - Optionally enable "bus" clock, which are needed on MX8M to operate
+>       register file
+> V4: Add RB from Brian
 > ---
->  drivers/clk/clk-fsl-sai.c | 31 ++++++++++++++++++++++++++++++-
->  1 file changed, 30 insertions(+), 1 deletion(-)
+>  drivers/clk/Kconfig       |  2 +-
+>  drivers/clk/clk-fsl-sai.c | 27 +++++++++++++++++++++++----
+>  2 files changed, 24 insertions(+), 5 deletions(-)
 > 
+> diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
+> index cc8743b11bb1f..9f7f391a5615a 100644
+> --- a/drivers/clk/Kconfig
+> +++ b/drivers/clk/Kconfig
+> @@ -255,7 +255,7 @@ config COMMON_CLK_FSL_FLEXSPI
+>  
+>  config COMMON_CLK_FSL_SAI
+>  	bool "Clock driver for BCLK of Freescale SAI cores"
+> -	depends on ARCH_LAYERSCAPE || COMPILE_TEST
+> +	depends on ARCH_LAYERSCAPE || ARCH_MXC || COMPILE_TEST
+>  	help
+>  	  This driver supports the Freescale SAI (Synchronous Audio Interface)
+>  	  to be used as a generic clock output. Some SoCs have restrictions
 > diff --git a/drivers/clk/clk-fsl-sai.c b/drivers/clk/clk-fsl-sai.c
-> index 7ec9a4f22735c..386ee5f77a986 100644
+> index cba45e07562da..336aa8477d0ea 100644
 > --- a/drivers/clk/clk-fsl-sai.c
 > +++ b/drivers/clk/clk-fsl-sai.c
-> @@ -6,6 +6,7 @@
->   */
->  
->  #include <linux/clk-provider.h>
-> +#include <linux/clk.h>
-
-This include needs to be moved earlier into the series to keep
-bisectability. It looks like on patch 2. I'll also comment there.
-
->  #include <linux/err.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
-> @@ -15,22 +16,37 @@
->  
->  #define I2S_CSR		0x00
->  #define I2S_CR2		0x08
-> +#define I2S_MCR		0x100
->  #define CSR_BCE_BIT	28
-> +#define CSR_TE_BIT	31
->  #define CR2_BCD		BIT(24)
->  #define CR2_DIV_SHIFT	0
->  #define CR2_DIV_WIDTH	8
-> +#define MCR_MOE		BIT(30)
->  
->  struct fsl_sai_clk {
->  	struct clk_divider bclk_div;
-> +	struct clk_divider mclk_div;
->  	struct clk_gate bclk_gate;
-> +	struct clk_gate mclk_gate;
->  	struct clk_hw *bclk_hw;
-> +	struct clk_hw *mclk_hw;
+> @@ -26,11 +26,17 @@ struct fsl_sai_clk {
 >  	spinlock_t lock;
 >  };
 >  
->  struct fsl_sai_data {
->  	unsigned int	offset;	/* Register offset */
-> +	bool		have_mclk; /* Have MCLK control */
->  };
->  
-> +static struct clk_hw *
-> +fsl_sai_of_clk_get(struct of_phandle_args *clkspec, void *data)
-> +{
-> +	struct fsl_sai_clk *sai_clk = data;
+> +struct fsl_sai_data {
+> +	unsigned int	offset;	/* Register offset */
+> +};
 > +
-> +	return clkspec->args[0] ? sai_clk->mclk_hw : sai_clk->bclk_hw;
+>  static int fsl_sai_clk_probe(struct platform_device *pdev)
+>  {
+>  	struct device *dev = &pdev->dev;
+> +	const struct fsl_sai_data *data = device_get_match_data(dev);
+>  	struct fsl_sai_clk *sai_clk;
+>  	struct clk_parent_data pdata = { .index = 0 };
+> +	struct clk *clk_bus;
+>  	void __iomem *base;
+>  	struct clk_hw *hw;
+>  
+> @@ -42,19 +48,23 @@ static int fsl_sai_clk_probe(struct platform_device *pdev)
+>  	if (IS_ERR(base))
+>  		return PTR_ERR(base);
+>  
+> +	clk_bus = devm_clk_get_optional_enabled(dev, "bus");
 
-For the case when clock-cells is 0, should this check:
-
-	clkspec->args_count == 0 || return clkspec->args[0]
+This patch needs to include <linux/clk.h> and drop it from patch 6 to
+keep bisectability.
 
 Brian
 
