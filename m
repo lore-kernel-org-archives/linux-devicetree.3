@@ -1,75 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE58E391E50
-	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 07:03:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A633124DD15;
+	Tue,  7 Apr 2026 07:04:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775545403; cv=none; b=YaxzfJdbIPNuZR/e/bBpOjIthq0ziuPJZshaFfHn0Ms7hZ/Gg2z3DzflNCrqqIme7X7/ijjcavmBUYZ5iKYw5Uq9KjqjS02Qww21HBroq2uRPjTZY49I0XwD/Ov7cHru7RC/XGpMDnET4OF8hAZ+WthJaxCZcFaiINBD8GsOQBk=
+	t=1775545495; cv=none; b=CR8RyyeRgT+tCOaSB3dD8O+vRtLxAI8umddNUL7fS4+UzUqwNFDWL8zmeCfOSAya1+5W/74AMg5wCWeJZpmhBfkZ993QBkOnq0zU6MrzGc2C++Sh317MWCRvATanKHZceWcgFlDSQwNQ2+QOQ7WG0tj1akhzfxaD1Xl0l3qOj3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775545403; c=relaxed/simple;
-	bh=hdGsIdGCujQd+qCvIkSwIUYZUKZLbuNKzjiPq/1FM1s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LyXndcVDjZv25Uu/Tu+tHvGxEQqFSiUWtcXXPehCvyk0Z7MF19FP/2yva2C3jpoDII18hXPgiZTlin9LIQ+ftxTqt0b/XGsDolU2FaDnVbYveHYj3S2C6jlXBGg0E/PCEL6OwDYZlm85uZWnihVGWLHtpnsTZqlTcSQW64jdcSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iXyWOlKT; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775545495; c=relaxed/simple;
+	bh=1E3mW74pLjjtq0bTl03zOtsPzX4+v84/2cQR0JqMVv8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WnWbItynpvt68Ue3Mm2ji/5odeVEY5Yj+e4vHvEPxiHornXvmHvXhThYnjiwkmUxS9iYFCoSooy0gQpKotMcX7RrbQmNAO4fHFn+s0oxW1tHFVe2oYPfQDIxQqddNXncreQHRn8Nu9PitZpqqUekw4fmmc4Lga6CiyeuhrV5nws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZMjJ41fX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iXyWOlKT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E817C4AF09
-	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 07:03:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZMjJ41fX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D5ADC116C6;
+	Tue,  7 Apr 2026 07:04:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775545403;
-	bh=hdGsIdGCujQd+qCvIkSwIUYZUKZLbuNKzjiPq/1FM1s=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=iXyWOlKToI/eCfrQD7qKUtIfeRsgMuPvO1ZqRzMqAmvisW1gad0ssF48BSQL+Y59E
-	 4FwgHTXtY+VLclBwrG2ovQTiLmtR3/WakMj/aNthvUXF4KaAOI0RZNKtoZC41/gCd4
-	 geCpcSlLZlm+vOwdWZUoABvS8RdWBz492oRZDOMxUzB2tZN67blIZBtPnF1tgCPDtY
-	 D/dBLzToGzH4sTClhcuz3NzGx6795ZpWD+oQru3+ym5VHwdVqSpY6pn/NfCyany3W9
-	 rPnZphnIwpqNuyYYcodTMZ8MGJf+OC7KOA66awoT2yMnsq2Xeg9pqnBI7Bu1qnKJML
-	 zeKtjAX2h9YNQ==
-Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-79be0de8610so44920977b3.2
-        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 00:03:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCVNZCQl7De2tmrkDr8PLpjfuY8pwpPKXmZJtehFVelpkm1sKUHk5vHiqIyxZ/DArv+eXiSGRXi5rFIz@vger.kernel.org
-X-Gm-Message-State: AOJu0YywiQS0yC+A4PFyxvN8UZCNYwBb1a1k/7dy4xP7pxNZU947BlJW
-	uuFDq0z7XSGjI5pWTzbu6Hy/uc+MdzbPLJ3vI0ibf+pZ9IET1oJ8+8M+k8zb5m4xPt98KaG4Ha/
-	lDSqBxauKzoMxHfeqmJJU7m9dT54JIys=
-X-Received: by 2002:a05:690c:f14:b0:79a:d2ba:3c24 with SMTP id
- 00721157ae682-7a4d5f5a3a8mr161901347b3.41.1775545403027; Tue, 07 Apr 2026
- 00:03:23 -0700 (PDT)
+	s=k20201202; t=1775545495;
+	bh=1E3mW74pLjjtq0bTl03zOtsPzX4+v84/2cQR0JqMVv8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZMjJ41fXIzImZ2L2+CsgZ9pP8XhmQfFXwxUvWEigRhdoZnsF7mWPvKnhy9L1tpmnP
+	 7gMJ2HwmvpQJ8SM/jF8MF8JBjHiFgJ0m9lkYnGEsH84BNUJa0OPEfKga1vGliuWhFn
+	 zaRDiQX+NOixk9Y7halpKlPRoaVhBvjh/DyNgsP4gdMKMsnngVib+7D8YtxvfOyfvL
+	 Y3T7UayOBvzf0iLRHxcTFL7iSud/0xsp4p1myaYEaR19SDOmXNMLnAJdMgJfq5NGQz
+	 6bjROML7eT11QzCjeK6zLEu5BKBF87n/dssYfCHZ0qt8zOmVLD2avZ1WQdz8yQyqBq
+	 8kxQGGCB0q6BA==
+Date: Tue, 7 Apr 2026 09:04:53 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: David Heidelberg <david@ixit.cz>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Marijn Suijten <marijn.suijten@somainline.org>, Casey Connolly <casey.connolly@linaro.org>, 
+	Joel Selvaraj <joelselvaraj.oss@gmail.com>, Jens Reidel <adrian@travitia.xyz>, 
+	Arnaud Ferraris <aferraris@debian.org>, Marco Mattiolo <marco.mattiolo@hotmail.it>, 
+	Petr Hodina <petr.hodina@protonmail.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: arm: qcom: Document Xiaomi Poco F1
+ Tianma variant
+Message-ID: <20260407-furry-cream-monkey-25be9a@quoll>
+References: <20260405-beryllium-compat-string-v2-0-91149be07835@ixit.cz>
+ <20260405-beryllium-compat-string-v2-1-91149be07835@ixit.cz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260331200658.1306-1-mailingradian@gmail.com> <20260331200658.1306-5-mailingradian@gmail.com>
-In-Reply-To: <20260331200658.1306-5-mailingradian@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 7 Apr 2026 09:03:11 +0200
-X-Gmail-Original-Message-ID: <CAD++jLk5VzmH93KcfY_JQf7qidoroiuDyQyD4GT73uq7rAU4kQ@mail.gmail.com>
-X-Gm-Features: AQROBzBKdohQM7PK3scjzV3O3ZZeGxVk4mW9zkJSPWiCUIGziZg7yTKCeJqHL38
-Message-ID: <CAD++jLk5VzmH93KcfY_JQf7qidoroiuDyQyD4GT73uq7rAU4kQ@mail.gmail.com>
-Subject: Re: [PATCH v5 4/4] arm64: dts: qcom: sdm670: add lpi pinctrl
-To: Richard Acayan <mailingradian@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260405-beryllium-compat-string-v2-1-91149be07835@ixit.cz>
 
-On Tue, Mar 31, 2026 at 10:06=E2=80=AFPM Richard Acayan <mailingradian@gmai=
-l.com> wrote:
+On Sun, Apr 05, 2026 at 12:54:55PM +0200, David Heidelberg wrote:
+> Document the panel-specific compatible string for the Tianma variant
+> of the Xiaomi Poco F1:
+> 
+>   - "xiaomi,beryllium-tianma"
+> 
+> and require the generic fallback compatible:
+> 
+>   - "xiaomi,beryllium"
+> 
+> Update the binding to clarify that all panel variants must list the
+> variant-specific compatible first, followed by the generic device
+> compatible, in accordance with DT matching rules.
+> 
+> The previous binding documentation did not describe the Tianma variant
+> and did not clearly specify the required fallback compatible, which
+> resulted in inconsistent DTS implementations.
+> 
+> No functional differences are currently exposed between Tianma and EBBG
+> variants at the binding level; both rely on the same generic device
+> compatibility for software support.
+> 
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> ---
+>  Documentation/devicetree/bindings/arm/qcom.yaml | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
 
-> The Snapdragon 670 has a separate TLMM for audio pins. Add the device
-> node for it.
->
-> Also add reserved GPIOs for the Pixel 3a, which blocks access to the
-> sensor GPIOs.
->
-> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Acked-by: Linus Walleij <linusw@kernel.org>
+Best regards,
+Krzysztof
 
-Yours,
-Linus Walleij
