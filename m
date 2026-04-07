@@ -1,161 +1,131 @@
-Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3CDA219301;
-	Tue,  7 Apr 2026 15:07:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.35.192.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5677233D505;
+	Tue,  7 Apr 2026 15:09:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775574442; cv=none; b=EMd8i+K9Fhk3+pbqy0RQSq+0WfFhdA2ewnbpqlp4msyuSSltLeT2oOLBVIlkcS8XF2Hj06aR9MTXqCHaCVLp5BVs/C6J11pJ7UH6YURw/ATZinn6Hw1Ao+V1LTEbXpigbyYLVsKus+gi7vgTK2uTbK3O96Yo1tOKa+M359RqIy0=
+	t=1775574581; cv=none; b=jkiR4fYmwfHhRnN5bVpJqAHBnqBi0TjqG00g+blfYNLgVAzcIN5LUVrM96qo9WH6KWJklf6YylPahsMPRB/tR9xLuQNSZ1xRfItQDYFQo2KoNlw7I3c5J4cEn1wrbBaecS1B7FxtVAiZRRw0ij5as2/qpwX1WlT9P/QTORF9smI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775574442; c=relaxed/simple;
-	bh=1h8TpUTbEwUGCYmA3RpnWj017GPexLaFpXPkEHT4gpY=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=FTg9+1S8T7tl6RJH/hwUsP+FnkPBDB4wmjhNNT9apiOiE3WdfhIh27V7DlGffMbxlVDqDhCP6oOVCUtA/EBkLYBx9JJvTVe8f5oujOuzYlr325sGwj8xp1MTAGpjBVisD2OgZ5QWmGY9f/RRfeJ+aiFn2BaVgbvexSXBeBsUPa8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=EOhDxiBc; arc=none smtp.client-ip=52.35.192.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	s=arc-20240116; t=1775574581; c=relaxed/simple;
+	bh=dkcbGVCRR5JfW5kZaQmLiuBhWaoFEwvQeU9ASSY32kk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Csazu8yGm3kHb2RnJnijsebcS29wevpTS7kNnCNaz9izaAhDKbEH7sN6ZtoArlHdLCY5BowsVFzPaOrAYF/8o4bvHTVCshPsJpS+2ORgsE5Z6nQ4o7riIaFmjTnoV3GfN6ehXV67KkRcJYO8jJlx2YZIjMgJRXJRkQJRH1SiAV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=gfQT8L/e; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="EOhDxiBc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1775574441; x=1807110441;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=fwF/+V8vSUXyDGHI+Ez5ilMcTLluahXcPGLTKcZ4SJQ=;
-  b=EOhDxiBcN+ZrZYnwE73LyIKzhqRCafNOA+3MiR5h3wKqZKmV2xB4L2oW
-   X7r3VGEtonGPPLlhQ5XgVW7nfyB5sGWzw8y0FWHMxoENJqHDq1bpVtjGr
-   1pDPXdLioQepOO4rKqfnOmfyr/MabIC5kI3TMrBIZYbelq332qNwPihYL
-   K0Y4g8JPrE9CwAY0RI57umRkxG36hR8QgQvFoXsELROFdSMIBWh4ZaU1u
-   4tARxmEDdNRfH54Cz2wSfbvaaQ1AGZZ/8jLSns5hibuQWwpo4YFznan0z
-   3ftjloryAVXPdxFWqSlkR41PTX/z4ulcCXN97dHDupHb8kRt+YIEl3tHC
-   w==;
-X-CSE-ConnectionGUID: No09qL5zSY+r3KzHCgll3Q==
-X-CSE-MsgGUID: rDHiqfZOR+6EXwRVTo2XtQ==
-X-IronPort-AV: E=Sophos;i="6.23,165,1770595200"; 
-   d="scan'208";a="16535437"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Apr 2026 15:07:18 +0000
-Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:19288]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.60.23:2525] with esmtp (Farcaster)
- id 4bfd4df0-b04f-448b-b697-624a06f2ef88; Tue, 7 Apr 2026 15:07:18 +0000 (UTC)
-X-Farcaster-Flow-ID: 4bfd4df0-b04f-448b-b697-624a06f2ef88
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37;
- Tue, 7 Apr 2026 15:07:18 +0000
-Received: from dev-dsk-epetron-1c-1d4d9719.eu-west-1.amazon.com
- (10.253.109.105) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37; Tue, 7 Apr 2026
- 15:07:15 +0000
-From: Evangelos Petrongonas <epetron@amazon.de>
-To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
-CC: Evangelos Petrongonas <epetron@amazon.de>, "Mike Rapoport (Microsoft)"
-	<rppt@kernel.org>, Changyuan Lyu <changyuanl@google.com>, Alexander Graf
-	<graf@amazon.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav
-	<pratyush@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
-	<devicetree@vger.kernel.org>, <kexec@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <nh-open-source@amazon.com>
-Subject: [PATCH] of: fdt: skip KHO when booting as crash kernel
-Date: Tue, 7 Apr 2026 15:06:33 +0000
-Message-ID: <20260407150639.69923-1-epetron@amazon.de>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="gfQT8L/e"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B98CF10E33C;
+	Tue,  7 Apr 2026 17:09:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1775574576;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=fUKRr3PIBlTzdV7W5Whjo5YyCw0hsjFvMeaap8RDMWk=;
+	b=gfQT8L/ePFsPjNOlKK7k4A8ISlVQUwClinREShy/diZqB70BOY43EQwB6JhIiJJHrtQWet
+	xaxDxyWLPzX1j2RvMm8/jtZinzR9neA6m/dPmrHL2ZTh0TivcHbMT8SXrRIXyZmAc2eQmC
+	uWb3saPAGAaNFP5DG1xfevjSqP+YDyCQL3itj/wcesOIM26SANxL4snTrnLa8CbIMkOjG/
+	uv6ELiglcBwNlO992owG7IPXHLH6FufdjnKXibgtwZvknkRkApNMm0ql+ASjKi9r+CwxTJ
+	f2aqkyl7QcFb8opXCWp0DlBHIqEN0r0td1ZbL6mU+F7VbO+LynOsSEPK5ztzeQ==
+Message-ID: <c3a9c4eb-92ce-48c2-83ff-18c7ce03acd9@nabladev.com>
+Date: Tue, 7 Apr 2026 16:51:45 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ClientProxiedBy: EX19D039UWB004.ant.amazon.com (10.13.138.57) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
-Content-Type: text/plain; charset="us-ascii"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: display: bridge: lt9211: Require data-lanes
+ on DSI input ports
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: devicetree@vger.kernel.org, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Robert Foss <rfoss@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260404034123.340818-1-marex@nabladev.com>
+ <20260407-invaluable-pretty-leopard-1e8dfc@quoll>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <20260407-invaluable-pretty-leopard-1e8dfc@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-KHO preserves state across kexec by passing a KHO-specific FDT pointer
-and scratch memory region to the incoming kernel. These point to
-physical addresses in the outgoing kernel's memory that the incoming
-kernel is expected to access and restore from. This falls apart when
-the incoming kernel is a crash kernel as the crash kernel can run in a
-small reserved memory region. The scratch regions can sit outside this
-reservation, so the end result is quite unpleasant.
+On 4/7/26 10:00 AM, Krzysztof Kozlowski wrote:
 
-kho_add_chosen() unconditionally propagates KHO properties into
-the device tree for all kexec image types, including crash images. The
-crash kernel then discovers these properties during
-early_init_dt_check_kho(), records the stale physical addresses via
-kho_populate(), and later faults in kho_memory_init() when it tries
-phys_to_virt() on the KHO FDT address:
+>> NOTE: For example Linux kernel driver does already use that information
+>>        and fails to probe if it is missing. There are currently no intree
+> 
+> The first sentence must be part of the commit msg. That is important
+> reason why you are doing this... but I don't see how you achieve any of
+> this. Look:
+> 
+> 
+>>        users for this binding, so no new warnings will be generated once
+>>        this is applied, but a new user is about to be added.
+> 
+> What warnings? How?
 
-Unable to handle kernel paging request at virtual address xxxxxxxx
-...
-  fdt_offset_ptr+...
-  fdt_check_node_offset_+...
-  fdt_first_property_offset+...
-  fdt_get_property_namelen_+...
-  fdt_getprop+...
-  kho_memory_init+...
-  mm_core_init+...
-  start_kernel+...
+There are no in-tree users of this binding, so no DT checker warnings 
+will be produced on existing in-tree DTs. I am in the process of adding 
+a DTO which uses this binding now in arm64: dts: imx8mm: imx8mp: Add 
+DTOs for Data Modul i.MX8M Mini and Plus eDM SBC
 
-kho_locate_mem_hole() already skips KHO logic for KEXEC_TYPE_CRASH
-images, but the DT property propagation and the consumer side were both
-missing the same guard.
-
-Fix this at both ends. Have kho_add_chosen() skip writing KHO properties
-for crash images so the stale pointers never reach the crash kernel's
-device tree. Also have early_init_dt_check_kho() bail out when
-is_kdump_kernel() is true. This way even if KHO properties end up in
-the DT through some other path, the crash kernel will not act on them.
-
-Fixes: 274cdcb1c004 ("arm64: add KHO support")
-Signed-off-by: Evangelos Petrongonas <epetron@amazon.de>
----
-
-I think we should backport the fix on KHO compatible versions (6.16+),
-hence the "Fixes:" tag. Tested on an arm64 system.
-
- drivers/of/fdt.c   | 3 +++
- drivers/of/kexec.c | 3 ++-
- 2 files changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
-index 43a0944ca462..77018ec99fc8 100644
---- a/drivers/of/fdt.c
-+++ b/drivers/of/fdt.c
-@@ -926,6 +926,9 @@ static void __init early_init_dt_check_kho(void)
- 	if (!IS_ENABLED(CONFIG_KEXEC_HANDOVER) || (long)node < 0)
- 		return;
- 
-+	if (is_kdump_kernel())
-+		return;
-+
- 	if (!of_flat_dt_get_addr_size(node, "linux,kho-fdt",
- 				      &fdt_start, &fdt_size))
- 		return;
-diff --git a/drivers/of/kexec.c b/drivers/of/kexec.c
-index c4cf3552c018..b95f0b386684 100644
---- a/drivers/of/kexec.c
-+++ b/drivers/of/kexec.c
-@@ -271,7 +271,8 @@ static int kho_add_chosen(const struct kimage *image, void *fdt, int chosen_node
- 	if (ret && ret != -FDT_ERR_NOTFOUND)
- 		return ret;
- 
--	if (!image->kho.fdt || !image->kho.scratch)
-+	if (!image->kho.fdt || !image->kho.scratch ||
-+	    image->type == KEXEC_TYPE_CRASH)
- 		return 0;
- 
- 	fdt_mem = image->kho.fdt;
--- 
-2.43.0
-
-
-
-
-Amazon Web Services Development Center Germany GmbH
-Tamara-Danz-Str. 13
-10243 Berlin
-Geschaeftsfuehrung: Christof Hellmis, Andreas Stieger
-Eingetragen am Amtsgericht Charlottenburg unter HRB 257764 B
-Sitz: Berlin
-Ust-ID: DE 365 538 597
-
+>> ---
+>>   .../display/bridge/lontium,lt9211.yaml        | 37 ++++++++++++++++++-
+>>   1 file changed, 35 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml
+>> index 9a6e9b25d14a9..5264fb2b68b78 100644
+>> --- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml
+>> +++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml
+>> @@ -36,18 +36,50 @@ properties:
+>>   
+>>       properties:
+>>         port@0:
+>> -        $ref: /schemas/graph.yaml#/properties/port
+>> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> 
+> OK, that's correct.
+> 
+>> +        unevaluatedProperties: false
+>>           description:
+>>             Primary MIPI DSI port-1 for MIPI input or
+>>             LVDS port-1 for LVDS input or DPI input.
+>>   
+>> +        properties:
+>> +          endpoint:
+>> +            $ref: /schemas/media/video-interfaces.yaml#
+>> +            unevaluatedProperties: false
+> 
+> That's correct.
+> 
+>> +
+>> +            properties:
+>> +              data-lanes:
+>> +                description: array of physical DSI data lane indexes.
+>> +                minItems: 1
+>> +                items:
+>> +                  - const: 1
+>> +                  - const: 2
+>> +                  - const: 3
+>> +                  - const: 4
+> 
+> That's almost redundant in this context - it was already there - and the
+> point is that it solves noting in the problem you had. Binding still
+> does not validate the ABI and does not match it, still.
+> 
+> Since commit foo bar, driver needs data-lanes, so what you need to do is
+> allow them and to require them. You can also specify their constraints
+> if device can be configured multiple ways, up to 4 lanes.
+Please pardon my ignorance, what exactly do you propose I change in this 
+patch ?
