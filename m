@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 835CE38C2D1;
-	Tue,  7 Apr 2026 06:58:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90D2B38A71E;
+	Tue,  7 Apr 2026 07:00:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775545090; cv=none; b=gWJZoYZH42iGohVqI6Hqm8tcGuStwrwUgKTIevo9pTpxXGzZ9BFjVtLADw4WYCgud8MYR/VIOreoOg5TrDQRhJo+Rn7ApeQ8+DGsziEDyPQnJZ4SiwTiIQBoLa4CyN5dg18VKPbZPPFPPZAuWbdY39nCw04tzQKouFvrfsl4rq0=
+	t=1775545237; cv=none; b=TPmQl1kbHwnwg0VUm/ubtWdUSjka9iUf118sbueG0akzLYyxmoGvSf6WSO5wf9ZKHo7uTlwRzejNZThqX8ro0UTNXshUdA8nip+z4sJ3SUB23fsTg+RV8aSLwVy4d7sOWjOW2OGss8FX81HxhyKAHjlqKGgiLB50oI6MC3DM9sI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775545090; c=relaxed/simple;
-	bh=Q1EVqiFzLQWhtx3CgXKnHJgnO4sfqApqXVHbkrxtwQM=;
+	s=arc-20240116; t=1775545237; c=relaxed/simple;
+	bh=KC++AGYaCPtqG8OBRYariCPXzGcrTMUsx7ei4Bja4QQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lKd9qCmIN90RWrkRR84Ovid4JNav0w49XjaVGvHds2/ddMkYK9W9t1Km4ugt6bTvES5NeHWWg6DPGof3uWCPBfYd030J7un40fvMnwDQV2ni1gV9FAOI1wDPtpzN/ASFhU/KRPlNVmqkzbb9L7+i2pbEpFMe8mnq6pXjU4v/q08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WgOpbeWx; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=KYuINtAvkjHRgRN4tr69i2+g8dc13AQwTfbQdUAohKVYl4664Ov5cMRgsTgnBZfd6ubkiNWnOSk6kLghUjO0tTWj/5GPWESs+ODsPk8PhreEDhYphZEUqV0NeJnUpW2cSbc9f/ghpmC/a9SSo+p1OFaM0w2PFLEMD4pkcD4weX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ID+ItTp7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WgOpbeWx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C801C116C6;
-	Tue,  7 Apr 2026 06:58:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ID+ItTp7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0586C2BC9E;
+	Tue,  7 Apr 2026 07:00:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775545090;
-	bh=Q1EVqiFzLQWhtx3CgXKnHJgnO4sfqApqXVHbkrxtwQM=;
+	s=k20201202; t=1775545237;
+	bh=KC++AGYaCPtqG8OBRYariCPXzGcrTMUsx7ei4Bja4QQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WgOpbeWxdAW5ztDLp8QxTv/ZMMwhz2q7Sqv1FmZqc9uGxWbZ4pnZOCC11hxtHiIeD
-	 2O9IuscFQ736YUdf+UpjIkRC/aFo7CgjbEknmeW0xEDzGzAfrPeN6t3eOglUs/xQik
-	 Zenaf6YL6rvVbkzoOH+5ATtbe7Pr/DYcsxvxMVkUqumVjo4WBDAZ2Qe7WEkaWX3RuS
-	 J+xxPwE1qcWYrw+OX+ecBDTBTRCnf6XawOX4EgOdQZYmZ7AKQlZtUwEsAdA4Z+4zXI
-	 vAc4rBMCmNQGPq2Jje7r16MHMNRLlN0CV9JMbzYWSWOAm8kqBIVHRY1kuOQOwTpLjP
-	 932F8mQNV1G3A==
-Date: Tue, 7 Apr 2026 08:58:07 +0200
+	b=ID+ItTp7caZBgfAvTzsBBhnu+06DZg8amfvbRzMgapVy7TeBPfTaFvCHtLpFAUgdL
+	 eeuD/Xu1FrRMlPI+2Y1030XGlUuYiwfwaqLRnwH5/MRcYfUNAdCNSY3MklSX+iRraM
+	 fAWrGvdBqkb9SkFe9TpW49HFMbQlMJO43AocZHd3WGebXzFBE8px7btC61C5vxHbHA
+	 CK3fsSwQ3L9BckdTvbOsr6f8dvrTGU0W2tABUqAv+avJwYgzOF3J7XhD2rfu0+lcpb
+	 8+lnHxcgCnCm9LUX/wQFq8HygHNV12Txti/e+VkoJPEQj9oMai/03ruRT0f+BYrq0Z
+	 JDgkz2L6pGhbA==
+Date: Tue, 7 Apr 2026 09:00:34 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jan Carlo Roleda <jancarlo.roleda@analog.com>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] dt-bindings: leds: Document LTC3208 Multidisplay
- LED Driver
-Message-ID: <20260407-outstanding-sceptical-giraffe-3fd6bb@quoll>
-References: <20260406-upstream-ltc3208-v3-0-7f0b1d20ee7a@analog.com>
- <20260406-upstream-ltc3208-v3-2-7f0b1d20ee7a@analog.com>
+To: ASHISH YADAV <ashishyadav78@gmail.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Ashish Yadav <ashish.yadav@infineon.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: hwmon/pmbus: Add Infineon XDP720
+Message-ID: <20260407-monumental-mastiff-of-sunshine-fb27ab@quoll>
+References: <20260406101647.109667-1-Ashish.Yadav@infineon.com>
+ <20260406101647.109667-2-Ashish.Yadav@infineon.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,32 +45,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260406-upstream-ltc3208-v3-2-7f0b1d20ee7a@analog.com>
+In-Reply-To: <20260406101647.109667-2-Ashish.Yadav@infineon.com>
 
-On Mon, Apr 06, 2026 at 03:17:06PM +0800, Jan Carlo Roleda wrote:
-> Add Documentation for LTC3208 Multidisplay LED Driver.
+On Mon, Apr 06, 2026 at 03:46:46PM +0530, ASHISH YADAV wrote:
+> From: Ashish Yadav <ashish.yadav@infineon.com>
 > 
-> Signed-off-by: Jan Carlo Roleda <jancarlo.roleda@analog.com>
+> Add documentation for the device tree binding of the XDP720 eFuse.
+> This patch introduces a YAML schema describing the required and optional
+
+Redundant parts was supposed to go to /dev/null.
+
+You already said this in the first sentence.
+
+Also, there is no such thing as YAML schema.
+
+
+> properties for the XDP720 eFuse device node. It includes details on the
+> compatible string, register mapping,supply and rimon-micro-ohms(RIMON).
+
+So nothing here is useful - nothing explains the hardware, so drop all
+this and keep only first sentence. Or say something useful about
+hardware.
+
+> 
+> Signed-off-by: Ashish Yadav <ashish.yadav@infineon.com>
 > ---
-
-Still incorrect order.
-
-...
-
-> +
-> +      led-controller@1b {
-> +        compatible = "adi,ltc3208";
-> +        reg = <0x1b>;
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +        adi,disable-camhl-pin;
-> +        adi,cfg-enrgbs-pin;
-> +        adi,disable-rgb-aux4-dropout;
-> +
-> +        led@0 {
-> +          reg = <0>;
-
-I still expect this to be complete, so at least function and color.
 
 Best regards,
 Krzysztof
