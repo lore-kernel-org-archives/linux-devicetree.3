@@ -1,136 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C23A0313E30;
-	Tue,  7 Apr 2026 19:29:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DE1B272803;
+	Tue,  7 Apr 2026 19:29:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775590142; cv=none; b=mGN586UHPrAW74gU4V/J2MUs+vd8XldtA8NJ/N6vzk75GjPcMFevQkaEHBqVXuVbOCCDtMhp5j5s1/Q+cOmqbOe5xNhT2s3PdFCQ93pU37PunZdupjZRyCBaQmeNL1CU3/wTeS9YHi3nU4h/pCBzy6CtcRK+QTNEfTapCiC3c84=
+	t=1775590168; cv=none; b=ZNtbd58OoN/++x3X3AFQ4J4INqlebds5d+uNhT2koAabd6nWkXoa3yrBzH0I0TiBfXSX2yX10L5+FrdPBVdIf0XRciZ7KP/P+xBCi23dVf1ee2mf39LLffShdpWTW2AsHDK0bsSvkOgbn+e9JyXaWJdGDC97eXOixCOt36XAxw0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775590142; c=relaxed/simple;
-	bh=cgOoRH8ry7zbFnB5ny1ikz2iS1dHVeZMa4kaLWmdFuQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nzL0j0j1BOMnN0Xwx/OejPm04DJQ7s1X/olQwes1hI0c2IrSkdqC71reufwQ++2a7NJPfs7+OeLUL3SD5v0ONIr6/PnUdRMgoIYsMTFYSMWnRqX2GCSHaxCZWKpWB8D8bAt6Hw9UQSFCx5gTXwsbQhdyqRFy0yY3Fg1jxZMmsp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dA3ZeefX; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775590168; c=relaxed/simple;
+	bh=18D4cN19brYBRiRDSX4HiXep5xyejpy/zMyX/KCIrGg=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=YWt/Rja4gXmf0uUP4Y7ATRNKB3qzuT1OV3kIeXUVopjTH06JRyB0c7bM7hYHuBHy8k7cIiugVKXpljz2RFbKOzjZRPB6LnyFU6eRU6TcxajxpmYIOUXCMD/2AITxy9b6BaQsr937gAd42ZDnVN7TQkVCEXGI8QiNGQMEK875ey8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BD97f8ei; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dA3ZeefX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C206C116C6;
-	Tue,  7 Apr 2026 19:29:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BD97f8ei"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABCEBC116C6;
+	Tue,  7 Apr 2026 19:29:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775590142;
-	bh=cgOoRH8ry7zbFnB5ny1ikz2iS1dHVeZMa4kaLWmdFuQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dA3ZeefXQTe5fPnO1yn3ONCXblFHpiO1+Fchude9+YJVskEzJ8ooygeV73WIY2Lku
-	 4iDJaPbVCW6WHjALFWauQFFhyCK/xR9/sH5X6Gpu1RHEbSO44xh5xWF7l1PwhyoFKP
-	 1mursg4DM/7696C80voN2qJ3SKoSbhX0msQac2tujYmx5vLes1D6QqP6ZwYeHPKlzp
-	 wEQDSXluMclnRnU5MigPb1t+UUPDD7TTMEldqfpZi+dazWb6u01ytbgZ68R0TCn5vW
-	 JJJ/J/rLfqV9sOEecuiaD7WGqW9QHEFhjavBG0tm1bLWFKC/SK91FOfUmDHdcxgP0B
-	 I/g8nzpMd2YyQ==
-Date: Tue, 7 Apr 2026 14:29:00 -0500
-From: Rob Herring <robh@kernel.org>
-To: "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Jayesh Choudhary <j-choudhary@ti.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Antoine Tenart <atenart@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Pascal EBERHARD <pascal.eberhard@se.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 01/16] dt-bindings: clock: Introduce nexus nodes
-Message-ID: <20260407192900.GA3531350-robh@kernel.org>
-References: <20260327-schneider-v7-0-rc1-crypto-v1-0-5e6ff7853994@bootlin.com>
- <20260327-schneider-v7-0-rc1-crypto-v1-1-5e6ff7853994@bootlin.com>
+	s=k20201202; t=1775590167;
+	bh=18D4cN19brYBRiRDSX4HiXep5xyejpy/zMyX/KCIrGg=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+	b=BD97f8ei1c8wIE+DWoqjXkEwG1ANOyFiUNjpOZpbp+c+ycz5U5++fPmTU6H6nOXqe
+	 chaiM59KdKk/YAlZZEFxO2WdIXsyhFbUH2iuNeeWV4ubCb0pgpd9t8byKYze4qAp91
+	 U1AgehBt19TS6rPEJMeVJyAqE5XFd48+dddKaLzBLShygGxXbbYR7TwmMOBLo54nHF
+	 m3nw9HWQ42YV71pmxEPp+dunyHyYA5wlh04JtNyJmy1VVIi8lnI480LPk2DPd+OgGJ
+	 xOaGB2DRqLqUVhhCzvvL9XLkR/yrsA11AAaCMNreweLy6cIzF1zpR0U1UMaOezZhyz
+	 KTKr7J1Sh44MQ==
+Date: Tue, 07 Apr 2026 14:29:26 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260327-schneider-v7-0-rc1-crypto-v1-1-5e6ff7853994@bootlin.com>
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, devicetree@vger.kernel.org, 
+ Lukasz Luba <lukasz.luba@arm.com>, Zhang Rui <rui.zhang@intel.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260407053957.10508-2-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260407053957.10508-2-krzysztof.kozlowski@oss.qualcomm.com>
+Message-Id: <177559016610.3536304.190890909066170434.robh@kernel.org>
+Subject: Re: [PATCH v2] dt-bindings: thermal: idle: Complete the example
+ code
 
-On Fri, Mar 27, 2026 at 09:09:23PM +0100, Miquel Raynal (Schneider Electric) wrote:
-> Hardware containers can just decouple external resources like clock
-> without any more control. Nexus nodes already exist for PWM and GPIOs,
-> add a binding to allow them for clocks as well.
+
+On Tue, 07 Apr 2026 07:39:58 +0200, Krzysztof Kozlowski wrote:
+> Thermal bindings expect the node name with all the zones to be named
+> 'thermal-zones' (hyphen instead of underscore) and thermal zones to end
+> with '-thermal'.  Also DTS coding style is not to use underscores for
+> node names.  After using correct names, bindings point warnings for
+> missing properties, so add also thermal-sensors.  Drop fake top
+> compatible as it is not useful in this context.
 > 
-> No examples are given, the file is litteraly a copy-paste from Hervé
-> Codina's work on PWM Nexus nodes, hence we just point to the examples
-> there which already illustrate very clearly the concept of the various
-> properties.
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 > 
-> Signed-off-by: Miquel Raynal (Schneider Electric) <miquel.raynal@bootlin.com>
 > ---
->  .../bindings/clock/clock-nexus-node.yaml           | 39 ++++++++++++++++++++++
->  1 file changed, 39 insertions(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/clock/clock-nexus-node.yaml b/Documentation/devicetree/bindings/clock/clock-nexus-node.yaml
-> new file mode 100644
-> index 000000000000..f07e2972e8aa
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/clock-nexus-node.yaml
-> @@ -0,0 +1,39 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/clock/clock-nexus-node.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Clock Nexus
-> +
-> +description: >
-> +  A nexus node allows to remap a phandle list in a consumer node through a
-> +  container or a connector node in a generic way. With this remapping,
-> +  the consumer node needs to know only about the nexus node. Resources
-> +  behind the nexus node are decoupled by the nexus node itself.
-> +
-> +maintainers:
-> +  - Miquel Raynal <miquel.raynal@bootlin.com>
-> +
-> +select: true
-> +
-> +properties:
-> +  '#clock-cells': true
-
-No need for this.
-
-> +
-> +  clock-map:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-matrix
-> +
-> +  clock-map-mask:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +
-> +  clock-map-pass-thru:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-
-I think this can be omitted because there aren't common cell definitions 
-for clocks like there are for GPIO and PWM.
-
-> +
-> +dependentRequired:
-> +  clock-map: ['#clock-cells']
-> +  clock-map-mask: [ clock-map ]
-> +  clock-map-pass-thru: [ clock-map ]
-> +
-> +additionalProperties: true
-> +
-> +# See the original pwm-nexus-node.yaml description for examples
+> Changes in v2:
+> 1. Drop top level compatible and other properties
+> 2. Add thermal-sensors
+> 3. Rename also trips and cpu-thermal
+> ---
+>  .../bindings/thermal/thermal-idle.yaml         | 18 +++++++-----------
+>  1 file changed, 7 insertions(+), 11 deletions(-)
 > 
-> -- 
-> 2.51.1
-> 
+
+My bot found errors running 'make dt_binding_check' on your patch:
+
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/thermal/thermal-idle.example.dtb: /: 'compatible' is a required property
+	from schema $id: http://devicetree.org/schemas/root-node.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/thermal/thermal-idle.example.dtb: /: 'model' is a required property
+	from schema $id: http://devicetree.org/schemas/root-node.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/thermal/thermal-idle.example.dtb: /: '#address-cells' is a required property
+	from schema $id: http://devicetree.org/schemas/root-node.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/thermal/thermal-idle.example.dtb: /: '#size-cells' is a required property
+	from schema $id: http://devicetree.org/schemas/root-node.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260407053957.10508-2-krzysztof.kozlowski@oss.qualcomm.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
