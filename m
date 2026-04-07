@@ -1,119 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCB5939A7E5;
-	Tue,  7 Apr 2026 09:50:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17BA53A6F0F
+	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 09:55:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775555427; cv=none; b=JiGwZw5nYh5Rg4hlNwWv6/KD8uhOCRlpH27oCbf4UuTy4JZAg4Dw+uTP87l6Z2uqBWtCe78IOv7CgNPeZMUdvhn6G78PIrOnKdLt0gFEvz78HfpVx89CJQwTdOasdH+1AhygUbSeI35NVS262d+O004BH8tUYAj0aN4FlOo8CYI=
+	t=1775555708; cv=none; b=s8dc55Jf6PRo+sjkhUEoRU/fAUb0wqmbi6VobFCgiXzeTHJ7YN40ovY0pFLY1wyl7ru8/oESlPHgrhAWZ26MrNc1DcAYJigLs6QGJbaaDpfDVlnJBruGySglHqij4zUP02QxAQwMTdx1cnsoe66HtINv4Z1SIg6cw0ZOrNyq9Bc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775555427; c=relaxed/simple;
-	bh=Qese7w2uaYlXM0IDj/qmMPTUXpad+CLEP89BM0kbqtY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KNjEaUUHqly65kOm38Cu9oKWAG50UPIsxNhxJT0gXq4MVH1ia3jBHURKqu9irUZHwFJ45zN4Vq0pjymD+9BYhfviFAdAph+kjBBeR4PawYOyjjj9V8ew5LSxPF1JKTf+ZkoOeKqjZEjHmu3usF5pubR9zJpWN9DFCZANqrPXUj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G64Xz+pV; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775555708; c=relaxed/simple;
+	bh=YYcuBCy8FB/LfjnQ+Sd7xtA4Uh6GIEqLge4wbuxDlj0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=a4z8He1L0CGt33S+tixI0LjNCHIZQCq1GdULU4I8OQbKN+XnK9oIRHs3zj9V9RTU2SYCpnUvpte0UZdixZQvGxaW1S5+thefEH0EvLMpalWRA8Lu1FJzaWxPdns+kTdYv13IboxViu/BeIqqIMClYlABqVLc6Vul4IBvSztbzCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RRN3Ilnv; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G64Xz+pV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3018C2BCAF;
-	Tue,  7 Apr 2026 09:50:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RRN3Ilnv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B24F7C2BCAF
+	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 09:55:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775555427;
-	bh=Qese7w2uaYlXM0IDj/qmMPTUXpad+CLEP89BM0kbqtY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=G64Xz+pVuVw84kM4b5xQR4G7FmtG/OHUZPCbs0S6aDitrGzqZI9D8KfpNcVgTuDLE
-	 AlDLqQ2FVcrlNfeWgvjnQJtLWlWO4uH0hlxwDB6pn3wahxQrt6HNLI84Z8C9h0xpsD
-	 nSrU479NhqkcEBl8FMUch+MpXF11ppefrGGUYkzk1JommmXg1Mpe2Z0jbesSovjMdX
-	 gPth1Lka3fRtGizo8sViAljOvluzcEvvLuF/OQNbvndebxQjuEEGt6N0YRoZNSpCUN
-	 BQ/nessaIT9s+Zj6OzYQsnZ1RtdaqJsU/vR+0eaLQ4MqLxdRo71GvlLR5C7FOKrA20
-	 iB23T3heOnhNA==
-Message-ID: <c6314ca9-5a0b-450f-a0a5-e155c334db34@kernel.org>
-Date: Tue, 7 Apr 2026 11:50:22 +0200
+	s=k20201202; t=1775555707;
+	bh=YYcuBCy8FB/LfjnQ+Sd7xtA4Uh6GIEqLge4wbuxDlj0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=RRN3IlnvP+pLuXjZiWiUzK6GoFm8IMeNV9ZF2tQw1K0pZxqbEiLTfaYhRuRclUFfL
+	 xr9BG0msTm4dWc3mgzdGzz/k4UUyHBR5OhAYPgUKpZQUu/unvQxTps4DiOR/5kWwvX
+	 AEPE4vtmnoVaAP9aUf9SGe/qBuDA1YY1ndVKZAw+2yt6S3NLdYQZzh3j7eVgHHPfzN
+	 pLdjTbrztpaYfXQv0LTQSR/cFzXhplFSVabaHtUngPX+b5NCZ9OrESCm+xl/5pVkh+
+	 Ed5epQohR9TttnxN17pGbjEjbmhYQisO63KaEkWmRVikOw83nT3QPs3BzFVz+NU6Yj
+	 z855n9Oz0qT3Q==
+Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-7a469383e0bso31342557b3.2
+        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 02:55:07 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCVFaJdWAkK4epheCqlDKx0UE7mVHWiQ8Sq8XS4u+rl76lAbOvNmtV7YyBWJzaVA0UmSToxamyLsZYkW@vger.kernel.org
+X-Gm-Message-State: AOJu0YzthLxJ1DYVXtqBPI1b3+sNTWI85JuokTAau88oVdnrVZY/xwtP
+	qieX5TNVr37s+RbiRPy+nEBQZgj4xmJzj0not4vmXXzgbHxxlRMqNFroEQyw4US7a9vKB6RJs3U
+	S1JQdYST7jnRBjvG9wSYNyK0sErgAMoM=
+X-Received: by 2002:a05:690c:4b11:b0:7a2:80a9:93cb with SMTP id
+ 00721157ae682-7a4d89b6536mr158041047b3.39.1775555707112; Tue, 07 Apr 2026
+ 02:55:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/19] dt-bindings: display/panel: himax,hx8394: describe
- Waveshare panel
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Cong Yang <yangcong5@huaqin.corp-partner.google.com>,
- Ondrej Jirman <megi@xff.cz>, Javier Martinez Canillas <javierm@redhat.com>,
- Jagan Teki <jagan@edgeble.ai>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
-References: <20260401-waveshare-dsi-touch-v1-0-5e9119b5a014@oss.qualcomm.com>
- <20260401-waveshare-dsi-touch-v1-2-5e9119b5a014@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260401-waveshare-dsi-touch-v1-2-5e9119b5a014@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260403-nord-tlmm-v1-0-4864f400c700@oss.qualcomm.com> <20260403-nord-tlmm-v1-2-4864f400c700@oss.qualcomm.com>
+In-Reply-To: <20260403-nord-tlmm-v1-2-4864f400c700@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 7 Apr 2026 11:54:55 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkuvjUQdGZs8ot50Zkpmz8sWV_w79ALEC5z7-ORSxwyQw@mail.gmail.com>
+X-Gm-Features: AQROBzCEF3mkoluhHfg8x82mQ774Vgk-cLhHzCJxhsWv-yqL3X-1857Zvpg_ikg
+Message-ID: <CAD++jLkuvjUQdGZs8ot50Zkpmz8sWV_w79ALEC5z7-ORSxwyQw@mail.gmail.com>
+Subject: Re: [PATCH 2/3] pinctrl: qcom: add the TLMM driver for the Nord platforms
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Richard Cochran <richardcochran@gmail.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Shawn Guo <shengchao.guo@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, 
+	linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 01/04/2026 09:26, Dmitry Baryshkov wrote:
-> Describe Waveshare 5" and 5" DSI panels which use HX9365-E as a panel
-> controller.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/display/panel/himax,hx8394.yaml | 2 ++
->  1 file changed, 2 insertions(+)
-> 
+Hi Bartosz,
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+thanks for your patch!
 
-Best regards,
-Krzysztof
+On Fri, Apr 3, 2026 at 3:28=E2=80=AFPM Bartosz Golaszewski
+<bartosz.golaszewski@oss.qualcomm.com> wrote:
+
+> Add support for the TLMM controller on the Qualcomm Nord platform.
+>
+> Co-developed-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+(...)
+> +#define PINGROUP(id, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11)    \
+> +       {                                                             \
+> +               .grp =3D PINCTRL_PINGROUP("gpio" #id,                   \
+> +                                       gpio##id##_pins,              \
+> +                                       ARRAY_SIZE(gpio##id##_pins)), \
+> +               .ctl_reg =3D REG_SIZE * id,                             \
+> +               .io_reg =3D 0x4 + REG_SIZE * id,                        \
+> +               .intr_cfg_reg =3D 0x8 + REG_SIZE * id,                  \
+> +               .intr_status_reg =3D 0xc + REG_SIZE * id,               \
+> +               .intr_target_reg =3D 0x8 + REG_SIZE * id,               \
+
+You can drop .intr_target_reg as of:
+
+commit 0720208b37ae4f1193dc7103ee269b180a8f8943
+Author: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Date:   Fri Mar 27 22:42:40 2026 +0530
+
+    pinctrl: qcom: Drop redundant intr_target_reg on modern SoCs
+
+    On all Qualcomm TLMM generations from APQ8084 onwards, the interrupt
+    target routing bits are located in the same register as the interrupt
+    configuration bits (intr_cfg_reg). Only five older SoCs =E2=80=94 APQ80=
+64,
+    IPQ8064, MDM9615, MSM8660 and MSM8960 =E2=80=94 have a genuinely separa=
+te
+    interrupt target routing register at a different offset (0x400 + 0x4 * =
+id).
+
+    Replace MSM_ACCESSOR(intr_target) with a custom accessor that falls bac=
+k
+    to intr_cfg_reg when intr_target_reg is zero. Apply the same fallback i=
+n
+    the SCM path. Drop the now-redundant .intr_target_reg initializer from
+    all SoC drivers where it duplicated intr_cfg_reg, keeping it only in
+    the five drivers where it genuinely differs.
+
+    Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+    Signed-off-by: Linus Walleij <linusw@kernel.org>
+
+Yours,
+Linus Walleij
