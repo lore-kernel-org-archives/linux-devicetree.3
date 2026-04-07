@@ -1,127 +1,119 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBB153A3831
-	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 12:25:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61BB93AA516;
+	Tue,  7 Apr 2026 12:25:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775564731; cv=none; b=LY6qm0N/nT+olQk7D4+u0UZP/xSH0EknuM6UH371H+FPEQCgoT20im7TUhDPXhS9W3/3/+xP78UGohGUfU89ZTkLKT32Gwj+5Io6Kgbn7ZA+oGYiO+Usmr9sgRLGqDFR+GFgqBW7zw+T7fJMTJi6OfscEmz0XUsoAgyyVhDHKQA=
+	t=1775564736; cv=none; b=UKA1SC+FeUyOOYN5tr3dxRH/LfKeUKboLgN8x/q0CwdYnKlGPkEJzoNwkR1qLwouHrWWVEarffRkn1F6hryrCgHw6xZuGdaEDDE6sTalPx4cukpmlis+mnDZAbZNr/Oi/xVKXPFLcRP8nROc61iw0/m54MMTSKxePWRwB2T+eeI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775564731; c=relaxed/simple;
-	bh=24WG6yBEbIglRrt99esTFTvgIKmJl6XmDTipG9SiJhc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RzyzqF9dLl3odUGaXa04Ezyu266ZOrkmp1k51gM08KJr/b0dNRPL8uk3XJH6VDn3EP2gJvMfiKjTs5XKLF4FulhtSjvCbNYQzPPJcAbt9S2LgbvWmrPvsAc0y2SvX6yxYwmhFbhBx3mBPhklpTMsbcwanrOwmcHSApzdqpshPgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=HvflABmZ; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1775564736; c=relaxed/simple;
+	bh=WnUj41HY436U/PRRPWD3UEcJnw1euxhOP0IoV/BAZZI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sMe4LysZ9/lpR0YdLxfwB1Ww+CPYlElnSggduKXf7cX0Ch/Jl0uIsK4SHyhH1g+fCqg1kN6NSlfZsMD8bR0m/vZVqLYsqKzrOTPCENL0AB0H+ogsMkqmHQV8vcSO26neswXpXaAiIGm2mtVCfi+f5oCyPZedRUqVKtJ1tymT23E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lTeuxXTH; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="HvflABmZ"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 5C85DC5B19A;
-	Tue,  7 Apr 2026 12:26:02 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8B3EA603C7;
-	Tue,  7 Apr 2026 12:25:28 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 808BB10450209;
-	Tue,  7 Apr 2026 14:25:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1775564725; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=nES+87hWbwT2iR0Vz2APs/uraUQVlRUrsIwGeaZMI34=;
-	b=HvflABmZb/qozLLkMIGyCk7ztzSxl6seAY3gqk6ZpcpW21z6990ZxR59nujqGiZHVqMnmv
-	jkuIy/3F+9v6yZG1GMhiLgOzcOVtA2fiPWbOj9XjYsV/Kkgxa06BKuPg+I1oD7NrlFg1JF
-	YFE0m+U9cF03v8Jp04BRXU1KMDNsvrQwGX0yudigbJ7VLogAnQ9rY2b1SzTZYZQ2d4nVli
-	yNvoykH/VLLI2chsDANxaw9OM2pcx/pe2nhYVvQEMpnKaWk4v/PLeIp1SuLm02zveiSh/i
-	agF7iUnJQkqaE7W46dPQcx15a4DR5A7TQZBYDRldRwlrk91pbKrIbZQPa3XJHg==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Tue, 07 Apr 2026 14:24:19 +0200
-Subject: [PATCH v4 05/11] drm/bridge: dw-hdmi: document the output_port
- field
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lTeuxXTH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1775564735; x=1807100735;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=WnUj41HY436U/PRRPWD3UEcJnw1euxhOP0IoV/BAZZI=;
+  b=lTeuxXTHjWuQ8dzBpV3x6oi8ds9hm/Nx6OX/mVCBfVR40ln6YKsUF5tg
+   Yy8Ya838o7qd4NFDwHN9N4OY9bnh4wbc/IxnfAdja1z/1HF3Ed9O/3aMj
+   R3tl8TGzrBCiv59cuM2DNfNSp717/15169QVGnneb6Lp0xhTsue59MU6Z
+   AQ5ZdPf7l0LvNIKC3NsdRkZfad3cAsRpgYyXEEGxI1LuTBVJKMcnUUIab
+   Uldt9zPJGo0S1ILJQWK1XB9oGtTnLDnK4eTY4GN8xDAObUoOgAic3sny5
+   K/1NTLRJn4u5qevPseTIqzHH3lfMjF5Nqrv1k5Gq5+chUT27FiwDtVukK
+   Q==;
+X-CSE-ConnectionGUID: 4D+9sY+eTquFoRzuUqdw5g==
+X-CSE-MsgGUID: fqyEj6xOQASGLGyZbXkCug==
+X-IronPort-AV: E=McAfee;i="6800,10657,11752"; a="99153069"
+X-IronPort-AV: E=Sophos;i="6.23,165,1770624000"; 
+   d="scan'208";a="99153069"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Apr 2026 05:25:35 -0700
+X-CSE-ConnectionGUID: Kru5kzBKQKa8am7+6ZIQUw==
+X-CSE-MsgGUID: ikCDASAQRvSVrMMGtgyLbA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,165,1770624000"; 
+   d="scan'208";a="227158213"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa006.jf.intel.com with ESMTP; 07 Apr 2026 05:25:30 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 12E7295; Tue, 07 Apr 2026 14:25:29 +0200 (CEST)
+Date: Tue, 7 Apr 2026 15:24:39 +0300
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Amit Sunil Dhamne <amitsd@google.com>
+Cc: =?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jagan Sridharan <badhri@google.com>,
+	Mark Brown <broonie@kernel.org>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sebastian Reichel <sre@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	RD Babiera <rdbabiera@google.com>, Kyle Tso <kyletso@google.com>
+Subject: Re: [PATCH v10 6/6] usb: typec: tcpm/tcpci_maxim: deprecate WAR for
+ setting charger mode
+Message-ID: <adT3h8ZEQh_mFi5j@kuha>
+References: <20260331-max77759-charger-v10-0-76f59233c369@google.com>
+ <20260331-max77759-charger-v10-6-76f59233c369@google.com>
+ <ac5-OzwQkczTWtMg@kuha>
+ <017b8552-87e2-4409-ae34-9a3ab7365a68@google.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260407-drm-lcdif-dbanc-v4-5-247a16e61ef9@bootlin.com>
-References: <20260407-drm-lcdif-dbanc-v4-0-247a16e61ef9@bootlin.com>
-In-Reply-To: <20260407-drm-lcdif-dbanc-v4-0-247a16e61ef9@bootlin.com>
-To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Liu Ying <victor.liu@nxp.com>, Rob Herring <robh@kernel.org>, 
- Saravana Kannan <saravanak@kernel.org>
-Cc: Damon Ding <damon.ding@rock-chips.com>, 
- "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>, 
- =?utf-8?q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>, 
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Adam Ford <aford173@gmail.com>, 
- Alexander Stein <alexander.stein@ew.tq-group.com>, 
- Christopher Obbard <christopher.obbard@linaro.org>, 
- Daniel Scally <dan.scally@ideasonboard.com>, 
- Emanuele Ghidoli <emanuele.ghidoli@toradex.com>, 
- Fabio Estevam <festevam@denx.de>, 
- Francesco Dolcini <francesco.dolcini@toradex.com>, 
- Frieder Schrempf <frieder.schrempf@kontron.de>, 
- Gilles Talis <gilles.talis@gmail.com>, 
- =?utf-8?q?Goran_Ra=C4=91enovi=C4=87?= <goran.radni@gmail.com>, 
- Heiko Schocher <hs@denx.de>, Josua Mayer <josua@solid-run.com>, 
- Kieran Bingham <kieran.bingham@ideasonboard.com>, 
- Marco Felsch <m.felsch@pengutronix.de>, 
- Martyn Welch <martyn.welch@collabora.com>, 
- Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>, 
- Richard Hu <richard.hu@technexion.com>, 
- Shengjiu Wang <shengjiu.wang@nxp.com>, 
- Stefan Eichenberger <stefan.eichenberger@toradex.com>, 
- Vitor Soares <vitor.soares@toradex.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-X-Mailer: b4 0.15.1
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <017b8552-87e2-4409-ae34-9a3ab7365a68@google.com>
 
-The meaning of this flag may not be obvious at first sight.
+Hi Amit,
 
-Reviewed-by: Liu Ying <victor.liu@nxp.com>
-Tested-by: Martyn Welch <martyn.welch@collabora.com>
-Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com> # TQMa8MPxL/MBa8MPxL
-Tested-by: Damon Ding <damon.ding@rock-chips.com> # rk3399
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
----
-Changes in v2:
-- improved comment as suggested by Liu
----
- include/drm/bridge/dw_hdmi.h | 6 ++++++
- 1 file changed, 6 insertions(+)
+On Thu, Apr 02, 2026 at 11:47:30AM -0700, Amit Sunil Dhamne wrote:
+> Hi Heikki,
+> 
+> On 4/2/26 7:33 AM, Heikki Krogerus wrote:
+> > Hi Amit,
+> > 
+> > > +static int get_vbus_regulator_handle(struct max_tcpci_chip *chip)
+> > > +{
+> > > +	if (IS_ERR_OR_NULL(chip->vbus_reg)) {
+> > > +		chip->vbus_reg = devm_regulator_get_exclusive(chip->dev,
+> > > +							      "vbus");
+> > Sorry to go back to this, but why can't you just get the regulator in
+> > max_tcpci_probe()?
+> 
+> Thanks for calling this out. This was an intentional design decision to
+> break a circular dependency.
+> 
+> The charger driver is guaranteed to probe after the TCPC driver due to a
+> power supply dependency (the TCPC is a supplier of power for the Battery
+> Charger). However, the charger driver is also the regulator provider for
+> VBUS out (when Type-C goes into source mode).
+> 
+> Because of this, the regulator handle will not be available during the TCPC
+> driver's probe. If we tried to fetch it in max_tcpci_probe() and returned
+> -EPROBE_DEFER, it would create a probe deadlock, as the charger would then
+> never probe. Therefore, I made the decision to get the regulator handle
+> lazily and on-demand.
 
-diff --git a/include/drm/bridge/dw_hdmi.h b/include/drm/bridge/dw_hdmi.h
-index 336f062e1f9d..8500dd4f99d8 100644
---- a/include/drm/bridge/dw_hdmi.h
-+++ b/include/drm/bridge/dw_hdmi.h
-@@ -126,6 +126,12 @@ struct dw_hdmi_phy_ops {
- struct dw_hdmi_plat_data {
- 	struct regmap *regm;
- 
-+	/*
-+	 * The HDMI output port number must be 1 if the port is described
-+	 * in the device tree. 0 if the device tree does not describe the
-+	 * next component (legacy mode, i.e. without
-+	 * DRM_BRIDGE_ATTACH_NO_CONNECTOR flag when attaching bridge).
-+	 */
- 	unsigned int output_port;
- 
- 	unsigned long input_bus_encoding;
+Got it. Thanks for the explanation!
 
 -- 
-2.53.0
+heikki
 
