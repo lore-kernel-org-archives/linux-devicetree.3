@@ -1,104 +1,78 @@
-Received: from nick.sneptech.io (nick.sneptech.io [178.62.38.78])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C913B36AB4B;
-	Tue,  7 Apr 2026 17:45:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.62.38.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 360DC39EF10;
+	Tue,  7 Apr 2026 17:50:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775583938; cv=none; b=QdWE1JZZtZMnYGFaPy0zhKgQqTczoxlCYVdKQnKwsD9ecz1SDFJ2Ph0Po1JoXoGQ4hh7S4jkpfpjaYDBRHvHWeCT6iwuCVTxSPh9c5l/J+ZmYugWVDADYcPtH9xWXcPEbGjTmyvRwbEvkG8hY2VQHs43B9BIzGUm6e5npxO+4F8=
+	t=1775584211; cv=none; b=ZkWgT+184Uo/L473kbA3bkdOkgDXIswqiyyTF8TX4ctUrDgq3aNJHneyLA68VHjlKxVT4FENVIQI8Njk6/x0K4oagH3Ie36Vj9cYtQ5Ca82SGgfUytYsbBjD5+Pe9hB5NLT7g4/leaLtZZyWpYcRyEyDussKvbRHm11GA3loG0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775583938; c=relaxed/simple;
-	bh=w+vKCKfHMvhS1aVWwFTOux6G+nLbV2lIGJDPw1lRpi8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rRU5tdwVZ0QsiJhGHBC/WVwXR+exOUeNRFF7rANluShWMK3T5Ad5WeE7UrSIOiWRN2bpeJYhlxRTcQKOZg5vNHJGWqM1g9esnjhO4JsWF8b87RLuymPhSR9tm30aQ7zdZa1VEGKl9wZtPTaXmLDw7BR8OHQB9f6NHRzN7ChCVcc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=philpem.me.uk; spf=pass smtp.mailfrom=philpem.me.uk; dkim=pass (1024-bit key) header.d=philpem.me.uk header.i=@philpem.me.uk header.b=Ipf6dniA; arc=none smtp.client-ip=178.62.38.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=philpem.me.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=philpem.me.uk
+	s=arc-20240116; t=1775584211; c=relaxed/simple;
+	bh=bk0t9JxzLqimVaNqYIGraaIcJm28+bUHxoQt8DKwcns=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mXyK5xPd2UaHDgm828wSy/QIH0p+wMJ7WJNK4iA+vppu2s7K5RB7pVre3G2YPtyMQYSwYMSt2j6FQZbnMxhiJ1G64wRnOHJZKBTG6dvdsuCx4outYhqhStcYagk2cnzU9InjWoodVMaNANL912dnM28sMnape0afMkYJQMG63Pg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PrOmdQNY; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=philpem.me.uk header.i=@philpem.me.uk header.b="Ipf6dniA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=philpem.me.uk;
-	s=mail; t=1775582853;
-	bh=w+vKCKfHMvhS1aVWwFTOux6G+nLbV2lIGJDPw1lRpi8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Ipf6dniAJdm/nQjHwiM2UsiQo2dDlMkOdb7fZx46NxTBfsRx23kBaeKVm8Uh2xjGr
-	 UxwzQUiUeBf3/coGM18DBxxX6vlp24ACp+/Zn+Vxr1xGZIoha+tfuYp4M2KjBW2MjV
-	 V9XqldOG1Bu4fyUFE+PdjbRBgr1teXm3wabbLg3c=
-Received: from wolf.philpem.me.uk (81-187-163-148.ip4.reverse-dns.uk [81.187.163.148])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: mailrelay_wolf@philpem.me.uk)
-	by nick.sneptech.io (Postfix) with ESMTPSA id A8A5DBECE7;
-	Tue,  7 Apr 2026 17:27:33 +0000 (UTC)
-Received: from cheetah.homenet.philpem.me.uk (cheetah.homenet.philpem.me.uk [10.0.0.32])
-	by wolf.philpem.me.uk (Postfix) with ESMTPSA id 60ED05FC51;
-	Tue,  7 Apr 2026 18:27:33 +0100 (BST)
-From: Phil Pemberton <philpem@philpem.me.uk>
-To: Moritz Fischer <mdf@kernel.org>,
-	Xu Yilun <yilun.xu@intel.com>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PrOmdQNY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A1ABC116C6;
+	Tue,  7 Apr 2026 17:50:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775584210;
+	bh=bk0t9JxzLqimVaNqYIGraaIcJm28+bUHxoQt8DKwcns=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=PrOmdQNYO53qMjFtef+XyTituPTiiHQwEslqk4MDJDPSCyNKJxCq4LBvL1fVBeVeP
+	 0iiVTlFF2BfKL9g/MVZ3SNgAVkYJ7PNZtNxvhGff7VzyKIvJGCXAKAp7OBqZXvg3Bk
+	 a0msLbwpVJJB5thd22ZLzQ33LUdW2E88LqF5HEAb6xzmYj0anyDe5Nnde1kDDXMY3n
+	 jZe39fXIftfiruB/yPIY0D1wr7fguQxtXsUIv+b2PSq/J/ym4P++pp6IL41/JNSEVM
+	 DjgMaf3kn2ycx/GDaIhnP8866v9/kQ4jVabNVHSWlVq/d3R5DbQeNi7UpbYYx4IMa7
+	 xrJPO8ninRv+Q==
+Date: Tue, 7 Apr 2026 12:49:53 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Chen-Yu Tsai <wens@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+	Jernej Skrabec <jernej@kernel.org>, devicetree@vger.kernel.org,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Tom Rix <trix@redhat.com>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	linux-fpga@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Phil Pemberton <philpem@philpem.me.uk>
-Subject: [PATCH 2/2] fpga: ts73xx-fpga: add OF match table for device tree probing
-Date: Tue,  7 Apr 2026 18:27:30 +0100
-Message-ID: <20260407172730.1779804-3-philpem@philpem.me.uk>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260407172730.1779804-1-philpem@philpem.me.uk>
-References: <20260407172730.1779804-1-philpem@philpem.me.uk>
+	linux-arm-kernel@lists.infradead.org,
+	Samuel Holland <samuel@sholland.org>, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH 2/7] dt-bindings: sram: sunxi-sram: Add H616 SRAM regions
+Message-ID: <177558419254.3168496.8723941339416449025.robh@kernel.org>
+References: <20260324164357.1607247-1-wens@kernel.org>
+ <20260324164357.1607247-3-wens@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260324164357.1607247-3-wens@kernel.org>
 
-The ts73xx-fpga driver currently only matches by platform device name,
-which prevents it from being probed when the device is described in a
-device tree. Add an of_device_id table so the driver can match against
-the "technologic,ts73xx-fpga" compatible string.
 
-Signed-off-by: Phil Pemberton <philpem@philpem.me.uk>
----
- drivers/fpga/ts73xx-fpga.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+On Wed, 25 Mar 2026 00:43:50 +0800, Chen-Yu Tsai wrote:
+> The Allwinner H616 has two switchable peripheral SRAM regions:
+> 
+> - The VE SRAM is a 2 MB dedicated SRAM for the Video Engine. CPU access
+>   to this region is enabled by default. CPU access can be disabled,
+>   after which reads will show the same stale value for all addresses,
+>   while writes are ignored.
+> 
+>   The mux value for this region is different from previous generations.
+> 
+> - The SRAM C region is an alias of the first 128 KB of VE SRAM, plus 64
+>   KB of DE SRAM. The latter is otherwise unaccessible from the CPU. When
+>   CPU access is disabled, the whole region reads as zero, while writes
+>   are ignored.
+> 
+>   The mux value for this region is the same as on the A64 and H6.
+> 
+> Add compatible strings for both of them.
+> 
+> Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
+> ---
+>  .../bindings/sram/allwinner,sun4i-a10-system-control.yaml    | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
 
-diff --git a/drivers/fpga/ts73xx-fpga.c b/drivers/fpga/ts73xx-fpga.c
-index 4e1d2a4d3df4..5c8a2008d5a2 100644
---- a/drivers/fpga/ts73xx-fpga.c
-+++ b/drivers/fpga/ts73xx-fpga.c
-@@ -11,6 +11,7 @@
- #include <linux/delay.h>
- #include <linux/io.h>
- #include <linux/module.h>
-+#include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/string.h>
- #include <linux/iopoll.h>
-@@ -119,9 +120,17 @@ static int ts73xx_fpga_probe(struct platform_device *pdev)
- 	return PTR_ERR_OR_ZERO(mgr);
- }
- 
-+static const struct of_device_id ts73xx_fpga_of_match[] = {
-+	{ .compatible = "technologic,ts73xx-fpga" },
-+	{},
-+};
-+
-+MODULE_DEVICE_TABLE(of, ts73xx_fpga_of_match);
-+
- static struct platform_driver ts73xx_fpga_driver = {
- 	.driver	= {
- 		.name	= "ts73xx-fpga-mgr",
-+		.of_match_table = ts73xx_fpga_of_match,
- 	},
- 	.probe	= ts73xx_fpga_probe,
- };
--- 
-2.43.0
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
