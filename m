@@ -1,44 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3246532779D;
-	Tue,  7 Apr 2026 18:51:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DFEE27E045
+	for <devicetree@vger.kernel.org>; Tue,  7 Apr 2026 19:03:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775587869; cv=none; b=SqhVSh5/wmDGUdfGlqT7AI9XESxQnu4m3zprk+814UKwXfsOMrxSWwyAfGkLOV6DSBeoVI7CYdFFbAZms/cwJDrZjfjz8aaVHSVVtq0NgPMQGL2nzb+6LLuelm2AUm6bVyHEyAQuY7xy7x2iaTSUiAt09ly02Mls0JbrrqRGlfQ=
+	t=1775588608; cv=none; b=TibnHb0/FdLVctkBtTCFSFh39lZv60L9wZ+URU3eyWPNR7+Pv4A8ZqsfdbOwK9EBL9onQ84jPVHRpq7SsqTSaSC9p0teqdfDHzru+lxX2vXwfuDJ51BOK7HqcZ82jkFZ8ZQHwmJV4dBxXIa2IRDTrpWzbdhcBHJ93vE4J3Xi81w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775587869; c=relaxed/simple;
-	bh=Sik0SoaK1EWuxMxd1gqVuvsRwwfkEq91FdOyxh4afXk=;
+	s=arc-20240116; t=1775588608; c=relaxed/simple;
+	bh=YRc0hKCLzo+Gtlp5jC0q+Z17AseLPx2vv7t74Hk7C+0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ok9cv+zj9JjbigYxYpxDqXM8I0/LGf55km2Tfm6WtEnYOnX0JQlRjmhMZzE0V0iwAxAbzURkXK/UGnAWHk4o3xbaugdLuJ5agHsRwGNlHNVpl3qOW0NYJGQA5mc32qa4ivOlnf9eedXyXuRZ2vuEYHpx3Px2XhG0JyTbdCrx6k4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GxN5Ad0K; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=kfIZ0D3ABCtsZ6JSfvgARDZy7QpabNcJiD8bJYx19BbG9ws/z9RrFag0CpL2g3xIsLAmaf/s+pbq1ji8d9v0pml7De5xfwfI5ynTO8hsKi2KF+sNGF2BHeUDMUICftI7MCEeMjRR4TKvax6tFdRnLGATlZ2Ialy0WMgba4kbVBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=U66FooXG; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=V3krqQZF; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GxN5Ad0K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C193C116C6;
-	Tue,  7 Apr 2026 18:51:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775587868;
-	bh=Sik0SoaK1EWuxMxd1gqVuvsRwwfkEq91FdOyxh4afXk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=GxN5Ad0KC8AhF3LBbTi/c/9i90P89XA1gl1n2g/ztJgaGfHSupvKrmVBkU9BFO7qS
-	 j/Xr89ClhNcRzgPQovfmazx5du0Nlkfq7Y6wwut5mqiUGOuC0d84USk0DXyCUSLP+1
-	 7/7PNyOvOeNzRlKKcYEIy5IVWAZcgBH8GoED/5O78sn0DWk1wJ6i9mmtx5BUcKS6QN
-	 3swdiQgVQc4O0AkvPQ1oJulcrrIQe/VwjkXoJDi8gAcNnY26jAhTpmJFPZ5EbVde1b
-	 c1I+442FdwvawV3BWmksvMOOrUFEPdYd7a79HJJWl/I31UZ+VRJ2mmXtH9GzCAXRYw
-	 p24KCe78e1+Yw==
-Date: Tue, 7 Apr 2026 13:51:06 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-	Vinod Koul <vkoul@kernel.org>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>
-Subject: Re: [PATCH] dt-bindings: phy: qcom,snps-eusb2: Document the Eliza
- Synopsys eUSB2 PHY
-Message-ID: <177558786599.3383360.12409209336337472193.robh@kernel.org>
-References: <20260327-eliza-bindings-phy-eusb2-v1-1-1f8a9ad6a033@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="U66FooXG";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="V3krqQZF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1775588605;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J1xXsg6lKJzkjq+203MwmcXpehNGqzdqe2bad8IS5CQ=;
+	b=U66FooXGvcWDy6nHs2VctuBhfm3a8bx8AJnIJZ3FT4g1pl4lm2rYZjJrN5dc+f6VgTx8+p
+	9BuLpdEvrmFoAdF4sBTHX9mVyy/uQxKx6kdYODD2HnHCm8rRDnIGLzOW9qqze0YC7gnyMx
+	BS69Nlt5TEtwFVGn7CJVq7pCFSLIFII=
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-310-HuN_5AaSNCubA3IrpXiz8A-1; Tue, 07 Apr 2026 15:03:24 -0400
+X-MC-Unique: HuN_5AaSNCubA3IrpXiz8A-1
+X-Mimecast-MFC-AGG-ID: HuN_5AaSNCubA3IrpXiz8A_1775588604
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8a5f6110c1cso157394996d6.0
+        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 12:03:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1775588604; x=1776193404; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=J1xXsg6lKJzkjq+203MwmcXpehNGqzdqe2bad8IS5CQ=;
+        b=V3krqQZFghPu5JPgkSuZRuTJZh6Ei0uT6yaO+SY52spW/txCW8KeZtCFfikPsb8WQM
+         GfgJjJj/8s8UElw1/iCIUP6Ge9c+DRK06+5MwICNqf0nMreKbNoQFByES9EHN+EasU6M
+         PGs/kb/T+pwa17yQuT5O0UTIRTfEoQ2+XUxVMEJL5OGsP1a4I2hQSxNJUwxgFjWdSq/Q
+         QJLqioxbiSrBtCvk4fI/KFZ8UM28kM/mwNYjGtHvxTYK/n+9a0oFMIaP+fHlphdjq0Hi
+         qpgNdd+zaIY7kaJijIcLv++LPI8S4u37wmBjdueRhuoeNe7EaMpIU0nsIodBXgCnLEnq
+         zlhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775588604; x=1776193404;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=J1xXsg6lKJzkjq+203MwmcXpehNGqzdqe2bad8IS5CQ=;
+        b=LGaK+k0+fm/iNo2z8B9m29uX7aOPs1pKEQ0sWrZuICHAP7dH7K8jlI/A1M89UDmZLf
+         inA4lZIBswH2jZxQAQ2+ag2mMrpqMMIqUWoRrEPWj4rOgCB3QL5htMC7DvnyTq2lPi8Q
+         vFMPuyX+UC9tANqAWJAREADEyPA4/NEc6DnG8rN/BFtYMrspBZ9gELVdSF1Wb/BW6wuz
+         9Sm+oDYrAGD3QQ9JrRzoIEpZEsSr0kEkpJbKG+HtF/hsf7ha2Kl3zBXLMA99P53J1/8C
+         rA1WrOpS/P75A7VVSUg8WaZE1n0yNqI7tCLc9KSfBf1yMAkwgcYct7mRLQS6Yy3Htg+b
+         cjiQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX7RUWVGXRWTURIUSEj5tkqddp753Z7wW/J9pFw+zjpOPXPu8pbOXHHbRukC7GWrftrV7h517K6+QTV@vger.kernel.org
+X-Gm-Message-State: AOJu0YxgjKRlZDDd+Xg46Fwrru0meNxcmCTCLuLjqbIWAAkFb6selCZ0
+	ce0aT+qQiTblfx4rP7Smt0+W1M1VFCAWkQX820CGlOlKbhnLFu0Ze4LU9+iscTyM9r090lSyP34
+	45AWEgjdC847vfM/3Jl9udXolxjldLdkY3pBqeejzHyE82x3LjfbZcsOkRNQGk8w=
+X-Gm-Gg: AeBDiesmDKbA/kCVnL1sZhVBXeUy5f662ulr5sIMVvxvn+lx5fu2zQKdUC46xvu2PqY
+	Cqw9bRXHOhYOO9kw5t1wtAh7kATorHv2MEZlZn/Tnyq0RvUe4B1IpJKM1tt5MxZ8i+GjeBC4s0o
+	PCJWhT2MQFiHrUphMp49RQL1Kpkzbt5nX9uQnRaqUGspuTVtirUH4A+9RTXfBnHlXNxLst/ZHM7
+	oTNjxxnsCMdyH5OtHCn4c7NJpEQrqfCag8nkMVBORMAQwgoCFPs4SCxgB77tqjmBj6nmt4ccoEm
+	fZ5Ksb7kQGNHOjnPIQGwzwkVVX/fpQT9bNLZhT8oa7F7+d4byTJEPCSh1i8s3sW733SqLtwcRNk
+	UZRuWEJ687sJXEzqPZfhUOXxUu5XIyiQn7XO9oUjXgXZYnECkGAR4aHlN
+X-Received: by 2002:a05:6214:5c82:b0:89a:63a8:40d2 with SMTP id 6a1803df08f44-8a7041fd559mr250688316d6.35.1775588603714;
+        Tue, 07 Apr 2026 12:03:23 -0700 (PDT)
+X-Received: by 2002:a05:6214:5c82:b0:89a:63a8:40d2 with SMTP id 6a1803df08f44-8a7041fd559mr250687716d6.35.1775588603234;
+        Tue, 07 Apr 2026 12:03:23 -0700 (PDT)
+Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8a593330593sm171355116d6.3.2026.04.07.12.03.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 07 Apr 2026 12:03:22 -0700 (PDT)
+Date: Tue, 7 Apr 2026 15:03:21 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Marek Vasut <marex@nabladev.com>
+Cc: linux-clk@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Michael Walle <michael@walle.cc>, Rob Herring <robh@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 5/6] clk: fsl-sai: Extract clock setup into
+ fsl_sai_clk_register()
+Message-ID: <adVU-VgLI0MCIjz7@redhat.com>
+References: <20260406215150.176599-1-marex@nabladev.com>
+ <20260406215150.176599-5-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,21 +98,156 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260327-eliza-bindings-phy-eusb2-v1-1-1f8a9ad6a033@oss.qualcomm.com>
+In-Reply-To: <20260406215150.176599-5-marex@nabladev.com>
+User-Agent: Mutt/2.3.0 (2026-01-25)
 
+Hi Marek,
 
-On Fri, 27 Mar 2026 16:14:27 +0200, Abel Vesa wrote:
-> The Synopsys eUSB2 PHY found on the Eliza SoC is fully compatible with the
-> one found the SM8550.
+On Mon, Apr 06, 2026 at 11:49:45PM +0200, Marek Vasut wrote:
+> Create helper function fsl_sai_clk_register() to set up and register
+> SAI clock. Rename BCLK specific struct fsl_sai_clk members with bclk_
+> prefix. Use of_node_full_name(dev->of_node) and clock name to register
+> uniquely named clock. This is done in preparation for the follow up
+> patch, which adds MCLK support.
 > 
-> So document it by adding the compatible to the list that has the SM8550
-> one as fallback.
-> 
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
 > ---
->  Documentation/devicetree/bindings/phy/qcom,snps-eusb2-phy.yaml | 1 +
->  1 file changed, 1 insertion(+)
+> Cc: Brian Masney <bmasney@redhat.com>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Michael Turquette <mturquette@baylibre.com>
+> Cc: Michael Walle <michael@walle.cc>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Stephen Boyd <sboyd@kernel.org>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-clk@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> ---
+> V4: New patch
+> ---
+>  drivers/clk/clk-fsl-sai.c | 78 ++++++++++++++++++++++++++-------------
+>  1 file changed, 53 insertions(+), 25 deletions(-)
 > 
+> diff --git a/drivers/clk/clk-fsl-sai.c b/drivers/clk/clk-fsl-sai.c
+> index 2a68e32c3167b..7ec9a4f22735c 100644
+> --- a/drivers/clk/clk-fsl-sai.c
+> +++ b/drivers/clk/clk-fsl-sai.c
+> @@ -21,8 +21,9 @@
+>  #define CR2_DIV_WIDTH	8
+>  
+>  struct fsl_sai_clk {
+> -	struct clk_divider div;
+> -	struct clk_gate gate;
+> +	struct clk_divider bclk_div;
+> +	struct clk_gate bclk_gate;
+> +	struct clk_hw *bclk_hw;
+>  	spinlock_t lock;
+>  };
+>  
+> @@ -30,15 +31,57 @@ struct fsl_sai_data {
+>  	unsigned int	offset;	/* Register offset */
+>  };
+>  
+> +static int fsl_sai_clk_register(struct device *dev, void __iomem *base,
+> +				spinlock_t *lock, struct clk_divider *div,
+> +				struct clk_gate *gate, struct clk_hw **hw,
+> +				const int gate_bit, const int dir_bit,
+> +				const int div_reg, char *name)
+> +{
+> +	const struct fsl_sai_data *data = device_get_match_data(dev);
+> +	struct clk_parent_data pdata = { .index = 0 };
+> +	struct clk_hw *chw;
+> +	char *cname;
+> +
+> +	gate->reg = base + data->offset + I2S_CSR;
+> +	gate->bit_idx = gate_bit;
+> +	gate->lock = lock;
+> +
+> +	div->reg = base + div_reg;
+> +	div->shift = CR2_DIV_SHIFT;
+> +	div->width = CR2_DIV_WIDTH;
+> +	div->lock = lock;
+> +
+> +	cname = devm_kasprintf(dev, GFP_KERNEL, "%s.%s",
+> +			       of_node_full_name(dev->of_node), name);
+> +	if (!cname)
+> +		return -ENOMEM;
+> +
+> +	chw = devm_clk_hw_register_composite_pdata(dev, cname,
+> +						   &pdata, 1, NULL, NULL,
+> +						   &div->hw,
+> +						   &clk_divider_ops,
+> +						   &gate->hw,
+> +						   &clk_gate_ops,
+> +						   CLK_SET_RATE_GATE);
+> +	if (IS_ERR(hw))
+> +		return PTR_ERR(hw);
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+s/hw/chw/ on the two lines above.
+
+> +
+> +	*hw = chw;
+> +
+> +	/* Set clock direction */
+> +	writel(dir_bit, base + div_reg);
+
+The previous behavior of the code was to call writel() and then register
+the clk. This flips it. Just to be sure no regressions are introduced,
+should we keep the old behavior?
+
+> +
+> +	return 0;
+> +}
+> +
+>  static int fsl_sai_clk_probe(struct platform_device *pdev)
+>  {
+>  	struct device *dev = &pdev->dev;
+>  	const struct fsl_sai_data *data = device_get_match_data(dev);
+>  	struct fsl_sai_clk *sai_clk;
+> -	struct clk_parent_data pdata = { .index = 0 };
+>  	struct clk *clk_bus;
+>  	void __iomem *base;
+> -	struct clk_hw *hw;
+> +	int ret;
+>  
+>  	sai_clk = devm_kzalloc(dev, sizeof(*sai_clk), GFP_KERNEL);
+>  	if (!sai_clk)
+> @@ -54,27 +97,12 @@ static int fsl_sai_clk_probe(struct platform_device *pdev)
+>  
+>  	spin_lock_init(&sai_clk->lock);
+>  
+> -	sai_clk->gate.reg = base + data->offset + I2S_CSR;
+> -	sai_clk->gate.bit_idx = CSR_BCE_BIT;
+> -	sai_clk->gate.lock = &sai_clk->lock;
+> -
+> -	sai_clk->div.reg = base + data->offset + I2S_CR2;
+> -	sai_clk->div.shift = CR2_DIV_SHIFT;
+> -	sai_clk->div.width = CR2_DIV_WIDTH;
+> -	sai_clk->div.lock = &sai_clk->lock;
+> -
+> -	/* set clock direction, we are the BCLK master */
+> -	writel(CR2_BCD, base + data->offset + I2S_CR2);
+> -
+> -	hw = devm_clk_hw_register_composite_pdata(dev, dev->of_node->name,
+> -						  &pdata, 1, NULL, NULL,
+> -						  &sai_clk->div.hw,
+> -						  &clk_divider_ops,
+> -						  &sai_clk->gate.hw,
+> -						  &clk_gate_ops,
+> -						  CLK_SET_RATE_GATE);
+> -	if (IS_ERR(hw))
+> -		return PTR_ERR(hw);
+> +	ret = fsl_sai_clk_register(dev, base, &sai_clk->lock,
+> +				   &sai_clk->bclk_div, &sai_clk->bclk_gate,
+> +				   &sai_clk->bclk_hw, CSR_BCE_BIT, CR2_BCD,
+> +				   data->offset + I2S_CR2, "BCLK");
+> +	if (ret)
+> +		return ret;
+>  
+>  	return devm_of_clk_add_hw_provider(dev, of_clk_hw_simple_get, hw);
+                                                                      ^^^
+hw is removed above, and it's still here in this patch. It's removed in
+the last patch. This will break git bisect.
+
+Brian
 
