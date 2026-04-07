@@ -1,46 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A56C233A718;
-	Tue,  7 Apr 2026 18:40:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A760A27702D;
+	Tue,  7 Apr 2026 18:44:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775587257; cv=none; b=jJmitEt4m5ejeN+cPwpjpkAfDABHHENGRj1J6AbKQEZe3LBwvyjQZhVhrhJJ2+6wLKlZMHtav0Nx/Deb39lSsS/mZoJln5UvO+qxrvO/gvF2g8+5rOMyOWiEnRgaiy7jT8KErOcX2rMiKgjAWj6/YeqXVuy37LVJQ8zwlFREjbA=
+	t=1775587498; cv=none; b=mm15dKeW8wdAESIHSNrsR+cGPyZp6XFjOt1+Ihnq+K2l30UFTdMsfl/mmhmXapCngor1FgpaOY9zd/imFo5Z2hS+k0FWUeBptT6q+5hYDmgamHbQlA47Z1RJUgQwXDgSdjbv5PfjbG+IH8RK0iGXrRda4luray3AjX7LVSEfJSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775587257; c=relaxed/simple;
-	bh=ctBJBNAL2sZVwDJhXMphkJ4Ne0SfUaEL20su6jHmPpQ=;
+	s=arc-20240116; t=1775587498; c=relaxed/simple;
+	bh=RfoCuSdIyOP4Fpm9kXSutxGN9meBpEZjFRVOEcgj1aM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=br8oIp4UdY+/aQw72CbwbSRMp3BoS+NOupN+AmbOPV4iXJiPi70YPRSQdWPpFP23mRJWnJv5afDOrTI+gkCYfzUtsQDzQoH+ZGtACElcbAwFDuI5yy3rz0qosDDk/tX/j99UAOQECVXeRP1rDJfHcAq4w8dUXq7l9ZDixXA2JQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sI/mLUzr; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=Zz4EPMz/tKX7BAv0z/EheqC0zVdaSw5VhjYDXm8MiArAilDfTwzbQUmhYDhQyQkAi+YSqYzEURTcb8wcjYpO2dfycl5XXkFX87mSakHZzCajmsJlYVp0S1NohwL0AiVUrOMJgaD44eFb/9F+qE5XCR6pEx6A+25CUiBkLJ2RVjo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qkZD1cxB; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sI/mLUzr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DA0BC116C6;
-	Tue,  7 Apr 2026 18:40:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qkZD1cxB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17F6FC116C6;
+	Tue,  7 Apr 2026 18:44:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775587257;
-	bh=ctBJBNAL2sZVwDJhXMphkJ4Ne0SfUaEL20su6jHmPpQ=;
+	s=k20201202; t=1775587498;
+	bh=RfoCuSdIyOP4Fpm9kXSutxGN9meBpEZjFRVOEcgj1aM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=sI/mLUzrYB0p0h7F+qggqo+B7Iixi3QUIFCsUfYOUxnIZWiwOZgq7ZpCn339TFSkK
-	 /Bh2Vxl6Ng5B8rBSa7tzwXMlVhRi7hjYXswf7R7EHaz2nIvV0fNuEvc/AbusGP/y5Z
-	 9c3TZdbLIIDHjOYNTGyTt4Rx6zte92EOWG+3mssFLmsgbzu7+UhULF/innTCtcaPkX
-	 OznSjTzMz2iwVcW5IICmamnUgnIMPjy87/mqyizz+/U7eoWymD5sbqpL8dMZBNbDYh
-	 zFpClBRqO00vxOHRu2DZyvpCjlwNyxQWuLHoeEhS1p4r1EmCZeFwUri8Ixtmza/hrn
-	 6NnjaEZ03aDRg==
-Date: Tue, 7 Apr 2026 13:40:55 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Andre Przywara <andre.przywara@arm.com>
-Cc: Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>, linux-gpio@vger.kernel.org,
-	linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-kernel@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>
-Subject: Re: [PATCH v2 2/3] dt-bindings: pinctrl: sun55i-a523: increase IRQ
- banks number
-Message-ID: <177558725508.3367275.431498004414263153.robh@kernel.org>
-References: <20260327113006.3135663-1-andre.przywara@arm.com>
- <20260327113006.3135663-3-andre.przywara@arm.com>
+	b=qkZD1cxBKdN+1FjGJRZwk7GdvwvsHf0/DaPIVcsacSzG8dPIBV6byoiBAH485l2Tu
+	 n61IoJ55UEJpNTpqCg4FX3/KUAVvIYDocZ9rL4h6vAIdD/KvW8AZSPWio7rZ5Dvr9S
+	 M+edeW6vgcKIUVUPGjkkxGFdl7w+sYdl3Z3CXC85FBSyxHy1i93sYl2TZ23GMbmCJQ
+	 9mk68FvEgLmkSXWK17IFq3JFpLhHgtsnaGW8gSyINAFNZyz7txL1CMEbprwqb3w1vR
+	 BHnb7ipiBknWtPKP4MLrEuyqilOXfefBp3XGBz2s5oX6IJk2WDyTiOG/MBUNpCQ+0G
+	 AlEFq5m86kdJg==
+Date: Tue, 7 Apr 2026 13:44:55 -0500
+From: Rob Herring <robh@kernel.org>
+To: Padmashree S S <padmashreess2006@gmail.com>
+Cc: andrew@lunn.ch, gregory.clement@bootlin.com,
+	sebastian.hesselbarth@gmail.com, krzk+dt@kernel.org,
+	conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: arm: marvell: Convert
+ armada-380-mpcore-soc-ctrl to DT Schema
+Message-ID: <20260407184455.GA3369046-robh@kernel.org>
+References: <20260327114653.593582-1-padmashreess2006@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,25 +45,22 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260327113006.3135663-3-andre.przywara@arm.com>
+In-Reply-To: <20260327114653.593582-1-padmashreess2006@gmail.com>
 
-
-On Fri, 27 Mar 2026 11:30:05 +0000, Andre Przywara wrote:
-> The Allwinner A523 SoC implements 10 GPIO banks in the first pinctrl
-> instance, but it skips the first bank (PortA), so their index goes from
-> 1 to 10. The same is actually true for the IRQ banks: there are registers
-> for 11 banks, though the first bank is not implemented (RAZ/WI).
-> In contrast to previous SoCs, the count of the IRQ banks starts with this
-> first unimplemented bank, so we need to provide an interrupt for it.
-> And indeed the A523 user manual lists an interrupt number for PortA, so we
-> need to increase the maximum number of interrupts per pin controller to 11,
-> to be able to assign the correct interrupt number for each bank.
+On Fri, Mar 27, 2026 at 05:16:53PM +0530, Padmashree S S wrote:
+> Convert armada-380-mpcore-soc-ctrl to DT schema
 > 
-> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+> Signed-off-by: Padmashree S S <padmashreess2006@gmail.com>
 > ---
->  .../bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml   | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
+>  .../marvell/armada-380-mpcore-soc-ctrl.txt    | 14 --------
+>  .../marvell/armada-380-mpcore-soc-ctrl.yaml   | 32 +++++++++++++++++++
+>  2 files changed, 32 insertions(+), 14 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/arm/marvell/armada-380-mpcore-soc-ctrl.txt
+>  create mode 100644 Documentation/devicetree/bindings/arm/marvell/armada-380-mpcore-soc-ctrl.yaml
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Please move this to 
+bindings/soc/marvell/marvell,armada-380-mpcore-soc-ctrl.yaml
 
+Don't forget to update the '$id' value.
+
+Rob
