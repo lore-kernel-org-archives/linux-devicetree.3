@@ -1,20 +1,21 @@
 Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 633B6364938;
-	Tue,  7 Apr 2026 15:28:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DB3236C58F;
+	Tue,  7 Apr 2026 15:28:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775575743; cv=none; b=ZITYfbpYwF+RPSk1nEhuCl6tuRZVW3gCQftYVi4bPsZmzE8B+cB8/DNjlNFT/4xfhh9+plDPH1Zg4AHsIqv6K2pdDi1faT7/5UD0uV1d+g9ZW7MvswiHOceGrcSava7CZBDp6Nbv0vs9kYvsn2cMqyr0SvTal7v752ClG1YbBas=
+	t=1775575747; cv=none; b=m+6kK1+XTCR8Fvx1mU3G3ZidLyl4pHN1R8A62ErgimRZTBWQy3dhLBMt1gpqF8WXPVyYA9DHHdJCxY6KBjwdhj6UWhtxeX+7IcQ5M/R/Ahs+DLqcg7tOkR+zpcdkvEnTmF02kMifytIuH1oD0Yqx4K4ixR6YkGJCyIutCGPCB44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775575743; c=relaxed/simple;
-	bh=SNiQltIrN90HlK6s2eEERqwSsfzvbAvIfMh58w6VNfY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ByQ7taSl3c6gOEZHMWNbOCM3mo7bd3IsRQCC2xOPPRDuJdiPs1FUfPWpij2rNcSNQYGpli/x26o40ZwFTt3jtrN/xMfx8B4dofWROeWtbV8AvKSm+2/dI7AfBfzB9mzrh/UczpryQTEPkImCle4Rb+iX4pFaMtk6D1+AlHZorf8=
+	s=arc-20240116; t=1775575747; c=relaxed/simple;
+	bh=BnUIFsDP/NMougrWHuwUTkTEcHw3+HazvuuGtDewy7w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VWUNKRlV1tsDq34oYQ6a5BaeHNOkeL8GnjUcgJwoXe2QUfSe2Aa9BmGgWkE6DDjiyi3IsbypgBpjPaq7FUOWNIkjS7D35TIypeVF3DvhyHeSXeXWGPCvuB62ItXEV07kxsRnozhtqwwaLyJRe13YE5vZJbHq1wGucrjGie5fpD8=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from localhost.localdomain (unknown [223.166.95.230])
-	by APP-05 (Coremail) with SMTP id zQCowAB3zhGSItVpaxDVDA--.63755S2;
+	by APP-05 (Coremail) with SMTP id zQCowAB3zhGSItVpaxDVDA--.63755S3;
 	Tue, 07 Apr 2026 23:28:19 +0800 (CST)
 From: Han Gao <gaohan@iscas.ac.cn>
 To: Rob Herring <robh@kernel.org>,
@@ -31,11 +32,14 @@ Cc: devicetree@vger.kernel.org,
 	spacemit@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Han Gao <rabenda.cn@gmail.com>,
-	Han Gao <gaohan@iscas.ac.cn>
-Subject: [PATCH v10 0/3] riscv: dts: spacemit: Add PMIC regulators usb pcie
-Date: Tue,  7 Apr 2026 23:28:13 +0800
-Message-ID: <cover.1775575436.git.gaohan@iscas.ac.cn>
+	Han Gao <gaohan@iscas.ac.cn>,
+	Vincent Legoll <legoll@online.fr>
+Subject: [PATCH v10 1/3] riscv: dts: spacemit: Enable i2c8 adapter for OrangePi RV2
+Date: Tue,  7 Apr 2026 23:28:14 +0800
+Message-ID: <d66f897b179271f508ac5352e52b1223f3bca5fb.1775575436.git.gaohan@iscas.ac.cn>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1775575436.git.gaohan@iscas.ac.cn>
+References: <cover.1775575436.git.gaohan@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -43,62 +47,51 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAB3zhGSItVpaxDVDA--.63755S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7ZFyxtw1fWF4xWrW7uFyUKFg_yoW8uF1UpF
-	y2vr43Zw45Xw42y39xu39xJr1Y9F1rAr9xWr1UKw18ArnFgay7Za1xtr47ZF9xur45tFnr
-	trs7Ar4xuw4xZF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9j14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
-	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
-	n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
-	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
-	17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
-	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
-	IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
-	C2KfnxnUUI43ZEXa7VUbGQ6JUUUUU==
-X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiBgwKDGnVHKkVxgAAsW
+X-CM-TRANSID:zQCowAB3zhGSItVpaxDVDA--.63755S3
+X-Coremail-Antispam: 1UD129KBjvdXoWrtF4xKF18uF4xAFykurW8tFb_yoW3ZFX_CF
+	13Cay09FyUurWvkFn7Xr1rta1xu3yYkrWSywn3tr1UGa4FgrWfKFWUKaykJ345GrWqvrWf
+	Gw48tF1xJwnIkjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbyAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUGwA2048vs2IY02
+	0Ec7CjxVAFwI0_Gr0_Xr1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xv
+	wVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwA2z4
+	x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS0I0E
+	0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67
+	AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48I
+	cxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2xKxw
+	CY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8
+	JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1V
+	AFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4
+	A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU
+	0xZFpf9x0JU4OJ5UUUUU=
+X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiBgoKDGnVHKkVyAAAse
 
-Changes in v10:
- - patch 3:
-   add vin-supply in pcie_vcc3v3
-   reorder vcc5v0_usb30
-   remove vpcie3v3-supply form pcie1
- - Link to v9: https://lore.kernel.org/linux-riscv/cover.1775417019.git.gaohan@iscas.ac.cn
+The adapter is used to access the SpacemiT P1 PMIC present in this board.
 
-Han Gao (3):
-  riscv: dts: spacemit: Enable i2c8 adapter for OrangePi RV2
-  riscv: dts: spacemit: Define the P1 PMIC regulators for OrangePi RV2
-  riscv: dts: spacemit: Enable USB3.0/PCIe on OrangePi RV2
+Tested-by: Vincent Legoll <legoll@online.fr> # OrangePi-RV2
+Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+---
+ arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
- .../boot/dts/spacemit/k1-orangepi-rv2.dts     | 217 ++++++++++++++++++
- 1 file changed, 217 insertions(+)
-
-
-base-commit: 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f
-prerequisite-patch-id: ef6e9c7b5854d0c08066b72f9a7868db8c2140eb
-prerequisite-patch-id: cfe3800f8c791ec4c63e070af9628e88e0fc31b9
-prerequisite-patch-id: b76493e625ae257c8adcd67874178458420e4d47
-prerequisite-patch-id: 88e01dc92c83bd88ddeb78891d3088209fed8d6b
-prerequisite-patch-id: 60336d10ab8322c70596d0f046b6b5c54bb24b54
-prerequisite-patch-id: 68c4d869548687dc115dd91e2ffb8f4c11482d86
-prerequisite-patch-id: fdadcf964c2cb3406160edb579d99a8d5695f8e6
-prerequisite-patch-id: 73b9e745338b0499b849fa4f7f9508987ab39a59
-prerequisite-patch-id: cd26770c2160c3c31a406bd8a6b01ab666180ae0
-prerequisite-patch-id: e5dfddc32cefae195692da8b80e19adf086e4ad7
-prerequisite-patch-id: 7fd53cbe4977598f26148a4bb1cf692bbdb79a09
-prerequisite-patch-id: 96ebac57bb29619b97fe95422206a685825618e9
-prerequisite-patch-id: 00fac16b52f60383db3140e2885f3f7f8d14dd1a
-prerequisite-patch-id: 3b7a60047b922c48e93599f621cb738856f42354
-prerequisite-patch-id: 275c030b963be05dd1041451f539a130ce614277
-prerequisite-patch-id: 93963424b0871e64276af0e0b2199b52e29b4603
-prerequisite-patch-id: 8383188b1c01ed6280629faaa29c37d699ade241
-prerequisite-patch-id: 5f8126b912b924d63d4a1e0c5eb42d212eb0d369
-prerequisite-patch-id: e80af628a2e0b5f2eeb3cb1b5e7133d08bdd2c4e
-prerequisite-patch-id: 0234a6dca15eb91f98a45a46604ce5b4935048a5
+diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+index 7b7331cb3c72..57ec1cc32b03 100644
+--- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
++++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+@@ -87,6 +87,12 @@ &pdma {
+ 	status = "okay";
+ };
+ 
++&i2c8 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&i2c8_cfg>;
++	status = "okay";
++};
++
+ &uart0 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&uart0_2_cfg>;
 -- 
 2.47.3
 
