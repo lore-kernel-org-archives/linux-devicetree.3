@@ -1,237 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA952D8DDB;
-	Tue,  7 Apr 2026 17:18:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9BF2332EBB;
+	Tue,  7 Apr 2026 17:20:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775582337; cv=none; b=g6VYhM+XFkFbsO0fzKPS4hla04VJNgBYthpxpHPbAbLgciqVuvI3QP+4gPGImXVIFZlkRrsMFibwao/KjIyaSWFbvgrBC5XxBerHTJunLGRfGCZTPXlAzknj0abwnWKJFP0yPgGNm4Kd1A2bX6fa0jeDUQIvA6xzCdCTZjXjk/w=
+	t=1775582416; cv=none; b=LQcmVnwKO1Qn4H49N+S3dCePGcuHIlXZhorEIoTgikNioUzcyo7YCJ6cVDjAZDBDR/bsNVcIEZWn8aGFFjHMUYYN398CJXX5ZVc+h26pmSw9f2VkOCAnMncrN1F2+4th32HXwINM4UEvKlmC1cUMbPp1ohJdUYqIOQEDRUvIQrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775582337; c=relaxed/simple;
-	bh=m1m7h4QphIAQUyXPSQecb83YrVM+SkqzayDgGu1BM7A=;
+	s=arc-20240116; t=1775582416; c=relaxed/simple;
+	bh=BcFJ2putys3P6/zGB23SL08fXAgv8v1CEym5nRQpouk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kPEtl806d6kJcBQsX9oXZJdyfKP8fegG8gGK3gzysTLgdEaxXfzpPybf1fW+v6FohO0z/m0t8th9ReCje6JbyQ/gfCBTGc5rbWLLHX+1pqnnNgBTbw1CSSssAO08sJagPNGgRuprg0cmd0F9/d7YozkFSxJkyXQAm6tJGY/9UW8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZlKBhjI0; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=Es5wT6j9boiNBJrMOj6kgdk51iM0cHHSBH0I7Qop6W7mfmYNNa/K0EAHXihXLWllfsW7JrESmlhkSNYg0TXmNEb5SQLahORxPY8ls6PyJNu/34WG6cibFqjvsShiWaOBVublbG5Lgpe7ZyxfIvAj09tdLW7ei9avq3zlgGHZiew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kuGsitZG; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZlKBhjI0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCEC4C19424;
-	Tue,  7 Apr 2026 17:18:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kuGsitZG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B560C116C6;
+	Tue,  7 Apr 2026 17:20:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775582337;
-	bh=m1m7h4QphIAQUyXPSQecb83YrVM+SkqzayDgGu1BM7A=;
+	s=k20201202; t=1775582416;
+	bh=BcFJ2putys3P6/zGB23SL08fXAgv8v1CEym5nRQpouk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZlKBhjI0rZt+3tJZ7uqpZR330yZOC8A14QptAdoSyBzlR8G2UN3TxdH4t/s1uOCTS
-	 gsFPdFUb00ihGPvMPlkCHf1wlo6Pna9jHxnX4jHUrVDGTRZi+ZvVWifEANRNd2lKNV
-	 4SmC45spFfIKA1rNpLdHShPbpcmiaHQnW+6kk5OdjfcOfFmCOR9iBzae2crasrTcTu
-	 8fhm3ihNW2BMN2DOVhTm5bBGMuw91S7Zms3j85p8zjF2fcRMjHj4rK+oer2Q01raGf
-	 vXBDbKd8tU14jZPZOoGANlIta60OKUgY89nYT5g1bPyAQ4T6L67m8La88E60XoeVk4
-	 b60UQcd0zqGRg==
-Date: Tue, 7 Apr 2026 12:18:54 -0500
+	b=kuGsitZGzFfVbHuQLwYEGw4RMCkz7e9rMLWeqHBYYouyYEZX5YSi+EfHu5jpkUVgL
+	 kijgJNJl3WUt34t11eXze1dC3LZ+wMlk7HlKz7K3+epoHvubJjEwUDQv9L1jEGkedP
+	 dU5qhYrOe7g/2p9Jdm+2ZSs8XZ2a1Wi+MmxbHJxCxUmdp9eU2i5Tv+n5qh9JN/iCRZ
+	 ygIRT3Tn0MGWjhTK0wpVqf2DqNjCq+wdD/GX6nUZPZbiwG8kvkOlps5HriGJ/J4+Sd
+	 GqWpwV9Y4XVeswwq9QwfEZzWjA8czQW4S3guo9tFQG8AFzi1APhKp704ClmK6pAIcP
+	 KfmLfSUKakTYQ==
+Date: Tue, 7 Apr 2026 12:20:14 -0500
 From: Rob Herring <robh@kernel.org>
-To: Jens Emil Schulz =?iso-8859-1?Q?=D8stergaard?= <jensemil.schulzostergaard@microchip.com>
-Cc: UNGLinuxDriver@microchip.com, Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Woojung Huh <woojung.huh@microchip.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Steen Hegelund <Steen.Hegelund@microchip.com>,
-	Daniel Machon <daniel.machon@microchip.com>,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v2 2/9] dt-bindings: net: lan9645x: add LAN9645X
- switch bindings
-Message-ID: <20260407171854.GA2970003-robh@kernel.org>
-References: <20260324-dsa_lan9645x_switch_driver_base-v2-0-f7504e3b0681@microchip.com>
- <20260324-dsa_lan9645x_switch_driver_base-v2-2-f7504e3b0681@microchip.com>
+To: Jun Guo <jun.guo@cixtech.com>
+Cc: peter.chen@cixtech.com, fugang.duan@cixtech.com, krzk+dt@kernel.org,
+	conor+dt@kernel.org, vkoul@kernel.org, ychuang3@nuvoton.com,
+	schung@nuvoton.com, robin.murphy@arm.com, Frank.Li@kernel.org,
+	dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, cix-kernel-upstream@cixtech.com,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v5 1/3] dt-bindings: dma: arm-dma350: document combined
+ and per-channel IRQ topologies
+Message-ID: <20260407172014.GA3090142-robh@kernel.org>
+References: <20260324120113.3681830-1-jun.guo@cixtech.com>
+ <20260324120113.3681830-2-jun.guo@cixtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260324-dsa_lan9645x_switch_driver_base-v2-2-f7504e3b0681@microchip.com>
+In-Reply-To: <20260324120113.3681830-2-jun.guo@cixtech.com>
 
-On Tue, Mar 24, 2026 at 11:46:45AM +0100, Jens Emil Schulz Østergaard wrote:
-> Add bindings for LAN9645X switch. We use a fallback compatible for the
-> smallest SKU microchip,lan96455s-switch.
+On Tue, Mar 24, 2026 at 08:01:11PM +0800, Jun Guo wrote:
+> Document the interrupt topologies supported by DMA-350 integration:
+> - one combined interrupt for all channels, or
+> - one interrupt per channel (up to 8 channels).
 > 
-> Reviewed-by: Steen Hegelund <Steen.Hegelund@microchip.com>
-> Signed-off-by: Jens Emil Schulz Østergaard <jensemil.schulzostergaard@microchip.com>
+> Assisted-by: Cursor:GPT-5.3-Codex
+> Signed-off-by: Jun Guo <jun.guo@cixtech.com>
 > ---
-> Changes in v2:
-> - rename file to microchip,lan96455s-switch.yaml
-> - remove led vendor property
-> - add {rx,tx}-internal-delay-ps for rgmii delay
-> - remove labels from example
-> - remove container node from example
-> ---
->  .../net/dsa/microchip,lan96455s-switch.yaml        | 119 +++++++++++++++++++++
->  MAINTAINERS                                        |   1 +
->  2 files changed, 120 insertions(+)
+>  .../devicetree/bindings/dma/arm,dma-350.yaml  | 25 ++++++++++++-------
+>  1 file changed, 16 insertions(+), 9 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/net/dsa/microchip,lan96455s-switch.yaml b/Documentation/devicetree/bindings/net/dsa/microchip,lan96455s-switch.yaml
-> new file mode 100644
-> index 000000000000..0282e25c05d4
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/dsa/microchip,lan96455s-switch.yaml
-> @@ -0,0 +1,119 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/net/dsa/microchip,lan96455s-switch.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Microchip LAN9645x Ethernet switch
-> +
-> +maintainers:
-> +  - Jens Emil Schulz Østergaard <jensemil.schulzostergaard@microchip.com>
-> +
-> +description: |
-
-Don't need '|'
-
-> +  The LAN9645x switch is a multi-port Gigabit AVB/TSN Ethernet switch with
-> +  five integrated 10/100/1000Base-T PHYs. In addition to the integrated PHYs,
-> +  it supports up to 2 RGMII/RMII, up to 2 BASE-X/SERDES/2.5GBASE-X and one
-> +  Quad-SGMII interfaces.
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - enum:
-> +          - microchip,lan96455s-switch
-> +      - items:
-> +          - enum:
-> +              - microchip,lan96455f-switch
-> +              - microchip,lan96457f-switch
-> +              - microchip,lan96459f-switch
-> +              - microchip,lan96457s-switch
-> +              - microchip,lan96459s-switch
-> +          - const: microchip,lan96455s-switch
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +$ref: dsa.yaml#
-
-Since you don't have any custom properties (just constraints), this ref 
-should be "dsa.yaml#/$defs/ethernet-ports".
-
-> +
-> +patternProperties:
-> +  "^(ethernet-)?ports$":
-
-For a new binding, use the preferred name which is ethernet-ports. ports 
-and port collide with the graph binding.
-
-> +    type: object
-> +    additionalProperties: true
-> +    patternProperties:
-> +      "^(ethernet-)?port@[0-8]$":
-
-And 'ethernet-port'
-
-> +        type: object
-> +        description: Ethernet switch ports
-> +
-> +        $ref: dsa-port.yaml#
-> +
-> +        properties:
-> +          rx-internal-delay-ps:
-> +            const: 2000
-> +
-> +          tx-internal-delay-ps:
-> +            const: 2000
-> +
-> +        unevaluatedProperties: false
-
-Place this after the $ref.
-
-> +
-> +oneOf:
-> +  - required:
-> +      - ports
-> +  - required:
-> +      - ethernet-ports
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    ethernet-switch@4000 {
-> +        compatible = "microchip,lan96459f-switch", "microchip,lan96455s-switch";
-> +        reg = <0x4000 0x244>;
-> +
-> +        ethernet-ports {
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
-> +
-> +            port@0 {
-> +                reg = <0>;
-> +                phy-mode = "gmii";
-> +                phy-handle = <&cuphy0>;
-> +            };
-> +
-> +            port@1 {
-> +                reg = <1>;
-> +                phy-mode = "gmii";
-> +                phy-handle = <&cuphy1>;
-> +            };
-> +
-> +            port@2 {
-> +                reg = <2>;
-> +                phy-mode = "gmii";
-> +                phy-handle = <&cuphy2>;
-> +            };
-> +
-> +            port@3 {
-> +                reg = <3>;
-> +                phy-mode = "gmii";
-> +                phy-handle = <&cuphy3>;
-> +            };
-> +
-> +            port@7 {
-> +                reg = <7>;
-> +                phy-mode = "rgmii";
-> +                ethernet = <&cpu_host_port>;
-> +                rx-internal-delay-ps = <2000>;
-> +                tx-internal-delay-ps = <2000>;
-> +
-> +                fixed-link {
-> +                    speed = <1000>;
-> +                    full-duplex;
-> +                    pause;
-> +                };
-> +            };
-> +        };
-> +    };
-> +...
-> +
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 7ae698067c41..8232da1b3951 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -17278,6 +17278,7 @@ M:	Jens Emil Schulz Østergaard <jensemil.schulzostergaard@microchip.com>
->  M:	UNGLinuxDriver@microchip.com
->  L:	netdev@vger.kernel.org
->  S:	Maintained
-> +F:	Documentation/devicetree/bindings/net/dsa/microchip,lan96455s-switch.yaml
->  F:	include/linux/dsa/lan9645x.h
->  F:	net/dsa/tag_lan9645x.c
+> diff --git a/Documentation/devicetree/bindings/dma/arm,dma-350.yaml b/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
+> index 429f682f15d8..bec9dc32541b 100644
+> --- a/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
+> +++ b/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
+> @@ -22,15 +22,22 @@ properties:
 >  
-> 
+>    interrupts:
+>      minItems: 1
+> -    items:
+> -      - description: Channel 0 interrupt
+> -      - description: Channel 1 interrupt
+> -      - description: Channel 2 interrupt
+> -      - description: Channel 3 interrupt
+> -      - description: Channel 4 interrupt
+> -      - description: Channel 5 interrupt
+> -      - description: Channel 6 interrupt
+> -      - description: Channel 7 interrupt
+> +    maxItems: 8
+
+Don't need maxItems
+
+> +    description:
+> +      Either one interrupt per channel (8 interrupts), or one
+> +      combined interrupt for all channels.
+> +    oneOf:
+> +      - items:
+> +          - description: Channel 0 interrupt
+> +          - description: Channel 1 interrupt
+> +          - description: Channel 2 interrupt
+> +          - description: Channel 3 interrupt
+> +          - description: Channel 4 interrupt
+> +          - description: Channel 5 interrupt
+> +          - description: Channel 6 interrupt
+> +          - description: Channel 7 interrupt
+> +      - items:
+> +          - description: Combined interrupt shared by all channels
+>  
+>    "#dma-cells":
+>      const: 1
 > -- 
-> 2.52.0
+> 2.34.1
 > 
