@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA0483C5522;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BE7C3C8723;
 	Tue,  7 Apr 2026 15:47:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775576825; cv=none; b=hfFP7zFAtI4kpHmW3nduRzJV9eAlVrLCl+V/qeD5rLeJ3NiZDRWcs/oznbO1+rH2ddN7r62LmtRgDU/3Pewxz44C1V8rWyXOaCF0zWt11MnCGMsrne8CMtVSOkEkXwRL+jHvDOGuG4+SHn2vy0ZnazZQ4CuUDl+iCE4NeutEZBw=
+	t=1775576825; cv=none; b=RtS1OjmFvW65pA3eL3gBizmlrEVsOd/WHbTy+7YTFH0z0LTCuM4iavoiYYmhhUT/Hs4AtLb2qmE6vgHIaKRivbw40pdr7ApqWfDjCtSL6TiRFaSgjnPVBa6nyKn24meTJaH6zHii54pGi2zkU6kj5OaOa80WwpbmZTUR71RjJC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1775576825; c=relaxed/simple;
-	bh=1C8erMBkmhho8TykF2JBIC5b2QBXVcuu2DWUJn5djhc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aNTuWq8iStewOipyWjXt1B/uxRfFyaA3nk6h7R5aw3WYWs6tiNWj7/Eh2NLpuTD2vZqCvlS/Wy+U0Fjoa9tHeZk6TAoRVBVhBdofe3S5DrBSONhgJ3w+WN4fULS5Itd/RwIUx54UKH37T7Jm9vtZmR6FdRoxSMmU4cb30tiWPlw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jvTAnQe8; arc=none smtp.client-ip=10.30.226.201
+	bh=n5DZ/2/rUyaYQzTqM/i7xw0BlntkOKwWDMmmePbEDNU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=eOu3nRkvYlKbWOi0P9xqsUZuWnQ3i0YjAUYwcMWDCGc30xn4WKxsAPSZ2jKp4d4qBnthuHRjIwet9dY1pckC3CORac41EqZiI5RFZLKnjT+nfCTF+iH+PoXb5u5XK52eQXb1yzR9iv58RW8anXl5smgiFqoi2kiQ4zHGZXcl+mU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H2tra+GR; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jvTAnQe8"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 96396C116C6;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H2tra+GR"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7B335C19424;
 	Tue,  7 Apr 2026 15:47:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1775576824;
-	bh=1C8erMBkmhho8TykF2JBIC5b2QBXVcuu2DWUJn5djhc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=jvTAnQe8P+yGh4ImvJZWl3nHohV7xgSYOypm2RfHFOvGr233nuDmuQQpX/F6vqyfz
-	 EkBrL+4PyaaKRc1ejm0bq3r2K+nuBlbUCqrrcSYQsZVT0ZeE2Kqc3ETHNubM5e//PQ
-	 rhMfpwAydUUuj6bOMBNLUXKktOtnk0L3nEi072y0oujADyUjhIU71t2DWnsJUWjK7W
-	 rw/OEsdoZ+DQ5h6L1uaGT6gFzUeqRl/8Z0CNMFtdJjwYRmziwwq4OiXJqAxpI5g8ay
-	 SjK5dFAqjKPrNRpj0dnNJqJco81/M8cHEptEbgaUxUtXGiqK9BEfVBF9DBh1UVUWWM
-	 AgqOL6r4wOLbA==
+	bh=n5DZ/2/rUyaYQzTqM/i7xw0BlntkOKwWDMmmePbEDNU=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=H2tra+GRjEQMsF6f8jk67wEPtAaB6UtOfaci2mawgXNFwD3hqXO+xF3Ag16h7OW/A
+	 hOzkZEeGf6J/v7oT2LU5GA5KNNVqQdl+FnT6pMuEfbQUpn9fDA/6FDzWSe9EA8fRbn
+	 7j7xtp1R0eTxUrjzGypGJOQ7PyJDiS2aUZ6btRyfRj+18vBj4CJULAK1fTHqHPMv2f
+	 KKfOUSGhjtXPuPbNnjolH1iAQRvT+KcCimIJrzBYZaO/ULn78gprnNR4sTWzPnHWx8
+	 pBldpng6DM3WSjQxxD3cb8JeF9sh5ylwAtxpqj9pFtH9MPuESA82qAyQhAeNhlqu1W
+	 mnBwoAv5cXiGA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 83156FF5109;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6F63FFF510A;
 	Tue,  7 Apr 2026 15:47:04 +0000 (UTC)
 From: Joe Sandom via B4 Relay <devnull+jsandom.axon.com@kernel.org>
-Date: Tue, 07 Apr 2026 16:46:44 +0100
-Subject: [PATCH v2 1/5] arm64: dts: qcom: sm8550: add PCIe MHI register
- regions
+Subject: [PATCH v2 0/5] arm64: dts: qcom: add QCS8550 RB5Gen2 support
+Date: Tue, 07 Apr 2026 16:46:43 +0100
+Message-Id: <20260407-rb5gen2-dts-v2-0-d0c7f447ee73@axon.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,21 +40,23 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260407-rb5gen2-dts-v2-1-d0c7f447ee73@axon.com>
-References: <20260407-rb5gen2-dts-v2-0-d0c7f447ee73@axon.com>
-In-Reply-To: <20260407-rb5gen2-dts-v2-0-d0c7f447ee73@axon.com>
+X-B4-Tracking: v=1; b=H4sIAOMm1WkC/23MQQ6DIBCF4auYWXcaIGi1q96jcaHDoCwKDRhiY
+ 7h7qesu/5e874DE0XGCe3NA5OySC76GujRA6+QXRmdqgxKqE1pojHO7sFdotoSyF2RYzDfZEdT
+ HO7J1+6k9x9qrS1uInxPP8rf+d7JEgf3Q2t6SHrSlx7QHf6XwgrGU8gWEx1PfpQAAAA==
+X-Change-ID: 20260404-rb5gen2-dts-180cde0b716c
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Joe Sandom <jsandom@axon.com>
+ linux-kernel@vger.kernel.org, Joe Sandom <jsandom@axon.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1775576820; l=1736;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1775576820; l=2699;
  i=jsandom@axon.com; s=20260319; h=from:subject:message-id;
- bh=zqeIqGY0ruAR+kg3tcV4DAYxkIVC1JYpXX7imW3l6zM=;
- b=QB6NgBqN5aVf/a8PYwZobdMpjC7FGvZVQpFZneYFNDbKbNQV+3etFGaAVxyLG4bzbe8J4n05B
- USova4LG1WWA8zzinhP6vnq8oIhXS2VuFbdLVnv5FVV0WJ4rguIi52h
+ bh=n5DZ/2/rUyaYQzTqM/i7xw0BlntkOKwWDMmmePbEDNU=;
+ b=sIRtwMpw7um4PASGmn0Z2tIvRkXoeHqaVDUfXiVCGTQTVgYjZkNlqOO4zBxfxgzrkR5nA2mmZ
+ 3I7SXtrOeXbAzcpRzTHEWN22B6nLQqqlS9jS3ITBCE/8w3dkxVPyzCO
 X-Developer-Key: i=jsandom@axon.com; a=ed25519;
  pk=Q/yflwj2WhkgBVTskrS9Vl5oScD0Bp3vTzDi+OxskTo=
 X-Endpoint-Received: by B4 Relay for jsandom@axon.com/20260319 with
@@ -63,56 +64,65 @@ X-Endpoint-Received: by B4 Relay for jsandom@axon.com/20260319 with
 X-Original-From: Joe Sandom <jsandom@axon.com>
 Reply-To: jsandom@axon.com
 
-From: Joe Sandom <jsandom@axon.com>
+This series adds device tree support for the Thundercomm RB5Gen2
+development kit, based on the Qualcomm QCS8550 chipset.
 
-Add the MHI register regions to the pcie0 and pcie1 controller nodes
-so that the MHI bus layer can access controller registers directly.
+Patches 1-3 prepares for the RB5gen2 device tree by adding MHI register
+regions and port labels to the PCIe controller nodes, as well as moving
+common IPA properties into sm8550.dtsi. Then update the existing HDK
+and QRD board files accordingly.
+
+Patches 4-5 add the dt-bindings documentation and the board device tree
+for the RB5Gen2. This initial submission covers the main board; the vision
+mezzanine will be supported in a follow-up series.
+
+Product page:
+https://www.thundercomm.com/product/qualcomm-rb5-gen-2-development-kit
 
 Signed-off-by: Joe Sandom <jsandom@axon.com>
 ---
- arch/arm64/boot/dts/qcom/sm8550.dtsi | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+Changes in v2:
+- Lowercase hex in MHI region definitions for pcie0 and pcie1 nodes +
+  vertical alignment
+- Change pcie0 and pcie1 reg-names for one entry per line
+- Ensured pcie port labels + changes to sm8550-hdk.dts and sm8550-qrd.dts
+  are done in a single commit
+- Moved IPA gsi-loader and memory-region to sm8550.dtsi since they are common
+  properties. Reflect changes in sm8550-hdk.dts and sm8550-qrd.dts
+- Removed usbhub_reset since this is not required
+- Added swctrl-gpios property to wcn7850-pmu
+- Split sw_ctrl_default gpio from bt_default grouping and referenced the
+  pinctrl separately
+- Replaced upd_reset regulator-fixed with pinctrl and vddpe-3v3-supply
+  on pcie0
+- Aligned firmware-name values vertically on the quote mark
+- Changed cdsp, adsp and modem remoteprocs to .mbn file type instead of
+  .mdt
+- Added remark in rb5gen2 dts commit explaining the rationale for
+  deleting msi-map in pcie0 and pcie1 nodes
+- Link to v1: https://lore.kernel.org/r/20260404-rb5gen2-dts-v1-0-895f8fc494fc@axon.com
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-index 912525e9bca6f5e1cbb8887ee0bf9e39650dc4ff..055ca931c04859f3a312eb9921aeb7a8cc676822 100644
---- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-@@ -1964,8 +1964,14 @@ pcie0: pcie@1c00000 {
- 			      <0 0x60000000 0 0xf1d>,
- 			      <0 0x60000f20 0 0xa8>,
- 			      <0 0x60001000 0 0x1000>,
--			      <0 0x60100000 0 0x100000>;
--			reg-names = "parf", "dbi", "elbi", "atu", "config";
-+			      <0 0x60100000 0 0x100000>,
-+			      <0 0x01c03000 0 0x1000>;
-+			reg-names = "parf",
-+				    "dbi",
-+				    "elbi",
-+				    "atu",
-+				    "config",
-+				    "mhi";
- 			#address-cells = <3>;
- 			#size-cells = <2>;
- 			ranges = <0x01000000 0x0 0x00000000 0x0 0x60200000 0x0 0x100000>,
-@@ -2138,8 +2144,14 @@ pcie1: pcie@1c08000 {
- 			      <0x0 0x40000000 0x0 0xf1d>,
- 			      <0x0 0x40000f20 0x0 0xa8>,
- 			      <0x0 0x40001000 0x0 0x1000>,
--			      <0x0 0x40100000 0x0 0x100000>;
--			reg-names = "parf", "dbi", "elbi", "atu", "config";
-+			      <0x0 0x40100000 0x0 0x100000>,
-+			      <0x0 0x01c0b000 0x0 0x1000>;
-+			reg-names = "parf",
-+				    "dbi",
-+				    "elbi",
-+				    "atu",
-+				    "config",
-+				    "mhi";
- 			#address-cells = <3>;
- 			#size-cells = <2>;
- 			ranges = <0x01000000 0x0 0x00000000 0x0 0x40200000 0x0 0x100000>,
+---
+Joe Sandom (5):
+      arm64: dts: qcom: sm8550: add PCIe MHI register regions
+      arm64: dts: qcom: sm8550: add PCIe port labels
+      arm64: dts: qcom: sm8550: move IPA properties to SoC device tree
+      dt-bindings: arm: qcom: document QCS8550 RB5Gen2 board
+      arm64: dts: qcom: qcs8550: add QCS8550 RB5Gen2 board support
 
+ Documentation/devicetree/bindings/arm/qcom.yaml |    6 +
+ arch/arm64/boot/dts/qcom/Makefile               |    1 +
+ arch/arm64/boot/dts/qcom/qcs8550-rb5gen2.dts    | 1574 +++++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8550-hdk.dts         |    4 +-
+ arch/arm64/boot/dts/qcom/sm8550-qrd.dts         |    4 +-
+ arch/arm64/boot/dts/qcom/sm8550.dtsi            |   26 +-
+ 6 files changed, 1603 insertions(+), 12 deletions(-)
+---
+base-commit: af241225893ac4933bb8f0615f2dfda8ea2326ce
+change-id: 20260404-rb5gen2-dts-180cde0b716c
+
+Best regards,
 -- 
-2.34.1
+Joe Sandom <jsandom@axon.com>
 
 
