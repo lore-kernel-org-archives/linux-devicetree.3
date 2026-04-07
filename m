@@ -1,204 +1,170 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468213DBA0;
-	Tue,  7 Apr 2026 18:02:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31DA0347BBD;
+	Tue,  7 Apr 2026 18:03:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775584955; cv=none; b=ZYTYIH3vqW1oRJhJ1FLhg6WYYekPALsIVYwPv5IHQh7VJtq9aiUczSP4qCaBmdkP5WuqQHye2d4uqCI80rKMiE6/zQrXJyqTp0YaVtQE7jxcR77pIK82a7vF6DY9HAOL7Jgj1f5jMAzF98bsSwHJgvYgsFrmMF2fDC7RPZCaHK0=
+	t=1775584998; cv=none; b=REQKc/pVWZ9YeaCyzCuKjAdEgoCj0/XMS4GXMCYThWha9X3uj9sF7iUrkeF4y0CSaXq06hCKkBHr9CmLmfNhAxL1gCqQ+OqPtnkIppKPSIPVw9uhkA/2YzABNfyGgYBiooVIIapcqedmMLFhTrSxjhhgIZ/5OLicExrtulCh9gM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775584955; c=relaxed/simple;
-	bh=lKBY1z1uLEHqN9XLznWn9epJHbwWXKp15puN8Z20MwI=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=diHBsJ7BijKMWYX/bWEHa3Ra+MjOQxAok6n7TvW1HKDuyjrS3SfnXr/SrDQBzF7S/egLL380YgsNpF0GOWKUDdx3qoHgmrNXDB71MLGtjzojsmIHx9K8FMjKN06diWOwsXmHrQ76NBvUByQHp3KQ5D2dGkTu6duOxjmwvm/kSFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=Q0XnXkT/; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1775584998; c=relaxed/simple;
+	bh=3uwoWXiaWvykl7yJaZ1MybGYtDm95i7JzUU39F5We00=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jEHksvFuA4r9SCEjXDHlsUYEoJnIEAqdqmLS297L0FbV5Dpqqqyierm5/dwFmgG+E9Hnwia05mgobYKNOMZHCqawUF/7v9HKBTr0N3/FqZ8zQsA2Fn2zQ2Eq/3D+YncymDVjrhmLOIVwk4uyeuVilNUWMfAWbuK4Wp87cVFOCwA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SiT1saIf; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="Q0XnXkT/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1775584954; x=1807120954;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=lKBY1z1uLEHqN9XLznWn9epJHbwWXKp15puN8Z20MwI=;
-  b=Q0XnXkT/6dNPMPoKQkuD6G5JVRWB7baWHJRC59ImilCT+SzP3Yz+2dvE
-   qdyuRGpXAR8U6eCcLc2dMlYVc0XC/yJZySKKMgJEx3ARWxHO7nqLluBeA
-   Mrm2rY9Enijpy4/ODoc1GzfYGCYqxeXEM/4g7HtydKkfG6VW6dctxhzBd
-   JPu5OG+q5yH0K4ahpCVUeJXHWL4UmAlJvh3FbDEXS2+FudORt1nZa9KjP
-   pzczXIICC2lzkgqM6C/h3PCiOkYykZLoqpMRc8/i5vTJsqFTdZJ0dF3e0
-   vhXwAtc/CLhQvQHZ6IGFyILMFbxgl5oKIl/irdcWZ4QYYxE9rfm2yQN7g
-   g==;
-X-CSE-ConnectionGUID: TeKTuHSeRxSK4Yqaj2tYAA==
-X-CSE-MsgGUID: bU7TBYaLTRuKKurSwVBOVA==
-X-IronPort-AV: E=Sophos;i="6.23,166,1770620400"; 
-   d="scan'208";a="55031410"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 07 Apr 2026 11:02:33 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Tue, 7 Apr 2026 11:02:00 -0700
-Received: from bby-cbu-swbuild03.eng.microchip.com (10.10.85.11) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58 via Frontend Transport; Tue, 7 Apr 2026 11:01:59 -0700
-Date: Tue, 7 Apr 2026 11:01:58 -0700
-From: Charles Perry <charles.perry@microchip.com>
-To: Rob Herring <robh@kernel.org>
-CC: Charles Perry <charles.perry@microchip.com>, <netdev@vger.kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, "Paolo
- Abeni" <pabeni@redhat.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
-	"Russell King" <linux@armlinux.org.uk>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net-next v2 1/2] dt-bindings: net: document Microchip
- PIC64-HPSC/HX MDIO controller
-Message-ID: <adVGlhjDmrX0SM08@bby-cbu-swbuild03.eng.microchip.com>
-References: <20260323220254.3822444-1-charles.perry@microchip.com>
- <20260323220254.3822444-2-charles.perry@microchip.com>
- <20260407170033.GA2954294-robh@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SiT1saIf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 841E3C116C6;
+	Tue,  7 Apr 2026 18:03:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775584997;
+	bh=3uwoWXiaWvykl7yJaZ1MybGYtDm95i7JzUU39F5We00=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=SiT1saIfY9Ab6kOYEQ3WpRgDO5HxJo85XldRjkKTNqDhL5ApF489HMB3tKOAFklkP
+	 LukelZtxIDrjgTFvEEqKrHYqfkq0b5v3CSo9Q+e4crsWHHIIYvwLgYCI+hXLAD+GIj
+	 bHQeOmzjU0DNTobFFcy4Fr/81U6KFEtsKf3dfPulQwK4yRVpTR6kENGphWMN+0W1wP
+	 CCQe9sQ1ZoFiL3F0cYpQwiMftmUycrzxrAhzdmocr2VVSBGVDMs5W8n9Pj2THQ/Ibm
+	 /+Cg5LZRqpaP8rrYTz+SsYNq2eoQKGtc2pOOf6KycTknSvco09Y8TfuMiDmvhFkEfu
+	 wJV6rdmOrLv+g==
+Date: Tue, 7 Apr 2026 13:03:15 -0500
+From: Rob Herring <robh@kernel.org>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Kalle Niemi <kaleposti@gmail.com>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Peter Rosin <peda@axentia.se>, Arnd Bergmann <arnd@arndb.de>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Ulf Hansson <ulf.hansson@linaro.org>,
+	Mark Brown <broonie@kernel.org>, Len Brown <lenb@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Cameron <jonathan.cameron@huawei.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Ira Weiny <ira.weiny@intel.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Shawn Guo <shawnguo@kernel.org>, Wolfram Sang <wsa@kernel.org>,
+	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-clk@vger.kernel.org, linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
+	linux-gpio@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-spi@vger.kernel.org, linux-acpi@vger.kernel.org,
+	linux-cxl@vger.kernel.org,
+	Allan Nielsen <allan.nielsen@microchip.com>,
+	Horatiu Vultur <horatiu.vultur@microchip.com>,
+	Steen Hegelund <steen.hegelund@microchip.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v6 00/27] lan966x pci device: Add support for SFPs
+Message-ID: <20260407180315.GA3175985-robh@kernel.org>
+References: <20260325143555.451852-1-herve.codina@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260407170033.GA2954294-robh@kernel.org>
+In-Reply-To: <20260325143555.451852-1-herve.codina@bootlin.com>
 
-On Tue, Apr 07, 2026 at 12:00:33PM -0500, Rob Herring wrote:
-> On Mon, Mar 23, 2026 at 03:02:53PM -0700, Charles Perry wrote:
-> > This MDIO hardware is based on a Microsemi design supported in Linux by
-> > mdio-mscc-miim.c. However, The register interface is completely different
-> > with pic64hpsc, hence the need for separate documentation.
-> > 
-> > The hardware supports C22 and C45.
-> > 
-> > The documentation recommends an input clock of 156.25MHz and a prescaler
-> > of 39, which yields an MDIO clock of 1.95MHz.
-> > 
-> > The hardware supports an interrupt pin to signal transaction completion
-> > which is not strictly needed as the software can also poll a "TRIGGER"
-> > bit for this.
-> > 
-> > Signed-off-by: Charles Perry <charles.perry@microchip.com>
-> > ---
-> > 
-> > Notes:
-> >     Changes in v2:
-> >       - Make "clocks" and "interrupts" required (Andrew)
-> >       - Add a default value to "clock-frequency" (Andrew)
-> > 
-> >  .../net/microchip,pic64hpsc-mdio.yaml         | 68 +++++++++++++++++++
-> >  1 file changed, 68 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/net/microchip,pic64hpsc-mdio.yaml
-> > 
-> > diff --git a/Documentation/devicetree/bindings/net/microchip,pic64hpsc-mdio.yaml b/Documentation/devicetree/bindings/net/microchip,pic64hpsc-mdio.yaml
-> > new file mode 100644
-> > index 000000000000..d690afe3d3cf
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/net/microchip,pic64hpsc-mdio.yaml
-> > @@ -0,0 +1,68 @@
-> > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/net/microchip,pic64hpsc-mdio.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Microchip PIC64-HPSC/HX MDIO controller
-> > +
-> > +maintainers:
-> > +  - Charles Perry <charles.perry@microchip.com>
-> > +
-> > +description: |
+On Wed, Mar 25, 2026 at 03:35:27PM +0100, Herve Codina wrote:
+> Hi,
 > 
-> Don't need '|' if no formatting to preserve.
+> This series add support for SFPs ports available on the LAN966x PCI
+> device. In order to have the SFPs supported, additional devices are
+> needed such as clock controller and I2C.
 > 
-
-Ok
-
-> > +  Microchip PIC64-HPSC/HX SoCs have two MDIO bus controller. This MDIO bus
+> As a reminder, the LAN966x PCI device driver use a device-tree overlay
+> to describe devices available on the PCI board. Adding support for SFPs
+> ports consists in adding more devices in the already existing
+> device-tree overlay.
 > 
-> s/controller/controllers/
+> With those devices added, the device-tree overlay is more complex and
+> some consumer/supplier relationship are needed in order to remove
+> devices in correct order when the LAN966x PCI driver is removed.
 > 
-> Though how many instances there are is not really applicable to the 
-> binding unless there is some difference.
-
-There are no differences between the two instances. I'll remove the mention
-about the SoC containing two instances.
-
->
-> > +  controller supports C22 and C45 register access. It is named "MDIO Initiator"
-> > +  in the documentation.
-> > +
-> > +allOf:
-> > +  - $ref: mdio.yaml#
-> > +
-> > +properties:
-> > +  compatible:
-> > +    oneOf:
-> > +      - const: microchip,pic64hpsc-mdio
-> > +      - items:
-> > +          - const: microchip,pic64hx-mdio
-> > +          - const: microchip,pic64hpsc-mdio
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  clocks:
-> > +    maxItems: 1
-> > +
-> > +  clock-frequency:
-> > +    default: 2500000
-> > +
-> > +  interrupts:
-> > +    maxItems: 1
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - clocks
-> > +  - interrupts
-> > +
-> > +unevaluatedProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    #include <dt-bindings/interrupt-controller/irq.h>
-> > +    bus {
-> > +        #address-cells = <2>;
-> > +        #size-cells = <2>;
-> > +
-> > +        mdio@4000C21E000 {
+> Those links are typically provided by fw_devlink and we faced some
+> issues with fw_devlink and overlays.
 > 
-> Unit-addresses are lower case hex.
-
-Ok
-
+> This series gives the big picture related to the SFPs support from
+> fixing issues to adding new devices. Of course, it can be split if
+> needed.
 > 
-> > +            compatible = "microchip,pic64hpsc-mdio";
-> > +            reg = <0x400 0x0C21E000 0x0 0x1000>;
+> The first part of the series (patch 1 and 2 ) fixes fw_devlink when it
+> is used with overlay. Those patches were previously sent by Saravana
+> [0]. I rebased them on top of v7.0-rc1.
 > 
-> And generally we use lower case here too.
-
-Ok
-
+> Also I added a call to driver_deferred_probe_trigger() in Saravana's
+> patch (patch 2) to ensure that probes are retried after the modification
+> performed on the dangling consumers. This allows to fix issues reported
+> by Matti and Geert [2] with the previous iteration patches.
 > 
-> > +            #address-cells = <1>;
-> > +            #size-cells = <0>;
-> > +            clocks = <&svc_clk>;
-> > +            interrupt-parent = <&saplic0>;
-> > +            interrupts = <168 IRQ_TYPE_LEVEL_HIGH>;
-> > +
-> > +            phy0: ethernet-phy@0 {
+> Those modification were not sufficient in our case and so, on top of
+> that, patches 3 to 5 fix some more issues related to fw_devlink.
 > 
-> Drop unused labels.
+> Patches 6 to 11 introduce and use fw_devlink_set_device() in already
+> existing code.
+> 
+> Patches 12 and 13 are related also to fw_devlink but specific to PCI and
+> the device-tree nodes created during enumeration.
+> 
+> Patches 14, 15 and 16 are related fw_devlink too but specific to I2C
+> muxes. Patches purpose is to correctly set a link between an adapter
+> supplier and its consumer. Indeed, an i2c mux adapter's parent is not
+> the i2c mux supplier but the adapter the i2c mux is connected to. Adding
+> a new link between the adapter supplier involved when i2c muxes are used
+> avoid a freeze observed during device removal.
+> 
+> Patch 17 adds support for fw_delink on x86. fw_devlink is needed to have
+> the consumer/supplier relationship between devices in order to ensure a
+> correct device removal order. Adding fw_devlink support for x86 has been
+> tried in the past but was reverted [1] because it broke some systems.
+> Instead of enabling fw_devlink on *all* x86 system, enable it on *all*
+> x86 except on those where it leads to issue.
+> 
+> Patches 18 and 19 allow to build clock and i2c controller used by the
+> LAN966x PCI device when the LAN966x PCI device is enabled.
+> 
+> Patches 20 to 24 are specific to the LAN966x. They touch the current
+> dtso, split it in dtsi/dtso files, rename the dtso and improve the
+> driver to allow easier support for other boards.
+> 
+> The next patch (patch 25) update the LAN966x device-tree overlay itself
+> to have the SPF ports and devices they depends on described.
+> 
+> The last two patches (patches 26 and 27) sort the existing drivers in
+> the needed driver list available in the Kconfig help and add new drivers
+> in this list keep the list up to date with the devices described in the
+> device-tree overlay.
+> 
+> We believe some items from the above list can be merged separately, with
+> no build dependencies. We expect:
+> 
+>  - Patches 1 to 5 to be taken by driver core maintainers
 
-Ok
+From a quick look, can't the first 2 DT patches be taken by me?
 
-Thanks,
-Charles
+Rob
