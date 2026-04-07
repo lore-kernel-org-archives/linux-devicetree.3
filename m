@@ -1,59 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2CFD22083;
-	Tue,  7 Apr 2026 19:07:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF531E9B3A;
+	Tue,  7 Apr 2026 19:08:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775588831; cv=none; b=kg4fGUF8lRWfOlon3PUgPSXWE7RpoG9l46Fe0tp9360mYU6C/FqE2OMDBhYYA78kVnWCXnasiyp3WG5AhPifyYHvFU/Vf1G4fo3HJm+OPtzCB5H+qNTgV/6rkd/VQ2CpMF5mfH3HUjr77tYGuFrtbtTvUH4ieYlfCuJFyx0lcfU=
+	t=1775588935; cv=none; b=ut7G5QkkCiQrDSvt4BtiJ9cQOHKh6kiFq4RapRvLNlhNYdkJ8mXvi1nGFB6GwhBfb3rNNtroEpiyv9pTerYhM+RSwcAgE5dD9SzCAv4qfpuMttDKdYpkim/3G6g2pQifCvjQM1H3o3xJiOMKUUOONeebycGpbFysa2+ZPeVVyXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775588831; c=relaxed/simple;
-	bh=G6An/J/iBgbRqFjJ9i8aQHvrnf5qvpyoY+B082y2Iu0=;
+	s=arc-20240116; t=1775588935; c=relaxed/simple;
+	bh=u4p4j14nBfKMVlnfafMssBd+Km2VMF7NLSQuYZdeM1M=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iU24CsAHoSi+GtY3bpWY1faPjTeaY3EXLQupIK8pC6bms2UArRknSkaJd1++AEGwRwNwiYmj4kN37+VY8PfHMd3TgkoOgIomCsqvmt09ye8lj9UpIb4F+v7YGZG8dETkP1Mpyz7JXYRCddpm+gYQ1fxuvo0crsHNiLl7IFv3CHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lux9qAf4; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=AOPkrnL5Ij9k0K25D+ilCIx1e3x34TGH9AQlioCvBW7A9L2QeZ7tZSbQk8EmtEuhjKlX7sn9lo0zlHbLuxUISOZUnaQn1W5LZpI87DD3uyNQfS5HYulcJEq1HAxZouy2H3bfnPw8u3jndMRFyip4r9hb9WT9iAxx5MdhLWq1/4o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ni+GZeLI; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lux9qAf4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3199C116C6;
-	Tue,  7 Apr 2026 19:07:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ni+GZeLI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F8F9C116C6;
+	Tue,  7 Apr 2026 19:08:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775588830;
-	bh=G6An/J/iBgbRqFjJ9i8aQHvrnf5qvpyoY+B082y2Iu0=;
+	s=k20201202; t=1775588935;
+	bh=u4p4j14nBfKMVlnfafMssBd+Km2VMF7NLSQuYZdeM1M=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Lux9qAf4H+3WFaQZ01EoN5GG+mbRCLw3mih5kqISHaUXRzBE2hV69y6P3A1J3Ro22
-	 SWvxjMLkC/1xKKCjPHQwW6biHgys0curqZ2zcZX4SghRp/RWrLxQrCdJ9Yj6aG8PQb
-	 i9dBz1AQVDvtIucQ6vs31mq9io4k0V+D2ySkJKBHj381tFVdOMuNnspw9AIjrQm41H
-	 3VOcRtDDIcJB1NkTdHhMFZjjpg4f/E/XKbBro9CMzt16Vkh4ZhBq+eBNogsT6qIcjJ
-	 o5hjaEJGksnGG22kFsyaNZ7111K7X4CvcJ04DjvV9WZYDn+XJ/V53H1g0mbPNNEFw7
-	 NECFKlqvd9ZAw==
-Date: Tue, 7 Apr 2026 14:07:07 -0500
+	b=ni+GZeLIGk0p5/vkZR18uK3/Gq1Za2r8WLI/5h9kbN/oRCRBHEg9TEWLSWpEBG/U1
+	 DUVVw87E68DXVwCVX4YNkIWfG5ENXBFkJqNvT6XKsESPRxzKdnB0dHU/1qqXyfeQin
+	 VC28ZqbOHWlDBJwjjyr3c8pi0+beg0ZUuuyOqnbFyZLr7GRctmZ0ph8of+lW1ZxvUY
+	 kTE1wm4ILxyDs0Cvg6Q0S0xZFBDaS0ve6GOHDWAvdtb7O6e995NmwhuXqvkSA2Ohfq
+	 6mKOpIKEoRKLC1ozyH/wKKES1UjEtLmp8NxDfdhV02ikhR1SucMrtCfB1NzM5EKNr3
+	 Q3kswq2zGEMTQ==
+Date: Tue, 7 Apr 2026 14:08:53 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Luca Weiss <luca.weiss@fairphone.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	Alexander Koskovich <akoskovich@pm.me>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	David Airlie <airlied@gmail.com>, devicetree@vger.kernel.org,
+To: Charan Pedumuru <charan.pedumuru@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+	Conor Dooley <conor+dt@kernel.org>, linux-usb@vger.kernel.org,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Herve Codina <herve.codina@bootlin.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Krishna Manikandan <quic_mkrishn@quicinc.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	~postmarketos/upstreaming@lists.sr.ht,
-	Rob Clark <robin.clark@oss.qualcomm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	linux-kernel@vger.kernel.org,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Marek <jonathan@marek.ca>, phone-devel@vger.kernel.org,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	freedreno@lists.freedesktop.org, Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
-	linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v2 3/9] dt-bindings: display: msm: document the Milos DPU
-Message-ID: <177558882669.3409524.8504183460631288519.robh@kernel.org>
-References: <20260327-milos-mdss-v2-0-bc586683f5ca@fairphone.com>
- <20260327-milos-mdss-v2-3-bc586683f5ca@fairphone.com>
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 2/5] dt-bindings: usb: generic-ohci: add AT91RM9200
+ OHCI binding support
+Message-ID: <177558893274.3412548.17799728970061303874.robh@kernel.org>
+References: <20260327-atmel-usb-v4-0-eb8b6e49b29d@gmail.com>
+ <20260327-atmel-usb-v4-2-eb8b6e49b29d@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -62,17 +52,19 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260327-milos-mdss-v2-3-bc586683f5ca@fairphone.com>
+In-Reply-To: <20260327-atmel-usb-v4-2-eb8b6e49b29d@gmail.com>
 
 
-On Fri, 27 Mar 2026 17:12:22 +0100, Luca Weiss wrote:
-> Document the DPU Display Controller on the Milos Platform.
+On Fri, 27 Mar 2026 16:47:43 +0000, Charan Pedumuru wrote:
+> Convert the Atmel AT91RM9200 OHCI USB host controller binding to DT schema
+> by defining it in the existing generic OHCI schema.
 > 
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+> Signed-off-by: Charan Pedumuru <charan.pedumuru@gmail.com>
 > ---
->  Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml | 1 +
->  1 file changed, 1 insertion(+)
+>  .../devicetree/bindings/usb/atmel-usb.txt          | 27 --------------
+>  .../devicetree/bindings/usb/generic-ohci.yaml      | 41 ++++++++++++++++++++++
+>  2 files changed, 41 insertions(+), 27 deletions(-)
 > 
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
