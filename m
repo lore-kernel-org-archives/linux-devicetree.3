@@ -1,74 +1,73 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DD9B3C5DDC;
-	Tue,  7 Apr 2026 15:57:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EC413CD8C2;
+	Tue,  7 Apr 2026 15:58:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775577457; cv=none; b=thpGKMElCJNDhn5EJOdxAAk6tVynlbEJz3wWFe/+Ct/9WoeDd/3OK4jfi/s6G458OWxo+7Ybo2o5zIeUSeegAPnFZjj/EtEcL1SMpriiOWMEeCgV4kNfNj12fD2ouYXu8aS0/BKjsDS4xAfe5AY6VbgJ0QTQFig2ZlW21qEpGOo=
+	t=1775577537; cv=none; b=ewRVHkDtuqzrBvhmQwiBJG0wJqjxzQ3skpjCxxtu/vleZTTHZeRb/M0sDPbqAejyBpusKYtqQ0bw4italoK9i7ldE8ptVld2jMVXoGKDRlFHEoK0SPnTHWpSrJmEXWOLiQoCgUd/sAMc/yI1gNElqTRzgypz5Grg0TuBUqsbeUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775577457; c=relaxed/simple;
-	bh=Q6jkeV68gBj+bbwCQqz6W5xhDqLRfBYMRwoZJl4MTbs=;
+	s=arc-20240116; t=1775577537; c=relaxed/simple;
+	bh=TEBmDXZxfoylzayLoImD9f83TDN7UFj5PT/ooCHo/pE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PyvuLk2POM3PK2FovRFh5g5JVM6GPlRkBPTkRLJzCqeCLVrpsDH6hReJ+vu2jQeXPGxT0xGpAr4ho1zwg+/6oZi9dHEieNa/66IHA1JRwz6NksMybvs1EPog7PQVOzJVgNyV7ByzhfRi1623hUmCazgrZySea4FCL0tnTKDMnIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dyq9clb7; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=DXx4yq+5wPadKcmRJCUiQOIrUJTYKpGjGTIXOhuJ4pKRGU3tjdyKVr9O/ewqi8JLvBjnVMnoWv0gEGzQDcFQrmxmG48M7QjYf2wdkz2S+R5IlHmgiKkkwHRj3JqraxNphgVwD0clcTHo9wVKSx6MyizDyPXOiXBNSqUEFj0ODUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P/A0GQAE; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dyq9clb7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83CD3C116C6;
-	Tue,  7 Apr 2026 15:57:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P/A0GQAE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAFADC116C6;
+	Tue,  7 Apr 2026 15:58:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775577456;
-	bh=Q6jkeV68gBj+bbwCQqz6W5xhDqLRfBYMRwoZJl4MTbs=;
+	s=k20201202; t=1775577535;
+	bh=TEBmDXZxfoylzayLoImD9f83TDN7UFj5PT/ooCHo/pE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Dyq9clb74n7+rIb0YOcq0xI10TIpvmDb7Q7LS6x5S+W4d5PaNCUo9w2ZzZA8BzoRF
-	 RvmABQ9iBs3JPb3R5MVro+cM3RZwR8x7Slu//1eKkSx8lqK9JqF+cUV1TuHZB5aLR+
-	 FIYUP2Uuv6oltQaFxobPCwOZZI2qFmXGKUnfN+NaHO0OV7d+E+WPqx8pfTUBgcU8iG
-	 FY/AJV8SvONI5dmiJyDCtpTIdy1l/dqpTG51exS+7IWXrQPxkY105o5T89aZI6gqtB
-	 BF0YJK3qDWMF3La5jP9BiEC5t65fOKC0EIjjDICOlsp0SkAFS0qBu7YZmyvVE+DuKY
-	 wBp+hsb5bUi9A==
-Date: Tue, 7 Apr 2026 16:57:32 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Charles Perry <charles.perry@microchip.com>
-Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
+	b=P/A0GQAER99pMshKDfI4+lG7NIrvoLgx5VQKDXq6M9ZrBD6cKJBjrEaP3sw5kLTxw
+	 WBmtHfqfzGliltFcQSEF2Gh6MhRCC58UE6Pi8rpsijqVzVriZOICTd7JZ0hTyr+j0n
+	 CKU0LbtsQrrbSSQzhotHWtDDqAIkPFGWVhd7BKmxyH/wRdkozoNOSvyOBhhOdqUwLP
+	 KqBN+Ax2LVX9gSumBPioB44snz+6aYh+b0gBgY0zlh6eZ3GZBGNMBrVB54/1DHeqsP
+	 Ut7WfdZy+4HL88aD1vcO56n+Kde5QMR+JphkFX6rj7PWyksqFbaBHCibP1n+yLG1wx
+	 3eauoVfg0o4FA==
+Date: Tue, 7 Apr 2026 10:58:54 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	David Airlie <airlied@gmail.com>, Robert Foss <rfoss@kernel.org>,
+	Adrien Grassein <adrien.grassein@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
+	Jonas Karlman <jonas@kwiboo.se>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v3 1/2] dt-bindings: net: document Microchip
- PIC64-HPSC/HX MDIO controller
-Message-ID: <20260407-ascend-lumpiness-bc665c0999b3@spud>
-References: <20260331123858.1912449-1-charles.perry@microchip.com>
- <20260331123858.1912449-2-charles.perry@microchip.com>
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>
+Subject: Re: [PATCH] dt-bindings: display: lt8912b: Drop redundant endpoint
+ properties
+Message-ID: <177557753204.2632125.5233948727561913335.robh@kernel.org>
+References: <20260316134606.57070-2-krzysztof.kozlowski@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Xi2f5YHnsDWPd1XD"
-Content-Disposition: inline
-In-Reply-To: <20260331123858.1912449-2-charles.perry@microchip.com>
-
-
---Xi2f5YHnsDWPd1XD
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20260316134606.57070-2-krzysztof.kozlowski@oss.qualcomm.com>
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
---Xi2f5YHnsDWPd1XD
-Content-Type: application/pgp-signature; name="signature.asc"
+On Mon, 16 Mar 2026 14:46:07 +0100, Krzysztof Kozlowski wrote:
+> The "endpoint" node references video-interfaces.yaml schema with
+> "unevaluatedProperties: false" which means that all properties from
+> referenced schema apply.  Listing some of them with ": true" is simply
+> redundant and does not make this code easier to read.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/display/bridge/lontium,lt8912b.yaml    | 3 ---
+>  1 file changed, 3 deletions(-)
+> 
 
------BEGIN PGP SIGNATURE-----
+Applied, thanks!
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCadUpbAAKCRB4tDGHoIJi
-0hyzAP9aT3+pQ/d4NI88rqiyuvoiRY1mt9X6CKEf3xKUm1VTygD+NnxkgYaeGnSJ
-OgI4oG1FJz0Obonp66T/efUrQ448Rgk=
-=fUJj
------END PGP SIGNATURE-----
-
---Xi2f5YHnsDWPd1XD--
