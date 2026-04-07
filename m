@@ -1,109 +1,66 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BE6A03859F3;
-	Tue,  7 Apr 2026 06:17:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.46.229.174
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50CC138735E;
+	Tue,  7 Apr 2026 06:29:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775542682; cv=none; b=AuIWhC6b5AZmam6pRQNQYWvlSPJT5e4/saDIbGsYi30KcQ0qEtLZfFHOGh0vzHnxK24Z2fSaFQH/p46up88ouZ+wkoCWAL0yhgG7f1vie3tFZxY6gHjUVjsGu3ainr6jnGcfmw8DoPFWZaiQX9dKgclAb52d5YUZUkIcvve1CzI=
+	t=1775543366; cv=none; b=HuyCujy3dmpcMVs7SYum2MizQFIIaK4iNq2uOdANpIEU4Qervov3A6Dm+/Xdd4skOWqmB3QciQjQU40HPoQobe2wZHIIxQLvw+lAGcYHUaunMBpstwDiOpf7azuwMuccBFilrkjIqIwa8jICTeDspMyVUE+IvKeDF/KNVl1vAXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775542682; c=relaxed/simple;
-	bh=AE7++OzVyS2uYHOPGoJ81l6ph3jdIaPhRW3+Fg5L0tk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XWCkJbM/sxzgB3DSyrMh5TeSIk+GZYIYiyrSCtNVQ/hzBB632Ry2QDxuOOiFJpgBElAZGwmkvErJgi21+4facBjTjjWG3g8ZeCjD19Yhbs/OyejekSnfWkEu3nMn63Z1sEhIPqi277T2/N4XPs9/dCzKJ6tWpNsHvNQJrGE79E4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=207.46.229.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from E0006493LT.eswin.cn (unknown [10.127.112.153])
-	by app2 (Coremail) with SMTP id TQJkCgDn_J95odRpo7APAA--.792S4;
-	Tue, 07 Apr 2026 14:17:32 +0800 (CST)
-From: caohang@eswincomputing.com
-To: gregkh@linuxfoundation.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	Thinh.Nguyen@synopsys.com,
-	p.zabel@pengutronix.de,
-	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org
-Cc: ningyu@eswincomputing.com,
-	linmin@eswincomputing.com,
-	pinkesh.vaghela@einfochips.com,
-	Hang Cao <caohang@eswincomputing.com>
-Subject: [PATCH v1] dt-bindings: usb: Fix EIC7700 USB reset's issue
-Date: Tue,  7 Apr 2026 14:17:02 +0800
-Message-ID: <20260407061703.1564-1-caohang@eswincomputing.com>
-X-Mailer: git-send-email 2.45.1.windows.1
+	s=arc-20240116; t=1775543366; c=relaxed/simple;
+	bh=eaccoIrG75GSKa0lf4WO8SZqovJMSPcD+5siYU/kEmE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=W9SRYMXWqQrik/m+h0OThlvHbJpTAN6JKo4KX8s7NB/VUBxZnjo//6Zuq9TG3sHwOuy7NeCuGMfqaNkqGrbxMgvZvCtRcbAYvedSqf16cNYaTM11kOlAFUoXpQhMCFMXDYvj80w9FNZevM1kFbS0nRNQju3SrVJF6dwCaBTBLD0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V9+SV/07; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V9+SV/07"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2946DC116C6;
+	Tue,  7 Apr 2026 06:29:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775543365;
+	bh=eaccoIrG75GSKa0lf4WO8SZqovJMSPcD+5siYU/kEmE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=V9+SV/07PrkwufxeruYvQYp6K2kgD5u1VGuu+sZFbj/0guMzy9nEfyvMz538Uqdoj
+	 +/cmA9b/vkzglngTizCc4QBBfRkYCEils7osjtTClPu1XfDkWnnwCjygXDhtH6SGi8
+	 lstrjh3O2En/2tFqwEa3d+5bYkHf1egerKc8LL1p/CTUYNFoSnk9mhhhs6AULKbbgA
+	 EnbIUs58x23JLyNfbt9Rr4HeZ+JO7w9WkN8bYpYUTcSZAl3QWUR06dc+Y0IKi6Jlcj
+	 azPc7IT4Px/8ZZvIQvhmo/hqggjUa9WUiHW1wnSdu8HlKdeRxMSYRUz3OAaajfR5Jp
+	 7dVkAi9M2ARCg==
+Date: Tue, 7 Apr 2026 08:29:23 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 1/2] dt-bindings: iio: dac: Add ADI AD5706R
+Message-ID: <20260407-groovy-mauve-goose-dee6e0@quoll>
+References: <20260407-dev_ad5706r-v5-0-a4c7737b6ae9@analog.com>
+ <20260407-dev_ad5706r-v5-1-a4c7737b6ae9@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:TQJkCgDn_J95odRpo7APAA--.792S4
-X-Coremail-Antispam: 1UD129KBjvJXoW7uFWkur13Jr4UtFyUtF4ruFg_yoW8Wr1kpF
-	WxGFZ7GF1xZr1fuayUXF1vkw1fX3Z3AFyYkFWxCa17JFnrX3s0gr4ayrn0qFy8Cr4xZFW3
-	XFWag3y5A342yrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9E14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI4
-	8JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xv
-	wVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjx
-	v20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20E
-	Y4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267
-	AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbknY7UUUUU==
-X-CM-SenderInfo: xfdrxt1qj6v25zlqu0xpsx3x1qjou0bp/
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260407-dev_ad5706r-v5-1-a4c7737b6ae9@analog.com>
 
-From: Hang Cao <caohang@eswincomputing.com>
+On Tue, Apr 07, 2026 at 11:39:44AM +0800, Alexis Czezar Torreno wrote:
+> Add device tree binding documentation for the Analog Devices
+> AD5706R 4-channel 16-bit current output digital-to-analog converter.
+> 
+> Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+> 
+> ---
+> Changes in v5:
+>   - Changed out-en-gpios to enable-gpios.
 
-The EIC7700 USB controller requires a USB PHY RESET operation.PHY RESET
-operation was missed in the verification version, as it was performed in
-ESWIN's U-Boot.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-If a non-ESWIN provided loader is used, this issue will occur, resulting
-in USB not work.This patch does not introduce any backward incompatibility
-since the dts is not upstream yet.
-
-Fixes: c640a4239db5 ("dt-bindings: usb: Add ESWIN EIC7700 USB controller")
-Signed-off-by: Hang Cao <caohang@eswincomputing.com>
----
- .../devicetree/bindings/usb/eswin,eic7700-usb.yaml         | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/usb/eswin,eic7700-usb.yaml b/Documentation/devicetree/bindings/usb/eswin,eic7700-usb.yaml
-index 41c3b1b98991..658260619423 100644
---- a/Documentation/devicetree/bindings/usb/eswin,eic7700-usb.yaml
-+++ b/Documentation/devicetree/bindings/usb/eswin,eic7700-usb.yaml
-@@ -41,12 +41,13 @@ properties:
-       - const: usb_en
-
-   resets:
--    maxItems: 2
-+    maxItems: 3
-
-   reset-names:
-     items:
-       - const: vaux
-       - const: usb_rst
-+      - const: usb_phy
-
-   eswin,hsp-sp-csr:
-     description:
-@@ -85,8 +86,8 @@ examples:
-         interrupt-parent = <&plic>;
-         interrupts = <85>;
-         interrupt-names = "peripheral";
--        resets = <&reset 84>, <&hspcrg 2>;
--        reset-names = "vaux", "usb_rst";
-+        resets = <&reset 84>, <&hspcrg 2>, <&hspcrg 4>;
-+        reset-names = "vaux", "usb_rst", "usb_phy";
-         dr_mode = "peripheral";
-         maximum-speed = "high-speed";
-         phy_type = "utmi";
---
-2.34.1
+Best regards,
+Krzysztof
 
