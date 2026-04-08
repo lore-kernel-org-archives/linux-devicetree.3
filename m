@@ -1,81 +1,273 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 653512580CF;
-	Wed,  8 Apr 2026 12:34:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F35F01C7012
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 12:35:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775651695; cv=none; b=J6PWvZDZHWXcNDDHT/YnlZ0Tig6pKfbjNTq5P0cZR0QxtvDnxlZZat7yDE6XS1WdkDlk52csR4E1UwpUThuvWmwxuYK/ang4M6DQ3rUBSK+p7qYaDfez1cd8VtSpsHUN2Yjzm0U/qQtYp3+ISbvGgLwYeEZm5PDUj1DOReiJD7g=
+	t=1775651726; cv=none; b=jQJOmsXfN3+hqvnOb9+HIHl3dko0O3RR1D9BN6NAOgkZz7H0l+8eLIlxi0UA9lDWvA9VR45TDq6NQBEvmiz5oTdNvCuJlsk/eGq5WTiKpSAM+dTxOhsiF8oB0QnkunQMnb1S1igdq9Oa4px+KusiHwuvjxE/nNIwHY71XJ12adM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775651695; c=relaxed/simple;
-	bh=Kyc5NxVH0WeLVVmUX89Z30zpKeom45j8buLxrk+JudA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X8Jr1J62eBq8/vzAlKhfLy2iQltjtyRTp1sv1p57TvQprHf+rk+XRZzSZ75Nyf3CEC0NbMrHinmZ2YR2oQjBIxUIZr1QHXSMIFlLX6A0WUDuNTp9XonPmYtk40oCI9tRyteK/4CmXD5/skG3a9tamSP0+/dZ18vhNw7GCj3c71U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=lUcQs91s; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1775651726; c=relaxed/simple;
+	bh=EHqwwEs0oQ3acMu+Bc7QiycwTMkZYIh2NFGn4+7elVA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=N0fCzLE28NJyMPV52C29Wvn1oB2FQFPEyuQWnrvfpsqLpAd26JwvGCgTIfPLgtxC4TtfuOBGGOGipA7aQxRx/Jd4ofvlFM8bMjl6NSJ1+qaDoJcOVQLoEp6Fpsakuqi2ZEq2ECej6IyYSJeqS7mljacxi9q6mAIpHzd7fCIdu1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=oBWmzG8P; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="lUcQs91s"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=UZm0OMiCYQ+7g0KMOOJaEeMtCB1NoXIae3H5HwDH82U=; b=lUcQs91sIVusfR1u89Stz05ODI
-	AMhxret+/edGus9rBRyTcLUGXHf1+j7vips6AbSB6HSPe9HBw1p0HiJ6vLRsEXaM20P3nzGqQFLn7
-	Efio5MaldMKsoTnJqx0IzS6klKtDGHTB874frDoDMPk7FfEAj85BYwcWdzltEDxPDzEM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wAS7A-00FHkV-QP; Wed, 08 Apr 2026 14:34:36 +0200
-Date: Wed, 8 Apr 2026 14:34:36 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: "P.K. Lee" <pkleequanta@gmail.com>
-Cc: robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
-	conor+dt@kernel.org, joel@jms.id.au, andrew@codeconstruct.com.au,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
-	Jason-Hsu@quantatw.com, p.k.lee@quantatw.com
-Subject: Re: [PATCH v12 2/2] arm: dts: aspeed: ventura: add Meta Ventura BMC
-Message-ID: <e7a1588d-b4d4-4aa7-ba94-da3e2591d49c@lunn.ch>
-References: <20260226055521.1655243-1-pkleequanta@gmail.com>
- <20260226055521.1655243-3-pkleequanta@gmail.com>
- <258747f4-9da5-44da-8eb9-24f8a8cbff3a@lunn.ch>
- <CAK8yEODCyYxkggU+7=xzWFcXP6RMTpNbHyYRHZhahX7=b6reqA@mail.gmail.com>
- <435616b8-8d4c-4814-8f21-d667755473f1@lunn.ch>
- <CAK8yEOAYC0iApNHBApt+xu1Fz=+N1wX0XrLGOPzmeRq=OjWnhg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="oBWmzG8P"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-483487335c2so63928425e9.2
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 05:35:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1775651723; x=1776256523; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:from:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=loonFF9GPLQNzWQCTTaNxJcZBKqDsglfRlm8YRkwXf4=;
+        b=oBWmzG8POs14Jt3IeGZlPQXNZNLRf4YL1Nsg4e2X22mxbeb3qwSo6D0KeoEz2CcmPf
+         U4iFHduU7/k0QGZXxbPhzh/MV/BYYQxM/AFFXb4aoOAi/jGg5ttf37bypXcQIshjmJYp
+         /apgfyf+jplv5DHgsiDdeSeMl2Fp/keO/R5XkwEu8PTzX3blUfnJyFFAKonnvB4xN7N9
+         V6yu2ZfPUphbKucJUBMCWxqWrJlQvuKhFTcnCAxndRidF2Ood2G2CdJhuKG5KDChOx8R
+         WrC6TaWoDQlB3zxfVMfvF5q6uLwiRZZs/89xReUpDcyJYN1Hm85B35hpmkqEV7cfMB8i
+         TlaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775651723; x=1776256523;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:from:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=loonFF9GPLQNzWQCTTaNxJcZBKqDsglfRlm8YRkwXf4=;
+        b=gCaQ+ZXiEKDS8aENjUf8NSJlYXywAY2fH4YYlTelVrU3TvL0QiGYXDLQlUkqRVl8CY
+         j7mr6UgrcpNkv9h04QaJ611XJpBikLOQEGg9WraLY9Ex3bYsg1QTLpWKlcvAfa06AZwh
+         F4aeERbnk69nuuKxe6Fq88C4fP4is/HRicaxpG4oyTvVy8WrXRoXsi8yO2B4Iqqur0KJ
+         WqKUQN/Z5vnNua2JYhLmQ7J+Hx+TPUOyQ9NwFf9OBwJ+V7HyK+JWbRuqbmdDMHMzhsJ3
+         D5nh2r/YRQCwqWyeZt9YwMIlDYDdV/zHD8UcP0OoMAI2Q3EPk9ZBzrn8UJs8kNlBWnE5
+         mjhg==
+X-Forwarded-Encrypted: i=1; AJvYcCU6s5uZAEkdz+63IOTD+oTitj/fjLXprnHAQgCNMKL3mn04TNRLMzIvgiUnEX+hu7uoU2jdp/OZRjTc@vger.kernel.org
+X-Gm-Message-State: AOJu0YxYhcLaUrr07kSfj52HOFL/hlDhbsOk48s+Qxop5pnZnUmKFVc5
+	tXdtuT/PYrZbw2GhyA2cg7hN1tuQHDyju0NYBi/hwA5FYzYi2F19ZXtWEQQkDrGr2ug=
+X-Gm-Gg: AeBDiev+EXWuK+TCMfamKQ+WVWrAAWH+LxQH0AkXTTMXwzLCZMDFkTT6zzZKWRTvzXt
+	EP93i3e0Vr23gnpWi7aGyIKfngiJu09DAfQwb9rMV4ZgBWlucAW5eUOEGPQICc03yWZx4xhtDJC
+	pWtZL8qhwmZIs5ELVl3TwAMgAZAARRc9u+rD0LO07tCY1k6MQk/Y6nLj0JxyvmCRwmQYUxMKEOz
+	3HLoQsSf2lv44nsudZUAN0BqiyRQeVKDqjEKMqQ6Md3iUwb6h2nipRJlnMbozJpfc54txeCyP0W
+	lvVq5GXE9G73miPuG26mXVUWJdBfiBjhLGWB15J4fe2hRAAAxmL3+zrKzs+YslSe0QXRxw3OEUo
+	rfWfj1FI/32wTOCt7Kvn8p1lIxlL/u+AkUzGZ/TTK2N2yC4RA4c1jolsPEDlOLdOWxeVkmuQnU/
+	wWFqapGgwK0gI8Fo80O5tluz/5Hfn7GMEbnqkF1oA6MDwd0O8WrbF4JMrJLN/cU/pnfaBfnDA6Q
+	AHxV30=
+X-Received: by 2002:a05:600c:c0d7:b0:488:a950:4f6d with SMTP id 5b1f17b1804b1-488a9504ffbmr145572005e9.1.1775651723096;
+        Wed, 08 Apr 2026 05:35:23 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:d6d6:c397:9229:b35c? ([2a01:e0a:106d:1080:d6d6:c397:9229:b35c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4888a72baa8sm495589675e9.15.2026.04.08.05.35.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 08 Apr 2026 05:35:22 -0700 (PDT)
+Message-ID: <ce9061ea-8961-4d5a-bbb0-b4f50b7e6d29@linaro.org>
+Date: Wed, 8 Apr 2026 14:35:22 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAK8yEOAYC0iApNHBApt+xu1Fz=+N1wX0XrLGOPzmeRq=OjWnhg@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2 5/5] arm64: dts: qcom: qcs8550: add QCS8550 RB5Gen2
+ board support
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, jsandom@axon.com,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260407-rb5gen2-dts-v2-0-d0c7f447ee73@axon.com>
+ <20260407-rb5gen2-dts-v2-5-d0c7f447ee73@axon.com>
+ <4359bb07-d848-4b77-b1a9-f1c6f53caa10@oss.qualcomm.com>
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <4359bb07-d848-4b77-b1a9-f1c6f53caa10@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-> > > > If there are no devices on the bus, why enable it?
-> > >
-> > > We intentionally enable it so user-space tools can access the switch
-> > > registers. I have added a comment in v13 to clarify this.
-> >
-> > Why would user space want to access the switch registers for an
-> > unmanaged switch? It sounds like you are using Marvells SDK in
-> > userspace to manage the switch, rather than using DSA.
-> >
+On 4/8/26 11:57, Konrad Dybcio wrote:
+> On 4/7/26 5:46 PM, Joe Sandom via B4 Relay wrote:
+>> From: Joe Sandom <jsandom@axon.com>
+>>
+>> The RB5gen2 is an embedded development platform for the
+>> QCS8550, based on the Snapdragon 8 Gen 2 SoC (SM8550).
 > 
-> We do have a custom user-space daemon that configures the switch
-> registers for our specific use case. Should I remove the &mdio0 node
-> if it is only enabled and has no other configuration in the upstream
-> device tree?
+> [...]
+> 
+> 
+>> +	/* Lontium LT9611UXC fails FW upgrade and has timeouts with geni-i2c */
+>> +	/* Workaround is to use bit-banged I2C */
+> 
+> Interesting.. I was under the impression that it was only an issue on
+> RB1 and RB2 boards.. perhaps we're missing some magic register write..
 
-Please just be truthful that you have a user space driver, so need the
-bus enabled.
+On the SM8650-HDK, the HDMI i2c is shared with the battmgr in ADSP, causing a lot
+of issues... the only solution is [1] to declare the bus shared and use GPI DMA.
+I assume it's the same here.
 
-I also guess you have some other kernel code that allows you to
-actually use the bus from user space? The typical ethernet IOCTL
-handler does not work for you, since you don't have an ethernet device
-using this bus. Such code is unlikely to be accepted into mainline. We
-don't like user space drivers when there is a perfectly good kernel
-driver for this switch.
+Sharing the same bus between APPS and ADSP is a weird feat... It seems that having
+26 i2c busses and 212 gpios available on the system is not enough.
 
-	Andrew
+[1] https://lore.kernel.org/all/20241129144357.2008465-1-quic_msavaliy@quicinc.com/
+
+> 
+> 
+> [...]
+> 
+>> +		pinctrl-names = "default";
+>> +		pinctrl-0 = <&wlan_en>, <&bt_default>, <&sw_ctrl_default>,
+>> +			    <&pmk8550_sleep_clk>;
+> 
+> nit: let's keep the order of
+> 
+> property-n
+> property-names
+> 
+> file-wide
+> 
+> [...]
+> 
+>> +&sdhc_2 {
+>> +	cd-gpios = <&pm8550_gpios 12 GPIO_ACTIVE_LOW>;
+>> +
+>> +	pinctrl-0 = <&sdc2_default>, <&sdc2_card_det_n>;
+>> +	pinctrl-1 = <&sdc2_sleep>, <&sdc2_card_det_n>;
+>> +	pinctrl-names = "default", "sleep";
+>> +
+>> +	vmmc-supply = <&vreg_l9b_2p9>;
+>> +	vqmmc-supply = <&vreg_l8b_1p8>;
+>> +
+>> +	max-sd-hs-hz = <37000000>;
+> 
+> Are you sure you want to overwrite that? The value in the SoC DTSI is
+> set to half a MHz higher
+> 
+> 
+>> +
+>> +	no-sdio;
+>> +	no-mmc;
+>> +
+>> +	status = "okay";
+>> +};
+>> +
+>> +&sleep_clk {
+>> +	clock-frequency = <32764>;
+>> +};
+>> +
+>> +&spi11 {
+>> +	status = "okay";
+>> +
+>> +	can@0 {
+>> +		compatible = "microchip,mcp2518fd";
+>> +		reg = <0>;
+>> +		interrupts-extended = <&tlmm 55 IRQ_TYPE_LEVEL_LOW>;
+>> +		clocks = <&clk40m>;
+>> +		spi-max-frequency = <10000000>;
+>> +		vdd-supply = <&vreg_l14b_3p2>;
+>> +		xceiver-supply = <&vreg_l14b_3p2>;
+> 
+> It may be that for this chip to actually be able to communiate with devices
+> on the bus, you need to set the new 'microchip,xstbyen' property
+> 
+> see:
+> 
+> https://lore.kernel.org/linux-arm-msm/20260321135031.3107408-1-viken.dadhaniya@oss.qualcomm.com/
+> 
+> [...]
+> 
+>> +&tlmm {
+>> +	gpio-reserved-ranges = <32 8>;
+> 
+> Would you happen to know what these pins are connected to, and if
+> so, add a comment (like in arch/arm64/boot/dts/qcom/x1-crd.dtsi)?
+> 
+> 
+> 
+>> +
+>> +	bt_default: bt-default-state {
+>> +		pins = "gpio81";
+> 
+> It would be best to keep these entries ordered by pin idx
+> 
+>> +		function = "gpio";
+>> +		drive-strength = <16>;
+>> +		bias-disable;
+>> +	};
+>> +
+>> +	sw_ctrl_default: sw-ctrl-default-state {
+>> +		pins = "gpio82";
+>> +		function = "gpio";
+>> +		bias-pull-down;
+>> +	};
+>> +
+>> +	lt9611_irq_pin: lt9611-irq-state {
+>> +		pins = "gpio40";
+>> +		function = "gpio";
+>> +		bias-disable;
+>> +	};
+>> +
+>> +	lt9611_rst_pin: lt9611-rst-state {
+>> +		pins = "gpio7";
+>> +		function = "gpio";
+>> +		output-high;
+> 
+> You shouldn't need to assert the GPIO state in the pin entry node
+> - the driver should take care of that
+> 
+>   
+>> +	};
+>> +
+>> +	ntn0_en: ntn0-en-state {
+>> +		pins = "gpio67";
+>> +		function = "gpio";
+>> +		drive-strength = <2>;
+>> +		bias-disable;
+>> +	};
+>> +
+>> +	ntn1_en: ntn1-en-state {
+>> +		pins = "gpio42";
+>> +		function = "gpio";
+>> +		drive-strength = <2>;
+>> +		bias-disable;
+>> +	};
+>> +
+>> +	upd_1p05_en: upd-1p05-en-state {
+>> +		pins = "gpio179";
+>> +		function = "gpio";
+>> +		drive-strength = <2>;
+>> +		bias-pull-up;
+>> +	};
+> 
+> I don't know if pulling up an active-high pin is what you want
+> (there's some more occurences)
+> 
+> Konrad
+
