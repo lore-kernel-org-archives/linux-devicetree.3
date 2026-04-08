@@ -1,273 +1,113 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F35F01C7012
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 12:35:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F59323EAAB;
+	Wed,  8 Apr 2026 12:38:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775651726; cv=none; b=jQJOmsXfN3+hqvnOb9+HIHl3dko0O3RR1D9BN6NAOgkZz7H0l+8eLIlxi0UA9lDWvA9VR45TDq6NQBEvmiz5oTdNvCuJlsk/eGq5WTiKpSAM+dTxOhsiF8oB0QnkunQMnb1S1igdq9Oa4px+KusiHwuvjxE/nNIwHY71XJ12adM=
+	t=1775651895; cv=none; b=p7aX4tcdowGgMjMRKJmnwHDgeHuFxkBCtWbEf0qp83G9wA1i4Si3UG2KrVIEe6TnlOc2/DelH9JjrlkybZDr9KEXxKQuzsEAPRPpmX5/TWlC2HnGWBXi2bDYQGeCHS5U+96HIG2SWuqrbZnKehK1Vr/T0AEMhZlgG3MMMxSaezU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775651726; c=relaxed/simple;
-	bh=EHqwwEs0oQ3acMu+Bc7QiycwTMkZYIh2NFGn4+7elVA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=N0fCzLE28NJyMPV52C29Wvn1oB2FQFPEyuQWnrvfpsqLpAd26JwvGCgTIfPLgtxC4TtfuOBGGOGipA7aQxRx/Jd4ofvlFM8bMjl6NSJ1+qaDoJcOVQLoEp6Fpsakuqi2ZEq2ECej6IyYSJeqS7mljacxi9q6mAIpHzd7fCIdu1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=oBWmzG8P; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1775651895; c=relaxed/simple;
+	bh=Q7WD5TqwsE+nB1erhCRTEU2h8dmXrctSRjrz48M9WlU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j/ar8+ffD/gSOLi68XDek25g21g61Wni5SMXowb1J0D+P9qDaeRJI4gM7jRzoF3s8FSNtFUavgBMuoTQ4W0EKF8qM06rvqs5mHZtuj36zlZVvccsybx88OqQhCW6c/YpJeL8fsGsVPOJhVNkocigkCBz6wX8O9D5EiOawCRynLY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uNpn+x1T; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="oBWmzG8P"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-483487335c2so63928425e9.2
-        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 05:35:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1775651723; x=1776256523; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:from:references:cc:to:subject:reply-to:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=loonFF9GPLQNzWQCTTaNxJcZBKqDsglfRlm8YRkwXf4=;
-        b=oBWmzG8POs14Jt3IeGZlPQXNZNLRf4YL1Nsg4e2X22mxbeb3qwSo6D0KeoEz2CcmPf
-         U4iFHduU7/k0QGZXxbPhzh/MV/BYYQxM/AFFXb4aoOAi/jGg5ttf37bypXcQIshjmJYp
-         /apgfyf+jplv5DHgsiDdeSeMl2Fp/keO/R5XkwEu8PTzX3blUfnJyFFAKonnvB4xN7N9
-         V6yu2ZfPUphbKucJUBMCWxqWrJlQvuKhFTcnCAxndRidF2Ood2G2CdJhuKG5KDChOx8R
-         WrC6TaWoDQlB3zxfVMfvF5q6uLwiRZZs/89xReUpDcyJYN1Hm85B35hpmkqEV7cfMB8i
-         TlaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775651723; x=1776256523;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:from:references:cc:to:subject:reply-to:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=loonFF9GPLQNzWQCTTaNxJcZBKqDsglfRlm8YRkwXf4=;
-        b=gCaQ+ZXiEKDS8aENjUf8NSJlYXywAY2fH4YYlTelVrU3TvL0QiGYXDLQlUkqRVl8CY
-         j7mr6UgrcpNkv9h04QaJ611XJpBikLOQEGg9WraLY9Ex3bYsg1QTLpWKlcvAfa06AZwh
-         F4aeERbnk69nuuKxe6Fq88C4fP4is/HRicaxpG4oyTvVy8WrXRoXsi8yO2B4Iqqur0KJ
-         WqKUQN/Z5vnNua2JYhLmQ7J+Hx+TPUOyQ9NwFf9OBwJ+V7HyK+JWbRuqbmdDMHMzhsJ3
-         D5nh2r/YRQCwqWyeZt9YwMIlDYDdV/zHD8UcP0OoMAI2Q3EPk9ZBzrn8UJs8kNlBWnE5
-         mjhg==
-X-Forwarded-Encrypted: i=1; AJvYcCU6s5uZAEkdz+63IOTD+oTitj/fjLXprnHAQgCNMKL3mn04TNRLMzIvgiUnEX+hu7uoU2jdp/OZRjTc@vger.kernel.org
-X-Gm-Message-State: AOJu0YxYhcLaUrr07kSfj52HOFL/hlDhbsOk48s+Qxop5pnZnUmKFVc5
-	tXdtuT/PYrZbw2GhyA2cg7hN1tuQHDyju0NYBi/hwA5FYzYi2F19ZXtWEQQkDrGr2ug=
-X-Gm-Gg: AeBDiev+EXWuK+TCMfamKQ+WVWrAAWH+LxQH0AkXTTMXwzLCZMDFkTT6zzZKWRTvzXt
-	EP93i3e0Vr23gnpWi7aGyIKfngiJu09DAfQwb9rMV4ZgBWlucAW5eUOEGPQICc03yWZx4xhtDJC
-	pWtZL8qhwmZIs5ELVl3TwAMgAZAARRc9u+rD0LO07tCY1k6MQk/Y6nLj0JxyvmCRwmQYUxMKEOz
-	3HLoQsSf2lv44nsudZUAN0BqiyRQeVKDqjEKMqQ6Md3iUwb6h2nipRJlnMbozJpfc54txeCyP0W
-	lvVq5GXE9G73miPuG26mXVUWJdBfiBjhLGWB15J4fe2hRAAAxmL3+zrKzs+YslSe0QXRxw3OEUo
-	rfWfj1FI/32wTOCt7Kvn8p1lIxlL/u+AkUzGZ/TTK2N2yC4RA4c1jolsPEDlOLdOWxeVkmuQnU/
-	wWFqapGgwK0gI8Fo80O5tluz/5Hfn7GMEbnqkF1oA6MDwd0O8WrbF4JMrJLN/cU/pnfaBfnDA6Q
-	AHxV30=
-X-Received: by 2002:a05:600c:c0d7:b0:488:a950:4f6d with SMTP id 5b1f17b1804b1-488a9504ffbmr145572005e9.1.1775651723096;
-        Wed, 08 Apr 2026 05:35:23 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:d6d6:c397:9229:b35c? ([2a01:e0a:106d:1080:d6d6:c397:9229:b35c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4888a72baa8sm495589675e9.15.2026.04.08.05.35.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 08 Apr 2026 05:35:22 -0700 (PDT)
-Message-ID: <ce9061ea-8961-4d5a-bbb0-b4f50b7e6d29@linaro.org>
-Date: Wed, 8 Apr 2026 14:35:22 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uNpn+x1T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 502D4C19421;
+	Wed,  8 Apr 2026 12:38:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775651894;
+	bh=Q7WD5TqwsE+nB1erhCRTEU2h8dmXrctSRjrz48M9WlU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=uNpn+x1Ts1E7YTZTNBo8Z+f3ZedyqHKaKhcOhMvlA3PPj/2j91d3MjAQSLbSDcmhY
+	 oeeR+fcJHWC1jjx+egVba6wV+ACEVZxS1TusHJmVER+bZv8ssdFQvf6gWwxFeSMoqi
+	 tv7sWDtzBRZZLm1I5PXUZ05Pf4ho0wotGGBZEE0A0K21b1Ojrigx6v7rn6BY8NX+jj
+	 U6b+ubSSgDiqpD36EHc7OOeicFhXqnZdhPi0IXb/s+9Qk2Bo9oiaKHnL6y1FHlzi0u
+	 FuEVVRvw1igUr8Om/hXjORBRwJrnapVyhNVJu7gnWPP7haS7BEY8XMgQG55NEV0ODk
+	 vFhewgaYv6m7Q==
+Date: Wed, 8 Apr 2026 07:38:12 -0500
+From: Rob Herring <robh@kernel.org>
+To: Thomas Richard <thomas.richard@bootlin.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 01/11] dt-bindings: regulator: ti,pbias-regulator:
+ Convert to DT schema
+Message-ID: <20260408123812.GA1864812-robh@kernel.org>
+References: <20260330-omap4-fix-usb-support-v2-0-1c1e11b190dc@bootlin.com>
+ <20260330-omap4-fix-usb-support-v2-1-1c1e11b190dc@bootlin.com>
+ <20260331-demonic-boisterous-spider-5ed5c6@quoll>
+ <6b637950-2018-41d8-bdd2-27382a9b67d8@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 5/5] arm64: dts: qcom: qcs8550: add QCS8550 RB5Gen2
- board support
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, jsandom@axon.com,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260407-rb5gen2-dts-v2-0-d0c7f447ee73@axon.com>
- <20260407-rb5gen2-dts-v2-5-d0c7f447ee73@axon.com>
- <4359bb07-d848-4b77-b1a9-f1c6f53caa10@oss.qualcomm.com>
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <4359bb07-d848-4b77-b1a9-f1c6f53caa10@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6b637950-2018-41d8-bdd2-27382a9b67d8@bootlin.com>
 
-On 4/8/26 11:57, Konrad Dybcio wrote:
-> On 4/7/26 5:46 PM, Joe Sandom via B4 Relay wrote:
->> From: Joe Sandom <jsandom@axon.com>
->>
->> The RB5gen2 is an embedded development platform for the
->> QCS8550, based on the Snapdragon 8 Gen 2 SoC (SM8550).
+On Wed, Apr 08, 2026 at 09:57:20AM +0200, Thomas Richard wrote:
+> Hello Krzysztof,
 > 
-> [...]
+> On 3/31/26 10:21 AM, Krzysztof Kozlowski wrote:
+> > On Mon, Mar 30, 2026 at 03:43:58PM +0200, Thomas Richard wrote:
+> >> +$id: http://devicetree.org/schemas/regulator/ti,pbias-regulator.yaml#
+> >> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> >> +
+> >> +title: PBIAS internal regulator
+> >> +
+> >> +maintainers:
+> >> +  - Thomas Richard <thomas.richard@bootlin.com>
+> >> +
+> >> +description: |
+> > 
+> > Do not need '|' unless you need to preserve formatting.
+> > 
+> >> +  PBIAS internal regulator for SD card dual voltage i/o pads on OMAP SoCs.
+> >> +
+> >> +properties:
+> >> +  compatible:
+> >> +    items:
+> >> +      - enum:
+> >> +          - ti,pbias-dra7
+> >> +          - ti,pbias-omap2
+> >> +          - ti,pbias-omap3
+> >> +          - ti,pbias-omap4
+> >> +          - ti,pbias-omap5
+> >> +      - const: ti,pbias-omap
+> >> +
+> >> +  reg:
+> >> +    maxItems: 1
+> >> +
+> >> +  syscon:
+> >> +    description: Phandle of the system control module
+> >> +    $ref: /schemas/types.yaml#/definitions/phandle
+> >> +
+> >> +patternProperties:
+> >> +  '^pbias_*':
+> > 
+> > That wasn't in old binding and underscore is not allowed, so this needs
+> > explanation. Old binding mentioned only the names.
 > 
-> 
->> +	/* Lontium LT9611UXC fails FW upgrade and has timeouts with geni-i2c */
->> +	/* Workaround is to use bit-banged I2C */
-> 
-> Interesting.. I was under the impression that it was only an issue on
-> RB1 and RB2 boards.. perhaps we're missing some magic register write..
+> I did it to match existing devicetrees.
+> I guess I should define properties like 'pbias-mmc' and 'pbias-sim',
+> then update node names in devicetrees to match binding.
 
-On the SM8650-HDK, the HDMI i2c is shared with the battmgr in ADSP, causing a lot
-of issues... the only solution is [1] to declare the bus shared and use GPI DMA.
-I assume it's the same here.
+For this ancient stuff, I would just leave the dts files alone. Just 
+explain that in the commit message.
 
-Sharing the same bus between APPS and ADSP is a weird feat... It seems that having
-26 i2c busses and 212 gpios available on the system is not enough.
+Your pattern should be '^pbias_' though.
 
-[1] https://lore.kernel.org/all/20241129144357.2008465-1-quic_msavaliy@quicinc.com/
-
-> 
-> 
-> [...]
-> 
->> +		pinctrl-names = "default";
->> +		pinctrl-0 = <&wlan_en>, <&bt_default>, <&sw_ctrl_default>,
->> +			    <&pmk8550_sleep_clk>;
-> 
-> nit: let's keep the order of
-> 
-> property-n
-> property-names
-> 
-> file-wide
-> 
-> [...]
-> 
->> +&sdhc_2 {
->> +	cd-gpios = <&pm8550_gpios 12 GPIO_ACTIVE_LOW>;
->> +
->> +	pinctrl-0 = <&sdc2_default>, <&sdc2_card_det_n>;
->> +	pinctrl-1 = <&sdc2_sleep>, <&sdc2_card_det_n>;
->> +	pinctrl-names = "default", "sleep";
->> +
->> +	vmmc-supply = <&vreg_l9b_2p9>;
->> +	vqmmc-supply = <&vreg_l8b_1p8>;
->> +
->> +	max-sd-hs-hz = <37000000>;
-> 
-> Are you sure you want to overwrite that? The value in the SoC DTSI is
-> set to half a MHz higher
-> 
-> 
->> +
->> +	no-sdio;
->> +	no-mmc;
->> +
->> +	status = "okay";
->> +};
->> +
->> +&sleep_clk {
->> +	clock-frequency = <32764>;
->> +};
->> +
->> +&spi11 {
->> +	status = "okay";
->> +
->> +	can@0 {
->> +		compatible = "microchip,mcp2518fd";
->> +		reg = <0>;
->> +		interrupts-extended = <&tlmm 55 IRQ_TYPE_LEVEL_LOW>;
->> +		clocks = <&clk40m>;
->> +		spi-max-frequency = <10000000>;
->> +		vdd-supply = <&vreg_l14b_3p2>;
->> +		xceiver-supply = <&vreg_l14b_3p2>;
-> 
-> It may be that for this chip to actually be able to communiate with devices
-> on the bus, you need to set the new 'microchip,xstbyen' property
-> 
-> see:
-> 
-> https://lore.kernel.org/linux-arm-msm/20260321135031.3107408-1-viken.dadhaniya@oss.qualcomm.com/
-> 
-> [...]
-> 
->> +&tlmm {
->> +	gpio-reserved-ranges = <32 8>;
-> 
-> Would you happen to know what these pins are connected to, and if
-> so, add a comment (like in arch/arm64/boot/dts/qcom/x1-crd.dtsi)?
-> 
-> 
-> 
->> +
->> +	bt_default: bt-default-state {
->> +		pins = "gpio81";
-> 
-> It would be best to keep these entries ordered by pin idx
-> 
->> +		function = "gpio";
->> +		drive-strength = <16>;
->> +		bias-disable;
->> +	};
->> +
->> +	sw_ctrl_default: sw-ctrl-default-state {
->> +		pins = "gpio82";
->> +		function = "gpio";
->> +		bias-pull-down;
->> +	};
->> +
->> +	lt9611_irq_pin: lt9611-irq-state {
->> +		pins = "gpio40";
->> +		function = "gpio";
->> +		bias-disable;
->> +	};
->> +
->> +	lt9611_rst_pin: lt9611-rst-state {
->> +		pins = "gpio7";
->> +		function = "gpio";
->> +		output-high;
-> 
-> You shouldn't need to assert the GPIO state in the pin entry node
-> - the driver should take care of that
-> 
->   
->> +	};
->> +
->> +	ntn0_en: ntn0-en-state {
->> +		pins = "gpio67";
->> +		function = "gpio";
->> +		drive-strength = <2>;
->> +		bias-disable;
->> +	};
->> +
->> +	ntn1_en: ntn1-en-state {
->> +		pins = "gpio42";
->> +		function = "gpio";
->> +		drive-strength = <2>;
->> +		bias-disable;
->> +	};
->> +
->> +	upd_1p05_en: upd-1p05-en-state {
->> +		pins = "gpio179";
->> +		function = "gpio";
->> +		drive-strength = <2>;
->> +		bias-pull-up;
->> +	};
-> 
-> I don't know if pulling up an active-high pin is what you want
-> (there's some more occurences)
-> 
-> Konrad
-
+Rob
