@@ -1,78 +1,82 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4267A3AB27C
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 09:10:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B40533AEF45
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 09:10:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775639433; cv=none; b=A5DVCUNIFskZ1qWnNsXJpsqgedtuG2lvX4XQhEEzdN0jUkTXhgBUtICvry+YPaEzhQialhwH7mTjp0gs7Hy3X/tXKdn8ypVsZccEn1JX8Ks2U0Fog1dQz30uhPbXxVI73M2uQxae8ay/OCfcrLJCdaBh2B9bxHBS/qoVW2cH7W8=
+	t=1775639450; cv=none; b=f72dE/cF0tYcGbCxCDdGBP2aVRB/7wj1ro1QxBq0ozorM9cQc6VJ9kibF34ysl8YyNdZBf+HDNMM25dgHoBID9QWvRh1SmWxPNr1FUF9aYsIACL5M4SxmscJ/86OXokIGMbhhT+pyKX7z7H3LzCzwQ/InB9YgXaOtbH+tFzzTIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775639433; c=relaxed/simple;
-	bh=XrriN23myFIXsCZmPD77zSHoLggy4ACm2Y7QpegP4/Y=;
+	s=arc-20240116; t=1775639450; c=relaxed/simple;
+	bh=UKcN9ahvuxPCNeD+PTO7LIE/r0odGE954SbEzEwIjL0=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=cFrSsBLzHMTn3h2euL0MZb8mgiPX9+hv4TnM/1PphEf1TzEB6l7/Rqsdcv70aeJMwE2nWb5kBaUgc6lUjg9h2kh+SgTsz2RSyMQj/TRq8T4uBjN7qK6Rzcoof3ACAZDXRfzYOzjn4hf9kPQUCDeGZNWQ6JFKmpftQzZ1gimgnOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=u+gytvNa; arc=none smtp.client-ip=209.85.221.43
+	 MIME-Version:Content-Type; b=lTqWxvFDPwUblJCnWSsRbzzLehl0GaiJwVrVyKu1rmwhmpM9b0KtxFFzqLoeXVb18B+CJQytkO2Xfbo5LIoQWWHpjOQrx8vDRT1XmQSpSR3gS1LqdKx5OBAD9yo/qOjmg8ggqAGmQJON72ukOIkYznGB5Me8h/ros6YmI8DYASg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=X1qajidf; arc=none smtp.client-ip=209.85.221.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="u+gytvNa"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-43cfde3c3f3so5770332f8f.3
-        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 02:10:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="X1qajidf"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-43cfa33a983so3709651f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 02:10:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1775639429; x=1776244229; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1775639447; x=1776244247; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:date:message-id:subject
          :references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5TS2/VKVyUdq2KA9lPz5OLVvEFHblHBqRgRRSos+joo=;
-        b=u+gytvNamvUsd5ktXpPfS2zC1+uf6sGN1UwB2pn8RVg5GfV8XTmEoyzdCaHUgBiTWv
-         CgsHEyw4Qqky5CQ+1P948na0JJf85BcN9VymHuE1AQvUpH7Ex7jrF3axPsGbShvFga/C
-         A62FXBBjdxOt3BR1mag+i+94j2/L+1MU9854SItZQD7jd5S4k+MIJK+WezNiyGzUROow
-         4haROcNFkB8dH3EWMm4WAJvL9KvqJxfm79Q6g8jYMF3/c+I/JPkBQbsAQZkZTRU2dBS1
-         a8rZPTEhhdom38hT+3epNA6bBtNN1M2sDwL3b3NPA+/MdVmBKsjIgxfQLgG6DP7SowmG
-         BNcw==
+        bh=KO8uch6J2EQbXvmvGcDK9cYBs1vvLxeqc/7RnVBrTR4=;
+        b=X1qajidfSOYL/k/AMUZSaEuNQyujfFjCd2Ks+oc8ser4RgC4UK+rnXkrv8UWWHWZY2
+         NUlRn0SJq6Kwa8vIN+u9CQ82CZ6xj3IlQD7lzrUhwwTXT07Zv3WZ4x3mbI9gYN/TWrya
+         IuoxRJCekyVT4/ZT4tIogn85ayQRsMD9ewKq4yXfuYf4WG1VVSKvxiLLF3kgyhIH/DSF
+         D3CpVcr6iI4khfL1yCQTkp6GpcWW3DZ2OsKmHY0b2/BaL71Wj7aD6ADf9oVdGNROfu3u
+         bHJwRTaOptBY87OfeKNXAg6Kra66sf1jTUaaffHRVXTR2k3PeEU3NoOP0+GIslVavTDr
+         95Dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775639429; x=1776244229;
+        d=1e100.net; s=20251104; t=1775639447; x=1776244247;
         h=content-transfer-encoding:mime-version:date:message-id:subject
          :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=5TS2/VKVyUdq2KA9lPz5OLVvEFHblHBqRgRRSos+joo=;
-        b=BWbm/YtGnnRoddFVP6L563LOnlyCT69K4ViojVapVe8ejcFdgekHnhfyNLOWqJ8wEd
-         R9bAWAnYz8TTvbcWIKlV9K22bTeSJxwIFYrsPY+n1VD0pV/m1Dd9UMnI6MHXMaUO7p9h
-         KVEBAXG4c+7nHn259Y2WW7KKGJDCni5EPxczdAE4YfRf2YCrMxA4Q+QxR1S9fop62sUg
-         DwZfglGmR8TDjBCsN7Kh2ESht6AWvKfxj4eO3at+nDS1K6LYtD6MhSRJruAl1Z0adkUV
-         LXW/pop2QdsHPQyQD7PcTig+QIYAmzzyD3hYs8lNlBnItfECVqtMlMeAvfiYwfzLEC7Q
-         NGjQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU/c4zLddE9kkqgKTLWEAv0SFKAYI8/jOMKoIF/KDXoqEqexQ9cne5rFaG9vnIJickoC2ijWW0jbsci@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywg8XMfwkDzm5C/DTNyRm96mQfdrfeM5rpClFmSLor2NpjT7SUo
-	sVPJm1mH7tNZqRj41tcxhGCnNJLwkoV6K/DU0yA1ek5TiJR3wssFtLjtcOLI2jHG4d4=
-X-Gm-Gg: AeBDieuDXwK53InHSaV6bVGhTAeSMAxdIxfvgRqjETMPMu0EDcLwH92VhxaGy8709na
-	Tm6ym5kWrGt6+LQf8Rwd5KZ77wTXQRIx10bAiTX6l9Q2oSsgFwsYxtSLn1W6qioprWOUSr1avM/
-	xUMp4+AsHG64wnQFS/0i4fhTmlzHLuoxmVTnWDrkkwx2xE+pI0Fg3wte2nfnBsBYub+CBfQFPgR
-	wj5scdi2XIwdkq1Ydc5aEgY0+r88OcNi12FpB88qW4Y3HPEEYqHVc7ongWPjGoNlhZ+tG41Dlaw
-	3YQ/7EIYcFU3K2Cqz37sgkLVztRRlLViKdETmfbu8IxcMqIKqe23OkTMOad+rBhNUnX9IAPNvA3
-	STtxqyOJacx+k4Pr5pQamvu7Nl9o4e7cTE219qxLS//PBnZi5loBREHJvawbspCzWL8WJxImyTb
-	esRkPc/iU70C38AE7sF9zGdUTdZ8cNSXbWLN7mA/QL0DHs
-X-Received: by 2002:a05:6000:420f:b0:43b:490a:db51 with SMTP id ffacd0b85a97d-43d292d51camr29919094f8f.24.1775639428466;
-        Wed, 08 Apr 2026 02:10:28 -0700 (PDT)
+        bh=KO8uch6J2EQbXvmvGcDK9cYBs1vvLxeqc/7RnVBrTR4=;
+        b=EvR5Sy/puY1IcKMTW1wCFjsLgUHYOL2M6+2VtIcWM0J5KK9R6tZYIcq9weTsNOZvuf
+         fYAtcUCF5uxLwL3qx4pFx2C9tZ7we5/JnmTogOnXU7k9NV6BpV7rLNV1r9yFyqE98Dj+
+         cjgWf/nkMTLAlLJpfOEEbty0424j5B7atMYcCiw/osEh4QFcLtJWmayqgAEUTi70OBfA
+         vTvVQWGQ3amXcpqz6pAKZbFbXNkfaTBJf9DgjQKLcX2CUoOB4GfKL67r9I3UDCSJyVJz
+         7O1EdpL9VJM+QerwJTxuplxqsCOkj8y2cIpaaFFlSiryfI3j/9mTSx4FoyUzmkkjrg0E
+         +TCQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUaSTDFlp+n/MCFbdsa+R2g5e/+bBA3ElcWErei41aElYAjmYFKqVLwV/rDHcMgVSVIE9L/yCR/foJc@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy0jsuWYfxyhsbx4j3L1A7HC8w3lrJ0WEvJIbdwUlvS5JDrP4v1
+	GgRNoQ3MUhEar88xS1FNfwWD5cs2dTbi2XvWC2iyL8zUOIoeXKa6Qr0GrXuYwRv7vN8=
+X-Gm-Gg: AeBDiesHaHwoGlUDlyOGQ789H38SFgBANvYDKzj44RoNmIycJIl3k9qxiKN0EapDgnw
+	RLIdyhSnNB/rZ0PKEPi3s8q/PumV5hr+mbVF7f9zdsUHTiIoqkob6qDe1Rx01oOE1CGstt9XQq+
+	HWBS44cyQIjNR/W5D+bTZW/kAjix2XNSKlyS0F32MIQU7u9I3hRvfoOgh4prm5TKa7INNM17Fb6
+	jj7hk4R6+C5nHhoUD+BZNFDdiZJKgcN3MueAphaYBqO9BAIziTHN+cfW3jJDQCKy2pwwFvckHLl
+	QF2+SWFGT5oFlTJ6xp9Lva2bPhuwtr+/h8VzbywuCBl164k1Kbp7aZwpIzcqxuhxV/tc1OpUsXF
+	4jm9YVj2UBoAdNlFh0X9EKpEB3CbUo8Wv3BnoWDGlq5+zuc8e0T6J0C5flsL7YgVol/kEnq4PtI
+	ZyYBzwV4ldkX8lcjaQMkvtvf7WSNACYv1bJNktuVcKb19E
+X-Received: by 2002:a5d:64e4:0:b0:43b:8fa4:194d with SMTP id ffacd0b85a97d-43d292855famr28409560f8f.6.1775639447019;
+        Wed, 08 Apr 2026 02:10:47 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43d1e2c54bdsm57690680f8f.16.2026.04.08.02.10.27
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43d1e4d289asm55901179f8f.19.2026.04.08.02.10.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Apr 2026 02:10:28 -0700 (PDT)
+        Wed, 08 Apr 2026 02:10:46 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-To: Philipp Zabel <p.zabel@pengutronix.de>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+To: Kevin Hilman <khilman@baylibre.com>, 
+ Jerome Brunet <jbrunet@baylibre.com>, 
  Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>, 
+ Johannes Berg <johannes@sipsolutions.net>, van Spriel <arend@broadcom.com>, 
  Ronald Claveau <linux-kernel-dev@aliel.fr>
 Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260331-fix-aml-t7-null-reset-v1-0-eb95b625234c@aliel.fr>
-References: <20260331-fix-aml-t7-null-reset-v1-0-eb95b625234c@aliel.fr>
-Subject: Re: (subset) [PATCH 0/2] Fix Amlogic T7 null reset ops and DT
- required property
-Message-Id: <177563942766.3408542.9299972787072286481.b4-ty@linaro.org>
-Date: Wed, 08 Apr 2026 11:10:27 +0200
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-mmc@vger.kernel.org, linux-wireless@vger.kernel.org, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Xianwei Zhao <xianwei.zhao@amlogic.com>, Nick Xie <nick@khadas.com>
+In-Reply-To: <20260326-add-emmc-t7-vim4-v5-0-d3f182b48e9d@aliel.fr>
+References: <20260326-add-emmc-t7-vim4-v5-0-d3f182b48e9d@aliel.fr>
+Subject: Re: (subset) [PATCH v5 0/9] arm64: dts: amlogic: Add MMC/SD/SDIO
+ support for Khadas VIM4 (Amlogic T7)
+Message-Id: <177563944623.3409047.5512295931189701100.b4-ty@linaro.org>
+Date: Wed, 08 Apr 2026 11:10:46 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -85,119 +89,31 @@ X-Mailer: b4 0.14.3
 
 Hi,
 
-On Tue, 31 Mar 2026 16:24:03 +0200, Ronald Claveau wrote:
-> 1. As reset is required for MMC DT, this patch series aims to add the currently missing required driver ops.
+On Thu, 26 Mar 2026 10:59:11 +0100, Ronald Claveau wrote:
+> This patch series depends on Jian's SCMI clock patches yet to merge
+> https://lore.kernel.org/all/20260313070022.700437-1-jian.hu@amlogic.com/
 > 
-> Whithout this patch the following kernel null error appears:
+> This series adds device tree support for the MMC, SD card and SDIO
+> interfaces on the Amlogic T7 SoC and the Khadas VIM4 board.
 > 
-> [    0.459197] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
-> [    0.459978] Mem abort info:
-> [    0.460324]   ESR = 0x0000000096000004
-> [    0.460791]   EC = 0x25: DABT (current EL), IL = 32 bits
-> [    0.461471]   SET = 0, FnV = 0
-> [    0.461830]   EA = 0, S1PTW = 0
-> [    0.462220]   FSC = 0x04: level 0 translation fault
-> [    0.462722] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
-> [    0.462826] Data abort info:
-> [    0.462829]   ISV = 0, ISS = 0x00000004, ISS2 = 0x00000000
-> [    0.462842] Mem abort info:
-> [    0.462849]   CM = 0, WnR = 0, TnD = 0, TagAccess = 0
-> [    0.462859]   ESR = 0x0000000096000004
-> [    0.462865]   GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
-> [    0.462874]   EC = 0x25: DABT (current EL), IL = 32 bits
-> [    0.462882] [0000000000000000] user address but active_mm is swapper
-> [    0.462890]   SET = 0, FnV = 0
-> [    0.462901] Internal error: Oops: 0000000096000004 [#1]  SMP
-> [    0.462909]   EA = 0, S1PTW = 0
-> [    0.462917] Modules linked in:
-> [    0.462925]   FSC = 0x04: level 0 translation fault
-> [    0.462932]
-> [    0.462939] Data abort info:
-> [    0.462951] CPU: 4 UID: 0 PID: 90 Comm: kworker/u34:3 Not tainted 7.0.0-rc4-next-20260319 #41 PREEMPT
-> [    0.463920]   ISV = 0, ISS = 0x00000004, ISS2 = 0x00000000
-> [    0.463927] Hardware name: Khadas VIM4 (DT)
-> [    0.463940]   CM = 0, WnR = 0, TnD = 0, TagAccess = 0
-> [    0.463951] Workqueue: async async_run_entry_fn
-> [    0.464277]   GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
-> [    0.464286]
-> [    0.464294] [0000000000000000] user address but active_mm is swapper
-> [    0.464304] pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-> [    0.465935] pc : reset_control_reset+0x48/0x1d0
-> [    0.466409] lr : reset_control_reset+0x38/0x1d0
-> [    0.479907] sp : ffff800083943b60
-> [    0.479911] x29: ffff800083943b60 x28: 0000000000000000 x27: 0000000000000000
-> [    0.479926] x26: ffff80008310a9c0 x25: 0000000000000000 x24: ffff000100372005
-> [    0.481212] x23: ffff0001003a4000 x22: ffff000100fee988 x21: 0000000000000000
-> [    0.482976] x20: ffff00023f00a788 x19: ffff000100fee980 x18: 0000000000000006
-> [    0.483865] x17: 64656c62616e655f x16: 7469647561206465 x15: ffff800083943530
-> [    0.484753] x14: 0000000000000000 x13: 000000000000022d x12: 0000000000002000
-> [    0.485642] x11: ffff00023efdc754 x10: ffff00023efdc740 x9 : 0000000000000000
-> [    0.486530] x8 : ffff00023efd8a40 x7 : fffffffffffffe70 x6 : ffff00023efd89e0
-> [    0.487418] x5 : 0000000000000001 x4 : 0000000000000000 x3 : 0000000000000001
-> [    0.488307] x2 : ffff000102002488 x1 : ffff8000822248c0 x0 : 0000000000000000
-> [    0.489196] Call trace:
-> [    0.489500]  reset_control_reset+0x48/0x1d0 (P)
-> [    0.490062]  __device_reset+0xc8/0xfc
-> [    0.490517]  meson_mmc_probe+0xe8/0x3d4
-> [    0.490994]  platform_probe+0x5c/0x98
-> [    0.491448]  really_probe+0xbc/0x298
-> [    0.491892]  __driver_probe_device+0x78/0x12c
-> [    0.492434]  driver_probe_device+0xd4/0x164
-> [    0.492954]  __device_attach_driver+0xb8/0x140
-> [    0.493507]  bus_for_each_drv+0x84/0xe0
-> [    0.493983]  __device_attach_async_helper+0xac/0xd0
-> [    0.494590]  async_run_entry_fn+0x34/0xe0
-> [    0.495089]  process_one_work+0x158/0x29c
-> [    0.495587]  worker_thread+0x18c/0x308
-> [    0.496053]  kthread+0x11c/0x128
-> [    0.496453]  ret_from_fork+0x10/0x20
-> [    0.496904] Code: f9400262 2a0003f5 b4000902 f9400040 (f9400003)
-> [    0.497661] ---[ end trace 0000000000000000 ]---
-> [    0.498234] Internal error: Oops: 0000000096000004 [#2]  SMP
-> [    0.498935] Modules linked in:
-> [    0.499319] CPU: 1 UID: 0 PID: 88 Comm: kworker/u34:1 Tainted: G      D             7.0.0-rc4-next-20260319 #41 PREEMPT
-> [    0.500669] Tainted: [D]=DIE
-> [    0.501025] Hardware name: Khadas VIM4 (DT)
-> [    0.501547] Workqueue: async async_run_entry_fn
-> [    0.502109] pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-> [    0.502975] pc : reset_control_reset+0x48/0x1d0
-> [    0.503538] lr : reset_control_reset+0x38/0x1d0
-> [    0.504102] sp : ffff800083903b60
-> [    0.504513] x29: ffff800083903b60 x28: 0000000000000000 x27: 0000000000000000
-> [    0.505402] x26: ffff000100059028 x25: 0000000000000000 x24: ffff000100372005
-> [    0.506290] x23: ffff000100ec9400 x22: ffff0001003f6e08 x21: 0000000000000000
-> [    0.507178] x20: ffff00023f00b440 x19: ffff0001003f6e00 x18: 00000000ffffffff
-> [    0.508067] x17: 0000000000000000 x16: 0000000000000000 x15: ffff8000839037e0
-> [    0.508955] x14: 0000000000000000 x13: 0000000000000290 x12: 0000000000002000
-> [    0.509843] x11: ffff00023efdc754 x10: ffff00023efdc740 x9 : 0000000000000000
-> [    0.510732] x8 : ffff00023efd8bc0 x7 : fffffffffffffe70 x6 : ffff00023efd8b60
-> [    0.511620] x5 : 0000000000000001 x4 : 0000000000000000 x3 : 0000000000000001
-> [    0.512508] x2 : ffff000102002488 x1 : ffff800082224a40 x0 : 0000000000000000
-> [    0.513397] Call trace:
-> [    0.513700]  reset_control_reset+0x48/0x1d0 (P)
-> [    0.514263]  __device_reset+0xc8/0xfc
-> [    0.514718]  meson_mmc_probe+0xe8/0x3d4
-> [    0.515195]  platform_probe+0x5c/0x98
-> [    0.515650]  really_probe+0xbc/0x298
-> [    0.516094]  __driver_probe_device+0x78/0x12c
-> [    0.516636]  driver_probe_device+0xd4/0x164
-> [    0.517156]  __device_attach_driver+0xb8/0x140
-> [    0.517709]  bus_for_each_drv+0x84/0xe0
-> [    0.518185]  __device_attach_async_helper+0xac/0xd0
-> [    0.518792]  async_run_entry_fn+0x34/0xe0
-> [    0.519290]  process_one_work+0x158/0x29c
-> [    0.519788]  worker_thread+0x18c/0x308
-> [    0.520254]  kthread+0x11c/0x128
-> [    0.520655]  ret_from_fork+0x10/0x20
-> [    0.521103] Code: f9400262 2a0003f5 b4000902 f9400040 (f9400003)
-> [    0.521860] ---[ end trace 0000000000000000 ]---
+> The first patches add the necessary building blocks in the T7 SoC
+> DTSI: pinctrl nodes for pin muxing, PWM controller nodes, and MMC
+> controller nodes. The amlogic,t7-mmc and amlogic,t7-pwm compatible
+> strings are introduced with fallbacks to existing drivers, avoiding
+> the need for new driver code.
 > 
 > [...]
 
 Thanks, Applied to https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git (v7.1/arm64-dt)
 
-[2/2] arm64: dts: amlogic: t7: Fix missing required reset property
-      https://git.kernel.org/amlogic/c/98da3e91a6157d2833af356620665a9734d26133
+[3/9] arm64: dts: amlogic: t7: Add MMC controller nodes
+      https://git.kernel.org/amlogic/c/759613b88fbf051c8a977a5e5b046b28a18ed5c7
+[5/9] arm64: dts: amlogic: t7: Add PWM controller nodes
+      https://git.kernel.org/amlogic/c/596e3c1bfa7869cf15079e5c6e586575013b2fc3
+[7/9] arm64: dts: amlogic: t7: khadas-vim4: Add SDIO power sequence and WiFi clock
+      https://git.kernel.org/amlogic/c/647228c014ddbd336a97e74bde81cbb2f7cbd927
+[9/9] arm64: dts: amlogic: t7: khadas-vim4: Add MMC nodes
+      https://git.kernel.org/amlogic/c/00cca65deacb29947ef32011827ff88fd59dab55
 
 These changes has been applied on the intermediate git tree [1].
 
