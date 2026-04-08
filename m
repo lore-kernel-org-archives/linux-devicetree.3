@@ -1,87 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A37EE2D0614;
-	Wed,  8 Apr 2026 06:49:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 856F636212C
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 06:52:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775630996; cv=none; b=W2KlKCTIttHEcCNVxvgLdnL3RAAxROas3sphtlKT8JGfbBe8c35f9R5iOD/FW9PK/SVhbBiEROhb3GFb5jcEnx6G+ltz1h9bqPrYnOQG5w4y/4PinxGB/Tlcgcw0OlkyjWT5rTFdlP0UtWGrYarcISuo8HJKl3Bi6zW2YpWV7sw=
+	t=1775631176; cv=none; b=ig5e9icaTpDkvuvqhPTLSrYz5UOPs/225L7vl4dMbe4Ybx1gFrFh0hs4JJeBFcMxDxi1BQq/cT99ir0vo5HTcZ92d2cwM0C41gDs5MumoquGm++Jh3duTxRs28Pt24mdm02GnK6phS/FIqt68GKN3z+ilt2GyPiRSNX7gVNxMRQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775630996; c=relaxed/simple;
-	bh=OJinugmxk3U59o8Evz03tGU+ZiGJ5IC9Tl/JyCwJolQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bcysq7uQnPr/tL6y70QiFFm2Q9CjbrYP/KRTAxpTpimdsWiPaUm1XBNzhyae+feXxce4gB3MK988TJmXC6Qw4sl8T1oOo3a6daDpKfEYti4N5F/r3yBIyBMoj9ZryddklYbGNg0OYk4bYNbheJkAIhfBD4/vYIFciTeG5siooio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jefaGRsh; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jefaGRsh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06413C19424;
-	Wed,  8 Apr 2026 06:49:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775630996;
-	bh=OJinugmxk3U59o8Evz03tGU+ZiGJ5IC9Tl/JyCwJolQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=jefaGRshR9m/AZQS3dwk2dgYtMI7pdtGh7qqqUMcmxKabsrErngqg0ZVO44OaYXzE
-	 +QzXMZkBySSPouG04gvWI9a9iu02cWlGTekQeOuY84SgC0OJls3bBqXl5ccxu+lS6C
-	 gUMqCH3Ip3a7YKnV2THDOiT3OftuWa5rC/dg4Zn8EyCREDJpmAYEgEVkgtx8FxoCGU
-	 F5rZlAikJpGmcH4U2J4M3Z028Dh93XHh9GnbHZ+q9GiXkN8wnhjm7M+ICgM2pi/1J+
-	 pFDsNOEf91T0DV2W6iDagsJYMfFZCMsust1EcrKamzaEFqSAFFzOMvhLzVgSUM2Run
-	 gOVYtaqJ93Z7w==
-Date: Wed, 8 Apr 2026 08:49:54 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Iker Pedrosa <ikerpedrosam@gmail.com>
-Cc: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>, 
-	Troy Mitchell <troy.mitchell@linux.dev>, Michael Opdenacker <michael.opdenacker@rootcommit.com>, 
-	Javier Martinez Canillas <javierm@redhat.com>, linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 1/9] dt-bindings: mmc: spacemit,sdhci: add pinctrl
- support for voltage switching
-Message-ID: <20260408-nocturnal-talented-dinosaur-cbb9c0@quoll>
-References: <20260407-orangepi-sd-card-uhs-v6-0-b5b8a1b2bfc8@gmail.com>
- <20260407-orangepi-sd-card-uhs-v6-1-b5b8a1b2bfc8@gmail.com>
+	s=arc-20240116; t=1775631176; c=relaxed/simple;
+	bh=HeuEeKb5UwovZWdE55gQ2L8XYl59tVQHoJ0inZe0Jn0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=VGbKe05wrznHqcS7nbbPxCzYPkcxLPzDeHWcvcuRV5BM6MCYQc0Nh6CAZAgZaYNWnl3JCHm9jSAEHO4x4ouiNaHzUN2lsyUOS7PxKd7qroTpXmUlW1VBPAdZevCyVefczOwg//y+MKP7sy5StstGw3sBXz3zoDuCNqVFKk+nnU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=ratatoskr.trumtrar.info)
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <s.trumtrar@pengutronix.de>)
+	id 1wAMmR-0005la-9Q; Wed, 08 Apr 2026 08:52:51 +0200
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Wed, 08 Apr 2026 08:51:10 +0200
+Subject: [PATCH v3] leds: rgb: lp5860: add enable-gpio
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260407-orangepi-sd-card-uhs-v6-1-b5b8a1b2bfc8@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260408-v6-19-topic-ti-lp5860-enable-gpio-v3-1-da59a9005386@pengutronix.de>
+X-B4-Tracking: v=1; b=H4sIAN761WkC/5XPTW7DIBCG4atYrDsRP7ahVlX1HlUXGMYOUgwuE
+ JQq8t3rkEWlZtMuv1m8j+ZKEkaHiQzNlUQsLrng9yGeGmKO2s8Izu6bcMp7ypmE0gN7hhxWZyA
+ 7OK2d6img1+MJYV5dACUM7TtuRast2TtrxMldqvH+cd8RP887le9HsmBKulJD81KllooqtQ9SU
+ cAAGZeoKCrZ6bcV/XzOMXh3OVh8vZGjTggmLIvLQ1PkgUI0jNzwo0s5xK/6b2FV/8drhQGFqUO
+ FFsfOyvYXXonCf7KC0b9k+Z4VkzE9kxNSoR+y27Z9A/6ukayrAQAA
+X-Change-ID: 20260217-v6-19-topic-ti-lp5860-enable-gpio-83c0652d34ad
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Steffen Trumtrar <kernel@pengutronix.de>
+Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Steffen Trumtrar <s.trumtrar@pengutronix.de>
+X-Mailer: b4 0.15.1
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
+X-SA-Exim-Mail-From: s.trumtrar@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-On Tue, Apr 07, 2026 at 10:25:21AM +0200, Iker Pedrosa wrote:
-> Document pinctrl properties to support voltage-dependent pin
-> configuration switching for UHS-I SD card modes.
-> 
-> Add optional pinctrl-names property with two states:
-> - "default": For 3.3V operation with standard drive strength
-> - "state_uhs": For 1.8V operation with optimized drive strength
-> 
-> These pinctrl states allow the SDHCI driver to coordinate voltage
-> switching with pin configuration changes, ensuring proper signal
-> integrity during UHS-I mode transitions.
-> 
-> Signed-off-by: Iker Pedrosa <ikerpedrosam@gmail.com>
-> ---
->  .../devicetree/bindings/mmc/spacemit,sdhci.yaml          | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml b/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
-> index 9a055d963a7f0cdba4741c1e3e7269688dcd5f45..932fccc609bf8dbaf3ecfe09d9e610852ac7afa0 100644
-> --- a/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
-> +++ b/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
-> @@ -11,6 +11,7 @@ maintainers:
->  
->  allOf:
->    - $ref: mmc-controller.yaml#
+The VIO_EN pin can either be connected with VIO power supply or GPIO.
+Get the GPIO from DT if provided and set it on chip enable and disable.
 
-Drop
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+Changes in v3:
+- remove unnecessary validation checks
+- update dep to newer lp5860 series
+- Link to v2: https://lore.kernel.org/r/20260310-v6-19-topic-ti-lp5860-enable-gpio-v2-0-3fcc617fe03a@pengutronix.de
 
-> +  - $ref: sdhci-common.yaml#
+Changes in v2:
+- add acked-by
+- updated deps to newer lp5860 series
+- rebased to v7.0-rc1
+- Link to v1: https://lore.kernel.org/r/20260217-v6-19-topic-ti-lp5860-enable-gpio-v1-0-f5e8edeb5d74@pengutronix.de
+---
+ drivers/leds/rgb/leds-lp5860-core.c | 9 +++++++++
+ drivers/leds/rgb/leds-lp5860.h      | 1 +
+ 2 files changed, 10 insertions(+)
+
+diff --git a/drivers/leds/rgb/leds-lp5860-core.c b/drivers/leds/rgb/leds-lp5860-core.c
+index 31eebaf0269ab..5bccca47b20a1 100644
+--- a/drivers/leds/rgb/leds-lp5860-core.c
++++ b/drivers/leds/rgb/leds-lp5860-core.c
+@@ -5,6 +5,7 @@
+  * Author: Steffen Trumtrar <kernel@pengutronix.de>
+  */
+ 
++#include <linux/gpio/consumer.h>
+ #include <linux/led-class-multicolor.h>
+ #include <linux/module.h>
+ #include <linux/of_platform.h>
+@@ -59,6 +60,8 @@ static int lp5860_set_mc_brightness(struct led_classdev *cdev,
+ 
+ static int lp5860_chip_enable(struct lp5860 *lp, bool enable)
+ {
++	gpiod_direction_output(lp->enable_gpiod, enable);
++
+ 	return regmap_write(lp->regmap, LP5860_REG_CHIP_EN, enable);
+ }
+ 
+@@ -189,6 +192,12 @@ int lp5860_device_init(struct device *dev)
+ 	struct lp5860 *lp = dev_get_drvdata(dev);
+ 	int ret;
+ 
++	lp->enable_gpiod = devm_gpiod_get_optional(lp->dev, "enable", GPIOD_ASIS);
++	if (IS_ERR(lp->enable_gpiod))
++		return PTR_ERR(lp->enable_gpiod);
++
++	gpiod_set_consumer_name(lp->enable_gpiod, "LP5860 VIO enable");
++
+ 	ret = lp5860_chip_enable(lp, LP5860_CHIP_ENABLE);
+ 	if (ret)
+ 		return ret;
+diff --git a/drivers/leds/rgb/leds-lp5860.h b/drivers/leds/rgb/leds-lp5860.h
+index b3ad8c46720cd..48a6afc4227d6 100644
+--- a/drivers/leds/rgb/leds-lp5860.h
++++ b/drivers/leds/rgb/leds-lp5860.h
+@@ -257,6 +257,7 @@ struct lp5860_led {
+ struct lp5860 {
+ 	struct device *dev;
+ 	struct regmap *regmap;
++	struct gpio_desc *enable_gpiod;
+ 	unsigned int leds_count;
+ 
+ 	DECLARE_FLEX_ARRAY(struct lp5860_led, leds);
+
+---
+base-commit: 559f264e403e4d58d56a17595c60a1de011c5e20
+change-id: 20260217-v6-19-topic-ti-lp5860-enable-gpio-83c0652d34ad
+prerequisite-message-id: <20260403-v6-14-topic-ti-lp5860-v8-1-e127e80e875a@pengutronix.de>
+prerequisite-patch-id: 2fc7123c98bf6c53d946af75269ecb1a7b421f14
 
 Best regards,
-Krzysztof
+--  
+Steffen Trumtrar <s.trumtrar@pengutronix.de>
 
