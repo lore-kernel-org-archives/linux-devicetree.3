@@ -1,79 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com [209.85.222.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 100443A2540
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:27:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E364323504B
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:28:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775636845; cv=none; b=AYCWrYJ9eW7MsgQ0vuBn6fzps/72cadFeahqfHl7yaP0n9nH45h6mNadnO8vZGCXg1uFQZEIBVOWz/d7VqD+ejrkiy+k3zj02/Y0soNnLiBnvxhL4w7EFAuFh977B690TUN1/rZIyGjz4FfL65uFYxpOc0uR1arr1VRqeg+3nA8=
+	t=1775636895; cv=none; b=YYdc/LM1nWWj3uwNMQxaJBu0yAYpz1IBbC1kPbORqA6UGwr2UgbDRqgsJ9HB4l81Mu2Ear2jSNZXTwoWvNiF5a8RTwH2BPp3m0qJNucXawyL2stwPCyEPlpxdhF2IBVQ5gjho3zqFMWgq2WIRZeZYq9EIvuFQXbqhXmQwV1+c9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775636845; c=relaxed/simple;
-	bh=Nh/HgkDdzSl2nd13YnkWx/Pm3GBsXpIS/jjsAxO2JZA=;
+	s=arc-20240116; t=1775636895; c=relaxed/simple;
+	bh=o9aFN/oBxjJk7ilLKE+iObF5zpOesxCwPJ4VHcL/xkw=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TPhXVvyVEsakU0fxGmiwpyAVQdqRhts8MC3gaUEDJ83rzhcKbViGS7NpNu6C76eBJhsKCfqCujVPmuBbheah8HVjXmvQh1A1YwOY6cww8N7SCl33/UoGDijgIgIEkXmses+bDX1MffYYiGNOUXlphFXRvXJaM3lit6LvPMMH3Lg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LcwDZkpm; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LcwDZkpm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7D49C2BCC4
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:27:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775636844;
-	bh=Nh/HgkDdzSl2nd13YnkWx/Pm3GBsXpIS/jjsAxO2JZA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=LcwDZkpm2MXkNjBMqFo5DXJzgm94Tuojzj5XvJd9cwY2DXDMgCdxOFdN8idqT+oje
-	 6ty6QjsFAlpDlJzKrcJph6KNTZFm2pQlBn5dG0gqLFRzI6cnF7BOWCFfvIKSj0l/eo
-	 ih16Q5TWM8uQKmbJ8Kpy94Av6+Xrd72Z5MUBuKyxca70LvZQ1IYX8OicKYxlsLjiEC
-	 XdpVINSbV+rsEcfb8Cj0wDdGOytZ0hdR70ulTSXNyKd3CPhORwk+7oHwv4wSvdeuAX
-	 iZYpdm2BO3F+2cUtupGaK+rq7CMQgQF3qotT/c/KDryj9+hqBJC4qOQeqEiKhz8JNm
-	 kHa0FP8Wm8wAA==
-Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-6501547d7edso6254454d50.0
-        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 01:27:24 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCXfkdHzf2QignhFKUvtnF7+ReMzCQQzhJjNWDg1bU690qwc3qi0XMNPmxWQXNHW7c1OiWo2zcurTy4W@vger.kernel.org
-X-Gm-Message-State: AOJu0YwVKogrODzsecr2wAQT79s7FG+JDU9+0hmyeh31zgFXfp5wzAvo
-	64YOcEon3UdHr3FYS3XOu0yo3X3Jkn9ioNC20vxUyA6xJEWWZlCrykHBvffUYZGBqt/OI9REfTZ
-	02n85GInyrEJkn9cB1oUtjXlPpRnynBM=
-X-Received: by 2002:a05:690c:385:b0:79a:2ef2:7f7 with SMTP id
- 00721157ae682-7a4d6e21e14mr210763987b3.23.1775636844272; Wed, 08 Apr 2026
- 01:27:24 -0700 (PDT)
+	 To:Cc:Content-Type; b=Hktm8rODx95R9WGHVRP6F0zcq6yKDthAb5BC9Md2ODfub/Azm0ad1USRXdKqK2mOGuuE8krHSzvZxHQubzRpiuZ+/dpNSV1/ni13kkTAH6RS/uL1qC2pkn6ppkbgcORAwCJKqD1nnoDK4syTc6k5G4yqfTP83BCxvHoeRckbBTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f53.google.com with SMTP id a1e0cc1a2514c-953a0431639so1181559241.2
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 01:28:13 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775636893; x=1776241693;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lQpQOf4fWDiiKTZ8RNLIoiaoYNDkkDqXEA0sfJBBI8c=;
+        b=Rhr0d8pcbhVRTGQa9xftZmPdebr7DN9BdIZFX4EFypH+wcuQPJnfZgErqM7bco1s4V
+         n8nYJtHkQShVNMJkorHgq3iHUefSMQvdZfQX+mNtIy0/NI0NG5lOmLb1pfrBU02AkP11
+         2Zz3OZujpHt7pD1ZsbG7paJPt/l1MgUF+xaE2vqIIwi1AzUgLP/P1uL/PGTElQrGkKBY
+         +bLxpCP7w/ZfxAbcV1Wcfn1aD8XeeBGl14L3vFpCllS584wdC8CIWIVwLAF/v6xQ7R7t
+         u2mWf2Rv48lUWFKY0iqCwHvuwqaqtHgDttgJJ12SO3kKpk1luX/KTlrKsPODbRGy1Hdu
+         +3Og==
+X-Forwarded-Encrypted: i=1; AJvYcCVMfeMmbu9FF+CarUVuZnv37F8BrHRMDO59p9TE546cfBqSlZEAJooewKn9VDHoPS/c0bjs0l65Sp8J@vger.kernel.org
+X-Gm-Message-State: AOJu0YxHb9IDT7EQqwjW1P8o9splzquXqXBp08yK9MFy2zmjxBc0wzBj
+	W1NnLkNW0VQedkMvG2YQu0VVw5NQAFvVwCmcUGRSOF99coMS4qxc1BY9Ex0f3OeB
+X-Gm-Gg: AeBDieu0oDn0LZISpEKt2VBV1ZblxGTPwiHOefMQr1Y+5SPuYPL0ILqlYDNbNReiWMb
+	MrlXR3iN/I5qxyykzmWK0R+6oVVmeunR2mQQR75tNDtuJ+14Y/u1NOJVJudpl2vaxuF5TxXxpcF
+	tfgZ1mfrwGV//qGBKwRC9iEinYAEY+lMQ/K6L9qGHsKJc6rZexfrLdlWzBwGh9Yg6E40SvH6rXE
+	FDkL61RDwO1a6+RcQINgM7xKV42CO2NgVN9p1iOt4PvQbvFsDzgOyDlAkEF3nXtqpNCGKsUZr8n
+	m44pU2A+3bC+qbbvuoZXR7YgZvxFMA7tGmPWqMY86UFTYXGk30RHaaloFhJhhRSVyTvYaPIdG4Y
+	57XLRaSVap3XxJdKt4D6J+bLtAvtdOxtWAn33whvMxxfGX1qceRHju+zt92+7ml36t/3ac6mFX2
+	HK4CJiPs6gkz2oD07vdqRZjMNfRJa5pj1VXBkOgmJHfifVezRhfGbUaXPAnZbuKPHQ
+X-Received: by 2002:a05:6102:f89:b0:5ff:c5c8:2734 with SMTP id ada2fe7eead31-605a5021387mr7120569137.25.1775636892722;
+        Wed, 08 Apr 2026 01:28:12 -0700 (PDT)
+Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com. [209.85.221.171])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-60582b562bfsm20287657137.0.2026.04.08.01.28.12
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 08 Apr 2026 01:28:12 -0700 (PDT)
+Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5637886c92aso2612413e0c.0
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 01:28:12 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCUBuLJxCZwR0En7m/rZxpW8tnt0Bj0UeDRgPkrr9st0oiRh/x+zytDwLo4q/wQk/SeLSdzfa9vID2fE@vger.kernel.org
+X-Received: by 2002:a05:6102:2923:b0:602:8ccb:c993 with SMTP id
+ ada2fe7eead31-605a5013b05mr6453381137.24.1775636891875; Wed, 08 Apr 2026
+ 01:28:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260401-waveshare-dsi-touch-v1-0-5e9119b5a014@oss.qualcomm.com> <20260401-waveshare-dsi-touch-v1-17-5e9119b5a014@oss.qualcomm.com>
-In-Reply-To: <20260401-waveshare-dsi-touch-v1-17-5e9119b5a014@oss.qualcomm.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 8 Apr 2026 10:27:11 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnQb02FhQDngY_ZnOeQq-2Naxg4MT38BtQK+2TGFymeDw@mail.gmail.com>
-X-Gm-Features: AQROBzDZLZBjPdZdwCQGMrQ2dNUUfDDmI-jmdfj9Sal7q_dMbU4JwTx-3FFyxlc
-Message-ID: <CAD++jLnQb02FhQDngY_ZnOeQq-2Naxg4MT38BtQK+2TGFymeDw@mail.gmail.com>
-Subject: Re: [PATCH 17/19] drm/panel: add driver for Waveshare 8.8" DSI
- TOUCH-A panel
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Cong Yang <yangcong5@huaqin.corp-partner.google.com>, Ondrej Jirman <megi@xff.cz>, 
-	Javier Martinez Canillas <javierm@redhat.com>, Jagan Teki <jagan@edgeble.ai>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, dri-devel@lists.freedesktop.org, 
+References: <20260407145753.101840-1-biju.das.jz@bp.renesas.com> <20260407145753.101840-2-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260407145753.101840-2-biju.das.jz@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 8 Apr 2026 10:28:00 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVHWxmY7fCue2Q+4Wvf2QbB2ABaQL2yi1Z9koov7tj6Zg@mail.gmail.com>
+X-Gm-Features: AQROBzA34NCraYwlgtVmX6Zb7nvooLN9XjKRAeqpyWsi4l4Jb7X8ZFeX4g2U_rk
+Message-ID: <CAMuHMdVHWxmY7fCue2Q+4Wvf2QbB2ABaQL2yi1Z9koov7tj6Zg@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: spi: renesas,rzv2h-rspi: Document
+ RZ/G3L SoC
+To: Biju <biju.das.au@gmail.com>
+Cc: Fabrizio Castro <fabrizio.castro.jz@renesas.com>, Mark Brown <broonie@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	linux-spi@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Apr 1, 2026 at 9:27=E2=80=AFAM Dmitry Baryshkov
-<dmitry.baryshkov@oss.qualcomm.com> wrote:
-
-> Add driver for the panel found on Waveshare 8.8" DSI TOUCH-A kit. It
-> uses ota7290b IC as a controller.
+On Tue, 7 Apr 2026 at 16:57, Biju <biju.das.au@gmail.com> wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
 >
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Document RSPI IP found on the RZ/G3L SoC. The RSPI IP is compatible with
+> the RZ/V2H RSPI IP, but has 2 clocks compared to 3 on RZ/V2H.
+>
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+> ---
+> v2->v3:
+>  * Added ordered DMA names for the dma-names property.
+>  * Dropped the tag
+> v1->v2:
+>  * Collected tag
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Yours,
-Linus Walleij
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
