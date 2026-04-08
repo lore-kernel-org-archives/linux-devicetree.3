@@ -1,295 +1,173 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012002.outbound.protection.outlook.com [52.101.66.2])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D9D637883D;
-	Wed,  8 Apr 2026 08:59:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775638768; cv=fail; b=dkZd2TFdVCY5sN8yn3CRtAzwB9dno0P2GwsJf5wbOCIhM8wIt0g5s/4uQUi4NXHusUOsifUyc2ot+SFW3h8u+9vlIGKbt0kj7SDmbkJAHr2v3SrPMVyJ6ckq0r+wFK0LzFfiBR+ehPnyVTl45fY50jtaEv8uzWyYoWOby4Hyj7o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775638768; c=relaxed/simple;
-	bh=C2Nc8PwvLNFAsL4DkRQ9WkuX41TbW0OdHI1bauC1Dy4=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=GpAZZnnEdJHOs0T/GqOH9mgkKib3XYrfTrYckaCykxPhG93Qw21HDSnD6xjo1R4+/D6WpfGor7dzcP2Pl8HH27rNzzUUg/lKo2HupV+ZhY7lJT/5GnpeRx3v50Ys4j08f2L8eu/rdGQr69h9eqfrRPQd56YdTg971SXtErIrXmI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=iHWH5hbc; arc=fail smtp.client-ip=52.101.66.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34C3238E5F6
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:59:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775638775; cv=none; b=I6cy1pEmUOXWXVCY3wAZ1RYYiFzwOu03QbxhBaQ6C6WOpAq/pVaeHI0AL6BU37AEBEzbeb6Hr0fBIiotQXktJ2sAOD5Xw1UQgEcVpPMEe7e6+w9UJYWIHfcMhLS3JggGrKlJTS7cg44GICf3sYvlG332jOr9mlqbNT3hrMUNGlY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775638775; c=relaxed/simple;
+	bh=rFkZf2w1nBJ9soa4SB66gP4TV9/XUpL9rJLEEkiqYr0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=H2RKO0wdXZPdao7KoOrCOysGEEzV1B2IrOsO02AxYNkiosx4Kv5LhFVbOjAXMYYTZddcv5qKZwP4ub0nWRjf8NOqxMNQ32AcBWe8IZ4CwvRXSleVQcB3NUxYec2z90+aNVJfVj14dmUw/MkSGzpU1TZaqQmHWcPbrUZY6v8iK48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lklu30Ub; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hawqrtZc; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="iHWH5hbc"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rj9zBnmRgM6nhiH5ODMoYG6hvkZr6985JiuCEue8odSbrdIQsiYZQuR+0sl9mJszbwXrmtaz9041+dkUG5XWMVqV0tnw5oUiWDY8fSOPidHjyN0JbGkWBcJf1PQjY3kUQEMWO29TyCicqll4ZN8I6eRQDkOOkIW3qldaZlywzgDxL/wVgBIsubtTY41pzDgwVKXdiRzJ2FT8BMtMq/PZHFuLKgZXQ7S7FtlfkRNXiAbla2nlZPGydQqSvEXT9POy7HdjX2m6cskgOPhV4kXYShXssa7LnumNY94Qv2WzlqbRgOmYnbBCgDmCBjfWyXlDQ7sHT7we9OUGVMC/l8IxTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ht+rPhWyMe3UW5A+lG+keRfUcxvrk24jWY22nD6V3is=;
- b=QyQ8PrwnOLPFNgJCDuuq3TTJNrbfOJqVAU76MWUh5WaLUkj0M4J6lVVZmhh2f44lndUCaSrOLwOfoRS0g5R6D7NDYxb5H4WViZz2P+WXnVci1LLKc6QIsOM2x9QIIu8OxX9WuRXPrIslDbKSCijbbN/k8cQlQmJ1OULFMnJPWae7MQJlS68eZn0mYyaiftw+X7h8nkR7B/k2EUQkzA2QRmhAOO5aDKQeUBj0YD4yq9yxGqsAIGHLNMFFxne+q1erSFDU5oxrXJEj1BREk4vklj6Y1I7ewWTSAEFBaNq80zmVMSDnvPCjAiOpJHVQS60/SiAybzDNS6jl4+ngBgz5wA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ht+rPhWyMe3UW5A+lG+keRfUcxvrk24jWY22nD6V3is=;
- b=iHWH5hbcOLH6hYwe/qMaTjB5KM40+MH1/+qLwrKTO1btAJygHXhlCyDapIKBdu4eOsw+PV6mVpCc0Dq7NCcfDPXj7HsDFmU6+TK6vz1HFByovx98N61bFzwRelF/TmkHIUwQ3s3WRGyY8OBFV0tHRQAErPaJHfLpbl/5IaDcyg91DbxgfTNBf9oNI815HM3NnadGPgjnqmGPdCfuTcBUR+iRdDKR2/Zznyd0XzXsNdbeKB3FplAvFBI/iIPr2NwMlbg0aCU58R4ivmRbp63kFXYAOKr2vbTHi7DdaIXf6IcyJ6aRDsHMykaEv14pAgY7uGlQTOoVyTd7TUK3qB1l7A==
-Received: from AM8PR04MB7284.eurprd04.prod.outlook.com (2603:10a6:20b:1dc::8)
- by AM7PR04MB7157.eurprd04.prod.outlook.com (2603:10a6:20b:118::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.18; Wed, 8 Apr
- 2026 08:59:24 +0000
-Received: from AM8PR04MB7284.eurprd04.prod.outlook.com
- ([fe80::9cd6:51bd:82b:98dc]) by AM8PR04MB7284.eurprd04.prod.outlook.com
- ([fe80::9cd6:51bd:82b:98dc%5]) with mapi id 15.20.9769.014; Wed, 8 Apr 2026
- 08:59:24 +0000
-From: Wei Fang <wei.fang@nxp.com>
-To: Jakub Kicinski <kuba@kernel.org>, Vladimir Oltean
-	<vladimir.oltean@nxp.com>
-CC: Claudiu Manoil <claudiu.manoil@nxp.com>, Clark Wang
-	<xiaoning.wang@nxp.com>, "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
-	"davem@davemloft.net" <davem@davemloft.net>, "edumazet@google.com"
-	<edumazet@google.com>, "pabeni@redhat.com" <pabeni@redhat.com>,
-	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
-	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"f.fainelli@gmail.com" <f.fainelli@gmail.com>, Frank Li <frank.li@nxp.com>,
-	"chleroy@kernel.org" <chleroy@kernel.org>, "horms@kernel.org"
-	<horms@kernel.org>, "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
-	"andrew@lunn.ch" <andrew@lunn.ch>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linuxppc-dev@lists.ozlabs.org"
-	<linuxppc-dev@lists.ozlabs.org>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "imx@lists.linux.dev"
-	<imx@lists.linux.dev>
-Subject: RE: [PATCH v4 net-next 10/14] net: dsa: netc: introduce NXP NETC
- switch driver for i.MX94
-Thread-Topic: [PATCH v4 net-next 10/14] net: dsa: netc: introduce NXP NETC
- switch driver for i.MX94
-Thread-Index: AQHcwQGr6p6cQRIC50ifKdNlYVQM5LXMjU4AgAhWcVA=
-Date: Wed, 8 Apr 2026 08:59:24 +0000
-Message-ID:
- <AM8PR04MB72840DBFC7F3FD578DFF6AF8885BA@AM8PR04MB7284.eurprd04.prod.outlook.com>
-References: <20260331113025.1566878-11-wei.fang@nxp.com>
- <20260403011738.1795644-1-kuba@kernel.org>
-In-Reply-To: <20260403011738.1795644-1-kuba@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AM8PR04MB7284:EE_|AM7PR04MB7157:EE_
-x-ms-office365-filtering-correlation-id: 5791bda8-1944-403c-b2a4-08de954d21c1
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|19092799006|376014|7416014|1800799024|56012099003|22082099003|18002099003|38070700021;
-x-microsoft-antispam-message-info:
- H3lByri3K01dHqYAJkes3Nceqs4YTmqCDt3PjB2y74tGOIYMl1170Ri5JOh2pJFAsAFhKwDlVMTYuULXrRDYpAbVl1/w0LwPwmzZW0hJTyCbKAKefh4NjFsM9SINlpEksJy1HepZRtld0wTmJDZF0M+lK8yWMV3NlkPwGChJlFLzDtUGdCteEX34xs+qXYMSjiY6Ylqynb/XeA6WAaBMQVBkxaVkx2AEKYETXYQdQimKsrFK1y/ZYY3IiqQrhKS+KpVluOd7etcSP2wrNIM7ss9hozVa5V4ZFzPNbFiGsCmcV07+dARm7R03M3WJ5IN8GwpMQoYz6x1OnC8R41moCYp+apAnOoqc9t2rLhKd0FkUj6SCGbhQ+QoiMYcpqH8dpBzYCIbAWuktlbbhlaIGKRixYM1SxK+7eGcM863H/KCaXlN9BB/iQ1vJ08jnO017mHypwupGh/1tkLbVgcyPIdkP7wXJiCBR+cO8nj9GqcLqmmQ7zdUvE/MiFlmR7krleu2lUs02at2qyIpLkNzY8BOng9XJd646ruF7lQVsS2clu+OJKn5rFntFw/Fq3Cvp2MssRsia2cAqF+7p/x6hx65cD2Yo8lFhmbM097VPg3KLAunzMffMoLF7Kz2H0VCIm1FE9/KATslv0PAjwXZms/IibhVSzLR5HLcLV9kuetWKlPn8AR9QXKKmJNaetB4/SBG+Yyl77CvrNUczeJ3xxny44nV/YOE0ygDFoyLm3a4vzsYnxP/Q6IVvy0L9ZCxVhexuwoAigDrP6Voe51ZyMLu5IdnInDI5RXGWqRUBwpc=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7284.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(376014)(7416014)(1800799024)(56012099003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?gVqnNiy8ekPLW97cOSz16ZHD8BjO5aLP8VB5V+1Obe5mNRKi7lIMHQpg5X7S?=
- =?us-ascii?Q?bpoturLjD26QB503g+AjxCMbsrzhf6PsuqO7Y7cLqEWN0jotIlKLCxANMg++?=
- =?us-ascii?Q?vdPzDhfZuRIxml4HTpIp89ARLR9phsnhQIj52zmjjHpKnP119uMCMwwAnMjp?=
- =?us-ascii?Q?SYHaLxJLH7tW9NtLxz/9jCgaKKcfTWC0j2LtHfZiBNwdw7rG6JyAvdLgToAW?=
- =?us-ascii?Q?rvVdd+mwTWCFOR8wqTvNYNl5QhBstBH0DBQ4ye6F7JoaPLpg3+0eHWk8i1lR?=
- =?us-ascii?Q?Id1oE5rMmZL4gbgdPe+jTlb1V+7eD8mb7UqJ/UPJ72Oeb0456E1uYHAnBROR?=
- =?us-ascii?Q?oaTvSZ3Nagq0Gi/LAbnAcAXjQc7Noo/h+RE948jahsVxTZZVMXVA5Yet/jR1?=
- =?us-ascii?Q?xSc86Ia/aYvQpTIsk/zALM+/RiP2QWElN+3w4OWEeLbVZ9aHhgofMOSZWP2K?=
- =?us-ascii?Q?7T6mRCf/Sr9usqpgc9yzuJVQDaTrOsVpKJZLGfprpMeiyj8e6YrkoW2aWEnl?=
- =?us-ascii?Q?Cm1hbJ/a43XsNH/TyGa7Rx5wbdkcdTp7QlWnxJRh9h3eGe53zikncrT38GeU?=
- =?us-ascii?Q?QgDLwwzchhqU/XKyGd0xfI5U3JoaF/goTketzP/2XrucEBTFW/7Xbbvt1PNS?=
- =?us-ascii?Q?wnIMVFUheS1TxCgnwNjfEJp/VNd3Kz4So+oDDd65JxxdgyMmW3z78IWHLB9a?=
- =?us-ascii?Q?Byf0lQoaX9EnUxzIohBONo+FK5ENdb5WQ7r32EM5Y//aOMMzgMkZmwLSkIjv?=
- =?us-ascii?Q?eQiNW81ulh6nHq1uLYOY6aTICNFsXkXjKTZ5wixpcKbRoPx+n0/5Mq6I/pau?=
- =?us-ascii?Q?q6DQ0AsxBaeGQH4Y+ZRLq3mTZqBNjHOs+xgs0Nbubqlj8n3zq0mVJshWSetN?=
- =?us-ascii?Q?XJG65DbR5yc9AEcDvucrxf4w9uZdSIs9Uf4mDSHbgUVlk9iKbk1lRMZpMEGL?=
- =?us-ascii?Q?CaamZYmq9OwbKAgCu/cU6KGcLgTmpGrirEtfTh5Vxov/s1ymE9BGLAMDoDYQ?=
- =?us-ascii?Q?niNDfj608jn+P4ODXNNwo/DrAfk0OdlkLBsaEZY9wovW3Vioj8igfWo1Mcrb?=
- =?us-ascii?Q?vivwe+HUHUcpmnSC8ULlcenaSkEh8YdEFu0yadJ3IXueHAeeeY/2rYJF59po?=
- =?us-ascii?Q?SuD1BUORF9PEAkAHaw+5ZMWojeiQjz+WgbRgT+ZwrGT9ZhXNqLC28egxMaMH?=
- =?us-ascii?Q?3jrIclUAHU0QRx+G8NNfINwJLYdhc3apPqzADVQY9Ft37LYe2Rk274+vkpQj?=
- =?us-ascii?Q?rQxVaRfZfuJ3RKWB4s0fHoxXE/BjjMxAyx1H3m7eMMNNKtxndwJOldbQzODi?=
- =?us-ascii?Q?rO1u4My2ZGApIW+Jh7YDWryLoAf1mI0xeJhDjJRiYh1zrzHOrDfmUnApZwTT?=
- =?us-ascii?Q?lVtqE2rV5JhHJe/7wSh0sbKSdNb0slAXH8fKaLxB6zuCdi9p5rVW3sbsdSDI?=
- =?us-ascii?Q?WHAyg0+1bi02UyvTVL2H8AebmHrTwpX13U6zxH2xzlpNj8r+g3mOI5vAD0A9?=
- =?us-ascii?Q?nN9BGuEVzkqjogpL7c66IeJVWILkSszs7voayg+OJnlDvZ6Mw9duT9DV07J/?=
- =?us-ascii?Q?A8/5N5fTXZzHqW6dT1DZGHkWrKRnT00lkVTJiMeyVJPZHzPFc0ULxSPhaDvT?=
- =?us-ascii?Q?R5/fZgBzyHwYGUKqChsOTiCTOyTMvUa0A23/XF5qNWOBWi2uSduGvu0srGG8?=
- =?us-ascii?Q?1GzdXa4FytF+YlVFbRyGgGxS57m1vl/oZ1HRH+qnsEvmL9DU?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lklu30Ub";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hawqrtZc"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63838XsY2411822
+	for <devicetree@vger.kernel.org>; Wed, 8 Apr 2026 08:59:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	xUyxIW/i4xT3N34Xx3dygSkRm2tUQ3zinozI33xIahQ=; b=lklu30Ubr2+bgqCN
+	k+TLL6RWeQvi6XjctS61beAZ1IEPVmQ9T3JsG7u/6qKfLkKf3aietmLZ/3gyRage
+	8lnBS+UCs8AtgMC2l1D4+WRY17YCAtkp7yBgPWjT4PXyWhaF1Uv8rp/vlVRVX2aS
+	91Qv1bNnH85LNCTXlfaYWraR8hvFga9g2wTt6Oq4PvwMIsit68rcKimPoBRcKLVd
+	Y93AxcqHQPHSY5Q94Hy9Hofkr1yw3TFsJsEvehhj7od2NUgVB+xbTI11sjCmzGHD
+	AB/8MTyF6URgR6Ps8fpYbL9A2Uy5WpAWORkfvmI/wvkU95JAeerFL+dDks77TDkc
+	KjHDig==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dd61vaxpx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 08:59:32 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-50d8c183c2eso30048631cf.0
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 01:59:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1775638771; x=1776243571; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=xUyxIW/i4xT3N34Xx3dygSkRm2tUQ3zinozI33xIahQ=;
+        b=hawqrtZcDDHLxmwAEPug/TftEpPG+Oi4ac9rCk42QIGBnkh1M9gSu0fkNhH5VLhNn7
+         ezSN8XFvIIgxIu4icks+gz4FkrkHG4YcTwHJGV6JNIYwiznGEV5Qtwg08km1e1V/JFtG
+         T8eIrzdMGxYtfVBRfyG/yz2qfqeVc1sYByEROF1nsWN8pHb0LS17gCvFC8xr/bK0907t
+         /MmRZRTANWxtoHz3Owm6uBl7/u2TZh8pqPUgA9euioSMdalosiNMAIPC1OWPXbs6U2VC
+         K5TOuW576NJiBKs8+nyUV5cNVup/OI6UcbrznIXPrflmVmqiMShyq50pBjASmwVnRG9y
+         uvLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775638771; x=1776243571;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=xUyxIW/i4xT3N34Xx3dygSkRm2tUQ3zinozI33xIahQ=;
+        b=DX/I38kNEx/3/oU8ulwp4CFMX8/7H/QooJCCX2JlIKsHGh+WbbFtcmkt7kYiIvlWw2
+         J+Mdcdfpg2XtwtyQ6S2YNwJIVtKXXlRm2dzVNgCEDeUNpyHaxOFteR48ajA5OosyeFdQ
+         HH5xIihp5OT8u8GEDmFMmGAYQ7A4BDFFbToX5e1x0KcjmakqtHyb9hWAOftv0wZSQQmA
+         9ROaQDT/PwU9Gn2i24XPbaC/m6D7JTlaQg93d6d+M0Gry6Hh3rAeMY1lWN1fcVNTJZ2z
+         RopeDPmQbmy4ER6sp93ZTp0TKnPhgVAqwkyYAZS1LUFgOa2m31/2bhV+Qu1v7EckElkZ
+         7qiA==
+X-Forwarded-Encrypted: i=1; AJvYcCVCqYo7EaTu32XQvB5mNh3B7CxLVt7YyayBrhQMg7ytSDKLGrB/ovTw2/K6mKUZwwhagX2MoJdRzHNE@vger.kernel.org
+X-Gm-Message-State: AOJu0YxW5Qum8TlBAU7qTZhUbApH8eI5fy6H2mV8cVxgF+drBgIjQle6
+	CKLcOj18U40JlBRO/PcHXC7Y1bXt31QvF2K5uFyvDwF98WKM1H3a/5ZGrh9bOGkngQHfVmiLhwN
+	NHSuWn7Ttc1lMc9UaNqBo8dnu1NA9VKpQOyuHRXl4f5KBJF9we3jFyXU9F8WMo7P9
+X-Gm-Gg: AeBDievcGPl605RwNVUixGFR/cESttMp0LYdVryxe1Fr0lEhBywij8KigwkR0OmxWPd
+	qZ/3ayGYF1y6Y/cps2O79dmFR1cQMm6hy/2QFZgesR2jh8OEOUYH28+JSEo+F45/pTxHCGbtMzF
+	bJw6D3Lc5NWWr/BVJOvHAWvN0hKuhfqQcwYYu2N4pDxPNoHYH0ZFKREQiK+L/kJ9JUyln/INz7q
+	V4OktX77r3ooCHXwZR1ttA9VnZCfAy94/U4CwTRX5VvcYUIheToj5rbIeUwG/J7o3RVf+D5bWwz
+	YWqfGwlNWRtkidE5m/kXiw8Laq9UIbx6sg1fXJkr5egiXCXo8rkFF6YWIlPnynoE68wvmNv3VOp
+	lkQophVHZPBipSjUo1kG/yZc8/Dny32wl77LUI7AlbrxJE4N5W5hlm0tugoX1MLUEQE31HrG+DG
+	gd9gE=
+X-Received: by 2002:a05:622a:260b:b0:50b:5286:f756 with SMTP id d75a77b69052e-50d62c83682mr219884221cf.6.1775638771438;
+        Wed, 08 Apr 2026 01:59:31 -0700 (PDT)
+X-Received: by 2002:a05:622a:260b:b0:50b:5286:f756 with SMTP id d75a77b69052e-50d62c83682mr219883931cf.6.1775638770970;
+        Wed, 08 Apr 2026 01:59:30 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9d3ba180ffsm2935966b.35.2026.04.08.01.59.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 08 Apr 2026 01:59:30 -0700 (PDT)
+Message-ID: <bb21b9b3-7432-401a-a0d0-1b1970f27770@oss.qualcomm.com>
+Date: Wed, 8 Apr 2026 10:59:27 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7284.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5791bda8-1944-403c-b2a4-08de954d21c1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Apr 2026 08:59:24.3946
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: qyr/n6eqJphGwf+gh1rqMMdQhcf/yhx9r1wV2a2jtbKrmgD4Dx3maGjZKGDaTWyVh2aQhuTfZVf84i3uqRVRlQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB7157
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 02/12] arm64: dts: qcom: qcs6490-radxa-dragon-q6a: Enable
+ UFS controller
+To: Xilin Wu <sophon@radxa.com>, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Judy Hsiao <judyhsiao@chromium.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-sound@vger.kernel.org
+References: <20260407-dragon-q6a-feat-fixes-v1-0-14aca49dde3d@radxa.com>
+ <20260407-dragon-q6a-feat-fixes-v1-2-14aca49dde3d@radxa.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260407-dragon-q6a-feat-fixes-v1-2-14aca49dde3d@radxa.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA4MDA4MCBTYWx0ZWRfX40wFuxDIbPsz
+ 0M0aRLPLWHCR/umAzdhi5NXd6Ps3uAEvfwsvPck1LnMaIShpIDAwauSXL+E5z5GrsB60VCxMJqO
+ vO/OSeTO2u5hXL9ZnzS9r9krHprECFyhAofCN7rhN3fYYlgO2oB1CMie1oIOg0v9JxnZJny6h9F
+ A1E44eT4vmPbmI02TORDrW1zTUMKOBCsK6g1D02TpLaXV/VGIISPo6LsrcHcfXSZr6k1R8O7e7H
+ H6Ufr36W7t04sDpMPNtrOb1y4wOokgDXxipMCMUAHRiufRox5n9rsddS5a4NkII5zMIq5snvyGm
+ lamDhENZN71ze9XQiXJrUtuyYJrp9/Kl2o1x1jcWiTc2vBozELf5FYIsuGfvv1uksd6oIqzMGi+
+ IO+Tm+W6UDMd3TyByCrZLW100scAc26SGFvnAQ3IC2mlmrds/iwiJt5Eh6ofDOPHf2TzT5HZWs9
+ uK/XbWzVts+rPFhscfA==
+X-Authority-Analysis: v=2.4 cv=FecHAp+6 c=1 sm=1 tr=0 ts=69d618f4 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=ksxQWNrZAAAA:8 a=EUspDBNiAAAA:8 a=JxrhfIILcghro0na2cYA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22 a=l7WU34MJF0Z5EO9KEJC3:22
+X-Proofpoint-ORIG-GUID: C0RDZqso5EvQz9nZ1v31KX_J9AM_Zr-K
+X-Proofpoint-GUID: C0RDZqso5EvQz9nZ1v31KX_J9AM_Zr-K
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-08_03,2026-04-07_05,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 lowpriorityscore=0 priorityscore=1501
+ suspectscore=0 clxscore=1015 impostorscore=0 bulkscore=0 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
+ definitions=main-2604080080
 
-> > +static int netc_init_switch_id(struct netc_switch *priv)
-> > +{
-> > +	struct netc_switch_regs *regs =3D &priv->regs;
-> > +	struct dsa_switch *ds =3D priv->ds;
-> > +
-> > +	/* The value of 0 is reserved for the VEPA switch and cannot
-> > +	 * be used.
-> > +	 */
-> > +	if (ds->index > SWCR_SWID || !ds->index) {
-> > +		dev_err(priv->dev, "Switch index %d out of range\n",
-> > +			ds->index);
-> > +		return -ERANGE;
-> > +	}
->=20
-> Does this check cause the probe to fail unconditionally for standard
-> single-switch topologies?
->=20
-> The DSA core typically assigns ds->index =3D 0 by default for the first s=
-witch.
-> Because !ds->index evaluates to true for index 0, this setup function wil=
-l
-> always fail unless the dsa,member property is explicitly overridden in th=
-e
-> device tree.
+On 4/7/26 5:19 PM, Xilin Wu wrote:
+> Add and enable UFS related nodes for this board.
+> 
+> Note that UFS Gear-4 Rate-B is unstable due to board and UFS module design
+> limitations. UFS on this board is stable when working at Gear-4 Rate-A.
+> 
+> Signed-off-by: Xilin Wu <sophon@radxa.com>
+> ---
+>  .../boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts     | 23 ++++++++++++++++++++++
+>  1 file changed, 23 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts b/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
+> index bb5a42b038f1..c961d3ec625f 100644
+> --- a/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
+> +++ b/arch/arm64/boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts
+> @@ -959,6 +959,29 @@ &uart5 {
+>  	status = "okay";
+>  };
+>  
+> +&ufs_mem_hc {
+> +	reset-gpios = <&tlmm 175 GPIO_ACTIVE_LOW>;
+> +	vcc-supply = <&vreg_l7b_2p96>;
+> +	vcc-max-microamp = <800000>;
+> +	vccq-supply = <&vreg_l9b_1p2>;
+> +	vccq-max-microamp = <900000>;
+> +	vccq2-supply = <&vreg_l9b_1p2>;
+> +	vccq2-max-microamp = <1300000>;
+> +
+> +	/* Gear-4 Rate-B is unstable due to board */
+> +	/* and UFS module design limitations */
 
-As I mentioned in another mail, we added the 'dsa,member' property to the
-netc switch DT-binding doc, specifying that the 'member' (switch index) val=
-ue
-cannot be 0. And 'dsa,member' is a required property for netc switch.
+/* it's a bit weird to add two single-line */
+/* comments near one another for a single paragraph */
 
->=20
-> Could the driver translate the hardware ID internally, for example by wri=
-ting
-> ds->index + 1 to NETC_SWCR, rather than forcing this hardware-specific
-> restriction onto the software DSA index?
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-The current approach is based on Vladimir's suggestion. I need to confirm w=
-ith
-Vladimir which approach is better.
-
-Hi Vladimir,
-
-What are your thoughts on this suggestion? Is this approach better?
-
->=20
-> [ ... ]
-> > +	for_each_available_child_of_node_scoped(ports, child) {
-> > +		/* If the node does not have phy-handle property, then
-> > +		 * the port does not connect to a PHY, so the port is
-> > +		 * not the EMDIO consumer.
-> > +		 */
-> > +		phy_node =3D of_parse_phandle(child, "phy-handle", 0);
-> > +		if (!phy_node)
-> > +			continue;
-> > +
-> > +		if (!netc_port_is_emdio_consumer(child)) {
-> > +			of_node_put(phy_node);
-> > +			continue;
-> > +		}
-> > +
-> > +		phydev =3D of_phy_find_device(phy_node);
-> > +		of_node_put(phy_node);
-> > +		if (!phydev) {
-> > +			err =3D -EPROBE_DEFER;
-> > +			goto out;
-> > +		}
->=20
-> Could this logic cause an infinite probe deferral loop for ports sharing =
-an
-> internal MDIO bus?
->=20
-> The netc_port_is_emdio_consumer() function assumes any port node without
-> an
-> mdio child is an EMDIO consumer waiting for an external controller. Howev=
-er,
-> if multiple sibling ports on the same switch share a single internal MDIO=
- bus
-> defined under one port, the other ports will lack an mdio child node.
->=20
-> This would cause those ports to be mistakenly treated as external EMDIO
-> consumers, calling of_phy_find_device(). Because the internal MDIO bus is=
- not
-> registered until later in netc_setup(), the PHY device cannot be found, a=
-nd
-> the driver returns -EPROBE_DEFER.
->=20
-> Since netc_setup() is never reached, the MDIO bus is never registered,
-> causing an infinite deferral loop. Could the driver more accurately ident=
-ify
-> whether the PHY belongs to its own switch before deferring?
-
-This case will not be true, from the hardware perspective, the switch ports
-do not support share a single internal MDIO bus defined under one port.
-The internal MDIO bus of a port can only access its own external PHY. So
-a switch port must either use EMDIO to access its PHY or its internal MDIO
-bus to access its PHY.
-
->=20
-> > +
-> > +		put_device(&phydev->mdio.dev);
-> > +	}
-> > +
-> > +out:
-> > +	of_node_put(ports);
-> > +
-> > +	return err;
-> > +}
-> > +
-> > +static int netc_switch_pci_init(struct pci_dev *pdev)
-> > +{
-> [ ... ]
-> > +	regs->base =3D pci_ioremap_bar(pdev, NETC_REGS_BAR);
-> > +	if (!regs->base) {
-> > +		err =3D -ENXIO;
-> > +		dev_err(dev, "pci_ioremap_bar() failed\n");
-> > +		goto release_mem_regions;
-> > +	}
-> [ ... ]
-> > +static void netc_switch_pci_destroy(struct pci_dev *pdev)
-> > +{
-> > +	struct netc_switch *priv =3D pci_get_drvdata(pdev);
-> > +
-> > +	iounmap(priv->regs.base);
-> > +	pci_release_mem_regions(pdev);
-> > +	pci_disable_device(pdev);
-> > +}
->=20
-> Does unmapping the memory here introduce a use-after-unmap issue when the
-> MDIO bus is unregistered?
->=20
-> The driver registers the MDIO bus using devm_of_mdiobus_register(), meani=
-ng
-> devres cleans it up asynchronously after the remove function returns or w=
-hen
-> probe fails.
->=20
-> However, in netc_switch_pci_destroy(), the driver explicitly unmaps the P=
-CI
-> I/O memory via iounmap(). Since netc_switch_pci_destroy() is called
-> synchronously inside the remove function and probe error paths, the memor=
-y is
-> unmapped before the MDIO bus is unregistered by devres.
->=20
-> When devres eventually unregisters the MDIO bus, it detaches PHY devices,
-> which often perform MDIO transactions during removal. Because the
-> underlying
-> memory priv->regs.base is already unmapped, these MDIO read/write callbac=
-ks
-> could trigger a synchronous external abort or kernel panic.
->=20
-> Would it be better to use pcim_iomap() to tie the memory mapping lifecycl=
-e to
-> devres, ensuring it outlives the MDIO bus?
-
-Great, I will pcim_iomap().
-
+Konrad
