@@ -1,192 +1,420 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B3F534EEF7;
-	Wed,  8 Apr 2026 12:24:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07D9334AAF7;
+	Wed,  8 Apr 2026 12:29:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775651081; cv=none; b=uk7Ks3ZomxhEialtTkZX363Xjev+2INhpSa6QSLE/Pa86/8W8A97M0A/1Eg15gTsIr16WaE5LkBKnt5R/gIcA1v/Tn7iwaGNqxXyCOeWUtQJBylo5zpC1ZmPrOtMGriIzABEuPJHCdPUCwkkKkIcI/hfxp13E0/Ra6b7nFNvsMY=
+	t=1775651344; cv=none; b=oVrfW4kM26bcC4a8iezpnz6CbWT3Y4sREJep4bR871cI5s/+35gthJZRwPso4347ver/N14eoLTFc1czUk1r+J6Jxf6PER16iGHDhKdiGaXy93p9G77eLCaP5eFxAavsTroUQ2gLTUAL3mFXKp9Ah0tip8Rs9dQajZYR4byf3zE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775651081; c=relaxed/simple;
-	bh=SlTk9pYhw8gQ7IZR2fT/XadwHciBiREZfYXDdO1UhJk=;
+	s=arc-20240116; t=1775651344; c=relaxed/simple;
+	bh=4BTcvw1V3P/PDMbvY3dAa90a1SxDMnrBICu523evSfo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E/L9oVd0Zyx/3zo2rhxcVbyD0zAMnvsO3mDgtuOgtr1Gk2EwNkNBWK6uRr8KoXktorbRaw4IXIYAHULDmSTj4lDaZwmgHc+sniURyCHK+yAbgLaJ+ZRDQONfVnNGkHTq0Fl603wYKC/eaGyetTcNefb/RnZjis8rhwPxlU41sfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=OnLaZMZ1; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=bf0hRUA6YcWV7y5lTR4PA/0Sw11wnXHHXYqd8vSxbwVWRlzbNr+vvpIJzeeJ1sqh0cD/uGcz8nJysFstSTQBHycaP3ZmFFDOQcrr801D0qtDymKOQ6aNm2kggpDqdWlm6F5GuEMJPcucXz1py5vaV/oQmTLnhSc7kbTAzhAh8KM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cW9OcXoe; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="OnLaZMZ1"
-Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
-	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 1C2701121;
-	Wed,  8 Apr 2026 14:23:10 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1775650990;
-	bh=SlTk9pYhw8gQ7IZR2fT/XadwHciBiREZfYXDdO1UhJk=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cW9OcXoe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BA83C19421;
+	Wed,  8 Apr 2026 12:29:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775651343;
+	bh=4BTcvw1V3P/PDMbvY3dAa90a1SxDMnrBICu523evSfo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OnLaZMZ1pmD2g1tGdeeljmulCswG+u122ucyDAAGFxR8/P5USrhgyhM17hCTgE62r
-	 1XAZONBqEi2kCLQ0lXSfe9Gh0pXCGbuxkvWXcyDOH68LgilFNnB8MrKVs/cz5+R2FZ
-	 36NXD8osRqUJOOVDxAQfart6OQOMQp/WBxmH9GEw=
-Date: Wed, 8 Apr 2026 15:24:36 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Cc: tomm.merciai@gmail.com, geert@linux-m68k.org,
-	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
+	b=cW9OcXoeM/xiPcCX6Q8ZIr23UDySiU3JEIjn325la8wmvEZfO2KMSOCkVzURJxSCV
+	 HmvzpieD4gou1DEtQ71gM7HSbf+Gq4YbJiiveCzeLlS2sTqIu3X64Rti8vtRWwm1Je
+	 4vtURDz/9uWEQs3ps1boYHFcguxjg8OBmIiugrAx5W9hgRvNuENuK5FlRHisPuvagi
+	 QTyHf3gRgUxr+8SQxTm2ZrFRvgy/ZEXCzYrzJqqw9b4zvJokEqkbgWOR2VhzxbxiBM
+	 nLyliTNeRFy/jv1lBmmjgnEHKTkXCIxsVrPg1n5/U8VM3zhZNcBg+xSxGUGzMpHFV+
+	 uEAw910oPNcdg==
+Date: Wed, 8 Apr 2026 07:29:01 -0500
+From: Rob Herring <robh@kernel.org>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
-Subject: Re: [PATCH v6 10/21] dt-bindings: display: renesas,rzg2l-du: Add
- support for RZ/G3E SoC
-Message-ID: <20260408122436.GH1928916@killaraus.ideasonboard.com>
-References: <cover.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
- <8f814f22ff62dcde6153260e2c8c29a5415c9a89.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
+	Saravana Kannan <saravanak@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH 2/4] ASoC: dt-bindings: Add support for the GPIOs driven
+ amplifier
+Message-ID: <20260408122901.GA42727-robh@kernel.org>
+References: <20260330101610.57942-1-herve.codina@bootlin.com>
+ <20260330101610.57942-3-herve.codina@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <8f814f22ff62dcde6153260e2c8c29a5415c9a89.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
+In-Reply-To: <20260330101610.57942-3-herve.codina@bootlin.com>
 
-On Wed, Apr 08, 2026 at 12:36:55PM +0200, Tommaso Merciai wrote:
-> The RZ/G3E SoC has 2 LCD controllers (LCDC), each containing a Frame
-> Compression Processor (FCPVD), a Video Signal Processor (VSPD), and a
-> Display Unit (DU).
+On Mon, Mar 30, 2026 at 12:16:06PM +0200, Herve Codina wrote:
+> Some amplifiers based on analog switches and op-amps can be present in
+> the audio path and can be driven by GPIOs in order to control their gain
+> value, their mute and/or bypass functions.
 > 
->  - LCDC0 supports DSI and LVDS (single or dual-channel) outputs.
->  - LCDC1 supports DSI, LVDS (single-channel), and RGB outputs.
+> Those components needs to be viewed as audio components in order to be
+> fully integrated in the audio path.
 > 
-> Add a new SoC-specific compatible string 'renesas,r9a09g047-du'.
+> audio-gpio-amplifier allows to consider these GPIO driven amplifiers as
+> auxiliary audio devices.
 > 
-> Extend patternProperties from "^port@[0-1]$" to "^port@[0-3]$" to
-> allow up to four output ports, and explicitly disable port@2 and port@3
-> for existing SoCs that do not expose them.
-> 
-> Describe the four output ports of the RZ/G3E DU:
-> 
->  - port@0: DSI (available on both LCDC instances)
->  - port@1: DPAD / parallel RGB (LCDC1 only)
->  - port@2: LVDS channel 0 (LCDC0 only)
->  - port@3: LVDS channel 1 (available on both LCDC instances)
-> 
-> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 > ---
-> v5->v6:
->  - Extend patternProperties from "^port@[0-1]$" to "^port@[0-3]$" and
->    explicitly disable port@2 and port@3 for existing SoCs that do not expose
->    them.
->  - Reworked ports numbering + improved/fixed ports descriptions in the
->    bindings documentation.
->  - Improved commit body.
+>  .../bindings/sound/audio-gpio-amp.yaml        | 309 ++++++++++++++++++
+>  1 file changed, 309 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/audio-gpio-amp.yaml
 > 
-> v4->v5:
->  - Dropped renesas,id property and updated bindings
->    accordingly.
-> 
-> v2->v3:
->  - No changes.
-> 
-> v2->v3:
->  - No changes.
-> 
-> v1->v2:
->  - Use single compatible string instead of multiple compatible strings
->    for the two DU instances, leveraging a 'renesas,id' property to
->    differentiate between DU0 and DU1.
->  - Updated commit message accordingly.
-> 
->  .../bindings/display/renesas,rzg2l-du.yaml    | 30 ++++++++++++++++++-
->  1 file changed, 29 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
-> index 5add3b832eab..32da0b5ec88c 100644
-> --- a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
-> +++ b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
-> @@ -20,6 +20,7 @@ properties:
->        - enum:
->            - renesas,r9a07g043u-du # RZ/G2UL
->            - renesas,r9a07g044-du # RZ/G2{L,LC}
-> +          - renesas,r9a09g047-du # RZ/G3E
->            - renesas,r9a09g057-du # RZ/V2H(P)
->        - items:
->            - enum:
-> @@ -61,7 +62,7 @@ properties:
->        model-dependent. Each port shall have a single endpoint.
->  
->      patternProperties:
-> -      "^port@[0-1]$":
-> +      "^port@[0-3]$":
->          $ref: /schemas/graph.yaml#/properties/port
->          unevaluatedProperties: false
->  
-> @@ -103,6 +104,8 @@ allOf:
->              port@0:
->                description: DPI
->              port@1: false
-> +            port@2: false
-> +            port@3: false
->  
->            required:
->              - port@0
-> @@ -119,6 +122,8 @@ allOf:
->                description: DSI
->              port@1:
->                description: DPI
-> +            port@2: false
-> +            port@3: false
->  
->            required:
->              - port@0
-> @@ -135,9 +140,32 @@ allOf:
->              port@0:
->                description: DSI
->              port@1: false
-> +            port@2: false
-> +            port@3: false
->  
->            required:
->              - port@0
+> diff --git a/Documentation/devicetree/bindings/sound/audio-gpio-amp.yaml b/Documentation/devicetree/bindings/sound/audio-gpio-amp.yaml
+> new file mode 100644
+> index 000000000000..15dc898f8574
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/audio-gpio-amp.yaml
+> @@ -0,0 +1,309 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/audio-gpio-amp.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Audio amplifier driven by GPIOs
+> +
+> +maintainers:
+> +  - Herve Codina <herve.codina@bootlin.com>
+> +
+> +description: |
+> +  Audio GPIO amplifiers are driven by GPIO in order to control the gain value
+> +  of the amplifier, its mute function and/or its bypass function.
+> +
+> +  Those amplifiers are based on discrete components (analog switches, op-amps
+> +  and more) where some of them, mostly analog switches, are controlled by GPIOs
+> +  to adjust the gain value of the whole amplifier and/or to control
+> +  the mute and/or bypass function.
+> +
+> +  For instance, the following piece of hardware is a GPIO amplifier
+> +
+> +                                         +5VA
+> +                                           ^
+> +                                        |\ |
+> +                                        | \
+> +        Vin >---------------------------|+ \
+> +                                        |   +-------+-----> Vout
+> +                .--\/\/\/--+------------|- /        |
+> +                |          |            | /         |
+> +                v          |            |/ |        |
+> +               GND         o               v        |
+> +                            \             GND       |
+> +       gpio >----------->    \                      |
+> +                         o    o                     |
+> +                         |    |                     |
+> +                         |    '--\/\/\/--.          |
+> +                         |               +--\/\/\/--'
+> +                         '---------------'
+> +
+> +  A GPIO driven amplifier can work in several mode depending on the electronic
+> +  design.
+> +    - points defined:
+> +        The values of GPIOs used to control gain set a specific gain value
+> +        without any specific relationship between each value. For instance,
+> +        using 2 GPIOS:
+> +          0b00 <-> -10.0 dB
+> +          0b01 <-> +3.0 dB
+> +          0b10 <-> 0 dB
+> +          0b11 <-> +6.0 dB
+> +
+> +        This can be described using the gain-points property.
+> +
+> +    - range defined:
+> +        The values of GPIOs used to control gain set a specific gain value
+> +        following a linear dB range from a minimum dB value to a maximum dB
+> +        value. For instance, using 2 GPIOS:
+> +          0b00 <-> -3.0 dB
+> +          0b01 <-> 0 db
+> +          0b10 <-> +3.0 dB
+> +          0b11 <-> +6.0 dB
+> +
+> +        This can be described using the gain-range property.
+> +
+> +    - labels defined:
+> +        Some electronic design are not meant to a specific dB gain value. In
+> +        that case it is relevant to use labels to describe them. For instance,
+> +        using 2 GPIOS:
+> +          0b00 <-> Low boost
+> +          0b01 <-> Middle boost
+> +          0b10 <-> High boost
+> +          0b11 <-> Max boost
+> +
+> +        This can be described using the gain-labels property
+> +
+> +properties:
+> +  compatible:
+> +    const: audio-gpio-amp
+
+To be consistent with other GPIO controlled devices: gpio-audio-amp
+
+> +
+> +  vdd-supply:
+> +    description: Main power supply of the amplifier
+> +
+> +  vddio-supply:
+> +    description: Power supply related to the control path
+> +
+> +  vdda1-supply:
+> +    description: Analog power supply
+> +
+> +  vdda2-supply:
+> +    description: Additional analog power supply
+> +
+> +  mute-gpios:
+> +    description: GPIO to control the mute function
+> +    maxItems: 1
+> +
+> +  bypass-gpios:
+> +    description: GPIO to control the bypass function
+> +    maxItems: 1
+> +
+> +  gain-gpios:
+> +    description: |
+> +      GPIOs to control the amplifier gain
+> +
+> +      The gain value is computed from GPIOs value from 0 to 2^N-1 with N the
+> +      number of GPIO described. The first GPIO described is the lsb of the gain
+> +      value.
+> +
+> +      For instance assuming 2 gpios
+> +         gain-gpios = <&gpio1 GPIO_ACTIVE_HIGH> <&gpio2 GPIO_ACTIVE_HIGH>;
+> +      The gain value will be the following:
+> +
+> +          gpio1 | gpio2 | gain
+> +          ------+-------+-----
+> +            0   |    0  | 0b00 -> 0
+> +            1   |    0  | 0b01 -> 1
+> +            0   |    1  | 0b10 -> 2
+> +            1   |    1  | 0b11 -> 3
+> +          ------+-------+-----
+> +
+> +      Note: The gain value, bits set to 1 or 0, indicate the state active (bit
+> +            set) or the state inactive (bit unset) of the related GPIO. The
+> +            physical voltage corresponding to this active/inactive state is
+> +            given by the GPIO_ACTIVE_HIGH and GPIO_ACTIVE_LOW flags.
+> +
+> +    minItems: 1
+> +    maxItems: 32
+
+2^32 levels? Seems like a bit much. Also, unless you can change the 
+values of all the GPIOs atomically, aren't you going to get some 
+artifacts while the gain is being changed? Unless you mute I guess.
+
+> +
+> +  gain-points:
+> +    $ref: /schemas/types.yaml#/definitions/int32-matrix
+> +    items:
+> +      items:
+> +        - description: The GPIOs value
+
+Can't this just be the index?
+
+If not, then gain-range could be expressed using gain-points instead.
+
+> +        - description: The related amplifier gain in 0.01 dB unit
+> +    minItems: 2
+> +    description: |
+> +      List of the GPIOs value / Gain value in dB pair defining the gain
+> +      set on each GPIOs value.
+> +
+> +      With 2 GPIOs controlling the gain, GPIOs value can be 0, 1, 2 and 3.
+> +      Assuming that GPIOs values set the hardware gains according to the
+> +      following table:
+> +
+> +         GPIOs | Hardware
+> +         value | amplification
+> +         ------+--------------
+> +           0   | -10.0 dB
+> +           1   | +3.0 dB
+> +           2   | 0 dB
+> +           3   | +6.0 dB
+> +         ------+--------------
+> +
+> +      The description using gain points can be:
+> +        gain-points = <0 (-1000)>, <1 300>, <2 0>, <3 600>;
+> +
+> +  gain-range:
+> +    $ref: /schemas/types.yaml#/definitions/int32-array
+> +    items:
+> +      - description: Gain in 0.01 dB unit when all GPIOs are inactive
+> +      - description: Gain in 0.01 dB unit when all GPIOs are active
+> +    description: |
+> +      Gains (in 0.01 dB unit) set by the extremum (minimal and maximum) value
+> +      of GPIOs. The following formula must be satisfied.
+> +
+> +               gain-range[1] - gain-range[0]
+> +      Gain  = ------------------------------- x GPIO_value + gain-range[0]
+> +                        2^N - 1
+> +
+> +      With N, the number of GPIOs used to control the gain and Gain computed in
+> +      0.01 dB unit.
+> +
+> +      With 2 GPIOs controlling the gain, GPIOs value can be 0, 1, 2 and 3.
+> +      Assuming that gain value set the hardware according to the following
+> +      table:
+> +
+> +         GPIOs | Hardware 1    | Hardware 2
+> +         value | amplification | amplification
+> +         ------+---------------+---------------
+> +           0   | -3.0 dB       |  +10.0 dB
+> +           1   | 0 dB          |  +5.0 dB
+> +           2   | +3.0 dB       |  0 dB
+> +           3   | +6.0 dB       |  -5.0 dB
+> +         ------+---------------+---------------
+> +
+> +      The description for hardware 1 using a gain range can be:
+> +        gain-range = <(-300) 600>;
+> +
+> +      The description for hardware 2 using a gain range can be:
+> +        gain-range = <1000 (-500)>;
+> +
+> +  gain-labels:
+> +    $ref: /schemas/types.yaml#/definitions/string-array
+
+minItems: 2
+maxItems: 0x100000000
+
+> +    description: |
+> +      List of the gain labels attached to the combination of GPIOs controlling
+> +      the gain. The first label is related to the gain value 0, the second label
+> +      is related to the gain value 1 and so on.
+> +
+> +      With 2 GPIOs controlling the gain, GPIOs value can be 0, 1, 2 and 3.
+> +      Assuming that gain value set the hardware according to the following
+> +      table:
+> +
+> +         GPIOs | Hardware
+> +         value | amplification
+> +         ------+--------------
+> +           0   | Low
+> +           1   | Middle
+> +           2   | High
+> +           3   | Max
+> +         ------+--------------
+> +
+> +      The description using gain labels can be:
+> +        gain-labels = "Low", "Middle", "High", "Max";
+
+Do we need to allow these to be anything? It's going to get hard to come 
+up with 2^32 names. 
+
+> +
+> +dependencies:
+> +  gain-points: [ gain-gpios ]
+> +  gain-range: [ gain-gpios ]
+> +  gain-labels: [ gain-gpios ]
+
+gain-gpios is really optional?
+
+> +
+> +required:
+> +  - compatible
+> +  - vdd-supply
+> +
+> +anyOf:
+> +  - required:
+> +      - gain-gpios
+> +  - required:
+> +      - mute-gpios
+> +  - required:
+> +      - bypass-gpios
+> +
+> +allOf:
+> +  - $ref: dai-common.yaml#
 > +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: renesas,r9a09g047-du
+> +      required:
+> +        - gain-points
 > +    then:
 > +      properties:
-> +        ports:
-> +          properties:
-> +            port@0:
-> +              description: DSI
-> +            port@1:
-> +              description: DPAD
-> +            port@2:
-> +              description: LVDS, Channel 0
-> +            port@3:
-> +              description: LVDS, Channel 1
+> +        gain-range: false
+> +        gain-labels: false
+> +  - if:
+> +      required:
+> +        - gain-range
+> +    then:
+> +      properties:
+> +        gain-points: false
+> +        gain-labels: false
+> +  - if:
+> +      required:
+> +        - gain-labels
+> +    then:
+> +      properties:
+> +        gain-points: false
+> +        gain-range: false
 > +
-> +          required:
-> +            - port@0
-> +            - port@3
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    /* Gain controlled by gpios */
+> +    amplifier0 {
 
-Why are ports 1 and 2 not required ?
+amplifier-0
 
->  
->  examples:
->    # RZ/G2L DU
+> +        compatible = "audio-gpio-amp";
+> +        vdd-supply = <&regulator>;
+> +        gain-gpios = <&gpio 0 GPIO_ACTIVE_HIGH>, <&gpio 1 GPIO_ACTIVE_HIGH>;
+> +    };
+> +
+> +    /* Gain controlled by gpio using range */
+> +    amplifier1 {
+> +        compatible = "audio-gpio-amp";
+> +        vdd-supply = <&regulator>;
+> +        gain-gpios = <&gpio 0 GPIO_ACTIVE_HIGH>, <&gpio 1 GPIO_ACTIVE_HIGH>;
+> +        gain-range = <(-300) 600>;
+> +    };
+> +
+> +    /* Gain controlled by gpio using points */
+> +    amplifier2 {
+> +        compatible = "audio-gpio-amp";
+> +        vdd-supply = <&regulator>;
+> +        gain-gpios = <&gpio 0 GPIO_ACTIVE_HIGH>, <&gpio 1 GPIO_ACTIVE_HIGH>;
+> +        gain-points = <0 (-1000)>, <1 300>, <2 0>, <3 600>;
+> +    };
+> +
+> +    /* Gain controlled by gpio with labels */
+> +    amplifier3 {
+> +        compatible = "audio-gpio-amp";
+> +        vdd-supply = <&regulator>;
+> +        gain-gpios = <&gpio 0 GPIO_ACTIVE_HIGH>;
+> +        gain-labels = "Low", "High";
+> +    };
+> +
+> +    /* A mutable amplifier without any gain control */
+> +    amplifier4 {
+> +        compatible = "audio-gpio-amp";
+> +        vdd-supply = <&regulator>;
+> +        mute-gpios = <&gpio 0 GPIO_ACTIVE_HIGH>;
 
--- 
-Regards,
+This case is just simple-amplifier...
 
-Laurent Pinchart
+> +    };
+> +
+> +    /*  Several supplies, gain controlled using range, mute and bypass */
+> +    amplifier5 {
+> +        compatible = "audio-gpio-amp";
+> +        vdd-supply = <&regulator>;
+> +        vddio-supply = <&regulator1>;
+> +        vdda1-supply = <&regulator2>;
+> +        gain-gpios = <&gpio 0 GPIO_ACTIVE_HIGH>, <&gpio 1 GPIO_ACTIVE_HIGH>;
+> +        gain-range = <(-300) 600>;
+> +        mute-gpios = <&gpio 2 GPIO_ACTIVE_HIGH>;
+> +        bypass-gpios = <&gpio 3 GPIO_ACTIVE_HIGH>;
+> +    };
+> +...
+> -- 
+> 2.53.0
+> 
