@@ -1,285 +1,247 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6460235DD1C;
-	Wed,  8 Apr 2026 14:59:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D145F3AF65D;
+	Wed,  8 Apr 2026 15:00:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775660398; cv=none; b=u78ea/a6rWDhTl6xRSHlxs/T/zqzVME4qudVwF0Zcp+HiK9QDBmlcVPqbvL6Aali07oGfk9nMSQUUfYbDcLsdlEgWKBShQ/6hifvjf+Q9zkcFrwkUyxWBLKYPc91heASpon19yFGxJyCy9xyRHn7EQBtLX6HoMfRLMXATwpkzKg=
+	t=1775660458; cv=none; b=VoSOoYEYHfQ9jrT3lkOPor6L3IlRCcGTK5iRbdn2nMzoDlJKhT2LS7IuQZdu2Xrm7h+6O0MS4Vxv95gCSMzpPKeTT8BSUYarMnhVSf5858ANw4VWrXv4cGxul+Hi6uxfMuaaOKAlhHo6PILky+b9m6MitdeA2RqmvV3FKrXE+9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775660398; c=relaxed/simple;
-	bh=ERVI9ZJyXyeSYfdT18Yg0S3+mLpg49FF8RNrnPyayK4=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=BulQwav0NL7VR73huv0qkg+n7IPWv/d1AvlpyZvDW203nV4PolnNQYb+3qFqTTBieQQ6VKz9VTedJRPtv7ih18ut1XFDfwSn6xuB6bZjEJ2WUt/0sm/nkUV0r86YqAsJp9uMnWAYaqheSoo7ZWtaj/oBdvpLv6OKq/8SYwgEVfA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=deW+ngqD; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1775660458; c=relaxed/simple;
+	bh=1IOSoDmMWVezGUMwb6ZhSU426luQ7ncqebk5VgNQILY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GFU8/kEM0spvORMixYuFz9K7TxlrXjxoHiaOgNsPsncSLH89o27sZDNwekziz8FB2lpM+0kBVFnl5LYujMIxfZKcVS55QN585vxLE/t2tzNh9yfSzVN5vMdb8wSRqz2qmY4Yl51XnhtO6L/NqAr59F1wVhbvcQIiRAH0+wEiAHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=HNV7wQvr; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="deW+ngqD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1775660397; x=1807196397;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=ERVI9ZJyXyeSYfdT18Yg0S3+mLpg49FF8RNrnPyayK4=;
-  b=deW+ngqDqJQyTuPcXErU7GbktKNzLMtZO2A7IPFjE5fBbfqFtZdUV0Ws
-   L0iYIkKJ2mCcXt3OeRf/1T5PhVfzf7dsKo5AxThU82mry+5pVgJPjNGvD
-   ehzrUSPbj9CU0/kA89GkFYi5XztOktshUxMomZMBz+8Iu8FE5n2+yhXJg
-   8xlKnV6gRQgeFEFT1wpg5DbvI3eOkvXo1N23orpCZc5AwpiadGRwbKRWM
-   UnyhUxsmMvPv4Q7zBuGQyulNVZHjlUQIepvuCbPTFaYRzq72pp4XhYqlt
-   2iUqD/22Vix065UGTO25rd+T4s6znAaWEq7IQdUkqPfrJhUD6rEPcgdgi
-   A==;
-X-CSE-ConnectionGUID: BQaSCvvjSASRO35GC95mcQ==
-X-CSE-MsgGUID: k7AYJO6tTFKgcNT/VRb6Rw==
-X-IronPort-AV: E=Sophos;i="6.23,167,1770620400"; 
-   d="scan'208";a="63706481"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 08 Apr 2026 07:59:56 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Wed, 8 Apr 2026 07:59:25 -0700
-Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Wed, 8 Apr 2026 07:59:22 -0700
-Message-ID: <45b320d12e61bd3583301759060ec05b37c20a3c.camel@microchip.com>
-Subject: Re: [PATCH net-next v2 2/9] dt-bindings: net: lan9645x: add
- LAN9645X switch bindings
-From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
-To: Rob Herring <robh@kernel.org>
-CC: <UNGLinuxDriver@microchip.com>, Andrew Lunn <andrew@lunn.ch>, "Vladimir
- Oltean" <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, "Paolo
- Abeni" <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Woojung
- Huh" <woojung.huh@microchip.com>, Russell King <linux@armlinux.org.uk>,
-	"Steen Hegelund" <Steen.Hegelund@microchip.com>, Daniel Machon
-	<daniel.machon@microchip.com>, <linux-kernel@vger.kernel.org>,
-	<netdev@vger.kernel.org>, <devicetree@vger.kernel.org>
-Date: Wed, 8 Apr 2026 16:59:22 +0200
-In-Reply-To: <20260407171854.GA2970003-robh@kernel.org>
-References: <20260324-dsa_lan9645x_switch_driver_base-v2-0-f7504e3b0681@microchip.com>
-	 <20260324-dsa_lan9645x_switch_driver_base-v2-2-f7504e3b0681@microchip.com>
-	 <20260407171854.GA2970003-robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="HNV7wQvr"
+Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
+	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 603A2802;
+	Wed,  8 Apr 2026 16:59:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1775660366;
+	bh=1IOSoDmMWVezGUMwb6ZhSU426luQ7ncqebk5VgNQILY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=HNV7wQvrkDQ8f1l1uCRZTwe9d4Z8Lr1W8ayqEhU6Y9yxLzYUTpfI6m5ayDDMRB1qG
+	 y6c8t0aITwVptvNYJUhnVgoE2+rum08Lto45sZmBBsN5Qcu0VzXR5O0m75YnPG9DGa
+	 47/1Rs2oqiwh1KzijjNp4uDW615zggyYWTFl/y8M=
+Date: Wed, 8 Apr 2026 18:00:53 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Cc: tomm.merciai@gmail.com, geert@linux-m68k.org,
+	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
+Subject: Re: [PATCH v6 10/21] dt-bindings: display: renesas,rzg2l-du: Add
+ support for RZ/G3E SoC
+Message-ID: <20260408150053.GC1965119@killaraus.ideasonboard.com>
+References: <cover.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
+ <8f814f22ff62dcde6153260e2c8c29a5415c9a89.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
+ <20260408122436.GH1928916@killaraus.ideasonboard.com>
+ <dafdbdcf-98db-473c-8122-296af1922e6c@bp.renesas.com>
+ <20260408141638.GA1965119@killaraus.ideasonboard.com>
+ <87a18664-d19e-4434-8f92-1c7ce4f3a131@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <87a18664-d19e-4434-8f92-1c7ce4f3a131@bp.renesas.com>
 
-On Tue, 2026-04-07 at 12:18 -0500, Rob Herring wrote:
-> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
-e content is safe
->=20
-> On Tue, Mar 24, 2026 at 11:46:45AM +0100, Jens Emil Schulz =C3=98stergaar=
-d wrote:
-> > Add bindings for LAN9645X switch. We use a fallback compatible for the
-> > smallest SKU microchip,lan96455s-switch.
-> >=20
-> > Reviewed-by: Steen Hegelund <Steen.Hegelund@microchip.com>
-> > Signed-off-by: Jens Emil Schulz =C3=98stergaard <jensemil.schulzosterga=
-ard@microchip.com>
-> > ---
-> > Changes in v2:
-> > - rename file to microchip,lan96455s-switch.yaml
-> > - remove led vendor property
-> > - add {rx,tx}-internal-delay-ps for rgmii delay
-> > - remove labels from example
-> > - remove container node from example
-> > ---
-> >  .../net/dsa/microchip,lan96455s-switch.yaml        | 119 +++++++++++++=
-++++++++
-> >  MAINTAINERS                                        |   1 +
-> >  2 files changed, 120 insertions(+)
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/net/dsa/microchip,lan964=
-55s-switch.yaml b/Documentation/devicetree/bindings/net/dsa/microchip,lan96=
-455s-switch.yaml
-> > new file mode 100644
-> > index 000000000000..0282e25c05d4
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/net/dsa/microchip,lan96455s-swi=
-tch.yaml
-> > @@ -0,0 +1,119 @@
-> > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/net/dsa/microchip,lan96455s-switch.=
-yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Microchip LAN9645x Ethernet switch
-> > +
-> > +maintainers:
-> > +  - Jens Emil Schulz =C3=98stergaard <jensemil.schulzostergaard@microc=
-hip.com>
-> > +
-> > +description: |
->=20
-> Don't need '|'
+On Wed, Apr 08, 2026 at 04:44:48PM +0200, Tommaso Merciai wrote:
+> On 4/8/26 16:16, Laurent Pinchart wrote:
+> > On Wed, Apr 08, 2026 at 04:02:14PM +0200, Tommaso Merciai wrote:
+> >> On 4/8/26 14:24, Laurent Pinchart wrote:
+> >>> On Wed, Apr 08, 2026 at 12:36:55PM +0200, Tommaso Merciai wrote:
+> >>>> The RZ/G3E SoC has 2 LCD controllers (LCDC), each containing a Frame
+> >>>> Compression Processor (FCPVD), a Video Signal Processor (VSPD), and a
+> >>>> Display Unit (DU).
+> >>>>
+> >>>>    - LCDC0 supports DSI and LVDS (single or dual-channel) outputs.
+> >>>>    - LCDC1 supports DSI, LVDS (single-channel), and RGB outputs.
+> >>>>
+> >>>> Add a new SoC-specific compatible string 'renesas,r9a09g047-du'.
+> >>>>
+> >>>> Extend patternProperties from "^port@[0-1]$" to "^port@[0-3]$" to
+> >>>> allow up to four output ports, and explicitly disable port@2 and port@3
+> >>>> for existing SoCs that do not expose them.
+> >>>>
+> >>>> Describe the four output ports of the RZ/G3E DU:
+> >>>>
+> >>>>    - port@0: DSI (available on both LCDC instances)
+> >>>>    - port@1: DPAD / parallel RGB (LCDC1 only)
+> >>>>    - port@2: LVDS channel 0 (LCDC0 only)
+> >>>>    - port@3: LVDS channel 1 (available on both LCDC instances)
+> >>>>
+> >>>> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> >>>> ---
+> >>>> v5->v6:
+> >>>>    - Extend patternProperties from "^port@[0-1]$" to "^port@[0-3]$" and
+> >>>>      explicitly disable port@2 and port@3 for existing SoCs that do not expose
+> >>>>      them.
+> >>>>    - Reworked ports numbering + improved/fixed ports descriptions in the
+> >>>>      bindings documentation.
+> >>>>    - Improved commit body.
+> >>>>
+> >>>> v4->v5:
+> >>>>    - Dropped renesas,id property and updated bindings
+> >>>>      accordingly.
+> >>>>
+> >>>> v2->v3:
+> >>>>    - No changes.
+> >>>>
+> >>>> v2->v3:
+> >>>>    - No changes.
+> >>>>
+> >>>> v1->v2:
+> >>>>    - Use single compatible string instead of multiple compatible strings
+> >>>>      for the two DU instances, leveraging a 'renesas,id' property to
+> >>>>      differentiate between DU0 and DU1.
+> >>>>    - Updated commit message accordingly.
+> >>>>
+> >>>>    .../bindings/display/renesas,rzg2l-du.yaml    | 30 ++++++++++++++++++-
+> >>>>    1 file changed, 29 insertions(+), 1 deletion(-)
+> >>>>
+> >>>> diff --git a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+> >>>> index 5add3b832eab..32da0b5ec88c 100644
+> >>>> --- a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+> >>>> +++ b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+> >>>> @@ -20,6 +20,7 @@ properties:
+> >>>>          - enum:
+> >>>>              - renesas,r9a07g043u-du # RZ/G2UL
+> >>>>              - renesas,r9a07g044-du # RZ/G2{L,LC}
+> >>>> +          - renesas,r9a09g047-du # RZ/G3E
+> >>>>              - renesas,r9a09g057-du # RZ/V2H(P)
+> >>>>          - items:
+> >>>>              - enum:
+> >>>> @@ -61,7 +62,7 @@ properties:
+> >>>>          model-dependent. Each port shall have a single endpoint.
+> >>>>    
+> >>>>        patternProperties:
+> >>>> -      "^port@[0-1]$":
+> >>>> +      "^port@[0-3]$":
+> >>>>            $ref: /schemas/graph.yaml#/properties/port
+> >>>>            unevaluatedProperties: false
+> >>>>    
+> >>>> @@ -103,6 +104,8 @@ allOf:
+> >>>>                port@0:
+> >>>>                  description: DPI
+> >>>>                port@1: false
+> >>>> +            port@2: false
+> >>>> +            port@3: false
+> >>>>    
+> >>>>              required:
+> >>>>                - port@0
+> >>>> @@ -119,6 +122,8 @@ allOf:
+> >>>>                  description: DSI
+> >>>>                port@1:
+> >>>>                  description: DPI
+> >>>> +            port@2: false
+> >>>> +            port@3: false
+> >>>>    
+> >>>>              required:
+> >>>>                - port@0
+> >>>> @@ -135,9 +140,32 @@ allOf:
+> >>>>                port@0:
+> >>>>                  description: DSI
+> >>>>                port@1: false
+> >>>> +            port@2: false
+> >>>> +            port@3: false
+> >>>>    
+> >>>>              required:
+> >>>>                - port@0
+> >>>> +  - if:
+> >>>> +      properties:
+> >>>> +        compatible:
+> >>>> +          contains:
+> >>>> +            const: renesas,r9a09g047-du
+> >>>> +    then:
+> >>>> +      properties:
+> >>>> +        ports:
+> >>>> +          properties:
+> >>>> +            port@0:
+> >>>> +              description: DSI
+> >>>> +            port@1:
+> >>>> +              description: DPAD
+> >>>> +            port@2:
+> >>>> +              description: LVDS, Channel 0
+> >>>> +            port@3:
+> >>>> +              description: LVDS, Channel 1
+> >>>> +
+> >>>> +          required:
+> >>>> +            - port@0
+> >>>> +            - port@3
+> >>>
+> >>> Why are ports 1 and 2 not required ?
+> >>
+> >> About this we had a similar discussion on v5[0]
+> >> We are using the same compatible and:
+> >>
+> >> - LCDC0 supports DSI and LVDS (single or dual-channel) outputs.
+> >> |
+> >> --> then has:
+> >> 	port@0
+> >> 	port@2
+> >> 	port@3
+> >> 	
+> >>
+> >>    - LCDC1 supports DSI, LVDS (single-channel), and RGB outputs.
+> >> |
+> >> --> then has:
+> >> 	port@0
+> >> 	port@1
+> >> 	port@3
+> > 
+> > Ah yes, I forget there are two LCDC instances with different output
+> > configurations.
+> > 
+> > Something still looks a bit weird to me though. For LCDC1, which
+> > supports a single LVDS channel, you use the port described as the second
+> > LVDS channel. Is there a reason not to use port@2 ?
+> 
+> 9.11 Low Voltage Differential Signaling (LVDS)
+> 9.11.1.2 Block Diagram
+> Figure 9.11-1 shows a block diagram of LVDS.
+> 
+> LCDC1 is connected to LVDS, Channel 1
+> For this reason I'm using port@3.
 
-I will remove this.
+Re-reading that, I think I've misinterpreted the hardware architecture.
+Doesn't the DU have a single output, that is connected the multiple
+encoders (LVDS and DSI for LCDC0 and LVDS, DSI and DPI for LCDC1) ? It
+seems modelling it with a single port and multiple endpoints would
+better match the device.
 
->=20
-> > +  The LAN9645x switch is a multi-port Gigabit AVB/TSN Ethernet switch =
-with
-> > +  five integrated 10/100/1000Base-T PHYs. In addition to the integrate=
-d PHYs,
-> > +  it supports up to 2 RGMII/RMII, up to 2 BASE-X/SERDES/2.5GBASE-X and=
- one
-> > +  Quad-SGMII interfaces.
-> > +
-> > +properties:
-> > +  compatible:
-> > +    oneOf:
-> > +      - enum:
-> > +          - microchip,lan96455s-switch
-> > +      - items:
-> > +          - enum:
-> > +              - microchip,lan96455f-switch
-> > +              - microchip,lan96457f-switch
-> > +              - microchip,lan96459f-switch
-> > +              - microchip,lan96457s-switch
-> > +              - microchip,lan96459s-switch
-> > +          - const: microchip,lan96455s-switch
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +$ref: dsa.yaml#
->=20
-> Since you don't have any custom properties (just constraints), this ref
-> should be "dsa.yaml#/$defs/ethernet-ports".
+For LVDS in particular, I see a single LVDS encoder with two channels,
+so there should not be two LVDS output ports in the DU. The two ports
+should be on the output of the LVDS device.
 
-Right, I will update the ref.
+> >> Then port@1 is required for DU1 but not for DU0.
+> >> Same port@2 is required for DU0 but not for DU1.
+> >>
+> >> [0] https://patchwork.kernel.org/project/linux-renesas-soc/patch/ca022fdbba5236c36e0cb3095db4c31e8e0cb1b8.1770996493.git.tommaso.merciai.xr@bp.renesas.com/
+> >>
+> >>>>
+> >>>>    examples:
+> >>>>      # RZ/G2L DU
 
->=20
-> > +
-> > +patternProperties:
-> > +  "^(ethernet-)?ports$":
->=20
-> For a new binding, use the preferred name which is ethernet-ports. ports
-> and port collide with the graph binding.
->=20
+-- 
+Regards,
 
-OK, I will use ethernet-ports and move it from patternProperties to propert=
-ies.
-
-> > +    type: object
-> > +    additionalProperties: true
-> > +    patternProperties:
-> > +      "^(ethernet-)?port@[0-8]$":
->=20
-> And 'ethernet-port'
-
-I will change this and update the example.
-
->=20
-> > +        type: object
-> > +        description: Ethernet switch ports
-> > +
-> > +        $ref: dsa-port.yaml#
-> > +
-> > +        properties:
-> > +          rx-internal-delay-ps:
-> > +            const: 2000
-> > +
-> > +          tx-internal-delay-ps:
-> > +            const: 2000
-> > +
-> > +        unevaluatedProperties: false
->=20
-> Place this after the $ref.
-
-I will move this.
-
->=20
-> > +
-> > +oneOf:
-> > +  - required:
-> > +      - ports
-> > +  - required:
-> > +      - ethernet-ports
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +
-> > +unevaluatedProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    ethernet-switch@4000 {
-> > +        compatible =3D "microchip,lan96459f-switch", "microchip,lan964=
-55s-switch";
-> > +        reg =3D <0x4000 0x244>;
-> > +
-> > +        ethernet-ports {
-> > +            #address-cells =3D <1>;
-> > +            #size-cells =3D <0>;
-> > +
-> > +            port@0 {
-> > +                reg =3D <0>;
-> > +                phy-mode =3D "gmii";
-> > +                phy-handle =3D <&cuphy0>;
-> > +            };
-> > +
-> > +            port@1 {
-> > +                reg =3D <1>;
-> > +                phy-mode =3D "gmii";
-> > +                phy-handle =3D <&cuphy1>;
-> > +            };
-> > +
-> > +            port@2 {
-> > +                reg =3D <2>;
-> > +                phy-mode =3D "gmii";
-> > +                phy-handle =3D <&cuphy2>;
-> > +            };
-> > +
-> > +            port@3 {
-> > +                reg =3D <3>;
-> > +                phy-mode =3D "gmii";
-> > +                phy-handle =3D <&cuphy3>;
-> > +            };
-> > +
-> > +            port@7 {
-> > +                reg =3D <7>;
-> > +                phy-mode =3D "rgmii";
-> > +                ethernet =3D <&cpu_host_port>;
-> > +                rx-internal-delay-ps =3D <2000>;
-> > +                tx-internal-delay-ps =3D <2000>;
-> > +
-> > +                fixed-link {
-> > +                    speed =3D <1000>;
-> > +                    full-duplex;
-> > +                    pause;
-> > +                };
-> > +            };
-> > +        };
-> > +    };
-> > +...
-> > +
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index 7ae698067c41..8232da1b3951 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -17278,6 +17278,7 @@ M:    Jens Emil Schulz =C3=98stergaard <jensemi=
-l.schulzostergaard@microchip.com>
-> >  M:   UNGLinuxDriver@microchip.com
-> >  L:   netdev@vger.kernel.org
-> >  S:   Maintained
-> > +F:   Documentation/devicetree/bindings/net/dsa/microchip,lan96455s-swi=
-tch.yaml
-> >  F:   include/linux/dsa/lan9645x.h
-> >  F:   net/dsa/tag_lan9645x.c
-> >=20
-> >=20
-> > --
-> > 2.52.0
-> >=20
-
+Laurent Pinchart
