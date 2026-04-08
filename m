@@ -1,110 +1,211 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C6F3D0929
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 14:05:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 696503D2FE1;
+	Wed,  8 Apr 2026 14:10:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775657129; cv=none; b=XCtP2u5MCAyiCuGlQcjIyumfFt/k3cR1sz0MSlmwfY6tcJZdF9DbjC/QhDKOyIBTXoCL1V7tdUgY1i1wbDJB8BHRXSN8R415b2l9LRUJQr90NpXX9XEeo/rFKuklWdBc8NtceJ29/E4T60VezCZGb5r6OmawRC1pvRLD8nL3b+0=
+	t=1775657429; cv=none; b=aaw0dwVm573hqLNdPDs+n3U5bSHp2h7ph+dUMD3ON74t76kOikVuIp4ZCd5ATNpiWt6ZIjQX6FFQ+o0HLtvniau82q+/0LIpe//nB4Afe0YRhCa3P8H4BJ6ndE1qV7CXmkzRiNwlr/6xe8tAh74nlRtmxHAarldl7yK2M1kU4N4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775657129; c=relaxed/simple;
-	bh=q/HxfJDEIZsacxEvj6AcEnUXO0EJ6z7DmUUMEIj9M7s=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=jqVRGk40r0jOtv4cjOviRQzIsh0EAyXi1xgD72HHEJ9hHe+ixMD13Z/yJPTlwXWAXOzuY7zki34Nlr/7pGYZLDKJJE/uDy2NWnBQp71Hf9iCDqNRPP9qMabi/3w4JVeKtQLUDb3BilBXEOS7PvhTcgUZ9CmI431MmMC+iDOIE9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=fFywtgs2; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1775657429; c=relaxed/simple;
+	bh=i2Dbh2ANq28qBSTN2bv54+q1a50BxTE9oJVrrroT5ZY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AVEUYNuvHOdBxfzZJi5/WcllD/9xWDw98jUhFz0THFbdr1VhkrPqJ2kEJPS/axqUILdMJDMURzF9dU9kvD/HifRa2vNGVAMh8gFjkYVq84psArY4IOYE1LNkN5sD7sOi5DMv19FUxINo4kori9VBIvxH+ZAFAntxylq2kkD0kdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=up9YGgAc; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="fFywtgs2"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4838c15e3cbso49217705e9.3
-        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 07:05:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1775657126; x=1776261926; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=q/HxfJDEIZsacxEvj6AcEnUXO0EJ6z7DmUUMEIj9M7s=;
-        b=fFywtgs28FzjFE+RY0Q7SkaL7CnP6buZjte7Vw4lYPQg3lJRuTr7vV9SGlkU+PW66w
-         d68PY5ynKBkRA+7Usm7OHFvkkKXQVfUJvFwiGCQDWA4RUTIcNKg47AjWuV/CyWECxlO3
-         BinEnXUqo0b4yT+b5Oyu0ARnZ7uCiZnbP7r9YLTkJMy4kZcfjM3cVq+IIGYGOxFaOKGv
-         71DQzVXP9SwI3zGu7mD2TZKoyxV8+aen81uDzVX3CTcPO+AxfY+NMdcyMGEBDCBdoo+b
-         BVkOoFhYepTTgok/g7tAQiNvbMHj77ImLsjhPIX1MYnKgRcF7pLkCxgcqCcS0f7l6hKh
-         oVyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775657126; x=1776261926;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=q/HxfJDEIZsacxEvj6AcEnUXO0EJ6z7DmUUMEIj9M7s=;
-        b=ldqfh1Vv3uelCW030sIMegVrNewq2cLLoIfcmoqMpmS9PEkW+f7T+tYQUNaqjPeYbV
-         dCqOAwl5zMiKPUiZiLA+GwAiR+U+FL4gwWzbPEQuT+RfroTr/O5IAwbr5S4YlWhhzDoz
-         RAjlLvhwLm9TZBMpECLI88yhhlLDHjBBWb332VSSpa+rqgXzRiHb4QJsASWhJXnuxhrZ
-         hujNCXLev4XKUrwt/bX/JRT6yViaoyRRWeA42bzlm7erla4sdkJGOcxv78IECEELonzs
-         wbNEZFFyMwE/VlnV2lvGDNF40PNZk2fCLMaH4wFUCpryI91eK8aZ30eAvyT9Nd2eqOz4
-         1Ldw==
-X-Forwarded-Encrypted: i=1; AJvYcCWuZSI78KqLlfTiEtrJjSu9MtTTZt3ZNSBRyPLtUmOgEviD/Dovehy1gBJ/eGb529pja58oJRgr9s6r@vger.kernel.org
-X-Gm-Message-State: AOJu0YywXEs6LclJMTdFaFpVRaPzOB+IrY+Ng39liDFuleMcZ5LRHnqs
-	qG47JGGXcck7P3YWLjGmXtWxsw/KXqpo2eOwbpItIvxROl5dMdC0Tqql1Pdu0I1Autg=
-X-Gm-Gg: AeBDietCSsV6bxhfmNAj9jk/DvwsUoQ+PCA3gBuJFfmu3XGk8eCMnrTwkTDUk6NMYBj
-	y6QlmHwPIMhG1WvoPvoDKNbphAKyvbjQofH4LFdbVqJpmWZEhwyLnwYORANOFOwaf0JdbEDSkCW
-	mVsr8tTqbIdS/UO3Pz5HKeFoVPDS4+gRelw8mienX60E+xE9uLK0nMBYVqZI5snarnwdj4z/shT
-	lOhAv244A4AAzdaOhav2AqvdVJ1bGRuAIxintfaHvSqJg+/lPelcoMvhS6+zbHSq2q8fxp0wPbD
-	sFUFIv+y2bHu6mSjmHwWXAGW9kLenTKiuVmrr4+mWYVSCsqGCzYVsRaqRYZ5tzhDz7T7ZUVAAeY
-	MdJkCur/Rn2mjI1qNw7JHZ7iY23RvcPrelH193CeuwyDa91yFv2Q2ex6OtAh0Yxr1nVC/iNv2aL
-	/npVR7ystAIJ6slkMDf5P4BKqFiosPjF/46mr9/p+1LeRNDJLr1PSESH1loBGvY9/BaMoFQXghP
-	C1jddiK6rsioTDLPg==
-X-Received: by 2002:a05:600c:638e:b0:480:2521:4d92 with SMTP id 5b1f17b1804b1-488997b23c6mr299995865e9.24.1775657126171;
-        Wed, 08 Apr 2026 07:05:26 -0700 (PDT)
-Received: from localhost ([2a00:2381:fd67:101:9775:58c0:569c:bd74])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43d1e2a6f08sm61358898f8f.6.2026.04.08.07.05.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 08 Apr 2026 07:05:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="up9YGgAc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EFE9C19421;
+	Wed,  8 Apr 2026 14:10:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775657429;
+	bh=i2Dbh2ANq28qBSTN2bv54+q1a50BxTE9oJVrrroT5ZY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=up9YGgAc7IHMuoBdh3ONWLG9qnGSwvEiHxfi39HKRZ8mywBhKMEm94Rlzn1VuzHDT
+	 33HmtrnISdZapkbYCiHQjrmR+XSrquFED4gadV3DPKdWRpj+a/hMReRETWCsZWNl/u
+	 LriCmU95F2JEOGNheFI41iQL3lQ9uv0JkXa8JtM+/1wz1RyGvOL8k24ogA4dd1fe8k
+	 EmnSVEpf8u+JxK3wcf8oYdNQhCF1saI99/xBesze8W5A8sKEDM2Q5iS/EogyuGBgBA
+	 PeOr16P2iVdIVOPPvwAsRk5gcFTlSMaZ8STdL2vqIgXSmSlUJS604tkBltVO1F4cQ+
+	 0yYXyL5qWsgew==
+Date: Wed, 8 Apr 2026 19:40:19 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Sherry Sun <sherry.sun@nxp.com>
+Cc: "robh@kernel.org" <robh@kernel.org>, 
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>, 
+	Frank Li <frank.li@nxp.com>, "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>, 
+	"kernel@pengutronix.de" <kernel@pengutronix.de>, "festevam@gmail.com" <festevam@gmail.com>, 
+	"lpieralisi@kernel.org" <lpieralisi@kernel.org>, "kwilczynski@kernel.org" <kwilczynski@kernel.org>, 
+	"bhelgaas@google.com" <bhelgaas@google.com>, Hongxing Zhu <hongxing.zhu@nxp.com>, 
+	"l.stach@pengutronix.de" <l.stach@pengutronix.de>, "imx@lists.linux.dev" <imx@lists.linux.dev>, 
+	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, 
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH V11 02/12] PCI: host-generic: Add common helpers for
+ parsing Root Port properties
+Message-ID: <yijf6mwclpx6n7giucgykxvrm73baicy2urhzns34sxgloli3z@ygose2qrgvuz>
+References: <20260407104154.2842132-1-sherry.sun@nxp.com>
+ <20260407104154.2842132-3-sherry.sun@nxp.com>
+ <lnzprzrdwra7pn7d6m3sbj5pvjy64blwpjl6i3lmlnfbyho63b@czpyhpgz5vum>
+ <VI0PR04MB12114A60C4A7E43ED62A32B04925BA@VI0PR04MB12114.eurprd04.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 08 Apr 2026 15:05:24 +0100
-Message-Id: <DHNTX1T5S2UO.28SO88SS2HDOZ@linaro.org>
-Cc: "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Peter Griffin"
- <peter.griffin@linaro.org>, <linux-samsung-soc@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-clk@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 0/3] Exynos850 APM-to-AP mailbox support
-From: "Alexey Klimov" <alexey.klimov@linaro.org>
-To: "Tudor Ambarus" <tudor.ambarus@linaro.org>, "Krzysztof Kozlowski"
- <krzk@kernel.org>, "Sylwester Nawrocki" <s.nawrocki@samsung.com>, "Chanwoo
- Choi" <cw00.choi@samsung.com>, "Alim Akhtar" <alim.akhtar@samsung.com>,
- "Sam Protsenko" <semen.protsenko@linaro.org>, "Michael Turquette"
- <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>, "Rob Herring"
- <robh@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Jassi Brar"
- <jassisinghbrar@gmail.com>
-X-Mailer: aerc 0.20.0
-References: <20260402-exynos850-ap2apm-mailbox-v2-0-ca5ffdff99d4@linaro.org>
- <d9c714fa-988c-4b0d-b756-c6e7a40da587@linaro.org>
-In-Reply-To: <d9c714fa-988c-4b0d-b756-c6e7a40da587@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <VI0PR04MB12114A60C4A7E43ED62A32B04925BA@VI0PR04MB12114.eurprd04.prod.outlook.com>
 
-On Thu Apr 2, 2026 at 9:45 AM BST, Tudor Ambarus wrote:
-> Hi!
->
-> On 4/2/26 5:20 AM, Alexey Klimov wrote:
->> This patch series introduces support for the APM-to-AP mailbox on the
->
-> If AP initiates the communication and APM responds, shouldn't this be cal=
-led
-> AP-to-APM mailbox?
+On Wed, Apr 08, 2026 at 06:34:02AM +0000, Sherry Sun wrote:
 
-Yes, there is some inconsistency in the naming, in the downstream too.
-If this has to be aligned with datasheet like in the comments to another
-patch in this series, then name should be APM-to-AP or APM2AP for that
-matter.
+[...]
 
-But let's keep it logical. I will rename it to ap2apm and will re-check.
+> > > +/**
+> > > + * pci_host_common_parse_port - Parse a single Root Port node
+> > > + * @dev: Device pointer
+> > > + * @bridge: PCI host bridge
+> > > + * @node: Device tree node of the Root Port
+> > > + *
+> > > + * Returns: 0 on success, negative error code on failure  */ static
+> > > +int pci_host_common_parse_port(struct device *dev,
+> > > +				      struct pci_host_bridge *bridge,
+> > > +				      struct device_node *node)
+> > > +{
+> > > +	struct pci_host_port *port;
+> > > +	struct gpio_desc *reset;
+> > > +
+> > > +	reset = devm_fwnode_gpiod_get(dev, of_fwnode_handle(node),
+> > > +				      "reset", GPIOD_ASIS, "PERST#");
+> > 
+> > Sorry, I missed this earlier.
+> > 
+> > Since PERST# is optional, you cannot reliably detect whether the Root Port
+> > binding intentionally skipped the PERST# GPIO or legacy binding is used, just
+> > by checking for PERST# in Root Port node.
+> > 
+> > So this helper should do 3 things:
+> > 
+> > 1. If PERST# is found in Root Port node, use it.
+> > 2. If not, check the RC node and if present, return -ENOENT to fallback to the
+> > legacy binding.
+> > 3. If not found in both nodes, assume that the PERST# is not present in the
+> > design, and proceed with parsing Root Port binding further.
+> 
+> Hi Mani, understand, does the following code looks ok for above three cases?
+> 
+>     /* Check if PERST# is present in Root Port node */
+>     reset = devm_fwnode_gpiod_get(dev, of_fwnode_handle(node),
+>                       "reset", GPIOD_ASIS, "PERST#");
+>     if (IS_ERR(reset)) {
+>         /* If error is not -ENOENT, it's a real error */
+>         if (PTR_ERR(reset) != -ENOENT)
+>             return PTR_ERR(reset);
+> 
+>         /* PERST# not found in Root Port node, check RC node */
+>         rc_has_reset = of_property_read_bool(dev->of_node, "reset-gpios") ||
+>                    of_property_read_bool(dev->of_node, "reset-gpio");
 
-Thanks,
-Alexey
+Just:
+		if (of_property_read_bool(dev->of_node, "reset-gpios") ||
+		    of_property_read_bool(dev->of_node, "reset-gpio")) {
+			return -ENOENT;
+		} 
 
+>         if (rc_has_reset)
+>             return -ENOENT;
+> 
+>         /* No PERST# in either node, assume not present in design */
+>         reset = NULL;
+>     }
+> 
+>     port = devm_kzalloc(dev, sizeof(*port), GFP_KERNEL);
+>     if (!port)
+>         return -ENOMEM;
+> ...
+> 
+> > 
+> > But there is one more important limitation here. Right now, this API only
+> > handles PERST#. But if another vendor tries to use it and if they need other
+> > properties such as PHY, clocks etc... those resources should be fetched
+> > optionally only by this helper. But if the controller has a hard dependency on
+> > those resources, the driver will fail to operate.
+> > 
+> > I don't think we can fix this limitation though and those platforms should
+> > ensure that the resource dependency is correctly modeled in DT binding and
+> > the DTS is validated properly. It'd be good to mention this in the kernel doc of
+> > this API.
+> 
+> Ok, I will add a NOTE for this in this API description.
+> 
+> > 
+> > > +	if (IS_ERR(reset))
+> > > +		return PTR_ERR(reset);
+> > > +
+> > > +	port = devm_kzalloc(dev, sizeof(*port), GFP_KERNEL);
+> > > +	if (!port)
+> > > +		return -ENOMEM;
+> > > +
+> > > +	port->reset = reset;
+> > > +	INIT_LIST_HEAD(&port->list);
+> > > +	list_add_tail(&port->list, &bridge->ports);
+> > > +
+> > > +	return 0;
+> > > +}
+> > > +
+> > > +/**
+> > > + * pci_host_common_parse_ports - Parse Root Port nodes from device
+> > > +tree
+> > > + * @dev: Device pointer
+> > > + * @bridge: PCI host bridge
+> > > + *
+> > > + * This function iterates through child nodes of the host bridge and
+> > > +parses
+> > > + * Root Port properties (currently only reset GPIO).
+> > > + *
+> > > + * Returns: 0 on success, -ENOENT if no ports found, other negative
+> > > +error codes
+> > > + * on failure
+> > > + */
+> > > +int pci_host_common_parse_ports(struct device *dev, struct
+> > > +pci_host_bridge *bridge) {
+> > > +	int ret = -ENOENT;
+> > > +
+> > > +	for_each_available_child_of_node_scoped(dev->of_node, of_port) {
+> > > +		if (!of_node_is_type(of_port, "pci"))
+> > > +			continue;
+> > > +		ret = pci_host_common_parse_port(dev, bridge, of_port);
+> > > +		if (ret)
+> > > +			return ret;
+> > 
+> > As Sashiko flagged, you need to make sure that devm_add_action_or_reset()
+> > is added even during the error path:
+> 
+> Yes, it needs to be fixed. We can handle it with the following two methods, I am not sure which method is better or more preferable?
+> 
+> #1: register cleanup action after first successful port parse and use cleanup_registered flag to avoid duplicate register.
+>     int ret = -ENOENT;    
+>     bool cleanup_registered = false;
+> 
+>     for_each_available_child_of_node_scoped(dev->of_node, of_port) {
+>         if (!of_node_is_type(of_port, "pci"))
+>             continue;
+>         ret = pci_host_common_parse_port(dev, bridge, of_port);
+>         if (ret)
+>             return ret;
+> 
+>         /* Register cleanup action after first successful port parse */
+>         if (!cleanup_registered) {
+>             ret = devm_add_action_or_reset(dev,
+>                                pci_host_common_delete_ports,
+>                                &bridge->ports);
 
+Even if you register devm_add_action_or_reset(), it won't be called when
+pci_host_common_parse_port() fails since the legacy fallback will be used.
+
+So you need to manually call pci_host_common_delete_ports() in the error path.
+
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
