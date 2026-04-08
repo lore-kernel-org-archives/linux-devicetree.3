@@ -1,83 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from nick.sneptech.io (nick.sneptech.io [178.62.38.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 608363B19AB;
-	Wed,  8 Apr 2026 16:36:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED7A3B19CC;
+	Wed,  8 Apr 2026 16:52:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.62.38.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775666216; cv=none; b=n3MKD8GEXNuAlnvX6aBoXevcnz5DOAGRhuxHjSpAinvtPBnVCN0kgPHBYpSQCwOyDKCaC73kj1jb2tXb8hZAkqAryz+bWg3bN5NHJUsJATEyOWZb24OzvEN1I22YUy3YQ3SViwt2D9wlz0tsed1uSKqjuwsF4GSNNl+kgSSlXBo=
+	t=1775667175; cv=none; b=PoEDs1egxrMDEk2ChVbRlLPNsygQ5ZbIQy5l9m/ZcTjGwsG/d7KfWs4eMiqxIownRsMnkYBweUDZeSfI+Ca0qoaCqa1T9WbnK7egtfzs0V1IQSt2hYxcnGo9ciq/ig8Nr2B740Xp6O0Niw+67lDxL/z63qd6gD22ayiujJ8GCcA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775666216; c=relaxed/simple;
-	bh=KuEcNGVb6Ap5/FhPlqhsH6NdZliWBNFMhP5Jl72KpLg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n8rhs6OuRNJo55iKQGwFibVAg6BEmGvZqPz2c/F/bvQTyaLLhNIUs+n4/gIaQ/8uQantOImu9Y0P6YgHtfCgKyQ6vlgdnCcsUTb4tpBXpFKKIl9/bEf9K8C1fWKKACraHMtFX3NU+QnMCtDJqcP+Wy62o/RUGKsE1cqWTm/kTzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=r2Zr58aS; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775667175; c=relaxed/simple;
+	bh=0Maaoz+2keI1/bqfwflxirvmnxTu0/X4KLdFAANGdXk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oliY7UnJ6PS2iRglYEmeT3gSBAKqMI4pir8YBYamGDBMvkOlNgQSgthzwm0Neabcpg7XJ1/3FfGLpXsVOIkBS+FcKALi5d+WO7hEbyyB8X1MA6ntBS6Fo4dE2FD6IHQNqXtUgaXfrCHe27Ee2s7rcgXADlvQ/+nVDySq4ki0yzM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=philpem.me.uk; spf=pass smtp.mailfrom=philpem.me.uk; dkim=pass (1024-bit key) header.d=philpem.me.uk header.i=@philpem.me.uk header.b=lYCecKeu; arc=none smtp.client-ip=178.62.38.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=philpem.me.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=philpem.me.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="r2Zr58aS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B45BC19421;
-	Wed,  8 Apr 2026 16:36:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775666216;
-	bh=KuEcNGVb6Ap5/FhPlqhsH6NdZliWBNFMhP5Jl72KpLg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=r2Zr58aSxiv2R1lJPsvkT0mOml9ZzYY7WPFbmjS0h4r/KZd/O0HqydaIV0liAzQCH
-	 V8K2gLl7I1z6IDdTNPnvuQ63eGw5gbc9vrMWZStouQcS1Tco+M/ej54AvqUSo2N3r1
-	 otQH8/cYJUHRHmC2XUsO5mrK3VEKtHqiZLmfKv3Mq4+iLUTj6/M3w0brWNSzd0AASq
-	 V5s1MmYTo3mV1M7OeHdnHAKMvaZoUhWRX6DgBrlBGQSQ5+isj7ObdOXDVmE1eVhIXG
-	 7k9uEWMgTYWxNxFHgIX3/f7fSZ16bSsoCpXgvyM/i51achJ1nwgq9/6mdXd9SaEQXy
-	 PZHMiZolWDp3A==
-Date: Wed, 8 Apr 2026 17:36:50 +0100
-From: Simon Horman <horms@kernel.org>
-To: Luca Weiss <luca.weiss@fairphone.com>
-Cc: Alex Elder <elder@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	dkim=pass (1024-bit key) header.d=philpem.me.uk header.i=@philpem.me.uk header.b="lYCecKeu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=philpem.me.uk;
+	s=mail; t=1775667172;
+	bh=0Maaoz+2keI1/bqfwflxirvmnxTu0/X4KLdFAANGdXk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=lYCecKeu9LotoJY2fSgZg1ePa5kSvMEGJ+qVTXmtvOStnyWz7NK4pZK23W/cAeoNi
+	 cMtnBwf8Qy8AXzC9/CQ7WVbCuefum2BtXoA+6FFBpqOsRC+l8y1vTF3KfDtZ+eIy4f
+	 RKrTrXcmAEK7PC5yJbUv4LHjDjy5Zbh6ts8r2uDc=
+Received: from wolf.philpem.me.uk (81-187-163-148.ip4.reverse-dns.uk [81.187.163.148])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	(Authenticated sender: mailrelay_wolf@philpem.me.uk)
+	by nick.sneptech.io (Postfix) with ESMTPSA id 98E8ABECE7;
+	Wed,  8 Apr 2026 16:52:52 +0000 (UTC)
+Received: from cheetah.homenet.philpem.me.uk (cheetah.homenet.philpem.me.uk [10.0.0.32])
+	by wolf.philpem.me.uk (Postfix) with ESMTPSA id 649495FC38;
+	Wed,  8 Apr 2026 17:52:52 +0100 (BST)
+From: Phil Pemberton <philpem@philpem.me.uk>
+To: Moritz Fischer <mdf@kernel.org>,
+	Xu Yilun <yilun.xu@intel.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Alexander Koskovich <akoskovich@pm.me>,
-	~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 4/6] net: ipa: add IPA v5.2 configuration data
-Message-ID: <20260408163650.GG469338@kernel.org>
-References: <20260403-milos-ipa-v1-0-01e9e4e03d3e@fairphone.com>
- <20260403-milos-ipa-v1-4-01e9e4e03d3e@fairphone.com>
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Tom Rix <trix@redhat.com>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	linux-fpga@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Phil Pemberton <philpem@philpem.me.uk>
+Subject: [PATCH v2 2/2] fpga: ts73xx-fpga: add OF match table for device tree probing
+Date: Wed,  8 Apr 2026 17:52:23 +0100
+Message-ID: <20260408165223.3051759-3-philpem@philpem.me.uk>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260408165223.3051759-1-philpem@philpem.me.uk>
+References: <20260408165223.3051759-1-philpem@philpem.me.uk>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260403-milos-ipa-v1-4-01e9e4e03d3e@fairphone.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Apr 03, 2026 at 06:43:50PM +0200, Luca Weiss wrote:
-> Add the configuration data required for IPA v5.2, which is used in
-> the Qualcomm Milos SoC.
-> 
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
-> ---
->  drivers/net/ipa/Makefile             |   2 +-
->  drivers/net/ipa/data/ipa_data-v5.2.c | 452 +++++++++++++++++++++++++++++++++++
->  drivers/net/ipa/gsi_reg.c            |   1 +
->  drivers/net/ipa/ipa_data.h           |   1 +
->  drivers/net/ipa/ipa_main.c           |   4 +
->  drivers/net/ipa/ipa_reg.c            |   1 +
->  drivers/net/ipa/ipa_sysfs.c          |   2 +
->  drivers/net/ipa/ipa_version.h        |   2 +
->  8 files changed, 464 insertions(+), 1 deletion(-)
+The ts73xx-fpga driver currently only matches by platform device name,
+which prevents it from being probed when the device is described in a
+device tree. Add an of_device_id table so the driver can match against
+the "technologic,ts7300-fpga" compatible string.
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+The TS-7350 and TS-7390 use different FPGAs with a different programming
+interface, so while the driver is named "ts73xx-fpga", it doesn't apply
+to them.
 
-I'm not suggesting a change to this patch.
+Signed-off-by: Phil Pemberton <philpem@philpem.me.uk>
+---
+ drivers/fpga/ts73xx-fpga.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-But it does seem to me that there is a lot of commonality
-between drivers/net/ipa/data/ipa_data-v*.c.
-And it would be nice if that could be consolidated somehow.
+diff --git a/drivers/fpga/ts73xx-fpga.c b/drivers/fpga/ts73xx-fpga.c
+index 4e1d2a4d3df4..3460e4809f86 100644
+--- a/drivers/fpga/ts73xx-fpga.c
++++ b/drivers/fpga/ts73xx-fpga.c
+@@ -11,6 +11,7 @@
+ #include <linux/delay.h>
+ #include <linux/io.h>
+ #include <linux/module.h>
++#include <linux/of.h>
+ #include <linux/platform_device.h>
+ #include <linux/string.h>
+ #include <linux/iopoll.h>
+@@ -119,9 +120,17 @@ static int ts73xx_fpga_probe(struct platform_device *pdev)
+ 	return PTR_ERR_OR_ZERO(mgr);
+ }
+ 
++static const struct of_device_id ts73xx_fpga_of_match[] = {
++	{ .compatible = "technologic,ts7300-fpga" },
++	{},
++};
++
++MODULE_DEVICE_TABLE(of, ts73xx_fpga_of_match);
++
+ static struct platform_driver ts73xx_fpga_driver = {
+ 	.driver	= {
+ 		.name	= "ts73xx-fpga-mgr",
++		.of_match_table = ts73xx_fpga_of_match,
+ 	},
+ 	.probe	= ts73xx_fpga_probe,
+ };
+-- 
+2.43.0
 
-...
