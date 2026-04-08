@@ -1,130 +1,166 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B00DF38236A;
-	Wed,  8 Apr 2026 07:35:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8106383C69
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 07:36:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775633759; cv=none; b=JBXnDfJh6R8ZW1NsuXe0a8CIeT67cljiW4r6miqnwTXCSkaA0E74/YkP6ATBRS1tf4cpTmi3AXTzAqA8b/zq0W1yaTKktSuhykR2fbYUWVtmYcsqyApxr/TI6iqzTlJ8zm9Bu98OyBtWv9UKvh0ucbQPzIqcvc0NZY7rxqyems0=
+	t=1775633818; cv=none; b=rOWlO86MBD+9ietRRzPXNR7qbBuOmenOoJNqeSG6RJ2GxfzOl93LqnAPTjsbe0R+kEgKeffFalHulT28gsZfW2ZH4uxMGHLjAGPNhonAlC369QwdwVplQmtCYZTAB+WPXKdcxc9uhQdML41IRajII/nSSCgh8ZN7NT+mlk4o260=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775633759; c=relaxed/simple;
-	bh=XZV8qm7BHRHuL3w93A5yoY4tQ3JkrcvAVxVZHbS+Bic=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=hP11e86nk1xpPpwghUBd4/d1YwDK+2hzLHM+AQjOKwmHuYTccJP68aYLD8mzUt/tgSVlbZexGwzevzFZUFTt7u0xekNcwoDqFCtgrV3l9t1jTuMmPjR/sB54z/giLJmu1QQ8FuFHCXqF01YurorY1G53Ss1uwoWtcJRnVorqGhc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.43])
-	by APP-05 (Coremail) with SMTP id zQCowABn9glFBdZp48XqDA--.42033S2;
-	Wed, 08 Apr 2026 15:35:34 +0800 (CST)
-Message-ID: <414231dccf62dba2a9275f0867874621f4922b6a.camel@iscas.ac.cn>
-Subject: Re: [PATCH] riscv: dts: sophgo: reduce SG2042 MSI count to 16
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Chen Wang <unicorn_wang@outlook.com>, Thomas Gleixner <tglx@kernel.org>,
-  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,  Inochi Amaoto <inochiama@gmail.com>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: Han Gao <rabenda.cn@gmail.com>, Zixian Zeng <sycamoremoon376@gmail.com>,
-  Manivannan Sadhasivam	 <mani@kernel.org>, devicetree@vger.kernel.org,
- sophgo@lists.linux.dev, 	linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Date: Wed, 08 Apr 2026 15:35:33 +0800
-In-Reply-To: <MA5PR01MB1250025586EE7A236CAC536B1FE5BA@MA5PR01MB12500.INDPRD01.PROD.OUTLOOK.COM>
-References: <20260407160143.1182430-1-zhengxingda@iscas.ac.cn>
-	 <MA5PR01MB1250025586EE7A236CAC536B1FE5BA@MA5PR01MB12500.INDPRD01.PROD.OUTLOOK.COM>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	s=arc-20240116; t=1775633818; c=relaxed/simple;
+	bh=LTWCfOQIzMWLox9Xzjo7jJBOkH7s4/SrN1OB8aaKQQI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ukgtm4alCz8QnztdM0u4z8RBCCnNNvI+nsDdYzrSyLsZne3taIZdXLMN6xPnGfaSlu59CMeiKBTL2MVuGT5lcO/CoWIQ7voQOKbnKL/0CQx9oeqUnb4tIvBJESzrpGyGj5bpWM/nSOuDptYTyM0gMcBUVUHMyPHnVp8Iwi+VYR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=P0K3k3cp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PYi9kp5Z; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="P0K3k3cp";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PYi9kp5Z"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63838Xar2411822
+	for <devicetree@vger.kernel.org>; Wed, 8 Apr 2026 07:36:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	foXQZW+HFsYsOpgbdU9gp8rFPeiZKMy9pLJVC5jouzg=; b=P0K3k3cp7IqmZJQQ
+	YQ7RGgCppWOOh2CBadHhcxzE8ak7D9xM6hpjmAei1mzpJwDU+2CFLxpy/Vaiz5Y8
+	PvYq+UU9TGJcg+beHTmeNxHn4eZ+nncr/zsC0ee6T54A6FCWMAb2/mJ0aF55B3OW
+	Op79Hj/HtYutQ5gCYBaDs/V+t4tKv+jWM+rEecgPW1URmcGCS7cWAkjiOHFLcUKn
+	mCogtT9jE7FevmbibSNRuiymAZeI/IpBhwsMl58RTYNZJxx9zGFabxhIOCuaeyf0
+	A+l8hPjUMJ8WzZTNfCgBiyAEBR866j2X9nYQBZdFlZr0fzxWoDQjOjWeZGtsToAE
+	euOs9g==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dd61vakrd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 07:36:55 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-35dacc40f92so5429309a91.2
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 00:36:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1775633815; x=1776238615; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=foXQZW+HFsYsOpgbdU9gp8rFPeiZKMy9pLJVC5jouzg=;
+        b=PYi9kp5ZZw7HzlELf+KD2bCzlSfM+9fBQAl+HWuPhiY3de+NUl8ANqUUOxodblSSAr
+         qCiKyBYltb+FmyfJWNib8neQU2bVg9shFf19bMgHGTU87g2u/ayU69+1b0xCfWrlNMWX
+         5ZWNdMRnsfhUaT6N8ymEkz17EYUWOqRu7ObsL9Wmoq4FmfXIHmAThkwaGQVz6fVRUhQ8
+         YZsNkWhe/WhiIh9PcdFooQY2kGCcFXe1dGVawsnjDrCYikxlzmldkvqQ6mW891dfU13M
+         k5xnCCT+X3yVR9/7oxmT1BQq7LFvuJS6GbQK8agHeIPg/uxryQiTthXPOrpfrySagAaM
+         P0UQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775633815; x=1776238615;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=foXQZW+HFsYsOpgbdU9gp8rFPeiZKMy9pLJVC5jouzg=;
+        b=EHkKdavpNnT4f+6EczIDedtUJFxxDuk1J64lGhTqig3MIAnk7mWDIEA0rP+WbnaXCs
+         UnlZkm9tJZZLbXRVEg4AjrYKAPJ2I8N5rFQv8nxPi2Qj6I8F1SO991RksZokfHZQqc2E
+         ytzhBxx85+4gm0jm5w1NTJ5xFQ7TTm2Bho8OC994tgp0sXOm3ZBDUL2/49fBRkfPK/cd
+         juPXDg0ZoXzmm7mjH7rDdMmk7C22an/335TjdWwIpO79lPOEOqbBkC+HejFLjZ5kGkD2
+         IRFwEp/qfisA+t2Ah8qjHpoSqgZkiBGllUZkUv2XXq0P0ADYczlTMvyJOhOTnsgRRBKj
+         7SHg==
+X-Forwarded-Encrypted: i=1; AJvYcCUXP0KtVVoyXeGyz6+jtF3J0HAC0JnH9QkzPtmU0bgnhFFZzsnvcgiPOC0aBjpcTBDbcEohbjoveY/t@vger.kernel.org
+X-Gm-Message-State: AOJu0YxKx5EXmzf5dLYF+eIssCLcFbMf8OmHbfFBYzGPfYGt4gJVJGfK
+	uXdVMadQxMYpxF/eHKRNYgnySZWLZbevY5BDks/INMuEHJz5ya4ygJpKAyyLT/bzLGiMHViHKCF
+	PfVoluDpToDcDJ02St4JnLYzsRrh0ZqhvgKR0mGx/UnAM2rwZ/EKynfLGkFfqM4Ot
+X-Gm-Gg: AeBDiesCUTHYfLfu4Fh+dnnQ3IqGVojsEjlUf5mSqTTkT6Dq2cC2Sthttivz0Lkokqb
+	8WfUJZRXJGMjMia+ztPWDS2oLJgNkagbD3PfBhiZi38dUJCDrw2Y/Me9pHwi5BNhs1+TiNP+hn8
+	5dd8SHgTEYTdSLcPgzlCZhpYQHJFdZeRCm0eG04yhV0TgzzeSSHqLeNmhNP7LmEgz5XJaMV9MWs
+	JwppCDHwfeixHygeXqXNgvR31bUTcyeVPxReix18+bV4kSjSeWLsdxOa+y5Vg3qe3pXPU94e+O4
+	wUykbF2C8bz66BKKc879BAmC8LGyt4egwQN2QRaKv5GgS5oYnnE1x+WmCvudOQNt2eQxxUWEHxz
+	4xnJfmPRUt0rokIyuOXXQQInHecHHJatANLVIU3FFIzUH2n3png==
+X-Received: by 2002:a17:903:22c7:b0:2b2:4260:109 with SMTP id d9443c01a7336-2b2818b011emr206708435ad.23.1775633814978;
+        Wed, 08 Apr 2026 00:36:54 -0700 (PDT)
+X-Received: by 2002:a17:903:22c7:b0:2b2:4260:109 with SMTP id d9443c01a7336-2b2818b011emr206708055ad.23.1775633814473;
+        Wed, 08 Apr 2026 00:36:54 -0700 (PDT)
+Received: from [10.217.217.198] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b2adc8c4ecsm46328265ad.5.2026.04.08.00.36.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 08 Apr 2026 00:36:54 -0700 (PDT)
+Message-ID: <3dcd713f-dce6-401b-8c1b-194313ec5e05@oss.qualcomm.com>
+Date: Wed, 8 Apr 2026 13:06:48 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:zQCowABn9glFBdZp48XqDA--.42033S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kr4UCr43Aw4rJw1xWF15urg_yoW8Cry5pa
-	1DuFsIkaya9rs7Ca17KFWjgr4xArZ3Ww4DKrn8G34jqrZxXa4UJr43tr95G3ZrXr4rXw45
-	AF1Uuw1fCFn8XFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
-	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
-	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
-	67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
-	x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
-	z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
-	UI43ZEXa7IUnj-e5UUUUU==
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/7] dt-bindings: clock: qcom: Add video clock controller
+ on Eliza SoC
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org
+References: <20260317-eliza_mm_clock_controllers_v1-v1-0-4696eeda8cfb@oss.qualcomm.com>
+ <20260317-eliza_mm_clock_controllers_v1-v1-1-4696eeda8cfb@oss.qualcomm.com>
+ <4c4e80be-4aeb-4275-977f-b3f8c6ab26b0@oss.qualcomm.com>
+Content-Language: en-US
+From: Taniya Das <taniya.das@oss.qualcomm.com>
+In-Reply-To: <4c4e80be-4aeb-4275-977f-b3f8c6ab26b0@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA4MDA2OCBTYWx0ZWRfX9bERqwsbzGLE
+ 3PXlANeGaQHR+ukat9jnQXAXyrOjxgsKT4JIvQuwb1Qv2oQ463GwQEvuDh21IYeubfZdFXPI+Ih
+ WQmY+XWB7hskCYAvqUs/OE/Z4aKWXgafDblZnmvRDhnv1oG9Cc2xVdfv6FVsQLFBtaUhXmt9duu
+ 2IoBqkEUcpVBZG9BcfXbM6U9D/OpYxIncEATLABLoe77ruLMZ+sb5mbWA1PwiNrQfV9xbqD6APu
+ Btw2VtNr/76eyTcT6a+VEZ/NWAhxmq0nCmGC6UI/8fTSevRO48Zz9df1+rxAwY5KIC3BPCxQv/Z
+ jZ013OnNsT25L87hhVbUeXbNvndIQpig14i3DAZ4mFOmjHibEGHNiFdXcWHfT8wNd9j//V2sQ7N
+ r6czSyNRa/wEho/ekUA7I2DYYYJy7r14jOzaKH/i7uPIm93SxGQUEqz6FXJaBPa4ZcAVyLF2hCj
+ Bvuzg0ZR6fGtlU0t4UQ==
+X-Authority-Analysis: v=2.4 cv=FecHAp+6 c=1 sm=1 tr=0 ts=69d60597 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=f9sTazImdp3HmuBAhI8A:9 a=QEXdDO2ut3YA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-ORIG-GUID: -jXcGbcIfKmyhmX03coFGPdlNhJlrWiC
+X-Proofpoint-GUID: -jXcGbcIfKmyhmX03coFGPdlNhJlrWiC
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-08_03,2026-04-07_05,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 lowpriorityscore=0 priorityscore=1501
+ suspectscore=0 clxscore=1015 impostorscore=0 bulkscore=0 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
+ definitions=main-2604080068
 
-=E5=9C=A8 2026-04-08=E4=B8=89=E7=9A=84 15:04 +0800=EF=BC=8CChen Wang=E5=86=
-=99=E9=81=93=EF=BC=9A
->=20
-> On 4/8/2026 12:01 AM, Icenowy Zheng wrote:
-> > The SG2042 MSI controller has one 32-bit doorbell register, and
-> > each bit
-> > corresponds to an interrupt. At a glance, it seems that the MSI
-> > controller can support 32 interrupts; however the PCI MSI
-> > capability
-> > only supports 16-bit messages, which makes the high 16 interrupts
-> > unusable in such way.
-> >=20
-> > Reduce the MSI count to 16 to prevent producing MSI message values
-> > that
-> > cannot fit 16-bit integers.
-> >=20
-> > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> > ---
-> > =C2=A0 arch/riscv/boot/dts/sophgo/sg2042.dtsi | 2 +-
-> > =C2=A0 1 file changed, 1 insertion(+), 1 deletion(-)
-> >=20
-> > diff --git a/arch/riscv/boot/dts/sophgo/sg2042.dtsi
-> > b/arch/riscv/boot/dts/sophgo/sg2042.dtsi
-> > index 9fddf3f0b3b99..9f1820a7b5a9f 100644
-> > --- a/arch/riscv/boot/dts/sophgo/sg2042.dtsi
-> > +++ b/arch/riscv/boot/dts/sophgo/sg2042.dtsi
-> > @@ -234,7 +234,7 @@ msi: msi-controller@7030010304 {
-> > =C2=A0=C2=A0			reg-names =3D "clr", "doorbell";
-> > =C2=A0=C2=A0			msi-controller;
-> > =C2=A0=C2=A0			#msi-cells =3D <0>;
-> > -			msi-ranges =3D <&intc 64
-> > IRQ_TYPE_EDGE_RISING 32>;
-> > +			msi-ranges =3D <&intc 64
-> > IRQ_TYPE_EDGE_RISING 16>;
-> > =C2=A0=C2=A0		};
-> > =C2=A0=20
-> > =C2=A0=C2=A0		rpgate: clock-controller@7030010368 {
->=20
-> LGTM.
->=20
-> Reviewed-by: Chen Wang <unicorn_wang@outlook.com>
->=20
-> Tested-by: Chen Wang <unicorn_wang@outlook.com> on Pioneerbox.
->=20
-> Thanks,
->=20
-> Chen
->=20
->=20
-> Hi, Han,
->=20
-> Will you please run some quick test on EVB boards, I have no such=20
-> hardware in hand, thanks.
 
-I tested on EVB v1, but I have no access to EVB v2 either.
 
+On 4/7/2026 7:10 PM, Krzysztof Kozlowski wrote:
+> On 17/03/2026 18:14, Taniya Das wrote:
+>> Add compatible string for Eliza video clock controller and the bindings
+>> for Eliza Qualcomm SoC.
+>>
+>> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+>> ---
+>>  .../bindings/clock/qcom,sm8450-videocc.yaml        | 16 ++++++++++
+>>  include/dt-bindings/clock/qcom,eliza-videocc.h     | 37 ++++++++++++++++++++++
+>>  2 files changed, 53 insertions(+)
+>>
+> 
+> Although I already suggested that this was not tested (and you never
+> replied where did you test it), but I also checked and this fails checks
+> - constraints are mismatched now.
+
+I will update the bindings for videocc.
+
+-- 
 Thanks,
-Icenowy
-
->=20
->=20
->=20
-> _______________________________________________
-> linux-riscv mailing list
-> linux-riscv@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-riscv
+Taniya Das
 
