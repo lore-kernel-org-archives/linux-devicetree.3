@@ -1,51 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7370118C2C;
-	Wed,  8 Apr 2026 00:19:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E59DF18C2C;
+	Wed,  8 Apr 2026 00:21:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775607589; cv=none; b=fmdkHw9cYSn0Kq9jbno0KhlFqV4Q5J3GNFIT51qsIElbxhUFuUWl9+7dIteO1o15ttDPFbE2SOmDXrqX1qMP6ywtME5D5vDxWSKF3tRR+HoAxlwcirVzSrI/dwZAgpHCRRb1HoGEMPx7gyy/vwrKrC+K+AnIdFraUnoURHltFFo=
+	t=1775607708; cv=none; b=RIC3YrgY6H0FJhExq9ygMGM1GYlyPWnCetif2wQH2vjaj4FvCILYDLjNF00GuuqfMbb60GJA87xXSCUOCDofNnnuEWf2Ghf61aUR2+mMaTfVF/EuDhbF0Vm8fpHJmF7D1hRkU+PbRYNYEFvHiOKEj6Liwm/kekgkHsp1c5wStKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775607589; c=relaxed/simple;
-	bh=OXs0Y2Jl9HdzHS2ird2lMW+ChAu5fLrUXDPFb8yIrDk=;
+	s=arc-20240116; t=1775607708; c=relaxed/simple;
+	bh=LANGaaEmITDd8sEFLNS3mRcjX84Gr8piwK5kBm0FnHQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ovxWmxNGFGAy1jMF/MDlkMNMuF78z32AJ7XaA1PHJDqNHaGYsBMX0/c3kKmlwdVHNZ660EkpqdMU0Oj9dthLsjqUr4d0Qg37mxuLa/JOALTwAN0JRiy6SzoS5WEzYI9PUb1/RU/1zAvvcLx/WuWWUGHN+OApOkObcLjZUjXG8T8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Znvicg7H; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z+P8byPKJlGChDAzjRDuM86WF7/N4eLvBjobQ27IZi+Pdg8Jchd3dAq2k7EOd+Gl7Pmml2wEzp38j3KMvm3fWcsqeYVCw8Q8lZCpK4Ju8pbVpmm/jAB35G/WLuw3fBuo/Y8xfxnJccqwY/vOGLcbUG+FE4XOJmGf8GWadStU/bY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y8GCn0IT; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Znvicg7H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D173CC116C6;
-	Wed,  8 Apr 2026 00:19:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y8GCn0IT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35596C116C6;
+	Wed,  8 Apr 2026 00:21:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775607589;
-	bh=OXs0Y2Jl9HdzHS2ird2lMW+ChAu5fLrUXDPFb8yIrDk=;
+	s=k20201202; t=1775607707;
+	bh=LANGaaEmITDd8sEFLNS3mRcjX84Gr8piwK5kBm0FnHQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Znvicg7HoBJ/Y1hIrP5bjjWIHLDPN+3QIcAlVe4xcM+qf8aY+AO2psHaNv1rAX3HJ
-	 mFN6R0o1NAARuWExTKjItxLuHZyFDOqtckmJhb90nED3kRXlQXInan0iDUe1+0uPN0
-	 lpaFFVw2XfOoghvyi0HSDeLVgr7FGFqkPrMpMrH9mzFGf4yg2a7Xbk9zcYneTXXflM
-	 Gl2bx9roHdJLL+luasZoYnvyykNdjJX9yLZxjPHSl9hQEWCpLHxbMXBTYwQWbVstJd
-	 UQpH5RxXQnFauhr+OT/cpurbKH7DeTZbMD0U8dVeNSRospLVaNFXNG2SE0K38yPIKF
-	 SaNL+ZwP2qCUA==
-Date: Tue, 7 Apr 2026 19:19:46 -0500
+	b=Y8GCn0ITZWp4hFJIJJ5mzbrL7Wve1QGrqxgTHdxb8rXY7xwqdFQSXmweJ7poUEB2r
+	 971KZxOO35HW3FhoNLzd8d4pxUD6mJNfGVwUBhgaUlxuP1EZqymEtMVccJCCjKoKa9
+	 4wrE8W1u3OEnoJQH11qNLTQnE23oIl1SKy5C5mw2B76R++FfYUCe6BrlnL8OJNbnCv
+	 UMUpXB8LnEy5MhezucLKWkDtOF0lt/G97qjKSiTVkWtJycT7uOnjyKK5HCnCmrLZ+J
+	 efpvLFORvzc+1RbX/ZqAO6eQMj80Y2H4EpAfxd5iPPahGYRDR7ireksuSnLc4nSAhQ
+	 DSYSGwT/IU90g==
+Date: Tue, 7 Apr 2026 19:21:45 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Thorsten Blum <thorsten.blum@linux.dev>
-Cc: Guenter Roeck <linux@roeck-us.net>, Conor Dooley <conor+dt@kernel.org>,
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Antoni Pokusinski <apokusinski01@gmail.com>,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
-	Cosmo Chou <chou.cosmo@gmail.com>,
-	Pawel Dembicki <paweldembicki@gmail.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Wensheng Wang <wenswang@yeah.net>,
-	Dixit Parmar <dixitparmar19@gmail.com>, Frank Li <Frank.Li@nxp.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	devicetree@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>,
-	linux-kernel@vger.kernel.org, Eddie James <eajames@linux.ibm.com>
-Subject: Re: [PATCH 2/2] dt-bindings: trivial-devices: add atmel,atecc608b
-Message-ID: <177560758652.39663.11215595026885409037.robh@kernel.org>
-References: <20260330100800.389042-3-thorsten.blum@linux.dev>
- <20260330100800.389042-4-thorsten.blum@linux.dev>
+	Conor Dooley <conor+dt@kernel.org>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/4] of: Introduce of_property_read_s32_index()
+Message-ID: <177560770473.42385.8354240930232053784.robh@kernel.org>
+References: <20260330101610.57942-1-herve.codina@bootlin.com>
+ <20260330101610.57942-2-herve.codina@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,16 +50,20 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260330100800.389042-4-thorsten.blum@linux.dev>
+In-Reply-To: <20260330101610.57942-2-herve.codina@bootlin.com>
 
 
-On Mon, 30 Mar 2026 12:08:01 +0200, Thorsten Blum wrote:
-> Add entry for ATECC608B.  Update the ATECC508A comment for consistency.
+On Mon, 30 Mar 2026 12:16:05 +0200, Herve Codina wrote:
+> Signed integers can be read from single value properties using
+> of_property_read_s32() but nothing exist to read signed integers
+> from multi-value properties.
 > 
-> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+> Fix this lack adding of_property_read_s32_index().
+> 
+> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 > ---
->  Documentation/devicetree/bindings/trivial-devices.yaml | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+>  include/linux/of.h | 7 +++++++
+>  1 file changed, 7 insertions(+)
 > 
 
 Acked-by: Rob Herring (Arm) <robh@kernel.org>
