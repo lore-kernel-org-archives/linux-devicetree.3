@@ -1,102 +1,112 @@
-Received: from out203-205-221-242.mail.qq.com (out203-205-221-242.mail.qq.com [203.205.221.242])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDA3B3D5256;
-	Wed,  8 Apr 2026 15:10:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.242
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 331903D47D2
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 15:25:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775661053; cv=none; b=N1rck5E2i7HTuL+lAJRusoH8qoCe15hrAviIBtPN1TFGBkyf8gn0hwakx1zwoTpMESMvoHutFjGMWBY4u5eR2BFL2VID2koekkHhFmMfAyu6As+9YTEDyEAXv3LFgAXBAhgHkhbEk0MiJ3uUaMgAlFPSRfjKPmrtqZEO++Y7HN4=
+	t=1775661946; cv=none; b=llvRgT8feWqHNtRTJjv+60GivtmR9zLyN8Acl9ihxTo9AitE6jU9sbVzd1CNo4iCeb+UbY37hbQbzP7N55TleVK/NhLFroIFVUDAhXHaTcfs1gJK3AEe/pqCsXNWm6ZcLv8XlUdU7arCXIt8C2/puJ7lKj5nyq0ADa+ypVszaVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775661053; c=relaxed/simple;
-	bh=krHcrTy9GfwPOCNbShyvwFBeiIK7lhgDWrS06pmnLWo=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=jPR93cj+uPjvCTjSmKWhqjqsw5vPo2Dvj29ItqD0z5o6FJ1SJ20VLYM3/ffAJhVEkP5fNoa5Pshy5fKghG4oDz+Qhzc5GXO7VhUsMD3cR+C/4CF9CFVgJzIZ1gefqM8QZ2BZatn9y/Z7kbkdHGCXQCbMdARgEzLPxTcuyELQZV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=JyZTNfin; arc=none smtp.client-ip=203.205.221.242
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1775661946; c=relaxed/simple;
+	bh=5uZQetOvevtL0mvlMj7KiFmCmHDYLkwGGitGi+quo4Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=p03JmMOivotIN9/teCAZxYvbzr2s9g9FQKTPRw7xauiwh7p4DTFHZnrq3SXqQcU3yYu/L2YLypGFW3yholzlw7858Vked165CGQWUQ2PFO3wHuOdTGbXZVBr51pw7Ji+aMHcPLB5ISqDp+RG/4JzZ6H6C4gZ06CG//+GFfYi0Vs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HdzXm6xa; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="JyZTNfin"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1775661042; bh=XKcq00N0DIMUELEWrD+WO/50AsRGlhm2DyseYU7P9tM=;
-	h=From:To:Cc:Subject:Date;
-	b=JyZTNfin/Z/Q7aX4Z7YpCGa6gt5sw6BNtCREM0hDfMw9pW/g5rpeQsQ1kQqXNjjlh
-	 wgmxOpBb7/RIse8V9elz6FZTyeTr/67SWPyu6ndT1NKEP5sjLmX3hD3NV/iVkIKP6U
-	 KVzTMDmk2mZhZvFkMDyWBd1YZTvwMti2xroYz0kU=
-Received: from gwx-Ubuntu.. ([183.207.4.28])
-	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
-	id 26E24EE4; Wed, 08 Apr 2026 23:09:46 +0800
-X-QQ-mid: xmsmtpt1775660986thr6icol4
-Message-ID: <tencent_CF3170E7191769F8FB22C55A0F952E82E105@qq.com>
-X-QQ-XMAILINFO: NGZp1yYNf7Y+5o4+1CmlC1XFFeZPOT/SuqiQzarSPQeB5pWLyZC6My+Zr9JEL/
-	 urfH0ek6M9razrAqmSAn7ug0OfP4UideQhWr6rImYLHsRLmrZg5lTeMK/uxKPR01JH81YxPBuVwG
-	 oawynLjtjWfsC+xbU7R3uExSYD3XJvQ97ERzJbFMY4iJ8iJ375v9RSdGLJDcoRpqGGUB8RfxS9d5
-	 xF/Twp1KstRvsZFK7h4QKAkG2XUYTMRwLkk8PZOC1/Bxl1KMJQf2eklkC4cVDPdiPtIIFNWXLYVI
-	 XNqAWv1ET+/2GQiQfTXKBjhHqHwQxDxj+MtvDF5iMC+2JC2dAVpTncIkPM77uOsnQxPamHoK+8Es
-	 ppZhw6bp2g3phEWeP/ccqF4FPI9EyDINtuYihiI0zI707Rc4YYfEZBN6IQFg5X6btMPyGHA28ItR
-	 +B4roC64gvg4tBSw7pJLeW1wDW8N4QzGHZntcVuZPizQMfTc4+4/+LR6U7eyZ5R/Ra2mAOW4Khej
-	 2Nc2V6jn2kY/pqDZQ5ySLLIDrCplwIRGyqN4TmtW+dv5Ey+wIHHW8RLaL0bYPzh00j7CFGks6z3s
-	 1s+3clVdG/ju4rWWYUqvpg0pIZXgZQjJbmmaF9b5gHp6J3yFCL9xQYJGawrixypQnCcAkHAhbQaQ
-	 d+fjZ5hguxnTom/x9rfbucGcCXf+yy6Y38fSi7L3WMaejcODroqXkKlmKQGYGmVFOCgogByXfZqq
-	 iOo8KbDoiy7CJaw8HPNoJYh3xsdKdE4fPHZLRkXuZtt0/Aqksr7HzE5FvbteF1GrSjYeMeztp0aA
-	 PGpozq/IZUZfNxbVEL24zAyqI7fQeojALuwu/3VUpavtfQ9UQB4O1QvlTbPufaZIgPiLU2UWIizC
-	 M8tW7kIfzTGJoI5QdlWQ+pzn63qluUlhsbgeXIPJCZzMC5d3nBtgj23ip9aXvzOwSQogBiQOl7Ux
-	 ztlo4UWgx113X3KoDSIM9my4GwG8II/AO4lXSAJJCvhxGmTZD3frcJa39ZLcpErMDDMO05AK4qbr
-	 Wnl0sUsQsY24UzIqpPF3JiEIyiI9AnORPMJkostzLlwsn7AAZbuO+aTx7zN1oNGxJTPBdkp9dDzA
-	 tfzqo6
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-From: guoweix <2298701336@qq.com>
-To: heiko@sntech.de
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	f.kardame@manjaro.org,
-	pgwipeout@gmail.com,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	guoweix <2298701336@qq.com>
-Subject: [PATCH] arm64: dts: rockchip: fix rk809 interrupt pin on rk3566-roc-pc
-Date: Wed,  8 Apr 2026 23:09:44 +0800
-X-OQ-MSGID: <20260408150944.177773-1-2298701336@qq.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HdzXm6xa"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4887eca00c4so43237225e9.2
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 08:25:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1775661944; x=1776266744; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=EC2v+Q/gnBLhwWmQlqWcd9BxtNoiH00jSXgAbXbWBps=;
+        b=HdzXm6xaIgQTHUdWQkMXqt+5zsdXnafOQU8548jqgHOjj6TQgYOTrqjXlkKfK08RHu
+         tSgIlDUN2jiP6x308CB0mIdK+rNED2+6SzlOCQ9SLRj2qw6k7vxCE8A0hIlPTVTwRtN/
+         uIRDALUJbG6Xc15Qm3oFQq0zIUarcH6UTaIERI/0WhnjgiFqnzy/5jcdMOYrGDqpO3wv
+         v1gOhAQqh8u8imkYwdZ9FR0K01/7mnvzyA3YobSUFq5iw6bi2ef1s/WiOrckIMMsaaWM
+         3KxCvVvVeKkNCfwKcSewF6BMcXu9H5xFOZ0ytvBVdU1AvBIKLUl2T6SRMT47mTj4hkIm
+         hzDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775661944; x=1776266744;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=EC2v+Q/gnBLhwWmQlqWcd9BxtNoiH00jSXgAbXbWBps=;
+        b=IehA83/mvaTUBhOPz13VNL5cbP7+86mpMvBtOQ9Z9vuUpNd9Bo5Na1HuVLJDtJNEr8
+         k7FivA6stHomPzH3Njz5jWsPDCYpDgLaPB2WCoRmWMsZoJxlQWRGgkCcEy1Gr+MtYvXe
+         l3Et4cNwtQQPYRbsSVnGVMsGykcI+n7iqD/Up/hqztswSxtaE+35Nq11aWgIeo4lVJdO
+         EuqvaBU87OJaKTKQRlMXMbWurnn6W56enaBsJrJJKd0J5g7fJWoQ3CFGpY4x5+QcMV3g
+         I0b0WgmH+baoh/yyKCSq6Uy85DqU6R6H2ZaghdHMAsX7a7RfpicKhnqo6F46Nui2ybp/
+         ZK+g==
+X-Forwarded-Encrypted: i=1; AJvYcCWltpCEDxYN4pQqTeRYUYWH0CRte7vrzlQ1fWhwlfVfNA1tsVE/23oScEM7We5YEr1oGJ8tv//+RKO7@vger.kernel.org
+X-Gm-Message-State: AOJu0YxX8LUqweraNVkOGJ9/CCsLLJ46R5bdNkp2165xf0h6kzypCOkI
+	En5noBqfJCgzT89tZq+PCw+nUHWUpBnjKSJvVPGtNnRTqbH5rm3ycCxq
+X-Gm-Gg: AeBDieu75lTFMYjnsDUrEfbugWyQp/MR33CgWrxH4BqxABMpPu342HiUT0Cnm1k9zgg
+	mDDcKrRr4GAeJ29/ng0ugq8POnL3lBKnp1pV3ZuYQwjWg4sN0WCY5udCK9lKz6UY1JrtuJNYnHY
+	r15/iqfpXqklXDsw8ayjcjTzjeOPa+0yuWEbL6DdERzxwY/KzWAiZtn9jesxJx05lZgCVpHfOEH
+	xgeKs5SBKglGb64xan13dtYe30jPvSMRQfHPhyLH/fXTIkJS4hteT4ZpMNUE/tAdWrhb9J/asHs
+	RIXo6EWDQfbCfs23F9NC5mnPGQrf9gDsSYTkH7KsXQUgrGfWA9JmzzDcZC/ojE5/eGqaW6CdoGp
+	IqsItuzIN6FeOUxlyXKn4bMG0a6gkjbZGQEC/2w1KqBMzTn/3QQF5grj7pls3efDjUkZHf9CU5n
+	55CRL7nFyM45zR/Q24L8+LhCx7fPPVmQf6o8ey468cr9BVhxkZ23hd6RudAMQ8RM9gqI+xniPCr
+	fT/iJiv8A==
+X-Received: by 2002:a05:600c:699b:b0:485:3ee1:eba5 with SMTP id 5b1f17b1804b1-488998f09dbmr360376005e9.27.1775661943426;
+        Wed, 08 Apr 2026 08:25:43 -0700 (PDT)
+Received: from [10.1.4.108] (cust-east-par-46-193-119-166.cust.wifirst.net. [46.193.119.166])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488cd19a881sm300285e9.3.2026.04.08.08.25.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 08 Apr 2026 08:25:43 -0700 (PDT)
+Message-ID: <1040e6be-6223-4cfc-b603-e2dd90713bb7@gmail.com>
+Date: Wed, 8 Apr 2026 17:25:41 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] net: dsa: microchip: implement KSZ87xx Module 3
+ low-loss cable errata
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com,
+ Vladimir Oltean <olteanv@gmail.com>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Fidelio Lawson <fidelio.lawson@exotec.com>
+References: <20260408-ksz87xx_errata_low_loss_connections-v2-1-9cfe38691713@exotec.com>
+ <a350c4b7-d816-455b-83c0-f4d98299c637@lunn.ch>
+Content-Language: en-US
+From: Fidelio LAWSON <lawson.fidelio@gmail.com>
+In-Reply-To: <a350c4b7-d816-455b-83c0-f4d98299c637@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-The RK809 PMIC interrupt pin on the Firefly ROC-RK3566-PC (Station M2)
-is physically connected to GPIO0_A3 (RK_PA3) according to the board's
-schematic.
+On 4/8/26 14:43, Andrew Lunn wrote:
+>> The control register defines the following modes:
+>>    bits [1:0]:
+>>      00 = workaround disabled
+>>      01 = workaround 1 (DSP EQ training adjustment, LinkMD reg 0x3c)
+>>      10 = workaround 2 (receiver LPF bandwidth, LinkMD reg 0x4c)
+> 
+> There was a comment, which i only read after making the suggestion to
+> use two bits, of exposing the different low pass filter bandwidths,
+> rather than just picking one value. How useful is that?
+> 
+>         Andrew
 
-Currently, the PMIC node incorrectly specifies RK_PA7 for the interrupt,
-which prevents the PMIC from correctly signaling interrupts. (Note that
-the pinctrl node 'pmic_int' correctly configures RK_PA3).
+Initially I limited the LPF setting to the single bandwidth explicitly 
+recommended by the errata (62MHz).
+But I’ll extend the implementation to expose all documented LPF 
+bandwidth options so the interface is more flexible for users.
 
-Fix this by updating the interrupts property to use RK_PA3.
-
-Fixes: 30ac9b4e25d8 ("arm64: dts: rockchip: add dts for Firefly Station M2 rk3566")
-
-Signed-off-by: guoweix <2298701336@qq.com>
----
- arch/arm64/boot/dts/rockchip/rk3566-roc-pc.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3566-roc-pc.dts b/arch/arm64/boot/dts/rockchip/rk3566-roc-pc.dts
-index 7e499064e035..985770e3a5e2 100644
---- a/arch/arm64/boot/dts/rockchip/rk3566-roc-pc.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3566-roc-pc.dts
-@@ -245,7 +245,7 @@ rk809: pmic@20 {
- 		compatible = "rockchip,rk809";
- 		reg = <0x20>;
- 		interrupt-parent = <&gpio0>;
--		interrupts = <RK_PA7 IRQ_TYPE_LEVEL_LOW>;
-+		interrupts = <RK_PA3 IRQ_TYPE_LEVEL_LOW>;
- 		clock-output-names = "rk808-clkout1", "rk808-clkout2";
- 		assigned-clocks = <&cru I2S1_MCLKOUT_TX>;
- 		assigned-clock-parents = <&cru CLK_I2S1_8CH_TX>;
--- 
-2.43.0
+Best regards,
+Fidelio
 
