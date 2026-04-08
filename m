@@ -1,200 +1,221 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011057.outbound.protection.outlook.com [52.101.62.57])
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011057.outbound.protection.outlook.com [40.107.74.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DC273AF643;
-	Wed,  8 Apr 2026 10:39:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.57
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 517D73B2FE3;
+	Wed,  8 Apr 2026 10:39:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.57
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775644766; cv=fail; b=TA8iu25RHiwmoadcF/q2zeiKn+U/J+ANIl6ZJzj6U5S7ZrfiNJIPwbid7ww3D02S7iiQ6buPfnx1j6XQJ6wJ7mJO9AmP70WGO0Bx5JOVGxO8rTWNYqqVs3ICUFh7dxI0u2/uQLY+G5fCaKJAY21VjWARXbZJp2GBsfDHOuCDc2c=
+	t=1775644771; cv=fail; b=SGlmglVYh3/x79iRITkNEftu/8b/YGXQbxc38o5oLap/WFIQdcmCMLu/1Lq803sHsLjoWWVURNGJ0KzNBO2H2sW2t7iiT0cRDkUrVzZSl2s9AA+ndRUpNIYHHqPToSgDX3+guzI9RvoCUW7Yy2jNO5UFvP2y3np0YVKeEKdM+ec=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775644766; c=relaxed/simple;
-	bh=XWqytm/5hHumkkqqvKqieUjFa3kp+I66TiEZJttNRPI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=Ckojb9rioJEL+wWnLz8FoY12QMcw2V+n9EeQGkMP46wYZV+eg8qgZfGH2AUVCsbwcElF2vKOtUVYqkMT9e4rNgCmPXgiWe8xCjburw/4PRCrpqXWPCSQW2YusMdMsKwly5lZxxGQ5gnK5IfuEUFurcjHAeFqLtqAO+bjMC3rxVo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=dzF72Dk2; arc=fail smtp.client-ip=52.101.62.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	s=arc-20240116; t=1775644771; c=relaxed/simple;
+	bh=xDhsY9RYa8dOIO45N8RsLFes6kdoYl5N/ktk8nEluVo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Pzxsjnip64vsTPOTfHYYnD86HiYIkGifAFWLUT9i4p4ce+9BQJq5PoCPrJy7KfTxB2ZbQwsAuCBJXPD62L/sAzKUdVehi+kpQn6GApx5yWNrmE7EW/564mxFDockJY7Dqaa6WAHRPbm/+SiS2+QKGHWS/qmc6Te1kC5tGWgqcJE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=UanaMhDJ; arc=fail smtp.client-ip=40.107.74.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="dzF72Dk2"
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="UanaMhDJ"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wnJt4gYbsdIqmpy4Q3WrqQ27AoUSd28a9E6mhGHW36Ob5CsGrmqBO9t3urvHes/+xbyAVB3TFbOQEINQ5+SjMFCCe2rq0mO8z3bNyjONUi7M3WdtrA/D+oz1nBSgB2idVurJzjMaYIkjFItMbpmEaHz2OBw9AA4NUKJ1FDrrjr/utam/uq6piH6icIdhCuWKgnCH+Idc4DiZYDt+oS49psNcPXVRitlylmAgNqpCV8F5q4HW1JBGNCD72GJo+iIJfoQKGwubN4xiNuo7StxGJg89pPz5O4RIxUE935U8dZCNJHhFScSU8jgFNMwHPZ0e9PAGi3aODDoJaRajoQQigQ==
+ b=dDpHcW5tN+QjMEV8GsKvI4SSAhmuP/pFKY7JfzBSKBa0rky10gOYpO07r3d+Wx5cdGebH2UR6RW0T7BqS63ceEAQ5Pj/jN8v9ZleUQ0DUHoem/y9rTm6Dy7Ok0Bj5IgIc9QJYsuT0hESz3Onr+HEGidAwxyhUP6kxeMJhMPSuX99IbC1Wlnhd/xuBoKtQ2K23nj/37iJ6kNOAet0aNXoWTcGn/AOY0VWcIztzoInEPC4C/3X8r50WFtl3u6Tfg4QT96fn3o0gQbS/x3P2/5nqq9si4CiZeNbNDaggZjWfnY029kdBgo30lJrzrym6mipz0eVTyJgLfe0qMAWLEkg7g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fSMV7A/xAfYbwor6YtxORvmwr60ODVGm1Lr0q+Oc9dQ=;
- b=MopFl/EDgS9YZwGMy9RpjCFTUAblThf4N9wVerlj57SSYwmNdx67rInd+fwxfB89MHHcrDnp+yvNbA3uZdpzUp9PZR77SCmvE82EaDUGqPhPoiYGdMLO4BButRsNtPxQ4PA/VNgLag9Skn9MS+Dz3QKXWp9cpaNF7WRdoXzwz/Uu6vKu23ACjMki1dMgI/PjNgcKhxH7919+Wk4MQnYLyz3DjpRTlilR2T2REMD2gF2JPULlqV5e1COKflOzIazMXTzfoNjCE1rsOQB+35wsZKfqjboobKeS2ksW0TjNMsjXklb/gBLhzm/xdSosI+nbIY9UrB933rC5TsqBFNERUA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ bh=FNAc0gPQjoahvCdpD5ze6DQq7KTcjPF7sE0oP7A3XBA=;
+ b=fgnLVTN+Y80mwMPVWgh1j0AZfw7Tb3GUHfxrVg9mM518k0jhd8YSgpI+mfpNROaq54pzIZ/QfmbkH918l85LrUD6G7rCZa7HrCdJSi67NiFrYxjkMWXRGW4Vz7RmhL68q2IBtKwrHHL/DmBEDWVUImbruqeRdTVhg6IO5PuYF3zJlOL9MZxQH7wkNncHzsu/YB9Iud8o9UmzdIFpKmjzx3bC+gHKJgnfxpHktSB5pLts1pf1fU5OKcflnZggVz5rDWYWDDDJ6AuMapkc7A2Gcl+YaYjc7FGWI/eF5nASBrBc8EptFR/H2Obp+1ktEHb6TkqYvwY7rwTGDeXEDVECeg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fSMV7A/xAfYbwor6YtxORvmwr60ODVGm1Lr0q+Oc9dQ=;
- b=dzF72Dk20kABLhL46gi2owoje8gVxFtQnoJjE0M/uFBOheGnSP2po8FQVm7WFgnVE69qH+YYFcbJpn4TmfJHeHMynjRLId46NLvEOAyMaVQKx7QmPk1LcWSD7uCAGSw/7D2ejfwCT7rWbfTnrxqCXjRRQbRI1iXHjeFfW3iJIvs=
-Received: from PH7P220CA0056.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32b::14)
- by SJ2PR10MB7583.namprd10.prod.outlook.com (2603:10b6:a03:537::20) with
+ bh=FNAc0gPQjoahvCdpD5ze6DQq7KTcjPF7sE0oP7A3XBA=;
+ b=UanaMhDJAdOluMk2+pVghVmSGN0St4ppQTqVWBkdZWvhy+LM7NfNGnbtgrGyIc+Mq9bkaMioziyGsov0Q2nS80fsUUYrxY3O/8SIHZDMcr8RXSM3KYtWWIh1hUM6OPsj8PWKRivrH52u19nFIfvn9y9Z9mBpKVqMCBfviNZJT3Q=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com (2603:1096:400:3e1::6)
+ by TYVPR01MB11293.jpnprd01.prod.outlook.com (2603:1096:400:367::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.34; Wed, 8 Apr
- 2026 10:39:21 +0000
-Received: from CY4PEPF0000EDD2.namprd03.prod.outlook.com
- (2603:10b6:510:32b:cafe::bd) by PH7P220CA0056.outlook.office365.com
- (2603:10b6:510:32b::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.37 via Frontend Transport; Wed,
- 8 Apr 2026 10:39:21 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- CY4PEPF0000EDD2.mail.protection.outlook.com (10.167.241.198) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Wed, 8 Apr 2026 10:39:20 +0000
-Received: from DLEE202.ent.ti.com (157.170.170.77) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 8 Apr
- 2026 05:39:20 -0500
-Received: from DLEE200.ent.ti.com (157.170.170.75) by DLEE202.ent.ti.com
- (157.170.170.77) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 8 Apr
- 2026 05:39:20 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE200.ent.ti.com
- (157.170.170.75) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
- Transport; Wed, 8 Apr 2026 05:39:20 -0500
-Received: from [172.24.233.12] (uda1253387.dhcp.ti.com [172.24.233.12])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 638AdHHd583775;
-	Wed, 8 Apr 2026 05:39:18 -0500
-Message-ID: <17a7f37e-115c-4127-9568-3d52a3f0328d@ti.com>
-Date: Wed, 8 Apr 2026 16:09:17 +0530
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.19; Wed, 8 Apr
+ 2026 10:39:25 +0000
+Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com
+ ([fe80::33f1:f7cd:46be:e4d8]) by TYCPR01MB11947.jpnprd01.prod.outlook.com
+ ([fe80::33f1:f7cd:46be:e4d8%5]) with mapi id 15.20.9769.017; Wed, 8 Apr 2026
+ 10:39:25 +0000
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: tomm.merciai@gmail.com,
+	geert@linux-m68k.org,
+	laurent.pinchart@ideasonboard.com
+Cc: linux-renesas-soc@vger.kernel.org,
+	biju.das.jz@bp.renesas.com,
+	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org
+Subject: [PATCH v6 12/21] drm: renesas: rz-du: mipi_dsi: Add out_port to OF data
+Date: Wed,  8 Apr 2026 12:36:57 +0200
+Message-ID: <d4d1d75183944f17d392256d9123523a6bd1a3c0.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
+References: <cover.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: FR4P281CA0140.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b8::8) To TYCPR01MB11947.jpnprd01.prod.outlook.com
+ (2603:1096:400:3e1::6)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC uL PATCH 2/2] mux-controller: ti: add driver for event mux
- router
-To: Greg KH <gregkh@linuxfoundation.org>
-CC: <peda@axentia.se>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>, <devicetree@vger.kernel.org>, <vigneshr@ti.com>,
-	<linux-kernel@vger.kernel.org>
-References: <20260313060437.3704592-1-r-sharma3@ti.com>
- <20260313060437.3704592-3-r-sharma3@ti.com>
- <5ba0d92e-7f2f-423a-8d1c-561c350c1db3@ti.com>
- <2026033026-shuffling-kisser-ac6c@gregkh>
-Content-Language: en-US
-From: rahul sharma <r-sharma3@ti.com>
-In-Reply-To: <2026033026-shuffling-kisser-ac6c@gregkh>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD2:EE_|SJ2PR10MB7583:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8f36ba76-b92d-4240-2fc9-08de955b17fb
+X-MS-TrafficTypeDiagnostic: TYCPR01MB11947:EE_|TYVPR01MB11293:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2293e441-a4df-44cb-3266-08de955b1a95
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|36860700016|1800799024|18002099003|56012099003|22082099003;
+ BCL:0;ARA:13230040|376014|7416014|52116014|1800799024|366016|38350700014|56012099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	33ZOy5laZYtpJE0PIWO6UdTcLZqy89CqiZXXWSgWtcpbyFWgkdM/i7KbDoUAI3NoqwBtgIIuz6hITyeVmwhw44xoHVuRxMdxvA1JugOg4LT81oR8jy2BH96QXVhBtDODHN5NVaDwlWCAIea5iwl2f9LIo7Cq14qrKjILpg09HgnAvsFkvPKLhEfX7eMYfKoKHSS1/XNR4vD/MPTHKrAQX3iU/FB1f0TZj3OCB85eAFj+ZclXVnPAbzchMLwXyytjjC2bi/FbyysjaXLL2/Vl0Eut9OCz9c1912Bu2W4pJqD3OexJDpKm3H9gokMgrgLtp+UL2ky5f/B6T5LMlZoYBXXDcGJJ6MPw10liiboJBjwk9D2B/T8PvzHs1eMt+tjdtc+xdUgz/jXlMdXHyB8sRMZBW25Eb70yAcp9KDtBg3Yx7BFoIB16J1YcIDcgQxE9nYA4kT1olYwW5y+K/QYoU9h1OoltHrM504H09ePsTBzFR5WYt+LLDyMXsG648v/dXRFukVBXcniGF1+umNdSpOk+scUlLC/p+3N8ReAx6CuFWtqnGli3RhUsCOXFa9MbGMBx8y0aLF2v3GTCDNPP7JT0co1VlOfg5v4u2K0ye2S5JkR9VTrYOkvnVWrW1Ao1iEXpJseSVe0cFSBNtZHleVSmy2bQfOWbcGyzb3lL42PE8VOZBtZLp2r6V7n6dfdCQ127EufZyF8+OpNF9tQcLq7Fc7W9Tb6p/qVfLE30IvXklHkh6CQdNbnWtnAyiY9KnwMZojdBX6550gvt7VS6xA==
+ fX0J2aRwDrBwmDEpTNx6eyaRnNGXnaNHFOcvVeWoqEUJYrRBsaZb++xUglRIlTHq3s2cWFRQ1E/xH8oNrcVfGgSf4QEhRfwkPfRTf5KBRSvkU23cTZFx6h9Hy8D+RsApmI+2Ms1c/sAw/3/RuU8Wiv0JhANs8LpOiX7yqF6nvuoWjhmLgFZ82nJyoNk3C0AQ3ZWS1Q6U6IuOsDnNLqE1eO4txsUGsFmymByajoWI0xxe/Yp4GWbo23hHHU8XdQmXJfaWBqcktwzajjSi8Ndd7X71QWfQGbNY2pHUlyJsOWEFB1DKiLdBJBdP8e9BHxSa5D/0EuSnZplDCjsIzta3vPi4c3ds8ba1yt5Vd08toRLECHFZQFyoTgKqz+fnAMbq/y1bNwQqnsgC3E/1uLETuaM16YhOijPl7wLuH15xAi3UjMupCUxafFYBNnwzcnns+2MGCWZBtvtdGcZby24Oh2baZ1q5yeTqKHPtAF6mADSJg93ukgnc9V7B1BAkswRWWPo5y87aUjtFhRt7WlOirMXj9bXcTrrH8+psP69fu55uHp+eLDnUJLCLzxfHhoXIuDjMBMI3AMmXFRydDdH7rFkgsiYDAgG0rcCuZk2GE8pTzAHaERWj9sOonnsBuPJwXM4CaQ8GhV3k1yqI3V4eG/fKvs2MUUCdfA3W30bG4Nnd9813bPX0fw3nD3Z1Gy4MclabvNcOO6yRc0odtDEp08LXEwoTjXsiMxW+5bW0lcJRkVXyknKn22E0DnLzlYjWsAlb/MQvm8ui0n/Q1nZG4KjfxXEGFApD0QhN8jf+C2o=
 X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB11947.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(52116014)(1800799024)(366016)(38350700014)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	peiYln0Ki161btbVB91o6afzCilMOxp9B3xBAYt4ZVY3MfTxElHfXMxzakUjSaWpyk5dMqdfVqiJkLCgfjAEixE8+n0XeliB5xetV0VjP3Qk3Wv01Ug+sN/OLdBkbExlJj4OdQvhCjHmk0rbtd4zooZMvDItPOSuKYq6XsL0f6/Ct/6AsbeO6Y2tq0R/BjCv/CuKHUHpegCB52LTQOvBIr1TbzwB3AbeZNsbZ8QoPnjTOHhyOVTU1O0XDcK7+NjLOGvdOMC4FoNVadNQKXJyt7YuyQwPKQ9pQe6nwvDDef//7S48dqspt+dUusy+MbL+Vh+i0XnjVRmbSWaAigANLceLN61CFxQ0okYRYORpQsLx1q7mySb5njvgPWIjskItRUdcQEKNR4kPuc77uiyLUxyu3vs7LqoXKesmZV7zqEMc8A5/Lmh6/U26je/qaGvg
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 10:39:20.9300
+ =?us-ascii?Q?uo0Hs8/xyOkjZVCx3+C2XiZ0jN+3dbyiEKoGV1Dzdl1g5LDkVbnjOq8e+uuc?=
+ =?us-ascii?Q?NyB2bua4QKeAbkDqoDWdFok6DFpd7kll/erN9PgiuGKpDM2aOv/fl7JaVM5F?=
+ =?us-ascii?Q?Owl9fjLCeHxuoUdorBsxFvKSKmC/6h/tjYooAS6x9ZwcYItQiYebsz5ID1xN?=
+ =?us-ascii?Q?pDUI/l4sdIJ3C9e+xxTzxZed2Zl9sK7d2wIvb03owxHaTeg31z8rC4Yzp+mu?=
+ =?us-ascii?Q?OoXvPrQaI5eky9WP45SXISFD4m4hG2JtPBnL20h4QjNdMDQoRSHUo/W31Q/G?=
+ =?us-ascii?Q?Irp0OMrtkOPhbzrWAxDMs1RGs+DiDQsxBJV/AGf3WeXa4IjNUVCaqJhnxR7e?=
+ =?us-ascii?Q?7DDTLFSoFySYBTI2BWDHww+8a2AFpQk15Uxrh4sfNN2F/lPbbzTCIGGQg+wj?=
+ =?us-ascii?Q?wHbWL2lTN+0Snyki63x8TPdKYKwQ+CWvKLr8GCN2k88LaTig3GgvV25RctBu?=
+ =?us-ascii?Q?QtpbsvrKYJeqN/NP4raOXSjYAIo8SxKkAn/+5i/B/2nFgb/pI+fTuvnsv1L8?=
+ =?us-ascii?Q?cO8H4swF6UQBN1Y44Jobco9hKiQw1ECYGslkMbBel8cfqcRX1LlTC5dyIhhi?=
+ =?us-ascii?Q?egpz/q0btXeOY+rjDBliLUmULxfccj1c4hMjZ4tBE3smO3/Sg3tQeEEESRtS?=
+ =?us-ascii?Q?hRWR9vXmGw1XN9YuaZz1KHVso/+bdIxn79wnyoRnG4zwUazTiitYsh1iddaw?=
+ =?us-ascii?Q?Ey8PyNVCvTSaEYFjFKNeKxdjEfviEenVZ+Ska4yZNLLMLrY36BWNo81rXyJx?=
+ =?us-ascii?Q?HohVZW1QMU9dFi8/AA2z8Y/KCkmnHjPxzm7rTjfT/dglyAXDGxIZlI1sTeEO?=
+ =?us-ascii?Q?BlQXnfsR85PevZEnVSkIteitVgMIxAs34MtRm+nbe86uV41Tv1ceI80kiBBp?=
+ =?us-ascii?Q?+RVekVOFfsnxqpoeYjUVQFC23j2cc0gN7L3Bew/lHShllpfLJttWuSRmKcIA?=
+ =?us-ascii?Q?99DIYIOuUFCq+9FOpxIXK//Cn4peDcrxnoqae1XU4Ix7mOskDORADt1n/Dh1?=
+ =?us-ascii?Q?ID/nQsUtdQamCQKaGSj19SgHc6wtpSG7zBmTdzJ3lfravI81Gxr/fGAl+Qzk?=
+ =?us-ascii?Q?U+zYmzoe9+61GKsyZw1bW967oWHHLKmL/d64NOQDkuAJo71e+vxwyBiWUTUb?=
+ =?us-ascii?Q?wLwuy4TqQSKc9GWn9A6zGeYyrc7GVnBOQWULu5e6q1YbFec6srJdj7P5IKM1?=
+ =?us-ascii?Q?VMOBL05yp/ZzSg4A6kn8D77791LjwBe8JvqdWYMkF5M7NMZvMOvK7A0DkEC+?=
+ =?us-ascii?Q?e168BchWtJqnTzY2L4i13IW2kz9bXLNTMEfOvGQnRWe21CoZ4gaKSE5YviPC?=
+ =?us-ascii?Q?+tBj2FktnKNs8m8+dWqO04kdjwrleb+Oz+ahXZeouB16UsY8g+XfXOb6UUbK?=
+ =?us-ascii?Q?+4Ow2LW+NhA3e5BOsAp8oJoGnI2sxV2UXpdJDvJuU6HmRa0AN7b+PwyPfzBf?=
+ =?us-ascii?Q?2NkdlkuHtBhlX6g9hQCchiDeSqcwvj0Kj0siQyHB73vRTvAMLDR/F36q0UNC?=
+ =?us-ascii?Q?drIQXoYV4IOsJsA3EghAVfs6ME/qB42HMzFWkDwSn4Hs4CUWGkCFcAtvxzOf?=
+ =?us-ascii?Q?7WQQSUa2kUlzHRx7wCHHX2T9JXMMV8oZMG2JLUX2Eue/4/oKmBUNrJzxLAUu?=
+ =?us-ascii?Q?dmjFH1crM/AaG0g+VAGYv1bVC70rpxdgOuAHB2Qgw4a6RSwxfSTdDBxAc6Nf?=
+ =?us-ascii?Q?ge+o1MqlTe4ltXzYRv5AxedjWlFXOOTk83KC50B8A5ABmJ7mlOeQAMJZaM0V?=
+ =?us-ascii?Q?Agmk9/BF5A1x/rKPfJUdw6aufgM2RLHqh6sJJeMGwWK5DzfHUzBN?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2293e441-a4df-44cb-3266-08de955b1a95
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11947.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 10:39:25.7438
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8f36ba76-b92d-4240-2fc9-08de955b17fb
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000EDD2.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR10MB7583
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: chcor1iMSPHQhdk3ozBOEmFedcN8zK/pyQY+egibxoUgUjMUi2X+11IEWJ3nxBvmcpTveujIOze15jP7JN59qTaiiWFsAuMYRpiGP6gopXe8nmwEtVlboa0uBqtgLruD
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYVPR01MB11293
 
-On 30/03/26 12:33, Greg KH wrote:
-> On Mon, Mar 30, 2026 at 11:02:11AM +0530, rahul sharma wrote:
->> CC: Greg Kroah-Hartman
->>
->> Hi Greg,
->>
->> Could you please review this patch(2nd one in the series). It seems Peter is
->> not online for almost a month.
-> 
-> But I am not the mux maintainer, so I am probably not the best one to
-> review it :(
+Add `out_port` field to the `rzg2l_mipi_dsi_hw_info` structure to store
+the DSI output port index. RZ/G2L and RZ/V2H(P) use port 1 for DSI
+output, while RZ/G3E uses port 2.
 
-Hi Greg,
+Update `rzg2l_mipi_dsi_host_attach()` and `rzg2l_mipi_dsi_probe()` to
+use this `out_port` from the OF data, facilitating future support for
+RZ/G3E SoC.
 
-I agree, but is there any other way to get Peter's attention on this. Or 
-is there any other maintainer who can review on his behalf. Could you 
-please guide me on this ?
+Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+---
+v5->v6:
+ - No changes.
 
-Also, there was another patch series that was posted last year. It was 
-trying to do the same but changes were on the generic driver side i.e. 
-drivers/mux/mmio.c
+v4->v5:
+ - No changes.
 
-Link: https://lore.kernel.org/all/20250605063422.3813260-1-c-vankar@ti.com/
+v3->v4:
+ - No changes.
 
-On that patch series too there wasn't any comment from Peter. I would 
-like to know how to go forward on this.
+v2->v3:
+ - No changes.
 
-> 
-> One instant comment though:
-> 
->> On 13/03/26 11:34, Rahul Sharma wrote:
->>> The driver supports event muxing routers like gpio mux router and timesync
->>> router. This driver is adaptation of original reg-mux driver, along with
->>> changes specific to support TI's mux router.
->>>
->>> The idle states this driver supports are only 2 which active(represented
->>> by 1 in dt-node) and in-active(represented by 0 in dt-node).
->>>
->>> Signed-off-by: Rahul Sharma <r-sharma3@ti.com>
->>> ---
->>>    drivers/mux/Kconfig           |  15 +++
->>>    drivers/mux/Makefile          |   2 +
->>>    drivers/mux/ti-k3-event-mux.c | 235 ++++++++++++++++++++++++++++++++++
->>>    3 files changed, 252 insertions(+)
->>>    create mode 100644 drivers/mux/ti-k3-event-mux.c
->>>
->>> diff --git a/drivers/mux/Kconfig b/drivers/mux/Kconfig
->>> index c68132e38138..ad3af2724d28 100644
->>> --- a/drivers/mux/Kconfig
->>> +++ b/drivers/mux/Kconfig
->>> @@ -59,4 +59,19 @@ config MUX_MMIO
->>>    	  To compile the driver as a module, choose M here: the module will
->>>    	  be called mux-mmio.
->>> +config MUX_TI_K3_EVENT_ROUTER
->>> +	tristate "TI Event Mux Router using MMIO registers"
->>> +	depends on OF && (REGMAP_MMIO || COMPILE_TEST)
->>> +	help
->>> +	  This is extension of MMIO mux for  timesync router and gpiomux
->>> +	  routers on TI K3 SoCs. This driver supports the 3-field format for
->>> +	  mux control: <register-offset mask value>.
->>> +
->>> +	  The driver allows configuration of hardware mux routers using
->>> +	  memory-mapped registers. It's based on the mmio-mux driver but
->>> +	  supports the extended 3-field format for more precise control.
->>> +
->>> +	  To compile the driver as a module, choose M here: the module will
->>> +	  be called mux-ti-k3-event.
->>> +
-> 
-> Don't you need a blank line before your new config option?
+v1->v2:
+ - No changes.
 
-Sure, I will correct this.
+ drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-BR,
-Rahul
-> 
-> thanks,
-> 
-> greg k-h
+diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+index 715872130780..be6dbf19a24e 100644
+--- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
++++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+@@ -58,6 +58,7 @@ struct rzg2l_mipi_dsi_hw_info {
+ 	u32 link_reg_offset;
+ 	unsigned long min_dclk;
+ 	unsigned long max_dclk;
++	u8 out_port;
+ 	u8 features;
+ };
+ 
+@@ -1158,7 +1159,7 @@ static int rzg2l_mipi_dsi_host_attach(struct mipi_dsi_host *host,
+ 	dsi->mode_flags = device->mode_flags;
+ 
+ 	dsi->next_bridge = devm_drm_of_get_bridge(dsi->dev, dsi->dev->of_node,
+-						  1, 0);
++						  dsi->info->out_port, 0);
+ 	if (IS_ERR(dsi->next_bridge)) {
+ 		ret = PTR_ERR(dsi->next_bridge);
+ 		dev_err(dsi->dev, "failed to get next bridge: %d\n", ret);
+@@ -1411,7 +1412,9 @@ static int rzg2l_mipi_dsi_probe(struct platform_device *pdev)
+ 
+ 	dsi->info = of_device_get_match_data(&pdev->dev);
+ 
+-	ret = drm_of_get_data_lanes_count_ep(dsi->dev->of_node, 1, 0, 1, 4);
++	ret = drm_of_get_data_lanes_count_ep(dsi->dev->of_node,
++					     dsi->info->out_port,
++					     0, 1, 4);
+ 	if (ret < 0)
+ 		return dev_err_probe(dsi->dev, ret,
+ 				     "missing or invalid data-lanes property\n");
+@@ -1525,6 +1528,7 @@ static const struct rzg2l_mipi_dsi_hw_info rzv2h_mipi_dsi_info = {
+ 	.link_reg_offset = 0,
+ 	.min_dclk = 5440,
+ 	.max_dclk = 187500,
++	.out_port = 1,
+ 	.features = RZ_MIPI_DSI_FEATURE_16BPP,
+ };
+ 
+@@ -1535,6 +1539,7 @@ static const struct rzg2l_mipi_dsi_hw_info rzg2l_mipi_dsi_info = {
+ 	.link_reg_offset = 0x10000,
+ 	.min_dclk = 5803,
+ 	.max_dclk = 148500,
++	.out_port = 1,
+ };
+ 
+ static const struct of_device_id rzg2l_mipi_dsi_of_table[] = {
+-- 
+2.43.0
 
