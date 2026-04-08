@@ -1,122 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A4C8355F4C;
-	Wed,  8 Apr 2026 06:42:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7633336495E;
+	Wed,  8 Apr 2026 06:43:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775630532; cv=none; b=u1+fM4Ohz/45o7Dh8oqoCHmnuIlrijNC3WDYBq44Nlnjutoq49dIC2Hh6bRPRrxJGR/60UsafriGoPZLonXQlWF+JdXBgxrrGQmgr0K6tpWWcKej17DhWGRcMCqW4B7mODEbIq2ZP5fIwA5Y9+4Zl5voglFJKT30nMdX1KdxWog=
+	t=1775630622; cv=none; b=KJtiC4PG6suctlbBrWvBZnReo/LiHOFOcFrQGiTytwmWu0NBBE8yBJWKYb/hamnqBe98lQNeeqmi0innguaVJr2+IJKi4991grLjohAy7kG2tRQHEfo3qqUy2Y3Z/mdqqHOky0ru3RQA8VcI52sAIMHp7KJ2padEEKHxyc6XS/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775630532; c=relaxed/simple;
-	bh=K/0wv+fOWMmmL54MkEbG43hnF9nGhokOwwcPwONb1fw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sQVa8PSd1xEyvI/BXS2aoTx3fEnNXLNyewmhGTpaleRgsmQZaC2s8pwSeq0HOF67FtT/FXUvd4iEuzuCtW2656i5UrB3+A7/fvHcYTXXEr7EisQezHy8imcerMKqG39+3BCnCXU4mK69TGbaWNoXAj4r0dapqYdrIzuOJoENQa0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZvL3zwTt; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775630622; c=relaxed/simple;
+	bh=2hdbV6/k/0D5ZPlOLiZgFhv0ho2ZF/B1xroBTN/yRgk=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=n9BptAtc2yRlcJmMeZR7E1g5cxHDrXqTLZas7qrkoKPZpQoVWmnDkZThA4HSqB3Kryyck9ZWA4nfzIuDG0yr3DnKABF5RxH5MBFcXpoJIr7eduP2o6nBv4Hc14zTaieOXlKQy0ePN7E9Q/NCgt0G1VCHvPnjgYjC71S960in49I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=EYx66LlO; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZvL3zwTt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A685C19424;
-	Wed,  8 Apr 2026 06:42:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775630531;
-	bh=K/0wv+fOWMmmL54MkEbG43hnF9nGhokOwwcPwONb1fw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZvL3zwTt6o0HrXxgwwSY93aWOOFU78x8ZMj1E1oJbrRBdZio7fw+YtE0hGxEMYfYq
-	 p2LPdESq2NhcABpGFFVF4yeEH7vv6pwYmJ63anAebfk4u+QHVXfD9aJQS5imP8E8E3
-	 vdKv7KU5997Bh8HNhfOhJ6DhnqEnHaDQG0IvoVgsW/40BSIf8hvdqI3YRk+tvY9023
-	 vUsN3KiG2epiZbLWgEB+1uLRL4+sSa1wkc0ByAmLZ8lNTTKcQ8uHz7TqWipqvm8/Df
-	 hnKO5GAJHlvHAQy5A8cGSRby7qshGMrSH6JPH5hUilf8lEvfRa+hgxwn721WvmlJgK
-	 rGyrmM/8MydkA==
-Date: Wed, 8 Apr 2026 08:42:09 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-Cc: imx@lists.linux.dev, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	dri-devel@lists.freedesktop.org, Alexander Stein <alexander.stein@ew.tq-group.com>, 
-	Dmitry Baryshkov <lumag@kernel.org>, Ying Liu <victor.liu@nxp.com>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v21 3/8] dt-bindings: display: bridge: Add Cadence
- MHDP8501
-Message-ID: <20260408-large-marigold-pheasant-bef65f@quoll>
-References: <20260407-dcss-hdmi-upstreaming-v21-0-4681070ab82f@oss.nxp.com>
- <20260407-dcss-hdmi-upstreaming-v21-3-4681070ab82f@oss.nxp.com>
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="EYx66LlO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	References:Date:Message-Id; bh=hS/w51EPTbNWGcs80cYtMs7ssnkfGD2zW
+	cF8zT6Qlug=; b=EYx66LlOSiSbVcNq+lzEc/OAjRVJuNtAUKk7AwEPC6FSeIXe4
+	6R7SyI3SyLf5+vxbvQ9GxCHIWsPlDfcNaglNuMeHG5CTRpuejyzd3vKPN6931lT8
+	sNct9yA+r8tkp6KAq3I/iJ/XqmOHX4tsVDjkAya1CVulsbmKVJ5hrCq2P8=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwAnYUI1+dVpSq0BAA--.1022S2;
+	Wed, 08 Apr 2026 14:44:06 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260407-dcss-hdmi-upstreaming-v21-3-4681070ab82f@oss.nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 3/4] dt-bindings: PCI: Add UltraRISC DP1000 PCIe
+ controller
+From: Jia Wang <wangjia@ultrarisc.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Jia Wang <wangjia@ultrarisc.com>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, Jingoo Han <jingoohan1@gmail.com>, 
+ Xincheng Zhang <zhangxincheng@ultrarisc.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-riscv@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, 
+ devicetree@vger.kernel.org
+In-Reply-To: <13907c0e-0502-413d-b54d-4e903f5c781e@kernel.org>
+References: <20260407-ultrarisc-pcie-v2-0-2aa2a19a7fb3@ultrarisc.com>
+ <20260407-ultrarisc-pcie-v2-3-2aa2a19a7fb3@ultrarisc.com>
+ <20260407-uptight-tody-of-weather-ae1e35@quoll>
+ <177561928084.2918127.18218641774926914517.b4-reply@b4>
+ <13907c0e-0502-413d-b54d-4e903f5c781e@kernel.org>
+Date: Wed, 08 Apr 2026 14:43:19 +0800
+Message-Id: <177563059910.3194559.10112671473525736823.b4-reply@b4>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1775630599; l=804;
+ i=wangjia@ultrarisc.com; s=20260309; h=from:subject:message-id;
+ bh=2hdbV6/k/0D5ZPlOLiZgFhv0ho2ZF/B1xroBTN/yRgk=;
+ b=FwDWsOzDS/KbcQdL6O8kYj37FxAVDdJiioU3JgfIuqk4Y2qDTOKjWi/9k1iWNJJCVb+1lm4DQ
+ o9KLacoeFpiCi1XqVroJ2MYAatf4HHhjIytgQd8XRGfBgLmZrQFD0Ig
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=XvYkrelqJIIzobY7j+nIg8rsfv5kzaOzuc1UPhd087U=
+X-CM-TRANSID:AQAAfwAnYUI1+dVpSq0BAA--.1022S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Jr1DuF45Ww1UuF1DXrW3trb_yoW3Xrg_AF
+	1jvw1Dur17XFZ8Wws5tF4kZ3ZIk34Duws3X3ykuF9rXwn0yry5ur90kryfJ39xJa1xKF1r
+	ua10q3W5uF9xujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbT8FF20E14v26ryj6rWUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+	Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr1j6F
+	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I
+	8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
+	xVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcV
+	AFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8I
+	cIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r
+	4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTRRBT5DUUUU
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQALEWnV0LsAEAAAsc
 
-On Tue, Apr 07, 2026 at 02:31:27PM +0000, Laurentiu Palcu wrote:
-> From: Sandor Yu <Sandor.yu@nxp.com>
+On 2026-04-08 08:28 +0200, Krzysztof Kozlowski wrote:
+> On 08/04/2026 05:34, Jia Wang wrote:
+> >>> +  max-link-speed:
+> >>> +    $ref: /schemas/types.yaml#/definitions/uint32
+> >>> +    const: 4
+> >>
+> >> If const then deducible from the compatible. Drop the property.
+> >>
+> > 
+> > Will replace `const: 4` with `maximum: 4` in v3.
 > 
-> Add bindings for Cadence MHDP8501 DisplayPort/HDMI bridge.
-> 
-> Signed-off-by: Sandor Yu <Sandor.yu@nxp.com>
-> Signed-off-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-> ---
->  .../bindings/display/bridge/cdns,mhdp8501.yaml     | 131 +++++++++++++++++++++
->  1 file changed, 131 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/bridge/cdns,mhdp8501.yaml b/Documentation/devicetree/bindings/display/bridge/cdns,mhdp8501.yaml
-> new file mode 100644
-> index 0000000000000..77e16ee9d855d
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/bridge/cdns,mhdp8501.yaml
-> @@ -0,0 +1,131 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/bridge/cdns,mhdp8501.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Cadence MHDP8501 DP/HDMI bridge
-> +
-> +maintainers:
-> +  - Sandor Yu <Sandor.yu@nxp.com>
-> +
-> +description:
-> +  Cadence MHDP8501 DisplayPort/HDMI interface.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - fsl,imx8mq-mhdp8501
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +    description: MHDP8501 DP/HDMI APB clock.
-> +
-> +  phys:
-> +    maxItems: 1
-> +    description:
-> +      phandle to the DP/HDMI PHY
-> +
-> +  interrupts:
-> +    items:
-> +      - description: Hotplug cable plugin.
-> +      - description: Hotplug cable plugout.
-> +
-> +  interrupt-names:
-> +    items:
-> +      - const: plug_in
-> +      - const: plug_out
-> +
-> +  cdns,bridge-type:
+> Why? Wasn't maximum link speed fixed to 4?
+>
 
-Drop property. Graph defines what is connected on the other side. And if
-this is for different devices then compatible tells what bridge is that.
+Just to make sure I fully understand: since the maximum link speed is a
+fixed hardware property and is implied by the compatible, we should drop
+the `max-link-speed` property from the binding.
+
+In that case, should I set `pci->max_link_speed = 4` in the driver during
+probe? I want to make sure this is the correct way to handle it.
+ 
+> 
+> Best regards,
+> Krzysztof
+> 
 
 Best regards,
-Krzysztof
+Jia Wang
+
 
