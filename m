@@ -1,143 +1,246 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from box.trvn.ru (box.trvn.ru [45.141.101.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3E937AA8A
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 10:42:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4D0F37F75C;
+	Wed,  8 Apr 2026 10:42:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.141.101.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775644948; cv=none; b=cgpyCurTg3hBaDVNCQGsChnr1V+XRwUVY91QzasGykoBYI5HUqnv92EjiQ26Chovb1j4+5bEh8WBQ9oqSO/Xbcigf5IcGRArSJnzw5O+eq73lHXS1de5lwtvA0fyQb5Dwj8ATPw0nFNcXba6AIw1Hdcr4fxEOwF6RAOfUPi4zoI=
+	t=1775644976; cv=none; b=TR1e4iU57wvLq1WGQnsaym3tvwPEh9lyaDmj9eKXgnXb+oMfAk6clIuUpcJYQYHhHLBaYO5n+gChrRV+a5+wa1E3a5f7Zxtfu24B+0Jas0fBsaRoJRfBzDKal/2D6AKyzShOwYl+yI+rylSEOHwpw06PFRHqR/WsB9/fvTZ9m2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775644948; c=relaxed/simple;
-	bh=pmyeGLntD58RGtxPkUD/mA1PEFM7O9ajEnmKlzst5u8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BgDWY64KxKY0DLGD8rPnVjhJYExPUe5Zp6bVfKxswVqYzfdwf5liTKhKOmBynHZPEa7glqWLGhMKGvW7ypUHlTHXf7A3DFYUhDGMLoeeA9XB4nHP8myA99UlhoDNZevkIvZ6ZDszfIXWH2f03Xg3G8rXmvH1GmpnuWtgDoCIu3A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eUm0ulen; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QvR66idM; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1775644976; c=relaxed/simple;
+	bh=RW860wbOyJPK1lrUCMSC83VTWhl2YZIfD3CZo/XgccI=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=Vb/T8ejzIhGoC4b7c4bUeuvVzzingMdbhg2BJ5pJxZzxbO91RjGifmCBufgBvLvGXVMPIz+E1wFP54d8LIpDSyxCkxYg6/OcUP88HTpxAmuUOkyNavzK9mg7coCqQd51n3k+ORfKdIUkpWV4VmkKsirQuU9Szc6Gy9FvWG4Vkcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=trvn.ru; spf=pass smtp.mailfrom=trvn.ru; dkim=pass (2048-bit key) header.d=trvn.ru header.i=@trvn.ru header.b=ISGQ7Jq2; arc=none smtp.client-ip=45.141.101.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=trvn.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trvn.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eUm0ulen";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QvR66idM"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 638700RA1619683
-	for <devicetree@vger.kernel.org>; Wed, 8 Apr 2026 10:42:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	fGcotca1c9G9X0Wk47D2k1ldrS4xnK1R80n4tyPd6dU=; b=eUm0ulenZv7T07ga
-	Wwy6Ix3TveFCCSsMuAD5Da+iSCArU1d4XZMDY3YzOqvwN+Q01S5PcZS99suFnLkY
-	uC55j3Y23aXhs4SYlsETiqWufchXxm0Q6w1pvqMGrzssnogqXxuZjAH/EPIDBwfS
-	9egdeM8EuxLoSiVqvPoaVtXSe5+Ilpou8Xjcr0i20lwUz8mdYoaUpTSa5OB0Txtc
-	0IqDMhgK77ZCU2pDcuAt/BdSrrywoWKbj8anfZfAWAPUgKswHRp91B2LQyHOw/Rb
-	7oDfVbq9pJN05kuC3Bwi2rhnpzNWKceggm2y/7jwKSELSRaURbdl56gQ8uDHoPBh
-	Ot2kLA==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ddacrjc3b-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 10:42:26 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-8d1d81dad37so215698085a.3
-        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 03:42:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775644946; x=1776249746; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=fGcotca1c9G9X0Wk47D2k1ldrS4xnK1R80n4tyPd6dU=;
-        b=QvR66idMfJS7CgkyYPWDvXfhM0H5LTvMdbQy0QSKYSxcfiNjaKgIh6iGwECfLKp+vV
-         reknD9RbusPrkQk2QQz4kLnm5eelVNi1ei4I/W7BP52B2qPwLoC1sPS61ml0rt+6Q2J6
-         rIFgOV0vdTbx2wA/JgQf9UKenWv6/mIJxZaluoyw24IlKjJ1EI0bDtrO4rnoOihUOcGg
-         bG+fdm80zIoLZj6mMsCterg8onHDzxcHdmg1hLz5YmXd5cj1QgtsQ72q59Eza29Zz57T
-         npisJ7OaNuSj/vk8Mo/xYG1zhNKxVpMGrBarmEImzESVN4JwY0JroF3AIEfQP9pGeYp3
-         R8Qg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775644946; x=1776249746;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=fGcotca1c9G9X0Wk47D2k1ldrS4xnK1R80n4tyPd6dU=;
-        b=HZGSaUmaloq4asRiRUXUICf+SfrzFpiYsN85ocbyOyWJ+jX9WHpx0UjrdN3iAC1P0H
-         cp6isCSeZJMeQumIUy5lg4BoydBUGYRcCWTVqm5v6KNo9gcJyGgurgp1hNZPHhjSi9Zy
-         81RikS7xDP0xEJeEV8tqM8tK8WkTxWVW7v/JL9eJR3O4HTCb+zB4hFJZDbucBWeVaiBC
-         1aP6hixwl7EzJc1zjPgbO4yMqt7qJj3SzyWABY082NVI58TZwxb3t5U8jcKmzjwVU+I6
-         F+27qXHJ0B/l7TFiPBLw6Z3ymYDEv5Lu4n/UWlwlwKEumF2lF09gfeWZglBH5fS25UzW
-         FLnQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXg9zvnjYF06ktfILeZrx+xMt/U7ReXJrUUDvex/AOUNghAgqde9g0WjAtAFTT2KRvbtDtO0cIQRrDd@vger.kernel.org
-X-Gm-Message-State: AOJu0YwD1UwM83wHYJz6Hd3njjWZdmKduo9Q7IX5djaQGJR8xHjFNjvn
-	mcnmaiW4ghbp0dZ9vHkhI1F8d9qNedsrfk7I6Omi+qeshWvb3YwYAhySLV66i1/F1BJHE2lRvoh
-	n5lmlHWOursF+j7MgRnzxPLbIbSR2tPtLh70eKLrB0qrWyDDcAzjglIV3gPMOS4mn
-X-Gm-Gg: AeBDievf8UJ4M02AgKNPo8TH+VwB9aN7/nOmF3Kf7PIbzAlEHZLz+/3/jQYEexQKmxp
-	3tSO7+HGB/epb++D1ZEBgo7UgO9HW78Jn9BC4YIi546tsiHAZM6HT8pCa77SuOMo+X688DCT4V0
-	aZFQckkl+aO4c136qQQYyyQlM3E0FzTn44SJ9Wj5DrnlPd561BeW3V0ytkJZICDaA1ueckZ808Z
-	Ukr4iYvB4hTVQw6AWgHkJGrDzATNo1zRQl21DH4SdXk/Q/kPmb+MiNudeWsfCEVCve19f4qUGPZ
-	idKUJulOIgvTFH/7fhuyJeRntaRH1SphsM8XNmvPZmCNnZAbdnnq32uBO+PB247fBSvTynU5lpV
-	A+qiHVZVvAbgq691gN5rNtl/zdmEA0qa89iFXN5CL40t1oXXsr/dgUwo7bdhCdDfU2pjrNIyl7N
-	x+P68=
-X-Received: by 2002:ac8:5f91:0:b0:509:3601:cbf1 with SMTP id d75a77b69052e-50d62d1cac7mr225687801cf.7.1775644945884;
-        Wed, 08 Apr 2026 03:42:25 -0700 (PDT)
-X-Received: by 2002:ac8:5f91:0:b0:509:3601:cbf1 with SMTP id d75a77b69052e-50d62d1cac7mr225687611cf.7.1775644945460;
-        Wed, 08 Apr 2026 03:42:25 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9c3c99ec5dsm650018366b.15.2026.04.08.03.42.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 08 Apr 2026 03:42:24 -0700 (PDT)
-Message-ID: <e70839e2-a94a-418d-83c1-87336c558189@oss.qualcomm.com>
-Date: Wed, 8 Apr 2026 12:42:21 +0200
+	dkim=pass (2048-bit key) header.d=trvn.ru header.i=@trvn.ru header.b="ISGQ7Jq2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=trvn.ru; s=mail;
+	t=1775644966; bh=RW860wbOyJPK1lrUCMSC83VTWhl2YZIfD3CZo/XgccI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=ISGQ7Jq2xxmMcbIJpib4DTRURf1zAjSnyAsOLbVV/IIDk3nBMOPXpMl6WF40+lkLX
+	 HcQFRKt3Qyu1XnHlRhloxPUzcqtM4vu0cFDt25/QN6VoFoTX9ohlB4vCoHGDhWq78D
+	 exF/MRsMw6WGEBQ96e0Qj9tX3NdZTsOFy4iDdLrZDUhyIn2Yw9yBjH953Rn38yqa49
+	 ER07pe9NUDgT9sasmx5/uOj7myxr9RJz+BzldAQcDMKYT3yHdP89FseBiPELM9aFru
+	 /I5LlkjHmPfWZBCNglv37NP+VYPX1lOymihmtAJEKyg8PDQhdLFzyiNRlZKKYx4U4K
+	 et5xs4YsUdoig==
+Received: from authenticated-user (box.trvn.ru [45.141.101.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by box.trvn.ru (Postfix) with ESMTPSA id A5F396E95D;
+	Wed,  8 Apr 2026 15:42:46 +0500 (+05)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 2/7] qcom-tgu: Add TGU driver
-To: Songwei Chai <songwei.chai@oss.qualcomm.com>, andersson@kernel.org,
-        alexander.shishkin@linux.intel.com, mike.leach@linaro.org,
-        suzuki.poulose@arm.com, james.clark@arm.com, krzk+dt@kernel.org,
-        conor+dt@kernel.org
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
-        devicetree@vger.kernel.org, gregkh@linuxfoundation.org
-References: <20260402092838.341295-1-songwei.chai@oss.qualcomm.com>
- <20260402092838.341295-3-songwei.chai@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260402092838.341295-3-songwei.chai@oss.qualcomm.com>
+Date: Wed, 08 Apr 2026 15:42:46 +0500
+From: Nikita Travkin <nikita@trvn.ru>
+To: Xilin Wu <sophon@radxa.com>
+Cc: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-pwm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] pwm: clk-pwm: add GPIO and pinctrl support for
+ constant output levels
+In-Reply-To: <20260408-clk-pwm-gpio-v2-2-d22f1f3498a0@radxa.com>
+References: <20260408-clk-pwm-gpio-v2-0-d22f1f3498a0@radxa.com>
+ <20260408-clk-pwm-gpio-v2-2-d22f1f3498a0@radxa.com>
+Message-ID: <8030cac3703f9aa1b7a8b476ad92aeae@trvn.ru>
+X-Sender: nikita@trvn.ru
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: C69lajhBQYVoEw3hSUMJtS8-0YrnC8Uz
-X-Proofpoint-GUID: C69lajhBQYVoEw3hSUMJtS8-0YrnC8Uz
-X-Authority-Analysis: v=2.4 cv=WZs8rUhX c=1 sm=1 tr=0 ts=69d63112 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=HxVFgQzDQVkKW_O196YA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA4MDA5OCBTYWx0ZWRfX2/CQt71/0G0G
- OVYy5qHqfjGZbpSJU4UTYMa2qBU8+zP9LHDDRnpt2cLA0/hnn/n6TkddO8wOv3PXKfoFJFZyvoP
- +gy7rDAbiylzvdk5vHeciZnJwJ5IX3s4Wk/Gwlj2ahBLk/xu5VUagEhGi7FVrFFWdmEJmFeJXEX
- VkOJCeyzCWZS95zzJm064G0xQ62MhT4ek+0a6ow1RTy8fpohJ8wLf3odK41bNfYMEAmTb4n0tmP
- fGHcb7DFFraJl1JgAn4mYUk6OrLI5DUpMLfWKnoJA65kje16gOefymwZbCrdfNyuKbfPGhRwQCa
- sim4UO6C7qapE4qOLz3O9sBtmD01ypzmaPsmc8Ahw9+bUd7fym6Xhy/fa1MvCeQY1t27MUMQto1
- MGUUrxIsrHkW/qStHPRTlSm/ESRTVtjHbiHbMNygD0mSYHx+L1WsxJjMGk1qPAshzKG4Y7o7diz
- je4qRCJwdMqSOaI5drw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-08_03,2026-04-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 adultscore=0 phishscore=0 clxscore=1015
- bulkscore=0 lowpriorityscore=0 spamscore=0 priorityscore=1501 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604080098
+Content-Transfer-Encoding: 8bit
 
-On 4/2/26 11:28 AM, Songwei Chai wrote:
-> Add driver to support device TGU (Trigger Generation Unit).
-> TGU is a Data Engine which can be utilized to sense a plurality of
-> signals and create a trigger into the CTI or generate interrupts to
-> processors. Add probe/enable/disable functions for tgu.
+Xilin Wu писал(а) 08.04.2026 15:07:
+> The clk-pwm driver cannot guarantee a defined output level when the
+> PWM is disabled or when 0%/100% duty cycle is requested, because the
+> pin state when the clock is stopped is hardware-dependent.
 > 
-> Signed-off-by: Songwei Chai <songwei.chai@oss.qualcomm.com>
+> Add optional GPIO and pinctrl support: when a GPIO descriptor and
+> pinctrl states ("default" for clock mux, "gpio" for GPIO mode) are
+> provided in the device tree, the driver switches the pin to GPIO mode
+> and drives the appropriate level for disabled/0%/100% states. For
+> normal PWM output, the pin is switched back to its clock function mux.
+> 
+> If no GPIO is provided, the driver falls back to the original
+> clock-only behavior.
+> 
+> Signed-off-by: Xilin Wu <sophon@radxa.com>
 > ---
+>  drivers/pwm/pwm-clk.c | 84 ++++++++++++++++++++++++++++++++++++++++++++++++---
+>  1 file changed, 80 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/pwm/pwm-clk.c b/drivers/pwm/pwm-clk.c
+> index f8f5af57acba..d7d8d2c2dd0f 100644
+> --- a/drivers/pwm/pwm-clk.c
+> +++ b/drivers/pwm/pwm-clk.c
+> @@ -11,11 +11,20 @@
+>   * - Due to the fact that exact behavior depends on the underlying
+>   *   clock driver, various limitations are possible.
+>   * - Underlying clock may not be able to give 0% or 100% duty cycle
+> - *   (constant off or on), exact behavior will depend on the clock.
+> + *   (constant off or on), exact behavior will depend on the clock,
+> + *   unless a gpio pinctrl state is supplied.
+>   * - When the PWM is disabled, the clock will be disabled as well,
+> - *   line state will depend on the clock.
+> + *   line state will depend on the clock, unless a gpio pinctrl
+> + *   state is supplied.
+>   * - The clk API doesn't expose the necessary calls to implement
+>   *   .get_state().
+> + *
+> + * Optionally, a GPIO descriptor and pinctrl states ("default" and
+> + * "gpio") can be provided. When a constant output level is needed
+> + * (0% duty, 100% duty, or disabled), the driver switches the pin to
+> + * GPIO mode and drives the appropriate level. For normal PWM output
+> + * the pin is switched back to its clock function mux. If no GPIO is
+> + * provided, the driver falls back to the original clock-only behavior.
+>   */
+>  
+>  #include <linux/kernel.h>
+> @@ -25,11 +34,17 @@
+>  #include <linux/of.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/clk.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/pinctrl/consumer.h>
+>  #include <linux/pwm.h>
+>  
+>  struct pwm_clk_chip {
+>  	struct clk *clk;
+>  	bool clk_enabled;
+> +	struct pinctrl *pinctrl;
+> +	struct pinctrl_state *pins_default;  /* clock function mux */
+> +	struct pinctrl_state *pins_gpio;     /* GPIO mode */
+> +	struct gpio_desc *gpiod;
+>  };
+>  
+>  static inline struct pwm_clk_chip *to_pwm_clk_chip(struct pwm_chip *chip)
+> @@ -45,14 +60,36 @@ static int pwm_clk_apply(struct pwm_chip *chip, struct pwm_device *pwm,
+>  	u32 rate;
+>  	u64 period = state->period;
+>  	u64 duty_cycle = state->duty_cycle;
+> +	bool constant_level = false;
+> +	int gpio_value = 0;
+>  
+>  	if (!state->enabled) {
+> -		if (pwm->state.enabled) {
+> +		constant_level = true;
+> +		gpio_value = 0;
+> +	} else if (state->duty_cycle == 0) {
+> +		constant_level = true;
+> +		gpio_value = (state->polarity == PWM_POLARITY_INVERSED) ? 1 : 0;
+> +	} else if (state->duty_cycle >= state->period) {
+> +		constant_level = true;
+> +		gpio_value = (state->polarity == PWM_POLARITY_INVERSED) ? 0 : 1;
+> +	}
+> +
 
-Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+So I'm looking at it again, and I'm a bit confused.
 
-Konrad
+Old behavior was:
+ - pwm was enabled and being disabled -> stop the clock and hope state is 0;
+ - pwm is still enabled but
+                            - duty=0%   -> set clk duty to 0%
+                            - duty=100% -> set clk duty to 100%
+
+New behavior if we have gpio:
+ - pwm was enabled and being disabled -> constant 0
+ - pwm is still enabled but
+                            - duty=0%   -> constant 0
+                            - duty=100% -> constant 1
+
+New behavior if we don't have gpio:
+Same as above but
+  - if we need constant 0 -> clock is halted and we pray it's 0
+  - if we need constant 1 -> clock is halted and we pray it's 1 (??)
+
+Per my recollection, when I wrote this driver 5 years ago, I've manually
+verified that at least on qcom setting duty cycle to 0% and 100% worked
+properly, so this feels like it would regress it if left as-is...
+
+(Btw I wonder what's the platform you need this for?)
+
+> +	if (constant_level) {
+> +		if (pcchip->gpiod) {
+> +			gpiod_direction_output(pcchip->gpiod, gpio_value);
+> +			pinctrl_select_state(pcchip->pinctrl, pcchip->pins_gpio);
+> +		}
+> +		if (pcchip->clk_enabled) {
+>  			clk_disable(pcchip->clk);
+>  			pcchip->clk_enabled = false;
+>  		}
+>  		return 0;
+> -	} else if (!pwm->state.enabled) {
+> +	}
+> +
+> +	if (pcchip->gpiod)
+> +		pinctrl_select_state(pcchip->pinctrl, pcchip->pins_default);
+> +
+> +	if (!pcchip->clk_enabled) {
+>  		ret = clk_enable(pcchip->clk);
+>  		if (ret)
+>  			return ret;
+> @@ -97,6 +134,45 @@ static int pwm_clk_probe(struct platform_device *pdev)
+>  		return dev_err_probe(&pdev->dev, PTR_ERR(pcchip->clk),
+>  				     "Failed to get clock\n");
+>  
+> +	pcchip->pinctrl = devm_pinctrl_get(&pdev->dev);
+> +	if (IS_ERR(pcchip->pinctrl)) {
+> +		ret = PTR_ERR(pcchip->pinctrl);
+> +		pcchip->pinctrl = NULL;
+> +		if (ret == -EPROBE_DEFER)
+> +			return ret;
+> +	} else {
+> +		pcchip->pins_default = pinctrl_lookup_state(pcchip->pinctrl,
+> +							    PINCTRL_STATE_DEFAULT);
+> +		pcchip->pins_gpio = pinctrl_lookup_state(pcchip->pinctrl,
+> +							 "gpio");
+> +		if (IS_ERR(pcchip->pins_default) || IS_ERR(pcchip->pins_gpio))
+> +			pcchip->pinctrl = NULL;
+> +	}
+> +
+> +	/*
+> +	 * Switch to GPIO pinctrl state before requesting the GPIO.
+> +	 * The driver core has already applied the "default" state, which
+> +	 * muxes the pin to the clock function and claims it.  We must
+> +	 * release that claim first so that gpiolib can request the pin.
+> +	 */
+> +	if (pcchip->pinctrl)
+> +		pinctrl_select_state(pcchip->pinctrl, pcchip->pins_gpio);
+> +
+> +	pcchip->gpiod = devm_gpiod_get_optional(&pdev->dev, NULL, GPIOD_ASIS);
+> +	if (IS_ERR(pcchip->gpiod))
+> +		return dev_err_probe(&pdev->dev, PTR_ERR(pcchip->gpiod),
+> +				     "Failed to get gpio\n");
+> +
+> +	/*
+> +	 * If pinctrl states were found but no GPIO was provided, the pin is
+> +	 * stuck in GPIO mode from the switch above.  Restore the default
+> +	 * (clock-function) mux and fall back to clock-only operation.
+> +	 */
+
+Feels slightly weird to silently allow "broken" DT, it would make no sense
+for it to have "gpio" pinctrl and not have a gpio defined, would it?
+
+Perhaps it makes more sense to put getting a gpio under having pins_gpio
+and make it strict, so two allowed states for the driver would be either
+no pinctrl-1 and no gpio, or having both at the same time?
+
+(maybe then also worth adding cross dependency of pinctrl-1 and gpio in
+the binding, it's one way only currently, not sure what's the correct
+way to describe it tho)
+
+Nikita
+
+> +	if (pcchip->pinctrl && !pcchip->gpiod) {
+> +		pinctrl_select_state(pcchip->pinctrl, pcchip->pins_default);
+> +		pcchip->pinctrl = NULL;
+> +	}
+> +
+>  	chip->ops = &pwm_clk_ops;
+>  
+>  	ret = pwmchip_add(chip);
