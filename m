@@ -1,517 +1,209 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010067.outbound.protection.outlook.com [52.101.84.67])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C66D27702D;
-	Wed,  8 Apr 2026 05:57:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775627842; cv=none; b=ELHTGCaJyNARoaTrP4F5jjm1642FuyBURFayqNy5FzcUQIpVi/uWYbURX6WNsllN5QbX494n04c2TZPZZ+SGYA72nSGYoNkmtB3wMMzSOSNb+PdqwtSiXjb5lZbh5oLSuUvP2msy6oLmS1lVW4e7T/3EMh1Ou0yr7n3ljzOy3HA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775627842; c=relaxed/simple;
-	bh=fY9tRvNU4ffWcLymQ5STSGKQK6zbBYiJUDdd8E4Zqu8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=uSYGpVOd2ucpGtA8i5gpm6tZC+8UuwZwuQhLscQALr2/U5BQnnc38n0V01u7hGbgQuOY29xljA3Idx16kAWlOMTT6g2+8GDXtGm17jlcKnxCI/9+HcweWKhqN0J5AOr1+nEQwQYIy/44M0hNwk0w01Ulr4zbVxYGFqVsUZJ2Mbc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=E5H0dCIN; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 844CC2E7F2C;
+	Wed,  8 Apr 2026 06:01:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.67
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775628099; cv=fail; b=UsDgvm+N8pB3rvLb53WL0FR/dALM3Az3wB/r0lMuJJVuzGeAQDaLCGwRljYqWbU5jkLwBASyAISpKzk2SxR8WFBmsKRlhFJEf+BXQP9lKKIjdI6YlSdpwgr6v0JsPJaDggaBW6M5jNqlC9hD2167ibSsy3TCgV8FJCkREMxLrjA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775628099; c=relaxed/simple;
+	bh=GVMhfu4d56awnL5gIGJYIuN6U0gnk3rsTm0i/snYCHk=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=DmcAABWSTjDLFa0r2HQMaPqVgj6LfsUKZyKg6+KEcB6ZMSlPbCIna+EifkvvbPjX5S0UogA32pMQYpOkwAKX7m6Ffc6+lLR3ZddsD5rmQU4feVTH3jIK1+lBqIneTu6j53V9mTGj1FFrmjush42zFwmS/RfZ4jI7pMKNeS+xy0g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=nm53WgdS; arc=fail smtp.client-ip=52.101.84.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="E5H0dCIN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1775627840; x=1807163840;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=fY9tRvNU4ffWcLymQ5STSGKQK6zbBYiJUDdd8E4Zqu8=;
-  b=E5H0dCINSbYpUhlwn2BvYBNjfpWcL777/8AONPgqubktHRPnBhZWQ9Yb
-   mkuhQN49slkXtMDkQD+myVb7WU915YM61kgFMtCnAVnXve9WCt/8NEAEd
-   hQfkV+3qkog7D3d4jGzvHAsjKRQhSldrUq/F5VN1ijOtyaFrfoi2ghTqr
-   u7bU1v395Ft/oMWCQCkRcDIVWzCTC6Hn5889nIZt70JLBbrDYCKN+8lkH
-   ZftGkVly6UrmuvYjLjDqIC52ssmCRgMC6X9Hpep0mQtdq5ZkoEJGoBvqi
-   Hc5TJY74jVhYY1wizuBAe3yVCxkoYSKVKZbeqFrVe6Ts7IdMXk1UzOAoe
-   w==;
-X-CSE-ConnectionGUID: uAg4pmOdTZ+PmyzVyFAPAw==
-X-CSE-MsgGUID: jS99/LWPQOiG5cjq+fa9Wg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11752"; a="86893680"
-X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; 
-   d="scan'208";a="86893680"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Apr 2026 22:57:20 -0700
-X-CSE-ConnectionGUID: 6fsv0vX3QKCt7hWf1VNqTw==
-X-CSE-MsgGUID: 1R8Zjvn0RR2w/jOotuQcbQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; 
-   d="scan'208";a="227355742"
-Received: from iapp347.iil.intel.com (HELO localhost) ([10.167.28.6])
-  by orviesa006.jf.intel.com with ESMTP; 07 Apr 2026 22:57:17 -0700
-From: Avinash Bhatt <avinash.bhatt@intel.com>
-To: devicetree@vger.kernel.org
-Cc: linux-wireless@vger.kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	johannes@sipsolutions.net,
-	johannes.berg@intel.com,
-	miriam.rachel.korenblit@intel.com,
-	kobi.guetta@intel.com,
-	emmanuel.grumbach@intel.com,
-	Avinash Bhatt <avinash.bhatt@intel.com>
-Subject: [RFC PATCH 1/1] dt-bindings: net: wireless: intel,iwlwifi: add binding
-Date: Wed,  8 Apr 2026 08:57:09 +0300
-Message-Id: <20260408055709.11579-2-avinash.bhatt@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260408055709.11579-1-avinash.bhatt@intel.com>
-References: <20260408055709.11579-1-avinash.bhatt@intel.com>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="nm53WgdS"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xKwdojgQq0Q5OkO28hoLO96U9YXRNersyl1E7bYqKaXRk8iCflkCOjITGG3cMjVbyPGWi3DQAnYZv/3xu6oFtGyht7S68+LCj5rZ0rByv04u1VB8wf6unBO/6vzSYbfx5m4Iu79MQZfKosCGb1J0966an2CGj1dFBaXtg7OMcoZxBaIX0Sti46vQ7nzAbm1ZUOBzAag7JK0NTOc+dpVQGUBY49IWOzM9imhGs8EqvJ98Xj7u1U8i7AwlyVbJzCpxkoVNm0bwn9Daue1aGfKNIaXRqaGi6vqzCIEq3pi6wWPPBTeo4SW21tG1uacZCm88YZEmZ3ZgO9cAp6YpEX4FWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=asHbYDUzfObPFnAg1d+62PJ38vwz2w0ef0lYURsRJ54=;
+ b=zQ98p3zZ8ELFT/VoBRt/xqyI0TLNECJQiAUSjgS8tf86osXswgf9ZPy9VUl1g+AtusaoWZMhFpvpt1t1jM74AkGogHvkJqziNg4UL2xi123NUQBOw7ixm1rZj15fNAxkZo5qXKWwaP3m1j7uWgzhpOmQ8aWipoFQt3tFX/rBplLv6U1lAvPWS6zjfW4hAlj4e1CTdJwOcN3guEyYm7ZrIHbzLfRwAuUkhNV5di/+UtfSZQdCW1FYMv6dpg7L848h/jyPkIbQv2zEoIPSLgW/UyVhvvmiHQsjnI/+DuEuKe4DdeQ1zmioK4wJKXLGvQp5sPPxgWAkBBcY+XdK1bYOTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=asHbYDUzfObPFnAg1d+62PJ38vwz2w0ef0lYURsRJ54=;
+ b=nm53WgdSEOq/Ju3r6RKI0wHD0r83ZQY+1AG9IRt8C37bM5qZb6IHx8i/RGfsG6RZfWJ/SPp3W8OCYylapDM2ZBIBDy4u0DlNIpO5iYu+9DBnI8cmuXDGItnOg5+niitpYXSDc4baCt3qA7W3u5v5QWbbccNjXgOlfvNNejBm67jL+84lwMYI5oIVDzyECRnm3beGVLbSC/t3Zqr80FbcKIxGUW7wX2c9NwJnofyAlba6VPvvmrmMFVndnZ1rER7EeXqBzstytjjBnjBhRK9JdkPrsUHNBIZ+vtlDXuCcYKulEkAwuzl4Q51CNMk9VcJMINja8Y1qi63z79hJ2c13JA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
+ by PA6PR04MB11831.eurprd04.prod.outlook.com (2603:10a6:102:522::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Wed, 8 Apr
+ 2026 06:01:35 +0000
+Received: from AM7PR04MB7046.eurprd04.prod.outlook.com
+ ([fe80::4609:64af:8a4b:fd64]) by AM7PR04MB7046.eurprd04.prod.outlook.com
+ ([fe80::4609:64af:8a4b:fd64%3]) with mapi id 15.20.9769.016; Wed, 8 Apr 2026
+ 06:01:35 +0000
+Message-ID: <a31e926e-9e7e-4ba4-aafd-0f76f53fa176@nxp.com>
+Date: Wed, 8 Apr 2026 14:02:54 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: imx93-9x9-qsb: Add tianma,tm050rdh03 panel
+To: Frank Li <Frank.li@nxp.com>
+Cc: Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260407-tianma-tm050rdh03-imx93-9x9-qsb-v1-1-24d514a62fdc@nxp.com>
+ <adTUkWvqVUhLiw_J@lizhi-Precision-Tower-5810>
+From: Liu Ying <victor.liu@nxp.com>
+Content-Language: en-US
+In-Reply-To: <adTUkWvqVUhLiw_J@lizhi-Precision-Tower-5810>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SI2PR01CA0040.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:193::14) To AM7PR04MB7046.eurprd04.prod.outlook.com
+ (2603:10a6:20b:113::22)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|PA6PR04MB11831:EE_
+X-MS-Office365-Filtering-Correlation-Id: c80be953-2581-48ba-9525-08de95344a31
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|19092799006|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	mDRauK3Ss9da1Iv6zAZvCL3Swv21UqoUlQkTJvj3ztY2inXhrLl4YHNuj/DsTJI6zjWoADP0k73jTCJJWF0542TnsraeVGUrMyHZqaBqDSgNZgFchgblx4rPbmadmjc1iFEotH6IPTG42U1O2SnhsjYkHPHoobI87D0jIvFFi7Oq3KQ9XEDni1nbUvHCdGdAIxZo6Se6a+dhUX2DeytgimW+nR5LAdFFUXFDVZvPxeRzuefYVTIxSFIP++wtkFaQ4z4G1Tc5pHEGfQ6e2cha9yNsQgD+DkO0uMSNjRYGuYe3adgX3tUNfbp7bGqAq0vcjYskaIQOULgAOc8yfjEAh6KDvzfBUv5xmwtgqfqpEKlQ3Py/TdESqOYT0IFeScjBbRaS3VbuBwmGUWtBP1n2ClYpEnWzqUiB/WtsdFn5RK6g+RJoFsZOXYuDL3ET/X7F1DR9E+YroFDfTL7Yr+XKHYAblnINFiP3YdLeKf9T/Lc5Kmxj0DgvLQrQB9MGb906CDuaApAAFWGlqii2YavNMB8XB0LbWSQa2iZ1cATCKybNojWrbG82czOkGf2MFTy+UKuZoswwrsQqKAOKeIWq3ckIIUXEfoKVmU54S1zPNpq708rn8A0XnicOtriwd4j8ZIax7CHKu8w+wlH+QoQ1Y6CU8eEofD26upFolpinYzHwy9hXAkjfVG/d2O54QrQP+ldhZhwCbytUVWZ8pSl6JpXxn6eMv8cJHy9Hjf85XujV6zrMfbhurgql1E/LV1BX
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM7PR04MB7046.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(19092799006)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?THFLWjZ5cXhOajhhL2JraHdOOVAraDFoWFNqdFZlSjMrNlVNTkhOVFJoSmh6?=
+ =?utf-8?B?MTJpZmlDT2laazhLYllWWStybDRHb3NrTEJWZ3pzTEhmY1AxRE1rMUdZQVpW?=
+ =?utf-8?B?d25UcWRkWEtLTUxUMUlqMDdNMmxnTHFieE4vbHpmMzVzTmc5bEZBbVJlNThk?=
+ =?utf-8?B?OVpBbG8zcG5ZNWd4RFl6aCt4eDZ0VmVpYkVsL1ZVdStSN1JVOWNab1h1VlB3?=
+ =?utf-8?B?U01tdStPaXZ0UG8vbWtmMG9iNURKSFExWkkrZ3Q4UUpvbHhyWkh3d2JNdHl3?=
+ =?utf-8?B?ODM2SVZlQzZWZmRPVlR5cjNkajJ4UTVCZjJTZGU2WHF1SDA3eWdHYThwMUZz?=
+ =?utf-8?B?RlNOYUUreHRCeGRUNDNMWUtSaVR3dE00akZGeThZbys1LzNST2h0bHhzOGZX?=
+ =?utf-8?B?Z0VyRmF4TlJkdjhUclR2YmpGZEowSnJjL3hZdVJXTndla1I3V3Ixc3d5bUQ2?=
+ =?utf-8?B?QTh0OFM3QzhRMWVYdWM3dzZid2picVE5c0pHdUFmYWhKQU5HbFNDZTJQOUhR?=
+ =?utf-8?B?cGl5aS9FQnRJUk9MMktSQmQ4Q3dIekVwTllNN1AzTE9ZTkFUN1pYMlFrak5Z?=
+ =?utf-8?B?c2JDZ0RaSjFFaTVBRGNoYzVmTk4zUHRKcEc1T2VCZE9CR0MrbU1qaHBVUkVw?=
+ =?utf-8?B?K1RFem4xZU5IZENvT0VEcVVkMUk3Ymh5S3hsUnhoQXZxQ2xBbjlQRk1TbEtm?=
+ =?utf-8?B?MmNxUU12TnBzdEFnWkhLNHMzVHNKV0t4ZGwxMjJpUEpJZmwwVzhpT2FKK0Vh?=
+ =?utf-8?B?d3UxMURpWHF5c1RIKy93cmI0YWhrcjlWajdaYU5LNWgzMHNFQUN2Wkc2TjhE?=
+ =?utf-8?B?SjA4aXMzVDIzMm1DWUo3dzVpK2VoQU4wbXIvUFBNblI3MyszRnRGK0w0NTh2?=
+ =?utf-8?B?VUo3VmFtZVJ6a1JmOGhSMjk3cVZxdlZUR1Y5M2hBM3UwcFNCZmlNN0JwdHFq?=
+ =?utf-8?B?Z01lQXovOW9DYjNYcTdLaWVQUUlENlEvNkdOUDk3UUNqMlNtZkpzTFlXVVVH?=
+ =?utf-8?B?WWUwSVl6QlJrdXdRbHBQejBIQVBOSUJvb1NqSFU2NDJrOVhXcG1uZzZzR0R1?=
+ =?utf-8?B?OTFIZUw2TVRaYVhZZ0tYTXpsRWcrcDJ4bUlKSnhaU3BjanpXanZaQVEvNGlk?=
+ =?utf-8?B?YnpBNVhXS3lSU0VjUUxOajg1ZEJZd1NkTkxkWDFtMk9EZ05OUHNrNXd0R0dX?=
+ =?utf-8?B?eWZLYXc4ZFRKUkFyaWR3bU5oZ1hWY21pd0pWL1NqZHFObnBGaFFGWm9iMlcx?=
+ =?utf-8?B?MkVaZE9BOTBRcEFoY3J3ajgrZjBwU0srdmw2SnVVYjhBMlhETlNiN3pGemRx?=
+ =?utf-8?B?a0hqVDVYdGlxdncrdTl0UXUzUzJqWElEOHQwa3pOc0FxSWVyWjRpZXpKdm80?=
+ =?utf-8?B?VFYzTG5XTWIvOUhkcXNOTlcrY01HRjJmUTZzV3JaZXZkOE4zSWpKT1FmSkJ1?=
+ =?utf-8?B?Ykl1VHhUM29JRDFQQzJka1FZYjJNUnRiR1hJbDFqYW1CK1pza0FVRlk5ZlJP?=
+ =?utf-8?B?d2VMeThpRmxvK0U1bGV1TGE5R2hVNXdLZ0VJS0RhSXlIMW82eXYxZWxHR0Jh?=
+ =?utf-8?B?OFp3bVVobmF4d2treU1FQlppaE55QWdFQVRQL0hFTWhZWDhCd2ZCcVdqZWpS?=
+ =?utf-8?B?cnRUTk1jSjV4Vy9aeWNBY0UxckpYakx0cGJPdGFwbm1Jc1JzT1d3dkFuYkZ0?=
+ =?utf-8?B?V0FuZWd5cWFZNWtXdmdONDRPczlKcWpNc29FNW13V1RyWmg0a2VCWk45KzVP?=
+ =?utf-8?B?K1ljMjNvQ21ZTGVtOEQ4KzNYTG51ZkdpaFVNZGlCUXV1VFZEUEw0Q29lZDFN?=
+ =?utf-8?B?N3NZUjdzemNSeEtZcHh2UXhFeHY5ZUpWRVBqclBBT1ovc0RUN1dBeit5OGtK?=
+ =?utf-8?B?dWdnaGRCL2psU3dBZWpESDMyclVMVlFLcnlZNFE2dWRqUnBZdi8rS1locmtU?=
+ =?utf-8?B?Tmp1cE5ackI2QzJqZVU5OTNTQ0JBbG1WZlUxK2NLZW5zOE91YnRwZEZiZW13?=
+ =?utf-8?B?dzBEaWNRTXQ0SUpWYUFxWjVPQWdzcVZMY0s1bHVOSUFUOWlUOWZqMkU2cEU2?=
+ =?utf-8?B?ZC9zMjFKRG5CSEplZDhqc1FjdTRTdTJHM2JwR2xYNitadkxCSE5YYlhIV1FY?=
+ =?utf-8?B?aUdtNGJwVjdPYnV4TjQ5dlB1VHhrMEcyZU1SSGMzUGlxSFNhbXZieDlZWUxG?=
+ =?utf-8?B?ejhMQUVTR21Zek5xT1hQTVlJR3gyUVlidWF2Y09UMFE0c2lYaGN4QVZkNVht?=
+ =?utf-8?B?QnQ2a0VpbkdKeHVHZDFjbjFNK1g0elZEL0hnZ0xPWXdXenlWMlFPZzQxMTJ5?=
+ =?utf-8?B?N0ZrWFlXZmx5azNMZXFSZnQrTktva3hvUjRlVThPb2MxUjlRZGNVdz09?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c80be953-2581-48ba-9525-08de95344a31
+X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB7046.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 06:01:35.1296
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JYbvQx7xSl3V2FkeuPc6yZQxBeXr3yxNz1AM0joMGONlms3M7s1H2vUvkUczs7LCoAXYWJWs+/D5+eN6qapiSg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA6PR04MB11831
 
-Add a devicetree schema binding for Intel discrete Wi-Fi 7 BE200 PCIe
-adapters.
+Hi Frank,
 
-The binding documents OEM platform configuration properties for
-platforms that use Device Tree instead of platform firmware
-methods. All properties mirror the existing equivalents in
-structure and semantics, covering SAR power limits (intel,wrds),
-6 GHz AP type support (intel,uats), static power limit
-(intel,splc), channel puncturing (intel,wcpe), 320 MHz per-MCC
-enablement (intel,wbem), ETSI SRD channel configuration
-(intel,srd), 6-7 GHz UHB country enable bitmask (intel,6e-uhb),
-and additional regulatory override properties.
+On Tue, Apr 07, 2026 at 05:55:29AM -0400, Frank Li wrote:
+> On Tue, Apr 07, 2026 at 05:15:31PM +0800, Liu Ying wrote:
+>> Support tianma,tm050rdh03 DPI panel on i.MX93 9x9 QSB.
+>>
+>> The panel connects with the QSB board through an adapter board[1]
+>> designed by NXP.
+>>
+>> Link: https://www.nxp.com/design/design-center/development-boards-and-designs/parallel-lcd-display:TM050RDH03-41 [1]
+>> Signed-off-by: Liu Ying <victor.liu@nxp.com>
+>> ---
+>>  arch/arm64/boot/dts/freescale/Makefile             |   2 +
+>>  .../imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtsi       | 110 +++++++++++++++++++++
+>>  .../imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtso       | 106 +-------------------
+> 
+> Can you add some description about raname in commit message?
 
-type=feature
-ticket=jira:WREQ-381155
-ticket=jira:WIFI-849497
+I'll add some description about the file copy in commit message.
 
-Signed-off-by: Avinash Bhatt <avinash.bhatt@intel.com>
-Change-Id: Ic24d78a95b428dc2b93b603dcf4ea6f57384eee3
----
- .../bindings/net/wireless/intel,iwlwifi.yaml  | 413 ++++++++++++++++++
- 1 file changed, 413 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/net/wireless/intel,iwlwifi.yaml
+> Use -C option to create patch.
 
-diff --git a/Documentation/devicetree/bindings/net/wireless/intel,iwlwifi.yaml b/Documentation/devicetree/bindings/net/wireless/intel,iwlwifi.yaml
-new file mode 100644
-index 000000000000..6f6cec9e5749
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/wireless/intel,iwlwifi.yaml
-@@ -0,0 +1,413 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+# Copyright (c) 2026 Intel Corporation
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/wireless/intel,iwlwifi.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Intel iwlwifi PCIe Wi-Fi devices
-+
-+maintainers:
-+  - Avinash Bhatt <avinash.bhatt@intel.com>
-+  - linux-wireless@vger.kernel.org
-+
-+description:
-+  Intel iwlwifi IEEE 802.11be discrete Wi-Fi adapters connected over PCIe.
-+  These bindings provide OEM platform configuration for platforms that use Device Tree.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - pci8086,272b  # Wi-Fi 7 BE200 (discrete)
-+
-+  reg:
-+    maxItems: 1
-+
-+  intel,wrds:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description: |
-+      Wi-Fi Regulatory Domain Settings (WRDS). SAR (Specific Absorption Rate)
-+      transmit power limits per antenna chain and frequency subband. Values
-+      are 8-bit unsigned in units of 0.125 dBm.
-+
-+      Revision 3 layout: 4 chains x 12 subbands = 50 cells total.
-+      Chain A and Chain B are the two physical antenna paths; CDB Chain A
-+      and CDB Chain B carry separate limits for simultaneous dual-band
-+      operation.
-+
-+      Header (2 cells):
-+        [0] revision - structure revision, must be 0x03
-+        [1] mode     - bit 0: 0 = SAR disabled, 1 = SAR enabled; bits [8:1]: set to 0
-+
-+      Followed by 4 chains in order: chain_a, chain_b, cdb_chain_a,
-+      cdb_chain_b, each containing 12 subband values:
-+
-+      Subband index to frequency range mapping:
-+        [0]  2.4 GHz  ch  1-13   (2412-2472 MHz)
-+        [1]  5 GHz    ch 36-64   (5180-5320 MHz, UNII-1/2)
-+        [2]  5 GHz    ch 68-96   (5340-5480 MHz, UNII-2)
-+        [3]  5 GHz    ch 100-144 (5500-5720 MHz, UNII-2e)
-+        [4]  5 GHz    ch 149-188 (5745-5940 MHz, UNII-3/4)
-+        [5]  6 GHz    ch  1-45   (5955-6175 MHz, UNII-5 lower)
-+        [6]  6 GHz    ch 49-93   (6195-6415 MHz, UNII-5 upper)
-+        [7]  6 GHz    ch 97-115  (6435-6525 MHz, UNII-6)
-+        [8]  6 GHz    ch 117-151 (6535-6705 MHz, UNII-7 lower)
-+        [9]  6 GHz    ch 153-183 (6715-6865 MHz, UNII-7 upper)
-+        [10] 6 GHz    ch 185-233 (6875-7115 MHz, UNII-8)
-+        [11] 6 GHz    ch 237-253 (7135-7215 MHz, UNII-9)
-+    minItems: 50
-+    maxItems: 50
-+
-+  intel,uats:
-+    $ref: /schemas/types.yaml#/definitions/uint8-array
-+    description: |
-+      UHB (Ultra High Band / 6 GHz) AP Type Support (UATS). Per-country
-+      enablement matrix for 6 GHz AP types. Uses byte array format
-+      (DTS [ ... ] notation).
-+
-+      In the 6 GHz band, regulatory rules differ per country and per AP
-+      type: AFC (Standard Power), LPI (Low Power Indoor), and VLP (Very
-+      Low Power). This matrix encodes which AP types are permitted to
-+      operate in each country.
-+
-+      Revision 1 layout (339 bytes total):
-+        [0]   revision    - structure revision, must be 0x01
-+        [1+]  country_map - 338-byte matrix encoding AP type allowances
-+                            per country.
-+
-+                            Countries are identified by their ISO 3166-1
-+                            alpha-2 code (two letters, A-Z each). The
-+                            matrix covers all 26x26 = 676 possible
-+                            two-letter combinations (AA..ZZ), most of
-+                            which are unused (set to 0x0).
-+
-+                            Each country entry is 4 bits (a nibble). Two
-+                            entries are packed per byte: the low nibble
-+                            holds the even-indexed entry, the high nibble
-+                            holds the odd-indexed entry. For example,
-+                            byte value 0x53 means: entry[even]=0x3,
-+                            entry[odd]=0x5.
-+
-+                            The matrix is stored column-major by first
-+                            letter: all 26 second-letter variants for
-+                            first letter 'A' occupy bytes [0..12], then
-+                            first letter 'B' occupies bytes [13..25],
-+                            and so on for all 26 first letters.
-+                            26 columns x 13 bytes = 338 bytes total.
-+
-+                            Each 4-bit nibble encodes AP type allowances
-+                            for one country:
-+                              bit 0: AFC (Standard Power AP) allowed
-+                              bit 1: VLP (Very Low Power AP) allowed
-+                              bit 2: LPI (Low Power Indoor AP) allowed
-+                              bit 3: reserved, must be 0
-+
-+                            Note: each bit is only effective when the
-+                            corresponding control bit in intel,6e-uhb
-+                            is also set (bit 30 for AFC, bit 29
-+                            for VLP, bit 31 for LPI country-by-country
-+                            mode).
-+    minItems: 339
-+    maxItems: 339
-+
-+  intel,srd:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description: |
-+      ETSI 5.8 GHz SRD (Short Range Device) channel configuration.
-+      Controls how the driver handles the 5725-5875 MHz (5.8 GHz) SRD
-+      channels in ETSI regulatory domains.
-+
-+      Layout (2 cells):
-+        [0] revision - structure revision, must be 0x00
-+        [1] value    - channel configuration:
-+                       0 = active scan permitted (default behaviour)
-+                       1 = passive scan only; device may associate and
-+                           transfer data but must not transmit probe
-+                           requests on SRD channels
-+                       2 = SRD channels fully disabled; the device must
-+                           not scan, associate, or operate on any of the
-+                           5725-5875 MHz SRD channels
-+    minItems: 2
-+    maxItems: 2
-+
-+  intel,6e-uhb:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description: |
-+      6-7 GHz Ultra-High Band (UHB) per-country enable bitmask.
-+
-+      Layout (2 cells):
-+        [0] revision - structure revision, must be 0x00
-+        [1] bitmap   - UHB enablement control:
-+                       bit 0:     override control; 0 = use device defaults,
-+                                  1 = force-disable all countries not
-+                                  explicitly enabled in bits 1-25
-+                       bits 1-25: per-country/region enable flags:
-+                                  bit  1 = USA
-+                                  bit  2 = Rest of World (ROW)
-+                                  bit  3 = EU
-+                                  bit  4 = South Korea
-+                                  bit  5 = Brazil
-+                                  bit  6 = Chile
-+                                  bit  7 = Japan
-+                                  bit  8 = Canada
-+                                  bit  9 = Morocco
-+                                  bit 10 = Mongolia
-+                                  bit 11 = Malaysia
-+                                  bit 12 = Saudi Arabia
-+                                  bit 13 = Mexico
-+                                  bit 14 = Nigeria
-+                                  bit 15 = Thailand
-+                                  bit 16 = Singapore
-+                                  bit 17 = Taiwan
-+                                  bit 18 = South Africa
-+                                  bit 19 = Philippines
-+                                  bit 20 = Serbia
-+                                  bit 21 = Indonesia
-+                                  bit 22 = Azerbaijan
-+                                  bit 23 = Paraguay
-+                                  bit 24 = Vietnam
-+                                  bit 25 = India
-+                       bit 26:    reserved, must be 0
-+                       bit 27:    enable VLP active scan, SoftAP, and
-+                                  P2P-GO operation in Japan
-+                       bit 28:    reserved, must be 0
-+                       bit 29:    enable VLP (Very Low Power) mode per
-+                                  country-by-country table
-+                       bit 30:    enable AFC (Standard Power) mode per
-+                                  country-by-country table
-+                       bit 31:    LPI override mode; 0 = use grouping
-+                                  mechanism, 1 = use country-by-country table
-+    minItems: 2
-+    maxItems: 2
-+
-+  intel,regulatory-special:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description: |
-+      Regulatory Special Configurations for China and indoor operation.
-+
-+      Layout (2 cells):
-+        [0] revision - structure revision, must be 0x00
-+        [1] bitmap   - configuration flags:
-+                       bit 0 = enable DRS (Dynamic Regulatory Settings) for
-+                               China Mainland; effective only on non-China SKUs
-+                               (ignored if WRDD sets China SKU)
-+                       bit 1 = enable China Mainland BIOS (CB) profile 5.2 GHz
-+                               Active Scan/SoftAP override on indoor confirmation
-+                       bit 2 = enable New China Mainland Regulatory Specification
-+                               (0 = legacy specification)
-+                       bits 3-31: reserved, must be 0
-+    minItems: 2
-+    maxItems: 2
-+
-+  intel,activate-channel:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description: |
-+      Indoor channel activation bitmask. Sets specific frequency bands to
-+      active (rather than passive or disabled) when the platform is
-+      confirmed to be operating indoors.
-+
-+      Layout (2 cells):
-+        [0] revision - structure revision, must be 0x00
-+        [1] bitmap   - per-region indoor activation flags:
-+                       bit 0 = enable EU U-NII-1 (5.2 GHz) for indoors only
-+                       bit 1 = enable Japan U-NII-1 (5.2 GHz) for indoors only
-+                       bit 2 = enable China Mainland U-NII-1 (5.2 GHz) for indoors only
-+                       bit 3 = enable USA U-NII-4 (5.9 GHz) for indoors only
-+                       bit 4 = enable WW U-NII-1 (5.2 GHz) for indoors in any
-+                               country where the band is permitted
-+                       bit 5 = enable Canada U-NII-4 (5.9 GHz) for indoors only
-+                       bit 6 = enable USA + Canada + WW U-NII-4 (5.9 GHz) for
-+                               indoors only
-+                       bits 7-31: reserved, must be 0
-+    minItems: 2
-+    maxItems: 2
-+
-+  intel,force-disable-channels:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description: |
-+      Selective Wi-Fi band force-disable bitmask. Allows the platform to
-+      permanently disable specific frequency bands regardless of regulatory
-+      domain.
-+
-+      Layout (2 cells):
-+        [0] revision - structure revision, must be 0x00
-+        [1] bitmap   - per-band force-disable flags:
-+                       bit 0  = force disable 2.4 GHz (channels 1-13)
-+                       bit 1  = force disable 5.2 GHz (channels 36-48)
-+                       bit 2  = force disable 5.3 GHz (channels 52-64)
-+                       bit 3  = force disable 5.5 GHz (channels 100-144)
-+                       bit 4  = force disable 5.8 GHz (channels 149-165)
-+                       bit 5  = force disable 5.9 GHz (channels 169-177)
-+                       bit 6  = force disable 6.2 GHz (channels 1-93)
-+                       bit 7  = force disable 6.5 GHz (channels 97-113)
-+                       bit 8  = force disable 6.6 GHz (channels 117-153)
-+                       bit 9  = force disable 6.8 GHz (channels 157-185)
-+                       bit 10 = force disable 7.0 GHz (channels 185-233)
-+                       bits 11-31: reserved, must be 0
-+    minItems: 2
-+    maxItems: 2
-+
-+  intel,11be:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description: |
-+      802.11be (Wi-Fi 7) per-country enable bitmask. Controls whether
-+      802.11be operation is permitted in specific countries.
-+
-+      Layout (2 cells):
-+        [0] revision - structure revision, must be 0x00
-+        [1] bitmap   - per-country enable flags:
-+                       bit 0 = enable 802.11be in China (CB/CN)
-+                       bit 1 = enable 802.11be in South Korea
-+                       bits 2-31: reserved, must be 0
-+    minItems: 2
-+    maxItems: 2
-+
-+  intel,splc:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description: |
-+      Wi-Fi Static Power Limit Capabilities (SPLC). Sets the platform thermal
-+      power limit for the Wi-Fi core in mW. When not applicable, set
-+      0xFFFFFFFF and the device uses its certified maximum.
-+
-+      Layout (2 cells):
-+        [0] revision    - structure revision, must be 0x00
-+        [1] power_limit - power limit in mW, or 0xFFFFFFFF if not applicable
-+                          (device uses its certified maximum)
-+    minItems: 2
-+    maxItems: 2
-+
-+  intel,wcpe:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description: |
-+      Wi-Fi Channel Puncturing Enablement (WCPE). Enables 802.11be channel
-+      puncturing for specific regulatory domains.
-+
-+      Layout (2 cells):
-+        [0] revision   - structure revision, must be 0x00
-+        [1] puncturing - per-country enable bitmask:
-+                         bit 0: 1 = channel puncturing enabled for USA
-+                         bit 1: 1 = channel puncturing enabled for Canada
-+                         bits 2-31: reserved, must be 0
-+    minItems: 2
-+    maxItems: 2
-+
-+  intel,wbem:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description: |
-+      Wi-Fi 320 MHz Bandwidth Enablement per MCC (WBEM). Controls whether
-+      320 MHz operation is permitted in specific countries.
-+
-+      Layout (2 cells):
-+        [0] revision       - structure revision, must be 0x00
-+        [1] wifi320mhz_mcc - per-country enable bitmask:
-+                             bit 0: 1 = 320 MHz enabled for Japan
-+                             bit 1: 1 = 320 MHz enabled for South Korea
-+                             bits 2-31: reserved, must be 0
-+
-+                             Each bit takes effect only if the installed
-+                             module is certified for 320 MHz in that country.
-+    minItems: 2
-+    maxItems: 2
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    /* ARM64 platform with Intel Wi-Fi 7 BE200 as discrete PCIe device */
-+    pcie {
-+        #address-cells = <3>;
-+        #size-cells = <2>;
-+
-+        pcie@0 {
-+            device_type = "pci";
-+            reg = <0x0 0x0 0x0 0x0 0x0>;
-+            #address-cells = <3>;
-+            #size-cells = <2>;
-+            ranges;
-+            bus-range = <0x01 0xff>;
-+
-+            wifi@0 {
-+                compatible = "pci8086,272b";
-+                reg = <0x10000 0x0 0x0 0x0 0x0>;
-+
-+                /*
-+                 * Wi-Fi Regulatory Domain Settings (SAR power limits).
-+                 * Revision 3: 4 chains x 12 subbands = 50 cells total.
-+                 * Layout: revision, mode, then 4 x chain[12].
-+                 */
-+                intel,wrds = <
-+                    0x03 0x01
-+                    /* Chain A: 12 subbands */
-+                    0x38 0x38 0x38 0x38 0x38 0x38 0x38 0x38 0x38 0x38 0x38 0x38
-+                    /* Chain B: 12 subbands */
-+                    0x38 0x38 0x38 0x38 0x38 0x38 0x38 0x38 0x38 0x38 0x38 0x38
-+                    /* CDB Chain A: 12 subbands */
-+                    0x3c 0x3c 0x3c 0x3c 0x3c 0x3c 0x3c 0x3c 0x3c 0x3c 0x3c 0x3c
-+                    /* CDB Chain B: 12 subbands */
-+                    0x3c 0x3c 0x3c 0x3c 0x3c 0x3c 0x3c 0x3c 0x3c 0x3c 0x3c 0x3c
-+                >;
-+
-+                /*
-+                 * Static Power Limit: 4500 mW cap on this platform.
-+                 * 2 u32 cells: revision, power_limit_mw.
-+                 */
-+                intel,splc = <0x00 0x1194>;
-+
-+                /*
-+                 * Channel Puncturing: enabled for USA and Canada.
-+                 * 2 u32 cells: revision, puncturing bitmask (bits 0+1).
-+                 */
-+                intel,wcpe = <0x00 0x03>;
-+
-+                /*
-+                 * 320 MHz per MCC: Japan and South Korea enabled.
-+                 * 2 u32 cells: revision, wifi320mhz_mcc.
-+                 */
-+                intel,wbem = <0x00 0x03>;
-+
-+                /* OEM regulatory configuration properties. */
-+                intel,srd = <0x00 1>;            /* revision=0, passive scan only */
-+                intel,activate-channel = <0x00 0x01>; /* revision=0, EU 5.2 GHz indoors */
-+                intel,force-disable-channels = <0x00 0x00>; /* revision=0, no bands disabled */
-+                intel,6e-uhb = <0x00 0x06>;      /* revision=0, USA (bit1) + Rest-of-World (bit2) */
-+
-+                /*
-+                 * UHB AP Type Support (6 GHz country matrix).
-+                 * Byte array: revision (0x01), then
-+                 * 338 bytes of the 26x13 country enable map (all zeros
-+                 * in this example = no countries enabled).
-+                 */
-+                intel,uats = [01
-+                    00 00 00 00 00 00 00 00 00 00 00 00 00
-+                    00 00 00 00 00 00 00 00 00 00 00 00 00
-+                    00 00 00 00 00 00 00 00 00 00 00 00 00
-+                    00 00 00 00 00 00 00 00 00 00 00 00 00
-+                    00 00 00 00 00 00 00 00 00 00 00 00 00
-+                    00 00 00 00 00 00 00 00 00 00 00 00 00
-+                    00 00 00 00 00 00 00 00 00 00 00 00 00
-+                    00 00 00 00 00 00 00 00 00 00 00 00 00
-+                    00 00 00 00 00 00 00 00 00 00 00 00 00
-+                    00 00 00 00 00 00 00 00 00 00 00 00 00
-+                    00 00 00 00 00 00 00 00 00 00 00 00 00
-+                    00 00 00 00 00 00 00 00 00 00 00 00 00
-+                    00 00 00 00 00 00 00 00 00 00 00 00 00
-+                    00 00 00 00 00 00 00 00 00 00 00 00 00
-+                    00 00 00 00 00 00 00 00 00 00 00 00 00
-+                    00 00 00 00 00 00 00 00 00 00 00 00 00
-+                    00 00 00 00 00 00 00 00 00 00 00 00 00
-+                    00 00 00 00 00 00 00 00 00 00 00 00 00
-+                    00 00 00 00 00 00 00 00 00 00 00 00 00
-+                    00 00 00 00 00 00 00 00 00 00 00 00 00
-+                    00 00 00 00 00 00 00 00 00 00 00 00 00
-+                    00 00 00 00 00 00 00 00 00 00 00 00 00
-+                    00 00 00 00 00 00 00 00 00 00 00 00 00
-+                    00 00 00 00 00 00 00 00 00 00 00 00 00
-+                    00 00 00 00 00 00 00 00 00 00 00 00 00
-+                    00 00 00 00 00 00 00 00 00 00 00 00 00];
-+            };
-+        };
-+    };
+Will do.
+
+> 
+> ...
+>> diff --git a/arch/arm64/boot/dts/freescale/imx93-9x9-qsb-tianma-tm050rdh03.dtso b/arch/arm64/boot/dts/freescale/imx93-9x9-qsb-tianma-tm050rdh03.dtso
+>> new file mode 100644
+>> index 000000000000..c233797ec28c
+>> --- /dev/null
+>> +++ b/arch/arm64/boot/dts/freescale/imx93-9x9-qsb-tianma-tm050rdh03.dtso
+>> @@ -0,0 +1,14 @@
+>> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+>> +/*
+>> + * Copyright 2026 NXP
+>> + */
+>> +
+>> +#include <dt-bindings/gpio/gpio.h>
+>> +#include "imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtsi"
+>> +
+>> +&{/} {
+>> +	panel {
+>> +		compatible = "tianma,tm050rdh03";
+>> +		enable-gpios = <&pcal6524 8 GPIO_ACTIVE_HIGH>;
+>> +	};
+>> +};
+> 
+> Is it possible to appply this overlay file and kd50g21-40nt-a1 overlay file
+> 
+> to imx93-9x9-qsb.dtb, so needn't create dtsi.
+
+I'm sorry, I don't get your question here.
+Anyway, the DT overlays are needed, because the 40-pin EXP/PRI interface on
+the i.MX93 9x9 QSB board can not only connect to a DPI panel adapter board
+but also to an audio hat[2], and maybe more.  The newly introduced .dtsi
+file just aims to avoid duplicated code.
+
+[2] https://www.nxp.com/design/design-center/development-boards-and-designs/mx93aud-hat-audio-board:MX93AUD-HAT
+
+> 
+> Frank
+>>
+>> ---
+>> base-commit: 816f193dd0d95246f208590924dd962b192def78
+>> change-id: 20260407-tianma-tm050rdh03-imx93-9x9-qsb-6e4bbbde3d08
+>>
+>> Best regards,
+>> --
+>> Liu Ying <victor.liu@nxp.com>
+>>
+
 -- 
-2.34.1
-
+Regards,
+Liu Ying
