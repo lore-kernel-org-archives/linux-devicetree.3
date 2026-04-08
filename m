@@ -1,54 +1,55 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DDF93A1E6A
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:26:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C6F3A3824
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:27:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775636770; cv=none; b=IPFIWvDEnArCT7CVrPDN/RCJrEvbzEDB5+aJrxVuuVvmXemaKnbuhUOHfiQV0Nrz0FLHgJXxxkdOgnjFNCNQWH8a8zbr1Fm31LJ3ybF8zvk/5ye5YWmoiMvVlGrXhZ3eXvv8qljC0tQeYDdWzby4HB7fkEcuZ0ES0vE51baPPps=
+	t=1775636823; cv=none; b=BBNlvohi1t4KzDSPD//7tyGOzgbNi+Q2xGefU0n4pDLN8DeFyLk1WLS7DN0HQ/u5CLa9FWsAk3yl/OnJPRC7DeR0qniaTNbCAvgY3yG2XBxF+koeTOnGZyd8RwCTHAX7cOkJ0u87CHISaoYVIF+/m5G7czaMrW1UEt+OfYTe4fU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775636770; c=relaxed/simple;
-	bh=iHDkuL91kujjlOmKryVg0YeA+Yh7JR24uFyI819LhUE=;
+	s=arc-20240116; t=1775636823; c=relaxed/simple;
+	bh=dAv+La3U8Nx7XhasEfBGS7ePrE8r3GYXA+jCkywSwRE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tTBxrFdw0wdWkezMLFvHi0MILBH1dNrC94RAhYP+ppTINyhgG3Nm5CDO6BCabgAGqRymdcgSwRVaV5gulpzM2s0sy0M1ozf7JexWRTNR9zL6k8IwMskYyZgJCaIM2QviNxOLaPQ5gBKvndSAqhNU+CKkHXL1OmhMmwWPzghHmAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pdISwvAj; arc=none smtp.client-ip=10.30.226.201
+	 To:Cc:Content-Type; b=Zx5kA3VqDgh7dGXV1QZe17DsZrTfLYMSLXOk8JOhJVQ7Py7DtHW/ox+9RC8xRzrHwEMPbq2+4xcoEmJdDTFBZ60Y36vhZQOWGNcKCDyf1LxvRRlsWXW5uwy3cgGNee4qlkEk1aJMLYHhBDTaYtYKI4IJqW7AYfev6DN75NjY8Uk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ntQiLtGr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pdISwvAj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CD91C2BCB1
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:26:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ntQiLtGr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 145AEC2BCB1
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:27:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775636770;
-	bh=iHDkuL91kujjlOmKryVg0YeA+Yh7JR24uFyI819LhUE=;
+	s=k20201202; t=1775636823;
+	bh=dAv+La3U8Nx7XhasEfBGS7ePrE8r3GYXA+jCkywSwRE=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=pdISwvAjl5H9g95BsbfAQadafpuWy1u3Iqzn5Bu0c3f0pbjjXTc6lLQRICPWyyvYZ
-	 cKM7Z1SEKsiaX3U48y6sABZ30ZvsIP4WfNmmh6u94vFb7/vi3h/SCf48cmp2TRReZV
-	 FW7RkmCyvnOOgLk8ZfeQDesUUnMJ1FiDSs/sieRi9IXKkFCm88MfBbSFIOqd7NAdrf
-	 4+3n9MwmbqwfLMKwIHlavaqCOdahysfBw4UN7JhHuM9Eqm3xuCJw+7Rr9fW8meiYZx
-	 LlcuO6uZp0EPRPDnQ4c6G2wqgCZMun4Q/vdQTJA65ErTI78ODaBsGPbHNa53DC4hcv
-	 ++s9yihfH4aeQ==
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-797ab169454so95300167b3.3
-        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 01:26:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCXGlMCfbvggfD57Xe/EwsUPpIvVDC4ZRgLreikxhMYu4lhuBoKdvORnShgyK/1a8+iIWGP0jD3WiuBq@vger.kernel.org
-X-Gm-Message-State: AOJu0YydYStLle/fcce7G6cxXtm9l4b6DXkvvktb/d/lCi/yrDPniDXN
-	0/nGVbNrmJquaPf7xyv9XiDqOyvMiPdEIZBvNyfvwd51a8hwAQHwOwflk7d8ppI4JZmGh8op4Zy
-	8UfN4oQLc79zU4/GHXamuE3EGm8As/h4=
-X-Received: by 2002:a05:690c:c4fa:b0:79a:5fb9:62ad with SMTP id
- 00721157ae682-7a4d5d538f6mr186627127b3.43.1775636769579; Wed, 08 Apr 2026
- 01:26:09 -0700 (PDT)
+	b=ntQiLtGrqe75QaxaTjlLuIXUQ5w/YPlxE50wIJaVITYqYOK/uu8leefTE6fv3S0k/
+	 a9CfrcK3ThgRtVQ77ZEyzI2deZDSr9ZboU70AVDO6vbk8bpPvRBblhOT9yUs7kuT81
+	 j2R0y8nDYTF4Pn1mqEwGJu7lHejyJbM1lVDre5TYqz4QZrtJa99dwwjS5qMmyyULlq
+	 vZ24nWKGm4VU6U1wzsYMB/GZq8XpSS95P25Re6QTg0g+C62cbiCimpPiYtH5LBMJRj
+	 MEH5StlIOA6TsGhtHDa7cnbYejkmdDOVWYIylPyCCtuOWs9NmIJ1jPe5kr9DpFTBCf
+	 5HgwMdA7b83XA==
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-7986e538decso62937327b3.1
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 01:27:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCVTNUCxBazErZf2TsVf9OegtKMFxugVLHD97+Q/4BOrvqWoLq+Qs1aA6NJ/4fzV2sfsfC5N8tbmSn2U@vger.kernel.org
+X-Gm-Message-State: AOJu0Yys8Z9Z0OLip4IK6H81XNvUyMYvTu5fWs5Oshfqztxaa3BhwCAf
+	oHgNVAWieuFUsjPWwTKIt/F1oJuyx7TnnH5ELPxodsVUwWLinBFMz/OkjxBWlUIMQvpkdFu/YNC
+	g/vdKgeC9F12yytlSgzqjotUVA3GKmYs=
+X-Received: by 2002:a05:690c:6610:b0:79d:4f01:5bc1 with SMTP id
+ 00721157ae682-7a4d84c32a6mr196936127b3.31.1775636822459; Wed, 08 Apr 2026
+ 01:27:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260401-waveshare-dsi-touch-v1-0-5e9119b5a014@oss.qualcomm.com> <20260401-waveshare-dsi-touch-v1-16-5e9119b5a014@oss.qualcomm.com>
-In-Reply-To: <20260401-waveshare-dsi-touch-v1-16-5e9119b5a014@oss.qualcomm.com>
+References: <20260401-waveshare-dsi-touch-v1-0-5e9119b5a014@oss.qualcomm.com> <20260401-waveshare-dsi-touch-v1-15-5e9119b5a014@oss.qualcomm.com>
+In-Reply-To: <20260401-waveshare-dsi-touch-v1-15-5e9119b5a014@oss.qualcomm.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 8 Apr 2026 10:25:58 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmO3fW=UkH9Qf=WzdKrUP=Yg+ZmTAuqXXXOWMWAEKS2Kw@mail.gmail.com>
-X-Gm-Features: AQROBzBFUPiNlph5L0rEdl7mVBl48sE-GCLaRgA80ltifGgVhotOohWIUiAlQJM
-Message-ID: <CAD++jLmO3fW=UkH9Qf=WzdKrUP=Yg+ZmTAuqXXXOWMWAEKS2Kw@mail.gmail.com>
-Subject: Re: [PATCH 16/19] drm/panel: add devm_drm_panel_add() helper
+Date: Wed, 8 Apr 2026 10:26:51 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=DmZc-+n4z57QzirGj-S=UBqHKVUkV2dUkQp8HjXA33A@mail.gmail.com>
+X-Gm-Features: AQROBzAl5SihlBoUxkuLl6r0BxYNCbci2S_noIkx70TcWl8cgQaobuFx_PSi9DY
+Message-ID: <CAD++jL=DmZc-+n4z57QzirGj-S=UBqHKVUkV2dUkQp8HjXA33A@mail.gmail.com>
+Subject: Re: [PATCH 15/19] drm/panel: ilitek-ili9881c: support Waveshare 7.0"
+ DSI panel
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
 	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -64,16 +65,22 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmai
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
+Hi Dmitry,
+
+thanks for your patch!
+
 On Wed, Apr 1, 2026 at 9:27=E2=80=AFAM Dmitry Baryshkov
 <dmitry.baryshkov@oss.qualcomm.com> wrote:
 
-> Add devm_drm_panel_add(), devres-managed version of drm_panel_add().
-> It's not uncommon for the panel drivers to use devres functions for most
-> of the resources. Provide corresponding replacement for drm_panel_add().
+> Enable support for Waveshare 7.0" DSI TOUCH-A panel. It requires
+> additional voltage regulator, iovcc.
 >
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+(...)
+> +       ILI9881C_COMMAND_INSTR(0x01, 0x00),
+> +       ILI9881C_COMMAND_INSTR(0x02, 0x00),
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Same comment about using a jam table here.
 
 Yours,
 Linus Walleij
