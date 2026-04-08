@@ -1,80 +1,381 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 406383D3D05
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 14:52:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E12335F615;
+	Wed,  8 Apr 2026 14:57:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775659953; cv=none; b=kSzP4jziOIXctXA1XmtlFvy2vNMpm5tFvFw6zy+SvEVaQyH0WG+wWQVYvTo2LOqEoxBZwOXJX8uu+2wgFzWNhxDviRKRg9ooKcHeMd63qTJ1chvrK5FpNdwdrUVr18/zEYKkg0TN9MyRHZrewNstOUr1pQfiNLv6kW5MV8RmOtI=
+	t=1775660238; cv=none; b=NpagxgMl/eA56OP3b4jgygj31gWjGHJ1Br9L+DTWo3sSY855YE+Piu5PQWFRzNlURjHZRKAdzcqNUg91YuCdvl4Y9oEaEqBpbuHvZFt2h4jfcja67O7FFwpxt3VmtNJmxwi9r3UkbrtpO22GafTByon/UXc36gzAKqNfeXAoakc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775659953; c=relaxed/simple;
-	bh=6Lw/Eoe9ZoD6jthuPKa1ibfp0TkJ9tLImTtpG7tP2pw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LG2W+wifD77WA4UoGyK2DIibbPPnbyNm3U2HCzrFJnIC/lkaXaSt1IsNMyX1Dk7Vh3FwOae2UEJ/rW5D8a2pxV6YYGKNnpzVgbaf8fFHPtTCz95up+X8x8M+tKrTMZb0avcJ8pyVj8ek5nh6LIx3iepeYX9iKv6sT9u9CsTvIsw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hSt4HlKd; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775660238; c=relaxed/simple;
+	bh=yGyYG3kYnwvnmoKOqCcE/jreYBBuJDrnP3z1enhlA3U=;
+	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=MDrFGyBXnPvpGR9CT+6NbbOU6whIOgxa2SAZV8ksjR/IrD7dF28yxlduF90ZLD8TIcxzBrXdV+Qt7D5ynFIVdZA1r2dbIoJZHIHjAw7vDOewTTJNI4cHxPnpARIbS8znneMAwunDwTZTwZShIJymtGrophmI1Ghs2BVjj8D/FoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=Wa8GA1tN; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hSt4HlKd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC512C2BCB1
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 14:52:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775659952;
-	bh=6Lw/Eoe9ZoD6jthuPKa1ibfp0TkJ9tLImTtpG7tP2pw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=hSt4HlKdxTwjgm6p37Rr9l2jgKxCW0L1HvBWiY+/f+FfRap7BjxXZVJprpPyXj7GX
-	 0MjdSbFodJDoILNBzFxkOTUVcma+Yk1OlQgekmR59+k1vV0PUIydtn8KWuHFblVGjd
-	 7uytPOONXF3Mmyw+QJtrlGaYUM1MQIP2c6fDCgUIDVWX+Hrrieu9Alu1zNy8cN6pQF
-	 xzFj4HlA+nhrz7V/A3zZxz/5GxGMMqQSxcgodNDe9VfyVVRc3uUZ/gaDsA32pIdAK4
-	 HwUk40xIPbqarAbmI6EgYKb/qnZvItVy0OVU0TUjQiIWzjh153YgrYQhwV3dy85Z4f
-	 65+BaHMOMV1eA==
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-b9c6680aaf8so764462766b.3
-        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 07:52:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCWI5iIF9RUOeyJugtdlMDz9yu5oveNxQL8GP3juSFy7LYBWoHtt30iGCH+z18cbuzGJHbe31X9HXWqF@vger.kernel.org
-X-Gm-Message-State: AOJu0Yztc18evCm/Vymp+5D5kje+jy+BxpXCfEICrs5w6gaP8VKjabyI
-	Vfw/gpkUjPbb+BBNJYXiJshbtaBwmF250dLZwmaPTx8TxZuKC2xgO34HuLDRsfJsvhBIYUoBf5o
-	r8Fz2DkHthnYBgXffBxgpiTQgRPh2gA==
-X-Received: by 2002:a17:907:d27:b0:b9d:166f:ff82 with SMTP id
- a640c23a62f3a-b9d166fff95mr311519766b.6.1775659951347; Wed, 08 Apr 2026
- 07:52:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="Wa8GA1tN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1775660237; x=1807196237;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=yGyYG3kYnwvnmoKOqCcE/jreYBBuJDrnP3z1enhlA3U=;
+  b=Wa8GA1tNqGB5ABiNd67cbwM+vfOHSmLUvOQaWp9UGJOTEk0KRAtnqH7z
+   4FHicCTvDaVMbujUsPQd/gjzZlq9/JL6Udo5e/WpBExRoafk0r9ce44n8
+   ROS0GVxzQOaz9pfjTrIp3wLT95A4k9r4CgTbBaMS19ECJMSQj9rJ3Tzfw
+   a2kNzfJfaVyGHHLRx4XmGeTrOXykGMI//b7BuMAiaVsd+V5WA3U+7OHEt
+   s07Al/u/guFwWG1bxfYunEQMq206o8W7opaN6LBYVvY+xG8GudnQZIVSh
+   H6GieLUPGG8xMlqflqJNMobj5UN0Pscg0CdKa2bemRWG/ntJL29TLxTeA
+   A==;
+X-CSE-ConnectionGUID: gQGTKAFDQTK6Jv4TFw4tMQ==
+X-CSE-MsgGUID: 5DhuSRy2RJavtfmLCXKB2w==
+X-IronPort-AV: E=Sophos;i="6.23,167,1770620400"; 
+   d="scan'208";a="223089188"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 08 Apr 2026 07:57:16 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Wed, 8 Apr 2026 07:57:08 -0700
+Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Wed, 8 Apr 2026 07:57:05 -0700
+Message-ID: <d511e0fdee36b6b1088be9b214f545fcca14f87f.camel@microchip.com>
+Subject: Re: [PATCH net-next v2 4/9] net: dsa: lan9645x: add basic dsa
+ driver for LAN9645X
+From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
+To: Vladimir Oltean <olteanv@gmail.com>
+CC: Jakub Kicinski <kuba@kernel.org>, <UNGLinuxDriver@microchip.com>,
+	<andrew@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+	<pabeni@redhat.com>, <horms@kernel.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <woojung.huh@microchip.com>,
+	<linux@armlinux.org.uk>, <Steen.Hegelund@microchip.com>,
+	<daniel.machon@microchip.com>, <linux-kernel@vger.kernel.org>,
+	<netdev@vger.kernel.org>, <devicetree@vger.kernel.org>
+Date: Wed, 8 Apr 2026 16:57:05 +0200
+In-Reply-To: <20260407091217.rrwzho3lcmfip3y5@skbuf>
+References: <20260324-dsa_lan9645x_switch_driver_base-v2-4-f7504e3b0681@microchip.com>
+	 <20260329195629.2789129-1-kuba@kernel.org>
+	 <c1b824a3e597b37df133053f6b216e9196b130d5.camel@microchip.com>
+	 <20260407091217.rrwzho3lcmfip3y5@skbuf>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260406075114.25672-1-clamor95@gmail.com> <20260406075114.25672-3-clamor95@gmail.com>
-In-Reply-To: <20260406075114.25672-3-clamor95@gmail.com>
-From: Rob Herring <robh@kernel.org>
-Date: Wed, 8 Apr 2026 09:52:18 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqJcKb6xpevQh7C9aATh=p-H5_y05PzVYi3YMAZaH5iX4A@mail.gmail.com>
-X-Gm-Features: AQROBzA3f7YSNHZDG2jSbl1BDtXRj5DsGY054stV9bbMGP2ohdg1jN5t1jiEhGA
-Message-ID: <CAL_JsqJcKb6xpevQh7C9aATh=p-H5_y05PzVYi3YMAZaH5iX4A@mail.gmail.com>
-Subject: Re: [PATCH v5 2/2] dt-bindings: pinctrl: pinctrl-max77620: convert to
- DT schema
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Linus Walleij <linusw@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Apr 6, 2026 at 2:51=E2=80=AFAM Svyatoslav Ryhel <clamor95@gmail.com=
-> wrote:
->
-> Convert pinctrl-max77620 devicetree bindings for the MAX77620 PMIC from
-> TXT to YAML format. This patch does not change any functionality; the
-> bindings remain the same.
->
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> ---
->  .../pinctrl/maxim,max77620-pinctrl.yaml       |  98 ++++++++++++++
->  .../bindings/pinctrl/pinctrl-max77620.txt     | 127 ------------------
->  2 files changed, 98 insertions(+), 127 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/pinctrl/maxim,max77=
-620-pinctrl.yaml
->  delete mode 100644 Documentation/devicetree/bindings/pinctrl/pinctrl-max=
-77620.txt
+On Tue, 2026-04-07 at 12:12 +0300, Vladimir Oltean wrote:
+> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
+e content is safe
+>=20
+> On Wed, Apr 01, 2026 at 01:46:19PM +0200, Jens Emil Schulz Ostergaard wro=
+te:
+> > On Sun, 2026-03-29 at 12:56 -0700, Jakub Kicinski wrote:
+> > > EXTERNAL EMAIL: Do not click links or open attachments unless you kno=
+w the content is safe
+> > >=20
+> > > This is an AI-generated review of your patch. The human sending this
+> > > email has considered the AI review valid, or at least plausible.
+> > > ---
+> > > Subject: net: dsa: lan9645x: add basic dsa driver for LAN9645X
+> > >=20
+> > > This commit adds a basic DSA driver for the Microchip LAN9645X switch=
+. It
+> > > includes initialization, port module setup for NPI, CPU, and front po=
+rts,
+> > > and phylink integration for MAC side configuration.
+> > >=20
+> > > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_npi.c b/driv=
+ers/net/dsa/microchip/lan9645x/lan9645x_npi.c
+> > > --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_npi.c
+> > > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_npi.c
+> > > [ ... ]
+> > > > +static void disable_conduit_ipv6(struct lan9645x *lan9645x,
+> > > > +                              struct net_device *conduit)
+> > > > +{
+> > > > +     struct inet6_dev *dev_v6;
+> > > > +
+> > > > +     if (!conduit)
+> > > > +             return;
+> > > > +
+> > > > +     /* IPv6 on the conduit will generate frames bypassing our tag=
+ driver, so
+> > > > +      * they lack an IFH. This will be garbage in garbage out and =
+we want to
+> > > > +      * avoid this.
+> > > > +      */
+> > > > +     rtnl_lock();
+> > > > +     dev_v6 =3D __in6_dev_get(conduit);
+> > > > +     if (dev_v6) {
+> > > > +             WRITE_ONCE(dev_v6->cnf.disable_ipv6, 1);
+> > > > +             dev_warn(lan9645x->dev, "Disabled IPv6 on conduit dev=
+ice: %s\n",
+> > > > +                      netdev_name(conduit));
+> > > > +     }
+> > > > +     rtnl_lock();
+> > > > +}
+> > >=20
+> > > Does directly modifying dev_v6->cnf.disable_ipv6 bypass the proper sy=
+sctl
+> > > teardown path (addrconf_disable_ipv6) and leave the IPv6 stack in an
+> > > inconsistent state on the conduit device by failing to clean up route=
+s,
+> > > addresses, and MLD memberships?
+> > >=20
+> > > Is it a layering violation for a switch driver to alter the networkin=
+g
+> > > configuration of an external upper device, especially since this chan=
+ge
+> > > isn't reverted during driver unbind?
+> >=20
+> > Yes this will bypass the sysctl teardown path. I can change this to ins=
+tead
+> > read disable_ipv6 state and warn the user that their device is misconfi=
+gured.
+>=20
+> I don't want to have to deal with a DSA driver altering the conduit
+> configuration outside of the DSA core. NACK to any attempts of trying
+> this.
+>=20
+> Define "garbage in, garbage out" for your case. The packets are sent to
+> random ports? Normally, switches are configured by their drivers to drop
+> those packets that don't contain DSA tags. You can also do that, by
+> setting up the switch to require an injection prefix.
+>=20
+> > > [ ... ]
+> > > > +     /* Configure IFH prefix mode for NPI port. */
+> > > > +     lan_rmw(SYS_PORT_MODE_INCL_XTR_HDR_SET(LAN9645X_TAG_PREFIX_LO=
+NG) |
+> > > > +             SYS_PORT_MODE_INCL_INJ_HDR_SET(LAN9645X_TAG_PREFIX_NO=
+NE),
+> > > > +             SYS_PORT_MODE_INCL_XTR_HDR |
+> > > > +             SYS_PORT_MODE_INCL_INJ_HDR,
+> > > > +             lan9645x,
+> > > > +             SYS_PORT_MODE(p->chip_port));
+> > >=20
+> > > Setting LAN9645X_TAG_PREFIX_NONE means the hardware interprets the fi=
+rst
+> > > bytes of any frame received from the host as an IFH command structure=
+.
+> > >=20
+> > > Does this allow a local user to transmit crafted frames (for example,=
+ via
+> > > raw sockets or standard protocols) whose MAC address bytes map to mal=
+icious
+> > > IFH commands, thereby bypassing VLAN isolation or flooding the switch=
+?
+> > >=20
+> > > Should the hardware be configured to require a strict prefix, such as
+> > > LAN9645X_TAG_PREFIX_LONG, for injected frames to prevent this?
+> >=20
+> > A prefix offers no protection against the described scenario. The curre=
+nt
+> > configuration is correct. If a prefix is configured frames MUST contain=
+ the
+> > prefix. With the conduit exposed in userspace this is not something we =
+can
+> > guarantee.
+>=20
+> The short prefix prevents user space from sending frames by mistake
+> which will reach the wire (daemons attaching to all interfaces, like for =
+DHCP).
+> It still allows user space to intentionally inject frames into the
+> switch (for example from XDP on the conduit).
+>=20
+> I recommend you go for the short prefix and drop the conduit alterations.
+>=20
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-This needs to go into 7.1 as the MFD part was already applied.
+By garbage in, garbage out I mean frames will be interpreted as having
+an IFH, and may be sent to random ports depending the bytes in the
+frame.
+
+Unfortunately, configuring an injection prefix is not a good solution.
+If an injection prefix is configured frames MUST contain this prefix. If
+frames are received which do not contain the prefix they will corrupt
+the queue system leaving the port unusable.
+
+Since the driver does not have control over frames sent to the NPI port,
+an injection prefix configuration is highly undesirable.
+
+I will remove the conduit alterations.
+
+
+> > > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/dri=
+vers/net/dsa/microchip/lan9645x/lan9645x_main.c
+> > > --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+> > > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+> > > [ ... ]
+> > > > +static int lan9645x_setup(struct dsa_switch *ds)
+> > > > +{
+> > > > +     struct lan9645x *lan9645x =3D ds->priv;
+> > > > +     struct device *dev =3D lan9645x->dev;
+> > > > +     u32 all_phys_ports;
+> > > > +     int err;
+> > > > +
+> > > > +     lan9645x->num_phys_ports =3D ds->num_ports;
+> > > > +     all_phys_ports =3D GENMASK(lan9645x->num_phys_ports - 1, 0);
+> > > > +
+> > > > +     err =3D lan9645x_reset_switch(lan9645x);
+> > > > +     if (err)
+> > > > +             return err;
+> > > > +
+> > > > +     lan9645x->ports =3D devm_kcalloc(lan9645x->dev, lan9645x->num=
+_phys_ports,
+> > > > +                                    sizeof(struct lan9645x_port *)=
+,
+> > > > +                                    GFP_KERNEL);
+> > >=20
+> > > Since the DSA .setup callback can be invoked multiple times during th=
+e
+> > > platform device's lifetime (for example, when the DSA master interfac=
+e is
+> > > unbound and bound again), does using devm_kcalloc here cause a memory=
+ leak?
+> > > Should these allocations be moved to .probe or managed with kcalloc a=
+nd
+> > > freed in .teardown?
+> > >=20
+> >=20
+> > Hmm I do not think this is right? I think dsa_tree_teardown is called f=
+rom
+> > dsa_switch_remove which is called by the switch drivers .remove.
+> >=20
+> > So I do not think you can get multiple setup/teardown cycles during the=
+ device
+> > lifetime?
+> >=20
+> > As far as I can tell both felix and ksz use device managed allocations =
+in their
+> > setup callback.
+>=20
+> It's valid feedback in general. In a multi-switch tree, ds->ops->setup()
+> is called when the tree is complete, and ds->ops->teardown() when the
+> first switch disappears. If there are 2 switches and you unbind and
+> rebind the driver from A, then switch B will see a ds->ops->teardown()
+> call followed by ds->ops->setup().
+>=20
+> In your case, since the switch doesn't support cascading, it probably
+> doesn't matter. But the LLM doesn't have the context to know that.
+>=20
+
+
+OK, I was not aware of this. I tried following the callstack and it did not=
+ seem
+like the described scenario was possible. If device managed allocations are=
+ fine
+when you do not support cascading, I would prefer to keep them.
+
+> > > [ ... ]
+> > > > +     /* Set all the entries to obey VLAN. */
+> > > > +     for (int i =3D 0; i < PGID_ENTRIES; ++i)
+> > > > +             lan_wr(ANA_PGID_CFG_OBEY_VLAN_SET(1),
+> > > > +                    lan9645x, ANA_PGID_CFG(i));
+> > >=20
+> > > PGID_ENTRIES is defined as 89, so this loop initializes indices 0 thr=
+ough
+> > > 88. Since the CPU port is index 9, its source PGID is PGID_SRC + CPU_=
+PORT
+> > > (80 + 9 =3D 89).
+> > >=20
+> > > Is index 89 left uninitialized, breaking the OBEY_VLAN rule and allow=
+ing
+> > > CPU-injected frames to leak across VLAN boundaries?
+> > >=20
+> >=20
+> > No I this misunderstands OBEY_VLAN. When set the vlan table can control
+> > whether cpu copy from the pgid table is enabled. It makes no sense for =
+PGID 89.
+>=20
+> Explain that in a comment.
+>=20
+
+I will add a comment about this.
+
+> > > [ ... ]
+> > > > +     /* Multicast to all front ports */
+> > > > +     lan_wr(all_phys_ports, lan9645x, ANA_PGID(PGID_MC));
+> > > > +
+> > > > +     /* IP multicast to all front ports */
+> > > > +     lan_wr(all_phys_ports, lan9645x, ANA_PGID(PGID_MCIPV4));
+> > > > +     lan_wr(all_phys_ports, lan9645x, ANA_PGID(PGID_MCIPV6));
+> > > > +
+> > > > +     /* Unicast to all front ports */
+> > > > +     lan_wr(all_phys_ports, lan9645x, ANA_PGID(PGID_UC));
+> > > > +
+> > > > +     /* Broadcast to all ports */
+> > > > +     lan_wr(BIT(CPU_PORT) | all_phys_ports, lan9645x, ANA_PGID(PGI=
+D_BC));
+> > >=20
+> > > PGID_BC includes BIT(CPU_PORT) and all_phys_ports (which includes the=
+ NPI
+> > > port). Will this forward broadcast frames to both the CPU extraction =
+queue
+> > > and the NPI port's normal egress queue, causing duplicate frames for =
+the host?
+> > >=20
+> > > Conversely, the multicast masks and PGID_UC exclude BIT(CPU_PORT). Do=
+es
+> > > this cause them to bypass the CPU extraction queue entirely, thereby
+> > > lacking the LONG extraction prefix and breaking the host's DSA tagger=
+ parsing?
+> > >=20
+> >=20
+> > No this is not how it works. Generally when you configure the CPU port =
+to use
+> > an NPI port, the hardware manages this internally. You do you have to s=
+tart
+> > using the npi port number all of a sudden.
+>=20
+> The comment is fair though. Why would you set all_phys_ports to
+> GENMASK(lan9645x->num_phys_ports - 1, 0) when you can compute the mask
+> of user ports which are enabled? It seems sloppy at best, and also
+> contradictory (comments say "all front ports", but code includes the NPI
+> port in this mask).
+>=20
+
+I will use dsa_user_ports(ds) as the base mask for the flood masks.
+
+> > > [ ... ]
+> > > > +int lan9645x_port_setup(struct dsa_switch *ds, int port)
+> > > > +{
+> > > > +     struct dsa_port *dp =3D dsa_to_port(ds, port);
+> > > > +     struct lan9645x *lan9645x =3D ds->priv;
+> > > > +     struct lan9645x_port *p;
+> > > > +
+> > > > +     p =3D lan9645x_to_port(lan9645x, port);
+> > > > +
+> > > > +     if (dp->dn) {
+> > > > +             p->rx_internal_delay =3D
+> > > > +                     of_property_present(dp->dn, "rx-internal-dela=
+y-ps");
+> > > > +             p->tx_internal_delay =3D
+> > > > +                     of_property_present(dp->dn, "tx-internal-dela=
+y-ps");
+> > > > +     }
+> > >=20
+> > > These are standard integer properties specifying delays in picosecond=
+s. If
+> > > a user explicitly disables the delay via devicetree using a value of =
+0,
+> > > will of_property_present evaluate to true and enable the hardware del=
+ay
+> > > anyway? Should of_property_read_u32 be used instead to check the valu=
+e?
+> >=20
+> > A value of 0 is not allowed per the bindings. The bindings enforce that=
+ if this
+> > is present the value must be 2000.
+>=20
+> Bindings may change. Please use of_property_read_u32().
+>=20
+
+
+I will switch to of_property_read_u32.
