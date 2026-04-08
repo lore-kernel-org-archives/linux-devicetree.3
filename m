@@ -1,86 +1,87 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9995335E940
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 06:05:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF21135E959
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 06:06:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775628344; cv=none; b=PoYSx1oIm0t83v9nqNU88LdISdqUVDSeN3iEhFAdutTjAZWeOgGDS4khwL5PelhFgGl1AmnzPJVJ3slpjHTJwMfFifHvPbE4U5NF+8SX1KjZRsJQobmOxz7eb/daSokFbODEI1Qxnpw3iboA75/o+8d9qtquJvpvpOUvC9Cvr2o=
+	t=1775628369; cv=none; b=HWLuqLf6JgS5EtaZskckhjEtBzsmNrlmuGOWFfQLAWpT4bHHCPgxrVCKCKalwOJGByqFktdB5phw7e1GITaeuPbQcFcol2RauExWE+ATzWz12ZRNzpiglAYFmqjuOGV0aR62ptQkM5Xn29vx1tpc346J63sQ5XdqWLDZzJ17u+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775628344; c=relaxed/simple;
-	bh=c6N26IhPygukcAcEbbwCi5kxSzaFfkAPpzFHNLonrc4=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=N0jlovYjyK6x3KCrzKB6ZbDk0oH3VNQwsT4CjBNN2tDpb7VgahqjrSvbWWPmbksJyB4hDeqCCIPzfnfJfpEbQBA7+mHJWxHplURKJsc7h1OSaseaOjx8mLxycjrhn/dYt2PQAPaBJthsxx/uPKcYKzTz5hs390UaUTGBV0cY7fI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WtpHvwGN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kmeT7GcC; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1775628369; c=relaxed/simple;
+	bh=E6KklF2p6JB+pfj0G9dAm/Uj76BZjD5t8kWTwUyC3X8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=U7enKnU+TkLQDgNsDiAiqLnna/IxDyH1CEFUBF3UxJv3Vlf+C7ezj6hwRRpY6wxjz81bPousZnC1IT8o8RClZugYRZ9QtuLzWQgfldS3Y5Kj7oBzFlkJ7Au/M8Wd/getBiLG7QIRFAA3qUJvfLCQgZ/fcW8QR5vsm0pPtzZH774=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SCqbc9db; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DSY/2WxC; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WtpHvwGN";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kmeT7GcC"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6385N7nq3362738
-	for <devicetree@vger.kernel.org>; Wed, 8 Apr 2026 06:05:42 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SCqbc9db";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DSY/2WxC"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 637M4i0I2861287
+	for <devicetree@vger.kernel.org>; Wed, 8 Apr 2026 06:06:07 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	1af8hSConZXJHNKgadMXHP8pYeo9HkkDLzcsI82+dMw=; b=WtpHvwGNYHHRhOdL
-	k7g4khmayRNuNCuhQrBxwv/w+ecOjHITw1adu1pAhg7F5hBw+y31PoH6rDIBwJoM
-	BOWt+Ph1jt/8+hO448hzpvOEuhUVg4ALBZ5nA1UPjXrWIq32GmyHHs2ZtO3ACFUn
-	FOK7Cwt0BRMDeJ58jzDgxddJzzv5cTv7Tc47Kw1+4triQcHFkBRr4hg1IKUoICCj
-	VQWDHKzNOQFkoGDnV/30BpM8OvUcc2e/bkIdHQM84VIQDFkja3Z/hi3+6QFkqsyM
-	mHgLv+fzTLq2+nvLhx8m7UgM3V6yEBpiiD7rZwKt16kVnWGV+8eZmhrpXeGKpM+1
-	SBJPZQ==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dd7tkhs70-1
+	v0EWSn6WklXDbV7L1GTeMxyO36jOW5P3v4CqHJu5cpo=; b=SCqbc9dbcvjp9zag
+	sXcMrMzInXJcsKcg0+8Xl8KK1RqI6vj4HzVBIQAFpmUQ5sjYObWGhR6ZHQwBqHxn
+	XMZnOd8HreqbHjJdpx20WwTwZc9MM6ebnh1NoDdJtxMrLrXFHPpnLFUcmWexMZTY
+	Sfg7VeKUk4/zmDJrQNlLPIzE/7mjAqXCzPh6Fy+PIqE089lBV6z9RLtbLHJnlLQU
+	dyQ9EhlHAH71NWU3vHo6SUSHnbAdzhtUC5w0yYa11k6haFbcRR9vp729x8WkTsbP
+	tPq4apZ0DnGjKtOXpBDUJIw64cmNRMLo2HVpXVudLOIfExcVNRnZaqFlKwhQ2mCz
+	pMhoGA==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ddad8s836-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 06:05:41 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2b241be0126so158784495ad.3
-        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 23:05:41 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 06:06:06 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-35d9f68d00fso12844114a91.2
+        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 23:06:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775628341; x=1776233141; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=1af8hSConZXJHNKgadMXHP8pYeo9HkkDLzcsI82+dMw=;
-        b=kmeT7GcCNvigH7NyYokCqDYS7AFAbr8rS9mR7J/NrVH4HmT8MQL2hnW2Lzb08PmLQ9
-         Pryhq0bQB47lDrLcAieffXaoW70Gmo9+bj02us/hpmZRFSOX/wdzNldOO50h1HpUDB0J
-         yaDwXH0CvjsSeQqjBsTYj/eOm9R2IIAZ4qAfVGtUdYcEqlha12/ww1qyAYCAvbEZm+yt
-         rAlYD4Geb3e3RQDpZiFihjX9NpaDm203+OpgX0jw4VTH4F/VmVnYfztn992Rb2kOato3
-         01umlaPpcCDdSRlAlgy55Zpj2d/KZo5QlgMCzCiNLlRAYY/Z3XD/3lOiaoS32LT66AIw
-         qHrg==
+        d=oss.qualcomm.com; s=google; t=1775628366; x=1776233166; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=v0EWSn6WklXDbV7L1GTeMxyO36jOW5P3v4CqHJu5cpo=;
+        b=DSY/2WxCgiWaUYZK6e2SrBuV+mJqahZghhYWiCRa7c9x+qlN3z5vLIjpcFCQd4PDZi
+         HHEkWjUWPBl2JMmj7FgiEXlhX1qKS1mB0LpNAvxneruRruoQAU0ZxHf+KuHcamRUlOR9
+         MHQsTeqc1MCVExaPOxda4MdCFu/K/0c3D1tU9u/ajeUhw84mIiF7N2x6GVcFsm4uip0v
+         lKE4sMLk4b9a9TErygzVcW49cpm/Pkc9ym5bP/1PbWw5mCk4MIQxYfcG8PaP1xFX93Ib
+         cwPDR+3MDOAthh4o7UFLoALpGKiTsdFgvLLx6RYV3O6+hIg2GWsQ+AlzG4JB/E3BTsom
+         5RgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775628341; x=1776233141;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=1af8hSConZXJHNKgadMXHP8pYeo9HkkDLzcsI82+dMw=;
-        b=GWhK6txwdzgcNWn8aZsnk72I6ZDmeYBjVvmTSbN8RohUans4OE9Em19AaQnZN9LzrD
-         I1u+mFF+MsQjOIvSqh8W8acel8BVDvaKU4j0KxtIdd4EZpro9vHTCVPq3yADvgNUZ7TB
-         Ug3MQ3T97AYPzZazqRqVx4JzJ3QY4jvxNrEGcDUYHrhG/fmgivDGx476FbMl5LMzwIHu
-         Qg9TLaLzoiJiYuQvs17gj8VVkZdKnuytad9ueo6mKs1GxoeEt/RylTdovePVoC3YY8OC
-         /y5busTUhca4mUeuW/MWvIRloD/S1WwzAxf7XB9r7P4BjSnzJbmtRELK4hXcU2JWPMR0
-         BWYA==
-X-Forwarded-Encrypted: i=1; AJvYcCXl+BtTXiJfKufcXoz4M92EFWThSPdpjpJ+vPxgNLqLzMVCJKOjskUuPUEVLBztqFSy8yo7WsaIHC2Y@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzo2oR4rlCfzMGjCMNFyZv6AoHvmldF6zgDf8VYR3wPVStkkkZa
-	zI4cLJNKOr8Io0cnQdx/Z8sl8lfcLJjV8M9I5aNjTwDOFsylusjXvztf8Hfyw7YX5DvCM47qEg8
-	gaJubzHfiZ/vA0mU71BEBFbra3atBLyX74XAAWrwFaKXfhT3jvN9dO911M23RqEKG
-X-Gm-Gg: AeBDieunBLERkL2+3///FWOYcPcv3l3EbyfS3NiXQFpEhFw6dEEY4ueqvkIK/P5GKU7
-	wHMJr5R9ZAiyohkujNRnjiIzf6D18/qNfeXZqJWZNpedinks5Zpin8aBuc9TvAa6CTPFL4HR2JS
-	XzEioPH3FkUwScWDznBoLRuz/wo8BgJBWUHnA5vtBZYuTygQaV8E7RXq6M3BxYJ/j/9XlgTd+OY
-	ggqPOXGZCrKge1yS4KDkIAx6ldDgdbGFwL6vjpWQy8piMyGRipbLmXywVHhARJ2fjp9O+imfqFU
-	8D5ygVAQBgWzrKKttF4mYfWrogTrF0Mv+QGGAjXK0q+37Z726Gvbgs197jI/ajS/90dXDZ5rZ86
-	+Bou7SHHkvbP8lhgHv0QEQ5FNbTZVAqr8S4XmcP6kVhxeA3Jr0NsQS0Qr07T2NkcYLjB6WZCqwo
-	LvcsCYWIf+s6//fPIHWGL5jmk6UfiuE4o+eA==
-X-Received: by 2002:a17:903:a86:b0:2b0:ac1e:9720 with SMTP id d9443c01a7336-2b2817995b8mr193083035ad.23.1775628341164;
-        Tue, 07 Apr 2026 23:05:41 -0700 (PDT)
-X-Received: by 2002:a17:903:a86:b0:2b0:ac1e:9720 with SMTP id d9443c01a7336-2b2817995b8mr193082645ad.23.1775628340581;
-        Tue, 07 Apr 2026 23:05:40 -0700 (PDT)
-Received: from [10.79.196.164] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b2749c38adsm240381685ad.69.2026.04.07.23.05.35
+        d=1e100.net; s=20251104; t=1775628366; x=1776233166;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=v0EWSn6WklXDbV7L1GTeMxyO36jOW5P3v4CqHJu5cpo=;
+        b=NWuWJmtoEzhef87jPDcfYBp0zudVg2qrwwatoLRkvqt91rSC/zUSo0qUb6DsK0WdgV
+         oz7KJPX/owF2DEw8j/bRaslcG1nQSvFKUHXZtppV2kjrE0+tK+CMOA9DkUShuKsTBcel
+         5Sne2OTGdsBG70evSX6X73wJG1MbbTQHFBBVrU0un4Qvx1Bx+GR265ZRoT6nIiM+qUEu
+         xrk+swH5FL+5aJp0dsuS0thM7WKDJnu8rdzCHhvuozRI8hAFzeJldWXZi2AHuR93bIA7
+         YiOv1A2WgALQLt5Nxa1Hj8kYgdvCqWv54jciUVcwBUbKh77QnglF3nF3iTdayelG8xk5
+         YZnQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWQgv9kqfvFSAzwUdwx+pEcDjZ7ZAD2hQvMhcD1O2zGYMIcGmpoLZk/aDtD7UFpQvFYuBMtqjQB7nhq@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy1dVB3x8RIz0OKTc1HFFV8hMCuGDy/cTj6czEe2p0PGaNdD77I
+	0A1TKnXzAzOBoVCBVP4JGWsqPdCZgZy523hJ6U4a5Q/WQdB5tn79EjZKNq9GXhsIvd5Is8y4w8J
+	FSXjkE05RnJHSososlfiuq5srb8T7bqHFJsBODZR1Xj4RZIvC2DOxk5ARk+JWRCHQ
+X-Gm-Gg: AeBDies6NDgrKf6U4mqGNcpjTcPGSOW5sAy3AszrCz70Hx4k0N6vaoEMFXnpDmzuB5i
+	I7sKG00n0r64lNTc2fMgGTNWHsB/Pzdmbh68l15rXLK4U28YAc2n5+fS+nymw4jDREdzDDEx490
+	QQB4ckYH79QdVZgR1tnMr2EOLkppZu5+D93L7NfEHY0XZKpJn/RDkBrYJW0oaYa40dTR4cJb4PN
+	bUOxCdsoeqZAqm/sS3NmPUNklV9yRaaYRtkK+vOw+fx9h/udK7zPXXQNCUhTdbksWQr2CKwCpkH
+	9NRzKgjgoD3fYZXQlKbJz7OqfFVSKL4R8RV/Bl0WdZeamspiGIicxUJtpd1HHWryiUMguNanoMy
+	9k0cVz0XbgQOz59+ViWfFn++lL5zWnNIkzF31QmscA8yv+XZa3DRxYMRPk6dBAhZNfShfcsZey3
+	5gId2kNEqfU1nUbkgrKVE=
+X-Received: by 2002:a17:90a:d005:b0:35d:9d28:e897 with SMTP id 98e67ed59e1d1-35de699f483mr18753257a91.28.1775628365493;
+        Tue, 07 Apr 2026 23:06:05 -0700 (PDT)
+X-Received: by 2002:a17:90a:d005:b0:35d:9d28:e897 with SMTP id 98e67ed59e1d1-35de699f483mr18753218a91.28.1775628365004;
+        Tue, 07 Apr 2026 23:06:05 -0700 (PDT)
+Received: from [10.133.33.204] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35dd36a1d04sm25128122a91.17.2026.04.07.23.06.01
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 07 Apr 2026 23:05:40 -0700 (PDT)
-Message-ID: <c256047d-cacf-4ef1-96bc-529b3158c60c@oss.qualcomm.com>
-Date: Wed, 8 Apr 2026 11:35:34 +0530
+        Tue, 07 Apr 2026 23:06:04 -0700 (PDT)
+Message-ID: <ff11954f-345f-4865-a86e-759aa167768d@oss.qualcomm.com>
+Date: Wed, 8 Apr 2026 14:06:00 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,364 +89,98 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/5] platform: arm64: Add driver for EC found on
- Qualcomm reference devices
-From: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Rob Herring
- <robh@kernel.org>,
+Subject: Re: [PATCH 0/2] wifi: ath: Use static calibration variant table for
+ devicetree platforms
+To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Cc: Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+        Jeff Johnson <jjohnson@kernel.org>,
+        Johannes Berg
+ <johannes@sipsolutions.net>,
+        Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Randy Dunlap
- <rdunlap@infradead.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        platform-driver-x86@vger.kernel.org,
-        Maya Matuszczyk <maccraft123mc@gmail.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260327-add-driver-for-ec-v7-0-7684c915e42c@oss.qualcomm.com>
- <20260327-add-driver-for-ec-v7-2-7684c915e42c@oss.qualcomm.com>
- <308ae40a-34f1-9b69-bfe7-150ca8ad1d29@linux.intel.com>
- <e35da42f-e43c-4810-9985-7f51a1f5dc0e@oss.qualcomm.com>
+        Conor Dooley
+ <conor+dt@kernel.org>, linux-wireless@vger.kernel.org,
+        linux-kernel@vger.kernel.org, ath10k@lists.infradead.org,
+        ath11k@lists.infradead.org, devicetree@vger.kernel.org,
+        ath12k@lists.infradead.org,
+        Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>
+References: <20251114-ath-variant-tbl-v1-0-a9adfc49e3f3@oss.qualcomm.com>
+ <2fd84ab2-2e3e-4d05-add5-17930a35fedf@oss.qualcomm.com>
+ <jnggqxqv3rjzhyevovnnxzplfhl3t6auhhvmoz7wxmsf6awgdx@dusdgxwsxvts>
+ <b8277024-f9d4-4f17-946f-c2c390669067@oss.qualcomm.com>
+ <exfmj52dqu3uctwsb2gopcjg7744vq5avlkahtmgfw4opw4mfl@t2svrln72u53>
+ <f853d9b2-47f8-47b5-a02d-6aa8f12a4283@oss.qualcomm.com>
+ <trr5j57vwk2dhoibdgdxnlkftnmfcmjkwmicsiltmhybxanjaf@tzaeeqcyz56l>
+ <fasihmiu2szj6m2r3qef5slvzlvdjo2ajhrd6xyqsa5cajrbzq@a5dyulg2dnac>
+From: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
 Content-Language: en-US
-In-Reply-To: <e35da42f-e43c-4810-9985-7f51a1f5dc0e@oss.qualcomm.com>
+In-Reply-To: <fasihmiu2szj6m2r3qef5slvzlvdjo2ajhrd6xyqsa5cajrbzq@a5dyulg2dnac>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=drPrzVg4 c=1 sm=1 tr=0 ts=69d5f035 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Proofpoint-ORIG-GUID: YZNW85OJfb2BzrZe_TQJUxNv4domjy_H
+X-Proofpoint-GUID: YZNW85OJfb2BzrZe_TQJUxNv4domjy_H
+X-Authority-Analysis: v=2.4 cv=EoDiaycA c=1 sm=1 tr=0 ts=69d5f04e cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
  a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=VwQbUJbxAAAA:8 a=-0q7uios7j49SWls-T0A:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-ORIG-GUID: -7sgZCU0vf6W13OHl5s6q3fwgs0VkiuC
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA4MDA1MyBTYWx0ZWRfXz50UP8x9UpLj
- YGE0xfzMctPymMKQq5M2dUA/8a4Bmk+r84LkbpUoJvj0NhkM9H6YG/Bw95LcR+kBmjLZHCCI9Ov
- myvRDO/S2e3r1K53Nszvxy2tCBBfw6i7sr4RMiWARHUCPahRkXahYp/4L5HoeUIOzktrijnhLv/
- mRjfxvTblU22YNbEDKFxHnyqjUD5U6qHuwXSHv6MNch1rIb4JhHFSzeOJ3Zzf+RYsxM4R+M3IW7
- MFY2ofwcPq5N8KaVseWGzE8nzm7Gf/UxkjubBh8p08t+nhyWjBKzUyOTGeSHP7oKIWjuOXsOErF
- saBcZzOYpLoEouUitHzIKygy3FeZD6/XlKWFv5q6QRkkCQQ8d2mhJuAzOFltkkn3qphvbnCXhLh
- mCSk/RWVG35VRy74ZmqUWTlrgUsE8k3u77HsNg4J2/tvxNef3pBvUlhCoM/vGHft2sZMK9cCjR1
- wEPCsWGwlll0Yl0XPRg==
-X-Proofpoint-GUID: -7sgZCU0vf6W13OHl5s6q3fwgs0VkiuC
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=eKx4iS3zDsI69C-aG7AA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA4MDA1MyBTYWx0ZWRfX8I2clKXl7GRM
+ Pi+etFuF6WMBTFa8RPnguswSwS1EdM6QrfPkzSvc51Peg+Z69jSORZiFzlt8Rf0NYLGHjJBLpvI
+ IM6dSFRBSEjoCt80Gd0F5X8EGArfwLwJnCy14DxcoZuBn9u07I0CUaICeem/sGlmUFdPO/pE39Z
+ 7oNolDgzy2RKX12opulRFhtF3X7wNF5l1hvtcfPyANpcHyI7ymqfwqukVaCNPj6hNe0OjNsr0Ta
+ kpl7vQJ4IUro/dHXK9RICtm/alIrJzO4wdnO4SmabcSZh5cz1Cy3MmzsuGw1XBBVN6j5InfZRJ9
+ DcQdSM4NcAUtShRVZpBJ5KTYUhM2+ApkblmJXUatjfOHnCgA9AYsckPOem7wb4JJakBdbzznVaa
+ wk4X+YgqQyDC49WHVRn70s32Am7YP5acteVgxm2Q4CNaOOPwS6iGd0A0hUjjjhw5vrnhCJZA7Wu
+ 0YtWZeU2a2izHXMmeKQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-08_02,2026-04-07_05,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015 malwarescore=0
- bulkscore=0 impostorscore=0 phishscore=0 priorityscore=1501 suspectscore=0
+ adultscore=0 priorityscore=1501 spamscore=0 clxscore=1015 bulkscore=0
+ malwarescore=0 impostorscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604080053
 
 
 
-On 3/30/2026 12:14 PM, Anvesh Jain P wrote:
-> 
-> 
-> On 3/27/2026 5:20 PM, Ilpo Järvinen wrote:
->> On Fri, 27 Mar 2026, Anvesh Jain P wrote:
+On 11/25/2025 5:57 PM, Ernest Van Hoecke wrote:
+> On Tue, Nov 18, 2025 at 12:23:20PM +0530, Manivannan Sadhasivam wrote:
 >>
->>> From: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
->>>
->>> Add Embedded controller driver support for Hamoa/Purwa/Glymur qualcomm
->>> reference boards. It handles fan control, temperature sensors, access
->>> to EC state changes and supports reporting suspend entry/exit to the
->>> EC.
->>>
->>> Co-developed-by: Maya Matuszczyk <maccraft123mc@gmail.com>
->>> Signed-off-by: Maya Matuszczyk <maccraft123mc@gmail.com>
->>> Signed-off-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
->>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->>> Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->>> Co-developed-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
->>> Signed-off-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
->>> ---
->>>  MAINTAINERS                            |   8 +
->>>  drivers/platform/arm64/Kconfig         |  12 +
->>>  drivers/platform/arm64/Makefile        |   1 +
->>>  drivers/platform/arm64/qcom-hamoa-ec.c | 451 +++++++++++++++++++++++++++++++++
->>>  4 files changed, 472 insertions(+)
->>>
->>> diff --git a/MAINTAINERS b/MAINTAINERS
->>> index 30ca84404976..536dfd9adff4 100644
->>> --- a/MAINTAINERS
->>> +++ b/MAINTAINERS
->>> @@ -21804,6 +21804,14 @@ F:	Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
->>>  F:	drivers/misc/fastrpc.c
->>>  F:	include/uapi/misc/fastrpc.h
->>>  
->>> +QUALCOMM HAMOA EMBEDDED CONTROLLER DRIVER
->>> +M:	Anvesh Jain P <anvesh.p@oss.qualcomm.com>
->>> +M:	Sibi Sankar <sibi.sankar@oss.qualcomm.com>
->>> +L:	linux-arm-msm@vger.kernel.org
->>> +S:	Maintained
->>> +F:	Documentation/devicetree/bindings/embedded-controller/qcom,hamoa-ec.yaml
->>> +F:	drivers/platform/arm64/qcom-hamoa-ec.c
->>> +
->>>  QUALCOMM HEXAGON ARCHITECTURE
->>>  M:	Brian Cain <brian.cain@oss.qualcomm.com>
->>>  L:	linux-hexagon@vger.kernel.org
->>> diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kconfig
->>> index 10f905d7d6bf..025cdf091f9e 100644
->>> --- a/drivers/platform/arm64/Kconfig
->>> +++ b/drivers/platform/arm64/Kconfig
->>> @@ -90,4 +90,16 @@ config EC_LENOVO_THINKPAD_T14S
->>>  
->>>  	  Say M or Y here to include this support.
->>>  
->>> +config EC_QCOM_HAMOA
->>> +	tristate "Embedded Controller driver for Qualcomm Hamoa/Glymur reference devices"
->>> +	depends on ARCH_QCOM || COMPILE_TEST
->>> +	depends on I2C
->>> +	help
->>> +	  Say M or Y here to enable the Embedded Controller driver for Qualcomm
->>> +	  Snapdragon-based Hamoa/Glymur reference devices. The driver handles fan
->>> +	  control, temperature sensors, access to EC state changes and supports
->>> +	  reporting suspend entry/exit to the EC.
->>> +
->>> +	  This driver currently supports Hamoa/Purwa/Glymur reference devices.
->>> +
->>>  endif # ARM64_PLATFORM_DEVICES
->>> diff --git a/drivers/platform/arm64/Makefile b/drivers/platform/arm64/Makefile
->>> index 60c131cff6a1..7681be4a46e9 100644
->>> --- a/drivers/platform/arm64/Makefile
->>> +++ b/drivers/platform/arm64/Makefile
->>> @@ -9,3 +9,4 @@ obj-$(CONFIG_EC_ACER_ASPIRE1)	+= acer-aspire1-ec.o
->>>  obj-$(CONFIG_EC_HUAWEI_GAOKUN)	+= huawei-gaokun-ec.o
->>>  obj-$(CONFIG_EC_LENOVO_YOGA_C630) += lenovo-yoga-c630.o
->>>  obj-$(CONFIG_EC_LENOVO_THINKPAD_T14S) += lenovo-thinkpad-t14s.o
->>> +obj-$(CONFIG_EC_QCOM_HAMOA) += qcom-hamoa-ec.o
->>> diff --git a/drivers/platform/arm64/qcom-hamoa-ec.c b/drivers/platform/arm64/qcom-hamoa-ec.c
->>> new file mode 100644
->>> index 000000000000..0f883130ac9a
->>> --- /dev/null
->>> +++ b/drivers/platform/arm64/qcom-hamoa-ec.c
->>> @@ -0,0 +1,451 @@
->>> +// SPDX-License-Identifier: GPL-2.0-only
->>> +/*
->>> + * Copyright (c) 2024 Maya Matuszczyk <maccraft123mc@gmail.com>
->>> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
->>> + */
->>> +
->>> +#include <linux/bitfield.h>
->>> +#include <linux/bits.h>
->>> +#include <linux/device.h>
->>> +#include <linux/err.h>
->>> +#include <linux/i2c.h>
->>> +#include <linux/interrupt.h>
->>> +#include <linux/kernel.h>
->>> +#include <linux/module.h>
->>> +#include <linux/pm.h>
->>> +#include <linux/slab.h>
->>> +#include <linux/thermal.h>
->>> +
->>> +#define EC_SCI_EVT_READ_CMD	0x05
->>> +#define EC_FW_VERSION_CMD	0x0e
->>> +#define EC_MODERN_STANDBY_CMD	0x23
->>> +#define EC_FAN_DBG_CONTROL_CMD	0x30
->>> +#define EC_SCI_EVT_CONTROL_CMD	0x35
->>> +#define EC_THERMAL_CAP_CMD	0x42
->>> +
->>> +#define EC_FW_VERSION_RESP_LEN	4
->>> +#define EC_THERMAL_CAP_RESP_LEN	3
->>> +#define EC_FAN_DEBUG_CMD_LEN	6
->>> +#define EC_FAN_SPEED_DATA_SIZE	4
->>> +
->>> +#define EC_MODERN_STANDBY_ENTER	0x01
->>> +#define EC_MODERN_STANDBY_EXIT	0x00
->>> +
->>> +#define EC_FAN_DEBUG_MODE_OFF   0
->>> +#define EC_FAN_DEBUG_MODE_ON    BIT(0)
+>> ath12k doesn't seem to require a calibration variant. But even if the user
+>> replaces ath11k chipset with ath10k one, the calibration variant should be the
+>> same as it is platform specific except for WSI.
 >>
->> Add include for BIT().
+>> - Mani
+>>
+>> -- 
+>> மணிவண்ணன் சதாசிவம்
 >>
 > 
-> Added <linux/bits.h> in v6 to address this.
+> Hi all,
 > 
->>> +#define EC_FAN_ON               BIT(1)
->>> +#define EC_FAN_DEBUG_TYPE_PWM   BIT(2)
->>> +#define EC_MAX_FAN_CNT		2
->>> +#define EC_FAN_NAME_SIZE	20
->>> +#define EC_FAN_MAX_PWM		255
->>> +
->>> +enum qcom_ec_sci_events {
->>> +	EC_FAN1_STATUS_CHANGE_EVT = 0x30,
->>> +	EC_FAN2_STATUS_CHANGE_EVT,
->>> +	EC_FAN1_SPEED_CHANGE_EVT,
->>> +	EC_FAN2_SPEED_CHANGE_EVT,
->>> +	EC_NEW_LUT_SET_EVT,
->>> +	EC_FAN_PROFILE_SWITCH_EVT,
->>> +	EC_THERMISTOR_1_THRESHOLD_CROSS_EVT,
->>> +	EC_THERMISTOR_2_THRESHOLD_CROSS_EVT,
->>> +	EC_THERMISTOR_3_THRESHOLD_CROSS_EVT,
->>> +	/* Reserved: 0x39 - 0x3c/0x3f */
->>> +	EC_RECOVERED_FROM_RESET_EVT = 0x3d,
->>> +};
->>> +
->>> +struct qcom_ec_version {
->>> +	u8 main_version;
->>> +	u8 sub_version;
->>> +	u8 test_version;
->>> +};
->>> +
->>> +struct qcom_ec_thermal_cap {
->>> +#define EC_THERMAL_FAN_CNT(x)		(FIELD_GET(GENMASK(1, 0), (x)))
->>> +#define EC_THERMAL_FAN_TYPE(x)		(FIELD_GET(GENMASK(4, 2), (x)))
->>> +#define EC_THERMAL_THERMISTOR_MASK(x)	(FIELD_GET(GENMASK(7, 0), (x)))
->>> +	u8 fan_cnt;
->>> +	u8 fan_type;
->>> +	u8 thermistor_mask;
->>> +};
->>> +
->>> +struct qcom_ec_cooling_dev {
->>> +	struct thermal_cooling_device *cdev;
->>> +	struct device *parent_dev;
->>> +	u8 fan_id;
->>> +	u8 state;
->>> +};
->>> +
->>> +struct qcom_ec {
->>> +	struct qcom_ec_cooling_dev *ec_cdev;
->>> +	struct qcom_ec_thermal_cap thermal_cap;
->>> +	struct qcom_ec_version version;
->>> +	struct i2c_client *client;
->>> +};
->>> +
->>> +static int qcom_ec_read(struct qcom_ec *ec, u8 cmd, u8 resp_len, u8 *resp)
->>> +{
->>> +	int ret;
->>> +
->>> +	ret = i2c_smbus_read_i2c_block_data(ec->client, cmd, resp_len, resp);
->>> +
->>> +	if (ret < 0)
->>> +		return ret;
->>> +	else if (ret == 0 || ret == 0xff)
->>> +		return -EOPNOTSUPP;
->>> +
->>> +	if (resp[0] >= resp_len)
->>> +		return -EINVAL;
->>> +
->>> +	return 0;
->>> +}
->>> +
->>> +/*
->>> + * EC Device Firmware Version:
->>> + *
->>> + * Read Response:
->>> + * ----------------------------------------------------------------------
->>> + * | Offset	| Name		| Description				|
->>> + * ----------------------------------------------------------------------
->>> + * | 0x00	| Byte count	| Number of bytes in response		|
->>> + * |		|		| (excluding byte count)		|
->>> + * ----------------------------------------------------------------------
->>> + * | 0x01	| Test-version	| Test-version of EC firmware		|
->>> + * ----------------------------------------------------------------------
->>> + * | 0x02	| Sub-version	| Sub-version of EC firmware		|
->>> + * ----------------------------------------------------------------------
->>> + * | 0x03	| Main-version	| Main-version of EC firmware		|
->>> + * ----------------------------------------------------------------------
->>> + *
->>> + */
->>> +static int qcom_ec_read_fw_version(struct device *dev)
->>> +{
->>> +	struct i2c_client *client = to_i2c_client(dev);
->>> +	struct qcom_ec *ec = i2c_get_clientdata(client);
->>> +	struct qcom_ec_version *version = &ec->version;
->>> +	u8 resp[EC_FW_VERSION_RESP_LEN];
->>> +	int ret;
->>> +
->>> +	ret = qcom_ec_read(ec, EC_FW_VERSION_CMD, EC_FW_VERSION_RESP_LEN, resp);
->>> +	if (ret < 0)
->>> +		return ret;
->>> +
->>> +	version->main_version = resp[3];
->>> +	version->sub_version = resp[2];
->>> +	version->test_version = resp[1];
->>> +
->>> +	dev_dbg(dev, "EC Version %d.%d.%d\n",
->>> +		version->main_version, version->sub_version, version->test_version);
->>> +
->>> +	return 0;
->>> +}
->>> +
->>> +/*
->>> + * EC Device Thermal Capabilities:
->>> + *
->>> + * Read Response:
->>> + * ------------------------------------------------------------------------------
->>> + * | Offset		| Name		| Description				|
->>> + * ------------------------------------------------------------------------------
->>> + * | 0x00		| Byte count	| Number of bytes in response		|
->>> + * |			|		| (excluding byte count)		|
->>> + * ------------------------------------------------------------------------------
->>> + * | 0x02 (LSB)	| EC Thermal	| Bit 0-1: Number of fans		|
->>> + * | 0x3		| Capabilities	| Bit 2-4: Type of fan			|
->>
->> 0x03 ?
->>
+> Jumping in on this thread to ask about how we should handle variants.
 > 
-> Typo, Will fix to 0x03 in next respin.
+> We are using the WCN7850 device with the ath12k driver and received three
+> board files for this from Silex, signed by Qualcomm. All three support the
+> same board (SX-PCEBE), where one is the board file to be used for the
+> US/EU/JP and the other two are one for higher emissions in the UK/CA and
+> one for lower emissions in the UK/CA.
 > 
->>> + * |			|		| Bit 5-6: Reserved			|
->>> + * |			|		| Bit 7: Data Valid/Invalid		|
->>> + * |			|		|	 (Valid - 1, Invalid - 0)	|
->>> + * |			|		| Bit 8-15: Thermistor 0 - 7 presence	|
->>> + * |			|		|	    (1 present, 0 absent)	|
->>> + * ------------------------------------------------------------------------------
->>> + *
->>> + */
->>> +static int qcom_ec_thermal_capabilities(struct device *dev)
->>> +{
->>> +	struct i2c_client *client = to_i2c_client(dev);
->>> +	struct qcom_ec *ec = i2c_get_clientdata(client);
->>> +	struct qcom_ec_thermal_cap *cap = &ec->thermal_cap;
->>> +	u8 resp[EC_THERMAL_CAP_RESP_LEN];
->>> +	int ret;
->>> +
->>> +	ret = qcom_ec_read(ec, EC_THERMAL_CAP_CMD, EC_THERMAL_CAP_RESP_LEN, resp);
->>> +	if (ret < 0)
->>> +		return ret;
->>> +
->>> +	cap->fan_cnt = min(EC_MAX_FAN_CNT, EC_THERMAL_FAN_CNT(resp[1]));
->>> +	cap->fan_type = EC_THERMAL_FAN_TYPE(resp[1]);
->>> +	cap->thermistor_mask = EC_THERMAL_THERMISTOR_MASK(resp[2]);
->>> +
->>> +	dev_dbg(dev, "Fan count: %d Fan Type: %d Thermistor Mask: %x\n",
->>
->> Please add include for dev_dbg().
->>
->> It seems you've missed at least some of my comments to v5, please recheck
->> those comments. I won't look further for now.
->>
->> --
->>  i.
->>
-> 
-> Added <linux/device.h> for dev_dbg() in v6, will include
-> <linux/dev_printk.h> as well in in v8. That said, all your v5 comments
-> have been addressed, here is a summary of what was fixed:
-> 
-> - Add <linux/bits.h> for BIT()
-> - Add <linux/err.h> for IS_ERR()
-> - Switch thermistor mask format specifier from %d to %x
-> - Add missing braces
-> - Remove empty line within variable declarations
-> - Change loop counter i to unsigned int
-> - Replace snprintf() with scnprintf()
-> - Use sizeof(name) instead of the EC_FAN_NAME_SIZE macro directly
-> - Condense devm_thermal_of_cooling_device_register() to 2 lines
-> 
-> Apologies if it appeared otherwise. If anything was missed, please do
-> point it out and I will address it in the next respin.
-> 
+> Since these are needed for regulatory differences but support the same
+> board, we were wondering about your views on how to handle that in
+> mainline. I see that there is no support for the board file selection in
+> the device tree for ath12k, and that there is some discussion on how to
+> handle variants in general. We are using a device tree-based setup and no
+> ACPI.
 
-Hi Ilpo,
+does your machine has different 'model' property for different BDFs ?
+does the existing ath11k 'calibration' property based mechanism satisfy your requirement?
 
-Could you please take a look at this when you get a chance?
-
--- 
-Best Regards,
-Anvesh
+> 
+> Thanks!
+> 
+> Kind regards,
+> Ernest
 
