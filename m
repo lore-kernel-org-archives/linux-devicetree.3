@@ -1,381 +1,359 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010053.outbound.protection.outlook.com [52.101.229.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E12335F615;
-	Wed,  8 Apr 2026 14:57:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775660238; cv=none; b=NpagxgMl/eA56OP3b4jgygj31gWjGHJ1Br9L+DTWo3sSY855YE+Piu5PQWFRzNlURjHZRKAdzcqNUg91YuCdvl4Y9oEaEqBpbuHvZFt2h4jfcja67O7FFwpxt3VmtNJmxwi9r3UkbrtpO22GafTByon/UXc36gzAKqNfeXAoakc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775660238; c=relaxed/simple;
-	bh=yGyYG3kYnwvnmoKOqCcE/jreYBBuJDrnP3z1enhlA3U=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=MDrFGyBXnPvpGR9CT+6NbbOU6whIOgxa2SAZV8ksjR/IrD7dF28yxlduF90ZLD8TIcxzBrXdV+Qt7D5ynFIVdZA1r2dbIoJZHIHjAw7vDOewTTJNI4cHxPnpARIbS8znneMAwunDwTZTwZShIJymtGrophmI1Ghs2BVjj8D/FoI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=Wa8GA1tN; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DB9F3AF65D;
+	Wed,  8 Apr 2026 14:58:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775660298; cv=fail; b=HnHo+mxmEJLP1vqCaB3ibE2hnl47+F4xAVJIndh46AWmG6hkBvI9nbbulKyFbfTZsPP55jav7SXBPHMpBIby+XyGzwJzuOLjpGFWoRs9F5SDOr1Xz6cGn2YYm+MeqPABSSZqOPU3c4mbMLKud1AWm/Rv9n2bTGCdy/BKBuXuf/Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775660298; c=relaxed/simple;
+	bh=W5vfUFUHoGnPj+o5HMHjZYeDcBZHVO92ftn6Q1Cji1k=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=i4emFwrC71u5EPO+DV05PMx4sQ/3L95Z46ls9NV78sB7Di/qRDLg0EyI8dRUkHgKs9KnX2ZNjFJTAJMdJBsLytPlCUnyZqVfU5xe5bXffR184CnXQoJ4Lvl66O63syeAXVxh4FGNkgCttYtOORIROk12Yd3qft+1Rb09eDuxL+4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=YEbEZc36; arc=fail smtp.client-ip=52.101.229.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="Wa8GA1tN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1775660237; x=1807196237;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=yGyYG3kYnwvnmoKOqCcE/jreYBBuJDrnP3z1enhlA3U=;
-  b=Wa8GA1tNqGB5ABiNd67cbwM+vfOHSmLUvOQaWp9UGJOTEk0KRAtnqH7z
-   4FHicCTvDaVMbujUsPQd/gjzZlq9/JL6Udo5e/WpBExRoafk0r9ce44n8
-   ROS0GVxzQOaz9pfjTrIp3wLT95A4k9r4CgTbBaMS19ECJMSQj9rJ3Tzfw
-   a2kNzfJfaVyGHHLRx4XmGeTrOXykGMI//b7BuMAiaVsd+V5WA3U+7OHEt
-   s07Al/u/guFwWG1bxfYunEQMq206o8W7opaN6LBYVvY+xG8GudnQZIVSh
-   H6GieLUPGG8xMlqflqJNMobj5UN0Pscg0CdKa2bemRWG/ntJL29TLxTeA
-   A==;
-X-CSE-ConnectionGUID: gQGTKAFDQTK6Jv4TFw4tMQ==
-X-CSE-MsgGUID: 5DhuSRy2RJavtfmLCXKB2w==
-X-IronPort-AV: E=Sophos;i="6.23,167,1770620400"; 
-   d="scan'208";a="223089188"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 08 Apr 2026 07:57:16 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Wed, 8 Apr 2026 07:57:08 -0700
-Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Wed, 8 Apr 2026 07:57:05 -0700
-Message-ID: <d511e0fdee36b6b1088be9b214f545fcca14f87f.camel@microchip.com>
-Subject: Re: [PATCH net-next v2 4/9] net: dsa: lan9645x: add basic dsa
- driver for LAN9645X
-From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
-To: Vladimir Oltean <olteanv@gmail.com>
-CC: Jakub Kicinski <kuba@kernel.org>, <UNGLinuxDriver@microchip.com>,
-	<andrew@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-	<pabeni@redhat.com>, <horms@kernel.org>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <woojung.huh@microchip.com>,
-	<linux@armlinux.org.uk>, <Steen.Hegelund@microchip.com>,
-	<daniel.machon@microchip.com>, <linux-kernel@vger.kernel.org>,
-	<netdev@vger.kernel.org>, <devicetree@vger.kernel.org>
-Date: Wed, 8 Apr 2026 16:57:05 +0200
-In-Reply-To: <20260407091217.rrwzho3lcmfip3y5@skbuf>
-References: <20260324-dsa_lan9645x_switch_driver_base-v2-4-f7504e3b0681@microchip.com>
-	 <20260329195629.2789129-1-kuba@kernel.org>
-	 <c1b824a3e597b37df133053f6b216e9196b130d5.camel@microchip.com>
-	 <20260407091217.rrwzho3lcmfip3y5@skbuf>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="YEbEZc36"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Xvfd2Rp23QprApVvV7RC3G5fgVEUjjmA+UplqpwbN8PzhisIZJ96D+6SM6gYj/OiLpvjve+JGz7jA89PFWwBFM3xZVAOfj74UB+eknD0G3NlUN60bZLyIv0e23xLyRgaalELzizKC2Efj+xwbr1+WrhpYHeDKx2cAEwQFj/i6XmIzj/wKvZBiiFlTeigwpu/oh3Fhp5BpiUHxe0xEuFfb6HZpA35AfqWNQzDxc7sXJWKJpQfOArmV/G/SUv3MmvkOR9yiBAx14pAtBAzXpMUoVujuebu5j5QXOvszIIlEWwEWGercZTy8ebwXJPuRFCHxSX71+xN6i7+ukhZHKizXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8TS+eS9wT+NLlBl1JHKa1RHAsBTQjUFmKO7BD7ACDBg=;
+ b=ozpj4DGQx+dhHx7tXl2Obl1Imd0foTdR6pq1L4gfSR5O+RA/C4pe79NqMlNd0TNl0oj6BNxhNYxZ1paD2aC8Rx++Ins/b28APnEThhkayewI7Ayv5iuvXYB5JK0lAr/D7irUfHiya5LfyvOnkviEYdhGNvipWZ/L1enRPrcSCiuN/FN1GQKPByLZ9JEyGT8fLjCNdPWcAzo3L5WhyGCpbdDbdooEvG8EMsJrNa3MkVeZsxkIyoU31bkCckmuG0/YXlUCyNjixJiJ2z6/dGtzDf44QBfmbQeEWAFebNb+w+NINyhTJ9oTjC9TmzgKcOtLZttuPqonEDxDYgOKwEd+VQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8TS+eS9wT+NLlBl1JHKa1RHAsBTQjUFmKO7BD7ACDBg=;
+ b=YEbEZc36v6VvJt30HN+gBqhiNnxJLkq6WLSyxCJJIzyZ3qWZKd5AMg8B6wM2OEEIXJ1bRO/zptLgtCWymSF76btECLxbU+Td+hedlffxDs5WrjCIb0WDkr9R6FYQTCxUf3f5GsssDsPuns093kizPyLOVQHuJ6o3TqKfU5CPbFs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com (2603:1096:400:3e1::6)
+ by OSCPR01MB12480.jpnprd01.prod.outlook.com (2603:1096:604:32b::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.21; Wed, 8 Apr
+ 2026 14:58:13 +0000
+Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com
+ ([fe80::33f1:f7cd:46be:e4d8]) by TYCPR01MB11947.jpnprd01.prod.outlook.com
+ ([fe80::33f1:f7cd:46be:e4d8%5]) with mapi id 15.20.9769.017; Wed, 8 Apr 2026
+ 14:58:13 +0000
+Message-ID: <136a9922-48ae-48e2-8cb1-14559206e7af@bp.renesas.com>
+Date: Wed, 8 Apr 2026 16:58:01 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 13/21] drm: renesas: rz-du: mipi_dsi: Add
+ RZ_MIPI_DSI_FEATURE_GPO0R feature
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: tomm.merciai@gmail.com, geert@linux-m68k.org,
+ linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
+References: <cover.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
+ <9e0f64dd5e1efb0d27219416121c91a19da96ebd.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
+ <20260408123102.GA1960713@killaraus.ideasonboard.com>
+ <b8ded729-5c22-4a47-bfb7-8bffeed76e98@bp.renesas.com>
+ <20260408141719.GB1965119@killaraus.ideasonboard.com>
+Content-Language: en-US
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+In-Reply-To: <20260408141719.GB1965119@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0064.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:49::8) To TYCPR01MB11947.jpnprd01.prod.outlook.com
+ (2603:1096:400:3e1::6)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYCPR01MB11947:EE_|OSCPR01MB12480:EE_
+X-MS-Office365-Filtering-Correlation-Id: 89d839b3-b420-4385-d7ad-08de957f4208
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|1800799024|376014|7416014|366016|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+ KrLXe6se0G4D1oJhzX29hxu9PKDP2eoCXVqeUCP6nULTCdq6i1G6nkhCK4pVo4eUHbIRo7kKJCUGnu1qZfsNIavioTytOgs/Y0tng3ms0lkqjX/0bdGACBRYkuzIlLQbJ6P9Ho8bZnlt6ycC2AjsP410v5WPWM4RujybH9Au9ITrR0Aey/9GgneIDY4b4qutdbGv1gUApRuUk4uxnU3Xs7G/jWo5C73Ch5TyjXYGG5seTtmsQrFVt2gqUNsL6fifyb4iV4n/popdZLNW5m+H82lNM8n29BjMCymWGy6Z6ACABWjf7l3dHXpanaT1C/0suPatJVADMNPIuMvAHPf1f2HeZILEk1rfsJV3v2AX2wKKrEhXdbKIGwEN9nrux1HpHMcEX3qNWgNITnOCPapX9tpHfpbouni9P7vxThQ5BURk42/AeCIy8rYMe2HiTlX1MCsdCZhrJWuHD81Vvfy427Y4YT/TByFfa+6NmQhvxpw9rhkQvLnZchwYh3nayHARI262zNLD3mIeMJlut5RmcHpDkhe1hhzXF/S9ULm7lAAIYAF3vb0nN+I9Iljc5qlDPLHZTLjWrjVBCWifb/IsMNUX0ewv1phkLjdpKBiKlUGaPBC0563tYWKocF9LuXT9Ohg1MrrISKW5k56KgUTiK9evgwyWhTB3spKgKRlFg8XnS5OIetQS+kSpPfR8K/VrAg5E6yLvtHsITz+T2DOFmJIHCmYutLQs8eFGv1XkywA=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB11947.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?TEE1TXM4RVlMaU1wWC8xRUs1dWh6VkI1NEVGa2RKaWVqcllVOEUxMUNtSzM1?=
+ =?utf-8?B?QlJWU21tVWxwM1JkRCtoaDJaL1lFWFpsNE15ZStXVTJSYmQvaHFHZnVKVjFs?=
+ =?utf-8?B?ekZQK3REbjNzbkRwL1Y1NmlMRXZtNjNHcmw3T2JvNlBaVWt0V21XZzFpL0lT?=
+ =?utf-8?B?WTB4YW9PRjBVU2Q1SHQxcHovbzk3TFdHa2dxdWhFYjlRQllheHUzV2Y5SkxK?=
+ =?utf-8?B?aWZ4OHphby90Mm1lcWh5YTJwc0ltL3FDZ2pPMHczZVpPRitTd0NRV3BQNXJ4?=
+ =?utf-8?B?OERwS3loSlVLeVNsckdTdHU1Z0FjZGd5YUNvcEloMFIvOW5lS2c0NGQ1VVBl?=
+ =?utf-8?B?QjdQbzRKdGlzYW5FTzZsQnlFUjBtYTVQVDZFQkJzQjNrb2pTVFl4MUpZR215?=
+ =?utf-8?B?bi9pNW9mV2Z4RkkwVng1L2tua0hwSlZjMXB4WU5SckFsMmNwcHhRc1ZjSCs2?=
+ =?utf-8?B?TXlBQ3JMSWFiSGZvYk8xS090RVZQTTNHL1dwVHR4QnZkd0lqR09nRU8wUjhz?=
+ =?utf-8?B?eGRpVFdMRXY2MUFVRTFIMFVtdW9leGhIRXJndlhwd2NhS1BWM0dWZU0wRXE4?=
+ =?utf-8?B?WktOdUFlNE81algwTkxOZHhYUTh0dXhtWVhRcTFKSTBtUGpDTmRuSHNpdS9t?=
+ =?utf-8?B?Y0FDU0ltR0ZIc2d2Z1dtbWdxcUxER1NNTlhHc2tkNE5XK2xENVkvQTMwN2xJ?=
+ =?utf-8?B?aVlrMFRBZzdPNWFPUThPeE16UDVFWHVYWlgrSEtiZThMUE0vMExPckdEWTJw?=
+ =?utf-8?B?QkVURmJpOWNWZ1hmWlpNdmtJSUZsT1EvcUFFR1F1SnVQRDg5dWxiVEhwazBi?=
+ =?utf-8?B?YytzdkZOWHpqa3dvdGx6ajdvRVBMbFRaN0JLdEs2ZURiVHVBajRRU09LT05J?=
+ =?utf-8?B?TWh6U0MvSkZzK0VuM0RsMUptWDZ0ZWpEeG16Umh3eVVFWm5TcUUxUi8vS2F2?=
+ =?utf-8?B?MHdXZDJLU29ORFVLdk01S25oNWVRNWRhZi9nbU9Camo3Skg5YjJJTTNLMmVa?=
+ =?utf-8?B?ZWxTSnN5SFFEOEVVblh3eldWTDdIeVV4ZEVRV0VBT2g5T20wTldzY0REbDNu?=
+ =?utf-8?B?L1ZOak9GbkhLSWpsMDVjeUM2QzRwbTRmYWVGZGw1SzUyRnJta1FRM3hZTmZs?=
+ =?utf-8?B?TUdWNmM4eUh6RzdCa2JUSlM2N3lUNTVjbmo4RDZ1eWxqdGtRdmJINkNWTFVU?=
+ =?utf-8?B?VUhVaEl5aDFzMHkxMzJWY1RWR2huNS9iQzFaUG9YSjR3bkNQUldyQ1ZaTDFx?=
+ =?utf-8?B?YjdEdDMyWGkyWnFvY25vbmpidVZEZmg4NDVyazFSWXZIVVpKL0xRalVjY2VK?=
+ =?utf-8?B?N09oMjN0R1BrYnFwQTl5R1NmMHRjVGh2dGk1THluUGl5RDcwQnFoOTZVVWw2?=
+ =?utf-8?B?OHo2UUs0WE8vRjJid0dJZHFtOERPVzBFWmw1OGhYQjdSbXpjNGZHTmNEMnhu?=
+ =?utf-8?B?VHZYRUpGNnp4RUJHWEova1BsTHR4ZnZVQXh5TVNycEVyQkdQdC9mcjcxeDE0?=
+ =?utf-8?B?cmxLT29Rbkp0U3haVXA5WUVmTDZrck5ZajNxN28zaUlHaURsVmh6V3dpTnlO?=
+ =?utf-8?B?MW83cWJqVWNSRUQ2bEdQK212OGhhOWJnMHhwTFBqYjlSb3EwNExyQVdqbkd5?=
+ =?utf-8?B?OXh4djVSU0J1NlRocllweXVOM2lQZjFHTjgrSGY3WlZzZWRvOW93VVE1aTRa?=
+ =?utf-8?B?Y3g3SW9KYnc3cU5TSThkd0QxaGprT0FUTWhUNi9tL2tTakYvQzhsTEM0Rm5n?=
+ =?utf-8?B?UFFFZ2Q0endYTXppWUNnejVxUElzVk4veHMvbUR0TjRqcnJwQ2VxbVZLTEpr?=
+ =?utf-8?B?SDlaRHcvc09WQzlxcGpZWkppaUZrYTBBZUdCV2U2b25sM3d6MVBQSlJOK2FO?=
+ =?utf-8?B?eG1BM3VRdnhHaVRONlNvcjBORjRVU05jSXBYUEhDbTBoT1plM3hHQnViRHNk?=
+ =?utf-8?B?YVBqbmthVXhhY3ZOYzFHVlpieXpJRkJ1eW5XN1I3RTVvU0k5a3Eza0VlSElm?=
+ =?utf-8?B?Mk5SMHdrYng0U2NtY2x4N3VKbTlyUVJTM2xwejlOT2lhbUQ1cmxsci8vaHJC?=
+ =?utf-8?B?ckYxdTJiVHJwa1ZoSWc5dndXb2xNZ1d2UHFOdDd4MFQwRUY5eVZnOG5oSyta?=
+ =?utf-8?B?Mlc5MFBFS2M4SVVKRDhYY1NqQ25qOHlsalFaYXFyUVd3c3FKdHJrQkFYRHpj?=
+ =?utf-8?B?NUVHMDc3WWJVaWxDV09JMERtdC8wbDlNR3krMVk3emtJRDdnd1ZnMmYwZnkz?=
+ =?utf-8?B?QzBWaVVWK0xLMzlqTFRIaklXN1pkUXVnViswSjlZTjJteFRRVlhNUWtsZ2JB?=
+ =?utf-8?B?bytGMlZ0QmxBd28yaUlHWFdYUks4OEorNEoyYTNpNzBMN3BXNEpZakV2bHRD?=
+ =?utf-8?Q?ezu2PTBtK5FBWdXila46frUejLbpbeCubVSB3?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 89d839b3-b420-4385-d7ad-08de957f4208
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11947.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 14:58:13.5801
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xXgUJQZsWMeBj0rZ1+4C0k1lFA5kgHAJpzF1LVRbXtbmECK+6eyttD120noOmKr474K6NOekP6HpE9smsulA7EtvHaEibWBOwiyF6HXjZx8BL6QuiMSHJB42qmjUicqh
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCPR01MB12480
 
-On Tue, 2026-04-07 at 12:12 +0300, Vladimir Oltean wrote:
-> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
-e content is safe
->=20
-> On Wed, Apr 01, 2026 at 01:46:19PM +0200, Jens Emil Schulz Ostergaard wro=
-te:
-> > On Sun, 2026-03-29 at 12:56 -0700, Jakub Kicinski wrote:
-> > > EXTERNAL EMAIL: Do not click links or open attachments unless you kno=
-w the content is safe
-> > >=20
-> > > This is an AI-generated review of your patch. The human sending this
-> > > email has considered the AI review valid, or at least plausible.
-> > > ---
-> > > Subject: net: dsa: lan9645x: add basic dsa driver for LAN9645X
-> > >=20
-> > > This commit adds a basic DSA driver for the Microchip LAN9645X switch=
-. It
-> > > includes initialization, port module setup for NPI, CPU, and front po=
-rts,
-> > > and phylink integration for MAC side configuration.
-> > >=20
-> > > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_npi.c b/driv=
-ers/net/dsa/microchip/lan9645x/lan9645x_npi.c
-> > > --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_npi.c
-> > > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_npi.c
-> > > [ ... ]
-> > > > +static void disable_conduit_ipv6(struct lan9645x *lan9645x,
-> > > > +                              struct net_device *conduit)
-> > > > +{
-> > > > +     struct inet6_dev *dev_v6;
-> > > > +
-> > > > +     if (!conduit)
-> > > > +             return;
-> > > > +
-> > > > +     /* IPv6 on the conduit will generate frames bypassing our tag=
- driver, so
-> > > > +      * they lack an IFH. This will be garbage in garbage out and =
-we want to
-> > > > +      * avoid this.
-> > > > +      */
-> > > > +     rtnl_lock();
-> > > > +     dev_v6 =3D __in6_dev_get(conduit);
-> > > > +     if (dev_v6) {
-> > > > +             WRITE_ONCE(dev_v6->cnf.disable_ipv6, 1);
-> > > > +             dev_warn(lan9645x->dev, "Disabled IPv6 on conduit dev=
-ice: %s\n",
-> > > > +                      netdev_name(conduit));
-> > > > +     }
-> > > > +     rtnl_lock();
-> > > > +}
-> > >=20
-> > > Does directly modifying dev_v6->cnf.disable_ipv6 bypass the proper sy=
-sctl
-> > > teardown path (addrconf_disable_ipv6) and leave the IPv6 stack in an
-> > > inconsistent state on the conduit device by failing to clean up route=
-s,
-> > > addresses, and MLD memberships?
-> > >=20
-> > > Is it a layering violation for a switch driver to alter the networkin=
-g
-> > > configuration of an external upper device, especially since this chan=
-ge
-> > > isn't reverted during driver unbind?
-> >=20
-> > Yes this will bypass the sysctl teardown path. I can change this to ins=
-tead
-> > read disable_ipv6 state and warn the user that their device is misconfi=
-gured.
->=20
-> I don't want to have to deal with a DSA driver altering the conduit
-> configuration outside of the DSA core. NACK to any attempts of trying
-> this.
->=20
-> Define "garbage in, garbage out" for your case. The packets are sent to
-> random ports? Normally, switches are configured by their drivers to drop
-> those packets that don't contain DSA tags. You can also do that, by
-> setting up the switch to require an injection prefix.
->=20
-> > > [ ... ]
-> > > > +     /* Configure IFH prefix mode for NPI port. */
-> > > > +     lan_rmw(SYS_PORT_MODE_INCL_XTR_HDR_SET(LAN9645X_TAG_PREFIX_LO=
-NG) |
-> > > > +             SYS_PORT_MODE_INCL_INJ_HDR_SET(LAN9645X_TAG_PREFIX_NO=
-NE),
-> > > > +             SYS_PORT_MODE_INCL_XTR_HDR |
-> > > > +             SYS_PORT_MODE_INCL_INJ_HDR,
-> > > > +             lan9645x,
-> > > > +             SYS_PORT_MODE(p->chip_port));
-> > >=20
-> > > Setting LAN9645X_TAG_PREFIX_NONE means the hardware interprets the fi=
-rst
-> > > bytes of any frame received from the host as an IFH command structure=
-.
-> > >=20
-> > > Does this allow a local user to transmit crafted frames (for example,=
- via
-> > > raw sockets or standard protocols) whose MAC address bytes map to mal=
-icious
-> > > IFH commands, thereby bypassing VLAN isolation or flooding the switch=
-?
-> > >=20
-> > > Should the hardware be configured to require a strict prefix, such as
-> > > LAN9645X_TAG_PREFIX_LONG, for injected frames to prevent this?
-> >=20
-> > A prefix offers no protection against the described scenario. The curre=
-nt
-> > configuration is correct. If a prefix is configured frames MUST contain=
- the
-> > prefix. With the conduit exposed in userspace this is not something we =
-can
-> > guarantee.
->=20
-> The short prefix prevents user space from sending frames by mistake
-> which will reach the wire (daemons attaching to all interfaces, like for =
-DHCP).
-> It still allows user space to intentionally inject frames into the
-> switch (for example from XDP on the conduit).
->=20
-> I recommend you go for the short prefix and drop the conduit alterations.
->=20
+Hi Laurent,
+Thanks for your comments.
 
+On 4/8/26 16:17, Laurent Pinchart wrote:
+> On Wed, Apr 08, 2026 at 04:12:22PM +0200, Tommaso Merciai wrote:
+>> Hi Laurent,
+>> Thanks for your review.
+>>
+>> On 4/8/26 14:31, Laurent Pinchart wrote:
+>>> On Wed, Apr 08, 2026 at 12:36:58PM +0200, Tommaso Merciai wrote:
+>>>> The MIPI DSI ip found in the RZ/G3E SoC select the video input clock
+>>>> based on the DU instance actually connected using the GPO0R register.
+>>>>
+>>>> Add this feature to the driver using `RZ_MIPI_DSI_FEATURE_GPO0R`, update
+>>>> the code accordingly to manage the vclk selection with the introduction
+>>>> of `rzg2l_mipi_dsi_get_input_port()`.
+>>>>
+>>>> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+>>>> ---
+>>>> v5->v6:
+>>>>    - Moved rzg2l_mipi_dsi_link_write() into rzv2h_mipi_dsi_dphy_init()
+>>>>      + comments from HW Manual.
+>>>>
+>>>> v4->v5:
+>>>>    - No changes.
+>>>>
+>>>> v3->v4:
+>>>>    - No changes.
+>>>>
+>>>> v2->v3:
+>>>>    - No changes.
+>>>>
+>>>> v1->v2:
+>>>>    - No changes.
+>>>>
+>>>>    .../gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c    | 71 +++++++++++++++++--
+>>>>    .../drm/renesas/rz-du/rzg2l_mipi_dsi_regs.h   |  3 +
+>>>>    2 files changed, 68 insertions(+), 6 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+>>>> index be6dbf19a24e..947c8e15fc4b 100644
+>>>> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+>>>> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+>>>> @@ -37,7 +37,9 @@ MODULE_IMPORT_NS("RZV2H_CPG");
+>>>>    
+>>>>    #define RZG2L_DCS_BUF_SIZE	128 /* Maximum DCS buffer size in external memory. */
+>>>>    
+>>>> +#define RZ_MIPI_DSI_MAX_INPUT	2
+>>>>    #define RZ_MIPI_DSI_FEATURE_16BPP	BIT(0)
+>>>> +#define RZ_MIPI_DSI_FEATURE_GPO0R	BIT(1)
+>>>>    
+>>>>    struct rzg2l_mipi_dsi;
+>>>>    
+>>>> @@ -81,13 +83,14 @@ struct rzg2l_mipi_dsi {
+>>>>    	struct drm_bridge bridge;
+>>>>    	struct drm_bridge *next_bridge;
+>>>>    
+>>>> -	struct clk *vclk;
+>>>> +	struct clk *vclk[RZ_MIPI_DSI_MAX_INPUT];
+>>>>    	struct clk *lpclk;
+>>>>    
+>>>>    	enum mipi_dsi_pixel_format format;
+>>>>    	unsigned int num_data_lanes;
+>>>>    	unsigned int lanes;
+>>>>    	unsigned long mode_flags;
+>>>> +	u8 vclk_idx;
+>>>>    
+>>>>    	struct rzv2h_dsi_mode_calc mode_calc;
+>>>>    
+>>>> @@ -543,8 +546,8 @@ static int rzg2l_dphy_conf_clks(struct rzg2l_mipi_dsi *dsi, unsigned long mode_f
+>>>>    	unsigned long vclk_rate;
+>>>>    	unsigned int bpp;
+>>>>    
+>>>> -	clk_set_rate(dsi->vclk, mode_freq * KILO);
+>>>> -	vclk_rate = clk_get_rate(dsi->vclk);
+>>>> +	clk_set_rate(dsi->vclk[dsi->vclk_idx], mode_freq * KILO);
+>>>> +	vclk_rate = clk_get_rate(dsi->vclk[dsi->vclk_idx]);
+>>>>    	if (vclk_rate != mode_freq * KILO)
+>>>>    		dev_dbg(dsi->dev, "Requested vclk rate %lu, actual %lu mismatch\n",
+>>>>    			mode_freq * KILO, vclk_rate);
+>>>> @@ -687,6 +690,19 @@ static int rzv2h_mipi_dsi_dphy_init(struct rzg2l_mipi_dsi *dsi,
+>>>>    	rzg2l_mipi_dsi_phy_write(dsi, PLLCLKSET1R,
+>>>>    				 FIELD_PREP(PLLCLKSET1R_PLL_K, dsi_parameters->k));
+>>>>    
+>>>> +	/*
+>>>> +	 * From RZ/G3E HW manual (Rev.1.15) section 9.5.3 Operation,
+>>>> +	 * 9.5.3.1 Power on Reset and Initial Settings for All Operations.
+>>>> +	 * Figure 9.5-4 Power On/Off Sequence show that after writing to
+>>>> +	 * GPO0R.VICH register we need to wait for more than 1 x tp before
+>>>> +	 * writing to PLLENR.PLLEN.
+>>>> +	 *
+>>>> +	 * Note: GPO0R is a link register, not a PHY register. This setting
+>>>> +	 * is specific to RZ/G3E.
+>>>> +	 */
+>>>> +	if (dsi->info->features & RZ_MIPI_DSI_FEATURE_GPO0R)
+>>>> +		rzg2l_mipi_dsi_link_write(dsi, GPO0R, dsi->vclk_idx);
+>>>> +
+>>>>    	/*
+>>>>    	 * From RZ/V2H HW manual (Rev.1.20) section 9.5.3 Operation,
+>>>>    	 * (C) After write to D-PHY registers we need to wait for more than 1 x tp
+>>>> @@ -1005,6 +1021,37 @@ static int rzg2l_mipi_dsi_stop_video(struct rzg2l_mipi_dsi *dsi)
+>>>>    	return ret;
+>>>>    }
+>>>>    
+>>>> +static int rzg2l_mipi_dsi_get_input_port(struct rzg2l_mipi_dsi *dsi)
+>>>> +{
+>>>> +	struct device_node *np = dsi->dev->of_node;
+>>>> +	struct device_node *remote_ep, *ep_node;
+>>>> +	struct of_endpoint ep;
+>>>> +	bool ep_enabled;
+>>>> +	int in_port;
+>>>> +
+>>>> +	/* DSI can have only one port enabled */
+>>>
+>>> Why is that ? The hardware supports dynamic input selection, why can't
+>>> it be supported at runtime ?
+>>
+>> For runtime/dynamic you mean using DT overlay??
+>> like, remove:
+>>
+>> Removing - DU0 --> DSI (input 0 | port@0 ) overlay and
+>> install  - DU1 --> DSI (input 1 | port@1 ) overlay and
+>> viceversa?
+> 
+> No, I mean configurable by userspace, with two CRTCs sharing one DSI
+> encoder.
 
-By garbage in, garbage out I mean frames will be interpreted as having
-an IFH, and may be sent to random ports depending the bytes in the
-frame.
+Sorry, question:
+  - Is it possible to create CRTC from user space?
 
-Unfortunately, configuring an injection prefix is not a good solution.
-If an injection prefix is configured frames MUST contain this prefix. If
-frames are received which do not contain the prefix they will corrupt
-the queue system leaving the port unusable.
+ From hardware point only one DSI input is selectable out of 2 LCDC's at 
+a time.
 
-Since the driver does not have control over frames sent to the NPI port,
-an injection prefix configuration is highly undesirable.
+References:
+  - 9.5.2.2.3 9.5 MIPI DSI Interface (DSI)
+    General Purpose Output 0 Register (DSI_LINK_GPO0R)
 
-I will remove the conduit alterations.
+  - 9.5 MIPI DSI Interface (DSI)
+    9.5.1.2 Block Diagram
+    Figure 9.5-1 Video Input Interface
 
+Kind Regards,
+Tommaso
 
-> > > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/dri=
-vers/net/dsa/microchip/lan9645x/lan9645x_main.c
-> > > --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
-> > > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
-> > > [ ... ]
-> > > > +static int lan9645x_setup(struct dsa_switch *ds)
-> > > > +{
-> > > > +     struct lan9645x *lan9645x =3D ds->priv;
-> > > > +     struct device *dev =3D lan9645x->dev;
-> > > > +     u32 all_phys_ports;
-> > > > +     int err;
-> > > > +
-> > > > +     lan9645x->num_phys_ports =3D ds->num_ports;
-> > > > +     all_phys_ports =3D GENMASK(lan9645x->num_phys_ports - 1, 0);
-> > > > +
-> > > > +     err =3D lan9645x_reset_switch(lan9645x);
-> > > > +     if (err)
-> > > > +             return err;
-> > > > +
-> > > > +     lan9645x->ports =3D devm_kcalloc(lan9645x->dev, lan9645x->num=
-_phys_ports,
-> > > > +                                    sizeof(struct lan9645x_port *)=
-,
-> > > > +                                    GFP_KERNEL);
-> > >=20
-> > > Since the DSA .setup callback can be invoked multiple times during th=
-e
-> > > platform device's lifetime (for example, when the DSA master interfac=
-e is
-> > > unbound and bound again), does using devm_kcalloc here cause a memory=
- leak?
-> > > Should these allocations be moved to .probe or managed with kcalloc a=
-nd
-> > > freed in .teardown?
-> > >=20
-> >=20
-> > Hmm I do not think this is right? I think dsa_tree_teardown is called f=
-rom
-> > dsa_switch_remove which is called by the switch drivers .remove.
-> >=20
-> > So I do not think you can get multiple setup/teardown cycles during the=
- device
-> > lifetime?
-> >=20
-> > As far as I can tell both felix and ksz use device managed allocations =
-in their
-> > setup callback.
->=20
-> It's valid feedback in general. In a multi-switch tree, ds->ops->setup()
-> is called when the tree is complete, and ds->ops->teardown() when the
-> first switch disappears. If there are 2 switches and you unbind and
-> rebind the driver from A, then switch B will see a ds->ops->teardown()
-> call followed by ds->ops->setup().
->=20
-> In your case, since the switch doesn't support cascading, it probably
-> doesn't matter. But the LLM doesn't have the context to know that.
->=20
+> 
+>>>> +	for_each_endpoint_of_node(np, ep_node) {
+>>>> +		of_graph_parse_endpoint(ep_node, &ep);
+>>>> +		if (ep.port >= RZ_MIPI_DSI_MAX_INPUT)
+>>>> +			break;
+>>>> +
+>>>> +		remote_ep = of_graph_get_remote_endpoint(ep_node);
+>>>> +		ep_enabled = of_device_is_available(remote_ep);
+>>>> +		of_node_put(remote_ep);
+>>>> +
+>>>> +		if (ep_enabled) {
+>>>> +			in_port = ep.port;
+>>>> +			break;
+>>>> +		}
+>>>> +	}
+>>>> +
+>>>> +	if (!ep_enabled)
+>>>> +		return -EINVAL;
+>>>> +
+>>>> +	dev_dbg(dsi->dev, "input port@%d\n", in_port);
+>>>> +	return in_port;
+>>>> +}
+>>>> +
+>>>>    /* -----------------------------------------------------------------------------
+>>>>     * Bridge
+>>>>     */
+>>>> @@ -1425,9 +1472,21 @@ static int rzg2l_mipi_dsi_probe(struct platform_device *pdev)
+>>>>    	if (IS_ERR(dsi->mmio))
+>>>>    		return PTR_ERR(dsi->mmio);
+>>>>    
+>>>> -	dsi->vclk = devm_clk_get(dsi->dev, "vclk");
+>>>> -	if (IS_ERR(dsi->vclk))
+>>>> -		return PTR_ERR(dsi->vclk);
+>>>> +	dsi->vclk[0] = devm_clk_get(dsi->dev, "vclk");
+>>>> +		if (IS_ERR(dsi->vclk[0]))
+>>>> +			return PTR_ERR(dsi->vclk[0]);
+>>>> +
+>>>> +	if (dsi->info->features & RZ_MIPI_DSI_FEATURE_GPO0R) {
+>>>> +		dsi->vclk[1] = devm_clk_get(dsi->dev, "vclk2");
+>>>> +		if (IS_ERR(dsi->vclk[1]))
+>>>> +			return PTR_ERR(dsi->vclk[1]);
+>>>> +
+>>>> +		ret = rzg2l_mipi_dsi_get_input_port(dsi);
+>>>> +		if (ret < 0)
+>>>> +			return dev_err_probe(dsi->dev, -EINVAL,
+>>>> +					     "No available input port\n");
+>>>> +		dsi->vclk_idx = ret;
+>>>> +	}
+>>>>    
+>>>>    	dsi->lpclk = devm_clk_get(dsi->dev, "lpclk");
+>>>>    	if (IS_ERR(dsi->lpclk))
+>>>> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi_regs.h b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi_regs.h
+>>>> index 2bef20566648..cee2e0bc5dc5 100644
+>>>> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi_regs.h
+>>>> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi_regs.h
+>>>> @@ -83,6 +83,9 @@
+>>>>    #define LINKSR_SQCHRUN1			BIT(4)
+>>>>    #define LINKSR_SQCHRUN0			BIT(0)
+>>>>    
+>>>> +/* RZ/G3E General Purpose Output 0 Register */
+>>>> +#define GPO0R				0xc0
+>>>> +
+>>>>    /* Tx Set Register */
+>>>>    #define TXSETR				0x100
+>>>>    #define TXSETR_NUMLANECAP		(0x3 << 16)
+> 
 
-
-OK, I was not aware of this. I tried following the callstack and it did not=
- seem
-like the described scenario was possible. If device managed allocations are=
- fine
-when you do not support cascading, I would prefer to keep them.
-
-> > > [ ... ]
-> > > > +     /* Set all the entries to obey VLAN. */
-> > > > +     for (int i =3D 0; i < PGID_ENTRIES; ++i)
-> > > > +             lan_wr(ANA_PGID_CFG_OBEY_VLAN_SET(1),
-> > > > +                    lan9645x, ANA_PGID_CFG(i));
-> > >=20
-> > > PGID_ENTRIES is defined as 89, so this loop initializes indices 0 thr=
-ough
-> > > 88. Since the CPU port is index 9, its source PGID is PGID_SRC + CPU_=
-PORT
-> > > (80 + 9 =3D 89).
-> > >=20
-> > > Is index 89 left uninitialized, breaking the OBEY_VLAN rule and allow=
-ing
-> > > CPU-injected frames to leak across VLAN boundaries?
-> > >=20
-> >=20
-> > No I this misunderstands OBEY_VLAN. When set the vlan table can control
-> > whether cpu copy from the pgid table is enabled. It makes no sense for =
-PGID 89.
->=20
-> Explain that in a comment.
->=20
-
-I will add a comment about this.
-
-> > > [ ... ]
-> > > > +     /* Multicast to all front ports */
-> > > > +     lan_wr(all_phys_ports, lan9645x, ANA_PGID(PGID_MC));
-> > > > +
-> > > > +     /* IP multicast to all front ports */
-> > > > +     lan_wr(all_phys_ports, lan9645x, ANA_PGID(PGID_MCIPV4));
-> > > > +     lan_wr(all_phys_ports, lan9645x, ANA_PGID(PGID_MCIPV6));
-> > > > +
-> > > > +     /* Unicast to all front ports */
-> > > > +     lan_wr(all_phys_ports, lan9645x, ANA_PGID(PGID_UC));
-> > > > +
-> > > > +     /* Broadcast to all ports */
-> > > > +     lan_wr(BIT(CPU_PORT) | all_phys_ports, lan9645x, ANA_PGID(PGI=
-D_BC));
-> > >=20
-> > > PGID_BC includes BIT(CPU_PORT) and all_phys_ports (which includes the=
- NPI
-> > > port). Will this forward broadcast frames to both the CPU extraction =
-queue
-> > > and the NPI port's normal egress queue, causing duplicate frames for =
-the host?
-> > >=20
-> > > Conversely, the multicast masks and PGID_UC exclude BIT(CPU_PORT). Do=
-es
-> > > this cause them to bypass the CPU extraction queue entirely, thereby
-> > > lacking the LONG extraction prefix and breaking the host's DSA tagger=
- parsing?
-> > >=20
-> >=20
-> > No this is not how it works. Generally when you configure the CPU port =
-to use
-> > an NPI port, the hardware manages this internally. You do you have to s=
-tart
-> > using the npi port number all of a sudden.
->=20
-> The comment is fair though. Why would you set all_phys_ports to
-> GENMASK(lan9645x->num_phys_ports - 1, 0) when you can compute the mask
-> of user ports which are enabled? It seems sloppy at best, and also
-> contradictory (comments say "all front ports", but code includes the NPI
-> port in this mask).
->=20
-
-I will use dsa_user_ports(ds) as the base mask for the flood masks.
-
-> > > [ ... ]
-> > > > +int lan9645x_port_setup(struct dsa_switch *ds, int port)
-> > > > +{
-> > > > +     struct dsa_port *dp =3D dsa_to_port(ds, port);
-> > > > +     struct lan9645x *lan9645x =3D ds->priv;
-> > > > +     struct lan9645x_port *p;
-> > > > +
-> > > > +     p =3D lan9645x_to_port(lan9645x, port);
-> > > > +
-> > > > +     if (dp->dn) {
-> > > > +             p->rx_internal_delay =3D
-> > > > +                     of_property_present(dp->dn, "rx-internal-dela=
-y-ps");
-> > > > +             p->tx_internal_delay =3D
-> > > > +                     of_property_present(dp->dn, "tx-internal-dela=
-y-ps");
-> > > > +     }
-> > >=20
-> > > These are standard integer properties specifying delays in picosecond=
-s. If
-> > > a user explicitly disables the delay via devicetree using a value of =
-0,
-> > > will of_property_present evaluate to true and enable the hardware del=
-ay
-> > > anyway? Should of_property_read_u32 be used instead to check the valu=
-e?
-> >=20
-> > A value of 0 is not allowed per the bindings. The bindings enforce that=
- if this
-> > is present the value must be 2000.
->=20
-> Bindings may change. Please use of_property_read_u32().
->=20
-
-
-I will switch to of_property_read_u32.
