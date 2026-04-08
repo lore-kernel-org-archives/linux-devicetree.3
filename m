@@ -1,112 +1,72 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 331903D47D2
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 15:25:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C69175A63;
+	Wed,  8 Apr 2026 15:27:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775661946; cv=none; b=llvRgT8feWqHNtRTJjv+60GivtmR9zLyN8Acl9ihxTo9AitE6jU9sbVzd1CNo4iCeb+UbY37hbQbzP7N55TleVK/NhLFroIFVUDAhXHaTcfs1gJK3AEe/pqCsXNWm6ZcLv8XlUdU7arCXIt8C2/puJ7lKj5nyq0ADa+ypVszaVs=
+	t=1775662052; cv=none; b=WqfDcXEhEW0ceT9RVIHpBeQIeUXSanprr5t1aSeA9ZdJFLVgCoMJ1jtxWDs2ODuPHr6L1Fm+a0pMTJfNnsMOLKIgGHU3xo9YS1GZUYv3VyQJBUPqsxn2WgwbUOh8XdOHxhteBVEnGREQhMR6QBEf6LXeoyvWjBOn/5UUppFUD7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775661946; c=relaxed/simple;
-	bh=5uZQetOvevtL0mvlMj7KiFmCmHDYLkwGGitGi+quo4Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=p03JmMOivotIN9/teCAZxYvbzr2s9g9FQKTPRw7xauiwh7p4DTFHZnrq3SXqQcU3yYu/L2YLypGFW3yholzlw7858Vked165CGQWUQ2PFO3wHuOdTGbXZVBr51pw7Ji+aMHcPLB5ISqDp+RG/4JzZ6H6C4gZ06CG//+GFfYi0Vs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HdzXm6xa; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1775662052; c=relaxed/simple;
+	bh=nWUmJ78jz61+1bcUgL7zyolq0FXkmqQvQJUVweRxjqM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Mbov4+cLncE96ATFaObZ+3Z/3yQorxaHEyyV+2ixs3qmckoPVT8u+4i7Dslu9q8etMxDk1PCTQCMi6jmdOu26u0FNSoravVHvxAUwOb/rK8OgXs6y1qCJ2d2Mxb4/ZuHUcZkpCJ7OksjCEX3QOCLw0a3jWQU1cjDGyBZ+qBIYpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=BKQmG4K9; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HdzXm6xa"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4887eca00c4so43237225e9.2
-        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 08:25:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775661944; x=1776266744; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=EC2v+Q/gnBLhwWmQlqWcd9BxtNoiH00jSXgAbXbWBps=;
-        b=HdzXm6xaIgQTHUdWQkMXqt+5zsdXnafOQU8548jqgHOjj6TQgYOTrqjXlkKfK08RHu
-         tSgIlDUN2jiP6x308CB0mIdK+rNED2+6SzlOCQ9SLRj2qw6k7vxCE8A0hIlPTVTwRtN/
-         uIRDALUJbG6Xc15Qm3oFQq0zIUarcH6UTaIERI/0WhnjgiFqnzy/5jcdMOYrGDqpO3wv
-         v1gOhAQqh8u8imkYwdZ9FR0K01/7mnvzyA3YobSUFq5iw6bi2ef1s/WiOrckIMMsaaWM
-         3KxCvVvVeKkNCfwKcSewF6BMcXu9H5xFOZ0ytvBVdU1AvBIKLUl2T6SRMT47mTj4hkIm
-         hzDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775661944; x=1776266744;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=EC2v+Q/gnBLhwWmQlqWcd9BxtNoiH00jSXgAbXbWBps=;
-        b=IehA83/mvaTUBhOPz13VNL5cbP7+86mpMvBtOQ9Z9vuUpNd9Bo5Na1HuVLJDtJNEr8
-         k7FivA6stHomPzH3Njz5jWsPDCYpDgLaPB2WCoRmWMsZoJxlQWRGgkCcEy1Gr+MtYvXe
-         l3Et4cNwtQQPYRbsSVnGVMsGykcI+n7iqD/Up/hqztswSxtaE+35Nq11aWgIeo4lVJdO
-         EuqvaBU87OJaKTKQRlMXMbWurnn6W56enaBsJrJJKd0J5g7fJWoQ3CFGpY4x5+QcMV3g
-         I0b0WgmH+baoh/yyKCSq6Uy85DqU6R6H2ZaghdHMAsX7a7RfpicKhnqo6F46Nui2ybp/
-         ZK+g==
-X-Forwarded-Encrypted: i=1; AJvYcCWltpCEDxYN4pQqTeRYUYWH0CRte7vrzlQ1fWhwlfVfNA1tsVE/23oScEM7We5YEr1oGJ8tv//+RKO7@vger.kernel.org
-X-Gm-Message-State: AOJu0YxX8LUqweraNVkOGJ9/CCsLLJ46R5bdNkp2165xf0h6kzypCOkI
-	En5noBqfJCgzT89tZq+PCw+nUHWUpBnjKSJvVPGtNnRTqbH5rm3ycCxq
-X-Gm-Gg: AeBDieu75lTFMYjnsDUrEfbugWyQp/MR33CgWrxH4BqxABMpPu342HiUT0Cnm1k9zgg
-	mDDcKrRr4GAeJ29/ng0ugq8POnL3lBKnp1pV3ZuYQwjWg4sN0WCY5udCK9lKz6UY1JrtuJNYnHY
-	r15/iqfpXqklXDsw8ayjcjTzjeOPa+0yuWEbL6DdERzxwY/KzWAiZtn9jesxJx05lZgCVpHfOEH
-	xgeKs5SBKglGb64xan13dtYe30jPvSMRQfHPhyLH/fXTIkJS4hteT4ZpMNUE/tAdWrhb9J/asHs
-	RIXo6EWDQfbCfs23F9NC5mnPGQrf9gDsSYTkH7KsXQUgrGfWA9JmzzDcZC/ojE5/eGqaW6CdoGp
-	IqsItuzIN6FeOUxlyXKn4bMG0a6gkjbZGQEC/2w1KqBMzTn/3QQF5grj7pls3efDjUkZHf9CU5n
-	55CRL7nFyM45zR/Q24L8+LhCx7fPPVmQf6o8ey468cr9BVhxkZ23hd6RudAMQ8RM9gqI+xniPCr
-	fT/iJiv8A==
-X-Received: by 2002:a05:600c:699b:b0:485:3ee1:eba5 with SMTP id 5b1f17b1804b1-488998f09dbmr360376005e9.27.1775661943426;
-        Wed, 08 Apr 2026 08:25:43 -0700 (PDT)
-Received: from [10.1.4.108] (cust-east-par-46-193-119-166.cust.wifirst.net. [46.193.119.166])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488cd19a881sm300285e9.3.2026.04.08.08.25.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 08 Apr 2026 08:25:43 -0700 (PDT)
-Message-ID: <1040e6be-6223-4cfc-b603-e2dd90713bb7@gmail.com>
-Date: Wed, 8 Apr 2026 17:25:41 +0200
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="BKQmG4K9"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=op+B3ErYB5SBcGjElH6T2ek86yNhHxdxH13kWG1CBYs=; b=BKQmG4K9tJCtjhNAXG6TxT0IBN
+	Pwo4XyCDvP0dqFbMMGg5bN2g3GV1rsk+ynecpZfDpMTojaOxoOwd/NZSeTZHHQlw66eksRNuugYzL
+	Q7YvSmKjwb00aOSNcrav8Jln9k86I2MYVFd7JDLUf+++tiGHCZRsvaZDBxYXONCnpE6U=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wAUoE-00FJBU-SA; Wed, 08 Apr 2026 17:27:14 +0200
+Date: Wed, 8 Apr 2026 17:27:14 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Minda Chen <minda.chen@starfivetech.com>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Emil Renner Berthing <emil.renner.berthing@canonical.com>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor@kernel.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	devicetree@vger.kernel.org
+Subject: Re: [net-next v1 v1 1/5] dt-bindings: net: starfive,jh7110-dwmac:
+ Remove JH8100
+Message-ID: <ad9ee916-6f8a-4cb9-8016-54a02b00c7ab@lunn.ch>
+References: <20260408084416.29753-1-minda.chen@starfivetech.com>
+ <20260408084416.29753-2-minda.chen@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] net: dsa: microchip: implement KSZ87xx Module 3
- low-loss cable errata
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com,
- Vladimir Oltean <olteanv@gmail.com>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Fidelio Lawson <fidelio.lawson@exotec.com>
-References: <20260408-ksz87xx_errata_low_loss_connections-v2-1-9cfe38691713@exotec.com>
- <a350c4b7-d816-455b-83c0-f4d98299c637@lunn.ch>
-Content-Language: en-US
-From: Fidelio LAWSON <lawson.fidelio@gmail.com>
-In-Reply-To: <a350c4b7-d816-455b-83c0-f4d98299c637@lunn.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260408084416.29753-2-minda.chen@starfivetech.com>
 
-On 4/8/26 14:43, Andrew Lunn wrote:
->> The control register defines the following modes:
->>    bits [1:0]:
->>      00 = workaround disabled
->>      01 = workaround 1 (DSP EQ training adjustment, LinkMD reg 0x3c)
->>      10 = workaround 2 (receiver LPF bandwidth, LinkMD reg 0x4c)
-> 
-> There was a comment, which i only read after making the suggestion to
-> use two bits, of exposing the different low pass filter bandwidths,
-> rather than just picking one value. How useful is that?
-> 
->         Andrew
+On Wed, Apr 08, 2026 at 04:44:12PM +0800, Minda Chen wrote:
+> Remove JH8100 dt-bindings because do not support it now.
 
-Initially I limited the LPF setting to the single bandwidth explicitly 
-recommended by the errata (62MHz).
-But I’ll extend the implementation to expose all documented LPF 
-bandwidth options so the interface is more flexible for users.
+Could you expand on that. If there are devices out in the field, we
+don't just drop support for it because the vendor has something newer.
 
-Best regards,
-Fidelio
+If the device never made it outside of the vendors lab, then we might
+consider dropping it.
 
+Please explain in detail why this is being dropped.
+
+	Andrew
