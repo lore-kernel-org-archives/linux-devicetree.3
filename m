@@ -1,209 +1,451 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010067.outbound.protection.outlook.com [52.101.84.67])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 844CC2E7F2C;
-	Wed,  8 Apr 2026 06:01:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775628099; cv=fail; b=UsDgvm+N8pB3rvLb53WL0FR/dALM3Az3wB/r0lMuJJVuzGeAQDaLCGwRljYqWbU5jkLwBASyAISpKzk2SxR8WFBmsKRlhFJEf+BXQP9lKKIjdI6YlSdpwgr6v0JsPJaDggaBW6M5jNqlC9hD2167ibSsy3TCgV8FJCkREMxLrjA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775628099; c=relaxed/simple;
-	bh=GVMhfu4d56awnL5gIGJYIuN6U0gnk3rsTm0i/snYCHk=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=DmcAABWSTjDLFa0r2HQMaPqVgj6LfsUKZyKg6+KEcB6ZMSlPbCIna+EifkvvbPjX5S0UogA32pMQYpOkwAKX7m6Ffc6+lLR3ZddsD5rmQU4feVTH3jIK1+lBqIneTu6j53V9mTGj1FFrmjush42zFwmS/RfZ4jI7pMKNeS+xy0g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=nm53WgdS; arc=fail smtp.client-ip=52.101.84.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9995335E940
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 06:05:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775628344; cv=none; b=PoYSx1oIm0t83v9nqNU88LdISdqUVDSeN3iEhFAdutTjAZWeOgGDS4khwL5PelhFgGl1AmnzPJVJ3slpjHTJwMfFifHvPbE4U5NF+8SX1KjZRsJQobmOxz7eb/daSokFbODEI1Qxnpw3iboA75/o+8d9qtquJvpvpOUvC9Cvr2o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775628344; c=relaxed/simple;
+	bh=c6N26IhPygukcAcEbbwCi5kxSzaFfkAPpzFHNLonrc4=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=N0jlovYjyK6x3KCrzKB6ZbDk0oH3VNQwsT4CjBNN2tDpb7VgahqjrSvbWWPmbksJyB4hDeqCCIPzfnfJfpEbQBA7+mHJWxHplURKJsc7h1OSaseaOjx8mLxycjrhn/dYt2PQAPaBJthsxx/uPKcYKzTz5hs390UaUTGBV0cY7fI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WtpHvwGN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kmeT7GcC; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="nm53WgdS"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xKwdojgQq0Q5OkO28hoLO96U9YXRNersyl1E7bYqKaXRk8iCflkCOjITGG3cMjVbyPGWi3DQAnYZv/3xu6oFtGyht7S68+LCj5rZ0rByv04u1VB8wf6unBO/6vzSYbfx5m4Iu79MQZfKosCGb1J0966an2CGj1dFBaXtg7OMcoZxBaIX0Sti46vQ7nzAbm1ZUOBzAag7JK0NTOc+dpVQGUBY49IWOzM9imhGs8EqvJ98Xj7u1U8i7AwlyVbJzCpxkoVNm0bwn9Daue1aGfKNIaXRqaGi6vqzCIEq3pi6wWPPBTeo4SW21tG1uacZCm88YZEmZ3ZgO9cAp6YpEX4FWA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=asHbYDUzfObPFnAg1d+62PJ38vwz2w0ef0lYURsRJ54=;
- b=zQ98p3zZ8ELFT/VoBRt/xqyI0TLNECJQiAUSjgS8tf86osXswgf9ZPy9VUl1g+AtusaoWZMhFpvpt1t1jM74AkGogHvkJqziNg4UL2xi123NUQBOw7ixm1rZj15fNAxkZo5qXKWwaP3m1j7uWgzhpOmQ8aWipoFQt3tFX/rBplLv6U1lAvPWS6zjfW4hAlj4e1CTdJwOcN3guEyYm7ZrIHbzLfRwAuUkhNV5di/+UtfSZQdCW1FYMv6dpg7L848h/jyPkIbQv2zEoIPSLgW/UyVhvvmiHQsjnI/+DuEuKe4DdeQ1zmioK4wJKXLGvQp5sPPxgWAkBBcY+XdK1bYOTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=asHbYDUzfObPFnAg1d+62PJ38vwz2w0ef0lYURsRJ54=;
- b=nm53WgdSEOq/Ju3r6RKI0wHD0r83ZQY+1AG9IRt8C37bM5qZb6IHx8i/RGfsG6RZfWJ/SPp3W8OCYylapDM2ZBIBDy4u0DlNIpO5iYu+9DBnI8cmuXDGItnOg5+niitpYXSDc4baCt3qA7W3u5v5QWbbccNjXgOlfvNNejBm67jL+84lwMYI5oIVDzyECRnm3beGVLbSC/t3Zqr80FbcKIxGUW7wX2c9NwJnofyAlba6VPvvmrmMFVndnZ1rER7EeXqBzstytjjBnjBhRK9JdkPrsUHNBIZ+vtlDXuCcYKulEkAwuzl4Q51CNMk9VcJMINja8Y1qi63z79hJ2c13JA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
- by PA6PR04MB11831.eurprd04.prod.outlook.com (2603:10a6:102:522::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Wed, 8 Apr
- 2026 06:01:35 +0000
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::4609:64af:8a4b:fd64]) by AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::4609:64af:8a4b:fd64%3]) with mapi id 15.20.9769.016; Wed, 8 Apr 2026
- 06:01:35 +0000
-Message-ID: <a31e926e-9e7e-4ba4-aafd-0f76f53fa176@nxp.com>
-Date: Wed, 8 Apr 2026 14:02:54 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: imx93-9x9-qsb: Add tianma,tm050rdh03 panel
-To: Frank Li <Frank.li@nxp.com>
-Cc: Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260407-tianma-tm050rdh03-imx93-9x9-qsb-v1-1-24d514a62fdc@nxp.com>
- <adTUkWvqVUhLiw_J@lizhi-Precision-Tower-5810>
-From: Liu Ying <victor.liu@nxp.com>
-Content-Language: en-US
-In-Reply-To: <adTUkWvqVUhLiw_J@lizhi-Precision-Tower-5810>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SI2PR01CA0040.apcprd01.prod.exchangelabs.com
- (2603:1096:4:193::14) To AM7PR04MB7046.eurprd04.prod.outlook.com
- (2603:10a6:20b:113::22)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WtpHvwGN";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kmeT7GcC"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6385N7nq3362738
+	for <devicetree@vger.kernel.org>; Wed, 8 Apr 2026 06:05:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	1af8hSConZXJHNKgadMXHP8pYeo9HkkDLzcsI82+dMw=; b=WtpHvwGNYHHRhOdL
+	k7g4khmayRNuNCuhQrBxwv/w+ecOjHITw1adu1pAhg7F5hBw+y31PoH6rDIBwJoM
+	BOWt+Ph1jt/8+hO448hzpvOEuhUVg4ALBZ5nA1UPjXrWIq32GmyHHs2ZtO3ACFUn
+	FOK7Cwt0BRMDeJ58jzDgxddJzzv5cTv7Tc47Kw1+4triQcHFkBRr4hg1IKUoICCj
+	VQWDHKzNOQFkoGDnV/30BpM8OvUcc2e/bkIdHQM84VIQDFkja3Z/hi3+6QFkqsyM
+	mHgLv+fzTLq2+nvLhx8m7UgM3V6yEBpiiD7rZwKt16kVnWGV+8eZmhrpXeGKpM+1
+	SBJPZQ==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dd7tkhs70-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 06:05:41 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2b241be0126so158784495ad.3
+        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 23:05:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1775628341; x=1776233141; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=1af8hSConZXJHNKgadMXHP8pYeo9HkkDLzcsI82+dMw=;
+        b=kmeT7GcCNvigH7NyYokCqDYS7AFAbr8rS9mR7J/NrVH4HmT8MQL2hnW2Lzb08PmLQ9
+         Pryhq0bQB47lDrLcAieffXaoW70Gmo9+bj02us/hpmZRFSOX/wdzNldOO50h1HpUDB0J
+         yaDwXH0CvjsSeQqjBsTYj/eOm9R2IIAZ4qAfVGtUdYcEqlha12/ww1qyAYCAvbEZm+yt
+         rAlYD4Geb3e3RQDpZiFihjX9NpaDm203+OpgX0jw4VTH4F/VmVnYfztn992Rb2kOato3
+         01umlaPpcCDdSRlAlgy55Zpj2d/KZo5QlgMCzCiNLlRAYY/Z3XD/3lOiaoS32LT66AIw
+         qHrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775628341; x=1776233141;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:from:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=1af8hSConZXJHNKgadMXHP8pYeo9HkkDLzcsI82+dMw=;
+        b=GWhK6txwdzgcNWn8aZsnk72I6ZDmeYBjVvmTSbN8RohUans4OE9Em19AaQnZN9LzrD
+         I1u+mFF+MsQjOIvSqh8W8acel8BVDvaKU4j0KxtIdd4EZpro9vHTCVPq3yADvgNUZ7TB
+         Ug3MQ3T97AYPzZazqRqVx4JzJ3QY4jvxNrEGcDUYHrhG/fmgivDGx476FbMl5LMzwIHu
+         Qg9TLaLzoiJiYuQvs17gj8VVkZdKnuytad9ueo6mKs1GxoeEt/RylTdovePVoC3YY8OC
+         /y5busTUhca4mUeuW/MWvIRloD/S1WwzAxf7XB9r7P4BjSnzJbmtRELK4hXcU2JWPMR0
+         BWYA==
+X-Forwarded-Encrypted: i=1; AJvYcCXl+BtTXiJfKufcXoz4M92EFWThSPdpjpJ+vPxgNLqLzMVCJKOjskUuPUEVLBztqFSy8yo7WsaIHC2Y@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzo2oR4rlCfzMGjCMNFyZv6AoHvmldF6zgDf8VYR3wPVStkkkZa
+	zI4cLJNKOr8Io0cnQdx/Z8sl8lfcLJjV8M9I5aNjTwDOFsylusjXvztf8Hfyw7YX5DvCM47qEg8
+	gaJubzHfiZ/vA0mU71BEBFbra3atBLyX74XAAWrwFaKXfhT3jvN9dO911M23RqEKG
+X-Gm-Gg: AeBDieunBLERkL2+3///FWOYcPcv3l3EbyfS3NiXQFpEhFw6dEEY4ueqvkIK/P5GKU7
+	wHMJr5R9ZAiyohkujNRnjiIzf6D18/qNfeXZqJWZNpedinks5Zpin8aBuc9TvAa6CTPFL4HR2JS
+	XzEioPH3FkUwScWDznBoLRuz/wo8BgJBWUHnA5vtBZYuTygQaV8E7RXq6M3BxYJ/j/9XlgTd+OY
+	ggqPOXGZCrKge1yS4KDkIAx6ldDgdbGFwL6vjpWQy8piMyGRipbLmXywVHhARJ2fjp9O+imfqFU
+	8D5ygVAQBgWzrKKttF4mYfWrogTrF0Mv+QGGAjXK0q+37Z726Gvbgs197jI/ajS/90dXDZ5rZ86
+	+Bou7SHHkvbP8lhgHv0QEQ5FNbTZVAqr8S4XmcP6kVhxeA3Jr0NsQS0Qr07T2NkcYLjB6WZCqwo
+	LvcsCYWIf+s6//fPIHWGL5jmk6UfiuE4o+eA==
+X-Received: by 2002:a17:903:a86:b0:2b0:ac1e:9720 with SMTP id d9443c01a7336-2b2817995b8mr193083035ad.23.1775628341164;
+        Tue, 07 Apr 2026 23:05:41 -0700 (PDT)
+X-Received: by 2002:a17:903:a86:b0:2b0:ac1e:9720 with SMTP id d9443c01a7336-2b2817995b8mr193082645ad.23.1775628340581;
+        Tue, 07 Apr 2026 23:05:40 -0700 (PDT)
+Received: from [10.79.196.164] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b2749c38adsm240381685ad.69.2026.04.07.23.05.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 07 Apr 2026 23:05:40 -0700 (PDT)
+Message-ID: <c256047d-cacf-4ef1-96bc-529b3158c60c@oss.qualcomm.com>
+Date: Wed, 8 Apr 2026 11:35:34 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|PA6PR04MB11831:EE_
-X-MS-Office365-Filtering-Correlation-Id: c80be953-2581-48ba-9525-08de95344a31
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|19092799006|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	mDRauK3Ss9da1Iv6zAZvCL3Swv21UqoUlQkTJvj3ztY2inXhrLl4YHNuj/DsTJI6zjWoADP0k73jTCJJWF0542TnsraeVGUrMyHZqaBqDSgNZgFchgblx4rPbmadmjc1iFEotH6IPTG42U1O2SnhsjYkHPHoobI87D0jIvFFi7Oq3KQ9XEDni1nbUvHCdGdAIxZo6Se6a+dhUX2DeytgimW+nR5LAdFFUXFDVZvPxeRzuefYVTIxSFIP++wtkFaQ4z4G1Tc5pHEGfQ6e2cha9yNsQgD+DkO0uMSNjRYGuYe3adgX3tUNfbp7bGqAq0vcjYskaIQOULgAOc8yfjEAh6KDvzfBUv5xmwtgqfqpEKlQ3Py/TdESqOYT0IFeScjBbRaS3VbuBwmGUWtBP1n2ClYpEnWzqUiB/WtsdFn5RK6g+RJoFsZOXYuDL3ET/X7F1DR9E+YroFDfTL7Yr+XKHYAblnINFiP3YdLeKf9T/Lc5Kmxj0DgvLQrQB9MGb906CDuaApAAFWGlqii2YavNMB8XB0LbWSQa2iZ1cATCKybNojWrbG82czOkGf2MFTy+UKuZoswwrsQqKAOKeIWq3ckIIUXEfoKVmU54S1zPNpq708rn8A0XnicOtriwd4j8ZIax7CHKu8w+wlH+QoQ1Y6CU8eEofD26upFolpinYzHwy9hXAkjfVG/d2O54QrQP+ldhZhwCbytUVWZ8pSl6JpXxn6eMv8cJHy9Hjf85XujV6zrMfbhurgql1E/LV1BX
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM7PR04MB7046.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(19092799006)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?THFLWjZ5cXhOajhhL2JraHdOOVAraDFoWFNqdFZlSjMrNlVNTkhOVFJoSmh6?=
- =?utf-8?B?MTJpZmlDT2laazhLYllWWStybDRHb3NrTEJWZ3pzTEhmY1AxRE1rMUdZQVpW?=
- =?utf-8?B?d25UcWRkWEtLTUxUMUlqMDdNMmxnTHFieE4vbHpmMzVzTmc5bEZBbVJlNThk?=
- =?utf-8?B?OVpBbG8zcG5ZNWd4RFl6aCt4eDZ0VmVpYkVsL1ZVdStSN1JVOWNab1h1VlB3?=
- =?utf-8?B?U01tdStPaXZ0UG8vbWtmMG9iNURKSFExWkkrZ3Q4UUpvbHhyWkh3d2JNdHl3?=
- =?utf-8?B?ODM2SVZlQzZWZmRPVlR5cjNkajJ4UTVCZjJTZGU2WHF1SDA3eWdHYThwMUZz?=
- =?utf-8?B?RlNOYUUreHRCeGRUNDNMWUtSaVR3dE00akZGeThZbys1LzNST2h0bHhzOGZX?=
- =?utf-8?B?Z0VyRmF4TlJkdjhUclR2YmpGZEowSnJjL3hZdVJXTndla1I3V3Ixc3d5bUQ2?=
- =?utf-8?B?QTh0OFM3QzhRMWVYdWM3dzZid2picVE5c0pHdUFmYWhKQU5HbFNDZTJQOUhR?=
- =?utf-8?B?cGl5aS9FQnRJUk9MMktSQmQ4Q3dIekVwTllNN1AzTE9ZTkFUN1pYMlFrak5Z?=
- =?utf-8?B?c2JDZ0RaSjFFaTVBRGNoYzVmTk4zUHRKcEc1T2VCZE9CR0MrbU1qaHBVUkVw?=
- =?utf-8?B?K1RFem4xZU5IZENvT0VEcVVkMUk3Ymh5S3hsUnhoQXZxQ2xBbjlQRk1TbEtm?=
- =?utf-8?B?MmNxUU12TnBzdEFnWkhLNHMzVHNKV0t4ZGwxMjJpUEpJZmwwVzhpT2FKK0Vh?=
- =?utf-8?B?d3UxMURpWHF5c1RIKy93cmI0YWhrcjlWajdaYU5LNWgzMHNFQUN2Wkc2TjhE?=
- =?utf-8?B?SjA4aXMzVDIzMm1DWUo3dzVpK2VoQU4wbXIvUFBNblI3MyszRnRGK0w0NTh2?=
- =?utf-8?B?VUo3VmFtZVJ6a1JmOGhSMjk3cVZxdlZUR1Y5M2hBM3UwcFNCZmlNN0JwdHFq?=
- =?utf-8?B?Z01lQXovOW9DYjNYcTdLaWVQUUlENlEvNkdOUDk3UUNqMlNtZkpzTFlXVVVH?=
- =?utf-8?B?WWUwSVl6QlJrdXdRbHBQejBIQVBOSUJvb1NqSFU2NDJrOVhXcG1uZzZzR0R1?=
- =?utf-8?B?OTFIZUw2TVRaYVhZZ0tYTXpsRWcrcDJ4bUlKSnhaU3BjanpXanZaQVEvNGlk?=
- =?utf-8?B?YnpBNVhXS3lSU0VjUUxOajg1ZEJZd1NkTkxkWDFtMk9EZ05OUHNrNXd0R0dX?=
- =?utf-8?B?eWZLYXc4ZFRKUkFyaWR3bU5oZ1hWY21pd0pWL1NqZHFObnBGaFFGWm9iMlcx?=
- =?utf-8?B?MkVaZE9BOTBRcEFoY3J3ajgrZjBwU0srdmw2SnVVYjhBMlhETlNiN3pGemRx?=
- =?utf-8?B?a0hqVDVYdGlxdncrdTl0UXUzUzJqWElEOHQwa3pOc0FxSWVyWjRpZXpKdm80?=
- =?utf-8?B?VFYzTG5XTWIvOUhkcXNOTlcrY01HRjJmUTZzV3JaZXZkOE4zSWpKT1FmSkJ1?=
- =?utf-8?B?Ykl1VHhUM29JRDFQQzJka1FZYjJNUnRiR1hJbDFqYW1CK1pza0FVRlk5ZlJP?=
- =?utf-8?B?d2VMeThpRmxvK0U1bGV1TGE5R2hVNXdLZ0VJS0RhSXlIMW82eXYxZWxHR0Jh?=
- =?utf-8?B?OFp3bVVobmF4d2treU1FQlppaE55QWdFQVRQL0hFTWhZWDhCd2ZCcVdqZWpS?=
- =?utf-8?B?cnRUTk1jSjV4Vy9aeWNBY0UxckpYakx0cGJPdGFwbm1Jc1JzT1d3dkFuYkZ0?=
- =?utf-8?B?V0FuZWd5cWFZNWtXdmdONDRPczlKcWpNc29FNW13V1RyWmg0a2VCWk45KzVP?=
- =?utf-8?B?K1ljMjNvQ21ZTGVtOEQ4KzNYTG51ZkdpaFVNZGlCUXV1VFZEUEw0Q29lZDFN?=
- =?utf-8?B?N3NZUjdzemNSeEtZcHh2UXhFeHY5ZUpWRVBqclBBT1ovc0RUN1dBeit5OGtK?=
- =?utf-8?B?dWdnaGRCL2psU3dBZWpESDMyclVMVlFLcnlZNFE2dWRqUnBZdi8rS1locmtU?=
- =?utf-8?B?Tmp1cE5ackI2QzJqZVU5OTNTQ0JBbG1WZlUxK2NLZW5zOE91YnRwZEZiZW13?=
- =?utf-8?B?dzBEaWNRTXQ0SUpWYUFxWjVPQWdzcVZMY0s1bHVOSUFUOWlUOWZqMkU2cEU2?=
- =?utf-8?B?ZC9zMjFKRG5CSEplZDhqc1FjdTRTdTJHM2JwR2xYNitadkxCSE5YYlhIV1FY?=
- =?utf-8?B?aUdtNGJwVjdPYnV4TjQ5dlB1VHhrMEcyZU1SSGMzUGlxSFNhbXZieDlZWUxG?=
- =?utf-8?B?ejhMQUVTR21Zek5xT1hQTVlJR3gyUVlidWF2Y09UMFE0c2lYaGN4QVZkNVht?=
- =?utf-8?B?QnQ2a0VpbkdKeHVHZDFjbjFNK1g0elZEL0hnZ0xPWXdXenlWMlFPZzQxMTJ5?=
- =?utf-8?B?N0ZrWFlXZmx5azNMZXFSZnQrTktva3hvUjRlVThPb2MxUjlRZGNVdz09?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c80be953-2581-48ba-9525-08de95344a31
-X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB7046.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 06:01:35.1296
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JYbvQx7xSl3V2FkeuPc6yZQxBeXr3yxNz1AM0joMGONlms3M7s1H2vUvkUczs7LCoAXYWJWs+/D5+eN6qapiSg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA6PR04MB11831
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 2/5] platform: arm64: Add driver for EC found on
+ Qualcomm reference devices
+From: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Rob Herring
+ <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Randy Dunlap
+ <rdunlap@infradead.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        platform-driver-x86@vger.kernel.org,
+        Maya Matuszczyk <maccraft123mc@gmail.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20260327-add-driver-for-ec-v7-0-7684c915e42c@oss.qualcomm.com>
+ <20260327-add-driver-for-ec-v7-2-7684c915e42c@oss.qualcomm.com>
+ <308ae40a-34f1-9b69-bfe7-150ca8ad1d29@linux.intel.com>
+ <e35da42f-e43c-4810-9985-7f51a1f5dc0e@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <e35da42f-e43c-4810-9985-7f51a1f5dc0e@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=drPrzVg4 c=1 sm=1 tr=0 ts=69d5f035 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=VwQbUJbxAAAA:8 a=-0q7uios7j49SWls-T0A:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-ORIG-GUID: -7sgZCU0vf6W13OHl5s6q3fwgs0VkiuC
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA4MDA1MyBTYWx0ZWRfXz50UP8x9UpLj
+ YGE0xfzMctPymMKQq5M2dUA/8a4Bmk+r84LkbpUoJvj0NhkM9H6YG/Bw95LcR+kBmjLZHCCI9Ov
+ myvRDO/S2e3r1K53Nszvxy2tCBBfw6i7sr4RMiWARHUCPahRkXahYp/4L5HoeUIOzktrijnhLv/
+ mRjfxvTblU22YNbEDKFxHnyqjUD5U6qHuwXSHv6MNch1rIb4JhHFSzeOJ3Zzf+RYsxM4R+M3IW7
+ MFY2ofwcPq5N8KaVseWGzE8nzm7Gf/UxkjubBh8p08t+nhyWjBKzUyOTGeSHP7oKIWjuOXsOErF
+ saBcZzOYpLoEouUitHzIKygy3FeZD6/XlKWFv5q6QRkkCQQ8d2mhJuAzOFltkkn3qphvbnCXhLh
+ mCSk/RWVG35VRy74ZmqUWTlrgUsE8k3u77HsNg4J2/tvxNef3pBvUlhCoM/vGHft2sZMK9cCjR1
+ wEPCsWGwlll0Yl0XPRg==
+X-Proofpoint-GUID: -7sgZCU0vf6W13OHl5s6q3fwgs0VkiuC
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-08_02,2026-04-07_05,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015 malwarescore=0
+ bulkscore=0 impostorscore=0 phishscore=0 priorityscore=1501 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604080053
 
-Hi Frank,
 
-On Tue, Apr 07, 2026 at 05:55:29AM -0400, Frank Li wrote:
-> On Tue, Apr 07, 2026 at 05:15:31PM +0800, Liu Ying wrote:
->> Support tianma,tm050rdh03 DPI panel on i.MX93 9x9 QSB.
+
+On 3/30/2026 12:14 PM, Anvesh Jain P wrote:
+> 
+> 
+> On 3/27/2026 5:20 PM, Ilpo Järvinen wrote:
+>> On Fri, 27 Mar 2026, Anvesh Jain P wrote:
 >>
->> The panel connects with the QSB board through an adapter board[1]
->> designed by NXP.
+>>> From: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+>>>
+>>> Add Embedded controller driver support for Hamoa/Purwa/Glymur qualcomm
+>>> reference boards. It handles fan control, temperature sensors, access
+>>> to EC state changes and supports reporting suspend entry/exit to the
+>>> EC.
+>>>
+>>> Co-developed-by: Maya Matuszczyk <maccraft123mc@gmail.com>
+>>> Signed-off-by: Maya Matuszczyk <maccraft123mc@gmail.com>
+>>> Signed-off-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+>>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>>> Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>>> Co-developed-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+>>> Signed-off-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+>>> ---
+>>>  MAINTAINERS                            |   8 +
+>>>  drivers/platform/arm64/Kconfig         |  12 +
+>>>  drivers/platform/arm64/Makefile        |   1 +
+>>>  drivers/platform/arm64/qcom-hamoa-ec.c | 451 +++++++++++++++++++++++++++++++++
+>>>  4 files changed, 472 insertions(+)
+>>>
+>>> diff --git a/MAINTAINERS b/MAINTAINERS
+>>> index 30ca84404976..536dfd9adff4 100644
+>>> --- a/MAINTAINERS
+>>> +++ b/MAINTAINERS
+>>> @@ -21804,6 +21804,14 @@ F:	Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
+>>>  F:	drivers/misc/fastrpc.c
+>>>  F:	include/uapi/misc/fastrpc.h
+>>>  
+>>> +QUALCOMM HAMOA EMBEDDED CONTROLLER DRIVER
+>>> +M:	Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+>>> +M:	Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+>>> +L:	linux-arm-msm@vger.kernel.org
+>>> +S:	Maintained
+>>> +F:	Documentation/devicetree/bindings/embedded-controller/qcom,hamoa-ec.yaml
+>>> +F:	drivers/platform/arm64/qcom-hamoa-ec.c
+>>> +
+>>>  QUALCOMM HEXAGON ARCHITECTURE
+>>>  M:	Brian Cain <brian.cain@oss.qualcomm.com>
+>>>  L:	linux-hexagon@vger.kernel.org
+>>> diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kconfig
+>>> index 10f905d7d6bf..025cdf091f9e 100644
+>>> --- a/drivers/platform/arm64/Kconfig
+>>> +++ b/drivers/platform/arm64/Kconfig
+>>> @@ -90,4 +90,16 @@ config EC_LENOVO_THINKPAD_T14S
+>>>  
+>>>  	  Say M or Y here to include this support.
+>>>  
+>>> +config EC_QCOM_HAMOA
+>>> +	tristate "Embedded Controller driver for Qualcomm Hamoa/Glymur reference devices"
+>>> +	depends on ARCH_QCOM || COMPILE_TEST
+>>> +	depends on I2C
+>>> +	help
+>>> +	  Say M or Y here to enable the Embedded Controller driver for Qualcomm
+>>> +	  Snapdragon-based Hamoa/Glymur reference devices. The driver handles fan
+>>> +	  control, temperature sensors, access to EC state changes and supports
+>>> +	  reporting suspend entry/exit to the EC.
+>>> +
+>>> +	  This driver currently supports Hamoa/Purwa/Glymur reference devices.
+>>> +
+>>>  endif # ARM64_PLATFORM_DEVICES
+>>> diff --git a/drivers/platform/arm64/Makefile b/drivers/platform/arm64/Makefile
+>>> index 60c131cff6a1..7681be4a46e9 100644
+>>> --- a/drivers/platform/arm64/Makefile
+>>> +++ b/drivers/platform/arm64/Makefile
+>>> @@ -9,3 +9,4 @@ obj-$(CONFIG_EC_ACER_ASPIRE1)	+= acer-aspire1-ec.o
+>>>  obj-$(CONFIG_EC_HUAWEI_GAOKUN)	+= huawei-gaokun-ec.o
+>>>  obj-$(CONFIG_EC_LENOVO_YOGA_C630) += lenovo-yoga-c630.o
+>>>  obj-$(CONFIG_EC_LENOVO_THINKPAD_T14S) += lenovo-thinkpad-t14s.o
+>>> +obj-$(CONFIG_EC_QCOM_HAMOA) += qcom-hamoa-ec.o
+>>> diff --git a/drivers/platform/arm64/qcom-hamoa-ec.c b/drivers/platform/arm64/qcom-hamoa-ec.c
+>>> new file mode 100644
+>>> index 000000000000..0f883130ac9a
+>>> --- /dev/null
+>>> +++ b/drivers/platform/arm64/qcom-hamoa-ec.c
+>>> @@ -0,0 +1,451 @@
+>>> +// SPDX-License-Identifier: GPL-2.0-only
+>>> +/*
+>>> + * Copyright (c) 2024 Maya Matuszczyk <maccraft123mc@gmail.com>
+>>> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+>>> + */
+>>> +
+>>> +#include <linux/bitfield.h>
+>>> +#include <linux/bits.h>
+>>> +#include <linux/device.h>
+>>> +#include <linux/err.h>
+>>> +#include <linux/i2c.h>
+>>> +#include <linux/interrupt.h>
+>>> +#include <linux/kernel.h>
+>>> +#include <linux/module.h>
+>>> +#include <linux/pm.h>
+>>> +#include <linux/slab.h>
+>>> +#include <linux/thermal.h>
+>>> +
+>>> +#define EC_SCI_EVT_READ_CMD	0x05
+>>> +#define EC_FW_VERSION_CMD	0x0e
+>>> +#define EC_MODERN_STANDBY_CMD	0x23
+>>> +#define EC_FAN_DBG_CONTROL_CMD	0x30
+>>> +#define EC_SCI_EVT_CONTROL_CMD	0x35
+>>> +#define EC_THERMAL_CAP_CMD	0x42
+>>> +
+>>> +#define EC_FW_VERSION_RESP_LEN	4
+>>> +#define EC_THERMAL_CAP_RESP_LEN	3
+>>> +#define EC_FAN_DEBUG_CMD_LEN	6
+>>> +#define EC_FAN_SPEED_DATA_SIZE	4
+>>> +
+>>> +#define EC_MODERN_STANDBY_ENTER	0x01
+>>> +#define EC_MODERN_STANDBY_EXIT	0x00
+>>> +
+>>> +#define EC_FAN_DEBUG_MODE_OFF   0
+>>> +#define EC_FAN_DEBUG_MODE_ON    BIT(0)
 >>
->> Link: https://www.nxp.com/design/design-center/development-boards-and-designs/parallel-lcd-display:TM050RDH03-41 [1]
->> Signed-off-by: Liu Ying <victor.liu@nxp.com>
->> ---
->>  arch/arm64/boot/dts/freescale/Makefile             |   2 +
->>  .../imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtsi       | 110 +++++++++++++++++++++
->>  .../imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtso       | 106 +-------------------
-> 
-> Can you add some description about raname in commit message?
-
-I'll add some description about the file copy in commit message.
-
-> Use -C option to create patch.
-
-Will do.
-
-> 
-> ...
->> diff --git a/arch/arm64/boot/dts/freescale/imx93-9x9-qsb-tianma-tm050rdh03.dtso b/arch/arm64/boot/dts/freescale/imx93-9x9-qsb-tianma-tm050rdh03.dtso
->> new file mode 100644
->> index 000000000000..c233797ec28c
->> --- /dev/null
->> +++ b/arch/arm64/boot/dts/freescale/imx93-9x9-qsb-tianma-tm050rdh03.dtso
->> @@ -0,0 +1,14 @@
->> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
->> +/*
->> + * Copyright 2026 NXP
->> + */
->> +
->> +#include <dt-bindings/gpio/gpio.h>
->> +#include "imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtsi"
->> +
->> +&{/} {
->> +	panel {
->> +		compatible = "tianma,tm050rdh03";
->> +		enable-gpios = <&pcal6524 8 GPIO_ACTIVE_HIGH>;
->> +	};
->> +};
-> 
-> Is it possible to appply this overlay file and kd50g21-40nt-a1 overlay file
-> 
-> to imx93-9x9-qsb.dtb, so needn't create dtsi.
-
-I'm sorry, I don't get your question here.
-Anyway, the DT overlays are needed, because the 40-pin EXP/PRI interface on
-the i.MX93 9x9 QSB board can not only connect to a DPI panel adapter board
-but also to an audio hat[2], and maybe more.  The newly introduced .dtsi
-file just aims to avoid duplicated code.
-
-[2] https://www.nxp.com/design/design-center/development-boards-and-designs/mx93aud-hat-audio-board:MX93AUD-HAT
-
-> 
-> Frank
+>> Add include for BIT().
 >>
->> ---
->> base-commit: 816f193dd0d95246f208590924dd962b192def78
->> change-id: 20260407-tianma-tm050rdh03-imx93-9x9-qsb-6e4bbbde3d08
+> 
+> Added <linux/bits.h> in v6 to address this.
+> 
+>>> +#define EC_FAN_ON               BIT(1)
+>>> +#define EC_FAN_DEBUG_TYPE_PWM   BIT(2)
+>>> +#define EC_MAX_FAN_CNT		2
+>>> +#define EC_FAN_NAME_SIZE	20
+>>> +#define EC_FAN_MAX_PWM		255
+>>> +
+>>> +enum qcom_ec_sci_events {
+>>> +	EC_FAN1_STATUS_CHANGE_EVT = 0x30,
+>>> +	EC_FAN2_STATUS_CHANGE_EVT,
+>>> +	EC_FAN1_SPEED_CHANGE_EVT,
+>>> +	EC_FAN2_SPEED_CHANGE_EVT,
+>>> +	EC_NEW_LUT_SET_EVT,
+>>> +	EC_FAN_PROFILE_SWITCH_EVT,
+>>> +	EC_THERMISTOR_1_THRESHOLD_CROSS_EVT,
+>>> +	EC_THERMISTOR_2_THRESHOLD_CROSS_EVT,
+>>> +	EC_THERMISTOR_3_THRESHOLD_CROSS_EVT,
+>>> +	/* Reserved: 0x39 - 0x3c/0x3f */
+>>> +	EC_RECOVERED_FROM_RESET_EVT = 0x3d,
+>>> +};
+>>> +
+>>> +struct qcom_ec_version {
+>>> +	u8 main_version;
+>>> +	u8 sub_version;
+>>> +	u8 test_version;
+>>> +};
+>>> +
+>>> +struct qcom_ec_thermal_cap {
+>>> +#define EC_THERMAL_FAN_CNT(x)		(FIELD_GET(GENMASK(1, 0), (x)))
+>>> +#define EC_THERMAL_FAN_TYPE(x)		(FIELD_GET(GENMASK(4, 2), (x)))
+>>> +#define EC_THERMAL_THERMISTOR_MASK(x)	(FIELD_GET(GENMASK(7, 0), (x)))
+>>> +	u8 fan_cnt;
+>>> +	u8 fan_type;
+>>> +	u8 thermistor_mask;
+>>> +};
+>>> +
+>>> +struct qcom_ec_cooling_dev {
+>>> +	struct thermal_cooling_device *cdev;
+>>> +	struct device *parent_dev;
+>>> +	u8 fan_id;
+>>> +	u8 state;
+>>> +};
+>>> +
+>>> +struct qcom_ec {
+>>> +	struct qcom_ec_cooling_dev *ec_cdev;
+>>> +	struct qcom_ec_thermal_cap thermal_cap;
+>>> +	struct qcom_ec_version version;
+>>> +	struct i2c_client *client;
+>>> +};
+>>> +
+>>> +static int qcom_ec_read(struct qcom_ec *ec, u8 cmd, u8 resp_len, u8 *resp)
+>>> +{
+>>> +	int ret;
+>>> +
+>>> +	ret = i2c_smbus_read_i2c_block_data(ec->client, cmd, resp_len, resp);
+>>> +
+>>> +	if (ret < 0)
+>>> +		return ret;
+>>> +	else if (ret == 0 || ret == 0xff)
+>>> +		return -EOPNOTSUPP;
+>>> +
+>>> +	if (resp[0] >= resp_len)
+>>> +		return -EINVAL;
+>>> +
+>>> +	return 0;
+>>> +}
+>>> +
+>>> +/*
+>>> + * EC Device Firmware Version:
+>>> + *
+>>> + * Read Response:
+>>> + * ----------------------------------------------------------------------
+>>> + * | Offset	| Name		| Description				|
+>>> + * ----------------------------------------------------------------------
+>>> + * | 0x00	| Byte count	| Number of bytes in response		|
+>>> + * |		|		| (excluding byte count)		|
+>>> + * ----------------------------------------------------------------------
+>>> + * | 0x01	| Test-version	| Test-version of EC firmware		|
+>>> + * ----------------------------------------------------------------------
+>>> + * | 0x02	| Sub-version	| Sub-version of EC firmware		|
+>>> + * ----------------------------------------------------------------------
+>>> + * | 0x03	| Main-version	| Main-version of EC firmware		|
+>>> + * ----------------------------------------------------------------------
+>>> + *
+>>> + */
+>>> +static int qcom_ec_read_fw_version(struct device *dev)
+>>> +{
+>>> +	struct i2c_client *client = to_i2c_client(dev);
+>>> +	struct qcom_ec *ec = i2c_get_clientdata(client);
+>>> +	struct qcom_ec_version *version = &ec->version;
+>>> +	u8 resp[EC_FW_VERSION_RESP_LEN];
+>>> +	int ret;
+>>> +
+>>> +	ret = qcom_ec_read(ec, EC_FW_VERSION_CMD, EC_FW_VERSION_RESP_LEN, resp);
+>>> +	if (ret < 0)
+>>> +		return ret;
+>>> +
+>>> +	version->main_version = resp[3];
+>>> +	version->sub_version = resp[2];
+>>> +	version->test_version = resp[1];
+>>> +
+>>> +	dev_dbg(dev, "EC Version %d.%d.%d\n",
+>>> +		version->main_version, version->sub_version, version->test_version);
+>>> +
+>>> +	return 0;
+>>> +}
+>>> +
+>>> +/*
+>>> + * EC Device Thermal Capabilities:
+>>> + *
+>>> + * Read Response:
+>>> + * ------------------------------------------------------------------------------
+>>> + * | Offset		| Name		| Description				|
+>>> + * ------------------------------------------------------------------------------
+>>> + * | 0x00		| Byte count	| Number of bytes in response		|
+>>> + * |			|		| (excluding byte count)		|
+>>> + * ------------------------------------------------------------------------------
+>>> + * | 0x02 (LSB)	| EC Thermal	| Bit 0-1: Number of fans		|
+>>> + * | 0x3		| Capabilities	| Bit 2-4: Type of fan			|
 >>
->> Best regards,
+>> 0x03 ?
+>>
+> 
+> Typo, Will fix to 0x03 in next respin.
+> 
+>>> + * |			|		| Bit 5-6: Reserved			|
+>>> + * |			|		| Bit 7: Data Valid/Invalid		|
+>>> + * |			|		|	 (Valid - 1, Invalid - 0)	|
+>>> + * |			|		| Bit 8-15: Thermistor 0 - 7 presence	|
+>>> + * |			|		|	    (1 present, 0 absent)	|
+>>> + * ------------------------------------------------------------------------------
+>>> + *
+>>> + */
+>>> +static int qcom_ec_thermal_capabilities(struct device *dev)
+>>> +{
+>>> +	struct i2c_client *client = to_i2c_client(dev);
+>>> +	struct qcom_ec *ec = i2c_get_clientdata(client);
+>>> +	struct qcom_ec_thermal_cap *cap = &ec->thermal_cap;
+>>> +	u8 resp[EC_THERMAL_CAP_RESP_LEN];
+>>> +	int ret;
+>>> +
+>>> +	ret = qcom_ec_read(ec, EC_THERMAL_CAP_CMD, EC_THERMAL_CAP_RESP_LEN, resp);
+>>> +	if (ret < 0)
+>>> +		return ret;
+>>> +
+>>> +	cap->fan_cnt = min(EC_MAX_FAN_CNT, EC_THERMAL_FAN_CNT(resp[1]));
+>>> +	cap->fan_type = EC_THERMAL_FAN_TYPE(resp[1]);
+>>> +	cap->thermistor_mask = EC_THERMAL_THERMISTOR_MASK(resp[2]);
+>>> +
+>>> +	dev_dbg(dev, "Fan count: %d Fan Type: %d Thermistor Mask: %x\n",
+>>
+>> Please add include for dev_dbg().
+>>
+>> It seems you've missed at least some of my comments to v5, please recheck
+>> those comments. I won't look further for now.
+>>
 >> --
->> Liu Ying <victor.liu@nxp.com>
+>>  i.
 >>
+> 
+> Added <linux/device.h> for dev_dbg() in v6, will include
+> <linux/dev_printk.h> as well in in v8. That said, all your v5 comments
+> have been addressed, here is a summary of what was fixed:
+> 
+> - Add <linux/bits.h> for BIT()
+> - Add <linux/err.h> for IS_ERR()
+> - Switch thermistor mask format specifier from %d to %x
+> - Add missing braces
+> - Remove empty line within variable declarations
+> - Change loop counter i to unsigned int
+> - Replace snprintf() with scnprintf()
+> - Use sizeof(name) instead of the EC_FAN_NAME_SIZE macro directly
+> - Condense devm_thermal_of_cooling_device_register() to 2 lines
+> 
+> Apologies if it appeared otherwise. If anything was missed, please do
+> point it out and I will address it in the next respin.
+> 
+
+Hi Ilpo,
+
+Could you please take a look at this when you get a chance?
 
 -- 
-Regards,
-Liu Ying
+Best Regards,
+Anvesh
+
