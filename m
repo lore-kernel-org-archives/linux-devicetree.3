@@ -1,126 +1,98 @@
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3B237CD24
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:11:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A123262FFC
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:15:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775635886; cv=none; b=PYUqW7gNF2wISJoNxlIiHH5kafUqoiNmRAXHVKm83aXdoIuksXJxAJb/mdNYrg/OLkf+i/brXJBbh7kIude5/Djxi9CxDBtLWFnRiOX5sC2QNzVsYB7fMIM3ZqkvmXr8TaWHkag+6Ah/YubCu/u4cyl4kNUbO/OMwGu3y4U3fPM=
+	t=1775636127; cv=none; b=i3SviMhoEODwvgR6mg/pEMKIwyMeTtVG32j0PrAGP28uHrcxd6RJYnDmfOSLRTPgbJ6PuJwoEI874s4+vocsHekn74gAIMBW6NvLaBoetBEdi3kkzeOa7XX7TjoyY85oRnz4rbIozTFK2P3enhhBIIzvu36yjG3zHamuQkO2VkU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775635886; c=relaxed/simple;
-	bh=qK0XOhdUp8ewL5EwkKLZy+s840v+LEgMIWvVBSzPG1Q=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=dlEvHCjPBmic/KPihdHAHsOqfZ6w366PH9cz+yo7Ofk6P3cmN89UAUGUsdOxUTYBu/K+Y6DwX6NacXQcKYrEXF8xLSgv+arUz+pz2nwu9dOCAlpWGgLJvtDt9/rd8ZuQgYCl25VS+0757St0TJikT5QUC2zpltWOcoT5w2BOUJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=IFV1Uasy; arc=none smtp.client-ip=209.85.218.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1775636127; c=relaxed/simple;
+	bh=xZTSZRs0sbRDgY1K81wjxHHQ/9DUVcEHhVIDQRsGRhI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lEtWZkKhGtp6bHtgWveewri3oW5m/EdF7d9BYC0xXlyf/C/01RnSRYjrAPrqOfw9PY3Hs8/8oRWsbGXwR8Ftqoqxzv5TOpzQ6csxgYCerKr9H+hRCpWv3dQmTHSvsP7+H1poCjR1G2o1WAAlv7y/utA7QJEJNQoObifC9O1lDp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EdzAMEba; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="IFV1Uasy"
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-b9c755b2cdeso663771366b.2
-        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 01:11:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1775635883; x=1776240683; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XS7jjiupqdwNkh5OVoHcVKRKm0KpURxAwvyTzn+V6qk=;
-        b=IFV1Uasyu5dKvZ/kbi3oSrrcuNBV6c44rIuZRFJHMQkeu3DzNZYMlWd1tHOJeD9Y2n
-         oWmvlk+kJVL803bJIcsYduQI/QIgfPM4U+AcfrIMdI/35hufJeVF79Il5OnPQqDVzWrC
-         vt6gQTn7rM5T9Ev0DDbS9m/dI8Hkol+OEt46FFQ8S4WpUDEQ/XSbS8Swg3fdes9KMLfz
-         0g7tq57LWUbmk21doLWlDjGd0IKr/RmgzY8/NcpQwoRrOy6Pe00I3bzdC9A/Fjc1v9VD
-         3xhL5b4EDtx3CeUBDTF6gMkcaDxHDTseL4Ch6Ab9Xfsk0668G7yvin1SimYIsFu2BSmW
-         BS1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775635883; x=1776240683;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=XS7jjiupqdwNkh5OVoHcVKRKm0KpURxAwvyTzn+V6qk=;
-        b=SKNedfo2LzXY6AtODUzHDFIpAvBwoBYpIr4dVHTA2+/emtKUaKtF/PGF/ws4y7JAo4
-         So1sVsmcKkLIHxudHnJd00vj0CHOgBf4oEROBUs1q9BVkHmqKaC9mhp8lj6JqxHlJVJo
-         IrbWX7pdDinrM7gPtZuLm+10I40VMs0FvjdvfjLie7kJz01JPMa9/8evcz2bzgSgGeP5
-         WXvh3lvp9/SS8+6k+jvbMF6yXuvmNrA5weDBDEVv+eT5AIGX4qRNVAFrPMewNCeHJOgC
-         Zj+CJX9SNZ6Jrr1yy7fBxuW72n46yEokACMqJU6Z4Cn9ckeLJ2gdHMMjtRmFCvrYNLEw
-         wqOA==
-X-Forwarded-Encrypted: i=1; AJvYcCVpDYS9fGHUX1MXEBZc2eo93Xc4CrKO/qz4zr6ZvYMPxlSqnbnoZp2tUlvVD9/8T+wiakqTNutLsAEn@vger.kernel.org
-X-Gm-Message-State: AOJu0YxKAvjAFNmVyq4i+E2A75y0DZVtN2YtPNc6fGzHXsj+A0KwbkeP
-	ieschAfWzAcd5X2JXIzoz5YWR4gtPusfkIHZsKwo3mO4UAEGwC/D/y8Nobj4uGi9z/Q=
-X-Gm-Gg: AeBDiet7B72BG8Trb+7eADM/QjE0EUHHBdlxi7AQxkkrQt9NfBjgsDsGyuBYfdMYjG0
-	SW02C9pQDebvSt816XV5i5vFrrGR7yNsBDWucBlZR4bvdz3YHa5ZmPd4v28auk8b77FN3YARyN7
-	kc/P20r054GGOFvHJfQEBqiCBAcZinPr9rlO6OQAPtmNl/Ur25JE5ZvSzyDo7nprjCywNHlhfxK
-	8sL0tHMPvhlnh3iXv5IRj1EiznBPhP3h8Am3NBS4YgoNcRxbF3cnAhV97vezkgicXhe32ktXNPW
-	2YwT3YGgFQqTflPi+Ssy3SZsgX10DsQR3I4ijmwyCrj3DtBmQ9ZVGD5OIjg5e3eVHwCqjFkkHuG
-	u5zfApMVq/Rj4gWUrcLqKUgdmc4smxzVu1B+fYpdja9PtXW33CrRyXsZ6kiDTEwfQniF2qL41cI
-	9CjBOeTT3SVzQGI2NDtMpNBRrfmdc94+PqP0Oy6llf260yHAMSmT8CudPL4x6s5Ljuqu/Y
-X-Received: by 2002:a17:907:9302:b0:b9d:14e9:8416 with SMTP id a640c23a62f3a-b9d14e99155mr231127466b.37.1775635883060;
-        Wed, 08 Apr 2026 01:11:23 -0700 (PDT)
-Received: from localhost (144-178-202-139.static.ef-service.nl. [144.178.202.139])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9c3c574041sm634897066b.0.2026.04.08.01.11.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 08 Apr 2026 01:11:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EdzAMEba"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45370C2BCC9
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:15:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775636127;
+	bh=xZTSZRs0sbRDgY1K81wjxHHQ/9DUVcEHhVIDQRsGRhI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=EdzAMEbaoAnwjaLYx0qzcbimv03/A8Yk6Fbq3r0R1iFfdf4Z6C7AG85cLOUpTbzB3
+	 0IMj4KLokxXA8A/AunIVVsYNUkMz1qGzZ9lSlZhKexHjmCZOsMsmso2fWhlzIdAxpk
+	 yDbFfRTCHmB6hMFHnmhldWEbWIT1Swb4JT3AEv4g6uaTTkzD3Zn3UiWCr3ku/SaHCa
+	 rbpiJZtAoSx6CdbB2ul9eI937QKOMmZgJnCJqOTCYl+kT1koFVUF7RXgGcQGSmhi6E
+	 Od45wUmL4X6+Ci5KINf5W4Mdl3Ri9XvnVFzaPrZrHCgrljyvGSw1DH360UFLKnpGlQ
+	 e14xIoWW85i4w==
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-7991db3dc98so64933357b3.0
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 01:15:27 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCXwn98tEDxELd6YAgoMuBO2QfMwSn2kcV6QvpxFIv9hQeuUVtIdNK8+eUwowkAGKrMXsDwFPBQUekor@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywf1ij1Mm79UmEzxwxOOfEiroQ/OV8kWqkhQ7rcnn35K30w7fri
+	2f25dUFxX03mfIhhB4ld+gLk6IXWcShh4WuId4FwllJNwc/aLmHlScW4RhCp4uswBWSJs5hGBe0
+	1vuN2tuDnYsoznlCbjU/FnOdqqDbYkVw=
+X-Received: by 2002:a05:690c:6c13:b0:79b:e346:fcfb with SMTP id
+ 00721157ae682-7a4d536d25amr203296817b3.32.1775636126528; Wed, 08 Apr 2026
+ 01:15:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20260401-waveshare-dsi-touch-v1-0-5e9119b5a014@oss.qualcomm.com> <20260401-waveshare-dsi-touch-v1-12-5e9119b5a014@oss.qualcomm.com>
+In-Reply-To: <20260401-waveshare-dsi-touch-v1-12-5e9119b5a014@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 8 Apr 2026 10:15:13 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnAaUzHun-i7PBLzFQmsKCXXfRO+4hAgTFCZtLm_Bu6iw@mail.gmail.com>
+X-Gm-Features: AQROBzDPMsTo8Q-h8qP3H_WTkRwwClJVDSsQZesP_kI3xg0qbihfSen8BjVkm48
+Message-ID: <CAD++jLnAaUzHun-i7PBLzFQmsKCXXfRO+4hAgTFCZtLm_Bu6iw@mail.gmail.com>
+Subject: Re: [PATCH 12/19] drm/panel: jadard-jd9365da-h3: support variable DSI configuration
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Cong Yang <yangcong5@huaqin.corp-partner.google.com>, Ondrej Jirman <megi@xff.cz>, 
+	Javier Martinez Canillas <javierm@redhat.com>, Jagan Teki <jagan@edgeble.ai>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 08 Apr 2026 10:11:22 +0200
-Message-Id: <DHNMDZ7M0BVS.36Z923XKNXPEC@fairphone.com>
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Luca Weiss"
- <luca.weiss@fairphone.com>
-Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Bjorn
- Andersson" <andersson@kernel.org>, "Konrad Dybcio"
- <konradybcio@kernel.org>, <~postmarketos/upstreaming@lists.sr.ht>,
- <phone-devel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: milos: Add IMEM node
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260407-milos-imem-v2-0-5084a490340c@fairphone.com>
- <20260407-milos-imem-v2-2-5084a490340c@fairphone.com>
- <20260408-adamant-hairy-galago-61deed@quoll>
-In-Reply-To: <20260408-adamant-hairy-galago-61deed@quoll>
 
-Hi Krzysztof,
+Hi Dmitry,
 
-On Wed Apr 8, 2026 at 9:34 AM CEST, Krzysztof Kozlowski wrote:
-> On Tue, Apr 07, 2026 at 05:11:11PM +0200, Luca Weiss wrote:
->> Add a node for the IMEM found on Milos, which contains pil-reloc-info
->> and the modem tables for IPA, among others.
->>=20
->> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
->> ---
->> Not happy about the names of the subnodes. pil-reloc-sram is not allowed
->> it seems. Glymur calls it "pil-sram@94c", not sure this is wanted?
->>=20
->> Please advice.
->> ---
->>  arch/arm64/boot/dts/qcom/milos.dtsi | 20 ++++++++++++++++++++
->>  1 file changed, 20 insertions(+)
->>=20
->> diff --git a/arch/arm64/boot/dts/qcom/milos.dtsi b/arch/arm64/boot/dts/q=
-com/milos.dtsi
->> index 4a64a98a434b..0c69d5810f5e 100644
->> --- a/arch/arm64/boot/dts/qcom/milos.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/milos.dtsi
->> @@ -2289,6 +2289,26 @@ scl-pins {
->>  			};
->>  		};
->> =20
->> +		sram@14680000 {
->> +			compatible =3D "qcom,milos-imem", "mmio-sram";
->> +			reg =3D <0x0 0x14680000 0x0 0x2c000>;
->> +			ranges =3D <0 0 0x14680000 0x2c000>;
+thanks for your patch!
+
+On Wed, Apr 1, 2026 at 9:27=E2=80=AFAM Dmitry Baryshkov
+<dmitry.baryshkov@oss.qualcomm.com> wrote:
+
+> Several panels support attachment either using 4 DSI lanes or just 2. In
+> some cases, this requires a different panel mode to fulfill clock
+> requirements. Extend the driver to handle such cases by letting the
+> panel description to omit lanes specification and parsing number of
+> lanes from the DT.
 >
-> Use hex here as well.
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+(...)
 
-Will do: ranges =3D <0x0 0x0 0x14680000 0x2c000>;
+> +       if (dsi_ctx->dsi->lanes =3D=3D 2)
+> +               mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x80, 0x01);
+> +       else
+> +               mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x80, 0x03);
 
-Do you also have a comment around the name of the subnodes? Do you think
-they're okay as-is, or should they be changed?
+If lanes 2 we do unexplicable magic A else we do unexplicable magic B?
 
-Regards
-Luca
+Do we know more about what is actually going on here?
+
+Can you check the datasheet?
+
+The patch is nice anyway and no big deal so, so +/- that fixup:
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+
+Yours,
+Linus Walleij
