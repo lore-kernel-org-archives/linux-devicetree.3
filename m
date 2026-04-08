@@ -1,87 +1,29 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B621C37CD4B
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 09:45:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 936883B2FFB;
+	Wed,  8 Apr 2026 09:47:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.194.254.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775641542; cv=none; b=o+5seqxtoV6ZG8HmTS7uKiI4oMoWNFSh37vEeWQINRcHqpJRHSHRnCt+vlQHpnEJVJINfg/AnbasXOVA4D4VMDlLS288kF5h5lvr8tNBN/gsqLcDWZx8b7KuyKh7nNaXdPbzKylaTprGW3p1/hIRIlCsowPFylNzdldgOnJACdM=
+	t=1775641678; cv=none; b=PABJL/jMITzVpPz2Wgnb9vNTxz3hDKDSU0VXOJuOpvyeLLfOqFpX0T0IiRhFH6K81CHUrYDJpRUZwixNKZMYeBWxs9t6AlqK7qHiRaM5rwOuP15qqTPD5oy9k0RVdeBDoHEG8sK9SfjjVkdlzFX7ocVJfl84gIsEMyFP6srJxqg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775641542; c=relaxed/simple;
-	bh=uU5MKqcc7S1AZTc7G0DzeE9Lz2K603zklKOucPKspro=;
+	s=arc-20240116; t=1775641678; c=relaxed/simple;
+	bh=vRMSw+D7Onb1i16x471HfuzfJfnv5P/xiwTI/8jnhsA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MoAEzwfOdZo4iEcI7NKuuBsXkHLmC9DB2Ivh6hIluyuivHT2bmn1i/wtDW8qWtHmWNH4+Gup4Nva54LAvhKjrOUx6TuApPkAp78VZ9aRsUop50IMe39SZOphzc0rMwQpOU6LdiOE5OJ7CO3tTu6VTVaVXChgakjb+Q7maWESTs0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=h9REHJRJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XFD2phYq; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="h9REHJRJ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XFD2phYq"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6387v93D1796070
-	for <devicetree@vger.kernel.org>; Wed, 8 Apr 2026 09:45:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	PyuYaeJsnY00/XTkcl7oyT2eXIkuHhnCGydi3xSOPbI=; b=h9REHJRJ/zM7VS3t
-	yLiAMnx5+zCrIn7pIVypDZhRVgJOfiqIyTLrR5WXR0DZOdVi8JjvdcgPMa7EzmBl
-	SWhyGWFwMHfpfL1n4Lj6K6vLhG5VaZ2hnGeJNLD4dyp8emaS3fTTtqJZWezX5aMD
-	Df8rX7rob+pp5efIbWUDoTr1fZSXoQKcSTc0abmP6U1+KFO4DwfrLnPpBTEn76dG
-	CrKFHF23LxoWewcrszFFufxyZLHUBl4D877aUZQQmVVoC6eHrlnEQMc7PVVLBtHy
-	9w4Nc509P08Vx66QZebX1ES1NQkPV1fEG31AelX7zzLTcJ+VDl4yroi/TNC5YZEx
-	A2Barg==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dd51dbget-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 09:45:40 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-89eadc12c84so22998656d6.2
-        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 02:45:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775641539; x=1776246339; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=PyuYaeJsnY00/XTkcl7oyT2eXIkuHhnCGydi3xSOPbI=;
-        b=XFD2phYqetaG8/7wJiIwhFVPsLmTFw8NXVFv4mJA58bvPcUEUh+6CsCZPieY5dSBnB
-         CfXNjp2dZuuD7T7jGCBE3OumpHK4FvmZC5/pXY2BUjotTR7WukMIq1G2GRdO1JOsUk14
-         jeSOcAOyr3Dku8Rj/9tAMNg1HQU0mOQDZ1kOEYFjwqQExOifW0a0A3jqwFXuahk3cDr3
-         Max0WGSKGRvwiYeBxmc272lHsuNui6VHlT2vJEbwlvWmgc0zDZQC0OXOMUe5J5ylw/qY
-         f+DI6iGMFwoYXa2zSSTFfDiX6IgHBzv2rpHoJkLYpahbklhjqjlN0mjllWjr75yUt+jL
-         kYBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775641539; x=1776246339;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=PyuYaeJsnY00/XTkcl7oyT2eXIkuHhnCGydi3xSOPbI=;
-        b=fjcfSLHE5svYZNwFSJbaAXJCksHwiP5jdxpv/sN6N0jJKg5EIs2w6U5kPraAb+ilj1
-         n1y1moBRFg5Q7pECe3JnIeYIt/aj/5VSMAplEhIHTXqxdbc9jQJ84AO2QwPoCIuRTm3y
-         0ybDi8C7JX6gE7Ga5BFTZK17Lf2Gl+TuJV7nrEDVttv8QkUsmmvXYXSD0+U5iVtF6q8O
-         NTBBIDIWCT33vZNUVFuYpK2fXiJdtCwffi0eCwxIjTTn/M93FYflATdG87lPaXhbtWcM
-         f8PErw6m7I17DACohcbtUPIbdX0FIsoqbNVYrj2dTzgMy4OG1Izdr1s1fmFTdFxDX4Id
-         fePA==
-X-Forwarded-Encrypted: i=1; AJvYcCUMzs2gD6qK4L4XBflfXVo0y/j5z7zETnOSc901aJ308EZajdPHR50SKKoVdtdFPPDaH+FMMURm3QYo@vger.kernel.org
-X-Gm-Message-State: AOJu0YyRd6I0qbPaCbjY6xEqQOFcarkCzMn8M4Rldbx+nmc2dy4qtVoi
-	aPuedlpNE3zEcZOxS7oxBMv9t+70rDBBXel4bpzLzs3TPSjrhz2aQU450StFsp3t1tIYoRW2G4v
-	miAwv6jTUIlDpvjfNCA0RO3QpZKf7WY9e753tyC3RhRqH1E4s4w/tAV42V+rjVPgK
-X-Gm-Gg: AeBDiev0bNFOuYGCCf18QIs1BCgI0aYJgp6HWwXou5qnaursxfeR/Vdg5oD8/KWroH+
-	uhhU6hq2HyqgWRBNVazOvQgv1sD67d1S8YrQel2JSVVQ/E3slFcZT2SV3XDqatEr5qGuleEQjsI
-	EjbDQvW4OSQ2FnaNcdmno9TDo14E1i8mrrOXeRsxG74N11G95Wa+wVb17lpn8noH/ACK/d0lkDt
-	tsCnnotSHibpgiOnE/h+A2YJ0okux3OH+yIcrevEOaTnFPsttE1DU52XiaS6kM0BuMnRCkSxfIH
-	F3v3nJmCZZekdG0RB6Op/lN0vR1x3jt/fLnWuQchAj/Nc9aFhWGfYoRJPYeLgUEKuh4l4RGri2s
-	G/jIM6jYaudtdBI5dHqQFkQ/w7ABCKqL4VtZLuHAD65pByb0/xLh+kPeOLRDkU1D+75mQeNua46
-	rY3Y8=
-X-Received: by 2002:ad4:5def:0:b0:8a2:2cc3:2764 with SMTP id 6a1803df08f44-8a701be043bmr237836786d6.1.1775641539097;
-        Wed, 08 Apr 2026 02:45:39 -0700 (PDT)
-X-Received: by 2002:ad4:5def:0:b0:8a2:2cc3:2764 with SMTP id 6a1803df08f44-8a701be043bmr237836646d6.1.1775641538720;
-        Wed, 08 Apr 2026 02:45:38 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9c3cec5c16sm623882466b.40.2026.04.08.02.45.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 08 Apr 2026 02:45:37 -0700 (PDT)
-Message-ID: <cbe889ff-327c-4e06-8747-3c81f9e561e8@oss.qualcomm.com>
-Date: Wed, 8 Apr 2026 11:45:35 +0200
+	 In-Reply-To:Content-Type; b=AwHrPUC4yS5aAooa2zgl6hVzoQRSluXGSvMPXfhFu9kQ3hAYm9Z3zWZmRoncjjo1+2cKRQtjgpzfoAL+ImP9Px7TXLvMP+oF79l5k6S4Xamnp3BortfkIbuV62VfS7xzD/DB5P0JR1P8kOot3KF05FAd2ZlHnRBXLQeAozB6PeU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=18.194.254.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: zesmtpgz1t1775641646t8cacc6c3
+X-QQ-Originating-IP: kd0LEnltCRlYQLDfRjr10DWYXNAdnyVE8Ew3L+fbBMA=
+Received: from [127.0.0.1] ( [116.234.85.158])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 08 Apr 2026 17:47:24 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 6132987564100307657
+Message-ID: <88B7BBB9133FBAD1+ccb025ea-4999-4701-bb18-c57a42cabe2f@radxa.com>
+Date: Wed, 8 Apr 2026 17:47:23 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,56 +31,84 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: eliza: Add QCE crypto
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Thara Gopinath <thara.gopinath@gmail.com>,
-        Herbert Xu <herbert@gondor.apana.org.au>,
-        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260407-crypto-qcom-eliza-v1-0-40f61a1454a2@oss.qualcomm.com>
- <20260407-crypto-qcom-eliza-v1-2-40f61a1454a2@oss.qualcomm.com>
+Subject: Re: [PATCH 12/12] arm64: dts: qcom: qcs6490-radxa-dragon-q6a: add
+ LPASS CPU audio variant
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Judy Hsiao <judyhsiao@chromium.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-sound@vger.kernel.org
+References: <20260407-dragon-q6a-feat-fixes-v1-0-14aca49dde3d@radxa.com>
+ <20260407-dragon-q6a-feat-fixes-v1-12-14aca49dde3d@radxa.com>
+ <29a7dd01-7513-4fe5-8546-d57757b3b2d0@oss.qualcomm.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260407-crypto-qcom-eliza-v1-2-40f61a1454a2@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+From: Xilin Wu <sophon@radxa.com>
+In-Reply-To: <29a7dd01-7513-4fe5-8546-d57757b3b2d0@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: JP3Y4nwY4U0zbZ7lVhK-zDipkd7eWE46
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA4MDA4OSBTYWx0ZWRfXwoW+vCdBSBrS
- dq2eI7tAfXClC7IwXNRIa9IELgDSOP8y5s9+gmAJO1Y/LgvG0BkfGHt/NIC9X7bhMlHS3ma39/N
- akyZREb70MZOaAqRx/FqHHr7arHjdtJ5DBOnyUYjzS0pjP/pCYbfhiOd1jOyirFYahL0uRg33wc
- nhfIY89koTr3z4uv+D7NKk3kKBpBQh/M0rAy8HbGeWog6a1tcD/GqRYRbY5goJLfJT3xxlFaDRk
- MKW0WnKvH2uSXBJbGfTLVlLwIcROrcEfNs6uvAPWWbcOshUeZrLW7sEnNSB49ISq5eVXvAcjO+w
- BGnJWkQ7fxzVgSyIGjVu0HeVB46oio0K/Yd9DkZLm366vWxhoR2YYYyJIYavjx3KbzCVnxucPzl
- 8DVT+wu+jUMSxHzNTYuJ5Ukjt2EsVTE/Tho0ANV+0m/1lS/azYoeeB3/Fp9X/mIptqJMzCwG3HR
- uzxyBJE2TCCVl+4ZEuA==
-X-Authority-Analysis: v=2.4 cv=AcaB2XXG c=1 sm=1 tr=0 ts=69d623c4 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=9nldhgvQxnsrbX0ZkhUA:9 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-GUID: JP3Y4nwY4U0zbZ7lVhK-zDipkd7eWE46
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-08_03,2026-04-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
- phishscore=0 impostorscore=0 spamscore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604080089
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: NlLCQnVI7H1D8qH6xKwhtMFs6ITZOQzlY4hX8artWFkTAtaFxTL87F3k
+	NSakEXzX+wBOl6bCf8Zjl37l5mwJhFDrT1H9r22luUgJn7TXTnSXUS1h1luTTPHvTvwxEM0
+	DBwz1zlQnXGpGMHywujgKZ3McqH/qUCrnyF2M540XypfGzuwLwk6WWP535VXQsI9AYMGhOw
+	uQ6Nb4H7RbMndUDNijmzNQF4rfOJgsQ7KZQmWCxZfu3p2T+8CZNUF6Th0Z70Z5yzPi4aaP3
+	hWl7khcApmZ3qtaVX4fEZqLMQvKVIvjBFKUZMoswSHDGCwk4BY07M7JhgzUrEreOU9VlSuX
+	vAbwgEpc8xHE5MZQNf4qscd1JHtXP+NyF6MWNej3+8cFJpiZ9zy9elRNwNqsRb4Nioj8n6N
+	wv83bxKvVvMvComOQqZ2Hoox8J3bCFRte9uvVD9wWA36ouLPMZx4pdQLu6/TFNOtWLXCs3e
+	LInANQp76LhuRsP5EKWHeGFUgr6O1q66YpzbviqaLB7aZhNbuh0XpcQF+ahutrrXPfLSJ6e
+	NmW3Ptca+gib58w0443+R2ygfE1wEoLvsYq+HnxqH+r21390p2/qbamucOC0m6i7E3czBfJ
+	S/2Zu3urKC6F/D/hmFKnMRlRt8d7zn5YyFI7QpHUWlx3n//gqfZhxGW5Iq3+6zfLi9TNnr+
+	sRxZX9HLuPrDBCxu9z+wT0MW2+/ewGkaLtaArGjIxxddyqIjlbXmTdWlzx6yCxcN79rC7sj
+	q15sTgXaT1dbIVBEfSiPTeSX4aA82RZu+SC7dt0aTKUdQcJdn8Vka5dJ2bdMrxiQaGqwkQv
+	p3sfIOaGzsOmoIaWE2CK22spB5o+2ebIOcYEwDkaO6J74CmGDQb8nGfFrV/5Gr36r1W8PT+
+	N1bXaCojmTGyFSdIbLoHEIKM13tQpehqDh0vVEMdrmcGHhBt/fHtu+28byNiFS5CyzRbozE
+	Q3dKxi4B+F+LZAoP01XzKba8dihD/dvWt4u6H5pV0MLFP4Xm5cIbE7J7q1WybBQt8DP+7XW
+	OuTvXwe2nYJ/SuIqtVin+NNeUru2cwgPgq6HVsr9cDBbIbmH4ix/V9q48akTE=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 
-On 4/7/26 3:51 PM, Krzysztof Kozlowski wrote:
-> Add nodes for the BAM DAM and QCE crypto engine.
+On 4/8/2026 5:06 PM, Konrad Dybcio wrote:
+> On 4/7/26 5:20 PM, Xilin Wu wrote:
+>> Add a qcs6490-radxa-dragon-q6a-lpass-cpu.dts variant for debugging and
+>> bring-up of the host-controlled LPASS audio path on the Radxa Dragon
+>> Q6A.
+>>
+>> This variant enables the LPASS blocks and codec macros needed by the
+>> lpass-cpu driver, wires WCD9380 playback/capture and DisplayPort audio
+>> to the LPASS CDC DMA and DP interfaces, and disables remoteproc_adsp so
+>> that the audio hardware is owned directly by Linux.
+>>
+>> This DTB is an optional configuration for systems booted with the kernel
+>> running at EL2, where direct CPU access to the LPASS hardware is
+>> available. It is useful for users who need low-latency and fully
+>> controllable audio.
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
+> I believe on Chrome platforms it was done this way because at some point
+> it was determined that they would specifically like not to use the DSP.
+> 
+> I think this is more of a hack than anything else.. but at the end of the
+> commit message you mention low latency - is the impact actually measurable?
+> 
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Some of our users also specifically prefer not to use the DSP [1] :)
 
-Konrad
+Based on their testing, the AudioReach/ADSP path imposes a minimum 
+scheduling interval of 10 ms, which is much higher than the 0.67 ms they 
+can get on a Raspberry Pi 5 with direct I2S/DMA.
+
+Since the lpass-cpu setup works properly, I would not consider this a hack.
+
+[1] 
+https://forum.radxa.com/t/dragon-q6a-lpaif-mi2s-registers-locked-by-qualcomm-trustzone-no-direct-low-latency-audio-access-possible/30592
+
+> Konrad
+> 
+
+
+-- 
+Best regards,
+Xilin Wu <sophon@radxa.com>
