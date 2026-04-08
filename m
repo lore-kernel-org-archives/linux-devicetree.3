@@ -1,141 +1,113 @@
 Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C741396B6B;
-	Wed,  8 Apr 2026 07:55:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D866F39891D;
+	Wed,  8 Apr 2026 07:57:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775634948; cv=none; b=DV/f+LI70dhot7OMdYcuFM6iW+rdI8hFPTyC2dVPXkurgwyW4zLy7C9GaI0En14qwTJjRs40TabksJpKgAIidvnQlMn8TbJs695d5DN4MPFzFmPrqby8Jtj/1YAZy5uPgWeUc/riVO/dL+IXoK6d4+rVpQveARl0n+tvsCCX2QM=
+	t=1775635048; cv=none; b=r4/fOSPUaBD8FASVjK7eIZ7uwiPJZwppKOFKA/my2FaXgBzz+9mFoeZomHRdq3jakkgMllbtwYqSELCzFlQc+sYmj/C8Wyl4bwOUaaYXubOIuqKbyUg6Nt7bi+Ugl9geTDN0s7b0IUyhLFuNlXZtjUwg4G+0cFEt5LyRq6nPAHE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775634948; c=relaxed/simple;
-	bh=AH6dJigQs5hz84A7MorI6yrN4/3IGUQSRRNzsp2M+jc=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
-	 References:In-Reply-To; b=aUYdSqz7XfRtIkG90ANbzFEGFVjkknHq/rWkLcguhrYvMPnGF5AxMFPl0siGmD67jmPtB4brqMyUs+cHcj537FCbJb1apR1plfdz9uy0ig0STabqp13vErbvqt/o+hZxl57vhDWaCects4I+1GhnqPYAJ9kItuHs9FvZJfawb9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ZezyUPUb; arc=none smtp.client-ip=185.246.85.4
+	s=arc-20240116; t=1775635048; c=relaxed/simple;
+	bh=RLGEFpyI9pvm/PlKN71Wt8S04ww3ygVZKp8oCyzHPEQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lEmAuIw4PvAXqgrO9t+KJWUvebfyhu4HHw2OzUOFz7q9mZPEjQL1fTZLQesRyGSvnNhobmp7nx8M+ceTKqC3nMScVmfX/HZThjC6rQovD/9Ksm+/oGnZOVXc90iUuwQNPT2qRqOoqv2tqmPoEe6AJrglMPOSNu+gmYELBqe+1V8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=tuQ1FZ2o; arc=none smtp.client-ip=185.246.85.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ZezyUPUb"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="tuQ1FZ2o"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id DD9AC4E42977;
-	Wed,  8 Apr 2026 07:55:43 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 230B94E42978;
+	Wed,  8 Apr 2026 07:57:25 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id B1963603CB;
-	Wed,  8 Apr 2026 07:55:43 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1C65D104503D0;
-	Wed,  8 Apr 2026 09:55:39 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id DF7DD603CB;
+	Wed,  8 Apr 2026 07:57:24 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 22A8E10450313;
+	Wed,  8 Apr 2026 09:57:21 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1775634942; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=rvnKg1xMJhGiVQnrTAtZ8gZFRNiU/MpXI3BNFhAd8Ck=;
-	b=ZezyUPUb0hRfNKObxlk3XBRzRpnx/sdVAvENgYporqPvlkuEv3Wwk3WFSaU2+QkgaAhScv
-	iJKh/iNOZbFZr0wjBtSDBC/aN/g88OlksUTPfvonkovBxkmdCvtGKU/I06lDNEY3zFxdo/
-	C+L6b7wG+1npaTGcIzlshu22I/ezzAa5NkRa9DKy1JPb/FmCnREalQpIH+ioVMALL86seE
-	plPR37RHiiwSvxbB4vbxoRRAYCo3N/uu2oVLr0V1VznsrhG2nJ9XPa+2BtNVnmfERFGjlO
-	izeosxBtFv2W1lnyZ+jWqdyMM8V8E3tvo0yXeFz/TYcyNI2A7xXNc/T4mHzq6w==
+	t=1775635043; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=VR6odhlK+/dkz5N+TCsylMiayDUrGCxEmji/ieXKteg=;
+	b=tuQ1FZ2okNcwPg2TO6vf/DwocO2xVMBHT+AAzfg/45MgDpQ7ku+5U1ePHAn7E+fZd+SqI5
+	HTpLB4OyBjA8JRKQjrW8PNM48Zi3J9pQ0iUatTbtIaca/W4u9Vuk1vswHAxouT7fpOAkcd
+	LXAzW6PXAR8W1+X7sdMMqVXB+kIyHKmi0cVrOzWll41xtbFHpod05IAxG0Gg6WXGXC9OKJ
+	r419Og3E4JKD7qLsM+A8o3lAoVhzWmU7uTkilhzjKHkmYEEZIaMgQbOvPMyVoZNpxMS6Ff
+	JbIzscAwdeVM79FKS+420NkFCk/6yr6iS5jOQ5QguhRmYyIO/grf5K/I22nTZQ==
+Message-ID: <6b637950-2018-41d8-bdd2-27382a9b67d8@bootlin.com>
+Date: Wed, 8 Apr 2026 09:57:20 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 01/11] dt-bindings: regulator: ti,pbias-regulator:
+ Convert to DT schema
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-omap@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260330-omap4-fix-usb-support-v2-0-1c1e11b190dc@bootlin.com>
+ <20260330-omap4-fix-usb-support-v2-1-1c1e11b190dc@bootlin.com>
+ <20260331-demonic-boisterous-spider-5ed5c6@quoll>
+Content-Language: en-US
+From: Thomas Richard <thomas.richard@bootlin.com>
+In-Reply-To: <20260331-demonic-boisterous-spider-5ed5c6@quoll>
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 08 Apr 2026 09:55:37 +0200
-Message-Id: <DHNM1XCPKD6P.1KD9C370G7H90@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [RFC PATCH 15/15] Introduce v18 dtb version
-Cc: "David Gibson" <david@gibson.dropbear.id.au>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Ayush Singh" <ayush@beagleboard.org>, "Geert
- Uytterhoeven" <geert@linux-m68k.org>,
- <devicetree-compiler@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <devicetree-spec@vger.kernel.org>, "Hui Pu"
- <hui.pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>
-To: "Herve Codina" <herve.codina@bootlin.com>
-X-Mailer: aerc 0.20.1
-References: <20260210173349.636766-1-herve.codina@bootlin.com>
- <20260210173349.636766-16-herve.codina@bootlin.com>
- <DHHX3P5TS0D3.VWALCUNJ7LGL@bootlin.com>
- <20260407184423.3060f1cd@bootlin.com>
-In-Reply-To: <20260407184423.3060f1cd@bootlin.com>
+Content-Transfer-Encoding: 7bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue Apr 7, 2026 at 6:44 PM CEST, Herve Codina wrote:
-> Hi Luca,
->
-> On Wed, 01 Apr 2026 17:19:09 +0200
-> "Luca Ceresoli" <luca.ceresoli@bootlin.com> wrote:
->
->> On Tue Feb 10, 2026 at 6:33 PM CET, Herve Codina wrote:
->> > This v18 version will add support for
->> >   - Structured tags.
->> >     Those tags value definition will allow old libfdt, dtc and other
->> >     tools to skip unknown tags if encountered in future dtb version.
->>
->> "old" seems to imply that versions released before today will be able to
->> wkip unknown tags. I think this should be clarified along the lines of:
->>
->>   libfdt, dtc and other tools implementing version v18 will be able to w=
-kip
->>   unknown tags in dtbs generated with later versions of dtc
->
-> Yes, I will add this clarification in the next iteration.
->
->>
->> >   - dt_flags header field.
->> >     For now this flag field is set to 0. It is a placeholder for futur=
-e
->> >     dtb version and could be used to store some dtb related informatio=
-n
->> >     such as the kind of dtb.
->>
->> Is this intended for DT addons?
->>
->> You may mention a realistiv use case here.
->
-> Intended, maybe not. Used by addons, yes, for sure.
->
-> What do you think if I add the following:
->     For instance, the future addons format will use this field to
->     clearly identify that the dtb is an addon dtb.
+Hello Krzysztof,
 
-This clarifies a lot to me, so I think it can be added to the commit
-message.
+On 3/31/26 10:21 AM, Krzysztof Kozlowski wrote:
+> On Mon, Mar 30, 2026 at 03:43:58PM +0200, Thomas Richard wrote:
+>> +$id: http://devicetree.org/schemas/regulator/ti,pbias-regulator.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: PBIAS internal regulator
+>> +
+>> +maintainers:
+>> +  - Thomas Richard <thomas.richard@bootlin.com>
+>> +
+>> +description: |
+> 
+> Do not need '|' unless you need to preserve formatting.
+> 
+>> +  PBIAS internal regulator for SD card dual voltage i/o pads on OMAP SoCs.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    items:
+>> +      - enum:
+>> +          - ti,pbias-dra7
+>> +          - ti,pbias-omap2
+>> +          - ti,pbias-omap3
+>> +          - ti,pbias-omap4
+>> +          - ti,pbias-omap5
+>> +      - const: ti,pbias-omap
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  syscon:
+>> +    description: Phandle of the system control module
+>> +    $ref: /schemas/types.yaml#/definitions/phandle
+>> +
+>> +patternProperties:
+>> +  '^pbias_*':
+> 
+> That wasn't in old binding and underscore is not allowed, so this needs
+> explanation. Old binding mentioned only the names.
 
->> > Compared to previous version, it is worth noting that the dtb is not
->>                                                                ^
->> 				                        "dtb version"
->>
->> > downgrade for all modification but only when unknown tags are removed
->>   ^
->>   downgraded for any
->>
->>
->> > due a property modification.
->>   ^
->>   "due to a ..."
->>
->> I'm not sure I got what you mean by the initial "Compared to previous
->> version". Version(s) of what?
->>
->> If I just remove those 4 words the sentence seems OK to me BTW.
->
-> Is the following clearer?
->
->     It is worth noting that with this v18 version, the dtb version is not
->     downgraded for any modification but only when unknown tags are remove=
-d
->     due to a property modification. In v17 or older version any modificat=
-ion
->     led to a dtb version downgrade.
+I did it to match existing devicetrees.
+I guess I should define properties like 'pbias-mmc' and 'pbias-sim',
+then update node names in devicetrees to match binding.
 
-Yes, totally clear now, thanks!
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Best Regards,
+Thomas
