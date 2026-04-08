@@ -1,246 +1,223 @@
-Received: from box.trvn.ru (box.trvn.ru [45.141.101.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011030.outbound.protection.outlook.com [40.107.130.30])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4D0F37F75C;
-	Wed,  8 Apr 2026 10:42:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.141.101.25
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775644976; cv=none; b=TR1e4iU57wvLq1WGQnsaym3tvwPEh9lyaDmj9eKXgnXb+oMfAk6clIuUpcJYQYHhHLBaYO5n+gChrRV+a5+wa1E3a5f7Zxtfu24B+0Jas0fBsaRoJRfBzDKal/2D6AKyzShOwYl+yI+rylSEOHwpw06PFRHqR/WsB9/fvTZ9m2Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775644976; c=relaxed/simple;
-	bh=RW860wbOyJPK1lrUCMSC83VTWhl2YZIfD3CZo/XgccI=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=Vb/T8ejzIhGoC4b7c4bUeuvVzzingMdbhg2BJ5pJxZzxbO91RjGifmCBufgBvLvGXVMPIz+E1wFP54d8LIpDSyxCkxYg6/OcUP88HTpxAmuUOkyNavzK9mg7coCqQd51n3k+ORfKdIUkpWV4VmkKsirQuU9Szc6Gy9FvWG4Vkcc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=trvn.ru; spf=pass smtp.mailfrom=trvn.ru; dkim=pass (2048-bit key) header.d=trvn.ru header.i=@trvn.ru header.b=ISGQ7Jq2; arc=none smtp.client-ip=45.141.101.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=trvn.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trvn.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1B443AB296;
+	Wed,  8 Apr 2026 10:50:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.30
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775645445; cv=fail; b=a0+8WUEL8xXHQAdwkQYF+h0TVpRCsdFp+qgwJ9DceN3FikkxwoVxfHXMTPPew7D6C2xlvC7FIif7CNNq6ZaTmpt9AngLhv1pp68SWrEYjcbYT7EWxkXWYNgHLJK1cIViZDbJUQad8gPnnkM3hD8lEUIxEq0FHsLh9BqKOtHRo8I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775645445; c=relaxed/simple;
+	bh=SMKifo4IlxmpGvXM8Qjpimgfgm3yVPylIujC8k1HxAA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=JeyqfgziONMImrS/yxoVsIBUG/X8dUEOmuit4WB6vzWc8vgvUPnr3HaR+hQgI5ngucBm+nW48K6ByUzjyU7wj/sDczWZaJTsbfgEOSV9i2CMAqRd33YLxZCCQCGYsE8JHLlMcwxvFFlXzZTT/fQhobCG07RVOHVzU5u/BZMXlSI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=NbdzYXSo; arc=fail smtp.client-ip=40.107.130.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trvn.ru header.i=@trvn.ru header.b="ISGQ7Jq2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=trvn.ru; s=mail;
-	t=1775644966; bh=RW860wbOyJPK1lrUCMSC83VTWhl2YZIfD3CZo/XgccI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=ISGQ7Jq2xxmMcbIJpib4DTRURf1zAjSnyAsOLbVV/IIDk3nBMOPXpMl6WF40+lkLX
-	 HcQFRKt3Qyu1XnHlRhloxPUzcqtM4vu0cFDt25/QN6VoFoTX9ohlB4vCoHGDhWq78D
-	 exF/MRsMw6WGEBQ96e0Qj9tX3NdZTsOFy4iDdLrZDUhyIn2Yw9yBjH953Rn38yqa49
-	 ER07pe9NUDgT9sasmx5/uOj7myxr9RJz+BzldAQcDMKYT3yHdP89FseBiPELM9aFru
-	 /I5LlkjHmPfWZBCNglv37NP+VYPX1lOymihmtAJEKyg8PDQhdLFzyiNRlZKKYx4U4K
-	 et5xs4YsUdoig==
-Received: from authenticated-user (box.trvn.ru [45.141.101.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by box.trvn.ru (Postfix) with ESMTPSA id A5F396E95D;
-	Wed,  8 Apr 2026 15:42:46 +0500 (+05)
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="NbdzYXSo"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lri9zt3eTmaZGYG9q9+tJGuEernPzWO7H4wN6UX8FCiIUGZPFCt7jNWI3ku3BWuVDAEB1D37gZCrb9NGDCmkm8MZ/96dUE7MtBBrHbmBrzlTBWh5EmP70RV5Z6FYjG1wL+aiSfCeWhWpv7ROlSB3v+RHUAgPdXqUQ5glSmE4Pr5JO25/kS/Mk+Dyx1FN5OhK7cbxpc3XKpgx8PtutcCxvUiBuIvxFvnEZcU/BGevXnhXSHDhoRDhwyTvgSz84A3OiPHQvuV5qVE6vdMYs7Z9FOs/vpxpkCsF2LFxNhOAbCpZtQK+9z8CIrs6mqnpV9iK7UA3NIDJS3Cnj3ysJzplSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6LWYBJT6A9zql6fd+QSDsTxkjNUXwQhxfLzwErJ0wPY=;
+ b=wQ73vBum4imY9OE6lvvy69amirH0tVyKg5iJCJ1fKs4qLJZhOVr+liOvjjI3hnrxPaB4amPVP53oesDSLxBnaC8XErFh3v0RxI4RDb7JVOVxG6A8I9/x2TWRVauqr/KY1Xpb3F4HIRGBjTXxgd+V1Zi6JWwveuzWHWiwM4PD+jaTkq7ZRJSmI+l1iVv92wAtBMOMw9s1rnarIRJojKXpsps0/lWbNMGCxfcxhVyr/NvwuNUrduTGNR4eNccp7HpXjYSOZ0B9I/x5AGRHa78LjqgJOMD4NjSblMuM/88CHSp1q6SkHzrLUE2IpEsVZHVoL5g7QcnMcBRtIZk44/HJTg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6LWYBJT6A9zql6fd+QSDsTxkjNUXwQhxfLzwErJ0wPY=;
+ b=NbdzYXSo1VeoNiQArb6cLxy7IQuKUhdFdyQKCWTF+pwzHJ8BdQw0WBONt8kG4B/ery8Q5iAboL5vlQy5vmqQeVSEPJc7sDO3gdNq8Tczrw2E3GcSxp2z3XhthviK4YWBst5OKVHlTO4Mk8dWia1hyTUGQI/motmTXv3muFOqmLsyVfazp406C+bF8o2Ku1+mxB+yIfiqsXOo0JhF1+l4ngzfo3GCh7LKKT2SIR+/VeoVit0dWAGYuMwKt4BR4Id2ZOn5pLJ5k1OGrw8QPMCJ1ljjUn295HVBdpNCCdFst80M7FFbgkXe4YyTVj7I+h+Gc0FazOZBoIdVEEmxJS2VqQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by AM9PR04MB8488.eurprd04.prod.outlook.com (2603:10a6:20b:41b::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Wed, 8 Apr
+ 2026 10:50:40 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9769.018; Wed, 8 Apr 2026
+ 10:50:40 +0000
+Date: Wed, 8 Apr 2026 06:50:31 -0400
+From: Frank Li <Frank.li@nxp.com>
+To: Liu Ying <victor.liu@nxp.com>
+Cc: Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: imx93-9x9-qsb: Add tianma,tm050rdh03 panel
+Message-ID: <adYy9xesCKsYWNBg@lizhi-Precision-Tower-5810>
+References: <20260407-tianma-tm050rdh03-imx93-9x9-qsb-v1-1-24d514a62fdc@nxp.com>
+ <adTUkWvqVUhLiw_J@lizhi-Precision-Tower-5810>
+ <a31e926e-9e7e-4ba4-aafd-0f76f53fa176@nxp.com>
+ <adYKtjPvIgoK2oou@lizhi-Precision-Tower-5810>
+ <f5cd5da8-566d-4dff-b712-3d48927f97eb@nxp.com>
+ <adYRuAU5ueEKHK5l@lizhi-Precision-Tower-5810>
+ <5ce48659-2c6c-4c60-a8e8-9031bdbaa2a3@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5ce48659-2c6c-4c60-a8e8-9031bdbaa2a3@nxp.com>
+X-ClientProxiedBy: SJ0PR03CA0343.namprd03.prod.outlook.com
+ (2603:10b6:a03:39c::18) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 08 Apr 2026 15:42:46 +0500
-From: Nikita Travkin <nikita@trvn.ru>
-To: Xilin Wu <sophon@radxa.com>
-Cc: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-pwm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] pwm: clk-pwm: add GPIO and pinctrl support for
- constant output levels
-In-Reply-To: <20260408-clk-pwm-gpio-v2-2-d22f1f3498a0@radxa.com>
-References: <20260408-clk-pwm-gpio-v2-0-d22f1f3498a0@radxa.com>
- <20260408-clk-pwm-gpio-v2-2-d22f1f3498a0@radxa.com>
-Message-ID: <8030cac3703f9aa1b7a8b476ad92aeae@trvn.ru>
-X-Sender: nikita@trvn.ru
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|AM9PR04MB8488:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7b7572a6-0e6d-4de4-4984-08de955cacd6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|19092799006|52116014|376014|7416014|38350700014|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	rFhnwDrCvKo6q1ccMHNYxCZcJwMKd5eUQ1+T0py9dsrV22qgfOgUQeGf239Pr4M2r8qPlhJwanqRUTe7vpczFxsayJeCfEh/Bil4DugGLQKRRkA3E9eiNbacyK9zegG0rpJdNFYCE+iN8biY7rQiuMTK1VQ+rky/a8+aX4v6QqY4hIwrgy3W22jm7dpYzC1q+0iR3T4jFjg8WGIq6ELIswb0szpmwV/ru753uinZC6lpLKL5BCosOPHAtsCy2vYDdu3YXIsGj3SLBN3UMqoBE7e0SwFzrpN/IYIku7W2DYVlcFcGYnckLz/w14Wh7kjPocyaGBE+23m7Dk7Ibc91uVbxG/OGQLNc0S2wwCyomD9a2cCjWCioa9NJRZnK2sZ08OKwyBUR49ZSwDlxEA4M0htqWc6VkGYxvK1QzYyfcAGvOoiOGhCWmIK8OrvIWcnKgLPOST68p8Awyn19K/nklqkv9GmwQjdxwDDE3+Gk98MS4UclvOrhVe5FACS4askSZJ73bJC9RwSIrxZAxCqYObvIcrN055WUOl7bBmRUTQDD7hPijCNRD/dryWl+MP6tMU/JzBXRoDvP0D1ffrlCmfvIJMgN0iRtmmgY9WlPj+5d53q0Aq3YDermt0zLg4s4LRal5XFOSWXPx1BET+ukvWN8GEllM82M2mBSJ78YvO+/koWD+fJQpJG8ubS74NoJYtz2vf2HhkXLgbaOb5Q6wQzXZ1CuPqODQQLuMuXT9aUmJSOxP6RXjrABduD3JUeLl7HIJcsHEQEwZMEZdASM3wXXTkOHV4tIXCmMY63K4mg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(19092799006)(52116014)(376014)(7416014)(38350700014)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?YEwbxv94EczImo0qDTKiRpAqkdN/ctzBEoWo8pXCzqHyid3CW1RLS+CHfAoZ?=
+ =?us-ascii?Q?j+nfEYUtieWdYmyBbTjOSd7HYVLzpR8WUeCfr9YGCfttw5eNR8+G5n6BMe1E?=
+ =?us-ascii?Q?9O8QxyjHqmtFa9PUG0QHHDgXa+QZLb2yWLwsku5qKOHugD5FelC0Bq+Gnxw5?=
+ =?us-ascii?Q?zFYDVbORYflMP/MBLVekNbFv0mAmSZAa41OIE+jn4tB6VeAi+T7izxBtArZZ?=
+ =?us-ascii?Q?1f3ArBqRdeo9Wkr0QaxihcCQwPoRVynnKTKqX4X9MzwMFqk9N1+ZaZAnQCne?=
+ =?us-ascii?Q?JjdsknhWtA/WppA5NezHwE2wUT52ifaIVmF1v2dWoK32EscfuiRpEHzNFmvx?=
+ =?us-ascii?Q?kLyXIS0u6fGmvzoVJZ06obSYI+r3W4CrqHsSs+IL/ito1NTGjxaDAQdhEkGd?=
+ =?us-ascii?Q?ecW/AjzSdNLZrH6RQ8fx3hi6Jzgc+DgNzwVJ+5ycyTa/eTNbpxyX6Pk5O55v?=
+ =?us-ascii?Q?6nLTxp+qEDRiBy1ExqPMlITGCBE7lev1uNXyHCHBe7nicyv0yhNEt8DH3e3+?=
+ =?us-ascii?Q?ftxlwoYWxv/AgwkJ25J/mQ00WrLfSVAE9ymGFSIZ2uuVkpe3a5Cgbw1m+8nx?=
+ =?us-ascii?Q?pwIrCFq8+pubMK0uKHPCF8nQkOxLcbGaIYqad9nmCPlPHh33QOtnGYHRZara?=
+ =?us-ascii?Q?GgEnlUbk24gIBIvw9hh5os9XgXwNtLXeelO5RX4FhUI+Bu1Mo5THu8cypkbw?=
+ =?us-ascii?Q?6kVwPrO0354idbsb4kjRVGJEDqv/42thXxk7y9K1RzIZRwGppfJ7kei+LUl6?=
+ =?us-ascii?Q?pmQDniCRTCprlOgNEImcm6lqqopSQioOllBaLoFXEX4crtFtZE4AywqTbCT7?=
+ =?us-ascii?Q?KlMQZH46Lgg/9hCv2SVLoB86gvL8uKn5z8o1lFvYpiCBmrnCuo/hRE+kFUGd?=
+ =?us-ascii?Q?9IhoqZQd6e7cthpnjZoQzNCpZagZp2zRNXPh/k+3d7FN0yJ0b44QA62s3QJQ?=
+ =?us-ascii?Q?ZlvtJFkpOi+qhSf5Fq/a9ZQUbt4ddjiMVsvWOCcPi54JLn3hntVFgqlwyLQ7?=
+ =?us-ascii?Q?OtbQ0F2z7KZ/18GM2kA+CUzftyzd8TPhAc3ECR0BHFssE8V39+sWbRz/ZlO1?=
+ =?us-ascii?Q?XN6T2NUH8YT5SbGE82simRmvas2OlyokcgSgJ4RoM5bL3gVKDvS/ByiHrpFC?=
+ =?us-ascii?Q?w5ItRS1sQiEZKn9PJ91eu42+G3uCjKi0+6h3OlYhDtYWCNwNAe687cmepCq/?=
+ =?us-ascii?Q?/Tc8WnUtI69DVPpg6g4UaVXobYSDkJEDcMoycvOH0LtdVVBtVth+tODpeTut?=
+ =?us-ascii?Q?iH33hgPeNZMA/aE6nlU98/qEzNvGOrlgWqpFPnd+jntJ9iElfwINoxkKxRoW?=
+ =?us-ascii?Q?5v7ZmGQD8Ux3FxIhBFxVY1tClj0XxXYvz0GlQaWd832wIckjtFFEFjXiSf2k?=
+ =?us-ascii?Q?49WpvuAGUMI+ThS8ZUY1HfKIm8wnyydnW9vo6DIzsQFR6hDFJgXh8mlMxFms?=
+ =?us-ascii?Q?BH1vTYTvYPy76bTspfvg8edR2Fo2ku/b6McQfF1YqpQ7yXu2/IoXfyDrlMda?=
+ =?us-ascii?Q?qNgO450vWFK1Yh6Cv6tie6YZK0X72yGmhzwwnY5PP6gB3Slc5xat5QaAQrHY?=
+ =?us-ascii?Q?oTBSKboep82vxs4c37HfMyadDtAShHK9qtBbyGWrfuX/VqvIGORu7tEd3eIN?=
+ =?us-ascii?Q?kQtx10YJPcdSoCv0Xkc2eorvpe6q3GCgcJlsW2d7cfWbfwnxeT1omW5ylMEC?=
+ =?us-ascii?Q?jxZ7Gz35nogYjGO8xd+Q0ZN5YwftDW+jdjZ0/5BHBrLXTT+UTqyQ9gNcjO08?=
+ =?us-ascii?Q?63hRBPlrhw=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b7572a6-0e6d-4de4-4984-08de955cacd6
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 10:50:40.5201
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: h+h1fL+pLYIwls00VZoa98vNWn8KwamKdL8bl58teb5keRpZ2h+DmE0GRJxlNfDbMXyFxQOYUpGTZeG+YBlvfQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8488
 
-Xilin Wu писал(а) 08.04.2026 15:07:
-> The clk-pwm driver cannot guarantee a defined output level when the
-> PWM is disabled or when 0%/100% duty cycle is requested, because the
-> pin state when the clock is stopped is hardware-dependent.
-> 
-> Add optional GPIO and pinctrl support: when a GPIO descriptor and
-> pinctrl states ("default" for clock mux, "gpio" for GPIO mode) are
-> provided in the device tree, the driver switches the pin to GPIO mode
-> and drives the appropriate level for disabled/0%/100% states. For
-> normal PWM output, the pin is switched back to its clock function mux.
-> 
-> If no GPIO is provided, the driver falls back to the original
-> clock-only behavior.
-> 
-> Signed-off-by: Xilin Wu <sophon@radxa.com>
-> ---
->  drivers/pwm/pwm-clk.c | 84 ++++++++++++++++++++++++++++++++++++++++++++++++---
->  1 file changed, 80 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/pwm/pwm-clk.c b/drivers/pwm/pwm-clk.c
-> index f8f5af57acba..d7d8d2c2dd0f 100644
-> --- a/drivers/pwm/pwm-clk.c
-> +++ b/drivers/pwm/pwm-clk.c
-> @@ -11,11 +11,20 @@
->   * - Due to the fact that exact behavior depends on the underlying
->   *   clock driver, various limitations are possible.
->   * - Underlying clock may not be able to give 0% or 100% duty cycle
-> - *   (constant off or on), exact behavior will depend on the clock.
-> + *   (constant off or on), exact behavior will depend on the clock,
-> + *   unless a gpio pinctrl state is supplied.
->   * - When the PWM is disabled, the clock will be disabled as well,
-> - *   line state will depend on the clock.
-> + *   line state will depend on the clock, unless a gpio pinctrl
-> + *   state is supplied.
->   * - The clk API doesn't expose the necessary calls to implement
->   *   .get_state().
-> + *
-> + * Optionally, a GPIO descriptor and pinctrl states ("default" and
-> + * "gpio") can be provided. When a constant output level is needed
-> + * (0% duty, 100% duty, or disabled), the driver switches the pin to
-> + * GPIO mode and drives the appropriate level. For normal PWM output
-> + * the pin is switched back to its clock function mux. If no GPIO is
-> + * provided, the driver falls back to the original clock-only behavior.
->   */
->  
->  #include <linux/kernel.h>
-> @@ -25,11 +34,17 @@
->  #include <linux/of.h>
->  #include <linux/platform_device.h>
->  #include <linux/clk.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/pinctrl/consumer.h>
->  #include <linux/pwm.h>
->  
->  struct pwm_clk_chip {
->  	struct clk *clk;
->  	bool clk_enabled;
-> +	struct pinctrl *pinctrl;
-> +	struct pinctrl_state *pins_default;  /* clock function mux */
-> +	struct pinctrl_state *pins_gpio;     /* GPIO mode */
-> +	struct gpio_desc *gpiod;
->  };
->  
->  static inline struct pwm_clk_chip *to_pwm_clk_chip(struct pwm_chip *chip)
-> @@ -45,14 +60,36 @@ static int pwm_clk_apply(struct pwm_chip *chip, struct pwm_device *pwm,
->  	u32 rate;
->  	u64 period = state->period;
->  	u64 duty_cycle = state->duty_cycle;
-> +	bool constant_level = false;
-> +	int gpio_value = 0;
->  
->  	if (!state->enabled) {
-> -		if (pwm->state.enabled) {
-> +		constant_level = true;
-> +		gpio_value = 0;
-> +	} else if (state->duty_cycle == 0) {
-> +		constant_level = true;
-> +		gpio_value = (state->polarity == PWM_POLARITY_INVERSED) ? 1 : 0;
-> +	} else if (state->duty_cycle >= state->period) {
-> +		constant_level = true;
-> +		gpio_value = (state->polarity == PWM_POLARITY_INVERSED) ? 0 : 1;
-> +	}
-> +
+On Wed, Apr 08, 2026 at 04:40:37PM +0800, Liu Ying wrote:
+> On Wed, Apr 08, 2026 at 04:28:40AM -0400, Frank Li wrote:
+...
+> >>>>>
+> >>>>> Is it possible to appply this overlay file and kd50g21-40nt-a1 overlay file
+> >>>>>
+> >>>>> to imx93-9x9-qsb.dtb, so needn't create dtsi.
+> >>>>
+> >>>> I'm sorry, I don't get your question here.
+> >>>> Anyway, the DT overlays are needed, because the 40-pin EXP/PRI interface on
+> >>>> the i.MX93 9x9 QSB board can not only connect to a DPI panel adapter board
+> >>>> but also to an audio hat[2], and maybe more.  The newly introduced .dtsi
+> >>>> file just aims to avoid duplicated code.
+> >>>
+> >>> My means apply two overlay files to dtb
+> >>>
+> >>> imx93-9x9-qsb-tianma-tm050rdh03-dtbs += imx93-9x9-qsb.dtb imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtbo imx93-9x9-qsb-tianma-tm050rdh03.dtbo
+>
+> This ...
+>
+> >>>
+> >>> In imx93-9x9-qsb-tianma-tm050rdh03.dtbo, only include
+> >>> &{/} {
+> >>> 	panel {
+> >>> 		compatible = "tianma,tm050rdh03";
+> >>> 		enable-gpios = <&pcal6524 8 GPIO_ACTIVE_HIGH>;
+> >>> 	};
+> >>> };
+> >>
+> >> If an user wants to use imx93-9x9-qsb.dtb and the DT overlay blob
+> >> imx93-9x9-qsb-tianma-tm050rdh03.dtbo to enable the tianma,tm050rdh03
+> >> DPI panel, then it won't work unless the user also apply
+> >> imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtbo, right?
+> >>
+> >>>
+> >
+> > Yes, imx93-9x9-qsb-tianma-tm050rdh03.dtb already created, which already
+> > applied both overlay file.
+>
+> .... indicates that imx93-9x9-qsb-tianma-tm050rdh03.dtb is generated by
+> applying both imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtbo and
+> imx93-9x9-qsb-tianma-tm050rdh03.dtbo to imx93-9x9-qsb.dtb.
+> While, imx93-9x9-qsb-tianma-tm050rdh03.dtbo(a DT overlay blob) just contains
+> the panel node, which means that an user __cannot_ enable the tianma,tm050rdh03
+> DPI panel by only applying it to imx93-9x9-qsb.dtb, unless the user also
+> applies imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtbo.  That's why the .dtsi
+> file is needed.
 
-So I'm looking at it again, and I'm a bit confused.
+what's problem if we require user do that? Makefile already create finial
+imx93-9x9-qsb-tianma-tm050rdh03.dtb.
 
-Old behavior was:
- - pwm was enabled and being disabled -> stop the clock and hope state is 0;
- - pwm is still enabled but
-                            - duty=0%   -> set clk duty to 0%
-                            - duty=100% -> set clk duty to 100%
+Any user really apply dtso manaully without use kernel's Makefile?
 
-New behavior if we have gpio:
- - pwm was enabled and being disabled -> constant 0
- - pwm is still enabled but
-                            - duty=0%   -> constant 0
-                            - duty=100% -> constant 1
+>
+> >
+> > can the same board be use for imx91 or other evk boards?
+>
+> Yes, both tianma,tm050rdh03 and ontat,kd50g21-40nt-a1 DPI panels can be
+> connected to i.MX91/93 11x11 EVK and 9x9 QSB boards.
 
-New behavior if we don't have gpio:
-Same as above but
-  - if we need constant 0 -> clock is halted and we pray it's 0
-  - if we need constant 1 -> clock is halted and we pray it's 1 (??)
+Is it possible to use one overlay files for all imx91/imx93 boards?
 
-Per my recollection, when I wrote this driver 5 years ago, I've manually
-verified that at least on qcom setting duty cycle to 0% and 100% worked
-properly, so this feels like it would regress it if left as-is...
-
-(Btw I wonder what's the platform you need this for?)
-
-> +	if (constant_level) {
-> +		if (pcchip->gpiod) {
-> +			gpiod_direction_output(pcchip->gpiod, gpio_value);
-> +			pinctrl_select_state(pcchip->pinctrl, pcchip->pins_gpio);
-> +		}
-> +		if (pcchip->clk_enabled) {
->  			clk_disable(pcchip->clk);
->  			pcchip->clk_enabled = false;
->  		}
->  		return 0;
-> -	} else if (!pwm->state.enabled) {
-> +	}
-> +
-> +	if (pcchip->gpiod)
-> +		pinctrl_select_state(pcchip->pinctrl, pcchip->pins_default);
-> +
-> +	if (!pcchip->clk_enabled) {
->  		ret = clk_enable(pcchip->clk);
->  		if (ret)
->  			return ret;
-> @@ -97,6 +134,45 @@ static int pwm_clk_probe(struct platform_device *pdev)
->  		return dev_err_probe(&pdev->dev, PTR_ERR(pcchip->clk),
->  				     "Failed to get clock\n");
->  
-> +	pcchip->pinctrl = devm_pinctrl_get(&pdev->dev);
-> +	if (IS_ERR(pcchip->pinctrl)) {
-> +		ret = PTR_ERR(pcchip->pinctrl);
-> +		pcchip->pinctrl = NULL;
-> +		if (ret == -EPROBE_DEFER)
-> +			return ret;
-> +	} else {
-> +		pcchip->pins_default = pinctrl_lookup_state(pcchip->pinctrl,
-> +							    PINCTRL_STATE_DEFAULT);
-> +		pcchip->pins_gpio = pinctrl_lookup_state(pcchip->pinctrl,
-> +							 "gpio");
-> +		if (IS_ERR(pcchip->pins_default) || IS_ERR(pcchip->pins_gpio))
-> +			pcchip->pinctrl = NULL;
-> +	}
-> +
-> +	/*
-> +	 * Switch to GPIO pinctrl state before requesting the GPIO.
-> +	 * The driver core has already applied the "default" state, which
-> +	 * muxes the pin to the clock function and claims it.  We must
-> +	 * release that claim first so that gpiolib can request the pin.
-> +	 */
-> +	if (pcchip->pinctrl)
-> +		pinctrl_select_state(pcchip->pinctrl, pcchip->pins_gpio);
-> +
-> +	pcchip->gpiod = devm_gpiod_get_optional(&pdev->dev, NULL, GPIOD_ASIS);
-> +	if (IS_ERR(pcchip->gpiod))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(pcchip->gpiod),
-> +				     "Failed to get gpio\n");
-> +
-> +	/*
-> +	 * If pinctrl states were found but no GPIO was provided, the pin is
-> +	 * stuck in GPIO mode from the switch above.  Restore the default
-> +	 * (clock-function) mux and fall back to clock-only operation.
-> +	 */
-
-Feels slightly weird to silently allow "broken" DT, it would make no sense
-for it to have "gpio" pinctrl and not have a gpio defined, would it?
-
-Perhaps it makes more sense to put getting a gpio under having pins_gpio
-and make it strict, so two allowed states for the driver would be either
-no pinctrl-1 and no gpio, or having both at the same time?
-
-(maybe then also worth adding cross dependency of pinctrl-1 and gpio in
-the binding, it's one way only currently, not sure what's the correct
-way to describe it tho)
-
-Nikita
-
-> +	if (pcchip->pinctrl && !pcchip->gpiod) {
-> +		pinctrl_select_state(pcchip->pinctrl, pcchip->pins_default);
-> +		pcchip->pinctrl = NULL;
-> +	}
-> +
->  	chip->ops = &pwm_clk_ops;
->  
->  	ret = pwmchip_add(chip);
+Frank
+>
+> >
+> > Frank
+> >
+> >>> Frank
+> >>>>
+> >>>> [2] https://www.nxp.com/design/design-center/development-boards-and-designs/mx93aud-hat-audio-board:MX93AUD-HAT
+> >>>>
+> >>>>>
+> >>>>> Frank
+> >>>>>>
+> >>>>>> ---
+> >>>>>> base-commit: 816f193dd0d95246f208590924dd962b192def78
+> >>>>>> change-id: 20260407-tianma-tm050rdh03-imx93-9x9-qsb-6e4bbbde3d08
+> >>>>>>
+> >>>>>> Best regards,
+> >>>>>> --
+> >>>>>> Liu Ying <victor.liu@nxp.com>
+> >>>>>>
+> >>>>
+> >>>> --
+> >>>> Regards,
+> >>>> Liu Ying
+> >>
+> >> --
+> >> Regards,
+> >> Liu Ying
+>
+> --
+> Regards,
+> Liu Ying
