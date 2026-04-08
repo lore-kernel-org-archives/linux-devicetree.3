@@ -1,117 +1,192 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6967A379EC6;
-	Wed,  8 Apr 2026 08:36:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F37423A6B97
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:38:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775637399; cv=none; b=ioVZWAD3SLuv82F8b8r4MZB8n/7UlHa+HrsXewxRv4l9+9L3kqcu9tlHkPLxmaXo+lwUL2q6L+qm7ar7EmvTnkbMiF0tRaLDhUavTMzHXHjs+EgJVlcbtPb/Mn46OgwCWjbH+IBIMI0opgQqPCR26nIIu4osH8zxXHeKpzy/dpg=
+	t=1775637486; cv=none; b=bPsJrmHfZfdQYvww5lc1DxaaIiir8BlAd/thlNuA0yhsApCjZPXzglrA7fAPqnsgw1qQYrheXo7h+o1Y7GMYWKvaIsLrf8etYfpxQRqt/c1VdI0ljnbS4lWY1VtnFzE/4icOJgWlXafqqVm6XfFUAf1QIu+YWCR7OdEvNUPyu4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775637399; c=relaxed/simple;
-	bh=RaLPwo+G+yaKQ4s0B1cWowuxym4+hLvN6yP219JdGXU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eYuZGIKYfnR55NooRqJE59h9wZ4t79ih/fs9kU9Wermme/3M+vpuyMtAgAgwotgNAB8FhkhUlWPuD3MS0G/stx7c7L/1BkWgLD9PBM1uEmEao3USYqOCRLVcdjHkXazhbhh/OvzOs7ZWNKFhOHW7x6dQJ8lLEhejpoocb4z2Vt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uoFJfMea; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775637486; c=relaxed/simple;
+	bh=o3i/9A+UR7jHnszAbDMT6wuqZPcZ0j+UzYLKz1f2lwY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DHG1VE54EO3gbN65frG9hcbcTztYeN7a6KmI1nj8c8vBkd0MJPi9bujHsxlWviDbtxJ8t6IRmMM9mVQ9dPGtF5vcEcvGqfSxrMVfNaUKOmwAcBfEmLINzYmjgEuXdm7qEPaJty3ZPCeOnxCl75nxAr0xtu8gg/gY5ixWs4AESEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cxzVhuTH; arc=none smtp.client-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uoFJfMea"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A509CC19424;
-	Wed,  8 Apr 2026 08:36:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775637399;
-	bh=RaLPwo+G+yaKQ4s0B1cWowuxym4+hLvN6yP219JdGXU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=uoFJfMeaKSfrSe1sjhf52gq9qeM+khAWIaEfXj1QttaoSG5hZjMMymMiYNn5F/hur
-	 RItDZN1lIlBjKyH9B41bJrYWYb/p9VOjXjOA162nxHaqEpW4tZdKPkZRxVzKaoKEmE
-	 zkBNRa0UH2d+/dQPcdoeOxJAB4VbM5nFC/LO+ngIPkXPoiRfhOiXuPKzAbnwfgbeu2
-	 WbPfqc8BlWQfcLhlb0yZxH4BZr4yARtgA2Ew0OhWbTFJo5firBuYhehnnOfOj/jz7Q
-	 By7EABbKQYCUmqNW0tm9c9FwQfuA4hmGVFIQWGjVj+rH6fIGr6SUVDtXTRMUgaR27u
-	 2tICQnykGeYxQ==
-Message-ID: <8371586c-71f8-403e-b1a4-7a960a706830@kernel.org>
-Date: Wed, 8 Apr 2026 10:36:34 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cxzVhuTH"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-c76e702e01aso1318267a12.3
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 01:38:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1775637484; x=1776242284; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ytUk8qPLi0qU09r4gER+1HWGgGcT0Zkz53wb+1TtHds=;
+        b=cxzVhuTHQAp4gMkJoIYZ5Pi1T7x8s4H0mEeaLKu1fbDcDHi6iXIlXWPMayMPh5tsyZ
+         85nVIvVZbvT7YqsfwvLy4uMmKWhUo5xo+4prvQXLmBnS4vuQ8nyKopAKO+ynbrLNsJce
+         otiOggd4NmpItuVew+A+Im2Aua11J2BTQcdonU++jCWZGct1OyN/FLb0BeuR++hMnXq1
+         Gm6QjKGnGcRHLnxRWDjjMANxNb6GFkpGPqaDrBwaAfpQFwO8bF4K4p2FNJC3RAKA2Y93
+         CsSkUhcxvrCSaOlw13PEGs6PSII5rEqQz16lI/qgTrEhygF59hJw3Z4cksPx3EiBL26w
+         o5MA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775637484; x=1776242284;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ytUk8qPLi0qU09r4gER+1HWGgGcT0Zkz53wb+1TtHds=;
+        b=idOU/EdXDNGliqkV7qTCXvmnzlmWrVuwt5Ktv/kq9CmAqD9+vWS5SzMPzm8Q/K4ul7
+         FhsbkuqxcpLrVkrp6vO+B4X7E54mX+iLHaVQ/6r1eup5ODOAYxqDNZdsGyftYmHqjntB
+         ITgKVbD19jjWJ+JcbhYNvNqjIrnPiB+hUZwRRjlK6QfbkdKJ7vyPi1NRugDbYkmdnn8Y
+         8EAwlTHpF4WeeAdh/8TwVjV7nvK7xqJ5YDEx/qOcuAhX02pSkiLJjUTdXrJyVAY2OEma
+         04yC8c3cXDsaH+ZjuoSV1T6bCYg2ZmfO+zTsz2t3fm3kJ6LySDPCxOea3UMkTbvnfPPV
+         zmKQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXOsNjTv9E49QucFI+KsByecbwIXbvkNzbNWXqfFAAqKewtz3pbDpy30XqPDdS/EeCO7qFQ2QsUGBkY@vger.kernel.org
+X-Gm-Message-State: AOJu0YwRSpZf0UyJc6cv1kvkdNMmYJyXGp+qngo2U6aflwEoODfS74Nk
+	6jKQTs1xZbOeSyb9QttnX2CxrV/GgnKjHf+XIf6DgdJjfJM0rIInH++z
+X-Gm-Gg: AeBDievZ9YgK+anR2UbQGqCebs6KECDplEzETrS53tedazFSSOsvaWEo1dEGV3Cw+s7
+	gQiyjLxiSMkCs/nWIvsydixI9d1T3x0r+R3P7Jj8gicN7eegzcnUDxT5qOI8MiwqbgleNB7jSOA
+	oIhYvExihWRu4PfkOqyv5yIblQEQFjYvo+Y/lXNeytI+Lv/L+44a/f0NfQH4Y+xI6qkULFgi4I0
+	Hg09qKq2t50G6uGAewjhhqOFCBv/dQUS50I5/RA08vyuMUYnOqliDbmzi1+XK/SddpHI4P9F/rJ
+	CutRJT4J4G836d59xKT67XkpfFnZyMeDpbi1fTIYKA87oi0eaE8g3XRuFJ4SB3dHOMXwwQCoLil
+	orIzHc5lL5wjR7BMsr0XbqPrHyXQ/j4+Fmlk5vAGKIccVdCgd1ZSfL3IsAyOfXkHnode8nNNQGY
+	4UHzTLO6B7qISt84YapINC
+X-Received: by 2002:a05:6a21:8a0e:b0:39f:9eb3:1d09 with SMTP id adf61e73a8af0-39f9eb31d55mr5025574637.37.1775637484198;
+        Wed, 08 Apr 2026 01:38:04 -0700 (PDT)
+Received: from fedora ([122.173.24.123])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c76c6562018sm18210763a12.18.2026.04.08.01.37.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 08 Apr 2026 01:38:03 -0700 (PDT)
+From: Shi Hao <i.shihao.999@gmail.com>
+To: robh@kernel.org
+Cc: krzk+dt@kernel.org,
+	andi.shyti@kernel.org,
+	conor+dt@kernel.org,
+	linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	daniel.baluta@nxp.com,
+	simona.toaca@nxp.com,
+	d-gole@ti.com,
+	m-chawdhry@ti.com,
+	i.shihao.999@gmail.com
+Subject: [PATCH v2] dt-bindings: i2c: cnxt,cx92755-i2c: Convert to DT schema
+Date: Wed,  8 Apr 2026 14:05:49 +0530
+Message-ID: <20260408083549.12815-1-i.shihao.999@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: milos: Add IMEM node
-To: Luca Weiss <luca.weiss@fairphone.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260407-milos-imem-v2-0-5084a490340c@fairphone.com>
- <20260407-milos-imem-v2-2-5084a490340c@fairphone.com>
- <20260408-adamant-hairy-galago-61deed@quoll>
- <DHNMDZ7M0BVS.36Z923XKNXPEC@fairphone.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <DHNMDZ7M0BVS.36Z923XKNXPEC@fairphone.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 08/04/2026 10:11, Luca Weiss wrote:
->>>  		};
->>>  
->>> +		sram@14680000 {
->>> +			compatible = "qcom,milos-imem", "mmio-sram";
->>> +			reg = <0x0 0x14680000 0x0 0x2c000>;
->>> +			ranges = <0 0 0x14680000 0x2c000>;
->>
->> Use hex here as well.
-> 
-> Will do: ranges = <0x0 0x0 0x14680000 0x2c000>;
-> 
-> Do you also have a comment around the name of the subnodes? Do you think
-> they're okay as-is, or should they be changed?
+Convert the Conexant Digicolor I2C bindings to DT schema.
 
-I think they follow what the binding expects, so not much to discuss here :)
+Signed-off-by: Shi Hao <i.shihao.999@gmail.com>
+---
 
-Best regards,
-Krzysztof
+v2:
+
+- Omitted address-cells and size-cells in required section
+
+Note:
+This patch is part of the GSoC2026 application process for device tree
+bindings conversions https://github.com/LinuxFoundationGSoC/ProjectIde
+as/wiki/GSoC-2026-Device-Tree-Bindings
+---
+ .../bindings/i2c/cnxt,cx92755-i2c.yaml        | 49 +++++++++++++++++++
+ .../devicetree/bindings/i2c/i2c-digicolor.txt | 25 ----------
+ 2 files changed, 49 insertions(+), 25 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/i2c/cnxt,cx92755-i2c.yaml
+ delete mode 100644 Documentation/devicetree/bindings/i2c/i2c-digicolor.txt
+
+diff --git a/Documentation/devicetree/bindings/i2c/cnxt,cx92755-i2c.yaml b/Documentation/devicetree/bindings/i2c/cnxt,cx92755-i2c.yaml
+new file mode 100644
+index 000000000000..c11bbf8aa9c5
+--- /dev/null
++++ b/Documentation/devicetree/bindings/i2c/cnxt,cx92755-i2c.yaml
+@@ -0,0 +1,49 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/i2c/cnxt,cx92755-i2c.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Conexant Digicolor I2C controller
++
++allOf:
++  - $ref: /schemas/i2c/i2c-controller.yaml#
++
++maintainers:
++  - Baruch Siach <baruch@tkos.co.il>
++
++properties:
++  compatible:
++    const: cnxt,cx92755-i2c
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  clock-frequency:
++    default: 100000
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    i2c@f0000120 {
++      compatible = "cnxt,cx92755-i2c";
++      reg = <0xf0000120 0x10>;
++      interrupts = <28>;
++      clocks = <&main_clk>;
++      clock-frequency = <100000>;
++      #address-cells = <1>;
++      #size-cells = <0>;
++    };
+diff --git a/Documentation/devicetree/bindings/i2c/i2c-digicolor.txt b/Documentation/devicetree/bindings/i2c/i2c-digicolor.txt
+deleted file mode 100644
+index 457a098d4f7e..000000000000
+--- a/Documentation/devicetree/bindings/i2c/i2c-digicolor.txt
++++ /dev/null
+@@ -1,25 +0,0 @@
+-Conexant Digicolor I2C controller
+-
+-Required properties:
+- - compatible: must be "cnxt,cx92755-i2c"
+- - reg: physical address and length of the device registers
+- - interrupts: a single interrupt specifier
+- - clocks: clock for the device
+- - #address-cells: should be <1>
+- - #size-cells: should be <0>
+-
+-Optional properties:
+-- clock-frequency: the desired I2C bus clock frequency in Hz; in
+-  absence of this property the default value is used (100 kHz).
+-
+-Example:
+-
+-	i2c: i2c@f0000120 {
+-		compatible = "cnxt,cx92755-i2c";
+-		reg = <0xf0000120 0x10>;
+-		interrupts = <28>;
+-		clocks = <&main_clk>;
+-		clock-frequency = <100000>;
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-	};
+-- 
+2.53.0
+
