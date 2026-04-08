@@ -1,81 +1,188 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2E643BC66C;
-	Wed,  8 Apr 2026 12:59:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A9927A133;
+	Wed,  8 Apr 2026 13:00:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775653152; cv=none; b=GxB+NNRJdcUzDJpfbVm4DlnKQBRbJ6x2iGF+QSh97Q2tMH0CXlp28+H2tY3ZzXJ2/RmlsuDEdnulnA1wZoaeMaw0HlQGcmAM/PmkxMxXf+YiJuVB5Nw7aduohuSb/4BkKW2sVm8WgsI83QksJVxz1dEOeRn39qXvGvRbaVGiDgs=
+	t=1775653253; cv=none; b=oBoiVaMctOnkI73RqOfB+lfuCfJ0Tpp6cVBFnkmOCFExMe2qenjpbaEbh+VPkfxTXiu8B1Wn29607ihUtargz4d5fVgCFRN1QKvcWFkMLrd9K+++ktRPJE1DViOqyCu1OBDUIJateAmpboxH+9rlAdtu8cVS34hRiSiPSvxVWTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775653152; c=relaxed/simple;
-	bh=OlbGJrGFwrI24/GJug24fjlXDRLvgepuqrfrL5/BaOs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tcS8h34vQiyyUg+7/GgszuATKbnh9J0vH2bA6mIg8oCdKE8sCz3UpiQLkZMnP1KlBZWL3XddK4mj8+R72lq184w4J9k1+ApJBLczzumeJytI7ZepRQhcl91SQ2qczl5AUxcxLS9cZHRp1G7KRqiwOQjhD/J98Vkq+kn+h5cRM+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=o0tmtt43; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1775653253; c=relaxed/simple;
+	bh=l+S6zaTMHhYUwW0ZmtulDL5Ipcm+rietWnAFHWCYVaY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z5Z4C4tK6HrpGapDIRKouegJF/jt6nFAmWLvQ2fVdvsnfsqWkE6InDsxqUC7My8jxff2hoX3nKMt3fudSB2Pzi1nFB4bAyGIdwZAak7hW4kpKK6nqwLCGhm7xyfHJwEnquWHO9nlLIXX8wPw4w+WYEijsEf81BejGimeuyC1d1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RrUKNJdI; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="o0tmtt43"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E27B91ED994;
-	Wed,  8 Apr 2026 14:58:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1775653141; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=eh2Ut171wqmOONOps9l0PZ9TIR9l30BuTl8yI4h9mus=;
-	b=o0tmtt43vL9xqdVsg1urR/4VzYAuHc1fUgU/VJm410m6/gCRT/WDV44NhtCuZKyFmgj7LM
-	r137un5/F3ZTCsLF0JjLzau92j7RqN+4Zvmf1arTW4jTnSteX2YwSigaITaV6pboxUE7Uk
-	9JKxWVIzdkb34nD0lkWZyTCyswJbqrUQJr25VfGvwdexO58xUyTwtpLW5g8IkZfd/8NhvU
-	QZ+Pl+d+z7OrV2Rtdb3G6BHBVZ1uT06dkGImxiE13U9Q+dJVUmP5DmaEvoK6iF2zLDhbND
-	ZigUHx7vKo9ZbcYMKmjhAfMBzu/cnOAZkRjHV93vVOYF2RtdUkD1IcpDTZOP0w==
-Message-ID: <468d439b-9a83-484b-8ada-fabef2d6c8da@cjdns.fr>
-Date: Wed, 8 Apr 2026 14:58:35 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RrUKNJdI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B562C19421;
+	Wed,  8 Apr 2026 13:00:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775653253;
+	bh=l+S6zaTMHhYUwW0ZmtulDL5Ipcm+rietWnAFHWCYVaY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=RrUKNJdIC2sHvOEeeLQy4ZebvZEkBrtqNyAc649t6XR5o86pw9WVxPb0cI3PJCLoI
+	 nuPVaq8epBHPxn6Z1drKxZ/9Z2+McU/7xhrigXa+nxfH9vT13H8g+JyLK94Uxz7BsX
+	 2yz7zb96s7IxCNyseVCEyew+MJjroxIsX6DxbAsQdVcuuCySTPc0+gZs5bcogJgEi5
+	 SIQulv643nEr1hXcFq7w77TzrsexqXX9LuyLYUaT4HvCFb/Mx1XMIOHrhhIrkY3iQe
+	 g5KNgkLwgwFX6exlGZ/xDGYR3OASD6nEhfJPX91KXMqhEyCwH93zrvwjSoRlHVmrPG
+	 QtliB81fvnCIw==
+Date: Wed, 8 Apr 2026 08:00:51 -0500
+From: Rob Herring <robh@kernel.org>
+To: Joris Vaisvila <joey@tinyisr.com>
+Cc: netdev@vger.kernel.org, horms@kernel.org, pabeni@redhat.com,
+	kuba@kernel.org, edumazet@google.com, davem@davemloft.net,
+	olteanv@gmail.com, Andrew Lunn <andrew@lunn.ch>,
+	devicetree@vger.kernel.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH net-next v2 1/4] dt-bindings: net: dsa: add MT7628 ESW
+Message-ID: <20260408130051.GA1895728-robh@kernel.org>
+References: <20260330184017.766200-1-joey@tinyisr.com>
+ <20260330184017.766200-2-joey@tinyisr.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v2 8/8] mips: dts: Add PCIe to EcoNet EN751221
-To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: linux-mips@vger.kernel.org, naseefkm@gmail.com, mturquette@baylibre.com,
- sboyd@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- ryder.lee@mediatek.com, jianjun.wang@mediatek.com, lpieralisi@kernel.org,
- kwilczynski@kernel.org, mani@kernel.org, bhelgaas@google.com,
- vkoul@kernel.org, neil.armstrong@linaro.org, p.zabel@pengutronix.de,
- matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
- nbd@nbd.name, ansuelsmth@gmail.com, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-mediatek@lists.infradead.org,
- linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-References: <20260309131818.74467-1-cjd@cjdns.fr>
- <20260309131818.74467-9-cjd@cjdns.fr> <adOo9xZxXT3FkufM@alpha.franken.de>
-Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <adOo9xZxXT3FkufM@alpha.franken.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260330184017.766200-2-joey@tinyisr.com>
 
+On Mon, Mar 30, 2026 at 09:40:14PM +0300, Joris Vaisvila wrote:
+> Add bindings for MT7628 SoC's Embedded Switch.
+> 
+> Signed-off-by: Joris Vaisvila <joey@tinyisr.com>
+> ---
+>  .../bindings/net/dsa/mediatek,mt7628-esw.yaml | 101 ++++++++++++++++++
+>  1 file changed, 101 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/net/dsa/mediatek,mt7628-esw.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7628-esw.yaml b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7628-esw.yaml
+> new file mode 100644
+> index 000000000000..d6c66ab677d0
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7628-esw.yaml
+> @@ -0,0 +1,101 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/net/dsa/mediatek,mt7628-esw.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Mediatek MT7628 Embedded Ethernet Switch
+> +
+> +maintainers:
+> +  - Joris Vaisvila <joey@tinyisr.com>
+> +
+> +description:
+> +  The MT7628 SoC's built-in Ethernet Switch is a five port switch with
+> +  integrated 10/100 PHYs. The switch registers are directly mapped in the SoC's
+> +  memory. The switch has an internally connected 1G CPU port and 5 user ports
+> +  connected to the built-in Fast Ethernet PHYs.
+> +
+> +unevaluatedProperties: false
+> +
+> +allOf:
+> +  - $ref: dsa.yaml#/$defs/ethernet-ports
+> +
+> +properties:
+> +  compatible:
+> +    const: mediatek,mt7628-esw
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description: MMIO address of the switch
 
-On 06/04/2026 14:37, Thomas Bogendoerfer wrote:
-> On Mon, Mar 09, 2026 at 01:18:18PM +0000, Caleb James DeLisle wrote:
->> Add PCIe based on EN7528 PCIe driver, also add two MT76 wifi devices
->> to SmartFiber XP8421-B.
->>
->> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
->> ---
->>   arch/mips/boot/dts/econet/en751221.dtsi       | 114 ++++++++++++++++++
->>   .../econet/en751221_smartfiber_xp8421-b.dts   |  21 ++++
->>   arch/mips/econet/Kconfig                      |   2 +
->>   3 files changed, 137 insertions(+)
->>
-> applied to mips-next
+Drop the description.
 
-Thank you very much.
+> +
+> +  resets:
+> +    items:
+> +      - description: Phandle of system reset controller with ESW reset index
+> +      - description: Phandle of system reset controller with EPHY reset index
 
-Caleb
+Just describe these in terms of what they reset, not the provider.
 
->
-> Thomas.
->
+> +
+> +  reset-names:
+> +    items:
+> +      - const: esw
+> +      - const: ephy
+> +
+> +  mdio:
+> +    $ref: /schemas/net/mdio.yaml#
+> +    unevaluatedProperties: false
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - resets
+> +  - reset-names
+
+Surely 'ethernet-ports' is required?
+
+> +
+> +examples:
+> +  - |
+> +    switch0: switch@10110000 {
+> +        reg = <0x10110000 0x8000>;
+> +
+> +        resets = <&sysc 23>, <&sysc 24>;
+> +        reset-names = "esw", "ephy";
+> +
+> +        compatible = "mediatek,mt7628-esw";
+
+compatible goes before reg.
+
+> +
+> +        ports {
+
+"ethernet-ports" for new bindings.
+
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            port@0 {
+
+And ethernet-port
+
+> +                reg = <0>;
+> +                phy-mode = "internal";
+> +            };
+> +
+> +            port@1 {
+> +                reg = <1>;
+> +                phy-mode = "internal";
+> +            };
+> +
+> +            port@2 {
+> +                reg = <2>;
+> +                phy-mode = "internal";
+> +            };
+> +
+> +            port@3 {
+> +                reg = <3>;
+> +                phy-mode = "internal";
+> +            };
+> +
+> +            port@4 {
+> +                reg = <4>;
+> +                phy-mode = "internal";
+> +            };
+> +
+> +            port@6 {
+> +                reg = <6>;
+> +                phy-mode = "internal";
+> +                ethernet = <&ethernet>;
+> +
+> +                fixed-link {
+> +                    speed = <1000>;
+> +                    full-duplex;
+> +                };
+> +            };
+> +        };
+> +    };
+> -- 
+> 2.53.0
+> 
