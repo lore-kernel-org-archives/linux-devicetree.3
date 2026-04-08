@@ -1,54 +1,54 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE6038E5CE
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:08:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA1C31355C
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:09:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775635701; cv=none; b=hAwqzV9HgGB/P0kSow4pXD983BE8v5h5r4Q6XoSGrRDKX3ueLXiX2QN8iIiVattn8jqYUe5EzF4Wq1ZwREnnyZsQvxHyTvERXYDz9eKzti+3kyH5bUHkbIGIuca1YOi0klB09rwUkdtj0pIABQ3IocbicCDYM00mK3NchxIGY8A=
+	t=1775635743; cv=none; b=aw+KRb2Lo0FwBLcqW/Zi2sjYMT1vRN2lJTf5D/kQKPCKeRIztfrHY7fkUua45VbFfqdPUG7D0AqBDlIlMforX69jv0A+LNMEG+BW/9rNNl2MiFHDQyKOg0GWgAiCTmyg88kA3q3huuwr30naQxP+dgOuyHRL50c3709iLBBegQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775635701; c=relaxed/simple;
-	bh=Z1Ts+VSZ8ou/NVe55RhyiohrVm9KZyDeSwhovMasKD8=;
+	s=arc-20240116; t=1775635743; c=relaxed/simple;
+	bh=umQSa+ggsoHR8bIX76wvaugAVwppX0RMa2t3Cg4tIZ8=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pf7NP3xPskLFD5VfniURcH8UJDDiwVAQGS+gcXcpZSWyCJEUnOtJCNN0Xdw/J73sgzmC/c7e55lvE6fLRM+8o4pKgK+8RTESWliBa9rbrVBOv85/SyKKCVzMyfMG+6ucEkIwTLGmY8zYmcDs91kBIzwjCpKvitwf2RELJk/utC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rXoidbEo; arc=none smtp.client-ip=10.30.226.201
+	 To:Cc:Content-Type; b=r823BqXaP8+2duAI/dXCNWSILQ1QhKavDbaMPp/ADfNWqIZN1P2oyk6OSTeGdaXtnfmvbUXYN+hD/bk5mZrtIqNjv5VvsFbuMCj+0DJbeEKAYOyfCUnt+gAUAClc87RKsBjmdkIiP2v+mD3JS2COG7kzVxZWsUtyA9y2eTjKlmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZZKMsX4y; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rXoidbEo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0576CC2BCB9
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:08:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZZKMsX4y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76449C2BCC4
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:09:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775635701;
-	bh=Z1Ts+VSZ8ou/NVe55RhyiohrVm9KZyDeSwhovMasKD8=;
+	s=k20201202; t=1775635743;
+	bh=umQSa+ggsoHR8bIX76wvaugAVwppX0RMa2t3Cg4tIZ8=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=rXoidbEoipXfBtsNID1GnjmPfkexfjpKj6OXvkl6yCvMZJD+FFxLdXGItTqmL1LGh
-	 ns9gIUBuAKQdh0CcqvzARbyAd/6rJRdNN2isRpGte0jz7ztx9pshB/VPwGxoEcgFq+
-	 K8VPKk2Sj2VsefyU8NV6RjPbD7tCutMoGAR+f3L4sX1Nj2EjBQoNKpcW6SAqpA1eRW
-	 TIS1BMe779qhEHVf3rq3s7oQEOhfXiB9y7OWeMs+Ofdc26PbRg8uD5hoXlWXf5MkXt
-	 Mprbgd/8GPW6q5KDrMpHWCEAqcp3HeHXeiTOP8MreAKZfSROIUIBvBid9pCNbb0td4
-	 9eakEXNNJLwqQ==
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-79a7109f568so66941667b3.1
-        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 01:08:20 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCXOf8DCt2Jl370q7/c7P5Mo+6JZiDXqnEQE9a9uwMCTNTe3IrYuNiZIoD7syhlNlD1M2gIHx1IX2MoG@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywn+YGvwVJS+0f2x6s3Ftbavg7e7um34OcwUkXIXnUfAn2cS3ar
-	od09c9OJj9mX02/TOUCC4RavIvgUPJg9V2rMbOed9KtNbJUuBVbvd4eYJxMT6ytxbodOTONXuMg
-	7qqi2xbGOyqYleHcy1oCjVhk5/vZwvO4=
-X-Received: by 2002:a05:690c:83:b0:79f:3715:1980 with SMTP id
- 00721157ae682-7a4d31e8531mr208856957b3.12.1775635700366; Wed, 08 Apr 2026
- 01:08:20 -0700 (PDT)
+	b=ZZKMsX4yRGS1ZfxC+wafZvfUSOGnZtjmNFig5zwF4JYHD/hM2vpSPdUcDgz0t01Ah
+	 yCwHgQlC6CGag2Cf9Cnel3qKw4RPA1A0cv9yXzT34iQR/qquBJhHCxGxKSE/2iSMX5
+	 Pary78qBZEGxfqlmv/RYQvsGNmRBUbKjgt7FLYI76DFdpI7djARUPc4Y6MpUCgrcFb
+	 z2Vl/jGlxKYdDe9FCkwmZT/Jf9cqMK2LhYzHNAzCD8r1bqNkNKDS34IzpJuKf8xjKP
+	 qmtMwy/9CzmVaTsN5qRgYIYKDTGQpvDI7KEm0iz636gDcblzuKkqqurfDsqlqDvGTE
+	 55d7qqsb0J2NQ==
+Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-79a74765703so47988257b3.3
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 01:09:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCU5wVL3gxd3jrtnfiuFivU41UFtvDlagpyTIuc7tCTdH955vxTJ1NrZqNTcEfCGoEGGL29hmwNCVRax@vger.kernel.org
+X-Gm-Message-State: AOJu0YzEFZJKhPZpHdNoTfYwWEkgrTfWQbNN3160KZbnkiDHmHn8yoCV
+	4/s9OMCGr5Iv4mgoH/GWM9dLAEdhwR+pRoQCTArwfSva9uGMmbu8nh0IpQJvDFdcDX4mvbToeaR
+	exKUye3O0OA6cNdRQfEDGCpqEsuNIe/Y=
+X-Received: by 2002:a05:690c:5c0c:b0:79b:e24e:e326 with SMTP id
+ 00721157ae682-7a4d5f56502mr164827067b3.46.1775635742703; Wed, 08 Apr 2026
+ 01:09:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260401-waveshare-dsi-touch-v1-0-5e9119b5a014@oss.qualcomm.com> <20260401-waveshare-dsi-touch-v1-8-5e9119b5a014@oss.qualcomm.com>
-In-Reply-To: <20260401-waveshare-dsi-touch-v1-8-5e9119b5a014@oss.qualcomm.com>
+References: <20260401-waveshare-dsi-touch-v1-0-5e9119b5a014@oss.qualcomm.com> <20260401-waveshare-dsi-touch-v1-9-5e9119b5a014@oss.qualcomm.com>
+In-Reply-To: <20260401-waveshare-dsi-touch-v1-9-5e9119b5a014@oss.qualcomm.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 8 Apr 2026 10:08:09 +0200
-X-Gmail-Original-Message-ID: <CAD++jLk4_hrHPau6o_hcDHxkogcb1gJN_B-7=mG2h_yy+jcABw@mail.gmail.com>
-X-Gm-Features: AQROBzD0nHt18W_nwPr3GegJacTTDqPAXGlhjqavd0Oyh2PTNzHmEVgvGVfoQsM
-Message-ID: <CAD++jLk4_hrHPau6o_hcDHxkogcb1gJN_B-7=mG2h_yy+jcABw@mail.gmail.com>
-Subject: Re: [PATCH 08/19] drm/panel: himax-hx8394: set prepare_prev_first
+Date: Wed, 8 Apr 2026 10:08:51 +0200
+X-Gmail-Original-Message-ID: <CAD++jLk6_q77qiBYhg3u2ivx36m767Ps_S52wEC9m6DNwqrG2Q@mail.gmail.com>
+X-Gm-Features: AQROBzABeGHUAeJD_Fqtm2qwvxK49Jozh0F9hVQhu_g7y9HzP82hY8UcJC3hAqw
+Message-ID: <CAD++jLk6_q77qiBYhg3u2ivx36m767Ps_S52wEC9m6DNwqrG2Q@mail.gmail.com>
+Subject: Re: [PATCH 09/19] drm/panel: himax-hx8394: simplify hx8394_enable()
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
 	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -67,13 +67,12 @@ Content-Transfer-Encoding: quoted-printable
 On Wed, Apr 1, 2026 at 9:27=E2=80=AFAM Dmitry Baryshkov
 <dmitry.baryshkov@oss.qualcomm.com> wrote:
 
-> Sending DSI commands from the prepare() callback requires DSI link to be
-> up at that point. For DSI hosts is guaranteed only if the panel driver
-> sets the .prepare_prev_first flag. Set it to let these panels work with
-> the DSI hosts which don't power on the link in their .mode_set callback.
+> Simplify hx8394_enable() function by using hx8394_disable() instead of
+> open-coding it and mipi_dsi_msleep() instead of manual checks.
 >
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
+Excellent, thanks!
 Reviewed-by: Linus Walleij <linusw@kernel.org>
 
 Yours,
