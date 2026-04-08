@@ -1,236 +1,203 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B983815F0
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 07:31:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C539C3822AE
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 07:32:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775633492; cv=none; b=lT2BQq+zUozvI3+jz89+QsFMq9+jByQ+QsuLDnEqPJk7qG1cvUikCQgb1YXBmM9c+pJOX4X1bexkazB86rFaKrGdEE53Hvev5BpE190zrvJE4g7ByKldVJ0/JPsIiyiDQHJqo5HDfkpvA6N83BgmKmvYwXom93Pt49u9R7duI8E=
+	t=1775633567; cv=none; b=WBu5ZvbvCVXL78rOHyzobNImArURZc3tWRXDOdfyDwZXIjuqZoVpW60ayGdc/pvF2YYcMftAzwZXK3WGtEa3dnzohLHd3O/rYy9cj+jpGiw99ca1yU7vO9nHKXuWWHkoMjkFi/jczUdIQ84bpRnMuV9OsGXqs+SVrWNTSqpKSd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775633492; c=relaxed/simple;
-	bh=kTCKrQL00F1TtK9Lwc24qq0fGDc6kjFjWFKBMs3ppAI=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VJbFKYgmRVkKgT47tATE5KSEuE4wBdcpHZxx88WCp1NuQV/g5xqDaAqh8zCph4DU0JIQucjT73oUDOUl2FvzAtYb224Kv4s/nHClOvLHpYxFpKxibfSnHCd8815sdJcgBY9/PKL0G8kxWzuc04KUiSdXLXTbWHgAD68qVW2ynWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V2dJR7dQ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775633567; c=relaxed/simple;
+	bh=OveXBMU2Rs8ereI1m9UptjRMaYvkzfBMcmK+hgcieTk=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uR/bdKEKFkZkcWFzgJBMZuH6RRUTrubKl3YDRC8u5yA4mn/YF5LkF0rgtF1UoKRS+o7WL7aaNie/EGi02oNLpeZwBhZgWlMATkBWxr81e7AgidBcLHiMQYPU9rg9yXrnmsLWKrvdsvdGb7FpxK/5pazJARVTS08oxEOUPyQUCBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nW+T356e; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=G8s2Gcfg; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V2dJR7dQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1276CC2BCB2
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 07:31:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775633492;
-	bh=kTCKrQL00F1TtK9Lwc24qq0fGDc6kjFjWFKBMs3ppAI=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc:From;
-	b=V2dJR7dQPnPRwc13ZdP55Rlj1GFe4mgJhxJ6yZkIcek7h8pamPD7FeqI+osD7Gp5g
-	 udUrN7iGrBo94H7sJ0AwHlqzA1+2K5bnTeRueNwXPWqzfoafJsManetQ2AsrB2rFCI
-	 Ju7gA52R+mngm/6yQFaGaWxyrrhLdMcVNz/YOuiN7lBAdhdwXpG75VuUoJOPco0p2U
-	 G93sboc+zXveOLyYEE4YHKc7VaJiKXudCCL8RQsmEfIq3YrO/VESiru8soc8HrUMwy
-	 aRHylJ3ZXNa4c+4UnszFw0qyR0plSc+XZWaJNeizU9XTmenBY1HmlTlYINhbLJE+sX
-	 dNbX8iZ3Ommog==
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-38be5e86918so54180551fa.3
-        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 00:31:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCW+xEGgIagZHXcYoYjITe3arhNQo0WQoL/ewxHUt5dnN5j8AMBIVMfbUVmurGGUT3jZMJKyQzskmA4G@vger.kernel.org
-X-Gm-Message-State: AOJu0YzFnLJoMJq5y/JG8/TEebqX6qrnYh50tl8LfziefqZHZsWG/gQ9
-	EkBDIi0d9RF0C/g06VV4OX+LuOwWdWo2UPxqvudRRFmm7FBDtR4kvsSHjGXQJEpGluU1A6UUmlF
-	OyQ3UL2GkDUXDtw7ge3t1e/2L20GA35y1RsDqDoYAcg==
-X-Received: by 2002:a05:651c:154c:b0:38e:1714:b64e with SMTP id
- 38308e7fff4ca-38e1714bf45mr17377281fa.3.1775633490684; Wed, 08 Apr 2026
- 00:31:30 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 8 Apr 2026 00:31:29 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 8 Apr 2026 00:31:29 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260408025243.1155482-4-eleanor.lin@realtek.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nW+T356e";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="G8s2Gcfg"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63823Lc81796228
+	for <devicetree@vger.kernel.org>; Wed, 8 Apr 2026 07:32:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=xckB8PPJx6+/vCorN26HvLDM
+	xAJX+r/dYxdwC1AmZgc=; b=nW+T356eFEiWlNV25OIPnYucbssv+TRN/QY2qRAf
+	QPRvHVVopBSmj/fSXs0NgBVDsJ9QE8h2ok+x0hvLsG6TiUlkCg3wObmLBv3a7kyl
+	m2nzw3uI4iNng+JA9e6cvv2Wr9/bVrWoP9AgCaOtYp8dKr0uxx8E/hlWlK1ZeVQ3
+	WEMSL+o4zXWOunDSRMY8navjM9E6q9a8BQsXTSnLcqh6IrTx2LaLgYKULpd1TeUY
+	/UDWZ7IRiI7V0ojXtEFPxFq2jCCBms5mBavoeF2GzEXNoWRAmbYzsK4rZpqtAOP2
+	9hwyvyzYAsDYq9cz/CCF+9umhTFAznHxI/Lr5T7DlLXzWQ==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dd51dawvx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 07:32:45 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-50d831e8083so70745391cf.3
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 00:32:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1775633564; x=1776238364; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=xckB8PPJx6+/vCorN26HvLDMxAJX+r/dYxdwC1AmZgc=;
+        b=G8s2GcfgR3N3BRGa/eA7J3eg62OdrDfrV8Z8FYnzHmvDsJHPp6ajS31K8uMIrOIGra
+         ghHUiQA6pJWPLPo7+CsyDhb/fpMY6HyJoyPTo1Mw2qgGMPBUIf+Pow6o1DM50L5FQZnF
+         drpFKklQe/3g8Id7wbMpRbjIZyEt1CSQ1DqX0csM16Ve2Sq0NMebaepg77wGptc0fMc7
+         ZV4tj3RUuK2WNkfDGpbNpc/wmKlKDytILdEkdKGeSwzwgSt1a9+nIU9ToPl2ZyX8nxjN
+         Ff8EwCqWeUbcv6SMeIsOgya5U85eVwvpF2zr4uY1VqXI5IfSMiDp5Iw4affzIz36tXMe
+         79sg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775633564; x=1776238364;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=xckB8PPJx6+/vCorN26HvLDMxAJX+r/dYxdwC1AmZgc=;
+        b=MUIntsWkN5K+/n7vD4CfDvPIE+CsFaVWlok1+2dfSxYaO6utwem//Nny38y9VhEw1x
+         AvabYQrQHILR9rUwK2CVYIijJVU634f6E0cSWyQh6ByVV9ssiBEoffLuBEA0u2JazAgt
+         Ft1z9lCDvAH0CaFjBNhQGwfcq7oNpC2wnQyM6DsGeRYszZ9rjVjG47LLHEFA+9olyDHU
+         Cu79/foV7EOlSa2s9tbYNHAd2ZnhwmAU056NMLhPFNfJP7MiHifvL5tqBJNJL0HdMu6u
+         yl4mRaP5nFN0XMUF2HwVhVuddkeqRTz6eV2PCy2cZdcwNWkG8XjXNzERlayzU/pEEL0i
+         pHDw==
+X-Forwarded-Encrypted: i=1; AJvYcCXI5z0y0HTm0gt8zphQfhex1dRUEubtSWSHUo/a0es5ivAUL9zASDExdG9BoBdDNtxciLBbhVX40E7P@vger.kernel.org
+X-Gm-Message-State: AOJu0YxqzXx6TwWowTAZxN6iisqLH8IR0aehsuN8YIL8CN1nMH27og89
+	1aUUBYZFleiWIoL7U7twQaLuLhTKvkg82PcGIqElRhS6nwse4DoCOKNNt2b/QL04YlHYLiyXt8t
+	lo4yRkbRCoHZDcWBtsNPt81HR3cOqIG08qczB3RA5Y8pVQYyyNoZob/sFzC7H5SHo
+X-Gm-Gg: AeBDies2XZBHOdnTxRTpKYiWKXMI69RHtcvANBXd9xaJcf0AY+ZGC6tfqq21qnUuGJD
+	Pya/K4skfw5Tr/FcjzDbXm3rIO9DmfZV49AU34Y35ZFq3UqNzaRzW9Wo0Jb24KMSGHBFkxc6nba
+	jQ0oYnqnok8NMpjz9QHwkVqdX2ZiSgRJ/v5267jjHmuYmPgywLxinIWQmSL/Ghrq+/U5+I1wPL3
+	Lu+PwYaUFDgLFYLRe8kBBgo98CKApDDCMrld9IQrQxGwh1vW2Bi0Q8BBw3YKHEherLmQUJYPaiG
+	FIm3OE92snALjLpbFiTodLbZZL/dh0H4SUkXAlJnhvLMsPE/R6L6jeLhVT8h/Ub9YV9BXsdj2Qq
+	qQf3VhN+30hFuHx+FBEchG4VgXbu6h85reJxyiwsuTeI/PlzieEraNKf/
+X-Received: by 2002:a05:622a:124b:b0:50d:83de:4933 with SMTP id d75a77b69052e-50d83de50cfmr202934001cf.20.1775633564103;
+        Wed, 08 Apr 2026 00:32:44 -0700 (PDT)
+X-Received: by 2002:a05:622a:124b:b0:50d:83de:4933 with SMTP id d75a77b69052e-50d83de50cfmr202933731cf.20.1775633563612;
+        Wed, 08 Apr 2026 00:32:43 -0700 (PDT)
+Received: from trex (187.red-79-144-197.dynamicip.rima-tde.net. [79.144.197.187])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4889cb46adcsm383692655e9.4.2026.04.08.00.32.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 08 Apr 2026 00:32:42 -0700 (PDT)
+From: Jorge Ramirez <jorge.ramirez@oss.qualcomm.com>
+X-Google-Original-From: Jorge Ramirez <JorgeRamirez-Ortiz>
+Date: Wed, 8 Apr 2026 09:32:39 +0200
+To: Trilok Soni <trilokkumar.soni@oss.qualcomm.com>
+Cc: Sumit Garg <sumit.garg@kernel.org>,
+        Jorge Ramirez <jorge.ramirez@oss.qualcomm.com>,
+        vikash.garodia@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-media@vger.kernel.org,
+        netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+        ath12k@lists.infradead.org, linux-remoteproc@vger.kernel.org,
+        andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org, robin.clark@oss.qualcomm.com,
+        sean@poorly.run, akhilpo@oss.qualcomm.com, lumag@kernel.org,
+        abhinav.kumar@linux.dev, jesszhan0024@gmail.com,
+        marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
+        dikshita.agarwal@oss.qualcomm.com, bod@kernel.org, mchehab@kernel.org,
+        elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+        edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+        jjohnson@kernel.org, mathieu.poirier@linaro.org,
+        mukesh.ojha@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
+        tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
+        srinivas.kandagatla@oss.qualcomm.com,
+        amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+        op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+        skare@qti.qualcomm.com, harshal.dev@oss.qualcomm.com,
+        linux-kernel@vger.kernel.org, Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: Re: [PATCH v3 11/15] media: qcom: Switch to generic PAS TZ APIs
+Message-ID: <adYElwM6eT5T8hZM@trex>
+References: <20260327131043.627120-1-sumit.garg@kernel.org>
+ <20260327131043.627120-12-sumit.garg@kernel.org>
+ <ac-KQ7e8-syph1Zl@trex>
+ <adOcMsk8a_Clb4WZ@sumit-xelite>
+ <439f9bbf-1ba1-465f-b5af-01ba0ebb86d4@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260408025243.1155482-1-eleanor.lin@realtek.com> <20260408025243.1155482-4-eleanor.lin@realtek.com>
-Date: Wed, 8 Apr 2026 00:31:29 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MfUh_OuxS4SC6QzSOg_PMNc9i9crGYgBASrbVUgHDHSCw@mail.gmail.com>
-X-Gm-Features: AQROBzB5exLZ5SG0QSPEWBvRd7DGoi1G63K1Vi7bJ14rkJY_dk0S6b0kTI6vPfY
-Message-ID: <CAMRc=MfUh_OuxS4SC6QzSOg_PMNc9i9crGYgBASrbVUgHDHSCw@mail.gmail.com>
-Subject: Re: [PATCH v2 3/4] gpio: realtek: Add driver for Realtek DHC RTD1625 SoC
-To: Yu-Chun Lin <eleanor.lin@realtek.com>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-realtek-soc@lists.infradead.org, cy.huang@realtek.com, 
-	stanley_chang@realtek.com, james.tai@realtek.com, linusw@kernel.org, 
-	brgl@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	afaerber@suse.com, tychang@realtek.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <439f9bbf-1ba1-465f-b5af-01ba0ebb86d4@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: xAtWTE2izBhS7tzrtxsjH99TAfJRLAlX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA4MDA2NyBTYWx0ZWRfX294oGO+ibLhr
+ 2W0b/G7IV7jy7Yj2poosuUy5nRTy24HmzAWOOc1MMTNwV0/rsoizT4yagFOdQ+zY7bGLn9eGOtm
+ 669+br6ymbr1+B+h2n8KccD9Tjwrh9yHi5+Yk3w2ogvl31/GZ9he3UyUVdaWEHK6KToMVOtlfBY
+ vxHAlspElYVyXzz62CWA/x0Kbx0Syx2c7GPIKDkGhAuQMIAweuO/UUh631fE2TvaB6UC+FqnA4G
+ /5SeCxKcwYoJkp+AUQEzU8OomwM+kQcBXosc3UrWIgO/ufwkU8DjPjicx4NEc3f7yOVVE2k/q8p
+ SvFVUQfJ8iK96XIBMCI7ziO1K7sVZZxyaIQ0JXZo6ShglAg+Ea0N+BXlt5iYDwp3N7uSmW027TF
+ 7yrgENMw/WnrBot+4bewodZr+eKEzp42EtJRDMY8IyGLyaOTVN8IpvsLOAz409K524DtBGBLgwX
+ yZn3jWi/Y8R6vb1T2EQ==
+X-Authority-Analysis: v=2.4 cv=AcaB2XXG c=1 sm=1 tr=0 ts=69d6049d cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=VPdg2FrOqWfiVCzsz0q0YA==:17
+ a=kj9zAlcOel0A:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=YTLieAA4xaQwPRX2avwA:9 a=CjuIK1q_8ugA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-GUID: xAtWTE2izBhS7tzrtxsjH99TAfJRLAlX
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-08_03,2026-04-07_05,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
+ phishscore=0 impostorscore=0 spamscore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604080067
 
-On Wed, 8 Apr 2026 04:52:42 +0200, Yu-Chun Lin <eleanor.lin@realtek.com> said:
-> From: Tzuyi Chang <tychang@realtek.com>
->
-> Add support for the GPIO controller found on Realtek DHC RTD1625 SoCs.
->
-> Unlike the existing Realtek GPIO driver (drivers/gpio/gpio-rtd.c),
-> which manages pins via shared bank registers, the RTD1625 introduces
-> a per-pin register architecture. Each GPIO line now has its own
-> dedicated 32-bit control register to manage configuration independently,
-> including direction, output value, input value, interrupt enable, and
-> debounce. Therefore, this distinct hardware design requires a separate
-> driver.
->
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
-> Signed-off-by: Tzuyi Chang <tychang@realtek.com>
-> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
-> ---
-> Changes in v2:
-> - Remove "default y".
-> - Add base_offset member to struct rtd1625_gpio_info to handle merged regions.
-> ---
->  drivers/gpio/Kconfig        |  11 +
->  drivers/gpio/Makefile       |   1 +
->  drivers/gpio/gpio-rtd1625.c | 584 ++++++++++++++++++++++++++++++++++++
->  3 files changed, 596 insertions(+)
->  create mode 100644 drivers/gpio/gpio-rtd1625.c
->
-> diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
-> index 5ee11a889867..281549ad72ac 100644
-> --- a/drivers/gpio/Kconfig
-> +++ b/drivers/gpio/Kconfig
-> @@ -638,6 +638,17 @@ config GPIO_RTD
->  	  Say yes here to support GPIO functionality and GPIO interrupt on
->  	  Realtek DHC SoCs.
->
-> +config GPIO_RTD1625
-> +	tristate "Realtek DHC RTD1625 GPIO support"
-> +	depends on ARCH_REALTEK || COMPILE_TEST
-> +	select GPIOLIB_IRQCHIP
-> +	help
-> +	  This option enables support for the GPIO controller on Realtek
-> +	  DHC (Digital Home Center) RTD1625 SoC.
-> +
-> +	  Say yes here to support both basic GPIO line functionality
-> +	  and GPIO interrupt handling capabilities for this platform.
-> +
->  config GPIO_SAMA5D2_PIOBU
->  	tristate "SAMA5D2 PIOBU GPIO support"
->  	depends on MFD_SYSCON
-> diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
-> index c05f7d795c43..c95ba218d53a 100644
-> --- a/drivers/gpio/Makefile
-> +++ b/drivers/gpio/Makefile
-> @@ -159,6 +159,7 @@ obj-$(CONFIG_GPIO_REALTEK_OTTO)		+= gpio-realtek-otto.o
->  obj-$(CONFIG_GPIO_REG)			+= gpio-reg.o
->  obj-$(CONFIG_GPIO_ROCKCHIP)	+= gpio-rockchip.o
->  obj-$(CONFIG_GPIO_RTD)			+= gpio-rtd.o
-> +obj-$(CONFIG_GPIO_RTD1625)		+= gpio-rtd1625.o
->  obj-$(CONFIG_ARCH_SA1100)		+= gpio-sa1100.o
->  obj-$(CONFIG_GPIO_SAMA5D2_PIOBU)	+= gpio-sama5d2-piobu.o
->  obj-$(CONFIG_GPIO_SCH311X)		+= gpio-sch311x.o
-> diff --git a/drivers/gpio/gpio-rtd1625.c b/drivers/gpio/gpio-rtd1625.c
-> new file mode 100644
-> index 000000000000..bcc1bbb115fa
-> --- /dev/null
-> +++ b/drivers/gpio/gpio-rtd1625.c
-> @@ -0,0 +1,584 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Realtek DHC RTD1625 gpio driver
-> + *
-> + * Copyright (c) 2023 Realtek Semiconductor Corp.
+On 07/04/26 15:14:22, Trilok Soni wrote:
+> On 4/6/2026 4:42 AM, Sumit Garg wrote:
+> > Hi Jorge,
+> > 
+> > On Fri, Apr 03, 2026 at 11:37:07AM +0200, Jorge Ramirez wrote:
+> >> On 27/03/26 18:40:39, Sumit Garg wrote:
+> >>> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> >>>
+> >>> Switch qcom media client drivers over to generic PAS TZ APIs. Generic PAS
+> >>> TZ service allows to support multiple TZ implementation backends like QTEE
+> >>> based SCM PAS service, OP-TEE based PAS service and any further future TZ
+> >>> backend service.
+> >>
+> >> OP-TEE based PAS service relies on the linux driver to configure the
+> >> iommu (just as it is done on the no_tz case). This generic patch does
+> >> not cover that requirement.
+> > 
+> > That's exactly the reason why the kodiak EL2 dtso disables venus by
+> > default in patch #1 due to missing IOMMU configuration.
+> > 
+> >>
+> >> Because of that, it is probably better if the commit message doesnt
+> >> mention OP-TEE and instead maybe indicate that PAS wll support TEEs that
+> >> implement the same restrictions that QTEE (ie, iommu configuration).
+> > 
+> > The scope for this patch is to just adopt the generic PAS layer without
+> > affecting the client functionality.
 
-No modifications since 2023?
+the patchset cover letter + the commit message + the OP-TEE pull request
+being referenced gives the ilusion to users that with the current set
+they will get something functional (they will get a broken video
+platform instead if they try to use OP-TEE).
 
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/bitops.h>
-> +#include <linux/gpio/driver.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/irqchip.h>
-> +#include <linux/irqchip/chained_irq.h>
-> +#include <linux/irqdomain.h>
-> +#include <linux/module.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/property.h>
-> +#include <linux/spinlock.h>
-> +#include <linux/types.h>
-> +
-> +#define RTD1625_GPIO_DIR BIT(0)
-> +#define RTD1625_GPIO_OUT BIT(2)
-> +#define RTD1625_GPIO_IN BIT(4)
-> +#define RTD1625_GPIO_EDGE_INT_DP BIT(6)
-> +#define RTD1625_GPIO_EDGE_INT_EN BIT(8)
-> +#define RTD1625_GPIO_LEVEL_INT_EN BIT(16)
-> +#define RTD1625_GPIO_LEVEL_INT_DP BIT(18)
-> +#define RTD1625_GPIO_DEBOUNCE GENMASK(30, 28)
-> +#define RTD1625_GPIO_DEBOUNCE_WREN BIT(31)
-> +
-> +#define RTD1625_GPIO_WREN(x) ((x) << 1)
-> +
-> +/* Write-enable masks for all GPIO configs and reserved hardware bits */
-> +#define RTD1625_ISO_GPIO_WREN_ALL 0x8000aa8a
-> +#define RTD1625_ISOM_GPIO_WREN_ALL 0x800aaa8a
-> +
-> +#define RTD1625_GPIO_DEBOUNCE_1US 0
-> +#define RTD1625_GPIO_DEBOUNCE_10US 1
-> +#define RTD1625_GPIO_DEBOUNCE_100US 2
-> +#define RTD1625_GPIO_DEBOUNCE_1MS 3
-> +#define RTD1625_GPIO_DEBOUNCE_10MS 4
-> +#define RTD1625_GPIO_DEBOUNCE_20MS 5
-> +#define RTD1625_GPIO_DEBOUNCE_30MS 6
-> +#define RTD1625_GPIO_DEBOUNCE_50MS 7
-> +
-> +#define GPIO_CONTROL(gpio) ((gpio) * 4)
-> +
-> +/**
-> + * struct rtd1625_gpio_info - Specific GPIO register information
-> + * @num_gpios: The number of GPIOs
-> + * @irq_type_support: Supported IRQ types
-> + * @gpa_offset: Offset for GPIO assert interrupt status registers
-> + * @gpda_offset: Offset for GPIO deassert interrupt status registers
-> + * @level_offset: Offset of level interrupt status register
-> + * @write_en_all: Write-enable mask for all configurable bits
-> + */
-> +struct rtd1625_gpio_info {
-> +	unsigned int	num_gpios;
-> +	unsigned int	irq_type_support;
-> +	unsigned int	base_offset;
-> +	unsigned int	gpa_offset;
-> +	unsigned int	gpda_offset;
-> +	unsigned int	level_offset;
-> +	unsigned int	write_en_all;
-> +};
+That was the point I was making: IMO the commit message walks on a thin
+line of "completeness"
 
-Please remove the tabs in the above struct.
+QTEE and OP-TEE at this time implement different use cases (Venus with
+QTEE runs with Linux on EL1 , OP-TEE runs with Linux on EL2). So maybe
+worth mentioning this divergence.
 
-> +
-> +struct rtd1625_gpio {
-> +	struct gpio_chip		gpio_chip;
-> +	const struct rtd1625_gpio_info	*info;
-> +	void __iomem			*base;
-> +	void __iomem			*irq_base;
-> +	unsigned int			irqs[3];
-> +	raw_spinlock_t			lock;
-> +	unsigned int			*save_regs;
-> +};
+> > 
+> >>
+> >> I can send an RFC for OP-TEE support based on the integration work being
+> >> carried out here [1]
+> > 
+> > @Vikash may know better details about support for IOMMU configuration
+> > for venus since it's a generic functionality missing when Linux runs in
+> > EL2 whether it's with QTEE or OP-TEE.
+> > 
+> > However, feel free to propose your work to initiate discussions again.
+> 
+> Vikas and team depends on some of the IOMMU patches to get accepted 
+> before they enable the EL2 venus support. Please reach out to him
+> and Prakash Gupta at Qualcomm.
 
-I'd also personally remove these tabs here but won't die on that hill.
-
-> +
-> +static unsigned int rtd1625_gpio_gpa_offset(struct rtd1625_gpio *data, unsigned int offset)
-> +{
-> +	return data->info->gpa_offset + ((offset / 32) * 4);
-> +}
-> +
-> +static unsigned int rtd1625_gpio_gpda_offset(struct rtd1625_gpio *data, unsigned int offset)
-> +{
-> +	return data->info->gpda_offset + ((offset / 32) * 4);
-> +}
-> +
-> +static unsigned int rtd1625_gpio_level_offset(struct rtd1625_gpio *data, unsigned int offset)
-> +{
-> +	return data->info->level_offset + ((offset / 32) * 4);
-> +}
-
-Looking at these, I'm under the impression that this driver could quite easily
-be converted to using gpio-mmio or even gpio-regmap with an MMIO regmap, have
-you looked into it by any chance?
-
-Bart
+isn't Vikash in this thread, he can ping me too no :) ? but sure, we'll
+synch later 
