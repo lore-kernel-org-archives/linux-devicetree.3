@@ -1,113 +1,127 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com [209.85.217.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D866F39891D;
-	Wed,  8 Apr 2026 07:57:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15142395DB1
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 07:58:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775635048; cv=none; b=r4/fOSPUaBD8FASVjK7eIZ7uwiPJZwppKOFKA/my2FaXgBzz+9mFoeZomHRdq3jakkgMllbtwYqSELCzFlQc+sYmj/C8Wyl4bwOUaaYXubOIuqKbyUg6Nt7bi+Ugl9geTDN0s7b0IUyhLFuNlXZtjUwg4G+0cFEt5LyRq6nPAHE=
+	t=1775635090; cv=none; b=TuJw0q0C41iBSkZTi9cJnr34MjDPUV2KyDr7Xu/8BBSL/K14FY+gPPqN1JAfujISWUcVa++GJlcSrHP7uq7tm6w0x2fnWD6Bzag1wx/JZv6QPoehLoImrTjkP83ueq2E240z7lSkBRM+zkb09KBv7PdPFfRpY0PtRLP987mq1Hc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775635048; c=relaxed/simple;
-	bh=RLGEFpyI9pvm/PlKN71Wt8S04ww3ygVZKp8oCyzHPEQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lEmAuIw4PvAXqgrO9t+KJWUvebfyhu4HHw2OzUOFz7q9mZPEjQL1fTZLQesRyGSvnNhobmp7nx8M+ceTKqC3nMScVmfX/HZThjC6rQovD/9Ksm+/oGnZOVXc90iUuwQNPT2qRqOoqv2tqmPoEe6AJrglMPOSNu+gmYELBqe+1V8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=tuQ1FZ2o; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="tuQ1FZ2o"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 230B94E42978;
-	Wed,  8 Apr 2026 07:57:25 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id DF7DD603CB;
-	Wed,  8 Apr 2026 07:57:24 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 22A8E10450313;
-	Wed,  8 Apr 2026 09:57:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1775635043; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=VR6odhlK+/dkz5N+TCsylMiayDUrGCxEmji/ieXKteg=;
-	b=tuQ1FZ2okNcwPg2TO6vf/DwocO2xVMBHT+AAzfg/45MgDpQ7ku+5U1ePHAn7E+fZd+SqI5
-	HTpLB4OyBjA8JRKQjrW8PNM48Zi3J9pQ0iUatTbtIaca/W4u9Vuk1vswHAxouT7fpOAkcd
-	LXAzW6PXAR8W1+X7sdMMqVXB+kIyHKmi0cVrOzWll41xtbFHpod05IAxG0Gg6WXGXC9OKJ
-	r419Og3E4JKD7qLsM+A8o3lAoVhzWmU7uTkilhzjKHkmYEEZIaMgQbOvPMyVoZNpxMS6Ff
-	JbIzscAwdeVM79FKS+420NkFCk/6yr6iS5jOQ5QguhRmYyIO/grf5K/I22nTZQ==
-Message-ID: <6b637950-2018-41d8-bdd2-27382a9b67d8@bootlin.com>
-Date: Wed, 8 Apr 2026 09:57:20 +0200
+	s=arc-20240116; t=1775635090; c=relaxed/simple;
+	bh=tb5ayrKCU1QRWz4F+1quo/d9UHKE8nDLKnD4uurIqwQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Otmz7WqjjKNM9eVd5wedfBiL3NA5gNgfvTg20ntNkrkNYXMQOL1R6zNEzCftByvDMTCwOh5B0NcC4umtVED1lslGeu2n67MSgNy1nIN08WSS14MCnqdcH0zu7qVwLORYbNKJN2PwtNM6Nvi5lhS9WjLcPvSmA5FT8rTEt7EECuM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-605def5b7f8so1983710137.1
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 00:58:08 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775635088; x=1776239888;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=s4R92sE+3j+L6v6U2wW4n9L1aU391JVM9cT4kRUC3wo=;
+        b=Xv7t4w7ykXr+YMASC+knrPt3C6xBFYYi2t4jl7alf+gmb5Rz1a54rLtCy+Jyb2Ev0D
+         bCIDawIL6WjtTmJmJ1PRxRgBWn21WOoWO1xIaCq/uip9yL4EiZVqDd92NtvLzt3JQGNA
+         8tjDrCeM9hSrGeXWLzskFl+Fya6+2628eywc61fmCsYaPE14gfXwf3l8pOrkkqHv7DFw
+         jrDcO9uNRSzR5sAXWheu/4uELCjID9m1AyIWArDAYpgavEJOptaUmpVhSma4l+uObiPy
+         qx9qq27jnPVQ3QkOIrtuqkNe5gbHQinRQXC/gBJEiAcIl0MZCy3zrbA+oE7jPmvOjS9j
+         qePQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWk+6G1WCC0u1ilz8thi3gDy7oGhgzN+XeYBDz9CZJj1xKd8BkTQ3SPLsltvhiVXS++KQpqLWk4Hq7v@vger.kernel.org
+X-Gm-Message-State: AOJu0YxrvEp/5+XEfshvpfbdzGsqL7Ymi4hl9mEZ1z+3/ARAf92XUKvV
+	o06TkPkxOe6PdO425Na4dWbsrFelYW9s2z25NHum8ybkJ+g2zwzS2zPr6eHI5hZ5
+X-Gm-Gg: AeBDieujYesNGZBVcSWgDLGL/GYVMQ95ODoG46PIQh3fa/eaq0aoTvGe8t3iYtPiWxY
+	TV/SGtVRA9vMx4B3wv3fTEeO1f1E0wuwDwaugfj7yiOkbiAVZytzICCTAIjj4oAeluSkzKxm711
+	w43YAi5A8GiMHxnofoTcvSitxgeOcx6AxqbGKNZBb1TX7sJvgc7rN3JWFitmzENcxo3koGtclJ7
+	/WPVq9FPfxoMo7KucfVYKvmIPS5OUFLLrQWTYlt2EG2vopT99N2+DGQvOcprg2r3REm37X+ElUb
+	dlxLu+1tJ5T7uq9iCFCFsJXnFOLfKbFO3kUcc9NhasXOr+gTw5QPi/OLNTAHb1VNk+idS5i5/iz
+	WYFXxrNlXTSMleShWQsvpyg81hhHUBSJ7b5RO0Far97cToWRYleZGdujyiu+kYnQZgOMPmr3L7P
+	sVTdgFO0b+duFORyubsTKGr/NrOTnP2gtpzWNdZlalEYqq7FWQxRGrqnsEBwTym96PUTllRE4=
+X-Received: by 2002:a05:6102:801d:b0:604:ef07:592e with SMTP id ada2fe7eead31-605a51672b1mr8453148137.33.1775635088022;
+        Wed, 08 Apr 2026 00:58:08 -0700 (PDT)
+Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com. [209.85.217.49])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-953fbac435dsm15896368241.11.2026.04.08.00.58.07
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 08 Apr 2026 00:58:07 -0700 (PDT)
+Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-604f1bfecf1so3955775137.3
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 00:58:07 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCWd0qBTZfzl24lviv3a4yJG8sYctrrNCQfPfClLRb6aO0TNGfeG2kKYQEXGZirxkqz3uDgmP2SDE+59@vger.kernel.org
+X-Received: by 2002:a67:e718:0:b0:604:e315:6eb1 with SMTP id
+ ada2fe7eead31-605a4e92bb0mr8578869137.14.1775635086837; Wed, 08 Apr 2026
+ 00:58:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/11] dt-bindings: regulator: ti,pbias-regulator:
- Convert to DT schema
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-omap@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260330-omap4-fix-usb-support-v2-0-1c1e11b190dc@bootlin.com>
- <20260330-omap4-fix-usb-support-v2-1-1c1e11b190dc@bootlin.com>
- <20260331-demonic-boisterous-spider-5ed5c6@quoll>
-Content-Language: en-US
-From: Thomas Richard <thomas.richard@bootlin.com>
-In-Reply-To: <20260331-demonic-boisterous-spider-5ed5c6@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260327192425.438263-1-cosmin-gabriel.tanislav.xa@renesas.com> <20260327192425.438263-7-cosmin-gabriel.tanislav.xa@renesas.com>
+In-Reply-To: <20260327192425.438263-7-cosmin-gabriel.tanislav.xa@renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 8 Apr 2026 09:57:55 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXkh0Q0_O4VZ=DoJ26=+QiddsLi_CwTVwK-L+Q5zb6wPg@mail.gmail.com>
+X-Gm-Features: AQROBzCZCuwf6NF6rEXqKfmkxTjFfqDW2pSk-I-eqOP6g3EoYNQgB2zRxA-RYgI
+Message-ID: <CAMuHMdXkh0Q0_O4VZ=DoJ26=+QiddsLi_CwTVwK-L+Q5zb6wPg@mail.gmail.com>
+Subject: Re: [PATCH 06/11] dt-bindings: timer: renesas,rz-mtu3: remove TCIU8 interrupt
+To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Lee Jones <lee@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-iio@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello Krzysztof,
+Hi Cosmin,
 
-On 3/31/26 10:21 AM, Krzysztof Kozlowski wrote:
-> On Mon, Mar 30, 2026 at 03:43:58PM +0200, Thomas Richard wrote:
->> +$id: http://devicetree.org/schemas/regulator/ti,pbias-regulator.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: PBIAS internal regulator
->> +
->> +maintainers:
->> +  - Thomas Richard <thomas.richard@bootlin.com>
->> +
->> +description: |
-> 
-> Do not need '|' unless you need to preserve formatting.
-> 
->> +  PBIAS internal regulator for SD card dual voltage i/o pads on OMAP SoCs.
->> +
->> +properties:
->> +  compatible:
->> +    items:
->> +      - enum:
->> +          - ti,pbias-dra7
->> +          - ti,pbias-omap2
->> +          - ti,pbias-omap3
->> +          - ti,pbias-omap4
->> +          - ti,pbias-omap5
->> +      - const: ti,pbias-omap
->> +
->> +  reg:
->> +    maxItems: 1
->> +
->> +  syscon:
->> +    description: Phandle of the system control module
->> +    $ref: /schemas/types.yaml#/definitions/phandle
->> +
->> +patternProperties:
->> +  '^pbias_*':
-> 
-> That wasn't in old binding and underscore is not allowed, so this needs
-> explanation. Old binding mentioned only the names.
+Thanks for your patch!
 
-I did it to match existing devicetrees.
-I guess I should define properties like 'pbias-mmc' and 'pbias-sim',
-then update node names in devicetrees to match binding.
+On Fri, 27 Mar 2026 at 20:25, Cosmin Tanislav
+<cosmin-gabriel.tanislav.xa@renesas.com> wrote:
+> Based on the following pages in the User Manuals, the MTU3 block does
+> not have a TCIU8 interrupt, only a TCIV8 interrupt, as the row where
+> TCIU8 should have been is marked as reserved, and the GIC SPI numbers
+> stop at 212.
+>
+>  * Page 486, Table 8.2 Interrupt mapping (7/13) in the Renesas RZ/G2UL
+>    Rev.1.40 User Manual
 
-Best Regards,
-Thomas
+According to the Revision History:
+
+    8. Interrupt Controller page 486
+    Table 8.2 Interrupt mapping
+    The =E2=80=9CCause of Interrupt=E2=80=9D column, modified (TCIU8 =E2=86=
+=92 =E2=80=94)
+
+So this interrupt was definitely documented before, and I think it would be
+good to document that it was removed, instead of saying "it does not have".
+
+>  * Page 363, Table 8.2 Interrupt Mapping (6/13) in the Renesas RZ/Five
+>    Rev.1.30 User Manual
+>  * Page 528, Table 8.2 Interrupt mapping (7/13) in the Renesas RZ/G2L
+>    and RZ/G2LC Rev.1.50 User Manual
+>  * Page 540, Table 8.2 Interrupt mapping (7/13) in the Renesas RZ/V2L
+>    Rev.1.50 User Manual
+>
+> Remove the TCIU8 interrupt.
+>
+> Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--=20
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
+
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds
