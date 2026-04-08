@@ -1,195 +1,84 @@
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010037.outbound.protection.outlook.com [52.101.228.37])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CADD3C9EE8;
-	Wed,  8 Apr 2026 13:38:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775655538; cv=fail; b=XhGQL65rwkPSWPmXgKVTOqIElDdkl5rTvAGVcGgpKksHVnDNg0tU6CVufzDq4asvrFU9Oxg/OrWbMJRAQZZwoB7p+Hyc5iViB1q/+jUoxkdeQC6/iGswIlw5tPXH6IqGJ5RTLfC/o/0aCZ0jhDRBS/JkB9VrDWgyWjZtC9ZvAi4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775655538; c=relaxed/simple;
-	bh=ple68CksOOKs8uUc6N5Tp+dd6XlH+L0TPKcU90dlDzE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=Yi6NRTBaigqqyT7ssiVZ7MWtSHL53G/E6D9sIIKDuV6HFWMjQQmFftOvEL6wAWegsB7vKvfnj9HSa3lk+Fbr3K2Bk1U+/nmapVE17TkqK5j2lKRogCTh8o7guU55UAfRhlABp7TBa6sho4wxDj5J58i+3HTLa4+WIQ5eF7aWasE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=DnuGjU7Z; arc=fail smtp.client-ip=52.101.228.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 823E83CF665;
+	Wed,  8 Apr 2026 13:40:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775655644; cv=none; b=cp3moIUu1+cpHV7WsjESzv4/fHEB+Lfgu+mU/jQLPGlr0z2Qz5qmIWaXserWORSs7uQyFnSIEcd6NRwgzL45IAdcbKJUV//dit6h+06Mi47+WTVpX/eobKQQDk5LrDM9TLolckg1tRcJBym/XcVS13KmJB4GSFS4aXVojep4PZE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775655644; c=relaxed/simple;
+	bh=+0oydsix3eqfdw2Aq3Jilu/jZTS1qQw8+lp0nii5wyA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nE/SMH1rel0XB8Bd6npOf+2PIxPXyEeJcbAUlyQY9WtP9BuwteUkh4H289/mzlfY4xgZEXIWhmSWJiClCj66xBLwLkgWHKhNPGTjrwLLjTPyDA7rvxfTmCdnr9elYWtdO/A+31kR5fOSJ6QkVBzd/kZw+9Hfn9iycCqQXmpYkng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aohr4wmM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="DnuGjU7Z"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dkj4wN58Qk7y+T2UfEd5mHHnzdEMhhPo4Ccmmapuu99BuU+gyvT2oIaxbHA8b63I7JfcdHgMZDlxguXeiR1nukz/AlCILZTV9i4MjQua8awVg2Pn+8FkkZO6HFqSJ/0cY9CsnvP0WQBBDd5Hf0R2xCMRmSuRLBMlu8iSjWBGCYcedRjkUkon+C8XPNfiwnEbL2UkWG/tVSGdlaXMEzHF4KVxUmOB0DflqtQDQZqPtBik5KRccf6+52fV3rPkZAtDB0a4SAlyEG8D8EqQN65o7tqriOiHCVaSuavQg5a49VLbigG1lSZEZw0Qxjd32rH3ywVu9Fczdf/ZlhbzNTXjPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wVeBq3FWekNfxCCkzbTMD9IniijCphPt7AR8p8WxCzs=;
- b=B6JHibwxIeLPwBwsLoNhXy5c37y9ZHPEsPEGGKYfgpixT3g+CBO/zaeHMqA9lFna7c2oHz7cZTzWuKTe1D7/6/HynGnzlcomizyaKl6qcE6YCxOse05TPAvcN7YBHUrymmvr9WzwC8dJe9NVk0mEO6t4FX+c9thX0A6HpiDaw+VWflK8U1mVCRkLZ/LuzXds6a/IGzv/7dDRvQhVoUh0F3C0B6C2Zy0qxm19nrfydsguCsvjXXQDQj1RBcvzOqg6HrDQ5uiqutYN3po51iTmokt5tJZJg2JgBp47C2wsi3huLMpFJNTtwuS2frgsLru0ECJv5kG84wF/wnMKqEG+FA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wVeBq3FWekNfxCCkzbTMD9IniijCphPt7AR8p8WxCzs=;
- b=DnuGjU7ZlhTiEUM6c2ABwOEu5yMCWFXnpOTHaxSriunT5DURfW/6R9g7yM0+Ii99rZpFK5/i2YOTyQGqqhjLaGkciJyXmISAr9ccth6ycennJ8nSAvwDvIObLxD1hXcULCGkumFJVgAxehiyuR4fiGeRUX07jhbV/hrpZ1bfwYw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com (2603:1096:400:3e1::6)
- by TYWPR01MB11341.jpnprd01.prod.outlook.com (2603:1096:400:3f0::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.19; Wed, 8 Apr
- 2026 13:38:53 +0000
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8]) by TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8%5]) with mapi id 15.20.9769.017; Wed, 8 Apr 2026
- 13:38:53 +0000
-Date: Wed, 8 Apr 2026 15:38:37 +0200
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: tomm.merciai@gmail.com, peda@axentia.se, p.zabel@pengutronix.de,
-	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Ulf Hansson <ulf.hansson@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] arm64: dts: renesas: Add missing #mux-state-cells to
- usb2phy-reset nodes
-Message-ID: <adZaXSDsv4f9d8Bp@tom-desktop>
-References: <cover.1775575276.git.tommaso.merciai.xr@bp.renesas.com>
- <CAMuHMdXHhd150mpUT5-VPcHW0W5Hs-rFC-Bjrc7Z8Szco9P_Xw@mail.gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAMuHMdXHhd150mpUT5-VPcHW0W5Hs-rFC-Bjrc7Z8Szco9P_Xw@mail.gmail.com>
-X-ClientProxiedBy: FR2P281CA0153.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:98::20) To TYCPR01MB11947.jpnprd01.prod.outlook.com
- (2603:1096:400:3e1::6)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aohr4wmM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECFAAC19421;
+	Wed,  8 Apr 2026 13:40:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775655644;
+	bh=+0oydsix3eqfdw2Aq3Jilu/jZTS1qQw8+lp0nii5wyA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=aohr4wmM+rkXMNtTgbWcQxOdPABsfIvSLaiIxSuvA/Fa8w9jq4e8zeL57njW4E/Zn
+	 1WmGBU1a5jmW5+6caOUtHvg5bYtc+mflLu56N2stGp6vaOUTOzZRdMoI/mbpkHA1p5
+	 nmJeRbq+sjtnoNIyAC1LPL99XGKtLIJoSrdODO68A6rM6UZjHROd3q0ujEOGRh0h7s
+	 bA6TZb9Uoc6BJqyuwlIlc8juqpaH9G1nzEkHvzWujtWq2we0nAAfepTL22yIhKmUOc
+	 /oeV9xf98fewJR0OCIknbua+MEcBDQSk8uoy215juMx8bqtDRxHtG74XC7kn2EPLUq
+	 h943YSSVcZFIQ==
+Date: Wed, 8 Apr 2026 08:40:42 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Wei Fang <wei.fang@nxp.com>
+Cc: claudiu.manoil@nxp.com, kuba@kernel.org, andrew@lunn.ch,
+	linux@armlinux.org.uk, davem@davemloft.net, frank.li@nxp.com,
+	edumazet@google.com, imx@lists.linux.dev, pabeni@redhat.com,
+	devicetree@vger.kernel.org, horms@kernel.org, conor+dt@kernel.org,
+	netdev@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	andrew+netdev@lunn.ch, f.fainelli@gmail.com,
+	linux-kernel@vger.kernel.org, xiaoning.wang@nxp.com,
+	krzk+dt@kernel.org, vladimir.oltean@nxp.com,
+	linux-arm-kernel@lists.infradead.org, chleroy@kernel.org
+Subject: Re: [PATCH v4 net-next 01/14] dt-bindings: net: dsa: update the
+ description of 'dsa,member' property
+Message-ID: <177565564199.1953964.14327421234664978113.robh@kernel.org>
+References: <20260331113025.1566878-1-wei.fang@nxp.com>
+ <20260331113025.1566878-2-wei.fang@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB11947:EE_|TYWPR01MB11341:EE_
-X-MS-Office365-Filtering-Correlation-Id: d103c65c-7034-4d86-72cb-08de95742cb8
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|52116014|38350700014|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	atThZ3oZ9vOYh93lFT+B4mKe7FI+TmqEyMeV4t2qu1KCpj3VLNT1I8OYhv8ry1c0PIP2s7A2WOv0tgffAnS4zbZ/t9Nr/SC7tNg0hfzvY2pa7UDvqIZh/GDbb9rDOREf5oQ4lS41Nscj5Xh0Kr+DpgDtANbapnX9qal3dGtcQLmNaYjKocLCtUc+9UE2cBroakAmyMDkzbI1lIE02CoPpQcTqybbTkTRGbvF0KtvuPpQVIsvbc8sH/XvWxHpPZDXsL9PzGsM7uH74kWEBaqMLKRbI8pEb7TQUf82BDVLEFMlK6xOK/ZQEQRMUqROQwTU2UaKmc2c6bsc0Ug2ykjIE6rOPs4Pw90rkFF72YwANPH0SsZcXdlMJS81/sVrbR0Pp5SKwmiZGRLdXcwDaS6CXWN1IinrN2HginVsT0l9zbVCrzlbDP0/BykQpwSwqhexdWWfnkbLpf3FO52VmxaQJTSTmc4OeZwN05Svq68gWAUkquiRB1MoE0iF0d7X7mtki7oSwi5rcu0oheKYcbbR/yucvUAsVP2ElsRFkg3ZujPC7xQ0W7Yu2udalAU0A4uCk0VT231idbmSxy7U30XvgkRTcawSFVnSZI5GxUw/pFB+gTj9rUOKVIA2/sGIBeea2H2tccE4htFXL3akQY/OfG+g716DaScqABKl9aKugyfvhVykLnWSbROASmjFSZBy6RefQa0v0yxz9pF9yMixCCVuZRZ1q1oHOm3yKko4h9uGY3h/EALjJEQOB5xVbXx7k1NrZYDehX3+FXc5XG6GnHamxAU22ybjYr5P+LBjc+TCwv+AClCXhW6uelVM9ifK
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB11947.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(52116014)(38350700014)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?S5uz3qYgisN2oPOzGX3IQ9QgTCCMeD89XIlnqmwrK80PpEdlkIGeLtqZm/uG?=
- =?us-ascii?Q?GN+bhXzI4SIEfvVU1Lc+dYf0IwgP9RqQrLMFCw6Ii43WKiOPM/p8iYrgCDNs?=
- =?us-ascii?Q?db9hrIQUy4rH4hR6gVoKKc+buxWdtr8HRUKnCU85yiKJ2M/+1n8VvffW6qgD?=
- =?us-ascii?Q?YDpJFJnPDAapqr4mR9IvCY7+NwPXDJp9qlQaokQYtOtJU1F1OXO6zVc3nHT/?=
- =?us-ascii?Q?guh/VVPeG4BE4U0A+tB0oUo4DBM19Z28ZqJ+2ToeWxTGz+WidrX8+NYG9Z8T?=
- =?us-ascii?Q?CLmWfRnM/a4MNtGDuTEZj9ab7oEt+gnA0etpjMAkuUWcKAB4xd9tuWEwfhI5?=
- =?us-ascii?Q?9AXE6pwlFWkswrvMvKaY1TMscs553Z5/65e+4ecFmNE3SmVYMYdkB8t9BMJn?=
- =?us-ascii?Q?gIpQHtbvDFPmutnw6Xe3WDpjFKAvlQETtYmkdyfe3anW7wDBXdd5WMTTJrUA?=
- =?us-ascii?Q?upr8HvbRth3TXPgC/8PJ/uwKlSQbKREH/GVGVZVopKDgjoAZZ/o1AYxNg8qB?=
- =?us-ascii?Q?Gxi9IGAKD5EqwiKDg221GJTDVqJ4WZrwE/jts4rr+fc9Mb92SC3RRU41KGJj?=
- =?us-ascii?Q?6nriGT4R2+0yYFxgvrfcbMd8a9Pu8wpEUhFcJ5Ra6JZtS8X80N48qbgiyS0v?=
- =?us-ascii?Q?+FVfXxQxrKrRwygTe3Z+7huPCtcc42dowt50rpiJhScJg0JDKepQqyW/+s6c?=
- =?us-ascii?Q?sDBCOvlxa6WLXart9LRqCbjgjzFJVhBzmYhdULsttqMxZUM+T3b7KJX/WhxL?=
- =?us-ascii?Q?liSujyWNhQNNdWZLwAE2xQRTyUP3LGApjgqyU0O0lXYFxxSJWUbtStKqW1Do?=
- =?us-ascii?Q?s6IKoWVQyKNmgezKrloPA9co7rhJy+Fw6SmsNxu18qN14lswOMLhuqhiiroK?=
- =?us-ascii?Q?nZriqHui6nIOuVDT5z3HMQ7ejmqB2E75xwYts8SCjYfpp8eVUYKEhLBDPSE7?=
- =?us-ascii?Q?R1pc+fsphaKfDqU1pUbhuv2wGxuDgXp7wYSx3GljoxB39iYTpDIo4sjG9BcH?=
- =?us-ascii?Q?LOrjifORkaJ7fPYKg64nW1rxEkIkmKvID4SJ8IPbR7ng+BGHMPg6musbVzgv?=
- =?us-ascii?Q?kL15LjkoGhvon4xRRxfZ03wX4VNhEFbqA/SDMgQHebuQa0j0XmROrUoDLZ2V?=
- =?us-ascii?Q?poNHUTIPZtOvrBxT0CM1DB+lK8/eqTm/mTz6eHA4x+6gqOaqQPhtz3t+pZmt?=
- =?us-ascii?Q?3KIP2E2uxkOLjHY6E1E3upkrOSLqwW2w022rtYP7cbpotXfLzeU1vTocDofv?=
- =?us-ascii?Q?VBGcZLwsL3QiTVs4+Ogj4b+iLwbvz/p2c84Wav5CzaSVfISM3tohqTCKdHYF?=
- =?us-ascii?Q?qFubqsUThaWuq2QSLBDewYZo5D39aFWN3YmU4o4pEEMsFe7ZzIRoALZ3p/u4?=
- =?us-ascii?Q?FdydNIy98rzszlEKy8HCyV7K7FTqI8jVS5MmLEKy3V87kJruf9ankUKukv4l?=
- =?us-ascii?Q?/JP0nL1IlxTRgJNT4IcqYv1tsGfHxTaqkYD9GA5ilH341R5ZSf4U9fWPPqhS?=
- =?us-ascii?Q?NL6nZOAEDWr4mMYD3IXyxhyVJLlP/TLDT8XZru27m7IA10DM0l0Fy3GtWdBf?=
- =?us-ascii?Q?7gHOrvfcw5fieoFpexNImCsAeZCOlz5nJChrLJJT/qe24Z5mF4qxDBkUinnz?=
- =?us-ascii?Q?LhkoBJOAHI0TlJIsYQENKJ9TJdg76DswgQqvZjq/A/CMLb9k0uLszZea+s8s?=
- =?us-ascii?Q?Tb0w0sOmBftoKqy0w9t8IFrjD9UG8KRy+v45UsRp/zTt73P9gOZwxP0mBpe7?=
- =?us-ascii?Q?sAojc5rCc8jMYcZVSE+p1X1/tge5Pk1qF2I351Cl84Yr/irx4A/4?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d103c65c-7034-4d86-72cb-08de95742cb8
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11947.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 13:38:53.6275
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: n8M3+vd7xzT+nLCm/tslwft7PpaZTD3caqaMSuW59OcIoII0kh+vOc9+jsCMJVwcRlkk9N6++C7dVAjGzM02w5021XYAb6xy/eoSg9x3h0znPli6WRK2he0awWPDqymZ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB11341
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260331113025.1566878-2-wei.fang@nxp.com>
 
-Hi Geert,
-Thanks for your comments.
 
-On Wed, Apr 08, 2026 at 03:07:44PM +0200, Geert Uytterhoeven wrote:
-> Hi Tommaso,
+On Tue, 31 Mar 2026 19:30:12 +0800, Wei Fang wrote:
+> The current description indicates that the 'dsa,member' property cannot
+> be set for a switch that is not part of any cluster. Vladimir thinks
+> that this is a case where the actual technical limitation was poorly
+> transposed into words when this restriction was first documented, in
+> commit 8c5ad1d6179d ("net: dsa: Document new binding").
 > 
-> On Tue, 7 Apr 2026 at 17:35, Tommaso Merciai
-> <tommaso.merciai.xr@bp.renesas.com> wrote:
-> > The renesas,rzv2h-usb2phy-reset binding schema defines #mux-state-cells as a
-> > required property. Add it to the USB2 PHY reset nodes in the RZ/V2H and RZ/V2N
-> > device trees to fix dtbs_check warnings.
-> >
-> > "arch/arm64/boot/dts/renesas/r9a09g056n48-rzv2n-evk.dtb: usb20phy-reset@15830000 (renesas,r9a09g056-usb2phy-reset): '#mux-state-cells' is a required property"
-> > "arch/arm64/boot/dts/renesas/r9a09g056n48-rzv2n-evk-cn15-emmc.dtb: usb20phy-reset@15830000 (renesas,r9a09g056-usb2phy-reset): '#mux-state-cells' is a required property"
-> > "arch/arm64/boot/dts/renesas/r9a09g056n48-rzv2n-evk-cn15-sd.dtb: usb20phy-reset@15830000 (renesas,r9a09g056-usb2phy-reset): '#mux-state-cells' is a required property"
-> > "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dtb: usb20phy-reset@15830000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
-> > "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dtb: usb21phy-reset@15840000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
-> > "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk-cn15-emmc.dtb: usb20phy-reset@15830000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
-> > "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk-cn15-emmc.dtb: usb21phy-reset@15840000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
-> > "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk-cn15-sd.dtb: usb20phy-reset@15830000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
-> > "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk-cn15-sd.dtb: usb21phy-reset@15840000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
-> >
-> > Kind Regards,
-> > Tommaso
-> >
-> > Tommaso Merciai (2):
-> >   arm64: dts: renesas: r9a09g057: Add #mux-state-cells to
-> >     usb2{0,1}phyrst
-> >   arm64: dts: renesas: r9a09g056: Add #mux-state-cells to usb20phyrst
+> The true technical limitation is that many DSA tagging protocols are
+> topology-unaware, and always call dsa_conduit_find_user() with a
+> switch_id of 0. Specifying a custom "dsa,member" property with a
+> non-zero switch_id would break them.
 > 
-> Does this series supersedes "[PATCH v5 16/22] arm64: dts: renesas:
-> r9a09g056: Add USB2.0 VBUS_SEL mux-controller support"[1] and "[PATCH
-> v5 17/22] arm64: dts: renesas: r9a09g056: Add USB2.0 PHY VBUS internal
-> regulator node"[2]?
-
-Yes, thanks.
-
-From v5 only [0] missing.
-But I think Ulf is planning to pick [0].
-
-I will rebase/send RZ/G3E USB2.0 dt patches later.
-
-[0] https://patchwork.kernel.org/project/linux-renesas-soc/patch/cda933586ef7ca119dbbcef45a921c29dd517698.1775047175.git.tommaso.merciai.xr@bp.renesas.com/
-
-
-Kind Regards,
-Tommaso
-
-
-
-
+> Therefore, for topology-aware switches, it is fine to specify this
+> property for them, even if they are not part of any cluster. Our NETC
+> switch is a good example which is topology-aware, the switch_id is
+> carried in the switch tag, but the switch_id 0 is reserved for VEPA
+> switch and cannot be used, so we need to use this property to assign
+> a non-zero switch_id for it.
 > 
-> Thanks!
+> Suggested-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+> Signed-off-by: Wei Fang <wei.fang@nxp.com>
+> ---
+>  Documentation/devicetree/bindings/net/dsa/dsa.yaml | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
 > 
-> [1] https://lore.kernel.org/c63d0a62d439a78e9ccc0b4176b84bbc32629a8e.1764241212.git.tommaso.merciai.xr@bp.renesas.com
-> [2] https://lore.kernel.org/f33b5566511a946e4e909854213e75c12d89a441.1764241212.git.tommaso.merciai.xr@bp.renesas.com
-> 
-> Gr{oetje,eeting}s,
-> 
->                         Geert
-> 
-> -- 
-> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-> 
-> In personal conversations with technical people, I call myself a hacker. But
-> when I'm talking to journalists I just say "programmer" or something like that.
->                                 -- Linus Torvalds
-> 
+
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+
