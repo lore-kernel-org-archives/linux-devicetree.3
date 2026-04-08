@@ -1,47 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE11C33F394;
-	Wed,  8 Apr 2026 13:26:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC7A3876DF;
+	Wed,  8 Apr 2026 13:27:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775654815; cv=none; b=eeX5VLKvh21T3jo/T5REZyOpKslf0/CZwIcxspuMD/sHfmVIFcPeh9GIOqqunZxBpaGxcIzRn3XP5QbU0eHtDbXvc5AaDKnRg8ENbQ+rNvWgzWdqu94qs63LuPYNBbzy/3S/CsQjg80FqPt9yagocgFxsw7A0f/wbZHUQRFqmQM=
+	t=1775654845; cv=none; b=UEh1eJ4ymrH0vT4TFYdWazmHR0qvpUHaA76dUlIvY+3mM/lQjZWkFfo60cthMd0muu5DRuw4sslTER8+/4D+hyUNzjXWN1ZD8s2BS5ZfA6vJyL7VC7NmK/+nr9wSePc3/u+UDuUIHqSmc3BQpD6BIOPryUJU3N5CXtD7nCDlcAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775654815; c=relaxed/simple;
-	bh=OCSoadxZtqni/jgtdCYSzWmmG4ei58FdgX1Pi//r0a4=;
+	s=arc-20240116; t=1775654845; c=relaxed/simple;
+	bh=18uxEuPzlVb3uXCjxYm9t2m2h0lPnLgK4BygM0pumqo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kZeZks/mR3ESZnbfmYB7mrR3BOtx8Io0pejqi2vjs5k/9SrwmWNWYpnnnALEi68mtTVtx7Cp5K2vARS9GCZcE7exmdI2cWxqZbD7b1UiUHpRH/4RSCaBJ9A5V61pYkmD/JOSGaX/yz8wZfhwVzDOc1lLzuTys4WqqwyeeY6VrSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DdevcLKS; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=kWRnCgPN8dYrm5VyQBteBy6yW659kuTsZUCBcvip5vVaBaf7yQURxG9qT3INQXs/+nTNLd2Yb6CGou+tsjv5/i8X46oNYhFeD8NAdf6HpVyhdjoE2G4tyyr8uk4V8+3bgX4didb6gbYqL5jtQb07MdMhvexwi8cuM08vnEbJHwc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qoh+6y2I; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DdevcLKS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B85AC19421;
-	Wed,  8 Apr 2026 13:26:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qoh+6y2I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E700CC19421;
+	Wed,  8 Apr 2026 13:27:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775654815;
-	bh=OCSoadxZtqni/jgtdCYSzWmmG4ei58FdgX1Pi//r0a4=;
+	s=k20201202; t=1775654845;
+	bh=18uxEuPzlVb3uXCjxYm9t2m2h0lPnLgK4BygM0pumqo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DdevcLKSFF1weksIuVTzdoScmuS3QBXJ8SQrg5vNkXwSmAub+dZMj4IK4UvFIr4/j
-	 C5p281lWuTvzI3K5090DDuzXiu2XX4dS16AodD+65feXxUEvIYJrfd0oaBkTm3euFN
-	 02RFQ7xrAsndbwI+pvide3AypTbSD73MoTf0Z4obboBk86A6V73BI3cMywjvtTnrFt
-	 g/l4vkHJG+dLxyKAEeVdL5a/7OMXKeT7rRs9BtIZcImtwxEbnGmEPAxsdqwBPZm1d4
-	 ejtF25YT9e3bDiJWUX/R4FEvHDQaG2GhBRhChFY7c1wEUfrUixTAqGcct8COt6ekTm
-	 CY+bDgkWzFJVw==
-Date: Wed, 8 Apr 2026 08:26:53 -0500
+	b=qoh+6y2I0eeZn8tFL7c0CkErn3kbPrd6Jgg53dI6GkDUDTX5lFLl179TiMk088Ycy
+	 ka9D2EAtK0Pzc7QETMhmlwS2sjmzrKhew3AnCfvGxy5Lb/tkh+lnyNghLwgzH5ZOSO
+	 C0kOSsnHH/lL4tkd7T6eb9uksmEOjjzQ7wgVjv2tVVzxM4VnAqYIaYDB4qHMbCHRzW
+	 5vQwD4992N6UU7c15sAZP+Bl2a/GorcxUs4hHampd63EaEpcFhHQ6wxYKUs1g+XUJk
+	 jgX4Okzcwx1xqkGNABmKNEbSZmtJUc4snv2fbvmUe5t73vZT/10jpIirgd5OtFG3Jq
+	 jT/O2iY0/ludw==
+Date: Wed, 8 Apr 2026 08:27:23 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	Taniya Das <taniya.das@oss.qualcomm.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Taniya Das <quic_tdas@quicinc.com>,
-	devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
-	Mike Tipton <mike.tipton@oss.qualcomm.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-clk@vger.kernel.org
-Subject: Re: [PATCH 3/7] dt-bindings: clock: qcom: Add Hawi global clock
- controller
-Message-ID: <177565481323.1937957.14659753430225608280.robh@kernel.org>
-References: <20260330-clk-hawi-v1-0-c2a663e1d35b@oss.qualcomm.com>
- <20260330-clk-hawi-v1-3-c2a663e1d35b@oss.qualcomm.com>
+To: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-tegra@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+	linux-pwm@vger.kernel.org, Thierry Reding <treding@nvidia.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>
+Subject: Re: [PATCH v4 1/7] dt-bindings: pwm: Document Tegra264 controller
+Message-ID: <177565484263.1938646.11666274671609620295.robh@kernel.org>
+References: <20260331-t264-pwm-v4-0-c041659677cf@nvidia.com>
+ <20260331-t264-pwm-v4-1-c041659677cf@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,17 +48,22 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260330-clk-hawi-v1-3-c2a663e1d35b@oss.qualcomm.com>
+In-Reply-To: <20260331-t264-pwm-v4-1-c041659677cf@nvidia.com>
 
 
-On Mon, 30 Mar 2026 17:34:58 -0700, Vivek Aknurwar wrote:
-> Add device tree bindings for the global clock controller on the Hawi SoC.
+On Tue, 31 Mar 2026 11:12:13 +0900, Mikko Perttunen wrote:
+> From: Thierry Reding <treding@nvidia.com>
 > 
-> Signed-off-by: Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>
+> Add a new compatible string for the PWM controller found on Tegra264.
+> The controller is similar to earlier generations but not compatible
+> with them.
+> 
+> Signed-off-by: Thierry Reding <treding@nvidia.com>
+> [mperttunen: Drop extra Tegra194 compatible string]
+> Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
 > ---
->  .../devicetree/bindings/clock/qcom,hawi-gcc.yaml   |  63 +++++
->  include/dt-bindings/clock/qcom,hawi-gcc.h          | 253 +++++++++++++++++++++
->  2 files changed, 316 insertions(+)
+>  Documentation/devicetree/bindings/pwm/nvidia,tegra20-pwm.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 > 
 
 Acked-by: Rob Herring (Arm) <robh@kernel.org>
