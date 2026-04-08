@@ -1,166 +1,122 @@
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022077.outbound.protection.outlook.com [40.107.75.77])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3ADD36B07F;
-	Wed,  8 Apr 2026 06:39:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.77
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775630365; cv=fail; b=CHdw3IT54xBmHqKrY4rUOebMzgcAoNGKq3cV9YwKONHMpEz47JxO05/uc6+oGwFUlhjP6WEdoFu49j6m+OMweR9Pjnk4Myg5xFK9EvSyiBga58SNb3s8TYlguswPO1r2dMAvkJ1wnJS7Oh/IP83ssA+V66v+QbS00v3m4v/Ck4M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775630365; c=relaxed/simple;
-	bh=O35vq/Ce2z7ieocAgIz/3sl+HRDcmehKlAcc0lHi9uI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bdBZwZnShzC5gOs+eDXznOLPcaw9tmzwfUel5ffsBXcjQva798BUa3KXl93ORVujh3oRv1IFKBAo9DxelH90Fs1Zji0ib56rpl6APr1666ernZnV9ITcAEx3iuN1LKOyG4MHeyMU2y4fdNH2Ij9S4fkj/QIYphvtaBNy+USBEoo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=40.107.75.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EYodkEy4vpMYi6FwetgubuV9kDyLvSPyvDyPny0aYWCsLy22YVt5ePaKgHbtnFijeSc8MBU9Tz1WFO3RQyFnoyAIYQLehYvG8uDiETjqpdXxMlxyLOsu+DKkTjdZknF7ubQU7R/oIxsISJD1YzHhj+60QfNFCmLwTgM3DPJAwxlIQg57DqgUdRN3XEpf4m4WkzGV6zavtyxgwmBWrUCcpnzLdfGyEZsF9Zy1Zzz9XRFaV06nIpa91N9D9NL4RnwB10SexW7C4c+sN7RjXUWLfN2M/GoCzUvQ8KTw7umM5/21/Ej5pAJBgQOpOKlQXMOaYEgQ8K63YUGT9VHoMGoJJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=T7nl46sto5oiezNArpd/wCnGKrfS/j3oNwJu4aTd76E=;
- b=iWejiM+Yya+Yj01WWWZKkkLbV16r3iReExaaIBFhwI8PsbMA2iVf9tpc8yV6DXHn718jsl94skdd4gw4SnFsjzck6HSW3oDD7SvhePz8wEp90wstuHsl9+6ZQwnG3XSb3vfs9vcn2NBQ81xdtbV9GTbNMCI0xXNQdEdVRwbLiN7qpUW3OuGmaNeXRKHdPMN4ulmCugeb/TvrUSVftSNW3HvVo/fOLPIc0gqXW0BnaNIpVUZZdIgSFKi9acz2v05oxIbFF8YtfSL50EBozNogkmK4snRmUYykYS8E/a+Q5y5tJQmqzOmIKU1J5OiS+SCEO+YHd5UZpaQGZq1tZsBj5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from TYCPR01CA0148.jpnprd01.prod.outlook.com (2603:1096:400:2b7::7)
- by TYSPR06MB6289.apcprd06.prod.outlook.com (2603:1096:400:411::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Wed, 8 Apr
- 2026 06:39:19 +0000
-Received: from TY2PEPF0000AB88.apcprd03.prod.outlook.com
- (2603:1096:400:2b7:cafe::d9) by TYCPR01CA0148.outlook.office365.com
- (2603:1096:400:2b7::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.35 via Frontend Transport; Wed,
- 8 Apr 2026 06:39:18 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
- smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- TY2PEPF0000AB88.mail.protection.outlook.com (10.167.253.11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Wed, 8 Apr 2026 06:39:18 +0000
-Received: from [172.20.96.43] (unknown [172.20.96.43])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 3D6044126F83;
-	Wed,  8 Apr 2026 14:39:17 +0800 (CST)
-Message-ID: <eea87be5-5257-4ed2-b8f4-42c35889fd05@cixtech.com>
-Date: Wed, 8 Apr 2026 14:39:16 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A4C8355F4C;
+	Wed,  8 Apr 2026 06:42:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775630532; cv=none; b=u1+fM4Ohz/45o7Dh8oqoCHmnuIlrijNC3WDYBq44Nlnjutoq49dIC2Hh6bRPRrxJGR/60UsafriGoPZLonXQlWF+JdXBgxrrGQmgr0K6tpWWcKej17DhWGRcMCqW4B7mODEbIq2ZP5fIwA5Y9+4Zl5voglFJKT30nMdX1KdxWog=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775630532; c=relaxed/simple;
+	bh=K/0wv+fOWMmmL54MkEbG43hnF9nGhokOwwcPwONb1fw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sQVa8PSd1xEyvI/BXS2aoTx3fEnNXLNyewmhGTpaleRgsmQZaC2s8pwSeq0HOF67FtT/FXUvd4iEuzuCtW2656i5UrB3+A7/fvHcYTXXEr7EisQezHy8imcerMKqG39+3BCnCXU4mK69TGbaWNoXAj4r0dapqYdrIzuOJoENQa0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZvL3zwTt; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZvL3zwTt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A685C19424;
+	Wed,  8 Apr 2026 06:42:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775630531;
+	bh=K/0wv+fOWMmmL54MkEbG43hnF9nGhokOwwcPwONb1fw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZvL3zwTt6o0HrXxgwwSY93aWOOFU78x8ZMj1E1oJbrRBdZio7fw+YtE0hGxEMYfYq
+	 p2LPdESq2NhcABpGFFVF4yeEH7vv6pwYmJ63anAebfk4u+QHVXfD9aJQS5imP8E8E3
+	 vdKv7KU5997Bh8HNhfOhJ6DhnqEnHaDQG0IvoVgsW/40BSIf8hvdqI3YRk+tvY9023
+	 vUsN3KiG2epiZbLWgEB+1uLRL4+sSa1wkc0ByAmLZ8lNTTKcQ8uHz7TqWipqvm8/Df
+	 hnKO5GAJHlvHAQy5A8cGSRby7qshGMrSH6JPH5hUilf8lEvfRa+hgxwn721WvmlJgK
+	 rGyrmM/8MydkA==
+Date: Wed, 8 Apr 2026 08:42:09 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+Cc: imx@lists.linux.dev, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	dri-devel@lists.freedesktop.org, Alexander Stein <alexander.stein@ew.tq-group.com>, 
+	Dmitry Baryshkov <lumag@kernel.org>, Ying Liu <victor.liu@nxp.com>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v21 3/8] dt-bindings: display: bridge: Add Cadence
+ MHDP8501
+Message-ID: <20260408-large-marigold-pheasant-bef65f@quoll>
+References: <20260407-dcss-hdmi-upstreaming-v21-0-4681070ab82f@oss.nxp.com>
+ <20260407-dcss-hdmi-upstreaming-v21-3-4681070ab82f@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/3] dt-bindings: dma: arm-dma350: document combined
- and per-channel IRQ topologies
-To: Rob Herring <robh@kernel.org>
-Cc: peter.chen@cixtech.com, fugang.duan@cixtech.com, krzk+dt@kernel.org,
- conor+dt@kernel.org, vkoul@kernel.org, ychuang3@nuvoton.com,
- schung@nuvoton.com, robin.murphy@arm.com, Frank.Li@kernel.org,
- dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, cix-kernel-upstream@cixtech.com,
- linux-arm-kernel@lists.infradead.org
-References: <20260324120113.3681830-1-jun.guo@cixtech.com>
- <20260324120113.3681830-2-jun.guo@cixtech.com>
- <20260407172014.GA3090142-robh@kernel.org>
-Content-Language: en-US
-From: Jun Guo <jun.guo@cixtech.com>
-In-Reply-To: <20260407172014.GA3090142-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB88:EE_|TYSPR06MB6289:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8db1028a-cf41-4d8e-a851-08de95398f82
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|7416014|376014|36860700016|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	TVAaewECHsIhaEnhyvs6sy1ewZ4xpTBREd+iOcT2Ve4fWhJd6YCrz+lNkBhWslA+H7A+13WhqoegCDSJV6C60DYJIF44FX11hS73MrB611AOvVh7EIrzh0ZhdK+jy7hd8VCOds4+jSGTXEgmhZWpu+AAfOrM7wxp7pzEZU61QdiT4EYoXuxvnXIPKxbFa+coU/Q2aENJ/CtizQEdwjULcJNkPIjJu1AXhfwmxcAXQkEPFFl3E8hUzypuw5UsQdXErZR3BwIXUn2f7R/TjBUH6Kos3P6zb647ofuzRjBgNIDwK5R2MkAtbN9rhTFyg3LX3X8tj3MWcL1MbuDK1aKbaK4Va5JuK4Tjr6PXiT1XitEGYTNvHnSHcVu8vno+HuoVXjcrtTcAE05njxd9fW1AzqdXL+p2VKQrO1B8mmVgAfyGC3W/sQ2eaDT9O5h2HCp1Bvkuo86cghUtONgR+MYs9uoH6lMBdELGoz8TqEHVXOOphD2GkSV8h028a6OwWvUegIQFC+J4OHmrMuON8D7JxPisAxQYmhaPSPfOcKjWZkLbAehGVhhkbN1w8A1TY6/Lp65b2MnLTdlAXxpg09d7Lgv/jnRQwG5I0/XlfERbbF33DdASLEkS24i/D+VXW1AlY3QZ3mTwLFlz5EpsbZIpLdiWyrdw9dpBmURk/87B16PC8jNHAppHo77HFHv20vyrm2coAIXA8PLhesarlFkq5NRz15HUL6FsDLUaSESlo0aREiY4IFYV/DqlME8jgNUB5i9DeSXGpgm6/h66f4n5sQ==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(7416014)(376014)(36860700016)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	VmVCGsM+k0us2VAykKy5xlzg7Cs3q5cIInY7lVOaZsdcCKJ3AsdNad+U6TLYItcM8aNUQlAo8o1sGIkoL7/DddmNqNFcrn3zonJDreqMu6AzWFPhB6VZhBHRRXON2kEaMDLURUjDFwG+moHGewLLQVp7bfyZ0b5uxd5zk5xfKoQ4OF+aeQTv2+B3TQlBpyjPmqy9k7WO2BDKSDPVCU57T+Bx39GOyh3l4BZ1rYN4I9rR7wFgkedtch1Rk9LNpM1sQzDoiAp9Lx5jGRbdMrMSWWb4MiXuNNiXyq3HtHm754lBJnpuN9BhJZl7Ok7PRmG3CSbFo0eMGpcr0bvspb4T44midy1IYTZDZdX99b+V3WaQKSmmp8g0t4J6FaM8x3RPADi/T9jWThlabRI8mXjpOzR+bzKfRUbqUMBubokwwJpbowCWPTKmiq8xjiBbgDq6
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 06:39:18.4548
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8db1028a-cf41-4d8e-a851-08de95398f82
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	TY2PEPF0000AB88.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYSPR06MB6289
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260407-dcss-hdmi-upstreaming-v21-3-4681070ab82f@oss.nxp.com>
 
-Hi Rob,
+On Tue, Apr 07, 2026 at 02:31:27PM +0000, Laurentiu Palcu wrote:
+> From: Sandor Yu <Sandor.yu@nxp.com>
+> 
+> Add bindings for Cadence MHDP8501 DisplayPort/HDMI bridge.
+> 
+> Signed-off-by: Sandor Yu <Sandor.yu@nxp.com>
+> Signed-off-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+> ---
+>  .../bindings/display/bridge/cdns,mhdp8501.yaml     | 131 +++++++++++++++++++++
+>  1 file changed, 131 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/bridge/cdns,mhdp8501.yaml b/Documentation/devicetree/bindings/display/bridge/cdns,mhdp8501.yaml
+> new file mode 100644
+> index 0000000000000..77e16ee9d855d
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/bridge/cdns,mhdp8501.yaml
+> @@ -0,0 +1,131 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/bridge/cdns,mhdp8501.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Cadence MHDP8501 DP/HDMI bridge
+> +
+> +maintainers:
+> +  - Sandor Yu <Sandor.yu@nxp.com>
+> +
+> +description:
+> +  Cadence MHDP8501 DisplayPort/HDMI interface.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - fsl,imx8mq-mhdp8501
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +    description: MHDP8501 DP/HDMI APB clock.
+> +
+> +  phys:
+> +    maxItems: 1
+> +    description:
+> +      phandle to the DP/HDMI PHY
+> +
+> +  interrupts:
+> +    items:
+> +      - description: Hotplug cable plugin.
+> +      - description: Hotplug cable plugout.
+> +
+> +  interrupt-names:
+> +    items:
+> +      - const: plug_in
+> +      - const: plug_out
+> +
+> +  cdns,bridge-type:
 
-Thanks for your review. I have already resubmitted the V6 patch. Please 
-take a look at the latest v6 patch when you have time, as it includes 
-considerable changes compared to the v5 version.
+Drop property. Graph defines what is connected on the other side. And if
+this is for different devices then compatible tells what bridge is that.
 
-On 4/8/2026 1:20 AM, Rob Herring wrote:
-> EXTERNAL EMAIL
-> 
-> On Tue, Mar 24, 2026 at 08:01:11PM +0800, Jun Guo wrote:
->> Document the interrupt topologies supported by DMA-350 integration:
->> - one combined interrupt for all channels, or
->> - one interrupt per channel (up to 8 channels).
->>
->> Assisted-by: Cursor:GPT-5.3-Codex
->> Signed-off-by: Jun Guo <jun.guo@cixtech.com>
->> ---
->>   .../devicetree/bindings/dma/arm,dma-350.yaml  | 25 ++++++++++++-------
->>   1 file changed, 16 insertions(+), 9 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/dma/arm,dma-350.yaml b/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
->> index 429f682f15d8..bec9dc32541b 100644
->> --- a/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
->> +++ b/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
->> @@ -22,15 +22,22 @@ properties:
->>
->>     interrupts:
->>       minItems: 1
->> -    items:
->> -      - description: Channel 0 interrupt
->> -      - description: Channel 1 interrupt
->> -      - description: Channel 2 interrupt
->> -      - description: Channel 3 interrupt
->> -      - description: Channel 4 interrupt
->> -      - description: Channel 5 interrupt
->> -      - description: Channel 6 interrupt
->> -      - description: Channel 7 interrupt
->> +    maxItems: 8
-> 
-> Don't need maxItems
-> 
->> +    description:
->> +      Either one interrupt per channel (8 interrupts), or one
->> +      combined interrupt for all channels.
->> +    oneOf:
->> +      - items:
->> +          - description: Channel 0 interrupt
->> +          - description: Channel 1 interrupt
->> +          - description: Channel 2 interrupt
->> +          - description: Channel 3 interrupt
->> +          - description: Channel 4 interrupt
->> +          - description: Channel 5 interrupt
->> +          - description: Channel 6 interrupt
->> +          - description: Channel 7 interrupt
->> +      - items:
->> +          - description: Combined interrupt shared by all channels
->>
->>     "#dma-cells":
->>       const: 1
->> --
->> 2.34.1
->>
+Best regards,
+Krzysztof
 
