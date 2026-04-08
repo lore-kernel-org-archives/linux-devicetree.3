@@ -1,39 +1,67 @@
-Received: from ixit.cz (ixit.cz [185.100.197.86])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E80232C3248;
-	Wed,  8 Apr 2026 11:50:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72A64368942
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 11:51:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775649024; cv=none; b=FJD7LoOQGIhLIfKSNPeAl59IKmK4WzHWq2EpjED5JuVWfoR9ukM2aaVqLUne1aaV4tFr+Vzol/avrKsDVZyiE0rVxr7BcoW2yQKtYnbS5Mzp9wcxVFfvCtxqf0W2fM5TBsiFu/fa3nmn3HZWtyZxGNQXGJIr4EAdyEsnrsXzlYs=
+	t=1775649069; cv=none; b=QyulZyTa0wx2pvhuCcmfSohSZhVTdmKralWPUlm6GUkvj6ghNGN/ghtxWln3IUx8uF++Y0So7T6AIQzZw7VosEFKhBNjHs2P3V33ZwdG89LXNizHRzbQzW1lXPPavHgaQe9G3zhMxr7plwViG1782jPLpZnggqYmDVYk2mGeKpM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775649024; c=relaxed/simple;
-	bh=cr3DDqYflhk/Q86INDoE+CWNSkDLxE/whb9SQTINams=;
+	s=arc-20240116; t=1775649069; c=relaxed/simple;
+	bh=X58ciQKprArFwD51+U6hqe12tyByg+hkvzjFAJm9gMU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AS1Y7XcQvj6XLolg3RpDlG+9upTFSLElBBr6l6HBST9PixBClg/1Oa5SKVoKFEwxxg6kiNgBoLpGEZFZshX07jMjcSHKyQU3pcrDJVOD/IEEN/3eZq8I5yf/NVYR2SYDbczVufIbDaWI4dzK0PbI9hODftkcQq+3haFU61YNHqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=RLzjQ/L3; arc=none smtp.client-ip=185.100.197.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	 In-Reply-To:Content-Type; b=KabpA/IkNce3VCEG0tkyzYGT7uvPHoxeO8+CZX7gsoa1GtF7P2xRpuVkU/3omcZ7eqVVhAjgWMdtm4TlRVYAOb5MXMwhPEqG8C/oZGIaF8957aUVY6Af3i/bXk/f1w/sEcy5hGMWaTzNKCKZgQUDzC8e1zf/Oku4S28oF+ZeyAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J95HISEd; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="RLzjQ/L3"
-Received: from [192.168.62.16] (37-48-32-36.nat.epc.tmcz.cz [37.48.32.36])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 14C625341073;
-	Wed, 08 Apr 2026 13:50:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1775649016;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=h+2PB2h5YZzIhWQ6GSTNArzi0ONg/J5mrZV6McUkvGM=;
-	b=RLzjQ/L3o5y7goDGZNdivWtzKGjOyHq3YS+ii07ObSFF6qQb4PoqeJyE/ihTk8X6WI9Xlu
-	TY1YW44qv3nVj1PO2egcK61k1DcJn7j3PCiTQqLromIsdHddo40TJO8OACjkXurUD9nwnP
-	GPdYW2sSQ7CgRt0P2x0mxaoxwlhN40A=
-Message-ID: <93c43b24-0731-4aad-becb-908ca0f33d6f@ixit.cz>
-Date: Wed, 8 Apr 2026 13:50:14 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J95HISEd"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-488a041eae5so32607945e9.1
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 04:51:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1775649067; x=1776253867; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=BW6UoyfUV2pgEC2VeAz88BmtH42V9gawKLQgrG0Az5I=;
+        b=J95HISEdWw6t+iJ+mITeniNClchl/Jyfb0sagdeL6341DO3/HKthy1wJYZGyP2DL1I
+         jqIdE49s0hTSXXFefU5wVgC5Z+ojL8aQ3T85Pze3nyhYGWbHq6PV1d/yjiVqj7J2Hn1Z
+         SI2qyOi0G1RsD2K8lrEC5uoOoqYbJOoTrBeBhIXeL8yGDnDDSJXpM04I8kdr4DjNmx1S
+         9ZWF5RGMik1Sx28zvKSrdn0YDE57fZAf3LUkauB0/IALjWiM0F99IRIOJI6fhWEgyUZK
+         uL4jT6/6jazUT6h5k/iixHGDP2t6UfkDs55qH30FJJet8b/pEm5FJoZefi8E41hIU+I2
+         oRew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775649067; x=1776253867;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=BW6UoyfUV2pgEC2VeAz88BmtH42V9gawKLQgrG0Az5I=;
+        b=HeoeBXrGjNykAQyITv1UBkQ55Je4Ekfr9CobYNGGBOuPtk9cGpTOGgo5dJPpTr1eBz
+         +DvtnpSFamIlkZuMw/2J74GmXdz+gkVdxlmwfeDFI3kmfZeWTkfYtCSvobDVRQAZaF79
+         Z0XrkZDMvw9R09sLusHdODzE/gOawyDMfYl3ndhg6wy1hLqs6rvuqj1+wN0L300nPYY3
+         r68SkRbcb3EEFafCYdFz9l0xXG4Uoz3+ZrxyIta5HvAbCxEgSNlx+d3SNgRYSWucQ1n6
+         tbbwdFZEvQKQXYmC7Q/tDXuP4BVfEiKttGWWvi2MRCwhHgm77w9jwmR5AYHTnAzjCMm2
+         KLrQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUYcWwYGyPJzl/7ptoxra6FwLnoqptUnf5IN2UmxFzo5G7KIaODi+jos9Nczeuafe7RTauOipjXNfvv@vger.kernel.org
+X-Gm-Message-State: AOJu0YwIt9YpI8hWzm9JEJfO0eeauxwhZ5Xh7jL47fCEbA6xr69wcBGK
+	IRvqFnY+YBo5UgvjpUv5BL3fYDZ07cOapUZObY/0rsAIi9HNZnN6i3Zj
+X-Gm-Gg: AeBDiet9aGQImr14r2ZP3cvfyDldNXFfrTNrheR5/NtEhYiBLHLhpuyXdFVTtP6GZpe
+	iDMHc8SZWcz6hCUFaMFjCIHl9VZmUTNp0V008hrkdf79yA25N0DIkWbW2FklzcWzX9la8xSCzFH
+	QozOOklOH8JBNRdXvQgbAkCknyjD6jvcFtuCB7R3rglsKP2jFc5O14SkLbqeLjd155zfn7cXpXd
+	affU5YBK55G1RVVHTTMGAiQuEEa/I9b3uLL+M74zQaVHZ2h++krncygYbS+sZwlDa7wJ9YKTjI7
+	WPdyNCzExWJzmQqOsq3v6iMLskO8kQxalBg7B0XnZmfIIx0g7HC4UwBh7/ediCIRCh9RQMynsU3
+	bdGW5DOzEYVqN/A3kbb2ByQn/zdNnaS5Jg09Qx1ylPk4tac02z5TCJHCI4RUxNhJQOUb0F3nQAJ
+	dEbp8xk6UhVrGCVNdyfDp2WDItt5lrqKsfd8r1pTxPkuPTvuABHE71zU/G2LqeP5A3IlRrMl8uH
+	xnR409TaQ==
+X-Received: by 2002:a05:600c:3549:b0:485:41c4:e2e4 with SMTP id 5b1f17b1804b1-488997d2ccemr267423825e9.23.1775649066543;
+        Wed, 08 Apr 2026 04:51:06 -0700 (PDT)
+Received: from [10.1.4.108] (cust-east-par-46-193-119-166.cust.wifirst.net. [46.193.119.166])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488c5dd1c81sm17369545e9.33.2026.04.08.04.51.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 08 Apr 2026 04:51:05 -0700 (PDT)
+Message-ID: <1296ca80-f783-4584-b953-f92f6594c39f@gmail.com>
+Date: Wed, 8 Apr 2026 13:50:54 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,145 +69,98 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/7] dt-bindings: input: syna,rmi4: Document
- syna,rmi4-s3706b
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Kaustabh Chakraborty <kauschluss@disroot.org>,
+Subject: Re: [PATCH 3/3] net: dsa: microchip: implement KSZ87xx Module 3
+ low-loss cable errata
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com,
+ Vladimir Oltean <olteanv@gmail.com>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, "Jason A. Donenfeld" <Jason@zx2c4.com>,
- Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
- Vincent Huang <vincent.huang@tw.synaptics.com>,
- Casey Connolly <casey.connolly@linaro.org>, linux-input@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, netdev@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- phone-devel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>
-References: <20260324-synaptics-rmi4-v8-0-2168d2df68f5@ixit.cz>
- <20260324-synaptics-rmi4-v8-1-2168d2df68f5@ixit.cz>
- <acLpBXc9Qi5riQO0@google.com> <5630a4af-e18f-4daf-9b04-ea61091d9e51@ixit.cz>
- <adSMQXgbco8fvRLo@google.com>
+ Fidelio Lawson <fidelio.lawson@exotec.com>
+References: <20260326-ksz87xx_errata_low_loss_connections-v1-0-79a698f43626@exotec.com>
+ <20260326-ksz87xx_errata_low_loss_connections-v1-3-79a698f43626@exotec.com>
+ <ab6a06c1-2d7d-4032-8d38-063470cd45c0@lunn.ch>
+ <fe14415a-52fa-42cc-9e4c-e3876588d513@gmail.com>
+ <c235ee5c-6057-4c10-9960-9c5a3527bf22@lunn.ch>
 Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <adSMQXgbco8fvRLo@google.com>
+From: Fidelio LAWSON <lawson.fidelio@gmail.com>
+In-Reply-To: <c235ee5c-6057-4c10-9960-9c5a3527bf22@lunn.ch>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 07/04/2026 06:48, Dmitry Torokhov wrote:
-> On Wed, Mar 25, 2026 at 12:33:23PM +0100, David Heidelberg wrote:
->> On 24/03/2026 20:42, Dmitry Torokhov wrote:
->>> On Tue, Mar 24, 2026 at 08:40:34PM +0100, David Heidelberg via B4 Relay wrote:
->>>> From: David Heidelberg <david@ixit.cz>
->>>>
->>>> Mostly irrelevant for authentic Synaptics touchscreens, but very important
->>>> for applying workarounds to cheap TS knockoffs.
->>>>
->>>> These knockoffs work well with the downstream driver, and since the user
->>>> has no way to distinguish them, later in this patch set, we introduce
->>>> workarounds to ensure they function as well as possible.
->>>>
->>>> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
->>>> Signed-off-by: David Heidelberg <david@ixit.cz>
->>>> ---
->>>>    Documentation/devicetree/bindings/input/syna,rmi4.yaml | 11 ++++++++---
->>>>    1 file changed, 8 insertions(+), 3 deletions(-)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/input/syna,rmi4.yaml b/Documentation/devicetree/bindings/input/syna,rmi4.yaml
->>>> index 8685ef4481f4a..fb4804ac3544d 100644
->>>> --- a/Documentation/devicetree/bindings/input/syna,rmi4.yaml
->>>> +++ b/Documentation/devicetree/bindings/input/syna,rmi4.yaml
->>>> @@ -18,9 +18,14 @@ description: |
->>>>    properties:
->>>>      compatible:
->>>> -    enum:
->>>> -      - syna,rmi4-i2c
->>>> -      - syna,rmi4-spi
->>>> +    oneOf:
->>>> +      - enum:
->>>> +          - syna,rmi4-i2c
->>>> +          - syna,rmi4-spi
->>>> +      - items:
->>>> +          - enum:
->>>> +              - syna,rmi4-s3706b  # OnePlus 6/6T
+On 4/4/26 16:45, Andrew Lunn wrote:
+> On Fri, Apr 03, 2026 at 11:43:24AM +0200, Fidelio LAWSON wrote:
+>> On 3/26/26 13:18, Andrew Lunn wrote:
+>>>> +	mutex_lock(&dev->alu_mutex);
+>>>> +
+>>>> +	ret = ksz_write8(dev, regs[REG_IND_CTRL_0], 0xA0);
+>>>> +
+>>>> +	if (!ret)
+>>>> +		ret = ksz_write8(dev, 0x6F, indir_reg);
+>>>> +
+>>>> +	if (!ret)
+>>>> +		ret = ksz_write8(dev, regs[REG_IND_BYTE], indir_val);
+>>>> +
+>>>> +	mutex_unlock(&dev->alu_mutex);
 >>>
->>> I thought that all the workarounds will be keyed off this new
->>> compatible, but I do not see that. What am I missing?
+>>> What address space are these registers in? Normally workarounds for a
+>>> PHY would be in the PHY driver. But that assumes the registers are
+>>> accessible from the PHY driver.
+>>>
+>>> 	   Andrew
 >>
->> The compatible is used for sequence in the
->>
->> Input: synaptics-rmi4 - support fallback values for PDT descriptor bytes
->>
->> where it is used to provide values missing for OP6 (and possible others in
->> the future, when added).
->>
->>  From my understanding the series, only two patches (1st and last) are
->> specific for the OP6, rest will likely benefit various TS not implementing
->> full Synaptics set. All measures apply only when touchscreen reports
->> something wrong.
+>> Hi Andrew,
+>> These registers belong to the KSZ87xx switch address space, accessed through
+>> the switch’s indirect access mechanism. In particular, the offsets used here
+>> correspond to entries within the TABLE_LINK_MD_V indirect table of the
+>> KSZ8-family switches.
 > 
-> If the sensor does not implement RMI4 protocol properly it should not
-> use rmi4 compatibility. I will not apply any patches that work around
-> incomplete implementations unless they are triggered by a dedicated
-> compatible.
-
-Ok, good.
-
-Can we agree on subset which is correct now?
-
-I think that
-[PATCH v8 4/7] Input: synaptics-rmi4 - f55: handle zero electrode count
-[PATCH v8 6/7] Input: synaptics-rmi4 - read product ID on aftermarket touch ICs
-
-could be reasonable to keep as is, except I would reword the 6/7, as reading 
-product ID isn't anything aftermarket specific.
-
-Then I would send this subset to get in first and work on the rest, does it 
-sounds good to you?
-
-David>
-> Thanks.
+> So this errata is for ksz87xx only?
 > 
+> For this PHY, do all PHY register reads and writes go through
+> 
+> https://elixir.bootlin.com/linux/v6.19.11/source/drivers/net/dsa/microchip/ksz8.c#L957
+> ksz8_r_phy()
+> 
+> and
+> 
+> https://elixir.bootlin.com/linux/v6.19.11/source/drivers/net/dsa/microchip/ksz8.c#L1221
+> ksz8_w_phy()?
+> 
+> We already have some "interesting" things going on in these
+> functions. PHY_REG_LINK_MD and PHY_REG_PHY_CTRL are not standard C22
+> PHY registers. They take the values 0x1d and 0x1f. The 802.3 standard
+> defines 0x10-0x1f as vendor specific, so this is O.K.
+> 
+> So you could define 2 bits in say register 0x1c to indicate the errata
+> mode. You can have a PHY tunable which does reads/writes to these two
+> bits, and ksz8_w_phy/ksz8_r_phy which translates them to indirect
+> register accesses?
+> 
+> It is not even really violating the layering.
+> 
+> 	 Andrew
 
--- 
-David Heidelberg
+Hi Andrew,
+
+Thanks a lot for the feedback, it was very helpful.
+
+Yes, the erratum affects KSZ87xx devices only, and all accesses to the 
+embedded PHYs indeed go through ksz8_r_phy() / ksz8_w_phy(), as you 
+pointed out.
+I followed your suggestion and reworked the implementation accordingly: 
+the errata selection is now modeled as a vendor‑specific Clause 22 PHY 
+register (0x1c), handled entirely in ksz8_r_phy() / ksz8_w_phy(), which 
+translate reads and writes into the appropriate indirect TABLE_LINK_MD_V 
+accesses. This keeps the PHY‑facing API clean without breaking the layering.
+I’ve dropped the DT approach and adjusted the implementation based on 
+the review comments. I’m sending a v2 with these changes shortly.
+
+Thanks again for the guidance.
+Best regards,
+Fidelio
 
