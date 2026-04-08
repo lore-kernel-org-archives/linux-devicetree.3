@@ -1,157 +1,196 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93B79396B8B
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 09:18:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ECCB2580E1
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 09:19:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775639927; cv=none; b=UFjYNyYM7AzKwfkB306QguBrnbvuVmy0tV3CoPhjYj2lgPWGyVZ8D6ltPoR4jpdcZuG5qpUJJ5KzLLz0Cg7T2mB5UvMhBgYims8yqn8ItqkUsGL90rzt/pCjPzAmfOeaqSUZNxiFYvJ10zgpdDYUeoJy2ViJLe6GPw/xeBkXuc4=
+	t=1775639968; cv=none; b=YlHzEmgd6FiyJ/bsB/bMbIicwcPU5TkdgEcU9JHfCFmAyOPLobnelnDGFQ3gOgowh2VC6wKiNJPLMUOHARbP1zOPOsDmPFAbFd1HfCYWS9joYkTiIaTKCRx/8quf6YxaLpmeTVXwPyQac076U2x0g7nje1xJ9HQHrnW5bk60Z1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775639927; c=relaxed/simple;
-	bh=rHs54eKyifg0zRf29w7NPPQaQurNzYkTJX50IBCYI/g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TAkJlHhFKxueYFTRcqmmM3OUqS80QMmNvU6C1rDkVV6uuBa2GPlEdeQdBZVtcsos+EYjLWqaLTZbLoC977t3qre0h5enLfOrveo4IAy9/DZYe5jp7JKV3HS+eOp4AcPTwf4wduGFfFtkiPeFmqrmcrtIJiUfy+4oKyQbzg8Zltk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=C7rCm74s; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=j5afp/XH; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="C7rCm74s";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="j5afp/XH"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63838Xxc2411822
-	for <devicetree@vger.kernel.org>; Wed, 8 Apr 2026 09:18:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	TYggGOjVlT4mp+hDzDKO6HSG3vJzDPA1Z90Dqf0V0ss=; b=C7rCm74sJpazlT6Q
-	BRQ2xR826TS7ThDgtH7wb1JkYJLL5v7In94MlDjkHNPj/7NSEFiMaMcOuX89bD4Y
-	Kl/eTZUXzOUo+1nmnPOZZVmaTF3zcIwbzz+enOSLuUTEYstNFJmxd4xnrtpUXKeN
-	+P/1Ha9Zk4atp64tPOCc0BIIslMQwkCQMosBe4gd5rqaESN9Qf5fxsfRAu+6XxRF
-	VdD0pkDWTvCInybbvrQAkvU4DHKjU53xCFri1aMvPgRjYrkjUNRFZ52HkClEu9Xr
-	r5Ty3HeEjrV7kQgn34fF/SmP6kfpyylic0fP5Ay+8LakT/uDxeRVhutmVTFew+bA
-	nTHOCg==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dd61vb1sc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 09:18:44 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5073ed1ec6fso21297321cf.1
-        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 02:18:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775639924; x=1776244724; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=TYggGOjVlT4mp+hDzDKO6HSG3vJzDPA1Z90Dqf0V0ss=;
-        b=j5afp/XHfS+TR1WuzSJvyHg8v4XqnwVg/WdWdv/a4WoiF2CCgxyoJAo/ftKNDDSEHE
-         aR0JhUmOXt7apeC42XuSCgFEhlrisI4jwhLXsu8UJu9gK4eJlIF8I5xS958mc+8SCTe7
-         8Tf6bQUyya0o/NwVtm4VEapvPQq+nsmqru1+u8sJs3cQlocEbKUxdkkBQJT7uexpC9i/
-         Wz++2sAGHTVpDqWZq81F994wlKmg1iofsIxC7cUvDBtQ8xM+11DQg6+1exeT8S5dM7p+
-         fnbmOn3AUPzTQgD5yRH+HzkYJIaPASO8oV3uBveNV3CZVDbhQHebNwrIeXArkEIe61MZ
-         GNjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775639924; x=1776244724;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=TYggGOjVlT4mp+hDzDKO6HSG3vJzDPA1Z90Dqf0V0ss=;
-        b=KV0k5EcnpgRcr9Z0UUAsTrYg2/kozlyz6VTV/NUazBREEAHULLsixSS/yIUdBXj0cz
-         KpHkDwiGeu+Ay9mcWcckp9XYLqKkGgXYuzpg7SYMeC2WeyhcUkdPFuTl/qs3bY/6jCai
-         d3OHi9dF782BrxP96lQfqeZH0CGF6JG6sUMfscT0VUnpawMUFU+h/Tz4UczI4ThgQcCD
-         Y44F8Rs8IkoIKZbCJa3GXu73Jkd8OYtUc5ywdvu95FkzkjDFoJkLndWr07n4szMn8twB
-         AKqHhPND7zKTF6gCHImesGoIur3wB68uMh9gqfOE61faVMGzoNpSwdnttW1wvzpffwup
-         Za1w==
-X-Forwarded-Encrypted: i=1; AJvYcCXLmgNfCpxT925H7L5G3ZKPP0ekrpp9NLM2TIsyYmz0eJiIs7IZsoKKahS09zjbELzN86D4OP/ZadDP@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxqekd6I8Buk8p13xjNB/JbGoseOL58r5QjTV3pUgjVbgs4extX
-	G4CSiBOozYrsrry4vVbfuz6RwPOjTiJqK8s9KFC2HWzAnTq3uEHACpIDJ2pwop8zqSMkxVBM/et
-	wZi0bwxb/SxaqWyfaEV+bSGjTcl46MWT6ci46xUHIytm+9we51+A/P7xtfl3hV4bx
-X-Gm-Gg: AeBDietcdk/FSaIaakYqkbDU+7VkXQWHU9B/2O48VQPL9kAqYrfhmw9W8BC285pkDBx
-	+RG8BA9uo0xUF7lpWqVGvNX4itjvau7nRNzINPVx+0pz1nObUVwi3cHA2WintutnRYOAllvMh9D
-	R+jJFSW/ZBq+Evh0HzK+iVHDLuHSEKrFmVNYuesIz3rND7zFxLtd2jTyCgrnrB6MN19oSkG8Puy
-	j+Gbac9zX+P/+I2L906e5arFa/8QbI8ApjGpnC3T8ejr2Ds0CkusCcOA+q6b/tea4FyagdowElR
-	/6IDxbyirqynzM1vOcs7UiopsolFN6/sYHC1vDewlT/1WRwBI9iP4okGJYhWnPk0LALgdCPzNX4
-	s68eB8OLeUVjaL1Q7T3fJTbItRNj+RXAsDX8L/ftTKM3SWNLrf1Aiay9PNsWYBFoc+WnWVuI30q
-	4wIkQ=
-X-Received: by 2002:ac8:5d10:0:b0:509:1b76:e9ba with SMTP id d75a77b69052e-50d62d4a14amr214065471cf.8.1775639923878;
-        Wed, 08 Apr 2026 02:18:43 -0700 (PDT)
-X-Received: by 2002:ac8:5d10:0:b0:509:1b76:e9ba with SMTP id d75a77b69052e-50d62d4a14amr214065171cf.8.1775639923394;
-        Wed, 08 Apr 2026 02:18:43 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9c3cfef4f9sm615267366b.45.2026.04.08.02.18.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 08 Apr 2026 02:18:42 -0700 (PDT)
-Message-ID: <6e248bd3-1692-453c-9012-cee1bf1cbb8d@oss.qualcomm.com>
-Date: Wed, 8 Apr 2026 11:18:38 +0200
+	s=arc-20240116; t=1775639968; c=relaxed/simple;
+	bh=BPgXj+sJRlfZoWE+gKU2Z0yrWHn8FJfF/+ZjKZA2Tk0=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=hH+6ahqrS1AAaS69nRlUc0a1kp0knHpSkj8cMqTGPSa7zl+YVkjysARjD5qdfU5sImwK2236J+sgpKTVkHV1Mpx060S34GInm/7JHVznCkl9qAOwJZUSA9wMFgxrnz51fmRzDqGHcyVupc9vLTvvwxiV4SPvOnN/wRVoCdssM/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wAP48-00034B-2A; Wed, 08 Apr 2026 11:19:16 +0200
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wAP47-004KKS-0I;
+	Wed, 08 Apr 2026 11:19:15 +0200
+Received: from pza by lupine with local (Exim 4.98.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wAP47-000000007MM-00EF;
+	Wed, 08 Apr 2026 11:19:15 +0200
+Message-ID: <883ab53ae7e7ce3b894fef10e982deb1ea24c872.camel@pengutronix.de>
+Subject: Re: [PATCH 3/3] reset: eswin: Add eic7700 HSP reset driver
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: dongxuyang@eswincomputing.com, mturquette@baylibre.com,
+ sboyd@kernel.org, 	robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, 	linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org,
+ huangyifeng@eswincomputing.com
+Cc: ningyu@eswincomputing.com, linmin@eswincomputing.com, 
+	pinkesh.vaghela@einfochips.com
+Date: Wed, 08 Apr 2026 11:19:14 +0200
+In-Reply-To: <20260403093628.780-1-dongxuyang@eswincomputing.com>
+References: <20260403093459.612-1-dongxuyang@eswincomputing.com>
+	 <20260403093628.780-1-dongxuyang@eswincomputing.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 2/4] arm64: dts: qcom: glymur: Add GPU smmu node
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org,
-        Rajendra Nayak <quic_rjendra@quicinc.com>,
-        Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>
-References: <20260405-glymur-gpu-dt-v1-0-2135eb11c562@oss.qualcomm.com>
- <20260405-glymur-gpu-dt-v1-2-2135eb11c562@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260405-glymur-gpu-dt-v1-2-2135eb11c562@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA4MDA4MiBTYWx0ZWRfXwA5MRMEkeaux
- Eb76ZI+WXCbqEyJkls8OR2MyyOcmTJL6eNsI4Du6yWwRnsHt9jXQG3s59vkFxo3+lrLObJbFOEE
- mq32E+t0d9QFJKspPUAyg1SJaBp+aLf+Z2WqVOmzYli8LW5Lj4sdif45ebkZef7rhsY23Rbdg2C
- NZ5QJ9+CIMlq9YKWNcfXpj94R5Kfqm/hf8Txp85dTqa2m+xolrzkIQT1v/GIyXoIx2S6eUPxo5N
- EWfVaeg4LdLfN35ERDmHbtt3dSgnTJf97tkK767rRcYuSasIY345GFbdsCprfHYKXVmOQct4+rg
- p2yc4Ki7KtrVE5L8xQhr4lNhYbEbKCjzcHIphi+TkponYZHhwqh1lGRUjYkHGk/kQF5KnN6Ofgr
- Vw2ZZocL9S98Prr9cggng48rPPYNJJXnrSVPIsXs91U7fIkjgNSAieA2/0yC1Wl43UqqOa8gGIU
- uY1ghTOhZUpcpqdRIxw==
-X-Authority-Analysis: v=2.4 cv=FecHAp+6 c=1 sm=1 tr=0 ts=69d61d74 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=QDjCMyA0A8yHJihhU1wA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: nywFluPYp3eM6NWqt-DQEKmYAE3SJqyP
-X-Proofpoint-GUID: nywFluPYp3eM6NWqt-DQEKmYAE3SJqyP
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-08_03,2026-04-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 lowpriorityscore=0 priorityscore=1501
- suspectscore=0 clxscore=1015 impostorscore=0 bulkscore=0 adultscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
- definitions=main-2604080082
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: p.zabel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-On 4/4/26 11:03 PM, Akhil P Oommen wrote:
-> From: Rajendra Nayak <quic_rjendra@quicinc.com>
-> 
-> Add the nodes to describe the GPU SMMU node.
-> 
-> Signed-off-by: Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+On Fr, 2026-04-03 at 17:36 +0800, dongxuyang@eswincomputing.com wrote:
+> From: Xuyang Dong <dongxuyang@eswincomputing.com>
+>=20
+> Add auxiliary driver to support ESWIN EIC7700 high-speed peripherals
+> system. The reset controller is created using the auxiliary device
+> framework and set up in the clock driver.
+>=20
+> Signed-off-by: Xuyang Dong <dongxuyang@eswincomputing.com>
 > ---
+>  drivers/reset/Kconfig             |  13 +++
+>  drivers/reset/Makefile            |   1 +
+>  drivers/reset/reset-eic7700-hsp.c | 151 ++++++++++++++++++++++++++++++
+>  3 files changed, 165 insertions(+)
+>  create mode 100644 drivers/reset/reset-eic7700-hsp.c
+>=20
+> diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
+> index 7ce151f6a7e4..50bb0cd069ba 100644
+> --- a/drivers/reset/Kconfig
+> +++ b/drivers/reset/Kconfig
+> @@ -83,6 +83,19 @@ config RESET_EIC7700
+>  	  The driver supports eic7700 series chips and provides functionality f=
+or
+>  	  asserting and deasserting resets on the chip.
+> =20
+> +config RESET_EIC7700_HSP
+> +	tristate "EIC7700 HSP Reset controller"
+> +	depends on ARCH_ESWIN || COMPILE_TEST
+> +	depends on COMMON_CLK_EIC7700_HSP
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Why?
 
-Konrad
+Please make this buildable under COMPILE_TEST without enabling the
+clock driver.
+
+[...]
+> diff --git a/drivers/reset/reset-eic7700-hsp.c b/drivers/reset/reset-eic7=
+700-hsp.c
+> new file mode 100644
+> index 000000000000..fe9822078bcc
+> --- /dev/null
+> +++ b/drivers/reset/reset-eic7700-hsp.c
+> @@ -0,0 +1,151 @@
+[...]
+> +static int eic7700_hsp_reset_assert(struct reset_controller_dev *rcdev,
+> +				    unsigned long id)
+> +{
+> +	struct eic7700_hsp_reset_data *data =3D to_eic7700_hsp_reset(rcdev);
+> +	int ret;
+> +
+> +	if (eic7700_hsp_reset[id].active_low)
+> +		ret =3D regmap_clear_bits(data->regmap, eic7700_hsp_reset[id].reg,
+> +					eic7700_hsp_reset[id].bit);
+> +	else
+> +		ret =3D regmap_set_bits(data->regmap, eic7700_hsp_reset[id].reg,
+> +				      eic7700_hsp_reset[id].bit);
+
+This is essentially regmap_assign_bits() open-coded.
+
+> +
+> +	return ret;
+> +}
+> +
+> +static int eic7700_hsp_reset_deassert(struct reset_controller_dev *rcdev=
+,
+> +				      unsigned long id)
+> +{
+> +	struct eic7700_hsp_reset_data *data =3D to_eic7700_hsp_reset(rcdev);
+> +	int ret;
+> +
+> +	if (eic7700_hsp_reset[id].active_low)
+> +		ret =3D regmap_set_bits(data->regmap, eic7700_hsp_reset[id].reg,
+> +				      eic7700_hsp_reset[id].bit);
+> +	else
+> +		ret =3D regmap_clear_bits(data->regmap, eic7700_hsp_reset[id].reg,
+> +					eic7700_hsp_reset[id].bit);
+
+Same as above.
+
+> +
+> +	return ret;
+> +}
+> +
+> +static int eic7700_hsp_reset_reset(struct reset_controller_dev *rcdev,
+> +				   unsigned long id)
+> +{
+> +	int ret;
+> +
+> +	ret =3D eic7700_hsp_reset_assert(rcdev, id);
+> +	if (ret)
+> +		return ret;
+> +
+> +	usleep_range(10, 15);
+> +
+> +	return eic7700_hsp_reset_deassert(rcdev, id);
+> +}
+
+Does any of the consumer drivers (SATA, USB) actually use
+reset_control_reset()? If not, don't implement this.
+
+> +
+> +static const struct reset_control_ops eic7700_hsp_reset_ops =3D {
+> +	.reset =3D eic7700_hsp_reset_reset,
+> +	.assert =3D eic7700_hsp_reset_assert,
+> +	.deassert =3D eic7700_hsp_reset_deassert,
+> +};
+> +
+> +static int eic7700_hsp_reset_probe(struct auxiliary_device *adev,
+> +				   const struct auxiliary_device_id *id)
+> +{
+> +	struct eic7700_hsp_reset_data *data;
+> +	struct device *dev =3D &adev->dev;
+> +
+> +	data =3D devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
+> +	if (!data)
+> +		return -ENOMEM;
+> +
+> +	data->regmap =3D devm_regmap_init_mmio
+> +			(dev, (__force void __iomem *)adev->dev.platform_data,
+
+Consider letting the parent clk driver create the regmap und using
+dev_get_regmap().
+
+> +			&eic7700_hsp_regmap_config);
+> +	if (IS_ERR(data->regmap))
+> +		return dev_err_probe(dev, PTR_ERR(data->regmap),
+> +				     "failed to get regmap!\n");
+> +
+> +	data->rcdev.owner =3D THIS_MODULE;
+> +	data->rcdev.ops =3D &eic7700_hsp_reset_ops;
+> +	data->rcdev.of_node =3D dev->parent->of_node;
+> +	data->rcdev.of_reset_n_cells =3D 1;
+
+No need to set of_reset_n_cells, this value is ignored if of_xlate
+isn't also set.
+
+regards
+Philipp
