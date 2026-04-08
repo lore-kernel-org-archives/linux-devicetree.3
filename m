@@ -1,256 +1,135 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 504B52DA75A;
-	Wed,  8 Apr 2026 14:17:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FC353D3CEA
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 14:31:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775657843; cv=none; b=Dcpr8ab0nBbHtVOK9TciLiOA4P0Vf4DyKjuZMMF+/bgyg9fOfq9qyD4YZDpUlopohP6MpZBdA+/BiYb2o+Q+h2jENunKNzzMF2+NZAsu3b4XPjnF8oE0DNzCp9/0mEzuSIM/N8PGXNzn6SM3igCrOqcsQreCgSgpQzzh67mTTxQ=
+	t=1775658661; cv=none; b=Fonb0yksdtNEHyj6UuCOBOJ4npKFI0pPevV3izZ2Z+jGC5IO/JuoHRJHKzdTE6sUy8A2LUGRJw3RfPFPv+YK/A0uYWW/6f7lYpFABUi1ZyjHmRalgxjRL4hZ3BYOkw9tQ/i1PIS1ICvmbdwi0lO1dCrv1AeW3jeWkLPYzwxLrd8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775657843; c=relaxed/simple;
-	bh=3Bho4NJWklVctZpJLKGEsl+8sJES/JA2KlTVUBMWy2Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bkK7WCewDXX7NioPZrQQzz6v1OGgbxhPLfoRYVCF7DK33L4w2VpuoubJeUoTROut7LF4rdK6VSgas3PRNM3NtDQnfUoQffPRc9ROksBMz0f88YHY0pG63KK/oORph0BAkxATrTbctUFDp89ZVFioQ5CNl9hj1uaTDmkSRdHFUzw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=s6qyK+i3; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1775658661; c=relaxed/simple;
+	bh=CxH0oCbGTr6B8Wm+BS8m8qhdCPE3WP5aAsJAIX7L2eQ=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=sJp65LqP/oniz6OJbiIRj5L+FWuIx1adesRub/RFYayuDpflk3uQ0Wbf/yPGcFWYoDndR2Ot4op7bFJ5QYCEcy3OKVC3Cke0VydXznyCe+1eBAn/FWo+OVSEWCdXJl8t8oLMZsN+sA6Rny6txtUKyWSoxzK/8mrRXkCFXsMmzIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Lm+/BRgt; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="s6qyK+i3"
-Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
-	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 35CD41121;
-	Wed,  8 Apr 2026 16:15:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1775657752;
-	bh=3Bho4NJWklVctZpJLKGEsl+8sJES/JA2KlTVUBMWy2Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=s6qyK+i326qO08HC3hIQWV1w2TkGa+M1Pa/oQFq2qN5Pso0oAj+SjdIY6wBJmm2a1
-	 oMoeCEO3R2YPj1qPTF0RbGJmA67i9x9KRd0M7Y6UeUxRx9McSTupJboolwWMW6SlZv
-	 H+ye5vU/K2OWTzQjHSxPVM9dGbrIgGVRldgc+870=
-Date: Wed, 8 Apr 2026 17:17:19 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Cc: tomm.merciai@gmail.com, geert@linux-m68k.org,
-	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
-Subject: Re: [PATCH v6 13/21] drm: renesas: rz-du: mipi_dsi: Add
- RZ_MIPI_DSI_FEATURE_GPO0R feature
-Message-ID: <20260408141719.GB1965119@killaraus.ideasonboard.com>
-References: <cover.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
- <9e0f64dd5e1efb0d27219416121c91a19da96ebd.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
- <20260408123102.GA1960713@killaraus.ideasonboard.com>
- <b8ded729-5c22-4a47-bfb7-8bffeed76e98@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Lm+/BRgt"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-488ba6366a7so29156785e9.0
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 07:30:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1775658658; x=1776263458; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=CxH0oCbGTr6B8Wm+BS8m8qhdCPE3WP5aAsJAIX7L2eQ=;
+        b=Lm+/BRgtsVNmyu+X8bOaxFfWfEWZPaaOtpPKl4vWOX9EDRr+QEfWDNSWGcHIng0rii
+         Z6+UGG1gxrUKTjTElmU2D6cedEdi9uxbIY8owq1QlLmOUvH4gS1aQxra1/5k232nvSF8
+         w7aMvtM3dH1VytuTstSKeVlVJcYzZElte/W7pEH88KKXQcsjyGfK9XfbbJ3UTN8ZJxUt
+         31hmAXOTy1A92K4ud3r9eJcvjqrbG8RDHLgKy/tUJKtwxlsXBltaJZUqADHa0UwabAAB
+         tUSpaIje6ta9bet3oCCZUVODOiMwdRrORDFj9pSoOteIW5YEaTbUxIkvUnj9rLDRoSZQ
+         uAYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775658658; x=1776263458;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=CxH0oCbGTr6B8Wm+BS8m8qhdCPE3WP5aAsJAIX7L2eQ=;
+        b=qXcvF+HS/2BgyJzDHmSjBiQZ35sa9axs5joRcPuBJDCRwqCRW23OBiiluDyfwuLSI2
+         aL6eCho5t2RX7RwoHatyFFNP/IJr9JoCDW1V79z5CpZxI0OAdJjj5ZTLij8Y0Q68mkUA
+         C0U3EsQJR/tql82H0m3kWviF5zoiRgOvwexuYS/6XQ0I9pNC0sCxUmmIgcY/UEVbnD4I
+         c3w5b8Bk9ZKu/cgIh8JGCzfVINU7YeE/o5oUe7I3GMt41DUIp7g7Co1SS3LFQWuIObIU
+         MS/gFJzgx9Kya2kHAsEt7TDHiryNbvqqoiJzveJJMN4aF3Poiy/fBEnst8ioCyw1c5an
+         SnSg==
+X-Forwarded-Encrypted: i=1; AJvYcCW+czOSlMclAvcx1y6pXPSk1vTUQRwZOYRZY2yquIkYxPFlQ+b8/ykVS6XGbbGL787x8vLUpoCm32AT@vger.kernel.org
+X-Gm-Message-State: AOJu0YwaQvg653KZPi6HlHUiJfxq2F1kyW1MHKU+bs08T7TSpZTi35Gg
+	lPoO/279cvosjxce1XfhfYn/80/KpIoQFSJo0LOEatZ+nC+EuRllo7knW6oTef3v754=
+X-Gm-Gg: AeBDietzwRMP5pnmf0GYkP/5eqn45w/kBW/JmV+SgtA/OlOmDVKfXOQeqEOSeJZsYXi
+	gLfUwU9fSdZjFhhyhWr77heFK7uEHPPz7KQN5VTc65h0UaDIXIh/Ta4aXHrPgYsINlaWYbBVxmf
+	biMFTcPbP8WhSaatWTgBgGJuh8gA8nxLB+u6zbrAe/JjVxE51Z71Nm+oHKJIQjK7zbzDFci+6Rv
+	mAiiHDRPJrR4P3cyHR2U8nLNH+UCXGlnoOzwdTytizCcgvqA8f4ehek5gOfA9GmtMfRVURQfBhN
+	BbwNB2dzJKV7yAKhjdELrCYAIXKCLOg8Dppe6tq8d0NwdfM60hfm/rxFj1PVP7dw4CH6+dKuJ1q
+	DBdEiRYUmkGxsdUKGlAes1gDIV5z1Evw1kqu1VLUTYPsI9ViY9WtaqANqmZYKSBNg/Cp23jc9BZ
+	DxB7W+Tp/czKG00nPy/u0jWqm3g/+/ZzRZiTt1cuQp/knNap6QTkEcHQ9E9xDGN+wbpS8jAgILF
+	bi22tGi+Z1VjsB+Wg==
+X-Received: by 2002:a05:600c:8710:b0:485:5ba3:37d8 with SMTP id 5b1f17b1804b1-488996b0589mr341915565e9.5.1775658658541;
+        Wed, 08 Apr 2026 07:30:58 -0700 (PDT)
+Received: from localhost ([2a00:2381:fd67:101:9775:58c0:569c:bd74])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43d1e4e56fesm56397818f8f.27.2026.04.08.07.30.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 08 Apr 2026 07:30:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <b8ded729-5c22-4a47-bfb7-8bffeed76e98@bp.renesas.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 08 Apr 2026 15:30:56 +0100
+Message-Id: <DHNUGLJYPTUR.BTHWV3J1RRVT@linaro.org>
+From: "Alexey Klimov" <alexey.klimov@linaro.org>
+To: =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, "Sam
+ Protsenko" <semen.protsenko@linaro.org>,
+ <linux-samsung-soc@vger.kernel.org>, "Krzysztof Kozlowski"
+ <krzk@kernel.org>, "Peter Griffin" <peter.griffin@linaro.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Alim Akhtar" <alim.akhtar@samsung.com>
+Cc: "Tudor Ambarus" <tudor.ambarus@linaro.org>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 2/7] dt-bindings: soc: samsung: exynos-pmu: add
+ samsung,pmu-intr-gen phandle
+X-Mailer: aerc 0.20.0
+References: <20260401-exynos850-cpuhotplug-v2-0-c5a760a3e259@linaro.org>
+ <20260401-exynos850-cpuhotplug-v2-2-c5a760a3e259@linaro.org>
+ <01ffe5d3aca040edcedb084386ab6e195cb93013.camel@linaro.org>
+In-Reply-To: <01ffe5d3aca040edcedb084386ab6e195cb93013.camel@linaro.org>
 
-On Wed, Apr 08, 2026 at 04:12:22PM +0200, Tommaso Merciai wrote:
-> Hi Laurent,
-> Thanks for your review.
-> 
-> On 4/8/26 14:31, Laurent Pinchart wrote:
-> > On Wed, Apr 08, 2026 at 12:36:58PM +0200, Tommaso Merciai wrote:
-> >> The MIPI DSI ip found in the RZ/G3E SoC select the video input clock
-> >> based on the DU instance actually connected using the GPO0R register.
-> >>
-> >> Add this feature to the driver using `RZ_MIPI_DSI_FEATURE_GPO0R`, update
-> >> the code accordingly to manage the vclk selection with the introduction
-> >> of `rzg2l_mipi_dsi_get_input_port()`.
-> >>
-> >> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> >> ---
-> >> v5->v6:
-> >>   - Moved rzg2l_mipi_dsi_link_write() into rzv2h_mipi_dsi_dphy_init()
-> >>     + comments from HW Manual.
-> >>
-> >> v4->v5:
-> >>   - No changes.
-> >>
-> >> v3->v4:
-> >>   - No changes.
-> >>
-> >> v2->v3:
-> >>   - No changes.
-> >>
-> >> v1->v2:
-> >>   - No changes.
-> >>
-> >>   .../gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c    | 71 +++++++++++++++++--
-> >>   .../drm/renesas/rz-du/rzg2l_mipi_dsi_regs.h   |  3 +
-> >>   2 files changed, 68 insertions(+), 6 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-> >> index be6dbf19a24e..947c8e15fc4b 100644
-> >> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-> >> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-> >> @@ -37,7 +37,9 @@ MODULE_IMPORT_NS("RZV2H_CPG");
-> >>   
-> >>   #define RZG2L_DCS_BUF_SIZE	128 /* Maximum DCS buffer size in external memory. */
-> >>   
-> >> +#define RZ_MIPI_DSI_MAX_INPUT	2
-> >>   #define RZ_MIPI_DSI_FEATURE_16BPP	BIT(0)
-> >> +#define RZ_MIPI_DSI_FEATURE_GPO0R	BIT(1)
-> >>   
-> >>   struct rzg2l_mipi_dsi;
-> >>   
-> >> @@ -81,13 +83,14 @@ struct rzg2l_mipi_dsi {
-> >>   	struct drm_bridge bridge;
-> >>   	struct drm_bridge *next_bridge;
-> >>   
-> >> -	struct clk *vclk;
-> >> +	struct clk *vclk[RZ_MIPI_DSI_MAX_INPUT];
-> >>   	struct clk *lpclk;
-> >>   
-> >>   	enum mipi_dsi_pixel_format format;
-> >>   	unsigned int num_data_lanes;
-> >>   	unsigned int lanes;
-> >>   	unsigned long mode_flags;
-> >> +	u8 vclk_idx;
-> >>   
-> >>   	struct rzv2h_dsi_mode_calc mode_calc;
-> >>   
-> >> @@ -543,8 +546,8 @@ static int rzg2l_dphy_conf_clks(struct rzg2l_mipi_dsi *dsi, unsigned long mode_f
-> >>   	unsigned long vclk_rate;
-> >>   	unsigned int bpp;
-> >>   
-> >> -	clk_set_rate(dsi->vclk, mode_freq * KILO);
-> >> -	vclk_rate = clk_get_rate(dsi->vclk);
-> >> +	clk_set_rate(dsi->vclk[dsi->vclk_idx], mode_freq * KILO);
-> >> +	vclk_rate = clk_get_rate(dsi->vclk[dsi->vclk_idx]);
-> >>   	if (vclk_rate != mode_freq * KILO)
-> >>   		dev_dbg(dsi->dev, "Requested vclk rate %lu, actual %lu mismatch\n",
-> >>   			mode_freq * KILO, vclk_rate);
-> >> @@ -687,6 +690,19 @@ static int rzv2h_mipi_dsi_dphy_init(struct rzg2l_mipi_dsi *dsi,
-> >>   	rzg2l_mipi_dsi_phy_write(dsi, PLLCLKSET1R,
-> >>   				 FIELD_PREP(PLLCLKSET1R_PLL_K, dsi_parameters->k));
-> >>   
-> >> +	/*
-> >> +	 * From RZ/G3E HW manual (Rev.1.15) section 9.5.3 Operation,
-> >> +	 * 9.5.3.1 Power on Reset and Initial Settings for All Operations.
-> >> +	 * Figure 9.5-4 Power On/Off Sequence show that after writing to
-> >> +	 * GPO0R.VICH register we need to wait for more than 1 x tp before
-> >> +	 * writing to PLLENR.PLLEN.
-> >> +	 *
-> >> +	 * Note: GPO0R is a link register, not a PHY register. This setting
-> >> +	 * is specific to RZ/G3E.
-> >> +	 */
-> >> +	if (dsi->info->features & RZ_MIPI_DSI_FEATURE_GPO0R)
-> >> +		rzg2l_mipi_dsi_link_write(dsi, GPO0R, dsi->vclk_idx);
-> >> +
-> >>   	/*
-> >>   	 * From RZ/V2H HW manual (Rev.1.20) section 9.5.3 Operation,
-> >>   	 * (C) After write to D-PHY registers we need to wait for more than 1 x tp
-> >> @@ -1005,6 +1021,37 @@ static int rzg2l_mipi_dsi_stop_video(struct rzg2l_mipi_dsi *dsi)
-> >>   	return ret;
-> >>   }
-> >>   
-> >> +static int rzg2l_mipi_dsi_get_input_port(struct rzg2l_mipi_dsi *dsi)
-> >> +{
-> >> +	struct device_node *np = dsi->dev->of_node;
-> >> +	struct device_node *remote_ep, *ep_node;
-> >> +	struct of_endpoint ep;
-> >> +	bool ep_enabled;
-> >> +	int in_port;
-> >> +
-> >> +	/* DSI can have only one port enabled */
-> > 
-> > Why is that ? The hardware supports dynamic input selection, why can't
-> > it be supported at runtime ?
-> 
-> For runtime/dynamic you mean using DT overlay??
-> like, remove:
-> 
-> Removing - DU0 --> DSI (input 0 | port@0 ) overlay and
-> install  - DU1 --> DSI (input 1 | port@1 ) overlay and
-> viceversa?
+Hi Andr=C3=A9,
 
-No, I mean configurable by userspace, with two CRTCs sharing one DSI
-encoder.
+On Fri Apr 3, 2026 at 11:17 AM BST, Andr=C3=A9 Draszik wrote:
+> Hi Alexey,
+>
+> On Wed, 2026-04-01 at 05:51 +0100, Alexey Klimov wrote:
+>> Some Exynos-based SoCs, for instance Exynos850, require access
+>> to the pmu interrupt generation register region which is exposed
+>> as a syscon. Update the exynos-pmu bindings documentation to
+>> reflect this.
+>
+> You could mention that this is similar to the existing google,...
+> one due to same requirement, hence a new and more general property.
 
-> >> +	for_each_endpoint_of_node(np, ep_node) {
-> >> +		of_graph_parse_endpoint(ep_node, &ep);
-> >> +		if (ep.port >= RZ_MIPI_DSI_MAX_INPUT)
-> >> +			break;
-> >> +
-> >> +		remote_ep = of_graph_get_remote_endpoint(ep_node);
-> >> +		ep_enabled = of_device_is_available(remote_ep);
-> >> +		of_node_put(remote_ep);
-> >> +
-> >> +		if (ep_enabled) {
-> >> +			in_port = ep.port;
-> >> +			break;
-> >> +		}
-> >> +	}
-> >> +
-> >> +	if (!ep_enabled)
-> >> +		return -EINVAL;
-> >> +
-> >> +	dev_dbg(dsi->dev, "input port@%d\n", in_port);
-> >> +	return in_port;
-> >> +}
-> >> +
-> >>   /* -----------------------------------------------------------------------------
-> >>    * Bridge
-> >>    */
-> >> @@ -1425,9 +1472,21 @@ static int rzg2l_mipi_dsi_probe(struct platform_device *pdev)
-> >>   	if (IS_ERR(dsi->mmio))
-> >>   		return PTR_ERR(dsi->mmio);
-> >>   
-> >> -	dsi->vclk = devm_clk_get(dsi->dev, "vclk");
-> >> -	if (IS_ERR(dsi->vclk))
-> >> -		return PTR_ERR(dsi->vclk);
-> >> +	dsi->vclk[0] = devm_clk_get(dsi->dev, "vclk");
-> >> +		if (IS_ERR(dsi->vclk[0]))
-> >> +			return PTR_ERR(dsi->vclk[0]);
-> >> +
-> >> +	if (dsi->info->features & RZ_MIPI_DSI_FEATURE_GPO0R) {
-> >> +		dsi->vclk[1] = devm_clk_get(dsi->dev, "vclk2");
-> >> +		if (IS_ERR(dsi->vclk[1]))
-> >> +			return PTR_ERR(dsi->vclk[1]);
-> >> +
-> >> +		ret = rzg2l_mipi_dsi_get_input_port(dsi);
-> >> +		if (ret < 0)
-> >> +			return dev_err_probe(dsi->dev, -EINVAL,
-> >> +					     "No available input port\n");
-> >> +		dsi->vclk_idx = ret;
-> >> +	}
-> >>   
-> >>   	dsi->lpclk = devm_clk_get(dsi->dev, "lpclk");
-> >>   	if (IS_ERR(dsi->lpclk))
-> >> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi_regs.h b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi_regs.h
-> >> index 2bef20566648..cee2e0bc5dc5 100644
-> >> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi_regs.h
-> >> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi_regs.h
-> >> @@ -83,6 +83,9 @@
-> >>   #define LINKSR_SQCHRUN1			BIT(4)
-> >>   #define LINKSR_SQCHRUN0			BIT(0)
-> >>   
-> >> +/* RZ/G3E General Purpose Output 0 Register */
-> >> +#define GPO0R				0xc0
-> >> +
-> >>   /* Tx Set Register */
-> >>   #define TXSETR				0x100
-> >>   #define TXSETR_NUMLANECAP		(0x3 << 16)
+Ok. Thanks.
 
--- 
-Regards,
+>> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+>> ---
+>> =C2=A0.../devicetree/bindings/soc/samsung/exynos-pmu.yaml=C2=A0=C2=A0=C2=
+=A0 | 18 ++++++++++++++++++
+>> =C2=A01 file changed, 18 insertions(+)
+>>=20
+>> diff --git a/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.ya=
+ml b/Documentation/devicetree/bindings/soc/samsung/exynos-
+>> pmu.yaml
+>> index 76ce7e98c10f..92acdfd5d44e 100644
+>> --- a/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml
+>> +++ b/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml
+>> @@ -110,6 +110,11 @@ properties:
+>> =C2=A0=C2=A0=C2=A0=C2=A0 description:
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Node for reboot method
+>> =C2=A0
+>> +=C2=A0 samsung,pmu-intr-gen-syscon:
+>> +=C2=A0=C2=A0=C2=A0 $ref: /schemas/types.yaml#/definitions/phandle
+>> +=C2=A0=C2=A0=C2=A0 description:
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Phandle to PMU interrupt generation inte=
+rface.
+>> +
+>> =C2=A0=C2=A0 google,pmu-intr-gen-syscon:
+>
+> Please keep alphabetical order of vendors.
 
-Laurent Pinchart
+Sure. Thanks for noticing this.
+
+Best regards,
+Alexey
