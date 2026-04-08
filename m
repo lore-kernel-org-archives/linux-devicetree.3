@@ -1,146 +1,102 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3BCF3D3498
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 17:34:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8449F2494F0;
+	Wed,  8 Apr 2026 17:34:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775669663; cv=none; b=u40GWoUHWIBNhBOyYnBTSlMV+p+DC9ZhyfTOdeHfF7Gjvtmm59hWRYKHRQx5FWzcE5CigrEIRsjpnevWSaw/URwWi4ZeY3eCCHfTT47mTcg81oVIV4lgN8CJZhz1IhlrhcGC7LDLeaJXWBtn1wqAoyp0Pff3UYT1vIpqnKYfsjU=
+	t=1775669673; cv=none; b=hzWxeB4QWESztnxXZwtH2sdFGffqvzwmIUoRpjhLWbldwwNnFNwJtba6RDOq0VFLTL+mjqHt6XQn3wPyfautIQ6EF6srANLrD2ZPNx5DpJ5TyTB4Q91kCuTTsSWsDPoZxgnVvhjKRAYPp5A9rcp3/wohBX2HaR7cxexxtPOmBxw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775669663; c=relaxed/simple;
-	bh=G3FHbnZIvkh4qnF0RbI8m2zIo17GnxV2+bwgVnfgM3U=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=LZFYgQ5fVueHg18bJ+GOjZjVhTHK3n1Nn3vRgCxQDUomk8NubbOr6nbvHEDtDk5FlGDWYwQx6ZC0fAwGYSib5C4Imc0Go2FXbfe9EydvBiMzjhkbBrhDBKn9LsaVZWofuwlBAjdRwdA04SdyvLFp8Otg8IKA1SjCS1AFstLNJ1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=Q67U35yb; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1775669673; c=relaxed/simple;
+	bh=JzKGMSO1Qx98W099lIY3XmzWJxWoll9867PldA76mjU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Yld3Ed1liG/Ieb9RfutSqCAWl4GMOmEMI5Yvn7IeMlxoBnyhbWBF+4gQE8687CU3NPb5zuB/gRIlHL1CeqUJRe8N5DTbbRCBbS1eXkAqpQnzp19/hXvVYgNPm1fD3R/XNPyh8pjQ/yJtLA5o20Eim2W/G7F8LrMVNTW/pksh+Eg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JTpD6i1d; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="Q67U35yb"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-43cf3ee0fc1so822170f8f.1
-        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 10:34:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1775669660; x=1776274460; darn=vger.kernel.org;
-        h=mime-version:message-id:date:user-agent:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=qbPKJoXcFiZEHjruKbVgJ9S6J16xuB0veaEwyiyvCi0=;
-        b=Q67U35yb5O0Yk80LuVjeuE3Jou8++czgnxOMErqzDr4jW0olOOREmfkO3HTZmZHTW0
-         erM13fzO5iuxNSBTGBvKOz4nnD2WntAvTSnVhSW1eOuiM9DBkFezSJ4R6Mtu+TGDU7wv
-         dx05lC+8iBz1I/+sZlX7TfG5yhhP4/TjBc38ymqgIp8zSFmmggf+d0kpmDQgVsTBIpvx
-         Q8W5WeKawJj072YdJxVN4KY6dMJ+ob9Q6wcqsQdvhY5U9PpAhkIdOHor9zU5JXiOALcw
-         DDnMCas5Dgz1ZU/hibcBRrMwA7uSlQCGJ5AOZyt9SvsUkmHH+CLRmVQsJsHWXrEp1Y4l
-         pKAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775669660; x=1776274460;
-        h=mime-version:message-id:date:user-agent:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=qbPKJoXcFiZEHjruKbVgJ9S6J16xuB0veaEwyiyvCi0=;
-        b=Dg9p/4dfe+G5E0A+alcrSdCf17heQE8GNW1KK6idwJOZD14VfsW0fMJwBn2cmxPRtV
-         ucS/p8Hnpy7hQWT71ElW228cDY4KOI+E3mLedETbqra4obOJkq7/gcS/6FBx7mIJAeRg
-         W35Mv2zsT1FjJg1OdePVdtfij8ZqI0tYf5ymOTgZxDiNWt9Mqpjd+D8QdUfEidAVkXj+
-         9qB671hV8nBEa04cb/+aP7hwJbvzK3SMePWqyDQOfzZG+nQ9JaeBA9I+sxufrHAIPDDU
-         XVUN2r1x4bGBUAmSTHU+UjJ8aK6jxPPqQQYHuqjTJFUjMZQgsoiyaI6nm9AJ4wZqkbtN
-         liqw==
-X-Forwarded-Encrypted: i=1; AJvYcCWomT2QvYd/LdY35sFlOpu4UpyvO70cKQG1xqfimriELQ29izsYOlM9hXFd61LBKV4J+u8KPj10mj3C@vger.kernel.org
-X-Gm-Message-State: AOJu0YzW6o5nXkO2xD0xM3GnT+poSzOduHZYo1G5SNF/MGUk7EXQt4gS
-	wogzd75rVg49izWUUExw0hoa9FWHjU+81LbqcsOJOxm+aub/32HLsJR1KeOkz9CEHlw=
-X-Gm-Gg: AeBDies1bNEVR3oYf7ziEYlCdYCjxn3hrg8skJu6ZZZkNQTPyEqubErGmXXkrGlLzlY
-	K7Xisdrlolpdqi3g06TqgqSKFVq3X5+zan6it2/cwYmcGFFd/EtDDalmBhWIMv4/5sl31C0ssCr
-	soHOld40MgvecKQFs57FUGxH01GxnLHAiTrScweZE+56qHYF+Qz7TVevfAKarNvdYlSyXvLkTrD
-	Sn5HyHqMJl5joH5fN6J2Of6A5pBa0HOAWOQRfLhT1wAdU+K3+SPmN2ugPs9kJmrZiWds3ZOeTRA
-	ylwLLINDSeTaFMFwXfllbK10ek3SjRTeL+4gKxrtKu8vlqWdZaPuZVth/RNQgkKKOixk5cuwQ0Y
-	TXsK0Q7j7Fzk2xuY+Gf0BL7xDp4TXwUN/j0TC/NRLLPbtH53r7F2XIH3HMeAc4sy7jAO5MB4yfq
-	u5horhdKYLOPYElsUWpZ8=
-X-Received: by 2002:a05:6000:4b0a:b0:43b:a16b:ee69 with SMTP id ffacd0b85a97d-43d595cf8c2mr485116f8f.24.1775669659987;
-        Wed, 08 Apr 2026 10:34:19 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:d54d:290b:e0:25b6])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-43d1e4d27a8sm60840731f8f.17.2026.04.08.10.34.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Apr 2026 10:34:19 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Chuan Liu <chuan.liu@amlogic.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,  Neil Armstrong
- <neil.armstrong@linaro.org>,  Michael Turquette <mturquette@baylibre.com>,
-  Stephen Boyd <sboyd@kernel.org>,  Rob Herring <robh@kernel.org>,
-  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
- <conor+dt@kernel.org>,  linux-amlogic@lists.infradead.org,
-  linux-clk@vger.kernel.org,  devicetree@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  Martin Blumenstingl
- <martin.blumenstingl@googlemail.com>
-Subject: Re: [PATCH 04/13] clk: amlogic: Add basic clock driver
-In-Reply-To: <76ef272c-e09a-400e-b381-82d7f29760ca@amlogic.com> (Chuan Liu's
-	message of "Wed, 8 Apr 2026 22:32:56 +0800")
-References: <20260209-a9_clock_driver-v1-0-a9198dc03d2a@amlogic.com>
-	<20260209-a9_clock_driver-v1-4-a9198dc03d2a@amlogic.com>
-	<89cc0724-32a8-4da5-8070-c128cafcfc82@kernel.org>
-	<76ef272c-e09a-400e-b381-82d7f29760ca@amlogic.com>
-User-Agent: mu4e 1.12.9; emacs 30.1
-Date: Wed, 08 Apr 2026 19:34:18 +0200
-Message-ID: <1j7bqhtkyt.fsf@starbuckisacylon.baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JTpD6i1d"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 326E5C19421;
+	Wed,  8 Apr 2026 17:34:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775669673;
+	bh=JzKGMSO1Qx98W099lIY3XmzWJxWoll9867PldA76mjU=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=JTpD6i1dFv1hzkJMCLmROA7toGOiYQ8KLSmTWWNO5OWmAGxM8fccIZnG2Fn73CSND
+	 +dqr3y174BYm75bfLiJdwu06weHxEDGV859Z5xB1nwS9epIeFzHameyDOLBfMe2GHU
+	 lc4qzepVqpd1AHLwlvCAl0cIO3qiVPykRByWIbYXqrjMR4vY1xlw3yv7ojhh+CNxPt
+	 oWrQXWBXBFTr7ZBstisbP9NvT7/U6Q3sHGOX6xTCQdTUTbwRi0nroX3thop1Hw08fg
+	 lBttZ1AAcMvWYh7gL85F6478lhiETdWtC5AtrcZDEJC88IIrIGZtzC25eFJMgnkPJH
+	 rD0plpab466yw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F3CA10F9963;
+	Wed,  8 Apr 2026 17:34:33 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Subject: [PATCH 0/2] Introduce OnePlus 6/6T touchscreen compatible
+Date: Wed, 08 Apr 2026 19:34:31 +0200
+Message-Id: <20260408-synaptics-rmi4-dt-v1-0-2d32bacce673@ixit.cz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKeR1mkC/x3MTQ5AMBBA4as0szZJi/i7ilhUO5iFko4IEXfXW
+ H6L9x4QikwCnXog0snCW0gwmQK32DATsk+GXOeVLnWDcge7H+wE48ol+gMbS+NUmLrV3kHq9kg
+ TX/+zH973A7nUXfhjAAAA
+X-Change-ID: 20260408-synaptics-rmi4-dt-8aebf31790dc
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, "Jason A. Donenfeld" <Jason@zx2c4.com>, 
+ Matthias Schiffer <matthias.schiffer@ew.tq-group.com>, 
+ Vincent Huang <vincent.huang@tw.synaptics.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>, 
+ Krzysztof Kozlowski <krzk@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=766; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=JzKGMSO1Qx98W099lIY3XmzWJxWoll9867PldA76mjU=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBp1pGnAYMMzfmWVcCoSBFRXxcsIHcyzsFYYsnCw
+ LV/rmkIDtiJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCadaRpwAKCRBgAj/E00kg
+ cmpSEACRduCxZQPGLcSjXukxyg+Is/ZozXUdsnX4cggpr/x5ZQRcu6UBppSw7dD/CtCepy4ieZ5
+ 3p33gqJs1q+bed23rLuPGo8aBqBZ1FzYaskzHqU8FSmGIHHDJK4jepK3QFbYG7s0QUK1yxhwNkB
+ WydDiRnL/HUhjnVoQjI6NcIHZd0lo+8cy4rTnw3ZE8cRP0qFS6HyGtHjVDiu2bfDeUtifX3o+Dp
+ qMMRMXs7rSec7ZwpkdH9ZICDCXql1y70IZ1b2Lm2zgDbKlWxsH1dyWw9CGJOAVoCW76LfJQ4VL3
+ X1KR1W/nBNea/Je09+qXRHjEh8rzDVJLwIwU6xzO7HTll62bT1ldHrKOglQjCWHdDr98BXwWGFN
+ eYu0/vlBcw2Rm7pEWBH/wTXKkzAiqB67gpDQW8VZ+DYXEOpkCXxQrdijSbBgzMU7ikVMdZXdG/E
+ lA8qO5ez1v96CVaz7ysgA74aDcaVk2yXe3EPYUOa1hD4hr48ckFJ2c5cRrKEAT4yZIT+apWIhW3
+ zBRylTDonCLUrAuV9b/hsIFA6s4GeQMnBhvXexaYJ0nFHrE0u9BvVl/O6XSGy1b1Llzx2/JIr2e
+ rYZDcjJMAS1Cf9ozQ9uLnzV2UuTeIV7CIJscLWSkNceZMxT6QSwC7ujsbCBXm1WZ7VWqLRPLeBe
+ 63DkU6NxRswBFrg==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-On mer. 08 avril 2026 at 22:32, Chuan Liu <chuan.liu@amlogic.com> wrote:
+Mostly related to the
+  https://codeberg.org/sdm845/linux/commits/branch/b4/synaptics-rmi4
+series, but independent on other changes which I trying to upstream for
+more than one year.
 
-> Hi Krzysztof (& ALL),
-> Thanks for review.
->
-> On 2/9/2026 9:17 PM, Krzysztof Kozlowski wrote:
->> [ EXTERNAL EMAIL ]
->> On 09/02/2026 06:48, Chuan Liu via B4 Relay wrote:
->>> From: Chuan Liu <chuan.liu@amlogic.com>
->>>
->>> Implement core clock driver for Amlogic SoC platforms, supporting
->> So how did all existing Amlogic SoC platforms work so far without basic
->> clock driver? Really, how?
->> You are suppose to grow existing code, not add your completely new
->> "basic" driver just because you have it that way in downstream.
->> 
->
-> Firstly, apologies for the delayed response. I had intended to consolidate
-> the V1 review feedback and come back with a clearer plan for V2 changes. In
-> the meantime, Martin has provided many detailed and valuable suggestions -
-> much appreciated.
->
-> The original goal of optimizing the HW based on A9 and introducing a new
-> clock driver is to reduce unnecessary complexity in the driver. On A9, we
-> optimized the Clock/PLL controller HW to simplify driver performance,
-> complexity, memory footprint, and reusability. Improvements on the HW side
-> can also help drive corresponding enhancements in the driver:
->    - Performance: Encapsulates sub-clock functions, reducing call paths
->    - Complexity: Standardized register bits eliminate a large number of
-> bit definitions (~1/3 of original code is defined register bit [1])
->    - Memory: Object-oriented design avoids copy/paste for repeated clocks
->    - Reusability: Same controller works across SoCs without driver
-> changes (or with minimal changes)
->
-> The old meson driver required compromises to unify legacy controller
-> characteristics and driver styles. On A9, we want a fresh start.
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+David Heidelberg (2):
+      dt-bindings: input: syna,rmi4: Document syna,rmi4-s3706b
+      arm64: dts: qcom: sdm845-oneplus: Update compatible to include model
 
-I thought I was clear on the cover letter, apparently not.
+ Documentation/devicetree/bindings/input/syna,rmi4.yaml | 11 ++++++++---
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi    |  2 +-
+ 2 files changed, 9 insertions(+), 4 deletions(-)
+---
+base-commit: f3e6330d7fe42b204af05a2dbc68b379e0ad179e
+change-id: 20260408-synaptics-rmi4-dt-8aebf31790dc
 
-*This is not going to happen*
-
-You've provided no technical justification for such "a fresh start".
-
-There no reason for A9 HW to be supported by different drivers than the
-rest of the Amlogic SoC when it is quite clear it can fit with the
-current drivers.
-
-At lot of work by a lot of different people has gone into stabilizing
-and maintaing the current driver. That's valuable too. If you are not
-happy with current level of "performance" then make your case with
-actual numbers and submit changes against the current drivers, making
-improvement available to all supported SoCs. That's how upstream works.
-
->
->> Best regards,
->> Krzysztof
-
+Best regards,
 -- 
-Jerome
+David Heidelberg <david@ixit.cz>
+
+
