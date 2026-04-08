@@ -1,107 +1,84 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2412D40DFCC;
-	Wed,  8 Apr 2026 13:01:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D79F6379ECC;
+	Wed,  8 Apr 2026 13:03:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775653287; cv=none; b=KqBnnjcBJDwA4g7nXuSGtL59dTHGUjrc56sYCDjtLrozRicBx24gyt9aExQBOJf6JZIlF4cWnZUcBpvMLPWJwVWwWyjmM+ske0cKeo2n9t1WE95Aywkw90qWCQvWNEKx7BxilFU5eFo1sbF6eGAgH56J0LKBEcpE9E/sZMC3kUA=
+	t=1775653392; cv=none; b=sKy8zhA+Bsk0qGHWjK13hqZRVI9+nmoG7jpdMZGpRVY0uB/qAK11nxP6JQHMosDvYbL2FTAamYHaNnYlgIrdSjYaBlFt8SJPqj9X/4fWLSKMWu9oPeryFVdQvVCOMqq9yIdARWFDjyieUEJe/bcVbD+woIDYY/KM23HfjbXaE/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775653287; c=relaxed/simple;
-	bh=1Hfafoc3ly3D6h4fKTZQjQMqxuMvV9JkC8Aiwyu0Uek=;
+	s=arc-20240116; t=1775653392; c=relaxed/simple;
+	bh=Ob1cku0w8x5sQEjkY2l8IHCh542CxyvGMvo8yq7W5LU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GbsasVCwtpmuJbz6kLTy10fdtGx19Be/ZH/p+u87fsZxOZ/WodfutJ1dKFOced8MEVi1g0ZYVxiq7IQd+icPSx9VIIFKRy4uX1sKOr6C+djunbSrPRLXslyS0a4+NIfP6ebGN1q6Z8DgpyKVFqVFwBMxTCvHV2e0BznuauCw6I4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Sxxbf7W0; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 In-Reply-To:Content-Type; b=dgzYeOJXNterrSImcHuSVPtogYX/GcQFGW3dH7BDP3r2zjhsn8SagiA10EH6XJdOBGRcbFcHLniTioVBJcA+NFAJBhAOI/HVy9QVO9uXpIZIzWrndC2MTu9BEpwNWBn/1YunmwRnPUTiuYPD8+uEIdfkXqROzwCxYb5/6Ufqqps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=Ed8aRzW/; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Sxxbf7W0"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id C58B81A320E;
-	Wed,  8 Apr 2026 13:01:22 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 97D82603CB;
-	Wed,  8 Apr 2026 13:01:22 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 05E69104500F8;
-	Wed,  8 Apr 2026 15:01:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1775653281; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="Ed8aRzW/"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 89F2D1EED5B;
+	Wed,  8 Apr 2026 15:03:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1775653384; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=huJ2L2oU4KHAc1jGEiaYIFEB7ZxYHbo7AAGmz4+EcxE=;
-	b=Sxxbf7W0mx8PnpL1cL6CN8adOPRwJvhsnrNFSR2B92ZaTRlNr4j3J81ZklNxTe+JD18Fy5
-	aiHv87dopMvi0ZBGL/tPjcoM462tB0eqQcOHDmP0O0EVHClu9pMvKIIZ+zzKvVk7uFEyLd
-	1+ExHpOp5b51uwQxzt8PuM/TfT3MuJ924dG6y55a9/ieXKr06JWmxTgWW+Lbl8sEbhS7ku
-	sFNANslJ1JhtLQUghBjy62yLAMcTzslkxRPRZWNzG8hmIvP/mpYFy4WJ956GFC3duCdMXy
-	AdKYBzHjc/z0FUSkEEsPKHSXHhTEZeqNLi6jN6a3l1yyx0EMwc6gSCDDjqK3mw==
-Message-ID: <c7c6c8cc-fafe-4b27-8dff-a284d399ee32@bootlin.com>
-Date: Wed, 8 Apr 2026 15:01:16 +0200
+	bh=9pcOpxN6Pac/tfrhcOWSMi5MFBcz5khZMRo0IAJMCeo=;
+	b=Ed8aRzW/e1aT4ydmqhyP1mUMg8ps7n1rXRRmiSpwoXICBp/n/BNXrs8iMawxYIwi1hfGM9
+	4gAk915TNFF7pCYUJUl72JgONkS0X2uirHkxU0ieP98iXO93PrwaJL3ichDIusGjuEY5u2
+	isyh0WwO7fN4Cdg/eFHAG9BEH/xb9emtX5m4XdvtO4hkGrXwVpRGP5vv8oALUEa8/oZgcF
+	GxizstQ2rw6OxzT/WRpXf0pQQTvulrgT6bg38lvANHOSiMUi+I0EsHL5qmotO/VJfruJbF
+	szOAHbvYwSdGLyHFJAS0ymKriK+j+99G91mLf7/lTPvQJxoEfC3oHq/En71Veg==
+Message-ID: <32cd3283-b3f8-4a3c-abda-39a1423f68ca@cjdns.fr>
+Date: Wed, 8 Apr 2026 15:03:00 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/11] dt-bindings: regulator: ti,pbias-regulator: Add
- pbias_sim_omap4 regulator
-To: Rob Herring <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
- Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade
- <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-omap@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260330-omap4-fix-usb-support-v2-0-1c1e11b190dc@bootlin.com>
- <20260330-omap4-fix-usb-support-v2-2-1c1e11b190dc@bootlin.com>
- <20260331-funny-impetuous-bobcat-eb56af@quoll>
- <9d76f827-3967-4ab6-b6f0-77d1bd564278@bootlin.com>
- <20260408124109.GB1864812-robh@kernel.org>
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v4 1/2] dt-bindings: PCI: mediatek: Add support for EcoNet
+ EN7528
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-pci@vger.kernel.org, linux-mips@vger.kernel.org,
+ naseefkm@gmail.com, ryder.lee@mediatek.com, helgaas@kernel.org,
+ lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+ ansuelsmth@gmail.com, linux-mediatek@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260404182854.2183651-1-cjd@cjdns.fr>
+ <20260404182854.2183651-2-cjd@cjdns.fr>
+ <20260405-phenomenal-messy-shark-bdefbd@quoll>
 Content-Language: en-US
-From: Thomas Richard <thomas.richard@bootlin.com>
-In-Reply-To: <20260408124109.GB1864812-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <20260405-phenomenal-messy-shark-bdefbd@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-On 4/8/26 2:41 PM, Rob Herring wrote:
-> On Wed, Apr 08, 2026 at 09:58:15AM +0200, Thomas Richard wrote:
->> Hello Krzysztof,
->>
->> On 3/31/26 10:22 AM, Krzysztof Kozlowski wrote:
->>> On Mon, Mar 30, 2026 at 03:43:59PM +0200, Thomas Richard wrote:
->>>> Define pbias_sim_omap4 regulator for OMAP4. This regulators drives SIM_VDDS
->>>> supply and allows to unlock USB I/O cell.
->>>>
->>>> Signed-off-by: Thomas Richard <thomas.richard@bootlin.com>
->>>> ---
->>>>  Documentation/devicetree/bindings/regulator/ti,pbias-regulator.yaml | 1 +
->>>>  1 file changed, 1 insertion(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/regulator/ti,pbias-regulator.yaml b/Documentation/devicetree/bindings/regulator/ti,pbias-regulator.yaml
->>>> index 3e020d87701b..908fbb46b5cf 100644
->>>> --- a/Documentation/devicetree/bindings/regulator/ti,pbias-regulator.yaml
->>>> +++ b/Documentation/devicetree/bindings/regulator/ti,pbias-regulator.yaml
->>>> @@ -89,6 +89,7 @@ allOf:
->>>>                contains:
->>>>                  enum:
->>>>                    - pbias_mmc_omap4
->>>> +                  - pbias_sim_omap4
->>>
->>> Names cannot be fixed, because they represent different board naming.
->>> Why growing the deprecated style?
->>
->> Okay, so I'll drop all if statements, add a regex which matches
->> regulator names and fix the regulator name in the driver.
-> 
-> If a driver depends on the names, you can't change them.
-> 
 
-I mean the new regulator I add with this series. At this time it does
-not exist yet in the driver.
+On 05/04/2026 09:03, Krzysztof Kozlowski wrote:
+> On Sat, Apr 04, 2026 at 06:28:53PM +0000, Caleb James DeLisle wrote:
+>> Introduce EcoNet EN7528 SoC compatible in MediaTek PCIe controller
+>> binding.
+>>
+>> EcoNet PCIe controller has the same configuration model as
+>> Mediatek v2 but is initialized more similarly to an MT7621
+>> PCIe.
+>>
+> <form letter>
+> This is a friendly reminder during the review process.
+>
+> It looks like you received a tag and forgot to add it.
+>
+Whoops, that was a failed-to-press-save error, thanks for catching it, I 
+will update in a few days after waiting for any additional commentary.
 
-Best Regards,
-Thomas
+
+Caleb
+
+
+The missing line:
+
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
