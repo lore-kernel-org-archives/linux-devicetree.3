@@ -1,197 +1,105 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A07C51F09AD
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:23:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06A383A4F54
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:24:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775636623; cv=none; b=NWRkwf2ApfgJtGWyurd1LYBFUjYTTVzAoRWRX3IHZpoVOauUEcKemEeKiQSdHgmnnzbCnPBE7vmc9cG/NBATPpU0hUTbBGWAkKr8JmMaLT5cNmlKVsegEtrceJ13KihUG3ohmDxsPooxeLtqG7aYEDHn3ltXdqx2jbLqjtEIPVw=
+	t=1775636670; cv=none; b=h0OjnU/SEW/n4rxNThrK/8GHXQ86ORs4ngTvEsdcieobwi/QxpmRfA41w5B5OSdXcHTM+mHd1jTTujTAW+cGYA4U5v2M6m7p126X8Rq8+r77qweK20/wV9GHhm6hw5UC1OtQ5Du2DIIn25QVmwqtAca+Gxvz6jc/EWv9JVKIOec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775636623; c=relaxed/simple;
-	bh=lJNpucUX68tWdyUfNgUwSALBY8DGx6c0lVEaarXpxxg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=OGAe4LeBuYB/L+y+0X3TzFLiHA0+LWbKCj/G439sAlHtA+SbZOWoyL5E7GmItZRpGPMxGXrOoLkqIvPiEmijCPH1UwAM8iyUGg5U6mcnqoE3xBE8QdBoiAghM07Xl8CksCLg1p9TGXrq2t5FBMzDJ71yKkx1hThcNccZorNj3z4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ohGdPq80; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1775636670; c=relaxed/simple;
+	bh=p8snXDTvA83wx+z5qiKDkwfDO/dPo6ful3ps5EMzPP8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OuuGkDtS2hV5+Mpf+Qk02oQf3wLN6RPIa5rvX/hla0Z+geQJl2H5Vf4hAFI58Xk/lwPEyJX9Mx555siZo6hA9FrfmHBPWXwJrqNPEwochaG8/sQW8Z4rn7jULSeueKBL9TQjLKAkTmdvnAX+hrfL3WHMlzPNAHzbCStsnQwZGOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e+go+3hH; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ohGdPq80"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3567e2b4159so3760549a91.0
-        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 01:23:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775636620; x=1776241420; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=MH17IUeOdxsudCo9m2h4oI37xiu1+r/Gu5AYVv32s0Y=;
-        b=ohGdPq80WssoXr+QOV31btBchyyfmKuecasUv2gfvFgrkgd2BeAfc7I2fjlLHbVglM
-         8tz9Lgvfynom/UM/sTvB9a1EEfrZtBX4Ugh2Wek3FhgrZnppP5svWoh8Ir2nieLXH1+j
-         Drv+KiTjB9HOipjwIAlOvyW1+TcOOkcAhh8tInRBQc3kMqY23fk0dwG6PsYNfP7duRRt
-         ySfW1viUYCJ60WA+T26WMy3sbjF5ci3G1jYESmp3lzTJYQnWoSAzZtGk2muqA8ChRz8n
-         D50qfcyJqJZL6udtQsL8v2xBywyLSFjbZld1eaiXdeylWpjnXij1wnvB9C0RU6mFNJnC
-         9W+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775636620; x=1776241420;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=MH17IUeOdxsudCo9m2h4oI37xiu1+r/Gu5AYVv32s0Y=;
-        b=hjftbNKkheeyhrbdmYFUAI9Y4QyhpDq+7uknDdLpWATlTRtCUyIS2BBI0awsO9fH70
-         FNs9pTIWR35kGUmq5FmHQjacca9jGwDvNH17cHWfWYmmS1FvnFuvtvigrPDhDU7Z6nyr
-         2do4xc5cYbb9nPpklDdmKE4BTEqKVLnsm1SJPh20RBTphiB/5Cg2cN8Hp/wJAAXISblO
-         fydjdryxWikg3o/AkTBOQZ875pR/SgopOlIY68xgc/+RJ0HDB+3eh6Bpn7pNXxgT84J6
-         sr/aJLX4g7ehJ8dIrA7vkG3lTyOs6k7r51RqhIdegKdsiA/qKqty9zFzP6c2ieZ3FBAg
-         Cr4Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUituFhq/aLuhYi11I2UR05nJw3I6YV394P2Y3nYITTihzEIXdAbDCpHiPTUbPYPnSO36NDNpo9Ech/@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy0Cu0jchTv7qhL6zlQzHhxy2cHPn79QyEHjBL9zZ6Dptgwsn1S
-	9bucn0aISa7qHl5/1u+a0nvpaN8HipmCXi9rj7Jr4x8axIt/zhVFSN6W
-X-Gm-Gg: AeBDiet/MGqy53xxGU6BhK8bo7TPylA6SFrKRJ32i0ZL0fOesGZ9Z+Qx1gQPgQji1bJ
-	4aL8NtNqXzKRhbNIHXchrJumEIlHc6yQo2ujtsB+bXxS9zU9uHWyImjdWWwfF0PE9m1/UK1QV9C
-	+brw3h/iXXFxnSmyVq5+9OPydStyU9bot3Gqt7X9bInaUOVne3ycztEMAlyM50H4jCZs8r9OQpn
-	BccWAc9RVC9ieVZfbwr00CFbyzYvJJzJbyg30W8rwFz3u0+jZutNgdrtEo14qsxaFgX82rH/7V4
-	ECn8lAZmojxNyloabqxy1Rj6Fl5gYHB/rtR2tznk95uxHkkRXOtsZqYDgc+m+tuREZqY4lTH7wd
-	eTJGvTWtEYU6+qiJsQpNrKf2o9ur7HCaNHJSE3HzMw4MGflXcYbCTt5e71kTEoqCfZyU6bUnvEj
-	hdwpI74h+s4lGaiqIepN/V5nEFl59QdPWqHGIdLxvDYq+cbref
-X-Received: by 2002:a17:90b:2b4b:b0:34c:fe7e:84fe with SMTP id 98e67ed59e1d1-35de69aec1bmr20355141a91.28.1775636619649;
-        Wed, 08 Apr 2026 01:23:39 -0700 (PDT)
-Received: from LAPTOP-872M7T80.localdomain ([223.181.104.171])
-        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-35e27c6173asm1020696a91.2.2026.04.08.01.23.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Apr 2026 01:23:39 -0700 (PDT)
-From: Akhila YS <akhilayalmati@gmail.com>
-Date: Wed, 08 Apr 2026 08:23:31 +0000
-Subject: [PATCH] dt-bindings: i2c: nxp,pca9564: convert to DT schema
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e+go+3hH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96888C2BCB2
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:24:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775636669;
+	bh=p8snXDTvA83wx+z5qiKDkwfDO/dPo6ful3ps5EMzPP8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=e+go+3hHB/xrKR5ciAs/42wJnNe6RnqeQM6GogovQqEtjIrTxF13jYf0hD1yaxxHA
+	 y4bvv2jrh3wZHzBtHS3zNaT8snvyFlziqw+XP+/WYNDgCgMJ+jVZ6fMhicI/iPUpqK
+	 NTtGnrQhH2qgDF+tcjaMlW+KhTjUzBGAABPTKa669SZ629m1UA8pNAs2ocKtwrQ/Rv
+	 vKB+IbKKR/1WPRA+zzQ6Z7R/Ff/D449+Bo/1cUTmskZywHwiFjaO6BoJjr1Gm3uh3L
+	 EI3w+i5qytIVAWZulDA0lS1NaCpcHaGJFOxtHZstCbAXrVWkFCnVh3wFaYxL3V8P3N
+	 EeZwn6SRVTRZg==
+Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-79a535e7c00so64437347b3.3
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 01:24:29 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCVWyqa1wM4Gedfo98Yk19bbPqB2uiWq49Rlf1bjLDUE1xWGa0zKLDWJde9I0s1brvHm9F+JdQsaPEsH@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz3s4wHn/0q5v08VhotqIANssFNDCAqmm3NRNMp32kaEr4ao4z3
+	kVzYWeyGYbFSXAZ/4NwukhDvOnudozAQ4/1/W1vg7U2yw6rmt4WISsoHvVc3KqkGklMgVQ22eDU
+	jMeBFRH6InYPAZnxfgNS32xfZI9KcF/8=
+X-Received: by 2002:a05:690c:3481:b0:79b:f4e1:a5b2 with SMTP id
+ 00721157ae682-7a4d6c2907fmr212257147b3.22.1775636669037; Wed, 08 Apr 2026
+ 01:24:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260408-i2c-nxp-v1-1-8276ccbd95fb@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAIIQ1mkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDEwNz3UyjZN28igJdI8s0I1PDxBQLsyQDJaDqgqLUtMwKsEnRsbW1ADa
- GKthZAAAA
-X-Change-ID: 20260407-i2c-nxp-29f251ad86b0
-To: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Peter Rosin <peda@axentia.se>
-Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Akhila YS <akhilayalmati@gmail.com>
-X-Mailer: b4 0.15.1
+References: <20260401-waveshare-dsi-touch-v1-0-5e9119b5a014@oss.qualcomm.com> <20260401-waveshare-dsi-touch-v1-14-5e9119b5a014@oss.qualcomm.com>
+In-Reply-To: <20260401-waveshare-dsi-touch-v1-14-5e9119b5a014@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 8 Apr 2026 10:24:17 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=jUd4sQ1bhwcBRYpFFApP6vdJw2BoQwxoWShUKdEb9oA@mail.gmail.com>
+X-Gm-Features: AQROBzAMBfnRdAnK4bRwU75AOx83F-jAcWPeGS0EtIQgTCQ0qxVMP0p6zzWqMTM
+Message-ID: <CAD++jL=jUd4sQ1bhwcBRYpFFApP6vdJw2BoQwxoWShUKdEb9oA@mail.gmail.com>
+Subject: Re: [PATCH 14/19] drm/panel: jadard-jd9365da-h3: support Waveshare
+ DSI panels
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Cong Yang <yangcong5@huaqin.corp-partner.google.com>, Ondrej Jirman <megi@xff.cz>, 
+	Javier Martinez Canillas <javierm@redhat.com>, Jagan Teki <jagan@edgeble.ai>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Convert NXP PCA PCA9564/PCA9665 I2C controller to YAML format.
+Hi Dmitry,
 
-Signed-off-by: Akhila YS <akhilayalmati@gmail.com>
----
- .../devicetree/bindings/i2c/i2c-pca-platform.txt   | 27 ----------
- .../devicetree/bindings/i2c/nxp,pca9564.yaml       | 60 ++++++++++++++++++++++
- 2 files changed, 60 insertions(+), 27 deletions(-)
+thanks for your patch!
 
-diff --git a/Documentation/devicetree/bindings/i2c/i2c-pca-platform.txt b/Documentation/devicetree/bindings/i2c/i2c-pca-platform.txt
-deleted file mode 100644
-index 73a693d66ef7..000000000000
---- a/Documentation/devicetree/bindings/i2c/i2c-pca-platform.txt
-+++ /dev/null
-@@ -1,27 +0,0 @@
--* NXP PCA PCA9564/PCA9665 I2C controller
--
--The PCA9564/PCA9665 serves as an interface between most standard
--parallel-bus microcontrollers/microprocessors and the serial I2C-bus
--and allows the parallel bus system to communicate bi-directionally
--with the I2C-bus.
--
--Required properties :
--
-- - reg : Offset and length of the register set for the device
-- - compatible : one of "nxp,pca9564" or "nxp,pca9665"
--
--Optional properties
-- - interrupts : the interrupt number
-- - reset-gpios : gpio specifier for gpio connected to RESET_N pin. As the line
--   is active low, it should be marked GPIO_ACTIVE_LOW.
-- - clock-frequency : I2C bus frequency.
--
--Example:
--	i2c0: i2c@80000 {
--		compatible = "nxp,pca9564";
--		#address-cells = <1>;
--		#size-cells = <0>;
--		reg = <0x80000 0x4>;
--		reset-gpios = <&gpio1 0 GPIO_ACTIVE_LOW>;
--		clock-frequency = <100000>;
--	};
-diff --git a/Documentation/devicetree/bindings/i2c/nxp,pca9564.yaml b/Documentation/devicetree/bindings/i2c/nxp,pca9564.yaml
-new file mode 100644
-index 000000000000..5d5653255b91
---- /dev/null
-+++ b/Documentation/devicetree/bindings/i2c/nxp,pca9564.yaml
-@@ -0,0 +1,60 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/i2c/nxp,pca9564.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: NXP PCA9564 / PCA9665 I2C Controller
-+
-+maintainers:
-+  - Peter Rosin <peda@axentia.se>
-+
-+description:
-+  The PCA9564/PCA9665 serves as an interface between standard
-+  parallel-bus microcontrollers/microprocessors and the serial I2C bus.
-+  It enables bidirectional communication between the parallel bus
-+  system and the I2C bus.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - nxp,pca9564
-+      - nxp,pca9665
-+
-+  reg:
-+    maxItems: 1
-+
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 0
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    maxItems: 1
-+
-+  clock-frequency:
-+    default: 100000
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    i2c@80000 {
-+        compatible = "nxp,pca9564";
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        reg = <0x80000 0x4>;
-+        reset-gpios = <&gpio1 0 GPIO_ACTIVE_LOW>;
-+        clock-frequency = <100000>;
-+    };
-+...
+On Wed, Apr 1, 2026 at 9:27=E2=80=AFAM Dmitry Baryshkov
+<dmitry.baryshkov@oss.qualcomm.com> wrote:
 
----
-base-commit: d4906ae14a5f136ceb671bb14cedbf13fa560da6
-change-id: 20260407-i2c-nxp-29f251ad86b0
+> Add configuration for Waveshare DSI panels using JD9365 controller.
+>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Best regards,
---  
-Akhila YS <akhilayalmati@gmail.com>
+Some more words with details on all the panels added perhaps?
 
+> -       desc =3D of_device_get_match_data(dev);
+> +       jd9365da_switch_page(&dsi_ctx, 0x01);
+> +       mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x00, 0x00);
+> +       mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x01, 0x41);
+
+Predictably I'm not very happy with all the unexplained magic and nonestist=
+ing
+defines used here. Do you have some info/defines?
+
+But there is also one more thing, this looks like a big "jam table"
+with just register+value tuples, so construct something like:
+
+struct jadard_jam_tbl_entry {
+        u8 reg;
+        u8 val;
+};
+
+static const struct jadard_jam_tbl_entry jd_3_4_c_init_jam[] =3D {
+        {0x00, 0x00}, {0x01, 0x41}, ...};
+
+(Ideas taken from drivers/net/dsa/realtek/rtl8366rb.c, take a look
+for code and all, you get the picture.)
+
+Yours,
+Linus Walleij
