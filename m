@@ -1,55 +1,54 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06A383A4F54
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:24:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DDF93A1E6A
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:26:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775636670; cv=none; b=h0OjnU/SEW/n4rxNThrK/8GHXQ86ORs4ngTvEsdcieobwi/QxpmRfA41w5B5OSdXcHTM+mHd1jTTujTAW+cGYA4U5v2M6m7p126X8Rq8+r77qweK20/wV9GHhm6hw5UC1OtQ5Du2DIIn25QVmwqtAca+Gxvz6jc/EWv9JVKIOec=
+	t=1775636770; cv=none; b=IPFIWvDEnArCT7CVrPDN/RCJrEvbzEDB5+aJrxVuuVvmXemaKnbuhUOHfiQV0Nrz0FLHgJXxxkdOgnjFNCNQWH8a8zbr1Fm31LJ3ybF8zvk/5ye5YWmoiMvVlGrXhZ3eXvv8qljC0tQeYDdWzby4HB7fkEcuZ0ES0vE51baPPps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775636670; c=relaxed/simple;
-	bh=p8snXDTvA83wx+z5qiKDkwfDO/dPo6ful3ps5EMzPP8=;
+	s=arc-20240116; t=1775636770; c=relaxed/simple;
+	bh=iHDkuL91kujjlOmKryVg0YeA+Yh7JR24uFyI819LhUE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OuuGkDtS2hV5+Mpf+Qk02oQf3wLN6RPIa5rvX/hla0Z+geQJl2H5Vf4hAFI58Xk/lwPEyJX9Mx555siZo6hA9FrfmHBPWXwJrqNPEwochaG8/sQW8Z4rn7jULSeueKBL9TQjLKAkTmdvnAX+hrfL3WHMlzPNAHzbCStsnQwZGOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e+go+3hH; arc=none smtp.client-ip=10.30.226.201
+	 To:Cc:Content-Type; b=tTBxrFdw0wdWkezMLFvHi0MILBH1dNrC94RAhYP+ppTINyhgG3Nm5CDO6BCabgAGqRymdcgSwRVaV5gulpzM2s0sy0M1ozf7JexWRTNR9zL6k8IwMskYyZgJCaIM2QviNxOLaPQ5gBKvndSAqhNU+CKkHXL1OmhMmwWPzghHmAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pdISwvAj; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e+go+3hH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96888C2BCB2
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:24:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pdISwvAj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CD91C2BCB1
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:26:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775636669;
-	bh=p8snXDTvA83wx+z5qiKDkwfDO/dPo6ful3ps5EMzPP8=;
+	s=k20201202; t=1775636770;
+	bh=iHDkuL91kujjlOmKryVg0YeA+Yh7JR24uFyI819LhUE=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=e+go+3hHB/xrKR5ciAs/42wJnNe6RnqeQM6GogovQqEtjIrTxF13jYf0hD1yaxxHA
-	 y4bvv2jrh3wZHzBtHS3zNaT8snvyFlziqw+XP+/WYNDgCgMJ+jVZ6fMhicI/iPUpqK
-	 NTtGnrQhH2qgDF+tcjaMlW+KhTjUzBGAABPTKa669SZ629m1UA8pNAs2ocKtwrQ/Rv
-	 vKB+IbKKR/1WPRA+zzQ6Z7R/Ff/D449+Bo/1cUTmskZywHwiFjaO6BoJjr1Gm3uh3L
-	 EI3w+i5qytIVAWZulDA0lS1NaCpcHaGJFOxtHZstCbAXrVWkFCnVh3wFaYxL3V8P3N
-	 EeZwn6SRVTRZg==
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-79a535e7c00so64437347b3.3
-        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 01:24:29 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCVWyqa1wM4Gedfo98Yk19bbPqB2uiWq49Rlf1bjLDUE1xWGa0zKLDWJde9I0s1brvHm9F+JdQsaPEsH@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz3s4wHn/0q5v08VhotqIANssFNDCAqmm3NRNMp32kaEr4ao4z3
-	kVzYWeyGYbFSXAZ/4NwukhDvOnudozAQ4/1/W1vg7U2yw6rmt4WISsoHvVc3KqkGklMgVQ22eDU
-	jMeBFRH6InYPAZnxfgNS32xfZI9KcF/8=
-X-Received: by 2002:a05:690c:3481:b0:79b:f4e1:a5b2 with SMTP id
- 00721157ae682-7a4d6c2907fmr212257147b3.22.1775636669037; Wed, 08 Apr 2026
- 01:24:29 -0700 (PDT)
+	b=pdISwvAjl5H9g95BsbfAQadafpuWy1u3Iqzn5Bu0c3f0pbjjXTc6lLQRICPWyyvYZ
+	 cKM7Z1SEKsiaX3U48y6sABZ30ZvsIP4WfNmmh6u94vFb7/vi3h/SCf48cmp2TRReZV
+	 FW7RkmCyvnOOgLk8ZfeQDesUUnMJ1FiDSs/sieRi9IXKkFCm88MfBbSFIOqd7NAdrf
+	 4+3n9MwmbqwfLMKwIHlavaqCOdahysfBw4UN7JhHuM9Eqm3xuCJw+7Rr9fW8meiYZx
+	 LlcuO6uZp0EPRPDnQ4c6G2wqgCZMun4Q/vdQTJA65ErTI78ODaBsGPbHNa53DC4hcv
+	 ++s9yihfH4aeQ==
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-797ab169454so95300167b3.3
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 01:26:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCXGlMCfbvggfD57Xe/EwsUPpIvVDC4ZRgLreikxhMYu4lhuBoKdvORnShgyK/1a8+iIWGP0jD3WiuBq@vger.kernel.org
+X-Gm-Message-State: AOJu0YydYStLle/fcce7G6cxXtm9l4b6DXkvvktb/d/lCi/yrDPniDXN
+	0/nGVbNrmJquaPf7xyv9XiDqOyvMiPdEIZBvNyfvwd51a8hwAQHwOwflk7d8ppI4JZmGh8op4Zy
+	8UfN4oQLc79zU4/GHXamuE3EGm8As/h4=
+X-Received: by 2002:a05:690c:c4fa:b0:79a:5fb9:62ad with SMTP id
+ 00721157ae682-7a4d5d538f6mr186627127b3.43.1775636769579; Wed, 08 Apr 2026
+ 01:26:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260401-waveshare-dsi-touch-v1-0-5e9119b5a014@oss.qualcomm.com> <20260401-waveshare-dsi-touch-v1-14-5e9119b5a014@oss.qualcomm.com>
-In-Reply-To: <20260401-waveshare-dsi-touch-v1-14-5e9119b5a014@oss.qualcomm.com>
+References: <20260401-waveshare-dsi-touch-v1-0-5e9119b5a014@oss.qualcomm.com> <20260401-waveshare-dsi-touch-v1-16-5e9119b5a014@oss.qualcomm.com>
+In-Reply-To: <20260401-waveshare-dsi-touch-v1-16-5e9119b5a014@oss.qualcomm.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 8 Apr 2026 10:24:17 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=jUd4sQ1bhwcBRYpFFApP6vdJw2BoQwxoWShUKdEb9oA@mail.gmail.com>
-X-Gm-Features: AQROBzAMBfnRdAnK4bRwU75AOx83F-jAcWPeGS0EtIQgTCQ0qxVMP0p6zzWqMTM
-Message-ID: <CAD++jL=jUd4sQ1bhwcBRYpFFApP6vdJw2BoQwxoWShUKdEb9oA@mail.gmail.com>
-Subject: Re: [PATCH 14/19] drm/panel: jadard-jd9365da-h3: support Waveshare
- DSI panels
+Date: Wed, 8 Apr 2026 10:25:58 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmO3fW=UkH9Qf=WzdKrUP=Yg+ZmTAuqXXXOWMWAEKS2Kw@mail.gmail.com>
+X-Gm-Features: AQROBzBFUPiNlph5L0rEdl7mVBl48sE-GCLaRgA80ltifGgVhotOohWIUiAlQJM
+Message-ID: <CAD++jLmO3fW=UkH9Qf=WzdKrUP=Yg+ZmTAuqXXXOWMWAEKS2Kw@mail.gmail.com>
+Subject: Re: [PATCH 16/19] drm/panel: add devm_drm_panel_add() helper
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
 	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -65,41 +64,16 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmai
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Dmitry,
-
-thanks for your patch!
-
 On Wed, Apr 1, 2026 at 9:27=E2=80=AFAM Dmitry Baryshkov
 <dmitry.baryshkov@oss.qualcomm.com> wrote:
 
-> Add configuration for Waveshare DSI panels using JD9365 controller.
+> Add devm_drm_panel_add(), devres-managed version of drm_panel_add().
+> It's not uncommon for the panel drivers to use devres functions for most
+> of the resources. Provide corresponding replacement for drm_panel_add().
 >
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Some more words with details on all the panels added perhaps?
-
-> -       desc =3D of_device_get_match_data(dev);
-> +       jd9365da_switch_page(&dsi_ctx, 0x01);
-> +       mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x00, 0x00);
-> +       mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x01, 0x41);
-
-Predictably I'm not very happy with all the unexplained magic and nonestist=
-ing
-defines used here. Do you have some info/defines?
-
-But there is also one more thing, this looks like a big "jam table"
-with just register+value tuples, so construct something like:
-
-struct jadard_jam_tbl_entry {
-        u8 reg;
-        u8 val;
-};
-
-static const struct jadard_jam_tbl_entry jd_3_4_c_init_jam[] =3D {
-        {0x00, 0x00}, {0x01, 0x41}, ...};
-
-(Ideas taken from drivers/net/dsa/realtek/rtl8366rb.c, take a look
-for code and all, you get the picture.)
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
 Yours,
 Linus Walleij
