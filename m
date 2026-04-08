@@ -1,191 +1,288 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010017.outbound.protection.outlook.com [52.101.69.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from box.trvn.ru (box.trvn.ru [45.141.101.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 865CB3CF028;
-	Wed,  8 Apr 2026 13:45:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775655908; cv=fail; b=dBbjS3FiihXuVhHNNSMtsbOZ0zRYYnqG73O5q5EQF6qs5XX2o57KieCEbC0XNrQ40x1FatFaOQfis3Rt+JOtacdh1a3c51w9FH549SNxlu8CObT9e/9WuG5hjgkIcuh3AF5RHDMdJTZYKjJ6jfo7cB3RBM6w59wjB+Zvkfqmc8Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775655908; c=relaxed/simple;
-	bh=7Ew0YPQ1N/f06rKAR+EBYHM2O/fNjLVmTRnscKrS1zk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=ZHb4Im6L1IXjF9Ds6MZTpJnvffEjTdovFPQNvcqHX1uQmlGZJf1EXvgdaOiZD5pyyHjbCA5N0+8II5ol0ttSMyVNRMjO6Hk6THk4ItMxp83vGqjAizbsKROdGM8feAqyxxRLVPVhShsXdyAjfkAzD4m/7b3UDmTUiW1G7tYbNoc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=olLUChIw; arc=fail smtp.client-ip=52.101.69.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB2EE2F3C3E;
+	Wed,  8 Apr 2026 13:53:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.141.101.25
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775656420; cv=none; b=N63ezgLjDTg88e7e8vEM2cemfbgSbD3xyG+CfysGRlmepuzSEguQ1uDoZfoV7tYSyZ4H2WWs7R4PvLBJB1GDSIQwzzCZgbc/atTifxIhQlaI6OsBY1dMqyvUyYIPUTlWkg0SyZjXr/pw+13IIoP/Ds5XmE8rzk5bzTfTaS8yy6c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775656420; c=relaxed/simple;
+	bh=s872tDRo2JQyY0cBLCjimL+w/HTgFFhiUZgRAxQGINo=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=cQYdzW5WJJ0r9XQo0vtvjO88iJzJ3Vi3+pWfJtTU4JlCsuUpPgdg856LlKQGPAqZqCSl05d5BZ40yml8naWMtVID5vZSPx0anNCH5fJ9nr5b9s7b3jEWeNUBfXdMlgXpWS5e1lMOFlZ3B01zNPBSMeLz+sIY0nyFdOivh/nmA6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=trvn.ru; spf=pass smtp.mailfrom=trvn.ru; dkim=pass (2048-bit key) header.d=trvn.ru header.i=@trvn.ru header.b=gaVcCYgY; arc=none smtp.client-ip=45.141.101.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=trvn.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trvn.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="olLUChIw"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HPNpxeJr0asuPgsEQQxmfSYDkdcH/kdWMWz66PvvoyMjjOHAkVfpBFXUsNLjM0TApeGMpzHA0ulrcpzen8xuaDKLjCBWflHieM6zVyLKeR9/odvF5pkZDKCy95Xnd0EIw/ptHQKy+NV7W7BqxFjEMYkLXYiLSbOGn4x7FZJJfiWtm2TemnepKlHBSMCTlHvL4wdMPh/W6zsvqPtcAzBc5x0TY8uKIex5uaGMJzw9HwWqp+30yEwWKP65hxPzZGI2yp0F5D3OvOXfcvLJyVC9jtik7X8pJ5g+sKu+hrdpw8hdwBGGC0qVV+5RemwhKBeqDMJZ89Zl/7am2FR5gxUxVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KGe52JVsv6Bz9kq0V8YIVWMrfrjEu1GAA3AFEROxN3E=;
- b=xlXb5oB5CPoAn0Z7yYzkW9XxOROmo1UKdmCvDxDJOl98Fpb9HvC235WbRiSHEAb9vqzFeFb8L3crRC/AanXXvpogFW9KD0GnnwJgEcVUWGq4MpQ9++BxNRq1CjEnyKSEBBveiyYHaTVeyR6xl4kLNs1tVHWRoslJ0g+GgFQL5FkZDoBLVxK77zPqXM+qRbYRPiqD3jULaB6NVx265r2v9s8p02sk2GXWmIfzvPyhoRYsfjQOrR6NFRUrmxT+vVGxcChKvHpXii5jZN7/i/yfw/2Hr9C5GBLE7ijQrmfCxlJSNkFUQb02XppxQl48m4H1cyCu3ccQYMrk7GHVLanZjg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KGe52JVsv6Bz9kq0V8YIVWMrfrjEu1GAA3AFEROxN3E=;
- b=olLUChIw0cSG3MfDmUP/fbK8ZMkW6shdDnO00fbpB0stFIaY6tPI0pwM98UFeIaqkkrAK+qbkC6x7ol9UdF8x/M4zvaLwEj4EqHbL+f+OfVhPl//fmkMFWyOz7OAytaUoQFgyVTJv3u50ndrcy1eZIdMkffHg787m3Kn0I65yi2fB8Rrg/plhnURuYs7u/GC7YrbKtb6dyIPiRool+vSNK9rs+Zvkfgks29J+dkGXqO9ozBJ0g2tOImmO/y5WaX6U0cH95h/Vj6FovxUELQZRDYuy+B835zDkBfiNBC5iJU7kqLCH0H8F+gut0I0O0h7mjjXKyWykLlhSOeyPLG4gQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from PAXPR04MB8459.eurprd04.prod.outlook.com (2603:10a6:102:1da::15)
- by AM9PR04MB8570.eurprd04.prod.outlook.com (2603:10a6:20b:435::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Wed, 8 Apr
- 2026 13:45:03 +0000
-Received: from PAXPR04MB8459.eurprd04.prod.outlook.com
- ([fe80::4972:7eaa:b9f6:7b5e]) by PAXPR04MB8459.eurprd04.prod.outlook.com
- ([fe80::4972:7eaa:b9f6:7b5e%3]) with mapi id 15.20.9723.030; Wed, 8 Apr 2026
- 13:45:02 +0000
-Date: Wed, 8 Apr 2026 21:47:20 +0800
-From: Peng Fan <peng.fan@oss.nxp.com>
-To: Robin Murphy <robin.murphy@arm.com>
-Cc: Will Deacon <will@kernel.org>, Joerg Roedel <joro@8bytes.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH 0/3] arm-smmu-v3: Add PMCG child support and update PMU
- MMIO mapping
-Message-ID: <adZcaEKm3vIYSy3N@shlinux89>
-References: <20260408-smmu-perf-v1-0-d75dac96e828@nxp.com>
- <2c1a1694-9597-400d-b441-714225b5377b@arm.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2c1a1694-9597-400d-b441-714225b5377b@arm.com>
-X-ClientProxiedBy: MA1PR01CA0183.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:d::6) To PAXPR04MB8459.eurprd04.prod.outlook.com
- (2603:10a6:102:1da::15)
+	dkim=pass (2048-bit key) header.d=trvn.ru header.i=@trvn.ru header.b="gaVcCYgY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=trvn.ru; s=mail;
+	t=1775656416; bh=s872tDRo2JQyY0cBLCjimL+w/HTgFFhiUZgRAxQGINo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=gaVcCYgYTW4n0IDuBGz7Mj9hKld8hAnfvyHnogVzvN3G+l9CmjpGXU2U5DhUTV3EW
+	 eWtWBZw5O8rYVHrevpi6RZHMH3oFOl/5y/jkf0CMouqV+SjknuRTSCwGZIxe5MTlIC
+	 lFOHzKDMyPRjpOYC9Jm5qvgo7MNSThYXtW+EltfSL4MU2cmBuFETqFWuniCn101GU3
+	 okr0qsvTicwrQn61NL4pBq+IVP79mDhaQnEGtAOImqDf903bdlB4ow4K/FtbbJZI87
+	 vAW2MD4B7+pWu1gwPVt6EfMJD1n1TT5VMNxRwWzd4B9gdJ/jMhwNeRxqZUr/DnwTU8
+	 nu/+NR9iHUqSA==
+Received: from authenticated-user (box.trvn.ru [45.141.101.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by box.trvn.ru (Postfix) with ESMTPSA id E8FF06E992;
+	Wed,  8 Apr 2026 18:53:35 +0500 (+05)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR04MB8459:EE_|AM9PR04MB8570:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8566f197-44c7-4a6f-5513-08de957508d4
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|1800799024|366016|7416014|376014|52116014|38350700014|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	ouGIJTl64hqTpReoQRaXtgI3PrRWPO0SAU5Wjl116DknOc+2IXCwUudkts6PKg6JrKOylZvjV0gyTpvpL4o5DATIms8DFF6BuFHr6Ih577nTDyCgcJtB1nllxC+GWD0UFkbreIEcNrNO2crILdrVZUnMkXg+zwGRHGQUFDMktnrP+KtaxWC5NP59EGk/LdH32zmnbhVd2Cf7TKrb+piZYHJ9Kc+BvsliTtkZ36LgDrhsGWLx636ruAmHRqRxCo8Mi9bNQQ7pwhjcSV8FtHWNqG5rX2VpVJyDX6TsGJe2HNr6lLRYDSby2nTzFB7fCnzB67Zqd0TP19QZwjZTbJJKLhfcXRlf6L6UlXfX5KB8uWW598Ba3yIUOoT+CcyOrcjGYmHSiMg/6RYAbRW3crWLMgOLUM7Fkq7BEKGg8Rs7A5XZugwcfJLO/YZ3EvGdlyjiwxSTFKMxqSCX+DoyyP2KygHudmI3HY5B0Cr84fYCYvDRw+rI+ePCAVfxVCGWu5t+DW+z25VKSGmV9F8i2tGSp3Hmt5kNrMw8D60T/e38l8W8djMlIsTM5mqWMb2Sukd5YF3sSbPDV67iM0pyYulwHWW0xokKEX9e0MzEDOAmXS0vhYzmw7V1/Z81q/gB5TJGFAXt1ipN9J7ku4XeOIzHE3wPbJhhkJmvh1eJJIEXq0lfGSU9xYsyYsbrMmiKz30DOfYcX5iZrBVQoxvQG5Yge1m83hIx7vyH2f7ohjeenPu+CscNgiubFME2xnwnFiSK6YwBHcMUZoNzS/20xA51G9381qd3g/2Q1sYgh2N170I=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB8459.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(366016)(7416014)(376014)(52116014)(38350700014)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?/Pft1uz+V18nSpfOb7hCuQPYFJ8CK6j3+0dJUpHi/o2IY5yiMdlaNopo1MWK?=
- =?us-ascii?Q?KLAHIg4CO04BPe/j7ZrpdWXhPQ4OMSHC1o8vqWewRQm5efMx+dJPPjDhE4Gb?=
- =?us-ascii?Q?2R0hmziO7+iw2EGOXLVeb7KhI7hE3i3GribkGv7JmeKLHhFxHgHOjbs3bQP2?=
- =?us-ascii?Q?1ZZIzEw0lbSM2EDujkpS92qAQXxYMN5g1Ab0gA764pZZOOk3rLNF7HCFH/Cj?=
- =?us-ascii?Q?zd00tnpxRaQg+Ifc7LOhv9ZAKED4HPLkBRB2LWnnjbw0QqbH/OhaIE3DsocO?=
- =?us-ascii?Q?d07grmKKwNVu+HOJDPkFWFFVmuLZHncAcUc0MyCQ6u+IWa8nIEJYvm00HW0s?=
- =?us-ascii?Q?coIKE/bUTk1PNz5gbvBrdD5ZciyR29e2xxaHYHKkd6hVzKaZD2FQAgmQgRcq?=
- =?us-ascii?Q?b2yv8sVzRks6JNE9gaX76/6WfvOCNCluPTypgXFDuZ0OgdG8NllBc6GqdJc2?=
- =?us-ascii?Q?ic5kN3u4BnNY6aYsn3096SLEYcKjbnATIJe2YCRtvDqeGv+IyCCihG/Mp+RO?=
- =?us-ascii?Q?R1N/06C9KSpu6I8eK8fS+23ZDYo060GDbPHGc+jglE/1RUCEjpWsGI9j6cs1?=
- =?us-ascii?Q?apvWz8UDnaC0z182OOJc6uNf4TZhndN4id9dz3jXwaQoWHMGkdPReGYwBUej?=
- =?us-ascii?Q?yxpYa8i1UmSmy+kZr5hcpPATEZb0xWEJ6tWkmxjTi+wUTfo+QeNBVDNeTTXY?=
- =?us-ascii?Q?zjxaJXKF9lw8DlI+RuKr8wGWabBgk/txkD7VkGARb7AKC2rzwbRg+Jq4p1jH?=
- =?us-ascii?Q?6Iimo19aYB37pqywC+KVXSjy7gfYjL6f7EEQ6iH3mL45002yUKqoH+SM2Wun?=
- =?us-ascii?Q?3tLPsDCncj9Ri+vMeFV4T7wuUAnMVqQoG8LmUjiWoDCHUC2SKu3/+0ebiNwW?=
- =?us-ascii?Q?ke6+D2mAcjwi4iogQNv4iDKDknpxPsJtpEcpeDsLzm/2WYnNApIQblGNd04W?=
- =?us-ascii?Q?UTXpXIpzTgy/DTgwnQkNIuPIUUVZvSWATf0sIBZ+VQjmMifeEK6cuOJUHVP7?=
- =?us-ascii?Q?VemYypnCDM6tb+bLU5kQ0AaeCz72XbweTmptXsmfA1uafSfuxrz3cG05BYnt?=
- =?us-ascii?Q?QRRt6m4fhsXM8f2GY4ECvgT/hMa8NuxylMpJ1nklfjkfJmbvPF+bAEykjgm1?=
- =?us-ascii?Q?MPsbGVdeOxehhByRxK1QzwN95l6RG4n/9YNPEuq+2raUNRY7rXy2dPsHAfq5?=
- =?us-ascii?Q?bcsVtylkcrX1cUfaT8yschMeMi0dEzXk4NbTi11/FWj5A1Eolu7xFpS9dnH4?=
- =?us-ascii?Q?3NRnAhUzI6BBncXX6Po8H9NyOJoUOIzZVaAQLoWe7nBcXI5ripbC0wXfiYbv?=
- =?us-ascii?Q?k9Ag37L3vbeGyDCWo1UC+ZbCoCzXXeR/6pImJoWheifJdHQZ/venWdPy3PHm?=
- =?us-ascii?Q?VvSaBFeEIskU1yjHF0uFdXZ3vkqyEem5m5j2tm5r8H+mauumFeExWf3Z0oUx?=
- =?us-ascii?Q?9cuTcjW7jLzUG3NMQiaxC0gFRV55dHBNacc+K7zsv27hK5dAzYMpa4uHz7Bm?=
- =?us-ascii?Q?/DaI/ukv/1xIDIDAl5/nJSo/2p+DOEzhEP3RNXONoXWWp68TSKOWe7/u+NsN?=
- =?us-ascii?Q?utMal0TG1RyEZN0cc+7i5xja2qBYHU5WyzSETbmm1ZnipOHhf8ty7T+WQLoe?=
- =?us-ascii?Q?W+1UY8vuJsyBAS1Hp2Qa9m47TGUeUQAGBMb0twVBmrD/4MDXtNK7o/KAILIZ?=
- =?us-ascii?Q?a2DT/usqunezypWlz8ueLYFiu6jm3iiIBMnjU/TfbYHEAlJ3OMro29Xxkfqo?=
- =?us-ascii?Q?0qzxPzzeuA=3D=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8566f197-44c7-4a6f-5513-08de957508d4
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB8459.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 13:45:02.9063
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AIOevKqM3/tKj8A2lRBlxAM7aXCyf5GYhzu8Fhcuh/YytjG+ejP84Awvkg1f5aKZ4GGrj0JiN+juH8skIIcsDA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8570
+Date: Wed, 08 Apr 2026 18:53:35 +0500
+From: Nikita Travkin <nikita@trvn.ru>
+To: Xilin Wu <sophon@radxa.com>
+Cc: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-pwm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] pwm: clk-pwm: add GPIO and pinctrl support for
+ constant output levels
+In-Reply-To: <7BA26FC036D1C9AF+64204287-21b5-4664-ae75-be3dd54ec092@radxa.com>
+References: <20260408-clk-pwm-gpio-v2-0-d22f1f3498a0@radxa.com>
+ <20260408-clk-pwm-gpio-v2-2-d22f1f3498a0@radxa.com>
+ <8030cac3703f9aa1b7a8b476ad92aeae@trvn.ru>
+ <7BA26FC036D1C9AF+64204287-21b5-4664-ae75-be3dd54ec092@radxa.com>
+Message-ID: <f7f1b27731c54e65f52d6fb8e347c878@trvn.ru>
+X-Sender: nikita@trvn.ru
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Apr 08, 2026 at 12:15:31PM +0100, Robin Murphy wrote:
->On 2026-04-08 8:51 am, Peng Fan (OSS) wrote:
->> This patch series adds proper support for describing and probing the
->> Arm SMMU v3 PMCG (Performance Monitor Control Group) as a child node of
->> the SMMU in Devicetree, and updates the relevant drivers accordingly.
+Xilin Wu писал(а) 08.04.2026 18:19:
+> On 4/8/2026 6:42 PM, Nikita Travkin wrote:
+>> Xilin Wu писал(а) 08.04.2026 15:07:
+>>> The clk-pwm driver cannot guarantee a defined output level when the
+>>> PWM is disabled or when 0%/100% duty cycle is requested, because the
+>>> pin state when the clock is stopped is hardware-dependent.
+>>>
+>>> Add optional GPIO and pinctrl support: when a GPIO descriptor and
+>>> pinctrl states ("default" for clock mux, "gpio" for GPIO mode) are
+>>> provided in the device tree, the driver switches the pin to GPIO mode
+>>> and drives the appropriate level for disabled/0%/100% states. For
+>>> normal PWM output, the pin is switched back to its clock function mux.
+>>>
+>>> If no GPIO is provided, the driver falls back to the original
+>>> clock-only behavior.
+>>>
+>>> Signed-off-by: Xilin Wu <sophon@radxa.com>
+>>> ---
+>>>   drivers/pwm/pwm-clk.c | 84 ++++++++++++++++++++++++++++++++++++++++++++++++---
+>>>   1 file changed, 80 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/drivers/pwm/pwm-clk.c b/drivers/pwm/pwm-clk.c
+>>> index f8f5af57acba..d7d8d2c2dd0f 100644
+>>> --- a/drivers/pwm/pwm-clk.c
+>>> +++ b/drivers/pwm/pwm-clk.c
+>>> @@ -11,11 +11,20 @@
+>>>    * - Due to the fact that exact behavior depends on the underlying
+>>>    *   clock driver, various limitations are possible.
+>>>    * - Underlying clock may not be able to give 0% or 100% duty cycle
+>>> - *   (constant off or on), exact behavior will depend on the clock.
+>>> + *   (constant off or on), exact behavior will depend on the clock,
+>>> + *   unless a gpio pinctrl state is supplied.
+>>>    * - When the PWM is disabled, the clock will be disabled as well,
+>>> - *   line state will depend on the clock.
+>>> + *   line state will depend on the clock, unless a gpio pinctrl
+>>> + *   state is supplied.
+>>>    * - The clk API doesn't expose the necessary calls to implement
+>>>    *   .get_state().
+>>> + *
+>>> + * Optionally, a GPIO descriptor and pinctrl states ("default" and
+>>> + * "gpio") can be provided. When a constant output level is needed
+>>> + * (0% duty, 100% duty, or disabled), the driver switches the pin to
+>>> + * GPIO mode and drives the appropriate level. For normal PWM output
+>>> + * the pin is switched back to its clock function mux. If no GPIO is
+>>> + * provided, the driver falls back to the original clock-only behavior.
+>>>    */
+>>>     #include <linux/kernel.h>
+>>> @@ -25,11 +34,17 @@
+>>>   #include <linux/of.h>
+>>>   #include <linux/platform_device.h>
+>>>   #include <linux/clk.h>
+>>> +#include <linux/gpio/consumer.h>
+>>> +#include <linux/pinctrl/consumer.h>
+>>>   #include <linux/pwm.h>
+>>>     struct pwm_clk_chip {
+>>>   	struct clk *clk;
+>>>   	bool clk_enabled;
+>>> +	struct pinctrl *pinctrl;
+>>> +	struct pinctrl_state *pins_default;  /* clock function mux */
+>>> +	struct pinctrl_state *pins_gpio;     /* GPIO mode */
+>>> +	struct gpio_desc *gpiod;
+>>>   };
+>>>     static inline struct pwm_clk_chip *to_pwm_clk_chip(struct pwm_chip *chip)
+>>> @@ -45,14 +60,36 @@ static int pwm_clk_apply(struct pwm_chip *chip, struct pwm_device *pwm,
+>>>   	u32 rate;
+>>>   	u64 period = state->period;
+>>>   	u64 duty_cycle = state->duty_cycle;
+>>> +	bool constant_level = false;
+>>> +	int gpio_value = 0;
+>>>     	if (!state->enabled) {
+>>> -		if (pwm->state.enabled) {
+>>> +		constant_level = true;
+>>> +		gpio_value = 0;
+>>> +	} else if (state->duty_cycle == 0) {
+>>> +		constant_level = true;
+>>> +		gpio_value = (state->polarity == PWM_POLARITY_INVERSED) ? 1 : 0;
+>>> +	} else if (state->duty_cycle >= state->period) {
+>>> +		constant_level = true;
+>>> +		gpio_value = (state->polarity == PWM_POLARITY_INVERSED) ? 0 : 1;
+>>> +	}
+>>> +
 >> 
->> The SMMU v3 architecture allows an optional PMCG block, typically
->> associated with TCUs, to be implemented within the SMMU register
->> address space. For example, mmu700 PMCG is at the offset 0x2000 of the
->> TCU page 0.
->
->But what's wrong with the existing binding? Especially given that it even has
->an upstream user already:
->
->https://git.kernel.org/torvalds/c/aef9703dcbf8
->
->> Patch 1 updates the SMMU v3 Devicetree binding to allow PMCG child nodes,
->> referencing the existing arm,smmu-v3-pmcg binding.
+>> So I'm looking at it again, and I'm a bit confused.
 >> 
->> Patch 2 updates the arm-smmu-v3 driver to populate platform devices for
->> child nodes described in DT once the SMMU probe succeeds.
+>> Old behavior was:
+>>   - pwm was enabled and being disabled -> stop the clock and hope state is 0;
+>>   - pwm is still enabled but
+>>                              - duty=0%   -> set clk duty to 0%
+>>                              - duty=100% -> set clk duty to 100%
 >> 
->> Patch 3 updates the SMMUv3 PMU driver to correctly handle MMIO mapping when
->> PMCG is described as a child node. The PMCG registers occupy a sub-region
->> of the parent SMMU MMIO window, which is already requested by the SMMU
->
->That has not been the case since 52f3fab0067d ("iommu/arm-smmu-v3: Don't
->reserve implementation defined register space") nearly 6 years ago, where the
->whole purpose was to support Arm's PMCG implementation properly. What kernel
->is this based on?
+>> New behavior if we have gpio:
+>>   - pwm was enabled and being disabled -> constant 0
+>>   - pwm is still enabled but
+>>                              - duty=0%   -> constant 0
+>>                              - duty=100% -> constant 1
+>> 
+>> New behavior if we don't have gpio:
+>> Same as above but
+>>    - if we need constant 0 -> clock is halted and we pray it's 0
+>>    - if we need constant 1 -> clock is halted and we pray it's 1 (??)
+>> 
+>> Per my recollection, when I wrote this driver 5 years ago, I've manually
+>> verified that at least on qcom setting duty cycle to 0% and 100% worked
+>> properly, so this feels like it would regress it if left as-is...
+>> 
+>> (Btw I wonder what's the platform you need this for?)
+>> 
+> 
+> I took a careful look at clk_rcg2_set_duty_cycle() in drivers/clk/qcom/clk-rcg2.c, and I believe the Qualcomm RCG2 MND counter cannot produce a true 0% or 100% duty cycle. For a 0% duty request, the actual duty cycle can become very small, but never exactly zero. Likewise, for a 100% duty request, it can get very close to 100%, but not exactly 100%.
+> 
 
-Seems I am wrong. I thought PMCG is in page 0, so there were resource
-conflicts. I just retest without this patchset, all goes well.
+Are you aware of the hardware quick of the clock [1] where you can't get
+full range if your dividers aren't configured properly? I don't know if
+new hardware is different in that regard comapred to the old sd410 I was
+working with, but I recall spending a while with oscilloscope until I've
+figured out why I wasn't getting full range from 0 to 100%.
 
-But from dt perspective, should the TCU PMCG node be child node of
-SMMU node?
+I'm pretty convinced I saw full coverage (i.e. flat 0 when clock is at
+0% and flat 1 when clock is at 100%) but perhaps I was measuring it wrong
+or I misremember as it was long ago... I still think your solution here
+is clever though, as long as you don't accidentally mask bugged gcc config.
 
-Thanks,
-Peng
+[1] https://elixir.bootlin.com/linux/v6.19/source/drivers/clk/qcom/gcc-msm8916.c#L958-L973
 
->
->Thanks,
->Robin.
->
->> Signed-off-by: Peng Fan <peng.fan@nxp.com>
->> ---
->> Peng Fan (3):
->>        dt-bindings: iommu: arm-smmu-v3: Allow PMU child nodes
->>        iommu/arm-smmu-v3: Populate PMU child devices from Devicetree
->>        perf/arm-smmuv3: Avoid double-requesting shared SMMU MMIO for PMCG
+> I agree that the current change may cause a regression. Do you think it would make more sense to keep the old behavior when no GPIO is available, and still set the clock duty cycle to 0% or 100% in that case?
+> 
+
+Yes please, keep the old behavior when there is no gpio. There are
+certainly a few existing users for this and it would be sad to have
+someone's backlight go out when they set it to 100% xD
+
+> We need this for many of our future Qualcomm-based products, because the PMIC that comes with the SoC usually provides only one PWM output.
+> 
+>>> +	if (constant_level) {
+>>> +		if (pcchip->gpiod) {
+>>> +			gpiod_direction_output(pcchip->gpiod, gpio_value);
+>>> +			pinctrl_select_state(pcchip->pinctrl, pcchip->pins_gpio);
+>>> +		}
+>>> +		if (pcchip->clk_enabled) {
+>>>   			clk_disable(pcchip->clk);
+>>>   			pcchip->clk_enabled = false;
+>>>   		}
+>>>   		return 0;
+>>> -	} else if (!pwm->state.enabled) {
+>>> +	}
+>>> +
+>>> +	if (pcchip->gpiod)
+>>> +		pinctrl_select_state(pcchip->pinctrl, pcchip->pins_default);
+>>> +
+>>> +	if (!pcchip->clk_enabled) {
+>>>   		ret = clk_enable(pcchip->clk);
+>>>   		if (ret)
+>>>   			return ret;
+>>> @@ -97,6 +134,45 @@ static int pwm_clk_probe(struct platform_device *pdev)
+>>>   		return dev_err_probe(&pdev->dev, PTR_ERR(pcchip->clk),
+>>>   				     "Failed to get clock\n");
+>>>   +	pcchip->pinctrl = devm_pinctrl_get(&pdev->dev);
+>>> +	if (IS_ERR(pcchip->pinctrl)) {
+>>> +		ret = PTR_ERR(pcchip->pinctrl);
+>>> +		pcchip->pinctrl = NULL;
+>>> +		if (ret == -EPROBE_DEFER)
+>>> +			return ret;
+>>> +	} else {
+>>> +		pcchip->pins_default = pinctrl_lookup_state(pcchip->pinctrl,
+>>> +							    PINCTRL_STATE_DEFAULT);
+>>> +		pcchip->pins_gpio = pinctrl_lookup_state(pcchip->pinctrl,
+>>> +							 "gpio");
+>>> +		if (IS_ERR(pcchip->pins_default) || IS_ERR(pcchip->pins_gpio))
+>>> +			pcchip->pinctrl = NULL;
+>>> +	}
+>>> +
+>>> +	/*
+>>> +	 * Switch to GPIO pinctrl state before requesting the GPIO.
+>>> +	 * The driver core has already applied the "default" state, which
+>>> +	 * muxes the pin to the clock function and claims it.  We must
+>>> +	 * release that claim first so that gpiolib can request the pin.
+>>> +	 */
+>>> +	if (pcchip->pinctrl)
+>>> +		pinctrl_select_state(pcchip->pinctrl, pcchip->pins_gpio);
+>>> +
+>>> +	pcchip->gpiod = devm_gpiod_get_optional(&pdev->dev, NULL, GPIOD_ASIS);
+>>> +	if (IS_ERR(pcchip->gpiod))
+>>> +		return dev_err_probe(&pdev->dev, PTR_ERR(pcchip->gpiod),
+>>> +				     "Failed to get gpio\n");
+>>> +
+>>> +	/*
+>>> +	 * If pinctrl states were found but no GPIO was provided, the pin is
+>>> +	 * stuck in GPIO mode from the switch above.  Restore the default
+>>> +	 * (clock-function) mux and fall back to clock-only operation.
+>>> +	 */
 >> 
->>   .../devicetree/bindings/iommu/arm,smmu-v3.yaml        | 10 ++++++++++
->>   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c           |  3 +++
->>   drivers/perf/arm_smmuv3_pmu.c                         | 19 ++++++++++++++++---
->>   3 files changed, 29 insertions(+), 3 deletions(-)
->> ---
->> base-commit: f3e6330d7fe42b204af05a2dbc68b379e0ad179e
->> change-id: 20260408-smmu-perf-754367fe66c8
+>> Feels slightly weird to silently allow "broken" DT, it would make no sense
+>> for it to have "gpio" pinctrl and not have a gpio defined, would it?
 >> 
->> Best regards,
->
->
+>> Perhaps it makes more sense to put getting a gpio under having pins_gpio
+>> and make it strict, so two allowed states for the driver would be either
+>> no pinctrl-1 and no gpio, or having both at the same time?
+>> 
+>> (maybe then also worth adding cross dependency of pinctrl-1 and gpio in
+>> the binding, it's one way only currently, not sure what's the correct
+>> way to describe it tho)
+>> 
+>> Nikita
+>> 
+> 
+> Yeah, good point. Having a gpio pinctrl state without an actual gpio property is indeed a broken DT and there's no reason to silently work around it. Do you think the following change would work?
+> 
+> 	if (pcchip->pinctrl) {
+> 		pinctrl_select_state(pcchip->pinctrl, pcchip->pins_gpio);
+> 
+> 		pcchip->gpiod = devm_gpiod_get(&pdev->dev, NULL, GPIOD_ASIS);
+> 		if (IS_ERR(pcchip->gpiod))
+> 			return dev_err_probe(&pdev->dev, PTR_ERR(pcchip->gpiod),
+> 					     "GPIO required when 'gpio' pinctrl state is present\n");
+> 	}
+> 
+
+This makes sense to me, yes.
+
+Nikita
+
+>>> +	if (pcchip->pinctrl && !pcchip->gpiod) {
+>>> +		pinctrl_select_state(pcchip->pinctrl, pcchip->pins_default);
+>>> +		pcchip->pinctrl = NULL;
+>>> +	}
+>>> +
+>>>   	chip->ops = &pwm_clk_ops;
+>>>     	ret = pwmchip_add(chip);
+>>
