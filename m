@@ -1,61 +1,63 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9DB23603E7
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:54:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E618435AC35
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:54:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775638466; cv=none; b=cXQrrxyhMQVWQmphirvMzMNaNJ1rD/dwKCO64n02xG74p4/H15wDVGMt5CggOOXuOv3dTdnpjHHepY9/JT+waJ0GLY2jbm0dwoz5c7QYWtPBB/mf0APQKDLpejBS2pn2yCdyIf9/B0CLPKFdQh4hX0cHf9sMG0NsoukE0gPbn+o=
+	t=1775638469; cv=none; b=YzDzDS1xUM/QQsGnXEvsYWYYbpV0yoUXqdfaDmeyXVmR3CE2daRBQHyghyOTMPZpPnxMeV75RUR9tfdOHDpL0lfYYClK+BtnNx75G4FKdhjJxq+PqSTOmqKF0uvwuud/SFubBkXGjdXL6buSKA+qwtHRLv3hs8apM6Q4ICQqKYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775638466; c=relaxed/simple;
-	bh=EJoIKdPOFttSrswQ0GhOBa78hx20inKvrF1KVKuuER4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D+QFpcwZ9Z7zMJ+9Aso02TfikGhMInAZNXeAzTr6cR45ta54fHEyGIYg6iu05GXUKNAb5vR+o+pbePOuh4pGREaEyxNOD/k/MYY5P65jDvWA4tIU38pmFZuf2qO2qxSvdawxQ+3NY/vn+9DMqnFXQi7WObBADRnIAYBVttbMIgs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hbqaqLI7; arc=none smtp.client-ip=209.85.221.44
+	s=arc-20240116; t=1775638469; c=relaxed/simple;
+	bh=6hgrXq69GCUKWlQaQ7SWZ6JWGUmF0JVirVlDe/CQUrc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=S9+7FwFOnWq8oS4xV4PzDxgg6apotDSeKtk3s3y6QGPmI9mOY879Mhfn2GqJK06Q4gNAf0NXULQMxOX/v/aNmuzSqIN5iTKQ+goCotb/JuuMPLkRA7AvLZDfCTKRc7NLhKXGOqq/Wu2iPtPf9sHy7kyx0//rkbe5W3yoRElT8YI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kS6PduTQ; arc=none smtp.client-ip=209.85.128.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hbqaqLI7"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-43b8e8e7432so4810755f8f.1
-        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 01:54:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kS6PduTQ"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-488971db0fdso48310915e9.0
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 01:54:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775638462; x=1776243262; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=npVCOnxTjrbDOE2h2othHyWsXIp2uhsqGskjgUSWuQE=;
-        b=hbqaqLI7NiMtlzaftxNdS/iakAotRc2d1XNqo//drautVFTJ5CwKo6591GpqceUoL8
-         1IfQZEhCPOx1XXBE8uSIuIVvo9Qb6ebgM2vmPN3E6/zFV3K3sO7Cpp2r+/NTRUccFB3P
-         /7g7jCvbgRGv+g2918cbUr+wyPcGMPmOb58IGvDfu0UGhW0Dkj6XQozAJhVYrYn91rfT
-         +RtJ7DgJ5GzpxdVl9zlfwtSGiFEREq0ubJozJ7pgJ/tgucjPPYsgDieXj2lsQ2ZVSD0J
-         hQO3EUnbmS1ho968Dfn0blct0Ggh8QKoPrjjjRjwU6Zl8O6XYlG+/EVwlc3QZo5E1NxR
-         WCyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775638462; x=1776243262;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1775638463; x=1776243263; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=npVCOnxTjrbDOE2h2othHyWsXIp2uhsqGskjgUSWuQE=;
-        b=sMNVBH7CnYNueUIuatrAkaI3HZW2y/tAPMTRNlhT2WNh81b/LxK5YxJX3puKLcqAjN
-         M7oMV/o3Hk2VLCuU4REvStbV1MeuNhxTQMpyZSu58vGWIR3of2vj2oJ5aMTu40+1ElTo
-         gtiOUnfcIuJAS0RHWIqNNAMKXGJ5DOuhRKgdsPzAUOhySAQshJLEZQyR2vdmDMWRQZ5k
-         Yhu7SmGbz5kLU6Frx5Fx2SIX0wRFmzeYpTgifR/VCkfOrJEqyaDQVE67QYacSGP3vxhI
-         CRdTwnWk8TtxtCImbjmREUBuILn2lIUJEYKrmhIv+R3xVR/g3ND/P6B0afbuJRrzwNmt
-         f5rQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVtId7MGJ4hPjKJQcXATCVbM5j76aMuISudE3TOQcH5jO6Ecybs4vTr0pG6kladE9PUHgXNiTOnsQVo@vger.kernel.org
-X-Gm-Message-State: AOJu0YzgCN0srcEoUH6VEmpL4QfTVMKee+eqTzh7eaKk+yaGok6cf6Vo
-	5SsZrd0NwnTIQtQiECqKnomkJK1DdxhVNfZ/iuMkHqWzmFqA9rBtCAX+
-X-Gm-Gg: AeBDieuRQXAYZn57fnMXz98MMsdzSFzding3xzF4IVoa6w+5rBdHbw7DZGSQy4+0zTb
-	YbxasZXOT8pNjSGFxiTzo3RnBmXPgt5e/PfOBLL+35TSMYh0CGHNVzrC6PdZ80O9zQBDoBXF+CK
-	dNXRQjFn8yWPr0c3JinPUzb7n0xLLdbFDBsDgPFGEbM+0XBvQcc2gr0ljwbvEuws2Nea9rGW3u3
-	JnArmHFqwh1O91Nmz1e+4WZbO0zbkXJ1sRw81d8p2VrBMWkkL3NXxhJBJinF5jr91EhoOQmQfX6
-	TvoYbj348iXRGjBAVLQfPaBr2MkeGUUe29g1yHegCJ/qMpl4PV81FWtfgwkEemZXnw9G7b1dkqd
-	viaPHVqD8Oek7cOKw2VdrHMijsYmkvhh5vaQb4DiOrCow7S6TijloN9iYXeMld4dSWcPw70w3Az
-	wpKuOUnauNY1Y3OL1wKKrgXTYpLC5MadNXth1kWlopOZThJ2Y=
-X-Received: by 2002:a05:6000:4201:b0:43c:f28b:8863 with SMTP id ffacd0b85a97d-43d29295e1bmr29241260f8f.13.1775638461548;
-        Wed, 08 Apr 2026 01:54:21 -0700 (PDT)
+        bh=3C1NsEd8WD8aDITqUFHuUeRrOmqKY8E222OL3+PqW8U=;
+        b=kS6PduTQTvZTSTjUWpC1yOrIO+G5oiM/JwHplJz41+KMLKe1gpVOTa/eumM8eAOyJB
+         ePrlnta2nF9b1E6h4ArB/hdmsiFINyw2OMcHW/VNiGJ4R7aeMwWO3t3sEVQ6FDzoF7wP
+         3D9Z6iNf2mZ72+eywbFUNNKgtJP5aHrPCW2uHVzeLU4OIP1HUYxFwFuWj1PjaEvtGaQs
+         S9l/HYLKjFfsigVUdaFrYHXHZs/7ExaiZX20xhLGpBUOIcZMu7QbA+hbQL6Ei2h6MRFy
+         Di69Fj4TYh1YP9iGi2D1hzbntF7NuHm9jLEyOJSs7Nx7RCULC7SOEe4fB0BuhEAxmH7m
+         MpLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775638463; x=1776243263;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=3C1NsEd8WD8aDITqUFHuUeRrOmqKY8E222OL3+PqW8U=;
+        b=bdA95xnySnRJwe+nWoazUY7bXac0xetokP25/R/dU5D3RVHiGPFTrOLFHztNLH/L3g
+         gBQwsNw5hdbYJ0KUZIaXbJ/uRqrwkkq4xskClBOFosoxBv+Uu4F/r9pac9q20xycZYoL
+         f4TAC6GzqnQoUwIcMDvTgytmrc2kPYWDuZfHthjNJdJrdYLjfSMyQgk+s1VXkdECGbk+
+         Hvaf7hcgLvzKXoscR/MQ2V5/wTfTW9YfCUZQCVN1uMUU8tIdUxZhOCeEBKnYjUpnhCxa
+         2iqANbPPQEB/qOO2LlAWWZM+LbWrFm8Xz9HlxyHbQ7wWhTJskXCAV2/2mPm5plDovgi/
+         xq1Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXTNZEPZjaaxAw5bbaWnHfEsHHhz8kGehJOwInO9cThCjpcxRGmxGTYq00+xn8wbP38LTfykGhmMlIg@vger.kernel.org
+X-Gm-Message-State: AOJu0YyM/kCLrVmSUti8AnP5eB/vOqLfvHxvGOcJ3HNsLqVIKgioHZ7/
+	1aSaGKTfbRPL0ehS+TOvpJymPRobngkvqjWYs+B2lnh+Zc1AxDMCEBTG
+X-Gm-Gg: AeBDieslAz9x0ywYRSut3p6U3jMv0MHuIKirqOdItVJDcae6B7JIgqHjLQ/dwwMqVR9
+	R4VvjjyarH8iCxqX/bZbx+mH+AiC1OAD0vlWBocbIqOVlAR+X7HQ67d20FCsdd6h7reQe+uvloa
+	ZDk0cwVgPtJGAP8X0x9czPX7ZjthjwapWGtKc9Ifb/gAnz8+xfBcd3VvSLEamhE9BDVcUF5uuGW
+	7ogsaS/sHfynINQoOkjRAunwDHc3cmbzqcVQD3Nqiq669fgUf0Oh9XRYWKzsoTcGJbc25+ZCSo8
+	YXZvjXWcFGw5N7nsCg6+2jlx776m7Uy0OqgIk82K1C6BZ37bNu4iGpDCpmqU1JkTrx3y95+oM5x
+	0B87K/2baKeMfbbp/jvf1+210l4EumXygeGkdr2YT+epMos4/ganx81xz07N21H4e9GJqn43soM
+	2Xn6xVUaKWCF9pYbYsAUSXLBQwDLv45YlPFI59xDeZ9MWtKI8=
+X-Received: by 2002:a05:600c:3105:b0:485:7f02:afd5 with SMTP id 5b1f17b1804b1-4889975f7ccmr280966105e9.13.1775638462848;
+        Wed, 08 Apr 2026 01:54:22 -0700 (PDT)
 Received: from localhost.localdomain ([2a00:23c4:a758:8a01:f65c:8080:131a:202])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43d1e2c50a7sm56437678f8f.15.2026.04.08.01.54.20
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43d1e2c50a7sm56437678f8f.15.2026.04.08.01.54.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Apr 2026 01:54:21 -0700 (PDT)
+        Wed, 08 Apr 2026 01:54:22 -0700 (PDT)
 From: Biju <biju.das.au@gmail.com>
 X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
 To: Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
@@ -71,11 +73,14 @@ Cc: Biju Das <biju.das.jz@bp.renesas.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH v4 0/2] Add Renesas RZ/G3L RSPI support
-Date: Wed,  8 Apr 2026 09:54:13 +0100
-Message-ID: <20260408085418.18770-1-biju.das.jz@bp.renesas.com>
+	Biju Das <biju.das.au@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v4 1/2] dt-bindings: spi: renesas,rzv2h-rspi: Document RZ/G3L SoC
+Date: Wed,  8 Apr 2026 09:54:14 +0100
+Message-ID: <20260408085418.18770-2-biju.das.jz@bp.renesas.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260408085418.18770-1-biju.das.jz@bp.renesas.com>
+References: <20260408085418.18770-1-biju.das.jz@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -86,29 +91,72 @@ Content-Transfer-Encoding: 8bit
 
 From: Biju Das <biju.das.jz@bp.renesas.com>
 
-This patch series adds binding and driver support for RSPI IP found on the
-RZ/G3L SoC. The RSPI is compatible with RZ/V2H RSPI, but has 2 clocks
-compared to 3 on RZ/V2H.
+Document RSPI IP found on the RZ/G3L SoC. The RSPI IP is compatible with
+the RZ/V2H RSPI IP, but has 2 clocks compared to 3 on RZ/V2H.
 
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+---
 v3->v4:
- * Added a blank line before the dmas property in bindings.
- * Collected tags for binding patch.
+ * Added a blank line before the dmas property.
+ * Collected tags.
 v2->v3:
  * Added ordered DMA names for the dma-names property.
- * Dropped the tag from bindings as there is a change related to dma-names
-   property.
+ * Dropped the tag
 v1->v2:
- * Rebased to next
- * Collected tags
-
-Biju Das (2):
-  dt-bindings: spi: renesas,rzv2h-rspi: Document RZ/G3L SoC
-  spi: rzv2h-rspi: Add support for RZ/G3L (R9A08G046)
-
+ * Collected tag
+---
  .../bindings/spi/renesas,rzv2h-rspi.yaml      | 29 +++++++++++++++++++
- drivers/spi/spi-rzv2h-rspi.c                  |  8 +++++
- 2 files changed, 37 insertions(+)
+ 1 file changed, 29 insertions(+)
 
+diff --git a/Documentation/devicetree/bindings/spi/renesas,rzv2h-rspi.yaml b/Documentation/devicetree/bindings/spi/renesas,rzv2h-rspi.yaml
+index 2c9045fd51de..f40f316943ba 100644
+--- a/Documentation/devicetree/bindings/spi/renesas,rzv2h-rspi.yaml
++++ b/Documentation/devicetree/bindings/spi/renesas,rzv2h-rspi.yaml
+@@ -13,6 +13,7 @@ properties:
+   compatible:
+     oneOf:
+       - enum:
++          - renesas,r9a08g046-rspi # RZ/G3L
+           - renesas,r9a09g057-rspi # RZ/V2H(P)
+           - renesas,r9a09g077-rspi # RZ/T2H
+       - items:
+@@ -90,6 +91,34 @@ required:
+ 
+ allOf:
+   - $ref: spi-controller.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - renesas,r9a08g046-rspi
++    then:
++      properties:
++        clocks:
++          maxItems: 2
++
++        clock-names:
++          items:
++            - const: pclk
++            - const: tclk
++
++        dmas:
++          maxItems: 2
++
++        dma-names:
++          items:
++            - const: rx
++            - const: tx
++
++      required:
++        - resets
++        - reset-names
++
+   - if:
+       properties:
+         compatible:
 -- 
 2.43.0
 
