@@ -1,54 +1,54 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A123262FFC
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:15:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D301A39DBE0
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:15:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775636127; cv=none; b=i3SviMhoEODwvgR6mg/pEMKIwyMeTtVG32j0PrAGP28uHrcxd6RJYnDmfOSLRTPgbJ6PuJwoEI874s4+vocsHekn74gAIMBW6NvLaBoetBEdi3kkzeOa7XX7TjoyY85oRnz4rbIozTFK2P3enhhBIIzvu36yjG3zHamuQkO2VkU=
+	t=1775636147; cv=none; b=O1MpknbhU2ge+QmFtBw9ZTHfKSI+MvXRsbZrycBWgqO0Z0z2SsSiJNA72MLlHJd2ieMYLLGvI9qUFCkeSGP9khTbS6y/z8snaaC8vvq/BVdiIA6cfN+OZDioK0R7S6iKg7MCFMcaEx0899XK2Z1FR9D2dVSTAqg8kYIoT+lp85k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775636127; c=relaxed/simple;
-	bh=xZTSZRs0sbRDgY1K81wjxHHQ/9DUVcEHhVIDQRsGRhI=;
+	s=arc-20240116; t=1775636147; c=relaxed/simple;
+	bh=Z1Ts+VSZ8ou/NVe55RhyiohrVm9KZyDeSwhovMasKD8=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lEtWZkKhGtp6bHtgWveewri3oW5m/EdF7d9BYC0xXlyf/C/01RnSRYjrAPrqOfw9PY3Hs8/8oRWsbGXwR8Ftqoqxzv5TOpzQ6csxgYCerKr9H+hRCpWv3dQmTHSvsP7+H1poCjR1G2o1WAAlv7y/utA7QJEJNQoObifC9O1lDp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EdzAMEba; arc=none smtp.client-ip=10.30.226.201
+	 To:Cc:Content-Type; b=ld/mScIuLrDHyIsOpxMnPr9kt5Qd/a0MmQ0QWYIJ/WtnH2exCeD1EbGJO23qYbDpChWYAprDRWfiUTKIliN3Wta2uWjMtR4J5g4me4l+lPza/k8NXvxQGQ/PS+BJ6C8aYHWMPZs1zKK8JQzb3q8PcJoUUY6VLLvsJftc0lhAFWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DjJUWZ8p; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EdzAMEba"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45370C2BCC9
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:15:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DjJUWZ8p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A0F4C4AF09
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 08:15:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775636127;
-	bh=xZTSZRs0sbRDgY1K81wjxHHQ/9DUVcEHhVIDQRsGRhI=;
+	s=k20201202; t=1775636147;
+	bh=Z1Ts+VSZ8ou/NVe55RhyiohrVm9KZyDeSwhovMasKD8=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=EdzAMEbaoAnwjaLYx0qzcbimv03/A8Yk6Fbq3r0R1iFfdf4Z6C7AG85cLOUpTbzB3
-	 0IMj4KLokxXA8A/AunIVVsYNUkMz1qGzZ9lSlZhKexHjmCZOsMsmso2fWhlzIdAxpk
-	 yDbFfRTCHmB6hMFHnmhldWEbWIT1Swb4JT3AEv4g6uaTTkzD3Zn3UiWCr3ku/SaHCa
-	 rbpiJZtAoSx6CdbB2ul9eI937QKOMmZgJnCJqOTCYl+kT1koFVUF7RXgGcQGSmhi6E
-	 Od45wUmL4X6+Ci5KINf5W4Mdl3Ri9XvnVFzaPrZrHCgrljyvGSw1DH360UFLKnpGlQ
-	 e14xIoWW85i4w==
-Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-7991db3dc98so64933357b3.0
-        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 01:15:27 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCXwn98tEDxELd6YAgoMuBO2QfMwSn2kcV6QvpxFIv9hQeuUVtIdNK8+eUwowkAGKrMXsDwFPBQUekor@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywf1ij1Mm79UmEzxwxOOfEiroQ/OV8kWqkhQ7rcnn35K30w7fri
-	2f25dUFxX03mfIhhB4ld+gLk6IXWcShh4WuId4FwllJNwc/aLmHlScW4RhCp4uswBWSJs5hGBe0
-	1vuN2tuDnYsoznlCbjU/FnOdqqDbYkVw=
-X-Received: by 2002:a05:690c:6c13:b0:79b:e346:fcfb with SMTP id
- 00721157ae682-7a4d536d25amr203296817b3.32.1775636126528; Wed, 08 Apr 2026
- 01:15:26 -0700 (PDT)
+	b=DjJUWZ8p+SrYZMJe8a7MP/eKq6noIw+mM8ZBQN2VSSPp7t8H4gTwqMDq/NJVd0jjK
+	 XROF5dzZrwwfVLsMfdCa5K8zQVWscKCo0yn06R/meLJiSxRz/PluiLBKTx3IS4kD44
+	 D2JGDmNXuXVV2wJ0nt68vInXT/6LPHFQZCIbZMETGRmapO224VQUkLwOPr/btLV/J7
+	 Q3LtR8MajB6r0oEDBU4o2elNrokdZdV4kslHPn0M9aUj4qTB9dLlNSe2s2Rr1P2rNo
+	 uxSAVIif+Uh78xnf69h81njib6Uf3keCxOm9dTpEhfNSnvXuAzkuIIcgbMQxb81AdW
+	 /vvmbiJZjmT5g==
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-797ab169454so95184727b3.3
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 01:15:47 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCXjiicINnDbRsMpBEzXlodVqQncSqinjrybMeBpZM02xgtkfAsEcPjGo54O3zIfdv6AgUo/p0gCJpX+@vger.kernel.org
+X-Gm-Message-State: AOJu0YxYPJ55xo9nV6mWVvSXAk3wFaH1QiCzG7gpsgE/vcn4kJW5u6G1
+	Q6Pvo1F+Jvjo2Dl9gUJQUUK4wmN+xOoTuH52ld0aQmaZdZHrejTW2hadsPiKPkowULYhkO+5xEa
+	uWBWSELtTGaHoPHc9JjOPsmklywHXV1o=
+X-Received: by 2002:a05:690c:12:b0:79e:21eb:e9ca with SMTP id
+ 00721157ae682-7a4d566ad29mr202825207b3.30.1775636147018; Wed, 08 Apr 2026
+ 01:15:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260401-waveshare-dsi-touch-v1-0-5e9119b5a014@oss.qualcomm.com> <20260401-waveshare-dsi-touch-v1-12-5e9119b5a014@oss.qualcomm.com>
-In-Reply-To: <20260401-waveshare-dsi-touch-v1-12-5e9119b5a014@oss.qualcomm.com>
+References: <20260401-waveshare-dsi-touch-v1-0-5e9119b5a014@oss.qualcomm.com> <20260401-waveshare-dsi-touch-v1-13-5e9119b5a014@oss.qualcomm.com>
+In-Reply-To: <20260401-waveshare-dsi-touch-v1-13-5e9119b5a014@oss.qualcomm.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 8 Apr 2026 10:15:13 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnAaUzHun-i7PBLzFQmsKCXXfRO+4hAgTFCZtLm_Bu6iw@mail.gmail.com>
-X-Gm-Features: AQROBzDPMsTo8Q-h8qP3H_WTkRwwClJVDSsQZesP_kI3xg0qbihfSen8BjVkm48
-Message-ID: <CAD++jLnAaUzHun-i7PBLzFQmsKCXXfRO+4hAgTFCZtLm_Bu6iw@mail.gmail.com>
-Subject: Re: [PATCH 12/19] drm/panel: jadard-jd9365da-h3: support variable DSI configuration
+Date: Wed, 8 Apr 2026 10:15:36 +0200
+X-Gmail-Original-Message-ID: <CAD++jLm1kjuodURGsQt9ChA11zKJPf9Eayw7dy7LN_fdfWoAGw@mail.gmail.com>
+X-Gm-Features: AQROBzDH7UQOKJUwrcrXsozOYhM9A3Hna5Srzfu5ji4HDrC0JSqqCxNeZwfuyJ0
+Message-ID: <CAD++jLm1kjuodURGsQt9ChA11zKJPf9Eayw7dy7LN_fdfWoAGw@mail.gmail.com>
+Subject: Re: [PATCH 13/19] drm/panel: jadard-jd9365da-h3: set prepare_prev_first
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
 	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -64,34 +64,16 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmai
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Dmitry,
-
-thanks for your patch!
-
 On Wed, Apr 1, 2026 at 9:27=E2=80=AFAM Dmitry Baryshkov
 <dmitry.baryshkov@oss.qualcomm.com> wrote:
 
-> Several panels support attachment either using 4 DSI lanes or just 2. In
-> some cases, this requires a different panel mode to fulfill clock
-> requirements. Extend the driver to handle such cases by letting the
-> panel description to omit lanes specification and parsing number of
-> lanes from the DT.
+> Sending DSI commands from the prepare() callback requires DSI link to be
+> up at that point. For DSI hosts is guaranteed only if the panel driver
+> sets the .prepare_prev_first flag. Set it to let these panels work with
+> the DSI hosts which don't power on the link in their .mode_set callback.
 >
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-(...)
 
-> +       if (dsi_ctx->dsi->lanes =3D=3D 2)
-> +               mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x80, 0x01);
-> +       else
-> +               mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x80, 0x03);
-
-If lanes 2 we do unexplicable magic A else we do unexplicable magic B?
-
-Do we know more about what is actually going on here?
-
-Can you check the datasheet?
-
-The patch is nice anyway and no big deal so, so +/- that fixup:
 Reviewed-by: Linus Walleij <linusw@kernel.org>
 
 Yours,
