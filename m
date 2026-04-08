@@ -1,387 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FFC23C1401;
-	Wed,  8 Apr 2026 12:55:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2E643BC66C;
+	Wed,  8 Apr 2026 12:59:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775652958; cv=none; b=r+ABQAC3s7d5tWB9xfvFzXQ1gKradYfF8WyHQ8JW+qmDHkRHlIhj/ASupLq54WhuTBEK403cFJMfbMM1iTg8XUZZ8acSOby3+NMs1H5CTyIMIbpZzqotyWg7iMICsSIf1f5N0aqsR3CouiMqGtTh5AFJc1o1keK6tu9eOd6bPa4=
+	t=1775653152; cv=none; b=GxB+NNRJdcUzDJpfbVm4DlnKQBRbJ6x2iGF+QSh97Q2tMH0CXlp28+H2tY3ZzXJ2/RmlsuDEdnulnA1wZoaeMaw0HlQGcmAM/PmkxMxXf+YiJuVB5Nw7aduohuSb/4BkKW2sVm8WgsI83QksJVxz1dEOeRn39qXvGvRbaVGiDgs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775652958; c=relaxed/simple;
-	bh=cyv/ySeHFa5VB+WMwHzxE78bFav6m4OhHpq+s5jB/G0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ostI00WnB4yOtWsjzpHrXZzY5ibbFvfDOyjtnVvDorlfXX+3LsvQ0fpxyabuUIHECqd31DYI4GsG2JAocoULu5XIFV4U6Sp25wZGPVAEtq8oVT11B8aQOgyyFFoZ24deJsMkzusrgnjqugBB5jy079pipxwx+rE/o0SgexQGSdU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U8r9dBnk; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775653152; c=relaxed/simple;
+	bh=OlbGJrGFwrI24/GJug24fjlXDRLvgepuqrfrL5/BaOs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tcS8h34vQiyyUg+7/GgszuATKbnh9J0vH2bA6mIg8oCdKE8sCz3UpiQLkZMnP1KlBZWL3XddK4mj8+R72lq184w4J9k1+ApJBLczzumeJytI7ZepRQhcl91SQ2qczl5AUxcxLS9cZHRp1G7KRqiwOQjhD/J98Vkq+kn+h5cRM+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=o0tmtt43; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U8r9dBnk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25E13C19424;
-	Wed,  8 Apr 2026 12:55:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775652958;
-	bh=cyv/ySeHFa5VB+WMwHzxE78bFav6m4OhHpq+s5jB/G0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=U8r9dBnk6ZuYiitlDlk135aXgsrGudyyz9AcK2SdnE1Rg6v9sEf70v1mpv51VOYIT
-	 UdKyzURZj0O8NXJNn72xaVT05oa/SAJiXcZ5z+PfNlkysOjdgns+VUXykVK7bHJr5e
-	 PjliX2pCrcxScoL0jzQcJgPiUgqED/VmJ7mSAj6epcJEorQASrv+voqlsJ6rpjgKJN
-	 VSDpjwWhRsY1uYPrQftDioH3OCv8+vi1JLu/iy0IsztGtcLrTumpPN8qftkuEz27U0
-	 Jdi24WntB49gA33volQIktVRQw8B+/DhPkp1JN8rSiJKzn66q8PAd9pNGvCnHlVdxU
-	 +9h4J7FYsQryQ==
-Date: Wed, 8 Apr 2026 07:55:56 -0500
-From: Rob Herring <robh@kernel.org>
-To: Thomas Richard <thomas.richard@bootlin.com>
-Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 08/11] dt-bindings: mfd: ti,omap-usb-host: Convert to
- DT schema
-Message-ID: <20260408125556.GA1879076-robh@kernel.org>
-References: <20260330-omap4-fix-usb-support-v2-0-1c1e11b190dc@bootlin.com>
- <20260330-omap4-fix-usb-support-v2-8-1c1e11b190dc@bootlin.com>
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="o0tmtt43"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E27B91ED994;
+	Wed,  8 Apr 2026 14:58:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1775653141; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=eh2Ut171wqmOONOps9l0PZ9TIR9l30BuTl8yI4h9mus=;
+	b=o0tmtt43vL9xqdVsg1urR/4VzYAuHc1fUgU/VJm410m6/gCRT/WDV44NhtCuZKyFmgj7LM
+	r137un5/F3ZTCsLF0JjLzau92j7RqN+4Zvmf1arTW4jTnSteX2YwSigaITaV6pboxUE7Uk
+	9JKxWVIzdkb34nD0lkWZyTCyswJbqrUQJr25VfGvwdexO58xUyTwtpLW5g8IkZfd/8NhvU
+	QZ+Pl+d+z7OrV2Rtdb3G6BHBVZ1uT06dkGImxiE13U9Q+dJVUmP5DmaEvoK6iF2zLDhbND
+	ZigUHx7vKo9ZbcYMKmjhAfMBzu/cnOAZkRjHV93vVOYF2RtdUkD1IcpDTZOP0w==
+Message-ID: <468d439b-9a83-484b-8ada-fabef2d6c8da@cjdns.fr>
+Date: Wed, 8 Apr 2026 14:58:35 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260330-omap4-fix-usb-support-v2-8-1c1e11b190dc@bootlin.com>
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v2 8/8] mips: dts: Add PCIe to EcoNet EN751221
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: linux-mips@vger.kernel.org, naseefkm@gmail.com, mturquette@baylibre.com,
+ sboyd@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ ryder.lee@mediatek.com, jianjun.wang@mediatek.com, lpieralisi@kernel.org,
+ kwilczynski@kernel.org, mani@kernel.org, bhelgaas@google.com,
+ vkoul@kernel.org, neil.armstrong@linaro.org, p.zabel@pengutronix.de,
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+ nbd@nbd.name, ansuelsmth@gmail.com, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+References: <20260309131818.74467-1-cjd@cjdns.fr>
+ <20260309131818.74467-9-cjd@cjdns.fr> <adOo9xZxXT3FkufM@alpha.franken.de>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <adOo9xZxXT3FkufM@alpha.franken.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Mar 30, 2026 at 03:44:05PM +0200, Thomas Richard wrote:
-> Convert OMAP HS USB Host binding to DT schema. The 'ti,hwmods' property is
-> not mandatory anymore as it is no longer required when the omap-usb-host
-> node is a child of a new interconnect target (ti,sysc).
-> 
-> Signed-off-by: Thomas Richard <thomas.richard@bootlin.com>
-> ---
->  .../devicetree/bindings/mfd/omap-usb-host.txt      | 103 -------------
->  .../devicetree/bindings/mfd/ti,omap-usb-host.yaml  | 161 +++++++++++++++++++++
->  MAINTAINERS                                        |   1 +
->  3 files changed, 162 insertions(+), 103 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/mfd/omap-usb-host.txt b/Documentation/devicetree/bindings/mfd/omap-usb-host.txt
-> deleted file mode 100644
-> index a0d8c30c2631..000000000000
-> --- a/Documentation/devicetree/bindings/mfd/omap-usb-host.txt
-> +++ /dev/null
-> @@ -1,103 +0,0 @@
-> -OMAP HS USB Host
-> -
-> -Required properties:
-> -
-> -- compatible: should be "ti,usbhs-host"
-> -- reg: should contain one register range i.e. start and length
-> -- ti,hwmods: must contain "usb_host_hs"
-> -
-> -Optional properties:
-> -
-> -- num-ports: number of USB ports. Usually this is automatically detected
-> -  from the IP's revision register but can be overridden by specifying
-> -  this property. A maximum of 3 ports are supported at the moment.
-> -
-> -- portN-mode: String specifying the port mode for port N, where N can be
-> -  from 1 to 3. If the port mode is not specified, that port is treated
-> -  as unused. When specified, it must be one of the following.
-> -	"ehci-phy",
-> -        "ehci-tll",
-> -        "ehci-hsic",
-> -        "ohci-phy-6pin-datse0",
-> -        "ohci-phy-6pin-dpdm",
-> -        "ohci-phy-3pin-datse0",
-> -        "ohci-phy-4pin-dpdm",
-> -        "ohci-tll-6pin-datse0",
-> -        "ohci-tll-6pin-dpdm",
-> -        "ohci-tll-3pin-datse0",
-> -        "ohci-tll-4pin-dpdm",
-> -        "ohci-tll-2pin-datse0",
-> -        "ohci-tll-2pin-dpdm",
-> -
-> -- single-ulpi-bypass: Must be present if the controller contains a single
-> -  ULPI bypass control bit. e.g. OMAP3 silicon <= ES2.1
-> -
-> -- clocks: a list of phandles and clock-specifier pairs, one for each entry in
-> -  clock-names.
-> -
-> -- clock-names: should include:
-> -  For OMAP3
-> -  * "usbhost_120m_fck" - 120MHz Functional clock.
-> -
-> -  For OMAP4+
-> -  * "refclk_60m_int" - 60MHz internal reference clock for UTMI clock mux
-> -  * "refclk_60m_ext_p1" - 60MHz external ref. clock for Port 1's UTMI clock mux.
-> -  * "refclk_60m_ext_p2" - 60MHz external ref. clock for Port 2's UTMI clock mux
-> -  * "utmi_p1_gfclk" - Port 1 UTMI clock mux.
-> -  * "utmi_p2_gfclk" - Port 2 UTMI clock mux.
-> -  * "usb_host_hs_utmi_p1_clk" - Port 1 UTMI clock gate.
-> -  * "usb_host_hs_utmi_p2_clk" - Port 2 UTMI clock gate.
-> -  * "usb_host_hs_utmi_p3_clk" - Port 3 UTMI clock gate.
-> -  * "usb_host_hs_hsic480m_p1_clk" - Port 1 480MHz HSIC clock gate.
-> -  * "usb_host_hs_hsic480m_p2_clk" - Port 2 480MHz HSIC clock gate.
-> -  * "usb_host_hs_hsic480m_p3_clk" - Port 3 480MHz HSIC clock gate.
-> -  * "usb_host_hs_hsic60m_p1_clk" - Port 1 60MHz HSIC clock gate.
-> -  * "usb_host_hs_hsic60m_p2_clk" - Port 2 60MHz HSIC clock gate.
-> -  * "usb_host_hs_hsic60m_p3_clk" - Port 3 60MHz HSIC clock gate.
-> -
-> -Required properties if child node exists:
-> -
-> -- #address-cells: Must be 1
-> -- #size-cells: Must be 1
-> -- ranges: must be present
-> -
-> -Properties for children:
-> -
-> -The OMAP HS USB Host subsystem contains EHCI and OHCI controllers.
-> -See Documentation/devicetree/bindings/usb/generic-ehci.yaml and
-> -Documentation/devicetree/bindings/usb/generic-ohci.yaml.
-> -
-> -Example for OMAP4:
-> -
-> -usbhshost: usbhshost@4a064000 {
-> -	compatible = "ti,usbhs-host";
-> -	reg = <0x4a064000 0x800>;
-> -	ti,hwmods = "usb_host_hs";
-> -	#address-cells = <1>;
-> -	#size-cells = <1>;
-> -	ranges;
-> -
-> -	usbhsohci: ohci@4a064800 {
-> -		compatible = "ti,ohci-omap3";
-> -		reg = <0x4a064800 0x400>;
-> -		interrupt-parent = <&gic>;
-> -		interrupts = <0 76 0x4>;
-> -	};
-> -
-> -	usbhsehci: ehci@4a064c00 {
-> -		compatible = "ti,ehci-omap";
-> -		reg = <0x4a064c00 0x400>;
-> -		interrupt-parent = <&gic>;
-> -		interrupts = <0 77 0x4>;
-> -	};
-> -};
-> -
-> -&usbhshost {
-> -	port1-mode = "ehci-phy";
-> -	port2-mode = "ehci-tll";
-> -	port3-mode = "ehci-phy";
-> -};
-> -
-> -&usbhsehci {
-> -	phys = <&hsusb1_phy 0 &hsusb3_phy>;
-> -};
-> diff --git a/Documentation/devicetree/bindings/mfd/ti,omap-usb-host.yaml b/Documentation/devicetree/bindings/mfd/ti,omap-usb-host.yaml
-> new file mode 100644
-> index 000000000000..3b5b041f0321
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/mfd/ti,omap-usb-host.yaml
-> @@ -0,0 +1,161 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/mfd/ti,omap-usb-host.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: OMAP HS USB Host
-> +
-> +maintainers:
-> +  - Thomas Richard <thomas.richard@bootlin.com>
-> +
-> +properties:
-> +  compatible:
-> +    const: ti,usbhs-host
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  ti,hwmods:
-> +    const: usb_host_hs
-> +
-> +  num-ports:
-> +    description:
-> +      number of USB ports. Usually this is automatically detected from the IP's
-> +      revision register but can be overridden by specifying this property. A
-> +      maximum of 3 ports are supported at the moment.
-> +    maximum: 3
-> +
-> +  single-ulpi-bypass:
-> +    $ref: /schemas/types.yaml#/definitions/flag
-> +    description:
-> +      Must be present if the controller contains a single ULPI bypass control
-> +      bit. e.g. OMAP3 silicon <= ES2.1ULPI bypass control bit.
-> +      e.g. OMAP3 silicon <= ES2.1.
-> +
-> +  clocks:
-> +    description: clock-specifier
-> +
-> +  clock-names:
-> +    oneOf:
-> +      - items:
-> +          - const: usbhost_120m_fck
-> +      - items:
-> +          - const: refclk_60m_int
-> +          - const: refclk_60m_ext_p1
-> +          - const: refclk_60m_ext_p2
-> +      - items:
-> +          - const: refclk_60m_int
-> +          - const: refclk_60m_ext_p1
-> +          - const: refclk_60m_ext_p2
-> +          - const: usb_host_hs_utmi_p1_clk
-> +          - const: usb_host_hs_hsic480m_p1_clk
-> +          - const: usb_host_hs_hsic60m_p1_clk
-> +      - items:
-> +          - const: refclk_60m_int
-> +          - const: refclk_60m_ext_p1
-> +          - const: refclk_60m_ext_p2
-> +          - const: usb_host_hs_utmi_p1_clk
-> +          - const: usb_host_hs_hsic480m_p1_clk
-> +          - const: usb_host_hs_hsic60m_p1_clk
-> +          - const: usb_host_hs_utmi_p2_clk
-> +          - const: usb_host_hs_hsic480m_p2_clk
-> +          - const: usb_host_hs_hsic60m_p2_clk
-> +      - items:
-> +          - const: refclk_60m_int
-> +          - const: refclk_60m_ext_p1
-> +          - const: refclk_60m_ext_p2
-> +          - const: usb_host_hs_utmi_p1_clk
-> +          - const: usb_host_hs_hsic480m_p1_clk
-> +          - const: usb_host_hs_hsic60m_p1_clk
-> +          - const: usb_host_hs_utmi_p2_clk
-> +          - const: usb_host_hs_hsic480m_p2_clk
-> +          - const: usb_host_hs_hsic60m_p2_clk
-> +          - const: usb_host_hs_utmi_p3_clk
-> +          - const: usb_host_hs_hsic480m_p3_clk
-> +          - const: usb_host_hs_hsic60m_p3_clk
 
-All but the first one can be combined to this last entry plus 
-'minItems: 3'.
+On 06/04/2026 14:37, Thomas Bogendoerfer wrote:
+> On Mon, Mar 09, 2026 at 01:18:18PM +0000, Caleb James DeLisle wrote:
+>> Add PCIe based on EN7528 PCIe driver, also add two MT76 wifi devices
+>> to SmartFiber XP8421-B.
+>>
+>> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
+>> ---
+>>   arch/mips/boot/dts/econet/en751221.dtsi       | 114 ++++++++++++++++++
+>>   .../econet/en751221_smartfiber_xp8421-b.dts   |  21 ++++
+>>   arch/mips/econet/Kconfig                      |   2 +
+>>   3 files changed, 137 insertions(+)
+>>
+> applied to mips-next
 
-> +
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 1
-> +
-> +  ranges: true
-> +
-> +patternProperties:
-> +  "^port[0-3]-mode$":
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description:
-> +      String specifying the port mode for port N, where N can be from 1 to 3.
-> +      the port mode is not specified, that port is treated as unused. When
-> +      specified, it must be one of the following.
-> +    enum:
-> +      - ehci-phy
-> +      - ehci-tll
-> +      - ehci-hsic
-> +      - ohci-phy-6pin-datse0
-> +      - ohci-phy-6pin-dpdm
-> +      - ohci-phy-3pin-datse0
-> +      - ohci-phy-4pin-dpdm
-> +      - ohci-tll-6pin-datse0
-> +      - ohci-tll-6pin-dpdm
-> +      - ohci-tll-3pin-datse0
-> +      - ohci-tll-4pin-dpdm
-> +      - ohci-tll-2pin-datse0
-> +      - ohci-tll-2pin-dpdm
-> +
-> +  "^usb@":
-> +    type: object
-> +    oneOf:
-> +      - $ref: /schemas/usb/generic-ohci.yaml#
-> +      - $ref: /schemas/usb/generic-ehci.yaml#
+Thank you very much.
 
-This causes the schemas to be applied twice and oneOf causes confusing 
-warnings. Instead just do this:
+Caleb
 
-type: object
-properties:
-  compatible:
-    contains:
-      enum:
-        - ti,ehci-omap
-        - ti,ohci-omap3
-
-required:
-  - compatible
-
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +allOf:
-> +  - if:
-> +      patternProperties:
-> +        "^usb@": true
-
-This will always be true. Unfortunately there's no way to do required 
-pattern properties in json-schema.
-
-Is it valid to have no usb nodes? I wouldn't think so, so just make 
-these properties always required.
-
-> +    then:
-> +      required:
-> +        - ranges
-> +        - "#address-cells"
-> +        - "#size-cells"
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    bus {
-> +        #address-cells = <1>;
-> +        #size-cells = <1>;
-> +
-> +        usbhshost: usbhshost@4a064000 {
-> +            compatible = "ti,usbhs-host";
-> +            reg = <0x4a064000 0x800>;
-> +            ti,hwmods = "usb_host_hs";
-> +            port1-mode = "ehci-phy";
-> +            port2-mode = "ehci-tll";
-> +            port3-mode = "ehci-phy";
-> +            #address-cells = <1>;
-> +            #size-cells = <1>;
-> +            ranges;
-> +
-> +            usbhsohci: usb@4a064800 {
-> +                compatible = "ti,ohci-omap3";
-> +                reg = <0x4a064800 0x400>;
-> +                interrupt-parent = <&gic>;
-> +                interrupts = <0 76 0x4>;
-> +            };
-> +
-> +            usbhsehci: usb@4a064c00 {
-> +                compatible = "ti,ehci-omap";
-> +                reg = <0x4a064c00 0x400>;
-> +                interrupt-parent = <&gic>;
-> +                interrupts = <0 77 0x4>;
-> +            };
-> +        };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 15052c0f5377..d1dadba8ed0a 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -19406,6 +19406,7 @@ W:	http://linux.omap.com/
->  Q:	http://patchwork.kernel.org/project/linux-omap/list/
->  T:	git git://git.kernel.org/pub/scm/linux/kernel/git/tmlind/linux-omap.git
->  F:	Documentation/devicetree/bindings/arm/ti/omap.yaml
-> +F:	Documentation/devicetree/bindings/mfd/ti,omap-usb-host.yaml
->  F:	Documentation/devicetree/bindings/regulator/ti,pbias-regulator.yaml
->  F:	arch/arm/configs/omap2plus_defconfig
->  F:	arch/arm/mach-omap2/
-> 
-> -- 
-> 2.53.0
-> 
+>
+> Thomas.
+>
