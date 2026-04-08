@@ -1,326 +1,111 @@
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011009.outbound.protection.outlook.com [40.107.74.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4B223D332A;
-	Wed,  8 Apr 2026 14:45:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.9
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775659505; cv=fail; b=A4G3+7aDtbqfBCfAf1qmS2iD7SAn4p3DWb9zL/kbw+8icFGEurDzyG7Zppj8EKJAZLMrF2p/K010gmwPqwOCzvzHes9cKkG0R+7I9lCdQjAi7o9ucpvSb17fpMsD18NDAckKrn9+dr7plMwLvEsNeL8LbrFXqNHrwfIRDLn6SsI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775659505; c=relaxed/simple;
-	bh=hSC9gd/LjupXISOcU+KNEfqwT5UB0hXMSAWDmBFH2AU=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=VjhUYPgtmJYapjXyrSsCvnw5341toDOjOFk6NZ6h+SUXlEGIYMevi3kADgRumQgcCp8P46eCy2jc/6RaF2ggzXbuC6WZm5HvSkOkft8KR23lHrfThi4TwzY3jYaKsAJ89+wOYjndEFsJz2EKpkeip2+Ym517nEaa8XJUmTtha1s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=XpU2W5X6; arc=fail smtp.client-ip=40.107.74.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 066793D522C
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 14:49:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775659767; cv=none; b=fFUI2IbtCZ2C5U0scvVPBV8hj3Y5/z5qibmZxZRcAjrrx/Mg2DdOp9BsKhwbWj3FQ3iIxaSIBti4A1BKr/UNlFfXE4Q3R/8yJBs0MDG6ybzG0v0l6+5r4lBg3wjOc9iGVKjA8UH4CEqDymZAaXvUdsnNP3mtO3j9i68Nobpa0CM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775659767; c=relaxed/simple;
+	bh=8EQsRJiGkX5iRTB/AZVv6hwVd/Kx+flU2pF6ssQXU+8=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=lqzqpJyqHae7RQ3YoMAnIMbDJlV/sfH3ALdDGvSQBIFSX5ggxtdVBjCZ3203pA7h1YXvpR3iZF8j2fB/73MJBu68THJs7EVdJyFTxl9YLqFdazxQ9mp71DEy+BNHG2Y6Qp3NwxIzHCayGUMllRSoVez0Vr6680nI2Bh1BrEWix8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=NZBqGxwQ; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="XpU2W5X6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BXGoZuk0H5SCASeapxFAskf3CPw3QEfxbYZPaPMJsy/mzeBIXHaZcIZmytDA51MJ+g0Oqz0G1p/qvLgtoVlBkSFdwZApUyvROdFBlavjbeLwOHY4UPpDjctZny9DKSXJPjXDGQ4c9kP+Z84I3xBfWiUlA37q8OggLq84jyKFB/e2xIjbE5kZ/RubOJzlxELYj4b4T3F66evddciSOcXyokY0OsNEyaFRYlz5JF5Acf9JsSd27wrq01jMyrG67naCysV+6dVLWH2s8aQBiRdiaYqYZdLFA78R3VUvKBPp0awoSzJJ9gCjV2e/SxJaMNGc9usypxdUmTCr1vr+cGRBDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IDK7fOup7eUFC4r+TUbWuTGx8/lxw0RY2Y0bwv1fCNk=;
- b=hYGcXqq/LiecgNddqexhTJxic7hLFvIuJWIqmF9JGHr3VafmzASYuvOVhaPbusCkvVtyjIo087c0ae7OL4J+ZTPe3SeG8H+ePGGuVfg7q5RgMF9EmD5cJH5aDFcGHRLHaJBfbXKR+Xqb8MP7EDSzIKUG6eYFlRbjicuaR1t1/M00QsRh+CejL0eiqZBEnTn6vI4FP90KwK9TlmvqZaMZQChe8NGHBLA8o+09Ktoqxn0mXO8sekNbMwNiBgxZ3T7W9a4uA1Jj0bzhSWvdIHoRZmXf27RUSWj6SNASlYW6GD6Gn2QSpFaKz8y8jf7x4lnrE3OgYxjPFMsZu/V/9VTcww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IDK7fOup7eUFC4r+TUbWuTGx8/lxw0RY2Y0bwv1fCNk=;
- b=XpU2W5X6uDpd5vvZjrNZeDtYiijHc3BQX7IaP2Ce+OwZEemkBShqDCWxUiZKIIULfZFMkY2daG0fifDtj94FhEDhdKTedWpgOzTi0y2q1xhIbgzLKbSUe96/pSS4AqQursobjOT17dAZIy5BbWup8mX8ZRvgwJcvuYdKERxKhqE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com (2603:1096:400:3e1::6)
- by OS3PR01MB10232.jpnprd01.prod.outlook.com (2603:1096:604:1e4::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.21; Wed, 8 Apr
- 2026 14:45:00 +0000
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8]) by TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8%5]) with mapi id 15.20.9769.017; Wed, 8 Apr 2026
- 14:45:00 +0000
-Message-ID: <87a18664-d19e-4434-8f92-1c7ce4f3a131@bp.renesas.com>
-Date: Wed, 8 Apr 2026 16:44:48 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 10/21] dt-bindings: display: renesas,rzg2l-du: Add
- support for RZ/G3E SoC
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: tomm.merciai@gmail.com, geert@linux-m68k.org,
- linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
-References: <cover.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
- <8f814f22ff62dcde6153260e2c8c29a5415c9a89.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
- <20260408122436.GH1928916@killaraus.ideasonboard.com>
- <dafdbdcf-98db-473c-8122-296af1922e6c@bp.renesas.com>
- <20260408141638.GA1965119@killaraus.ideasonboard.com>
-Content-Language: en-US
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-In-Reply-To: <20260408141638.GA1965119@killaraus.ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0271.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e6::20) To TYCPR01MB11947.jpnprd01.prod.outlook.com
- (2603:1096:400:3e1::6)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="NZBqGxwQ"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-43cf7683a28so3825278f8f.2
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 07:49:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1775659764; x=1776264564; darn=vger.kernel.org;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8EQsRJiGkX5iRTB/AZVv6hwVd/Kx+flU2pF6ssQXU+8=;
+        b=NZBqGxwQa7Yi+HoWDlbHzdr8kfrEjy2wYzpIDKQsN5HRVoPjsOlu2cZc8JUh/RVHyO
+         S153dvYOW7qj5l03qYuxav89jjBuphJwHpd5u5MD9XtDcqDKO3NklC9c5SRZzVoykN3p
+         nZ28jiR28CutpJdpieCgPO6A1vsv+a0qz29eJl8EgGCZ6+mcoveySnzAZ73yDm8pqb+d
+         T08qfHEHbab+TZKR6Bncnas/Z4Yi/LSSV7ajGhw7ry2/9rzdlnPLhHeFkzMR+46h99Er
+         CLEG8CSlU8qtTJeNZ00DLEhH3zMOME68L7XrhFDgBkn69INy1pWnP+zUZBBysBaF5SG3
+         4JPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775659764; x=1776264564;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=8EQsRJiGkX5iRTB/AZVv6hwVd/Kx+flU2pF6ssQXU+8=;
+        b=MRPSb367koSUN8JhaqZRIbVH5YRpj9OWe6oPn8/S9prp2h56Th+ZHoi+jAzDPdkrGZ
+         S1pyzus656ERsA2lBq5T4G05G/3N84cSOkcuN+zkvF1Cse/ymRqcA+UlzANyXozwA1Yf
+         wkGnH74YMgkKL+EObCelVVL7xt8lInEu7zjKvkbpSfTR1j0tMyiaXaHJ94KfVGUchFvt
+         wbjhbf8cALB7dmPRNqMnWr1HjKZzquia5iOJZwZtwBypU/QcnpgXv+Qrz5dmyJbEVLLU
+         TmzuVMgmEglO6FyC5pB3D8ym0jC5A78ZoJdGUDmUXlshSOL97Hfska6AVcIjaPgPbjiR
+         Xs9g==
+X-Forwarded-Encrypted: i=1; AJvYcCXG/Prrhsl5oxfaru5wQg/zOGiZVg0v8ijzyRrVmb0fhwuaGlNigmR5mk9V/td0j4RgUOP4uSWRANDo@vger.kernel.org
+X-Gm-Message-State: AOJu0YzCuQE5MnLU3YiQxNNNzuJ7WD5EobnF0S4S1jJpaf6gfzT9vHnG
+	/qijV9MdDSNREqN9b1+KgO2074gDO4SMDYUqEXRF6+6MzU1MJUph8B7G2Vfrifn7+GM=
+X-Gm-Gg: AeBDieuOQB8rRbqLGUi9rgO50enZTM/4v97haBwegkyRYu1VN4QvK8/BgkTQySGJaks
+	7AuM+rFZysucF0bdZH/Il40biRLa53AtkAn113kIGxMcQBxeKr6JVAi6YnYtsArpJZFucZuje25
+	z5lktTwCDgAIJv6ON8bKHop0r5qCyNzYiOxbxhYT6aqASXAROxy2NyTnfOWaBfCY+sYbwLneLz2
+	p7kwVimnQRBdcHej/v7GYU9pcI65Ml2GE9bW1ERbV2y6eM3KEsRgkPBlPfva2Mx1Rm4lutHWgiI
+	CkzDwadylTeeJpMCSmClZpr6ovdmCPATuOyvuxB0Cuzs4FFVcrhGbaIzZAroAhAEfnyKsagZUZG
+	6af3YaEcIrpuC2hRN7U9zv0GjEs8gev+MKVWmxZbjqa2BHmtB0Zw/Ei0KAmgrzx/hHzfUbG3CSs
+	2YVeNzpmIMZ3GYSuXj0kgTkNbR+yUuAUhfuwr1rWZWn+bEZvCQsanAaXz8V6CKnND9SCuhr4PGp
+	27Qpw9EvFDwOwIaPg==
+X-Received: by 2002:a05:6000:2885:b0:43d:1c21:ead4 with SMTP id ffacd0b85a97d-43d2927bc28mr30909918f8f.18.1775659764374;
+        Wed, 08 Apr 2026 07:49:24 -0700 (PDT)
+Received: from localhost ([2a00:2381:fd67:101:9775:58c0:569c:bd74])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43d1e4e5890sm57988952f8f.31.2026.04.08.07.49.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 08 Apr 2026 07:49:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB11947:EE_|OS3PR01MB10232:EE_
-X-MS-Office365-Filtering-Correlation-Id: 01fb90ed-36f2-4ed7-4453-08de957d6931
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|7416014|376014|366016|1800799024|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
- ySp3+tPP4BYNZqALzP4z5QT+MmbIn4zcZm+87D63zUbSoyy6aMlZ6lahEpmqENZrrHc2lVfULK9RJlwkm4gsAv13Sl5PdX01V55ya+C+iOdorzG2GLJfEA/cjLBVQiRQXLnY5GS+qi7OzJAwEcEZkKd3I3S6mxBvQvsccVq1Ok6CcarNoi4cK+AyxOfiPx0epCn5qWWlQxzWtQsEeeM3BdLw7PqGdcmBPwoVLtj6AMkg9U4UaaQTitCG278p7VhUEft6AQcq34S3x3Ydt20WV38tW5l/gb+r8pxBWK+UhCeLp5WQZtqLeScEAQ8Y1UVehrpGT5hHmoW2Lgu0NM08DMfAuDmB55N5jYM2aSY9JWDK525pdybVHQZjfgBUDY21h/SAmdgyZhM4zEe9WbVLbSlPV7tBxZMfTvl8mCsi8AAyQu5dScW+ctRgUgCjLRjpM/HKh3D2jQbMQVYZvXRSu50jp9YlrWraNUCjbobe2A33GPRRlG1PVHGDcI9Ykhj9DTNz4IqAQS3i5Yy+oftKV28XixePXvesXEzFYLx7lK6QA3G0WlMlnJT9FJ8uzB8Q72pv7/cWEiN9Xb04K8swO6Y7+6nczHOjFlz9kxJ+AQyhsMQcz0zFm0rs5k2JkDPiKv5I4iN1I0L+HY8rNhHNKDjhPrxKGiWs9ntSb63JOsnJsVRSRCzCAp0X6/mMkjqHdOF2X/v3t8IP8yZUGJ2cJW9jbCt7sxihGaDefCnEgDE=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB11947.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?dGVDcnFxV24rSUwvTVNzZDdWcTFORER1Y0RoR0dscVAzTjhlVXR6TGR0cHgx?=
- =?utf-8?B?QURBZFhZbS9tYkY2MzBuWFp0U1Z0SkZvbEJTazRrWUpQck9VcGlYUzdqdUtR?=
- =?utf-8?B?bkJwbkxyOWJMM24rR0JwaUhrcmFrZHg2WEdFeFpIOHNWeVE3endaaVIrRkpx?=
- =?utf-8?B?aFFzcWJFY2hKMFFTeVJBRHl6SXRuVkk2dXk2M3o1SW9Rb0xvdnd2VHpZbHJw?=
- =?utf-8?B?MXpiTW50Z1hyanlISnBTMXFzNG92T1AyUFIwRUVNL212dTdCRzhBMlhHaUNE?=
- =?utf-8?B?ZHJvaHA4SGd0UzdyZ0J5NzRRaW9SM0M2VFVSU2VDUERhSFZnaGF6U3JSb01q?=
- =?utf-8?B?b2dlT3VYYzV3L3BSMkZkVnB5Yk45WEpEbkV3dWdhR0FHdnZHQ1dSeEIyVDdw?=
- =?utf-8?B?ZU5NVzgvVktDOEFMcW8rVldkaFRnQ0dNaHpCcThjbmdTYkllNko0T0IvbkZu?=
- =?utf-8?B?TytvY2piWUlUNEdzM1ZXRUg1TVhZbnp6Tzd3d0poZlhQOGdHQXNJanRkcjZG?=
- =?utf-8?B?a3h4Nlk1b041bnJtRGs5d3E5L1pzcFdPb204VXdvL0RxeU5lOW95UjFKK1Rp?=
- =?utf-8?B?Z3BoTjJDb2orbWRSWWVYM1BlNTJ4RDNDQTN1b2JSYUVnYjhadEpZTmVueUhU?=
- =?utf-8?B?VzhmTndvVTFEMWVtODN0VjJScjArZ1Y0TUdYVDNWbHdMZko2akVYSWppYVZM?=
- =?utf-8?B?SUhkU3B0cjhmVDBITzFQdzMvU2lKU0p5RXhMbTZ3SC9WbjZ1ejE3WDJnaTh1?=
- =?utf-8?B?VlZxck0rMFJUNXFlM1NpQXZpRnBYblZWOTJKclRtdG8wUFZHM1V1aVFld3Np?=
- =?utf-8?B?dk4xSGVjc0FYWTJFSXF0YnczTFpKS25iMFlaYmwxSmtHdVYrdFRJNEtjaHdE?=
- =?utf-8?B?Mm90MEtQVjREcWZCSU44WFpWOEZBMUhUZ1F1U3JOR01lOHRSMzlGaWVJU1RX?=
- =?utf-8?B?eFRhMEJhRmJ6NHRjaktFUHBKUFlDSjY1U0krUHpBV3BoZ2t4YmcrZ1c1NnEy?=
- =?utf-8?B?N1lzd0t6dk91MmFBSmNRUmUvc0d3OW5jRmtrL3RXRjJsWElBYjRWc2l4NU1y?=
- =?utf-8?B?YjRIT0JibE53OWxGemFLVHVPSXlWOC80Z2wyaHpHUkZBa1B3aUI3clVmTzBU?=
- =?utf-8?B?Z05KTk8yZzBZTmNuTitOWnMwaVZEaUF0aTlqWklIa1hIT2F2SGpEem55SVVS?=
- =?utf-8?B?OE5KZmxaOGZYZGRteWZ4bFJoZ3NqcmRzazNubzRuNituRG9zdGZ5cG9kTGVR?=
- =?utf-8?B?bHZPbTFrMFBaZkNVU2VqemZFRHNvZ0xCMFRYS2lOZHVZWHdBbFdZakVOQnlT?=
- =?utf-8?B?RVVVZzdjVm80M1pheHhBVzk1OWcwUlpsK3owSjYxdW5LTEFZTXp4TCthcElS?=
- =?utf-8?B?NzNuQXZDeXpZbEZlcFJxQjJUZStWc3UzYlZOQUJISnczMlhLc1NBZ2NlMmRW?=
- =?utf-8?B?eTE3citHMVpYbFhOSGRaZmVFelJDU3hHdUpUQ0dVRFVEcTdNU2xmdDgwVXM2?=
- =?utf-8?B?NWozS1BuZ0daekl4U01TcE5SVUZPSFdjWlVUZnZNRlkvSnBNNlZ5UWtQbCt1?=
- =?utf-8?B?Qk1GdWZ6OUc1ZTZVUnB6L2VOQVZKUjhlakowcmcybU8ydFVrQTlxYXJUbXo2?=
- =?utf-8?B?Uk5tY1JTYWs1L1NFRnpkVkNkNXU0Z3hzSjdhVTRrb0srYmVCQ05pbDlJeHlx?=
- =?utf-8?B?TUErNTcwZnVscTVsR05Dck9iK0Rsa0FUcmxTRHNER0xoTUhDMUtHdS95K2Y2?=
- =?utf-8?B?OHRBUmt3QUdPQXIyNXVNRVFkQ1JaUE5RSksyWFg0Mmt3OFdGYmhCR09kRDE5?=
- =?utf-8?B?SFlUZkNqVTFYZlNXOU5iRVJPUFBFUkVHaXZkQ1JPM2ZyMUxHbURyS1UrV0FB?=
- =?utf-8?B?WDIrU3IzNUllcFF0V1NYczRnRmlNaUlDZk44ekZsUHVhTE9XY016dFBOMG84?=
- =?utf-8?B?MHNKZEdLMEVXRlVLM3plWmw1eGUyeVhuOTFOTzVXWXQ3eFlrZ1FiNTBMbEM3?=
- =?utf-8?B?RjF1djRvTkdObE0yckdPeGRMWlFTYkl2Uitqa0MrWWU2eWt4UEhRYmhXUC9a?=
- =?utf-8?B?Q21DVDBpWEwvaUUxOEYrVVY1Z3B4cFJzd0h2UXI5dmlkeWlRbzBaWVZQUklQ?=
- =?utf-8?B?MldGSHRGSzZiWGRrYzFaMjZIeG1MRDZOei9WVGVKL1lYcGl3S2MxNTA2c2tW?=
- =?utf-8?B?R0xqU1VWcmxzbEcrRnJESWlGbFRNSjdITnF3cU9YdWswZlVBMjdXZkFmYThw?=
- =?utf-8?B?N1ArK0RRcHFIOHRHS1JzR0VMRVdDcFNZdVBDczVnRVlHc0Y0ZlRRUi9Ga1A5?=
- =?utf-8?B?aG1wYVBzTnhYeHVIMlRYNEpNYUIxeks2RVhVVlhXYlNtK05uaDVnOFRtTHZq?=
- =?utf-8?Q?TI8qEMeeVYTvSxQtMMNHRr5/1IZ1uO1YqbILr?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 01fb90ed-36f2-4ed7-4453-08de957d6931
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11947.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 14:45:00.2738
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iQd5L14zcFimvCdMZN5j8rTLBjIPpcd9t/WLUvFz5vJ4Uo7LJt+PIczIFnx7t+BUvjOeEr3XagBQqCKgXFKxvznzJvuqHk2CrYbCjGQajEy19jHu63g86fYYTERRJTd4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB10232
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 08 Apr 2026 15:49:22 +0100
+Message-Id: <DHNUUPQPD5DR.18P18VV0LNTI8@linaro.org>
+To: "Tudor Ambarus" <tudor.ambarus@linaro.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, "Daniel Lezcano"
+ <daniel.lezcano@linaro.org>, "Zhang Rui" <rui.zhang@intel.com>, "Lukasz
+ Luba" <lukasz.luba@arm.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Krzysztof Kozlowski" <krzk@kernel.org>, "Alim Akhtar"
+ <alim.akhtar@samsung.com>, "Bartlomiej Zolnierkiewicz"
+ <bzolnier@gmail.com>, "Kees Cook" <kees@kernel.org>, "Gustavo A. R. Silva"
+ <gustavoars@kernel.org>, "Peter Griffin" <peter.griffin@linaro.org>,
+ =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
+ <willmcvicker@google.com>, <jyescas@google.com>, <shin.son@samsung.com>,
+ <linux-samsung-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-pm@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-hardening@vger.kernel.org>
+Subject: Re: [PATCH v2 0/7] thermal: samsung: Add support for Google GS101
+ TMU
+From: "Alexey Klimov" <alexey.klimov@linaro.org>
+X-Mailer: aerc 0.20.0
+References: <20260119-acpm-tmu-v2-0-e02a834f04c6@linaro.org>
+In-Reply-To: <20260119-acpm-tmu-v2-0-e02a834f04c6@linaro.org>
 
-Hi Laurent,
-Thanks for your comment.
+On Mon Jan 19, 2026 at 12:08 PM GMT, Tudor Ambarus wrote:
+> Add support for the Thermal Management Unit (TMU) on the Google GS101
+> SoC.
+>
+> The GS101 TMU implementation utilizes a hybrid architecture where
+> management is shared between the kernel and the Alive Clock and
+> Power Manager (ACPM) firmware.
 
-On 4/8/26 16:16, Laurent Pinchart wrote:
-> On Wed, Apr 08, 2026 at 04:02:14PM +0200, Tommaso Merciai wrote:
->> Hi Laurent,
->> Thanks for your review.
->>
->> On 4/8/26 14:24, Laurent Pinchart wrote:
->>> On Wed, Apr 08, 2026 at 12:36:55PM +0200, Tommaso Merciai wrote:
->>>> The RZ/G3E SoC has 2 LCD controllers (LCDC), each containing a Frame
->>>> Compression Processor (FCPVD), a Video Signal Processor (VSPD), and a
->>>> Display Unit (DU).
->>>>
->>>>    - LCDC0 supports DSI and LVDS (single or dual-channel) outputs.
->>>>    - LCDC1 supports DSI, LVDS (single-channel), and RGB outputs.
->>>>
->>>> Add a new SoC-specific compatible string 'renesas,r9a09g047-du'.
->>>>
->>>> Extend patternProperties from "^port@[0-1]$" to "^port@[0-3]$" to
->>>> allow up to four output ports, and explicitly disable port@2 and port@3
->>>> for existing SoCs that do not expose them.
->>>>
->>>> Describe the four output ports of the RZ/G3E DU:
->>>>
->>>>    - port@0: DSI (available on both LCDC instances)
->>>>    - port@1: DPAD / parallel RGB (LCDC1 only)
->>>>    - port@2: LVDS channel 0 (LCDC0 only)
->>>>    - port@3: LVDS channel 1 (available on both LCDC instances)
->>>>
->>>> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
->>>> ---
->>>> v5->v6:
->>>>    - Extend patternProperties from "^port@[0-1]$" to "^port@[0-3]$" and
->>>>      explicitly disable port@2 and port@3 for existing SoCs that do not expose
->>>>      them.
->>>>    - Reworked ports numbering + improved/fixed ports descriptions in the
->>>>      bindings documentation.
->>>>    - Improved commit body.
->>>>
->>>> v4->v5:
->>>>    - Dropped renesas,id property and updated bindings
->>>>      accordingly.
->>>>
->>>> v2->v3:
->>>>    - No changes.
->>>>
->>>> v2->v3:
->>>>    - No changes.
->>>>
->>>> v1->v2:
->>>>    - Use single compatible string instead of multiple compatible strings
->>>>      for the two DU instances, leveraging a 'renesas,id' property to
->>>>      differentiate between DU0 and DU1.
->>>>    - Updated commit message accordingly.
->>>>
->>>>    .../bindings/display/renesas,rzg2l-du.yaml    | 30 ++++++++++++++++++-
->>>>    1 file changed, 29 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
->>>> index 5add3b832eab..32da0b5ec88c 100644
->>>> --- a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
->>>> +++ b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
->>>> @@ -20,6 +20,7 @@ properties:
->>>>          - enum:
->>>>              - renesas,r9a07g043u-du # RZ/G2UL
->>>>              - renesas,r9a07g044-du # RZ/G2{L,LC}
->>>> +          - renesas,r9a09g047-du # RZ/G3E
->>>>              - renesas,r9a09g057-du # RZ/V2H(P)
->>>>          - items:
->>>>              - enum:
->>>> @@ -61,7 +62,7 @@ properties:
->>>>          model-dependent. Each port shall have a single endpoint.
->>>>    
->>>>        patternProperties:
->>>> -      "^port@[0-1]$":
->>>> +      "^port@[0-3]$":
->>>>            $ref: /schemas/graph.yaml#/properties/port
->>>>            unevaluatedProperties: false
->>>>    
->>>> @@ -103,6 +104,8 @@ allOf:
->>>>                port@0:
->>>>                  description: DPI
->>>>                port@1: false
->>>> +            port@2: false
->>>> +            port@3: false
->>>>    
->>>>              required:
->>>>                - port@0
->>>> @@ -119,6 +122,8 @@ allOf:
->>>>                  description: DSI
->>>>                port@1:
->>>>                  description: DPI
->>>> +            port@2: false
->>>> +            port@3: false
->>>>    
->>>>              required:
->>>>                - port@0
->>>> @@ -135,9 +140,32 @@ allOf:
->>>>                port@0:
->>>>                  description: DSI
->>>>                port@1: false
->>>> +            port@2: false
->>>> +            port@3: false
->>>>    
->>>>              required:
->>>>                - port@0
->>>> +  - if:
->>>> +      properties:
->>>> +        compatible:
->>>> +          contains:
->>>> +            const: renesas,r9a09g047-du
->>>> +    then:
->>>> +      properties:
->>>> +        ports:
->>>> +          properties:
->>>> +            port@0:
->>>> +              description: DSI
->>>> +            port@1:
->>>> +              description: DPAD
->>>> +            port@2:
->>>> +              description: LVDS, Channel 0
->>>> +            port@3:
->>>> +              description: LVDS, Channel 1
->>>> +
->>>> +          required:
->>>> +            - port@0
->>>> +            - port@3
->>>
->>> Why are ports 1 and 2 not required ?
->>
->> About this we had a similar discussion on v5[0]
->> We are using the same compatible and:
->>
->> - LCDC0 supports DSI and LVDS (single or dual-channel) outputs.
->> |
->> --> then has:
->> 	port@0
->> 	port@2
->> 	port@3
->> 	
->>
->>    - LCDC1 supports DSI, LVDS (single-channel), and RGB outputs.
->> |
->> --> then has:
->> 	port@0
->> 	port@1
->> 	port@3
-> 
-> Ah yes, I forget there are two LCDC instances with different output
-> configurations.
-> 
-> Something still looks a bit weird to me though. For LCDC1, which
-> supports a single LVDS channel, you use the port described as the second
-> LVDS channel. Is there a reason not to use port@2 ?
+Do you plan to update or work on this series? If, by some reason,
+this series is postphoned I can rebase it and re-send, for example.
+IIRC it needs a clean rebase as a minimial change.
 
+I am constructing some code on top of it, so it will be nice to have
+newer version that can be (re-)tested for Exynos850.
 
-9.11 Low Voltage Differential Signaling (LVDS)
-9.11.1.2 Block Diagram
-Figure 9.11-1 shows a block diagram of LVDS.
+Thanks,
+Alexey
 
-LCDC1 is connected to LVDS, Channel 1
-For this reason I'm using port@3.
-
-Kind Regards,
-Tommaso
-
-> 
->> Then port@1 is required for DU1 but not for DU0.
->> Same port@2 is required for DU0 but not for DU1.
->>
->> [0] https://patchwork.kernel.org/project/linux-renesas-soc/patch/ca022fdbba5236c36e0cb3095db4c31e8e0cb1b8.1770996493.git.tommaso.merciai.xr@bp.renesas.com/
->>
->>>>
->>>>    examples:
->>>>      # RZ/G2L DU
-> 
-
+[...]
