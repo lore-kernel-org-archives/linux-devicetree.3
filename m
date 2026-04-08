@@ -1,141 +1,219 @@
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10ED4372EF0
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 09:35:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA71D3B4E8C
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 09:38:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775640929; cv=none; b=hLm3aIlzaaC6fIbqtgE8aBkg2Dbhm4za4GOsGIjj/1KnSL6jp/BLyrTv3KZGwjotJYz59lM0qWJEQ7+1Qsd/swStOHd7HARPObRXRRbfkIWB17xy2enZH9A82wmLnOXFo8+x/szcknbVLpMGK8ue9Xr1NugSzHnM6Isnb58TuSo=
+	t=1775641104; cv=none; b=cm8wa0JpGvpYdNXxXrcgiV0h029Dlh/cgqPrGL4xGHsvTgEsM5QKR/TUyfkRD2yvRiO4U+Eh8+6FBZC7gCGd38xgYjZu7hTl/lNunGBieEwSQrV0up4CadkHT1tzGLZTnEupNf6o+1fMulTXsr60YIbwRbpAMjAvcBZL5VqhNX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775640929; c=relaxed/simple;
-	bh=HXqM/oIl0J1GIsq6xnHEI1gZ9fmP8FbeFSx73s/rCZ0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N1vsK0AH4CM5JmIyz3L60uJ06guPH1TOwJAeWxfnndT5Rf3dh2yhUYUou5QsPv4RwoQJ1plPBDSrJrjHmOUP4JdNzU80Yvo6fJjLuJofsf1moDQkFtuuZtK0fArVoxxbUWg5D51iitYFQsEdsZ9449BV58pp0iadfsQjbR2lZvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e1aU+i0N; arc=none smtp.client-ip=209.85.210.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1775641104; c=relaxed/simple;
+	bh=W4ocsbAken2i1Z0tr+aaOqS3kOkoeXQXKr5uS8XVQrU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=trfZW3Op6gpiIHBVkxJBhnWch+kr7uUcWdB9FXZG7M0a8TePvB/du2n+cB4JcMPo2PCzoEJ1KZ34balQ15H0wpf3d8EUvXG4y7zdnvLOqVCN5BoiI1whvpnTkoVG51KuHseW2uZ4d8g/bZFZW0TGjz+m9lS0OdeuVuE69Gav3oc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e1aU+i0N"
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-82cd6614a90so2668188b3a.3
-        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 02:35:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775640927; x=1776245727; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=h9ob+5DjZJfjGxOOJg7va6LhdtI3Tpf0ax2Xb93FxM4=;
-        b=e1aU+i0NogDpHwfL8YWfVQxdJuUJr1PmbQsSonYDCAJ+zAzj8wgLjJ95sxm11fCYbq
-         1c6TFEGt+H24I+uyobLM+VC0khzaV9JhjNa0G4MITWeIyR7DRKeK0kjIstd/gI6BUQ9M
-         kRV6g7g/kEPJFG9dfZ0S2WlzYOl1ZxXmr3JmddLutGMZIuqyclVxk7Tax30ynVbSLRuF
-         uvTBH5z7miPI+MT2qMy0Hc/rFcyWipuFPIbGdMTWROT1vgmAlg4Thi90M21YS42UBmPP
-         pCDF+x6NJPaTBpvKptVg8j1Ldmt05GYoUmn9Mx9gqtjIWr0i7GEEuD7iUa1J1e4Vplyr
-         fQFQ==
+Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-56d85881a68so2176147e0c.2
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 02:38:21 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775640927; x=1776245727;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1775641101; x=1776245901;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=h9ob+5DjZJfjGxOOJg7va6LhdtI3Tpf0ax2Xb93FxM4=;
-        b=OB+5OqwgDf1yAI1yOawBxYitREiuO28TNg64K764UtfjeuJeBbvOofs0sgEq8qLvzc
-         +tFRtzFxF78T3OUC1QU5URPwqiW0dedOMbrNwAXpRh9yt+ocLEzIWFGNI59KdY2CTLAc
-         EntpuAstxNLg4sSE0oS2q2OHcKKX3suo6WAUenrBHKYq64k4dFWZ9wmmGnFOHzxRnzbw
-         bcQR3oUlmDKuYuwr+K4dXdIcHvrlzT5ZR8ZnQ5xRVwHo2R7OMtW+GXa69gLzRjwz7Rro
-         TRyVi4CFt9C1E4DgclD9kalkUgoiRVVDRc3J0lzFSINsqo5oC7ZIYjLbR+Tn9/U3Af6x
-         EY8w==
-X-Forwarded-Encrypted: i=1; AJvYcCWOl/uzsZPLA7/ZY5v3ypok3I59lagXTBziegLITiBd2pyuGJdODspY3T5DMlOzFz6x/p+tE8a3aHOB@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz4DZBy0VXuN8oVwys/6A/WOzNlTjJt9DJ9vUjSEgDBpp1uf0cU
-	vlPBEkACDH+seyNB8nS/T0Im+WoxbXyXvVumGQAhttLbcwhjDaxxnOyv
-X-Gm-Gg: AeBDiesWze2dCDSxDcM/phkJmM0pSBsbsvI9pT5p3cbUx6nxEqNpI4DRBVWOwFbptDE
-	sBSfhbYR6wwz6l8yIzD6QoQs/UpwsF4oZ6EOfNlGTmRc/M33Doo28uVmRjdTsbeZ9gbjMLzH8QO
-	mTGUZ4neNJcnhduF0Yo0WqM7lcifSwKGk1W8KyfV2WHxTLzkpWG+lgdyu9F0TObt6LcE5bIx7JD
-	HORJAWsK0VGevLW18MJln1dhiD57PPtGRB7oIYxEgNK86+DjSX1HWFXAQXVFfAFO1cSSMvgrEyZ
-	AHiba3v4iMq6GyXGIhXs52PhMFzgePOjwYDFWVxZrHyEQggMzoMSqAkAzONc88h73oNrg6DAlVC
-	gbFGeNybqDF01ZOsVtN/bc+5UajOzQkdIq2vMCkP0h2FV+rd7c6XJ+9mNjGmbwf/04tnF1AkyyC
-	fxSfETc/TRh5GBX+rBeUI3
-X-Received: by 2002:a05:6a00:10c6:b0:81f:4a0c:c584 with SMTP id d2e1a72fcca58-82d0da44954mr21259507b3a.1.1775640927193;
-        Wed, 08 Apr 2026 02:35:27 -0700 (PDT)
-Received: from fedora ([122.173.24.123])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82cfebe5b23sm20544993b3a.59.2026.04.08.02.35.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Apr 2026 02:35:26 -0700 (PDT)
-From: Shi Hao <i.shihao.999@gmail.com>
-To: robh@kernel.org
-Cc: brgl@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	rric@kernel.org,
-	linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	i.shihao.999@gmail.com
-Subject: [PATCH v3] dt-bindings: gpio: cavium,thunder-8890: Remove DT binding
-Date: Wed,  8 Apr 2026 15:03:13 +0530
-Message-ID: <20260408093313.17025-1-i.shihao.999@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        bh=ENmHKB8IOhUHnCXPKR1y0jyIBHSgRsTMWLYy39EVq6U=;
+        b=fGHrIpd3LCNY/QuQ8rz3cFx/AfHljS6t2WGl44ovDhLb2RsC50AHhQENpL1lk4Fgj8
+         WnGnluvgT5FZ3nKmxeUDcImf5wMb1ylbniWhdAiAYXy/NNPERVf7L3kaWBamQCCJDucc
+         6jQVEmzb5WF9n20s9NAp4FFs4u8W7nIzfaZu/fLSWi6qMnVpYSvR3YmKAWykQq5zRNry
+         tZlR/O289ctxG8iiFYmf9Pv9klklaAELar9iV8DIA+SYG4ZgYpAAkxlgFs06/JwfB2EY
+         u35gMJguUpqrZYRaAory6iZ63YmSCXbld2N/9U6kTAClVfxDvZcgTwhTYMKRwIJZciOS
+         1Ivg==
+X-Forwarded-Encrypted: i=1; AJvYcCV0blH7We1P+lxb1WlMmcBynruCODb+YZnoecpMC9GkpeyKFSfSIXJ6wezn7JR8eJGYiOcu5E/txx+Q@vger.kernel.org
+X-Gm-Message-State: AOJu0YyLnwlS1SBn/59GbFYQlQ+ogmtrAvP6SMCKbQWxaR4wVSTk0/JD
+	mrNGUrrNoCDbQ+q6PRIwlOkqdqNamO6lJIcVgYdInIcSaX2BVvyJjC07MIaGpV/w
+X-Gm-Gg: AeBDiesMF5TF5pV3BJQW05FaDUPfuY3RP2OT2/vEdS/SOR02n6b6ruadcdeJEB1NtHZ
+	0OPtqF2zbxVQ/7Ih9thskYh2fHpi16vYTOXSLUMamgOB3iaCmY4cTvrCXX/8GoubSrUlUvPkvPL
+	Go5zOT3XqFWj+UjbdofuiUGnUVOzamb9tKhi/79HVNLE8jjCGIcX2jDtCsjbgLCuWepOtqeXDW8
+	hxt0wI8T+IFj1irwoghCobm2wG+FxospRnSvMgoeoNdR0Bm8BTkgjhPH5kbcVrd2pQuj4xiJUWx
+	d2RgNi0PjFNryQPXL2mIPhiegJyS3m7ulFrmrlgL33q3OB2OZU1VOyhvxCudL9v9fj87rZjOyR7
+	sUfGJ/PMFEMTsrLFbx5522HbIYlGo7xNubZxBAsBBq+C8WUnnBEqT4qp3IzGcWkVHdlvtTxF+y+
+	EPCbY7s1g/NxPCEGx7hiYUVE0IUli38FXdpP60kcbF5eX1J9iWFZYozElnM2vD
+X-Received: by 2002:a05:6122:4891:b0:56d:9e98:4676 with SMTP id 71dfb90a1353d-56daba1f4famr7962761e0c.13.1775641100843;
+        Wed, 08 Apr 2026 02:38:20 -0700 (PDT)
+Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com. [209.85.217.47])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-56d9bce02f3sm19604573e0c.14.2026.04.08.02.38.20
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 08 Apr 2026 02:38:20 -0700 (PDT)
+Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-604fb44270aso2035690137.2
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 02:38:20 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCWTFWKr40AqzzKz54oeA4gkL9W/25lHFkUxXKel6DPilL+WNC+LX6OReyVeKMPbRy5gIIFM3EvH6PGD@vger.kernel.org
+X-Received: by 2002:a05:6102:f9a:b0:5df:8f4:61e6 with SMTP id
+ ada2fe7eead31-605a50dbbb6mr7039796137.32.1775641100526; Wed, 08 Apr 2026
+ 02:38:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260402090524.9137-1-john.madieu.xa@bp.renesas.com> <20260402090524.9137-3-john.madieu.xa@bp.renesas.com>
+In-Reply-To: <20260402090524.9137-3-john.madieu.xa@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 8 Apr 2026 11:38:09 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdU+a7cXRY=yEmXQW9=rYnyMCifhZs+je8LDHL6r=mBDMw@mail.gmail.com>
+X-Gm-Features: AQROBzBW_0NoE-RyS2BqqQAlrdl0pZXBq89zZ06PmjJcnH1QXimxqhe4p2F4Ftk
+Message-ID: <CAMuHMdU+a7cXRY=yEmXQW9=rYnyMCifhZs+je8LDHL6r=mBDMw@mail.gmail.com>
+Subject: Re: [PATCH v2 02/24] clk: renesas: r9a09g047: Add audio clock and
+ reset support
+To: John Madieu <john.madieu.xa@bp.renesas.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Vinod Koul <vkoul@kernel.org>, 
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Magnus Damm <magnus.damm@gmail.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+	John Madieu <john.madieu@gmail.com>, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org, 
+	linux-sound@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Remove the cavium,thunder-8890 GPIO binding as there are no active
-use cases. A previous attempt was made to convert the binding to DT
-schema, but since the binding is unused, remove it instead.
+Hi John,
 
-Signed-off-by: Shi Hao <i.shihao.999@gmail.com>
----
-v3:
-- Remove unused legacy text-based binding
-- Drop previous DT schema conversion attempt
+On Thu, 2 Apr 2026 at 11:07, John Madieu <john.madieu.xa@bp.renesas.com> wrote:
+> Add clock and reset entries for audio-related modules on the RZ/G3E SoC.
+>
+> Target modules are:
+>  - SSIU (Serial Sound Interface Unit) with SSI ch0-ch9
+>  - SCU (Sampling Rate Converter Unit) with SRC ch0-ch9, DVC ch0-ch1,
+>    CTU/MIX ch0-ch1
+>  - ADMAC (Audio DMA Controller)
+>  - ADG (Audio Clock Generator) with divider input clocks and audio
+>    master clock outputs
+>
+> While at it, reorder plldty_div16 to group it with other plldty fixed
+> dividers.
+>
+> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
 
-v2: https://lore.kernel.org/linux-devicetree/CAL_Jsq+0q8Wb==Xy_bi-j2D29BzZEN81tZr7VPGikL4AM5rbbQ@mail.gmail.com/T/#t
- - Rename schema file based on compatible string
- - Wrap commit message body as per kernel patch guidelines
- - Use appropriate maintainer name and email address in DT schema.
- - Change commit subject as per guidelines
- - Fix $id path
+Thanks for your patch!
 
-Note:
-* This patch is part of the GSoC2026 application process for device tree bindings conversions
-* https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/GSoC-2026-Device-Tree-Bindings
----
- .../bindings/gpio/gpio-thunderx.txt           | 27 -------------------
- 1 file changed, 27 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/gpio/gpio-thunderx.txt
+> --- a/drivers/clk/renesas/r9a09g047-cpg.c
+> +++ b/drivers/clk/renesas/r9a09g047-cpg.c
 
-diff --git a/Documentation/devicetree/bindings/gpio/gpio-thunderx.txt b/Documentation/devicetree/bindings/gpio/gpio-thunderx.txt
-deleted file mode 100644
-index 3f883ae29d11..000000000000
---- a/Documentation/devicetree/bindings/gpio/gpio-thunderx.txt
-+++ /dev/null
-@@ -1,27 +0,0 @@
--Cavium ThunderX/OCTEON-TX GPIO controller bindings
--
--Required Properties:
--- reg: The controller bus address.
--- gpio-controller: Marks the device node as a GPIO controller.
--- #gpio-cells: Must be 2.
--  - First cell is the GPIO pin number relative to the controller.
--  - Second cell is a standard generic flag bitfield as described in gpio.txt.
--
--Optional Properties:
--- compatible: "cavium,thunder-8890-gpio", unused as PCI driver binding is used.
--- interrupt-controller: Marks the device node as an interrupt controller.
--- #interrupt-cells: Must be present and have value of 2 if
--                    "interrupt-controller" is present.
--  - First cell is the GPIO pin number relative to the controller.
--  - Second cell is triggering flags as defined in interrupts.txt.
--
--Example:
--
--gpio_6_0: gpio@6,0 {
--	compatible = "cavium,thunder-8890-gpio";
--	reg = <0x3000 0 0 0 0>; /*  DEVFN = 0x30 (6:0) */
--	gpio-controller;
--	#gpio-cells = <2>;
--	interrupt-controller;
--	#interrupt-cells = <2>;
--};
+> @@ -460,6 +483,96 @@ static const struct rzv2h_mod_clk r9a09g047_mod_clks[] __initconst = {
+>                                                 BUS_MSTOP(3, BIT(4))),
+>         DEF_MOD("tsu_1_pclk",                   CLK_QEXTAL, 16, 10, 8, 10,
+>                                                 BUS_MSTOP(2, BIT(15))),
+> +       DEF_MOD("ssif_clk",                     CLK_PLLCLN_DIV8, 15, 5, 7, 21,
+
+Please preserve sort order (by _onindex, _onbit);
+
+> +                                               BUS_MSTOP(2, BIT(3) | BIT(4))),
+> +       DEF_MOD("scu_clk",                      CLK_PLLCLN_DIV8, 15, 6, 7, 22,
+> +                                               BUS_MSTOP(2, BIT(0) | BIT(1))),
+> +       DEF_MOD("scu_clkx2",                    CLK_PLLCLN_DIV4, 15, 7, 7, 23,
+> +                                               BUS_MSTOP(2, BIT(0) | BIT(1))),
+> +       DEF_MOD("admac_clk",                    CLK_PLLCLN_DIV8, 15, 8, 7, 24,
+> +                                               BUS_MSTOP(2, BIT(5))),
+> +       DEF_MOD("adg_clks1",                    CLK_PLLCLN_DIV8, 15, 9, 7, 25,
+> +                                               BUS_MSTOP(2, BIT(2))),
+> +       DEF_MOD("adg_clk_200m",                 CLK_PLLCLN_DIV8, 15, 10, 7, 26,
+> +                                               BUS_MSTOP(2, BIT(2))),
+> +       DEF_MOD("adg_audio_clka",               CLK_AUDIO_CLKA, 15, 11, 7, 27,
+> +                                               BUS_MSTOP(2, BIT(2))),
+> +       DEF_MOD("adg_audio_clkb",               CLK_AUDIO_CLKB, 15, 12, 7, 28,
+> +                                               BUS_MSTOP(2, BIT(2))),
+> +       DEF_MOD("adg_audio_clkc",               CLK_AUDIO_CLKC, 15, 13, 7, 29,
+> +                                               BUS_MSTOP(2, BIT(2))),
+> +       DEF_MOD("adg_ssi0_clk",                 CLK_PLLCLN_DIV8, 22, 0, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(2))),
+> +       DEF_MOD("adg_ssi1_clk",                 CLK_PLLCLN_DIV8, 22, 1, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(2))),
+> +       DEF_MOD("adg_ssi2_clk",                 CLK_PLLCLN_DIV8, 22, 2, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(2))),
+> +       DEF_MOD("adg_ssi3_clk",                 CLK_PLLCLN_DIV8, 22, 3, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(2))),
+> +       DEF_MOD("adg_ssi4_clk",                 CLK_PLLCLN_DIV8, 22, 4, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(2))),
+> +       DEF_MOD("adg_ssi5_clk",                 CLK_PLLCLN_DIV8, 22, 5, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(2))),
+> +       DEF_MOD("adg_ssi6_clk",                 CLK_PLLCLN_DIV8, 22, 6, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(2))),
+> +       DEF_MOD("adg_ssi7_clk",                 CLK_PLLCLN_DIV8, 22, 7, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(2))),
+> +       DEF_MOD("adg_ssi8_clk",                 CLK_PLLCLN_DIV8, 22, 8, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(2))),
+> +       DEF_MOD("adg_ssi9_clk",                 CLK_PLLCLN_DIV8, 22, 9, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(2))),
+> +       DEF_MOD("dvc0_clk",                     CLK_PLLCLN_DIV8, 23, 0, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(0) | BIT(1))),
+> +       DEF_MOD("dvc1_clk",                     CLK_PLLCLN_DIV8, 23, 1, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(0) | BIT(1))),
+> +       DEF_MOD("ctu0_mix0_clk",                CLK_PLLCLN_DIV8, 23, 2, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(0) | BIT(1))),
+> +       DEF_MOD("ctu1_mix1_clk",                CLK_PLLCLN_DIV8, 23, 3, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(0) | BIT(1))),
+> +       DEF_MOD("src0_clk",                     CLK_PLLCLN_DIV8, 23, 4, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(0) | BIT(1))),
+> +       DEF_MOD("src1_clk",                     CLK_PLLCLN_DIV8, 23, 5, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(0) | BIT(1))),
+> +       DEF_MOD("src2_clk",                     CLK_PLLCLN_DIV8, 23, 6, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(0) | BIT(1))),
+> +       DEF_MOD("src3_clk",                     CLK_PLLCLN_DIV8, 23, 7, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(0) | BIT(1))),
+> +       DEF_MOD("src4_clk",                     CLK_PLLCLN_DIV8, 23, 8, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(0) | BIT(1))),
+> +       DEF_MOD("src5_clk",                     CLK_PLLCLN_DIV8, 23, 9, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(0) | BIT(1))),
+> +       DEF_MOD("src6_clk",                     CLK_PLLCLN_DIV8, 23, 10, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(0) | BIT(1))),
+> +       DEF_MOD("src7_clk",                     CLK_PLLCLN_DIV8, 23, 11, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(0) | BIT(1))),
+> +       DEF_MOD("src8_clk",                     CLK_PLLCLN_DIV8, 23, 12, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(0) | BIT(1))),
+> +       DEF_MOD("src9_clk",                     CLK_PLLCLN_DIV8, 23, 13, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(0) | BIT(1))),
+> +       DEF_MOD("scu_supply_clk",               CLK_PLLCLN_DIV8, 23, 14, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(0) | BIT(1))),
+> +       DEF_MOD("ssif_supply_clk",              CLK_PLLCLN_DIV8, 24, 0, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(3) | BIT(4))),
+> +       DEF_MOD("ssi0_clk",                     CLK_PLLCLN_DIV8, 24, 1, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(3) | BIT(4))),
+> +       DEF_MOD("ssi1_clk",                     CLK_PLLCLN_DIV8, 24, 2, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(3) | BIT(4))),
+> +       DEF_MOD("ssi2_clk",                     CLK_PLLCLN_DIV8, 24, 3, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(3) | BIT(4))),
+> +       DEF_MOD("ssi3_clk",                     CLK_PLLCLN_DIV8, 24, 4, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(3) | BIT(4))),
+> +       DEF_MOD("ssi4_clk",                     CLK_PLLCLN_DIV8, 24, 5, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(3) | BIT(4))),
+> +       DEF_MOD("ssi5_clk",                     CLK_PLLCLN_DIV8, 24, 6, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(3) | BIT(4))),
+> +       DEF_MOD("ssi6_clk",                     CLK_PLLCLN_DIV8, 24, 7, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(3) | BIT(4))),
+> +       DEF_MOD("ssi7_clk",                     CLK_PLLCLN_DIV8, 24, 8, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(3) | BIT(4))),
+> +       DEF_MOD("ssi8_clk",                     CLK_PLLCLN_DIV8, 24, 9, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(3) | BIT(4))),
+> +       DEF_MOD("ssi9_clk",                     CLK_PLLCLN_DIV8, 24, 10, -1, -1,
+> +                                               BUS_MSTOP(2, BIT(3) | BIT(4))),
+>  };
+>
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
 -- 
-2.53.0
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
