@@ -1,125 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 944D3364EA6;
-	Wed,  8 Apr 2026 06:29:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43CEE35AC2B
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 06:29:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775629787; cv=none; b=brwIKc0/hTgxV2yXtWPT18+LO/SHLVEGpudbDfMwb3LZT42ogmDKSQ8MDgn9nAE0NP1tTvSvt0Nl0mMeP4AxTNAA5bIxr6w3ufBKYv8n8UPnnbQcf+Hkg8qjNd7P9or88oUyklrd7KGB1H+/7fOKIycUiTOGN4xomuhLXJ0VeXw=
+	t=1775629787; cv=none; b=AwzW57okV8U6K/9wRSXF9OdEsLiFlfXIWUjBxHc7eEcB18l2+vrNXadzESe0g/NIjVQeY3urpg7TyBlgCOZpuK/n3vuVff+3Y5AqHS58Sk3W7wq35H6C2licUMOJg7VnPYndhXertxCrB5y8nbIWht1cXYuhRpMCN8gFy63qgJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1775629787; c=relaxed/simple;
-	bh=eR8zy7zxRWhUTbS60j8Zjhcdg9pRFWkkDDyQ0bGHtWQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BYMjKQ5UtuJRrT1xQsv4pc1K3/vtr9EWOSGqeleE4ktVJWeJv0kZWb7AmrGC+U61YF11SIr2YBz4aGrCNhHu6Q3QYrKEGtzex1B93xBi6HamBbUCgwS97uW1s3U8pNBq+owxJ7fyr77v7llqY4/5p50pe0mjcW9QAD4xujqsU0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U2Xnrkyj; arc=none smtp.client-ip=10.30.226.201
+	bh=Ojw2XeZPBcO0787VyUie7rj+4Ma7g0T8xNVC4PF1Jrw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=lfbkazr5iYkfcVlKfVdwFf19kKzViVo7pu38Ms6gW6pOJHwcLurV4MlRSJ/yffd78zZqsD3ePD2jQdzm5VaXDAbekjB+aakDtz0MtZ4+JsvZXLi1I45U26AtWH01e4aI7T+GBPfWXb6+9mTO1XhgdAI+he/RoFTE0qGfoCZmBro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=li+w/e86; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U2Xnrkyj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6048C19424;
-	Wed,  8 Apr 2026 06:29:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775629787;
-	bh=eR8zy7zxRWhUTbS60j8Zjhcdg9pRFWkkDDyQ0bGHtWQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=U2XnrkyjM0DOnmpWlcZ7q3y+u8rDtHo5em5J68hm2HxcKqGybdGRWGdkWonI3L3h5
-	 Hwf20GiEz83DgMwR2t9DfyEYUxKzKV8urieuS8uO3wmVExFpuf9Pnvs774lHjKDSyX
-	 JrEoV3O36QGJTuiCymm9Hghtf6zsqLAbzDbgIhpjmNdYX4OXKodRg12LKqKyVPztlP
-	 azydME8vFF9M9xqpn618YLbzOptg+UMOmRczUBCe6sd0z2oUeB3ojAeouNezgaohxf
-	 AXPx6LVPqr0q9NV23ERbC6UwqRk9TI+I5nTMJfWYkU3wimHztRMaXhTG/XoEHX1xRi
-	 zi/n7DUdBbUfQ==
-Message-ID: <05afaba5-24c7-4359-a8b7-4f96dc0741d1@kernel.org>
-Date: Wed, 8 Apr 2026 08:29:41 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="li+w/e86"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-43cf7683a28so3468824f8f.2
+        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 23:29:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1775629785; x=1776234585; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Q9VJseYyqjYECOQkMOXlPXSaVSDXv6yoeL00c5Xqt/k=;
+        b=li+w/e86GuxHUL0cmny1PDt423ROC8L6EnSZjP0jTrnAMqC8THQALwz1ghM/zv+tOB
+         p4EQhrPGQMcdtvJYNQ9BTBoPeuJAazAv4CxHDFdB4pR3uivWxP9KE89PYCVve0PwLGJk
+         8MNF11inYHXe3Mgxlr6K5ESIQMbhrWUydjTDqWck1hkrgg4fL+mQLKHpxCUJ36aWjtws
+         OKf2F5wAxfOEJK3kbfQVGhf34amchk5mTmKOJjipctQrVyEK0dX2M/UK5+FRHpUd2Igb
+         ujIsiAmrE1+ghb5OVl6kIJdKbXNUXofiGRKuei378kadBqVOljPgwHQPXPEwwfaEFt5O
+         mEow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775629785; x=1776234585;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Q9VJseYyqjYECOQkMOXlPXSaVSDXv6yoeL00c5Xqt/k=;
+        b=BzHSsG7j2MIEtgVckeLUiUFhH+7JTuw69VwCGYqJjnNRFmTe55KKGEjE/c4oDfbnQY
+         lyHO1IJqHuj6gTChsdmRjxWjfgkkDUDAnZDNmHS5410xg5SCOi9Z+mils0ZwUuN4DTSK
+         Ios9JonYkD5IWiQyguqCoCXSL5N8mxpYxcEKdDjNDNv9uPGTKHqMDJL+N5vFMZOiHGHi
+         im4gVRbKDN1A/RevTMn2u63xPbr/o7oGEBxRFRwirf2qsofhKQJmUevQENmQ8ew9MHbP
+         AfdCBsEs4tsJaRsvkI3F8h95pyF5X7aRXJuMyDguKKtpliKMtCXkoGxw+z3yAWZlfLMe
+         AVcg==
+X-Forwarded-Encrypted: i=1; AJvYcCXbbU5hXnYOF+Tuln4BeL8v0A8S7C5L0jqUvvsPjaC13WgnNmMnjbuLRXhuyw5aYMAINQL4xDdf2nLx@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxh1zOwAQpYfuSOPyVU7eOCk4cvrgBAVCrU1k9wfsDJ6L6qeCVB
+	fwTqeovK9soLZfs7l9AQNTYY996TjiHEr/vCGfgvdQY4B+aFdCsz9s1A
+X-Gm-Gg: AeBDieuHbIwtxqNsev5CvQcuqPK+Y48ch45lTjyknY4yft2/gS/TkO3pSGv+VMMgYwr
+	BnmKM3lIzyCNAkt5jmEAp0trqr5KkKTM+Jzbi79ycweatgYoqTXnd0BYok6KF8dm/b6Zzo1bQfZ
+	bAopPM6axxIT55Ctc2i3eaqDexB0PK/nXSHH2+nQaeaMXvhnFBDYNp0hXG/RbVsxTBPYycIPN0E
+	SQVDCO/cmFzil4tlZVzSxlFcqlLSqzdUr3/fsw7fdjsOiQhOV/PlIvMm1UErNzefE0xFxf53Vym
+	tqrCzhFmkKAcAISndXgJST8qVJKwbBZfuGVfj8SrE8oiTYYllx8F7ZtKS7t10uqDcdm99vV0fV0
+	51Gano9cdAN/XY4MRgmAlQuMXxZSdhDy3u+5YxXjqO5j1R872nlxr+qUcLGmVf+dZCCOML9oL+Q
+	t4ov6wnCXBOwv2YfZoDoxYNqJrsUTb5jGOVJCJ5GmGwgw=
+X-Received: by 2002:a05:6000:40ca:b0:43d:a58:b076 with SMTP id ffacd0b85a97d-43d292e89a7mr26799287f8f.44.1775629784416;
+        Tue, 07 Apr 2026 23:29:44 -0700 (PDT)
+Received: from PC-DA2D10.beckhoff.com ([195.226.174.196])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43d1e4f5016sm59905521f8f.33.2026.04.07.23.29.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 07 Apr 2026 23:29:43 -0700 (PDT)
+From: =?UTF-8?q?Corvin=20K=C3=B6hne?= <corvin.koehne@gmail.com>
+To: linux-kernel@vger.kernel.org
+Cc: linux-leds@vger.kernel.org (open list:LED SUBSYSTEM),
+	Pavel Machek <pavel@kernel.org>,
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	Lee Jones <lee@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	=?UTF-8?q?Corvin=20K=C3=B6hne?= <c.koehne@beckhoff.com>,
+	Ashley Towns <mail@ashleytowns.id.au>,
+	Dan Murphy <dmurphy@ti.com>,
+	Gergo Koteles <soyer@irl.hu>,
+	INAGAKI Hiroshi <musashino.open@gmail.com>,
+	Jacek Anaszewski <jacek.anaszewski@gmail.com>,
+	Olliver Schinagl <oliver@schinagl.nl>,
+	Pavel Machek <pavel@ucw.cz>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
+	Roderick Colenbrander <roderick@gaikai.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v2] dt-binding: leds: publish common bindings under dual license
+Date: Wed,  8 Apr 2026 08:29:42 +0200
+Message-ID: <20260408062942.7128-1-corvin.koehne@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 02/13] dt-bindings: clock: Add system-0 domain PLL
- clock
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Michael Turquette <mturquette@baylibre.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Emil Renner Berthing <kernel@esmil.dk>, Chen Wang
- <unicorn_wang@outlook.com>, Inochi Amaoto <inochiama@gmail.com>,
- Alexey Charkov <alchark@gmail.com>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Keguang Zhang <keguang.zhang@gmail.com>,
- "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
- Leyfoon Tan <leyfoon.tan@starfivetech.com>
-References: <20260403054945.467700-1-changhuang.liang@starfivetech.com>
- <20260403054945.467700-3-changhuang.liang@starfivetech.com>
- <20260405-godlike-pistachio-mackerel-7ab494@quoll>
- <ZQ4PR01MB120275BC5277C4FF18A738E6F25A2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
- <5f2a1946-9ca7-414c-a764-60f46f3b3cf5@kernel.org>
- <ZQ4PR01MB120210CE64AEE9CD57002CCAF25B2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <ZQ4PR01MB120210CE64AEE9CD57002CCAF25B2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 08/04/2026 07:17, Changhuang Liang wrote:
-> 
-> In the next version, it will be changed to this, correct?
-> 
-> 			sys0_syscon: syscon@13010000 {
-> 				compatible = "starfive,jhb100-sys0-syscon", "syscon";
-> 				reg = <0x0 0x13010000 0x0 0x2000>;
-> 				clocks = <&osc>;
-> 				#clock-cells = <1>;
+From: Corvin Köhne <c.koehne@beckhoff.com>
 
-Yes
+Changes leds/common.h DT binding header file to be published under GPLv2
+or BSD-2-Clause license terms. This change allows this common LED
+bindings header file to be used in software components as bootloaders
+and OSes that are not published under GPLv2 terms.
 
-Best regards,
-Krzysztof
+All contributors to leds/common.h file in copy.
+
+Cc: Ashley Towns <mail@ashleytowns.id.au>
+Cc: Dan Murphy <dmurphy@ti.com>
+Cc: Gergo Koteles <soyer@irl.hu>
+Cc: INAGAKI Hiroshi <musashino.open@gmail.com>
+Cc: Jacek Anaszewski <jacek.anaszewski@gmail.com>
+Cc: Olliver Schinagl <oliver@schinagl.nl>
+Cc: Pavel Machek <pavel@ucw.cz>
+Cc: Rafał Miłecki <rafal@milecki.pl>
+Cc: Roderick Colenbrander <roderick@gaikai.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Corvin Köhne <c.koehne@beckhoff.com>
+---
+ include/dt-bindings/leds/common.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/dt-bindings/leds/common.h b/include/dt-bindings/leds/common.h
+index 4f017bea0123..b7bafbaf7df3 100644
+--- a/include/dt-bindings/leds/common.h
++++ b/include/dt-bindings/leds/common.h
+@@ -1,4 +1,4 @@
+-/* SPDX-License-Identifier: GPL-2.0 */
++/* SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause) */
+ /*
+  * This header provides macros for the common LEDs device tree bindings.
+  *
+-- 
+2.47.3
+
