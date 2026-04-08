@@ -1,128 +1,171 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010026.outbound.protection.outlook.com [52.101.228.26])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43CEE35AC2B
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 06:29:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775629787; cv=none; b=AwzW57okV8U6K/9wRSXF9OdEsLiFlfXIWUjBxHc7eEcB18l2+vrNXadzESe0g/NIjVQeY3urpg7TyBlgCOZpuK/n3vuVff+3Y5AqHS58Sk3W7wq35H6C2licUMOJg7VnPYndhXertxCrB5y8nbIWht1cXYuhRpMCN8gFy63qgJ8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775629787; c=relaxed/simple;
-	bh=Ojw2XeZPBcO0787VyUie7rj+4Ma7g0T8xNVC4PF1Jrw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=lfbkazr5iYkfcVlKfVdwFf19kKzViVo7pu38Ms6gW6pOJHwcLurV4MlRSJ/yffd78zZqsD3ePD2jQdzm5VaXDAbekjB+aakDtz0MtZ4+JsvZXLi1I45U26AtWH01e4aI7T+GBPfWXb6+9mTO1XhgdAI+he/RoFTE0qGfoCZmBro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=li+w/e86; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29C8F365A0B;
+	Wed,  8 Apr 2026 06:33:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.26
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775630030; cv=fail; b=phU0J59dW+DVAfz7FJwx79QK4WpW6C7j5aLiJW9icYPUcJXljrjcu4QyM32Tp2FAN2HJVbxy/sYMxoSRutQ719ZWqDHBzmCW9Qq8Qv/LSF7iywIuugng7OaOeJuTdt6Y3cMah5zK2YJCXDB3KaMmWXqjrZpbVkIUNTvjshgR3QM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775630030; c=relaxed/simple;
+	bh=x+67nq72DqRIH8Wpw0kALS97raw5cvU8vppLWjQanlc=;
+	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=MQ4guaqAK3XCFjPTc3BYzfp9WyFBhmw043qWUeTOdhqcmylXRBJChFHEapOvOngmNCNkKsKntOdml+rzB3GRvN6+m30mTUP81vD1XiGT4fUfjEFUm4/ePqVL7adEB8NpXUB18opWRoEys/jAZbejfQ/QjZfnOg11vIQOlOxeYuY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=Z/93l7r2; arc=fail smtp.client-ip=52.101.228.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="li+w/e86"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-43cf7683a28so3468824f8f.2
-        for <devicetree@vger.kernel.org>; Tue, 07 Apr 2026 23:29:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775629785; x=1776234585; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Q9VJseYyqjYECOQkMOXlPXSaVSDXv6yoeL00c5Xqt/k=;
-        b=li+w/e86GuxHUL0cmny1PDt423ROC8L6EnSZjP0jTrnAMqC8THQALwz1ghM/zv+tOB
-         p4EQhrPGQMcdtvJYNQ9BTBoPeuJAazAv4CxHDFdB4pR3uivWxP9KE89PYCVve0PwLGJk
-         8MNF11inYHXe3Mgxlr6K5ESIQMbhrWUydjTDqWck1hkrgg4fL+mQLKHpxCUJ36aWjtws
-         OKf2F5wAxfOEJK3kbfQVGhf34amchk5mTmKOJjipctQrVyEK0dX2M/UK5+FRHpUd2Igb
-         ujIsiAmrE1+ghb5OVl6kIJdKbXNUXofiGRKuei378kadBqVOljPgwHQPXPEwwfaEFt5O
-         mEow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775629785; x=1776234585;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Q9VJseYyqjYECOQkMOXlPXSaVSDXv6yoeL00c5Xqt/k=;
-        b=BzHSsG7j2MIEtgVckeLUiUFhH+7JTuw69VwCGYqJjnNRFmTe55KKGEjE/c4oDfbnQY
-         lyHO1IJqHuj6gTChsdmRjxWjfgkkDUDAnZDNmHS5410xg5SCOi9Z+mils0ZwUuN4DTSK
-         Ios9JonYkD5IWiQyguqCoCXSL5N8mxpYxcEKdDjNDNv9uPGTKHqMDJL+N5vFMZOiHGHi
-         im4gVRbKDN1A/RevTMn2u63xPbr/o7oGEBxRFRwirf2qsofhKQJmUevQENmQ8ew9MHbP
-         AfdCBsEs4tsJaRsvkI3F8h95pyF5X7aRXJuMyDguKKtpliKMtCXkoGxw+z3yAWZlfLMe
-         AVcg==
-X-Forwarded-Encrypted: i=1; AJvYcCXbbU5hXnYOF+Tuln4BeL8v0A8S7C5L0jqUvvsPjaC13WgnNmMnjbuLRXhuyw5aYMAINQL4xDdf2nLx@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxh1zOwAQpYfuSOPyVU7eOCk4cvrgBAVCrU1k9wfsDJ6L6qeCVB
-	fwTqeovK9soLZfs7l9AQNTYY996TjiHEr/vCGfgvdQY4B+aFdCsz9s1A
-X-Gm-Gg: AeBDieuHbIwtxqNsev5CvQcuqPK+Y48ch45lTjyknY4yft2/gS/TkO3pSGv+VMMgYwr
-	BnmKM3lIzyCNAkt5jmEAp0trqr5KkKTM+Jzbi79ycweatgYoqTXnd0BYok6KF8dm/b6Zzo1bQfZ
-	bAopPM6axxIT55Ctc2i3eaqDexB0PK/nXSHH2+nQaeaMXvhnFBDYNp0hXG/RbVsxTBPYycIPN0E
-	SQVDCO/cmFzil4tlZVzSxlFcqlLSqzdUr3/fsw7fdjsOiQhOV/PlIvMm1UErNzefE0xFxf53Vym
-	tqrCzhFmkKAcAISndXgJST8qVJKwbBZfuGVfj8SrE8oiTYYllx8F7ZtKS7t10uqDcdm99vV0fV0
-	51Gano9cdAN/XY4MRgmAlQuMXxZSdhDy3u+5YxXjqO5j1R872nlxr+qUcLGmVf+dZCCOML9oL+Q
-	t4ov6wnCXBOwv2YfZoDoxYNqJrsUTb5jGOVJCJ5GmGwgw=
-X-Received: by 2002:a05:6000:40ca:b0:43d:a58:b076 with SMTP id ffacd0b85a97d-43d292e89a7mr26799287f8f.44.1775629784416;
-        Tue, 07 Apr 2026 23:29:44 -0700 (PDT)
-Received: from PC-DA2D10.beckhoff.com ([195.226.174.196])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43d1e4f5016sm59905521f8f.33.2026.04.07.23.29.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Apr 2026 23:29:43 -0700 (PDT)
-From: =?UTF-8?q?Corvin=20K=C3=B6hne?= <corvin.koehne@gmail.com>
-To: linux-kernel@vger.kernel.org
-Cc: linux-leds@vger.kernel.org (open list:LED SUBSYSTEM),
-	Pavel Machek <pavel@kernel.org>,
-	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-	Lee Jones <lee@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	=?UTF-8?q?Corvin=20K=C3=B6hne?= <c.koehne@beckhoff.com>,
-	Ashley Towns <mail@ashleytowns.id.au>,
-	Dan Murphy <dmurphy@ti.com>,
-	Gergo Koteles <soyer@irl.hu>,
-	INAGAKI Hiroshi <musashino.open@gmail.com>,
-	Jacek Anaszewski <jacek.anaszewski@gmail.com>,
-	Olliver Schinagl <oliver@schinagl.nl>,
-	Pavel Machek <pavel@ucw.cz>,
-	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
-	Roderick Colenbrander <roderick@gaikai.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v2] dt-binding: leds: publish common bindings under dual license
-Date: Wed,  8 Apr 2026 08:29:42 +0200
-Message-ID: <20260408062942.7128-1-corvin.koehne@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="Z/93l7r2"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YHFT1i3LZpx4MCKZChlPHaIqUtqmxnLodfO06NQ9yJoxQhaLhNupdEOp6gE5HxlWkRgi/EVibBIYUM28uz23bvgH7s1UvZ9TYbD3Y3CXJx+KUjRwVLKJHRGN+Idpr0Dz7iChBr1xq2f3yHzpghjlwrQ1SPuH0g8uqbb/GfgTYqFc7ktdmstwfO+bsnh9ud45iR7Em2ITtXUCStFAcq/IAmg6v19oe/NhVIfgaa5fbXzR3QYjFiTnpn5kBXWO8dqWzFxFlN04akldUvl1KT5KPXs+RBla9GyS/s5KF2TNnhv4w+8FMgk2guj73VEu/L8igcCf5TNxCs9uX0YN1zW7JQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=x+67nq72DqRIH8Wpw0kALS97raw5cvU8vppLWjQanlc=;
+ b=NH+Ya00xbl1WcYJq+JbC/9G9uS9AKHEe5pGYofUzX4pyUtsSLyznQSbMSlnms/c7rCudh7B9f5lLsBoey6bhL5I5mx8rPOqG4/LVHkG/iGT5UUmOvHLKQ0XiVFpPYxN42WphaUKoYAk526nqbq8yglwVa/7hJIsOY25XhIaLEn8JNKMRSkT66RN/n6Q69hlfU1cpWrezYe1wro7hdbmt/MeLn6jO8EzPIDKkfCYvv6SvuJFyjPZ7zHMfnDLw32E7/qQ6d9K0RmRat+2slY5MDtbhdQ1ROA9DfBxQ1Rs5YGv0vzT5ljnsrF/eiLad8CtAMky59Ppmf4hBrEAVbtTPoA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=x+67nq72DqRIH8Wpw0kALS97raw5cvU8vppLWjQanlc=;
+ b=Z/93l7r2OM85ZCu8guhtZHSEEMdFLyJE3dlnCaXJwPumVmPi6+p+4E6lidIu2vT2LjmhYKzwtdBQr4VJqUVZUEzJWxBCcjnkicGySVV9g6CsJ9Vuu4e7UZdL6Z49G3w1LXapFRd2V0xbsV9ucp8cjNuA/1gZs6gsTdoRtNj+qUE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from TY3PR01MB11797.jpnprd01.prod.outlook.com (2603:1096:400:373::8)
+ by TYWPR01MB10113.jpnprd01.prod.outlook.com (2603:1096:400:1e5::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Wed, 8 Apr
+ 2026 06:33:37 +0000
+Received: from TY3PR01MB11797.jpnprd01.prod.outlook.com
+ ([fe80::1868:c915:c230:a383]) by TY3PR01MB11797.jpnprd01.prod.outlook.com
+ ([fe80::1868:c915:c230:a383%5]) with mapi id 15.20.9769.017; Wed, 8 Apr 2026
+ 06:33:37 +0000
+Message-ID: <87fr56vu4f.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Bui Duc Phuc <phucduc.bui@gmail.com>
+Cc: broonie@kernel.org,
+	lgirdwood@gmail.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	geert+renesas@glider.be,
+	magnus.damm@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] ASoC: renesas: fsi: Fix hang by enabling SPU clock
+In-Reply-To: <CAABR9nH-1eBPFxtzVR6QBE1=esDN8x=hZpAkRSCO-TLmn0tRKA@mail.gmail.com>
+References: <20260403112655.167593-1-phucduc.bui@gmail.com>
+	<20260403112655.167593-4-phucduc.bui@gmail.com>
+	<87v7e5t16l.wl-kuninori.morimoto.gx@renesas.com>
+	<CAABR9nGUyTkDmB0SgKAuM1Pp75L=m1q4bLSfhobm98TswDnt8w@mail.gmail.com>
+	<87a4vfu0mz.wl-kuninori.morimoto.gx@renesas.com>
+	<CAABR9nH-1eBPFxtzVR6QBE1=esDN8x=hZpAkRSCO-TLmn0tRKA@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 Emacs/29.3 Mule/6.0
+Content-Type: text/plain; charset=ISO-8859-7
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 8 Apr 2026 06:33:37 +0000
+X-ClientProxiedBy: TYWP286CA0022.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:262::8) To TY3PR01MB11797.jpnprd01.prod.outlook.com
+ (2603:1096:400:373::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY3PR01MB11797:EE_|TYWPR01MB10113:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7efa1542-7c10-4831-2a66-08de9538c401
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|52116014|366016|38350700014|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	nRx8vQOXSrSvankNGafIfisGsmukSbafuL2H+C/2SnScJ08zF77sJm+gvWJTlFzUmfs91X8VZ8oQwsuItodybLvcOMeAIcNBVIoRYUXDHqHnxPzxODM2ZZqQ27BAtfFe9n01nGdyFSGD5Anc+F9Lntz38S9LJ859C/VhD4b/dEQz7Z08b0nojStRnavlAY0c6mqbnVAkGAL9xLNqx88Y6e/W6AVZsZYkKzneDD/BTwge5PaBfODPeBIKbQWTup4B6rUEKXljUimsfdDV51l/7q6gbH3O2vll37Grjb/RNdz2lMlZTuFo1shRnZV1BYSVr2lvHyvmvn3aBFPUPWS9ygr1NzBAHaYxvUJO2C+r9EbzM7NknuMcA48lmThP8Cd3VwoPapJik/mFP5SHBDYuuNFBhe+d/ODCxfHatQnyUXZxrItHcAgYiKvBKDFGlSmJ33LiI81JUQwp2d2NYLCOjk56JM9ftRZaf0O8s6ZR+FdcTgT7HpdtLyjldo46dIKtCJ8v1Sxw+oMrWumnDCDcICXYDa+XpC4LkY3bJar9/L6Q/+hLAmXwKX6Guknx0d5m5NEpQj29tfuQtOi4DvsvBbUYhBVYJtSIoXrbzw/6rWgQwEawCVyhTXIHimbuRakyYO4nPsrh2VoGn/jD7mEW9fOF+3W344Ka/azXQNEcmTip400yB+0rYPjR8g+ZauBUE0rOTVIIHK7QFYbOsCs9RkSjEoNNv2WcKiMMyjCgXSYG+C9Z+IbX18cJcV0n2LOk
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11797.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(52116014)(366016)(38350700014)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?iso-8859-7?Q?A3epAOyvqpCMf77eOfu/COwPgdfxyi+qfkOXXk4fpzZIS2lFRntKBrbUQH?=
+ =?iso-8859-7?Q?ZjipBXhnovdxXZevLPWkM9IPadBvHe2+7IBMjIqRv7+buv3tz49I2tEHKf?=
+ =?iso-8859-7?Q?bWyIkPeRJYiF9CeB/tEa18Cb9Y73jTiV2VcoVsqw70/MtB5L1IPsf67yLq?=
+ =?iso-8859-7?Q?y7U9/xCkNoBJsBWvP7H7IbXO9YAWN2Km9XN0GgN7t7Tk6LAnxxpEv6fz/2?=
+ =?iso-8859-7?Q?3OmXKL44fdwAPD9QcpdSDKG6z2bmI3fqR+FKtQbMOeyLJqAG3HKi37i/Ui?=
+ =?iso-8859-7?Q?6gFBPCa8t1oczKbj9MmFnAZXczqelR98+A+vfP2gwJod2IEkth50bhPWi+?=
+ =?iso-8859-7?Q?dxFpzxXm3nZMqu3+iAsHWQjKNPjGM3IH0XnD9uPd0XreBz4yhI9qXXL/Lg?=
+ =?iso-8859-7?Q?d88s+Oqso8nN/A4hiBiwlTVSqqwuCt/kRz50z0i5dZxcnQNnZawd8De/Cg?=
+ =?iso-8859-7?Q?BX2w2W/oJRmaguuuJ96uqB7/E3l8JufmQpiOCq7m/5WTNyl98p3Vb0kkWM?=
+ =?iso-8859-7?Q?NrS4AH8OdWmQRjihvZ3bvSs/2G52yySRMDvWfkK8fQiVhAVIhpYujuGRM9?=
+ =?iso-8859-7?Q?0nI3MHsj/tlZQWgnuq9y6Zast2tCf+TLHBH7++LvZnyhZchy84V55eJfhu?=
+ =?iso-8859-7?Q?0h7FiFbUEcI3iJCQ8gMAr2qDlfqwt4NBbFtlnyDgyaMpaehNRn8O+fUv6f?=
+ =?iso-8859-7?Q?tg7XXeO0ajqvyOT9MVLv9i8WpscIwphj+OSib0hgZaVqgkqZNB134hIqnD?=
+ =?iso-8859-7?Q?PcDRgtzWHym2KoLiuaON8dRrQ2KIrNDurZVO05miZz5LWtDFrYjdnUzcQg?=
+ =?iso-8859-7?Q?PQU37cIbJevKPIEHr+ujKCqmU1gKH/VSMqEHTEoiT2rImaI0IVxglPVBQg?=
+ =?iso-8859-7?Q?p40HP6qjmjQe+bYcG9WzXBFmuBF0uSROU7vH+f9GGJOFlMLUOfA6so057U?=
+ =?iso-8859-7?Q?NiXZ07s/onU0zuA6gdwNfADwnVveb8Ud3oyIHKU/+wVlsPxxPgbWQrTsRP?=
+ =?iso-8859-7?Q?bWzUr/ifhZ1wNbBMcRHgmYmrs9YCSGWdkYYcpwgq4MVvjR7iqRai+sm6Ou?=
+ =?iso-8859-7?Q?vIaTp45LIGYlat+ZnN9XOIFI0aaxCWLwLcREPAMVe28gtdnMbWUC0E0jyp?=
+ =?iso-8859-7?Q?a4Ic2QzIYmqojqlapHkQsdOS7yyUWVCdpxB/qS6GGa2PeJkLqy4Obwx59U?=
+ =?iso-8859-7?Q?zhJ087+XcNgX0d8UmQGJd+2w5D+Eifw0TFe8xTNDtn9c3jYVvMoaqqbzSP?=
+ =?iso-8859-7?Q?sW4wU+u7RBplFjWdyKyG9PcwiuskMAVtYEzf5gUtANQc6WjmVsDv+xmxWv?=
+ =?iso-8859-7?Q?8/tT0YNM7IYLY4sDgNEOsicuM4jyeRE7ukqOYz2xmxdNeo4Zk/VcAvXj0N?=
+ =?iso-8859-7?Q?+limS58rClhRj+G1RFxFh+kzbezXCERD32b28QIj3ITQ1MRPTBMbVSdghW?=
+ =?iso-8859-7?Q?GXulg1W0+9Ixz7oiGNjldz3SHtrfuvL78EvGuUgj0dM6VqkXr5A31M+nn0?=
+ =?iso-8859-7?Q?sWpxLUv57VZLe0G0+E2OyXkq4m62OIWzdw9x6i1opkm6hiF6fp+DCM6oKT?=
+ =?iso-8859-7?Q?ULWva7q0PkNcNQi14kSvJXQ1T+wOep+mRIM5TsRY9jvs9zg/6xDn0aBVX4?=
+ =?iso-8859-7?Q?290TeNbOy1OVN0fl6jBlcjlg05/UwyPcO2QwD+nG5amDA0f64nf1YDy22p?=
+ =?iso-8859-7?Q?lRQZQvaqHo95nPVTp9ZgNoQ82cS7t1gMHtz6tA/ZGqJmxxH5Ynke2jrOPa?=
+ =?iso-8859-7?Q?Cjzt34vorgPDP5zlfMpQTZDjh0Ip/GVL7mFIPRshsfaxgySsqb9j6Bup6u?=
+ =?iso-8859-7?Q?iuw0KLYK3Fl44TN/R7o1OZ79nbPNlaZAnreU+vv6RnsRGMsh7/mT?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7efa1542-7c10-4831-2a66-08de9538c401
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11797.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 06:33:37.4330
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0SvCdiLeskcHRQmfs4UrQFf9Bx+fFR5xHPqD1baaGkiSN4zQzw12Xs4vqmTL1xxK9xq9cbk7ITn6Te+lrI8vC3ajGTWbE5302TKu9lFOLyMbdk/5F8vpgILJtmbZrRfx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB10113
 
-From: Corvin Köhne <c.koehne@beckhoff.com>
 
-Changes leds/common.h DT binding header file to be published under GPLv2
-or BSD-2-Clause license terms. This change allows this common LED
-bindings header file to be used in software components as bootloaders
-and OSes that are not published under GPLv2 terms.
+Hi Bui, Geert
 
-All contributors to leds/common.h file in copy.
+> > Hmm... fsi_dai_trigger() seems strange.
+> > It seems (A) stops clock, and (B) sets register after that.
+> > Is this the reason why you get error ? I think (A) and (B) should be
+> > reversed. The balance between SNDRV_PCM_TRIGGER_START, and with
+> > __fsi_suspend() are also not good.
+> > If so, can you use hw_start/stop() ?
+>=20
+> Thank you for the guidance. After reordering the sequence and moving the
+> SPU power control to fsi_hw_start/shutdown, the system hang is now resolv=
+ed.
 
-Cc: Ashley Towns <mail@ashleytowns.id.au>
-Cc: Dan Murphy <dmurphy@ti.com>
-Cc: Gergo Koteles <soyer@irl.hu>
-Cc: INAGAKI Hiroshi <musashino.open@gmail.com>
-Cc: Jacek Anaszewski <jacek.anaszewski@gmail.com>
-Cc: Olliver Schinagl <oliver@schinagl.nl>
-Cc: Pavel Machek <pavel@ucw.cz>
-Cc: Rafał Miłecki <rafal@milecki.pl>
-Cc: Roderick Colenbrander <roderick@gaikai.com>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Corvin Köhne <c.koehne@beckhoff.com>
+Nice !
+
+> By the way, I=A2d like to discuss the fsidiv clock handling.
+> In the legacy implementation, it was handled here:
+> https://elixir.bootlin.com/linux/v7.0-rc7/source/drivers/sh/clk/cpg.c.
+> Currently, this has not been ported to the Common Clock Framework (CCF) f=
+or
+> R8A7740, and it resides in a different register range from the core CPG.
+> For v2, would you prefer that I implement a small clock provider for
+> fsidiv within
+> the FSI driver, or should it be added under drivers/clk/renesas/?
+
+I think it should be under drivers/clk/renesas, but Geert ?
+
+Thank you for your help !!
+
+Best regards
 ---
- include/dt-bindings/leds/common.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/include/dt-bindings/leds/common.h b/include/dt-bindings/leds/common.h
-index 4f017bea0123..b7bafbaf7df3 100644
---- a/include/dt-bindings/leds/common.h
-+++ b/include/dt-bindings/leds/common.h
-@@ -1,4 +1,4 @@
--/* SPDX-License-Identifier: GPL-2.0 */
-+/* SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause) */
- /*
-  * This header provides macros for the common LEDs device tree bindings.
-  *
--- 
-2.47.3
-
+Kuninori Morimoto
