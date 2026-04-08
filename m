@@ -1,382 +1,200 @@
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011028.outbound.protection.outlook.com [40.107.74.28])
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011057.outbound.protection.outlook.com [52.101.62.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F55389443;
-	Wed,  8 Apr 2026 10:39:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DC273AF643;
+	Wed,  8 Apr 2026 10:39:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.57
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775644761; cv=fail; b=CXT2lB3oxIkag64/4YiZ82ro4+IckyLVOtJrmDM6PVaG2GqE9mASWT6hEyKkwe+7KJDdHxoQZW88jLP5M1+S9vRDth7tOkyxYh9Pud9xF2V9qc18Olqe28n7nnNQ2nlma2PQJ2sJe2rIe6NcpKrns0zBotSO4UalXvwu0AHXaNA=
+	t=1775644766; cv=fail; b=TA8iu25RHiwmoadcF/q2zeiKn+U/J+ANIl6ZJzj6U5S7ZrfiNJIPwbid7ww3D02S7iiQ6buPfnx1j6XQJ6wJ7mJO9AmP70WGO0Bx5JOVGxO8rTWNYqqVs3ICUFh7dxI0u2/uQLY+G5fCaKJAY21VjWARXbZJp2GBsfDHOuCDc2c=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775644761; c=relaxed/simple;
-	bh=ivnIu157pEKX153PtxZSEdhCTi46MAiYXg+aguTj8GU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ZX44Bzcwz5YGZJkKSEJVotpuy58TO8ApDoLcoVdgdyHsyKUyPgoRu1v1U4dvZCzG51vJySD4vm3BLC8ppSszuD/K4eT/Hkp02E0An+YoLSS0L+ZBljqt5/jBOztuDH6W1SRzF9zGI9KpZ1fTWjNzS/tVoc0Ci5GsaGPsI5LBdoU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=wtfwO3sl; arc=fail smtp.client-ip=40.107.74.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	s=arc-20240116; t=1775644766; c=relaxed/simple;
+	bh=XWqytm/5hHumkkqqvKqieUjFa3kp+I66TiEZJttNRPI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=Ckojb9rioJEL+wWnLz8FoY12QMcw2V+n9EeQGkMP46wYZV+eg8qgZfGH2AUVCsbwcElF2vKOtUVYqkMT9e4rNgCmPXgiWe8xCjburw/4PRCrpqXWPCSQW2YusMdMsKwly5lZxxGQ5gnK5IfuEUFurcjHAeFqLtqAO+bjMC3rxVo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=dzF72Dk2; arc=fail smtp.client-ip=52.101.62.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="wtfwO3sl"
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="dzF72Dk2"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DSw3iaZ0KwzkiCjJmmsfA3eVU2aKzjXKP3rp5ut6khyuHVoOxiG5+HYJo5uhtUTAKHJd8TV+H2tAUzr85eC5oyr9auKWB3HM6Cgog6fmZ320yk6LCzCWYw01H/g8UrrTJ60sgPUEP9X8Z9lRcWwOcpNwOlnJXdgK9ds2jya7ayr5YX8nFFKDN+4Vhy7iuZDIutMb0fmd4YOj92CQsapL342naETmJEg59KYw6wAqmKOOdSWxb1wayi7xXbo3wr9uzBQ0Iq2/vUadICvDW6dWV0SsOF8oC4bc5Lr6H9LUxOmSsfkIewlTRpD2cV7b5G4CfvM/NjPymKzYKJBda8LaBA==
+ b=wnJt4gYbsdIqmpy4Q3WrqQ27AoUSd28a9E6mhGHW36Ob5CsGrmqBO9t3urvHes/+xbyAVB3TFbOQEINQ5+SjMFCCe2rq0mO8z3bNyjONUi7M3WdtrA/D+oz1nBSgB2idVurJzjMaYIkjFItMbpmEaHz2OBw9AA4NUKJ1FDrrjr/utam/uq6piH6icIdhCuWKgnCH+Idc4DiZYDt+oS49psNcPXVRitlylmAgNqpCV8F5q4HW1JBGNCD72GJo+iIJfoQKGwubN4xiNuo7StxGJg89pPz5O4RIxUE935U8dZCNJHhFScSU8jgFNMwHPZ0e9PAGi3aODDoJaRajoQQigQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=po27t1b9T5hydykhtUgSJKryjM+e2e4wivlvHhZnbtw=;
- b=sHyZYTGYWpjpOBxX1SGOqoBOu4DaWSx9XZuzIR/S/MCO6Gl5/UsgoLC+wdet+zk2ASk9DTIofEUnCDSXlb50yGDWGyK10kpnzqMFoxtRHGYv8RiNKgB6tprpRioPOZUxXF52Whx5Kd7THMWspHWNME0t+xRYvLTkWHCaZ4p6rg10QdvAJq1d5kQSHO/gZso71zmpgEnax8tnt3vtZrfY0oIVdkqzgPPMNXJYdt1StreWYeAazps+zFLQDOcTQPu8ZkY+4eYA064Ow1/ZcBzeDZ3Km4TWSllXfCDjcHKTR3ezeCD3R0/pD3np17BVPhtP/zU8+cuQ9W5xiIMaTvE1CQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
+ bh=fSMV7A/xAfYbwor6YtxORvmwr60ODVGm1Lr0q+Oc9dQ=;
+ b=MopFl/EDgS9YZwGMy9RpjCFTUAblThf4N9wVerlj57SSYwmNdx67rInd+fwxfB89MHHcrDnp+yvNbA3uZdpzUp9PZR77SCmvE82EaDUGqPhPoiYGdMLO4BButRsNtPxQ4PA/VNgLag9Skn9MS+Dz3QKXWp9cpaNF7WRdoXzwz/Uu6vKu23ACjMki1dMgI/PjNgcKhxH7919+Wk4MQnYLyz3DjpRTlilR2T2REMD2gF2JPULlqV5e1COKflOzIazMXTzfoNjCE1rsOQB+35wsZKfqjboobKeS2ksW0TjNMsjXklb/gBLhzm/xdSosI+nbIY9UrB933rC5TsqBFNERUA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=po27t1b9T5hydykhtUgSJKryjM+e2e4wivlvHhZnbtw=;
- b=wtfwO3slTdL4Vuz9b7cbY1J+0hVruGq3X9jOtfyNVYmomCAdLfOadlEgB+zHHSmFcKUNBEGSwB7q77BdOYESWyDhwQsUIfZmRjiixYbS5ZNboF8lm0j72boGFpR+1RRWzPIgV1Y6yZV8hxR1w2X6cZUVZPaQt4qYvqaOWd+AGo8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com (2603:1096:400:3e1::6)
- by OS7PR01MB13668.jpnprd01.prod.outlook.com (2603:1096:604:35d::10) with
+ bh=fSMV7A/xAfYbwor6YtxORvmwr60ODVGm1Lr0q+Oc9dQ=;
+ b=dzF72Dk20kABLhL46gi2owoje8gVxFtQnoJjE0M/uFBOheGnSP2po8FQVm7WFgnVE69qH+YYFcbJpn4TmfJHeHMynjRLId46NLvEOAyMaVQKx7QmPk1LcWSD7uCAGSw/7D2ejfwCT7rWbfTnrxqCXjRRQbRI1iXHjeFfW3iJIvs=
+Received: from PH7P220CA0056.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32b::14)
+ by SJ2PR10MB7583.namprd10.prod.outlook.com (2603:10b6:a03:537::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.21; Wed, 8 Apr
- 2026 10:39:17 +0000
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8]) by TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8%5]) with mapi id 15.20.9769.017; Wed, 8 Apr 2026
- 10:39:17 +0000
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: tomm.merciai@gmail.com,
-	geert@linux-m68k.org,
-	laurent.pinchart@ideasonboard.com
-Cc: linux-renesas-soc@vger.kernel.org,
-	biju.das.jz@bp.renesas.com,
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org
-Subject: [PATCH v6 11/21] dt-bindings: display: bridge: renesas,dsi: Add support for RZ/G3E SoC
-Date: Wed,  8 Apr 2026 12:36:56 +0200
-Message-ID: <0beed64c1cbdb6383bc5da5da3e4b2956ffce5e8.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
-References: <cover.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: FR4P281CA0140.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b8::8) To TYCPR01MB11947.jpnprd01.prod.outlook.com
- (2603:1096:400:3e1::6)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.34; Wed, 8 Apr
+ 2026 10:39:21 +0000
+Received: from CY4PEPF0000EDD2.namprd03.prod.outlook.com
+ (2603:10b6:510:32b:cafe::bd) by PH7P220CA0056.outlook.office365.com
+ (2603:10b6:510:32b::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.37 via Frontend Transport; Wed,
+ 8 Apr 2026 10:39:21 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ CY4PEPF0000EDD2.mail.protection.outlook.com (10.167.241.198) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Wed, 8 Apr 2026 10:39:20 +0000
+Received: from DLEE202.ent.ti.com (157.170.170.77) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 8 Apr
+ 2026 05:39:20 -0500
+Received: from DLEE200.ent.ti.com (157.170.170.75) by DLEE202.ent.ti.com
+ (157.170.170.77) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 8 Apr
+ 2026 05:39:20 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE200.ent.ti.com
+ (157.170.170.75) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
+ Transport; Wed, 8 Apr 2026 05:39:20 -0500
+Received: from [172.24.233.12] (uda1253387.dhcp.ti.com [172.24.233.12])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 638AdHHd583775;
+	Wed, 8 Apr 2026 05:39:18 -0500
+Message-ID: <17a7f37e-115c-4127-9568-3d52a3f0328d@ti.com>
+Date: Wed, 8 Apr 2026 16:09:17 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC uL PATCH 2/2] mux-controller: ti: add driver for event mux
+ router
+To: Greg KH <gregkh@linuxfoundation.org>
+CC: <peda@axentia.se>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <devicetree@vger.kernel.org>, <vigneshr@ti.com>,
+	<linux-kernel@vger.kernel.org>
+References: <20260313060437.3704592-1-r-sharma3@ti.com>
+ <20260313060437.3704592-3-r-sharma3@ti.com>
+ <5ba0d92e-7f2f-423a-8d1c-561c350c1db3@ti.com>
+ <2026033026-shuffling-kisser-ac6c@gregkh>
+Content-Language: en-US
+From: rahul sharma <r-sharma3@ti.com>
+In-Reply-To: <2026033026-shuffling-kisser-ac6c@gregkh>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB11947:EE_|OS7PR01MB13668:EE_
-X-MS-Office365-Filtering-Correlation-Id: 47e0b722-810a-496a-4ecc-08de955b15db
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD2:EE_|SJ2PR10MB7583:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8f36ba76-b92d-4240-2fc9-08de955b17fb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
- BCL:0;ARA:13230040|366016|1800799024|7416014|52116014|376014|18002099003|38350700014|56012099003|22082099003;
+	BCL:0;ARA:13230040|376014|82310400026|36860700016|1800799024|18002099003|56012099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
- fkrv7eue+hQeOF9hJjqp0tH255W4mc+gunUMqeJQ0dIlS3JjzYHZFBUhzlfugEt462CkZBE1AY5dKO2wN01wsaEK7y/9bwb/l5l5q60iCUoamPfl+QVFYsLYkrvqQWQsPSBwmLWQ0OTHvJEsk4oEPLZ6cBFzuLgQtHbrArdaUr4PM0mhAauL/oSchk304khhBOvnlPmEtZO5XU22G2MsIqvMnqWz2JykLw8QurtadqKkIygYCexl4B3vXqT/331h+2g5LrBJdBylEjjdTGgtB3HXGWJPhDd9jhH2EYJRlO60JeRBGIev+Dwb253NQ76v0bZRpqzqRZJYLNLthoAoovPqpgemaBp3EWlkXPIJhQ2EeFZwJGjxTGfQVz8l68DsKd8mPblrTD8i8G62DGnGJa8f/apQDKvvFOJE7aFXGXHriBC1IBLWbgUl89JvyKOdZc+qKlT6WsGKN2FUMB+sx7ZUY0y4fzU4yWQoyh9On1BbfQfWejFcRit389yyONoTT73RlQyvhgnLVGO9eVBeGAebVBHYuCl2LSMvNjyN+eNbzr7ZLAsi4n17ToY75I6HGbXQWbPjXDeKc3Y5XtrC5w/JjNatT8UVlAPBFcNoVoFfym/UQ2dqmmISPTbT7yCW/2xji7xJ10jq+FvUfcEAhbRXVnEApYI5Kng8Xh/zyAE68vaf/NbmCfXe5CF4D7w8Dz0SdyA3T/id8AAZy2UUsKS4JXKh127hKq7SanGm409tQD0+4+JUHSVp1+/YSCMqdZm6S3BfBImLXyQxtzfL5N1SnitgGQpGpZF+IxQxg+0=
+	33ZOy5laZYtpJE0PIWO6UdTcLZqy89CqiZXXWSgWtcpbyFWgkdM/i7KbDoUAI3NoqwBtgIIuz6hITyeVmwhw44xoHVuRxMdxvA1JugOg4LT81oR8jy2BH96QXVhBtDODHN5NVaDwlWCAIea5iwl2f9LIo7Cq14qrKjILpg09HgnAvsFkvPKLhEfX7eMYfKoKHSS1/XNR4vD/MPTHKrAQX3iU/FB1f0TZj3OCB85eAFj+ZclXVnPAbzchMLwXyytjjC2bi/FbyysjaXLL2/Vl0Eut9OCz9c1912Bu2W4pJqD3OexJDpKm3H9gokMgrgLtp+UL2ky5f/B6T5LMlZoYBXXDcGJJ6MPw10liiboJBjwk9D2B/T8PvzHs1eMt+tjdtc+xdUgz/jXlMdXHyB8sRMZBW25Eb70yAcp9KDtBg3Yx7BFoIB16J1YcIDcgQxE9nYA4kT1olYwW5y+K/QYoU9h1OoltHrM504H09ePsTBzFR5WYt+LLDyMXsG648v/dXRFukVBXcniGF1+umNdSpOk+scUlLC/p+3N8ReAx6CuFWtqnGli3RhUsCOXFa9MbGMBx8y0aLF2v3GTCDNPP7JT0co1VlOfg5v4u2K0ye2S5JkR9VTrYOkvnVWrW1Ao1iEXpJseSVe0cFSBNtZHleVSmy2bQfOWbcGyzb3lL42PE8VOZBtZLp2r6V7n6dfdCQ127EufZyF8+OpNF9tQcLq7Fc7W9Tb6p/qVfLE30IvXklHkh6CQdNbnWtnAyiY9KnwMZojdBX6550gvt7VS6xA==
 X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB11947.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(52116014)(376014)(18002099003)(38350700014)(56012099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?/M/bdCAgOTdOWOJe2szWuCYbjnaq7zoc62XUf+n3Q5Xe348/E5PPdaUBucHt?=
- =?us-ascii?Q?AodbQkexfWcnZ7NwJi5K2QqkO/n7IlPyQOLhsCATuH9Vv5Lscqn4PWLL52ts?=
- =?us-ascii?Q?jgCt/+7NKx2Rm3/dYY/gbK/QFmmr2+XhW0poZpxDs0VINN5Z161ftrtDeZZw?=
- =?us-ascii?Q?p2jUDlfkiZxBdz9nmXLNvW/MgaNjQMOLbVMnysq0LsKyRQqH5jkX3uHHN3yZ?=
- =?us-ascii?Q?FLR0QAxGq7QyHtqCs/eC3Zb53oIfYmsrYPuJWIK6v1TLjOZAVodp7S67gWl+?=
- =?us-ascii?Q?HKugr5VXLSLM2/YjQZcpauy+6ioF4XGJLH9VNgizgjzulbiX7CgCGE/zB0w1?=
- =?us-ascii?Q?OrLTv0Wc2iOKwrQzamojqvkhKD3mKS4WN/Yd42wc+Rtp9xfiuhI9Y8sAs/6k?=
- =?us-ascii?Q?OalaYTNGKKF64EZMtlSLyXg8CbUTJ9uHsDdJeDUJWdsnEBImN0pdC9ZnI4VO?=
- =?us-ascii?Q?rvyAhMkan735tJVHN6Hb32tDqhEQ+QwtYlDVuMieioS7gRP87WRn9eKLuNo7?=
- =?us-ascii?Q?oARN4EzDLgRuXWeY3XNCPgr3L80kBWETsqlyEOyxhK3jq7a2TEBub2d1GgiB?=
- =?us-ascii?Q?eUS+92zm4BbsWVWlNcgRm5NKeWj/hRxGzCsMvTluxLnNycbSaIUojAiaUa+X?=
- =?us-ascii?Q?vEki+wvwSE2Y6rOr2FE5MA1SLluezJe1Z6RhxougLqBECyIeT68IrEWhDNSG?=
- =?us-ascii?Q?n0gLdO58W35MdebEBVprTFgAhJAmu/Wfsnq1SimCM8p5+h57DkLe6f6RGr3O?=
- =?us-ascii?Q?gh1hHjC3wlT7MYPiEpBzcaCTxoR+8NwojCXwOhg4zyIWJOGGACi2zpIVwoWQ?=
- =?us-ascii?Q?GXLohdx6EXdULHAK5ssDZBk+8R6ALc47+Ji7ITqvJeZlObyoOiNw/HUGtrkq?=
- =?us-ascii?Q?EIrzXY2A09XIbnFMiGj/chkStp74o9Sj+mi6WMXedn3VaUI+HE1yR8SSY7PO?=
- =?us-ascii?Q?9gQgV8z15tqAD2w6nK9gBv+I0mJTOR+YcEhRxceRx/F/M/hr48e/c2YwKA/W?=
- =?us-ascii?Q?0Q/xiyB+s1XoIetWbqU9zBdze95JgD95oLfRJ1RdCyi/gNrdY1cS9xOjwy3n?=
- =?us-ascii?Q?Dq4qK7uLNX57If7nTYhAp6OP+iDDduw09ZP0WiOZB1j0/CVVEACX+uqyAhDg?=
- =?us-ascii?Q?m+dd7K0hqHWyvu9LtKiVlW5kPDhrF5CDx/bCj+rJEsy+gn42SNO2KdlPMt1e?=
- =?us-ascii?Q?WwKcrg7JKHWks+ZqJjVhC6Rfjz3qDiDVcGlG1aUnWisA8c/aIAY+D5CxVynS?=
- =?us-ascii?Q?qtP+/gEL2OEcit3erzsUYywMbjrIOY/1X564auAwYBoZg91X4WgU3Pxhflq0?=
- =?us-ascii?Q?ZEuSClyWEU7ovUVnzbPQXHZm+s8mjDulyezOM6SSv1DDgGDPiFwAKARIESqj?=
- =?us-ascii?Q?QpsRynbgQRC2wWuUMtu3VLL24FB2VRS/2KTTFoRjgCrV+OMtCiRI9+QcpIKn?=
- =?us-ascii?Q?hMMIKpTWQjr9bJKDWfdNIDBfOPIdRQ8pcFSX6+X+hsyjOj0JMXh742CMp4wg?=
- =?us-ascii?Q?TJi1f5cxKqWtNPVROVZcBMsTAqF4L5LPIha1N+8GO98vbFjxxkJdR1e6DXo3?=
- =?us-ascii?Q?6jQxHb4La94TLbF3DqswKSqo2GVvAyBAn5zBeio0nDcJXcBp799Dx7GMS1eR?=
- =?us-ascii?Q?Fvau5tJBhO8AdZHhAMMEUJ+OkpAbRYlhWdrzrXnLDkywsL+WjT68/ETN/Ko/?=
- =?us-ascii?Q?flMG2RHFmY6alfLlKmTcqAvhbMUr99UcGp5ttBa/b6Z8r5L1BNq56NDaXSzn?=
- =?us-ascii?Q?4xEuBZXeNXZP6m/zDzUY2MRZhwQxPSNGBYjcMk5BRUDvLSHLrUqs?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 47e0b722-810a-496a-4ecc-08de955b15db
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11947.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 10:39:17.5954
+	peiYln0Ki161btbVB91o6afzCilMOxp9B3xBAYt4ZVY3MfTxElHfXMxzakUjSaWpyk5dMqdfVqiJkLCgfjAEixE8+n0XeliB5xetV0VjP3Qk3Wv01Ug+sN/OLdBkbExlJj4OdQvhCjHmk0rbtd4zooZMvDItPOSuKYq6XsL0f6/Ct/6AsbeO6Y2tq0R/BjCv/CuKHUHpegCB52LTQOvBIr1TbzwB3AbeZNsbZ8QoPnjTOHhyOVTU1O0XDcK7+NjLOGvdOMC4FoNVadNQKXJyt7YuyQwPKQ9pQe6nwvDDef//7S48dqspt+dUusy+MbL+Vh+i0XnjVRmbSWaAigANLceLN61CFxQ0okYRYORpQsLx1q7mySb5njvgPWIjskItRUdcQEKNR4kPuc77uiyLUxyu3vs7LqoXKesmZV7zqEMc8A5/Lmh6/U26je/qaGvg
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 10:39:20.9300
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lm6o5e9FiPfSuK5cA7SyDdaU6mva2g08n5HAajPGYdhmXYYAEyhCYOBusSH78okVj3ircsZMSmzybYWUHiflAak8hc7oRF0AhD6LBdAYgYDK0kIa2cF02hoSMRDs7lT/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS7PR01MB13668
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8f36ba76-b92d-4240-2fc9-08de955b17fb
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000EDD2.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR10MB7583
 
-The MIPI DSI interface on the RZ/G3E SoC is nearly identical to that of
-the RZ/V2H(P) SoC, except that this have 2 input port and can use vclk1
-or vclk2 as DSI Video clock, depending on the selected port.
+On 30/03/26 12:33, Greg KH wrote:
+> On Mon, Mar 30, 2026 at 11:02:11AM +0530, rahul sharma wrote:
+>> CC: Greg Kroah-Hartman
+>>
+>> Hi Greg,
+>>
+>> Could you please review this patch(2nd one in the series). It seems Peter is
+>> not online for almost a month.
+> 
+> But I am not the mux maintainer, so I am probably not the best one to
+> review it :(
 
-To accommodate these differences, a SoC-specific
-`renesas,r9a09g047-mipi-dsi` compatible string has been added for the
-RZ/G3E SoC.
+Hi Greg,
 
-Reviewed-by: Biju Das <biju.das.jz@bp.renesas.com>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
----
-v5->v6:
- - No changes.
+I agree, but is there any other way to get Peter's attention on this. Or 
+is there any other maintainer who can review on his behalf. Could you 
+please guide me on this ?
 
-v4->v5:
- - Collected tag.
+Also, there was another patch series that was posted last year. It was 
+trying to do the same but changes were on the generic driver side i.e. 
+drivers/mux/mmio.c
 
-v3->v4:
- - No changes.
+Link: https://lore.kernel.org/all/20250605063422.3813260-1-c-vankar@ti.com/
 
-v2->v3:
- - No changes.
+On that patch series too there wasn't any comment from Peter. I would 
+like to know how to go forward on this.
 
-v1->v2:
- - Removed oneOf from clocks property, which is no sufficient to
-   differentiate between RZ/G3E, RZ/V2H(P) and RZ/G2L.
-   In particular both RZ/G3E and RZ/G2L have 6 clocks with different
-   meanings.
- - Use the already exist vclk instead of vclk1 for RZ/G3E DSI bindings.
- - Updated the allOf section accordingly.
+> 
+> One instant comment though:
+> 
+>> On 13/03/26 11:34, Rahul Sharma wrote:
+>>> The driver supports event muxing routers like gpio mux router and timesync
+>>> router. This driver is adaptation of original reg-mux driver, along with
+>>> changes specific to support TI's mux router.
+>>>
+>>> The idle states this driver supports are only 2 which active(represented
+>>> by 1 in dt-node) and in-active(represented by 0 in dt-node).
+>>>
+>>> Signed-off-by: Rahul Sharma <r-sharma3@ti.com>
+>>> ---
+>>>    drivers/mux/Kconfig           |  15 +++
+>>>    drivers/mux/Makefile          |   2 +
+>>>    drivers/mux/ti-k3-event-mux.c | 235 ++++++++++++++++++++++++++++++++++
+>>>    3 files changed, 252 insertions(+)
+>>>    create mode 100644 drivers/mux/ti-k3-event-mux.c
+>>>
+>>> diff --git a/drivers/mux/Kconfig b/drivers/mux/Kconfig
+>>> index c68132e38138..ad3af2724d28 100644
+>>> --- a/drivers/mux/Kconfig
+>>> +++ b/drivers/mux/Kconfig
+>>> @@ -59,4 +59,19 @@ config MUX_MMIO
+>>>    	  To compile the driver as a module, choose M here: the module will
+>>>    	  be called mux-mmio.
+>>> +config MUX_TI_K3_EVENT_ROUTER
+>>> +	tristate "TI Event Mux Router using MMIO registers"
+>>> +	depends on OF && (REGMAP_MMIO || COMPILE_TEST)
+>>> +	help
+>>> +	  This is extension of MMIO mux for  timesync router and gpiomux
+>>> +	  routers on TI K3 SoCs. This driver supports the 3-field format for
+>>> +	  mux control: <register-offset mask value>.
+>>> +
+>>> +	  The driver allows configuration of hardware mux routers using
+>>> +	  memory-mapped registers. It's based on the mmio-mux driver but
+>>> +	  supports the extended 3-field format for more precise control.
+>>> +
+>>> +	  To compile the driver as a module, choose M here: the module will
+>>> +	  be called mux-ti-k3-event.
+>>> +
+> 
+> Don't you need a blank line before your new config option?
 
- .../bindings/display/bridge/renesas,dsi.yaml  | 144 +++++++++++++-----
- 1 file changed, 109 insertions(+), 35 deletions(-)
+Sure, I will correct this.
 
-diff --git a/Documentation/devicetree/bindings/display/bridge/renesas,dsi.yaml b/Documentation/devicetree/bindings/display/bridge/renesas,dsi.yaml
-index c20625b8425e..00ef279129fd 100644
---- a/Documentation/devicetree/bindings/display/bridge/renesas,dsi.yaml
-+++ b/Documentation/devicetree/bindings/display/bridge/renesas,dsi.yaml
-@@ -28,6 +28,7 @@ properties:
-           - const: renesas,r9a09g057-mipi-dsi
- 
-       - enum:
-+          - renesas,r9a09g047-mipi-dsi # RZ/G3E
-           - renesas,r9a09g057-mipi-dsi # RZ/V2H(P)
- 
-   reg:
-@@ -54,20 +55,8 @@ properties:
-       - const: debug
- 
-   clocks:
--    oneOf:
--      - items:
--          - description: DSI D-PHY PLL multiplied clock
--          - description: DSI D-PHY system clock
--          - description: DSI AXI bus clock
--          - description: DSI Register access clock
--          - description: DSI Video clock
--          - description: DSI D-PHY Escape mode transmit clock
--      - items:
--          - description: DSI D-PHY PLL reference clock
--          - description: DSI AXI bus clock
--          - description: DSI Register access clock
--          - description: DSI Video clock
--          - description: DSI D-PHY Escape mode transmit clock
-+    minItems: 5
-+    maxItems: 6
- 
-   clock-names:
-     oneOf:
-@@ -78,12 +67,14 @@ properties:
-           - const: pclk
-           - const: vclk
-           - const: lpclk
--      - items:
-+      - minItems: 5
-+        items:
-           - const: pllrefclk
-           - const: aclk
-           - const: pclk
-           - const: vclk
-           - const: lpclk
-+          - const: vclk2
- 
-   resets:
-     oneOf:
-@@ -136,13 +127,6 @@ properties:
-                   - const: 3
-                   - const: 4
- 
--            required:
--              - data-lanes
--
--    required:
--      - port@0
--      - port@1
--
- required:
-   - compatible
-   - reg
-@@ -164,33 +148,123 @@ allOf:
-       properties:
-         compatible:
-           contains:
--            const: renesas,r9a09g057-mipi-dsi
-+            const: renesas,r9a09g047-mipi-dsi
-     then:
-       properties:
--        clocks:
--          maxItems: 5
-+        ports:
-+          properties:
-+            port@0:
-+              description: DSI input port 0
-+            port@1:
-+              description: DSI input port 1
-+              properties:
-+                endpoint:
-+                  properties:
-+                    data-lanes: false
-+            port@2:
-+              description: DSI output port
-+              properties:
-+                endpoint:
-+                  $ref: /schemas/media/video-interfaces.yaml#
-+                  unevaluatedProperties: false
-+
-+                  properties:
-+                    data-lanes:
-+                      description: array of physical DSI data lane indexes.
-+                      minItems: 1
-+                      items:
-+                        - const: 1
-+                        - const: 2
-+                        - const: 3
-+                        - const: 4
-+                  required:
-+                    - data-lanes
-+
-+          required:
-+            - port@0
-+            - port@1
-+            - port@2
-+    else:
-+      properties:
-+        ports:
-+          properties:
-+            port@0: true
-+            port@1:
-+              properties:
-+                endpoint:
-+                  properties:
-+                    data-lanes: true
-+                  required:
-+                    - data-lanes
-+
-+          required:
-+            - port@0
-+            - port@1
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: renesas,rzg2l-mipi-dsi
-+    then:
-+      properties:
-+        clocks:
-+          items:
-+            - description: DSI D-PHY PLL multiplied clock
-+            - description: DSI D-PHY system clock
-+            - description: DSI AXI bus clock
-+            - description: DSI Register access clock
-+            - description: DSI Video clock
-+            - description: DSI D-PHY Escape mode transmit clock
-         clock-names:
--          maxItems: 5
-+          minItems: 6
-+        resets:
-+          minItems: 3
-+        reset-names:
-+          minItems: 3
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: renesas,r9a09g047-mipi-dsi
-+    then:
-+      properties:
-+        clocks:
-+          items:
-+            - description: DSI D-PHY PLL reference clock
-+            - description: DSI AXI bus clock
-+            - description: DSI Register access clock
-+            - description: DSI Video clock
-+            - description: DSI D-PHY Escape mode transmit clock
-+            - description: DSI Video clock (2nd input clock)
-+        clock-names:
-+          minItems: 6
-         resets:
-           maxItems: 2
--
-         reset-names:
-           maxItems: 2
--    else:
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: renesas,r9a09g057-mipi-dsi
-+    then:
-       properties:
-         clocks:
--          minItems: 6
--
-+          items:
-+            - description: DSI D-PHY PLL reference clock
-+            - description: DSI AXI bus clock
-+            - description: DSI Register access clock
-+            - description: DSI Video clock
-+            - description: DSI D-PHY Escape mode transmit clock
-         clock-names:
--          minItems: 6
--
-+          maxItems: 5
-         resets:
--          minItems: 3
--
-+          maxItems: 2
-         reset-names:
--          minItems: 3
-+          maxItems: 2
- 
- examples:
-   - |
--- 
-2.43.0
+BR,
+Rahul
+> 
+> thanks,
+> 
+> greg k-h
 
