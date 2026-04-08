@@ -1,73 +1,36 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57E40355055;
-	Wed,  8 Apr 2026 04:29:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D40A570830;
+	Wed,  8 Apr 2026 05:07:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775622546; cv=none; b=s9C2SJrUcQX7pcgTSy4/nvgrpLtfJEDM7F7GOXC05dRuHGpFxrAgbtK4W3GUp+LMiDsZFBvqYgW9C2uy6JUb827R3EylxQvoxHsTue1blxvEHLoG+gYp0kJR/OVHDo4kviTehThlYUMIEV4gCMa2R3iGzVRBvRQxXpbgypU47ak=
+	t=1775624878; cv=none; b=sBr9+ohbzQgpenbMM7VXDM2hGu36kzRTNiU9v3kdrHoHE4yq1WUYdIy9Au+1LU9IhlUsu6Xh2qYMoxV+V0A7OJcPaEzG1kmNiH+YquY2tb2iASa+QoyxWDKl0gf6wI7I23/eokiPvFfWKED6F6tmGmyu98PdSFkz3kmBxECu6Xk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775622546; c=relaxed/simple;
-	bh=gdJzpAnLrVWo/+puSOV9NTU6MZz/Inae1zh7XCddZns=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ac6KFmRU9n7fjZv1vHxj3Mm04ZYzphGlXWU8BM/7XvkVmbmuQWH5mmatXMVRglJhey4ODyLVWiNvB6QgXrunH9LymIAxYemXQePWBXB+TAYBX6mfF20AtIAATQNjYVa/6L2ky1w+0OcsgwrbgeX7Ei9+f7HpjO1TfBu22kYTw0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=swuNmX4k; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1775624878; c=relaxed/simple;
+	bh=bZ3QCtjblCVSujDtyBNvrogUn9jUpEJIT1QFEhb35A0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=fsAwfSZb8WQCjWP0WkqkGXMlztGqR+JoYFyl/lRjwscqy3CAkApOroPn1Ts6nZDudO3713vmMuMdMf97m9rlgfSaaDDzZ9eu0HETvrahK6nHrToav8y+T438cV3APabSoBbTkbVk9KXpz/eyB435TJWqVABNx0wVukDbvYfaRyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=isSyVd7r; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="swuNmX4k"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 637EeCdj2211703;
-	Wed, 8 Apr 2026 04:28:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=0tT7ek
-	GBhBR9Pkw9VXHVPV99qlF1DPhNiY+7VcmD8v8=; b=swuNmX4kEdi/7gij+W7thL
-	dE0UelKHr/CpitJbpOSacSva0yjUmiqJuA1azR2ps900O74aCeUyvrf+qP+AFWnx
-	xWqOSIre+88/HKhMKF9A+6IOvA5l4tbmfk+wnESJ992+NE/i2RUyaG2bFopFxtIn
-	Xx9DsyIVxeFC/U/u6uJ4mQUnavI08zfIJbTfTOl5rSAvB3XBGU11F9hb1rvnojdI
-	hbYtwaDpnXODqO0F4oRKXOLd4EAXujM7FLcXryLhE+l/QIsQS3xcbBGhH+/ktoW6
-	Fl1hPuAr+XoiUXDzvPwadyoVSL9/+ipsSNm+oAMGuK4dTdbwGa+EXRMAhTz/e81g
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4dcn2hdqvx-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 08 Apr 2026 04:28:43 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 637NwmkP030062;
-	Wed, 8 Apr 2026 04:28:43 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4dcme7dyrp-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 08 Apr 2026 04:28:43 +0000
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6384Sf287536908
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 8 Apr 2026 04:28:41 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2827920040;
-	Wed,  8 Apr 2026 04:28:41 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8C47520043;
-	Wed,  8 Apr 2026 04:28:38 +0000 (GMT)
-Received: from Linuxdev.bl1-in.ibm.com (unknown [9.123.3.0])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  8 Apr 2026 04:28:38 +0000 (GMT)
-From: Madhavan Srinivasan <maddy@linux.ibm.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        =?UTF-8?q?J=2E=20Neusch=C3=A4fer?= <j.ne@posteo.net>
-Cc: devicetree@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-        linux-kernel@vger.kernel.org, Link Mauve <linkmauve@linkmauve.fr>
-Subject: Re: [PATCH 0/3] PowerPC/Wii: A few devicetree cleanups
-Date: Wed,  8 Apr 2026 09:58:37 +0530
-Message-ID: <177562236426.1381144.9452129890234194382.b4-ty@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260311-wii-schema-v1-0-1563ac4aefa8@posteo.net>
-References: <20260311-wii-schema-v1-0-1563ac4aefa8@posteo.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="isSyVd7r"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 80E47C19425;
+	Wed,  8 Apr 2026 05:07:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775624878;
+	bh=bZ3QCtjblCVSujDtyBNvrogUn9jUpEJIT1QFEhb35A0=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=isSyVd7rrddG6wGTfYjWHZRjyWdnlvKknk+a6B506fV8orxBuDi7PUol5Gm73aCMl
+	 cFAgd/e7ZbEw+MT1dHfNoTjm2R4/zDsd2nvGb4JQghF5cy3HyOnBC2QdqPgPDueir5
+	 MqfWefomgObMfAqprdRCZBn80ty3VlicA/eX83DZ8roJa8KNY+/niLZeJQCihiq4bJ
+	 1sgAUgIsBYx8oWl0cISm+mquL2agP08p1Cbb00SOqoBQDwzA75DRis0YqafA7C5ele
+	 rY74ClWmqDGc1SneuDPmngsV5z9SxZdGxDCnuz188VlnD5SP/2HxqDVH6xq92RBnok
+	 2GfgwRX/Z6l4Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6C5AAFD5F61;
+	Wed,  8 Apr 2026 05:07:58 +0000 (UTC)
+From: =?utf-8?q?Ale=C5=A1_Pe=C4=8Dnik_via_B4_Relay?= <devnull+ales.pecnik.skylabs.si@kernel.org>
+Date: Wed, 08 Apr 2026 07:07:34 +0200
+Subject: [PATCH] clk: microchip: mpfs-ccc: fix out-of-bounds write
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -76,45 +39,96 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA4MDAzNiBTYWx0ZWRfX1P9fnlFwrkyL
- FFFLc8MMzA4BGz+LQ03mL3v8wCcVb2OYo+Hp2y9S8JHCOp2roU3sIDb8Qpdv/UUm4Jmq0OzP1WQ
- wqWODmdL2UlVzPHyrBpef3A5M/0PhoVYr/nnplgVNv7qpa1hSZZQcpIRwcJMUA0vG/cWe7rGmLm
- Ht/AX0VKuQux9SJJOZIJE4geipXAYIOV1xX+rrHE8UWS5KE9C47rIIN3ViDyV54lfaS+HeHeTx4
- U6s8Z2thRWe1guzidl6iSybMSOl9ghCEvXR6YEweAbifL4LNQyScVuBZ39mpZUYWG9CR0EnnSc0
- Kw2op9XinkDmYbFwUOmwQIa8Q7dBctWhjNwBQHmGtxGbM5eTujczDtv7/Zlsn6/n/Ab6vveX5qQ
- OfaasdqwsmBVkO+9Lal6p1d0Wr1gHTkFtc6uT8ycOGEt1T8KMJruyFOs7lk53qOXeqtRosAYp+0
- 54x2XJGEhQW8TH+DbMA==
-X-Proofpoint-GUID: Zf7BPce1fAdWDHeJGRosEq62-8H2vSBL
-X-Authority-Analysis: v=2.4 cv=a/wAM0SF c=1 sm=1 tr=0 ts=69d5d97c cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
- a=BppeBZHskiO_FOh2NBIA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: FYE5_WB_lGAia-e42jGk6UpUuc4JA6mx
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-08_02,2026-04-07_05,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 spamscore=0 impostorscore=0 priorityscore=1501
- phishscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604080036
+Message-Id: <20260408-mpfs-clk-oob-write-v1-1-8b3b387f2a6f@skylabs.si>
+X-B4-Tracking: v=1; b=H4sIAJXi1WkC/yXMSw6DMAwA0asgr2spjfioXKXqIhgDppSgmBYkx
+ N0JZfkWMxsoB2GFMtkg8E9U/BhxvyVAnRtbRqmjwRqbm9QU+JkaRRre6H2FS5CZ0RlieriMrE0
+ hhlPgRtb/9Pm6rN+qZ5rPE+z7AU8ki+J2AAAA
+X-Change-ID: 20260407-mpfs-clk-oob-write-a0cec9a5c224
+To: Conor Dooley <conor.dooley@microchip.com>, 
+ Daire McNamara <daire.mcnamara@microchip.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: linux-riscv@lists.infradead.org, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ =?utf-8?q?Ale=C5=A1_Pe=C4=8Dnik?= <ales.pecnik@skylabs.si>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1775624877; l=2632;
+ i=ales.pecnik@skylabs.si; s=20260407; h=from:subject:message-id;
+ bh=SF/Vt/vUfapCwcVHEGcraGJRNd6XQ/SLekhb7sh36tU=;
+ b=mZYW6b3jCXNt5JzizDtunxJUPc0743ZKiJZy/8bxVMavCx/EPR63Rb1U6/ud20LdVEKDKQsAd
+ Fn09rQJ65lOBiQmiYkTDZJ9IIsF076kkmyUwQwO77mbeUctGL/44CEc
+X-Developer-Key: i=ales.pecnik@skylabs.si; a=ed25519;
+ pk=TOE7w9RMxEE5vdFXO1rqqYmQkLKHAP39+87kI2Q5Lrg=
+X-Endpoint-Received: by B4 Relay for ales.pecnik@skylabs.si/20260407 with
+ auth_id=724
+X-Original-From: =?utf-8?q?Ale=C5=A1_Pe=C4=8Dnik?= <ales.pecnik@skylabs.si>
+Reply-To: ales.pecnik@skylabs.si
 
-On Wed, 11 Mar 2026 18:35:55 +0100, J. Neuschäfer wrote:
-> This series contains a few minor fixes to make wii.dts somewhat more
-> compliant with the DT schemas.
-> 
-> 
+From: Aleš Pečnik <ales.pecnik@skylabs.si>
 
-Applied to powerpc/next.
+Issue was allocated array size for clk_data.
+When clocks are being registered their index is taken from defines in
+dt-bindings. The last 2 clocks had their index outside of allocated range.
+Two defines (CLK_CCC_DLL0, CLK_CCC_DLL1) were not used and skipped over
+which was not taken into account when allocating the array.
 
-[1/3] powerpc: wii: Add unit address to /memory
-      https://git.kernel.org/powerpc/c/d1620f27ed1aa3be4255513e1a213ab1805ec892
-[2/3] powerpc: wii: Fix GPIO key name pattern
-      https://git.kernel.org/powerpc/c/4a03d824b3204bae7e19cdf47a85ac01027603bb
-[3/3] powerpc: wii: Fix LED name pattern
-      https://git.kernel.org/powerpc/c/47a05517c6edbf5160ce1bff107c10b76aa09ef7
+This patch is minimal change to resolve the issue.
 
-cheers
+Issue was found using KASAN when debugging unrelated xdma driver issue.
+Consequently fixing this issue also resolved xdma driver issue.
+
+Related dmesg output:
+[    0.290703] BUG: KASAN: slab-out-of-bounds in mpfs_ccc_register_outputs.constprop.0+0xd0/0x1fa
+[    0.290984] Write of size 8 at addr ffffffe7be6e3ca8 by task swapper/0/1
+[    0.291253] CPU: 0 PID: 1 Comm: swapper/0 Not tainted 6.1.43-linux4microchip+fpga-2023.09 #1
+[    0.291482] Hardware name: Skylabs HPC (DT)
+[    0.291611] Call Trace:
+...
+[    0.292999] [<ffffffff808508c8>] mpfs_ccc_register_outputs.constprop.0+0xd0/0x1fa
+[    0.293245] [<ffffffff80850b66>] mpfs_ccc_probe+0x174/0x30e
+[    0.293437] [<ffffffff808d4af2>] platform_probe+0x74/0xba
+...
+
+Fixes: d39fb172760e ("clk: microchip: add PolarFire SoC fabric clock support")
+Signed-off-by: Aleš Pečnik <ales.pecnik@skylabs.si>
+---
+ drivers/clk/microchip/clk-mpfs-ccc.c             | 3 +--
+ include/dt-bindings/clock/microchip,mpfs-clock.h | 2 ++
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/clk/microchip/clk-mpfs-ccc.c b/drivers/clk/microchip/clk-mpfs-ccc.c
+index 3a3ea2d142f8..71fbb6265ea4 100644
+--- a/drivers/clk/microchip/clk-mpfs-ccc.c
++++ b/drivers/clk/microchip/clk-mpfs-ccc.c
+@@ -234,8 +234,7 @@ static int mpfs_ccc_probe(struct platform_device *pdev)
+ 	unsigned int num_clks;
+ 	int ret;
+ 
+-	num_clks = ARRAY_SIZE(mpfs_ccc_pll_clks) + ARRAY_SIZE(mpfs_ccc_pll0out_clks) +
+-		   ARRAY_SIZE(mpfs_ccc_pll1out_clks);
++	num_clks = CLK_CCC_NUM;
+ 
+ 	clk_data = devm_kzalloc(&pdev->dev, struct_size(clk_data, hw_data.hws, num_clks),
+ 				GFP_KERNEL);
+diff --git a/include/dt-bindings/clock/microchip,mpfs-clock.h b/include/dt-bindings/clock/microchip,mpfs-clock.h
+index b52f19a2b480..8d53f2b81a54 100644
+--- a/include/dt-bindings/clock/microchip,mpfs-clock.h
++++ b/include/dt-bindings/clock/microchip,mpfs-clock.h
+@@ -73,4 +73,6 @@
+ #define CLK_CCC_DLL1_OUT0	14
+ #define CLK_CCC_DLL1_OUT1	15
+ 
++#define CLK_CCC_NUM		16
++
+ #endif	/* _DT_BINDINGS_CLK_MICROCHIP_MPFS_H_ */
+
+---
+base-commit: bfe62a454542cfad3379f6ef5680b125f41e20f4
+change-id: 20260407-mpfs-clk-oob-write-a0cec9a5c224
+
+Best regards,
+--  
+Aleš Pečnik <ales.pecnik@skylabs.si>
+
+
