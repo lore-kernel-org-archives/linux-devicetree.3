@@ -1,72 +1,67 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011043.outbound.protection.outlook.com [52.101.70.43])
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2103.outbound.protection.partner.outlook.cn [139.219.146.103])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B83A53A6F01;
-	Wed,  8 Apr 2026 08:39:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CDDC36EAA4;
+	Wed,  8 Apr 2026 08:44:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.103
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775637563; cv=fail; b=SeKpMuzz8kIIB/7USkkTaXzKIAcsCbalGOCEptPcR7eNmg+1LYOrZX7or7dWmG/e9MLMy043NXEXUJo0EytI+7KT3l6092cGBLTHfej/klpWlo6pphnwubvkgAKgBBZdM+YN8fVB2kR1ZBii83PBn17Q+txcaANchfeKVpjrZ8g=
+	t=1775637882; cv=fail; b=F3CQR9LsIRU6Mj92q1vKP/u/jYVOdbmMuKk7nPZi2Mol/0LwluxBIi7JV52CImi4bdbzUV63RDJRAxxnClXlE029290z7AQeBBXRdpW58X5GMCINChkGxTSaJm6poDW0jP4hTGpfalGWLDgUebptrRurzYrEutoDNlwLOhsTLsc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775637563; c=relaxed/simple;
-	bh=rsZs8AtWG57GBOxZGtjuBmCyXaLf1qlWfYXpYHIQ3qQ=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=E+sIZuF22Uy6OtgyXiYxHDcv6J8dfj2gvqhJzOidftML5mO7EkYlnqvc54gR2dox3v6uEWACj87BV/Bs0gLt8MO7x1KKLJ5EBXaVFozWli8DhOgm58Ajr7U18UlFFkQWtf0ov2bIl8NYPdSZUwuYDg7GAhFvA0uqlsWffqVB98I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=cTgNJUQm; arc=fail smtp.client-ip=52.101.70.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="cTgNJUQm"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e4qpYDll0xIEdDadVQIk+Ak5MFAd8RRh1ykQkrkIG5TUqad65qIKLcIibSW7/fc/QFJ3tEWgkiRp1Mt2ESTI82/eGGRRFmpRSiUFH7M1YejOhRcoe+h8ivf2s18l/+r1muN/SB6zruucAsIpsDaMKlDPRAL41CySICVX43HMS6soG63wyTRVIMU8P3uBCFMSWjnnQT/hlH0lKpqRHCZqKiR0KELyXCjGi2QPD+jgKJavSYoK2eLY0g4Rv+gIdxBetsGZ/olxqycd0KxBrYmTnwae5++zoYi6aDHUzuOKKIDtuE2/1RmeuettSq4UHKFUsa7JQp2e4xTHe9bYP6TABQ==
+	s=arc-20240116; t=1775637882; c=relaxed/simple;
+	bh=qCqAHzJ2SvPqvZC9dwivlyZen575iACj1YQ8p6uG9SU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=fTWKUru9Dgu02CuE8kSDAI4Rae/6T8fJStmpazJ4FNuFsRI0tjUi1GTaAKxapcVMu/hhE8Dcv+6LmDWQTbbTxEWf06IuLr9susEmLmXNYhyTkfZNZeVU5nfEpwD9WZVurVuacU//jrmVn5gG5KDnurfPpsSeJsWBfH7mxRUFfXo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=F/brzEhUAKADELg0/kCKhmjqqDuNzX/1W+9pGl72oWRDOJj1ZZtZrARo4hd96uuW81AUOAT0I3iT2teCy+OJclbE47TiY+rAhi3Vc7thOXNmNVhQkf+h2IDznFG6X8BV4SuuBIvNTbm/4ejW1YoylNVo9e17Ciu6zAcVKib7LdGVr90lD2AgY7NAQTEKlHPdMMEAbaAr8pzntEBENW79BoShV9ORTXQyOPaPAjbBMtKTCaDt9GN2qhorP9basusiywwPhr6HTGmgVt6hejosgzmqgeqmz5oKccSqK1paWUA6rEEiI+IgHQbCeOzcG6/ZrvNHhH0rXp2sdG8Z9dImGw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
+ s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F+b+vJqAa0rOHhuf6lMAativM30MZs8le5wdam8HCbE=;
- b=oD4rRruAkuNeSLXgrFKnrj+rKuRcexvrz5F6/1mjUICUFC99Dhe9qv/uICtXUE52FhET7oacEB23CpLUVGnay0FD308gpiLwgJf1DZy6OV1dl6AHpY0eH/5qGQeDSHKzXGQdVZNsQyiZTq+luXhjDKSa6CjyNoIvUrxrO6F3xOS7PUDsNsahsiGvp/fap/wHTedrB5cq6kpQdeo1hYt5T/K6D+1AhTc4wIflFmloIu/ho4gs2ZNzxENd4LnkmMT5pZORDkaoMecCRWtgR8VT5I33If1ZddkMB5SerofesrhT/Ffh4DBp3BL6U50vtUPvBJ0JH2zIH2/WBmmXlMHl3A==
+ bh=i71hVdTp7nIZDfEEoJFGmsCjX4mTAqZdjdMemIA5FDg=;
+ b=PYrUKppwOGBQKc0T7/0XFXEcBDT/tWhJtREhPW4EagJypwMm/OS1R6YUfBrp9Ll92KHZtO+lINi63iBsE7kJ5ffpu43H5dtWN9ih0U25OmBmCDfmfGGXGERaqKMWQ60GlGZnIKrcnIy0q6OfXPpj7IJTvl7zynoi/h6aJuW0AZZFBsAM4lP2o7tEJskSlakQDhRz5iq0z/bF2haBYf04hC92H0A6txHdyBMpywviXUaqRD/wK+ktomXV1xikhUSOUPUCAb5pbJ2GzwGtoUi4Vd0sNDZsnafB0v933IRZZnpKsaTruLmQNdRw4I3wyzxsphJPNYaz96kK0f5dkwa4LA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F+b+vJqAa0rOHhuf6lMAativM30MZs8le5wdam8HCbE=;
- b=cTgNJUQmtdwroGA+Vae4hCVGhNXmepwKviJ+uDeAs+LCTVMUdCS+OyfztFqoN9Yl70UhU91+unfnYyNpoWgViieQQEVvkf1KvueKGFC/W7Q8MDT57FhUqqzmkhCCkr0EU8itcWhcEhgbrDFJeTF/h+/mUwN5Y2oXIu+M+y7j+NZaJZSj8lK9MYzA8G7wsDHuNkSwrIuvrSR/toqinMfkV6yWC2CuTli/zMdIlACCohmzG/zhdZaZoNGxeeAI+9xYCjoEEZgzwebjni58InShfPWh7R8ltoENJ/x57rdry8TGEAtkfEYfawc4irg4pSD9sh0V6JV292279Nodj1HCLA==
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
- by DBAPR04MB7381.eurprd04.prod.outlook.com (2603:10a6:10:1a2::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Wed, 8 Apr
- 2026 08:39:18 +0000
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::4609:64af:8a4b:fd64]) by AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::4609:64af:8a4b:fd64%3]) with mapi id 15.20.9769.016; Wed, 8 Apr 2026
- 08:39:18 +0000
-Message-ID: <5ce48659-2c6c-4c60-a8e8-9031bdbaa2a3@nxp.com>
-Date: Wed, 8 Apr 2026 16:40:37 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: imx93-9x9-qsb: Add tianma,tm050rdh03 panel
-To: Frank Li <Frank.li@nxp.com>
-Cc: Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260407-tianma-tm050rdh03-imx93-9x9-qsb-v1-1-24d514a62fdc@nxp.com>
- <adTUkWvqVUhLiw_J@lizhi-Precision-Tower-5810>
- <a31e926e-9e7e-4ba4-aafd-0f76f53fa176@nxp.com>
- <adYKtjPvIgoK2oou@lizhi-Precision-Tower-5810>
- <f5cd5da8-566d-4dff-b712-3d48927f97eb@nxp.com>
- <adYRuAU5ueEKHK5l@lizhi-Precision-Tower-5810>
-From: Liu Ying <victor.liu@nxp.com>
-Content-Language: en-US
-In-Reply-To: <adYRuAU5ueEKHK5l@lizhi-Precision-Tower-5810>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0182.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1b6::17) To AM7PR04MB7046.eurprd04.prod.outlook.com
- (2603:10a6:20b:113::22)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:25::15) by SHXPR01MB0719.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:26::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Wed, 8 Apr
+ 2026 08:44:26 +0000
+Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+ ([fe80::9b99:12dc:a115:b90f]) by
+ SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn ([fe80::9b99:12dc:a115:b90f%6])
+ with mapi id 15.20.9723.018; Wed, 8 Apr 2026 08:44:26 +0000
+From: Minda Chen <minda.chen@starfivetech.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Emil Renner Berthing <emil.renner.berthing@canonical.com>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor@kernel.org>,
+	netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	devicetree@vger.kernel.org,
+	Minda Chen <minda.chen@starfivetech.com>
+Subject: [net-next v1 v1 1/5] dt-bindings: net: starfive,jh7110-dwmac: Remove JH8100
+Date: Wed,  8 Apr 2026 16:44:12 +0800
+Message-Id: <20260408084416.29753-2-minda.chen@starfivetech.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20260408084416.29753-1-minda.chen@starfivetech.com>
+References: <20260408084416.29753-1-minda.chen@starfivetech.com>
+Content-Type: text/plain
+X-ClientProxiedBy: BJSPR01CA0012.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:c::24) To SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:25::15)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -74,197 +69,112 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|DBAPR04MB7381:EE_
-X-MS-Office365-Filtering-Correlation-Id: 09a33104-c9ac-4d63-a299-08de954a52d7
+X-MS-TrafficTypeDiagnostic: SHXPR01MB0863:EE_|SHXPR01MB0719:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4fa485cb-82f7-45ed-db02-08de954b0a60
 X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|366016|19092799006|376014|18002099003|56012099003|22082099003;
+	BCL:0;ARA:13230040|1800799024|366016|7416014|52116014|376014|921020|56012099003|18002099003|22082099003|38350700014;
 X-Microsoft-Antispam-Message-Info:
-	jvkpQwh1xQ5tYPrSF5qz07CP6OtyEJxhoUfCKKBrYm6LhQyc1JWsWHYZtHJEn7HuzIVjx5llf5zPU2fzhW2EmeoeLZYGfeSS6f1V9/vRxM1wYAoUZ3AdCZnFWdHx5Z/C8s7qgcCl3pGkFnP7I1PfyghKZmyk5m+ZLgGZ3ZjBcW/dYLkUtpn2nclW0nfsX/QyX5nUaChLqQgaLINMKRDEWmmPwDheIrPfsoLVAUEN36dL46KRl/MEk481HdVmbZPHefDjNDf6ceM+fNGgJ+JVmVsyTh4bQrqpQxA0zK3XKmUf6EAlKWQXBXi9YRbFF+5zWf366wnhDi5/hU25Rbzz8Sl/lp8LbF5MH4IEAPs2SBfbU94uxnTwL0/gOY5jaQ3AB4aFhyXHmSuY7WEoVKJ2GBAY2qjZuyN/QbZP8Ac8bd1NMBcn1qxQRmezdYdtwePDNzNNTSsXbd/ElzVGcCwM5AsD5/Gc1szuoCaSBAWt0T4KbaJ7qWLXJ9DiHMEkcjK1yolvHbOa+jrEcRQrsNQO7hAvF8pVNwDBV5ksn2Q5qmgi7r26MughvlDjdseflLcQtoDfHBLk7JiuqfOSqgTGPmKkhABwojdLzOe1zBKiNKW46Fih7HpGiHHx1Q2gF6QG7wBeRFZ/3oQjFTtge/J6ed3DPgcYSSV4TGA5LfDMDJdnq4AF/JR6siuIZ7A5QpGEZZOsvr0zw0rM8w7c7AaZsFUyGyBBkX74VD0pi3OIr+xlYpwRxhzhd4nSJ5tVR+qc
+	8/a4X5seQ2TnUqOvOpQKIt2iFVp3qAPju+h+NyZO/qFIGrFpPb6ujeeVtMHDBCqvRoBKd1bodFrSjnYWOw1NUSIumLvvKAK7F0kend4JKCLqYW4zUS50VIaWqGiD1PKirqEdvtgHZzjfxVBK6Cg41YD7kwVRi95ovVKXInzxNbdx33ycIRpnB4F6BrLBhu9qC3hXgTIR/jPCTlBv8GXqTwJkmxmf1VaB56x86eLtGdUDENVrnz9Lww6Oy9J7cY1ssb5NPvUI+oPn7sza3TEPX6e3lkaEAQZl++qOoxUV8QijuZ1r7AMuhBIsoIb9vtQZoipFHTRr7KZFdLuNJu1baMzr6oXL6oGJo/6AexnCZuje+UvVgDd85bezxBJ4V7PTQR152f6nw/cgQ9PZfKhVEeB/Jg4GgQy7lDMVWN73sfy1y/738iPQYHjbW47mEjoH9n+8+CfcgWs+tUSxcNeqazcDd5ijNx44deGcYV/etTDTo+OH3ylZ9n/oQASjctIZZQKp7K7r1LhzT1Ca89CB8lZ1LoG0iIgJUnwx+fgxYKWDCroM653VeFS2tVyK23mc7QpcjjBlLyL9vPCQe9hEVKaWi4MshRMTtxUWOFjXTbQ=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM7PR04MB7046.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(366016)(19092799006)(376014)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(52116014)(376014)(921020)(56012099003)(18002099003)(22082099003)(38350700014);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cndGQXI4YXBQL1NEYi9ubjlTTVFwRVdOYllsYk1qSDJsdnB6WEQvdG9ydEJC?=
- =?utf-8?B?OUw0dEEwbW5JQm81OFlyS3djSlovQVBzYTd2Q0t4Rk52U0E4U2RLd1JFcDVh?=
- =?utf-8?B?UmJyNXhWQ2tYMHZMQ29WOXJBSEkzQzg5Q2ZCY1N1UTVRbDlPaXU4Z3M2TlJP?=
- =?utf-8?B?b3REajRycmM5eFI4NXU1U0tGTUN4eWJSRTBuVzFjQkNkVENHRTUwV3VLTk5H?=
- =?utf-8?B?UjJ6SnlJOVlsY2hjZUNSekxUN29LMGtWTSt6YWNjZ1g0SHVzekJxbHhsWXly?=
- =?utf-8?B?bS95ZWZMTEhiWG1ySmRiRUF0RzM5aWxxTGU0WXEwWEE5RjI3K211ZlFheE5z?=
- =?utf-8?B?WlEwVE5ZcEZlbEk2b2FMS29KWitVeXIvNytUVXJEMXZlVVZ6NG43aE9lZHJF?=
- =?utf-8?B?cGd2K0RWRThUZWQ5czlnSjlJVjRwdjdmVzZjeXpIaUFXc1JCaXN4L2JmT1RD?=
- =?utf-8?B?RGQwblpIRWJ4aFVrbFNYakZwb1k3dEdyK3lJNFRickJ2NUY5aURxUXhZUHNt?=
- =?utf-8?B?Kzc1aW05d29TOFVGSlVjQ0IwRWhLN0FpTUFxTWNQRURBWHZwSnpqQy9KME1J?=
- =?utf-8?B?RmYxa1N0U1ZnditiYitmZEUvMDU4Q0QyUDBvK2lLd2hTVHo4eTkyTVNJc09F?=
- =?utf-8?B?VHcwSkNuekpaeHltZmt1MlM2NSsrcVNQNDg5d1FTVDlWNkxJVFQxYXAxN0lt?=
- =?utf-8?B?SUo3VGxQczgxcTd1aStma295eFZOMEMxSkJpZW0xempMKys3VjNRUWY2clpS?=
- =?utf-8?B?blJwZEhqYlVnSWY1dkdZTFJ0c0NDMCt0NDNNZnpESThyaG1GOGtwVnRjT2Fp?=
- =?utf-8?B?ZFMxZWZORjV6V2dNYnZUQ0ZEaVZqcmwvMzg4Nk1EZVV3aVMvVEoxa0NpMFhY?=
- =?utf-8?B?bzdmWDZYVVJwTUkxUU5TWktpcWtOdFpKb0dWNHVOZkVhWklDeSt0VnNYeWNq?=
- =?utf-8?B?SUdHWmpGWFljVU04Zk5yRVNzVElQSWFWSDRzQlFQMmxIcFN0UCt5UWVKZm56?=
- =?utf-8?B?Smc0QWRvU0lzOEd5TWxGVzBRZFVQNU5wa2hiL1BVTGpCWEdjNnUyL1g5R2tE?=
- =?utf-8?B?d0NuYmNzckpIdlpkQ1FRYWN3bmpHL1plR3ZRcit1OXRDYWNtNTVhTmloSEVP?=
- =?utf-8?B?c1VnTmNrVkFGWXMvRDNyQ3lVLy9ob0kzZVRrNFEwVDlYK05teUs0eUtzVkFx?=
- =?utf-8?B?RFp3REJVWmxsMExVRDZWVk14ZEU5NXA1WnVyaVpzUDhiMEpYSTZjVmc1d2x5?=
- =?utf-8?B?c2VjSFBaRjZWcVI2TERZbUo3YUJkVlpEMzZwNnZVcExIaXFQNzhwYkppdWdV?=
- =?utf-8?B?ZUl6R1U5RnJFL0hDNy9uTUxYRFdyZ0N4R1Y5bERveHBvQXFiMi9qcnhiL2hK?=
- =?utf-8?B?TWp3Smw5MUFRU09lTEFxcXZLRWppWmlYOFNwMlRNS0lPT0xLYWE2VW1acTJt?=
- =?utf-8?B?bFFtb2doa3FxenhUMlhvdFRGcUkvbkhrVFZLQmdqemdBbnJLdTdXV1BucDEx?=
- =?utf-8?B?Q0hKcldsZ3ZzYTl4UVpvcEJUZU5naDFuWkNlRUFTM1NGQWFQZVE3M1BxV0Nu?=
- =?utf-8?B?VllZV2x0WjY4aGJNa2Q1MjV4MndrNVFvRUNYNDNwUnFtdS9NQzZWeG9DMjVK?=
- =?utf-8?B?d0VJZVo0YTBGM3V2VHBucGVyU0VTQmZQQnp2eEhkRzVySTZ0TGhSZ2w3NkxC?=
- =?utf-8?B?M3hJeU45WGRkSjdkT1UwMzJsZXRkbEdpVDZWd1ZGVFBrN3d2K0dPakxzZm16?=
- =?utf-8?B?MVc4dzk0NkgwQnNYVHM3SVUxM0ZJTVNZdmFmWm1hWVFFVjVJZytUK3dBb0l6?=
- =?utf-8?B?NWs1KzJ4TG91ekNMNVU2SDNEMHlJaCtyZHR2MUxzK3lxT0Z5eHZTYTd6bGFI?=
- =?utf-8?B?WGVJSUZMTjgwSUtxVUQxcnRKelZCaStUb0I5UWZmUmtyL2VMcGEvNGRWamo5?=
- =?utf-8?B?N2R3Y0ZmQ1d5dFRFSjRNV0JjWUNKR3VSRThiMHY4TFNrZjZwUk1jcWxBNjNE?=
- =?utf-8?B?d3RwYzZ4NkNFS3UxaUZuNTJyL2FUd2F1eWNwNm9aWDMrdTlIM1dGalVvQnhX?=
- =?utf-8?B?SWUydkRrV0pUdURMa2dtVFI5L2dGUURnNytUeEZHb2RaRDBjREFwTEFJQ2du?=
- =?utf-8?B?WmE3TldvcEZHTlNXdnI5M1JDUENIT0N6SmxEc1RGYUVRdVZNR3kreUlLZ1Nn?=
- =?utf-8?B?UG50ekg1RlJKYjB3bUZmaTVCK2VxR2JxNy9EZjE4Rk04dlY1amdMMVBYbzJR?=
- =?utf-8?B?RENDbnowaXl5U25LZTRaQ1pObTRwQkIwamgycVdSSHV4aWVjVFFsb1doQVNY?=
- =?utf-8?B?M1Rnb0JYVEt1dThsY1M0aHQrb1JXeXB5clNLSXVFQnhjSWluM1VIQT09?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 09a33104-c9ac-4d63-a299-08de954a52d7
-X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB7046.eurprd04.prod.outlook.com
+	=?us-ascii?Q?YHU6VU5JQJzi+GGjayDsayxHSmrYfpAX70Pizq3qSrzGmg1bqqbf8RivXATP?=
+ =?us-ascii?Q?J1weQ1+lxFUmm3IsshXl12SR+5lIh7LdIRYlD9wMQaK0luk9JMVdUsUF8ETB?=
+ =?us-ascii?Q?vzEsm5mExSC/So4jENhPnDgxActbMYwPOUMi5SUMZvlrlpuVABtJdVK+nQIG?=
+ =?us-ascii?Q?/SIMPxbk7PSC4htrYDu7ymYi1TpNE98bFgDm5IkEmKEnE53h+Gs49w6PxDkF?=
+ =?us-ascii?Q?Kk9M1qtm7zzy9e5Jv/HoBo0ZVq1X52WYpa7cqJPCOhbT65EK5HdnwFY0Ruor?=
+ =?us-ascii?Q?NuZtvoGVAAUx0GboYEiWpfDVGTpvbWt8OG0OGZW5saa4x0dmX1fAL0JqENGc?=
+ =?us-ascii?Q?Xr6wfI1DsUeY3VRs2ZeXMOMAbUTYUa4QkLo15iZxOnQKRR5i/LzEO1QI+sXf?=
+ =?us-ascii?Q?ulv3qxWJuZr/n+etg6gkrXkymR716UD66aE6CajmUf3P9j2wLVdEw5AQGyB2?=
+ =?us-ascii?Q?OqPtR4Vy2p326VWRvhLBmaj0sefywJGQrH5h0fMyGKtEJZYfnMNyhAdzJlU6?=
+ =?us-ascii?Q?BrdHiH5tcy93u+27HZjf7DAmQrkpYoU+5zxXj8iUP1jcl32DukUwb3DUhgeQ?=
+ =?us-ascii?Q?5a8Vw4oiCWSbchzYFuwm3FUqi+4o+3voN5HzKKWwDz3sQm/WQvoQ1t32Zkg+?=
+ =?us-ascii?Q?CDC9wbJnKBvnHPgYiyCf/bRfx8FbOl1rIzhTcUv+BYoRcLTEPNpvco7lE4VQ?=
+ =?us-ascii?Q?TVY3V8Aj9dV7534zAkvY/VSgkOqkdJQsWdwcQuN8SpJxPtxLL5WcJ+PvXjyB?=
+ =?us-ascii?Q?osAHMBP8qT4h4nll95kB8/70mroKpsjBqdGrvfUgI+pLa0jnYFYn2bOf8hnN?=
+ =?us-ascii?Q?mbQTml8ppBBBxzvz1PEibV9QB1ovOCvCiqgGk23ANKIod+kIMjloW0//m8mX?=
+ =?us-ascii?Q?P/fdeAWrgLflbZV1wYeXM3vyCOkupSDsiXO+rbgVUag4iJdjfdW/BhXNQuq/?=
+ =?us-ascii?Q?uYrXxkNJHmEuR+imKVI2PGPgaq14DD2sV7Dixn/2J7tzA27Y05wuN9ZtcReO?=
+ =?us-ascii?Q?Qp6Bx4XcH2RkQraf0gaRZzkoZDirGy+hOsyq4lV+vwh2qz9IxrvKm3fSnnDE?=
+ =?us-ascii?Q?eZ6rkNrPK1z9QKpLW/QVUZAEXG3SoyOTMs8IRcSe8spWwQisdKGUjYZ7MbCw?=
+ =?us-ascii?Q?mlI8yr9vum/LNg7x3teRklj/Gni/l+ciso/8VPfZalwyAPBV0wc5KYt4rRLM?=
+ =?us-ascii?Q?pcXUSK3lYwPHSTUovICeaPwgMoJ5mUUXIeXEvrH6JmpyoE1LcS00veZ914dS?=
+ =?us-ascii?Q?n17QkBuC/8FN/LpOPQfnixTFc+siI+gipM+2Jh/Ujl9P/yk/A3ZlEwgJer7i?=
+ =?us-ascii?Q?tf2ov4/l27q58a5ImUoH1EqWN1Vs32wuaYkgRHpY+tWA034/YKJr1Q++Crxy?=
+ =?us-ascii?Q?gn69u5HSe4jN7EK0JQNCAAqRO1EW+1dR3elvMaAi5oOmIpD08g72rPUgHTgO?=
+ =?us-ascii?Q?37+B+M68qOmZy6A47o+GGPwVb69F6voOq8cgxavznTelo8Jo/4cUzMLkhD/5?=
+ =?us-ascii?Q?F/cahhB0Z66X/ZG5G98P7Tm8Kg5S1DSMFtMCn363fN+Nm1dbSOrj02CV75CE?=
+ =?us-ascii?Q?TmvNgBebaxKXvj/3xxuyA/rH2us5C5vbMMlbS4ENmw0Ural/pCtfrwV/OBOD?=
+ =?us-ascii?Q?mg3ALCR85NWjCKjp3twCQjt+UKEVMr7Tw0Y8KhbJCcWpcFJ4UPOi0PBMvbhY?=
+ =?us-ascii?Q?FKAsyg9hJV2uM03hjWyW1c5fFAFdJJgqqoLsjRDNv252tUkkICHXQmWtD+q4?=
+ =?us-ascii?Q?IMcRgy42yToZmhmRt9p+c88t4+6Lcis=3D?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4fa485cb-82f7-45ed-db02-08de954b0a60
+X-MS-Exchange-CrossTenant-AuthSource: SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 08:39:18.6524
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 08:44:26.3802
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wh9Lf7A5Wmp3rKtBEn3l6gNdWiNhRbj+6YOkQaLxmV8QGRXygVl1iRkheyS16xZ7DaGbMze96TR7eFhSscFhZw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR04MB7381
+X-MS-Exchange-CrossTenant-UserPrincipalName: Q50ksj1Be7H0X0p3Nmnaf16EOPaYbVgv/9/+BYbumUMQArk0FXJdrGjg+C2vNG9Qv2FgXrIzs5OG1lUpjBvZSLr8C9a6a5ThKRujlru+Vyc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SHXPR01MB0719
 
-On Wed, Apr 08, 2026 at 04:28:40AM -0400, Frank Li wrote:
-> On Wed, Apr 08, 2026 at 04:08:24PM +0800, Liu Ying wrote:
->> On Wed, Apr 08, 2026 at 03:58:59AM -0400, Frank Li wrote:
->>> On Wed, Apr 08, 2026 at 02:02:54PM +0800, Liu Ying wrote:
->>>> Hi Frank,
->>>>
->>>> On Tue, Apr 07, 2026 at 05:55:29AM -0400, Frank Li wrote:
->>>>> On Tue, Apr 07, 2026 at 05:15:31PM +0800, Liu Ying wrote:
->>>>>> Support tianma,tm050rdh03 DPI panel on i.MX93 9x9 QSB.
->>>>>>
->>>>>> The panel connects with the QSB board through an adapter board[1]
->>>>>> designed by NXP.
->>>>>>
->>>>>> Link: https://www.nxp.com/design/design-center/development-boards-and-designs/parallel-lcd-display:TM050RDH03-41 [1]
->>>>>> Signed-off-by: Liu Ying <victor.liu@nxp.com>
->>>>>> ---
->>>>>>  arch/arm64/boot/dts/freescale/Makefile             |   2 +
->>>>>>  .../imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtsi       | 110 +++++++++++++++++++++
->>>>>>  .../imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtso       | 106 +-------------------
->>>>>
->>>>> Can you add some description about raname in commit message?
->>>>
->>>> I'll add some description about the file copy in commit message.
->>>>
->>>>> Use -C option to create patch.
->>>>
->>>> Will do.
->>>>
->>>>>
->>>>> ...
->>>>>> diff --git a/arch/arm64/boot/dts/freescale/imx93-9x9-qsb-tianma-tm050rdh03.dtso b/arch/arm64/boot/dts/freescale/imx93-9x9-qsb-tianma-tm050rdh03.dtso
->>>>>> new file mode 100644
->>>>>> index 000000000000..c233797ec28c
->>>>>> --- /dev/null
->>>>>> +++ b/arch/arm64/boot/dts/freescale/imx93-9x9-qsb-tianma-tm050rdh03.dtso
->>>>>> @@ -0,0 +1,14 @@
->>>>>> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
->>>>>> +/*
->>>>>> + * Copyright 2026 NXP
->>>>>> + */
->>>>>> +
->>>>>> +#include <dt-bindings/gpio/gpio.h>
->>>>>> +#include "imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtsi"
->>>>>> +
->>>>>> +&{/} {
->>>>>> +	panel {
->>>>>> +		compatible = "tianma,tm050rdh03";
->>>>>> +		enable-gpios = <&pcal6524 8 GPIO_ACTIVE_HIGH>;
->>>>>> +	};
->>>>>> +};
->>>>>
->>>>> Is it possible to appply this overlay file and kd50g21-40nt-a1 overlay file
->>>>>
->>>>> to imx93-9x9-qsb.dtb, so needn't create dtsi.
->>>>
->>>> I'm sorry, I don't get your question here.
->>>> Anyway, the DT overlays are needed, because the 40-pin EXP/PRI interface on
->>>> the i.MX93 9x9 QSB board can not only connect to a DPI panel adapter board
->>>> but also to an audio hat[2], and maybe more.  The newly introduced .dtsi
->>>> file just aims to avoid duplicated code.
->>>
->>> My means apply two overlay files to dtb
->>>
->>> imx93-9x9-qsb-tianma-tm050rdh03-dtbs += imx93-9x9-qsb.dtb imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtbo imx93-9x9-qsb-tianma-tm050rdh03.dtbo
+Remove JH8100 dt-bindings because do not support it now.
 
-This ...
+Signed-off-by: Minda Chen <minda.chen@starfivetech.com>
+---
+ .../bindings/net/starfive,jh7110-dwmac.yaml   | 28 ++++---------------
+ 1 file changed, 5 insertions(+), 23 deletions(-)
 
->>>
->>> In imx93-9x9-qsb-tianma-tm050rdh03.dtbo, only include
->>> &{/} {
->>> 	panel {
->>> 		compatible = "tianma,tm050rdh03";
->>> 		enable-gpios = <&pcal6524 8 GPIO_ACTIVE_HIGH>;
->>> 	};
->>> };
->>
->> If an user wants to use imx93-9x9-qsb.dtb and the DT overlay blob
->> imx93-9x9-qsb-tianma-tm050rdh03.dtbo to enable the tianma,tm050rdh03
->> DPI panel, then it won't work unless the user also apply
->> imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtbo, right?
->>
->>>
-> 
-> Yes, imx93-9x9-qsb-tianma-tm050rdh03.dtb already created, which already
-> applied both overlay file.
-
-.... indicates that imx93-9x9-qsb-tianma-tm050rdh03.dtb is generated by
-applying both imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtbo and
-imx93-9x9-qsb-tianma-tm050rdh03.dtbo to imx93-9x9-qsb.dtb.
-While, imx93-9x9-qsb-tianma-tm050rdh03.dtbo(a DT overlay blob) just contains
-the panel node, which means that an user __cannot_ enable the tianma,tm050rdh03
-DPI panel by only applying it to imx93-9x9-qsb.dtb, unless the user also
-applies imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtbo.  That's why the .dtsi
-file is needed.
-
-> 
-> can the same board be use for imx91 or other evk boards?
-
-Yes, both tianma,tm050rdh03 and ontat,kd50g21-40nt-a1 DPI panels can be
-connected to i.MX91/93 11x11 EVK and 9x9 QSB boards.
-
-> 
-> Frank
-> 
->>> Frank
->>>>
->>>> [2] https://www.nxp.com/design/design-center/development-boards-and-designs/mx93aud-hat-audio-board:MX93AUD-HAT
->>>>
->>>>>
->>>>> Frank
->>>>>>
->>>>>> ---
->>>>>> base-commit: 816f193dd0d95246f208590924dd962b192def78
->>>>>> change-id: 20260407-tianma-tm050rdh03-imx93-9x9-qsb-6e4bbbde3d08
->>>>>>
->>>>>> Best regards,
->>>>>> --
->>>>>> Liu Ying <victor.liu@nxp.com>
->>>>>>
->>>>
->>>> --
->>>> Regards,
->>>> Liu Ying
->>
->> --
->> Regards,
->> Liu Ying
-
+diff --git a/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml b/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
+index 313a15331661..0d1962980f57 100644
+--- a/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
+@@ -30,10 +30,6 @@ properties:
+       - items:
+           - const: starfive,jh7110-dwmac
+           - const: snps,dwmac-5.20
+-      - items:
+-          - const: starfive,jh8100-dwmac
+-          - const: starfive,jh7110-dwmac
+-          - const: snps,dwmac-5.20
+ 
+   reg:
+     maxItems: 1
+@@ -120,25 +116,11 @@ allOf:
+           minItems: 3
+           maxItems: 3
+ 
+-      if:
+-        properties:
+-          compatible:
+-            contains:
+-              const: starfive,jh8100-dwmac
+-      then:
+-        properties:
+-          resets:
+-            maxItems: 1
+-
+-          reset-names:
+-            const: stmmaceth
+-      else:
+-        properties:
+-          resets:
+-            minItems: 2
+-
+-          reset-names:
+-            minItems: 2
++        resets:
++          minItems: 2
++
++        reset-names:
++          minItems: 2
+ 
+ unevaluatedProperties: false
+ 
 -- 
-Regards,
-Liu Ying
+2.17.1
+
