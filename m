@@ -1,466 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF9A35AC1C;
-	Wed,  8 Apr 2026 05:32:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8541A27702D;
+	Wed,  8 Apr 2026 05:57:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775626366; cv=none; b=hAR9l0e9DnkRCVHvT3EghswOt+gD4lEfMbfOE4n8zhp5DlsHilhpJAcK6UoC5FU4A4AeM6R9P+4oC+qJ3A3YouANWYwQJbr7oc6AtXj5bLZYMbOlEMzLYoo189B+sqp1/KEfj1Id8i7yS9vAeICAWdMifEZnB5kyYfDWUniRMOI=
+	t=1775627838; cv=none; b=k23AWJSYG+xp8KNR0WV/CkGWQ13fe3MvBpmkSoYiodsNs8wTevjkz6CW9a6tp3zFFniQNaU7Mdi/xK1RDCX7rj91X2yfOR54Qp7kD1fvS6TlY3frs0SHyD2fq0CZkHuvcxS4YziJmkeo3E0pUIlSy1FferxTMsG7nCTqgKQFXDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775626366; c=relaxed/simple;
-	bh=rIJJnO/TQFCbXkc8ukdRNBH+j2+Pa0+JkbY7sTXNJoQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ra/LFCfGu+LrD3YtzfZ+uVtAYcwgSPIquzEVBtHbdJC5ntHbrgT3RTlDPkbRrtE395cnHQtmyp/GzDHu9q4sVf97vL5Hz6dZOTs+g2oVyogNn10HRCaK6TV1aLDyGjbcUGFw4UUnbLjeNfa/XfToUZEWt4WCk0Y/vyu14hHaO+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OuWnYgOT; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775627838; c=relaxed/simple;
+	bh=CFgNAs10xWp7nlnTz3fpwGVgGiRBe0UcCI+L2v4Vlkw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QZ4A97IYvuZgsTSszv1GuDkqPRkT6xaGLgc7OTprjc8yi8oW/Ot3ZFBqcDIjJEq89SoTMbutRbCycDWplZAG+j/rBfuw4bvxKnk4A95QJyZaP6ThpW+LX3BiCrEGCbldA63NNykjtOyGxaSrazVQ9TQ5z+Cc6s4RSSiQKbrj7S8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Q5dEqX/b; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OuWnYgOT"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id EC9D8C4AF0C;
-	Wed,  8 Apr 2026 05:32:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775626366;
-	bh=rIJJnO/TQFCbXkc8ukdRNBH+j2+Pa0+JkbY7sTXNJoQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=OuWnYgOTx4vcHFzFgk+7apbgs1OrbL/fkrcTLOgaaBJXD+nwJIXreUJxRafRaMhRI
-	 ZLNVBSGiovt8Y9drgOYl+EFXr76SIx+UrWW+FiM2jYSsoGG7QzU5oPSey4BK77lBXU
-	 RJhGFSskbXYrYg2tp3NuaXEwniubHjUANNUqx+E+BsMCmxKdjtveiY2tQlXbZ9DEXD
-	 zQzg0lHWK+g67jumfOjZ1p2Rt/TDMIPJpxmzanO2+1zJts/0hFfdEgIbqRpgjO6EpM
-	 Rn+yq1Um8Jj720tms2O1MciOzt5RVJkADF+3UfeTT8wRoSPJd8oH1d3gLOa3ywi2Rk
-	 MtXiAaHXBYZKg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DDD2DFD5F6E;
-	Wed,  8 Apr 2026 05:32:45 +0000 (UTC)
-From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Date: Wed, 08 Apr 2026 00:32:40 -0500
-Subject: [PATCH v4 2/2] drm/panel: Add panel driver for ChipWealth CH13726A
- based panels
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Q5dEqX/b"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1775627836; x=1807163836;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=CFgNAs10xWp7nlnTz3fpwGVgGiRBe0UcCI+L2v4Vlkw=;
+  b=Q5dEqX/bDmtek/oDxBaXaGkv1rtvhhDbR5v/NUy4LiAbl7KK/Vpkcuj4
+   wrGoCTbCxBEvp3J6dyX5ElDOy4nzEzfAvx8VksdTK+nH6InjkCW6CRzcJ
+   fqHENLEvmz+8JycRyGPe/gDrapLRA1T0IyBkswua16KpWNmsru1auAhQr
+   kcrBUZj1l9ciNmjHqnqfgvt+fCzu9JJqEY8iQbz3ujjqLSA5Y0wUedTKq
+   DVwOurVzLNjuTtEL78v+TQ59npnkZZ7PNHVOUovkhIMziQ+0dHgmNM0pJ
+   ZGbxjyf0cl2l84zXV3HZ0gwjMxEXr1g8CjQi3xhGX6NihL1RCGA9A8yYf
+   Q==;
+X-CSE-ConnectionGUID: at4YNI4ERNS38M7NRsi/PA==
+X-CSE-MsgGUID: U7/a1lnfR8ahj54UlnCj1A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11752"; a="93991185"
+X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; 
+   d="scan'208";a="93991185"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Apr 2026 22:57:16 -0700
+X-CSE-ConnectionGUID: KmvXhqiyS/a4L5PoiJndHQ==
+X-CSE-MsgGUID: UL5b/zjFTgezy1Wq3Fbn8w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; 
+   d="scan'208";a="233256075"
+Received: from iapp347.iil.intel.com (HELO localhost) ([10.167.28.6])
+  by fmviesa005.fm.intel.com with ESMTP; 07 Apr 2026 22:57:13 -0700
+From: Avinash Bhatt <avinash.bhatt@intel.com>
+To: devicetree@vger.kernel.org
+Cc: linux-wireless@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	johannes@sipsolutions.net,
+	johannes.berg@intel.com,
+	miriam.rachel.korenblit@intel.com,
+	kobi.guetta@intel.com,
+	emmanuel.grumbach@intel.com,
+	Avinash Bhatt <avinash.bhatt@intel.com>
+Subject: [RFC PATCH 0/1] dt-bindings: net: wireless: intel,iwlwifi: add binding
+Date: Wed,  8 Apr 2026 08:57:08 +0300
+Message-Id: <20260408055709.11579-1-avinash.bhatt@intel.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260408-ch13726a-v4-2-9bb1a9b8f329@gmail.com>
-References: <20260408-ch13726a-v4-0-9bb1a9b8f329@gmail.com>
-In-Reply-To: <20260408-ch13726a-v4-0-9bb1a9b8f329@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>, 
- Aaron Kling <webgeek1234@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1775626365; l=11367;
- i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=edAL6zcY6lHNMUHRy2PSWxaDofjVJPxBf795F9aCGcg=;
- b=x10Vnm31zmzM9tXufYWNrhrx6DvCd3HsPFM1fLB6ias/s6MoVVoULFdqlqsPqB7bm+2pmLZgq
- egedPtv1tAdDwfcidiFVrxAuJ5eygxM2/DVFTXpTjRKWzSnySCKGCyy
-X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
- pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
-X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
- auth_id=342
-X-Original-From: Aaron Kling <webgeek1234@gmail.com>
-Reply-To: webgeek1234@gmail.com
+Content-Transfer-Encoding: 8bit
 
-From: Teguh Sobirin <teguh@sobir.in>
+Hi DT maintainers and community,
 
-This is used by the AYN Thor for the bottom panel.
+We are the Intel wireless LAN driver team (iwlwifi). This is our first
+attempt at a Device Tree binding and we are posting this RFC well ahead
+of any formal submission to get early guidance and feedback.
 
-Signed-off-by: Teguh Sobirin <teguh@sobir.in>
-Co-developed-by: Aaron Kling <webgeek1234@gmail.com>
-Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
----
- drivers/gpu/drm/panel/Kconfig                     |  11 +
- drivers/gpu/drm/panel/Makefile                    |   1 +
- drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c | 339 ++++++++++++++++++++++
- 3 files changed, 351 insertions(+)
+Background:
 
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index d6863b28ddc559..e2c00f08f4507d 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -105,6 +105,17 @@ config DRM_PANEL_BOE_TV101WUM_LL2
- 	  Say Y here if you want to support for BOE TV101WUM-LL2
- 	  WUXGA PANEL DSI Video Mode panel
- 
-+config DRM_PANEL_CHIPWEALTH_CH13726A
-+	tristate "CHIPWEALTH CH13726A-based DSI panel"
-+	depends on OF
-+	depends on DRM_MIPI_DSI
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	select DRM_DISPLAY_DP_HELPER
-+	select DRM_DISPLAY_HELPER
-+	help
-+	  Say Y here if you want to enable support for ChipWealth
-+	  CH13726A-based display panels.
-+
- config DRM_PANEL_EBBG_FT8719
- 	tristate "EBBG FT8719 panel driver"
- 	depends on OF
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index a4291dc3905bed..343d283d1620fb 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -9,6 +9,7 @@ obj-$(CONFIG_DRM_PANEL_BOE_TD4320) += panel-boe-td4320.o
- obj-$(CONFIG_DRM_PANEL_BOE_TH101MB31UIG002_28A) += panel-boe-th101mb31ig002-28a.o
- obj-$(CONFIG_DRM_PANEL_BOE_TV101WUM_LL2) += panel-boe-tv101wum-ll2.o
- obj-$(CONFIG_DRM_PANEL_BOE_TV101WUM_NL6) += panel-boe-tv101wum-nl6.o
-+obj-$(CONFIG_DRM_PANEL_CHIPWEALTH_CH13726A) += panel-chipwealth-ch13726a.o
- obj-$(CONFIG_DRM_PANEL_DSI_CM) += panel-dsi-cm.o
- obj-$(CONFIG_DRM_PANEL_LVDS) += panel-lvds.o
- obj-$(CONFIG_DRM_PANEL_SIMPLE) += panel-simple.o
-diff --git a/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c b/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
-new file mode 100644
-index 00000000000000..48a5e20e07c487
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
-@@ -0,0 +1,339 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * ChipWealth CH13726A MIPI-DSI panel driver
-+ * Copyright (c) 2024, Teguh Sobirin <teguh@sobir.in>.
-+ */
-+
-+#include <linux/backlight.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+
-+#include <video/mipi_display.h>
-+
-+struct ch13726a_panel {
-+	struct drm_panel panel;
-+	struct mipi_dsi_device *dsi;
-+	struct regulator_bulk_data supplies[4];
-+	struct gpio_desc *reset_gpio;
-+	struct ch13726a_desc *desc;
-+	enum drm_panel_orientation orientation;
-+	bool prepared;
-+};
-+
-+struct ch13726a_desc {
-+	unsigned int width_mm;
-+	unsigned int height_mm;
-+	unsigned int bpc;
-+
-+	const struct drm_display_mode *modes;
-+	unsigned int num_modes;
-+};
-+
-+static inline struct ch13726a_panel *to_ch13726a_panel(struct drm_panel *panel)
-+{
-+	return container_of(panel, struct ch13726a_panel, panel);
-+}
-+
-+static void ch13726a_reset(struct ch13726a_panel *ctx)
-+{
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	usleep_range(10000, 11000);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	usleep_range(10000, 11000);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	usleep_range(10000, 11000);
-+}
-+
-+static int ch13726a_on(struct ch13726a_panel *ctx)
-+{
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-+
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf0, 0x50);
-+	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb9, 0x00);
-+
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-+
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int ch13726a_disable(struct drm_panel *panel)
-+{
-+	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
-+
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 50);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int ch13726a_prepare(struct drm_panel *panel)
-+{
-+	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
-+	struct device *dev = &ctx->dsi->dev;
-+	int ret;
-+
-+	if (ctx->prepared)
-+		return 0;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
-+	if (ret < 0) {
-+		dev_err(dev, "Failed to enable regulators: %d\n", ret);
-+		return ret;
-+	}
-+
-+	ch13726a_reset(ctx);
-+
-+	ret = ch13726a_on(ctx);
-+	if (ret < 0) {
-+		dev_err(dev, "Failed to initialize panel: %d\n", ret);
-+		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+		regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
-+		return ret;
-+	}
-+
-+	msleep(28);
-+
-+	ctx->prepared = true;
-+
-+	return 0;
-+}
-+
-+static int ch13726a_unprepare(struct drm_panel *panel)
-+{
-+	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
-+
-+	if (!ctx->prepared)
-+		return 0;
-+
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
-+
-+	ctx->prepared = false;
-+	return 0;
-+}
-+
-+static const struct drm_display_mode thor_bottom_modes[] = {
-+	{
-+		/* 120Hz */
-+		.clock = (1080 + 28 + 4 + 36) * (1240 + 16 + 4 + 8) * 120 / 1000,
-+		.hdisplay = 1080,
-+		.hsync_start = 1080 + 28,
-+		.hsync_end = 1080 + 28 + 4,
-+		.htotal = 1080 + 28 + 4 + 36,
-+		.vdisplay = 1240,
-+		.vsync_start = 1240 + 16,
-+		.vsync_end = 1240 + 16 + 4,
-+		.vtotal = 1240 + 16 + 4 + 8,
-+	},
-+	{
-+		/* 60Hz */
-+		.clock = (1080 + 28 + 4 + 36) * (1240 + 16 + 4 + 8) * 60 / 1000,
-+		.hdisplay = 1080,
-+		.hsync_start = 1080 + 28,
-+		.hsync_end = 1080 + 28 + 4,
-+		.htotal = 1080 + 28 + 4 + 36,
-+		.vdisplay = 1240,
-+		.vsync_start = 1240 + 16,
-+		.vsync_end = 1240 + 16 + 4,
-+		.vtotal = 1240 + 16 + 4 + 8,
-+	}
-+};
-+
-+static struct ch13726a_desc thor_bottom_desc = {
-+	.modes = thor_bottom_modes,
-+	.num_modes = ARRAY_SIZE(thor_bottom_modes),
-+	.width_mm = 65,
-+	.height_mm = 75,
-+	.bpc = 8,
-+};
-+
-+static int ch13726a_get_modes(struct drm_panel *panel,
-+					struct drm_connector *connector)
-+{
-+	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
-+
-+	for (uint8_t i = 0; i < ctx->desc->num_modes; i++) {
-+		const struct drm_display_mode *m = &ctx->desc->modes[i];
-+		struct drm_display_mode *mode;
-+
-+		mode = drm_mode_duplicate(connector->dev, m);
-+		if (!mode) {
-+			dev_err(&ctx->dsi->dev, "failed to add mode %ux%u@%u\n",
-+				m->hdisplay, m->vdisplay, drm_mode_vrefresh(m));
-+			return -ENOMEM;
-+		}
-+
-+		mode->type = DRM_MODE_TYPE_DRIVER;
-+		if (i == 0)
-+			mode->type |= DRM_MODE_TYPE_PREFERRED;
-+
-+		drm_mode_set_name(mode);
-+		drm_mode_probed_add(connector, mode);
-+	}
-+
-+	connector->display_info.width_mm = ctx->desc->width_mm;
-+	connector->display_info.height_mm = ctx->desc->height_mm;
-+	connector->display_info.bpc = ctx->desc->bpc;
-+
-+	return ctx->desc->num_modes;
-+}
-+
-+static enum drm_panel_orientation ch13726a_get_orientation(struct drm_panel *panel)
-+{
-+	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
-+
-+	return ctx->orientation;
-+}
-+
-+static const struct drm_panel_funcs ch13726a_panel_funcs = {
-+	.prepare = ch13726a_prepare,
-+	.unprepare = ch13726a_unprepare,
-+	.disable = ch13726a_disable,
-+	.get_modes = ch13726a_get_modes,
-+	.get_orientation = ch13726a_get_orientation,
-+};
-+
-+static int ch13726a_bl_update_status(struct backlight_device *bl)
-+{
-+	struct mipi_dsi_device *dsi = bl_get_data(bl);
-+	u16 brightness = backlight_get_brightness(bl);
-+	int ret;
-+
-+	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
-+
-+	ret = mipi_dsi_dcs_set_display_brightness(dsi, brightness);
-+	if (ret < 0)
-+		return ret;
-+
-+	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-+
-+	return 0;
-+}
-+
-+static const struct backlight_ops ch13726a_bl_ops = {
-+	.update_status = ch13726a_bl_update_status,
-+};
-+
-+static struct backlight_device *
-+ch13726a_create_backlight(struct mipi_dsi_device *dsi)
-+{
-+	struct device *dev = &dsi->dev;
-+	const struct backlight_properties props = {
-+		.type = BACKLIGHT_RAW,
-+		.brightness = 255,
-+		.max_brightness = 255,
-+	};
-+
-+	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
-+					      &ch13726a_bl_ops, &props);
-+}
-+
-+static int ch13726a_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct device *dev = &dsi->dev;
-+	struct ch13726a_panel *ctx;
-+	int ret;
-+
-+	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
-+	if (!ctx)
-+		return -ENOMEM;
-+
-+	ctx->desc = (struct ch13726a_desc *)of_device_get_match_data(dev);
-+	if (!ctx->desc)
-+		return -ENODEV;
-+
-+	ctx->supplies[0].supply = "vdd1v2";
-+	ctx->supplies[1].supply = "vddio";
-+	ctx->supplies[2].supply = "vdd";
-+	ctx->supplies[3].supply = "avdd";
-+
-+	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ctx->supplies),
-+				      ctx->supplies);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "Failed to get regulators\n");
-+
-+	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-+	if (IS_ERR(ctx->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-+				     "Failed to get reset-gpios\n");
-+
-+	ret = of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
-+	if (ret < 0) {
-+		dev_err(dev, "%pOF: failed to get orientation %d\n", dev->of_node, ret);
-+		return ret;
-+	}
-+
-+	ctx->dsi = dsi;
-+	mipi_dsi_set_drvdata(dsi, ctx);
-+
-+	dsi->lanes = 4;
-+	dsi->format = MIPI_DSI_FMT_RGB888;
-+	dsi->mode_flags = MIPI_DSI_MODE_VIDEO |
-+			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
-+
-+	drm_panel_init(&ctx->panel, dev, &ch13726a_panel_funcs,
-+		       DRM_MODE_CONNECTOR_DSI);
-+	ctx->panel.prepare_prev_first = true;
-+
-+	ctx->panel.backlight = ch13726a_create_backlight(dsi);
-+	if (IS_ERR(ctx->panel.backlight))
-+		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
-+				     "Failed to create backlight\n");
-+
-+	drm_panel_add(&ctx->panel);
-+
-+	ret = mipi_dsi_attach(dsi);
-+	if (ret < 0) {
-+		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
-+		drm_panel_remove(&ctx->panel);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static void ch13726a_remove(struct mipi_dsi_device *dsi)
-+{
-+	struct ch13726a_panel *ctx = mipi_dsi_get_drvdata(dsi);
-+	int ret;
-+
-+	ret = mipi_dsi_detach(dsi);
-+	if (ret < 0)
-+		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
-+
-+	drm_panel_remove(&ctx->panel);
-+}
-+
-+static const struct of_device_id ch13726a_of_match[] = {
-+	{ .compatible = "ayntec,thor-panel-bottom", .data = &thor_bottom_desc },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, ch13726a_of_match);
-+
-+static struct mipi_dsi_driver ch13726a_driver = {
-+	.probe = ch13726a_probe,
-+	.remove = ch13726a_remove,
-+	.driver = {
-+		.name = "panel-ch13726a-amoled",
-+		.of_match_table = ch13726a_of_match,
-+	},
-+};
-+module_mipi_dsi_driver(ch13726a_driver);
-+
-+MODULE_DESCRIPTION("DRM driver for CH13726A DSI panels");
-+MODULE_LICENSE("GPL");
+Intel discrete Wi-Fi adapters are traditionally configured by platform
+firmware via ACPI DSM methods. As ARM64 and other non-x86 platforms
+gain adoption, we want to support platforms that use Device Tree instead
+of ACPI for providing this OEM configuration data (SAR power limits,
+regulatory overrides, 6 GHz country enablement, etc.).
 
--- 
-2.53.0
+Scope of this RFC:
 
+This binding currently covers only the Wi-Fi 7 BE200 adapter (PCI ID
+8086:272b). Support for other Intel discrete Wi-Fi devices may be added
+in future revisions as we validate the binding on additional platforms.
+Similarly, the set of properties documented here reflects what we have
+implemented today -- some properties may be revised, renamed, or
+extended based on feedback before the final submission.
+
+What we are looking for:
+
+ - Feedback on the overall approach and whether the property
+   naming/structure follows DT conventions
+ - Any concerns about the layout of multi-cell properties (revision +
+   bitmap pattern used throughout)
+ - Guidance on anything that would prevent this from being accepted
+   upstream
+
+The patch passes `make dt_binding_check` cleanly.
+
+As this is our first DT binding submission, any feedback on conventions
+or best practices we may have missed is very welcome.
+
+Thanks in advance for your time,
+Avinash Bhatt
+Intel Wireless LAN Team
+
+Avinash Bhatt (1):
+  dt-bindings: net: wireless: intel,iwlwifi: add binding
+
+ .../bindings/net/wireless/intel,iwlwifi.yaml  | 413 ++++++++++++++++++
+ 1 file changed, 413 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/wireless/intel,iwlwifi.yaml
+
+--
+2.34.1
 
