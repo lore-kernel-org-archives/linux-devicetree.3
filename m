@@ -1,180 +1,326 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11020085.outbound.protection.outlook.com [52.101.84.85])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49BDE38911C;
-	Wed,  8 Apr 2026 18:45:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.85
-ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775673949; cv=fail; b=Lm0HmiQK6I++tkKk1NRfvYjqyH1MeqgG5UzDEDzEJBNR/Ydg5F3JlIq8Uj1mCtmjVpRYRPwhK0eUzzxO358c/YCZbyr5lxvCgaMt4ecstYEfmkBTOhz5WpW0CQbDgVcnfjcAZ95N2epiYT2lidhx3DD3028DMMrcDQ+09H44VQE=
-ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775673949; c=relaxed/simple;
-	bh=pypAsxqYL+n33QDzXngYgZMCZLrE7q7NL6cULV5F9yY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=qZ4yDmFUyrmj+FPl1b6Cm7xl3j3KzD7V/8c6S3K+GWCKsMSOXKQZ2SSkuwA4n4skQf24s/rg49WsgmBK/q9G9ZSBT2B7rBIMfqXv/1Lx2d6NU0YMosIh5zTDUkWWPx1ZUCG/PJ1CB641ZqVqUh7QFIz8E/5kuS+ZOnxEuqynW7g=
-ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com; spf=pass smtp.mailfrom=solid-run.com; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=t53N7Pyf; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=t53N7Pyf; arc=fail smtp.client-ip=52.101.84.85
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=solid-run.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACBE73D8918
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 18:55:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775674511; cv=pass; b=lUdKQ+NpunDVGWaNLXodXgsjjiUWnYXzO6MtDknpc88/lHZupmX871VR5qAJzBsYm8fvwoA/4lLZmmdvC51XuCDyGa8pBYsfl0RxpIAptnscK11Wj7tFNqvsh6ZStnKceLT0Ej2i+QHCW7CKsFFwM4JXUpkliL/gy/HJQyUmF8Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775674511; c=relaxed/simple;
+	bh=cbHheetpVVdSiC5nwYLY9Y4ggJ90feKOZM6q3wsD+q8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oiXpZcHyIHwW1UOypMTAMM/bf3mzAYtvrtmtFr4i3x73a08l6NahuciSzsikhvESpGKSKLYrKzSiu5c35p0nF1A3MU0jbKnu2drQyDDlUa/3p0aNoPHvC0AYY3UfWag13T+ndm+2BrrC1aLBc2iA1VPp/3IQEBaOsR6L/qiK3DA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hg/Lqc6i; arc=pass smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="t53N7Pyf";
-	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="t53N7Pyf"
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=jc2cJlEVYzSEuJIoHUmrNwFGbmCs/lyODuGbpJ1CuAh+4iGnqepWfZb4XywZaRnivpsc5XsuLGvn5KUDCbYwxONWkVKH/YeR1qbFU+avJWbgN0MKQ4uwDZEvM8fX6siaLwF5dww8H3a0I+hrYmWVKoT9r91hwTxN5HsTaCG9RySHXmtTY67mr54My0nVagGhy9Nvth1yDpX4YtDq8Ukv9MzWAH/rvkbaW3pgJ7wztNpYz+M+llsIIjqcB5+yOm5lLG8bsfopJS9oemg1axqGhsM2EuWaBkXv7Is/77DdNwfB9pj1xlsW1ddt23GAnoBcW4a735/E0rYxFm5QxDOSiA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pypAsxqYL+n33QDzXngYgZMCZLrE7q7NL6cULV5F9yY=;
- b=Mf4N6YFyxI2+Ey4e1AfPWuAegEKvo0+Ug0T4gYrPFNQpIh6JNLej0B1W12xltvoRgEQdTmLQu5gfSO2A/4hbsMbya6XnzJ6U/XVipFvdYZe3OZ+wbmiD1ih9IlI93e0AsB+DfOxTZRIVedDEOnIKPu9J1fhIENKz3AYhIOEtQ5Wge+hAsouvba61llyHUnjKVvYTZGBFISnZw9rk1jZySUeryf7lHd3OBLLTxkGV2QjzMTCcuvyKg+pWiID9e/KA7KUQqqr3MWVzTxO71ycTpGxgUHadbYAlQanlZrqN10kdw7PGCDjHzMpaWrME+r9OMhbALyDPO61mJysrhxJpjg==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=fail (sender ip is
- 52.17.62.50) smtp.rcpttodomain=gmail.com smtp.mailfrom=solid-run.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none
- header.from=solid-run.com; dkim=pass (signature was verified)
- header.d=solid-run.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=solid-run.com] dkim=[1,1,header.d=solid-run.com]
- dmarc=[1,1,header.from=solid-run.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pypAsxqYL+n33QDzXngYgZMCZLrE7q7NL6cULV5F9yY=;
- b=t53N7Pyfj1V1qlUKYHPbooOeM3G7Abcxn0xTS9UWOIP5ZtgbtUMI/JosvLmNYAn+YraT1ZT+juSlKH7PZN2pgQ55iDj9iIjJSSAtRPG/jHlO6SSPRdFTFqqtLNUvZOq1hRke5b9RLccIJmpEjQ8Kq5gVpM6PgDGq+qHSX6bBeDdkJGScYBLnnUzsbIYHm9/O73c4q1dUe/IoI8vRlpYznAnkvpGzkSVz1meKpXCvkY1VZL5qRqAF86WJEb8VWIBcwTaDsGWWePmdG+LWdc9uy+E+xOz9r6wtADesZsl2nyBxnOMRIvW4IlQMFN6j7gTRWyn/kZhDjqlT3hwm7R154A==
-Received: from CWLP265CA0438.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1d7::18)
- by VI0PR04MB10542.eurprd04.prod.outlook.com (2603:10a6:800:265::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Wed, 8 Apr
- 2026 18:45:43 +0000
-Received: from AMS1EPF00000047.eurprd04.prod.outlook.com
- (2603:10a6:400:1d7:cafe::3a) by CWLP265CA0438.outlook.office365.com
- (2603:10a6:400:1d7::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.37 via Frontend Transport; Wed,
- 8 Apr 2026 18:45:43 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 52.17.62.50)
- smtp.mailfrom=solid-run.com; dkim=pass (signature was verified)
- header.d=solid-run.com;dmarc=pass action=none header.from=solid-run.com;
-Received-SPF: Fail (protection.outlook.com: domain of solid-run.com does not
- designate 52.17.62.50 as permitted sender) receiver=protection.outlook.com;
- client-ip=52.17.62.50; helo=eu-dlp.cloud-sec-av.com;
-Received: from eu-dlp.cloud-sec-av.com (52.17.62.50) by
- AMS1EPF00000047.mail.protection.outlook.com (10.167.16.135) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.17
- via Frontend Transport; Wed, 8 Apr 2026 18:45:42 +0000
-Received: from emails-1456500-12-mt-prod-cp-eu-2.checkpointcloudsec.com (ip-10-20-6-209.eu-west-1.compute.internal [10.20.6.209])
-	by mta-outgoing-dlp-431-mt-prod-cp-eu-2.checkpointcloudsec.com (Postfix) with ESMTPS id 84F83802A5;
-	Wed,  8 Apr 2026 18:45:42 +0000 (UTC)
-X-Mailbox-Line: From b'josua@solid-run.com' Wed Apr  8 18:45:36 2026
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JYbs36pgVeea7hCwkgRT/otG+KYIplcw4kOo6kbtnGscc6UQ7/bO8Gf2gEG+pGwWaT7EIIdX428sCxXWSj24ZuHGjKB5zioLg/UB8r4pRVa6h4DACpK1V+aODO/CvLOyk7L11IQh4Kwwu5Z/3UFXHaVQn1sxlegkg52L3MbQPQ3zqbLUaeqcn2aKmSqk98lu7tZFBmTfR9nAW2iN//x+38aooFls61SgBuCxCvawNlIhclwhP75a2n6s9i6cCbBbPRqbFE/5yWNaaaDB6i+ulOgEIeUrt2Px2XCO87XUGO+lEQJk4fIqTRsjYgys7zw69LFuiFf4KmCwGAqVQPETTQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pypAsxqYL+n33QDzXngYgZMCZLrE7q7NL6cULV5F9yY=;
- b=CyvQNDXMEFrmEyaWlxwUs6IuXLclo8jjzY9IrUEPbleHWLq/ie6J3oMNQbOhFuDuQak/L3GFh30EAq3Zo7nmyv0JxOv1VpGqDfZvBG6y3Bi1K3uxFRZ5Tp6BcU2yYLsMQLsXtubaxbnq6hoSh+qxjCWQNRUlg8FNbHSJTcf9HdlUov7NI5mhY6j+DRz16B5RId49seRtqufks8Fwj6FFvWUjITPRZ5cs/e+tps8vXplPerQNrxgfbc/n0uEYE646NSxwJLaOOOQawNE4lm5BqETijz5qENmzDfdxzxtMo6DtmhrFlu9v7JfkWPnOpTTvrEsbgwOgFXkyoWyfzYfTfA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=solid-run.com; dmarc=pass action=none
- header.from=solid-run.com; dkim=pass header.d=solid-run.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pypAsxqYL+n33QDzXngYgZMCZLrE7q7NL6cULV5F9yY=;
- b=t53N7Pyfj1V1qlUKYHPbooOeM3G7Abcxn0xTS9UWOIP5ZtgbtUMI/JosvLmNYAn+YraT1ZT+juSlKH7PZN2pgQ55iDj9iIjJSSAtRPG/jHlO6SSPRdFTFqqtLNUvZOq1hRke5b9RLccIJmpEjQ8Kq5gVpM6PgDGq+qHSX6bBeDdkJGScYBLnnUzsbIYHm9/O73c4q1dUe/IoI8vRlpYznAnkvpGzkSVz1meKpXCvkY1VZL5qRqAF86WJEb8VWIBcwTaDsGWWePmdG+LWdc9uy+E+xOz9r6wtADesZsl2nyBxnOMRIvW4IlQMFN6j7gTRWyn/kZhDjqlT3hwm7R154A==
-Received: from GVXPR04MB12057.eurprd04.prod.outlook.com
- (2603:10a6:150:313::24) by DU2PR04MB8904.eurprd04.prod.outlook.com
- (2603:10a6:10:2e3::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.20; Wed, 8 Apr
- 2026 18:45:32 +0000
-Received: from GVXPR04MB12057.eurprd04.prod.outlook.com
- ([fe80::14f1:a127:2988:de5b]) by GVXPR04MB12057.eurprd04.prod.outlook.com
- ([fe80::14f1:a127:2988:de5b%6]) with mapi id 15.20.9769.016; Wed, 8 Apr 2026
- 18:45:32 +0000
-From: Josua Mayer <josua@solid-run.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, Frank Li
-	<Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel
- Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>
-CC: Yazan Shhady <yazan.shhady@solid-run.com>, Mikhail Anikin
-	<mikhail.anikin@solid-run.com>, Alexander Dahl <ada@thorsis.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH 2/2] arm64: dts: imx8dxl: Add SolidRun SoM and
- HummingBoard
-Thread-Topic: [PATCH 2/2] arm64: dts: imx8dxl: Add SolidRun SoM and
- HummingBoard
-Thread-Index: AQHcx4bvr9BLL5JY8kGqWpBHUUp00bXVgLKA
-Date: Wed, 8 Apr 2026 18:45:32 +0000
-Message-ID: <1e716929-f54a-4b7b-a6ff-0f0a9814d9d0@solid-run.com>
-References: <20260408-imx8dxl-sr-som-v1-0-ce5a39acd713@solid-run.com>
- <20260408-imx8dxl-sr-som-v1-2-ce5a39acd713@solid-run.com>
-In-Reply-To: <20260408-imx8dxl-sr-som-v1-2-ce5a39acd713@solid-run.com>
-Accept-Language: de-DE, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=solid-run.com;
-x-ms-traffictypediagnostic:
-	GVXPR04MB12057:EE_|DU2PR04MB8904:EE_|AMS1EPF00000047:EE_|VI0PR04MB10542:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0b1b5c1e-2925-4af6-b309-08de959f09b5
-x-cloud-sec-av-info: solidrun,office365_emails,sent,inline
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|1800799024|376014|7416014|366016|38070700021|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info-Original:
- JfyFMQlGyiSBOf/QX45tzf/q49ZXTDMKFTf7T96j7tPuqzm9razBxJgWb65boI/vTiOwbM8zRWDonSGbduHXmsM85IOIXfTUCl9tk0ZbupwnYvDpOaaAB2y2rshhrghcufnju8ZerrCvuFp1px+9M/RAh7YJ3rdgbsPM1cAcgab9fT4fbT86cWfXNWoUdrwlkN7Aj2yWaHZiOyAw/hSRmKQKQiGmNPdePyWYrGmsRPeuZa5K1irSx+ITc7DTPo02j/W53IVub7kjgN5Rb3UwGAI8Hvg4KgNxgPaVIWp9rRzEjZlyvwZHCFh6+mQR8kjVED9SlzKehhT7jM2SNonoMpgjg+xDuKevM7y8ZvG+J/56mFVkqOyCP+kX2czuQsNY1xgaPKiA1DRV1BKsjERU0jE/ZwlbFCBszkVxWbuQHo0nFwQBAUyBYwErEws0Nt5qsulfTPb6fwxKK7lD1z5dpWzbRI5q26Et7SjFGK/llaQW/TAI+VuPrJPMfYtUEDPG0cmuld4e/BvDVvLhfX8Jk1oI71Gac71SdKryxf72jJMsph4G3OoWXQoPwho+zW3ro3obdk8CoF09Dv/KFiQpSren4fM7OvWelw9I7e4QAevU2ZDsWEpr+ODKO7LM0aQnq+6++gHSqTO4ALPibSHwaoTNkHxOCUMglPxOuY2Dd9v2rjuubOXlvQNJpNCjRyyUYVml7d9nmO+i9whV9yJPozRevpLSbSSxDYVOJ3kZkPqgXNcROU29J3C1eJsjpMK0SfhFpzb3/0Cxhcm3ArQMww==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB12057.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(38070700021)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <07D3E30B9EBF76498AA29032D47627E7@eurprd04.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hg/Lqc6i"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-43d43e09de5so30331f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 11:55:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775674508; cv=none;
+        d=google.com; s=arc-20240605;
+        b=jBTdBc56OGUU1SLGnv6crD3LoPvlZ9M+nfB4LJwr/qEMfQydCXIBZrORKSnFngyjNT
+         7Kes06PjCZ5noqbPbavA4XDzIAOt5RyhijtzTLth/185ZYIPiEYOxu+OVDUadj75deAg
+         hHm3KdKJIKTzvWpcK+854dhD60cunAP5rd4vbmnja+hzHfLpqKfTRLK0trClnloLcfff
+         UkChYU7ZolTgnB/V4z8Cm/C9545t8cA7Q/uxzgMhi8x9CZrlGkmRxwhqB8nkkRKiqJtO
+         SwLYTBEKCzAt7fjcfTuPtVkmUrUiTurk1ewjaX05YGoOKTa9HIOyyAquvb2xn9iiz3pT
+         uBww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=OmQpWX/IJfLVa4peELtc8B2oG/bwkKVLP9eXsbWoqvU=;
+        fh=Pc8ah423dcJ6IZ0wUfDzROlzaqgzOvY4JgsHV5VmuoM=;
+        b=QtV4zm7ygMZ2UvGeIS50tVQZPeBiy4sL1/6K9e9iCSsMNQwIpKp6zd3vn5UdViiBxA
+         21A/vxb4ngZ3q1DzpRkRrYeA1IDDqOONwABL7oeUErc+P0NOZz0H23UynejvUT0v3gDZ
+         zB0WOXyoDPpvqRspV3i1Jhnxb6nlbO1GLHborrSLVPh+tkZSjf4KzSAHyoJWuoKNkJUi
+         dJRyS8WlFUWO79HdHs3e34OgDUigRZ42vZQWbP8qfHkEfKjTfQwpAPvngkVehxO45Hfz
+         dnf060IPQg1zunM1SPD+HHVzQaRPEo9Gd/7qqF7butyh5KqGQ6ZkWbmXQRK98WvkKYC+
+         nq6Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1775674508; x=1776279308; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=OmQpWX/IJfLVa4peELtc8B2oG/bwkKVLP9eXsbWoqvU=;
+        b=Hg/Lqc6itriGWQ1KXrXBxZTpSiLYNnwnaytfZF4aNNa1RUMBr7VK+mQ757rh5ix+D6
+         l6bzdURA1EfuxbO6yp7GXxeziHTUfQ9EeIU49188zCsjAy4GmQuEaStQtKHAMPP3YE5i
+         6yMAUmiH6MENqEy08h/qWsMwdzN3KzudjADMunuHsebkISmaVBKjH5oF/IxjOo2aayHn
+         8h3HGYWFRA/Xth5QI5/cOQBFXv47TTLxN8dXUi3KrLgN0uoZaMH4mPFOleF2RueU2G7H
+         wjOqvUy/v4P+4W6Yk6AyMzAL8VOzRlIHkap8+4O/UGOY4b1jVSONsEJEzjm5RD3Td1UA
+         hckg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775674508; x=1776279308;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=OmQpWX/IJfLVa4peELtc8B2oG/bwkKVLP9eXsbWoqvU=;
+        b=XIUv6yOUWNu/+uOIk8h3FvAYhZVbmauRyrPhfU4oPyty/dKmNrZmDJFWJxCifrPrWY
+         BvwMeNBO9EnLL02n21Fhtpo/KpbNHYUG58qc/+LDlGUi523lQEpYRcO+PZCdjshhvsIi
+         XKHTyMuXHTmF2ONHvk9Tp4qXKzY3Oc3bg/BcvQDpOkfY3Rk1ZY7M+JRsC8+ARLt505PM
+         nQpJei3LHukDUezIKe5ELwyfoq+1QCgdLbv3Qr5VlUjkG57RvE/9ArZDqOtlHrM/z9J7
+         20Y9zAeshBKjowevy6cG83v22x9zADfYfRlNth4FuCC1y0HNiitnRnfGRwTyVha4pJKK
+         o+yA==
+X-Forwarded-Encrypted: i=1; AJvYcCUtuSdUe+LfStCQ7w1lEabllrRcnGEW72LRoDF1Il4Aj0wPE9IoKKU/gqMt254DcoMed51T/f6DPgDr@vger.kernel.org
+X-Gm-Message-State: AOJu0YzdEsedSmOUiVKPT20adwpCd0oFMZJFrcYjedwc7YE9g1QwA0Bu
+	CxpIGs4GpxYtdNNlSWOJ01YoeeaORoyGd3qjxpIRJXzHq7q0M7fadjq3Ga2m6QqP7iLCQtoXtp4
+	2DBNCjESS2q9NXH28O2TWep96ZqVubfY=
+X-Gm-Gg: AeBDietJDuDuN5W9X59tOIGG3+ODawjyOGQs5r6O42TziWRSP/RMjY4wn6hTD2VlzZt
+	mLK1Wd9eUlAWRkQM+9TvE6mlD2DFKodTDcGWvwS2hhEDpuHeJIFFuZE2Z8Lt13JpwXjee9aZE0G
+	T+DuDnbK6l3HtCLJFjVv1AHE7Hbr+HtfPpG9ULBiInleCtVeJ44AJWDdnByRQGACgOYUWXIQrFl
+	EKKk5B65OMb89fU7cPEoqUH6X5ms8l/Iyjnl8bVJxwIeIHx8UvlvnenUfzjmuZZHIGU1VCN1kJA
+	CCW17egEUw9r9Ou/NmdYBPnP6tKocSD1QA7VVREAtm303RKzPSCKedN2SnU3VpzYu6qYOw==
+X-Received: by 2002:adf:ec4c:0:b0:43d:30d1:857c with SMTP id
+ ffacd0b85a97d-43d30d1859bmr20096655f8f.7.1775674507678; Wed, 08 Apr 2026
+ 11:55:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
- kuy+MRlQ+2ImuKGVm+LcRoqx7mhz119CPKQNAKYrMZR8PPQReMfEBriaZQWzjw7zYg2FTsdBe6/CVy++2pzbJ3yX7Jy13R0j3xvSQIj3B5Wp9gfVf0kUPv8yh7qm8Vn/cDPJMnCS0jGESA8GpUznTa8IS+tjE937g3LTp2GIbq3uoLhEKOhOxKFcnG2+1jMTm30D9y15kLlOpySPGv5EIgt+gKUBVAHPBc8hsSR70pMz0b7ilf4J0VKwdivOfT5v1/ejibUn87tXM1HKf6yi+PVo0oEczPM/6uMWXe3EajnDWCWn98e/s598z71KBAT6WARYNYZ+geAB9azhHi0q6w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8904
-X-CLOUD-SEC-AV-INT-Relay: sent<mta-outgoing-dlp-mt-prod-cp-eu-2.checkpointcloudsec.com>
-X-CLOUD-SEC-AV-UUID: 1300e38fffd3402c98f06941094d8aa9:solidrun,office365_emails,sent,inline:eb28aa9cc6e2b22717c85a10bbb5412d
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AMS1EPF00000047.eurprd04.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	fadcf663-ce1c-4ba3-6c7d-08de959f0354
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|14060799003|7416014|376014|36860700016|35042699022|82310400026|1800799024|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	CNMPBaqJmR+INkBTVjpJ2UFyZnygaoNGIkr7I/2kL8g9/LJe7dDeAMT36P1ff0hZ8FQCDiBGBYdtHW+7qQXyygZPlFmEqD79Jjlb9UxNtTZRx5AnB28LEqZiFkULhVYqOzurLc6q091l//oLVU5PbbHkFS6OQ7ucl4P+wjIn0iOpgmFln7fnAZ6aLCQxoWaoC+lVy7mJlyOT+pez2e/PXo38N/lDY8zQLG21kyLbZj4FfTGAM7V/VuKdWEts4OdjXv8pbm0KyhdOnCOx4MnXtN//P3zYnoDttL5J1pSL6+BA+BA87V3+g9omfmCVL2aGdBlt128Om8LWehGlVYrSBb59fGORBPxiOygglnI1dBOp7V1kGcvhnOO0XaeLc5pHNOWPt4WpJjufH11V25QTBmQAHDdWA/Cp6XQTTx2+aVkAIcwZcV9U29wvvBEOMYID8TzyEKGkrgzd25O68cexklDVn5mJ/NU1ptqClT+AaHGQMRfzC/GwedsUWG1PplBfowk+NjZPE1pU9cYb7TRur29PQxfB5Qyg5X2JHwlFYh/H1IjOXkleSBwS5SRJDmiJwT+LsW75/85YIaafj80mHVnYiO74Aqnfi1uQMxf1J8ZdJSFkpx2euOGtI1hZg8ySDW8bj+I4WSCJ4LWKdy4Rm+VwfLaMU3CL5kL3ZrwdfyTX/xQSUd8CyGgkIs9QfX1fNsKfkzlbM59bl4vMCO7nX2Q1BrijADALfJyFgV9c5aK4tJAeIb5hl3C7YmUyKHug
-X-Forefront-Antispam-Report:
-	CIP:52.17.62.50;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:eu-dlp.cloud-sec-av.com;PTR:eu-dlp.cloud-sec-av.com;CAT:NONE;SFS:(13230040)(14060799003)(7416014)(376014)(36860700016)(35042699022)(82310400026)(1800799024)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	v8zkwTIB/LN2d8CWwAfpzppS90FkCvghyHDTfOpKj0JJXSOSGSoB5Gljk2zFOZVPasmVDRPm5eNSLw/M5KRgt3VIIWJXhoOW+l3uEAEpwMiVXA7bQVwETcwwh5JGJLNtNHv2eUYBmqkbgY02lVGl0U3HOa35S6ev7At50pYBvNCtKBCxanGzQkTwVvxZ2+KRROPj8N1V2ugDj7G14KyzKpuf7ovhNDI4qJzyqejLXv1Z7GAIlyZUGHunt3mcS1dA+hlrsXKkhfB5cAtOP1gcrOurjmMPlw9+s+756YItIMUq4cCJO3ZCORABjkH4mkj7RNgk2aCrqeAo8/GWEzBX36KabTHC2MOCeKGd8ZtmpYehbg4t/uXqdFASGeWOCPGhGB0+ieiML8fflw0feAcrwY3UlStjKCN5ZRMOMoirMcyJN/w7569FypvWlqFyZd5e
-X-OriginatorOrg: solid-run.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 18:45:42.7391
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b1b5c1e-2925-4af6-b309-08de959f09b5
-X-MS-Exchange-CrossTenant-Id: a4a8aaf3-fd27-4e27-add2-604707ce5b82
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=a4a8aaf3-fd27-4e27-add2-604707ce5b82;Ip=[52.17.62.50];Helo=[eu-dlp.cloud-sec-av.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AMS1EPF00000047.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB10542
+References: <20260318124450.163471-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260318124450.163471-6-prabhakar.mahadev-lad.rj@bp.renesas.com> <605e8d4c-09e7-4d11-acdb-7829a85eacc3@tuxon.dev>
+In-Reply-To: <605e8d4c-09e7-4d11-acdb-7829a85eacc3@tuxon.dev>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Wed, 8 Apr 2026 19:54:41 +0100
+X-Gm-Features: AQROBzDr87Qzy0mqlZSdEAmIW08-1n_rQMiTx4fUpVUhSnbJkQMQoeSIC73X2dA
+Message-ID: <CA+V-a8srS9g2WDMARDJn98K=nL9v1LiZYxqM8evsVrzR-s5ZMA@mail.gmail.com>
+Subject: Re: [PATCH 5/5] PCI: rzg3s-host: Add support for RZ/V2H(P) SoC
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Bjorn Helgaas <bhelgaas@google.com>
+Cc: Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Magnus Damm <magnus.damm@gmail.com>, 
+	Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+	John Madieu <john.madieu.xa@bp.renesas.com>, linux-pci@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-QW0gMDguMDQuMjYgdW0gMjA6Mzggc2NocmllYiBKb3N1YSBNYXllcjoNCj4gQWRkIHN1cHBvcnQg
-Zm9yIHRoZSBTb2xpZFJ1biBpLk1YOERYTCBTeXN0ZW0tb24tTW9kdWxlIChyZXZpc2lvbiAyLjEp
-DQo+IGFuZCBpdHMgY29ycmVzcG9uZGluZyBldmFsdWF0aW9uIGNhcnJpZXIgYm9hcmQsIHRoZSBI
-dW1taW5nQm9hcmQNCj4gVGVsZW1hdGljcyAocmV2aXNpb24gMi4wKS4NCmN1dA0KPiBkaWZmIC0t
-Z2l0IGEvYXJjaC9hcm02NC9ib290L2R0cy9mcmVlc2NhbGUvaW14OG1wLXNyLXNvbS5kdHNpIGIv
-YXJjaC9hcm02NC9ib290L2R0cy9mcmVlc2NhbGUvaW14OG1wLXNyLXNvbS5kdHNpDQo+IGluZGV4
-IDNjZGIwYmMwYWI3MjEuLjE2ZDQyODBhMWFlNjUgMTAwNjQ0DQo+IC0tLSBhL2FyY2gvYXJtNjQv
-Ym9vdC9kdHMvZnJlZXNjYWxlL2lteDhtcC1zci1zb20uZHRzaQ0KPiArKysgYi9hcmNoL2FybTY0
-L2Jvb3QvZHRzL2ZyZWVzY2FsZS9pbXg4bXAtc3Itc29tLmR0c2kNCj4gQEAgLTEwLDcgKzEwLDYg
-QEAgLyB7DQo+ICAJY29tcGF0aWJsZSA9ICJzb2xpZHJ1bixpbXg4bXAtc3Itc29tIiwgImZzbCxp
-bXg4bXAiOw0KPiAgDQo+ICAJY2hvc2VuIHsNCj4gLQkJYm9vdGFyZ3MgPSAiZWFybHljb249ZWNf
-aW14NnEsMHgzMDg5MDAwMCwxMTUyMDAiOw0KPiAgCQlzdGRvdXQtcGF0aCA9ICZ1YXJ0MjsNCj4g
-IAl9Ow0KSSB3aWxsIGRyb3AgdGhpcyB1bmludGVudGlvbmFsIGNoYW5nZSBmb3IgbmV4dCByZXZp
-c2lvbiAuLi4gLi4uIGJ1dCBJJyBsbCB3YWl0IGEgd2hpbGUgZm9yIGNvbW1lbnRzLg==
+Hi All,
+
+On Wed, Mar 25, 2026 at 10:18=E2=80=AFAM Claudiu Beznea
+<claudiu.beznea@tuxon.dev> wrote:
+>
+> Hi, Prabhakar,
+>
+> On 3/18/26 14:44, Prabhakar wrote:
+> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> >
+> > Add support for the RZ/V2H(P) SoC PCIe controller to the rzg3s-host
+> > driver.
+> >
+> > The RZ/V2H(P) SoC features two independent PCIe channels that share
+> > physical lanes. The hardware supports two configuration modes: single
+> > x4 mode where one controller uses all four lanes, or dual x2 mode
+> > where both controllers use two lanes each.
+> >
+> > Introduce configure_lanes() function pointer to configure the PCIe
+> > lanes based on the number of channels enabled. Implement
+> > rzv2h_pcie_configure_lanes() to detect the active PCIe channels at
+> > boot time and program the lane mode via the system controller using
+> > the new RZG3S_SYSC_FUNC_ID_LINK_MASTER function ID.
+> >
+> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> > ---
+> >   drivers/pci/controller/pcie-rzg3s-host.c | 142 ++++++++++++++++++++++=
++
+> >   1 file changed, 142 insertions(+)
+> >
+> > diff --git a/drivers/pci/controller/pcie-rzg3s-host.c b/drivers/pci/con=
+troller/pcie-rzg3s-host.c
+> > index a629e861bbd0..d1bf1e750d9b 100644
+> > --- a/drivers/pci/controller/pcie-rzg3s-host.c
+> > +++ b/drivers/pci/controller/pcie-rzg3s-host.c
+> > @@ -179,6 +179,16 @@
+> >   /* Timeouts experimentally determined */
+> >   #define RZG3S_REQ_ISSUE_TIMEOUT_US          2500
+> >
+> > +/**
+> > + * enum rzg3s_sysc_link_mode - PCIe link configuration modes
+> > + * @RZG3S_SYSC_LINK_MODE_SINGLE_X4: Single port with x4 lanes
+> > + * @RZG3S_SYSC_LINK_MODE_DUAL_X2: Dual ports with x2 lanes each
+> > + */
+> > +enum rzg3s_sysc_link_mode {
+> > +     RZG3S_SYSC_LINK_MODE_SINGLE_X4 =3D 1,
+> > +     RZG3S_SYSC_LINK_MODE_DUAL_X2 =3D 3,
+> > +};
+> > +
+> >   /**
+> >    * struct rzg3s_sysc_function - System Controller function descriptor
+> >    * @offset: Register offset from the System Controller base address
+> > @@ -194,12 +204,14 @@ struct rzg3s_sysc_function {
+> >    * @RZG3S_SYSC_FUNC_ID_RST_RSM_B: RST_RSM_B SYSC function ID
+> >    * @RZG3S_SYSC_FUNC_ID_L1_ALLOW: L1 allow SYSC function ID
+> >    * @RZG3S_SYSC_FUNC_ID_MODE: Mode SYSC function ID
+> > + * @RZG3S_SYSC_FUNC_ID_LINK_MASTER: Link master SYSC function ID
+> >    * @RZG3S_SYSC_FUNC_ID_MAX: Max SYSC function ID
+> >    */
+> >   enum rzg3s_sysc_func_id {
+> >       RZG3S_SYSC_FUNC_ID_RST_RSM_B,
+> >       RZG3S_SYSC_FUNC_ID_L1_ALLOW,
+> >       RZG3S_SYSC_FUNC_ID_MODE,
+> > +     RZG3S_SYSC_FUNC_ID_LINK_MASTER,
+> >       RZG3S_SYSC_FUNC_ID_MAX,
+> >   };
+> >
+> > @@ -261,6 +273,7 @@ struct rzg3s_pcie_host;
+> >    * @config_pre_init: Optional callback for SoC-specific pre-configura=
+tion
+> >    * @config_post_init: Callback for SoC-specific post-configuration
+> >    * @config_deinit: Callback for SoC-specific de-initialization
+> > + * @setup_lanes: Callback for setting up the number of lanes
+> >    * @power_resets: array with the resets that need to be de-asserted a=
+fter
+> >    *                power-on
+> >    * @cfg_resets: array with the resets that need to be de-asserted aft=
+er
+> > @@ -268,17 +281,20 @@ struct rzg3s_pcie_host;
+> >    * @sysc_info: System Controller info for each PCIe channel
+> >    * @num_power_resets: number of power resets
+> >    * @num_cfg_resets: number of configuration resets
+> > + * @num_channels: number of PCIe channels
+> >    */
+> >   struct rzg3s_pcie_soc_data {
+> >       int (*init_phy)(struct rzg3s_pcie_host *host);
+> >       void (*config_pre_init)(struct rzg3s_pcie_host *host);
+> >       int (*config_post_init)(struct rzg3s_pcie_host *host);
+> >       int (*config_deinit)(struct rzg3s_pcie_host *host);
+> > +     int (*setup_lanes)(struct rzg3s_pcie_host *host);
+> >       const char * const *power_resets;
+> >       const char * const *cfg_resets;
+> >       struct rzg3s_sysc_info sysc_info[RZG3S_PCIE_CHANNEL_ID_MAX];
+> >       u8 num_power_resets;
+> >       u8 num_cfg_resets;
+> > +     u8 num_channels;
+> >   };
+> >
+> >   /**
+> > @@ -309,6 +325,7 @@ struct rzg3s_pcie_port {
+> >    * @intx_irqs: INTx interrupts
+> >    * @max_link_speed: maximum supported link speed
+> >    * @channel_id: PCIe channel identifier, used for System Controller a=
+ccess
+> > + * @num_lanes: The number of lanes
+> >    */
+> >   struct rzg3s_pcie_host {
+> >       void __iomem *axi;
+> > @@ -325,6 +342,7 @@ struct rzg3s_pcie_host {
+> >       int intx_irqs[PCI_NUM_INTX];
+> >       int max_link_speed;
+> >       enum rzg3s_pcie_channel_id channel_id;
+> > +     u8 num_lanes;
+> >   };
+> >
+> >   #define rzg3s_msi_to_host(_msi)     container_of(_msi, struct rzg3s_p=
+cie_host, msi)
+> > @@ -1155,6 +1173,13 @@ static int rzg3s_pcie_config_init(struct rzg3s_p=
+cie_host *host)
+> >       rzg3s_pcie_update_bits(host->pcie, PCI_CLASS_REVISION, mask,
+> >                              field_prep(mask, PCI_CLASS_BRIDGE_PCI_NORM=
+AL));
+> >
+> > +     if (host->num_lanes) {
+> > +             rzg3s_pcie_update_bits(host->pcie + RZG3S_PCI_CFG_PCIEC,
+> > +                                    PCI_EXP_LNKCAP, PCI_EXP_LNKCAP_MLW=
+,
+> > +                                    FIELD_PREP(PCI_EXP_LNKCAP_MLW,
+> > +                                               host->num_lanes));
+> > +     }
+> > +
+> >       /* Disable access control to the CFGU */
+> >       writel_relaxed(0, host->axi + RZG3S_PCI_PERM);
+> >
+> > @@ -1687,6 +1712,63 @@ rzg3s_pcie_host_setup(struct rzg3s_pcie_host *ho=
+st,
+> >       return ret;
+> >   }
+> >
+> > +static int rzg3s_pcie_get_controller_id(struct rzg3s_pcie_host *host)
+> > +{
+> > +     struct device_node *np =3D host->dev->of_node;
+> > +     u32 domain;
+> > +     int ret;
+> > +
+> > +     if (host->data->num_channels =3D=3D 1)
+> > +             return 0;
+> > +
+> > +     ret =3D of_property_read_u32(np, "linux,pci-domain", &domain);
+>
+> This introduces some limits in the systems with RZ/V2H(P) SoCs with regar=
+ds to
+> the usage of linux,pci-domain. I would like the PCIe maintainers take on =
+this.
+>
+> As this is necessary to index in the system controller driver specific da=
+ta (as
+> there are different SYSC offsets for different PCIe controllers) I see th=
+e
+> following alternatives, if any:
+>
+> 1/ add a dedicated DT property for this, e.g. renesas,pcie-controller-id
+> 2/ Add dedicated DT bindings for RZ/V2H(P) SoC that would be used to spec=
+ify the
+>     system controller register offset and mask for different functionalit=
+ies.
+>
+>     E.g.:
+>     renesas,sysc-l1-allow =3D <&sysc 0x1020 0x1>;
+>     renesas,sysc-mode =3D <&sysc 0x1024 0x1>;
+>     renesas,sysc-link-master =3D <&sysc 0x1060 0x300>;
+>
+>     And use them in each controller DT node. E.g.:
+>
+>     pcie0: pcie@add1 {
+>         // ...
+>
+>         renesas,sysc-l1-allow =3D <&sysc 0x1020 0x1>;
+>         renesas,sysc-mode =3D <&sysc 0x1024 0x1>;
+>         renesas,sysc-link-master =3D <&sysc 0x1060 0x300>;
+>
+>         // ...
+>     };
+>
+>     pcie0: pcie@add1 {
+>         // ...
+>
+>         renesas,sysc-l1-allow =3D <&sysc 0x1050 0x1>;
+>         renesas,sysc-mode =3D <&sysc 0x1054 0x1>;
+>         renesas,sysc-link-master =3D <&sysc 0x1060 0x300>;
+>
+>         // ...
+>     };
+>
+I'd like to get a clearer steer from the PCIe and DT maintainers
+before investing further in either direction.
+
+To recap the two approaches on the table:
+
+  Option 1: A single renesas,pcie-controller-id property used to look up
+            SYSC offsets in the driver.
+
+  Option 2: Explicit per-controller DT properties carrying the SYSC
+            phandle, register offset, and mask for each functionality
+            (L1 allow, mode, link-master, etc.).
+
+Both have trade-offs. Option 1 is simpler in the DT but moves hardware
+knowledge into the driver, tightening the coupling. Option 2 is more
+verbose but fully describes the hardware topology in the DT and avoids
+a driver-internal lookup table.
+
+Are there other approaches the maintainers would prefer that we
+haven't considered?
+
+Any guidance on the preferred direction or examples of similar solved
+problems in the tree would be very appreciated.
+
+Cheers,
+Prabhakar
