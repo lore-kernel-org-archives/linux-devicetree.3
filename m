@@ -1,310 +1,292 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013006.outbound.protection.outlook.com [40.107.159.6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23B5137C0F9;
-	Wed,  8 Apr 2026 11:09:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.6
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775646553; cv=fail; b=DJl3IINJsiZp4BmZO8Sy2QyvE16DdJv2TimJ9unb77GAOGb5kiWnjmb85Lf5cQda6YN5i7aYMxM7h2x4gKGumcyXTKSX/NqrMTAvhMRAuqUgWzzoqL3LYGQmyYKxU/XAonoqLGPVfe7YNtWOh3wxNWuiTkdlmxxBmvYP9JiRyEc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775646553; c=relaxed/simple;
-	bh=Xi4fl9cIKnd2Rbjf7+Cacjyhe9+35CjLB6EdN3PYz8Q=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=jc+LrYfcHmo59hhsxi7wjjtwSRIq4iPipcurGen659j3lRYwpHxHKYVCGESRia6WwjkOmJQ7VrHXMljl4xNjYB4Q2q8FYQ84Wu6KlYjMcEFN60/iSGlwxD3c35UuscLdLi1DjZRVtOkg/8ZVuhSoW9UCSyvQScBDx5Ue8FdmrRw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=ls2ZvLRQ; arc=fail smtp.client-ip=40.107.159.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1874A2E8B8A
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 11:10:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775646614; cv=none; b=M85iUeFOg/scf4WmPCsDefJjyyCcBJpH4GaHs6JA8TOvkRk8v2Ea91y7R2Z2hIDSeUAbFik2dL4fFOPAKeBWyRD2XyvnnG2+2KIcE7U9HRQ6Q59BhK7Pb3Ylgoz0xV4sR5oMJKpvchSUv2cc6GrMK+YXoKoPuFnfOJGMTg2XP6c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775646614; c=relaxed/simple;
+	bh=iXZPf9JtxaUaPmtFiOoOHb6Zpx06QutfusIbemgHqm8=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=skgNDd67kWoWPvKIG+pl5MkrquKct5zItF+LHFKj1fR26GGGposv+mgiPLBkBMQFlL+yF2TrFADIm0IsmCMh+b6d7rODjmtBSIFdni08ZA2u3bg7bKl6CXQfeQHFpYcx6csUVZOVDdAO33DwjuDPGzFOevDMmNiAuMqR0Jvbh+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hGw+wV7Q; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="ls2ZvLRQ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c9r4g5s6u30Tuw4zohYSOawhRc+1hbdboCmpqvRJmCOX+jlPJNgtjp5i2usAOMaKt8fi1Mnkc9DEfwjuMtBPndhEf7kRpmOFfwJrkvpOvfhcROeHiVzqcFXyNvnd5YxRicipx5b+WBy1jbo5lHAh4ANnXuinjWCdSPVwyURPwyDtpX4he4wZQammueUReXYSjuOh/ex1okqzLR4pN534xv5Mz9RVoYIyh5jz3PTqmPk6mrfBKdpEcQgv7oaP1TxOJJ6QVvhxwYm6l7gx8mxoD0afVyY9tSx5fszt+quEMzlnKFfTW+iiFwXN+ZoCSic78rABeGC5/aocofoA5Obc5Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=c/1MhOJcKFUmRW9u7fKfEjRgUGCIko9OA+snDYkLJ4s=;
- b=vFchqL8mYPzIk5e9Ph/bahoN+ZFvpVLDIAnPqwUedGwSeBjttkSJHll8y/dMDxhbqJX5ij3jdlQlTxWhP4VrbBzUJ3oRbx7rYvDiIbZUH63ZgEqCXn72doD0S6ubzYMpQ3rPZXAKXZ6Eei7DjNLPMGvqtt1nXuiHDExck9xnaKpXlZaXcZoUieVzMoD+N8SUWXbUYLeX0S5kC/jaK9dXBLk8TIXDQhLxHHGY0vsUzL2QeHwKuUrx5b508EHFDJrPZUozlpkufuLkJqBAgZGxMDT2vSIUU6hg26au/QFLuvshCRxYZu4cwV7vHliPxkdYRKwVrAzkWiFMBRW6NndDjQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c/1MhOJcKFUmRW9u7fKfEjRgUGCIko9OA+snDYkLJ4s=;
- b=ls2ZvLRQD4j1wrac7qeQexam4xGr5q7HEkNLVxZJ/ps0ELns2ad98tiPo18OlnXZtDh10TKgMDdLvLADq5RCBQwTU/QvJfvT1r4h1ZFp9OEoKiYHeFyhhqwCGTjP8pEMoPZL4Z80m88Dn3fNyCdyr25+vksz54njiL+rtUGZahoXN7LvO7ko/k2tQDzvH/Lax327vFjbHS6G3Uict/8Rrsex3nME5KYjgpA14Xjb0quOfVTBmqWYgFQH/dSLt4EYgNm96GeaT4Rnsb4VtVmrQhruvoCbHEZgZdzGHxgrPZP2H4cGR0vfSqa+vvVVggU5KFjyiWwpBpBGwh8FTojbKg==
-Received: from AM8PR04MB7284.eurprd04.prod.outlook.com (2603:10a6:20b:1dc::8)
- by VI0PR04MB12077.eurprd04.prod.outlook.com (2603:10a6:800:317::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.21; Wed, 8 Apr
- 2026 11:09:08 +0000
-Received: from AM8PR04MB7284.eurprd04.prod.outlook.com
- ([fe80::9cd6:51bd:82b:98dc]) by AM8PR04MB7284.eurprd04.prod.outlook.com
- ([fe80::9cd6:51bd:82b:98dc%5]) with mapi id 15.20.9769.014; Wed, 8 Apr 2026
- 11:09:08 +0000
-From: Wei Fang <wei.fang@nxp.com>
-To: Jakub Kicinski <kuba@kernel.org>
-CC: Claudiu Manoil <claudiu.manoil@nxp.com>, Vladimir Oltean
-	<vladimir.oltean@nxp.com>, Clark Wang <xiaoning.wang@nxp.com>,
-	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "davem@davemloft.net"
-	<davem@davemloft.net>, "edumazet@google.com" <edumazet@google.com>,
-	"pabeni@redhat.com" <pabeni@redhat.com>, "robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
-	<conor+dt@kernel.org>, "f.fainelli@gmail.com" <f.fainelli@gmail.com>, Frank
- Li <frank.li@nxp.com>, "chleroy@kernel.org" <chleroy@kernel.org>,
-	"horms@kernel.org" <horms@kernel.org>, "linux@armlinux.org.uk"
-	<linux@armlinux.org.uk>, "andrew@lunn.ch" <andrew@lunn.ch>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "imx@lists.linux.dev"
-	<imx@lists.linux.dev>
-Subject: RE: [PATCH v4 net-next 12/14] net: dsa: netc: add more basic
- functions support
-Thread-Topic: [PATCH v4 net-next 12/14] net: dsa: netc: add more basic
- functions support
-Thread-Index: AQHcwQGzRXF+4+m1mE+150E6Qq+367XMjVSAgAhyPOA=
-Date: Wed, 8 Apr 2026 11:09:08 +0000
-Message-ID:
- <AM8PR04MB72846ADE8D4BF97337ED2E85885BA@AM8PR04MB7284.eurprd04.prod.outlook.com>
-References: <20260331113025.1566878-13-wei.fang@nxp.com>
- <20260403011743.1795726-1-kuba@kernel.org>
-In-Reply-To: <20260403011743.1795726-1-kuba@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AM8PR04MB7284:EE_|VI0PR04MB12077:EE_
-x-ms-office365-filtering-correlation-id: 9dda764b-2c9b-4d64-d63d-08de955f4174
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|7416014|19092799006|366016|1800799024|38070700021|22082099003|18002099003|56012099003;
-x-microsoft-antispam-message-info:
- LA6/x0R3e3ySWr0mj7zjghCeAnpmGL3F5UHWtXhvKbwQDUr6iJAifaZNIFioZAdjmSQyh5e8/BPIjNNZQqtXiuGUoF2lkeCpWOeWswQKHCInc4hp4EeHvYZ3I6QRVPa/fL6HkyALKP12GgBfZRKyhhGVsBxObXJ0n4P8Ga7vHvUqNlt8QN7Y4fQ2hoEQaMAh/ErmrMoAZH2CRpmeVyXaC+WTB6MWmgFSz+pNGTfYiGPe2mpzYgkD56cyqgxW+fvjFbcf5hWk+27OaS+D6g73txxZCPqTbneYr/jyMdYNYDZ3qrxryBatxrGwdMkTs9MNZtg/euJfMQZov8O0ir6sgsGG0cTsIQeAuNuopPwILZlC/4faxvPCWuv5E4g6mDF+4nnSnvkTU/s0PwejdAzHV42iRJsH9iRNe395sDLNTmEY9WJE2KdHlSDsfs3ywneOMaVp3dR/grL+rXEfRCLmFzj2//E1BNPbYe8+jjmtX8YdiZNUxaGDzrJFfoTtQkqIuidm9WRyHWYVQovzAhC+5hHacEtMO2CSV5PlpOhxP3czvlGeyNdbN7BTT5avvrXACkqDBkoenwEi2/lLoLTyD0Xul53h/2R0shph9ia6uGOli9pjcO08/01rg5puiNaiIbL2Zm5C4euaHhUM7lHT5q7tkeaxHH0iFLZ4CUSLXLY4yp0eqKBrHaizU8DDmtXlVI2Zfi3GHIZwQDVpzvxspxjdv3rmbnK2k5ZqdHLI8i+ZdlNqFDl0Et6RN4yz01zuCrDFfIAf4iAvQeAL92PxoFzqKzdrmcju+cxIa153f34=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7284.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(19092799006)(366016)(1800799024)(38070700021)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?ilOlcLCIlAH2eFh20RTEQiloWfqe1eltHrrftpq/fCsppw4nt7B+xZbe9PiZ?=
- =?us-ascii?Q?8cxfzSZ+zo5yDgTLguJfn77gtBqeVVmJg5rbjrFOIxAhzSsNYZZo92ftpcqQ?=
- =?us-ascii?Q?mdS9/bAejuIFcjJpav6xiR8mMI21kJIsRf0pMz1+zEMvGj+LrtjvtEVsRw9x?=
- =?us-ascii?Q?gCvUjQT02OeG9n2+6XbxHY/aVg5HoGeq0ZcF7D7aLu3U0FkFblY9b1H7NkWq?=
- =?us-ascii?Q?EKjlImFXZnPVN4VdDoRg1OZeoMFNky6b0SUP8Gt3P8F4ZsdDzOphTKpY+xyW?=
- =?us-ascii?Q?qz+BG43qtOwx2NE1FnrIXwWF+ISuB+3EGXfNIuFcBXmk0WIoBps1MxggmK9X?=
- =?us-ascii?Q?wiyDAGTnJ9AeanIHKpOB5dJ9pd8ceVMXc927wew3jScYYz8aXYSdTAWhBjif?=
- =?us-ascii?Q?mhmQOekI3IGuM9wGEvkDYJv7saQLjxD9eWRE35EVQwFkgnBM+HQgt8aJwsJM?=
- =?us-ascii?Q?GnICawkxo4YmRBbipjP0jT5MJxtKJN48mA225o46BPfVHpBDuF2qE29bvcIx?=
- =?us-ascii?Q?aSoSj4YFnKsKQzla/EQnFlhCwF2kOYzt22QY0rd9wsBqfPRIYrv24WKQ/bsm?=
- =?us-ascii?Q?IJXuCSGQHmuWcoaj11mjX3ATVnSXvRNDPAJXPEH+ddjItA92F0nbqOS9oxZV?=
- =?us-ascii?Q?F1Chd3vEtN2GtrG9joujy4XNBjMLJakMCTfpqiT5I0X7HAkHiu3J9BYbU0Nl?=
- =?us-ascii?Q?5HEXzyXVD6Jr9otTCcLgiURPvKJT2Nwb0eQQM1/kD8kM8SCbc4YgD/BfeC1j?=
- =?us-ascii?Q?9Wha26w9N5oFuwNJDFbPRVe3Ru6BdAIXWFmTJ68o6k77eA4chvD5/a+Xk7jR?=
- =?us-ascii?Q?BuPCiNoia7OaZPIFIGSdmkXXOddJerb/VUdORjZQEYmf2qJvTEkCWwQT2To0?=
- =?us-ascii?Q?AzLVRuzCOOKnNN4fy43nrlKeRZMzD5kUtGFKttB1mDijMO3ezRC3SudgsJpZ?=
- =?us-ascii?Q?pxLHYh21lf5qVwmey34f/NjcPHjN5gqJ+TPbmTwxUHk1ELYHeyYz97MH6MDz?=
- =?us-ascii?Q?QjjHEKcf2LhR8bXQch5wQqltuolj2pWKR5xP5DKElKCet/Bg2ryQelwqlCDP?=
- =?us-ascii?Q?5WHSaSrTjhum+8g6QTOmP2Il46BPFZ5nivrHW1g7RXQbdDX2s6PbF7DYz+qa?=
- =?us-ascii?Q?CiV6MJeDSAuHqOVDKptsRGN/a8V4e6BmX02DRhZ1uAJRxXnF64mx0J/e934U?=
- =?us-ascii?Q?tX1RVng6B8hQiYrBGbyxL4KBaV2W1FFS4nrRrh7muIljiHGD59GFOEJ/fpKW?=
- =?us-ascii?Q?p2uOIL2nbca6znSdthW2yE1R2Xrd0JVGtOOtdQbZIh8VphXgcxSS8vZZ4M3Q?=
- =?us-ascii?Q?qWmg8Teadaatn0S6PsEYKT1N69Ib9jKIucXLwAKfkzRAKEV4VImRXfKPTsKn?=
- =?us-ascii?Q?XyZHG9ugNFlJR69cn4hylvVCUg1JMPCAqQJrn5Bdo0yS1ocMEah5EZG/NerC?=
- =?us-ascii?Q?I0VBdaRGTdzYFujlBqL+QDssRXViMA8GEleuPQanHX0kz0BFIgwv2yMgUYRt?=
- =?us-ascii?Q?cysZFBd0iSC+HRHmTib+2bdhU8l1xyFiONjwaPT6xcoV+/Oor/5rOupNXE+g?=
- =?us-ascii?Q?82rhAXOv4bXaD1NsxvJiuj/OnNHpClSESf/CoyDiwaopk2Ey+azbZdGlID5R?=
- =?us-ascii?Q?JbjW1WUdQv4Ca3xzob4diPbD8n5zfgkTby+rcI54c7IA58exfUG60Q5dHVH8?=
- =?us-ascii?Q?O+sS9TvMFXMjwNjeivF5Ji0WESA4LqfB4HEap0vm6bHP93kD?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hGw+wV7Q"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-35d965648a2so4781122a91.0
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 04:10:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1775646612; x=1776251412; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=i58F6ne4PgXe2Y4QOzvEYFqWtMrZDhR7Y1bsKgY88r8=;
+        b=hGw+wV7QpDyoER8K0u2lrMUO0pKKp9TUS6OLOeCNHv4ngnerScWCTZ9dqqy/Jg9urI
+         ZSKBXgJ2uVLge7jOSqd6+uZWwIPr137kQvtpuUm/JN1hrD37Lsb2YMYexW0oiVw56Dpy
+         +Qmw562Kc8E8E2vU7vDgEgWC/+f1O5WGhZXjUafamkLjb/zxg2r3Y6lqGlscktyTCflQ
+         qo8Cjg1SR0o/XHlVlzv3m9FmH84AHJ6gnWQ5CltbAi+6q4gXFm70Ar823QyBY3fLUEK7
+         X0ou6q5BXvqHUCbIP1RETv9NVtTFw+FmBA3RkxZXJDNC3awa2lfffbAujcPqKHfelOPc
+         klnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775646612; x=1776251412;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:from:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=i58F6ne4PgXe2Y4QOzvEYFqWtMrZDhR7Y1bsKgY88r8=;
+        b=WfUd34jnhPtmnG9xR+BFoKAuJ1XCIJ+5dL3I5XPzYLTznkGjLG8gPgfegdEZkgR84y
+         YL1requ1gq4twolZcTGhwaAuoaAEsc/lj5E+R44CoC53O5Cu54pIY2h9rK7dKySXAgb8
+         XmSs8MDu5fItCkVJY1c49grxaWinEL3UJ08EwFtc44RdOqj3VGpHOJ0MOgzyUZGnkXjx
+         PtPFIUIh+D+A/zeoGJ4lgAgoj/t3NrdB0yQHcqjSv243fYicB8fcrQgWQOmrjv+og4g6
+         4ikxd3CokfvRtjgQPIy33UXuaY34G5YsPOqU80nnaEpps0nK+8k+1AY+6mJfz83YGs5p
+         S3Uw==
+X-Forwarded-Encrypted: i=1; AJvYcCWNnWdQ8pRjH+/4HZAv0dQrBXj7iaygombknNbaLHLnXKmLeKY9PQdd5wu+BlG+gnaYJAWlh7miBp9t@vger.kernel.org
+X-Gm-Message-State: AOJu0YxF10bVsDx0yh4/Vo9ALMk9xpMdcU5hcO3fppOB/VPuoMJpS+ps
+	s92dsTzsn99R3+Y3/K5ph9GmJ5LmKGQsuBZmojqVge0hraNRX9l/PzjP
+X-Gm-Gg: AeBDieuUdxOdbn0qKdhvM5ISNioxyHFs82ednbHyg0j7cb97C8Z9uMZeySh+BQfFgJ4
+	T6KxiofZhPIoXukvJklwcMsBPVpU8ocFnRJqBKoWkAvc9nh5ZNAz4/8DZkTOGhsWren5pr+TJuW
+	E/O7bmrZWxnILv5oaNk8QxUS6HqFlm1qfRmnARnfv03PkJx//+GMzDauGlqzWtTlAm+BKyr7Uty
+	vI6szUp+hTiL098etfb+6e3RKH5api7Hl6CQfUtnzF1AihlADuhxYRoZuoAY0T2jNMagF3pFSsU
+	zTw8Tq70M8QKTGHmJr7JvnvysWW9KRAqbO6BDK4cLF2h1cEcu1x/kvarl1KhJLOVGpdkPWrSXlq
+	tK+PAd4cXhjadNqLAsQtH9dpzesarmGSy7dOpg8xWLu5GzPqxhsli7HJsv7piHA4syGMRjEN8Ep
+	+BZQZxbXb8iolmLFB4LIzOnF59B0dkGEyqL9fqQAKf+OjzKsc=
+X-Received: by 2002:a17:90a:d403:b0:359:3426:c60a with SMTP id 98e67ed59e1d1-35de67da841mr18869297a91.4.1775646612373;
+        Wed, 08 Apr 2026 04:10:12 -0700 (PDT)
+Received: from [172.16.20.13] ([136.226.252.245])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35df82368f6sm13311565a91.12.2026.04.08.04.10.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 08 Apr 2026 04:10:11 -0700 (PDT)
+Message-ID: <6f39409e-1cf7-4e8e-8656-2e25135ae156@gmail.com>
+Date: Wed, 8 Apr 2026 16:40:02 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7284.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9dda764b-2c9b-4d64-d63d-08de955f4174
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Apr 2026 11:09:08.5556
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: tuYBw6hp+SVAUC/IVLxzRJsr6vz3/pf96YbtUsm/Spckf7+d+1DjEHwjGmqmWowS8Xa2RNdaAyuHjCtKctr3SQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB12077
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] drm: bridge: ti-sn65dsi83: Add support for
+ dual-link LVDS video mode
+From: tessolveupstream@gmail.com
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, andrzej.hajda@intel.com,
+ neil.armstrong@linaro.org, rfoss@kernel.org, Marek Vasut
+ <marex@nabladev.com>, Alexander Stein <alexander.stein@ew.tq-group.com>
+Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, marex@denx.de,
+ valentin@compulab.co.il, philippe.schenker@toradex.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20260312043743.261475-1-tessolveupstream@gmail.com>
+ <20260312043743.261475-3-tessolveupstream@gmail.com>
+ <DH0X6JQP0ZIW.3F4LJLIEMWH8M@bootlin.com>
+ <9a9e13a5-411a-40bc-b52f-4345e7f6b92e@gmail.com>
+ <DH5S3RB2XZ31.3C994FZK5U4OV@bootlin.com>
+ <35eed359-8088-4ec0-9e16-e5cb31e0952e@gmail.com>
+Content-Language: en-US
+In-Reply-To: <35eed359-8088-4ec0-9e16-e5cb31e0952e@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-> > +static int netc_add_standalone_vlan_entry(struct netc_switch *priv)
-> > +{
-> > +	u32 bitmap_stg =3D VFT_STG_ID(0) | netc_available_port_bitmap(priv);
->=20
-> Does putting all standalone ports into a single shared VLAN 0 break the D=
-SA
-> isolation requirements?
->=20
-> If a user manually adds a static FDB entry to a standalone port, it is
-> programmed into VLAN 0. Because all standalone ports reside in this VLAN,=
- a
-> frame arriving on one standalone port with a matching destination MAC mig=
-ht
-> be hardware-switched directly to another standalone port, bypassing the C=
-PU.
 
-I think the FDB entry can only be added to the CPU port if the port is a
-standalone port not a bridge port. So this case will not be true.
 
->=20
-> [ ... ]
->=20
-> > +static int netc_port_set_fdb_entry(struct netc_port *np,
-> > +				   const unsigned char *addr, u16 vid)
-> > +{
->=20
-> [ ... ]
->=20
-> > +	/* If the entry already exists, but not on this port, we need to
-> > +	 * update the port bitmap. In general, it should only be valid
-> > +	 * for multicast or broadcast address.
-> > +	 */
-> > +	port_bitmap ^=3D BIT(port);
-> > +	entry->cfge.port_bitmap =3D cpu_to_le32(port_bitmap);
->=20
-> Can this XOR operation cause multi-port floods during unicast MAC migrati=
-ons?
->=20
-> When a unicast MAC address moves to a new port, the bridging layer issues=
- an
-> ADD for the new port. The XOR operation leaves the old port bit set along=
-side
-> the new port bit. Does the driver need to differentiate between unicast a=
-nd
-> multicast addresses and explicitly overwrite the bitmap for unicast entri=
-es?
+On 06-04-2026 14:05, tessolveupstream@gmail.com wrote:
+> 
+> 
+> On 18-03-2026 14:22, Luca Ceresoli wrote:
+>> Hello Sudarshan,
+>>
+>> On Wed Mar 18, 2026 at 6:53 AM CET, tessolveupstream wrote:
+>>>>> +	if (ctx->dual_link_video_mode) {
+>>>>> +		regmap_write(ctx->regmap, REG_RC_LVDS_PLL, 0x05);
+>>>>> +		regmap_write(ctx->regmap, REG_RC_PLL_EN, 0x00);
+>>>>> +		regmap_write(ctx->regmap, REG_DSI_CLK, 0x53);
+>>>>> +		regmap_write(ctx->regmap, REG_LVDS_FMT, 0x6f);
+>>>>> +		regmap_write(ctx->regmap, REG_LVDS_VCOM, 0x00);
+>>>>> +		regmap_write(ctx->regmap,
+>>>>> +			     REG_VID_CHA_VERTICAL_DISPLAY_SIZE_LOW, 0x00);
+>>>>> +		regmap_write(ctx->regmap,
+>>>>> +			     REG_VID_CHA_VERTICAL_DISPLAY_SIZE_HIGH, 0x00);
+>>>>> +		regmap_write(ctx->regmap,
+>>>>> +			     REG_VID_CHA_HSYNC_PULSE_WIDTH_LOW, 0x10);
+>>>>> +		regmap_write(ctx->regmap,
+>>>>> +			     REG_VID_CHA_HORIZONTAL_BACK_PORCH, 0x28);
+>>>>> +		regmap_write(ctx->regmap,
+>>>>> +			     REG_VID_CHA_VERTICAL_BACK_PORCH, 0x00);
+>>>>> +		regmap_write(ctx->regmap,
+>>>>> +			     REG_VID_CHA_HORIZONTAL_FRONT_PORCH, 0x00);
+>>>>> +		regmap_write(ctx->regmap,
+>>>>> +			     REG_VID_CHA_VERTICAL_FRONT_PORCH, 0x00);
+>>>>> +	}
+>>>>
+>>>> I guess these hard-coded values are sepcific to your panel. They must
+>>>> instead be computed based on the timings in order to work for every panel.
+>>>>
+>>>
+>>> The hard-coded values were initially derived from the TI DSI Tuner output
+>>> during our bring-up testing. TI had also mentioned that when PATGEN is
+>>> enabled with dual-LVDS output on the SN65DSI84, the horizontal timings
+>>> must be divided by 2. They also noted that the current driver does not
+>>> appear to divide the horizontal timings when PATGEN is enabled in
+>>> dual-LVDS mode.
+>>>
+>>> Based on that suggestion, we had tried adjusting the horizontal timing
+>>> registers accordingly to match the tuner output.
+>>> Could you please advise how these register values are expected to be
+>>> derived from the mode timings so that they work correctly for different
+>>> panels?
+>>
+>> Well, the principle is quite simple:
+>>
+>>  1. the panel docs tell you which timings the panel needs, e.g. HBP must be
+>>     10 clock cycles
+>>
+>>  2. your panel description in dts or implementation in a panel driver will
+>>     then be written accordingly
+>>
+>>  3. the ti-sn65dsi83 driver will receive a struct drm_display_mode* with
+>>     these values
+>>
+>>  4. based on those values it sets the registers so the SN65DSI84 uses the
+>>     timings required by the panel (with a bit of math if needed):
+>>
+>> 	regmap_write(ctx->regmap, REG_VID_CHA_HORIZONTAL_BACK_PORCH,
+>> 		     mode->htotal - mode->hsync_end);
+>>
+>> Same for all other timings.
+>>
+>> Ti is more complicated if more cases need to be handled, such as dual-LVDS,
+>> and the chip documentation is vague about what must be done in those cases.
+>>
+>> I suggested next steps to move forward in reply to the cover letter.
+>>
+> 
+> Thank you so much for your suggestion.
+>  
+>>>>> @@ -965,9 +1001,15 @@ static int sn65dsi83_host_attach(struct sn65dsi83 *ctx)
+>>>>>
+>>>>>  	dsi->lanes = dsi_lanes;
+>>>>>  	dsi->format = MIPI_DSI_FMT_RGB888;
+>>>>> -	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
+>>>>> -			  MIPI_DSI_MODE_VIDEO_NO_HFP | MIPI_DSI_MODE_VIDEO_NO_HBP |
+>>>>> -			  MIPI_DSI_MODE_VIDEO_NO_HSA | MIPI_DSI_MODE_NO_EOT_PACKET;
+>>>>> +	if (ctx->dual_link_video_mode)
+>>>>> +		dsi->mode_flags = MIPI_DSI_MODE_VIDEO;
+>>>>> +	else
+>>>>> +		dsi->mode_flags = MIPI_DSI_MODE_VIDEO |
+>>>>> +				  MIPI_DSI_MODE_VIDEO_BURST |
+>>>>> +				  MIPI_DSI_MODE_VIDEO_NO_HFP |
+>>>>> +				  MIPI_DSI_MODE_VIDEO_NO_HBP |
+>>>>> +				  MIPI_DSI_MODE_VIDEO_NO_HSA |
+>>>>> +				  MIPI_DSI_MODE_NO_EOT_PACKET;
+>>>>
+>>>> There is no explanation about this, can you elaborate on why?
+>>>>
+>>>> I'm working on bringing up a dual-LVDS panel on a board with the SN65DSI84,
+>>>> and the removing MIPI_DSI_MODE_VIDEO_BURST seems to help, but I still have
+>>>> no idea why. Should you have any info, maybe from TI, it would be very
+>>>> interesting.
+>>>>
+>>>
+>>> During our earlier bring-up, TI mentioned that one possible reason for the DSI
+>>> REFCLK not behaving as expected could be that the DSI output is configured in
+>>> burst mode instead of non-burst mode. In burst mode the DSI clock may not be
+>>> continuous, whereas non-burst mode provides a more predictable DSI clock.
+>>
+>> Uhm, this is a bit vague. They basically said "burst can be more
+>> problematic than continuous", which is obvious, and "try disabling burst
+>> and see whether it helps" with no explanation on why one works and not the
+>> other. Shoudl you have more info from them you'd be welcome to share it. In
+>> particular, is disabling burst mode specifically related to dual-LVDS, or
+>> just a way to (try to) get rid of some problems without a clear
+>> understanding?
+>>
+>> On my side I also have a dual-LVDS panel connected to a SN65DSI84, which
+>> works only by disabling burst mode. I haven't tried upstreaming it because
+>> I don't have an explanation of why it fixes the panel and so I have no idea
+>> how to teach the driver when it should disable burst mode.
+>>
+>> Additionally inyour patch you remove many other flags. Any explanation from
+>> those?
+>>
+> 
+> Thanks for your inputs.
+>  
+> I wanted to share a quick observation from our side. With your suggested 3
+> patches (links below), the panel started working after simplifying the 
+> dsi-> mode_flags:
+>  
+> https://lore.kernel.org/all/20260226-ti-sn65dsi83-dual-lvds-fixes-and-test-pattern-v1-1-2e15f5a9a6a0@bootlin.com/
+>  
+> https://lore.kernel.org/all/20260226-ti-sn65dsi83-dual-lvds-fixes-and-test-pattern-v1-2-2e15f5a9a6a0@bootlin.com/
+>  
+> https://lore.kernel.org/lkml/20260309-ti-sn65dsi83-dual-lvds-fixes-and-test-pattern-v2-1-e6aaa7e1d181@bootlin.com/
+>  
+> Earlier configuration:
+>  
+> MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
+> MIPI_DSI_MODE_VIDEO_NO_HFP | MIPI_DSI_MODE_VIDEO_NO_HBP |
+> MIPI_DSI_MODE_VIDEO_NO_HSA | MIPI_DSI_MODE_NO_EOT_PACKET;
+>  
+> Working configuration:
+>  
+> MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_NO_HSA |
+> MIPI_DSI_MODE_NO_EOT_PACKET;
+>  
+> From our testing, removing MIPI_DSI_MODE_VIDEO_BURST along with the NO_HFP/NO_HBP 
+> flags results in stable LVDS output in dual-link mode.
+>  
+> Could you please suggest how you would prefer to handle this change for 
+> upstreaming?
+> 
 
-I think the old FDB entry should be removed first when a unicast MAC addres=
-s
-moves to a new port rather than only adding a new entry. If AI refers to ad=
-ding
-before deleting, then this problem will indeed occur, and it is unavoidable=
-.
+I wanted to revisit the earlier discussion and share a consolidated summary 
+of our observations below.
 
->=20
-> [ ... ]
->=20
-> > +static int netc_port_del_fdb_entry(struct netc_port *np,
-> > +				   const unsigned char *addr, u16 vid)
-> > +{
-> > +	struct netc_switch *priv =3D np->switch_priv;
-> > +	struct ntmp_user *ntmp =3D &priv->ntmp;
-> > +	struct netc_fdb_entry *entry;
-> > +	int port =3D np->dp->index;
-> > +	u32 port_bitmap;
-> > +	int err =3D 0;
-> > +
-> > +	mutex_lock(&priv->fdbt_lock);
-> > +
-> > +	entry =3D netc_lookup_fdb_entry(priv, addr, vid);
-> > +	if (unlikely(!entry))
-> > +		goto unlock_fdbt;
->=20
-> Will this prevent dynamically learned FDB entries from being deleted?
->=20
-> Since the CPU port is configured with MLO_HW, the switch hardware
+With your suggested patches (links below), the panel started working after 
+simplifying the dsi->mode_flags:
 
-Currently we only support single port mode, so only support static FDB
-entry. The MLO_HW should be removed from the code, I will improve
-the logic.
+https://lore.kernel.org/all/20260226-ti-sn65dsi83-dual-lvds-fixes-and-test-pattern-v1-1-2e15f5a9a6a0@bootlin.com/
+https://lore.kernel.org/all/20260226-ti-sn65dsi83-dual-lvds-fixes-and-test-pattern-v1-2-2e15f5a9a6a0@bootlin.com/
+https://lore.kernel.org/lkml/20260309-ti-sn65dsi83-dual-lvds-fixes-and-test-pattern-v2-1-e6aaa7e1d181@bootlin.com/
 
-> dynamically
-> learns MAC addresses, but they are not added to the software priv->fdb_li=
-st.
-> If a user attempts to delete a dynamic entry, the software lookup will fa=
-il
-> here and return 0 (success), leaving the stale dynamically learned entry
-> active in hardware.
->=20
-> [ ... ]
->=20
-> > +static int netc_port_change_mtu(struct dsa_switch *ds,
-> > +				int port, int mtu)
-> > +{
-> > +	u32 max_frame_size =3D mtu + VLAN_ETH_HLEN + ETH_FCS_LEN;
-> > +	struct netc_port *np =3D NETC_PORT(ds, port);
-> > +
-> > +	if (dsa_is_cpu_port(ds, port))
-> > +		max_frame_size +=3D NETC_TAG_MAX_LEN;
->=20
-> Does this double-count the DSA tag overhead for the CPU port?
->=20
-> The DSA core computes the CPU port's MTU by adding the tagger overhead
-> before
-> calling the switch's .port_change_mtu() function. If the maximum MTU of 9=
-582
-> bytes is requested, the CPU port receives an MTU of 9596. Adding
-> NETC_TAG_MAX_LEN again here results in 9628 bytes, which exceeds the
-> hardware limit of 9600 (NETC_MAX_FRAME_LEN) and might lead to truncation.
+Working 'dsi-> mode_flags' configuration is:
+dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_NO_HSA | 
+		  MIPI_DSI_MODE_NO_EOT_PACKET;
 
-It seems a bug, I will fix it.
+From our testing, removing MIPI_DSI_MODE_VIDEO_BURST along with the NO_HFP 
+and NO_HBP flags results in stable LVDS output in dual-link mode.
 
->=20
-> [ ... ]
->=20
-> > +static int netc_port_fdb_add(struct dsa_switch *ds, int port,
-> > +			     const unsigned char *addr, u16 vid,
-> > +			     struct dsa_db db)
-> > +{
-> > +	struct netc_port *np =3D NETC_PORT(ds, port);
-> > +
-> > +	/* Currently, we only support standalone port mode, so all VLANs
-> > +	 * should be converted to NETC_STANDALONE_PVID.
-> > +	 */
-> > +	return netc_port_set_fdb_entry(np, addr, NETC_STANDALONE_PVID);
-> > +}
->=20
-> Is it safe to silently override user-requested VLAN IDs to VLAN 0?
->=20
-> If a user explicitly attempts to configure a MAC address for a specific V=
-LAN,
-> the hardware is programmed for VLAN 0 and returns success. Should this
-> instead check if the requested vid is not 0 and not NETC_STANDALONE_PVID,
-> and return -EOPNOTSUPP to inform the networking stack?
+Also I am sharing an update from our side after consulting the 'dsi-> 
+mode_flags' behavior with the TI expert.
 
-Okay, I will add a check.
+Based on their inputs:
 
->=20
-> [ ... ]
->=20
-> > +static void netc_port_set_host_flood(struct dsa_switch *ds, int port,
-> > +				     bool uc, bool mc)
-> > +{
-> > +	struct netc_port *np =3D NETC_PORT(ds, port);
-> > +
-> > +	if (np->uc =3D=3D uc && np->mc =3D=3D mc)
-> > +		return;
-> > +
-> > +	/* IPFT does not support in-place updates to the KEYE element,
-> > +	 * so we need to delete the old IPFT entry and then add a new
-> > +	 * one.
-> > +	 */
-> > +	if (np->host_flood)
-> > +		netc_port_remove_host_flood(np);
-> > +
-> > +	if (netc_port_add_host_flood_rule(np, uc, mc))
-> > +		dev_err(ds->dev, "Failed to add host flood rule on port %d\n",
-> > +			port);
-> > +}
->=20
-> Could this permanently lose the host flood configuration if the new rule
-> addition fails?
->=20
-> If the call to netc_port_add_host_flood_rule() fails (for example, due to
-> -ENOMEM), the function logs an error and returns, leaving the port entire=
-ly
-> without a host flood rule. Should the driver revert to the previous
-> configuration on failure to avoid blackholing traffic meant for the CPU?
+1. The SN65DSI83/84 reconstructs LVDS timing from the incoming DSI stream 
+   and requires explicit horizontal blanking (HFP/HBP) to do so reliably.
+2. Suppressing HFP/HBP prevents correct timing reconstruction and can 
+   result in unstable LVDS output, even when register timings are programmed.
+3. DSI burst mode is supported, but depending on the host controller, it may 
+   result in non‑continuous DSI clocking and HS/LP transitions.
+4. Non‑burst (continuous) DSI video mode provides a more stable and 
+   predictable timing stream, which is better suited for LVDS panels.
+5. Ensuring continuous DSI video with standard horizontal blanking has been 
+   observed to produce stable LVDS operation, particularly in dual‑link 
+   configurations.  
 
-Okay, I will improve it.
+Given these observations, we would appreciate your guidance on how to 
+proceed with up-streaming.
+ 
+
+>> Best regards,
+>> Luca
+>>
+>> --
+>> Luca Ceresoli, Bootlin
+>> Embedded Linux and Kernel engineering
+>> https://bootlin.com
+> 
 
