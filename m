@@ -1,122 +1,281 @@
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E14223CA497
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 13:07:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CF743CAE7B
+	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 13:08:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775653679; cv=none; b=SM/SQFBvqBXmG5LbZ4Wi/IyujynLuyCjdXCIvliLc4LVSSLqYO1ZD1FracUspxwPLcd/PJC9Drn4JOY4ZBQRAkTmp0iN8BQJXUoYL6lj2GXSBxDxTbo/lTK2n9uQAYjHMp810a/GC7FUKrk2w9tuY/uFx+aAdeeMtYxYdJWkhoY=
+	t=1775653685; cv=none; b=Q/AVrSveyk5qb6ZaMxQIMQ/5ucrfKX2UqNmNyPr+WxveRvNIFtbg3j0BiZOPnkufIEKT+OhWExnbIiWYbzISaaUVs1bC8gkMN1xN9GdMmvK2l1RRSllAOshJZOc4fWAbEdSaLBW6xgw2jkqiy5HAfFRTHKHwnlvOQP3jannbl8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775653679; c=relaxed/simple;
-	bh=2wNTTwVqCeqr8hkgFLfv2QURTJXll89k2pFbxpcF1uI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SaG2sgqPCzhk//UA/5J6JogGBX0T9j+jOGhB+54Cu21ymWQIuo+1QW4Vgnd5HsW35lPj1W/R9E1xTjkEdHnQnO+PNoHRyL7U8I/q6KFtUS99qlc+L9Ma496IHNca6n243+fD6s3gdL2nzRCboi4ImQBE/dzoW71v2RvhKsImRs4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-56d357797acso4362626e0c.1
-        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 06:07:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775653677; x=1776258477;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+	s=arc-20240116; t=1775653685; c=relaxed/simple;
+	bh=a2GPSLjoVuh/bOAiRRBM+nHcSa++S79DoAQOpkjg8+c=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=X49CzhIBulgVEXT1xQjRUtd439a7SxvM+1yZgNVSdWRzO/YIVK0fNaSnzLCNRlVZUVcU7PvigNO/nhdQi4nVroc46wStQZwLY+ZMYnuR27jph5DpPn5fu/luUEH2IVwUi0dHQ7ebH7jOqBCutukTzN6mfroROm0Be3a23MvtzVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=zjcC2sOw; arc=none smtp.client-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="zjcC2sOw"
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-66feeb8ff41so55141a12.3
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 06:08:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1775653682; x=1776258482; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RI+J43qd4H5Anap3izX+byQPpLoUkJOQTO1aaryrRrI=;
-        b=rt0fLMQ7TzPf07Rk25Wz4Stty9StKO1J6TTUcZTPkhogKDoOLtuViRSCbT10IIFJM4
-         e3cS4Tg1ffRTOcYPt/Wx3ZlIc8+yrUouVzoupUSs2b2clSDfkbwpTJJRXL0CgiocGmOD
-         1U0nn7OK0RBD7FlV8FKcw4g7JImVsTV6ZQuYbYivtDzsQDQobxRg1rMkKyo/P+yKEmUX
-         VFo4FOD5Z78ZpM/e+PvPD64o1eg2eOdNOs4ZTBloswtmmOnnOMHm32z6r5hORqFrx4Y6
-         BaVY8ti+NpsrCBO39R49Q0L7Jw18bmxl1QzGgeddtVy+sH4r7dfKqMERQ3UpP5CSVW2S
-         tXTw==
-X-Forwarded-Encrypted: i=1; AJvYcCX59VhYp8CzjKToWdK2QwI/L2cjp+fPg88+VtFj4XgT9Ury+OEiQIPJjz7Wf60KEiAg3+6p+qqiVqDR@vger.kernel.org
-X-Gm-Message-State: AOJu0YzALzLXEve5p7GhGhqZY71yuxY1cNlIIlhHMZceVkyt1i/nXJTk
-	GLdML9dIOiHN4r0iacIMgr6+unHONStqusoauND8vmhaNRxuUH0yIHyKe+Y9xhRC
-X-Gm-Gg: AeBDietIHaafrWVMk1VGbgu1pXffGRnCS7mVOx0K2OzTD09e/z+VKRsvvkzvcyR0o9C
-	qax9y/5o7pIdqP1EweVtXJ1Yq1pg7AtXe2q/Vi8NYUqDHpor4PDadAP5x+OL3t5sxkegQ0kearH
-	bP+fu4WseIQQd/yrC6nQqphbq7fWRyHjJVpRDccynuLLL1u70vmiAHGr+127VlFC0zC5zXIpeuE
-	InVwTNAnep+Uvrry/YyxqRv6lC080Q1LnZyGQiEI53eJw51Vb3Gq+RJeINSHLHztZ8w9fqjr5Jf
-	pbMikVErHoLZPbhQ1+hJs+BP2o8TLoY5RwBmCYeD+VOrzXGm3MyBDtrlfqqMDSDrjTDsG9/bpO1
-	FR1jk/W55uPSztOoMl6luqYmHlIq5tWBqpqE8VE7fosJapOjma91Fw9+QmRE71O1kE6LNIZ2vF9
-	l2EZ54Yfu9C3tncehowz2qzJ+Caj7K0Vm/p2QV+58kp9ffODl8wrnm4N3P/FjPrNIC
-X-Received: by 2002:a05:6122:871c:b0:56d:b4d1:3c1e with SMTP id 71dfb90a1353d-56db4d17398mr4930078e0c.10.1775653676925;
-        Wed, 08 Apr 2026 06:07:56 -0700 (PDT)
-Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com. [209.85.221.176])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-56d9bd03371sm19835966e0c.16.2026.04.08.06.07.56
-        for <devicetree@vger.kernel.org>
+        bh=z5yV3renFUCMzTGFq9ONgz22Ec7d4PCew4CFxTTtr88=;
+        b=zjcC2sOwDqQfuUIFywmtGZc84hozfRNS9XYMKBqdUzHbdPMUFI0nzEc44PdEp88MZB
+         JOtF459HOomRnksA2u35hpcoymiwgM3Kws544WEUrYqU+r2YkcCbRGPpY5hVV0lzRzWc
+         7o4cKONgBWDXsnwg3HNeoXCvNqjp8BMGysOZ6VUF9KsuHadjdSyDX5y1ZVz5OeDrzUTo
+         CCIOtN2mgdFv5ZwwJk+TsJOOlEdfbScsfdsP65ZwD4u0BTPUt7iWPV4PgmQDZD6GTKI6
+         WqIptT1AwhRP9Ss6JD78wV6ABPF7AII8aqQGzRWoZzM7huvDc3PmZWcbV7coY4sXGAV4
+         soVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775653682; x=1776258482;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=z5yV3renFUCMzTGFq9ONgz22Ec7d4PCew4CFxTTtr88=;
+        b=iR3FsZLwiRdMUUfVx5DeWiAOUBWTZwx1mGZb7HwKErRfWQGcRJiCcyGcHpkIUN/IrJ
+         R0nMRXAvuHHEa1Hpx8SMTgzo+yXxHjLvzQ2G7RvP2dskhM5e2s8KCFjuG601PeD2K5JQ
+         Lna8EN5187+J1+zt9Z83Aki2Z2HuTg0ZReue+7J1rrhYyI+f7FVlrPkbaSUiIJWgDovh
+         9W/pqbIXe2eRjQ7RSqeszEkqyDHLtRR8+BNJphUvDu1ywldStebe/Hk8JIqzWc3CcTVf
+         J0Ay+/G0h2ltlMTdezHIzPmHNpIUJPZ2su7UzD02hHxgBZXs3ux9tuUvVj4VoxGy7egY
+         NXKQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUkbeqnk2YaIU7uQtAVP9co8pPD4v1kOA0cn1vTtpDSjS/HPdZARo/TDrm+mPbUbCAPHR+6G8xBjmPk@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx+5/EKmcHW9mSR66IQaoT1wTPupY2QAOdNn9EHg/9r9ikHX83x
+	l90DQ2c+PWIm2trFdHuD8O59ELwZg20b+z9pjRdxpJ2YvwCp1+2FAI1nQXRNzPU+2v0=
+X-Gm-Gg: AeBDietO8HwGlhO5Hd7Mjd1sUeNESvP0QVtnu+1onfOteFlq4c5GzNLnMZVZJsY8SWy
+	bOImF7xuHNwS8OythmkxVKBfWZ4hchSKmnlhUXjbhC+uVSKE64pCORybeR3X0ZxUws8N5jk7XHP
+	LpoAEzyURl3IRJ1AeiseNR2hX6nCmRw1W1pOsjQKCdp7H3qnenDTRAF24l+LIca0RPSDYs09+zz
+	qMJ51xZ/2pdyaov8RBhoGzpqrWNX9xqlF9mKowKocUOjaofsb8FVOVWS09C/Ev73NZnx9MHMN+o
+	CuFmO94y+ceYWWZTDl8kLyNfxNV3utpjz1xKJnS6SnHnWN5Tv5xZaifYz+g/3ZcwNSpMUSLqMWl
+	uiOOhi5dBqTOSVFtOt4qkW0GEOBurp3A70+GMnNRqpLepy7eAJIBlXbps65mUaBZeVW0ZhYS1is
+	femVXs+coZoxKNqAqPJ1EZfiwycv7lbXe9uNFSW/NERVwVo4Nj3ZL3Y9ztS7Uv5VAbRhnG5JodH
+	3oBx8ESzC6826ai/A==
+X-Received: by 2002:a17:906:478e:b0:b98:1129:51 with SMTP id a640c23a62f3a-b9c675492c5mr1034699866b.17.1775653681583;
+        Wed, 08 Apr 2026 06:08:01 -0700 (PDT)
+Received: from localhost ([2a00:2381:fd67:101:9775:58c0:569c:bd74])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9d3a6a48f3sm24687366b.58.2026.04.08.06.08.00
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 08 Apr 2026 06:07:56 -0700 (PDT)
-Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-56d9f191ae6so4140625e0c.3
-        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 06:07:56 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCWyha4fGvRJJkIdQO6qBJq0VRvEajXL5BGtRLZTNwkWre0fDNdg2+u0ppzhmVRF6RF/qRSpLVjyd73U@vger.kernel.org
-X-Received: by 2002:a05:6122:871c:b0:56d:b4d1:3c1e with SMTP id
- 71dfb90a1353d-56db4d17398mr4930024e0c.10.1775653676268; Wed, 08 Apr 2026
- 06:07:56 -0700 (PDT)
+        Wed, 08 Apr 2026 06:08:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <cover.1775575276.git.tommaso.merciai.xr@bp.renesas.com>
-In-Reply-To: <cover.1775575276.git.tommaso.merciai.xr@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 8 Apr 2026 15:07:44 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXHhd150mpUT5-VPcHW0W5Hs-rFC-Bjrc7Z8Szco9P_Xw@mail.gmail.com>
-X-Gm-Features: AQROBzCAgzGrVmv98H9pXphPv--qNykKs0tFH6sDE4aSVcbSsBjA9H5-Jim4uG4
-Message-ID: <CAMuHMdXHhd150mpUT5-VPcHW0W5Hs-rFC-Bjrc7Z8Szco9P_Xw@mail.gmail.com>
-Subject: Re: [PATCH 0/2] arm64: dts: renesas: Add missing #mux-state-cells to
- usb2phy-reset nodes
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Cc: tomm.merciai@gmail.com, peda@axentia.se, p.zabel@pengutronix.de, 
-	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com, 
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 08 Apr 2026 14:08:00 +0100
+Message-Id: <DHNSP3FVR4ZQ.1PIRHF0KJGKI5@linaro.org>
+Cc: "Krzysztof Kozlowski" <krzk@kernel.org>, "Sylwester Nawrocki"
+ <s.nawrocki@samsung.com>, "Chanwoo Choi" <cw00.choi@samsung.com>, "Alim
+ Akhtar" <alim.akhtar@samsung.com>, "Sam Protsenko"
+ <semen.protsenko@linaro.org>, "Michael Turquette"
+ <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>, "Rob Herring"
+ <robh@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Jassi Brar"
+ <jassisinghbrar@gmail.com>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Peter Griffin" <peter.griffin@linaro.org>,
+ <linux-samsung-soc@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-clk@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 2/3] mailbox: exynos: Add support for Exynos850
+ mailbox
+From: "Alexey Klimov" <alexey.klimov@linaro.org>
+To: "Tudor Ambarus" <tudor.ambarus@linaro.org>
+X-Mailer: aerc 0.20.0
+References: <20260402-exynos850-ap2apm-mailbox-v2-0-ca5ffdff99d4@linaro.org>
+ <20260402-exynos850-ap2apm-mailbox-v2-2-ca5ffdff99d4@linaro.org>
+ <a02a693e-b06e-43bf-ac5f-8253f298c83d@linaro.org>
+In-Reply-To: <a02a693e-b06e-43bf-ac5f-8253f298c83d@linaro.org>
 
-Hi Tommaso,
+Hi Tudor,
 
-On Tue, 7 Apr 2026 at 17:35, Tommaso Merciai
-<tommaso.merciai.xr@bp.renesas.com> wrote:
-> The renesas,rzv2h-usb2phy-reset binding schema defines #mux-state-cells as a
-> required property. Add it to the USB2 PHY reset nodes in the RZ/V2H and RZ/V2N
-> device trees to fix dtbs_check warnings.
+On Thu Apr 2, 2026 at 9:42 AM BST, Tudor Ambarus wrote:
+> Hi, Alexey,
 >
-> "arch/arm64/boot/dts/renesas/r9a09g056n48-rzv2n-evk.dtb: usb20phy-reset@15830000 (renesas,r9a09g056-usb2phy-reset): '#mux-state-cells' is a required property"
-> "arch/arm64/boot/dts/renesas/r9a09g056n48-rzv2n-evk-cn15-emmc.dtb: usb20phy-reset@15830000 (renesas,r9a09g056-usb2phy-reset): '#mux-state-cells' is a required property"
-> "arch/arm64/boot/dts/renesas/r9a09g056n48-rzv2n-evk-cn15-sd.dtb: usb20phy-reset@15830000 (renesas,r9a09g056-usb2phy-reset): '#mux-state-cells' is a required property"
-> "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dtb: usb20phy-reset@15830000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
-> "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dtb: usb21phy-reset@15840000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
-> "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk-cn15-emmc.dtb: usb20phy-reset@15830000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
-> "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk-cn15-emmc.dtb: usb21phy-reset@15840000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
-> "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk-cn15-sd.dtb: usb20phy-reset@15830000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
-> "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk-cn15-sd.dtb: usb21phy-reset@15840000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
+> On 4/2/26 5:20 AM, Alexey Klimov wrote:
+>> Exynos850-based platforms support ACPM and has similar workflow
+>> of communicating with ACPM via mailbox, however mailbox controller
+>> registers are located at different offsets and writes/reads could be
+>> different. To distinguish between such different behaviours,
+>> the registers offsets for Exynos850 and the platform-specific data
+>> structs are introduced and configuration is described in such structs
+>> for gs101 and exynos850 based SoCs. Probe routine now selects the
+>> corresponding platform-specific data via device_get_match_data().
+>>=20
+>> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+>> ---
+>>  drivers/mailbox/exynos-mailbox.c | 67 +++++++++++++++++++++++++++++++++=
++++++--
+>>  1 file changed, 64 insertions(+), 3 deletions(-)
+>>=20
+>> diff --git a/drivers/mailbox/exynos-mailbox.c b/drivers/mailbox/exynos-m=
+ailbox.c
+>> index d2355b128ba4..f9c59c07558a 100644
+>> --- a/drivers/mailbox/exynos-mailbox.c
+>> +++ b/drivers/mailbox/exynos-mailbox.c
+>> @@ -31,14 +31,61 @@
+>> =20
+>>  #define EXYNOS_MBOX_CHAN_COUNT		HWEIGHT32(EXYNOS_MBOX_INTGR1_MASK)
+>> =20
+>> +#define EXYNOS850_MBOX_MCUCTRL		0x0	/* Mailbox Control Register		*/
+>> +#define EXYNOS850_MBOX_INTGR0		0x8	/* Interrupt Generation Register 0	*=
+/
+>> +#define EXYNOS850_MBOX_INTCR0		0x0C	/* Interrupt Clear Register 0		*/
+>> +#define EXYNOS850_MBOX_INTMR0		0x10	/* Interrupt Mask Register 0		*/
+>> +#define EXYNOS850_MBOX_INTSR0		0x14	/* Interrupt Status Register 0		*/
+>> +#define EXYNOS850_MBOX_INTMSR0		0x18	/* Interrupt Mask Status Register =
+0	*/
+>> +#define EXYNOS850_MBOX_INTGR1		0x1C	/* Interrupt Generation Register 1	=
+*/
+>> +#define EXYNOS850_MBOX_INTMR1		0x24	/* Interrupt Mask Register 1		*/
+>> +#define EXYNOS850_MBOX_INTSR1		0x28	/* Interrupt Status Register 1		*/
+>> +#define EXYNOS850_MBOX_INTMSR1		0x2C	/* Interrupt Mask Status Register =
+1	*/
+>> +#define EXYNOS850_MBOX_VERSION		0x70
 >
-> Kind Regards,
-> Tommaso
+> Please consider defining just the registers that are used, to not
+> pollute the driver. You may drop the unused gs101 definitions too.=20
+
+Sure. Thanks. I was surprised how many unused defines were introduced
+by gs101 SoC in the first place all over.
+
+>> +#define EXYNOS850_MBOX_INTMR1_MASK	GENMASK(15, 0)
+>> +
+>> +/**
+>> + * struct exynos_mbox_driver_data - platform-specific mailbox configura=
+tion.
+>> + * @irq_doorbell_offset:	offset to the IRQ generation register, doorbel=
+l
+>> + *				to APM co-processor.
+>> + * @irq_doorbell_shift:		shift to apply to the value written to IRQ
+>> + *				generation register.
+>> + * @irq_mask_offset:		offset to the IRQ mask register.
+>> + * @irq_mask_value:		value to right to the mask register to mask out
+>> + *				all interrupts.
+>> + */
+>> +struct exynos_mbox_driver_data {
+>> +	u16 irq_doorbell_offset;
+>> +	u16 irq_doorbell_shift;
+>> +	u16 irq_mask_offset;
+>> +	u16 irq_mask_value;
+>> +};
+>> +
+>>  /**
+>>   * struct exynos_mbox - driver's private data.
+>>   * @regs:	mailbox registers base address.
+>>   * @mbox:	pointer to the mailbox controller.
+>> + * @data:	pointer to driver platform-specific data.
+>>   */
+>>  struct exynos_mbox {
+>>  	void __iomem *regs;
+>>  	struct mbox_controller *mbox;
+>> +	const struct exynos_mbox_driver_data *data;
+>> +};
+>> +
+>> +static const struct exynos_mbox_driver_data exynos850_mbox_data =3D {
+>> +	.irq_doorbell_offset =3D EXYNOS850_MBOX_INTGR0,
+>> +	.irq_doorbell_shift =3D 16,
+>> +	.irq_mask_offset =3D EXYNOS850_MBOX_INTMR1,
+>> +	.irq_mask_value =3D EXYNOS850_MBOX_INTMR1_MASK,
+>> +};
+>> +
+>> +static const struct exynos_mbox_driver_data exynos_gs101_mbox_data =3D =
+{
+>> +	.irq_doorbell_offset =3D EXYNOS_MBOX_INTGR1,
+>> +	.irq_doorbell_shift =3D 0,
+>> +	.irq_mask_offset =3D EXYNOS_MBOX_INTMR0,
+>> +	.irq_mask_value =3D EXYNOS_MBOX_INTMR0_MASK,
+>>  };
 >
-> Tommaso Merciai (2):
->   arm64: dts: renesas: r9a09g057: Add #mux-state-cells to
->     usb2{0,1}phyrst
->   arm64: dts: renesas: r9a09g056: Add #mux-state-cells to usb20phyrst
+> I find it strange that the SoCs use different registers. Are you sure you=
+'re
+> using the right direction? i.e. ring the doorbell to APM and not to AP?
 
-Does this series supersedes "[PATCH v5 16/22] arm64: dts: renesas:
-r9a09g056: Add USB2.0 VBUS_SEL mux-controller support"[1] and "[PATCH
-v5 17/22] arm64: dts: renesas: r9a09g056: Add USB2.0 PHY VBUS internal
-regulator node"[2]?
+Well, I am not sure I correctly understood the questions and comment. So,
+this all was tested with ACPM TMU code with 3 temp sensors and it seems
+to work and sensors react in the right way.
 
-Thanks!
+Downstream clearly does the following (see also [1],[2]) when sending
+ACPM msg:
 
-[1] https://lore.kernel.org/c63d0a62d439a78e9ccc0b4176b84bbc32629a8e.1764241212.git.tommaso.merciai.xr@bp.renesas.com
-[2] https://lore.kernel.org/f33b5566511a946e4e909854213e75c12d89a441.1764241212.git.tommaso.merciai.xr@bp.renesas.com
+static void apm_interrupt_gen(unsigned int id)
+{
+	/* APM NVIC INTERRUPT GENERATE */
+	writel((1 << id) << 16, acpm_ipc->intr + INTGR0);
+}
 
-Gr{oetje,eeting}s,
+I am aware that gs101 downstream uses INTGR1 in apm_interrupt_gen().
 
-                        Geert
+When I use INTGR1 for e850 then I observe acpm timeouts. Hence, out of
+curiosity, what's the expected behaviour when/if I ring the doorbell to
+AP (to itself as far as I understand)? My understanding that it won't
+work at all in such case unless APM firmware does some very fast
+polling.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+[1]: https://gitlab.com/Linaro/96boards/e850-96/kernel/-/blob/android-exyno=
+s-4.14-linaro/drivers/soc/samsung/acpm/acpm_ipc.c?ref_type=3Dheads#L423
+[2]: https://github.com/samsungexynos850/android_kernel_samsung_exynos850/b=
+lob/0af517be2336bf8e09c59d576c4c314446713101/drivers/soc/samsung/acpm/acpm_=
+ipc.c#L426
+
+>>  static int exynos_mbox_send_data(struct mbox_chan *chan, void *data)
+>> @@ -57,7 +104,8 @@ static int exynos_mbox_send_data(struct mbox_chan *ch=
+an, void *data)
+>>  		return -EINVAL;
+>>  	}
+>> =20
+>> -	writel(BIT(msg->chan_id), exynos_mbox->regs + EXYNOS_MBOX_INTGR1);
+>> +	writel(BIT(msg->chan_id) << exynos_mbox->data->irq_doorbell_shift,
+>> +	       exynos_mbox->regs + exynos_mbox->data->irq_doorbell_offset);
+>
+> Use FIELD_PREP from <linux/bitfield.h> please. You will use a mask instea=
+d of
+> a shift.
+>
+> I would rename irq_doorbell_offset to intgr. It aligns with the register =
+name
+> from the datasheet. You won't need to prepend _offset to the name, we alr=
+eady
+> see it's an offset when doing the writel().
+
+Sure. Thanks. Let's use FIELD_PREP.
+
+"doorbell" naming was chosen for readability and maintainability reasons.
+It seems to be more generic enough name that better reflects the workflow
+of what's going on in ACPM+mailbox machinery. We can rename it to just
+"doorbell" for instance.
+
+From platform data it will be clear to which register it is set, INTGR0
+or INTGR1, to align it with datasheet (which is closed anyway).
+
+Regarding intgr vs doorbell name, the intgr is a bit unclear for a
+reader if it means interrupt generation register or something else.
+But if you prefer, I can go with "intgr".
+
+One more option is add a comment, smth like /* Ring the doorbell */
+before that writel().
+
+[..]
+
+>> @@ -133,7 +194,7 @@ static int exynos_mbox_probe(struct platform_device =
+*pdev)
+>>  	platform_set_drvdata(pdev, exynos_mbox);
+>> =20
+>>  	/* Mask out all interrupts. We support just polling channels for now. =
+*/
+>> -	writel(EXYNOS_MBOX_INTMR0_MASK, exynos_mbox->regs + EXYNOS_MBOX_INTMR0=
+);
+>> +	writel(data->irq_mask_value, exynos_mbox->regs + data->irq_mask_offset=
+);
+>> =20
+>
+> and here I would s/irq_mask_value/intmr_mask and irq_mask_offset/intmr.
+
+Ack. Thanks.
+
+Best regards,
+Alexey
