@@ -1,105 +1,40 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 414A83D6CCA
-	for <devicetree@vger.kernel.org>; Wed,  8 Apr 2026 17:15:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71F7A32E13B;
+	Wed,  8 Apr 2026 17:22:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775668515; cv=none; b=jA3JV4KcLoBcTJzwPDUjeEpfu1hrXHhRgwth4nF6fXnygbEDMfpyEGUQjlxB2dRHPJF75iLrY75/O2AJWhgblv+tsev59C/CWspcTMp09M8lGjBIiIlOv1vl7k8EhVhx3D3gD+AqvUg/hHOXBB8Ka1EHi8cJyzK/Gx2MBncUeVA=
+	t=1775668943; cv=none; b=qaQbbOoUM9Zbr3N9mmFD2Z7/bm7SlGhi8Q2KiPAbgk4JLdrEbLvXr9D9Is2hUTBkCgC2qQph0kjjHMPGgVych4AXKwFeRHDKJkky+Qk6V+BnWYY8cHF+SYtz2QWa7Xx6uPIKt/ds/wpCKyoMminRIpTV1yYNVyLhHTD0MqGwoyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775668515; c=relaxed/simple;
-	bh=D4FRhcOACF7pc94x5qgQDchbK6AYknnWBfZq2d/BUHM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=n5LU6fb6hEw4/jKum5ioB9pPW20XryNkfgLccCyA3hKgR08JbxdwfcWSSWoad9BwLyhG6LMeRh7IM1tJVoK6YMyOsJDcdv02bhycjcSgGAZ6o5Gh6mSLGN8ziAQdE8YLcbCZhphYQscf9XPm4ySMIlWkHpxL49ATAdthtmPNM1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZHURPQup; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=G7HzCL37; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1775668943; c=relaxed/simple;
+	bh=ays/7jNwW83CF93SHZVFHVvuLfD/wIAAwD4jrcSavkE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=p9oeBKMUKVrEL87JG/2aQf/xb9J3IMJjoDZXhYjEtlcmoMhpE9hcypteeLJu800Dke6yFJuI1Iee4SO4ujzkosFfExh/X/VERufiyJkGPF7zz0qaQEOXbMj9yKTzuzDxxPibwZb6maOyu/dvRlJc2Ky+RSeJLWXgIqoy3Z2NUYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=vcE6F9Bm; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZHURPQup";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="G7HzCL37"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 638GC3531072637
-	for <devicetree@vger.kernel.org>; Wed, 8 Apr 2026 17:15:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	irJPjQOx57gitkVQBKC9OTFjeqNhaQWRfIuH/klmg8I=; b=ZHURPQupUvXIcRP8
-	pICTvVdooRN8cXy32/VDBb8wPKJ9N2p2SxSy0kxPDXWrulWeEuEn6ho3piHldMSG
-	LaUQUc34ZPsOr0Lx8HxpAaPYT7SCG71jgs116W0fUg2JCoemZipzbWXUYRwb9rBq
-	IAUo+RVALSX4M8AiXoixfkI75CyxySydSJAFSpe1ZyTVNjitRsUeywLDF6ottSdT
-	LTMc2PuyqMciusC5x8lZrOYjJxUwnmIN58PSTfNeZL0vriiGY9Q8vMSwxli4FXts
-	9Qlmy0oR0ErjheQZfh6mvtXzUkOAUJuQKU9J5mniouumL61UV79jtSiqHYlAswD/
-	bUR79w==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ddtb3879t-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 17:15:13 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-c76fff22e60so228409a12.1
-        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 10:15:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775668512; x=1776273312; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:date:message-id:subject
-         :references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=irJPjQOx57gitkVQBKC9OTFjeqNhaQWRfIuH/klmg8I=;
-        b=G7HzCL37pzesdz3/q3K/WWdCFeBudWORNzC7jAV9H/q8oWrkU8lvSY43m7EdloM/gk
-         f+e3XZWl7qUzYX9nRTcKvk0mqDgny3GPga1Rb8DckXqYmt2n9s0TjoiVIIV9pyOx7wpv
-         kWXghBlD88TJFeTHSLy0KPnDvaJpHWZVfOz7+lj0+T6K8A2cXasfMjC7cSIuPYMGFLpk
-         sZsGzi1twxgar2P/3JbeYYIU7Mp68sQ0rQWdHlJ5M8C+anbKZWCbg61xTf6Vfau4U500
-         Bn4s/IIJqNyUxrmqd7kpT2CEMX+HmYRdESvcU2Q7Pwr+v4xAfIXxDmDFnsLXfUaqoVgv
-         jXvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775668512; x=1776273312;
-        h=content-transfer-encoding:mime-version:date:message-id:subject
-         :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=irJPjQOx57gitkVQBKC9OTFjeqNhaQWRfIuH/klmg8I=;
-        b=H/oYCDKzeTn7MA8egojOGquGzk/VNHfxKcDaTBcT6tk28CdIvLzgMM2WZJ3jCaPefq
-         bA1H1rZLfUHVlO+y62ZMcKddBREy4ZRPsIVJmSmMoyGnbUMWrEr+lf74mnmZT/Yk9IaB
-         EhAHFd/MTFKhlEhhv9HVvtpQ+KDNJiZxk7Las9PqBUT8Euwg3a6b0W4ZB+dnWU66nUos
-         W2JtfMPDj3U+sLNVwGS2mb5kEuWdPFtbkHeLXxsgPRQnpXsGe5hM6mM2Cxf9yWeDxdcU
-         zRLjtteYk3J4+U9SLWdZIDOHkvttYd48/ITXE9RDV1bVLrb2c5L1gKIxzGNxiZ5Jb4o6
-         /dJg==
-X-Forwarded-Encrypted: i=1; AJvYcCW3J7o1/TEmNdkXO3b0Aj1fwhVxbTl2ONSl9fTZhN2M3Jki1wk2SJtkLCetvnNyKSxkQgDlKoBSimQg@vger.kernel.org
-X-Gm-Message-State: AOJu0YyoHxoweINQotdsVUD2BTk/dSs4lhjt4X0CKBTn08twQHuZ3Vlf
-	H2tJkSXJSQTbiHi1nCtPg3gHV0wOs0pTQXhEoUU37wslt6OrB7G5pMTHdmk2tekgK5MnwtiFCrg
-	QGpeJJrcKFGWA6bfvr4E2R1PRon+Ph1uaetjvs1ItEam3Gs9Cky5aLnu9LPyI5hai+Npipcbx
-X-Gm-Gg: AeBDiesC7J7GFHi+WkQc9L1RCqb8F6nc8mN08ZeMP2ftrfeK3zQ63j5538rqvhRn0Uj
-	Ff14wLZ65fY+6B0/D4Kp3AYsiI+d+bNGc4sTwvYESEmIkxg66ik7MDQzI0U7WNjLqoIsmV6hxjL
-	hcv33iQpdSQ5wx7aga2FD8y0tSdb6HEucJVKy6Zx2f4ICDugCyNzPtGn2WFVsXm0MBuWvM7p+ek
-	jxcnt5IijaaoLJiYAUx7txNszpP0usTjpCvItTjjKT7CMc2p4f/gjtFfY35WLSnoVAe8NHJqK/Q
-	KZGx+MZns75DHQJFwd7nHWBpA/uoNy3GWDA05Ii5pMTwe7/BQCumEfU5LZ4uiNTNp73hnga434g
-	gDggTm7+qPkwAAWHaVi7ck7d0KIDG8h2Q7J8C3gPDVB8yjcztt9WLHgmz5FGtXcUzM5/Aw+PHEi
-	OJ
-X-Received: by 2002:a05:7022:6881:b0:12a:b39a:339f with SMTP id a92af1059eb24-12bfb7451abmr10809568c88.21.1775668512015;
-        Wed, 08 Apr 2026 10:15:12 -0700 (PDT)
-X-Received: by 2002:a05:7022:6881:b0:12a:b39a:339f with SMTP id a92af1059eb24-12bfb7451abmr10809540c88.21.1775668511298;
-        Wed, 08 Apr 2026 10:15:11 -0700 (PDT)
-Received: from hu-jjohnson-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-12bed93f861sm26103624c88.0.2026.04.08.10.15.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Apr 2026 10:15:10 -0700 (PDT)
-From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-To: Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Paul Sajna <sajattack@postmarketos.org>,
-        David Heidelberg <david@ixit.cz>
-Cc: Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
-        Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Amit Pundir <amit.pundir@linaro.org>, linux-wireless@vger.kernel.org,
-        devicetree@vger.kernel.org, ath10k@lists.infradead.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        phone-devel@vger.kernel.org
-In-Reply-To: <20260407-skip-host-cam-qmi-req-v5-0-dfa8a05c6538@ixit.cz>
-References: <20260407-skip-host-cam-qmi-req-v5-0-dfa8a05c6538@ixit.cz>
-Subject: Re: (subset) [PATCH v5 0/3] ath10k: Introduce a devicetree quirk
- to skip host cap QMI requests
-Message-Id: <177566851037.1322920.3559253544691274000.b4-ty@oss.qualcomm.com>
-Date: Wed, 08 Apr 2026 10:15:10 -0700
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="vcE6F9Bm"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 0335D1A31F1;
+	Wed,  8 Apr 2026 17:22:20 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id B83EE603CE;
+	Wed,  8 Apr 2026 17:22:19 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1D9A0104500F3;
+	Wed,  8 Apr 2026 19:22:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1775668937; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=+Wz7EWR6PFtBNGIpnKG6zlh6pWOtrnWRejKbkJ7zGIY=;
+	b=vcE6F9Bm0xLbMFqR4xIAs+2HhyfGZTh0nQ6D037ZgVz1u7nNb8yF1TAaZN33ANBEfkW6Ba
+	P2doGxy3nCV/hxau4OL92CQcSNWoTKHWPrx95EhONQO0bTGPAGOkySAnxqsgkRYK1MIwbr
+	IsGUuCY/zZ6uUOJ4cCalg5CBqZLEIwdUqtNPRVclzZ6jzH+IFcoTRNN1b+CfoQHJgfFTiQ
+	oyrNiDChEJB6Yf7pM06krJIQuVxI6V2EEWJdjhCEyomF3Q0Iuy0fVVquwyjlcLvOgnZzS6
+	8shZsf2HkgPfDlWQPGqdOmQoMAeuLaHgb7P4DykRwvaA3wsQaec9E8kXADexqg==
+From: "Thomas Perrot (Schneider Electric)" <thomas.perrot@bootlin.com>
+Subject: [PATCH v5 0/5] Add support for AAEON SRG-IMX8P MCU
+Date: Wed, 08 Apr 2026 19:21:53 +0200
+Message-Id: <20260408-dev-b4-aaeon-mcu-driver-v5-0-ad98bd481668@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -108,53 +43,131 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XQwWoDIRAG4FcJnmtxRt3EnvoeoQdHx0Zo1uKmk
+ hL23euGlhBC0uM/MN8/zElMXDNP4mV1EpVbnnIZe7BPKxF2fnxnmWPPAhVaQAAZuUky0nsuo9y
+ HLxlrblwlK944pmR8ItG3PyunfDzL27eed3k6lPp9LmqwTP83G0glraPkgXzQSb9SKYePPD6Hs
+ l9KfgV8LAwUB0thwwnwSljuavh3y6AA9X0Ju+SSCUpRIhvoVtIXCdUDSXdJeXBGo1oPPtxK5iJ
+ pNPcl06X+bwUQk1k7cy3N8/wDZHlEAuABAAA=
+X-Change-ID: 20251211-dev-b4-aaeon-mcu-driver-e0e89ebf4afb
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ =?utf-8?q?J=C3=A9r=C3=A9mie_Dautheribes?= <jeremie.dautheribes@bootlin.com>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Lee Jones <lee@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-watchdog@vger.kernel.org, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ "Thomas Perrot (Schneider Electric)" <thomas.perrot@bootlin.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA4MDE2MCBTYWx0ZWRfX3tiMAAwA1SnU
- a1BeE3ThngQtdZrCGriI1ZKnrc7nW6t4kqv1Pw/G4RfJ9L7rwTpBjweVZo6+X0GJH7ojHpu7BC1
- 07ve338BLy5fBPfiEr/b3iYATO16CFqll9hz4tgfgESNhMV7WFRoKuXyLpjbnU5npDJVXL8jchJ
- six/Rqhaf0pnmCaIIwuZw7j9GUVE/OYfvXGiymvqk/5BV+jjVg2CGeBODKsVxJjtgkzuTThaTn8
- NCDywCZzRyDOlmbxi/OyiTVkNoHmG3nc4QMLVRttz3+A8KHU1SMgDUFyc/mISBmWO4Tj7rYAn0i
- PXW+/pe+CNNTxC5BZ8SnHkAEvJ+EwKH9VGTfI7rsKoLrNZ7Xfy++vOaFUcL4M+k4Lw+nVjW0vTW
- AD9cbaz3xFGLUwpXfmzi6Sus/oG/N+h9f/TtuJgk4SLIf5hXBwGHcSo2qjnUvYxqqQzCFYH4dFk
- spUmzoVetiAVOzM0V0w==
-X-Authority-Analysis: v=2.4 cv=eKIjSnp1 c=1 sm=1 tr=0 ts=69d68d21 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=XIgAiO59-CApRadi8WAA:9 a=QEXdDO2ut3YA:10
- a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-GUID: MUCqyVAb4pQpmiIEEiGbxdWTg32oIu7-
-X-Proofpoint-ORIG-GUID: MUCqyVAb4pQpmiIEEiGbxdWTg32oIu7-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-08_05,2026-04-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 phishscore=0 priorityscore=1501
- lowpriorityscore=0 clxscore=1015 spamscore=0 suspectscore=0 malwarescore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
- definitions=main-2604080160
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4278;
+ i=thomas.perrot@bootlin.com; h=from:subject:message-id;
+ bh=ays/7jNwW83CF93SHZVFHVvuLfD/wIAAwD4jrcSavkE=;
+ b=owEB7QES/pANAwAKAZ/ACwVx/grtAcsmYgBp1o7Dcs3pGUCJVgH0wv4fifMTQ43eT7+gmyEq0
+ GBStzGjCJiJAbMEAAEKAB0WIQSHQHfGpqMKIwOoEiGfwAsFcf4K7QUCadaOwwAKCRCfwAsFcf4K
+ 7X3/DACUMsrlamPpXwrcTDRZAlqDJTA3mvxlKDttCd4kyVBnt2mOkeicVC7GHSaC18Ng3kSmDe8
+ Gzlcv6JPWdLit91T/pO4cs5+8wUWpeZTA+6bTEfxHYCUFfUZsKO7cnvKoV45hE7wxRcYkJbshk4
+ cehXRpVYtj+RzWEN7UwucBpvxAoJmhTD9lntAugndNIqM+hPPvD2IORRdUDNuE4Y/Xq9V+sjK2r
+ uP157fvYGxkOPsRtd4iQuFo6/aJiFSvPrSf9FErodYvOO6nXMTAT/hN6rbbubtItFhKU8Qx2OA1
+ yHMTUkBNxYfMsEyw5czyyqr6zlxnUpGEICeM2cfUl4x9fHAlTQyFQODqaRRLGsoMe+eqxR4d0wp
+ eI/VOYtboYNZVbhSNkIMd6qiirnwV0QxTAGySTJ6xkDbEx3+0bubDWq5nuF66WuZaZ5HSe2c9zi
+ D1U4J3HHA21BopSPjfATaQiFahDUPmx/VWOU8YHgQI27ZOsFm0U3QozGc2s4u+8UPLJZY=
+X-Developer-Key: i=thomas.perrot@bootlin.com; a=openpgp;
+ fpr=874077C6A6A30A2303A812219FC00B0571FE0AED
+X-Last-TLS-Session-Version: TLSv1.3
 
+This patch series introduces support for the AAEON SRG-IMX8P embedded
+controller (MCU). The MCU is connected via I2C and provides GPIO and
+watchdog functionality for the SRG-IMX8P board.
 
-On Tue, 07 Apr 2026 08:43:53 +0200, David Heidelberg wrote:
-> This quirk is used so far used on:
->  - LG G7 ThinQ
->  - Xiaomi Poco F1
-> 
-> I'm resending it after ~ 4 years since initial send due to Snapdragon
-> 845 being one of best supported platform for mobile phones running
-> Linux, so it would be shame to not have shiny support.
-> 
-> [...]
+The series includes:
+- Device tree binding for the MFD driver
+- MFD driver that serves as the core driver for the MCU
+- GPIO driver implementing the GPIO functionality
+- Watchdog driver for system monitoring
+- MAINTAINERS entry for the new drivers
 
-Applied, thanks!
+The drivers follow the standard Linux kernel subsystem patterns, with
+the MFD driver registering the sub-devices (GPIO and watchdog) which
+are then handled by their respective subsystem drivers.
 
-[1/3] dt-bindings: wireless: ath10k: Add quirk to skip host cap QMI requests
-      commit: 3d7640b6c371a1795e6d9580695d20caf16be9a4
-[2/3] ath10k: Add device-tree quirk to skip host cap QMI requests
-      commit: 6a7693873b20680a3c33bae0c9f9cb3185f64ade
+Signed-off-by: Thomas Perrot (Schneider Electric) <thomas.perrot@bootlin.com>
+---
+Changes in v5:
+- mfd: use heap-allocated DMA-safe buffers for I2C transfers, replacing
+  stack-allocated buffers in the regmap bus callbacks
+- mfd: switch from REGCACHE_NONE to REGCACHE_MAPLE; add volatile_reg
+  callback marking GPIO input read registers (opcode 0x72) as volatile;
+  add max_register
+- mfd: use PLATFORM_DEVID_AUTO instead of PLATFORM_DEVID_NONE
+- mfd: use MFD_CELL_BASIC() macro for cell definitions
+- mfd: use dev_err_probe() for regmap initialization error
+- Link to v4: https://lore.kernel.org/r/20260324-dev-b4-aaeon-mcu-driver-v4-0-afb011df4794@bootlin.com
+
+Changes in v4:
+- mfd: switch to a custom regmap bus; remove aaeon_mcu_i2c_xfer() and the aaeon_mcu_dev struct
+- mfd: locking delegated to regmap's built-in mutex; drop explicit mutex
+- mfd: remove firmware version reading at probe time
+- gpio, watchdog: use regmap_read()/regmap_write() via dev_get_regmap()
+- include: replace aaeon_mcu_i2c_xfer() declaration with AAEON_MCU_REG() macro
+- dt-bindings: remove unused label from example node
+- Link to v3: https://lore.kernel.org/r/20260203-dev-b4-aaeon-mcu-driver-v3-0-0a19432076ac@bootlin.com
+
+Changes in v3:
+- Renamed SRG-IMX8PL to SRG-IMX8P
+- dt-bindings: add gpio-controller properties as required
+- mfd: move struct aaeon_mcu_dev from header to .c file (private)
+- mfd: use guard(mutex) and devm_mutex_init() for cleanup
+- mfd: firmware version log changed to dev_dbg()
+- mfd: add select MFD_CORE to Kconfig
+- Kconfig: add || COMPILE_TEST to all three drivers
+- watchdog: add comments explaining hardware timeout and WDOG_HW_RUNNING
+- watchdog: remove unused platform_set_drvdata()
+- watchdog: add a function to query the status
+- Link to v2: https://lore.kernel.org/r/20260123-dev-b4-aaeon-mcu-driver-v2-0-9f4c00bfb5cb@bootlin.com
+
+Changes in v2:
+- Fold GPIO and watchdog bindings into MFD binding
+- Drop OF_GPIO dependency in GPIO Kconfig
+- Use __set_bit/__clear_bit/__assign_bit instead of atomic variants
+- Various driver cleanups and improvements
+- Link to v1: https://lore.kernel.org/r/20251212-dev-b4-aaeon-mcu-driver-v1-0-6bd65bc8ef12@bootlin.com
+
+---
+Thomas Perrot (Schneider Electric) (5):
+      dt-bindings: vendor-prefixes: Add AAEON vendor prefix
+      dt-bindings: mfd: Add AAEON embedded controller
+      mfd: aaeon: Add SRG-IMX8P MCU driver
+      gpio: aaeon: Add GPIO driver for SRG-IMX8P MCU
+      watchdog: aaeon: Add watchdog driver for SRG-IMX8P MCU
+
+ .../bindings/mfd/aaeon,srg-imx8p-mcu.yaml          |  67 ++++++
+ .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+ MAINTAINERS                                        |  10 +
+ drivers/gpio/Kconfig                               |   9 +
+ drivers/gpio/Makefile                              |   1 +
+ drivers/gpio/gpio-aaeon-mcu.c                      | 229 +++++++++++++++++++++
+ drivers/mfd/Kconfig                                |  10 +
+ drivers/mfd/Makefile                               |   1 +
+ drivers/mfd/aaeon-mcu.c                            | 204 ++++++++++++++++++
+ drivers/watchdog/Kconfig                           |  10 +
+ drivers/watchdog/Makefile                          |   1 +
+ drivers/watchdog/aaeon_mcu_wdt.c                   | 132 ++++++++++++
+ include/linux/mfd/aaeon-mcu.h                      |  40 ++++
+ 13 files changed, 716 insertions(+)
+---
+base-commit: d358e5254674b70f34c847715ca509e46eb81e6f
+change-id: 20251211-dev-b4-aaeon-mcu-driver-e0e89ebf4afb
 
 Best regards,
 -- 
-Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Thomas Perrot (Schneider Electric) <thomas.perrot@bootlin.com>
 
