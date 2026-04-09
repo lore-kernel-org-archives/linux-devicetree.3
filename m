@@ -1,52 +1,45 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AD7138838F
-	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 08:15:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CCBB35B632;
+	Thu,  9 Apr 2026 08:17:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775722542; cv=none; b=ZaC8Llts1xFioVPvg02wx0oZ6mjexySXwH4vtAYUtvXiXxh/YR6+L1enCgn10EKDGofscqM1gAvM5sZm48ljSnEtmFU9LmmKHq2R9xDgnuLDBNqSNS6YEmYlXsoKtKt3AfBZn/USydzmt7PvSQKUtC/4VkoxM67XxHHdwSVScYQ=
+	t=1775722651; cv=none; b=DSv3IQgVHj/bPy/m4m7T5WfhIrYer+PyY96IJcF7gaN5q6iIQURmiMS+9Ve6dseDeLqJy5Oe7/sFevoC7/iPzCmlg//+ZclbJe3Pwibwq3WEoK6p7d5U0Lr1ifP+uILKOmj4U6UX3SM/CRAtr1vxXtuAYP+43UXFVppDMuspCck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775722542; c=relaxed/simple;
-	bh=gGOYm5JUaNKc4HwAwGvH6PthwvR4u5tZurrxiG4WjpM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=No3ZC2f3tDfF26Lpx9yX8ogNXItRBNBdH2J+h8y/cWfZbTTEDLqilD/sFyJyBBrgRC1vG4WQ0BNi4r0vL5SILnaqCFuMLi1e97kPTjObaxfQZWcifz1yR3B8YdgGEPVEBod6ZwBmfFS5p0LYP+3U/3b0BO+CDCE3UAex4WLoxjY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=r1HkkXUH; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1775722651; c=relaxed/simple;
+	bh=sPCrS7Vxsq6SyoOdi8MM943FRV/lGQdBwPfGUAhtoiE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sqSf88PFmqWjSUgwAr+0/55Nna2bihL7ybkjgSAVjwKMiQtASz/+QLWkiARlYBDFi3Pkc0dCt9TfH827bjewAPcIHf2tCSYINd+R7hUnbPaKsWIs1TmUq808wQ1Wr37c25+GKEViJlD0kcC5VZuK6wmHhj0G7Dc79eekZA/OEWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZULk9AoF; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="r1HkkXUH"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 3ED1E1A31F7;
-	Thu,  9 Apr 2026 08:15:33 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 114105FDEB;
-	Thu,  9 Apr 2026 08:15:33 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id ADD2F1045022E;
-	Thu,  9 Apr 2026 10:15:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1775722532; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=5RNSE3ufA8gLPjXh9tO8uxYCJoZORLDy0cXiQmS6dbg=;
-	b=r1HkkXUHEaOVxOe99BnC2YM+DmWmHOzDzmLO73IAaDKTKo1l0vQbwrWBxpmPp9hW1FuAsF
-	dTfKGWPuOv0c0DrmTKcNJPlV3WSBPS4hJNEnPiAyKyoQdaUV6G9Qfl7FeEpenCCM5uZeGd
-	3rHBUXKaMnrJdH3HnGYY9KRZ7CG4Z2SxeoMSkefaALgMXLENyQwbTISUr+EyvZqjr2JwuV
-	7u3u0R1qCOf9TiIWxD4GaYZRdaer5VQtQeZrrJv/CoHrsbEg5hJK80+1EBo/JYFeSnzqFn
-	0mn6QU8dvvHhL2W8iYORQFntybooRYx4Yg1GphZC+8Fp/t7HpMp4XdBfxr7w2Q==
-From: Gregory CLEMENT <gregory.clement@bootlin.com>
-To: Gabor Juhos <j4g8y7@gmail.com>, Andrew Lunn <andrew@lunn.ch>, Sebastian
- Hesselbarth <sebastian.hesselbarth@gmail.com>, Robert Marko
- <robert.marko@sartura.hr>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Stanley Chang
- <stanley_chang@realtek.com>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Gabor Juhos <j4g8y7@gmail.com>
-Subject: Re: [PATCH 0/2] arm64: dts: marvell: armada-37xx: USB3 PHY cleanup
-In-Reply-To: <20260330-armada-37xx-usb3-phy-cleanup-v1-0-34d77f1a1784@gmail.com>
-References: <20260330-armada-37xx-usb3-phy-cleanup-v1-0-34d77f1a1784@gmail.com>
-Date: Thu, 09 Apr 2026 10:15:28 +0200
-Message-ID: <87wlyg35y7.fsf@BLaptop.bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZULk9AoF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D54DC4CEF7;
+	Thu,  9 Apr 2026 08:17:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775722651;
+	bh=sPCrS7Vxsq6SyoOdi8MM943FRV/lGQdBwPfGUAhtoiE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZULk9AoFoGK/bsWIrEczQm+RKRre0K8iu4RVp8K7KIsNSixdhhWMn8KJtAQtC8F4Y
+	 nr8Ljqk5J+0stJmGOuYkPiurEWOTFiQbRhjU44q1mBt7ebBABamq0fJyF2ZdEo61iw
+	 JUtWr+X3NwsF5UKpUIiW8m1apbvd7qkKKM7hzV58QMA94pnRkN8TEgBc88FuS8S9qf
+	 0ypubbDQX+BXP0kwRNOCWkIW+Vf5Rhj3hVrwIjAfYEz7Xc11Au4bJmamJFeOEPDsvX
+	 GoHlHV+uA7b/mtlls1wH1x29hs8TpcYTxTr8bOlWsAaJHT9XSdUpYMUlaVGLCqLWuQ
+	 iuU5lQbeswGnA==
+Date: Thu, 9 Apr 2026 10:17:28 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Gregor Herburger <gregor.herburger@linutronix.de>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui <rjui@broadcom.com>, 
+	Scott Branden <sbranden@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>, 
+	Srinivas Kandagatla <srini@kernel.org>, devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] nvmem: Add the Raspberry Pi OTP driver
+Message-ID: <20260409-pearl-turkey-of-adventure-815ffe@quoll>
+References: <20260408-rpi-otp-driver-v1-0-e02d1dbe6008@linutronix.de>
+ <20260408-rpi-otp-driver-v1-2-e02d1dbe6008@linutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,44 +47,38 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Disposition: inline
+In-Reply-To: <20260408-rpi-otp-driver-v1-2-e02d1dbe6008@linutronix.de>
 
-Gabor Juhos <j4g8y7@gmail.com> writes:
-
-> There are two small patches in the series. The first helps to avoid
-> triggering a bug in the USB core code, whereas the second one is a=20
-> small cleanup to align PHY definitions of the USB3 node with other
-> platforms.
->
-> Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
+On Wed, Apr 08, 2026 at 10:00:16AM +0200, Gregor Herburger wrote:
+> Raspberry Pis have OTP registers which can be accessed through the
+> videocore firmware. Add a nvmem driver to support these OTP registers.
+> 
+> Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
 > ---
-> Gabor Juhos (2):
->       arm64: dts: marvell: armada-37xx: use 'usb2-phy' in USB3 controller=
-'s phy-names
->       arm64: dts: marvell: armada-37xx: swap PHYs' order in USB3 controll=
-er node
->
->  arch/arm64/boot/dts/marvell/armada-3720-uDPU.dtsi | 2 +-
->  arch/arm64/boot/dts/marvell/armada-37xx.dtsi      | 4 ++--
->  2 files changed, 3 insertions(+), 3 deletions(-)
+>  drivers/nvmem/Kconfig                      |  12 +++
+>  drivers/nvmem/Makefile                     |   1 +
+>  drivers/nvmem/raspberrypi-otp.c            | 159 +++++++++++++++++++++++++++++
+>  include/soc/bcm2835/raspberrypi-firmware.h |   2 +
+>  4 files changed, 174 insertions(+)
+> 
+> diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
+> index 74ddbd0f79b0..892d05fe67be 100644
+> --- a/drivers/nvmem/Kconfig
+> +++ b/drivers/nvmem/Kconfig
+> @@ -483,4 +483,16 @@ config NVMEM_QORIQ_EFUSE
+>  	  This driver can also be built as a module. If so, the module
+>  	  will be called nvmem_qoriq_efuse.
+>  
+> +config NVMEM_RASPBERRYPI_OTP
+> +	tristate "Raspberry Pi OTP support"
+> +	# Make sure not 'y' when RASPBERRYPI_FIRMWARE is 'm'. This can only
+> +	# happen when COMPILE_TEST=y, hence the added !RASPBERRYPI_FIRMWARE.
 
-Applied on mvebu/dt64
+Drop comment and use standard rules for multiple modules.
 
-Thanks,
+https://lwn.net/Articles/944368/
 
-Gregory
+Best regards,
+Krzysztof
 
-> ---
-> base-commit: 2ff6cc999a04bcb094b8cbba68a9251f03a5c876
-> change-id: 20260330-armada-37xx-usb3-phy-cleanup-922a5472794a
->
-> Best regards,
-> --=20
-> Gabor Juhos <j4g8y7@gmail.com>
->
-
---=20
-Gr=C3=A9gory CLEMENT, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
