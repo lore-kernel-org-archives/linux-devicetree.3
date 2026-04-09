@@ -1,162 +1,113 @@
-Received: from pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.1.125])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A8BC2EBBA4;
-	Thu,  9 Apr 2026 18:51:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.246.1.125
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C5A8279DA6
+	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 20:18:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775760676; cv=none; b=MLhMB8gY9KHZ6KrOZEJjQPnx9lZYxhc6kIJIVYH9Zj1qqWWup2Z+PdjZYPNxiyk2UgPklJ9YDbPypzicWUZ2v4anAUUmivd9UL0By+ZwWQI3awvB1js1NQ2/Yg4NV4iOPnZjDVwYjCHQlsDz/f+rusol+GOOxN9ZyNzjAXijEqg=
+	t=1775765912; cv=none; b=aAiNK5EIfICczK44XhYbExRpi98ym54r5FtZ3ILO9jfz8diYUiQjy2biEAb9aL9wWW4A1fmmtEfQlLsLSscapG8nC/z+y1SMSejxoF0CdacIHs6V2+fhOf1qQWWuVIYrZmj3TzC47Mg5rtovTwQIaf5Un4TWOQuNUr4eIpgkS+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775760676; c=relaxed/simple;
-	bh=dq70URP/Krt9M4r9eo801pm+IiIX/boqdHgrYpqLcnA=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=awg1RfGrLt7CTxgJh82M5fmTXTefZ4cgZp6ii6c6lt8hjlkJpbrNrEheZo8x3i1BSXArFmBaganjXuxL2lT7XSX0zhn1CqcWawOF5JEOdZ7UODh1lvJ3FiwMFuuNBD24p8J6oDndHxQKDH5eOAU03hEWNiR0+5jzTpw+zf04jbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=PgH0hWPb; arc=none smtp.client-ip=44.246.1.125
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	s=arc-20240116; t=1775765912; c=relaxed/simple;
+	bh=OEEKgGc4h07d0SC0BP/9593PktvbJPvWbzlDAXtwYRM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Xzz7v/nEQ21LlS7varxUkWys8TOECkQXReQKEnFhcWCrd1aKkeQPfc7zvQ1R1GOE7pdIEhKdS3IP7k9QVTBp1GzCqd4vr+48x4FjGM5gkt9tn3O5PCxMu3ZTCqbpUniY5LYgrDJ2LBcpTceCLGxkFhxBguKs79VXW7ZPHOCpHYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=blM/TIs3; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="PgH0hWPb"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="blM/TIs3"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2b0afa0210bso6029375ad.2
+        for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 13:18:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1775760675; x=1807296675;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=HrytP8IlU1zcnz3KNtUwmivDgViJtRjefBb3Lu7mQ2M=;
-  b=PgH0hWPbPyAjxGj6gATDqRuURfPvRztoZa8WRES8GYPXaMiOU1Prb3Tl
-   /Xe3UXZGjAhTYSb0cPucQ7kyVSFiblxrfzDNaCsJOU7y6fkRDxGlOEOVa
-   srj3EwhOfX1XlojxbT0PcWVp6YUEugX++whgoqyh/6XkXj6vPZFmwYOP9
-   vf3LiZqXnQiFvtLmPjaOfvEUY//GzHPP7QsoI+barIC1jCMVlGQIijh2L
-   91Zd86ivj5e3VWFwCEU8Nfja0NAzCPkZZEnOpZAzmIIC1OjQMJpNKu0vd
-   Jvg7tyd3FIbnhMu1pNrVoaby3tcRh//BzhK0lTClOIN7I6xUHh1P3pSxP
-   Q==;
-X-CSE-ConnectionGUID: /VYPa2h5RAKD6+SZdMGPJg==
-X-CSE-MsgGUID: rSvJMwIbSpSENj2cE02f5g==
-X-IronPort-AV: E=Sophos;i="6.23,170,1770595200"; 
-   d="scan'208";a="16952641"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 18:51:12 +0000
-Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:15277]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.9.233:2525] with esmtp (Farcaster)
- id 79311853-5cd8-4807-beb1-7c2687e50223; Thu, 9 Apr 2026 18:51:11 +0000 (UTC)
-X-Farcaster-Flow-ID: 79311853-5cd8-4807-beb1-7c2687e50223
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37;
- Thu, 9 Apr 2026 18:51:09 +0000
-Received: from dev-dsk-epetron-1c-1d4d9719.eu-west-1.amazon.com
- (10.253.109.105) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37; Thu, 9 Apr 2026
- 18:51:07 +0000
-Date: Thu, 9 Apr 2026 18:51:04 +0000
-From: Evangelos Petrongonas <epetron@amazon.de>
-To: Mike Rapoport <rppt@kernel.org>
-CC: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
-	Changyuan Lyu <changyuanl@google.com>, Alexander Graf <graf@amazon.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav
-	<pratyush@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
-	<devicetree@vger.kernel.org>, <kexec@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <nh-open-source@amazon.com>
-Subject: Re: [PATCH] of: fdt: skip KHO when booting as crash kernel
-Message-ID: <20260409185104.GA74321@dev-dsk-epetron-1c-1d4d9719.eu-west-1.amazon.com>
-References: <20260407150639.69923-1-epetron@amazon.de>
- <ade2ExpM8ROXV-vy@kernel.org>
+        d=gmail.com; s=20251104; t=1775765911; x=1776370711; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YlPXVSRBag/I0TSEfHEfaPNTy5vKLac57tugfy+V0xg=;
+        b=blM/TIs3OulrAbcW7Oqh/4n2q9M3ILlDwa+i+mEEFySNhcK88lsrVtICKE6tGRBCoR
+         vIq3N4g6SBjRdfjPhqY4+xoGyrIPjmPn46ho7d6Y0wi541HpUzzsk7bZxHhpB130KSfr
+         CxbcwXiuOZ+l8BPefCxyunTRgiuuGCuomRZCQVSqmtDzdZrZqHp8XjbOKRZ54Iagw8xE
+         17MmXJyRdOfrWckIUHVgUTc0wJ5OJT5tAqrV6YJi2cUknh0Y1cZm81N+ix2MhpsMl3cu
+         JFEjhjki+6qs4Kma5W1Gz8y5I6swwCTNv/kYvfOJqASMqFE0L6OilJ2J4YEYmrFdk/7a
+         q/tA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775765911; x=1776370711;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=YlPXVSRBag/I0TSEfHEfaPNTy5vKLac57tugfy+V0xg=;
+        b=eCO80mc0DaWHUTbYdDjuR2wRfORdmroLPxijvhJAPovAFFlHCcfb/Jc3mv+d0IJiul
+         2VVJ6PkAInAdJDGXzX/N1oU/m7boE/WI0PXrKXs9tt9Pn5KxbNHEoVj1iMCRuy9Ca2uD
+         SSEgBY2MGN24Vjuc+KthX+XTU637BILw8hCzHEZuAMmAanwh8cRCuq7ktXUSELAwcPXw
+         uiQkQl3wkirnew/wj3avFWgFur0eUHQ2FCrDpLnzVyE3a/JeuwrRC/0Y8oGJcqWa/cRn
+         IBaYYKaRiVZrldC9hoCzKRTGcpei5DqlM9qRrA1crifmCcDi8Hq19RhoB+KBGYFQEibX
+         8eow==
+X-Forwarded-Encrypted: i=1; AJvYcCUB9WT8BMJKbefF4tP2evlxWC2iRsoKBBYp+b5f2JaH2XxswgxHOa8Pqjk72TFp2lCUOJGmENDedQmr@vger.kernel.org
+X-Gm-Message-State: AOJu0YwvMqoA2fVX3tvf0Jqajp47asL1n+xi+YDrMDu+TVT4EykTHKQ2
+	kb40ElEDMv0W61/Cd4HFzBpuX/6JzjDXpdCI4B8XdlnbH+VrXKbzCmb5
+X-Gm-Gg: AeBDiesSz4x33zoMYdLkIGBTmTp9eD8Nzv3bjAwO2TKxCX6aS/ce/5XRyviTCCtOqMY
+	1Jv5y5VKQDz2T86GLkyRoDHGpYwdPqPUG3zmkeGvxO82Gypu1p8jlJVJGjQWGQIdnEdvqeTnGk9
+	1b3xGbMQs3C4Y4uy6A6ilLFDeAoumV7AzMuexQRQx4zxqsmaudAgNp8peHQxZ62aLwfrIgfbjMx
+	2vSD750LstUXy5jjj8j8XPg840cIQ3MPJ6v0pvgr/ed9XxTqqqbHKICdpaLkBBQkHmDAR1mFRX/
+	/NIDoIith550RF2CEUj3lgjJl8G1N4X1YMifG2tlCuCUxctwdPQwDhcPVTwuvo2p1lbzrmz8uvQ
+	LFEybilvX0bBJOBM7FQ9iboynri2ROFKh6QhoHUEKLnfOS1plwMc5dapn6gpuZWCxulKpj2wwhq
+	RpvCAd6/O3Pi/QkRUDwFTlVYwE9HQa2EXP8Ne8MmIFcNM/68YXYhdMczN9F40=
+X-Received: by 2002:a17:903:1ae6:b0:2b2:5256:9ce7 with SMTP id d9443c01a7336-2b2d5a6121dmr2982525ad.36.1775765910614;
+        Thu, 09 Apr 2026 13:18:30 -0700 (PDT)
+Received: from tomriddle ([131.203.184.83])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b2d4f48cfdsm3895425ad.82.2026.04.09.13.18.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Apr 2026 13:18:30 -0700 (PDT)
+From: Oliver White <oliverjwhite07@gmail.com>
+To: andersson@kernel.org,
+	konradybcio@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: bod@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Oliver White <oliverjwhite07@gmail.com>
+Subject: [PATCH v2 0/2] arm64: dts: qcom: x1e80100-microsoft-romulus: enable OV02C10 MIPI CSI-2 camera
+Date: Fri, 10 Apr 2026 08:17:15 +1200
+Message-ID: <20260409201717.108169-1-oliverjwhite07@gmail.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260409083609.75341-1-oliverjwhite07@gmail.com>
+References: <20260409083609.75341-1-oliverjwhite07@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <ade2ExpM8ROXV-vy@kernel.org>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-ClientProxiedBy: EX19D042UWA003.ant.amazon.com (10.13.139.44) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Transfer-Encoding: 8bit
 
-On Thu, Apr 09, 2026 at 05:22:11PM +0300 Mike Rapoport wrote:
-> Hi Evangelos,
-> 
-> On Tue, Apr 07, 2026 at 03:06:33PM +0000, Evangelos Petrongonas wrote:
-> What about x86? ;-)
->
+This series wires up the front-facing OV02C10 MIPI CSI-2 camera on
+Microsoft Romulus.
 
-Well... I was planning to reply with "we will sort it out in a followup".
-I have a suspicion though, that you knew that the kho_fill_kimage()
-approach would take care of it. Nice! Thanks for the tip.
-I will post soon the v2.
+Patch 1 adds the PM8010 regulator outputs used by the camera module.
+Patch 2 enables CAMSS, CCI1 and CSIPHY4, adds the OV02C10 sensor node,
+and defines the pinctrl state used by the camera clock and reset lines.
 
-> > diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
-> > index 43a0944ca462..77018ec99fc8 100644
-> > --- a/drivers/of/fdt.c
-> > +++ b/drivers/of/fdt.c
-> > @@ -926,6 +926,9 @@ static void __init early_init_dt_check_kho(void)
-> >  	if (!IS_ENABLED(CONFIG_KEXEC_HANDOVER) || (long)node < 0)
-> >  		return;
-> >  
-> > +	if (is_kdump_kernel())
-> > +		return;
-> > +
-> 
-> This seems redundant if don't add KHO nodes at the first place.
-> 
-Indeed it is, it was more of a defense in depth in case there were stale
-data somehow, but I will drop it in v2.
+This depends on the CAMSS DT style conversion discussed in review, as it
+uses the same endpoint layout style.
 
-> >  	if (!of_flat_dt_get_addr_size(node, "linux,kho-fdt",
-> >  				      &fdt_start, &fdt_size))
-> >  		return;
-> > diff --git a/drivers/of/kexec.c b/drivers/of/kexec.c
-> > index c4cf3552c018..b95f0b386684 100644
-> > --- a/drivers/of/kexec.c
-> > +++ b/drivers/of/kexec.c
-> > @@ -271,7 +271,8 @@ static int kho_add_chosen(const struct kimage *image, void *fdt, int chosen_node
-> >  	if (ret && ret != -FDT_ERR_NOTFOUND)
-> >  		return ret;
-> >  
-> > -	if (!image->kho.fdt || !image->kho.scratch)
-> > +	if (!image->kho.fdt || !image->kho.scratch ||
-> > +	    image->type == KEXEC_TYPE_CRASH)
-> >  		return 0;
-> >  
-> >  	fdt_mem = image->kho.fdt;
-> 
-> kho_add_chosen() bails out if there's no KHO buffer in kimage, so if
-> kho_fill_kimage won't add KHO buffer to kexec_crash_image it should be
-> enough.
-> 
-Indeed, one guard to rule them all. Much more elegant than the
-"let's sprinkle checks everywhere (apart from x86))" approach.
+Changes in v2:
+- rename "webcam" to "MIPI CSI-2 camera"
+- split regulator additions from camera enablement
+- add a cover letter describing the series dependency
 
-> > -- 
-> > 2.43.0
-> > 
-> > 
-> > 
-> > 
-> > Amazon Web Services Development Center Germany GmbH
-> > Tamara-Danz-Str. 13
-> > 10243 Berlin
-> > Geschaeftsfuehrung: Christof Hellmis, Andreas Stieger
-> > Eingetragen am Amtsgericht Charlottenburg unter HRB 257764 B
-> > Sitz: Berlin
-> > Ust-ID: DE 365 538 597
-> > 
-> 
-> -- 
-> Sincerely yours,
-> Mike.
+Oliver White (2):
+  arm64: dts: qcom: x1e80100-microsoft-romulus: add PM8010 camera
+    regulators
+  arm64: dts: qcom: x1e80100-microsoft-romulus: enable OV02C10 MIPI
+    CSI-2 camera
 
-Kind Regards,
-Evangelos
+ .../dts/qcom/x1e80100-microsoft-romulus.dtsi  | 127 ++++++++++++++++++
+ 1 file changed, 127 insertions(+)
 
 
-
-Amazon Web Services Development Center Germany GmbH
-Tamara-Danz-Str. 13
-10243 Berlin
-Geschaeftsfuehrung: Christof Hellmis, Andreas Stieger
-Eingetragen am Amtsgericht Charlottenburg unter HRB 257764 B
-Sitz: Berlin
-Ust-ID: DE 365 538 597
-
+base-commit: 6fbfeca7008b379fb2cdc4f1409c139185e5a029
+-- 
+2.51.0
