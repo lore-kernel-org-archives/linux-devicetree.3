@@ -1,43 +1,53 @@
-Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 904053E122E
-	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 16:24:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.121
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C24F3E1CE8;
+	Thu,  9 Apr 2026 16:58:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775751878; cv=none; b=unNfQULP/qq/xzcMOCghxBAsvmZFsf9qsfr4xN+ZcOX2dcP4I9zhr9wyJ6TKOUSlpY5MooY1Q/45cyN6n+oXZ60tKCFjoBIa9PV79fWLizrQ7I6lPr0s6wYaj/vssNRicb8eoNxd9JZPRsBte5ZNyV8usN2CM6OdGDLXM9ig2uo=
+	t=1775753907; cv=none; b=BMQwNmWqvuMnSKxKKrzpBVdfZuRV7sRXi9MiSRLLWssTo7P6bL+ib1NiLn+dXAG3ivG2vAR9WtzygxwG5jPC5lcZV/BVJF5X3EFNmPzho8WbHk2nCcTLoWCZudIrAomXr/3Hb8isPij2gDOw08jRZa1NTvzjQImpOkmBjdX+7wk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775751878; c=relaxed/simple;
-	bh=1pxZBrLmy2pMWIo0LdsENmdYtsvl8jy8EOqABhANfgE=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rYueetRbiyNh1dKfCxRDZfuktYoY4DFiYrxPhoT1Zv0rg6uuO6UO0dWc1UQluIUS3/BbWGmoWeteFMgHjqPF+5KSnP5i9g5AQMIKS4GC0khG2/kpapeqkgs4RldIKqhXTqgcxLmXtt6BvaYyrLav2cPQsHNMdOuXy/RdEEoWk64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=iRToTGEC; arc=none smtp.client-ip=79.135.106.121
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1775753907; c=relaxed/simple;
+	bh=jzQepuIPTUxzXw6nvVnnvG0DD/52Qtgmozdmz3RF8Dc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GaFYsFZWyLlxzNwFpMa9EtSKtaNXLrFXweJJIyBZHB3GkN1m0W+rElR4AQtD75KxRogCNG5u/al2zhwteiSqtNsIFjP32tt0zfzUpRTqa51I1LPVPmBldgsymhqU5WI2knd7yspUPXYRoEFJfJK8mSM3wXdGZOt9kp6S5u34McY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IFpM1HVL; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="iRToTGEC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1775751875; x=1776011075;
-	bh=1pxZBrLmy2pMWIo0LdsENmdYtsvl8jy8EOqABhANfgE=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=iRToTGECnVE+8mvp2PylT9VBlBWBKMJjXAgcYtlTlbO5Mm5I+/1nHDD2S9Oh8e4ac
-	 rbHnmucn39RU3PveCgaHiRTWygCvfh43J2km94FCqkFSreqdtphlB/TQAksSr26aej
-	 p6g9QToDUQxQKm2yTMW/z314tUqJ7sRqtZKG01mShW1BW7bdbiOVbM6PBjVJCOB6wu
-	 WL1dyxVbgVkEXLVb5yqYjhgcjPWa/02x2ouKqvfMfrnxf9EG8GIQUKuJZVIjV0hlyd
-	 1ac/8SQ9oNTWirsIufvtt6ps6LmlG8f9z1+kqbOADDhl+uBR4n+2S6u6ybL2iI1xsX
-	 JGwceMQsaKv2Q==
-Date: Thu, 09 Apr 2026 16:24:28 +0000
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-From: Hardik Phalet <hardik.phalet@pm.me>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, =?utf-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Brigham Campbell <me@brighamcampbell.com>, Shuah Khan <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev, Hardik Phalet <hardik.phalet@pm.me>
-Subject: [PATCH 4/4] MAINTAINERS: Add entry for QST QMC5883P magnetometer driver
-Message-ID: <20260409162308.2590385-5-hardik.phalet@pm.me>
-In-Reply-To: <20260409162308.2590385-1-hardik.phalet@pm.me>
-References: <20260409162308.2590385-1-hardik.phalet@pm.me>
-Feedback-ID: 166659585:user:proton
-X-Pm-Message-ID: 2b7baa0548efb5feb749682b4d124577346ff50a
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IFpM1HVL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A83DC116C6;
+	Thu,  9 Apr 2026 16:58:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775753907;
+	bh=jzQepuIPTUxzXw6nvVnnvG0DD/52Qtgmozdmz3RF8Dc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=IFpM1HVLK0gj/ENLmzP+oNXpi+o1r6eJD99Xz2JAeeE9//s28r0AkFibOJjgDCa7g
+	 2TZnjHbG7Q1rDYrxUN6wXFWJts0vnvCXSnICth6fI19BYuE+3cRWP1du/bw7vM4BIj
+	 AskhIq+vIHe0s5wQorI5G3iGW3Go/uLcRna5qQkUYdRvdS/D3qGUCYKNa8gY54BsaP
+	 YLawo9o8483hclAtRSauVavPsIeiQ58oxINp5WgqDhPFv+dIlj/x2bxHFliApKfC1W
+	 KJv/GYUqnnJ37bS7izC3i1voWnVIrHVE4Q6et6bDg1q/LsXbCxRP+KZ1rhUALG6uuD
+	 ZuuDmkhKY5i7A==
+Date: Thu, 9 Apr 2026 22:28:17 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Sherry Sun <sherry.sun@nxp.com>
+Cc: "robh@kernel.org" <robh@kernel.org>, 
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>, 
+	Frank Li <frank.li@nxp.com>, "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>, 
+	"kernel@pengutronix.de" <kernel@pengutronix.de>, "festevam@gmail.com" <festevam@gmail.com>, 
+	"lpieralisi@kernel.org" <lpieralisi@kernel.org>, "kwilczynski@kernel.org" <kwilczynski@kernel.org>, 
+	"bhelgaas@google.com" <bhelgaas@google.com>, Hongxing Zhu <hongxing.zhu@nxp.com>, 
+	"l.stach@pengutronix.de" <l.stach@pengutronix.de>, "imx@lists.linux.dev" <imx@lists.linux.dev>, 
+	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, 
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH V11 02/12] PCI: host-generic: Add common helpers for
+ parsing Root Port properties
+Message-ID: <yzy3xui6wzc6h4jguju6hj66bqsj37ulnkl4sjsq4ytyb6azgn@lc2zpqbquzwa>
+References: <20260407104154.2842132-1-sherry.sun@nxp.com>
+ <20260407104154.2842132-3-sherry.sun@nxp.com>
+ <lnzprzrdwra7pn7d6m3sbj5pvjy64blwpjl6i3lmlnfbyho63b@czpyhpgz5vum>
+ <VI0PR04MB12114A60C4A7E43ED62A32B04925BA@VI0PR04MB12114.eurprd04.prod.outlook.com>
+ <yijf6mwclpx6n7giucgykxvrm73baicy2urhzns34sxgloli3z@ygose2qrgvuz>
+ <VI0PR04MB1211419BB996B4790AE04170F92582@VI0PR04MB12114.eurprd04.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,36 +55,190 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <VI0PR04MB1211419BB996B4790AE04170F92582@VI0PR04MB12114.eurprd04.prod.outlook.com>
 
-Add a MAINTAINERS entry for the QST QMC5883P staging IIO driver,
-covering the driver source and its device tree binding.
+On Thu, Apr 09, 2026 at 02:58:21AM +0000, Sherry Sun wrote:
+> > On Wed, Apr 08, 2026 at 06:34:02AM +0000, Sherry Sun wrote:
+> > 
+> > [...]
+> > 
+> > > > > +/**
+> > > > > + * pci_host_common_parse_port - Parse a single Root Port node
+> > > > > + * @dev: Device pointer
+> > > > > + * @bridge: PCI host bridge
+> > > > > + * @node: Device tree node of the Root Port
+> > > > > + *
+> > > > > + * Returns: 0 on success, negative error code on failure  */
+> > > > > +static int pci_host_common_parse_port(struct device *dev,
+> > > > > +				      struct pci_host_bridge *bridge,
+> > > > > +				      struct device_node *node) {
+> > > > > +	struct pci_host_port *port;
+> > > > > +	struct gpio_desc *reset;
+> > > > > +
+> > > > > +	reset = devm_fwnode_gpiod_get(dev, of_fwnode_handle(node),
+> > > > > +				      "reset", GPIOD_ASIS, "PERST#");
+> > > >
+> > > > Sorry, I missed this earlier.
+> > > >
+> > > > Since PERST# is optional, you cannot reliably detect whether the
+> > > > Root Port binding intentionally skipped the PERST# GPIO or legacy
+> > > > binding is used, just by checking for PERST# in Root Port node.
+> > > >
+> > > > So this helper should do 3 things:
+> > > >
+> > > > 1. If PERST# is found in Root Port node, use it.
+> > > > 2. If not, check the RC node and if present, return -ENOENT to
+> > > > fallback to the legacy binding.
+> > > > 3. If not found in both nodes, assume that the PERST# is not present
+> > > > in the design, and proceed with parsing Root Port binding further.
+> > >
+> > > Hi Mani, understand, does the following code looks ok for above three
+> > cases?
+> > >
+> > >     /* Check if PERST# is present in Root Port node */
+> > >     reset = devm_fwnode_gpiod_get(dev, of_fwnode_handle(node),
+> > >                       "reset", GPIOD_ASIS, "PERST#");
+> > >     if (IS_ERR(reset)) {
+> > >         /* If error is not -ENOENT, it's a real error */
+> > >         if (PTR_ERR(reset) != -ENOENT)
+> > >             return PTR_ERR(reset);
+> > >
+> > >         /* PERST# not found in Root Port node, check RC node */
+> > >         rc_has_reset = of_property_read_bool(dev->of_node, "reset-gpios") ||
+> > >                    of_property_read_bool(dev->of_node, "reset-gpio");
+> > 
+> > Just:
+> > 		if (of_property_read_bool(dev->of_node, "reset-gpios") ||
+> > 		    of_property_read_bool(dev->of_node, "reset-gpio")) {
+> > 			return -ENOENT;
+> > 		}
+> 
+> Ok, will do.
+> 
+> > 
+> > >         if (rc_has_reset)
+> > >             return -ENOENT;
+> > >
+> > >         /* No PERST# in either node, assume not present in design */
+> > >         reset = NULL;
+> > >     }
+> > >
+> > >     port = devm_kzalloc(dev, sizeof(*port), GFP_KERNEL);
+> > >     if (!port)
+> > >         return -ENOMEM;
+> > > ...
+> > >
+> > > >
+> > > > But there is one more important limitation here. Right now, this API
+> > > > only handles PERST#. But if another vendor tries to use it and if
+> > > > they need other properties such as PHY, clocks etc... those
+> > > > resources should be fetched optionally only by this helper. But if
+> > > > the controller has a hard dependency on those resources, the driver will
+> > fail to operate.
+> > > >
+> > > > I don't think we can fix this limitation though and those platforms
+> > > > should ensure that the resource dependency is correctly modeled in
+> > > > DT binding and the DTS is validated properly. It'd be good to
+> > > > mention this in the kernel doc of this API.
+> > >
+> > > Ok, I will add a NOTE for this in this API description.
+> > >
+> > > >
+> > > > > +	if (IS_ERR(reset))
+> > > > > +		return PTR_ERR(reset);
+> > > > > +
+> > > > > +	port = devm_kzalloc(dev, sizeof(*port), GFP_KERNEL);
+> > > > > +	if (!port)
+> > > > > +		return -ENOMEM;
+> > > > > +
+> > > > > +	port->reset = reset;
+> > > > > +	INIT_LIST_HEAD(&port->list);
+> > > > > +	list_add_tail(&port->list, &bridge->ports);
+> > > > > +
+> > > > > +	return 0;
+> > > > > +}
+> > > > > +
+> > > > > +/**
+> > > > > + * pci_host_common_parse_ports - Parse Root Port nodes from
+> > > > > +device tree
+> > > > > + * @dev: Device pointer
+> > > > > + * @bridge: PCI host bridge
+> > > > > + *
+> > > > > + * This function iterates through child nodes of the host bridge
+> > > > > +and parses
+> > > > > + * Root Port properties (currently only reset GPIO).
+> > > > > + *
+> > > > > + * Returns: 0 on success, -ENOENT if no ports found, other
+> > > > > +negative error codes
+> > > > > + * on failure
+> > > > > + */
+> > > > > +int pci_host_common_parse_ports(struct device *dev, struct
+> > > > > +pci_host_bridge *bridge) {
+> > > > > +	int ret = -ENOENT;
+> > > > > +
+> > > > > +	for_each_available_child_of_node_scoped(dev->of_node, of_port) {
+> > > > > +		if (!of_node_is_type(of_port, "pci"))
+> > > > > +			continue;
+> > > > > +		ret = pci_host_common_parse_port(dev, bridge, of_port);
+> > > > > +		if (ret)
+> > > > > +			return ret;
+> > > >
+> > > > As Sashiko flagged, you need to make sure that
+> > > > devm_add_action_or_reset() is added even during the error path:
+> > >
+> > > Yes, it needs to be fixed. We can handle it with the following two methods, I
+> > am not sure which method is better or more preferable?
+> > >
+> > > #1: register cleanup action after first successful port parse and use
+> > cleanup_registered flag to avoid duplicate register.
+> > >     int ret = -ENOENT;
+> > >     bool cleanup_registered = false;
+> > >
+> > >     for_each_available_child_of_node_scoped(dev->of_node, of_port) {
+> > >         if (!of_node_is_type(of_port, "pci"))
+> > >             continue;
+> > >         ret = pci_host_common_parse_port(dev, bridge, of_port);
+> > >         if (ret)
+> > >             return ret;
+> > >
+> > >         /* Register cleanup action after first successful port parse */
+> > >         if (!cleanup_registered) {
+> > >             ret = devm_add_action_or_reset(dev,
+> > >                                pci_host_common_delete_ports,
+> > >                                &bridge->ports);
+> > 
+> > Even if you register devm_add_action_or_reset(), it won't be called when
+> > pci_host_common_parse_port() fails since the legacy fallback will be used.
+> > 
+> > So you need to manually call pci_host_common_delete_ports() in the error
+> > path.
+> 
+> Get your point, so seems I should just add the err_cleanup handle path like this, right?
+> 
+>     for_each_available_child_of_node_scoped(dev->of_node, of_port) {
+>         if (!of_node_is_type(of_port, "pci"))
+>             continue;
+>         ret = pci_host_common_parse_port(dev, bridge, of_port);
+>         if (ret)
+>             goto err_cleanup;
+>     }
+> 
+>     if (ret)
+>         return ret;
+> 
+>     return devm_add_action_or_reset(dev, pci_host_common_delete_ports,
+>                     &bridge->ports);
+> 
+> err_cleanup:
+>     pci_host_common_delete_ports(&bridge->ports);
+>     return ret;
+> 
 
-Signed-off-by: Hardik Phalet <hardik.phalet@pm.me>
----
- MAINTAINERS | 7 +++++++
- 1 file changed, 7 insertions(+)
+Yes!
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index a92290fffa16..d0b9bfceb283 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -20274,6 +20274,13 @@ F:=09Documentation/networking/device_drivers/ether=
-net/freescale/dpaa2/overview.rst
- F:=09drivers/bus/fsl-mc/
- F:=09include/uapi/linux/fsl_mc.h
-=20
-+QST QMC5883P MAGNETOMETER DRIVER
-+M:=09Hardik Phalet <hardik.phalet@pm.me>
-+L:=09linux-iio@vger.kernel.org
-+S:=09Maintained
-+F:=09Documentation/devicetree/bindings/iio/magnetometer/qst,qmc5883p.yaml
-+F:=09drivers/staging/iio/magnetometer/
-+
- QT1010 MEDIA DRIVER
- L:=09linux-media@vger.kernel.org
- S:=09Orphan
---=20
-2.53.0
+- Mani
 
-
+-- 
+மணிவண்ணன் சதாசிவம்
