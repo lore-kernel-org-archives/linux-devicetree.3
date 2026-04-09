@@ -1,128 +1,155 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0974B371063;
-	Thu,  9 Apr 2026 07:23:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE75D30BF67
+	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 07:28:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775719415; cv=none; b=iFkfvDFaCRnWr3w/bJu4w7ttA9LxF+rifLNkY5n6vozdtOosWsntR+XsBhh71MyRwFn0WrlXepXUKQyPdMe9H+4PzCdWlL/he8KMVIFyps67NTN/gK1zvCEjzIYPxFMXNberWBFW70uZc5qwvHP9VPKOCwA1Jm4HjEL1BMerzTE=
+	t=1775719699; cv=none; b=jYOCjkKCWoOT3ORfJoVRFquG2FUzyRtjJ0VmKnqjAL5yZQU4DbqB4luWz5Jn1o6FeVAgZa7cvBC1QzeNv8Fveaao6oH8ThqXoWCGl851USd6NpCWLKyPCAvTrHk3uoe6Xbav6xRIX1FPfvgThotRTL8zQIUefW+hRMuHjDV+Ft0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775719415; c=relaxed/simple;
-	bh=QB1MrO+7VAAXX9kd+kyFhTUTa0/2VB7E8RuFY7CuiAw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sip2ypTTLtt2rbi+G4r1rFEFoZiTlOvix3+0O/XZiVy+ytvnakGjbPz2Mi4ZocApbxPZ2LZAJijJuTc2f/uWM5UsdfZRlRtQAEpqK4/PTLGgyQlM4haeO1dVyNgzzlQJAnXmePTQbAdfxVELBD9kvbT4aARVuwE+d4LAO48y8os=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ssLUEtGK; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775719699; c=relaxed/simple;
+	bh=wGp8rio3+O1LigJl7XJ1TouzLqDBv3x6HJpnWI0/Ifg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SVyjzTcHR5DqU48mvaZk5dK+NABau94FeiLxg/GUms5XWmU6mSUrbAxUNF86rG7P/eAmfZTXjTUtgpLyrYNTY3DPaFdxpeJI3dZCqH9Po/M5uZG4QAMdkG6Ed5cj1rtsgUlM8H5foilBTeJBqeiKQtlWV/dm3CpqZ2nrB/h6u90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FloQYJ2c; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ssLUEtGK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3A38C4CEF7;
-	Thu,  9 Apr 2026 07:23:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FloQYJ2c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B795C4CEF7;
+	Thu,  9 Apr 2026 07:28:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775719414;
-	bh=QB1MrO+7VAAXX9kd+kyFhTUTa0/2VB7E8RuFY7CuiAw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ssLUEtGKFLav1OTtsrl7LS+r3GYllqYrEyR3rmnlkm6b3X/2qBTlRIYkU1JntiZ38
-	 q6TIokwIm3iCyYtGMWmSzBvD2sFTf6qeAImBKwB45TwKW1Wf/p1AUcQ/O5gXUfAGZO
-	 2lHt5y2yil7i3NguBD/jrNz/49mg1S5e4jlUXYwDum9PmS1BsR5DTxXUrRhI84pDUO
-	 M8LwFw3r6PPmQpFLlbG30/aYcK+Y9QW+nD8SXuMGpRePT0eMAQYMsJLZEXjDn5TL4a
-	 WxQln3XwbuVTr6XeOSmLlIlrN7eFf8DW4nUBQN4ChuyXUg3PFE+gPhajkc+ZgBOWCN
-	 5ixOUktSB4tyQ==
-Message-ID: <a1e24b69-b90a-47d7-b952-bca45fcc6281@kernel.org>
-Date: Thu, 9 Apr 2026 09:23:28 +0200
+	s=k20201202; t=1775719699;
+	bh=wGp8rio3+O1LigJl7XJ1TouzLqDBv3x6HJpnWI0/Ifg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=FloQYJ2c5SgdHHvn1NdU1cHQSeYqeBynECzDyAjAy4b8FuIRjOkBM61yBgn4oUO3Y
+	 knFq4qkQ0jAh/fq362EBXQ0nOWCgPyzxNwhnGsStS1gamecAmV6RB8QW+THelaMIrR
+	 brnznsxZ1n1LZxCs48N2fZ/PTWmsEVBN5s1ebZNIKH0tZ2nh3DKN0myG4THk15I32t
+	 qQiTrEYS5ZlrcJCzE1FcMDfby2vKslWs0GbHHanWLLXyq2bR4xEQzLOLr2MsaCNPLp
+	 cG7Aowyj1makyC//P3Cwy+gQiCeRbeg3An5LVouCxbVbxuLrUnBXkimPNOcWkN2w/Z
+	 D8O0+qZIPG7dg==
+Date: Thu, 9 Apr 2026 09:28:17 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Dawid Glazik <dawid.glazik@linux.intel.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
+	Andrew Jeffery <andrew@codeconstruct.com.au>, linux-aspeed@lists.ozlabs.org, linux-i3c@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	Frank Li <Frank.Li@nxp.com>, Maciej Lawniczak <maciej.lawniczak@intel.com>
+Subject: Re: [PATCH v3 3/3] dt-bindings: i3c: Add AST2600 I3C global registers
+Message-ID: <20260409-beneficial-sociable-tamarin-dbcaeb@quoll>
+References: <cover.1775679285.git.dawid.glazik@linux.intel.com>
+ <7f55458097ef651b4fc46650254afd3fa7b87348.1775679285.git.dawid.glazik@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: rtc: nct3018y: add nuvoton,ctrl-reg-val
- property
-To: David Wang <tomato1220@gmail.com>, a.zummo@towertech.it,
- alexandre.belloni@bootlin.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: andrew@aj.id.au, avi.fishman@gmail.com, tmaimon77@gmail.com,
- tali.perry1@gmail.com, venture@google.com, yuenn@google.com,
- benjaminfair@google.com, ctcchien@nuvoton.com, mimi05633@gmail.com,
- openbmc@lists.ozlabs.org, linux-rtc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- davidwang@quantatw.com
-References: <cover.1775717959.git.tomato1220@gmail.com>
- <ba0845c590eda42a28b3799a6f40294ba74a726e.1775717959.git.tomato1220@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <ba0845c590eda42a28b3799a6f40294ba74a726e.1775717959.git.tomato1220@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <7f55458097ef651b4fc46650254afd3fa7b87348.1775679285.git.dawid.glazik@linux.intel.com>
 
-On 09/04/2026 09:21, David Wang wrote:
-> Add "nuvoton,ctrl-reg-val" vendor property to allow optional
-> initialization of the RTC control register (0x0A).
+On Wed, Apr 08, 2026 at 10:34:35PM +0200, Dawid Glazik wrote:
+> Introduce the device-tree bindings for I3C global registers found on
+> AST2600 SoCs.
 > 
-> This allows platform-specific configurations like 24h mode and
-> write ownership to be defined via Device Tree.
-> 
-> Signed-off-by: David Wang <tomato1220@gmail.com>
+> Signed-off-by: Dawid Glazik <dawid.glazik@linux.intel.com>
 > ---
->  Documentation/devicetree/bindings/rtc/nuvoton,nct3018y.yaml | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/rtc/nuvoton,nct3018y.yaml b/Documentation/devicetree/bindings/rtc/nuvoton,nct3018y.yaml
-> index 4f9b5604acd9..0984dfb77170 100644
-> --- a/Documentation/devicetree/bindings/rtc/nuvoton,nct3018y.yaml
-> +++ b/Documentation/devicetree/bindings/rtc/nuvoton,nct3018y.yaml
-> @@ -24,6 +24,10 @@ properties:
->  
->    reset-source: true
->  
-> +  nuvoton,ctrl-reg-val:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: Initial value for the control register (0x0A).
+> I wasn't sure if I should add newline at the end of the
+> file or not so I took
+> https://github.com/torvalds/linux/tree/master/Documentation/devicetree/bindings/i3c
+> as an example.
 
-24h mode is not a property of a board. I don't know what "write
-ownership" is.
+Answer is: you cannot have patch warnings.
+
+Documentation/devicetree/bindings/i3c does not have patch warning, does
+it?
+
+> ---
+>  .../i3c/aspeed,ast2600-i3c-global.yaml        | 55 +++++++++++++++++++
+>  1 file changed, 55 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/i3c/aspeed,ast2600-i3c-global.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/i3c/aspeed,ast2600-i3c-global.yaml b/Documentation/devicetree/bindings/i3c/aspeed,ast2600-i3c-global.yaml
+> new file mode 100644
+> index 000000000000..edecc18796a9
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/i3c/aspeed,ast2600-i3c-global.yaml
+> @@ -0,0 +1,55 @@
+> +# SPDX-License-Identifier: GPL-2.0 OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/i3c/aspeed,ast2600-i3c-global.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: ASPEED AST2600 I3C Global Registers
+> +
+> +description: |
+> +  The AST2600 SoC provides a shared I3C global register block used by all
+> +  I3C controller instances. This block contains per-instance global
+
+Why are you adding syscon to I3C controllers? Only I3C controllers go
+to i3c directory.
+
+syscons go soc.
+
+
+
+> +  configuration fields, including controller instance ID and SDA pull-up
+> +  configuration.
+> +  Each I3C controller references this syscon node through the
+> +  aspeed,global-regs property.
+> +
+> +maintainers:
+> +  - Dawid Glazik <dawid.glazik@linux.intel.com>
+> +
+> +allOf:
+> +  - $ref: /schemas/mfd/syscon-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: aspeed,ast2600-i3c-global
+> +      - const: syscon
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+
+I do not see any differences against syscon.yaml binding. Why do you
+need separate file? Look first how other platforms do it.
+
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    bus@1e7a0000 {
+> +        compatible = "simple-bus";
+> +        #address-cells = <1>;
+> +        #size-cells = <1>;
+> +        ranges = <0 0x1e7a0000 0x8000>;
+
+Drop entire node, not needed.
+
+> +
+> +        i3c-global@0 {
+> +            compatible = "aspeed,ast2600-i3c-global", "syscon";
+> +            reg = <0x0 0x1000>;
+> +            resets = <&syscon ASPEED_RESET_I3C_DMA>;
+> +        };
+> +    };
+> +...
+> \ No newline at end of file
+
+Patch warning.
 
 Best regards,
 Krzysztof
+
