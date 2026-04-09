@@ -1,126 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2131175A81;
-	Thu,  9 Apr 2026 11:26:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F9973B8949
+	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 11:40:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775733974; cv=none; b=lFR7xz1C3lAvzK4Ot9KpL6dvirihluGxz9SR56AB9MH1bhNC6Uksjv/pM9VCGlqwovPn4YqjYk+MRrvjsiJlddes3aam8JLcUtF2Weu6pkzkLP+8Bp9E6whd+LxoRoTNwrt72uTNaywxmbHCfHaM5inllJ4WAty0lyWrRb4ftpo=
+	t=1775734837; cv=none; b=oOl6tib3Fwnzqz56jJW8Moqeog1F7H0xPAGYc+DtiDZ44muJtUGBCY0PZ90vyMoj68pimFci7wZ7SdG4XirgKvgYBciT1dSkoWpsPDKY4gd+imL8XFvw6b6GY88vDHhV0THqmMfYqS5ov/BvW5YNOFFKG9j0wdbTNUBioL8AMrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775733974; c=relaxed/simple;
-	bh=LFNCQn45e1EAzaB+WITa52cblOfEaBQKyavgFqS6BLQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u7sd28U4sK62lujvBnsm4Nze4JzIUDQCRlHhAvyUvRdIzs7lx/Om9pdMhH7ehAE28bubs7mlHaqyeX0bE6o3gkHItGAz06n06DTsL3h5V5UXEmvWM9kKvnZWZoCYyE4j/nabAmJ7MdnwpGZmldF4SS53XIXX8puEQyoBjnx4ftc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nKJ82JgK; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775734837; c=relaxed/simple;
+	bh=Pg8rh/1N06LCkEAo+E/4op/VQofrZ3aTQo3V3dPJNZc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=To7Y4PgtuCe5lci0Ssmet75sj+xoEZjknJPPOFIhxH+mng19u3WTgydcPf6Q3dGFTiZxMbFjfcXcn6qPHHqQiGXAAEqqULdOuq+1CD9g8YCyduSmdAY6HSgdWOjw1DxVLaosD0uXGyW09CiLB9R3qXm2WOW1j36o0sQlocEs678=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nyfAzlH7; arc=none smtp.client-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nKJ82JgK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1888C4CEF7;
-	Thu,  9 Apr 2026 11:26:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775733974;
-	bh=LFNCQn45e1EAzaB+WITa52cblOfEaBQKyavgFqS6BLQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=nKJ82JgKtUsaXNmCaNLLc0WgEdxCpZWIO9NQcXgrC9OthhQVz8f0Z5MelgheUHjkZ
-	 jGTYT/nl6IcsdGz/Y6KgfFeQBKDOoBOz4GkK7OVpCGcue8N46K52qV8OONVWXN2M8Z
-	 tsbTkdXalHdwmijAFPlropJt5pVjQbmFip25Qc/DoP+JDlt+rvR7Gwsl7Q9UbS6C6z
-	 7aV/tbwwsEzwp4t3nGjjY3fJLB6CK67J+YDzDcc2Ge47x8FkKZfCB0JZpzf9z0fVHI
-	 c+qi+hw8WwGTv3hQTJ0j/FqVSL8GTUp/xRCPtb3XKrb30gcNCkNKBew3SweAS5KLKL
-	 XEsByelgahTvg==
-Date: Thu, 9 Apr 2026 16:56:06 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Joe Sandom <jsandom@axon.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5/5] arm64: dts: qcom: qcs8550: add QCS8550 RB5Gen2 board
- support
-Message-ID: <lusy4sd2q22tvtvzgbb3pbpxauy5ym46ojjtpjq43wyzn72yxy@uxcggqladbnl>
-References: <20260404-rb5gen2-dts-v1-0-895f8fc494fc@axon.com>
- <20260404-rb5gen2-dts-v1-5-895f8fc494fc@axon.com>
- <ehlhjfzekjnscro4ffydjhzfuiqhfkuyuxrk42x53cturzi4do@74y5k5ee6bv7>
- <20260407113925.4imd3lxkcrq47pu3@linaro>
- <25g2sasffiq4axsamv2m5nywieucj3vbwfhvn66jtzjxoodfxx@vkswsycqju6g>
- <20260409100455.foytyzse3k5ty55l@linaro>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nyfAzlH7"
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-b6ce6d1d3dcso329765a12.3
+        for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 04:40:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1775734836; x=1776339636; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Zh5N/EtZAnkI3b3uPP4/1FdnrHwMSkE/EVd51eSrmB0=;
+        b=nyfAzlH7XF4ZfAu6RCizKWTIUOZCuVFnyAokqTffk21+pkEBd6cnWnxmPhGrr8bRDU
+         2JxbKsPsydjxphDSilOoc63YAQ2MjUnDxJQtrAf2BMegE8OmvvD9m5zkSS36g3pAXBPL
+         qN85YlTB6cYB6C1Xpd4M7Cyi4A7/srENCY8QqKW5zU4phiIoD5tGN05uGEttxM4ePioX
+         qEgw7fSgpB7eZMT7foutq97JzkihKUWJquyw4fc7XxuyhmTsP9QeGJSaUzDoFvvverV6
+         V/hPt4m5BXocqbQJMCl1SYyDuKFTBO/fGYFzyByfWCpnsm+ewaXemYp2OBfg1YWckaLe
+         VY7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775734836; x=1776339636;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Zh5N/EtZAnkI3b3uPP4/1FdnrHwMSkE/EVd51eSrmB0=;
+        b=fA/TRWasBjZKcVcC2HcQA/Nqx6El5QfB6PloONK4e1ZVOu2CEBWKeiUT7OasiTtr/i
+         n7uKJeh3+dzg9FIBMn7sQyjQfwCmELmTUbSGAYy5OD9r+mPnsaIfbRhl6MHpvUMnKLYS
+         8N3lER2jRv2tsFiBiGzEOvxBRcVxM2tkwVkPPKb0xTNz9ya0alV8nRaA311fTwsa/tXy
+         jAYHWXallkd1xKJshvUbjWaCLyOvHj+RPsq1TttrIf5U5gzb00iP1CO3Elf53K80km4Z
+         nMOeHeWK53KHesYWtRnkAeQoj56cYwWC3CczrBXbJLkVQG8H2HABnrjTrAGqRVtuZEQU
+         xGiw==
+X-Gm-Message-State: AOJu0Ywn2APdlSHFPmI/vcFtNnYecsD/wHt/2gB5NFjrsnRvyNZGsJNw
+	Jb3aW9cREqFEcjgZ0YPhrN9lO6FxGQ/ASGf85LhupY1mRTyPQJhJnvURTX8prtTT
+X-Gm-Gg: AeBDiesTliMbIp/VdZGrRF+3TSK40orHSTXRH3/8M2YVgYI0KRKi9+n0+/nxovvAL0a
+	8yxXA+fZdBiT4A85YFKqzeCn3jOoOAIxIMXlYIg0hoN/BELXChXR0hQypEHenAL19vzmPMgDU37
+	hiPL7dIgniqkm22opBQDdVCX3Vbgy/Elutg4PCSiFV1HrXM91yUKJ0FwmbfSgc7546rVdwebzob
+	61gzYd87sTMt0S9BdF08vAtwe/Z/TkMUJGnBeWuNuI1Jnze9RucSLyIgI7uHTixw26udswXQuKk
+	q003zH5elhEd1Zz1En5O6AK51GVqfc4EuOI6GfNi0VJgjS2wQvC+Cpt737vnBUKlVWkzrMBy+RW
+	nhu1CfU2qrofZvtxcEqZ7DSUxxhnxgmPztuHRx9a5mautuE0XhlPwkoupVB20/4AIxS8fjusAp9
+	F1LlqYbWEPJ2xS0vQB5m4OAJ29AdKWUQ==
+X-Received: by 2002:a05:6a20:5493:b0:398:7b1d:87ce with SMTP id adf61e73a8af0-39f2eff45fbmr25361404637.20.1775734835570;
+        Thu, 09 Apr 2026 04:40:35 -0700 (PDT)
+Received: from [127.0.1.1] ([218.32.81.133])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c76c659a218sm22438545a12.29.2026.04.09.04.40.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Apr 2026 04:40:35 -0700 (PDT)
+From: Colin Huang <u8813345@gmail.com>
+Subject: [PATCH v2 0/3] ARM: dts: aspeed: anacapa: restructure devicetree
+ for development-phase
+Date: Thu, 09 Apr 2026 19:40:25 +0800
+Message-Id: <20260409-anacapa-devlop-phase-devicetree-v2-0-68f328671653@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260409100455.foytyzse3k5ty55l@linaro>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACmQ12kC/43NTQqDMBCG4atI1k3Jjyh21XsUF9PJqANqQiKhR
+ bx7oyfo8vkW37uLRJEpiUe1i0iZE/u1wNwqgROsI0l2xcIo06hatRJWQAggHeXZBxkmSHSCkbZ
+ IJGuttLOD1QaVKC8h0sCfq/DqiydOm4/fK5j1uf7/nbVUsmvfXWObFgHtc1yA5zv6RfTHcfwAy
+ 0ahMM4AAAA=
+X-Change-ID: 20260407-anacapa-devlop-phase-devicetree-4101d3f312c0
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+ colin.huang2@amd.com, Colin Huang <u8813345@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1775734833; l=1564;
+ i=u8813345@gmail.com; s=20260202; h=from:subject:message-id;
+ bh=Pg8rh/1N06LCkEAo+E/4op/VQofrZ3aTQo3V3dPJNZc=;
+ b=IhfZ12vZLAF4bC9lCx0x1Ypn7QQfx+MuRC+ef3Vi5brqRtnqHUJXPpV1nC9g/X36yTWADDrqd
+ DP1N+M7USURC/AICWLXes8L8FVHTvX4yVtfqSgm9OjpLf8eYCe5aE/L
+X-Developer-Key: i=u8813345@gmail.com; a=ed25519;
+ pk=Zlg0WqpCw4qbswOqamTBTXIchwR/3SnYZpy7rjaGMdQ=
 
-On Thu, Apr 09, 2026 at 11:04:55AM +0100, Joe Sandom wrote:
-> On Tue, Apr 07, 2026 at 09:44:34PM +0530, Manivannan Sadhasivam wrote:
-> > On Tue, Apr 07, 2026 at 12:39:25PM +0100, Joe Sandom wrote:
-> > 
-> > [...]
-> > 
-> > > > > +&pcie0 {
-> > > > > +	wake-gpios = <&tlmm 96 GPIO_ACTIVE_HIGH>;
-> > > > > +	perst-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
-> > > > > +
-> > > > > +	pinctrl-0 = <&pcie0_default_state>;
-> > > > > +	pinctrl-names = "default";
-> > > > > +
-> > > > > +	iommu-map = <0x0 &apps_smmu 0x1400 0x1>,
-> > > > > +		    <0x100 &apps_smmu 0x1401 0x1>,
-> > > > > +		    <0x208 &apps_smmu 0x1402 0x1>,
-> > > > > +		    <0x210 &apps_smmu 0x1403 0x1>,
-> > > > > +		    <0x218 &apps_smmu 0x1404 0x1>,
-> > > > > +		    <0x300 &apps_smmu 0x1407 0x1>,
-> > > > > +		    <0x400 &apps_smmu 0x1408 0x1>,
-> > > > > +		    <0x500 &apps_smmu 0x140c 0x1>,
-> > > > > +		    <0x501 &apps_smmu 0x140e 0x1>;
-> > > > > +
-> > > > > +	/delete-property/ msi-map;
-> > > > 
-> > > > Why?
-> > > I tried extending the msi-map to cover the RIDs from the QPS615
-> > > PCIe switch (matching the iommu-map entries), but this caused
-> > > ITS MAPD command timeouts.
-> > 
-> > I'm not aware of any specific issue with ITS on this chipset. At what time did
-> > you see the timeout? During probe?
-> So when I set msi-map to match the iommu-map entries, I got this;
-> [    0.000000] ITS [mem 0x17140000-0x1717ffff]
-> [   11.085152] ath12k_wifi7_pci 0001:04:00.0: BAR 0 assigned
-> [   11.115762] ath12k_wifi7_pci 0001:04:00.0: Wi-Fi 7 Hardware name: wcn7850 hw2.0
-> [   11.153632] ath12k_wifi7_pci 0001:04:00.0: MSI vectors: 16
-> [   11.252398] mhi mhi0: Requested to power ON
-> .........
-> [  101.596274] mhi mhi0: Wait for device to enter SBL or Mission mode
-> [  101.603098] ath12k_wifi7_pci 0001:04:00.0: failed to set mhi state: POWER_ON(2)
-> [  101.610632] ath12k_wifi7_pci 0001:04:00.0: failed to start mhi: -110
-> [  101.617171] ath12k_wifi7_pci 0001:04:00.0: failed to power up :-110
-> [  101.794431] ath12k_wifi7_pci 0001:04:00.0: probe failed with error -110
-> [  103.158872] ITS queue timeout (12640 12609)
-> [  103.163183] ITS cmd its_build_mapd_cmd failed
-> 
-> With msi-map removed, I got this;
-> [   11.469642] ath12k_wifi7_pci 0001:04:00.0: BAR 0 assigned
-> [   11.490059] ath12k_wifi7_pci 0001:04:00.0: Wi-Fi 7 Hardware name: wcn7850 hw2.0
-> [   11.497787] ath12k_wifi7_pci 0001:04:00.0: MSI vectors: 16
-> [   11.559958] mhi mhi0: Requested to power ON
-> [   11.567375] mhi mhi0: Power on setup success
-> [   11.693069] mhi mhi0: Wait for device to enter SBL or Mission mode
-> [   12.185946] ath12k_wifi7_pci 0001:04:00.0: chip_id 0x2 ... soc_id 0x40170200
-> [   12.482168] ath12k_wifi7_pci 0001:04:00.0 wlP1p4s0: renamed from wlan0
+This series refactors the Anacapa BMC devicetree layout to better support
+development-phase hardware revisions (EVT1/EVT2) while keeping a platform
+entrypoint.
 
-Thanks for the logs. I also checked internally and learned that the timeout is
-due to Gunyah limiting the devices per-port. On SM8550, it currently only
-allows 2 devices per RC instance to save the memory footprint. So when you
-connect a PCIe switch which exposes more than two devices (1 USP + (1+) DSPs),
-you'll run out of ITS mapping in Gunyah, leading to these timeouts.
+Signed-off-by: Colin Huang <u8813345@gmail.com>
+---
+Changes in v2:
+- Fix dtbs_check fail.
+  Validated by following command:
+    make dt_binding_check DT_SCHEMA_FILES=arm/aspeed/aspeed.yaml
+    make CHECK_DTBS=y DT_SCHEMA_FILES=arm/aspeed/aspeed.yaml aspeed/aspeed-bmc-facebook-anacapa.dtb
+    make CHECK_DTBS=y DT_SCHEMA_FILES=arm/aspeed/aspeed.yaml aspeed/aspeed-bmc-facebook-anacapa-evt1.dtb
+    make CHECK_DTBS=y DT_SCHEMA_FILES=arm/aspeed/aspeed.yaml aspeed/aspeed-bmc-facebook-anacapa-evt2.dtb
+- Link to v1: https://lore.kernel.org/r/20260407-anacapa-devlop-phase-devicetree-v1-0-97b96367cac3@gmail.com
 
-So either you need to modify Gunyah to allow more devices per-port or switch to
-iMSI-RX which you are already doing.
+---
+Colin Huang (3):
+      dt-bindings: arm: aspeed: add Anacapa EVT1 EVT2 board
+      ARM: dts: aspeed: anacapa: add EVT1 devicetree and point wrapper to it
+      ARM: dts: aspeed: anacapa: add EVT2 devicetree and update wrapper
 
-- Mani
+ .../devicetree/bindings/arm/aspeed/aspeed.yaml     |    2 +
+ .../aspeed/aspeed-bmc-facebook-anacapa-evt1.dts    | 1067 +++++++++++++++++++
+ .../aspeed/aspeed-bmc-facebook-anacapa-evt2.dts    | 1123 ++++++++++++++++++++
+ .../dts/aspeed/aspeed-bmc-facebook-anacapa.dts     | 1064 +------------------
+ 4 files changed, 2193 insertions(+), 1063 deletions(-)
+---
+base-commit: cd44dc5ead3042f2873244b0598e39a16dc7b940
+change-id: 20260407-anacapa-devlop-phase-devicetree-4101d3f312c0
 
+Best regards,
 -- 
-மணிவண்ணன் சதாசிவம்
+Colin Huang <u8813345@gmail.com>
+
