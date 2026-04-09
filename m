@@ -1,90 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC7F235DA44;
-	Thu,  9 Apr 2026 08:00:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0826B3164BA;
+	Thu,  9 Apr 2026 08:01:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775721630; cv=none; b=qBiw0trfstwPwA6doKtSdVEkaSl/Q5eHTZpPrm00Cf26zU70fJpJs/OczJ1CwW8lFEpaFp+I+0Btj92Y/wYaQNgk5zFH0oy254da419JH4R+qygk+00JEVClx5MNVK3lFeUXUQeri+5Buargkiue1kSCYXddEeGRJgTtuPhkf78=
+	t=1775721700; cv=none; b=sjUC2u/3JMDdQLbysi04nh2cb0bFl4eKcwaisriElIHGtQYrBdIqDc2ORpfwMn3cpRFHSDGwUoKe7vXS3YX4hs0MSFiNh9f7/tth5rfckUojTdtAgDKHL9nofZzoeQQnI6ouc/WmQEl6KS45vEejLuuruRQg9F29rNXCpz1pdXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775721630; c=relaxed/simple;
-	bh=vWhJwvXJLo5iz6DRP2dmGFaGe9c+eA5slOqT30o7uIQ=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=gk7Wlm+RWonjERjTXUF32Cvih/dKDP1JI1ERXoKD3VH6/suzf9AR3pLcwtpRxMBNQ6w5urxFhRtJeWkI/7HMfrN44APfPcHALwuPd/geATbALPGiOmLff2CRt/W1D4gI6VxC9Hk58tUc4DgUlRnl0vjqe5hZP79t21FRnSBl5OA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q14kSXwU; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775721700; c=relaxed/simple;
+	bh=n+fi6SQmlAYVj27Y2L80vFRWTbvFVwRDC2QvJZA0fQY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YgR9rPemirlFETOUNlmz2oIklXI4k3cSuQ3rvynJ7aSaGMqdRXdeaCY6DLbjT9sVx9YHWkAXF3mGA6TMWsMp6n3vP1DWKZ1U7W6fz2A1uLO2CBpQ8HsFCAd+rdu5P1/Yh18KBrwUQ1dqG1zj40nWdCt/+oyk1sqmtC9YAxuLmOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eQxJGuJZ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q14kSXwU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8469CC4CEF7;
-	Thu,  9 Apr 2026 08:00:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eQxJGuJZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21CC7C4CEF7;
+	Thu,  9 Apr 2026 08:01:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775721630;
-	bh=vWhJwvXJLo5iz6DRP2dmGFaGe9c+eA5slOqT30o7uIQ=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
-	b=Q14kSXwUk1N02mrzc5h+DXMR1JKBV8ri8A8HQu6QKwvwTpjk6yemVIQCBCnuu0wtg
-	 03ch1CrsNlA/nnrnov5P0ZADVJ8jcDNeQV3KaLGvKHWibJm8bkJclafpIimh8MF1Zt
-	 1sS6OqMXbN03e0xlnxZtShbdEGk5FGMDQTxZeO5Lw0OQ16/41rTCM/ZnrRm5sItk/t
-	 D/eveuaZ6mF6ELfiMpv6amrT/arwxCtYt9Hya3GRIBzRRHVFOIzM8BdDvLYslgLIfb
-	 VMqzGKdKiu2QiS5gYJhpaRSIuUY/geXct/P4swixqAZW2g4aYXBiqb49lbaH0jAi0J
-	 MLxubjzDddVrw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B9E0239307A6;
-	Thu,  9 Apr 2026 08:00:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20201202; t=1775721699;
+	bh=n+fi6SQmlAYVj27Y2L80vFRWTbvFVwRDC2QvJZA0fQY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=eQxJGuJZmd9YLUb1ZJiJfFf405kuJbRGX3r1zrzG46stPCrwDnywhzbuMT7sh/jhi
+	 6Dr2JlUrqFE+zRfrOXBSbw87ObwYLJ6Pe3YwuU3PeRFIePsmufqtXkIxv4pBzyd95N
+	 7cIQg2EM0xWer4K62ZB5h/m7JGX7SIaO59HCIKWMSYct6QqDc0MuTvrLrLBc6+5Kvm
+	 9lt253qBwLeJFsdyqhjeeoroXjcRhTBYw+LzvhqfG5fX8C8qbx1gnYs4aji9pfvnGk
+	 BZdTptmDOpeRSMqG+lb0HTpraLu4XG/+5ri80NGppNdJ2j+e5iGqIXNG7A7z+JD/jt
+	 0zKvYOU+V5a6w==
+Date: Thu, 9 Apr 2026 10:01:37 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Phil Pemberton <philpem@philpem.me.uk>
+Cc: Moritz Fischer <mdf@kernel.org>, Xu Yilun <yilun.xu@intel.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Tom Rix <trix@redhat.com>, 
+	Florian Fainelli <f.fainelli@gmail.com>, linux-fpga@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] Add device tree binding for ts73xx-fpga
+Message-ID: <20260409-awesome-ubiquitous-bullfinch-7ea99e@quoll>
+References: <20260408165223.3051759-1-philpem@philpem.me.uk>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH 0/6] IPA v5.2 support for Milos and Fairphone (Gen. 6)
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <177572160654.1053850.6904532011284602186.git-patchwork-notify@kernel.org>
-Date: Thu, 09 Apr 2026 08:00:06 +0000
-References: <20260403-milos-ipa-v1-0-01e9e4e03d3e@fairphone.com>
-In-Reply-To: <20260403-milos-ipa-v1-0-01e9e4e03d3e@fairphone.com>
-To: Luca Weiss <luca.weiss@fairphone.com>
-Cc: elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
- konradybcio@kernel.org, akoskovich@pm.me,
- ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260408165223.3051759-1-philpem@philpem.me.uk>
 
-Hello:
-
-This series was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
-
-On Fri, 03 Apr 2026 18:43:46 +0200 you wrote:
-> First, two fixes that unbreak IPA v5.0+, which can be applied
-> independently.
+On Wed, Apr 08, 2026 at 05:52:21PM +0100, Phil Pemberton wrote:
+> The driver for the Technologic Systems (EmbeddedTS) TS-7300 board's
+> onboard FPGA didn't have an OF match table. This prevented it from being
+> instantiated from a device tree. This is undesirable given EP93xx is
+> moving to device tree, and effectively prevents it from being used.
+> This patch series adds the OF match table and a device tree binding.
 > 
-> Then add support for IPA v5.2 which can be found in the Milos SoC. And
-> finally enable it on Fairphone (Gen. 6) so that mobile data (4G/5G/..)
-> starts working.
-> 
-> [...]
+> Changes since v1:
+>   - Use specific compatible "technologic,ts7300-fpga" instead of
+>     wildcard "technologic,ts73xx-fpga" (Krzysztof)
+>   - Fix subject line for dt-bindings patch (Krzysztof)
+>   - Simplify example in binding doc (Krzysztof)
 
-Here is the summary with links:
-  - [1/6] net: ipa: fix GENERIC_CMD register field masks for IPA v5.0+
-    https://git.kernel.org/netdev/net/c/9709b56d908a
-  - [2/6] net: ipa: fix event ring index not programmed for IPA v5.0+
-    https://git.kernel.org/netdev/net/c/56007972c0b1
-  - [3/6] dt-bindings: net: qcom,ipa: add Milos compatible
-    (no matching commit)
-  - [4/6] net: ipa: add IPA v5.2 configuration data
-    (no matching commit)
-  - [5/6] arm64: dts: qcom: milos: Add IPA node
-    (no matching commit)
-  - [6/6] arm64: dts: qcom: milos-fairphone-fp6: Enable IPA
-    (no matching commit)
+Missing explanation of dropping tags.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+<form letter>
+This is a friendly reminder during the review process.
 
+It looks like you received a tag and forgot to add it.
+
+If you do not know the process, here is a short explanation:
+Please add Acked-by/Reviewed-by/Tested-by tags when posting new
+versions of patchset, under or above your Signed-off-by tag, unless
+patch changed significantly (e.g. new properties added to the DT
+bindings). Tag is "received", when provided in a message replied to you
+on the mailing list. Tools like b4 can help here. However, there's no
+need to repost patches *only* to add the tags. The upstream maintainer
+will do that for tags received on the version they apply.
+
+Please read:
+https://elixir.bootlin.com/linux/v6.12-rc3/source/Documentation/process/submitting-patches.rst#L577
+
+If a tag was not added on purpose, please state in the patch changelog
+or cover letter why and what changed.
+</form letter>
+
+Best regards,
+Krzysztof
 
