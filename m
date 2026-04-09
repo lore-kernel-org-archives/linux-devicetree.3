@@ -1,214 +1,181 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013014.outbound.protection.outlook.com [40.107.201.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 705DF379EE8
-	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 21:24:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775769872; cv=none; b=lvRLByBLYRyDaB9Kdk2Csre2wMFkFiu/TQPoPTBOYOTeu5+mvCXbFqCR26xT62JNQY5vZ1G8PEfKPGoFevFX7sYmNUS53n5S0tD5RIHDfEC5RAJPTq5ZDFT7qw7UN0ePqPdyv6yy1+ULmn5S2J1zvCgjSX/TKalLx/xHukxM/ZM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775769872; c=relaxed/simple;
-	bh=Mf0qsRAF6MIxZLHl/USOoVexu9tPXjRD33F+MdM35GU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eyw1G/zmabD7pjJMgr+8PlDBWPxvoTF8ocmpVBVtehyvv7rHZ6SfcwTDGqXG1r5UQA6PPUQgraRJ8qCHD0m7vvnqInaS7EIknRjgJ+PxjE+bFe4pn/7Si5zECsNb+1fgu2KrdzrkaqIjwACTSGuz51GXZ9DukGw6DUnRdByHo+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Mxlah4iP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jva27f6M; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 919232D6E5A;
+	Thu,  9 Apr 2026 22:06:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.14
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775772419; cv=fail; b=E05mjB5Md3MEleOdYYiGQzspAOvuyLbHoMvOqalM+/71OL4fqwi0BoJd1NZ3j4a7I4JIaIWgdDs08UfFbHylKSaOObY59ec0GYqtllB4Ly8+8dHZPE10KC4chSgPGudE1S8uKiDvoU0F9zDJSXPrn3xKRUdU92Az3E9ZOHZUHsg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775772419; c=relaxed/simple;
+	bh=fcQnpFw0+gSYvSuFRORaQXm7gPnQxPeb6wwR5sEkNqo=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=IYEfnVgbdX12eYfETfHOIsB3aqHlcevuCL+Nmx5AsjoKplEzMuQXZ9/gzKFDnHRvzUsnYflzS37bRg0gsGyJ6mdC2MRj/LYxbQJ6ICMANzT+C6d6SIAsOSKXPS9Zd/46Jc3sBzFV1P6hqSBDbs/Lvxxyxwr6WTpthM8HPgBPXwE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=jwfmH+6t; arc=fail smtp.client-ip=40.107.201.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Mxlah4iP";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jva27f6M"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 639IZHPd3352764
-	for <devicetree@vger.kernel.org>; Thu, 9 Apr 2026 21:24:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=MvP4PI/IHkaNVMOHL4GMv34r
-	8KDtq/CI7OBkFFUwXxM=; b=Mxlah4iPaTW4PjMNET5leXV8FINOLMZZIE9/NNex
-	ZNAuKIq0SXfzX+JmnjggtrX3QqYgv4oqRd+FdrpGFU0hBxCQ2WriY+Y7Td97wHJt
-	MwCr0yDCMCJziYMANNCx+fDZwlUnWURSZbumFgjVd+RIQ2FbWkFCk1rxKz0a0p+2
-	nxSyLQCBx2i/7ZXMkqqTijLDmV6o+i8F/g6xgHykszi2ZmQK6SHOwrUcS7PK5Ne4
-	NZQ7he8b6BbRQ0cM5LaJJzh7BRJi3YqtnGGPOoWDNwWxZ2Gv1DUvCsVwlq5JmdK4
-	1lsCUUCSu6O0aP1NHzDZ0skPVBQRbjHCwRREqZw+0DLW2Q==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dec1qsy13-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 21:24:30 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50d890580e1so26990651cf.3
-        for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 14:24:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775769870; x=1776374670; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=MvP4PI/IHkaNVMOHL4GMv34r8KDtq/CI7OBkFFUwXxM=;
-        b=jva27f6Mon1mBcPfDgFlBtg+Ct3EhRL3K9+X8CJWOkW+LRIG9bwtCbu9MBh2puRstj
-         Jwr7QBMpNX5MuXg3WiUUon9hUr9zhDrsPa4VdWn9M8+ts6ZnWe+mtfLssI6yyG7Wchg3
-         HnX0ixtVKAlK8aB9K3JdCXRrVbOqMA0x4gvv8azy++UKRF+etdnmb8iS9QbPLGYtobck
-         FAFK4u2Xqh4cgfmpnnQjp/xdJdtuBmeSD0P8yFv90p1kWdgR4CEsVtpy3TvBb3tSd2Mh
-         R0mN3ACV+3unCGIYVPBzLN4QRgrXt6863O2zmQUxl9L9ehGC0S3wxSY/xACKbjU974mz
-         6wow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775769870; x=1776374670;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=MvP4PI/IHkaNVMOHL4GMv34r8KDtq/CI7OBkFFUwXxM=;
-        b=Fqms3JeRyWHwLpZtKJof66ke8/+0gSh5vnA2C/ZxqC6dhPGC6/HfhhDFbHIwB5pGQq
-         obZmRXYM6gJ5gk3G4U3UHtPKi4Uk7uY8kvqyU/cqEESDmw/jU6Iq21yZsjVu8u+FgUhp
-         tJdMQJYv1zLfhOkv5fqNZsUyu+yA/jEzj5RVsIV3I6CUAKXHFgukf3hjWByGuty2DEnQ
-         FF8DHme3JFUILAkz8v4f/Y8Iknih9zAc4cU01vpDeOtqpesrFGA+Q55RrvgZEl78Yb5n
-         ttcKNnt105DQj4SWThCF9U0X+lBtkzm8iCCSQLIY2kRwryZqOz3Krn2YxRkl4KOP046u
-         OCGA==
-X-Forwarded-Encrypted: i=1; AJvYcCVhZSTN7WMRKVrqGEUpotbLcXKgGD5B/YYkObxnHok4pCb8gxny1hNLgDhT/HBQHMhpXZNbCBgP5K5i@vger.kernel.org
-X-Gm-Message-State: AOJu0YzVrrTO2G5VM19ej5xPAWaq0yAQc9honvQXrofpdYA5148d/8YL
-	nQ0cv7LE6Q5BV7VHJfC/Op8mfM5XNEscaIfWaAnjTHqpFm9Kbb+MHg13MtsikgUxM2oqM5FU1HQ
-	+wz2h7UinY7qGn+6Drn2A3gFx0H56ygfapOJ0JRNe05ys4Sgu08FM+4QIrESkJ2FD
-X-Gm-Gg: AeBDieu1k7cT6fv65pynTYIcC1E2SGOhIr0bpUx1705f7ZMMWRsUng0G9TvslkgRQJM
-	iirDtSdRy0tWhvqKM1u7rAsU5DhJm6QKcwFQ9fRwccucdZhmR3f58N2Ys6hLJdQ0nDFZ6paElJI
-	ha4ZucUJLGcNpsTft9pAW34LxaqE0/VPFlHfAwapcoGDlaMsgaoXr7ifUwH0hx+7cC5qw8WcrAu
-	Qtkfm8twUK2kBhVYA0FU4K6SXyCRpJgF6vhUtEjCoLzFop6Qpfc1cRmDUt0FVmO/WECEzz3k/cb
-	+w/mHcUaz1LSsbT2aKODfbwjNA1pNWYp1oIl3uG88wfvck+gDOCAU7wEyswQBZe8WOTR1sPWXMi
-	c9GRAI4ozpvk/+Ivqd/VlovRmc+XtkMnCriifNi1HWm5MWY6qfS1Qeb3YMC04Bqa79me9napc8I
-	qk/G+PNXRQHzLgRTRdAubqlvLXeSvVwjUx+RY=
-X-Received: by 2002:a05:622a:4a8b:b0:50d:6acb:42db with SMTP id d75a77b69052e-50dd5ad9882mr14906231cf.23.1775769869765;
-        Thu, 09 Apr 2026 14:24:29 -0700 (PDT)
-X-Received: by 2002:a05:622a:4a8b:b0:50d:6acb:42db with SMTP id d75a77b69052e-50dd5ad9882mr14905741cf.23.1775769869259;
-        Thu, 09 Apr 2026 14:24:29 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-38e492cb196sm1897911fa.17.2026.04.09.14.24.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Apr 2026 14:24:28 -0700 (PDT)
-Date: Fri, 10 Apr 2026 00:24:26 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: David Heidelberg <david@ixit.cz>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org
-Subject: Re: [PATCH 3/4] arm64: dts: qcom: sdm845: Add missing MDSS reset
-Message-ID: <xbbaffnmi6z5ohzw3p4m6ox75gasgc3nw5cf6yo7h3td2bmsrb@px2mntm74rhb>
-References: <20260217-sdm845-hdk-v1-0-866f1965fef7@oss.qualcomm.com>
- <20260217-sdm845-hdk-v1-3-866f1965fef7@oss.qualcomm.com>
- <590f75c2-6418-4d39-ba7e-589acdf98786@oss.qualcomm.com>
- <e43d5bb2-bdbf-4439-933e-36591dcfd3c1@ixit.cz>
- <9405b67b-9e08-472d-a937-38c038fdf73a@oss.qualcomm.com>
- <ljser6u4fd5qc4lxxde77igtxz6ertbeucsg6s3zbwlykfowpj@yf7h6tqh6cik>
- <9b4cb352-d1ed-402d-a55d-cce2d2fe1eed@oss.qualcomm.com>
- <t5akkkyyv5yebjmowvqu3nnweu5hz47tagdzv3ifzqwlgib2v2@5jugyaiav5wn>
- <8cd9693d-9ec0-4173-bcca-786915b5c4cc@ixit.cz>
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="jwfmH+6t"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tbtnDo34Q3B4taPxzFOAf3YqqOqRWgqYGMfdfDKrxasZ9WLLj5fdky3w31IDgOoSNryVa7JglfdHplDHLNUNOCkiDRVzfe/+KXGrSoPv/l84Re7Liq/0ncOOkWFePl+pe3c81HKiHBbgtP2ONgYf4MfXDlLt9yS9xHCjQwd/uzQwn85waEctvjjv2I7cOTl7OuhGEpTwOIgiBq7XnU+pn+Dc1ZCC3CBH22/sUo+U3skpA3V+d9/osV6CIKn3owZyGcYkz1CgZCLHvtbtt5QxEaBl5S4WSpy354O3F4sj142Xuowt2pvvvCFcu5svl5OPZCFIM62pw7NYAfBYTiUUmg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cO6SNLuNWbwTo4pCLxv5xiMbM44tlbXeo3Mk/SFr8tU=;
+ b=ovBVy7PWvoPiN0Sc10fpMVEy2mP51Kmmz3sKzJGkCtsIntCrlixeLjQkRfn5foGsCsUB3xEX4r4e3uIumVwIJllL5Lk6Yco4ZvCoX23uAFkslXFUvIYbmYluZVsoGlPXsl1C83KJzjY+IPWBIfwzxVYy2YASnGMVvrcnmDJZCvc/DsQV7xZvQn+37Kjb4EZVpr40un2wvSjsdMnxGi5Mfauo+VTyvXJZ3w0yotA/cNMWYjlGSEI3Eub3RjS3cSiNzYxaNbF01B8QF90YkaZa6a6B3qasv48wFIvyny+HMjCI5xhKaWf4ZhRK/LGPqw5G7KtW9j5QrXXfYfzD2TZuSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cO6SNLuNWbwTo4pCLxv5xiMbM44tlbXeo3Mk/SFr8tU=;
+ b=jwfmH+6tyrgBTTTNJiJBIFeSNUy1hfpU3g8dhGVgtUywz0Jr9EgQDPpJHwzuAEBxGh5TM6WM1158REA73nXqrHFDfGkTFsEaQV6ZWKofZrewk1NSnkHbYP8wnGIpoMadmn4LTCPgLbC7idO8mcEfiMdL7oLTpuqTuy2NUplOYDk=
+Received: from BYAPR07CA0080.namprd07.prod.outlook.com (2603:10b6:a03:12b::21)
+ by SN7PR10MB6405.namprd10.prod.outlook.com (2603:10b6:806:26b::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Thu, 9 Apr
+ 2026 22:06:55 +0000
+Received: from MWH0EPF000C6194.namprd02.prod.outlook.com
+ (2603:10b6:a03:12b:cafe::31) by BYAPR07CA0080.outlook.office365.com
+ (2603:10b6:a03:12b::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.38 via Frontend Transport; Thu,
+ 9 Apr 2026 22:06:54 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ MWH0EPF000C6194.mail.protection.outlook.com (10.167.249.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9745.21 via Frontend Transport; Thu, 9 Apr 2026 22:06:54 +0000
+Received: from DLEE213.ent.ti.com (157.170.170.116) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 9 Apr
+ 2026 17:06:53 -0500
+Received: from DLEE213.ent.ti.com (157.170.170.116) by DLEE213.ent.ti.com
+ (157.170.170.116) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 9 Apr
+ 2026 17:06:53 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE213.ent.ti.com
+ (157.170.170.116) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
+ Transport; Thu, 9 Apr 2026 17:06:53 -0500
+Received: from localhost (mz02jj9v.dhcp.ti.com [128.247.81.246])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 639M6rJN295501;
+	Thu, 9 Apr 2026 17:06:53 -0500
+From: Sen Wang <sen@ti.com>
+To: <linux-sound@vger.kernel.org>
+CC: <broonie@kernel.org>, <lgirdwood@gmail.com>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
+	<perex@perex.cz>, <tiwai@suse.com>, <shenghao-ding@ti.com>,
+	<kevin-lu@ti.com>, <baojun.xu@ti.com>, <niranjan.hy@ti.com>,
+	<l-badrinarayanan@ti.com>, <devarsht@ti.com>, <v-singh1@ti.com>,
+	<linux-kernel@vger.kernel.org>, <sen@ti.com>
+Subject: [PATCH v5 0/4] ASoC: Add TAS67524 quad-channel Class-D amplifier driver
+Date: Thu, 9 Apr 2026 17:06:02 -0500
+Message-ID: <20260409220607.686146-1-sen@ti.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8cd9693d-9ec0-4173-bcca-786915b5c4cc@ixit.cz>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA5MDE5NyBTYWx0ZWRfX1OkT7Bw8g2w2
- QwXrb5OLyjJx39iq5pRVL4cfqnz1NrfJSoz6FmhmadN8o/XCVagIUHmSz26YW0vKNn9MLvcw2dG
- NR6ojcKETmRS72WpgcbtrjXUWNzsdbbO9c7pH5NkDsFRMWsAh3nVhjGcfEhDk/aOphLTicOGISS
- 5HSl9Wsg8zj5E4FPJm9goTHyS4xen3LW8PHSS9BLEk2RpfkzkJKcMWGXxxcouaZJIuvptdVDkvc
- x1MCmlsV7kLNoKUZWjpGdEr3iG2cOBr8ebUeqIfCciUnFAfUcfyVYImZUqPJQCoDBIAiT83s6rA
- Pa06euO2bEIVrtrIQL4FGM+rJRcbuQoan5a/58L5R05LK5WP4i/sz025G6ZfZqQifVLTXLrY8Zj
- 709J8xzvqbaJaC7kL/fkk4Zb7M8+U0ecBY+mAcTIGxysEkaZHoiv+AyXcw0VD1YqxGrSUYiWO5l
- CpQdEsvdWVfCYrdOVhw==
-X-Authority-Analysis: v=2.4 cv=eOcjSnp1 c=1 sm=1 tr=0 ts=69d8190e cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=SXzkmgPmAAAA:8
- a=VwQbUJbxAAAA:8 a=bwGbKnmsAAAA:8 a=0tHUiYncBWPk1K_QiEYA:9 a=CjuIK1q_8ugA:10
- a=uxP6HrT_eTzRwkO_Te1X:22 a=EWLf6cg6Bh5aS0AxDgDu:22 a=nuVVIWbBudwLbAahYuja:22
-X-Proofpoint-GUID: zYjdzebWi74oq7r7hkF7WoRkiNMo8WyN
-X-Proofpoint-ORIG-GUID: zYjdzebWi74oq7r7hkF7WoRkiNMo8WyN
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-09_04,2026-04-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 bulkscore=0 suspectscore=0 phishscore=0
- impostorscore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
- definitions=main-2604090197
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C6194:EE_|SN7PR10MB6405:EE_
+X-MS-Office365-Filtering-Correlation-Id: 66be7876-00cf-4ca1-ae34-08de96844f6d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|36860700016|82310400026|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	RQqUs7qlNXqgouXMiuFdPh6wOdsvULGo8B/SVIX01oIej8tUPwCtj8KUEpNd/fM2DAIcLVWbe43NH3mHtf9Se0CmV5fvst1kyDEF54LUZW7wXfdNuSiulvpnFXJ5qiaDdZgIohdPwND9GDCUsTeziCAx3d3sLjluXhqFM/FE6Nl+2S3jwpi+Ks3G7RLJ6A9QMMAXcOggnY7Xi5WnsYjV7148Zn+H4MsSiu5YHcqKLByybWolbL2eSuvMd4+ojgpcGuIBHohnH91WtGujuKjGfOq175xTQZFTeZYGE6TcemLwdDy48kCkW0H+zbe6HiwxJeruEWk7oJveoPqPnp4X4fkAFyTX37GXo4XhfMwmGy7xdc2klQmNnhz+EhGp1wNKjMmmTIfXkJMjzAEygfk6F3f1mRR9bEDdCMJZq9mUFOL+OT5wSrgxhXL3Kzsw2xQ6tsr6ng3iGTMoUFLMsZOuP6JzYlFawrFcVqyYRF2jJNxu7CzzCsfk85ZPLtfwJ7MLUSu51yqEtyGsuKWEbeUTQjCnvoplO0xtQAKI0AChldVl6FJvWlecT1K0tNVcA9DbySzfy+5a6pK1oT7q8etDV2F8rLb67ORTYYD2R1qstJc+A6nHgLT/iWwtDTlIhKZ75OIom1BCBcum3RcZCdpdYnue/o5XubSRTQOKL177jSHW2N2i+Mx4vXZNlN/ULt6ZS+156ZEkNvug62Zr/Oni6miOfJRmIQm13nKb0c+BO5NwqYViKSdoYkv+yoxXWKnESUjNaPrjcsGfgsHRkuVSojc1x4xY3Ipefcg+wjkMYKs=
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(36860700016)(82310400026)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	lQgjYaIZh6DYJhcbQjuLlCohK0qAjMHMegHGTPTi/QrMW8lFfeB9Kj6NtDMlwUqOxf6Yt7F/XI9HadfiMcRfFqP724V9EIOC+aAR/7AgFYP20pB7hV8PrsN/7lXBzSW0PQoIl9pNeJf9OcXKGn46OVWtoj80gpSYjFGkFyQ/EWL5E7kNOdJFAYoWCpDL8HmfNfcptCtzXuQfpH+xIDt4kPr32zNAvov7WtFPvxc57IMbDJQmTADcbdKvoJa0aPT1HV/sUHrTVIyV2EZ0ojscnPTViP0sB9CwrKlbmiFwk1389uuxWkdz6f8Z3jOmDO/uW+8IvH113KcWPPS8nACzZaNT9DQWyS3XMVO+rxXBsLTLsAb6rTszmwqN+GGCLlXN15E9wz3lYKSBAAysFf15csnuAT3gdGdpI8J4CBpZfkm7T9eIxn8DM70kmUg0ZqjX
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2026 22:06:54.4353
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 66be7876-00cf-4ca1-ae34-08de96844f6d
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000C6194.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR10MB6405
 
-On Thu, Apr 09, 2026 at 10:38:15PM +0200, David Heidelberg wrote:
-> On 18/02/2026 16:59, Dmitry Baryshkov wrote:
-> > On Wed, Feb 18, 2026 at 03:28:01PM +0100, Konrad Dybcio wrote:
-> > > 
-> > > 
-> > > On 18-Feb-26 12:58, Dmitry Baryshkov wrote:
-> > > > On Wed, Feb 18, 2026 at 12:24:26PM +0100, Konrad Dybcio wrote:
-> > > > > On 2/18/26 12:18 PM, David Heidelberg wrote:
-> > > > > > On 18/02/2026 11:30, Konrad Dybcio wrote:
-> > > > > > > On 2/17/26 10:20 PM, Dmitry Baryshkov wrote:
-> > > > > > > > From: David Heidelberg <david@ixit.cz>
-> > > > > > > > 
-> > > > > > > > If the OS does not support recovering the state left by the
-> > > > > > > > bootloader it needs a way to reset display hardware, so that it can
-> > > > > > > > start from a clean state. Add a reference to the relevant reset.
-> > > > > > > 
-> > > > > > > This is not the relevant reset
-> > > > > > > 
-> > > > > > > You want MDSS_CORE_BCR @ 0xaf0_2000
-> > > > > > 
-> > > > > > Thanks, I prepared the fixes [1].
-> > > > > > 
-> > > > > > I'll try to test it if it's not breaking anything for us and send as v2 of [2].
-> > > > > > 
-> > > > > > David
-> > > > > > 
-> > > > > > [1] https://codeberg.org/sdm845/linux/commits/branch/b4/mdss-reset
-> > > > > > [2] https://patchwork.kernel.org/project/linux-arm-msm/patch/20260112-mdss-reset-v1-1-af7c572204d3@ixit.cz/
-> > > > > 
-> > > > > Please don't alter the contents of dt-bindings, it really doesn't matter
-> > > > > if on sdm845 it's reset0 or reset1, that's why we define them in the first
-> > > > > place
-> > > > 
-> > > > I dpn't think that will pass. Current reset is defined as RSCC, we can't
-> > > > change that to CORE behind the scene. I'd prefer David's approach.
-> > > 
-> > > Back when I replied, David had a patch that removed the current RSCC
-> > > reset definition in dt-bindings (at index 0) and re-used that index
-> > > for CORE, putting RSCC at index 1. Perhaps it's better to link to
-> > > specific commits when making comments, note to self :P
-> > 
-> > Yes, I saw the commit having two resets. Anyway, as we saw, it doesn't
-> > work.
-> 
-> So, finally I spent "so much effort" (read throwing it at LLM) looking at:
-> 
-> arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402,
-> iova=0x9d4bb500, fsynr=0x170021, cbfrsynra=0xc88, cb=11
-> arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0xc88
-> arm-smmu 15000000.iommu: FSYNR0 = 00170021 [S1CBNDX=23 PNU PLVL=1]
+This series adds support for the TI TAS675x (TAS6754, TAS67524)
+quad-channel automotive Class-D amplifiers. The devices have an
+integrated DSP and load diagnostics, and are controlled over I2C.
 
-[...]
+Patch 1 adds the dt-binding, patch 2 the codec driver, patch 3 the
+ALSA mixer controls documentation, and patch 4 adds the MAINTAINERS
+entry.
 
-> 
-> These (or very similar warnings) are around sdm845 definitely 6.19+ /
-> linux-next kernels for some time, but pretty harmless.
-> 
-> LLM suggested multiple fixes, but when presenting possibility of
-> implementing mdss reset it found it as most preferable [1].
-> 
-> Adding MDSS reset would most likely solve it. It's not critical, but not
-> nice to see many red lines in the dmesg.
-> 
-> Is there something I could experiment with to get closer to have proper MDSS reset?
+Tested on AM62D-EVM with a TAS67CD-AEC daughter card. For setup &
+test procedures, refer to the GitHub repository.
 
-I don't have a sensible solution at this point. We tried using the MDSS
-reset on several SDM845 devices, but they just reset. So... I don't have
-any possible solution.
+GitHub: https://github.com/SenWang125/tas67-linux
 
-> 
-> David
-> 
-> [1] https://paste.sr.ht/~okias/c20e8bb1a67ba09df558d56da84894d71ddc1b54
+Changes in v5:
+ - Drop ti,tas6754 device id reference (2/4)
+ - Restrict RTLDG threshold max to 24bit (2/4)
+ - Complete error checking for set_dcldg_trigger (2/4)
+ - Add runtime PM reference in IRQ handler (2/4)
+ - Links to v4: https://lore.kernel.org/all/20260408053149.1369350-1-sen@ti.com/
 
--- 
-With best wishes
-Dmitry
+Changes in v4:
+ - Corrected dt-binding compatibles (1/4)
+ - Reverted v3's change and made tas67524.c back to tas675x.c (2/4)
+ - Links to v3: https://lore.kernel.org/all/20260403050627.635591-1-sen@ti.com/
+
+Changes in v3:
+ - Renamed ALL tas675x filenames to tas67524, removed tas6754 compatible instance
+ - Changed pd-gpios to powerdown-gpios, cleanup unnessary .yaml formatting (1/4)
+ - Opt to use disable delayed_work and re-enable on runtime suspend/resume,
+ similarly, use disable/enable IRQ on system suspend/resume. (2/4)
+ - Include IRQ_NONE on ISR returns. (2/4)
+ - Clarify _check_faults() function which now returns need_clear boolean (2/4)
+ - Added register section (3/4)
+ - Added addintional notes: for clarification (3/4)
+ - Links to v2: https://lore.kernel.org/all/20260401223239.1638881-1-sen@ti.com/
+
+Changes in v2:
+ - Remove redundant DAPM event function (2/4)
+ - Move IRQ request past power_on, so regs can be set in a clean state (2/4)
+ - Add delayed_work at probe time to accomdate no PM configs (2/4)
+ - Change .set_fmt and .dapm_routes callbacks to the same tas675x_set_fmt name (2/4)
+ - Links to v1: https://lore.kernel.org/all/20260401024210.28542-1-sen@ti.com/
+
+Sen Wang (4):
+  ASoC: dt-bindings: Add ti,tas67524
+  ASoC: codecs: Add TAS67524 quad-channel audio amplifier driver
+  Documentation: sound: Add TAS675x codec mixer controls documentation
+  MAINTAINERS: add entry for TAS67524 audio amplifier
+
+ .../bindings/sound/ti,tas67524.yaml           |  280 +++
+ Documentation/sound/codecs/index.rst          |    1 +
+ Documentation/sound/codecs/tas675x.rst        |  686 ++++++
+ MAINTAINERS                                   |    4 +
+ sound/soc/codecs/Kconfig                      |   11 +
+ sound/soc/codecs/Makefile                     |    2 +
+ sound/soc/codecs/tas675x.c                    | 2193 +++++++++++++++++
+ sound/soc/codecs/tas675x.h                    |  367 +++
+ 8 files changed, 3544 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/ti,tas67524.yaml
+ create mode 100644 Documentation/sound/codecs/tas675x.rst
+ create mode 100644 sound/soc/codecs/tas675x.c
+ create mode 100644 sound/soc/codecs/tas675x.h
+
+--
+2.43.0
+
