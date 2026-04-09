@@ -1,214 +1,158 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0464B3DA5D0;
-	Thu,  9 Apr 2026 14:21:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D6CD37CD48;
+	Thu,  9 Apr 2026 14:22:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775744478; cv=none; b=rd53EIWwQY+ozRWimKkKL6N33eVmsh7eyWv/qegEa1fFdgJo6zib8eRMlqMGoNxil1DSvyV29QhCymN6/lNxnWZ91jPoZRp+2tu2BquHVU3+GQCQ888qtMNS6FF9OdYAoppZBLBwtQQ9XcSrUV2NwdINfhDJQlWLgOEw93CHqjQ=
+	t=1775744539; cv=none; b=dsO5DlFKZ2hCimyw6oEECcwu1XMBitDLMmFCu8ZIMHArjscVPFTOT0X9RM7hEzWqY5YeqVKCxpGdxUKh9a48CrRy9qxP86Y4HkR9iSDwnfiNsRbAlL4ZbtgdjvnG7peDQu4nXuS52svGvC0VTQJfm8UIitIlthnk02IQ+QiFj8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775744478; c=relaxed/simple;
-	bh=dpsEPXiwZwGBz/472JmJ/+FsWBKQt0J9ni7Su0dthqA=;
+	s=arc-20240116; t=1775744539; c=relaxed/simple;
+	bh=lnysXBuf6iY2y5qrIffxuRGOa+LUTqfJVPusvhuoPHg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nF/kTH97Iqfaea5fS4kjmEkzKxKkHoYWVPqSWRndArQiFcOEhu7jjEnkDlG6CGIOOYSPFFkxPv7MKCGIfV2oRySiD65aeMYj1PJPzIMYjv6wifAVWve3JWAKaaq4JFjZQXR5suntgVIZ40IZDaHJ4owrWDVKG6TX4mCIGEyPsE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YMdJV3k+; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=s+CNx03QyRX5sgJ/C+ypVkjOYG5WKShBpLO4t3/NCsextWF3U7wDmDMLn6wRboOa+fUWl85eoeeEvL6iJnk+0BMPsy9/gkQpUj0OORnZUEFl05nqK8bQiadSoH0eNNFLRfpT2YFRS85osNbpWe/h4wY055SSPzVA1aVb3WtsK84=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FodobkJb; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YMdJV3k+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21734C4CEF7;
-	Thu,  9 Apr 2026 14:21:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FodobkJb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05D6FC19424;
+	Thu,  9 Apr 2026 14:22:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775744477;
-	bh=dpsEPXiwZwGBz/472JmJ/+FsWBKQt0J9ni7Su0dthqA=;
+	s=k20201202; t=1775744538;
+	bh=lnysXBuf6iY2y5qrIffxuRGOa+LUTqfJVPusvhuoPHg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YMdJV3k+Zo2SF12Jsut6nnGN3Mio0ybEttHnZqnrjtqEK5n8Jdy/fJZB3bspXmU2p
-	 +BgvW7Rc+8tQUezyrrr3R+jNf4dGZTSfvFryyj5sQ1JyMBkaFKtki8MnYppo3RtBHH
-	 6yuIKjvP0gJYkfY/Lj0bSSoGRy8eq1rCCTEvkw9l7UPu2SEdqkqWMfyqesj1thbJZx
-	 IF6wzZbS7xXDM3jK3UybHxn+qvr6hEpWqaKfcyVWD4aKyMVWVzBigLlLr/EMnElgXg
-	 Fodth+8hhsSGZzjFL0xqT0L676XOXpGDbVHySLpl5kSPQlgmyMJMlimQ7oJlLvLbWn
-	 K2NyAkxxbXnqQ==
-Date: Thu, 9 Apr 2026 15:21:12 +0100
-From: Lee Jones <lee@kernel.org>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] mfd: arizona: Convert GPIO IRQ handling to
- descriptors
-Message-ID: <20260409142112.GF3290953@google.com>
-References: <20260326-mfd-arizona-irq-v4-0-50c47ed0a18e@kernel.org>
- <20260326-mfd-arizona-irq-v4-2-50c47ed0a18e@kernel.org>
+	b=FodobkJbB9g90d5/TF2f6/jAaVv57bmItq52Hjb6gmQ7TLdu3+mnAZNpW9jYx6WIZ
+	 dU3V9jyhdO7t01pxuvcS6q5TFYrpYxxXhpH3bvR5tiqvrsAAguqtU10P0vj85/c4iI
+	 wKGscJrdPpc0wmSb4c7OhCHczELf1P2ueTU3V0xoqa2qCFb83ZnONxOrToSbxIz6+5
+	 ESDBta7lW6woU/78atSgN48+CjkqBASvpRiYEfCxSh//BUDpgn3hlGzLiJ3LBeOsoq
+	 nbC+TlXWlaBB0NqUiWpkRCuVPlZe+C1G2gbz/edr4tFS8/BfXVDU1iDf60WYCSdRBW
+	 3HeQRBjbhbOBg==
+Date: Thu, 9 Apr 2026 17:22:11 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Evangelos Petrongonas <epetron@amazon.de>
+Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
+	Changyuan Lyu <changyuanl@google.com>,
+	Alexander Graf <graf@amazon.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	devicetree@vger.kernel.org, kexec@lists.infradead.org,
+	linux-kernel@vger.kernel.org, nh-open-source@amazon.com
+Subject: Re: [PATCH] of: fdt: skip KHO when booting as crash kernel
+Message-ID: <ade2ExpM8ROXV-vy@kernel.org>
+References: <20260407150639.69923-1-epetron@amazon.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260326-mfd-arizona-irq-v4-2-50c47ed0a18e@kernel.org>
+In-Reply-To: <20260407150639.69923-1-epetron@amazon.de>
 
-On Thu, 26 Mar 2026, Linus Walleij wrote:
+Hi Evangelos,
 
-> Convert the arizona polling GPIO handling to use a GPIO descriptor
-> instead of passing a global GPIO number as platform data.
+On Tue, Apr 07, 2026 at 03:06:33PM +0000, Evangelos Petrongonas wrote:
+> KHO preserves state across kexec by passing a KHO-specific FDT pointer
+> and scratch memory region to the incoming kernel. These point to
+> physical addresses in the outgoing kernel's memory that the incoming
+> kernel is expected to access and restore from. This falls apart when
+> the incoming kernel is a crash kernel as the crash kernel can run in a
+> small reserved memory region. The scratch regions can sit outside this
+> reservation, so the end result is quite unpleasant.
 > 
-> This mechanism is not used in the kernel, but let's preserve
-> the mechanism to be nice.
+> kho_add_chosen() unconditionally propagates KHO properties into
+> the device tree for all kexec image types, including crash images. The
+> crash kernel then discovers these properties during
+> early_init_dt_check_kho(), records the stale physical addresses via
+> kho_populate(), and later faults in kho_memory_init() when it tries
+> phys_to_virt() on the KHO FDT address:
 > 
-> Users can define "irq-gpios" in the devicetree or software node
-> for the Arizona chip to provide the GPIO line corresponding to
-> the IRQ.
+> Unable to handle kernel paging request at virtual address xxxxxxxx
+> ...
+>   fdt_offset_ptr+...
+>   fdt_check_node_offset_+...
+>   fdt_first_property_offset+...
+>   fdt_get_property_namelen_+...
+>   fdt_getprop+...
+>   kho_memory_init+...
+>   mm_core_init+...
+>   start_kernel+...
 > 
-> Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> kho_locate_mem_hole() already skips KHO logic for KEXEC_TYPE_CRASH
+> images, but the DT property propagation and the consumer side were both
+> missing the same guard.
+> 
+> Fix this at both ends. Have kho_add_chosen() skip writing KHO properties
+> for crash images so the stale pointers never reach the crash kernel's
+> device tree. Also have early_init_dt_check_kho() bail out when
+> is_kdump_kernel() is true. This way even if KHO properties end up in
+> the DT through some other path, the crash kernel will not act on them.
+> 
+> Fixes: 274cdcb1c004 ("arm64: add KHO support")
+> Signed-off-by: Evangelos Petrongonas <epetron@amazon.de>
 > ---
->  drivers/mfd/arizona-irq.c         | 46 +++++++++++++++++++--------------------
->  include/linux/mfd/arizona/core.h  |  2 ++
->  include/linux/mfd/arizona/pdata.h |  5 -----
->  3 files changed, 24 insertions(+), 29 deletions(-)
 > 
-> diff --git a/drivers/mfd/arizona-irq.c b/drivers/mfd/arizona-irq.c
-> index 544016d420fe..8b752a1257b1 100644
-> --- a/drivers/mfd/arizona-irq.c
-> +++ b/drivers/mfd/arizona-irq.c
-> @@ -136,21 +136,19 @@ static irqreturn_t arizona_irq_thread(int irq, void *data)
->  			dev_err(arizona->dev,
->  				"Failed to read main IRQ status: %d\n", ret);
->  		}
-> -#ifdef CONFIG_GPIOLIB_LEGACY
->  		/*
->  		 * Poll the IRQ pin status to see if we're really done
->  		 * if the interrupt controller can't do it for us.
->  		 */
-> -		if (!arizona->pdata.irq_gpio) {
-> +		if (!arizona->irq_gpiod) {
->  			break;
->  		} else if (arizona->pdata.irq_flags & IRQF_TRIGGER_RISING &&
-> -			   gpio_get_value_cansleep(arizona->pdata.irq_gpio)) {
-> +			   gpiod_get_value_cansleep(arizona->irq_gpiod)) {
->  			poll = true;
->  		} else if (arizona->pdata.irq_flags & IRQF_TRIGGER_FALLING &&
-> -			   !gpio_get_value_cansleep(arizona->pdata.irq_gpio)) {
-> +			   !gpiod_get_value_cansleep(arizona->irq_gpiod)) {
->  			poll = true;
->  		}
-> -#endif
->  	} while (poll);
->  
->  	pm_runtime_put_autosuspend(arizona->dev);
-> @@ -350,27 +348,26 @@ int arizona_irq_init(struct arizona *arizona)
->  		goto err_map_main_irq;
->  	}
->  
-> -#ifdef CONFIG_GPIOLIB_LEGACY
-> -	/* Used to emulate edge trigger and to work around broken pinmux */
-> -	if (arizona->pdata.irq_gpio) {
-> -		if (gpio_to_irq(arizona->pdata.irq_gpio) != arizona->irq) {
-> -			dev_warn(arizona->dev, "IRQ %d is not GPIO %d (%d)\n",
-> -				 arizona->irq, arizona->pdata.irq_gpio,
-> -				 gpio_to_irq(arizona->pdata.irq_gpio));
-> -			arizona->irq = gpio_to_irq(arizona->pdata.irq_gpio);
-> -		}
-> -
-> -		ret = devm_gpio_request_one(arizona->dev,
-> -					    arizona->pdata.irq_gpio,
-> -					    GPIOF_IN, "arizona IRQ");
-> -		if (ret != 0) {
-> -			dev_err(arizona->dev,
-> -				"Failed to request IRQ GPIO %d:: %d\n",
-> -				arizona->pdata.irq_gpio, ret);
-> -			arizona->pdata.irq_gpio = 0;
-> +	/*
-> +	 * Used to emulate edge trigger and to work around broken pinmux
-> +	 * define "irq-gpios" in device tree or software node.
-> +	 */
-
-Nit: Device Tree (not sure about software node).
-
-> +	arizona->irq_gpiod = devm_gpiod_get_optional(arizona->dev, "irq",
-> +						     GPIOD_IN);
-> +	if (IS_ERR(arizona->irq_gpiod)) {
-> +		ret = dev_err_probe(arizona->dev,
-> +				    PTR_ERR(arizona->irq_gpiod),
-> +				    "error getting IRQ GPIO\n");
-
-Nit:  All other prints in this file are capitalised.
-
-> +		goto err_irq_gpiod;
-> +	}
-> +	if (arizona->irq_gpiod) {
-> +		if (gpiod_to_irq(arizona->irq_gpiod) != arizona->irq) {
-> +			dev_warn(arizona->dev, "IRQ %d does not match GPIO's IRQ %d\n",
-> +				 arizona->irq, gpiod_to_irq(arizona->irq_gpiod));
-> +			arizona->irq = gpiod_to_irq(arizona->irq_gpiod);
-
-Could we cache the result of 'gpiod_to_irq()' into a local variable rather than
-calling it multiple times?
-
-Does it make sense to check the value's for errors?
-
->  		}
-> +		gpiod_set_consumer_name(arizona->irq_gpiod, "arizona IRQ");
->  	}
-> -#endif
->  
->  	ret = request_threaded_irq(arizona->irq, NULL, arizona_irq_thread,
->  				   flags, "arizona", arizona);
-> @@ -409,6 +406,7 @@ int arizona_irq_init(struct arizona *arizona)
->  	arizona_free_irq(arizona, ARIZONA_IRQ_BOOT_DONE, arizona);
->  err_boot_done:
->  	free_irq(arizona->irq, arizona);
-> +err_irq_gpiod:
->  err_main_irq:
-
-Do we really need another goto label that jumps to the same place?
-
->  	regmap_del_irq_chip(irq_find_mapping(arizona->virq,
->  					     ARIZONA_MAIN_IRQ_INDEX),
-> diff --git a/include/linux/mfd/arizona/core.h b/include/linux/mfd/arizona/core.h
-> index 6d6f96b2b29f..7129651c9af6 100644
-> --- a/include/linux/mfd/arizona/core.h
-> +++ b/include/linux/mfd/arizona/core.h
-> @@ -11,6 +11,7 @@
->  #define _WM_ARIZONA_CORE_H
->  
->  #include <linux/clk.h>
-> +#include <linux/gpio/consumer.h>
->  #include <linux/interrupt.h>
->  #include <linux/notifier.h>
->  #include <linux/regmap.h>
-> @@ -136,6 +137,7 @@ struct arizona {
->  	struct irq_domain *virq;
->  	struct regmap_irq_chip_data *aod_irq_chip;
->  	struct regmap_irq_chip_data *irq_chip;
-> +	struct gpio_desc *irq_gpiod;
->  
->  	bool hpdet_clamp;
->  	unsigned int hp_ena;
-> diff --git a/include/linux/mfd/arizona/pdata.h b/include/linux/mfd/arizona/pdata.h
-> index f72e6d4b14a7..20118bad869a 100644
-> --- a/include/linux/mfd/arizona/pdata.h
-> +++ b/include/linux/mfd/arizona/pdata.h
-> @@ -188,11 +188,6 @@ struct arizona_pdata {
->  	/** Haptic actuator type */
->  	unsigned int hap_act;
->  
-> -#ifdef CONFIG_GPIOLIB_LEGACY
-> -	/** GPIO for primary IRQ (used for edge triggered emulation) */
-> -	int irq_gpio;
-> -#endif
-> -
->  	/** General purpose switch control */
->  	unsigned int gpsw;
->  };
+> I think we should backport the fix on KHO compatible versions (6.16+),
+> hence the "Fixes:" tag. Tested on an arm64 system.
 > 
+>  drivers/of/fdt.c   | 3 +++
+>  drivers/of/kexec.c | 3 ++-
+>  2 files changed, 5 insertions(+), 1 deletion(-)
+
+What about x86? ;-)
+ 
+> diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
+> index 43a0944ca462..77018ec99fc8 100644
+> --- a/drivers/of/fdt.c
+> +++ b/drivers/of/fdt.c
+> @@ -926,6 +926,9 @@ static void __init early_init_dt_check_kho(void)
+>  	if (!IS_ENABLED(CONFIG_KEXEC_HANDOVER) || (long)node < 0)
+>  		return;
+>  
+> +	if (is_kdump_kernel())
+> +		return;
+> +
+
+This seems redundant if don't add KHO nodes at the first place.
+
+>  	if (!of_flat_dt_get_addr_size(node, "linux,kho-fdt",
+>  				      &fdt_start, &fdt_size))
+>  		return;
+> diff --git a/drivers/of/kexec.c b/drivers/of/kexec.c
+> index c4cf3552c018..b95f0b386684 100644
+> --- a/drivers/of/kexec.c
+> +++ b/drivers/of/kexec.c
+> @@ -271,7 +271,8 @@ static int kho_add_chosen(const struct kimage *image, void *fdt, int chosen_node
+>  	if (ret && ret != -FDT_ERR_NOTFOUND)
+>  		return ret;
+>  
+> -	if (!image->kho.fdt || !image->kho.scratch)
+> +	if (!image->kho.fdt || !image->kho.scratch ||
+> +	    image->type == KEXEC_TYPE_CRASH)
+>  		return 0;
+>  
+>  	fdt_mem = image->kho.fdt;
+
+kho_add_chosen() bails out if there's no KHO buffer in kimage, so if
+kho_fill_kimage won't add KHO buffer to kexec_crash_image it should be
+enough.
+
 > -- 
-> 2.53.0
+> 2.43.0
+> 
+> 
+> 
+> 
+> Amazon Web Services Development Center Germany GmbH
+> Tamara-Danz-Str. 13
+> 10243 Berlin
+> Geschaeftsfuehrung: Christof Hellmis, Andreas Stieger
+> Eingetragen am Amtsgericht Charlottenburg unter HRB 257764 B
+> Sitz: Berlin
+> Ust-ID: DE 365 538 597
 > 
 
 -- 
-Lee Jones [李琼斯]
+Sincerely yours,
+Mike.
