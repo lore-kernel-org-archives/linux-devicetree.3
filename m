@@ -1,69 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BD38387570;
-	Thu,  9 Apr 2026 07:59:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6952638836A
+	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 07:59:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775721548; cv=none; b=Dj5ourAKv/DDYJxR4iCRa0lpr/Ac5g7mUnmcxswM+1LZ7prDT1LE9ES3aQNzmLa6Dzmx/Dj9GColiiF4XctJwyj4ajLe38TbiUMf/zcSQ/JBFWo1THQA/qngRE2NfNUFVgEueQKT5OG6+9a/LIRqP0vsYs+MKyb8NCYMKXMn1Dc=
+	t=1775721556; cv=none; b=hvbr7nvxKCnFT++lDQJ5V0X+C7SvTHKrC8IoX16bY+TeKkM4s8XADfOdPiWjwAD0b5aHXjmnb5FMwZq68O2fPzmOEMMFAbW12EyLbwwvzxt4VmCDogldyeAnXhRoPXddSgHUVFSJslIbB5TF3zOVgV2RZzfM2XCtnUuOvNEYV+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775721548; c=relaxed/simple;
-	bh=lyYa3ZJGQgq8Q3QDyNzOV51gGsmJW6sCHeX/R+e44DU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EPtmoN4Q6XE4GumW53toguGdv2Xidv5W5jeGvLiAK6GFEJmvN9/iiNLgDxuVMarMcFEvRExZXXH9myJIgTRchtlJrzyFJ403jMVU3j0o8jsYdAjF/Vess1Bqsc6oTAc8j5IS1HauAxW3ENhmeQoydGfeCr0Qm+3As6S7AUf23wA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gGNKpipl; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775721556; c=relaxed/simple;
+	bh=OycfU7u+U/NNYT4DdlI9EJeDZgT32WOWQNZ8vocbWHA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NHXBsyTdrEKekYNQplG6c0UiNdPPey4WYtGUe5awxO3z58/CPUTMxycszplnJWFast95fzRsjM1JjHZfmUFK5fIr3Ejrw//CtkPjyWvD8oce/PMyGY28vQLfskKmY4F6e8ekYQ56u1VmG5qKnc2rBKEcHmadyYbLm0OJnLye3ms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TCkNOn6z; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gGNKpipl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 940CBC2BC9E;
-	Thu,  9 Apr 2026 07:59:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775721548;
-	bh=lyYa3ZJGQgq8Q3QDyNzOV51gGsmJW6sCHeX/R+e44DU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=gGNKpipl5Y9/kBiMe+OC/5TgF0fPsUwSyDX1bPFIhvbQQNAfKknu7dStYqoLEP5ml
-	 8+QMjxbKvjhtD/wXtm+mBE1yTcvDvdVIuGcsqop1BMILWfkRxcMM7xEAaLhfn3att7
-	 ejnImrCBv5gfuYPpmip2P9X6sw2NTr9525mqWi1OPOhLdIh/LJA6L/LUbU/czdLWGq
-	 UtY8YtN1alpCKq3tIRq/qooUmHtwdlZ37qlg/FCQ2K8UAkvYGtWD1F2Cbc7e6pM8Io
-	 8IFrhKYViaGiCAtALlwATcEnLBTafiyDNj1c51ZLbLM+jBobhDRvMd4F+lZia7sBoe
-	 MZkhpwFUgRs1g==
-Date: Thu, 9 Apr 2026 09:59:05 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: pinctrl: qcom: Describe Hawi TLMM
- block
-Message-ID: <20260409-chestnut-mink-of-election-9e8a9d@quoll>
-References: <20260408-hawi-pinctrl-v2-0-fd7f681f5e05@oss.qualcomm.com>
- <20260408-hawi-pinctrl-v2-1-fd7f681f5e05@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TCkNOn6z"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1775721554;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MRrmBnYMXTNU9GdbPVrYhlAGHmJY6Atzwlyad3mHaKo=;
+	b=TCkNOn6zpLQN+3/ageyRgBfU/uSEg86D9pJiwWAWE7KMdRxi8bcsOGO4nuLYG6lWGa5CKQ
+	tr3+XUJb245kM2yHS0b0elqrdPmDoFTc7pxt08lJl3kxXN0clRw6yTQWYdiZXTT5shVI2U
+	mKJ4Wx2VgWAb0P+s41LQ7uXQs5zK1ik=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-221-g5s87ZHXPC6VOWTzEJ9IvQ-1; Thu,
+ 09 Apr 2026 03:59:09 -0400
+X-MC-Unique: g5s87ZHXPC6VOWTzEJ9IvQ-1
+X-Mimecast-MFC-AGG-ID: g5s87ZHXPC6VOWTzEJ9IvQ_1775721546
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 97A9C1956095;
+	Thu,  9 Apr 2026 07:59:06 +0000 (UTC)
+Received: from gerbillo.redhat.com (unknown [10.44.32.181])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 952271800357;
+	Thu,  9 Apr 2026 07:59:00 +0000 (UTC)
+From: Paolo Abeni <pabeni@redhat.com>
+To: luca.weiss@fairphone.com
+Cc: pabeni@redhat.com,
+	krzk+dt@kernel.org,
+	akoskovich@pm.me,
+	konradybcio@kernel.org,
+	linux-kernel@vger.kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	andersson@kernel.org,
+	netdev@vger.kernel.org,
+	kuba@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	robh@kernel.org,
+	edumazet@google.com,
+	~postmarketos/upstreaming@lists.sr.ht,
+	phone-devel@vger.kernel.org,
+	elder@kernel.org
+Subject: Re: [5/6] arm64: dts: qcom: milos: Add IPA node
+Date: Thu,  9 Apr 2026 09:58:54 +0200
+Message-ID: <20260409075854.308955-1-pabeni@redhat.com>
+In-Reply-To: <20260403-milos-ipa-v1-5-01e9e4e03d3e@fairphone.com>
+References: <20260403-milos-ipa-v1-5-01e9e4e03d3e@fairphone.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260408-hawi-pinctrl-v2-1-fd7f681f5e05@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On Wed, Apr 08, 2026 at 07:45:47PM +0530, Mukesh Ojha wrote:
-> The Top Level Mode Multiplexer (TLMM) in the Qualcomm Hawi SoC
-> provides GPIO and pinctrl functionality for UFS, SDC and 226
-> GPIO pins.
-> 
-> Add a DeviceTree binding to describe the TLMM block on Qualcomm's
-> Hawi SoC.
-> 
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> ---
->  .../bindings/pinctrl/qcom,hawi-tlmm.yaml           | 120 +++++++++++++++++++++
->  1 file changed, 120 insertions(+)
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+For local reproduction steps see https://netdev-ai.bots.linux.dev/ai-local.html
+---
+arm64: dts: qcom: milos: Add IPA node
 
-Best regards,
-Krzysztof
+Add the description of the IPA block in the Milos SoC.
+
+> diff --git a/arch/arm64/boot/dts/qcom/milos.dtsi b/arch/arm64/boot/dts/qcom/milos.dtsi
+> index e1a51d43943f..a244e136a877 100644
+> --- a/arch/arm64/boot/dts/qcom/milos.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/milos.dtsi
+> @@ -1281,6 +1281,50 @@ adreno_smmu: iommu@3da0000 {
+>  			dma-coherent;
+>  		};
+>
+> +		ipa: ipa@3f40000 {
+> +			compatible = "qcom,milos-ipa";
+> +
+> +			reg = <0x0 0x03f40000 0x0 0x10000>,
+> +			      <0x0 0x03f50000 0x0 0x5000>,
+> +			      <0x0 0x03e04000 0x0 0xfc000>;
+> +			reg-names = "ipa-reg",
+> +				    "ipa-shared",
+> +				    "gsi";
+> +
+> +			interrupts-extended = <&intc GIC_SPI 654 IRQ_TYPE_EDGE_RISING 0>,
+> +					      <&intc GIC_SPI 432 IRQ_TYPE_LEVEL_HIGH 0>,
+> +					      <&smp2p_ipa_in 0 IRQ_TYPE_EDGE_RISING>,
+> +					      <&smp2p_ipa_in 1 IRQ_TYPE_EDGE_RISING>;
+> +			interrupt-names = "ipa",
+> +					  "gsi",
+> +					  "ipa-clock-query",
+> +					  "ipa-setup-ready";
+> +
+> +			clocks = <&rpmhcc RPMH_IPA_CLK>;
+> +			clock-names = "core";
+> +
+> +			interconnects = <&aggre2_noc MASTER_IPA QCOM_ICC_TAG_ALWAYS
+> +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
+> +					<&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
+> +					 &cnoc_main SLAVE_IPA_CFG QCOM_ICC_TAG_ACTIVE_ONLY>;
+> +			interconnect-names = "memory",
+> +					     "config";
+> +
+> +			iommus = <&apps_smmu 0x4a0 0x0>,
+> +				 <&apps_smmu 0x4a2 0x0>;
+> +
+> +			qcom,qmp = <&aoss_qmp>;
+> +
+> +			qcom,smem-states = <&smp2p_ipa_out 0>,
+> +					   <&smp2p_ipa_out 1>;
+> +			qcom,smem-state-names = "ipa-clock-enabled-valid",
+> +						"ipa-clock-enabled";
+> +
+> +			sram = <&ipa_modem_tables>;
+>                                ^^^^^^^^^^^^^^^^^^
+
+Is the ipa_modem_tables label defined anywhere? The Device Tree Compiler
+will fail with "Reference to non-existent node or label
+'ipa_modem_tables'" if this label doesn't exist.
+
+The sram property is optional according to the qcom,ipa.yaml binding, and
+other similar Qualcomm SoCs like SM8350, SM8550, and SM8650 don't include
+this property in their IPA nodes. Should this line be removed, or does the
+ipa_modem_tables node need to be added to the reserved-memory section?
+
+> +
+> +			status = "disabled";
+> +		};
+> +
+
+[ ... ]
 
