@@ -1,113 +1,218 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2105.outbound.protection.partner.outlook.cn [139.219.17.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C786335DD1C;
-	Thu,  9 Apr 2026 10:06:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775729181; cv=none; b=trcZaj9fo0GlyVi8RI0FqprHpW3RJaKOPo6bblX7ikZcGQRwfzIJ+BSHAY+gIt0ysuBf7QwaYXqJrwLRTojLkP1FMtzyvOBHUmxBmR26cuizLvQx0LxvBEF5i/ulj2gTvEXDaGB7jZ8o0IlRrVjMQmWhSZ3Q4JWExieZaOiuz0A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775729181; c=relaxed/simple;
-	bh=7V0pYoHzrn6+SSWWa0iM3c70lHIAucLOcNFS8olUYeY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QFpFjXiwg6FYAL1C0SLVv9YMFVfLymGKrjCSaKdgCs9oDeQjS38O/l99A+95K80W0RvKyLfEwUoZ6l+LOTzaIfbvZMFJCun6gZuKPjsE26hoz0JBD56a8BUc4BTvnr6k+PICJYEY+6Yt2MRlJ0EnFzCfa3tstLIv4+tA4bGAYCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sHSjcDg8; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sHSjcDg8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9D5CC4CEF7;
-	Thu,  9 Apr 2026 10:06:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775729181;
-	bh=7V0pYoHzrn6+SSWWa0iM3c70lHIAucLOcNFS8olUYeY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=sHSjcDg8YECRfJ280xCCpsnapr2U1ahZU8VJ1bGQeA4DwIA+1Fl7R3aPg2pGAj648
-	 /QKngrr96iHfz6+fu/oPl/HGz3Aj3GK8criKwccXGsBkMrmPjDl0xaImcDqKXVnkAW
-	 rr+xrbCZrDaKXFwhpC1lyfHd20dUGa6YiCXCsivEQFJFvNlnVFSnXQIyzCHe48s4lb
-	 iTsak4vpMcSxOrhrHy1DIDpfsgt4mm88F5b9ujvoiLQIlbnkIHWawBaAumjybgjYkX
-	 m1lug+ItTpxdrtrgaPJwUfgxZaZm01VOCDHQdWLJ+fopPH2AkBNXqb3KUGIcnoqzbg
-	 ChzQ04vKcSEWA==
-Message-ID: <5e90257f-c260-4892-8612-8254d66e0337@kernel.org>
-Date: Thu, 9 Apr 2026 12:06:18 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82ECD3793BE;
+	Thu,  9 Apr 2026 10:12:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.105
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775729571; cv=fail; b=sy01egE/S1Oqz85eZhTgfBZ7UYOMdzHpXKhjWNhsl2uFLU7zE8mrnMn3v3ilpRQTRtCBnBHJJJeh3cEzpb/POWtIldwLx6Et//diRQvEFArU605k9u2jhd/UJdcfQfOyk3BgtEoEzZUeSel517XNaTxAkf6vur1upHaeUisVViQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775729571; c=relaxed/simple;
+	bh=npMD4H8JyNR33pJ9TsJaoYhbODmP2EjXQW9NLp9eXJA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=d8iNkL+k/0jjsPy/VQVQUazs6yfrEltSRDWAJxACa1wsJedLoGY/YRP2dkoudXim9kGp+5KaUTQm2Q3AVQy43977MdhkNBjBTi1nZoyytfZeyZ1QLjH0na3FYAoZTkapvBmkBbEsE1qBujhJsRleBm5RwiF4UfiigfVR4cEk0bc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VAleJtkC1R++QHzZ+Zn3J5iETmFjfiMS6d3fV6TmUTZpfpMjQyuPMTwBYs1y4srHleV3D9MZOU/tWRkGcGPZgeNjCASt9MByKBRkRgdL0giAhgOPFaR7RMR7SFE/03cIqvsxdP+1zp3Rqtmr6UeKhOVcBHo8kH/BTe554VuSj6+aNUxE+r+M+71dS2kJjmXgCiUNQjbOEwntt0RBgN6XaqwTS1IJvqtS/ORjZGJSDRC7apjwvETM+YZui3Gc4+j63nHUsTYYoUptYo/7lxKe2pj/ejUtUxuh4FvMGrRFcvWFU2wSDIuOsXTmsETqtOyYMqCaz4n+pAjwhMnUmXHWJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=X2IH0bsHkDpS9rAzuFxQCxQup8wTRoRBDR8wJ5o6UD4=;
+ b=fUO0mGNwlwe6SLn1HMBY+F8kasfS79Y1I/NqQjKDtvXNnJL+5zQm0/ucKdesOV2xdbO2JmAy+ALSQqNFmPgbRX3BUfEoObq/5aFWqwJme/M9UFLhQ9EvpZUEtkLc7I6l3cn2Qno/DznmjhJVD36GtMGt9fJlz/x88ytmam7yowsDH1NTEpvg6HFc7yAnUXq4YWB3JRQcKgQZ2v9IbqQIHYQX5WXBQk00RTZzuKmi2FH8PPKfs4sUnnJ99YBnTtOm01igWr/B2mVuhNSt+ovt2DjPGSrVE3yLM+/pleZhgPGaOc4ZyX3JCRTHmnVKCRBfxIAtlw2kSgC11tgkkFc/9Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:25::15) by SHXPR01MB0752.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:26::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.24; Thu, 9 Apr
+ 2026 10:12:36 +0000
+Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+ ([fe80::9b99:12dc:a115:b90f]) by
+ SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn ([fe80::9b99:12dc:a115:b90f%6])
+ with mapi id 15.20.9723.018; Thu, 9 Apr 2026 10:12:35 +0000
+From: Minda Chen <minda.chen@starfivetech.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor@kernel.org>,
+	linux-usb@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Minda Chen <minda.chen@starfivetech.com>
+Subject: [PATCH v1 1/2] dt-bindings: usb: dwc3: add support for StarFive JHB100
+Date: Thu,  9 Apr 2026 18:12:26 +0800
+Message-Id: <20260409101227.39417-2-minda.chen@starfivetech.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20260409101227.39417-1-minda.chen@starfivetech.com>
+References: <20260409101227.39417-1-minda.chen@starfivetech.com>
+Content-Type: text/plain
+X-ClientProxiedBy: SH0PR01CA0014.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:5::26) To SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:25::15)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dt-bindings: sram: Allow multiple-word prefixes to
- sram subnode
-To: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Luca Weiss <luca.weiss@fairphone.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260409-topic-sram_dtbindings_misc-v2-1-59dc6b0dec45@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260409-topic-sram_dtbindings_misc-v2-1-59dc6b0dec45@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SHXPR01MB0863:EE_|SHXPR01MB0752:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7b26b150-8615-4551-8dc2-08de96208590
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|52116014|38350700014|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	dGSPKUek3Ya8i5IAvX8qPjfqR/nkUuFs0FK4fP59EbxJDqIRYrq5Voz3sWvyTuRM+7LKsToi9rlTzpQJJ2nHZobglk854addWe9YrCHzGk9OkSt0BYHMeiK/G59SMzb6WNMIe+yO0pDz5T+mznAHfqdxHZcyJ6JUpBSJLxOO6mhVlYxkiDtkjqzEayic4ThImLD6+1gzK0MF9+hyz+uqSx52xunbfc9SFviXgdDLonLKvJaCRHgOn0hY3Ffotk1iw9GMYmCsMfodBLETdMjB5E/1bHrNF2oCIKXyevKPmQI16xq3J9b3FZEU7CzcU8boaVYR3Aa/75OkKmu+52U/vOUKWDoSyjaKmY6/pilvPEz80vIvs0Y5luOAcjZjOh6kDCsvd4npSlYxRXpkL5ZmCeoxdW0aTaupLbHx4q9XE/zHyEWYSDe+mQac/MMtlrgP27YSyyDgu2/lJ6+r6FuqdrfLafwQjyUQVsxWrAKvfQc53/tdsf488ke+4Ijsqre5XdxHrF1e+xuwyZiacgD1cWMY0x9sbTQoU8+49uIsFuhK3CyUdOFiUO1WeYSlYjYHbG2l80T5m/flhXcXNoxmMjF641ZjbdmcXOcMN821Wsw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(52116014)(38350700014)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?MS0SgNylxQ82mA1LcB4TVhImmq7r50kMcvBKrjS67/EOUpeHDjbdjUinfFwo?=
+ =?us-ascii?Q?tbmCssEIste5nN8942jW07Q11M1yEM1wYzP3hytazBIyY++PZYkEeCm+YmoK?=
+ =?us-ascii?Q?Ps0bdYC+B6w1H3lprD7+7YIuy9w6bY79j4mLFYzCIQ13Qfy2KUJ2OomCZZb1?=
+ =?us-ascii?Q?Q6fjYn6YqEi9QQWtlueKZo9bgjkc0iAffryDNGtFHMSLVVk7IAz36AflQmjm?=
+ =?us-ascii?Q?v+fO65rqj/tvEaAJ2OiSXAOzRcy0yENWW950R8nFQtiaWx1Ql66CSysnhcO3?=
+ =?us-ascii?Q?zWlM13se+Q0zi5YsffyN2lIkqESgZNGaRUd/Lyd8mkCUThUl+9bhd8gtNrPC?=
+ =?us-ascii?Q?oOV6ornFdcAXwHPlCkBozlyD5XqwBwoj71X1IV5+otB81+AjA6TOfm+TPu4C?=
+ =?us-ascii?Q?ugsN7mU2RxkYCclZJ7WZhU+NQUbUr5RVcV1dIYIpq3gXdtNxpCUObotupxIs?=
+ =?us-ascii?Q?3j4OQ64+7U6OqOa7SK/1GUFI2OFS3JFuq69We1or0yt0pdj5z42y9oYRUrMN?=
+ =?us-ascii?Q?F0S64I5pBt05QlIN656C9uedrQ53YhgpZtNxNe66Pdd15JhqJe5p/B2x5Lbf?=
+ =?us-ascii?Q?hTbuxxyVeolZ3+6AiJNFvn84qSAJ9fncpzC3J7SrKVEXBtG+9ermmcLIot3i?=
+ =?us-ascii?Q?X8zCVd49uU9GMgjeOWwvuY7pf19AAxDv/eq5TaFiPqRQnSEuqxsKXP434htN?=
+ =?us-ascii?Q?4GY8/Zdue/A/GuM7+mDWzAHwj2d5JT32iXzgvgCC8ciCt8OAjbEdAZnpTLeI?=
+ =?us-ascii?Q?MeX9A3ms2MwDvb63MpH9K/Tui5JKIv8xEn9rGLRWsbYS5VkOBudewgE1py02?=
+ =?us-ascii?Q?zvZ83OnEe74ROPljw4byLUR61xCMY8R9xBX4BttU5tO7NUhpBoYPFyoUGK0k?=
+ =?us-ascii?Q?pJ6DQW7Onkdj891Ktd2LS8H0/LjF9wq7e5ugs4tffwoBDdb4iaEByDL2tnCP?=
+ =?us-ascii?Q?dXjtILmBkqB+pi/TbdKyi1UDakENLxwrvVsYvDRajris5WWzeKiPCsXeB7ja?=
+ =?us-ascii?Q?nyZMXgAd54a/CtKM5j2Xk6Cw3vqIMvdA6ySUVKxRQFRHMFXsVIxO51nuYNQU?=
+ =?us-ascii?Q?/x73kibssSfzHMsK0torHLCaGYMIc0m/1Tk34rAPatuYu5SZqMI2/NBtRf9y?=
+ =?us-ascii?Q?28txUwW2h8LeJR1rRISETKpohskoussT0keoKMQ50eCQO8uFSs7xdEllNOgW?=
+ =?us-ascii?Q?oVqcq69XnXSCMPVatHPclxx4jt45r/TzWTpgAv83/45eRgMm2rHeE4t26sji?=
+ =?us-ascii?Q?PIhj+j47/gTFJaUGJ9OtO5ww2C05sJ+oSwgEedkEvdS1cPBEiP8s9TvTF1Lu?=
+ =?us-ascii?Q?Bg9u11jXKd4Fns0n6k5V6i2shuBP3zUf1P9PYIh9uRUpEbOgoJogikGDbXpE?=
+ =?us-ascii?Q?k8jlT+SKRxWkTZ4yMjWohJ1iTFqzcsREez4DuTTet3aTI/PBsms38ja/NklB?=
+ =?us-ascii?Q?/bMFQjxY8eA6+DWZG0ofBIIftXworZEQjzcgUXwTm6V2Gz/7pb5gY0JHOOjM?=
+ =?us-ascii?Q?7wv06T266IqvpLdUh/kI+8hpIjkx1GQQ4J6kE16CUtpQY4qDJTjf6RU8nrnM?=
+ =?us-ascii?Q?HVMTs+ctqCUmq6cb/FQvmC0Q8b3WtOZEhq/Cb+D4Uc/TDRPyebAOiN8Fz62N?=
+ =?us-ascii?Q?SR8vUSJgyWV47+Fda19BJl7WsLKeW/e+OReAKdlhcasUK8DKqqK6G0RXEaBt?=
+ =?us-ascii?Q?WLT/u77W4PzlgcvTR00aQfcNBclHQzLT9Pom9RoTp/6bd0vOldFL8ulDbbrr?=
+ =?us-ascii?Q?ipnrm8CA+UmA9Drf1LXGkPGX4ipYk5s=3D?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b26b150-8615-4551-8dc2-08de96208590
+X-MS-Exchange-CrossTenant-AuthSource: SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2026 10:12:35.7760
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ncjzFd+iA7EP31RVBEmz5sUDODXEd78DHfsB5vyLhi6dU/FOXICuTv82QuWdxyNU0wAWM+KYesCZjfLhI9YMd72RjwLJiwMEhJEI6jLwE+E=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SHXPR01MB0752
 
-On 09/04/2026 12:04, Konrad Dybcio wrote:
-> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> 
-> Currently, foo-sram is allowed, but foo-bar-sram is not.
-> 
-> Allow it so that more complex names aren't unnecessarily simplified.
-> 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> ---
-> Changes in v2:
-> - Update the regex to disallow names starting with just a hyphen
-> - Rewrite (foo|)+ into (foo)*
-> - Link to v1: https://lore.kernel.org/r/20260408-topic-sram_dtbindings_misc-v1-1-00556167e136@oss.qualcomm.com
-> ---
+Add support for the USB 2.0 Dual-Role Device (DRD) controller embedded
+in the StarFive JHB100 SoC. The controller is based on the Synopsys
+DesignWare Core USB 3 (DWC3) IP.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Minda Chen <minda.chen@starfivetech.com>
+---
+ .../bindings/usb/starfive,jhb100-dwc3.yaml    | 64 +++++++++++++++++++
+ MAINTAINERS                                   |  3 +-
+ 2 files changed, 66 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/usb/starfive,jhb100-dwc3.yaml
 
-Best regards,
-Krzysztof
+diff --git a/Documentation/devicetree/bindings/usb/starfive,jhb100-dwc3.yaml b/Documentation/devicetree/bindings/usb/starfive,jhb100-dwc3.yaml
+new file mode 100644
+index 000000000000..fbabe99e9d5c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/usb/starfive,jhb100-dwc3.yaml
+@@ -0,0 +1,64 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/usb/starfive,jhb100-dwc3.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: StarFive JHB100 DWC3 USB SoC Controller
++
++maintainers:
++  - Minda Chen <minda.chen@starfivetech.com>
++
++description:
++  The USB DRD controller on JHB100 BMC SoC.
++
++allOf:
++  - $ref: snps,dwc3-common.yaml#
++
++properties:
++  compatible:
++    const: starfive,jhb100-dwc3
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: USB main enable clk
++      - description: DWC3 bus early clock
++      - description: DWC3 ref clock
++
++  clock-names:
++    items:
++      - const: main
++      - const: bus_early
++      - const: ref
++
++  resets:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - interrupts
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    usb@11800000 {
++        compatible = "starfive,jhb100-dwc3";
++        reg = <0x11800000 0x10000>;
++        clocks = <&usbcrg 9>,
++                 <&usbcrg 5>,
++                 <&usbcrg 6>;
++        clock-names = "main", "bus_early", "ref";
++        resets = <&usbcrg 4>;
++        interrupts = <105>;
++        dr_mode = "host";
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 32bd94a0b94c..2f3475e0b678 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -25252,10 +25252,11 @@ F:	Documentation/devicetree/bindings/reset/starfive,jh7100-reset.yaml
+ F:	drivers/reset/starfive/reset-starfive-jh71*
+ F:	include/dt-bindings/reset/starfive?jh71*.h
+ 
+-STARFIVE JH71X0 USB DRIVERS
++STARFIVE USB DRIVERS
+ M:	Minda Chen <minda.chen@starfivetech.com>
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/usb/starfive,jh7110-usb.yaml
++F:	Documentation/devicetree/bindings/usb/starfive,jhb100-dwc3.yaml
+ F:	drivers/usb/cdns3/cdns3-starfive.c
+ 
+ STARFIVE JH71XX PMU CONTROLLER DRIVER
+-- 
+2.17.1
+
