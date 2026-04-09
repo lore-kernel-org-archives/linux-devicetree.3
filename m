@@ -1,212 +1,117 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FCF8283FDC;
-	Thu,  9 Apr 2026 15:21:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 918BD3DFC70;
+	Thu,  9 Apr 2026 15:26:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775748066; cv=none; b=kBITHS3uqHaULZH40Ui5KfGKVD366bxr4NKBj+mPKGUKKYQE/oLeZPW+6KDTVF2Y1d2gOYuFKRhgpmR7+5j8C4mN30CIMCd6cMEUTrUYMbm0Z+jhJHvdF2S3xEJta7CsAp40hrvdlG9VbQOdbB2O9SKC5OKzudPxbtyNejibbrg=
+	t=1775748390; cv=none; b=JDxxLIHycADfUdmLYW7tEbKVg3FUEjzSUvn+KH8VxDsH418EITF4BhMufn2ZWdCvG1aBqcI/bC9ee2CDU40tbbHfiNfsm+2q/30GoClGN049t1p28GwXGSvr4DPmQpYAOeR6huE68k+oqe6eWdwaHySn/QEfS+AyLHh65Q6IC8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775748066; c=relaxed/simple;
-	bh=ONauJM1Yd/vKNj61pJXPIhtd0ymL0BD8xctZMXZiYXQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hAHtPadIMuiama3STtPTbngUjAELcz1xHZPZqybVrvnAoT9YBPKjWCJnBRuxJ3qbF4RGxsZn+6htV8EG3dgMnSoiKQwNMYNnQIuQrcUtzbRJof2q//u2iwrVUVAneoro2cUdbaCSPQbKKwy+VTKVYK2Zn0UbCFWSL8ZK6lVhnzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net; spf=pass smtp.mailfrom=gmx.net; dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b=ny6E0Qo9; arc=none smtp.client-ip=212.227.15.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.net
+	s=arc-20240116; t=1775748390; c=relaxed/simple;
+	bh=pnyIYTGFvUHdVT/9CLO3bbomQBEswW1wI7LRF6GHZL8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CD2Kn/QZ2heWZ/9crGg/guwS0CJJB6P33nV79NxcWbosgyZikuQpKXQwBbfWKsWT4rVmij05nTS8iMMg/22Vthyr5CHk9x0pdADpGWlS6t6El2SC65MYdNypW1vn2VtoyVdku8u9DQujPm7o/U4Zs3TbX9CyZhEorKdT72n51wE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bbziAoWD; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b="ny6E0Qo9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
-	s=s31663417; t=1775748062; x=1776352862; i=wahrenst@gmx.net;
-	bh=ONauJM1Yd/vKNj61pJXPIhtd0ymL0BD8xctZMXZiYXQ=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=ny6E0Qo93KByTudvSuy7r55aKQcrF+SFcZZDtU8yIimUtKJtIf48LRJo1fp0a0pq
-	 HKXsKViytdho1xjk87Roqr/Dat6QzNT97tlUbJl5SRlSk9e1mG9VDq4nL+wa7Q1ZD
-	 7rR9MVWsOEmKnt+cOzeBC8VctYQfR4s8MCrJqiuj1xtSVVZorRhg/2aNrKWhEFks6
-	 La+QDEVbapWaDw23tW9qHwAOvNGAj67+MbYiyb+dH74D7upT4jePomfFFMwMxVe10
-	 g4c+o1oUlbyWm3Z8pUG/NWuB3mhT1hVdkdGT6xUkExhPs6uvTj5jvW0pdXR8VBmMY
-	 B+8gKUgDCB7HAVgtsQ==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1Mf07E-1vYnLA1jf0-00dtFq; Thu, 09
- Apr 2026 17:21:02 +0200
-Message-ID: <fc2c08d8-fb7f-4da0-ad68-dd54aad82af9@gmx.net>
-Date: Thu, 9 Apr 2026 17:21:01 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bbziAoWD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6894C19424;
+	Thu,  9 Apr 2026 15:26:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775748390;
+	bh=pnyIYTGFvUHdVT/9CLO3bbomQBEswW1wI7LRF6GHZL8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=bbziAoWDSRTTTMnxVnwR5RhcwIRuSot5r/dl9oyCR4z3VCuF9OHbW9lYFvdzq2KgN
+	 matqwhXrEZORNEF21t4mPb5Z2TdKqGwFxZV94dmI9RAy8wXQPFcMkh6YBws5WUyHkF
+	 qTJ4c1p8746//KlKaJYbLnX33t0hWGQXvIkK5gU8Pq21BrwLzx8Qeq4GWmZDZhROp/
+	 cB1AODdE1zIHj9vDt4DCpA4gPBuxOVmZy4PysLVgciQSxaqjIT/GszByrqu1022FCl
+	 qvymzGIDTAqq4zExGpF8mgl4XSLgMSI74KDJMvLfO3GewMF8fAhHPQ96dmSvnvblrp
+	 Wh/MgqF2xWbEg==
+Date: Thu, 9 Apr 2026 16:26:25 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Cc: Herve Codina <herve.codina@bootlin.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH 2/4] ASoC: dt-bindings: Add support for the GPIOs driven
+ amplifier
+Message-ID: <383635c6-0417-4333-aa9c-9056437d4a5f@sirena.org.uk>
+References: <20260330101610.57942-1-herve.codina@bootlin.com>
+ <20260330101610.57942-3-herve.codina@bootlin.com>
+ <20260408122901.GA42727-robh@kernel.org>
+ <20260408190932.0ab936b0@bootlin.com>
+ <CAL_JsqK4SHQS6MciQpLSrGWo2knqs7-eB3yoAv2J54bSfW-Lxg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] nvmem: Add the Raspberry Pi OTP driver
-To: Gregor Herburger <gregor.herburger@linutronix.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui
- <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Srinivas Kandagatla <srini@kernel.org>, devicetree@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260408-rpi-otp-driver-v1-0-e02d1dbe6008@linutronix.de>
- <20260408-rpi-otp-driver-v1-2-e02d1dbe6008@linutronix.de>
- <251100fe-db96-4d83-899a-cd764582d698@gmx.net>
- <adaw1rr3WlDjvyQp@gregor-framework>
- <90f54202-6eb6-4c44-b029-a4e0dafad861@gmx.net>
- <addd5ZpuUdKBV7Bn@gregor-framework>
-Content-Language: en-US
-From: Stefan Wahren <wahrenst@gmx.net>
-Autocrypt: addr=wahrenst@gmx.net; keydata=
- xjMEZ1dOJBYJKwYBBAHaRw8BAQdA7H2MMG3q8FV7kAPko5vOAeaa4UA1I0hMgga1j5iYTTvN
- IFN0ZWZhbiBXYWhyZW4gPHdhaHJlbnN0QGdteC5uZXQ+wo8EExYIADcWIQT3FXg+ApsOhPDN
- NNFuwvLLwiAwigUCZ1dOJAUJB4TOAAIbAwQLCQgHBRUICQoLBRYCAwEAAAoJEG7C8svCIDCK
- JQ4BAP4Y9uuHAxbAhHSQf6UZ+hl5BDznsZVBJvH8cZe2dSZ6AQCNgoc1Lxw1tvPscuC1Jd1C
- TZomrGfQI47OiiJ3vGktBc44BGdXTiQSCisGAQQBl1UBBQEBB0B5M0B2E2XxySUQhU6emMYx
- f5QR/BrEK0hs3bLT6Hb9WgMBCAfCfgQYFggAJhYhBPcVeD4Cmw6E8M000W7C8svCIDCKBQJn
- V04kBQkHhM4AAhsMAAoJEG7C8svCIDCKJxoA/i+kqD5bphZEucrJHw77ujnOQbiKY2rLb0pE
- aHMQoiECAQDVbj827W1Yai/0XEABIr8Ci6a+/qZ8Vz6MZzL5GJosAA==
-In-Reply-To: <addd5ZpuUdKBV7Bn@gregor-framework>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="g09VxWLtjplPgHzT"
+Content-Disposition: inline
+In-Reply-To: <CAL_JsqK4SHQS6MciQpLSrGWo2knqs7-eB3yoAv2J54bSfW-Lxg@mail.gmail.com>
+X-Cookie: Hailing frequencies open, Captain.
+
+
+--g09VxWLtjplPgHzT
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:eTts/rUQX2gbou8JORJUMhwp/e0SHiss7/4etati2pdcb1fxNW9
- LS3WoBSFohPsEv8BCuR/I0TXDOaHYo+LAWdGGqJaPOzjJjQFD4tRsU8MXuDaiGBZSAviCCn
- Fjx3OyM8WgfkIVCivn2wwkkLaFfWw/k1GN9fqVn16YkOTn9oLyrmzBsryjX9jSNAZUIc/ft
- U4Ye9pmSbAW33pt/wbYHA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:PiePEnsXQAU=;6MnBMZNWj82NZTfaZH5S0rPD5Fx
- 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
- B4yVM4lwcXKyNwvnazhn/vyYfLPgmmbAg==
 
-Am 09.04.26 um 10:05 schrieb Gregor Herburger:
-> On Wed, Apr 08, 2026 at 10:03:47PM +0200, Stefan Wahren wrote:
->> Am 08.04.26 um 21:47 schrieb Gregor Herburger:
->>> Hi Stefan,
->>>
->>> thanks for the review.
->>>> Is there any reason, why we cannot register this driver in
->>>> rpi_firmware_probe() like hwmon and clk driver?
->>>>
->>>> I like to avoid the complete dt-binding from patch 1.
->>> The private OTP registers are not available on all Raspberries. Afaik
->>> only on 4 and 5. So I think these registers must be described through
->>> the device tree. Therefore the bindings are needed.
->> This binding doesn't represent some kind of hardware, it's just some
->> firmware interface. A proper DT binding would describe the MMIO address
->> range for OTP access.
-> I think it does represent real hardware. Although it is hidden through t=
-he
-> firmware. Not all hardware must be MMIO addresses.
->
-> The only driver that does not have a DT node is the hwmon driver. All
-> other drivers (clock, gpio, touchscreeen, reset, pwm) do have a DT
-> binding. Looking at the comment in rpi_register_clk_driver this
-> seems to be some legacy behaviour for older DTs for the clock driver.
-There is a long history of different approaches how to implement the=20
-VideoCore firmware interface for the Raspberry Pi and not all of them=20
-are good from today's perspective.
+On Thu, Apr 09, 2026 at 10:00:55AM -0500, Rob Herring wrote:
+> On Wed, Apr 8, 2026 at 12:09=E2=80=AFPM Herve Codina <herve.codina@bootli=
+n.com> wrote:
 
-One big problem with DT binding is that the kernel must be compatible=20
-with all mainline DTS versions. This sounds trivial, but it's not. Since=
-=20
-we cannot assume that kernel & DTB are updated at the same time. So we=20
-need to keep these bad solutions from the past.
->> If you need some distinction between the Raspberry Pi generations there=
- are
->> firmware tags to do this.
-> So what is your suggestion? What tags do you mean?
-Your driver already use firmware tags to access the OTPs via firmware.=20
-You can ask the Raspberry Pi guys, how to do the distinction in a=20
-efficient/maintainable way.
+> > Mark suggested to merge this gpio-audio-amp with simple-amplifier.
 
-My suggestion would be to look at=20
-https://github.com/raspberrypi/firmware/wiki/Mailbox-property-interface#ge=
-t-board-model
+> Merging driver and merging binding are separate questions.
 
-and
+Yes, my comments were purely about the driver.
 
-https://github.com/u-boot/u-boot/blob/master/board/raspberrypi/rpi/rpi.c#L=
-95
+> > I didn't want to set a particular limit related to the number of GPIOs
+> > used for thje gain value. Of course 2^32 is obviously a lot.
 
-The compatible "raspberrypi,bcm2712-firmware" approach is more straight=20
-forward, but requires a newer DTB. See above.
+> > What do you think about 16 for maxItems?
 
-Best regards
+> What is the most you are aware of? Take that and double it.
+
+> Seems to me 256 levels would be way more than a human ear could distingui=
+sh.
+
+There's plenty of gain controls with way more than 256 bits of
+resolution, though I'm not aware of any that are configured via GPIO.
+The step size and absolute values you want can vary dramatically
+depending on application, possibly in the same system (eg, a DAC that
+can be connected to both headphones or speakers) so you often end up
+making practical adjustments in a small subset of the available range
+but that subset can vary a lot for the same part.
+
+> I guess my point was that really we could deprecate simple-amplifier
+> binding because this one can handle it and more. But I'm not
+> suggesting we do that yet.
+
+That's my thinking.
+
+--g09VxWLtjplPgHzT
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnXxSAACgkQJNaLcl1U
+h9AyAQf+PFfdD5FaRa7cXGLebu7K6JB2uKAdF6KxBmTK/OT8yImF22Wg5pj5mNGs
+QUm6G8gCvGa4dQbTBnYg2h9q0zs0V0sRR46Y4Wkrv28X3LjKK8tj4EP7lTxNlmSX
+oTtC6PPajivpCRauXtiq7ouL/4Gfk6wNoDZbD/And/vdBJjQFuLRA74IO4nYU11n
+X+tUhe6S8yHQrFUjYEACPfTls+CP6xj/Z/CYgUBZySggMvygFezorl7HeSqsJW6W
+kXcpIdxnTQ6gvTdl/l7dpQbSB/GSIy+7+u6HsOYN/bplwYvoXhFuVQLwYMrRMnNq
+Y7diPqvUaaH+gC1XsY/9ge+dfoFcag==
+=XhEP
+-----END PGP SIGNATURE-----
+
+--g09VxWLtjplPgHzT--
