@@ -1,69 +1,68 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C65B718A6A8
-	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 12:59:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DF24248886
+	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 12:59:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775739543; cv=none; b=UlGPq5gAMLt/iWIrvoJke9a2iihHVjjVAvT2YSCRjX3ROZbHwZo9QALGnj4uVNO4T3eMISTpZu+AG/Jk1pCAjtTqPbUNtZ/HGfFU4YJlR/Ie6OwfBBXpxco8OgS2A28oobCeeTw6J3kfiWF1SJB6GA7fssYZB5L5Zyzb4epB7OI=
+	t=1775739562; cv=none; b=dqhewx25bgQuRcaQPW/24hCKH77gt1KUTTbZbB7h70g8485thvzfVaWSHR7usRMLYdyzKBeWCe244pydfXYLqBwsKwIfxU9oS0o4g6wl83uHmMUqjGxuBKr2K2AS28mZD8fCEP5dxwB9dDBjuigXHwjQMMP4szmj/sRGU9a4CgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775739543; c=relaxed/simple;
-	bh=uQ4Ts5SxDnKdyHkEWRMqsPD6XDckSjd1rO6gKXFlplY=;
+	s=arc-20240116; t=1775739562; c=relaxed/simple;
+	bh=3W7k/IMpUVBZFvr2L9V1GePV/CqpwAafIlc0oZXBsvc=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=SFVpMykqrjS09dODEhxwA6KYUHqBC31wnxbY6eHFU+ShsNKYkNjuK4PCA+jOkrjiBHPEpe08OIKDK8lZooChZKQagqdtgnWzM2I13MbAy7zXzsXurYmieVQc/4NwiLqQx2raV5Q9WKZNzjt52sHMb9oiQS9UJvmKpuFqw6jvIiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=W/m/KD2B; arc=none smtp.client-ip=209.85.128.42
+	 In-Reply-To:Content-Type; b=fSs8qPHnO1pfaKL+cfhTTLLtjeun8VPCQC2O/aCtQxJZlL3rWyrjR+C01ZlwGtzc9hZGBFVwDdTTaRC0wbfH1EdSyvYMwaeg9LqBXF9j8E6ok41UoD1JLoxIVcoZrjWL+oVJWSGhAjuDDwIRDQ8TRDV7od9t+D5pdn6Cs0q5efI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=QVov5Nf1; arc=none smtp.client-ip=209.85.221.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="W/m/KD2B"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-48374014a77so11643275e9.3
-        for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 05:59:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="QVov5Nf1"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-43cfce3a195so532439f8f.2
+        for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 05:59:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1775739539; x=1776344339; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1775739559; x=1776344359; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:references:cc:to:subject:reply-to:from:user-agent
          :mime-version:date:message-id:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=x4+d359KX46hXwxtaE9R0Hy4plQuOMKkNrAfPPDGlPA=;
-        b=W/m/KD2Bdg2K6rPrcRzOd2BDCbsA69YtoclFG/Jxi44ejesxWzCR2AyusozIg9NpVg
-         jd9FqpHIVbNBmJ+oNtU25ybnLV21NA5HoaD1FFeaB9+wq/cTsPQzHohXZ5xtyWqh+IEL
-         XXqDenCUjJtr7qnpVAdkih553Vxd9UVPeFtM7Dw1ZX8sUY0V5lAguglvqs+Y2ymOBRn0
-         YSABkusss432fdbn49B9LEJLGcfRTO0TSMvvySR44WkAVe+mCd8Urh+j2jC+Lb3+UEIP
-         Ezkemulg7RqcZncSfRC0BUAujd2Zj02Hu7Sa2VRxW00cV+WLzqiDqzriCrwl0ultsAga
-         u0dg==
+        bh=xj2vZaEiNHHsypQhOoqn3dsKsdK2sO9N5bb9CwmONCI=;
+        b=QVov5Nf1R1zlwDxfT9ozzjoj6EjHj4OBaTxu3serFl6rC/lDZPUMg5NP59jBTtpxGW
+         3rbX0IwamBZdew1fz74MJewj4vD4htQwb5/L2Pyh3HC3fU6jCXKBZ19R0GTgYw8+pNfN
+         f589Ll4nNurh4gMwIDHrLLAwcUadB60U/5L0wvxzm0kdgCleC/aWshoc9TESZ/LYSMSj
+         2Uaca4LpIVTIojCXU5RCjcmbxWS6IE/drAgieUeascewoXKA8/7f12S2QhEbaV6s6NuO
+         TZ7luMcDiXBj2W5V+AbJN9FZc/xTNZryK6fino4RbVFnSnjkX8szEbdkujjih3KBQhvD
+         C+Hg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775739539; x=1776344339;
+        d=1e100.net; s=20251104; t=1775739559; x=1776344359;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:references:cc:to:subject:reply-to:from:user-agent
          :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=x4+d359KX46hXwxtaE9R0Hy4plQuOMKkNrAfPPDGlPA=;
-        b=j2ViP9cw2bruPgyvW3/ImCYEkH4iq4z1KId7+gaLatnS8LC3CS3Kfkuqj1nG4+sO7J
-         W+6G12eThV1x0y7gMdkiJJq6QEorIW33txpJNaElzjMLuNgMf4zmVKVzoPEAOOlirFPh
-         1K6c5gc4Nu/hRcFGSNeSkas/FhSxrH/+VOpkeLFb9VYUX6WWSGiTWsCiRX3oFVNlB7tC
-         z8dAiyT9/rRfnApfxCHBeRNuBHft17jbo6cxwPUEvYujzAf8P1x2ag+siMuxCkK1VSMy
-         x3xDYJYwxjyOKj9LPCEtGgk+ANgueh9i3n9fjqs2b5ESclBTHb0pVuLMNPMS3OG6w+T3
-         LmCw==
-X-Forwarded-Encrypted: i=1; AJvYcCXYVXCmfR6NWFeekA8dDZVIm4lgwJMkkNJdJ3vCoSqciZd8rjp9SJ/06Z45noPtgFwjnBTPn8SKCjEH@vger.kernel.org
-X-Gm-Message-State: AOJu0YwFPtKZCGM8yivHaPZbHyd/RCzUSGKWyot5wvQlSa4XM270LbZr
-	o6WxJL9gnKI3AGoACu5SBFvAz8S9dT6f2Hh8KRIyLL0w5amTs5OM3B0An7XtzHl/pTkn65MhAfA
-	7Xdwbpa4=
-X-Gm-Gg: AeBDietSsa4lS2pfQ8+z0fbuVm7qphLAA7huv/ZfgigfomcN5shFegjwuRwfUBTnZ5Y
-	TzZ2JsUDUfLIlGAibUF/QH2p6Z3uikKc5hI+Z0XptFDe4JtnOh5NewfA25qgRboVsRFovaOPHls
-	UFuYr6IK5M/MSum6VuPXqwjRrllNpaoJ+9YV7aGh54/LsWMr/smghWNIS8QYgqOI31cYmawDNVD
-	BiNZUssyUp4gOHvfNw6y7eb/L0rlwgWLjNRlRVXtJIC8o0bzR2KExGYvpu/AFXtq2wE1JKIgaxy
-	GW1V/t7eudL+z3gZb8Y01y32kQ8EiGzrMmnH1+6QmaN1Lr8yjHfuFWBmkxT7lMvkxLtmhi9QJZW
-	6TEXP8Mh143NTHuDm3YTO4MkcrcbGnHhVFUpQ+XTx6gjDTEeTkQEqoFOgblL7+T6SFjsJ5959LM
-	dy0DU2slLM7Fj5RlHypDX23wHnR+UTuAMkrN4O1sbq7sa6H5FMAjSseNBn9KhN+zMwLwh/vkLEs
-	Lmh
-X-Received: by 2002:a05:600c:6305:b0:486:d76c:fa57 with SMTP id 5b1f17b1804b1-4889978da75mr343672015e9.17.1775739538882;
-        Thu, 09 Apr 2026 05:58:58 -0700 (PDT)
+        bh=xj2vZaEiNHHsypQhOoqn3dsKsdK2sO9N5bb9CwmONCI=;
+        b=rSnxElweSoEpRngZE5FQ5hKJ1iCmXvb2Bewsc1OmQfkQ2EIAXE4aJB916gFFRuULIh
+         iVl8EK+wlknvvMBv5QvWb03bxiQ7OkqlPfZ5DNcJbMREDTxsTSZSjTMj5qz7YcFtTz+W
+         L62/2C051O3afASho8FRCwQm1thk7mXnHWEPcV3hgFZTZDpsb5RH8Ia53mY2607ut0Dq
+         aK+Wk1kP9VD4rJanEEWrrZd3AfQ5jD2gbziS60LCPiCnfJHDPyavgA8Otussl6FA3HiN
+         LdLyVnZ5MM8S2KRYAekkfS/FYvdSC8LmNG+ti1kgM7XneFvXr4+/Z6nU7iEjtyJX7uIk
+         f2Xg==
+X-Forwarded-Encrypted: i=1; AJvYcCXaKaDtOWS8inrugoKUOGK+WKjXi8qkorqvgclIAszUOEbOIYa5SgrRp0gKzPg9cZxOcTLIVLeHfFcP@vger.kernel.org
+X-Gm-Message-State: AOJu0YztVM3R7qyOzT0TvqZzUIHjQi7GLOsXzGjVtULLmpHTB9nZVWYn
+	kLLqX8hNpy9CKTczzwSE/x++mJM8eVIP086i6YEDArF8wjqKWp5IaBOdTbXz4hHx7vw=
+X-Gm-Gg: AeBDiev4EowOH8DpEMKRqnQgjsu02vpdrOPRzN9ayb7xwxzqUIbB7MPfJA6qLsjYo83
+	aL1aw5+qJF5FfZR/uydRMZt4W16lgjRtGRDlDkFGDqXJewKRi6wavm3m5eE+Rb3YMh9osGDrijO
+	e1RlPyGuBkGQw0W9Ht5YHx8OVcglpYLTrlQUPNikTjSlLGCeXICW2+KFm8wMtL2xLNmmtIhmz23
+	rblZB1gh42KCRXAOlthkWDs3Ru3S3Esp4voHij12BY6ZztGUh/21lqpa2ibiLgo1MQzxMRyyKB+
+	xerqH3q0WiCG9zovbGgRYgcNuvZJ1i0CfhuxE+WDyFMQ72uGiu3yZ/gkPZZ9XrHYOWxrKdU/zLq
+	zVwYHo2ESp/8WazSMulZ6vbrBCka2i/bjc7KPyON7KhWo/H3+ThjJH6pMNsJiirQZq8Pm6pxoRe
+	MIxZRUxR6KxUBWlYHZnJEDDoNH5mMsHu708Tz7a1woJTKPBjjhpvR6dJszuYfZBlk+5YMB745Ri
+	AvP
+X-Received: by 2002:a05:6000:288c:b0:43c:f336:7ab5 with SMTP id ffacd0b85a97d-43d5a14b024mr4729778f8f.22.1775739558565;
+        Thu, 09 Apr 2026 05:59:18 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:47c:bef1:62cf:54fb? ([2a01:e0a:106d:1080:47c:bef1:62cf:54fb])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43d1e2a720dsm68106981f8f.4.2026.04.09.05.58.57
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43d1e1fe0b0sm69043166f8f.0.2026.04.09.05.59.17
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Apr 2026 05:58:58 -0700 (PDT)
-Message-ID: <dfb14fb7-7013-4946-b151-a9db4478c0cd@linaro.org>
-Date: Thu, 9 Apr 2026 14:58:57 +0200
+        Thu, 09 Apr 2026 05:59:18 -0700 (PDT)
+Message-ID: <a4a487fc-7b65-4de2-97f9-71e5085dded1@linaro.org>
+Date: Thu, 9 Apr 2026 14:59:17 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -73,7 +72,7 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 4/4] drm/panel: simple: add Waveshare LCD panels
+Subject: Re: [PATCH v2 4/4] drm/panel: simple: add Waveshare LCD panels
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -89,8 +88,8 @@ To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
-References: <20260330-ws-lcd-v1-0-309834a435c0@oss.qualcomm.com>
- <20260330-ws-lcd-v1-4-309834a435c0@oss.qualcomm.com>
+References: <20260331-ws-lcd-v2-0-a1add63b6eb6@oss.qualcomm.com>
+ <20260331-ws-lcd-v2-4-a1add63b6eb6@oss.qualcomm.com>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -117,11 +116,11 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260330-ws-lcd-v1-4-309834a435c0@oss.qualcomm.com>
+In-Reply-To: <20260331-ws-lcd-v2-4-a1add63b6eb6@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 3/30/26 15:25, Dmitry Baryshkov wrote:
+On 3/31/26 17:44, Dmitry Baryshkov wrote:
 > Waveshare have a serie of DSI panel kits with the DPI or LVDS panel
 > being attached to the DSI2DPI or DSI2LVDS bridge. The commit
 > 46be11b678e0 ("drm/panel: simple: Add Waveshare 13.3" panel support")
@@ -536,8 +535,6 @@ On 3/30/26 15:25, Dmitry Baryshkov wrote:
 >   		.compatible = "waveshare,13.3inch-panel",
 >   		.data = &waveshare_133inch,
 > 
-
-LGTM, panel-simple for panels that autoconfigures themselves from a flash
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
