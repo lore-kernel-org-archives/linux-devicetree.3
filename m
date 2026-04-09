@@ -1,53 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C24F3E1CE8;
-	Thu,  9 Apr 2026 16:58:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCC543E1CE7;
+	Thu,  9 Apr 2026 16:59:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775753907; cv=none; b=BMQwNmWqvuMnSKxKKrzpBVdfZuRV7sRXi9MiSRLLWssTo7P6bL+ib1NiLn+dXAG3ivG2vAR9WtzygxwG5jPC5lcZV/BVJF5X3EFNmPzho8WbHk2nCcTLoWCZudIrAomXr/3Hb8isPij2gDOw08jRZa1NTvzjQImpOkmBjdX+7wk=
+	t=1775753947; cv=none; b=BDy2dbs/3gTMwGn80J7vycRo0VRtzetjwl1wHN/n6BGqv7rHyu6Pb+Uk2uxGNZ7zB8U1hd9onn+Np+5UmAD18dtMD2m2fWczKICHe4/flsPsgUBRfgg21P9ERwlKpmVyWko4LyLIuPH+dPwdTEk9wDdJlcker3BPMNv9wZyJXoc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775753907; c=relaxed/simple;
-	bh=jzQepuIPTUxzXw6nvVnnvG0DD/52Qtgmozdmz3RF8Dc=;
+	s=arc-20240116; t=1775753947; c=relaxed/simple;
+	bh=5gcaVXlGMAPBNhZdLlsPbxHY1NLXHx16UN4E7nUFEwA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GaFYsFZWyLlxzNwFpMa9EtSKtaNXLrFXweJJIyBZHB3GkN1m0W+rElR4AQtD75KxRogCNG5u/al2zhwteiSqtNsIFjP32tt0zfzUpRTqa51I1LPVPmBldgsymhqU5WI2knd7yspUPXYRoEFJfJK8mSM3wXdGZOt9kp6S5u34McY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IFpM1HVL; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=lMq66eF+mD+/dq5wXzNSbh0MsRlQh5sXPpyVvRz6BaqfsC3TboQc0Eva3Ufy5zTvbHzVihuQU8gQkvL3GRQRad6dwKfG5jrssTdq0zj8WL5f1kPkHkusED3cebBUVlFOU71GNpfxnwuWB05pcoie0FcwVHbj5HzAbz0PH1wHGMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G0KAoCL8; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IFpM1HVL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A83DC116C6;
-	Thu,  9 Apr 2026 16:58:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G0KAoCL8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCFFCC4CEF7;
+	Thu,  9 Apr 2026 16:59:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775753907;
-	bh=jzQepuIPTUxzXw6nvVnnvG0DD/52Qtgmozdmz3RF8Dc=;
+	s=k20201202; t=1775753947;
+	bh=5gcaVXlGMAPBNhZdLlsPbxHY1NLXHx16UN4E7nUFEwA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=IFpM1HVLK0gj/ENLmzP+oNXpi+o1r6eJD99Xz2JAeeE9//s28r0AkFibOJjgDCa7g
-	 2TZnjHbG7Q1rDYrxUN6wXFWJts0vnvCXSnICth6fI19BYuE+3cRWP1du/bw7vM4BIj
-	 AskhIq+vIHe0s5wQorI5G3iGW3Go/uLcRna5qQkUYdRvdS/D3qGUCYKNa8gY54BsaP
-	 YLawo9o8483hclAtRSauVavPsIeiQ58oxINp5WgqDhPFv+dIlj/x2bxHFliApKfC1W
-	 KJv/GYUqnnJ37bS7izC3i1voWnVIrHVE4Q6et6bDg1q/LsXbCxRP+KZ1rhUALG6uuD
-	 ZuuDmkhKY5i7A==
-Date: Thu, 9 Apr 2026 22:28:17 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Sherry Sun <sherry.sun@nxp.com>
-Cc: "robh@kernel.org" <robh@kernel.org>, 
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>, 
-	Frank Li <frank.li@nxp.com>, "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>, 
-	"kernel@pengutronix.de" <kernel@pengutronix.de>, "festevam@gmail.com" <festevam@gmail.com>, 
-	"lpieralisi@kernel.org" <lpieralisi@kernel.org>, "kwilczynski@kernel.org" <kwilczynski@kernel.org>, 
-	"bhelgaas@google.com" <bhelgaas@google.com>, Hongxing Zhu <hongxing.zhu@nxp.com>, 
-	"l.stach@pengutronix.de" <l.stach@pengutronix.de>, "imx@lists.linux.dev" <imx@lists.linux.dev>, 
-	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, 
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH V11 02/12] PCI: host-generic: Add common helpers for
- parsing Root Port properties
-Message-ID: <yzy3xui6wzc6h4jguju6hj66bqsj37ulnkl4sjsq4ytyb6azgn@lc2zpqbquzwa>
-References: <20260407104154.2842132-1-sherry.sun@nxp.com>
- <20260407104154.2842132-3-sherry.sun@nxp.com>
- <lnzprzrdwra7pn7d6m3sbj5pvjy64blwpjl6i3lmlnfbyho63b@czpyhpgz5vum>
- <VI0PR04MB12114A60C4A7E43ED62A32B04925BA@VI0PR04MB12114.eurprd04.prod.outlook.com>
- <yijf6mwclpx6n7giucgykxvrm73baicy2urhzns34sxgloli3z@ygose2qrgvuz>
- <VI0PR04MB1211419BB996B4790AE04170F92582@VI0PR04MB12114.eurprd04.prod.outlook.com>
+	b=G0KAoCL8TlIMq0Il9g8sa13W/n88mtz+Xg8Ju9nftBjaSqdJNfUzcxvq4282XkOzm
+	 2frFeR/1jh6zcG3F2N8GFpOdtuISA5UZ3JH2VmmrwXq5/lJAOtJrjiv9n+FBQvNOPx
+	 I0jLHzS9hjb/Oj5nSYsw9F1nd/HcJn6Carkz1PF/N4QSuEevTVrPFsy0xCkILl/KrM
+	 eY+Wf5Spgme5rVTPZqOLBvPxxCcB9lo86ctCWshwYmw4gFWyqYehNiVu2fO9NysVs+
+	 VmiAna3lfNabTMoP2ZXZBZg6U6KG0B5mVqs7nkuKl+Hj788UJ+BMDPlVQ+EbWl0MJG
+	 wAM82peuJJWrA==
+Date: Thu, 9 Apr 2026 17:59:03 +0100
+From: Lee Jones <lee@kernel.org>
+To: Jan Carlo Roleda <jancarlo.roleda@analog.com>
+Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] leds: ltc3208: add driver
+Message-ID: <20260409165902.GB3439476@google.com>
+References: <20260406-upstream-ltc3208-v3-0-7f0b1d20ee7a@analog.com>
+ <20260406-upstream-ltc3208-v3-1-7f0b1d20ee7a@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -57,188 +46,463 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <VI0PR04MB1211419BB996B4790AE04170F92582@VI0PR04MB12114.eurprd04.prod.outlook.com>
+In-Reply-To: <20260406-upstream-ltc3208-v3-1-7f0b1d20ee7a@analog.com>
 
-On Thu, Apr 09, 2026 at 02:58:21AM +0000, Sherry Sun wrote:
-> > On Wed, Apr 08, 2026 at 06:34:02AM +0000, Sherry Sun wrote:
-> > 
-> > [...]
-> > 
-> > > > > +/**
-> > > > > + * pci_host_common_parse_port - Parse a single Root Port node
-> > > > > + * @dev: Device pointer
-> > > > > + * @bridge: PCI host bridge
-> > > > > + * @node: Device tree node of the Root Port
-> > > > > + *
-> > > > > + * Returns: 0 on success, negative error code on failure  */
-> > > > > +static int pci_host_common_parse_port(struct device *dev,
-> > > > > +				      struct pci_host_bridge *bridge,
-> > > > > +				      struct device_node *node) {
-> > > > > +	struct pci_host_port *port;
-> > > > > +	struct gpio_desc *reset;
-> > > > > +
-> > > > > +	reset = devm_fwnode_gpiod_get(dev, of_fwnode_handle(node),
-> > > > > +				      "reset", GPIOD_ASIS, "PERST#");
-> > > >
-> > > > Sorry, I missed this earlier.
-> > > >
-> > > > Since PERST# is optional, you cannot reliably detect whether the
-> > > > Root Port binding intentionally skipped the PERST# GPIO or legacy
-> > > > binding is used, just by checking for PERST# in Root Port node.
-> > > >
-> > > > So this helper should do 3 things:
-> > > >
-> > > > 1. If PERST# is found in Root Port node, use it.
-> > > > 2. If not, check the RC node and if present, return -ENOENT to
-> > > > fallback to the legacy binding.
-> > > > 3. If not found in both nodes, assume that the PERST# is not present
-> > > > in the design, and proceed with parsing Root Port binding further.
-> > >
-> > > Hi Mani, understand, does the following code looks ok for above three
-> > cases?
-> > >
-> > >     /* Check if PERST# is present in Root Port node */
-> > >     reset = devm_fwnode_gpiod_get(dev, of_fwnode_handle(node),
-> > >                       "reset", GPIOD_ASIS, "PERST#");
-> > >     if (IS_ERR(reset)) {
-> > >         /* If error is not -ENOENT, it's a real error */
-> > >         if (PTR_ERR(reset) != -ENOENT)
-> > >             return PTR_ERR(reset);
-> > >
-> > >         /* PERST# not found in Root Port node, check RC node */
-> > >         rc_has_reset = of_property_read_bool(dev->of_node, "reset-gpios") ||
-> > >                    of_property_read_bool(dev->of_node, "reset-gpio");
-> > 
-> > Just:
-> > 		if (of_property_read_bool(dev->of_node, "reset-gpios") ||
-> > 		    of_property_read_bool(dev->of_node, "reset-gpio")) {
-> > 			return -ENOENT;
-> > 		}
-> 
-> Ok, will do.
-> 
-> > 
-> > >         if (rc_has_reset)
-> > >             return -ENOENT;
-> > >
-> > >         /* No PERST# in either node, assume not present in design */
-> > >         reset = NULL;
-> > >     }
-> > >
-> > >     port = devm_kzalloc(dev, sizeof(*port), GFP_KERNEL);
-> > >     if (!port)
-> > >         return -ENOMEM;
-> > > ...
-> > >
-> > > >
-> > > > But there is one more important limitation here. Right now, this API
-> > > > only handles PERST#. But if another vendor tries to use it and if
-> > > > they need other properties such as PHY, clocks etc... those
-> > > > resources should be fetched optionally only by this helper. But if
-> > > > the controller has a hard dependency on those resources, the driver will
-> > fail to operate.
-> > > >
-> > > > I don't think we can fix this limitation though and those platforms
-> > > > should ensure that the resource dependency is correctly modeled in
-> > > > DT binding and the DTS is validated properly. It'd be good to
-> > > > mention this in the kernel doc of this API.
-> > >
-> > > Ok, I will add a NOTE for this in this API description.
-> > >
-> > > >
-> > > > > +	if (IS_ERR(reset))
-> > > > > +		return PTR_ERR(reset);
-> > > > > +
-> > > > > +	port = devm_kzalloc(dev, sizeof(*port), GFP_KERNEL);
-> > > > > +	if (!port)
-> > > > > +		return -ENOMEM;
-> > > > > +
-> > > > > +	port->reset = reset;
-> > > > > +	INIT_LIST_HEAD(&port->list);
-> > > > > +	list_add_tail(&port->list, &bridge->ports);
-> > > > > +
-> > > > > +	return 0;
-> > > > > +}
-> > > > > +
-> > > > > +/**
-> > > > > + * pci_host_common_parse_ports - Parse Root Port nodes from
-> > > > > +device tree
-> > > > > + * @dev: Device pointer
-> > > > > + * @bridge: PCI host bridge
-> > > > > + *
-> > > > > + * This function iterates through child nodes of the host bridge
-> > > > > +and parses
-> > > > > + * Root Port properties (currently only reset GPIO).
-> > > > > + *
-> > > > > + * Returns: 0 on success, -ENOENT if no ports found, other
-> > > > > +negative error codes
-> > > > > + * on failure
-> > > > > + */
-> > > > > +int pci_host_common_parse_ports(struct device *dev, struct
-> > > > > +pci_host_bridge *bridge) {
-> > > > > +	int ret = -ENOENT;
-> > > > > +
-> > > > > +	for_each_available_child_of_node_scoped(dev->of_node, of_port) {
-> > > > > +		if (!of_node_is_type(of_port, "pci"))
-> > > > > +			continue;
-> > > > > +		ret = pci_host_common_parse_port(dev, bridge, of_port);
-> > > > > +		if (ret)
-> > > > > +			return ret;
-> > > >
-> > > > As Sashiko flagged, you need to make sure that
-> > > > devm_add_action_or_reset() is added even during the error path:
-> > >
-> > > Yes, it needs to be fixed. We can handle it with the following two methods, I
-> > am not sure which method is better or more preferable?
-> > >
-> > > #1: register cleanup action after first successful port parse and use
-> > cleanup_registered flag to avoid duplicate register.
-> > >     int ret = -ENOENT;
-> > >     bool cleanup_registered = false;
-> > >
-> > >     for_each_available_child_of_node_scoped(dev->of_node, of_port) {
-> > >         if (!of_node_is_type(of_port, "pci"))
-> > >             continue;
-> > >         ret = pci_host_common_parse_port(dev, bridge, of_port);
-> > >         if (ret)
-> > >             return ret;
-> > >
-> > >         /* Register cleanup action after first successful port parse */
-> > >         if (!cleanup_registered) {
-> > >             ret = devm_add_action_or_reset(dev,
-> > >                                pci_host_common_delete_ports,
-> > >                                &bridge->ports);
-> > 
-> > Even if you register devm_add_action_or_reset(), it won't be called when
-> > pci_host_common_parse_port() fails since the legacy fallback will be used.
-> > 
-> > So you need to manually call pci_host_common_delete_ports() in the error
-> > path.
-> 
-> Get your point, so seems I should just add the err_cleanup handle path like this, right?
-> 
->     for_each_available_child_of_node_scoped(dev->of_node, of_port) {
->         if (!of_node_is_type(of_port, "pci"))
->             continue;
->         ret = pci_host_common_parse_port(dev, bridge, of_port);
->         if (ret)
->             goto err_cleanup;
->     }
-> 
->     if (ret)
->         return ret;
-> 
->     return devm_add_action_or_reset(dev, pci_host_common_delete_ports,
->                     &bridge->ports);
-> 
-> err_cleanup:
->     pci_host_common_delete_ports(&bridge->ports);
->     return ret;
-> 
+"Add driver" is not a good subject line.
 
-Yes!
+> Kernel driver implementation for LTC3208 Multidisplay LED Driver
 
-- Mani
+A one line commit messages is not suitable fore a 300 line driver!
+
+What is the LTC3208 Multidisplay LED?
+What does it do?
+How does it operate?
+What's special about it?
+Any quirks?
+
+> Signed-off-by: Jan Carlo Roleda <jancarlo.roleda@analog.com>
+> ---
+>  MAINTAINERS                 |   7 ++
+>  drivers/leds/Kconfig        |  11 ++
+>  drivers/leds/Makefile       |   1 +
+>  drivers/leds/leds-ltc3208.c | 298 ++++++++++++++++++++++++++++++++++++++++++++
+>  4 files changed, 317 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 55af015174a5..48bae02057d5 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -15126,6 +15126,13 @@ W:	https://ez.analog.com/linux-software-drivers
+>  F:	Documentation/devicetree/bindings/iio/temperature/adi,ltc2983.yaml
+>  F:	drivers/iio/temperature/ltc2983.c
+>  
+> +LTC3208 LED DRIVER
+> +M:	Jan Carlo Roleda <jancarlo.roleda@analog.com>
+> +L:	linux-leds@vger.kernel.org
+> +S:	Maintained
+> +W:	https://ez.analog.com/linux-software-drivers
+> +F:	drivers/leds/leds-ltc3208.c
+> +
+>  LTC4282 HARDWARE MONITOR DRIVER
+>  M:	Nuno Sa <nuno.sa@analog.com>
+>  L:	linux-hwmon@vger.kernel.org
+> diff --git a/drivers/leds/Kconfig b/drivers/leds/Kconfig
+> index 597d7a79c988..867b120ea8ba 100644
+> --- a/drivers/leds/Kconfig
+> +++ b/drivers/leds/Kconfig
+> @@ -1029,6 +1029,17 @@ config LEDS_ACER_A500
+>  	  This option enables support for the Power Button LED of
+>  	  Acer Iconia Tab A500.
+>  
+> +config LEDS_LTC3208
+> +	tristate "LED Driver for Analog Devices LTC3208"
+> +	depends on LEDS_CLASS && I2C
+> +	select REGMAP_I2C
+> +	help
+> +	  Say Y to enable the LTC3208 LED driver.
+> +	  This supports the LED device LTC3208.
+
+You can do better!
+
+> +	  To compile this driver as a module, choose M here: the module will
+> +	  be called ltc3208.
+> +
+>  source "drivers/leds/blink/Kconfig"
+>  
+>  comment "Flash and Torch LED drivers"
+> diff --git a/drivers/leds/Makefile b/drivers/leds/Makefile
+> index 8fdb45d5b439..b08b539112b6 100644
+> --- a/drivers/leds/Makefile
+> +++ b/drivers/leds/Makefile
+> @@ -61,6 +61,7 @@ obj-$(CONFIG_LEDS_LP8788)		+= leds-lp8788.o
+>  obj-$(CONFIG_LEDS_LP8860)		+= leds-lp8860.o
+>  obj-$(CONFIG_LEDS_LP8864)		+= leds-lp8864.o
+>  obj-$(CONFIG_LEDS_LT3593)		+= leds-lt3593.o
+> +obj-$(CONFIG_LEDS_LTC3208)		+= leds-ltc3208.o
+>  obj-$(CONFIG_LEDS_MAX5970)		+= leds-max5970.o
+>  obj-$(CONFIG_LEDS_MAX77650)		+= leds-max77650.o
+>  obj-$(CONFIG_LEDS_MAX77705)		+= leds-max77705.o
+> diff --git a/drivers/leds/leds-ltc3208.c b/drivers/leds/leds-ltc3208.c
+> new file mode 100644
+> index 000000000000..65e65cd73d73
+> --- /dev/null
+> +++ b/drivers/leds/leds-ltc3208.c
+> @@ -0,0 +1,298 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * LED driver for Analog Devices LTC3208 Multi-Display Driver
+> + *
+> + * Copyright 2026 Analog Devices Inc.
+> + *
+> + * Author: Jan Carlo Roleda <jancarlo.roleda@analog.com>
+> + */
+> +#include <linux/bitfield.h>
+> +#include <linux/errno.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/i2c.h>
+> +#include <linux/init.h>
+> +#include <linux/leds.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/property.h>
+> +#include <linux/regmap.h>
+> +#include <linux/types.h>
+> +#include <linux/workqueue.h>
+
+Are all of these headers strictly necessary? For instance, it doesn't appear we
+are using GPIOs, platform devices, or workqueues in this driver.
+
+> +#define LTC3208_SET_HIGH_BYTE_DATA(x)	FIELD_PREP(GENMASK(7, 4), (x))
+> +
+> +/* Registers */
+> +#define LTC3208_REG_A_GRNRED	0x1 /* Green (High half-byte) and Red (Low half-byte) current DAC*/
+> +#define LTC3208_REG_B_AUXBLU	0x2 /* AUX (High half-byte) and Blue (Low half-byte) current DAC*/
+> +#define LTC3208_REG_C_MAIN	0x3 /* Main current DAC */
+> +#define LTC3208_REG_D_SUB	0x4 /* Sub current DAC */
+> +#define LTC3208_REG_E_AUX	0x5 /* AUX DAC Select */
+> +#define LTC3208_REG_F_CAM	0x6 /* CAM (High half-byte and Low half-byte) current DAC*/
+> +#define LTC3208_REG_G_OPT	0x7 /* Device Options */
+> +
+> +/* Device Options register */
+> +#define LTC3208_OPT_CPO_MASK	GENMASK(7, 6)
+> +#define LTC3208_OPT_DIS_RGBDROP	BIT(3)
+> +#define LTC3208_OPT_DIS_CAMHILO	BIT(2)
+> +#define LTC3208_OPT_EN_RGBS	BIT(1)
+
+Nit: This can look nicer nested:
+
+#define LTC3208_REG_A_GRNRED		0x1 /* Green (High half-byte) and Red (Low half-byte) current DAC*/
+#define LTC3208_REG_B_AUXBLU		0x2 /* AUX (High half-byte) and Blue (Low half-byte) current DAC*/
+#define LTC3208_REG_C_MAIN		0x3 /* Main current DAC */
+#define LTC3208_REG_D_SUB		0x4 /* Sub current DAC */
+#define LTC3208_REG_E_AUX		0x5 /* AUX DAC Select */
+#define   LTC3208_AUX1_MASK		GENMASK(1, 0)
+#define   LTC3208_AUX2_MASK		GENMASK(3, 2)
+#define   LTC3208_AUX3_MASK		GENMASK(5, 4)
+#define   LTC3208_AUX4_MASK		GENMASK(7, 6)
+#define LTC3208_REG_F_CAM		0x6 /* CAM (High half-byte and Low half-byte) current DAC*/
+#define LTC3208_REG_G_OPT		0x7 /* Device Options */
+#define   LTC3208_OPT_CPO_MASK		GENMASK(7, 6)
+#define   LTC3208_OPT_DIS_RGBDROP	BIT(3)
+#define   LTC3208_OPT_DIS_CAMHILO	BIT(2)
+#define   LTC3208_OPT_EN_RGBS		BIT(1)
+
+> +#define LTC3208_MAX_BRIGHTNESS_4BIT 0xF
+> +#define LTC3208_MAX_BRIGHTNESS_8BIT 0xFF
+> +
+> +#define LTC3208_NUM_LED_GRPS	8
+> +#define LTC3208_NUM_AUX_LEDS	4
+> +
+> +#define LTC3208_NUM_AUX_OPT	4
+> +#define LTC3208_MAX_CPO_OPT	3
+
+Nit: Can we have _all_ of the values line up nicely?
+
+#define LTC3208_NUM_AUX_OPT		4
+#define LTC3208_MAX_CPO_OPT		3
+
+> +enum ltc3208_aux_channel {
+> +	LTC3208_AUX_CHAN_AUX = 0,
+> +	LTC3208_AUX_CHAN_MAIN,
+> +	LTC3208_AUX_CHAN_SUB,
+> +	LTC3208_AUX_CHAN_CAM
+> +};
+> +
+> +enum ltc3208_channel {
+> +	LTC3208_CHAN_MAIN = 0,
+> +	LTC3208_CHAN_SUB,
+> +	LTC3208_CHAN_AUX,
+> +	LTC3208_CHAN_CAML,
+> +	LTC3208_CHAN_CAMH,
+> +	LTC3208_CHAN_RED,
+> +	LTC3208_CHAN_BLUE,
+> +	LTC3208_CHAN_GREEN
+> +};
+> +
+> +static const char * const ltc3208_dt_aux_channels[] = {
+> +	"adi,aux1-channel", "adi,aux2-channel",
+> +	"adi,aux3-channel", "adi,aux4-channel"
+> +};
+> +
+> +static const char * const ltc3208_aux_opt[] = {
+> +	"aux", "main", "sub", "cam"
+> +};
+> +
+> +
+
+?
+
+> +struct ltc3208_led {
+> +	struct led_classdev cdev;
+> +	struct i2c_client *client;
+> +	enum ltc3208_channel channel;
+> +};
+> +
+> +struct ltc3208_dev {
+> +	struct i2c_client *client;
+> +	struct regmap *map;
+> +	struct ltc3208_led *leds;
+> +};
+> +
+> +static const struct regmap_config ltc3208_regmap_cfg = {
+> +	.reg_bits = 8,
+> +	.val_bits = 8,
+> +};
+> +
+> +static int ltc3208_led_set_brightness(struct led_classdev *led_cdev,
+> +				      enum led_brightness brightness)
+> +{
+> +	struct ltc3208_led *led = container_of(led_cdev,
+> +					struct ltc3208_led, cdev);
+
+You can use 100-chars to avoid this awkwardness.
+
+> +	struct i2c_client *client = led->client;
+> +	struct ltc3208_dev *dev = i2c_get_clientdata(client);
+> +	struct regmap *map = dev->map;
+> +	u8 current_level = brightness;
+> +
+> +	/*
+> +	 * For registers with 4-bit splits (CAM, AUX/BLUE, GREEN/RED), the other
+> +	 * half of the byte will be retrieved from the stored DAC value before
+> +	 * updating the register.
+> +	 */
+> +	switch (led->channel) {
+> +	case LTC3208_CHAN_MAIN:
+> +		return regmap_write(map, LTC3208_REG_C_MAIN, current_level);
+> +	case LTC3208_CHAN_SUB:
+> +		return regmap_write(map, LTC3208_REG_D_SUB, current_level);
+> +	case LTC3208_CHAN_AUX:
+> +		/* combine both low and high halves of byte */
+> +		current_level = LTC3208_SET_HIGH_BYTE_DATA(current_level);
+> +		current_level |= dev->leds[LTC3208_CHAN_BLUE].cdev.brightness;
+> +		return regmap_write(map, LTC3208_REG_B_AUXBLU, current_level);
+
+Should we be using 'regmap_update_bits()' or 'regmap_field' here instead?
+Constructing the register value by reading the software state of another LED
+instance could lead to races.
+
+> +	case LTC3208_CHAN_BLUE:
+> +		/* apply high bits stored in other led */
+> +		current_level |= LTC3208_SET_HIGH_BYTE_DATA(dev->leds[LTC3208_CHAN_AUX].cdev.brightness);
+> +		return regmap_write(map, LTC3208_REG_B_AUXBLU, current_level);
+> +	case LTC3208_CHAN_CAMH:
+> +		current_level = LTC3208_SET_HIGH_BYTE_DATA(current_level);
+> +		current_level |= dev->leds[LTC3208_CHAN_CAML].cdev.brightness;
+> +		return regmap_write(map, LTC3208_REG_F_CAM, current_level);
+> +	case LTC3208_CHAN_CAML:
+> +		current_level |= LTC3208_SET_HIGH_BYTE_DATA(dev->leds[LTC3208_CHAN_CAMH].cdev.brightness);
+> +		return regmap_write(map, LTC3208_REG_F_CAM, current_level);
+> +	case LTC3208_CHAN_GREEN:
+> +		current_level = LTC3208_SET_HIGH_BYTE_DATA(current_level);
+> +		current_level |= dev->leds[LTC3208_CHAN_RED].cdev.brightness;
+> +		return regmap_write(map, LTC3208_REG_A_GRNRED, current_level);
+> +	case LTC3208_CHAN_RED:
+> +		current_level |= LTC3208_SET_HIGH_BYTE_DATA(dev->leds[LTC3208_CHAN_GREEN].cdev.brightness);
+> +		return regmap_write(map, LTC3208_REG_A_GRNRED, current_level);
+
+This lot is begging for a sub function:
+
+static int ltc3208_led_set_current_level(struct regmap *regmap, u8 reg, u8 low, u8 high) {
+{
+	return regmap_write(regmap, reg, SET_HIGH_BYTE(high) | low);
+}
+
+> +	default:
+> +		dev_err(&client->dev, "Invalid LED Channel\n");
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int ltc3208_update_options(struct ltc3208_dev *dev,
+> +				  bool is_sub, bool is_cam_hi, bool is_rgb_drop)
+> +{
+> +	struct regmap *map = dev->map;
+> +	u8 val =	FIELD_PREP(LTC3208_OPT_EN_RGBS, is_sub) |
+> +			FIELD_PREP(LTC3208_OPT_DIS_CAMHILO, is_cam_hi) |
+> +			FIELD_PREP(LTC3208_OPT_DIS_RGBDROP, is_rgb_drop);
+> +
+
+That tabbing is awkward.  In these cases it's better to do the
+allocation after the declaration.
+
+> +	return regmap_write(map, LTC3208_REG_G_OPT, val);
+> +}
+> +
+> +static int ltc3208_update_aux_dac(struct ltc3208_dev *dev,
+> +	enum ltc3208_aux_channel aux_1, enum ltc3208_aux_channel aux_2,
+> +	enum ltc3208_aux_channel aux_3, enum ltc3208_aux_channel aux_4)
+
+These should sit under the '('.
+
+> +{
+> +	struct regmap *map = dev->map;
+> +	u8 val =	FIELD_PREP(LTC3208_AUX1_MASK, aux_1) |
+> +			FIELD_PREP(LTC3208_AUX2_MASK, aux_2) |
+> +			FIELD_PREP(LTC3208_AUX3_MASK, aux_3) |
+> +			FIELD_PREP(LTC3208_AUX4_MASK, aux_4);
+
+As above.
+
+> +	return regmap_write(map, LTC3208_REG_E_AUX, val);
+> +}
+> +
+> +static int ltc3208_probe(struct i2c_client *client)
+> +{
+> +	enum ltc3208_aux_channel aux_channels[LTC3208_NUM_AUX_LEDS];
+> +	struct ltc3208_dev *data;
+
+'data' is a terrible variable name.
+
+> +	struct ltc3208_led *leds;
+> +	struct regmap *map;
+
+'regmap'
+
+> +	int ret, i;
+> +	u32 val;
+> +	bool dropdis_rgb_aux4;
+> +	bool dis_camhl;
+> +	bool en_rgbs;
+> +
+> +	map = devm_regmap_init_i2c(client, &ltc3208_regmap_cfg);
+> +	if (IS_ERR(map))
+> +		return dev_err_probe(&client->dev, PTR_ERR(map),
+> +				     "Failed to initialize regmap\n");
+> +
+> +	data = devm_kzalloc(&client->dev, sizeof(*data), GFP_KERNEL);
+> +	if (!data)
+> +		return -ENOMEM;
+> +
+> +	leds = devm_kcalloc(&client->dev, LTC3208_NUM_LED_GRPS,
+> +			    sizeof(struct ltc3208_led), GFP_KERNEL);
+> +	if (!leds)
+> +		return -ENOMEM;
+> +
+> +	data->client = client;
+> +	data->map = map;
+> +
+> +	/* initialize options from devicetree */
+
+Capitalise comments and it's "Device Tree", although honestly, I think
+the whole comment is superfluous.
+
+> +	dis_camhl = device_property_read_bool(&client->dev,
+> +					      "adi,disable-camhl-pin");
+> +	en_rgbs = device_property_read_bool(&client->dev,
+> +					    "adi,cfg-enrgbs-pin");
+> +	dropdis_rgb_aux4 = device_property_read_bool(&client->dev,
+> +						     "adi,disable-rgb-aux4-dropout");
+
+Use 100-chars.
+
+> +	ret = ltc3208_update_options(data, en_rgbs, dis_camhl,
+> +				     dropdis_rgb_aux4);
+> +	if (ret)
+> +		return dev_err_probe(&client->dev, ret,
+> +				     "error writing to options register\n");
+
+Capitalise.
+
+> +	/* initialize aux channel configurations from devicetree */
+
+As above and throughout.
+
+> +	for (i = 0; i < LTC3208_NUM_AUX_LEDS; i++) {
+
+for (int i = 0; ...
+
+> +		ret = device_property_match_property_string(&client->dev,
+> +							    ltc3208_dt_aux_channels[i],
+> +							    ltc3208_aux_opt,
+> +							    LTC3208_NUM_AUX_OPT);
+> +		/* use default value if absent in devicetree */
+> +		if (ret == -EINVAL)
+> +			aux_channels[i] = LTC3208_AUX_CHAN_AUX;
+> +		else if (ret >= 0)
+> +			aux_channels[i] = ret;
+> +		else
+> +			return dev_err_probe(&client->dev, ret,
+> +					     "Failed getting aux-channel.\n");
+> +	}
+> +
+> +	ret = ltc3208_update_aux_dac(data, aux_channels[0], aux_channels[1],
+> +				     aux_channels[2], aux_channels[3]);
+
+Why not just aux_channels and pull the values out in the function.
+
+> +	if (ret)
+> +		return dev_err_probe(&client->dev, ret,
+> +				     "error writing to aux %u channel register.\n", i);
+
+When is 'i' not 'LTC3208_NUM_AUX_LEDS'?
+
+> +	i2c_set_clientdata(client, data);
+> +
+> +	device_for_each_child_node_scoped(&client->dev, child) {
+> +		struct ltc3208_led *led;
+> +		struct led_init_data init_data = {};
+> +
+> +		ret = fwnode_property_read_u32(child, "reg", &val);
+> +		if (ret || val >= LTC3208_NUM_LED_GRPS)
+> +			return dev_err_probe(&client->dev, -EINVAL,
+> +					     "Invalid reg property for LED\n");
+
+Why aren't we propagating the real error?
+
+> +
+> +		led = &leds[val];
+> +		led->client = client;
+> +		led->channel = val;
+> +		led->cdev.brightness_set_blocking = ltc3208_led_set_brightness;
+> +		led->cdev.max_brightness = LTC3208_MAX_BRIGHTNESS_4BIT;
+> +		if (val == LTC3208_CHAN_MAIN || val == LTC3208_CHAN_SUB)
+> +			led->cdev.max_brightness = LTC3208_MAX_BRIGHTNESS_8BIT;
+> +
+> +		init_data.fwnode = child;
+> +
+> +		ret = devm_led_classdev_register_ext(&client->dev, &led->cdev,
+> +			&init_data);
+> +		if (ret)
+> +			return dev_err_probe(&client->dev, ret,
+> +					     "Failed to register LED %u\n", val);
+> +	}
+> +
+> +	data->leds = leds;
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct of_device_id ltc3208_match_table[] = {
+> +	{.compatible = "adi,ltc3208"},
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, ltc3208_match_table);
+> +
+> +static const struct i2c_device_id ltc3208_idtable[] = {
+> +	{ "ltc3208" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(i2c, ltc3208_idtable);
+> +
+> +static struct i2c_driver ltc3208_driver = {
+> +	.driver = {
+> +		.name = "ltc3208",
+> +		.of_match_table = ltc3208_match_table,
+> +	},
+> +	.id_table = ltc3208_idtable,
+> +	.probe = ltc3208_probe,
+> +};
+> +module_i2c_driver(ltc3208_driver);
+> +
+> +MODULE_LICENSE("GPL");
+> +MODULE_AUTHOR("Jan Carlo Roleda <jancarlo.roleda@analog.com>");
+> +MODULE_DESCRIPTION("LTC3208 LED Driver");
+> 
+> -- 
+> 2.43.0
+> 
 
 -- 
-மணிவண்ணன் சதாசிவம்
+Lee Jones [李琼斯]
