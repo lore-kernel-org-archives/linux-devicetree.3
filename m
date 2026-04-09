@@ -1,93 +1,109 @@
-Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C53D2DFF04
-	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 07:17:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 751C137A488
+	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 07:21:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775719071; cv=none; b=U2vlwIl/UJu0wWeEdFWI5CVqBi7RLglNYEGRWr50ldrxtXATd28lmnoEFHQybpcwSeV5jUrdxI1izOUfyDNjtLxeRAaoSQ6+z9ldce+1VllCA5JXn23GqP2OgWWg3Pkw/gJ45DsDCnLSzGeYIWsPPKaDqh/J+dJXg3sDt6Q8gLg=
+	t=1775719288; cv=none; b=hmDRo6J8tcjIrAvGIEZ8tRSijaefAQlmf7GG8BulBNS+s6FDJUYeJ5NYZEzZKDZD7HAulMKZznFQgePIz6zDq2hwq2NboytQTDAxkCBQfaMZsg7ZzRzFGHH6gxwIYOZQK2/205xHUihkSekQtQd39wJxQyV6+Q8sfCiWrKCHrE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775719071; c=relaxed/simple;
-	bh=EFGUv70ITPjDkPlE6l39I6DKElpPeVcUYVP/gjkeVxY=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=WAB7T+kr0euTrHvKYpGklI9W948g/YmQbBsYIrIHSCUJaAVwJ5X8Cn6vHyC+sIDgjl9sQm/LJym9MLAg9UV0lKl1zjWh/2plmJpnyTKpDs2J3widhG4wFY5rbOjSkBNkunKKOuzUmuP/TXMsBUJ72givVb6Z8L1fkEoPiFpgfpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.dev; spf=none smtp.mailfrom=linux.spacemit.com; arc=none smtp.client-ip=54.254.200.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
-X-QQ-mid: zesmtpgz7t1775719054tbf8afb00
-X-QQ-Originating-IP: 6bD4fn6zlzoRNsyvWerVgSjVIcx6UZ4MsVvp6bysC1Q=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 09 Apr 2026 15:17:32 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 6790880675297523126
-X-QQ-CSender: troy.mitchell@linux.spacemit.com
-Sender: troy.mitchell@linux.spacemit.com
+	s=arc-20240116; t=1775719288; c=relaxed/simple;
+	bh=0eF03ygD0g7fltmtQMp8ITT42LD+7kNJV2yGpXwCzrc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WS+9GxxDm3DF04rSrUthFKwc1/uOKqUQ/Z3S/jzKoB4D/8PcjKsCkh7Az0p7J4NU0yRsf7pMZPUQxIZi08SQKV5I5+Vwvnj1j7Fa84dt4PVc71y6ozWxaHNaV9T4MfZEe/ft5aXJ5IexJxNiT6f8rTvICkCyVywhMwgArELMaRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NBCuDOLx; arc=none smtp.client-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NBCuDOLx"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-c76b994f7a8so169004a12.3
+        for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 00:21:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1775719287; x=1776324087; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=UMinz3n8an/kZF0WbbNLlDwuCyRlTdCbL2IBHoA8mM0=;
+        b=NBCuDOLxXxRVtieI3YukM8lMcrobmOOYW7vY2FHR90sQrG7rbvh4s3XLy8pD4kU8nr
+         +Biu0lYV3UnM55PZTtJ89Ovb+mDwjmSWli+H4oU7+iEFgnnF4aSS77p7zJv3v5cAg2JL
+         xY0QDuOQ17iihZpt6dVIW+hmJ1nv7Ju+tRMUZLEWUdQ53DC0xVQAZ3gv8nY2ICUjdKI3
+         LvkQVg2JlpCWfeg9uFPk1WIVkE4X/VqoXXPo5q6XEwiGaesyqbfuRdMAht5mebFQarDd
+         u2fMwkZorjPDXvoKx5YWsV2QiMd5rKvqDHkzoprmEJdJ69EyRI3BtsX550t+gmbqvmJB
+         VbRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775719287; x=1776324087;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=UMinz3n8an/kZF0WbbNLlDwuCyRlTdCbL2IBHoA8mM0=;
+        b=VXHO3kX4w1LA+rlDrHY8oTafp1Wk+oqBePMjE5vv0Qe0mJw06Ucl1apYGKqllzkZac
+         KfzeGTr48V9QbXN92jB1strd6hb47GoWZro4imZMSbjJ5YIiZd0G7R8ocGQwTHLPo+vL
+         /VHyP9D1YsMSxmvQsmdeA9MF/IwwIKUVc7oa2ZU0pEp1tpZuKfcrMK1VwbtSSYJp1l7V
+         Dsh8eyXbzifp9VigTVwIqoJGUIAcMQBUURCPGHpgHEGag7+9pMb1hyVPI6mnsK4fE25C
+         CtYxLT+EAtHQPeORumyixK5EKow1wBSKTIEHsaCPg1PrVSSCwV+bk82ynMezAaa8yN/3
+         o6Zw==
+X-Forwarded-Encrypted: i=1; AJvYcCU4US1oMmLI0yZIya1xmFNmhXTpZBCt0NM/HeZNP8I3S0gTRmIA8Q0AS3a1Eg7DHF4kmUwZTCW/Yc2O@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx2gt5aa/nyqatQ5iIvI6FhscvBjShkk6i3ZZ9mPdsZEuqQ55TF
+	f+QNyYCQqRoh2bBF2wcn/9sz398GQ1/m773vAhJr+S5aK6E9Pm74dI1Z
+X-Gm-Gg: AeBDietXaYIIutwHRdkFr2BqD2m8yI9S0oSLekOjODF0IAdJdD/HdCSOke6ipIwChmh
+	abifj3yKUGXb1u+MNt49RLIJbpJP9xjhiwl+/uFzbgnBq2KPHPD/aCy0+8cQRrAO/A1iX57gexl
+	vhCVK//0g3QufaXc16KaCLywatn0vkMDEQTVYnExu1OFC5RNvxRQ0oH3iK/B7XXOXCD+KswhWZf
+	j6AdM6P5v6etcK8sTYmFSHtEWCNJVTT1finsGNIUYX1HaoPRS0IB0vGIU0TXgFu6Ci0BTChyFPQ
+	lpae5KH/BKhS/9EKzKClN3GEXawsd7Uf1hRIIzEpixyZsamroxEuMGVYClF4O0q5u31GkAC0p33
+	LTl68QWRBYMxS3soBUPHCBpvHqF8ULiXoEMHBJr74wSZZAsEepZ9/FrIcFvpbYJges4FDfE3ZWi
+	ZKc7/5MFiOEmrNoKh/87PHkfBfiX2//Sj6UwzhVrGywQtPqM7hspXXuqbw7kOZl0k/RR9dsA==
+X-Received: by 2002:a05:6a20:9191:b0:39f:1f92:28e with SMTP id adf61e73a8af0-39fc81d208fmr3244860637.27.1775719286684;
+        Thu, 09 Apr 2026 00:21:26 -0700 (PDT)
+Received: from davidwang.. (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82d11f76c09sm18807603b3a.55.2026.04.09.00.21.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Apr 2026 00:21:26 -0700 (PDT)
+From: David Wang <tomato1220@gmail.com>
+To: a.zummo@towertech.it,
+	alexandre.belloni@bootlin.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: andrew@aj.id.au,
+	avi.fishman@gmail.com,
+	tmaimon77@gmail.com,
+	tali.perry1@gmail.com,
+	venture@google.com,
+	yuenn@google.com,
+	benjaminfair@google.com,
+	ctcchien@nuvoton.com,
+	mimi05633@gmail.com,
+	openbmc@lists.ozlabs.org,
+	linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	davidwang@quantatw.com,
+	David Wang <tomato1220@gmail.com>
+Subject: [PATCH 0/2] rtc: nct3018y: add support for control register initialization
+Date: Thu,  9 Apr 2026 15:21:03 +0800
+Message-Id: <cover.1775717959.git.tomato1220@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 09 Apr 2026 15:17:32 +0800
-Message-Id: <DHOFVAYOFU7X.3J8VHC8FFYXD9@linux.dev>
-Subject: Re: [PATCH v6 5/9] riscv: dts: spacemit: k1: add SD card controller
- and pinctrl support
-From: "Troy Mitchell" <troy.mitchell@linux.dev>
-To: "Iker Pedrosa" <ikerpedrosam@gmail.com>, "Ulf Hansson"
- <ulf.hansson@linaro.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Adrian Hunter" <adrian.hunter@intel.com>, "Paul Walmsley"
- <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou"
- <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, "Yixun Lan"
- <dlan@kernel.org>
-Cc: "Troy Mitchell" <troy.mitchell@linux.dev>, "Michael Opdenacker"
- <michael.opdenacker@rootcommit.com>, "Javier Martinez Canillas"
- <javierm@redhat.com>, <linux-mmc@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>, "Anand Moon"
- <linux.amoon@gmail.com>, "Trevor Gamblin" <tgamblin@baylibre.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260407-orangepi-sd-card-uhs-v6-0-b5b8a1b2bfc8@gmail.com>
- <20260407-orangepi-sd-card-uhs-v6-5-b5b8a1b2bfc8@gmail.com>
-In-Reply-To: <20260407-orangepi-sd-card-uhs-v6-5-b5b8a1b2bfc8@gmail.com>
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: ODcDgdcDagQKhHiQTjRmZC1pJm/uhRq/a4XWlmAMfld+WdE5doi7GRIK
-	vYT/tWcSOc0BUsPQ06Ij39xz5tATA3AbcHk1LTWoqA68KT9NBt3usfMXE7HiEl2r+NszzFG
-	964aUecVThGvT7ZxU5Xrl8CGazI58iNLF+YQK5K5jjXGTo0nrn68aO7pGIpvvWyqd+h55To
-	c8/FYzt5S3FU5krrMcZCHNygR6zVc5/LZ/dG5KovQOSNAZPsAFHRgiLfiZy/qJLzHrCoaMX
-	riWHesW6ziNsYsyNAV2+uA/ZIfztxkmjurzRgdOKaUIfMVggxfiDLaBB0gkIBZNyAL5VaNv
-	AV/5LF6EQI7aMriHcsLTBFvQOHtOmjgVCgpayMnLVuIQQoZ04A5+IXjj/0+mczikufmjF12
-	HeorGE7OY24OHdGU5nAl4SHZigdcbs146hzhUDREMj+bscKEFJG8KeOJ15Zv08/besOkuqZ
-	+tF0MnSkbfnW5p7Nwrm0ggPcLVfIqN+J0yCf2j0l6FEfPQaut5FimLpiyV34iY3LKb+EgTf
-	UaRzMUzzqqZ+6+0daB/yGL7+Y7KsyVibCIVIeNRRCFDSm9c9W+allZtjyNxMTpBra3pus2R
-	6YXV7i9Vo+6w4LNRgWYI3dW/B55v5Lye94rhaTQEiR+tXohKHg43zOPtClrniNbxL1FAwOi
-	Wcq4qag6V6JaiVQdQdXQ1XBlln2wY0RByeMv3rcTIQSHcekCFSoDkxIGQf44hdQc0bU4x0X
-	PJVbrRxPOAa9968If3eWtPCT0d9uNCHhKNb+tH4FACTbRXN00pYnCdI4gFm+qru7mH4p70z
-	M0C2fNWL1reQpQYZN7ImdgessaeseL7+xFzxE2QOBHPWb+MoWHqD4KJz2nkG6OZDSXhDk0I
-	0nHu5A2m7eyfXLUVefI4bXcs1bdkpEMQRE1AEeRxqqVNAhuXac2bVy6UNzYaH9zPzZAdRCO
-	WFflBplREH5U+Tk3+Xi95bebTujJ/bJ1YXYXGgDyvRRlj9NReXguLKSVBWgSEFQA/RSWiyW
-	eDn8m2ighTd+1Xm0SKgQ1IfF5JGtij08Jc1QAxwQ==
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue Apr 7, 2026 at 4:25 PM CST, Iker Pedrosa wrote:
-> Add SD card controller infrastructure for SpacemiT K1 SoC with complete
-> pinctrl support for both standard and UHS modes.
->
-> - Add sdhci0 controller definition with clocks, resets and interrupts
-> - Add mmc1_cfg pinctrl for 3.3V standard SD operation
-> - Add mmc1_uhs_cfg pinctrl for 1.8V UHS high-speed operation
-> - Configure appropriate drive strength and power-source properties
->
-> This provides complete SD card infrastructure that K1-based boards can
-> enable.
->
-> Tested-by: Anand Moon <linux.amoon@gmail.com>
-> Tested-by: Trevor Gamblin <tgamblin@baylibre.com>
-> Signed-off-by: Iker Pedrosa <ikerpedrosam@gmail.com>
-Reviewed-by: Troy Mitchell <troy.mitchell@linux.dev>
+This series adds support for an optional Device Tree property
+"nuvoton,ctrl-reg-val" to initialize the RTC control register (0x0A).
+
+This provides flexibility for different platforms (especially in
+server environments) to configure behaviors such as 24h mode and
+write ownership without driver source modifications.
+
+David Wang (2):
+  dt-bindings: rtc: nct3018y: add nuvoton,ctrl-reg-val property
+  rtc: nct3018y: add optional control register initialization
+
+ .../devicetree/bindings/rtc/nuvoton,nct3018y.yaml        | 5 +++++
+ drivers/rtc/rtc-nct3018y.c                               | 9 +++++++++
+ 2 files changed, 14 insertions(+)
+
+-- 
+2.34.1
+
