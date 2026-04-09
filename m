@@ -1,542 +1,136 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DF24248886
-	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 12:59:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36EED1A304A;
+	Thu,  9 Apr 2026 13:03:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775739562; cv=none; b=dqhewx25bgQuRcaQPW/24hCKH77gt1KUTTbZbB7h70g8485thvzfVaWSHR7usRMLYdyzKBeWCe244pydfXYLqBwsKwIfxU9oS0o4g6wl83uHmMUqjGxuBKr2K2AS28mZD8fCEP5dxwB9dDBjuigXHwjQMMP4szmj/sRGU9a4CgU=
+	t=1775739812; cv=none; b=nlyCRcKCbcv/4VFDMGKXJRnBYOsyGFvdNQtzeIpdjTlLPB6vjL5pnCqvOtGaLLJIUpAaeDVxsebXmGhfu207YyXmB03FjDaqelWfQJLYXnbGY14GIjycFwvcvZ7Z37bSyDgNsV6gIk/UXaQgfHkRR5JZd/PL3ng/qsrsdT2gRfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775739562; c=relaxed/simple;
-	bh=3W7k/IMpUVBZFvr2L9V1GePV/CqpwAafIlc0oZXBsvc=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=fSs8qPHnO1pfaKL+cfhTTLLtjeun8VPCQC2O/aCtQxJZlL3rWyrjR+C01ZlwGtzc9hZGBFVwDdTTaRC0wbfH1EdSyvYMwaeg9LqBXF9j8E6ok41UoD1JLoxIVcoZrjWL+oVJWSGhAjuDDwIRDQ8TRDV7od9t+D5pdn6Cs0q5efI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=QVov5Nf1; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1775739812; c=relaxed/simple;
+	bh=57Hzbn7VgxB8wp+hdPFHE2NKlKzrlyinmgCnM1LOJgY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=f8ttFBHKsJY94QL+t3R2kbnLOq3UZTH/OTLIy5yd2tuJTqH/x0UFGClfdll/7T3cmO2NDjtx85vZ3ebSi2iOeoRwQUOyCnqeK4KSEF5H0/MGuL5zB7Z8hgAnCYFglIL8WzABgwoXGiK4lA3Or6Do57+3Fq2ylyAwc+SeX20ISVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ctNLCvH2; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=WHNeEGyM; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="QVov5Nf1"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-43cfce3a195so532439f8f.2
-        for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 05:59:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1775739559; x=1776344359; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=xj2vZaEiNHHsypQhOoqn3dsKsdK2sO9N5bb9CwmONCI=;
-        b=QVov5Nf1R1zlwDxfT9ozzjoj6EjHj4OBaTxu3serFl6rC/lDZPUMg5NP59jBTtpxGW
-         3rbX0IwamBZdew1fz74MJewj4vD4htQwb5/L2Pyh3HC3fU6jCXKBZ19R0GTgYw8+pNfN
-         f589Ll4nNurh4gMwIDHrLLAwcUadB60U/5L0wvxzm0kdgCleC/aWshoc9TESZ/LYSMSj
-         2Uaca4LpIVTIojCXU5RCjcmbxWS6IE/drAgieUeascewoXKA8/7f12S2QhEbaV6s6NuO
-         TZ7luMcDiXBj2W5V+AbJN9FZc/xTNZryK6fino4RbVFnSnjkX8szEbdkujjih3KBQhvD
-         C+Hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775739559; x=1776344359;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=xj2vZaEiNHHsypQhOoqn3dsKsdK2sO9N5bb9CwmONCI=;
-        b=rSnxElweSoEpRngZE5FQ5hKJ1iCmXvb2Bewsc1OmQfkQ2EIAXE4aJB916gFFRuULIh
-         iVl8EK+wlknvvMBv5QvWb03bxiQ7OkqlPfZ5DNcJbMREDTxsTSZSjTMj5qz7YcFtTz+W
-         L62/2C051O3afASho8FRCwQm1thk7mXnHWEPcV3hgFZTZDpsb5RH8Ia53mY2607ut0Dq
-         aK+Wk1kP9VD4rJanEEWrrZd3AfQ5jD2gbziS60LCPiCnfJHDPyavgA8Otussl6FA3HiN
-         LdLyVnZ5MM8S2KRYAekkfS/FYvdSC8LmNG+ti1kgM7XneFvXr4+/Z6nU7iEjtyJX7uIk
-         f2Xg==
-X-Forwarded-Encrypted: i=1; AJvYcCXaKaDtOWS8inrugoKUOGK+WKjXi8qkorqvgclIAszUOEbOIYa5SgrRp0gKzPg9cZxOcTLIVLeHfFcP@vger.kernel.org
-X-Gm-Message-State: AOJu0YztVM3R7qyOzT0TvqZzUIHjQi7GLOsXzGjVtULLmpHTB9nZVWYn
-	kLLqX8hNpy9CKTczzwSE/x++mJM8eVIP086i6YEDArF8wjqKWp5IaBOdTbXz4hHx7vw=
-X-Gm-Gg: AeBDiev4EowOH8DpEMKRqnQgjsu02vpdrOPRzN9ayb7xwxzqUIbB7MPfJA6qLsjYo83
-	aL1aw5+qJF5FfZR/uydRMZt4W16lgjRtGRDlDkFGDqXJewKRi6wavm3m5eE+Rb3YMh9osGDrijO
-	e1RlPyGuBkGQw0W9Ht5YHx8OVcglpYLTrlQUPNikTjSlLGCeXICW2+KFm8wMtL2xLNmmtIhmz23
-	rblZB1gh42KCRXAOlthkWDs3Ru3S3Esp4voHij12BY6ZztGUh/21lqpa2ibiLgo1MQzxMRyyKB+
-	xerqH3q0WiCG9zovbGgRYgcNuvZJ1i0CfhuxE+WDyFMQ72uGiu3yZ/gkPZZ9XrHYOWxrKdU/zLq
-	zVwYHo2ESp/8WazSMulZ6vbrBCka2i/bjc7KPyON7KhWo/H3+ThjJH6pMNsJiirQZq8Pm6pxoRe
-	MIxZRUxR6KxUBWlYHZnJEDDoNH5mMsHu708Tz7a1woJTKPBjjhpvR6dJszuYfZBlk+5YMB745Ri
-	AvP
-X-Received: by 2002:a05:6000:288c:b0:43c:f336:7ab5 with SMTP id ffacd0b85a97d-43d5a14b024mr4729778f8f.22.1775739558565;
-        Thu, 09 Apr 2026 05:59:18 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:47c:bef1:62cf:54fb? ([2a01:e0a:106d:1080:47c:bef1:62cf:54fb])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43d1e1fe0b0sm69043166f8f.0.2026.04.09.05.59.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Apr 2026 05:59:18 -0700 (PDT)
-Message-ID: <a4a487fc-7b65-4de2-97f9-71e5085dded1@linaro.org>
-Date: Thu, 9 Apr 2026 14:59:17 +0200
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ctNLCvH2";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="WHNeEGyM"
+Date: Thu, 9 Apr 2026 15:03:28 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1775739809;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DwJlkFrhXzK7YdnSXVZfyWJS5imgv2KYNIEwcWCOQ/8=;
+	b=ctNLCvH2k8O94oUP1N7f/9X/D3DXIaElsVGQKpzKYxDPzKEfCNlIoa8UP3a5EOods5vqWP
+	jPg0NVwPnkvnA2UwBLabCE+8oK2fwU6qsqnXlacF21uIHMVRsP9c3/5c9nnURQQ2p/wMfL
+	sVCFT2Ryzyny3mgvZwNjR5c/AQECODDGus7vEJKD0vmPQTs2Jcc9YiK6mzoxgIzaAjp4T1
+	kOFPuQ8ub5hfZ7xFog/I0l2/X2/S5JrilXJ9mlegVjMQH1CYCOd5jP1qOCHfy6R/QlR4+M
+	8yVTjO9/p+MSN/3qnsoqtl8akpWnBiDCh1omh/3iqKaUVhP4abK+cBHTfeqy/w==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1775739809;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DwJlkFrhXzK7YdnSXVZfyWJS5imgv2KYNIEwcWCOQ/8=;
+	b=WHNeEGyM4IcIbFjVS5M7g8lLx9V0wq7twewtNqp/19K/t/+Kdxn/LMSS2J9ISiUIPRTfW/
+	reD7dStCliSNcKAg==
+From: Gregor Herburger <gregor.herburger@linutronix.de>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>,
+	Srinivas Kandagatla <srini@kernel.org>, devicetree@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] arm64: dts: broadcom: bcm2712: Add the otp nodes to
+ firmware
+Message-ID: <adejoCVSpOW5wygD@gregor-framework>
+References: <20260408-rpi-otp-driver-v1-0-e02d1dbe6008@linutronix.de>
+ <20260408-rpi-otp-driver-v1-3-e02d1dbe6008@linutronix.de>
+ <20260409-imposing-strict-snail-5d2a6f@quoll>
+ <adeVWKcQyfkKKY5J@gregor-framework>
+ <2aa66897-12ce-47c5-993d-e9e1d01a0cdd@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 4/4] drm/panel: simple: add Waveshare LCD panels
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Thierry Reding
- <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
- Joseph Guo <qijian.guo@nxp.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260331-ws-lcd-v2-0-a1add63b6eb6@oss.qualcomm.com>
- <20260331-ws-lcd-v2-4-a1add63b6eb6@oss.qualcomm.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260331-ws-lcd-v2-4-a1add63b6eb6@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2aa66897-12ce-47c5-993d-e9e1d01a0cdd@kernel.org>
 
-On 3/31/26 17:44, Dmitry Baryshkov wrote:
-> Waveshare have a serie of DSI panel kits with the DPI or LVDS panel
-> being attached to the DSI2DPI or DSI2LVDS bridge. The commit
-> 46be11b678e0 ("drm/panel: simple: Add Waveshare 13.3" panel support")
-> added definitions for one of those panels, describe the rest of them.
+On Thu, Apr 09, 2026 at 02:15:32PM +0200, Krzysztof Kozlowski wrote:
+> On 09/04/2026 14:02, Gregor Herburger wrote:
+> > Hi Krzysztof,
+> > 
+> > thanks for reviewing.
+> > 
+> > On Thu, Apr 09, 2026 at 10:15:12AM +0200, Krzysztof Kozlowski wrote:
+> >> On Wed, Apr 08, 2026 at 10:00:17AM +0200, Gregor Herburger wrote:
+> >>> The Raspberry Pi 5 has two OTP registers (private and customer), add these
+> >>> to the devicetree.
+> >>
+> >> So this sentence confirms my question on bindings - your device
+> >> raspberrypi,bcm2835-firmware has these, thus you do not need these child
+> >> nodes at all. Neither compatibles.
+> > 
+> > I dont't think so. In my understanding the bcm2835-firmware does not
+> > provide the otp registers but only provides the interface to the
+> > registers. Though I don't know the details how this is done but [1] says
+> > that only BCM2712 has 512bits and the others (like bcm2711) have
 > 
-> Note, since the panels are hidden behind the bridges which are not being
-> programmed by the kernel, I could not confirm the pixel format for the
-> panels.
+> Still the same. s/otp/interface/ so your device provides interface.
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->   drivers/gpu/drm/panel/panel-simple.c | 381 +++++++++++++++++++++++++++++++++++
->   1 file changed, 381 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-> index 236bd56208cc..b2708a1fe464 100644
-> --- a/drivers/gpu/drm/panel/panel-simple.c
-> +++ b/drivers/gpu/drm/panel/panel-simple.c
-> @@ -5061,6 +5061,342 @@ static const struct panel_desc vl050_8048nt_c01 = {
->   	.bus_flags = DRM_BUS_FLAG_DE_HIGH | DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE,
->   };
->   
-> +static const struct drm_display_mode waveshare_28_lcd_mode = {
-> +	.clock = 50000,
-> +	.hdisplay = 480,
-> +	.hsync_start = 480 + 150,
-> +	.hsync_end = 480 + 150 + 50,
-> +	.htotal = 480 + 150 + 50 + 150,
-> +	.vdisplay = 640,
-> +	.vsync_start = 640 + 150,
-> +	.vsync_end = 640 + 150 + 50,
-> +	.vtotal = 640 + 150 + 50 + 150,
-> +	.flags = DRM_MODE_FLAG_PVSYNC | DRM_MODE_FLAG_PHSYNC,
-> +};
-> +
-> +static const struct panel_desc waveshare_28_lcd_panel = {
-> +	.modes = &waveshare_28_lcd_mode,
-> +	.num_modes = 1,
-> +	.bpc = 8,
-> +	.size = {
-> +		.width = 44,
-> +		.height = 58,
-> +	},
-> +	.bus_format = MEDIA_BUS_FMT_RGB888_1X24,
-> +	.connector_type = DRM_MODE_CONNECTOR_DPI,
-> +	.bus_flags = DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE |
-> +		     DRM_BUS_FLAG_SYNC_SAMPLE_POSEDGE,
-> +};
-> +
-> +static const struct drm_display_mode waveshare_34_lcd_c_mode = {
-> +	.clock = 50000,
-> +	.hdisplay = 800,
-> +	.hsync_start = 800 + 32,
-> +	.hsync_end = 800 + 32 + 6,
-> +	.htotal = 800 + 32 + 6 + 120,
-> +	.vdisplay = 800,
-> +	.vsync_start = 800 + 8,
-> +	.vsync_end = 800 + 8 + 4,
-> +	.vtotal = 800 + 8 + 4 + 16,
-> +};
-> +
-> +static const struct panel_desc waveshare_34_lcd_c_panel = {
-> +	.modes = &waveshare_34_lcd_c_mode,
-> +	.num_modes = 1,
-> +	.bpc = 8,
-> +	.size = {
-> +		.width = 88,
-> +		.height = 88,
-> +	},
-> +	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
-> +	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-> +};
-> +
-> +static const struct drm_display_mode waveshare_40_lcd_mode = {
-> +	.clock = 50000,
-> +	.hdisplay = 480,
-> +	.hsync_start = 480 + 150,
-> +	.hsync_end = 480 + 150 + 100,
-> +	.htotal = 480 + 150 + 100 + 150,
-> +	.vdisplay = 800,
-> +	.vsync_start = 800 + 20,
-> +	.vsync_end = 800 + 20 + 100,
-> +	.vtotal = 800 + 20 + 100 + 20,
-> +	.flags = DRM_MODE_FLAG_PVSYNC | DRM_MODE_FLAG_PHSYNC,
-> +};
-> +
-> +static const struct panel_desc waveshare_40_lcd_panel = {
-> +	.modes = &waveshare_40_lcd_mode,
-> +	.num_modes = 1,
-> +	.bpc = 8,
-> +	.size = {
-> +		.width = 52,
-> +		.height = 87,
-> +	},
-> +	.bus_format = MEDIA_BUS_FMT_RGB888_1X24,
-> +	.connector_type = DRM_MODE_CONNECTOR_DPI,
-> +	.bus_flags = DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE |
-> +		     DRM_BUS_FLAG_SYNC_SAMPLE_POSEDGE,
-> +};
-> +
-> +static const struct drm_display_mode waveshare_40_lcd_c_mode = {
-> +	.clock = 50000,
-> +	.hdisplay = 720,
-> +	.hsync_start = 720 + 32,
-> +	.hsync_end = 720 + 32 + 200,
-> +	.htotal = 720 + 32 + 200 + 120,
-> +	.vdisplay = 720,
-> +	.vsync_start = 720 + 8,
-> +	.vsync_end = 720 + 8 + 4,
-> +	.vtotal = 720 + 8 + 4 + 16,
-> +};
-> +
-> +static const struct panel_desc waveshare_40_lcd_c_panel = {
-> +	.modes = &waveshare_40_lcd_c_mode,
-> +	.num_modes = 1,
-> +	.bpc = 8,
-> +	.size = {
-> +		.width = 102,
-> +		.height = 102,
-> +	},
-> +	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
-> +	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-> +};
-> +
-> +static const struct drm_display_mode waveshare_50_lcd_c_mode = {
-> +	.clock = 50000,
-> +	.hdisplay = 1024,
-> +	.hsync_start = 1024 + 100,
-> +	.hsync_end = 1024 + 100 + 100,
-> +	.htotal = 1024 + 100 + 100 + 100,
-> +	.vdisplay = 600,
-> +	.vsync_start = 600 + 10,
-> +	.vsync_end = 600 + 10 + 10,
-> +	.vtotal = 600 + 10 + 10 + 10,
-> +	.flags = DRM_MODE_FLAG_PVSYNC | DRM_MODE_FLAG_PHSYNC,
-> +};
-> +
-> +static const struct panel_desc waveshare_50_lcd_c_panel = {
-> +	.modes = &waveshare_50_lcd_c_mode,
-> +	.num_modes = 1,
-> +	.bpc = 8,
-> +	.size = {
-> +		.width = 109,
-> +		.height = 66,
-> +	},
-> +	.bus_format = MEDIA_BUS_FMT_RGB888_1X24,
-> +	.connector_type = DRM_MODE_CONNECTOR_DPI,
-> +	.bus_flags = DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE |
-> +		     DRM_BUS_FLAG_SYNC_SAMPLE_POSEDGE,
-> +};
-> +
-> +static const struct drm_display_mode waveshare_50_lcd_d_mode = {
-> +	.clock = 83333,
-> +	.hdisplay = 720,
-> +	.hsync_start = 720 + 100,
-> +	.hsync_end = 720 + 100 + 80,
-> +	.htotal = 720 + 100 + 80 + 100,
-> +	.vdisplay = 1280,
-> +	.vsync_start = 1280 + 20,
-> +	.vsync_end = 1280 + 20 + 20,
-> +	.vtotal = 1280 + 20 + 20 + 20,
-> +};
-> +
-> +static const struct panel_desc waveshare_50_lcd_d_panel = {
-> +	.modes = &waveshare_50_lcd_d_mode,
-> +	.num_modes = 1,
-> +	.bpc = 8,
-> +	.size = {
-> +		.width = 62,
-> +		.height = 110,
-> +	},
-> +	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
-> +	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-> +};
-> +
-> +static const struct drm_display_mode waveshare_625_lcd_mode = {
-> +	.clock = 83333,
-> +	.hdisplay = 720,
-> +	.hsync_start = 720 + 50,
-> +	.hsync_end = 720 + 50 + 50,
-> +	.htotal = 720 + 50 + 50 + 50,
-> +	.vdisplay = 1560,
-> +	.vsync_start = 1560 + 20,
-> +	.vsync_end = 1560 + 20 + 20,
-> +	.vtotal = 1560 + 20 + 20 + 20,
-> +};
-> +
-> +static const struct panel_desc waveshare_625_lcd_panel = {
-> +	.modes = &waveshare_625_lcd_mode,
-> +	.num_modes = 1,
-> +	.bpc = 8,
-> +	.size = {
-> +		.width = 66,
-> +		.height = 144,
-> +	},
-> +	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
-> +	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-> +};
-> +
-> +static const struct panel_desc waveshare_70_lcd_c_panel = {
-> +	.modes = &waveshare_50_lcd_c_mode,
-> +	.num_modes = 1,
-> +	.bpc = 8,
-> +	.size = {
-> +		.width = 155,
-> +		.height = 87,
-> +	},
-> +	.bus_format = MEDIA_BUS_FMT_RGB888_1X24,
-> +	.connector_type = DRM_MODE_CONNECTOR_DPI,
-> +	.bus_flags = DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE |
-> +		     DRM_BUS_FLAG_SYNC_SAMPLE_POSEDGE,
-> +};
-> +
-> +static const struct drm_display_mode waveshare_80_lcd_c_mode;
-> +static const struct panel_desc waveshare_70_lcd_e_panel = {
-> +	.modes = &waveshare_80_lcd_c_mode,
-> +	.num_modes = 1,
-> +	.bpc = 8,
-> +	.size = {
-> +		.width = 152,
-> +		.height = 95,
-> +	},
-> +	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
-> +	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-> +};
-> +
-> +static const struct drm_display_mode waveshare_70_lcd_h_mode = {
-> +	.clock = 83333,
-> +	.hdisplay = 1280,
-> +	.hsync_start = 1280 + 64,
-> +	.hsync_end = 1280 + 64 + 64,
-> +	.htotal = 1280 + 64 + 64 + 64,
-> +	.vdisplay = 720,
-> +	.vsync_start = 720 + 64,
-> +	.vsync_end = 720 + 64 + 64,
-> +	.vtotal = 720 + 64 + 64 + 64,
-> +};
-> +
-> +static const struct panel_desc waveshare_70_lcd_h_panel = {
-> +	.modes = &waveshare_70_lcd_h_mode,
-> +	.num_modes = 1,
-> +	.bpc = 8,
-> +	.size = {
-> +		.width = 155,
-> +		.height = 88,
-> +	},
-> +	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
-> +	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-> +};
-> +
-> +static const struct drm_display_mode waveshare_79_lcd_mode = {
-> +	.clock = 50000,
-> +	.hdisplay = 400,
-> +	.hsync_start = 400 + 40,
-> +	.hsync_end = 400 + 40 + 30,
-> +	.htotal = 400 + 40 + 30 + 40,
-> +	.vdisplay = 1280,
-> +	.vsync_start = 1280 + 20,
-> +	.vsync_end = 1280 + 20 + 10,
-> +	.vtotal = 1280 + 20 + 10 + 20,
-> +};
-> +
-> +static const struct panel_desc waveshare_79_lcd_panel = {
-> +	.modes = &waveshare_79_lcd_mode,
-> +	.num_modes = 1,
-> +	.bpc = 8,
-> +	.size = {
-> +		.width = 60,
-> +		.height = 191,
-> +	},
-> +	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
-> +	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-> +};
-> +
-> +static const struct drm_display_mode waveshare_80_lcd_c_mode = {
-> +	.clock = 83333,
-> +	.hdisplay = 1280,
-> +	.hsync_start = 1280 + 156,
-> +	.hsync_end = 1280 + 156 + 20,
-> +	.htotal = 1280 + 156 + 20 + 40,
-> +	.vdisplay = 800,
-> +	.vsync_start = 800 + 40,
-> +	.vsync_end = 800 + 40 + 48,
-> +	.vtotal = 800 + 40 + 48 + 40,
-> +};
-> +
-> +static const struct panel_desc waveshare_80_lcd_c_panel = {
-> +	.modes = &waveshare_80_lcd_c_mode,
-> +	.num_modes = 1,
-> +	.bpc = 8,
-> +	.size = {
-> +		.width = 173,
-> +		.height = 108,
-> +	},
-> +	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
-> +	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-> +};
-> +
-> +static const struct drm_display_mode waveshare_88_lcd_mode = {
-> +	.clock = 83333,
-> +	.hdisplay = 480,
-> +	.hsync_start = 480 + 50,
-> +	.hsync_end = 480 + 50 + 50,
-> +	.htotal = 480 + 50 + 50 + 50,
-> +	.vdisplay = 1920,
-> +	.vsync_start = 1920 + 20,
-> +	.vsync_end = 1920 + 20 + 20,
-> +	.vtotal = 1920 + 20 + 20 + 20,
-> +};
-> +
-> +static const struct panel_desc waveshare_88_lcd_panel = {
-> +	.modes = &waveshare_88_lcd_mode,
-> +	.num_modes = 1,
-> +	.bpc = 8,
-> +	.size = {
-> +		.width = 56,
-> +		.height = 220,
-> +	},
-> +	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
-> +	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-> +};
-> +
-> +static const struct panel_desc waveshare_101_lcd_c_panel = {
-> +	.modes = &waveshare_80_lcd_c_mode,
-> +	.num_modes = 1,
-> +	.bpc = 8,
-> +	.size = {
-> +		.width = 217,
-> +		.height = 136,
-> +	},
-> +	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
-> +	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-> +};
-> +
-> +static const struct drm_display_mode waveshare_119_lcd_mode = {
-> +	.clock = 50000,
-> +	.hdisplay = 320,
-> +	.hsync_start = 320 + 60,
-> +	.hsync_end = 320 + 60 + 60,
-> +	.htotal = 320 + 60 + 60 + 60,
-> +	.vdisplay = 1480,
-> +	.vsync_start = 1480 + 60,
-> +	.vsync_end = 1480 + 60 + 60,
-> +	.vtotal = 1480 + 60 + 60 + 60,
-> +};
-> +
-> +static const struct panel_desc waveshare_119_lcd_panel = {
-> +	.modes = &waveshare_119_lcd_mode,
-> +	.num_modes = 1,
-> +	.bpc = 8,
-> +	.size = {
-> +		.width = 58,
-> +		.height = 268,
-> +	},
-> +	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
-> +	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-> +};
-> +
->   static const struct drm_display_mode waveshare_133inch_mode = {
->   	.clock = 148500,
->   	.hdisplay = 1920,
-> @@ -5697,6 +6033,51 @@ static const struct of_device_id platform_of_match[] = {
->   	}, {
->   		.compatible = "vxt,vl050-8048nt-c01",
->   		.data = &vl050_8048nt_c01,
-> +	}, {
-> +		.compatible = "waveshare,2.8inch-panel",
-> +		.data = &waveshare_28_lcd_panel
-> +	}, {
-> +		.compatible = "waveshare,3.4inch-c-panel",
-> +		.data = &waveshare_34_lcd_c_panel
-> +	}, {
-> +		.compatible = "waveshare,4.0inch-panel",
-> +		.data = &waveshare_40_lcd_panel
-> +	}, {
-> +		.compatible = "waveshare,4.0inch-c-panel",
-> +		.data = &waveshare_40_lcd_c_panel
-> +	}, {
-> +		.compatible = "waveshare,5.0inch-c-panel",
-> +		.data = &waveshare_50_lcd_c_panel
-> +	}, {
-> +		.compatible = "waveshare,5.0inch-d-panel",
-> +		.data = &waveshare_50_lcd_d_panel
-> +	}, {
-> +		.compatible = "waveshare,6.25inch-panel",
-> +		.data = &waveshare_625_lcd_panel
-> +	}, {
-> +		.compatible = "waveshare,7.0inch-c-panel",
-> +		.data = &waveshare_70_lcd_c_panel
-> +	}, {
-> +		.compatible = "waveshare,7.0inch-e-panel",
-> +		.data = &waveshare_70_lcd_e_panel
-> +	}, {
-> +		.compatible = "waveshare,7.0inch-h-panel",
-> +		.data = &waveshare_70_lcd_h_panel
-> +	}, {
-> +		.compatible = "waveshare,7.9inch-panel",
-> +		.data = &waveshare_79_lcd_panel
-> +	}, {
-> +		.compatible = "waveshare,8.0inch-c-panel",
-> +		.data = &waveshare_80_lcd_c_panel
-> +	}, {
-> +		.compatible = "waveshare,8.8inch-panel",
-> +		.data = &waveshare_88_lcd_panel
-> +	}, {
-> +		.compatible = "waveshare,10.1inch-c-panel",
-> +		.data = &waveshare_101_lcd_c_panel
-> +	}, {
-> +		.compatible = "waveshare,11.9inch-panel",
-> +		.data = &waveshare_119_lcd_panel
->   	}, {
->   		.compatible = "waveshare,13.3inch-panel",
->   		.data = &waveshare_133inch,
-> 
+Ok understood.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+> > 256bits. So both devicetrees have the raspberrypi,bcm2835-firmware node
+> > but only the bcm2712 has the raspberrypi,firmware-otp-private node while the 
+> 
+> Why does bcm2712 use bcm2835 compatible?
 
-Thanks,
-Neil
+I have no idea. But it is like this.
+> 
+> Nodes and properties are not a solution. See DTS101 question - "...
+> because my new device, which is compatible with an older one, does not
+> support ..." and answer: No.
+> 
+> 
+> 
+> > raspberrypi,firmware-otp-customer is available in all raspberrys.
+> > 
+> >> Drop entire DTS and binding patches.
+> > 
+> > If I drop the binding patch how to distinguish the variants? Should I
+> > add a SoC specific compatible? e.g. `raspberrypi,bcm2712-firmware` and
+> > use it in the firmware/raspberrypi driver to add the second otp region?
+> 
+> So you have different devices/variants? What is the "variant" here?
+
+Seems so. I suppose there is at least a bcm2712 variant and a non-bcm2712
+variant (which is currently confusingly named 'raspberrypi,bcm2835-firmware').
+> 
+> Writing-bindings asks you to have per device compatible. Why standard
+> rules do not apply here? (see also DTS101)
+
+I am not arguing that the rules do not apply here. I want to find out
+what is the correct way to do it. 
+
+Should there then be a 'raspberrypi,bcm2712-firmware' compatible with
+'raspberrypi,bcm2835-firmware' fallback?
+
+> 
+> > 
+> > Also what I don't understand why we have all the bindings for
+> 
+> Neither do I.
+Ok good. That is what confused me.
+
+Best regards,
+Gregor
