@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C39B3DF01C;
-	Thu,  9 Apr 2026 15:26:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A8333E0222;
+	Thu,  9 Apr 2026 15:26:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775748416; cv=none; b=uZudWK/6fUoI8/sI050kBSA1cBJkqGvgTav+0TtumcIiRi02v+Cb1jh7o4kUBO1tsOg53kexl1FyB8nhr6qLivVWQLikSF8Byvdij+IPilKketdwDLbylmX1kYqxpkQkVuVhHbkmlmG0WqvWWG3OkZmVESDsTHf9rfKC+wcJWZg=
+	t=1775748416; cv=none; b=Oc4SBPLzI3RX6/hR6GY+JZKy/+aIkEbiLPL86mec0TWjeDN/bNPZx60bQz/Z5GPFNhCE8oCKfCmdzufMxCjjjYk/yO0oD6g9AviehS6AgUR3V0HJSfmdhipDVLTaspRVIfGWgTMlE/u3L2KZqgxp27uYZ4ZZTDxbwz7e0Bqmh38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1775748416; c=relaxed/simple;
-	bh=yO9UwjiPWDJT3ejKvEkvRNwuNU1ZbGTnzRZSZqrMmdo=;
+	bh=CPeLnTCytq5apC3Xf81ylWPoZiJdIH6Sk0OmNhFg2bw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oNRU1Vwyc4ebbbcYBeIrSxMXvNB/laeX6moN4IUJm08UhPnpgMpu0KY4eRqwhShANRnbDHWjf6x5l6MOJ9ULkco2ZjrWAFQ/7q+Aob0QaJxWQjOtNyiuzbC9nbMWozzt9HWQCcI2ITnGB7V4xO0agumi56M7stMssasL+l5Gk1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qrKjvOj4; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=ZvsTEO4/M1RyekFXO7N7ABNKlUUwW7LQ+1/aa4X+HVMXIHE34F3jkmKFCDd6mMBobzMe3Vz62XYppO5cTqV5IBE5FYVEL1L0NS7sKtcDQGAicEzXlI4S3rMhh+a0oazfHeDn/sIdRzTrewsPc27hwBOTt/NacSmYUbI6SOeMMqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U4AjnQKq; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qrKjvOj4"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C2D3EC19424;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U4AjnQKq"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DE623C2BCB2;
 	Thu,  9 Apr 2026 15:26:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1775748415;
-	bh=yO9UwjiPWDJT3ejKvEkvRNwuNU1ZbGTnzRZSZqrMmdo=;
+	bh=CPeLnTCytq5apC3Xf81ylWPoZiJdIH6Sk0OmNhFg2bw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=qrKjvOj4lvAqJsMPSayx631wSxvOEgNEdgQQq5PTxOTIBSIj5iMQVgSnuwYn80Xcn
-	 RMLnND4gA0qVw7NXgAa/E7ClHWzroJ7odblgMKk3YDCi2jB3nRjznGv+L2Ff+9vBMi
-	 mzhG7Ft2BVAt1Pvk9bi+wQxkCe/RI+4N0HfllZM2dEOk3aeC1Y8mRBiWm83kQ3PaEF
-	 Rke6L+w/XLTHdiY95s75i/FvICoUxLiW65g5lIg7JOYgMsyQgDJDuLKOuMKJ1xNrmm
-	 muKPSnHpEixROoxYSBby3/uezZF9FLc+GAbNDZT1RNY5JM1gqYInHk55lILMqHDSJ4
-	 MV2cBxFchH2zQ==
+	b=U4AjnQKq9N1mevxgxXeOngAYGgtsMKycGaGDLkQCynjc+ODgRNi5xClrbrLny/7HR
+	 pOcqnogEhlpkHc2tvJppLxX6Ex5Eng8diBdNatQlRTp5ZRvWCk/wTZowcPyWA6vIfP
+	 B0V6oNV+pH2yo6DdJj2mmZb0jFauh1l3obxb82n2snKP6mBKaYxRG0rXT+TYWQb4fF
+	 Sctw/ag8MUHKMrH/nwnKCFqaWun32ml63BKriIK7Qnv/L5zrMWJa/S9pS1pwgKQF62
+	 qRebVrMKRsTfcniSqkTGI9ANhhL9UkUVTyCJ5GaBrtc1LD1RqYxymOLDFxf1Uo5Jvc
+	 a3aBH/vSsCw4w==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B0BD8F31E28;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D3B8CF31E2D;
 	Thu,  9 Apr 2026 15:26:55 +0000 (UTC)
 From: Joe Sandom via B4 Relay <devnull+jsandom.axon.com@kernel.org>
-Date: Thu, 09 Apr 2026 16:26:53 +0100
-Subject: [PATCH v3 1/5] arm64: dts: qcom: sm8550: add PCIe MHI register
- regions
+Date: Thu, 09 Apr 2026 16:26:55 +0100
+Subject: [PATCH v3 3/5] arm64: dts: qcom: sm8550: move IPA properties to
+ SoC device tree
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260409-rb5gen2-dts-v3-1-be736355d4b4@axon.com>
+Message-Id: <20260409-rb5gen2-dts-v3-3-be736355d4b4@axon.com>
 References: <20260409-rb5gen2-dts-v3-0-be736355d4b4@axon.com>
 In-Reply-To: <20260409-rb5gen2-dts-v3-0-be736355d4b4@axon.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -49,13 +49,14 @@ To: Bjorn Andersson <andersson@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Joe Sandom <jsandom@axon.com>
+ linux-kernel@vger.kernel.org, Joe Sandom <jsandom@axon.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1775748414; l=1848;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1775748414; l=2013;
  i=jsandom@axon.com; s=20260319; h=from:subject:message-id;
- bh=CXzCYgyTFqrynuOrAfcu3fHTmrJpPiscAHoxToN3nf4=;
- b=q29obwietSG++BXkxOyOJf7bh8mBfFJ6sWIAMuy68/25Kj1u91x77p/3xMxa2L88xWZlDi8zi
- stZpK/54Fm7B7z+RAtckWR6IoWzHycsRnjBUtVpYBXtA/gdDoXhCp7O
+ bh=2Hf81fBazRw+MMKDG2/cNY2JsBcSjh+sphR62doLGW8=;
+ b=xD0wu3dYCtlLNv6B0W0ajhsBSMrO23mvlsSycyxbjV9y+Sb6h4KdeiNTkkUlzNq3dkpvocVG6
+ 9WHVUasggR0AWD8ft45a9TmiW2WfBNnVpqJLjG1fNOaA1VrAGrAhQPp
 X-Developer-Key: i=jsandom@axon.com; a=ed25519;
  pk=Q/yflwj2WhkgBVTskrS9Vl5oScD0Bp3vTzDi+OxskTo=
 X-Endpoint-Received: by B4 Relay for jsandom@axon.com/20260319 with
@@ -65,54 +66,57 @@ Reply-To: jsandom@axon.com
 
 From: Joe Sandom <jsandom@axon.com>
 
-Add the MHI register regions to the pcie0 and pcie1 controller nodes
-to expose link power state transition counters (L0s/L1/L1.1/L1.2/L2)
-via debugfs. The PCIe host driver uses this region to read the
-link_transition_count from the MHI registers.
+Move qcom,gsi-loader and memory-region properties from individual board
+DTS files into the SoC DTSI, since these are common to all SM8550-based
+boards.
 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Joe Sandom <jsandom@axon.com>
 ---
- arch/arm64/boot/dts/qcom/sm8550.dtsi | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+ arch/arm64/boot/dts/qcom/sm8550-hdk.dts | 2 --
+ arch/arm64/boot/dts/qcom/sm8550-qrd.dts | 2 --
+ arch/arm64/boot/dts/qcom/sm8550.dtsi    | 2 ++
+ 3 files changed, 2 insertions(+), 4 deletions(-)
 
+diff --git a/arch/arm64/boot/dts/qcom/sm8550-hdk.dts b/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
+index e821b731bdc496c872703723df02ae9b9b0233b5..b795589385520acd74eecc7701cab82f4f7da200 100644
+--- a/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
++++ b/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
+@@ -939,8 +939,6 @@ &i2c_master_hub_0 {
+ };
+ 
+ &ipa {
+-	qcom,gsi-loader = "self";
+-	memory-region = <&ipa_fw_mem>;
+ 	firmware-name = "qcom/sm8550/ipa_fws.mbn";
+ 	status = "okay";
+ };
+diff --git a/arch/arm64/boot/dts/qcom/sm8550-qrd.dts b/arch/arm64/boot/dts/qcom/sm8550-qrd.dts
+index cf63109ff7bf7b6fc827f108e22e82b8b04273c1..f2effa55d8197819175bfd5a89d2fddb20561548 100644
+--- a/arch/arm64/boot/dts/qcom/sm8550-qrd.dts
++++ b/arch/arm64/boot/dts/qcom/sm8550-qrd.dts
+@@ -818,8 +818,6 @@ fsa4480_sbu_mux: endpoint {
+ };
+ 
+ &ipa {
+-	qcom,gsi-loader = "self";
+-	memory-region = <&ipa_fw_mem>;
+ 	firmware-name = "qcom/sm8550/ipa_fws.mbn";
+ 	status = "okay";
+ };
 diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-index 912525e9bca6f5e1cbb8887ee0bf9e39650dc4ff..055ca931c04859f3a312eb9921aeb7a8cc676822 100644
+index 54308cbde40732da072177eab533582c155df590..d292dfce6b66fff6cff918b8bd6ac0b9cd22c4b3 100644
 --- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-@@ -1964,8 +1964,14 @@ pcie0: pcie@1c00000 {
- 			      <0 0x60000000 0 0xf1d>,
- 			      <0 0x60000f20 0 0xa8>,
- 			      <0 0x60001000 0 0x1000>,
--			      <0 0x60100000 0 0x100000>;
--			reg-names = "parf", "dbi", "elbi", "atu", "config";
-+			      <0 0x60100000 0 0x100000>,
-+			      <0 0x01c03000 0 0x1000>;
-+			reg-names = "parf",
-+				    "dbi",
-+				    "elbi",
-+				    "atu",
-+				    "config",
-+				    "mhi";
- 			#address-cells = <3>;
- 			#size-cells = <2>;
- 			ranges = <0x01000000 0x0 0x00000000 0x0 0x60200000 0x0 0x100000>,
-@@ -2138,8 +2144,14 @@ pcie1: pcie@1c08000 {
- 			      <0x0 0x40000000 0x0 0xf1d>,
- 			      <0x0 0x40000f20 0x0 0xa8>,
- 			      <0x0 0x40001000 0x0 0x1000>,
--			      <0x0 0x40100000 0x0 0x100000>;
--			reg-names = "parf", "dbi", "elbi", "atu", "config";
-+			      <0x0 0x40100000 0x0 0x100000>,
-+			      <0x0 0x01c0b000 0x0 0x1000>;
-+			reg-names = "parf",
-+				    "dbi",
-+				    "elbi",
-+				    "atu",
-+				    "config",
-+				    "mhi";
- 			#address-cells = <3>;
- 			#size-cells = <2>;
- 			ranges = <0x01000000 0x0 0x00000000 0x0 0x40200000 0x0 0x100000>,
+@@ -2730,6 +2730,8 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
+ 			qcom,smem-state-names = "ipa-clock-enabled-valid",
+ 						"ipa-clock-enabled";
+ 
++			qcom,gsi-loader = "self";
++			memory-region = <&ipa_fw_mem>;
+ 			sram = <&ipa_modem_tables>;
+ 
+ 			status = "disabled";
 
 -- 
 2.34.1
