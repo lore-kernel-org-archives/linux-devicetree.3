@@ -1,68 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B263F3BB4A
-	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 07:31:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA5712FFF81
+	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 07:41:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775719903; cv=none; b=TCvJRc/+4/+P/LPquARME0bHRc6ipFxxmft+trT+vbqo6QJACNl+Gf44T8D9H6NMaPlMB1z1J3oQ5eeujEheQg+SA74mQpuQLZC8rkpRstjwZ7tHjyZZ2lcDdYYa/ouwFWm6LQXz8AHQCmoB9HZwOB6b/ZnIEnFDTRxMb4NMMPY=
+	t=1775720498; cv=none; b=BmV81WOAi8tglPMJUZxypTMZYJaicV3g3Zr/dwwOfYPJZp6X/4/vOu1geErA3stXoURN9+jDsqlQRgWk8EXejRcaInUE08mD6evzzmVy7fvU4i0vSvZ10P1b4OvcbE/oPfDr7vHLIXWBUtTRSUbNK6FuzpSTJzp7GW6JDjccOP0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775719903; c=relaxed/simple;
-	bh=xoXaHyJutfcxSGhgHWM74nFyJDBXvAN8t1HEtk8e6vY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HahsYZongDdnFSpCfbK96Xvw21ert+CSf2xbOPiXKBCqWY6endxF42lD7tiYQwL3C1hog2cMaMWa8llF7Rl81VgSaSBXJeAa80fqxcXr4n7vNxOf5Vbj5DuRV73hITjKBV62zUIO9vvNcgKZYimHlAqv24ZI6NPc2cm4uP7RNi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P1V3bA0G; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775720498; c=relaxed/simple;
+	bh=lc8JQ/vWkeejRsiU76ULhKIucAIfpuHv9grmFJL3auY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=SK2ahxfck5WMYwodaexUjS74UqLJ8ljgFuwpmCKiuR3wnNsn8aUc9/uB0r74mCa/w3fNvNUDrouMo+TF0o/IU07EPM84xEoDaDgtxCTRMZBWxnQb99+50fCbJ9wR+WBoRr69JH8yQRt3hxdo/U6INqjbY7tXhxMXLUPGURURHpI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aeiDIhYb; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P1V3bA0G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C547FC4CEF7;
-	Thu,  9 Apr 2026 07:31:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aeiDIhYb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 715C0C2BCB8
+	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 07:41:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775719903;
-	bh=xoXaHyJutfcxSGhgHWM74nFyJDBXvAN8t1HEtk8e6vY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=P1V3bA0Gzx8Fwg65L8SnBoKFD6eyiea3S/Y2uxq8LK+hYe0oJUYUkPN+ZpqJGS9Kw
-	 txd7qibsvXqwu7xi5KYPir2Agb/zIPjfAR6CRySWRvrffJPp0rQ6jVLTlWL5t9z4aN
-	 wY/ohTIkESdhFiKCEp9eBzhEl5HkEWyHKLhQLy8zQNBzJjlsaYoUkIKsYJfYI2z8jd
-	 Z68yTV5jmF0LAcPe/fuCY6/c7BMtM782ASnFqB2UEkU6/Wyc8oQgO+NCpthhnxgFgi
-	 n969xqxvD0SzDMwlTr3oo4RGRuNy0pVeKeETFZS5xkALG0mIaM3VC8rtdsF6g0GLwC
-	 dR9q86Zb7gJUQ==
-Date: Thu, 9 Apr 2026 09:31:41 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Dawid Glazik <dawid.glazik@linux.intel.com>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
-	Andrew Jeffery <andrew@codeconstruct.com.au>, linux-aspeed@lists.ozlabs.org, linux-i3c@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	Frank Li <Frank.Li@nxp.com>, Maciej Lawniczak <maciej.lawniczak@intel.com>, 
-	Jeremy Kerr <jk@codeconstruct.com.au>
-Subject: Re: [PATCH v3 2/3] ARM: dts: aspeed-g6: Add nodes for i3c controllers
-Message-ID: <20260409-beautiful-paper-labradoodle-d846f1@quoll>
-References: <cover.1775679285.git.dawid.glazik@linux.intel.com>
- <51c4bdc02b45f67a0e32610a228091e137c135a6.1775679285.git.dawid.glazik@linux.intel.com>
+	s=k20201202; t=1775720498;
+	bh=lc8JQ/vWkeejRsiU76ULhKIucAIfpuHv9grmFJL3auY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=aeiDIhYbjGLVo5et9i0z06029dElhtQsqqpGSxDa1v9OZyjsB1oTGh8K6bcFc7kcn
+	 JLI7awnKYXneMHhvfm2BjANOEthYuG0g1McbanPHizN0r/Ms/LSpTaQRKn0xIBgK6t
+	 BTxEwOB4pcbylMNXanxPcYLL20CwkViS+pqgEGbqI+rLLh265g55YwC0kCOxG1ByxJ
+	 IjOiQPHKfXFyv18uw4OPusWcwwj+u7tKtygv4ZtsHsIwrEkyh6/rwDsgQT6YzrcvrO
+	 NBXAwCoiGpgo0x4/xjxPcSQwI1tcKMz4/lsirKZLQAQrcGN2MnmsMzK2cTruvw6Pct
+	 c6wbE2piH1biQ==
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-38df1889fb9so5989181fa.1
+        for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 00:41:38 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCXDP7ywyozOlYg1gOC4G4nPon9kSLlLtkXF6Gtka6jEfZgwg3I9jcmjS8I0vayjW4Yeh3Ewt7BwhsZm@vger.kernel.org
+X-Gm-Message-State: AOJu0YwcT6g2jrJsyNzYF591lvKWoER/+ljTYTJgEaFFlkyGkpy1HGp6
+	qH/puXE1saUHNbhrggCKJ5HGIjjWga7H+xwJsGAb0lUBl8v9odqYUzbzzhQcut7JGMSnHpoTuri
+	5pQCzBRcAjgHhkfKQ0EC1UueSEQyI2zry7f3JkyPtrw==
+X-Received: by 2002:a05:651c:4192:b0:38d:eb82:d80f with SMTP id
+ 38308e7fff4ca-38deb82dc50mr48627071fa.0.1775720497068; Thu, 09 Apr 2026
+ 00:41:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <51c4bdc02b45f67a0e32610a228091e137c135a6.1775679285.git.dawid.glazik@linux.intel.com>
+References: <20260401-waveshare-dsi-touch-v1-0-5e9119b5a014@oss.qualcomm.com>
+ <20260401-waveshare-dsi-touch-v1-19-5e9119b5a014@oss.qualcomm.com>
+ <CAMRc=Mcusnm-k76e6jTiwrw5xJL7f-nWBsg4=QpD08cv8pPgMw@mail.gmail.com> <l6pezliurpgv2mopw2xl4gfgpki6r3v6ufpsaavj774qnxgept@h3jxxpco23oa>
+In-Reply-To: <l6pezliurpgv2mopw2xl4gfgpki6r3v6ufpsaavj774qnxgept@h3jxxpco23oa>
+From: Bartosz Golaszewski <brgl@kernel.org>
+Date: Thu, 9 Apr 2026 09:41:23 +0200
+X-Gmail-Original-Message-ID: <CAMRc=MdRs3oSYUCc8t1Fz+9f4f3FS8gpzh4OqGLwpzhR09nsPQ@mail.gmail.com>
+X-Gm-Features: AQROBzDMHxHCpdplwZHc_f_Epk3_RdAPtZIzTXn5xXroKG8KWM4nBKA4II4kNgA
+Message-ID: <CAMRc=MdRs3oSYUCc8t1Fz+9f4f3FS8gpzh4OqGLwpzhR09nsPQ@mail.gmail.com>
+Subject: Re: [PATCH 19/19] gpio: add GPIO controller found on Waveshare DSI
+ TOUCH panels
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Cong Yang <yangcong5@huaqin.corp-partner.google.com>, Ondrej Jirman <megi@xff.cz>, 
+	Javier Martinez Canillas <javierm@redhat.com>, Jagan Teki <jagan@edgeble.ai>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Apr 08, 2026 at 10:34:34PM +0200, Dawid Glazik wrote:
-> +			bus@1e7a0000 {
-> +				compatible = "simple-bus";
-> +				#address-cells = <1>;
-> +				#size-cells = <1>;
-> +				ranges = <0 0x1e7a0000 0x8000>;
-> +
-> +				i3c_global: i3c-global@0 {
-> +					compatible = "aspeed,ast2600-i3c-global", "syscon";
+On Thu, Apr 9, 2026 at 3:26=E2=80=AFAM Dmitry Baryshkov
+<dmitry.baryshkov@oss.qualcomm.com> wrote:
+>
+> >
+> > This driver looks like it could be easily converted to use gpio-regmap =
+and
+> > become much shorter in the process. Could you please take a look at
+> > linux/gpio/regmap.h?
+>
+> I took a glance. It is a nice wrapper, but I think being able to call
+> waveshare_gpio_set() internally without extra troubles overweights the
+> bonuses of the wrapper. Also, I'd agree if there were extra complexity
+> here (e.g. the stride or the in/out handling), but having just the out
+> GPIOs doesn't seem to warrant it.
+>
+> An alternative would be to split away the backlight into a separate
+> pwm-backlight device. Then having waveshare_gpio_set() isn't that
+> important and thus I could switch to GPIO_REGMAP. But then... We don't
+> have real control over the PWM. We are really programming some values,
+> with the actual PWM duty cycle calculations being handled internally.
+>
+> With all that in mind, unless you really insist, I'd prefer to leave
+> this part the driver as is.
+>
 
-Also undocumented ABI. Apply this patch and run checkpatch.
+Ok, with the other issues fixed it's good to go then.
 
-
-Best regards,
-Krzysztof
-
+Bart
