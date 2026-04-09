@@ -1,103 +1,139 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4441319D074;
-	Thu,  9 Apr 2026 12:02:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 98C1B37B021;
+	Thu,  9 Apr 2026 12:04:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775736156; cv=none; b=RKkvaUQl6uV0yOKt/cCTFg9/9OLw1wb5JmkOG5d1Fn1xiIGbZHNaiXZWTxQjH3+eG5QoaNEBJG2WjP3Iup+omDfRCW5g+pZevXASMckLwmAaMK3ubXQ9TkQ7+jYd3Gi6k6IZnzBQDey52ukIDggK4mbV4GU0kSc3iQzmCg+vsvs=
+	t=1775736254; cv=none; b=m+vOelGfJCypLykj6C/uxnOZALlSKECdGl9HRN6UeleuM7qvJJUlxqBTiEdEkrI/iuw5xv4NlPiViUxTTFO6zIQJWJ30Mv4v5byDC28V5Dbs10R3fAWdRlLQevD4ViKLqazomZIvxzA/+PGpxbMVWCrKKVulano3BaH97dz9uHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775736156; c=relaxed/simple;
-	bh=J4jSzE+cM6ymR4NxawGjiGjIs6sR7tcxwDHODL0Vhuk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=f+Krtzw8DsELv9gOKgqN+Ea1DB6Yv+f8Klp9XKTUuYwAz67sa376fh/c1ilRrLCJdeMFat8YfiMWnh8zNF3G7eaTWYkTov4SJApdLf6FvCvTmmBUOPIFYjgh3CW4fRo7FvqnyymT098Y6MKmR4ErxyPCyV8vzIqxwRgWsiyj9lE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=HWMb02X9; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=PR47/d+6; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="HWMb02X9";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="PR47/d+6"
-Date: Thu, 9 Apr 2026 14:02:32 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1775736153;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IA+0hrqXQEzwG3UxcQ6zFvAN49iycuH2/ZvwolQRu7w=;
-	b=HWMb02X9hZnmwbsmCWmyfkn+yQxedtDdNFPT0nA9Schn1cYcVfN1OkaUy8vta68DsXkX66
-	f2mrA5MUgn/QDaiVjZ2xTJVrk8WIbRsrBJktrJDq94Au5u/tsS9aI9h0zEHG4GISxR8kpF
-	uHKJDG0EvbwLBDwEhOY8+J7lVDJNOSJWgBaQfAg4kVZhU8RtjfB9ksuoqhKpGU0kguJ12P
-	Ndyl/mTySp3JOuKAOL0gYNs4R7irDWlpJ4BphM8tEFjrgTShGfhnSz1rHCr+JUbWxOAoCV
-	k89MMO+ha/hIhwF8B6MpvjKhSfu8eLmW8uawojAf66kB6uBI6ibpJ/cORtx0xw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1775736153;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IA+0hrqXQEzwG3UxcQ6zFvAN49iycuH2/ZvwolQRu7w=;
-	b=PR47/d+6755hTGWZuXpTUXkL0Gh4OmUTAOMPUZBTaY9D5m0+TtCgUIt5QDe+z5oAe+RFI9
-	iNR1qqC8GC/A7GDg==
-From: Gregor Herburger <gregor.herburger@linutronix.de>
+	s=arc-20240116; t=1775736254; c=relaxed/simple;
+	bh=5WasvOpauCqZlJbQqv5FdiGEWOrnwuKxSVRmUTAcyjs=;
+	h=Subject:From:To:Cc:References:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=JOSJNJfQGWbDEkvOS/Ca1dnl2g1nTAKb0ibECKwJx8gBSEteWTmC3kQf4EFSND8gi1gjfiL3eTTfvU1zrsZSUl5qvOuVF2wU3knKzB3bfq+JdXfkWHYwPQhAYDh2xJXqXVrMUpdlpNaLHztLcWamtHPUedcCWjvSNCkpSZzZ6OA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.101])
+	by gateway (Coremail) with SMTP id _____8CxosCxlddpj4ojAA--.39949S3;
+	Thu, 09 Apr 2026 20:04:02 +0800 (CST)
+Received: from [10.20.42.101] (unknown [10.20.42.101])
+	by front1 (Coremail) with SMTP id qMiowJCxWeCulddprHtpAA--.4704S3;
+	Thu, 09 Apr 2026 20:04:00 +0800 (CST)
+Subject: Re: [PATCH v1 1/2] dt-bindings: i2c: ls2x-i2c: Add clock- related
+ properties
+From: Hongliang Wang <wanghongliang@loongson.cn>
 To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>,
-	Srinivas Kandagatla <srini@kernel.org>, devicetree@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] arm64: dts: broadcom: bcm2712: Add the otp nodes to
- firmware
-Message-ID: <adeVWKcQyfkKKY5J@gregor-framework>
-References: <20260408-rpi-otp-driver-v1-0-e02d1dbe6008@linutronix.de>
- <20260408-rpi-otp-driver-v1-3-e02d1dbe6008@linutronix.de>
- <20260409-imposing-strict-snail-5d2a6f@quoll>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Andi Shyti <andi.shyti@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, loongarch@lists.linux.dev
+References: <20260325011852.19079-1-wanghongliang@loongson.cn>
+ <20260325011852.19079-2-wanghongliang@loongson.cn>
+ <20260325-outstanding-weasel-of-fruition-89db37@quoll>
+ <1b5283d8-294c-86de-c3d8-bf205ac24216@loongson.cn>
+ <0d7dfe5b-5e2d-4850-8922-16eb6bd9bcae@kernel.org>
+ <900dc1a4-66ab-411f-8a32-4c6cf339e8ec@kernel.org>
+ <bc22bad4-9825-829d-1df0-a801ebd933d6@loongson.cn>
+ <ca984be0-e7a6-4897-bf9f-db9465942c6e@kernel.org>
+ <ac62e280-1099-c0bc-f322-ba8b65307053@loongson.cn>
+ <2388acbc-a927-4727-a23c-5ecd7c33a926@kernel.org>
+ <a08ac3f9-a770-df48-a95b-4b07cd2c0d58@loongson.cn>
+Message-ID: <e10017ce-cda0-5b5e-8cd8-3488aef4cdb0@loongson.cn>
+Date: Thu, 9 Apr 2026 20:03:47 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260409-imposing-strict-snail-5d2a6f@quoll>
+In-Reply-To: <a08ac3f9-a770-df48-a95b-4b07cd2c0d58@loongson.cn>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-CM-TRANSID:qMiowJCxWeCulddprHtpAA--.4704S3
+X-CM-SenderInfo: pzdqwxxrqjzxhdqjqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoW7Kr43JFyfZryfWFW8Kw1kCrX_yoW8Kr4fpF
+	95KFyqyFWDAr4Svw10qw1xXF1Yvw45Jr15Xry8Grn8Xws0vw1SyF1fJrWUC3yUWr4fC3yj
+	yF1Uta97XrZrZacCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9ab4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx
+	1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv
+	67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07
+	AlzVAYIcxG8wCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE
+	7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI
+	8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWU
+	CwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r
+	1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsG
+	vfC2KfnxnUUI43ZEXa7IU1RBT5UUUUU==
 
-Hi Krzysztof,
+Hi, Krzysztof
 
-thanks for reviewing.
+On 2026/3/31 下午3:11, Hongliang Wang wrote:
+>
+> On 2026/3/30 下午3:23, Krzysztof Kozlowski wrote:
+>> On 30/03/2026 09:18, Hongliang Wang wrote:
+>>> On 2026/3/27 下午2:39, Krzysztof Kozlowski wrote:
+>>>> On 27/03/2026 04:09, Hongliang Wang wrote:
+>>>>> The initial idea was that this patch could be used for both ACPI 
+>>>>> and DTS.
+>>>>>>>> The i2c-ls2x driver is compatible with both Loongson 2K and 3A+7A
+>>>>>>>> platform, parse
+>>>>>>>> the same parameters regardless of dts or acpi parameter 
+>>>>>>>> passing, So
+>>>>>>>> clock-input
+>>>>>>>> and clock-div attributes are defined to describe input clock of 
+>>>>>>>> i2c
+>>>>>>>> controller and
+>>>>>>>> divisor of input clock. It can be used on both 2K and 3A+7A 
+>>>>>>>> platform.
+>>>>>>> And you cannot use them in DTS.
+>>>>> OK
+>>>>>> I need to keep guessing what you want to achieve, because neither 
+>>>>>> your
+>>>>>> message nor commit text was explicit
+>>>>> What I want to achieve is to describe the input clock and divisor 
+>>>>> of I2C
+>>>>> controller
+>>>> Input clocks are defined as clock inputs obviously in DT, not as
+>>>> integers. Bindings need to describe the hardware, so start with that.
+>>> I can describe the hardware in loongson,ls2x-i2c.yaml, and I would 
+>>> like to
+>>> confirm with you what final implementation plan you agree to? clock
+>>> framework
+>>> or custom clock-input an clock-div attributes? if clock framework, how
+>>> can it
+>>> also be used for ACPI?
+>> And you ask DT maintainer for that? It's not relevant. You sent DT
+>> bindings patch, so this patch must be correct and we discuss this patch
+>> here.
+> I don't. My idea is that if the clock input attribute can't be used 
+> for both
+> dts and acpi, then clock framework will be used for dts and new define 
+> attribute
+> will be used for acpi. I will first implement the hardware description 
+> and clock
+> framework in Bindings.
+>> Best regards,
+>> Krzysztof
+>
+> Best regards,
+> Hongliang Wang
+>
 
-On Thu, Apr 09, 2026 at 10:15:12AM +0200, Krzysztof Kozlowski wrote:
-> On Wed, Apr 08, 2026 at 10:00:17AM +0200, Gregor Herburger wrote:
-> > The Raspberry Pi 5 has two OTP registers (private and customer), add these
-> > to the devicetree.
-> 
-> So this sentence confirms my question on bindings - your device
-> raspberrypi,bcm2835-firmware has these, thus you do not need these child
-> nodes at all. Neither compatibles.
+I have a question, the input clock of i2c controller can be described by 
+"clocks",
+but there is no existing attribute can describe the divisor of the input 
+clock,
+Can I define a new attribute named "clock-div" to describe it in DT 
+bindings?
+or do you have any standard solutions for the divisor problem? Thank you.
 
-I dont't think so. In my understanding the bcm2835-firmware does not
-provide the otp registers but only provides the interface to the
-registers. Though I don't know the details how this is done but [1] says
-that only BCM2712 has 512bits and the others (like bcm2711) have
-256bits. So both devicetrees have the raspberrypi,bcm2835-firmware node
-but only the bcm2712 has the raspberrypi,firmware-otp-private node while the 
-raspberrypi,firmware-otp-customer is available in all raspberrys.
+Best regards,
+Hongliang Wang
 
-> Drop entire DTS and binding patches.
 
-If I drop the binding patch how to distinguish the variants? Should I
-add a SoC specific compatible? e.g. `raspberrypi,bcm2712-firmware` and
-use it in the firmware/raspberrypi driver to add the second otp region?
-
-Also what I don't understand why we have all the bindings for
-'raspberrypi,firmware-clocks', 'raspberrypi,firmware-gpio',
-'raspberrypi,firmware-reset', 'raspberrypi,firmware-poe-pwm' and
-'raspberrypi,firmware-ts'. What is the difference between these devices
-and the otp registers. They are all accessed through the firmware.
-
-[1] https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#device-specific-private-key
-
-Best regards
-Gregor
