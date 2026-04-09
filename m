@@ -1,56 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5D462F83A2;
-	Thu,  9 Apr 2026 15:57:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AD592DEA89;
+	Thu,  9 Apr 2026 16:02:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775750232; cv=none; b=crMY1ud/zaoJCbnSx/bAZFJAtrIE6+pcZWIoMIRsd5ncFe1kUtxhM7kgCT17AY1IqxnC4DQJsLZ+yo1GyhZ98EWVyOyPHzyKy6pz844F8g4iY6uThl+gNzMyidPDHOkQrX1CunvcxT0V3RtcrWP0CbXWmU9SkSIEhbBALATG88o=
+	t=1775750537; cv=none; b=cKpiun7IWASpPXebDslb5rUrumsXGzi5d4Or9R2PGZ9crzmexB8AGqPnNlARLai3o+r1MNOnNWR1WmrZ9aEEWaqKJk8I0a5hrvgKoPRhULDyi3AZXB8QxLjvHJz6VCk5AVOmQGBWDbjon1O5F3GVS1mRMGUroQF6FhAGqHdQqlo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775750232; c=relaxed/simple;
-	bh=WR+qzP41usMsL+U2CHUcv+sT27DtSgM6KltIpwfZcnY=;
+	s=arc-20240116; t=1775750537; c=relaxed/simple;
+	bh=D2j3qbwhqQGKe9s2DH7WKpbyhYIDVOB6XzU6kHeukQA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GMJkXW5qszJ5WEAjzZPsgLI4jcmmayMXNupt+lhNzjXMytmcCgYigQjOPbnmDWzlTNUSLQ+YE8kdmAktT5laiGzWYsLmko8JGs4EeDpw6GZ8fWgH6fvLbzcmE2P+YWtJizWpp3UjMxCo9hrxLdoD5GzZ1tNf6bRwGpvo6E1Z98c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tD+Traxk; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=bhIgaEhdDcilCLbcB6vOtrGz/pv7ouzK5HF9ZQNzXc052yPntCCyTIb1Qwwle/NxEQRaU58U9QT9sXCk3y5e9ddeiqV/DOafqLnH9BXe1hRvTKV/JnP3jEfPGYgdCZ8BQ74xwPnG/Q9WIzD4+yxMiSNW2mOMjiutlZMgaeybPnM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SxnMZExB; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tD+Traxk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 768C0C4CEF7;
-	Thu,  9 Apr 2026 15:57:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SxnMZExB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DADFC4CEF7;
+	Thu,  9 Apr 2026 16:02:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775750232;
-	bh=WR+qzP41usMsL+U2CHUcv+sT27DtSgM6KltIpwfZcnY=;
+	s=k20201202; t=1775750537;
+	bh=D2j3qbwhqQGKe9s2DH7WKpbyhYIDVOB6XzU6kHeukQA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tD+TraxkBSWzV1OrvrD/QSp3BLnXIyQ/r5VEw6Ssz3oVkX62k9yBe3TLQioa/1soi
-	 pwx5mlxqS6foCBa5LNeuMMUU16bHPdrWEfieNxK+dyyT+lyEaiFtCE2rRc+83+PC5a
-	 K/2pOvpJ0ECptyYkObH3plHWEH1NYAkS6HHUESwGZki2P/UqMiwpiIZjucJN39BENx
-	 OBo4WsN5BqX+ULmrxtpN3dIJnAgIXmLrFEp5Co2xDwD5ek+foaAd2xxGQHGc7qHwRt
-	 Xqb9KwwQypnh1KRJ3vALlj/mwQqaexs+JkfB5teKHDpMco9wLLTzVsA+gA/tSA3FGc
-	 FYT/GUmKcq9yQ==
-Date: Thu, 9 Apr 2026 16:57:06 +0100
+	b=SxnMZExBQ3gW8SYFO2CPCQmhy2d1B/DonzDIR95woSgako9kYYB7fKyUtiDnCIQhX
+	 YewfSfugKlZwQGUQwWFa3nb/KYIYeD8C9FgFP+NBgmMQtU+UkbLsEpCMOWslMsWdwp
+	 mBrmuu0Pm0Jd+rygJvzqiBd5h5yDRoy4NmcdFVhrvMaFaOHfYLe6wXOvnkCaMgkl5h
+	 z3VVB0WVhv6Ns8xtHeedLoQOQz5A9FVAQZH5ao/zaJXTEfbdxcdS2LeUOzVcX60zll
+	 VNmRi4vyTqMZqqhqsU3jV3OZEKlshPPxK7osW6vkZgzNWNA9VVcyTRqtvzwzzZR4Jd
+	 oVVEgDQX0V7pw==
+Date: Thu, 9 Apr 2026 17:02:11 +0100
 From: Conor Dooley <conor@kernel.org>
-To: radu.sabau@analog.com
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+To: Jingyuan Liang <jingyliang@chromium.org>
+Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>, Mark Brown <broonie@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-pwm@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v7 1/6] dt-bindings: iio: adc: add AD4691 family
-Message-ID: <20260409-headwear-condense-c119f423095b@spud>
-References: <20260409-ad4692-multichannel-sar-adc-driver-v7-0-be375d4df2c5@analog.com>
- <20260409-ad4692-multichannel-sar-adc-driver-v7-1-be375d4df2c5@analog.com>
+	Conor Dooley <conor+dt@kernel.org>, linux-input@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-spi@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, hbarnor@chromium.org,
+	tfiga@chromium.org, Dmitry Antipov <dmanti@microsoft.com>,
+	Jarrett Schultz <jaschultz@microsoft.com>
+Subject: Re: [PATCH v3 09/11] dt-bindings: input: Document hid-over-spi DT
+ schema
+Message-ID: <20260409-defuse-thank-4b038128fac5@spud>
+References: <20260402-send-upstream-v3-0-6091c458d357@chromium.org>
+ <20260402-send-upstream-v3-9-6091c458d357@chromium.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -58,108 +55,207 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6AiVT6msxNHZX0tI"
+	protocol="application/pgp-signature"; boundary="xjdUosusd/iPmbw3"
 Content-Disposition: inline
-In-Reply-To: <20260409-ad4692-multichannel-sar-adc-driver-v7-1-be375d4df2c5@analog.com>
+In-Reply-To: <20260402-send-upstream-v3-9-6091c458d357@chromium.org>
 
 
---6AiVT6msxNHZX0tI
+--xjdUosusd/iPmbw3
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Apr 09, 2026 at 06:28:22PM +0300, Radu Sabau via B4 Relay wrote:
-> From: Radu Sabau <radu.sabau@analog.com>
+On Thu, Apr 02, 2026 at 01:59:46AM +0000, Jingyuan Liang wrote:
+> Documentation describes the required and optional properties for
+> implementing Device Tree for a Microsoft G6 Touch Digitizer that
+> supports HID over SPI Protocol 1.0 specification.
 >=20
-> Add DT bindings for the Analog Devices AD4691 family of multichannel
-> SAR ADCs (AD4691, AD4692, AD4693, AD4694).
+> The properties are common to HID over SPI.
 >=20
-> The binding describes the hardware connections:
->=20
-> - Power domains: avdd-supply (required), vio-supply, ref-supply or
->   refin-supply (external reference; the REFIN path enables the
->   internal reference buffer), and an optional ldo-in-supply, that if
->   absent, means the on-chip internal LDO will be used.
->=20
-> - Optional PWM on the CNV pin selects CNV Burst Mode; when absent,
->   Manual Mode is assumed with CNV tied to SPI CS.
->=20
-> - An optional reset GPIO (reset-gpios) for hardware reset.
->=20
-> - Up to four GP pins (gp0..gp3) usable as interrupt sources,
->   identified in firmware via interrupt-names "gp0".."gp3".
->=20
-> - gpio-controller with #gpio-cells =3D <2> for GP pin GPIO usage.
->=20
-> - #trigger-source-cells =3D <1>: one cell selecting the GP pin number
->   (0-3) used as the SPI offload trigger source.
->=20
-> Two binding examples are provided: CNV Burst Mode with SPI offload
-> (DMA data acquisition driven by DATA_READY on a GP pin), and Manual
-> Mode for CPU-driven triggered-buffer or single-shot capture.
->=20
-> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
+> Signed-off-by: Dmitry Antipov <dmanti@microsoft.com>
+> Signed-off-by: Jarrett Schultz <jaschultz@microsoft.com>
+> Signed-off-by: Jingyuan Liang <jingyliang@chromium.org>
 > ---
->  .../devicetree/bindings/iio/adc/adi,ad4691.yaml    | 162 +++++++++++++++=
+>  .../devicetree/bindings/input/hid-over-spi.yaml    | 126 +++++++++++++++=
 ++++++
->  MAINTAINERS                                        |   7 +
->  2 files changed, 169 insertions(+)
+>  1 file changed, 126 insertions(+)
 >=20
-> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4691.yaml b/=
-Documentation/devicetree/bindings/iio/adc/adi,ad4691.yaml
+> diff --git a/Documentation/devicetree/bindings/input/hid-over-spi.yaml b/=
+Documentation/devicetree/bindings/input/hid-over-spi.yaml
 > new file mode 100644
-> index 000000000000..81d2ca4e0e22
+> index 000000000000..d1b0a2e26c32
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4691.yaml
-> @@ -0,0 +1,162 @@
+> +++ b/Documentation/devicetree/bindings/input/hid-over-spi.yaml
+> @@ -0,0 +1,126 @@
 > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 > +%YAML 1.2
 > +---
-> +$id: http://devicetree.org/schemas/iio/adc/adi,ad4691.yaml#
+> +$id: http://devicetree.org/schemas/input/hid-over-spi.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +title: Analog Devices AD4691 Family Multichannel SAR ADCs
+> +title: HID over SPI Devices
 > +
 > +maintainers:
-> +  - Radu Sabau <radu.sabau@analog.com>
+> +  - Benjamin Tissoires <benjamin.tissoires@redhat.com>
+> +  - Jiri Kosina <jkosina@suse.cz>
+
+Why them and not you, the developers of the series?
+
 > +
-> +description: |
-> +  The AD4691 family are high-speed, low-power, multichannel successive
-> +  approximation register (SAR) analog-to-digital converters (ADCs) with
-> +  an SPI-compatible serial interface. The ADC supports CNV Burst Mode,
-> +  where an external PWM drives the CNV pin, and Manual Mode, where CNV
-> +  is directly tied to the SPI chip-select.
+> +description: |+
+> +  HID over SPI provides support for various Human Interface Devices over=
+ the
+> +  SPI bus. These devices can be for example touchpads, keyboards, touch =
+screens
+> +  or sensors.
 > +
-> +  Datasheets:
-> +    * https://www.analog.com/en/products/ad4691.html
-> +    * https://www.analog.com/en/products/ad4692.html
-> +    * https://www.analog.com/en/products/ad4693.html
-> +    * https://www.analog.com/en/products/ad4694.html
+> +  The specification has been written by Microsoft and is currently avail=
+able
+> +  here: https://www.microsoft.com/en-us/download/details.aspx?id=3D103325
 > +
-> +$ref: /schemas/spi/spi-peripheral-props.yaml#
+> +  If this binding is used, the kernel module spi-hid will handle the
+> +  communication with the device and the generic hid core layer will hand=
+le the
+> +  protocol.
+
+This is not relevant to the binding, please remove it.
+
+> +
+> +allOf:
+> +  - $ref: /schemas/input/touchscreen/touchscreen.yaml#
 > +
 > +properties:
 > +  compatible:
-> +    enum:
-> +      - adi,ad4691
-> +      - adi,ad4692
-> +      - adi,ad4693
-> +      - adi,ad4694
+> +    oneOf:
+> +      - items:
+> +          - enum:
+> +              - microsoft,g6-touch-digitizer
+> +          - const: hid-over-spi
+> +      - description: Just "hid-over-spi" alone is allowed, but not recom=
+mended.
+> +        const: hid-over-spi
 
-Please add a note to the commit message about why these devices are not
-compatible. With that,
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+Why is it allowed but not recommended? Seems to me like we should
+require device-specific compatibles.
 
---6AiVT6msxNHZX0tI
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +    description:
+> +      GPIO specifier for the digitizer's reset pin (active low). The lin=
+e must
+> +      be flagged with GPIO_ACTIVE_LOW.
+> +
+> +  vdd-supply:
+> +    description:
+> +      Regulator for the VDD supply voltage.
+> +
+> +  input-report-header-address:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    minimum: 0
+> +    maximum: 0xffffff
+> +    description:
+> +      A value to be included in the Read Approval packet, listing an add=
+ress of
+> +      the input report header to be put on the SPI bus. This address has=
+ 24
+> +      bits.
+> +
+> +  input-report-body-address:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    minimum: 0
+> +    maximum: 0xffffff
+> +    description:
+> +      A value to be included in the Read Approval packet, listing an add=
+ress of
+> +      the input report body to be put on the SPI bus. This address has 2=
+4 bits.
+> +
+> +  output-report-address:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    minimum: 0
+> +    maximum: 0xffffff
+> +    description:
+> +      A value to be included in the Output Report sent by the host, list=
+ing an
+> +      address where the output report on the SPI bus is to be written to=
+=2E This
+> +      address has 24 bits.
+> +
+> +  read-opcode:
+> +    $ref: /schemas/types.yaml#/definitions/uint8
+> +    description:
+> +      Value to be used in Read Approval packets. 1 byte.
+> +
+> +  write-opcode:
+> +    $ref: /schemas/types.yaml#/definitions/uint8
+> +    description:
+> +      Value to be used in Write Approval packets. 1 byte.
+
+Why can none of these things be determined from the device's compatible?
+On the surface, they like the kinds of things that could/should be.
+
+Cheers,
+Conor.
+
+> +
+> +required:
+> +  - compatible
+> +  - interrupts
+> +  - reset-gpios
+> +  - vdd-supply
+> +  - input-report-header-address
+> +  - input-report-body-address
+> +  - output-report-address
+> +  - read-opcode
+> +  - write-opcode
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    spi {
+> +      #address-cells =3D <1>;
+> +      #size-cells =3D <0>;
+> +
+> +      hid@0 {
+> +        compatible =3D "microsoft,g6-touch-digitizer", "hid-over-spi";
+> +        reg =3D <0x0>;
+> +        interrupts-extended =3D <&gpio 42 IRQ_TYPE_EDGE_FALLING>;
+> +        reset-gpios =3D <&gpio 27 GPIO_ACTIVE_LOW>;
+> +        vdd-supply =3D <&pm8350c_l3>;
+> +        pinctrl-names =3D "default";
+> +        pinctrl-0 =3D <&ts_d6_int_bias>;
+> +        input-report-header-address =3D <0x1000>;
+> +        input-report-body-address =3D <0x1004>;
+> +        output-report-address =3D <0x2000>;
+> +        read-opcode =3D /bits/ 8 <0x0b>;
+> +        write-opcode =3D /bits/ 8 <0x02>;
+> +      };
+> +    };
+>=20
+> --=20
+> 2.53.0.1185.g05d4b7b318-goog
+>=20
+
+--xjdUosusd/iPmbw3
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCadfMUgAKCRB4tDGHoIJi
-0g4LAQCDFiL/WYpD2A+CMZGioBuUJdp7MxiycZ1eF9K+aAushQD+K4LkAPI6pd7C
-hvPe16l+EF68AU12LiKpOM8XZ7AdZAg=
-=it+N
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCadfNggAKCRB4tDGHoIJi
+0jyaAP4ga4xWcmGKbVNXw4Lm5Bd97wKQOgvbVqLavvPAAlHySQEA5G+qgK4wFX3L
+nEcO1AKqEw40cUBqPsv2q3Da+pH74g0=
+=JTze
 -----END PGP SIGNATURE-----
 
---6AiVT6msxNHZX0tI--
+--xjdUosusd/iPmbw3--
