@@ -1,247 +1,141 @@
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5214135B632
-	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 08:38:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED8CB3A4F36
+	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 08:38:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775723907; cv=none; b=qMzI2XtsbRuoJgShI8JPSc5ZmxKGBN7fwYJplHQT9pvZBHLBCNsNwKYwVnHHyz4prr1h4imhAX8sKHlkxdE6DJj8603MFxXcB2Ed+DlOnjGSlfn/Yc/j5UgIqZ8EPotFA+UPgpaYdD0e9UaidKWhY/6jBoApBJgH9BBAT0lavCg=
+	t=1775723931; cv=none; b=UZFvONa24lwdZAj6dnKd5j9QZSCXeOI3PBPbWklUsVR5D75rMFP1AGNoy4/IUmlzcpr9FwUQe11DBj6Dp8UP9kTOl3xMYykf3id1DieN9VzoeVRPJwDjs8Rb2tgLKoiKWWOoSdzFwrB1msZ9qrNtuRCQTN9zEYD7LgFuJoNs0nc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775723907; c=relaxed/simple;
-	bh=khwFYCbDm41zThLw4yGVJ4PMQb1Rnc2eS+6YWJp9oUE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NgWUQ6l4Wq1ILXYK/7Fj/XXJaWWfnHQ3vwlPUtV7B+54egl5qOb2KfzW+dzT/5HrygQdW8ru3iRYC5xkEextOFkjEg6o3nr2fF+NbcA0aoNjVUZNt+g5fmLkbuxAkUmV8dEBRPTeipp+I3Z2QSPWTpxyGSSOa103WZIgkxd0rCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=etgFg7M4; arc=none smtp.client-ip=209.85.215.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1775723931; c=relaxed/simple;
+	bh=dyEYiHJn+GTHqglyejYAPDrVqkVAks1wYNWEwgjs6cU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tSiIRj+YBl4ip+SIQIGpO4D9SgO8aUQd1Thx8hS8DyNRknp5Nx4lYdZWPeqa14B/CfVNBneEOvV+szQ3Fyfs1uh/rAEjA+0OQlAdVoqNyWbuOuZVxi3MAh+4Z/miS9nUdtUIUlv/yKudbUUj838Dci/HsFWHsw0NFkqq0e3W0k8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CnYozH2b; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=G1Xk0Eos; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="etgFg7M4"
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-c76bc3e8de3so333380a12.2
-        for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 01:38:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CnYozH2b";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="G1Xk0Eos"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6397Maa33781421
+	for <devicetree@vger.kernel.org>; Thu, 9 Apr 2026 08:38:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	eYwBa7/PrdWkGLaZRdNmRk4LtVyqDp1vHraC9+Qgq3w=; b=CnYozH2b4HT+pQf7
+	vDB8RUiEx9gIr6MEUJfOqr0QvZZNAcOPEFitLDaDLAD31Nl6+3ey+xXagusradCb
+	miswIkALGtL4Su/cKPX7pnLZSz0DfaNxPyO1YB4Yy4TOd0rDIJ+IBtHUH/6GZU78
+	BKXC9MHhzdNZv96c3r44CFjx5BcYGcHhoUFtsXFQ2mOI3DrKf5dNbUF2W01MxOyf
+	EJGKYZacdrsAGHq6nDtH4M9rPNXCjtaqBjaPPeiNGST9/AcQio3GE2bnrbaeZvsE
+	/lEUPdX0UqDwHXDxrJ1Dkod3CDJDg/Mrlt2VL24b9dmvw/Gj+hMJqOJrDPy2fvpV
+	CQP4yQ==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ddt6yb6fn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 08:38:49 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-50da529ff48so21852491cf.3
+        for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 01:38:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775723905; x=1776328705; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=12mp4IHDHsUCxnWm4E8gVc3KRHRuPdJHhZVSMmkST8Q=;
-        b=etgFg7M4MK7XAl077fX4AQZ4CxOhhYsOoalMnbYJCkMzOvTc708cnK72gqm3lYYT2W
-         9WKWPa4GO9yB9uL9hoQnXj3a2PCsA0sxULQIFHfgP4n/02VExARSnCUmQpqOJsJdtjMN
-         NYFIt5tGWE+Ec656u3+cjiWbUc01DqYVCMfktRvb0YVBeta1W+NDvzMjU20XeVGZDIow
-         heSmU5v6111m5nFClxnU5aabaBEfNSbRsN58dEIFfrSq37aRS0kkgiw9j98yf3Tg0ifM
-         /LSmfZKRtaifSeusGuDh0i6WTjUj8Y92ZLDHIan3vScYSoCZahAAunLqWCNhaqh5mKxo
-         Z+iA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775723905; x=1776328705;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1775723928; x=1776328728; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=12mp4IHDHsUCxnWm4E8gVc3KRHRuPdJHhZVSMmkST8Q=;
-        b=FvhMA5s2WNsjbneohH1Ly76ZilW++dk9ztYgmjuZPtZE9AvFpU0ZXUgnWjvDexpfS/
-         4v3WiogopKCcUEaWheMB1ZnaB+heuPLhQKLG7hqdYB8TvqEzpUsC7UTyJJ2O621if79Z
-         Svo6jxlWSohQXYT3rD1WAITG6tFPVUN4/83V5GTgRfMZ/IURsRJHSvdq+kULV6aspW+n
-         C8HuZSxQBdpdRS6NBnTpeTH5LjrI/dYv+fwu5RJLXh01adIhD/pdkS8lmMA6HMO8diGw
-         wYqhRKqcDE5dVdfk0UrV0vNIm0XIWMxJEnlNh1nnDzxpImN3cuuPYqZdj3M4XPjMCBma
-         gcqg==
-X-Forwarded-Encrypted: i=1; AJvYcCXjec+8jcjLbtGtkFqPuWt/h5RQPxMcO+jS5jOdK9tCcTD1ZKSi3ak5xE+d6WTBbTZr8lf8N44fVu3n@vger.kernel.org
-X-Gm-Message-State: AOJu0YwheObsWYImwKbEJL8jrnMZSrB8h56zNQkGCotETChpIWUvZPE9
-	ZKj8y7csG4jVvouEQ+J78ZiBz0Ufk2sPq6vJo/6u9dxiLZ4inuLYYVz21COD5J/C
-X-Gm-Gg: AeBDievr6FuwYhVVJXcmO5cYq2Lysf5ZKY4jaLSxmuCluuxXJcLMUStQ64Z7YJ+0jJI
-	skJnRCgrJnRh4/4veEdBk7uolsWHwxrNuZ8S14coQ4shSVeG7q/Z5vTXiaY7nwVarr6W5MzxBJk
-	btAM33me8A+9zYU4Ca58cXPq30yVxWCKx7+nRSJNwsAommBtX4pkW5QKBJ9jEEW0VZzhM+A86av
-	2N5vw21SXRQe+F6VUSDbzLMGkBY3ygxxSAELGQPzFiLglVutwyv1dfxW7nQhjjgCcO9nGLJVjsy
-	upQONiU42WpN3ECIIPPATmYxV/iL3FUmCeBGHzK8eOzGhg2Xyk1prD+Ie2GLkk7dd9geJmVFe9+
-	xKZMpmSEGQ1tF7BFiwmMHUx6lr+1qJjvkZ1Vlh980bA4EX5MOMJ11f67K0HF9eXq3W7rHaZ2nSB
-	P+SWSIHgouS5dsYmKDZ4k6mynReNWOj77RGg8dIABl2yDiJXkG8XyXO/vphZSYeDGqzcI0
-X-Received: by 2002:a17:902:f611:b0:2b0:5cb4:d894 with SMTP id d9443c01a7336-2b28173fe0amr278347925ad.13.1775723904538;
-        Thu, 09 Apr 2026 01:38:24 -0700 (PDT)
-Received: from tomriddle.lan ([2406:2d40:64ea:4810:73c1:d012:263a:f41f])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b27497af31sm224497585ad.52.2026.04.09.01.38.20
+        bh=eYwBa7/PrdWkGLaZRdNmRk4LtVyqDp1vHraC9+Qgq3w=;
+        b=G1Xk0EosZ0h32t7+GnKx/3yQCoIk386pRqpNIjCOf1ISVjsuCyL8zGn5i9+grTo+/p
+         WyLZ5v0UTslqCNHyLYYkP8VY1XEe5KAkpt21w35TQDGuMS5YPT7TNqlVvrr83T259VLC
+         EWCOael0tIguJDOoG2CJwVN3ABu57orN7ReMxBfFD4UPskyujP2gd2YGfWLH1iTRFxAq
+         xM6+lQ9c4Il+b32T35r72wBeUNeakWovAwve/Zf3zzn5ecInuNy1b27DJc0A27VIRbVY
+         5wEuLZOm3dl4g6bcS+nN2lUGItENfE5wnrWaI+4F5lBYcy3HV++IfI3MMCZsD2k/If7M
+         61lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775723928; x=1776328728;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=eYwBa7/PrdWkGLaZRdNmRk4LtVyqDp1vHraC9+Qgq3w=;
+        b=ACL9Ec+LY4IzYpakgSMVL1aJQ8lSKPyavbcBmNKBg0dzvv/Y+Pqx2VJW/MpBIJXlbS
+         neVVKj1K66NQXKiL2qpuxxn36gGNscIm6PoyVEn7TCIp/+anrkpDTeEuGOXrQBgu1Ew2
+         FXpk41nXmgZym1Xp5/r+uAiKxg2WR46iaHQsvFsug5IBUH8MuQYmVnshS0Is3KaRb73F
+         SFSu+h03yovlAeila/dcKgyzPbRTPCN1XIWn/I4tRughAVAqhBru4NUZpQD7rjrIYOQ8
+         iHlqVa5dQzrj2BzlM0g+sDrnVAHDJqmWxlAN15oRrYx6yLoVmcGlBXD87mcRwDiFi//m
+         tI9A==
+X-Forwarded-Encrypted: i=1; AJvYcCVXCqpMky+4BsLVH7httepub/fQQWyqx1bbxirgvXzQZCgirt8P5c/TviTqawVCHIVNfdLov7MGDlLJ@vger.kernel.org
+X-Gm-Message-State: AOJu0YyCKDpASpWM3UyuFd3Z9Qg2Ohh2VTtIVaOVVf4wECMqAGO/upug
+	7WvgiX9d3qeKzwNvfTp9rX4hFIkKYpJj0r+JrfmMOKb4EpAxk5lzqzdR9U5xgqnCX0RhwKIpN9W
+	25x8hFJmdspv7sDqTGRC4lxc59+qRvK8/vee4J1kpmLoMUAZ2KMDdZEEVFN3NfC2u
+X-Gm-Gg: AeBDiettnQa70eG+QzAj/J+R+Acu10uFLRXuitGwmo6jv1F03rmeJLi6ocD8q2IKJ+x
+	dWiXzlpcWOJ4Ns8SyacebmSvsvvfOybffdQM3LR2y5lrNEq2fPOsdAf7AeJTiNe2gn8llaJNXGf
+	9XAmoiqelRVJQZy/0N8tQpB02ScB7HfmSZKrxnzOdDyLj7pxwD0C0igDhg0rysKL8uNYG7SKJji
+	Sd46/s9XF9YLYhElfOtqQSEAfuZ35vYSh7lbgRBOw19ujfIF45F58DP2eZd/3z2UvLOs98zPKYn
+	UckLBD1i9Ayi0uROL5G81tOkJUVa6cYkVheckQEpMMkFwjqrqXkpiMtJrVrqIyx39jZhF4kYUzb
+	Ra0m6ASQ8tblR2yTJdC+CcX/WXHQWgfrfej0frplL2a/qHUbrq2A=
+X-Received: by 2002:a05:622a:2588:b0:50d:6557:5cb1 with SMTP id d75a77b69052e-50d6557686dmr335304801cf.27.1775723928308;
+        Thu, 09 Apr 2026 01:38:48 -0700 (PDT)
+X-Received: by 2002:a05:622a:2588:b0:50d:6557:5cb1 with SMTP id d75a77b69052e-50d6557686dmr335304581cf.27.1775723927864;
+        Thu, 09 Apr 2026 01:38:47 -0700 (PDT)
+Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:25ad:5d40:fb11:35a1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43d1e2c60a2sm63428947f8f.10.2026.04.09.01.38.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Apr 2026 01:38:24 -0700 (PDT)
-From: Oliver White <oliverjwhite07@gmail.com>
-To: andersson@kernel.org,
-	konradybcio@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Oliver White <oliverjwhite07@gmail.com>
-Subject: [PATCH] arm64: dts: qcom: x1e80100-microsoft-romulus: enable OV02C10 webcam
-Date: Thu,  9 Apr 2026 20:36:09 +1200
-Message-ID: <20260409083609.75341-1-oliverjwhite07@gmail.com>
-X-Mailer: git-send-email 2.51.0
+        Thu, 09 Apr 2026 01:38:47 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: robh@kernel.org, Shi Hao <i.shihao.999@gmail.com>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        brgl@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        rric@kernel.org, linux-gpio@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] dt-bindings: gpio: cavium,thunder-8890: Remove DT binding
+Date: Thu,  9 Apr 2026 10:38:45 +0200
+Message-ID: <177572390344.62363.14529394859379173420.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260408093313.17025-1-i.shihao.999@gmail.com>
+References: <20260408093313.17025-1-i.shihao.999@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: SUdrB1sz__m_YoU9w5lZfk3ISMnhG7OH
+X-Proofpoint-GUID: SUdrB1sz__m_YoU9w5lZfk3ISMnhG7OH
+X-Authority-Analysis: v=2.4 cv=R9sz39RX c=1 sm=1 tr=0 ts=69d76599 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=6WhlqGIWKwR2Oo7JxYYA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
+ a=zZCYzV9kfG8A:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA5MDA3NSBTYWx0ZWRfXxmrgDQF3aOtb
+ FwJ5/Z8IzsPQzatBpwFZWd4V0R57IzDwAn1T4VHX/fr5Xy3UbpUfVEw5o5ZrODb9FOC3vVgQD7Q
+ 1EqrmsbLoBymYbeAXOZArhqditggZrf94OlbsS6hvP7O4MG+zxCGxQJ+wS/vdlGlU4fZmTqoQ+k
+ wiMT7An8JsgnxSyGmjmJVthPorVROfYxkzgK96huqpq31ohoDosdyNdHniqC5aYTFIkIHHmUnHZ
+ zc8OXded/BtPc+ZJTfggf4vZp0H/5oO86YNLtQ/a2CYmMpYEmuZOrybcRrDnQyFtm76lqcz2Bsk
+ SaVgLbRECQDJTwYvft8rq1c0g0Gjp+R/UvK76IxkVvzgG2B16qWpZffhNsmNsZP6baNEv4pEYNR
+ JB90ViRij/dY4E9W6+heZuzeIoHHDUW4BjXbr12Dq+MfAuhhLCPg1jdvxIAj75IGOfFj3fTIEtB
+ 8jV47MhrBzAdUEq2zBg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-09_02,2026-04-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0 phishscore=0
+ spamscore=0 priorityscore=1501 suspectscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604090075
 
-Wire up the front-facing OV02C10 camera on Microsoft Romulus by enabling
-CAMSS, CCI1 and CSIPHY4, adding the sensor node and its endpoint, and
-describing the PM8010 regulator rails and pinctrl states required by the
-camera module.
 
-With these DT nodes in place the webcam can be probed and used through
-the upstream OV02C10 driver.
+On Wed, 08 Apr 2026 15:03:13 +0530, Shi Hao wrote:
+> Remove the cavium,thunder-8890 GPIO binding as there are no active
+> use cases. A previous attempt was made to convert the binding to DT
+> schema, but since the binding is unused, remove it instead.
+> 
+> 
 
-Signed-off-by: Oliver White <oliverjwhite07@gmail.com>
----
- .../dts/qcom/x1e80100-microsoft-romulus.dtsi  | 127 ++++++++++++++++++
- 1 file changed, 127 insertions(+)
+I tweaked the commit message as suggested by Krzysztof and queued this.
 
-diff --git a/arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus.dtsi b/arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus.dtsi
-index 14b5663a4d48..9e910813fa48 100644
---- a/arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus.dtsi
-+++ b/arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus.dtsi
-@@ -857,6 +857,57 @@ vreg_l3j: ldo3 {
- 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
- 		};
- 	};
-+
-+	regulators-8 {
-+		compatible = "qcom,pm8010-rpmh-regulators";
-+		qcom,pmic-id = "m";
-+
-+		vdd-l1-l2-supply = <&vreg_s5j>;
-+		vdd-l3-l4-supply = <&vreg_s4c>;
-+		vdd-l7-supply = <&vreg_bob1>;
-+
-+		vreg_l1m_1p2: ldo1 {
-+			regulator-name = "vreg_l1m_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1260000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2m_1p2: ldo2 {
-+			regulator-name = "vreg_l2m_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1260000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l3m_1p8: ldo3 {
-+			regulator-name = "vreg_l3m_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1900000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l4m_1p8: ldo4 {
-+			regulator-name = "vreg_l4m_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1900000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l5m_2p8: ldo5 {
-+			regulator-name = "vreg_l5m_2p8";
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <3072000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l7m_2p8: ldo7 {
-+			regulator-name = "vreg_l7m_2p8";
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <3072000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
- };
- 
- &gpu {
-@@ -867,6 +918,66 @@ &gpu_zap_shader {
- 	firmware-name = "qcom/x1e80100/microsoft/qcdxkmsuc8380.mbn";
- };
- 
-+&camss {
-+	status = "okay";
-+
-+	ports {
-+		/*
-+		 * port0 => csiphy0
-+		 * port1 => csiphy1
-+		 * port2 => csiphy2
-+		 * port3 => csiphy4
-+		 */
-+		port@3 {
-+			camss_csiphy4_inep0: endpoint@0 {
-+				clock-lanes = <7>;
-+				data-lanes = <0 1>;
-+				remote-endpoint = <&ov02c10_ep>;
-+			};
-+		};
-+	};
-+};
-+
-+&cci1 {
-+	status = "okay";
-+};
-+
-+&cci1_i2c1 {
-+	camera@36 {
-+		compatible = "ovti,ov02c10";
-+		reg = <0x36>;
-+
-+		reset-gpios = <&tlmm 237 GPIO_ACTIVE_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&cam_rgb_default>;
-+
-+		clocks = <&camcc CAM_CC_MCLK4_CLK>;
-+		assigned-clocks = <&camcc CAM_CC_MCLK4_CLK>;
-+		assigned-clock-rates = <19200000>;
-+
-+		orientation = <0>; /* front facing */
-+
-+		avdd-supply = <&vreg_l5m_2p8>;
-+		dvdd-supply = <&vreg_l1m_1p2>;
-+		dovdd-supply = <&vreg_l3m_1p8>;
-+
-+		port {
-+			ov02c10_ep: endpoint {
-+				data-lanes = <1 2>;
-+				link-frequencies = /bits/ 64 <400000000>;
-+				remote-endpoint = <&camss_csiphy4_inep0>;
-+			};
-+		};
-+	};
-+};
-+
-+&csiphy4 {
-+	vdda-0p8-supply = <&vreg_l2c>;
-+	vdda-1p2-supply = <&vreg_l1c>;
-+
-+	status = "okay";
-+};
-+
- &i2c0 {
- 	clock-frequency = <100000>;
- 
-@@ -1441,6 +1552,22 @@ wcn_sw_en: wcn-sw-en-state {
- 		bias-disable;
- 	};
- 
-+	cam_rgb_default: cam-rgb-default-state {
-+		mclk-pins {
-+			pins = "gpio100";
-+			function = "cam_aon";
-+			drive-strength = <16>;
-+			bias-disable;
-+		};
-+
-+		reset-n-pins {
-+			pins = "gpio237";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+	};
-+
- 	cam_indicator_en: cam-indicator-en-state {
- 		pins = "gpio225";
- 		function = "gpio";
+[1/1] dt-bindings: gpio: cavium,thunder-8890: Remove DT binding
+      https://git.kernel.org/brgl/c/5bcd451286176202f4ba84b89fd98c7ea74f33a2
+
+Best regards,
 -- 
-2.51.0
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
