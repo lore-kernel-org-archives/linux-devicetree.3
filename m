@@ -1,197 +1,210 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2991AAE28
-	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 00:49:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5664A1B4223;
+	Thu,  9 Apr 2026 01:04:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775695799; cv=none; b=OzkK6SkHV8YpliF8iRR5aG8q3clLJG2YVXvP8tkGSXkr8t0tVTsW6TFaY4DFDjYdmCtSOdh8tGsGgpNnCqPlGw6HZ8LH8WKVnNiGvn7RJ2fzo9ZO7CdR8OGBCmWuputgDLr4HFSQ5BpTuHLLCeRZ/SVNrtHgawRsq7ApKvJzVv4=
+	t=1775696661; cv=none; b=HewpSD0xqvCXbo8kK8aZ3+OV6L0Ylzlad9bNeSOp62HBqHEZtccmsLRrxSls1hEIy9UIapjiNy+2/bzXy1Th3zGSDL3sk+ExDsz6TUxUFgAcQnqAoG9SXJEGhcphl9kezVF5VtSKc+Au5ExDefYaT67+oT7aUZU/zVjIIesVtKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775695799; c=relaxed/simple;
-	bh=3okOik6LRshMM4f19RzdCp7PI0VZaZepZ3WWKumDOtA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n9gzLJr++G/6zXpGCfPEbMsmdQTacHWw6q0sAt7qhq/vTeZDjJHRiFL4SoSsDlc79izSsEReKrchHa9aJYC8B0YjLTD6XWvcCSgFj132zG4J3+H9j66E1ihc/+Un/UU4/P0FjSVxsx/E2NU6o1U6SKlZsqmCJGdjBm0P5oYqXuw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=H997VMoG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cHV1FgJE; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1775696661; c=relaxed/simple;
+	bh=WdXJtKmRDZgCpCGXFDTG/8KIgSgzFfhSEUxvitpYUd4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jCgVAB2d4Rt5pazVIeoBgS9zAYlBMLK4mYnFmCFAOlAoWXeu+CJSGXQHrpaPx9bf7vPqkKIsb4D+xRGrypG8pO9D8+kbHpkomIOH93D9pFxKHvZ1Y8j6cgSLytuLH4MuSjHNLp9sMpK15xptaknnrgHcEn4Gc0PB53pNJgMWkWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=SbHNp7RI; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="H997VMoG";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cHV1FgJE"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 638JXfBW3325993
-	for <devicetree@vger.kernel.org>; Thu, 9 Apr 2026 00:49:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	bqEE6rmLZOuTWDnBfLI0DnPCbDUB+b65JdryhdhG+uQ=; b=H997VMoGJtsBo9IP
-	5hoqIg7GV92AcWKMb8ztxkKxeiK+7qXPwfWN/IcOtKTagUwXSixzQLjsquQ13ngp
-	QTTKonO8bDJq8Ih0/tUiHEN0P+draBnmYPBhThZ35T2LINShFDimMI5Zx/0CYtDX
-	lTeaizxr8uX6MR1wdKk31hsLkbXTvDWhRS3ptJJL9vtL2/XkRPSfEynVJbXddsfP
-	0aMvMU8gO3Dzl1iuZQbWWZrNqtwj1FMLQXjtugwRdidjtjR7lXREY27ZzFFKi15v
-	adVT1JkMUepaDUZptultXwq07GC6UfHemKx+ThlJWox2mR3GdDDPeTvFRDW+QmAb
-	78ZIvA==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ddw9mrw5b-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 00:49:56 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50d68dbb77bso10182621cf.2
-        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 17:49:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775695795; x=1776300595; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=bqEE6rmLZOuTWDnBfLI0DnPCbDUB+b65JdryhdhG+uQ=;
-        b=cHV1FgJERC3h5ANAl2qhMQQ+xWS5t/m/MwH8Kem+EC+CSu91vXvZklQSa6ibfYqYnP
-         Y+TgLoXIYHZMNw86+ZCiklYGOpZfKObcO6YemK7ZWd3Pc/0UYtM6w93LQ7AMua0UCwyW
-         +Gg5N4kUBQM5duO0sieFI4XXOKtFnBljAFwWm6JCLo+UbZMZvtJlYhlH51nsG7t/XUVC
-         OkaZk6gt7mn0CamQPO41tBeqhuKWMEQuA53Ax0Ka7jDCCJzDkcBQrEppz1FO7AiUTeQy
-         SWxXfG675KR4ydf5oCRHs/W7QXcaEU7Wpfeh1Vz/EF3o0usX2Am6MQXFQC1WLY9yMSCT
-         ZEtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775695795; x=1776300595;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=bqEE6rmLZOuTWDnBfLI0DnPCbDUB+b65JdryhdhG+uQ=;
-        b=a/Qtta5UFWYZ6MnsD0tKbb8KbarA3ROK1o0YGzzkhJB+oH/5NjH6bHlqvQGdPTBcOe
-         c7X+gndTE/LjYpSho+eF+19rVRlj974QvHmNlDwPynnUnCMab2G4A4WW/ZSNHV7/54bl
-         5Nu/ZwX6MFmWlYHHD7xxIZpoBAvtENkXpqJ5k5qEqxFQotsbdwJVMBt+diob9Omock3l
-         d7O4OILUeyaiFptlGgLnflAvinbpuzE6pJ6xJGka1zZVO8toZoFhePVrwsN9CszkEaeW
-         /ruHXyxMdu+DbkjIqICdYPRBsDsLvKGYQhKkvKYH5g6JjQ68kruYOU1yJjfZ9QbZjdPb
-         //Pw==
-X-Forwarded-Encrypted: i=1; AJvYcCV+RpJiGq9sxjLTPiCBdoZ62FGliQ9P4417Y8Vm0pACHqYj0N/eUZhJVpW4z8EKywYBwStqedcm8OnY@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw14nf4QqeWur6LZJ3rFE+/rHldzsqnolIkGza2ASxJQWWvefro
-	tVXOF2KnbCuGuJpMyeBHhBaBeejnRmqjz9vbU7V4L1Bf3Y3r4h9UPi9Dgx9r1K6j1QMeaK1QIxq
-	zgTZn9wUwDVcILi65W+an0MldnbN6pHJ71TRMuMkfjRYLy4PBJAUHSr6KxrEp+nOI
-X-Gm-Gg: AeBDievIISo72HKWEwtD3Gz7HGD/0qUrm1REhXaGMy94LkVzeBPTuJGPeLYwHKfwP5o
-	9bbIVE3C0Q4ebOC+iaf3uaZB7cj6KBUyvIasEH/K8M4gjxh4fdrPcorEBzMCaaZD+rWlvcnFVE4
-	ARTjEcfCZ0U2v2aILB6EMg/h5pALYTn2lN7AC0wPw+93twiOMY1XpW8LhUNv4/jmOTU0OyVw1M8
-	qw2MW4MbW2N71ZgNpB/Ea8zb4Gta8lg4G/3j7ApBjbYKcktvuxhxrFQQJEV+KV7DE9APEIs7lih
-	bq2t6dViRQP6OfIq9bFy2tANPx8d5OQM2k0l7AKa9P7vdzHPr5+SXcc5O2NeQUmgbG5oz1VeokX
-	dQmnHhAhn/DHUJ6YjWRfEFHraece9zDYnN/eaR3vKRtqNO5trSQxjehKUNuFVkzAd3cOIT6c3BH
-	i/us4RdHsQa70aG+yDzIDwx4bG6OieJ+hDpGc=
-X-Received: by 2002:a05:622a:11c4:b0:50b:4946:2776 with SMTP id d75a77b69052e-50d62bb43c2mr334343511cf.22.1775695795216;
-        Wed, 08 Apr 2026 17:49:55 -0700 (PDT)
-X-Received: by 2002:a05:622a:11c4:b0:50b:4946:2776 with SMTP id d75a77b69052e-50d62bb43c2mr334342991cf.22.1775695794781;
-        Wed, 08 Apr 2026 17:49:54 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a2c6cd34f0sm5150705e87.76.2026.04.08.17.49.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Apr 2026 17:49:53 -0700 (PDT)
-Date: Thu, 9 Apr 2026 03:49:50 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Cong Yang <yangcong5@huaqin.corp-partner.google.com>,
-        Ondrej Jirman <megi@xff.cz>,
-        Javier Martinez Canillas <javierm@redhat.com>,
-        Jagan Teki <jagan@edgeble.ai>, Liam Girdwood <lgirdwood@gmail.com>,
-        Mark Brown <broonie@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 14/19] drm/panel: jadard-jd9365da-h3: support Waveshare
- DSI panels
-Message-ID: <z3obsnbmdvvlzs3cxm57osbax4ivg2zq2zk6xgp37n4hni7y6i@smwn362nhn6a>
-References: <20260401-waveshare-dsi-touch-v1-0-5e9119b5a014@oss.qualcomm.com>
- <20260401-waveshare-dsi-touch-v1-14-5e9119b5a014@oss.qualcomm.com>
- <CAD++jL=jUd4sQ1bhwcBRYpFFApP6vdJw2BoQwxoWShUKdEb9oA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="SbHNp7RI"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5899210C42F;
+	Thu,  9 Apr 2026 03:04:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1775696656;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=fEMK6O4rb7+W03or4vD8icEM8Kqyr5nfEv+3NYAxvX4=;
+	b=SbHNp7RI21tkLYh/fnFqtyqwy4N482r6oQBAg3M4AO2JJAa2sN7ntTuMXBN4LZNnPhJcVq
+	l1GC4/OlKJ90+fv8r+3xrOkiE5Y8QkgJmGKIUhJsm5GuV4yT59nbtlic1P9DClVBPsUf5M
+	qusbgbpRTnQ1/VkLzMvA9UPy+3ivZntFjKa3ABKXBeb21A2fw8GV7cDfWP9YYsm6JhHVUH
+	meYlFGjh1QsWeHVZvhAck0DC0d7Vf6LCjW7WmG+T1VLmjshkeFm4b4FRZPK2LtK3JqtOoY
+	5TicFa7mqwT6wFU5R1OVKHsmL2w1/NDMwQer0julycdVV6ciZVTgXJB4qG/CeA==
+Message-ID: <4803f8a4-abb4-4e89-95e4-b9a5b151ded6@nabladev.com>
+Date: Thu, 9 Apr 2026 03:04:13 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] net: dsa: microchip: implement KSZ87xx Module 3
+ low-loss cable errata
+To: Fidelio Lawson <lawson.fidelio@gmail.com>,
+ Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com,
+ Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Fidelio Lawson <fidelio.lawson@exotec.com>
+References: <20260408-ksz87xx_errata_low_loss_connections-v2-1-9cfe38691713@exotec.com>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <20260408-ksz87xx_errata_low_loss_connections-v2-1-9cfe38691713@exotec.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD++jL=jUd4sQ1bhwcBRYpFFApP6vdJw2BoQwxoWShUKdEb9oA@mail.gmail.com>
-X-Authority-Analysis: v=2.4 cv=cfPiaHDM c=1 sm=1 tr=0 ts=69d6f7b4 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=EEnmvuoukryqth22VUsA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-ORIG-GUID: tq5BEVctS1J09coc8wDYESL_YavM7Ny6
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA5MDAwNCBTYWx0ZWRfXwccXAjGgMu1y
- fsYPuCu0Z+NM8pU20Hdbl5yfogk+ejcLTOXQMU6OnWnsltxcyyNGJpxA/ljobrEMtuaxT5S4xpx
- MNGUXBv5hpBKE2fCz7bbztgjjHRYfwtZhu6rPM//iphOPKJbFEs+yY/Lu4dqnOmLco8egvjoOJX
- w0+e141txz8vTfJpGnF6aBBQfH6SlqmVPIUMcSpKMVKu6s6iI+xkt/YgcBWbxO25Y6cIt2Ae33g
- FPD5RRt2czuTZ0qnrYfmngPXQnzSrJG5shQPcFyHFXoBk5uBeVzzabkLTL/WjY5QcB4K2AugxwJ
- KgW3HdFLNoLibpGDusqDwI5PsoHaJFo5vHQ/b+1ptWEE2Bt48R7iL2/BfRCHLgdwBOv+Yz3HXED
- pDGM3L6Ovrm0RkgxE9TCfXRKNA6fMMjIXDBbM/GR27dgGzWMzkakU+Qbv1MwF2WyynUxdue7zOK
- tg78No+eHlVQsuhpFGg==
-X-Proofpoint-GUID: tq5BEVctS1J09coc8wDYESL_YavM7Ny6
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-08_07,2026-04-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 clxscore=1015 lowpriorityscore=0
- malwarescore=0 spamscore=0 bulkscore=0 adultscore=0 impostorscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
- definitions=main-2604090004
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Apr 08, 2026 at 10:24:17AM +0200, Linus Walleij wrote:
-> Hi Dmitry,
+On 4/8/26 1:57 PM, Fidelio Lawson wrote:
+> Implement the "Module 3: Equalizer fix for short cables" erratum from
+> Microchip document DS80000687C for KSZ87xx switches.
 > 
-> thanks for your patch!
+> The issue affects short or low-loss cable links (e.g. CAT5e/CAT6),
+> where the PHY receiver equalizer may amplify high-amplitude signals
+> excessively, resulting in internal distortion and link establishment
+> failures.
 > 
-> On Wed, Apr 1, 2026 at 9:27 AM Dmitry Baryshkov
-> <dmitry.baryshkov@oss.qualcomm.com> wrote:
+> KSZ87xx devices require a workaround for the Module 3 low-loss cable
+> condition, controlled through the switch TABLE_LINK_MD_V indirect
+> registers.
 > 
-> > Add configuration for Waveshare DSI panels using JD9365 controller.
-> >
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> The affected registers are part of the switch address space and are not
+> directly accessible from the PHY driver. To keep the PHY-facing API
+> clean and avoid leaking switch-specific details, model this errata
+> control as vendor-specific Clause 22 PHY registers.
 > 
-> Some more words with details on all the panels added perhaps?
+> Two vendor-defined bits are introduced in PHY_REG_LOW_LOSS_CTRL,
+> and ksz8_r_phy() / ksz8_w_phy() translate accesses to these bits
+> into the appropriate indirect TABLE_LINK_MD_V accesses.
+> 
+> The control register defines the following modes:
+>    bits [1:0]:
+>      00 = workaround disabled
+>      01 = workaround 1 (DSP EQ training adjustment, LinkMD reg 0x3c)
+>      10 = workaround 2 (receiver LPF bandwidth, LinkMD reg 0x4c)
+> 
+> Workaround 1: Adjusts the DSP EQ training behavior via LinkMD register
+> 0x3C. Widens and optimizes the DSP EQ compensation range,
+> and is expected to solve most short/low-loss cable issues.
+> 
+> Workaround 2: for the cases where Workaround 1 is not sufficient.
+> This one adjusts the receiver low-pass filter bandwidth, effectively
+> reducing the high-frequency component of the received signal
+> 
+> The register is accessible through standard PHY read/write operations
+> (e.g. phytool), without requiring any switch-specific userspace
+> interface. This allows robust link establishment on short or
+> low-loss cabling without requiring DTS properties and without
+> constraining hardware design choices.
+> 
+> The erratum affects the shared PHY analog front-end and therefore
+> applies globally to the switch.
+> 
+> Signed-off-by: Fidelio Lawson <fidelio.lawson@exotec.com>
+> ---
+> Hello,
+> 
+> This patch implements the “Module 3: Equalizer fix for short cables” erratum
+> described in Microchip document DS80000687C for KSZ87xx switches.
+> 
+> According to the erratum, the embedded PHY receiver in KSZ87xx switches is
+> tuned by default for long, high-loss Ethernet cables. When operating with
+> short or low-loss cables (for example CAT5e or CAT6), the PHY equalizer may
+> over-amplify the incoming signal, leading to internal distortion and link
+> establishment failures.
+> 
+> Microchip provides two workarounds, each requiring a write to a different
+> indirect PHY register access mechanism.
+> 
+> The workaround requires programming internal PHY/DSP registers located in the
+> LinkMD table, accessed through the KSZ8 indirect register mechanism. Since these
+> registers belong to the switch address space and are not directly accessible
+> from a standalone PHY driver, the erratum control is modeled as a vendor-specific
+> Clause 22 PHY register, virtualized by the KSZ8 DSA driver.
+> 
+> Reads and writes to this register are intercepted by ksz8_r_phy() /
+> ksz8_w_phy() and translated into the required TABLE_LINK_MD_V indirect accesses.
+> The erratum affects the shared PHY analog front-end and therefore applies
+> globally to the switch.
+> 
+> The register defines three modes:
+>    - 0x0: workaround disabled
+>    - 0x1: workaround 1 (DSP EQ training adjustment)
+>    - 0x2: workaround 2 (receiver low-pass filter bandwidth reduction)
+> 
+> The register can be read and written from userspace via standard Clause 22 PHY
+> accesses (for example using phytool) on DSA user ports.
+> 
+> This series is based on Linux v7.0-rc1.
+> ---
+> Changes in v2:
+> - Dropped the device tree approache based on review feedback
+> - Modeled the errata control as a vendor-specific Clause 22 PHY register
+> - Added KSZ87xx-specific guards and replaced magic values with named macros
+> - Rebased on Linux v7.0-rc1
+> - Link to v1: https://patch.msgid.link/20260326-ksz87xx_errata_low_loss_connections-v1-0-79a698f43626@exotec.com
+> ---
+>   drivers/net/dsa/microchip/ksz8.c       | 33 +++++++++++++++++++++++++++++++++
+>   drivers/net/dsa/microchip/ksz8_reg.h   | 20 +++++++++++++++++++-
+>   drivers/net/dsa/microchip/ksz_common.h |  3 +++
+>   3 files changed, 55 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/dsa/microchip/ksz8.c b/drivers/net/dsa/microchip/ksz8.c
+> index c354abdafc1b..d11da6e9ff54 100644
+> --- a/drivers/net/dsa/microchip/ksz8.c
+> +++ b/drivers/net/dsa/microchip/ksz8.c
+> @@ -1058,6 +1058,11 @@ int ksz8_r_phy(struct ksz_device *dev, u16 phy, u16 reg, u16 *val)
+>   		if (ret)
+>   			return ret;
+>   
+> +		break;
+> +	case PHY_REG_KSZ87XX_LOW_LOSS:
+> +		if (!ksz_is_ksz87xx(dev))
+> +			return -EOPNOTSUPP;
+> +		data = dev->low_loss_wa_mode;
+>   		break;
+>   	default:
+>   		processed = false;
+> @@ -1271,6 +1276,34 @@ int ksz8_w_phy(struct ksz_device *dev, u16 phy, u16 reg, u16 val)
+>   		if (ret)
+>   			return ret;
+>   		break;
+> +	case PHY_REG_KSZ87XX_LOW_LOSS:
+> +		if (!ksz_is_ksz87xx(dev))
+> +			return -EOPNOTSUPP;
+> +
+> +		switch (val & PHY_KSZ87XX_LOW_LOSS_MASK) {
+> +		case PHY_LOW_LOSS_ERRATA_DISABLED:
+> +			ret = ksz8_ind_write8(dev, TABLE_LINK_MD, KSZ87XX_REG_EQ_TRAIN,
+> +					      KSZ87XX_EQ_TRAIN_DEFAULT);
+> +			if (!ret)
+> +				ret = ksz8_ind_write8(dev, TABLE_LINK_MD,
+> +						      KSZ87XX_REG_PHY_LPF,
+> +						      KSZ87XX_PHY_LPF_DEFAULT);
+> +			break;
+> +		case KSZ87XX_LOW_LOSS_WA_EQ:
+> +			ret = ksz8_ind_write8(dev, TABLE_LINK_MD, KSZ87XX_REG_EQ_TRAIN,
+> +					      KSZ87XX_EQ_TRAIN_LOW_LOSS);
+> +			break;
+> +		case KSZ87XX_LOW_LOSS_WA_LPF:
+> +			ret = ksz8_ind_write8(dev, TABLE_LINK_MD, KSZ87XX_REG_PHY_LPF,
+> +					      KSZ87XX_PHY_LPF_62MHZ);
 
-:D
+Please adjust this and make the low pass filter bandwidth actually 
+configurable according to the values supported by the hardware, see this 
+article:
 
-> 
-> > -       desc = of_device_get_match_data(dev);
-> > +       jd9365da_switch_page(&dsi_ctx, 0x01);
-> > +       mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x00, 0x00);
-> > +       mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x01, 0x41);
-> 
-> Predictably I'm not very happy with all the unexplained magic and nonestisting
-> defines used here. Do you have some info/defines?
+https://microchip.my.site.com/s/article/Solution-for-Using-CAT-5E-or-CAT-6-Short-Cable-with-a-Link-Issue-for-the-KSZ8795-Family
 
-No, unfortunately.
+The indirect register (0x4C) is an 8-bit register. The bits [7:6] are 
+described in the table below.
 
-> 
-> But there is also one more thing, this looks like a big "jam table"
-> with just register+value tuples, so construct something like:
-> 
-> struct jadard_jam_tbl_entry {
->         u8 reg;
->         u8 val;
-> };
-> 
-> static const struct jadard_jam_tbl_entry jd_3_4_c_init_jam[] = {
->         {0x00, 0x00}, {0x01, 0x41}, ...};
-> 
-> (Ideas taken from drivers/net/dsa/realtek/rtl8366rb.c, take a look
-> for code and all, you get the picture.)
+Low pass filter bandwidth
+00 = 90MHz
+01 = 62MHz
+10 = 55MHz
+11 = 44MHz
 
-Few months ago the code was moved exactly in the opposite direction. We
-added all _multi() functions and made shure that the code is as
-efficient as the register tables. On the other hand, having it as a code
-allows better control. E.g. handling 2/4 lane case would require extra
-hacks to the register tables, while the code handles that without extra
-hacks and without loosing effectiveness.
-
-> 
-> Yours,
-> Linus Walleij
-
--- 
-With best wishes
-Dmitry
+...
