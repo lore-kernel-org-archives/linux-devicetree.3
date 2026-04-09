@@ -1,122 +1,127 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D29E379ED7;
-	Thu,  9 Apr 2026 12:21:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16DB5381B11
+	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 12:23:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775737283; cv=none; b=M/G/z/wsWJoUhXWQ+4NN9OOB9ZfeEe+dsucRQZ0fQq4t5UFqWkZN3AV+j7ol6BtoUqzp0Z6hXWCWwb9mWFEfs77m7RZ9FAen6+IYeS0f2UmSXvoeL/WCm7LEeGMEeTPsBmVbOCSj1XbmRck+8ESmnWVHIcAfEmPXGvHa++q5o04=
+	t=1775737386; cv=none; b=LgKw+LP5iUidhTnWUusN82++7hvFV406mpAlbvz7uY7gaa+J6dv7GFNIYiR/FOIpxDgsqPzsx4JE2aYZw2YLiHiZmw3dWN6OVSTmodua4xZ+PePgWCx/0sMQO5nRHiSjrPjbWEvJICAGk98HTdq9mWBMfCrBcG4OhEl8Fv+QlCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775737283; c=relaxed/simple;
-	bh=rgtUB1c5aNLZHE/IkBoX6IeByjxo/MzCTwq4f/gSu1U=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JezCmLF8LGSOTmL1phrBLDPV2lz8pSKafuIUxgjlQcNeYoAIkdAuyBCUQtHw36VycSZWykY6segKGLKYVYWnkCTZdd94MV+H3AQdTMniy9WfF2tv8BGrXjEaFhMib5EAsJ1L4tNgQkpiHB5CGb7OYP79XdFJJXRNiGK0uQv9UcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Z82JrVhH; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1775737386; c=relaxed/simple;
+	bh=8ha08POWCdts2kcxBytAF07AGORB5Xw+1RHSI50iK3M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SZ2n0tzqsa9/GBT4XCfcU18eSx3XvrOe+A9PfWMX7rVUWGlqkAJKdEABv3Kc4TIbb8C91bu2eCEK1H+8+Nd01G9kW2IC13ya0ovtjxKoJp/4dIEV7efW23IDq+n9Edyz7tXKBisUaEIlrxctfsaWcZj3pBbhrXHeEIizrZ9mFlk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=OEiGXjJT; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Z82JrVhH"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 639B4Cs12615182;
-	Thu, 9 Apr 2026 12:21:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=iRJojx90PbsK5eqwfGxXr5Q9vwOQMRc8Moo
-	WzOIPrKU=; b=Z82JrVhH+IbCyM8WalLWIPT+Ncz0aiQV4Qh+tLKTFv5VY96Ykfu
-	zv0/L9yRU5eiEZRnSgIp0O9YCfwSKJRAd4AVZpnHScniP69N3cdzxhm6K+L0iUAr
-	n8wbE75FB7heo0PRHJ3h6kobJLOBg8obJlZkVtJp0dYHc1x3KroRKfSpTYPJtYZ4
-	O9AgwK6A8zMv6Ft5Nz81YdUgO52HDyUbHXrO1eJX2MIUVNh3fgqV3j9suglBVAZ8
-	gQbWzwiGR+FM9bnoBq8E8RUIa0B7Uo8Cxqz4oPe5vmDbX3cmDdxYQkEXCwgd1Xw/
-	vVunt+guE1+cskVr1NEEeUGguxtp2X587gA==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ddt28v1h5-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 09 Apr 2026 12:21:16 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 639CLCBl031231;
-	Thu, 9 Apr 2026 12:21:12 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 4db3u1y6cd-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 09 Apr 2026 12:21:12 +0000 (GMT)
-Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 639CLCXh031225;
-	Thu, 9 Apr 2026 12:21:12 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-amakhija-hyd.qualcomm.com [10.213.99.91])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 639CLCIx031224
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 09 Apr 2026 12:21:12 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4090850)
-	id D56AC5F3; Thu,  9 Apr 2026 17:51:11 +0530 (+0530)
-From: Ayushi Makhija <ayushi.makhija@oss.qualcomm.com>
-To: andersson@kernel.org, konrad.dybcio@linaro.org, robh+dt@kernel.org,
-        krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
-        dmitry.baryshkov@linaro.org
-Cc: Ayushi Makhija <ayushi.makhija@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: [PATCH v1] arm64: dts: qcom: sm8750-mtp: Set sufficient voltage for panel nt37801
-Date: Thu,  9 Apr 2026 17:51:09 +0530
-Message-Id: <20260409122110.214680-1-ayushi.makhija@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="OEiGXjJT"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-488b00ed86fso9031315e9.3
+        for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 05:23:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1775737383; x=1776342183; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=bNUR+AEM+0xI0nm5DHe+rKxaeNx6oASLbxq9t2PiLlQ=;
+        b=OEiGXjJTi57weYjl+rhiQNvazHT2ysm2cUX3YIA27lwwzCFHaPZbsXpndWn60MGp0o
+         DVrrw+VtarCCVRX96UvNaBAu2z9v6pwvm+cQ84aZeFSTzzhdfGLmG4sbjVu91ih06F02
+         YG1IWyi0Do33dl02HAxtBzlzteHp0xEOeh8yGzl4Ys+cc6vNPH2ndFLwmdi+zEfs8CQC
+         7tjsLu1PQhReACU1uqhDjCumpcos7kWg+98w+V1ZE0kuM760A5m47y2gX+xDG5mqWEoJ
+         ypTwtmZGODY09vjY0t4Gn7Qgg3Zs6KTrGMeKXyYeB+QM8446mAstDGV3Uq0Oxp8mPf4L
+         9P5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775737383; x=1776342183;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=bNUR+AEM+0xI0nm5DHe+rKxaeNx6oASLbxq9t2PiLlQ=;
+        b=rJk0dirCuhwHH/GgWabuhQWH1mL+LHnjcZPxbgBA+6T6oZ/HoDbqx6yiIGsnBZ8ebL
+         KtaW7vb6esQ0Do/iauk73REMv3/70wbqgbOwwGEDhA21uj5U0nQmEIeclQgoat994d5H
+         wMJwBZGeFqBnT2u53CkU+jlrwW1+QHBz+5sMD56pbUxotTaWE4oouTBojc7Lm7FYenDK
+         rWakSAQRqERX5TTKdYHlbsqTDLloWvNBvUyJ8c9+kfQr+5gD7pO4ESK0wgYBiiV7X6DU
+         mJ7knF7CtWDgRaNG8xLTd4AyIhzFnjwxn4N55MMYp5CgcOsAW9H4VXTTw+97wiJX8WI+
+         YhmQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVhaiGvZRhN1qZ2ZsSx8XqE7rPUpJl72HQiPKNms/C3V2N58sQSB3jTBb1NVX2hSz1ZKn9blxb9TT3+@vger.kernel.org
+X-Gm-Message-State: AOJu0YyXCDnnIsvbz8W1sS+UNSxMce1sR6LY2jBNG3F7I60ubc3wAT3x
+	BtnIpfQ5ZpxFwxH11NF2BGcmR7Pms96MBswMTjQrQQrGsuRuFQzjGlT1sw/iLtq/plM=
+X-Gm-Gg: AeBDieu3yy+I7jm+SFk9Ut3ymw+6RgyoZ7FR7S4pTLwiEEJ3whLwUneQBdcV547ESSP
+	K+0aHaFbW1hdXCAx95z0WLY/f9Xkjbpeu10v0nmqqmSjGY1CxXBkK8GOksKw+cNupcxhTKpCnTk
+	rGRIlS698j0ThOqgWMXom3F5HlOV0klyMIAxP1CyWQazwh7nqaljCJLGS5aPgxwKlJORYkoO7a7
+	LOkam3dnCkSwezjQkratVe946Il6QvT0mpkvyfaGHYhMt+zRq0S+GDneGRuaA4nlwahhd4EAoAD
+	nhS2+HnYGyKCGjGQIOMgQrTvsIZPK+zosIWQoPAi4H617ydteFEXR6KDeKKS5PlRQ+RlwDHHYPm
+	cr9buJma0NjdVqCaByZBg2o9v/aW4ku6D/Ry3dXcAw9h1vQNlZ8VVTTxEyD8EYx4ZHeklclT/sI
+	Nyn5Emmao358IPWtr9puuJ6APIdmp8YlzxD9DmEhZxdA==
+X-Received: by 2002:a05:600c:1554:b0:488:a639:b787 with SMTP id 5b1f17b1804b1-488ccfb7907mr47873215e9.11.1775737383421;
+        Thu, 09 Apr 2026 05:23:03 -0700 (PDT)
+Received: from [10.11.12.108] ([79.115.63.48])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488cd21b604sm69928745e9.10.2026.04.09.05.23.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 09 Apr 2026 05:23:03 -0700 (PDT)
+Message-ID: <63087cad-a8d1-4ff0-870a-6e1a738ff8b8@linaro.org>
+Date: Thu, 9 Apr 2026 15:22:59 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-ORIG-GUID: OXF4xuTpOgYJfK6NUmxtmVEnGPcIUQVo
-X-Authority-Analysis: v=2.4 cv=fIIJG5ae c=1 sm=1 tr=0 ts=69d799bc cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8 a=LDVbE-baonJtzDLOTeQA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA5MDExMSBTYWx0ZWRfXwjBS59UIkWK8
- UklVZqTbftY22EAQqx3U/Q4h8D9ivNaIPqCGIiOnsqTZe7BH/6wF3NFLwjkWt0VJA5j3sv8AK6X
- Ww2KueZ115uaDTPTF0IuKhfODH65FNf3o+czc0+1aHmgjOJM5YdVcWkSJZ7OKYf9/LaMeJ44qgH
- iD/ilDkAVQVFzetNdDRsvECB5kMn87jXjlLJID5TQOlzx6S1a8NGkbhc+F5JAhXT9NXJaDh5VTa
- 9NTNdOYsH1bxQiNrCASu2i5oyYGQXjeLiu6C2O26cEw7MBvDWhnK0Jh66A/CLABZEM0to5YhV83
- GzCx7H8kOMg84xfXja9D1s1vQbN1fhcj+b1cyYj1ti9SHVdljGlsCJBOfPmJwEreytY+med5Zkl
- aTruR+oMySSRmv/CHnk/6BbkYO8rcoWp4UOh5z+exzyH4883Cu1Ze0hIfQKMXIif/jSHzTnAoTI
- RCgovTYd0lZu/EOSayQ==
-X-Proofpoint-GUID: OXF4xuTpOgYJfK6NUmxtmVEnGPcIUQVo
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-09_03,2026-04-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 impostorscore=0 clxscore=1011 adultscore=0
- bulkscore=0 malwarescore=0 phishscore=0 spamscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604090111
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/7] thermal: samsung: Add support for Google GS101 TMU
+To: Alexey Klimov <alexey.klimov@linaro.org>, daniel.lezcano@kernel.org
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>, Kees Cook <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
+ willmcvicker@google.com, jyescas@google.com, shin.son@samsung.com,
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-hardening@vger.kernel.org
+References: <20260119-acpm-tmu-v2-0-e02a834f04c6@linaro.org>
+ <DHNUUPQPD5DR.18P18VV0LNTI8@linaro.org>
+Content-Language: en-US
+From: Tudor Ambarus <tudor.ambarus@linaro.org>
+In-Reply-To: <DHNUUPQPD5DR.18P18VV0LNTI8@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The NT37801 Sepc V1.0 chapter "5.7.1 Power On Sequence" states
-VDDI=1.65V~1.95V, so set sufficient voltage for panel nt37801.
 
-Fixes: 4fca6849864d ("drm/panel: Add Novatek NT37801 panel driver")
-Signed-off-by: Ayushi Makhija <ayushi.makhija@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/sm8750-mtp.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8750-mtp.dts b/arch/arm64/boot/dts/qcom/sm8750-mtp.dts
-index 3837f6785320..6ba4e69bf377 100644
---- a/arch/arm64/boot/dts/qcom/sm8750-mtp.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8750-mtp.dts
-@@ -462,7 +462,7 @@ vreg_l11b_1p0: ldo11 {
- 
- 		vreg_l12b_1p8: ldo12 {
- 			regulator-name = "vreg_l12b_1p8";
--			regulator-min-microvolt = <1200000>;
-+			regulator-min-microvolt = <1650000>;
- 			regulator-max-microvolt = <1800000>;
- 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
- 			regulator-allow-set-load;
--- 
-2.34.1
+On 4/8/26 5:49 PM, Alexey Klimov wrote:
+> On Mon Jan 19, 2026 at 12:08 PM GMT, Tudor Ambarus wrote:
+>> Add support for the Thermal Management Unit (TMU) on the Google GS101
+>> SoC.
+>>
+>> The GS101 TMU implementation utilizes a hybrid architecture where
+>> management is shared between the kernel and the Alive Clock and
+>> Power Manager (ACPM) firmware.
+> 
+> Do you plan to update or work on this series? If, by some reason,
 
+I'd like to resubmit, but I got derailed by other tasks.
+
+> this series is postphoned I can rebase it and re-send, for example.
+> IIRC it needs a clean rebase as a minimial change.
+> 
+
+No, it's more than that. When I talked with Daniel about this driver, he
+suggested I shall really focus on using the .set_trips callback instead of
+.set_trip_temp. I'm not sure if it's possible given the static nature of
+the ACPM interface. So it needs a bit of investigation, which I couldn't
+do lately.
+
+If we can go initially with .set_trip_temp and then come up with an iterative
+patch about .set_trips, I can of course respin, it takes me just a few
+minutes to rebase and test. But it's Daniel to decide.
+
+Oh, and the device tree needs a little update on the trip points, but other
+than that, we're good to go.
+
+Cheers,
+ta
