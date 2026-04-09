@@ -1,80 +1,226 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F67E3ACA51
-	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 09:04:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com [210.160.252.171])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F24C93A9DA6;
+	Thu,  9 Apr 2026 09:04:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.160.252.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775725495; cv=none; b=htvwVqZpjbD062i0cu6sTS8xS44oVmQNUrYlTGL8IZfqODV+0FAdt4lb02T0xdmhGgDvES2i4hdkJuGYhDdwLkYZaqBEtZ6ow4qeyq1cnC2jvPLjxqiWtkoUhzUuJpHqb4rVvhwh00lcNODFrLEFhslS53NjZlDEILQDUKFlRqw=
+	t=1775725501; cv=none; b=tagdD5t2DTmY/Z7JTG4ceb3po3qYNJ2zXUlaI9s7Um0/MAjkW/B62D48i6dIvntD6Wkipd+DZxyg8EI/l7w+8KUgXJW33yy2IG1wi4RN8rMza6y11rgrrva4/r4j3+hbROKLsQkndhviEszmm44c2f3dpOjmayAOQhaAgloBWuY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775725495; c=relaxed/simple;
-	bh=ivdVDjBdXMcsq5rcsNRV8DmeSV0EdX/kGsbLhAxCXxA=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aPmhHc8Dm+TldHZO7jKGXgyqpGjNkYa9EFdUKBjpusMhf5bxT7Y/fuxaaCtBtSWuBiuh/7wm8dChZJ+JMpDnsNpvnNxOQ2X8TMS9W6yrjwboQt/GlsN1HsaBz6s8G0N2dEoDaJItWtYRVesYcabRaLLCNl+ssRF+rWdJONl9Dnk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dg6+q9Fm; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dg6+q9Fm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 263DFC2BCB3
-	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 09:04:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775725495;
-	bh=ivdVDjBdXMcsq5rcsNRV8DmeSV0EdX/kGsbLhAxCXxA=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc:From;
-	b=dg6+q9Fm06J3f/FzxZ+WQt5KuEOufSQ2NgxBRZUQkPUcyCNMHPkuw8dzbU+YvIhs6
-	 eCJC2vvwKcVzkjG9Bp2lA5Kcq0837xr9hw/zKSnSq0ZeeXad03P5vJrITa43wdgfdV
-	 cUg9gonhhGO8+IFS7aJGNnquMrotcM6Ba/wG617MV1MFEPGRNS+MKHPSIK0sgQ0wdp
-	 goK0mmVdH/HHp7JFAIonN7G2KvgpT72uTmN/XQk5mVgtrg1O+0t2GKXFZgpj5Iv+vL
-	 b2x4WaHpdyRGvuRuh9BQsEOoc7+bnkY3cHAHWpMeg+hm71ux6Ip147DOX+Qw6jsnyh
-	 mxV0b5BBcMg/w==
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-38cbb1ad0b6so5605811fa.2
-        for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 02:04:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCVopo/quIzAf2KWaE/a18vbzUUuAYI+nnzapXSHYqlayeDrtHvAw/G1v5Kb641I00tzQhRFD+jBkRbX@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywcy3PUhaeRb0YjerkaxdPPnUFJJNJ0AINWZrTR10iVxW/36taJ
-	8Q/C5ePWzA7NtllOj5m2ZkGdJf5VSVFGnV/l88r1eXR8OVW1HB6qO4/WH6E5Cq/nM14jdUHp6Mv
-	cB6yKFwEmY55wR0YOUFmhxGYORDktYIazPmoTmfk24w==
-X-Received: by 2002:a05:651c:1102:b0:38e:186e:350e with SMTP id
- 38308e7fff4ca-38e335002e7mr9186111fa.7.1775725493820; Thu, 09 Apr 2026
- 02:04:53 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 9 Apr 2026 04:04:52 -0500
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 9 Apr 2026 04:04:52 -0500
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260409-knp-soccp-v5-5-805a492124da@oss.qualcomm.com>
+	s=arc-20240116; t=1775725501; c=relaxed/simple;
+	bh=cLGLr+r89gQqbTNIHaqbN911i6HiTCoOhoRnMMvrI8M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TTDPOByAa1WNl2DNjnIJSyBOnsp8W2/XHpuLHqZO7ZDmPwN98443VOdmFTER8+e4n1Inv4BZjJUNT1oGIdqt6QpvbiaWcIvsPCrW3fi1si20hT+vqoHRaUgvipRHmy0s8m5MbzH8km+nNghZcS4KmUNUDiwmqTOnrrMEbFNUilA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; arc=none smtp.client-ip=210.160.252.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+X-CSE-ConnectionGUID: OL/D5ys5RqauwuWJnhvYLw==
+X-CSE-MsgGUID: VybBkJ10QCu+BfFIT1j71A==
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+  by relmlie5.idc.renesas.com with ESMTP; 09 Apr 2026 18:04:59 +0900
+Received: from ubuntu.adwin.renesas.com (unknown [10.226.92.218])
+	by relmlir5.idc.renesas.com (Postfix) with ESMTP id 031C74015D82;
+	Thu,  9 Apr 2026 18:04:53 +0900 (JST)
+From: John Madieu <john.madieu.xa@bp.renesas.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	john.madieu@gmail.com,
+	linux-sound@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	John Madieu <john.madieu.xa@bp.renesas.com>
+Subject: [PATCH v4 11/12] ASoC: rsnd: src: Add SRC reset and clock support for RZ/G3E
+Date: Thu,  9 Apr 2026 11:03:00 +0200
+Message-ID: <20260409090302.2243305-12-john.madieu.xa@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260409090302.2243305-1-john.madieu.xa@bp.renesas.com>
+References: <20260409090302.2243305-1-john.madieu.xa@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260409-knp-soccp-v5-0-805a492124da@oss.qualcomm.com> <20260409-knp-soccp-v5-5-805a492124da@oss.qualcomm.com>
-Date: Thu, 9 Apr 2026 04:04:52 -0500
-X-Gmail-Original-Message-ID: <CAMRc=McDDNQ2qmvxuisKY2xCcV_BOHLhQ6H2gSn-Txx+OOzmGA@mail.gmail.com>
-X-Gm-Features: AQROBzAvLOQJLCK2-KvTsbWbxr208ryUSGaqQRkbTgHhlnI3qbTJKT_9AMp0KDE
-Message-ID: <CAMRc=McDDNQ2qmvxuisKY2xCcV_BOHLhQ6H2gSn-Txx+OOzmGA@mail.gmail.com>
-Subject: Re: [PATCH v5 5/5] remoteproc: qcom_q6v5_pas: Add SoCCP node on Kaanapali
-To: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-Cc: aiqun.yu@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com, 
-	trilok.soni@oss.qualcomm.com, yijie.yang@oss.qualcomm.com, 
-	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Thu, 9 Apr 2026 10:52:28 +0200, Jingyi Wang
-<jingyi.wang@oss.qualcomm.com> said:
-> The SoC Control Processor (SoCCP) is small RISC-V MCU that controls
-> USB Type-C, battery charging and various other functions on Qualcomm SoCs.
-> It provides a solution for control-plane processing, reducing per-subsystem
-> microcontroller reinvention. Add support for SoCCP PAS loader on Kaanapali
-> platform.
->
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-> ---
+The RZ/G3E SoC requires explicit SCU (Sampling Rate Converter Unit)
+reset and clock management unlike previous R-Car generations:
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+- scu_clk: SCU module clock
+- scu_clkx2: SCU double-rate clock
+- scu_supply_clk: SCU supply clock
+
+Without these clocks enabled, the SRC module cannot operate on RZ/G3E.
+Add support for the shared SCU reset controller used by the SRC modules
+on the Renesas RZ/G3E SoC. All SRC instances are gated by the same "scu"
+reset line.
+
+Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
+---
+
+Changes:
+ 
+v4:
+ - Move shared SCU clocks (scu, scu_x2, scu_supply) from rsnd_priv
+   variables into new struct rsnd_src_ctrl, following the rsnd_dma_ctrl
+   pattern for shared non-per-instance module resources
+ - Keep original declaration order for struct device_node *node
+
+v3: No changes
+v2: No changes
+
+ sound/soc/renesas/rcar/rsnd.h |  1 +
+ sound/soc/renesas/rcar/src.c  | 59 ++++++++++++++++++++++++++++++++++-
+ 2 files changed, 59 insertions(+), 1 deletion(-)
+
+diff --git a/sound/soc/renesas/rcar/rsnd.h b/sound/soc/renesas/rcar/rsnd.h
+index 5cf35a1f3e45..8f8e86cb6e62 100644
+--- a/sound/soc/renesas/rcar/rsnd.h
++++ b/sound/soc/renesas/rcar/rsnd.h
+@@ -680,6 +680,7 @@ struct rsnd_priv {
+ 	/*
+ 	 * below value will be filled on rsnd_src_probe()
+ 	 */
++	void *src_ctrl;
+ 	void *src;
+ 	int src_nr;
+ 
+diff --git a/sound/soc/renesas/rcar/src.c b/sound/soc/renesas/rcar/src.c
+index 8b58cc20e7a8..651ed378c4f7 100644
+--- a/sound/soc/renesas/rcar/src.c
++++ b/sound/soc/renesas/rcar/src.c
+@@ -54,6 +54,14 @@ struct rsnd_src {
+ 	     ((pos) = (struct rsnd_src *)(priv)->src + i);	\
+ 	     i++)
+ 
++struct rsnd_src_ctrl {
++	struct clk *scu;
++	struct clk *scu_x2;
++	struct clk *scu_supply;
++};
++
++#define rsnd_priv_to_src_ctrl(priv) \
++	((struct rsnd_src_ctrl *)(priv)->src_ctrl)
+ 
+ /*
+  *		image of SRC (Sampling Rate Converter)
+@@ -516,6 +524,7 @@ static int rsnd_src_init(struct rsnd_mod *mod,
+ 			 struct rsnd_priv *priv)
+ {
+ 	struct rsnd_src *src = rsnd_mod_to_src(mod);
++	struct device *dev = rsnd_priv_to_dev(priv);
+ 	int ret;
+ 
+ 	/* reset sync convert_rate */
+@@ -526,6 +535,12 @@ static int rsnd_src_init(struct rsnd_mod *mod,
+ 	if (ret < 0)
+ 		return ret;
+ 
++	ret = clk_prepare_enable(rsnd_priv_to_src_ctrl(priv)->scu_supply);
++	if (ret) {
++		dev_err(dev, "Cannot enable scu_supply_clk\n");
++		return ret;
++	}
++
+ 	rsnd_src_activation(mod);
+ 
+ 	rsnd_src_init_convert_rate(io, mod);
+@@ -549,6 +564,8 @@ static int rsnd_src_quit(struct rsnd_mod *mod,
+ 	src->sync.val		=
+ 	src->current_sync_rate	= 0;
+ 
++	clk_disable_unprepare(rsnd_priv_to_src_ctrl(priv)->scu_supply);
++
+ 	return 0;
+ }
+ 
+@@ -713,6 +730,8 @@ int rsnd_src_probe(struct rsnd_priv *priv)
+ {
+ 	struct device_node *node;
+ 	struct device *dev = rsnd_priv_to_dev(priv);
++	struct reset_control *rstc;
++	struct rsnd_src_ctrl *src_ctrl;
+ 	struct rsnd_src *src;
+ 	struct clk *clk;
+ 	char name[RSND_SRC_NAME_SIZE];
+@@ -728,6 +747,12 @@ int rsnd_src_probe(struct rsnd_priv *priv)
+ 		goto rsnd_src_probe_done;
+ 	}
+ 
++	src_ctrl = devm_kzalloc(dev, sizeof(*src_ctrl), GFP_KERNEL);
++	if (!src_ctrl) {
++		ret = -ENOMEM;
++		goto rsnd_src_probe_done;
++	}
++
+ 	src	= devm_kcalloc(dev, nr, sizeof(*src), GFP_KERNEL);
+ 	if (!src) {
+ 		ret = -ENOMEM;
+@@ -736,6 +761,28 @@ int rsnd_src_probe(struct rsnd_priv *priv)
+ 
+ 	priv->src_nr	= nr;
+ 	priv->src	= src;
++	priv->src_ctrl	= src_ctrl;
++
++	src_ctrl->scu = devm_clk_get_optional_enabled(dev, "scu");
++	if (IS_ERR(src_ctrl->scu)) {
++		ret = dev_err_probe(dev, PTR_ERR(src_ctrl->scu),
++				    "failed to get scu clock\n");
++		goto rsnd_src_probe_done;
++	}
++
++	src_ctrl->scu_x2 = devm_clk_get_optional_enabled(dev, "scu_x2");
++	if (IS_ERR(src_ctrl->scu_x2)) {
++		ret = dev_err_probe(dev, PTR_ERR(src_ctrl->scu_x2),
++				    "failed to get scu_x2 clock\n");
++		goto rsnd_src_probe_done;
++	}
++
++	src_ctrl->scu_supply = devm_clk_get_optional(dev, "scu_supply");
++	if (IS_ERR(src_ctrl->scu_supply)) {
++		ret = dev_err_probe(dev, PTR_ERR(src_ctrl->scu_supply),
++				    "failed to get scu_supply clock\n");
++		goto rsnd_src_probe_done;
++	}
+ 
+ 	i = 0;
+ 	for_each_child_of_node_scoped(node, np) {
+@@ -759,6 +806,16 @@ int rsnd_src_probe(struct rsnd_priv *priv)
+ 			goto rsnd_src_probe_done;
+ 		}
+ 
++		/*
++		 * RZ/G3E uses a shared SCU reset controller for all SRC modules.
++		 * R-Car platforms typically don't have SRC reset controls.
++		 */
++		rstc = devm_reset_control_get_optional_shared(dev, "scu");
++		if (IS_ERR(rstc)) {
++			ret = PTR_ERR(rstc);
++			goto rsnd_src_probe_done;
++		}
++
+ 		clk = devm_clk_get(dev, name);
+ 		if (IS_ERR(clk)) {
+ 			ret = PTR_ERR(clk);
+@@ -766,7 +823,7 @@ int rsnd_src_probe(struct rsnd_priv *priv)
+ 		}
+ 
+ 		ret = rsnd_mod_init(priv, rsnd_mod_get(src),
+-				    &rsnd_src_ops, clk, NULL, RSND_MOD_SRC, i);
++				    &rsnd_src_ops, clk, rstc, RSND_MOD_SRC, i);
+ 		if (ret)
+ 			goto rsnd_src_probe_done;
+ 
+-- 
+2.25.1
+
