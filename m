@@ -1,226 +1,410 @@
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AA3F3E2750
-	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 17:16:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 408044317D;
+	Thu,  9 Apr 2026 17:30:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775755015; cv=none; b=sfkE2NwhkYCc/uRuFSeb4DYq7xFzR8R2Ee7cZ/BYoyCc35Okv+HIuwChgRjBb6EN2XUXNtPPVTOEnSa57cy1o7m5+V7yTFEMGatSVVR4ijkdbxzFl9gVSd0mmFhTbvSt0XikeONqYp/Ls/84EnZ1WzkoGTALIM23MnIU6+bBZnE=
+	t=1775755855; cv=none; b=p2Ch9/213IeIZ4/F8s8U61P202xE6iwYMMO6+Kjg0xjzKWDyew5tnvTwgy8gDYP2bQaTC0Thqyn3qCGnVZCh3kE2blC3J8oAHIWmVw3T8Gm3ou9786lpTxnQ+wkVjD7QzqPp3qMiaeN6Syx+g4BSBIOGBKA8/L6OWoqm1p1OUnQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775755015; c=relaxed/simple;
-	bh=S60+iELf201hWfWsA0+5HzASsARSxTciNv62Lq5+S90=;
+	s=arc-20240116; t=1775755855; c=relaxed/simple;
+	bh=n6ZhTvDI/gO7vRnPYKTQOQKVkLDFI51YC7FfF+h0E9c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q86OSEAiKtqKREpGrO6l17VfrsNwXDe+qttHV701JPCJc19irOk4t1cCjzjy6vF8QZYBvKCOZwO/kb4vzH7bgmSUeuvqb0dJiX3q91C9xBAp1HMXt4CjadO3YXmuEXZvHUSZzMs+ZQUtW7HrQAD2v8N+6RIyRuzVT5Cdt3aOzqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ix9GuZZA; arc=none smtp.client-ip=74.125.82.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ix9GuZZA"
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-2cfd69b564dso1554066eec.0
-        for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 10:16:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775755011; x=1776359811; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=OiUmxJypMk7dUgMF/8X+eU6lB0Kg/0QHff8vgI/w/kA=;
-        b=Ix9GuZZA7oD3oe45n0dpQmNG+x2p3bO3hgebWxOV2WoySs6B/HLyE6lPOdXKM1guQQ
-         /O31QDbYhoG+obtxcw03evTeIhKf2vU5JrIIsH3ylr6+RunTX9vpy5NCRAbgZwSIpp/S
-         7jftrBtpowJOe9riVQ60YmAm4o8MBNkll0nXQSaDvYZ9Dks9RVCswpJNh69uNQWg5q37
-         zfMGmpM1OMsSrCn2tU+iFMQ9X5gjw3DBc0MLFOzmkCCaLM4qbjjVHhdfAphEfet8yso9
-         yrjwYi+No1UGdcvaX5/yv2aYpsEGlQVhs20REHeZWDCVsnDWKMBRiuPw86e02y/L0Cps
-         WQSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775755011; x=1776359811;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=OiUmxJypMk7dUgMF/8X+eU6lB0Kg/0QHff8vgI/w/kA=;
-        b=IxnwVQzzdvO6Kxo4jbK5YGfCEKc2poqtiwaCAwbIRegClm4mR4Qt1hye3nkxrTDtll
-         yPfjVi6ZiSgw3IjWEEUgBM/vCWGB2f2h1sxo797D3kawmTqDOPJliQZ1j7Ivbd7LCttV
-         CTRvNv0dP88fKbTqB6AR5Ar4liCynXc+yyruQpQj4Arv590bdIyDkoeIX8smrix22mZN
-         qKD3OmEVvZaUVW0bDGJZWAgk1891YmTPLDR9HKxoKDNm4pXMtRh3y6HoJSk0lXqibG9i
-         efUZzSpqAOyxyNe1HKX2g3okBZYTKAqpAjYIgKzSxPb56708KZ6Bi5OVm9mLyiyh2cZR
-         /I5w==
-X-Forwarded-Encrypted: i=1; AJvYcCVD1gJRyzH3VBOI4OO7i5SbwryIrPheYRDE4ZYbDXzv0o0p3DKKNpcmW1DQffg16WTU9WZlQOfzrspN@vger.kernel.org
-X-Gm-Message-State: AOJu0YwXrxx15Hs3VgD7ttxRHpH7DAq8Oa4s0bgAXIAs2SBEtLojeVc0
-	u356htg36mp5vn+Gj7B6yFJo1W3f8RaFvxBjI6d3hJyAlVX8993z5Kqn
-X-Gm-Gg: AeBDievaC0qY0tz1kYHzoOWzUScwMDKizwfI7kVG8kYlLv4WBjHeUOajKxlQCHWryHL
-	cl8roBPFN1PPOR5kYjj6guJGbb5l9NMr8QuqEptCvejK2hDwyYsNNSTkQxxxewvP6vcHl7fEiCe
-	rgKt+J2WIj7DGWNXAPmI3jf1o3UM/GfNPvsWaoeBxrTSCglbv65s53fVgznVYfAdgLIH6YpHFy8
-	76OaZhkbEiAyvBMY0W6sgTZyjkgtwo2oJZalhbhxXWThzlIQt1FF+48YnyYbND7FDXVrQWl3EsO
-	uMhCqKaCf5D8T+Ju1urJOvpwAJoUFyErXxE1c26hog+vYbPIrc9tv8BxItZ5XAcdcGOUDVjX7k/
-	5yu8eBJiyptXE859i5lYC/1HfVYWjAQ8p9CbvZiljyoDbsj2ZbANdjE4NdrfcUiqFOCF3l0WEVi
-	PjvHZjl4IelcPyYeQt2Sz8d0iUZPPDlRAuo4t91tQAWPE+S8y3A9E1FK41WEKfWzUF
-X-Received: by 2002:a05:693c:2b17:b0:2c3:5dc0:a06b with SMTP id 5a478bee46e88-2d40defc97fmr3118618eec.20.1775755011019;
-        Thu, 09 Apr 2026 10:16:51 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:12ff:7738:6560:2618])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2d55ff826dcsm484882eec.13.2026.04.09.10.16.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Apr 2026 10:16:50 -0700 (PDT)
-Date: Thu, 9 Apr 2026 10:16:46 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: Jingyuan Liang <jingyliang@chromium.org>, 
-	Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Mark Brown <broonie@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-input@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org, devicetree@vger.kernel.org, hbarnor@chromium.org, 
-	tfiga@chromium.org, Dmitry Antipov <dmanti@microsoft.com>, 
-	Jarrett Schultz <jaschultz@microsoft.com>
-Subject: Re: [PATCH v3 09/11] dt-bindings: input: Document hid-over-spi DT
- schema
-Message-ID: <adfdkwq_bF9dirAq@google.com>
-References: <20260402-send-upstream-v3-0-6091c458d357@chromium.org>
- <20260402-send-upstream-v3-9-6091c458d357@chromium.org>
- <20260409-defuse-thank-4b038128fac5@spud>
+	 Content-Type:Content-Disposition:In-Reply-To; b=qBBlgu8ZGzbgZOGu/n2S0OCBrxF37fxJOoj3bm4W2kNBggyjarMsyA+A5QaG6Vc/yaqnOG3DbWzSnmkzW8k0xclKd05hys1FF05VEBeinUQNLvcXtFa90ld0jAI0ZrnDZ55opnVtmpfjLPfQFMQ4kQnw7w2Nrox5hNC1rrfq3/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
+Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
+	by leonov.paulk.fr (Postfix) with ESMTPS id A7DB81F8005F;
+	Thu,  9 Apr 2026 17:30:45 +0000 (UTC)
+Received: by laika.paulk.fr (Postfix, from userid 65534)
+	id 9D7EBB401BA; Thu,  9 Apr 2026 17:30:43 +0000 (UTC)
+X-Spam-Level: 
+Received: from shepard (unknown [192.168.1.1])
+	by laika.paulk.fr (Postfix) with ESMTPSA id 83915B401B9;
+	Thu,  9 Apr 2026 17:30:41 +0000 (UTC)
+Date: Thu, 9 Apr 2026 19:30:38 +0200
+From: Paul Kocialkowski <paulk@sys-base.io>
+To: Richard Genoud <richard.genoud@bootlin.com>
+Cc: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	John Stultz <jstultz@google.com>, Joao Schim <joao@schimsalabim.eu>,
+	linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/4] pwm: sun50i: Add H616 PWM support
+Message-ID: <adfiPo4Jq1IRMM0h@shepard>
+References: <20260305091959.2530374-1-richard.genoud@bootlin.com>
+ <20260305091959.2530374-3-richard.genoud@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="33pU5tb6RmcLLlSB"
 Content-Disposition: inline
-In-Reply-To: <20260409-defuse-thank-4b038128fac5@spud>
+In-Reply-To: <20260305091959.2530374-3-richard.genoud@bootlin.com>
 
-On Thu, Apr 09, 2026 at 05:02:11PM +0100, Conor Dooley wrote:
-> On Thu, Apr 02, 2026 at 01:59:46AM +0000, Jingyuan Liang wrote:
-> > Documentation describes the required and optional properties for
-> > implementing Device Tree for a Microsoft G6 Touch Digitizer that
-> > supports HID over SPI Protocol 1.0 specification.
-> > 
-> > The properties are common to HID over SPI.
-> > 
-> > Signed-off-by: Dmitry Antipov <dmanti@microsoft.com>
-> > Signed-off-by: Jarrett Schultz <jaschultz@microsoft.com>
-> > Signed-off-by: Jingyuan Liang <jingyliang@chromium.org>
-> > ---
-> >  .../devicetree/bindings/input/hid-over-spi.yaml    | 126 +++++++++++++++++++++
-> >  1 file changed, 126 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/input/hid-over-spi.yaml b/Documentation/devicetree/bindings/input/hid-over-spi.yaml
-> > new file mode 100644
-> > index 000000000000..d1b0a2e26c32
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/input/hid-over-spi.yaml
-> > @@ -0,0 +1,126 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/input/hid-over-spi.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: HID over SPI Devices
-> > +
-> > +maintainers:
-> > +  - Benjamin Tissoires <benjamin.tissoires@redhat.com>
-> > +  - Jiri Kosina <jkosina@suse.cz>
-> 
-> Why them and not you, the developers of the series?
-> 
-> > +
-> > +description: |+
-> > +  HID over SPI provides support for various Human Interface Devices over the
-> > +  SPI bus. These devices can be for example touchpads, keyboards, touch screens
-> > +  or sensors.
-> > +
-> > +  The specification has been written by Microsoft and is currently available
-> > +  here: https://www.microsoft.com/en-us/download/details.aspx?id=103325
-> > +
-> > +  If this binding is used, the kernel module spi-hid will handle the
-> > +  communication with the device and the generic hid core layer will handle the
-> > +  protocol.
-> 
-> This is not relevant to the binding, please remove it.
-> 
-> > +
-> > +allOf:
-> > +  - $ref: /schemas/input/touchscreen/touchscreen.yaml#
-> > +
-> > +properties:
-> > +  compatible:
-> > +    oneOf:
-> > +      - items:
-> > +          - enum:
-> > +              - microsoft,g6-touch-digitizer
-> > +          - const: hid-over-spi
-> > +      - description: Just "hid-over-spi" alone is allowed, but not recommended.
-> > +        const: hid-over-spi
-> 
-> Why is it allowed but not recommended? Seems to me like we should
-> require device-specific compatibles.
 
-Why would we want to change the driver code to add a new compatible each
-time a vendor decides to create a chip that is fully hid-spi-protocol
-compliant? Or is the plan to still allow "hid-over-spi" fallback but
-require device-specific compatible that will be ignored unless there is
-device-specific quirk needed?
+--33pU5tb6RmcLLlSB
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> 
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  interrupts:
-> > +    maxItems: 1
-> > +
-> > +  reset-gpios:
-> > +    maxItems: 1
-> > +    description:
-> > +      GPIO specifier for the digitizer's reset pin (active low). The line must
-> > +      be flagged with GPIO_ACTIVE_LOW.
-> > +
-> > +  vdd-supply:
-> > +    description:
-> > +      Regulator for the VDD supply voltage.
-> > +
-> > +  input-report-header-address:
-> > +    $ref: /schemas/types.yaml#/definitions/uint32
-> > +    minimum: 0
-> > +    maximum: 0xffffff
-> > +    description:
-> > +      A value to be included in the Read Approval packet, listing an address of
-> > +      the input report header to be put on the SPI bus. This address has 24
-> > +      bits.
-> > +
-> > +  input-report-body-address:
-> > +    $ref: /schemas/types.yaml#/definitions/uint32
-> > +    minimum: 0
-> > +    maximum: 0xffffff
-> > +    description:
-> > +      A value to be included in the Read Approval packet, listing an address of
-> > +      the input report body to be put on the SPI bus. This address has 24 bits.
-> > +
-> > +  output-report-address:
-> > +    $ref: /schemas/types.yaml#/definitions/uint32
-> > +    minimum: 0
-> > +    maximum: 0xffffff
-> > +    description:
-> > +      A value to be included in the Output Report sent by the host, listing an
-> > +      address where the output report on the SPI bus is to be written to. This
-> > +      address has 24 bits.
-> > +
-> > +  read-opcode:
-> > +    $ref: /schemas/types.yaml#/definitions/uint8
-> > +    description:
-> > +      Value to be used in Read Approval packets. 1 byte.
-> > +
-> > +  write-opcode:
-> > +    $ref: /schemas/types.yaml#/definitions/uint8
-> > +    description:
-> > +      Value to be used in Write Approval packets. 1 byte.
-> 
-> Why can none of these things be determined from the device's compatible?
-> On the surface, they like the kinds of things that could/should be.
+Hi Richard,
 
-Why would we want to keep tables of these values in the kernel and again
-have to update the driver for each new chip? It also probably
-firmware-dependent.
+On Thu 05 Mar 26, 10:19, Richard Genoud wrote:
+> +/* PWM IRQ Enable Register */
+> +#define H616_PWM_IER				0x0
 
-Thanks.
+I think it would make more sense to keep the full register names from the
+manual after the suffix and stick to them. It makes things easier when
+comparing the code with documentation or the reference implementation.
 
--- 
-Dmitry
+So something like SUN8I_PWM_PIER here.
+
+> +
+> +/* PWM IRQ Status Register */
+> +#define H616_PWM_ISR				0x4
+> +
+> +/* PWM Capture IRQ Enable Register */
+> +#define H616_PWM_CIER				0x10
+> +
+> +/* PWM Capture IRQ Status Register */
+> +#define H616_PWM_CISR				0x14
+> +
+> +/* PWMCC Pairs Clock Configuration Registers */
+> +#define H616_PWM_XY_CLK_CR(pair)		(0x20 + ((pair) * 0x4))
+> +#define H616_PWM_XY_CLK_CR_SRC_SHIFT		7
+> +#define H616_PWM_XY_CLK_CR_SRC_MASK		1
+> +#define H616_PWM_XY_CLK_CR_GATE_BIT		4
+> +#define H616_PWM_XY_CLK_CR_BYPASS_BIT(chan)	((chan) % 2 + 5)
+> +#define H616_PWM_XY_CLK_CR_DIV_M_SHIFT		0
+> +
+> +/* PWMCC Pairs Dead Zone Control Registers */
+> +#define H616_PWM_XY_DZ(pair)			(0x30 + ((pair) * 0x4))
+> +
+> +/* PWM Enable Register */
+> +#define H616_PWM_ENR				0x40
+> +#define H616_PWM_ENABLE(x)			BIT(x)
+> +
+> +/* PWM Capture Enable Register */
+> +#define H616_PWM_CER				0x44
+> +
+> +/* PWM Control Register */
+> +#define H616_PWM_CTRL_REG(chan)		(0x60 + (chan) * 0x20)
+
+You're sometimes calling the register offset _REG and sometimes not.
+Both options are fine but you need to keep it consistent across the whole
+definitions. I would be enclined to not use it after using the register nam=
+es
+coming from the manual as suggested above.
+
+Also you're sometimes using "chan", sometimes "ch" for the argument to the
+register macros. This is inconsistent and you might as well just use "c"
+everywhere so it doesn't take too much space.
+
+> +#define H616_PWM_CTRL_PRESCAL_K_SHIFT	0
+> +#define H616_PWM_CTRL_PRESCAL_K_WIDTH	8
+> +#define H616_PWM_CTRL_ACTIVE_STATE	BIT(8)
+> +
+> +/* PWM Period Register */
+> +#define H616_PWM_PERIOD_REG(ch)		(0x64 + (ch) * 0x20)
+> +#define H616_PWM_PERIOD_MASK		GENMASK(31, 16)
+> +#define H616_PWM_DUTY_MASK		GENMASK(15, 0)
+> +#define H616_PWM_REG_PERIOD(reg)	(FIELD_GET(H616_PWM_PERIOD_MASK, reg) +=
+ 1)
+> +#define H616_PWM_REG_DUTY(reg)		FIELD_GET(H616_PWM_DUTY_MASK, reg)
+> +#define H616_PWM_PERIOD(prd)		FIELD_PREP(H616_PWM_PERIOD_MASK, (prd) - 1)
+> +#define H616_PWM_DUTY(dty)		FIELD_PREP(H616_PWM_DUTY_MASK, dty)
+> +#define H616_PWM_PERIOD_MAX		(FIELD_MAX(H616_PWM_PERIOD_MASK) + 1)
+
+Using REG as a prefix feels a bit confusing here. I would rather see:
+#define SUN8I_PWM_PPR(c)		(0x64 + (c) * 0x20)
+#define SUN8I_PWM_PPR_PERIOD(p)		FIELD_PREP(...)
+#define SUN8I_PWM_PPR_PERIOD_VALUE(r)	FIELD_GET(...)
+#define SUN8I_PWN_PPR_PERIOD_MAX	FIELD_MAX(...)
+#define SUN8I_PWM_PPR_DUTY(d)		FIELD_PREP(...)
+#define SUN8I_PWM_PPR_DUTY_VALUE(r)	FIELD_GET(...)
+
+> +
+> +/* PWM Count Register */
+> +#define H616_PWM_CNT_REG(x)		(0x68 + (x) * 0x20)
+> +
+> +/* PWM Capture Control Register */
+> +#define H616_PWM_CCR(x)			(0x6c + (x) * 0x20)
+> +
+> +/* PWM Capture Rise Lock Register */
+> +#define H616_PWM_CRLR(x)		(0x70 + (x) * 0x20)
+> +
+> +/* PWM Capture Fall Lock Register */
+> +#define H616_PWM_CFLR(x)		(0x74 + (x) * 0x20)
+> +
+> +#define H616_PWM_PAIR_IDX(chan)		((chan) >> 2)
+> +
+> +/*
+> + * Block diagram of the PWM clock controller:
+> + *
+> + *             _____      ______      ________
+> + * OSC24M --->|     |    |      |    |        |
+> + * APB1 ----->| Mux |--->| Gate |--->| /div_m |-----> H616_PWM_clock_src=
+_xy
+> + *            |_____|    |______|    |________|
+> + *                               ________
+> + *                              |        |
+> + *                           +->| /div_k |---> H616_PWM_clock_x
+> + *                           |  |________|
+> + *                           |    ______
+> + *                           |   |      |
+> + *                           +-->| Gate |----> H616_PWM_bypass_clock_x
+> + *                           |   |______|
+> + * H616_PWM_clock_src_xy ----+   ________
+> + *                           |  |        |
+> + *                           +->| /div_k |---> H616_PWM_clock_y
+> + *                           |  |________|
+> + *                           |    ______
+> + *                           |   |      |
+> + *                           +-->| Gate |----> H616_PWM_bypass_clock_y
+> + *                               |______|
+> + *
+> + * NB: when the bypass is set, all the PWM logic is bypassed.
+> + * So, the duty cycle and polarity can't be modified (we just have a clo=
+ck).
+> + * The bypass in PWM mode is used to achieve a 1/2 relative duty cycle w=
+ith the
+> + * fastest clock.
+> + *
+> + * H616_PWM_clock_x/y serve for the PWM purpose.
+> + * H616_PWM_bypass_clock_x/y serve for the clock-provider purpose.
+> + *
+> + */
+> +
+> +/*
+> + * Table used for /div_m (diviser before obtaining H616_PWM_clock_src_xy)
+> + * It's actually CLK_DIVIDER_POWER_OF_TWO, but limited to /256
+> + */
+> +#define CLK_TABLE_DIV_M_ENTRY(i) { \
+> +	.val =3D (i), .div =3D 1 << (i) \
+> +}
+> +
+> +static const struct clk_div_table clk_table_div_m[] =3D {
+> +	CLK_TABLE_DIV_M_ENTRY(0),
+> +	CLK_TABLE_DIV_M_ENTRY(1),
+> +	CLK_TABLE_DIV_M_ENTRY(2),
+> +	CLK_TABLE_DIV_M_ENTRY(3),
+> +	CLK_TABLE_DIV_M_ENTRY(4),
+> +	CLK_TABLE_DIV_M_ENTRY(5),
+> +	CLK_TABLE_DIV_M_ENTRY(6),
+> +	CLK_TABLE_DIV_M_ENTRY(7),
+> +	CLK_TABLE_DIV_M_ENTRY(8),
+> +	{ /* sentinel */ }
+> +};
+> +
+> +#define H616_PWM_XY_SRC_GATE(_pair, _reg)		\
+> +struct clk_gate gate_xy_##_pair =3D {			\
+> +	.reg =3D (void *)(_reg),				\
+> +	.bit_idx =3D H616_PWM_XY_CLK_CR_GATE_BIT,		\
+> +	.hw.init =3D &(struct clk_init_data){		\
+> +		.ops =3D &clk_gate_ops,			\
+> +	}						\
+> +}
+> +
+> +#define H616_PWM_XY_SRC_MUX(_pair, _reg)		\
+> +struct clk_mux mux_xy_##_pair =3D {			\
+> +	.reg =3D (void *)(_reg),				\
+> +	.shift =3D H616_PWM_XY_CLK_CR_SRC_SHIFT,		\
+> +	.mask =3D H616_PWM_XY_CLK_CR_SRC_MASK,		\
+> +	.flags =3D CLK_MUX_ROUND_CLOSEST,			\
+> +	.hw.init =3D &(struct clk_init_data){		\
+> +		.ops =3D &clk_mux_ops,			\
+> +	}						\
+> +}
+> +
+> +#define H616_PWM_XY_SRC_DIV(_pair, _reg)		\
+> +struct clk_divider rate_xy_##_pair =3D {			\
+> +	.reg =3D (void *)(_reg),				\
+> +	.shift =3D H616_PWM_XY_CLK_CR_DIV_M_SHIFT,	\
+> +	.table =3D clk_table_div_m,			\
+> +	.hw.init =3D &(struct clk_init_data){		\
+> +		.ops =3D &clk_divider_ops,		\
+> +	}						\
+> +}
+> +
+> +#define H616_PWM_X_DIV(_idx, _reg)			\
+> +struct clk_divider rate_x_##_idx =3D {			\
+> +	.reg =3D (void *)(_reg),				\
+> +	.shift =3D H616_PWM_CTRL_PRESCAL_K_SHIFT,		\
+> +	.width =3D H616_PWM_CTRL_PRESCAL_K_WIDTH,		\
+> +	.hw.init =3D &(struct clk_init_data){		\
+> +		.ops =3D &clk_divider_ops,		\
+> +	}						\
+> +}
+> +
+> +#define H616_PWM_X_BYPASS_GATE(_idx)			\
+> +struct clk_gate gate_x_bypass_##_idx =3D {		\
+> +	.reg =3D (void *)H616_PWM_ENR,			\
+> +	.bit_idx =3D _idx,				\
+> +	.hw.init =3D &(struct clk_init_data){		\
+> +		.ops =3D &clk_gate_ops,			\
+> +	}						\
+> +}
+> +
+> +#define H616_PWM_XY_CLK_SRC(_pair, _reg)			\
+> +	static H616_PWM_XY_SRC_MUX(_pair, _reg);		\
+> +	static H616_PWM_XY_SRC_GATE(_pair, _reg);		\
+> +	static H616_PWM_XY_SRC_DIV(_pair, _reg)
+> +
+> +#define H616_PWM_X_CLK(_idx)					\
+> +	static H616_PWM_X_DIV(_idx, H616_PWM_CTRL_REG(_idx))
+> +
+> +#define H616_PWM_X_BYPASS_CLK(_idx)				\
+> +	H616_PWM_X_BYPASS_GATE(_idx)
+> +
+> +#define REF_CLK_XY_SRC(_pair)						\
+> +	{								\
+> +		.name =3D "pwm-clk-src" #_pair,				\
+> +		.mux_hw =3D &mux_xy_##_pair.hw,				\
+> +		.gate_hw =3D &gate_xy_##_pair.hw,				\
+> +		.rate_hw =3D &rate_xy_##_pair.hw,				\
+> +	}
+> +
+> +#define REF_CLK_X(_idx, _pair)						\
+> +	{								\
+> +		.name =3D "pwm-clk" #_idx,				\
+> +		.parent_names =3D (const char *[]){ "pwm-clk-src" #_pair }, \
+> +		.num_parents =3D 1,					\
+> +		.rate_hw =3D &rate_x_##_idx.hw,				\
+> +		.flags =3D CLK_SET_RATE_PARENT,				\
+> +	}
+> +
+> +#define REF_CLK_BYPASS(_idx, _pair)					\
+> +	{								\
+> +		.name =3D "pwm-clk-bypass" #_idx,				\
+> +		.parent_names =3D (const char *[]){ "pwm-clk-src" #_pair }, \
+> +		.num_parents =3D 1,					\
+> +		.gate_hw =3D &gate_x_bypass_##_idx.hw,			\
+> +		.flags =3D CLK_SET_RATE_PARENT,	\
+> +	}
+> +
+> +/*
+> + * H616_PWM_clock_src_xy generation:
+> + *             _____      ______      ________
+> + * OSC24M --->|     |    |      |    |        |
+> + * APB1 ----->| Mux |--->| Gate |--->| /div_m |-----> H616_PWM_clock_src=
+_xy
+> + *            |_____|    |______|    |________|
+> + */
+> +H616_PWM_XY_CLK_SRC(01, H616_PWM_XY_CLK_CR(0));
+> +H616_PWM_XY_CLK_SRC(23, H616_PWM_XY_CLK_CR(1));
+> +H616_PWM_XY_CLK_SRC(45, H616_PWM_XY_CLK_CR(2));
+> +
+> +/*
+> + * H616_PWM_clock_x_div generation:
+> + *                            ________
+> + *                           |        | H616_PWM_clock_x/y
+> + * H616_PWM_clock_src_xy --->| /div_k |--------------->
+> + *                           |________|
+> + */
+> +H616_PWM_X_CLK(0);
+> +H616_PWM_X_CLK(1);
+> +H616_PWM_X_CLK(2);
+> +H616_PWM_X_CLK(3);
+> +H616_PWM_X_CLK(4);
+> +H616_PWM_X_CLK(5);
+> +
+> +/*
+> + * H616_PWM_bypass_clock_xy generation:
+> + *                             ______
+> + *                            |      |
+> + * H616_PWM_clock_src_xy ---->| Gate |-------> H616_PWM_bypass_clock_x
+> + *                            |______|
+> + *
+> + * The gate is actually H616_PWM_ENR register.
+> + */
+> +H616_PWM_X_BYPASS_CLK(0);
+> +H616_PWM_X_BYPASS_CLK(1);
+> +H616_PWM_X_BYPASS_CLK(2);
+> +H616_PWM_X_BYPASS_CLK(3);
+> +H616_PWM_X_BYPASS_CLK(4);
+> +H616_PWM_X_BYPASS_CLK(5);
+> +
+> +struct clk_pwm_data {
+> +	const char *name;
+> +	const char **parent_names;
+> +	unsigned int num_parents;
+> +	struct clk_hw *mux_hw;
+> +	struct clk_hw *rate_hw;
+> +	struct clk_hw *gate_hw;
+> +	unsigned long flags;
+> +};
+> +
+> +#define CLK_BYPASS(h616chip, ch) ((h616chip)->data->npwm + (ch))
+> +#define CLK_XY_SRC_IDX(h616chip, ch) ((h616chip)->data->npwm * 2 + ((ch)=
+ >> 1))
+> +static struct clk_pwm_data pwmcc_data[] =3D {
+> +	REF_CLK_X(0, 01),
+> +	REF_CLK_X(1, 01),
+> +	REF_CLK_X(2, 23),
+> +	REF_CLK_X(3, 23),
+> +	REF_CLK_X(4, 45),
+> +	REF_CLK_X(5, 45),
+> +	REF_CLK_BYPASS(0, 01),
+> +	REF_CLK_BYPASS(1, 01),
+> +	REF_CLK_BYPASS(2, 23),
+> +	REF_CLK_BYPASS(3, 23),
+> +	REF_CLK_BYPASS(4, 45),
+> +	REF_CLK_BYPASS(5, 45),
+> +	REF_CLK_XY_SRC(01),
+> +	REF_CLK_XY_SRC(23),
+> +	REF_CLK_XY_SRC(45),
+> +	{ /* sentinel */ }
+> +};
+
+We'll probably need a way to tie these static definitions to a particular
+instance of the unit for a given chip. But I guess that can be done later
+when adding more chips to the driver.
+
+I'm not too versed in the clk and pwm APIs but the rest generally looks good
+to me.
+
+All the best,
+
+Paul
+
+--=20
+Paul Kocialkowski,
+
+Independent contractor - sys-base - https://www.sys-base.io/
+Free software developer - https://www.paulk.fr/
+
+Expert in multimedia, graphics and embedded hardware support with Linux.
+
+--33pU5tb6RmcLLlSB
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmnX4j4ACgkQhP3B6o/u
+lQwdTQ//ch93yoRTG9gLChC5/R+m1lTPe1/tIOk1Vi4GIILWe8IA+aJSf72kNsRx
+vMFalFHp44nFK4GIRAfx+r9zrZ+mLR3lQM4wsxGp2K65pPrmciw5qSky1v0l1ZRC
+eCOafd2S2ZBYq0Epzb1xje7piuqZp2ZDgbrquUWMeE39PcpHcC/miVPWTnbGB/5w
+VBPFbIfLlMNvGcv57l0t3zK8X3HnK60Tjlaqdi/iKdRAewm77tM+5SgyeMU4P7yd
+BGjiJn3FzonBTt64mWGSyjW1vjNAhiPRHklOkAUvbfBdRotlXoTZZieokinELK5v
+9/+38h/bpAlObLlIEmOCBAM4EPfGvVeX3iWIfiAoaxH7bh5jU6G5EuR4q+zWJRP8
+yNCW8vyn6jgAlq9p9hVc8J72mUvL8s1qidgxnErW583/wKhQY6au92l5uZkYykLi
+5eNF8jian3f/Hnh6ZweXfD2/SLFL4I+zO9Ez2jX3d4z748JrH9XiV6odQlyqHcYT
+duFqWWDNGD83wa+1/7yDeSN05u+Z/t3F56qJBycA/ESiOJneTHhccXnbNpKsLPpQ
+MeHraPw+D/tYUAQMxdeywU2HkVp704gGPOxOZn77ga6dSLr+As4eFa6eYgrDeD8R
+VJXulqovR4Ob8C0tyrWn8LYJTGR+HTngeHVWweyrJ6vtYqJcdCI=
+=v+2L
+-----END PGP SIGNATURE-----
+
+--33pU5tb6RmcLLlSB--
