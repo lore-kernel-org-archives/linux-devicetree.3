@@ -1,50 +1,55 @@
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com [210.160.252.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3F8D23A8757;
-	Thu,  9 Apr 2026 09:04:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.160.252.172
+Received: from cp2.siel.si (cp2.siel.si [46.19.12.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73AA32BE02C;
+	Thu,  9 Apr 2026 09:04:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.19.12.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775725482; cv=none; b=O5iOZhrOATs7vu/SHIAD7WFovZ6OgyHNE1d0KBy/wee8MeNr5o2g8pyf/1uO/3hWSy/mp/tAR7xNpKTEW3AwgR1d73dfmkxHgc0SL6tB+AH+DMAM74++Z7UI/HLgB8PiCtNHth36gYjG0FX8auztoT4lJz5Bcm6eAxtPPuSBQpE=
+	t=1775725484; cv=none; b=r5rpKhc4nDyK/Fcu8eAF0VJnbAs2WhvgYBEiHMR7l+cyjLKyy+xxzIDtnCgovPIfrGnJl5EBxe370EEztAPo3bxDNshnqPn7XscTM5kDu/J5MxWDyBJEmb9jLb7jWFjHo2xs7VoGD/ppBjbmGZ0n3s/VLfi/xLVBey/5+4kCPWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775725482; c=relaxed/simple;
-	bh=b6cGncZF1W8idU5Qzn0Zzj+UloY2Y6USJdbVejWKi40=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QXwHCN5jD0ABA4mv9dV6NIf0JUp4T8XUijV0YDFziRVeK8DgzspFVICqX5Dh13a2x3QLNhMHWldfSian2wc/s5+ocHJ+OiCZu3mju4XzNiQmt8RWGyQ6IkuRW7sKjdl76UoD2kjDLMfkcvnK1JSAFJOYjYjuMXm18HFotGldiNg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; arc=none smtp.client-ip=210.160.252.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
-X-CSE-ConnectionGUID: wmcGC9ZhTpWK5Om4CAhT2g==
-X-CSE-MsgGUID: U9ASP4QXTZyo1h19wHv5wg==
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
-  by relmlie6.idc.renesas.com with ESMTP; 09 Apr 2026 18:04:41 +0900
-Received: from ubuntu.adwin.renesas.com (unknown [10.226.92.218])
-	by relmlir5.idc.renesas.com (Postfix) with ESMTP id 373C34015D82;
-	Thu,  9 Apr 2026 18:04:34 +0900 (JST)
-From: John Madieu <john.madieu.xa@bp.renesas.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Rob Herring <robh@kernel.org>,
+	s=arc-20240116; t=1775725484; c=relaxed/simple;
+	bh=O22br3xD/t14epTadNQPE2WL9L+V8GbCzo4DbPGnwA0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=is7TYFVzrGZZiHKMSMLip/f6Xll0GPcitYb5mbZquHafz772eDxavPRSp0aWWWEd90U3Xn6w5Hb6X2vikBddURui/IaeWPQVlBIpHAh98zZv+sq9HqAQfFBlDJpvjHOHEbSvToNh08mOITn7OI/6d5u4dA2ruIEjGa95B+CHLkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com; spf=pass smtp.mailfrom=norik.com; dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b=YbZ+puSb; arc=none smtp.client-ip=46.19.12.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=norik.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b="YbZ+puSb"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=norik.com;
+	s=default; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+	Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=fkx+zy7S8tkXKrRqnkiWo05Crsd7tC+YW6b0KB03TfI=; b=YbZ+puSb6eFdNciDrS41w2OGCn
+	Y+L1S6KskFMGjhKMDUrdEPDDI+/JruLc5AQ3q0zwsJU4Z33BON072t97yDMxWpQgqyJDukbLgWjj9
+	qE8khwDBQxAehbLTwfC8cydmKitxbqljb6hxUB1EOabvYOhL7TYkWnwce1qGGZVzQu/8oiwji8Zdu
+	Hbmk/YOFwAgjmccF4Lv5loK9nIpoCy5wX7t8l4HsjhT2Hrip5Ip3RU0gLN9VnzUQ+sSOChiSegv8p
+	jS0Y/rxV2D9aNiBRrg1iDTVYq0H/lcqZnk70xC7tuODv1HZnsiMacA6/TfhbdISTctyKnSBtII4fa
+	46rnBuug==;
+Received: from 89-212-21-243.static.t-2.net ([89.212.21.243]:47156 helo=florijan-nb..)
+	by cp2.siel.si with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.1)
+	(envelope-from <florijan.plohl@norik.com>)
+	id 1wAlJW-0000000FYk7-02IH;
+	Thu, 09 Apr 2026 11:04:35 +0200
+From: Florijan Plohl <florijan.plohl@norik.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	john.madieu@gmail.com,
-	linux-sound@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	John Madieu <john.madieu.xa@bp.renesas.com>
-Subject: [PATCH v4 08/12] ASoC: rsnd: Add SSI reset support for RZ/G3E platforms
-Date: Thu,  9 Apr 2026 11:02:57 +0200
-Message-ID: <20260409090302.2243305-9-john.madieu.xa@bp.renesas.com>
+	upstream@lists.phytec.de
+Subject: [PATCH v2] arm64: dts: imx{91,93}-phyboard-segin: Add peb-av-18 overlays
+Date: Thu,  9 Apr 2026 11:01:25 +0200
+Message-ID: <20260409090432.130489-1-florijan.plohl@norik.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260409090302.2243305-1-john.madieu.xa@bp.renesas.com>
-References: <20260409090302.2243305-1-john.madieu.xa@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,75 +57,297 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - cp2.siel.si
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - norik.com
+X-Get-Message-Sender-Via: cp2.siel.si: authenticated_id: florijan.plohl@norik.com
+X-Authenticated-Sender: cp2.siel.si: florijan.plohl@norik.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-Add SSI reset support for the Renesas RZ/G3E SoC, which differs from
-earlier generations in several ways:
+Add overlay for the PHYTEC Audio/Video adapter module PEB-AV-18 on
+phyBOARD-Segin-i.MX91/93 boards. The supported AC220 display is
+Powertip PH800480T032-ZHC19 panel with a backlight and Ilitek
+touch-screen controller.
 
- - The SSI block always operates in BUSIF mode; RZ/G3E does not implement
-   the SSITDR/SSIRDR registers used by R-Car Gen2/Gen3/Gen4 for direct SSI
-   DMA. Consequently, for the RZ/G3E, all audio data must pass through
-   BUSIF. PIO mode remains available for R-Car Gen2/Gen3/Gen4 platforms.
- - Each SSI instance has its own reset line, exposed using per-SSI names
-   such as "ssi0", "ssi1", etc., rather than a single shared reset.
-
-To support these differences, rsnd_ssi_use_busif() always return 1 on
-RZ/G3E, ensuring that the driver consistently selects the BUSIF DMA path.
-While at it, update the reset acquisition logic to request the appropriate
-per-SSI reset controller based on the SSI instance name.
-
-Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
+Signed-off-by: Florijan Plohl <florijan.plohl@norik.com>
 ---
+Changes in v2:
+- Link to v1: https://lore.kernel.org/all/20260402070826.970012-1-florijan.plohl@norik.com/
+- Improve commit message to clarify what PEB-AV-18 is
+- Move imx91-phyboard-segin-peb-av-18 dtb entry next to
+  the other imx91 phyboard-segin definition in Makefile
+- Introduce common imx91-93-phyboard-segin-peb-av-18.dtsi
+- Adjust drive-strength values
 
-Changes:
- 
-v4:
- - Clarify in commit message that PIO mode remains available on R-Car
-   Gen2/Gen3/Gen4 platforms
+ arch/arm64/boot/dts/freescale/Makefile        |  6 ++
+ .../imx91-93-phyboard-segin-peb-av-18.dtsi    | 93 +++++++++++++++++++
+ .../imx91-phyboard-segin-peb-av-18.dtso       | 57 ++++++++++++
+ .../imx93-phyboard-segin-peb-av-18.dtso       | 57 ++++++++++++
+ 4 files changed, 213 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/freescale/imx91-93-phyboard-segin-peb-av-18.dtsi
+ create mode 100644 arch/arm64/boot/dts/freescale/imx91-phyboard-segin-peb-av-18.dtso
+ create mode 100644 arch/arm64/boot/dts/freescale/imx93-phyboard-segin-peb-av-18.dtso
 
-v3: No changes
-v2: No changes
-
- sound/soc/renesas/rcar/ssi.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
-
-diff --git a/sound/soc/renesas/rcar/ssi.c b/sound/soc/renesas/rcar/ssi.c
-index c06cebb36170..c65435551283 100644
---- a/sound/soc/renesas/rcar/ssi.c
-+++ b/sound/soc/renesas/rcar/ssi.c
-@@ -1158,6 +1158,7 @@ int __rsnd_ssi_is_pin_sharing(struct rsnd_mod *mod)
- 
- int rsnd_ssi_probe(struct rsnd_priv *priv)
- {
-+	struct reset_control *rstc;
- 	struct device_node *node;
- 	struct device *dev = rsnd_priv_to_dev(priv);
- 	struct rsnd_mod_ops *ops;
-@@ -1207,6 +1208,16 @@ int rsnd_ssi_probe(struct rsnd_priv *priv)
- 			goto rsnd_ssi_probe_done;
- 		}
- 
-+		/*
-+		 * RZ/G3E uses per-SSI reset controllers.
-+		 * R-Car platforms typically don't have SSI reset controls.
-+		 */
-+		rstc = devm_reset_control_get_optional(dev, name);
-+		if (IS_ERR(rstc)) {
-+			ret = PTR_ERR(rstc);
-+			goto rsnd_ssi_probe_done;
-+		}
+diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
+index bae24b53bce6..574960280744 100644
+--- a/arch/arm64/boot/dts/freescale/Makefile
++++ b/arch/arm64/boot/dts/freescale/Makefile
+@@ -416,6 +416,10 @@ dtb-$(CONFIG_ARCH_MXC) += imx91-11x11-evk.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx91-11x11-frdm.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx91-11x11-frdm-s.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx91-phyboard-segin.dtb
 +
- 		if (of_property_read_bool(np, "shared-pin"))
- 			rsnd_flags_set(ssi, RSND_SSI_CLK_PIN_SHARE);
++imx91-phyboard-segin-peb-av-18-dtbs += imx91-phyboard-segin.dtb imx91-phyboard-segin-peb-av-18.dtbo
++dtb-$(CONFIG_ARCH_MXC) += imx91-phyboard-segin-peb-av-18.dtb
++
+ dtb-$(CONFIG_ARCH_MXC) += imx91-tqma9131-mba91xxca.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx93-9x9-qsb.dtb
  
-@@ -1225,7 +1236,7 @@ int rsnd_ssi_probe(struct rsnd_priv *priv)
- 			ops = &rsnd_ssi_dma_ops;
- 
- 		ret = rsnd_mod_init(priv, rsnd_mod_get(ssi), ops, clk,
--				    NULL, RSND_MOD_SSI, i);
-+				    rstc, RSND_MOD_SSI, i);
- 		if (ret)
- 			goto rsnd_ssi_probe_done;
- 
+@@ -441,6 +445,7 @@ imx93-phyboard-nash-jtag-dtbs += imx93-phyboard-nash.dtb imx93-phyboard-nash-jta
+ imx93-phyboard-nash-peb-wlbt-07-dtbs += imx93-phyboard-nash.dtb imx93-phyboard-nash-peb-wlbt-07.dtbo
+ imx93-phyboard-nash-pwm-fan-dtbs += imx93-phyboard-nash.dtb imx93-phyboard-nash-pwm-fan.dtbo
+ imx93-phyboard-segin-peb-av-02-dtbs += imx93-phyboard-segin.dtb imx93-phyboard-segin-peb-av-02.dtbo
++imx93-phyboard-segin-peb-av-18-dtbs += imx93-phyboard-segin.dtb imx93-phyboard-segin-peb-av-18.dtbo
+ imx93-phyboard-segin-peb-eval-01-dtbs += imx93-phyboard-segin.dtb imx93-phyboard-segin-peb-eval-01.dtbo
+ imx93-phyboard-segin-peb-wlbt-05-dtbs += imx93-phyboard-segin.dtb imx93-phyboard-segin-peb-wlbt-05.dtbo
+ imx93-phycore-rpmsg-dtbs += imx93-phyboard-nash.dtb imx93-phyboard-segin.dtb imx93-phycore-rpmsg.dtbo
+@@ -448,6 +453,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx93-phyboard-nash-jtag.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx93-phyboard-nash-peb-wlbt-07.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx93-phyboard-nash-pwm-fan.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx93-phyboard-segin-peb-av-02.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx93-phyboard-segin-peb-av-18.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx93-phyboard-segin-peb-eval-01.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx93-phyboard-segin-peb-wlbt-05.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx93-phycore-rpmsg.dtb
+diff --git a/arch/arm64/boot/dts/freescale/imx91-93-phyboard-segin-peb-av-18.dtsi b/arch/arm64/boot/dts/freescale/imx91-93-phyboard-segin-peb-av-18.dtsi
+new file mode 100644
+index 000000000000..53d5cbcd798b
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx91-93-phyboard-segin-peb-av-18.dtsi
+@@ -0,0 +1,93 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (C) 2026 PHYTEC Messtechnik GmbH
++ *
++ * Author: Florijan Plohl <florijan.plohl@norik.com>
++ */
++
++#include <dt-bindings/clock/imx93-clock.h>
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/interrupt-controller/arm-gic.h>
++
++/dts-v1/;
++/plugin/;
++
++&{/} {
++	backlight: backlight {
++		compatible = "pwm-backlight";
++		brightness-levels = <0 4 8 16 32 64 128 255>;
++		default-brightness-level = <5>;
++		power-supply = <&reg_vcc_3v3_con>;
++		pwms = <&pwm7 0 5000000 0>;
++	};
++
++	panel {
++		compatible = "powertip,ph800480t032-zhc19";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_panel>;
++
++		backlight = <&backlight>;
++		enable-gpios = <&gpio4 29 GPIO_ACTIVE_HIGH>;
++		power-supply = <&reg_vcc_3v3_con>;
++
++		port {
++			panel_in: endpoint {
++				remote-endpoint = <&dpi_to_panel>;
++			};
++		};
++	};
++
++	pwm7: pwm-7 {
++		compatible = "pwm-gpio";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_pwm7>;
++		gpios = <&gpio4 28 GPIO_ACTIVE_HIGH>;
++		#pwm-cells = <3>;
++	};
++
++	reg_vcc_3v3_con: regulator-vcc-3v3-con {
++		compatible = "regulator-fixed";
++		regulator-name = "VCC3V3_CON";
++		regulator-max-microvolt = <3300000>;
++		regulator-min-microvolt = <3300000>;
++	};
++};
++
++&dpi_bridge {
++	status = "okay";
++};
++
++&dpi_to_panel {
++	remote-endpoint = <&panel_in>;
++	bus-width = <18>;
++};
++
++&lcdif {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_lcdif>;
++	assigned-clocks = <&clk IMX93_CLK_VIDEO_PLL>;
++	assigned-clock-rates = <27272728>;
++	status = "okay";
++};
++
++&lpi2c2 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	touchscreen@41 {
++		compatible = "ilitek,ili2130";
++		reg = <0x41>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_touchscreen>;
++		interrupt-parent = <&gpio4>;
++		interrupts = <12 IRQ_TYPE_EDGE_FALLING>;
++		reset-gpios = <&gpio4 1 GPIO_ACTIVE_LOW>;
++		touchscreen-size-x = <800>;
++		touchscreen-size-y = <480>;
++		wakeup-source;
++	};
++};
++
++&media_blk_ctrl {
++	status = "okay";
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx91-phyboard-segin-peb-av-18.dtso b/arch/arm64/boot/dts/freescale/imx91-phyboard-segin-peb-av-18.dtso
+new file mode 100644
+index 000000000000..35edf9b0fb0f
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx91-phyboard-segin-peb-av-18.dtso
+@@ -0,0 +1,57 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (C) 2026 PHYTEC Messtechnik GmbH
++ *
++ * Author: Florijan Plohl <florijan.plohl@norik.com>
++ */
++
++#include "imx91-pinfunc.h"
++#include "imx91-93-phyboard-segin-peb-av-18.dtsi"
++
++&iomuxc {
++	pinctrl_lcdif: lcdifgrp {
++		fsl,pins = <
++			MX91_PAD_GPIO_IO00__MEDIAMIX_DISP_CLK		0x57e
++			MX91_PAD_GPIO_IO01__MEDIAMIX_DISP_DE		0x51e
++			MX91_PAD_GPIO_IO02__MEDIAMIX_DISP_VSYNC		0x51e
++			MX91_PAD_GPIO_IO03__MEDIAMIX_DISP_HSYNC		0x51e
++			MX91_PAD_GPIO_IO04__MEDIAMIX_DISP_DATA0 	0x51e
++			MX91_PAD_GPIO_IO05__MEDIAMIX_DISP_DATA1		0x51e
++			MX91_PAD_GPIO_IO06__MEDIAMIX_DISP_DATA2		0x51e
++			MX91_PAD_GPIO_IO07__MEDIAMIX_DISP_DATA3		0x51e
++			MX91_PAD_GPIO_IO08__MEDIAMIX_DISP_DATA4		0x51e
++			MX91_PAD_GPIO_IO09__MEDIAMIX_DISP_DATA5		0x51e
++			MX91_PAD_GPIO_IO10__MEDIAMIX_DISP_DATA6		0x51e
++			MX91_PAD_GPIO_IO11__MEDIAMIX_DISP_DATA7		0x51e
++			MX91_PAD_GPIO_IO12__MEDIAMIX_DISP_DATA8		0x51e
++			MX91_PAD_GPIO_IO13__MEDIAMIX_DISP_DATA9		0x51e
++			MX91_PAD_GPIO_IO14__MEDIAMIX_DISP_DATA10	0x51e
++			MX91_PAD_GPIO_IO15__MEDIAMIX_DISP_DATA11	0x51e
++			MX91_PAD_GPIO_IO16__MEDIAMIX_DISP_DATA12	0x51e
++			MX91_PAD_GPIO_IO17__MEDIAMIX_DISP_DATA13	0x51e
++			MX91_PAD_GPIO_IO18__MEDIAMIX_DISP_DATA14	0x51e
++			MX91_PAD_GPIO_IO19__MEDIAMIX_DISP_DATA15	0x51e
++			MX91_PAD_GPIO_IO20__MEDIAMIX_DISP_DATA16	0x51e
++			MX91_PAD_GPIO_IO21__MEDIAMIX_DISP_DATA17	0x51e
++		>;
++	};
++
++	pinctrl_panel: panelgrp {
++		fsl,pins = <
++			MX91_PAD_CCM_CLKO4__GPIO4_IO29			0x1133e
++		>;
++	};
++
++	pinctrl_pwm7: pwm7grp {
++		fsl,pins = <
++			MX91_PAD_CCM_CLKO3__GPIO4_IO28			0x1133e
++		>;
++	};
++
++	pinctrl_touchscreen: touchscreengrp {
++		fsl,pins = <
++			MX91_PAD_ENET1_MDIO__GPIO4_IO1			0x11e
++			MX91_PAD_ENET1_RD2__GPIO4_IO12			0x1133e
++		>;
++	};
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx93-phyboard-segin-peb-av-18.dtso b/arch/arm64/boot/dts/freescale/imx93-phyboard-segin-peb-av-18.dtso
+new file mode 100644
+index 000000000000..11f7d7502be4
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx93-phyboard-segin-peb-av-18.dtso
+@@ -0,0 +1,57 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (C) 2026 PHYTEC Messtechnik GmbH
++ *
++ * Author: Florijan Plohl <florijan.plohl@norik.com>
++ */
++
++#include "imx93-pinfunc.h"
++#include "imx91-93-phyboard-segin-peb-av-18.dtsi"
++
++&iomuxc {
++	pinctrl_lcdif: lcdifgrp {
++		fsl,pins = <
++			MX93_PAD_GPIO_IO00__MEDIAMIX_DISP_CLK		0x57e
++			MX93_PAD_GPIO_IO02__MEDIAMIX_DISP_VSYNC		0x51e
++			MX93_PAD_GPIO_IO01__MEDIAMIX_DISP_DE		0x51e
++			MX93_PAD_GPIO_IO03__MEDIAMIX_DISP_HSYNC		0x51e
++			MX93_PAD_GPIO_IO04__MEDIAMIX_DISP_DATA00	0x51e
++			MX93_PAD_GPIO_IO05__MEDIAMIX_DISP_DATA01	0x51e
++			MX93_PAD_GPIO_IO06__MEDIAMIX_DISP_DATA02	0x51e
++			MX93_PAD_GPIO_IO07__MEDIAMIX_DISP_DATA03	0x51e
++			MX93_PAD_GPIO_IO08__MEDIAMIX_DISP_DATA04	0x51e
++			MX93_PAD_GPIO_IO09__MEDIAMIX_DISP_DATA05	0x51e
++			MX93_PAD_GPIO_IO10__MEDIAMIX_DISP_DATA06	0x51e
++			MX93_PAD_GPIO_IO11__MEDIAMIX_DISP_DATA07	0x51e
++			MX93_PAD_GPIO_IO12__MEDIAMIX_DISP_DATA08	0x51e
++			MX93_PAD_GPIO_IO13__MEDIAMIX_DISP_DATA09	0x51e
++			MX93_PAD_GPIO_IO14__MEDIAMIX_DISP_DATA10	0x51e
++			MX93_PAD_GPIO_IO15__MEDIAMIX_DISP_DATA11	0x51e
++			MX93_PAD_GPIO_IO16__MEDIAMIX_DISP_DATA12	0x51e
++			MX93_PAD_GPIO_IO17__MEDIAMIX_DISP_DATA13	0x51e
++			MX93_PAD_GPIO_IO18__MEDIAMIX_DISP_DATA14	0x51e
++			MX93_PAD_GPIO_IO19__MEDIAMIX_DISP_DATA15	0x51e
++			MX93_PAD_GPIO_IO20__MEDIAMIX_DISP_DATA16	0x51e
++			MX93_PAD_GPIO_IO21__MEDIAMIX_DISP_DATA17	0x51e
++		>;
++	};
++
++	pinctrl_panel: panelgrp {
++		fsl,pins = <
++			MX93_PAD_CCM_CLKO4__GPIO4_IO29			0x1133e
++		>;
++	};
++
++	pinctrl_pwm7: pwm7grp {
++		fsl,pins = <
++			MX93_PAD_CCM_CLKO3__GPIO4_IO28			0x1133e
++		>;
++	};
++
++	pinctrl_touchscreen: touchscreengrp {
++		fsl,pins = <
++			MX93_PAD_ENET1_MDIO__GPIO4_IO01			0x11e
++			MX93_PAD_ENET1_RD2__GPIO4_IO12			0x1133e
++		>;
++	};
++};
 -- 
-2.25.1
+2.43.0
 
