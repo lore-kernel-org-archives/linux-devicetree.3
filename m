@@ -1,138 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D12B358381;
-	Thu,  9 Apr 2026 10:03:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C31143A453C;
+	Thu,  9 Apr 2026 10:04:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775729021; cv=none; b=Ey7Gdl+FQFfdM68vFBSzyGHlh8QbxYH71mvzuxm/2mB3tnnkiQgkxqRENvLWh0SQvS6iU3xZFuYtMfFAJqktv1yzrijXmIPVuXHYHBYhLnIbRyjNaWFh/rSEsmULw7O48N/jHB+UFi2YlfTDe6mUoYKU477sN4fQqRmI7fUv2ew=
+	t=1775729075; cv=none; b=PEa+KJpc8Vv5o8BOrQmEcMdppHUTLE0V/LSgKDTiFEFe3KBoScB9l87UOOqddtDC7Ho5XTBotoXhtk+ujswAIdlcdm3+DtDPeS8ozNN07Ajy3wXf03rMViaGRwYWbXevm2o0jzUT6PrA+siZQzRjSdR3OCSYA2g3+nrqvtQ9DLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775729021; c=relaxed/simple;
-	bh=D00xIEFPrGHvVBFO1Sy9XNoqC0F2+Upgaz9P5oObihI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aDNwtxfigqkXFKS0m1kEQS8WH4jQHvTZFdiunp5IqLYWyCykDMT10aMlweEBmRq5bRgLVMyEXCpNOmE2GQnDs6zVYcQL7JiQ5Rz+lBT3/GMc0hajqZboWKWz3HLtvcol6eWAtvti0Za9sdkL5oPZ+jpX/7OvPaiXWc8EEzu5cZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X9dbdrZt; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775729075; c=relaxed/simple;
+	bh=H1jTkF6AqLWxLX6OGJIOwylJ+ibHvgzXt8ULq35uI2c=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=buTgDkHtz4Xf3X/rY3Z8hUziC5K8JcK6n6G3RpFpqOVqqsDop80lk/6l6DhizfWz7mU9PBri4wVHm1+wTRRs3hAcDMc4yzXSFuBUoaY5ub3lpVEWtH/sb59nCeCmEFeQRVOVymZ6OJMwhV7P6tWwvhnM0FjRzr3ilAYblAr+17I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qO+T28nd; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X9dbdrZt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2A66C4CEF7;
-	Thu,  9 Apr 2026 10:03:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qO+T28nd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55F76C4CEF7;
+	Thu,  9 Apr 2026 10:04:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775729021;
-	bh=D00xIEFPrGHvVBFO1Sy9XNoqC0F2+Upgaz9P5oObihI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=X9dbdrZt1JKOEJJvwNLVw2ayL3DnHjY5uh3595AE5q/AkOhpVO4EaRvqea4oqGn0k
-	 ePFlDKEb6rUACdT0B022GQsPEWDzMVXe0UtHvXvIslQU1wAB81QmhExIw2Nz14y05+
-	 L+2TaUHEhB4Qe6ZTHRh98yGy/SrQ/JEy+YSdRZj6w6bb3RQuuwRYpZfUNsQLgw7jO9
-	 f0Q/cabIQbuu7O+Q4H41g8SU/jsWpwf0vWtfR/pp3BFUODWcFe7yaLrUa/H9FmutFO
-	 zszinQb6Dnjq1N3dNP4FC9CPBxEZ5Nv/Vjb7XmQh9dL1udFgpaKcuzeUkqC26lUNAp
-	 TuZ9inyV2JjxQ==
-Message-ID: <8fe36a5e-1ebc-4c5f-9c3b-3c50ebd2274e@kernel.org>
-Date: Thu, 9 Apr 2026 12:03:37 +0200
+	s=k20201202; t=1775729075;
+	bh=H1jTkF6AqLWxLX6OGJIOwylJ+ibHvgzXt8ULq35uI2c=;
+	h=From:Date:Subject:To:Cc:From;
+	b=qO+T28ndbKpLTmnJry8MiqfOo/c88PwwYltlsyYACJCyC6tPGk/+kZT1JG1v0m1y2
+	 nVbPxuRYRAnYNlCgK06i4dnpXNnhPZxdwjPoMxwiTk1hI2yKCrY/4Qeva9F6eB3x7v
+	 k9ZNrlpWuXcVFwzHfuqZLNcxrsCyZwHflnpTeDZegmyziDlyevNhMueBE3aCQKLXaY
+	 yp101B3JQfLvsC/rSrF4U5bPVdL5kp0BuSmyfR87NbbZsbKa9WZrtZNVJ3IXJTjHIf
+	 L1ectBatKnbjkTFhgz3ifpd4FfjBwN+tz74IrD558O2hilCRM27KpnZ+8P4nZBqC7p
+	 ded6+1lVBhKXQ==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Date: Thu, 09 Apr 2026 12:04:30 +0200
+Subject: [PATCH v2] dt-bindings: sram: Allow multiple-word prefixes to sram
+ subnode
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: ipq5210: add the bootph-all property
-To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260409-add_bootph-v1-1-cb2b5093f7d7@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
- QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
- +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
- ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
- 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
- hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
- tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
- 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
- naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
- hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
- whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
- Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
- MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
- OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
- GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
- 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
- YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
- 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
- BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
- JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
- 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
- YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
- qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
- RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
- Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
- H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
- dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
- AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
- jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
- zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
- XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260409-add_bootph-v1-1-cb2b5093f7d7@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260409-topic-sram_dtbindings_misc-v2-1-59dc6b0dec45@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NQQ6CMBBFr0JmbUkLtBJX3sMQgm2BSWyLHSQa0
+ rtbOYGbn7y/eG8HshEtwaXYIdoNCYPPUJ0K0PPgJ8vQZIaKV4o3vGVrWFAzioPrzXpHb9BP1Ds
+ kzaRt27oZVW2kgCxYoh3xfchvXeYZaQ3xc7Q28Xv/0m6CCca5lEqosxW1ugai8vkaHjo4V+aBL
+ qX0BbXIkETLAAAA
+X-Change-ID: 20260408-topic-sram_dtbindings_misc-5e8834f63d51
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Luca Weiss <luca.weiss@fairphone.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1775729073; l=1282;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=Yft8n3KWSGOt8NjQMUHslZr+H40p6V6LaHI7FwOKnBM=;
+ b=D5yMZoGyTwlfTSIFmXSocQmY7KAihLS+Ie28eVXRwQ1c1sB5CjhZaAeRyVJO1m9POSmqatIBX
+ GclZzFVsiJKCWBUtOaKiWIlsdoAJfOCui4EOuub2raCVT0+CBr8fGJm
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-On 09/04/2026 11:28, Kathiravan Thirumoorthy wrote:
-> Add the bootph-all property to the nodes which are utilized by the
-> bootloaders.
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Uh oh, so it started for qcom too? I really don't like how these bootph
-properties spread all over, so please provide arguments - which pure
-upstream bootloaders exactly and why exactly these nodes.
+Currently, foo-sram is allowed, but foo-bar-sram is not.
 
-> 
-> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts |  5 +++++
->  arch/arm64/boot/dts/qcom/ipq5210.dtsi       | 10 ++++++++++
->  2 files changed, 15 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts b/arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts
-> index 941f866ecfe9..56dbc506da78 100644
-> --- a/arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts
-> +++ b/arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts
-> @@ -17,6 +17,7 @@ aliases {
->  
->  	chosen {
->  		stdout-path = "serial0";
-> +		bootph-all;
+Allow it so that more complex names aren't unnecessarily simplified.
 
-Since when do we add bootph-all to chosen? Which broken bootloader
-ignores chosen?
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+Changes in v2:
+- Update the regex to disallow names starting with just a hyphen
+- Rewrite (foo|)+ into (foo)*
+- Link to v1: https://lore.kernel.org/r/20260408-topic-sram_dtbindings_misc-v1-1-00556167e136@oss.qualcomm.com
+---
+ Documentation/devicetree/bindings/sram/sram.yaml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This really makes me wonder that you do all this for some downstream forks.
+diff --git a/Documentation/devicetree/bindings/sram/sram.yaml b/Documentation/devicetree/bindings/sram/sram.yaml
+index c451140962c8..d9a1da12dc66 100644
+--- a/Documentation/devicetree/bindings/sram/sram.yaml
++++ b/Documentation/devicetree/bindings/sram/sram.yaml
+@@ -65,7 +65,7 @@ properties:
+     type: boolean
+ 
+ patternProperties:
+-  "^([a-z0-9]*-)?sram(-section)?@[a-f0-9]+$":
++  "^([a-z0-9]+-)*sram(-section)?@[a-f0-9]+$":
+     type: object
+     description:
+       Each child of the sram node specifies a region of reserved memory.
 
->  	};
->  };
->  
-> @@ -41,6 +42,7 @@ qup_uart1_default_state: qup-uart1-default-state {
->  		function = "qup_se1";
->  		drive-strength = <6>;
->  		bias-pull-down;
-> +		bootph-all;
->  	};
-And that's a pin, not a device. What is the point of marking it? The
-device needing this pin will have phandle which must pull the node.
+---
+base-commit: db7efce4ae23ad5e42f5f55428f529ff62b86fab
+change-id: 20260408-topic-sram_dtbindings_misc-5e8834f63d51
 
 Best regards,
-Krzysztof
+-- 
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
