@@ -1,270 +1,150 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A8B32EA480
-	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 06:00:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12E8A30C372;
+	Thu,  9 Apr 2026 06:12:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775714403; cv=none; b=u+t7spTqpi3ZbhvYlg25S52bSQ4Mnoox2PDFXe+Z/eX6obNCbaIB2bCMKJcpIDJ9iizh806n8pAwZoWpmbxTztshnpz1j5qBsgQCEWRotHW/Qt0863Iwd5hZ02MBN3dCtVU9qkebb/08ZXqq2nHU9HoEFyPU4RoZjdZDr0VHhnA=
+	t=1775715129; cv=none; b=BXMOMENt3o3HdMmk4IzeTzaGKOAm+cB8u9GAheBMENJdF51Ty4AIobJOxQqBJ0uY+OFm3CsMMjSDajmsZ6p0U26Qkd3IqKbUys7oK2z56jEx9ocrHussesIhMPngZz78IEvgRw2gCf954ehguC2nbtW6iEwFT2E6IdIV04fqjjk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775714403; c=relaxed/simple;
-	bh=TeKtP1yzcdqHSm8bYl3L49aEEfB80akZ1D+/9j2g5WY=;
+	s=arc-20240116; t=1775715129; c=relaxed/simple;
+	bh=OMh46ORI4PU+osUPIisdcpwLBCZ1bfwWTNclxJgOQu8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fQdx5I+mcFGMVMte/5irRzJ2WF4Qu+i9KBghRGSUZVgFO4NhwNdFyAfQ03sUBR5r3HNiMQAk08QTJEsya4MUAT7NhNORfzi5B3J3tUpM4ubaYVcbR1HujcIvziobHxM34WMW/9zJ28Vb47nUoMmZyxZ/X4FdiJul2O7DnPvx0oE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Bqp4ZaJF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=J5KMEUdu; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=D90szT91lKwhfrN/4ZW2zWNHhWceq4piCCiEHaJzxubGDGRz9Fq5ThzdlFrZhgn8iLaZ9HjeE4qOAr6xdvQdofV6nCvVQ09uUiHsj4zywMkJn3xG81fu9NoCnPBLjuqsL8Bcz8kHfMIDxMFdAmf8bGfgRpjx/gyAHnFm81rt6Pk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mSzM66SX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Bqp4ZaJF";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="J5KMEUdu"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6393CI2l1727227
-	for <devicetree@vger.kernel.org>; Thu, 9 Apr 2026 06:00:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	K7rGEUf7FdQ+jVzulDMjMiw8+lzQ1/zu6mbpjv295J4=; b=Bqp4ZaJFTZBXZMdA
-	xqCzX97STPcevwu72wnZnUL+/psWeIGNf/JAzF4irunS2/4sOE7oHeQSWL/B3wD8
-	hssfMgxrJOsrxYh1w26anup8CNw7Ia0zLYy6F6411zAC38kxP6AVe7NkiYcGIdc1
-	FppkhWQlxZMysawASAtfBzhMH/xdWwYd+nUTH/tiiXSIIciKg2EMJ6mfQEE7cmjJ
-	ZdyIfNON1YAw5X6Q741L38qFE+kdlMeOfQOOTryqU9+FopcFZqrvRL9ch8vpdwFK
-	te0QQOEzrZMaV2C6NsGeddm6rtG3tl/mLGwpaVhKyGIebOcdx3jRlNLr5ShanbG/
-	/CIlJw==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ddwcrsss6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 06:00:01 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-82ce1c395ccso703807b3a.2
-        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 23:00:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775714400; x=1776319200; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=K7rGEUf7FdQ+jVzulDMjMiw8+lzQ1/zu6mbpjv295J4=;
-        b=J5KMEUduBEqn5+/8xN60d2Ka8ErW4AY1y3Yiyd+6I94fm8mfCVLouj6vHV+s4nUpC1
-         +B9ZCyyeSlofprvaZHYFtv5tYX0t3QB75stLb3EGw6TeJfHO2QQd/AyALpGPY30Pfgmj
-         ZqANUrVIQMV6YdOVF8E25IR/0TCKH4xAxlL24iSIh/GiEd/2rGblo9MGocXTzbuvta++
-         RmPKRMQmtnn7iyFk/9Uh7yYQ8XlrWzhW3g2/q/ZkXcHctQEsTVQDBFu4+TOT8rjU9qKK
-         q9QStTQeldH4f2U0gEKGv5ShJ01wXbtqfn7RVQxdGevJnMBqbPDxSbiSRKlH7/TkTDFX
-         oCUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775714400; x=1776319200;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=K7rGEUf7FdQ+jVzulDMjMiw8+lzQ1/zu6mbpjv295J4=;
-        b=VCjHL+obEg9R+2zu7d5EtZTgc5tE4BwQZWzrHdnqLbEG6cCo+lJS0ZeKsFP5q7lif+
-         JnmhrbewBzqK1INw47/lxT7sd3rq3hNVICZ6+ucbFxUCFG5+9M/ooIRgB+8lC9Sq0WlR
-         evqdQXGxb8vntcU/DKLd8gNc8rCmVhuw0qIHPqXBVHvccOtmhmWeEmHwJUUnoMLHCHMB
-         DCh+wt59PKxyNyjDgNoN7QsP+7w15KTCSDjOFJFmZYrnGfm1SwkC9BHmqpJI/99H46Zw
-         N+8nz2uXO8uGFV+y1eOP7tfXUDMAm/ExZTWpYSfOcbx/JtzoZK1Gn/IIfhG0+zXCuY/b
-         jb2A==
-X-Forwarded-Encrypted: i=1; AJvYcCXiODu0ggMFfy58eVLy4SZnkngEz8Uho4MhpCncAzjl8m06hXfHQEnZVcHEijVvmacyCSwYvPB4SBEf@vger.kernel.org
-X-Gm-Message-State: AOJu0YzL/Qn2ckvzXbSmWW9adqEABmFdTUDGe2QH+NL05p8ZQeKdq9Oa
-	W7LxCwht48cO1mTpLYnjg8PjCwpZZP1ZzQoTSbWD9HYVQaIB4pQPwRfGNWI/hEV9SpbzXByuNSJ
-	CbNCTq11ClKs6cbdOG2AuMKszziR8OImqEnJ0pgLx/DWfD8QdSN9kJ1XRiFYNC2l5
-X-Gm-Gg: AeBDieukxo7RITvZMvX8uDUq0O+Gwq5BrQ91V8ObC8WaWzmuiWlYjeHyh2vDZzE0M1y
-	DM+FSUB1wAY4NbyL/K8uzFAgJIzakCAXFatiX9/rDd5FvZCG3EJOd1W/86jSaZox2FYkwpGv1El
-	zgGItwoVmbe/gPsXRj36P5Kvu9roAHQKOvvr/DdR+CTsaUl9CqOuBteQ1KgRmUjLn89WLkLtsPI
-	0Ky+QegMhomCbnZc2CwsQyaoLfKUXjuRflg9zCBhYyoVh7ky043bTOG/E5T+kADcQuxW7uSCyoz
-	myG+UQiqmkWhr3UrWc+byREJYi0BaANADxUcIdW/zc83AB7ZmMuFBopR0AUMwZRo4Pg8P6tC5Sb
-	kJkLH/0JuuRZjWNlE+TK0VPF0PBIfcNkxUdHBoyT6qP6/n+AgN8sy
-X-Received: by 2002:a05:6a00:1a8f:b0:82c:9897:70d9 with SMTP id d2e1a72fcca58-82dd8afc99cmr2540714b3a.38.1775714400100;
-        Wed, 08 Apr 2026 23:00:00 -0700 (PDT)
-X-Received: by 2002:a05:6a00:1a8f:b0:82c:9897:70d9 with SMTP id d2e1a72fcca58-82dd8afc99cmr2540685b3a.38.1775714399622;
-        Wed, 08 Apr 2026 22:59:59 -0700 (PDT)
-Received: from [10.0.0.3] ([106.222.228.76])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82cf9c9cbdfsm28876905b3a.53.2026.04.08.22.59.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 08 Apr 2026 22:59:59 -0700 (PDT)
-Message-ID: <aaa93349-dfc0-7dcd-5182-73c8bde9d475@oss.qualcomm.com>
-Date: Thu, 9 Apr 2026 11:29:53 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mSzM66SX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F920C4CEF7;
+	Thu,  9 Apr 2026 06:12:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775715128;
+	bh=OMh46ORI4PU+osUPIisdcpwLBCZ1bfwWTNclxJgOQu8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=mSzM66SXVJtkb5qw5RkOpsgcPsaUNag7a9PVLQnXo0s563o8D1C+4B/Tc+cSLdgyI
+	 ENYGzL2cOGE5N/ZRCu6mpLkI++zqOoUZtRiPe8St/sXUT1ALRQwZElIMEFtbu5mquL
+	 aRlYfaN/oKWaNDLhHsLXGhlrimUi2Qp3T+4t8eAhwxCyp+L37bWzLeJneM+e94Etul
+	 5SpQ3kBrBNe7Ius+HXUC3aYDcAu+K09E5Y6e/7hZLprFo6qNus0B8kX/fiG9nNOPv2
+	 C6pJJQowgjRiMhC7v4UYTr7yhK2tYNAxLebW2ca3tqCg2G86jdicQrVkXm3XcKTDjR
+	 7Chujglif7qsQ==
+Message-ID: <b97c2e64-8a43-498b-a447-6a5b67c525e5@kernel.org>
+Date: Thu, 9 Apr 2026 08:12:04 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: milos: Add Iris VPU v2.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 04/13] clk: amlogic: Add basic clock driver
+To: Chuan Liu <chuan.liu@amlogic.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+References: <20260209-a9_clock_driver-v1-0-a9198dc03d2a@amlogic.com>
+ <20260209-a9_clock_driver-v1-4-a9198dc03d2a@amlogic.com>
+ <89cc0724-32a8-4da5-8070-c128cafcfc82@kernel.org>
+ <76ef272c-e09a-400e-b381-82d7f29760ca@amlogic.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-To: Alexander Koskovich <akoskovich@pm.me>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: Luca Weiss <luca.weiss@fairphone.com>, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260406-milos-iris-v1-0-17ed0167ba6f@pm.me>
- <20260406-milos-iris-v1-3-17ed0167ba6f@pm.me>
-From: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-In-Reply-To: <20260406-milos-iris-v1-3-17ed0167ba6f@pm.me>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <76ef272c-e09a-400e-b381-82d7f29760ca@amlogic.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA5MDA1MSBTYWx0ZWRfXxHoNEquSen1I
- XUit+xI7kyCdorGzTKyna7QiG//mQNE8F8xkDIauxYywo/KGUC8q3j7CQ5e7Osb4UKt7ai+5xck
- iGbPnjQEyR2AzlkQpvkJSaVwbZdQPHgu3TgWzyHe7Bv35LAyVUq/5m6XoLtd7xp6p+U038MR2Cp
- naMsvYGBs7kZaZaJXehw8IUBJzgVMBEQkIxfvcADae9J7/mQhz7IqCBtiWgI0h0hcSWDGQAQxjV
- VJ+vyY8M0xs+bR+aPVyrXAvlyd28+tYdDwCGbZNlEHtc4cZ3n57U5YYWvwMXjc61aGM4bpkjMmx
- 3ISCn4r6CMwnfBF9E8QElcsaYsUdcI15CNJCIhaAy2dIix6PNmxjtBDlGaQ5Jiu/xwhFYCP+3i8
- zLWK1EkUR5CeVPlnoAJE0rNa40ARdpak5+y2aWPjaAnTJGc3CMKiro9NFBKdQjaD6clVnsMMYmh
- tGZeTVc/WJKEzzmnsLQ==
-X-Authority-Analysis: v=2.4 cv=SsWgLvO0 c=1 sm=1 tr=0 ts=69d74061 cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=/ZU3Ovutwf0He1FzxNd9ng==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=cPBJnOxHEKv7ehhu7hMA:9 a=54MLzQr2lWRCTzmv:21 a=QEXdDO2ut3YA:10
- a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-GUID: v0sFqNP3uSzugS_ztnN3q7s8E-r7mONi
-X-Proofpoint-ORIG-GUID: v0sFqNP3uSzugS_ztnN3q7s8E-r7mONi
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-09_01,2026-04-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 lowpriorityscore=0 priorityscore=1501
- spamscore=0 impostorscore=0 adultscore=0 bulkscore=0 clxscore=1015
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
- definitions=main-2604090051
 
-
-
-On 4/6/2026 3:49 PM, Alexander Koskovich wrote:
-> Add devicetree nodes for the Iris codec (VPU 2.0) found on the Milos
-> platform.
+On 08/04/2026 16:32, Chuan Liu wrote:
+> Hi Krzysztof (& ALL),
+> Thanks for review.
 > 
-> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
-> ---
->  arch/arm64/boot/dts/qcom/milos.dtsi | 85 +++++++++++++++++++++++++++++++++++++
->  1 file changed, 85 insertions(+)
+> On 2/9/2026 9:17 PM, Krzysztof Kozlowski wrote:
+>> [ EXTERNAL EMAIL ]
+>>
+>> On 09/02/2026 06:48, Chuan Liu via B4 Relay wrote:
+>>> From: Chuan Liu <chuan.liu@amlogic.com>
+>>>
+>>> Implement core clock driver for Amlogic SoC platforms, supporting
+>>
+>> So how did all existing Amlogic SoC platforms work so far without basic
+>> clock driver? Really, how?
+>>
+>> You are suppose to grow existing code, not add your completely new
+>> "basic" driver just because you have it that way in downstream.
+>>
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/milos.dtsi b/arch/arm64/boot/dts/qcom/milos.dtsi
-> index e1a51d43943f..07aa398c9695 100644
-> --- a/arch/arm64/boot/dts/qcom/milos.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/milos.dtsi
-> @@ -7,6 +7,7 @@
->  #include <dt-bindings/clock/qcom,milos-dispcc.h>
->  #include <dt-bindings/clock/qcom,milos-gcc.h>
->  #include <dt-bindings/clock/qcom,milos-gpucc.h>
-> +#include <dt-bindings/clock/qcom,milos-videocc.h>
->  #include <dt-bindings/clock/qcom,rpmh.h>
->  #include <dt-bindings/clock/qcom,sm8650-tcsr.h>
->  #include <dt-bindings/dma/qcom-gpi.h>
-> @@ -1517,6 +1518,90 @@ usb_1_dwc3_hs: endpoint {
->  			};
->  		};
->  
-> +		iris: video-codec@aa00000 {
-> +			compatible = "qcom,milos-iris";
-> +			reg = <0 0x0aa00000 0 0xf0000>;
-> +
-> +			interrupts = <GIC_SPI 174 IRQ_TYPE_LEVEL_HIGH 0>;
-> +
-> +			power-domains = <&videocc VIDEO_CC_MVS0C_GDSC>,
-> +					<&videocc VIDEO_CC_MVS0_GDSC>,
-> +					<&rpmhpd RPMHPD_CX>,
-> +					<&rpmhpd RPMHPD_MX>;
-> +			power-domain-names = "venus",
-> +					     "vcodec0",
-> +					     "cx",
-> +					     "mx";
-> +
-> +			operating-points-v2 = <&iris_opp_table>;
-> +
-> +			clocks = <&gcc GCC_VIDEO_AXI0_CLK>,
-> +				 <&videocc VIDEO_CC_MVS0C_CLK>,
-> +				 <&videocc VIDEO_CC_MVS0_CLK>;
-> +			clock-names = "iface",
-> +				      "core",
-> +				      "vcodec0_core";
-> +
-> +			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-> +					 &cnoc_cfg SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
-> +					<&mmss_noc MASTER_VIDEO QCOM_ICC_TAG_ALWAYS
-> +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-> +			interconnect-names = "cpu-cfg",
-> +					     "video-mem";
-> +
-> +			memory-region = <&video_mem>;
-> +
-> +			resets = <&gcc GCC_VIDEO_AXI0_CLK_ARES>,
-> +				 <&videocc VIDEO_CC_MVS0C_CLK_ARES>;
-> +			reset-names = "bus",
-> +				      "core";
-> +
-> +			iommus = <&apps_smmu 0x1960 0>,
-> +				 <&apps_smmu 0x1967 0>;
-> +
-> +			dma-coherent;
-> +
-> +			/*
-> +			 * IRIS firmware is signed by vendors, only enable on
-> +			 * boards where the proper signed firmware is available.
-> +			 */
-> +			status = "disabled";
-> +
-> +			iris_opp_table: opp-table {
-> +				compatible = "operating-points-v2";
-> +
-> +				opp-240000000 {
-> +					opp-hz = /bits/ 64 <240000000>;
-> +					required-opps = <&rpmhpd_opp_low_svs>,
-> +							<&rpmhpd_opp_low_svs>;
-
-s/rpmhpd_opp_low_svs/rpmhpd_opp_svs
-
-> +				};
-> +
-> +				opp-338000000 {
-> +					opp-hz = /bits/ 64 <338000000>;
-> +					required-opps = <&rpmhpd_opp_svs>,
-> +							<&rpmhpd_opp_svs>;
-> +				};
-> +
-> +				opp-366000000 {
-> +					opp-hz = /bits/ 64 <366000000>;
-> +					required-opps = <&rpmhpd_opp_svs_l1>,
-> +							<&rpmhpd_opp_svs_l1>;
-
-s/rpmhpd_opp_svs_l1/rpmhpd_opp_svs
-
-> +				};
-> +
-> +				opp-444000000 {
-> +					opp-hz = /bits/ 64 <444000000>;
-> +					required-opps = <&rpmhpd_opp_nom>,
-> +		
-
-					<&rpmhpd_opp_nom>;
-s/rpmhpd_opp_nom/rpmhpd_opp_svs_l1
-
-> +				};
-> +
-> +				opp-552000000 {
-> +					opp-hz = /bits/ 64 <552000000>;
-> +					required-opps = <&rpmhpd_opp_turbo>,
-> +							<&rpmhpd_opp_turbo>;
-
-s/rpmhpd_opp_turbo/rpmhpd_opp_nom
-
-Thanks,
-Dikshita
-> +				};
-
-> +			};
-> +		};
-> +
->  		videocc: clock-controller@aaf0000 {
->  			compatible = "qcom,milos-videocc";
->  			reg = <0x0 0x0aaf0000 0x0 0x10000>;
+> Firstly, apologies for the delayed response. I had intended to 
+> consolidate the V1 review feedback and come back with a clearer plan for 
+> V2 changes. In the meantime, Martin has provided many detailed and 
+> valuable suggestions - much appreciated.
 > 
+> The original goal of optimizing the HW based on A9 and introducing a new 
+> clock driver is to reduce unnecessary complexity in the driver. On A9, 
+
+Nah, you just don't care about upstream and it is easier for you to
+duplicate new code.
+
+> we optimized the Clock/PLL controller HW to simplify driver performance, 
+> complexity, memory footprint, and reusability. Improvements on the HW 
+> side can also help drive corresponding enhancements in the driver:
+>     - Performance: Encapsulates sub-clock functions, reducing call paths
+>     - Complexity: Standardized register bits eliminate a large number of
+> bit definitions (~1/3 of original code is defined register bit [1])
+>     - Memory: Object-oriented design avoids copy/paste for repeated clocks
+
+Object oriented design? Sorry, what?
+
+>     - Reusability: Same controller works across SoCs without driver
+> changes (or with minimal changes)
+> 
+> The old meson driver required compromises to unify legacy controller
+> characteristics and driver styles. On A9, we want a fresh start.
+
+And maintainers don't want that. We expressed this many times already.
+Not only in this thread - that's one of the most known feedbacks.
+
+Best regards,
+Krzysztof
