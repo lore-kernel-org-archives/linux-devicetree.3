@@ -1,150 +1,214 @@
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D8D33BBA1F
-	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 14:19:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0464B3DA5D0;
+	Thu,  9 Apr 2026 14:21:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775744370; cv=none; b=KR0K5xvE8YuxO5qhUWr6vKUziVeEMTGdA3rQjnr7GSI2zzIAyOH5KnzNEKcRgOIiKKxoM773+OeP7nijpHgJnr04KNXTrMaxb5yHOOvRp9lJ5iy0+N0rjBuxG3hVylBaU5Jl4Ii/CWbtBFYoI6KFWty4LRcQCDn5kNxIHNn/2UQ=
+	t=1775744478; cv=none; b=rd53EIWwQY+ozRWimKkKL6N33eVmsh7eyWv/qegEa1fFdgJo6zib8eRMlqMGoNxil1DSvyV29QhCymN6/lNxnWZ91jPoZRp+2tu2BquHVU3+GQCQ888qtMNS6FF9OdYAoppZBLBwtQQ9XcSrUV2NwdINfhDJQlWLgOEw93CHqjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775744370; c=relaxed/simple;
-	bh=O7UJeRKQqwO7ovJL0LORCh9ygfxZEOGTY5qDbFiaz3E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=kRVZ1h06993AWrH6GMSSzsJq3eLKEo2I0OFRI+3qS3nAfPkziOBER+5bT9W8IW6xdyM+Fjl5nxQXriTV4qi56vQtBrZvJxP5B8VJ5oi3dksdNZeWK9i4Rk1wqMw9UGCKHt4mI3vAJmbcQZLQnJ8phR+J5ElBjNrqbzzhTHAglI8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vc3ioQ82; arc=none smtp.client-ip=74.125.82.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1775744478; c=relaxed/simple;
+	bh=dpsEPXiwZwGBz/472JmJ/+FsWBKQt0J9ni7Su0dthqA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nF/kTH97Iqfaea5fS4kjmEkzKxKkHoYWVPqSWRndArQiFcOEhu7jjEnkDlG6CGIOOYSPFFkxPv7MKCGIfV2oRySiD65aeMYj1PJPzIMYjv6wifAVWve3JWAKaaq4JFjZQXR5suntgVIZ40IZDaHJ4owrWDVKG6TX4mCIGEyPsE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YMdJV3k+; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vc3ioQ82"
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-2ce22328930so1203864eec.0
-        for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 07:19:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775744368; x=1776349168; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=SKek5Gonk8rDpR4MKoT7kvTwHF1kjksPZBZknu5sKxk=;
-        b=Vc3ioQ82A12skx+RE1R86wlgNRoP2M6pAyUriaYpv+9vRz0S7BAFq3oFVm/Cg5kZZE
-         4imTD4bXJdGa6YjJqaQ891cUpCvnW13zeuEcD0pt0ot/cTUZgD/S+ycjqMlama2E3SgS
-         8azhtCAf2ZqydLMXxwvBiPtWJlYBmGQT4AMff67JWzN5Ti8A0jngh2rw9kRAxvYKHgF9
-         n+JMnHCcSHkbuDYd14myWhi3VbOU2d3mQsSMnucjyYj1gUKUPod8i7agmtVPzuuEPL+s
-         csygVyxkY/J1WdqJ/2P0MNm5chmKhtoRNcbXciNhcSo0CYkFYsUrBBGOaOuiOCVwrmEZ
-         IbFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775744368; x=1776349168;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=SKek5Gonk8rDpR4MKoT7kvTwHF1kjksPZBZknu5sKxk=;
-        b=MwWA7/OoXfO3ZcN3g7KavHw45GaLgt7VxmPmvcLeWBtCe2QdY9x60Hq4CP3x4hN1xL
-         Np68Od+FwcVmqWZ0+ooqYm8a4O6zU8zOV562gNdhG65BWpnm9yAZNZP+rnbIocWPtcHi
-         2mjSeHh3NhL1w4qFI97JmeEw0RZG9dZlpQ9JxwgRoMxJrJKA/CrsCIUNY2u5qUIezNQ8
-         x9fEhQUDfOKxSymiXxLOXu80imzKVM3lXQV3Y6dx2rgcSwx7mr/0udUH48uX0zUDUHs/
-         pYAO9xxniYv6g6ONSHyR3KkD4UsiByXKzYCxI1xbQg8jSIXthBpFHiQiJHdfiNtYmo38
-         9qiQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV0VcxHV4tyOoaRdvEwwqcl2QGo8zHo7aUYUdcSV46PWdqj61PavoIp7Xgs3Z5JX4x2RHQ2s59qYWBm@vger.kernel.org
-X-Gm-Message-State: AOJu0YwzSJiYMbUdL2WdzxD9fMRp0rwH/o/tAunFyeWT9zkVWhMN8OOl
-	IMbcX9YMxmruFzbSV35FTS5DOxaBhbUUTA0wY33MgLOMPFbJbHrcvZTn
-X-Gm-Gg: AeBDietmc3mmx+RsuXid3ODsVGcb1pc7RwP+55Y3VmSaAxfnPvqJ7fn3za4LfP8PDqj
-	I1CLlX0rVSdMp/QzENskrN305yUX3ft78RqyfKveltrgRC/tBkn7EsX2WnkhTeToxwtollqMpOb
-	dXT1JzqupnZ7Rd/vRR9ubStprgLN51wIUDLHG9hqocbYgZvjldjp+BR6bB8ZwlQez931CftSnDh
-	7ItSza4xPnCnmuXVNLR0a3Oavf0ptUFLrt17HPZ70DTzRJpi9oCI4TciM2n8d4XlkNbxGB7smzg
-	jyYX5Qvlj5vt9v0Wwgeh1Kybcw7PRvcr0hMYy/mlfbQ1Ekav1llAqDNSM//J8StlyYQVLWNQNUk
-	TxUTRGi138wEbSG2o7KhFYeQ/cScIbEdL9WPnCkg/lIBJjv1p9aFV3SY5srM+J54WogDu1OdWZJ
-	gyT7HQj9wJtVXbRRXmyYpLuJI8OUHsjhWpiNJzqw98uq55mEaq4eFgcyRhryLDV5x/mP2h6yNU
-X-Received: by 2002:a05:7301:4090:b0:2c8:717:7eb8 with SMTP id 5a478bee46e88-2cbfa4c7f6fmr13681278eec.15.1775744368050;
-        Thu, 09 Apr 2026 07:19:28 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2ca7cae9e9esm24912143eec.23.2026.04.09.07.19.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Apr 2026 07:19:27 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <19218853-499c-46a2-8843-0bafa17c81d5@roeck-us.net>
-Date: Thu, 9 Apr 2026 07:19:25 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YMdJV3k+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21734C4CEF7;
+	Thu,  9 Apr 2026 14:21:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775744477;
+	bh=dpsEPXiwZwGBz/472JmJ/+FsWBKQt0J9ni7Su0dthqA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=YMdJV3k+Zo2SF12Jsut6nnGN3Mio0ybEttHnZqnrjtqEK5n8Jdy/fJZB3bspXmU2p
+	 +BgvW7Rc+8tQUezyrrr3R+jNf4dGZTSfvFryyj5sQ1JyMBkaFKtki8MnYppo3RtBHH
+	 6yuIKjvP0gJYkfY/Lj0bSSoGRy8eq1rCCTEvkw9l7UPu2SEdqkqWMfyqesj1thbJZx
+	 IF6wzZbS7xXDM3jK3UybHxn+qvr6hEpWqaKfcyVWD4aKyMVWVzBigLlLr/EMnElgXg
+	 Fodth+8hhsSGZzjFL0xqT0L676XOXpGDbVHySLpl5kSPQlgmyMJMlimQ7oJlLvLbWn
+	 K2NyAkxxbXnqQ==
+Date: Thu, 9 Apr 2026 15:21:12 +0100
+From: Lee Jones <lee@kernel.org>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] mfd: arizona: Convert GPIO IRQ handling to
+ descriptors
+Message-ID: <20260409142112.GF3290953@google.com>
+References: <20260326-mfd-arizona-irq-v4-0-50c47ed0a18e@kernel.org>
+ <20260326-mfd-arizona-irq-v4-2-50c47ed0a18e@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 12/13] hwmon: spd5118: Add I3C support
-To: Akhil R <akhilrajeev@nvidia.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Robert Moore <robert.moore@intel.com>, Len Brown <lenb@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Eric Biggers <ebiggers@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, linux-i3c@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev,
- linux-hwmon@vger.kernel.org
-References: <20260409105747.48158-1-akhilrajeev@nvidia.com>
- <20260409105747.48158-13-akhilrajeev@nvidia.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260409105747.48158-13-akhilrajeev@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260326-mfd-arizona-irq-v4-2-50c47ed0a18e@kernel.org>
 
-On 4/9/26 03:57, Akhil R wrote:
-> Add a regmap config and a probe function to support for I3C based
-> communication to SPD5118 devices.
+On Thu, 26 Mar 2026, Linus Walleij wrote:
+
+> Convert the arizona polling GPIO handling to use a GPIO descriptor
+> instead of passing a global GPIO number as platform data.
 > 
-> On an I3C bus, SPD5118 are enumerated via SETAASA and always require an
-> ACPI or device tree entry. The device matching is hence through the OF
-> match tables only and do not need an I3C class match table. The device
-> identity is verified in the type registers before proceeding to the
-> common probe function.
+> This mechanism is not used in the kernel, but let's preserve
+> the mechanism to be nice.
 > 
-> Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
+> Users can define "irq-gpios" in the devicetree or software node
+> for the Arizona chip to provide the GPIO line corresponding to
+> the IRQ.
+> 
+> Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> ---
+>  drivers/mfd/arizona-irq.c         | 46 +++++++++++++++++++--------------------
+>  include/linux/mfd/arizona/core.h  |  2 ++
+>  include/linux/mfd/arizona/pdata.h |  5 -----
+>  3 files changed, 24 insertions(+), 29 deletions(-)
+> 
+> diff --git a/drivers/mfd/arizona-irq.c b/drivers/mfd/arizona-irq.c
+> index 544016d420fe..8b752a1257b1 100644
+> --- a/drivers/mfd/arizona-irq.c
+> +++ b/drivers/mfd/arizona-irq.c
+> @@ -136,21 +136,19 @@ static irqreturn_t arizona_irq_thread(int irq, void *data)
+>  			dev_err(arizona->dev,
+>  				"Failed to read main IRQ status: %d\n", ret);
+>  		}
+> -#ifdef CONFIG_GPIOLIB_LEGACY
+>  		/*
+>  		 * Poll the IRQ pin status to see if we're really done
+>  		 * if the interrupt controller can't do it for us.
+>  		 */
+> -		if (!arizona->pdata.irq_gpio) {
+> +		if (!arizona->irq_gpiod) {
+>  			break;
+>  		} else if (arizona->pdata.irq_flags & IRQF_TRIGGER_RISING &&
+> -			   gpio_get_value_cansleep(arizona->pdata.irq_gpio)) {
+> +			   gpiod_get_value_cansleep(arizona->irq_gpiod)) {
+>  			poll = true;
+>  		} else if (arizona->pdata.irq_flags & IRQF_TRIGGER_FALLING &&
+> -			   !gpio_get_value_cansleep(arizona->pdata.irq_gpio)) {
+> +			   !gpiod_get_value_cansleep(arizona->irq_gpiod)) {
+>  			poll = true;
+>  		}
+> -#endif
+>  	} while (poll);
+>  
+>  	pm_runtime_put_autosuspend(arizona->dev);
+> @@ -350,27 +348,26 @@ int arizona_irq_init(struct arizona *arizona)
+>  		goto err_map_main_irq;
+>  	}
+>  
+> -#ifdef CONFIG_GPIOLIB_LEGACY
+> -	/* Used to emulate edge trigger and to work around broken pinmux */
+> -	if (arizona->pdata.irq_gpio) {
+> -		if (gpio_to_irq(arizona->pdata.irq_gpio) != arizona->irq) {
+> -			dev_warn(arizona->dev, "IRQ %d is not GPIO %d (%d)\n",
+> -				 arizona->irq, arizona->pdata.irq_gpio,
+> -				 gpio_to_irq(arizona->pdata.irq_gpio));
+> -			arizona->irq = gpio_to_irq(arizona->pdata.irq_gpio);
+> -		}
+> -
+> -		ret = devm_gpio_request_one(arizona->dev,
+> -					    arizona->pdata.irq_gpio,
+> -					    GPIOF_IN, "arizona IRQ");
+> -		if (ret != 0) {
+> -			dev_err(arizona->dev,
+> -				"Failed to request IRQ GPIO %d:: %d\n",
+> -				arizona->pdata.irq_gpio, ret);
+> -			arizona->pdata.irq_gpio = 0;
+> +	/*
+> +	 * Used to emulate edge trigger and to work around broken pinmux
+> +	 * define "irq-gpios" in device tree or software node.
+> +	 */
 
-Acked-by: Guenter Roeck <linux@roeck-us.net>
+Nit: Device Tree (not sure about software node).
 
+> +	arizona->irq_gpiod = devm_gpiod_get_optional(arizona->dev, "irq",
+> +						     GPIOD_IN);
+> +	if (IS_ERR(arizona->irq_gpiod)) {
+> +		ret = dev_err_probe(arizona->dev,
+> +				    PTR_ERR(arizona->irq_gpiod),
+> +				    "error getting IRQ GPIO\n");
+
+Nit:  All other prints in this file are capitalised.
+
+> +		goto err_irq_gpiod;
+> +	}
+> +	if (arizona->irq_gpiod) {
+> +		if (gpiod_to_irq(arizona->irq_gpiod) != arizona->irq) {
+> +			dev_warn(arizona->dev, "IRQ %d does not match GPIO's IRQ %d\n",
+> +				 arizona->irq, gpiod_to_irq(arizona->irq_gpiod));
+> +			arizona->irq = gpiod_to_irq(arizona->irq_gpiod);
+
+Could we cache the result of 'gpiod_to_irq()' into a local variable rather than
+calling it multiple times?
+
+Does it make sense to check the value's for errors?
+
+>  		}
+> +		gpiod_set_consumer_name(arizona->irq_gpiod, "arizona IRQ");
+>  	}
+> -#endif
+>  
+>  	ret = request_threaded_irq(arizona->irq, NULL, arizona_irq_thread,
+>  				   flags, "arizona", arizona);
+> @@ -409,6 +406,7 @@ int arizona_irq_init(struct arizona *arizona)
+>  	arizona_free_irq(arizona, ARIZONA_IRQ_BOOT_DONE, arizona);
+>  err_boot_done:
+>  	free_irq(arizona->irq, arizona);
+> +err_irq_gpiod:
+>  err_main_irq:
+
+Do we really need another goto label that jumps to the same place?
+
+>  	regmap_del_irq_chip(irq_find_mapping(arizona->virq,
+>  					     ARIZONA_MAIN_IRQ_INDEX),
+> diff --git a/include/linux/mfd/arizona/core.h b/include/linux/mfd/arizona/core.h
+> index 6d6f96b2b29f..7129651c9af6 100644
+> --- a/include/linux/mfd/arizona/core.h
+> +++ b/include/linux/mfd/arizona/core.h
+> @@ -11,6 +11,7 @@
+>  #define _WM_ARIZONA_CORE_H
+>  
+>  #include <linux/clk.h>
+> +#include <linux/gpio/consumer.h>
+>  #include <linux/interrupt.h>
+>  #include <linux/notifier.h>
+>  #include <linux/regmap.h>
+> @@ -136,6 +137,7 @@ struct arizona {
+>  	struct irq_domain *virq;
+>  	struct regmap_irq_chip_data *aod_irq_chip;
+>  	struct regmap_irq_chip_data *irq_chip;
+> +	struct gpio_desc *irq_gpiod;
+>  
+>  	bool hpdet_clamp;
+>  	unsigned int hp_ena;
+> diff --git a/include/linux/mfd/arizona/pdata.h b/include/linux/mfd/arizona/pdata.h
+> index f72e6d4b14a7..20118bad869a 100644
+> --- a/include/linux/mfd/arizona/pdata.h
+> +++ b/include/linux/mfd/arizona/pdata.h
+> @@ -188,11 +188,6 @@ struct arizona_pdata {
+>  	/** Haptic actuator type */
+>  	unsigned int hap_act;
+>  
+> -#ifdef CONFIG_GPIOLIB_LEGACY
+> -	/** GPIO for primary IRQ (used for edge triggered emulation) */
+> -	int irq_gpio;
+> -#endif
+> -
+>  	/** General purpose switch control */
+>  	unsigned int gpsw;
+>  };
+> 
+> -- 
+> 2.53.0
+> 
+
+-- 
+Lee Jones [李琼斯]
