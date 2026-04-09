@@ -1,70 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 802DB1A285
-	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 08:53:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com [210.160.252.171])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A59A02BE02C;
+	Thu,  9 Apr 2026 09:03:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.160.252.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775724820; cv=none; b=AWBb/R5o0FWKiwhBNpNnxK/4rt3egEuNuFzFLUsIxqqFCmmwuGDCUb/QFBITIhBjFNquEo8uGi5anvSqxs8WR4vzeioEC5kRtGVW+FcI/CtDiu4WOlgGrzqy7pMThSjHwHw3UJlZ0d3gHmVJq0+qwPdmUyyVT+CwLXj0yriC65c=
+	t=1775725437; cv=none; b=WJr/7kAzsQg9pRtCOKcuMZAKgffo7i9r0gwrRhw4xfiyWkrObtSACBO6L7b4Let38Qxa2T53t+FF+5QysqHMFQViWF8jjj4M3e39jlALPGh2+JCMsbZh/186h4DXbQp4tUkMRqxvK4M3iTqqY7TpIEnAscLWRzI77LM+LB3LZq4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775724820; c=relaxed/simple;
-	bh=+gnYadLPiXy+5pNfg8GvSB4jJxsEx+b65W3ka6Kxn9A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uEe7Q1AJsAnEGmpUnWxpyq/lG1KHzoa3sS9NA/CUnNaV027APDjDTsetVTN9Q8pCn/HTR3vOzyVySxR+zEzHtPEdoONV1lI7U9XqZYAKupbNlaGJT8GF0RNuA6Hm+jDEsCNtiRnsLtsqwe84aLuHYOYqtpgNgFoqFbcPCIQVne0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hnV4tPsK; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hnV4tPsK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65773C2BCB3
-	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 08:53:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775724820;
-	bh=+gnYadLPiXy+5pNfg8GvSB4jJxsEx+b65W3ka6Kxn9A=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=hnV4tPsK/NsT1jjzDTn+Xrrw04dglbAqMClXktPPbAvdPcpoKbLLqxZL50vuUELSk
-	 4Hj7zHz8ROv7Pjj6O0XQrpBs4kqt4I3g4TEjgdu4h50gnXrlwHKJ31AxzQQmGVnwC3
-	 oXCNWK6v1b5S7iBYMWLGjcU6zSzfPi8ZGwB7CGHfgJ4Et5qwBZV37Q9NZaidQKnQPc
-	 izqUGnN2W4aDVPUbq4QtmYSLo8tysZTIveOQKrEacxtA8qgASnTkS66rb7EWQC7PQU
-	 d1rSoxl8CZlKpUAsZGO/UMczErV442grgX4UIQdhmECtiLMC6hSZv8KfcGlBogCcNP
-	 bDjuWCq/aRPzg==
-Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-6501418152cso601729d50.0
-        for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 01:53:40 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCUa4VcDJvhgrbuPRpGeVlO3x0k4/F4nG1rXPNPNCB7MtiaS5JwJxRBCLuPhNYcUUzIuXrqhyxhSwdZC@vger.kernel.org
-X-Gm-Message-State: AOJu0YwPyB3VYMJQ31lwRjxk/Dcq9bOKyRDY3eDwI6o7y55pV0jFawUC
-	v+vQyMkiT6pxKifnaXu7aoHrP7HzS9zEyO3LhBm56BWYGosAbnvYWPoYDGqg+T3/ifoYY77LfeD
-	xfMcVmaRb8noYIF0AulHk6R6aKytozqY=
-X-Received: by 2002:a05:690c:9:b0:7a4:e4e5:38ba with SMTP id
- 00721157ae682-7adf314ac35mr30273177b3.45.1775724819767; Thu, 09 Apr 2026
- 01:53:39 -0700 (PDT)
+	s=arc-20240116; t=1775725437; c=relaxed/simple;
+	bh=pxy+r02hojkhE6vj185t872y1xJaPPLkzuI0hoEAjf0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=S8o0bkANxvdnaAVeVLQQJgp+jAam2cKPRJ+f3PceYaIxO3xVog+1CbfNTWNCm0IZW8buv/MaPEgMRc2A31jtpNJZPDhveS08W6M8nOE3ehVqs9WSswN6x6GiTop7vMfXyriDiXlstevaGXp96l7S4fkMZ7d4XM7k+ll/fsVKsiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; arc=none smtp.client-ip=210.160.252.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+X-CSE-ConnectionGUID: yRcTHWnkSGyZF8nD3NoWVg==
+X-CSE-MsgGUID: p+c85UgCQISOuxfcyRnQTg==
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+  by relmlie5.idc.renesas.com with ESMTP; 09 Apr 2026 18:03:48 +0900
+Received: from ubuntu.adwin.renesas.com (unknown [10.226.92.218])
+	by relmlir5.idc.renesas.com (Postfix) with ESMTP id 0F5774015D82;
+	Thu,  9 Apr 2026 18:03:41 +0900 (JST)
+From: John Madieu <john.madieu.xa@bp.renesas.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	john.madieu@gmail.com,
+	linux-sound@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	John Madieu <john.madieu.xa@bp.renesas.com>
+Subject: [PATCH v4 00/12] ASoC: rsnd: Add RZ/G3E audio driver support
+Date: Thu,  9 Apr 2026 11:02:49 +0200
+Message-ID: <20260409090302.2243305-1-john.madieu.xa@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260408-hawi-pinctrl-v2-0-fd7f681f5e05@oss.qualcomm.com>
-In-Reply-To: <20260408-hawi-pinctrl-v2-0-fd7f681f5e05@oss.qualcomm.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 9 Apr 2026 10:53:28 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkVHZOBk3bgdqk0dX2q4v=+CD8jC+1vu2gi8CK9BLfX2w@mail.gmail.com>
-X-Gm-Features: AQROBzA6XJGRgSvcnO-lnO5vSscUWxOTlZ4i6TF-QZ3gCocWNhYISa1pZoKedJw
-Message-ID: <CAD++jLkVHZOBk3bgdqk0dX2q4v=+CD8jC+1vu2gi8CK9BLfX2w@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] pinctrl: qcom: Introduce Pinctrl for Hawi SoC
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Apr 8, 2026 at 4:16=E2=80=AFPM Mukesh Ojha <mukesh.ojha@oss.qualcom=
-m.com> wrote:
+Add audio support for the Renesas RZ/G3E SoC to the R-Car Sound
+driver. The RZ/G3E audio subsystem is based on R-Car Sound IP but
+has several differences requiring dedicated handling:
 
-> Introduce Top Level Mode Multiplexer dt-binding and driver for upcoming
-> Qualcomm Hawi SoC.
+  - SSI operates exclusively in BUSIF mode (no PIO)
+  - 2-4 BUSIF channels per SSI (layout differs from R-Car)
+  - Separate register regions for SCU, ADG, SSIU, SSI accessed by name
+  - Per-SSI ADG and SSIF supply clocks
+  - Dedicated audmacpp clock/reset for Audio DMAC peri-peri
+  - Per-SSI and per-module reset controllers via CPG
 
-All was reviewed quickly so patches applied for kernel v7.1,
-because why not.
+Changes:
+ 
+v4:
+ - Add reset_control_assert() in rsnd_mod_quit() for symmetry with
+   deassert in rsnd_mod_init() (Mark Brown)
+ - Fix RSND_SOC_MASK to (0xF << 4) to avoid overlap with RSND_RZ_MASK.
+   Add nibble layout comment documenting the flag bit  allocation
+ - Move audmapp_clk and audmapp_rstc from struct rsnd_priv
+   into struct rsnd_dma_ctrl
+ - Replace raw [3][2][3] DMA address array with named
+   structs (rsnd_dma_addr_dir, rsnd_dma_addr_map) for self-documenting
+   table initializers
+ - Move busif_status_count from file-static into new
+   struct rsnd_ssiu_ctrl, following the rsnd_dma_ctrl pattern.
+   Remove duplicate priv variable. Properly propagate reset errors
+   via dev_err_probe()
+ - Clarify commit message regarding PIO mode still being available on
+   R-Car
+ - Collapse dev_err_probe() and rsnd_mod_init() calls to single lines
+ - Move per-SSI ADG and SSIF supply clock prepare/unprepare
+   into rsnd_adg_clk_control() instead of separate functions, eliminating
+   hw_params prepare leak concern. Return proper errors on clk_enable()
+   failure
+ - Move shared SCU clocks from file-statics into new
+   struct rsnd_src_ctrl, following the rsnd_dma_ctrl pattern. Keep
+   original declaration order for struct device_node *node
+ - Merge rsnd_adg_mod_get() helper directly into this
+   patch instead of a separate preparatory patch. Distribute
+   suspend/resume declarations into their respective IP sections in rsnd.h
+ - Drop former patch 12/14 "Add rsnd_adg_mod_get() for PM support":
+   merged into patch 12/12
+ - Drop former patch 13/14 "Export rsnd_ssiu_mod_get() for PM support":
+   function was unused
 
-Yours,
-Linus Walleij
+v3:
+ - Split out from v2 series [1] to ASoC-specific patchset.
+
+v2:
+ - Split of rsnd.yaml into common and R-Car-specific schemas
+ - Introduce RZ/G3E sound binding as a standalone schema
+ - Addressed Kuninori'comments, details are in individual patches
+
+[1] https://lore.kernel.org/all/20260402090524.9137-1-john.madieu.xa@bp.renesas.com/
+
+John Madieu (12):
+  ASoC: dt-bindings: renesas,rsnd: Split into generic and SoC-specific
+    parts
+  ASoC: dt-bindings: Add RZ/G3E (R9A09G047) sound binding
+  ASoC: rsnd: Add reset controller support to rsnd_mod
+  ASoC: rsnd: Add RZ/G3E SoC probing and register map
+  ASoC: rsnd: Add audmacpp clock and reset support for RZ/G3E
+  ASoC: rsnd: Add RZ/G3E DMA address calculation support
+  ASoC: rsnd: ssui: Add RZ/G3E SSIU BUSIF support
+  ASoC: rsnd: Add SSI reset support for RZ/G3E platforms
+  ASoC: rsnd: Add ADG reset support for RZ/G3E
+  ASoC: rsnd: adg: Add per-SSI ADG and SSIF supply clock management
+  ASoC: rsnd: src: Add SRC reset and clock support for RZ/G3E
+  ASoC: rsnd: Add system suspend/resume support
+
+ .../sound/renesas,r9a09g047-sound.yaml        | 371 ++++++++++++++++++
+ .../bindings/sound/renesas,rsnd-common.yaml   | 196 +++++++++
+ .../bindings/sound/renesas,rsnd.yaml          | 319 ++++-----------
+ sound/soc/renesas/rcar/adg.c                  | 125 +++++-
+ sound/soc/renesas/rcar/cmd.c                  |   2 +-
+ sound/soc/renesas/rcar/core.c                 |  61 ++-
+ sound/soc/renesas/rcar/ctu.c                  |  22 +-
+ sound/soc/renesas/rcar/dma.c                  | 274 ++++++++++---
+ sound/soc/renesas/rcar/dvc.c                  |  22 +-
+ sound/soc/renesas/rcar/gen.c                  | 180 +++++++++
+ sound/soc/renesas/rcar/mix.c                  |  22 +-
+ sound/soc/renesas/rcar/rsnd.h                 |  51 ++-
+ sound/soc/renesas/rcar/src.c                  |  85 +++-
+ sound/soc/renesas/rcar/ssi.c                  |  33 +-
+ sound/soc/renesas/rcar/ssiu.c                 |  83 +++-
+ 15 files changed, 1518 insertions(+), 328 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/renesas,rsnd-common.yaml
+
+-- 
+2.25.1
+
