@@ -1,168 +1,270 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93B30221F39;
-	Thu,  9 Apr 2026 05:44:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A8B32EA480
+	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 06:00:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775713473; cv=none; b=I9M9dsvgwYuoUVWvWLT4JfiITVoDYWHzb4nvuzSXrxVlkmw0Ot4MWhDSYLhoqeptD94KNf1Ik4nn06I/RyNCSMPx+eDnD8LCxCVb27NY8xmSaNMA7gp3t3coKhyRdOy+NJepxBK8T3OSgHbfHCSEXx92QNd/RKQ2kYoCwaUdnqk=
+	t=1775714403; cv=none; b=u+t7spTqpi3ZbhvYlg25S52bSQ4Mnoox2PDFXe+Z/eX6obNCbaIB2bCMKJcpIDJ9iizh806n8pAwZoWpmbxTztshnpz1j5qBsgQCEWRotHW/Qt0863Iwd5hZ02MBN3dCtVU9qkebb/08ZXqq2nHU9HoEFyPU4RoZjdZDr0VHhnA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775713473; c=relaxed/simple;
-	bh=3+BFoDQD4UGhv/u5iKR61AyE5QPCcr69xWeIblpslLo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=GktegEsaX35Is1Mxd7dh2ZUhuBqr8WXjXAngq4qyANpJcOjuT+fRaOziJ6y+ctxGfdqCvkeps6ssgowFGDY6Zqj/aTh7Hxtt+9XTsY9V4UQPOZDj2M9Qlftvt8kecmQqikLlCqx/H0EPOpbdnuDaGDDyyZ8gb66K4xF8K0MhDiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=quicinc.com; spf=pass smtp.mailfrom=quicinc.com; dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com header.b=hGfnU83J; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=quicinc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quicinc.com
+	s=arc-20240116; t=1775714403; c=relaxed/simple;
+	bh=TeKtP1yzcdqHSm8bYl3L49aEEfB80akZ1D+/9j2g5WY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fQdx5I+mcFGMVMte/5irRzJ2WF4Qu+i9KBghRGSUZVgFO4NhwNdFyAfQ03sUBR5r3HNiMQAk08QTJEsya4MUAT7NhNORfzi5B3J3tUpM4ubaYVcbR1HujcIvziobHxM34WMW/9zJ28Vb47nUoMmZyxZ/X4FdiJul2O7DnPvx0oE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Bqp4ZaJF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=J5KMEUdu; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=quicinc.com header.i=@quicinc.com header.b="hGfnU83J"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6395OLb23712758;
-	Thu, 9 Apr 2026 05:44:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Bqp4ZaJF";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="J5KMEUdu"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6393CI2l1727227
+	for <devicetree@vger.kernel.org>; Thu, 9 Apr 2026 06:00:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	R+WQCybGlL4QigHsZgqmfBWWmN0VKUE8WJCHz2x1DQo=; b=hGfnU83J+MuZuU3H
-	dEEagdkvig/GpdZj9kFrgH3EQdYYR3jxV75U2vBzREyLZb8W8EPZkoc0uirX2aQ/
-	yJxn3FWHXpn2OcGObFBv/2QCec8u6vAZf+DRoYNkFk8zO7E2JD8LXKaJ8OYuM88o
-	kuRCvOPDobd8oHUdETBPsEWyIx+CN0ns1OYAUzqhfnTY9jxM8Cwyrnk3QN3WYQ42
-	wnGZRcbcM91zstd1h0ezMwUWqojnZ9pYncwYoZfKbprdNoOXk0YY2Ie0jKJf9PAA
-	z2FvTwTG6PJXb9W+1mWdjV5q34Rcn/4CjaLZyEl/jWPSJJAvSGU5TiFpXV2Ojaqz
-	zTA1fg==
-Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com [199.106.103.254])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ddt74agma-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 09 Apr 2026 05:44:25 +0000 (GMT)
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com [10.46.141.250])
-	by NASANPPMTA01.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTPS id 6395iPQp005642
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 9 Apr 2026 05:44:25 GMT
-Received: from [10.204.78.136] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 8 Apr
- 2026 22:44:21 -0700
-Message-ID: <75d22f54-eb55-4e55-9582-5b407f41ee81@quicinc.com>
-Date: Thu, 9 Apr 2026 11:14:10 +0530
+	K7rGEUf7FdQ+jVzulDMjMiw8+lzQ1/zu6mbpjv295J4=; b=Bqp4ZaJFTZBXZMdA
+	xqCzX97STPcevwu72wnZnUL+/psWeIGNf/JAzF4irunS2/4sOE7oHeQSWL/B3wD8
+	hssfMgxrJOsrxYh1w26anup8CNw7Ia0zLYy6F6411zAC38kxP6AVe7NkiYcGIdc1
+	FppkhWQlxZMysawASAtfBzhMH/xdWwYd+nUTH/tiiXSIIciKg2EMJ6mfQEE7cmjJ
+	ZdyIfNON1YAw5X6Q741L38qFE+kdlMeOfQOOTryqU9+FopcFZqrvRL9ch8vpdwFK
+	te0QQOEzrZMaV2C6NsGeddm6rtG3tl/mLGwpaVhKyGIebOcdx3jRlNLr5ShanbG/
+	/CIlJw==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ddwcrsss6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 06:00:01 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-82ce1c395ccso703807b3a.2
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 23:00:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1775714400; x=1776319200; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=K7rGEUf7FdQ+jVzulDMjMiw8+lzQ1/zu6mbpjv295J4=;
+        b=J5KMEUduBEqn5+/8xN60d2Ka8ErW4AY1y3Yiyd+6I94fm8mfCVLouj6vHV+s4nUpC1
+         +B9ZCyyeSlofprvaZHYFtv5tYX0t3QB75stLb3EGw6TeJfHO2QQd/AyALpGPY30Pfgmj
+         ZqANUrVIQMV6YdOVF8E25IR/0TCKH4xAxlL24iSIh/GiEd/2rGblo9MGocXTzbuvta++
+         RmPKRMQmtnn7iyFk/9Uh7yYQ8XlrWzhW3g2/q/ZkXcHctQEsTVQDBFu4+TOT8rjU9qKK
+         q9QStTQeldH4f2U0gEKGv5ShJ01wXbtqfn7RVQxdGevJnMBqbPDxSbiSRKlH7/TkTDFX
+         oCUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775714400; x=1776319200;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=K7rGEUf7FdQ+jVzulDMjMiw8+lzQ1/zu6mbpjv295J4=;
+        b=VCjHL+obEg9R+2zu7d5EtZTgc5tE4BwQZWzrHdnqLbEG6cCo+lJS0ZeKsFP5q7lif+
+         JnmhrbewBzqK1INw47/lxT7sd3rq3hNVICZ6+ucbFxUCFG5+9M/ooIRgB+8lC9Sq0WlR
+         evqdQXGxb8vntcU/DKLd8gNc8rCmVhuw0qIHPqXBVHvccOtmhmWeEmHwJUUnoMLHCHMB
+         DCh+wt59PKxyNyjDgNoN7QsP+7w15KTCSDjOFJFmZYrnGfm1SwkC9BHmqpJI/99H46Zw
+         N+8nz2uXO8uGFV+y1eOP7tfXUDMAm/ExZTWpYSfOcbx/JtzoZK1Gn/IIfhG0+zXCuY/b
+         jb2A==
+X-Forwarded-Encrypted: i=1; AJvYcCXiODu0ggMFfy58eVLy4SZnkngEz8Uho4MhpCncAzjl8m06hXfHQEnZVcHEijVvmacyCSwYvPB4SBEf@vger.kernel.org
+X-Gm-Message-State: AOJu0YzL/Qn2ckvzXbSmWW9adqEABmFdTUDGe2QH+NL05p8ZQeKdq9Oa
+	W7LxCwht48cO1mTpLYnjg8PjCwpZZP1ZzQoTSbWD9HYVQaIB4pQPwRfGNWI/hEV9SpbzXByuNSJ
+	CbNCTq11ClKs6cbdOG2AuMKszziR8OImqEnJ0pgLx/DWfD8QdSN9kJ1XRiFYNC2l5
+X-Gm-Gg: AeBDieukxo7RITvZMvX8uDUq0O+Gwq5BrQ91V8ObC8WaWzmuiWlYjeHyh2vDZzE0M1y
+	DM+FSUB1wAY4NbyL/K8uzFAgJIzakCAXFatiX9/rDd5FvZCG3EJOd1W/86jSaZox2FYkwpGv1El
+	zgGItwoVmbe/gPsXRj36P5Kvu9roAHQKOvvr/DdR+CTsaUl9CqOuBteQ1KgRmUjLn89WLkLtsPI
+	0Ky+QegMhomCbnZc2CwsQyaoLfKUXjuRflg9zCBhYyoVh7ky043bTOG/E5T+kADcQuxW7uSCyoz
+	myG+UQiqmkWhr3UrWc+byREJYi0BaANADxUcIdW/zc83AB7ZmMuFBopR0AUMwZRo4Pg8P6tC5Sb
+	kJkLH/0JuuRZjWNlE+TK0VPF0PBIfcNkxUdHBoyT6qP6/n+AgN8sy
+X-Received: by 2002:a05:6a00:1a8f:b0:82c:9897:70d9 with SMTP id d2e1a72fcca58-82dd8afc99cmr2540714b3a.38.1775714400100;
+        Wed, 08 Apr 2026 23:00:00 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1a8f:b0:82c:9897:70d9 with SMTP id d2e1a72fcca58-82dd8afc99cmr2540685b3a.38.1775714399622;
+        Wed, 08 Apr 2026 22:59:59 -0700 (PDT)
+Received: from [10.0.0.3] ([106.222.228.76])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82cf9c9cbdfsm28876905b3a.53.2026.04.08.22.59.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 08 Apr 2026 22:59:59 -0700 (PDT)
+Message-ID: <aaa93349-dfc0-7dcd-5182-73c8bde9d475@oss.qualcomm.com>
+Date: Thu, 9 Apr 2026 11:29:53 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: sm8750-mtp: Set sufficient voltage for
- panel nt37801
-To: Bjorn Andersson <andersson@kernel.org>
-CC: <konrad.dybcio@linaro.org>, <robh+dt@kernel.org>,
-        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
-        <dmitry.baryshkov@linaro.org>, <linux-arm-msm@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <linux-arm-kernel@lists.infradead.org>, <quic_rajeevny@quicinc.com>,
-        <quic_vproddut@quicinc.com>
-References: <20260323102229.1546504-1-quic_amakhija@quicinc.com>
- <acHwvzjcvqNxUjm3@baldur> <ccb11c2a-4cf1-4486-be71-d4bcc983cee6@quicinc.com>
- <acVWseivbxLQ_uDM@baldur>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [PATCH 3/3] arm64: dts: qcom: milos: Add Iris VPU v2.0
 Content-Language: en-US
-From: Ayushi Makhija <quic_amakhija@quicinc.com>
-In-Reply-To: <acVWseivbxLQ_uDM@baldur>
-Content-Type: text/plain; charset="UTF-8"
+To: Alexander Koskovich <akoskovich@pm.me>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Luca Weiss <luca.weiss@fairphone.com>, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260406-milos-iris-v1-0-17ed0167ba6f@pm.me>
+ <20260406-milos-iris-v1-3-17ed0167ba6f@pm.me>
+From: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+In-Reply-To: <20260406-milos-iris-v1-3-17ed0167ba6f@pm.me>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Authority-Analysis: v=2.4 cv=TL51jVla c=1 sm=1 tr=0 ts=69d73cb9 cx=c_pps
- a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8 a=aBhg6lAgCmotgtkINXQA:9
- a=QEXdDO2ut3YA:10 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: 7WIROd-NrMSWNwZCJBRQx7cIGvSuiUE0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA5MDA0OSBTYWx0ZWRfX5vM6VqO5rN+i
- v6LUPkUK/b15O2dhDuBGalFDRemVvnr2yDQydvGJwAAAOwA+slMCzMAknVM0D+cBZCMrz4p2trI
- kBWEI/uDIWzeQNYVy/zZv3O+0pjA3+LfuhOaXX84cTaTgo+hiHkXTKOHzFGGCd4NNE4+tiRXvMH
- LROfd9T0yVqP4OFQgq0ODlRkegPEREdwykIP9ZppJ06WfiCOcuF2KuVFzHcbOAYuQ5ecNP+EVxz
- +2EJYYMH9Nw6o/2w5PfGhbsTPVbC62fkhuZ3e/OPChVXkoiCXV+PW4YBKWpzG+WrLEB2zH27kUL
- H8fmsIbzJ6hKerriKr4Uv0/AWQ8CUNuD5INbvkbwUKHknqgEu3D9fROE9y0MlFx0S3B7h7IOfEh
- G6tv10cGaFkC6NBDexJLbldDH+9yvb9+HiIFeY8UxvCBQFcpd47o4OsgFgYabFfFPP9Tlb3qlQZ
- JzHGj7hwCHVBrRE73eg==
-X-Proofpoint-GUID: 7WIROd-NrMSWNwZCJBRQx7cIGvSuiUE0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA5MDA1MSBTYWx0ZWRfXxHoNEquSen1I
+ XUit+xI7kyCdorGzTKyna7QiG//mQNE8F8xkDIauxYywo/KGUC8q3j7CQ5e7Osb4UKt7ai+5xck
+ iGbPnjQEyR2AzlkQpvkJSaVwbZdQPHgu3TgWzyHe7Bv35LAyVUq/5m6XoLtd7xp6p+U038MR2Cp
+ naMsvYGBs7kZaZaJXehw8IUBJzgVMBEQkIxfvcADae9J7/mQhz7IqCBtiWgI0h0hcSWDGQAQxjV
+ VJ+vyY8M0xs+bR+aPVyrXAvlyd28+tYdDwCGbZNlEHtc4cZ3n57U5YYWvwMXjc61aGM4bpkjMmx
+ 3ISCn4r6CMwnfBF9E8QElcsaYsUdcI15CNJCIhaAy2dIix6PNmxjtBDlGaQ5Jiu/xwhFYCP+3i8
+ zLWK1EkUR5CeVPlnoAJE0rNa40ARdpak5+y2aWPjaAnTJGc3CMKiro9NFBKdQjaD6clVnsMMYmh
+ tGZeTVc/WJKEzzmnsLQ==
+X-Authority-Analysis: v=2.4 cv=SsWgLvO0 c=1 sm=1 tr=0 ts=69d74061 cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=/ZU3Ovutwf0He1FzxNd9ng==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=cPBJnOxHEKv7ehhu7hMA:9 a=54MLzQr2lWRCTzmv:21 a=QEXdDO2ut3YA:10
+ a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-GUID: v0sFqNP3uSzugS_ztnN3q7s8E-r7mONi
+X-Proofpoint-ORIG-GUID: v0sFqNP3uSzugS_ztnN3q7s8E-r7mONi
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-09_01,2026-04-08_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 clxscore=1015 bulkscore=0 adultscore=0
- spamscore=0 suspectscore=0 impostorscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604090049
+ malwarescore=0 suspectscore=0 lowpriorityscore=0 priorityscore=1501
+ spamscore=0 impostorscore=0 adultscore=0 bulkscore=0 clxscore=1015
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
+ definitions=main-2604090051
 
-On 3/26/2026 9:28 PM, Bjorn Andersson wrote:
-> On Thu, Mar 26, 2026 at 03:06:52PM +0530, Ayushi Makhija wrote:
->> On 3/24/2026 7:34 AM, Bjorn Andersson wrote:
->>> On Mon, Mar 23, 2026 at 03:52:29PM +0530, Ayushi Makhija wrote:
->>>> The NT37801 Sepc V1.0 chapter "5.7.1 Power On Sequence" states
->>>> VDDI=1.65V~1.95V, so set sufficient voltage for panel nt37801.
->>>>
->>>
->>> Please add Fixes: tag.
->>>
->>
->> Hi Bjorn,
->>
->> Sure, will add in new patchset.
->>
->>>> Signed-off-by: Ayushi Makhija <quic_amakhija@quicinc.com>
->>>
->>> Please start using your oss.qualcomm.com address.
->>>
->>>> ---
->>>>  arch/arm64/boot/dts/qcom/sm8750-mtp.dts | 2 +-
->>>>  1 file changed, 1 insertion(+), 1 deletion(-)
->>>>
->>>> diff --git a/arch/arm64/boot/dts/qcom/sm8750-mtp.dts b/arch/arm64/boot/dts/qcom/sm8750-mtp.dts
->>>> index 3837f6785320..6ba4e69bf377 100644
->>>> --- a/arch/arm64/boot/dts/qcom/sm8750-mtp.dts
->>>> +++ b/arch/arm64/boot/dts/qcom/sm8750-mtp.dts
->>>> @@ -462,7 +462,7 @@ vreg_l11b_1p0: ldo11 {
->>>>  
->>>>  		vreg_l12b_1p8: ldo12 {
->>>>  			regulator-name = "vreg_l12b_1p8";
->>>> -			regulator-min-microvolt = <1200000>;
->>>> +			regulator-min-microvolt = <1650000>;
->>>
->>> Are you sure it's not supposed to be 1.8V, given the name of the rail?
->>>
->>> Regards,
->>> Bjorn
->>
->> There was already discussion regarding the minimum voltage for this regulator on sm8550 target
->> on other upstream patch. 
->>
->> Link: https://lore.kernel.org/all/aQQdQoCLeKhYtY7W@yuanjiey.ap.qualcomm.com/
->>
->> This values is according to the NT37801 panel sec
->> "The NT37801 Sepc V1.0 chapter "5.7.1 Power On Sequence" states 
->> VDDI=1.65V~1.95V."
->>
-> 
-> Yes, so the panel requires 1.65V, so regulator-min-microvolt needs to be
-> at least that. But regulator-min-microvolt should account for all the
-> consumers of the rail, are there any others?
-> 
-> Which leads me to my question, the people designing the board named the
-> rail VREG_L12B_1P8 in the schematics, why didn't they name it
-> VREG_L12B_1P65?
-> 
-> Please check all the consumers and make the regulator-min-microvolt work
-> for all of them - if that's 1.65V, then your change is good.
-> 
-> Regards,
-> Bjorn
 
-Hi Bjorn,
 
-There is only one consumer of VREG_L12B_1P8 rail, i.e. NT37801 panel.
-So regulator-min-microvolt as 1.65V should be fine for VREG_L12B_1P8 rail.
+On 4/6/2026 3:49 PM, Alexander Koskovich wrote:
+> Add devicetree nodes for the Iris codec (VPU 2.0) found on the Milos
+> platform.
+> 
+> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+> ---
+>  arch/arm64/boot/dts/qcom/milos.dtsi | 85 +++++++++++++++++++++++++++++++++++++
+>  1 file changed, 85 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/milos.dtsi b/arch/arm64/boot/dts/qcom/milos.dtsi
+> index e1a51d43943f..07aa398c9695 100644
+> --- a/arch/arm64/boot/dts/qcom/milos.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/milos.dtsi
+> @@ -7,6 +7,7 @@
+>  #include <dt-bindings/clock/qcom,milos-dispcc.h>
+>  #include <dt-bindings/clock/qcom,milos-gcc.h>
+>  #include <dt-bindings/clock/qcom,milos-gpucc.h>
+> +#include <dt-bindings/clock/qcom,milos-videocc.h>
+>  #include <dt-bindings/clock/qcom,rpmh.h>
+>  #include <dt-bindings/clock/qcom,sm8650-tcsr.h>
+>  #include <dt-bindings/dma/qcom-gpi.h>
+> @@ -1517,6 +1518,90 @@ usb_1_dwc3_hs: endpoint {
+>  			};
+>  		};
+>  
+> +		iris: video-codec@aa00000 {
+> +			compatible = "qcom,milos-iris";
+> +			reg = <0 0x0aa00000 0 0xf0000>;
+> +
+> +			interrupts = <GIC_SPI 174 IRQ_TYPE_LEVEL_HIGH 0>;
+> +
+> +			power-domains = <&videocc VIDEO_CC_MVS0C_GDSC>,
+> +					<&videocc VIDEO_CC_MVS0_GDSC>,
+> +					<&rpmhpd RPMHPD_CX>,
+> +					<&rpmhpd RPMHPD_MX>;
+> +			power-domain-names = "venus",
+> +					     "vcodec0",
+> +					     "cx",
+> +					     "mx";
+> +
+> +			operating-points-v2 = <&iris_opp_table>;
+> +
+> +			clocks = <&gcc GCC_VIDEO_AXI0_CLK>,
+> +				 <&videocc VIDEO_CC_MVS0C_CLK>,
+> +				 <&videocc VIDEO_CC_MVS0_CLK>;
+> +			clock-names = "iface",
+> +				      "core",
+> +				      "vcodec0_core";
+> +
+> +			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
+> +					 &cnoc_cfg SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
+> +					<&mmss_noc MASTER_VIDEO QCOM_ICC_TAG_ALWAYS
+> +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
+> +			interconnect-names = "cpu-cfg",
+> +					     "video-mem";
+> +
+> +			memory-region = <&video_mem>;
+> +
+> +			resets = <&gcc GCC_VIDEO_AXI0_CLK_ARES>,
+> +				 <&videocc VIDEO_CC_MVS0C_CLK_ARES>;
+> +			reset-names = "bus",
+> +				      "core";
+> +
+> +			iommus = <&apps_smmu 0x1960 0>,
+> +				 <&apps_smmu 0x1967 0>;
+> +
+> +			dma-coherent;
+> +
+> +			/*
+> +			 * IRIS firmware is signed by vendors, only enable on
+> +			 * boards where the proper signed firmware is available.
+> +			 */
+> +			status = "disabled";
+> +
+> +			iris_opp_table: opp-table {
+> +				compatible = "operating-points-v2";
+> +
+> +				opp-240000000 {
+> +					opp-hz = /bits/ 64 <240000000>;
+> +					required-opps = <&rpmhpd_opp_low_svs>,
+> +							<&rpmhpd_opp_low_svs>;
+
+s/rpmhpd_opp_low_svs/rpmhpd_opp_svs
+
+> +				};
+> +
+> +				opp-338000000 {
+> +					opp-hz = /bits/ 64 <338000000>;
+> +					required-opps = <&rpmhpd_opp_svs>,
+> +							<&rpmhpd_opp_svs>;
+> +				};
+> +
+> +				opp-366000000 {
+> +					opp-hz = /bits/ 64 <366000000>;
+> +					required-opps = <&rpmhpd_opp_svs_l1>,
+> +							<&rpmhpd_opp_svs_l1>;
+
+s/rpmhpd_opp_svs_l1/rpmhpd_opp_svs
+
+> +				};
+> +
+> +				opp-444000000 {
+> +					opp-hz = /bits/ 64 <444000000>;
+> +					required-opps = <&rpmhpd_opp_nom>,
+> +		
+
+					<&rpmhpd_opp_nom>;
+s/rpmhpd_opp_nom/rpmhpd_opp_svs_l1
+
+> +				};
+> +
+> +				opp-552000000 {
+> +					opp-hz = /bits/ 64 <552000000>;
+> +					required-opps = <&rpmhpd_opp_turbo>,
+> +							<&rpmhpd_opp_turbo>;
+
+s/rpmhpd_opp_turbo/rpmhpd_opp_nom
 
 Thanks,
-Ayushi
+Dikshita
+> +				};
 
+> +			};
+> +		};
+> +
+>  		videocc: clock-controller@aaf0000 {
+>  			compatible = "qcom,milos-videocc";
+>  			reg = <0x0 0x0aaf0000 0x0 0x10000>;
+> 
