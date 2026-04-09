@@ -1,91 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC4622475CB;
-	Thu,  9 Apr 2026 13:19:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2C2F282F3B;
+	Thu,  9 Apr 2026 13:19:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775740765; cv=none; b=TgILq3LGtnh/g2Evi044kJ3dYAIikU3lkILalXc+lL8bk8++ohkiWToV5t6EU+Rgo5YM3BefGtH3D2rqv5qsNono07XSq500UaYpW4+o5F+sYme/LmfMMGlh2xh3Gfp/FbIdchPt5RRqdLmuqTjHfgbvgIU6GSnMLdtzYMfvjnc=
+	t=1775740786; cv=none; b=US/i6E1zGKfrEWttBLMNdvxvm+8WnEQ3sOZx3fbf+ZQYqMjHm7bctWCrOZt1m6LmpMGJAGRjWCe6j8SzJuxDVJjtatCxpHlpF2SSX0oeg1Krxg5RWdiSzyrG2znhEn2xC55b6vN6GnBYHKN7RqmmOx4M0cW2yuBd0cn05gmspKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775740765; c=relaxed/simple;
-	bh=0yBGZ1Y++o+31q9yBHtCNV47csSwewZum7wmcuSASNw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=ngxRRZAe6MPz4ck8hlSWeOKWiRKnNvkfPi3xjupCkrLDTRzwopfwYy8QaibpHtZ6FZOjt4yGZbEzbzOD9m2Ee6JBfpF+2qwl+HcIs/2DE9ZnLR2AnBkxpHEU7j727AE8HwPNCHOBqO4hv8hkVTuePUlpLCTclh04qDvLFzmnWkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rQ9QE4u7; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775740786; c=relaxed/simple;
+	bh=rKdLwvFDH2Z+iQDKRBba6IcKoLCahcyIw66U+XrMJLQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y7m7fcEM7uYIvT5y08JJSMyXEfu4i1eytXZdwyWt8qNyfH9BnrCa+MAkyYQviqFcOokFCdKMYfc+cUj63I4DKFe891z0mzxatMOHowB+iGWPvYP3ZXPxzFMWuXqbJW5Y+VWBuENI/X5Gk99ZJWZuGT392Hs60nt8HV6ZtfiC3Yw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N7k2trJ0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rQ9QE4u7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF96EC4CEF7;
-	Thu,  9 Apr 2026 13:19:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N7k2trJ0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15876C4CEF7;
+	Thu,  9 Apr 2026 13:19:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775740765;
-	bh=0yBGZ1Y++o+31q9yBHtCNV47csSwewZum7wmcuSASNw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=rQ9QE4u7XS9h4OJ1fbN78xN0SGXcjGjeOuly7H189UzC9lDjDWY20KNvr1SKOjRDB
-	 oyNLiPZdlEGXMAo+rZEe2pTPxDxR19DpwEMisMRV2KvEips4O01kSriKB2/gUi9jxC
-	 DTKMsxPkILcUNExh48xBFAJcaAjyQyxembpuCqUXCB1GyW34xi6Qa9/ZntxalopPtO
-	 tzomO3v0c9q8LRPBOncYph9bTpRXA6EWC4XT0HG1MddDYEEs1PlHYU+B9vTy7DBYWW
-	 KEvnfOGYgBj/rdadZg74FCH5beZsWsaCjCCia5W/pfkwqgJ5ML+NcoA1tSmWfBEU04
-	 FryPiuZcUKbRw==
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
-Cc: john.stultz@linaro.org, linux-sound@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260327092106.4233-1-chaitanya.msabnis@gmail.com>
-References: <20260327092106.4233-1-chaitanya.msabnis@gmail.com>
-Subject: Re: [PATCH v3] ASoC: dt-bindings: hisilicon: Convert hi6210 I2S to
- dt-schema
-Message-Id: <177567159547.101848.2508935852216681187.b4-ty@b4>
-Date: Wed, 08 Apr 2026 19:06:35 +0100
+	s=k20201202; t=1775740786;
+	bh=rKdLwvFDH2Z+iQDKRBba6IcKoLCahcyIw66U+XrMJLQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=N7k2trJ0Q9dAhUvjjBVrj/6ZmM/leBFyOT/aEmXRz7/H5LmzK3jGJlFZ3Kh58t++N
+	 NO3e4yfONZlPkR87OaWzTuhYE7yQQmMcT24RaLn+HJtYFOc3iDoFRphfn8GMtDf9tx
+	 Z6d9k45avKPNbwfFduMvuCrNiXv0TCyH6VQQOwqPDISPDgb3e6wC0qIAB/9WzzJeds
+	 9rZmavNsfNjgAWFD5Yn6jO7cpYoVhxchASjN0DQLirWX6uwTqHFte9ArOaDSxswpao
+	 OszKsu3EXtDDBBpJ2zefR4jUEfNiVQsgn+OFJZqOaT56ZOtIddNWfKUJRgGFtDJ5u5
+	 yqrT+LJHzV6XQ==
+Date: Thu, 9 Apr 2026 08:19:41 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Qiang Yu <qiang.yu@oss.qualcomm.com>
+Cc: Taniya Das <taniya.das@oss.qualcomm.com>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, johan@kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 3/4] clk: qcom: tcsrcc-glymur: Migrate
+ tcsr_pcie_N_clkref_en to clk_ref common helper
+Message-ID: <adem2WKh2B-Leivq@baldur>
+References: <20260331-qref_vote-v1-0-3fd7fbf87864@oss.qualcomm.com>
+ <20260331-qref_vote-v1-3-3fd7fbf87864@oss.qualcomm.com>
+ <ebce5979-0ab5-47ff-963e-68e27216821d@oss.qualcomm.com>
+ <ac306hTHe3qVORk2@hu-qianyu-lv.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1144; i=broonie@kernel.org;
- h=from:subject:message-id; bh=0yBGZ1Y++o+31q9yBHtCNV47csSwewZum7wmcuSASNw=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBp16daUssI6tSg7uF9pxnSweyglsRImwfflPUxM
- dTY8lHqFtSJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCadenWgAKCRAk1otyXVSH
- 0A5PCACAEz3xQAFzoTMgyHCcIAFbDLzTm69ZYLD01lvBD2dDQ5YT6OyzRobBGBp0mQaFXkyPuF/
- 42PJykUJYArJUlvGJIL6bEEP8L6+632Xxt8NZaEuh3JbC4mGON5MrDODRjFfGQjtc5AR1bVRXCm
- pAIIy6BMWCmrPFL6blzn5TCkWf1uNKBH1aud1WeDa4LeZJlu1zD7YsyTGMc8f3KUhrizsIB2AOn
- fsvESB1CtbFvt1sLdJ+R46P3Bw2VdG6PzBpUqodPsv7jvxnuOUeZ5GPCQdkkpGpynIHoh+D+MJ3
- Ii2BNuIdXuTGqyKIsLXVGG2kl8AwyMOyPALCUtuTNupVFH3e
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ac306hTHe3qVORk2@hu-qianyu-lv.qualcomm.com>
 
-On Fri, 27 Mar 2026 14:51:06 +0530, Chaitanya Sabnis wrote:
-> ASoC: dt-bindings: hisilicon: Convert hi6210 I2S to dt-schema
+On Wed, Apr 01, 2026 at 09:47:38PM -0700, Qiang Yu wrote:
+> On Wed, Apr 01, 2026 at 10:05:12PM +0530, Taniya Das wrote:
+> > On 4/1/2026 12:05 PM, Qiang Yu wrote:
+> > > diff --git a/drivers/clk/qcom/tcsrcc-glymur.c b/drivers/clk/qcom/tcsrcc-glymur.c
+[..]
+> > > +static const char * const tcsr_pcie_4_regulators[] = {
+> > > +	"vdda-refgen-0p9",
+> > > +	"vdda-refgen-1p2",
+> > > +	"vdda-qreftx1-0p9",
+> > > +	"vdda-qrefrpt0-0p9",
+> > > +	"vdda-qrefrpt1-0p9",
+> > > +	"vdda-qrefrpt2-0p9",
+> > > +	"vdda-qrefrx2-0p9",
+> > > +};
+> > > +
+> > 
+> > TCSR clock refs are just not for PCIe alone, they would have supplies
+> > for all the ref clocks. These supplies can also be shared across other
+> > clock refs. I think it is not the correct way to handle the supplies, as
+> > TCSR does not have the complete supplies map.
+> >
+> We have complete supplies map. You can get it on ipcatlog. Here is example
+> for other instances eg USB and EDP:
+> - Glymur (eDP): CXO PAD -> TX0 -> RPT0 -> RX0 -> eDP
+> - Glymur (USB4_2): CXO PAD -> TX0 -> RPT0 -> RPT1 -> RX1 -> USB4_2
+> - Glymur (USB3): CXO PAD -> TX0 -> RPT3 -> RPT4 -> RX4 -> USB3_SS3
+> 
+> I only add supplies for PCIe in this series because USB and EDP vote these
+> LDO in their PHY driver. They can remove them in PHY dts node and add same
+> regulator list here.
+> 
 
-Applied to
+The regulators are reference counted. Can't we add the USB and eDP
+handling here as well now, and then after they are voted here we remove
+them from the PHY?
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.1
+Regards,
+Bjorn
 
-Thanks!
-
-[1/1] ASoC: dt-bindings: hisilicon: Convert hi6210 I2S to dt-schema
-      https://git.kernel.org/broonie/sound/c/f4ee8a882a56
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+> - Qiang Yu
+> > 
+> > > +static const struct qcom_clk_ref_desc tcsr_cc_glymur_clk_descs[] = {
+> > > +	[TCSR_EDP_CLKREF_EN] = {
+> > > +		.name = "tcsr_edp_clkref_en",
+> > > +		.offset = 0x60,
+> > >  	},
+> > > -};
+> > >
+> > 
+> > 
+> > -- 
+> > Thanks,
+> > Taniya Das
+> > 
