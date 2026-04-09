@@ -1,80 +1,127 @@
-Received: from mxout2.routing.net (mxout2.routing.net [134.0.28.12])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2A942749DC;
-	Thu,  9 Apr 2026 13:28:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=134.0.28.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1121D299959;
+	Thu,  9 Apr 2026 13:30:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775741293; cv=none; b=mCYKsJWzx5Y609j1zqDzOA+IzyXjhVuxqPvrU46LgsbcHOSNebheb76kvS1eo3YFDPoQUU6qWWPJpDMO+Q4rh3R8+ia22GgWENt16FW1nfnLRRIgP0HZ7oIAb6Jl0sKCg3h1E65NRRBLJODp901X9B+NXpAN7rt3M2bucyby7Qg=
+	t=1775741448; cv=none; b=IMEE4GIPInvsUrMRw8UdqDCUHDbag9Aab6nJUcXSk36lHgclyao2CuNNfUFRS7OU6VQKgCDpZwbRfqbHj3T0NjabhyX6isCNiZigg0eH3IJYOaurK8RbLBIRDvEYDLwdv+1CMKCbvGDHWquZKydbencbZceImIml4x8qrt469cQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775741293; c=relaxed/simple;
-	bh=ae09sqB13GgQ8iilwv+mxqv7g7wWbssjdcrudWI9b3M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=PvbhP8hAURRSC24brbztGKJtMutOxnEo/u0nRNdb2zrBfXWTfqxo5MPzrLBYFP93HySJqsOzmqMXUZtdhE/pQy0CqEB5G8c/WT44RFhWsJDSMBZN+uzGWP/IiJFy3ypH+RWRDHIsgiKLEvYYplUbeQ3QSHSvAYPynTG0uE5fCUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fw-web.de; spf=pass smtp.mailfrom=fw-web.de; dkim=pass (1024-bit key) header.d=mailerdienst.de header.i=@mailerdienst.de header.b=KBruie1K; arc=none smtp.client-ip=134.0.28.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fw-web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fw-web.de
+	s=arc-20240116; t=1775741448; c=relaxed/simple;
+	bh=xoWNC+9fj3k5xjF4v6BdKmGDQc6d15YKVxkkGQRRC50=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ExCq55/QDVVW95QPmEKJ/4FuT6hm2tUA7uGe72ynVG0ZT+Wg8k8ePewq8JwyzpTgH7vtHSafGD6gMo/5713xL0L0q+im/ODvXeZt/967ZGxraIH8sdAw2pEQM0PKoBDz7YoWVmvvsH6bCT6IlusHltcP9vbD9FzGDuYgfl0aYoQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Gt+DdS+8; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mailerdienst.de header.i=@mailerdienst.de header.b="KBruie1K"
-Received: from mxbulk.masterlogin.de (unknown [192.168.10.85])
-	by mxout2.routing.net (Postfix) with ESMTP id 3E3345FCDE;
-	Thu,  9 Apr 2026 13:18:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailerdienst.de;
-	s=routing; t=1775740684;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=mryd7M4BBNCf0x0XGUmEBpmyy0q21EcRX27SGthtwuU=;
-	b=KBruie1KLoeO9Oq624VdhuqzP2Gwf5S3GXX202bCwsXxYZYoqdsKBTsv26sL1M3q9ym7nS
-	s+P3x93XtbgEqXHiwxsNaHIsQyPkpfcP1L3Z0eCesC6lOXprSWI3mhPeB4MPfo9v8dZ0WB
-	GtJrJIyvSATrYlCHUzMzpFGFBFQmnOQ=
-Received: from frank-u24.. (fttx-pool-217.61.155.21.bambit.de [217.61.155.21])
-	by mxbulk.masterlogin.de (Postfix) with ESMTPSA id 10CEA1226C0;
-	Thu,  9 Apr 2026 13:18:04 +0000 (UTC)
-From: Frank Wunderlich <linux@fw-web.de>
-To: Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Frank Wunderlich <frank-w@public-files.de>,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	Daniel Golle <daniel@makrotopia.org>,
-	Andrew LaMarche <andrewjlamarche@gmail.com>
-Subject: [PATCH v1 0/3] some BPI-R4Pro dts updates
-Date: Thu,  9 Apr 2026 15:17:48 +0200
-Message-ID: <20260409131754.121737-1-linux@fw-web.de>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Gt+DdS+8"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 400D6C5C185;
+	Thu,  9 Apr 2026 13:31:19 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6809E5FDEB;
+	Thu,  9 Apr 2026 13:30:44 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 150E2104500B5;
+	Thu,  9 Apr 2026 15:30:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1775741443; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=FfLf9FSJQ4bbwNckexl7akFIsYHUqdf4UFIJBjk7jgU=;
+	b=Gt+DdS+85NbhlyHCtmfUuYrNwTpMkZ8ewS6xuIdlV2LbbNIkromilVSWoJ99XsMgfK95z6
+	x44zRQaVCTbEEXJYmuH5ZvClzrF6SSK946ex3qwZLS0V3ESiAfEZUHUKM0kpnpQIXdveNe
+	POv7VhGh5NzPLX7xcXd6T0YO1K4MCAoZ4G+XnnzLx7W34Y6WNqD9z75m6WKnbiJ8oECQ8X
+	vhSlUDAkT/618naR3BauZorB/ivgxxPtnKWtlrCHIlMP4/fuaolcPxuK9ThFHZhDS5MWl8
+	Qbqo6w6b8K8MhdCZny9AYliVrQTatBAcA98+gY3XFIWorSEsRxhsB3+H1Bu+Kw==
+Date: Thu, 9 Apr 2026 15:30:36 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: David Wang <tomato1220@gmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, a.zummo@towertech.it,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	andrew@aj.id.au, avi.fishman@gmail.com, tmaimon77@gmail.com,
+	tali.perry1@gmail.com, venture@google.com, yuenn@google.com,
+	benjaminfair@google.com, ctcchien@nuvoton.com, mimi05633@gmail.com,
+	openbmc@lists.ozlabs.org, linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	davidwang@quantatw.com
+Subject: Re: [PATCH 1/2] dt-bindings: rtc: nct3018y: add nuvoton,ctrl-reg-val
+ property
+Message-ID: <20260409133036512b9819@mail.local>
+References: <cover.1775717959.git.tomato1220@gmail.com>
+ <ba0845c590eda42a28b3799a6f40294ba74a726e.1775717959.git.tomato1220@gmail.com>
+ <a1e24b69-b90a-47d7-b952-bca45fcc6281@kernel.org>
+ <CADSQSY1rAnZ69JAjosV_AWBw9OL77dyzHkewW5YGvpCZRwXq5A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CADSQSY1rAnZ69JAjosV_AWBw9OL77dyzHkewW5YGvpCZRwXq5A@mail.gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Frank Wunderlich <frank-w@public-files.de>
+On 09/04/2026 15:44:43+0800, David Wang wrote:
+> On Apr 9, 2026, at 15:23, Krzysztof Kozlowski wrote:
+> >
+> > On 09/04/2026 09:21, David Wang wrote:
+> > > Add "nuvoton,ctrl-reg-val" vendor property to allow optional
+> > > initialization of the RTC control register (0x0A).
+> > >
+> > > This allows platform-specific configurations like 24h mode and
+> > > write ownership to be defined via Device Tree.
+> > >
+> > > Signed-off-by: David Wang <tomato1220@gmail.com>
+> > > ---
+> > >  Documentation/devicetree/bindings/rtc/nuvoton,nct3018y.yaml | 5 +++++
+> > >  1 file changed, 5 insertions(+)
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/rtc/nuvoton,nct3018y.yaml b/Documentation/devicetree/bindings/rtc/nuvoton,nct3018y.yaml
+> > > index 4f9b5604acd9..0984dfb77170 100644
+> > > --- a/Documentation/devicetree/bindings/rtc/nuvoton,nct3018y.yaml
+> > > +++ b/Documentation/devicetree/bindings/rtc/nuvoton,nct3018y.yaml
+> > > @@ -24,6 +24,10 @@ properties:
+> > >
+> > >    reset-source: true
+> > >
+> > > +  nuvoton,ctrl-reg-val:
+> > > +    $ref: /schemas/types.yaml#/definitions/uint32
+> > > +    description: Initial value for the control register (0x0A).
+> >
+> > 24h mode is not a property of a board. I don't know what "write
+> > ownership" is.
+> >
+> > Best regards,
+> > Krzysztof
+> 
+> Hi Krzysztof,
+> 
+> Thanks for your feedback. Let me clarify these two points based on the
+> NCT3018Y datasheet:
+> 1. Regarding "write ownership": The NCT3018Y features two I2C
+> interfaces (Primary and Secondary). The TWO (Time Write Ownership) bit
+> in the control register determines which interface has the authority
+> to write to the RTC. We need to ensure the interface connected to our
+> SoC is granted this ownership during probe—especially for factory-new
+> chips—to ensure the RTC is writable.
 
-There are some parts of BPI-R4Pro DTS that need to be changed. Currently
-there should be not much users of the mainline-dts and we noticed some
-things while openwrt integration.
+You need a write-access property. For NXP, we settled with
+nxp,write-access.
 
-Frank Wunderlich (3):
-  arm64: dts: mediatek: mt7988a-bpi-r4pro: drop duplicate fan properties
-  arm64: dts: mediatek: mt7988a-bpi-r4pro: update gpio-leds
-  arm64: dts: mediatek: mt7988a-bpi-r4pro: rework pcie gpio-hog handling
 
- arch/arm64/boot/dts/mediatek/Makefile         |  8 ++++++++
- .../mt7988a-bananapi-bpi-r4-pro-cn13.dtso     | 20 +++++++++++++++++++
- .../mt7988a-bananapi-bpi-r4-pro-cn14.dtso     | 20 +++++++++++++++++++
- .../mediatek/mt7988a-bananapi-bpi-r4-pro.dtsi | 15 ++++----------
- 4 files changed, 52 insertions(+), 11 deletions(-)
- create mode 100644 arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4-pro-cn13.dtso
- create mode 100644 arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4-pro-cn14.dtso
+
+> 2. Regarding "24h mode": This bit determines the internal data format
+> in which time is stored within the RTC hardware. Setting this ensures
+> the hardware's internal storage layout matches the driver's
+> expectation from the start.
+
+The driver needs to always write 24h mode but can support reading both.
+
+
 
 -- 
-2.43.0
-
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
