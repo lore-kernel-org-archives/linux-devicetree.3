@@ -1,128 +1,92 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC4C0379973
-	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 08:26:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB5A379973;
+	Thu,  9 Apr 2026 08:26:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775723197; cv=none; b=EpoJ8Vix33PNOyi47dXscjepGErGxzOeT/WYXbIJgDSk/g144QNQu3yqDswujjeLxXPS4O00E1TJBG/1xQr0hOfpYtvop+XYuBV4aTASmsFm7oOUwoWbNObEVhM/T0KvXNHp2pWf8KX6H7XKDWIAhFcjeGzepfpAgd0fPRgeHYA=
+	t=1775723205; cv=none; b=KgHewfTPeoDdv96Tj70dACzAjaawVoypMKvYrEdmRHu2yifHcDuA3Mnk5Q0q0MyjP4rPQjRc10UmB9cIYi3rUF5EJsyDfyEPxjgtGctKw/LvWY0ybdNAQfyO4CmNTl6J3+KNQY6F/DxSi+e7Sm74lcNqa+DBFlHQWo59WJXE2pM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775723197; c=relaxed/simple;
-	bh=EuhRbZ6NpCilnQOmXdYdPa2U1G2yQC2oX9aabqLBekk=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=Rc3gIIDaTbxUs9cw/iF3S7yqAu/FFmsmKJXtH8VPt0VNzgY2kaR5V5BEJPiv9HiiGNXTjvxaBgxa9TKVdAMH/1hL9frSZM36IjMvUQzBhgzUociJqnbSY3kkNSts2ATNiH5uulpyYc83f4qVkjTaej0LyZ/TnMB+BuwVd38Qx5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=F8YKfrx0; arc=none smtp.client-ip=209.85.218.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1775723205; c=relaxed/simple;
+	bh=8/p0/JoX4mpTggNx+ro1HSf4ExybGVw4dbDv5SxQ9Ls=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z2C2AjMhANePeNiunWsJqtMibhdL5fsJxnzx+KgALUpCzsDZscRqjy0F254fITD0dakziw5zFOSVW9RZklP007KWZTV9PSmhbe9wC6+3LdDbF8vk9H1HE+c7VVjm6qQlYJtHzzLmGh0VCee3cOX7Xf5KEyvHQkPjiIKuZcCXess=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=un86jXMh; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="F8YKfrx0"
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-b980785a0bfso77111266b.3
-        for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 01:26:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1775723194; x=1776327994; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=AZivT/Wgfja7s2ciPCKX2XjEYiV4fDrABVz+SXmA49Y=;
-        b=F8YKfrx09xf3HEsEiLZPCjzfK56Ui0QSCWfc9Flpn/p/jP6pYv05lq8A8hbWqaNgZB
-         4ifa1kEXSx5cDhQkHOquIMTKYAlSzms8Qzz9q1TMumEv/J8mtlPgiFX3Ki1uBvF+q4UC
-         6zpBvniAWWbTuwdDolDdXHEIc9S/HwDzUJFYypzV/4DMXjnPouO+dMciqqCdvsjp0Sjd
-         V8gigTd/kAe4Gl1JgmLq7Dz7bGP7lYKV8W+b2oAYzrkw3WvPCDdrro+yzHEuWCMVM6Uk
-         RhBKaXKYs2tF5oC2D0DB3ukawNrgWeDEOmAyuICU+wW7EmDaebvIGK2bQy+KUdl4J7uB
-         3pbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775723194; x=1776327994;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=AZivT/Wgfja7s2ciPCKX2XjEYiV4fDrABVz+SXmA49Y=;
-        b=LZnUii8Hso0DEJOpLVm3+z442NrDCseGu7HopTSKCK8Zin5D4IbHviZkVxETzaIUbo
-         EJIGQ/0jjVOmbSFzY4J8IDRuWZx96MEsdbwzcIMhWaOoz44iuHZaxoqfMZfxtwbEHGd+
-         5fdwMni7mwTT6FymP3M2dmSF/EYyj2DVUljXE6gZgGJhAM9L5VEa8eibn+nZh9OxDYrK
-         wANyEsEuGbCokN+vMnI8zWNBX1jR10my4BBNoSlKtF06znQfATWGIQtdLdz3Vjx9wee0
-         1U3ju6DJoySid8gn1pzbinWMUlMqOkprXWBF4mzmD5sT1i5NH2IB4QDVSfpk6Ok/ZPld
-         icbw==
-X-Forwarded-Encrypted: i=1; AJvYcCUvr3NZ/VxX6s95lvC0Pw96b/S7wUJ+Gqm41LVkgi7bH601a/hvNxEqUGPMeik1vQVb0JU2m8WWuF36@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx8d5PNOxa1CVcIulg4+sYH5BuLdQrp+XlS/7hfdWJyg4sijgC1
-	W0FOfRwLEAokTj4ZtuiNGkbBVDarrrldLyXwSicN+1gvBFANwfLaMgIRsHAD3q4h0kg=
-X-Gm-Gg: AeBDiete5MrkYaKEJa3wkCObCvyysqAqAqgVj0/7vdfG2MQBUhSrkyCbu0p3FlfOxyi
-	PZ1ZcQlCZyEUJPwA7+uMMeiRIA/P31ugFuHqsErjpoqmK25zQghre10sgkevO/g5Eo38lKfmpHs
-	1RdlZKdFwtEEcvZbNyVGrVTJ8erxt5pIDkbUwFgV2ossP5XJYNed2bvzE+WrfLFlq/uAHpQnWwG
-	IShwsCkbjZHGgwgDRM/1ckyesv51iR/QlDdgDDkVXhhKb2F+pfpNC2CeXhw0Mb0kz8CNS+LWHl1
-	lDdUPSq/GmgHLJ6Vx1Km38Eaej4zePTiglOatwi9EfKk9U8DnSPxT/9hW8O2K3TeR6qtQVkUgQP
-	cLH7OlWmj5xmDT6McuX5kHAMKB/+8cd6U5Apy1QsXdA5Nz0mDbenmzkY6Zq/4rryHcIT1JXRFIW
-	iGYCuxqYLCzsyZbcP3qeuBsIWWuqo/jbiYnCFzgCYDzoFD/GRym1R0EvQV50edzoApVQP0pR1Qi
-	ll/Xdg=
-X-Received: by 2002:a17:907:1903:b0:b97:1d24:c004 with SMTP id a640c23a62f3a-b9c6742f6b4mr1299851566b.21.1775723194150;
-        Thu, 09 Apr 2026 01:26:34 -0700 (PDT)
-Received: from localhost (144-178-202-139.static.ef-service.nl. [144.178.202.139])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9c3c972293sm715510466b.11.2026.04.09.01.26.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Apr 2026 01:26:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="un86jXMh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0A38C4CEF7;
+	Thu,  9 Apr 2026 08:26:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775723205;
+	bh=8/p0/JoX4mpTggNx+ro1HSf4ExybGVw4dbDv5SxQ9Ls=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=un86jXMhKEIvgpyIsyN99nNalun0WzvLnGha2x0PTCUIBVuVzgqe9Haipvw4PQHti
+	 omCjMy99Vw8H9lGokllG/ucElDP9bVQxUKn3Yjpussz830+dSG+87j3Q91R/F5On6N
+	 J1UFEfxiu+E/KSkHc82ii0xGVYzAE7tbpbLbQGIN/N6ZFKo98z/8lI2zaMhoZJeipq
+	 4ji0KKAu0cD3Yf3VBNePoFwp8sF9upHuGuUqpMp6D/OP1rpE59xxz78QAhkajMg/6E
+	 5Q/YkrLitZo/mbZ7WJDTEtIkQbTyFuSySk/891tGkivTW9k/Jl0Hl2PYGPog2uWy3I
+	 HYvH3oDX0gVYw==
+Date: Thu, 9 Apr 2026 10:26:42 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Akhila YS <akhilayalmati@gmail.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Peter Rosin <peda@axentia.se>, linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: i2c: nxp,pca9564: convert to DT schema
+Message-ID: <20260409-rampant-swinging-wolf-51ab4e@quoll>
+References: <20260408-i2c-nxp-v1-1-8276ccbd95fb@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 09 Apr 2026 10:26:32 +0200
-Message-Id: <DHOHC560BPB4.F35KB93S9D97@fairphone.com>
-Cc: "Alex Elder" <elder@kernel.org>, "Andrew Lunn" <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, "Eric Dumazet"
- <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, "Paolo Abeni"
- <pabeni@redhat.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Bjorn
- Andersson" <andersson@kernel.org>, "Konrad Dybcio"
- <konradybcio@kernel.org>, "Alexander Koskovich" <akoskovich@pm.me>,
- <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
- <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>
-Subject: Re: [PATCH 6/6] arm64: dts: qcom: milos-fairphone-fp6: Enable IPA
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>, "Luca Weiss"
- <luca.weiss@fairphone.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260403-milos-ipa-v1-0-01e9e4e03d3e@fairphone.com>
- <20260403-milos-ipa-v1-6-01e9e4e03d3e@fairphone.com>
- <ku4w5dbfk4ihxfslyf7lcxtxnbzabim5mmtm7xlhqbnmav36iv@zt3dky3vbfbo>
-In-Reply-To: <ku4w5dbfk4ihxfslyf7lcxtxnbzabim5mmtm7xlhqbnmav36iv@zt3dky3vbfbo>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260408-i2c-nxp-v1-1-8276ccbd95fb@gmail.com>
 
-Hi Dmitry,
+On Wed, Apr 08, 2026 at 08:23:31AM +0000, Akhila YS wrote:
+> Convert NXP PCA PCA9564/PCA9665 I2C controller to YAML format.
 
-On Fri Apr 3, 2026 at 9:27 PM CEST, Dmitry Baryshkov wrote:
-> On Fri, Apr 03, 2026 at 06:43:52PM +0200, Luca Weiss wrote:
->> Configure and enable the node for IPA which enables mobile data on this
->> device.
->>=20
->> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
->> ---
->>  arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts | 9 +++++++++
->>  1 file changed, 9 insertions(+)
->>=20
->> diff --git a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts b/arch/arm=
-64/boot/dts/qcom/milos-fairphone-fp6.dts
->> index c1899db46e71..31c6d6627619 100644
->> --- a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
->> +++ b/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
->> @@ -690,6 +690,15 @@ vreg_l7p: ldo7 {
->>  	/* AW86938FCR vibrator @ 0x5a */
->>  };
->> =20
->> +&ipa {
->> +	firmware-name =3D "qcom/milos/fairphone/fp6/ipa_fws.mbn";
->> +	memory-region =3D <&ipa_fw_mem>;
->> +
->> +	qcom,gsi-loader =3D "self";
->
-> Are these two common to all Milos devices? Should they be a part of the
-> milos.dtsi?
+DT schema, not YAML format. Look at your subject.
 
-All qcom,gsi-loader properties are in device .dts (or device-common
-.dtsi) files, never in SoC .dtsi files. Based on this, I guess it would
-mostly differ based on the boot firmware used. If Linux is booted in
-EL2, then probably it needs to be changed?
+...
 
-Regards
-Luca
+> +  reg:
+> +    maxItems: 1
+> +
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 0
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +
+> +  clock-frequency:
+> +    default: 100000
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +additionalProperties: false
+
+And if you tested any DTS with this, you would see this cannot work.
+Look at other bindings - you miss ref to i2c-controller and
+unevaluatedProps. But the problem is that you are doing something which
+would never work, so I have doubts that you know what you are doing. One
+thing is to make a mistake, other thing is to post something can never
+work thus putting quite noticeable requirements on review.
+
+Please first learn how DTS and DT bindings work, before you post new
+patches.
+
+Best regards,
+Krzysztof
+
