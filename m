@@ -1,67 +1,67 @@
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65AE32DEA8F
-	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 14:11:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D8D33BBA1F
+	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 14:19:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775743873; cv=none; b=BYfGLnXjvRtLS1Xwed0O2YDiBVna22cwvBfaEgtNt/giGqQaL/0AhulyFEyK/kGBtvo5vvgghqel8mDrwlIHjskvFlvYj3nG1Ex31hNSY+8RTofsmrsBy5Haz/yoLa4ET0gOQd0X5Qr2wHM9+SiYP6iSVr7YQDtk2a3n1GRifMY=
+	t=1775744370; cv=none; b=KR0K5xvE8YuxO5qhUWr6vKUziVeEMTGdA3rQjnr7GSI2zzIAyOH5KnzNEKcRgOIiKKxoM773+OeP7nijpHgJnr04KNXTrMaxb5yHOOvRp9lJ5iy0+N0rjBuxG3hVylBaU5Jl4Ii/CWbtBFYoI6KFWty4LRcQCDn5kNxIHNn/2UQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775743873; c=relaxed/simple;
-	bh=2kme6vq0CMdYGhS5j7KGCDSRfyaFsU4TVNgDqJJ/oi0=;
+	s=arc-20240116; t=1775744370; c=relaxed/simple;
+	bh=O7UJeRKQqwO7ovJL0LORCh9ygfxZEOGTY5qDbFiaz3E=;
 	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=EZZE88tVAkIQfF0qm84gy/AvZIL63gl4DX+Bp/oUlEKS/anBzabfrdpk5hxXMU3UTW2dgOuD3XCEeoE1Fl6kbCSrDtELr9RXHhv75fDIymLSkYwryfRq7nddXIWWuSSC4fVkbiVYQnsuLpOnLu+oXkBxvNuEnHhjcKScvR5gWdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jLlKZRnA; arc=none smtp.client-ip=74.125.82.49
+	 In-Reply-To:Content-Type; b=kRVZ1h06993AWrH6GMSSzsJq3eLKEo2I0OFRI+3qS3nAfPkziOBER+5bT9W8IW6xdyM+Fjl5nxQXriTV4qi56vQtBrZvJxP5B8VJ5oi3dksdNZeWK9i4Rk1wqMw9UGCKHt4mI3vAJmbcQZLQnJ8phR+J5ElBjNrqbzzhTHAglI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vc3ioQ82; arc=none smtp.client-ip=74.125.82.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jLlKZRnA"
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-12c2575ff49so1482172c88.1
-        for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 07:11:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vc3ioQ82"
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-2ce22328930so1203864eec.0
+        for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 07:19:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775743870; x=1776348670; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1775744368; x=1776349168; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:to:subject:user-agent:mime-version:date
          :message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=iBWvy/3k/KSqMZVabRNYGr2KZN8bRWRMbJnLKam4a1I=;
-        b=jLlKZRnASALgXtW4SIqyQtuXLycpR/rLlz02hiYiilXV3VcuxCgeEOjQvF6h3GBSBI
-         FRIx3yZMRAutcKmn/1Wl/CyEVG3yn1Be5QLOyt64k3qKZ1DqMpyXsaRJV7cH4o8VTBKT
-         uKJZULmnHk+x+URCf9K1jcsYmRqK4lqPp1YHOwE7qmfP/qKEAe5kgdaTcwBH5SHFiuyu
-         1f9J85J7J6xtPFzX0TnluT+PY41uX+E7/uTfKl1gn0t684uv4HzniZj5Wb7ZhCZauB1b
-         6CzdRHTuNk0jpJESYxgNgRHS+Ji0ZtlIrL/St1AdphbN8WU+agNNrPi4576P6mnlMTTP
-         KgbQ==
+        bh=SKek5Gonk8rDpR4MKoT7kvTwHF1kjksPZBZknu5sKxk=;
+        b=Vc3ioQ82A12skx+RE1R86wlgNRoP2M6pAyUriaYpv+9vRz0S7BAFq3oFVm/Cg5kZZE
+         4imTD4bXJdGa6YjJqaQ891cUpCvnW13zeuEcD0pt0ot/cTUZgD/S+ycjqMlama2E3SgS
+         8azhtCAf2ZqydLMXxwvBiPtWJlYBmGQT4AMff67JWzN5Ti8A0jngh2rw9kRAxvYKHgF9
+         n+JMnHCcSHkbuDYd14myWhi3VbOU2d3mQsSMnucjyYj1gUKUPod8i7agmtVPzuuEPL+s
+         csygVyxkY/J1WdqJ/2P0MNm5chmKhtoRNcbXciNhcSo0CYkFYsUrBBGOaOuiOCVwrmEZ
+         IbFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775743870; x=1776348670;
+        d=1e100.net; s=20251104; t=1775744368; x=1776349168;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:to:subject:user-agent:mime-version:date
          :message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=iBWvy/3k/KSqMZVabRNYGr2KZN8bRWRMbJnLKam4a1I=;
-        b=UsRMV3Doa+/uZTc7cOIybmWutD9PaMDqOHY+4bEBehi/yWrTlXdtwtWPUPn9GJOL4K
-         mq1Lt8+6Ep3+4pDuucuzSlbHR+cU0JTqFOJha5NxpFstuOdl3QZX5BLTpvbmtQUjJfvX
-         bcBeDO7/fBX0UgDKfbWKBFKixtmBsvxO/PGdv6KbPkLoYtZU6MyZVfMFAb7D1h0pRk3A
-         t4jrU2pDJl1qiVIpba3vQFQnT1qBP/mfMRmWYjDFA1jLbL0eK/C163eXk8Ie1438hTDH
-         mp9/qeD3x+kn9typ0f9v9qFtDxn1P8om4/fGQp4XlAYKUG3IfGEOKKnSMRnzNwhCyHFe
-         ynUA==
-X-Forwarded-Encrypted: i=1; AJvYcCVaeZHckd6LlewXZXVWI8nJ3KGGij+OZ+f6FEySOsPuu+eDAjtHCNfgQL5jLdvgq8gqO8x7ppTh7x74@vger.kernel.org
-X-Gm-Message-State: AOJu0YxgpTMP4HpY/JpiuFtffum8NxhX/XQ9ttnO5rxKhZoLqTzFStCM
-	PMRTapP2MGPK0GMeawTCh9xPKWjuzRzD2YTWKr/+v8p7EIS+60O4n308
-X-Gm-Gg: AeBDiev6OXxH2aGQkj5U29FS0rh4WEzolkUDYOeviXilXUsptYDyE49dZbxKaHDz22o
-	+u+rlb2wO8kO/w82TIqUq3TAPS3jIFqKCG6pg1+Q5clAcYzmizhJA26htXkESkrHbM/y7KP3jfK
-	kkZk2kYIJF+7qEhhu4ChQ69CyF0/LUz1WQSn6XOdZ4SH88ahIe9SqULCzjDac4gNt/VW7UEuXiF
-	xOYK7o06bgf772/0/3Ym+nSznupjiyQSqZOpE7s1syK3INgGRs+pXW+sdgnYAwTbgltLQzGa3dJ
-	xY+lMCHt3gXhnRVGpl07LZTo97QmGaa8SL8kX2vJOKLFofb/mJx5rrf2EZcZRBQWRRNPpjVrMw3
-	LW/CJfUuve4/UvRoq5V6GuHhrtUnJ99VS2mcoVGXrnOp0pvko6Eaj5B+evP9nHO2NQgebHXKIXy
-	phAYgv2kLHnyoLyJJL9d9b3PyBGsX3n5Bc0nEC9cr/xZaqNDoVz0H2ElEG+2IS67bJPKJ+PnEB
-X-Received: by 2002:a05:7022:3d0b:b0:12a:6fbb:3353 with SMTP id a92af1059eb24-12bfb6e8cd5mr14610433c88.3.1775743870201;
-        Thu, 09 Apr 2026 07:11:10 -0700 (PDT)
+        bh=SKek5Gonk8rDpR4MKoT7kvTwHF1kjksPZBZknu5sKxk=;
+        b=MwWA7/OoXfO3ZcN3g7KavHw45GaLgt7VxmPmvcLeWBtCe2QdY9x60Hq4CP3x4hN1xL
+         Np68Od+FwcVmqWZ0+ooqYm8a4O6zU8zOV562gNdhG65BWpnm9yAZNZP+rnbIocWPtcHi
+         2mjSeHh3NhL1w4qFI97JmeEw0RZG9dZlpQ9JxwgRoMxJrJKA/CrsCIUNY2u5qUIezNQ8
+         x9fEhQUDfOKxSymiXxLOXu80imzKVM3lXQV3Y6dx2rgcSwx7mr/0udUH48uX0zUDUHs/
+         pYAO9xxniYv6g6ONSHyR3KkD4UsiByXKzYCxI1xbQg8jSIXthBpFHiQiJHdfiNtYmo38
+         9qiQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV0VcxHV4tyOoaRdvEwwqcl2QGo8zHo7aUYUdcSV46PWdqj61PavoIp7Xgs3Z5JX4x2RHQ2s59qYWBm@vger.kernel.org
+X-Gm-Message-State: AOJu0YwzSJiYMbUdL2WdzxD9fMRp0rwH/o/tAunFyeWT9zkVWhMN8OOl
+	IMbcX9YMxmruFzbSV35FTS5DOxaBhbUUTA0wY33MgLOMPFbJbHrcvZTn
+X-Gm-Gg: AeBDietmc3mmx+RsuXid3ODsVGcb1pc7RwP+55Y3VmSaAxfnPvqJ7fn3za4LfP8PDqj
+	I1CLlX0rVSdMp/QzENskrN305yUX3ft78RqyfKveltrgRC/tBkn7EsX2WnkhTeToxwtollqMpOb
+	dXT1JzqupnZ7Rd/vRR9ubStprgLN51wIUDLHG9hqocbYgZvjldjp+BR6bB8ZwlQez931CftSnDh
+	7ItSza4xPnCnmuXVNLR0a3Oavf0ptUFLrt17HPZ70DTzRJpi9oCI4TciM2n8d4XlkNbxGB7smzg
+	jyYX5Qvlj5vt9v0Wwgeh1Kybcw7PRvcr0hMYy/mlfbQ1Ekav1llAqDNSM//J8StlyYQVLWNQNUk
+	TxUTRGi138wEbSG2o7KhFYeQ/cScIbEdL9WPnCkg/lIBJjv1p9aFV3SY5srM+J54WogDu1OdWZJ
+	gyT7HQj9wJtVXbRRXmyYpLuJI8OUHsjhWpiNJzqw98uq55mEaq4eFgcyRhryLDV5x/mP2h6yNU
+X-Received: by 2002:a05:7301:4090:b0:2c8:717:7eb8 with SMTP id 5a478bee46e88-2cbfa4c7f6fmr13681278eec.15.1775744368050;
+        Thu, 09 Apr 2026 07:19:28 -0700 (PDT)
 Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-12bfea5f860sm24752869c88.2.2026.04.09.07.11.08
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2ca7cae9e9esm24912143eec.23.2026.04.09.07.19.26
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Apr 2026 07:11:09 -0700 (PDT)
+        Thu, 09 Apr 2026 07:19:27 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <56c69966-797b-4f5a-b24f-2409b3cf5e30@roeck-us.net>
-Date: Thu, 9 Apr 2026 07:11:07 -0700
+Message-ID: <19218853-499c-46a2-8843-0bafa17c81d5@roeck-us.net>
+Date: Thu, 9 Apr 2026 07:19:25 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,7 +69,7 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 11/13] hwmon: spd5118: Remove 16-bit addressing
+Subject: Re: [PATCH v2 12/13] hwmon: spd5118: Add I3C support
 To: Akhil R <akhilrajeev@nvidia.com>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
@@ -84,7 +84,7 @@ To: Akhil R <akhilrajeev@nvidia.com>,
  linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev,
  linux-hwmon@vger.kernel.org
 References: <20260409105747.48158-1-akhilrajeev@nvidia.com>
- <20260409105747.48158-12-akhilrajeev@nvidia.com>
+ <20260409105747.48158-13-akhilrajeev@nvidia.com>
 Content-Language: en-US
 From: Guenter Roeck <linux@roeck-us.net>
 Autocrypt: addr=linux@roeck-us.net; keydata=
@@ -130,20 +130,21 @@ Autocrypt: addr=linux@roeck-us.net; keydata=
  F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
  FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
  np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260409105747.48158-12-akhilrajeev@nvidia.com>
+In-Reply-To: <20260409105747.48158-13-akhilrajeev@nvidia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 4/9/26 03:57, Akhil R wrote:
-> The intent of introducing 16-bit addressing was to support I3C, but it
-> turns out to be that I3C do not require to read the Legacy Mode register
-> nor any specific encoding for page translation. The testing of 16-bit
-> code was limited and there are no known users for this feature. Remove
-> the sections which are there to support 16-bit addressing and prepare the
-> driver to support I3C appropriately.
+> Add a regmap config and a probe function to support for I3C based
+> communication to SPD5118 devices.
+> 
+> On an I3C bus, SPD5118 are enumerated via SETAASA and always require an
+> ACPI or device tree entry. The device matching is hence through the OF
+> match tables only and do not need an I3C class match table. The device
+> identity is verified in the type registers before proceeding to the
+> common probe function.
 > 
 > Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
-> Suggested-by: Guenter Roeck <linux@roeck-us.net>
 
 Acked-by: Guenter Roeck <linux@roeck-us.net>
 
