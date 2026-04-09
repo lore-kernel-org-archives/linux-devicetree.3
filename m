@@ -1,508 +1,273 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCC543E1CE7;
-	Thu,  9 Apr 2026 16:59:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1288C1A682F;
+	Thu,  9 Apr 2026 17:16:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775753947; cv=none; b=BDy2dbs/3gTMwGn80J7vycRo0VRtzetjwl1wHN/n6BGqv7rHyu6Pb+Uk2uxGNZ7zB8U1hd9onn+Np+5UmAD18dtMD2m2fWczKICHe4/flsPsgUBRfgg21P9ERwlKpmVyWko4LyLIuPH+dPwdTEk9wDdJlcker3BPMNv9wZyJXoc=
+	t=1775754996; cv=none; b=ahaeBxzJFxwu+5lsuCgkoKTZ3xOYY9Uz6+7BjAWFVpSixUXs8UB58vQcT2LuKjyMM1Gym4iXTgcQaa0a23+TQtbpz3EHoDVdq5SYcIW6MtK7s4bURLFsxyMZ0+AD5diC8uluZdtXKn1lIYUFJnnJG0FPShlYVwghYJghLDZ/odI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775753947; c=relaxed/simple;
-	bh=5gcaVXlGMAPBNhZdLlsPbxHY1NLXHx16UN4E7nUFEwA=;
+	s=arc-20240116; t=1775754996; c=relaxed/simple;
+	bh=hKA78I1dX+0HLcZMktBHihV3sCUPWKFWGrCjyXtK6Us=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lMq66eF+mD+/dq5wXzNSbh0MsRlQh5sXPpyVvRz6BaqfsC3TboQc0Eva3Ufy5zTvbHzVihuQU8gQkvL3GRQRad6dwKfG5jrssTdq0zj8WL5f1kPkHkusED3cebBUVlFOU71GNpfxnwuWB05pcoie0FcwVHbj5HzAbz0PH1wHGMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G0KAoCL8; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G0KAoCL8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCFFCC4CEF7;
-	Thu,  9 Apr 2026 16:59:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775753947;
-	bh=5gcaVXlGMAPBNhZdLlsPbxHY1NLXHx16UN4E7nUFEwA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=G0KAoCL8TlIMq0Il9g8sa13W/n88mtz+Xg8Ju9nftBjaSqdJNfUzcxvq4282XkOzm
-	 2frFeR/1jh6zcG3F2N8GFpOdtuISA5UZ3JH2VmmrwXq5/lJAOtJrjiv9n+FBQvNOPx
-	 I0jLHzS9hjb/Oj5nSYsw9F1nd/HcJn6Carkz1PF/N4QSuEevTVrPFsy0xCkILl/KrM
-	 eY+Wf5Spgme5rVTPZqOLBvPxxCcB9lo86ctCWshwYmw4gFWyqYehNiVu2fO9NysVs+
-	 VmiAna3lfNabTMoP2ZXZBZg6U6KG0B5mVqs7nkuKl+Hj788UJ+BMDPlVQ+EbWl0MJG
-	 wAM82peuJJWrA==
-Date: Thu, 9 Apr 2026 17:59:03 +0100
-From: Lee Jones <lee@kernel.org>
-To: Jan Carlo Roleda <jancarlo.roleda@analog.com>
-Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+	 Content-Type:Content-Disposition:In-Reply-To; b=Hk5Xbgpq4luBzNrpk9kfWNWuuSW2eSCGqPxTAxtZovRerHoLpA8a4bhVFwpQh/kvJzNlIdmoLX0do8Da9JoHj9cJWRpttcXD6yTpDLQjY1M3VMvXvnozdD6tkJosnG4bJlC9eXPjELM/23rj0Xawp1itntM76nK2XYTt0zW5ar8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
+Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
+	by leonov.paulk.fr (Postfix) with ESMTPS id 89FB81F8005F;
+	Thu,  9 Apr 2026 17:16:20 +0000 (UTC)
+Received: by laika.paulk.fr (Postfix, from userid 65534)
+	id 9CEF1B401D6; Thu,  9 Apr 2026 17:16:16 +0000 (UTC)
+X-Spam-Level: 
+Received: from shepard (unknown [192.168.1.1])
+	by laika.paulk.fr (Postfix) with ESMTPSA id F0DBEB401B9;
+	Thu,  9 Apr 2026 17:16:13 +0000 (UTC)
+Date: Thu, 9 Apr 2026 19:16:11 +0200
+From: Paul Kocialkowski <paulk@sys-base.io>
+To: Richard Genoud <richard.genoud@bootlin.com>
+Cc: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] leds: ltc3208: add driver
-Message-ID: <20260409165902.GB3439476@google.com>
-References: <20260406-upstream-ltc3208-v3-0-7f0b1d20ee7a@analog.com>
- <20260406-upstream-ltc3208-v3-1-7f0b1d20ee7a@analog.com>
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	John Stultz <jstultz@google.com>, Joao Schim <joao@schimsalabim.eu>,
+	linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 0/4] Introduce Allwinner H616 PWM controller
+Message-ID: <adfe2z2YeBxm_6oR@shepard>
+References: <20260305091959.2530374-1-richard.genoud@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="GM3yK5VvFWNCjFXU"
+Content-Disposition: inline
+In-Reply-To: <20260305091959.2530374-1-richard.genoud@bootlin.com>
+
+
+--GM3yK5VvFWNCjFXU
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260406-upstream-ltc3208-v3-1-7f0b1d20ee7a@analog.com>
+Content-Transfer-Encoding: quoted-printable
 
-"Add driver" is not a good subject line.
+Hi Richard,
 
-> Kernel driver implementation for LTC3208 Multidisplay LED Driver
+On Thu 05 Mar 26, 10:19, Richard Genoud wrote:
+> Allwinner H616 PWM controller is quite different from the A10 one.
 
-A one line commit messages is not suitable fore a 300 line driver!
+As I've mentionned before, this PWM controller is not specific to the H616
+but also appears in other chips, so the name of the driver and registers
+should not mention H616.
 
-What is the LTC3208 Multidisplay LED?
-What does it do?
-How does it operate?
-What's special about it?
-Any quirks?
+After further investigation, I can see multiple versions of this new PWM IP
+being used in different chips, starting with the R40/V40 (sun8iw11) in 2016.
 
-> Signed-off-by: Jan Carlo Roleda <jancarlo.roleda@analog.com>
-> ---
->  MAINTAINERS                 |   7 ++
->  drivers/leds/Kconfig        |  11 ++
->  drivers/leds/Makefile       |   1 +
->  drivers/leds/leds-ltc3208.c | 298 ++++++++++++++++++++++++++++++++++++++++++++
->  4 files changed, 317 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 55af015174a5..48bae02057d5 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -15126,6 +15126,13 @@ W:	https://ez.analog.com/linux-software-drivers
->  F:	Documentation/devicetree/bindings/iio/temperature/adi,ltc2983.yaml
->  F:	drivers/iio/temperature/ltc2983.c
->  
-> +LTC3208 LED DRIVER
-> +M:	Jan Carlo Roleda <jancarlo.roleda@analog.com>
-> +L:	linux-leds@vger.kernel.org
-> +S:	Maintained
-> +W:	https://ez.analog.com/linux-software-drivers
-> +F:	drivers/leds/leds-ltc3208.c
-> +
->  LTC4282 HARDWARE MONITOR DRIVER
->  M:	Nuno Sa <nuno.sa@analog.com>
->  L:	linux-hwmon@vger.kernel.org
-> diff --git a/drivers/leds/Kconfig b/drivers/leds/Kconfig
-> index 597d7a79c988..867b120ea8ba 100644
-> --- a/drivers/leds/Kconfig
-> +++ b/drivers/leds/Kconfig
-> @@ -1029,6 +1029,17 @@ config LEDS_ACER_A500
->  	  This option enables support for the Power Button LED of
->  	  Acer Iconia Tab A500.
->  
-> +config LEDS_LTC3208
-> +	tristate "LED Driver for Analog Devices LTC3208"
-> +	depends on LEDS_CLASS && I2C
-> +	select REGMAP_I2C
-> +	help
-> +	  Say Y to enable the LTC3208 LED driver.
-> +	  This supports the LED device LTC3208.
+The latest downstream BSP driver has a list of the different generations:
+https://github.com/radxa/allwinner-bsp/blob/cubie-aiot-v1.4.6/drivers/pwm/p=
+wm-sunxi.c#L1901
 
-You can do better!
+We have a first generation called v100/v101 for the following chips:
+H616, R328 and R40. A second generation is called v200 and brings slight
+register layout differences for A133, D1/T113-S3 and V851. Subsequent
+iterations (v201-5) are used in more recent chips like A527 and A733 and
+seem register-compatible with v200 (from a quick look).
 
-> +	  To compile this driver as a module, choose M here: the module will
-> +	  be called ltc3208.
-> +
->  source "drivers/leds/blink/Kconfig"
->  
->  comment "Flash and Torch LED drivers"
-> diff --git a/drivers/leds/Makefile b/drivers/leds/Makefile
-> index 8fdb45d5b439..b08b539112b6 100644
-> --- a/drivers/leds/Makefile
-> +++ b/drivers/leds/Makefile
-> @@ -61,6 +61,7 @@ obj-$(CONFIG_LEDS_LP8788)		+= leds-lp8788.o
->  obj-$(CONFIG_LEDS_LP8860)		+= leds-lp8860.o
->  obj-$(CONFIG_LEDS_LP8864)		+= leds-lp8864.o
->  obj-$(CONFIG_LEDS_LT3593)		+= leds-lt3593.o
-> +obj-$(CONFIG_LEDS_LTC3208)		+= leds-ltc3208.o
->  obj-$(CONFIG_LEDS_MAX5970)		+= leds-max5970.o
->  obj-$(CONFIG_LEDS_MAX77650)		+= leds-max77650.o
->  obj-$(CONFIG_LEDS_MAX77705)		+= leds-max77705.o
-> diff --git a/drivers/leds/leds-ltc3208.c b/drivers/leds/leds-ltc3208.c
-> new file mode 100644
-> index 000000000000..65e65cd73d73
-> --- /dev/null
-> +++ b/drivers/leds/leds-ltc3208.c
-> @@ -0,0 +1,298 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * LED driver for Analog Devices LTC3208 Multi-Display Driver
-> + *
-> + * Copyright 2026 Analog Devices Inc.
-> + *
-> + * Author: Jan Carlo Roleda <jancarlo.roleda@analog.com>
-> + */
-> +#include <linux/bitfield.h>
-> +#include <linux/errno.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/i2c.h>
-> +#include <linux/init.h>
-> +#include <linux/leds.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/module.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/property.h>
-> +#include <linux/regmap.h>
-> +#include <linux/types.h>
-> +#include <linux/workqueue.h>
+So what I suggest here is to rename the driver "sun8i-pwm" and eventually a=
+dd
+a list of generations to the driver and different registers when needed, wi=
+th
+an appropriate suffix in their name.
 
-Are all of these headers strictly necessary? For instance, it doesn't appear we
-are using GPIOs, platform devices, or workqueues in this driver.
+But since you're currently only dealing with H616, this work can be done la=
+ter
+when introducing support for more chips.
 
-> +#define LTC3208_SET_HIGH_BYTE_DATA(x)	FIELD_PREP(GENMASK(7, 4), (x))
-> +
-> +/* Registers */
-> +#define LTC3208_REG_A_GRNRED	0x1 /* Green (High half-byte) and Red (Low half-byte) current DAC*/
-> +#define LTC3208_REG_B_AUXBLU	0x2 /* AUX (High half-byte) and Blue (Low half-byte) current DAC*/
-> +#define LTC3208_REG_C_MAIN	0x3 /* Main current DAC */
-> +#define LTC3208_REG_D_SUB	0x4 /* Sub current DAC */
-> +#define LTC3208_REG_E_AUX	0x5 /* AUX DAC Select */
-> +#define LTC3208_REG_F_CAM	0x6 /* CAM (High half-byte and Low half-byte) current DAC*/
-> +#define LTC3208_REG_G_OPT	0x7 /* Device Options */
-> +
-> +/* Device Options register */
-> +#define LTC3208_OPT_CPO_MASK	GENMASK(7, 6)
-> +#define LTC3208_OPT_DIS_RGBDROP	BIT(3)
-> +#define LTC3208_OPT_DIS_CAMHILO	BIT(2)
-> +#define LTC3208_OPT_EN_RGBS	BIT(1)
+> It can drive 6 PWM channels, and like for the A10, each channel has a
+> bypass that permits to output a clock, bypassing the PWM logic, when
+> enabled.
+>=20
+> But, the channels are paired 2 by 2, sharing a first set of
+> MUX/prescaler/gate.
+> Then, for each channel, there's another prescaler (that will be bypassed
+> if the bypass is enabled for this channel).
+>=20
+> It looks like that:
+>             _____      ______      ________
+> OSC24M --->|     |    |      |    |        |
+> APB1 ----->| Mux |--->| Gate |--->| /div_m |-----> PWM_clock_src_xy
+>            |_____|    |______|    |________|
+>                           ________
+>                          |        |
+>                       +->| /div_k |---> PWM_clock_x
+>                       |  |________|
+>                       |    ______
+>                       |   |      |
+>                       +-->| Gate |----> PWM_bypass_clock_x
+>                       |   |______|
+> PWM_clock_src_xy -----+   ________
+>                       |  |        |
+>                       +->| /div_k |---> PWM_clock_y
+>                       |  |________|
+>                       |    ______
+>                       |   |      |
+>                       +-->| Gate |----> PWM_bypass_clock_y
+>                           |______|
+>=20
+> Where xy can be 0/1, 2/3, 4/5
+>=20
+> PWM_clock_x/y serve for the PWM purpose.
+> PWM_bypass_clock_x/y serve for the clock-provider purpose.
+> The common clock framework has been used to manage those clocks.
+>=20
+> This PWM driver serves as a clock-provider for PWM_bypass_clocks.
+> This is needed for example by the embedded AC300 PHY which clock comes
+> from PMW5 pin (PB12).
+>=20
+> Usually, to get a clock from a PWM driver, we use the pwm-clock driver
+> so that the PWM driver doesn't need to be a clk-provider itself.
+> While this works in most cases, here it just doesn't.
+> That's because the pwm-clock request a period from the PWM driver,
+> without any clue that it actually wants a clock at a specific frequency,
+> and not a PWM signal with duty cycle capability.
 
-Nit: This can look nicer nested:
+=46rom what I understand the pwm-clock driver will either assume a fixed ra=
+te
+set in device-tree or deduce the rate from the pwm period. In any case it w=
+ill
+check that the pwm period (which it cannot change) is the same as the reque=
+sted
+clock period.
 
-#define LTC3208_REG_A_GRNRED		0x1 /* Green (High half-byte) and Red (Low half-byte) current DAC*/
-#define LTC3208_REG_B_AUXBLU		0x2 /* AUX (High half-byte) and Blue (Low half-byte) current DAC*/
-#define LTC3208_REG_C_MAIN		0x3 /* Main current DAC */
-#define LTC3208_REG_D_SUB		0x4 /* Sub current DAC */
-#define LTC3208_REG_E_AUX		0x5 /* AUX DAC Select */
-#define   LTC3208_AUX1_MASK		GENMASK(1, 0)
-#define   LTC3208_AUX2_MASK		GENMASK(3, 2)
-#define   LTC3208_AUX3_MASK		GENMASK(5, 4)
-#define   LTC3208_AUX4_MASK		GENMASK(7, 6)
-#define LTC3208_REG_F_CAM		0x6 /* CAM (High half-byte and Low half-byte) current DAC*/
-#define LTC3208_REG_G_OPT		0x7 /* Device Options */
-#define   LTC3208_OPT_CPO_MASK		GENMASK(7, 6)
-#define   LTC3208_OPT_DIS_RGBDROP	BIT(3)
-#define   LTC3208_OPT_DIS_CAMHILO	BIT(2)
-#define   LTC3208_OPT_EN_RGBS		BIT(1)
+So I agree that pwm-clock is unable to change the clock rate at runtime and=
+ will
+just use whatever frequency the pwm is running at (which is typically set
+in the device-tree consumer property).
 
-> +#define LTC3208_MAX_BRIGHTNESS_4BIT 0xF
-> +#define LTC3208_MAX_BRIGHTNESS_8BIT 0xFF
-> +
-> +#define LTC3208_NUM_LED_GRPS	8
-> +#define LTC3208_NUM_AUX_LEDS	4
-> +
-> +#define LTC3208_NUM_AUX_OPT	4
-> +#define LTC3208_MAX_CPO_OPT	3
+> So, the PWM driver doesn't know if it can use the bypass or not, it
+> doesn't even have the real accurate frequency information (23809524 Hz
+> instead of 24MHz) because PWM drivers only deal with periods.
 
-Nit: Can we have _all_ of the values line up nicely?
+I agree that the driver needs to register as a proper clock provider in
+addition to pwm. But what happens if the same PWM clock is requested both f=
+rom
+the clk side and the pwm side?
 
-#define LTC3208_NUM_AUX_OPT		4
-#define LTC3208_MAX_CPO_OPT		3
+> With pwm-clock, we loose a precious information along the way (that we
+> actually want a clock and not a PWM signal).
+> That's ok with simple PWM drivers that don't have multiple input clocks,
+> but in this case, without this information, we can't know for sure which
+> clock to use.
+> And here, for instance, if we ask for a 24MHz clock, pwm-clock will
+> requests 42ns (assigned-clocks doesn't help for that matter). The logic
+> is to select the highest clock (100MHz) with no prescaler and a duty
+> cycle value of 2/4 =3D> we have 25MHz instead of 24MHz.
+> And that's a perfectly fine choice for a PMW, because we still can
+> change the duty cycle in the range [0-4]/4.
+> But obviously for a clock, we don't care about the duty cycle, but more
+> about the clock accuracy.
+>=20
+> And actually, this PWM is really a PWM AND a real clock when the bypass
+> is set.
 
-> +enum ltc3208_aux_channel {
-> +	LTC3208_AUX_CHAN_AUX = 0,
-> +	LTC3208_AUX_CHAN_MAIN,
-> +	LTC3208_AUX_CHAN_SUB,
-> +	LTC3208_AUX_CHAN_CAM
-> +};
-> +
-> +enum ltc3208_channel {
-> +	LTC3208_CHAN_MAIN = 0,
-> +	LTC3208_CHAN_SUB,
-> +	LTC3208_CHAN_AUX,
-> +	LTC3208_CHAN_CAML,
-> +	LTC3208_CHAN_CAMH,
-> +	LTC3208_CHAN_RED,
-> +	LTC3208_CHAN_BLUE,
-> +	LTC3208_CHAN_GREEN
-> +};
-> +
-> +static const char * const ltc3208_dt_aux_channels[] = {
-> +	"adi,aux1-channel", "adi,aux2-channel",
-> +	"adi,aux3-channel", "adi,aux4-channel"
-> +};
-> +
-> +static const char * const ltc3208_aux_opt[] = {
-> +	"aux", "main", "sub", "cam"
-> +};
-> +
-> +
+Make sense to me.
 
-?
+> This series is based onto v6.19-rc4
+>=20
+> NB: checkpatch is not happy with patch 2, but it's a false positive.
+> It doesn't detect that PWM_XY_SRC_MUX/GATE/DIV are structures, but as
+> it's more readable like that, I prefer keeping it that way.
+>=20
+> NB2: for geopolitical reasons, I didn't re-use the old series that Paul
+> was referring to.
+>=20
+> Changes since v3:
+> - gather Acked-by/Tested-by
+> - fix cast from pointer to integer of different size (kernel test robot
+>   with arc platform)
+> - add devm_action for clk_hw_unregister_composite as suggested by Philipp
+> - remove now unused pwm_remove as suggested by Philipp
+>=20
+> Changes since v2:
+> - use U32_MAX instead of defining UINT32_MAX
+> - add a comment on U32_MAX usage in clk_round_rate()
+> - change clk_table_div_m (use macros)
+> - fix formatting (double space, superfluous comma, extra line feed)
+> - fix the parent clock order
+> - simplify code by using scoped_guard()
+> - add missing const in to_h616_pwm_chip() and rename to
+> h616_pwm_from_chip()
+> - add/remove missing/superflous error messages
+> - rename cnt->period_ticks, duty_cnt->duty_ticks
+> - fix PWM_PERIOD_MAX
+> - add .remove() callback
+> - fix DIV_ROUND_CLOSEST_ULL->DIV_ROUND_UP_ULL
+> - add H616_ prefix
+> - protect _reg in macros
+> - switch to waveforms instead of apply/get_state
+> - shrink struct h616_pwm_channel
+> - rebase on v6.19-rc4
+>=20
+> Changes since v1:
+> - rebase onto v6.19-rc1
+> - add missing headers
+> - remove MODULE_ALIAS (suggested by Krzysztof)
+> - use sun4i-pwm binding instead of creating a new one (suggested by Krzys=
+ztof)
+> - retrieve the parent clocks from the devicetree
+> - switch num_parents to unsigned int
+>=20
+> Richard Genoud (4):
+>   dt-bindings: pwm: allwinner: add h616 pwm compatible
+>   pwm: sun50i: Add H616 PWM support
+>   arm64: dts: allwinner: h616: add PWM controller
+>   MAINTAINERS: Add entry on Allwinner H616 PWM driver
+>=20
+>  .../bindings/pwm/allwinner,sun4i-a10-pwm.yaml |  19 +-
+>  MAINTAINERS                                   |   5 +
+>  .../arm64/boot/dts/allwinner/sun50i-h616.dtsi |  47 +
+>  drivers/pwm/Kconfig                           |  12 +
+>  drivers/pwm/Makefile                          |   1 +
+>  drivers/pwm/pwm-sun50i-h616.c                 | 936 ++++++++++++++++++
+>  6 files changed, 1019 insertions(+), 1 deletion(-)
+>  create mode 100644 drivers/pwm/pwm-sun50i-h616.c
+>=20
+>=20
+> base-commit: 11439c4635edd669ae435eec308f4ab8a0804808
 
-> +struct ltc3208_led {
-> +	struct led_classdev cdev;
-> +	struct i2c_client *client;
-> +	enum ltc3208_channel channel;
-> +};
-> +
-> +struct ltc3208_dev {
-> +	struct i2c_client *client;
-> +	struct regmap *map;
-> +	struct ltc3208_led *leds;
-> +};
-> +
-> +static const struct regmap_config ltc3208_regmap_cfg = {
-> +	.reg_bits = 8,
-> +	.val_bits = 8,
-> +};
-> +
-> +static int ltc3208_led_set_brightness(struct led_classdev *led_cdev,
-> +				      enum led_brightness brightness)
-> +{
-> +	struct ltc3208_led *led = container_of(led_cdev,
-> +					struct ltc3208_led, cdev);
+--=20
+Paul Kocialkowski,
 
-You can use 100-chars to avoid this awkwardness.
+Independent contractor - sys-base - https://www.sys-base.io/
+Free software developer - https://www.paulk.fr/
 
-> +	struct i2c_client *client = led->client;
-> +	struct ltc3208_dev *dev = i2c_get_clientdata(client);
-> +	struct regmap *map = dev->map;
-> +	u8 current_level = brightness;
-> +
-> +	/*
-> +	 * For registers with 4-bit splits (CAM, AUX/BLUE, GREEN/RED), the other
-> +	 * half of the byte will be retrieved from the stored DAC value before
-> +	 * updating the register.
-> +	 */
-> +	switch (led->channel) {
-> +	case LTC3208_CHAN_MAIN:
-> +		return regmap_write(map, LTC3208_REG_C_MAIN, current_level);
-> +	case LTC3208_CHAN_SUB:
-> +		return regmap_write(map, LTC3208_REG_D_SUB, current_level);
-> +	case LTC3208_CHAN_AUX:
-> +		/* combine both low and high halves of byte */
-> +		current_level = LTC3208_SET_HIGH_BYTE_DATA(current_level);
-> +		current_level |= dev->leds[LTC3208_CHAN_BLUE].cdev.brightness;
-> +		return regmap_write(map, LTC3208_REG_B_AUXBLU, current_level);
+Expert in multimedia, graphics and embedded hardware support with Linux.
 
-Should we be using 'regmap_update_bits()' or 'regmap_field' here instead?
-Constructing the register value by reading the software state of another LED
-instance could lead to races.
+--GM3yK5VvFWNCjFXU
+Content-Type: application/pgp-signature; name=signature.asc
 
-> +	case LTC3208_CHAN_BLUE:
-> +		/* apply high bits stored in other led */
-> +		current_level |= LTC3208_SET_HIGH_BYTE_DATA(dev->leds[LTC3208_CHAN_AUX].cdev.brightness);
-> +		return regmap_write(map, LTC3208_REG_B_AUXBLU, current_level);
-> +	case LTC3208_CHAN_CAMH:
-> +		current_level = LTC3208_SET_HIGH_BYTE_DATA(current_level);
-> +		current_level |= dev->leds[LTC3208_CHAN_CAML].cdev.brightness;
-> +		return regmap_write(map, LTC3208_REG_F_CAM, current_level);
-> +	case LTC3208_CHAN_CAML:
-> +		current_level |= LTC3208_SET_HIGH_BYTE_DATA(dev->leds[LTC3208_CHAN_CAMH].cdev.brightness);
-> +		return regmap_write(map, LTC3208_REG_F_CAM, current_level);
-> +	case LTC3208_CHAN_GREEN:
-> +		current_level = LTC3208_SET_HIGH_BYTE_DATA(current_level);
-> +		current_level |= dev->leds[LTC3208_CHAN_RED].cdev.brightness;
-> +		return regmap_write(map, LTC3208_REG_A_GRNRED, current_level);
-> +	case LTC3208_CHAN_RED:
-> +		current_level |= LTC3208_SET_HIGH_BYTE_DATA(dev->leds[LTC3208_CHAN_GREEN].cdev.brightness);
-> +		return regmap_write(map, LTC3208_REG_A_GRNRED, current_level);
+-----BEGIN PGP SIGNATURE-----
 
-This lot is begging for a sub function:
+iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmnX3tsACgkQhP3B6o/u
+lQwk+w//QSTIo2Z2JfHqRQgKtfE7esbTJaJLnzIMtQX3ZuOZBp5a+Vbv4e3Nyz8O
+7e2Nmt32oc1btCB0YPKVAKSCzEhQvh+MAleVwDQA49+QndCIWbhDGS1dg6xlELuZ
+J/db4zzNOBwj8kj100nkKzXs9oXosWJrBfUFBYxUVKaiX7BdtAghGsGrDZLKDOuX
+rZX3uv0zLTULBWIN43TR++CHiOKeXoi7BP3ya4CUUZTg6JSPRpv6Dua79DrL20kF
+WezYBoiKJhE+gIE5iBtsmgR/uZ3pPBUBR8aE3yQnWVyaPCJf4GaqQTmA0Br/Mu5q
+I/xhS1z4KLNidsK+iJ4Hi1W/dHubBDXsXi29OrC36Yn2mCSQvSvAjz59b/dQ1hXE
+5m44RxP7QhNNrL/VsNOwC3LugnAOtFfH+IUIWLLXs6Z8aOT7GmMk1KazKuaS1Geg
+VHGEbFI2Hq9/oC6BhRFFa0YCMFioq6VWwjGsCibEQcA2A1qNMXaaeI5ZaRUblaAD
+nWOYEAF89i4Pe7qVXu7RSVhQOUoKzUnpuExfbt9qIKWX74Yi+D04K6iKAyhpdGke
+QX30RRp6zaB/pof9J0JS/UwpWdnxo/bwVKZ5MHA7nhN/fcGJnpqpxbCoMcSs2hyI
+/zMj6cC+bYy96AX5Onb8hjsEmf6R7KjPbDjY/nsU9x/93MvJSRs=
+=7IMJ
+-----END PGP SIGNATURE-----
 
-static int ltc3208_led_set_current_level(struct regmap *regmap, u8 reg, u8 low, u8 high) {
-{
-	return regmap_write(regmap, reg, SET_HIGH_BYTE(high) | low);
-}
-
-> +	default:
-> +		dev_err(&client->dev, "Invalid LED Channel\n");
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static int ltc3208_update_options(struct ltc3208_dev *dev,
-> +				  bool is_sub, bool is_cam_hi, bool is_rgb_drop)
-> +{
-> +	struct regmap *map = dev->map;
-> +	u8 val =	FIELD_PREP(LTC3208_OPT_EN_RGBS, is_sub) |
-> +			FIELD_PREP(LTC3208_OPT_DIS_CAMHILO, is_cam_hi) |
-> +			FIELD_PREP(LTC3208_OPT_DIS_RGBDROP, is_rgb_drop);
-> +
-
-That tabbing is awkward.  In these cases it's better to do the
-allocation after the declaration.
-
-> +	return regmap_write(map, LTC3208_REG_G_OPT, val);
-> +}
-> +
-> +static int ltc3208_update_aux_dac(struct ltc3208_dev *dev,
-> +	enum ltc3208_aux_channel aux_1, enum ltc3208_aux_channel aux_2,
-> +	enum ltc3208_aux_channel aux_3, enum ltc3208_aux_channel aux_4)
-
-These should sit under the '('.
-
-> +{
-> +	struct regmap *map = dev->map;
-> +	u8 val =	FIELD_PREP(LTC3208_AUX1_MASK, aux_1) |
-> +			FIELD_PREP(LTC3208_AUX2_MASK, aux_2) |
-> +			FIELD_PREP(LTC3208_AUX3_MASK, aux_3) |
-> +			FIELD_PREP(LTC3208_AUX4_MASK, aux_4);
-
-As above.
-
-> +	return regmap_write(map, LTC3208_REG_E_AUX, val);
-> +}
-> +
-> +static int ltc3208_probe(struct i2c_client *client)
-> +{
-> +	enum ltc3208_aux_channel aux_channels[LTC3208_NUM_AUX_LEDS];
-> +	struct ltc3208_dev *data;
-
-'data' is a terrible variable name.
-
-> +	struct ltc3208_led *leds;
-> +	struct regmap *map;
-
-'regmap'
-
-> +	int ret, i;
-> +	u32 val;
-> +	bool dropdis_rgb_aux4;
-> +	bool dis_camhl;
-> +	bool en_rgbs;
-> +
-> +	map = devm_regmap_init_i2c(client, &ltc3208_regmap_cfg);
-> +	if (IS_ERR(map))
-> +		return dev_err_probe(&client->dev, PTR_ERR(map),
-> +				     "Failed to initialize regmap\n");
-> +
-> +	data = devm_kzalloc(&client->dev, sizeof(*data), GFP_KERNEL);
-> +	if (!data)
-> +		return -ENOMEM;
-> +
-> +	leds = devm_kcalloc(&client->dev, LTC3208_NUM_LED_GRPS,
-> +			    sizeof(struct ltc3208_led), GFP_KERNEL);
-> +	if (!leds)
-> +		return -ENOMEM;
-> +
-> +	data->client = client;
-> +	data->map = map;
-> +
-> +	/* initialize options from devicetree */
-
-Capitalise comments and it's "Device Tree", although honestly, I think
-the whole comment is superfluous.
-
-> +	dis_camhl = device_property_read_bool(&client->dev,
-> +					      "adi,disable-camhl-pin");
-> +	en_rgbs = device_property_read_bool(&client->dev,
-> +					    "adi,cfg-enrgbs-pin");
-> +	dropdis_rgb_aux4 = device_property_read_bool(&client->dev,
-> +						     "adi,disable-rgb-aux4-dropout");
-
-Use 100-chars.
-
-> +	ret = ltc3208_update_options(data, en_rgbs, dis_camhl,
-> +				     dropdis_rgb_aux4);
-> +	if (ret)
-> +		return dev_err_probe(&client->dev, ret,
-> +				     "error writing to options register\n");
-
-Capitalise.
-
-> +	/* initialize aux channel configurations from devicetree */
-
-As above and throughout.
-
-> +	for (i = 0; i < LTC3208_NUM_AUX_LEDS; i++) {
-
-for (int i = 0; ...
-
-> +		ret = device_property_match_property_string(&client->dev,
-> +							    ltc3208_dt_aux_channels[i],
-> +							    ltc3208_aux_opt,
-> +							    LTC3208_NUM_AUX_OPT);
-> +		/* use default value if absent in devicetree */
-> +		if (ret == -EINVAL)
-> +			aux_channels[i] = LTC3208_AUX_CHAN_AUX;
-> +		else if (ret >= 0)
-> +			aux_channels[i] = ret;
-> +		else
-> +			return dev_err_probe(&client->dev, ret,
-> +					     "Failed getting aux-channel.\n");
-> +	}
-> +
-> +	ret = ltc3208_update_aux_dac(data, aux_channels[0], aux_channels[1],
-> +				     aux_channels[2], aux_channels[3]);
-
-Why not just aux_channels and pull the values out in the function.
-
-> +	if (ret)
-> +		return dev_err_probe(&client->dev, ret,
-> +				     "error writing to aux %u channel register.\n", i);
-
-When is 'i' not 'LTC3208_NUM_AUX_LEDS'?
-
-> +	i2c_set_clientdata(client, data);
-> +
-> +	device_for_each_child_node_scoped(&client->dev, child) {
-> +		struct ltc3208_led *led;
-> +		struct led_init_data init_data = {};
-> +
-> +		ret = fwnode_property_read_u32(child, "reg", &val);
-> +		if (ret || val >= LTC3208_NUM_LED_GRPS)
-> +			return dev_err_probe(&client->dev, -EINVAL,
-> +					     "Invalid reg property for LED\n");
-
-Why aren't we propagating the real error?
-
-> +
-> +		led = &leds[val];
-> +		led->client = client;
-> +		led->channel = val;
-> +		led->cdev.brightness_set_blocking = ltc3208_led_set_brightness;
-> +		led->cdev.max_brightness = LTC3208_MAX_BRIGHTNESS_4BIT;
-> +		if (val == LTC3208_CHAN_MAIN || val == LTC3208_CHAN_SUB)
-> +			led->cdev.max_brightness = LTC3208_MAX_BRIGHTNESS_8BIT;
-> +
-> +		init_data.fwnode = child;
-> +
-> +		ret = devm_led_classdev_register_ext(&client->dev, &led->cdev,
-> +			&init_data);
-> +		if (ret)
-> +			return dev_err_probe(&client->dev, ret,
-> +					     "Failed to register LED %u\n", val);
-> +	}
-> +
-> +	data->leds = leds;
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct of_device_id ltc3208_match_table[] = {
-> +	{.compatible = "adi,ltc3208"},
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, ltc3208_match_table);
-> +
-> +static const struct i2c_device_id ltc3208_idtable[] = {
-> +	{ "ltc3208" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(i2c, ltc3208_idtable);
-> +
-> +static struct i2c_driver ltc3208_driver = {
-> +	.driver = {
-> +		.name = "ltc3208",
-> +		.of_match_table = ltc3208_match_table,
-> +	},
-> +	.id_table = ltc3208_idtable,
-> +	.probe = ltc3208_probe,
-> +};
-> +module_i2c_driver(ltc3208_driver);
-> +
-> +MODULE_LICENSE("GPL");
-> +MODULE_AUTHOR("Jan Carlo Roleda <jancarlo.roleda@analog.com>");
-> +MODULE_DESCRIPTION("LTC3208 LED Driver");
-> 
-> -- 
-> 2.43.0
-> 
-
--- 
-Lee Jones [李琼斯]
+--GM3yK5VvFWNCjFXU--
