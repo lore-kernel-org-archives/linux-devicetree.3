@@ -1,191 +1,211 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [185.100.197.86])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FCD433C1BE
-	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 20:18:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0316C86329;
+	Thu,  9 Apr 2026 20:38:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775765934; cv=none; b=UYz6nxeFkxtkN4ln0Nrwk4T0GLq5hyoa4c6rpIO6iU+notKT7+TcVKBG7oz/wBV7oZDcimTqzqNcy3RkPVNwSDGdJzu6tlOyrRqiUhdE7GD27NKIC6ufA0YxyEhDOXHwOTS2SuNli/MKf7f9IX4OjjbAMoN2KINZgCFnudGMlrs=
+	t=1775767104; cv=none; b=Ehn8wGQntooWZM+HIXN6IsC4omKxaeyFKYT2spOnwUZSJ9sRoR7Wj1vgEJXSUox/zVJtW95SGl5GIvePDPnKGCTuaXhEEZyIP9hPMONX5rvnHubfozz7edHVcmymvbTHnuYxQq47Wu+YBZryvylS6nUe/YtKHa/nmTgL6FXAN+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775765934; c=relaxed/simple;
-	bh=CEMFdCdV787AMyGI8dxLrCBGALoi2KygjN6kKW1f9PY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=n8X7MFycBk0VUr/twO/p1qoYRlBOK55+rrM6zlQqaz1m4CZ2LdnsgpwSdO08lRLGaUfdvHE4htkzQnaJFBbFgq8zt3Yuba83iQ4moKL+5Q7jORhmkrnibe8PByhb3BbcmlVetW3Lp5qKhJsRd9pbMnVn+V2nn1ytFiLdYXhMVYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qQxcPmoB; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1775767104; c=relaxed/simple;
+	bh=aUUCWf6/kvdLhr3jT22D0KkSihovsMBQ9lnpEksksko=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qz9trrwOy7GK+mNXL89BSo2oKsbrVa4v2dnQTWnID2B0neByRwIoKYly9/mcWiB0c6kbswU7JSupMAsn4sDYmaLzXv9lyxmZaxYN4zF9N+w+Er8UgT/HLGOHV77OggocjvP4f5aAc8L55i+7waB1tObX5K940JmC0cYo9SU+b3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=gIA9WO/E; arc=none smtp.client-ip=185.100.197.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qQxcPmoB"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2b2589c26e3so11990215ad.1
-        for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 13:18:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775765932; x=1776370732; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Wsop0ED0cxBTgOqfG4UjnGPiOWr01DVPoMWtUinONWQ=;
-        b=qQxcPmoBABwfSz5RgHZpW9kh2PM0/SxfV5/sQzv3xuc2HW5GN6Vz6mb6dIZkyTw0ss
-         n42HvXZ749d8yLV82mcjKxlcF+HT4DuDpr+Z1zQQQWP42l9xau3ZNxio9A2AvO01jrIY
-         HYTL2VkgcGY3G8deTRriHJ4JsDsvGeZQLupOLVQ9kQVnhrOVFPnjzC9Q+RcEnINSCva7
-         vYkqOOEc+qVBouLEM8v7gWWtejY50H0sPSg4XOS3MfH4LcgECJWS/CKEl0tv6FGIaS9F
-         H870qpVPfhiak3UWjV1Uc4u8//KKlAgfUpfIUKFQRWoJA0bxzA3OwgfaI5iS4rAgo79W
-         vQZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775765932; x=1776370732;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=Wsop0ED0cxBTgOqfG4UjnGPiOWr01DVPoMWtUinONWQ=;
-        b=e4Efr9SjjZLLmFF8f6dXHXvjP1DUZpGMg+1Tigs3M/0ZqwulyGyp1zBOYNBHrgvZi0
-         FTelSrWEJm4xADfcMesHfmrFU7LouewsP0OU9V/FJ8IpzYgPDt/o+g37sZgduI/jMJyg
-         R1ak2TB/AJe19gyDCGmchQ397qftl4uNM92pGhdZbnryCXKCjq8O3fzZx2U16VaZ9g24
-         92ss+WLkiogK69kFSekKlaxWGnzMT7RnlnRZzk4HnmExivUvGYPvUJYjHSoZcgcHZLMy
-         SKIzQoUZUxkU1Z49XRWH7ni+zXpwzj19rpuAQMnt63VOJF03agSM/VIYJqdWMtrEJIFN
-         b3Dw==
-X-Forwarded-Encrypted: i=1; AJvYcCWLn5u5axXPM+nYJBVcHBWXUbzIKMzVWjl5VJ/Qnk1+9RLJoqofxUvU07hHkxqv7E7GcAcxxop+naiZ@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx3ElKXeiQd3SjHNdZZy3pDBRRBoX9FgLFvtb1UU9NBhjCmeSL4
-	aT8Kt+YiqA9I9YhQqTPJtV4UmeWu+tyNS5rEglsrTX24l2Be4C5WM0wR
-X-Gm-Gg: AeBDievbBkInQUibapZ0d8vcpNcv+lyovJ8wgxASMRI/LITxvqpw10027Y9/TKsEbvN
-	IaN0j2zFOFNeKgxNEsDuXjgjMGejIGfzJm96+PA6BeuRnqPyEmilY2s+GJiJhPR7cQ32n1tQNTS
-	M0CfG+InAF5RlKiiyy0Zuid7yrMPPPwR/cCnP+1rLv1ptpPivda5jBrVw0O9WklIFzAhuik1w4a
-	THrG2qwiWCTpUQKcCyldd8npYptxadnUvOAajfqx/AbFHOTApSXdRnV/fTLy3qqeUukTKZnrK7h
-	KaHz6h/pVSh4cWYXNyX8gWwImpQlsbDQAkXiKwIG+OJKlqSP3r8pMqr6SmDYx8HY0q7/g9iVWna
-	o+ghgyZ3905X6W53AKOJ4rENAp7KnHjUSGbIsWTh3JYPh155m9yyJ/KkjvbZRQm+90wAQoZ50gU
-	whwo6UAnj+NRG59y4zf3LhIYDksHAqy6flYkFJlfinerj2ExnZ3y+qtJZy1P0=
-X-Received: by 2002:a17:902:db0c:b0:2b0:5cee:c421 with SMTP id d9443c01a7336-2b2d595b645mr3329935ad.4.1775765931621;
-        Thu, 09 Apr 2026 13:18:51 -0700 (PDT)
-Received: from tomriddle ([131.203.184.83])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b2d4f48cfdsm3895425ad.82.2026.04.09.13.18.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Apr 2026 13:18:51 -0700 (PDT)
-From: Oliver White <oliverjwhite07@gmail.com>
-To: andersson@kernel.org,
-	konradybcio@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: bod@kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Oliver White <oliverjwhite07@gmail.com>
-Subject: [PATCH v2 2/2] arm64: dts: qcom: x1e80100-microsoft-romulus: enable OV02C10 MIPI CSI-2 camera
-Date: Fri, 10 Apr 2026 08:17:17 +1200
-Message-ID: <20260409201717.108169-3-oliverjwhite07@gmail.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260409201717.108169-1-oliverjwhite07@gmail.com>
-References: <20260409083609.75341-1-oliverjwhite07@gmail.com>
- <20260409201717.108169-1-oliverjwhite07@gmail.com>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="gIA9WO/E"
+Received: from [IPV6:2a02:f000:10bd:e301::471] (unknown [IPv6:2a02:f000:10bd:e301::471])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 594FC5340E02;
+	Thu, 09 Apr 2026 22:38:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1775767096;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=ahz7Bk3xD2P4hB8w3yAV0ESZON1h7UZOAAG/Qh3s/cc=;
+	b=gIA9WO/EVlo/3W/T9UMgzqjOeDI+YlwQvejGmSx8OiqBcsRYMr82fW9JWGWUQbt+D++ehx
+	i0BiixjDD/tLHqIuykHEQquKcuzys+/Nzk/+qHOjd6B+hJveADkXYRbe27+lwG4uVzClAb
+	wuOwwldKKh1jNabsGDN9ia1+FRtHZaw=
+Message-ID: <8cd9693d-9ec0-4173-bcca-786915b5c4cc@ixit.cz>
+Date: Thu, 9 Apr 2026 22:38:15 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] arm64: dts: qcom: sdm845: Add missing MDSS reset
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20260217-sdm845-hdk-v1-0-866f1965fef7@oss.qualcomm.com>
+ <20260217-sdm845-hdk-v1-3-866f1965fef7@oss.qualcomm.com>
+ <590f75c2-6418-4d39-ba7e-589acdf98786@oss.qualcomm.com>
+ <e43d5bb2-bdbf-4439-933e-36591dcfd3c1@ixit.cz>
+ <9405b67b-9e08-472d-a937-38c038fdf73a@oss.qualcomm.com>
+ <ljser6u4fd5qc4lxxde77igtxz6ertbeucsg6s3zbwlykfowpj@yf7h6tqh6cik>
+ <9b4cb352-d1ed-402d-a55d-cce2d2fe1eed@oss.qualcomm.com>
+ <t5akkkyyv5yebjmowvqu3nnweu5hz47tagdzv3ifzqwlgib2v2@5jugyaiav5wn>
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <t5akkkyyv5yebjmowvqu3nnweu5hz47tagdzv3ifzqwlgib2v2@5jugyaiav5wn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Enable the front-facing OV02C10 MIPI CSI-2 camera on Microsoft Romulus
-by enabling CAMSS, CCI1 and CSIPHY4, adding the sensor node and its
-endpoint, and defining the pinctrl state used by the camera clock and
-reset lines.
+On 18/02/2026 16:59, Dmitry Baryshkov wrote:
+> On Wed, Feb 18, 2026 at 03:28:01PM +0100, Konrad Dybcio wrote:
+>>
+>>
+>> On 18-Feb-26 12:58, Dmitry Baryshkov wrote:
+>>> On Wed, Feb 18, 2026 at 12:24:26PM +0100, Konrad Dybcio wrote:
+>>>> On 2/18/26 12:18 PM, David Heidelberg wrote:
+>>>>> On 18/02/2026 11:30, Konrad Dybcio wrote:
+>>>>>> On 2/17/26 10:20 PM, Dmitry Baryshkov wrote:
+>>>>>>> From: David Heidelberg <david@ixit.cz>
+>>>>>>>
+>>>>>>> If the OS does not support recovering the state left by the
+>>>>>>> bootloader it needs a way to reset display hardware, so that it can
+>>>>>>> start from a clean state. Add a reference to the relevant reset.
+>>>>>>
+>>>>>> This is not the relevant reset
+>>>>>>
+>>>>>> You want MDSS_CORE_BCR @ 0xaf0_2000
+>>>>>
+>>>>> Thanks, I prepared the fixes [1].
+>>>>>
+>>>>> I'll try to test it if it's not breaking anything for us and send as v2 of [2].
+>>>>>
+>>>>> David
+>>>>>
+>>>>> [1] https://codeberg.org/sdm845/linux/commits/branch/b4/mdss-reset
+>>>>> [2] https://patchwork.kernel.org/project/linux-arm-msm/patch/20260112-mdss-reset-v1-1-af7c572204d3@ixit.cz/
+>>>>
+>>>> Please don't alter the contents of dt-bindings, it really doesn't matter
+>>>> if on sdm845 it's reset0 or reset1, that's why we define them in the first
+>>>> place
+>>>
+>>> I dpn't think that will pass. Current reset is defined as RSCC, we can't
+>>> change that to CORE behind the scene. I'd prefer David's approach.
+>>
+>> Back when I replied, David had a patch that removed the current RSCC
+>> reset definition in dt-bindings (at index 0) and re-used that index
+>> for CORE, putting RSCC at index 1. Perhaps it's better to link to
+>> specific commits when making comments, note to self :P
+> 
+> Yes, I saw the commit having two resets. Anyway, as we saw, it doesn't
+> work.
 
-Signed-off-by: Oliver White <oliverjwhite07@gmail.com>
----
- .../dts/qcom/x1e80100-microsoft-romulus.dtsi  | 75 +++++++++++++++++++
- 1 file changed, 75 insertions(+)
+So, finally I spent "so much effort" (read throwing it at LLM) looking at:
 
-diff --git a/arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus.dtsi b/arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus.dtsi
-index 4427ecae423f..9e910813fa48 100644
---- a/arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus.dtsi
-+++ b/arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus.dtsi
-@@ -918,6 +918,65 @@ &gpu_zap_shader {
- 	firmware-name = "qcom/x1e80100/microsoft/qcdxkmsuc8380.mbn";
- };
- 
-+&camss {
-+	status = "okay";
-+
-+	ports {
-+		/*
-+		 * port0 => csiphy0
-+		 * port1 => csiphy1
-+		 * port2 => csiphy2
-+		 * port3 => csiphy4
-+		 */
-+		port@3 {
-+			camss_csiphy4_inep0: endpoint@0 {
-+				clock-lanes = <7>;
-+				data-lanes = <0 1>;
-+				remote-endpoint = <&ov02c10_ep>;
-+			};
-+		};
-+	};
-+};
-+
-+&cci1 {
-+	status = "okay";
-+};
-+
-+&cci1_i2c1 {
-+	camera@36 {
-+		compatible = "ovti,ov02c10";
-+		reg = <0x36>;
-+
-+		reset-gpios = <&tlmm 237 GPIO_ACTIVE_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&cam_rgb_default>;
-+
-+		clocks = <&camcc CAM_CC_MCLK4_CLK>;
-+		assigned-clocks = <&camcc CAM_CC_MCLK4_CLK>;
-+		assigned-clock-rates = <19200000>;
-+
-+		orientation = <0>; /* front facing */
-+
-+		avdd-supply = <&vreg_l5m_2p8>;
-+		dvdd-supply = <&vreg_l1m_1p2>;
-+		dovdd-supply = <&vreg_l3m_1p8>;
-+
-+		port {
-+			ov02c10_ep: endpoint {
-+				data-lanes = <1 2>;
-+				link-frequencies = /bits/ 64 <400000000>;
-+				remote-endpoint = <&camss_csiphy4_inep0>;
-+			};
-+		};
-+	};
-+};
-+
-+&csiphy4 {
-+	vdda-0p8-supply = <&vreg_l2c>;
-+	vdda-1p2-supply = <&vreg_l1c>;
-+
-+	status = "okay";
-+};
- 
- &i2c0 {
- 	clock-frequency = <100000>;
-@@ -1493,6 +1552,22 @@ wcn_sw_en: wcn-sw-en-state {
- 		bias-disable;
- 	};
- 
-+	cam_rgb_default: cam-rgb-default-state {
-+		mclk-pins {
-+			pins = "gpio100";
-+			function = "cam_aon";
-+			drive-strength = <16>;
-+			bias-disable;
-+		};
-+
-+		reset-n-pins {
-+			pins = "gpio237";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+	};
-+
- 	cam_indicator_en: cam-indicator-en-state {
- 		pins = "gpio225";
- 		function = "gpio";
--- 
-2.51.0
+arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0x9d4bb500, 
+fsynr=0x170021, cbfrsynra=0xc88, cb=11
+arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0xc88
+arm-smmu 15000000.iommu: FSYNR0 = 00170021 [S1CBNDX=23 PNU PLVL=1]
+arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0x9d4c6900, 
+fsynr=0x170021, cbfrsynra=0x880, cb=11
+arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x880
+arm-smmu 15000000.iommu: FSYNR0 = 00170021 [S1CBNDX=23 PNU PLVL=1]
+arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0x9d4c3f00, 
+fsynr=0x170021, cbfrsynra=0xc88, cb=11
+arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0xc88
+arm-smmu 15000000.iommu: FSYNR0 = 00170021 [S1CBNDX=23 PNU PLVL=1]
+arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0x9d4cff00, 
+fsynr=0x170021, cbfrsynra=0xc88, cb=11
+arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0xc88
+arm-smmu 15000000.iommu: FSYNR0 = 00170021 [S1CBNDX=23 PNU PLVL=1]
+arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0x9d4cd220, 
+fsynr=0x170021, cbfrsynra=0x880, cb=11
+arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x880
+arm-smmu 15000000.iommu: FSYNR0 = 00170021 [S1CBNDX=23 PNU PLVL=1]
+arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0x9d4d9a00, 
+fsynr=0x170021, cbfrsynra=0x880, cb=11
+arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x880
+arm-smmu 15000000.iommu: FSYNR0 = 00170021 [S1CBNDX=23 PNU PLVL=1]
+arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0x9d4deb00, 
+fsynr=0x170021, cbfrsynra=0x880, cb=11
+arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x880
+arm-smmu 15000000.iommu: FSYNR0 = 00170021 [S1CBNDX=23 PNU PLVL=1]
+arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0x9d4e3400, 
+fsynr=0x170021, cbfrsynra=0xc88, cb=11
+arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0xc88
+arm-smmu 15000000.iommu: FSYNR0 = 00170021 [S1CBNDX=23 PNU PLVL=1]
+arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0x9d4e9500, 
+fsynr=0x170021, cbfrsynra=0xc88, cb=11
+arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0xc88
+arm-smmu 15000000.iommu: FSYNR0 = 00170021 [S1CBNDX=23 PNU PLVL=1]
+arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0x9d4eca00, 
+fsynr=0x170021, cbfrsynra=0x880, cb=11
+arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x880
+arm-smmu 15000000.iommu: FSYNR0 = 00170021 [S1CBNDX=23 PNU PLVL=1]
+
+These (or very similar warnings) are around sdm845 definitely 6.19+ / linux-next 
+kernels for some time, but pretty harmless.
+
+LLM suggested multiple fixes, but when presenting possibility of implementing 
+mdss reset it found it as most preferable [1].
+
+Adding MDSS reset would most likely solve it. It's not critical, but not nice to 
+see many red lines in the dmesg.
+
+Is there something I could experiment with to get closer to have proper MDSS reset?
+
+David
+
+[1] https://paste.sr.ht/~okias/c20e8bb1a67ba09df558d56da84894d71ddc1b54
