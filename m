@@ -1,62 +1,128 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF331306486;
-	Thu,  9 Apr 2026 07:22:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0974B371063;
+	Thu,  9 Apr 2026 07:23:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775719321; cv=none; b=Xa1Lz9DRC8As8uNPSVo8Mt2rT9kSurT7ILwT17gwIp4dOZjV0qsL68+g69t4GFPfwbtZv6xbcMtaxhyf7xGjFgEm2nFnI66LfL9lNYrKM3UzNPpwK+MGCJW707gKW3Q0PuJE7ZMHjsG/YRzFYBRmx6opYW6mjMLumra7/PjmzNU=
+	t=1775719415; cv=none; b=iFkfvDFaCRnWr3w/bJu4w7ttA9LxF+rifLNkY5n6vozdtOosWsntR+XsBhh71MyRwFn0WrlXepXUKQyPdMe9H+4PzCdWlL/he8KMVIFyps67NTN/gK1zvCEjzIYPxFMXNberWBFW70uZc5qwvHP9VPKOCwA1Jm4HjEL1BMerzTE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775719321; c=relaxed/simple;
-	bh=sR1EWTGLaX/ISCpGZiXtnYO1BFcp7z46TZPUQhJ0gG0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uR4gs42BKYqJYEpHZUrmNSnQmvjElbC/iXMrX57RUU6R+9K/jhVjx1sHN9AQqJNpMb1vLoMzAqa9hXyXSx2N3Pcg0i03oDDHVQNKh0qD4jKB6s+eH/KQOx0lKjDV6ROPBCGdYIFhwZZ6FGozvJoejhULN4VwRf7shHnWNsqgzK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OCyo7lfW; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775719415; c=relaxed/simple;
+	bh=QB1MrO+7VAAXX9kd+kyFhTUTa0/2VB7E8RuFY7CuiAw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sip2ypTTLtt2rbi+G4r1rFEFoZiTlOvix3+0O/XZiVy+ytvnakGjbPz2Mi4ZocApbxPZ2LZAJijJuTc2f/uWM5UsdfZRlRtQAEpqK4/PTLGgyQlM4haeO1dVyNgzzlQJAnXmePTQbAdfxVELBD9kvbT4aARVuwE+d4LAO48y8os=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ssLUEtGK; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OCyo7lfW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15749C116C6;
-	Thu,  9 Apr 2026 07:21:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ssLUEtGK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3A38C4CEF7;
+	Thu,  9 Apr 2026 07:23:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775719320;
-	bh=sR1EWTGLaX/ISCpGZiXtnYO1BFcp7z46TZPUQhJ0gG0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OCyo7lfWZ1nCDqmBX0+MVaERv3ivvpYYYOPqGUs5UikAAEmXqJIYopxbsO497ilCB
-	 HSdXL0QrpleFcVW644BJNXuau4NkN1PeOMJHWS5Ua+trKXT684X5F62eoKsErOlmR8
-	 OvpJbsNFO6yYwhWItgPX4QXofp+nMPNwUKrVfLK0y8tfuMZGtlplRtQLNkmGHPUXvZ
-	 Um+D2RB1XiEF9jPY7jP4wMvfdt00L0XlDl6np0DDD/QgSyNtDFqU/g3/EPOvDWv/YT
-	 znXREr5qf3KIcUtQFxHeTGOePHuiWB188J9tm4vQ3sQBvF1WS3yroXIfCFC7AyV94X
-	 YwptzOCeOuwhQ==
-Date: Thu, 9 Apr 2026 09:21:58 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Shi Hao <i.shihao.999@gmail.com>
-Cc: robh@kernel.org, brgl@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, rric@kernel.org, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] dt-bindings: gpio: cavium,thunder-8890: Remove DT
- binding
-Message-ID: <20260409-gray-aardwark-of-courage-6d94ed@quoll>
-References: <20260408093313.17025-1-i.shihao.999@gmail.com>
+	s=k20201202; t=1775719414;
+	bh=QB1MrO+7VAAXX9kd+kyFhTUTa0/2VB7E8RuFY7CuiAw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ssLUEtGKFLav1OTtsrl7LS+r3GYllqYrEyR3rmnlkm6b3X/2qBTlRIYkU1JntiZ38
+	 q6TIokwIm3iCyYtGMWmSzBvD2sFTf6qeAImBKwB45TwKW1Wf/p1AUcQ/O5gXUfAGZO
+	 2lHt5y2yil7i3NguBD/jrNz/49mg1S5e4jlUXYwDum9PmS1BsR5DTxXUrRhI84pDUO
+	 M8LwFw3r6PPmQpFLlbG30/aYcK+Y9QW+nD8SXuMGpRePT0eMAQYMsJLZEXjDn5TL4a
+	 WxQln3XwbuVTr6XeOSmLlIlrN7eFf8DW4nUBQN4ChuyXUg3PFE+gPhajkc+ZgBOWCN
+	 5ixOUktSB4tyQ==
+Message-ID: <a1e24b69-b90a-47d7-b952-bca45fcc6281@kernel.org>
+Date: Thu, 9 Apr 2026 09:23:28 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260408093313.17025-1-i.shihao.999@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: rtc: nct3018y: add nuvoton,ctrl-reg-val
+ property
+To: David Wang <tomato1220@gmail.com>, a.zummo@towertech.it,
+ alexandre.belloni@bootlin.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: andrew@aj.id.au, avi.fishman@gmail.com, tmaimon77@gmail.com,
+ tali.perry1@gmail.com, venture@google.com, yuenn@google.com,
+ benjaminfair@google.com, ctcchien@nuvoton.com, mimi05633@gmail.com,
+ openbmc@lists.ozlabs.org, linux-rtc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ davidwang@quantatw.com
+References: <cover.1775717959.git.tomato1220@gmail.com>
+ <ba0845c590eda42a28b3799a6f40294ba74a726e.1775717959.git.tomato1220@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <ba0845c590eda42a28b3799a6f40294ba74a726e.1775717959.git.tomato1220@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Apr 08, 2026 at 03:03:13PM +0530, Shi Hao wrote:
-> Remove the cavium,thunder-8890 GPIO binding as there are no active
-> use cases. A previous attempt was made to convert the binding to DT
-> schema, but since the binding is unused, remove it instead.
+On 09/04/2026 09:21, David Wang wrote:
+> Add "nuvoton,ctrl-reg-val" vendor property to allow optional
+> initialization of the RTC control register (0x0A).
+> 
+> This allows platform-specific configurations like 24h mode and
+> write ownership to be defined via Device Tree.
+> 
+> Signed-off-by: David Wang <tomato1220@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/rtc/nuvoton,nct3018y.yaml | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/rtc/nuvoton,nct3018y.yaml b/Documentation/devicetree/bindings/rtc/nuvoton,nct3018y.yaml
+> index 4f9b5604acd9..0984dfb77170 100644
+> --- a/Documentation/devicetree/bindings/rtc/nuvoton,nct3018y.yaml
+> +++ b/Documentation/devicetree/bindings/rtc/nuvoton,nct3018y.yaml
+> @@ -24,6 +24,10 @@ properties:
+>  
+>    reset-source: true
+>  
+> +  nuvoton,ctrl-reg-val:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: Initial value for the control register (0x0A).
 
-Last sentence is not relevant to Git log/history. Instead useful would
-be to tell what made you think that binding is not used, because it is
-not obvious - the in kernel driver does not bind via compatible, but PCI.
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+24h mode is not a property of a board. I don't know what "write
+ownership" is.
 
 Best regards,
 Krzysztof
-
