@@ -1,100 +1,117 @@
-Received: from out-186.mta0.migadu.com (out-186.mta0.migadu.com [91.218.175.186])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3A7F3191A5;
-	Thu,  9 Apr 2026 02:42:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.186
+Received: from zg8tmja2lje4os4yms4ymjma.icoremail.net (zg8tmja2lje4os4yms4ymjma.icoremail.net [206.189.21.223])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id ED5B0258EE1;
+	Thu,  9 Apr 2026 02:42:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.21.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775702536; cv=none; b=o5144jCEIP7I4UrWyV+/zBD3HKD+Le17kbWx3DJY8rPwLDoj+fhk5mslz/jkuqHHmfEgefNJHw/QbqNvw4rwNuQQYR9AQ3ns0g+glCwplVGVJHiFCgj3VpMumCte4mTBUWNUgOe4ZWGoCh8MZvdBRuojkXpnk0pikOgS8yvvcg4=
+	t=1775702538; cv=none; b=ZWsThRU98XsozaC533gVDKN+g//4oBy208YhS9ZXIvz7P0J2QGaKJQ91paRdVF5//3S98iHh9kwAwvndclrEKMFh/h6Yx+tIWXOyZjrlEDu3KBVs6UEynOif1qK8KslMePOZOIO70tJlirpWwbqwgRYt9HVJqf/NX8yV1c/QUm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775702536; c=relaxed/simple;
-	bh=avkBRlVvqGENkwJCm67RuhypnfyQsQyll2W/+C2W1pQ=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=hWDfLdiFIhz/dadfM0NX6AVzcBIg4stT7FCIuRwU4dTbvYuVGCUYIC+yEZOguvATF8OLZHzjkhimow95oP3pMc2CXDu0cYlVT4ts9a9Bc/qdgIV/diqejzNkXKfegkEj0lNTmNXp3IVowFWlMAl2GlaQ6e/Om4g/jLgv3A3c1x8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=CPgyoBPe; arc=none smtp.client-ip=91.218.175.186
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="CPgyoBPe"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=postmarketos.org;
-	s=key1; t=1775702532;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=XARS5rwlzbvWSjXYf3dbuEzBJGuybKUvL6KHWyiBriU=;
-	b=CPgyoBPe4JRas3Ee3YWmijXscgwxni32jRrkom9yCRCE//c13XmwLpWQkXsB39SD/+UpEs
-	5MexFZSBgCJjfyjMV51lum7CnyKYFrq+LZTb9r5xClfEHHI8dUTjYZDlsROOlku17PsOhf
-	7akqz8iURGAZP+u/ixSKLaNDpC7lL6vcf3OLT+HTH0zR/1+IxOoVA6KmqYuS+iw+l0cgvY
-	K16eSKXhpeF3jRzLr+6LNjT8k3Q60njNmwUlqXAnQaf/tG/60E4Q6TUBezB5nlugYxZl8P
-	RwpMzw8Zq0QeQzlpTuL0e0ReAFjxCWQ0hvmXPcIvAirnDF8qObmrRBUOpfQLqw==
-From: Paul Sajna <sajattack@postmarketos.org>
-Subject: [PATCH 0/4] arm64: dts: qcom: sdm845-lg: Devicetree followup
-Date: Wed, 08 Apr 2026 19:41:11 -0700
-Message-Id: <20260408-judyln-followup-v1-0-823467519b59@postmarketos.org>
+	s=arc-20240116; t=1775702538; c=relaxed/simple;
+	bh=s3h3DLkuhP2BvYUmzEJuyvzbvSzDIRD1yIR7IJj26Bs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=PXGmydJ1BqqBcKH7nyegHLUbFFq/JjtCk2o5xRTQW/S1fJC6i0ivgV7tVEwQb1fBN0MXjgGjmUTVvgiURlUWSCcv6GDvbaUuVGFcClPuLu6/YDL4hENgqq4I46WWMYEneIBODAyrhnveb+QCpOECPdMCj6a5F4KRsKQCUl6p/SA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=206.189.21.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from caohang$eswincomputing.com ( [10.127.112.153] ) by
+ ajax-webmail-app1 (Coremail) ; Thu, 9 Apr 2026 10:41:52 +0800 (GMT+08:00)
+Date: Thu, 9 Apr 2026 10:41:52 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: "Hang Cao" <caohang@eswincomputing.com>
+To: "Krzysztof Kozlowski" <krzk@kernel.org>,
+	"Conor Dooley" <conor@kernel.org>
+Cc: gregkh@linuxfoundation.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, Thinh.Nguyen@synopsys.com,
+	p.zabel@pengutronix.de, linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+	ningyu@eswincomputing.com, linmin@eswincomputing.com,
+	pinkesh.vaghela@einfochips.com
+Subject: Re: Re: [PATCH v1] dt-bindings: usb: Fix EIC7700 USB reset's issue
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
+ 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
+ mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
+In-Reply-To: <20260408-designed-broadband-332044a2d1fb@spud>
+References: <20260407061703.1564-1-caohang@eswincomputing.com>
+ <20260408-ginger-grouse-of-virtuosity-b3ee92@quoll>
+ <20260408-designed-broadband-332044a2d1fb@spud>
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_112819_548728446.1775702512154"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NQW6DMBBFr4K87lTOgMFhlXtUWRh7ppkWY4IhT
- Rvl7nWTLt+X3vs3lWkRyqqvbmqhi2RJU4HdS6X8yU3vBBIKK9TY6kZb+NjC9zgBp3FMX9sMpFH
- vuA7Y0V4Va16I5foovh2fvNB5K+H1OapIObtHuK/+sx3kT5nhlPIK3kU4R4FiwcWAhsDOOm18a
- 2p7kKusr/7n72lwmcCnGGXtqzB0xJ4aR1i7YKhBNmxMg5YN7plbHGzLblDH+/0XGVo4JfUAAAA
- =
-X-Change-ID: 20260408-judyln-followup-e0201f3d27e9
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Jeff Johnson <jeff.johnson@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- David Heidelberg <david@ixit.cz>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
- ~postmarketos/upstreaming@lists.sr.ht, 
- Paul Sajna <sajattack@postmarketos.org>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1775702528; l=1338;
- i=sajattack@postmarketos.org; s=20250422; h=from:subject:message-id;
- bh=avkBRlVvqGENkwJCm67RuhypnfyQsQyll2W/+C2W1pQ=;
- b=ILALBJAfcfnz/pZp2yv5lMyA3Qz4YL86QPQca6zfFTM7mIXePk9V/M0btI4pRVarSgTprGwlt
- +/h0HDek+W0CK3Y/3uyg4r/8r/qvggJo7V7SLaYHBu3k40t19Xcx2uX
-X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519;
- pk=TwacvEOiRJ2P2oAdEqIDrtQTL18QS4FfcHfP/zNsxkQ=
-X-Migadu-Flow: FLOW_OUT
+Message-ID: <4f0e8a5a.68b8.19d701e121f.Coremail.caohang@eswincomputing.com>
+X-Coremail-Locale: en_US
+X-CM-TRANSID:TAJkCgBn_HDxEddpG0QQAA--.4208W
+X-CM-SenderInfo: xfdrxt1qj6v25zlqu0xpsx3x1qjou0bp/1tbiAQEMEGnWgxgMpQAA
+	sR
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-Re-send 3 patches that got dropped from 20260331-judyln-dts-v7-0-87217b15fefb@postmarketos.org
+------=_Part_112819_548728446.1775702512154
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
 
-(https://lore.kernel.org/linux-arm-msm/177541802142.2061229.9094394728986735362.b4-ty@kernel.org/)
+SGksIEtyenlzenRvZiAmIENvbm9yCgpObywgVS1Cb290IHdpbGwgTk9UIGJlIGFmZmVjdGVkLiBT
+b3JyeSBmb3IgdGhlIG1pc3VuZGVyc3RhbmRpbmcgZHVlIHRvIHRoZQppbmFjY3VyYXRlIGNvbW1p
+dCBtZXNzYWdlLgrCoApJIHdpbGwgc2VuZCB0aGUgbmV4dCB2ZXJzaW9uIHdpdGggdGhlIGltcHJv
+dmVkIGNvbW1pdCBtZXNzYWdlIGJlbG93OgoKVGhlIEVJQzc3MDAgVVNCIHJlcXVpcmVzIGEgVVNC
+IFBIWSByZXNldCBvcGVyYXRpb247IG90aGVyd2lzZSwgdGhlIFVTQiB3aWxsCm5vdCB3b3JrLiBU
+aGUgcmVhc29uIHdoeSB0aGUgVVNCIGRyaXZlciB0aGF0IHdhcyBhcHBsaWVkIGNhbiB3b3JrIHBy
+b3Blcmx5IGlzCnRoYXQgdGhlIFVTQiBQSFkgaGFzIGFscmVhZHkgYmVlbiByZXNldCBpbiBFU1dJ
+TidzIFUtQm9vdC4KCkhvd2V2ZXIsIHRoZSBwcm9wZXIgZnVuY3Rpb25pbmcgb2YgdGhlIFVTQiBk
+cml2ZXIgc2hvdWxkIG5vdCBiZSBkZXBlbmRlbnQgb24KdGhlIGJvb3Rsb2FkZXIuIFRoZXJlZm9y
+ZSwgaXQgaXMgbmVjZXNzYXJ5IHRvIGluY29ycG9yYXRlIHRoZSBVU0IgUEhZIHJlc2V0CnNpZ25h
+bCBpbnRvIHRoZSBEVCBiaW5kaW5ncy4KClRoaXMgcGF0Y2ggZG9lcyBub3QgaW50cm9kdWNlIGFu
+eSBiYWNrd2FyZCBpbmNvbXBhdGliaWxpdHkgc2luY2UgdGhlIGR0cyBpcwpub3QgdXBzdHJlYW0g
+eWV0LsKgIEFzIGFycmF5IG9mIHJlc2V0IG9wZXJhdGlvbnMgYXJlIHVzZWQgaW4gdGhlIGRyaXZl
+ciwKbm8gbW9kaWZpY2F0aW9ucyB0byB0aGUgVVNCIGNvbnRyb2xsZXIgZHJpdmVyIGFyZSBuZWVk
+ZWQuCgoKQmVzdCByZWdhcmRzLApIYW5nCgo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZXMtLS0tLQo+
+IEZyb206ICJDb25vciBEb29sZXkiIDxjb25vckBrZXJuZWwub3JnPgo+IFNlbmQgdGltZTpUaHVy
+c2RheSwgMDkvMDQvMjAyNiAwMToyNDozNAo+IFRvOiAiS3J6eXN6dG9mIEtvemxvd3NraSIgPGty
+emtAa2VybmVsLm9yZz4KPiBDYzogY2FvaGFuZ0Blc3dpbmNvbXB1dGluZy5jb20sIGdyZWdraEBs
+aW51eGZvdW5kYXRpb24ub3JnLCByb2JoQGtlcm5lbC5vcmcsIGtyemsrZHRAa2VybmVsLm9yZywg
+Y29ub3IrZHRAa2VybmVsLm9yZywgVGhpbmguTmd1eWVuQHN5bm9wc3lzLmNvbSwgcC56YWJlbEBw
+ZW5ndXRyb25peC5kZSwgbGludXgta2VybmVsQHZnZXIua2VybmVsLm9yZywgbGludXgtdXNiQHZn
+ZXIua2VybmVsLm9yZywgZGV2aWNldHJlZUB2Z2VyLmtlcm5lbC5vcmcsIG5pbmd5dUBlc3dpbmNv
+bXB1dGluZy5jb20sIGxpbm1pbkBlc3dpbmNvbXB1dGluZy5jb20sIHBpbmtlc2gudmFnaGVsYUBl
+aW5mb2NoaXBzLmNvbQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggdjFdIGR0LWJpbmRpbmdzOiB1c2I6
+IEZpeCBFSUM3NzAwIFVTQiByZXNldCdzIGlzc3VlCj4gCj4gT24gV2VkLCBBcHIgMDgsIDIwMjYg
+YXQgMDk6NDg6NDNBTSArMDIwMCwgS3J6eXN6dG9mIEtvemxvd3NraSB3cm90ZToKPiA+IE9uIFR1
+ZSwgQXByIDA3LCAyMDI2IGF0IDAyOjE3OjAyUE0gKzA4MDAsIGNhb2hhbmdAZXN3aW5jb21wdXRp
+bmcuY29tIHdyb3RlOgo+ID4gPiBGcm9tOiBIYW5nIENhbyA8Y2FvaGFuZ0Blc3dpbmNvbXB1dGlu
+Zy5jb20+Cj4gPiA+IAo+ID4gPiBUaGUgRUlDNzcwMCBVU0IgY29udHJvbGxlciByZXF1aXJlcyBh
+IFVTQiBQSFkgUkVTRVQgb3BlcmF0aW9uLlBIWSBSRVNFVAo+ID4gCj4gPiBNaXNzaW5nIHNwYWNl
+IGFmdGVyIGZ1bGwgc3RvcC4KPiA+IAo+ID4gPiBvcGVyYXRpb24gd2FzIG1pc3NlZCBpbiB0aGUg
+dmVyaWZpY2F0aW9uIHZlcnNpb24sIGFzIGl0IHdhcyBwZXJmb3JtZWQgaW4KPiA+ID4gRVNXSU4n
+cyBVLUJvb3QuCj4gPiA+IAo+ID4gPiBJZiBhIG5vbi1FU1dJTiBwcm92aWRlZCBsb2FkZXIgaXMg
+dXNlZCwgdGhpcyBpc3N1ZSB3aWxsIG9jY3VyLCByZXN1bHRpbmcKPiA+ID4gaW4gVVNCIG5vdCB3
+b3JrLlRoaXMgcGF0Y2ggZG9lcyBub3QgaW50cm9kdWNlIGFueSBiYWNrd2FyZCBpbmNvbXBhdGli
+aWxpdHkKPiA+ID4gc2luY2UgdGhlIGR0cyBpcyBub3QgdXBzdHJlYW0geWV0Lgo+ID4gCj4gPiBT
+byBVLUJvb3Qgd2lsbCBiZSBhZmZlY3RlZCwgbm8/Cj4gCj4gSXMgaXQgZXZlbiByZWFsbHkgYWZm
+ZWN0ZWQ/IEkgZG9uJ3QgdGhpbmsgdGhlcmUncyBhbnkgYm9vdGxvYWRlciBmb3IgdGhpcwo+IG90
+aGVyIHRoYW4gd2hhdCBFU1dJTiBpcyBzaGlwcGluZyBkb3duc3RyZWFtLCBvdXRzaWRlIG9mIHBl
+b3BsZSdzIGRldmVsb3BtZW50Cj4gdHJlZXMuIEFuZCBhbnkgc29mdHdhcmUgdGhhdCBleHBlY3Rl
+ZCB0d28gcmVzZXRzIHdpbGwgd29yayBqdXN0IGFzIGJhZGx5IGFzCj4gaXQgYWx3YXlzIGRpZCB3
+aGVuIGEgdGhpcmQgb25lIGlzIGFkZGVkLgo+IAo+ID4gQW5kIGV2ZW4gaWYgRFRTIGlzIG5vdCB1
+cHN0cmVhbWVkLCB3aGF0IGFib3V0IGFsbCBvdXQgb2YgdHJlZSBEVFM/Cj4gPiBUaGlzIGlzIGFu
+IGFscmVhZHkgcmVsZWFzZWQgQUJJLCBzbyBhdCBsZWFzdCBleHBsYWluIHRoYXQgZHJpdmVyIGRv
+ZXMKPiA+IG5vdCBjYXJlIGFib3V0IHJlc2V0cyBoZXJlIGFuZCBncmFicyB0aGVtIGFsbC4KPiA+
+IAo+ID4gPiAKPiA+ID4gRml4ZXM6IGM2NDBhNDIzOWRiNSAoImR0LWJpbmRpbmdzOiB1c2I6IEFk
+ZCBFU1dJTiBFSUM3NzAwIFVTQiBjb250cm9sbGVyIikKPiA+IAo+ID4gCj4gPiBCZXN0IHJlZ2Fy
+ZHMsCj4gPiBLcnp5c3p0b2YKPiA+IAo=
+------=_Part_112819_548728446.1775702512154
+Content-Type: application/pgp-signature; name=signature.asc
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="signature.asc"
 
-Re-enable qcom,snoc-host-cap-skip-quirk
-
-To: 
-
-Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
----
-Paul Sajna (4):
-      arm64: dts: qcom: sdm845-lg-common: Add camera flash
-      arm64: dts: qcom: sdm845-lg-common: Change ipa gsi-loader to 'self', add memory-region
-      arm64: dts: qcom: sdm845-lg-{judyln, judyp}: Reference memory region in fb
-      arm64: dts: qcom: sdm845-lg: Enable qcom,snoc-host-cap-skip-quirk
-
- arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi | 22 +++++++++++++++++++---
- arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts  |  4 ++--
- arch/arm64/boot/dts/qcom/sdm845-lg-judyp.dts   |  4 ++--
- 3 files changed, 23 insertions(+), 7 deletions(-)
----
-base-commit: db7efce4ae23ad5e42f5f55428f529ff62b86fab
-change-id: 20260408-judyln-followup-e0201f3d27e9
-prerequisite-message-id: 20260407-skip-host-cam-qmi-req-v5-0-dfa8a05c6538@ixit.cz
-prerequisite-patch-id: ac24dd000a2ecf55cb4da9fbc62e4834530036fd
-prerequisite-patch-id: 9c69ab29256c15a0e8ac1c3b9ef64b27661c7815
-prerequisite-patch-id: bd62d277785dc0a3bed4beff8d22d7bfd7e491fb
-
-Best regards,
--- 
-Paul Sajna <sajattack@postmarketos.org>
+LS0tLS1CRUdJTiBQR1AgU0lHTkFUVVJFLS0tLS0NCg0KaUhVRUFCWUtBQjBXSVFSaDI0NkVHcS84
+UkxoRGpPMTR0REdIb0lKaTBnVUNhZGFQVWdBS0NSQjR0REdIb0lKaQ0KMG1JakFRQ1IrcWNZSitH
+bDQreSs5WEVmaVFDQ2orUURaaDQ4ZlVHZVVpZWFvU3NJY0FEL1VKY3BxQkpPQVNmcw0KWTZXRUNu
+UXBiYnhobUpzaEZFazZuOXhabnhtQ25RZz0NCj04UGxpDQotLS0tLUVORCBQR1AgU0lHTkFUVVJF
+LS0tLS0NCg==
+------=_Part_112819_548728446.1775702512154--
 
