@@ -1,264 +1,272 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011009.outbound.protection.outlook.com [40.107.130.9])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93F38366DB9;
-	Thu,  9 Apr 2026 02:18:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.9
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775701105; cv=fail; b=LCHY0bRfo5Jx+lDzgn97TQ+6swf3kh4GFv5MX1uO9TcM161k1JlhpQjUnKf3Rz2EOWEi0iBDuwAL7mNYI5ljRPht1Zgx5V2xDLjhHunrjGXtCV9zpAEsJPUOMZOpaWYRn5WEpF44+cF5MXxIQIw44orAdwmkjKGdPb7HNE7/zGQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775701105; c=relaxed/simple;
-	bh=w0Kwa+1FZck4gPPUNhT0OHgcE9uqfv5keBb8QpmY7XE=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Sww4MNdAu8NWxrSwWJV6Firs0ykPud0zn8OY9WI3qzB12OmuQMmn+PeahjKNhbJd/xeaqd4br/v5xJ6whg9fyAGyIiuWUZfeBOc8ifg1bb6ZCcVzC5qGBh4X9HQilxSd6uV7rxHE6JUtGDvffXjn2TtI7uwxcX66xXCBXsOFEnc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=iebWO+Er; arc=fail smtp.client-ip=40.107.130.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32176364946
+	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 02:19:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775701164; cv=none; b=QE63w9DGh+XFs6fVSVD2StoZv9xQE+gWKLVQUnPpFwd02DPvZ9iMlULBTOwTSkm0am6BB/3s4w9ig3+n5M4P/VzLa4rWTiVLoZpcm7SI5gOq57trIQgF6T6eWv5uniXk3YPOrjsNEZvpaNKVqpB0TyEyjv/V0Pmbr32eFd+oEhY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775701164; c=relaxed/simple;
+	bh=8VX9iq7PyS8lecH/XeGiZcOzA8ErpbLJWQfB2notWCM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kZAXYlqUTPvZiLVygM5hECdjAU4V27ntZmnNMF0oxzvI3DinZ6sY9//ot7QrIUTYJIvtEIueSDfZdJDZQqKI4eQkCBBQ9G7Qgbyj/HppQBcxbqxMqVwNvH4Z2XFsoSnykAvAVROz+KkjuYcQ7rmGI0vf1WyUhYahRH0aM5nJQWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AJ15wqP+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ccPC9fnK; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="iebWO+Er"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nq/mcEPxcgKG7qWxigd8Z/G2zH7Il5OErZYlyKs66XmP2UdYoi9sSfG7msIyl+qcM0tmY7GnU9RIRbUZevBiib2K18U8TQzP9Lk/u5vCXV1vM1bVf5ntaJle4L0PnVBUIlg16Q4fGKo4V5qjDoRdFM6w3OUzky6zdpv6CrV5r6g2ijx3WAKEtu2nlMrPkAuY0UAorVaadoAut0g1VNqL0UkpQqunlhbnsXuRpfdvxABhNpBx/Bn2zp94zebAIKCh4T6sRYVMvIoOyQSHcNF0ZncL9F81z28Lt3gWUlb3GyHxdwDWmUStyBonhHjBtsfp6x52z84I3i1lGcLtDJmdIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bsuciZSmvaZ6QqR6Op1G+sJMUyo49B+ntVVQ860feP0=;
- b=irwUutq3ScaJ8deQlIE16HGmuZbmLnwUCNuo4R0cy7rcxi7xdceONFwwTun+x57w6Wibc8ZGU/ahVBJvIm6J3t8utm4np9ClLAu2m73WHp+Lk/s11VjxvSTzxyn2LV2myLT1dqYI8uBCtF/7Kht24JgQbAHHfRvWItdbnOgcPTW0K1D6DWxH2pdKqNagB8VTwG/40ftwFq9/JNFNpDAIsVEg8CvU7l+ApS+WCxzXeEyFxrak1Cn47OTZKFaQgbq0RKDsl0pvrTd0R+5MjGersrtZwvgwdwjOlu4pV4m1sVVOo7kTLAXXxUSlQ/s0vhUIOZdDumfKRpbe4YAtyrktZg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bsuciZSmvaZ6QqR6Op1G+sJMUyo49B+ntVVQ860feP0=;
- b=iebWO+ErVFwCFHUyV4xqqE5IjqKwagcI5x5A66RdgtfxgkaXFcfCCGbqRNT/QJM+nNCl+gFSK89YMyk+Vm04eLFsAd+ObraXt6aU23yszUCTLtf7VqRcntjMOyc2mm0lgk/o4N0Nnf+8lS3/lKuCIB4it5R5mDFgFM/ERfMxLqaHX5Jp00OZ3tqYkGfl9KjJ+yR+hNWlZQKpl/9Wur2W7PBnXN9/+u3WEMTS5AYMhbQHPWc7F7QOlmN84xvF/VQw/TeuJYKFnKvJFHJs8IoYGTf4WExuAv0Yt54/k7CQN6ehPrZptS+j7AZ/74pxouaSUv7fUh2fr7ZHmA+7gohngw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
- by AM8PR04MB7283.eurprd04.prod.outlook.com (2603:10a6:20b:1c7::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Thu, 9 Apr
- 2026 02:18:20 +0000
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::4609:64af:8a4b:fd64]) by AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::4609:64af:8a4b:fd64%3]) with mapi id 15.20.9769.016; Thu, 9 Apr 2026
- 02:18:20 +0000
-Message-ID: <17dc43ce-5e18-41d7-8d4a-88b5c746d610@nxp.com>
-Date: Thu, 9 Apr 2026 10:19:40 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: imx93-9x9-qsb: Add tianma,tm050rdh03 panel
-To: Frank Li <Frank.li@nxp.com>
-Cc: Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260407-tianma-tm050rdh03-imx93-9x9-qsb-v1-1-24d514a62fdc@nxp.com>
- <adTUkWvqVUhLiw_J@lizhi-Precision-Tower-5810>
- <a31e926e-9e7e-4ba4-aafd-0f76f53fa176@nxp.com>
- <adYKtjPvIgoK2oou@lizhi-Precision-Tower-5810>
- <f5cd5da8-566d-4dff-b712-3d48927f97eb@nxp.com>
- <adYRuAU5ueEKHK5l@lizhi-Precision-Tower-5810>
- <5ce48659-2c6c-4c60-a8e8-9031bdbaa2a3@nxp.com>
- <adYy9xesCKsYWNBg@lizhi-Precision-Tower-5810>
-From: Liu Ying <victor.liu@nxp.com>
-Content-Language: en-US
-In-Reply-To: <adYy9xesCKsYWNBg@lizhi-Precision-Tower-5810>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0165.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1ba::7) To AM7PR04MB7046.eurprd04.prod.outlook.com
- (2603:10a6:20b:113::22)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AJ15wqP+";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ccPC9fnK"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 638L1jTV254218
+	for <devicetree@vger.kernel.org>; Thu, 9 Apr 2026 02:19:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=d9sCCw8oekUugQnNyjHlCrSr
+	WbxrJ3dBnUZAbEDDODM=; b=AJ15wqP+KK2zKr2ezTG8zJXVHMohhb49FogLJOj4
+	JK2ibProZ8qyK0m1NTZBPPbLo6JSIe2QXSxiujo71vBnA69go/vFYaTvwHn2CyoH
+	448nWoo6r7/NvOUxcBxNAiHEsm0dPnnG/6/R6BStSD8STZ4gStSwH1FJgwPfn2cQ
+	Z8wviuLd4GG9fq6qpPZpF/pGjg7olaz7gaEBxfPT45kzViQu/51I/idcH5Dv4UJe
+	XLUAeMdU/jN6fh/YJLjvQDhQUDLXnN2T7GLkaHl0SiSCm41xFix873t4Y24+b+xA
+	VL9DaysGjt2hWSu6Rh9xDHbzQR+u8nq5OE5eHQiAzbTXFw==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ddt6y9yp4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 02:19:22 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-2ba9a744f7dso319132eec.0
+        for <devicetree@vger.kernel.org>; Wed, 08 Apr 2026 19:19:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1775701162; x=1776305962; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=d9sCCw8oekUugQnNyjHlCrSrWbxrJ3dBnUZAbEDDODM=;
+        b=ccPC9fnKicz/hwZiOJnZTNm06pHJKzOuKZDIJj2n/sZhE3cKJY8fNc5/hqILklELL3
+         sH7rH9iLYyj1EwAa3uj7SWTdvxSgWZrlm/NyeXccA+fn1D6E4P9tuuWuj+sO4pd2aOYP
+         sOdDzAfA4/UWXKWw2fOdVjjf4aUHC44thAOIriQD5dj9paAmdJBOfLkraJNpLVE+0909
+         9BzDglUThPyXRwqmsYRBjfDWo/dUyuE4EC2Dmbot4WNrEVHtGt5xac1+331aGuGjgcdn
+         MKfT5ystJh6s2nKvNSfsWiA9y8qf/txX3xLt4SAJrw2YIuuKBBintAjdxOPxYJtlNxAu
+         voow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775701162; x=1776305962;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=d9sCCw8oekUugQnNyjHlCrSrWbxrJ3dBnUZAbEDDODM=;
+        b=DPdFBaAQoz/qeifiDCQor7x66PlLgq86KpbysHiuN/wP8zBT4XNleef73TAwlfWFSf
+         1qJXcjLNO8+5WhmY61mhgd1JEktrfWeJnBi8jHvpmDw6MzMQ0WiYjYkU86gPgCaCyQyB
+         8Rpg8QeNcK0ExIHcjZQUemyDGSPUR2yEy887AjxWTFW3iswEDKDt1JRQTHIbo5F2haEf
+         FHlIwT/aFa4fjexoGfslcmq5aMapOSJ1f/bm1b30BbKDhJ4HNY1+05EFxFH+UMChSds8
+         6z9+MFOdEa2Yc8iO9UN5x068SMzvh58imKkkN5O+5a7/oN44mU714oVem5adVts9FCHT
+         bFDA==
+X-Forwarded-Encrypted: i=1; AJvYcCWye5FX+ltpW3/F1lvjZKGvO3IbY6xW6/zm+al3vCPh7O/BgPU80sNXaqTvVS5pxv1V5EjppfzRWMbF@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx3dSYWFlvP4o5S7i2tlXJGLY810OecwGS9ZifSks4QXx4mvbPZ
+	+i1livcLhQCTHbTUdWIvUS1IFjyyptxOgzPw6pXp7hjC/yTu6k6JTZ6SkwL4zfI+n0bZV9l5omt
+	/+S9aVJAXoQvBqAz6IalICmC70jPs1NFOIRHBd+Mjhctx4FCWlmyiqA1ncIR3m95q
+X-Gm-Gg: AeBDiet85o9/mwlIxSSvDmWP1xjk5mHGDlOp/ZwYRJo7+S3L8W277rdCTzG51XBFe1o
+	7SK61XBMhw4F9QBCevWm1uH1O4smJGwHxIB0EgJ9kMBNf3NZmjz4MXAn439ZgT80UaiHyFhhyTG
+	aV81+HfrYaTKR3GxKxQ8OiSyCIeGF0hRuFBGzFhMJh2jdNxzVn4pQyHrHioz090X2RguMZ81mb5
+	9NpQCvd14VAfdqnqM2g8nquAU4yqwkr1CPbSkM8UYr9N9dmHQtp+y81Gxxp9w5PQYFTaz2KBXjP
+	/LjaywH5jDqNGrHucdXZghDOmd7Z8alTT0Z4ln/sKRgl2qOFNzMvansJ6tdXc/T+X+oh9iU5pnd
+	aJXPCqDoSF0mgv/eswQBTRZ+ImwD/t0xWX2j7RwH5BgIQAVCdPBYy6GHKoPDiDQneF4ww
+X-Received: by 2002:a05:7022:68aa:b0:124:9fd8:4ba9 with SMTP id a92af1059eb24-12bfb70bb28mr12174540c88.12.1775701161491;
+        Wed, 08 Apr 2026 19:19:21 -0700 (PDT)
+X-Received: by 2002:a05:7022:68aa:b0:124:9fd8:4ba9 with SMTP id a92af1059eb24-12bfb70bb28mr12174515c88.12.1775701160899;
+        Wed, 08 Apr 2026 19:19:20 -0700 (PDT)
+Received: from hu-qianyu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-12c07a8703esm18238907c88.8.2026.04.08.19.19.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 08 Apr 2026 19:19:20 -0700 (PDT)
+Date: Wed, 8 Apr 2026 19:19:18 -0700
+From: Qiang Yu <qiang.yu@oss.qualcomm.com>
+To: Rob Herring <robh@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Philipp Zabel <p.zabel@pengutronix.de>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/5] dt-bindings: phy: qcom,sc8280xp-qmp-pcie-phy: Add
+ support for glymur Gen5 x8 bifurcation mode
+Message-ID: <adcMpisuyQPjAQCH@hu-qianyu-lv.qualcomm.com>
+References: <20260323-glymur_gen5x8_phy_0323-v2-0-ce0fc07f0e52@oss.qualcomm.com>
+ <20260323-glymur_gen5x8_phy_0323-v2-1-ce0fc07f0e52@oss.qualcomm.com>
+ <20260407161311.GA2666255-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|AM8PR04MB7283:EE_
-X-MS-Office365-Filtering-Correlation-Id: b6cedb84-8a2d-4312-b9ae-08de95de44f1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|19092799006|1800799024|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	4U5dWm62JbZnh5QoFjycGjPk3Gxa7WvqPubdAKSB7IeyP7LbISWVPbwpilV2ruLAkfv1rS5RfdxRAxVF1n0zCFQ0I73+5lkx4QS4dxkA6TS8o9pmADzoqRoGh42DUVyf3nwaPxyg26v/aCuzoNLW3oufpx/iIFoBxpqkjOrlJivPzlZ7Ozit+hqK6me76HHJsPhLYHs8rrdUCxJ3QXUsUZdFHuY2MSbd54XQ7e2vB16kQexMQDI5zbphFo+a+gK6AlLVRpQImLajLG1pM59Nubq2ZAa58I8b4SRafEt2BNH0VD45K/mEGDHFgP5wgFlQwNmuCf9PseC81xP5KPEa8QKL1iZBXU8CU49XdAIXAvISgBZrg/v+aBzJI4E/h8hNxyuItJFoG7FbRSKVN1raMib1aXftLUOSDhwbZIF40SHqq9a0aE/NQMFbCVb38EXSpU2tJw9jsif0wVZoIj4lSspTLnyb7OFTGMx2OIoFyt0W/Ib83wv2v7+b4L2L0bB2FCkFS0G+g1/uqf0JOOVFFDE1wy+wNZhk4J+BzNP24hULKzv2zmCiUEApf0/B3f5rF/CrgxCRg2ziJPZZcghKIfyVIgh97imyNLyqmoV0IsBHrf05X5/knucMI340s41LG9d1V3gj0G60y1BJnr9ktNNH4ri+wB7xinjyBVNCzoQU50StpNIkTaNxU3nHfEAElaHq0VQa58Ty/p1Y00Xk77j/JXoVO1FdTpWpzSXjY30=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM7PR04MB7046.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(19092799006)(1800799024)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dzZkenBNQTJQK3ZMYWtDOFFpL2RQZ0d6MzBNSlFNL2tTNXZiVzcrYkRjUENq?=
- =?utf-8?B?Sm5KM3hHSG14QWF3Zlk5WjNsN2VZZXFSVTNxRWpyZFBRVzNwVHZnSEp0TmI3?=
- =?utf-8?B?MU1KR1RBQzg2NE1sSnBKcm92Rnd6OEx2VlNpclNGRTF5U2s3clBON0FTSnVP?=
- =?utf-8?B?UWJLbWd6N1BUUFZwYzhNOFpEQXh0ZTc4a2FpMWw2emgwenRjOFE3RUxkYTh2?=
- =?utf-8?B?RWp1S1RSOERYWUZReUowQ1pGdkJzcnpVMHdyTC9EOHNaY09FYnZBR3RwTkVn?=
- =?utf-8?B?VmxSZ0pSNExiQ2I0eng2VzZ5ajFOR0pNU2djdWkxUlF4NitTcVlJaG1KRTVG?=
- =?utf-8?B?MGl1bVN0RTd0WWhhMVk5RGo5WTFvRHlXQ1BobEprN2FpTjdhVXVzakEreldz?=
- =?utf-8?B?MmcvRVltU0JyTGdJRFJTNmpwMUR4bnJvaXkrNWNtaDdHVEpwNDRoMnF5T1E4?=
- =?utf-8?B?WVhTVm1QN0Q1a3Uvd3UvZ1g4U1YyYkRDbFo5VkNCaHIxMG1QZExrSytuckls?=
- =?utf-8?B?bWFPMHNUZ3lpcCtwY0ZmZXJPZGE4VUVqcmwzWERJWjc2bkNDWFR5OHVuUU85?=
- =?utf-8?B?OGo3Z3piWkYwNE8wd0YwSWt2S1dTNnhES29PTlB1aVZpTHcrSkxDTzkzRS90?=
- =?utf-8?B?RVp2WlIyQjN1VjFSVTBnN092R3pGUkJaM01KVW4rdU9CeGZpOE1XbEo2TU4v?=
- =?utf-8?B?dWJ0cjdYRWp1OFowRzE5OVZ6ZG12cUM3c0d4ZmtzdWk4cEYyUUZlZU5zc3dM?=
- =?utf-8?B?eTlNTkZqOEdvdDcveFY0REsvbmtEZWtWOHc4b3F1T1BpSFhiOTQyVVlzUStR?=
- =?utf-8?B?VW5aV1dXWEJGeHVOUkgxWmU2Nm55VjI2WlJ5L1hON1k0UTRuUm4xVDhHTlJs?=
- =?utf-8?B?aWZDUUpsZEZjS1Q5YWZ6RVJpUHd2VnB5d3VSK00rSFUwd0xRaFZBZnVlYzVC?=
- =?utf-8?B?ZW0yN3gyVWdSTDdhS0VMMENZR1lyZkhZRk1UV0wwY2h1NzVFVXg1VzJxbWJW?=
- =?utf-8?B?VUVhSmEyUC9aOS91RUwrempQdjhuSUZrWTRocHcxeVNkTyswOG04Zmc4REU1?=
- =?utf-8?B?WWxtVStBUDFERy84dWw3YStlcnZNNmorR2Jsd1RaUEdMZkxWeXlIalhpVzVp?=
- =?utf-8?B?TVdRdlgvUDRwMDBjRUgzL2xaWktWV21EYkkybThPZ0NnRktjNW9lMUtWZ2g3?=
- =?utf-8?B?UDhNYjcvMnd3Tnlqc2lqVGYvRkJrcW5PRkVzc0lsanNkaTV1b0JCWHlsSmVl?=
- =?utf-8?B?bU1oQUpWSnFuZWlBWnFkbWE0OVhUa2k5K0dRTUYveFBaNUZKZnhDM3JaVzJY?=
- =?utf-8?B?bmxEbEJ1OFZnaWd0TnNtamNlZFZ4eGdPZkxKcHhBQ0xLbG1KSTZHRkNza2NM?=
- =?utf-8?B?Y1dlTytZOEhXcllNenU3VU1ldUJOK3lFQVFKV1Uvam81YW4xSS9DbmpOYUdB?=
- =?utf-8?B?RityNnYrVmRFWWM2Sk13VTQ3bzZoQ0phQlFYL1pITzZ4Q1AzQ25DZkZ6YkpE?=
- =?utf-8?B?VVFEbFpCTFA5U0VhdjI2Qk14UUhNbFZneXFvdk9hRHZyVnBZTXF1QXBmb2dt?=
- =?utf-8?B?KysxRndkallOWmVlUndQUjRmbk5zSEM3ZWpZMkRsMXN1SGg2R1NjbG14RnNN?=
- =?utf-8?B?SUNEZVNvRzJWME93b0NVR1ByRkNmZjNHeUtJL2laeW9GYzhVVzhET2RPZVc0?=
- =?utf-8?B?bHVvek1rU2VxU0RxUkwvMi9DcmR2bTR0K2dDWkJoRU5NcHVoQ3JBNmE3UDYr?=
- =?utf-8?B?VWdYQjFmY2MwK3IxY3J3a09ZeDZFaStqWmJDcUVRenA2SnZSbFdmNDUvaFBk?=
- =?utf-8?B?SnlEWkxkYjN2bDVoNWR0QXVkY2VUWE55L3dsV1JMVzBubnE2N2RLMGdBcWtT?=
- =?utf-8?B?L1UvaFJPVUhTcDB1c09UbXdzbHZTQkw2V29MaTNndDFCM2c0UWJtY2lyU2Rs?=
- =?utf-8?B?UVhjVmJ1cWlOaGZCYUlIVmJxQzNzMFlIeW5Ca1pJd3JWM3BGRHIvVVEwMmhh?=
- =?utf-8?B?VXdQakxXUEkxbUppaGFLV0J4clpCa1IzZ0dlNkoyT0FFQ090Ui9OdHhZUnJo?=
- =?utf-8?B?enJyZWdiTWpjOWkrN2UreVczOHorbFJuUWRYQ1ROMUdDMUY2M2ZBNnkzWVBt?=
- =?utf-8?B?bEpHUkFXOStxa1Y4aW5BL3lhcnh4di83dFpBVHhmOE5uQ1oyUWdQdDFzeXFE?=
- =?utf-8?B?Y3djSlU5a1pWcU1ORmpCc3BoTWs2aFpmYzU5OXJwUlp5MHpaenR6djRGUmdG?=
- =?utf-8?B?Tmw4MDlhbU9mNTVGR2xQK3FEZ0dsLzE3ZnBLeXRFMFhjdE1xSWFSVHh1OHQw?=
- =?utf-8?B?VXFjMUVjNVI5all2MHRybFBVb1hRbG9nRFVCQ2NIQkdZTUNZS091UT09?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b6cedb84-8a2d-4312-b9ae-08de95de44f1
-X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB7046.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2026 02:18:20.6863
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Fv7OBSibfbR7a7+Bs+2gPJ1wyTXDC9/bDuynRdPBHkSCWx9FpIzCfDHVOU/stz7VB/3s5HtAcgQddEcMbq6YBw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7283
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260407161311.GA2666255-robh@kernel.org>
+X-Proofpoint-ORIG-GUID: ApPi8hPq2BUCjZ04veIt0BgHksC9tzJE
+X-Proofpoint-GUID: ApPi8hPq2BUCjZ04veIt0BgHksC9tzJE
+X-Authority-Analysis: v=2.4 cv=R9sz39RX c=1 sm=1 tr=0 ts=69d70caa cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=kj9zAlcOel0A:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=ltEoF5Qc1AA1ACRQjt8A:9 a=CjuIK1q_8ugA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA5MDAxOSBTYWx0ZWRfX79jsuzje3JSz
+ +DLhd7pc61JBOuN1GNaAICe8bUz5XJkKjSax3igxdwPQTpnQlkbzjjx4RtrSuPRp6OKLm2V8Tvm
+ t4867D8isdGifMkzIYapZe68vH/sCUUU7TiGISyMntOQcHNwpgfXpgkt4U2Qagk86JIPV5kwt9D
+ NF5pKkY22JRI3Ej7nY5GmnEV2bvI2hx6pmZwhS7k25MOTHsOA7/1vc7gsYsS9N/dubDMZQOmIBH
+ ylJdsXvUq4u1wrqoAvVkL3sVCsBKoTIW3uyJSrJYZnwlFwZqJLn6P4Lpgd30i/hUYa49yMI3v7O
+ HWeU2YxXpTkMzqTHMKP7EdXFVaZuIq92TPg4PQB9O1s9pmhD3MqxtUK5xSlRU6HUZ9PDW5fqF2Z
+ QS8bkDP4ggWWkig2sKKYBolbqWQUNuPdvUH8ca218T6oFmlmM/JhlF4n+UfvuCV3Aqw4LhOs0VG
+ Ejzt7E8q/vgiEg1G5WA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-08_07,2026-04-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0 phishscore=0
+ spamscore=0 priorityscore=1501 suspectscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604090019
 
-On Wed, Apr 08, 2026 at 06:50:31AM -0400, Frank Li wrote:
-> On Wed, Apr 08, 2026 at 04:40:37PM +0800, Liu Ying wrote:
->> On Wed, Apr 08, 2026 at 04:28:40AM -0400, Frank Li wrote:
-> ...
->>>>>>>
->>>>>>> Is it possible to appply this overlay file and kd50g21-40nt-a1 overlay file
->>>>>>>
->>>>>>> to imx93-9x9-qsb.dtb, so needn't create dtsi.
->>>>>>
->>>>>> I'm sorry, I don't get your question here.
->>>>>> Anyway, the DT overlays are needed, because the 40-pin EXP/PRI interface on
->>>>>> the i.MX93 9x9 QSB board can not only connect to a DPI panel adapter board
->>>>>> but also to an audio hat[2], and maybe more.  The newly introduced .dtsi
->>>>>> file just aims to avoid duplicated code.
->>>>>
->>>>> My means apply two overlay files to dtb
->>>>>
->>>>> imx93-9x9-qsb-tianma-tm050rdh03-dtbs += imx93-9x9-qsb.dtb imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtbo imx93-9x9-qsb-tianma-tm050rdh03.dtbo
->>
->> This ...
->>
->>>>>
->>>>> In imx93-9x9-qsb-tianma-tm050rdh03.dtbo, only include
->>>>> &{/} {
->>>>> 	panel {
->>>>> 		compatible = "tianma,tm050rdh03";
->>>>> 		enable-gpios = <&pcal6524 8 GPIO_ACTIVE_HIGH>;
->>>>> 	};
->>>>> };
->>>>
->>>> If an user wants to use imx93-9x9-qsb.dtb and the DT overlay blob
->>>> imx93-9x9-qsb-tianma-tm050rdh03.dtbo to enable the tianma,tm050rdh03
->>>> DPI panel, then it won't work unless the user also apply
->>>> imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtbo, right?
->>>>
->>>>>
->>>
->>> Yes, imx93-9x9-qsb-tianma-tm050rdh03.dtb already created, which already
->>> applied both overlay file.
->>
->> .... indicates that imx93-9x9-qsb-tianma-tm050rdh03.dtb is generated by
->> applying both imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtbo and
->> imx93-9x9-qsb-tianma-tm050rdh03.dtbo to imx93-9x9-qsb.dtb.
->> While, imx93-9x9-qsb-tianma-tm050rdh03.dtbo(a DT overlay blob) just contains
->> the panel node, which means that an user __cannot_ enable the tianma,tm050rdh03
->> DPI panel by only applying it to imx93-9x9-qsb.dtb, unless the user also
->> applies imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtbo.  That's why the .dtsi
->> file is needed.
+On Tue, Apr 07, 2026 at 11:13:11AM -0500, Rob Herring wrote:
+> On Mon, Mar 23, 2026 at 12:15:28AM -0700, Qiang Yu wrote:
+> > The Glymur SoC has pcie3a and pcie3b PHYs that can operate in two modes:
+> > 
+> > 1. Independent 4-lane mode: Each PHY operates as a separate PCIe Gen5
+> >    4-lane interface, compatible with qcom,glymur-qmp-gen5x4-pcie-phy
+> > 2. Bifurcation mode (8-lane): pcie3a phy acts as leader and pcie3b phy as
+> >    follower to form a single 8-lane PCIe Gen5 interface
+> > 
+> > In bifurcation mode, the hardware design requires controlling additional
+> > resources beyond the standard pcie3a PHY configuration:
+> > 
+> > - pcie3b's aux_clk (phy_b_aux)
+> > - pcie3b's phy_gdsc power domain
+> > - pcie3b's bcr/nocsr reset
+> > 
+> > Add qcom,glymur-qmp-gen5x8-pcie-phy compatible string to document this
+> > 8-lane bifurcation configuration.
+> > 
+> > The phy_b_aux clock is used as the 6th clock instead of pipediv2,
+> > requiring the clock-names enum to be extended to support both
+> > [phy_b_aux, pipediv2] options at index 5. This follows the existing
+> > pattern used for [rchng, refgen] clocks at index 3.
+> > 
+> > Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
+> > ---
+> >  .../bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml   | 45 ++++++++++++++++++----
+> >  1 file changed, 37 insertions(+), 8 deletions(-)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml
+> > index 3a35120a77ec0ceb814a1cdcacff32fef32b4f7b..25717bc9be98824e38f3c27c3299fbd1f2e7e299 100644
+> > --- a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml
+> > +++ b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml
+> > @@ -18,6 +18,7 @@ properties:
+> >      enum:
+> >        - qcom,glymur-qmp-gen4x2-pcie-phy
+> >        - qcom,glymur-qmp-gen5x4-pcie-phy
+> > +      - qcom,glymur-qmp-gen5x8-pcie-phy
+> >        - qcom,kaanapali-qmp-gen3x2-pcie-phy
+> >        - qcom,qcs615-qmp-gen3x1-pcie-phy
+> >        - qcom,qcs8300-qmp-gen4x2-pcie-phy
+> > @@ -68,20 +69,23 @@ properties:
+> >        - const: ref
+> >        - enum: [rchng, refgen]
+> >        - const: pipe
+> > -      - const: pipediv2
+> > +      - enum: [phy_b_aux, pipediv2]
+> >  
+> >    power-domains:
+> > -    maxItems: 1
+> > +    minItems: 1
+> > +    maxItems: 2
 > 
-> what's problem if we require user do that? Makefile already create finial
-> imx93-9x9-qsb-tianma-tm050rdh03.dtb.
+> Once there is more than 1, you have to define the order and what each 
+> one is for.
+>
 
-The problem is that the user would apply imx93-9x9-qsb-tianma-tm050rdh03.dtbo
-to imx93-9x9-qsb.dtb to enable the tianma,tm050rdh03 DPI panel, say in the
-U-boot stage with the 'fdt' command, which is fairly a typical usecase, just
-like the user would apply imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtbo to
-imx93-9x9-qsb.dtb to enable the ontat,kd50g21-40nt-a1 DPI panel.  We cannot
-ask the user to additionally apply imx93-9x9-qsb-ontat-kd50g21-40nt-a1.dtbo
-to enable the tianma,tm050rdh03 DPI panel, because that's very confusing.
+Okay, will add - description for each power-domains.
 
-Note that imx93-9x9-qsb-tianma-tm050rdh03.dtb certainly can be used to
-enable the tianma,tm050rdh03 DPI panel, but in addition to that,
-imx93-9x9-qsb.dtb + imx93-9x9-qsb-tianma-tm050rdh03.dtbo can also be
-used to enable the panel.
-
+> >  
+> >    resets:
+> >      minItems: 1
+> > -    maxItems: 2
+> > +    maxItems: 4
+> >  
+> >    reset-names:
+> >      minItems: 1
+> >      items:
+> >        - const: phy
+> >        - const: phy_nocsr
+> > +      - const: phy_b
+> > +      - const: phy_b_nocsr
+> >  
+> >    vdda-phy-supply: true
+> >  
+> > @@ -183,6 +187,7 @@ allOf:
+> >              enum:
+> >                - qcom,glymur-qmp-gen4x2-pcie-phy
+> >                - qcom,glymur-qmp-gen5x4-pcie-phy
+> > +              - qcom,glymur-qmp-gen5x8-pcie-phy
+> >                - qcom,qcs8300-qmp-gen4x2-pcie-phy
+> >                - qcom,sa8775p-qmp-gen4x2-pcie-phy
+> >                - qcom,sa8775p-qmp-gen4x4-pcie-phy
+> > @@ -201,6 +206,17 @@ allOf:
+> >          clock-names:
+> >            minItems: 6
+> >  
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          contains:
+> > +            enum:
+> > +              - qcom,glymur-qmp-gen5x8-pcie-phy
+> > +    then:
+> > +      properties:
+> > +        power-domains:
+> > +          minItems: 2
 > 
-> Any user really apply dtso manaully without use kernel's Makefile?
+> else:
+>   maxItems: 1
+>
 
-That's not relevant.
-The point is that imx93-9x9-qsb-tianma-tm050rdh03.dtbo would be generated
-and applied by the user to imx93-9x9-qsb.dtb to enable the tianma,tm050rdh03
-DPI panel.
+Will add this.
 
-> 
->>
->>>
->>> can the same board be use for imx91 or other evk boards?
->>
->> Yes, both tianma,tm050rdh03 and ontat,kd50g21-40nt-a1 DPI panels can be
->> connected to i.MX91/93 11x11 EVK and 9x9 QSB boards.
-> 
-> Is it possible to use one overlay files for all imx91/imx93 boards?
-
-No, that's impossible, because they use GPIO backlight or PWM backlight,
-different GPIOs to enable DPI panels and different GPIO hogs.
-
-> 
-> Frank
->>
->>>
->>> Frank
->>>
->>>>> Frank
->>>>>>
->>>>>> [2] https://www.nxp.com/design/design-center/development-boards-and-designs/mx93aud-hat-audio-board:MX93AUD-HAT
->>>>>>
->>>>>>>
->>>>>>> Frank
->>>>>>>>
->>>>>>>> ---
->>>>>>>> base-commit: 816f193dd0d95246f208590924dd962b192def78
->>>>>>>> change-id: 20260407-tianma-tm050rdh03-imx93-9x9-qsb-6e4bbbde3d08
->>>>>>>>
->>>>>>>> Best regards,
->>>>>>>> --
->>>>>>>> Liu Ying <victor.liu@nxp.com>
->>>>>>>>
->>>>>>
->>>>>> --
->>>>>> Regards,
->>>>>> Liu Ying
->>>>
->>>> --
->>>> Regards,
->>>> Liu Ying
->>
->> --
->> Regards,
->> Liu Ying
-
--- 
-Regards,
-Liu Ying
+- Qiang Yu
+> > +
+> >    - if:
+> >        properties:
+> >          compatible:
+> > @@ -223,11 +239,24 @@ allOf:
+> >          reset-names:
+> >            minItems: 2
+> >      else:
+> > -      properties:
+> > -        resets:
+> > -          maxItems: 1
+> > -        reset-names:
+> > -          maxItems: 1
+> > +      if:
+> > +        properties:
+> > +          compatible:
+> > +            contains:
+> > +              enum:
+> > +                - qcom,glymur-qmp-gen5x8-pcie-phy
+> > +      then:
+> > +        properties:
+> > +          resets:
+> > +            minItems: 4
+> > +          reset-names:
+> > +            minItems: 4
+> > +      else:
+> > +        properties:
+> > +          resets:
+> > +            maxItems: 1
+> > +          reset-names:
+> > +            maxItems: 1
+> >  
+> >    - if:
+> >        properties:
+> > 
+> > -- 
+> > 2.34.1
+> > 
