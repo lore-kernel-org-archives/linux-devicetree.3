@@ -1,588 +1,138 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E47783BD628;
-	Thu,  9 Apr 2026 09:59:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D12B358381;
+	Thu,  9 Apr 2026 10:03:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775728755; cv=none; b=YT88A/OPVZ7XK7jh9F3+TQdgLARiHaZC4GBcXMBEez1pAeIKo7x1vN0V1/3EuCkhMuZXqCR4c7vTvCDLh4UXpuoi6FGFWH8u/w0W4+FvrCaVljbV3PHqVAUVOMIwyHS03nTJnubgHMGvOsIgBu0QKfkmFR+0x/IJ36srJxD2p6k=
+	t=1775729021; cv=none; b=Ey7Gdl+FQFfdM68vFBSzyGHlh8QbxYH71mvzuxm/2mB3tnnkiQgkxqRENvLWh0SQvS6iU3xZFuYtMfFAJqktv1yzrijXmIPVuXHYHBYhLnIbRyjNaWFh/rSEsmULw7O48N/jHB+UFi2YlfTDe6mUoYKU477sN4fQqRmI7fUv2ew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775728755; c=relaxed/simple;
-	bh=9OKxP3Q70NGtytBZGmIZc2oCUeWIkX6JxEXRfxMwC88=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Yb8eOxCYw15ancnghTv32MM9MqCI+rN9ch79OvWHhogOZPsaz3x+MniF0QS19Ljw/rh67C0RKYYZYQcmqQmS6yw2CMs1Qoa7jZZk/lrt+ST/I0ro7fpyyfGUyLLPX1M+7mzKj1gdULJwmeTdpSVbUQZuXlTNGnrtugsdPIHaHnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=Hpsbd/Jm; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1775729021; c=relaxed/simple;
+	bh=D00xIEFPrGHvVBFO1Sy9XNoqC0F2+Upgaz9P5oObihI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aDNwtxfigqkXFKS0m1kEQS8WH4jQHvTZFdiunp5IqLYWyCykDMT10aMlweEBmRq5bRgLVMyEXCpNOmE2GQnDs6zVYcQL7JiQ5Rz+lBT3/GMc0hajqZboWKWz3HLtvcol6eWAtvti0Za9sdkL5oPZ+jpX/7OvPaiXWc8EEzu5cZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X9dbdrZt; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="Hpsbd/Jm"
-Received: from francesco-nb.. (xcpe-178-82-120-96.dyn.res.sunrise.net [178.82.120.96])
-	by mail11.truemail.it (Postfix) with ESMTPA id C343420688;
-	Thu,  9 Apr 2026 11:59:10 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1775728751;
-	bh=mqWq07LFl/mhr/By3ScTj/IISSNJIGZ9UdL8vYvunvI=; h=From:To:Subject;
-	b=Hpsbd/JmhiKsY+3u0Tbh6tolVfO6hm3B0bFRKgxleZ8LGv7mOooNy0SoKZAKr5FUK
-	 gW3XKsTXrMiwKB0IP+Oun+TA+I4pYO09byXFIySISMV+oXfpYERP5GV7mhsij2Wvj4
-	 /n2wFBT836xfHuO6bi/gJ+tTMDDP5W0F9A0xxpQROIjaQBY5vtvDSz1o0YKorpYzmP
-	 X0A4z1AMW3Y6sw6A6O3zIFXE9PlII65fzRvSdC8IS4oaqw2m/uHKGYcXbUrXN35zfS
-	 2RnlEEWcrr6Jh8O13G9DxcgymNGYZigxX2WEi8HP54vBYbqbiKXPrQVIoRUAqBGzrr
-	 01/qx+I4kCNWg==
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Shawn Guo <shawnguo@kernel.org>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v1 7/7] arm64: dts: freescale: imx95-verdin: Add Zinnia
-Date: Thu,  9 Apr 2026 11:58:53 +0200
-Message-ID: <20260409095855.61252-8-francesco@dolcini.it>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260409095855.61252-1-francesco@dolcini.it>
-References: <20260409095855.61252-1-francesco@dolcini.it>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X9dbdrZt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2A66C4CEF7;
+	Thu,  9 Apr 2026 10:03:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775729021;
+	bh=D00xIEFPrGHvVBFO1Sy9XNoqC0F2+Upgaz9P5oObihI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=X9dbdrZt1JKOEJJvwNLVw2ayL3DnHjY5uh3595AE5q/AkOhpVO4EaRvqea4oqGn0k
+	 ePFlDKEb6rUACdT0B022GQsPEWDzMVXe0UtHvXvIslQU1wAB81QmhExIw2Nz14y05+
+	 L+2TaUHEhB4Qe6ZTHRh98yGy/SrQ/JEy+YSdRZj6w6bb3RQuuwRYpZfUNsQLgw7jO9
+	 f0Q/cabIQbuu7O+Q4H41g8SU/jsWpwf0vWtfR/pp3BFUODWcFe7yaLrUa/H9FmutFO
+	 zszinQb6Dnjq1N3dNP4FC9CPBxEZ5Nv/Vjb7XmQh9dL1udFgpaKcuzeUkqC26lUNAp
+	 TuZ9inyV2JjxQ==
+Message-ID: <8fe36a5e-1ebc-4c5f-9c3b-3c50ebd2274e@kernel.org>
+Date: Thu, 9 Apr 2026 12:03:37 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: ipq5210: add the bootph-all property
+To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260409-add_bootph-v1-1-cb2b5093f7d7@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260409-add_bootph-v1-1-cb2b5093f7d7@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
+On 09/04/2026 11:28, Kathiravan Thirumoorthy wrote:
+> Add the bootph-all property to the nodes which are utilized by the
+> bootloaders.
 
-Add Zinnia Carrier Board mated with Verdin iMX95.
+Uh oh, so it started for qcom too? I really don't like how these bootph
+properties spread all over, so please provide arguments - which pure
+upstream bootloaders exactly and why exactly these nodes.
 
-It features 1 x RS232, 1 x RS485, 1 x CAN, 3 x isolated digital I/O,
-2 x GBit/s Ethernet, a mini PCIe slot with USB / SIM card connector
-for a modem, USB and SD card interfaces.
+> 
+> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts |  5 +++++
+>  arch/arm64/boot/dts/qcom/ipq5210.dtsi       | 10 ++++++++++
+>  2 files changed, 15 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts b/arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts
+> index 941f866ecfe9..56dbc506da78 100644
+> --- a/arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts
+> +++ b/arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts
+> @@ -17,6 +17,7 @@ aliases {
+>  
+>  	chosen {
+>  		stdout-path = "serial0";
+> +		bootph-all;
 
-Link: https://www.toradex.com/products/carrier-board/zinnia-carrier-board
-Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
----
- arch/arm64/boot/dts/freescale/Makefile        |   2 +
- .../freescale/imx95-verdin-nonwifi-zinnia.dts |  21 +
- .../freescale/imx95-verdin-wifi-zinnia.dts    |  21 +
- .../dts/freescale/imx95-verdin-zinnia.dtsi    | 429 ++++++++++++++++++
- 4 files changed, 473 insertions(+)
- create mode 100644 arch/arm64/boot/dts/freescale/imx95-verdin-nonwifi-zinnia.dts
- create mode 100644 arch/arm64/boot/dts/freescale/imx95-verdin-wifi-zinnia.dts
- create mode 100644 arch/arm64/boot/dts/freescale/imx95-verdin-zinnia.dtsi
+Since when do we add bootph-all to chosen? Which broken bootloader
+ignores chosen?
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index c14ccf24210a..870b9c9b869f 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -518,11 +518,13 @@ dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-nonwifi-dev.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-nonwifi-ivy.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-nonwifi-mallow.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-nonwifi-yavia.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-nonwifi-zinnia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-dahlia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-dev.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-ivy.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-mallow.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-yavia.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-zinnia.dtb
- 
- imx95-15x15-evk-pcie0-ep-dtbs = imx95-15x15-evk.dtb imx-pcie0-ep.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx95-15x15-evk-pcie0-ep.dtb
-diff --git a/arch/arm64/boot/dts/freescale/imx95-verdin-nonwifi-zinnia.dts b/arch/arm64/boot/dts/freescale/imx95-verdin-nonwifi-zinnia.dts
-new file mode 100644
-index 000000000000..b9fa18f34e9a
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx95-verdin-nonwifi-zinnia.dts
-@@ -0,0 +1,21 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * https://www.toradex.com/computer-on-modules/verdin-arm-family/nxp-imx95
-+ * https://www.toradex.com/products/carrier-board/zinnia-carrier-board
-+ */
-+
-+/dts-v1/;
-+
-+#include "imx95-verdin.dtsi"
-+#include "imx95-verdin-nonwifi.dtsi"
-+#include "imx95-verdin-zinnia.dtsi"
-+
-+/ {
-+	model = "Toradex Verdin iMX95 on Zinnia Board";
-+	compatible = "toradex,verdin-imx95-nonwifi-zinnia",
-+		     "toradex,verdin-imx95-nonwifi",
-+		     "toradex,verdin-imx95",
-+		     "fsl,imx95";
-+};
-diff --git a/arch/arm64/boot/dts/freescale/imx95-verdin-wifi-zinnia.dts b/arch/arm64/boot/dts/freescale/imx95-verdin-wifi-zinnia.dts
-new file mode 100644
-index 000000000000..789614796370
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx95-verdin-wifi-zinnia.dts
-@@ -0,0 +1,21 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * https://www.toradex.com/computer-on-modules/verdin-arm-family/nxp-imx95
-+ * https://www.toradex.com/products/carrier-board/zinnia-carrier-board
-+ */
-+
-+/dts-v1/;
-+
-+#include "imx95-verdin.dtsi"
-+#include "imx95-verdin-wifi.dtsi"
-+#include "imx95-verdin-zinnia.dtsi"
-+
-+/ {
-+	model = "Toradex Verdin iMX95 WB on Zinnia Board";
-+	compatible = "toradex,verdin-imx95-wifi-zinnia",
-+		     "toradex,verdin-imx95-wifi",
-+		     "toradex,verdin-imx95",
-+		     "fsl,imx95";
-+};
-diff --git a/arch/arm64/boot/dts/freescale/imx95-verdin-zinnia.dtsi b/arch/arm64/boot/dts/freescale/imx95-verdin-zinnia.dtsi
-new file mode 100644
-index 000000000000..6409a6ead713
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx95-verdin-zinnia.dtsi
-@@ -0,0 +1,429 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Common dtsi for Verdin iMX95 SoM on Zinnia carrier board
-+ *
-+ * https://www.toradex.com/computer-on-modules/verdin-arm-family/nxp-imx95
-+ * https://www.toradex.com/products/carrier-board/zinnia-carrier-board
-+ */
-+
-+#include <dt-bindings/leds/common.h>
-+#include <dt-bindings/net/ti-dp83867.h>
-+
-+/ {
-+	aliases {
-+		eeprom1 = &carrier_eeprom;
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_zinnia_leds>;
-+
-+		/* LED1 Red - SODIMM 48 - LED1_R */
-+		led-1 {
-+			color = <LED_COLOR_ID_RED>;
-+			default-state = "off";
-+			function = LED_FUNCTION_STATUS;
-+			function-enumerator = <1>;
-+			gpios = <&gpio5 7 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		/* LED1 Blue - SODIMM 46 - LED1_B */
-+		led-2 {
-+			color = <LED_COLOR_ID_BLUE>;
-+			default-state = "off";
-+			function = LED_FUNCTION_STATUS;
-+			function-enumerator = <1>;
-+			gpios = <&gpio5 4 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		/* LED3 Red - SODIMM 44 - LED3_R */
-+		led-3 {
-+			color = <LED_COLOR_ID_RED>;
-+			default-state = "off";
-+			function = LED_FUNCTION_STATUS;
-+			function-enumerator = <3>;
-+			gpios = <&gpio5 5 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		/* LED3 Green - SODIMM 54 - LED3_G */
-+		led-4 {
-+			color = <LED_COLOR_ID_GREEN>;
-+			default-state = "off";
-+			function = LED_FUNCTION_STATUS;
-+			function-enumerator = <3>;
-+			gpios = <&gpio5 10 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		/* LED3 Blue - SODIMM 36 - LED3_B */
-+		led-5 {
-+			color = <LED_COLOR_ID_BLUE>;
-+			default-state = "off";
-+			function = LED_FUNCTION_STATUS;
-+			function-enumerator = <3>;
-+			gpios = <&gpio2 20 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		/* LED4 Red - SODIMM 34 - LED4_R */
-+		led-6 {
-+			color = <LED_COLOR_ID_RED>;
-+			default-state = "off";
-+			function = LED_FUNCTION_STATUS;
-+			function-enumerator = <4>;
-+			gpios = <&gpio2 21 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		/* LED4 Green - SODIMM 32 - LED4_G */
-+		led-7 {
-+			color = <LED_COLOR_ID_GREEN>;
-+			default-state = "off";
-+			function = LED_FUNCTION_STATUS;
-+			function-enumerator = <4>;
-+			gpios = <&gpio2 26 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		/* LED4 Blue - SODIMM 30 - LED4_B */
-+		led-8 {
-+			color = <LED_COLOR_ID_BLUE>;
-+			default-state = "off";
-+			function = LED_FUNCTION_STATUS;
-+			function-enumerator = <4>;
-+			gpios = <&gpio2 16 GPIO_ACTIVE_HIGH>;
-+		};
-+	};
-+
-+	/* Zinnia Power Supply Input Voltage */
-+	zinnia-1v8-voltage {
-+		compatible = "voltage-divider";
-+		full-ohms = <39000>; /* 12k + 27k */
-+		/* Verdin ADC_4 */
-+		io-channels = <&adc1 3>;
-+		output-ohms = <27000>;
-+	};
-+
-+	zinnia-3v3-voltage {
-+		compatible = "voltage-divider";
-+		full-ohms = <54000>; /* 27k + 27k */
-+		/* Verdin ADC_3 */
-+		io-channels = <&adc1 2>;
-+		output-ohms = <27000>;
-+	};
-+
-+	zinnia-5v-voltage {
-+		compatible = "voltage-divider";
-+		full-ohms = <39000>; /* 27k + 12k */
-+		/* Verdin ADC_2 */
-+		io-channels = <&adc1 1>;
-+		output-ohms = <12000>;
-+	};
-+
-+	zinnia-input-voltage {
-+		compatible = "voltage-divider";
-+		full-ohms = <204700>; /* 200k + 4.7k */
-+		/* Verdin ADC_1 */
-+		io-channels = <&adc1 0>;
-+		output-ohms = <4700>;
-+	};
-+};
-+
-+/* Verdin ADC_1, ADC_2, ADC_3 and ADC_4 */
-+&adc1 {
-+	status = "okay";
-+};
-+
-+/* Verdin ETH_1 (On-module PHY) */
-+&enetc_port0 {
-+	status = "okay";
-+};
-+
-+/* Verdin ETH_2_RGMII */
-+&enetc_port1 {
-+	phy-handle = <&ethphy2>;
-+	phy-mode = "rgmii-id";
-+
-+	status = "okay";
-+};
-+
-+/* Verdin CAN_1 */
-+&flexcan1 {
-+	status = "okay";
-+};
-+
-+&gpio1 {
-+	gpio-line-names =
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"", /* 10 */
-+		"",
-+		"",
-+		"",
-+		"",
-+		"";
-+};
-+
-+&gpio2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_gpio1>, <&pinctrl_gpio2>, <&pinctrl_gpio3>;
-+	gpio-line-names =
-+		"DO1_EN", /* SODIMM 206 */ /* 0 */
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"", /* 10 */
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"DI1_EN", /* SODIMM 208 */
-+		"",
-+		"", /* 20 */
-+		"",
-+		"",
-+		"",
-+		"DI1_RB", /* SODIMM 210 */
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"", /* 30 */
-+		"";
-+};
-+
-+&gpio3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_gpio6>;
-+	gpio-line-names =
-+		"", /* 0 */
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"", /* 10 */
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"", /* 20 */
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"DI2_EN", /* SODIMM 218 */
-+		"",
-+		"",
-+		"", /* 30 */
-+		"";
-+};
-+
-+&gpio4 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_gpio5>;
-+	gpio-line-names =
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"", /* 10 */
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"", /* 20 */
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"DI2_RB", /* SODIMM 216 */
-+		"";
-+};
-+
-+&gpio5 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_gpio4>, <&pinctrl_qspi1_io0_gpio>;
-+	gpio-line-names =
-+		"DI3_RB", /* SODIMM 56 */ /* 0 */
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"", /* 10 */
-+		"",
-+		"DO2_EN", /* SODIMM 212 */
-+		"",
-+		"",
-+		"",
-+		"",
-+		"";
-+};
-+
-+/* Verdin I2C_1 */
-+&lpi2c4 {
-+	status = "okay";
-+
-+	temperature-sensor@4f {
-+		compatible = "ti,tmp1075";
-+		reg = <0x4f>;
-+	};
-+
-+	carrier_eeprom: eeprom@57 {
-+		compatible = "st,24c02", "atmel,24c02";
-+		reg = <0x57>;
-+		pagesize = <16>;
-+	};
-+};
-+
-+/* Verdin SPI_1 */
-+&lpspi6 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_lpspi6>,
-+		    <&pinctrl_spi1_cs>,
-+		    <&pinctrl_uart8_cts_gpio>;
-+	cs-gpios = <&gpio2 14 GPIO_ACTIVE_LOW>,
-+		   <&som_gpio_expander 13 GPIO_ACTIVE_LOW>,
-+		   <&gpio4 29 GPIO_ACTIVE_LOW>;
-+
-+	tpm@2 {
-+		compatible = "infineon,slb9670", "tcg,tpm_tis-spi";
-+		reg = <2>;
-+		spi-max-frequency = <18500000>;
-+	};
-+};
-+
-+/* Verdin UART_3, used as the Linux console */
-+&lpuart1 {
-+	status = "okay";
-+};
-+
-+/* Verdin UART_1 */
-+&lpuart7 {
-+	status = "okay";
-+};
-+
-+/* Verdin UART_2, through RS485 transceiver */
-+&lpuart8 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_uart8>, <&pinctrl_uart8_rts>;
-+	rs485-rx-during-tx;
-+	linux,rs485-enabled-at-boot-time;
-+
-+	status = "okay";
-+};
-+
-+&netc_emdio {
-+	ethphy2: ethernet-phy@2 {
-+		reg = <2>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_eth2_rgmii_int>;
-+		interrupt-parent = <&gpio1>;
-+		interrupts = <12 IRQ_TYPE_LEVEL_LOW>;
-+		ti,rx-internal-delay = <DP83867_RGMIIDCTL_2_00_NS>;
-+		ti,tx-internal-delay = <DP83867_RGMIIDCTL_2_00_NS>;
-+	};
-+};
-+
-+&som_gpio_expander {
-+	gpio-line-names =
-+		"DO3_EN", /* SODIMM 220 */
-+		"DI3_EN", /* SODIMM 222 */
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"",
-+		"", /* 10 */
-+		"",
-+		"",
-+		"",
-+		"",
-+		"";
-+};
-+
-+/* Verdin USB_1 */
-+&usb2 {
-+	status = "okay";
-+};
-+
-+/* Verdin USB_2 */
-+&usb3 {
-+	status = "okay";
-+};
-+
-+&usb3_phy {
-+	status = "okay";
-+};
-+
-+/* Verdin SD_1 */
-+&usdhc2 {
-+	status = "okay";
-+};
-+
-+&scmi_iomuxc {
-+	pinctrl_uart8_cts_gpio: uart8ctsgrp {
-+		fsl,pins = <IMX95_PAD_GPIO_IO14__GPIO2_IO_BIT14	0x51e>; /* SODIMM 143 */
-+	};
-+
-+	pinctrl_zinnia_leds: zinnialedsgrp {
-+		fsl,pins = <IMX95_PAD_GPIO_IO16__GPIO2_IO_BIT16		0x11e>, /* SODIMM 30 */
-+			   <IMX95_PAD_GPIO_IO26__GPIO2_IO_BIT26		0x11e>, /* SODIMM 32 */
-+			   <IMX95_PAD_GPIO_IO21__GPIO2_IO_BIT21		0x11e>, /* SODIMM 34 */
-+			   <IMX95_PAD_GPIO_IO20__GPIO2_IO_BIT20		0x11e>, /* SODIMM 36 */
-+			   <IMX95_PAD_XSPI1_DATA5__GPIO5_IO_BIT5	0x11e>, /* SODIMM 44 */
-+			   <IMX95_PAD_XSPI1_DATA4__GPIO5_IO_BIT4	0x11e>, /* SODIMM 46 */
-+			   <IMX95_PAD_XSPI1_DATA7__GPIO5_IO_BIT7	0x11e>, /* SODIMM 48 */
-+			   <IMX95_PAD_XSPI1_SS0_B__GPIO5_IO_BIT10	0x11e>; /* SODIMM 54 */
-+	};
-+};
--- 
-2.47.3
+This really makes me wonder that you do all this for some downstream forks.
 
+>  	};
+>  };
+>  
+> @@ -41,6 +42,7 @@ qup_uart1_default_state: qup-uart1-default-state {
+>  		function = "qup_se1";
+>  		drive-strength = <6>;
+>  		bias-pull-down;
+> +		bootph-all;
+>  	};
+And that's a pin, not a device. What is the point of marking it? The
+device needing this pin will have phandle which must pull the node.
+
+Best regards,
+Krzysztof
