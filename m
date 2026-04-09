@@ -1,57 +1,66 @@
-Received: from nick.sneptech.io (nick.sneptech.io [178.62.38.78])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 928A12857C7;
-	Thu,  9 Apr 2026 12:20:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.62.38.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D29E379ED7;
+	Thu,  9 Apr 2026 12:21:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775737247; cv=none; b=tpBUfeVRkbvysU0k1bMc2W1P2XFVLqkBucjcKZRDPSDA6WHnMB2A8sBgdEceXn2aC7BGHdaItc/NLDWPev9bS5IMW7zDf21Teysk+3aBbppEtvgYknoHHqCWiJoXc8o/KFzT2WjLBAd63QWXGq/FfTp2mkTLV554fq6OcBgCcQ8=
+	t=1775737283; cv=none; b=M/G/z/wsWJoUhXWQ+4NN9OOB9ZfeEe+dsucRQZ0fQq4t5UFqWkZN3AV+j7ol6BtoUqzp0Z6hXWCWwb9mWFEfs77m7RZ9FAen6+IYeS0f2UmSXvoeL/WCm7LEeGMEeTPsBmVbOCSj1XbmRck+8ESmnWVHIcAfEmPXGvHa++q5o04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775737247; c=relaxed/simple;
-	bh=nHrfKi4UPCBf1Noha5/iA8Q1iNkJLlLzxhiUzUmvBN0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bjHIS99y54H4t6Tk0y7+XuJEYTeIEl4aSlRQ29VQ4FnKhqaI346VOjRNtI9pMXOswT18dWc3BL/AX6tpBQWMMmQRDKkn0zW7IGxCvBauIhiBO+loW6mM5pPphWOkbtvv8xOuIIS2fBj1LHoghPEOuNZWZzs2xE3IonPpeZwn1Pk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=philpem.me.uk; spf=pass smtp.mailfrom=philpem.me.uk; dkim=pass (1024-bit key) header.d=philpem.me.uk header.i=@philpem.me.uk header.b=DoGXEVSf; arc=none smtp.client-ip=178.62.38.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=philpem.me.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=philpem.me.uk
+	s=arc-20240116; t=1775737283; c=relaxed/simple;
+	bh=rgtUB1c5aNLZHE/IkBoX6IeByjxo/MzCTwq4f/gSu1U=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JezCmLF8LGSOTmL1phrBLDPV2lz8pSKafuIUxgjlQcNeYoAIkdAuyBCUQtHw36VycSZWykY6segKGLKYVYWnkCTZdd94MV+H3AQdTMniy9WfF2tv8BGrXjEaFhMib5EAsJ1L4tNgQkpiHB5CGb7OYP79XdFJJXRNiGK0uQv9UcQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Z82JrVhH; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=philpem.me.uk header.i=@philpem.me.uk header.b="DoGXEVSf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=philpem.me.uk;
-	s=mail; t=1775737237;
-	bh=nHrfKi4UPCBf1Noha5/iA8Q1iNkJLlLzxhiUzUmvBN0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=DoGXEVSfgDheIOXovz6GeSVNMgpL0CkDE2SbdhMw0gjThjaouAZSfPdGpl/gAEZ1e
-	 47Ua5tld+MtZgVP/O7Sr/2Q0xwLN0PYLWWLJMhDzFeg1WnTEKtc8qiTrldmW6WIhwt
-	 gM+hivPCyuheJNlRb4cgMtktrvGhX83P9xqI1d/E=
-Received: from wolf.philpem.me.uk (81-187-163-148.ip4.reverse-dns.uk [81.187.163.148])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: mailrelay_wolf@philpem.me.uk)
-	by nick.sneptech.io (Postfix) with ESMTPSA id 2DB92BE5E1;
-	Thu,  9 Apr 2026 12:20:37 +0000 (UTC)
-Received: from cheetah.homenet.philpem.me.uk (cheetah.homenet.philpem.me.uk [10.0.0.32])
-	by wolf.philpem.me.uk (Postfix) with ESMTPSA id CA7695FC3E;
-	Thu,  9 Apr 2026 13:20:36 +0100 (BST)
-From: Phil Pemberton <philpem@philpem.me.uk>
-To: Moritz Fischer <mdf@kernel.org>,
-	Xu Yilun <yilun.xu@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Tom Rix <trix@redhat.com>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	linux-fpga@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Phil Pemberton <philpem@philpem.me.uk>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v3 1/2] dt-bindings: fpga: Add Technologic Systems TS-7300 FPGA Manager
-Date: Thu,  9 Apr 2026 13:20:15 +0100
-Message-ID: <20260409122016.3940462-2-philpem@philpem.me.uk>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260409122016.3940462-1-philpem@philpem.me.uk>
-References: <20260409122016.3940462-1-philpem@philpem.me.uk>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Z82JrVhH"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 639B4Cs12615182;
+	Thu, 9 Apr 2026 12:21:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=iRJojx90PbsK5eqwfGxXr5Q9vwOQMRc8Moo
+	WzOIPrKU=; b=Z82JrVhH+IbCyM8WalLWIPT+Ncz0aiQV4Qh+tLKTFv5VY96Ykfu
+	zv0/L9yRU5eiEZRnSgIp0O9YCfwSKJRAd4AVZpnHScniP69N3cdzxhm6K+L0iUAr
+	n8wbE75FB7heo0PRHJ3h6kobJLOBg8obJlZkVtJp0dYHc1x3KroRKfSpTYPJtYZ4
+	O9AgwK6A8zMv6Ft5Nz81YdUgO52HDyUbHXrO1eJX2MIUVNh3fgqV3j9suglBVAZ8
+	gQbWzwiGR+FM9bnoBq8E8RUIa0B7Uo8Cxqz4oPe5vmDbX3cmDdxYQkEXCwgd1Xw/
+	vVunt+guE1+cskVr1NEEeUGguxtp2X587gA==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ddt28v1h5-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 09 Apr 2026 12:21:16 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 639CLCBl031231;
+	Thu, 9 Apr 2026 12:21:12 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 4db3u1y6cd-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 09 Apr 2026 12:21:12 +0000 (GMT)
+Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 639CLCXh031225;
+	Thu, 9 Apr 2026 12:21:12 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-amakhija-hyd.qualcomm.com [10.213.99.91])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 639CLCIx031224
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 09 Apr 2026 12:21:12 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4090850)
+	id D56AC5F3; Thu,  9 Apr 2026 17:51:11 +0530 (+0530)
+From: Ayushi Makhija <ayushi.makhija@oss.qualcomm.com>
+To: andersson@kernel.org, konrad.dybcio@linaro.org, robh+dt@kernel.org,
+        krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+        dmitry.baryshkov@linaro.org
+Cc: Ayushi Makhija <ayushi.makhija@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: [PATCH v1] arm64: dts: qcom: sm8750-mtp: Set sufficient voltage for panel nt37801
+Date: Thu,  9 Apr 2026 17:51:09 +0530
+Message-Id: <20260409122110.214680-1-ayushi.makhija@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -59,61 +68,55 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-ORIG-GUID: OXF4xuTpOgYJfK6NUmxtmVEnGPcIUQVo
+X-Authority-Analysis: v=2.4 cv=fIIJG5ae c=1 sm=1 tr=0 ts=69d799bc cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8 a=LDVbE-baonJtzDLOTeQA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA5MDExMSBTYWx0ZWRfXwjBS59UIkWK8
+ UklVZqTbftY22EAQqx3U/Q4h8D9ivNaIPqCGIiOnsqTZe7BH/6wF3NFLwjkWt0VJA5j3sv8AK6X
+ Ww2KueZ115uaDTPTF0IuKhfODH65FNf3o+czc0+1aHmgjOJM5YdVcWkSJZ7OKYf9/LaMeJ44qgH
+ iD/ilDkAVQVFzetNdDRsvECB5kMn87jXjlLJID5TQOlzx6S1a8NGkbhc+F5JAhXT9NXJaDh5VTa
+ 9NTNdOYsH1bxQiNrCASu2i5oyYGQXjeLiu6C2O26cEw7MBvDWhnK0Jh66A/CLABZEM0to5YhV83
+ GzCx7H8kOMg84xfXja9D1s1vQbN1fhcj+b1cyYj1ti9SHVdljGlsCJBOfPmJwEreytY+med5Zkl
+ aTruR+oMySSRmv/CHnk/6BbkYO8rcoWp4UOh5z+exzyH4883Cu1Ze0hIfQKMXIif/jSHzTnAoTI
+ RCgovTYd0lZu/EOSayQ==
+X-Proofpoint-GUID: OXF4xuTpOgYJfK6NUmxtmVEnGPcIUQVo
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-09_03,2026-04-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 impostorscore=0 clxscore=1011 adultscore=0
+ bulkscore=0 malwarescore=0 phishscore=0 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604090111
 
-Add device tree binding documentation for the Altera Cyclone II FPGA
-found on Technologic Systems (now EmbeddedTS) TS-7300 boards, programmed
-via the memory-mapped interface in the CPLD.
+The NT37801 Sepc V1.0 chapter "5.7.1 Power On Sequence" states
+VDDI=1.65V~1.95V, so set sufficient voltage for panel nt37801.
 
-Signed-off-by: Phil Pemberton <philpem@philpem.me.uk>
-Reviewed-by: Florian Fainelli <f.fainelli@gmail.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Fixes: 4fca6849864d ("drm/panel: Add Novatek NT37801 panel driver")
+Signed-off-by: Ayushi Makhija <ayushi.makhija@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 ---
- .../fpga/technologic,ts7300-fpga.yaml         | 36 +++++++++++++++++++
- 1 file changed, 36 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/fpga/technologic,ts7300-fpga.yaml
+ arch/arm64/boot/dts/qcom/sm8750-mtp.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/fpga/technologic,ts7300-fpga.yaml b/Documentation/devicetree/bindings/fpga/technologic,ts7300-fpga.yaml
-new file mode 100644
-index 000000000000..c93e3a1a135b
---- /dev/null
-+++ b/Documentation/devicetree/bindings/fpga/technologic,ts7300-fpga.yaml
-@@ -0,0 +1,36 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/fpga/technologic,ts7300-fpga.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Technologic Systems TS-7300 FPGA Manager
-+
-+maintainers:
-+  - Florian Fainelli <f.fainelli@gmail.com>
-+
-+description:
-+  FPGA manager for the Altera Cyclone II FPGA on Technologic Systems
-+  TS-7300 board. The FPGA is programmed via the memory-mapped interface
-+  implemented in the CPLD.
-+
-+properties:
-+  compatible:
-+    const: technologic,ts7300-fpga
-+
-+  reg:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    fpga-mgr@13c00000 {
-+        compatible = "technologic,ts7300-fpga";
-+        reg = <0x13c00000 0x2>;
-+    };
-+...
+diff --git a/arch/arm64/boot/dts/qcom/sm8750-mtp.dts b/arch/arm64/boot/dts/qcom/sm8750-mtp.dts
+index 3837f6785320..6ba4e69bf377 100644
+--- a/arch/arm64/boot/dts/qcom/sm8750-mtp.dts
++++ b/arch/arm64/boot/dts/qcom/sm8750-mtp.dts
+@@ -462,7 +462,7 @@ vreg_l11b_1p0: ldo11 {
+ 
+ 		vreg_l12b_1p8: ldo12 {
+ 			regulator-name = "vreg_l12b_1p8";
+-			regulator-min-microvolt = <1200000>;
++			regulator-min-microvolt = <1650000>;
+ 			regulator-max-microvolt = <1800000>;
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+ 			regulator-allow-set-load;
 -- 
-2.43.0
+2.34.1
 
