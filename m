@@ -1,190 +1,372 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11020101.outbound.protection.outlook.com [52.101.69.101])
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010029.outbound.protection.outlook.com [52.101.229.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0434239FCBF;
-	Thu,  9 Apr 2026 11:14:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.101
-ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775733275; cv=fail; b=tMhZoZXZLielETr9z/01j4fdX7trDBk9yoMJCUrnig7Pk+07iXel0wUMMNaRVaz0yGZjcso6u5vY2IXnPbv1WLXNB4jj46BG88V7kvcTRvHj0Q1YHow3lwqGBXWvfJ3XQDvMowCEGY0+4/G6vE4GwF+UFFeaoqQyK0KCQoU74m8=
-ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775733275; c=relaxed/simple;
-	bh=Ifd3oONxEGpxUs86hIjjnYPkO3eG1zKHYS0rn7YL9S4=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ISxakfmLV4+umoUV3dWjWIE8O58MTWA0abL+4l/55kyPbYgr+45hJe7vR1bKZS3wyheoODzVFsJjKsLA+XVgIFbEYiDP1H7lrgDLhRGyBUZk8JPulNmh7g9M6k9HSXiISaKVFOsL6gUrrwGTC+8yn/on2Wm9brBVtS3ZfUn8zP0=
-ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com; spf=pass smtp.mailfrom=solid-run.com; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=LTXg/PD9; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=LTXg/PD9; arc=fail smtp.client-ip=52.101.69.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=solid-run.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D19433BED64;
+	Thu,  9 Apr 2026 11:15:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.29
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775733310; cv=fail; b=Ho0b5wbROxAoieeQWYrFG5kaV5vbbCRhN8UPRS1qswJ10NuPco8woE/uZiz4/IS/sHtYqqBRY5wqsjsdvhzdBIuHvg1Xvk3+F7qUhtUenatmL5tt258k953GQxK/UqGKnvKmdViY06fAe/5xMX/lGGEY4G3svTbEDVx+tEKa3SU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775733310; c=relaxed/simple;
+	bh=Syrodc4dTHJE/M5PdAsv/IPe/c0T4XwGa4qFABnp200=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=oK9V7Fpqd9aznlc67hy1Fyp83DPQGeYIo03MdPvZ4yavPqZDhoxoMKH9rKFOuzmrZ2O41IBn60WJBBHXywU/jfmNXX2pfGket7VaIdArsqrzZa72VcsuNgK7UViL0TkcJf1SFllu/KUXg9f3U3t1Ktej/J9RE7Xe6xo+ShJ78XY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=e2lAaN23; arc=fail smtp.client-ip=52.101.229.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="LTXg/PD9";
-	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="LTXg/PD9"
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=p5EyloIIWfnvVe7FyufeFMcA6XKPIWi0z2G3mqAo6hZseJoZzIT9CLxpL1TT+Tywmslw4pltFi5v1cp1+9ZNStKOKMbsUhdexx7/gE3u8A0jJqCv29Syxfh8M/zxWA7CE3tDE3cI7ERSKB+en7FUGTDCM6n4ez9yBlm2sT1M8dNthR2M9CUb6y4nW1YKHlIutUxfYzeMI1JiTWBHG/beCtWJuxAChRgj8a+kOpHTrIMm8+qDXOuPbcAg/Z027bRDP9o4vM1211S9aQYPnp+/jq8BGkIdmpOetl4QtM7fCltmevDuQlIp2KWkwSI4WUOXiXEr869nlO3H/pwEDPbbfQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ifd3oONxEGpxUs86hIjjnYPkO3eG1zKHYS0rn7YL9S4=;
- b=cp42OFX/8eNwzD3udbNG2g8ZMOdhJTUD0O4HNriY+MFYJTyhzdiw8sVO4fyFcmTmbCf6u658X165IMn6XISeaA47L5YpkOaK+0XizuSz4GxuV+Lyxi1x8J5aQwmXhWcv77/y1MGc8tMYj3DZEKumPTAf300HKz5SRWbB3BBc9XcmI/cnUktXn7f5cQCj6wEFpC9GDxtjT5UqgGj9pUx8lH1J5LKsbAbrYnA1jHm+tSX0sspIoxejnG8eLzHAChFWwgTO2H/diuOjQKXHRn2tBYiTOb4509NMmtQQ3BFeS+qPXTOEOHZ822UELuNNxpnrDhXx9iZBntHJYFlptg9S3w==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=fail (sender ip is
- 52.17.62.50) smtp.rcpttodomain=gmail.com smtp.mailfrom=solid-run.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none
- header.from=solid-run.com; dkim=pass (signature was verified)
- header.d=solid-run.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=solid-run.com] dkim=[1,1,header.d=solid-run.com]
- dmarc=[1,1,header.from=solid-run.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ifd3oONxEGpxUs86hIjjnYPkO3eG1zKHYS0rn7YL9S4=;
- b=LTXg/PD9dRiLmDIeIwp32dWRh7hPoeh88f6JcZkv4HifIlnvccCTBsy3nrAOrq54sGTjwJczw+DKazbP7tAs3y9SzY2TLCve6xVRqicAIwnaeXsbpfgbKY/U6+LTtteoMpA/+jLQnumS8FX8FcBVOPPlK8h4ihSK4cMiiFwmPFUdg056wj6DYsIiUuXFe1MaXSK7QjKosKFZULleKamxFRoIVAY5HE6O9azgDJ6cZSiGs7PJqi7drlPFRISWy5YyN+FdMcXNY4Z/DPgXFEtI7/a1TaPXhCITzOYUaJyK4isf8Df1bJKEmmdcVvS6fCBHL6Tc3ByPba2TLWwivTRbBA==
-Received: from DU7P190CA0012.EURP190.PROD.OUTLOOK.COM (2603:10a6:10:550::11)
- by DU2PR04MB8998.eurprd04.prod.outlook.com (2603:10a6:10:2e1::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Thu, 9 Apr
- 2026 11:14:29 +0000
-Received: from DU6PEPF00009527.eurprd02.prod.outlook.com
- (2603:10a6:10:550:cafe::75) by DU7P190CA0012.outlook.office365.com
- (2603:10a6:10:550::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.40 via Frontend Transport; Thu,
- 9 Apr 2026 11:14:29 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 52.17.62.50)
- smtp.mailfrom=solid-run.com; dkim=pass (signature was verified)
- header.d=solid-run.com;dmarc=pass action=none header.from=solid-run.com;
-Received-SPF: Fail (protection.outlook.com: domain of solid-run.com does not
- designate 52.17.62.50 as permitted sender) receiver=protection.outlook.com;
- client-ip=52.17.62.50; helo=eu-dlp.cloud-sec-av.com;
-Received: from eu-dlp.cloud-sec-av.com (52.17.62.50) by
- DU6PEPF00009527.mail.protection.outlook.com (10.167.8.8) with Microsoft SMTP
- Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.17 via
- Frontend Transport; Thu, 9 Apr 2026 11:14:29 +0000
-Received: from emails-1707770-12-mt-prod-cp-eu-2.checkpointcloudsec.com (ip-10-20-5-16.eu-west-1.compute.internal [10.20.5.16])
-	by mta-outgoing-dlp-141-mt-prod-cp-eu-2.checkpointcloudsec.com (Postfix) with ESMTPS id 91FB080E58;
-	Thu,  9 Apr 2026 11:14:29 +0000 (UTC)
-X-Mailbox-Line: From b'josua@solid-run.com' Thu Apr  9 11:14:21 2026
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="e2lAaN23"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mnLNsL4hKkPiXURq0DL5S/xkHZTbJCeSwgfnEH4jwtNaevdnd7bDWfP6LOKwXVF/YM5QsYvJV9omatcGfPGHzFl9hryoiovcw2LE02Mj18p9ATwt8ofY1C66qVl7u+6+BNmsJG8ul+CJ9Z+mjE/UnDwXNQZeL5OGv75qPF5Rk9ka0wXCJHZCKdljPFG2SD+EXJfB1RQj21y8cCbVxirdd6RmTXueInqmM2cGVgm8i5eFYg9ulUSXfSSZCzOYa8kluQe+r8rqW+j/94fOh0OAyU5zVSCkWqQ1i/pwny90L8nZ202BOxZmLy6k/MBoSGvQN3SMTYQIVgBrq6/+DUu/6w==
+ b=SQluAlpVAFNrJMEaafvBi+IWuDaCLBuEUm4NdDjGGWM7+lnPCyhBP57I5z0UxMdUSg7gU7GVxAY7llzSxZgmrRhFXpvt4h/30iP8FJ7kgZuc5FQBZpeNTbcwt2Aqz3jyUyVp1emUi/4hFqQQ1CVU/Kj7DQ4SnlGNxt9ovNwIS0wOuOz5hu6sutLcyClVb1TrImTcdeq44QxszjcbesqVwCgUTIaXdQUf3/FMFzHpfqDI2KQvMc9lOuuo6IY4N6d8WkQUBRiZ+IPFB30c79kztmRO/HR1uIUD1svNnMloXuKieKfo4lb9awI/MwEODeQkwZjH3pDXy+7zuIsq30sP6A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ifd3oONxEGpxUs86hIjjnYPkO3eG1zKHYS0rn7YL9S4=;
- b=StAFjFlwjBVsBU7JUJ6v565Xcm5LIMxKxr2HyuMLyeN7fQhAQZ6Omv22n88c5mo6zFZ1feuV/BD9bghuZSWFWZJsvq+hpMm0xy7DRvg3kOZQpMpq7jOuJsXx5xgmc7VhpNautX3liyx36nH3Lk6zCmHjhyhfaOONM8W8TC2luhE9gpEJBsdSA0NR3Uuj5dDcRWK5MX9FO/ndif0FL+MtYy+iGlMApGMixkWlRPmhSbWrTRw6XS4F96gkPlJxVUm60oMS7PnsccPbogyECX6o94N6cvCdcMEfAzNJ3+lvFGyNfKI8WpAhdffry3dc1n19mBP2+hE5lk39MxGo4XCPdQ==
+ bh=mRZkUWRPsrZfOavtMXG/SiEGaD2OrNHsujR4i0+GF4A=;
+ b=k+p5ytwiKjmDE1+Q44Py71l6CnsD0MKPbufGVbZuFbUYd9qfnC+FqUt9Vp1HN6+MwltSV2F5Tq1++LzvonCvXG+KCSmNL9pEROIp0AyQfN83t06OKvROPED4KjkXX35rIA0jdsvCUcsekGSaXVdqj9iQfPAzyTdKv/1sKftUiUlcXV1IuUxRddb90FCKld0rAVfEtvlKHOA29oVBgR8YoOjdW7D65eE/zByhpBg3BBIpGw6swAWBX+pjqs6JKnVS3GJS4HnUaC9dJlnio+g8tRwQLSzRBafwoMRXKblt+A163y1Ywy8Qkm4gSfb7yK5K3x0CSM7B2Hfl7yPWeCIvDg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=solid-run.com; dmarc=pass action=none
- header.from=solid-run.com; dkim=pass header.d=solid-run.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ifd3oONxEGpxUs86hIjjnYPkO3eG1zKHYS0rn7YL9S4=;
- b=LTXg/PD9dRiLmDIeIwp32dWRh7hPoeh88f6JcZkv4HifIlnvccCTBsy3nrAOrq54sGTjwJczw+DKazbP7tAs3y9SzY2TLCve6xVRqicAIwnaeXsbpfgbKY/U6+LTtteoMpA/+jLQnumS8FX8FcBVOPPlK8h4ihSK4cMiiFwmPFUdg056wj6DYsIiUuXFe1MaXSK7QjKosKFZULleKamxFRoIVAY5HE6O9azgDJ6cZSiGs7PJqi7drlPFRISWy5YyN+FdMcXNY4Z/DPgXFEtI7/a1TaPXhCITzOYUaJyK4isf8Df1bJKEmmdcVvS6fCBHL6Tc3ByPba2TLWwivTRbBA==
-Received: from GVXPR04MB12057.eurprd04.prod.outlook.com
- (2603:10a6:150:313::24) by VI0PR04MB10493.eurprd04.prod.outlook.com
- (2603:10a6:800:21c::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.18; Thu, 9 Apr
- 2026 11:14:15 +0000
-Received: from GVXPR04MB12057.eurprd04.prod.outlook.com
- ([fe80::14f1:a127:2988:de5b]) by GVXPR04MB12057.eurprd04.prod.outlook.com
- ([fe80::14f1:a127:2988:de5b%6]) with mapi id 15.20.9769.016; Thu, 9 Apr 2026
- 11:14:15 +0000
-From: Josua Mayer <josua@solid-run.com>
-To: Andrew Lunn <andrew@lunn.ch>
-CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, Frank Li
-	<Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel
- Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Yazan
- Shhady <yazan.shhady@solid-run.com>, Mikhail Anikin
-	<mikhail.anikin@solid-run.com>, Alexander Dahl <ada@thorsis.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH 2/2] arm64: dts: imx8dxl: Add SolidRun SoM and
- HummingBoard
-Thread-Topic: [PATCH 2/2] arm64: dts: imx8dxl: Add SolidRun SoM and
- HummingBoard
-Thread-Index: AQHcx4bvr9BLL5JY8kGqWpBHUUp00bXVmRmAgAD72AA=
-Date: Thu, 9 Apr 2026 11:14:15 +0000
-Message-ID: <db41d119-2469-4107-94b5-b09e9bbbe9ec@solid-run.com>
-References: <20260408-imx8dxl-sr-som-v1-0-ce5a39acd713@solid-run.com>
- <20260408-imx8dxl-sr-som-v1-2-ce5a39acd713@solid-run.com>
- <3024c143-520e-49ea-af17-33344ebf7149@lunn.ch>
-In-Reply-To: <3024c143-520e-49ea-af17-33344ebf7149@lunn.ch>
-Accept-Language: de-DE, en-US
+ bh=mRZkUWRPsrZfOavtMXG/SiEGaD2OrNHsujR4i0+GF4A=;
+ b=e2lAaN23o6j6TdAmuqdH+mIWOGn0d7t2PPVH6Xi7zi/JAoauRVHADlaZWfpMSVtDosvSWWVOrrVre8g2bC4Riri36xuFe8AA+qTgNC1hPkJSKlIT9MyhGzUPXRYNgsI0Ws4DV2QTJ5bg50aqLxf8p3qoTSac/xPfNa33A1yihis=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com (2603:1096:400:3e1::6)
+ by OSCPR01MB15925.jpnprd01.prod.outlook.com (2603:1096:604:3ef::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.21; Thu, 9 Apr
+ 2026 11:15:03 +0000
+Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com
+ ([fe80::33f1:f7cd:46be:e4d8]) by TYCPR01MB11947.jpnprd01.prod.outlook.com
+ ([fe80::33f1:f7cd:46be:e4d8%5]) with mapi id 15.20.9769.017; Thu, 9 Apr 2026
+ 11:15:03 +0000
+Message-ID: <81165cf9-b1cc-4e75-b586-0e1ef7675b9d@bp.renesas.com>
+Date: Thu, 9 Apr 2026 13:14:51 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 13/21] drm: renesas: rz-du: mipi_dsi: Add
+ RZ_MIPI_DSI_FEATURE_GPO0R feature
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: tomm.merciai@gmail.com, geert@linux-m68k.org,
+ linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
+References: <cover.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
+ <9e0f64dd5e1efb0d27219416121c91a19da96ebd.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
+ <20260408123102.GA1960713@killaraus.ideasonboard.com>
+ <b8ded729-5c22-4a47-bfb7-8bffeed76e98@bp.renesas.com>
+ <20260408141719.GB1965119@killaraus.ideasonboard.com>
+ <136a9922-48ae-48e2-8cb1-14559206e7af@bp.renesas.com>
+ <20260408150807.GD1965119@killaraus.ideasonboard.com>
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=solid-run.com;
-x-ms-traffictypediagnostic:
-	GVXPR04MB12057:EE_|VI0PR04MB10493:EE_|DU6PEPF00009527:EE_|DU2PR04MB8998:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1d6a1c37-6b36-4a6b-6112-08de96292b43
-x-cloud-sec-av-info: solidrun,office365_emails,sent,inline
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|7416014|376014|1800799024|366016|38070700021|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info-Original:
- Kb44LtXs52Dwxk4fSncywGcxPGoAwM9d0cjy0Hu2QJR/BxhRJ1mQmkBcqEcE+KFPaM2kIIjt5+GBj1L2U2EdZQvpzadAQoesKxGvkAPhs/+lfAzA4+p+iPaa8H2dyEMNt+82X2aF6F+e+KPc+dOUZWi1R3+QhXqiM/3j3uzFDrzwo0A+KnTYABVCCXxEOPV86YJqqVoT88AMRYYtk1ohjrRKZktLZpdlUt3ebhqEiW6FTudfL56Va/z5cwKUF0RPxqQtamVlm6Tm7ioOaRM0HlIRaj7nRXCfM51KbI06RHlvOaFR6RvVKCDeAVmDKk8D619ZsJsJX2q2YddGpfzSmZyQZAyIbR9McaC+L3A6UJWGf02g8b4Tip1IagwCHBICHHKcbqN7c4MZIRYoTMgAImJgfwv+SWaJ/2GpltrtR/tLpvPdcbnAyvljN82XuIef8iYj/pGscSNvE87bvknLy16ojkAnGvLN4cLztEUSsQbEcuHpuHvDwCXXPpexcsMY0NC367dEjZq0vEGtEtFqc0/bIvQLQQsYtX+64eBOcaBvi+7De8lzSZWX+47J3uUzq5dDAG8HCu17Zj0RP8JbVXlCj2exMVlQdhgiQS1C5ZsyOvywQGhcPHTmN8m9Q11OTmjOHAjuXmh/jLNWSwU6m7otK3s6SoQa6+LLcaZF4mbsbysvupGtd6HpPo2oHQ2dEysMSpMaghYgDqBJQjFFEr6/Oid2+lf3MkCZsDsPSQNGwzDJeSoFTHJHwnRHAXORW359BuqG88twBtHSR79DJwRR/+poXfKGxXmTOkbNpeY=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB12057.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(38070700021)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1102;
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <91C359512E8FAD4EA5D7C82DF72A7646@eurprd04.prod.outlook.com>
-Content-Transfer-Encoding: base64
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+In-Reply-To: <20260408150807.GD1965119@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0102.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9c::16) To TYCPR01MB11947.jpnprd01.prod.outlook.com
+ (2603:1096:400:3e1::6)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
- qgC5gQ6UMont4vcRx+KmdIlniSoqcdbG1pPk4WDNX3uGP8BRE98ufBo/vX8xIjQ1ImiBZfunU9xbsDgatH2mRdZbzpRhp9C7GXUR+/D/YbpIOlyXcEYygOYMBuspcwLixRTgAuUFFRvnFM0JlJ2blAPPqI+zcx+7T7cUmQyTH5+ku7PZgPcdGFBrbnBSBDnXMg3V7GwnWVnxPGSVPwWcfkcb78KcD0MES3FUc3LfRMRQ6W3yKFPTLalrffmIlhA2mwe5Qlv6w7NySwP5+7BG47VGoyQv95wXDqSmVmYzs44/hVGkT8J6SQYbL+jf/lALNMts4GvYNezI9ozz2OvsFw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB10493
-X-CLOUD-SEC-AV-INT-Relay: sent<mta-outgoing-dlp-mt-prod-cp-eu-2.checkpointcloudsec.com>
-X-CLOUD-SEC-AV-UUID: ac7e2740eb8d44a2a83bf1077b4a3347:solidrun,office365_emails,sent,inline:2285a98fcd56ade5fc8fbf84c7fc6173
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DU6PEPF00009527.eurprd02.prod.outlook.com
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	5c517bbb-dfc3-4141-e817-08de96292293
+X-MS-TrafficTypeDiagnostic: TYCPR01MB11947:EE_|OSCPR01MB15925:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1f7f28e3-57b0-4573-bf68-08de96293ec8
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|82310400026|14060799003|36860700016|35042699022|22082099003|56012099003|18002099003;
+ BCL:0;ARA:13230040|376014|7416014|366016|1800799024|22082099003|56012099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	q66JdtcuSE/oYgU2ewJwZn/7eKRh2Y1rHfDXOPu6WECjM8UiZtWSWJh5CV/+OAl8Ph+N+jZH0D7s7AlNtDj4HdWj074S6vunJVqsigjRfj7lDK/XK2/Qo5tbzcUD+wLB7Z6p6cdHGH442bs1DFKPjkfj4eUW2+n5XBx5HAUjCFPNbkq/085VzFKxbdJo3r2YpwqNKBd9/xhTOu/KMqZnTNqy4JLNhXFwfE7lH8MkrMaPBgZCkY1IO+0j3gGKqlUUuoxswzjLOEEa0ZcBgHPpq3uV6g3x/U2DdJTtzrBWPIHOnBAdI9YsO8ZmpTi45zX3NnDqptoD9dxGF38e9jFBpJKAsNar5WkmbOxc5Od1WrKO8I5Kiuw5YaEAcYp8vPMuL+5NEoUFK1ESxd8w7mFXVty5W2VS/o+tzu7QTe7fNY02vD5HwO+kVB4GmFaC1ULKQkKvYNVY1lxXGeZQgbWqekQh3h1gzK3rYatudx+6JcVppMf9qsSUbzWlHYdGYlAywVZEQln4xiL9VDsWinPK0Z5KPF+i5TaPjJrYaTjflBd89ZTC+Y/3tBWbfWhvRFHQybmkWtOlUjldRe4M8iw+pAd9saxkUt+2i18+uk7K7LA39AfY2Q3Q5/2viq3AAp5i9z17IWu9u2x8c8yZgl2Sq8WbZNlEvtI0qUtT0plPCvQntQxq0cqpGL14HLLnkrefYW6w9YNQRDkKeeL639bSFr4XTunWH2QzQQYE9P4QE2Ddg25t1ndthn5II48DHLpjysnI/S13rFYpcTVJC4xw6g==
+ Zp5sq94gH/msHG85XtwOvM1nvxN3gKiYRpzQFlIFoR/74k0bIB2yaWbME2VhvESpbBYK1iJmrN+9goNoOwc8KublJRNhbgYieAg7otwnrZmSIlWzFX3/7CfuLyzsx59XpyCnBCfDSJ1oLwxUhGa80vuhFkpifhNIQft5UCaqcWm4b/g6E7nD6a3A8BvqZt4W0K3ZwNJUVP9Ee9yiiGd/ZgKnRwXhg604H/FWyZDbH+leqGIkUqZH2Uv7d5j9uc4UTxTpI+ZVfwU5EA6OufSWwoN+We/uiQM+AltGjoEI9B24QcN7PSuc1hj2DimQQkLsipllxwpe4eR9jwvsN3QawAHboubHOF5r727SH1xAly9JITgMfAPQ/DMgMVWUzVnO1eyFQaKy5B50hj/VQu+lgJ37p/8/ZSHK7IPYAfe4wM+7hMTOgKhHQoqM8VLETSrVFgoxc624K1JmcVOP0qCnLmhenTl0EH/my6VUfMlpS0V0RNgcSiCuQvQuDTAA55J/TnSdXYTRBbKNE3Ml9+KS02ShtlouGGMjm6OJNyEzmKxMcrfORiby2u3e2PtyQgEo8eqXjXq1vLaNI2L1tuYY4wVOwPwsiT5mKB/Hsp97i/7c2q+GgvsSvl7H7N8UoS2lQusn5E8OVsLpH3fhynX6ovkzMBlu4HNIeBH0grr/oLTB9uXTBOJoURKKX2/zMhvhPTDInqZaj3kVyimE4wVB+7g4QPpcu9LVwv9HE/hsz3Y=
 X-Forefront-Antispam-Report:
-	CIP:52.17.62.50;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:eu-dlp.cloud-sec-av.com;PTR:eu-dlp.cloud-sec-av.com;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(82310400026)(14060799003)(36860700016)(35042699022)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1102;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB11947.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	kf6lCp7niHAAid6EixFpFrbogl3tcGHwVpgRBU4QiG9P0rO9Ff1xeIrjtegGEo22/qaAx3zOdQBa5CXboo/+dzH33q9FySPOX6MnmrccEaFGr8LG0rZlzGNFvszD04+EJpW6Q86tUlSBF57mDsaFWvMwQU0VXaim8UYS8srFukPZWj15zIxmWUNvsUog0Etantd4ThSK+3LBq1zIywLsJKl2dfoieGptqEPFCwPWAzbPrFyU7HiOnK2sAxZa1qwvX1rC3QQaF0xneQddTSvDvMSUWKY4p7dgcC8Yj2iVvnYcoGDeEYTpVbN8hReR18vov0obnsktOiV+LyowW2XfYqb1ouuh6LTzBDsSGT4VhpkhqSnqzVtYeniAxo+FqxBpJlmDNFIvVVH5rM/zEp/33EqEMEAW8nligV8cZ7ZAJW6U8rfTc98B3fFbV5RSqGQe
-X-OriginatorOrg: solid-run.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2026 11:14:29.6418
+ =?utf-8?B?UHREemJCMitWVGtiUzJKSmFtUTJBdFUwZlJ3N3ZUVU5QSlJBck93THEzWnJa?=
+ =?utf-8?B?YXFXMC94bWdsZVJqdDRkeUsyNm5OMEtXb2czcytCSmFTbGFRdm9reXlRVi8v?=
+ =?utf-8?B?Q3pYeE10V1dMR05ZbjN0ZGpYcjNybDg4L2liUUhYaXJZSHA2UWlVZVNIN1Fz?=
+ =?utf-8?B?TEZyMWZCODFGRGJDN3NoYVBGQTEyaFJBYmVkRkhsNGpGLy90V20zUE1nOWxR?=
+ =?utf-8?B?MUNLeVcxZjR1dzBSR1dWM2h0VklJOGdFNHVZRnovaXVrK1hIYSs1WnRZYlVv?=
+ =?utf-8?B?THZ4ZkE1UDlKQVJGU1BmL1JGczlJNFRjUXc5NExJVVdXL0lRV3VPZUlXRTRz?=
+ =?utf-8?B?QmVFNGZPMTdMc2hwV3lWankxUHRyWUVndDJrVTB4Rkp4Sno2UGViUWF0OGY3?=
+ =?utf-8?B?RytFSlE4eGU0N25GZGpYaDlXL05laS9hblhDckRHN2tzY1hpSlMyMUlSd05K?=
+ =?utf-8?B?K2VQa0o2eW1zOEd0YzJCRjkyRFZlR1NESCtZWS9EMjVHelVSNnlFVm1heldi?=
+ =?utf-8?B?VFV6bkF1bXRFSGRBdWJMVVVlbWROa1hnc3VaejRMNVIwSlpPS3d0QnROL3pD?=
+ =?utf-8?B?d3F5WE5XVWhFbDVIR2t6V05xckFickpTVkJmeldlMWhma1lNV1FnbTVXci9S?=
+ =?utf-8?B?Q2pkOXEvY0VZdjg3MVNDSU5Sam1aTjV4b1lzaUtIQkpQc1Y5M0kzaHRWWEpk?=
+ =?utf-8?B?UkhWTE9ncXVvSGNGUnY2Q1NNRGt1KzVPTnRKdTRZWndmTXhxcHFpTXYvVnRZ?=
+ =?utf-8?B?N3VPZVdQdldIdHFTZ2F1enJZTkptcmRPR0VPelh1YURva2tZR0dVOGNDK0dZ?=
+ =?utf-8?B?T2VhdWQ1c3VZUW9Xd1hteHhKTzRlT2xHRnFqdzRYZnpPaitVWTdvc0lKOUR6?=
+ =?utf-8?B?Q1hOYWxLQW56NUZpc25qcGo1N0VYNGhzSk94T1ZNbWV2OU81clNCQnE0TjJv?=
+ =?utf-8?B?VUZvb2MzNjlkNmJiblFYRlFER1FnUFRxb3dtdVMxYkdXQ0pST0d0L0JYREF0?=
+ =?utf-8?B?bFRQTEgyaVliRkdUc09DYjhxemFrMW5wVkhydjkxVnc4OGtWOG1CWnk1MjlP?=
+ =?utf-8?B?ZjBrMFZZVmNZclVwbGZnbmN1YkJNbUVDcFpjTVZheHUxTS8rK3BkRHp3aURW?=
+ =?utf-8?B?RG1YQTRTMDlBWkFmREpJMU8xNWFFSlFKWWx0QlRESHZKTktiWnZIL0d1RGJy?=
+ =?utf-8?B?bndJbHdKcUtWM09NaDFuVzltRXFnclV2UEtVQXVYYjhZdTI2RzBUSS9kSVp4?=
+ =?utf-8?B?Q1haLzJHb1JGTmphRm1aVjJNNncyR2U1TXA3R0ErOG5oM2kvTmxyalViZ3kv?=
+ =?utf-8?B?LzdpSmR4U1hCOFQrMUVCMHc2SDdvOHlrbjJlWDJ4T0Z0Slk2QXYvWjdGdU1i?=
+ =?utf-8?B?UTNnTVk1dVMxc1YxZjFRbVNZNEJRNGxPQ0VvTW15YlVka0pCTGRlR1poVnRm?=
+ =?utf-8?B?ZWpJMUJhdHFQUEJIbXNsZFMva3dVaUVGU3QwQzRvNlk3WnJGMzVuVHMrM1B2?=
+ =?utf-8?B?MzZwdUMwdnZadU40bVowK1hGSnA2U1VaY0RUL2RhY0NLNDRMY296VUlOOVVv?=
+ =?utf-8?B?VnY5alFiYnZXRHQ2RUM1RXdySEw0ZG5kbStLUUpISTNGK2VOVHdSUFpQNCtN?=
+ =?utf-8?B?cTg5dXZFbytDTFpnNWczWUhPV1oxZllpcHZkNFJDL1lqNFdEU1BMY3hXc1U5?=
+ =?utf-8?B?MklocnRpcDBsZ3ZGQVphM21MV012dlEzUlFiRy9jQlRPL0xPdHR1ZmNnVmRX?=
+ =?utf-8?B?amE2cXlhTE9JQ2JreFhMYmhOelE4NGlrNTNzenNwSjQvMUJLY24rVlI3SHF1?=
+ =?utf-8?B?alIvSEVDMmhBNHNrV0Z0VjMwWU5TKzU1eXJFTWFUN3ZzK0c3N2NUaWM4TG1Z?=
+ =?utf-8?B?NjBqRkJsaStDTUl2ZU5SOUlITFQ2WWJnTkJPL2huTnB5RGtNakRXTWN0aWpG?=
+ =?utf-8?B?UUM2QmV6a3hEdG5PZHZVSjBiQ1NUSEI3M29IR1pNVDFsRFZLNDdUVDYwVlBj?=
+ =?utf-8?B?K0dJUUZaZ2RaRWpoUWFvZEVxd1A4azdMdE5WcmdGalQyeFdReVZiV28vRzMv?=
+ =?utf-8?B?NmdEdmEwb2JjaU5CZ1Z3MFJqL0kxMEk1NXlNMlNXcUFvR0RtLzdya0xnMGha?=
+ =?utf-8?B?YUNObWpQTTFLZmFpb0xGZ1RwcEhyajdYakltdnJDWXVEYnl5enNrZXo2eXdt?=
+ =?utf-8?B?ZGpURGpBUWsyTERnbG43ZTF2b3hVa0lLZGNIWkZOQWQ3M2ZkVEM0UGhZc2NX?=
+ =?utf-8?B?NGtzeG4xZGpaRWZOVjkvZ1VyV0tNSTRiSVhzSUZqYXJBenhHUmVlMXFDdFVJ?=
+ =?utf-8?B?NGpueUozYWE2VzJvb0VvNFhOVU1jVkpBU3BXcVZ2TXpESFloY3liQU1SKzNY?=
+ =?utf-8?Q?9XiVgc6DOKT91L1DILlOnbDPL7vLj4E2sDyTh?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1f7f28e3-57b0-4573-bf68-08de96293ec8
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11947.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2026 11:15:02.7606
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d6a1c37-6b36-4a6b-6112-08de96292b43
-X-MS-Exchange-CrossTenant-Id: a4a8aaf3-fd27-4e27-add2-604707ce5b82
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=a4a8aaf3-fd27-4e27-add2-604707ce5b82;Ip=[52.17.62.50];Helo=[eu-dlp.cloud-sec-av.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DU6PEPF00009527.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8998
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: h5pK2z8qa1/O3FSXBNz5yjBat6BpVHFkVRh9HbmBOdQkFYqHQJOvNZIoJslSHrcNYm70e4Quv2iEi2MuOlORD6MDZ7kI4DGTB2ReaiPs5ZgRKq1TcG2a8zQjP77qnHig
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCPR01MB15925
 
-SGkgQW5kcmV3LA0KDQpBbSAwOC4wNC4yNiB1bSAyMjoxMiBzY2hyaWViIEFuZHJldyBMdW5uOg0K
-Pj4gKyZlcW9zIHsNCj4+ICsJcGh5LW1vZGUgPSAicmdtaWktaWQiOw0KPj4gKwlwaW5jdHJsLTAg
-PSA8JmVxb3NfcGlucz47DQo+PiArCXBpbmN0cmwtbmFtZXMgPSAiZGVmYXVsdCI7DQo+PiArCXN0
-YXR1cyA9ICJva2F5IjsNCj4+ICsNCj4+ICsJZml4ZWQtbGluayB7DQo+PiArCQlmdWxsLWR1cGxl
-eDsNCj4+ICsJCXNwZWVkID0gPDEwMDA+Ow0KPj4gKwl9Ow0KPj4gK307DQo+PiArCWV0aGVybmV0
-LXN3aXRjaEAwIHsNCj4+ICsJCWNvbXBhdGlibGUgPSAibnhwLHNqYTExMTBhIjsNCj4gLi4uLg0K
-Pg0KPj4gKw0KPj4gKwkJCS8qIHRvIENQVSAqLw0KPj4gKwkJCXBvcnRAMiB7DQo+PiArCQkJCXJl
-ZyA9IDwweDI+Ow0KPj4gKwkJCQlldGhlcm5ldCA9IDwmZXFvcz47DQo+PiArCQkJCWxhYmVsID0g
-ImNwdSI7DQo+PiArCQkJCXBoeS1tb2RlID0gInJnbWlpLWlkIjsNCj4+ICsJCQkJcngtaW50ZXJu
-YWwtZGVsYXktcHMgPSA8MjAwMD47DQo+PiArCQkJCXR4LWludGVybmFsLWRlbGF5LXBzID0gPDIw
-MDA+Ow0KPiBUaGUgZXFvcyBpcyB1c2luZyByZ21paS1pZCwgdGhpcyBwb3J0IGlzIHVzaW5nIHJt
-Z2lpLWlkLCBhbmQgeW91IHNldA0KPiB0aGUgZGVsYXlzIHRvIDIwMDBucy4gSG93IGlzIHRoaXMg
-bm90IHJlc3VsdGluZyBpbiA0MDAwbnMgZGVsYXlzPw0KSXQgYXBwZWFycyB0aGF0IGR3bWFjLWlt
-eCBkcml2ZXIgd2hpY2ggYmluZHMgdG8gaW14OGR4bCBlcW9zIGRvZXMgbm90DQpldmFsdWF0ZSBw
-aHktbW9kZSwgdW5saWtlIHNldmVyYWwgb3RoZXIgZHdtYWMtKiBkcml2ZXJzLg0KDQpUaGlzIGxp
-a2VseSBtZWFucyB0aGF0IGVpdGhlciBpbXg4ZHhsIGVxb3MgbWFjIGNhbid0IGFkZCBkZWxheXMs
-DQpvciB0aGV5IGFyZSBmaXhlZC4NCg0KVGhlIGV0aGVybmV0IHN3aXRjaCBkcml2ZXIgaG93ZXZl
-ciBhZGRzIGRlbGF5cyBhcyBzcGVjaWZpZWQuDQoNClNvIHdlIGVuZGVkIHVwIHdpdGggMm5zIGVh
-Y2ggZGlyZWN0aW9uIGFzIGludGVuZGVkLCBhbmQgdGhlIG5ldHdvcmsNCmNvbm5lY3Rpb24gd29y
-a3Mgd2VsbCAodGVzdGVkKS4NCg0KV291bGQgaXQgYmUgY29ycmVjdCB0byBjaGFuZ2UgcGh5LW1v
-ZGUgb24gdGhlIG1hYyB0byAicmdtaWkiLA0KYW5kIGxlYXZlIHN3aXRjaCBwb3J0IGFzIGlzPw0K
-DQoNCnNpbmNlcmVseQ0KSm9zdWEgTWF5ZXINCg==
+Hi Laurent,
+Thanks for your comments.
+
+On 4/8/26 17:08, Laurent Pinchart wrote:
+> On Wed, Apr 08, 2026 at 04:58:01PM +0200, Tommaso Merciai wrote:
+>> On 4/8/26 16:17, Laurent Pinchart wrote:
+>>> On Wed, Apr 08, 2026 at 04:12:22PM +0200, Tommaso Merciai wrote:
+>>>> On 4/8/26 14:31, Laurent Pinchart wrote:
+>>>>> On Wed, Apr 08, 2026 at 12:36:58PM +0200, Tommaso Merciai wrote:
+>>>>>> The MIPI DSI ip found in the RZ/G3E SoC select the video input clock
+>>>>>> based on the DU instance actually connected using the GPO0R register.
+>>>>>>
+>>>>>> Add this feature to the driver using `RZ_MIPI_DSI_FEATURE_GPO0R`, update
+>>>>>> the code accordingly to manage the vclk selection with the introduction
+>>>>>> of `rzg2l_mipi_dsi_get_input_port()`.
+>>>>>>
+>>>>>> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+>>>>>> ---
+>>>>>> v5->v6:
+>>>>>>     - Moved rzg2l_mipi_dsi_link_write() into rzv2h_mipi_dsi_dphy_init()
+>>>>>>       + comments from HW Manual.
+>>>>>>
+>>>>>> v4->v5:
+>>>>>>     - No changes.
+>>>>>>
+>>>>>> v3->v4:
+>>>>>>     - No changes.
+>>>>>>
+>>>>>> v2->v3:
+>>>>>>     - No changes.
+>>>>>>
+>>>>>> v1->v2:
+>>>>>>     - No changes.
+>>>>>>
+>>>>>>     .../gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c    | 71 +++++++++++++++++--
+>>>>>>     .../drm/renesas/rz-du/rzg2l_mipi_dsi_regs.h   |  3 +
+>>>>>>     2 files changed, 68 insertions(+), 6 deletions(-)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+>>>>>> index be6dbf19a24e..947c8e15fc4b 100644
+>>>>>> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+>>>>>> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+>>>>>> @@ -37,7 +37,9 @@ MODULE_IMPORT_NS("RZV2H_CPG");
+>>>>>>     
+>>>>>>     #define RZG2L_DCS_BUF_SIZE	128 /* Maximum DCS buffer size in external memory. */
+>>>>>>     
+>>>>>> +#define RZ_MIPI_DSI_MAX_INPUT	2
+>>>>>>     #define RZ_MIPI_DSI_FEATURE_16BPP	BIT(0)
+>>>>>> +#define RZ_MIPI_DSI_FEATURE_GPO0R	BIT(1)
+>>>>>>     
+>>>>>>     struct rzg2l_mipi_dsi;
+>>>>>>     
+>>>>>> @@ -81,13 +83,14 @@ struct rzg2l_mipi_dsi {
+>>>>>>     	struct drm_bridge bridge;
+>>>>>>     	struct drm_bridge *next_bridge;
+>>>>>>     
+>>>>>> -	struct clk *vclk;
+>>>>>> +	struct clk *vclk[RZ_MIPI_DSI_MAX_INPUT];
+>>>>>>     	struct clk *lpclk;
+>>>>>>     
+>>>>>>     	enum mipi_dsi_pixel_format format;
+>>>>>>     	unsigned int num_data_lanes;
+>>>>>>     	unsigned int lanes;
+>>>>>>     	unsigned long mode_flags;
+>>>>>> +	u8 vclk_idx;
+>>>>>>     
+>>>>>>     	struct rzv2h_dsi_mode_calc mode_calc;
+>>>>>>     
+>>>>>> @@ -543,8 +546,8 @@ static int rzg2l_dphy_conf_clks(struct rzg2l_mipi_dsi *dsi, unsigned long mode_f
+>>>>>>     	unsigned long vclk_rate;
+>>>>>>     	unsigned int bpp;
+>>>>>>     
+>>>>>> -	clk_set_rate(dsi->vclk, mode_freq * KILO);
+>>>>>> -	vclk_rate = clk_get_rate(dsi->vclk);
+>>>>>> +	clk_set_rate(dsi->vclk[dsi->vclk_idx], mode_freq * KILO);
+>>>>>> +	vclk_rate = clk_get_rate(dsi->vclk[dsi->vclk_idx]);
+>>>>>>     	if (vclk_rate != mode_freq * KILO)
+>>>>>>     		dev_dbg(dsi->dev, "Requested vclk rate %lu, actual %lu mismatch\n",
+>>>>>>     			mode_freq * KILO, vclk_rate);
+>>>>>> @@ -687,6 +690,19 @@ static int rzv2h_mipi_dsi_dphy_init(struct rzg2l_mipi_dsi *dsi,
+>>>>>>     	rzg2l_mipi_dsi_phy_write(dsi, PLLCLKSET1R,
+>>>>>>     				 FIELD_PREP(PLLCLKSET1R_PLL_K, dsi_parameters->k));
+>>>>>>     
+>>>>>> +	/*
+>>>>>> +	 * From RZ/G3E HW manual (Rev.1.15) section 9.5.3 Operation,
+>>>>>> +	 * 9.5.3.1 Power on Reset and Initial Settings for All Operations.
+>>>>>> +	 * Figure 9.5-4 Power On/Off Sequence show that after writing to
+>>>>>> +	 * GPO0R.VICH register we need to wait for more than 1 x tp before
+>>>>>> +	 * writing to PLLENR.PLLEN.
+>>>>>> +	 *
+>>>>>> +	 * Note: GPO0R is a link register, not a PHY register. This setting
+>>>>>> +	 * is specific to RZ/G3E.
+>>>>>> +	 */
+>>>>>> +	if (dsi->info->features & RZ_MIPI_DSI_FEATURE_GPO0R)
+>>>>>> +		rzg2l_mipi_dsi_link_write(dsi, GPO0R, dsi->vclk_idx);
+>>>>>> +
+>>>>>>     	/*
+>>>>>>     	 * From RZ/V2H HW manual (Rev.1.20) section 9.5.3 Operation,
+>>>>>>     	 * (C) After write to D-PHY registers we need to wait for more than 1 x tp
+>>>>>> @@ -1005,6 +1021,37 @@ static int rzg2l_mipi_dsi_stop_video(struct rzg2l_mipi_dsi *dsi)
+>>>>>>     	return ret;
+>>>>>>     }
+>>>>>>     
+>>>>>> +static int rzg2l_mipi_dsi_get_input_port(struct rzg2l_mipi_dsi *dsi)
+>>>>>> +{
+>>>>>> +	struct device_node *np = dsi->dev->of_node;
+>>>>>> +	struct device_node *remote_ep, *ep_node;
+>>>>>> +	struct of_endpoint ep;
+>>>>>> +	bool ep_enabled;
+>>>>>> +	int in_port;
+>>>>>> +
+>>>>>> +	/* DSI can have only one port enabled */
+>>>>>
+>>>>> Why is that ? The hardware supports dynamic input selection, why can't
+>>>>> it be supported at runtime ?
+>>>>
+>>>> For runtime/dynamic you mean using DT overlay??
+>>>> like, remove:
+>>>>
+>>>> Removing - DU0 --> DSI (input 0 | port@0 ) overlay and
+>>>> install  - DU1 --> DSI (input 1 | port@1 ) overlay and
+>>>> viceversa?
+>>>
+>>> No, I mean configurable by userspace, with two CRTCs sharing one DSI
+>>> encoder.
+>>
+>> Sorry, question:
+>>    - Is it possible to create CRTC from user space?
+> 
+> No, the CRTCs are created by the driver, but you can have one DRM device
+> that covers two LCDCs, with one CRTC each, both connected to the same
+> DSI encoder (and apparently this applies to the LVDS encoder too).
+> Userspace then selects which CRTC drives which connector.
+
+Which user space tool would you suggest I use for testing this?
+
+And also, which user space tool is the user supposed to use at
+runtime on his final/production system to perform that selection?
+
+
+Kind Regards,
+Tommaso
+
+
+> 
+>>   From hardware point only one DSI input is selectable out of 2 LCDC's at
+>> a time.
+>>
+>> References:
+>>    - 9.5.2.2.3 9.5 MIPI DSI Interface (DSI)
+>>      General Purpose Output 0 Register (DSI_LINK_GPO0R)
+>>
+>>    - 9.5 MIPI DSI Interface (DSI)
+>>      9.5.1.2 Block Diagram
+>>      Figure 9.5-1 Video Input Interface
+>>
+>>>>>> +	for_each_endpoint_of_node(np, ep_node) {
+>>>>>> +		of_graph_parse_endpoint(ep_node, &ep);
+>>>>>> +		if (ep.port >= RZ_MIPI_DSI_MAX_INPUT)
+>>>>>> +			break;
+>>>>>> +
+>>>>>> +		remote_ep = of_graph_get_remote_endpoint(ep_node);
+>>>>>> +		ep_enabled = of_device_is_available(remote_ep);
+>>>>>> +		of_node_put(remote_ep);
+>>>>>> +
+>>>>>> +		if (ep_enabled) {
+>>>>>> +			in_port = ep.port;
+>>>>>> +			break;
+>>>>>> +		}
+>>>>>> +	}
+>>>>>> +
+>>>>>> +	if (!ep_enabled)
+>>>>>> +		return -EINVAL;
+>>>>>> +
+>>>>>> +	dev_dbg(dsi->dev, "input port@%d\n", in_port);
+>>>>>> +	return in_port;
+>>>>>> +}
+>>>>>> +
+>>>>>>     /* -----------------------------------------------------------------------------
+>>>>>>      * Bridge
+>>>>>>      */
+>>>>>> @@ -1425,9 +1472,21 @@ static int rzg2l_mipi_dsi_probe(struct platform_device *pdev)
+>>>>>>     	if (IS_ERR(dsi->mmio))
+>>>>>>     		return PTR_ERR(dsi->mmio);
+>>>>>>     
+>>>>>> -	dsi->vclk = devm_clk_get(dsi->dev, "vclk");
+>>>>>> -	if (IS_ERR(dsi->vclk))
+>>>>>> -		return PTR_ERR(dsi->vclk);
+>>>>>> +	dsi->vclk[0] = devm_clk_get(dsi->dev, "vclk");
+>>>>>> +		if (IS_ERR(dsi->vclk[0]))
+>>>>>> +			return PTR_ERR(dsi->vclk[0]);
+>>>>>> +
+>>>>>> +	if (dsi->info->features & RZ_MIPI_DSI_FEATURE_GPO0R) {
+>>>>>> +		dsi->vclk[1] = devm_clk_get(dsi->dev, "vclk2");
+>>>>>> +		if (IS_ERR(dsi->vclk[1]))
+>>>>>> +			return PTR_ERR(dsi->vclk[1]);
+>>>>>> +
+>>>>>> +		ret = rzg2l_mipi_dsi_get_input_port(dsi);
+>>>>>> +		if (ret < 0)
+>>>>>> +			return dev_err_probe(dsi->dev, -EINVAL,
+>>>>>> +					     "No available input port\n");
+>>>>>> +		dsi->vclk_idx = ret;
+>>>>>> +	}
+>>>>>>     
+>>>>>>     	dsi->lpclk = devm_clk_get(dsi->dev, "lpclk");
+>>>>>>     	if (IS_ERR(dsi->lpclk))
+>>>>>> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi_regs.h b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi_regs.h
+>>>>>> index 2bef20566648..cee2e0bc5dc5 100644
+>>>>>> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi_regs.h
+>>>>>> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi_regs.h
+>>>>>> @@ -83,6 +83,9 @@
+>>>>>>     #define LINKSR_SQCHRUN1			BIT(4)
+>>>>>>     #define LINKSR_SQCHRUN0			BIT(0)
+>>>>>>     
+>>>>>> +/* RZ/G3E General Purpose Output 0 Register */
+>>>>>> +#define GPO0R				0xc0
+>>>>>> +
+>>>>>>     /* Tx Set Register */
+>>>>>>     #define TXSETR				0x100
+>>>>>>     #define TXSETR_NUMLANECAP		(0x3 << 16)
+> 
+
