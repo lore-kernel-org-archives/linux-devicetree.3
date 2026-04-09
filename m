@@ -1,38 +1,38 @@
-Received: from out-177.mta0.migadu.com (out-177.mta0.migadu.com [91.218.175.177])
+Received: from out-174.mta0.migadu.com (out-174.mta0.migadu.com [91.218.175.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A0E1368276
-	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 02:42:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79DE1366073
+	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 02:42:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775702549; cv=none; b=gZid6IAtIXEWlbbajBLiaptSNnviagY8U9C89BgJyqOUsDZA7OmJMDjJCgp9V7Nr+GSlL/mXVJNGB6xUn3VIB444iyjTxuHFobx4EEmF0sZl6+4kM/60g4IiKMBDBxoe5vpXG2qIpj9iw7n2/NVRRpiRruloym+HDRaJWEsFaBY=
+	t=1775702551; cv=none; b=cjoE36S3D1EXn2zjY3bYPD4pvwzoZTUxoJtDdQBINOiESklq9v+59w6NchWu54JxNdy6TVB3Vepg7nywIooFs7Mii2kxYKaq5gC4R8Edt07iWg3XOqTAomV4Wl7SKLLRYp66sahy+uP+deVsJonom8YyDZE9Ir8Mu6S/Y7iHwwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775702549; c=relaxed/simple;
-	bh=fOcr/7mBz1Sen5Zu/vhR6WZBAfKDprmnT8KTucqA5Rw=;
+	s=arc-20240116; t=1775702551; c=relaxed/simple;
+	bh=b41vryXTlZGVACV6obcpZ3vRxOD8S8meSNXDHVJyLrU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hhwmJRki+atRwcc2/wXwaT4s1ssxpIUuYdFFWZIk6cd1qCysNp/kIU0X2BDrbhjkpmSHWk5D4Ao8DYQp9xZjoToj9A/A1/q1+cE/+V502Xmc4tIcCbqtI0+cejr/fPvPlZ+PyvAIm8ikaz5ntFNyI03WkNiX9d0W0gQCPLSjE2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=U3kNLGRX; arc=none smtp.client-ip=91.218.175.177
+	 In-Reply-To:To:Cc; b=em0Dp2Ern+Y/ySRF2fwhQZpQU546JP+ksVXy4yUALBa1QSNG29ZPseeSHlykgGLpywsAQYl8u2kbRPDIVlHH0rymME9GzOEEdYUgt5RFe55X0HKJgaVlwT9mXH4DeZ4qbRn1CdVVUoXcE5ddcgNC9JC+kevKMFljq8niH/bDvOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=qX6DgjFq; arc=none smtp.client-ip=91.218.175.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="U3kNLGRX"
+	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="qX6DgjFq"
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=postmarketos.org;
-	s=key1; t=1775702545;
+	s=key1; t=1775702542;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=oiArMNH1scHIHb4vGHz83I/PRfi65XhkSgmiVQjhohE=;
-	b=U3kNLGRX34eiaEI2XOfPqsWHWhh7UXcuLHTAq+RWnQ2noyjLzEGqDagShK9/ZBAiM6YLrQ
-	wivBL8YPIjNIk/gvEygFTl/xNXr5ahrSH5K+7vDX4fqaZe37gf03LFcQ9QeVS2sNh5Bc5J
-	aO2++TGAyo2ARloLggatdHeO64BeFMCUgt7wRXlXkhE9dtn9e4MV4utY4qnYJTbELsi3SL
-	Nt+fP7rpVyaQ4iM+lo+2DGaJtsJCldeufx9isg1+coyK3NUMgtoxlAGWCLvz0LDYiKmVoH
-	KWVcuh3b4bxGAYczqfY9QkshziR8F4sjpw80cnokDJaCY5G3mQdIiW3auSvRVw==
+	bh=KwdMuylHPk9Z8Q2g31GCL4Mu1tyY8FuQogF/LUyO874=;
+	b=qX6DgjFqTuPPBEMkzkP1yMUzrjy5OhZ5z1ZLXtMbhkQLnVe1HQHWvOddvHZONmFzMzhSpR
+	M/aNI5WTSBUjszR5txki/hCZxv+iEtT1U9YQezfy0LXX1lUBsGbYOBgtkJ8UvlUuskmYp4
+	1Ek9kzwS0rJukg/TKIVxYeKQXsK0aX0zlfcaj17kROemPKyfT1EsYdJKKcNx4+NY5dl1Mh
+	IwnYo3o1JJfOb6ROhwJ7eOLC0U9WT7fWPfbJpbP+j0jVQqgJIZDvwLMg/zesiyMcEHv1wc
+	FH8G6fbhKc0vIFY8gCK3omKIeKenG5gQI2sTvFtmgmhg3UehrQhtunVDVR84kw==
 From: Paul Sajna <sajattack@postmarketos.org>
-Date: Wed, 08 Apr 2026 19:41:15 -0700
-Subject: [PATCH 4/4] arm64: dts: qcom: sdm845-lg: Enable
- qcom,snoc-host-cap-skip-quirk
+Date: Wed, 08 Apr 2026 19:41:14 -0700
+Subject: [PATCH 3/4] arm64: dts: qcom: sdm845-lg-{judyln, judyp}: Reference
+ memory region in fb
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260408-judyln-followup-v1-4-823467519b59@postmarketos.org>
+Message-Id: <20260408-judyln-followup-v1-3-823467519b59@postmarketos.org>
 References: <20260408-judyln-followup-v1-0-823467519b59@postmarketos.org>
 In-Reply-To: <20260408-judyln-followup-v1-0-823467519b59@postmarketos.org>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -54,36 +54,75 @@ To: Bjorn Andersson <andersson@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
  ~postmarketos/upstreaming@lists.sr.ht, 
- Paul Sajna <sajattack@postmarketos.org>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1775702528; l=743;
+ Paul Sajna <sajattack@postmarketos.org>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1775702528; l=2164;
  i=sajattack@postmarketos.org; s=20250422; h=from:subject:message-id;
- bh=fOcr/7mBz1Sen5Zu/vhR6WZBAfKDprmnT8KTucqA5Rw=;
- b=ZqGfUBv92qnTjnsx3KsufSh1RpTYO5j8Xi9mVtt+7PvCxM41zKVPJELiMbhksxyu9zCFaPrBz
- dSVQqQxDwhRBNRb6SWiecY0fe2J34QZ013bei/cUSdDAPlRnqQ7/9jh
+ bh=b41vryXTlZGVACV6obcpZ3vRxOD8S8meSNXDHVJyLrU=;
+ b=6hyJOKbuKXCPuje13ICRYj/XOFD+JxFnF1iOg6LxI/4oD/MH04QHK86TFROcICAQvJHxUokIE
+ +zGY2UEvrsaBGqUxc/3H88/MKysp/KIcv3N/8dlEkhymIKJu4gknKMo
 X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519;
  pk=TwacvEOiRJ2P2oAdEqIDrtQTL18QS4FfcHfP/zNsxkQ=
 X-Migadu-Flow: FLOW_OUT
 
-The WCN3990 firmware for judyln does not respond to the request for
-host capabilities. Add the devicetree quirk to skip this request.
+To prevent duplicating the framebuffer address and size point out the
+existing framebuffer memory region instead of specifying the address
+manually.
 
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
 ---
- arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
+ arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi | 3 +--
+ arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts  | 4 ++--
+ arch/arm64/boot/dts/qcom/sdm845-lg-judyp.dts   | 4 ++--
+ 3 files changed, 5 insertions(+), 6 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
-index 86cf4eb44084..e0c3566761bf 100644
+index 85dc4468b6c4..86cf4eb44084 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
-@@ -694,5 +694,7 @@ &wifi {
- 	vdd-3.3-ch0-supply = <&vreg_l25a_3p3>;
- 	vdd-3.3-ch1-supply = <&vreg_l23a_3p3>;
+@@ -98,8 +98,7 @@ spss_mem: memory@99000000 {
+ 			no-map;
+ 		};
  
-+	qcom,snoc-host-cap-skip-quirk;
-+
- 	status = "okay";
- };
+-		/* Framebuffer region */
+-		memory@9d400000 {
++		framebuffer_mem: memory@9d400000 {
+ 			reg = <0x0 0x9d400000 0x0 0x2400000>;
+ 			no-map;
+ 		};
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts b/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
+index adf41aa0146a..349faa123ff1 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
+@@ -14,9 +14,9 @@ / {
+ 	compatible = "lg,judyln", "qcom,sdm845";
+ 
+ 	chosen {
+-		framebuffer@9d400000 {
++		framebuffer {
+ 			compatible = "simple-framebuffer";
+-			reg = <0x0 0x9d400000 0x0 (1440 * 3120 * 4)>;
++			memory-region = <&framebuffer_mem>;
+ 			width = <1440>;
+ 			height = <3120>;
+ 			stride = <(1440 * 4)>;
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-judyp.dts b/arch/arm64/boot/dts/qcom/sdm845-lg-judyp.dts
+index d244ebdd17be..44e762f78e95 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-lg-judyp.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-lg-judyp.dts
+@@ -14,9 +14,9 @@ / {
+ 	compatible = "lg,judyp", "qcom,sdm845";
+ 
+ 	chosen {
+-		framebuffer@9d400000 {
++		framebuffer {
+ 			compatible = "simple-framebuffer";
+-			reg = <0x0 0x9d400000 0x0 (1440 * 2880 * 4)>;
++			memory-region = <&framebuffer_mem>;
+ 			width = <1440>;
+ 			height = <2880>;
+ 			stride = <(1440 * 4)>;
 
 -- 
 2.53.0
