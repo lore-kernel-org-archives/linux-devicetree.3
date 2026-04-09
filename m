@@ -1,117 +1,137 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 918BD3DFC70;
-	Thu,  9 Apr 2026 15:26:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF183DFC62;
+	Thu,  9 Apr 2026 15:26:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775748390; cv=none; b=JDxxLIHycADfUdmLYW7tEbKVg3FUEjzSUvn+KH8VxDsH418EITF4BhMufn2ZWdCvG1aBqcI/bC9ee2CDU40tbbHfiNfsm+2q/30GoClGN049t1p28GwXGSvr4DPmQpYAOeR6huE68k+oqe6eWdwaHySn/QEfS+AyLHh65Q6IC8E=
+	t=1775748416; cv=none; b=is9KBN0W6MVSI57+c7/NdJRtswU9CqYFExM3RunYltuSc0m2pFPSD69PaT26uegmbTZVu7oXMOFcB9/qBTJRmJXRwbm27kYF5hFnEFcOAEa+uXqHFagwxHoUUF5F+TszGW0yxrovcTMl6DKNjExiMEQj7/MtIiiSTnmfjQlzr7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775748390; c=relaxed/simple;
-	bh=pnyIYTGFvUHdVT/9CLO3bbomQBEswW1wI7LRF6GHZL8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CD2Kn/QZ2heWZ/9crGg/guwS0CJJB6P33nV79NxcWbosgyZikuQpKXQwBbfWKsWT4rVmij05nTS8iMMg/22Vthyr5CHk9x0pdADpGWlS6t6El2SC65MYdNypW1vn2VtoyVdku8u9DQujPm7o/U4Zs3TbX9CyZhEorKdT72n51wE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bbziAoWD; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775748416; c=relaxed/simple;
+	bh=cep+xMb91JM9KjM4+ZqrlL/XV/ZXMZeYnM+gV7tlv0E=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=k7FEI7fuZmzKsftL2fnYrD1fAUmISqoQDlJBb0pWX6DACWMwLY3aDkLPaGLXs53E0mGMmeYoUJ/z5RpX8K1/STdqrdDK1vQ7PBgC2oSODJ/uE0/Dqfzl7JZVwm9Hn1T3b6/VGkvPvrK3PE/Olj/bzYFguqr0b6rUy/0WqsxPraY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dmutQfLF; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bbziAoWD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6894C19424;
-	Thu,  9 Apr 2026 15:26:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dmutQfLF"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D085BC2BC9E;
+	Thu,  9 Apr 2026 15:26:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775748390;
-	bh=pnyIYTGFvUHdVT/9CLO3bbomQBEswW1wI7LRF6GHZL8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bbziAoWDSRTTTMnxVnwR5RhcwIRuSot5r/dl9oyCR4z3VCuF9OHbW9lYFvdzq2KgN
-	 matqwhXrEZORNEF21t4mPb5Z2TdKqGwFxZV94dmI9RAy8wXQPFcMkh6YBws5WUyHkF
-	 qTJ4c1p8746//KlKaJYbLnX33t0hWGQXvIkK5gU8Pq21BrwLzx8Qeq4GWmZDZhROp/
-	 cB1AODdE1zIHj9vDt4DCpA4gPBuxOVmZy4PysLVgciQSxaqjIT/GszByrqu1022FCl
-	 qvymzGIDTAqq4zExGpF8mgl4XSLgMSI74KDJMvLfO3GewMF8fAhHPQ96dmSvnvblrp
-	 Wh/MgqF2xWbEg==
-Date: Thu, 9 Apr 2026 16:26:25 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Cc: Herve Codina <herve.codina@bootlin.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Christophe Leroy <christophe.leroy@csgroup.eu>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH 2/4] ASoC: dt-bindings: Add support for the GPIOs driven
- amplifier
-Message-ID: <383635c6-0417-4333-aa9c-9056437d4a5f@sirena.org.uk>
-References: <20260330101610.57942-1-herve.codina@bootlin.com>
- <20260330101610.57942-3-herve.codina@bootlin.com>
- <20260408122901.GA42727-robh@kernel.org>
- <20260408190932.0ab936b0@bootlin.com>
- <CAL_JsqK4SHQS6MciQpLSrGWo2knqs7-eB3yoAv2J54bSfW-Lxg@mail.gmail.com>
+	s=k20201202; t=1775748415;
+	bh=cep+xMb91JM9KjM4+ZqrlL/XV/ZXMZeYnM+gV7tlv0E=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=dmutQfLFG3bN2I6iOr+1Er0+CR/bIAs+CoiXs8MQSxc+nZ0bIF5OWIt1l40bO9huO
+	 SElCDsXh4MfI60F5DZXzB7lyqo+uh9DWSAHmdNEaEOvvfpI9qitRs/54yotgM+SAEh
+	 bWK/HYFs4ksxALR3D3mmRwFSG27Qnd+iK/M3IKTQ3pxeLUXMk6/V8NjmzxpA3xchwi
+	 rtosFNpDhhDBhwyJASi+lZiZDfuhwtHNjFD3P9ZA9KjMXupmmrWzawkX8VPmRzl+mG
+	 AlI3hwTDgf/9FiSKC/+fJMiBMWhd5Equt1RRx8baatnY5LzuqMX29BnTx8BLUvUWfM
+	 THcjwPqc+tbkw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C36E5F31E2C;
+	Thu,  9 Apr 2026 15:26:55 +0000 (UTC)
+From: Joe Sandom via B4 Relay <devnull+jsandom.axon.com@kernel.org>
+Date: Thu, 09 Apr 2026 16:26:54 +0100
+Subject: [PATCH v3 2/5] arm64: dts: qcom: sm8550: add PCIe port labels
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="g09VxWLtjplPgHzT"
-Content-Disposition: inline
-In-Reply-To: <CAL_JsqK4SHQS6MciQpLSrGWo2knqs7-eB3yoAv2J54bSfW-Lxg@mail.gmail.com>
-X-Cookie: Hailing frequencies open, Captain.
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260409-rb5gen2-dts-v3-2-be736355d4b4@axon.com>
+References: <20260409-rb5gen2-dts-v3-0-be736355d4b4@axon.com>
+In-Reply-To: <20260409-rb5gen2-dts-v3-0-be736355d4b4@axon.com>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Joe Sandom <jsandom@axon.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1775748414; l=2276;
+ i=jsandom@axon.com; s=20260319; h=from:subject:message-id;
+ bh=bK2sEqMstb26/kSTAhsg9lrLGwFBAEwx+Z/Kvj8kVLc=;
+ b=8mxIsaAUS3Ug0ICJ49fi02flrfSL856RfZ4CC3fAWaXdht55I2X8OSn6yCh2rnJZVDp4oCpQi
+ OOLfVV6LXRFCMSJ6pazhdiYx6H0mllDwW0r6bYcjCovD9MNq5Oy2Oe2
+X-Developer-Key: i=jsandom@axon.com; a=ed25519;
+ pk=Q/yflwj2WhkgBVTskrS9Vl5oScD0Bp3vTzDi+OxskTo=
+X-Endpoint-Received: by B4 Relay for jsandom@axon.com/20260319 with
+ auth_id=687
+X-Original-From: Joe Sandom <jsandom@axon.com>
+Reply-To: jsandom@axon.com
+
+From: Joe Sandom <jsandom@axon.com>
+
+Add labels to the root port nodes (pcie0_port0, pcie1_port0) to
+allow board DTS files to reference them for adding endpoint devices
+to each pcie root port.
+
+Update the pcieport0 reference to pcie0_port0 in sm8550-hdk.dts and
+sm8550-qrd.dts to match the label rename in sm8550.dtsi.
+
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: Joe Sandom <jsandom@axon.com>
+---
+ arch/arm64/boot/dts/qcom/sm8550-hdk.dts | 2 +-
+ arch/arm64/boot/dts/qcom/sm8550-qrd.dts | 2 +-
+ arch/arm64/boot/dts/qcom/sm8550.dtsi    | 4 ++--
+ 3 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm8550-hdk.dts b/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
+index ee13e6136a8259d28540e718851e094f74ead278..e821b731bdc496c872703723df02ae9b9b0233b5 100644
+--- a/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
++++ b/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
+@@ -1012,7 +1012,7 @@ &pcie0 {
+ 	status = "okay";
+ };
+ 
+-&pcieport0 {
++&pcie0_port0 {
+ 	wifi@0 {
+ 		compatible = "pci17cb,1107";
+ 		reg = <0x10000 0x0 0x0 0x0 0x0>;
+diff --git a/arch/arm64/boot/dts/qcom/sm8550-qrd.dts b/arch/arm64/boot/dts/qcom/sm8550-qrd.dts
+index 2fb2e0be5e4c6b597f20f332cdf063daa2664205..cf63109ff7bf7b6fc827f108e22e82b8b04273c1 100644
+--- a/arch/arm64/boot/dts/qcom/sm8550-qrd.dts
++++ b/arch/arm64/boot/dts/qcom/sm8550-qrd.dts
+@@ -912,7 +912,7 @@ &pcie0 {
+ 	status = "okay";
+ };
+ 
+-&pcieport0 {
++&pcie0_port0 {
+ 	wifi@0 {
+ 		compatible = "pci17cb,1107";
+ 		reg = <0x10000 0x0 0x0 0x0 0x0>;
+diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+index 055ca931c04859f3a312eb9921aeb7a8cc676822..54308cbde40732da072177eab533582c155df590 100644
+--- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+@@ -2098,7 +2098,7 @@ opp-16000000-3 {
+ 				};
+ 			};
+ 
+-			pcieport0: pcie@0 {
++			pcie0_port0: pcie@0 {
+ 				device_type = "pci";
+ 				reg = <0x0 0x0 0x0 0x0 0x0>;
+ 				bus-range = <0x01 0xff>;
+@@ -2300,7 +2300,7 @@ opp-32000000-4 {
+ 				};
+ 			};
+ 
+-			pcie@0 {
++			pcie1_port0: pcie@0 {
+ 				device_type = "pci";
+ 				reg = <0x0 0x0 0x0 0x0 0x0>;
+ 				bus-range = <0x01 0xff>;
+
+-- 
+2.34.1
 
 
---g09VxWLtjplPgHzT
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Apr 09, 2026 at 10:00:55AM -0500, Rob Herring wrote:
-> On Wed, Apr 8, 2026 at 12:09=E2=80=AFPM Herve Codina <herve.codina@bootli=
-n.com> wrote:
-
-> > Mark suggested to merge this gpio-audio-amp with simple-amplifier.
-
-> Merging driver and merging binding are separate questions.
-
-Yes, my comments were purely about the driver.
-
-> > I didn't want to set a particular limit related to the number of GPIOs
-> > used for thje gain value. Of course 2^32 is obviously a lot.
-
-> > What do you think about 16 for maxItems?
-
-> What is the most you are aware of? Take that and double it.
-
-> Seems to me 256 levels would be way more than a human ear could distingui=
-sh.
-
-There's plenty of gain controls with way more than 256 bits of
-resolution, though I'm not aware of any that are configured via GPIO.
-The step size and absolute values you want can vary dramatically
-depending on application, possibly in the same system (eg, a DAC that
-can be connected to both headphones or speakers) so you often end up
-making practical adjustments in a small subset of the available range
-but that subset can vary a lot for the same part.
-
-> I guess my point was that really we could deprecate simple-amplifier
-> binding because this one can handle it and more. But I'm not
-> suggesting we do that yet.
-
-That's my thinking.
-
---g09VxWLtjplPgHzT
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnXxSAACgkQJNaLcl1U
-h9AyAQf+PFfdD5FaRa7cXGLebu7K6JB2uKAdF6KxBmTK/OT8yImF22Wg5pj5mNGs
-QUm6G8gCvGa4dQbTBnYg2h9q0zs0V0sRR46Y4Wkrv28X3LjKK8tj4EP7lTxNlmSX
-oTtC6PPajivpCRauXtiq7ouL/4Gfk6wNoDZbD/And/vdBJjQFuLRA74IO4nYU11n
-X+tUhe6S8yHQrFUjYEACPfTls+CP6xj/Z/CYgUBZySggMvygFezorl7HeSqsJW6W
-kXcpIdxnTQ6gvTdl/l7dpQbSB/GSIy+7+u6HsOYN/bplwYvoXhFuVQLwYMrRMnNq
-Y7diPqvUaaH+gC1XsY/9ge+dfoFcag==
-=XhEP
------END PGP SIGNATURE-----
-
---g09VxWLtjplPgHzT--
