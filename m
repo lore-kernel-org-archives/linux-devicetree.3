@@ -1,90 +1,68 @@
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 393DF2C3244;
-	Thu,  9 Apr 2026 13:35:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 292483CFF58;
+	Thu,  9 Apr 2026 13:46:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775741759; cv=none; b=iBb5EME3yMlKGw/chsQHqdk8YKQq0apuH3AL6WfD4nr5IwoPx9b4zkh8EaDF1OtPPT86AqNf3miord0ckuaCap6+3+oQeaiqR4B2NFKCcZsdfDE6DDHGe3xljFv1JZ32UuABUwtSEhHfXk5ehG4VlXB5FtVxAcxP5rgWRg72LjQ=
+	t=1775742418; cv=none; b=eQuIXX6N63v5S7qU6cGrWYRGxSyCui+tHr68k0eeIF7AB+EL8rRfwS+yIeIHA9hhRn0eLrEYoTwxeP4fZhUoOma6JsDoFywe6pBnI8WtfDhrMqrH17EN9MPHKY5tAHJoU9QB6u8gSB45YAy5eX77t2Pkd5296beTq2lai7JgFFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775741759; c=relaxed/simple;
-	bh=qco2yXxLh7vMFadEblrYTLWMRjxvMTuPFxbxg0ohzZc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hyEC3bAZ6Z2aWcD0J/calVCjjpnqZkWNugkmofvuUtGnurJcV/x59JZCe7zyxYFOEAGJymKAVT0jBj3umd4GOu3u6YhOpvWyKX9nO4nzZPzI035xdd/7isKQbZJpBR+JOeClA6XuMaWkZVhAIMQ8/EfcEqcFwfGAzIToAVZc/Jw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
-Received: from local
-	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
-	 (Exim 4.99)
-	(envelope-from <daniel@makrotopia.org>)
-	id 1wApY2-0000000022P-3G0v;
-	Thu, 09 Apr 2026 13:35:54 +0000
-Date: Thu, 9 Apr 2026 14:35:46 +0100
-From: Daniel Golle <daniel@makrotopia.org>
-To: Frank Wunderlich <linux@fw-web.de>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Wunderlich <frank-w@public-files.de>,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
-	Andrew LaMarche <andrewjlamarche@gmail.com>
-Subject: Re: [PATCH v1 2/3] arm64: dts: mediatek: mt7988a-bpi-r4pro: update
- gpio-leds
-Message-ID: <aderMs16WpR9yPMe@makrotopia.org>
-References: <20260409131754.121737-1-linux@fw-web.de>
- <20260409131754.121737-3-linux@fw-web.de>
+	s=arc-20240116; t=1775742418; c=relaxed/simple;
+	bh=B5jbnfOJBRE7zK2eH91pRAi0wxS/vkVLN6DX0FdfKZs=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Wyx1SD6M9l7N/RktcFs0tk5DvkO0yNqsUd0ERraE245mgUqGbc2sfu8cD9Bd2QMAOi1RoOjXZptRi0h5wbiTPiLXUtvqnqfcwQjlRCo8TXf9cUyKyF0NPAii9lPRoGVv+8dDzduwtraxcVqd5iwK8bIocZ+CrkwQf1RLQQwmUi4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MzvurqJ8; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MzvurqJ8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B988FC4CEF7;
+	Thu,  9 Apr 2026 13:46:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775742417;
+	bh=B5jbnfOJBRE7zK2eH91pRAi0wxS/vkVLN6DX0FdfKZs=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=MzvurqJ85cB0HPwdB6OXI1Z9KIB/9ROAiRmxPomYEyz7or0vsEMdRVThExUBCxdkh
+	 z/mZA4Xc8fSixmYwmnflRrsSQv1ALEMbEIlPOAhxU7ldTK3SqrEYLbZzMh17Um3T0K
+	 ceCZ2gTNMd4mfjEKB/dCz9mKAv3E3xBWOpumDMj3mAkMjsaEh2XcO0w9758EXUt7L2
+	 eXAo8pMOd2CD8IWCVoh0lGMvCX2vLh9ZdqYCIFmcZ5HcH6uR6qHMzU8gbGDMk0weEc
+	 rgC1Dvy7XclFwKE/j+KtX64OPyb7YcG1CN03N+amzOcnMZfWDOzZ6EvI2yyY4Mj6qi
+	 gCPQu8Ew5OPrg==
+From: Lee Jones <lee@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
+ Pavel Machek <pavel@kernel.org>, Sean Young <sean@mess.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Martin Botka <martin.botka@somainline.org>, 
+ Biswapriyo Nath <nathbappai@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org, 
+ linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
+ phone-devel@vger.kernel.org
+In-Reply-To: <20260325-ginkgo-add-usb-ir-vib-v1-4-446c6e865ad6@gmail.com>
+References: <20260325-ginkgo-add-usb-ir-vib-v1-4-446c6e865ad6@gmail.com>
+Subject: Re: (subset) [PATCH 4/7] dt-bindings: leds: irled: ir-spi-led: Add
+ new duty-cycle value
+Message-Id: <177574241348.3361552.254159940051762818.b4-ty@b4>
+Date: Thu, 09 Apr 2026 14:46:53 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260409131754.121737-3-linux@fw-web.de>
+X-Mailer: b4 0.16-dev-ad80c
 
-On Thu, Apr 09, 2026 at 03:17:50PM +0200, Frank Wunderlich wrote:
-> From: Frank Wunderlich <frank-w@public-files.de>
-> 
-> On the official case the red LED is named ERR, the blue LED is named ACT.​​​​​​​​​​​​​​​​
-> Reflect these labels in function and set them default off.
-> 
-> Signed-off-by: Frank Wunderlich <frank-w@public-files.de>
-> ---
->  .../boot/dts/mediatek/mt7988a-bananapi-bpi-r4-pro.dtsi      | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4-pro.dtsi b/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4-pro.dtsi
-> index 759f608d1081..7f770a76775a 100644
-> --- a/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4-pro.dtsi
-> +++ b/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4-pro.dtsi
-> @@ -61,14 +61,16 @@ gpio-leds {
->  
->  		led_red: sys-led-red {
->  			color = <LED_COLOR_ID_RED>;
-> +			function = LED_FUNCTION_FAULT;
->  			gpios = <&pca9555 15 GPIO_ACTIVE_HIGH>;
-> -			default-state = "on";
-> +			default-state = "off";
+On Wed, 25 Mar 2026 18:07:27 +0000, Biswapriyo Nath wrote:
+> 30 duty cycle for IR transmitter is used in Xiaomi Redmi Note 8 (ginkgo).
 
-Just drop 'default-state' entirely from both nodes.
+Applied, thanks!
 
->  		};
->  
->  		led_blue: sys-led-blue {
->  			color = <LED_COLOR_ID_BLUE>;
-> +			function = LED_FUNCTION_ACTIVITY;
->  			gpios = <&pca9555 14 GPIO_ACTIVE_HIGH>;
-> -			default-state = "on";
-> +			default-state = "off";
->  		};
->  	};
->  
-> -- 
-> 2.43.0
-> 
+[4/7] dt-bindings: leds: irled: ir-spi-led: Add new duty-cycle value
+      commit: 2bbd36622df51f22e6902b0a0743d9354bc8f6d4
+
+--
+Lee Jones [李琼斯]
+
