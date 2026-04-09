@@ -1,156 +1,162 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.1.125])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EFE92EBBA4
-	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 18:48:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A8BC2EBBA4;
+	Thu,  9 Apr 2026 18:51:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.246.1.125
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775760506; cv=none; b=lb4Utk6dPjv107uIqe4rwkMZGoPzojCeako0QHbKiUxGj1kl1jQPWEbko9wn5nECLJ96E7pPGQbWcLyHyCI8IHbV/s6YKZUE380ZVh84P4dOy7pGEWA8VowijWDUIcouz3OLA3CBaEg5oOphx96dDFnaBXN4lKauyCtabWfT830=
+	t=1775760676; cv=none; b=MLhMB8gY9KHZ6KrOZEJjQPnx9lZYxhc6kIJIVYH9Zj1qqWWup2Z+PdjZYPNxiyk2UgPklJ9YDbPypzicWUZ2v4anAUUmivd9UL0By+ZwWQI3awvB1js1NQ2/Yg4NV4iOPnZjDVwYjCHQlsDz/f+rusol+GOOxN9ZyNzjAXijEqg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775760506; c=relaxed/simple;
-	bh=B/PO1g6isoQH/4CSdcSS2JFpe4MLKsTMjbALL52rnyo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dJxtunKeJCySVIOQM6cVWPKjmY0bFJndEsvILEzmVi9SeRbOICgDApBmOZ2g+ig+RxJS6LsWM2ykGFMJeE2+RxBSvlYzAjvKUaRQWR/9X7HSxLKt5Hdu8bo0c2DHhk6jWRKRFGTWP0etntSU8J5JO0C2co7lnEAKNonkOofNz+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nAOYphju; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=h3cJZBjR; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1775760676; c=relaxed/simple;
+	bh=dq70URP/Krt9M4r9eo801pm+IiIX/boqdHgrYpqLcnA=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=awg1RfGrLt7CTxgJh82M5fmTXTefZ4cgZp6ii6c6lt8hjlkJpbrNrEheZo8x3i1BSXArFmBaganjXuxL2lT7XSX0zhn1CqcWawOF5JEOdZ7UODh1lvJ3FiwMFuuNBD24p8J6oDndHxQKDH5eOAU03hEWNiR0+5jzTpw+zf04jbw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=PgH0hWPb; arc=none smtp.client-ip=44.246.1.125
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nAOYphju";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="h3cJZBjR"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 639D1Rfb1972532
-	for <devicetree@vger.kernel.org>; Thu, 9 Apr 2026 18:48:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=fzKr+jCCYbAhAkTkPpAa165W
-	nNaZvKCyJFBqJsHtSIs=; b=nAOYphjuKg960IBYE/CNwCgu7ZTsQ0nvp/u35pHj
-	ihWKBb76SEXgVmbwih0AQM1VcDXpQghlN0SdhsYdjVFIrsBwYnQGUCaAqIStnn+Z
-	QX98Jqp6ndpDRuzvCKa7azesF9wQmLv/IgSdXkrY12wd5atBXYYLKHmVBeikwKwM
-	+QKDX1JIcnMDPLUZYQFUmvYpqZ/690bQdDIf2fH1glrCdrZ7/5rBadUq2rb8HT/H
-	z6+CT8kAgrSMhCh+qwQv1qKvKkguLCw//EDOnelSr8uTl5yi5I+1V6vngmZopM7a
-	An6WSt7hjUEh6wMOKQ1mw0E1sxxo10GnBk5IejqRIM1+tQ==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4decms1aam-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 18:48:24 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50d831e8083so38626301cf.3
-        for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 11:48:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="PgH0hWPb"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775760503; x=1776365303; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=fzKr+jCCYbAhAkTkPpAa165WnNaZvKCyJFBqJsHtSIs=;
-        b=h3cJZBjRkt9wQez3MZgAxtCFSposixRyE9KbJGRtQWl5wFTX0jq/UlT2Umn25+xEVE
-         uGySOuD9jOfDAXTKP8t8iLqzYZigsQm1yMW4RTNEnxvs9oXDAenPh/DaUV40pwWWmsjX
-         6M/wV1n4d0BYrGCDiQI3zgfmDL4nCYxsr1gEqW0scPSaqC6Q3gpkkjVT5mEWOWQ8sdT5
-         QOR70LADy0GhkLHDN8oS+8SaQk90rag5W4kI8llT/fqMfqy9poxPcmH+/u1Qd2fzjEeo
-         CqBZClctFdvk6yfsKcMsCeiLRLLa7vKV0PJ1ux38VP9I752O5yCP7M+VPGEWkpH6DEhr
-         qpdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775760503; x=1776365303;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=fzKr+jCCYbAhAkTkPpAa165WnNaZvKCyJFBqJsHtSIs=;
-        b=r/T09KhTmi5DIzuM/J21Ds3R2bVgUD4O+St7CRtX0Ut5jlSQNnoZmSi5TpW14JEshC
-         EEMvFqEHP6ltZM+M+YJl8exO5WTnoRhFEMM8tI048zjEX5DAfYRYvWaGKund3ROPyCRE
-         Z1UPRvH9eAxfe9yhRIh5QoV4Ug4lIADUBqlyrTH62jxAsvyy2yHnc2NjsVeyGAWdwSpl
-         6tYl6VNh1BiKh+TzBgY7DzshZfO+8Ny7N0KPLm4RDQEkcCZV8SPCQyrhMQgD8UJ6fHwv
-         O9bAzLzQnYQKr08FLVV8DLk50YNRA7CVTdu8dR575KdvWvvD7eJExkMDI17Z2/elXs7x
-         Lx4w==
-X-Forwarded-Encrypted: i=1; AJvYcCVnrrO8o6dCO3Ppcqee550RUxM8mNIeySWdYFDcHfNukEgpbyi/LG6gEr8fwoV/LCuEgl1gaTcowPL2@vger.kernel.org
-X-Gm-Message-State: AOJu0YxSbzU0i3uAo9nm+XdpQk7BXyXMI0rN5grJYXCONrbfKdGkFS0y
-	tti31qZlBBpC6mDlsH+oSdUhUgl0oPh0tzGzz+sIq5hrqGUIIxXWBPEZ2koOWJosSeIA/bM7gEH
-	czIXmEyLQqGg53tQWWrCLvWmPq+d9E9c0rbKOgYTKIVJYJW46WAV7baE4JboNU40R
-X-Gm-Gg: AeBDieum0mqE0/qi4bl8sTFZEgxqH66JMbPOJOGQ9ELWbDPd0Xc/fmnwG8DgXIsdc24
-	Qg9zaMI0++XX1KYQtQFybvvKpAOCQ+0OBv9eR2/Zq4BZNZSbMDZWt4HPnhickHtjJn4dP0avMB8
-	KtcHieOROp1biebXQlskvbngF3bqZui8HLJQxXxYNkcjknZWQDbai/UthIkdw6PKaGLR/H0Zk/o
-	DSNJghSk2u8Ia0Zzg8aehM/Fx3IE47oaMBueT1q5LYR6jYLIc2+EeEehI6JneosXinTipQqKE/i
-	H5SSJMopfZEcceU076HIqMfcT6sBBE47hXJCQqfC/RuHG6QtmjdKK/BarewHHg4Z0Romw8Q53/2
-	a1R15dYd7xaksJMycgeZ2VMtDHSDv/EwtdiRXSwdGdbVR6aw95ngdba8BCJtSPragtTxpY8FnsX
-	y258Lq2hJ3SWbrna7y3mzBAaose+TeDJm+BP8=
-X-Received: by 2002:a05:622a:15c5:b0:50b:48de:5448 with SMTP id d75a77b69052e-50dd5ad0a9amr6226971cf.6.1775760503264;
-        Thu, 09 Apr 2026 11:48:23 -0700 (PDT)
-X-Received: by 2002:a05:622a:15c5:b0:50b:48de:5448 with SMTP id d75a77b69052e-50dd5ad0a9amr6226581cf.6.1775760502800;
-        Thu, 09 Apr 2026 11:48:22 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-38e49541dd1sm1145581fa.24.2026.04.09.11.48.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Apr 2026 11:48:21 -0700 (PDT)
-Date: Thu, 9 Apr 2026 21:48:20 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: Drop unused remoteproc_adsp_glink label
-Message-ID: <w6mog6pigbqzvcbmedjcyvuth5ipjodi3xso4ibhbcfgqirdji@wjuhdbyywpzh>
-References: <20260409181329.556899-1-mukesh.ojha@oss.qualcomm.com>
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1775760675; x=1807296675;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=HrytP8IlU1zcnz3KNtUwmivDgViJtRjefBb3Lu7mQ2M=;
+  b=PgH0hWPbPyAjxGj6gATDqRuURfPvRztoZa8WRES8GYPXaMiOU1Prb3Tl
+   /Xe3UXZGjAhTYSb0cPucQ7kyVSFiblxrfzDNaCsJOU7y6fkRDxGlOEOVa
+   srj3EwhOfX1XlojxbT0PcWVp6YUEugX++whgoqyh/6XkXj6vPZFmwYOP9
+   vf3LiZqXnQiFvtLmPjaOfvEUY//GzHPP7QsoI+barIC1jCMVlGQIijh2L
+   91Zd86ivj5e3VWFwCEU8Nfja0NAzCPkZZEnOpZAzmIIC1OjQMJpNKu0vd
+   Jvg7tyd3FIbnhMu1pNrVoaby3tcRh//BzhK0lTClOIN7I6xUHh1P3pSxP
+   Q==;
+X-CSE-ConnectionGUID: /VYPa2h5RAKD6+SZdMGPJg==
+X-CSE-MsgGUID: rSvJMwIbSpSENj2cE02f5g==
+X-IronPort-AV: E=Sophos;i="6.23,170,1770595200"; 
+   d="scan'208";a="16952641"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 18:51:12 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:15277]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.9.233:2525] with esmtp (Farcaster)
+ id 79311853-5cd8-4807-beb1-7c2687e50223; Thu, 9 Apr 2026 18:51:11 +0000 (UTC)
+X-Farcaster-Flow-ID: 79311853-5cd8-4807-beb1-7c2687e50223
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37;
+ Thu, 9 Apr 2026 18:51:09 +0000
+Received: from dev-dsk-epetron-1c-1d4d9719.eu-west-1.amazon.com
+ (10.253.109.105) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37; Thu, 9 Apr 2026
+ 18:51:07 +0000
+Date: Thu, 9 Apr 2026 18:51:04 +0000
+From: Evangelos Petrongonas <epetron@amazon.de>
+To: Mike Rapoport <rppt@kernel.org>
+CC: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
+	Changyuan Lyu <changyuanl@google.com>, Alexander Graf <graf@amazon.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav
+	<pratyush@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+	<devicetree@vger.kernel.org>, <kexec@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <nh-open-source@amazon.com>
+Subject: Re: [PATCH] of: fdt: skip KHO when booting as crash kernel
+Message-ID: <20260409185104.GA74321@dev-dsk-epetron-1c-1d4d9719.eu-west-1.amazon.com>
+References: <20260407150639.69923-1-epetron@amazon.de>
+ <ade2ExpM8ROXV-vy@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20260409181329.556899-1-mukesh.ojha@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: j3DIqLis-dbtVHtIdOjF-IvJUqsy-y6O
-X-Proofpoint-GUID: j3DIqLis-dbtVHtIdOjF-IvJUqsy-y6O
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA5MDE3MiBTYWx0ZWRfXyiIjIv5Md5U8
- oXXzGget+t8ZYSplCy/OicJmK0KqPukGbsJvSFYgIVGYku8xAQqlwT2C4JTncHeoSLZGie0Oode
- gEdGZ9cAXJpaMTAc4efp8Yg65z05j2ezG0jcvDaiBAOwSqUhxDLLKJDThvV+cS9WyT3kOpHq4E7
- 3y3UfTsS/mVWrPxdMeFZaHl7ZC2n2MGgq29hxWfHCafOlpvXMWcfuk9Wzqy6tAsAV+WPNzc6a2A
- ZL5uEO/C0S/wx7bDWoMsQLYpJvJJ/vTXfwhcvFdJrHijgN+1Kz9Dz9m4t296Qsx9rrqUNk4QXpE
- INNw9C845IbVMYoaFWFL6PZ+/BGml8xj0IOjUAU1UcPcfd1K0SJUy3MU9zd+ilP/QQ9EbUoTJZU
- cM7sV+3jjjg9rFtOGYFoF7v7ExJ5YEOPQe5yWybeCwk9D3mFGy2fjCmebw9imCb9o+Hyp6rfpLn
- vMLYhyEvy1caJP6Jz8Q==
-X-Authority-Analysis: v=2.4 cv=N/sZ0W9B c=1 sm=1 tr=0 ts=69d7f478 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=p2qfuXT4Ie2wcHrZ6aoA:9 a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-09_04,2026-04-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 malwarescore=0 bulkscore=0 adultscore=0
- lowpriorityscore=0 priorityscore=1501 impostorscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
- definitions=main-2604090172
+In-Reply-To: <ade2ExpM8ROXV-vy@kernel.org>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-ClientProxiedBy: EX19D042UWA003.ant.amazon.com (10.13.139.44) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Thu, Apr 09, 2026 at 11:43:29PM +0530, Mukesh Ojha wrote:
-> The remoteproc_adsp_glink label on the ADSP glink-edge node has no
-> users in the upstream tree across all affected SoCs. The only user
-> of this label is qcs6490-audioreach.dtsi which references the label
-> defined in its own SoC dtsi and is left untouched.
+On Thu, Apr 09, 2026 at 05:22:11PM +0300 Mike Rapoport wrote:
+> Hi Evangelos,
 > 
-> Remove the label from kaanapali, kodiak, lemans, monaco,
-> sar2130p, sc8180x, sc8280xp, sm8450, sm8550, sm8650 and sm8750.
-> 
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> ---
-> Not sure, if these should be individual patches..
-> 
->  arch/arm64/boot/dts/qcom/kaanapali.dtsi | 2 +-
->  arch/arm64/boot/dts/qcom/lemans.dtsi    | 2 +-
->  arch/arm64/boot/dts/qcom/monaco.dtsi    | 2 +-
->  arch/arm64/boot/dts/qcom/sar2130p.dtsi  | 2 +-
->  arch/arm64/boot/dts/qcom/sc8180x.dtsi   | 2 +-
->  arch/arm64/boot/dts/qcom/sc8280xp.dtsi  | 2 +-
->  arch/arm64/boot/dts/qcom/sm8450.dtsi    | 2 +-
->  arch/arm64/boot/dts/qcom/sm8550.dtsi    | 2 +-
->  arch/arm64/boot/dts/qcom/sm8650.dtsi    | 2 +-
->  arch/arm64/boot/dts/qcom/sm8750.dtsi    | 2 +-
->  10 files changed, 10 insertions(+), 10 deletions(-)
-> 
+> On Tue, Apr 07, 2026 at 03:06:33PM +0000, Evangelos Petrongonas wrote:
+> What about x86? ;-)
+>
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Well... I was planning to reply with "we will sort it out in a followup".
+I have a suspicion though, that you knew that the kho_fill_kimage()
+approach would take care of it. Nice! Thanks for the tip.
+I will post soon the v2.
+
+> > diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
+> > index 43a0944ca462..77018ec99fc8 100644
+> > --- a/drivers/of/fdt.c
+> > +++ b/drivers/of/fdt.c
+> > @@ -926,6 +926,9 @@ static void __init early_init_dt_check_kho(void)
+> >  	if (!IS_ENABLED(CONFIG_KEXEC_HANDOVER) || (long)node < 0)
+> >  		return;
+> >  
+> > +	if (is_kdump_kernel())
+> > +		return;
+> > +
+> 
+> This seems redundant if don't add KHO nodes at the first place.
+> 
+Indeed it is, it was more of a defense in depth in case there were stale
+data somehow, but I will drop it in v2.
+
+> >  	if (!of_flat_dt_get_addr_size(node, "linux,kho-fdt",
+> >  				      &fdt_start, &fdt_size))
+> >  		return;
+> > diff --git a/drivers/of/kexec.c b/drivers/of/kexec.c
+> > index c4cf3552c018..b95f0b386684 100644
+> > --- a/drivers/of/kexec.c
+> > +++ b/drivers/of/kexec.c
+> > @@ -271,7 +271,8 @@ static int kho_add_chosen(const struct kimage *image, void *fdt, int chosen_node
+> >  	if (ret && ret != -FDT_ERR_NOTFOUND)
+> >  		return ret;
+> >  
+> > -	if (!image->kho.fdt || !image->kho.scratch)
+> > +	if (!image->kho.fdt || !image->kho.scratch ||
+> > +	    image->type == KEXEC_TYPE_CRASH)
+> >  		return 0;
+> >  
+> >  	fdt_mem = image->kho.fdt;
+> 
+> kho_add_chosen() bails out if there's no KHO buffer in kimage, so if
+> kho_fill_kimage won't add KHO buffer to kexec_crash_image it should be
+> enough.
+> 
+Indeed, one guard to rule them all. Much more elegant than the
+"let's sprinkle checks everywhere (apart from x86))" approach.
+
+> > -- 
+> > 2.43.0
+> > 
+> > 
+> > 
+> > 
+> > Amazon Web Services Development Center Germany GmbH
+> > Tamara-Danz-Str. 13
+> > 10243 Berlin
+> > Geschaeftsfuehrung: Christof Hellmis, Andreas Stieger
+> > Eingetragen am Amtsgericht Charlottenburg unter HRB 257764 B
+> > Sitz: Berlin
+> > Ust-ID: DE 365 538 597
+> > 
+> 
+> -- 
+> Sincerely yours,
+> Mike.
+
+Kind Regards,
+Evangelos
 
 
--- 
-With best wishes
-Dmitry
+
+Amazon Web Services Development Center Germany GmbH
+Tamara-Danz-Str. 13
+10243 Berlin
+Geschaeftsfuehrung: Christof Hellmis, Andreas Stieger
+Eingetragen am Amtsgericht Charlottenburg unter HRB 257764 B
+Sitz: Berlin
+Ust-ID: DE 365 538 597
+
