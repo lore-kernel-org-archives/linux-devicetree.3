@@ -1,39 +1,41 @@
-Received: from ixit.cz (ixit.cz [185.100.197.86])
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94CB33DA5D8;
-	Thu,  9 Apr 2026 15:19:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FCF8283FDC;
+	Thu,  9 Apr 2026 15:21:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775747992; cv=none; b=aBfLe9oZalTuhZOjvLOl+SXl7we9iULM9znBr8dzfqH7yoRuooUJ6Q3IoRVNMFAAhlEvUEtDUnsa3Fa7mBJfWfQP6ge8QDnKTp3n4cMizTxcW1ua8VqTv/6GRaO7O6WLDZp57upZDoIY2qexVMs+FXstYB9l0XX2Yf8QhBY1FgQ=
+	t=1775748066; cv=none; b=kBITHS3uqHaULZH40Ui5KfGKVD366bxr4NKBj+mPKGUKKYQE/oLeZPW+6KDTVF2Y1d2gOYuFKRhgpmR7+5j8C4mN30CIMCd6cMEUTrUYMbm0Z+jhJHvdF2S3xEJta7CsAp40hrvdlG9VbQOdbB2O9SKC5OKzudPxbtyNejibbrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775747992; c=relaxed/simple;
-	bh=9Eu0siJJ65AxUBDrGi32lm17n2xyY2V/g+wLQ+IeBmI=;
+	s=arc-20240116; t=1775748066; c=relaxed/simple;
+	bh=ONauJM1Yd/vKNj61pJXPIhtd0ymL0BD8xctZMXZiYXQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hzEBtIDdau6s9GkgrO1xtDlGrsky1XZnjesBsNwqRpsNylBvLiy/EDi61+8m9+jqvWc4ahPM1V8OZ8plZf0FHZEE7rEi8hVWBFq2umovZaUPlt7HjlsEeE/ToY/XOxbi9z2XDrsvNbEExE5OWh1+1VAY+R9YsieGzN4EC0zCNb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=hDJDzfar; arc=none smtp.client-ip=185.100.197.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	 In-Reply-To:Content-Type; b=hAHtPadIMuiama3STtPTbngUjAELcz1xHZPZqybVrvnAoT9YBPKjWCJnBRuxJ3qbF4RGxsZn+6htV8EG3dgMnSoiKQwNMYNnQIuQrcUtzbRJof2q//u2iwrVUVAneoro2cUdbaCSPQbKKwy+VTKVYK2Zn0UbCFWSL8ZK6lVhnzE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net; spf=pass smtp.mailfrom=gmx.net; dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b=ny6E0Qo9; arc=none smtp.client-ip=212.227.15.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="hDJDzfar"
-Received: from [192.168.218.16] (37-48-0-9.nat.epc.tmcz.cz [37.48.0.9])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 4A646534151B;
-	Thu, 09 Apr 2026 17:19:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1775747986;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=ldSQMaCIi3RqWDrIuCTK/RsYt+ET/zsF/yIERTkZQa8=;
-	b=hDJDzfartZD8ZhK+DdH1uZ5t0a4uTQJ9HnaH0LEXlt5HzdPQqhV2uZIB1XWkaIHhmWMGql
-	2591Us8+Gj1r8nVKrAJZVsIVoDDj0pUWxz0Ww4R1zJ7Oq/exdNkjjb3+3DUjjbwEtDpPXT
-	Bbbm2cefP8a97tXKngV/8uLwChnnuRo=
-Message-ID: <232b1df4-3261-42c9-adc6-463e5a189e6f@ixit.cz>
-Date: Thu, 9 Apr 2026 17:19:44 +0200
+	dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b="ny6E0Qo9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
+	s=s31663417; t=1775748062; x=1776352862; i=wahrenst@gmx.net;
+	bh=ONauJM1Yd/vKNj61pJXPIhtd0ymL0BD8xctZMXZiYXQ=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=ny6E0Qo93KByTudvSuy7r55aKQcrF+SFcZZDtU8yIimUtKJtIf48LRJo1fp0a0pq
+	 HKXsKViytdho1xjk87Roqr/Dat6QzNT97tlUbJl5SRlSk9e1mG9VDq4nL+wa7Q1ZD
+	 7rR9MVWsOEmKnt+cOzeBC8VctYQfR4s8MCrJqiuj1xtSVVZorRhg/2aNrKWhEFks6
+	 La+QDEVbapWaDw23tW9qHwAOvNGAj67+MbYiyb+dH74D7upT4jePomfFFMwMxVe10
+	 g4c+o1oUlbyWm3Z8pUG/NWuB3mhT1hVdkdGT6xUkExhPs6uvTj5jvW0pdXR8VBmMY
+	 B+8gKUgDCB7HAVgtsQ==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1Mf07E-1vYnLA1jf0-00dtFq; Thu, 09
+ Apr 2026 17:21:02 +0200
+Message-ID: <fc2c08d8-fb7f-4da0-ad68-dd54aad82af9@gmx.net>
+Date: Thu, 9 Apr 2026 17:21:01 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,79 +43,170 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: sdm845-oneplus: Update compatible
- to include model
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, "Jason A. Donenfeld" <Jason@zx2c4.com>,
- Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
- Vincent Huang <vincent.huang@tw.synaptics.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- phone-devel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>
-References: <20260408-synaptics-rmi4-dt-v1-0-2d32bacce673@ixit.cz>
- <20260408-synaptics-rmi4-dt-v1-2-2d32bacce673@ixit.cz>
- <80067706-1857-46a0-a281-7f4ff3937468@oss.qualcomm.com>
+Subject: Re: [PATCH 2/3] nvmem: Add the Raspberry Pi OTP driver
+To: Gregor Herburger <gregor.herburger@linutronix.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui
+ <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+ Srinivas Kandagatla <srini@kernel.org>, devicetree@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260408-rpi-otp-driver-v1-0-e02d1dbe6008@linutronix.de>
+ <20260408-rpi-otp-driver-v1-2-e02d1dbe6008@linutronix.de>
+ <251100fe-db96-4d83-899a-cd764582d698@gmx.net>
+ <adaw1rr3WlDjvyQp@gregor-framework>
+ <90f54202-6eb6-4c44-b029-a4e0dafad861@gmx.net>
+ <addd5ZpuUdKBV7Bn@gregor-framework>
 Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <80067706-1857-46a0-a281-7f4ff3937468@oss.qualcomm.com>
+From: Stefan Wahren <wahrenst@gmx.net>
+Autocrypt: addr=wahrenst@gmx.net; keydata=
+ xjMEZ1dOJBYJKwYBBAHaRw8BAQdA7H2MMG3q8FV7kAPko5vOAeaa4UA1I0hMgga1j5iYTTvN
+ IFN0ZWZhbiBXYWhyZW4gPHdhaHJlbnN0QGdteC5uZXQ+wo8EExYIADcWIQT3FXg+ApsOhPDN
+ NNFuwvLLwiAwigUCZ1dOJAUJB4TOAAIbAwQLCQgHBRUICQoLBRYCAwEAAAoJEG7C8svCIDCK
+ JQ4BAP4Y9uuHAxbAhHSQf6UZ+hl5BDznsZVBJvH8cZe2dSZ6AQCNgoc1Lxw1tvPscuC1Jd1C
+ TZomrGfQI47OiiJ3vGktBc44BGdXTiQSCisGAQQBl1UBBQEBB0B5M0B2E2XxySUQhU6emMYx
+ f5QR/BrEK0hs3bLT6Hb9WgMBCAfCfgQYFggAJhYhBPcVeD4Cmw6E8M000W7C8svCIDCKBQJn
+ V04kBQkHhM4AAhsMAAoJEG7C8svCIDCKJxoA/i+kqD5bphZEucrJHw77ujnOQbiKY2rLb0pE
+ aHMQoiECAQDVbj827W1Yai/0XEABIr8Ci6a+/qZ8Vz6MZzL5GJosAA==
+In-Reply-To: <addd5ZpuUdKBV7Bn@gregor-framework>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:eTts/rUQX2gbou8JORJUMhwp/e0SHiss7/4etati2pdcb1fxNW9
+ LS3WoBSFohPsEv8BCuR/I0TXDOaHYo+LAWdGGqJaPOzjJjQFD4tRsU8MXuDaiGBZSAviCCn
+ Fjx3OyM8WgfkIVCivn2wwkkLaFfWw/k1GN9fqVn16YkOTn9oLyrmzBsryjX9jSNAZUIc/ft
+ U4Ye9pmSbAW33pt/wbYHA==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:PiePEnsXQAU=;6MnBMZNWj82NZTfaZH5S0rPD5Fx
+ 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
+ B4yVM4lwcXKyNwvnazhn/vyYfLPgmmbAg==
 
-On 09/04/2026 14:41, Konrad Dybcio wrote:
-> On 4/8/26 7:34 PM, David Heidelberg via B4 Relay wrote:
->> From: David Heidelberg <david@ixit.cz>
->>
->> We know the driver is reporting s3706b, introduce the compatible so we
-> 
-> via Google search AI summary:
-> "Bon Chef S3706B is a black dinner fork (Roman Euro Dinner Fork)" - the
-> more you know!
+Am 09.04.26 um 10:05 schrieb Gregor Herburger:
+> On Wed, Apr 08, 2026 at 10:03:47PM +0200, Stefan Wahren wrote:
+>> Am 08.04.26 um 21:47 schrieb Gregor Herburger:
+>>> Hi Stefan,
+>>>
+>>> thanks for the review.
+>>>> Is there any reason, why we cannot register this driver in
+>>>> rpi_firmware_probe() like hwmon and clk driver?
+>>>>
+>>>> I like to avoid the complete dt-binding from patch 1.
+>>> The private OTP registers are not available on all Raspberries. Afaik
+>>> only on 4 and 5. So I think these registers must be described through
+>>> the device tree. Therefore the bindings are needed.
+>> This binding doesn't represent some kind of hardware, it's just some
+>> firmware interface. A proper DT binding would describe the MMIO address
+>> range for OTP access.
+> I think it does represent real hardware. Although it is hidden through t=
+he
+> firmware. Not all hardware must be MMIO addresses.
+>
+> The only driver that does not have a DT node is the hwmon driver. All
+> other drivers (clock, gpio, touchscreeen, reset, pwm) do have a DT
+> binding. Looking at the comment in rpi_register_clk_driver this
+> seems to be some legacy behaviour for older DTs for the clock driver.
+There is a long history of different approaches how to implement the=20
+VideoCore firmware interface for the Raspberry Pi and not all of them=20
+are good from today's perspective.
 
-Oh no, that's definitely not compatible hardware! Maybe it's some fork... :P
+One big problem with DT binding is that the kernel must be compatible=20
+with all mainline DTS versions. This sounds trivial, but it's not. Since=
+=20
+we cannot assume that kernel & DTB are updated at the same time. So we=20
+need to keep these bad solutions from the past.
+>> If you need some distinction between the Raspberry Pi generations there=
+ are
+>> firmware tags to do this.
+> So what is your suggestion? What tags do you mean?
+Your driver already use firmware tags to access the OTPs via firmware.=20
+You can ask the Raspberry Pi guys, how to do the distinction in a=20
+efficient/maintainable way.
+
+My suggestion would be to look at=20
+https://github.com/raspberrypi/firmware/wiki/Mailbox-property-interface#ge=
+t-board-model
+
+and
+
+https://github.com/u-boot/u-boot/blob/master/board/raspberrypi/rpi/rpi.c#L=
+95
+
+The compatible "raspberrypi,bcm2712-firmware" approach is more straight=20
+forward, but requires a newer DTB. See above.
+
+Best regards
