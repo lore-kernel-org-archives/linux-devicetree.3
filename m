@@ -1,158 +1,351 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D6CD37CD48;
-	Thu,  9 Apr 2026 14:22:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C489E3DD52A
+	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 15:01:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775744539; cv=none; b=dsO5DlFKZ2hCimyw6oEECcwu1XMBitDLMmFCu8ZIMHArjscVPFTOT0X9RM7hEzWqY5YeqVKCxpGdxUKh9a48CrRy9qxP86Y4HkR9iSDwnfiNsRbAlL4ZbtgdjvnG7peDQu4nXuS52svGvC0VTQJfm8UIitIlthnk02IQ+QiFj8Y=
+	t=1775746870; cv=none; b=SVwiTv0VxjN7uJU/Sa/SuCj9FuiwapBhOtoViqkE3pgJlgBv8he2Qfl0bsSrCyjdm4UIAniPDdh1PLPvi4MVWrwtSNBJ2AwE0x/5WTeF7DF7bnWxQqS45JimdTUPvrhD2J+qllzZmLuqdYR8IkRuQmiV/ImSWL3FmcAcMA07WPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775744539; c=relaxed/simple;
-	bh=lnysXBuf6iY2y5qrIffxuRGOa+LUTqfJVPusvhuoPHg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s+CNx03QyRX5sgJ/C+ypVkjOYG5WKShBpLO4t3/NCsextWF3U7wDmDMLn6wRboOa+fUWl85eoeeEvL6iJnk+0BMPsy9/gkQpUj0OORnZUEFl05nqK8bQiadSoH0eNNFLRfpT2YFRS85osNbpWe/h4wY055SSPzVA1aVb3WtsK84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FodobkJb; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775746870; c=relaxed/simple;
+	bh=eU/0+H99y8aVk6sP9KjelkGrwI25brq919mGlv3x2Hk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PeaA9dAqBtRqa35lgee/Ci/akwiE2cO50CU+OIgEwxFKV5niAOjwojJ+16vfdcuALjU8Joozmgeg6+75jF5lKsVXPD/d6smJ+Mi98u3f+xenpAGGpV0ss5NfQqr4CNYw0RXFeRPJqtJbhJTjqVYaXNfIDUJA2E3GqKQxYoHyaw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qb1OkkCH; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FodobkJb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05D6FC19424;
-	Thu,  9 Apr 2026 14:22:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qb1OkkCH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D892C2BCB3
+	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 15:01:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775744538;
-	bh=lnysXBuf6iY2y5qrIffxuRGOa+LUTqfJVPusvhuoPHg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FodobkJbB9g90d5/TF2f6/jAaVv57bmItq52Hjb6gmQ7TLdu3+mnAZNpW9jYx6WIZ
-	 dU3V9jyhdO7t01pxuvcS6q5TFYrpYxxXhpH3bvR5tiqvrsAAguqtU10P0vj85/c4iI
-	 wKGscJrdPpc0wmSb4c7OhCHczELf1P2ueTU3V0xoqa2qCFb83ZnONxOrToSbxIz6+5
-	 ESDBta7lW6woU/78atSgN48+CjkqBASvpRiYEfCxSh//BUDpgn3hlGzLiJ3LBeOsoq
-	 nbC+TlXWlaBB0NqUiWpkRCuVPlZe+C1G2gbz/edr4tFS8/BfXVDU1iDf60WYCSdRBW
-	 3HeQRBjbhbOBg==
-Date: Thu, 9 Apr 2026 17:22:11 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Evangelos Petrongonas <epetron@amazon.de>
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
-	Changyuan Lyu <changyuanl@google.com>,
-	Alexander Graf <graf@amazon.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	devicetree@vger.kernel.org, kexec@lists.infradead.org,
-	linux-kernel@vger.kernel.org, nh-open-source@amazon.com
-Subject: Re: [PATCH] of: fdt: skip KHO when booting as crash kernel
-Message-ID: <ade2ExpM8ROXV-vy@kernel.org>
-References: <20260407150639.69923-1-epetron@amazon.de>
+	s=k20201202; t=1775746870;
+	bh=eU/0+H99y8aVk6sP9KjelkGrwI25brq919mGlv3x2Hk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=qb1OkkCH1LcUJwMlp0smxmHg9hIF3gIFKwKysxol5849BsjqGbavzIzwDpFa+AkkQ
+	 lxaD+RlVa1Ax+8ynGXbDUMsh6qRcneZeXqgWMj3DJc9n8S91sMykqQzV1+pZDfRzai
+	 MMwbNo3ac9CmCvrpHFNeGJgtsB/HkyuWOnxzO1nu7pQW3gsrJPhih2bdJdeQ/DPsqX
+	 MlrLMJ3HDJVr9qlo98K/reOaqTSrn7KeH24KcKnTuMdJHFoQDjy4H+h+qD7/oNsOuf
+	 jB01gzBiYZ07i+hr9TU2cwIx3iiwv+I28wXXREJadg/YEv1GLK0+nDZYEnHIf+lNKC
+	 LHjkU5kJUEuZw==
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-66f727d6849so1379643a12.1
+        for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 08:01:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCXFtnqaEOnFlRqcqRvTFSVrou+oxuWFZGw4kT3zZqb49hi5R/h6xmPuyskDzzLfiLVrZwbdw5vKO9TQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YxUUntHbRRiF6i8U7bgXO/AOYvSidzyj0wCBKZlCBvor9Hsb5SZ
+	6DC1W4XfNcnCO/RHfjjDY3J7F7KZgf7tYqlTBL4H1opNTpGXzWpsgqORIJiilx6NUllNSs17uDa
+	//K0TdUKjZ8PRjAzuZeKBGg4x0pIU5Q==
+X-Received: by 2002:a17:907:9341:b0:b9d:3823:e7b4 with SMTP id
+ a640c23a62f3a-b9d4768d4d5mr176438966b.31.1775746868558; Thu, 09 Apr 2026
+ 08:01:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260407150639.69923-1-epetron@amazon.de>
+References: <20260330101610.57942-1-herve.codina@bootlin.com>
+ <20260330101610.57942-3-herve.codina@bootlin.com> <20260408122901.GA42727-robh@kernel.org>
+ <20260408190932.0ab936b0@bootlin.com>
+In-Reply-To: <20260408190932.0ab936b0@bootlin.com>
+From: Rob Herring <robh@kernel.org>
+Date: Thu, 9 Apr 2026 10:00:55 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqK4SHQS6MciQpLSrGWo2knqs7-eB3yoAv2J54bSfW-Lxg@mail.gmail.com>
+X-Gm-Features: AQROBzCAcuc8BAMdceAwtjXPdIRiZc9n-UNPxD81LODZJ04zE2BvrbZCjHXObas
+Message-ID: <CAL_JsqK4SHQS6MciQpLSrGWo2knqs7-eB3yoAv2J54bSfW-Lxg@mail.gmail.com>
+Subject: Re: [PATCH 2/4] ASoC: dt-bindings: Add support for the GPIOs driven amplifier
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Saravana Kannan <saravanak@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Christophe Leroy <christophe.leroy@csgroup.eu>, 
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Evangelos,
-
-On Tue, Apr 07, 2026 at 03:06:33PM +0000, Evangelos Petrongonas wrote:
-> KHO preserves state across kexec by passing a KHO-specific FDT pointer
-> and scratch memory region to the incoming kernel. These point to
-> physical addresses in the outgoing kernel's memory that the incoming
-> kernel is expected to access and restore from. This falls apart when
-> the incoming kernel is a crash kernel as the crash kernel can run in a
-> small reserved memory region. The scratch regions can sit outside this
-> reservation, so the end result is quite unpleasant.
-> 
-> kho_add_chosen() unconditionally propagates KHO properties into
-> the device tree for all kexec image types, including crash images. The
-> crash kernel then discovers these properties during
-> early_init_dt_check_kho(), records the stale physical addresses via
-> kho_populate(), and later faults in kho_memory_init() when it tries
-> phys_to_virt() on the KHO FDT address:
-> 
-> Unable to handle kernel paging request at virtual address xxxxxxxx
+On Wed, Apr 8, 2026 at 12:09=E2=80=AFPM Herve Codina <herve.codina@bootlin.=
+com> wrote:
+>
+> Hi Rob, Mark,
+>
+> On Wed, 8 Apr 2026 07:29:01 -0500
+> Rob Herring <robh@kernel.org> wrote:
+>
 > ...
->   fdt_offset_ptr+...
->   fdt_check_node_offset_+...
->   fdt_first_property_offset+...
->   fdt_get_property_namelen_+...
->   fdt_getprop+...
->   kho_memory_init+...
->   mm_core_init+...
->   start_kernel+...
-> 
-> kho_locate_mem_hole() already skips KHO logic for KEXEC_TYPE_CRASH
-> images, but the DT property propagation and the consumer side were both
-> missing the same guard.
-> 
-> Fix this at both ends. Have kho_add_chosen() skip writing KHO properties
-> for crash images so the stale pointers never reach the crash kernel's
-> device tree. Also have early_init_dt_check_kho() bail out when
-> is_kdump_kernel() is true. This way even if KHO properties end up in
-> the DT through some other path, the crash kernel will not act on them.
-> 
-> Fixes: 274cdcb1c004 ("arm64: add KHO support")
-> Signed-off-by: Evangelos Petrongonas <epetron@amazon.de>
-> ---
-> 
-> I think we should backport the fix on KHO compatible versions (6.16+),
-> hence the "Fixes:" tag. Tested on an arm64 system.
-> 
->  drivers/of/fdt.c   | 3 +++
->  drivers/of/kexec.c | 3 ++-
->  2 files changed, 5 insertions(+), 1 deletion(-)
+>
+> > > +properties:
+> > > +  compatible:
+> > > +    const: audio-gpio-amp
+> >
+> > To be consistent with other GPIO controlled devices: gpio-audio-amp
+>
+> Ok.
+>
+> Mark suggested to merge this gpio-audio-amp with simple-amplifier.
 
-What about x86? ;-)
- 
-> diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
-> index 43a0944ca462..77018ec99fc8 100644
-> --- a/drivers/of/fdt.c
-> +++ b/drivers/of/fdt.c
-> @@ -926,6 +926,9 @@ static void __init early_init_dt_check_kho(void)
->  	if (!IS_ENABLED(CONFIG_KEXEC_HANDOVER) || (long)node < 0)
->  		return;
->  
-> +	if (is_kdump_kernel())
-> +		return;
-> +
+Merging driver and merging binding are separate questions.
 
-This seems redundant if don't add KHO nodes at the first place.
+> This leads to the following question:
+>
+> Should I keep the 'gpio-audio-amp' compatible string ?
 
->  	if (!of_flat_dt_get_addr_size(node, "linux,kho-fdt",
->  				      &fdt_start, &fdt_size))
->  		return;
-> diff --git a/drivers/of/kexec.c b/drivers/of/kexec.c
-> index c4cf3552c018..b95f0b386684 100644
-> --- a/drivers/of/kexec.c
-> +++ b/drivers/of/kexec.c
-> @@ -271,7 +271,8 @@ static int kho_add_chosen(const struct kimage *image, void *fdt, int chosen_node
->  	if (ret && ret != -FDT_ERR_NOTFOUND)
->  		return ret;
->  
-> -	if (!image->kho.fdt || !image->kho.scratch)
-> +	if (!image->kho.fdt || !image->kho.scratch ||
-> +	    image->type == KEXEC_TYPE_CRASH)
->  		return 0;
->  
->  	fdt_mem = image->kho.fdt;
+Yes. 'cause this binding isn't simple...
 
-kho_add_chosen() bails out if there's no KHO buffer in kimage, so if
-kho_fill_kimage won't add KHO buffer to kexec_crash_image it should be
-enough.
+And I don't care for any compatible with 'simple' (or generic) in it.
+Not sure why I agreed to that one. But I'm all for generic/common
+drivers.
 
-> -- 
-> 2.43.0
-> 
-> 
-> 
-> 
-> Amazon Web Services Development Center Germany GmbH
-> Tamara-Danz-Str. 13
-> 10243 Berlin
-> Geschaeftsfuehrung: Christof Hellmis, Andreas Stieger
-> Eingetragen am Amtsgericht Charlottenburg unter HRB 257764 B
-> Sitz: Berlin
-> Ust-ID: DE 365 538 597
-> 
+> Should I keep two bindings (this one and the simple-audio-amplifier.yaml)=
+ or
+> should I merge bindings?
 
--- 
-Sincerely yours,
-Mike.
+2 bindings. There's no overlap in property names.
+
+
+> ...
+> > > +  gain-gpios:
+> > > +    description: |
+> > > +      GPIOs to control the amplifier gain
+> > > +
+> > > +      The gain value is computed from GPIOs value from 0 to 2^N-1 wi=
+th N the
+> > > +      number of GPIO described. The first GPIO described is the lsb =
+of the gain
+> > > +      value.
+> > > +
+> > > +      For instance assuming 2 gpios
+> > > +         gain-gpios =3D <&gpio1 GPIO_ACTIVE_HIGH> <&gpio2 GPIO_ACTIV=
+E_HIGH>;
+> > > +      The gain value will be the following:
+> > > +
+> > > +          gpio1 | gpio2 | gain
+> > > +          ------+-------+-----
+> > > +            0   |    0  | 0b00 -> 0
+> > > +            1   |    0  | 0b01 -> 1
+> > > +            0   |    1  | 0b10 -> 2
+> > > +            1   |    1  | 0b11 -> 3
+> > > +          ------+-------+-----
+> > > +
+> > > +      Note: The gain value, bits set to 1 or 0, indicate the state a=
+ctive (bit
+> > > +            set) or the state inactive (bit unset) of the related GP=
+IO. The
+> > > +            physical voltage corresponding to this active/inactive s=
+tate is
+> > > +            given by the GPIO_ACTIVE_HIGH and GPIO_ACTIVE_LOW flags.
+> > > +
+> > > +    minItems: 1
+> > > +    maxItems: 32
+> >
+> > 2^32 levels? Seems like a bit much. Also, unless you can change the
+> > values of all the GPIOs atomically, aren't you going to get some
+> > artifacts while the gain is being changed? Unless you mute I guess.
+>
+> I didn't want to set a particular limit related to the number of GPIOs
+> used for thje gain value. Of course 2^32 is obviously a lot.
+>
+> What do you think about 16 for maxItems?
+
+What is the most you are aware of? Take that and double it.
+
+Seems to me 256 levels would be way more than a human ear could distinguish=
+.
+
+> Related to Artifacts, yes they can probably be there. Also the mute featu=
+re
+> is not required. Some hardware use only one GPIO and doesn't implement mu=
+te
+> feature. In that case no artifacts can be present.
+>
+> If mute is implemented, it is the application responsibility to handle
+> mute / unmute while changing the gain value. I don't think we can do anyt=
+hing
+> at driver level to avoid those artifacts if any.
+>
+> >
+> > > +
+> > > +  gain-points:
+> > > +    $ref: /schemas/types.yaml#/definitions/int32-matrix
+> > > +    items:
+> > > +      items:
+> > > +        - description: The GPIOs value
+> >
+> > Can't this just be the index?
+>
+> Some GPIOs value can be skipped if they don't make any sense in the hardw=
+are
+> design. With the index, this is not possible.
+>
+> gpios:
+>   0b00 -3dB
+>   0b01 0dB
+>   0b10 Reserved, should not be used
+>   0b11 +3dB
+>
+> With just the index, the reserved 0b10 value cannot be skipped. I would l=
+ike
+> to handle this kind of cases.
+
+Okay.
+
+> > If not, then gain-range could be expressed using gain-points instead.
+>
+> Do you have in mind something like the following?
+>   gain-range =3D <0 (-300)>, <3 600>;
+>
+> defining the range from -3dB to +6dB with GPIOs value 0 for -3dB and 3 fo=
+r +6dB.
+
+Yes, but since you can have reserved values, that won't work.
+
+> > > +        - description: The related amplifier gain in 0.01 dB unit
+> > > +    minItems: 2
+> > > +    description: |
+> > > +      List of the GPIOs value / Gain value in dB pair defining the g=
+ain
+> > > +      set on each GPIOs value.
+> > > +
+> > > +      With 2 GPIOs controlling the gain, GPIOs value can be 0, 1, 2 =
+and 3.
+> > > +      Assuming that GPIOs values set the hardware gains according to=
+ the
+> > > +      following table:
+> > > +
+> > > +         GPIOs | Hardware
+> > > +         value | amplification
+> > > +         ------+--------------
+> > > +           0   | -10.0 dB
+> > > +           1   | +3.0 dB
+> > > +           2   | 0 dB
+> > > +           3   | +6.0 dB
+> > > +         ------+--------------
+> > > +
+> > > +      The description using gain points can be:
+> > > +        gain-points =3D <0 (-1000)>, <1 300>, <2 0>, <3 600>;
+> > > +
+> > > +  gain-range:
+> > > +    $ref: /schemas/types.yaml#/definitions/int32-array
+> > > +    items:
+> > > +      - description: Gain in 0.01 dB unit when all GPIOs are inactiv=
+e
+> > > +      - description: Gain in 0.01 dB unit when all GPIOs are active
+> > > +    description: |
+> > > +      Gains (in 0.01 dB unit) set by the extremum (minimal and maxim=
+um) value
+> > > +      of GPIOs. The following formula must be satisfied.
+> > > +
+> > > +               gain-range[1] - gain-range[0]
+> > > +      Gain  =3D ------------------------------- x GPIO_value + gain-=
+range[0]
+> > > +                        2^N - 1
+> > > +
+> > > +      With N, the number of GPIOs used to control the gain and Gain =
+computed in
+> > > +      0.01 dB unit.
+> > > +
+> > > +      With 2 GPIOs controlling the gain, GPIOs value can be 0, 1, 2 =
+and 3.
+> > > +      Assuming that gain value set the hardware according to the fol=
+lowing
+> > > +      table:
+> > > +
+> > > +         GPIOs | Hardware 1    | Hardware 2
+> > > +         value | amplification | amplification
+> > > +         ------+---------------+---------------
+> > > +           0   | -3.0 dB       |  +10.0 dB
+> > > +           1   | 0 dB          |  +5.0 dB
+> > > +           2   | +3.0 dB       |  0 dB
+> > > +           3   | +6.0 dB       |  -5.0 dB
+> > > +         ------+---------------+---------------
+> > > +
+> > > +      The description for hardware 1 using a gain range can be:
+> > > +        gain-range =3D <(-300) 600>;
+> > > +
+> > > +      The description for hardware 2 using a gain range can be:
+> > > +        gain-range =3D <1000 (-500)>;
+> > > +
+> > > +  gain-labels:
+> > > +    $ref: /schemas/types.yaml#/definitions/string-array
+> >
+> > minItems: 2
+> > maxItems: 0x100000000
+>
+> Ok, I will adjust maxItems according to the max number of GPIO supported.
+>
+> For my curiosity, is there a way to express maxItems with a computation
+> based on some other properties value ?
+
+No, there isn't.
+
+>
+> What could be relevant here is
+>   maxitems: 2^(number of items available in the gpio-gain properties)
+>
+> >
+> > > +    description: |
+> > > +      List of the gain labels attached to the combination of GPIOs c=
+ontrolling
+> > > +      the gain. The first label is related to the gain value 0, the =
+second label
+> > > +      is related to the gain value 1 and so on.
+> > > +
+> > > +      With 2 GPIOs controlling the gain, GPIOs value can be 0, 1, 2 =
+and 3.
+> > > +      Assuming that gain value set the hardware according to the fol=
+lowing
+> > > +      table:
+> > > +
+> > > +         GPIOs | Hardware
+> > > +         value | amplification
+> > > +         ------+--------------
+> > > +           0   | Low
+> > > +           1   | Middle
+> > > +           2   | High
+> > > +           3   | Max
+> > > +         ------+--------------
+> > > +
+> > > +      The description using gain labels can be:
+> > > +        gain-labels =3D "Low", "Middle", "High", "Max";
+> >
+> > Do we need to allow these to be anything? It's going to get hard to com=
+e
+> > up with 2^32 names.
+>
+> Well, "Normal" / "Boost" can make sense on some hardware.
+>
+> I don't think we need to restrict labels to a list of known label here.
+
+As long as the names are meaningless to software.
+
+>
+> Of course 2^32 names is obviously a lot. What could be the limit?
+
+I would guess at 8 or more, it's just going to be gain1, gain2, etc.
+or something similar constructed from the gain values.
+
+> ...
+>
+> > > +
+> > > +    /* A mutable amplifier without any gain control */
+> > > +    amplifier4 {
+> > > +        compatible =3D "audio-gpio-amp";
+> > > +        vdd-supply =3D <&regulator>;
+> > > +        mute-gpios =3D <&gpio 0 GPIO_ACTIVE_HIGH>;
+> >
+> > This case is just simple-amplifier...
+>
+> No, simple-amplifier uses 'enable' and not 'mute'.
+
+Yes, I know...
+
+> We can have the amplifier enabled ('enable' GPIO active) as it is
+> used and a switch driven by an other GPIO to mute / un-mute the
+> amplifier output.
+
+But you have no 'enable' GPIO here. To me, enable just looks like
+inverted mute. If there's some electrical difference, I can't tell
+what that is from either binding.
+
+I guess my point was that really we could deprecate simple-amplifier
+binding because this one can handle it and more. But I'm not
+suggesting we do that yet.
+
+Rob
