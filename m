@@ -1,67 +1,98 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 161DF34A791;
-	Thu,  9 Apr 2026 08:48:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8145C35F16C
+	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 08:50:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775724519; cv=none; b=mhhADGcQlHm31sykMuPiCptvFTWrHNtf2eb0YWDZwqU57p7agPLriXI5HIfMyZsQrRbuMQ0Au/3s9aL31SNHSA9v1MvFN/uCsXTARAf70ZJwLODDU47AxJBRDNzNNUF6EorkPj7D9e3Pc1zODbVo2lV/68ghQEiyYg+DPxPBRSo=
+	t=1775724650; cv=none; b=kVv37KxT0vVl2fkE/Rj/cLdC7GgALTEW0DGheFqMWijRTIWU6VXLwu1tnckpSK7wnG+aMY0ufyx+3oTd4jqzfc57Fae+/vjCFBFH6nfKdUpiLL8peb0iIU7l3Axz7U6yS69U1jA14HT7eRtyy808KAiRmzdRpzTI4lMdDTFSI7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775724519; c=relaxed/simple;
-	bh=Ucrrm+UdDjJaW/Cy0XhWuFhqJm3EGIewHjfu8mGM1Hg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GE8sYtlQsQkUIOV/6yZBOXuCKlqefiqEOs3Vpr6N+sOzyPuaU8OtPpSnRf/FmiWjQ3tjzmqJX8coNdhgtHc6nBPvazOLi0+5zBPQRN7UaklAKwRQ6/MDqlYUXUEpg3S4dwZanpb/haUu7DugfNbZoOpG21F0j4v/898bbQmqFZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z9YuU1OK; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775724650; c=relaxed/simple;
+	bh=it8N9QiPAQ6bG4oSqDUwnWos44xYZQNt5vVT1HI+p3I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MjPpQ5+7GMAo0nBvJsjqJUNWeWy2P08+box49zg7XjCq4J5N27ypn6cLPT1X7EBU5qMSP6965lOyuKW8eu0TxHY3HS2N3FDsfxEbsfeokfzG0zZIBw8DfyHvpXkj93DrrNK3FclCBmSE10iwm8xv20/AN/CNjFdGdaf/NB3ZMHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n9JoTSj8; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z9YuU1OK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41636C4CEF7;
-	Thu,  9 Apr 2026 08:48:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n9JoTSj8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DF32C2BCB2
+	for <devicetree@vger.kernel.org>; Thu,  9 Apr 2026 08:50:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775724518;
-	bh=Ucrrm+UdDjJaW/Cy0XhWuFhqJm3EGIewHjfu8mGM1Hg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Z9YuU1OK8hE77fbU342lH4ZxNDHUGbiWDT+bNv77/ibID3TxtJB/L7lnD5BHwT2YF
-	 RfmCi4Vi8/nRGhRmU0dz6z5TATqJAcNwrjiQzpnOcqTsYzPgAldDVHZY+wie3uuLIX
-	 SaoKKeFcbNmJVBB+gFz8iIiTCXogInrBUR1vBCRDMMxG9YNOMV64JmHFqIkenqEv9f
-	 skIv/KmbeI4Z+Qh0A3W3T0OsOuTMC5p0HLPkrwS+nSEt1whsmKZexnq4PccbqePGAu
-	 U426Wrvo4TLGE/Hvn4ebV6g9fQ8XZ9ZMR0Nbiy7V3INjewrIxucUU9mGx51nzHegFd
-	 rpA4Zl9s32ABw==
-Date: Thu, 9 Apr 2026 10:48:36 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Josua Mayer <josua@solid-run.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Shawn Guo <shawnguo@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Yazan Shhady <yazan.shhady@solid-run.com>, 
-	Mikhail Anikin <mikhail.anikin@solid-run.com>, Alexander Dahl <ada@thorsis.com>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 1/2] dt-bindings: arm: fsl: Add SolidRun i.MX8DXL SoM and
- HummingBoard
-Message-ID: <20260409-peridot-lynx-from-uranus-75a502@quoll>
-References: <20260408-imx8dxl-sr-som-v1-0-ce5a39acd713@solid-run.com>
- <20260408-imx8dxl-sr-som-v1-1-ce5a39acd713@solid-run.com>
+	s=k20201202; t=1775724650;
+	bh=it8N9QiPAQ6bG4oSqDUwnWos44xYZQNt5vVT1HI+p3I=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=n9JoTSj8wEDvUoGHnm+uD3ee5K+cpRk5z1FgTVC7GLA9HNmIriL9zeroJPWPPZxGb
+	 qlPZXKVcpS8T5Rg1HnCr7mWuO3EBXMTJivRXV86yR23DboCM8hAlMmh5F8BEdiXLbs
+	 z8WpfBy9Bwbxoe3hPYUGbC0P6GlV11GiDbWMVxHzT6yeMkVw1+kHSmW/dPJJ3O1ekF
+	 iUIVTx3M/LwFZlTZ5D4NSB7Nh7DvyUtnBWEACP4iVAb+IP7J+FBMV0EBL3ENtKjF/q
+	 RUHb2LJkeGl9XS5PQ7EvkhK2Kzs/g+6T9vTbiG60ekL9a94VR2r/qWMxnlusFKH0Zy
+	 d6iRmuholPChg==
+Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-6507a9303fbso667235d50.1
+        for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 01:50:50 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCU5+sfhEZQtCOeYfqTvkgvPQezxRDFmXv/m5aoqrx6zV7apFLhW+bptB5WhOSYrGE8Bc/zH9Vpt2tsS@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz0kp68zXWGse6Mnt94iCI6jY14UnxB9dKyY4hIs72DSLA+MNbV
+	Ro4PoyL0yErdj8y1zzsmd1iygpFr2nzoGpGocZU/mO2PBWFPxsHv5O5nsy5Q3XrG+xVhmiJN23E
+	l5GnA+J6y33berBqrzOCawcGQI/lrsqE=
+X-Received: by 2002:a05:690e:4419:b0:650:2ff9:d681 with SMTP id
+ 956f58d0204a3-650488b4a4amr16332676d50.68.1775724649517; Thu, 09 Apr 2026
+ 01:50:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260408-imx8dxl-sr-som-v1-1-ce5a39acd713@solid-run.com>
+References: <20260401-waveshare-dsi-touch-v1-0-5e9119b5a014@oss.qualcomm.com>
+ <20260401-waveshare-dsi-touch-v1-14-5e9119b5a014@oss.qualcomm.com>
+ <CAD++jL=jUd4sQ1bhwcBRYpFFApP6vdJw2BoQwxoWShUKdEb9oA@mail.gmail.com> <z3obsnbmdvvlzs3cxm57osbax4ivg2zq2zk6xgp37n4hni7y6i@smwn362nhn6a>
+In-Reply-To: <z3obsnbmdvvlzs3cxm57osbax4ivg2zq2zk6xgp37n4hni7y6i@smwn362nhn6a>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 9 Apr 2026 10:50:38 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnXJKKv5ghRnCcMTU9g984seJAMHyL6VWWV0Bv+dv01wg@mail.gmail.com>
+X-Gm-Features: AQROBzBsoNdPYNsMvGgzeGYog6ZDiTw-eucSP-xx3bid1He95rIDmnyN8FEvCgY
+Message-ID: <CAD++jLnXJKKv5ghRnCcMTU9g984seJAMHyL6VWWV0Bv+dv01wg@mail.gmail.com>
+Subject: Re: [PATCH 14/19] drm/panel: jadard-jd9365da-h3: support Waveshare
+ DSI panels
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Cong Yang <yangcong5@huaqin.corp-partner.google.com>, Ondrej Jirman <megi@xff.cz>, 
+	Javier Martinez Canillas <javierm@redhat.com>, Jagan Teki <jagan@edgeble.ai>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Apr 08, 2026 at 08:38:36PM +0200, Josua Mayer wrote:
-> Add binding for the SolidRun i.MX8DXL based System on Module, and the
-> reference HummingBoard Telematics.
-> 
-> Signed-off-by: Josua Mayer <josua@solid-run.com>
-> ---
->  Documentation/devicetree/bindings/arm/fsl.yaml | 7 +++++++
->  1 file changed, 7 insertions(+)
+On Thu, Apr 9, 2026 at 2:49=E2=80=AFAM Dmitry Baryshkov
+<dmitry.baryshkov@oss.qualcomm.com> wrote:
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> > But there is also one more thing, this looks like a big "jam table"
+> > with just register+value tuples, so construct something like:
+> >
+> > struct jadard_jam_tbl_entry {
+> >         u8 reg;
+> >         u8 val;
+> > };
+> >
+> > static const struct jadard_jam_tbl_entry jd_3_4_c_init_jam[] =3D {
+> >         {0x00, 0x00}, {0x01, 0x41}, ...};
+> >
+> > (Ideas taken from drivers/net/dsa/realtek/rtl8366rb.c, take a look
+> > for code and all, you get the picture.)
+>
+> Few months ago the code was moved exactly in the opposite direction. We
+> added all _multi() functions and made shure that the code is as
+> efficient as the register tables. On the other hand, having it as a code
+> allows better control. E.g. handling 2/4 lane case would require extra
+> hacks to the register tables, while the code handles that without extra
+> hacks and without loosing effectiveness.
 
-Best regards,
-Krzysztof
+OK then sorry for the fuzz!
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
+Yours,
+Linus Walleij
