@@ -1,39 +1,43 @@
-Received: from mail-43101.protonmail.ch (mail-43101.protonmail.ch [185.70.43.101])
+Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 399E12FA0C6;
-	Thu,  9 Apr 2026 21:07:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5696A36E494;
+	Thu,  9 Apr 2026 21:07:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775768847; cv=none; b=gj9v5SiOoQLx1ASTyOCPQ3YYtPIIsWFi0CpXf6XAMpLBWdy1fFGpcvV8TuEX/94PbV8Jf8/p5Qr4yIRpgmVxiFQ27tWsj90MlQqFaixjfhk88OZJOYPmiDFDejKSisuw2+lrUE41TyiA35zuIy/SCW1kjPaw6sRIehMkpE1AnVE=
+	t=1775768863; cv=none; b=bMUiHAC3Fkz95caxH3kyxQFNjl/66WfNy1Ygd6G5lZXCls5/9/XROu6flMmKACI4K8LN/A75Xzz16cbuEIyzuxc5CweANHPcpMo5HjdMHFpd+k027ql04zDlTQGThNyZF4eVpC6UNME6Y4gfcQsi2RspZN3uPgLaGQuT85M0KFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775768847; c=relaxed/simple;
-	bh=A4vYpJR4R1Zfcc5UPKnQUIvd3DYx+20Qbl7bkyBWwXQ=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=WzyaB1Lnj7Sm30egjObs1aWyQZ188SBjPL+KHcR/l5kldy0pH/U5bJhCz5fWicfj7m+mHkxCJ5SplYuC4xCWv6LoNEPOVeavBQnfEg/BB+Z0bNa9NlRfSpMiN9A0MMiO+xSRxk1No94eHH+IJmvgfWiS3l22LWQyfGfDPchFP08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=DWpeyYh4; arc=none smtp.client-ip=185.70.43.101
+	s=arc-20240116; t=1775768863; c=relaxed/simple;
+	bh=FHqavf4x2LMnpKhwYIAJLhWWLpu5loE7rr7KuHjSJBs=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=H7D/VoX+GMcpijeVdyUccgUX8iiS7hdX7LmAwDBHwRxJXiH9ocOzDhca3G++TAVHksXaUEWArebtaxBlPhTOLjRcvNyJd6yrSCTfMCe+mrZvuDld8RNV5NWnFApMyLBLlkrWwdwuwXfEt7zptO9vZQ3D+OOxCg2EUqANJN6qupA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=auxNQoh/; arc=none smtp.client-ip=109.224.244.17
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="DWpeyYh4"
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="auxNQoh/"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1775768838; x=1776028038;
-	bh=dsuOl6TYFl20q1OWDoSsPgAQVgUgCF0ZcayvS81OW6A=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=DWpeyYh4is+jDCZ/f3kXmHzSsvX+f7TMh8HV5E4EkI1EmpliZAQiykqTTz5hmSdwD
-	 PV3+09FuT1Iuj7Ah6PAgqfBW05HiTegC3poGpAClPGAYykSfFdwmRY2tFF0opVToch
-	 aSO0cTtgaDZ6kIpMsA+vK8ODIg1JDBohy6r3bd/uJn3Qk9hxNq6h+abZIp+tCAi1R2
-	 ParJwKuoVFQOPV+zqfU0zRo9f0oKk/SfZz0lyYKCr3B/abbAhOnD8JcHFDQXx5GOhU
-	 ORRTc6vd5E1aCVz3utz09dgIcY3mGoYae1tu+HBCAulth694afP9x+wA77LQTXhxn6
-	 Xssg4utbq+6Uw==
-Date: Thu, 09 Apr 2026 21:07:11 +0000
+	s=protonmail3; t=1775768854; x=1776028054;
+	bh=MyqNqpuNtgV8td1byNhhPh0LwJSSFfPtn7H4KgGMCEY=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=auxNQoh/uBTonceBUuk8CdJFlCAkA7AnpFM1XQY7szCy8e/jSo6R++1WxPrfNBo16
+	 IqSNlXv4GFcthHUQHX0nxnEiaw6JUWIRJXdQq0qO8jtlTY58girsltjPIGfzPpfewK
+	 4ZWD67P6rqAPUjwNdySIOPbcW406CjGpMoX1VxMbchfkqyFiIHNj1gTe3OLa7vU46O
+	 cm6hDeguARvmb/3X0io6OInS0ge5ofpcszcJh5eG8ibe1ZtYpZjLWLNhvbgItRcWbI
+	 08Pwyp7XaNWiGUeLYDHYtGjQWqaD0KEsNlcbLYmhv9TD8a8/WJDrr2bmLEfCnNVnSi
+	 Qgzw7pw30pkhA==
+Date: Thu, 09 Apr 2026 21:07:29 +0000
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 From: Hardik Phalet <hardik.phalet@pm.me>
 Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, =?utf-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Brigham Campbell <me@brighamcampbell.com>, Shuah Khan <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev, Hardik Phalet <hardik.phalet@pm.me>
-Subject: [PATCH v2 0/4] Add QST QMC5883P magnetometer driver
-Message-ID: <20260409210639.3197576-1-hardik.phalet@pm.me>
+Subject: [PATCH v2 2/4] dt-bindings: iio: magnetometer: Add binding for QST QMC5883P
+Message-ID: <20260409210639.3197576-3-hardik.phalet@pm.me>
+In-Reply-To: <20260409210639.3197576-1-hardik.phalet@pm.me>
+References: <20260409210639.3197576-1-hardik.phalet@pm.me>
 Feedback-ID: 166659585:user:proton
-X-Pm-Message-ID: fa4a78a46b0fe775bce56ef0e13b802b4195cc89
+X-Pm-Message-ID: 5065cdeae2b26d039d2a18d77f5426de938a9714
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -43,130 +47,76 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-This series adds initial Linux support for the QST QMC5883P, a 3-axis
-anisotropic magneto-resistive (AMR) magnetometer with a 16-bit ADC that
-communicates over I2C. To my knowledge there is no existing upstream
-driver for this device.
+Add the device tree binding document for the QST QMC5883P, a 3-axis
+anisotropic magneto-resistive (AMR) sensor with a 16-bit ADC that
+communicates over I2C. The binding exposes the required 'compatible'
+and 'reg' properties along with an optional 'vdd-supply' for the
+2.5 V=E2=80=933.6 V VDD rail.
 
-The driver supports:
-  - Raw magnetic field readings on X, Y, and Z axes
-  - Four selectable full-scale ranges (=C2=B12 G, =C2=B18 G, =C2=B112 G, =
-=C2=B130 G)
-  - Configurable output data rate (10, 50, 100, 200 Hz)
-  - Configurable oversampling ratio (1, 2, 4, 8)
-  - Configurable downsampling ratio (1, 2, 4, 8) via a custom sysfs
-    attribute
-  - Runtime PM with a 2 s autosuspend delay
-  - System suspend/resume via pm_runtime_force_suspend/resume
-
-Regmap with an rbtree cache is used throughout. CTRL_1 and CTRL_2
-bit fields are accessed via regmap_field to avoid read-modify-write
-races. The STATUS register is marked precious so regmap never reads
-it speculatively and clears the DRDY/OVFL bits unexpectedly.
-
-The init sequence on probe is: soft reset =E2=86=92 wait 1 ms =E2=86=92 dea=
-ssert
-reset =E2=86=92 configure SET/RESET control =E2=86=92 apply default ODR/OSR=
-/DSR/RNG
-=E2=86=92 enter normal mode. This ordering was determined empirically on
-hardware to produce reliable, non-zero axis readings.
-
-The driver is placed under drivers/staging/iio/magnetometer/ with a
-TODO file tracking the remaining work before it can graduate:
-  - Triggered buffer support (iio_triggered_buffer_setup)
-  - DRDY interrupt support
-  - Self-test implementation
-
-Patches:
-  1/4 - dt-bindings: vendor-prefixes: Add 'qst' for QST Corporation
-  2/4 - dt-bindings: iio: magnetometer: Add binding for QST QMC5883P
-  3/4 - staging: iio: magnetometer: Add QST QMC5883P driver
-  4/4 - MAINTAINERS: Add entry for QST QMC5883P magnetometer driver
-
-Testing
--------
-Tested on a Raspberry Pi 4B running a mainline kernel (aarch64) with a
-GY-271 HM-246 board connected via I2C bus 1. The chip was confirmed to
-enumerate at address 0x2C via i2cdetect.
-
-The driver was cross-compiled from Fedora (x86_64) targeting aarch64
-and loaded as a module (qmc5883p.ko) with the Device Tree overlay
-pointing at i2c1:0x2c.
-
-Verification steps performed:
-  - Chip ID register (0x00) reads back 0x80 on probe, confirming the
-    correct device is present
-  - All three axes (in_magn_x_raw, in_magn_y_raw, in_magn_z_raw) return
-    non-zero, stable values when the board is held still and change
-    appropriately when the board is rotated
-  - in_magn_x_scale (and Y, Z) returns the expected fractional value for
-    the default =C2=B18 G range (1/37500000)
-  - in_magn_sampling_frequency / _available, in_magn_oversampling_ratio /
-    _available, and downsampling_ratio / downsampling_ratio_available all
-    read and write correctly; the chip responds without error to each
-    valid setting
-  - Runtime PM: after 2 s of inactivity the device enters suspend mode
-    (MODE =3D 0x00 confirmed via i2cdump); the next sysfs read correctly
-    resumes the device and returns valid data
-  - System suspend/resume (echo mem > /sys/power/state) leaves the
-    driver in a consistent state; readings remain valid after resume
-  - dt_binding_check passes for patch 2/4
-  - Kernel builds cleanly with W=3D1 and no new warnings
-
-Changes in v2:
-  - Use get_unaligned_le16() from <linux/unaligned.h> instead of manual
-    byte-shifting for deserialising axis data (review feedback)
-  - Fix pm_runtime_* calls in downsampling_ratio_store() to use
-    data->dev (the i2c parent device) instead of dev (the iio device),
-    avoiding PM refcount imbalances (review feedback)
-  - Replace manual pm_runtime_disable() devm action with
-    devm_pm_runtime_enable(), which avoids a kcfi-violating function
-    pointer cast (review feedback)
-  - Move chip suspend into a devm action (qmc5883p_suspend_action)
-    registered before devm_iio_device_register() so that devres LIFO
-    ordering guarantees the IIO interface is fully unregistered before
-    the hardware is put to sleep, closing a race window on removal
-    (review feedback)
-  - Drop qmc5883p_remove() and the .remove hook entirely, as the above
-    devm action subsumes it (review feedback)
-  - Remove the empty qmc5883p_runtime_idle() stub; passing NULL in
-    RUNTIME_PM_OPS already provides the correct default behaviour
-  - Add regulator support: use devm_regulator_get_enable_optional() for
-    the vdd-supply documented in the dt-binding, with a 50 ms post-enable
-    delay per datasheet section 5.3 (PSUP ramp + POR time) (review
-    feedback)
-  - Reinitialise the chip in qmc5883p_system_resume() via
-    qmc5883p_chip_init() followed by regcache_mark_dirty() +
-    regcache_sync(), so that the driver recovers correctly if the
-    regulator was physically cut during system suspend and POR reset all
-    registers (review feedback)
-
-v1: https://lore.kernel.org/all/20260409162308.2590385-1-hardik.phalet@pm.m=
-e/
-
-Hardik Phalet (4):
-  dt-bindings: vendor-prefixes: Add QST Corporation
-  dt-bindings: iio: magnetometer: Add binding for QST QMC5883P
-  staging: iio: magnetometer: Add QST QMC5883P driver
-  MAINTAINERS: Add entry for QST QMC5883P magnetometer driver
-
- .../iio/magnetometer/qst,qmc5883p.yaml        |  48 +
- .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
- MAINTAINERS                                   |   7 +
- drivers/staging/iio/Kconfig                   |   1 +
- drivers/staging/iio/Makefile                  |   1 +
- drivers/staging/iio/magnetometer/Kconfig      |  20 +
- drivers/staging/iio/magnetometer/Makefile     |   7 +
- drivers/staging/iio/magnetometer/TODO         |   5 +
- drivers/staging/iio/magnetometer/qmc5883p.c   | 830 ++++++++++++++++++
- 9 files changed, 921 insertions(+)
+Signed-off-by: Hardik Phalet <hardik.phalet@pm.me>
+---
+ .../iio/magnetometer/qst,qmc5883p.yaml        | 48 +++++++++++++++++++
+ 1 file changed, 48 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/iio/magnetometer/qst,=
 qmc5883p.yaml
- create mode 100644 drivers/staging/iio/magnetometer/Kconfig
- create mode 100644 drivers/staging/iio/magnetometer/Makefile
- create mode 100644 drivers/staging/iio/magnetometer/TODO
- create mode 100644 drivers/staging/iio/magnetometer/qmc5883p.c
 
+diff --git a/Documentation/devicetree/bindings/iio/magnetometer/qst,qmc5883=
+p.yaml b/Documentation/devicetree/bindings/iio/magnetometer/qst,qmc5883p.ya=
+ml
+new file mode 100644
+index 000000000000..84fec10d8b9a
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/magnetometer/qst,qmc5883p.yaml
+@@ -0,0 +1,48 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/magnetometer/qst,qmc5883p.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: QST QMC5883P 3-axis magnetometer
++
++maintainers:
++  - Hardik Phalet <hardik.phalet@pm.me>
++
++description:
++  The QMC5883P is a 3-axis anisotropic magneto-resistive (AMR) sensor with=
+ a
++  16-bit ADC. It communicates over I2C (standard and fast modes) and is
++  targeted at compass, navigation, and industrial applications.
++
++properties:
++  compatible:
++    const: qst,qmc5883p
++
++  reg:
++    maxItems: 1
++    description: I2C address of the device; the default address is 0x2c.
++
++  vdd-supply:
++    description:
++      VDD power supply (2.5 V to 3.6 V). Powers all internal analog and
++      digital functional blocks.
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells =3D <1>;
++        #size-cells =3D <0>;
++
++        magnetometer@2c {
++            compatible =3D "qst,qmc5883p";
++            reg =3D <0x2c>;
++            vdd-supply =3D <&vdd_3v3>;
++        };
++    };
++...
 --=20
 2.53.0
 
