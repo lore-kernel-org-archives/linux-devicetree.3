@@ -1,105 +1,115 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3BDA5397E89;
-	Fri, 10 Apr 2026 12:07:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from 8.mo583.mail-out.ovh.net (8.mo583.mail-out.ovh.net [178.32.116.78])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3EF022F74A
+	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 12:18:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.32.116.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775822866; cv=none; b=gs1ixcLy4KF3xsmsioUU1cmYyH1q6kLi2skIJp2FwzLgC7h376A/iUYJmWIp58Dp3yV3kw6oGqf02swuahAusUWC7a8fZOsXon5hxEvc6oyVrGqrSvgJ8zXAKpZaFsFPNj5N6Aq2PfCHOKvjk1nomVq5R55xe0DbydTqZz0vMJM=
+	t=1775823497; cv=none; b=FoLSsw4P33Dh2PCjabt+cQ9NdXsU0YMYsUAzKnvk581PSSvOZJtc69+46lg5LebvwiiYTaSUJoluELtg4t4tctQ0DLY7h0KcjwAl9u/8Rpr+ZnyawlHz4V4USI7aof8ArVsE5wROFWLKUT7ZeqzLOTLqNj8KfhvKJvDI63/g9jg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775822866; c=relaxed/simple;
-	bh=PBPEIkPfiCepOPjFH4e7wRaebjN5PVqKZxeWMBytThY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u1OQ7MOJUntYFUXNvzXgtwdMytGzsIrLcmXu+BFieMsZ1cwWvvb9zENgZsjktTG9adKKAq+uQEYJn48XFRbjEhMRVqz4aeZvpkX79syQOJ2IEnYwGAjjS+FIFaGcL65fsCrP1fZyQtH24xYCtOdfmRUxStBeia50ecpeMYOcglQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=MWxTRcCu; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1775823497; c=relaxed/simple;
+	bh=3CW4diUM/JB8LiWZnoXA4stnM/1uNg2TuLFEj95TcXU=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=XiQH/alM84nLH3DhXVUaKF/TiZnT/kqn6k0nVyfTY5W6SXWMNYvugS3y+apnuLYJRcCKXzslhks4KYBFdhdPXnL6SvlxywmUpTBJcCpEIaV241Q0quOn3VqxqltceNb9vrzlEbTMVQglTpCVWwqeF/v8rs9lK30qqsrWMWEkU0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=milecki.pl; spf=pass smtp.mailfrom=milecki.pl; dkim=pass (2048-bit key) header.d=milecki.pl header.i=@milecki.pl header.b=pElMn0Jl; arc=none smtp.client-ip=178.32.116.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=milecki.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=milecki.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="MWxTRcCu"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F253F1DB5;
-	Fri, 10 Apr 2026 05:07:36 -0700 (PDT)
-Received: from [10.1.196.85] (e121345-lin.cambridge.arm.com [10.1.196.85])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A43533F632;
-	Fri, 10 Apr 2026 05:07:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1775822862; bh=PBPEIkPfiCepOPjFH4e7wRaebjN5PVqKZxeWMBytThY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=MWxTRcCuppU6dzrIFN6G/jMv8zUovaPZLaizogO1XSuzRTKsKhTzqcPgkSkwCYi0e
-	 hardPVlJK7OcUHDj8mLXeulGlOgawyIE/hmNe1PSfLr4+umktS5kKT37WPjdRuo4RO
-	 SbO2iH1TVJcEMghygqBS0UZdTc+SAMciAFgNUy6E=
-Message-ID: <65629411-0e1c-4c9c-bc9f-6488097bd77f@arm.com>
-Date: Fri, 10 Apr 2026 13:07:29 +0100
+	dkim=pass (2048-bit key) header.d=milecki.pl header.i=@milecki.pl header.b="pElMn0Jl"
+Received: from director8.ghost.mail-out.ovh.net (unknown [10.110.37.191])
+	by mo583.mail-out.ovh.net (Postfix) with ESMTP id 4fsZvH1LP6z5xv9
+	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 11:53:31 +0000 (UTC)
+Received: from ghost-submission-7d8d68f679-thxv6 (unknown [10.110.101.93])
+	by director8.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 3F4F5C015D;
+	Fri, 10 Apr 2026 11:53:30 +0000 (UTC)
+Received: from milecki.pl ([37.59.142.108])
+	by ghost-submission-7d8d68f679-thxv6 with ESMTPSA
+	id Q1CoCbrk2GlosAsA37Gi0A
+	(envelope-from <rafal@milecki.pl>); Fri, 10 Apr 2026 11:53:30 +0000
+Authentication-Results:garm.ovh; auth=pass (GARM-108S0026f3801b7-5a6d-45c8-a682-cbea1b95ff79,
+                    CB257AE30968F6DC1ADB9B1DFC9DF9D0FAE0E632) smtp.auth=rafal@milecki.pl
+X-OVh-ClientIp:91.134.92.225
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] arm-smmu-v3: Add PMCG child support and update PMU
- MMIO mapping
-To: Peng Fan <peng.fan@oss.nxp.com>
-Cc: Will Deacon <will@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+Date: Fri, 10 Apr 2026 13:53:27 +0200
+From: =?UTF-8?Q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>
+To: =?UTF-8?Q?Corvin_K=C3=B6hne?= <corvin.koehne@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org, Pavel Machek
+ <pavel@kernel.org>, devicetree@vger.kernel.org, Lee Jones <lee@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
-References: <20260408-smmu-perf-v1-0-d75dac96e828@nxp.com>
- <2c1a1694-9597-400d-b441-714225b5377b@arm.com> <adZcaEKm3vIYSy3N@shlinux89>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <adZcaEKm3vIYSy3N@shlinux89>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Corvin_K=C3=B6hne?=
+ <c.koehne@beckhoff.com>, Ashley Towns <mail@ashleytowns.id.au>, Dan Murphy
+ <dmurphy@ti.com>, Gergo Koteles <soyer@irl.hu>, INAGAKI Hiroshi
+ <musashino.open@gmail.com>, Jacek Anaszewski <jacek.anaszewski@gmail.com>,
+ Olliver Schinagl <oliver@schinagl.nl>, Pavel Machek <pavel@ucw.cz>, Roderick
+ Colenbrander <roderick@gaikai.com>, Krzysztof Kozlowski
+ <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v2] dt-binding: leds: publish common bindings under dual
+ license
+In-Reply-To: <20260408062942.7128-1-corvin.koehne@gmail.com>
+References: <20260408062942.7128-1-corvin.koehne@gmail.com>
+Message-ID: <4fbad496f9f52e11f4ff3efe2a5ae4d0@milecki.pl>
+X-Sender: rafal@milecki.pl
+X-Webmail-UserID: rafal@milecki.pl
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+x-ovh-tracer-id: 16481767265536823906
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTEVdcfbvIOBJB2+bRFZN5uvglsDeTJ8QMQd6jIracklhyuhdcBcD8Ww3maFkZ8kXin/gDDz2L3u1T8MRzCXgDZz9SBrqf2axe7f3Va00KRBaXT9+sbp4qW3HcpxWQmyur05ln8PZ94dlYoKVza273GShBBSxFdgTntIEPD4yn4CBJSLMeWHD3I0Mz88aYvdWye5Tsl8VMrmv6aoKXWMYBPyEE4kKcTZR9K037BOc5yAoZEwhaSvlD71Bqzcb0exZDvDw34EHVv+u5aGyMOORbMK4NIRxUmDf0acHbqlRkUZNCm6NN3v0XK9owFAZhkWv0za+YkvRpfr0AdSSIv+SrfWnAXFg58l9lgsaV/sLV5XxtaTscASYYVjrBpa/KBLvGWHr/bBa3/DgFYJSDX+rT6/2syCpi2CZM/9VAMx02deA+Ow6Gv+BUhbklCXUPttGXiXfQZIHp2QAyylIhg87IIewZ5KEzgGxgSxEqn9L4BKBE/HcxnStN6izMfwn/DKSx1F4GXMkdtSGN5OdBCitPEIEGcvYr24B+5Ttiriv7sB1V6u6k8NVuAox/KK1bYtFEunBeHi0itmlweDJxL+TTNIn5DEZIejv7O+2KSgH5qglQMTmuods7f54B2XxEwdmiP9kE3vY27ns7RQt6SjTqbwmd9Y3RdS2APx7XayYff1oA
+DKIM-Signature: a=rsa-sha256; bh=m8v0/pj5YIHBXmpmtcD4RBpe85xEWaB0LLlNYUt+3rU=;
+ c=relaxed/relaxed; d=milecki.pl; h=From; s=ovhmo3028686-selector1;
+ t=1775822011; v=1;
+ b=pElMn0Jli13QIPOARmikAjJsixTLKCgaScBCOR9rtLEH3yGDOjs6CrodNZyQjZmveXH3mzl1
+ BNa/s1h2UvNggNzi5Iq3u3F8zDP06QJdyrcGbmucS1dZyk6iiYsgxrmh4eI0jXzX60lcHxQdOBw
+ gEG9aH5M29MMumfbHNXdJTY1/ZRGnlNFuCYvdNtH9Hcly+kmxqJSJO9/M1WgjOrw97++UChFC2k
+ r0CyPHv+0lMAmCLGF+wvvoOWyf47aAu5EkP5b7lO205bhrtfpdCrjLYHpucLAuEO028PTlmAUr1
+ 58W2QMHWKX1elB4Swz2E05FlljcqXJ88X4byyk5NkcqTA==
 
-On 08/04/2026 2:47 pm, Peng Fan wrote:
-> On Wed, Apr 08, 2026 at 12:15:31PM +0100, Robin Murphy wrote:
->> On 2026-04-08 8:51 am, Peng Fan (OSS) wrote:
->>> This patch series adds proper support for describing and probing the
->>> Arm SMMU v3 PMCG (Performance Monitor Control Group) as a child node of
->>> the SMMU in Devicetree, and updates the relevant drivers accordingly.
->>>
->>> The SMMU v3 architecture allows an optional PMCG block, typically
->>> associated with TCUs, to be implemented within the SMMU register
->>> address space. For example, mmu700 PMCG is at the offset 0x2000 of the
->>> TCU page 0.
->>
->> But what's wrong with the existing binding? Especially given that it even has
->> an upstream user already:
->>
->> https://git.kernel.org/torvalds/c/aef9703dcbf8
->>
->>> Patch 1 updates the SMMU v3 Devicetree binding to allow PMCG child nodes,
->>> referencing the existing arm,smmu-v3-pmcg binding.
->>>
->>> Patch 2 updates the arm-smmu-v3 driver to populate platform devices for
->>> child nodes described in DT once the SMMU probe succeeds.
->>>
->>> Patch 3 updates the SMMUv3 PMU driver to correctly handle MMIO mapping when
->>> PMCG is described as a child node. The PMCG registers occupy a sub-region
->>> of the parent SMMU MMIO window, which is already requested by the SMMU
->>
->> That has not been the case since 52f3fab0067d ("iommu/arm-smmu-v3: Don't
->> reserve implementation defined register space") nearly 6 years ago, where the
->> whole purpose was to support Arm's PMCG implementation properly. What kernel
->> is this based on?
+On 2026-04-08 08:29, Corvin Köhne wrote:
+> Changes leds/common.h DT binding header file to be published under 
+> GPLv2
+> or BSD-2-Clause license terms. This change allows this common LED
+> bindings header file to be used in software components as bootloaders
+> and OSes that are not published under GPLv2 terms.
 > 
-> Seems I am wrong. I thought PMCG is in page 0, so there were resource
-> conflicts. I just retest without this patchset, all goes well.
+> All contributors to leds/common.h file in copy.
+
+Acked-by: Rafał Miłecki <rafal@milecki.pl>
+
+
+> Cc: Ashley Towns <mail@ashleytowns.id.au>
+> Cc: Dan Murphy <dmurphy@ti.com>
+> Cc: Gergo Koteles <soyer@irl.hu>
+> Cc: INAGAKI Hiroshi <musashino.open@gmail.com>
+> Cc: Jacek Anaszewski <jacek.anaszewski@gmail.com>
+> Cc: Olliver Schinagl <oliver@schinagl.nl>
+> Cc: Pavel Machek <pavel@ucw.cz>
+> Cc: Rafał Miłecki <rafal@milecki.pl>
+> Cc: Roderick Colenbrander <roderick@gaikai.com>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Corvin Köhne <c.koehne@beckhoff.com>
+> ---
+>  include/dt-bindings/leds/common.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> But from dt perspective, should the TCU PMCG node be child node of
-> SMMU node?
+> diff --git a/include/dt-bindings/leds/common.h 
+> b/include/dt-bindings/leds/common.h
+> index 4f017bea0123..b7bafbaf7df3 100644
+> --- a/include/dt-bindings/leds/common.h
+> +++ b/include/dt-bindings/leds/common.h
+> @@ -1,4 +1,4 @@
+> -/* SPDX-License-Identifier: GPL-2.0 */
+> +/* SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause) */
+>  /*
+>   * This header provides macros for the common LEDs device tree 
+> bindings.
+>   *
 
-No. PMCGs can be used entirely independently of the SMMU itself, and 
-while most of the events do relate to SMMU translation and thus aren't 
-necessarily meaningful if it's not in use, there are still some which 
-can be useful for basic traffic counting, monitoring GPT/translation 
-activity from _other_ security states (if observation is delegated to 
-Non-Secure) and possibly other things, even if the "main" Non-Secure 
-SMMU interface isn't advertised at all. It would be unreasonable to 
-require the SMMU node to be present and enabled *and* have a driver to 
-populate PMCGs, to monitor events which are outside the scope of that 
-driver.
-
-Thanks,
-Robin.
+-- 
+Rafał Miłecki
