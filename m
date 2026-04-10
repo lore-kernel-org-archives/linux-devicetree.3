@@ -1,124 +1,212 @@
-Received: from ixit.cz (ixit.cz [185.100.197.86])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E491273D9F;
-	Fri, 10 Apr 2026 13:51:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6D953C7E0F
+	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 13:54:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775829087; cv=none; b=gu9552F9o/PItCnzEHO/paeG99R0wmfn3m+cuzpxDvk/yiHwuHbQyPahybW/E2IoctsR0d+cQ7E2BO7tjps6D+pqdpRrl4mmc3g4LbXfyd/2WaXwASsRmJItZd/PKiyTYNYMrCFBMU+k+LQfod4NGI+DIjB8eahLGuOPNro0Xqg=
+	t=1775829263; cv=none; b=QEf9QFPTo/PUMNZV6IS1ZJZPj8rYkix1DBfAeqkHEN72EBOo3cMV3zwDYInxzIzsiYdqo8/QY85dfC4YfMCirBjq6k4Sv4DXmSKRKn/PrJxXxJqP14wlhQUiYZa+qZVQgQAKdsNFfnh2W4UE1V7qukuhpJVfeLzztCTJh/tPXBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775829087; c=relaxed/simple;
-	bh=Lo7DRblMceQFaUvtUeWjsN2m6Fy7CmAz0GdK3+ig6D4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gD2WejMhew0eG6WY5jVVTJqJFVg6SYwJpbU2nFFKF8ctdHkbM0EFQexvccRWz3un8ojeVubymgCRd9/mc4ML0cS8/PMmBy1ulQIfqxIhOMOhjWkj1Qz981z1q6scHIkpm2R4UsO0qAw2ZyOBS1D9IQ9qen6stelUZsGAn3pMD84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=nh4vgcaH; arc=none smtp.client-ip=185.100.197.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1775829263; c=relaxed/simple;
+	bh=2R+lxkRSbhH2eU6DX8iluraKn53wKYzhEmboWq6QIBw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=fQ2igj2ROZSsa89v1TxK8JK+YpznSj2XTCdweXunr7gsrazFDT44UYp0qG1npbZFHMWkgmPwRZD9njjkRXRmm6fe4nOWipb0dTk+aRuLBCtRApvYIEQTmVdqdTHVvGrzs6LTgdXwOypPlH1hdozPidwBumyShUXLCWVGXiAwdaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=nmYzTRs/; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="nh4vgcaH"
-Received: from [192.168.1.154] (unknown [194.212.224.143])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id B8DFF53413F2;
-	Fri, 10 Apr 2026 15:51:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1775829075;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=cqWiyAKJPW/dzUmqzI++ATr4+Mg5zcTSyYZLAPVeEtY=;
-	b=nh4vgcaHjqvFAe0kXhBUk73MvZUDQMm6NaZhxZS+OjLohMLW8UqoKIIZCI8be7Kw219o34
-	IznT1fYnVs+o+hcVXOZPc5pxct1YHmzSw6YZziusr2KzT0MIGHyz0CvxKMdcmspKx5VQU1
-	QQRbH8WLJ607YjJsHDqZCqo+hkqe+CI=
-Message-ID: <c746d310-5925-4656-9487-3521cb87793a@ixit.cz>
-Date: Fri, 10 Apr 2026 15:51:12 +0200
+	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="nmYzTRs/"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-43d5e87a507so1591190f8f.3
+        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 06:54:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1775829259; x=1776434059; darn=vger.kernel.org;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=V4LNMj6lgIltlmZWf+E5PDMda2hOSl/xZGWYEn7LnYk=;
+        b=nmYzTRs/hdUNxnFXhgJlItZa2lK3e/SzNdJusp2xT3vjoEz7IqvuNd75LZI+lYyt8h
+         +0sl9Oto3nFqA8vWdu7AEoVdxoTTQvIA6iyT0CncIlsYGEJyZak0FrlTyHj59HuPlycD
+         lN6EyXjhiBJOPNuFgqiyusR1fdcnOvwjxGMGVKK0sTm/DYHCWvbgNMAR+hj/enAPMCmS
+         f6YMUSkP5VI5XjvkEtyLVBs3beqk4wxPlD6gWJ5KYkOt/X1+QJnTqDNV2IsDYnzFr+3e
+         aLWqcedB0Hh0LMQmMprDDyyv+2bu+w1yVLFNtfrajHMPRGucqaAML7GbMeK00ebkIvPA
+         0AyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775829259; x=1776434059;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=V4LNMj6lgIltlmZWf+E5PDMda2hOSl/xZGWYEn7LnYk=;
+        b=EglEtFwDgDLHZ9wseXG+GxJ5OxIsmOSi0XHZ/b9WIA/6AyRNsaKgmJFwoCeCrJ8gjn
+         q7wRfpB6wA49iBBBVnVik3Lq6GizxbQzMn0BtFZrtYKPVy2xobAHFAaUOoLI8jHeOXkQ
+         6nDH4mayyAu4J+taj4zZGbdClAmgkNcn6laxAiEs9ssoZXY1RE18VYb77fPLMO3jubGu
+         WO3oqxSL4gYgbhlrtZs1nQmJhdyKyBBXi7Rg9Ds8gKHIjUq1e3xfaWWktkl0jZ81d9KW
+         ojzanXeJed+LqYbkqDNGjTHwPmSmtJSyuAgJsrbQb/RO1znQN9PVuk1mU3rZbXJvApbj
+         ecRQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV9KtMCpg4z6vCdPqmlkyjesAz36E7J8pVZb0A7YY0p5hfViYazMiYpUFM7W8vkb/IzwFQxHQ0SZc2X@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx3aSPM1W8dKuFPt2i2eeUwVQX9ZBWaQAESGs0dChOwpUzMM3a1
+	9ml+EIvQFP7FshMuG/GUochUPWHHxpfCkU6ZgrRGCRp4NyjnF0R4GmGByhzkQrIOYQA=
+X-Gm-Gg: AeBDietOIsWT4XVdEJ66Rp0HmlJCLU6td4tWfXde6hcP8Zr5nzRJ8i551y7h0YJ5SFj
+	XGhN2zp7fH3HubvdU81GU6/0aLZHut+PX6XEwDWf0FRRPeOYx/v2qDOAdqXUZ2UOjTrgclZCOIO
+	8p4ASCHFMu0TvpBsDSrshZB4BCJXNMaPrrMowQM0DKgfQEJBIFMr4GAx1MxawjwfipgZLDbiYzL
+	EpDmh9nhkoabrcfDC8MXpApp2vGFdzcccTSoARDG3NVKzqStL49WTwJzsPLUwTa1nebnb4xxjSY
+	EZLNjBgPnNjqcodJlfkaM4Qaj5EDdWVdRSdslTkCHRbk+D4ggYpWkZT8i/VZhjRASNqRtNaih/c
+	aY0qSkyWI2xOrfsXE1WG1lJVtoIYf9rDItGHuAl3HkZx1+ccjGFjfShVsSpSLrYTe/bvwyZRXdn
+	ylpQvbMGLeXcKViA==
+X-Received: by 2002:a05:6000:1a8d:b0:43c:fde6:212d with SMTP id ffacd0b85a97d-43d642cd3ddmr4879713f8f.33.1775829259168;
+        Fri, 10 Apr 2026 06:54:19 -0700 (PDT)
+Received: from localhost ([195.52.170.1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43d63e5061fsm7375169f8f.30.2026.04.10.06.54.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 10 Apr 2026 06:54:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/5] arm64: dts: qcom: sdm845-xiaomi-beryllium-tianma:
- Disable MDSS
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Sam Day <me@samcday.com>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
- Petr Hodina <petr.hodina@protonmail.com>
-References: <20260317-beryllium-fb-v2-0-36b69dfb760c@ixit.cz>
- <20260317-beryllium-fb-v2-5-36b69dfb760c@ixit.cz>
- <73fyiqoxxg2gg5244wkukepdfw6lnguq63si22qsx2ueyna4hu@l4vyykvn43oo>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- xsFNBF5v1x4BEADS3EddwsNsvVAI1XF8uQKbdYPY/GhjaSLziwVnbwv5BGwqB1tfXoHnccoA
- 9kTgKAbiXG/CiZFhD6l4WCIskQDKzyQN3JhCUIxh16Xyw0lECI7iqoW9LmMoN1dNKcUmCO9g
- lZxQaOl+1bY/7ttd7DapLh9rmBXJ2lKiMEaIpUwb/Nw0d7Enp4Jy2TpkhPywIpUn8CoJCv3/
- 61qbvI9y5utB/UhfMAUXsaAgwEJyGPAqHlC0YZjaTwOu+YQUE3AFzhCbksq95CwDz4U4gdls
- dmv9tkATfu2OmzERZQ6vJTehK0Pu4l5KmCAzYg42I9Dy4E6b17x6NncKbcByQFOXMtG0qVUk
- F1yeeOQUHwu+8t3ZDMBUhCkRL/juuoqLmyDWKMc0hKNNeZ9BNXgB8fXkRLWEUfgDXsFyEkKp
- NxUy5bDRlivf6XfExnikk5kj9l2gGlNQwqROti/46bfbmlmc/a2GM4k8ZyalHNEAdwtXYSpP
- 8JJmlbQ7hNTLkc3HQLRsIocN5th/ur7pPMz1Beyp0gbE9GcOceqmdZQB80vJ01XDyCAihf6l
- AMnzwpXZsjqIqH9r7T7tM6tVEVbPSwPt4eZYXSoJijEBC/43TBbmxDX+5+3txRaSCRQrG9dY
- k3mMGM3xJLCps2KnaqMcgUnvb1KdTgEFUZQaItw7HyRd6RppewARAQABzSBEYXZpZCBIZWlk
- ZWxiZXJnIDxkYXZpZEBpeGl0LmN6PsLBlAQTAQgAPgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
- AQIXgBYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJl+KksBQkPDaAOAAoJEGACP8TTSSBy6IAQ
- AMqFqVi9LLxCEcUWBn82ssQGiVSDniKpFE/tp7lMXflwhjD5xoftoWOmMYkiWE86t5x5Fsp7
- afALx7SEDz599F1K1bLnaga+budu55JEAYGudD2WwpLJ0kPzRhqBwGFIx8k6F+goZJzxPDsf
- loAtXQE62UvEKa4KRRcZmF0GGoRsgA7vE7OnV8LMeocdD3eb2CuXLzauHAfdvqF50IfPH/sE
- jbzROiAZU+WgrwU946aOzrN8jVU+Cy8XAccGAZxsmPBfhTY5f2VN1IqvfaRdkKKlmWVJWGw+
- ycFpAEJKFRdfcc5PSjUJcALn5C+hxzL2hBpIZJdfdfStn+DWHXNgBeRDiZj1x6vvyaC43RAb
- VXvRzOQfG4EaMVMIOvBjBA/FtIpb1gtXA42ewhvPnd5RVCqD9YYUxsVpJ9d+XsAy7uib3BsV
- W2idAEsPtoqhVhq8bCUs/G4sC2DdyGZK8MRFDJqciJSUbqA+5z1ZCuE8UOPDpZKiW6H/OuOM
- zDcjh0lOzr4p+/1TSg1PbUh7fQ+nbMuiT044sC1lLtJK0+Zyn0GwhR82oNM4fldNsaHRW42w
- QGD35+eNo5Pvb3We5XRMlBdhFnj7Siggp4J8/PJ6MJvRyC+RIJPGtbdMB2/RxWunFLn87e5w
- UgwR9jPMHAstuTR1yR23c4SIYoQ2fzkrRzuazsFNBF5v1x4BEADnlrbta2WL87BlEOotZUh0
- zXANMrNV15WxexsirLetfqbs0AGCaTRNj+uWlTUDJRXOVIwzmF76Us3I2796+Od2ocNpLheZ
- 7EIkq8budtLVd1c06qJ+GMraz51zfgSIazVInNMPk9T6fz0lembji5yEcNPNNBA4sHiFmXfo
- IhepHFOBApjS0CiOPqowYxSTPe/DLcJ/LDwWpTi37doKPhBwlHev1BwVCbrLEIFjY0MLM0aT
- jiBBlyLJaTqvE48gblonu2SGaNmGtkC3VoQUQFcVYDXtlL9CVbNo7BAt5gwPcNqEqkUL60Jh
- FtvVSKyQh6gn7HHsyMtgltjZ3NKjv8S3yQd7zxvCn79tCKwoeNevsvoMq/bzlKxc9QiKaRPO
- aDj3FtW7R/3XoKJBY8Hckyug6uc2qYWRpnuXc0as6S0wfek6gauExUttBKrtSbPPHiuTeNHt
- NsT4+dyvaJtQKPBTbPHkXpTO8e1+YAg7kPj3aKFToE/dakIh8iqUHLNxywDAamRVn8Ha67WO
- AEAA3iklJ49QQk2ZyS1RJ2Ul28ePFDZ3QSr9LoJiOBZv9XkbhXS164iRB7rBZk6ZRVgCz3V6
- hhhjkipYvpJ/fpjXNsVL8jvel1mYNf0a46T4QQDQx4KQj0zXJbC2fFikAtu1AULktF4iEXEI
- rSjFoqhd4euZ+QARAQABwsF8BBgBCAAmAhsMFiEE13oJz+7cK71TpwR0YAI/xNNJIHIFAmX4
- qVAFCQ8NoDIACgkQYAI/xNNJIHKN4A/+Ine2Ii7JiuGITjJkcV6pgKlfwYdEs4eFD1pTRb/K
- 5dprUz3QSLP41u9OJQ23HnESMvn31UENk9ffebNoW7WxZ/8cTQY0JY/cgTTrlNXtyAlGbR3/
- 3Q/VBJptf04Er7I6TaKAmqWzdVeKTw33LljpkHp02vrbOdylb4JQG/SginLV9purGAFptYRO
- 8JNa2J4FAQtQTrfOUjulOWMxy7XRkqK3QqLcPW79/CFn7q1yxamPkpoXUJq9/fVjlhk7P+da
- NYQpe4WQQnktBY29SkFnvfIAwqIVU8ix5Oz8rghuCcAdR7lEJ7hCX9bR0EE05FOXdZy5FWL9
- GHvFa/Opkq3DPmFl/0nt4HJqq1Nwrr+WR6d0414oo1n2hPEllge/6iD3ZYwptTvOFKEw/v0A
- yqOoYSiKX9F7Ko7QO+VnYeVDsDDevKic2T/4GDpcSVd9ipiKxCQvUAzKUH7RUpqDTa+rYurm
- zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
- fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
- ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
-In-Reply-To: <73fyiqoxxg2gg5244wkukepdfw6lnguq63si22qsx2ueyna4hu@l4vyykvn43oo>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=6be3ff7f8d2777e4e57718e09ed562d196b76b38ee2a26325068e941d4a3;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Fri, 10 Apr 2026 15:54:13 +0200
+Message-Id: <DHPIXKPIY6JT.2DWJ2PKTQAOLX@baylibre.com>
+To: "Vignesh Raghavendra" <vigneshr@ti.com>, "Rob Herring"
+ <robh@kernel.org>, "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
+Cc: "Bjorn Andersson" <andersson@kernel.org>, "Mathieu Poirier"
+ <mathieu.poirier@linaro.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Suman Anna" <s-anna@ti.com>,
+ "Nishanth Menon" <nm@ti.com>, "Tero Kristo" <kristo@kernel.org>, "Vishal
+ Mahaveer" <vishalm@ti.com>, "Kevin Hilman" <khilman@baylibre.com>, "Dhruva
+ Gole" <d-gole@ti.com>, "Sebin Francis" <sebin.francis@ti.com>, "Kendall
+ Willis" <k-willis@ti.com>, "Akashdeep Kaur" <a-kaur@ti.com>,
+ <linux-remoteproc@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [PATCH v3 0/7] arm64: dts: ti: k3-am62a7-sk: Split r5f memory
+ region
+From: "Markus Schneider-Pargmann" <msp@baylibre.com>
+X-Mailer: aerc 0.21.0-126-g9e77103592fe
+References: <20260318-topic-am62a-ioddr-dt-v6-19-v3-0-c41473cb23c3@baylibre.com> <CAL_JsqJq=3z7SQX_26MGGRcmysnGHVke8aTwyDCesvOuQjEN+g@mail.gmail.com> <6a4aecff-f662-4620-8572-3309ea6a81e2@ti.com>
+In-Reply-To: <6a4aecff-f662-4620-8572-3309ea6a81e2@ti.com>
 
-On 18/03/2026 15:47, Dmitry Baryshkov wrote:
-> On Tue, Mar 17, 2026 at 11:12:35PM +0100, David Heidelberg via B4 Relay wrote:
->> From: Petr Hodina <petr.hodina@protonmail.com>
+--6be3ff7f8d2777e4e57718e09ed562d196b76b38ee2a26325068e941d4a3
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+
+Hi Vignesh,
+
+On Thu Apr 9, 2026 at 11:46 AM CEST, Vignesh Raghavendra wrote:
+> Hi Markus
+>
+> On 08/04/26 20:33, Rob Herring wrote:
+>> On Wed, Mar 18, 2026 at 10:14=E2=80=AFAM Markus Schneider-Pargmann (TI)
+>> <msp@baylibre.com> wrote:
+>>>
+>>> Hi,
+>>>
+>>> Split the firmware memory region in more specific parts so it is better
+>>> described where which information is stored. Specifically the LPM metad=
+ata
+>>> region is important as bootloader software like U-Boot has to know wher=
+e
+>>> that data is to be able to read that data and resume from RAM.
+>>>
+>>> IO+DDR is a deep sleep state in which a few pins are set to be sensitiv=
+e
+>>> for wakeup while the DDR is kept in self refresh. Everything else is
+>>> powered off.
+>>>
+>>> The changes in this series were suggested as part of the IO+DDR u-boot =
+series:
+>>>   https://lore.kernel.org/r/814c211f-a9eb-4311-bb84-165b1a69755f@ti.com
+>>>
+>>> There are currently no real users of the memory-region that is split in
+>>> this series. The size of the memory-region in total stays the same.
+>>> The new layout is derived from the software running on the r5f
+>>> processor:
+>>>   https://github.com/TexasInstruments/mcupsdk-core-k3/blob/k3_main/exam=
+ples/drivers/ipc/ipc_rpmsg_echo_linux/am62ax-sk/r5fss0-0_freertos/ti-arm-cl=
+ang/linker.cmd#L172
+>>>   https://github.com/TexasInstruments/mcupsdk-core-k3/blob/k3_main/sour=
+ce/drivers/device_manager/sciclient.h#L459
+>>>
+>>> Additionally the two important devicetree nodes for resuming from IO+DD=
+R
+>>> have the bootph-pre-ram flag added as this data needs to be read before
+>>> the RAM is in use.
+>>>
+>>> Best
+>>> Markus
+>>>
+>>> Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+>>> ---
+>>> Changes in v3:
+>>> - Squash the enforcement of the memory-region-names requirement in the
+>>>   patch adding the memory-region-names, as suggested.
+>>> - Link to v2: https://lore.kernel.org/r/20260312-topic-am62a-ioddr-dt-v=
+6-19-v2-0-37cb7ceec658@baylibre.com
+>>>
+>>> Changes in v2:
+>>> - Make memory-region-names required if memory-region is present
+>>> - Fixup memory-region and memory-region-names conditions. Require eithe=
+r
+>>>   2 or 6 regions for memory-region and memory-region-names
+>>> - Reword and restructure the binding documentation for memory-region an=
+d
+>>>   memory-region-names
+>>> - Add memory-region-names to all uses of memory-region
+>>> - Link to v1: https://lore.kernel.org/r/20260303-topic-am62a-ioddr-dt-v=
+6-19-v1-0-12fe72bb40d2@baylibre.com
+>>>
+>>> ---
+>>> Markus Schneider-Pargmann (TI) (7):
+>>>       dt-bindings: remoteproc: k3-r5f: Split up memory regions
+>>>       dt-bindings: remoteproc: k3-r5f: Add memory-region-names
+>>>       arm64: dts: ti: k3: Use memory-region-names for r5f
+>>>       arm64: dts: ti: k3-am62a7-sk: Split r5f memory region
+>>>       arm64: dts: ti: k3-am62p5-sk: Split r5f memory region
+>>>       arm64: dts: ti: k3-am62a7-sk: Add r5f nodes to pre-ram bootphase
+>>>       arm64: dts: ti: k3-am62p5-sk: Add r5f nodes to pre-ram bootphase
+>>=20
+>> TI folks, Please make sure these dts patches are picked up for 7.1.
+>> There's now a crap load of warnings in next with the binding change:
+>>=20
+>>      58 (ti,am62-r5fss): r5f@78000000: 'memory-region-names' is a
+>> required property
+>
+> [...]
+>
+>> If they aren't applied, making  'memory-region-names' required needs
+>> to be dropped from the binding.
 >>
->> Currently the panel driver for tianma is broken.
->> Disable MDSS to prevent DRM taking over the framebuffer.
-> 
-> I'd still hope that somebody can get it to work. I'd start by using
-> prepare_prev_first. Sumit reported the panel as working in 2020 and I
-> have no doubts that it was the case. Another option migt be something
-> related to the dispcc (see my [1]).
+>
+> This breaks DT backward compatibility. Why is memory-region-names now a
+> required item and cannot be assumed as "dma" and "firmware" as default?
+> Is that intentional (should have at least had a Fixes tag then if the
+> original definition was wrong)?
 
-Sadly, the prepare_prev_first didn't solve the issue. The framebuffer -> MDSS 
-takover happens, but at greetd (login) loading screen goes black and never restores.
+Conor suggested to make the memory-region-names required for easier
+distinction of the layouts:
+  https://lore.kernel.org/all/20260303-payphone-pancake-b6068c545bc3@spud/
 
-Will need more work.
+And a follow-up discussion here:
+  https://lore.kernel.org/all/20260313-kettle-craftily-aa087e6b74db@spud/
 
-David>
-> [1] https://lore.kernel.org/linux-arm-msm/20260217-sdm845-hdk-v1-1-866f1965fef7@oss.qualcomm.com/
+Also I don't think it really breaks backward compatibility. I don't
+think there is any user for it and the previous binding documentation
+only refers to it as reserved regions.
+
+Best
+Markus
+
+
+--6be3ff7f8d2777e4e57718e09ed562d196b76b38ee2a26325068e941d4a3
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iKMEABYKAEsWIQSJYVVm/x+5xmOiprOFwVZpkBVKUwUCadkBBRsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIRHG1zcEBiYXlsaWJyZS5jb20ACgkQhcFWaZAVSlNI
++gD/bX5c82CD398I8HEnZJc39F6jPtpkaVpl2P0YheGnP04A/A+ZeGo88XB9ZT1V
+/HaA36gs9iIvFQU73v8Wnpl46jAE
+=78z7
+-----END PGP SIGNATURE-----
+
+--6be3ff7f8d2777e4e57718e09ed562d196b76b38ee2a26325068e941d4a3--
