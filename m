@@ -1,127 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCECB3C73C8;
-	Fri, 10 Apr 2026 13:43:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14D0F3CA4B9
+	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 13:45:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775828605; cv=none; b=R86LaWG+8kj5JQH6bL7We17aHOskTjmy0a5AejLE8JwNwPeoUmOYgEkxdIrTm08VFfWDp8JlBfEbunT9NzO22L7p5taf0TsmYCKmdTE+97fwsP42Nj9/iWapi3Vsoep58Q7pguNH8pl5u4xE3fMKy/gTb6qsR8HQ91QYJ7FWAXs=
+	t=1775828760; cv=none; b=HkQFgOPGFGkibvX7W1+IcYzqz+aIRTt7wiahwq3MA8MDvPov2yW1eJENtjSgUmIexiNmEPtYzszHbAQtoUavEe+nq8L+Ck6W1xZVaUTxNQWg6ohxHsQ6nHirlT+e9uZz/LgDPtChikrCzLxHTFZIr2961TJyGwC/EG1aVNslWPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775828605; c=relaxed/simple;
-	bh=eO70mw2m3Rgb2pLdJEFXF/GNu4emkMHOfvWvBTWaHh8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jdYGzVDgeOJIIV9lrIqL1cqgeRlUArMHAJd8WT4NRHDJ+ZKnoCiok7gTc2Kx6ircNcEo8Yaci2NILgYMp3/hA6l1mPhraq1mnGKI3WTYkuQlxQry495z1Iv7UsOOBCd0RvV++xQy7yrMxah3rK39eit4llj57TAeDZyRkGUmAcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=p2Vb4A/R; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775828760; c=relaxed/simple;
+	bh=l+eF9kpnYx5ME7U4rQDwsCwGUPZwnma2H/VACo1S0UY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fAh3AkJtYJgg/EEA8B/KRANjZQD2/kSTHKLmx8KA2FVSoo+Dv1EUlCtqoyZxMgefds7gRD5nAek2wzpfS3TpoCU+87d/IB+NFgtGCjOAg9Siv3N7ZKK2Um6+NIktOhm7sG19YK9MliMQcrEyy+/d493DXfQEH5TR55DFKwT8ErI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IZGsRN0Q; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="p2Vb4A/R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A18AC19425;
-	Fri, 10 Apr 2026 13:43:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IZGsRN0Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3071C2BCB2
+	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 13:45:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775828605;
-	bh=eO70mw2m3Rgb2pLdJEFXF/GNu4emkMHOfvWvBTWaHh8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=p2Vb4A/R3JkUfa/TseC9NKVRJVWuq79xeWUYvnc372Xm9Ysc5QQH8IPXLwcS/MKGm
-	 JiOX9k7sBYfqilEOBUKxT8kOfE4qVlWWxdnbgJn02JT7lEdX3auTPbjDu7xzZE8ROX
-	 dtPOKG0mlgPH7OmbJoMHrTkRYUZ2CmYszVdCVyKTNhJH0t6n8+m9LRxG9Qgr/xKtO9
-	 wc0WYJBQqI5hMztHq0AGLRKVmb01QShKRvsxPxw0QUSWuGwpwvTJVnexSgybciLk9T
-	 MZ6WYKvrFhHW/FEL8oM9mwsT71aedNzKAIinhoWvs45D/jMYUS4SZMR4GXsbgzySt8
-	 ZJIYNZSWKxaIQ==
-Message-ID: <2e047313-38b1-4758-a484-5c79f628f7e9@kernel.org>
-Date: Fri, 10 Apr 2026 15:43:20 +0200
+	s=k20201202; t=1775828759;
+	bh=l+eF9kpnYx5ME7U4rQDwsCwGUPZwnma2H/VACo1S0UY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=IZGsRN0QQlg7FSFEMGX7fGbsxfyp0sn/l6uIBLXEwuXO181pi+5eM/5dEZCUPsxjk
+	 eOxejHN5ZfbsNUW84QTdzQtOfE8a2+qyaYfPz5yzCjIDeOtSPaTph+L/snFW2hDIRT
+	 y0RB/oX7lVtwqTKIDA5EW+jBrovZBf47sDLIaEw/574nDbFAi9eoEzdOGUj9bAkNNP
+	 XOsIKu4OGcuNBiF/yAuDu8fOgvdhz1TkYKLuy5EdkHG97/7S40ucQtrsJqra40FUde
+	 +E0Oec2x4u+/EtprqXCV1hfPhmWF2ScqH4cSxM6M7E8YDnYpB0gHWcGcCP684MmdO/
+	 r1nTOSSe5GP7A==
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-66e6d960ff5so3014306a12.3
+        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 06:45:59 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCUJgseT/vRONMkGlfc+rKIO3Iw+b91+kZXq0dggx+auOl923UA1aiBGh2BP1HBIo0y9UfIYrjgnxBVW@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy+ZIb4EyS5n+mI+8x7+5HTD/LwnbCI5KQfMLXb1DkKv//LRAL1
+	PT/Q6cTsUiCCDfHS8jg7YG4WbrSANtB2o8xEIRYc5Av5Gm521Z5RkCJMXJCaVFH0rWD42iX6t8M
+	jKu5iIY6UrFRz1d1cQN++xmvDk1sIhA==
+X-Received: by 2002:a05:6402:4012:b0:670:b649:d32d with SMTP id
+ 4fb4d7f45d1cf-670b649d5afmr574547a12.1.1775828758178; Fri, 10 Apr 2026
+ 06:45:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] arm64: dts: qcom: purwa-iot-evk: Add camss node
-To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Robert Foss
- <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260410-purwa_camss-v1-0-eedcf6d9d8ee@oss.qualcomm.com>
- <20260410-purwa_camss-v1-4-eedcf6d9d8ee@oss.qualcomm.com>
- <765e4740-cf13-4d4e-ab69-c1abe1c39d34@linaro.org>
- <c9cea1d2-a51f-4c38-8ae9-db868b86a928@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <c9cea1d2-a51f-4c38-8ae9-db868b86a928@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260409-topic-sram_dtbindings_misc-v2-1-59dc6b0dec45@oss.qualcomm.com>
+In-Reply-To: <20260409-topic-sram_dtbindings_misc-v2-1-59dc6b0dec45@oss.qualcomm.com>
+From: Rob Herring <robh@kernel.org>
+Date: Fri, 10 Apr 2026 08:45:46 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqJfV_ofnZB8_7YOwBDSsL0tzw9t9VYUu008BWy3mGL=fQ@mail.gmail.com>
+X-Gm-Features: AQROBzCX02ZpogFeR-J4ENYSgrE8ylkkq8zmv63rkon-YRHMSS2I8cuTJbVNbbA
+Message-ID: <CAL_JsqJfV_ofnZB8_7YOwBDSsL0tzw9t9VYUu008BWy3mGL=fQ@mail.gmail.com>
+Subject: Re: [PATCH v2] dt-bindings: sram: Allow multiple-word prefixes to
+ sram subnode
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/04/2026 10:38, Wenmeng Liu wrote:
->>> +&camss {
->>> +    status = "okay";
->>> +};
->>
->> Hmm.
->>
->> I don't agree with this. Enabling the CAMSS node with just the TPG is of 
->> very low value to an end-user and doesn't "prove out" the CSIPHY, TPG 
->> and RDI path - which is the minimum entry point in upstream right now.
->>
->> I don't support less than a sensor at minimum.
->>
->> You guys must have a sensor you've used with this board ?
->>
-> 
-> Yes we have, but both not upstreamed sensor, we currently have no plans 
-> for sensor upstream, perhaps this work will be carried out later.
-> 
+On Thu, Apr 9, 2026 at 5:04=E2=80=AFAM Konrad Dybcio <konradybcio@kernel.or=
+g> wrote:
+>
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>
+> Currently, foo-sram is allowed, but foo-bar-sram is not.
+>
+> Allow it so that more complex names aren't unnecessarily simplified.
+>
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+> Changes in v2:
+> - Update the regex to disallow names starting with just a hyphen
+> - Rewrite (foo|)+ into (foo)*
+> - Link to v1: https://lore.kernel.org/r/20260408-topic-sram_dtbindings_mi=
+sc-v1-1-00556167e136@oss.qualcomm.com
+> ---
+>  Documentation/devicetree/bindings/sram/sram.yaml | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Then, as Bryan said, this patch should not be sent. It brings no value
-to the user of this DTS, because users-with-out-of-tree-patches can have
-this as well out of tree.
+Applied, thanks.
 
-Best regards,
-Krzysztof
+Rob
