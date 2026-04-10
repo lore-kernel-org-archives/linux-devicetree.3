@@ -1,156 +1,158 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7FA53C5552
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 13:42:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775828580; cv=none; b=LzXH0qyPbmxBbX/ropS06CQWTfn9a2CTRF970flC76Uc8yEHubWBi1suhvFo8ZtESKDWlashARTQfdihbbnX3DZVBhggr3jBuvUsfbnDkMtnCO24fWgoz7tDGZSGEKD8zuMgufamzFoCxON84ZMyDQKnkOeUIaho+6e4r3l84UQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775828580; c=relaxed/simple;
-	bh=GgmsqU/3VJqXdv/a2nne/1eSvDgmwL+akJ6QRheZVMk=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=tNAgtQol+/HDAj3lywn9RwHBcX8PYbGNrxlM97jHjKtccXj67ebDsQNizLumXIAHoguKhsVrxsDr8elJjvFdkXNIyQDu42kD2UtfbvbAUeHSsBhkRVd4gcUKLsoFFw4wlPnp/wVw6SOJfujm20no8k/jtDUOEFDKHOYBNjFG+So=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=HGCSpMH3; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3AFC3C5552
+	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 13:43:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775828600; cv=pass; b=QLYuumMdjo6PVNjvbAXUqkx6cEgayIQLM70+7VjBJhaa7VvVlkzlHThsiem5j+0q8a6rr5u7LY2MXU07EAc9jedhx0fPAkayR1WWT11Z2dL+BzLFjIoKKSkSUM5FMBDSjKnE9dyeCm0XaX/XYhkykxJ8lMmkF1UoC3iXVQuaDYs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775828600; c=relaxed/simple;
+	bh=YgrJwTSrZYeSjVMNLPrgCbByTvZIfgpY1ecwu0mAL8A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=i5FtsIExjwWabTEF3TjvVLyN6dXea7by0/rGL0YIcP3dPfIoitTJfhur1rfEhucMeMmNp5pkzJWYbe2ngRY6aZJw8LGpdXur22YHkC/oQcm53PNBupTXMP/uXYvtNXuMLhi7v6Q3NXiiY/MFyIFn/qpGpcE9ae1Fo2x/SqrH69I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=QWMmwwrg; arc=pass smtp.client-ip=209.85.167.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="HGCSpMH3"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4888375f735so20222035e9.3
-        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 06:42:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="QWMmwwrg"
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5a3cee3a271so2011626e87.3
+        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 06:43:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775828597; cv=none;
+        d=google.com; s=arc-20240605;
+        b=ewYZS53io5BXz2zVJBzqnxFOJKg/IPzqyevKs8Xu1mWtI6sYX2dGyfWj5l6ohEu/ZK
+         T28Cl+hMMw5w4XlWJbRnzZgDwhPJDVTUM69eJZgjuP94qHC6LSIK+lz06JTtN5H8EVbq
+         Js+4g3xPNppCfGKIrzYPhzL4GRLHVuM06cXFHAAbruPA0apiKSVoBEqB2OYUY78sHMfG
+         3MB9nuouhGAa1LbmmGyZHtxtA/OLbvDgFnO6/cFxKsSYO1ljyLoIZpKcjsicTaJ9Z0kN
+         b3XhRoiZtU+o5WEfceOWgt1YZcCV9j3Wzt7V5wW2sU9dQZ44FunoVme/2PGnhYY5jjxO
+         /4Wg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=HPAqnqKcw9kNQQIwYNpoVOuQXD5LrODSPZaoiKKIlQY=;
+        fh=p7vFu1TVPG0KqICaHNrq0WfwDLuapQKBgUCDMgie0lA=;
+        b=f/0c8q8cuniZn1Ho6x25peGgD6TlNpuTpuqKwxpWvnaXzJ4kYweB06DHyt34Zd0HNF
+         LQ80N+thGPabmyPX4IZRCEAbxZmRdyoB9oy4BOgYJHGClGYC2SoBwaP6IEsv/lPmEJ82
+         EvGjd6UQuvLqs4zDu1Dija9+F7avhIVXqnM7SjaiJDvryUm2ZBz/1s52KgceT8QPoat5
+         B6JZORLTGQPTTGmi2UrNEmGDGKMZHDCIa8dYS4AhSkl6E1cS2/fUEin02xtKw9ONtwye
+         8CmKJjXFHR7gzYIE0eEwQct3wBJJCoE1qdxaxMd+DDr2vpTsVfpLVQuoJ9pMJ/kvRDw8
+         pyig==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1775828575; x=1776433375; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
+        d=linaro.org; s=google; t=1775828597; x=1776433397; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=LqP6MZ/X3JZngH/ljagVF5jBd2WE3YkVVyVY71Hxwg8=;
-        b=HGCSpMH3wrSDVEwKaEsa8/eUDvEoc3mDfwxF/IkpdXL9HNP1RPvOPhKS4GeMollxgf
-         baqwLWjyRNAoGkE/BgnTwlDztFLs8xWdWya/fvMCPlKkhU+3ul2cH5vljbG8gqGV2Aci
-         NiBdBkpNqWrHsO5+9QRU1/wSto5Tqs6bviIR72rHA+wHuo0z89CgSlTK67evxPDZsCjS
-         Zuvnv5Kjz4TLDClaO5L5OvjPuuA7AtOzmZ/E9OiBAetws4EzpjLJpO3iKxwIB2nW9ugf
-         hBcayjMf1D7Z8Q/AhWz2+y6Hu91+KoAI0bjEB+8n9bfHpRYRQ9THKCYIlt3zS5JgnlER
-         YKvQ==
+        bh=HPAqnqKcw9kNQQIwYNpoVOuQXD5LrODSPZaoiKKIlQY=;
+        b=QWMmwwrgIdpLyOpbBKSD4kOefcSEohl0EWuNwH7j1JtVkHbAV5Q5b4ZOH+XPZHaClh
+         /eErV4oHQiRLRwFzd3OK26u3qmQbqRB+OUS+NVVOtCmIYLrg0N8SJ2ZqsL2+gWt8gD+w
+         03GocGi7QSrhsWwpzN+Zm9LQT5+sPAZ3aUeFNQ94pk/h0VEv3vEepJd9CshxqysoWLMn
+         GL2BKGlPpj2IupFySWbtMFa4j+aPpWzKgThxadVBLOlr6NBvlh5n1wYnsjLVBdlcwsnl
+         2WoiOCdGysC0T8Gt11A0i4WbZdgu1pCl6/Hmr6gua+oQucMTPe14w7AfRuw4MfvoDMvU
+         tnPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775828575; x=1776433375;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
+        d=1e100.net; s=20251104; t=1775828597; x=1776433397;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LqP6MZ/X3JZngH/ljagVF5jBd2WE3YkVVyVY71Hxwg8=;
-        b=l/vT7qiyImWBQxR3LHIvI+etCwYJmOxy2XPEiN6fhsD/zDP1oeMnxMNMGb0J5+rMeh
-         nTHKclQSbiBAquuk3PI4N+m1UMvN6PUcISG0uwh9U3PDq22VjqZ979Fn2jIe8fVyx/UG
-         tCb+JXR/wXwpFSHLryAQPkoZr6EfMr9aoVjuMJekT5TvMYjMsg63jsNnmI7fVkyXNyJB
-         rYALi4zBlSY8YWDHsCN9cg8VDmGMS75QoloHQbRPTtb3p1WJ7XvRbUbY/B2PU+YTv02S
-         IrOTqQLlbRXbnQKy0LDH5ftwS5LlxCzDouD+hkwZGM3ly2I8tsrxV1zV2ZQbQDYYzi+U
-         99TQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWERSJe7RDLFmU3aGIgMHS7eDmst7Y4HwADTH+HMNhNHNY+SU5mMfnYWJ0hDPQ3MAPZZNeXFokLZlPM@vger.kernel.org
-X-Gm-Message-State: AOJu0YztXxQI4booCTyRPuIP5ohQjt7Qf/cRCO+3F7IpxBgzurOqr0qT
-	L2vxl2wFNYZIfBakpnpU/6LdX+ESufDwrpxRbpmu3tJ6ZBmjy6beSjoR780r//+CkA4=
-X-Gm-Gg: AeBDieuOugxi6LdZF1y8CSovgemsgJANJY+ML2PQN4zvjXTI1XHaFqvwt+a/C/YY1+1
-	ecdGqljQC/3xahTqkwyHWHCR3IgBXRAQ/qGWL96KLM2TPwd7pK6P1P43Edj8K5VdbEMRlVrd6eT
-	Kd5GkOGwYTH3X6aUXVNh0lup1m2hxxfnLVLUEOidqKDISsD98MEJzC4a5RcUfYWe00m/md09j0f
-	rNn4nQsDBqt7mJGY5lZO5+atbq40iMPgOZiNXSOV7Bg1VUxs5HYFUhb4Vui9dNkrZe30PAkRfUJ
-	mZKqWHz5US3p/9haNvfjNbYSwfXnl5d2xDpSQfq/akaTngwtC+vy176Cv2aMbghl97Nj8ofcxgS
-	sgvPNhH+bII5NttwSFoB6FjdzTrq+A3Lt9o9636U63Prsd5OTinm4EchId+obQmXZ/JjXdTYcue
-	gR3/IeKcx5Sy62AA==
-X-Received: by 2002:a05:600d:8449:b0:488:b683:a421 with SMTP id 5b1f17b1804b1-488d683d51bmr33002115e9.19.1775828575183;
-        Fri, 10 Apr 2026 06:42:55 -0700 (PDT)
-Received: from localhost ([195.52.170.1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488d5b3cbb2sm76078325e9.13.2026.04.10.06.42.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Apr 2026 06:42:54 -0700 (PDT)
+        bh=HPAqnqKcw9kNQQIwYNpoVOuQXD5LrODSPZaoiKKIlQY=;
+        b=oasRPkEpG9mNFUITjlcEYJin0NrtSNgg2JMYROMmTiNw45f3YK6kAMvh3oylgnB6Zm
+         RnF91ykEZwyfme0JZ9Pf8zS0Yez5R4HZyAztZ1qeJAKsZVZRe27573J9IdqCOcxy0tBm
+         thLEoZNM+aDEyx62whVXq5jvWtq/nLbknxLRmU/lQ7Q3WOW/QiZbu7HbsNIZrSmZeaNU
+         tl5HT1cQjMVbbmHRjEH/KEECm33Wll0FwEkQNaNLMAxQL+95IOkZe5MDhiLnbfk8mUv2
+         nE+4dMjDZWSJnOsM1Jpw4CYs0DdBnb8QnKQzbg3tmW0aTju3216/EYuBz4o2A41F12Ca
+         BS7A==
+X-Forwarded-Encrypted: i=1; AJvYcCWr6AXbaewpM3H3TN5KV6NKLvD3/Jxifwxzyfww87unU1f1B1dfwW5YCcYZ5Ix7PF6HRN2B988lxNWF@vger.kernel.org
+X-Gm-Message-State: AOJu0YyRP0X2/HBXl/Nla6bYSQpjj/ltk97GcMNyamW8fViSu8rASdsp
+	MtJ7XMW7ajvA6jlf31wI/j4scohCgIvuAUlEDu7tM06tn77gB/9YxKzAYAF7tPWunDAuRsSA45H
+	+HB1PFwzqJvCY0R/Hd4aOSRuPBDwM5RBHTNIwTRz78Q==
+X-Gm-Gg: AeBDieso/8ByfI1z4DXWu8vhjH3O4f3+oas0BpM3Tkn6E+TSwcakFxvn5dzML7VR0QB
+	syY0anFtSPRsimRDXSLOkJy6Zxz7Yh6rVqx1+ymd59TKVglJHZDdEu1nCFmR9WXRLpnYaXJqvjL
+	s6EDraH6QaK+i9R2ZR1k23D4wF77McLled9epy8yiW84e8RENpzri1wXZRDvg8Z4wrrFEIxtWOQ
+	dr3EPQm8m8EYk4/k7KU8/Ak9aJTgyX6WHnAkIy84H5jFIvxsh9TNu1ha5IRV58IzLRb8tSgm/eL
+	P18K6pts
+X-Received: by 2002:a05:6512:108a:b0:5a1:6c86:b957 with SMTP id
+ 2adb3069b0e04-5a3efb2c5eemr1409309e87.3.1775828596892; Fri, 10 Apr 2026
+ 06:43:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=fce1b4727364f5973feb041246ca85370b02d5848da19ed76fba443450be;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Fri, 10 Apr 2026 15:42:48 +0200
-Message-Id: <DHPIOTXA81M3.AHBN8M49ENG5@baylibre.com>
-Cc: "Vishal Mahaveer" <vishalm@ti.com>, "Kevin Hilman"
- <khilman@baylibre.com>, "Dhruva Gole" <d-gole@ti.com>, "Sebin Francis"
- <sebin.francis@ti.com>, "Kendall Willis" <k-willis@ti.com>, "Akashdeep
- Kaur" <a-kaur@ti.com>, <linux-remoteproc@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH v3 4/7] arm64: dts: ti: k3-am62a7-sk: Split r5f memory
- region
-From: "Markus Schneider-Pargmann" <msp@baylibre.com>
-To: "Vignesh Raghavendra" <vigneshr@ti.com>, "Markus Schneider-Pargmann
- (TI)" <msp@baylibre.com>, "Bjorn Andersson" <andersson@kernel.org>,
- "Mathieu Poirier" <mathieu.poirier@linaro.org>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Suman Anna" <s-anna@ti.com>, "Nishanth
- Menon" <nm@ti.com>, "Tero Kristo" <kristo@kernel.org>
-X-Mailer: aerc 0.21.0-126-g9e77103592fe
-References: <20260318-topic-am62a-ioddr-dt-v6-19-v3-0-c41473cb23c3@baylibre.com> <20260318-topic-am62a-ioddr-dt-v6-19-v3-4-c41473cb23c3@baylibre.com> <8673745d-aad2-49d3-b3af-556de7037b69@ti.com>
-In-Reply-To: <8673745d-aad2-49d3-b3af-556de7037b69@ti.com>
+MIME-Version: 1.0
+References: <cover.1775575276.git.tommaso.merciai.xr@bp.renesas.com>
+ <CAMuHMdXHhd150mpUT5-VPcHW0W5Hs-rFC-Bjrc7Z8Szco9P_Xw@mail.gmail.com> <adZaXSDsv4f9d8Bp@tom-desktop>
+In-Reply-To: <adZaXSDsv4f9d8Bp@tom-desktop>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Fri, 10 Apr 2026 15:42:40 +0200
+X-Gm-Features: AQROBzC3LoOCj70eiud50EVlHZzwLKUFJdS9N5jGny4APxuSZLpM8uhFac0vmsQ
+Message-ID: <CAPDyKFpdafESpDDN_EaEQJ-5Kb+rxgzD9FYYCv8-+X4EJDd0=g@mail.gmail.com>
+Subject: Re: [PATCH 0/2] arm64: dts: renesas: Add missing #mux-state-cells to
+ usb2phy-reset nodes
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Cc: Geert Uytterhoeven <geert@linux-m68k.org>, tomm.merciai@gmail.com, peda@axentia.se, 
+	p.zabel@pengutronix.de, linux-renesas-soc@vger.kernel.org, 
+	biju.das.jz@bp.renesas.com, Magnus Damm <magnus.damm@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
---fce1b4727364f5973feb041246ca85370b02d5848da19ed76fba443450be
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-
-Hi Vignesh,
-
-On Fri Apr 10, 2026 at 6:30 AM CEST, Vignesh Raghavendra wrote:
-> Hi Markus
+On Wed, 8 Apr 2026 at 15:38, Tommaso Merciai
+<tommaso.merciai.xr@bp.renesas.com> wrote:
 >
-> On 18/03/26 20:43, Markus Schneider-Pargmann (TI) wrote:
->> Split the firmware memory region in more specific parts so it is better
->> described where to find which information. Specifically the LPM metadata
->> region is important as bootloader software like U-Boot has to know where
->> that data is to be able to read that data.
->>=20
->> Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
->> ---
->>  arch/arm64/boot/dts/ti/k3-am62a7-sk.dts | 40 ++++++++++++++++++++++++++=
-+++++--
->>  1 file changed, 38 insertions(+), 2 deletions(-)
->>=20
->> diff --git a/arch/arm64/boot/dts/ti/k3-am62a7-sk.dts b/arch/arm64/boot/d=
-ts/ti/k3-am62a7-sk.dts
->> index e99bdbc2e0cbdf858f1631096f9c2a086191bab3..c381cc33064ec427751a9ac5=
-bcdff745a9559a89 100644
->> --- a/arch/arm64/boot/dts/ti/k3-am62a7-sk.dts
->> +++ b/arch/arm64/boot/dts/ti/k3-am62a7-sk.dts
->> @@ -59,9 +59,33 @@ wkup_r5fss0_core0_dma_memory_region: memory@9c800000 =
-{
->>  			no-map;
->>  		};
->> =20
->> -		wkup_r5fss0_core0_memory_region: memory@9c900000 {
->> +		wkup_r5fss0_core0_ipc_region: memory@9c900000 {
+> Hi Geert,
+> Thanks for your comments.
 >
-> There are still references to wkup_r5fss0_core0_memory_region in
-> k3-am62a-ti-ipc-firmware.dtsi (same comment applies to next 2 patches as
-> well)
+> On Wed, Apr 08, 2026 at 03:07:44PM +0200, Geert Uytterhoeven wrote:
+> > Hi Tommaso,
+> >
+> > On Tue, 7 Apr 2026 at 17:35, Tommaso Merciai
+> > <tommaso.merciai.xr@bp.renesas.com> wrote:
+> > > The renesas,rzv2h-usb2phy-reset binding schema defines #mux-state-cells as a
+> > > required property. Add it to the USB2 PHY reset nodes in the RZ/V2H and RZ/V2N
+> > > device trees to fix dtbs_check warnings.
+> > >
+> > > "arch/arm64/boot/dts/renesas/r9a09g056n48-rzv2n-evk.dtb: usb20phy-reset@15830000 (renesas,r9a09g056-usb2phy-reset): '#mux-state-cells' is a required property"
+> > > "arch/arm64/boot/dts/renesas/r9a09g056n48-rzv2n-evk-cn15-emmc.dtb: usb20phy-reset@15830000 (renesas,r9a09g056-usb2phy-reset): '#mux-state-cells' is a required property"
+> > > "arch/arm64/boot/dts/renesas/r9a09g056n48-rzv2n-evk-cn15-sd.dtb: usb20phy-reset@15830000 (renesas,r9a09g056-usb2phy-reset): '#mux-state-cells' is a required property"
+> > > "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dtb: usb20phy-reset@15830000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
+> > > "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dtb: usb21phy-reset@15840000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
+> > > "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk-cn15-emmc.dtb: usb20phy-reset@15830000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
+> > > "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk-cn15-emmc.dtb: usb21phy-reset@15840000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
+> > > "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk-cn15-sd.dtb: usb20phy-reset@15830000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
+> > > "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk-cn15-sd.dtb: usb21phy-reset@15840000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
+> > >
+> > > Kind Regards,
+> > > Tommaso
+> > >
+> > > Tommaso Merciai (2):
+> > >   arm64: dts: renesas: r9a09g057: Add #mux-state-cells to
+> > >     usb2{0,1}phyrst
+> > >   arm64: dts: renesas: r9a09g056: Add #mux-state-cells to usb20phyrst
+> >
+> > Does this series supersedes "[PATCH v5 16/22] arm64: dts: renesas:
+> > r9a09g056: Add USB2.0 VBUS_SEL mux-controller support"[1] and "[PATCH
+> > v5 17/22] arm64: dts: renesas: r9a09g056: Add USB2.0 PHY VBUS internal
+> > regulator node"[2]?
 >
-> Dont those need to be updated too?
+> Yes, thanks.
+>
+> From v5 only [0] missing.
+> But I think Ulf is planning to pick [0].
 
-I only updated the sk boards as these are the only ones that have IO+DDR
-support that I know works and need the new memory region layout. But
-thinking about this, updating the memory region structure shouldn't be a
-problem for the other boards either, of course I can't tell if IO+DDR
-would work on them, but the new memory region layout shouldn't break
-anything.
+I didn't get confirmation from Peter, so I decided to wait.
 
-I can respin the series or do a followup series with modifications for
-all boards if you like.
+If there is an rc8 on Monday I can pick it up for v7.1, otherwise
+please re-submit when v7.1-rc1 is out.
 
-Best
-Markus
+>
+> I will rebase/send RZ/G3E USB2.0 dt patches later.
+>
+> [0] https://patchwork.kernel.org/project/linux-renesas-soc/patch/cda933586ef7ca119dbbcef45a921c29dd517698.1775047175.git.tommaso.merciai.xr@bp.renesas.com/
+>
+>
+> Kind Regards,
+> Tommaso
 
---fce1b4727364f5973feb041246ca85370b02d5848da19ed76fba443450be
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iKMEABYKAEsWIQSJYVVm/x+5xmOiprOFwVZpkBVKUwUCadj+WBsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIRHG1zcEBiYXlsaWJyZS5jb20ACgkQhcFWaZAVSlOm
-TwEA3u6RqiPdFMVzltU2VOokKlHJ2REIqs5yRIMNmRsfRb0BALqUuasImLphT+IM
-k1FzSwoCFPxGLFA9l7C4E3YR3HIE
-=b2//
------END PGP SIGNATURE-----
-
---fce1b4727364f5973feb041246ca85370b02d5848da19ed76fba443450be--
+Kind regards
+Uffe
