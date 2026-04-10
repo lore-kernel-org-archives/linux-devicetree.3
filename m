@@ -1,200 +1,240 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2106.outbound.protection.partner.outlook.cn [139.219.17.106])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08AA4328260;
-	Fri, 10 Apr 2026 10:35:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775817306; cv=none; b=VPDrTZSJ6wXV6nKZZXd3WsaKRs+srVE5Ew4/aN6LarrC2OmCF9oRBd+9NS//0yvaxA8FrsjkkWvk+LuYE11wxFNbu4ySa84EkPiSRqs9sCSGhqCYxTMdL74kxXpvhl9pm/OiYcG0maU0HiQ++zhnxAUJ51mvRpbEIv4Ed9TMjDI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775817306; c=relaxed/simple;
-	bh=NbLMW9yD5qW6WB9yg4ttyR+1tADafNTIh7LxC+xpkQU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BqxiRmqduYEnIQDl06MC6rK688B/+T3EnyDmI1MsGuE6yOkQxGgco4bPSjbFCZSDzhjPzvmz2dGN442oNHu+wEsZ0603xlNj8AakU7+nnYE8vpCRy5KQ9uAXRC2ErRH537dgNmJ+IML3cB/e8mLiyPTgGT2GAzRQH4kV6I0bsEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GARQ2WLj; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GARQ2WLj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 653FFC19421;
-	Fri, 10 Apr 2026 10:35:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775817305;
-	bh=NbLMW9yD5qW6WB9yg4ttyR+1tADafNTIh7LxC+xpkQU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=GARQ2WLjSg5318qxd44xvfOHr5o4PZb8ep4XJU+jy7EVLExVz0fmJ77P/dHWqM+Zs
-	 IPaWAUkJqA77hhpaFOvT1fsyzy4d3ezpyDco1x7J67X0LZrZ0Y5/NF8iQzYKY6kIhJ
-	 IbK7eOtENWVJv1XFZPJMYYExQwwc/WludzAO6ZRcCKEIfGd1C8ZOFLmQRfIKvZNHMU
-	 QbQQCLeK966dblNIiSag1XSlSch4p+ogRF5Dr3g0St9h/d8088Y01/g+IQfllG/UCv
-	 kWFiSUHXGphB09x4dJuKVJ8+REimujKAO44foNPi6UwmlJ4M7tYfydKq64eb6Ak4UE
-	 /QTceuKQGeYFQ==
-Date: Fri, 10 Apr 2026 12:35:03 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, ansuelsmth@gmail.com,
-	benjamin.larsson@genexis.eu, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, Xuegang Lu <xuegang.lu@airoha.com>
-Subject: Re: [PATCH net-next v3 10/12] net: airoha: Do not stop GDM port if
- it is shared
-Message-ID: <adjSV_ITucZItPjb@lore-desk>
-References: <20260406-airoha-eth-multi-serdes-v3-10-ab6ea49d59ff@kernel.org>
- <20260410025726.1810041-1-kuba@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB012DC767;
+	Fri, 10 Apr 2026 10:36:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.106
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775817392; cv=fail; b=iVkh6ioGLTXYfj5SGj5wkGTx24BUUBze7S7knvNvN7nvTtALMgvuhT2HhgD7rPFqUbBpj7cDn5kaa3B/2G3UVglNel6sjTUURVNOKJfElG0/uKuHdFf1rtyEGq2hO4GRV+okqbCKb7duDjVFnj9kMHlkbkW9TIlcGbbGMbOGz30=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775817392; c=relaxed/simple;
+	bh=S1bUrx3Hm4eW08ka4Wggl+o5vTKi4OjVZ9M0tmkzRGc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=VzsghiTkRtPf9GtrDIxbd7zDBqXEIL6qwoD+EYZxYlXtJXJl/vROPSwxx2dG9lJOXsl336sDlPmU7Br2+aCQmq5rX90vf5GMt4Y/afc5oSI0mNr9OhdGI+Zx4CimiSwLuniSZXsW2s2nhrQbzToxs8ecJNKFyyActa721xVQ8LY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OCC9YcfOBc7saaIzJuKod89ZhZiGcoY6f+QAcvGjrr91V95LFVnYKA1lhCuw8k/k5wz8ok+JK85uVq/i7eUNr3P9jLi7zQWDAu2i0v9ow94F3TU7BdOta19B4zW3U1jSuYAkrZ7rI6bGNQGKYgI5PXyjun1qhl7ccWNlyMv2O5aTsejNC9hwvS2xB3z4w3vetM/0Hphtke6IcUzf9R2brjV46H2KONNwBt5CqJ5QScAY6wsjkd9jsN1tFbimWKbjBQ7rnrdpM1Q0jk1mUpUvvg0o3S97CBZPMA2yxHVUgEls8afZSmIXKVghVAe/9NutHLs0hZMBF61RZC9N5G4vvg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jgmlN3ixTZyLCqqcf1//3+Ol+z59PSHvlNUJpUh0dwY=;
+ b=BQLMzobvChN74wTL3j4mLWBmwj22NvHkQbGW2h5UJKPnsrE+aOzV+E9/dmKJqYcVQwivkTnMoewTOkkl4wlWCbJKAPEhsUFmyx4Qcw8BRovoRiQnyCWjAON1EQaUdvxb3icW8zC2YzHrSgZeyIXdL3gBwFFrgNRB9ROJmsB/z7AGcW5DPnk2w72UMihyRDm6f+0btkmtd6rLKLMtrEs3nNezzNMAAOhmSKoBdl6Ths9Df6KQE5l+wVJaSo+QiySje8/knOtMTbTtopzpccBIu2uqEdVIF7eYjQEaG/lMau2MQ9YmbM3GDb6nGRLjLNuhBA9qs0ON46AMgpCUCwW4ZQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1218.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.42; Fri, 10 Apr
+ 2026 09:01:17 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%5])
+ with mapi id 15.20.9769.020; Fri, 10 Apr 2026 09:01:17 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Ley Foon Tan <leyfoon.tan@starfivetech.com>,
+	Changhuang Liang <changhuang.liang@starfivetech.com>
+Subject: [PATCH v1 3/5] irqchip: starfive: Use devm_ interfaces to simplify resource release
+Date: Fri, 10 Apr 2026 02:01:04 -0700
+Message-Id: <20260410090106.622781-4-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260410090106.622781-1-changhuang.liang@starfivetech.com>
+References: <20260410090106.622781-1-changhuang.liang@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: NT0PR01CA0017.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510::6) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="8LLt8ct3/nBL/EoR"
-Content-Disposition: inline
-In-Reply-To: <20260410025726.1810041-1-kuba@kernel.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1218:EE_
+X-MS-Office365-Filtering-Correlation-Id: 986d7b11-ddbc-4cc0-b783-08de96dfb9eb
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|52116014|376014|1800799024|366016|56012099003|38350700014|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	U+Lp+SkAPrz3ltb7E3t3E6pMtqFpA065JbKaf+h3dQ9b7VvFtO+7YcTpQZVYot4tKiubvpcziGzIVNAoitgTCTUskZND7LufFk5w/U+5Ng4gZRL11vkJemA0+XgEFAxgN9TXKrpu4ko0tOroc7m3kIKOpTYipHXu7LvEbT8uQ7vf6f1wti4m30coBFU3Lsg1MGsPzpRiJtGBnewA6J/uHygfVfPWn5NM3U8/ecqF/siTf+QdwcyxuknK0NiXkwoBvxxICwI9k5Q4IUgy9hQ9EvaODge/wtIdnvuwnvvrqS+OAEiiTIMOvVXsoVWNawXyLbwXc3iWDb1URyMqCXQDV0W6QtJsONHnug1kEeGGIqclKYoM57xt0WaMusmQkEK+aFW7gpaN3Lw48DZVCpos8/GfENQ2Juxb2nw0jf6rZUfTZWte3gnwr8wrkZSMSxRYQbFekLMtj7e+rXhXe7SsYAFPxyZ6KDpWnBEUvqLKjgi4ZUCGejwak3wy3q50in2NfzXVcmd9qwqokNybyanGsLBEChUU0/8SSJMIm+IoVXOrvJq/eO5BrfABTXcZn1NAP65E5uIaimZnQNNtkw9wKw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(52116014)(376014)(1800799024)(366016)(56012099003)(38350700014)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?n9u1wtNtwbgW6JGfE0LcMgIKm/Zo03fvzAuNxZgSBMTNRw4F+48H+ucqfLBy?=
+ =?us-ascii?Q?LIs8ZMyJpWM5gvcj0OOWQEK1OA1DjUutG5sv/6wm2yIF3LLZcBaRc0uzpRAI?=
+ =?us-ascii?Q?e26JspmV4sWAPT1C+lBh7vr4WLkXlsdDtNWnxmQqtGv4mDNJ3QMzYn5aud5l?=
+ =?us-ascii?Q?MXAu8IOLyVSVrj1oKzaXLZFC8DxHNl7NMYwFYVI6EYSS/NwsqVzNvPGcmUh1?=
+ =?us-ascii?Q?XVg+3FGX8ynXPxhPGK9Wo1hIKfjTWhDz0Xq3qUxBj6TJFeSyp+NAMDTsIPxz?=
+ =?us-ascii?Q?ErA+Mc+yDQBhjdz75K9di0Pz5vbBYAnioiT+FtGFwo2s+mtF97CoZKNWsS1H?=
+ =?us-ascii?Q?s/8M3FkcATfMp16DejFiBdmT8iSqEZVxchYFTFh4b+pLTG1+OmbfICACuhIN?=
+ =?us-ascii?Q?HDdCwDO/pPa/xRm2IgLvB3duTLvz5zf3BicsTShJ0rCph/WDWd+H1yGEtfrk?=
+ =?us-ascii?Q?gUgzjIJbzke/xVaDi79KCucA9fCNg8cYq9z/6wzyXcghs7H3Lcz48ljU+pPF?=
+ =?us-ascii?Q?KfsATpB3GghX1GdA+guzii7gJbnoTfjSvurS8Re8Nd9YBHfeIuTUPWgsMN28?=
+ =?us-ascii?Q?FEDhUkREB/jVHhPTnZIATWguOjQzw3PprjOHXqesqn+xbwJZsyovsbnzSSv/?=
+ =?us-ascii?Q?K4sHDM+Q+JYLsUMKC9n0nCpDRrg719K/qnNshNfOPQz3nnzZdMzcY+RmEWTt?=
+ =?us-ascii?Q?J/fJqeEaSbnwo9kCHPbzgfQ9NXwvwZWr+2aWYASJrCUxTqsMR0r9J0oGCaLL?=
+ =?us-ascii?Q?mgkBi0xNQN0/tPsIjwtTu9FXIXFgv7eutizEFyeb00UObAvjZgbVUFGEBNV+?=
+ =?us-ascii?Q?+0a2MKfeo4GPTCy0a6SeVYXsrnQzOMor/EteG/UoEoWxAlct+X1xRdubgP0P?=
+ =?us-ascii?Q?f3dw+0SS9lLvGqV/41+ihWTml1xKpoldLOZdQ3iEPnsBsbNpcu1gjqz80Ci1?=
+ =?us-ascii?Q?z5Y7B2ddO/LxZXsucE7QLmO1AswgPHAb/4P2utkebxWfrvA+1RDHuEk5lvxs?=
+ =?us-ascii?Q?qK+CAUcYcWaMtUrx0ZLi5n7WpgFnYjganR3/UZ931uO3zrsJ9LaAe6n+k0si?=
+ =?us-ascii?Q?T03LoyAB5jyQMGphguCn1R28oJxwJeD2omhPXiCihPQf1NtdQ120bb8AOAvt?=
+ =?us-ascii?Q?AmNH/CruzypexvhD/v0iO42EKrPw7XxwcfsMF7mpq7ALsX5jhEJDR2sFvFAo?=
+ =?us-ascii?Q?KVDR/uSJ5njcepJZSwpXAO5S76L2Cp690TNNniKTEFe3OnRAwNc4g+ssk9tI?=
+ =?us-ascii?Q?dMZA2eRZRTXzRTNFBgeTVNJzzEEWsLPtsPeGG4Ir+aipaMurF77Zoz07GySr?=
+ =?us-ascii?Q?l4AlWgzoc1kHWm2BlWe3e6Q3pB751ETv+qNIO1agu1qrN2PWHmt/+Zy9NOA5?=
+ =?us-ascii?Q?A7SrfTk+paJTN+iiD9bXEEDjXdZrdS57TF8emCKTCOopx513kcQl1yluwJq3?=
+ =?us-ascii?Q?FyA1VrbCyoQqZVI+d3/A3DVeTfSZHrhh2jpEaQ4DW1T/HWT1DDtGTeRLMPU+?=
+ =?us-ascii?Q?I4kUPDnrkf+aIZYkr4QvCfUqX4CavvYfkMJrWu/kX/ttxnhPb0XTiqnsLsAH?=
+ =?us-ascii?Q?KEZ5FdBEwZQITbWqJYlPAeKv2rEXNGAhVFVcd8zOojEE4Qo7omsJXwh49yOR?=
+ =?us-ascii?Q?wMJKxH+ZE0ehx+t93x3zKCGc56bR5HT0aOGNzXaNQ7LbKNg1qj8AFtV72iN+?=
+ =?us-ascii?Q?iq/GOwLPwAH9uW2msAYM4fhzaTkbfJzklHA6diV5l8lPesHbrjC4W5xlAhCJ?=
+ =?us-ascii?Q?KXuBPHGsJfDYmefImB8MabTRqUvrMz5EWV0Y73f+QYAPSxhQQvvY?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 986d7b11-ddbc-4cc0-b783-08de96dfb9eb
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2026 09:01:17.5474
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LBEybF6zOumvDc0Cq6W+MkNrFEWmaBYb+l4VhcjoK1bXFW3O+Lyaju6gOOhrzX/SAa4us1PbD0j2DOXnsUB0aRh1k+FyR3rnm6csAtxzdeImuGovIXPF3SwfycFiO+Gs
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1218
 
+Use devm_ interfaces to simplify resource release. Make clock and reset
+get optional as they are not used on the JHB100 SoC. Replace pr_ logging
+with dev_* logging.
 
---8LLt8ct3/nBL/EoR
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+---
+ drivers/irqchip/irq-starfive-jhb100-intc.c | 44 ++++++++--------------
+ 1 file changed, 15 insertions(+), 29 deletions(-)
 
-> This is an AI-generated review of your patch. The human sending this
-> email says "For your consideration."
-> ---
-> net: airoha: Do not stop GDM port if it is shared
->=20
-> Theoretically, in the current codebase, two independent net_devices can
-> be connected to the same GDM port so we need to check the GDM port is not
-> used by any other running net_device before setting the forward
-> configuration to FE_PSE_PORT_DROP.
->=20
-> Tested-by: Xuegang Lu <xuegang.lu@airoha.com>
->=20
-> > diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/eth=
-ernet/airoha/airoha_eth.c
-> > index fd27ba13029bd..5b0cd37b155e4 100644
-> > --- a/drivers/net/ethernet/airoha/airoha_eth.c
-> > +++ b/drivers/net/ethernet/airoha/airoha_eth.c
->=20
-> [ ... ]
->=20
-> > @@ -1688,18 +1693,18 @@ static int airoha_dev_stop(struct net_device *n=
-etdev)
-> >  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
-> >  	struct airoha_gdm_port *port =3D dev->port;
-> >  	struct airoha_qdma *qdma =3D dev->qdma;
-> > -	int i, err;
-> > +	int i;
-> > =20
-> >  	netif_tx_disable(netdev);
-> > -	err =3D airoha_set_vip_for_gdm_port(dev, false);
-> > -	if (err)
-> > -		return err;
-> > -
-> >  	for (i =3D 0; i < ARRAY_SIZE(qdma->q_tx); i++)
-> >  		netdev_tx_reset_subqueue(netdev, i);
-> > =20
-> > -	airoha_set_gdm_port_fwd_cfg(qdma->eth, REG_GDM_FWD_CFG(port->id),
-> > -				    FE_PSE_PORT_DROP);
-> > +	if (atomic_dec_and_test(&port->users)) {
-> > +		airoha_set_vip_for_gdm_port(dev, false);
-> > +		airoha_set_gdm_port_fwd_cfg(qdma->eth,
-> > +					    REG_GDM_FWD_CFG(port->id),
-> > +					    FE_PSE_PORT_DROP);
-> > +	}
-> > =20
-> >  	if (atomic_dec_and_test(&qdma->users)) {
-> >  		airoha_qdma_clear(qdma, REG_QDMA_GLOBAL_CFG,
-> > 				  GLOBAL_CFG_TX_DMA_EN_MASK |
-> > 				  GLOBAL_CFG_RX_DMA_EN_MASK);
-> >=20
-> > 		for (i =3D 0; i < ARRAY_SIZE(qdma->q_tx); i++) {
-> > 			if (!qdma->q_tx[i].ndesc)
-> > 				continue;
-> >=20
-> > 			airoha_qdma_cleanup_tx_queue(&qdma->q_tx[i]);
-> > 		}
-> > 	}
->=20
-> This problem wasn't introduced by this patch, but does the QDMA teardown
-> path have a DMA corruption vulnerability here?
->=20
-> When GLOBAL_CFG_TX_DMA_EN_MASK is cleared, it fails to poll
-> GLOBAL_CFG_TX_DMA_BUSY_MASK, proceeding to unmap memory while the hardware
-> DMA engine may still be processing in-flight descriptors.
->=20
-> Furthermore, airoha_qdma_cleanup_tx_queue() unmaps the DMA addresses and
-> frees the SKBs, but it does not appear to clear the physical hardware
-> descriptors or reset the hardware ring pointers (REG_TX_CPU_IDX /
-> REG_TX_DMA_IDX).
->=20
-> When the device is later reopened in airoha_dev_open(),
-> GLOBAL_CFG_TX_DMA_EN_MASK is set again without re-initializing the rings.
-> Will the hardware DMA engine resume fetching from its previous index,
-> processing stale descriptors whose backing memory was already unmapped
-> and freed?
+diff --git a/drivers/irqchip/irq-starfive-jhb100-intc.c b/drivers/irqchip/irq-starfive-jhb100-intc.c
+index 2c9cdad7f377..312a4634870a 100644
+--- a/drivers/irqchip/irq-starfive-jhb100-intc.c
++++ b/drivers/irqchip/irq-starfive-jhb100-intc.c
+@@ -7,16 +7,14 @@
+  * Author: Changhuang Liang <changhuang.liang@starfivetech.com>
+  */
+ 
+-#define pr_fmt(fmt) "irq-starfive-jhb100: " fmt
+-
+ #include <linux/bitops.h>
+ #include <linux/clk.h>
+ #include <linux/irq.h>
+ #include <linux/irqchip.h>
+ #include <linux/irqchip/chained_irq.h>
+ #include <linux/irqdomain.h>
+-#include <linux/of_address.h>
+ #include <linux/of_irq.h>
++#include <linux/platform_device.h>
+ #include <linux/reset.h>
+ #include <linux/spinlock.h>
+ 
+@@ -127,48 +125,44 @@ static int starfive_intc_probe(struct platform_device *pdev, struct device_node
+ 	if (!irqc)
+ 		return -ENOMEM;
+ 
+-	irqc->base = of_iomap(intc, 0);
++	irqc->base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (!irqc->base) {
+-		pr_err("Unable to map registers\n");
++		dev_err(&pdev->dev, "unable to map registers\n");
+ 		ret = -ENXIO;
+ 		goto err_free;
+ 	}
+ 
+-	rst = of_reset_control_get_exclusive(intc, NULL);
++	rst = devm_reset_control_get_optional(&pdev->dev, NULL);
+ 	if (IS_ERR(rst)) {
+-		pr_err("Unable to get reset control %pe\n", rst);
++		dev_err(&pdev->dev, "Unable to get reset control %pe\n", rst);
+ 		ret = PTR_ERR(rst);
+-		goto err_unmap;
++		goto err_free;
+ 	}
+ 
+-	clk = of_clk_get(intc, 0);
++	clk = devm_clk_get_optional_enabled(&pdev->dev, NULL);
+ 	if (IS_ERR(clk)) {
+-		pr_err("Unable to get clock %pe\n", clk);
++		dev_err(&pdev->dev, "Unable to get and enable clock %pe\n", clk);
+ 		ret = PTR_ERR(clk);
+-		goto err_reset_put;
++		goto err_free;
+ 	}
+ 
+ 	ret = reset_control_deassert(rst);
+ 	if (ret)
+-		goto err_clk_put;
+-
+-	ret = clk_prepare_enable(clk);
+-	if (ret)
+-		goto err_reset_assert;
++		goto err_free;
+ 
+ 	raw_spin_lock_init(&irqc->lock);
+ 
+ 	irqc->domain = irq_domain_create_linear(of_fwnode_handle(intc), STARFIVE_INTC_SRC_IRQ_NUM,
+ 						&starfive_intc_domain_ops, irqc);
+ 	if (!irqc->domain) {
+-		pr_err("Unable to create IRQ domain\n");
++		dev_err(&pdev->dev, "Unable to create IRQ domain\n");
+ 		ret = -EINVAL;
+-		goto err_clk_disable;
++		goto err_reset_assert;
+ 	}
+ 
+ 	parent_irq = of_irq_get(intc, 0);
+ 	if (parent_irq < 0) {
+-		pr_err("Failed to get main IRQ: %d\n", parent_irq);
++		dev_err(&pdev->dev, "Failed to get main IRQ: %d\n", parent_irq);
+ 		ret = parent_irq;
+ 		goto err_remove_domain;
+ 	}
+@@ -176,23 +170,15 @@ static int starfive_intc_probe(struct platform_device *pdev, struct device_node
+ 	irq_set_chained_handler_and_data(parent_irq, starfive_intc_irq_handler,
+ 					 irqc);
+ 
+-	pr_info("Interrupt controller register, nr_irqs %d\n",
+-		STARFIVE_INTC_SRC_IRQ_NUM);
++	dev_info(&pdev->dev, "Interrupt controller register, nr_irqs %d\n",
++		 STARFIVE_INTC_SRC_IRQ_NUM);
+ 
+ 	return 0;
+ 
+ err_remove_domain:
+ 	irq_domain_remove(irqc->domain);
+-err_clk_disable:
+-	clk_disable_unprepare(clk);
+ err_reset_assert:
+ 	reset_control_assert(rst);
+-err_clk_put:
+-	clk_put(clk);
+-err_reset_put:
+-	reset_control_put(rst);
+-err_unmap:
+-	iounmap(irqc->base);
+ err_free:
+ 	kfree(irqc);
+ 	return ret;
+-- 
+2.25.1
 
-ack, I will work on it with a dedicated patch.
-
->=20
-> [ ... ]
->=20
-> > @@ -1851,10 +1856,22 @@ static void airoha_dev_get_stats64(struct net_d=
-evice *netdev,
-> >  static int airoha_dev_change_mtu(struct net_device *netdev, int mtu)
-> >  {
-> >  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
-> > +	u32 cur_len, len =3D ETH_HLEN + mtu + ETH_FCS_LEN;
-> >  	struct airoha_gdm_port *port =3D dev->port;
-> > -	u32 len =3D ETH_HLEN + mtu + ETH_FCS_LEN;
-> >  	struct airoha_eth *eth =3D dev->eth;
-> > =20
-> > +	cur_len =3D FIELD_GET(GDM_LONG_LEN_MASK,
-> > +			    airoha_fe_rr(eth, REG_GDM_LEN_CFG(port->id)));
-> > +	if (len < cur_len) {
-> > +		u8 port_refcnt =3D atomic_read(&port->users);
-> > +
-> > +		/* We can decrease the device MTU just if the GDM port is
-> > +		 * not shared or if the other device is not running.
-> > +		 */
-> > +		if (port_refcnt > 1 || (port_refcnt && !netif_running(netdev)))
-> > +			return -EBUSY;
-> > +	}
-> > +
->=20
-> Does this MTU decrease validation create a state trap on shared ports?
->=20
-> If both eth0 and eth1 (sharing a port) are up, and a user increases eth0 =
-MTU
-> to 9000, the hardware MTU updates to 9000. If the user then tries to lower
-> eth0 MTU back to 1500, len < cur_len evaluates to true. Because eth1 is a=
-lso
-> up (port_refcnt > 1), this returns -EBUSY.
->=20
-> This would prevent either interface from decreasing its MTU without fully
-> bringing down the sibling interface.
->=20
-> Should the software netdev->mtu be decoupled from the hardware validation,
-> allowing valid MTU changes in software while dynamically programming the
-> hardware MTU to the maximum of all currently up interfaces on the shared
-> port?
-
-It seems more correct to me avoid receiving in the stack packet bigger than=
- the
-configured 'SW MTU".
-
-Regards,
-Lorenzo
-
-
---8LLt8ct3/nBL/EoR
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCadjSVwAKCRA6cBh0uS2t
-rKGBAQDRSN/e8N+6AoxvLopfJBHvUijN7q4xUeofQsEYNntjygEAhNk5cQC8KD5p
-37hLOLJqsp50UUBwxSDUH4e9phnmyAQ=
-=5Ae+
------END PGP SIGNATURE-----
-
---8LLt8ct3/nBL/EoR--
