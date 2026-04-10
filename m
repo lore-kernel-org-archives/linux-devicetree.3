@@ -1,67 +1,67 @@
-Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com [209.85.167.175])
+Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DC093A7829
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 21:00:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA023254A5
+	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 21:15:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775854849; cv=none; b=GpyNtNaMXHXgUnlWkKHDaE7W1NZcKFFxoivRBxpLq0aeiP2Gu7eSXhrU15isnq2omp1AV+DUlUlkX5tH0EnC7+XfIDLRH/l0hZR1mO4h8T8dnHQli0TveZlw98I4pdoDMOQiO8UPIox4Makt4SRMIzWymvFm+avfs7C6XHOEGVI=
+	t=1775855726; cv=none; b=GJJuGUUHVP7A7HVaUO2Is0zh+AawyhgHqaTiPJ5urQ/cPHJRnCKHIYnzqA0ma0WLq/kp3gYxcwh3Lrk5Wjyg/Tl2EhQxl98+7PFycJMkc6q2chJ8oQGJjmYnBb3kpE4REoh7tbaGqvzCeGmxCWYwecQElIoKw8stcwQpTVxVlRM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775854849; c=relaxed/simple;
-	bh=6rP/2NeocjyaqMUftXzW/8uQUv6ELa/rQzdfz7/fRSg=;
+	s=arc-20240116; t=1775855726; c=relaxed/simple;
+	bh=cAXb9CrTpv524+4pOELODw8P3jQqS2XAiSFfzufoL7w=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qGdL2hIcmnUjyhNKSoZL+XraWCqwVoNocoRnNVZ6rOHsuS+R2+DCelcCgF5YCwh/97e6LvPL29KeZOcm13tjSz8gsJiNkEDQj6975L7XCcX6Vpv+4k47GCJTqO6M8tbABqUtOt/nwNA8EbAk9Qck3BuWtIAdzp15v7ouwRyFV+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=kfMDwnux; arc=none smtp.client-ip=209.85.167.175
+	 In-Reply-To:Content-Type; b=O5uya2BGrnpzlyXSbCU74rqsmDkQu9lUro/qaX3ghQbQmWGAazBSD80SSBpPSKG6p9JIWwunFhlp22SeIi3xl7N8fmyltgQUuAL/pi1tv+8Geuyn8lDRw2BvAEOxlK7ez6qbA/fSLpb8zSQMguc/VT96R3mqF7itQUUvusRgaJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=Iq4bgpeP; arc=none smtp.client-ip=209.85.161.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="kfMDwnux"
-Received: by mail-oi1-f175.google.com with SMTP id 5614622812f47-471618e20a5so1337535b6e.1
-        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 14:00:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="Iq4bgpeP"
+Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-68a253b7301so1366058eaf.1
+        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 14:15:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1775854846; x=1776459646; darn=vger.kernel.org;
+        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1775855722; x=1776460522; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=zjiDa43R9nZMxJdozPmDaP5r3lj4EBR+Ho5duYukD5Y=;
-        b=kfMDwnuxX208vL6zZvAkBA23GL9w75AFNCa22xIW/a9zPHibIsn2cZeajisN6A4zyV
-         hv0TPZOirjkRj/H8gG44ElTS3KhdKXkBG7nRfzJ/VLV3ZmyGsc4KWXijmLyGnu949MXm
-         OEqM2Exi7tu5BUcmTDgGIiXKq+cWffJv/BCttYzL0TT2Xx+ifb4Vbj67kb0tYSQF/pm8
-         FbwO88DcDJh3A4VHBjQxQ/69Z3KgdCZHWUY05vPK+RSLvNIz3pfYwW9JGmvwJr9KynxG
-         Bu/FCocUDT5NhJVrnib+MOmKNllCTDTeIRaUQQGjElWicxWKuWNdO8MZa3X5ULK0kQGK
-         adgA==
+        bh=/2F93Mx6phIJ7QoLcf5ftd6VaLTce3YAnV6T7zlntoQ=;
+        b=Iq4bgpePomKXt6AMMlpaPk9SJk6i/A1tgjOMozgB89M4I78HwLhBvsHC1LHos7KBTN
+         hpQ5SoqDc9gLQ6r4JlVk9gTNB0EDMcNQ52ebRjbV7tPVSN7n/7oRDkF23vPhPzRKRDzR
+         WnAdhK0JDnro1imOvz2DyaJD00+fhQylcUQIWrwcEDCYt9tx01uQGcBkI0RubUc0HFx9
+         YRXnP4SKu3Cn1BKhHX1sPr3PfLl2+b2V1rv9roHxLJ562FK0rvJKZB/K0e1Zvcsmh2uJ
+         ij7Ck1Oc+hrE6HUmw+S/ihUc+crUt7sGS6G0KMpccao9YqE6NojZVaQorKVOXQDxd7ov
+         Q5rQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775854846; x=1776459646;
+        d=1e100.net; s=20251104; t=1775855722; x=1776460522;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=zjiDa43R9nZMxJdozPmDaP5r3lj4EBR+Ho5duYukD5Y=;
-        b=hlhZAClpOrPrNDLYgLMGk4+9NzFUCf4WNvA0gxNE8tTHSDw/OU62IVH8jvLDH8qEKM
-         LG03ZAcbaURXJKOfYx+2cUQ7fpRR5CSl35sLeizg2mZZ3TF2zep0w3ObnkBvR5HXmdmm
-         rLOB6Spvk3MKWVP7CiIVOAHVhQrSoc8XAAFd5wgMS8TQdDLF2L+G2/5EXXmnb9GUrn6X
-         6RGzRGJxq8dFn48NCjD4iM/V8urYUeknMBxcHY1l6JqsdCRxI440AGRc7v+Jem577J9Y
-         i85HNdFCoqB0q8zajEDy9NM/G5VHOEXxUHs92sliCp0cA47HPnKm1zyZfaRm4wGwWx/1
-         YdCA==
-X-Forwarded-Encrypted: i=1; AJvYcCVZv+1Yl0/VWPMSsarXLNb1V2BFk1Pt1JKXVqToMKa7NPpM1PEYm8+ZyzS6zn+EGxLp+Q8Rwx59m7lu@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw1zqDWj2F5jZO2wJF17gnI//8E9B3mFWsckHNsZdILTocndPXi
-	IAGiflWAyJagMbEm+rUzFbbHCB9MCO3fWmtggpzr2cVMYWjKobQbbEQgKUEwRdqmRvs=
-X-Gm-Gg: AeBDiesNsimK2NBLXV/b0/xn6uPpGiGHe9p4PLvdYCYqXYOzanKXXjjyJEhw/bIBMED
-	HTN6VVDLdADWjdzVztmH39ONoQsUdd6V64wFsJrr876bQlUwd3oL86XgqEiI2I8N30mbnyv9uVf
-	yvj0c703IZDwwwNbZa+fhEfZ6ssz6quP/9WpKuDXZLmSXDmfS2K3/XxF2GCBSmA/CrsyluHTpOJ
-	cH+tSSPJoRoK8VOwDACGa8IEKA8t9sO3MKbEk9/iMhltKBsRUPF/AWy6qJjyKBzjz5XKJm2dNEC
-	7Anbg+dAMinopZtss9yn3TztbUVkZCHFLNYuAzR0tlBBUns4blTJ+kKOM/c/924xVqhRsqBk91b
-	1swMRkA0fneeS9VjaD3DD7hMJhn8jW15GksKW4sh9esWBvHvlDsmgT6xVcHku6gkCGerpF9nXwk
-	PGw7NCeX2JGIRAsotUGFLRO1xMQxHzvcyTfTUCer+El1PA2dHIGNvAyUi5pt2bX/dnq6ug9rQ1z
-	alY9kkGsrvi
-X-Received: by 2002:a05:6808:470b:b0:46c:cdf4:1bde with SMTP id 5614622812f47-4789ca3aaadmr2638671b6e.10.1775854846014;
-        Fri, 10 Apr 2026 14:00:46 -0700 (PDT)
+        bh=/2F93Mx6phIJ7QoLcf5ftd6VaLTce3YAnV6T7zlntoQ=;
+        b=r9i8VFyADF3ua3vcmCzyLrqmvjIN/tRV92ZY2uM8sfhxKz6PfuZrm9Z2kY9zfBdLF6
+         3DaaEaNcw2Dxw2DEaK1nBY/HUqjQc6iP2UrZHAIlx3j6+j2f7Z7p2bxAZxRUMG3nwPAf
+         iTrDSxFEpI7JupazjtRbslgRpPW7F+SmMDwZRI7dc5cwZHj3oSNwVVFkTihrp1dB7VZT
+         29Kr1BX2irmndqtcNDVpB3ecO1p2HVoO4mhnpP6R9cuyXfBcSSw0qZm7ZDbNlS9+xLNG
+         SXqcM2P+ukRMRII4w9SZbFOSKCXvaABzKIvBcpJb6XnuR45lm0uUB37qSBXs66UeLdlE
+         c+dg==
+X-Forwarded-Encrypted: i=1; AJvYcCWuZQ8Gk3zodGwGtiXmyt33jib9SSEdH6T15JoTQlw1BdWQVFpGIlXo5bxdWtpZ1YiQbDz3xarSKP2Y@vger.kernel.org
+X-Gm-Message-State: AOJu0YxGCsLDFNUFTs97YxqrrWy5ttR5SLbZywAc9EN35zEDm8BPn5u2
+	b0Bp6JgnBbPRwxWYxZNif0Qz+4Kyy+u7Z06EiRqXUXPZPK9vRqxBZXlYwYU4BEe96z8=
+X-Gm-Gg: AeBDievVLAaiHItQkmPL3HFnh044G0tsNgX0ZJnSxIabMWVsbtRu21zwgjwGsmAwgTY
+	5uLVwbOuYb4AM7pVfY6LxyuwJOW524exOyadUor/zKe3fwBbAxnAqBqNEPpwBD1fLbP/dJBD1ff
+	oESHDNpIlxBfhVPjeHvyRZORk/CwqLVOQHkR9qiY6tEwvXLOYzWSbFqBFY5ked+iCXGEKFqLLrY
+	/7NzjyRJj+h/Drb2ZMhpyAVB8XYyyOj53XDgzL6mKE3XldO4y5z94ZRRM0C3CO3Bbc4J34EaV+u
+	SckdepmsgoZfMjQmgBhIawGWpAGlND9HHdZaf3KAk0RC107wa5xdW1jC2Czfk32gDwYhvroOp7u
+	cFyH8yJg2p8bSMx3ZA21Pgs2VCMHlkSdy5CNFv9cIx9r+uPb6N7Dtla649TTKG1gMC9dJorN661
+	iJYeo6xgZHFkRDom73RoS74TyLTQvqP9SCNcjnYa09Y/OahyFJFJZmUeQrhqWZhif8i36lKafk1
+	Q==
+X-Received: by 2002:a05:6820:822:b0:687:a24d:5ba2 with SMTP id 006d021491bc7-68be8bd89b5mr2314197eaf.55.1775855722351;
+        Fri, 10 Apr 2026 14:15:22 -0700 (PDT)
 Received: from ?IPV6:2600:8803:e7e4:500:b75d:2440:dc10:808b? ([2600:8803:e7e4:500:b75d:2440:dc10:808b])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-478a3a78204sm2094472b6e.18.2026.04.10.14.00.42
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-68bc82ea1b7sm1972885eaf.5.2026.04.10.14.15.21
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Apr 2026 14:00:44 -0700 (PDT)
-Message-ID: <1170956f-da05-4280-990f-64306ca905c2@baylibre.com>
-Date: Fri, 10 Apr 2026 16:00:42 -0500
+        Fri, 10 Apr 2026 14:15:21 -0700 (PDT)
+Message-ID: <742b1821-9103-414e-a860-c2e8d5406e35@baylibre.com>
+Date: Fri, 10 Apr 2026 16:15:20 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,7 +69,7 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 4/6] iio: adc: ad4691: add SPI offload support
+Subject: Re: [PATCH v7 5/6] iio: adc: ad4691: add oversampling support
 To: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>,
  Michael Hennerich <Michael.Hennerich@analog.com>,
  Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
@@ -85,216 +85,97 @@ Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org,
  linux-gpio@vger.kernel.org, linux-doc@vger.kernel.org
 References: <20260409-ad4692-multichannel-sar-adc-driver-v7-0-be375d4df2c5@analog.com>
- <20260409-ad4692-multichannel-sar-adc-driver-v7-4-be375d4df2c5@analog.com>
+ <20260409-ad4692-multichannel-sar-adc-driver-v7-5-be375d4df2c5@analog.com>
 Content-Language: en-US
 From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260409-ad4692-multichannel-sar-adc-driver-v7-4-be375d4df2c5@analog.com>
+In-Reply-To: <20260409-ad4692-multichannel-sar-adc-driver-v7-5-be375d4df2c5@analog.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 4/9/26 10:28 AM, Radu Sabau via B4 Relay wrote:
 > From: Radu Sabau <radu.sabau@analog.com>
 > 
-> Add SPI offload support to enable DMA-based, CPU-independent data
-> acquisition using the SPI Engine offload framework.
+> Add per-channel oversampling ratio (OSR) support for CNV burst mode.
+> The accumulator depth register (ACC_DEPTH_IN) is programmed with the
+> selected OSR at buffer enable time and before each single-shot read.
 > 
-> When an SPI offload is available (devm_spi_offload_get() succeeds),
-> the driver registers a DMA engine IIO buffer and uses dedicated buffer
-> setup operations. If no offload is available the existing software
-> triggered buffer path is used unchanged.
+> Supported OSR values: 1, 2, 4, 8, 16, 32.
 > 
-> Both CNV Burst Mode and Manual Mode support offload, but use different
-> trigger mechanisms:
+> Introduce AD4691_MANUAL_CHANNEL() for manual mode channels, which do
+> not expose the oversampling ratio attribute since OSR is not applicable
+> in that mode. A separate manual_channels array is added to
+> struct ad4691_channel_info and selected at probe time; offload paths
+> reuse the same arrays with num_channels capping access before the soft
+> timestamp entry.
 > 
-> CNV Burst Mode: the SPI Engine is triggered by the ADC's DATA_READY
-> signal on the GP pin specified by the trigger-source consumer reference
-> in the device tree (one cell = GP pin number 0-3). For this mode the
-> driver acts as both an SPI offload consumer (DMA RX stream, message
-> optimization) and a trigger source provider: it registers the
-> GP/DATA_READY output via devm_spi_offload_trigger_register() so the
-> offload framework can match the '#trigger-source-cells' phandle and
-> automatically fire the SPI Engine DMA transfer at end-of-conversion.
-> 
-> Manual Mode: the SPI Engine is triggered by a periodic trigger at
-> the configured sampling frequency. The pre-built SPI message uses
-> the pipelined CNV-on-CS protocol: N+1 16-bit transfers are issued
-> for N active channels (the first result is discarded as garbage from
-> the pipeline flush) and the remaining N results are captured by DMA.
-> 
-> All offload transfers use 16-bit frames (bits_per_word=16, len=2).
-> The channel scan_type (storagebits=16, shift=0, IIO_BE) is shared
-> between the software triggered-buffer and offload paths; no separate
-> scan_type or channel array is needed for the offload case. The
-> ad4691_manual_channels[] array introduced in the triggered-buffer
-> commit is reused here: it hides the IIO_CHAN_INFO_OVERSAMPLING_RATIO
-> attribute, which is not applicable in Manual Mode.
-> 
-> Kconfig gains a dependency on IIO_BUFFER_DMAENGINE.
-> 
-> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
-> ---
->  drivers/iio/adc/Kconfig  |   2 +
->  drivers/iio/adc/ad4691.c | 398 ++++++++++++++++++++++++++++++++++++++++++++++-
->  2 files changed, 395 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-> index d498f16c0816..fdc6565933c5 100644
-> --- a/drivers/iio/adc/Kconfig
-> +++ b/drivers/iio/adc/Kconfig
-> @@ -143,8 +143,10 @@ config AD4691
->  	tristate "Analog Devices AD4691 Family ADC Driver"
->  	depends on SPI
->  	select IIO_BUFFER
-> +	select IIO_BUFFER_DMAENGINE
->  	select IIO_TRIGGERED_BUFFER
->  	select REGMAP
-> +	select SPI_OFFLOAD
->  	help
->  	  Say yes here to build support for Analog Devices AD4691 Family MuxSAR
->  	  SPI analog to digital converters (ADC).
-> diff --git a/drivers/iio/adc/ad4691.c b/drivers/iio/adc/ad4691.c
-> index 3e5caa0972eb..839ea7f44c78 100644
-> --- a/drivers/iio/adc/ad4691.c
-> +++ b/drivers/iio/adc/ad4691.c
-> @@ -22,6 +22,8 @@
->  #include <linux/regulator/consumer.h>
->  #include <linux/reset.h>
->  #include <linux/spi/spi.h>
-> +#include <linux/spi/offload/consumer.h>
-> +#include <linux/spi/offload/provider.h>
->  #include <linux/units.h>
->  #include <linux/unaligned.h>
->  
-> @@ -43,6 +45,11 @@
->  
->  #define AD4691_CNV_DUTY_CYCLE_NS		380
->  #define AD4691_CNV_HIGH_TIME_NS			430
-> +/*
-> + * Conservative default for the manual offload periodic trigger. Low enough
-> + * to work safely out of the box across all OSR and channel count combinations.
-> + */
-> +#define AD4691_OFFLOAD_INITIAL_TRIGGER_HZ	(100 * HZ_PER_KHZ)
->  
->  #define AD4691_SPI_CONFIG_A_REG			0x000
->  #define AD4691_SW_RESET				(BIT(7) | BIT(0))
-> @@ -95,6 +102,8 @@
->  #define AD4691_ACC_IN(n)			(0x252 + (3 * (n)))
->  #define AD4691_ACC_STS_DATA(n)			(0x283 + (4 * (n)))
->  
-> +#define AD4691_OFFLOAD_BITS_PER_WORD		16
+> The reported sampling frequency accounts for the active OSR:
+> effective_freq = oscillator_freq / osr
 
-This is just the same as realbits in scan info. So could use that
-directly instead.
+Technically, the way this is implemented is fine according to IIO ABI
+rules. Writing any attribute can cause others to change. It does
+introduce a potential pitfall though. Currently, changing the OSR will
+change the sampling frequency, so you have to always write oversampling_ratio
+first, then write sampling_frequency to get what you asked for. If you want
+to change the OSR and keep the same sample rate, you still have to write both
+attributes again.
 
-> +
->  static const char * const ad4691_supplies[] = { "avdd", "vio" };
->  
->  enum ad4691_ref_ctrl {
-> @@ -114,6 +123,7 @@ struct ad4691_chip_info {
->  	const char *name;
->  	unsigned int max_rate;
->  	const struct ad4691_channel_info *sw_info;
-> +	const struct ad4691_channel_info *offload_info;
->  };
->  
->  #define AD4691_CHANNEL(ch)						\
-> @@ -177,6 +187,18 @@ static const struct ad4691_channel_info ad4693_sw_info = {
->  	.num_channels = ARRAY_SIZE(ad4693_channels),
->  };
->  
-> +static const struct ad4691_channel_info ad4691_offload_info = {
-> +	.channels = ad4691_channels,
-> +	/* No soft timestamp; num_channels caps access to 16. */
-> +	.num_channels = 16,
+In other drivers, I've implemented it so that the requested sampling frequency
+is stored any you always get the closest sampling frequency available based on
+the oversampling ratio. This way, it doesn't matter which order you write
+the attributes. In that case, the actual periodic trigger source isn't set up
+until we actually start sampling.
 
-`ARRAY_SIZE(ad4691_channels) - 1` would make sense too.
-
-> +};
-> +
-> +static const struct ad4691_channel_info ad4693_offload_info = {
-> +	.channels = ad4693_channels,
-> +	/* No soft timestamp; num_channels caps access to 8. */
-> +	.num_channels = 8,
-> +};
-> +
->  /*
->   * Internal oscillator frequency table. Index is the OSC_FREQ_REG[3:0] value.
->   * Index 0 (1 MHz) is only valid for AD4692/AD4694; AD4691/AD4693 support
-> @@ -207,24 +229,36 @@ static const struct ad4691_chip_info ad4691_chip_info = {
->  	.name = "ad4691",
->  	.max_rate = 500 * HZ_PER_KHZ,
->  	.sw_info = &ad4691_sw_info,
-> +	.offload_info = &ad4691_offload_info,
->  };
->  
->  static const struct ad4691_chip_info ad4692_chip_info = {
->  	.name = "ad4692",
->  	.max_rate = 1 * HZ_PER_MHZ,
->  	.sw_info = &ad4691_sw_info,
-> +	.offload_info = &ad4691_offload_info,
->  };
->  
->  static const struct ad4691_chip_info ad4693_chip_info = {
->  	.name = "ad4693",
->  	.max_rate = 500 * HZ_PER_KHZ,
->  	.sw_info = &ad4693_sw_info,
-> +	.offload_info = &ad4693_offload_info,
->  };
->  
->  static const struct ad4691_chip_info ad4694_chip_info = {
->  	.name = "ad4694",
->  	.max_rate = 1 * HZ_PER_MHZ,
->  	.sw_info = &ad4693_sw_info,
-> +	.offload_info = &ad4693_offload_info,
-> +};
-> +
-> +struct ad4691_offload_state {
-> +	struct spi_offload *spi;
-
-I would call this "offload" or "instance". "spi" is usally the SPI
-device handle.
-
-> +	struct spi_offload_trigger *trigger;
-> +	u64 trigger_hz;
-> +	u8 tx_cmd[17][2];
-> +	u8 tx_reset[4];
->  };
->  
+> 
+> OSR defaults to 1 (no accumulation) for all channels.
+> 
 
 ...
 
-> +
-> +static int ad4691_cnv_burst_offload_buffer_predisable(struct iio_dev *indio_dev)
-> +{
-> +	struct ad4691_state *st = iio_priv(indio_dev);
-> +	struct ad4691_offload_state *offload = st->offload;
-> +	int ret;
-> +
-> +	spi_offload_trigger_disable(offload->spi, offload->trigger);
-> +
-> +	ret = ad4691_sampling_enable(st, false);
+> @@ -499,7 +570,7 @@ static int ad4691_get_sampling_freq(struct ad4691_state *st, int *val)
+>  	if (ret)
+>  		return ret;
+>  
+> -	*val = ad4691_osc_freqs_Hz[FIELD_GET(AD4691_OSC_FREQ_MASK, reg_val)];
+> +	*val = ad4691_osc_freqs_Hz[FIELD_GET(AD4691_OSC_FREQ_MASK, reg_val)] / osr;
+
+I guess we don't have to worry about fractional values here?
+
+>  	return IIO_VAL_INT;
+>  }
+>  
+> @@ -536,6 +607,11 @@ static int ad4691_read_avail(struct iio_dev *indio_dev,
+>  		*type = IIO_VAL_INT;
+>  		*length = ARRAY_SIZE(ad4691_osc_freqs_Hz) - start;
+>  		return IIO_AVAIL_LIST;
+> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
+> +		*vals = ad4691_oversampling_ratios;
+> +		*type = IIO_VAL_INT;
+> +		*length = ARRAY_SIZE(ad4691_oversampling_ratios);
+> +		return IIO_AVAIL_LIST;
+>  	default:
+>  		return -EINVAL;
+>  	}
+> @@ -566,6 +642,11 @@ static int ad4691_single_shot_read(struct iio_dev *indio_dev,
+>  	if (ret)
+>  		return ret;
+>  
+> +	ret = regmap_write(st->regmap, AD4691_ACC_DEPTH_IN(chan->channel),
+> +			   st->osr[chan->channel]);
 > +	if (ret)
 > +		return ret;
 > +
-> +	ret = regmap_write(st->regmap, AD4691_STD_SEQ_CONFIG,
-> +			   AD4691_SEQ_ALL_CHANNELS_OFF);
+>  	ret = regmap_read(st->regmap, AD4691_OSC_FREQ_REG, &reg_val);
+>  	if (ret)
+>  		return ret;
+> @@ -575,8 +656,9 @@ static int ad4691_single_shot_read(struct iio_dev *indio_dev,
+>  		return ret;
+>  
+>  	osc_idx = FIELD_GET(AD4691_OSC_FREQ_MASK, reg_val);
+> -	/* Wait 2 oscillator periods for the conversion to complete. */
+> -	period_us = DIV_ROUND_UP(2UL * USEC_PER_SEC, ad4691_osc_freqs_Hz[osc_idx]);
+> +	/* Wait osr oscillator periods for all accumulator samples to complete. */
 
-Why this extra step? We don't have it when unwinding in the
-error path of the postenable function.
+Why did we need to way 2 before and only 1 now when OSR == 1?
 
-> +	if (ret)
-> +		return ret;
-> +
-> +	spi_unoptimize_message(&st->scan_msg);
-> +
-> +	return ad4691_exit_conversion_mode(st);
-> +}
-> +
-> +static const struct iio_buffer_setup_ops ad4691_cnv_burst_offload_buffer_setup_ops = {
-> +	.postenable = &ad4691_cnv_burst_offload_buffer_postenable,
-> +	.predisable = &ad4691_cnv_burst_offload_buffer_predisable,
-> +};
-> +
->  static ssize_t sampling_frequency_show(struct device *dev,
->  				       struct device_attribute *attr,
->  				       char *buf)
+> +	period_us = DIV_ROUND_UP((unsigned long)st->osr[chan->channel] * USEC_PER_SEC,
+> +				 ad4691_osc_freqs_Hz[osc_idx]);
