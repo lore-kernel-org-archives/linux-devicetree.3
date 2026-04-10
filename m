@@ -1,122 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B74433DA5D1;
-	Fri, 10 Apr 2026 16:28:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1BF83DBD72
+	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 16:30:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775838503; cv=none; b=VpddTh+3K6oGJ/+NfgCN1bg6yiMFY5BUSYYp3OS0lZ5uasJu5NipZ2SZ2HXUmVAe4vsQkmULz99F1xx2buuYde/Co8iSPtvIK2p+BF3aBIXWbodqDrabfPn0I99aJGF0uyLOZHVo8uXJViVNJv8E8rePttd0aVWqMZfO3amGuyE=
+	t=1775838650; cv=none; b=U4OcWEg/Gg3p0pS3m1nXP9Xf8a1Ng3Oc8usbOeeFFDw3tIZPBejlwT3kvvh8zsc7Ncp0tp++aHANN7mO/YvPqhlGgb6aeoYS/fbKonN2Ilz1LGF4yi6Rpnc1LTvvtITL9343TtuKeHVZcUM4BnNO+U77XdW8EDJbm6K5xPlKSMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775838503; c=relaxed/simple;
-	bh=KDJKpZpI8gF/8EhfJCOR6TdwnZwUN1VzGf+Iv+pFLrw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=jKpp2/ESEfkSpcsCJwpOWb4J7eAhV6yhPShhODzROEGF1zeWxqrG5YeojEc/79sW7OUoagnehS8CDMbD2FNagThw0P8828pzJcQ94M0QBH7MY75DWC9hO6w6dxCWc7AmXIVaW6/Skvdtpyoq5HJ1f7uATGQWRjUAFBp7hRWfq+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cF4CWjKY; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775838650; c=relaxed/simple;
+	bh=Undq6STZNqRrbFQaVnW7mDpSSi0KgbNQArRWEWLZ8SU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MQFJqP5FbP05IhKsmBzdfmAzl3VmnL7onUTx8YmKLDCtwKg2oFFVoe+U0y+jlo4aCwhhFHAPhVspTjxf5VoimHvVl8oG/sE4QRFZKFZRLobHdGwPXYE+a12vt6iaf+G2arVw1JDOX1vs6riJcZGEyGsjWnT98p5QsdCYJ3f+En4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lVUymMSb; arc=none smtp.client-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cF4CWjKY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FA07C19421;
-	Fri, 10 Apr 2026 16:28:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775838503;
-	bh=KDJKpZpI8gF/8EhfJCOR6TdwnZwUN1VzGf+Iv+pFLrw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=cF4CWjKYbZHWGjXlvofpoDGGZ9TR1yOHT8WIjyxcptxXl3SDv2Lhf75LVrz0mcF6u
-	 qR13YLMv8/btr7sxC/RzG8+B3d+QbgRlQeHYud04zgOxvzK129v/GNVQATcd0ixA6y
-	 eF2kUIwv1WFFTZtM+sfVZ5voPLJmRQwjS0m7xdd7jBRLTWfTzgQgXRFxPPPKcd6D3O
-	 I/ndlNekOfLNpuOa28l/ZlwkjJ+zFXCLTJUWUwFYOxxIrW/D2k9RQohdGYwxvJXq9J
-	 nMFw1d3XIHZDkOtXJQfdQaohIoq5nW0vQE32bJvBmNNN1TNuI+fWXJnCigeCUOzV5K
-	 6nvEkqQKZhqpg==
-From: Mark Brown <broonie@kernel.org>
-To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chris Morgan <macromorgan@hotmail.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Sebastian Reichel <sre@kernel.org>, 
- Alexey Charkov <alchark@flipper.net>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- linux-pm@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- stable@vger.kernel.org
-In-Reply-To: <20260331-bq25792-v6-0-0278fba33eb9@flipper.net>
-References: <20260331-bq25792-v6-0-0278fba33eb9@flipper.net>
-Subject: Re: (subset) [PATCH v6 00/11] Add support for the TI BQ25792
- battery charger
-Message-Id: <177581837919.1070744.17621563361333380335.b4-ty@b4>
-Date: Fri, 10 Apr 2026 11:52:59 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lVUymMSb"
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-2cfd69b564dso3156730eec.0
+        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 09:30:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1775838649; x=1776443449; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=LhP5b/cZwXBwnnrIhhft7r+i2inPS25UHhwkMigbIjk=;
+        b=lVUymMSbI7zd0dnPGBCiDIwUi+jfULmXXk/2+YZzsxkddheRlWqaG8/wahWB3gwmtZ
+         kel91gzHzrue9UqlZmikwtbp1RJOhAcMwgVRyBb8E/HnBWquLrtxnmMhjY4p0EZPEOH8
+         Mjum/+apCrmvc/hD+V6dCicP75BByXN+PH2WC/gLn4D9lM8ZXVMJT2KoO3kPg0ltlMdi
+         DwKDu3r0jChZaIJn8pwjX4EzVIwaPks92pDdB14ou0dSRHYh1ZslXEerV/JdbuaHSsGr
+         34CEBJmOh+Z1ZOYHs5/MORt/wUCxo/Q9iFj0b5gAi3vKud7TIp0yK3JO9iR0+MD40ZHc
+         +NNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775838649; x=1776443449;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=LhP5b/cZwXBwnnrIhhft7r+i2inPS25UHhwkMigbIjk=;
+        b=KIL7G0pbkdwMXAKhlRrM/Aj8YarJ7Qie0G6wfgXfSYhPqjaOmy/eVQ8l+6l+dEEply
+         A5EgN0E/EZ+z01oGtPk8sr5bESphuZDlLdGqcGEwPQfLM+95ANlKX0AnzVxgFM6iFzYx
+         QnUoYNwwU2kGQrm/tMUnRz418GzzzxMYtK098YjXM+r1jpNKudL62UKsSerZav3t+Sd2
+         2Di3TbTC2NOydIpElzVoHwsukL28PWLxQjSS7dRXcxnZQkgsER2GqSJcfozW37XxrpjD
+         ZMkZ91ouo3ZQOTgO01Uf42RsU3lv8BdOQ8LMK+8zbTeoZhIVLAOqIjE7suVN0QjaWxkC
+         dWuQ==
+X-Gm-Message-State: AOJu0YxOEXyfUvegSpGv6soNyyVRyYvTtNR93zQxMhe2uG0RVHAMs18b
+	pjqv28k+hf0IKuE8KM01dfe5PhjSI2ZNC/wAPs4IpkUFcZc7KpsXDgdtp4z5pw==
+X-Gm-Gg: AeBDievTXS2KU90WGg8/j0XCdicORluidi0FMo+hU3FhRrwb3ey+kpSIlaRNs8u6QCo
+	nwcT+hKONxJliJZdJ1UmhmtpjstRuF7u5Kf+Q3v9ZOyb+zxVfwurGI6Qos2Vt/FQh3D6x8S58pV
+	XpgT3Zd+EH38BKJMVQm5Rjd6d9LW/6oCdlOG0hJjUGeR7u4CifNsvk3Jq3xIe9637GP+qUrkqKX
+	6+Wj674aHJG+1U307Z8b61Udy+jkb3Sz60KPMJtWnO6cU4x29bMvDrWdjx6cernffuME1TT0NB9
+	acmkjm1TakMb0rgbOUMVMDuKKGDqxqWvcJWHlmQxBe/whPwNK9+CeAmRXx99VvPILfDFgd18kcz
+	9xriOgMDzXjmZSFjjWx/cDSnrG9qiH0TAPIEdXa7BXiLW/SLNEclA5L55LbgiylItPQtEWZbznq
+	TeEdpyn+4D1Uj1fVyUm5JNLNd8hduACDzujCli8g0qyk2s8QO6RSx1JJW0qUf+jY/xJowcn9uH
+X-Received: by 2002:a05:7300:f082:b0:2c1:7afc:df00 with SMTP id 5a478bee46e88-2d589361d94mr2267276eec.30.1775838648647;
+        Fri, 10 Apr 2026 09:30:48 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2d5630ac330sm4803680eec.29.2026.04.10.09.30.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 10 Apr 2026 09:30:47 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <9872a816-9a4f-4826-a4c9-151efa73213d@roeck-us.net>
+Date: Fri, 10 Apr 2026 09:30:46 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] hwmon: (pmbus/q54sj108a2) Add support for
+ q50sn12072 and q54sn120a1
+To: Brian Chiang <chiang.brian@inventec.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, Jack Cheng <Cheng.JackHY@inventec.com>
+References: <20260402-add-support-for-q50sn12072-and-q54sn120a1-v3-0-67a5184e93b8@inventec.com>
+ <20260402-add-support-for-q50sn12072-and-q54sn120a1-v3-2-67a5184e93b8@inventec.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260402-add-support-for-q50sn12072-and-q54sn120a1-v3-2-67a5184e93b8@inventec.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2478; i=broonie@kernel.org;
- h=from:subject:message-id; bh=KDJKpZpI8gF/8EhfJCOR6TdwnZwUN1VzGf+Iv+pFLrw=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBp2SUieLBs4yjJAKCjA+O7IjNPiz2mxalGykmUr
- 8W+kxR+IV+JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCadklIgAKCRAk1otyXVSH
- 0K1IB/9cuplHzaSjeGBe910uWfzNFmnewSyag1dJ0LyVf9FdNk80V4JPAjU1+SoeZcdiR6pDJpQ
- OlU2bvBZmIZbceaDC5bQvv6BsDEWFzoDg3ouwsMLjdFUvh4RqfueUSx7E+Tl72Mxa3gYjmXYAp/
- LpaTeY4IopVA9rJzRvx8YB0mhpkO5gxHymlpRCEI/3iGUhTULtkMDYqMOU6XafYI4IQVvG4TW9K
- MumRXYD2ngOxsl5BSI9Rn3B6Yc/L3ApMYA9169OIIZzWRlGfcLtw2G0460s5VIVLMkKYO8f3bh0
- WSM+4lS49oz9t0NJltdgXsJqagdiTxATRZSSwygtNLBUS+wy
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, 31 Mar 2026 19:43:37 +0400, Alexey Charkov wrote:
-> Add support for the TI BQ25792 battery charger
+On 4/1/26 18:29, Brian Chiang wrote:
+> From: Jack Cheng <cheng.jackhy@inventec.com>
 > 
-> This adds support for the TI BQ25792 battery charger, which is similar in
-> overall logic to the BQ25703A, but has a different register layout and
-> slightly different lower-level programming logic.
+> The Q50SN12072 and Q54SN120A1 are high-efficiency, high-density DC-DC power
+> module from Delta Power Modules.
 > 
-> The series is organized as follows:
-> - Patch 1 adds the new variant to the existing DT binding, including the
->   changes in electrical characteristics
-> - Patches 2-4 are minor cleanups to the existing BQ25703A OTG regulator
->   driver, slimming down the code and making it more reusable for the new
->   BQ25792 variant
-> - Patch 5 is a logical fix to the BQ25703A clamping logic for VSYSMIN
->   (this is a standalone fix which can be applied independently and may be
->   backported to stable)
-> - Patches 6-8 are slight refactoring of the existing BQ25703A charger
->   driver to make it more reusable for the new BQ25792 variant
-> - Patch 9 adds platform data to distinguish between the two variants in
->   the parent MFD driver, and binds it to the new compatible string
-> - Patches 10-11 add variant-specific code to support the new BQ25792
->   variant in the regulator part and the charger part respectively,
->   selected by the platform data added in patch 9
+> The Q50SN12072, quarter brick, single output 12V. This product provides up
+> to 1200 watts of output power at 38~60V. The Q50SN12072 offers peak
+> efficiency up to 98.3%@54Vin.
 > 
-> [...]
+> The Q54SN120A1, quarter brick, single output 12V. This product provides up
+> to 1300 watts of output power at 40~60V. The Q54SN120A1 offers peak
+> efficiency up to 98.1%@54Vin.
+> 
+> Add support for them to q54sj108a2 driver.
+> 
+> Signed-off-by: Jack Cheng <cheng.jackhy@inventec.com>
+> Co-developed-by: Brian Chiang <chiang.brian@inventec.com>
+> Signed-off-by: Brian Chiang <chiang.brian@inventec.com>
+> ---
+...
+> -	/*
+> -	 * The chips support reading PMBUS_MFR_MODEL.
+> -	 */
+>   	ret = i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL, buf);
+>   	if (ret < 0) {
+>   		dev_err(dev, "Failed to read Manufacturer Model\n");
+>   		return ret;
+>   	}
+> -	if (ret != 14 || strncmp(buf, "Q54SJ108A2", 10)) {
+> +	for (mid = q54sj108a2_id; mid->name[0]; mid++) {
+> +		if (!strncasecmp(mid->name, buf, strlen(mid->name)))
+> +			break;
+> +	}
 
-Applied to
+If ret < strlen(mid->name), this check compares uninitialized data.
+Also see Sashiko feedback:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.1
-
-Thanks!
-
-[02/11] regulator: bq257xx: Remove reference to the parent MFD's dev
-        https://git.kernel.org/broonie/regulator/c/aef4d87f2c1f
-[04/11] regulator: bq257xx: Make OTG enable GPIO really optional
-        https://git.kernel.org/broonie/regulator/c/de76a763805d
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+https://sashiko.dev/#/patchset/20260402-add-support-for-q50sn12072-and-q54sn120a1-v3-0-67a5184e93b8%40inventec.com
 
 Thanks,
-Mark
+Guenter
 
