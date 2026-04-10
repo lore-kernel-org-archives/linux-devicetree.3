@@ -1,218 +1,238 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB8CE3AF670
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 08:56:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775811362; cv=none; b=JO51HZFbvSHuhMngvAYAA5iL1p7ELsnrCNu0fT5tY9pmj2g+tDAMEkvv89/baZvyC02Bk0X+sbTGahDPwPnpu5JoIjz3SemJNr9hhIg68MZe4NVta/kHUjqmJYK1FWWXLVrh3/ecARw4bD5WYW86KPsks3h2BupfF7Pd6X/Km28=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775811362; c=relaxed/simple;
-	bh=GWFjobN/z+q+q6VAzTn83X8tsx2TENHTLcoPabSCniM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=d4EpNy3k9WenSuEOCRg8ZA97Iy1wRxsdLiVW80OmlGnRDJZKRTh+zSMdyZlDz2sehEAcSLxFXd7ZJwqko6k7hCqraZH0eYl8U2Dw2Eg5e3euTJIqaH9K2cV6x3eIY0uZOqfDMXPMnb4CF4tX8/907Rhyq357mmHGVHhrFr0jrP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=l1lQV9aA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IieUhSIP; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D0143ACA52
+	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 08:58:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775811486; cv=pass; b=oXye/DxepMYQ/X3O6dhI5OK+Cut7owMXcGOCFXK3PnZs0q+M5ZT1tnfLqF2jva7PQWwW1TcIjznbE5fDPRwi0yF8YX5gZUvIM0IUtxhy5joqQpUz9mTXQ5lSW5Q6ydbmv7ilIAD0qg7WwsME2q7fZvqRDMAdl0CaRg5cqWfKIvA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775811486; c=relaxed/simple;
+	bh=iaYKT1sl2Tr/cLZwPA0Zvqg9ubw9wCPbruk9AwA0cek=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FZ5Mowxn1lgHK1v0t9YbkcjINkGUZE5IIw3Miagum13+Dig/W469fFsI+Xbmpf57LVQby60y+dY5XqTTj6kt/eV3bxrVuBixKWARbOUMoGmIYYb/v/3G1UTmos0jn08x0t24N5GAYTkDsfjls8tvroMmQUzUihsSOmucKsMlmQ4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=qW/kT/NF; arc=pass smtp.client-ip=209.85.167.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="l1lQV9aA";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IieUhSIP"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63A5oM7T4148029
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 08:56:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	wNlvcLiFn3EPDBnTEP3/OD9nrYq1rMilcUmKdwmcd2s=; b=l1lQV9aAAZB5IWPm
-	XPASMvqTU24RYFa7av3+0/B4pKhbqKvF5EZ/80VStWKbf6Cc+mTM1qLGfzzseZMs
-	j6p35k0fZSw8d+SBjB0+FMUqTDWMxPfAgEGLxyYkl0jMfbjKjCHNsAWj1i0k6N5g
-	Bs06LR0v8PuvhTfo3RklyARL4gRSOaJHsBY4MTeAOQkNx4dTfZCEC1TOAnCdoDhE
-	mn6dS9khgo2pdGqhw9eASbrtpw+Bp6CkQgpaiLr+9uisa6k/725ZcwWhUDE20itZ
-	kY9zOerW+/gFLLg2DKHtqphkiv5oWITixNzVidn25dC758H12bAhxAgmsbABtZ0Z
-	nSoFCQ==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4deudggmjd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 08:55:59 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-50d7128e038so4623981cf.2
-        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 01:55:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="qW/kT/NF"
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5a283c44478so2802079e87.3
+        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 01:58:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775811482; cv=none;
+        d=google.com; s=arc-20240605;
+        b=ENbCAW/YvuTUolgtildNrtFFSZbRxOVq0ZE32dqSmKSUb7LEPsrYhQ8O+9zsm3tNsJ
+         3z1ZBmlXAHbqjfU2zkQK6+D1/C/uH/MTpsW5KMyY1mIa0vWAQyEAxV5PB8DuAOCI+w6V
+         /8N1aGHuMmSrA9glVPdToyMqeaf3TMEcRqvy1bKpKOciuByKyYxZJ3AoIgffIS/JY+zz
+         DR2gZ1TuTfiz4mIJR3+QGV+/BZ0QLx5zg2XH7WhN/HInySTpzIzjUjyXOvtaUKkiCVu+
+         Bftexu8X3jHlkQzaqmd+GsG4w6G5sJtYZ18G+uut8n1R8uoSeLZfRSX1Vo3wgAa8OyC+
+         xAdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=Z1vmmkZcYrQbBuSPIBwVZCij2+2X5p9lbMUk5Tsb6wM=;
+        fh=LRPomeurC2EfOgI1qeBedWA8zbwE3HSXGJMEFW648qI=;
+        b=LYIBd95mp8B3eQLUD15MfaAbWJdtYNocCJ6RopkUQEZN0u1AxsuoyOcfoflwZPNe8Q
+         RU23W9wLAmGano9zigwtZY6hX5BZLDYJUEPH4MRTtmwOb6vKp/yZ7ghNPWlbK2gchPsK
+         gCYeOoPeaPQPMN3ctWcSeXXnxYX+6doIUmJTvs0hpQwdJQa/ZqBR+j+LyxU2scKdvZae
+         jNtcAPZsM/FM9VuYi0EcLL5gfXSwQo7mtN31FfqnquaXK9uw1DJs1Wy3hMkNguXlsNnY
+         1J7meA9oviqjBFoppkF7+CYzdiOOFHYgMYIWXMAlWLoNwVWt6MtrRbXWoACcVjkA9mBV
+         /kyw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775811358; x=1776416158; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=wNlvcLiFn3EPDBnTEP3/OD9nrYq1rMilcUmKdwmcd2s=;
-        b=IieUhSIPeHdUE3/NKoKFkUMr+cTrl73YBedtmy86PWwvqSdORmrWt476kEPVn3KJDl
-         CbtcbM4zOYU5FHgHzW2NFbgn70jMf8xFJzhSNWnV/4zLsSsjtDBbn5C5684GtvQB0C2J
-         T7xEI1kk2KwtmuIeAJxApSS3wSR/ekFxsCaxTS+HcxHmcHV37+yn0+mG2GZpBpFAKrjK
-         jhXOEdv4eXQCnIqxIbXIagL0kFhkCNIyZKQ9fPhcKwIrFFDIzoFow2A6hWY5ljLwpmKV
-         J3LaWrZPm9XiO8TOTKVUm77TE5iKkNyaNxHqeoxWzrIB0egvBpW4Buw7JHmrJc8BkCX/
-         99uA==
+        d=linaro.org; s=google; t=1775811482; x=1776416282; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=Z1vmmkZcYrQbBuSPIBwVZCij2+2X5p9lbMUk5Tsb6wM=;
+        b=qW/kT/NFo+XhkEqKBwLgGwFMLH+rH4rsWbCuYQHqlqBoIVsGX3AFU8FsJ5LyrqMCgG
+         u92Rw8ZKiwWCdVr5TrFD6S2Q3lVNWvAwtBiazEHryzoWM68NyEO3tEZnsuMlG94qPAaS
+         REZjxiVsOILaxQzEsmhRI72TSVZia7M8617I8HHJmiQwAUwYsfJjHTHu+GiehjhH9V+x
+         CcjNZzJGVadFLKT4V9EPy5EPxtzSba0ZySbSZ2s2xXc3ELq7zTclCF7ufUKFEeoUvt26
+         gCsJlqO6pG2y6xGY5DqKd4T8xd847j+lbuibBPZ9HLAFJl2NsXEWieUjMOSmtuJVGnaa
+         rAWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775811358; x=1776416158;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=wNlvcLiFn3EPDBnTEP3/OD9nrYq1rMilcUmKdwmcd2s=;
-        b=p/zC23y5AXk+Buf1PyR0GHmQrktD86+0YgiFqF9U22X0gSQ3rJwZ3jSXmZ341Q4eTR
-         BJ3Y/SSzQdnpsFv6cdTFCkCFnV/nwUjovAu1YBGFVSpaDmlva8JbmbhqdOxZoKEhX9yF
-         +bVcdmTRSnK/jC8eZmPN8cFFPNuBIedYClkplFJ77KUB9FvwAAytfU2PtIreUwEbcySs
-         042T3GYATgE05o7q6fVmFVt0lCM/Z0dHaOrniotoSR3UEpPNtnJoyNtsXEw/L14F4R7Z
-         rlm6hMeJH0D6TIA44onLzVTcUkX8DAGb/5hzgUF2c+twcNyRUmiRl4LIhJc6/RL73J/M
-         DVSw==
-X-Forwarded-Encrypted: i=1; AJvYcCWAUDiWiqoh3hdMj9t/f8Qb/ueYvyZpXCttKcJEN3OTMHEKuvdRHdkjZNprmThbo36h19Btmf/PKzL6@vger.kernel.org
-X-Gm-Message-State: AOJu0YxTjb7yh1ZHrq+UoB2vC/rHWT3UWnO8FohyLR9g1p2mQLjp6a1C
-	k0wGkEH223v94ev8+44OcVpFyk5a0CVnYMjD1rwjPbuT9Wi/nfvPUXycrxApob+Cuddsmd8Vu8C
-	Ks7ZTs4yT9cQ41tO7xpzScPV8eBbcJ2HWwhdS4F45hhOzjle7oncGFjMyN2SxGLec
-X-Gm-Gg: AeBDiesA8aRuiDL5DhG+G86bmydYU0IHfSRGCFHOLNDLPoeiojZ/WrluXneFKMf5dit
-	Vc5ztLBDJqiJMTxhtdWgPCA76VqrohATl0kVhZ3xN+4NfsIJ1N9xBn+ooqNZ6xUU6lg9cZ7CIJ4
-	RdaRgIu1EZ1qk+0A2kJ9RQabmJgUPkqMPM+UmAsBL0W9J0QBAx6Sp+ms4afj+0x9dXmg/2ekSBV
-	/kfZ90tW+VA3xFXzcKHuBwTq7zStDdlaJmcwYysBQHuVy8v62xfNne6U+6OpaPaDnqh+JMwTgxv
-	vI4UffEKRQnoKzEi0dY7zI96y4JK4RrpzQrKn0h0VEtZcwlS1mkPhl1FcbTOu1fzElNq5WeLaHb
-	QotiOVfqKAalVHx78awY3tRiiaf/bNpKGaJkmFnJyPPe0bGkHSbKk5SqDGcjC05JrTskfsdCCAZ
-	O0Zdg=
-X-Received: by 2002:ac8:588a:0:b0:50b:2f83:b702 with SMTP id d75a77b69052e-50dd5c4f080mr22735351cf.6.1775811358539;
-        Fri, 10 Apr 2026 01:55:58 -0700 (PDT)
-X-Received: by 2002:ac8:588a:0:b0:50b:2f83:b702 with SMTP id d75a77b69052e-50dd5c4f080mr22735201cf.6.1775811358089;
-        Fri, 10 Apr 2026 01:55:58 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-67070815a1dsm443649a12.22.2026.04.10.01.55.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Apr 2026 01:55:57 -0700 (PDT)
-Message-ID: <5b45a40d-54a6-40b5-b4b6-eac344827dc9@oss.qualcomm.com>
-Date: Fri, 10 Apr 2026 10:55:53 +0200
+        d=1e100.net; s=20251104; t=1775811482; x=1776416282;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Z1vmmkZcYrQbBuSPIBwVZCij2+2X5p9lbMUk5Tsb6wM=;
+        b=GwsGA0G51kg5+unde0elPfZAmtFJJVpVSAjfpRVN+Xn4l748tL/UquwrBHYv35pe1C
+         ilLDLXlwaw0aEKnTHukmoDzrzNc8MkOOOUqoI7g4cUjWnrOwO31t58ntUOl7WhLRD1uv
+         0MT2XVvnLyT3LRmSvdDpb70Mfh61/0VGvWflY9qCWsIE83I1Z75L8aQaYHtq3yB3Npte
+         Wwv2RdOgrQcoN92AGjRzk4JkiVjmxYF1cNLqkCeAmnuE88nrc0Ff7lQHEVNn9dsxrJv1
+         MkNaYPnkqq/HOzWnDAawzPIj3EPKPQzmPSCecJrrV8bhuMmJpEAyvO/3IMSKS5mhc+4Z
+         Z0kQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWgqjk3yxWrRWBvdvMWwJ7mOp+UReNkzu1nvdJzcSadxQDdoHyw802yGAc6rJ6sREaGKpvdc+PyUe0A@vger.kernel.org
+X-Gm-Message-State: AOJu0YzyO7Im5vibR9yIcVt2K2lDXOmYtu8EDO1LwQ3G5rCw75zRKSjH
+	Pb3GqbcUJQ96lXUBoUdYaWj2Es05+JxfebdpJ7gwLy0099ooUFmCcrtI4SxDiP4IgHw+ez23BuD
+	xliCHSsokozdNOR9yVKgXRTDyuFeQZUowCd4s18FruJiFKJymq43xG/A=
+X-Gm-Gg: AeBDiet2Wi2NYvjKIuehzm5wdNC2Gzk7W8XaLclrslQfIlq9TFtq4Eg3iRjfR9bgokp
+	5U7mYAZkLTDDuqc5IQGYikYxtoS91z73iP1ssC0HKmlhZcgM/6fKEN4Ey/kcgiiSskOlVgitMo2
+	j4Z7tU/2PAm0mWdrP2eNsz7/N+D64LE2MLHXXj7oDFoY0xCuRxrLExztsIwqNtR2TS3Z2nQczxl
+	S1P9do871B4mnO7+wSLQpo6gSMDp8QyNF2HcOm2/zkn/8L+cffPpstN8IoYfyWlKh9AM9qKq9IN
+	Boh5xPfb
+X-Received: by 2002:a05:6512:1396:b0:5a2:c8d9:ec4a with SMTP id
+ 2adb3069b0e04-5a3ef9127demr836109e87.19.1775811482189; Fri, 10 Apr 2026
+ 01:58:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] arm64: dts: qcom: sdm845: Add missing MDSS reset
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        David Heidelberg <david@ixit.cz>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org
-References: <20260217-sdm845-hdk-v1-0-866f1965fef7@oss.qualcomm.com>
- <20260217-sdm845-hdk-v1-3-866f1965fef7@oss.qualcomm.com>
- <590f75c2-6418-4d39-ba7e-589acdf98786@oss.qualcomm.com>
- <e43d5bb2-bdbf-4439-933e-36591dcfd3c1@ixit.cz>
- <9405b67b-9e08-472d-a937-38c038fdf73a@oss.qualcomm.com>
- <ljser6u4fd5qc4lxxde77igtxz6ertbeucsg6s3zbwlykfowpj@yf7h6tqh6cik>
- <9b4cb352-d1ed-402d-a55d-cce2d2fe1eed@oss.qualcomm.com>
- <t5akkkyyv5yebjmowvqu3nnweu5hz47tagdzv3ifzqwlgib2v2@5jugyaiav5wn>
- <8cd9693d-9ec0-4173-bcca-786915b5c4cc@ixit.cz>
- <xbbaffnmi6z5ohzw3p4m6ox75gasgc3nw5cf6yo7h3td2bmsrb@px2mntm74rhb>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <xbbaffnmi6z5ohzw3p4m6ox75gasgc3nw5cf6yo7h3td2bmsrb@px2mntm74rhb>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: 1dhKj27wtXpjgJVVTUb-q0HffuQArez3
-X-Proofpoint-GUID: 1dhKj27wtXpjgJVVTUb-q0HffuQArez3
-X-Authority-Analysis: v=2.4 cv=H/brBeYi c=1 sm=1 tr=0 ts=69d8bb1f cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=SXzkmgPmAAAA:8 a=VwQbUJbxAAAA:8 a=RZ-4Qy_TuwwZI4MMkMAA:9 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22 a=EWLf6cg6Bh5aS0AxDgDu:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEwMDA4MSBTYWx0ZWRfX6q6AfdQqs69U
- hqNSvegL2W5EUAeikEImg3v4enkc4BO2J/JLBpuR+jWazu/fg0q6NE/7HQDMFiGElNkjIroAmAk
- 9AQ1G8GV4IeTc8TYDYrmAIFdONQOH/xwF21A4YTGrx2qL1EinyQAxQYSGi2TRgqoYniWgdqB9W5
- t2CZolUCJIq5w+syjWPFFQloxsmbh9Pq2Z8ntHv8WZ+yW0H63KL5j2gWXYkyVjIc/oiEbyR019p
- adUvswmeSfxp2Sc+BqIF4qSY7aO+znTeU6m/j1cJ+rjb8CM1xdCDCdNUNTSTPOu2nqANk6kWUDZ
- MUD7n7NDQZKAR0VA7ELnC/HYXhOIASEqz5sw2T/lM+qC14R28cPSnuf1AakXedA/Bp9EXqoylEg
- YFZlEloEtP9uLUgyl8NCYBa4/f5W0e3dC9O3gdRVSRoOgwZxKEsCdXfNMtTvbmFlZOYS5NLZZWy
- s5j1KS38/8dhTny417A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-10_02,2026-04-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
- suspectscore=0 malwarescore=0 bulkscore=0 impostorscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604100081
+References: <20260310-topic-lpm-pmdomain-child-ids-v1-0-5361687a18ff@baylibre.com>
+ <20260310-topic-lpm-pmdomain-child-ids-v1-2-5361687a18ff@baylibre.com>
+ <CAPDyKFquJ7K4NcWuKMr1sjrnFVVPGAeLCiSF_FhvJf9Frbn1uA@mail.gmail.com> <7h4iljskvz.fsf@baylibre.com>
+In-Reply-To: <7h4iljskvz.fsf@baylibre.com>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Fri, 10 Apr 2026 10:57:24 +0200
+X-Gm-Features: AQROBzDhT0oW3z8LEIG1Euo0M3-dmugaTMajHzsT9TLnPM4O-8m4J3dOe0QMXE4
+Message-ID: <CAPDyKFrR2zyMFXTAkKs1XRgB-u5jSP256g730s=7SLuOZKsKVg@mail.gmail.com>
+Subject: Re: [PATCH 2/3] pmdomain: core: add support for power-domains-child-ids
+To: Kevin Hilman <khilman@baylibre.com>
+Cc: Rob Herring <robh@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>, linux-pm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 4/9/26 11:24 PM, Dmitry Baryshkov wrote:
-> On Thu, Apr 09, 2026 at 10:38:15PM +0200, David Heidelberg wrote:
->> On 18/02/2026 16:59, Dmitry Baryshkov wrote:
->>> On Wed, Feb 18, 2026 at 03:28:01PM +0100, Konrad Dybcio wrote:
->>>>
->>>>
->>>> On 18-Feb-26 12:58, Dmitry Baryshkov wrote:
->>>>> On Wed, Feb 18, 2026 at 12:24:26PM +0100, Konrad Dybcio wrote:
->>>>>> On 2/18/26 12:18 PM, David Heidelberg wrote:
->>>>>>> On 18/02/2026 11:30, Konrad Dybcio wrote:
->>>>>>>> On 2/17/26 10:20 PM, Dmitry Baryshkov wrote:
->>>>>>>>> From: David Heidelberg <david@ixit.cz>
->>>>>>>>>
->>>>>>>>> If the OS does not support recovering the state left by the
->>>>>>>>> bootloader it needs a way to reset display hardware, so that it can
->>>>>>>>> start from a clean state. Add a reference to the relevant reset.
->>>>>>>>
->>>>>>>> This is not the relevant reset
->>>>>>>>
->>>>>>>> You want MDSS_CORE_BCR @ 0xaf0_2000
->>>>>>>
->>>>>>> Thanks, I prepared the fixes [1].
->>>>>>>
->>>>>>> I'll try to test it if it's not breaking anything for us and send as v2 of [2].
->>>>>>>
->>>>>>> David
->>>>>>>
->>>>>>> [1] https://codeberg.org/sdm845/linux/commits/branch/b4/mdss-reset
->>>>>>> [2] https://patchwork.kernel.org/project/linux-arm-msm/patch/20260112-mdss-reset-v1-1-af7c572204d3@ixit.cz/
->>>>>>
->>>>>> Please don't alter the contents of dt-bindings, it really doesn't matter
->>>>>> if on sdm845 it's reset0 or reset1, that's why we define them in the first
->>>>>> place
->>>>>
->>>>> I dpn't think that will pass. Current reset is defined as RSCC, we can't
->>>>> change that to CORE behind the scene. I'd prefer David's approach.
->>>>
->>>> Back when I replied, David had a patch that removed the current RSCC
->>>> reset definition in dt-bindings (at index 0) and re-used that index
->>>> for CORE, putting RSCC at index 1. Perhaps it's better to link to
->>>> specific commits when making comments, note to self :P
->>>
->>> Yes, I saw the commit having two resets. Anyway, as we saw, it doesn't
->>> work.
->>
->> So, finally I spent "so much effort" (read throwing it at LLM) looking at:
->>
->> arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402,
->> iova=0x9d4bb500, fsynr=0x170021, cbfrsynra=0xc88, cb=11
->> arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0xc88
->> arm-smmu 15000000.iommu: FSYNR0 = 00170021 [S1CBNDX=23 PNU PLVL=1]
-> 
-> [...]
-> 
->>
->> These (or very similar warnings) are around sdm845 definitely 6.19+ /
->> linux-next kernels for some time, but pretty harmless.
->>
->> LLM suggested multiple fixes, but when presenting possibility of
->> implementing mdss reset it found it as most preferable [1].
->>
->> Adding MDSS reset would most likely solve it. It's not critical, but not
->> nice to see many red lines in the dmesg.
->>
->> Is there something I could experiment with to get closer to have proper MDSS reset?
-> 
-> I don't have a sensible solution at this point. We tried using the MDSS
-> reset on several SDM845 devices, but they just reset. So... I don't have
-> any possible solution.
+On Fri, 10 Apr 2026 at 02:45, Kevin Hilman <khilman@baylibre.com> wrote:
+>
+> Ulf Hansson <ulf.hansson@linaro.org> writes:
+>
+> > On Wed, 11 Mar 2026 at 01:19, Kevin Hilman (TI) <khilman@baylibre.com> wrote:
+> >>
+> >> Currently, PM domains can only support hierarchy for simple
+> >> providers (e.g. ones with #power-domain-cells = 0).
+> >>
+> >> Add support for oncell providers as well by adding a new property
+> >> `power-domains-child-ids` to describe the parent/child relationship.
+> >>
+> >> For example, an SCMI PM domain provider has multiple domains, each of
+> >> which might be a child of diffeent parent domains. In this example,
+> >> the parent domains are MAIN_PD and WKUP_PD:
+> >>
+> >>     scmi_pds: protocol@11 {
+> >>         reg = <0x11>;
+> >>         #power-domain-cells = <1>;
+> >>         power-domains = <&MAIN_PD>, <&WKUP_PD>;
+> >>         power-domains-child-ids = <15>, <19>;
+> >>     };
+> >>
+> >> With this example using the new property, SCMI PM domain 15 becomes a
+> >> child domain of MAIN_PD, and SCMI domain 19 becomes a child domain of
+> >> WKUP_PD.
+> >>
+> >> To support this feature, add two new core functions
+> >>
+> >> - of_genpd_add_child_ids()
+> >> - of_genpd_remove_child_ids()
+> >>
+> >> which can be called by pmdomain providers to add/remove child domains
+> >> if they support the new property power-domains-child-ids.
+> >>
+> >> Signed-off-by: Kevin Hilman (TI) <khilman@baylibre.com>
+> >
+> > Thanks for working on this! It certainly is a missing feature!
+>
+> You're welcome, thanks for the detailed review.
+>
+> >> ---
+> >>  drivers/pmdomain/core.c   | 169 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+> >>  include/linux/pm_domain.h |  16 ++++++++++++++++
+> >>  2 files changed, 185 insertions(+)
+> >>
+> >> diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
+> >> index 61c2277c9ce3..acb45dd540b7 100644
+> >> --- a/drivers/pmdomain/core.c
+> >> +++ b/drivers/pmdomain/core.c
+> >> @@ -2909,6 +2909,175 @@ static struct generic_pm_domain *genpd_get_from_provider(
+> >>         return genpd;
+> >>  }
+> >>
+> >> +/**
+> >> + * of_genpd_add_child_ids() - Parse power-domains-child-ids property
+> >> + * @np: Device node pointer associated with the PM domain provider.
+> >> + * @data: Pointer to the onecell data associated with the PM domain provider.
+> >> + *
+> >> + * Parse the power-domains and power-domains-child-ids properties to establish
+> >> + * parent-child relationships for PM domains. The power-domains property lists
+> >> + * parent domains, and power-domains-child-ids lists which child domain IDs
+> >> + * should be associated with each parent.
+> >> + *
+> >> + * Returns 0 on success, -ENOENT if properties don't exist, or negative error code.
+> >
+> > I think we should avoid returning specific error codes for specific
+> > errors, simply because it usually becomes messy.
+> >
+> > If I understand correctly the intent here is to allow the caller to
+> > check for -ENOENT and potentially avoid bailing out as it may not
+> > really be an error, right?
+>
+> Right, -ENOENT is not an error of parsing, it's to indicate that there
+> are no child-ids to be parsed.
+>
+> > Perhaps a better option is to return the number of children for whom
+> > we successfully assigned parents. Hence 0 or a positive value allows
+> > the caller to understand what happened. More importantly, a negative
+> > error code then really becomes an error for the caller to consider.
+>
+> I explored this a bit, but it gets messy quick.  It means we have to
+> track cases where only some of the children were added as well as when
+> all children were added.   Personally, I think this should be an "all or
+> nothing" thing.  If all the children cannot be parsed/added, then none
+> of them should be added.
+>
+> This also allows the remove to not have to care about how many were
+> added, and just remove them all, with the additional benefit of not
+> having to track the state of how many children were successfully added.
+>
 
-The older context talks about altering the existing dt-bindings values
-and now we're at hardware (mis)behaving? What is the issue here?
+I fully agree, it should be all or nothing. Failing with one
+child/parent should end up with an error code being returned.
 
-Konrad
+That said, it still seems to make perfect sense to return the number
+of children for whom we assigned parents for, no?
+
+[...]
+
+> >> +int of_genpd_remove_child_ids(struct device_node *np,
+> >> +                          struct genpd_onecell_data *data)
+> >> +{
+> >> +       struct of_phandle_args parent_args;
+> >> +       struct generic_pm_domain *parent_genpd, *child_genpd;
+> >> +       struct of_phandle_iterator it;
+> >> +       const struct property *prop;
+> >> +       const __be32 *item;
+> >> +       u32 child_id;
+> >> +       int ret;
+> >> +
+> >> +       /* Check if both properties exist */
+> >> +       if (of_count_phandle_with_args(np, "power-domains", "#power-domain-cells") <= 0)
+> >> +               return -ENOENT;
+> >> +
+> >> +       prop = of_find_property(np, "power-domains-child-ids", NULL);
+> >> +       if (!prop)
+> >> +               return -ENOENT;
+> >> +
+> >> +       item = of_prop_next_u32(prop, NULL, &child_id);
+> >
+> > Similar comments as for of_genpd_add_child_ids().
+> >
+> > Moreover, I think we should remove the children in the reverse order
+> > of how we added them.
+>
+> I'm curious why does the order matter?  The children are all siblings
+> (no hierarchy), so why would the order be important?
+
+It might not be that important, but generally, it seems like a good
+idea to me to reverse the order when undoing things.
+
+>
+> I'm not ware of a phandle iterator/helper to parse in the reverse, so
+> that would mean iterating once to create a list, and then walking it in
+> reverse.  Seems unnecessary.
+
+Sure, I leave the call to you, to see what fits best.
+
+Kind regards
+Uffe
