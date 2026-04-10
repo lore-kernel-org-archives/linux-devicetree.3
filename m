@@ -1,140 +1,93 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F244518C332
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 15:42:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C79135DD1C;
+	Fri, 10 Apr 2026 15:44:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775835730; cv=none; b=burNgpKHTvoLUHEUYzHJmIDTVjFeHRgBldSqW9xsfHMjxIzB04JCjg70RCxPwxCcBX7QuTBVu60wA585o6O7F0CeHbG/LxzFq2sFPAs70ttm2RjQtjdqnJmJaVLxQzTQ/J7oAB0T7rgk/y9LnU2HrkRGPs9HazxCcBVYxZ1Qcvg=
+	t=1775835883; cv=none; b=EQrIGLU71+FyzplNvGCugbcDd1o6/ZvXpd2K26+3ei61n1NRoLFoATYg+jEmLtYNb63mm3nuiztVgOCBzn8AwhPTA9QyLwj9ZQYxBV4LniHovFQVt3PplbCf5yRTJ2umv7EZCNz35HS+b7yDyRMDcnOdmin2z3KxU2zMYnESD6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775835730; c=relaxed/simple;
-	bh=xIVUY+Pbg5/QfKf7tkCdKCtUq81gJSTuDxFQHY4fwOg=;
+	s=arc-20240116; t=1775835883; c=relaxed/simple;
+	bh=fNv4Ok1u3X6cxegGSB+eEUrRYhC1cDsemDV+eTZXlCg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SDtW8YJrnPXuGyYJSAJl17rVOdoo9tiyBPCYreqDtJUVyxLCqtgxFBWjNUG4JRyV+UEwIREHUdz1KtaThi/GQfGgujNDCGGelYFwIzz0DRAjBJCpw2L2DgTVx2Fxhrz3NsEx03f7Q6KPIQvmvmh4ZnHuHFLiM6AWtwxISgM8nrs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OqL9tOyA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OjPVtr66; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=k3Iu9h/lniQV8+9FD6ZoELtB8/Aj5/p/bgo8ql5498wSCzOTOAth8t6TLWcx8gfTrNBQLGBmiM7p90P1+hJXtBYthSCgwJHCOHzsRXkuyo2Qxyd8gyTGS1a6zULqK1y0K8uR9M/L5UM97yL6Z1/ew58iRkYLVTTYwyFPnM9Sr1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Byix/Nb1; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OqL9tOyA";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OjPVtr66"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63AFJ9Yi3118215
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 15:42:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=uqIH26VW1DMf9T7tCXVZqQOX
-	a0zE5Lks7d0a2XG7EJM=; b=OqL9tOyArpbnVHCfupxXUVAzJAmzzWPrObveAXHg
-	dcHRlhTD+emIPU0fbVHmKp3DNXGAgBRvzJ34YIM5/MtndovTK77DdDNVaoByJkV0
-	ZGgqK9bty1/mSsRlymsWRgQI5pVdAmFObGVh0gTNBGs7LlHDiGZKNLtnyftqtgcv
-	ANrg0WDgiQrHX3Q4QbqOQTaUryDxsV6x4KKOX130fgNfuTlN8e9ZigkFxQEMHgv4
-	Ps9mqJa3DMt7GYkY3WfikZYe54TpoQC3e9WinQiqS4bLcIFVZ5j2rhLeAie2q+0P
-	JPgnMjoTxn7NavB1n+qLGQzgIm85mz4EB8gp2sWXqxDlkg==
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4df3rar2cm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 15:42:07 +0000 (GMT)
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-12737f276a2so12587524c88.1
-        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 08:42:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775835727; x=1776440527; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=uqIH26VW1DMf9T7tCXVZqQOXa0zE5Lks7d0a2XG7EJM=;
-        b=OjPVtr66I+Kedymg95P4S8e7s7M/GrI27DHNWoQIbMojGy0lot1CqDWO7oy8HOSNHT
-         QaRriAhitWuevcmW5f8xnG+A5YQk2BnTXIn0wPqeIAd/id+lucQN69b/CCmL38KrAbkb
-         Ja/A2PSACVoDZv7G/5ofzy6xpRJfsfW+GOZutLEBW9eRsf7qi0bgQN4yFN85AMFNyx79
-         s4kFJ0vxpgioBp1f6KpD4GG3CyWLAJ3WRFRBQvuVVdZkgc+NsNRPCG7gXjK6PM9AN7WK
-         HYQSfhfBpEC/W81g4v1o19ZLSWnr7rmPBUAK+W9ZJkSrz4NsnLa/qQZ2OSmD9d2NyYJJ
-         qQhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775835727; x=1776440527;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=uqIH26VW1DMf9T7tCXVZqQOXa0zE5Lks7d0a2XG7EJM=;
-        b=PQKNaswo5HK0sUc1Ky3iOqQpkbICWnCs29TTZQs0c1XTTlnGRTIWBOSmVS+GktlsAn
-         sr3L2dh4L44faD86GAavaT7rofwFqXiXHrshZ4jt2Qid9zUTFEDSQWMR5oi/7e+P2eBK
-         WJ49w1hdPJ+srSd/bxuoO7q6efRg8BxKPkrtdD/9b4gVTwuXQboDdz6Cu1xPr9dxjnbE
-         1HXxkN+rC4z4VuHfxm/MsjTgsEf9ienJHr9dcji4SnZl10/rA0AQfkr+aBEmGxGDYy1B
-         1tfrbOrrhbvdGWR1y5jrxxU2jvF0PVQagqA39kp3ZpstgAbayPBSC2Fo0su/CTsFkPoz
-         GjfA==
-X-Forwarded-Encrypted: i=1; AJvYcCUj2zBH5iIY3kl1bPriTokh34F8e5Lt3a4tfNMJcwvKMHrHZiHdeDVbFEaIpWlwT9O1FkmMvaYiA0cB@vger.kernel.org
-X-Gm-Message-State: AOJu0YwxPj56aiDTPYLOptAsELfSr+Wu5qpQ3Y3zS3aTE6x9YMBLNJ9a
-	FFDiBwVeAarDzhZqlZVZxOhyNFNos9Xg310E50B+QF+esGluT79IPDlE9jFXz6gFAh7OYq7rxFm
-	5MeoRGKVfdW1XRV91Jxl6FUxQu53OmwgtvfL0aQ4AhoSweZz3++ed40qCQlwr2vYX
-X-Gm-Gg: AeBDieuBc4rMeSPqYpNARUrq0Q3u+uoTBIAP5Qa2RtzH4eB8ELqLdshzCN1LVN4GRia
-	5kGdA2UO48IHw/KLqcYYLuX9X2xSeDcUKZdPvoGGEjGFd8RrfnQSKGYiXDjyWK/nir+NqEBO659
-	r2Zt32+O4HViz1NtnX9njvvz5fmu0gdoSDKR5JeCvh8sc8TGC+kUX2PtatVZ+KrGMBqzzYgFnP6
-	PzHMC8ypLtGdAminZyaYNKafxY7VqC3R34driYCUKFGGATOTvUvBzm0/uM0FDr6HoyTVEk9cZR4
-	4beQSc0CBS9aWkz3XlsriGKVBO1SJWGKNXHc3jaQgPvQVyrqU8aFtqy1GNYLm8xx5rhA/4kn2n4
-	cXTy0h+2TlHI4lr3QIWKwXtoJYnxJ6ZS2raTvZrv5IRluz+GwCWYEecWxwpQ7WIvEyHGB7jAjkX
-	w=
-X-Received: by 2002:a05:7022:60a6:b0:128:d9a1:b68b with SMTP id a92af1059eb24-12c34eee7abmr1952887c88.33.1775835727014;
-        Fri, 10 Apr 2026 08:42:07 -0700 (PDT)
-X-Received: by 2002:a05:7022:60a6:b0:128:d9a1:b68b with SMTP id a92af1059eb24-12c34eee7abmr1952867c88.33.1775835726421;
-        Fri, 10 Apr 2026 08:42:06 -0700 (PDT)
-Received: from hu-mdtipton-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-12c347fa2c9sm3838370c88.15.2026.04.10.08.42.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Apr 2026 08:42:06 -0700 (PDT)
-Date: Fri, 10 Apr 2026 08:42:04 -0700
-From: Mike Tipton <mike.tipton@oss.qualcomm.com>
-To: Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>
-Cc: Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: interconnect: qcom: document the
- RPMh NoC for Hawi SoC
-Message-ID: <adkaTBk50KYo7XEO@hu-mdtipton-lv.qualcomm.com>
-References: <20260409-icc-hawi-v3-0-851cac12a81d@oss.qualcomm.com>
- <20260409-icc-hawi-v3-1-851cac12a81d@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Byix/Nb1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00BDBC19421;
+	Fri, 10 Apr 2026 15:44:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775835883;
+	bh=fNv4Ok1u3X6cxegGSB+eEUrRYhC1cDsemDV+eTZXlCg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Byix/Nb1mnTkXu8LwlES2uQ3Xnyu2b01ANSjWdMtdMaD/Jnf8SmR+Xglj8/1ZIdYh
+	 G7UHFtXaTrvr9sIhkruy6col1UvQkmAHPGnFSEEXpFZtN/jvWByAyWEQzTa1nVzWQh
+	 qDXbfbO4drXZoB5cBlROFZxxFjOQ7XKiicF2CG0+AULvJy9fPJMSKWGpB76DmKnEwi
+	 rY/XtnZoIoUzur92NoKQrQiNfW4OAggDVjCSltLU3dHhxh49R9ZfbzFQkSX8/2D8sr
+	 oh2sAssUNm0IhQN9PzGe+u0HhFDQfIxtj8zwsiFSXizpWXSHrgjYoMhxIcGXP4OAhS
+	 DVwolmm6TzJSQ==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 420CF1AC58B8; Fri, 10 Apr 2026 16:44:40 +0100 (BST)
+Date: Fri, 10 Apr 2026 16:44:40 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Guodong Xu <guodong@riscstar.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+	Alex Elder <elder@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Alex Elder <elder@riscstar.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Subject: Re: [PATCH v8 1/3] dt-bindings: spi: add SpacemiT K1 SPI support
+Message-ID: <adka6GqvRSrZAY9V@sirena.co.uk>
+References: <20260410-spi-spacemit-k1-v8-0-53ebb48a4146@riscstar.com>
+ <20260410-spi-spacemit-k1-v8-1-53ebb48a4146@riscstar.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="bB/Q26L4bd+03tnk"
+Content-Disposition: inline
+In-Reply-To: <20260410-spi-spacemit-k1-v8-1-53ebb48a4146@riscstar.com>
+X-Cookie: You will be divorced within a year.
+
+
+--bB/Q26L4bd+03tnk
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260409-icc-hawi-v3-1-851cac12a81d@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=Vs4Txe2n c=1 sm=1 tr=0 ts=69d91a50 cx=c_pps
- a=kVLUcbK0zfr7ocalXnG1qA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=kj9zAlcOel0A:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=leQ04dn23ONfhV9bpxQA:9 a=CjuIK1q_8ugA:10
- a=vr4QvYf-bLy2KjpDp97w:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEwMDE0NyBTYWx0ZWRfX4IyFca5uCL15
- WZiDzmt+SDtnKabrx9dclHVA8M6grvJejdp//DHpANkf63r5G7VgR39/bqt5TWWH2BfN1Cgt6p/
- AKNux99lFqCmiXfPxqCx9SrFzhHP9EaLkNTBZFNfe3DR5dEL8VoxRoLOHgYukbEUexcxefGyZEj
- AXGQNvx5W/Yif2DpHTY30rZ47CHG4Z4NuSbiTFx1vZnuEacty19v0blEzfKwaI6DmaAlOoGJVnP
- j03q4qoJuMB0qPrDqiCkdohCbfv0ynY02DdvsMXzc30wFps4kfX5PboTG6LF9Ww2AyKXUOw3tKj
- JmCukJlZjD0GEzW96o44atMx+RNpreiy9Z9j6Gm5+caCc/QRQsx7QJXmUq4utqSLOoG5JJg2uNU
- VJgORj+GpoVvVB5zPNQlO4Pgfn3/0vDC22uWXJ4DETI6LOdqlPW+jSLUlcHUUS/5/66TuktKgHh
- OirvaayaOOpKKtAZgww==
-X-Proofpoint-ORIG-GUID: DeTsHmlTnjqdB02iTzwzoz4P9ING6qGl
-X-Proofpoint-GUID: DeTsHmlTnjqdB02iTzwzoz4P9ING6qGl
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-10_04,2026-04-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 adultscore=0 malwarescore=0 bulkscore=0
- lowpriorityscore=0 clxscore=1015 priorityscore=1501 phishscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
- definitions=main-2604100147
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Apr 09, 2026 at 02:01:37PM -0700, Vivek Aknurwar wrote:
-> Document the RPMh Network-On-Chip interconnect for the Qualcomm Hawi SoC.
-> 
-> Signed-off-by: Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>
-> ---
->  .../bindings/interconnect/qcom,hawi-rpmh.yaml      | 131 ++++++++++++++++
->  include/dt-bindings/interconnect/qcom,hawi-rpmh.h  | 164 +++++++++++++++++++++
->  2 files changed, 295 insertions(+)
+On Fri, Apr 10, 2026 at 11:04:20PM -0400, Guodong Xu wrote:
+> From: Alex Elder <elder@riscstar.com>
+>=20
+> Add support for the SPI controller implemented by the SpacemiT K1 SoC.
 
-Reviewed-by: Mike Tipton <mike.tipton@oss.qualcomm.com>
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
 
-Thanks,
-Mike
+--bB/Q26L4bd+03tnk
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnZGucACgkQJNaLcl1U
+h9D2iwf9Eize17JsXARuOZG6T3Rlw+XdompD+YXGF+QHaEZ9P0b3i5Mb5byebIMV
+ptjEEal3lvrL22QcaweS5m0NRMVzYWh3H5gBTJjYsXilcyVB4OkFX3d5Hg9cbzk4
++MT3UcRYMoflWtWxPsaUoRGUn3SZEfoEh8EQXzW9WFe6xZT0jfXATeOa/uw0ijgs
+dpUKQBH9jeFUWO9hKsDOlvancLKwRdywKfbEiJkSxkwrxbIMmv7KF4ZLe9WPM//X
+g7eVD6XMxctW+dc6XjTcF8MgUs3Wvj9QW1hy7RnKHMNgUWgBQdlSRf8AV0zwd+Ov
+p1lDtibQGNmKoDK+m2g3zZhU7XDe5g==
+=Gjsv
+-----END PGP SIGNATURE-----
+
+--bB/Q26L4bd+03tnk--
