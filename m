@@ -1,170 +1,394 @@
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1BF83DBD72
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 16:30:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 332AE3DCD8E;
+	Fri, 10 Apr 2026 16:34:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775838650; cv=none; b=U4OcWEg/Gg3p0pS3m1nXP9Xf8a1Ng3Oc8usbOeeFFDw3tIZPBejlwT3kvvh8zsc7Ncp0tp++aHANN7mO/YvPqhlGgb6aeoYS/fbKonN2Ilz1LGF4yi6Rpnc1LTvvtITL9343TtuKeHVZcUM4BnNO+U77XdW8EDJbm6K5xPlKSMA=
+	t=1775838873; cv=none; b=nPx5jN7pT5k8f8+7hF1q7pkyGNoMnd3ssl91+YZF1EoQnrL6oDDBlGwDxqQ9rC1au/TugLCOnv2LF2KEflYMBCjw5hlBlnQlVST/ArlFN74H26fi8EZ+ioQlxX0up7vJk8ZyDfqCjeDhGCa+zhMu8LoCaEIQb4hZPHrIi2/zIyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775838650; c=relaxed/simple;
-	bh=Undq6STZNqRrbFQaVnW7mDpSSi0KgbNQArRWEWLZ8SU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MQFJqP5FbP05IhKsmBzdfmAzl3VmnL7onUTx8YmKLDCtwKg2oFFVoe+U0y+jlo4aCwhhFHAPhVspTjxf5VoimHvVl8oG/sE4QRFZKFZRLobHdGwPXYE+a12vt6iaf+G2arVw1JDOX1vs6riJcZGEyGsjWnT98p5QsdCYJ3f+En4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lVUymMSb; arc=none smtp.client-ip=74.125.82.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1775838873; c=relaxed/simple;
+	bh=0GNmJYWWFmVhVV4nIg36bDblcBd/4S2M8hMuiDQOjUk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=t7etfmih4Tf6udtpHtZjIqtOqDh8BMD4Su7onp1NZyJEkdhcJkj7IK2FCXbArQNHqXOmFqpHHJOuKbo09vpL/MJmm5w2Fu0MBRyBi/87LaogJrY+uLw1ZJ+BitOy4efbCT8Au0pGoBwSxhyeYKJEeQ9OlcuLyxe5wEg2mjQ/HWU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h6yRzHum; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lVUymMSb"
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-2cfd69b564dso3156730eec.0
-        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 09:30:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775838649; x=1776443449; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=LhP5b/cZwXBwnnrIhhft7r+i2inPS25UHhwkMigbIjk=;
-        b=lVUymMSbI7zd0dnPGBCiDIwUi+jfULmXXk/2+YZzsxkddheRlWqaG8/wahWB3gwmtZ
-         kel91gzHzrue9UqlZmikwtbp1RJOhAcMwgVRyBb8E/HnBWquLrtxnmMhjY4p0EZPEOH8
-         Mjum/+apCrmvc/hD+V6dCicP75BByXN+PH2WC/gLn4D9lM8ZXVMJT2KoO3kPg0ltlMdi
-         DwKDu3r0jChZaIJn8pwjX4EzVIwaPks92pDdB14ou0dSRHYh1ZslXEerV/JdbuaHSsGr
-         34CEBJmOh+Z1ZOYHs5/MORt/wUCxo/Q9iFj0b5gAi3vKud7TIp0yK3JO9iR0+MD40ZHc
-         +NNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775838649; x=1776443449;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=LhP5b/cZwXBwnnrIhhft7r+i2inPS25UHhwkMigbIjk=;
-        b=KIL7G0pbkdwMXAKhlRrM/Aj8YarJ7Qie0G6wfgXfSYhPqjaOmy/eVQ8l+6l+dEEply
-         A5EgN0E/EZ+z01oGtPk8sr5bESphuZDlLdGqcGEwPQfLM+95ANlKX0AnzVxgFM6iFzYx
-         QnUoYNwwU2kGQrm/tMUnRz418GzzzxMYtK098YjXM+r1jpNKudL62UKsSerZav3t+Sd2
-         2Di3TbTC2NOydIpElzVoHwsukL28PWLxQjSS7dRXcxnZQkgsER2GqSJcfozW37XxrpjD
-         ZMkZ91ouo3ZQOTgO01Uf42RsU3lv8BdOQ8LMK+8zbTeoZhIVLAOqIjE7suVN0QjaWxkC
-         dWuQ==
-X-Gm-Message-State: AOJu0YxOEXyfUvegSpGv6soNyyVRyYvTtNR93zQxMhe2uG0RVHAMs18b
-	pjqv28k+hf0IKuE8KM01dfe5PhjSI2ZNC/wAPs4IpkUFcZc7KpsXDgdtp4z5pw==
-X-Gm-Gg: AeBDievTXS2KU90WGg8/j0XCdicORluidi0FMo+hU3FhRrwb3ey+kpSIlaRNs8u6QCo
-	nwcT+hKONxJliJZdJ1UmhmtpjstRuF7u5Kf+Q3v9ZOyb+zxVfwurGI6Qos2Vt/FQh3D6x8S58pV
-	XpgT3Zd+EH38BKJMVQm5Rjd6d9LW/6oCdlOG0hJjUGeR7u4CifNsvk3Jq3xIe9637GP+qUrkqKX
-	6+Wj674aHJG+1U307Z8b61Udy+jkb3Sz60KPMJtWnO6cU4x29bMvDrWdjx6cernffuME1TT0NB9
-	acmkjm1TakMb0rgbOUMVMDuKKGDqxqWvcJWHlmQxBe/whPwNK9+CeAmRXx99VvPILfDFgd18kcz
-	9xriOgMDzXjmZSFjjWx/cDSnrG9qiH0TAPIEdXa7BXiLW/SLNEclA5L55LbgiylItPQtEWZbznq
-	TeEdpyn+4D1Uj1fVyUm5JNLNd8hduACDzujCli8g0qyk2s8QO6RSx1JJW0qUf+jY/xJowcn9uH
-X-Received: by 2002:a05:7300:f082:b0:2c1:7afc:df00 with SMTP id 5a478bee46e88-2d589361d94mr2267276eec.30.1775838648647;
-        Fri, 10 Apr 2026 09:30:48 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2d5630ac330sm4803680eec.29.2026.04.10.09.30.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Apr 2026 09:30:47 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <9872a816-9a4f-4826-a4c9-151efa73213d@roeck-us.net>
-Date: Fri, 10 Apr 2026 09:30:46 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h6yRzHum"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2098AC19421;
+	Fri, 10 Apr 2026 16:34:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775838872;
+	bh=0GNmJYWWFmVhVV4nIg36bDblcBd/4S2M8hMuiDQOjUk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=h6yRzHumYoqUvW46IDcJv1biGCgOPkVYHTUQJAaejVyV7yGNVQJD+bZkpzsdPp/rz
+	 fDEMkqIQLmW3rSuKyrw1YbMsPwg2IqL+q9i/IaY+YrHznB2IeUwuAO7L1QnmSYtxMn
+	 En1ZeXUAkbMjJ10NH+F0uKR6SiHNvRE8ATe7whYZh9bbFh2w4zGdzRo9islLpHmw+a
+	 ahyobHPsqJ/PnCPQNt2AiNLrW7JKbmQSliRGjI6G1rQIJ7IpUEJgsl3DwxHmAOmaLx
+	 ZtVkMqX6UXr8VzRLZtfzqZEVQ7hhWAaN1QOxNfyvtcs1LfZHwEui7WZ47ODNMdsZOX
+	 khotrbWqMUKmA==
+Date: Fri, 10 Apr 2026 22:04:20 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>, 
+	Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+	Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>, Michal Simek <michal.simek@amd.com>, 
+	Kevin Xie <kevin.xie@starfivetech.com>, linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, Thierry Reding <treding@nvidia.com>, 
+	Manikanta Maddireddy <mmaddireddy@nvidia.com>
+Subject: Re: [PATCH v4 3/4] PCI: tegra: Add Tegra264 support
+Message-ID: <ukeelrtmjgxxwlkkzsojygzo6us5ijshis66a4x2a44hg4bw25@hggglahvrajy>
+References: <20260402-tegra264-pcie-v4-0-21e2e19987e8@nvidia.com>
+ <20260402-tegra264-pcie-v4-3-21e2e19987e8@nvidia.com>
+ <iaoee5r5e2w52fap7ex23wdikbuvpjpesinedgjkehsedszhzo@64yoo2avmxle>
+ <adTAVYEzfD9FQl8N@orome>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] hwmon: (pmbus/q54sj108a2) Add support for
- q50sn12072 and q54sn120a1
-To: Brian Chiang <chiang.brian@inventec.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-hwmon@vger.kernel.org, Jack Cheng <Cheng.JackHY@inventec.com>
-References: <20260402-add-support-for-q50sn12072-and-q54sn120a1-v3-0-67a5184e93b8@inventec.com>
- <20260402-add-support-for-q50sn12072-and-q54sn120a1-v3-2-67a5184e93b8@inventec.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260402-add-support-for-q50sn12072-and-q54sn120a1-v3-2-67a5184e93b8@inventec.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <adTAVYEzfD9FQl8N@orome>
 
-On 4/1/26 18:29, Brian Chiang wrote:
-> From: Jack Cheng <cheng.jackhy@inventec.com>
+On Tue, Apr 07, 2026 at 11:38:28AM +0200, Thierry Reding wrote:
+> On Thu, Apr 02, 2026 at 11:02:02PM +0530, Manivannan Sadhasivam wrote:
+> > On Thu, Apr 02, 2026 at 04:27:37PM +0200, Thierry Reding wrote:
+> > > From: Thierry Reding <treding@nvidia.com>
+> > > 
+> > > Add a driver for the PCIe controller found on NVIDIA Tegra264 SoCs. The
+> > > driver is very small, with its main purpose being to set up the address
+> > > translation registers and then creating a standard PCI host using ECAM.
+> > > 
+> > > Signed-off-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
+> > > Signed-off-by: Thierry Reding <treding@nvidia.com>
+> > 
+> > What is the rationale for adding a new driver? Can't you reuse the existing one?
+> > If so, that should be mentioned in the description.
 > 
-> The Q50SN12072 and Q54SN120A1 are high-efficiency, high-density DC-DC power
-> module from Delta Power Modules.
+> Which existing one? Tegra PCI controllers for previou generations
+> (Tegra194 and Tegra234) were DesignWare IP, but Tegra264 is an internal
+> IP, so the programming is entirely different. I'll add something to that
+> effect to the commit message.
 > 
-> The Q50SN12072, quarter brick, single output 12V. This product provides up
-> to 1200 watts of output power at 38~60V. The Q50SN12072 offers peak
-> efficiency up to 98.3%@54Vin.
-> 
-> The Q54SN120A1, quarter brick, single output 12V. This product provides up
-> to 1300 watts of output power at 40~60V. The Q54SN120A1 offers peak
-> efficiency up to 98.1%@54Vin.
-> 
-> Add support for them to q54sj108a2 driver.
-> 
-> Signed-off-by: Jack Cheng <cheng.jackhy@inventec.com>
-> Co-developed-by: Brian Chiang <chiang.brian@inventec.com>
-> Signed-off-by: Brian Chiang <chiang.brian@inventec.com>
-> ---
-...
-> -	/*
-> -	 * The chips support reading PMBUS_MFR_MODEL.
-> -	 */
->   	ret = i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL, buf);
->   	if (ret < 0) {
->   		dev_err(dev, "Failed to read Manufacturer Model\n");
->   		return ret;
->   	}
-> -	if (ret != 14 || strncmp(buf, "Q54SJ108A2", 10)) {
-> +	for (mid = q54sj108a2_id; mid->name[0]; mid++) {
-> +		if (!strncasecmp(mid->name, buf, strlen(mid->name)))
-> +			break;
-> +	}
 
-If ret < strlen(mid->name), this check compares uninitialized data.
-Also see Sashiko feedback:
+Yikes! I completely missed that this is a non-dwc driver. Sorry for the noise.
 
-https://sashiko.dev/#/patchset/20260402-add-support-for-q50sn12072-and-q54sn120a1-v3-0-67a5184e93b8%40inventec.com
+> > > diff --git a/drivers/pci/controller/Kconfig b/drivers/pci/controller/Kconfig
+> > > index 5aaed8ac6e44..6ead04f7bd6e 100644
+> > > --- a/drivers/pci/controller/Kconfig
+> > > +++ b/drivers/pci/controller/Kconfig
+> > > @@ -254,7 +254,15 @@ config PCI_TEGRA
+> > >  	select IRQ_MSI_LIB
+> > >  	help
+> > >  	  Say Y here if you want support for the PCIe host controller found
+> > > -	  on NVIDIA Tegra SoCs.
+> > > +	  on NVIDIA Tegra SoCs (Tegra20 through Tegra186).
+> > > +
+> > > +config PCIE_TEGRA264
+> > > +	bool "NVIDIA Tegra264 PCIe controller"
+> > 
+> > This driver seems to be using external MSI controller. So it can be built as a
+> > module. Also, you have the remove() callback for some reason.
+> 
+> Okay, I can turn this into a tristate symbol.
+> 
+> > > +	depends on ARCH_TEGRA || COMPILE_TEST
+> > > +	depends on PCI_MSI
+> > 
+> > Why?
+> 
+> I suppose it's not necessary in the sense of it being a build
+> dependency. At runtime, however, the root complex is not useful if PCI
+> MSI is not enabled. We can drop this dependency and rely on .config to
+> have it enabled as needed.
+> 
 
-Thanks,
-Guenter
+Yes. I think the rationale is to depend on the symbols that the driver needs for
+build dependency.
 
+> > > diff --git a/drivers/pci/controller/pcie-tegra264.c b/drivers/pci/controller/pcie-tegra264.c
+> > > new file mode 100644
+> > > index 000000000000..3ce1ad971bdb
+> > > --- /dev/null
+> > > +++ b/drivers/pci/controller/pcie-tegra264.c
+> [...]
+> > > +struct tegra264_pcie {
+> > > +	struct device *dev;
+> > > +	bool link_up;
+> > 
+> > Keep bool types at the end to avoid holes.
+> 
+> Done.
+> 
+> > > +static int tegra264_pcie_parse_dt(struct tegra264_pcie *pcie)
+> > > +{
+> > > +	int err;
+> > > +
+> > > +	pcie->wake_gpio = devm_gpiod_get_optional(pcie->dev, "nvidia,pex-wake",
+> > 
+> > You should switch to standard 'wake-gpios' property.
+> 
+> Will do.
+> 
+> > > +						  GPIOD_IN);
+> > > +	if (IS_ERR(pcie->wake_gpio))
+> > > +		return PTR_ERR(pcie->wake_gpio);
+> > > +
+> > > +	if (pcie->wake_gpio) {
+> > 
+> > Since you are bailing out above, you don't need this check.
+> 
+> I think we still want to have this check to handle the case of optional
+> wake GPIOs. Not all controllers may have this wired up and
+> devm_gpiod_get_optional() will return NULL (not an ERR_PTR()-encoded
+> error) if the wake-gpios property is missing.
+> 
+
+Ok. In that case you can just bail out:
+	if (!pcie->wake_gpio)
+		return 0;
+
+> > > +static void tegra264_pcie_bpmp_set_rp_state(struct tegra264_pcie *pcie)
+> > 
+> > I don't think this function name is self explanatory. Looks like it is turning
+> > off the PCIe controller, so how about tegra264_pcie_power_off()?
+> 
+> Agreed. The name is a relic from when this was potentially being used to
+> toggle on and off the controller. But it's only used for disabling, so
+> tegra264_pcie__power_off() sounds much better.
+> 
+> > > +{
+> > > +	struct tegra_bpmp_message msg = {};
+> > > +	struct mrq_pcie_request req = {};
+> > > +	int err;
+> > > +
+> > > +	req.cmd = CMD_PCIE_RP_CONTROLLER_OFF;
+> > > +	req.rp_ctrlr_off.rp_controller = pcie->ctl_id;
+> > > +
+> > > +	msg.mrq = MRQ_PCIE;
+> > > +	msg.tx.data = &req;
+> > > +	msg.tx.size = sizeof(req);
+> > > +
+> > > +	err = tegra_bpmp_transfer(pcie->bpmp, &msg);
+> > > +	if (err)
+> > > +		dev_info(pcie->dev, "failed to turn off PCIe #%u: %pe\n",
+> > 
+> > Why not dev_err()?
+> > 
+> > > +			 pcie->ctl_id, ERR_PTR(err));
+> > > +
+> > > +	if (msg.rx.ret)
+> > > +		dev_info(pcie->dev, "failed to turn off PCIe #%u: %d\n",
+> > 
+> > Same here.
+> 
+> These are not fatal errors and are safe to ignore. dev_err() seemed too
+> strong for this. They also really shouldn't happen. Though I now realize
+> that's a bad argument, or rather, actually an argument for making them
+> dev_err() so that they do stand out if they really should happen.
+> 
+> > 
+> > > +			 pcie->ctl_id, msg.rx.ret);
+> > > +}
+> > > +
+> > > +static void tegra264_pcie_icc_set(struct tegra264_pcie *pcie)
+> > > +{
+> > > +	u32 value, speed, width, bw;
+> > > +	int err;
+> > > +
+> > > +	value = readw(pcie->ecam + XTL_RC_PCIE_CFG_LINK_STATUS);
+> > > +	speed = FIELD_GET(PCI_EXP_LNKSTA_CLS, value);
+> > > +	width = FIELD_GET(PCI_EXP_LNKSTA_NLW, value);
+> > > +
+> > > +	bw = width * (PCIE_SPEED2MBS_ENC(speed) / BITS_PER_BYTE);
+> > > +	value = MBps_to_icc(bw);
+> > 
+> > So this becomes, 'width * (PCIE_SPEED2MBS_ENC(speed) / 8) * 1000 / 8'. But don't
+> > you want, 'width * (PCIE_SPEED2MBS_ENC(speed)) * 1000 / 8'?
+> 
+> This is M*B*ps_to_icc(), not M*b*ps_to_icc(), so we do in fact get the
+> latter. I almost fell for this as well because I got confused by some of
+> these macros being all-caps and other times the case actually mattering.
+> 
+
+Oops, I was misleaded too. But you can simply do:
+	bw = Mbps_to_icc(width * PCIE_SPEED2MBS_ENC(speed));
+
+> > > +	err = icc_set_bw(pcie->icc_path, bw, bw);
+
+And here you were setting the MBps, not Kbps.
+
+> > > +	if (err < 0)
+> > > +		dev_err(pcie->dev,
+> > > +			"failed to request bandwidth (%u MBps): %pe\n",
+> > > +			bw, ERR_PTR(err));
+> > 
+> > So you don't want to error out if this fails?
+> 
+> No. This is not a fatal error and the system will continue to work,
+> albeit perhaps at suboptimal performance. Given that Ethernet and mass
+> storage are connected to these, a failure to set the bandwidth and
+> erroring out here may leave the system unusable, but continuing on would
+> let the system boot and update firmware, kernel or whatever to recover.
+> 
+> I'll add a comment explaining this.
+> 
+
+Yeah, that'll help.
+
+> [...]
+> > > +static void tegra264_pcie_init(struct tegra264_pcie *pcie)
+> > > +{
+> > > +	enum pci_bus_speed speed;
+> > > +	unsigned int i;
+> > > +	u32 value;
+> > > +
+> > > +	/* bring the link out of reset */
+> > 
+> > s/link/controller or endpoint?
+> 
+> This controls the PERST# signal, so I guess "endpoint" would be more
+> correct.
+> 
+
+Yes!
+
+> > > +	value = readl(pcie->xtl + XTL_RC_MGMT_PERST_CONTROL);
+> > > +	value |= XTL_RC_MGMT_PERST_CONTROL_PERST_O_N;
+> > > +	writel(value, pcie->xtl + XTL_RC_MGMT_PERST_CONTROL);
+> > > +
+> > > +	if (!tegra_is_silicon()) {
+> > 
+> > This looks like some pre-silicon validation thing. Do you really want it to be
+> > present in the upstream driver?
+> 
+> At this point there is silicon for this chip, but we've been trying to
+> get some of the pre-silicon code merged upstream as well because
+> occasionally people will want to run upstream on simulation, even after
+> silicon is available. At other times we may want to reuse these drivers
+> on future chips during pre-silicon validation.
+> 
+> Obviously there needs to be a balance. We don't want to have excessive
+> amounts of code specifically for pre-silicon validation, but in
+> relatively simple cases like this it is useful.
+> 
+
+Ok, fine with me.
+
+> > 
+> > > +		dev_info(pcie->dev,
+> > > +			 "skipping link state for PCIe #%u in simulation\n",
+> > > +			 pcie->ctl_id);
+> > > +		pcie->link_up = true;
+> > > +		return;
+> > > +	}
+> > > +
+> > > +	for (i = 0; i < PCIE_LINK_WAIT_MAX_RETRIES; i++) {
+> > > +		if (tegra264_pcie_link_up(pcie, NULL))
+> > > +			break;
+> > > +
+> > > +		usleep_range(PCIE_LINK_WAIT_US_MIN, PCIE_LINK_WAIT_US_MAX);
+> > > +	}
+> > > +
+
+[...]
+
+> > > +	pm_runtime_get_sync(dev);
+> > > +
+> > > +	/* sanity check that programmed ranges match what's in DT */
+> > > +	if (!tegra264_pcie_check_ranges(pdev)) {
+> > > +		err = -EINVAL;
+> > > +		goto put_pm;
+> > > +	}
+> > > +
+> > > +	pcie->cfg = pci_ecam_create(dev, res, bus->res, &pci_generic_ecam_ops);
+> > > +	if (IS_ERR(pcie->cfg)) {
+> > > +		err = dev_err_probe(dev, PTR_ERR(pcie->cfg),
+> > > +				    "failed to create ECAM\n");
+> > > +		goto put_pm;
+> > > +	}
+> > > +
+> > > +	bridge->ops = (struct pci_ops *)&pci_generic_ecam_ops.pci_ops;
+> > > +	bridge->sysdata = pcie->cfg;
+> > > +	pcie->ecam = pcie->cfg->win;
+> > > +
+> > > +	tegra264_pcie_init(pcie);
+> > > +
+> > > +	if (!pcie->link_up)
+> > > +		goto free;
+> > 
+> > goto free_ecam;
+> 
+> It's not clear to me, but are you suggesting to rename the existing
+> "free" label to "free_ecam"? I can do that.
+> 
+
+Yeah, I was just asking for a rename.
+
+> > > +	err = pci_host_probe(bridge);
+> > > +	if (err < 0) {
+> > > +		dev_err(dev, "failed to register host: %pe\n", ERR_PTR(err));
+> > 
+> > dev_err_probe()
+> 
+> Okay.
+> 
+> > 
+> > > +		goto free;
+> > > +	}
+> > > +
+> > > +	return err;
+> > 
+> > return 0;
+> 
+> Done.
+> 
+> [...]
+> > > +static int tegra264_pcie_resume_noirq(struct device *dev)
+> > > +{
+> > > +	struct tegra264_pcie *pcie = dev_get_drvdata(dev);
+> > > +	int err;
+> > > +
+> > > +	if (pcie->wake_gpio && device_may_wakeup(dev)) {
+> > > +		err = disable_irq_wake(pcie->wake_irq);
+> > > +		if (err < 0)
+> > > +			dev_err(dev, "failed to disable wake IRQ: %pe\n",
+> > > +				ERR_PTR(err));
+> > > +	}
+> > > +
+> > > +	if (pcie->link_up == false)
+> > > +		return 0;
+> > > +
+> > > +	tegra264_pcie_init(pcie);
+> > > +
+> > 
+> > Why do you need init() here without deinit() in tegra264_pcie_suspend_noirq()?
+> 
+> That's because when we come out of suspend the link may have gone down
+> again, so we need to take the endpoint out of reset to retrigger the
+> link training. I think we could possibly explicitly clear that PERST_O_N
+> bit in the PERST_CONTROL register in a new tegra264_pcie_deinit() to
+> mirror what tegra264_pcie_init() does, but it's automatically done by
+> firmware anyway, so not needed.
+> 
+
+Hmm, so firmware asserts PERST# at the end of suspend? It is not clear to me why
+it is doing so. But for symmetry I'd like to do it in tegra264_pcie_deinit().
+
+Also, I'm not certain about the 'pcie->link_up' check here. If it is 'false',
+then probe() should've failed. So why do you need the check here anyway?
+
+Maybe you should get rid of this check and return the link status from
+tegra264_pcie_init() directly?
+
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
