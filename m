@@ -1,115 +1,163 @@
-Received: from 8.mo583.mail-out.ovh.net (8.mo583.mail-out.ovh.net [178.32.116.78])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3EF022F74A
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 12:18:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.32.116.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0721D1F4181;
+	Fri, 10 Apr 2026 12:52:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775823497; cv=none; b=FoLSsw4P33Dh2PCjabt+cQ9NdXsU0YMYsUAzKnvk581PSSvOZJtc69+46lg5LebvwiiYTaSUJoluELtg4t4tctQ0DLY7h0KcjwAl9u/8Rpr+ZnyawlHz4V4USI7aof8ArVsE5wROFWLKUT7ZeqzLOTLqNj8KfhvKJvDI63/g9jg=
+	t=1775825539; cv=none; b=nEmGsiuh3UXQMIVW6q80D0bHamM9iWdXC8y1DtWPisdXJxemtf+OfHhvEOVUnNLWIxZs+DjnDTez0n4w5ce/1KrThs4Ar/5gd1jtpCdaAK3h8G7fl0KFuLfgrSr8ae7mF4VMBVdTuVvsWW5ARa+mytA1aowte730OPdq/1YZu2o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775823497; c=relaxed/simple;
-	bh=3CW4diUM/JB8LiWZnoXA4stnM/1uNg2TuLFEj95TcXU=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=XiQH/alM84nLH3DhXVUaKF/TiZnT/kqn6k0nVyfTY5W6SXWMNYvugS3y+apnuLYJRcCKXzslhks4KYBFdhdPXnL6SvlxywmUpTBJcCpEIaV241Q0quOn3VqxqltceNb9vrzlEbTMVQglTpCVWwqeF/v8rs9lK30qqsrWMWEkU0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=milecki.pl; spf=pass smtp.mailfrom=milecki.pl; dkim=pass (2048-bit key) header.d=milecki.pl header.i=@milecki.pl header.b=pElMn0Jl; arc=none smtp.client-ip=178.32.116.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=milecki.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=milecki.pl
+	s=arc-20240116; t=1775825539; c=relaxed/simple;
+	bh=zuuCDFpBIYwYCymvnfHsVnlCyTNDji9hQDQRq6t3Qvw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eEoFr973jB7Tlp9acfsaC8VXXlQWcSH7PSUpVZ5X+ypkV4rfSxsEfsiY4Jilnwb3nZ0KXMlVNOiNwk22uJmMsfnXvMvM+z3qpkbg/7pyahvA4v4+66AmxAiueHE7eUVMixbSYCZPHDGRbQQAMsZswrE6YpX7FYwtxexpLNoxf3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aggJ54El; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=milecki.pl header.i=@milecki.pl header.b="pElMn0Jl"
-Received: from director8.ghost.mail-out.ovh.net (unknown [10.110.37.191])
-	by mo583.mail-out.ovh.net (Postfix) with ESMTP id 4fsZvH1LP6z5xv9
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 11:53:31 +0000 (UTC)
-Received: from ghost-submission-7d8d68f679-thxv6 (unknown [10.110.101.93])
-	by director8.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 3F4F5C015D;
-	Fri, 10 Apr 2026 11:53:30 +0000 (UTC)
-Received: from milecki.pl ([37.59.142.108])
-	by ghost-submission-7d8d68f679-thxv6 with ESMTPSA
-	id Q1CoCbrk2GlosAsA37Gi0A
-	(envelope-from <rafal@milecki.pl>); Fri, 10 Apr 2026 11:53:30 +0000
-Authentication-Results:garm.ovh; auth=pass (GARM-108S0026f3801b7-5a6d-45c8-a682-cbea1b95ff79,
-                    CB257AE30968F6DC1ADB9B1DFC9DF9D0FAE0E632) smtp.auth=rafal@milecki.pl
-X-OVh-ClientIp:91.134.92.225
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aggJ54El"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B7EAC19421;
+	Fri, 10 Apr 2026 12:52:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775825538;
+	bh=zuuCDFpBIYwYCymvnfHsVnlCyTNDji9hQDQRq6t3Qvw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=aggJ54El2gifA4t0ODO4iu3a7rNJ7EPppvZAilEijwKJRJ74De2JT3xUkfdQJUv1g
+	 gt802ZPmbRRt4g5zE7yUEBTWLryVsXlYdO6MtO9amEcS7aTU8fGl12ps85ZG2n6jiQ
+	 SoCLAD1c+XvTTpHdZYsIfDmrbOrUcTfBRf6oUMo3paJbbm9vqm4D4RfW35SN72Am+L
+	 G3vPRpbdFI9B36RlTNTRBKcqxXqLC+yqeqPP4QExF/cLE0LjyF5aRjLEB4Ce0Y/3wE
+	 MPm8G0FPOvcd8hizllvb88zlG7rnsnEeM3I8BunjBJIMnla7cvBAjM4aRwIRChmNrd
+	 SeE0RMAIc1TyA==
+Date: Fri, 10 Apr 2026 14:52:16 +0200
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, ansuelsmth@gmail.com,
+	benjamin.larsson@genexis.eu, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH net-next v3 02/12] net: airoha: Set PPE cpu port for GDM2
+ if loopback is enabled
+Message-ID: <adjygGm5fYHhoPza@lore-desk>
+References: <20260406-airoha-eth-multi-serdes-v3-2-ab6ea49d59ff@kernel.org>
+ <20260410025720.1809934-1-kuba@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 10 Apr 2026 13:53:27 +0200
-From: =?UTF-8?Q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>
-To: =?UTF-8?Q?Corvin_K=C3=B6hne?= <corvin.koehne@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org, Pavel Machek
- <pavel@kernel.org>, devicetree@vger.kernel.org, Lee Jones <lee@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Corvin_K=C3=B6hne?=
- <c.koehne@beckhoff.com>, Ashley Towns <mail@ashleytowns.id.au>, Dan Murphy
- <dmurphy@ti.com>, Gergo Koteles <soyer@irl.hu>, INAGAKI Hiroshi
- <musashino.open@gmail.com>, Jacek Anaszewski <jacek.anaszewski@gmail.com>,
- Olliver Schinagl <oliver@schinagl.nl>, Pavel Machek <pavel@ucw.cz>, Roderick
- Colenbrander <roderick@gaikai.com>, Krzysztof Kozlowski
- <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v2] dt-binding: leds: publish common bindings under dual
- license
-In-Reply-To: <20260408062942.7128-1-corvin.koehne@gmail.com>
-References: <20260408062942.7128-1-corvin.koehne@gmail.com>
-Message-ID: <4fbad496f9f52e11f4ff3efe2a5ae4d0@milecki.pl>
-X-Sender: rafal@milecki.pl
-X-Webmail-UserID: rafal@milecki.pl
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 16481767265536823906
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTEVdcfbvIOBJB2+bRFZN5uvglsDeTJ8QMQd6jIracklhyuhdcBcD8Ww3maFkZ8kXin/gDDz2L3u1T8MRzCXgDZz9SBrqf2axe7f3Va00KRBaXT9+sbp4qW3HcpxWQmyur05ln8PZ94dlYoKVza273GShBBSxFdgTntIEPD4yn4CBJSLMeWHD3I0Mz88aYvdWye5Tsl8VMrmv6aoKXWMYBPyEE4kKcTZR9K037BOc5yAoZEwhaSvlD71Bqzcb0exZDvDw34EHVv+u5aGyMOORbMK4NIRxUmDf0acHbqlRkUZNCm6NN3v0XK9owFAZhkWv0za+YkvRpfr0AdSSIv+SrfWnAXFg58l9lgsaV/sLV5XxtaTscASYYVjrBpa/KBLvGWHr/bBa3/DgFYJSDX+rT6/2syCpi2CZM/9VAMx02deA+Ow6Gv+BUhbklCXUPttGXiXfQZIHp2QAyylIhg87IIewZ5KEzgGxgSxEqn9L4BKBE/HcxnStN6izMfwn/DKSx1F4GXMkdtSGN5OdBCitPEIEGcvYr24B+5Ttiriv7sB1V6u6k8NVuAox/KK1bYtFEunBeHi0itmlweDJxL+TTNIn5DEZIejv7O+2KSgH5qglQMTmuods7f54B2XxEwdmiP9kE3vY27ns7RQt6SjTqbwmd9Y3RdS2APx7XayYff1oA
-DKIM-Signature: a=rsa-sha256; bh=m8v0/pj5YIHBXmpmtcD4RBpe85xEWaB0LLlNYUt+3rU=;
- c=relaxed/relaxed; d=milecki.pl; h=From; s=ovhmo3028686-selector1;
- t=1775822011; v=1;
- b=pElMn0Jli13QIPOARmikAjJsixTLKCgaScBCOR9rtLEH3yGDOjs6CrodNZyQjZmveXH3mzl1
- BNa/s1h2UvNggNzi5Iq3u3F8zDP06QJdyrcGbmucS1dZyk6iiYsgxrmh4eI0jXzX60lcHxQdOBw
- gEG9aH5M29MMumfbHNXdJTY1/ZRGnlNFuCYvdNtH9Hcly+kmxqJSJO9/M1WgjOrw97++UChFC2k
- r0CyPHv+0lMAmCLGF+wvvoOWyf47aAu5EkP5b7lO205bhrtfpdCrjLYHpucLAuEO028PTlmAUr1
- 58W2QMHWKX1elB4Swz2E05FlljcqXJ88X4byyk5NkcqTA==
-
-On 2026-04-08 08:29, Corvin Köhne wrote:
-> Changes leds/common.h DT binding header file to be published under 
-> GPLv2
-> or BSD-2-Clause license terms. This change allows this common LED
-> bindings header file to be used in software components as bootloaders
-> and OSes that are not published under GPLv2 terms.
-> 
-> All contributors to leds/common.h file in copy.
-
-Acked-by: Rafał Miłecki <rafal@milecki.pl>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="jU4TpBQMci5bfaI7"
+Content-Disposition: inline
+In-Reply-To: <20260410025720.1809934-1-kuba@kernel.org>
 
 
-> Cc: Ashley Towns <mail@ashleytowns.id.au>
-> Cc: Dan Murphy <dmurphy@ti.com>
-> Cc: Gergo Koteles <soyer@irl.hu>
-> Cc: INAGAKI Hiroshi <musashino.open@gmail.com>
-> Cc: Jacek Anaszewski <jacek.anaszewski@gmail.com>
-> Cc: Olliver Schinagl <oliver@schinagl.nl>
-> Cc: Pavel Machek <pavel@ucw.cz>
-> Cc: Rafał Miłecki <rafal@milecki.pl>
-> Cc: Roderick Colenbrander <roderick@gaikai.com>
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Corvin Köhne <c.koehne@beckhoff.com>
+--jU4TpBQMci5bfaI7
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+> This is an AI-generated review of your patch. The human sending this
+> email says "For your consideration."
 > ---
->  include/dt-bindings/leds/common.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/include/dt-bindings/leds/common.h 
-> b/include/dt-bindings/leds/common.h
-> index 4f017bea0123..b7bafbaf7df3 100644
-> --- a/include/dt-bindings/leds/common.h
-> +++ b/include/dt-bindings/leds/common.h
-> @@ -1,4 +1,4 @@
-> -/* SPDX-License-Identifier: GPL-2.0 */
-> +/* SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause) */
->  /*
->   * This header provides macros for the common LEDs device tree 
-> bindings.
->   *
+> net: airoha: Move airoha_qdma pointer in airoha_gdm_dev struct
+>=20
+> This commit moves the airoha_qdma pointer from the airoha_gdm_port struct
+> to the airoha_gdm_dev struct. This ensures the QDMA block used depends on
+> the specific net_device WAN/LAN configuration.
+>=20
+> [ ... ]
+>=20
+> > --- a/drivers/net/ethernet/airoha/airoha_eth.c
+> > +++ b/drivers/net/ethernet/airoha/airoha_eth.c
+>=20
+> [ ... ]
+>=20
+> > @@ -1497,9 +1498,10 @@ static void airoha_qdma_stop_napi(struct airoha_=
+qdma *qdma)
+> >  	}
+> >  }
+> > =20
+> > -static void airoha_update_hw_stats(struct airoha_gdm_port *port)
+> > +static void airoha_update_hw_stats(struct airoha_gdm_dev *dev)
+> >  {
+> > -	struct airoha_eth *eth =3D port->qdma->eth;
+> > +	struct airoha_gdm_port *port =3D dev->port;
+> > +	struct airoha_eth *eth =3D dev->eth;
+> >  	u32 val, i =3D 0;
+> > =20
+> >  	spin_lock(&port->stats.lock);
+>=20
+> This isn't a bug introduced by this patch, but does this spin_lock()
+> carry a deadlock risk?
+>=20
+> Because ndo_get_stats64() can be called from atomic context (e.g., from a
+> softirq), if a process context caller holds port->stats.lock and is
+> interrupted by a softirq on the same CPU that also triggers dev_get_stats=
+(),
+> the softirq could spin forever waiting for the lock.
+>=20
+> Should this be upgraded to spin_lock_bh() to ensure local softirqs are
+> disabled during the critical section?
 
--- 
-Rafał Miłecki
+I was not able to spot any point in the networking stack where
+ndo_get_stats64 callback is run from a softirq. Moreover,
+airoha_update_hw_stats() is never executed in any napi in airoha_eth
+driver. It seems to me spin_lock() is enough here. Am I missing something?
+
+>=20
+> [ ... ]
+>=20
+> > --- a/drivers/net/ethernet/airoha/airoha_eth.h
+> > +++ b/drivers/net/ethernet/airoha/airoha_eth.h
+> > @@ -534,12 +534,12 @@ struct airoha_qdma {
+> > =20
+> >  struct airoha_gdm_dev {
+> >  	struct airoha_gdm_port *port;
+> > +	struct airoha_qdma *qdma;
+> >  	struct net_device *dev;
+> >  	struct airoha_eth *eth;
+> >  };
+> > =20
+> >  struct airoha_gdm_port {
+> > -	struct airoha_qdma *qdma;
+> >  	struct airoha_gdm_dev *dev;
+> >  	int id;
+>=20
+> This isn't a bug introduced by this patch, but since the qdma pointer
+> is being moved to better align with the hardware structure, should=20
+> qos_sq_bmap, cpu_tx_packets, and fwd_tx_packets be moved to=20
+> struct airoha_qdma as well?
+>=20
+> Because QDMA1 is shared by all WAN ports (GDM 2, 3, 4) and qos_sq_bmap
+> is currently tracked per-port instead of per-QDMA, each WAN port=20
+> independently allocates QDMA1 channels starting from index 0. Does this=
+=20
+> cause different ports to overwrite each other's hardware QoS configuratio=
+ns=20
+> in the shared QDMA1 block?
+>=20
+> Furthermore, cpu_tx_packets and fwd_tx_packets cache per-channel ETS
+> hardware counters but are single u64 scalar variables in the port structu=
+re.
+> When querying stats for multiple channels, do these scalar caches get
+> overwritten with values from completely different channels, resulting in
+> incorrect delta calculations?
+
+ack, I will fix it in v4.
+
+Regards,
+Lorenzo
+
+--jU4TpBQMci5bfaI7
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCadjygAAKCRA6cBh0uS2t
+rAmpAQCSpwTbuYHGGRmUj36P1TRUbM5XJ248xde7FVOJfAtYwAD+Pi6va2remwkz
+5cZ1xinWhYE5QyISrzvQr4SzJzJYcAA=
+=sr7/
+-----END PGP SIGNATURE-----
+
+--jU4TpBQMci5bfaI7--
