@@ -1,249 +1,104 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013040.outbound.protection.outlook.com [40.107.201.40])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E75C383C79;
-	Fri, 10 Apr 2026 11:00:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.40
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775818811; cv=fail; b=NFNQ18vuqNJepwy+40jcLdWz80mcrc737bmWhoAmtXyXMqBoX0CZhCvMYVFBBrJ5D8WBOIrJuuZBhvamlqTg4Wmlpzp3MO6cla34YxHXUVER4KT0Jkt+MhXoOtyTsEQ11Kf5AYCGYqnEuEJAK+AEjbl0eJoGgMKViOdgCmFbqGk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775818811; c=relaxed/simple;
-	bh=IrjK6nbYRnhH7VFt+y7Pv+RWYvs4K2s7cTNz52VD3vw=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=eAPeabz7chauL6ltbOsu9Ps2gGoxeN3/cI3t6n/W9tmiDV9oL6BDhCjRrUWVB9fNycV/cr8eT33HtnGLNfAF8NhGCmqV+H2uFaR9pboJuI7SwV72S8PY5xDEucOvx5gJCK/DPnA20Ao7y8njksKJz4z4QBeRzJodXoGtKNDbbV8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=ZKCNEXPu; arc=fail smtp.client-ip=40.107.201.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8650B3976B3;
+	Fri, 10 Apr 2026 11:00:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775818843; cv=none; b=Phvw4FruIJOoWXKsh/vgCMXnICtx/4mDSo2UO43C90pG+PmkT5aia5GoGpxteSC9tRqxEUW3p/7+r0RbMnzXe36CJUwJqzfmXqUg9vlH5mAvZvPe6TO1Rs8OWbPGB39uFXjMK5aN7rD2/7XS4+fXZ6k4cDUo/9Qai9fdfZla6Bo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775818843; c=relaxed/simple;
+	bh=mA23v3QC+JRvCzjyBd/s1wSu6ZpU41sDI6803W1vbD4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oK2ETzQrQ2h3QFc9UMSoJEGXDb/vM8f/1nkjcdR8rZ0CbnDT0NhzU+4qknv8Zah5bU+Vt59FfiC7NPNTfY63EeqjGXbbe2//STaYgJZUh8DSwimCWqVdQ3R+W4Sn0R7uhPezUytjAYNY6ibrX7Y9nScuQSRzpKQIaM2vB/wTjSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kNpxZVSr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="ZKCNEXPu"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=a4XhsjMadVweyDc4sa8Jb3iytwV1OTFVGTUfZC44Vak1B/PoaPbzK8Wg6veZSHVPvOcs+/MlYWgttZ/u8fH7zObtlTCAHl3mOyhwqLP4QIlu9iScTVailcIIeH+NucGjgoWhKkp2iG/5rsHVTMWgTtXQoSEuaM9SzcWT/9Glgbsk7xaK7zG8Y7mY6u6kML24JzMyU4eu/eOb5pJ1RocJEtbGUjgEtiSmylhmjW6e0T0auLJK50068MSXW/2MUHwIQbvghyO0gXVPT/o4zawlMcVCOiMZbJtDvcJ6mo5pUyemoAUdYBdO0abV8r4TyLGvKquXQEdi4esGX2btIEH1Pg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=76TBCdQc6wDeqXL/sQ/LdhTyeQ9IBTVx4ZtJI93D2tA=;
- b=EYbLLa991DoMJQxyEdphqFxLsVj6u/Zh8FyvpmW7tm4hPbGtsiSJE3HCb6ybb04zVH7rdbD2uCU+Tg7Pz2UzSoStWKGJw02x1PG3Pzu3HtwSGixksCSRcA27kTRJ+p2C5yXgMh2s2nesCZ1TB17jL9NwVRuzi553ggb6XKovbGIp3uhofeJm6cigahNa4SZHDJqvh3qHGgA5sHc+HjzcKfsexjnovQAnQefQEdlDppuqHdR2PAUEiHprbUfvU7w1Qn2eMQdIhHyHYffpIO16/bhFR9WlbWz2cLWDtu0QSkDWOeer4w3Vig6YdUMPSvQS8AugfkG8G92gqP0M7dtMRA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=76TBCdQc6wDeqXL/sQ/LdhTyeQ9IBTVx4ZtJI93D2tA=;
- b=ZKCNEXPubw7s7sllmpRHvIFDFgS76U2Sq43iLMtDHDqxYNGQPWIfB1rsL4h6pn+oXHvjLcz+hgpuupl7gAhtoe0mmY9IZbNrIrHhk0sEqr5BlyjC+O/d3W0y2i1FLK9366AC5GCVFF0/jXP4iKc+ZyotBbwqdTCouYaeZI6vP+o=
-Received: from DS0PR17CA0005.namprd17.prod.outlook.com (2603:10b6:8:191::6) by
- MW4PR10MB5678.namprd10.prod.outlook.com (2603:10b6:303:18c::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Fri, 10 Apr
- 2026 11:00:04 +0000
-Received: from CY4PEPF0000FCBF.namprd03.prod.outlook.com
- (2603:10b6:8:191:cafe::46) by DS0PR17CA0005.outlook.office365.com
- (2603:10b6:8:191::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.42 via Frontend Transport; Fri,
- 10 Apr 2026 10:59:53 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- CY4PEPF0000FCBF.mail.protection.outlook.com (10.167.242.101) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Fri, 10 Apr 2026 11:00:01 +0000
-Received: from DFLE202.ent.ti.com (10.64.6.60) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Fri, 10 Apr
- 2026 06:00:01 -0500
-Received: from DFLE211.ent.ti.com (10.64.6.69) by DFLE202.ent.ti.com
- (10.64.6.60) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Fri, 10 Apr
- 2026 06:00:00 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE211.ent.ti.com
- (10.64.6.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
- Transport; Fri, 10 Apr 2026 06:00:00 -0500
-Received: from a0512632.dhcp.ti.com (a0512632.dhcp.ti.com [172.24.233.20])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 63AAxtgt076591;
-	Fri, 10 Apr 2026 05:59:56 -0500
-From: Swamil Jain <s-jain1@ti.com>
-To: <jyri.sarha@iki.fi>, <tomi.valkeinen@ideasonboard.com>,
-	<maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
-	<tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
-	<robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-	<devarsht@ti.com>
-CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <praneeth@ti.com>, <vigneshr@ti.com>,
-	<s-jain1@ti.com>
-Subject: [PATCH v3] dt-bindings: display: ti, am65x-dss: Fix AM62L DSS reg and clock constraints
-Date: Fri, 10 Apr 2026 16:29:55 +0530
-Message-ID: <20260410105955.843868-1-s-jain1@ti.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kNpxZVSr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D79F6C19421;
+	Fri, 10 Apr 2026 11:00:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775818843;
+	bh=mA23v3QC+JRvCzjyBd/s1wSu6ZpU41sDI6803W1vbD4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=kNpxZVSrX/1El7Se3viD+bat+IUrySh4F5a1EuthfecOkMbgVEQAnDyU5LkZXUVF0
+	 CmLGSoJPqBoJ91CDt1gioQzlj8e5WJXxBkEG2FFmjh/3dKWQuEqtXkpIMahWThxf0+
+	 FF6+mfazLZPj4NsC40uCdr2YZ+v5Iny+EjKHc7BwrvzSTTqWfjZC/0LxB76Oq4BN8h
+	 jg+Q7HUp9rkWhI/A4etUfp8qJ0Gov/B05d4aXLAAovtVnomzIvRiQM+56gyeK/GyXc
+	 PejqP7vQ+w+/ehx/5p02U3uLz6tgHkrf1l+pTjrLE2lLWo920wSbGvKLpvHF+TqTU9
+	 PcgIeKqIDIxUQ==
+Date: Fri, 10 Apr 2026 13:00:40 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: pshete@nvidia.com
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, arnd@arndb.de, 
+	bjorn.andersson@oss.qualcomm.com, conor+dt@kernel.org, dmitry.baryshkov@oss.qualcomm.com, 
+	ebiggers@kernel.org, geert@linux-m68k.org, jonathanh@nvidia.com, krzk+dt@kernel.org, 
+	kuninori.morimoto.gx@renesas.com, linusw@kernel.org, luca.weiss@fairphone.com, 
+	michal.simek@amd.com, prabhakar.mahadev-lad.rj@bp.renesas.com, robh@kernel.org, 
+	rosenp@gmail.com, sven@kernel.org, thierry.reding@kernel.org, 
+	webgeek1234@gmail.com
+Subject: Re: [PATCH 2/6] dt-bindings: pinctrl: Document Tegra238 pin
+ controllers
+Message-ID: <20260410-benign-sassy-vole-efeb56@quoll>
+References: <20260409131340.168556-1-pshete@nvidia.com>
+ <20260409131340.168556-3-pshete@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCBF:EE_|MW4PR10MB5678:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4e994545-fc57-49bc-e7dd-08de96f05032
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|376014|36860700016|7416014|18002099003|921020|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	OEqORimkKuCaN0ZB6bcAxoxZfOqOzToEdW10eff8j3J6uY140PXCfIzCx9q5yvzFrRRgmhM4ISmxP2LWyCNlcik5lgH4fF1yJYwzbfACnJanbpsNjrt2Khi2UwJ5kF7Bt+DfddqRKoZuEzVlOKBY7r3HTN7BHIySImJXKILk6IYx1zKXolWQrVTOR1phrLrYkexmzcUF98mBGoqjjonvNq4p2GAeVZeE47NtXueiE5IZSGNWLoRwK2RX47gcf+QWL5jOssxiMbdHQQvwKmr+1Ps9rTXYXBEgE/8Q9YpTypImOCsyZvL7h7DiFIPmt0rY/kTzoaHNYTsolfXmGcXyrLNTZAHcJw2hPdmKtgxCeaKnrbN8Bo4gSoK7i95Vq3v/Dn5A7WaXag1OpuhA4GFAMuzULqhL5glV4aj1tyRkJBGQs9hM6NC/BAdQG3A5L2UyJTw8qrrgwC5l/nHr1OLKnEi+I6EG0uhaH22IIodKYpXUpEONzjvJJbDphFoGJG+YUfq6DBguWLMW+v8tLQrgyhF6WsUhfAnSFCEGhtYgFI0pQCpq2Q/a9XwjeOqYy1C399Wevag5DzctnMR4S2lduZvPPNzGbah8LQmDtVvTQioE9RLDEDwT1a7jCJ6vzcmm/grh5/g1NH7BtIuN6kIkclkidO8loZzLDyKPlO4i3v3X1olwocxwABN2rf3cR9uAFTAMji7cf/Qk3GE5HB+tmnJ+Sn34h+/KurJWGEUXAhQXtQUiYqv0UeSziY+KWtDppEuqrmLQyQ8PmWqG0TwKMA==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(36860700016)(7416014)(18002099003)(921020)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	pWr1c16momkvhKmQ/bzTs//s6UqngclQRR6nPBHW2BbqENixg98hbve4zQl1OrcEFk+glKeQB7fGB0yTCLPbinigfv4J9IHrB0AV0bXyoCkA61G+yU607dicGmBJYxcOTJzoHHEMNV/EhiOoIhxiE9crRHqPJ7FH/s42viYcCsF0CIquAUn8kIGEk0U6ODHxiUW2E05Nv1bANAdjHEQwzG/clTnqBtKfUBGh2XJcaPhFU3WupNCIUkTUNGARHktG9wOgX2kjGg15mcF8691g7xZw/7YVrss1/KrdwQLo3tdgLqc+qJO8PAD3IBPI3S39IK3Sr4N5oypxwCGMNF9tWilek4FO2fkWN2Db1jp2ms15OR/nbQaqEeJvgwbiO+zGRgMnQLlWoSilChQoft6STWHiwiM91c292+G9UUakBn4CgThe5ILE0tNpfHMgtu/m
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2026 11:00:01.4112
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4e994545-fc57-49bc-e7dd-08de96f05032
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000FCBF.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR10MB5678
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260409131340.168556-3-pshete@nvidia.com>
 
-The AM62L DSS [1] support incorrectly used the same register and
-clock constraints as AM65x, but AM62L has a single video port
+On Thu, Apr 09, 2026 at 01:13:36PM +0000, pshete@nvidia.com wrote:
+> +patternProperties:
+> +  "^pinmux(-[a-z0-9-]+)?$":
+> +    type: object
+> +
+> +    # pin groups
+> +    additionalProperties:
+> +      $ref: nvidia,tegra238-pinmux-common.yaml
+> +
+> +      properties:
+> +        nvidia,pins:
+> +          items:
+> +            enum: [ bootv_ctl_n_paa0, soc_gpio00_paa1, vcomp_alert_paa2,
+> +                    pwm1_paa3, batt_oc_paa4, soc_gpio04_paa5,
+> +                    soc_gpio25_paa6, soc_gpio26_paa7,
+> +                    hdmi_cec_pbb0,
+> +                    spi2_sck_pcc0, spi2_miso_pcc1, spi2_mosi_pcc2,
+> +                    spi2_cs0_pcc3, spi2_cs1_pcc4, uart3_tx_pcc5,
+> +                    uart3_rx_pcc6, gen2_i2c_scl_pcc7,
+> +                    gen2_i2c_sda_pdd0, gen8_i2c_scl_pdd1,
+> +                    gen8_i2c_sda_pdd2, touch_clk_pdd3, dmic1_clk_pdd4,
+> +                    dmic1_dat_pdd5, soc_gpio19_pdd6, pwm2_pdd7,
+> +                    pwm3_pee0, pwm7_pee1,
+> +                    # drive groups (ordered PAA, PBB, PCC, PDD, PEE)
+> +                    drive_bootv_ctl_n_paa0, drive_soc_gpio00_paa1,
+> +                    drive_vcomp_alert_paa2, drive_pwm1_paa3,
+> +                    drive_batt_oc_paa4, drive_soc_gpio04_paa5,
+> +                    drive_soc_gpio25_paa6, drive_soc_gpio26_paa7,
+> +                    drive_hdmi_cec_pbb0,
+> +                    drive_spi2_sck_pcc0, drive_spi2_miso_pcc1,
+> +                    drive_spi2_mosi_pcc2, drive_spi2_cs0_pcc3,
+> +                    drive_spi2_cs1_pcc4, drive_uart3_tx_pcc5,
+> +                    drive_uart3_rx_pcc6, drive_gen2_i2c_scl_pcc7,
+> +                    drive_gen2_i2c_sda_pdd0, drive_gen8_i2c_scl_pdd1,
+> +                    drive_gen8_i2c_sda_pdd2, drive_touch_clk_pdd3,
+> +                    drive_dmic1_clk_pdd4, drive_dmic1_dat_pdd5,
+> +                    drive_soc_gpio19_pdd6, drive_pwm2_pdd7,
+> +                    drive_pwm3_pee0, drive_pwm7_pee1 ]
+> +
+> +unevaluatedProperties: false
 
-Fix this by adding conditional constraints that properly define the
-register regions and clocks for AM62L DSS (single video port) versus
-other AM65x variants (dual video port).
+additionalProperties. I'll fix existing files.
 
-[1]: Section 12.7 (Display Subsystem and Peripherals)
-Link : https://www.ti.com/lit/pdf/sprujb4
+> +
+> +examples:
+> +  - |
 
-Fixes: cb8d4323302c ("dt-bindings: display: ti,am65x-dss: Add support for AM62L DSS")
-Cc: stable@vger.kernel.org
-Signed-off-by: Swamil Jain <s-jain1@ti.com>
----
-Validated the changes with some examples:
-https://gist.github.com/swamiljain/79f30568c9ece89f5a20218f52647486
+Best regards,
+Krzysztof
 
-Changelog:
-v2->v3:
-- Reduce redundancy and use constraints suggested by maintainers
-- Remove blank line between the tags
-
-Link to v2:
-https://lore.kernel.org/all/20260129150601.185882-1-s-jain1@ti.com/
-
-v1->v2:
-- Remove oneOf from top level constraints, it makes bindings redundant
-- Remove minItems from top level constraints
-- "dma-coherent" property shouldn't be changed in v1 itself
-- Add description for reg-names, clock and clock-names
-- Add constraints specific to AM62L and for other SoCs within allOf
-  check
-
-Link to v1:
-https://lore.kernel.org/all/20251224133150.2266524-1-s-jain1@ti.com/
----
- .../bindings/display/ti/ti,am65x-dss.yaml     | 66 ++++++++++++++-----
- 1 file changed, 48 insertions(+), 18 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
-index 38fcee91211e..d8a05bf62c2f 100644
---- a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
-+++ b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
-@@ -36,34 +36,50 @@ properties:
-   reg:
-     description:
-       Addresses to each DSS memory region described in the SoC's TRM.
--    items:
--      - description: common DSS register area
--      - description: VIDL1 light video plane
--      - description: VID video plane
--      - description: OVR1 overlay manager for vp1
--      - description: OVR2 overlay manager for vp2
--      - description: VP1 video port 1
--      - description: VP2 video port 2
--      - description: common1 DSS register area
-+    oneOf:
-+      - items:
-+          - description: common DSS register area
-+          - description: VIDL1 light video plane
-+          - description: VID video plane
-+          - description: OVR1 overlay manager for vp1
-+          - description: OVR2 overlay manager for vp2
-+          - description: VP1 video port 1
-+          - description: VP2 video port 2
-+          - description: common1 DSS register area
-+      - items:
-+          - description: common DSS register area
-+          - description: VIDL1 light video plane
-+          - description: OVR1 overlay manager for vp1
-+          - description: VP1 video port 1
-+          - description: common1 DSS register area
- 
-   reg-names:
--    items:
--      - const: common
--      - const: vidl1
--      - const: vid
--      - const: ovr1
--      - const: ovr2
--      - const: vp1
--      - const: vp2
--      - const: common1
-+    oneOf:
-+      - items:
-+          - const: common
-+          - const: vidl1
-+          - const: vid
-+          - const: ovr1
-+          - const: ovr2
-+          - const: vp1
-+          - const: vp2
-+          - const: common1
-+      - items:
-+          - const: common
-+          - const: vidl1
-+          - const: ovr1
-+          - const: vp1
-+          - const: common1
- 
-   clocks:
-+    minItems: 2
-     items:
-       - description: fck DSS functional clock
-       - description: vp1 Video Port 1 pixel clock
-       - description: vp2 Video Port 2 pixel clock
- 
-   clock-names:
-+    minItems: 2
-     items:
-       - const: fck
-       - const: vp1
-@@ -179,6 +195,20 @@ allOf:
-         ports:
-           properties:
-             port@1: false
-+        clock-names:
-+          maxItems: 2
-+        clocks:
-+          maxItems: 2
-+        reg:
-+          maxItems: 5
-+    else:
-+      properties:
-+        clock-names:
-+          minItems: 3
-+        clocks:
-+          minItems: 3
-+        reg:
-+          minItems: 8
- 
-   - if:
-       properties:
