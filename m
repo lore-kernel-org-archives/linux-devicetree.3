@@ -1,143 +1,233 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2109.outbound.protection.partner.outlook.cn [139.219.17.109])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7683C3B0AFD
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 13:32:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775827974; cv=none; b=rCxx8fDAqzPOYqnhXmpguV1FXQgZqzYTozA1Aatje5dvibKGfitNUzOoxJMYH82ZNNZ9cNMASeQoFXB6vqzrj0ymWMxWf1OaLHxOXEmJnLtSfBDfkYHGCwHv4/siAfswjDdVjVzQGwNbNTboT4vBW2qJtoXzbgC2yoRH6am1dso=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775827974; c=relaxed/simple;
-	bh=p/F/ubJz4TnePeuUAPFWFIpOn4leIoXpjB86p8c9qi4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tNPcrMMnC4kckyb0muPlmaTWkzv7nVDpQtMDH476Q1Tkq5I/cqQ9E1OoPUOPppnFqg22g9M4suViSuK+jQWGj+Tt09Iur8arpPP2ZpTGMWu5W17NOOheeJn6T2FFw9GvUWI8Q7O/3wucne6rNCpze5VSyg0963PvdOn+ZyxjSt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HJN23wLN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CyFg6G3j; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HJN23wLN";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CyFg6G3j"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63AB12qv438864
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 13:32:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ROaqTpJVwuOL0zdQ36pjCLyEmqKk88M6hTtVA5HSexI=; b=HJN23wLN1XvP10pn
-	pzb0hFcTObTIZ/4vpTdykvyWGv+DVyboLJX6PEcfO0wTtt5BS/6d8oZhDIbOhMXO
-	6xnEcsxskeJi0v30MPAquDTxLZnwPNdZwhB7lD4JStYTge55vcgeq4wGFTeCUc9I
-	4IWp4uJWRguw+0Qq8U6l2oN+KSw3AsfDX3yaNl3gqTOdF07fx9kzIg28TaOXodo+
-	AMRI2wLovsG1qV0oGFAY7hAadSRYMlZAUSUczglHoH3a1dPLo4PVFFm5wqbrDRX1
-	7+yBbVJkotFqxlNFGdnMGAzsBmnjz/i4JnmipnqAko/FFfLoDXHF5tedzTzsedp+
-	ZWvr+A==
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4deyy9reaj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 13:32:52 +0000 (GMT)
-Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-679f702c3dbso296790eaf.1
-        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 06:32:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775827972; x=1776432772; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ROaqTpJVwuOL0zdQ36pjCLyEmqKk88M6hTtVA5HSexI=;
-        b=CyFg6G3jjLkFSyxKzTqcuCrokea8WKm/sLpYFd/2IXmUhMKtBfmWhZ2HBPzW0kOMRE
-         CygePEejEaFE1AOpv2j1p1ppfDnfv1mqu+ukK7G8awl3LP0bLL48o4Ckt30Q0RZgFcAc
-         e890YtyuJIlU4VHPJHG6uHwBvMoEyX40a/eKxYriFQu5QHtKXkVqXG3OfjY6gwi7vD3y
-         RHrBCMS1q+Xxk04KwUVMBm6bfzucAI9VMTbXT5I/9ls5caVhl6dTLo4MjYNe77/F9R10
-         EREOcXpZcGroJ7DKujnRm17P2dJyLHKtiMywThf1WnK8YM+xsy+OX0CoJdjQXvIJqOTQ
-         XvXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775827972; x=1776432772;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ROaqTpJVwuOL0zdQ36pjCLyEmqKk88M6hTtVA5HSexI=;
-        b=E6DFjggPFBNWoH4mxGrk6yU0pvh5gfTJpzGwmog+X/75JsuzjAFdLAiKbz9XFRpLBN
-         Vjc4NUHEJIBQre2C8aka0oBQrzzk7MtAq40heaaA4TQKe5wYGSa4HOFt4CR9c4N8TnS5
-         kPWsawkqOj1zI0GN9wdHkatH4EoKRdTfAWoAZoAANtrvOmo6KkITki5KcmkqJTUBRmZH
-         8Ii51s+FXX9FetTP6CZRRPr8oIXUTQus1GccFYOf3SKJf6xncE+cy6ksrHGJ4bwLGvtq
-         8VDpOMCq4nmW4E4n958dmZR3D3aX8TrpYH0I8XHiWP3kc+yS+LcbMZhl+xBRCbsjFD/a
-         xJ/g==
-X-Forwarded-Encrypted: i=1; AJvYcCXrViL18sGc0gpeIChiKaVcQNhCm1CkjCzDi3TjdJIB1x9b5LwKDJg49Ju0EssiF1mkcmlId2CjahYP@vger.kernel.org
-X-Gm-Message-State: AOJu0YzOey6+vIPNmYhVIGRMBurSz3valrBEL60yYMoWADGaOaoQFQ2x
-	asIDjZIsg5lRvcmWU36fZ3p6R3YzJ1NWPrYtkxw3EyBlfGKEwVlnyuEBvpMxURmAEIkLoS05dvX
-	NPA9p3pUWUyDfq23BlFds7jAvaGD1oxaw60qQcmDRuxiZHmxN/9fTTDYPo1awiMrzmrETWMZ8
-X-Gm-Gg: AeBDiev12bXsKpsvwfZ9TbF3LrZRO6kyZFTwPBt/HbTtqVTUnamMW5JhB4Lq7AvW7h+
-	XNjcmGrWHm6mbwcUD6GSSmLYK48hXU0BvZxFIBB70AyZRJ6Ri0f49TOJSldb1pbMFRUiLNprlB3
-	qZR2u5jYEQ/FVpMtIKvSoJRqSU4DeVfi4wZqw/YorNnFsfX+7fy78PSwg3iaakiQMW6J+pcXNgG
-	+PLPmYa10H6ModHU9dZCO/Xz/tMiezNC399+1HPN6KP2AbTQagE+Q6QKEYZAP8kNVd+1ozOGY9y
-	Nk5vdAIe24do+Aixn4WZbUj75EB//K/7mmSkydFyY2mrH1nqELYLIwDOEGUG7rVv9Zv1AEv6gO4
-	u6fvyxvB5g1fIIWc31fRvVpppEVD3yRrBTor6NjDB01+xwFxJWGtcMJzH/HAjnrHJuRBeaywXY7
-	qaosY=
-X-Received: by 2002:a05:6808:1907:b0:467:272e:883 with SMTP id 5614622812f47-4789c740c37mr1031514b6e.1.1775827971849;
-        Fri, 10 Apr 2026 06:32:51 -0700 (PDT)
-X-Received: by 2002:a05:6808:1907:b0:467:272e:883 with SMTP id 5614622812f47-4789c740c37mr1031493b6e.1.1775827971342;
-        Fri, 10 Apr 2026 06:32:51 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9d6e7c8a13sm77991466b.53.2026.04.10.06.32.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Apr 2026 06:32:50 -0700 (PDT)
-Message-ID: <c78fd260-ec2f-42db-82e6-6663b4ec9420@oss.qualcomm.com>
-Date: Fri, 10 Apr 2026 15:32:47 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA8C0223323;
+	Fri, 10 Apr 2026 13:35:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.109
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775828139; cv=fail; b=ZfnDDoS2mgiU+fiWbzMyLu/h+1fvzGIm2+XqC3Xs9SoVurz0zH2FjRRJUAILUMCqLxFsGGVamqzORxBIzhs/eYwyZ+WU5nGnacHrO0FeB3ycjHJQERt7ufOInCTZl5UnXQSugATDnaFyZiTnQnideQRQu0u9thrYLsmi0EwPlAE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775828139; c=relaxed/simple;
+	bh=LiS7zBidJgJL5HiqbEjFC3705ZAdr1IddIHFNI4kvQo=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Ukyac5DLqoYfEBKpbEkXFO+6btX0WhEhdxCfWauH3EXbYS9F7mN990X2JDmuHzJtgktiPzgQOVhb+Qk7nkmQUXHZqpy1xTzZ4nBFREQ7fxDFkxIEMMMEfmJjqb/WEG4dLuC+0Uc8jT/vYOZWdwDT/SUHIKZ47y/SSdyyZ66ecd8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.109
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=F8YJyQxtfnpfr8gcdGdy+h760vgfABmnL9+FYvN2X9kHaKyjU4P7EILhrCqnI3BZ3vrszbB1xLb6fCUVqqF5ITJdIMn1ATOsYbd/l8H5oVykyURu/5UWMoNPH/cTk5IgyeK/0bS9V0hOJFNqk85Kj38g73In0cLAxMN8f5Fc0o7CWekb1FcuhPD8XU3aSGwnxsSEs7kCbZ/VIZgbFH410dVTz6msxUqm7Qfc+SdDLwFXBNhNfN3tvgzpZLBWlev0bNAJvdDXHg8sAzta6XdITGeHevJsxTIaUqhoVqlHrTUd6/JLZWU/+iyXmthGthpLNqOughk9mGT+RF8BZ04Jag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=G7QHqJywyYBuCYEkhBAkzgv7c+ZKQ0vDbMfZ3yfMoQ8=;
+ b=WGIdqkH9wYGKfEPYYrIAbnGaHfJFWIDefaT5TcaAH1wkuEE+DFvk5NURFFBL36T5pTTZoJ/PmeEIg5hQP7+UrrM6XFmlWmm6NgawSF45IpcL7Abub6MGPK8p1zBrpBGErh697KFhW5hdclx3+ubU3jDDeb3tfrRygSiFi/+PNE6HwxCgBekbvqSNdgTZZJTVTp98oMnqwo6TY/pEGa2Cp2vvM89LSfx7PgL9uEIskENSGnelYuYqfeT042i14/9jDggSEmkamDQ0pYhCudPlcHDyIpWHh2VOnOIWZkJCk4GbtJfKFZLPSWhXg7kxFyQupECn3BxxpqcLQVRHt08tSg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1218.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.42; Fri, 10 Apr
+ 2026 09:01:16 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%5])
+ with mapi id 15.20.9769.020; Fri, 10 Apr 2026 09:01:16 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Ley Foon Tan <leyfoon.tan@starfivetech.com>,
+	Changhuang Liang <changhuang.liang@starfivetech.com>
+Subject: [PATCH v1 2/5] irqchip: starfive: Convert the word "jh8100" to "jhb100"
+Date: Fri, 10 Apr 2026 02:01:03 -0700
+Message-Id: <20260410090106.622781-3-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260410090106.622781-1-changhuang.liang@starfivetech.com>
+References: <20260410090106.622781-1-changhuang.liang@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: NT0PR01CA0017.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510::6) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] arm64: dts: qcom: milos: Add IMEM node
-To: Luca Weiss <luca.weiss@fairphone.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260410-milos-imem-v3-0-d215385fa5ab@fairphone.com>
- <20260410-milos-imem-v3-2-d215385fa5ab@fairphone.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260410-milos-imem-v3-2-d215385fa5ab@fairphone.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEwMDEyNiBTYWx0ZWRfX8znkG6b4YoAU
- Tuj65pFRiD8aQ+n++2v07vz4Ho8lRZVbR0jkogLdZqIlF9UbP/89iD7VlTGFouolSsK4J0bjAFB
- M8ufuL5f0rrStGxzYTrokLaEb7UHYfnF4XPPTpPvAWzBvVCBE8pAzPIKeC52hVnwQVjEJ+AX3n+
- lNadvQBdGFqF0pfa1tnxkRFKiVDW27tyaeDXc/cZ8Dx4HQpUJOF0byg8S6K/k6MAny1VBidWlXL
- 0IDJcqGn4SbeFDCP3CuC5jYB9rcygXyShmA8hn+FARHqvbJZ1KTGxd3leoxkJoeYjrgapXWqXDv
- LQ9pnieXnyRT/h4KMAc0ONXJA72lKFs5dajUh9YWeeP3GpWPW7C6KQ90JQNLondaK8GDfc35Y+P
- g9R61bJHUhktD2aNb/gMGB1amUb/dkS++E22vLcY0Lr8A8hiQzZ9pPvO5ge2XLIgqzOmH/0UQ/q
- o1a5Jb9j6eNJcV2fDZw==
-X-Proofpoint-GUID: WqiI7Dr8ty_gJSErVx4vZcVu6C4PyNTC
-X-Authority-Analysis: v=2.4 cv=d6fFDxjE c=1 sm=1 tr=0 ts=69d8fc04 cx=c_pps
- a=V4L7fE8DliODT/OoDI2WOg==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=6H0WHjuAAAAA:8 a=EUspDBNiAAAA:8 a=5k3XNHiivogdNy7buJ4A:9 a=QEXdDO2ut3YA:10
- a=AYr37p2UDEkA:10 a=WZGXeFmKUf7gPmL3hEjn:22 a=Soq9LBFxuPC4vsCAQt-j:22
-X-Proofpoint-ORIG-GUID: WqiI7Dr8ty_gJSErVx4vZcVu6C4PyNTC
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-10_04,2026-04-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0
- clxscore=1015 impostorscore=0 adultscore=0 bulkscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604100126
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1218:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2b305e2e-65b0-4cea-9d22-08de96dfb954
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|52116014|376014|1800799024|366016|56012099003|38350700014|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	GGXdK++5g3+z5AFS+0+LZJlDxPm+68LuM6AM7LbiEhh/Ua90zY5TXQW35WmqASJQdH6hcnFLZYh1wcU3SBLSLRCtuReNzNVxiTLfmfoJpUtAGYGJCF5KZJKsNbP3QffkpRFnj70953tfHwzWCdoVCHsLb1WLhLullSx53sCPesXtiBbq9YnAnRE6ZC0qIB4fFutTi7J5cYRm2Kw7ZJpxwUbh4kg66S4T124BIKs2AbiYvPiepmrqHq4xencIdMG7u6ApwHlWDDNBoNNaauZgK24jGIkFcmyVEDxyi77SbPOtcPRXQLDpaq/yZUWlO1GHSXs5KTqMvZHTsFgOD0AkWo+4QJWZjD0ct+BriH/hRWW37KIfvlFr4y3WvhwmYH6wWruFG2Vbny/VYU5I9UuC061m9+LDIGMddOtHUlASDII3fZc66YR5Ntu5DLnt2jnmO/ITg0IF6clusfY0Bt8dqiyHs3dbOZ+JIW3U3Os4o0V24g5zMMTZ9yho00TjRRCp4u4z7GbeuhMZ5pfs42eovp5oaDHvxlQdtkzakKY4dXnCwNxQ6I6Th7DIiGV53FMG4rWHhC+ED2HqrrllX9vab3HTv0yZhSODpywKb8Jnils=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(52116014)(376014)(1800799024)(366016)(56012099003)(38350700014)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?67+YplaeRg4BMNIWY3sPRMiujTOcG9iUvFy6jMZeD7M26L9qOCxPXrskPZb6?=
+ =?us-ascii?Q?/9F7PAXpKT2O0MqiXpk2KrdLH7qunYTsPZdrjxHQL1Snm/0kbI0U7KtZhJ9I?=
+ =?us-ascii?Q?a07Qulkf+qJh7BPqUacbhAesfOICCToK0s4IZnk6p0+Y57ezkeAQF8dcY8hh?=
+ =?us-ascii?Q?K7dgxi1jVxyl3GtCIWcDj3gL5JZzTuPTJ+FaesBNQNSX8UuXHLNdFLbMlOLy?=
+ =?us-ascii?Q?/kmNwg/P23w213sIeFscMwmTw+hhyJwTgXeO0BoQmvKW52xXJ5WfiGEL3f0p?=
+ =?us-ascii?Q?CV/DBG0u07i2JI5AAq+mxgpc9EhxMdwCIh6/+95BRlber18iBZ5/QhVvL+Ll?=
+ =?us-ascii?Q?qiz0JNjy2EsjUdYWF+VWAMg0UbTNm5OPgRIyND0lhoQxaMTxpVLD4RQFHb2U?=
+ =?us-ascii?Q?fSqL2w2q/lqDKHeyK+1zYuAE2DPqhv6gesNdD9JM7tJneZSQ9B4NTwkQhibK?=
+ =?us-ascii?Q?sseeJ6Plb5UPG6ec8YJ5ZeQhTc4VmPFZO9T2mAqV4x4jTO5ym5aDqjTDDC/L?=
+ =?us-ascii?Q?nUy1tlJygaD1Bjdy23PWVF60nrFZCXRRzaDPWBoMkTBdQTuVieT9rbhuDbuZ?=
+ =?us-ascii?Q?uxdHTlSXd5AKhLfnPhA23xSCA19Y6CYbqlBUbtKmEPi1f3K/JwQKIhXHJ5bw?=
+ =?us-ascii?Q?ENd8b35vxNZP0CwPM0Q8//zXyJFnxS3bdZN11llfeQJbM9D0t+bNgh0BvfII?=
+ =?us-ascii?Q?wue7ya3XE+ljf/5NiIxsakwlSm+1+Mj//8jmt2OE7fa+SgQIrGjlq2SkpBA6?=
+ =?us-ascii?Q?yZkxRs1gMyIwTDaLv0gbscBxlFfmR+dz+a1aIkKrjqeKudJPmN13KufTx4PO?=
+ =?us-ascii?Q?pRY/xbXN1Fc8VM03B5e9FB/GIo6pTJ6xBWryztwThK7Cx2Qv3l9c7VImQmyq?=
+ =?us-ascii?Q?1JmutQLy0q+8tilCm8mPZ0hFWYv0tGgiYK3ArY1xmt3t1rpm+WnRF5/lvXji?=
+ =?us-ascii?Q?9Ww16OvvuoZb9YITzc2K/7cC0FvmcTG73RQRRBrx2VXhe+c+lUS5yRCFmmeb?=
+ =?us-ascii?Q?PeZWcRH7aKk4OGjEpP0aeXWgP8mHiK+V7M+YiPBLoAmWZFL2lbFD6yUqtLMa?=
+ =?us-ascii?Q?7smU3QV/dbyu4ZTSA8GGAkLbWW3gcJ39Qo3Fkz8h+zbE3pX7xD9PU1v0Dukp?=
+ =?us-ascii?Q?e8TZmW/K4jOhKcsZMmljbA8m82Ihc3DIcLW9gmnnB8nbMpKv5uVe9JS99TLA?=
+ =?us-ascii?Q?yNZdzBuLw4wAQSunV4b+XBrlWcJ4U+ILxiP2N4vYzNpaPWHITzFACMSsqb+e?=
+ =?us-ascii?Q?tGg8/z3VGZzGi8jlm2ieJOecGTv/WTI6+bhhULqFVSCR1PviX4i7az5Q5GNW?=
+ =?us-ascii?Q?sieGBLuLN2xy+zwlxPPZBfN/Ul7d+jxFJAkjZN+A/IHVVv11/OFg7Vb6qKCl?=
+ =?us-ascii?Q?TdZqPvyNyJJ+PJyTlBrWn2GKcz4swuAQZx3Shx1T6CLg3nEcL3JXiFWRd0QM?=
+ =?us-ascii?Q?iKUDOhyLp8sne+qYH6Qs+Iu93eIPdxUb3oeZVkDLtbJJBytM/8SPL62H8W3/?=
+ =?us-ascii?Q?tVyWamudxAMvPMWUxIlqUCqsPb+9VNR4Pt/yoll/TfgiUyJdCY1B8r8kcODi?=
+ =?us-ascii?Q?vJfUIt4CvnL/NxpLxu98rWAysxQToy7dF+HQ+l9k1o9MmAwjmI/Z9NH8LyOt?=
+ =?us-ascii?Q?+CF9AWEQbCwypZmTIaM3faHZBCOc/PAuwxTobFPO59sR2DC0KJoMGFPpr5bk?=
+ =?us-ascii?Q?hf1SzRaA8hfv5ScvLalm7z9yvDtvKcCEEXiQHFDlXTs1vp83SEzlmc8eqZWL?=
+ =?us-ascii?Q?17Kt/ov+4fvhDcE4eWKVdiDiwwztQVUDiMrZGH9/yje2l4whdUeB?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b305e2e-65b0-4cea-9d22-08de96dfb954
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2026 09:01:16.5883
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mZJxGfEgzjNOdnLkbJdOZLtqfitRT/NQ9znKEVLgj4oGR9aZ2QIHj9B5on2JySEVSmgGOznjqDpqXFTdtus0ebQXK2ge0Ij5/XjFVW+KXO36Ej1FwMpKCGkqzU8ApRyM
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1218
 
-On 4/10/26 9:31 AM, Luca Weiss wrote:
-> Add a node for the IMEM found on Milos, which contains pil-reloc-info
-> and the modem tables for IPA, among others.
-> 
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
-> ---
+The StarFive JH8100 SoC was discontinued before production. The
+newly taped-out JHB100 SoC uses the same interrupt controller IP.
+Rename the driver file, Kconfig symbol, and internal references
+from "jh8100" to "jhb100" to accurately reflect the supported
+hardware.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+---
+ MAINTAINERS                                            |  4 ++--
+ drivers/irqchip/Kconfig                                |  6 +++---
+ drivers/irqchip/Makefile                               |  2 +-
+ ...arfive-jh8100-intc.c => irq-starfive-jhb100-intc.c} | 10 +++++-----
+ 4 files changed, 11 insertions(+), 11 deletions(-)
+ rename drivers/irqchip/{irq-starfive-jh8100-intc.c => irq-starfive-jhb100-intc.c} (94%)
 
-Konrad
+diff --git a/MAINTAINERS b/MAINTAINERS
+index a2961727e3d1..93cbe852ac0b 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -25309,11 +25309,11 @@ F:	Documentation/devicetree/bindings/phy/starfive,jh7110-usb-phy.yaml
+ F:	drivers/phy/starfive/phy-jh7110-pcie.c
+ F:	drivers/phy/starfive/phy-jh7110-usb.c
+ 
+-STARFIVE JH8100 EXTERNAL INTERRUPT CONTROLLER DRIVER
++STARFIVE JHB100 EXTERNAL INTERRUPT CONTROLLER DRIVER
+ M:	Changhuang Liang <changhuang.liang@starfivetech.com>
+ S:	Supported
+ F:	Documentation/devicetree/bindings/interrupt-controller/starfive,jhb100-intc.yaml
+-F:	drivers/irqchip/irq-starfive-jh8100-intc.c
++F:	drivers/irqchip/irq-starfive-jhb100-intc.c
+ 
+ STATIC BRANCH/CALL
+ M:	Peter Zijlstra <peterz@infradead.org>
+diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
+index f07b00d7fef9..697c6b2e006c 100644
+--- a/drivers/irqchip/Kconfig
++++ b/drivers/irqchip/Kconfig
+@@ -651,13 +651,13 @@ config SIFIVE_PLIC
+ 	select IRQ_DOMAIN_HIERARCHY
+ 	select GENERIC_IRQ_EFFECTIVE_AFF_MASK if SMP
+ 
+-config STARFIVE_JH8100_INTC
+-	bool "StarFive JH8100 External Interrupt Controller"
++config STARFIVE_JHB100_INTC
++	bool "StarFive JHB100 External Interrupt Controller"
+ 	depends on ARCH_STARFIVE || COMPILE_TEST
+ 	default ARCH_STARFIVE
+ 	select IRQ_DOMAIN_HIERARCHY
+ 	help
+-	  This enables support for the INTC chip found in StarFive JH8100
++	  This enables support for the INTC chip found in StarFive JHB100
+ 	  SoC.
+ 
+ 	  If you don't know what to do here, say Y.
+diff --git a/drivers/irqchip/Makefile b/drivers/irqchip/Makefile
+index 26aa3b6ec99f..c686caaa4451 100644
+--- a/drivers/irqchip/Makefile
++++ b/drivers/irqchip/Makefile
+@@ -108,7 +108,7 @@ obj-$(CONFIG_RISCV_APLIC_MSI)		+= irq-riscv-aplic-msi.o
+ obj-$(CONFIG_RISCV_IMSIC)		+= irq-riscv-imsic-state.o irq-riscv-imsic-early.o irq-riscv-imsic-platform.o
+ obj-$(CONFIG_RISCV_RPMI_SYSMSI)		+= irq-riscv-rpmi-sysmsi.o
+ obj-$(CONFIG_SIFIVE_PLIC)		+= irq-sifive-plic.o
+-obj-$(CONFIG_STARFIVE_JH8100_INTC)	+= irq-starfive-jh8100-intc.o
++obj-$(CONFIG_STARFIVE_JHB100_INTC)	+= irq-starfive-jhb100-intc.o
+ obj-$(CONFIG_ACLINT_SSWI)		+= irq-aclint-sswi.o
+ obj-$(CONFIG_IMX_IRQSTEER)		+= irq-imx-irqsteer.o
+ obj-$(CONFIG_IMX_INTMUX)		+= irq-imx-intmux.o
+diff --git a/drivers/irqchip/irq-starfive-jh8100-intc.c b/drivers/irqchip/irq-starfive-jhb100-intc.c
+similarity index 94%
+rename from drivers/irqchip/irq-starfive-jh8100-intc.c
+rename to drivers/irqchip/irq-starfive-jhb100-intc.c
+index bb62ef363d0b..2c9cdad7f377 100644
+--- a/drivers/irqchip/irq-starfive-jh8100-intc.c
++++ b/drivers/irqchip/irq-starfive-jhb100-intc.c
+@@ -1,13 +1,13 @@
+ // SPDX-License-Identifier: GPL-2.0
+ /*
+- * StarFive JH8100 External Interrupt Controller driver
++ * StarFive JHB100 External Interrupt Controller driver
+  *
+  * Copyright (C) 2023 StarFive Technology Co., Ltd.
+  *
+  * Author: Changhuang Liang <changhuang.liang@starfivetech.com>
+  */
+ 
+-#define pr_fmt(fmt) "irq-starfive-jh8100: " fmt
++#define pr_fmt(fmt) "irq-starfive-jhb100: " fmt
+ 
+ #include <linux/bitops.h>
+ #include <linux/clk.h>
+@@ -71,7 +71,7 @@ static void starfive_intc_mask(struct irq_data *d)
+ }
+ 
+ static struct irq_chip intc_dev = {
+-	.name		= "StarFive JH8100 INTC",
++	.name		= "StarFive JHB100 INTC",
+ 	.irq_unmask	= starfive_intc_unmask,
+ 	.irq_mask	= starfive_intc_mask,
+ };
+@@ -199,9 +199,9 @@ static int starfive_intc_probe(struct platform_device *pdev, struct device_node
+ }
+ 
+ IRQCHIP_PLATFORM_DRIVER_BEGIN(starfive_intc)
+-IRQCHIP_MATCH("starfive,jh8100-intc", starfive_intc_probe)
++IRQCHIP_MATCH("starfive,jhb100-intc", starfive_intc_probe)
+ IRQCHIP_PLATFORM_DRIVER_END(starfive_intc)
+ 
+-MODULE_DESCRIPTION("StarFive JH8100 External Interrupt Controller");
++MODULE_DESCRIPTION("StarFive JHB100 External Interrupt Controller");
+ MODULE_LICENSE("GPL");
+ MODULE_AUTHOR("Changhuang Liang <changhuang.liang@starfivetech.com>");
+-- 
+2.25.1
+
