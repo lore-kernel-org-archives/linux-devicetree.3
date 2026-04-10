@@ -1,332 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42CBA35F191;
-	Fri, 10 Apr 2026 10:19:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4405A279DC8
+	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 10:24:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775816354; cv=none; b=r5Ozb0NutGnthcjirR2hi7KoEwVqUkJCXXeib7RWAXzffnSkIG1XsnCjr+uPmOOw7D9hPJLiXSjY2iM5X3lv1TpUEbEW8tYutv3c+95lwB8b/fTfjI5BrZDshWJdOPPW8PDYdejs1CSgDFYJIfc93fcWTDtQs2C+ID+bkN1GVbM=
+	t=1775816672; cv=none; b=WJ5pd71kzMrdAOJXNCvQ4vVTNr7vXQM1zGC6LkXzt/snZsjBpSZtwUHNAqM2SBNvQEuULnCjBBfQ/z8jsCA1QJzOJp8E2TfemH6ZMTjm8lcI0yMK+OEExMfxq3217U7Qf200lhJkvfcLiK8gDyFwExX4thH1BKKUDnigH49Yga4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775816354; c=relaxed/simple;
-	bh=Fj4C42BDLN7WQk1jqppya3iWTXB2OunJypTGFWlANfg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dWd0c3D2ro4tHzanJkx4jERygwHe8Z2Z0FsaAM2Ukqgi3SiwwT6+P8LaEUgnyVu6xx1slXk9qp5tsqygZ8ISGTiFOz8DXIevU6Xo+NgRr34z1pXZ7pIpplpU4DRXkyLi7Z3rMjdI7nn/hfujth2IUEMaxOMPL6TEMCusjmrSGG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DchYC5sZ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775816672; c=relaxed/simple;
+	bh=xe5BlvWEmvuJ0r8jiIZC9Qt6O5+U0xuQTEj7QAoXSxA=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kHxRh7BY0yhqTcHO/2a9erSsEhmL/D4FfAnUYZw9k1fENUcwLlEwW8N/C7RSxjzqtBp4aZR6BAwHcwXtUEgEhbDOLnF45WQN02/9cEJwrvk5FlJ5r+UbbSjwHEV5b5fMkmetRMLevmZ5OlpvqnZN8H2bbc62Uuaq8UsFoFYuppk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=N22ioBIM; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DchYC5sZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C024C19421;
-	Fri, 10 Apr 2026 10:19:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775816353;
-	bh=Fj4C42BDLN7WQk1jqppya3iWTXB2OunJypTGFWlANfg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DchYC5sZrS7vic2vzXpvGKEdMa5fMHDqxyZi+AppNhi5KqE50w1BYhg4huLouHa0E
-	 OW4wYOYt/WeyLq1b2siLuKLGsvTaf2WsfGRyKw3DLB7RmMk9vE6Kov34OIR3dOzBXL
-	 ypAHcdN658wDYgocim+4bClKd++05SUL9bXWw/WmtsGENzMQvN0pqd9xZ3P3s9CcCX
-	 Gqid/GyVKFR+O7rn03/hfku78oMub146JP6CLV8yHSdbRyES7ZwSaywBZnZccsdjFn
-	 GY8Ow4RyldTUuwF1KvxeVAPeaMGDMIDahgnklMkS9tE1xcc2fkXQQBQwDABjkcYaze
-	 rHHfiDVc0Zn2Q==
-Date: Fri, 10 Apr 2026 12:19:11 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, ansuelsmth@gmail.com,
-	benjamin.larsson@genexis.eu, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v3 09/12] net: airoha: Support multiple
- net_devices for a single FE GDM port
-Message-ID: <adjOn0550QWZ-YdY@lore-desk>
-References: <20260406-airoha-eth-multi-serdes-v3-9-ab6ea49d59ff@kernel.org>
- <20260410025724.1810007-1-kuba@kernel.org>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="N22ioBIM"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-43b8e8e7432so1641313f8f.1
+        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 03:24:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1775816670; x=1776421470; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:date:from:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=ZKnPag+J1FK879lrPixqSysMm2rbphTSL3HqF/0DRQk=;
+        b=N22ioBIMsFLNgTbEmrA5vN8oKPwMYWkVy1y8v7my5f3kB6ez+n2+0pS6ccJMv37w/+
+         biEJg/KuGgcnMXbnQYiYnDU5DKLGsTekqm022Tmz9RvMTDLcr277RpgC8vq6FcYxcBJl
+         shxJ7LBr5hDtPN9mm/2Ofn0p4ZW+lDw5aufanq1Z7bL6TfzqVtBADIHcnNvPgPuqq/wq
+         dNKIR2hhUlJk8uyQMNpOcsB5fIYijnctWCnwlAM7gZTZ/6ijtc11rgsCJ/9dkZiVHD0x
+         4NFaWhfsd2sHSVunW3DGZd30Lq2sxkh7s0Wd433et7af55cgj6glpiwEMP/Y6u1SMHQV
+         FCTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775816670; x=1776421470;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZKnPag+J1FK879lrPixqSysMm2rbphTSL3HqF/0DRQk=;
+        b=gjAP8Y64xzqjP7iwWWmMf7Fcn320DoZtexi0KuOA8ANd69ANuyzmhHnU4ywI8d9W7u
+         N7tngeQvT7vSH74vm1/zU2F+5x7RWVt4xVai0ToayPqmpV7vYnnm9VK3xbMkkXtPKMbc
+         W56Mv3hTo0u8W2fhEHTg90o5SrPKTg14/9sb57aD1Lihd2/2VIqkdjKLsk/tBjuJWURj
+         f9tBuKrDzL2gBOvOqcJnK+0Zp91wcNvUfYL8jxqo2wnX5cT9tqUdxkdugsjTMznmNkTs
+         qQIMm3rFIomTtWqscPEHt9qZaAywW/tFlHjmnZzSLJkz1CNDDzSWAgT1mTTJD5UjLLG+
+         FELA==
+X-Forwarded-Encrypted: i=1; AJvYcCWTnC6kqNLJ5fikJPZaIb8oM4tfBTO+c6SvR66ApL4Y4U80Uc4mhcypsEMd6vkw+j1ipEXwQv2XaLJv@vger.kernel.org
+X-Gm-Message-State: AOJu0YycIdeo9DwkfF3p2TDwGkeAZ3FIW/uJkXD+1o15JpdKv2gtzKlJ
+	OzJRDIhjugBjBJheuuBA8k0fL3Xnsu4O5yt4EVKGv8bnj+gid4jsiJk9r8YsWbC7xTw=
+X-Gm-Gg: AeBDiesiSNXM3ZjspYufBCUbqWRrGCkWn/W8G0FgDVtYuYNWBn1u9HHhoMz6TvRKyyB
+	ej4S2i0Cgm5txQuUGm1UQJaN12N1D5gibFI5yWvUeGEbMV2pmYzl4zBY4sYa+NLxOkmisE6bVOI
+	xxEXIjjcKok75kdY5QSyM/pdMeP94pnjz1q/gil4nZrg0Qg9E50QHZ+BFinuUcd5QkC8KKu6Kgc
+	68Zq3Oi/kSZVx0aN4FwnKxgLlna4kpQ9ZrbXuDKrzgz61RFpC6OLu+h5O85LsAbDufwred9aGcB
+	roigV56fJDCuJnRwz6H0kgXhkHyAJ/rdjKV4huG+eCimB17Bn3AEIJl7Bwrvo6P1Pod1VmgGRwR
+	UkMq/jkyIzdcqHIsEgFHhG3nXH2A/BKJObJRR5x7hoKb98njV84E0Lz7Abk4VtmEVlrWlUPsxYm
+	qevpvElid6Cj4HOA2adV+IHbQCHvsEGvRBw9uNFb2uJOG+SRPqRg==
+X-Received: by 2002:a05:6000:402a:b0:43b:8f23:a87b with SMTP id ffacd0b85a97d-43d642d9d59mr3841629f8f.44.1775816669353;
+        Fri, 10 Apr 2026 03:24:29 -0700 (PDT)
+Received: from localhost (93-41-3-120.ip79.fastwebnet.it. [93.41.3.120])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43d63e5c981sm6454744f8f.33.2026.04.10.03.24.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 10 Apr 2026 03:24:29 -0700 (PDT)
+From: Andrea della Porta <andrea.porta@suse.com>
+X-Google-Original-From: Andrea della Porta <aporta@suse.de>
+Date: Fri, 10 Apr 2026 12:27:35 +0200
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>
+Cc: Andrea della Porta <andrea.porta@suse.com>, linux-pwm@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Naushir Patuck <naush@raspberrypi.com>,
+	Stanimir Varbanov <svarbanov@suse.de>
+Subject: Re: [PATCH 2/3] pwm: rp1: Add RP1 PWM controller driver
+Message-ID: <adjQl37-6a--_y3Y@apocalypse>
+References: <cover.1775223441.git.andrea.porta@suse.com>
+ <28e29fbfc20c0b8a115d006233c2759d8f49e639.1775223441.git.andrea.porta@suse.com>
+ <adLTwOTbkJ0VQXy6@monoceros>
+ <adfQ6Tvst3Vd1Mxe@apocalypse>
+ <adiW1tBC8Imd14LD@monoceros>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Aybuzh65bmgfKOa2"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260410025724.1810007-1-kuba@kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <adiW1tBC8Imd14LD@monoceros>
+
+Hi Uwe,
+
+On 08:27 Fri 10 Apr     , Uwe Kleine-König wrote:
+> Hello Andrea,
+> 
+> On Thu, Apr 09, 2026 at 06:16:41PM +0200, Andrea della Porta wrote:
+> > On 23:45 Sun 05 Apr     , Uwe Kleine-König wrote:
+> > > On Fri, Apr 03, 2026 at 04:31:55PM +0200, Andrea della Porta wrote:
+> > > > +static void rp1_pwm_free(struct pwm_chip *chip, struct pwm_device *pwm)
+> > > > +{
+> > > > +	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
+> > > > +	u32 value;
+> > > > +
+> > > > +	value = readl(rp1->base + PWM_CHANNEL_CTRL(pwm->hwpwm));
+> > > > +	value &= ~PWM_MODE_MASK;
+> > > > +	writel(value, rp1->base + PWM_CHANNEL_CTRL(pwm->hwpwm));
+> > > > +
+> > > > +	rp1_pwm_apply_config(chip, pwm);
+> > > 
+> > > What is the purpose of this call?
+> > 
+> > To update the configuration on the next PWM strobe in order to avoid
+> > glitches. I'll add a short comment in the code.
+> 
+> .pwm_free() should not touch the hardware configuration. Changing the
+> pinmuxing (which I guess is the purpose of clearing PWM_MODE_MASK) is
+> somewhat a grey area. If that saves energy, that's okish. Otherwise
+> not interfering with the operation of the PWM (e.g. to keep a display on
+> during kexec or so) is preferred.
+
+Sorry I should've been more clear on this. The pinmux/conf is not changed
+at all by this mask, only the PWM output mode is. The controller can output
+several type of waveforms and clearing PWM_MODE_MASK is just setting the
+controller to output a 0, which is the reset default i.e. the same value
+as just before exporting the channel.
+I guess this is the expected behaviour in case of a fan, it should stop
+spinning in case you unexport the pwm channel, but I see it could be
+different with displays.
+Honestly I don't have a strong opinion about that, please just let me
+know if I should drop that pwm_free entirely.
+
+> 
+> > > > +static int rp1_pwm_resume(struct device *dev)
+> > > > +{
+> > > > +	struct rp1_pwm *rp1 = dev_get_drvdata(dev);
+> > > > +
+> > > > +	return clk_prepare_enable(rp1->clk);
+> > > 
+> > > Hmm, if this fails and then the driver is unbound, the clk operations
+> > > are not balanced.
+> > 
+> > I'll add some flags to check if the clock is really enabled or not.
+> 
+> To be honest, I guess that is a problem of several drivers, not only in
+> drivers/pwm. If this complicates the driver, I guess addressing this
+> isn't very critical.
+
+I'll come up with something, we can always drop this check if deemed
+too 'noisy'. 
+
+Many thanks,
+Andrea
+
+> 
+> Best regards
+> Uwe
 
 
---Aybuzh65bmgfKOa2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Apr 09, Jakub Kicinski wrote:
-> This is an AI-generated review of your patch. The human sending this
-> email says "For your consideration."
-> ---
-> net: airoha: Support multiple net_devices for a single FE GDM port
->=20
-> This commit introduces support for mapping multiple net_device interfaces
-> to a single Frame Engine (FE) GDM port via an external hardware arbiter.
-> It updates the rx/tx paths, port allocation, and registration logic to
-> handle the new net_device array.
->=20
-> > diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/eth=
-ernet/airoha/airoha_eth.c
-> > --- a/drivers/net/ethernet/airoha/airoha_eth.c
-> > +++ b/drivers/net/ethernet/airoha/airoha_eth.c
-> [ ... ]
-> > @@ -615,9 +617,8 @@ static int airoha_qdma_rx_process(struct airoha_que=
-ue *q, int budget)
-> >  		u32 hash, reason, msg1 =3D le32_to_cpu(desc->msg1);
-> >  		struct page *page =3D virt_to_head_page(e->buf);
-> >  		u32 desc_ctrl =3D le32_to_cpu(desc->ctrl);
-> > -		struct airoha_gdm_port *port;
-> > -		struct net_device *netdev;
-> > -		int data_len, len, p;
-> > +		struct airoha_gdm_dev *dev;
-> > +		int data_len, len;
-> > =20
-> >  		if (!(desc_ctrl & QDMA_DESC_DONE_MASK))
-> >  			break;
->=20
-> While looking at this code, I noticed an issue that predates this patch.
-> Can the lack of a memory barrier after checking the descriptor ownership =
-bit
-> cause stale reads?
->=20
-> The driver checks QDMA_DESC_DONE_MASK to verify that the hardware has fin=
-ished
-> writing the descriptor. However, it reads desc->msg1 before this check and
-> without a dma_rmb():
->=20
-> 		u32 hash, reason, msg1 =3D le32_to_cpu(desc->msg1);
-> 		struct page *page =3D virt_to_head_page(e->buf);
-> 		u32 desc_ctrl =3D le32_to_cpu(desc->ctrl);
->=20
-> 		if (!(desc_ctrl & QDMA_DESC_DONE_MASK))
-> 			break;
->=20
-> Since weakly ordered architectures can reorder memory reads, could the CPU
-> prefetch msg1 before the DMA engine writes the new descriptor values, lea=
-ding
-> to routing the packet to the wrong gdm_dev?
-
-This issue has been already fixed with the following commit:
-
-commit 4ae0604a0673e11e2075b178387151fcad5111b5
-Author: Lorenzo Bianconi <lorenzo@kernel.org>
-Date:   Tue Apr 7 08:48:04 2026 +0200
-
-    net: airoha: Add dma_rmb() and READ_ONCE() in airoha_qdma_rx_process()
-   =20
-    Add missing dma_rmb() in airoha_qdma_rx_process routine to make sure the
-    DMA read operations are completed when the NIC reports the processing on
-    the current descriptor is done. Moreover, add missing READ_ONCE() in
-    airoha_qdma_rx_process() for DMA descriptor control fields in order to
-    avoid any compiler reordering.
-
->=20
-> [ ... ]
-> > @@ -1764,9 +1765,7 @@ static int airoha_set_gdm2_loopback(struct airoha=
-_gdm_dev *dev)
-> >  	airoha_fe_clear(eth, REG_FE_VIP_PORT_EN, BIT(AIROHA_GDM2_IDX));
-> >  	airoha_fe_clear(eth, REG_FE_IFC_PORT_EN, BIT(AIROHA_GDM2_IDX));
-> > =20
-> > -	/* XXX: handle XSI_USB_PORT and XSI_PCE1_PORT */
-> > -	nbq =3D port->id =3D=3D AIROHA_GDM3_IDX && airoha_is_7581(eth) ? 4 : =
-0;
-> > -	src_port =3D eth->soc->ops.get_src_port_id(port, nbq);
-> > +	src_port =3D eth->soc->ops.get_src_port_id(port, dev->nbq);
-> >  	if (src_port < 0)
-> >  		return src_port;
->=20
-> Can configuring the loopback for one device break connectivity for other
-> devices sharing the same port?
->=20
-> When multiple net_devices (like PCIE0 and PCIE1 on GDM3) open and call
-> airoha_set_gdm2_loopback(), they modify global hardware registers such as
-> REG_FE_WAN_PORT.
->=20
-> Since WAN0_MASK is unconditionally updated to track the current device's
-> src_port:
->=20
-> 	airoha_fe_rmw(eth, REG_FE_WAN_PORT,
-> 		      WAN1_EN_MASK | WAN1_MASK | WAN0_MASK,
-> 		      FIELD_PREP(WAN0_MASK, src_port));
->=20
-> won't the last configured device clobber the hardware state for the other=
-s?
-
-This issue is fixed with the following patch in the series:
-
-commit 008995bd8f39c5fdf37a933fa3c962e7ef52e8c6
-Author: Lorenzo Bianconi <lorenzo@kernel.org>
-Date:   Fri Apr 3 12:07:27 2026 +0200
-
-    net: airoha: Introduce WAN device flag
-   =20
-    Introduce WAN flag to specify if a given device is used to transmit/rec=
-eive
-    WAN or LAN traffic. Current codebase supports specifying LAN/WAN device
-    configuration in ndo_init() callback during device bootstrap.
-    Please note it is possible to specify multiple LAN devices but just a
-    single WAN one.
-
->=20
-> [ ... ]
-> > @@ -1987,7 +1986,8 @@ static netdev_tx_t airoha_dev_xmit(struct sk_buff=
- *skb,
-> >  	}
-> > =20
-> >  	fport =3D airoha_get_fe_port(dev);
-> > -	msg1 =3D FIELD_PREP(QDMA_ETH_TXMSG_FPORT_MASK, fport) |
-> > +	msg1 =3D FIELD_PREP(QDMA_ETH_TXMSG_NBOQ_MASK, dev->nbq) |
-> > +	       FIELD_PREP(QDMA_ETH_TXMSG_FPORT_MASK, fport) |
-> >  	       FIELD_PREP(QDMA_ETH_TXMSG_METER_MASK, 0x7f);
-> > =20
-> >  	q =3D &qdma->q_tx[qid];
->=20
-> Does sharing the hardware QDMA TX queues among multiple net_device instan=
-ces
-> introduce a permanent transmit stall?
->=20
-> In airoha_dev_xmit(), if a shared hardware queue is full, the driver stop=
-s the
-> netdev_queue of the specific netdev making the call:
->=20
-> 	if (q->queued + nr_frags >=3D q->ndesc) {
-> 		/* not enough space in the queue */
-> 		netif_tx_stop_queue(txq);
-> 		spin_unlock_bh(&q->lock);
-> 		return NETDEV_TX_BUSY;
-> 	}
->=20
-> However, the TX completion handler (airoha_tx_irq_process()) only wakes t=
-he
-> queue of the netdev attached to the completed packet. If an interface's TX
-> queue is stopped but it has no pending packets in the hardware queue (bec=
-ause
-> another interface filled it), will it ever get woken up?
-
-This issue is orthogonal to this series and it will be fixed with a dedicat=
-ed
-patch.
-
->=20
-> [ ... ]
-> > @@ -2955,11 +2958,25 @@ static int airoha_alloc_gdm_device(struct airoh=
-a_eth *eth,
-> >  			 netdev->dev_addr);
-> >  	}
-> > =20
-> > +	/* Allowed nbq for EN7581 on GDM3 port are 4 and 5 for PCIE0
-> > +	 * and PCIE1 respectively.
-> > +	 */
-> > +	index =3D nbq;
-> > +	if (index && airoha_is_7581(eth) && port->id =3D=3D AIROHA_GDM3_IDX)
-> > +		index -=3D 4;
-> > +
-> > +	if (index >=3D ARRAY_SIZE(port->devs) || port->devs[index]) {
-> > +		dev_err(eth->dev, "invalid nbq id: %d\n", nbq);
-> > +		return -EINVAL;
-> > +	}
-> > +
-> > +	netdev->dev.of_node =3D of_node_get(np);
-> >  	dev =3D netdev_priv(netdev);
->=20
-> Does this code leak the of_node reference?
->=20
-> The node reference is explicitly incremented via of_node_get(np). The net=
-working
-> core does not automatically drop explicit of_node references on free_netd=
-ev().
-> Without a matching of_node_put() in the error paths or the driver's teard=
-own
-> function (airoha_remove()), will this reference permanently leak when the=
- device
-> is destroyed?
-
-ack, I will fix it in v4.
-
->=20
-> [ ... ]
-> > @@ -3003,7 +3021,43 @@ static int airoha_alloc_gdm_port(struct airoha_e=
-th *eth,
-> >  	if (err)
-> >  		return err;
-> > =20
-> > -	return airoha_alloc_gdm_device(eth, port, np);
-> > +	for_each_child_of_node(np, node) {
-> > +		/* Multiple external serdes connected to the FE GDM port via an
-> > +		 * external arbiter.
-> > +		 */
-> > +		const __be32 *nbq_ptr;
-> > +		int nbq;
-> > +
-> > +		if (!of_device_is_compatible(node, "airoha,eth-port"))
-> > +			continue;
-> > +
-> > +		d++;
-> > +		if (!of_device_is_available(node))
-> > +			continue;
-> > +
-> > +		nbq_ptr =3D of_get_property(node, "reg", NULL);
-> > +		if (!nbq_ptr) {
-> > +			dev_err(eth->dev, "missing nbq id\n");
-> > +			of_node_put(node);
-> > +			return -EINVAL;
-> > +		}
-> > +
-> > +		/* Verify the provided nbq parameter is valid */
-> > +		nbq =3D be32_to_cpup(nbq_ptr);
-> > +		err =3D eth->soc->ops.get_src_port_id(port, nbq);
-> > +		if (err < 0) {
-> > +			of_node_put(node);
-> > +			return err;
-> > +		}
-> > +
-> > +		err =3D airoha_alloc_gdm_device(eth, port, nbq, node);
-> > +		if (err) {
-> > +			of_node_put(node);
-> > +			return err;
-> > +		}
-> > +	}
-> > +
-> > +	return !d ? airoha_alloc_gdm_device(eth, port, 0, np) : 0;
-> >  }
->=20
-> Does passing 0 for nbq in the fallback path break older device trees on t=
-he
-> EN7581 SoC?
->=20
-> Later, when the interface is brought up, airoha_set_gdm2_loopback() calls
-> airoha_en7581_get_src_port_id(), which returns -EINVAL for GDM3 if nbq is
-> not 4 or 5:
->=20
-> 	switch (port->id) {
-> 	case AIROHA_GDM3_IDX:
-> 		/* 7581 SoC supports PCIe serdes on GDM3 port */
-> 		if (nbq =3D=3D 4)
-> 			return HSGMII_LAN_7581_PCIE0_SRCPORT;
-> 		if (nbq =3D=3D 5)
-> 			return HSGMII_LAN_7581_PCIE1_SRCPORT;
-> 		break;
->=20
-> If nbq is hardcoded to 0 for legacy DTs, won't this cause interface
-> initialization to fail unconditionally for GDM3?
-
-ack, I will fix it in v4.
-
-Regards,
-Lorenzo
-
---Aybuzh65bmgfKOa2
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCadjOnwAKCRA6cBh0uS2t
-rJASAP9J84H1ZIlSgkxdU7WMyi5p/tZM5uZwUHj5u+PXljlaiQEApmQOhjtESrZr
-mYT48YUrqHkMigBz7vCYWLpaAQQVagQ=
-=hFjV
------END PGP SIGNATURE-----
-
---Aybuzh65bmgfKOa2--
