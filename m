@@ -1,158 +1,72 @@
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7711640DFA8
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 20:46:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 639F93644D4;
+	Fri, 10 Apr 2026 20:49:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775854003; cv=none; b=Xo6MUpDhDqeTCCkYiclDh969f7h+8xEUSNcdv7VF1fxOZazoy93ibDwnXjRruPxm9eeMZpt2H/Kan3T3Up7zR8aGsFe06iN53YkLrwdFF+mg7/XTbz/SQclXupUO2SO71UvuT91zQYr5gvapZnIjFRILYlmHPLGYYWS2sNgJi1Y=
+	t=1775854193; cv=none; b=ONNAPJaM1NiE4Kg/yFrYOJI3w56JAoZrpx6dWb5RWAIvqfhtcOAhapyoxefQMmTXTYsRsvd//nAfG7tr7J+hcQvnJKJw/pvHYwE7bfLWIPVzmIuyA4Op+IDu1DgZK+1MI62f+sezb8aEl7rqx5QLOitXavDWOGH+vYTiVyYi32o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775854003; c=relaxed/simple;
-	bh=HgJlDciSQOJkjPYMFiEeV5PqKaSjuxwAnLaENFbkQ2M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SgFT3muvbUL12JFFwIOAuA/dtlYhXLxZwSJVxlCQeu6jqz8hFeG0jtEVE1vL945iFzOBdgDxndqg+d/72zbRIjXGmVIw0jn1X2AKQphfsfSiOiTw1Jq21FAN5VQQIQxFk0OaQi+uTdvFQifMimytDdi9jqxL6iw9mf8S+tc/Gb0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=SSXXPTeU; arc=none smtp.client-ip=209.85.210.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1775854193; c=relaxed/simple;
+	bh=BA4rVAHrRJzqSSgJrpMLT50mB/MklDSW0pj2JlzB7vE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ezKcuu1Qv/DmNN0vAceUR3FSDM+UdRQgZBYbIQSW8rqEmmTCe5I8QTZRqcxbfBGsT+jAgHWt2Lhv4FoaR56jq3l4WwnlrLwhB1VvEtLPFcjy0BF0U5Nytj6fEffTQGRPAS5pk69jc1MtMN5F+L1CDoLBi8WGfSPwGm7Mxu10KIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KyVIhkT8; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="SSXXPTeU"
-Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-7dbd08144deso2118653a34.0
-        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 13:46:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1775854000; x=1776458800; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=MBpd+T8YvVMEln4nst2HllR/pz5g067Ap3lkXU/baHU=;
-        b=SSXXPTeUQiGcPrLOlslscjIjBqIb/CoeAjzlc8XFGUpaWLHeXIAqj7EjK0KzK+04eh
-         NRF9vZxeO79fiozCFkpmFQ+dmv+EQimJ+YWUoHnCiHHhYKssCUFdLccV0F1wCbeWPqdr
-         B0+/oYek4duFyafbrOY7PyJocwpKCr2nHXtntjZhoFYH61fhQnAp6RMfPUaL+dMYMwxu
-         sDO+hYxUINlRDbGmovVFcKtLPzydclkrIAhw9hZWieKnkzy+fVbO+OsfM+RMVwQS4izp
-         tWdITiArNxuW9QChVdfkLpVHiIPAv8InLrhyDYCijkcNf1+Bmkf1nEFl5BUqfYOaG8WU
-         HcuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775854000; x=1776458800;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=MBpd+T8YvVMEln4nst2HllR/pz5g067Ap3lkXU/baHU=;
-        b=DedxH1a18LApIm60nWyTbeHdpU7vVg81C4fPrKKSaTRMDpB7jNJd2Osx7W6FT09a48
-         oN1rFlyvOASY+RiRYGws4L3SQlxZxem6bI+8BJMtpPzUOJi3T+FYftdS9dbVqYQQajnc
-         +k0rmXJ32l6Q5WxhPDiNHhTv+27CbER8U+NCCINvAmDZzBeCLK0rVtu4pmBI1uYP/cNj
-         OCbBlrjHvAS7jBqc8mZngzLkEKLKTKcnAqcafkLAbYJXA538LSWw3rxDbXrQ3XmmVUPB
-         u17XLTgO6b8pEKidfK6h6RHzWmIUKpw7v3BFAahCi+PQ/a7YcbU6eI8lZDvyPC2wsFCH
-         EVJA==
-X-Forwarded-Encrypted: i=1; AJvYcCUnmqj8dxqqCjGzAkCPzkhdJ9CYTgLgtSNi+YxjSxKku0mGBXExejnp3DjdctaAIlkLH4Dgbrx8Z0bm@vger.kernel.org
-X-Gm-Message-State: AOJu0YzEyRAX8Hx/MYw/0S3OTIMP9qLyRnXaG/uoQmpyH0GVEDQsjIC7
-	tNMDi/+wSmeKg74FX2vhcsJ6+BvvBRsQmqwc3FXxnYuf1VY4YDc5EquLHwjUD4yndz8=
-X-Gm-Gg: AeBDiev4sjCQ9RTr/6vacrfIcEbcrY1tjjNVNAPKMCZL2jnUfUI0NMmch2LGtQObCVU
-	Mz6qFc4tOGgnEQ7EaRJ2HR69eDxyNCHQbnlmTSqZTThQXrCjuSFIySxpwFSdmSQwTOzK+zGuZsw
-	hgOlg3tmH7kCK5Fp0Nj0oe9ld3WFgRdJPep+syypUPJEya6zQKiYuhBNG56X9NKYS95OCi60BsR
-	tO3D3R3BlxzA4ELyyK1ffLfm6Xu/cPJJw3383LxjnEG9d2GEby92uS/LXVNc2+USRkXGgGGEjIw
-	2xocIGlI5MSSti3E1M0vN9ob5KomzssDffDpBc5Fop6yID/Z5avuLcsoEI4bxeIsYKTvr2VZ+ry
-	/7jn/myHCwvegg3mynoG7eoILFfDbIBEGTv6DVUiuztl8ra/JhBllhNJneakIDc0TGyBET6P+9e
-	6fX6c+lHac8pMNHiLjBkdis+v+D5Zplv+YPu6CbrMI03ZKbCM70gbV1uTFSqZaAyVoh9l5Dsbog
-	uT60Hf40Wg7
-X-Received: by 2002:a05:6830:6684:b0:7d7:faa4:6c2b with SMTP id 46e09a7af769-7dc27cc0028mr3047317a34.9.1775854000316;
-        Fri, 10 Apr 2026 13:46:40 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:b75d:2440:dc10:808b? ([2600:8803:e7e4:500:b75d:2440:dc10:808b])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7dc269402b9sm2527358a34.20.2026.04.10.13.46.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Apr 2026 13:46:38 -0700 (PDT)
-Message-ID: <0f05add7-96c0-4eee-b396-d6e1be904c09@baylibre.com>
-Date: Fri, 10 Apr 2026 15:46:36 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KyVIhkT8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AA9AC19421;
+	Fri, 10 Apr 2026 20:49:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775854193;
+	bh=BA4rVAHrRJzqSSgJrpMLT50mB/MklDSW0pj2JlzB7vE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=KyVIhkT8XM9inBfNeWjmFSxdEzhz83AVmlYNyXhwaY0E3HVb8RbJaopAjQ8YBeugV
+	 RqGuCy+Oz+mOhlVHYFEDF9y9zx+LX5cBCWvSVVysUyIQv0+oTQdY+lr8xHpFQXssuL
+	 ZHOEWiBr63q34suV665uO5LK0jXLVhHq0BqBjX2YWqqkYh9HHEt5kVdhug+GKUafGG
+	 wumlqC7N/G6ZyQ0+iIgDiuSMZIuVzRSt3U9OHDQ+36zXlEM18QYKIeB6dfYBdVStbS
+	 mzfwR2IL5Judnz6GTRObeLKvyBnnOmcGLIc5JW9VSW4yNX4ZOmqb++eWWsfKoIR02A
+	 rQwwBAU8mOqQg==
+Date: Fri, 10 Apr 2026 13:49:51 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Lorenzo Bianconi <lorenzo@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
+ <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Christian Marangi
+ <ansuelsmth@gmail.com>, Benjamin Larsson <benjamin.larsson@genexis.eu>,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org, Xuegang Lu
+ <xuegang.lu@airoha.com>
+Subject: Re: [PATCH net-next v3 00/12] net: airoha: Support multiple
+ net_devices connected to the same GDM port
+Message-ID: <20260410134951.6f4ee0f2@kernel.org>
+In-Reply-To: <adiop-9Mo4ADfvfw@lore-desk>
+References: <20260406-airoha-eth-multi-serdes-v3-0-ab6ea49d59ff@kernel.org>
+	<20260409195950.74e4bc97@kernel.org>
+	<adiop-9Mo4ADfvfw@lore-desk>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 3/6] iio: adc: ad4691: add triggered buffer support
-To: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
- <ukleinek@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, Philipp Zabel
- <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-doc@vger.kernel.org
-References: <20260409-ad4692-multichannel-sar-adc-driver-v7-0-be375d4df2c5@analog.com>
- <20260409-ad4692-multichannel-sar-adc-driver-v7-3-be375d4df2c5@analog.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260409-ad4692-multichannel-sar-adc-driver-v7-3-be375d4df2c5@analog.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 4/9/26 10:28 AM, Radu Sabau via B4 Relay wrote:
-> From: Radu Sabau <radu.sabau@analog.com>
+On Fri, 10 Apr 2026 09:37:11 +0200 Lorenzo Bianconi wrote:
+> > On Mon, 06 Apr 2026 12:34:05 +0200 Lorenzo Bianconi wrote:  
+> > > EN7581 or AN7583 SoCs support connecting multiple external SerDes (e.g.
+> > > Ethernet or USB SerDes) to GDM3 or GDM4 ports via a hw arbiter that
+> > > manages the traffic in a TDM manner. As a result multiple net_devices can
+> > > connect to the same GDM{3,4} port and there is a theoretical "1:n"
+> > > relation between GDM ports and net_devices.  
+> > 
+> > Looks like this driver uses page pool.
+> > If you're sharing the same page pool across multiple netdevs
+> > it must not be linked to a netdev.  
 > 
-> Add buffered capture support using the IIO triggered buffer framework.
-> 
+> are you referring to slow.netdev pointer? If so, this is not set in airoha_eth
+> driver.
 
-...
-
-> @@ -201,8 +245,45 @@ struct ad4691_state {
->  	 * atomicity of consecutive SPI operations.
->  	 */
->  	struct mutex lock;
-> +	/*
-> +	 * Per-buffer-enable lifetime resources:
-> +	 * Manual Mode - a pre-built SPI message that clocks out N+1
-> +	 *		 transfers in one go.
-> +	 * CNV Burst Mode - a pre-built SPI message that clocks out 2*N
-> +	 *		    transfers in one go.
-> +	 */
-> +	struct spi_message scan_msg;
-> +	/* max 16 + 1 NOOP (manual) or 2*16 + 2 (CNV burst). */
-> +	struct spi_transfer scan_xfers[34];
-> +	/*
-> +	 * CNV burst: 16 AVG_IN addresses + state-reset address + state-reset
-> +	 * value = 18.  Manual: 16 channel cmds + 1 NOOP = 17.
-> +	 */
-> +	__be16 scan_tx[18];
-
-Needs __aligned(IIO_DMA_MINALIGN) since it is used with SPI.
-
-> +	/* Scan buffer: one BE16 slot per channel (rx'd directly), plus timestamp */
-> +	struct {
-> +		__be16 vals[16];
-> +		aligned_s64 ts;
-> +	} scan;
-
-Unless it is required that all channels are always enabled:
-
-	IIO_DECLARE_BUFFER_WITH_TS(__be16, scan_rx, 16);
-
-In any case, needs to be DMA-safe for SPI.
-
->  };
->  
-
-
-
-> +static int ad4691_cnv_burst_buffer_preenable(struct iio_dev *indio_dev)
-> +{
-> +	struct ad4691_state *st = iio_priv(indio_dev);
-> +	unsigned int n_active;
-> +	unsigned int k, i;
-> +	int ret;
-> +
-> +	n_active = bitmap_weight(indio_dev->active_scan_mask, iio_get_masklength(indio_dev));
-> +
-> +	memset(st->scan_xfers, 0, (2 * n_active + 2) * sizeof(st->scan_xfers[0]));
-> +	memset(st->scan_tx, 0, (n_active + 2) * sizeof(st->scan_tx[0]));
-
-Maybe simpler to just clear the whole thing? (same with other preenable)
-
-> +
-> +	spi_message_init(&st->scan_msg);
-> +
+Yes. Alright, thanks for checking. Pretty sure I saw it set somewhere 
+in a file called airoha* but must be another component :)
