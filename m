@@ -1,44 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A29717A305;
-	Fri, 10 Apr 2026 17:31:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F6683932DC;
+	Fri, 10 Apr 2026 17:35:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775842281; cv=none; b=pfhKOqedUQQqHJLWH1Cfy8mtslGXzyglg5Kc3cEG2vx/rcxQ7mi6Vzb9b+hj8zIyCg9mkm1pVp5wx932AUk/X/yVA6p4uc6lVnPvLgJRxtK9kTFEaRec8LhGDNz+G7u4zvThpNTBTBZndje+v9S0u8JQOTym2kjNAL8VeN7b/Hg=
+	t=1775842507; cv=none; b=pb+jCFW/Q24RbBnwvKOSa8dlXm5zHieUplaqqF1FzieeWG3SkOb5Uhfq7pEpvqqX2KDwCXldkANho4mKRWZ5vSjdhh5dlH3txbOurTJZq2rtXPACq/dv4vxCFH0Oo0mQ/OloDwpAOjVrxqsIDvTpN7ngoqdmfgd6bq9HIVFAldk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775842281; c=relaxed/simple;
-	bh=o8dVBEqQuZ5eT0MB2sJSiDn/K4QNVAm7ZQiuW/IByCk=;
+	s=arc-20240116; t=1775842507; c=relaxed/simple;
+	bh=h1W+nyCu3AOJVaJuJJ/UvEnAIZZjEkoSXon0451Q0vk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SKyBOdY1MQvgQtpHy3Afwtv3QmHG9qOC/ZvQ+SkDK2NDm7INeX9VywzDC8yMI/Hfq2rMA2Wf4lv+vRuA9wZdGFSJXp3Sd0w5Yk9+/whyGkLwLQB3Q8pBLgyQD2Cwd5B2ifqQIgxzx4qv8KbtVZtuPzyyjm9KTL7TnTASZfoj9js=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C8rvFum1; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=IzmpkuAaH/y1FaJjKSx/TwuRMODYAk5JPBgnyzeRZb2POphmq0EAkmDoeM86pRnKC/Mi1kTpQmUQhJmmYa0nCFvPjOL9pmruMlFE9zSMfTNTXq2SJ5+BhvVSPA3jLKJ2Cg1dP1sj+jt+n5sHcSnOU7d6QEKJCleW/j+3MFIaOXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O1mT/k3H; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C8rvFum1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95EA7C19421;
-	Fri, 10 Apr 2026 17:31:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O1mT/k3H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52B12C19421;
+	Fri, 10 Apr 2026 17:35:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775842281;
-	bh=o8dVBEqQuZ5eT0MB2sJSiDn/K4QNVAm7ZQiuW/IByCk=;
+	s=k20201202; t=1775842507;
+	bh=h1W+nyCu3AOJVaJuJJ/UvEnAIZZjEkoSXon0451Q0vk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=C8rvFum1oDZTa1EpKY0OE7qkWVAY/n8Qpw5qj9z4uJgLc+eR12jfSFthSUu5XjS86
-	 ERsWj9IqBTnHYsiGcBdu2CMuY0axjOKhfJTJRp/intXmnNcDQRTnw+NdvRN70DbRPU
-	 mFkgL0H2uRk1ksAKVXl68cgWQidmEDNOXrCtFLfICA4p9hcPhNE4dXVfD3D3uKNMbT
-	 ntEWtOcQyGUSu5dN97V0ujLp9WMtSf85ilgT5TVJRHU9zqKiHeBFfc+Etn3yfQ9Ciq
-	 HzDVZtdd1E09HhUNzZVqkFZrjHPSLjZLVkw18CCp3KBBc9qq+oBeVRzDXpznCQ/iPF
-	 AHbHJCSxBsLEg==
-Date: Fri, 10 Apr 2026 19:31:18 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Andrea della Porta <andrea.porta@suse.com>
-Cc: linux-pwm@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Naushir Patuck <naush@raspberrypi.com>, Stanimir Varbanov <svarbanov@suse.de>, mbrugger@suse.com
-Subject: Re: [PATCH v2 2/3] pwm: rp1: Add RP1 PWM controller driver
-Message-ID: <adkrHkANCzxO8KUP@monoceros>
-References: <cover.1775829499.git.andrea.porta@suse.com>
- <0d99317b9150310dfbd98de1cb2a890f0bffe7cd.1775829499.git.andrea.porta@suse.com>
+	b=O1mT/k3HhTHNYK81OxaH3vAGpsRsnuAV1awUyf8HE7TVdol8gDe6cz8YN44ypy5iV
+	 vZELjyydPtVCl+2LrVweRR5qe+pBzJzt5p9862QVldQF9wrtRBtG6bemEVgPwhFtVs
+	 pK3faRODfqyul8Q7/mz/Qzte2uXgcRJhyM9HbV3nfz9OZdAW3gAPzjhcQ9l9jIeQ6n
+	 5epLNxpS7vRjxJDiGuHoGI7nyx5DJ1ujPvmYqL8UDERWEJU3K2y7StZj4okRKuG+25
+	 EIiALU8mP4PsNuVGfUdUzHsgWrbuv5VC+TzzaqgEnmKgPfE68hpNFYpDLiLDUIDgF+
+	 wCw9Udl7NTiBA==
+Date: Fri, 10 Apr 2026 18:35:00 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Jingyuan Liang <jingyliang@chromium.org>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>, Mark Brown <broonie@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-input@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-spi@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, hbarnor@chromium.org,
+	tfiga@chromium.org, Dmitry Antipov <dmanti@microsoft.com>,
+	Jarrett Schultz <jaschultz@microsoft.com>
+Subject: Re: [PATCH v3 09/11] dt-bindings: input: Document hid-over-spi DT
+ schema
+Message-ID: <20260410-sake-dollop-9f253ddb0749@spud>
+References: <20260402-send-upstream-v3-0-6091c458d357@chromium.org>
+ <20260402-send-upstream-v3-9-6091c458d357@chromium.org>
+ <20260409-defuse-thank-4b038128fac5@spud>
+ <adfdkwq_bF9dirAq@google.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,513 +58,188 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="d5bgry64vqq6zout"
+	protocol="application/pgp-signature"; boundary="Y/RXBM/umoYzjiEA"
 Content-Disposition: inline
-In-Reply-To: <0d99317b9150310dfbd98de1cb2a890f0bffe7cd.1775829499.git.andrea.porta@suse.com>
+In-Reply-To: <adfdkwq_bF9dirAq@google.com>
 
 
---d5bgry64vqq6zout
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+--Y/RXBM/umoYzjiEA
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 2/3] pwm: rp1: Add RP1 PWM controller driver
-MIME-Version: 1.0
 
-Hello Andrea,
-
-nice work for a v2!
-
-On Fri, Apr 10, 2026 at 04:09:58PM +0200, Andrea della Porta wrote:
-> From: Naushir Patuck <naush@raspberrypi.com>
+On Thu, Apr 09, 2026 at 10:16:46AM -0700, Dmitry Torokhov wrote:
+> On Thu, Apr 09, 2026 at 05:02:11PM +0100, Conor Dooley wrote:
+> > On Thu, Apr 02, 2026 at 01:59:46AM +0000, Jingyuan Liang wrote:
+> > > Documentation describes the required and optional properties for
+> > > implementing Device Tree for a Microsoft G6 Touch Digitizer that
+> > > supports HID over SPI Protocol 1.0 specification.
+> > >=20
+> > > The properties are common to HID over SPI.
+> > >=20
+> > > Signed-off-by: Dmitry Antipov <dmanti@microsoft.com>
+> > > Signed-off-by: Jarrett Schultz <jaschultz@microsoft.com>
+> > > Signed-off-by: Jingyuan Liang <jingyliang@chromium.org>
+> > > ---
+> > >  .../devicetree/bindings/input/hid-over-spi.yaml    | 126 +++++++++++=
+++++++++++
+> > >  1 file changed, 126 insertions(+)
+> > >=20
+> > > diff --git a/Documentation/devicetree/bindings/input/hid-over-spi.yam=
+l b/Documentation/devicetree/bindings/input/hid-over-spi.yaml
+> > > new file mode 100644
+> > > index 000000000000..d1b0a2e26c32
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/input/hid-over-spi.yaml
+> > > @@ -0,0 +1,126 @@
+> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > +%YAML 1.2
+> > > +---
+> > > +$id: http://devicetree.org/schemas/input/hid-over-spi.yaml#
+> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +
+> > > +title: HID over SPI Devices
+> > > +
+> > > +maintainers:
+> > > +  - Benjamin Tissoires <benjamin.tissoires@redhat.com>
+> > > +  - Jiri Kosina <jkosina@suse.cz>
+> >=20
+> > Why them and not you, the developers of the series?
+> >=20
+> > > +
+> > > +description: |+
+> > > +  HID over SPI provides support for various Human Interface Devices =
+over the
+> > > +  SPI bus. These devices can be for example touchpads, keyboards, to=
+uch screens
+> > > +  or sensors.
+> > > +
+> > > +  The specification has been written by Microsoft and is currently a=
+vailable
+> > > +  here: https://www.microsoft.com/en-us/download/details.aspx?id=3D1=
+03325
+> > > +
+> > > +  If this binding is used, the kernel module spi-hid will handle the
+> > > +  communication with the device and the generic hid core layer will =
+handle the
+> > > +  protocol.
+> >=20
+> > This is not relevant to the binding, please remove it.
+> >=20
+> > > +
+> > > +allOf:
+> > > +  - $ref: /schemas/input/touchscreen/touchscreen.yaml#
+> > > +
+> > > +properties:
+> > > +  compatible:
+> > > +    oneOf:
+> > > +      - items:
+> > > +          - enum:
+> > > +              - microsoft,g6-touch-digitizer
+> > > +          - const: hid-over-spi
+> > > +      - description: Just "hid-over-spi" alone is allowed, but not r=
+ecommended.
+> > > +        const: hid-over-spi
+> >=20
+> > Why is it allowed but not recommended? Seems to me like we should
+> > require device-specific compatibles.
 >=20
-> The Raspberry Pi RP1 southbridge features an embedded PWM
-> controller with 4 output channels, alongside an RPM interface
-> to read the fan speed on the Raspberry Pi 5.
+> Why would we want to change the driver code to add a new compatible each
+> time a vendor decides to create a chip that is fully hid-spi-protocol
+> compliant? Or is the plan to still allow "hid-over-spi" fallback but
+> require device-specific compatible that will be ignored unless there is
+> device-specific quirk needed?
+
+This has nothing to do with the driver, just the oddity of having a
+comment saying that not having a device specific compatible was
+permitted by not recommended in a binding. Requiring device-specific
+compatibles is the norm after all and a comment like this makes draws
+more attention to the fact that this is abnormal. Regardless of what the
+driver does, device-specific compatibles should be required.
+
+> > > +
+> > > +  reg:
+> > > +    maxItems: 1
+> > > +
+> > > +  interrupts:
+> > > +    maxItems: 1
+> > > +
+> > > +  reset-gpios:
+> > > +    maxItems: 1
+> > > +    description:
+> > > +      GPIO specifier for the digitizer's reset pin (active low). The=
+ line must
+> > > +      be flagged with GPIO_ACTIVE_LOW.
+> > > +
+> > > +  vdd-supply:
+> > > +    description:
+> > > +      Regulator for the VDD supply voltage.
+> > > +
+> > > +  input-report-header-address:
+> > > +    $ref: /schemas/types.yaml#/definitions/uint32
+> > > +    minimum: 0
+> > > +    maximum: 0xffffff
+> > > +    description:
+> > > +      A value to be included in the Read Approval packet, listing an=
+ address of
+> > > +      the input report header to be put on the SPI bus. This address=
+ has 24
+> > > +      bits.
+> > > +
+> > > +  input-report-body-address:
+> > > +    $ref: /schemas/types.yaml#/definitions/uint32
+> > > +    minimum: 0
+> > > +    maximum: 0xffffff
+> > > +    description:
+> > > +      A value to be included in the Read Approval packet, listing an=
+ address of
+> > > +      the input report body to be put on the SPI bus. This address h=
+as 24 bits.
+> > > +
+> > > +  output-report-address:
+> > > +    $ref: /schemas/types.yaml#/definitions/uint32
+> > > +    minimum: 0
+> > > +    maximum: 0xffffff
+> > > +    description:
+> > > +      A value to be included in the Output Report sent by the host, =
+listing an
+> > > +      address where the output report on the SPI bus is to be writte=
+n to. This
+> > > +      address has 24 bits.
+> > > +
+> > > +  read-opcode:
+> > > +    $ref: /schemas/types.yaml#/definitions/uint8
+> > > +    description:
+> > > +      Value to be used in Read Approval packets. 1 byte.
+> > > +
+> > > +  write-opcode:
+> > > +    $ref: /schemas/types.yaml#/definitions/uint8
+> > > +    description:
+> > > +      Value to be used in Write Approval packets. 1 byte.
+> >=20
+> > Why can none of these things be determined from the device's compatible?
+> > On the surface, they like the kinds of things that could/should be.
 >=20
-> Add the supporting driver.
->=20
-> Signed-off-by: Naushir Patuck <naush@raspberrypi.com>
-> Co-developed-by: Stanimir Varbanov <svarbanov@suse.de>
-> Signed-off-by: Stanimir Varbanov <svarbanov@suse.de>
-> Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
-> ---
->  drivers/pwm/Kconfig   |   9 ++
->  drivers/pwm/Makefile  |   1 +
->  drivers/pwm/pwm-rp1.c | 344 ++++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 354 insertions(+)
->  create mode 100644 drivers/pwm/pwm-rp1.c
->=20
-> diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
-> index 6f3147518376a..32031f2af75af 100644
-> --- a/drivers/pwm/Kconfig
-> +++ b/drivers/pwm/Kconfig
-> @@ -625,6 +625,15 @@ config PWM_ROCKCHIP
->  	  Generic PWM framework driver for the PWM controller found on
->  	  Rockchip SoCs.
-> =20
-> +config PWM_RASPBERRYPI_RP1
-> +	bool "RP1 PWM support"
-> +	depends on MISC_RP1 || COMPILE_TEST
-> +	depends on HAS_IOMEM
-> +	select REGMAP_MMIO
-> +	select MFD_SYSCON
-> +	help
-> +	  PWM framework driver for Raspberry Pi RP1 controller.
-> +
->  config PWM_SAMSUNG
->  	tristate "Samsung PWM support"
->  	depends on PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS || COMPILE_TEST
-> diff --git a/drivers/pwm/Makefile b/drivers/pwm/Makefile
-> index 0dc0d2b69025d..59f29f60f9123 100644
-> --- a/drivers/pwm/Makefile
-> +++ b/drivers/pwm/Makefile
-> @@ -56,6 +56,7 @@ obj-$(CONFIG_PWM_RENESAS_RZG2L_GPT)	+=3D pwm-rzg2l-gpt.o
->  obj-$(CONFIG_PWM_RENESAS_RZ_MTU3)	+=3D pwm-rz-mtu3.o
->  obj-$(CONFIG_PWM_RENESAS_TPU)	+=3D pwm-renesas-tpu.o
->  obj-$(CONFIG_PWM_ROCKCHIP)	+=3D pwm-rockchip.o
-> +obj-$(CONFIG_PWM_RASPBERRYPI_RP1)	+=3D pwm-rp1.o
->  obj-$(CONFIG_PWM_SAMSUNG)	+=3D pwm-samsung.o
->  obj-$(CONFIG_PWM_SIFIVE)	+=3D pwm-sifive.o
->  obj-$(CONFIG_PWM_SL28CPLD)	+=3D pwm-sl28cpld.o
-> diff --git a/drivers/pwm/pwm-rp1.c b/drivers/pwm/pwm-rp1.c
-> new file mode 100644
-> index 0000000000000..b88c697d9567e
-> --- /dev/null
-> +++ b/drivers/pwm/pwm-rp1.c
-> @@ -0,0 +1,344 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * pwm-rp1.c
-> + *
-> + * Raspberry Pi RP1 PWM.
-> + *
-> + * Copyright =A9 2026 Raspberry Pi Ltd.
-> + *
-> + * Author: Naushir Patuck (naush@raspberrypi.com)
-> + *
-> + * Based on the pwm-bcm2835 driver by:
-> + * Bart Tanghe <bart.tanghe@thomasmore.be>
-> + *
-> + * Datasheet: https://pip-assets.raspberrypi.com/categories/892-raspberr=
-y-pi-5/documents/RP-008370-DS-1-rp1-peripherals.pdf?disposition=3Dinline
-> + *
-> + * Limitations:
-> + * - Channels can be enabled/disabled and their duty cycle and period can
-> + *   be updated glitchlessly. Update are synchronized with the next stro=
-be
-> + *   at the end of the current period of the respective channel, once the
-> + *   update bit is set. The update flag is global, not per-channel.
-> + * - Channels are phase-capable, but on RPi5, the firmware can use a cha=
-nnel
-> + *   phase register to report the RPM of the fan connected to that PWM
-> + *   channel. As a result, phase control will be ignored for now.
-> + */
-> +
-> +#include <linux/bitops.h>
-> +#include <linux/clk.h>
-> +#include <linux/err.h>
-> +#include <linux/io.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/pwm.h>
-> +#include <linux/regmap.h>
-> +#include <linux/mfd/syscon.h>
-> +
-> +#define RP1_PWM_GLOBAL_CTRL	0x000
-> +#define RP1_PWM_CHANNEL_CTRL(x)	(0x014 + ((x) * 0x10))
-> +#define RP1_PWM_RANGE(x)	(0x018 + ((x) * 0x10))
-> +#define RP1_PWM_PHASE(x)	(0x01C + ((x) * 0x10))
-> +#define RP1_PWM_DUTY(x)		(0x020 + ((x) * 0x10))
-> +
-> +/* 8:FIFO_POP_MASK + 0:Trailing edge M/S modulation */
-> +#define RP1_PWM_CHANNEL_DEFAULT		(BIT(8) + BIT(0))
+> Why would we want to keep tables of these values in the kernel and again
+> have to update the driver for each new chip?
 
-Please add a #define for BIT(8) and then use that and
-FIELD_PREP(RP1_PWM_MODE, RP1_PWM_MODE_SOMENICENAME) to define the
-constant. Also I would define it below the register defines.
+That's pretty normal though innit? It's what match data does.
+If someone wants to have properties that communicate data that
+can be determined from the compatible, they need to provide
+justification why it is being done.
 
-> +#define RP1_PWM_CHANNEL_ENABLE(x)	BIT(x)
-> +#define RP1_PWM_POLARITY		BIT(3)
-> +#define RP1_PWM_SET_UPDATE		BIT(31)
-> +#define RP1_PWM_MODE_MASK		GENMASK(1, 0)
+> It also probably firmware-dependent.
 
-s/_MASK// please
 
-It would be great if the bitfield's names started with the register
-name.
-
-> +
-> +#define RP1_PWM_NUM_PWMS	4
-> +
-> +struct rp1_pwm {
-> +	struct regmap	*regmap;
-> +	struct clk	*clk;
-> +	unsigned long	clk_rate;
-> +	bool		clk_enabled;
-> +};
-> +
-> +struct rp1_pwm_waveform {
-> +	u32	period_ticks;
-> +	u32	duty_ticks;
-> +	bool	enabled;
-> +	bool	inverted_polarity;
-> +};
-> +
-> +static const struct regmap_config rp1_pwm_regmap_config =3D {
-> +	.reg_bits    =3D 32,
-> +	.val_bits    =3D 32,
-> +	.reg_stride  =3D 4,
-> +	.max_register =3D 0x60,
-
-I'm not a fan of aligning the =3D in a struct, still more if it fails like
-here. Please consistently align all =3Ds, or even better, use a single
-space before each =3D. (Same for the struct definitions above, but I won't
-insist.)
-
-> +};
-> +
-> +static void rp1_pwm_apply_config(struct pwm_chip *chip, struct pwm_devic=
-e *pwm)
-> +{
-> +	struct rp1_pwm *rp1 =3D pwmchip_get_drvdata(chip);
-> +	u32 value;
-> +
-> +	/* update the changed registers on the next strobe to avoid glitches */
-> +	regmap_read(rp1->regmap, RP1_PWM_GLOBAL_CTRL, &value);
-> +	value |=3D RP1_PWM_SET_UPDATE;
-> +	regmap_write(rp1->regmap, RP1_PWM_GLOBAL_CTRL, value);
-
-I assume there is a glitch if I update two channels and the old
-configuration of the first channel ends while I'm in the middle of
-configuring the second?
-
-> +}
-> +
-> +static int rp1_pwm_request(struct pwm_chip *chip, struct pwm_device *pwm)
-> +{
-> +	struct rp1_pwm *rp1 =3D pwmchip_get_drvdata(chip);
-> +
-> +	/* init channel to reset defaults */
-> +	regmap_write(rp1->regmap, RP1_PWM_CHANNEL_CTRL(pwm->hwpwm), RP1_PWM_CHA=
-NNEL_DEFAULT);
-> +	return 0;
-> +}
-> +
-> +static int rp1_pwm_round_waveform_tohw(struct pwm_chip *chip,
-> +				       struct pwm_device *pwm,
-> +				       const struct pwm_waveform *wf,
-> +				       void *_wfhw)
-> +{
-> +	struct rp1_pwm *rp1 =3D pwmchip_get_drvdata(chip);
-> +	struct rp1_pwm_waveform *wfhw =3D _wfhw;
-> +	u64 clk_rate =3D rp1->clk_rate;
-> +	u64 ticks;
-
-	if (!wf->period_length_ns)
-		wfhw->enabled =3D false
-		return 0;
-
-> +	ticks =3D mul_u64_u64_div_u64(wf->period_length_ns, clk_rate, NSEC_PER_=
-SEC);
-
-To ensure this doesn't overflow please fail to probe the driver if
-clk_rate > 1 GHz with an explaining comment. (Or alternatively calculate
-the length of period_ticks =3D U32_MAX and skip the calculation if
-wf->period_length_ns is bigger.)
-
-> +	if (ticks > U32_MAX)
-> +		ticks =3D U32_MAX;
-> +	wfhw->period_ticks =3D ticks;
-
-What happens if wf->period_length_ns > 0 but ticks =3D=3D 0?
-
-> +	if (wf->duty_offset_ns + wf->duty_length_ns >=3D wf->period_length_ns) {
-
-The maybe surprising effect here is that in the two cases
-
-	wf->duty_offset_ns =3D=3D wf->period_length_ns and wf->duty_length_ns =3D=
-=3D 0
-
-and
-=09
-	wf->duty_length_ns =3D=3D wf->period_length_ns and wf->duty_offset_ns =3D=
-=3D 0
-
-you're configuring inverted polarity. I doesn't matter technically
-because the result is the same, but for consumers still using pwm_state
-this is irritating. That's why pwm-stm32 uses inverted polarity only if
-also wf->duty_length_ns and wf->duty_offset_ns are non-zero.
-
-> +		ticks =3D mul_u64_u64_div_u64(wf->period_length_ns - wf->duty_length_n=
-s,
-> +					    clk_rate, NSEC_PER_SEC);
-
-The rounding is wrong here. You should pick the biggest duty_length not
-bigger than wf->duty_length_ns, so you have to use
-
-	ticks =3D wfhw->period_ticks - mul_u64_u64_div_u64(wf->duty_length_ns, clk=
-_rate, NSEC_PER_SEC):
-
-=2E I see this is a hole in the pwmtestperf coverage.
-
-> +		wfhw->inverted_polarity =3D true;
-> +	} else {
-> +		ticks =3D mul_u64_u64_div_u64(wf->duty_length_ns, clk_rate, NSEC_PER_S=
-EC);
-> +		wfhw->inverted_polarity =3D false;
-> +	}
-> +
-> +	if (ticks > wfhw->period_ticks)
-> +		ticks =3D wfhw->period_ticks;
-
-You can and should assume that wf->duty_length_ns <=3D
-wf->period_length_ns. Then the if condition can never become true.
-
-> +	wfhw->duty_ticks =3D ticks;
-> +
-> +	wfhw->enabled =3D !!wfhw->duty_ticks;
-> +
-> +	return 0;
-> +}
-> +
-> +static int rp1_pwm_round_waveform_fromhw(struct pwm_chip *chip,
-> +					 struct pwm_device *pwm,
-> +					 const void *_wfhw,
-> +					 struct pwm_waveform *wf)
-> +{
-> +	struct rp1_pwm *rp1 =3D pwmchip_get_drvdata(chip);
-> +	const struct rp1_pwm_waveform *wfhw =3D _wfhw;
-> +	u64 clk_rate =3D rp1->clk_rate;
-> +	u32 ticks;
-> +
-> +	memset(wf, 0, sizeof(*wf));
-
-	wf =3D (struct pwm_waveform){ };
-
-is usually more efficient.
-
-> +	if (!wfhw->enabled)
-> +		return 0;
-> +
-> +	wf->period_length_ns =3D DIV_ROUND_UP_ULL((u64)wfhw->period_ticks * NSE=
-C_PER_SEC, clk_rate);
-> +
-> +	if (wfhw->inverted_polarity) {
-> +		wf->duty_length_ns =3D DIV_ROUND_UP_ULL((u64)wfhw->duty_ticks * NSEC_P=
-ER_SEC,
-> +						      clk_rate);
-> +	} else {
-> +		wf->duty_offset_ns =3D DIV_ROUND_UP_ULL((u64)wfhw->duty_ticks * NSEC_P=
-ER_SEC,
-> +						      clk_rate);
-> +		ticks =3D wfhw->period_ticks - wfhw->duty_ticks;
-> +		wf->duty_length_ns =3D DIV_ROUND_UP_ULL((u64)ticks * NSEC_PER_SEC, clk=
-_rate);
-> +	}
-
-This needs adaption after the rounding issue in tohw is fixed.
-
-> +	return 0;
-> +}
-> +
-> +static int rp1_pwm_write_waveform(struct pwm_chip *chip,
-> +				  struct pwm_device *pwm,
-> +				  const void *_wfhw)
-> +{
-> +	struct rp1_pwm *rp1 =3D pwmchip_get_drvdata(chip);
-> +	const struct rp1_pwm_waveform *wfhw =3D _wfhw;
-> +	u32 value;
-> +
-> +	/* set period and duty cycle */
-> +	regmap_write(rp1->regmap,
-> +		     RP1_PWM_RANGE(pwm->hwpwm), wfhw->period_ticks);
-> +	regmap_write(rp1->regmap,
-> +		     RP1_PWM_DUTY(pwm->hwpwm), wfhw->duty_ticks);
-> +
-> +	/* set polarity */
-> +	regmap_read(rp1->regmap, RP1_PWM_CHANNEL_CTRL(pwm->hwpwm), &value);
-> +	if (!wfhw->inverted_polarity)
-> +		value &=3D ~RP1_PWM_POLARITY;
-> +	else
-> +		value |=3D RP1_PWM_POLARITY;
-> +	regmap_write(rp1->regmap, RP1_PWM_CHANNEL_CTRL(pwm->hwpwm), value);
-> +
-> +	/* enable/disable */
-> +	regmap_read(rp1->regmap, RP1_PWM_GLOBAL_CTRL, &value);
-> +	if (wfhw->enabled)
-> +		value |=3D RP1_PWM_CHANNEL_ENABLE(pwm->hwpwm);
-> +	else
-> +		value &=3D ~RP1_PWM_CHANNEL_ENABLE(pwm->hwpwm);
-> +	regmap_write(rp1->regmap, RP1_PWM_GLOBAL_CTRL, value);
-
-You can exit early if wfhw->enabled is false after clearing the channel
-enable bit.
-
-> +	rp1_pwm_apply_config(chip, pwm);
-> +
-> +	return 0;
-> +}
-> +
-> +static int rp1_pwm_read_waveform(struct pwm_chip *chip,
-> +				 struct pwm_device *pwm,
-> +				 void *_wfhw)
-> +{
-> +	struct rp1_pwm *rp1 =3D pwmchip_get_drvdata(chip);
-> +	struct rp1_pwm_waveform *wfhw =3D _wfhw;
-> +	u32 value;
-> +
-> +	regmap_read(rp1->regmap, RP1_PWM_GLOBAL_CTRL, &value);
-> +	wfhw->enabled =3D !!(value & RP1_PWM_CHANNEL_ENABLE(pwm->hwpwm));
-> +
-> +	regmap_read(rp1->regmap, RP1_PWM_CHANNEL_CTRL(pwm->hwpwm), &value);
-> +	wfhw->inverted_polarity =3D !!(value & RP1_PWM_POLARITY);
-> +
-> +	if (wfhw->enabled) {
-> +		regmap_read(rp1->regmap, RP1_PWM_RANGE(pwm->hwpwm), &wfhw->period_tick=
-s);
-> +		regmap_read(rp1->regmap, RP1_PWM_DUTY(pwm->hwpwm), &wfhw->duty_ticks);
-> +	} else {
-> +		wfhw->period_ticks =3D 0;
-> +		wfhw->duty_ticks =3D 0;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct pwm_ops rp1_pwm_ops =3D {
-> +	.sizeof_wfhw =3D sizeof(struct rp1_pwm_waveform),
-> +	.request =3D rp1_pwm_request,
-> +	.round_waveform_tohw =3D rp1_pwm_round_waveform_tohw,
-> +	.round_waveform_fromhw =3D rp1_pwm_round_waveform_fromhw,
-> +	.read_waveform =3D rp1_pwm_read_waveform,
-> +	.write_waveform =3D rp1_pwm_write_waveform,
-> +};
-> +
-> +static int rp1_pwm_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct device_node *np =3D dev->of_node;
-> +	unsigned long clk_rate;
-> +	struct pwm_chip *chip;
-> +	void __iomem	*base;
-> +	struct rp1_pwm *rp1;
-> +	int ret;
-> +
-> +	chip =3D devm_pwmchip_alloc(dev, RP1_PWM_NUM_PWMS, sizeof(*rp1));
-> +	if (IS_ERR(chip))
-> +		return PTR_ERR(chip);
-> +
-> +	rp1 =3D pwmchip_get_drvdata(chip);
-> +
-> +	base =3D devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(base))
-> +		return PTR_ERR(base);
-> +
-> +	rp1->regmap =3D devm_regmap_init_mmio(dev, base, &rp1_pwm_regmap_config=
-);
-> +	if (IS_ERR(rp1->regmap))
-> +		return dev_err_probe(dev, PTR_ERR(rp1->regmap), "Cannot initialize reg=
-map\n");
-> +
-> +	ret =3D of_syscon_register_regmap(np, rp1->regmap);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to register syscon\n");
-> +
-> +	rp1->clk =3D devm_clk_get(dev, NULL);
-> +	if (IS_ERR(rp1->clk))
-> +		return dev_err_probe(dev, PTR_ERR(rp1->clk), "Clock not found\n");
-> +
-> +	ret =3D clk_prepare_enable(rp1->clk);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to enable clock\n");
-> +	rp1->clk_enabled =3D true;
-> +
-> +	ret =3D devm_clk_rate_exclusive_get(dev, rp1->clk);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "Fail to get exclusive rate\n");
-
-s/Fail/Failed/
-
-> +		goto err_disable_clk;
-> +	}
-> +
-> +	clk_rate =3D clk_get_rate(rp1->clk);
-> +	if (!clk_rate) {
-> +		ret =3D dev_err_probe(dev, -EINVAL, "Failed to get clock rate\n");
-> +		goto err_disable_clk;
-> +	}
-> +	rp1->clk_rate =3D clk_rate;
-> +
-> +	chip->ops =3D &rp1_pwm_ops;
-> +
-> +	platform_set_drvdata(pdev, chip);
-> +
-> +	ret =3D devm_pwmchip_add(dev, chip);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "Failed to register PWM chip\n");
-> +		goto err_disable_clk;
-> +	}
-> +
-> +	return 0;
-> +
-> +err_disable_clk:
-> +	clk_disable_unprepare(rp1->clk);
-> +
-> +	return ret;
-> +}
-
-On remove you miss to balance the call to clk_prepare_enable() (if no
-failed call to clk_prepare_enable() in rp1_pwm_resume() happend).
-
-> +
-> +static int rp1_pwm_suspend(struct device *dev)
-> +{
-> +	struct rp1_pwm *rp1 =3D dev_get_drvdata(dev);
-> +
-> +	if (rp1->clk_enabled) {
-> +		clk_disable_unprepare(rp1->clk);
-> +		rp1->clk_enabled =3D false;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int rp1_pwm_resume(struct device *dev)
-> +{
-> +	struct rp1_pwm *rp1 =3D dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	ret =3D clk_prepare_enable(rp1->clk);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to enable clock on resume: %d\n", ret);
-
-Please use %pe for error codes.
-
-> +		return ret;
-> +	}
-> +
-> +	rp1->clk_enabled =3D true;
-> +
-> +	return 0;
-> +}
-
-Best regards
-Uwe
-
---d5bgry64vqq6zout
+--Y/RXBM/umoYzjiEA
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmnZM+MACgkQj4D7WH0S
-/k4q5wf+JyWm60O9EEDBYl5XSWId92/mG09JSGQLpIHeNqI2ysjl8JKvBbk1BEyU
-kiIu+mW9xyRs85ZiWtTkO48F6xcr3IEWOAn+SV3C7ADViLaLaa1rcaQmeQizldFW
-3NFGi38BahHf6/IuIRR0JeEvDn9nBu/K3vEquGVcl9HqtGiTKVjSfI+/fRppTMnt
-3K8K5q+l93A2jDSJweS/wPybX2wV1waSmBZc4sAkttad3muYE5n/7P0VwJ+8B36m
-5qHy0wBPfEL4LUEUFMm16Ph9rpeBNKRlMGrgvP9vIujsWllw+/XqKgAzAk8uPJ40
-W/d0pmmHxc754DN4LDaAaqgoj9mKLw==
-=3xlM
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCadk0wQAKCRB4tDGHoIJi
+0oXEAQDSWNAocQ7MVn24Zy2B1nO6Pq/WY3ecja9nGfaWTvDSXQEApF/WEBk8cXP0
+lP16gSN1Sk/PgPbZlHSiBOGQckqj/Qo=
+=fNLv
 -----END PGP SIGNATURE-----
 
---d5bgry64vqq6zout--
+--Y/RXBM/umoYzjiEA--
