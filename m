@@ -1,67 +1,68 @@
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D62363C5526
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 15:49:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0D893D9DDE
+	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 15:51:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775836199; cv=none; b=eaNiRA/I1TwaIiUwPhfN/xicAlmwkMSM9IeWgfOI13tVha10+LK0JrMjXPZJEZ8ZTYq1BtEh4IkVbYDH6twXlZeW/hw4s0VKxuZI8YUE853/7TM3T3RFScPLV/pOhf57tD3CiTPdnEmJIQMGq+efcUU3xtS6zohfAZ04khTauIE=
+	t=1775836299; cv=none; b=frD+n2nNsid0/b5T3u1V2eL23yhidCU4mOFgyBBCL7tUPmECwxD3uA7rZIC2bwC2Q1EBgkor3GLzW3F+arLsftQFYDd/pAT5A6bYBkf2T30bw+lasEfqFuJfrWey6yO7WLynHnxzdH2LGEIfhEEsAzfHQ29H+xRS8AsiCITPxyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775836199; c=relaxed/simple;
-	bh=LXEWknMNIRTQZ35VggO+ovaT+Seu0+zSa9TUJoAEm00=;
+	s=arc-20240116; t=1775836299; c=relaxed/simple;
+	bh=3LQfonLQ6oQh/iQdITFeM/huuu7kEGKK/0YlFr8Zfdo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iL611Fhtgg23cUPfacQSA2D4wDirFg73zjYHJGenpotSLsh0L0+8Dd/q50cpvHBEHW6mdWDMTBAFT3LPmcaj898WcUB+ZhI3wRI7KMP8tTfUlzc3Ci968n1tvKACs4r4/hBDoMsNKAZRMa9IvIBm+2VP4rf6s10uQdvrCeaz4bc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qiPyXiLE; arc=none smtp.client-ip=74.125.82.45
+	 In-Reply-To:Content-Type; b=B5jq17wnT0Y/rJcb3lbmrMn7GDUtMCVYWZULLREUhMO7f1agD1dAcmDydTxxxYVawp3xTodBEO1Te6mKKM6GRg4B449rZ5E08AAH8BD2LdwafoaUa5PK4YQkBd3+Yr8zmrDwR5b8GlT49QG3jGTirM48wUumabLISir7zXbED1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PwV4SLqr; arc=none smtp.client-ip=74.125.82.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qiPyXiLE"
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-126ea4b77adso10512615c88.1
-        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 08:49:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PwV4SLqr"
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-12c1fcce8f8so1320014c88.1
+        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 08:51:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775836197; x=1776440997; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1775836295; x=1776441095; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=D6zv2l6mrLxLxCJpvpr6z14FuYS5dUuaVMuugMJG/po=;
-        b=qiPyXiLEVME3VuSMfWcW28NV742meOh8TimztJvyqXkNdetoecl/DsNPwIj5PAoNX4
-         0pC7DuKZ7yVYuR0JJ1UokgAgSOCW5cy4UavTz5KlEMHMIVJNOe7HgJQdJVUhN9c61DtA
-         vAGTw/RXveVgzx/yBwpV2dEixpZU2XYARtO2bPZfaIBIZ0v8bmgjjeTZWubt33i+75OD
-         FNxSVIlYqSnBLsMcgMnvu+G6MYeKE3+QKqt/Y3yfVIul1TttJ8MB2fUIFXQca8rOF77X
-         KFEcMwlZFbjAAaVV97HDLn/W3Q7261IkSgW/suC05q/mhc8/J6RfBfD/brF3o9LHs5YE
-         O2tg==
+        bh=AJv0LGb+9ZG2U1NmhhTKErAnJqDXklx024/ud5+KlaM=;
+        b=PwV4SLqrpc+NbV8DJRZA8lj0Ujdpox/XgrHKXFbx7uAgOhD/9r/U1VokqplezvVY9D
+         DdPoRlRg8EeMlUVM17vvu6J4d1h+6Dg6vV9UiD9blmQjeXyKHLQ86KCyR10IjM43E3pc
+         rUG9Z0tS678UsUv1eah4repZ/2/ASuFH8mydF/O8Th+SD8Kd/CBsWy8Gig+mcWM8pUEy
+         DLGui21pO6we8pbT0pLtcgjpDnl5M+lHBVcpZM76nOOGNje6iA/5BQsA62UstNg+0ZKY
+         9w8F2iCVGjZQw5TvEl5Uo3Z9+uv29qn4OwYUoA+35mPBbAfJqruFxXkxwZcPxGMVizWD
+         iR7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775836197; x=1776440997;
+        d=1e100.net; s=20251104; t=1775836295; x=1776441095;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=D6zv2l6mrLxLxCJpvpr6z14FuYS5dUuaVMuugMJG/po=;
-        b=RbNwaMk9ohgd4sjzEcqi4mo0zM3xJ5VOIPp4Gosrrbsp6iebibHTV5ZOWuhD3Lcqil
-         RMnSqDUbsoJz4chOzLOV9MyPvgAU52XRuOiaup++FM73VvTnAiqaQu7Nd0em6fHbO+bC
-         XLJ2urohi9ugoO3m9tKzRUK05lCS7l/TqLfhu5kx1vZwVketJJZce8wooc2tZ0celVEi
-         y2dgJC14IzPn/4XiWr7lf1AR8V3+kJoFjz8Sg+M7gUfGLmMcvkMoXQxx1pIZZ/72dush
-         94gQJqnpewybUVlWFbb6YKxNtRFVAcJ7MvPvfBGqq3X86hvSaq47a314SCNIw/u78N5k
-         lR3A==
-X-Forwarded-Encrypted: i=1; AJvYcCVJQKxwJyqnQjfBP6nm9npFwmwyHSZQKa7kZVAwovCTOSnOxiOSfd/tR2QaIRQSUAnrjy6KYAKBzIOL@vger.kernel.org
-X-Gm-Message-State: AOJu0YwwxGp52RmZvMZgPJiHGw+B2WDPCmt+Pz2UrEP5QTZmjqAR+Y5a
-	AB+WODHbvYpSXYjLFvadI/FfdS/vluhlS1yZCPZe4yUDcGCAgm/YF4Pn9VtgzA==
-X-Gm-Gg: AeBDieu3Gz24JllBBgH371M01wQXn4gw9jHrDI801UJ7TkrGUKuqc+ASm0MBNqonrcQ
-	J5CWdH4v2DlJUdHZGIBcpjeh1f8+l/iWkr/+QFufgZOILv07cCWj5W5mQzyY3e67VDia+Pjvugm
-	mEtxqkHgdybS0CCE5qACebCP/DKNiMropOY5SIaaelgOt4Q3t+BYe5FK6WUMIkGM2VZiDhi0Yh3
-	c60fD/2+gQVZOi5hCTaUV6EyJhsP6jTCb6RK1gs4GGonCBRbrao2uy0NU/OYaXmrlcZeF4xW/vv
-	GFu/1QUhsRvtsA/xZ88YqQxgRZ6fn7OGtp+IeA2ijMiPX7uGD3QUqKVN5Sjpn96xxhi+nE6JWZ0
-	r72tFgk8zk3yfSEzRmANsjJZ1g5G5WrBkebOdymKh42U48rcWr+ijNQCuFtB0lgF3OCrrBsSCE2
-	4CnKHHg64vEnw1Nrw+9N/IgRgkw3UCpDHPXmXiLy8Mp8RFkMR97SnNn+gFdO/UuHP13O6gtj7Q
-X-Received: by 2002:a05:7022:418e:b0:11b:82b8:40ae with SMTP id a92af1059eb24-12c34ededf2mr2067083c88.18.1775836196689;
-        Fri, 10 Apr 2026 08:49:56 -0700 (PDT)
+        bh=AJv0LGb+9ZG2U1NmhhTKErAnJqDXklx024/ud5+KlaM=;
+        b=G/cXdlnpfdyC5CIOQNbNhwElYt4MVBmA9HJ3cmqGY9LEdE1MMmvaie09R0AYCCd5yz
+         bJZLv6qcOWggXU1l4b2z/SAfbgvWMwLlzXLA8RDbLBhPvTlIITayfgJlcB8HXv6AELdv
+         +rgy1giPRlqJ/NzmUOC7d+rqKgC8nhyGOQF4rpItUzzq7pS10ukLhUaJForCXzH9GUEg
+         YTTG0Epdk6ywaK4BtcyHsFMM60ho6GennV5M0dyFXZZlo7RANwOoKfiMMCzJqBEj5O6w
+         BE6pLFJjBz6sKFpBykVnGYK+GjoL3FxucjXycvH2t2u9KbOxFBmrexHxsJPn1p1ePswl
+         z2HA==
+X-Forwarded-Encrypted: i=1; AJvYcCUJqMTHXDwoiu0FyaYIO+KxM8b7/iGOOVqHzsg1yN90A1XqOEhb0ZfDehM6bAXVqi9RhyDa+2SzCZww@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz5Pg1gKkr1macWZ3HE4FdPs9lh198mkVqORKryDF1HAD7C3/+f
+	ETTgJT0u9i9nZpiN5lfh52SiZqehagRpv1xRJT6RRPA6Ml+XY53biLxA
+X-Gm-Gg: AeBDieugSET008HzS78Vp35UTkojZn8WYsNMFFGjO+iz427K5R8gO1kIdVIKhWRWiwq
+	WwTgh5fe5Lb+2HHzil6cjIljmfK/Av6j23FUdmPTxLufz+OiBdEgJaRlIs690lfs7aqlwRQo/ax
+	jMMuR1vON+Fg55FMZztnAPSpLVfzpKMrIVkUpRhumI1N7wF/dcOVxfhxOMDTGRkEIoyfKDJMWyL
+	iErLCYNAixHvpkabXv801JblE7dzqDPbSXHotBqGoqD01e04H5oTOxDbkQ/+2Oke3J9sBLealve
+	DJa7FJZdjsAbSqcQoEXBpW5+mJdoaeRsjkeh7zCUHv/uL8VuTOlUGwRopTjVeiOXhaIl50Eiq4O
+	0Opw7x9JLRbpQ8r4hJ90WpLdaLW/7j30ZYVje1w2/XXe8O2EHU5F6zEKMHU5gTm2dH+X7f+b0Ik
+	ZC2YH03B+WdiTLBlWvQJ03l6E4+YYnH6L9asP0n2VRGHe1VmgrMcwveneLwO60m/X3FJjRzCFnK
+	HlE902OlAk=
+X-Received: by 2002:a05:7300:ed0f:b0:2bd:c285:2fe with SMTP id 5a478bee46e88-2d587e7d192mr1915642eec.9.1775836295227;
+        Fri, 10 Apr 2026 08:51:35 -0700 (PDT)
 Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-12c34acb077sm3516774c88.6.2026.04.10.08.49.55
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2d55ce46a65sm4839362eec.0.2026.04.10.08.51.34
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Apr 2026 08:49:56 -0700 (PDT)
+        Fri, 10 Apr 2026 08:51:34 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <066e3058-5ba8-4695-9f45-523c7d43ab76@roeck-us.net>
-Date: Fri, 10 Apr 2026 08:49:55 -0700
+Message-ID: <dcc14537-2975-4c93-89ec-78e1a0e807f1@roeck-us.net>
+Date: Fri, 10 Apr 2026 08:51:33 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,16 +70,14 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dt-bindings: watchdog: rockchip: Add RV1103B
- compatible
-To: Fabio Estevam <festevam@gmail.com>
-Cc: wim@linux-watchdog.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, linux-watchdog@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, heiko@sntech.de,
- Fabio Estevam <festevam@nabladev.com>
-References: <20260310002040.417424-1-festevam@gmail.com>
- <85660b25-a936-44f0-95b2-3c90d559efc3@roeck-us.net>
- <CAOMZO5DFWYUPN9sPzBr-W7fy8ZbrXP7u1sx=HrmUAQVCLrsdjQ@mail.gmail.com>
+Subject: Re: [PATCH v9 0/2] Add support for Microchip EMC1812
+To: Marius Cristea <marius.cristea@microchip.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ Conor Dooley <conor.dooley@microchip.com>
+References: <20260403-hw_mon-emc1812-v9-0-1a798f31cf2e@microchip.com>
 Content-Language: en-US
 From: Guenter Roeck <linux@roeck-us.net>
 Autocrypt: addr=linux@roeck-us.net; keydata=
@@ -124,28 +123,122 @@ Autocrypt: addr=linux@roeck-us.net; keydata=
  F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
  FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
  np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <CAOMZO5DFWYUPN9sPzBr-W7fy8ZbrXP7u1sx=HrmUAQVCLrsdjQ@mail.gmail.com>
+In-Reply-To: <20260403-hw_mon-emc1812-v9-0-1a798f31cf2e@microchip.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 4/8/26 03:28, Fabio Estevam wrote:
-> Hi Guenter,
+On 4/3/26 05:39, Marius Cristea wrote:
+> This is the hwmon driver for EMC1812/13/14/15/33 multichannel Low-Voltage
+> Remote Diode Sensor Family. The chips in the family have one internal
+> and different numbers of external channels, ranging from 1 (EMC1812) to
+> 4 channels (EMC1815).
+> Reading diodes in anti-parallel connection is supported by EMC1814, EMC1815
+> and EMC1833.
 > 
-> On Mon, Mar 16, 2026 at 11:14 AM Guenter Roeck <linux@roeck-us.net> wrote:
->>
->> On 3/9/26 17:20, Fabio Estevam wrote:
->>> From: Fabio Estevam <festevam@nabladev.com>
->>>
->>> The RV1103B watchdog is compatible with the existing DesignWare Watchdog
->>> binding. Add the rockchip,rv1103b-wdt compatible string.
->>>
->>> Signed-off-by: Fabio Estevam <festevam@nabladev.com>
->>
->> Reviewed-by: Guenter Roeck <linux@roeck-us.net>
-> 
-> Could you please apply this one?
+> Signed-off-by: Marius Cristea <marius.cristea@microchip.com>
 
-Wim applies watchdog subsystem patches.
+Sashiko still reports numberous issues which I consider valid:
 
+https://sashiko.dev/#/patchset/20260403-hw_mon-emc1812-v9-0-1a798f31cf2e%40microchip.com
+
+Please fix.
+
+Thanks,
 Guenter
+
+> ---
+> Changes in v9:
+> - improve the wording in the Documentation/hwmon/emc1812.rst file
+> - add const to variables in the driver
+> - initialize the EXT2_BETA_CONFIG only for the pats that support it
+> - update the writeble regmap table to exclude read-only registers
+> - Link to v8: https://lore.kernel.org/r/20260310-hw_mon-emc1812-v8-0-bc155727e0d2@microchip.com
+> 
+> Changes in v8:
+> - remove "address scan" from emc1812.rst documentation
+> - change the second dimension of emc1812_limit_regs_low[][] to 2
+> - clamp input value before doing math on it to avoid overflow
+> - use rounding instead of truncation for 8 bits limit registers
+> - fix misleading comment when HW ID is not recognized
+> - Link to v7: https://lore.kernel.org/r/20260223-hw_mon-emc1812-v7-0-51e2676f4e20@microchip.com
+> 
+> Changes in v7:
+> - driver
+>    - fix an overflow emc1812_set_hyst
+>    - remove unused parameter in emc1812_set_temp
+> - devicetree binding:
+>    - remove unneeded restrictions not to bloating the binding
+> - Link to v6: https://lore.kernel.org/r/20260212-hw_mon-emc1812-v6-0-e37e9b38d898@microchip.com
+> 
+> Changes in v6:
+> - driver
+>    - fix an overflow when writing more then 191875 to limits stored on 8
+>      bits register
+>    - remove "i2c_set_clientdata" from probe
+>    - fix discrepancy where writing 16ms and reading it back returns 15ms
+>      at update interval
+>    - skip setting the ideality factor for channels that are not available
+>      on the device
+> - devicetree binding:
+>    - change the way interrupts are described/used
+>    - add "microchip,enable-anti-parallel"
+>    - rewrite "allOf" section to be more clear
+> - Link to v5: https://lore.kernel.org/r/20260205-hw_mon-emc1812-v5-0-232835aefe8f@microchip.com
+> 
+> Changes in v5:
+> - fix calculation in emc1812_get_limit_temp
+> - use i2c_get_match_data cover the case when the driver is instantiated
+>    via I2C ID table.
+> - replace dev_info with dev_warn
+> - remove some unnecessary truncation on 8 bits
+> - remove clamping when reading the temerature with hyst
+> - not change the conversion rate at probe time
+> - use a generic define to remove duplicate channel_info entries
+> - Link to v4: https://lore.kernel.org/r/20260127-hw_mon-emc1812-v4-0-6bf636b54847@microchip.com
+> 
+> Changes in v4:
+> - fix file permissions for read only properties
+> - fix calculation when the limits are written
+> - remove the temp_min_hyst because the part doesn't support it
+> - Link to v3: https://lore.kernel.org/r/20251218-hw_mon-emc1812-v3-0-a123ada7b859@microchip.com
+> 
+> Changes in v3:
+> - remove mesages that are not helpfull
+> - fix an issue related to NULL labels
+> - fix sign/unsign calculation
+> - replace E2BIG with EINVAL
+> - use BIT() to create mask
+> - Link to v2: https://lore.kernel.org/r/20251121-hw_mon-emc1812-v2-0-5b2070f8b778@microchip.com
+> 
+> Changes in v2:
+> - update the interrupt section from yaml file
+> - update index.rst
+> - remove fault condition from internal sensor
+> - remove unused members from structures
+> - update the driver to work on systems without device tree or
+>    firmware nodes
+> - add missing include files
+> - make NULL labels to be not visible
+> - corect sign/unsign calculations
+> - corect possible underflow for limits
+> - Link to v1: https://lore.kernel.org/r/20251029-hw_mon-emc1812-v1-0-be4fd8af016a@microchip.com
+> 
+> ---
+> Marius Cristea (2):
+>        dt-bindings: hwmon: temperature: add support for EMC1812
+>        hwmon: temperature: add support for EMC1812
+> 
+>   .../bindings/hwmon/microchip,emc1812.yaml          | 184 ++++
+>   Documentation/hwmon/emc1812.rst                    |  67 ++
+>   Documentation/hwmon/index.rst                      |   1 +
+>   MAINTAINERS                                        |   8 +
+>   drivers/hwmon/Kconfig                              |  11 +
+>   drivers/hwmon/Makefile                             |   1 +
+>   drivers/hwmon/emc1812.c                            | 965 +++++++++++++++++++++
+>   7 files changed, 1237 insertions(+)
+> ---
+> base-commit: d2b2fea3503e5e12b2e28784152937e48bcca6ff
+> change-id: 20251002-hw_mon-emc1812-f1b806487d10
+> 
+> Best regards,
 
