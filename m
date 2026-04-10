@@ -1,155 +1,556 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B295394798;
-	Fri, 10 Apr 2026 07:59:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE7BB39A072
+	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 07:59:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775807976; cv=none; b=mDiZYKp9CHG54DbCzXPXB/tyEuCkansihAgyr1/q6KXHmVGYdh2bY1B5rztUKAd20Ji8LQKJRRYDxGTptXZjVLdn9B5saA5bEPD6lPShYjYP+8kaVkMV9yjqxnIgugADGFrkPfHf9C9QJR+NX1pjZFd3m/ZXZUnVOfQ9173y8RQ=
+	t=1775807976; cv=none; b=d3yZCnJ49TZeeOtAPJlnK8OJiFMCT50RIw2ggOSCU2drDBPdfWbBOe4RIAmIwmoVBVbZh/1Hezle5zLMPVee1Ny7kIi0j97o4z9P25Seb08pFBD5cxeC7dHMP8iajO1MaZY8JzOU9SaZKAQvSja8pyf2oga9KlShQOO8IixsCVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1775807976; c=relaxed/simple;
-	bh=FeITDC/Wu3yb3H+8bxUK/EofL6or0jSpsm7kf+klLiw=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=e/8ykAKEi+WM2oTbVAAtt8Azxi33rwby9s/2d4hx4dNEShIQ7S4IklybH07ytYMjpLMrYOUSiMXqsxx/i3QI3HYkkHJp8wWSHc5WNsax2s9WOLfh0FOr1x7ULhrhfyUAOuIj64fU2zZf2bGUtsEWc1ERlqeCvIuveIMYai6EY+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=u488TrHC; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=biA2xEQm; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	bh=ReCnQiXwPqST0TGoob6Ww1TBHNZ5qFEgT0ouTZPYyGg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=A72c5+06hScp1aQoubZY+79FYknBStLlUraX0ZkTU2cUyzbs4RCSXJj7ylFQAcJwIRwITpZfMjJkE3aTPFhSrYE73QrzauhOhsYf7daNzFRRxmaMfNDMs70bs2fBacLvUxCEaxlhIYDYkB5u5kNmVNP5lQg4OhrYXdAoTp/6FjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=QGtl0Ggr; arc=none smtp.client-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="u488TrHC";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="biA2xEQm"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4fsTjH6R8Hz9tVg;
-	Fri, 10 Apr 2026 09:59:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1775807972;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=pdMupNV8SQH25nPQgo6yosbWJa8EJVott5NjvgAdmzo=;
-	b=u488TrHCmC2oDwyTMhsyVBFs8gADJoiSDdU2t574byHJQc9Vr2hOSfxDyaBhboCzdM2O5k
-	Hqx4NVEuGXK7P9fQQy4nGrtKZmfaQQmknlNQ0pDTCqKAJHHFuDJrNST7uQTcp40zwRXTyC
-	ICZokpnMagDR29zDKkamlzJomrJY5ne27hcWEfdDqqCHshV263x6HuOnxDmb79UkPJruh/
-	KqCPVOSMd0oQL5Xn/ONTQc3EfpOnEcqUsDpJkvS5OIICT9CJNdFesajsLNd1qo3s10njCV
-	92a3/5VsIazTfjQcQjWcSfKp1G/8LJ079OUrCMGd/5akTa1Nl7dOPGLJuQLmnA==
-From: Shuwei Wu <shuwei.wu@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1775807969;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=pdMupNV8SQH25nPQgo6yosbWJa8EJVott5NjvgAdmzo=;
-	b=biA2xEQmEhQXECUxzgwRWNqDC/XpwfA46WJ4ZigDrPZ9Jg1YdErE6TohQKLcjL35ACqqcS
-	V73yTbyBhpJqFmolGnyL5fBjBFbXI3cFceP9qXgwCrv2xc9JggMVl7xrHMY+oExkVEIdtX
-	vTooqolPRjjmtxWA6fxQ16WKzXO1fYwTU36InJYNpBibKwO23/D5I6raoK1M2Tk7D5j2GF
-	IVTK0q8tuqAHWlKsFpuoVkwlP8XeQsuuvDbOxjFozKD+DoxihimjOKgH6QZP9hbv2jlXP2
-	WB+n030Fzx6dOnrPgqY/k0/5rkX2YjY86vgMU0HyuiuLJe+mL5iKdKEHEhNs4w==
-Subject: [PATCH v2 0/2] cpufreq: spacemit: Add cpufreq support for K1 SoC
-Date: Fri, 10 Apr 2026 15:58:21 +0800
-Message-Id: <20260410-shadow-deps-v2-0-4e16b8c0f60e@mailbox.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="QGtl0Ggr"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-b9bfcbaa81eso281749966b.1
+        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 00:59:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1775807973; x=1776412773; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=fEyhOgcjSBi5KOFIDLHmALEjF7/wDBOBx21rWp3qA6k=;
+        b=QGtl0GgrS+/b0Jf8nmB9weYBhz5CremIVYrZa2ZF9alsBFZcG4Y9WdpoWnHwnLoMcE
+         Pm8vTLgrTl54UPVvwqUEgVmmupSdb0yGUu7NQ28qU7+5TTr9dJbDo1oEpi3Tu30MXt8P
+         jTpbUhP424ZDuc4qCh+SFE/OwgoZm0n93g/U1PPB1JuEbU5oMw9yTITZ2xgZSWzf6fsw
+         tgBOgQ5bFqWxC8vTc8rj04tR6QScgEppYzZEf2RdDEgxioIFT5dkMpzQ9wvjPUxF1kXj
+         /KRfbfys0PU/BblS/XbRC3F73w134PaohGDrbho1bM4ZALX2czI0zyIUuUyjgbrFNmOZ
+         E6mQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775807973; x=1776412773;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=fEyhOgcjSBi5KOFIDLHmALEjF7/wDBOBx21rWp3qA6k=;
+        b=Auas9VTjCaKYJbBN1yi9vHt99TTflU2VopNkytXoAH1SnKGY0h4MalAqxZNuz4R6a3
+         GXhd/WZQZcrWA3eOROyoEvp4gijRprO19lj5C2kOZOcPOf+59YBynfPSKKvWf87LD5Qi
+         q+mU/zmHT3Dl7SdNtL571Q4ZNbKpn3HFZAL4ShNFX/O8IY6TCr3/Cx5+BURuwVODnA8W
+         J4dahxRKIhG6pHO3gNw4tQhuYZ5w5wEJ5yixCnN6hhrM2IkJoMtTR/mW1cCzT6WTYkxu
+         yBGtUq/FrPxpcGPa0Q9X6wUJfdEsUTHxvzAqVPHftOizj2L80hHDTTR/fon56u6A6WQn
+         OeVQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUM+4byiNieHXAPw8eEJIbslZI7glMJIPq4mXr0lFsT3TezXTfCGYFSnGfYf7prxT3wOxKO/dpXlhy5@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywr8rFaCRoAGGaHxbVFyTISZ82eymGiAdZHx7H6by3gJ4uFUaYz
+	IsB78/opyiqEVPPY+TKk5jKydSA8mm5MSuLWGqRMMCChuEMUp8jrquWLyVqFy0p3EmQ=
+X-Gm-Gg: AeBDieuTMliiYrvS1lOzX3bqSw6x4bUOj/FRg8yfd4cRr8qJH2uK0rOr0XzG/Xo4Puc
+	apXQTpzSBdElWNKjhwqkOSc5rYUA+PJTrnhW45TEcZaTpUsn/I4RTWZE7XuyDBAbp7B+GuYYNyi
+	aJOE2RGyvfdYac0PTNFscLxeXF2WUTBqJd/JQCoxz6rz4EHEf2MuHn8xWfKlszfpoGUGCNVFaAd
+	ZMPBe+KNUx2q0MYyixtp5BN+uMfmLkqZI8PM20tDsyRHIQR5oFTWZsWncSQbZp7+jMseWwoPQvJ
+	0M5GaMGhsOB6GmrxL2DNOfNfbT2N1v7Gl+b+Z7GBimGSApVh8FgAigqNhoCRlzr3KIrr7qKjQL4
+	aN0Awr7W/masPF3GO+bIq3GRgXja3PXrhlIOc4pNSo4Oz5KdThWevQ1uzp7Yhpvl7KVD3//i5HK
+	EEE5duqMFtXdh6+vbVDIDWqL0v8tTPJ154IiX63yq0E2ScemEZzm2Ql8OzFjcOiXZq2Co10YoO9
+	1UgcbMnGApe8ENusGLhPxeC0tLa9eIST6HEa08f2W+zUgMKlo+AykiWMTys7vn4T6lks7MV7i90
+	gQwUaWA+hCMW5w==
+X-Received: by 2002:a17:907:6b8e:b0:b9c:a5b4:6208 with SMTP id a640c23a62f3a-b9d727931bbmr115842566b.16.1775807972889;
+        Fri, 10 Apr 2026 00:59:32 -0700 (PDT)
+Received: from ?IPV6:2001:1c06:2302:5600:7555:cca3:bbc4:648b? (2001-1c06-2302-5600-7555-cca3-bbc4-648b.cable.dynamic.v6.ziggo.nl. [2001:1c06:2302:5600:7555:cca3:bbc4:648b])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9d6e7f188fsm58134166b.59.2026.04.10.00.59.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 10 Apr 2026 00:59:32 -0700 (PDT)
+Message-ID: <ccee11ac-a84e-4120-99eb-712e88350c41@linaro.org>
+Date: Fri, 10 Apr 2026 08:59:30 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] dt-bindings: media: Add bindings for
+ qcom,x1p42100-camss
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>, Robert Foss
+ <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260410-purwa_camss-v1-0-eedcf6d9d8ee@oss.qualcomm.com>
+ <20260410-purwa_camss-v1-1-eedcf6d9d8ee@oss.qualcomm.com>
+Content-Language: en-US
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+In-Reply-To: <20260410-purwa_camss-v1-1-eedcf6d9d8ee@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJ2t2GkC/22Qy2rDMBBFf8Vo3Ql6eCTZlJL/KFnoMY5F49i1X
- Dcl5N+rOF200OUVzNHhXFmmOVFmbXVlM60pp/FchnyqWOjd+UiQYtlMcqm54gZy7+L4CZGmDAq
- tdMY6Z1CzcjHN1KXLRns9PPZM7x8Fujwe2eSW0BdkWwmsfaw7I3kg5BojWt9YG8l20ijJja9rN
- JLu3IFydptKWz1vJpJryJMLNKQFJgFrDRxspxuMjbJC0H5OOeTFzbswDi//QxRHeBMQTm9QtGE
- VIMD54CxGTVLr/eDSyY+X3TgfN4R3maDwyqdthULX1CAWddVF5LYcugYVCiVVh0bo2PkixO4l+
- pSXcf7aMq9iS/GjYP8ULQ4cShGPwQRuyP92YIfb7fYN/KHkcrIBAAA=
-X-Change-ID: 20260307-shadow-deps-3582a78aa756
-To: "Rafael J. Wysocki" <rafael@kernel.org>, 
- Viresh Kumar <viresh.kumar@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>, 
- Yixun Lan <dlan@kernel.org>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
- devicetree@vger.kernel.org, Shuwei Wu <shuwei.wu@mailbox.org>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1775807959; l=2567;
- i=shuwei.wu@mailbox.org; s=20251125; h=from:subject:message-id;
- bh=FeITDC/Wu3yb3H+8bxUK/EofL6or0jSpsm7kf+klLiw=;
- b=IkShTdJXqbof0FcLu6L47SjTOGt8Zw2qonrPSlXJWOd+dzJWOF0NpmeDdsG2nWglcOhBz51/D
- ITsJQIALMUkAs9IyoPhLm66F+Qkg5zR5VdlPUHT+R/co7dYr1E/ZRml
-X-Developer-Key: i=shuwei.wu@mailbox.org; a=ed25519;
- pk=qZs6i2UZnXkmjUrwO5HJxcfpCvgSNrR4dcU5cjtfTSk=
-X-MBO-RS-ID: 1ff74546b71c080cfd6
-X-MBO-RS-META: 1d3df5xeshc6anpdtytt7tkp3r3eh4z9
 
-This series enables dynamic voltage and frequency scaling (DVFS) for
-the SpacemiT K1 SoC using the generic cpufreq-dt driver.
+On 10/04/2026 05:25, Wenmeng Liu wrote:
+> Add bindings for the Camera Subsystem for X1P42100.
+> 
+> The X1P42100 platform provides:
+> - 2 x CSIPHY
+> - 3 x TPG
+> - 3 x CSID
+> - 2 x CSID Lite
+> - 1 x IFE
+> - 2 x IFE Lite
+> 
+> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+> ---
+>   .../bindings/media/qcom,x1p42100-camss.yaml        | 424 +++++++++++++++++++++
+>   1 file changed, 424 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/qcom,x1p42100-camss.yaml b/Documentation/devicetree/bindings/media/qcom,x1p42100-camss.yaml
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..8bfa7e616c3b6b91adc8e21ebfbbe6fb579484f6
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/qcom,x1p42100-camss.yaml
+> @@ -0,0 +1,424 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/qcom,x1p42100-camss.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm X1P42100 Camera Subsystem (CAMSS)
+> +
+> +maintainers:
+> +  - Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+> +
+> +description:
+> +  The CAMSS IP is a CSI decoder and ISP present on Qualcomm platforms.
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,x1p42100-camss
+> +
+> +  reg:
+> +    maxItems: 14
+> +
+> +  reg-names:
+> +    items:
+> +      - const: csid0
+> +      - const: csid1
+> +      - const: csid2
+> +      - const: csid_lite0
+> +      - const: csid_lite1
+> +      - const: csid_wrapper
+> +      - const: csiphy0
+> +      - const: csiphy4
+> +      - const: csitpg0
+> +      - const: csitpg1
+> +      - const: csitpg2
+> +      - const: vfe0
+> +      - const: vfe_lite0
+> +      - const: vfe_lite1
+> +
+> +  '#address-cells':
+> +    const: 2
+> +
+> +  '#size-cells':
+> +    const: 2
+> +
+> +  ranges: true
+> +
+> +  clocks:
+> +    maxItems: 22
+> +
+> +  clock-names:
+> +    items:
+> +      - const: camnoc_nrt_axi
+> +      - const: camnoc_rt_axi
+> +      - const: core_ahb
+> +      - const: cpas_ahb
+> +      - const: cpas_fast_ahb
+> +      - const: cpas_vfe0
+> +      - const: cpas_vfe_lite
+> +      - const: cphy_rx_clk_src
+> +      - const: csid
+> +      - const: csid_csiphy_rx
+> +      - const: csiphy0
+> +      - const: csiphy0_timer
+> +      - const: csiphy4
+> +      - const: csiphy4_timer
+> +      - const: gcc_axi_hf
+> +      - const: gcc_axi_sf
+> +      - const: vfe0
+> +      - const: vfe0_fast_ahb
+> +      - const: vfe_lite
+> +      - const: vfe_lite_ahb
+> +      - const: vfe_lite_cphy_rx
+> +      - const: vfe_lite_csid
+> +
+> +  interrupts:
+> +    maxItems: 10
+> +
+> +  interrupt-names:
+> +    items:
+> +      - const: csid0
+> +      - const: csid1
+> +      - const: csid2
+> +      - const: csid_lite0
+> +      - const: csid_lite1
+> +      - const: csiphy0
+> +      - const: csiphy4
+> +      - const: vfe0
+> +      - const: vfe_lite0
+> +      - const: vfe_lite1
+> +
+> +  interconnects:
+> +    maxItems: 4
+> +
+> +  interconnect-names:
+> +    items:
+> +      - const: ahb
+> +      - const: hf_mnoc
+> +      - const: sf_mnoc
+> +      - const: sf_icp_mnoc
+> +
+> +  iommus:
+> +    oneOf:
+> +      - items:
+> +          - description: S1 HLOS IFE and IFE_LITE non-protected read
+> +          - description: S1 HLOS IFE and IFE_LITE non-protected write
+> +          - description: S1 HLOS SFE non-protected read
+> +          - description: S1 HLOS SFE non-protected write
+> +          - description: S1 HLOS CDM IFE non-protected
+> +          - description: Legacy slot 0 - do not use
+> +          - description: Legacy slot 1 - do not use
+> +          - description: Legacy slot 2 - do not use
+> +      - items:
+> +          - description: S1 HLOS IFE and IFE_LITE non-protected read
+> +          - description: S1 HLOS IFE and IFE_LITE non-protected write
+> +          - description: S1 HLOS SFE non-protected read
+> +          - description: S1 HLOS SFE non-protected write
+> +          - description: S1 HLOS CDM IFE non-protected
+> +
+> +  power-domains:
+> +    items:
+> +      - description: IFE0 GDSC - Image Front End, Global Distributed Switch Controller.
+> +      - description: Titan Top GDSC - Titan ISP Block, Global Distributed Switch Controller.
+> +
+> +  power-domain-names:
+> +    items:
+> +      - const: ife0
+> +      - const: top
+> +
+> +  vdd-csiphy-0p8-supply:
+> +    description:
+> +      0.8V supply to a PHY.
+> +
+> +  vdd-csiphy-1p2-supply:
+> +    description:
+> +      1.2V supply to a PHY.
+> +
+> +  phys:
+> +    maxItems: 2
+> +
+> +  phy-names:
+> +    items:
+> +      - const: csiphy0
+> +      - const: csiphy4
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +
+> +    description:
+> +      CSI input ports. Supports either standard single sensor mode or
+> +      Qualcomm's combo mode with one sensor in 2x1 + 1x1 data-lane, clock-lane mode.
+> +
+> +    patternProperties:
+> +      "^port@[0-3]$":
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +
+> +        description:
+> +          Input port for receiving CSI data.
+> +
+> +        properties:
+> +          endpoint@0:
+> +            $ref: video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +
+> +            description:
+> +              Endpoint for receiving a single sensor input (or first leg of combo).
+> +
+> +            properties:
+> +              data-lanes:
+> +                minItems: 1
+> +                maxItems: 4 # Base max allows 4 (for D-PHY)
+> +
+> +              clock-lanes:
+> +                maxItems: 1
+> +
+> +              bus-type:
+> +                enum:
+> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
+> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
+> +
+> +          endpoint@1:
+> +            $ref: video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +
+> +            description:
+> +              Endpoint for receiving the second leg of a combo sensor input.
+> +
+> +            properties:
+> +              data-lanes:
+> +                maxItems: 1
+> +
+> +              clock-lanes:
+> +                maxItems: 1
+> +
+> +              bus-type:
+> +                const: 4 # Combo is D-PHY specific
+> +
+> +            required:
+> +              - data-lanes
+> +
+> +        allOf:
+> +          # Case 1: Combo Mode (endpoint@1 is present)
+> +          # If endpoint@1 exists, we restrict endpoint@0 to 2 lanes (D-PHY split)
+> +          - if:
+> +              required:
+> +                - endpoint@1
+> +            then:
+> +              properties:
+> +                endpoint@0:
+> +                  properties:
+> +                    data-lanes:
+> +                      minItems: 2
+> +                      maxItems: 2
+> +                    bus-type:
+> +                      const: 4
+> +                endpoint@1:
+> +                  properties:
+> +                    data-lanes:
+> +                      minItems: 1
+> +                      maxItems: 1
+> +                    bus-type:
+> +                      const: 4
+> +
+> +          # Case 2: Single Mode (endpoint@1 is missing)
+> +          # We explicitly allow up to 4 lanes here to cover the D-PHY use case.
+> +          - if:
+> +              not:
+> +                required:
+> +                  - endpoint@1
+> +            then:
+> +              properties:
+> +                endpoint@0:
+> +                  properties:
+> +                    data-lanes:
+> +                      minItems: 1
+> +                      maxItems: 4
+> +
+> +patternProperties:
+> +  "^phy@[0-9a-f]+$":
+> +    $ref: /schemas/phy/qcom,x1e80100-csi2-phy.yaml
+> +    unevaluatedProperties: false
+> +
+> +  "^opp-table(-.*)?$":
+> +    type: object
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - clocks
+> +  - clock-names
+> +  - interrupts
+> +  - interrupt-names
+> +  - interconnects
+> +  - interconnect-names
+> +  - iommus
+> +  - power-domains
+> +  - power-domain-names
+> +  - ports
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/clock/qcom,x1e80100-gcc.h>
+> +    #include <dt-bindings/clock/qcom,x1e80100-camcc.h>
+> +    #include <dt-bindings/interconnect/qcom,icc.h>
+> +    #include <dt-bindings/interconnect/qcom,x1e80100-rpmh.h>
+> +    #include <dt-bindings/phy/phy.h>
+> +    #include <dt-bindings/power/qcom-rpmpd.h>
+> +
+> +    soc {
+> +        #address-cells = <2>;
+> +        #size-cells = <2>;
+> +
+> +        camss: isp@acb7000 {
+> +            compatible = "qcom,x1p42100-camss";
+> +
+> +            reg = <0 0x0acb7000 0 0x2000>,
+> +                  <0 0x0acb9000 0 0x2000>,
+> +                  <0 0x0acbb000 0 0x2000>,
+> +                  <0 0x0acc6000 0 0x1000>,
+> +                  <0 0x0acca000 0 0x1000>,
+> +                  <0 0x0acb6000 0 0x1000>,
+> +                  <0 0x0ace4000 0 0x1000>,
+> +                  <0 0x0acec000 0 0x4000>,
+> +                  <0 0x0acf6000 0 0x1000>,
+> +                  <0 0x0acf7000 0 0x1000>,
+> +                  <0 0x0acf8000 0 0x1000>,
+> +                  <0 0x0ac62000 0 0x4000>,
 
-Tested on Banana Pi BPI-F3, the execution time scales as expected
-across different CPU frequencies:
+Is this the full extent of the VFE ? It looks like not to me.
 
-~ # echo userspace > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+For each register block please make sure you cover the _entire_ range of 
+the block not just the RDI part of it.
 
-~ # echo 1600000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
-~ # time awk 'BEGIN{for(i=0;i<1000000;i++){}}'
-real    0m 1.07s
-user    0m 1.07s
-sys     0m 0.00s
+> +                  <0 0x0acc7000 0 0x2000>,
+> +                  <0 0x0accb000 0 0x2000>;
+> +
+> +            reg-names = "csid0",
+> +                        "csid1",
+> +                        "csid2",
+> +                        "csid_lite0",
+> +                        "csid_lite1",
+> +                        "csid_wrapper",
+> +                        "csiphy0",
+> +                        "csiphy4",
+> +                        "csitpg0",
+> +                        "csitpg1",
+> +                        "csitpg2",
+> +                        "vfe0",
+> +                        "vfe_lite0",
+> +                        "vfe_lite1";
+> +
+> +            #address-cells = <2>;
+> +            #size-cells = <2>;
+> +            ranges;
+> +
+> +            clocks = <&camcc CAM_CC_CAMNOC_AXI_NRT_CLK>,
+> +                     <&camcc CAM_CC_CAMNOC_AXI_RT_CLK>,
+> +                     <&camcc CAM_CC_CORE_AHB_CLK>,
+> +                     <&camcc CAM_CC_CPAS_AHB_CLK>,
+> +                     <&camcc CAM_CC_CPAS_FAST_AHB_CLK>,
+> +                     <&camcc CAM_CC_CPAS_IFE_0_CLK>,
+> +                     <&camcc CAM_CC_CPAS_IFE_LITE_CLK>,
+> +                     <&camcc CAM_CC_CPHY_RX_CLK_SRC>,
 
-~ # echo 1228800 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
-~ # time awk 'BEGIN{for(i=0;i<1000000;i++){}}'
-real    0m 1.40s
-user    0m 1.40s
-sys     0m 0.00s
+_SRC clocks are generally not necessary, is this one ?
 
-~ # echo 1000000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
-~ # time awk 'BEGIN{for(i=0;i<1000000;i++){}}'
-real    0m 1.72s
-user    0m 1.72s
-sys     0m 0.00s
+> +                     <&camcc CAM_CC_CSID_CLK>,
+> +                     <&camcc CAM_CC_CSID_CSIPHY_RX_CLK>,
+> +                     <&camcc CAM_CC_CSIPHY0_CLK>,
+> +                     <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
+> +                     <&camcc CAM_CC_CSIPHY4_CLK>,
+> +                     <&camcc CAM_CC_CSI4PHYTIMER_CLK>,
+> +                     <&gcc GCC_CAMERA_HF_AXI_CLK>,
+> +                     <&gcc GCC_CAMERA_SF_AXI_CLK>,
+> +                     <&camcc CAM_CC_IFE_0_CLK>,
+> +                     <&camcc CAM_CC_IFE_0_FAST_AHB_CLK>,
+> +                     <&camcc CAM_CC_IFE_LITE_CLK>,
+> +                     <&camcc CAM_CC_IFE_LITE_AHB_CLK>,
+> +                     <&camcc CAM_CC_IFE_LITE_CPHY_RX_CLK>,
+> +                     <&camcc CAM_CC_IFE_LITE_CSID_CLK>;
+> +
+> +            clock-names = "camnoc_nrt_axi",
+> +                          "camnoc_rt_axi",
+> +                          "core_ahb",
+> +                          "cpas_ahb",
+> +                          "cpas_fast_ahb",
+> +                          "cpas_vfe0",
+> +                          "cpas_vfe_lite",
+> +                          "cphy_rx_clk_src",
+> +                          "csid",
+> +                          "csid_csiphy_rx",
+> +                          "csiphy0",
+> +                          "csiphy0_timer",
+> +                          "csiphy4",
+> +                          "csiphy4_timer",
+> +                          "gcc_axi_hf",
+> +                          "gcc_axi_sf",
+> +                          "vfe0",
+> +                          "vfe0_fast_ahb",
+> +                          "vfe_lite",
+> +                          "vfe_lite_ahb",
+> +                          "vfe_lite_cphy_rx",
+> +                          "vfe_lite_csid";
+> +
+> +           interrupts = <GIC_SPI 464 IRQ_TYPE_EDGE_RISING>,
+> +                        <GIC_SPI 466 IRQ_TYPE_EDGE_RISING>,
+> +                        <GIC_SPI 431 IRQ_TYPE_EDGE_RISING>,
+> +                        <GIC_SPI 468 IRQ_TYPE_EDGE_RISING>,
+> +                        <GIC_SPI 359 IRQ_TYPE_EDGE_RISING>,
+> +                        <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>,
+> +                        <GIC_SPI 122 IRQ_TYPE_EDGE_RISING>,
+> +                        <GIC_SPI 465 IRQ_TYPE_EDGE_RISING>,
+> +                        <GIC_SPI 469 IRQ_TYPE_EDGE_RISING>,
+> +                        <GIC_SPI 360 IRQ_TYPE_EDGE_RISING>;
+> +
+> +            interrupt-names = "csid0",
+> +                              "csid1",
+> +                              "csid2",
+> +                              "csid_lite0",
+> +                              "csid_lite1",
+> +                              "csiphy0",
+> +                              "csiphy4",
+> +                              "vfe0",
+> +                              "vfe_lite0",
+> +                              "vfe_lite1";
+> +
+> +            interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
+> +                             &config_noc SLAVE_CAMERA_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
+> +                            <&mmss_noc MASTER_CAMNOC_HF QCOM_ICC_TAG_ALWAYS
+> +                             &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
+> +                            <&mmss_noc MASTER_CAMNOC_SF QCOM_ICC_TAG_ALWAYS
+> +                             &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
+> +                            <&mmss_noc MASTER_CAMNOC_ICP QCOM_ICC_TAG_ALWAYS
+> +                             &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
+> +
+> +            interconnect-names = "ahb",
+> +                                 "hf_mnoc",
+> +                                 "sf_mnoc",
+> +                                 "sf_icp_mnoc";
+> +
+> +            iommus = <&apps_smmu 0x800 0x60>,
+> +                     <&apps_smmu 0x820 0x60>,
+> +                     <&apps_smmu 0x840 0x60>,
+> +                     <&apps_smmu 0x860 0x60>,
+> +                     <&apps_smmu 0x18a0 0x0>;
 
-~ # echo 819000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
-~ # time awk 'BEGIN{for(i=0;i<1000000;i++){}}'
-real    0m 2.10s
-user    0m 2.10s
-sys     0m 0.00s
+Please define which IOMMUs these are - I'd like to make sure the top 
+level node maps the IFE IOMMUs and not the ICP IOMMUs - as ICP should be 
+its own sub/separate node.
 
-~ # echo 614400 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
-~ # time awk 'BEGIN{for(i=0;i<1000000;i++){}}'
-real    0m 2.80s
-user    0m 2.80s
-sys     0m 0.00s
+> +
+> +            power-domains = <&camcc CAM_CC_IFE_0_GDSC>,
+> +                            <&camcc CAM_CC_TITAN_TOP_GDSC>;
+> +
+> +            power-domain-names = "ife0",
+> +                                 "top";
+> +
+> +            vdd-csiphy-0p8-supply = <&csiphy_0p8_supply>;
+> +            vdd-csiphy-1p2-supply = <&csiphy_1p2_supply>;
 
-Signed-off-by: Shuwei Wu <shuwei.wu@mailbox.org>
----
-Changes in v2:
-- Move OPP tables to dedicated k1-opp.dtsi
-- Enable OPP only on BPI-F3 with cpu-supply present
-- Link to v1: https://lore.kernel.org/r/20260308-shadow-deps-v1-0-0ceb5c7c07eb@mailbox.org
 
----
-Shuwei Wu (2):
-      cpufreq: dt-platdev: Add SpacemiT K1 SoC to the allowlist
-      riscv: dts: spacemit: Add cpu scaling for K1 SoC
 
- arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts |  35 +++++++-
- arch/riscv/boot/dts/spacemit/k1-opp.dtsi        | 105 ++++++++++++++++++++++++
- arch/riscv/boot/dts/spacemit/k1.dtsi            |   8 ++
- drivers/cpufreq/cpufreq-dt-platdev.c            |   1 +
- 4 files changed, 148 insertions(+), 1 deletion(-)
----
-base-commit: 5164e95565d3fd508ca8a95351323f5716dfb695
-change-id: 20260307-shadow-deps-3582a78aa756
-prerequisite-patch-id: 154bd4f720ce5065d58b988de8f273207b44572e
-prerequisite-message-id: <20260206-spacemit-p1-v4-0-8f695d93811e@riscstar.com>
-prerequisite-patch-id: 5da3e75b18291a5540d4f66d7a0600fb8975ef62
-prerequisite-patch-id: bcf41917414ecef8cf743095d130f6004c32f6a5
-prerequisite-patch-id: cfe3800f8c791ec4c63e070af9628e88e0fc31b9
-prerequisite-message-id: <20260305-k1-clk-fix-v1-1-abca85d6e266@mailbox.org>
-prerequisite-patch-id: 7c7fb9f87dba019ece4c97c45750349a7cd28f3a
-
-Best regards,
--- 
-Shuwei Wu <shuwei.wu@mailbox.org>
+> +
+> +            ports {
+> +                #address-cells = <1>;
+> +                #size-cells = <0>;
+> +
+> +                port@0 {
+> +                    reg = <0>;
+> +                    csiphy_ep0: endpoint {
+> +                        data-lanes = <0 1>;
+> +                        remote-endpoint = <&sensor_ep>;
+> +                    };
+> +                };
+> +            };
+> +        };
+> +    };
+> 
 
