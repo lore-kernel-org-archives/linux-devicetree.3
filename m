@@ -1,485 +1,220 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3122738C423;
-	Fri, 10 Apr 2026 06:49:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C406033E368;
+	Fri, 10 Apr 2026 06:52:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775803749; cv=none; b=HW3PZ3C29lMuTSRXKX7TTzFg8rny8ZyOJV8HCePsgcIkdU/NJ3rPytxU49ZqzYHl2at85//xgeqV+2M9KOe8eV0mTr8DTEA8OAYQho0/R80eux7WkNjCuEjkAFSCtPFmNkuYR2GIjX1QRa26cA3zGE7B/Wy9jMjJYDBbFrhKJ9A=
+	t=1775803925; cv=none; b=I0v4WGl4yrcMbSm2ZjWYiESq+Pxd/5WSaxJ9rLdqSspk+KPBQMK7uoBTJuOixofPBPGd5xtowebzgp6nvD8V5NuTz3I986eRb+vTvPnmG5cxD6XxkNXMa0A0Sm/JUF0rRd3GRxH7oduzeBTDR3DL3nwRYG64H3Rjby+ZkDKv46U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775803749; c=relaxed/simple;
-	bh=ZaAPci24tkdhOHXF2UO9K+wcl7441HxecoTnf/hjSOU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=qeDl5RAY6l/nBFCXjuE4qRI/o81wUc/b4raLAI874r4hylf744NFnLi7ctjuAetyKfOguTUwCOkxIc8M29gDv7HBHhNe15jaUY8RrFGzM/kjhyceLxr0yt5W4nPxnEKsOHyFRgMqS5IK08a9OJP+XV5LbcRzE/c5CP9bLcF+zYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=uOM0blm4; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1775803925; c=relaxed/simple;
+	bh=tQdqe7+anrwPXHbdSUwofGdyqwbRhOA59PuIIYeANnM=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=rtQWtMns9ShWl7TiPPSqzVKB8Pv2JhcSeYsxvlzDTZ59XkjQ4yJC9189CuJkfXLWxtq21JogJf+RtKKFGKrV4vUeHJIL6Awy3cG4l9BKyKsZiTRV0xkBgFEQ1NPXh3n5f+zMNd/bdxKBEvyAPTlXFmVP4sTZ9blDqenDCPHiFxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=GHoW/yyU; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="uOM0blm4"
-Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63A6IUYK167284;
-	Fri, 10 Apr 2026 02:48:53 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=+bQi+
-	fUbok7Dt8a9+itjvCqv7plliW/J97t4vvUBa6Q=; b=uOM0blm4MrLjB+KhprJc6
-	OaxNjLPxMFnBE9UGiCLvPTk/UaudstgLFQYzwoJOEJ6Kq55WY+kaY2PHRWI6grBo
-	mC2vKBL4UsVfhEFzwpA8xdDcJNulMaembsY9carlBPWwVq2oF8bbvuRHFiG8iNnG
-	58xXGnAwiYxveUpV24PXBW38ZYuS1yztalLvAhLPblAn8ynaqaQ4Lmg8QENP7h9Q
-	+QPDzXBPcGxQ/jQcKEOYmkYT26y/jyWFePfo7ZmHANdR0P4LDP2LlEW7OJO7qZea
-	dP95wqreWMb+BU+qmDl6wSIFvUd7QwzWQgGp4VBVK6gZdRsq9nvqe7WHGTdZrJNS
-	Q==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4de9a6kya3-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 10 Apr 2026 02:48:53 -0400 (EDT)
-Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 63A6mqKC034834
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 10 Apr 2026 02:48:52 -0400
-Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
- ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="GHoW/yyU"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 63A6n5ZH12561100, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1775803745; bh=tQdqe7+anrwPXHbdSUwofGdyqwbRhOA59PuIIYeANnM=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=GHoW/yyUemygLZgpndO8Np3BScTs5bemmVEBsjDNi5cGZNTt/V10nsJgjaPXbFeJU
+	 uCjUE9Ua+DibGFCapksLf5l4EKLXnBg+Yc9Tt2DQbQK4ifbIaZaArVSt8fjInqXbFY
+	 LTQxkAczV4+FL64suTu/teyPv/v/Dc6jlt1My37pOww2MVWAJh/JzZiyQYzHY4wBXN
+	 3RcdDSZUGwIjObTDq120yyUT9XpR95o7IqNmJ49nVAJmp5RK008BG12ThOCd+h9wOm
+	 TzUwqndJGlTbHVjWMk2REcqrRcXksyo3Ho2TNyucY1U8uU6Mg34xf7/8+V6erETAED
+	 qi6t2GdfJWuwQ==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.26/5.94) with ESMTPS id 63A6n5ZH12561100
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 10 Apr 2026 14:49:05 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Fri, 10 Apr 2026 02:48:51 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
- ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
+ 15.2.1748.10; Fri, 10 Apr 2026 14:49:05 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Fri, 10 Apr 2026 02:48:51 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Fri, 10 Apr 2026 02:48:51 -0400
-Received: from ATORRENO-L02.ad.analog.com ([10.66.6.192])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 63A6mMJ8020190;
-	Fri, 10 Apr 2026 02:48:43 -0400
-From: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
-Date: Fri, 10 Apr 2026 14:48:17 +0800
-Subject: [PATCH v7 2/2] iio: dac: ad5706r: Add support for AD5706R DAC
+ 15.2.1748.10; Fri, 10 Apr 2026 14:49:05 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([fe80::ed72:3015:2840:4458]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::ed72:3015:2840:4458%10]) with mapi id
+ 15.02.1748.010; Fri, 10 Apr 2026 14:49:05 +0800
+From: =?utf-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>,
+        "mturquette@baylibre.com"
+	<mturquette@baylibre.com>,
+        "sboyd@kernel.org" <sboyd@kernel.org>,
+        "robh@kernel.org" <robh@kernel.org>,
+        "krzk+dt@kernel.org"
+	<krzk+dt@kernel.org>,
+        "conor+dt@kernel.org" <conor+dt@kernel.org>,
+        =?utf-8?B?RWRnYXIgTGVlIFvmnY7mib/oq61d?= <cylee12@realtek.com>,
+        "afaerber@suse.com" <afaerber@suse.com>,
+        =?utf-8?B?SnlhbiBDaG91IFvlkajoirflrold?= <jyanchou@realtek.com>
+CC: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+        "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>,
+        "linux-realtek-soc@lists.infradead.org"
+	<linux-realtek-soc@lists.infradead.org>,
+        =?utf-8?B?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?= <james.tai@realtek.com>,
+        =?utf-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>,
+        =?utf-8?B?U3RhbmxleSBDaGFuZ1vmmIzogrLlvrdd?= <stanley_chang@realtek.com>
+Subject: RE: [PATCH v6 02/10] reset: Add Realtek basic reset support
+Thread-Topic: [PATCH v6 02/10] reset: Add Realtek basic reset support
+Thread-Index: AQHcwnPpTWHumUza+kqw9rM1hz3eN7XK95OAgAzuXTA=
+Date: Fri, 10 Apr 2026 06:49:05 +0000
+Message-ID: <a360528ce9164857838891772f68ac06@realtek.com>
+References: <20260402073957.2742459-1-eleanor.lin@realtek.com>
+	 <20260402073957.2742459-3-eleanor.lin@realtek.com>
+ <5dd7ddb50b71de737aae6ad4d11bd28fa52443a9.camel@pengutronix.de>
+In-Reply-To: <5dd7ddb50b71de737aae6ad4d11bd28fa52443a9.camel@pengutronix.de>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260410-dev_ad5706r-v7-2-af93a4caa186@analog.com>
-References: <20260410-dev_ad5706r-v7-0-af93a4caa186@analog.com>
-In-Reply-To: <20260410-dev_ad5706r-v7-0-af93a4caa186@analog.com>
-To: Lars-Peter Clausen <lars@metafoo.de>,
-        Michael Hennerich
-	<Michael.Hennerich@analog.com>,
-        Jonathan Cameron <jic23@kernel.org>,
-        "David
- Lechner" <dlechner@baylibre.com>,
-        =?utf-8?q?Nuno_S=C3=A1?=
-	<nuno.sa@analog.com>,
-        Andy Shevchenko <andy@kernel.org>, Rob Herring
-	<robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
-	<conor+dt@kernel.org>
-CC: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>,
-        Alexis Czezar Torreno
-	<alexisczezar.torreno@analog.com>,
-        Andy Shevchenko
-	<andriy.shevchenko@intel.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1775803702; l=10805;
- i=alexisczezar.torreno@analog.com; s=20250213; h=from:subject:message-id;
- bh=ZaAPci24tkdhOHXF2UO9K+wcl7441HxecoTnf/hjSOU=;
- b=R4zZv96tlF5YJy963RNokrNufqU1q/42d1yMquY5Jkc75iJWkgiI5URI8jADM34NsEF1L3Vmg
- FyIR8MqRMB1BxobIn74q4772xyOnR5/UAfQwS0ouEyYFRZiUV7LHGKq
-X-Developer-Key: i=alexisczezar.torreno@analog.com; a=ed25519;
- pk=XpXmJnRjnsKdDil6YpOlj9+44S+XYXVFnxvkbmaZ+10=
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEwMDA2MSBTYWx0ZWRfXzZ1nO8MSe2j0
- loaCxUm7REbQDL8QMiczjxsi2oJ24xtYgQ5fQ1P9tXyC76m6R34V8ELl+Aace7vi+iyUrr8QSAP
- rctAj1zgdCGGZHTKb5o3QnAkaX7zuwAfCgJm4Thi9gIp5J+Zw/gRQIyFuGyFb3MRDkmFmltoWPl
- DY71dz2CiVLY36OaSLSfVumaIYXTSUwfXwcHk0UGLPz7q5PACTdY0E7DQaYZxtd/z6rZoKLH8DY
- wzeG2/jZkiqdR4y1raaRLLXDfXGMpvbqinimuodGwcOwleFsDntgoyO+Elwp3ntOdVyMSE4IPyH
- OZBirUJFpTyLCcUH++zDCDdxDNzT+ktuwTLT+EfCnZ/y+xk2dbGmb3JQ8v6yIa2TAjF1nY0cCHH
- Y9fZOXQHEs66mHk2dXOA6SA2372zcwzVLog/zbZhRstLNVs9g4CFjv2vaa6k4KNTVbV1bcdRUpA
- zY6ihmxLCrGkteWfGhg==
-X-Proofpoint-GUID: VgC9Fihl5m98FvlqO7CXMD8xKMMczvfI
-X-Authority-Analysis: v=2.4 cv=M9F97Sws c=1 sm=1 tr=0 ts=69d89d55 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=uXIjobp8t2wMuQ0fPvqm:22 a=gAnH3GRIAAAA:8
- a=QyXUC8HyAAAA:8 a=VwQbUJbxAAAA:8 a=BUK1tddBQIXFRbfSOj8A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: VgC9Fihl5m98FvlqO7CXMD8xKMMczvfI
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-10_02,2026-04-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 malwarescore=0 lowpriorityscore=0 adultscore=0
- spamscore=0 clxscore=1015 impostorscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604100061
 
-Add support for the Analog Devices AD5706R, a 4-channel 16-bit
-current output digital-to-analog converter with SPI interface.
-
-Features:
-  - 4 independent DAC channels
-  - Hardware and software LDAC trigger
-  - Configurable output range
-  - PWM-based LDAC control
-  - Dither and toggle modes
-  - Dynamically configurable SPI speed
-
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
-
----
-Changes in v7:
-  - Moved/added size validation before data access in write()/read()
-
-Changes in v6:
-  - Added size validation in regmap_write()
-  - Used &st->tx_buf[0] consistently _be32/be16 calls
-  - Added missing indent in AD5706R_CHAN
-
-Changes in v5:
-  - Kconfig: Added select REGMAP_SPI dependency
-  - Headers: Removed device.h, errno.h, string.h; added dev_printk.h
-  - Use IIO_DMA_MINALIGN instead of ARCH_DMA_MINALIGN
-  - Replaced memcpy/memset with put_unaligned_be* for consistency
-  - Added struct device *dev shorthand in probe()
-  - Added newline to error message
-  - Other minor style edits
-
-Changes in v4:
-  - Added missing includes
-  - Converted to use regmap with custom SPI bus implementation
-  - Removed driver-specific mutex/guards in favor of regmap locking
-  - Minor style cleanups
-
-Changes in v3:
-  - Removed redundant includes, added respective includes of APIs used
-  - Simplified bit manipulation in SPI read/write
-  - Fixed inconsistent trailing commas in device ID tables
-  - Removed zero initialization in spi_device_id
-
-Changes in v2:
-  - Removed PWM, GPIO, clock generator, debugfs, regmap, IIO_BUFFER
-  - Removed all custom ext_info sysfs attributes
-  - Simplified to basic raw read/write and read-only scale
-  - SPI read/write can handle multibyte registers
----
----
- MAINTAINERS               |   1 +
- drivers/iio/dac/Kconfig   |  11 ++
- drivers/iio/dac/Makefile  |   1 +
- drivers/iio/dac/ad5706r.c | 253 ++++++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 266 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 17a3d2d45fccb9cd3c93fd35666fb85d17d53cde..3d7bd98b4d1b55836e40687a9a3ac9f4935a8acb 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1502,6 +1502,7 @@ L:	linux-iio@vger.kernel.org
- S:	Supported
- W:	https://ez.analog.com/linux-software-drivers
- F:	Documentation/devicetree/bindings/iio/dac/adi,ad5706r.yaml
-+F:	drivers/iio/dac/ad5706r.c
- 
- ANALOG DEVICES INC AD7091R DRIVER
- M:	Marcelo Schmitt <marcelo.schmitt@analog.com>
-diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
-index db9f5c711b3df90641f017652fbbef594cc1627d..a5a328818233e3d019cddaee369dd5b7b1529031 100644
---- a/drivers/iio/dac/Kconfig
-+++ b/drivers/iio/dac/Kconfig
-@@ -178,6 +178,17 @@ config AD5624R_SPI
- 	  Say yes here to build support for Analog Devices AD5624R, AD5644R and
- 	  AD5664R converters (DAC). This driver uses the common SPI interface.
- 
-+config AD5706R
-+	tristate "Analog Devices AD5706R DAC driver"
-+	depends on SPI
-+	select REGMAP_SPI
-+	help
-+	  Say yes here to build support for Analog Devices AD5706R 4-channel,
-+	  16-bit current output DAC.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called ad5706r.
-+
- config AD9739A
- 	tristate "Analog Devices AD9739A RF DAC spi driver"
- 	depends on SPI
-diff --git a/drivers/iio/dac/Makefile b/drivers/iio/dac/Makefile
-index 2a80bbf4e80ad557da79ed916027cedff286984b..0034317984985035f7987a744899924bfd4612e3 100644
---- a/drivers/iio/dac/Makefile
-+++ b/drivers/iio/dac/Makefile
-@@ -21,6 +21,7 @@ obj-$(CONFIG_AD5449) += ad5449.o
- obj-$(CONFIG_AD5592R_BASE) += ad5592r-base.o
- obj-$(CONFIG_AD5592R) += ad5592r.o
- obj-$(CONFIG_AD5593R) += ad5593r.o
-+obj-$(CONFIG_AD5706R) += ad5706r.o
- obj-$(CONFIG_AD5755) += ad5755.o
- obj-$(CONFIG_AD5758) += ad5758.o
- obj-$(CONFIG_AD5761) += ad5761.o
-diff --git a/drivers/iio/dac/ad5706r.c b/drivers/iio/dac/ad5706r.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..026f871ce121cd63331b2a34da8879491b2d0f3c
---- /dev/null
-+++ b/drivers/iio/dac/ad5706r.c
-@@ -0,0 +1,253 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * AD5706R 16-bit Current Output Digital to Analog Converter
-+ *
-+ * Copyright 2026 Analog Devices Inc.
-+ */
-+
-+#include <linux/array_size.h>
-+#include <linux/bits.h>
-+#include <linux/dev_printk.h>
-+#include <linux/err.h>
-+#include <linux/iio/iio.h>
-+#include <linux/minmax.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/regmap.h>
-+#include <linux/spi/spi.h>
-+#include <linux/types.h>
-+#include <linux/unaligned.h>
-+
-+/* SPI frame layout */
-+#define AD5706R_RD_MASK			BIT(15)
-+#define AD5706R_ADDR_MASK		GENMASK(11, 0)
-+
-+/* Registers */
-+#define AD5706R_REG_DAC_INPUT_A_CH(x)		(0x60 + ((x) * 2))
-+#define AD5706R_REG_DAC_DATA_READBACK_CH(x)	(0x68 + ((x) * 2))
-+
-+#define AD5706R_DAC_RESOLUTION		16
-+#define AD5706R_DAC_MAX_CODE		BIT(16)
-+#define AD5706R_MULTIBYTE_REG_START	0x14
-+#define AD5706R_MULTIBYTE_REG_END	0x71
-+#define AD5706R_MAX_REG			0x77
-+#define AD5706R_SINGLE_BYTE_LEN		1
-+#define AD5706R_DOUBLE_BYTE_LEN		2
-+
-+struct ad5706r_state {
-+	struct spi_device *spi;
-+	struct regmap *regmap;
-+
-+	u8 tx_buf[4] __aligned(IIO_DMA_MINALIGN);
-+	u8 rx_buf[4];
-+};
-+
-+static int ad5706r_reg_len(unsigned int reg)
-+{
-+	if (reg >= AD5706R_MULTIBYTE_REG_START && reg <= AD5706R_MULTIBYTE_REG_END)
-+		return AD5706R_DOUBLE_BYTE_LEN;
-+
-+	return AD5706R_SINGLE_BYTE_LEN;
-+}
-+
-+static int ad5706r_regmap_write(void *context, const void *data, size_t count)
-+{
-+	struct ad5706r_state *st = context;
-+	unsigned int num_bytes, val;
-+	u16 reg;
-+
-+	if (count != 4)
-+		return -EINVAL;
-+
-+	reg = get_unaligned_be16(data);
-+	num_bytes = ad5706r_reg_len(reg);
-+
-+	struct spi_transfer xfer = {
-+		.tx_buf = st->tx_buf,
-+		.len = num_bytes + 2,
-+	};
-+
-+	val = get_unaligned_be32(data);
-+	put_unaligned_be32(val, &st->tx_buf[0]);
-+
-+	/* For single byte, copy the data to the correct position */
-+	if (num_bytes == AD5706R_SINGLE_BYTE_LEN)
-+		st->tx_buf[2] = st->tx_buf[3];
-+
-+	return spi_sync_transfer(st->spi, &xfer, 1);
-+}
-+
-+static int ad5706r_regmap_read(void *context, const void *reg_buf,
-+			       size_t reg_size, void *val_buf, size_t val_size)
-+{
-+	struct ad5706r_state *st = context;
-+	unsigned int num_bytes;
-+	u16 reg, cmd, val;
-+	int ret;
-+
-+	if (reg_size != 2 || val_size != 2)
-+		return -EINVAL;
-+
-+	reg = get_unaligned_be16(reg_buf);
-+	num_bytes = ad5706r_reg_len(reg);
-+
-+	/* Full duplex, device responds immediately after command */
-+	struct spi_transfer xfer = {
-+		.tx_buf = st->tx_buf,
-+		.rx_buf = st->rx_buf,
-+		.len = 2 + num_bytes,
-+	};
-+
-+	cmd = AD5706R_RD_MASK | (reg & AD5706R_ADDR_MASK);
-+	put_unaligned_be16(cmd, &st->tx_buf[0]);
-+	put_unaligned_be16(0, &st->tx_buf[2]);
-+
-+	ret = spi_sync_transfer(st->spi, &xfer, 1);
-+	if (ret)
-+		return ret;
-+
-+	/* Extract value from response (skip 2-byte command echo) */
-+	if (num_bytes == AD5706R_SINGLE_BYTE_LEN)
-+		val = st->rx_buf[2];
-+	else if (num_bytes == AD5706R_DOUBLE_BYTE_LEN)
-+		val = get_unaligned_be16(&st->rx_buf[2]);
-+	else
-+		return -EINVAL;
-+
-+	put_unaligned_be16(val, val_buf);
-+
-+	return 0;
-+}
-+
-+static int ad5706r_read_raw(struct iio_dev *indio_dev,
-+			    struct iio_chan_spec const *chan,
-+			    int *val, int *val2, long mask)
-+{
-+	struct ad5706r_state *st = iio_priv(indio_dev);
-+	unsigned int reg, reg_val;
-+	int ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW:
-+		reg = AD5706R_REG_DAC_DATA_READBACK_CH(chan->channel);
-+		ret = regmap_read(st->regmap, reg, &reg_val);
-+		if (ret)
-+			return ret;
-+
-+		*val = reg_val;
-+		return IIO_VAL_INT;
-+	case IIO_CHAN_INFO_SCALE:
-+		*val = 50;
-+		*val2 = AD5706R_DAC_RESOLUTION;
-+		return IIO_VAL_FRACTIONAL_LOG2;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int ad5706r_write_raw(struct iio_dev *indio_dev,
-+			     struct iio_chan_spec const *chan,
-+			     int val, int val2, long mask)
-+{
-+	struct ad5706r_state *st = iio_priv(indio_dev);
-+	unsigned int reg;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW:
-+		if (!in_range(val, 0, AD5706R_DAC_MAX_CODE))
-+			return -EINVAL;
-+
-+		reg = AD5706R_REG_DAC_INPUT_A_CH(chan->channel);
-+		return regmap_write(st->regmap, reg, val);
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static const struct regmap_bus ad5706r_regmap_bus = {
-+	.write = ad5706r_regmap_write,
-+	.read = ad5706r_regmap_read,
-+	.reg_format_endian_default = REGMAP_ENDIAN_BIG,
-+	.val_format_endian_default = REGMAP_ENDIAN_BIG,
-+};
-+
-+static const struct regmap_config ad5706r_regmap_config = {
-+	.reg_bits = 16,
-+	.val_bits = 16,
-+	.max_register = AD5706R_MAX_REG,
-+};
-+
-+static const struct iio_info ad5706r_info = {
-+	.read_raw = ad5706r_read_raw,
-+	.write_raw = ad5706r_write_raw,
-+};
-+
-+#define AD5706R_CHAN(_channel) {				\
-+	.type = IIO_CURRENT,					\
-+	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |		\
-+			      BIT(IIO_CHAN_INFO_SCALE),		\
-+	.output = 1,						\
-+	.indexed = 1,						\
-+	.channel = _channel,					\
-+}
-+
-+static const struct iio_chan_spec ad5706r_channels[] = {
-+	AD5706R_CHAN(0),
-+	AD5706R_CHAN(1),
-+	AD5706R_CHAN(2),
-+	AD5706R_CHAN(3),
-+};
-+
-+static int ad5706r_probe(struct spi_device *spi)
-+{
-+	struct device *dev = &spi->dev;
-+	struct iio_dev *indio_dev;
-+	struct ad5706r_state *st;
-+
-+	indio_dev = devm_iio_device_alloc(dev, sizeof(*st));
-+	if (!indio_dev)
-+		return -ENOMEM;
-+
-+	st = iio_priv(indio_dev);
-+	st->spi = spi;
-+
-+	st->regmap = devm_regmap_init(dev, &ad5706r_regmap_bus,
-+				      st, &ad5706r_regmap_config);
-+	if (IS_ERR(st->regmap))
-+		return dev_err_probe(dev, PTR_ERR(st->regmap),
-+				     "Failed to init regmap\n");
-+
-+	indio_dev->name = "ad5706r";
-+	indio_dev->info = &ad5706r_info;
-+	indio_dev->modes = INDIO_DIRECT_MODE;
-+	indio_dev->channels = ad5706r_channels;
-+	indio_dev->num_channels = ARRAY_SIZE(ad5706r_channels);
-+
-+	return devm_iio_device_register(dev, indio_dev);
-+}
-+
-+static const struct of_device_id ad5706r_of_match[] = {
-+	{ .compatible = "adi,ad5706r" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, ad5706r_of_match);
-+
-+static const struct spi_device_id ad5706r_id[] = {
-+	{ "ad5706r" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(spi, ad5706r_id);
-+
-+static struct spi_driver ad5706r_driver = {
-+	.driver = {
-+		.name = "ad5706r",
-+		.of_match_table = ad5706r_of_match,
-+	},
-+	.probe = ad5706r_probe,
-+	.id_table = ad5706r_id,
-+};
-+module_spi_driver(ad5706r_driver);
-+
-+MODULE_AUTHOR("Alexis Czezar Torreno <alexisczezar.torreno@analog.com>");
-+MODULE_DESCRIPTION("AD5706R 16-bit Current Output DAC driver");
-+MODULE_LICENSE("GPL");
-
--- 
-2.34.1
-
+PiBPbiBEbywgMjAyNi0wNC0wMiBhdCAxNTozOSArMDgwMCwgWXUtQ2h1biBMaW4gd3JvdGU6DQo+
+ID4gRnJvbTogQ2hlbmctWXUgTGVlIDxjeWxlZTEyQHJlYWx0ZWsuY29tPg0KPiA+DQo+ID4gRGVm
+aW5lIHRoZSByZXNldCBvcGVyYXRpb25zIGJhY2tlZCBieSBhIHJlZ21hcC1iYXNlZCByZWdpc3Rl
+cg0KPiA+IGludGVyZmFjZSBhbmQgcHJlcGFyZSB0aGUgcmVzZXQgY29udHJvbGxlciB0byBiZSBy
+ZWdpc3RlcmVkIHRocm91Z2gNCj4gPiB0aGUgcmVzZXQgZnJhbWV3b3JrLg0KPiA+DQo+ID4gU2lu
+Y2UgdGhlIHJlc2V0IGNvbnRyb2xsZXJzIG9uIFJlYWx0ZWsgU29DcyBvZnRlbiBzaGFyZSB0aGUg
+c2FtZQ0KPiA+IHJlZ2lzdGVyIHNwYWNlIHdpdGggdGhlIGNsb2NrIGNvbnRyb2xsZXJzLCB0aGlz
+IGNvbW1vbiBmcmFtZXdvcmsgaXMNCj4gPiBkZXNpZ25lZCB0byBleHRyYWN0IHRoZSByZWdtYXAg
+YW5kIGRldmljZSB0cmVlIG5vZGUgZnJvbSB0aGUgcGFyZW50DQo+ID4gZGV2aWNlIChlLmcuLCBh
+biBhdXhpbGlhcnkgZGV2aWNlIHBhcmVudCkuDQo+ID4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBDaGVu
+Zy1ZdSBMZWUgPGN5bGVlMTJAcmVhbHRlay5jb20+DQo+ID4gQ28tZGV2ZWxvcGVkLWJ5OiBZdS1D
+aHVuIExpbiA8ZWxlYW5vci5saW5AcmVhbHRlay5jb20+DQo+ID4gU2lnbmVkLW9mZi1ieTogWXUt
+Q2h1biBMaW4gPGVsZWFub3IubGluQHJlYWx0ZWsuY29tPg0KPiA+IC0tLQ0KPiA+IENoYW5nZXMg
+aW4gdjY6DQo+ID4gLSBSZW1vdmUgdGhlIGdsb2JhbCBoZWFkZXIgaW5jbHVkZS9saW51eC9yZXNl
+dC9yZWFsdGVrLmggYW5kIHVzZSBhDQo+ID4gbG9jYWwgY29tbW9uLmggaW5zdGVhZC4NCj4gPiAt
+IEV4dHJhY3QgcmVnbWFwIGFuZCBvZl9ub2RlIGRpcmVjdGx5IGZyb20gdGhlIHBhcmVudCBkZXZp
+Y2UuDQo+ID4gLSBSZW1vdmUgc3RydWN0IHJ0a19yZXNldF9pbml0ZGF0YS4gTm93LCBwYXNzIHN0
+cnVjdCBydGtfcmVzZXRfZGF0YQ0KPiA+IGRpcmVjdGx5IHdoZW4gY2FsbGluZyBydGtfcmVzZXRf
+Y29udHJvbGxlcl9hZGQoKS4NCj4gPiAtLS0NCj4gPiAgTUFJTlRBSU5FUlMgICAgICAgICAgICAg
+ICAgICAgIHwgIDEgKw0KPiA+ICBkcml2ZXJzL3Jlc2V0L0tjb25maWcgICAgICAgICAgfCAgMSAr
+DQo+ID4gIGRyaXZlcnMvcmVzZXQvTWFrZWZpbGUgICAgICAgICB8ICAxICsNCj4gPiAgZHJpdmVy
+cy9yZXNldC9yZWFsdGVrL0tjb25maWcgIHwgIDMgKysNCj4gPiBkcml2ZXJzL3Jlc2V0L3JlYWx0
+ZWsvTWFrZWZpbGUgfCAgMiArICBkcml2ZXJzL3Jlc2V0L3JlYWx0ZWsvY29tbW9uLmMNCj4gPiB8
+IDg1ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysNCj4gPiAgZHJpdmVycy9yZXNl
+dC9yZWFsdGVrL2NvbW1vbi5oIHwgMjkgKysrKysrKysrKysrDQo+ID4gIDcgZmlsZXMgY2hhbmdl
+ZCwgMTIyIGluc2VydGlvbnMoKykNCj4gPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvcmVz
+ZXQvcmVhbHRlay9LY29uZmlnICBjcmVhdGUgbW9kZSAxMDA2NDQNCj4gPiBkcml2ZXJzL3Jlc2V0
+L3JlYWx0ZWsvTWFrZWZpbGUgIGNyZWF0ZSBtb2RlIDEwMDY0NA0KPiA+IGRyaXZlcnMvcmVzZXQv
+cmVhbHRlay9jb21tb24uYyAgY3JlYXRlIG1vZGUgMTAwNjQ0DQo+ID4gZHJpdmVycy9yZXNldC9y
+ZWFsdGVrL2NvbW1vbi5oDQo+ID4NCj4gPiBkaWZmIC0tZ2l0IGEvTUFJTlRBSU5FUlMgYi9NQUlO
+VEFJTkVSUyBpbmRleA0KPiA+IDA3ZTczYmY2MjFiMC4uOGYzNTU4OTY1ODNiIDEwMDY0NA0KPiA+
+IC0tLSBhL01BSU5UQUlORVJTDQo+ID4gKysrIGIvTUFJTlRBSU5FUlMNCj4gPiBAQCAtMjIyNDAs
+NiArMjIyNDAsNyBAQCBMOiAgICBkZXZpY2V0cmVlQHZnZXIua2VybmVsLm9yZw0KPiA+ICBMOiAg
+IGxpbnV4LWNsa0B2Z2VyLmtlcm5lbC5vcmcNCj4gPiAgUzogICBTdXBwb3J0ZWQNCj4gPiAgRjog
+ICBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvY2xvY2svcmVhbHRlayoNCj4gPiAr
+RjogICBkcml2ZXJzL3Jlc2V0L3JlYWx0ZWsvKg0KPiA+ICBGOiAgIGluY2x1ZGUvZHQtYmluZGlu
+Z3MvY2xvY2svcmVhbHRlayoNCj4gPiAgRjogICBpbmNsdWRlL2R0LWJpbmRpbmdzL3Jlc2V0L3Jl
+YWx0ZWsqDQo+ID4NCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9yZXNldC9LY29uZmlnIGIvZHJp
+dmVycy9yZXNldC9LY29uZmlnIGluZGV4DQo+ID4gN2NlMTUxZjZhN2U0Li4wM2JlMTkzMWYyNjQg
+MTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVycy9yZXNldC9LY29uZmlnDQo+ID4gKysrIGIvZHJpdmVy
+cy9yZXNldC9LY29uZmlnDQo+ID4gQEAgLTM5OCw2ICszOTgsNyBAQCBjb25maWcgUkVTRVRfWllO
+UU1QDQo+ID4NCj4gPiAgc291cmNlICJkcml2ZXJzL3Jlc2V0L2FtbG9naWMvS2NvbmZpZyINCj4g
+PiAgc291cmNlICJkcml2ZXJzL3Jlc2V0L2hpc2lsaWNvbi9LY29uZmlnIg0KPiA+ICtzb3VyY2Ug
+ImRyaXZlcnMvcmVzZXQvcmVhbHRlay9LY29uZmlnIg0KPiA+ICBzb3VyY2UgImRyaXZlcnMvcmVz
+ZXQvc3BhY2VtaXQvS2NvbmZpZyINCj4gPiAgc291cmNlICJkcml2ZXJzL3Jlc2V0L3N0YXJmaXZl
+L0tjb25maWciDQo+ID4gIHNvdXJjZSAiZHJpdmVycy9yZXNldC9zdGkvS2NvbmZpZyINCj4gPiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9yZXNldC9NYWtlZmlsZSBiL2RyaXZlcnMvcmVzZXQvTWFrZWZp
+bGUgaW5kZXgNCj4gPiBmYzBjYzk5Zjg1MTQuLjQ0MDdkMTYzMDA3MCAxMDA2NDQNCj4gPiAtLS0g
+YS9kcml2ZXJzL3Jlc2V0L01ha2VmaWxlDQo+ID4gKysrIGIvZHJpdmVycy9yZXNldC9NYWtlZmls
+ZQ0KPiA+IEBAIC0yLDYgKzIsNyBAQA0KPiA+ICBvYmoteSArPSBjb3JlLm8NCj4gPiAgb2JqLXkg
+Kz0gYW1sb2dpYy8NCj4gPiAgb2JqLXkgKz0gaGlzaWxpY29uLw0KPiA+ICtvYmoteSArPSByZWFs
+dGVrLw0KPiA+ICBvYmoteSArPSBzcGFjZW1pdC8NCj4gPiAgb2JqLXkgKz0gc3RhcmZpdmUvDQo+
+ID4gIG9iai15ICs9IHN0aS8NCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9yZXNldC9yZWFsdGVr
+L0tjb25maWcNCj4gPiBiL2RyaXZlcnMvcmVzZXQvcmVhbHRlay9LY29uZmlnIG5ldyBmaWxlIG1v
+ZGUgMTAwNjQ0IGluZGV4DQo+ID4gMDAwMDAwMDAwMDAwLi45OWExNGQzNTU4MDMNCj4gPiAtLS0g
+L2Rldi9udWxsDQo+ID4gKysrIGIvZHJpdmVycy9yZXNldC9yZWFsdGVrL0tjb25maWcNCj4gPiBA
+QCAtMCwwICsxLDMgQEANCj4gPiArIyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1v
+bmx5IGNvbmZpZyBSRVNFVF9SVEtfQ09NTU9ODQo+ID4gKyAgICAgYm9vbA0KPiANCj4gUGxlYXNl
+IG1ha2UgdGhpcyBidWlsZC10ZXN0YWJsZSB3aXRoIENPTVBJTEVfVEVTVC4NCj4NCg0KSSB3aWxs
+IGNoYW5nZSBLY29uZmlnIHRvDQoNCmNvbmZpZyBSRVNFVF9SVEtfQ09NTU9ODQrigIPigIN0cmlz
+dGF0ZSAiUmVhbHRlayBjb21tb24gcmVzZXQgZHJpdmVyIiBpZiBDT01QSUxFX1RFU1QNCuKAg+KA
+g2hlbHANCuKAg+KAgyAgQ29tbW9uIGhlbHBlciBjb2RlIHNoYXJlZCBieSBSZWFsdGVrIHJlc2V0
+IGNvbnRyb2xsZXIgZHJpdmVycy4NCg0KY29uZmlnIENPTU1PTl9SRVNFVF9SVEQxNjI1DQrigIPi
+gIN0cmlzdGF0ZSAiUlREMTYyNSBSZXNldCBDb250cm9sbGVyIg0K4oCD4oCDZGVwZW5kcyBvbiBB
+UkNIX1JFQUxURUsgfHwgQ09NUElMRV9URVNUDQrigIPigINzZWxlY3QgUkVTRVRfUlRLX0NPTU1P
+Tg0K4oCD4oCDc2VsZWN0IEFVWElMSUFSWV9CVVMNCuKAg+KAg2hlbHANCuKAg+KAgyAgVGhpcyBl
+bmFibGVzIHRoZSByZXNldCBjb250cm9sbGVyIGRyaXZlciBmb3IgUmVhbHRlayBSVEQxNjI1IFNv
+Qy4NCg0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3Jlc2V0L3JlYWx0ZWsvTWFrZWZpbGUNCj4g
+PiBiL2RyaXZlcnMvcmVzZXQvcmVhbHRlay9NYWtlZmlsZSBuZXcgZmlsZSBtb2RlIDEwMDY0NCBp
+bmRleA0KPiA+IDAwMDAwMDAwMDAwMC4uYjU5YTNmN2YyNDUzDQo+ID4gLS0tIC9kZXYvbnVsbA0K
+PiA+ICsrKyBiL2RyaXZlcnMvcmVzZXQvcmVhbHRlay9NYWtlZmlsZQ0KPiA+IEBAIC0wLDAgKzEs
+MiBAQA0KPiA+ICsjIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wLW9ubHkNCj4gPiAr
+b2JqLSQoQ09ORklHX1JFU0VUX1JUS19DT01NT04pICs9IGNvbW1vbi5vDQo+ID4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvcmVzZXQvcmVhbHRlay9jb21tb24uYw0KPiA+IGIvZHJpdmVycy9yZXNldC9y
+ZWFsdGVrL2NvbW1vbi5jIG5ldyBmaWxlIG1vZGUgMTAwNjQ0IGluZGV4DQo+ID4gMDAwMDAwMDAw
+MDAwLi5lYTdmZjI3MTE3ZTcNCj4gPiAtLS0gL2Rldi9udWxsDQo+ID4gKysrIGIvZHJpdmVycy9y
+ZXNldC9yZWFsdGVrL2NvbW1vbi5jDQo+ID4gQEAgLTAsMCArMSw4NSBAQA0KPiA+ICsvLyBTUERY
+LUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1vbmx5DQo+ID4gKy8qDQo+ID4gKyAqIENvcHly
+aWdodCAoQykgMjAxOSBSZWFsdGVrIFNlbWljb25kdWN0b3IgQ29ycG9yYXRpb24gICovDQo+ID4g
+Kw0KPiA+ICsjaW5jbHVkZSA8bGludXgvZGV2aWNlLmg+DQo+ID4gKyNpbmNsdWRlIDxsaW51eC9t
+b2R1bGUuaD4NCj4gPiArI2luY2x1ZGUgPGxpbnV4L29mLmg+DQo+ID4gKyNpbmNsdWRlIDxsaW51
+eC9yZWdtYXAuaD4NCj4gPiArI2luY2x1ZGUgImNvbW1vbi5oIg0KPiA+ICsNCj4gPiArc3RhdGlj
+IGlubGluZSBzdHJ1Y3QgcnRrX3Jlc2V0X2RhdGEgKnRvX3J0a19yZXNldF9jb250cm9sbGVyKHN0
+cnVjdA0KPiA+ICtyZXNldF9jb250cm9sbGVyX2RldiAqcikgew0KPiA+ICsgICAgIHJldHVybiBj
+b250YWluZXJfb2Yociwgc3RydWN0IHJ0a19yZXNldF9kYXRhLCByY2Rldik7IH0NCj4gPiArDQo+
+ID4gK3N0YXRpYyBpbmxpbmUgc3RydWN0IHJ0a19yZXNldF9kZXNjICpydGtfcmVzZXRfZ2V0X2Rl
+c2Moc3RydWN0IHJ0a19yZXNldF9kYXRhDQo+ICpkYXRhLA0KPiA+ICsgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHVuc2lnbmVkDQo+IGxvbmcNCj4g
+PiAraWR4KSB7DQo+ID4gKyAgICAgcmV0dXJuICZkYXRhLT5kZXNjc1tpZHhdOw0KPiA+ICt9DQo+
+ID4gKw0KPiA+ICtzdGF0aWMgaW50IHJ0a19yZXNldF9hc3NlcnQoc3RydWN0IHJlc2V0X2NvbnRy
+b2xsZXJfZGV2ICpyY2RldiwNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgIHVuc2lnbmVk
+IGxvbmcgaWR4KSB7DQo+ID4gKyAgICAgc3RydWN0IHJ0a19yZXNldF9kYXRhICpkYXRhID0gdG9f
+cnRrX3Jlc2V0X2NvbnRyb2xsZXIocmNkZXYpOw0KPiA+ICsgICAgIHN0cnVjdCBydGtfcmVzZXRf
+ZGVzYyAqZGVzYyA9IHJ0a19yZXNldF9nZXRfZGVzYyhkYXRhLCBpZHgpOw0KPiA+ICsgICAgIHUz
+MiBtYXNrID0gZGVzYy0+d3JpdGVfZW4gPyAoMHgzIDw8IGRlc2MtPmJpdCkgOiBCSVQoZGVzYy0+
+Yml0KTsNCj4gPiArICAgICB1MzIgdmFsICA9IGRlc2MtPndyaXRlX2VuID8gKDB4MiA8PCBkZXNj
+LT5iaXQpIDogMDsNCj4gPiArDQo+ID4gKyAgICAgcmV0dXJuIHJlZ21hcF91cGRhdGVfYml0cyhk
+YXRhLT5yZWdtYXAsIGRlc2MtPm9mcywgbWFzaywgdmFsKTsgfQ0KPiA+ICsNCj4gPiArc3RhdGlj
+IGludCBydGtfcmVzZXRfZGVhc3NlcnQoc3RydWN0IHJlc2V0X2NvbnRyb2xsZXJfZGV2ICpyY2Rl
+diwNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgdW5zaWduZWQgbG9uZyBpZHgpIHsN
+Cj4gPiArICAgICBzdHJ1Y3QgcnRrX3Jlc2V0X2RhdGEgKmRhdGEgPSB0b19ydGtfcmVzZXRfY29u
+dHJvbGxlcihyY2Rldik7DQo+ID4gKyAgICAgc3RydWN0IHJ0a19yZXNldF9kZXNjICpkZXNjID0g
+cnRrX3Jlc2V0X2dldF9kZXNjKGRhdGEsIGlkeCk7DQo+ID4gKyAgICAgdTMyIG1hc2sgPSBkZXNj
+LT53cml0ZV9lbiA/ICgweDMgPDwgZGVzYy0+Yml0KSA6IEJJVChkZXNjLT5iaXQpOw0KPiA+ICsg
+ICAgIHUzMiB2YWwgID0gbWFzazsNCj4gPiArDQo+ID4gKyAgICAgcmV0dXJuIHJlZ21hcF91cGRh
+dGVfYml0cyhkYXRhLT5yZWdtYXAsIGRlc2MtPm9mcywgbWFzaywgdmFsKTsgfQ0KPiA+ICsNCj4g
+PiArc3RhdGljIGludCBydGtfcmVzZXRfc3RhdHVzKHN0cnVjdCByZXNldF9jb250cm9sbGVyX2Rl
+diAqcmNkZXYsDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICB1bnNpZ25lZCBsb25nIGlk
+eCkgew0KPiA+ICsgICAgIHN0cnVjdCBydGtfcmVzZXRfZGF0YSAqZGF0YSA9IHRvX3J0a19yZXNl
+dF9jb250cm9sbGVyKHJjZGV2KTsNCj4gPiArICAgICBzdHJ1Y3QgcnRrX3Jlc2V0X2Rlc2MgKmRl
+c2MgPSBydGtfcmVzZXRfZ2V0X2Rlc2MoZGF0YSwgaWR4KTsNCj4gPiArICAgICB1MzIgdmFsOw0K
+PiA+ICsgICAgIGludCByZXQ7DQo+ID4gKw0KPiA+ICsgICAgIHJldCA9IHJlZ21hcF9yZWFkKGRh
+dGEtPnJlZ21hcCwgZGVzYy0+b2ZzLCAmdmFsKTsNCj4gPiArICAgICBpZiAocmV0KQ0KPiA+ICsg
+ICAgICAgICAgICAgcmV0dXJuIHJldDsNCj4gPiArDQo+ID4gKyAgICAgcmV0dXJuICEoKHZhbCA+
+PiBkZXNjLT5iaXQpICYgMSk7IH0NCj4gPiArDQo+ID4gK3N0YXRpYyBjb25zdCBzdHJ1Y3QgcmVz
+ZXRfY29udHJvbF9vcHMgcnRrX3Jlc2V0X29wcyA9IHsNCj4gPiArICAgICAuYXNzZXJ0ICAgPSBy
+dGtfcmVzZXRfYXNzZXJ0LA0KPiA+ICsgICAgIC5kZWFzc2VydCA9IHJ0a19yZXNldF9kZWFzc2Vy
+dCwNCj4gPiArICAgICAuc3RhdHVzICAgPSBydGtfcmVzZXRfc3RhdHVzLA0KPiA+ICt9Ow0KPiA+
+ICsNCj4gPiArLyogVGhlIGNhbGxlciBtdXN0IGluaXRpYWxpemUgZGF0YS0+cmNkZXYubnJfcmVz
+ZXRzIGFuZCBkYXRhLT5kZXNjcw0KPiA+ICtiZWZvcmUNCj4gPiArICogY2FsbGluZyBydGtfcmVz
+ZXRfY29udHJvbGxlcl9hZGQoKS4NCj4gPiArICovDQo+ID4gK2ludCBydGtfcmVzZXRfY29udHJv
+bGxlcl9hZGQoc3RydWN0IGRldmljZSAqZGV2LA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHN0cnVjdCBydGtfcmVzZXRfZGF0YSAqZGF0YSkgew0KPiA+ICsgICAgIHN0cnVjdCBkZXZp
+Y2UgKnBhcmVudCA9IGRldi0+cGFyZW50Ow0KPiA+ICsNCj4gPiArICAgICBkYXRhLT5yZWdtYXAg
+PSBkZXZfZ2V0X3JlZ21hcChwYXJlbnQsIE5VTEwpOw0KPiA+ICsgICAgIGlmICghZGF0YS0+cmVn
+bWFwKQ0KPiA+ICsgICAgICAgICAgICAgcmV0dXJuIC1FTk9ERVY7DQo+ID4gKw0KPiA+ICsgICAg
+IGRhdGEtPnJjZGV2Lm93bmVyICAgICA9IFRISVNfTU9EVUxFOw0KPiANCj4gVGhlIHJ0a19yZXNl
+dF9kZXNjIGFycmF5cyB1c2VkIGJ5IHRoaXMgY29kZSBsaXZlIGluIHRoZSBjYWxsaW5nIG1vZHVs
+ZSwgc28gaXQNCj4gd291bGQgYmUgYmV0dGVyIHRvIGxldCB0aGUgY2FsbGVyIGluaXRpYWxpemUg
+Lm93bmVyIGFzIHdlbGwuDQo+IA0KPiBJdCBkb2Vzbid0IG1ha2UgYSBkaWZmZXJlbmNlIGluIHBy
+YWN0aWNlLCBzaW5jZSBDT05GSUdfUkVTRVRfUlRLX0NPTU1PTg0KPiBpc24ndCB0cmlzdGF0ZSAo
+cmlnaHQgbm93KS4NCj4gDQoNCkkgd2lsbCBtb3ZlICdkYXRhLT5yY2Rldi5vd25lciA9IFRISVNf
+TU9EVUxFJyB0byB0aGUgY2FsbGVyLg0KDQpCZXN0IFJlZ2FyZHMsDQpZdS1DaHVuDQoNCj4gDQo+
+IHJlZ2FyZHMNCj4gUGhpbGlwcA0K
