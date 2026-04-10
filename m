@@ -1,188 +1,150 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94B6D3002B9
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 10:57:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6DCB398918
+	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 10:57:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775818665; cv=none; b=uZCSCAGDLhtvCK7qxRQLOMm7BNQekcCG6R+i4/xUwUdVyt8Z8VjQKiMzyhD335GtvSIuvrBqw0OOZHthxv7O4tntaz6a/Y3koxE5T76csXoELCSat111j8KVSbbTkaXUFclOOFUjaqTRFnJz01an9p166C2fbPGAcsyT5Wh1XLU=
+	t=1775818676; cv=none; b=Btp/PD1LVD8QNcQBFNff6BubLMXIEFLRnAG+WAEj7NIu74o6+NWE+Awrx0WP0mcPAyt56Vo3U2DTohI6hlTMYWcWguzR0Kws68Qb/orvIJSc+tg2z146HBhV4KObJEU1/djIBfLCL60ORlxf4rZE48Rr2x/rcRfrt1QnpWjSzaw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775818665; c=relaxed/simple;
-	bh=+q+1OhDdzvPZ+krF5hp5AKstKd3Qe2GUMwhgQ5xgalk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LMJoXB3pAN3Avw4/mrdvh8qcqoyyLDMirHQoz2bD4M0fqPDXe+GsU/n3qe1RK8zI2Ft6aIgRZupouaeI/thxI2et7lqHmRwV1JB2UU5gOwD0Ax5qxRvXD6SP/71DnR0qv2LkJgrEcR4oJj4FXbB598YPJ25Q8qNohcDIxA2pmQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CkdTtaf2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Xxsn6grA; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1775818676; c=relaxed/simple;
+	bh=J3SSveqiYGEqaxrur6FeuF/gwWkfkw7ff6t1aPxNYSY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mIQ0mLwlg+27GFr1Xuzp36ODOsfALL6Bdf1tnbPK8j6NMIbQEBHt0eBfKWZNnFyFg3QR5aCZ07McYasLPVMdW8pgnSFv8WLqeiA+5TLo8rvylpROp/+sfU4p2Yh0cHcrEAaQwdTfn7VGPdmxB6gghTdqADkVpDactR+AWqwTnoY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dwgpam1t; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CkdTtaf2";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Xxsn6grA"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63AA62NP017417
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 10:57:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	A8SRtNLpNrKw7SKWjiRL/dpR0Kq7TCMarVsjksXHNUo=; b=CkdTtaf2nqO2xGy8
-	Bi410T3HIY9W7ZVvMQzBUGspYTiLWjE+ICQmE2j+qe8fXz6QfmQZq7xrJxg9Aeqg
-	1bHek48yjW6VfugcMLvj/et5eBFb7eFe2wGQIuJIOwTu+hZBmyIPk0AfWLTyX/vF
-	VR7SQ6b286brkyvfzsnCzb5VCVFnwm2luRlVBf1/XfJTz+Wl+IegnsHWtTotUQjk
-	1LEqvY635IeSOn0pkb8E3Tx97EwT9YDMeO0fZWwWUAo7L1OnFHZmo6TdO82fCGjX
-	aR5wLwGCm34fPAgZheTJFKeYYLdbOSnoDEFBUoio63nlLy7/E7gi3eGuLD42OTOD
-	zd8cbA==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dey5j0593-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 10:57:43 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2b2523e0299so46183625ad.3
-        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 03:57:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775818662; x=1776423462; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=A8SRtNLpNrKw7SKWjiRL/dpR0Kq7TCMarVsjksXHNUo=;
-        b=Xxsn6grAo6ebetO+WFMc1Xf0DJQU0m8YRVLRhiJPb8w+8iAeGuON5nJW4SfQXAzCDT
-         KBIvFU25YN+K1l2UlbBp3QTXwEAGyA/lekiHSPDOPPz2Jvu9bcftPT42KdP6S3W1MhTm
-         bJC4uxhYiVZKQuVPJwTmEvxlfDyFQfAbcmeo8LWnQj7QgylsLhX96VDwtLeKYdCm+Uih
-         sy8beDsbsWPRpH783VLkeiwEfmFvIAubjTI0KArO6Bka/ALD9tqSGDKYpccs+BHim5OE
-         hvaD+BKMJc+ylVebSxzGgKRMJV6o+s4DKkTlaPoOxzzoJgzChlFvTkhOAtjdrkCgjJnd
-         LC5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775818662; x=1776423462;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=A8SRtNLpNrKw7SKWjiRL/dpR0Kq7TCMarVsjksXHNUo=;
-        b=gdijcS6JfXsO86vO1+1jKLb2KdRPorp1VWRuOR/Obde056nw7g3NivD4D2bF92hXaq
-         9kVMqpxiZfYrEZJPwMaFqSW8T3IASY6/tvwW8l04dvMR4tez3tftrH6QYH3IYgFH+5A+
-         9YsSrwUc4cBYWhS/19NnLJCYlC1DgyWjfEpYBR2ZYtVp+EPpk3ThdrtDY14FMWzD8pIj
-         a7iLA1Bzng4pwk9en1KCP1XYTp3GHehpg6XkQ6TV9yLHZGI8JeqtxNsALo5lu0TJcT6K
-         FP8SNXFcx7+llxr53d06Ca8c41c03T5BsFKP0bLD83unCozcvplPCo9tjIL2WI9VgpOS
-         x6dA==
-X-Forwarded-Encrypted: i=1; AJvYcCX56FQFnDPNv4UuD5AoAeHrEWCRFavIBp5mppbJhK9OBb5XuNRhVy5sSNkLPYGkEDGwAovftsekfBsX@vger.kernel.org
-X-Gm-Message-State: AOJu0YzAEAvu1sSyY0lwn0huSdYojdlzb+B6LweD8fMPEKI3NPrd/HGk
-	ily50RWMZmRHvi/OZUxBaNxAmc/NXIUIN36ot3SEHGPmO+pnTeKZ9Tvbhwf0F1uf2fvTzjFtuGE
-	wsRMMF7s8yKnNjtg0pIHi9nKhKXPrWmntAz/A35rtEqtUOGsL8bkQe4+jCaCj10EG
-X-Gm-Gg: AeBDietBQXGAffUCwNTxJv/FfT5JTbYcXkZahnALLp5onfMm8hV7Qf3dO34kh4PBGuJ
-	YeyLQZmXEz7NfRFfVrIet/6J1A0e4wEmsYpmvXbd/z9wA4qHGpeO9liS2ppipnh4iR8tN24ZSxr
-	mL52Cxq/am2qvqeSKB1uFfCua1ilMwnyXjHfoJoR039lleQC9l+d2GoLGG+uJ5yAqKE7xIN10tl
-	mRAT3QG5v5+0dBWz59YbNeDjw278Elv+7ChRfwrD7qZIVkrr7iVj14kdjepGMHHzzV/GXQ6XG1E
-	K/QH5+TLd8f6LsM2Om+qjq6wk4eqTWg/VVBTAvy9cyEvOJHc/3QG9X7TmVtmEBAeSHlW2PF4pyz
-	Ibg9r2gMtPPi4skCnHtjyA+4Fizo2Em6z1pvLED/gOaWWwxyn74Gz
-X-Received: by 2002:a17:902:b101:b0:2b2:5491:e32b with SMTP id d9443c01a7336-2b2d5a2a296mr20063485ad.23.1775818662530;
-        Fri, 10 Apr 2026 03:57:42 -0700 (PDT)
-X-Received: by 2002:a17:902:b101:b0:2b2:5491:e32b with SMTP id d9443c01a7336-2b2d5a2a296mr20063225ad.23.1775818661968;
-        Fri, 10 Apr 2026 03:57:41 -0700 (PDT)
-Received: from [10.218.44.178] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b2d4e15f71sm27075985ad.34.2026.04.10.03.57.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Apr 2026 03:57:41 -0700 (PDT)
-Message-ID: <71c6c453-4a6b-414e-a039-80f36e948489@oss.qualcomm.com>
-Date: Fri, 10 Apr 2026 16:27:35 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dwgpam1t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67BD6C4AF09
+	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 10:57:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775818676;
+	bh=J3SSveqiYGEqaxrur6FeuF/gwWkfkw7ff6t1aPxNYSY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=Dwgpam1tEIdD4KfA38GLrh/kCplxbb1sZsi4kWDQOVcU/0tTUe7m3eJfuAhJoxuL8
+	 T4LIl+2KPAKpNfHPRFX1+r3S1hkiuvyBRKmDLRwYzdiF0X0Og19SVk3GWo37y4SATU
+	 mW3PETNmvpIUJC7kp/v1kwQ+XZC8FkAe3eY6Fb5OcbWVKOVWYycieZhIvDcNFMoRRL
+	 JjSkC6RPc+SrMyKSQUw6wl29bjk7KHlO0NFKIH6XkOBhx60Hpl/II1R7jaNNPWfTPU
+	 lmId3dYTXb8I9MIWozUoe3Dyr845RD3njfWukCSDjMMv9wo+kFdSj/9WDqaFbxSg26
+	 itFG9fN30+Uew==
+Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-7d4be94eeacso1988094a34.2
+        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 03:57:56 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCWRB7Bu4YbKB1yUwif07pGiqdNRW341iAyFAV5C9mxi0loan95g5VR/V2XtCx5oK1ubU+a9IRF2oVPC@vger.kernel.org
+X-Gm-Message-State: AOJu0YwFV40exIlymRsJwdGXWVNfw95EVIgAqKqIl/m+yJ5ruYLaMPVm
+	xVD+Vgt/iauMs9qdUHR/tJkIvJ/oHUi3Zk96cal/qT6I8TA+kfecGw52uSqcNBP6UatK/LBzhI+
+	5y23V9+Sb83XXNo6/2Si8CQYpT4gntqM=
+X-Received: by 2002:a05:6820:328d:b0:682:fa66:61cb with SMTP id
+ 006d021491bc7-68be7ee1e4emr834163eaf.41.1775818675345; Fri, 10 Apr 2026
+ 03:57:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 5/5] arm64: dts: qcom: monaco: Add OPP-table for ICE
- UFS and ICE eMMC nodes
-To: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-        "Martin K. Petersen" <martin.petersen@oracle.com>,
-        Adrian Hunter <adrian.hunter@intel.com>,
-        Ulf Hansson
- <ulf.hansson@linaro.org>,
-        Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
-        Harshal Dev <harshal.dev@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-scsi@vger.kernel.org, linux-mmc@vger.kernel.org,
-        devicetree@vger.kernel.org
-References: <20260409-enable-ice-clock-scaling-v8-0-ca1129798606@oss.qualcomm.com>
- <20260409-enable-ice-clock-scaling-v8-5-ca1129798606@oss.qualcomm.com>
-Content-Language: en-US
-From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-In-Reply-To: <20260409-enable-ice-clock-scaling-v8-5-ca1129798606@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: c3pnrIxV6HOuACMSiptMPEhXzYjVwlsF
-X-Authority-Analysis: v=2.4 cv=b9aCJNGx c=1 sm=1 tr=0 ts=69d8d7a7 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=QRdWpJMrku1fmPn5X40A:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-ORIG-GUID: c3pnrIxV6HOuACMSiptMPEhXzYjVwlsF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEwMDEwMSBTYWx0ZWRfX4hYMbrk9gpeJ
- 1wexcr/Uu4f1JmEFVmS47SK1s4QCf7a8AOOcagwAP+3KMcBMuGYw11iDdJ2MTq6z12isb2hIqzL
- TKw1rh5DNCR69d8LWBT8OnVvyq1rzbIythuCqQ6EOKWsLEKgddPYJ+bL7a5ngrKsewa2sN4d8Dg
- 9Wag32nTwZLT3kTfIps+4iy/rUGDkLyIkpqn/CU54+HsPDnAu5blrv1w2D8vv28w0yEVJXup3/O
- 9MfRR1QodP9gH2WjqqjpxKzwrLjUYMwxeT6Hna9ehyuc121AeC2/raWCHeV1GtITVDyWfI+cdZ3
- qTz3WabyKElBhwfuarDmpLFfsu6WCo+VPaAtXGXBsTRCwcCD+MBrPvwKHM+Wt2Q7JFQwCcyaxPk
- Vsj4cPRWqOwmEj189iVH5xODzz2ATEcSmjEbFFwaS4z4madSLztSCHDYy0gIkPO6JKxm3ZvZ/OC
- CtsUchEtYP72vjahoPA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-10_03,2026-04-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 impostorscore=0 adultscore=0 priorityscore=1501
- phishscore=0 lowpriorityscore=0 malwarescore=0 bulkscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604100101
+References: <20260409105747.48158-1-akhilrajeev@nvidia.com>
+ <20260409105747.48158-3-akhilrajeev@nvidia.com> <adhalQxfbMsL3V0T@lizhi-Precision-Tower-5810>
+In-Reply-To: <adhalQxfbMsL3V0T@lizhi-Precision-Tower-5810>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Fri, 10 Apr 2026 12:57:43 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0jKZJg3Yh6OYiKncipT-47N0o0QLniPtj4NO+ojmsJ1rQ@mail.gmail.com>
+X-Gm-Features: AQROBzAjJeCEEVSt2XY1F7M-MV9mizZ42mbvlFT3Shx19xZYzF_yLub_Mz-tACQ
+Message-ID: <CAJZ5v0jKZJg3Yh6OYiKncipT-47N0o0QLniPtj4NO+ojmsJ1rQ@mail.gmail.com>
+Subject: Re: [PATCH v2 02/13] ACPICA: Read LVR from the I2C resource descriptor
+To: Frank Li <Frank.li@nxp.com>
+Cc: Akhil R <akhilrajeev@nvidia.com>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	"Rafael J . Wysocki" <rafael@kernel.org>, Robert Moore <robert.moore@intel.com>, Len Brown <lenb@kernel.org>, 
+	Guenter Roeck <linux@roeck-us.net>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Eric Biggers <ebiggers@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+	Miquel Raynal <miquel.raynal@bootlin.com>, linux-i3c@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev, 
+	linux-hwmon@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Fri, Apr 10, 2026 at 4:04=E2=80=AFAM Frank Li <Frank.li@nxp.com> wrote:
+>
+> On Thu, Apr 09, 2026 at 04:27:32PM +0530, Akhil R wrote:
+> > ACPI 6.3 specifies byte 8 of I2C Serial Bus Connection descriptor to be
+> > used for Legacy Virtual Register (LVR) data as specified in the MIPI
+> > I3C Specification for an I2C device connected to an I3C Host Controller=
+.
+> > LVR will be read by I3C host controller drivers and it provides details
+> > about the specific speed and 50ns spike filter capabilities of I2C
+> > devices.
+> >
+> > Update the rsconvert_info to include this field. For I2C devices on an
+> > I2C bus, this field is Reserved and unused.
+> >
+> > This commit is the result of squashing the following:
+> > ACPICA commit 70082dc8fc847673ac7f4bbb1541776730f0b63e
+> > ACPICA commit e62e74baf7e08cf059ec82049aeccd565b24d661
+> > ACPICA commit c404118235108012cad396c834b5aabe2dd1b51a
+> > ACPICA commit 7650d4a889ea7907060bfce89f4f780ce83e7b28
+> > ACPICA commit 014fa9f2dbcc6b1bd42a4a4a6f6705d9cf7d460b
+>
+> These commit number is not existed at linus official tree. Please remove =
+it.
 
+These are upstream ACPICA commits and it is entirely legitimate to
+mention them in kernel commits touching ACPICA code.
 
-On 4/9/2026 5:14 PM, Abhinaba Rakshit wrote:
-> Qualcomm Inline Crypto Engine (ICE) platform driver now, supports
-> an optional OPP-table.
-> 
-> Add OPP-table for ICE UFS and ICE eMMC device nodes for Monaco
-> platform.
-> 
-> Signed-off-by: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/monaco.dtsi | 32 ++++++++++++++++++++++++++++++++
->  1 file changed, 32 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/qcom/monaco.dtsi
-> index 487bb682ae8620b819f022162edd11023ed07be8..cb0e554e94d237b0adccb55fa9ed967bae9eea05 100644
-> --- a/arch/arm64/boot/dts/qcom/monaco.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
-> @@ -2730,6 +2730,22 @@ ice: crypto@1d88000 {
->  			clock-names = "core",
->  				      "iface";
->  			power-domains = <&gcc GCC_UFS_PHY_GDSC>;
-> +
-> +			operating-points-v2 = <&ice_opp_table>;
-> +
-> +			ice_opp_table: opp-table {
-> +				compatible = "operating-points-v2";
-> +
+However, Link: tags pointing to those commits would be sufficient.
 
-75MHz is supported too. Please add that entry.
-
-> +				opp-201600000 {
-> +					opp-hz = /bits/ 64 <201600000>;
-> +					required-opps = <&rpmhpd_opp_svs_l1>;
-> +				};
-> +
-> +				opp-403200000 {
-> +					opp-hz = /bits/ 64 <403200000>;
-> +					required-opps = <&rpmhpd_opp_nom>;
-> +				};
-> +			};
->  		};
-
--- 
-Regards
-Kuldeep
-
+> >
+> > Link: https://github.com/acpica/acpica/commit/70082dc8
+> > Link: https://github.com/acpica/acpica/commit/b3c38dc9
+> > Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
+> > ---
+> >  drivers/acpi/acpica/rsserial.c | 6 +++++-
+> >  include/acpi/acrestyp.h        | 1 +
+> >  2 files changed, 6 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/acpi/acpica/rsserial.c b/drivers/acpi/acpica/rsser=
+ial.c
+> > index 279bfa27da94..c06e918ab889 100644
+> > --- a/drivers/acpi/acpica/rsserial.c
+> > +++ b/drivers/acpi/acpica/rsserial.c
+> > @@ -315,7 +315,7 @@ struct acpi_rsconvert_info acpi_rs_convert_csi2_ser=
+ial_bus[14] =3D {
+> >   *
+> >   *********************************************************************=
+*********/
+> >
+> > -struct acpi_rsconvert_info acpi_rs_convert_i2c_serial_bus[17] =3D {
+> > +struct acpi_rsconvert_info acpi_rs_convert_i2c_serial_bus[18] =3D {
+> >       {ACPI_RSC_INITGET, ACPI_RESOURCE_TYPE_SERIAL_BUS,
+> >        ACPI_RS_SIZE(struct acpi_resource_i2c_serialbus),
+> >        ACPI_RSC_TABLE_SIZE(acpi_rs_convert_i2c_serial_bus)},
+> > @@ -391,6 +391,10 @@ struct acpi_rsconvert_info acpi_rs_convert_i2c_ser=
+ial_bus[17] =3D {
+> >        AML_OFFSET(i2c_serial_bus.type_specific_flags),
+> >        0},
+> >
+> > +     {ACPI_RSC_MOVE8, ACPI_RS_OFFSET(data.i2c_serial_bus.lvr),
+> > +      AML_OFFSET(i2c_serial_bus.type_specific_flags) + 1,
+> > +      1},
+> > +
+> >       {ACPI_RSC_MOVE32, ACPI_RS_OFFSET(data.i2c_serial_bus.connection_s=
+peed),
+> >        AML_OFFSET(i2c_serial_bus.connection_speed),
+> >        1},
+> > diff --git a/include/acpi/acrestyp.h b/include/acpi/acrestyp.h
+> > index 842f932e2c2b..38a19b1d19ac 100644
+> > --- a/include/acpi/acrestyp.h
+> > +++ b/include/acpi/acrestyp.h
+> > @@ -423,6 +423,7 @@ struct acpi_resource_i2c_serialbus {
+> >       ACPI_RESOURCE_SERIAL_COMMON u8 access_mode;
+> >       u16 slave_address;
+> >       u32 connection_speed;
+> > +     u8 lvr;
+> >  };
+> >
+> >  /* Values for access_mode field above */
+> > --
+> > 2.50.1
+> >
+>
