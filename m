@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D31D32572F;
-	Fri, 10 Apr 2026 06:37:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A5D7261B92;
+	Fri, 10 Apr 2026 06:39:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775803049; cv=none; b=t3ML+9EhRQUdK3cQcILgjHLex0AqB8ho8atQTctsWz9/rBqMv8p995sctLq6EukQuLUMGYHBf/enWEARJI1C+wW7PLvAnFZFrd7udCIv8oCQs/E/YIe0GMxLYuDGHN5OE3TmAB319p0jy3/TPrDIgKGhpVFjwZbLazRFiT6nZ4I=
+	t=1775803166; cv=none; b=bNLVqC0h0CUtP8OJAg0baX4e8I9xFVYdpngnHfNSWpkuyM2Sjec2YfAkySs/Bg4xTGvAP+6U97EOh0NvWyWZeUgg/nziGasSfJoS7Ykeu8/Und97DDfMWjta3/W2U1j2hS7ZszttiAvJDemcKMOdUS5GZH/XBUbWzrnOfkZ2I4w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775803049; c=relaxed/simple;
-	bh=KBa5vFQ5+slgNhst/Sn5LAiOplZSrCZiyilEzz40VKM=;
+	s=arc-20240116; t=1775803166; c=relaxed/simple;
+	bh=adFlCWEbVEtJn7uVVuDP6o/4LyOuJc6hY/7r8SsCL2g=;
 	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=mupndvUd2onzWPeAN6kmLP4z3o5JfMT7m/EIuSrJenAKs5CDkvRm6eey8IA+tPrmfIk+jk8foIzAoaunr6dNPW6eK6OAmKHOG2qKe1j12hC9PScUBJke1IVFXquKhj+/kAUC9rCFugLpD4MZNR4td2lnYNUnozHvp6UZj+lgIXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=St8G5kCW; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=RCYZQpmdNYb6Wk5S/leJq1+BX+dAUVyHU1bgR8YrILFwieHZwDTGZSTIKNLSSzFVd9fL7MVYD6YWpi67ZNdUOLGxLgVCs+ko3jLus9OAtNCl4y8oRv5hGXIaGYGaMEMGW4NBrsohXjZplOG+EVOkgGffvh8/Slyo+swWiqmjZOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JG3bDXPr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="St8G5kCW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61163C19421;
-	Fri, 10 Apr 2026 06:37:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JG3bDXPr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C58B8C19421;
+	Fri, 10 Apr 2026 06:39:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775803049;
-	bh=KBa5vFQ5+slgNhst/Sn5LAiOplZSrCZiyilEzz40VKM=;
+	s=k20201202; t=1775803166;
+	bh=adFlCWEbVEtJn7uVVuDP6o/4LyOuJc6hY/7r8SsCL2g=;
 	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=St8G5kCWWBv73Tx21AeeenftB/7wOTMX2Hk22nJoiwLQWlsjIOwtIpDjKQGFID+cD
-	 1cUyhR6q4dVGQ1qltXwg3WRzoFsqo6RethlW5T0tD03c9FA8WoEVh1KusDFiUAn6gJ
-	 o+cmFUQAhwiyERFzWp0Ugm39kGUrzdMpLntAM2kIG6/uklG923V6jQISyB8HX4NU//
-	 ZmOvt4O+V4wABzrJAsJctp040TCHQ26bmFhG9MLYGplxeZJyF6JZhdnnunQQMRoHQ1
-	 6ZDONgJksVFIV8wel6qcUWaLqjoFr2R42nB65+F7JDxMlurX60ufn/J2s1f75LnKDy
-	 m+G6sbxXo6wng==
-Message-ID: <9408f231-7a12-425c-b8de-2990d3162bb3@kernel.org>
-Date: Fri, 10 Apr 2026 08:37:22 +0200
+	b=JG3bDXPraBPJ2+GZVjmZTYyL1o8EbbD/nuSPbDsaKuTzBKuO5gHU6M7VCpFm0qOGT
+	 XLtErB5QKYnzRe8Vxc0NCOeFJ7eLJutNHcxHVtuSD8Jy9YsPdc8xvzYc9GorozZcdS
+	 ugZ1WNOhztNMT3RrGAPAdyKWPKLQfFhMIOTBNZCFgjs7P7S+aQQp/+tHl2NsFyittL
+	 xnD2OQu3RpSPI6AAtfQ8RZMRX0N2FqU9npNQN78LT9JHs/mpNZHe1cCwCW/3W+fZWf
+	 L1iC6dH3wzk51p8d9Dg1uRhPcRzhfSYUIQkFbSYZH9zCsrP+Hyxg11iwHrnVXxzBSj
+	 HT/w8Fn2bN68A==
+Message-ID: <6fd4bb71-90c5-4fe2-a520-97167fba049f@kernel.org>
+Date: Fri, 10 Apr 2026 08:39:19 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,20 +35,23 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/6] arm64: defconfig: make Tegra238 and Tegra264 Pinctrl
- a loadable module
-To: pshete@nvidia.com, linux-gpio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org, arnd@arndb.de,
- bjorn.andersson@oss.qualcomm.com, conor+dt@kernel.org,
- dmitry.baryshkov@oss.qualcomm.com, ebiggers@kernel.org,
- geert@linux-m68k.org, jonathanh@nvidia.com, krzk+dt@kernel.org,
- kuninori.morimoto.gx@renesas.com, linusw@kernel.org,
- luca.weiss@fairphone.com, michal.simek@amd.com,
- prabhakar.mahadev-lad.rj@bp.renesas.com, robh@kernel.org, rosenp@gmail.com,
- sven@kernel.org, thierry.reding@kernel.org, webgeek1234@gmail.com
-References: <20260409131340.168556-1-pshete@nvidia.com>
- <20260409131340.168556-7-pshete@nvidia.com>
+Subject: Re: [PATCH v2 13/13] arm64: defconfig: Enable I3C and SPD5118 hwmon
+To: Akhil R <akhilrajeev@nvidia.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Robert Moore <robert.moore@intel.com>, Len Brown <lenb@kernel.org>,
+ Guenter Roeck <linux@roeck-us.net>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Eric Biggers <ebiggers@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, linux-i3c@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev,
+ linux-hwmon@vger.kernel.org
+References: <20260409105747.48158-1-akhilrajeev@nvidia.com>
+ <20260409105747.48158-14-akhilrajeev@nvidia.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -94,41 +97,18 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260409131340.168556-7-pshete@nvidia.com>
+In-Reply-To: <20260409105747.48158-14-akhilrajeev@nvidia.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 09/04/2026 15:13, pshete@nvidia.com wrote:
-> From: Prathamesh Shete <pshete@nvidia.com>
-> 
-> Building the Pinctrl driver into the kernel image increases its size.
+On 09/04/2026 12:57, Akhil R wrote:
+> Add I3C subsystem support, DesignWare I3C master controller, and
+> SPD5118 hwmon sensor as modules to the defconfig and therefore
+> enable the support for SPD5118 sensor on SOCAMM found in NVIDIA
+> Vera platforms.
 
-That's obvious.
-
-> These drivers are not required during early boot, build them as a loadable
-> module instead to reduce the kernel image size.
-
-So you replace built-in into module?
-> 
-> Signed-off-by: Prathamesh Shete <pshete@nvidia.com>
-> ---
->  arch/arm64/configs/defconfig | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-> index dd1ac01ee29b..f525670d3b84 100644
-> --- a/arch/arm64/configs/defconfig
-> +++ b/arch/arm64/configs/defconfig
-> @@ -711,6 +711,8 @@ CONFIG_PINCTRL_SC8280XP_LPASS_LPI=m
->  CONFIG_PINCTRL_SM8550_LPASS_LPI=m
->  CONFIG_PINCTRL_SM8650_LPASS_LPI=m
->  CONFIG_PINCTRL_SOPHGO_SG2000=y
-> +CONFIG_PINCTRL_TEGRA238=m
-> +CONFIG_PINCTRL_TEGRA264=m
-
-No, you just added as module. Why do we want them in upstream defconfig?
-
-Standard question, already asked Nvidia more than once.
+git grep for "Vera" gave me zero results. Are you sure this is an
+upstream platform? Please point the DTS using this.
 
 Best regards,
 Krzysztof
