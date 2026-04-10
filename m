@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A5D7261B92;
-	Fri, 10 Apr 2026 06:39:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDBA127CB02;
+	Fri, 10 Apr 2026 06:42:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775803166; cv=none; b=bNLVqC0h0CUtP8OJAg0baX4e8I9xFVYdpngnHfNSWpkuyM2Sjec2YfAkySs/Bg4xTGvAP+6U97EOh0NvWyWZeUgg/nziGasSfJoS7Ykeu8/Und97DDfMWjta3/W2U1j2hS7ZszttiAvJDemcKMOdUS5GZH/XBUbWzrnOfkZ2I4w=
+	t=1775803358; cv=none; b=OhF09kqoiX2fc3V9Zq4zboJg2a8qf/tg0TQGfipbfrDvV7zqocj181uBMEgpY1P93wZwp8TjNrdZe/d7vtWyYzJndBBEqGLkUlxRJ/IDNPdlaNNBVDjfiJEJjCIjfIRpK4770/O7SkJl9R8weGTQzSHjTrGYlgqOiHXNoCMeq+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775803166; c=relaxed/simple;
-	bh=adFlCWEbVEtJn7uVVuDP6o/4LyOuJc6hY/7r8SsCL2g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=RCYZQpmdNYb6Wk5S/leJq1+BX+dAUVyHU1bgR8YrILFwieHZwDTGZSTIKNLSSzFVd9fL7MVYD6YWpi67ZNdUOLGxLgVCs+ko3jLus9OAtNCl4y8oRv5hGXIaGYGaMEMGW4NBrsohXjZplOG+EVOkgGffvh8/Slyo+swWiqmjZOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JG3bDXPr; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775803358; c=relaxed/simple;
+	bh=ExP5iXPCuPkzUAktsanQk4yh+OIzhkbhOeospQVTklo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QhbBNZb4utwbUJg6/2M9DLlXMVgJWyRMfXaT/lg+YOLqiOk6uvM5+nhS7giDweI7SsVgHKsCJ4094lO/KqI2xqJX6Ky5gn7POF8oO7oRdUwATZHSyt+JSqWMBlDPONZOkKVGz9V/2OZnvkmEpLmLxOInil3fpe/2MdsWfRKatOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GpBB+v52; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JG3bDXPr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C58B8C19421;
-	Fri, 10 Apr 2026 06:39:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GpBB+v52"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60703C2BCAF;
+	Fri, 10 Apr 2026 06:42:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775803166;
-	bh=adFlCWEbVEtJn7uVVuDP6o/4LyOuJc6hY/7r8SsCL2g=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=JG3bDXPraBPJ2+GZVjmZTYyL1o8EbbD/nuSPbDsaKuTzBKuO5gHU6M7VCpFm0qOGT
-	 XLtErB5QKYnzRe8Vxc0NCOeFJ7eLJutNHcxHVtuSD8Jy9YsPdc8xvzYc9GorozZcdS
-	 ugZ1WNOhztNMT3RrGAPAdyKWPKLQfFhMIOTBNZCFgjs7P7S+aQQp/+tHl2NsFyittL
-	 xnD2OQu3RpSPI6AAtfQ8RZMRX0N2FqU9npNQN78LT9JHs/mpNZHe1cCwCW/3W+fZWf
-	 L1iC6dH3wzk51p8d9Dg1uRhPcRzhfSYUIQkFbSYZH9zCsrP+Hyxg11iwHrnVXxzBSj
-	 HT/w8Fn2bN68A==
-Message-ID: <6fd4bb71-90c5-4fe2-a520-97167fba049f@kernel.org>
-Date: Fri, 10 Apr 2026 08:39:19 +0200
+	s=k20201202; t=1775803358;
+	bh=ExP5iXPCuPkzUAktsanQk4yh+OIzhkbhOeospQVTklo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=GpBB+v52wHv6pnVOrEy7VUhesQqeQpIwCBiFmFVHF8b1WPyMttGH/gWjGM5bzf99y
+	 +onPiDoVmCxXsGH9LWZGzx6M5LUTuq5r3OPu9ZQa1oveMHvDLnaNLGB3/VdrcCgM2m
+	 ZmMtonRKKKnODWEZqrKw0Wnxa0C7zgrnRGnuPfYv8MC+hA5gTRtfXcnFcV8rvqMB/D
+	 RpG59gn05m/c2Tf6R39RbaAo1s/2+xHKdJAS1yIYiLBs1iBLComo68K80MnIPyN+CP
+	 HRcBAnoXd9OnNmamnC3B/Suf6s2zBHa3B2OHR7oroPGarK9+BlPLMw/DAjZXs0NbjD
+	 XvMeBOZ39c7EQ==
+Message-ID: <3c57275e-0574-46e5-9893-053ae5cc22cb@kernel.org>
+Date: Fri, 10 Apr 2026 08:42:34 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,23 +35,27 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 13/13] arm64: defconfig: Enable I3C and SPD5118 hwmon
-To: Akhil R <akhilrajeev@nvidia.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Robert Moore <robert.moore@intel.com>, Len Brown <lenb@kernel.org>,
- Guenter Roeck <linux@roeck-us.net>, Philipp Zabel <p.zabel@pengutronix.de>,
- Eric Biggers <ebiggers@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, linux-i3c@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev,
- linux-hwmon@vger.kernel.org
-References: <20260409105747.48158-1-akhilrajeev@nvidia.com>
- <20260409105747.48158-14-akhilrajeev@nvidia.com>
+Subject: Re: [PATCH v1 1/2] dt-bindings: i2c: ls2x-i2c: Add clock- related
+ properties
+To: Hongliang Wang <wanghongliang@loongson.cn>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Andi Shyti <andi.shyti@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, loongarch@lists.linux.dev
+References: <20260325011852.19079-1-wanghongliang@loongson.cn>
+ <20260325011852.19079-2-wanghongliang@loongson.cn>
+ <20260325-outstanding-weasel-of-fruition-89db37@quoll>
+ <1b5283d8-294c-86de-c3d8-bf205ac24216@loongson.cn>
+ <0d7dfe5b-5e2d-4850-8922-16eb6bd9bcae@kernel.org>
+ <900dc1a4-66ab-411f-8a32-4c6cf339e8ec@kernel.org>
+ <bc22bad4-9825-829d-1df0-a801ebd933d6@loongson.cn>
+ <ca984be0-e7a6-4897-bf9f-db9465942c6e@kernel.org>
+ <ac62e280-1099-c0bc-f322-ba8b65307053@loongson.cn>
+ <2388acbc-a927-4727-a23c-5ecd7c33a926@kernel.org>
+ <a08ac3f9-a770-df48-a95b-4b07cd2c0d58@loongson.cn>
+ <e10017ce-cda0-5b5e-8cd8-3488aef4cdb0@loongson.cn>
+ <dc1c0b6d-b6e6-4a88-8e50-e8316e3dcf5e@kernel.org>
+ <0f560e80-3fbb-c24f-51f9-b4425db17867@loongson.cn>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -97,18 +101,43 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260409105747.48158-14-akhilrajeev@nvidia.com>
+In-Reply-To: <0f560e80-3fbb-c24f-51f9-b4425db17867@loongson.cn>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 09/04/2026 12:57, Akhil R wrote:
-> Add I3C subsystem support, DesignWare I3C master controller, and
-> SPD5118 hwmon sensor as modules to the defconfig and therefore
-> enable the support for SPD5118 sensor on SOCAMM found in NVIDIA
-> Vera platforms.
+On 10/04/2026 05:04, Hongliang Wang wrote:
+> Hi, Krzysztof
+> 
+> On 2026/4/9 下午8:11, Krzysztof Kozlowski wrote:
+>> On 09/04/2026 14:03, Hongliang Wang wrote:
+>>> I have a question, the input clock of i2c controller can be described by
+>>> "clocks",
+>>> but there is no existing attribute can describe the divisor of the input
+>>> clock,
+>>> Can I define a new attribute named "clock-div" to describe it in DT
+>>> bindings?
+>>> or do you have any standard solutions for the divisor problem? Thank you.
+>>>
+>> You should determine/calculate the divisor in the driver code, depending
+>> on clocks and bus frequencies. You don't need a property for that, usually.
+> 
+> Not only clocks and bus frequencies, but also a third property is required.
+> 
+> The frequency divison calculation formula of i2c is
+> Prcescale = clock_a/(clock_div*clock_s)-1
+> 
+> There is three parameters in this formula:
+> clock_a represents the input clock, which is described by "clocks",
+> clock_s represents the i2c bus frequency, which is described by 
+> "clock-frequency",
+> but there is no existing property to describe clock_div, which has 
+> different value
+> on different platform (for example, it is 5 on 7a1000/7a2000, 4 on 
+> 2K1000/2K2000,
+> 5.5 on 2K3000.), So I need a property to describe clock_div in this formula.
 
-git grep for "Vera" gave me zero results. Are you sure this is an
-upstream platform? Please point the DTS using this.
+So it is fixed per compatible? Then you do not need.
+
 
 Best regards,
 Krzysztof
