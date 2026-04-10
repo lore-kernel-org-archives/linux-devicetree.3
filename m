@@ -1,198 +1,157 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010038.outbound.protection.outlook.com [52.101.56.38])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0AF51A5B8A;
-	Fri, 10 Apr 2026 04:31:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.38
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775795475; cv=fail; b=logMlbE7X5Y+VPpMN+sjAGN6S20gwHZPFME4kO9Zzm1cCyiZFvL7q0KNtiwgbP0JQGXh6ZyoIC7kTsDO8H+P9mXnmhpoyApWTmQqVzzINfS5JdqvV+/dv7HtnUXmFRtD/croeY4AfDIy1/GKtgZM3ZYTS6EH2pgYGUvH7VgE3FU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775795475; c=relaxed/simple;
-	bh=y14sohWxmBvhKrMCLfPA2RS4pbMu7RR5aDFOXgWxpg0=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tO0QJMzZ1BOciJB7dDoRJJW2OyUpM5s75NoK5Nu0sU95XmB9mTGRf631LSAmb7ggyH/CqDJb30qJmlRRatrA2FLKH4d1RFwtkmUjl9g59punckK6c9eqYX31Ewy6Krb9k5h+jiYjNtWlRvZbO3YMUeu3m8oCXd8P5t+M2mr7njY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=APtvEgc7; arc=fail smtp.client-ip=52.101.56.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD4DE1A5B8A;
+	Fri, 10 Apr 2026 04:36:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775795780; cv=none; b=fCCzCKSRGxqkAeBt73Dc86QgxrWT83WeIzFjqZwUUlmUkixCGzE77il9fkaPuBn9AZW7WSvzOqx3SCIsLbOdKR37Ep1a/Nzb53UOM2KqlB0cs/LfsevrpQUoMf+7J38mdqaohzifb0bWeRc5az5MHnrRXU8krrSeqRpLyE1IEQ8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775795780; c=relaxed/simple;
+	bh=WyAPf4u3OnCDlYw52PEw13Dsu76+nIGYYHDYX1XBV0Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O2hIas2W0v8c3apndrBmpLLONjB37ymDZTFfMldk4XaqaFfzEg6DM0dXnNwtodfNK4qRFAkDp2nQY35xTNikfxD0r7NFTizzzc9swCBZS6spDDVtbAsa7gOUqCWBaLC2oUZ/RcTO/5Svn7Ja3llCggntggOMGg6RPnq8rJg2Gqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jRuE6tPM; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="APtvEgc7"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AEbO+CznxtGmS+FJ8Wo3wdj6SugSI5rRJ7YE2ErKgfEXmvhtmU7BKUxWZrJzcrP+S+w+OjmBEkyIscMbQE5ut+N9Z2m3vSGx5gC/9X0HFuh8A8RRB4pbOtfTVarTSnwcLF1Ai/8Nw9Urb2QcMoh3iuIdJtU0rQfm/TZ3Yzx0VJabcL6/zWzXDpQ7096Gf4B2CyGUwwWU+04vOtDLnfRrTj7la9RouHVg6QAsTxw0k7m6nAlZ1Y348byRPpMqHn6FBh5PB9pQKBaPFTsleE6YhxK4/10Zn56ZB+e+tLhhJqzlglv4aoGR5XD7Du9/OEpOYXjwOETrs3+vMj0eIUGXsw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=daT8yOBY4AWTfZbC0VBFYvf+8XrBsVWujgROzaAkI3Y=;
- b=ootEDRZaMp8rVaBpnNCkwpJ1MHyGJ5CsxA2KI74qVpsYlK9La/47zucCtiFUIjYwt+Ki5yN0gKvMZjB0pbUnjgtViEFtcB3s/TUsgHRjtLjNp9TuASF9PcWK4MNFlpFi+vztisgxjZBAWWq/ST2GmxgqPYHSVREpaVPRAoNnGl4jt7jovzZ96UfewDxDOhhQhtxJzdDmAAg6oOdHJHoEI5AamxdDiBTMd4xNH71VE9i7RSv6TBKZd61NjSYfwT+yWBtWSct+oVKNg6wWXcqTZr08WRjvI6obYGPj34Vc3GOWEWh888H+17cnrCGW6oFWX5TaduOl00p8yi3vzXowRw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.232) smtp.rcpttodomain=nxp.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=daT8yOBY4AWTfZbC0VBFYvf+8XrBsVWujgROzaAkI3Y=;
- b=APtvEgc7rPpCxN7Y3Hi6fwzTF09YqxfF4mQb95DbFxMIHRqge/4kuKOZd7bzVlCmbkGDvic7ALD6nkv9n0inSvw4b1ICJiTJOup+S/lGaOXUVjVAMfXqlN8I+pkk/mEsZ0hjchIJqH1lGs/LqP3XtySGQ9lx2c+3swXI3PGD31iHo4g4PT/ZvQXNU1z4yjkQnPKrLPE8TEjRRJQ2S78hBlzwYIZL+Y7AwkJKN1x8kVJPMBbnlboFE76L71wvhUXHeNiKGVbOqhAzzPglihp3WR7dslLh2XZtG+KQxYtNEJRelCRWajszeqcDwgLgf+Fqz+LJT6CfwGE3y0nCjQmRmQ==
-Received: from BY3PR04CA0022.namprd04.prod.outlook.com (2603:10b6:a03:217::27)
- by CY8PR12MB7241.namprd12.prod.outlook.com (2603:10b6:930:5a::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9791.34; Fri, 10 Apr
- 2026 04:31:02 +0000
-Received: from SJ1PEPF00001CDE.namprd05.prod.outlook.com
- (2603:10b6:a03:217:cafe::92) by BY3PR04CA0022.outlook.office365.com
- (2603:10b6:a03:217::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.42 via Frontend Transport; Fri,
- 10 Apr 2026 04:31:02 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.232)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.232) by
- SJ1PEPF00001CDE.mail.protection.outlook.com (10.167.242.6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Fri, 10 Apr 2026 04:31:02 +0000
-Received: from drhqmail202.nvidia.com (10.126.190.181) by mail.nvidia.com
- (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 9 Apr
- 2026 21:30:53 -0700
-Received: from drhqmail203.nvidia.com (10.126.190.182) by
- drhqmail202.nvidia.com (10.126.190.181) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.20; Thu, 9 Apr 2026 21:30:53 -0700
-Received: from BUILDSERVER-IO-L4T.nvidia.com (10.127.8.9) by mail.nvidia.com
- (10.126.190.182) with Microsoft SMTP Server id 15.2.2562.20 via Frontend
- Transport; Thu, 9 Apr 2026 21:30:48 -0700
-From: Akhil R <akhilrajeev@nvidia.com>
-To: <frank.li@nxp.com>
-CC: <acpica-devel@lists.linux.dev>, <akhilrajeev@nvidia.com>,
-	<alexandre.belloni@bootlin.com>, <conor+dt@kernel.org>,
-	<devicetree@vger.kernel.org>, <ebiggers@kernel.org>, <krzk+dt@kernel.org>,
-	<lenb@kernel.org>, <linux-acpi@vger.kernel.org>,
-	<linux-hwmon@vger.kernel.org>, <linux-i3c@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <linux@roeck-us.net>,
-	<miquel.raynal@bootlin.com>, <p.zabel@pengutronix.de>, <rafael@kernel.org>,
-	<robert.moore@intel.com>, <robh@kernel.org>, <sakari.ailus@linux.intel.com>,
-	<wsa+renesas@sang-engineering.com>
-Subject: Re: [PATCH v2 01/13] dt-bindings: i3c: Add mipi-i3c-static-method to support SETAASA
-Date: Fri, 10 Apr 2026 10:00:47 +0530
-Message-ID: <20260410043047.19675-1-akhilrajeev@nvidia.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <adhZnNozqpW0DaXF@lizhi-Precision-Tower-5810>
-References: <adhZnNozqpW0DaXF@lizhi-Precision-Tower-5810>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jRuE6tPM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1775795779; x=1807331779;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=WyAPf4u3OnCDlYw52PEw13Dsu76+nIGYYHDYX1XBV0Y=;
+  b=jRuE6tPM21YvUgYpXvNBhsD6CKRVCZUpDwQzr6JZMCy7JdcBRXZBNVyC
+   QHQfVjY4LPDhKMGF1qM/dTeSIKI7jQxE8p5STs36mOq4zUJCBWSg4kDPN
+   5SB9hGb+alWcC1WOFoxUHh0+o2dNmR5kYHTYeXagJZHO1xVei37lEFG8Y
+   MYMF4n80QOKGOjhp/+5jeagJE7biu6IWppUeQ3K2QhgwLDn8MSLsq5UG1
+   +LKYyS9xII2okMhcs6lDmAYRkNf24w9rMnIA1J3jfjFQyvfb1Ywa7Kz8X
+   M8pDZM6zLFywC1Lqwk31md/SD+purJtlRrOCUFxo6vf573GXHiamSIyjF
+   A==;
+X-CSE-ConnectionGUID: O10bEmzdRCO/Qw8hEV5Y5A==
+X-CSE-MsgGUID: HPoO1H3lQri/uwuwmWlJOw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="80700111"
+X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
+   d="scan'208";a="80700111"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 21:36:18 -0700
+X-CSE-ConnectionGUID: VEGK0P0OQk+tBgohmJFROQ==
+X-CSE-MsgGUID: gSDzWepjS6amvvylZdzBYQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; 
+   d="scan'208";a="252335932"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.51])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Apr 2026 21:36:15 -0700
+Date: Fri, 10 Apr 2026 07:36:12 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Hardik Phalet <hardik.phalet@pm.me>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Brigham Campbell <me@brighamcampbell.com>,
+	Shuah Khan <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-staging@lists.linux.dev
+Subject: Re: [PATCH v2 0/4] Add QST QMC5883P magnetometer driver
+Message-ID: <adh-PKgh5C0-iAah@ashevche-desk.local>
+References: <20260409210639.3197576-1-hardik.phalet@pm.me>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CDE:EE_|CY8PR12MB7241:EE_
-X-MS-Office365-Filtering-Correlation-Id: a537142d-ae36-4dd2-0898-08de96b9f8d6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|82310400026|36860700016|1800799024|13003099007|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	HfznuCmfd3RWsmZJzzf5xZsd0jB2cxzn00oNMIGOP5UmcUxa8pbFJg80pF5/2tR6RmTnyEHm7N2Evwn3p9xBL/sbhIOuEkv9oiTgiJBsQP4Fp+0wVRgNtRqf/dYEOtgMfP2iWsUEzXRV1OGiP0ND0q8YpaU7FaMU+j2X112XrCxjphWYC5ZBT2GPffh/mfOOTGwWhUG6y4mlU1uAIphcJ7MEK+j5f/GuTUJorU9klJWb81Q0fR59tlPUdsyy4p5edAb86jVev7N+81TPGPN7Wz1KftAlapAbt3BmxaKSXFg1vxtu5cmdpSGZOXV24mNGBrXMYY1Kl9U1R/9XwnDRG146yyZjp/hJ//s8lp1g/o0sRjA8Z3IVzCx2bgYriXsdqRIjv9l7HSsUgZJDP6ScFIRNb6DXs9PR9gJCsbAvNqlYH4cyB7XWeagJSWkOif5n1ybLetQQAimYlX9dAZfTWMiJCbXN7j1TkdREZ6yW2L2TWBNscaReNKD9r+VRQ6irxMe4Gd6/I2R+bF+KKvBPwtzy5tt231fXn8MCN8Aj5TGJn8pwvD17cC+cW6OCiHNf4AwRmiCTgPbZ+nPU07J5KsEyhUUEhABLiXf0JGlFQPCWOCSkdqRLHvRcxRRXXUVQqLayuSH+I1FURXxg+3Y9f6W/8jhUgvSJQGgZkLSs3NS7YIOAqOKGLmTXLRMwV2JP41E7qcJmjRU4CsW+bqE1jzVogTAmK7vr48hsILGl3sJ8YCMkmFwPGxm19eN6j1vI5YXagdDtYwXyAYqaUwfSiQ==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(7416014)(376014)(82310400026)(36860700016)(1800799024)(13003099007)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	9Omcs2lgnXvzmuX6FjTnGlyA+5Lm23kfoTkaSk/rcTTgDU22yBbirEfpXtxyhiVulpNe2Q20f/HhdDrerL5SQUIOzXZRx0+a9OqThr369RYity8ywbQMENqpYDrGHET/jusAFiTsa8UWnIAl6Br61Fd8U9CBfhs93WGaFq5Li1Z5vRkKvRzAQD5Oo1nHPekSdEsYwPgHfwtycIX/Hzhcae/CSPPr7R5SAe8GsjGeomcDR2FbJU1EIAe51pQkKoab2QoDSalH4bV1PUA8n8lncANroYw+YrGmHYXl4fneXbj2SUWCIQTDW/wWUlHuUPRgjeAxbb5SoAUjKz+oLmyHgWszZOBqZK3fbqfZN5/wOtM+UUNUXSf7r1i+Cg2NxVe8PPTqK6//dZ5+nT4OuC803zxYO+XKAEtXsh9QcRoW9geFl1pGaiut54ZFXjBRXrqQ
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2026 04:31:02.0757
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a537142d-ae36-4dd2-0898-08de96b9f8d6
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00001CDE.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7241
+In-Reply-To: <20260409210639.3197576-1-hardik.phalet@pm.me>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, 9 Apr 2026 22:00:39 -0400, Frank Li wrote:
-> On Thu, Apr 09, 2026 at 04:27:31PM +0530, Akhil R wrote:
->> Add the 'mipi-i3c-static-method' property mentioned in the MIPI I3C
->> Discovery and Configuration Specification [1] to specify which discovery
->> method an I3C device supports during bus initialization. The property is
->> a bitmap, where a bit value of 1 indicates support for that method, and 0
->> indicates lack of support.
->> Bit 0: SETDASA CCC (Direct)
->> Bit 1: SETAASA CCC (Broadcast)
->> Bit 2: Other CCC (vendor / standards extension)
->> All other bits are reserved.
->>
->> It is specifically needed when an I3C device requires SETAASA for the
->> address assignment. SETDASA will be supported by default if this property
->> is absent, which means for now the property just serves as a flag to
->> enable SETAASA, but keep the property as a bitmap to align with the
->> specifications.
->>
->> [1] https://www.mipi.org/mipi-disco-for-i3c-download
->>
->> Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
->> ---
->>  .../devicetree/bindings/i3c/i3c.yaml          | 30 ++++++++++++++++---
->>  1 file changed, 26 insertions(+), 4 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/i3c/i3c.yaml b/Documentation/devicetree/bindings/i3c/i3c.yaml
->> index e25fa72fd785..1705d90d4d79 100644
->> --- a/Documentation/devicetree/bindings/i3c/i3c.yaml
->> +++ b/Documentation/devicetree/bindings/i3c/i3c.yaml
->> @@ -31,10 +31,12 @@ properties:
->>        described in the device tree, which in turn means we have to describe
->>        I3C devices.
->>
->> -      Another use case for describing an I3C device in the device tree is when
->> -      this I3C device has a static I2C address and we want to assign it a
->> -      specific I3C dynamic address before the DAA takes place (so that other
->> -      devices on the bus can't take this dynamic address).
->> +      Other use-cases for describing an I3C device in the device tree are:
->> +      - When the I3C device has a static I2C address and we want to assign
->> +        it a specific I3C dynamic address before the DAA takes place (so
->> +        that other devices on the bus can't take this dynamic address).
->> +      - When the I3C device requires SETAASA for its discovery and uses a
->> +        pre-defined static address.
->>
->>    "#size-cells":
->>      const: 0
->> @@ -147,6 +149,26 @@ patternProperties:
->>            through SETDASA. If static address is not present, this address is assigned
->>            through SETNEWDA after assigning a temporary address via ENTDAA.
->>
->> +      mipi-i3c-static-method:
->> +        $ref: /schemas/types.yaml#/definitions/uint32
->> +        minimum: 0x1
->> +        maximum: 0xff
->> +        default: 1
->> +        description: |
->> +          Bitmap describing which methods of Dynamic Address Assignment from a
->> +          static address are supported by this I3C Target. A bit value of 1
->> +          indicates support for that method, and 0 indicates lack of support.
->> +          Bit 0: SETDASA CCC (Direct)
->> +          Bit 1: SETAASA CCC (Broadcast)
->> +          Bit 2: Other CCC (vendor / standards extension)
+On Thu, Apr 09, 2026 at 09:07:11PM +0000, Hardik Phalet wrote:
+> This series adds initial Linux support for the QST QMC5883P, a 3-axis
+> anisotropic magneto-resistive (AMR) magnetometer with a 16-bit ADC that
+> communicates over I2C. To my knowledge there is no existing upstream
+> driver for this device.
 > 
-> You need define at include/dt-bindings/i3c/i3c.h
-
-Ack. Will add these as macros.
-
+> The driver supports:
+>   - Raw magnetic field readings on X, Y, and Z axes
+>   - Four selectable full-scale ranges (±2 G, ±8 G, ±12 G, ±30 G)
+>   - Configurable output data rate (10, 50, 100, 200 Hz)
+>   - Configurable oversampling ratio (1, 2, 4, 8)
+>   - Configurable downsampling ratio (1, 2, 4, 8) via a custom sysfs
+>     attribute
+>   - Runtime PM with a 2 s autosuspend delay
+>   - System suspend/resume via pm_runtime_force_suspend/resume
 > 
-> Or direct use string arrray
-> anyOf
->   - setdasa
->   - setaasa
->   - vendor
+> Regmap with an rbtree cache is used throughout. CTRL_1 and CTRL_2
+> bit fields are accessed via regmap_field to avoid read-modify-write
+> races. The STATUS register is marked precious so regmap never reads
+> it speculatively and clears the DRDY/OVFL bits unexpectedly.
+> 
+> The init sequence on probe is: soft reset → wait 1 ms → deassert
+> reset → configure SET/RESET control → apply default ODR/OSR/DSR/RNG
+> → enter normal mode. This ordering was determined empirically on
+> hardware to produce reliable, non-zero axis readings.
+> 
+> The driver is placed under drivers/staging/iio/magnetometer/ with a
+> TODO file tracking the remaining work before it can graduate:
+>   - Triggered buffer support (iio_triggered_buffer_setup)
+>   - DRDY interrupt support
+>   - Self-test implementation
+> 
+> Patches:
+>   1/4 - dt-bindings: vendor-prefixes: Add 'qst' for QST Corporation
+>   2/4 - dt-bindings: iio: magnetometer: Add binding for QST QMC5883P
+>   3/4 - staging: iio: magnetometer: Add QST QMC5883P driver
+>   4/4 - MAINTAINERS: Add entry for QST QMC5883P magnetometer driver
+> 
+> Testing
+> -------
+> Tested on a Raspberry Pi 4B running a mainline kernel (aarch64) with a
+> GY-271 HM-246 board connected via I2C bus 1. The chip was confirmed to
+> enumerate at address 0x2C via i2cdetect.
+> 
+> The driver was cross-compiled from Fedora (x86_64) targeting aarch64
+> and loaded as a module (qmc5883p.ko) with the Device Tree overlay
+> pointing at i2c1:0x2c.
+> 
+> Verification steps performed:
+>   - Chip ID register (0x00) reads back 0x80 on probe, confirming the
+>     correct device is present
+>   - All three axes (in_magn_x_raw, in_magn_y_raw, in_magn_z_raw) return
+>     non-zero, stable values when the board is held still and change
+>     appropriately when the board is rotated
+>   - in_magn_x_scale (and Y, Z) returns the expected fractional value for
+>     the default ±8 G range (1/37500000)
+>   - in_magn_sampling_frequency / _available, in_magn_oversampling_ratio /
+>     _available, and downsampling_ratio / downsampling_ratio_available all
+>     read and write correctly; the chip responds without error to each
+>     valid setting
+>   - Runtime PM: after 2 s of inactivity the device enters suspend mode
+>     (MODE = 0x00 confirmed via i2cdump); the next sysfs read correctly
+>     resumes the device and returns valid data
+>   - System suspend/resume (echo mem > /sys/power/state) leaves the
+>     driver in a consistent state; readings remain valid after resume
+>   - dt_binding_check passes for patch 2/4
+>   - Kernel builds cleanly with W=1 and no new warnings
 
-The below thread suggested to keep bitmap since this property comes from
-a MIPI specification.
-https://lore.kernel.org/linux-i3c/20260318172820.13771-1-akhilrajeev@nvidia.com/T/#m8a6c56cff2bde07b84ebfb403a6ac152da24982e
+This driver is rather huge. There are mistakes you made in the process, though:
+- never send a new version for such a code (amount and complexity) earlier than
+a week; give others a chance to review
+- do not put driver to staging, why?
+- the investigation is rather poor about existence of the driver — make sure
+there is no compatible (by register layout) driver in IIO or even outside it
+(for ADCs it might appear as HWMON [drivers/hwmon] or INPUT [drivers/input]
+ in some cases)
 
-Best Regards,
-Akhil
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
