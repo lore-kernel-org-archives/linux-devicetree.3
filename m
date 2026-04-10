@@ -1,83 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 146833A5E82;
-	Fri, 10 Apr 2026 07:55:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0166128D8DA;
+	Fri, 10 Apr 2026 07:56:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775807727; cv=none; b=BYr17Jt0Zd2RAWLK7VkUogCxVpZ3gUATxpUDky8ouqMnLMz0/FdpEASTLkC66HPLTNFn14Dgsjmncc3Y1D8z/BqhWUDd3QoL3XjMsDtZOYi9daPtlprsyhbUxtIB3d+dxwmD+w+/pbf3sYdZurwg9w6QLVsx6srA35uoXVMCWHo=
+	t=1775807765; cv=none; b=BFZHaigK0T8Xnds2YEAWxnpwuOsW6gGvAmvxRXqUTzNobvYafjr0qvRmThsN7EFOqJpQ1Csr7dr/k+bS2/z87Y5RiRpEgsOwE/0eUTO7NM7cEQjKRB2Hh3tAfo6WNtwLn4qY6rj4udk+sU4xTs+LTOxb7XM2SxWUZshZS/bVumI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775807727; c=relaxed/simple;
-	bh=Dy3jxjZVTM8xz6GR0KyUbEI3OVMGwMs+L96Ws83GCTw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WnGQMgWtL0ICr4EWbQaOjGMh+cX+H+90+GzeoMLgy43wMF/7FMAa45vRr9xGM/ds3CCEvbmwP4N8Li5u0OOFncDem7wMr2sJ9Z59WPVi3q9lQpxXlWHGbXoBLnCSSCT+bWBZ+QN33J+U0geri63jy8S/td8xCYJPyI+D0Tl2bwA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PFIiHWif; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775807765; c=relaxed/simple;
+	bh=ZmO8NKn75iaIxGBSirNTeC+xk+OMBuTTMTQ9NVejXd8=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=RamCjvf9kAgcatKN88FprAoLkPGcyN0Sg1EezW61p4/uYVVjEQftN/gv63Sgct8a4iS7wwIO3Z5EsGsLtg1s3MT0ydp03QfXiZZY81meRaOmiagwdDj2WMO6nzIT1glv/dELjF8x+R2V7VQZYpbwDU85d0xV57ABdHyPMZrdNvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=kmMrAIRU; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PFIiHWif"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90644C19421;
-	Fri, 10 Apr 2026 07:55:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775807727;
-	bh=Dy3jxjZVTM8xz6GR0KyUbEI3OVMGwMs+L96Ws83GCTw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=PFIiHWif0XHwXHioK+oOmA2XRo/jNuLxMnfKyh2RTCWBFfCEyo92GKO4z+9Er2FT+
-	 EjAgp9UwU1mpMxS4seg3pY4iulgMVDm7jxPnhUcbR+pmDQ7mWnr3u1ZhV+qUrCLOiQ
-	 /leDTwVapdXNTqMwPy0ZVh6uUTtMAaCVX5eimHaSPP7+ZuqIAHGxK+3p2P3KHBLeJR
-	 /bjuHaYZMNBWmcLUYC9FfFxJ9FObVF4ZhO2oevc5SQFTqi6z1ndswvBOWzArk3LUZ/
-	 583QmVSB09kx77J0p40VW92al4HZCzqdQIA2Hg9/QUuqgc/b0Ed/yJ+b0ONFVkW02F
-	 jeSP4MhPrCvNA==
-Date: Fri, 10 Apr 2026 09:55:24 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Hardik Phalet <hardik.phalet@pm.me>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Brigham Campbell <me@brighamcampbell.com>, Shuah Khan <skhan@linuxfoundation.org>, 
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-staging@lists.linux.dev
-Subject: Re: [PATCH v2 2/4] dt-bindings: iio: magnetometer: Add binding for
- QST QMC5883P
-Message-ID: <20260410-stimulating-happy-terrier-e82dcc@quoll>
-References: <20260409210639.3197576-1-hardik.phalet@pm.me>
- <20260409210639.3197576-3-hardik.phalet@pm.me>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="kmMrAIRU"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 63A7rJ7Y12629035, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1775807599; bh=1gYxyowuHupE/P8ao3pa6ZgxztqPahT8BS261CIm2ZA=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	b=kmMrAIRU6RE8rn9yNwdzSWQeK9lNqkY+Q0SKbuId3utRpkOIscr+P4gnkV67zmbto
+	 KSnI1nto9nNw1lToxXPdvvStyI9Rv4w6Wdug9CXcypbowX1V/w7Cul/sIiQWruNtXO
+	 DMz69JEuDjNCtZCBw3TGIiPLtdO8h1IlCXKZaRg3VDQczfkBmNnNs75IaWpO8BfxgA
+	 q5faJR5Y1I5KBOza8xxPB4QVi6+AzG1qrZrL/Hwa1oyJyrK0D71SfpndnbG1yT7+vD
+	 PNCPY/5ztoe3U0NKL3n5DF5+DtAH5YXld8WSd8iQLOtZwseEMjarFoPM+Xe/BOnkix
+	 L3NXunJTheZOw==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.26/5.94) with ESMTPS id 63A7rJ7Y12629035
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 10 Apr 2026 15:53:19 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.10; Fri, 10 Apr 2026 15:53:18 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.10; Fri, 10 Apr 2026 15:53:18 +0800
+Received: from cn1dhc-k02 (172.21.252.101) by RTKEXHMBS05.realtek.com.tw
+ (10.21.1.55) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Fri, 10 Apr 2026 15:53:18 +0800
+From: Yu-Chun Lin <eleanor.lin@realtek.com>
+To: <bmasney@redhat.com>
+CC: <afaerber@suse.com>, <conor+dt@kernel.org>, <cy.huang@realtek.com>,
+        <cylee12@realtek.com>, <devicetree@vger.kernel.org>,
+        <eleanor.lin@realtek.com>, <james.tai@realtek.com>,
+        <jyanchou@realtek.com>, <krzk+dt@kernel.org>,
+        <linux-arm-kernel@lists.infradead.org>, <linux-clk@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>,
+        <linux-realtek-soc@lists.infradead.org>, <mturquette@baylibre.com>,
+        <p.zabel@pengutronix.de>, <robh@kernel.org>, <sboyd@kernel.org>,
+        <stanley_chang@realtek.com>
+Subject: Re: [PATCH v6 04/10] clk: realtek: Add support for phase locked loops (PLLs)
+Date: Fri, 10 Apr 2026 15:53:18 +0800
+Message-ID: <20260410075318.2854478-1-eleanor.lin@realtek.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <ac_SX1UJRqiBH2iM@redhat.com>
+References: <ac_SX1UJRqiBH2iM@redhat.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260409210639.3197576-3-hardik.phalet@pm.me>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On Thu, Apr 09, 2026 at 09:07:29PM +0000, Hardik Phalet wrote:
-> Add the device tree binding document for the QST QMC5883P, a 3-axis
-> anisotropic magneto-resistive (AMR) sensor with a 16-bit ADC that
-> communicates over I2C. The binding exposes the required 'compatible'
-> and 'reg' properties along with an optional 'vdd-supply' for the
-> 2.5 V=E2=80=933.6 V VDD rail.
+Hi Brian,
 
-Drop last sentence. We can read the diff.
+> Hi Cheng-Yu and Yu-Chun,
+>
+> On Thu, Apr 02, 2026 at 03:39:51PM +0800, Yu-Chun Lin wrote:
+> > From: Cheng-Yu Lee <cylee12@realtek.com>
+> >
+> > Provide a full set of PLL operations for programmable PLLs and a read-only
+> > variant for fixed or hardware-managed PLLs.
+> >
+> > Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
+> > Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> > Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> > ---
+> > +static int clk_pll_set_rate(struct clk_hw *hw, unsigned long rate,
+> > +			    unsigned long parent_rate)
+> > +{
+> > +	struct clk_pll *clkp = to_clk_pll(hw);
+> > +	const struct freq_table *fv;
+> > +	int ret;
+> > +
+> > +	fv = ftbl_find_by_rate(clkp->freq_tbl, rate);
+> > +	if (!fv || fv->rate != rate)
+> > +		return -EINVAL;
+> > +
+> > +	if (clkp->seq_pre_set_freq) {
+> > +		ret = regmap_multi_reg_write(clkp->clkr.regmap, clkp->seq_pre_set_freq,
+> > +					     clkp->num_seq_pre_set_freq);
+> > +		if (ret)
+> > +			return ret;
+> > +	}
+> > +
+> > +	ret = regmap_update_bits(clkp->clkr.regmap, clkp->freq_reg,
+> > +				 clkp->freq_mask, fv->val);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	if (clkp->seq_post_set_freq) {
+> > +		ret = regmap_multi_reg_write(clkp->clkr.regmap, clkp->seq_post_set_freq,
+> > +					     clkp->num_seq_post_set_freq);
+> > +		if (ret)
+> > +			return ret;
+> > +	}
+> > +
+> > +	if (is_power_on(clkp)) {
+> > +		ret = wait_freq_ready(clkp);
+>
+> I should have checked Sashiko before I hit send on my last review.
+> https://sashiko.dev/#/patchset/20260402073957.2742459-1-eleanor.lin%40realtek.com
+>
+> It suggested the following:
+>
+>    In the Common Clock Framework, .set_rate executes under the prepare_lock
+>    mutex, while .enable and .disable execute under the enable_lock spinlock.
+>
+>    Could an interleaved clk_pll_enable() corrupt the hardware state by running
+>    its seq_power_on sequence concurrently with these multi-step register
+>    updates?
+>
+>    There also appears to be a potential race condition later in this function:
+>
+>        if (is_power_on(clkp)) {
+>            ret = wait_freq_ready(clkp);
+>            ...
+>        }
+>    
+>    If .disable() powers off the PLL right before wait_freq_ready() is called,
+>    will wait_freq_ready() poll a disabled PLL and erroneously return
+>    -ETIMEDOUT? Is a private spinlock needed to serialize these operations?
+>
+> Brian
+>
 
-=2E..
+Agreed, I will add a private spinlock here.
 
-> +properties:
-> +  compatible:
-> +    const: qst,qmc5883p
-> +
-> +  reg:
-> +    maxItems: 1
-> +    description: I2C address of the device; the default address is 0x2c.
-> +
-> +  vdd-supply:
-> +    description:
-> +      VDD power supply (2.5 V to 3.6 V). Powers all internal analog and
-> +      digital functional blocks.
-
-Supply should be required. Devices need them to operate.
-
-Best regards,
-Krzysztof
-
+Best Regards,
+Yu-Chun
