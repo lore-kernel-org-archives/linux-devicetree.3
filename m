@@ -1,247 +1,205 @@
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023085.outbound.protection.outlook.com [52.101.127.85])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010064.outbound.protection.outlook.com [52.101.69.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD86C2C21DD;
-	Fri, 10 Apr 2026 02:00:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.85
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F7C331E85E;
+	Fri, 10 Apr 2026 02:00:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.64
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775786436; cv=fail; b=TT6sKDvGj9SRr4HcW7Yv/ckQeFFlmFHVNTF0f4+VmQP5pSEHAkQhqQkBn5wGQAusDj8O4zZTy0Mtc1gAUhwuzWz3dudV9xVPemGX0nxVEYgPUhPXUr3urxqnSDW1t5jD3AjBMJuBV07cckaEIAGKk9TYHr3C22+u0eVtCVljTTg=
+	t=1775786456; cv=fail; b=aYMqBvH88ct7FRizXauFhAUzXpgSEKaTAg1G67dZpgwt7dB8SZg2do4OzvMU1pqATIIBqTbV7N1L2AWKL4TfaVWziYs7JeUhdL6WDu9PGwRmTD0XZmd0L8ZsxehGDRV4fucw90l2wDkqCoSHuFesqBbxRLXid0DqeUY5w85F3EE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775786436; c=relaxed/simple;
-	bh=jdgD6MY09cHmoInU5rgarnsmCCRD888s3F7xzaHndr8=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=iD5qc6cyISYbhN6jUExIvXSVh6eEX4TngHz626PP++mPjqQ5NH/KggI0d/0R9Vhq6oAF8psr1GCxrlZY4j64DCDa6dEA2fVOjI+CrT8qRm1bmtE1ha70+nv3YbElgLBSwo4xM5kmd38VwQr3SCzS37c/Vtogz3vKj5+QxnlZ4R4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b=ibX7K69o; arc=fail smtp.client-ip=52.101.127.85
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+	s=arc-20240116; t=1775786456; c=relaxed/simple;
+	bh=JvITRfJ41XFY8qrYJ3OZ1ve+d4tOTfXRivLQrEq2XGg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=S1Yab3JH7IIPF6Vfywv/QEEhVuA0r1U9LNeOPoUf7x/II5dC/RhaBSiYs8EUjXLlt6vEn32J1GWeZgwsGgFKZVNuykzVoEs7tD51lhbdQ9p+og38+I575kdrmcKlXw0LQR7/L7CVxZtUlvov8/qSr/YjYjrPe7W9SaBHArLOk08=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=iD/h/0Ir; arc=fail smtp.client-ip=52.101.69.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b="ibX7K69o"
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="iD/h/0Ir"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vJp9Nwul9/Puf8nLGXCLwhNs4LqoXAxD9etLB5x22qM/UA1srOlgM7FOA22M2Ex/3ZfW/IQx9Bmvvic8LeFSoC0q3TGvidvQopdBoNKmMmcX0jWRkcmCroVtDwFfcqATTatvUNN3aEVIHT7XJYEdWERLZvpX2uRXiv7rITCk8bqA6La35reuFM/oQJJBNEQrmM3HZsHOG+CHifSh/J+JuWlmSbtzHkg6+zbcGg5aGyMJDE+UAx7gQJnoCtEPAB5dN0PxOw7QfhrpyrFfbQQZHplRW7k3qasndMJzD5W16SsScYyFHBhPAja3VBcE9rVcnRyIngkTLjRhoBpwSJXwDQ==
+ b=fNe2F5/N0ckjMKM8UqUcgI8tEHXCJk359OCg/5CARTF3FUzOYRjYwo5cFH6oKDmLT3xA2XuQ/mT6JRkl4YRuTdblYRl2BsVu4OA/PMb19vkhxrS6jO2eR9PZSQDbH5xcITeKa/VEUHkkjGZAR9PWrvZG/knbfswkrphh2b82+UjFgMyve6Lmd/kepIXJdKUDIXyfJEs6PO62UAS4GBkj9SstpwiA33sEk/HICPF/O++VRafg4bQzK0pPRPTHmSPqn5GLXGMr18iOtb92JF1r6urT3upoPIUFrzCmF2gDjptWICGqCGzq+ukUH2gRZ6CErkaGrsogA/fwlS/vW2wGlw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PHK71ON6lJ+MXR67GSxYCwlNPv1i5XQntjwfSxkfAgM=;
- b=VqgM6SFb8PTVkbeaPWS5Aroihvl8RI2coYsAisL3GXCMFS60uWyPLZJockh8C3Ulqpj76rWhelaDm1UZTBEmhuq0tLI9R7CyYlH8GPL/WixAd8JAFYPhGEVyOA679oymb1ItWzyLWTmzN2uukKKLYNDnnFZoHPzZJ1JgX72n+rD+2st4y7bJZJhG+Ku21vamN1f/Ignf8uwAuF3nWe3tIkO3ZJqT+nD4E5q0oqZ4qfgPTBMvgvK3wrLdswmnl51gOtR69dV1DHv0MaKw6hN/MrJWDu1yM8Q2dljPv/5N80Q452gOp2RFlUwrUhxCUhGyw6XBwP3kcItOR5PDYK5vkg==
+ bh=/3V6CHSIZ+sJr8sL/vGdO+JnQYM3ITy336iawgRLdSk=;
+ b=IcOCVmkbfu0rPHsaYsgqzndnsovSqs13do0NRyMnqXS9h+/vDDbAWQkgXMZCKj3/1bt5KOgTCOlLfnSVwkVqsT2zfv5Ehw3ZCGW91/LCnQpT/tSic+/JjV3l6zb3KA3Va19QFBrbN73TaXMPcJm6dNoILyrrn2IVY8mZMHX48U+uOv1LCocnZmjHa9+x0TGiF6D69jXS0XgYmsKkg800aiW26yYdGDAHlj+SXtQzJ6U1pW6HP/PTbnZKgZ3fdZ2u70tmmDLv5qUJgaMrXTebzdydvus28ci8fbnyMFotUiFmACUBuVnz/jaqXd3hEQlq0B4rm73havrbHHLn8/k1xA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
- header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
- s=selector1;
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PHK71ON6lJ+MXR67GSxYCwlNPv1i5XQntjwfSxkfAgM=;
- b=ibX7K69ouaEMJp//eGYiU38Wp7qPuiC/U/nmzDcWtpszXG0zWiv/t2BU1fw5rHBe5bQiDUJUb6Is/c5RNwyxSpkmS98rqTMk2lebYGn7huhK8LYuBTbNjnFrvSJBAFPxLH/qHR4sIZs74lzYI7NZbjhnMRfdOSLaAlJUcE44dXgRfzYWLB1zEPNnFzCp1XuaAqOXhYFmwqQkBZEK2gNChxqNe3GequFxBwjPz/3z9Id/23XsAhIfUX6h6tTWN509kEW14oP+8c5Knl9X+sknaZtvasZ+Uh0kZqWp1UHP8lr9cOBBljPKCaj/OGe/oHu/vipiSDhSrl46GUAqy/FpLQ==
-Received: from OSQPR06MB7252.apcprd06.prod.outlook.com (2603:1096:604:29c::6)
- by PUZPR06MB5793.apcprd06.prod.outlook.com (2603:1096:301:f3::11) with
+ bh=/3V6CHSIZ+sJr8sL/vGdO+JnQYM3ITy336iawgRLdSk=;
+ b=iD/h/0IrOwK8OvdLe3R6QvquZDgH22lNMH8GmMVVJQs1bH2zXTPcBo2tqnoEyAwLfI5480WiULSZpxiCOgKZAs6a4M5GbtTPr7m6TXmaz+imakk+551l0/hiLz7pY2VKUKOzZhWN3/ss0nomqRTOv/3Dlq9olsARqs4Kp8A1hsmXcgV1cD+lZJ2hiTrBSaaiXQgXMD3qhMDxKv5/2vBjivgBS8806173ZzLp+ROPCFHaxXJtllElaFXEi1R8hQu27YsIDxusJOrUn2kJpLnxVaIKnxC65k1n0cyT0QkLL9840O7AJnQnTPnvCW1b550zsM7N6NxP5Yy090wduZGjyg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by AS8PR04MB7526.eurprd04.prod.outlook.com (2603:10a6:20b:299::23) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.18; Fri, 10 Apr
- 2026 02:00:29 +0000
-Received: from OSQPR06MB7252.apcprd06.prod.outlook.com
- ([fe80::92af:c9d9:8779:d19]) by OSQPR06MB7252.apcprd06.prod.outlook.com
- ([fe80::92af:c9d9:8779:d19%4]) with mapi id 15.20.9769.041; Fri, 10 Apr 2026
- 02:00:29 +0000
-From: Billy Tsai <billy_tsai@aspeedtech.com>
-To: Rob Herring <robh@kernel.org>
-CC: Krzysztof Kozlowski <krzk@kernel.org>, Lee Jones <lee@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-	Ryan Chen <ryan_chen@aspeedtech.com>, Andrew Jeffery <andrew@aj.id.au>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
-	<linux-aspeed@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "openbmc@lists.ozlabs.org"
-	<openbmc@lists.ozlabs.org>, "linux-gpio@vger.kernel.org"
-	<linux-gpio@vger.kernel.org>, "linux-clk@vger.kernel.org"
-	<linux-clk@vger.kernel.org>
-Subject: Re: [PATCH v5 2/3] dt-bindings: mfd: aspeed,ast2x00-scu: Describe
- AST2700 SCU0
-Thread-Topic: [PATCH v5 2/3] dt-bindings: mfd: aspeed,ast2x00-scu: Describe
- AST2700 SCU0
-Thread-Index: AQHcwOBzpo2LGWLrJkiaaIjatlvHtrXJwg2AgAGLixmACeiYAIACYRWN
-Date: Fri, 10 Apr 2026 02:00:28 +0000
-Message-ID:
- <OSQPR06MB7252443E4B4B7A4EE7CCE4818B592@OSQPR06MB7252.apcprd06.prod.outlook.com>
-References: <20260331-upstream_pinctrl-v5-0-8994f59ff367@aspeedtech.com>
- <20260331-upstream_pinctrl-v5-2-8994f59ff367@aspeedtech.com>
- <20260401-adept-zebra-of-bloom-5bb68b@quoll>
- <OSQPR06MB725204B2FAE543A71AEA52C38B51A@OSQPR06MB7252.apcprd06.prod.outlook.com>
- <20260408133114.GA1938858-robh@kernel.org>
-In-Reply-To: <20260408133114.GA1938858-robh@kernel.org>
-Accept-Language: en-US, zh-TW
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=aspeedtech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: OSQPR06MB7252:EE_|PUZPR06MB5793:EE_
-x-ms-office365-filtering-correlation-id: 8e937c3e-b787-408f-b7c0-08de96a4f0bf
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|7416014|366016|38070700021|18002099003|22082099003|56012099003;
-x-microsoft-antispam-message-info:
- ww5RLuwxWKd3vwGZ6E2ZJH8plG+WxCGEpgu4SrUQpuqJ3p1JNm95jN4d/jTBIQUZ/eDxc0HB4e/xRoD2Fe2jov2GAE6DbaMEviVIjo7P8vX59/s6VpTr7uBvYIxxIw2O6d//rENvW+yIX6/Wf0NVF7iFrUKNH5SckVNC3vGmIimVj5saiHOPIJ0I3K5af2omIxf//YUc3GaVXXxwR0ScEw3t0lonu5I1Az1DypWrElPfnQwWI7iT2vlDUYQjqyt+8gXJxCP9/qh7/8XHtdRjYWqy/VUbxVhkRtzssYrCVxgZtVTXZWnSRsOLzdrEqpqf7zuljRCYK4WEjbjfz80wDGG6gYWHGS5KRpBXOAAKcJQQFX3lwYogfOaep2Rv+Y5daq9e3aQ5V8JK95aAUKie1ykiXMtoWnJjTME9iRRFRWNmV4aJgueRiVAzhmtxF4RPULlNJDvGmQFc82OYb4D2y8Gd3k+7yAv9UdAd9a8M8VKpVip/vOOUE0yrwH2oz5PjBMNppnEuEJEJkeWoESkX/YsuqejKarNF8UROPytfh6+D6xkzzu80qnlMVudHs5kCZCgUKJVJeNg14w726yyeF9KavfvR7l4gXuLQVIAGqZTe/x7qUTccz0k1H6Wlm3UVMR+udipmIJCAn7gi4gjgsFLmzxU7BWKlQwN1aXopHU4dW2G02a4OGADFZq/XI80ahJKakUZ9udP8ToiNodg5ftwVfRhn8gNEmsDJ1b2ZCJcwvPhJZ9XhFYa8T4e/K56KWt4CSjwvj91lj2YEmF3Nq1+o2qfTer1WsWdXddpicII=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OSQPR06MB7252.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(38070700021)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?7eRj9MKeKHteIwaP28hicev6bmEE8mM3ekgY3EhYTjWbDpLfltDTce4ekd?=
- =?iso-8859-1?Q?9/9FzHWEKmKe0w2xmOPj/KIZNc+7v2TR/WQiQtXfzJcbU8eIDPVty874ZY?=
- =?iso-8859-1?Q?e2NqixOkZN5sUf+p/OPAsdUzGsQCoGuxP4yIXm28wK7GUUctPiN4zY6kpH?=
- =?iso-8859-1?Q?S/mqHrSUWGxjMt6S/SPSuq0stTYsyLDsUXicmtdEXfScy0zV3spf1zIA+V?=
- =?iso-8859-1?Q?+8thBKLwR47EwqzRsaEEXEEteYoErP2DmD6cT6cfORfF8IWrHTpmA/d9vw?=
- =?iso-8859-1?Q?NXXSTlpRJ2XvWjPwdl/mkNnYjURjRVqXba0wes22jY79Fw42KTvJZ15zX9?=
- =?iso-8859-1?Q?I7iGBZ6KKzIM5k4JCuQXMTxWFGmIBIFZiaWsEbM8BC/MYLR279KbbtqXno?=
- =?iso-8859-1?Q?l2nqE3FhztHX+QYW3J1kRYAOhMP0LmsBJEtiFf9N0vxC7zVOfV+YPm0oHg?=
- =?iso-8859-1?Q?UDpM38H7z85DWnS6AenplWjGPIZ8olytyZtWgFFEZ/PpgorWfcRCqOstiV?=
- =?iso-8859-1?Q?8wip/8zlZE2ZqteWgQKxMxJMIt4DC2nzJaXhtQI0AUBdlfHRFhi5qCkPQZ?=
- =?iso-8859-1?Q?f2ytZXv8iGBQJlcLLdiYzvIR7Xro0iGbBPsFkMLenEzjv8PpyJdlHsBEM4?=
- =?iso-8859-1?Q?fMqbUxGmhlZjdFqdJ7lnfwYTRacub6dDh+Kk4Ly+Os7iKrRe9z4RSfSfrF?=
- =?iso-8859-1?Q?tvy+EqapqIPgmnRGONznib/5LRwgSNZngiZbIFR6sEcTX5OAMuK+UoOVtC?=
- =?iso-8859-1?Q?gekspSf6nm7Z+WPL+fGM3blQFMYjcS2s7TBbRr6lmIJ62smPVuFm0rEX5N?=
- =?iso-8859-1?Q?wDaX0MLguN/p1iL1zSaKRTcdYVcvIuaAhswQhq6XqpxSgm9c1CZUhJvCX6?=
- =?iso-8859-1?Q?1/t4wtfOKKg+6ALF+3dJzB4+s+VNmGzgvaOaao82oPUWwLlmZciTQ3SN1I?=
- =?iso-8859-1?Q?sn5Sz4jUIGtrccD3gHzKB/z/Q7A1ZOz5k9UbREw0s14BJGOFOtVtTtJcUM?=
- =?iso-8859-1?Q?p6Vb0xCAiNk6qe/V4+uVRZuvpVqCqGobLHs7CQEeZwON6JrvDRZ6CreLdN?=
- =?iso-8859-1?Q?TmaM9lzCA/I6sJUZy+lWTDzgdWjTzfv3t5e9boKTOx0Bx6bpdDSHoAgFvN?=
- =?iso-8859-1?Q?kcvvuFYW6gL04jM5t4I2OA9gxwjzMc7qKaBkCyL09Fa6dk4SIkKopa0YM8?=
- =?iso-8859-1?Q?8r8gM82q4rHkH01LZ4dihhMDb7RbNuAC828+wKAvIkhRd6psRZoWQLkvDn?=
- =?iso-8859-1?Q?Cuno7A6vl5OlheDQcmUswB+ki3x5vrSd3bIroWbjQQogloZKsXmpUg0oEv?=
- =?iso-8859-1?Q?/1IJAgPhs4bxezjcN4q3bRf7o21vReHKO6HSglGjw85P/c46KZWCFFS4Z1?=
- =?iso-8859-1?Q?S2abj4JYFxdxzx5qMYDgnJ42WqxJWxL5b06mOVPkka9ktxONePCQGfacWM?=
- =?iso-8859-1?Q?pLQwq9PNyjdbcBEVAgTBQPOFzb5yyqvh4YTi/kMsh/V8U8XzpYxy87hCdb?=
- =?iso-8859-1?Q?qAeHpr3j+j99bOg3pop8dnybj1DEjNL39RyU30j+0G0R/6CwWXNk7u18Sh?=
- =?iso-8859-1?Q?CE33rvJ4Pn+M8UH3+uyCP99RTxyJWyXKWMNk3GqiT4Dt8kre/2pbTJ/mq9?=
- =?iso-8859-1?Q?WCgEfmya7BHywC0VQquG4t/plFZYEVme8rjhPcPeJmyCd480KreGbaeKin?=
- =?iso-8859-1?Q?uX7go813v5FPGt09qpBcHZlnDkdjZ8ND7zvpWHZL8SilU+4zGsVnjj6h30?=
- =?iso-8859-1?Q?vgw6xafJ7hcZrr9V+qu1WwNrAaJ3NYIuP0gWfyhi4BxE4YK58j+9SSz6SQ?=
- =?iso-8859-1?Q?NB/tJrlaeg=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.20; Fri, 10 Apr
+ 2026 02:00:50 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9769.018; Fri, 10 Apr 2026
+ 02:00:49 +0000
+Date: Thu, 9 Apr 2026 22:00:39 -0400
+From: Frank Li <Frank.li@nxp.com>
+To: Akhil R <akhilrajeev@nvidia.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Robert Moore <robert.moore@intel.com>, Len Brown <lenb@kernel.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org,
+	acpica-devel@lists.linux.dev, linux-hwmon@vger.kernel.org
+Subject: Re: [PATCH v2 01/13] dt-bindings: i3c: Add mipi-i3c-static-method to
+ support SETAASA
+Message-ID: <adhZnNozqpW0DaXF@lizhi-Precision-Tower-5810>
+References: <20260409105747.48158-1-akhilrajeev@nvidia.com>
+ <20260409105747.48158-2-akhilrajeev@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260409105747.48158-2-akhilrajeev@nvidia.com>
+X-ClientProxiedBy: PH7PR13CA0008.namprd13.prod.outlook.com
+ (2603:10b6:510:174::15) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: aspeedtech.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|AS8PR04MB7526:EE_
+X-MS-Office365-Filtering-Correlation-Id: 75c6e0f7-1be9-4c84-152b-08de96a4fce2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|52116014|376014|19092799006|1800799024|38350700014|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	t/4A9tRx5eRLVcyZmAdmTOezRFhSJRmEGSmciwemUn1sbc/MM1wLRgjZWeMYfiIVdG+6dnwsst1912JtiC1h67Jb/KM8gGSyAqueGeym8w+/8FGTFeFai4m/L12giSIY9De64FnfKD6mOn2TPPkfvmeEF1CeqkW5SK3HoMGUawxelFODwsWd70WwVCmrWvVRF4Bycb5mpvXTNDaxSIOQjMy8sTrk0xKCI54TSxWwhFX90UFC3KE7FU9wiAkZvVKeD2qgz59+0mlbynWOncOhnKUFDJ1x7PxnQ3lVE/g3c3wAuM63+aai/EpSBZ3e3zZAYHpG6T5i/LM7uEo5MBN2+AwSlJq12IWpEyzDHeXxL4uWr8XOecD919A/eFyaWcpsEePeCWlNYPpphaP8CtvORS8eyWAExShT74vQwIzroULVOQeyixAD6qS9Q9Avp8oF/9e4MzUhBa5OsVpMwmItdJ/NDidB+wDJSzyfv2YQdcEfcBWR9Ji+Im7piojkgI0sugJLauE+MxRXyAofLp0yjB3AW0h1f5ju4pwYUzMz3a04/ru7KxuAvrJC4UInifhXwz3bPG5J6dGnbLhYIm/6/OheWNJ9JzyTSIYLdWvTMwjmfgeHJjhL+s5/9bdXVVPAFyIIKFlqc1lp+jXIoBfo5VWTD+LWoQFrwNDJC0ULN5SVMfIwM/cajBwV0uAdk/rm0v5nj6UPZbuHgzTf1VPrPXrRUekcnm47frQoaUSaVFfVgni9maldBHfhkvr21P1/
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(52116014)(376014)(19092799006)(1800799024)(38350700014)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?+ui5M3IhphxLpfdOMk1Y6XVqnOrT2nq2t2dqXrDU8/PgGSedu/SbCiaPff+y?=
+ =?us-ascii?Q?8uAzYjp5PHZbXkoEudtCvBcXzQTkekB+wUtdBQHwFeZE+XwKGKn8wfMtnOj3?=
+ =?us-ascii?Q?272VlkbR7YgBxwAvqS56Je842ntxXGXSWpiisU0vBYx1vFC2+Z4C73IcTvJm?=
+ =?us-ascii?Q?QKutizZIDBsk+bpHUOPQtk+RwISQ9OtZk1kjyOq1UpA788cg2VGRieFLt53s?=
+ =?us-ascii?Q?fpG/wbm+shO1zQB1/Ys1M8hI1IbCekRwarNPrvD0V8C63Bs36HWg6Shy2YgX?=
+ =?us-ascii?Q?V8IwH6/K1uQhF2fgYKSwFlL4k7RlJxT/B2OxokAczrESF1TtTYR379Tng+kK?=
+ =?us-ascii?Q?azqWdJVg58h07x5m/cYkrOFwbDZr3pd3ex71dViVYM+6Z32+PftrWF324qIm?=
+ =?us-ascii?Q?y0nA2NIr1uykqXKxXdB45g9kgxdhUPk+AOV7vwKKVW6MK5a2FEPUzO4U12nK?=
+ =?us-ascii?Q?C424PYfRiUUcu9pg4WCHfaoCqtO9q20sBcqqv7U8wBc0p0+7IzPxFMgbbBFH?=
+ =?us-ascii?Q?IHuTFf16pk7XGsqSu1niFcB5ZtTBcsXu674MYs3tMF7c6RgBwmvBW8hoIuB6?=
+ =?us-ascii?Q?N9Fc4QATEu0Jjvn+j3fLC6CPFqa/Xj4xg6UTI3FXPl+s4UBk+ai9eQLbuT2c?=
+ =?us-ascii?Q?FAHXF/scKM1YD4w4Cf/UFg/vgS+jvjVZ+5t0yyCSfnzdSyNZBAiFvyvUyI4V?=
+ =?us-ascii?Q?jnJ4MGY6hSVcZwUYaIN4ahuMBZn6IjKqwHuLjUHz9VTIdMATnqlWhe1QFm1R?=
+ =?us-ascii?Q?suzSFhqPsVMiWdWq1rw368BueCBUP3XMSZ9Nkzh5lR73g/j8PCuwHjTRd3zT?=
+ =?us-ascii?Q?CXViycwJEJDU/uJDMdgyz1UrB11HIZMQCIz+mSHreEiYk8/mi+OA6yU0PTrp?=
+ =?us-ascii?Q?zFhJ73jAKzmt67/zuyEcfluC1/c+9ITBIyNtygEVqL9r4K5SX96bCb0yOALD?=
+ =?us-ascii?Q?Yf+R3dgVSvutOEafOx4WqMo0ByUZ9TAAuHbbPZMzVzHumdFvtB3UYzwfTqzR?=
+ =?us-ascii?Q?aM+r9fyDOVbd+CkelyHB51+P85AdcCJ07+W4y9BAdTsmBcp9hyo8J868kVAQ?=
+ =?us-ascii?Q?h4rFBWqJqjaSHgCzjnlJhUyhJ1BLwgUPgfZ1U4LOf7ba3XLCRPs6VrTNkugI?=
+ =?us-ascii?Q?nrNwE/MIWr2C/Vcg/g0DiNkG6OcyaZ97KUawpWu2LajoIzttpippN3HigtIK?=
+ =?us-ascii?Q?HI3oe6mX3StKWMv7nsT1w9mhMiRDrZ8JqLi1pg/vgfJ3JGhTSzAQe5b9sglr?=
+ =?us-ascii?Q?ftWwBvgYKGlKEqE/VaF3A/0MQoIZuaGzwKX7FUOSxDTqw4H3VQKkWG7zpfOJ?=
+ =?us-ascii?Q?1xYz8fMIq0kYjbCq86oTkSxpM1iSiPtD0wZN1NOWqk9rVWl+5p9bwHHrYLIM?=
+ =?us-ascii?Q?mJ0JvaXVj9I4luiPZ9H8YYPxx7Vggz5OQv3nb5HFBT04mWEp4mqyiHAN38ZM?=
+ =?us-ascii?Q?LTXLO8OK1boycdPBgubKCPYRmym8MILEpWdlUDDWjq1QCCxv3eDJLZ8RBaIX?=
+ =?us-ascii?Q?YFt3LeP5+WKLjS3gwK1wSYdoTTwuVsmtjVwMxmXEDKCrDhxCmkcjdaM98cpX?=
+ =?us-ascii?Q?aTs9+UJuiK+br2dWaD6q5Zpaz+SsdvbTVlQODl6s7h0AY9hE0pljrMGzxemm?=
+ =?us-ascii?Q?FNv8rjpJ1dQNNkMbxuk98S9zZuUq/p/0LClGxZRtuw5skQn0cYQ19O+t5ksY?=
+ =?us-ascii?Q?34kKRmSjP6ORu4435QwP3HNFpTyh9KKTLYVvKqn5rjurBCB0vnwejW5iRVwL?=
+ =?us-ascii?Q?dAFziN20aQ=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 75c6e0f7-1be9-4c84-152b-08de96a4fce2
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: OSQPR06MB7252.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8e937c3e-b787-408f-b7c0-08de96a4f0bf
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Apr 2026 02:00:28.9955
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2026 02:00:49.8861
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: LgKteBeHeOzp1E/94/C1nxjMbmYCHcWbB6Sfr6BFQLy9B6kI8/iTtuRzzg3dXn8aqzlZA9WMvOqiWpkGhCrMvnUHb3Hjyh09nQGqmpw/dqk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUZPR06MB5793
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4iIv/IYLiWDS5hQe6RIK81zIWw72K8eWx3F5yVfNeSW12aJ/PfAjpQKCBCmDyBbWnPyIS7qBeMb3uh9IRkHIHg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7526
 
-> > > > AST2700 consists of two interconnected SoC instances, each with its=
- own=0A=
-> > > > System Control Unit (SCU). The SCU0 provides pin control, interrupt=
-=0A=
-> > > > controllers, clocks, resets, and address-space mappings for the=0A=
-> > > > Secondary and Tertiary Service Processors (SSP and TSP).=0A=
-> > > >=0A=
-> > > > Describe the SSP/TSP address mappings using the standard=0A=
-> > > > memory-region and memory-region-names properties.=0A=
-> > > >=0A=
-> > > > Disallow legacy child nodes that are not present on AST2700, includ=
-ing=0A=
-> > > > p2a-control and smp-memram. The latter is unnecessary as software c=
-an=0A=
-> > > > access the scratch registers via the SCU syscon.=0A=
-> > > >=0A=
-> > > > Also allow the AST2700 SoC0 pin controller to be described as a chi=
-ld=0A=
-> > > > node of the SCU0, and add an example illustrating the SCU0 layout,=
-=0A=
-> > > > including reserved-memory, interrupt controllers, and pinctrl.=0A=
-> > > >=0A=
-> > > > Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>=0A=
-> > > > ---=0A=
-> > > >  .../bindings/mfd/aspeed,ast2x00-scu.yaml           | 117 +++++++++=
-++++++++++++=0A=
-> > > >  1 file changed, 117 insertions(+)=0A=
-> > > >=0A=
-> > > > diff --git a/Documentation/devicetree/bindings/mfd/aspeed,ast2x00-s=
-cu.yaml b/Documentation/devicetree/bindings/mfd/aspeed,ast2x00-scu.yaml=0A=
-> > > > index a87f31fce019..86d51389689c 100644=0A=
-> > > > --- a/Documentation/devicetree/bindings/mfd/aspeed,ast2x00-scu.yaml=
-=0A=
-> > > > +++ b/Documentation/devicetree/bindings/mfd/aspeed,ast2x00-scu.yaml=
-=0A=
-> > > > @@ -46,6 +46,9 @@ properties:=0A=
-> > > >    '#reset-cells':=0A=
-> > > >      const: 1=0A=
-> > > >=0A=
-> > > > +  memory-region: true=0A=
-> > > > +  memory-region-names: true=0A=
-> >=0A=
-> > > Missing constraints. From where did you take such syntax (so I can fi=
-x=0A=
-> > > it)?=0A=
-> >=0A=
-> > The intention was to constrain these properties conditionally for=0A=
-> > AST2700 SCU0 as done further down in the patch.=0A=
-> >=0A=
-> > I can update the binding so that memory-region and memory-region-names=
-=0A=
-> > have baseline constraints (e.g. minItems and maxItems), and then refine=
- them in the=0A=
-> > conditional branches for AST2700SCU0, AST2700SCU1 and others=0A=
-> >=0A=
-> >   memory-region:=0A=
-> >     minItems: 2=0A=
-> >     maxItems: 3=0A=
-> >   memory-region-names:=0A=
-> >     minItems: 2=0A=
-> >     maxItems: 3=0A=
-=0A=
-> As of this patch, you don't need that. You can just define the regions=0A=
-> and names at the top-level. And the conditional schema only needs to=0A=
-> disallow them for the appropriate case.=0A=
-=0A=
-Based on your suggestion, I will simplify the schema and define=0A=
-memory-region and memory-region-names at the top-level without item=0A=
-constraints, and only disallow them for the non-AST2700 cases.=0A=
-=0A=
-The updated structure would look like:=0A=
-=0A=
-    memory-region:=0A=
-      description:=0A=
-        Reserved memory regions used by AST2700 SCU to configure=0A=
-        coprocessor address mapping windows.=0A=
-=0A=
-    memory-region-names:=0A=
-      description:=0A=
-        Names corresponding to the AST2700 coprocessor mapping windows=0A=
-        listed in memory-region.=0A=
-=0A=
-    ...=0A=
-=0A=
-    - if:=0A=
-        properties:=0A=
-          compatible:=0A=
-            contains:=0A=
-              anyOf:=0A=
-                - const: aspeed,ast2700-scu0=0A=
-                - const: aspeed,ast2700-scu1=0A=
-      then:=0A=
-        patternProperties:=0A=
-          '^p2a-control@[0-9a-f]+$': false=0A=
-          '^smp-memram@[0-9a-f]+$': false=0A=
-      else:=0A=
-        properties:=0A=
-          memory-region: false=0A=
-          memory-region-names: false=0A=
-=0A=
-Does this match what you had in mind?=0A=
-=0A=
-Thanks=0A=
-=0A=
-Billy Tsai=
+On Thu, Apr 09, 2026 at 04:27:31PM +0530, Akhil R wrote:
+> Add the 'mipi-i3c-static-method' property mentioned in the MIPI I3C
+> Discovery and Configuration Specification [1] to specify which discovery
+> method an I3C device supports during bus initialization. The property is
+> a bitmap, where a bit value of 1 indicates support for that method, and 0
+> indicates lack of support.
+> Bit 0: SETDASA CCC (Direct)
+> Bit 1: SETAASA CCC (Broadcast)
+> Bit 2: Other CCC (vendor / standards extension)
+> All other bits are reserved.
+>
+> It is specifically needed when an I3C device requires SETAASA for the
+> address assignment. SETDASA will be supported by default if this property
+> is absent, which means for now the property just serves as a flag to
+> enable SETAASA, but keep the property as a bitmap to align with the
+> specifications.
+>
+> [1] https://www.mipi.org/mipi-disco-for-i3c-download
+>
+> Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
+> ---
+>  .../devicetree/bindings/i3c/i3c.yaml          | 30 ++++++++++++++++---
+>  1 file changed, 26 insertions(+), 4 deletions(-)
+>
+> diff --git a/Documentation/devicetree/bindings/i3c/i3c.yaml b/Documentation/devicetree/bindings/i3c/i3c.yaml
+> index e25fa72fd785..1705d90d4d79 100644
+> --- a/Documentation/devicetree/bindings/i3c/i3c.yaml
+> +++ b/Documentation/devicetree/bindings/i3c/i3c.yaml
+> @@ -31,10 +31,12 @@ properties:
+>        described in the device tree, which in turn means we have to describe
+>        I3C devices.
+>
+> -      Another use case for describing an I3C device in the device tree is when
+> -      this I3C device has a static I2C address and we want to assign it a
+> -      specific I3C dynamic address before the DAA takes place (so that other
+> -      devices on the bus can't take this dynamic address).
+> +      Other use-cases for describing an I3C device in the device tree are:
+> +      - When the I3C device has a static I2C address and we want to assign
+> +        it a specific I3C dynamic address before the DAA takes place (so
+> +        that other devices on the bus can't take this dynamic address).
+> +      - When the I3C device requires SETAASA for its discovery and uses a
+> +        pre-defined static address.
+>
+>    "#size-cells":
+>      const: 0
+> @@ -147,6 +149,26 @@ patternProperties:
+>            through SETDASA. If static address is not present, this address is assigned
+>            through SETNEWDA after assigning a temporary address via ENTDAA.
+>
+> +      mipi-i3c-static-method:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        minimum: 0x1
+> +        maximum: 0xff
+> +        default: 1
+> +        description: |
+> +          Bitmap describing which methods of Dynamic Address Assignment from a
+> +          static address are supported by this I3C Target. A bit value of 1
+> +          indicates support for that method, and 0 indicates lack of support.
+> +          Bit 0: SETDASA CCC (Direct)
+> +          Bit 1: SETAASA CCC (Broadcast)
+> +          Bit 2: Other CCC (vendor / standards extension)
+
+You need define at include/dt-bindings/i3c/i3c.h
+
+Or direct use string arrray
+anyOf
+  - setdasa
+  - setaasa
+  - vendor
+
+
+Frank
