@@ -1,244 +1,210 @@
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0D893D9DDE
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 15:51:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 593863D7D97
+	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 15:52:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775836299; cv=none; b=frD+n2nNsid0/b5T3u1V2eL23yhidCU4mOFgyBBCL7tUPmECwxD3uA7rZIC2bwC2Q1EBgkor3GLzW3F+arLsftQFYDd/pAT5A6bYBkf2T30bw+lasEfqFuJfrWey6yO7WLynHnxzdH2LGEIfhEEsAzfHQ29H+xRS8AsiCITPxyY=
+	t=1775836352; cv=none; b=XraOwgPnh7Lr6SJQCMhFYdv44Bqa+iJClv78nEP7A6x+U+tBCRYEadAvZuH45GNknY5ajW4CcjhV8rR01MBekr9Cg25WyXBpVFOp67VcZTBNZzWuceJX7uE0Nwb3YpjsMt0kopOydxf0QvhGvkkaipJb0+0PY4YWXFBUrmhIELQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775836299; c=relaxed/simple;
-	bh=3LQfonLQ6oQh/iQdITFeM/huuu7kEGKK/0YlFr8Zfdo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B5jq17wnT0Y/rJcb3lbmrMn7GDUtMCVYWZULLREUhMO7f1agD1dAcmDydTxxxYVawp3xTodBEO1Te6mKKM6GRg4B449rZ5E08AAH8BD2LdwafoaUa5PK4YQkBd3+Yr8zmrDwR5b8GlT49QG3jGTirM48wUumabLISir7zXbED1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PwV4SLqr; arc=none smtp.client-ip=74.125.82.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1775836352; c=relaxed/simple;
+	bh=IVX1psQg7ZO53TJ7iWhI8o/DZnKxxZyF+3P5lFmYSOw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VIUhyarb34NdLvXKwZP667sqMuUq1O0mlbfWHKK/Bl6+Pg6//MmNt4pWQwgH+8aAfti9MlHSVDre3yZi0HjYf4h/AYn7LJVwSy7f8vSP2tGVuiSwn0hvfQhwDS9AH4CzI3Ohw595iKRLsEo/9hMuKdid8LFgwSBjwj1mnR+GDNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=J8T7mZFi; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PwV4SLqr"
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-12c1fcce8f8so1320014c88.1
-        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 08:51:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="J8T7mZFi"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-35c124d2613so1440348a91.2
+        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 08:52:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775836295; x=1776441095; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=AJv0LGb+9ZG2U1NmhhTKErAnJqDXklx024/ud5+KlaM=;
-        b=PwV4SLqrpc+NbV8DJRZA8lj0Ujdpox/XgrHKXFbx7uAgOhD/9r/U1VokqplezvVY9D
-         DdPoRlRg8EeMlUVM17vvu6J4d1h+6Dg6vV9UiD9blmQjeXyKHLQ86KCyR10IjM43E3pc
-         rUG9Z0tS678UsUv1eah4repZ/2/ASuFH8mydF/O8Th+SD8Kd/CBsWy8Gig+mcWM8pUEy
-         DLGui21pO6we8pbT0pLtcgjpDnl5M+lHBVcpZM76nOOGNje6iA/5BQsA62UstNg+0ZKY
-         9w8F2iCVGjZQw5TvEl5Uo3Z9+uv29qn4OwYUoA+35mPBbAfJqruFxXkxwZcPxGMVizWD
-         iR7A==
+        d=linaro.org; s=google; t=1775836349; x=1776441149; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=BpSOIXXZ3ZNpAOx8++v8mFOwpFQb2y00e+UwJxOC5kE=;
+        b=J8T7mZFi5az4buZu0m0o30pyJqoRVVTcFsl7eR3wdZTt0RZxRhtRx2TzOBwQqqFoxd
+         MsraO1NNWc5c1WMAlzrTE9Tx1jvzdMW7blapUqzdxFNzQF6wLEshZHf4WTdYaofEkwMg
+         0IotKG2S2JW8pjXUy5Q9NghVG7JM1bzqqUI+EKaNtJEUjly6k3VHGLIqyhuAUJNzNPFL
+         GRnHXiuZ9E0j36GRqEz32cPbnK/ykYNI9dkNHf3hXHSLUUYDOVMKQsuu6NGbrWimVdFW
+         NuNlg2ujn5pGznvYJlfk4FDjbu+ioCVDHxHeE2Ak1nGonhGGe6Ce+c7xExiMGB4E+tcq
+         WiAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775836295; x=1776441095;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=AJv0LGb+9ZG2U1NmhhTKErAnJqDXklx024/ud5+KlaM=;
-        b=G/cXdlnpfdyC5CIOQNbNhwElYt4MVBmA9HJ3cmqGY9LEdE1MMmvaie09R0AYCCd5yz
-         bJZLv6qcOWggXU1l4b2z/SAfbgvWMwLlzXLA8RDbLBhPvTlIITayfgJlcB8HXv6AELdv
-         +rgy1giPRlqJ/NzmUOC7d+rqKgC8nhyGOQF4rpItUzzq7pS10ukLhUaJForCXzH9GUEg
-         YTTG0Epdk6ywaK4BtcyHsFMM60ho6GennV5M0dyFXZZlo7RANwOoKfiMMCzJqBEj5O6w
-         BE6pLFJjBz6sKFpBykVnGYK+GjoL3FxucjXycvH2t2u9KbOxFBmrexHxsJPn1p1ePswl
-         z2HA==
-X-Forwarded-Encrypted: i=1; AJvYcCUJqMTHXDwoiu0FyaYIO+KxM8b7/iGOOVqHzsg1yN90A1XqOEhb0ZfDehM6bAXVqi9RhyDa+2SzCZww@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz5Pg1gKkr1macWZ3HE4FdPs9lh198mkVqORKryDF1HAD7C3/+f
-	ETTgJT0u9i9nZpiN5lfh52SiZqehagRpv1xRJT6RRPA6Ml+XY53biLxA
-X-Gm-Gg: AeBDieugSET008HzS78Vp35UTkojZn8WYsNMFFGjO+iz427K5R8gO1kIdVIKhWRWiwq
-	WwTgh5fe5Lb+2HHzil6cjIljmfK/Av6j23FUdmPTxLufz+OiBdEgJaRlIs690lfs7aqlwRQo/ax
-	jMMuR1vON+Fg55FMZztnAPSpLVfzpKMrIVkUpRhumI1N7wF/dcOVxfhxOMDTGRkEIoyfKDJMWyL
-	iErLCYNAixHvpkabXv801JblE7dzqDPbSXHotBqGoqD01e04H5oTOxDbkQ/+2Oke3J9sBLealve
-	DJa7FJZdjsAbSqcQoEXBpW5+mJdoaeRsjkeh7zCUHv/uL8VuTOlUGwRopTjVeiOXhaIl50Eiq4O
-	0Opw7x9JLRbpQ8r4hJ90WpLdaLW/7j30ZYVje1w2/XXe8O2EHU5F6zEKMHU5gTm2dH+X7f+b0Ik
-	ZC2YH03B+WdiTLBlWvQJ03l6E4+YYnH6L9asP0n2VRGHe1VmgrMcwveneLwO60m/X3FJjRzCFnK
-	HlE902OlAk=
-X-Received: by 2002:a05:7300:ed0f:b0:2bd:c285:2fe with SMTP id 5a478bee46e88-2d587e7d192mr1915642eec.9.1775836295227;
-        Fri, 10 Apr 2026 08:51:35 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2d55ce46a65sm4839362eec.0.2026.04.10.08.51.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Apr 2026 08:51:34 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <dcc14537-2975-4c93-89ec-78e1a0e807f1@roeck-us.net>
-Date: Fri, 10 Apr 2026 08:51:33 -0700
+        d=1e100.net; s=20251104; t=1775836349; x=1776441149;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=BpSOIXXZ3ZNpAOx8++v8mFOwpFQb2y00e+UwJxOC5kE=;
+        b=aVPUAD+NDdDe90u0+EUfY9NGDvdfKRGpftSgTxr4FI6kENKCnyxNU54lNfIUTALfDB
+         NXFbS04g/4xKjgaa576DQA43GsiY62p8Il/I+cPqfxfIN9nq7YNXg0buxF3lAfIBT45N
+         3z8XXZZAsCzW/g3381DMHBaOLk3GZvFfilDlp+DcW+ZMnoS/xm/IrqG4SC8jqjdNCMUT
+         ou/eIym83XZ0JBaJ/3Y//rGZPpEDdVQDLtrQDxSmSK9Z7T+jRa9D5Bq0FD9XHEbn0aY5
+         YSkUWpBA54ktknD6qwXUb2bUm5DieSJ4yIm9i7hEb3XpuwAUFz5r3uH1rfeFpXwg3fj9
+         HvSw==
+X-Forwarded-Encrypted: i=1; AJvYcCW6KpAWIfBrxbV+qJfImUzO7r6a/IusPmu2zpoo+BIv0AtM+KpIVrTvt1oYGyqZ7XOe4nrcADtFhPjJ@vger.kernel.org
+X-Gm-Message-State: AOJu0YxJc9nLulKMgIKll5i8nz4buPzGsH/HkgyAVfiNEkfn7tYEHFpm
+	jwGdhbMUvCqw086MUdpI96q5tg7ElZDHMEtBrRjwbCi4xMJWV+BLEqnO2dSXhGi3x5E=
+X-Gm-Gg: AeBDiestEJVGnBg99R8yw+fvsBAOfj4X3KYHAdBe0YWwokOX9X6BIZsnWJTeoIzSmon
+	Q6he4i3RiC/rxGj9zcmR98xqmZN8c4/kIS3RtgNJ4rjGolXnp/g5D0eelx6nuqYHJw2fxpUnHlu
+	lAijqueH0YdocXm4CKUl+3r0WLzILraoYTvVgXFnQ5vmxZIVxpz03ZES13pJnt5MNdy70oEUA01
+	ob5mtAV/rOoMiwC81moqst5RDCqU9UOy1UickgmSH6lSiswdcK8Dk86JfAvyZnFxL3PvId8alM2
+	Km443y4ppWAQzbFbrniTvSR/meat/n3TCYVYclkJGWxbUvIOJKDm5kdBATXWElSonG0pcVkRKsL
+	tJiUxR/74+swke60HSd8aV779KOfeRrtx3RpNHVGF578AWvsOsJSbtei6R2qro0PIPUM8+5Y/tx
+	bjMMuUUn7IQTqXtOdUSC2rUDlc3t4=
+X-Received: by 2002:a17:90b:2fd0:b0:359:d54:846f with SMTP id 98e67ed59e1d1-35e4275f708mr4213158a91.7.1775836349298;
+        Fri, 10 Apr 2026 08:52:29 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:372f:d8dc:5d88:3c78])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b2d4f25aa2sm33630105ad.55.2026.04.10.08.52.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 10 Apr 2026 08:52:28 -0700 (PDT)
+Date: Fri, 10 Apr 2026 09:52:26 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Peng Fan <peng.fan@oss.nxp.com>
+Cc: Peng Fan <peng.fan@nxp.com>, Bjorn Andersson <andersson@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <frank.li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	"linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 2/3] remoteproc: imx_rproc: Pass bootaddr to SM
+ CPU/LMM reset vector
+Message-ID: <adkcugNgyrkHtUML@p14s>
+References: <20260327-imx943-rproc-v2-0-a547a3588730@nxp.com>
+ <20260327-imx943-rproc-v2-2-a547a3588730@nxp.com>
+ <acqjS440STRl2sK2@p14s>
+ <acs2PAZq2k3zjmDW@shlinux89>
+ <adUghiyZbe3fmcNX@p14s>
+ <PAXPR04MB8459AA009C932EB9D6139A11885BA@PAXPR04MB8459.eurprd04.prod.outlook.com>
+ <adZ4WIaC6WN97JhR@p14s>
+ <adbzPl7ydUvb+MIS@shlinux89>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 0/2] Add support for Microchip EMC1812
-To: Marius Cristea <marius.cristea@microchip.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- Conor Dooley <conor.dooley@microchip.com>
-References: <20260403-hw_mon-emc1812-v9-0-1a798f31cf2e@microchip.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260403-hw_mon-emc1812-v9-0-1a798f31cf2e@microchip.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <adbzPl7ydUvb+MIS@shlinux89>
 
-On 4/3/26 05:39, Marius Cristea wrote:
-> This is the hwmon driver for EMC1812/13/14/15/33 multichannel Low-Voltage
-> Remote Diode Sensor Family. The chips in the family have one internal
-> and different numbers of external channels, ranging from 1 (EMC1812) to
-> 4 channels (EMC1815).
-> Reading diodes in anti-parallel connection is supported by EMC1814, EMC1815
-> and EMC1833.
+On Thu, Apr 09, 2026 at 08:30:54AM +0800, Peng Fan wrote:
+> On Wed, Apr 08, 2026 at 09:46:32AM -0600, Mathieu Poirier wrote:
+> >On Wed, Apr 08, 2026 at 01:30:16AM +0000, Peng Fan wrote:
+> >> > Subject: Re: [PATCH v2 2/3] remoteproc: imx_rproc: Pass bootaddr to
+> >> > SM CPU/LMM reset vector
+> >> > 
+> >> [...]
+> >> > 
+> >> > >
+> >> > > Aligning the ELF entry point with the hardware reset base on
+> >> > Cortex‑M
+> >> > > systems is possible, but it comes with several risks.
+> >> > 
+> >> > I'm not asking to align the ELF entry point with the hardware reset base.
+> >> > All I want is to have the correct start address embedded in the ELF file
+> >> > to avoid having to use a mask.
+> >> 
+> >> I see, per my understanding:
+> >> FreeRTOS typically exposes __isr_vector, which corresponds to the hardware
+> >> reset / vector table base.
+> >> Zephyr (Cortex‑M) exposes _vector_table, which serves the same purpose.
+> >> I am not certain about other RTOSes, but the pattern seems consistent:
+> >> the vector table base is already available as a named ELF symbol.
+> >> 
+> >> Given that, if the preferred approach is to parse the ELF and explicitly
+> >> retrieve the hardware reset base, I can update the implementation accordingly.
+> >> If you prefer to parse the elf file to get the hardware reset base,
+> >> I could update to use them.
+> >> 
+> >> Options1: Something as below:
+> >> 1. Include rproc_elf_find_symbol in remoteproc_elf_loader.c
+> >> 2. Use below in imx_rproc.c
+> >> ret = rproc_elf_find_symbol(rproc, fw, "__isr_vector", &vector_base);
+> >> if (ret)
+> >>     ret = rproc_elf_find_symbol(rproc, fw, "__vector_table", &vector_base);
+> >> 
+> >> if (!ret)
+> >>     rproc->bootaddr = vector_base
+> >> else
+> >>    dev_info(dev, "no __isr_vector or __vector_table\n")
+> >
+> >No
 > 
-> Signed-off-by: Marius Cristea <marius.cristea@microchip.com>
+> If your concern is about rproc->bootaddr, I could introduce
+> imx_rproc->vector_base for i.MX.  Please help detail a bit.
+> 
+> >
+> >> 
+> >> This makes the hardware reset base explicit, avoids masking e_entry.
+> >> 
+> >> Option 2: User‑provided reset symbol via sysfs 
+> >> As an alternative, we could expose a sysfs attribute,
+> >> e.g. reset_symbol, allowing users to specify the symbol name
+> >> to be used as the reset base:
+> >> 
+> >> echo __isr_vector > /sys/class/remoteproc/remoteprocX/reset_symbol
+> >> 
+> >
+> >Definitely not.
+> >
+> >The definition of e_entry in the specification is clear, i.e "the address of the
+> >entry point from where the process starts executing".  If masking is required
+> >because the tool that puts the image together gets the wrong address, then it
+> >should be fixed.
+> 
+> The hardware reset base is the address from which the hardware fetches the
+> initial stack pointer and program counter values and loads them into the SP
+> and PC registers.  In contrast, bootaddr (i.e. e_entry) represents the address
+> at which the CPU starts executing code (the PC value after reset). As you
+> pointed out earlier, this distinction is clear.
+> 
+> In our case, we need to obtain the hardware reset base and pass that value to
+> the system firmware. However, e_entry should not be set to the hardware reset
+> base. Doing so would introduce the issues I described in [1]. This means we
+> should not modify the Zephyr or FreeRTOS build outputs to make e_entry equal
+> to the hardware reset base.
 
-Sashiko still reports numberous issues which I consider valid:
 
-https://sashiko.dev/#/patchset/20260403-hw_mon-emc1812-v9-0-1a798f31cf2e%40microchip.com
+As I said earlier, I am _not_ suggesting to make e_entry equal to the hardware
+reset base.
 
-Please fix.
+We are going in circles here.
 
-Thanks,
-Guenter
-
-> ---
-> Changes in v9:
-> - improve the wording in the Documentation/hwmon/emc1812.rst file
-> - add const to variables in the driver
-> - initialize the EXT2_BETA_CONFIG only for the pats that support it
-> - update the writeble regmap table to exclude read-only registers
-> - Link to v8: https://lore.kernel.org/r/20260310-hw_mon-emc1812-v8-0-bc155727e0d2@microchip.com
 > 
-> Changes in v8:
-> - remove "address scan" from emc1812.rst documentation
-> - change the second dimension of emc1812_limit_regs_low[][] to 2
-> - clamp input value before doing math on it to avoid overflow
-> - use rounding instead of truncation for 8 bits limit registers
-> - fix misleading comment when HW ID is not recognized
-> - Link to v7: https://lore.kernel.org/r/20260223-hw_mon-emc1812-v7-0-51e2676f4e20@microchip.com
+> Given these constraints, the feasible solutions I can see are either:
+> - option 1 (explicitly retrieving the hardware reset base), or
+> - continuing to use masking.
 > 
-> Changes in v7:
-> - driver
->    - fix an overflow emc1812_set_hyst
->    - remove unused parameter in emc1812_set_temp
-> - devicetree binding:
->    - remove unneeded restrictions not to bloating the binding
-> - Link to v6: https://lore.kernel.org/r/20260212-hw_mon-emc1812-v6-0-e37e9b38d898@microchip.com
+> Please suggest.
 > 
-> Changes in v6:
-> - driver
->    - fix an overflow when writing more then 191875 to limits stored on 8
->      bits register
->    - remove "i2c_set_clientdata" from probe
->    - fix discrepancy where writing 16ms and reading it back returns 15ms
->      at update interval
->    - skip setting the ideality factor for channels that are not available
->      on the device
-> - devicetree binding:
->    - change the way interrupts are described/used
->    - add "microchip,enable-anti-parallel"
->    - rewrite "allOf" section to be more clear
-> - Link to v5: https://lore.kernel.org/r/20260205-hw_mon-emc1812-v5-0-232835aefe8f@microchip.com
+> [1] https://lore.kernel.org/all/acs2PAZq2k3zjmDW@shlinux89/
 > 
-> Changes in v5:
-> - fix calculation in emc1812_get_limit_temp
-> - use i2c_get_match_data cover the case when the driver is instantiated
->    via I2C ID table.
-> - replace dev_info with dev_warn
-> - remove some unnecessary truncation on 8 bits
-> - remove clamping when reading the temerature with hyst
-> - not change the conversion rate at probe time
-> - use a generic define to remove duplicate channel_info entries
-> - Link to v4: https://lore.kernel.org/r/20260127-hw_mon-emc1812-v4-0-6bf636b54847@microchip.com
+> Thanks,
+> Peng
 > 
-> Changes in v4:
-> - fix file permissions for read only properties
-> - fix calculation when the limits are written
-> - remove the temp_min_hyst because the part doesn't support it
-> - Link to v3: https://lore.kernel.org/r/20251218-hw_mon-emc1812-v3-0-a123ada7b859@microchip.com
-> 
-> Changes in v3:
-> - remove mesages that are not helpfull
-> - fix an issue related to NULL labels
-> - fix sign/unsign calculation
-> - replace E2BIG with EINVAL
-> - use BIT() to create mask
-> - Link to v2: https://lore.kernel.org/r/20251121-hw_mon-emc1812-v2-0-5b2070f8b778@microchip.com
-> 
-> Changes in v2:
-> - update the interrupt section from yaml file
-> - update index.rst
-> - remove fault condition from internal sensor
-> - remove unused members from structures
-> - update the driver to work on systems without device tree or
->    firmware nodes
-> - add missing include files
-> - make NULL labels to be not visible
-> - corect sign/unsign calculations
-> - corect possible underflow for limits
-> - Link to v1: https://lore.kernel.org/r/20251029-hw_mon-emc1812-v1-0-be4fd8af016a@microchip.com
-> 
-> ---
-> Marius Cristea (2):
->        dt-bindings: hwmon: temperature: add support for EMC1812
->        hwmon: temperature: add support for EMC1812
-> 
->   .../bindings/hwmon/microchip,emc1812.yaml          | 184 ++++
->   Documentation/hwmon/emc1812.rst                    |  67 ++
->   Documentation/hwmon/index.rst                      |   1 +
->   MAINTAINERS                                        |   8 +
->   drivers/hwmon/Kconfig                              |  11 +
->   drivers/hwmon/Makefile                             |   1 +
->   drivers/hwmon/emc1812.c                            | 965 +++++++++++++++++++++
->   7 files changed, 1237 insertions(+)
-> ---
-> base-commit: d2b2fea3503e5e12b2e28784152937e48bcca6ff
-> change-id: 20251002-hw_mon-emc1812-f1b806487d10
-> 
-> Best regards,
-
+> >
+> >> The remoteproc core would then resolve that symbol from
+> >> the ELF and set rproc->bootaddr accordingly.
+> >> This provides maximum flexibility but does introduce a new user‑visible ABI,
+> >> so I see it more as an opt‑in or fallback mechanism.
+> >> 
+> >> Please let me know which approach you prefer, and I will update
+> >> this series accordingly in v3..
+> >> 
+> >> Thanks,
+> >> Peng.
+> >> 
+> >> 
+> >> > 
+> >> > > 1, Semantic mismatch (ELF vs. hardware behavior) 2, Debuggers may
+> >> > > attempt to set breakpoints or start execution at the entry symbol
+> >> > >
