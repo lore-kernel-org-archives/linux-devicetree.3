@@ -1,194 +1,555 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011031.outbound.protection.outlook.com [52.101.57.31])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 859B138A299;
-	Fri, 10 Apr 2026 08:25:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.31
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775809514; cv=fail; b=QpxVyz8LvQ1umNbxlNCuj2TE5Xulycce3+TzSmKhYLquBpVbXH+ImfqpFDXrastySiJTozoefsdoYNr6nigkhQdE7yvlZKp+oKbq5DoDISqFF427st4urFhm44BzQOt/xi3yw/TsCbzIdGZ+yh/yowygA1F5tkHVhqbZqQR4wQo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775809514; c=relaxed/simple;
-	bh=HBeEjrS6FxT0JFyn/OQCApfLTp669dnTrzXEtaCDfcY=;
-	h=Message-ID:Date:Subject:To:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=eCKEAVzoEX8oouHdiV++JiAERUANggwyswZ7uPnMmInWS4P63u0aCHUB0iB+p80UqtIIUxCjZ3c6Au4BkuDYOk5jXBeKElOAkYCkAjo01cwbdNXea97Ibdb/jm5Q8Ru9Qhat7og5yM83IMSnfvt2F5zRET5+sB5RxRJKv9ixba8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=gmfqp0Pd; arc=fail smtp.client-ip=52.101.57.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18AF4371071
+	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 08:25:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775809521; cv=none; b=JntVOeISmzq3eqHXn6AEjIZxpImGhAsuwCwdu1HJ1DbnopXvf5zwADdP/oo/0joGFM50ibYDXwvwzbpoqqpTSjC8IR7fwVZ0kT6shVVQqcHsPn5iDyrlNbb1nbsxHbVS91Ai3nNILpUHsFSn3X2GTX5AqVSfgCAdo/GFc2KDjvA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775809521; c=relaxed/simple;
+	bh=Z2q0AutS2b33ACOIrUzNkz5NiWSpnSS2tO1ThEACDME=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JthMhR0prYh1GGmjKsFhz9SjCp1PkEo5pZdswuyet4Lv3SB82qpfzgHhDSmPbKDBLcv5Wja/aKk4BITuib9xGfEClUQZfIYWPFy36oLoMjabxiCmyd+Wi/NsTPw2ZaXREiF/nSEZ75eDT3DeKYqrlb0f+YMV6PTV4iV0I5nChOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cJJrW1B3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=T/J5W/rN; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="gmfqp0Pd"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=H45FnYizN+ZkB9ZKXxhgq7FTeQbMrGgEdEXVd1Um6tmwWB+yA56cosbr+cAcsiBgjvJRXe2QNDYQTSrxiBkk8ztCqOkJmhckBnOPmSK5nUA392cX+DtcTJhGD+kWy2bAYsX2fdB3+6RQCLHUkBTJukjqB08X0WYH+p3UVncAxASFbrNDSUQCMLMYOgQaUB7xGlwuFesKHQvOxvOibwng0BZk3Lp9WhAkDSyrkO1yYPgrohqoDCfrjW8bJsq9I1defZag3GUuZ9rRxMHabgORE6S4Z70HxypEvTh94AonnwdBv1ugEFdmJGcF+8iuv2Qa+gHUifDEQB5ODoyCRXdV6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PmNiNzdgUYcKDeXwh1MmP3nvClKk54FUM86/bXeQqNw=;
- b=qlOQEVd+NYyu9HFWHOpC+zTx+q+rCNEgyta8UWzHEaMW2czCMeKfyNbMd/QgQ7fpgHqnOR5pJgzff39Yr5Wmk9TRJ1V2EQcc9KnZ5f2Hohqv2lnx9l5zllCYjbmik7FTZNqZxdEAHbl3REL7AWErk2K5d0a/vpBD7S7y2JJzZWEPKjbiHincuo1Kph/bSaWNishw257ZrqcQtKLk0CXLff8reyxm1IbkclIUbpQqBpKPQyKYc0ks3AYZLLdW6liSnJFNeAiQDAkz114T8vjI8Y/ZfqQfe70sZc7NqKDVt50HSJ3El9seVS9wYhn/jNbccQB4rKW7pMi927AAz8MU4w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PmNiNzdgUYcKDeXwh1MmP3nvClKk54FUM86/bXeQqNw=;
- b=gmfqp0PdMwcWAhspaVd3MokeANRDwr6Z0vSYJCoqoT0k9uXrwvWCVhDreNHQoH7p93PqbagKiIcNM2yLPvAqTYUnKvA5ChHwlPm3llPswfQxALHJLaJxgQ3yjOa247a5ePXD1KSkN5VFUUB4ugWUZt0Vz2tccFFQM21p5acJZKgYngatCzK91bUiwaXPR/zLIblX63KVKyCiX9T+CRT7T0D7XxxVydblKIKe2Ge5RCX82N7kjgENe5v9X6LUC4UEVjXXQHDG0EJhbuPNVAChEIxRNIX5llFf9it0HHfrbhh/BinO98YEiwhblj+WJQVquPbXJTuASL1qbT05XsQW6g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS2PR12MB9750.namprd12.prod.outlook.com (2603:10b6:8:2b0::12)
- by CH3PR12MB8912.namprd12.prod.outlook.com (2603:10b6:610:169::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.20; Fri, 10 Apr
- 2026 08:25:07 +0000
-Received: from DS2PR12MB9750.namprd12.prod.outlook.com
- ([fe80::56a8:d6bf:e24c:b391]) by DS2PR12MB9750.namprd12.prod.outlook.com
- ([fe80::56a8:d6bf:e24c:b391%6]) with mapi id 15.20.9769.041; Fri, 10 Apr 2026
- 08:25:07 +0000
-Message-ID: <097f71e0-cbc8-44e3-ba60-8bac79cf5217@nvidia.com>
-Date: Fri, 10 Apr 2026 09:25:01 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/6] arm64: defconfig: make Tegra238 and Tegra264 Pinctrl
- a loadable module
-To: Krzysztof Kozlowski <krzk@kernel.org>, pshete@nvidia.com,
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, arnd@arndb.de,
- bjorn.andersson@oss.qualcomm.com, conor+dt@kernel.org,
- dmitry.baryshkov@oss.qualcomm.com, ebiggers@kernel.org,
- geert@linux-m68k.org, krzk+dt@kernel.org, kuninori.morimoto.gx@renesas.com,
- linusw@kernel.org, luca.weiss@fairphone.com, michal.simek@amd.com,
- prabhakar.mahadev-lad.rj@bp.renesas.com, robh@kernel.org, rosenp@gmail.com,
- sven@kernel.org, thierry.reding@kernel.org, webgeek1234@gmail.com
-References: <20260409131340.168556-1-pshete@nvidia.com>
- <20260409131340.168556-7-pshete@nvidia.com>
- <9408f231-7a12-425c-b8de-2990d3162bb3@kernel.org>
-From: Jon Hunter <jonathanh@nvidia.com>
-Content-Language: en-US
-In-Reply-To: <9408f231-7a12-425c-b8de-2990d3162bb3@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P265CA0015.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2ad::18) To DS2PR12MB9750.namprd12.prod.outlook.com
- (2603:10b6:8:2b0::12)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cJJrW1B3";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="T/J5W/rN"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63A5oeOP709301
+	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 08:25:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	teQcy1OrzjiF5Z1tsWO4s9/NnxBJmh3gJnh3t5WKEVU=; b=cJJrW1B3oaOdBFdP
+	DzOxdcLnXNJ6BguPgfi4RmHOC27eFnOPSefXt8C6Ix7S/tvM2dy8/juYa7l/kTAJ
+	rMwFoMOttLhvapoxeZ1dwZS6VFC4JfCIzwKe2bKBn4jnDADXHpgsGBa2jXfkUTkG
+	aDagiCD8zW2r/IzcfY7irdwtR8lzJn0oNdNdvJ+TzQTosAM2rx8qQq1lZgChEj7z
+	FKcD/ORoeJXQpxxBarDkv5KJ0S7EVJznPqKVT9+QxNxMmLdOssxHfb/VNeuDMF/K
+	JD3Ed090p4orb5z8zOjBf+5+KKW5vFjvlHv6DKzdshZXmZRv/chiDIG89koo1d8X
+	D65MGg==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4deudj0hqw-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 08:25:18 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2b0f4e632caso27563145ad.3
+        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 01:25:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1775809518; x=1776414318; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=teQcy1OrzjiF5Z1tsWO4s9/NnxBJmh3gJnh3t5WKEVU=;
+        b=T/J5W/rNJiFhiY1dJm/X/LXcaYzuDwb4TRygiwZQ3yGutFKhU0/6xJHxlrDHktJQoP
+         iSmCLHPZsKJ8EfyUYy6JGm3ilKMCuvGz6RohrYKsC/OcZxF+yN6KSWcrA+ZPKhqWcP9K
+         uIPrhjw1cqsnLPGE54ZnIKPg2Zqgdj1OZqjpoA8Egzm8MzDw8gZUr60INeGisgSV1EFj
+         PktZhMdYvzARsk0HWuEIQAsOCn0JCeWcwhwVFm/If93/06Uq3jb7c8/ClbWK0HmKH4Rx
+         SXj/TFGBKYOIwFz1ZpZhn1xR2iTs6hhjYGnqgqksfGRUow0H1yHCLaqdfGlalzTM0Hlf
+         UW8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775809518; x=1776414318;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=teQcy1OrzjiF5Z1tsWO4s9/NnxBJmh3gJnh3t5WKEVU=;
+        b=ODc4y5SwLsAjAlxKWBYP3/w6+5Q2N+QpOiz5GwJoFu7qmZgDakge4Q6R7XRuADMcr/
+         na06oLfAd6m5o0ehMrPAv4oUAf5mlZZDgPZOdyvhh0fWTyubpN/AoDg4tRD3hxaMqZOt
+         9fDdyJICPBsC2P/dEftqj6iSE9z/8PlD6e00wxKUpugyYwchLJfxN0M6SM9ZEVzz5JPr
+         osv0nhNTWuqzEXI7KGU44aSMGwv+3aj72fPIKJPfQp5vSzmsGN6fmfg9KOCe+tlruOde
+         SuteL9yvQS2yCcYEgZcod5CWol9yzzE9ncRGvI99fvOtl8+ZCFo2eU0f7IV5NcphMj++
+         QRig==
+X-Forwarded-Encrypted: i=1; AJvYcCW1g4AxVYrB7c3vj5ZizWxDE+//2AUMmLU2H5H5zWankjcW7ORjIAVy6OHipQ2wdKC6hot3JLfghkbi@vger.kernel.org
+X-Gm-Message-State: AOJu0YwzCKKXvfbTLErFbutTTCztaFDKXyFaq4osCUfcwRVas5JSx04e
+	4n2Em8GavdWE353hVxGYQnN0HMmUtmocrIBAIGR3PjrDTKPW7wY/VrNGSu/9SPuwQFsuSXKmZ2e
+	0K0Y5TJ9Zosqfmp6esBZNPl3ZpVp3YXt+SktKRVy4BO74FBs94rBthz1/kNvyUFDc
+X-Gm-Gg: AeBDieujNvWirSBYU8YIm3gL2IVyQrRW/a0fjyPLgQ2EVDfg51djUE8Lqd3k+cC3Qvm
+	jV6d5Ea4wVk0qMsRAg/0K6cKVOBAgKTrUmyZhd7HikQYN+wI4XMeDUGzYJ7YqASR05OJlOqRf41
+	LelNPReLHAptk9KCPTgy9Afz2bhCN8QpOeeoPNeKvKlUES7xfXdZBXje1rwgEXGQBQg9I2a2c4q
+	y7CLXFBcSwxZHGuS4w6YTcpy4oGNTAwiD/aLQ4joQjGMH6JLzh+uKNP0lvYN350etrL2rh76xo0
+	PQFvO1C4KuRUecfrGx+41levv+UklgLZygFoxFQ71aUG2psR48kCK4M2mHY8xANN1QYdscTxORF
+	3lv8sE/GiIvI6vgc/tZ4OJAOSaeON0mN2TYH9fSwJ46iVH7+kkIKajSxpRQOWwHH+p2ZM7sZIaG
+	ot0t8vMIGHVQ==
+X-Received: by 2002:a17:902:f9cb:b0:2ae:6457:3099 with SMTP id d9443c01a7336-2b2d5a307f5mr17590125ad.26.1775809517495;
+        Fri, 10 Apr 2026 01:25:17 -0700 (PDT)
+X-Received: by 2002:a17:902:f9cb:b0:2ae:6457:3099 with SMTP id d9443c01a7336-2b2d5a307f5mr17589935ad.26.1775809516948;
+        Fri, 10 Apr 2026 01:25:16 -0700 (PDT)
+Received: from [10.133.33.62] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b2d4dd83d5sm20216725ad.25.2026.04.10.01.25.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 10 Apr 2026 01:25:16 -0700 (PDT)
+Message-ID: <38088fd6-1db6-4591-b489-33b52f727549@oss.qualcomm.com>
+Date: Fri, 10 Apr 2026 16:25:08 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PR12MB9750:EE_|CH3PR12MB8912:EE_
-X-MS-Office365-Filtering-Correlation-Id: a7e3cc1f-26b2-4fc5-a26a-08de96daac90
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|10070799003|366016|1800799024|18002099003|921020|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	CNYpZSEEP2VFlZUUM6KpemB/wDiaqqJ5TjCfbfc3UGVynEvcGB+ZL3AjupYLrhJmegwfAeV/WCgnAIPBo/InhKOG7lPHpFEbFks2g8ZZ1UdQCozuiGYJ5ogFQ3PIGAYmHdasL7cN7xz09btaLOplKFCNvmPfkSRryvijoitdtHxXfCRZ4cXckAot2oQUKL1G/coWcFYHoiM6f/Zero+rc28cYHQOBhmqSQtR5qI8jowoUPqaDAp6brUGBigd+CFYGvynj52Q9cXHKVNvTifQsrMzR8JZRr/uaKIaBbRjdh6fve/4ELl+95+7YJuuI7DdCpIa5O4wwBJd+PUm+e4jTDHuaOng7wy8sgyQkHk36E2QlVsxFKhEKXwZegBn1Uj+wocXWXFBmxa/l9HhkNt4YRpndC0hAZyViKD+07U7yjm7j4iJTsSyVdMhkcTXfgwlQBJ5DcqUv65DtJV1X1kWBqm00xVRACDI2dsJ9UeyBP9q/w+wK8tp5R2j+nKwI+I4x+4AfQkPrQuoUnmKzJS+6rGgrlwEUoqRv8TGqNRMziug12tLWuwRIWAauHNLie48dv9h0/qYsMrBZ/t8KVJGf6KTjsUcQDmCUmy+xy6Zsl2UXdJ96v1TAxIrgdUg2uVUSRoq227K5q2zhdJ9ZEzVzlm8Ypnx9ITJO+7SwiW6k7GibbKwNjgr7WRZZiP/Rpl1r1paRkl3qr2hFFLXtWBX3aYuV8jlRdvpKZ7rL/CBMuk4GubNFkNuenevOOnK7VXFGRNAKg1fs2P5XcgUNWY/tQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS2PR12MB9750.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(10070799003)(366016)(1800799024)(18002099003)(921020)(22082099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cmJiSWJ1c2xMZVVJRVc3MElpZloyT3RQTlp0VDM2V3FVaUNRYnpFNGdIUmh1?=
- =?utf-8?B?eG9UaXRhTFY5NWFMOThQL3I4R3JrT3I1bHZybWphRkh5MCt1WlY3ZVdxVSt3?=
- =?utf-8?B?Y1N1VXlxQmN1MlZhSmZTUUtOdWJJOGRpbnJJc0RQODJvWlY2QlZYV1FDdlk2?=
- =?utf-8?B?c3VRbTV4eTJUQ2hZY01oQlEySU9OWTcrSThhTlJxNUZUNHZXdVhybDFsKzRu?=
- =?utf-8?B?UFNSSElQZm5KSUh6ek5YbXFoTlBSblkzQ3pOODFvUmhkdWZoT1BrTXl4Wm43?=
- =?utf-8?B?QW5LRWl5OWF0KzVXZ2YrbE80ek50d3V6MGdNN01uOUd5RnVqU2h0cnpVTk9T?=
- =?utf-8?B?YmlKbCtUUHJPZ1VtTXhnVjFOVjh1b3RKczVtTTkwTTdrVUJNWXpkaitHMkRL?=
- =?utf-8?B?S255dWpYdUVPbm1wd0xrdXFRa3BleVEzSHB4TUhTZ29yY3hOOFJzK1psN1NK?=
- =?utf-8?B?bVh0a0paY2ZVV2VtRjF6Z0ZYV2RpMm43S2xZTnR1QzRaZENTNFE5Zm9WUHlu?=
- =?utf-8?B?QmRGSDVKa1ZMRWx0RXFnZ0Ryem9iUXVxYVI2aTJ5L1RKcGF0TE5yeW1FcHc0?=
- =?utf-8?B?MDBLUDNkUXFiYUVNNEFMS2VCNEJ1Q2R2YUoyNUtkRitHejZOVC9IekhEVHdK?=
- =?utf-8?B?a3JaOWlpQkszakJJdkxZc2xlN1lvTjdVZEJWSk5MUG9LaUpyWlZqUVVWNXVY?=
- =?utf-8?B?SmVvc2NyS2NXaHFvU1ZuYkdRSkVScmdhQXc0L2dYZWhPaGZaSDBBS0lpdmUx?=
- =?utf-8?B?RVVTaDFWajEyTXhFbEZJaCtmbDlWaEFDbjdTNG0yMmlLVk1hV1djb2lmaUx4?=
- =?utf-8?B?NnhFS1o3ckNUUlo0YlRSK3ViU0h1YWM0aEJQR20rMWlTVDg0NWZQZ1NEOEg4?=
- =?utf-8?B?VkMxZzBKYmd3MkMwRVN4emlSRGFoTXgzRnB1T0NCNmwrNnlqRVlScnU3eEJ1?=
- =?utf-8?B?WXNrNkZ5dGZqWkJrdVFMalVybGJ5N2QxWkd4Q1locHlaaHVCZFB5TEdVWEJk?=
- =?utf-8?B?UGNnMi80N1VhcEh2MXprOUhIekdiWDZ2MWdJMGE5SmJPNjZOcTlObmY5dXht?=
- =?utf-8?B?aEROYTRIa0d4NjF3eUMzVFNQM1d6UGY3ZWQ3OW50bjZ3VnJ4MzR4dkNTQUdj?=
- =?utf-8?B?bTZpeHUwNE53b2YrcmNrSjEvVU5WTm9HS0NVcTV1ZkdNTlh0UDR5TnMxQ2o1?=
- =?utf-8?B?dlZuT1Z0SWxXQ1VCampJdmRSL0tFR2pwYlJwN1BVNjRJNDVMTm1RYWJyQk12?=
- =?utf-8?B?L1RtQU1XYms0Y0ZjeXYwMFd1RkxvNWNEbE9Jamw3ZEtWbDdPQVpmekc3MXdX?=
- =?utf-8?B?Mm5WMnVJNXhFd3JlRHBxN1dzZmpza3FzK0FiRHJhK0tQWThEa3JUcUZUSjgy?=
- =?utf-8?B?MFR1UnhPYy9TT0t1WWdIWHNoTGxyVEtBWFZqZVRoWW1aOWpMUFNnQngvaXNG?=
- =?utf-8?B?b3Y0bjVtVVV4ZVJSRVpMdFBySFE2NnJCeTJLQXN0c201QlhNYXJzckxHaXBu?=
- =?utf-8?B?THlDN245MVI3UHZGRXhnR3RSNlpFd2t6cTc5YlREQVlCbEp6aG9YTUJweERI?=
- =?utf-8?B?a2htTkVvMjdYV2FYdmhyaUlPTGw0NldDcUpnMHVnVlVzbEhPUkNkVU1JZldL?=
- =?utf-8?B?aDN4cnh4a2c3cnlaTGN4amFiTCtXelphNVJQUmREOTNsQUFoVHVOdTJUVit5?=
- =?utf-8?B?dmFCV2pKK2VyYktnOGdvWDM0ZlczcXNEWXNmdklSVmhka3J5S2hkL29Tc1Vq?=
- =?utf-8?B?YW42MzVuS1M5RzFjd1AyTGRFWk80QS8wQnpEWkZ2dFhNQk1jbmF6N3UvbXlq?=
- =?utf-8?B?Q051UExGTGlBWlhhNUxXbTRCQmhHV3NhcUNscDM1dE1vTzR5akdYUkl1RzJ0?=
- =?utf-8?B?MDBoajJOcExpSjQrdGRwZXB0VGRPbk9VZnJEN09na1R0QmtiQmpyZWxNaE96?=
- =?utf-8?B?MzVBbVVncUJ2MlN0UmZjTERERUFieC84bEdkZXlLcW1yQ3kwS1ZMT2kyaHhw?=
- =?utf-8?B?MHhKUUZXMTJKOGxIdUFHV2Jkb3gxNTFzS2J5VHF2Y3N1R2hEb3Y0QkNZRVEx?=
- =?utf-8?B?QXlzSHJEL2FYeUdzbkdnVG4vOXcxT1MyTEw3dUc1cVhwNitrRHgwQWF2VWdy?=
- =?utf-8?B?ZjR4Tlk1Sy9JU3g5aEcyeUlmNmJYVDhrTm5LaU9tMzIyc3FEYWpTV09GQWJS?=
- =?utf-8?B?Y0FrdzU1eDRuaklSR3hwbk83dFhLdERFSE9sMThvVXNvTW1FRmdmZTRka2or?=
- =?utf-8?B?NnRCUzVZNHUvVG1aUU82d1BtRndlU2tHTlRxRE5US2VPSTgvZlZtdjkxL01a?=
- =?utf-8?B?TTlVSWlXUjlQZDBpaE9zUHpPQzU1bUVQVGpFTmFwT01DZFEwajNOc0YyRlpC?=
- =?utf-8?Q?ARhY6PIsmjdiTtq5+/yeKx8/Gz7EiruLgSPXNJACkrhPY?=
-X-MS-Exchange-AntiSpam-MessageData-1: TwV5H9H4LGVDTw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a7e3cc1f-26b2-4fc5-a26a-08de96daac90
-X-MS-Exchange-CrossTenant-AuthSource: DS2PR12MB9750.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2026 08:25:07.6417
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jD8kiOuI2/3Y6J00tTKC3sT/Yv8lFTYcDux4rVNT9+Qv7OlQt5QxKd0d6ZBNX8f/bv+HpOL/ksBZJTfbawZqfA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8912
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/3] thermal: spacemit: k1: Add thermal sensor support
+To: Shuwei Wu <shuwei.wu@mailbox.org>,
+        "Rafael J. Wysocki"
+ <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+        Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>,
+        Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+        Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+        linux-kernel@vger.kernel.org, Anand Moon <linux.amoon@gmail.com>,
+        Troy Mitchell <troy.mitchell@linux.spacemit.com>, Yao Zi <me@ziyao.cc>,
+        Vincent Legoll <legoll@online.fr>, Gong Shuai <gsh517025@gmail.com>
+References: <20260410-k1-thermal-v1-0-12c87dd063c3@mailbox.org>
+ <20260410-k1-thermal-v1-2-12c87dd063c3@mailbox.org>
+Content-Language: en-US
+From: Jie Gan <jie.gan@oss.qualcomm.com>
+In-Reply-To: <20260410-k1-thermal-v1-2-12c87dd063c3@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: 49H7O9bA3bgBgXaeDbXaf90obKQqO4Rf
+X-Proofpoint-GUID: 49H7O9bA3bgBgXaeDbXaf90obKQqO4Rf
+X-Authority-Analysis: v=2.4 cv=cKfQdFeN c=1 sm=1 tr=0 ts=69d8b3ee cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=b3CbU_ItAAAA:8 a=pGLkceISAAAA:8 a=lv0vYI88AAAA:8 a=ZcGH_eeS6DTE5rAZkC4A:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
+ a=Rv2g8BkzVjQTVhhssdqe:22 a=9qqun4PRrEabIEPCFt1_:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEwMDA3NyBTYWx0ZWRfX50nDSnSZlBcI
+ qUpFArhpvH4822j6u/lGBWtSODGcZRfusF2GktVIBKRTJ5hBUbf/bRJnSCCEWOtr4GNt5DGHTbR
+ GQvi1BPP82uaFhIAncE5iyssyMjnSd/cWnDZSNHpeBuUd4RE+P6+fghNZP0J6EexjcNaid+N+l5
+ DL4hwsA8hggVjIowanS5mM/aXQBMTId+6SjfVG2w6t+Jc2v0SnlbJ8fwKIsGBKyD/FJPZo3hOCA
+ 7bxzezAoiRzztdSxwy+5WpNIKYaLjQaXorNhiN490GK3UdwyVFibC89Qf3PyCzx8+PgkDEZYHRh
+ HrCgPltRPIjVsIv8dmlRaVW0HHKw6IdE31f05V4j6g5LDzTmJMABC6LGmkX1kjts7fZPQw/BzdT
+ xdT7Qw23Z7R6/E26nnzNY9di/6snlVbq8yUfFgFyAzhkMqZ9Mm2+tOmikyYXmvoFRii82KJs8us
+ CMq9iIOVSEUZREMzBFQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-10_02,2026-04-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 suspectscore=0 phishscore=0 lowpriorityscore=0
+ adultscore=0 malwarescore=0 bulkscore=0 priorityscore=1501 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604100077
 
 
 
-On 10/04/2026 07:37, Krzysztof Kozlowski wrote:
-> On 09/04/2026 15:13, pshete@nvidia.com wrote:
->> From: Prathamesh Shete <pshete@nvidia.com>
->>
->> Building the Pinctrl driver into the kernel image increases its size.
+On 4/10/2026 11:31 AM, Shuwei Wu wrote:
+> The thermal sensor on K1 supports monitoring five temperature zones.
+> The driver registers these sensors with the thermal framework
+> and supports standard operations:
+> - Reading temperature (millidegree Celsius)
+> - Setting high/low thresholds for interrupts
 > 
-> That's obvious.
+> Signed-off-by: Shuwei Wu <shuwei.wu@mailbox.org>
+> Reviewed-by: Anand Moon <linux.amoon@gmail.com>
+> Tested-by: Anand Moon <linux.amoon@gmail.com>
+> Reviewed-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+> Reviewed-by: Yao Zi <me@ziyao.cc>
+> Tested-by: Vincent Legoll <legoll@online.fr> # OrangePi-RV2
+> Tested-by: Gong Shuai <gsh517025@gmail.com>
 > 
->> These drivers are not required during early boot, build them as a loadable
->> module instead to reduce the kernel image size.
+> ---
+> Changes in v4:
+> - Add 'depends on THERMAL_OF' in drivers/thermal/spacemit/Kconfig
 > 
-> So you replace built-in into module?
->>
->> Signed-off-by: Prathamesh Shete <pshete@nvidia.com>
->> ---
->>   arch/arm64/configs/defconfig | 2 ++
->>   1 file changed, 2 insertions(+)
->>
->> diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
->> index dd1ac01ee29b..f525670d3b84 100644
->> --- a/arch/arm64/configs/defconfig
->> +++ b/arch/arm64/configs/defconfig
->> @@ -711,6 +711,8 @@ CONFIG_PINCTRL_SC8280XP_LPASS_LPI=m
->>   CONFIG_PINCTRL_SM8550_LPASS_LPI=m
->>   CONFIG_PINCTRL_SM8650_LPASS_LPI=m
->>   CONFIG_PINCTRL_SOPHGO_SG2000=y
->> +CONFIG_PINCTRL_TEGRA238=m
->> +CONFIG_PINCTRL_TEGRA264=m
+> Changes in v3:
+> - Align multi-line assignments as suggested by reviewer
+> - Remove unnecessary variable definitions
 > 
-> No, you just added as module. Why do we want them in upstream defconfig?
+> Changes in v2:
+> - Rename k1_thermal.c to k1_tsensor.c for better hardware alignment
+> - Move driver to drivers/thermal/spacemit/
+> - Add Kconfig/Makefile for spacemit and update top-level build files
+> - Refactor names, style, code alignment, and comments
+> - Simplify probe and error handling
+> ---
+>   drivers/thermal/Kconfig               |   2 +
+>   drivers/thermal/Makefile              |   1 +
+>   drivers/thermal/spacemit/Kconfig      |  19 +++
+>   drivers/thermal/spacemit/Makefile     |   3 +
+>   drivers/thermal/spacemit/k1_tsensor.c | 281 ++++++++++++++++++++++++++++++++++
+>   5 files changed, 306 insertions(+)
 > 
-> Standard question, already asked Nvidia more than once.
+> diff --git a/drivers/thermal/Kconfig b/drivers/thermal/Kconfig
+> index b10080d61860..1c4a5cd5a23e 100644
+> --- a/drivers/thermal/Kconfig
+> +++ b/drivers/thermal/Kconfig
+> @@ -472,6 +472,8 @@ endmenu
+>   
+>   source "drivers/thermal/renesas/Kconfig"
+>   
+> +source "drivers/thermal/spacemit/Kconfig"
+> +
+>   source "drivers/thermal/tegra/Kconfig"
+>   
+>   config GENERIC_ADC_THERMAL
+> diff --git a/drivers/thermal/Makefile b/drivers/thermal/Makefile
+> index bb21e7ea7fc6..3b249195c088 100644
+> --- a/drivers/thermal/Makefile
+> +++ b/drivers/thermal/Makefile
+> @@ -65,6 +65,7 @@ obj-y				+= mediatek/
+>   obj-$(CONFIG_GENERIC_ADC_THERMAL)	+= thermal-generic-adc.o
+>   obj-$(CONFIG_UNIPHIER_THERMAL)	+= uniphier_thermal.o
+>   obj-$(CONFIG_AMLOGIC_THERMAL)     += amlogic_thermal.o
+> +obj-y				+= spacemit/
+>   obj-$(CONFIG_SPRD_THERMAL)	+= sprd_thermal.o
+>   obj-$(CONFIG_KHADAS_MCU_FAN_THERMAL)	+= khadas_mcu_fan.o
+>   obj-$(CONFIG_LOONGSON2_THERMAL)	+= loongson2_thermal.o
+> diff --git a/drivers/thermal/spacemit/Kconfig b/drivers/thermal/spacemit/Kconfig
+> new file mode 100644
+> index 000000000000..de7b5ece5af2
+> --- /dev/null
+> +++ b/drivers/thermal/spacemit/Kconfig
+> @@ -0,0 +1,19 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +menu "SpacemiT thermal drivers"
+> +depends on ARCH_SPACEMIT || COMPILE_TEST
+> +
+> +config SPACEMIT_K1_TSENSOR
+> +	tristate "SpacemiT K1 thermal sensor driver"
+> +	depends on THERMAL_OF
+> +	help
+> +	  This driver provides support for the thermal sensor
+> +	  integrated in the SpacemiT K1 SoC.
+> +
+> +	  The thermal sensor monitors temperatures for five thermal zones:
+> +	  soc, package, gpu, cluster0, and cluster1. It supports reporting
+> +	  temperature values and handling high/low threshold interrupts.
+> +
+> +	  Say Y here if you want to enable thermal monitoring on SpacemiT K1.
+> +	  If compiled as a module, it will be called k1_tsensor.
+> +
+> +endmenu
+> diff --git a/drivers/thermal/spacemit/Makefile b/drivers/thermal/spacemit/Makefile
+> new file mode 100644
+> index 000000000000..82b30741e4ec
+> --- /dev/null
+> +++ b/drivers/thermal/spacemit/Makefile
+> @@ -0,0 +1,3 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +
+> +obj-$(CONFIG_SPACEMIT_K1_TSENSOR)	+= k1_tsensor.o
+> diff --git a/drivers/thermal/spacemit/k1_tsensor.c b/drivers/thermal/spacemit/k1_tsensor.c
+> new file mode 100644
+> index 000000000000..b742739e9019
+> --- /dev/null
+> +++ b/drivers/thermal/spacemit/k1_tsensor.c
+> @@ -0,0 +1,281 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Thermal sensor driver for SpacemiT K1 SoC
+> + *
+> + * Copyright (C) 2026 Shuwei Wu <shuwei.wu@mailbox.org>
+> + */
+> +#include <linux/bitfield.h>
+> +#include <linux/clk.h>
+> +#include <linux/err.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/io.h>
+> +#include <linux/kernel.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/reset.h>
+> +#include <linux/slab.h>
+> +#include <linux/thermal.h>
+> +
+> +#include "../thermal_hwmon.h"
+> +
+> +#define K1_TSENSOR_PCTRL_REG		0x00
+> +#define K1_TSENSOR_PCTRL_ENABLE		BIT(0)
+> +#define K1_TSENSOR_PCTRL_TEMP_MODE	BIT(3)
+> +#define K1_TSENSOR_PCTRL_RAW_SEL	BIT(7)
+> +
+> +#define K1_TSENSOR_PCTRL_CTUNE		GENMASK(11, 8)
+> +#define K1_TSENSOR_PCTRL_SW_CTRL	GENMASK(21, 18)
+> +#define K1_TSENSOR_PCTRL_HW_AUTO_MODE	BIT(23)
+> +
+> +#define K1_TSENSOR_EN_REG		0x08
+> +#define K1_TSENSOR_EN_ALL		GENMASK(MAX_SENSOR_NUMBER - 1, 0)
+> +
+> +#define K1_TSENSOR_TIME_REG		0x0C
+> +#define K1_TSENSOR_TIME_WAIT_REF_CNT	GENMASK(3, 0)
+> +#define K1_TSENSOR_TIME_ADC_CNT_RST	GENMASK(7, 4)
+> +#define K1_TSENSOR_TIME_FILTER_PERIOD	GENMASK(21, 20)
+> +#define K1_TSENSOR_TIME_MASK		GENMASK(23, 0)
+> +
+> +#define K1_TSENSOR_INT_CLR_REG		0x10
+> +#define K1_TSENSOR_INT_EN_REG		0x14
+> +#define K1_TSENSOR_INT_STA_REG		0x18
+> +
+> +#define K1_TSENSOR_INT_EN_MASK		BIT(0)
+> +#define K1_TSENSOR_INT_MASK(x)		(GENMASK(2, 1) << ((x) * 2))
+> +
+> +#define K1_TSENSOR_DATA_BASE_REG	0x20
+> +#define K1_TSENSOR_DATA_REG(x)		(K1_TSENSOR_DATA_BASE_REG + ((x) / 2) * 4)
+> +#define K1_TSENSOR_DATA_LOW_MASK	GENMASK(15, 0)
+> +#define K1_TSENSOR_DATA_HIGH_MASK	GENMASK(31, 16)
+> +
+> +#define K1_TSENSOR_THRSH_BASE_REG	0x40
+> +#define K1_TSENSOR_THRSH_REG(x)		(K1_TSENSOR_THRSH_BASE_REG + ((x) * 4))
+> +#define K1_TSENSOR_THRSH_LOW_MASK	GENMASK(15, 0)
+> +#define K1_TSENSOR_THRSH_HIGH_MASK	GENMASK(31, 16)
+> +
+> +#define MAX_SENSOR_NUMBER		5
+> +
+> +/* Hardware offset value required for temperature calculation */
+> +#define TEMPERATURE_OFFSET		278
+> +
+> +struct k1_tsensor_channel {
+> +	struct k1_tsensor *ts;
+> +	struct thermal_zone_device *tzd;
+> +	int id;
+> +};
+> +
+> +struct k1_tsensor {
+> +	void __iomem *base;
+> +	struct k1_tsensor_channel ch[MAX_SENSOR_NUMBER];
+> +};
+> +
+> +static void k1_tsensor_init(struct k1_tsensor *ts)
+> +{
+> +	u32 val;
+> +
+> +	/* Disable all the interrupts */
+> +	writel(0xffffffff, ts->base + K1_TSENSOR_INT_EN_REG);
+> +
+> +	/* Configure ADC sampling time and filter period */
+> +	val = readl(ts->base + K1_TSENSOR_TIME_REG);
+> +	val &= ~K1_TSENSOR_TIME_MASK;
+> +	val |= K1_TSENSOR_TIME_FILTER_PERIOD |
+> +	       K1_TSENSOR_TIME_ADC_CNT_RST |
+> +	       K1_TSENSOR_TIME_WAIT_REF_CNT;
+> +	writel(val, ts->base + K1_TSENSOR_TIME_REG);
+> +
+> +	/*
+> +	 * Enable all sensors' auto mode, enable dither control,
+> +	 * consecutive mode, and power up sensor.
+> +	 */
+> +	val = readl(ts->base + K1_TSENSOR_PCTRL_REG);
+> +	val &= ~K1_TSENSOR_PCTRL_SW_CTRL;
+> +	val &= ~K1_TSENSOR_PCTRL_CTUNE;
+> +	val |= K1_TSENSOR_PCTRL_RAW_SEL |
+> +	       K1_TSENSOR_PCTRL_TEMP_MODE |
+> +	       K1_TSENSOR_PCTRL_HW_AUTO_MODE |
+> +	       K1_TSENSOR_PCTRL_ENABLE;
+> +	writel(val, ts->base + K1_TSENSOR_PCTRL_REG);
+> +
+> +	/* Enable thermal interrupt */
+> +	val = readl(ts->base + K1_TSENSOR_INT_EN_REG);
+> +	val |= K1_TSENSOR_INT_EN_MASK;
+> +	writel(val, ts->base + K1_TSENSOR_INT_EN_REG);
+> +
+> +	/* Enable each sensor */
+> +	val = readl(ts->base + K1_TSENSOR_EN_REG);
+> +	val |= K1_TSENSOR_EN_ALL;
+> +	writel(val, ts->base + K1_TSENSOR_EN_REG);
+> +}
+> +
+> +static void k1_tsensor_enable_irq(struct k1_tsensor_channel *ch)
+> +{
+> +	struct k1_tsensor *ts = ch->ts;
+> +	u32 val;
+> +
+> +	val = readl(ts->base + K1_TSENSOR_INT_CLR_REG);
+> +	val |= K1_TSENSOR_INT_MASK(ch->id);
+> +	writel(val, ts->base + K1_TSENSOR_INT_CLR_REG);
+> +
+> +	val = readl(ts->base + K1_TSENSOR_INT_EN_REG);
+> +	val &= ~K1_TSENSOR_INT_MASK(ch->id);
+> +	writel(val, ts->base + K1_TSENSOR_INT_EN_REG);
+> +}
+> +
+> +/*
+> + * The conversion formula used is:
+> + * T(m°C) = (((raw_value & mask) >> shift) - TEMPERATURE_OFFSET) * 1000
+> + */
+> +static int k1_tsensor_get_temp(struct thermal_zone_device *tz, int *temp)
+> +{
+> +	struct k1_tsensor_channel *ch = thermal_zone_device_priv(tz);
+> +	struct k1_tsensor *ts = ch->ts;
+> +	u32 val;
+> +
+> +	val = readl(ts->base + K1_TSENSOR_DATA_REG(ch->id));
+> +	if (ch->id % 2)
+> +		*temp = FIELD_GET(K1_TSENSOR_DATA_HIGH_MASK, val);
+> +	else
+> +		*temp = FIELD_GET(K1_TSENSOR_DATA_LOW_MASK, val);
+> +
+> +	*temp -= TEMPERATURE_OFFSET;
+> +	*temp *= 1000;
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * For each sensor, the hardware threshold register is 32 bits:
+> + * - Lower 16 bits [15:0] configure the low threshold temperature.
+> + * - Upper 16 bits [31:16] configure the high threshold temperature.
+> + */
+> +static int k1_tsensor_set_trips(struct thermal_zone_device *tz, int low, int high)
+> +{
+> +	struct k1_tsensor_channel *ch = thermal_zone_device_priv(tz);
+> +	struct k1_tsensor *ts = ch->ts;
+> +	u32 val;
+> +
+> +	if (low >= high)
+> +		return -EINVAL;
+> +
+> +	if (low < 0)
+> +		low = 0;
+> +
+> +	high = high / 1000 + TEMPERATURE_OFFSET;
 
-Yes :-)
+Consider passes high = INT_MAX here:
 
-Prathamesh, what we need to do is ...
+high = INT/1000 + TEMPERATURE_OFFSET == 2147761;
 
-1. Add a patch to populate the pinctrl DT nodes for Tegra264 device.
-2. In this patch, only enable pinctrl for Tegra264 because we are
-    lacking an upstream board for Tegra238 for that moment. In the commit
-    message we should add a comment to indicate with Tegra264 platform is
-    using this.
+> +	low = low / 1000 + TEMPERATURE_OFFSET;
+> +
+> +	val = readl(ts->base + K1_TSENSOR_THRSH_REG(ch->id));
+> +	val &= ~K1_TSENSOR_THRSH_HIGH_MASK;
+> +	val |= FIELD_PREP(K1_TSENSOR_THRSH_HIGH_MASK, high);
 
-We can still merge the DT binding-doc changes and driver for Tegra238, 
-but no point to enable in the defconfig yet.
+K1_TSENSOR_THRSH_HIGH_MASK is a 16-bit MASK:
+FIELD_PREP(K1_TSENSOR_THRSH_HIGH_MASK, 2147761); <- overflow happened
 
-Jon
+the maximum value here will be changed to 50609 from 65536.
 
--- 
-nvpublic
+We should add a check here and limit the 'high' value here to avoid 
+overflow:
+
+if (high > (int)((0xFFFF - TEMPERATURE_OFFSET) * 1000))
+	high = (0Xffff - TEMPERATURE_OFFSET) * 1000;
+
+high = high / 1000 + TEMPERATURE_OFFSET;
+
+...
+	
+> +
+> +	val &= ~K1_TSENSOR_THRSH_LOW_MASK;
+> +	val |= FIELD_PREP(K1_TSENSOR_THRSH_LOW_MASK, low);
+> +	writel(val, ts->base + K1_TSENSOR_THRSH_REG(ch->id));
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct thermal_zone_device_ops k1_tsensor_ops = {
+> +	.get_temp = k1_tsensor_get_temp,
+> +	.set_trips = k1_tsensor_set_trips,
+> +};
+> +
+> +static irqreturn_t k1_tsensor_irq_thread(int irq, void *data)
+> +{
+> +	struct k1_tsensor *ts = (struct k1_tsensor *)data;
+> +	int mask, status, i;
+> +
+> +	status = readl(ts->base + K1_TSENSOR_INT_STA_REG);
+> +
+> +	for (i = 0; i < MAX_SENSOR_NUMBER; i++) {
+> +		if (status & K1_TSENSOR_INT_MASK(i)) {
+> +			mask = readl(ts->base + K1_TSENSOR_INT_CLR_REG);
+> +			mask |= K1_TSENSOR_INT_MASK(i);
+> +			writel(mask, ts->base + K1_TSENSOR_INT_CLR_REG);
+> +			thermal_zone_device_update(ts->ch[i].tzd, THERMAL_EVENT_UNSPECIFIED);
+> +		}
+> +	}
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static int k1_tsensor_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct k1_tsensor *ts;
+> +	struct reset_control *reset;
+> +	struct clk *clk;
+> +	int i, irq, ret;
+> +
+> +	ts = devm_kzalloc(dev, sizeof(*ts), GFP_KERNEL);
+> +	if (!ts)
+> +		return -ENOMEM;
+> +
+> +	ts->base = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(ts->base))
+> +		return dev_err_probe(dev, PTR_ERR(ts->base), "Failed to get reg\n");
+> +
+> +	reset = devm_reset_control_get_exclusive_deasserted(dev, NULL);
+> +	if (IS_ERR(reset))
+> +		return dev_err_probe(dev, PTR_ERR(reset), "Failed to get/deassert reset control\n");
+> +
+> +	clk = devm_clk_get_enabled(dev, "core");
+> +	if (IS_ERR(clk))
+> +		return dev_err_probe(dev, PTR_ERR(clk), "Failed to get core clock\n");
+> +
+> +	clk = devm_clk_get_enabled(dev, "bus");
+> +	if (IS_ERR(clk))
+> +		return dev_err_probe(dev, PTR_ERR(clk), "Failed to get bus clock\n");
+> +
+> +	k1_tsensor_init(ts);
+> +
+> +	for (i = 0; i < MAX_SENSOR_NUMBER; ++i) {
+> +		ts->ch[i].id = i;
+> +		ts->ch[i].ts = ts;
+> +		ts->ch[i].tzd = devm_thermal_of_zone_register(dev, i, ts->ch + i, &k1_tsensor_ops);
+> +		if (IS_ERR(ts->ch[i].tzd))
+> +			return PTR_ERR(ts->ch[i].tzd);
+> +
+> +		/* Attach sysfs hwmon attributes for userspace monitoring */
+> +		ret = devm_thermal_add_hwmon_sysfs(dev, ts->ch[i].tzd);
+> +		if (ret)
+> +			dev_warn(dev, "Failed to add hwmon sysfs attributes\n");
+> +
+> +		k1_tsensor_enable_irq(ts->ch + i);
+
+should call after the devm_request_threaded_irq succeeds;
+
+Thanks,
+Jie
+
+> +	}
+> +
+> +	irq = platform_get_irq(pdev, 0);
+> +	if (irq < 0)
+> +		return irq;
+> +
+> +	ret = devm_request_threaded_irq(dev, irq, NULL,
+> +					k1_tsensor_irq_thread,
+> +					IRQF_ONESHOT, "k1_tsensor", ts);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	platform_set_drvdata(pdev, ts);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct of_device_id k1_tsensor_dt_ids[] = {
+> +	{ .compatible = "spacemit,k1-tsensor" },
+> +	{ /* sentinel */ }
+> +};
+> +
+> +MODULE_DEVICE_TABLE(of, k1_tsensor_dt_ids);
+> +
+> +static struct platform_driver k1_tsensor_driver = {
+> +	.driver = {
+> +		.name		= "k1_tsensor",
+> +		.of_match_table = k1_tsensor_dt_ids,
+> +	},
+> +	.probe	= k1_tsensor_probe,
+> +};
+> +module_platform_driver(k1_tsensor_driver);
+> +
+> +MODULE_DESCRIPTION("SpacemiT K1 Thermal Sensor Driver");
+> +MODULE_AUTHOR("Shuwei Wu <shuwei.wu@mailbox.org>");
+> +MODULE_LICENSE("GPL");
+> 
 
