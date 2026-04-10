@@ -1,69 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59CD6386565;
-	Fri, 10 Apr 2026 10:56:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94B6D3002B9
+	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 10:57:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775818575; cv=none; b=XKULhiuy0x1UUQPIqINdc1zYcWaToX7ipGLjuqeqBCf2rL+YxiseVh57eLXJ4C4KusN2ZIw0DFYGJ9kp2bJjfgNzZ2rOB4vxzq8IFrh9V6boXebL0MTrvTlGprpT1KlfNyhpOhVvfmbvkHt2vC0N5+gIZYX8klUwF0EllM6re9A=
+	t=1775818665; cv=none; b=uZCSCAGDLhtvCK7qxRQLOMm7BNQekcCG6R+i4/xUwUdVyt8Z8VjQKiMzyhD335GtvSIuvrBqw0OOZHthxv7O4tntaz6a/Y3koxE5T76csXoELCSat111j8KVSbbTkaXUFclOOFUjaqTRFnJz01an9p166C2fbPGAcsyT5Wh1XLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775818575; c=relaxed/simple;
-	bh=WYqHQ/KSVCOpW5gEvy3s00YQa3VfVpDZrOgWzcd0JrA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CKMtmpSiutpOoFhOZLT3/TCa4Jj34xBVsEZVBNXQ6ixADQWxW05RI7TUq2dd+xai1c3ZkmMu0m4Hq0l9Rs8agh05cLHgL6R5ZWt3pcfD5jKljV+/f+j3zI9IKo2lt0QrKVUXzSA8E3aAlgI7PUEAxriOYBtciZJXALVJbCtMMdU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hhv8rmIU; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775818665; c=relaxed/simple;
+	bh=+q+1OhDdzvPZ+krF5hp5AKstKd3Qe2GUMwhgQ5xgalk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LMJoXB3pAN3Avw4/mrdvh8qcqoyyLDMirHQoz2bD4M0fqPDXe+GsU/n3qe1RK8zI2Ft6aIgRZupouaeI/thxI2et7lqHmRwV1JB2UU5gOwD0Ax5qxRvXD6SP/71DnR0qv2LkJgrEcR4oJj4FXbB598YPJ25Q8qNohcDIxA2pmQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CkdTtaf2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Xxsn6grA; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hhv8rmIU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 848A5C19421;
-	Fri, 10 Apr 2026 10:56:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775818575;
-	bh=WYqHQ/KSVCOpW5gEvy3s00YQa3VfVpDZrOgWzcd0JrA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Hhv8rmIU+x5ieL3Y8PJPafaV+eMDeHmJGdnarcpWzJrM42OQnOO2yWwoQgEgW31De
-	 aeatVgKRMXOzGeSFMDGjC7nacMGm4SzJMoOywSBuUOeVjtrywZwIjKioUKTYExbrwJ
-	 PKJe4C1W5Pp7bAMLevQVMGQvjmYBrr7WFr407hPy3prGIzPF/LdctOBykzgfy8jYbq
-	 LA7HpGzIlsHfRM5kge/b3iIGV6S1z6Qm81o9xc2q3dA1gddi90Q8k6B87lF59rEy70
-	 rzxRD509NjPXIYxNkPJcZVEebQgsu6c0OAqvakWp1UAIphMhZJfGI8+HU97dZcmEF5
-	 6w630GMPaJdSA==
-Date: Fri, 10 Apr 2026 12:56:12 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>, 
-	Francesco Dolcini <francesco.dolcini@toradex.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v1 1/7] dt-bindings: arm: fsl: Add verdin imx8m[mp] and
- imx95 zinnia board
-Message-ID: <20260410-great-woodlouse-of-judgment-99bd78@quoll>
-References: <20260409095855.61252-1-francesco@dolcini.it>
- <20260409095855.61252-2-francesco@dolcini.it>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CkdTtaf2";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Xxsn6grA"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63AA62NP017417
+	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 10:57:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	A8SRtNLpNrKw7SKWjiRL/dpR0Kq7TCMarVsjksXHNUo=; b=CkdTtaf2nqO2xGy8
+	Bi410T3HIY9W7ZVvMQzBUGspYTiLWjE+ICQmE2j+qe8fXz6QfmQZq7xrJxg9Aeqg
+	1bHek48yjW6VfugcMLvj/et5eBFb7eFe2wGQIuJIOwTu+hZBmyIPk0AfWLTyX/vF
+	VR7SQ6b286brkyvfzsnCzb5VCVFnwm2luRlVBf1/XfJTz+Wl+IegnsHWtTotUQjk
+	1LEqvY635IeSOn0pkb8E3Tx97EwT9YDMeO0fZWwWUAo7L1OnFHZmo6TdO82fCGjX
+	aR5wLwGCm34fPAgZheTJFKeYYLdbOSnoDEFBUoio63nlLy7/E7gi3eGuLD42OTOD
+	zd8cbA==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dey5j0593-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 10:57:43 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2b2523e0299so46183625ad.3
+        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 03:57:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1775818662; x=1776423462; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=A8SRtNLpNrKw7SKWjiRL/dpR0Kq7TCMarVsjksXHNUo=;
+        b=Xxsn6grAo6ebetO+WFMc1Xf0DJQU0m8YRVLRhiJPb8w+8iAeGuON5nJW4SfQXAzCDT
+         KBIvFU25YN+K1l2UlbBp3QTXwEAGyA/lekiHSPDOPPz2Jvu9bcftPT42KdP6S3W1MhTm
+         bJC4uxhYiVZKQuVPJwTmEvxlfDyFQfAbcmeo8LWnQj7QgylsLhX96VDwtLeKYdCm+Uih
+         sy8beDsbsWPRpH783VLkeiwEfmFvIAubjTI0KArO6Bka/ALD9tqSGDKYpccs+BHim5OE
+         hvaD+BKMJc+ylVebSxzGgKRMJV6o+s4DKkTlaPoOxzzoJgzChlFvTkhOAtjdrkCgjJnd
+         LC5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775818662; x=1776423462;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=A8SRtNLpNrKw7SKWjiRL/dpR0Kq7TCMarVsjksXHNUo=;
+        b=gdijcS6JfXsO86vO1+1jKLb2KdRPorp1VWRuOR/Obde056nw7g3NivD4D2bF92hXaq
+         9kVMqpxiZfYrEZJPwMaFqSW8T3IASY6/tvwW8l04dvMR4tez3tftrH6QYH3IYgFH+5A+
+         9YsSrwUc4cBYWhS/19NnLJCYlC1DgyWjfEpYBR2ZYtVp+EPpk3ThdrtDY14FMWzD8pIj
+         a7iLA1Bzng4pwk9en1KCP1XYTp3GHehpg6XkQ6TV9yLHZGI8JeqtxNsALo5lu0TJcT6K
+         FP8SNXFcx7+llxr53d06Ca8c41c03T5BsFKP0bLD83unCozcvplPCo9tjIL2WI9VgpOS
+         x6dA==
+X-Forwarded-Encrypted: i=1; AJvYcCX56FQFnDPNv4UuD5AoAeHrEWCRFavIBp5mppbJhK9OBb5XuNRhVy5sSNkLPYGkEDGwAovftsekfBsX@vger.kernel.org
+X-Gm-Message-State: AOJu0YzAEAvu1sSyY0lwn0huSdYojdlzb+B6LweD8fMPEKI3NPrd/HGk
+	ily50RWMZmRHvi/OZUxBaNxAmc/NXIUIN36ot3SEHGPmO+pnTeKZ9Tvbhwf0F1uf2fvTzjFtuGE
+	wsRMMF7s8yKnNjtg0pIHi9nKhKXPrWmntAz/A35rtEqtUOGsL8bkQe4+jCaCj10EG
+X-Gm-Gg: AeBDietBQXGAffUCwNTxJv/FfT5JTbYcXkZahnALLp5onfMm8hV7Qf3dO34kh4PBGuJ
+	YeyLQZmXEz7NfRFfVrIet/6J1A0e4wEmsYpmvXbd/z9wA4qHGpeO9liS2ppipnh4iR8tN24ZSxr
+	mL52Cxq/am2qvqeSKB1uFfCua1ilMwnyXjHfoJoR039lleQC9l+d2GoLGG+uJ5yAqKE7xIN10tl
+	mRAT3QG5v5+0dBWz59YbNeDjw278Elv+7ChRfwrD7qZIVkrr7iVj14kdjepGMHHzzV/GXQ6XG1E
+	K/QH5+TLd8f6LsM2Om+qjq6wk4eqTWg/VVBTAvy9cyEvOJHc/3QG9X7TmVtmEBAeSHlW2PF4pyz
+	Ibg9r2gMtPPi4skCnHtjyA+4Fizo2Em6z1pvLED/gOaWWwxyn74Gz
+X-Received: by 2002:a17:902:b101:b0:2b2:5491:e32b with SMTP id d9443c01a7336-2b2d5a2a296mr20063485ad.23.1775818662530;
+        Fri, 10 Apr 2026 03:57:42 -0700 (PDT)
+X-Received: by 2002:a17:902:b101:b0:2b2:5491:e32b with SMTP id d9443c01a7336-2b2d5a2a296mr20063225ad.23.1775818661968;
+        Fri, 10 Apr 2026 03:57:41 -0700 (PDT)
+Received: from [10.218.44.178] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b2d4e15f71sm27075985ad.34.2026.04.10.03.57.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 10 Apr 2026 03:57:41 -0700 (PDT)
+Message-ID: <71c6c453-4a6b-414e-a039-80f36e948489@oss.qualcomm.com>
+Date: Fri, 10 Apr 2026 16:27:35 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260409095855.61252-2-francesco@dolcini.it>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 5/5] arm64: dts: qcom: monaco: Add OPP-table for ICE
+ UFS and ICE eMMC nodes
+To: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+        "Martin K. Petersen" <martin.petersen@oracle.com>,
+        Adrian Hunter <adrian.hunter@intel.com>,
+        Ulf Hansson
+ <ulf.hansson@linaro.org>,
+        Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
+        Harshal Dev <harshal.dev@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-scsi@vger.kernel.org, linux-mmc@vger.kernel.org,
+        devicetree@vger.kernel.org
+References: <20260409-enable-ice-clock-scaling-v8-0-ca1129798606@oss.qualcomm.com>
+ <20260409-enable-ice-clock-scaling-v8-5-ca1129798606@oss.qualcomm.com>
+Content-Language: en-US
+From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+In-Reply-To: <20260409-enable-ice-clock-scaling-v8-5-ca1129798606@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: c3pnrIxV6HOuACMSiptMPEhXzYjVwlsF
+X-Authority-Analysis: v=2.4 cv=b9aCJNGx c=1 sm=1 tr=0 ts=69d8d7a7 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=QRdWpJMrku1fmPn5X40A:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-ORIG-GUID: c3pnrIxV6HOuACMSiptMPEhXzYjVwlsF
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEwMDEwMSBTYWx0ZWRfX4hYMbrk9gpeJ
+ 1wexcr/Uu4f1JmEFVmS47SK1s4QCf7a8AOOcagwAP+3KMcBMuGYw11iDdJ2MTq6z12isb2hIqzL
+ TKw1rh5DNCR69d8LWBT8OnVvyq1rzbIythuCqQ6EOKWsLEKgddPYJ+bL7a5ngrKsewa2sN4d8Dg
+ 9Wag32nTwZLT3kTfIps+4iy/rUGDkLyIkpqn/CU54+HsPDnAu5blrv1w2D8vv28w0yEVJXup3/O
+ 9MfRR1QodP9gH2WjqqjpxKzwrLjUYMwxeT6Hna9ehyuc121AeC2/raWCHeV1GtITVDyWfI+cdZ3
+ qTz3WabyKElBhwfuarDmpLFfsu6WCo+VPaAtXGXBsTRCwcCD+MBrPvwKHM+Wt2Q7JFQwCcyaxPk
+ Vsj4cPRWqOwmEj189iVH5xODzz2ATEcSmjEbFFwaS4z4madSLztSCHDYy0gIkPO6JKxm3ZvZ/OC
+ CtsUchEtYP72vjahoPA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-10_03,2026-04-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 impostorscore=0 adultscore=0 priorityscore=1501
+ phishscore=0 lowpriorityscore=0 malwarescore=0 bulkscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604100101
 
-On Thu, Apr 09, 2026 at 11:58:47AM +0200, Francesco Dolcini wrote:
-> From: Francesco Dolcini <francesco.dolcini@toradex.com>
+
+
+On 4/9/2026 5:14 PM, Abhinaba Rakshit wrote:
+> Qualcomm Inline Crypto Engine (ICE) platform driver now, supports
+> an optional OPP-table.
 > 
-> Add Toradex Verdin Zinnia carrier board mated with Verdin
-> iMX8M Plus, Verdin iMX8M Mini and Verdin iMX95.
+> Add OPP-table for ICE UFS and ICE eMMC device nodes for Monaco
+> platform.
 > 
-> Link: https://www.toradex.com/products/carrier-board/zinnia-carrier-board
-> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> Signed-off-by: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
 > ---
->  Documentation/devicetree/bindings/arm/fsl.yaml | 6 ++++++
->  1 file changed, 6 insertions(+)
+>  arch/arm64/boot/dts/qcom/monaco.dtsi | 32 ++++++++++++++++++++++++++++++++
+>  1 file changed, 32 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/qcom/monaco.dtsi
+> index 487bb682ae8620b819f022162edd11023ed07be8..cb0e554e94d237b0adccb55fa9ed967bae9eea05 100644
+> --- a/arch/arm64/boot/dts/qcom/monaco.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
+> @@ -2730,6 +2730,22 @@ ice: crypto@1d88000 {
+>  			clock-names = "core",
+>  				      "iface";
+>  			power-domains = <&gcc GCC_UFS_PHY_GDSC>;
+> +
+> +			operating-points-v2 = <&ice_opp_table>;
+> +
+> +			ice_opp_table: opp-table {
+> +				compatible = "operating-points-v2";
+> +
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+75MHz is supported too. Please add that entry.
 
-Best regards,
-Krzysztof
+> +				opp-201600000 {
+> +					opp-hz = /bits/ 64 <201600000>;
+> +					required-opps = <&rpmhpd_opp_svs_l1>;
+> +				};
+> +
+> +				opp-403200000 {
+> +					opp-hz = /bits/ 64 <403200000>;
+> +					required-opps = <&rpmhpd_opp_nom>;
+> +				};
+> +			};
+>  		};
+
+-- 
+Regards
+Kuldeep
 
