@@ -1,148 +1,97 @@
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com [210.160.252.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F3D623DBD4E;
-	Fri, 10 Apr 2026 16:37:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.160.252.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A9A173463;
+	Fri, 10 Apr 2026 16:38:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775839051; cv=none; b=fJ5Qxligca4VMifsulbG6TyeMHAiedrhLC6JDnlzF85ibUbE4Ny2Bb3Vjv9CzTn00Z9xrONDaRYMpUkvJ2y9IR2wt2mJ93e7pFRhWVvIrVwBoYUa5zEBJpzvgW9MRfXyF9z2FZGJDP3EHpFLoil/RVRsOVog2Smo0muxdbDSMgU=
+	t=1775839097; cv=none; b=pjpuKvLRRj3E5xovM3gRCPoqP9FOFOv6pnNzfPrS63VSbcw8ciB9GGviZDOdCWvRz+y6sQuahutnHR3heB09MD+0qvxoGhLyBtydrPz2+KynVjY6ZV3mN6JXcA29VplwtH1G9pZl/HaMsmjf+HWvXOfoGVmyhyMVDZYPYrOh2Uo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775839051; c=relaxed/simple;
-	bh=jtYBzjlxgYDZzV1vg7fYzI7AuWlb3elTzNXnXhfyjtY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IC9g9UrX9GZoeSPpGtxuMrpYSf7a9eeoHr5Iv+9gGrpW4AsDnyyMP/m+rtEwzrPPtl6XL4z+xSuasHgwevYBWxafqigYR6Qe4GNqCW8+USgqW+DlEcCIY0wY9Bp5II/vtAVMjvcEbCtip4NoGHTKWe5KJKLoMQgjX5xO2rhKtoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; arc=none smtp.client-ip=210.160.252.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
-X-CSE-ConnectionGUID: gEGNgo83RjO2Pgc1cVm6AA==
-X-CSE-MsgGUID: q0dUoP6ASXC/mv+1VO27Fg==
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
-  by relmlie6.idc.renesas.com with ESMTP; 11 Apr 2026 01:37:29 +0900
-Received: from demon-pc.localdomain (unknown [10.226.93.85])
-	by relmlir5.idc.renesas.com (Postfix) with ESMTP id 6211E4006DC3;
-	Sat, 11 Apr 2026 01:37:24 +0900 (JST)
-From: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Lee Jones <lee@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-iio@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-Subject: [PATCH v2 10/10] arm64: dts: renesas: r9a09g087: add MTU3 support
-Date: Fri, 10 Apr 2026 19:35:30 +0300
-Message-ID: <20260410163530.383818-11-cosmin-gabriel.tanislav.xa@renesas.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260410163530.383818-1-cosmin-gabriel.tanislav.xa@renesas.com>
-References: <20260410163530.383818-1-cosmin-gabriel.tanislav.xa@renesas.com>
+	s=arc-20240116; t=1775839097; c=relaxed/simple;
+	bh=p+DmL+MjgnlwOS7U7TCoDsMNoz75sB3yscpSLOBV3MM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oZvd0Rop3fQQtQob1af2bkvKh4xTfAFuef6eNQtYUV65lAkM2slhoGljJC2+FLJPUKC/GI4FJWnSN+ipVM7bbnFPwIFm/b4dX4iQ7l/Na4bytDTwoeqJpQUpWF8MpjH0gcKUJZO/M7x2X65zlDIXTV0Ylk8sV1AxXWd49/kzYK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TxUep6ws; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TxUep6ws"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B61FC19421;
+	Fri, 10 Apr 2026 16:38:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775839097;
+	bh=p+DmL+MjgnlwOS7U7TCoDsMNoz75sB3yscpSLOBV3MM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=TxUep6wso/6NWn5G0w2mnYkhpIo+ACtLXQ1rTG9Li8yjPeO1nhCdDxboOd54fZEv4
+	 OZ2H2K3xeas/3Xksd9/zy0S1QyQGyZo0hyYWLgjGAv2yhvdV2izvV5YzistSM/r7H+
+	 78G/KnF9S2tpNJCuMvhZ1gjWTrVhqkTxJigvTXZSAVaONlKEhyX/QPyr6QrcOVzR23
+	 p4p/9WVKniKO+ugBZxQJGh0d6FzI8WRezj8A/8KW2ZG65bAHMK24Hy6C1c7j2OtLT0
+	 DQv5rotpJ7NB9mDNdvC1thr+b2PRf7haMsDk4F4DtDKZ4iSZisQxHMdyDKZMNcyWbc
+	 QRgK1MXiy2UBQ==
+Date: Fri, 10 Apr 2026 22:08:09 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: monaco: Add default GIC address cells
+Message-ID: <lf6lnxfmivhluiuoneckl2eipv4dkfphc56tn5w3a4pykb2toq@ykesarjnhh3r>
+References: <20260407201518.24949-2-krzysztof.kozlowski@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260407201518.24949-2-krzysztof.kozlowski@oss.qualcomm.com>
 
-The Renesas RZ/N2H (R9A09G087) SoC has an MTU3 block.
+On Tue, Apr 07, 2026 at 10:15:19PM +0200, Krzysztof Kozlowski wrote:
+> Add missing address-cells 0 to GIC interrupt node to silence W=1
+> warning:
+> 
+>   monaco.dtsi:2326.4-2329.30: Warning (interrupt_map): /soc@0/pci@1c00000:interrupt-map:
+>     Missing property '#address-cells' in node /soc@0/interrupt-controller@17a00000, using 0 as fallback
+> 
+> Value '0' is correct because:
+> 1. GIC interrupt controller does not have children,
+> 2. interrupt-map property (in PCI node) consists of five components and
+>    the fourth component 'parent unit address', which size is defined by
+>    '#address-cells' of the node pointed to by the interrupt-parent
+>    component, is not used (=0).
+> 
+> Fixes: 46a7c01e7e9d ("arm64: dts: qcom: qcs8300: enable pcie0")
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Add support for it.
+Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
 
-Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
----
+- Mani
 
-V2:
- * no changes
+> 
+> ---
+> 
+> Fix for v7.0-rcX.
+> ---
+>  arch/arm64/boot/dts/qcom/monaco.dtsi | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/qcom/monaco.dtsi
+> index 7b1d57460f1e..5f060b24d52e 100644
+> --- a/arch/arm64/boot/dts/qcom/monaco.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
+> @@ -7380,6 +7380,7 @@ intc: interrupt-controller@17a00000 {
+>  			interrupt-controller;
+>  			#redistributor-regions = <1>;
+>  			redistributor-stride = <0x0 0x20000>;
+> +			#address-cells = <0>;
+>  		};
+>  
+>  		watchdog@17c10000 {
+> -- 
+> 2.51.0
+> 
 
- arch/arm64/boot/dts/renesas/r9a09g087.dtsi | 68 ++++++++++++++++++++++
- 1 file changed, 68 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/renesas/r9a09g087.dtsi b/arch/arm64/boot/dts/renesas/r9a09g087.dtsi
-index f697e9698ed39..c64b532f3d234 100644
---- a/arch/arm64/boot/dts/renesas/r9a09g087.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r9a09g087.dtsi
-@@ -1119,6 +1119,74 @@ gic: interrupt-controller@83000000 {
- 			interrupts = <GIC_PPI 9 IRQ_TYPE_LEVEL_LOW>;
- 		};
- 
-+		mtu3: timer@90001200 {
-+			compatible = "renesas,r9a09g087-mtu3",
-+				     "renesas,rz-mtu3";
-+			reg = <0 0x90001200 0 0xb00>;
-+			interrupts = <GIC_SPI 420 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 421 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 422 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 423 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 424 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 425 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 426 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 427 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 428 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 429 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 430 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 431 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 432 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 433 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 434 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 435 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 436 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 437 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 438 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 439 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 440 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 441 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 442 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 443 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 444 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 445 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 446 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 447 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 448 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 449 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 450 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 451 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 452 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 453 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 454 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 455 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 456 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 457 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 458 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 459 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 460 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 461 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 462 IRQ_TYPE_EDGE_RISING>;
-+			interrupt-names = "tgia0", "tgib0", "tgic0", "tgid0",
-+					  "tciv0", "tgie0", "tgif0",
-+					  "tgia1", "tgib1", "tciv1", "tciu1",
-+					  "tgia2", "tgib2", "tciv2", "tciu2",
-+					  "tgia3", "tgib3", "tgic3", "tgid3",
-+					  "tciv3",
-+					  "tgia4", "tgib4", "tgic4", "tgid4",
-+					  "tciv4",
-+					  "tgiu5", "tgiv5", "tgiw5",
-+					  "tgia6", "tgib6", "tgic6", "tgid6",
-+					  "tciv6",
-+					  "tgia7", "tgib7", "tgic7", "tgid7",
-+					  "tciv7",
-+					  "tgia8", "tgib8", "tgic8", "tgid8",
-+					  "tciv8";
-+			clocks = <&cpg CPG_MOD 200>;
-+			power-domains = <&cpg>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
- 		adc0: adc@90014000 {
- 			compatible = "renesas,r9a09g087-adc", "renesas,r9a09g077-adc";
- 			reg = <0 0x90014000 0 0x400>;
 -- 
-2.53.0
+மணிவண்ணன் சதாசிவம்
