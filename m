@@ -1,124 +1,128 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4A56334C08;
-	Fri, 10 Apr 2026 06:27:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00747334688;
+	Fri, 10 Apr 2026 06:28:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775802472; cv=none; b=ZiHUjMBbmBIDJygzuo7xLwdHLBlBJ8qU4VQROzKp61JnYQjipsthlIz0TJFadnrIbhQ9lbTlaHtPmX3pEbI6aQnu9YWTb/GPMviY69znSbLQazXb8UHheR3zG8d5ik2Ku4DUIWNaBhqokQP384mTDXS1Dp23INvtTCaesg2l8Ys=
+	t=1775802484; cv=none; b=s6Koa93RvwS4bsgXROdhJgDvT51Lt4INRHdJzwavw2R6F969NzAkSH6uTX7E8QGKM8fuSU0N41bpRgV/abjVjPRHQqVAenWEJxVcKLKbPM9HNp8VLoUzJZgx1FPMCm79kr/3fMGW6EOoHR6lZLRcUARipasJIa8fMblFE+60bwM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775802472; c=relaxed/simple;
-	bh=ajthKdkAGwRhclYQfXtnXrA/phsT3uVTk3g+JGYsSm8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dNko+byoT+3ayZWYNSxdD62BTainL/RZm32q5Ju0vjZINDHgW6wtgJ+lS0mcagUFmTTJuoIWcWgVXO4eGJRm6/sNJadshOBJxIJJtoCCQPPNt6kJC63mwtzLG42fh1TiCYR6QkeffIpH08vOKcH+xLFeLwDuPNHt+/perHKhz9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XhzjfMDT; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775802484; c=relaxed/simple;
+	bh=0et9MKpqB067gKO1QucfCh1G8Ji90t+DxfnD6e0BESA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aBPj8uMuP1GioeSJOQrfwfkBQcEx8IkPAGjp5+7O/kd565kPba31CtPEGA5yf9R3cD7TPfoLLyvPUvbUmH+j3Lg6e7h5oxWi3epTCxdf7XOCLrU6SMkqV155GONaiCQu9scX02WmcpwLTvRiW2eRdbGWulUGv8tvE6Xg9UbmbQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cpON9+SB; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XhzjfMDT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32E00C19421;
-	Fri, 10 Apr 2026 06:27:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cpON9+SB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7DD4C19424;
+	Fri, 10 Apr 2026 06:28:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775802472;
-	bh=ajthKdkAGwRhclYQfXtnXrA/phsT3uVTk3g+JGYsSm8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=XhzjfMDTjlPhnTwAKDqk9FKNM1gM6b5BBfQ7DCXXiCtElWfbwPWTeYgG50Kgkac9i
-	 TBDa7zpHv7cp7DbNDee2V3htlF8K8ihWxvTGCvFrAywF/6pCpEOALM21tzIAYsPxmK
-	 cR3rkbIkCojZw0UpM8O4+S8BGlhX9Dxl5CZu9S1fOC+cHsMEmp/Wkr42xaSTA4nJAp
-	 Yob2/HbJdnlSPyoDE46iVJ1GJkQtxOwxbIB5YxXPUodUEsMutaCCO8iG2WE9vnaZ9v
-	 z2pJJbnPpkdpbkJIH15E8VsNfRTsN5qm2oXr2PrJ3M0qdy6sWvGIDZ1KeRzcNy2YUp
-	 rhI1X8J3mRrug==
-Date: Fri, 10 Apr 2026 08:27:49 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Andrea della Porta <andrea.porta@suse.com>
-Cc: linux-pwm@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Naushir Patuck <naush@raspberrypi.com>, Stanimir Varbanov <svarbanov@suse.de>
-Subject: Re: [PATCH 2/3] pwm: rp1: Add RP1 PWM controller driver
-Message-ID: <adiW1tBC8Imd14LD@monoceros>
-References: <cover.1775223441.git.andrea.porta@suse.com>
- <28e29fbfc20c0b8a115d006233c2759d8f49e639.1775223441.git.andrea.porta@suse.com>
- <adLTwOTbkJ0VQXy6@monoceros>
- <adfQ6Tvst3Vd1Mxe@apocalypse>
+	s=k20201202; t=1775802483;
+	bh=0et9MKpqB067gKO1QucfCh1G8Ji90t+DxfnD6e0BESA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=cpON9+SB4lt2PS093yRX0C1Qo++TQ5+q4BbJldN4Q9IsYA28ajS//P6z7l5FRLCWv
+	 T9pidX4e68eVQX4pqZ3cylDOOEVi00Wb8/3QiCbTZjfSE7AmLBzxMqpDqZaodbKZ0+
+	 g/cmMbR7fcxBksw0GFlzA3vxR1ZOHJMmv+ZyVdztxSTn70SXsmEejIyYPHp/E1Idmb
+	 NsKjNRte4bdm8gQw/A9iauGbwNuZZSce7l0h9V4px7bDHS9n7R2IsQImOd/XhENZ6s
+	 qBW8JHYoqTz4EFIskBMROJ7IM1LXCYQOM4B2S031Nh86iR/NJIjcLjV/frqg0M496A
+	 pG3sxpWddKXgA==
+Message-ID: <157b33d6-5c08-4f33-92bf-ce40ab99e109@kernel.org>
+Date: Fri, 10 Apr 2026 08:27:58 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="d3hvim2dtzodhjoa"
-Content-Disposition: inline
-In-Reply-To: <adfQ6Tvst3Vd1Mxe@apocalypse>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] ASoC: codecs: wcd937x: Add conditional regulator
+ control for wcd937x
+To: Karthik S <karthik.s@oss.qualcomm.com>,
+ Srinivas Kandagatla <srini@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260402070854.2804291-1-karthik.s@oss.qualcomm.com>
+ <4d08f16e-856a-46ae-8a41-334ec4d32952@kernel.org>
+ <1c203ea9-c674-43b6-a2e5-87054a9e3b83@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <1c203ea9-c674-43b6-a2e5-87054a9e3b83@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 10/04/2026 07:38, Karthik S wrote:
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd937x.yaml b/Documentation/devicetree/bindings/sound/qcom,wcd937x.yaml
+>>> index f94203798f24..d89fff1f7171 100644
+>>> --- a/Documentation/devicetree/bindings/sound/qcom,wcd937x.yaml
+>>> +++ b/Documentation/devicetree/bindings/sound/qcom,wcd937x.yaml
+>>> @@ -28,6 +28,12 @@ properties:
+>>>     vdd-px-supply:
+>>>       description: A reference to the 1.8V I/O supply
+>>>   
+>>> +  qcom,always-on-supply:
+>> You described the desired Linux feature or behavior, not the actual
+>> hardware. The bindings are about the latter, so instead you need to
+>> rephrase the property and its description to match actual hardware
+>> capabilities/features/configuration etc.
+> 
+> Current description in dt-binding:
+> Indicates that the codec supply regulators are always enabled by the 
+> system and must not be requested or enabled by the codec driver.
+> 
+> new description in dt-binding:
+> implies that the codec supply Vdd is on always on rails off the 
+> board/hardware and must not be requested or enabled by the codec driver.
 
---d3hvim2dtzodhjoa
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 2/3] pwm: rp1: Add RP1 PWM controller driver
-MIME-Version: 1.0
+Still driver stuff. But another point is that kernel handles well always
+on rails, so this property is completely redundant.
 
-Hello Andrea,
-
-On Thu, Apr 09, 2026 at 06:16:41PM +0200, Andrea della Porta wrote:
-> On 23:45 Sun 05 Apr     , Uwe Kleine-K=F6nig wrote:
-> > On Fri, Apr 03, 2026 at 04:31:55PM +0200, Andrea della Porta wrote:
-> > > +static void rp1_pwm_free(struct pwm_chip *chip, struct pwm_device *p=
-wm)
-> > > +{
-> > > +	struct rp1_pwm *rp1 =3D pwmchip_get_drvdata(chip);
-> > > +	u32 value;
-> > > +
-> > > +	value =3D readl(rp1->base + PWM_CHANNEL_CTRL(pwm->hwpwm));
-> > > +	value &=3D ~PWM_MODE_MASK;
-> > > +	writel(value, rp1->base + PWM_CHANNEL_CTRL(pwm->hwpwm));
-> > > +
-> > > +	rp1_pwm_apply_config(chip, pwm);
-> >=20
-> > What is the purpose of this call?
->=20
-> To update the configuration on the next PWM strobe in order to avoid
-> glitches. I'll add a short comment in the code.
-
-=2Epwm_free() should not touch the hardware configuration. Changing the
-pinmuxing (which I guess is the purpose of clearing PWM_MODE_MASK) is
-somewhat a grey area. If that saves energy, that's okish. Otherwise
-not interfering with the operation of the PWM (e.g. to keep a display on
-during kexec or so) is preferred.
-
-> > > +static int rp1_pwm_resume(struct device *dev)
-> > > +{
-> > > +	struct rp1_pwm *rp1 =3D dev_get_drvdata(dev);
-> > > +
-> > > +	return clk_prepare_enable(rp1->clk);
-> >=20
-> > Hmm, if this fails and then the driver is unbound, the clk operations
-> > are not balanced.
->=20
-> I'll add some flags to check if the clock is really enabled or not.
-
-To be honest, I guess that is a problem of several drivers, not only in
-drivers/pwm. If this complicates the driver, I guess addressing this
-isn't very critical.
-
-Best regards
-Uwe
-
---d3hvim2dtzodhjoa
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmnYmGIACgkQj4D7WH0S
-/k7LHgf8CBP5w2EOPv0j9R+cYIsf2xK9RKcf/rdt2YwbGnx/t1arB/oP/RgMtYA8
-KL7Q/OVJllRUOoSg1qp4wRb9+uSfLKNei8dFj1J/k8dp4mHmUjp5kFyqsVDE1Irm
-dPpj2wRi1bB+8gx19hVBb4X8N1Z27LB+VJ/kpecLh9nmfuaGZBKWEiTJPLFmhk3R
-hRb+G1F/G1k2ZGtiJ8eXB54+DP3XCcILivcgZjpOgbKGwpxFqPC85/Kh6mitcz30
-KUl+UhgKPXBkhWdd5O1PWjnrb9RKNnZHgK5JHxulXWoLBffXw7JMx7p+NJMtQS5i
-PqUOfwXBUQPWAQm4y7fb3wEbQ4k5Iw==
-=fOaG
------END PGP SIGNATURE-----
-
---d3hvim2dtzodhjoa--
+Best regards,
+Krzysztof
