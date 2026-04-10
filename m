@@ -1,161 +1,190 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA76D34D911
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 09:50:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775814608; cv=none; b=MPL56vtCZXBO+cLvGnDProLAMmmXFZALwCote5DLyS7Z1XSVM1uNBSk2+A4NRoXTDsiLy0vbLokOwzEI60UUttiNs/UArmOyQVVcRi6gSSTer3XMAV+CfDBMcSx+CMsQlBFaQdBIniphSUb4o6FB6bljuZxKOylvkXhrwU+6aiM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775814608; c=relaxed/simple;
-	bh=ZOgaDu9aSzEXnezkQHCnvYzmskKgQSZu2tXTceCtftA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iJXVe0yX2hFZoEtgVrTb0Dojm1BQmgm3YmSaZm9GQY+vd19qpj+gsm+J4pE6T71V48PhoBqeHYrUgd9es6ikaapT88FA5zOG2ZoZ38pBglgzxfbYwqB7TtlcsG1BMbAQ2ji6Lj1al6Vi5f1TtKr0AwuSb5SzLKiqaJZNjQ3XlGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aehhj207; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=X8caKVJm; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AE7B377EC1;
+	Fri, 10 Apr 2026 09:50:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775814628; cv=pass; b=ppmfayvbJ5W16QCGBt28tBd+iQP/Ld8GTHk7F6rHrTUYyz2a0JO4ml4mSvvL6Fah5XICPjvXmOj142NSw/J/9ePZDQBJv2rk6Qzq99aHvhvyDUzb7+MU12HCo4tPY3SOkYl54PeSZeZk7QVcZQwRMjerzAJGObhtrnhxOW1kKe4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775814628; c=relaxed/simple;
+	bh=ryWgDWizi4eqObnZFpa8OiBFomGSkJVOTCG/4bae7Kw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=Dq9pfw6Ei2b6ojAffvjUan0tJwO80RDT/m0hhxDb+gkEItoRzQYH4hvupxkT5s5oiNMBKGCNb3TgN+nXcYawQsT98JC+qJRwmRtSM3QjAPY7gCGrMITsJtOBb7uizqVGr3gQC2uTqOGkfl6r/T/bZoWRpzp134IDCvseZvSNIxU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=AC0lYtKu; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aehhj207";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="X8caKVJm"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63A7tk1K3934665
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 09:50:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	l9qnOlbUXy+ARxkrRqY9Z2wy75lAeAnfzKPFDRUM6cA=; b=aehhj207mlGKbNEQ
-	eSw+Bwtzs1ygwKBdQLErwlum3/RuiKbcajDeuVyiMZnGrUDuXhSpKZWvctkweZpu
-	gTyl0Inp4MmB8rdNbi2xF4p3rn+WqdSBwP1Ndv8VG8hKKUSsVplGyJRYkkZV9yWU
-	+ALFAdG+gjvJW9H8hYFmZl2g8ajSFsNMHxUb5E1lVWDea0208ZXTyMrz3u8Geilc
-	jeFUmqNYD4NwK3qOMNoNtVF7UJOh6BNcSHr1gTACOzbEtmu7ahaJQ5oXnYtAto44
-	EPn9zhDogvzI0HqnEGHPERoNGNtY7n6hNPkpCo3E+tLN9Q6i4rUUGjewtcpPj/1r
-	w6a3FQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ded5sbhkd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 09:50:05 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-8d63aeaaedaso48784285a.2
-        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 02:50:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775814605; x=1776419405; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=l9qnOlbUXy+ARxkrRqY9Z2wy75lAeAnfzKPFDRUM6cA=;
-        b=X8caKVJmSumku+6FHEaxhttmwk2peMfuzTep/yzXZ9WXLVCDESmm3nDV/ZLdxSmcgr
-         DoxLvMeDvw/APjrbaYlBtpjG2/l0aYUaRTFgsgchyKLW4VuBKmiHx56q93/ayDe1Z1Ei
-         sVwJ9fjm4MCG6Ld41wHcmo8w0i4cJ+99qgHICd37DnDax6EbUsFba5kKdpEFHcTZ+IWG
-         wTWFJf8PdPgJ0wsYyo+HqLSquzlVkUIkHjeB1ofpjyyAQRPyLlrICaqEDMXK5xah+ggl
-         2/pU2hRIlgbI2PQ7DP7Lar+b9NXm22T2qkaNIrHIVXKSIdtW+H58N/dAIZq3byeJizU+
-         EOdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775814605; x=1776419405;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=l9qnOlbUXy+ARxkrRqY9Z2wy75lAeAnfzKPFDRUM6cA=;
-        b=Obkkyzz3jkJP/Up6C6NprWt9wwVxzEa20Z0sGqbxE29UMhqE2qPW2U3lG8YoF/9FlD
-         dJPQAckXy6fE/kJk23LUo5U4yLNGLC8vaVdlrSCV4AaIJ0+upjABL4L8UeYgxzorg3ki
-         CJHwxmWsb5paYbkhom4GQ3gdpOY8tegMfKc9zQypYaZxmCinMG3Oy7Cuao+MbWctFAVC
-         JmxL4hSztafYme1XYgHmavtq50mSD/coFdoMlWRzHbOdlKb8hzdn4Ev9Hv+X0fvmS13z
-         lfNd6Lyoir0nLxYqt65XQAdVRXlGOuzukq8VtHrGMVdtZCoSiZovJVanzYq8OHfccom5
-         1l6Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWOIUy8gGxwyZbxbGIemQTbrMqhMcl9LtVEISax3WE1pmURfHQK4jGSyW0IOEgvizkeI34GdnsENFVX@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxt1406BVRSqWNpG1ECX4Mh1u1WNyty2/AVwGKFRFNuNmMiESph
-	QSfXeSZlyK1KQe018FB26YU4mRVQjcAEySCHFAo4v4IqTnRdANqPQG8uDB8hBnHXwJUWF68ykdc
-	JjQRjFxMAqmJ2wMhJ0sTCnrrVNRpOO/yIZos+bWex6fvBaw9CX970aLcoDDVGl6nM
-X-Gm-Gg: AeBDiesGDH/asA5wbMkDmFSvWtKwmzxuVEUtMRibjIKxYNOR6AZjXzKXHJGbtugIfli
-	tdLnZlMbYXkWkGoVTnBjX1E4Qk7VrdhdyLWCIpKU0hmXXfNSzJ2Mkzdnie0EfNrwk50Cc7kPDzA
-	nhiF9xEfMi480nStjl/pyXkTrLTDm9oGIqg1iyEAeM46w/OEHmMz4b+rNDbgu9KfzU9AX5muuvD
-	3ZeT0j9l5gEZDJgTijM6SjySF8UW15pbhXZCtVZ0wAeLdZgcb72StpLpI6PDFhT6U5kb77IPz2n
-	d1zm8BAzP1hk1P/3lsDLZX3Vg5W5M5sEMbaUQEVM17JLF209MYQwLT+goMJuJNqqB2AmmqSQGpJ
-	Q9fTIiTgJxyP0DXNLIg4j2kKTUnWwbrJgc+thItc+6FPqJIReGSC9nnVS2po0BwocyZw0R8wi0U
-	u7KSE=
-X-Received: by 2002:a05:620a:3189:b0:8cf:d68a:9aa2 with SMTP id af79cd13be357-8ddcf7ae077mr204704985a.6.1775814605426;
-        Fri, 10 Apr 2026 02:50:05 -0700 (PDT)
-X-Received: by 2002:a05:620a:3189:b0:8cf:d68a:9aa2 with SMTP id af79cd13be357-8ddcf7ae077mr204703085a.6.1775814605023;
-        Fri, 10 Apr 2026 02:50:05 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-67070815d27sm408842a12.24.2026.04.10.02.50.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Apr 2026 02:50:03 -0700 (PDT)
-Message-ID: <c078c340-0f74-42e5-a8f7-d92d5ecf33fe@oss.qualcomm.com>
-Date: Fri, 10 Apr 2026 11:49:59 +0200
+	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="AC0lYtKu"
+ARC-Seal: i=1; a=rsa-sha256; t=1775814601; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=ajm8KCOZ3HTSDSoPDZoE9w9U5kzebIqYrtN6aM24IPDwBP+TYeGwp0aaBR/8epFs2/NTYEhCHH6CG2HdePepR0/51RRwdJJLLoI5fYYwVEyXQdZxVQxLnoJ+x3ZBwhhcQAh7LtHQYx0tFdVlapJi3GvNBjDJyCgL6XbP2079oHg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1775814601; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=4UotVkU/wCIPZVHZquY/z63H5AYQdFj3m1KFqxdTFcU=; 
+	b=IYAN6kqC9G0aFn3AfYs3yQN8xhF9F6n4oVvHq8uQtDLcgyuqPV/CP+PBAGoXVyWm1bkSwZ5kOi4KRqbd5DMeMdkZsrOdRfFpGzW5ZE+ACZbui78IoKj1aQowRFnKcHCoF33FCWKSuI+j35weNE3IM5e3IUU2qhmN5Lm0MDb3azM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=pigmoral.tech;
+	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
+	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1775814601;
+	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
+	h=Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Date:Message-Id:Message-Id:To:To:Cc:Cc:Subject:Subject:From:From:References:In-Reply-To:Reply-To;
+	bh=4UotVkU/wCIPZVHZquY/z63H5AYQdFj3m1KFqxdTFcU=;
+	b=AC0lYtKuynwcFp+hCP1+ChfvSQzvoDauSKvDDBVq8N6ciLoj7X4J22S1lLYGpInz
+	NhTXFOg9erWKcx8Msb/+lNLn60PANj2OYboXlrDFu2Kv18aIDl1HREDceAtFV3FACNa
+	OK/X9IZk2rSw6+W7BRHMdJFwXWocQRagvFnv4ACk=
+Received: by mx.zohomail.com with SMTPS id 1775814599395110.49786561844996;
+	Fri, 10 Apr 2026 02:49:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] arm64: dts: qcom: x1e80100-microsoft-romulus: add
- PM8010 camera regulators
-To: Oliver White <oliverjwhite07@gmail.com>, andersson@kernel.org,
-        konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org
-Cc: bod@kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260409083609.75341-1-oliverjwhite07@gmail.com>
- <20260409201717.108169-1-oliverjwhite07@gmail.com>
- <20260409201717.108169-2-oliverjwhite07@gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260409201717.108169-2-oliverjwhite07@gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: KQX9hEhSEpRV9XSnuss7ZFRErXThlC--
-X-Proofpoint-GUID: KQX9hEhSEpRV9XSnuss7ZFRErXThlC--
-X-Authority-Analysis: v=2.4 cv=Ko59H2WN c=1 sm=1 tr=0 ts=69d8c7cd cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=pGLkceISAAAA:8 a=u7YyajWv_5wq9kkWYikA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEwMDA5MCBTYWx0ZWRfX3uOGoU27KU88
- PvWRdWnWcWTs+n9QxncXUI8HOigrW9YrhoDnZSrO/v4oqMJscAXdjQOFjEDlza3yNjvO2oaUhWH
- 52q3CouA/ncQT7MOq/HD74dqT+sMXsEPDAFUbizCUhl+vCRryccv+HAMXVeeCRwp3BYx4Rvd8HP
- 3M8VUAimBXIMlLQufDnmOl/JSZgpuxXJYscAypsyZTJNkGiCJ5hZKbOWhOzUuW+D6OY20XUO1OX
- sBk/lEpacN9M89mhXF7OCGpgaW3iNPRxilSdG6BbNUiNVCwiu7DXhkiYENR9SBeLM0IL0MNrzG4
- HkgvQN87286TiRdYSCfN42qs4o3qBWHh2i7NbygrY6IiHGkUOgA+Cvch9DLGrFx+TI8EzuIXfxu
- seVfQ1Iqgm/cHpCYuk2lj9Pr/goi0GDWOBchhoMcXpj+YLE7fXfzBYs7G+XOM93oCECiDfuqNbD
- XINHSk3IX1UDixEAoow==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-10_03,2026-04-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
- phishscore=0 bulkscore=0 spamscore=0 suspectscore=0 impostorscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
- definitions=main-2604100090
+Date: Fri, 10 Apr 2026 17:49:49 +0800
+Message-Id: <DHPDQG786QZJ.BPIOZITGMHKR@pigmoral.tech>
+To: <wens@kernel.org>, "Junhui Liu" <junhui.liu@pigmoral.tech>
+Cc: "Michael Turquette" <mturquette@baylibre.com>, "Stephen Boyd"
+ <sboyd@kernel.org>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Samuel
+ Holland" <samuel@sholland.org>, "Alexandre Belloni"
+ <alexandre.belloni@bootlin.com>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "Maxime Ripard" <mripard@kernel.org>,
+ <linux-clk@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-sunxi@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <linux-rtc@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ =?utf-8?q?Andr=C3=A9_Przywara?= <andre.przywara@arm.com>
+Subject: Re: [PATCH 7/7] clk: sunxi-ng: Add Allwinner A733 RTC CCU support
+From: "Junhui Liu" <junhui.liu@pigmoral.tech>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260121-a733-rtc-v1-0-d359437f23a7@pigmoral.tech>
+ <20260121-a733-rtc-v1-7-d359437f23a7@pigmoral.tech>
+ <CAGb2v64euL+QNXiJdTn0JygYLXg0WoguPSprKT4sKGZGVZbwug@mail.gmail.com>
+In-Reply-To: <CAGb2v64euL+QNXiJdTn0JygYLXg0WoguPSprKT4sKGZGVZbwug@mail.gmail.com>
+X-ZohoMailClient: External
 
-On 4/9/26 10:17 PM, Oliver White wrote:
-> Add the PM8010 regulator outputs used by the front-facing OV02C10
-> camera module on Microsoft Romulus.
-> 
-> These rails provide the supplies referenced by the camera enablement patch.
-> 
-> Signed-off-by: Oliver White <oliverjwhite07@gmail.com>
-> ---
+On Sat Mar 28, 2026 at 10:41 PM CST, Chen-Yu Tsai wrote:
+> On Wed, Jan 21, 2026 at 7:04=E2=80=AFPM Junhui Liu <junhui.liu@pigmoral.t=
+ech> wrote:
+>>
+>> Add support for the internal CCU found in the RTC module of the Allwinne=
+r
+>> A733 SoC. While the basic 16MHz (IOSC) and 32kHz logic remains compatibl=
+e
+>> with older SoCs like the sun6i, the A733 introduces several new features=
+.
+>>
+>> The A733 RTC CCU supports choosing one of three external crystal
+>> frequencies: 19.2MHz, 24MHz, and 26MHz. It features hardware detection
+>> logic to automatically identify the frequency used on the board and
+>> exports this DCXO signal as the "hosc" clock.
+>>
+>> Furthermore, the driver implements logic to derive a 32kHz reference
+>> from the HOSC. This is achieved through a muxed clock path using fixed
+>> pre-dividers to normalize the different crystal frequencies to ~32kHz.
+>
+> Have you tested whether the actually normalizes the frequency, i.e.
+> selects a different divider based on the DCXO frequency? Otherwise
+> we're just lying about the frequency.
 
-FWIW the regulator config is a little different, at least on my device
-that reports (in device manager -> cameras -> details -> hardware IDs
-or similar) to have
+I only have A733 boards with 26MHz crystals, so I couldn't test all
+crystal configurations. However, I exported the "hosc_32k" clock
+(referred to as dcxo24M_div32k_clk in the vendor driver) to a physical
+pin via the fanout path and measured it with the oscilloscope.
 
-MSHW0470 FRONT_RGB (OV02...)
-MSHW0472 FRONT_IR (ID SMO55F0, it's likely a STMicro VD55G0)
+Observations:
 
-All voltages are flat, no ranges
+- Normal conditions: The frequency remains stable within the 32.744 kHz
+  to 32.791 kHz range.
+- Forced condition: I grounded the R24 resistor on radxa A7A board to
+  trick the SoC into detecting a 24MHz crystal while the actual input
+  remained 26MHz. In this case, the frequency became unstable but still
+  stayed around the 32.2 kHz to 33.3 kHz range.
 
-LDO1 (RGB) 1.2 V
-LDO2 (IR) 1.2 V
-LDO3 (RGB) 1.8 V
-LDO4 (IR) 1.8 V
-LDO5 (RGB) 2.8 V
-LDO6 (IR) 1.8 V
+Based on these results, it appears the hardware does attempt to
+normalize the frequency towards 32.768 kHz via some internal logic.
 
-LDO7 remains unused, and would be only used with an IR sensor that's
-MSHW0492 or MSHW0562
+>
+>> This path reuses the same hardware mux registers as the HOSC clock.
+>>
+>> Additionally, this CCU provides several gate clocks for specific
+>> peripherals, including SerDes, HDMI, and UFS. The driver is implemented
+>> as an auxiliary driver to be bound to the sun6i-rtc driver.
+>>
+>> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+>> ---
+>>  drivers/clk/sunxi-ng/Kconfig               |   5 +
+>>  drivers/clk/sunxi-ng/Makefile              |   2 +
+>>  drivers/clk/sunxi-ng/ccu-sun60i-a733-rtc.c | 204 ++++++++++++++++++++++=
++++++++
+>>  drivers/clk/sunxi-ng/ccu-sun60i-a733-rtc.h |  18 +++
+>>  drivers/clk/sunxi-ng/ccu_rtc.h             |   7 +
+>>  5 files changed, 236 insertions(+)
+>>
 
-Konrad
+[...]
+
+>> +
+>> +static const struct clk_parent_data hosc_parents[] =3D {
+>> +       { .fw_name =3D "osc24M" },
+>> +       { .fw_name =3D "osc19M" },
+>> +       { .fw_name =3D "osc26M" },
+>> +       { .fw_name =3D "osc24M" },
+>> +};
+>
+> As mentioned in my reply to the binding, this is wrong. There is only
+> one input.
+>
+> The most you can do is check the rate of the parent clock against the
+> detected one, and _scream_ that the DT is wrong. And maybe override
+> the reported frequency.
+
+I will add a warning message if the frequency detected by the driver
+does not match the one in the DT.
+
+>
+> If you want to do the latter, you could add a new fixed rate gated
+> clock type to our library. You would fill in the rate before the
+> clocks get registered. I probably wouldn't go that far. We want people
+> to have correct hardware descriptions.
+>
+> Funnily enough Allwinner's BSP actually implements a fixed rate gate
+> for the next 24M-to-32k divider clock.
+
+Yes, I noticed that as well. I agree, and I will model this path as a
+simple fixed-rate clock (32768Hz) in v2.
+
+>
+>> +
+>> +struct ccu_mux hosc_clk =3D {
+>> +       .enable =3D DCXO_CTRL_DCXO_EN,
+>> +       .mux    =3D _SUNXI_CCU_MUX(14, 2),
+>> +       .common =3D {
+>> +               .reg            =3D DCXO_CTRL_REG,
+>> +               .hw.init        =3D CLK_HW_INIT_PARENTS_DATA("hosc",
+>> +                                                          hosc_parents,
+>> +                                                          &ccu_mux_ro_o=
+ps,
+>> +                                                          0),
+>> +       },
+>> +};
+>
+> So this is wrong.
+>
+>> +
+>> +static const struct ccu_mux_fixed_prediv hosc_32k_predivs[] =3D {
+>> +       { .index =3D 0, .div =3D 732 },
+>
+> Why is it 732 instead of 750?
+
+As mentioned above, the target frequency is 32.768kHz rather than
+32.0kHz. However, since I will drop this prediv array and use a
+fixed-rate clock instead, I think this will no longer be an issue.
+
+--=20
+Best regards,
+Junhui Liu
+
