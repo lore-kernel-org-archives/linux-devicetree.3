@@ -1,50 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF9CB386541;
-	Fri, 10 Apr 2026 10:39:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 117083947AA;
+	Fri, 10 Apr 2026 10:47:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775817584; cv=none; b=hp40h1SvoK4sMRkpBKonnUy7rvZ2sC9hfLIXeqCgjgEMCJnluA0nL9XWodbAq0++SUxVHfQd5k+lrkxk5EFqA4VH0+gRKnDOqi72OhvMzUCd7ShXNJfGqEWc7CJ/sXQn1Ee59eisaFwUjsCpz4OMBhwg7A/G3bi87gLkMQH1zkQ=
+	t=1775818038; cv=none; b=niDYXAGRc21k+njfmvrFGkxiozvhFd3x4veEtnF4ipahwQ7O21bc7h0xB7lzusRmSRoHxhq3v5Qc88TKpVHUzWwerMpIrxf05RJtr/zc4quQAyS7RLdXZytAg4FFj+McDmf03mZ/9snaS4gzC6sb15G877FVNtijG9nuKVnnJbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775817584; c=relaxed/simple;
-	bh=efZPYGaK0Qk1kuXGiCrPaA7LV0wmuHFUZ8/kjzOSrmQ=;
+	s=arc-20240116; t=1775818038; c=relaxed/simple;
+	bh=VxQEfGXpxpMHA8FzWWQyJjc+5K8xS5fjOzKEGbCASu8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WQaHYh3VsuqqYHtQLkTdOQUreuuVZ3oNdUwSyEScQ//gdNssFLSjqZqhSm78WdHosDLuzwD0p1BpD63CN5TV58HovTbjq2c5BsiloEz19dOpr9V6C3doR6kSDHhv+M7c3ZMXcTlim8E/1D41GAYq71WUeg1pmuppBQail16ff+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mt7HkuUx; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=UofdLm/5E15uF7A5q8kDMkNu8J1fGtmTj8OrkwkPaBZp/CrWJvBfLnfalmf+NMRUN9Te/TU8LFVEP9Ukfx3pwR1nruIW/2RkDn/LW/WF7Rhq8KNq3tsOaWcxexTFCB37cz42mP6PDKMMjIDpxmwuOAQdknnZsmbP4ynYa41uc+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mULBR3uW; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mt7HkuUx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B0AEC19421;
-	Fri, 10 Apr 2026 10:39:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mULBR3uW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C2F9C19421;
+	Fri, 10 Apr 2026 10:47:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775817584;
-	bh=efZPYGaK0Qk1kuXGiCrPaA7LV0wmuHFUZ8/kjzOSrmQ=;
+	s=k20201202; t=1775818037;
+	bh=VxQEfGXpxpMHA8FzWWQyJjc+5K8xS5fjOzKEGbCASu8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mt7HkuUxnn8sc44z2lZodnzAhebUi6C72VQRdpnHBhONc9PTvfyjZOxObbJ7Hu0as
-	 EM/YrtAW3H5E/nUHtzkd1vapxnIuNqU0kQ21dReehFXy5LpIvLB6YnZtMzAHMYNFw6
-	 e25JBfyMlnBy45FD+5YxMUrUkktGv5p1LUIWqliNL0V6/56uXj3/ciEzr8+JCDNcQw
-	 fXyjyf0KyEdFKw3BWpAlbLYHW21ArOjBoeIFHe1349c+0giLHL+qCK0nsf8rVGwoUP
-	 Pz5PLb/2+UMKV7BIkDroLGT/CZv1SVNwf6ZBKzgOjBSy1zvFFkRIuNDyr6RKw+7vjd
-	 2sDUK9rkBToyg==
-Date: Fri, 10 Apr 2026 12:39:42 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Benjamin Larsson <benjamin.larsson@genexis.eu>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, Xuegang Lu <xuegang.lu@airoha.com>
-Subject: Re: [PATCH net-next v3 00/12] net: airoha: Support multiple
- net_devices connected to the same GDM port
-Message-ID: <adjTbn415fwqUfsD@lore-desk>
-References: <20260406-airoha-eth-multi-serdes-v3-0-ab6ea49d59ff@kernel.org>
- <20260409195645.16c68979@kernel.org>
+	b=mULBR3uWs4EOlT9tU3UKzKzjlb0rgY30yj/W+Pb9GMiI2OzR44gW59dYOqxFMhxfq
+	 pRLpXMjibVodQOgLplqcSYKSPKZ0F5V0WZCn+IZb7Ayl3ACQMBhKgIbpkBen000KmN
+	 1oz2kPtkXSDFfrGFH9JI6cs1WkHV8UWWVDnmiKOD1s9CcTA4uWeW+RlvgB2aKHL6dX
+	 7hYV2IbiYrypSk2ZeYt3YVcBoraq8HWw2n6s+E/1GYnUQ+5T1QLQMdnlJaqa6c2LY1
+	 a9VrwbA70xXwPriIQvPcI/D6gXULqwLUGHlD7N0FsBBCxo/oe9WQwNUW3XafCfpSh+
+	 CI+dsTbVkl3JQ==
+Date: Fri, 10 Apr 2026 12:47:14 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Andrea della Porta <andrea.porta@suse.com>
+Cc: linux-pwm@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Naushir Patuck <naush@raspberrypi.com>, Stanimir Varbanov <svarbanov@suse.de>
+Subject: Re: [PATCH 2/3] pwm: rp1: Add RP1 PWM controller driver
+Message-ID: <adjU6KqtDEweVRes@monoceros>
+References: <cover.1775223441.git.andrea.porta@suse.com>
+ <28e29fbfc20c0b8a115d006233c2759d8f49e639.1775223441.git.andrea.porta@suse.com>
+ <adLTwOTbkJ0VQXy6@monoceros>
+ <adfQ6Tvst3Vd1Mxe@apocalypse>
+ <adiW1tBC8Imd14LD@monoceros>
+ <adjQl37-6a--_y3Y@apocalypse>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,42 +50,98 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="9OsCBHIk5k9xxPwx"
+	protocol="application/pgp-signature"; boundary="76qgdc7mk3nwvbgo"
 Content-Disposition: inline
-In-Reply-To: <20260409195645.16c68979@kernel.org>
+In-Reply-To: <adjQl37-6a--_y3Y@apocalypse>
 
 
---9OsCBHIk5k9xxPwx
-Content-Type: text/plain; charset=us-ascii
+--76qgdc7mk3nwvbgo
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 2/3] pwm: rp1: Add RP1 PWM controller driver
+MIME-Version: 1.0
 
-On Apr 09, Jakub Kicinski wrote:
-> On Mon, 06 Apr 2026 12:34:05 +0200 Lorenzo Bianconi wrote:
-> > EN7581 or AN7583 SoCs support connecting multiple external SerDes (e.g.
-> > Ethernet or USB SerDes) to GDM3 or GDM4 ports via a hw arbiter that
-> > manages the traffic in a TDM manner. As a result multiple net_devices c=
-an
-> > connect to the same GDM{3,4} port and there is a theoretical "1:n"
-> > relation between GDM ports and net_devices.
+Hello Andrea,
+
+On Fri, Apr 10, 2026 at 12:27:35PM +0200, Andrea della Porta wrote:
+> On 08:27 Fri 10 Apr     , Uwe Kleine-K=F6nig wrote:
+> > On Thu, Apr 09, 2026 at 06:16:41PM +0200, Andrea della Porta wrote:
+> > > On 23:45 Sun 05 Apr     , Uwe Kleine-K=F6nig wrote:
+> > > > On Fri, Apr 03, 2026 at 04:31:55PM +0200, Andrea della Porta wrote:
+> > > > > +static void rp1_pwm_free(struct pwm_chip *chip, struct pwm_devic=
+e *pwm)
+> > > > > +{
+> > > > > +	struct rp1_pwm *rp1 =3D pwmchip_get_drvdata(chip);
+> > > > > +	u32 value;
+> > > > > +
+> > > > > +	value =3D readl(rp1->base + PWM_CHANNEL_CTRL(pwm->hwpwm));
+> > > > > +	value &=3D ~PWM_MODE_MASK;
+> > > > > +	writel(value, rp1->base + PWM_CHANNEL_CTRL(pwm->hwpwm));
+> > > > > +
+> > > > > +	rp1_pwm_apply_config(chip, pwm);
+> > > >=20
+> > > > What is the purpose of this call?
+> > >=20
+> > > To update the configuration on the next PWM strobe in order to avoid
+> > > glitches. I'll add a short comment in the code.
+> >=20
+> > .pwm_free() should not touch the hardware configuration. Changing the
+> > pinmuxing (which I guess is the purpose of clearing PWM_MODE_MASK) is
+> > somewhat a grey area. If that saves energy, that's okish. Otherwise
+> > not interfering with the operation of the PWM (e.g. to keep a display on
+> > during kexec or so) is preferred.
 >=20
-> Still waiting for the device tree review. I'm going to blindly send out
-> the Sashiko review, please comment if any of it makes sense?
+> Sorry I should've been more clear on this. The pinmux/conf is not changed
+> at all by this mask, only the PWM output mode is. The controller can outp=
+ut
+> several type of waveforms and clearing PWM_MODE_MASK is just setting the
+> controller to output a 0, which is the reset default i.e. the same value
+> as just before exporting the channel.
+> I guess this is the expected behaviour in case of a fan, it should stop
+> spinning in case you unexport the pwm channel, but I see it could be
+> different with displays.
+> Honestly I don't have a strong opinion about that, please just let me
+> know if I should drop that pwm_free entirely.
 
-ack, I will do.
+Yes, in this case drop the function completely. It's the responsibility
+of the consumer to stop the PWM before releasing it.
 
-Regards,
-Lorenzo
+> > > > > +static int rp1_pwm_resume(struct device *dev)
+> > > > > +{
+> > > > > +	struct rp1_pwm *rp1 =3D dev_get_drvdata(dev);
+> > > > > +
+> > > > > +	return clk_prepare_enable(rp1->clk);
+> > > >=20
+> > > > Hmm, if this fails and then the driver is unbound, the clk operatio=
+ns
+> > > > are not balanced.
+> > >=20
+> > > I'll add some flags to check if the clock is really enabled or not.
+> >=20
+> > To be honest, I guess that is a problem of several drivers, not only in
+> > drivers/pwm. If this complicates the driver, I guess addressing this
+> > isn't very critical.
+>=20
+> I'll come up with something, we can always drop this check if deemed
+> too 'noisy'.=20
 
---9OsCBHIk5k9xxPwx
-Content-Type: application/pgp-signature; name=signature.asc
+Great, thanks
+Uwe
+
+--76qgdc7mk3nwvbgo
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCadjTbgAKCRA6cBh0uS2t
-rLAHAP9fr+xJrviNMbREuUyGBcQn8ZW1o1zADHVS56b5PvPSqQEAqbJlkikpGNEo
-lCdL4qOdlPlnY1xlLOhPWxXH/kMt1AI=
-=HygG
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmnY1TAACgkQj4D7WH0S
+/k5KOAf+OQyTYcP/Ul35R81Bb5k+Ezz9DcY8HnJ6dIcCdsGfLlj5xfexCMkbGtki
+MWd1M0fgQCifDkkFHr/CaH6F8l0JUAtqbVdECz8RBUkknrsjrTawj91kp27Va4IC
+FQKRhMbpkOVJLYoU5yKeokBUZmqF/zOrmWhWxHpCKFoQq18yv+cODDR+XbHTNGRz
+8MC7YV7Fqhi1+qp1edRe5nmanvWhdi08sM5Eo9jimEphB1xlqvz8pQlPtFCoFUkp
+2n/t8rSLWRxCMmK/8q6QJ7DdJLQwIt9nw/fBHtoZ0ztNmCFVgC8uK6845uq0EnV0
+O1H3wAu8bpystWDLHqU9/oSMeQ9Nog==
+=J4+0
 -----END PGP SIGNATURE-----
 
---9OsCBHIk5k9xxPwx--
+--76qgdc7mk3nwvbgo--
