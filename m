@@ -1,214 +1,203 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3FE42C2360
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 05:46:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6795F334688
+	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 05:55:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775800011; cv=none; b=uQ3ljBELsjjNOw2OqYvlbCAJW8HVKAVPvsJThbJekUMDLPIvK2wiDFW0MQRSpRUOvi3ksEfqbJQXw9H6HYYYwFbE/xoSzaw0CML1loQj8CoyghV6JebhMhUmNvViuNVphPAGsvgvKVJT7vx/sz2yfYjD21K6fJVB5HmbompD6AE=
+	t=1775800543; cv=none; b=Y/J+4vJlc8cqD3zX4WjHQNiSKYNVijIgw1s6PB9NcDMr7OopN+XOm5p+GPPtpCvy0wxFmlnvqLcCz8tSTblmXVaADK2wvV2Zw4tijHFPAO1fKFHk08IFem2xovc35QdSBMNp9IPx2TpTu/x2F23ZVTRy0ibFKTKfkq+9mLeDnSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775800011; c=relaxed/simple;
-	bh=fVzL+sSlRd/KUXDLXjHDnh2hdZ+3zOivohmQPs8xrBE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VMohoo7QyDo9InljhBDrzjBB1cOnf4u9b11hctcFItiemnkrGvkB/tYqTL3LHSV5WjQBlVm2g/ZJ5sQpPv4qHdZtx5tJL8vRC25BisQtnjyEbEAIDKOHwUPT+RiLjEMZVJeiNOuB8NNCrwkntooNq0qptaOcmOSckYLHMTwNFRs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fW7Yvbv3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZnZdc7/E; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1775800543; c=relaxed/simple;
+	bh=hWWgAhJK3jluW4debCIMFcuJaz0aQyv9VgWUStBlYcY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kQR4ZN9cbcnd0NcXRnVYZFWFDaCPzSWCC7Z2aSzB7rMbyv74vgwl8jvyHVvI5mBORTO0huvbAn+/WOmjZLUVVBBhyZXdOHTBguev7QxhD7a0DEFfUOMqEL0beenNnN6MkbOY46Ina2adOZJIvH/Fu/OJGcXv/xPAb/aWuwAJclY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fgUPUsc7; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fW7Yvbv3";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZnZdc7/E"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 639KQfGt1729916
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 05:46:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	dGAAQYdibmGel+J9EQRjZTfJ2zzKpoKfnhVodiCaKVM=; b=fW7Yvbv3HxYGOLVw
-	G2nvFRqIJSayLL1KpAL4BDQiL0UzERgrY8ZutytnpNdpckuepgm7r+NiEMjCJ9PA
-	NeO5UPKcX7WlqcaghjeEnGBuscga0ehBLsGvuAkAmMtg6P/dVlkrsB6BkPepEOG8
-	M2rOR5lhdtNNr7CRMBufIMdQggx+sY9e34TAqGQZeDGuK7Ld1UiHMV0BPBzNBzbg
-	Yf/U3ztKrj1CS+7b7Eohk7rogzCc3jCjbui9rTkEXMWjl49fHLZhHgFd/tDeCTpD
-	djs5PayfXDDKMHmhUr5Wv6LioMl5WTCXlwpB/CltScmEqVYNz556xA1GdGcg2loH
-	z8L45w==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4deckxjun5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 05:46:49 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-35842aa350fso3550649a91.0
-        for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 22:46:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fgUPUsc7"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-35c1a131946so1037613a91.0
+        for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 22:55:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775800009; x=1776404809; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=dGAAQYdibmGel+J9EQRjZTfJ2zzKpoKfnhVodiCaKVM=;
-        b=ZnZdc7/E2/ji73pPliptNhTBJgxTWX0nvX1uzNw/T+xyvx0/hSja2qgOrhZTFRvLvp
-         BQ9RdFQiodmQLmgmkCa7XNxy5+6JQpJEUZWvqE5firv+nCyMC+5ptzqrvozr014JRhuK
-         uJk/06W+CfVx5hulZMitCyu5Bap+JQK2FdjNeVPuw4RACAV7rH21076fwc7yj3/h6Htc
-         NDCludImtElOktnHVdNxJiCz5sc8GXrNvdHp/f4U3yNPLOVOXMqfFUyBpMYXRYhIhkem
-         RtH8wdjOntA74BMgn7UBs7rJOBUHZRmEh78WDvdA0wedIlKlZjc9IS+5VgckaUBtM+4M
-         dNXQ==
+        d=gmail.com; s=20251104; t=1775800542; x=1776405342; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=eZONTy3jkQF6vvheJ4A4geJ0E0xBe92xQL8/wb4o+I4=;
+        b=fgUPUsc7J4Ag+P+fztHajhjMIM2MdY8fOcJNiaRDy9w9d/RZu8EGIM+IGaHClYgYWK
+         UCtfdl/2zApBy5L67zo5Ax8eS2Timk32yiT3HsrdLiQa99Sy6f5a6v4wlwfuOB+XDeYj
+         fTAGKLvTB6IUCLPBJNLFrENYHlvb8Nit30SRTsXyM7sfvgndoxB3SnPnYAXkQwiCquxl
+         uY8PKrXFHp3+vSTrCBq6ja+4jFoK/BIUlWNaimxVZT+kbW67g/nsbQXQV0nqQPzNIs5U
+         asWXRjCSwdCidPgXNnY3pmKmLvpWkOsIggKAOusJwBuUWgST0w+430ZSQn86vgsQXLKw
+         f2rA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775800009; x=1776404809;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=dGAAQYdibmGel+J9EQRjZTfJ2zzKpoKfnhVodiCaKVM=;
-        b=Xahv6PQLmc+6fz+k2NVA0eYgyJtR54TMOVXLaFF06Lxlkh9KtYNs6PKcGdAYAb1OjS
-         a+ZWioB1uFGVlHy9Y499GkXZa463L4gMZsADDdNVGqE89pfEWG/lPtOCyaxiBL2DOuke
-         WZYR9rSWX59hKYiW0dmcFGvooH9U0mQBglbbVVOcFQLLI1ai77EYdWL9V8SZlV/HNIQY
-         ZHInF85huiyifqAkvbC3nMtonSQxyWGsye+N6FUuYfcutNl5YCx8hTIPSGFFcj956W1Q
-         TwfEJesJG2318sF1SsoweEiWN3Q3lkx/JziBWkAKJnN/uNo/MwEvGgQaJfRfAx7dcbzb
-         yY2g==
-X-Forwarded-Encrypted: i=1; AJvYcCULM3X7B2z2+tK+gKFVwuyV+QyV6dCZGN0S+Rd3cNFvokdkbIybUtYVh4Ls4O126c8W4aHaYHc4Y6H3@vger.kernel.org
-X-Gm-Message-State: AOJu0YxfgYoooo9rJ6EDpuIsR0NMi+QVUihd586bK750EUHncajKyVSf
-	J3sKIr2DPKgkNXPknIkGDxBWLoF1gMaMWm+gzneeNs1k4bP7i7I2XX383rHaNFod5iKUt8KWyfH
-	ivDs/RYprEKLRHcEqr7VyAqgk4u588zA7zYoLWZB2mSZGg3SNp2GKAkhxGBpdBEdZ
-X-Gm-Gg: AeBDievGQezp0jZQjgOpnkZOxM5O8BjAUxniP/w2Qsz1Ay+BPRGBqY8HTM8IpXCxfOQ
-	Ilqy7YA1HdRasJdAAMJXQPpdB5Nw5HJeopfUF0GGtapn8bY/GxaWsUwJ9DR6L9bprk3vVc09SU1
-	ONEMCsp3Eq8D9bdVYnAvlwAnEKJ+zAveznPRxiIq0Vmx4FsFYCIb/IafJkHZhnBvCLQokbm9AqO
-	pSomlXIvnptbk6ceoj5EBvgN5+F/o51V6pEYjhbVePDq52CygiWv5HPzERV13Gw2ajBmLCKeL2Y
-	UWZLzIorT1MisqbgTAMClIKRd59hIWelVMrE7mHJBjM+eov08tiBDxsC9YVVIu6uY3xbtSfZc05
-	U/OK9OMhd0/c/+I+KNjq0ePNBJcROwxoeWTvFRSO+9QAEDlP9HQ==
-X-Received: by 2002:a17:90b:5746:b0:35d:a861:36de with SMTP id 98e67ed59e1d1-35e42853531mr2026756a91.24.1775800008945;
-        Thu, 09 Apr 2026 22:46:48 -0700 (PDT)
-X-Received: by 2002:a17:90b:5746:b0:35d:a861:36de with SMTP id 98e67ed59e1d1-35e42853531mr2026730a91.24.1775800008479;
-        Thu, 09 Apr 2026 22:46:48 -0700 (PDT)
-Received: from [10.217.217.198] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b2d4e16930sm14363155ad.36.2026.04.09.22.46.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Apr 2026 22:46:48 -0700 (PDT)
-Message-ID: <7c244d02-ebef-4a75-b1b2-f55f8ce7c8dc@oss.qualcomm.com>
-Date: Fri, 10 Apr 2026 11:16:41 +0530
+        d=1e100.net; s=20251104; t=1775800542; x=1776405342;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=eZONTy3jkQF6vvheJ4A4geJ0E0xBe92xQL8/wb4o+I4=;
+        b=AqzriYLC5IeKDgEdUAkECVGnCM1hW1SiWJkmUh13MB3EScmEt2PWpul5/XJakAi7FN
+         j6Pe0SBBVh2bh4cLKY5DAorL2g1oThaaq4KUAOZPpS974v30Ikjw6NM41l/BqBvdciu2
+         TMX+wVo66PtwDhftD3vP30Kquvb9GiwHVMkDtvyv0rG6m93W0ayv7dDGMKUoq3bQ51y8
+         ZUfPC80y5XHiMuN85xDyFu30PBo/YwsYo85fc+rBUmm+VPOzQdcY7ioYeqjGvJGpyCtn
+         xOsUx/Aoz0x32n+5MV1H+PYieMyZJTBsBQl5h2gJy6vM/DUlebnidUtF0FF+aYCyx/u5
+         y5Ng==
+X-Forwarded-Encrypted: i=1; AJvYcCXRBAH7nsbW6gbuXgHMCVCg5eamZ2ZwzEO9qjfFMVrAldC4pcIbb5nhc+L2OamK4YhRes01VZMUWRgL@vger.kernel.org
+X-Gm-Message-State: AOJu0YwN6hrz3ff1WJwv0lt9IA4KJZtHFXp9Lpyb0IyItrwJ2Qv0HXGT
+	K+ACKgJjZrF1SMevUS/FWEOcg6VX1o3td6TyyWVdiMDnhrru3Zc+8gyZ
+X-Gm-Gg: AeBDiesB/d4ftoI54e58Uw3Dd8E8bXrVL1AguP3gWAwRIR1MDDHASzA3r6jMSFtpylL
+	HhWt3I8BWiwnz+AsVqL5uWj1AOerAJNrnbcxFZ4V7SnsUy18f7y/iyuP7BINdyTFdwkurlrzYLq
+	9q4yUA/5/Pz6MOvYutoZE0jvoJ9nD5f81rbumLMOnwd+/yVKA0wR0GneVbl/+3UTYqjHyNsufE1
+	376aWGpe6/pdrypZ0crIDWTAh+zgyl8U08jlm0c+ILHGTa0Bu6IUc3s8ddaPEx46Ey2Y4WM+8CE
+	3IohjeaiIcVycpi0uKij92bpfLeKwhEFQYxgcuFcBCYXLqIl3QJ4pvMLNk25ma1+2xx5T126KWn
+	biE+nTLp9RXRcX7M8xLtJwhnP2VkY8mdd3ZJsU93qHSu/W6LqdZD+SI10aDzaAkZcZypBy53BUH
+	RVYbyShvLE1OzlpEFY19ZijH2K
+X-Received: by 2002:a17:90b:52c8:b0:35b:a44f:b80 with SMTP id 98e67ed59e1d1-35e42fe6580mr1407691a91.1.1775800541645;
+        Thu, 09 Apr 2026 22:55:41 -0700 (PDT)
+Received: from localhost ([223.233.84.165])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35e4131cfacsm1777318a91.10.2026.04.09.22.55.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Apr 2026 22:55:41 -0700 (PDT)
+From: Anushka Badhe <anushkabadhe@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Anushka Badhe <anushkabadhe@gmail.com>
+Subject: [PATCH v2] ASoC: dt-bindings: rockchip: convert rk3399-gru-sound to DT Schema
+Date: Fri, 10 Apr 2026 11:25:32 +0530
+Message-ID: <20260410055532.60868-1-anushkabadhe@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/8] clk: qcom: videocc: Add video clock controller
- driver for Eliza
-To: Jie Gan <jie.gan@oss.qualcomm.com>,
-        Bjorn Andersson
- <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-        Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-stm32@st-md-mailman.stormreply.com,
-        linux-arm-kernel@lists.infradead.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260409-eliza_mm_cc_v2-v2-0-bc0c6dd77bc5@oss.qualcomm.com>
- <20260409-eliza_mm_cc_v2-v2-4-bc0c6dd77bc5@oss.qualcomm.com>
- <c7706c41-d855-4ed4-92c4-dca43c8f6d2a@oss.qualcomm.com>
-Content-Language: en-US
-From: Taniya Das <taniya.das@oss.qualcomm.com>
-In-Reply-To: <c7706c41-d855-4ed4-92c4-dca43c8f6d2a@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: BdZSTrPsG1-0aOXEqTDK_iu4A55w6MN-
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEwMDA1MSBTYWx0ZWRfX4eRY9WuUcrUz
- A6IscKD52ZBm05xKzYuV7UAJBmvw4uGF0KZtZrl60mP0poTOLkdHkEwe3qiZR3nN3YX/ZBmCjre
- jKZ16gdwv2bonwE+LcKtotZPcagVQJXrfOrMSf+78llW74RVaDi1ck724W8KMkKS2qTPnhKgb1U
- P5QMyQv0nvWo8XGdeXl/kpdXhFHUmpvwH6yNP4PrbLQpLD3QIc4EC0fzErV/h5YSsUG3yQisHqq
- x7T9KsytmpcDXX5lI/BZNdcmB7muMriULnVvMe5RiADHlq9TEZImMfkVLyxucXjFckiLnhDHHq5
- raQA8AoAZWQVXfabr7t8fnXTjuGdPtGS4EGoMKBDpOfY7VvEie8O2p2Ocv2jCyX9reZE2W4bI2I
- Yi1yx/Dzj16VGpoaSQm6FMA3i52Ze3q5riB59mmOWUBiPO6++D3cWNuznudjUrgIjaaArY1TUXE
- qjXCCWJsO/IsWP6tYaA==
-X-Authority-Analysis: v=2.4 cv=OMcXGyaB c=1 sm=1 tr=0 ts=69d88ec9 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=xLwlGchuUDJACbqrD4cA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-GUID: BdZSTrPsG1-0aOXEqTDK_iu4A55w6MN-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-10_01,2026-04-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0 clxscore=1015 impostorscore=0 spamscore=0
- priorityscore=1501 lowpriorityscore=0 suspectscore=0 malwarescore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
- definitions=main-2604100051
 
+Convert the rockchip,rk3399-gru-sound.txt DT binding to DT Schema
+format.
 
+Update rockchip,cpu from a single I2S controller phandle to a
+phandle-array. Add an optional second entry for the SPDIF controller,
+as seen in rk3399-gru.dtsi, required by boards with DisplayPort audio.
 
-On 4/10/2026 10:18 AM, Jie Gan wrote:
->> +    depends on ARM64 || COMPILE_TEST
->> +    select CLK_GLYMUR_GCC
-> 
-> Hi,
-> 
-> My bot found a [BUG] here, please ignore it if it's a false positive issue.
-> 
-> CLK_ELIZA_VIDEOCC selects CLK_GLYMUR_GCC instead of CLK_ELIZA_GCC
-> 
-> - select CLK_GLYMUR_GCC pulls in gcc-glymur.c instead of gcc-eliza.c
-> - On an Eliza system, gcc-glymur.c will never probe (no matching DTS
-> node), so GCC_VIDEO_AHB_CLK from the Eliza GCC will never be available
-> to videocc
-> - The videocc driver's clocks = <&gcc GCC_VIDEO_AHB_CLK> will fail to
-> resolve at runtime
-> - The correct fix is select CLK_ELIZA_GCC, consistent with all other
-> Eliza clock controllers
-> 
+Signed-off-by: Anushka Badhe <anushkabadhe@gmail.com>
+---
+Changes in v2:
+- Fix subject and body: "YAML Schema" -> "DT Schema"
+- Fix title: "ROCKCHIP" -> "Rockchip"
+- List items for rockchip,cpu with I2S and SPDIF descriptions
+- List items for rockchip,codec
+- Update descriptions for rockchip,cpu, rockchip,codec and
+  dmic-wakeup-delay-ms
 
-Thanks, Jie for pointing out, will fix this.
+ .../sound/rockchip,rk3399-gru-sound.txt       | 22 -------
+ .../sound/rockchip,rk3399-gru-sound.yaml      | 60 +++++++++++++++++++
+ 2 files changed, 60 insertions(+), 22 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/rockchip,rk3399-gru-sound.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/rockchip,rk3399-gru-sound.yaml
 
-GCC of ELIZA is already 'y' and Video driver probes as this
-GCC_VIDEO_AHB_CLK is kept enabled/critical.
-
-Please find the 'clk_summary' from device.
-
-       bi-tcxo-div2-clk              1       1        0        19200000
-  0          0     50000      Y         deviceless
-no_connection_id
-          video_cc_xo_clk_src        0       0        0        19200000
-  0          0     50000      ?            deviceless
-  no_connection_id
-             video_cc_mvs0_shift_clk 0       0        0        19200000
-  0          0     50000      N               deviceless
-     no_connection_id
-             video_cc_mvs0c_shift_clk 0       0        0        19200000
-   0          0     50000      N               deviceless
-      no_connection_id
-          video_cc_pll0              0       0        0        576000000
-  0          0     50000      N            deviceless
-  no_connection_id
-          video_cc_mvs0_clk_src      0       0        0        19200000
-  0          0     50000      ?            deviceless
-  no_connection_id
-             video_cc_mvs0c_div2_div_clk_src 0       0        0
-9600000     0          0     50000      Y               deviceless
-               no_connection_id
-                video_cc_mvs0c_clk   0       0        0        9600000
-  0          0     50000      N                  deviceless
-        no_connection_id
-             video_cc_mvs0_div_clk_src 0       0        0        6400000
-    0          0     50000      Y               deviceless
-       no_connection_id
-                video_cc_mvs0_clk    0       0        0        6400000
-  0          0     50000      N                  deviceless
-        no_connection_id
-          video_cc_ahb_clk_src       0       0        0        19200000
-  0          0     50000      ?            deviceless
-  no_connection_id
-
-
-
+diff --git a/Documentation/devicetree/bindings/sound/rockchip,rk3399-gru-sound.txt b/Documentation/devicetree/bindings/sound/rockchip,rk3399-gru-sound.txt
+deleted file mode 100644
+index 72d3cf4c2606..000000000000
+--- a/Documentation/devicetree/bindings/sound/rockchip,rk3399-gru-sound.txt
++++ /dev/null
+@@ -1,22 +0,0 @@
+-ROCKCHIP with MAX98357A/RT5514/DA7219 codecs on GRU boards
+-
+-Required properties:
+-- compatible: "rockchip,rk3399-gru-sound"
+-- rockchip,cpu: The phandle of the Rockchip I2S controller that's
+-  connected to the codecs
+-- rockchip,codec: The phandle of the audio codecs
+-
+-Optional properties:
+-- dmic-wakeup-delay-ms : specify delay time (ms) for DMIC ready.
+-  If this option is specified, which means it's required dmic need
+-  delay for DMIC to ready so that rt5514 can avoid recording before
+-  DMIC send valid data
+-
+-Example:
+-
+-sound {
+-	compatible = "rockchip,rk3399-gru-sound";
+-	rockchip,cpu = <&i2s0>;
+-	rockchip,codec = <&max98357a &rt5514 &da7219>;
+-	dmic-wakeup-delay-ms = <20>;
+-};
+diff --git a/Documentation/devicetree/bindings/sound/rockchip,rk3399-gru-sound.yaml b/Documentation/devicetree/bindings/sound/rockchip,rk3399-gru-sound.yaml
+new file mode 100644
+index 000000000000..e9d13695cc77
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/rockchip,rk3399-gru-sound.yaml
+@@ -0,0 +1,60 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/rockchip,rk3399-gru-sound.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Rockchip with MAX98357A/RT5514/DA7219 codecs on GRU boards
++
++maintainers:
++  - Heiko Stuebner <heiko@sntech.de>
++
++properties:
++  compatible:
++    const: rockchip,rk3399-gru-sound
++
++  rockchip,cpu:
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    description: |
++      List of phandles to the Rockchip CPU DAI controllers connected to codecs
++    minItems: 1
++    items:
++      - items:
++          - description: Phandle to the Rockchip I2S controllers
++      - items:
++          - description: |
++              Phandle to the Rockchip SPDIF controller. Required when a
++              DisplayPort audio codec is referenced in rockchip,codec
++
++  rockchip,codec:
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    description: |
++      The phandles of the audio codecs connected to the Rockchip CPU DAI
++      controllers
++    minItems: 1
++    maxItems: 6
++    items:
++      maxItems: 1
++
++  dmic-wakeup-delay-ms:
++    description: |
++      specify delay time (ms) for DMIC ready.
++      If this option is specified, a delay is required for DMIC to get ready
++      so that rt5514 can avoid recording before DMIC sends valid data
++
++required:
++  - compatible
++  - rockchip,cpu
++  - rockchip,codec
++
++additionalProperties: false
++
++examples:
++  - |
++    sound {
++      compatible = "rockchip,rk3399-gru-sound";
++      rockchip,cpu = <&i2s0 &spdif>;
++      rockchip,codec = <&max98357a &rt5514 &da7219 &cdn_dp>;
++      dmic-wakeup-delay-ms = <20>;
++    };
++
 -- 
-Thanks,
-Taniya Das
+2.43.0
 
