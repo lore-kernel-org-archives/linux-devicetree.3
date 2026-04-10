@@ -1,238 +1,203 @@
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2119.outbound.protection.partner.outlook.cn [139.219.146.119])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D0143ACA52
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 08:58:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C43F03A1D14;
+	Fri, 10 Apr 2026 09:01:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.119
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775811486; cv=pass; b=oXye/DxepMYQ/X3O6dhI5OK+Cut7owMXcGOCFXK3PnZs0q+M5ZT1tnfLqF2jva7PQWwW1TcIjznbE5fDPRwi0yF8YX5gZUvIM0IUtxhy5joqQpUz9mTXQ5lSW5Q6ydbmv7ilIAD0qg7WwsME2q7fZvqRDMAdl0CaRg5cqWfKIvA=
+	t=1775811694; cv=fail; b=ldvMwsNNVYTovZgi/RsxQHiJs51RSbblBAo6/mYy6RW4nC63DOO1GFu+/xD0xeSZrO5vkLmVO4sGdp2/ypcBAwKyt84db78JIOtp3pUsQZBWSd/BCyGVVmQxubqBZWRm9YflpXIBnb2srk3n65JugG1FOj0P0kGx2T3s9Vjx++A=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775811486; c=relaxed/simple;
-	bh=iaYKT1sl2Tr/cLZwPA0Zvqg9ubw9wCPbruk9AwA0cek=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FZ5Mowxn1lgHK1v0t9YbkcjINkGUZE5IIw3Miagum13+Dig/W469fFsI+Xbmpf57LVQby60y+dY5XqTTj6kt/eV3bxrVuBixKWARbOUMoGmIYYb/v/3G1UTmos0jn08x0t24N5GAYTkDsfjls8tvroMmQUzUihsSOmucKsMlmQ4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=qW/kT/NF; arc=pass smtp.client-ip=209.85.167.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="qW/kT/NF"
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5a283c44478so2802079e87.3
-        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 01:58:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775811482; cv=none;
-        d=google.com; s=arc-20240605;
-        b=ENbCAW/YvuTUolgtildNrtFFSZbRxOVq0ZE32dqSmKSUb7LEPsrYhQ8O+9zsm3tNsJ
-         3z1ZBmlXAHbqjfU2zkQK6+D1/C/uH/MTpsW5KMyY1mIa0vWAQyEAxV5PB8DuAOCI+w6V
-         /8N1aGHuMmSrA9glVPdToyMqeaf3TMEcRqvy1bKpKOciuByKyYxZJ3AoIgffIS/JY+zz
-         DR2gZ1TuTfiz4mIJR3+QGV+/BZ0QLx5zg2XH7WhN/HInySTpzIzjUjyXOvtaUKkiCVu+
-         Bftexu8X3jHlkQzaqmd+GsG4w6G5sJtYZ18G+uut8n1R8uoSeLZfRSX1Vo3wgAa8OyC+
-         xAdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=Z1vmmkZcYrQbBuSPIBwVZCij2+2X5p9lbMUk5Tsb6wM=;
-        fh=LRPomeurC2EfOgI1qeBedWA8zbwE3HSXGJMEFW648qI=;
-        b=LYIBd95mp8B3eQLUD15MfaAbWJdtYNocCJ6RopkUQEZN0u1AxsuoyOcfoflwZPNe8Q
-         RU23W9wLAmGano9zigwtZY6hX5BZLDYJUEPH4MRTtmwOb6vKp/yZ7ghNPWlbK2gchPsK
-         gCYeOoPeaPQPMN3ctWcSeXXnxYX+6doIUmJTvs0hpQwdJQa/ZqBR+j+LyxU2scKdvZae
-         jNtcAPZsM/FM9VuYi0EcLL5gfXSwQo7mtN31FfqnquaXK9uw1DJs1Wy3hMkNguXlsNnY
-         1J7meA9oviqjBFoppkF7+CYzdiOOFHYgMYIWXMAlWLoNwVWt6MtrRbXWoACcVjkA9mBV
-         /kyw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1775811482; x=1776416282; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=Z1vmmkZcYrQbBuSPIBwVZCij2+2X5p9lbMUk5Tsb6wM=;
-        b=qW/kT/NFo+XhkEqKBwLgGwFMLH+rH4rsWbCuYQHqlqBoIVsGX3AFU8FsJ5LyrqMCgG
-         u92Rw8ZKiwWCdVr5TrFD6S2Q3lVNWvAwtBiazEHryzoWM68NyEO3tEZnsuMlG94qPAaS
-         REZjxiVsOILaxQzEsmhRI72TSVZia7M8617I8HHJmiQwAUwYsfJjHTHu+GiehjhH9V+x
-         CcjNZzJGVadFLKT4V9EPy5EPxtzSba0ZySbSZ2s2xXc3ELq7zTclCF7ufUKFEeoUvt26
-         gCsJlqO6pG2y6xGY5DqKd4T8xd847j+lbuibBPZ9HLAFJl2NsXEWieUjMOSmtuJVGnaa
-         rAWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775811482; x=1776416282;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Z1vmmkZcYrQbBuSPIBwVZCij2+2X5p9lbMUk5Tsb6wM=;
-        b=GwsGA0G51kg5+unde0elPfZAmtFJJVpVSAjfpRVN+Xn4l748tL/UquwrBHYv35pe1C
-         ilLDLXlwaw0aEKnTHukmoDzrzNc8MkOOOUqoI7g4cUjWnrOwO31t58ntUOl7WhLRD1uv
-         0MT2XVvnLyT3LRmSvdDpb70Mfh61/0VGvWflY9qCWsIE83I1Z75L8aQaYHtq3yB3Npte
-         Wwv2RdOgrQcoN92AGjRzk4JkiVjmxYF1cNLqkCeAmnuE88nrc0Ff7lQHEVNn9dsxrJv1
-         MkNaYPnkqq/HOzWnDAawzPIj3EPKPQzmPSCecJrrV8bhuMmJpEAyvO/3IMSKS5mhc+4Z
-         Z0kQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWgqjk3yxWrRWBvdvMWwJ7mOp+UReNkzu1nvdJzcSadxQDdoHyw802yGAc6rJ6sREaGKpvdc+PyUe0A@vger.kernel.org
-X-Gm-Message-State: AOJu0YzyO7Im5vibR9yIcVt2K2lDXOmYtu8EDO1LwQ3G5rCw75zRKSjH
-	Pb3GqbcUJQ96lXUBoUdYaWj2Es05+JxfebdpJ7gwLy0099ooUFmCcrtI4SxDiP4IgHw+ez23BuD
-	xliCHSsokozdNOR9yVKgXRTDyuFeQZUowCd4s18FruJiFKJymq43xG/A=
-X-Gm-Gg: AeBDiet2Wi2NYvjKIuehzm5wdNC2Gzk7W8XaLclrslQfIlq9TFtq4Eg3iRjfR9bgokp
-	5U7mYAZkLTDDuqc5IQGYikYxtoS91z73iP1ssC0HKmlhZcgM/6fKEN4Ey/kcgiiSskOlVgitMo2
-	j4Z7tU/2PAm0mWdrP2eNsz7/N+D64LE2MLHXXj7oDFoY0xCuRxrLExztsIwqNtR2TS3Z2nQczxl
-	S1P9do871B4mnO7+wSLQpo6gSMDp8QyNF2HcOm2/zkn/8L+cffPpstN8IoYfyWlKh9AM9qKq9IN
-	Boh5xPfb
-X-Received: by 2002:a05:6512:1396:b0:5a2:c8d9:ec4a with SMTP id
- 2adb3069b0e04-5a3ef9127demr836109e87.19.1775811482189; Fri, 10 Apr 2026
- 01:58:02 -0700 (PDT)
+	s=arc-20240116; t=1775811694; c=relaxed/simple;
+	bh=U7Nqfo/gJkLltbvRdqDWHD5aX/QkBbl/n5msFi1032g=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=AP/5uPWpK8BB4oU2pOvcrdK7ohXGq42VYKEQPnmQVKVGNGxxGZug7dci32Yy8TWbwDrqyj6WmhybhyUfgib2jU+wEEi9chHyOscq5uDA0dcWkDvgP4e7UVIi81AnbPjMF1RcoIU7yHu2VMfBs6V6fnVt4sTkRQQbHIV8Qruv9Uc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GNFtpsyzlYLWpFY3zNZkruxFPsmSaf+iOyQzFjiVdkO7Pa48EOMm8tX1je6Uwe9HQ5q+xH6ke32eMM6SRzSbdVmfBHIJbXFi6JN5eWqjeHShC+4FP6sWh+LBWnrIqpcVn44i3eoYXbTMn2B4+UU20S78m4ah4wPkr7+VTM/UPCT2n2/v13TXIsuVDaCYgHye2xQXRiPHz6735IX54YdBb9IU4fjGB07vwF0HSDToF2OmJSukpCb2TPN70RI/LTDgJ1mWyM1s1EnYTFOpWSeg43O8KjMjnCzQjxsu9ZIEUCVtdejXLNps+zmsxyVOubvDF5uCgpukIMlHBucFgVZ1ZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RtAxS0xUP8NB5BFDWdOHwyLEuxWVJlM+zSWD6Ou2CyY=;
+ b=NSwAO3pcCFrYEkFhZnSxpkHIWROkn5UUUHhk3eUFCj54aBkwecS0vC4SK1iKi8utOSVKDOz08X8QnIwVgA+oDkUTp/riv8R2VnuKsYKHH78thvKH6loSfdmPV1WHKlc1ZIJR9TR8/RAW8DLFXwtYxlG7d+l4adNlk//nbu5qPhx/ExEUtIXTJD6f3OBJww9i0u8ge5zTIgViBfMFI+7SvqT42ypCAXFE7OmZjtDAWV+MV5901ujd/4dSdVl3HM203n/B+IrDLmeWWkHlhYxlqkFxGpUMeF0j0ZQy+yzC0EErxdniPmzMcs/JHZ7FxKd1KayiD7cfss/u5ST5QftZsg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1218.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.42; Fri, 10 Apr
+ 2026 09:01:15 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%5])
+ with mapi id 15.20.9769.020; Fri, 10 Apr 2026 09:01:15 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Ley Foon Tan <leyfoon.tan@starfivetech.com>,
+	Changhuang Liang <changhuang.liang@starfivetech.com>
+Subject: [PATCH v1 1/5] dt-bindings: interrupt-controller: Convert the word "jh8100" to "jhb100"
+Date: Fri, 10 Apr 2026 02:01:02 -0700
+Message-Id: <20260410090106.622781-2-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260410090106.622781-1-changhuang.liang@starfivetech.com>
+References: <20260410090106.622781-1-changhuang.liang@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: NT0PR01CA0017.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510::6) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260310-topic-lpm-pmdomain-child-ids-v1-0-5361687a18ff@baylibre.com>
- <20260310-topic-lpm-pmdomain-child-ids-v1-2-5361687a18ff@baylibre.com>
- <CAPDyKFquJ7K4NcWuKMr1sjrnFVVPGAeLCiSF_FhvJf9Frbn1uA@mail.gmail.com> <7h4iljskvz.fsf@baylibre.com>
-In-Reply-To: <7h4iljskvz.fsf@baylibre.com>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Fri, 10 Apr 2026 10:57:24 +0200
-X-Gm-Features: AQROBzDhT0oW3z8LEIG1Euo0M3-dmugaTMajHzsT9TLnPM4O-8m4J3dOe0QMXE4
-Message-ID: <CAPDyKFrR2zyMFXTAkKs1XRgB-u5jSP256g730s=7SLuOZKsKVg@mail.gmail.com>
-Subject: Re: [PATCH 2/3] pmdomain: core: add support for power-domains-child-ids
-To: Kevin Hilman <khilman@baylibre.com>
-Cc: Rob Herring <robh@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>, linux-pm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1218:EE_
+X-MS-Office365-Filtering-Correlation-Id: 57f414db-5a46-4653-d279-08de96dfb8d1
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|52116014|376014|1800799024|366016|56012099003|38350700014|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	uWi/utukRCCXE9/62gqPT8PGu3MrCsmDu0DtVpDnsRhhrWzvBSFMUOlCKORG3gaWCwSaZDsKqIcUmXGsV/NBKZWtgMRqzT9Lgiif9h1oxLmQoQxG+LeLIZ2UfzhApQJ9YLWd/ag3xLjnArsbNFohWBB/8qVN0f8PRmbFHC3X9BEERjQn3Li7m8nP0tYBjv4XyX3BcFaygbcpMV1aUr8uKHuFGw7uoMMPOl3kg1dipDF47z6m2IFgD5+2bIyfROT9KkvdNBgkkGUgW7se+kpHpeL2Kt0jngYPimc8m7xBdatB/0gYHPRvpYPcFetor7uYBDSt7z9IYGXqrY4aPDGPGcom6NK1tOnNw0uo8512Ati4chVaDKCgbUJ54D/uqjSq2h3DcgEfESDWj1+Z2u2sYBgISnTx+aFTvQYx/uFWFWdCWNc/rv5Uq0TEvwWkWXU1/v6gH++5wmIZSE4WcXeBn9zbvljmF4iFto2z57JQg7/Vm/oKk7NgeoHWpoFeT8mx2SyJzWBJ+cyUCWri1fye2xAetpSWBOHrDmH5L02eO3ywWKLQ2WqxrPDL31zd/muj01x7wzaZZjEYfSWs1YD8+hVXsk4/pkJzdaWH6vMCaqQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(52116014)(376014)(1800799024)(366016)(56012099003)(38350700014)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?80wuooCIfedW47Cr0a659uh4VzjtrTC88dpMoJ5sMQtrdx/ZAdzU6LJnCxPv?=
+ =?us-ascii?Q?nnQbEDe8JgY97N0fuKjZJ12eKGUuf6nvRR3RanQneDS7CMvSM+kkpNgMlFCk?=
+ =?us-ascii?Q?tAzh8rIj9t6q68GKjZ/hu4/9UOIpI2X7EvotNNuv4Thf5q58Jb0IvuZ0CEBD?=
+ =?us-ascii?Q?zzEYjDPM/1AfWYh9O1n5eDJWF3yjG89piKkZx0Q+q1qY+306kJ0VqW2gR0vQ?=
+ =?us-ascii?Q?ibZ4OLr7jLJK7ZIN21KHCYkzwhtR7fzvkCCbo+SfUYdyu0JFOH0p53mIyf/m?=
+ =?us-ascii?Q?gpzF5nexzUmuW5vqCFCH/RkcSn5IQn0mxI2WIZQutig33i9hv2SjQHtLtBHD?=
+ =?us-ascii?Q?LW+CxTJsDDgjj6PAl0uTSdw4FzGOd8Wj2VQtxM1HMFB2iwfHPq0JK70PVVaQ?=
+ =?us-ascii?Q?dDt1fCC7IU4BDO2kPP2OnlXpCHNhcO4BCJaygV7nEDFIiZFerUzyem4DtC52?=
+ =?us-ascii?Q?GT/lpES8ofepOoLshsRJrDBq3BoKihQAzLgQ4vgEMLvEuMRAD1//d5u/KiGy?=
+ =?us-ascii?Q?WEi63a6XX2lnZtUMY2IWCDFCPmolZmSGDKQ41bE04hwl3nTPxZjk3e4Aobdy?=
+ =?us-ascii?Q?2gkwzzrTxL14Zvu3ErxZTaVNXXoh93JYbNp7+uDknTTOG6IADFH5Pg6Dhx+C?=
+ =?us-ascii?Q?31fvn2zpi8g6mwsIEibXWH+czvlMl7HmpA0m6DL5kMO7t1tPV1njxMd8U06k?=
+ =?us-ascii?Q?XeUo3CF+syt9S+yRuA/WB1FR3jPGZkyrMmpmWyj0sEE+UPjisJFslicweMUr?=
+ =?us-ascii?Q?sNMJeruogTlSLAQHzCRgEjrzVeFvMeJqFI149huM+Gsqdv+8GmIPcFCHEFnh?=
+ =?us-ascii?Q?kkmm4DWi278dMhV6FQCrGX+R70OeY42Ce8LGBJND6Zv/WdSnt2a+08/wCNbe?=
+ =?us-ascii?Q?OgcBRAx29lYUV18wMXkvxpboAB8CXW3tvjb73kgXhniGwN68K2Ns71CM23id?=
+ =?us-ascii?Q?7YNytaGevWuiMXeB/1a+zooEX4x1REMgQs2DzcuJLLjrgLCEoNQD6qmwzATn?=
+ =?us-ascii?Q?MkefVpL77edy40O3Ir61tRRbiAmJVOVZLz/ZIcWccDlWFlD4Ee2SoR1kyIKJ?=
+ =?us-ascii?Q?X3vzK75lgvx0auyILXpiRiQIOnUQj9lI9DRcYwoG7Oajj7PCQpkDmTGp193g?=
+ =?us-ascii?Q?2Kcdf0WWihNeYynA1i+eIqMdH6uS1XGeY/bHZ+JXRZ6iQHoIIy3xRZ9872KE?=
+ =?us-ascii?Q?2vS0zPL2BatOhx8fMeeA0wYYHpVjJxZTBxAPP/doqfYKk4UEhf/80eMkfCIx?=
+ =?us-ascii?Q?77umlNeLpNdkc/8pIOBFPcUE4EYlWNo2VrZiAsgFhkQ/TmnhrfUkgTMv33ar?=
+ =?us-ascii?Q?kzRBeIhhFjTXYue7jQ34jprUpeswQywdvvGbtW8esMDdF67AYkPMyhsC70/7?=
+ =?us-ascii?Q?eheBu2BFYw6C4XZb9fmjp/1QGf0wktBz4VU91DrwRiusSNSihrgDzYlPQXt2?=
+ =?us-ascii?Q?71Ig/Qy2d/y+fTk3jv5LhQ8cL47zwUdtRpTCk3AzPYc+sKSEYP6LF+EYafJq?=
+ =?us-ascii?Q?LaRUv/qRrRzI9yUajr5ze4U9hwLi8szgvx9rz/EeEMpeuyM957QhjVk9kOOS?=
+ =?us-ascii?Q?MLjqE1tOJ+oVLK0RYwRaSsnlYjfvgZ3RB6Rxr2YMV4ZNcQgusR4tsD+spFzx?=
+ =?us-ascii?Q?gRLjW/08YHxCTTbX0y2ASO79YMn1z1laUr0moP9jTWMwMOvAtD12A0DdHpov?=
+ =?us-ascii?Q?GQFrkATkXuEy08azO8hf16W9GfxRcW8BOT4wr8Nl+5Tepi1Wznbi2sDQQadO?=
+ =?us-ascii?Q?xcalk4xoFMhkw8/JNcn/e0cRBZVc/PE1KIlzwQh6pjh0d5LdtvrA?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 57f414db-5a46-4653-d279-08de96dfb8d1
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2026 09:01:15.6523
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: E+h87bK39cgX5sJzRSwZgTf5/tqLxST39t4u1IVhkcoL1Cvd0Q80s5LSHJwK4P4bZ+Kqq7vaguGYxvxUW3c3PgNP/VzGsk/1dWd8BKJEi6QqH/6hgA08/IkCpKU7ipi6
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1218
 
-On Fri, 10 Apr 2026 at 02:45, Kevin Hilman <khilman@baylibre.com> wrote:
->
-> Ulf Hansson <ulf.hansson@linaro.org> writes:
->
-> > On Wed, 11 Mar 2026 at 01:19, Kevin Hilman (TI) <khilman@baylibre.com> wrote:
-> >>
-> >> Currently, PM domains can only support hierarchy for simple
-> >> providers (e.g. ones with #power-domain-cells = 0).
-> >>
-> >> Add support for oncell providers as well by adding a new property
-> >> `power-domains-child-ids` to describe the parent/child relationship.
-> >>
-> >> For example, an SCMI PM domain provider has multiple domains, each of
-> >> which might be a child of diffeent parent domains. In this example,
-> >> the parent domains are MAIN_PD and WKUP_PD:
-> >>
-> >>     scmi_pds: protocol@11 {
-> >>         reg = <0x11>;
-> >>         #power-domain-cells = <1>;
-> >>         power-domains = <&MAIN_PD>, <&WKUP_PD>;
-> >>         power-domains-child-ids = <15>, <19>;
-> >>     };
-> >>
-> >> With this example using the new property, SCMI PM domain 15 becomes a
-> >> child domain of MAIN_PD, and SCMI domain 19 becomes a child domain of
-> >> WKUP_PD.
-> >>
-> >> To support this feature, add two new core functions
-> >>
-> >> - of_genpd_add_child_ids()
-> >> - of_genpd_remove_child_ids()
-> >>
-> >> which can be called by pmdomain providers to add/remove child domains
-> >> if they support the new property power-domains-child-ids.
-> >>
-> >> Signed-off-by: Kevin Hilman (TI) <khilman@baylibre.com>
-> >
-> > Thanks for working on this! It certainly is a missing feature!
->
-> You're welcome, thanks for the detailed review.
->
-> >> ---
-> >>  drivers/pmdomain/core.c   | 169 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-> >>  include/linux/pm_domain.h |  16 ++++++++++++++++
-> >>  2 files changed, 185 insertions(+)
-> >>
-> >> diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
-> >> index 61c2277c9ce3..acb45dd540b7 100644
-> >> --- a/drivers/pmdomain/core.c
-> >> +++ b/drivers/pmdomain/core.c
-> >> @@ -2909,6 +2909,175 @@ static struct generic_pm_domain *genpd_get_from_provider(
-> >>         return genpd;
-> >>  }
-> >>
-> >> +/**
-> >> + * of_genpd_add_child_ids() - Parse power-domains-child-ids property
-> >> + * @np: Device node pointer associated with the PM domain provider.
-> >> + * @data: Pointer to the onecell data associated with the PM domain provider.
-> >> + *
-> >> + * Parse the power-domains and power-domains-child-ids properties to establish
-> >> + * parent-child relationships for PM domains. The power-domains property lists
-> >> + * parent domains, and power-domains-child-ids lists which child domain IDs
-> >> + * should be associated with each parent.
-> >> + *
-> >> + * Returns 0 on success, -ENOENT if properties don't exist, or negative error code.
-> >
-> > I think we should avoid returning specific error codes for specific
-> > errors, simply because it usually becomes messy.
-> >
-> > If I understand correctly the intent here is to allow the caller to
-> > check for -ENOENT and potentially avoid bailing out as it may not
-> > really be an error, right?
->
-> Right, -ENOENT is not an error of parsing, it's to indicate that there
-> are no child-ids to be parsed.
->
-> > Perhaps a better option is to return the number of children for whom
-> > we successfully assigned parents. Hence 0 or a positive value allows
-> > the caller to understand what happened. More importantly, a negative
-> > error code then really becomes an error for the caller to consider.
->
-> I explored this a bit, but it gets messy quick.  It means we have to
-> track cases where only some of the children were added as well as when
-> all children were added.   Personally, I think this should be an "all or
-> nothing" thing.  If all the children cannot be parsed/added, then none
-> of them should be added.
->
-> This also allows the remove to not have to care about how many were
-> added, and just remove them all, with the additional benefit of not
-> having to track the state of how many children were successfully added.
->
+The StarFive JH8100 SoC was discontinued before production. The
+newly taped-out JHB100 SoC uses the same interrupt controller IP.
 
-I fully agree, it should be all or nothing. Failing with one
-child/parent should end up with an error code being returned.
+Rename the binding file, compatible string, and MAINTAINERS entry
+from "jh8100" to "jhb100". In JHB100 SoC, The clocks and resets are
+not operated by users, but they exist in the hardware. Mark them as
+optional.
 
-That said, it still seems to make perfect sense to return the number
-of children for whom we assigned parents for, no?
+Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+---
+ ...ve,jh8100-intc.yaml => starfive,jhb100-intc.yaml} | 12 ++++--------
+ MAINTAINERS                                          |  2 +-
+ 2 files changed, 5 insertions(+), 9 deletions(-)
+ rename Documentation/devicetree/bindings/interrupt-controller/{starfive,jh8100-intc.yaml => starfive,jhb100-intc.yaml} (81%)
 
-[...]
+diff --git a/Documentation/devicetree/bindings/interrupt-controller/starfive,jh8100-intc.yaml b/Documentation/devicetree/bindings/interrupt-controller/starfive,jhb100-intc.yaml
+similarity index 81%
+rename from Documentation/devicetree/bindings/interrupt-controller/starfive,jh8100-intc.yaml
+rename to Documentation/devicetree/bindings/interrupt-controller/starfive,jhb100-intc.yaml
+index ada5788602d6..576b1d6c7973 100644
+--- a/Documentation/devicetree/bindings/interrupt-controller/starfive,jh8100-intc.yaml
++++ b/Documentation/devicetree/bindings/interrupt-controller/starfive,jhb100-intc.yaml
+@@ -1,13 +1,13 @@
+ # SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+ %YAML 1.2
+ ---
+-$id: http://devicetree.org/schemas/interrupt-controller/starfive,jh8100-intc.yaml#
++$id: http://devicetree.org/schemas/interrupt-controller/starfive,jhb100-intc.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+ title: StarFive External Interrupt Controller
+ 
+ description:
+-  StarFive SoC JH8100 contain a external interrupt controller. It can be used
++  StarFive SoC JHB100 contain a external interrupt controller. It can be used
+   to handle high-level input interrupt signals. It also send the output
+   interrupt signal to RISC-V PLIC.
+ 
+@@ -16,7 +16,7 @@ maintainers:
+ 
+ properties:
+   compatible:
+-    const: starfive,jh8100-intc
++    const: starfive,jhb100-intc
+ 
+   reg:
+     maxItems: 1
+@@ -40,8 +40,6 @@ properties:
+ required:
+   - compatible
+   - reg
+-  - clocks
+-  - resets
+   - interrupts
+   - interrupt-controller
+   - "#interrupt-cells"
+@@ -51,10 +49,8 @@ additionalProperties: false
+ examples:
+   - |
+     interrupt-controller@12260000 {
+-      compatible = "starfive,jh8100-intc";
++      compatible = "starfive,jhb100-intc";
+       reg = <0x12260000 0x10000>;
+-      clocks = <&syscrg_ne 76>;
+-      resets = <&syscrg_ne 13>;
+       interrupts = <45>;
+       interrupt-controller;
+       #interrupt-cells = <1>;
+diff --git a/MAINTAINERS b/MAINTAINERS
+index d238590a31f2..a2961727e3d1 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -25312,7 +25312,7 @@ F:	drivers/phy/starfive/phy-jh7110-usb.c
+ STARFIVE JH8100 EXTERNAL INTERRUPT CONTROLLER DRIVER
+ M:	Changhuang Liang <changhuang.liang@starfivetech.com>
+ S:	Supported
+-F:	Documentation/devicetree/bindings/interrupt-controller/starfive,jh8100-intc.yaml
++F:	Documentation/devicetree/bindings/interrupt-controller/starfive,jhb100-intc.yaml
+ F:	drivers/irqchip/irq-starfive-jh8100-intc.c
+ 
+ STATIC BRANCH/CALL
+-- 
+2.25.1
 
-> >> +int of_genpd_remove_child_ids(struct device_node *np,
-> >> +                          struct genpd_onecell_data *data)
-> >> +{
-> >> +       struct of_phandle_args parent_args;
-> >> +       struct generic_pm_domain *parent_genpd, *child_genpd;
-> >> +       struct of_phandle_iterator it;
-> >> +       const struct property *prop;
-> >> +       const __be32 *item;
-> >> +       u32 child_id;
-> >> +       int ret;
-> >> +
-> >> +       /* Check if both properties exist */
-> >> +       if (of_count_phandle_with_args(np, "power-domains", "#power-domain-cells") <= 0)
-> >> +               return -ENOENT;
-> >> +
-> >> +       prop = of_find_property(np, "power-domains-child-ids", NULL);
-> >> +       if (!prop)
-> >> +               return -ENOENT;
-> >> +
-> >> +       item = of_prop_next_u32(prop, NULL, &child_id);
-> >
-> > Similar comments as for of_genpd_add_child_ids().
-> >
-> > Moreover, I think we should remove the children in the reverse order
-> > of how we added them.
->
-> I'm curious why does the order matter?  The children are all siblings
-> (no hierarchy), so why would the order be important?
-
-It might not be that important, but generally, it seems like a good
-idea to me to reverse the order when undoing things.
-
->
-> I'm not ware of a phandle iterator/helper to parse in the reverse, so
-> that would mean iterating once to create a list, and then walking it in
-> reverse.  Seems unnecessary.
-
-Sure, I leave the call to you, to see what fits best.
-
-Kind regards
-Uffe
