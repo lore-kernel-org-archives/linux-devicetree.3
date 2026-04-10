@@ -1,171 +1,154 @@
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 406183D333E
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 16:05:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CD3E3DA5A4;
+	Fri, 10 Apr 2026 16:11:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775837134; cv=none; b=KoqIXiNwJ1WwUzD5uLiwlbjXCZoOyt7jKqmOCC4bxAofvTvYqEXOOS9A9zoJVHvcNTr08IBHjeJNCuY8yWNWfsOhWG7pPSYVRqWV8VrBrsFLEoBGt7cVUQkriSmXp/wjNB0BzOaSjGi1C3rv973jxblZ4v+Q6JYIW6TgmDPk11w=
+	t=1775837481; cv=none; b=rRtLhMLZ8aasgrkXS1Oivhp5TRjJMUaPzVkf9cqVkeZ0+Kcho6fAQoasqaiH060z6HdTu97qqySOOTYiXYIPL5oXg6H2M9BpyBh2Z5flf1ZooPb8tZn8/Gk2ViRKDCgcsJmgaZp4q0XEnHGskseipwBwFBYhvqbXY3/tizOgA+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775837134; c=relaxed/simple;
-	bh=JVRuMiNPOp0rOofZTG53QZRaqC74TDxdD8KJao+OyDc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FBHyyt6sp/w51Om/k+QTeWnu5AqaD8cWZkJWndu/M/87kTSBdKS0OO2cPOxDZTiH9PYFZ3ki5PLc26g5SAFLYNFQwsmESW6dIdWVwpFjpfjlJ+JTLFbTCrC3FWWeW8fhke/W+qhsEcXVfMgfuJqz4VkstkDTxElYzEsWux2PRAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QuRaOaie; arc=none smtp.client-ip=74.125.82.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1775837481; c=relaxed/simple;
+	bh=6ywWy6DPRk7+h0RyeGTRliH2Flx/nz1qZaA/Em5pnB8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NPs/Ab5UyD0zkNQl6r2ovv7NfhT8nyrKOC+dI8gZ4/D0gX/viML4HzpYwaEvKZDelr9rpIHnk232rrkebrnnHkoqzzGRod3X2xdbU1bCcu9piHMjt6i/1ak+XLdgc+lJA6eEbw+g0bwE06ehrcrDcnbOdA1ZDAjsK0TOrqxeh1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OxNX0NIp; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QuRaOaie"
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-12c1a170a50so2052085c88.0
-        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 09:05:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775837131; x=1776441931; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=Rdw806p54hv0WYSi4dT+YA4YfP2LywL8N5qs00NGoaw=;
-        b=QuRaOaieu5197qqcbBHLklo/tOSO3415VwdBIoU/HvW4k3fIStMcY+SoswyjVimKQ/
-         RzI54FnErDWH0XEmG1OgGr9nm83ViRjfwF2CdH2ql7e/hmpKex/UHfuS5FjEegP7ol0E
-         bBu+XvPx7FCUYf7Tg9ZVDnRDZxhS8LK386ES4pLrpOABeSJZ9PEUVfhZ2fVd+zu90cqa
-         8632w3y+4wovSGWoA6TccZT1GdOydKmFu0ZlOKsCr5ouOVXOc98H5vmAid8/LRl3NFlp
-         pCeYGchsIV+T7Dcdgy1PWTjhyLpGoqOxqWQs0sncdrO8jBcNHY0VeKJ5uYu0FnmBlvxW
-         6cvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775837131; x=1776441931;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Rdw806p54hv0WYSi4dT+YA4YfP2LywL8N5qs00NGoaw=;
-        b=Gh6j0dJMTKvyiHfWOknaVh7IDAK3O2Z8TIiAXuF1WmMEzgJNiB9/SF0yjkFAbwHFmt
-         iC4xyoGosDQMf6EWw2uK6Kn5GBmUXaZ38kQJkF70FJ7XQdJTV2xfTGwyyQrtPqTTMAFK
-         y9SBBKnO+7Df2cW5o5q4nRrqFmE7Pz/WyobGLYmU4W1Lyf+s8BN0G4t2v5g6GFtil6YM
-         GHkM6jbbGOWgGXG8ynGW/F/U63ztS7dZcysu4sd1nnYwPzmHSDy/1FZGIuLLBoIPG7CC
-         gQtBuQdKyeli/tVc/LxszIJVMuNO3HKALh0FXzpHvC4/cMzV/j94zpwwWbMr/SvTCb0p
-         pMxA==
-X-Forwarded-Encrypted: i=1; AJvYcCVeudKL/b9URPCaPCQAxc1sxw6Dl0C32zsd+8h6UrW3qSX+V7JSRnmnxt9RO6pq4AWLf+tPB+8wn7aa@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzs0U4uqlioo2btxu7eiBqwx6vSIHREAW1oqGQkHK+2tBsnwnK+
-	xAIJgHbfCC478HWz0sz5B5P1irHloJpIZ0ERgou2JvfwezwZvIZ3wx8e
-X-Gm-Gg: AeBDiev4+GSxeLhN21llpZXCizuzxrpsOj8zDc42bBq7uGMLg68P9vl40qiiOdaj6N3
-	iQcukRtUfK6a2lpF7GHwFxxbQgYVdyGOfh0EksHFanoA9H70wiDsh751J9HiQpe0mYqAxKMO3SN
-	VvKlbITI7ohMmM6zy8MNXuW4l1iBM6mkRGWMTj7EZ2rPH+PlzzFsfX8XZgKT1/ZSvZsiUyVHLtM
-	dS6vxiLTAJPehp+kuM2LdCDr7GSwc07iwkdMYMgqKPBLJwh/3Z/Ge31eMwwGztbfw5yiDz1x4us
-	QrR3i28lXni8ntJcwjHzTwdM6bPpjDghPuSNJSaGk1EqYqeiktcSsszYHf7PEvNrqQ/fXRj8d3a
-	/jF8sj4qLA3i9GOhPrb7Ip4e7mEeB2OdLsiBFffNwnEQas3GycuTOdrD9PcZdpChsmhzrWFPCpm
-	KkXEraSZNVZHEkgf2E7KVmFY/6hlMc4TAqfNLzOEM2iw2Wanr2sEaZ5qdIKq4fsnIo+z1781She
-	8BhU115Lkk=
-X-Received: by 2002:a05:7022:492:b0:12a:6c7e:bef2 with SMTP id a92af1059eb24-12c34e68eb6mr1904050c88.7.1775837131226;
-        Fri, 10 Apr 2026 09:05:31 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2d55f5c69b3sm4849901eec.1.2026.04.10.09.05.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Apr 2026 09:05:30 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <54fec616-3cc2-4d73-9ddf-aadcf41c924e@roeck-us.net>
-Date: Fri, 10 Apr 2026 09:05:29 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OxNX0NIp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8455C19421;
+	Fri, 10 Apr 2026 16:11:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775837481;
+	bh=6ywWy6DPRk7+h0RyeGTRliH2Flx/nz1qZaA/Em5pnB8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=OxNX0NIpIpiSkOF38tS/vr5i8gH+tKycbKH+b2jDtGloBbwhyBmClxxKH9B1meYIP
+	 g3S0dZ/MMudxmN1T71w4LjoPUBorTsc0ZGXhBTf6G1sHpup5q2zXxBgfQsokxROwJF
+	 KrV9VrvaEhS+9M0BhJ/psdK+H+Bnenxw58AJJTpHPIa3f8cN92XY8bxt1uPODpYVHK
+	 f42dGWab0dYB6Gm26Rdv4viYZ2Hf1QXc7GLGK+g816XLZLefgER8NC75wp0qe/VeRJ
+	 55xoSz1wcWkITGLmn4u0YWiKpVPZ+PQUKvEm7qlBuhImNThYQnQ19iDBro2a2C/Ma1
+	 8bnhx7RUzeLFA==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 909B21AC58B9; Fri, 10 Apr 2026 17:11:18 +0100 (BST)
+Date: Fri, 10 Apr 2026 17:11:18 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Guodong Xu <guodong@riscstar.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+	Alex Elder <elder@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Alex Elder <elder@riscstar.com>
+Subject: Re: [PATCH v8 2/3] spi: spacemit: introduce SpacemiT K1 SPI
+ controller driver
+Message-ID: <adkhJhEQIZHgIQpH@sirena.co.uk>
+References: <20260410-spi-spacemit-k1-v8-0-53ebb48a4146@riscstar.com>
+ <20260410-spi-spacemit-k1-v8-2-53ebb48a4146@riscstar.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/3] hwmon: emc2305: Validate fan channel index
-To: florin.leotescu@oss.nxp.com, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Michael Shych <michaelsh@nvidia.com>,
- linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: daniel.baluta@nxp.com, viorel.suman@nxp.com,
- linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
- festevam@gmail.com, Florin Leotescu <florin.leotescu@nxp.com>
-References: <20260402122514.1811737-1-florin.leotescu@oss.nxp.com>
- <20260402122514.1811737-2-florin.leotescu@oss.nxp.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260402122514.1811737-2-florin.leotescu@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mMqcETBJi9wtUPjh"
+Content-Disposition: inline
+In-Reply-To: <20260410-spi-spacemit-k1-v8-2-53ebb48a4146@riscstar.com>
+X-Cookie: You will be divorced within a year.
 
-On 4/2/26 05:25, florin.leotescu@oss.nxp.com wrote:
-> From: Florin Leotescu <florin.leotescu@nxp.com>
-> 
-> The fan channel index is used to access per-channel data structures.
-> Validate the index agains the number of available channels
-> before use to prevent out-of-bounds access if an invalid
-> value is provided.
-> 
-> Signed-off-by: Florin Leotescu <florin.leotescu@nxp.com>
-> ---
->   drivers/hwmon/emc2305.c | 6 ++++++
->   1 file changed, 6 insertions(+)
-> 
-> diff --git a/drivers/hwmon/emc2305.c b/drivers/hwmon/emc2305.c
-> index 64b213e1451e..0b42b82c8e22 100644
-> --- a/drivers/hwmon/emc2305.c
-> +++ b/drivers/hwmon/emc2305.c
-> @@ -548,6 +548,12 @@ static int emc2305_of_parse_pwm_child(struct device *dev,
->   		return ret;
->   	}
->   
-> +	if (ch >= data->pwm_num) {
-> +		dev_err(dev, "invalid reg %u for node %pOF (valid range 0-%u)\n", ch, child,
-> +			data->pwm_num - 1);
-> +		return -EINVAL;
-> +	}
+
+--mMqcETBJi9wtUPjh
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Apr 10, 2026 at 11:04:21PM -0400, Guodong Xu wrote:
+>=20
+> This patch introduces the driver for the SPI controller found in the
+> SpacemiT K1 SoC.  Currently the driver supports master mode only.
+> The SPI hardware implements RX and TX FIFOs, 32 entries each, and
+> supports both PIO and DMA mode transfers.
+
+> +static struct dma_async_tx_descriptor *
+> +k1_spi_dma_prep(struct k1_spi_driver_data *drv_data,
+> +		struct spi_transfer *transfer, bool tx)
+> +{
+> +	phys_addr_t addr =3D drv_data->base_addr + SSP_DATAR;
+> +	u32 burst_size =3D K1_SPI_THRESH * drv_data->bytes;
+> +	struct dma_slave_config cfg =3D { };
+> +	enum dma_transfer_direction dir;
+> +	enum dma_slave_buswidth width;
+> +	struct dma_chan *chan;
+> +	struct sg_table *sgt;
 > +
->   	ret = of_parse_phandle_with_args(child, "pwms", "#pwm-cells", 0, &args);
->   
->   	if (ret)
+> +	width =3D drv_data->bytes =3D=3D 1 ? DMA_SLAVE_BUSWIDTH_1_BYTE :
+> +		drv_data->bytes =3D=3D 2 ? DMA_SLAVE_BUSWIDTH_2_BYTES :
+> +		/* bytes =3D=3D 4 */       DMA_SLAVE_BUSWIDTH_4_BYTES;
 
-Please address Sashiko's concerns regarding channel index validation.
-It seems valid to me. Feel free to ignore the other comments.
+Please use normal conditional statements (in this case a case statement)
+to keep the code legible.
 
-https://sashiko.dev/#/patchset/20260402122514.1811737-1-florin.leotescu%40oss.nxp.com
+> +static irqreturn_t k1_spi_ssp_isr(int irq, void *dev_id)
+> +{
+> +	struct k1_spi_driver_data *drv_data =3D dev_id;
+> +	u32 val;
 
-Thanks,
-Guenter
+> +	/* Return immediately if we're not expecting any interrupts */
+> +	if (!drv_data->transfer)
+> +		return IRQ_NONE;
 
+That does't mean the hardware agrees!
+
+> +	/* Get status and clear pending interrupts; all are handled below */
+> +	val =3D readl(drv_data->base + SSP_STATUS);
+> +	writel(val, drv_data->base + SSP_STATUS);
+
+Nothing after here can report IRQ_NONE, even if SSP_STATUS didn't flag
+anything.  I'd just move the checks for transfer to when we're handling
+FIFOs and have the IRQ_NONE report be based on there being something set
+in the ISR.
+
+> +	/*
+> +	 * For SPI, bytes are transferred in both directions equally, and
+> +	 * RX always follows TX.  Start by writing if there is anything to
+> +	 * write, then read.  Once there's no more to read, we're done.
+> +	 */
+> +	if (drv_data->tx_resid && (val & SSP_STATUS_TNF)) {
+> +		/* If we finish writing, disable TX interrupts */
+> +		if (k1_spi_write(drv_data, val)) {
+> +			val =3D SSP_INT_EN_RX | SSP_INT_EN_ERROR;
+> +			writel(val, drv_data->base + SSP_INT_EN);
+> +		}
+> +	}
+
+This overwrites val...
+
+> +
+> +	/* We're not done unless we've read all that was requested */
+> +	if (drv_data->rx_resid) {
+> +		/* Read more if there FIFO is not empty */
+> +		if (val & SSP_STATUS_RNE)
+> +			if (k1_spi_read(drv_data, val))
+> +				goto done;
+
+=2E..so the read won't see that there's data to read and we'll need
+another interrupt.  I would suggest using a more meaingful name for the
+actual interrupt status.
+
+--mMqcETBJi9wtUPjh
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnZISUACgkQJNaLcl1U
+h9A2Tgf7B2Of1h7VKFoheYpdDXTd76daIJkw059x63Qz69BDTzeal71jnJzDc0Oh
+d4UKQXLnzn5cguF8GIR8w5Hl1R9tc59DdM0rZ085q0ABgA+5JGtCS1qzIFwp/53p
++LZBefeQPmmS++HkTi4h2N3rLN85ZcEY6oURIjjO2UGJ7SYnZH2rSBeTmRdDZufx
+8iqqlry7hdeamly3M+wrQ2V3QIbjjWucrU5cU9c3r+cAfiEtT0i3vpG5RarIUcHW
+CpWFPe+J+H09mOvtJboJ+g/BdbOG47iwtTcrGcJ8nQ9MbBpBjGRcjGJdu1SP2cHU
+vJ7C9bL822LrGXMn4db9LTx5Lg/RMg==
+=ZICv
+-----END PGP SIGNATURE-----
+
+--mMqcETBJi9wtUPjh--
