@@ -1,78 +1,85 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011006.outbound.protection.outlook.com [52.101.52.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6795F334688
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 05:55:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775800543; cv=none; b=Y/J+4vJlc8cqD3zX4WjHQNiSKYNVijIgw1s6PB9NcDMr7OopN+XOm5p+GPPtpCvy0wxFmlnvqLcCz8tSTblmXVaADK2wvV2Zw4tijHFPAO1fKFHk08IFem2xovc35QdSBMNp9IPx2TpTu/x2F23ZVTRy0ibFKTKfkq+9mLeDnSA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775800543; c=relaxed/simple;
-	bh=hWWgAhJK3jluW4debCIMFcuJaz0aQyv9VgWUStBlYcY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kQR4ZN9cbcnd0NcXRnVYZFWFDaCPzSWCC7Z2aSzB7rMbyv74vgwl8jvyHVvI5mBORTO0huvbAn+/WOmjZLUVVBBhyZXdOHTBguev7QxhD7a0DEFfUOMqEL0beenNnN6MkbOY46Ina2adOZJIvH/Fu/OJGcXv/xPAb/aWuwAJclY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fgUPUsc7; arc=none smtp.client-ip=209.85.216.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468EB330641;
+	Fri, 10 Apr 2026 06:07:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.6
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775801262; cv=fail; b=qefAbXqDVS3/fGQGkk4Bvl/Yk/crwoWvXG9+hzSrcMLcrqpD4u1T7xUEuphcBmpDTCe9Me4XK4VNc6Uza6p97qXqi1vDO86PR2hZl0mVohAQpUCv5QPVqa+6vul64TjTmoZQFOFn4UQrBPe2RaU+/e/y/RlGelfLo6wH2VeZqNA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775801262; c=relaxed/simple;
+	bh=vJ4GFChU1yDSUFHSfbFo+vK1ROGEvuG7Ijlax2lS288=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WPGtlDbyjk0Q34v8FlHwt/H+2IpeQzsYmaTqRPK2+FLn3nOx0xQu6UN0AqPfj9VROigdoQxRqcVgh2IAaxmz91mD4chMBXcL0orYsg0kt4i3dq/2UZl+/8HcEyjm2iOZI7CYLMVILiXXbizBkg5tKx0XAfUgr0lD0mJqAqMkFG4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=N82LxzWN; arc=fail smtp.client-ip=52.101.52.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fgUPUsc7"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-35c1a131946so1037613a91.0
-        for <devicetree@vger.kernel.org>; Thu, 09 Apr 2026 22:55:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775800542; x=1776405342; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=eZONTy3jkQF6vvheJ4A4geJ0E0xBe92xQL8/wb4o+I4=;
-        b=fgUPUsc7J4Ag+P+fztHajhjMIM2MdY8fOcJNiaRDy9w9d/RZu8EGIM+IGaHClYgYWK
-         UCtfdl/2zApBy5L67zo5Ax8eS2Timk32yiT3HsrdLiQa99Sy6f5a6v4wlwfuOB+XDeYj
-         fTAGKLvTB6IUCLPBJNLFrENYHlvb8Nit30SRTsXyM7sfvgndoxB3SnPnYAXkQwiCquxl
-         uY8PKrXFHp3+vSTrCBq6ja+4jFoK/BIUlWNaimxVZT+kbW67g/nsbQXQV0nqQPzNIs5U
-         asWXRjCSwdCidPgXNnY3pmKmLvpWkOsIggKAOusJwBuUWgST0w+430ZSQn86vgsQXLKw
-         f2rA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775800542; x=1776405342;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=eZONTy3jkQF6vvheJ4A4geJ0E0xBe92xQL8/wb4o+I4=;
-        b=AqzriYLC5IeKDgEdUAkECVGnCM1hW1SiWJkmUh13MB3EScmEt2PWpul5/XJakAi7FN
-         j6Pe0SBBVh2bh4cLKY5DAorL2g1oThaaq4KUAOZPpS974v30Ikjw6NM41l/BqBvdciu2
-         TMX+wVo66PtwDhftD3vP30Kquvb9GiwHVMkDtvyv0rG6m93W0ayv7dDGMKUoq3bQ51y8
-         ZUfPC80y5XHiMuN85xDyFu30PBo/YwsYo85fc+rBUmm+VPOzQdcY7ioYeqjGvJGpyCtn
-         xOsUx/Aoz0x32n+5MV1H+PYieMyZJTBsBQl5h2gJy6vM/DUlebnidUtF0FF+aYCyx/u5
-         y5Ng==
-X-Forwarded-Encrypted: i=1; AJvYcCXRBAH7nsbW6gbuXgHMCVCg5eamZ2ZwzEO9qjfFMVrAldC4pcIbb5nhc+L2OamK4YhRes01VZMUWRgL@vger.kernel.org
-X-Gm-Message-State: AOJu0YwN6hrz3ff1WJwv0lt9IA4KJZtHFXp9Lpyb0IyItrwJ2Qv0HXGT
-	K+ACKgJjZrF1SMevUS/FWEOcg6VX1o3td6TyyWVdiMDnhrru3Zc+8gyZ
-X-Gm-Gg: AeBDiesB/d4ftoI54e58Uw3Dd8E8bXrVL1AguP3gWAwRIR1MDDHASzA3r6jMSFtpylL
-	HhWt3I8BWiwnz+AsVqL5uWj1AOerAJNrnbcxFZ4V7SnsUy18f7y/iyuP7BINdyTFdwkurlrzYLq
-	9q4yUA/5/Pz6MOvYutoZE0jvoJ9nD5f81rbumLMOnwd+/yVKA0wR0GneVbl/+3UTYqjHyNsufE1
-	376aWGpe6/pdrypZ0crIDWTAh+zgyl8U08jlm0c+ILHGTa0Bu6IUc3s8ddaPEx46Ey2Y4WM+8CE
-	3IohjeaiIcVycpi0uKij92bpfLeKwhEFQYxgcuFcBCYXLqIl3QJ4pvMLNk25ma1+2xx5T126KWn
-	biE+nTLp9RXRcX7M8xLtJwhnP2VkY8mdd3ZJsU93qHSu/W6LqdZD+SI10aDzaAkZcZypBy53BUH
-	RVYbyShvLE1OzlpEFY19ZijH2K
-X-Received: by 2002:a17:90b:52c8:b0:35b:a44f:b80 with SMTP id 98e67ed59e1d1-35e42fe6580mr1407691a91.1.1775800541645;
-        Thu, 09 Apr 2026 22:55:41 -0700 (PDT)
-Received: from localhost ([223.233.84.165])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35e4131cfacsm1777318a91.10.2026.04.09.22.55.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Apr 2026 22:55:41 -0700 (PDT)
-From: Anushka Badhe <anushkabadhe@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Anushka Badhe <anushkabadhe@gmail.com>
-Subject: [PATCH v2] ASoC: dt-bindings: rockchip: convert rk3399-gru-sound to DT Schema
-Date: Fri, 10 Apr 2026 11:25:32 +0530
-Message-ID: <20260410055532.60868-1-anushkabadhe@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="N82LxzWN"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rweEAYl6TsEnpzmXa3yGaiwhBd+SjWKHZA1BxJ6kbqCBcUNPbGKLKaog+ic8pSvRyfODqrPMSW5SJE41mkcLt1pWb28VpYtGTr5+tFitTMZn9fZTS2r66juykgOGJQx72hz+P4/yagK4rqjPsljIv6nmiB635jl5kQMWoWq4TQdmYdUHq8DBUBC345Cy3TJy59amn9HtDwdkUQoxPj2939ToErgp1sZ4LKWwSbnjGoCRA0wEpWGABKLTGWYL0JtFHukR7wK8gCgSWbSoamujViFE2iG13Ze9489sDmPyvDr3Upf/5Cl62h4q5C5oZx+ZNC050thGxXdy+m+FvCczSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dhz0AwWQhArIG6X1e+sdWmQzlKSfSIGnLp8dL+slUj4=;
+ b=h4Pp0u0KlPnC1ULTEd8W3RtdQX/Sjli+Kno66WhZUrY4MvduAuc3LVxFOejIDDX2BFmYFpHJ60gC7UvaAneeF2ypO4FQ4EBoYrjYN9Pjc76wstm9i+ysy7ygeG/4uHtCmvePjbn3XBCEWv9IHcCB42YywlgPzF2PTRRsPYDLpqunyXH4I+zpSZDzwX51vSRg/4oVKvcB1QEkrEyL4Wqz5Q0R+x3SKlA3d2bKWMDuY8SsMYcE6fVra5P/a236DP9gBiyj3kFRaO+5K83TmSPDOOu+KVEV7rSI65lqQcxMLFtvVr3Jv4EizklBWMSXMY8ac+cBz9E9whvZ4CfWf+XVgA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=nxp.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dhz0AwWQhArIG6X1e+sdWmQzlKSfSIGnLp8dL+slUj4=;
+ b=N82LxzWN2deRU43cvLtvq1jhaWSWdGQuDJF9eSDYCulnSZSEjAMfcEmSqlycQA5Z4xwIZJb4AaTrEi0A2yl0mHsugMuB4JiLaFTl5Y2WcxLLpyDsi2n6XdCuga6FcCLgdbJpxN1JteOwlYgIgfFd3G4sbKavuxCFsspHkR7qDk4e+j1KzkWehGJlTO401/vI00NMjJVbfVt2ztBh4aQqJyPaIoUEk3nM1iPx5mzj1Pw6u2EYTcUtRb5J4NOTsrVZ1gxn1MRDPskA5/a+SC7WZGF50HPm99Fl76hI4CaPCfQ3hPyeWZr0HjFSZx7AWeF3T7EVCoFZLVqmDE4niOUjAg==
+Received: from DS2PEPF00004556.namprd21.prod.outlook.com
+ (2603:10b6:f:fc00::510) by SA5PPF5EA4322E1.namprd12.prod.outlook.com
+ (2603:10b6:80f:fc04::8cc) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Fri, 10 Apr
+ 2026 06:07:36 +0000
+Received: from DS1PEPF0001709A.namprd05.prod.outlook.com
+ (2603:10b6:2c:400:0:1007:0:8) by DS2PEPF00004556.outlook.office365.com
+ (2603:10b6:f:fc00::510) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9818.12 via Frontend Transport; Fri,
+ 10 Apr 2026 06:07:36 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ DS1PEPF0001709A.mail.protection.outlook.com (10.167.18.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Fri, 10 Apr 2026 06:07:36 +0000
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 9 Apr
+ 2026 23:07:19 -0700
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail205.nvidia.com
+ (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 9 Apr
+ 2026 23:07:18 -0700
+Received: from BUILDSERVER-IO-L4T.nvidia.com (10.127.8.9) by mail.nvidia.com
+ (10.129.68.10) with Microsoft SMTP Server id 15.2.2562.20 via Frontend
+ Transport; Thu, 9 Apr 2026 23:07:13 -0700
+From: Akhil R <akhilrajeev@nvidia.com>
+To: <frank.li@nxp.com>
+CC: <acpica-devel@lists.linux.dev>, <akhilrajeev@nvidia.com>,
+	<alexandre.belloni@bootlin.com>, <conor+dt@kernel.org>,
+	<devicetree@vger.kernel.org>, <ebiggers@kernel.org>, <krzk+dt@kernel.org>,
+	<lenb@kernel.org>, <linux-acpi@vger.kernel.org>,
+	<linux-hwmon@vger.kernel.org>, <linux-i3c@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <linux@roeck-us.net>,
+	<miquel.raynal@bootlin.com>, <p.zabel@pengutronix.de>, <rafael@kernel.org>,
+	<robert.moore@intel.com>, <robh@kernel.org>, <sakari.ailus@linux.intel.com>,
+	<wsa+renesas@sang-engineering.com>
+Subject: Re: [PATCH v2 09/13] i3c: dw-i3c-master: Add a quirk to skip clock and reset
+Date: Fri, 10 Apr 2026 11:37:11 +0530
+Message-ID: <20260410060712.30377-1-akhilrajeev@nvidia.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <adhkNYQW73yQ728h@lizhi-Precision-Tower-5810>
+References: <adhkNYQW73yQ728h@lizhi-Precision-Tower-5810>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -80,124 +87,59 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF0001709A:EE_|SA5PPF5EA4322E1:EE_
+X-MS-Office365-Filtering-Correlation-Id: 52b81259-b51e-468b-c161-08de96c776a8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|1800799024|7416014|376014|13003099007|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	DgY+cdnIFQd5Ixnpj6BQ7iCaVOEZlt+z5Ajgz+c0WH1sqNsBHdHQD7VfCz0IbcPdJvQlj8K5R4/utkeFKMP7DDeAf+4rmKxCxKvtYptQd80lNIEvyUQNiaUoYFSno76sU0Py+UJwoI2XQxbcOFrNQqkKNJ0nQiOUiGopVN8HkLAJ5H2X+0kxybDAtb+I2sKTgFFmbkPmu/NaMXX7jSNPASZr3sjNuTecURcnlrZn/mbJ34G0D51eyRrr1cQ4r124e5gLkttpY8i9tn7OiULR5DDv6lIw3Rc6M/e0ytq8h12aipZ4fP+qJfQKcXBImXjQfHvQcmYwGOSGco9wBnqzMZr9LxDudHlXJRFp1G8tbPH8Fa+8//g90Dr+1N39QlV2bUu3xLmk1Jr/0QS4RCTY+4w3OI5jjbO1jnPwsTG3DUDKsURSOxrkY2wxzsmD4hS/nKMgqKaPqU+VXgwYLVeEB+RN+aH6bI0KseTV/wRErgKtdojk0Nf+4x1fsU7PgtHzt9hP4zAJVqAERwf2Y043XwSsLUfDN/PbglHCbNXYEcleENkFFlWL8XzLCSU7cJZenTHmeBAICrdLPCSMlbFuJkHiKCvvrmw32YwHKx+Yx8mL2cuoF/GlGxSFmrjzralfR3yg7okVvLaFqyVA9pFAsRpsiJV8tcDUW5059nZnvEZB2t8U/SmgtB7X1tJWnIJ+3hWBG/kxW+2aTPTUtPvybFGjxC0Vua5RCtG39nC8PCXbVYOhjVy3SHB+sXvVmlu2OHzNxTd3XuWTuyLy0kooVA==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(1800799024)(7416014)(376014)(13003099007)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	dYPGxmlN8OeWEunMwsf5QXyo1mQ+GhfOFNxYN9ai2vn+ODgR5vS1HfnbkSUtONaivOdgsSeHlUDWDMcqPyxM6ZRX7QuIU8rs3TtD3SpqWttXkEl20wwdG6maVk03Aaf8rqlzvD7t/I/VUOXT2TZBFvqfQ8GtfYYPtJDr8MKeS5xiTmZ8ukrCYJhSg5yG4SP4biyn+5fM0Luulrs+8kzV4P2SADbXfqr4Kal3lVPjESjxsMn9+Ggr152o3Hdqih9Fz3Xg0IDwtj1RcNir+xQ+rmW++C7rq8Yv9DHTTwGHGJd4x/FXmmxhKuiqXgCYc/zhVmIJsYRv11RZs3EQPv0OzGZRnnlOlusta5cuM0fcrik57+Mt66/TlTOyaNzgDAZ3xMh0k19isS6kuODUAou+LUH1HKUUFDTb2ir/zT6dEx4CikMiNMXyzw+uQUNrN5+o
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2026 06:07:36.3569
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 52b81259-b51e-468b-c161-08de96c776a8
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF0001709A.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF5EA4322E1
 
-Convert the rockchip,rk3399-gru-sound.txt DT binding to DT Schema
-format.
+On Thu, 9 Apr 2026 22:45:09 -0400, Frank Li wrote:
+> On Thu, Apr 09, 2026 at 04:27:39PM +0530, Akhil R wrote:
+>> Some ACPI-enumerated devices like Tegra410 do not have clock and reset
+>> resources exposed via the clk/reset frameworks. Add a match data for
+> 
+> why not export fix clock at ACPI?
+> 
+>> such devices to skip acquiring clock and reset controls during probe.
+>>
+>> Move match data parsing before clock/reset acquisition so the quirk is
+>> available early enough.  When the quirk is set, fall back to reading
+>> the clock rate from the "clock-frequency" device property instead.
+> 
+> "clock-frequency" is legacy proptery.
 
-Update rockchip,cpu from a single I2S controller phandle to a
-phandle-array. Add an optional second entry for the SPDIF controller,
-as seen in rk3399-gru.dtsi, required by boards with DisplayPort audio.
+The document ACPI on ARMv8 Servers [1] suggests not to use clock or reset
+framework at all. I also could not find any proper way to export the clock
+to the kernel from the ACPI table. The same document suggests to use only
+_DSD properties, if to pass any data to the kernel.
 
-Signed-off-by: Anushka Badhe <anushkabadhe@gmail.com>
----
-Changes in v2:
-- Fix subject and body: "YAML Schema" -> "DT Schema"
-- Fix title: "ROCKCHIP" -> "Rockchip"
-- List items for rockchip,cpu with I2S and SPDIF descriptions
-- List items for rockchip,codec
-- Update descriptions for rockchip,cpu, rockchip,codec and
-  dmic-wakeup-delay-ms
+I can rename the property to 'default-clock-rate' if that sounds good.
+Please let me know your suggestion.
 
- .../sound/rockchip,rk3399-gru-sound.txt       | 22 -------
- .../sound/rockchip,rk3399-gru-sound.yaml      | 60 +++++++++++++++++++
- 2 files changed, 60 insertions(+), 22 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/rockchip,rk3399-gru-sound.txt
- create mode 100644 Documentation/devicetree/bindings/sound/rockchip,rk3399-gru-sound.yaml
+[1]: https://www.kernel.org/doc/html/v6.1/arm64/arm-acpi.html#programmable-power-control-resources
 
-diff --git a/Documentation/devicetree/bindings/sound/rockchip,rk3399-gru-sound.txt b/Documentation/devicetree/bindings/sound/rockchip,rk3399-gru-sound.txt
-deleted file mode 100644
-index 72d3cf4c2606..000000000000
---- a/Documentation/devicetree/bindings/sound/rockchip,rk3399-gru-sound.txt
-+++ /dev/null
-@@ -1,22 +0,0 @@
--ROCKCHIP with MAX98357A/RT5514/DA7219 codecs on GRU boards
--
--Required properties:
--- compatible: "rockchip,rk3399-gru-sound"
--- rockchip,cpu: The phandle of the Rockchip I2S controller that's
--  connected to the codecs
--- rockchip,codec: The phandle of the audio codecs
--
--Optional properties:
--- dmic-wakeup-delay-ms : specify delay time (ms) for DMIC ready.
--  If this option is specified, which means it's required dmic need
--  delay for DMIC to ready so that rt5514 can avoid recording before
--  DMIC send valid data
--
--Example:
--
--sound {
--	compatible = "rockchip,rk3399-gru-sound";
--	rockchip,cpu = <&i2s0>;
--	rockchip,codec = <&max98357a &rt5514 &da7219>;
--	dmic-wakeup-delay-ms = <20>;
--};
-diff --git a/Documentation/devicetree/bindings/sound/rockchip,rk3399-gru-sound.yaml b/Documentation/devicetree/bindings/sound/rockchip,rk3399-gru-sound.yaml
-new file mode 100644
-index 000000000000..e9d13695cc77
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/rockchip,rk3399-gru-sound.yaml
-@@ -0,0 +1,60 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/rockchip,rk3399-gru-sound.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Rockchip with MAX98357A/RT5514/DA7219 codecs on GRU boards
-+
-+maintainers:
-+  - Heiko Stuebner <heiko@sntech.de>
-+
-+properties:
-+  compatible:
-+    const: rockchip,rk3399-gru-sound
-+
-+  rockchip,cpu:
-+    $ref: /schemas/types.yaml#/definitions/phandle-array
-+    description: |
-+      List of phandles to the Rockchip CPU DAI controllers connected to codecs
-+    minItems: 1
-+    items:
-+      - items:
-+          - description: Phandle to the Rockchip I2S controllers
-+      - items:
-+          - description: |
-+              Phandle to the Rockchip SPDIF controller. Required when a
-+              DisplayPort audio codec is referenced in rockchip,codec
-+
-+  rockchip,codec:
-+    $ref: /schemas/types.yaml#/definitions/phandle-array
-+    description: |
-+      The phandles of the audio codecs connected to the Rockchip CPU DAI
-+      controllers
-+    minItems: 1
-+    maxItems: 6
-+    items:
-+      maxItems: 1
-+
-+  dmic-wakeup-delay-ms:
-+    description: |
-+      specify delay time (ms) for DMIC ready.
-+      If this option is specified, a delay is required for DMIC to get ready
-+      so that rt5514 can avoid recording before DMIC sends valid data
-+
-+required:
-+  - compatible
-+  - rockchip,cpu
-+  - rockchip,codec
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    sound {
-+      compatible = "rockchip,rk3399-gru-sound";
-+      rockchip,cpu = <&i2s0 &spdif>;
-+      rockchip,codec = <&max98357a &rt5514 &da7219 &cdn_dp>;
-+      dmic-wakeup-delay-ms = <20>;
-+    };
-+
--- 
-2.43.0
-
+Best Regards,
+Akhil
