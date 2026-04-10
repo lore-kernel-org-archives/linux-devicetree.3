@@ -1,158 +1,127 @@
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3AFC3C5552
-	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 13:43:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775828600; cv=pass; b=QLYuumMdjo6PVNjvbAXUqkx6cEgayIQLM70+7VjBJhaa7VvVlkzlHThsiem5j+0q8a6rr5u7LY2MXU07EAc9jedhx0fPAkayR1WWT11Z2dL+BzLFjIoKKSkSUM5FMBDSjKnE9dyeCm0XaX/XYhkykxJ8lMmkF1UoC3iXVQuaDYs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775828600; c=relaxed/simple;
-	bh=YgrJwTSrZYeSjVMNLPrgCbByTvZIfgpY1ecwu0mAL8A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=i5FtsIExjwWabTEF3TjvVLyN6dXea7by0/rGL0YIcP3dPfIoitTJfhur1rfEhucMeMmNp5pkzJWYbe2ngRY6aZJw8LGpdXur22YHkC/oQcm53PNBupTXMP/uXYvtNXuMLhi7v6Q3NXiiY/MFyIFn/qpGpcE9ae1Fo2x/SqrH69I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=QWMmwwrg; arc=pass smtp.client-ip=209.85.167.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCECB3C73C8;
+	Fri, 10 Apr 2026 13:43:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775828605; cv=none; b=R86LaWG+8kj5JQH6bL7We17aHOskTjmy0a5AejLE8JwNwPeoUmOYgEkxdIrTm08VFfWDp8JlBfEbunT9NzO22L7p5taf0TsmYCKmdTE+97fwsP42Nj9/iWapi3Vsoep58Q7pguNH8pl5u4xE3fMKy/gTb6qsR8HQ91QYJ7FWAXs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775828605; c=relaxed/simple;
+	bh=eO70mw2m3Rgb2pLdJEFXF/GNu4emkMHOfvWvBTWaHh8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jdYGzVDgeOJIIV9lrIqL1cqgeRlUArMHAJd8WT4NRHDJ+ZKnoCiok7gTc2Kx6ircNcEo8Yaci2NILgYMp3/hA6l1mPhraq1mnGKI3WTYkuQlxQry495z1Iv7UsOOBCd0RvV++xQy7yrMxah3rK39eit4llj57TAeDZyRkGUmAcI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=p2Vb4A/R; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="QWMmwwrg"
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5a3cee3a271so2011626e87.3
-        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 06:43:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775828597; cv=none;
-        d=google.com; s=arc-20240605;
-        b=ewYZS53io5BXz2zVJBzqnxFOJKg/IPzqyevKs8Xu1mWtI6sYX2dGyfWj5l6ohEu/ZK
-         T28Cl+hMMw5w4XlWJbRnzZgDwhPJDVTUM69eJZgjuP94qHC6LSIK+lz06JTtN5H8EVbq
-         Js+4g3xPNppCfGKIrzYPhzL4GRLHVuM06cXFHAAbruPA0apiKSVoBEqB2OYUY78sHMfG
-         3MB9nuouhGAa1LbmmGyZHtxtA/OLbvDgFnO6/cFxKsSYO1ljyLoIZpKcjsicTaJ9Z0kN
-         b3XhRoiZtU+o5WEfceOWgt1YZcCV9j3Wzt7V5wW2sU9dQZ44FunoVme/2PGnhYY5jjxO
-         /4Wg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=HPAqnqKcw9kNQQIwYNpoVOuQXD5LrODSPZaoiKKIlQY=;
-        fh=p7vFu1TVPG0KqICaHNrq0WfwDLuapQKBgUCDMgie0lA=;
-        b=f/0c8q8cuniZn1Ho6x25peGgD6TlNpuTpuqKwxpWvnaXzJ4kYweB06DHyt34Zd0HNF
-         LQ80N+thGPabmyPX4IZRCEAbxZmRdyoB9oy4BOgYJHGClGYC2SoBwaP6IEsv/lPmEJ82
-         EvGjd6UQuvLqs4zDu1Dija9+F7avhIVXqnM7SjaiJDvryUm2ZBz/1s52KgceT8QPoat5
-         B6JZORLTGQPTTGmi2UrNEmGDGKMZHDCIa8dYS4AhSkl6E1cS2/fUEin02xtKw9ONtwye
-         8CmKJjXFHR7gzYIE0eEwQct3wBJJCoE1qdxaxMd+DDr2vpTsVfpLVQuoJ9pMJ/kvRDw8
-         pyig==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1775828597; x=1776433397; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=HPAqnqKcw9kNQQIwYNpoVOuQXD5LrODSPZaoiKKIlQY=;
-        b=QWMmwwrgIdpLyOpbBKSD4kOefcSEohl0EWuNwH7j1JtVkHbAV5Q5b4ZOH+XPZHaClh
-         /eErV4oHQiRLRwFzd3OK26u3qmQbqRB+OUS+NVVOtCmIYLrg0N8SJ2ZqsL2+gWt8gD+w
-         03GocGi7QSrhsWwpzN+Zm9LQT5+sPAZ3aUeFNQ94pk/h0VEv3vEepJd9CshxqysoWLMn
-         GL2BKGlPpj2IupFySWbtMFa4j+aPpWzKgThxadVBLOlr6NBvlh5n1wYnsjLVBdlcwsnl
-         2WoiOCdGysC0T8Gt11A0i4WbZdgu1pCl6/Hmr6gua+oQucMTPe14w7AfRuw4MfvoDMvU
-         tnPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775828597; x=1776433397;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HPAqnqKcw9kNQQIwYNpoVOuQXD5LrODSPZaoiKKIlQY=;
-        b=oasRPkEpG9mNFUITjlcEYJin0NrtSNgg2JMYROMmTiNw45f3YK6kAMvh3oylgnB6Zm
-         RnF91ykEZwyfme0JZ9Pf8zS0Yez5R4HZyAztZ1qeJAKsZVZRe27573J9IdqCOcxy0tBm
-         thLEoZNM+aDEyx62whVXq5jvWtq/nLbknxLRmU/lQ7Q3WOW/QiZbu7HbsNIZrSmZeaNU
-         tl5HT1cQjMVbbmHRjEH/KEECm33Wll0FwEkQNaNLMAxQL+95IOkZe5MDhiLnbfk8mUv2
-         nE+4dMjDZWSJnOsM1Jpw4CYs0DdBnb8QnKQzbg3tmW0aTju3216/EYuBz4o2A41F12Ca
-         BS7A==
-X-Forwarded-Encrypted: i=1; AJvYcCWr6AXbaewpM3H3TN5KV6NKLvD3/Jxifwxzyfww87unU1f1B1dfwW5YCcYZ5Ix7PF6HRN2B988lxNWF@vger.kernel.org
-X-Gm-Message-State: AOJu0YyRP0X2/HBXl/Nla6bYSQpjj/ltk97GcMNyamW8fViSu8rASdsp
-	MtJ7XMW7ajvA6jlf31wI/j4scohCgIvuAUlEDu7tM06tn77gB/9YxKzAYAF7tPWunDAuRsSA45H
-	+HB1PFwzqJvCY0R/Hd4aOSRuPBDwM5RBHTNIwTRz78Q==
-X-Gm-Gg: AeBDieso/8ByfI1z4DXWu8vhjH3O4f3+oas0BpM3Tkn6E+TSwcakFxvn5dzML7VR0QB
-	syY0anFtSPRsimRDXSLOkJy6Zxz7Yh6rVqx1+ymd59TKVglJHZDdEu1nCFmR9WXRLpnYaXJqvjL
-	s6EDraH6QaK+i9R2ZR1k23D4wF77McLled9epy8yiW84e8RENpzri1wXZRDvg8Z4wrrFEIxtWOQ
-	dr3EPQm8m8EYk4/k7KU8/Ak9aJTgyX6WHnAkIy84H5jFIvxsh9TNu1ha5IRV58IzLRb8tSgm/eL
-	P18K6pts
-X-Received: by 2002:a05:6512:108a:b0:5a1:6c86:b957 with SMTP id
- 2adb3069b0e04-5a3efb2c5eemr1409309e87.3.1775828596892; Fri, 10 Apr 2026
- 06:43:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="p2Vb4A/R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A18AC19425;
+	Fri, 10 Apr 2026 13:43:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775828605;
+	bh=eO70mw2m3Rgb2pLdJEFXF/GNu4emkMHOfvWvBTWaHh8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=p2Vb4A/R3JkUfa/TseC9NKVRJVWuq79xeWUYvnc372Xm9Ysc5QQH8IPXLwcS/MKGm
+	 JiOX9k7sBYfqilEOBUKxT8kOfE4qVlWWxdnbgJn02JT7lEdX3auTPbjDu7xzZE8ROX
+	 dtPOKG0mlgPH7OmbJoMHrTkRYUZ2CmYszVdCVyKTNhJH0t6n8+m9LRxG9Qgr/xKtO9
+	 wc0WYJBQqI5hMztHq0AGLRKVmb01QShKRvsxPxw0QUSWuGwpwvTJVnexSgybciLk9T
+	 MZ6WYKvrFhHW/FEL8oM9mwsT71aedNzKAIinhoWvs45D/jMYUS4SZMR4GXsbgzySt8
+	 ZJIYNZSWKxaIQ==
+Message-ID: <2e047313-38b1-4758-a484-5c79f628f7e9@kernel.org>
+Date: Fri, 10 Apr 2026 15:43:20 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1775575276.git.tommaso.merciai.xr@bp.renesas.com>
- <CAMuHMdXHhd150mpUT5-VPcHW0W5Hs-rFC-Bjrc7Z8Szco9P_Xw@mail.gmail.com> <adZaXSDsv4f9d8Bp@tom-desktop>
-In-Reply-To: <adZaXSDsv4f9d8Bp@tom-desktop>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Fri, 10 Apr 2026 15:42:40 +0200
-X-Gm-Features: AQROBzC3LoOCj70eiud50EVlHZzwLKUFJdS9N5jGny4APxuSZLpM8uhFac0vmsQ
-Message-ID: <CAPDyKFpdafESpDDN_EaEQJ-5Kb+rxgzD9FYYCv8-+X4EJDd0=g@mail.gmail.com>
-Subject: Re: [PATCH 0/2] arm64: dts: renesas: Add missing #mux-state-cells to
- usb2phy-reset nodes
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>, tomm.merciai@gmail.com, peda@axentia.se, 
-	p.zabel@pengutronix.de, linux-renesas-soc@vger.kernel.org, 
-	biju.das.jz@bp.renesas.com, Magnus Damm <magnus.damm@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/4] arm64: dts: qcom: purwa-iot-evk: Add camss node
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Robert Foss
+ <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260410-purwa_camss-v1-0-eedcf6d9d8ee@oss.qualcomm.com>
+ <20260410-purwa_camss-v1-4-eedcf6d9d8ee@oss.qualcomm.com>
+ <765e4740-cf13-4d4e-ab69-c1abe1c39d34@linaro.org>
+ <c9cea1d2-a51f-4c38-8ae9-db868b86a928@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <c9cea1d2-a51f-4c38-8ae9-db868b86a928@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, 8 Apr 2026 at 15:38, Tommaso Merciai
-<tommaso.merciai.xr@bp.renesas.com> wrote:
->
-> Hi Geert,
-> Thanks for your comments.
->
-> On Wed, Apr 08, 2026 at 03:07:44PM +0200, Geert Uytterhoeven wrote:
-> > Hi Tommaso,
-> >
-> > On Tue, 7 Apr 2026 at 17:35, Tommaso Merciai
-> > <tommaso.merciai.xr@bp.renesas.com> wrote:
-> > > The renesas,rzv2h-usb2phy-reset binding schema defines #mux-state-cells as a
-> > > required property. Add it to the USB2 PHY reset nodes in the RZ/V2H and RZ/V2N
-> > > device trees to fix dtbs_check warnings.
-> > >
-> > > "arch/arm64/boot/dts/renesas/r9a09g056n48-rzv2n-evk.dtb: usb20phy-reset@15830000 (renesas,r9a09g056-usb2phy-reset): '#mux-state-cells' is a required property"
-> > > "arch/arm64/boot/dts/renesas/r9a09g056n48-rzv2n-evk-cn15-emmc.dtb: usb20phy-reset@15830000 (renesas,r9a09g056-usb2phy-reset): '#mux-state-cells' is a required property"
-> > > "arch/arm64/boot/dts/renesas/r9a09g056n48-rzv2n-evk-cn15-sd.dtb: usb20phy-reset@15830000 (renesas,r9a09g056-usb2phy-reset): '#mux-state-cells' is a required property"
-> > > "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dtb: usb20phy-reset@15830000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
-> > > "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dtb: usb21phy-reset@15840000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
-> > > "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk-cn15-emmc.dtb: usb20phy-reset@15830000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
-> > > "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk-cn15-emmc.dtb: usb21phy-reset@15840000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
-> > > "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk-cn15-sd.dtb: usb20phy-reset@15830000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
-> > > "arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk-cn15-sd.dtb: usb21phy-reset@15840000 (renesas,r9a09g057-usb2phy-reset): '#mux-state-cells' is a required property"
-> > >
-> > > Kind Regards,
-> > > Tommaso
-> > >
-> > > Tommaso Merciai (2):
-> > >   arm64: dts: renesas: r9a09g057: Add #mux-state-cells to
-> > >     usb2{0,1}phyrst
-> > >   arm64: dts: renesas: r9a09g056: Add #mux-state-cells to usb20phyrst
-> >
-> > Does this series supersedes "[PATCH v5 16/22] arm64: dts: renesas:
-> > r9a09g056: Add USB2.0 VBUS_SEL mux-controller support"[1] and "[PATCH
-> > v5 17/22] arm64: dts: renesas: r9a09g056: Add USB2.0 PHY VBUS internal
-> > regulator node"[2]?
->
-> Yes, thanks.
->
-> From v5 only [0] missing.
-> But I think Ulf is planning to pick [0].
+On 10/04/2026 10:38, Wenmeng Liu wrote:
+>>> +&camss {
+>>> +    status = "okay";
+>>> +};
+>>
+>> Hmm.
+>>
+>> I don't agree with this. Enabling the CAMSS node with just the TPG is of 
+>> very low value to an end-user and doesn't "prove out" the CSIPHY, TPG 
+>> and RDI path - which is the minimum entry point in upstream right now.
+>>
+>> I don't support less than a sensor at minimum.
+>>
+>> You guys must have a sensor you've used with this board ?
+>>
+> 
+> Yes we have, but both not upstreamed sensor, we currently have no plans 
+> for sensor upstream, perhaps this work will be carried out later.
+> 
 
-I didn't get confirmation from Peter, so I decided to wait.
+Then, as Bryan said, this patch should not be sent. It brings no value
+to the user of this DTS, because users-with-out-of-tree-patches can have
+this as well out of tree.
 
-If there is an rc8 on Monday I can pick it up for v7.1, otherwise
-please re-submit when v7.1-rc1 is out.
-
->
-> I will rebase/send RZ/G3E USB2.0 dt patches later.
->
-> [0] https://patchwork.kernel.org/project/linux-renesas-soc/patch/cda933586ef7ca119dbbcef45a921c29dd517698.1775047175.git.tommaso.merciai.xr@bp.renesas.com/
->
->
-> Kind Regards,
-> Tommaso
-
-Kind regards
-Uffe
+Best regards,
+Krzysztof
