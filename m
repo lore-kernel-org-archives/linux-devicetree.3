@@ -1,133 +1,593 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010038.outbound.protection.outlook.com [52.101.201.38])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49DE119E992;
-	Fri, 10 Apr 2026 07:05:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.38
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775804701; cv=fail; b=g1f2FYzGRvbuzS9faTcW+MyndMojPBrdcnGzERX1rweVj2BTFNhhmQ5KVAOHGfOzmOk4EnrihU4QVfiyH+3zFihWp0ch++p+YeHbnhRCtfKZ4nmYwUmnzRbXC8NW11HO0SjzStas1Gf/SC4vkFvxu6oDwLiuO+3uBGYLuKv2kTo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775804701; c=relaxed/simple;
-	bh=uBE+hP7CSc26Gh9kTDtJT3AxK8ngudmIc2VJxu7viB4=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ac99wt0d4OWZJiwT456kNHzbjpx27NqE61oa9TVMCVtqkTz+e0wnEKri+f3Vb4p0+sl4uVvybcuskaqSNrQ934UzM8GY44AFn8fB+XS6dv7ofJgzDHEnN4nhGvQRHkBYMGvMntpzcaPna2DYuOnntZ9Tsuknv9+IE0Au0uVYUaI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=p/ICwR9q; arc=fail smtp.client-ip=52.101.201.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 601B619E992;
+	Fri, 10 Apr 2026 07:05:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775804732; cv=none; b=tpBbg4Nhxpdug4nFZ1ryCE/wmIvshndg8IDXiBcSOBIEkF0FAwvGwbDqHi4eRInS3gdEbhRvu5HAGiIKqGy8v4UUiODICLBqOlTAwvdB6yZGLkLHT5bWJoDJlAAUdss60iR6e5UziIsK5jBCb0Wzj/0oEl807x9Rar0i8Xmi7iE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775804732; c=relaxed/simple;
+	bh=7krT/8m1lPkJ35TOrlHht44ZTscZOCOe0+4cvAGR8/s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lg35ZZoIRZj6/rR2sxnmMuiMgG8gvuvGTu8Bn1Gx1IHkSVHU5BOrQCjvtVzY5PRqmmZo6ILIwSSWfRd/rBULUol0rcv2bLx7Zwd4GKEdcZLkDfMe6GdWhxG4c3x1pztBAL4v/dSzXSvUJ60bB+Co7DnOPP0xZHHkpT71xPPMhwA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MJb/g/Vn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="p/ICwR9q"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nra446FU1naGi9bonoaVki8cIPspQ6iOmRA9lLPGn5khq7OB5+HgXdGVXuVxjzUk2My4P7Ejfwsbue3E/UMnHHXicOtmNYll9zbV0I25v0h9ne7RioeMyHGn5C0ZvzJvQuZRc8TX4wUHa7McEe3NJF/pDU3GlDubSlPL0mIrssdja1K2uFYCA4bNuFBp9D5DaaD1OEc1gNAR+GDpPV1pk7MpF06Agiq/yzD+D9CTzxQPvTUlfA4a9FhkUI8Qf557YWcZtuciWWw94tyZxdXCwphxadmy4vfRQ1PtVMvcKaJ9i4m/jE5jxI4a2yydHbaKSJRG0ySHbPVlCCj6PUfEOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oZur9PZL+ytM+xDu9JEP9K+wdC937JgPjwShbkJZrBs=;
- b=Sw2U6no+j8HwpZas8VNgjgkHiZ1y2O4YaBQuyjTQw+FWZT7J2LnGSPTcJSGj9k/XIgcth8u9W7dg1XiP19pBFTZTJUw93BaMcjexGz17Z/jYIBHZxkRIRzHlm5hr0MeOCm/Mx4YuYWbh3i3HXvtwgsjoAnV2yn4mzC2Dr8k7DDZbn1JXZAEvxy+z8gjLTtfbR3xMkraHf9+2jd/KbrLfp+aoLUAqpxGgpukyWDieIaQOCsms23K0B+RS5zDYZ8TtbgiV+GY1yi6VRZdOs3qPfixoqE49rfkYPnrhXjq4nrNdQgxS62iqKP+HV7rY1vLlR22P8UxANin06wRDWL+8oQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.233) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oZur9PZL+ytM+xDu9JEP9K+wdC937JgPjwShbkJZrBs=;
- b=p/ICwR9qy+km0gnAfn5/EZB2VExXqlvTXUf9EJRytYC/TFjmJ1JoMkaTZuts/gntA1cK0JweylyG/9+Srl2Bme88bQ0hNE0TLi3q4T+WU4TM1adEQuh3zBt6nhB6DVIsfLMeuREMhCjpNRKmu49vSYaCXpNhE+XaFPR++UyqqcImPrPGgYBzH23os6aJKccCBJAbWRB0r2FUBbnTZ6w00AISq0RYmz9u4UCfmo1Vcu2KP3oJ4muP+hbLgoZxJ9C2IXRbBPK2GLyR369AK9beyG+qL1xg8xY2OQPc8Zq8oWlqlJ0cl48vaOwXPKPot/1tS2twomXi1aUPYtzeNparag==
-Received: from BN9PR03CA0097.namprd03.prod.outlook.com (2603:10b6:408:fd::12)
- by SJ2PR12MB9116.namprd12.prod.outlook.com (2603:10b6:a03:557::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9791.33; Fri, 10 Apr
- 2026 07:04:55 +0000
-Received: from BN2PEPF000044A4.namprd02.prod.outlook.com
- (2603:10b6:408:fd:cafe::e0) by BN9PR03CA0097.outlook.office365.com
- (2603:10b6:408:fd::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.42 via Frontend Transport; Fri,
- 10 Apr 2026 07:04:54 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.233)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.233) by
- BN2PEPF000044A4.mail.protection.outlook.com (10.167.243.155) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Fri, 10 Apr 2026 07:04:54 +0000
-Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
- (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Fri, 10 Apr
- 2026 00:04:42 -0700
-Received: from drhqmail202.nvidia.com (10.126.190.181) by
- drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.20; Fri, 10 Apr 2026 00:04:42 -0700
-Received: from BUILDSERVER-IO-L4T.nvidia.com (10.127.8.9) by mail.nvidia.com
- (10.126.190.181) with Microsoft SMTP Server id 15.2.2562.20 via Frontend
- Transport; Fri, 10 Apr 2026 00:04:36 -0700
-From: Akhil R <akhilrajeev@nvidia.com>
-To: <krzk@kernel.org>
-CC: <Frank.Li@nxp.com>, <acpica-devel@lists.linux.dev>,
-	<akhilrajeev@nvidia.com>, <alexandre.belloni@bootlin.com>,
-	<conor+dt@kernel.org>, <devicetree@vger.kernel.org>, <ebiggers@kernel.org>,
-	<krzk+dt@kernel.org>, <lenb@kernel.org>, <linux-acpi@vger.kernel.org>,
-	<linux-hwmon@vger.kernel.org>, <linux-i3c@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <linux@roeck-us.net>,
-	<miquel.raynal@bootlin.com>, <p.zabel@pengutronix.de>, <rafael@kernel.org>,
-	<robert.moore@intel.com>, <robh@kernel.org>, <sakari.ailus@linux.intel.com>,
-	<wsa+renesas@sang-engineering.com>
-Subject: Re: [PATCH v2 13/13] arm64: defconfig: Enable I3C and SPD5118 hwmon
-Date: Fri, 10 Apr 2026 12:34:35 +0530
-Message-ID: <20260410070435.42503-1-akhilrajeev@nvidia.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <6fd4bb71-90c5-4fe2-a520-97167fba049f@kernel.org>
-References: <6fd4bb71-90c5-4fe2-a520-97167fba049f@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MJb/g/Vn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F69FC2BCAF;
+	Fri, 10 Apr 2026 07:05:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775804731;
+	bh=7krT/8m1lPkJ35TOrlHht44ZTscZOCOe0+4cvAGR8/s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=MJb/g/VnlWuBrm15Clw41HP3/9i1Wa/Nok37AKKVXqw9Ih5SkoAimuDetBjrLTdz3
+	 2FvwwjvtLR6Wu+uiLfaembfHWFObe3k2IXpjnFJ8JeF0OaP2evsekuf+6rKYVNm9gy
+	 U7fRhnDEOx+/V44JIN0dUUNykp/5+CUCX7D87KPDHQVya46nR7PuiFXCapJoOx5/r5
+	 Ua7C/syGZRcp0J7FgnxaLl6j4AzNI2ANUcCdOrYo/bpk7SY5k9DVsD+q0dzYKSf1kk
+	 Mv+5YDcg71XK4hEMlr6+/w8aqajkSGYN4/uhbEJhGPQm1cd51hXq/2hbt+EhbTwZkc
+	 VQza9I1uqUTOA==
+Date: Fri, 10 Apr 2026 09:05:29 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: John Madieu <john.madieu.xa@bp.renesas.com>
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+	Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Magnus Damm <magnus.damm@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>, Biju Das <biju.das.jz@bp.renesas.com>, john.madieu@gmail.com, 
+	linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 01/12] ASoC: dt-bindings: renesas,rsnd: Split into
+ generic and SoC-specific parts
+Message-ID: <20260410-private-natural-chital-fea61b@quoll>
+References: <20260409090302.2243305-1-john.madieu.xa@bp.renesas.com>
+ <20260409090302.2243305-2-john.madieu.xa@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044A4:EE_|SJ2PR12MB9116:EE_
-X-MS-Office365-Filtering-Correlation-Id: 40612132-ab95-40a5-cb2e-08de96cf77ec
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|376014|7416014|1800799024|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	ppG1gwN3F8NyKbxVOHnAY0Dj8TR3EgNRAb2dp8ht7MHUOQfEQtb3HDcGHLxxoaUBqa6phnctAtIZljTyaIdYoGHbfTnvOhYFR4KxZm2Du0/zLDGZhP4cGrLjskS4nawub3Z3YlODwzrWTLlewwQKG0HlddMW56KWWsYPrpW8oi0AH3o9ynTc8BmHjZElzsfHHkNQBDGvW6xJqL8DICdZPwgb/epcOQQaXf9yUobQ3UvfJeDWmsFTmie3dRL7qDJIn5oH8xiihM3bfe/hLA3Am/2jXg/U0X7B/Jxy8q23W0bMhVJKuitY7khA6rxC1RmElrjLdoRIM0Kpo/RN+IkaIbOWA5w7oCA2kNQcQaVgyRkN0Mels1ab0bYah2vN8ZGfJY6rOqT8joMlezzlWnCwANw4gT2GoTAVlMp1Kmy4H7Yz+sayuBl/6MiBZUBYGqUy2fEvStYmmzUYIzS8gzSLqfqQP0O8lIQcnsoQFpZ86GJIs7ug1lfoc+g0Enb3UYdyaIS6gzXd47AzKyd/C1YpK+8Dxpg+K9OpOPM+M3ZktUl0zHJdZ4V7K0sFf1kHYxJtb319EHltPdE0ZjPx/l0bVlW5Ve+ulLqI4oYRpRlYzzLMoalD0gkVOi83LZwLrLgF6854/26lSUFirDN/v9xUiaqjLSxucj6n/EskXOGJQz7SQ4CrUXQeULp614qNx/RD1+Dz1QdurL/p/Y3svyOgiZgNf0KU36+xTqio+fxwg1UIZ36T2WNiylxdHoYocsm3/MaYmk0Kap2HJIv5D/yeuA==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(7416014)(1800799024)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	3YnalgMMQRatz5Zcj4Te9Op11EZ6trvIGsFQjBFTRTUgL1EctXke5AcsJavMEMpLQqMLKNF5GEMH1A/wquTCst3I1xyVCI1q0MWNXkeva+m27X6dVxcWYPbjylOgvO79DL+2ItqZ7YuFRNrBoFq/Kv0DMI5AmCTK6xP5mNdC0aFeA4mKpulJPo5eMMo+Wwo8uddjKRtTRtOdGg2JsPX9shFYYjAwXQ7jjDrm7TGWPbtYZYz546FkQViJKGImW758Om/Aa2m9XSDUP1xHCClY8ZqD+EKAljB+06t2jKiNFx/R/DQz+cX9B5AMchvcBhfRXVvrmevd85AbF4EXZzoU5q9BBMNyBHCbJx4Bs+8jGVh708agyH3q+lXEObwLG4VFqmpSdY9Bo++06xJ72rcFkIJsR8scmclCh1NXE3ZBTbyow4e7Eh0kI15RAWWUdzn7
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2026 07:04:54.5690
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 40612132-ab95-40a5-cb2e-08de96cf77ec
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000044A4.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9116
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260409090302.2243305-2-john.madieu.xa@bp.renesas.com>
 
-On Fri, 10 Apr 2026 08:39:19 +0200, Krzysztof Kozlowski wrote:
-> On 09/04/2026 12:57, Akhil R wrote:
->> Add I3C subsystem support, DesignWare I3C master controller, and
->> SPD5118 hwmon sensor as modules to the defconfig and therefore
->> enable the support for SPD5118 sensor on SOCAMM found in NVIDIA
->> Vera platforms.
+On Thu, Apr 09, 2026 at 11:02:50AM +0200, John Madieu wrote:
+> The current renesas,rsnd.yaml binding file handles all supported SoCs
+> in a single schema, resulting in deeply nested if/else/then constructs
+> that become increasingly difficult to maintain. Each new SoC addition
+> amplifies this complexity, making reviews harder and diffs noisier than
+> they need to be.
 > 
-> git grep for "Vera" gave me zero results. Are you sure this is an
-> upstream platform? Please point the DTS using this.
+> Refactor the binding by extracting the common properties shared across
+> all SoCs into a dedicated renesas,rsnd-common.yaml schema, and keeping
+> only SoC-specific constraints (required nodes, port counts, clock names,
+> etc.) in per-SoC or per-family files that $ref the common part.
+> 
+> This prepares the ground for upcoming SoCs such as the RZ/G3E, which
+> introduces a different set of audio resources compared to existing
+> R-Car Gen variants. With the split in place, adding RZ/G3E support
+> becomes a self-contained change that neither bloats a monolithic schema
+> nor buries new constraints inside ever-deeper conditional blocks.
+> 
+> No functional change in validation behaviour for existing device trees.
+> 
+> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
+> ---
+> 
+> Changes:
+>  
+> v4: No changes
+> v3: No changes
+> v2:
+>  - Split of rsnd.yaml into common and R-Car-specific schemas
+> 
+>  .../bindings/sound/renesas,rsnd-common.yaml   | 196 +++++++++++
+>  .../bindings/sound/renesas,rsnd.yaml          | 319 +++++-------------
+>  2 files changed, 274 insertions(+), 241 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/sound/renesas,rsnd-common.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd-common.yaml b/Documentation/devicetree/bindings/sound/renesas,rsnd-common.yaml
+> new file mode 100644
+> index 000000000000..ec6bf644d1a4
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/renesas,rsnd-common.yaml
+> @@ -0,0 +1,196 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/renesas,rsnd-common.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Renesas R-Car/RZ Sound Common Properties
+> +
+> +maintainers:
+> +  - Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> +
+> +description:
+> +  Common property and subnode definitions shared by Renesas R-Car and RZ
+> +  sound controller bindings.
+> +
+> +select: false
 
-Vera is an ACPI based platform. Yes, it is an upstream platform.
-SoC changes go under the name Tegra410.
+Drop
 
-Regards,
-Akhil
+> +
+> +properties:
+> +  compatible: true
+
+Drop
+
+> +
+> +  reg: true
+> +
+> +  reg-names: true
+
+Drop both. They are pointless if they do not provide any reasonable
+information like constraints.
+
+> +
+> +  "#sound-dai-cells":
+> +    description:
+> +      Must be 0 for a single-DAI system and 1 for a multi-DAI system.
+> +    enum: [0, 1]
+
+Drop, dai-common brings it.
+
+> +
+> +  "#clock-cells":
+> +    description:
+> +      Must be 0 when the system has audio_clkout and 1 when it has
+> +      audio_clkout0/1/2/3.
+> +    enum: [0, 1]
+
+Is every device a clock? Anyway, having it here is almost pointless if
+every binding has to add it anyway.
+
+> +
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 0
+> +
+> +  clock-frequency:
+> +    description: Audio clock output frequency for audio_clkout0/1/2/3.
+> +
+> +  clkout-lr-asynchronous:
+> +    description: audio_clkoutn is asynchronous with lr-clock.
+> +    $ref: /schemas/types.yaml#/definitions/flag
+> +
+> +  power-domains: true
+> +
+> +  resets: true
+> +
+> +  reset-names: true
+> +
+> +  clocks: true
+> +
+> +  clock-names: true
+
+All pointless.
+
+Please use existing code as guideline. Which recently added common
+bindings have such syntax?
+
+
+> +
+> +  port:
+> +    $ref: audio-graph-port.yaml#/definitions/port-base
+> +    unevaluatedProperties: false
+> +    patternProperties:
+> +      "^endpoint(@[0-9a-f]+)?$":
+> +        $ref: audio-graph-port.yaml#/definitions/endpoint-base
+> +        properties:
+> +          playback:
+> +            $ref: /schemas/types.yaml#/definitions/phandle-array
+> +          capture:
+> +            $ref: /schemas/types.yaml#/definitions/phandle-array
+> +        unevaluatedProperties: false
+> +
+> +  rcar_sound,dvc:
+> +    description: DVC subnode.
+> +    type: object
+> +    patternProperties:
+> +      "^dvc-[0-1]$":
+> +        type: object
+> +        additionalProperties: false
+> +        properties:
+> +          dmas: true
+> +          dma-names: true
+> +        required:
+> +          - dmas
+> +          - dma-names
+> +    additionalProperties: false
+> +
+> +  rcar_sound,mix:
+> +    description: MIX subnode.
+> +    type: object
+> +    patternProperties:
+> +      "^mix-[0-1]$":
+> +        type: object
+> +        additionalProperties: false
+> +    additionalProperties: false
+> +
+> +  rcar_sound,ctu:
+> +    description: CTU subnode.
+> +    type: object
+> +    patternProperties:
+> +      "^ctu-[0-7]$":
+> +        type: object
+> +        additionalProperties: false
+> +    additionalProperties: false
+> +
+> +  rcar_sound,src:
+> +    description: SRC subnode.
+> +    type: object
+> +    patternProperties:
+> +      "^src-[0-9]$":
+> +        type: object
+> +        additionalProperties: false
+> +        properties:
+> +          interrupts:
+> +            maxItems: 1
+> +          dmas: true
+> +          dma-names: true
+> +    additionalProperties: false
+> +
+> +  rcar_sound,ssiu:
+> +    description: SSIU subnode.
+> +    type: object
+> +    patternProperties:
+> +      "^ssiu-[0-9]+$":
+> +        type: object
+> +        additionalProperties: false
+> +        properties:
+> +          dmas: true
+> +          dma-names: true
+> +        required:
+> +          - dmas
+> +          - dma-names
+> +    additionalProperties: false
+> +
+> +  rcar_sound,ssi:
+> +    description: SSI subnode.
+> +    type: object
+> +    patternProperties:
+> +      "^ssi-[0-9]$":
+> +        type: object
+> +        additionalProperties: false
+> +        properties:
+> +          interrupts:
+> +            maxItems: 1
+> +          dmas: true
+> +          dma-names: true
+> +          shared-pin:
+> +            description: Shared clock pin.
+> +            $ref: /schemas/types.yaml#/definitions/flag
+> +          pio-transfer:
+> +            description: PIO transfer mode.
+> +            $ref: /schemas/types.yaml#/definitions/flag
+> +          no-busif:
+> +            description: BUSIF is not used for the mem-to-SSI via DMA case.
+> +            $ref: /schemas/types.yaml#/definitions/flag
+> +        required:
+> +          - interrupts
+> +    additionalProperties: false
+> +
+> +patternProperties:
+> +  'rcar_sound,dai(@[0-9a-f]+)?$':
+> +    description: DAI subnode.
+> +    type: object
+> +    patternProperties:
+> +      "^dai([0-9]+)?$":
+> +        type: object
+> +        additionalProperties: false
+> +        properties:
+> +          playback:
+> +            $ref: /schemas/types.yaml#/definitions/phandle-array
+> +          capture:
+> +            $ref: /schemas/types.yaml#/definitions/phandle-array
+> +        anyOf:
+> +          - required:
+> +              - playback
+> +          - required:
+> +              - capture
+> +    additionalProperties: false
+> +
+> +  'ports(@[0-9a-f]+)?$':
+> +    $ref: audio-graph-port.yaml#/definitions/port-base
+> +    unevaluatedProperties: false
+> +    patternProperties:
+> +      '^port(@[0-9a-f]+)?$':
+> +        $ref: "#/properties/port"
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - clocks
+> +  - clock-names
+> +
+> +allOf:
+> +  - $ref: dai-common.yaml#
+> +
+> +additionalProperties: true
+> diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+> index e8a2acb92646..0d989922a5b4 100644
+> --- a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+> +++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+> @@ -9,8 +9,11 @@ title: Renesas R-Car Sound Driver
+>  maintainers:
+>    - Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+>  
+> -properties:
+> +description:
+> +  Binding for Renesas R-Car Gen1/Gen2/Gen3/Gen4 and RZ/G1/G2 sound
+
+Drop "Binding for" and describe the hardware instead.
+
+> +  controllers using the standard RSND layout.
+>  
+> +properties:
+>    compatible:
+>      oneOf:
+>        # for Gen1 SoC
+> @@ -67,34 +70,6 @@ properties:
+>      minItems: 1
+>      maxItems: 5
+>  
+> -  "#sound-dai-cells":
+> -    description: |
+> -      it must be 0 if your system is using single DAI
+> -      it must be 1 if your system is using multi  DAIs
+> -      This is used on simple-audio-card
+> -    enum: [0, 1]
+> -
+> -  "#clock-cells":
+> -    description: |
+> -      it must be 0 if your system has audio_clkout
+> -      it must be 1 if your system has audio_clkout0/1/2/3
+> -    enum: [0, 1]
+> -
+> -  "#address-cells":
+> -    const: 1
+> -
+> -  "#size-cells":
+> -    const: 0
+> -
+> -  clock-frequency:
+> -    description: for audio_clkout0/1/2/3
+> -
+> -  clkout-lr-asynchronous:
+> -    description: audio_clkoutn is asynchronizes with lr-clock.
+> -    $ref: /schemas/types.yaml#/definitions/flag
+> -
+> -  power-domains: true
+> -
+>    resets:
+>      minItems: 1
+>      maxItems: 11
+> @@ -109,181 +84,45 @@ properties:
+>      maxItems: 31
+>  
+>    clock-names:
+> -    description: List of necessary clock names.
+> -    # details are defined below
+> -
+> -  # ports is below
+> -  port:
+> -    $ref: audio-graph-port.yaml#/definitions/port-base
+> -    unevaluatedProperties: false
+> -    patternProperties:
+> -      "^endpoint(@[0-9a-f]+)?":
+> -        $ref: audio-graph-port.yaml#/definitions/endpoint-base
+> -        properties:
+> -          playback:
+> -            $ref: /schemas/types.yaml#/definitions/phandle-array
+> -          capture:
+> -            $ref: /schemas/types.yaml#/definitions/phandle-array
+> -        unevaluatedProperties: false
+> -
+> -  rcar_sound,dvc:
+> -    description: DVC subnode.
+> -    type: object
+> -    patternProperties:
+> -      "^dvc-[0-1]$":
+> -        type: object
+> -        additionalProperties: false
+> -
+> -        properties:
+> -          dmas:
+> -            maxItems: 1
+> -          dma-names:
+> -            const: tx
+> -        required:
+> -          - dmas
+> -          - dma-names
+> -    additionalProperties: false
+> -
+> -  rcar_sound,mix:
+> -    description: MIX subnode.
+> -    type: object
+> -    patternProperties:
+> -      "^mix-[0-1]$":
+> -        type: object
+> -        additionalProperties: false
+> -    additionalProperties: false
+> -
+> -  rcar_sound,ctu:
+> -    description: CTU subnode.
+> -    type: object
+> -    patternProperties:
+> -      "^ctu-[0-7]$":
+> -        type: object
+> -        additionalProperties: false
+> -    additionalProperties: false
+> -
+> -  rcar_sound,src:
+> -    description: SRC subnode.
+> -    type: object
+> -    patternProperties:
+> -      "^src-[0-9]$":
+> -        type: object
+> -        additionalProperties: false
+> -
+> -        properties:
+> -          interrupts:
+> -            maxItems: 1
+> -          dmas:
+> -            maxItems: 2
+> -          dma-names:
+> -            allOf:
+> -              - items:
+> -                  enum:
+> -                    - tx
+> -                    - rx
+> -    additionalProperties: false
+> -
+> -  rcar_sound,ssiu:
+> -    description: SSIU subnode.
+> -    type: object
+> -    patternProperties:
+> -      "^ssiu-[0-9]+$":
+> -        type: object
+> -        additionalProperties: false
+> -
+> -        properties:
+> -          dmas:
+> -            maxItems: 2
+> -          dma-names:
+> -            allOf:
+> -              - items:
+> -                  enum:
+> -                    - tx
+> -                    - rx
+> -        required:
+> -          - dmas
+> -          - dma-names
+> -    additionalProperties: false
+> -
+> -  rcar_sound,ssi:
+> -    description: SSI subnode.
+> -    type: object
+> -    patternProperties:
+> -      "^ssi-[0-9]$":
+> -        type: object
+> -        additionalProperties: false
+> -
+> -        properties:
+> -          interrupts:
+> -            maxItems: 1
+> -          dmas:
+> -            minItems: 2
+> -            maxItems: 4
+> -          dma-names:
+> -            allOf:
+> -              - items:
+> -                  enum:
+> -                    - tx
+> -                    - rx
+> -                    - txu # if no ssiu node
+> -                    - rxu # if no ssiu node
+> -
+> -          shared-pin:
+> -            description: shared clock pin
+> -            $ref: /schemas/types.yaml#/definitions/flag
+> -          pio-transfer:
+> -            description: PIO transfer mode
+> -            $ref: /schemas/types.yaml#/definitions/flag
+> -          no-busif:
+> -            description: BUSIF is not used when [mem -> SSI] via DMA case
+> -            $ref: /schemas/types.yaml#/definitions/flag
+> -        required:
+> -          - interrupts
+> -    additionalProperties: false
+> +    description: List of clock names.
+> +    minItems: 1
+> +    maxItems: 31
+> +
+> +  "#sound-dai-cells": true
+> +
+> +  "#clock-cells": true
+> +
+> +  "#address-cells": true
+> +
+> +  "#size-cells": true
+> +
+> +  clock-frequency: true
+> +
+> +  clkout-lr-asynchronous: true
+> +
+> +  power-domains: true
+> +
+> +  port: true
+> +
+> +  rcar_sound,dvc: true
+> +
+> +  rcar_sound,mix: true
+> +
+> +  rcar_sound,ctu: true
+> +
+> +  rcar_sound,src: true
+> +
+> +  rcar_sound,ssiu: true
+> +
+> +  rcar_sound,ssi: true
+
+What are all these? Why are you adding such blanket properties? This is
+not the syntax binding should follow, there are almost no other bindings
+using such style. Except pin control maybe and this is not a pinctrl.
+
+You miss here proper constraints for all your properties like clock-cells, sound-dai-cells and so on.
+
+>  
+>  patternProperties:
+> -  # For DAI base
+> -  'rcar_sound,dai(@[0-9a-f]+)?$':
+> -    description: DAI subnode.
+> -    type: object
+> -    patternProperties:
+> -      "^dai([0-9]+)?$":
+> -        type: object
+> -        additionalProperties: false
+> -
+> -        properties:
+> -          playback:
+> -            $ref: /schemas/types.yaml#/definitions/phandle-array
+> -          capture:
+> -            $ref: /schemas/types.yaml#/definitions/phandle-array
+> -        anyOf:
+> -          - required:
+> -              - playback
+> -          - required:
+> -              - capture
+> -    additionalProperties: false
+> -
+> -  'ports(@[0-9a-f]+)?$':
+> -    $ref: audio-graph-port.yaml#/definitions/port-base
+> -    unevaluatedProperties: false
+> -    patternProperties:
+> -      '^port(@[0-9a-f]+)?$':
+> -        $ref: "#/properties/port"
+> -
+> -required:
+> -  - compatible
+> -  - reg
+> -  - reg-names
+> -  - clocks
+> -  - clock-names
+> +  'rcar_sound,dai(@[0-9a-f]+)?$': true
+> +  'ports(@[0-9a-f]+)?$': true
+
+Also no. This is pure redundant code. No effect, no benefits.
+
+>  
+>  allOf:
+> -  - $ref: dai-common.yaml#
+> +  - $ref: renesas,rsnd-common.yaml#
+
+Best regards,
+Krzysztof
+
