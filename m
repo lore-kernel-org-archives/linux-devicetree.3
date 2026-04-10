@@ -1,210 +1,122 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012034.outbound.protection.outlook.com [40.107.209.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4BB53A168B;
-	Fri, 10 Apr 2026 08:09:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.34
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775808591; cv=fail; b=iRmV5gvreFs2HNp6UfMcI8zimaR3ml+lYtSmwu0EtGdDQsla0w2hkW8rhTwD35TPVLekq/iMWvn6wBrlgMF7uXNdBfuSOMOQ40UXg8Xl6u3h8TncE7eTdNHG9i5omHRxGU73j3gEmMHH6EP/6kZ84prpgCIgAFkk6wtlAwgCILo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775808591; c=relaxed/simple;
-	bh=hHduKQBmvSuGXKDFeR5B2NTXaXksr4I3aIM1X1QBrac=;
-	h=Message-ID:Date:Subject:From:To:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=aQW8GZmSSsnygnQSZstT5wNYiz1R+4FYxmfsNHtimm2asdbzg17uehZQTNxq9PAqoL4AHdeXEmMQ5VrsCZhl6RbcQkK8KLrNOz9mrJ0OsYaGB/5+ZOckSiodlf0zUTGM9Gn/0os72TMlBQOaZjt07dJ0PF8gzdZo6DgTTbmphkU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=tmT7gtq9; arc=fail smtp.client-ip=40.107.209.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F6F3A3E96
+	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 08:16:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1775808997; cv=none; b=XcT3PA4XgpwVMi7GH+6uWT1YmO/XaES3xVLLl3sPkXrYYajFlLBrnS2Cp2DKE/qwrA9V/k6cYY0D56a9DbOkPNgqpP6SAs4voXeCtawxfIx7DysXnJr6Mcs6EmyIChjLVcVppGXDpwFHkp0rrhkm14823pWJb8nQ0lJFTua6rcs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1775808997; c=relaxed/simple;
+	bh=XtXGqPzWh8q9HgVc0vdy2c3tHF1YZZdgyN9U6qjhzX4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cc/+SLEFU/z4ueXmLmj6NlOHPmaxppPrpAXqwgo0R14Cs8FoiQIRc2pOePd/eGluBVgDgcLUYHAcjP8uvU2rZZaZDCCpv+SqAo5FEEC7J52nVFXIHwMXlqZa8uVmYOs07iVMTzMAYOqWsdG49hPpwc6eFBf4GQwD8Oi5vG1QLmM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=BowBnNN/; arc=none smtp.client-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="tmT7gtq9"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fAaTiA83WHY4q8BIwYuq7gD9us05MngMwL1z1GGszvuW9ViaiKK3BZVBssisCx43V5QBfP2rsFo5E+eP+hHaklu01dpYafr3B6/cxq5XPW8WxxLD+Pp9IqBUdeNwzcMFsFIGpvWEkYlEDzq82ioB6gHXYo0g4Y+J8vRIlNe0mdL9iKfQv3JxC6cxYwAOMPf7rS0dLD0DrGRg8Hd7w3bzgbaLihHaD3Nk9cgEtkbB7uDWruBwZ/gUyDHnObObI8Ub9WQX6/vPlv/nVj2iOIL/22yYKTD51BldSJ/i8xdBJzzp4vm+wCMYyyis393k7te3EXZxZKutzuIqsNsZxjskKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z+WQ2WngTosibfId3PPGT1r8JEexRVIXDvyUbKDjdC4=;
- b=sBagF/mCE9WquQ7PSN86eRJGIJ947R7bZkF4GeCUZABg2UslkabIH2OcADz2/bTAASacft0xnjMPELrOEa7j/+/BfMngPG4gU/AfIG23HXsJ+1n0KO1sKCErZOU7wsiDWHyEJLumN9EaA7ZrudoDXLOr6mIl9pA1NR68q0JHKyx/Z2QxGy67Y9wbK7QmVeIu47A1ug6RpUSeT6IGcc7DlxDsr8u6a+lz2RUxu3weiD3cjnMYWeJjPETT4/x02eToynHimrrruD1jx7Hxqm6UyUyX/pgTM48VuqB4ED2GSkz77FBHFIMcFR2rmAtghKScLShxI4L7iXuX8KnMtJDlWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z+WQ2WngTosibfId3PPGT1r8JEexRVIXDvyUbKDjdC4=;
- b=tmT7gtq9viuIhIv9o8Y5aW87+AKE0ttG1XlFUbR7Oa5HDdeorb7kP3jKu9SIQlJU8zBjNuy3GJl7pkGlS7A17ATDswE7GNbzqN008I+l21cToD+d721dZox2QdvLROvdGuZuXfIeqGvJLSrPZSdp2hmsV7/Tyf3CiCqGlecfPaYG0QufZv73D4Ca/pP10+1b0P269Xn2GxfMp6qmPw37xvGSp8qdA++0drn+CvcWnr0UXbOTpfYJaX3X2S8GPz362S5qnLdzqu/JLfWjv2xBJ0xAcBdHIBTjAZhToxezovahxWV/lAe0TmUzXfFgeKnZG0RjYJ1tXwvrkeFOGlCRVQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS2PR12MB9750.namprd12.prod.outlook.com (2603:10b6:8:2b0::12)
- by DS7PR12MB5718.namprd12.prod.outlook.com (2603:10b6:8:71::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9791.34; Fri, 10 Apr
- 2026 08:09:43 +0000
-Received: from DS2PR12MB9750.namprd12.prod.outlook.com
- ([fe80::56a8:d6bf:e24c:b391]) by DS2PR12MB9750.namprd12.prod.outlook.com
- ([fe80::56a8:d6bf:e24c:b391%6]) with mapi id 15.20.9769.041; Fri, 10 Apr 2026
- 08:09:43 +0000
-Message-ID: <d548278c-8bbd-4871-8fb6-e22db1688546@nvidia.com>
-Date: Fri, 10 Apr 2026 09:09:38 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 00/10] Add GPCDMA support in Tegra264
-From: Jon Hunter <jonathanh@nvidia.com>
-To: Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
- Laxman Dewangan <ldewangan@nvidia.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, dmaengine@vger.kernel.org,
- devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org, Akhil R <akhilrajeev@nvidia.com>,
- Frank Li <Frank.Li@kernel.org>
-References: <20260331102303.33181-1-akhilrajeev@nvidia.com>
- <586052f6-d415-4603-accb-be15bad80db8@nvidia.com>
-Content-Language: en-US
-In-Reply-To: <586052f6-d415-4603-accb-be15bad80db8@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: DS7P222CA0007.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::24)
- To DS2PR12MB9750.namprd12.prod.outlook.com (2603:10b6:8:2b0::12)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="BowBnNN/"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-66c17372965so234760a12.1
+        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 01:16:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1775808994; x=1776413794; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=OR2OsOoHo0XEMTeQrZ4vaIui9J4CKX4eq9R2pcadAuU=;
+        b=BowBnNN/xuEmHWc7iPzfEQqXJyj0IxKbh61YS6ruiOmgOhe3BZuvVGyIOHQZu8HfyL
+         2QbK6SQlADJZuwN4S6ZGkFMhiB/c8qFYJFNBNcO3e2m/D3ZjQosAfn00m2ikh5DrcV1j
+         duw54GA3AWTvh1CSWtXXhz9uZYbTu8LU6K85vHe9hCb4tiWadZq4ky9nxsllewMh76vn
+         bIFQs9s7ggaPxBx5sVPxUO43VD11hUXMbH2f7iqBykQ/TWoJE0cTHj0A/dVJS9fVXb0J
+         TSEJlMpZ7h00yXBMUJIlaSmoc5J8alXBXWOT5tvQDcn8OQG+IBnjHz0gizRwjy42pYv1
+         rPBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775808994; x=1776413794;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=OR2OsOoHo0XEMTeQrZ4vaIui9J4CKX4eq9R2pcadAuU=;
+        b=iCsBJf0ZmZkmLT7tl3FfnD0wilZ9UyPB8Xu22+TYDHUgwZhtpl+nJqS/y6aOxiu3SX
+         tH/Mpe0CQoJkuenCPZttkuAK7Fdvp/jrlt+P+jjbBnUx4kuAjkuafZTCuCg56ZrpiDgq
+         dED50P7Wu/7Ombng9dJG9MqmxMg4KURTpGgDmfH0JGFb3dA8yu5ocLDhEVhuGcFN92C8
+         Zu4NNJyA4U6VBalA3LkcXJ+DKAK2R/xakAKc9kw+2wMeVuCQybiRHw77H24mT+50/sVn
+         PXTZaeuvHcXqAqhseKr7NpGKt6J18xJiHF9u7e2Zpm0cWH6Qy+ztVarw3pDxNCRIJ/1U
+         fhMw==
+X-Forwarded-Encrypted: i=1; AJvYcCVk0E79p+VASps5ASaIiKHsULiPYrGqaoWTeoUDred/HuwazkylfAlLF+Dl9cbAWEKQ5X3D6exJIRvu@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywvz+vJ+699retHGPLnFVQcVzx2OVFsl6P7rybKsDjdhpoPiuRS
+	cuhT9xOmDBje15KCcM3M6hT6rqpHEMB9CR6rJXQ/eZDh3DX2XbX6F1YLepiK8CSkHOg=
+X-Gm-Gg: AeBDiet3vk8S3N0jJlPxO8eXFsWci3bSUxYZ/Vk6wpFIqNWlkdLiIaj72liw3REgn79
+	BgMhhOeO13NaFBTuajrfY8+KQAzIL4zwOaVgI+fvnl1HHoevDL87vun7ukpmFrxAdAo5wQXy7qN
+	EUx0kCTIMuW0YHGMTOX17/ul1oWZyDLZ01P0JKchoLfRK+jonvWbpXEB6Hos5qyCCt+K9JeO8oA
+	Wx+L8kKQ29nVGiEW/j/hYugLCfgZiJDs2CmdNdQiHd9WRQP/CZlPJPk7kxtrcoMygzgo1dtd7DS
+	mwR5yDCqSFk7IqNopjicBFNfCPpIwrbhbEbKtw52wKL/nG39PibEjWemJKGr1UZ5zsM51G1Rr0E
+	vwhwEspfURclz4AwEUsY5FCLR2sza3HApiUd1gHt/iS8RvYAsc2EqAKRNPs6BIdrXAawM9hHcWx
+	6lV/bsM9PoI2eBF6oLXY+cVH9sdCGGD4B96/b+d9XlYXy1z83vNjIsgZeF5HCREFSjaFZJep6g+
+	7pQMd9F5JZ/R5ICwKGBmsw3PGIlYZ7TEGanHRJC6PwGS2EbS8JwM1j5UtkKi70L/uGsr52wZnYu
+	Kx9ariLHYZx5vA==
+X-Received: by 2002:a17:907:9801:b0:b9b:207c:f7ca with SMTP id a640c23a62f3a-b9d724f0008mr130116766b.5.1775808994189;
+        Fri, 10 Apr 2026 01:16:34 -0700 (PDT)
+Received: from ?IPV6:2001:1c06:2302:5600:7555:cca3:bbc4:648b? (2001-1c06-2302-5600-7555-cca3-bbc4-648b.cable.dynamic.v6.ziggo.nl. [2001:1c06:2302:5600:7555:cca3:bbc4:648b])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9d6de97e36sm60770166b.10.2026.04.10.01.16.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 10 Apr 2026 01:16:33 -0700 (PDT)
+Message-ID: <765e4740-cf13-4d4e-ab69-c1abe1c39d34@linaro.org>
+Date: Fri, 10 Apr 2026 09:16:32 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PR12MB9750:EE_|DS7PR12MB5718:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3395e151-43a9-4dbd-5204-08de96d885ad
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|7416014|10070799003|366016|921020|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	Wrl6oAXYd9OLMLEAMVtzQ8MBcSFpZn4MEOrtXYgsSUZVnzqambVQEjaP/5yQRnk/spSn3jfVLpPd8ACVGFhS37pOm4aQkX5DlV9SmmeF4gPTF0OZHF+0531sOhyoE2xWc3Rmo524phnlbqKeag566+0jzNYHd3zOZJllSGCnY5wpUx5Zk8n92t1uBTRJfDe35ug9Bc14G3Apd26RvU5rv7CGph+kNesKl3Ke01uVRyLHN0/oDSjq3xWUkrUysyeTU1k/9Qu3ddLA9/jHRVHbXdCIxYmsPDOLncYh8IIg5nMBmm+zOoCgEq60MoXWUDWkjjaTHe7Xxew9gjbzB/9gBhpyU6fqXtWnXf3Mym5kuK9+2yWsFi4SMWVTg/nH5kHanI3ZEF2Z6eG3U5gPXaswsXHAOhER+PNdvKcTLcs8XuOqrtqIXcehxMJighWOT3Mma1VLdzYEiPfxCyrfKMZCXRUmH4nQWSP3A+qsXsz5hKWSp21rxKj6Z2924SIGR3yVNoOtZWHCd/kfuqwSfodPSnpDY7WqPmsuMl2ps+gL6/XqNspWWpSYuCyNlFiZBpkemSnnF8LD6APgqlP1EARVelijftwsH5Nfw9FEnkUPhvkrfMnaYky630aT5Hon8TvUHiUf+f4F6m80s606OJQuTJMtIQoD0//VtTFHtdDQ1dcCIG16wN+t+Y1aWQGLJEDsnvzcSb4azKMLip4ybGOtxb8hZeZhblG8yfTJsZXvLVUypDrx68Xsj3YArwI61zcb05q1hS0tNXDjDZ7oMoNkcQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS2PR12MB9750.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(10070799003)(366016)(921020)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RGN3UDhQMGtrU2RXWEF6ck1tSDJWaWFyTjBYU0tTTERPTDdlazJ5Yzh5V3R3?=
- =?utf-8?B?VmpRZ254Rkl4OUpBWHQ1WmkwR3lWcEtOaDRQajEzcytvYk8wZTNENUY5SEU0?=
- =?utf-8?B?MWVKR0J6bGtrNm44SkwwZ21UK1NhUVRyNlhFNGkvWTNPY3VOeXFqeWJCSWdZ?=
- =?utf-8?B?OWNLdGZwejZadStDb2F5WTIyWVk5REdObTVST2dBYkU4SFhhV21BMVh0Mmc0?=
- =?utf-8?B?SzkzeXRZVEYxWThQbGdvT2lqKzBXVXA0OFo1MGpWaG9tRWcwY3YvckpFZ1Nx?=
- =?utf-8?B?VDhCYXAyWEltMEF4citIOUxTb1FIN0xOKys4aTlIS01kajZUSEpmNzZrQ0Z5?=
- =?utf-8?B?bzBsWmlJODhqTHZUelBvY2Z3aU9PajU5c0ttR1ZyODZab2crekZ1dUVEVTFs?=
- =?utf-8?B?MGtyZTBlODBJdmZ5R2dieXJiTWllRFVXU0tURURFRVBBL1FSUm5LRzJSTDNN?=
- =?utf-8?B?eXR4MXBCYzRvZXhnRURxa2xUSEVYNllsU3JKY1g2QzJPdHY1RFRTM3dGVUdG?=
- =?utf-8?B?cU4wU1VPQjlRczgyZURScyt5MGRqemV5UFQ4eTRBcFRLRnBCZURMa1NQa0Qw?=
- =?utf-8?B?M0R4R0pqLzhLNUdOTkt2RVhpQmk3Vkp0aWxkai9ZRDJqbkdIVndkbEpXV2J6?=
- =?utf-8?B?SkI5Ym1KL1JNWW1xeDZGZmxJSVpVNEJEL1VpN0dqNFRrQUxyV3FJVG1rUm81?=
- =?utf-8?B?cWdJVDI5OCtabHlWNm9MOVlScnJEc091UXNkRE1UeGxWMTZkUkxWdkYzTnRR?=
- =?utf-8?B?SmhTSmpQNmtqRWFJclQ3MVhpSEZLOVd0VlMwU0NjWklNdFk5OWs3ZWhNTTNv?=
- =?utf-8?B?eUNLUmxwUlRtaVNlNWJlLzZyTTdIeCtnb01FR2orTEUwTVUwTGsyT2RvMktm?=
- =?utf-8?B?dnB5ZUVFUDVkZ3M2aTR1R1hnbUF1WERSWDdWb3FSVkxSU3N6MzdDNkNsdEZw?=
- =?utf-8?B?MjkxQ2tudi9RVVlSMXNhemJZUE1tYnZrVTgyM3ZPWkExRnAvNG1ZRElTMEEv?=
- =?utf-8?B?dnF1VFByYlA1RjlnMnlJYzV4Sm44N3ZyWUNUMjlMSVpxeldJUE5ic2Y3TkJi?=
- =?utf-8?B?dVdpcTU0NWYwTC9YdEVuL3REMjFZWk9YNTA0VWU1Uy83SlhPZnFPYnJEZkgw?=
- =?utf-8?B?OG9PZDBOamQzdUE5ckZ2NFJaV3Vna0lmcFhQZ1liK253dDJFWTA4NHplN0lx?=
- =?utf-8?B?UGRYaWc4TzNFeU4zWWs3cVRIUHZ0REN2MnNJK1F3dGJSWWdDaVMrS1pnNkc5?=
- =?utf-8?B?amFrTUtCVTJwSE9CUnMxUGlUVEE0UUkxSWlIRFJRa3p4RGUrLytTeHd2dHo5?=
- =?utf-8?B?RVl0U2RjdmpWeXBsRlZtY3ZJTnU0SmpFYU9vUlVIQUFGQmJ1c0FFSVBVaXl1?=
- =?utf-8?B?UEhFZHRZWjRnQVVCL285WGJXQ3dZOUQyWkUveDZsZ0VhU21qY1krVURpemNh?=
- =?utf-8?B?NkNBNHpsQTVoNXMrdXIyT2FSUE9yZkppQWl1TGJXZG5ueENPZmJFTFVQZlMx?=
- =?utf-8?B?WTRUUXNyZDVJZ0VUV01XTWgraVlneituUmpKRS94TDhXcTV1Q09ZcjRnSW1M?=
- =?utf-8?B?MldtUjRJb011ZWI0R1BqSHNVSWd3YUNUV25GNnU4SkFEYVNZOXdwOXVoZEJu?=
- =?utf-8?B?YWxWcFZYR0I1NXhpUVlVNCtYWkhtcFQvODRiUVU2ZXA3QmRwL2tHQVBPeWJK?=
- =?utf-8?B?MEZ6WkFGWE5xb0JuVjVPSVd1bW93bDlpSVJzS1JBWVJEaC9OR2E0dUJaeUVI?=
- =?utf-8?B?Z0cwTzZzYVIwc0JmUnNMU1BZaGpMU3BmK21RVzltVHlyMEU2TzBoVWwvZHo0?=
- =?utf-8?B?S1hLamJSUi9SeUJ4WTJEZ0dWM1czakQwTEhwdXVEMHJpVU5jeXdCTVhuMUl5?=
- =?utf-8?B?WkxjZi9oZndFUFp2T0hONCttTWNheUJzbnRYdENZQnV1cGRjem5YRjI4SmNq?=
- =?utf-8?B?ZWo4K2lVcU5aOUNnT1FyOUk3S3JCZjRZditDbDZJNDh4TWp0RmF3TjhWQnNu?=
- =?utf-8?B?ZDh6Um44MzJ4cXFCVFozNzFLbW1JTndVb0VpU3ozcDUwY3cyRG9qeTZoM1NO?=
- =?utf-8?B?UUNkbXEwOHZVQytpTTJLWVNtci9qby9ZTmxXSXhLM29DMGJZWjFkbXJzVzE4?=
- =?utf-8?B?QWVkMkVGV1NYSStFNHgyVzhDcnllbEhKbTJYODVsQTNNamN0MzRwWnducTM3?=
- =?utf-8?B?RlZzOThoOUM5ZktlWGtpTUg1clhiY2Rzbjd3bVZuZDJVLzRtQytKa1R1eTBj?=
- =?utf-8?B?QnhZN0FQc2JTbW1sZXBqUWRXMjBUdXU4aGVMRElyVUZMNjdwa09xQ0Z6YnFM?=
- =?utf-8?B?bFljaDVpNjJ2SzdyQ0VISUwySlg5Q1hNRTg2ZnhRV3VtMHdhYVdlTkRmQmNm?=
- =?utf-8?Q?no28UhSlStxkY5Wc8KfQB3FFdZnjy5UMs5bGGqJRkxLR8?=
-X-MS-Exchange-AntiSpam-MessageData-1: bJZvzHHjkqFfvw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3395e151-43a9-4dbd-5204-08de96d885ad
-X-MS-Exchange-CrossTenant-AuthSource: DS2PR12MB9750.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2026 08:09:43.4151
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0EBwQ51cmDKT+QsyiFCH3pz5Itny+MzSlXNpKEBMHEeUem+h3/c+TTNM30xh4BQCrDJZJ9SWpkxy1TE4GoucPA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5718
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/4] arm64: dts: qcom: purwa-iot-evk: Add camss node
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>, Robert Foss
+ <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260410-purwa_camss-v1-0-eedcf6d9d8ee@oss.qualcomm.com>
+ <20260410-purwa_camss-v1-4-eedcf6d9d8ee@oss.qualcomm.com>
+Content-Language: en-US
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+In-Reply-To: <20260410-purwa_camss-v1-4-eedcf6d9d8ee@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Vinod,
-
-On 31/03/2026 19:06, Jon Hunter wrote:
+On 10/04/2026 05:25, Wenmeng Liu wrote:
+> nable camss node for purwa iot evk board camss tpg support.
 > 
-> On 31/03/2026 11:22, Akhil R wrote:
->> This series adds support for GPCDMA in Tegra264 with additional
->> support for separate stream ID for each channel. Tegra264 GPCDMA
->> controller has changes in the register offsets and uses 41-bit
->> addressing for memory. Add changes in the tegra186-gpc-dma driver
->> to support these.
->>
->> v5->v6:
->> - Replace dev_err() with dev_err_probe() in the probe function for fixed
->>    return values also.
->> v4->v5:
->> - Use dev_err_probe() when returning error from the probe function.
->> - Remove tegra194 and tegra234 compatible from the reset 'if' condition
->>    in the bindings as suggested in v2 (which I missed).
->> v3->v4:
->> - Split device tree changes to two patches.
->> - Reordered patches to have fixes first.
->> - Added fixes tag to dt-bindings and device tree changes.
->> v2->v3:
->> - Add description for iommu-map property and update commit descriptions.
->> - Use enum for compatible string instead of const.
->> - Remove unused registers from struct tegra_dma_channel_regs.
->> - Use devm_of_dma_controller_register() to register the DMA controller.
->> - Remove return value check for mask setting in the driver as the bitmask
->>    value is always greater than 32.
->> v1->v2:
->> - Fix dt_bindings_check warnings
->> - Drop fallback compatible "nvidia,tegra186-gpcdma" from Tegra264 DT
->> - Use dma_addr_t for sg_req src/dst fields and drop separate high_add
->>    variable and check for the addr_bits only when programming the
->>    registers.
->> - Update address width to 39 bits for Tegra234 and before since the SMMU
->>    supports only up to 39 bits till Tegra234.
->> - Add a patch to do managed DMA controller registration.
->> - Describe the second iteration in the probe.
->> - Update commit descriptions.
->>
->> Akhil R (10):
->>    dt-bindings: dma: nvidia,tegra186-gpc-dma: Make reset optional
->>    arm64: tegra: Remove fallback compatible for GPCDMA
->>    dt-bindings: dma: nvidia,tegra186-gpc-dma: Add iommu-map property
->>    dmaengine: tegra: Make reset control optional
->>    dmaengine: tegra: Use struct for register offsets
->>    dmaengine: tegra: Support address width > 39 bits
->>    dmaengine: tegra: Use managed DMA controller registration
->>    dmaengine: tegra: Use iommu-map for stream ID
->>    dmaengine: tegra: Add Tegra264 support
->>    arm64: tegra: Enable GPCDMA in Tegra264 and add iommu-map
->>
->>   .../bindings/dma/nvidia,tegra186-gpc-dma.yaml |  32 +-
->>   .../arm64/boot/dts/nvidia/tegra264-p3834.dtsi |   4 +
->>   arch/arm64/boot/dts/nvidia/tegra264.dtsi      |   3 +-
->>   drivers/dma/tegra186-gpc-dma.c                | 429 +++++++++++-------
->>   4 files changed, 284 insertions(+), 184 deletions(-)
->>
+> Signed-off-by: Wenmeng Liu<wenmeng.liu@oss.qualcomm.com>
+> ---
+>   arch/arm64/boot/dts/qcom/purwa-iot-evk.dts | 4 ++++
+>   1 file changed, 4 insertions(+)
 > 
-> For the series ...
-> 
-> Reviewed-by: Jon Hunter <jonathanh@nvidia.com>
+> diff --git a/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts b/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts
+> index ad503beec1d3d8c671d3564942a74c484de762d0..eef03f1eb2a950c06294159be3f97169fb487265 100644
+> --- a/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts
+> +++ b/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts
+> @@ -734,6 +734,10 @@ retimer_ss2_con_sbu_out: endpoint {
+>   	};
+>   };
+>   
+> +&camss {
+> +	status = "okay";
+> +};
 
-I am not sure if it is too late to pick this up for v7.1, but we would 
-like to get this into -next if you are happy with it.
+Hmm.
 
-Thanks
-Jon
+I don't agree with this. Enabling the CAMSS node with just the TPG is of 
+very low value to an end-user and doesn't "prove out" the CSIPHY, TPG 
+and RDI path - which is the minimum entry point in upstream right now.
 
--- 
-nvpublic
+I don't support less than a sensor at minimum.
 
+You guys must have a sensor you've used with this board ?
+
+---
+bod
