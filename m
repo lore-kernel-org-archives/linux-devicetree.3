@@ -1,146 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64B9930BF5C;
-	Fri, 10 Apr 2026 11:52:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3BDA5397E89;
+	Fri, 10 Apr 2026 12:07:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775821977; cv=none; b=Yrr3z+f8of0XwBsEIPZUuzMUBzDiURB2mSxpHEHH4GQfGGp0XmrfS6hE2J957bpgEcttIRA9KSU6Ayl4cWpY7NWm8C6rTn3K+DO24zFjFi9Q566SoiFdq0Ps3STD19/io5gEfGQVhcbvW+afFuxA7yYLaDr08lloVOZQmXdGffc=
+	t=1775822866; cv=none; b=gs1ixcLy4KF3xsmsioUU1cmYyH1q6kLi2skIJp2FwzLgC7h376A/iUYJmWIp58Dp3yV3kw6oGqf02swuahAusUWC7a8fZOsXon5hxEvc6oyVrGqrSvgJ8zXAKpZaFsFPNj5N6Aq2PfCHOKvjk1nomVq5R55xe0DbydTqZz0vMJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775821977; c=relaxed/simple;
-	bh=Y4GnJSxmVoLcOsU28nVNoZ44KeRm+qtdWi6Re7neJws=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lHzfbkMjBMVo+Zc4mV334bnPdG8nEeB2Ldr8thRdSQqlmK9Z0W1FSAyUmvZAkS7R5tPnfMmnPt/SIDxQ9MYmzMQjmBXZIQGQ9R3yeMlbMAwvqcIHmvs1ODbv7sHdoG+I6s4ooI1glUL2n2KSuyRzVDcNavX/X86D72+1riNrgfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=u8hkTLvd; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775822866; c=relaxed/simple;
+	bh=PBPEIkPfiCepOPjFH4e7wRaebjN5PVqKZxeWMBytThY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=u1OQ7MOJUntYFUXNvzXgtwdMytGzsIrLcmXu+BFieMsZ1cwWvvb9zENgZsjktTG9adKKAq+uQEYJn48XFRbjEhMRVqz4aeZvpkX79syQOJ2IEnYwGAjjS+FIFaGcL65fsCrP1fZyQtH24xYCtOdfmRUxStBeia50ecpeMYOcglQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=MWxTRcCu; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="u8hkTLvd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88B71C19421;
-	Fri, 10 Apr 2026 11:52:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775821977;
-	bh=Y4GnJSxmVoLcOsU28nVNoZ44KeRm+qtdWi6Re7neJws=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=u8hkTLvdwmNEtlQbPxwGhpXKFahK7mAw84EdneFSvzt8h2dssZtDjOraINVgKLXVw
-	 zCFVOJJr0UaOhh3JHtuGLlFl8kL6eLsvcRTOdeI0ZbjWyJ98VN9BOtayLeSX6jRPfm
-	 XsbIfNl2jY9BmQNkieqFqSIKunfkAPedZWAkKJ/x8aygtpXTGcCFXbt/t/4o0Ns7g8
-	 TLmmIjcEwypFAgvyUOTa55Gs406EdHlufYK2P5Tv5HN2ZRcLTIoZZccpEWgBC6HmBM
-	 CZHB2dAjbMS+jd/Ke1lK6d62Orvfk1YtmGHmghdTeu8RPdsjOVplos307CCBnyvzl4
-	 prUynAYuTiZGA==
-Date: Fri, 10 Apr 2026 13:52:54 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: Benjamin Larsson <benjamin.larsson@genexis.eu>
-Cc: Jakub Kicinski <kuba@kernel.org>, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	ansuelsmth@gmail.com, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v3 04/12] net: airoha: Rely on net_device
- pointer in HTB callbacks
-Message-ID: <adjklonQX0q7ghZD@lore-desk>
-References: <20260406-airoha-eth-multi-serdes-v3-4-ab6ea49d59ff@kernel.org>
- <20260410025722.1809973-1-kuba@kernel.org>
- <bd486b55-a8d7-4811-965a-aa1f3dc98e30@genexis.eu>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="MWxTRcCu"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F253F1DB5;
+	Fri, 10 Apr 2026 05:07:36 -0700 (PDT)
+Received: from [10.1.196.85] (e121345-lin.cambridge.arm.com [10.1.196.85])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A43533F632;
+	Fri, 10 Apr 2026 05:07:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1775822862; bh=PBPEIkPfiCepOPjFH4e7wRaebjN5PVqKZxeWMBytThY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=MWxTRcCuppU6dzrIFN6G/jMv8zUovaPZLaizogO1XSuzRTKsKhTzqcPgkSkwCYi0e
+	 hardPVlJK7OcUHDj8mLXeulGlOgawyIE/hmNe1PSfLr4+umktS5kKT37WPjdRuo4RO
+	 SbO2iH1TVJcEMghygqBS0UZdTc+SAMciAFgNUy6E=
+Message-ID: <65629411-0e1c-4c9c-bc9f-6488097bd77f@arm.com>
+Date: Fri, 10 Apr 2026 13:07:29 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="i1NM/Tit3uG0u/BY"
-Content-Disposition: inline
-In-Reply-To: <bd486b55-a8d7-4811-965a-aa1f3dc98e30@genexis.eu>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] arm-smmu-v3: Add PMCG child support and update PMU
+ MMIO mapping
+To: Peng Fan <peng.fan@oss.nxp.com>
+Cc: Will Deacon <will@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
+References: <20260408-smmu-perf-v1-0-d75dac96e828@nxp.com>
+ <2c1a1694-9597-400d-b441-714225b5377b@arm.com> <adZcaEKm3vIYSy3N@shlinux89>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <adZcaEKm3vIYSy3N@shlinux89>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 08/04/2026 2:47 pm, Peng Fan wrote:
+> On Wed, Apr 08, 2026 at 12:15:31PM +0100, Robin Murphy wrote:
+>> On 2026-04-08 8:51 am, Peng Fan (OSS) wrote:
+>>> This patch series adds proper support for describing and probing the
+>>> Arm SMMU v3 PMCG (Performance Monitor Control Group) as a child node of
+>>> the SMMU in Devicetree, and updates the relevant drivers accordingly.
+>>>
+>>> The SMMU v3 architecture allows an optional PMCG block, typically
+>>> associated with TCUs, to be implemented within the SMMU register
+>>> address space. For example, mmu700 PMCG is at the offset 0x2000 of the
+>>> TCU page 0.
+>>
+>> But what's wrong with the existing binding? Especially given that it even has
+>> an upstream user already:
+>>
+>> https://git.kernel.org/torvalds/c/aef9703dcbf8
+>>
+>>> Patch 1 updates the SMMU v3 Devicetree binding to allow PMCG child nodes,
+>>> referencing the existing arm,smmu-v3-pmcg binding.
+>>>
+>>> Patch 2 updates the arm-smmu-v3 driver to populate platform devices for
+>>> child nodes described in DT once the SMMU probe succeeds.
+>>>
+>>> Patch 3 updates the SMMUv3 PMU driver to correctly handle MMIO mapping when
+>>> PMCG is described as a child node. The PMCG registers occupy a sub-region
+>>> of the parent SMMU MMIO window, which is already requested by the SMMU
+>>
+>> That has not been the case since 52f3fab0067d ("iommu/arm-smmu-v3: Don't
+>> reserve implementation defined register space") nearly 6 years ago, where the
+>> whole purpose was to support Arm's PMCG implementation properly. What kernel
+>> is this based on?
+> 
+> Seems I am wrong. I thought PMCG is in page 0, so there were resource
+> conflicts. I just retest without this patchset, all goes well.
+> 
+> But from dt perspective, should the TCU PMCG node be child node of
+> SMMU node?
 
---i1NM/Tit3uG0u/BY
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+No. PMCGs can be used entirely independently of the SMMU itself, and 
+while most of the events do relate to SMMU translation and thus aren't 
+necessarily meaningful if it's not in use, there are still some which 
+can be useful for basic traffic counting, monitoring GPT/translation 
+activity from _other_ security states (if observation is delegated to 
+Non-Secure) and possibly other things, even if the "main" Non-Secure 
+SMMU interface isn't advertised at all. It would be unreasonable to 
+require the SMMU node to be present and enabled *and* have a driver to 
+populate PMCGs, to monitor events which are outside the scope of that 
+driver.
 
-> On 10/04/2026 04:57, Jakub Kicinski wrote:
-> > This is an AI-generated review of your patch. The human sending this
-> > email says "For your consideration."
-> > ---
-> > net: airoha: Introduce WAN device flag
-> >=20
-> > This commit introduces a WAN flag to specify whether a device is used to
-> > transmit or receive WAN or LAN traffic. It enables specifying multiple =
-LAN
-> > devices but limits the configuration to a single WAN device.
-> >=20
->=20
-> [...]
->=20
-> > > +		fallthrough;
-> > > +	}
-> > > +	case AIROHA_GDM2_IDX:
-> > > +		/* GDM2 is always used as wan */
-> > > +		dev->flags |=3D PRIV_FLAG_WAN;
-> > >   		break;
-> > >   	default:
-> > >   		break;
-> > >   	}
-> > > -	for (i =3D 0; i < eth->soc->num_ppe; i++)
-> > > -		airoha_ppe_set_cpu_port(dev, i, airoha_get_fe_port(dev));
-> > > +	airoha_dev_set_qdma(dev);
-> > > +	airoha_set_macaddr(dev, netdev->dev_addr);
-> >=20
-> > Since the commit message notes it is possible to specify multiple LAN
-> > devices, does unconditionally calling airoha_set_macaddr() for each
-> > device overwrite the single shared hardware LAN MAC register?
-> >=20
-> > If so, could this cause only the last initialized LAN device to have it=
-s MAC
-> > correctly programmed into the hardware, leading to dropped unicast
-> > packets for the other LAN interfaces?
-> >=20
-> > > +
-> > > +	if (!airoha_is_lan_gdm_dev(dev) &&
-> > > +	    (port->id =3D=3D AIROHA_GDM3_IDX || port->id =3D=3D AIROHA_GDM4=
-_IDX)) {
-> > > +		int err;
-> >=20
-> > [ ... ]
->=20
-> Hi, the frame engine can be configured with a range of wan mac addresses =
-and
-> a range of lan mac addresses via registers that set the top 24 bits and t=
-hen
-> 2 registers that form a range of the low 24 bits.
->=20
-> Documentation says that packets that fall into this mac address range eit=
-her
-> on the lan side or the wan side are to be treated as layer 3 packages and=
- if
-> a packet is not then it will be handled as a layer 2 packet.
->=20
-> The exact implication of this and if it actually matters is unknown. But
-> traffic that comes in on an interface that is not matched by an accelerat=
-ion
-> flow is usually forwarded to the cpu for further processing.
-
-The assumption here is the mac addresses are read from the SNAND or eMMC and
-they all share the upper bits. I will fix the issue with a separated patch =
-for
-net tree.
-
-Regards,
-Lorenzo
-
->=20
-> MvH
-> Benjamin Larsson
-
---i1NM/Tit3uG0u/BY
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCadjklgAKCRA6cBh0uS2t
-rOALAQDChwhT+q+W9kV8svjw4vYBOXlgu4gRACeUn8gsl1GgfQD9HP1z0i1xfifR
-9EwKX95S/PvAovnwKbRE5sYz1v1dGQY=
-=Za20
------END PGP SIGNATURE-----
-
---i1NM/Tit3uG0u/BY--
+Thanks,
+Robin.
