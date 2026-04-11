@@ -1,67 +1,66 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D6233876B3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16B9138838A
 	for <devicetree@vger.kernel.org>; Sat, 11 Apr 2026 14:58:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775919490; cv=none; b=RmGR+eQk/t2Cy9kyRFXDAMjRo7j1PILKrOrdbGSetKUxcsmD6VyAfReu9SHtFYy6QUlHwg6/rYLjHyLAgtllznJsuzE3teOddUbRFwYKxUNiVc+Yj9Qo1sJ8f59DPIib9lN1wTI35CRbNwlYFF4ZykrFX3T6/as/BChZmKo8EZk=
+	t=1775919491; cv=none; b=Rd6THulVFcBuCxmVJwHQZ1yZUXafq3HShAlf0zItBN5hQQV8jTsnrPE1zIe2YvYWUXEDY7Xd4vdSWzDbRVNZxLUtfSmCzeCZAKxP/M9skJYpqYTej+/nG8A9G0KL07EbOfI58jfl2ChlJJduNpY4C8FMiiUB9iN3tHMYCEO8whY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775919490; c=relaxed/simple;
-	bh=PHZLLnMsIE8GpLnJkBykfRLhYRx2iFJYTw8nQWNaVlw=;
+	s=arc-20240116; t=1775919491; c=relaxed/simple;
+	bh=MjrJtEP6/3DL+dz7MWVYq7fJbah22ZrD+trVWvL43Co=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZL7dHg/QRcIT1DYwMQtZRdi+UlTB/ZFtMhTBkMb6aeuK8q1WGQ/NOclnI5mcHr/bzgv1YbyoTuj2js29wXlmFMWuu/0VP7bQLKRPPYuBztYHZoaGeJJH+0G7VLdnFNc4ugcAk7m6kPJNyPmhZ/JEFiYgUspzHH7FgIech26vsyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=AyUM57Gv; arc=none smtp.client-ip=209.85.221.47
+	 In-Reply-To:To:Cc; b=qrcHqnV50Hdc+HIQWYJlG4mgi54avyBeiqJSuO/17W9zvV3LhFI5sSLHqPA+8LLIbieJJP40sKPZ92gW+rzh42twqvsGWl9a4tuGr4E9q/zymGguyFPkmslL0eTSjWezsJZ3YTtKG5oZtfO4zeB4H2+OueVqaZgeJXMflk/I+MQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=sYWGjqmg; arc=none smtp.client-ip=209.85.221.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="AyUM57Gv"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-43cfce3a195so1863012f8f.2
+	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="sYWGjqmg"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-43b95e5b3afso1918741f8f.3
         for <devicetree@vger.kernel.org>; Sat, 11 Apr 2026 07:58:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1775919486; x=1776524286; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=TqzpSMm9hvDl83iw/EoIWtzwO8VYSoc9MWM/tx+T2Ys=;
-        b=AyUM57Gv9vSLoq9Ii6E3wjvJj/XUPV43J5G2JezgRJVup7A5Nr0uwkPQgTIU5ytsuo
-         Vz9uYJ/xy9lRmKvYFI99Hkhv19yJXF1IEBS9lv/vaVS/F798qY+cUZW2Bft40zjQFQDo
-         BXRih1V+v9B5XYyoZsE+ykVe6RtM7d53N0nqqm/3V0qNYRmX0yz2yMn2jhEuWT7CTvh3
-         ffjmHPYhaEXCRF+ZAsUXvu8VGLUYa0OgI+rO6Uk7PRBIyRYT7kKio6UKzV7hN7O0Hl6F
-         tD40tguiHbY5MA8I1ub7lpzXOtSwfPYgUfYAsShGVCKssdaW8q7QyUq304FnpHNGDDNe
-         c0Cw==
+        bh=L1fvr9X2u9Mv2M4hYwLbnMDv2qJWnbRmtU9EIkDyPQg=;
+        b=sYWGjqmgr0eeWsuKdAP/+DXK/MRfJmBnJmF1V6hKz0Rq/IL8I7X99zOCYcahgbRrlL
+         WQ/+cocciQSjWQYxqpNlHxxOfdRK9L7a5yg8IBpNGMb/o5hLBW70d24/pHvDw21+/kA3
+         5eH4ivfOh7dKjWKCDsp12FWdeModVXpC7YGqcGZ4In+zPAyI4Iyw7gsFZzpPyjQ6oSAn
+         MhpQidPGeMbHNhQz4wORbyr5vfOVIQKpbyq8h2Thcl2xLbM6kYuWT1kMQAvw1Tu00/aC
+         2WUKYR1/jfjMcJ64XcTflARSiq2X7bB99h1SWY+7Hxd0xTA3YW817uxmx1ICYetHh41A
+         hUaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1775919486; x=1776524286;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=TqzpSMm9hvDl83iw/EoIWtzwO8VYSoc9MWM/tx+T2Ys=;
-        b=GIg1V11gfYJAkadRqQpxD6CQFuOF9jHOpP5wDyE2RozXLndUmUKTq+BIbqDk0tPmMN
-         Hu3wPcICkJpxXro4DOv+fqwH2uk09OI98Z2MoIhY+OcL8aIu2D88T73JuPH9R8B3Jimt
-         DWEvsWrDXiy/02q+oj8ZEkL/NypvuyMldnoF5/icMT2Vk5W/HTiCHGTV45FS0xWUeDW6
-         /5FQUtOH91L7oZ/l5YxQfqw6Jz9GUIXnoq7+hfFp+nq3P8kn27bEf08cjaIV/xFjCW5S
-         IRHqIyQIXhSHh+DSEOg8chDarZ0sXqJeLEoVvKI29tdtWx3B0phjE7Efg1q7mqdCbgfN
-         vlLQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXWLfTd71NJoSEGrUdUFUNbNt+NyF0Mrq9un6Ew2J2KSP2wlzLvoAPw+Qy3eRIe0bksXt562d7OGMVZ@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz++gcyNueQIjhY8ZWmyQUtsqzZyNOBalfSvySPYZlFKIMzl7nL
-	JdGbST+u60dq5ZnRHxzHNG0dXV9X/PLRZBmuq/NBNSVjrB1muOz35uBRmeYuafLBQNw=
-X-Gm-Gg: AeBDievGwUEnjyurwvr5MxKKRXwZZgXkr28f/u2pmn9j+b4XXe9ZKKQlD4SOvo/qPvG
-	1dIdN4nhhj+6yf/PjHcFJIO0BE6sETLOGToFsfPmGol/9WRhil24KQRql5UPA1cPGLCcN1HfXlm
-	hbDxDVw5LDxoRIOahoGI1OBmRXVd2nxSiAxFxVva0Y47l037IVf4iEAEjgSItDY2qe9c78V64He
-	XOnxhifWNDd7W4tHHA+Pi7OO6HPSlYCz/ah99RYf3EDHzPSmtWu4PRYTLIBH1a9TObwzT40LgXN
-	aJlRfbV19zl3EvHnh7LIvTolFkBrgD78xdSNDoD30niyhRDWgxv3XT9paVbvJ/YCvI57JkY5z5L
-	SpsxA5U8eWtb+mOFGihCntg4SbvnXkohoFuypKO0kKhJ1klQH8P2Sp3YjKdxO+wWdut+spClZce
-	mJNKkODjD7BQXR26yaq3yd
-X-Received: by 2002:a05:600d:d:b0:485:ae14:8191 with SMTP id 5b1f17b1804b1-488d67b8da2mr72755715e9.5.1775919485044;
-        Sat, 11 Apr 2026 07:58:05 -0700 (PDT)
+        bh=L1fvr9X2u9Mv2M4hYwLbnMDv2qJWnbRmtU9EIkDyPQg=;
+        b=LPS6yZsamnsW+RYRdhoJBerDEre3Ar2HRA79FRntppEhxywd/x/XpOjgapzyst5fyg
+         jMoRiyn+g+4DbTGzmmOiYJZMH2UKHM4IWDcPOKwXHTcWDmnMEBv6oW5Mu2iO3XNYUG0q
+         EbjzRhLs40RQXwEjdEMGf9A2U40jUkM3om0Ax6zqqkTgCMrEmi9dbGI3AjZPtb3R59Tk
+         mN1FwPxtsYCPXTAn0uiaEHg8A7+q07gMa6ArDV6gs73NW6TZxsMA3jhA76BHi94Ay/0K
+         n+PHQal8QbmqrEqSc3HDolFQXvkyTDg1cEMGlwgdGb4evF3nV7KhVZw39Y6jf6zB3+vl
+         hLkw==
+X-Forwarded-Encrypted: i=1; AJvYcCUXW95V9sitZo760fRRvhTbgvFXg4a8Pez46tts3Gk+mpn+vhedEEGgGPRjDQXOR+pl0azNpykFq+l3@vger.kernel.org
+X-Gm-Message-State: AOJu0YyCBrH3QPz+Svkggj74Y9NGKDOC1NH50IvqulAiUrk+B/ckvMRT
+	rw9pd35sbeiUK9Aty0YriSearfRy0B+lYiKQb1Km8zQWGzvDFG/i7t0h3ld/3W5+bL0=
+X-Gm-Gg: AeBDieuKqwrBWUvsynUVNimTBNylnViVFv/rm/6Mub86lpwoiXm39rrwcVxWYFcOXJ2
+	NZM1zsxCB0lalRFse5GUQ+lVq6MPVkhQlm3F96BvdBtl1X148M/YakqLFevnV/WIlGV+MRN+5g5
+	m8KIFjkeaXO4eOsQp9oBYFJZH0UCok2iUuEAh3chu/AfWpvjHHEbB6jazJlL4y9s8LlQTctN4k7
+	TWRe9HJGrXFqR4xgifrvR8PCZizjWEp6ZNN9ukFSKrRPwX/hK3pFYqAz4Pu973qIGHQwWVCi2k9
+	HZMqD8/29V4vUsY0krc0++PyB6TR4QrmW+zVlEnNfnS/+auGU3ijBr3CInzYKQlbBfntKFoGrw/
+	MNcB+04/jZi4VcBn8ReeAiWLaF135oZidnBAdGt67w/j8VfDUnpiWpFrEZuYbcjxdrR4ckev1Oa
+	88Y9pD+xjPzwxZQx52xvPv
+X-Received: by 2002:a05:600c:c0da:b0:488:b043:5efd with SMTP id 5b1f17b1804b1-488d682628dmr85823445e9.13.1775919486295;
+        Sat, 11 Apr 2026 07:58:06 -0700 (PDT)
 Received: from [127.0.1.1] ([151.61.248.52])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488d5dc7070sm48882375e9.10.2026.04.11.07.58.03
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488d5dc7070sm48882375e9.10.2026.04.11.07.58.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 11 Apr 2026 07:58:04 -0700 (PDT)
+        Sat, 11 Apr 2026 07:58:05 -0700 (PDT)
 From: Valerio Setti <vsetti@baylibre.com>
-Date: Sat, 11 Apr 2026 16:57:30 +0200
-Subject: [PATCH RFC v2 05/11] ASoC: dt-bindings: amlogic: add schema for
- audin-formatter and audin-toddr
+Date: Sat, 11 Apr 2026 16:57:31 +0200
+Subject: [PATCH RFC v2 06/11] ASoC: meson: gx: add AUDIN I2S Decoder driver
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +69,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260411-audin-rfc-v2-5-4c8a6ec5fcab@baylibre.com>
+Message-Id: <20260411-audin-rfc-v2-6-4c8a6ec5fcab@baylibre.com>
 References: <20260411-audin-rfc-v2-0-4c8a6ec5fcab@baylibre.com>
 In-Reply-To: <20260411-audin-rfc-v2-0-4c8a6ec5fcab@baylibre.com>
 To: Jerome Brunet <jbrunet@baylibre.com>, 
@@ -85,149 +84,297 @@ Cc: linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
  devicetree@vger.kernel.org
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3712; i=vsetti@baylibre.com;
- h=from:subject:message-id; bh=PHZLLnMsIE8GpLnJkBykfRLhYRx2iFJYTw8nQWNaVlw=;
- b=owGbwMvMwCF2z3ty7kUrRgbG02pJDJm3EosN3vB9XsUdlXc2ZPYKzqm//naZXdxa+++XzbJXa
- oeU3lqld5SyMIhxMMiKKbKwTL/3u6BU7aFxwskCmDmsTCBDGLg4BWAih/oZGW5XMcRf9OW+cjjh
- 9ZHd1bfZlbzfXdE3V9py4Hvh/HgjNQ+Gf8a7rq+y/5TKs7glY+9Okz8lsbHWP8yrlIVy3/OXiE5
- iYAUA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9369; i=vsetti@baylibre.com;
+ h=from:subject:message-id; bh=MjrJtEP6/3DL+dz7MWVYq7fJbah22ZrD+trVWvL43Co=;
+ b=owGbwMvMwCF2z3ty7kUrRgbG02pJDJm3Ekv+ntqdWaQ+10C8dvcUx1hFLu2v4TLv+jrFyw3v/
+ M8v6inoKGVhEONgkBVTZGGZfu93QanaQ+OEkwUwc1iZQIYwcHEKwETqTBkZPoTynek+Wx0q8bLY
+ Lt4zpX5dsW7+Zrm0BT8U9rVWJH2fyvC/dPXmy1PqXP0OJ4n7XwzZ2P1oepny9fR1/Uf/Fyxs9eV
+ mBAA=
 X-Developer-Key: i=vsetti@baylibre.com; a=openpgp;
  fpr=0497DEFB707526E13360C970DE4B936DD13A0100
 
-Add schema for "amlogic,meson-gx-audin-decoder-i2s" and
-"amlogic,meson-gx-audin-fifo" modules which are used to
-provide I2S audio input support to the Meson GX platform.
+This driver takes care of formatting I2S data being captured from the I2S
+interface. Differently from aiu-formatter-i2s this driver implements
+all the functionalities of a gx_formatter and it fully follows the design
+proposed in the AXG platform (see axg-tdmin).
 
 Signed-off-by: Valerio Setti <vsetti@baylibre.com>
 ---
- .../sound/amlogic,meson-gx-audin-decoder-i2s.yaml  | 49 +++++++++++++++++
- .../sound/amlogic,meson-gx-audin-fifo.yaml         | 63 ++++++++++++++++++++++
- 2 files changed, 112 insertions(+)
+ sound/soc/meson/Kconfig             |   8 ++
+ sound/soc/meson/Makefile            |   2 +
+ sound/soc/meson/audin-decoder-i2s.c | 218 ++++++++++++++++++++++++++++++++++++
+ 3 files changed, 228 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/amlogic,meson-gx-audin-decoder-i2s.yaml b/Documentation/devicetree/bindings/sound/amlogic,meson-gx-audin-decoder-i2s.yaml
+diff --git a/sound/soc/meson/Kconfig b/sound/soc/meson/Kconfig
+index d9a730994a2a2ad315a576981555203b379a212e..0a1d166bed3477efdaffa8538150f7aca33a29e6 100644
+--- a/sound/soc/meson/Kconfig
++++ b/sound/soc/meson/Kconfig
+@@ -12,6 +12,13 @@ config SND_MESON_AIU
+ 	  Select Y or M to add support for the Audio output subsystem found
+ 	  in the Amlogic Meson8, Meson8b and GX SoC families
+ 
++config SND_MESON_GX_AUDIN_DECODER_I2S
++	tristate "Amlogic GX AUDIN I2S Decoder"
++	imply SND_MESON_AIU
++	help
++	  Select Y or M to add support for the I2S audio input decoder found
++	  in the Amlogic GX SoC family
++
+ config SND_MESON_AXG_FIFO
+ 	tristate
+ 	select REGMAP_MMIO
+@@ -108,6 +115,7 @@ config SND_MESON_GX_SOUND_CARD
+ 	tristate "Amlogic GX Sound Card Support"
+ 	select SND_MESON_CARD_UTILS
+ 	imply SND_MESON_AIU
++	imply SND_MESON_GX_AUDIN_DECODER_I2S
+ 	help
+ 	  Select Y or M to add support for the GXBB/GXL SoC sound card
+ 
+diff --git a/sound/soc/meson/Makefile b/sound/soc/meson/Makefile
+index f9ec0ebb01f048728b8f85fd8e58fb90df990470..a5a8e5b5a3bb8ca8ca0f27e1a29865e0dab64b73 100644
+--- a/sound/soc/meson/Makefile
++++ b/sound/soc/meson/Makefile
+@@ -10,6 +10,7 @@ snd-soc-meson-aiu-y += aiu-encoder-spdif.o
+ snd-soc-meson-aiu-y += aiu-fifo.o
+ snd-soc-meson-aiu-y += aiu-fifo-i2s.o
+ snd-soc-meson-aiu-y += aiu-fifo-spdif.o
++snd-soc-meson-gx-audin-decoder-i2s-y := audin-decoder-i2s.o
+ snd-soc-meson-axg-fifo-y := axg-fifo.o
+ snd-soc-meson-axg-frddr-y := axg-frddr.o
+ snd-soc-meson-axg-toddr-y := axg-toddr.o
+@@ -29,6 +30,7 @@ snd-soc-meson-g12a-tohdmitx-y := g12a-tohdmitx.o
+ snd-soc-meson-t9015-y := t9015.o
+ 
+ obj-$(CONFIG_SND_MESON_AIU) += snd-soc-meson-aiu.o
++obj-$(CONFIG_SND_MESON_GX_AUDIN_DECODER_I2S) += snd-soc-meson-gx-audin-decoder-i2s.o
+ obj-$(CONFIG_SND_MESON_AXG_FIFO) += snd-soc-meson-axg-fifo.o
+ obj-$(CONFIG_SND_MESON_AXG_FRDDR) += snd-soc-meson-axg-frddr.o
+ obj-$(CONFIG_SND_MESON_AXG_TODDR) += snd-soc-meson-axg-toddr.o
+diff --git a/sound/soc/meson/audin-decoder-i2s.c b/sound/soc/meson/audin-decoder-i2s.c
 new file mode 100644
-index 0000000000000000000000000000000000000000..eaf57603e1ecf5944ffdcf7a1b6146d1a0295696
+index 0000000000000000000000000000000000000000..4d8ba81ce321bd9bbb7fdee57ccf320e61b81fa2
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/amlogic,meson-gx-audin-decoder-i2s.yaml
-@@ -0,0 +1,49 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/amlogic,meson-gx-audin-decoder-i2s.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/sound/soc/meson/audin-decoder-i2s.c
+@@ -0,0 +1,218 @@
++// SPDX-License-Identifier: GPL-2.0
++//
++// Copyright (c) 2026 BayLibre, SAS.
++// Author: Valerio Setti <vsetti@baylibre.com>
 +
-+title: Amlogic GX AUDIN I2S Input Decoder
++#include <linux/bitfield.h>
++#include <linux/clk.h>
++#include <sound/pcm_params.h>
++#include <sound/soc.h>
++#include <sound/soc-dai.h>
 +
-+maintainers:
-+  - Valerio Setti <vsetti@baylibre.com>
++#include "gx-formatter.h"
 +
-+allOf:
-+  - $ref: dai-common.yaml#
++/* I2SIN_CTRL register and bits */
++#define AUDIN_I2SIN_CTRL			0x0
++#define  AUDIN_I2SIN_CTRL_I2SIN_DIR		BIT(0)
++#define  AUDIN_I2SIN_CTRL_I2SIN_CLK_SEL		BIT(1)
++#define  AUDIN_I2SIN_CTRL_I2SIN_LRCLK_SEL	BIT(2)
++#define  AUDIN_I2SIN_CTRL_I2SIN_POS_SYNC	BIT(3)
++#define  AUDIN_I2SIN_CTRL_I2SIN_LRCLK_SKEW_MASK	GENMASK(6, 4)
++#define  AUDIN_I2SIN_CTRL_I2SIN_LRCLK_INV	BIT(7)
++#define  AUDIN_I2SIN_CTRL_I2SIN_SIZE_MASK	GENMASK(9, 8)
++#define  AUDIN_I2SIN_CTRL_I2SIN_CHAN_EN_MASK	GENMASK(13, 10)
++#define  AUDIN_I2SIN_CTRL_I2SIN_EN		BIT(15)
 +
-+properties:
-+  $nodename:
-+    pattern: "^audio-controller@.*"
++static struct snd_soc_dai *
++audin_decoder_i2s_get_be(struct snd_soc_dapm_widget *w)
++{
++	struct snd_soc_dapm_path *p;
++	struct snd_soc_dai *be;
 +
-+  "#sound-dai-cells":
-+    const: 0
++	snd_soc_dapm_widget_for_each_source_path(w, p) {
++		if (!p->connect)
++			continue;
 +
-+  compatible:
-+    items:
-+      - enum:
-+          - amlogic,meson-gxbb-audin-decoder-i2s
-+      - const: amlogic,meson-gx-audin-decoder-i2s
++		if (p->source->id == snd_soc_dapm_dai_out)
++			return (struct snd_soc_dai *)p->source->priv;
 +
-+  reg:
-+    maxItems: 1
++		be = audin_decoder_i2s_get_be(p->source);
++		if (be)
++			return be;
++	}
 +
-+  sound-name-prefix: true
++	return NULL;
++}
 +
-+required:
-+  - "#sound-dai-cells"
-+  - compatible
-+  - reg
++static struct gx_stream *
++audin_decoder_i2s_get_stream(struct snd_soc_dapm_widget *w)
++{
++	struct snd_soc_dai *be = audin_decoder_i2s_get_be(w);
 +
-+additionalProperties: false
++	if (!be)
++		return NULL;
 +
-+examples:
-+  - |
-+    audio-controller@a040 {
-+      compatible = "amlogic,meson-gxbb-audin-decoder-i2s",
-+                   "amlogic,meson-gx-audin-decoder-i2s";
-+      #sound-dai-cells = <0>;
-+      sound-name-prefix = "AUDIN I2S Decoder";
-+      reg = <0xa040 0x4>;
-+      status = "disabled";
-+    };
-diff --git a/Documentation/devicetree/bindings/sound/amlogic,meson-gx-audin-fifo.yaml b/Documentation/devicetree/bindings/sound/amlogic,meson-gx-audin-fifo.yaml
-new file mode 100644
-index 0000000000000000000000000000000000000000..4957c8711623ac45d2826ca96e6344d0aeac2735
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/amlogic,meson-gx-audin-fifo.yaml
-@@ -0,0 +1,63 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/amlogic,meson-gx-audin-fifo.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++	return snd_soc_dai_dma_data_get_capture(be);
++}
 +
-+title: Amlogic GX AUDIN FIFO controller
++static void audin_decoder_i2s_enable(struct regmap *map)
++{
++	regmap_update_bits(map, AUDIN_I2SIN_CTRL,
++			   AUDIN_I2SIN_CTRL_I2SIN_EN,
++			   AUDIN_I2SIN_CTRL_I2SIN_EN);
++}
 +
-+maintainers:
-+  - Valerio Setti <vsetti@baylibre.com>
++static void audin_decoder_i2s_disable(struct regmap *map)
++{
++	regmap_update_bits(map, AUDIN_I2SIN_CTRL,
++			   AUDIN_I2SIN_CTRL_I2SIN_EN, 0);
++}
 +
-+allOf:
-+  - $ref: dai-common.yaml#
++static int audin_decoder_i2s_prepare(struct regmap *map,
++				   const struct gx_formatter_hw *quirks,
++				   struct gx_stream *ts)
++{
++	unsigned int val;
++	int ret;
 +
-+properties:
-+  $nodename:
-+    pattern: "^audio-controller@.*"
++	if (ts->width != 16)
++		return -EINVAL;
 +
-+  "#sound-dai-cells":
-+    const: 0
++	if (ts->channels != 2)
++		return -EINVAL;
 +
-+  compatible:
-+    items:
-+      - enum:
-+          - amlogic,meson-gxbb-audin-fifo
-+      - const: amlogic,meson-gx-audin-fifo
++	/*
++	 * I2S decoder always outputs 24bits to the FIFO according to the
++	 * manual. The only thing we can do is mask some bits as follows:
++	 * - 0: 16 bit
++	 * - 1: 18 bits (not exposed as supported format)
++	 * - 2: 20 bits (not exposed as supported format)
++	 * - 3: 24 bits
++	 *
++	 * At the moment only 16 bit format is supported, but we force 24 bit
++	 * anyway here to ease the future support of 24 bit format. Extra bits
++	 * will be filtered out at FIFO stage.
++	 * Note: data is left-justified, so in case of 16 bits samples, this
++	 *       means that the LSB is to be discarded at FIFO level and the
++	 *       relevant part is in bits [23:8].
++	 */
++	val = FIELD_PREP(AUDIN_I2SIN_CTRL_I2SIN_SIZE_MASK, 3);
++	ret = regmap_update_bits(map, AUDIN_I2SIN_CTRL,
++				 AUDIN_I2SIN_CTRL_I2SIN_SIZE_MASK, val);
++	if (ret)
++		return ret;
 +
-+  clocks:
-+    items:
-+      - description: AUDIN peripheral clock
++	/*
++	 * The manual claims that this platform supports up to 4 streams
++	 * (8 channels), but the SOC only has 1 input pin (i.e. it only allows
++	 * for 1 stream and 2 channels) so this is what we support here.
++	 */
++	val = FIELD_PREP(AUDIN_I2SIN_CTRL_I2SIN_CHAN_EN_MASK, 1);
++	ret = regmap_update_bits(map, AUDIN_I2SIN_CTRL,
++				 AUDIN_I2SIN_CTRL_I2SIN_CHAN_EN_MASK, val);
++	if (ret)
++		return ret;
 +
-+  clock-names:
-+    items:
-+      - const: i2s_input_clk
++	/*
++	 * Use clocks from AIU and not from the pads since we only want to
++	 * support master mode.
++	 */
++	val = AUDIN_I2SIN_CTRL_I2SIN_CLK_SEL |
++	      AUDIN_I2SIN_CTRL_I2SIN_LRCLK_SEL |
++	      AUDIN_I2SIN_CTRL_I2SIN_DIR;
++	ret = regmap_update_bits(map, AUDIN_I2SIN_CTRL, val, val);
++	if (ret)
++		return ret;
 +
-+  reg:
-+    maxItems: 1
++	switch (ts->iface->fmt & SND_SOC_DAIFMT_INV_MASK) {
++	case SND_SOC_DAIFMT_IB_NF:
++		val = AUDIN_I2SIN_CTRL_I2SIN_POS_SYNC;
++		break;
++	case SND_SOC_DAIFMT_NB_NF:
++		val = 0;
++		break;
++	default:
++		return -EINVAL;
++	}
 +
-+  sound-name-prefix: true
++	ret = regmap_update_bits(map, AUDIN_I2SIN_CTRL,
++				 AUDIN_I2SIN_CTRL_I2SIN_POS_SYNC, val);
++	if (ret)
++		return ret;
 +
-+required:
-+  - "#sound-dai-cells"
-+  - compatible
-+  - clocks
-+  - clock-names
-+  - reg
++	/*
++	 * MSB data starts 1 clock cycle after LRCLK transition, as per I2S
++	 * specs.
++	 */
++	val = FIELD_PREP(AUDIN_I2SIN_CTRL_I2SIN_LRCLK_SKEW_MASK, 1);
++	ret = regmap_update_bits(map, AUDIN_I2SIN_CTRL,
++				 AUDIN_I2SIN_CTRL_I2SIN_LRCLK_INV |
++				 AUDIN_I2SIN_CTRL_I2SIN_LRCLK_SKEW_MASK,
++				 val);
++	if (ret)
++		return ret;
 +
-+additionalProperties: false
++	return 0;
++}
 +
-+examples:
-+  - |
-+    #include <dt-bindings/clock/gxbb-clkc.h>
++static const struct snd_soc_dapm_widget audin_decoder_i2s_dapm_widgets[] = {
++	SND_SOC_DAPM_AIF_IN("IN",  NULL, 0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_PGA_E("DEC", SND_SOC_NOPM, 0, 0, NULL, 0,
++			   gx_formatter_event,
++			   (SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_PRE_PMD)),
++	SND_SOC_DAPM_AIF_OUT("OUT", NULL, 0, SND_SOC_NOPM, 0, 0),
++};
 +
-+    audio-controller@a080 {
-+      compatible = "amlogic,meson-gxbb-audin-fifo",
-+                   "amlogic,meson-gx-audin-fifo";
-+      #sound-dai-cells = <0>;
-+      sound-name-prefix = "FIFO0";
-+      reg = <0xa080 0x1c>;
-+      status = "disabled";
-+      clocks = <&clkc CLKID_I2S_SPDIF>;
-+      clock-names = "i2s_input_clk";
-+    };
++static const struct snd_soc_dapm_route audin_decoder_i2s_dapm_routes[] = {
++	{ "DEC", NULL, "IN" },
++	{ "OUT", NULL, "DEC" },
++};
++
++static const struct snd_soc_component_driver audin_decoder_i2s_component = {
++	.dapm_widgets		= audin_decoder_i2s_dapm_widgets,
++	.num_dapm_widgets	= ARRAY_SIZE(audin_decoder_i2s_dapm_widgets),
++	.dapm_routes		= audin_decoder_i2s_dapm_routes,
++	.num_dapm_routes	= ARRAY_SIZE(audin_decoder_i2s_dapm_routes),
++};
++
++static const struct regmap_config audin_decoder_i2s_regmap_cfg = {
++	.reg_bits	= 32,
++	.val_bits	= 32,
++	.reg_stride	= 4,
++	.max_register	= 0x3,
++};
++
++static const struct gx_formatter_ops audin_decoder_i2s_ops = {
++	.get_stream	= audin_decoder_i2s_get_stream,
++	.prepare	= audin_decoder_i2s_prepare,
++	.enable		= audin_decoder_i2s_enable,
++	.disable	= audin_decoder_i2s_disable,
++};
++
++static const struct gx_formatter_driver audin_decoder_i2s_drv = {
++	.component_drv	= &audin_decoder_i2s_component,
++	.regmap_cfg	= &audin_decoder_i2s_regmap_cfg,
++	.ops		= &audin_decoder_i2s_ops,
++};
++
++static const struct of_device_id audin_decoder_i2s_of_match[] = {
++	{
++		.compatible = "amlogic,meson-gxbb-audin-decoder-i2s",
++		.data = &audin_decoder_i2s_drv
++	},
++	{}
++};
++MODULE_DEVICE_TABLE(of, audin_decoder_i2s_of_match);
++
++static struct platform_driver audin_decoder_i2s_pdrv = {
++	.probe = gx_formatter_probe,
++	.driver = {
++		.name = "meson-gx-audin-decoder-i2s",
++		.of_match_table = audin_decoder_i2s_of_match,
++	},
++};
++module_platform_driver(audin_decoder_i2s_pdrv);
++
++MODULE_DESCRIPTION("Meson AUDIN Formatter Driver");
++MODULE_AUTHOR("Valerio Setti <vsetti@baylibre.com>");
++MODULE_LICENSE("GPL");
 
 -- 
 2.39.5
