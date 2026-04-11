@@ -1,88 +1,87 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C81E35B64A
-	for <devicetree@vger.kernel.org>; Sat, 11 Apr 2026 12:11:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB6993603C9
+	for <devicetree@vger.kernel.org>; Sat, 11 Apr 2026 12:11:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775909488; cv=none; b=GahID97QChm0HauweL35h4SLF0rhTqjWBGgivCG8DhfgUCuSQ5LSEY3s15IFQQR5oNE/Yq96Qn00SjdqVjK+o4hRsWje+B8LD81EiPM1fPrS2J2GpxlcTCRwOcFjgOKLxE7nbpCgmu5CJG6uCrj2otgqKAt6W1sNLzki8CDV4BE=
+	t=1775909491; cv=none; b=axB9qjUqIfdmbgYt4BKAkdUwVKNgmN6IyZ0TVlU8VUsKwoR7uCziEMJnE7udbV/otoYC7xs87wd94QblHA28wSCKzwRIX5UMlLrP8ocgPrGBrLODoU6SmG6G0JyD+QYfjRxEkSW7uGWBFIRxrgxsl1DBoNiNV1Q7NluJsy6ALDQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775909488; c=relaxed/simple;
-	bh=GeCr1NynOzRyMTA3YNx3AI6OZgpUDXwfoJ9GX7n6oNY=;
+	s=arc-20240116; t=1775909491; c=relaxed/simple;
+	bh=rf4el4++6e9jBpjjECUwGqmrfgQoRtn7snVn69MvoWU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Ti9KbV6+Z5wlq+xzHqIqbgkpckgJANtpZt1fpHvUOjG0njiX/n/RvbV4/2XTHx0Xgy4TATnnGt+oeRqmWtaQQaRM381ToDOiGBEJfd1ZT6jIW8m13xVcqVRpDDBV7uiVgBWTP549AdhlVwymoTbZPQDF/bCUcCa/CCE77eBhSSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FdzcflcA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dinwBGcB; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=cT3H+lxFI4NVYTypyRVbQ8N94uSCmWDeBH6K8SOhpRxkvww/yP0PToTnfGRd4LcHajkLGVJFIHh1SigJj3oBPRhO5JUqctyGfRIvLvFuuFKLMmiPT2x5kOp7Qi2/JllqWgYrsKjowZjFVAHaN10zod3ub9e0kXny2lBtTEtU15o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Vs9pX17r; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=V47bSwwl; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FdzcflcA";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dinwBGcB"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63B7vWJP3337683
-	for <devicetree@vger.kernel.org>; Sat, 11 Apr 2026 12:11:26 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Vs9pX17r";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="V47bSwwl"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63B4Tvki3679650
+	for <devicetree@vger.kernel.org>; Sat, 11 Apr 2026 12:11:29 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	nZzwGnW+MUE+QNALit7cwinZB2Bkr8D00pSmlzKzjwY=; b=FdzcflcApesnwK1v
-	7fvg1OxjaS3loM1FylEKbFCCUZpf/0Jv1nfd8Mlba3sU5LUwhxu9gqlOn4bwMTNU
-	TTK9UtIhJYhVnVE2BjPPvYBiPMgEu78fAmmEH77O1m7m7RLxr7TlZyXtwmvsY+Ye
-	cv1kEp5XV41sPedOYpfp1p6/+/CyGRwDa/gHbouyMAxNlrtL8rN9My5k3B88EgTa
-	xFnwQZf4XSs+3KRD7HV3sTyPD39LiskheTBqQYljGEaE0icqwUR+4A49dC2W1GAp
-	VCualyXR0Cw+tXr75OS5SdhH8NPX3X1l2/qncwJrEjNM3tLahyr+Eyg1Ce+C4Ny3
-	WBMP5A==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dfjbp8a79-1
+	u/JqaEb+NMid83GHj5mNNQA+ojq3d6qm/84/uWVT8xw=; b=Vs9pX17rEvZCJU/5
+	oR/lUvbWwG3vzUYIVLFj4RIdRazZfdYBaVQCmITh9XgDOzbRzUVvuZtrB8jtqYcy
+	0CzUo0fACwCigiJSH5UqZ6nnHsWtWlAxNS8/97UN+cDidJ2ljJYwEHa3ZSYKKM+n
+	1sztsrYOYEKK4en7P0t1ZMwsPyxL4j6bZXnl1dP4BIyhQRgwFSwZs1PrxAP22BUM
+	+b9clcSAIU7kwKsoOrgok1WUFABxGlI0l8Jf9p/p7YxwntQT9DRbYCxRsjtgOY4U
+	IblltI34k5Sk3XRnPSxYYY2cINCTVwaAj0SsUIdxA1xLtR4qurOAgiGKiZxZcNHv
+	X9bOPQ==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dffb0gkwb-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 11 Apr 2026 12:11:26 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50b44f7b7bbso74322071cf.3
-        for <devicetree@vger.kernel.org>; Sat, 11 Apr 2026 05:11:26 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Sat, 11 Apr 2026 12:11:29 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-50b4031b86dso77812881cf.0
+        for <devicetree@vger.kernel.org>; Sat, 11 Apr 2026 05:11:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775909485; x=1776514285; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1775909488; x=1776514288; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=nZzwGnW+MUE+QNALit7cwinZB2Bkr8D00pSmlzKzjwY=;
-        b=dinwBGcBkfv/nk0wIE+Pk4VIBWZVtfdVtlZKWPWm9it0Jj4Tdyu5WAX4nxOpGZXUef
-         QKHDN+9KylfQ2SVZtKIDawCOVcrl+OFk3z2ZxwE3JfYan5hGgpY94Lb22pOVHXj/3cf9
-         i7H35Q3+NLT1a+53xx6ADNcc1opPeglJKpkS3c2y0bSQGXJlKHEVvw98JdG9nHSx8OBe
-         DUAuepGsaV+xvxCbgvpwUxvbqJ0kRV1QijnF2ou3lVpU2h22EX8Q+qh2pfMXtdtH1Qnx
-         3Jrm94KZtV9K+IaWGMHv0Vsy0zP8GZTZbcmDfedgsATY9CbV7OvGN9VW2ST1uJH6Pgz3
-         HCRA==
+        bh=u/JqaEb+NMid83GHj5mNNQA+ojq3d6qm/84/uWVT8xw=;
+        b=V47bSwwlmal/1g+ndili7Z0kaSKMLbMxtnU/Rb4Csz/823/zCY27gh8uNc46haMK/p
+         t47IxFqS7b44XauA0E/2DXh9+CpKZf4mWk5m1roDU4kGj/OFYGZnlVsxunhpoXjBOt5w
+         +mwHkTknoYBjbmORSRXOmpsRIo5++IiOVKeUfqTIYSID24mh9Gi1H4h+eAWy4iJCQuLr
+         vyk9auU8hzv/MwBJIn4iVdwCyJoWyw/8EomH/cDeJLhOI2Aw54moZu8iv77rCeI/XaNS
+         VAnl+QMtTk9QI6fcj5PcUBgcMrOIqXj1N13WAjul033FRGRyVtXcSIcByN+JHx7rjSUb
+         QPDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775909485; x=1776514285;
+        d=1e100.net; s=20251104; t=1775909488; x=1776514288;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=nZzwGnW+MUE+QNALit7cwinZB2Bkr8D00pSmlzKzjwY=;
-        b=KraspUtMyQM6BZUp54Jz1ljgRswAALH+qaiVW9PfDfeyoddTKgIcrLePcHDhMLfm73
-         fpuyV7+GgIU9nHuAtCXEPitZeLonyvIOowGX/6QScaMoWkmL8FAIkVzC01vm+1IKyp4W
-         HPXLiC7SHndHddR7ze2fD7eWMXHv9rvF+zbtspH0Cq4HVaSDwh6mnj02cJZvs12PF0TI
-         ajBF4qYHPRaLQLWxKss/vhuKEoTGA10LzT6HkYqp9aFnhCMMY1qrArkLhSNxdLRx+gm5
-         1HLsp4PdOXjk3h2jOQv2js1FWgHkEwXqa+eHg5B1juO8kmX5pJE9k6SzqL/c47fN9Jq+
-         Mitw==
-X-Forwarded-Encrypted: i=1; AJvYcCU3luAsDOYdSWTTBgOV1E5hAMjjgrDFkHEsZCa+dBgBZjruzk1lPEhcHJy9abfMNGRfAJZafbpg5DaY@vger.kernel.org
-X-Gm-Message-State: AOJu0YyE/i8w4dLjqbVuqC7nMYRo9VY9mH/n8D7ZS48nIQTmb5coUGE1
-	Vhl2HlRThwsja3DBNVynmzSsjoYWkOet0+oip8WnWXcwLckX0tpDoO1qSosWlhDhYp8Fs1K3kP7
-	+4yKL9l8cEmCDyF0YzKHeyvjV1PR8YjVqYrzSFllEY+M070G0Uft7eNqZ2NHKOkRU
-X-Gm-Gg: AeBDievWMhyEZy7tgqhMQCPeX5scQb+EClu/npGsgFO7mw30BGpOSQn8AzyPtJ7DI/V
-	ff8kAZdzWpadJWRlDCNABYZC/KWmeB2yyM9Q2UaB9zQuH93NNTykKmguLJod1QssLM5sE7V75bb
-	Afe0C/gevr5lTrcdSY2t9sxKVXpMTFF658V15bq5+alv8pXNLInISYeZojDzIi67JlzSZDMq0mW
-	S2t9eIaKpfdfl7CMfDHcRQpPlolus4hElQWBj9QvH8fYWmWJuo1J703BrtHEHQ0jxTFHDF/INfG
-	2ABXh0PXqe3cPKCkO9ukoptfK4Ij/zmYUlS2Eq6Gcm8qYhu8AigJP9nwwKwJkTXUcTiaZkZWhjf
-	krsdcWTLzERZhXbRp3YDs4CrFQ6ULEEkXBpmjoD8JqqSiwLI7ThdsSZSspbICYpNkwL0PZmbX1G
-	quprBfTkVJRCWNKstRDlmTukxdIvPgc5qwoio=
-X-Received: by 2002:a05:622a:588b:b0:50d:a602:1255 with SMTP id d75a77b69052e-50dd5be78ecmr92161971cf.50.1775909485155;
-        Sat, 11 Apr 2026 05:11:25 -0700 (PDT)
-X-Received: by 2002:a05:622a:588b:b0:50d:a602:1255 with SMTP id d75a77b69052e-50dd5be78ecmr92161441cf.50.1775909484633;
-        Sat, 11 Apr 2026 05:11:24 -0700 (PDT)
+        bh=u/JqaEb+NMid83GHj5mNNQA+ojq3d6qm/84/uWVT8xw=;
+        b=C10rehi2rMG8C+HWrxMIY0pmD+mD9PENgTHJlP9iRvCjgqxMnMAL3tBUs6ANV0OVT0
+         UJRnKE3P6TzpaQ6Z4IbKjfqPZdnEDZMovf+gP+tpQTBQUdiHY5O2L5RozjvO0c3i7/yP
+         qLbqhb5oH1K/IjGBvGtZP4urR46dKBUBfCgQ1LFblmPnahQLXo1q+0MuWj/WqrXoIWUS
+         Sc5et2ZqUN53FjdwY+nO0m+Dw0tcsL/isyFPVCGZC4dhZFaQY3YhQN2ffvdePaGW07Vo
+         VKcx1nGr0PUGex+pblIXXBqsLnbzv52wRrUhT7CYMkbuc/JaJG3CWmDKxbeDE4d8Mb/0
+         DZxA==
+X-Forwarded-Encrypted: i=1; AJvYcCUzCtQ/T5lOTo7pBryDBJoDeUXqaLlwyAMBmeuVYiFB5CNScSNcfEQR3pn/SikpaBxhNfHtptS3xq1L@vger.kernel.org
+X-Gm-Message-State: AOJu0YxBG61TTdrFKCxVqg6xdNzl09X3xsdFpGjm1QkEzRRCfZyYIVrJ
+	ISCO4aODCFHTOYeXEoJMij+1Iq4wG2w1Da3TTdzskpeXmbSgIqWMNzv7dasNwJD8boTQMnLL+dj
+	v53NSfCBo/0t0B2ADv7sEwSL3X/hfPwHE9FzUpel/DKvlCaIgMJiLFYnT0bPJulokiwJHDE9O
+X-Gm-Gg: AeBDietztfbGDKwipxyPEt90MAgVUyK43pyRHKdmpjPxWLWR4Y2KgQlTfqoww6WK4jY
+	ZxVexoPKkFi7EmnD9CsignGbryfZXnwUS2Txml9cmTAnithmfLKHSa85t4AsUGMFCQ442Yc6azn
+	Ad1eF/XEf1Yk8/f4QBh+WexBKQVd6jyReX6zk0mldg5Wnsb1B97KOEslIV/5uDcSL7REmpIWEfm
+	CDBEOd6yti36Zi99YPu8NiluSaBZzj2jGeTQNfAobZltPfnejRDGZKQCYqhwOd0WkG/JF+J7lCb
+	drExVMVpWeKXKwagoy7RUti9jpeDpBGJb+rpaTLne96bNXdsE+Sr/t3dNvEPM7j/t+RL5AXC/SJ
+	SWbu63U7eVvzaoUIOuBdum81yR+FkEDhYATgDux7Lal8+JgmJzVC+IXgy6Aeati9aTKTmerrBbu
+	t20EC7FchJl23oXl3L0AneygS4S4bXjeQjNfw=
+X-Received: by 2002:a05:622a:a548:b0:50b:4ccf:135e with SMTP id d75a77b69052e-50dd5b7c79fmr77592621cf.31.1775909487814;
+        Sat, 11 Apr 2026 05:11:27 -0700 (PDT)
+X-Received: by 2002:a05:622a:a548:b0:50b:4ccf:135e with SMTP id d75a77b69052e-50dd5b7c79fmr77592201cf.31.1775909487381;
+        Sat, 11 Apr 2026 05:11:27 -0700 (PDT)
 Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-38e495b4e73sm11906291fa.41.2026.04.11.05.11.23
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-38e495b4e73sm11906291fa.41.2026.04.11.05.11.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 11 Apr 2026 05:11:23 -0700 (PDT)
+        Sat, 11 Apr 2026 05:11:25 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Sat, 11 Apr 2026 15:10:37 +0300
-Subject: [PATCH v2 17/21] drm/panel: ilitek-ili9881c: support Waveshare
- 7.0" DSI panel
+Date: Sat, 11 Apr 2026 15:10:38 +0300
+Subject: [PATCH v2 18/21] drm/panel: add devm_drm_panel_add() helper
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,7 +90,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260411-waveshare-dsi-touch-v2-17-75cdbeac5156@oss.qualcomm.com>
+Message-Id: <20260411-waveshare-dsi-touch-v2-18-75cdbeac5156@oss.qualcomm.com>
 References: <20260411-waveshare-dsi-touch-v2-0-75cdbeac5156@oss.qualcomm.com>
 In-Reply-To: <20260411-waveshare-dsi-touch-v2-0-75cdbeac5156@oss.qualcomm.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
@@ -111,369 +110,100 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=11997;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2089;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=GeCr1NynOzRyMTA3YNx3AI6OZgpUDXwfoJ9GX7n6oNY=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBp2jpHfG5oWWlmIUR1KAJYmQXCxY+dELdAPF73Z
- Bi3h9UpPWOJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCado6RwAKCRCLPIo+Aiko
- 1QjyB/9n2LxW+xRG5ZajKwSC8A764JloAVVmN6iYfqMWHFngF6/SsTeoZWBxGIwKp+ntF9iV+wQ
- a9aqvkLc337NAj9xOOtbaK7TnntOKu9X0KaP7ed9DN8mM4UU4uFGeFkcsmEVDZfGIUIOLjGoVb8
- ox6JNdhRO/WcOoaZDgPJA1qiD1PGMX4N2AH8w0edrz/Ou0So26tiuq5BEagetWkFflC5b6lUZeb
- iJWqfkrbDREBN54SJfTa+Dh1FznfYLqWkmi9NpmOap994WdUpbiv8BLy+HyWxQQDkIl9QCUCyIX
- QfyHLieKdP47nUHP339osH1EOf57C+D+fjy/k4l6fnVxclww
+ bh=rf4el4++6e9jBpjjECUwGqmrfgQoRtn7snVn69MvoWU=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBp2jpHm6fYy9faeKzAMPgr6LGW7nVgHcX8hKrg+
+ qopFVe49u6JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCado6RwAKCRCLPIo+Aiko
+ 1RooCACTizZflR7WKB6rcWXc9mVqam8f3y7ZEymyQjkmYT0Fq5EoVed/5U/A/eHZbscogqTiZHo
+ 31eHxncXOZIKlam+Rv8DV3lvfmC1W0NvHM+NKkJrxtKTV/MF8b0eO2A1uHFp1ys+EDjst6dPB6R
+ Ny1kZAL7tOKNTUiHzdl2K954tffQj8KMkM02GaQSYuZ+RKoakeIaPDDg3cOh5gJxi4HdQos4Dtt
+ SMUa0tZ7SBIcvkji9Xckd8bWlaMtm1YQE06k7qPvyWJGsK3i/0wBY+Z57Yz9bjKZfXh/hVdUGM0
+ iY1IpWo+PdeQ+t27iZqaqWDgaDYRSZKqbP0s9N/dvJIgjK4K
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Authority-Analysis: v=2.4 cv=PuijqQM3 c=1 sm=1 tr=0 ts=69da3a6e cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Authority-Analysis: v=2.4 cv=YfmNIQRf c=1 sm=1 tr=0 ts=69da3a71 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=Vzx2zukWpxHvXuQtFQgA:9 a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-ORIG-GUID: 3_r8GJw7INPGf03mDycXjycbDyiVctuz
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDExMDEwMiBTYWx0ZWRfXxEw8d5a8QcCi
- CEya1DaTrNquax9/+vSBCKuShQIG49W8m6RrYH0oU/p8St+iD5xoNMUxZUa/w3LhWbbhJ+L/RL0
- RpUrENAkMdrPFIFFVo0ROKunQ6GjNeD7rGPbiAVkppQ5yYQ3O0JwhHU75GvTv6UW9xLgU/J2mkd
- x12ZWM7113sZ8vccGyiwvm1RXiDBEmfyvIiHPfuMWmVhhqByPge5pVvJUG9+XTjrHyT7pDSdJOD
- bDVms2rc0FEcYzWxEf6nZsSikopNVxAvOIEW7Y59zoanXM+C0cyeVPyc58hUr98WI6ltrWIeC8q
- /1TcFkFbAUod/9c7K5lh+c8BLfYi1es2K05flqL2pNCuaCceAQWpI+0XTc9y7LIx5YLK/5Ol1HG
- muXfEu7+K6bGIf7hgasWXzfPGP7FXwOlRYRNqssd85+a6hE+3lFRLbUPaJzKGeC6Kj6WN0aR2Ud
- bOSfYrDiiGSWEL/C27Q==
-X-Proofpoint-GUID: 3_r8GJw7INPGf03mDycXjycbDyiVctuz
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=VYOP6asi5FRKG1UsDooA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDExMDEwMiBTYWx0ZWRfX0jzyO/s9rwWL
+ UbYAhmFBJdfFWQhlKfUtCs0Yr7BDFZxRcZtRt+jDVxa7n/ltsnIy7D9GzHzIWN9uQ8mRFcEKyZr
+ pavFFJ4KZtPiAbGpbVb4ztkNqCvh/+AEJmBpMoZkmWWdUgyYvnwnc3l656YBFuMTXjGOQoV5mpV
+ w/qZQNyYjLPX+Akvk5WgDTOLq0jvO70xd0TGA2K08tiZng9RrNbD71n3PhT/9qwHnVUriwtT7jG
+ hwTnoSkTt59jM0GLLyaN6ZN/l+6guTFpM3Gxemkil0Uxipbur6pufDw6A66d00slvDhn8Y/3dun
+ g+cGNA1wKX8a5vX49g2YpWbQwFVZ48Xk9HlH8PGS99WSwukmZz+6GIWAyYb+hU5mEqIy1ScJTwI
+ kpYRpWuXnHNeOxNH1Ycu+t818JsjtMXGC2Ak2nzhs5rpLEDtplRjoVqr9zCvFddT2aY7vzkmw62
+ haXhvnFQ2PTr/+7sDYw==
+X-Proofpoint-ORIG-GUID: nXPq9Z6CYTanxgbGhAqDRwpjqHcB1E7A
+X-Proofpoint-GUID: nXPq9Z6CYTanxgbGhAqDRwpjqHcB1E7A
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-11_03,2026-04-09_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 suspectscore=0 spamscore=0 phishscore=0
- malwarescore=0 clxscore=1015 impostorscore=0 adultscore=0 bulkscore=0
+ lowpriorityscore=0 impostorscore=0 adultscore=0 phishscore=0 malwarescore=0
+ spamscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604110102
 
-Enable support for Waveshare 7.0" DSI TOUCH-A panel. It requires
-additional voltage regulator, iovcc.
+Add devm_drm_panel_add(), devres-managed version of drm_panel_add().
+It's not uncommon for the panel drivers to use devres functions for most
+of the resources. Provide corresponding replacement for drm_panel_add().
 
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/panel/panel-ilitek-ili9881c.c | 251 +++++++++++++++++++++++++-
- 1 file changed, 249 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/drm_panel.c | 23 +++++++++++++++++++++++
+ include/drm/drm_panel.h     |  1 +
+ 2 files changed, 24 insertions(+)
 
-diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-index 947b47841b01..0652cdb57d11 100644
---- a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-+++ b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-@@ -52,6 +52,7 @@ struct ili9881c {
- 	const struct ili9881c_desc	*desc;
- 
- 	struct regulator	*power;
-+	struct regulator	*iovcc;
- 	struct gpio_desc	*reset;
- 
- 	enum drm_panel_orientation	orientation;
-@@ -1997,6 +1998,205 @@ static const struct ili9881c_instr bsd1218_a101kl68_init[] = {
- 	ILI9881C_COMMAND_INSTR(0xd3, 0x3f),
- };
- 
-+static const struct ili9881c_instr waveshare_7inch_a_init[] = {
-+	ILI9881C_SWITCH_PAGE_INSTR(3),
-+	ILI9881C_COMMAND_INSTR(0x01, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x02, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x03, 0x73),
-+	ILI9881C_COMMAND_INSTR(0x04, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x05, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x06, 0x0a),
-+	ILI9881C_COMMAND_INSTR(0x07, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x08, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x09, 0x61),
-+	ILI9881C_COMMAND_INSTR(0x0a, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x0b, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x0c, 0x01),
-+	ILI9881C_COMMAND_INSTR(0x0d, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x0e, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x0f, 0x61),
-+	ILI9881C_COMMAND_INSTR(0x10, 0x61),
-+	ILI9881C_COMMAND_INSTR(0x11, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x12, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x13, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x14, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x15, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x16, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x17, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x18, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x19, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x1a, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x1b, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x1c, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x1d, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x1e, 0x40),
-+	ILI9881C_COMMAND_INSTR(0x1f, 0x80),
-+	ILI9881C_COMMAND_INSTR(0x20, 0x06),
-+	ILI9881C_COMMAND_INSTR(0x21, 0x01),
-+	ILI9881C_COMMAND_INSTR(0x22, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x23, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x24, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x25, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x26, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x27, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x28, 0x33),
-+	ILI9881C_COMMAND_INSTR(0x29, 0x03),
-+	ILI9881C_COMMAND_INSTR(0x2a, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x2b, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x2c, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x2d, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x2e, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x2f, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x30, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x31, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x32, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x33, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x34, 0x04),
-+	ILI9881C_COMMAND_INSTR(0x35, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x36, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x37, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x38, 0x3c),
-+	ILI9881C_COMMAND_INSTR(0x39, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x3a, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x3b, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x3c, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x3d, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x3e, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x3f, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x40, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x41, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x42, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x43, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x44, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x50, 0x10),
-+	ILI9881C_COMMAND_INSTR(0x51, 0x32),
-+	ILI9881C_COMMAND_INSTR(0x52, 0x54),
-+	ILI9881C_COMMAND_INSTR(0x53, 0x76),
-+	ILI9881C_COMMAND_INSTR(0x54, 0x98),
-+	ILI9881C_COMMAND_INSTR(0x55, 0xba),
-+	ILI9881C_COMMAND_INSTR(0x56, 0x10),
-+	ILI9881C_COMMAND_INSTR(0x57, 0x32),
-+	ILI9881C_COMMAND_INSTR(0x58, 0x54),
-+	ILI9881C_COMMAND_INSTR(0x59, 0x76),
-+	ILI9881C_COMMAND_INSTR(0x5a, 0x98),
-+	ILI9881C_COMMAND_INSTR(0x5b, 0xba),
-+	ILI9881C_COMMAND_INSTR(0x5c, 0xdc),
-+	ILI9881C_COMMAND_INSTR(0x5d, 0xfe),
-+	ILI9881C_COMMAND_INSTR(0x5e, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x5f, 0x0e),
-+	ILI9881C_COMMAND_INSTR(0x60, 0x0f),
-+	ILI9881C_COMMAND_INSTR(0x61, 0x0c),
-+	ILI9881C_COMMAND_INSTR(0x62, 0x0d),
-+	ILI9881C_COMMAND_INSTR(0x63, 0x06),
-+	ILI9881C_COMMAND_INSTR(0x64, 0x07),
-+	ILI9881C_COMMAND_INSTR(0x65, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x66, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x67, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x68, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x69, 0x01),
-+	ILI9881C_COMMAND_INSTR(0x6a, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x6b, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x6c, 0x15),
-+	ILI9881C_COMMAND_INSTR(0x6d, 0x14),
-+	ILI9881C_COMMAND_INSTR(0x6e, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x6f, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x70, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x71, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x72, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x73, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x74, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x75, 0x0e),
-+	ILI9881C_COMMAND_INSTR(0x76, 0x0f),
-+	ILI9881C_COMMAND_INSTR(0x77, 0x0c),
-+	ILI9881C_COMMAND_INSTR(0x78, 0x0d),
-+	ILI9881C_COMMAND_INSTR(0x79, 0x06),
-+	ILI9881C_COMMAND_INSTR(0x7a, 0x07),
-+	ILI9881C_COMMAND_INSTR(0x7b, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x7c, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x7d, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x7e, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x7f, 0x01),
-+	ILI9881C_COMMAND_INSTR(0x80, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x81, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x82, 0x14),
-+	ILI9881C_COMMAND_INSTR(0x83, 0x15),
-+	ILI9881C_COMMAND_INSTR(0x84, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x85, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x86, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x87, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x88, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x89, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x8a, 0x02),
-+
-+	ILI9881C_SWITCH_PAGE_INSTR(4),
-+	ILI9881C_COMMAND_INSTR(0x38, 0x01),
-+	ILI9881C_COMMAND_INSTR(0x39, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x6c, 0x15),
-+	ILI9881C_COMMAND_INSTR(0x6e, 0x2a),
-+	ILI9881C_COMMAND_INSTR(0x6f, 0x33),
-+	ILI9881C_COMMAND_INSTR(0x3a, 0x94),
-+	ILI9881C_COMMAND_INSTR(0x8d, 0x14),
-+	ILI9881C_COMMAND_INSTR(0x87, 0xba),
-+	ILI9881C_COMMAND_INSTR(0x26, 0x76),
-+	ILI9881C_COMMAND_INSTR(0xb2, 0xd1),
-+	ILI9881C_COMMAND_INSTR(0xb5, 0x06),
-+	ILI9881C_COMMAND_INSTR(0x3b, 0x98),
-+
-+	ILI9881C_SWITCH_PAGE_INSTR(1),
-+	ILI9881C_COMMAND_INSTR(0x22, 0x0a),
-+	ILI9881C_COMMAND_INSTR(0x31, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x53, 0x71),
-+	ILI9881C_COMMAND_INSTR(0x55, 0x8f),
-+	ILI9881C_COMMAND_INSTR(0x40, 0x33),
-+	ILI9881C_COMMAND_INSTR(0x50, 0x96),
-+	ILI9881C_COMMAND_INSTR(0x51, 0x96),
-+	ILI9881C_COMMAND_INSTR(0x60, 0x23),
-+	ILI9881C_COMMAND_INSTR(0xa0, 0x08),
-+	ILI9881C_COMMAND_INSTR(0xa1, 0x1d),
-+	ILI9881C_COMMAND_INSTR(0xa2, 0x2a),
-+	ILI9881C_COMMAND_INSTR(0xa3, 0x10),
-+	ILI9881C_COMMAND_INSTR(0xa4, 0x15),
-+	ILI9881C_COMMAND_INSTR(0xa5, 0x28),
-+	ILI9881C_COMMAND_INSTR(0xa6, 0x1c),
-+	ILI9881C_COMMAND_INSTR(0xa7, 0x1d),
-+	ILI9881C_COMMAND_INSTR(0xa8, 0x7e),
-+	ILI9881C_COMMAND_INSTR(0xa9, 0x1d),
-+	ILI9881C_COMMAND_INSTR(0xaa, 0x29),
-+	ILI9881C_COMMAND_INSTR(0xab, 0x6b),
-+	ILI9881C_COMMAND_INSTR(0xac, 0x1a),
-+	ILI9881C_COMMAND_INSTR(0xad, 0x18),
-+	ILI9881C_COMMAND_INSTR(0xae, 0x4b),
-+	ILI9881C_COMMAND_INSTR(0xaf, 0x20),
-+	ILI9881C_COMMAND_INSTR(0xb0, 0x27),
-+	ILI9881C_COMMAND_INSTR(0xb1, 0x50),
-+	ILI9881C_COMMAND_INSTR(0xb2, 0x64),
-+	ILI9881C_COMMAND_INSTR(0xb3, 0x39),
-+	ILI9881C_COMMAND_INSTR(0xc0, 0x08),
-+	ILI9881C_COMMAND_INSTR(0xc1, 0x1d),
-+	ILI9881C_COMMAND_INSTR(0xc2, 0x2a),
-+	ILI9881C_COMMAND_INSTR(0xc3, 0x10),
-+	ILI9881C_COMMAND_INSTR(0xc4, 0x15),
-+	ILI9881C_COMMAND_INSTR(0xc5, 0x28),
-+	ILI9881C_COMMAND_INSTR(0xc6, 0x1c),
-+	ILI9881C_COMMAND_INSTR(0xc7, 0x1d),
-+	ILI9881C_COMMAND_INSTR(0xc8, 0x7e),
-+	ILI9881C_COMMAND_INSTR(0xc9, 0x1d),
-+	ILI9881C_COMMAND_INSTR(0xca, 0x29),
-+	ILI9881C_COMMAND_INSTR(0xcb, 0x6b),
-+	ILI9881C_COMMAND_INSTR(0xcc, 0x1a),
-+	ILI9881C_COMMAND_INSTR(0xcd, 0x18),
-+	ILI9881C_COMMAND_INSTR(0xce, 0x4b),
-+	ILI9881C_COMMAND_INSTR(0xcf, 0x20),
-+	ILI9881C_COMMAND_INSTR(0xd0, 0x27),
-+	ILI9881C_COMMAND_INSTR(0xd1, 0x50),
-+	ILI9881C_COMMAND_INSTR(0xd2, 0x64),
-+	ILI9881C_COMMAND_INSTR(0xd3, 0x39),
-+
-+	ILI9881C_SWITCH_PAGE_INSTR(0),
-+	ILI9881C_COMMAND_INSTR(0x3a, 0x77),
-+	ILI9881C_COMMAND_INSTR(0x36, 0x00),
-+};
-+
- static inline struct ili9881c *panel_to_ili9881c(struct drm_panel *panel)
- {
- 	return container_of(panel, struct ili9881c, panel);
-@@ -2035,9 +2235,19 @@ static int ili9881c_prepare(struct drm_panel *panel)
- 	int ret;
- 
- 	/* Power the panel */
-+	if (ctx->iovcc) {
-+		ret = regulator_enable(ctx->iovcc);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	msleep(5);
- 	ret = regulator_enable(ctx->power);
--	if (ret)
--		return ret;
-+	if (ret) {
-+		mctx.accum_err = ret;
-+		goto disable_iovcc;
-+	}
-+
- 	msleep(5);
- 
- 	/* And reset it */
-@@ -2074,6 +2284,9 @@ static int ili9881c_prepare(struct drm_panel *panel)
- 
- disable_power:
- 	regulator_disable(ctx->power);
-+disable_iovcc:
-+	if (ctx->iovcc)
-+		regulator_disable(ctx->iovcc);
- 	return mctx.accum_err;
+diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
+index d1e6598ea3bc..a6029b699b73 100644
+--- a/drivers/gpu/drm/drm_panel.c
++++ b/drivers/gpu/drm/drm_panel.c
+@@ -101,6 +101,29 @@ void drm_panel_remove(struct drm_panel *panel)
  }
+ EXPORT_SYMBOL(drm_panel_remove);
  
-@@ -2085,6 +2298,8 @@ static int ili9881c_unprepare(struct drm_panel *panel)
- 	mipi_dsi_dcs_set_display_off_multi(&mctx);
- 	mipi_dsi_dcs_enter_sleep_mode_multi(&mctx);
- 	regulator_disable(ctx->power);
-+	if (ctx->iovcc)
-+		regulator_disable(ctx->iovcc);
- 	gpiod_set_value_cansleep(ctx->reset, 1);
++static void drm_panel_add_release(void *data)
++{
++	drm_panel_remove(data);
++}
++
++/**
++ * devm_drm_panel_add - add a panel to the global registry using devres
++ * @panel: panel to add
++ *
++ * Add a panel to the global registry so that it can be looked
++ * up by display drivers. The panel to be added must have been
++ * allocated by devm_drm_panel_alloc(). Unlike drm_panel_add() with this
++ * function there is no need to call drm_panel_remove(), it will be called
++ * automatically.
++ */
++int devm_drm_panel_add(struct device *dev, struct drm_panel *panel)
++{
++	drm_panel_add(panel);
++
++	return devm_add_action_or_reset(dev, drm_panel_add_release, panel);
++}
++EXPORT_SYMBOL(devm_drm_panel_add);
++
+ /**
+  * drm_panel_prepare - power on a panel
+  * @panel: DRM panel
+diff --git a/include/drm/drm_panel.h b/include/drm/drm_panel.h
+index 2407bfa60236..1fb9148dd095 100644
+--- a/include/drm/drm_panel.h
++++ b/include/drm/drm_panel.h
+@@ -329,6 +329,7 @@ void drm_panel_put(struct drm_panel *panel);
  
- 	return 0;
-@@ -2260,6 +2475,23 @@ static const struct drm_display_mode bsd1218_a101kl68_default_mode = {
- 	.height_mm	= 170,
- };
+ void drm_panel_add(struct drm_panel *panel);
+ void drm_panel_remove(struct drm_panel *panel);
++int devm_drm_panel_add(struct device *dev, struct drm_panel *panel);
  
-+static const struct drm_display_mode waveshare_7inch_a_mode = {
-+	.clock		= 83333,
-+
-+	.hdisplay	= 720,
-+	.hsync_start	= 720 + 120,
-+	.hsync_end	= 720 + 120 + 100,
-+	.htotal		= 720 + 120 + 100 + 100,
-+
-+	.vdisplay	= 1280,
-+	.vsync_start	= 1280 + 10,
-+	.vsync_end	= 1280 + 10 + 10,
-+	.vtotal		= 1280 + 10 + 10 + 10,
-+
-+	.width_mm	= 85,
-+	.height_mm	= 154,
-+};
-+
- static int ili9881c_get_modes(struct drm_panel *panel,
- 			      struct drm_connector *connector)
- {
-@@ -2329,6 +2561,11 @@ static int ili9881c_dsi_probe(struct mipi_dsi_device *dsi)
- 		return dev_err_probe(&dsi->dev, PTR_ERR(ctx->power),
- 				     "Couldn't get our power regulator\n");
- 
-+	ctx->iovcc = devm_regulator_get_optional(&dsi->dev, "iovcc");
-+	if (IS_ERR(ctx->iovcc))
-+		return dev_err_probe(&dsi->dev, PTR_ERR(ctx->iovcc),
-+				     "Couldn't get our iovcc regulator\n");
-+
- 	ctx->reset = devm_gpiod_get_optional(&dsi->dev, "reset", GPIOD_OUT_LOW);
- 	if (IS_ERR(ctx->reset))
- 		return dev_err_probe(&dsi->dev, PTR_ERR(ctx->reset),
-@@ -2454,6 +2691,15 @@ static const struct ili9881c_desc bsd1218_a101kl68_desc = {
- 	.lanes = 4,
- };
- 
-+static const struct ili9881c_desc waveshare_7inch_a_desc = {
-+	.init = waveshare_7inch_a_init,
-+	.init_length = ARRAY_SIZE(waveshare_7inch_a_init),
-+	.mode = &waveshare_7inch_a_mode,
-+	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_HSE |
-+		      MIPI_DSI_MODE_LPM | MIPI_DSI_CLOCK_NON_CONTINUOUS,
-+	.lanes = 2,
-+};
-+
- static const struct of_device_id ili9881c_of_match[] = {
- 	{ .compatible = "bananapi,lhr050h41", .data = &lhr050h41_desc },
- 	{ .compatible = "bestar,bsd1218-a101kl68", .data = &bsd1218_a101kl68_desc },
-@@ -2462,6 +2708,7 @@ static const struct of_device_id ili9881c_of_match[] = {
- 	{ .compatible = "tdo,tl050hdv35", .data = &tl050hdv35_desc },
- 	{ .compatible = "wanchanglong,w552946aaa", .data = &w552946aaa_desc },
- 	{ .compatible = "wanchanglong,w552946aba", .data = &w552946aba_desc },
-+	{ .compatible = "waveshare,7.0-dsi-touch-a", .data = &waveshare_7inch_a_desc },
- 	{ .compatible = "ampire,am8001280g", .data = &am8001280g_desc },
- 	{ .compatible = "raspberrypi,dsi-5inch", &rpi_5inch_desc },
- 	{ .compatible = "raspberrypi,dsi-7inch", &rpi_7inch_desc },
+ void drm_panel_prepare(struct drm_panel *panel);
+ void drm_panel_unprepare(struct drm_panel *panel);
 
 -- 
 2.47.3
