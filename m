@@ -1,104 +1,79 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F6C32E6B8;
-	Sat, 11 Apr 2026 10:12:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32B07294A10;
+	Sat, 11 Apr 2026 10:18:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775902324; cv=none; b=Zp0LCzDcfhFnprZcd6rEX3QrjlPVdUjP7g337VLZ0HvemtMhQOnOXfTuRUnmFTfXDxbxYwyp/KGsDUvO+soe8k7T8Q1pNfhMi4M7BRDi4Vg0oXSiFJUjJk75vXRsudKoMw4LL7ItPZP9/Is0gvk2wZn4y8aQI1jdIjE2xnZxGHo=
+	t=1775902685; cv=none; b=aEViSdX9lm9hlUfwhJA7oah8TFPw0ef3Q8DIyVIqGwW4dhGBFvf6xgG5UxuhtmO9k7szT01Ys07Ml4KId0fGpYVeSwWovF80rRfZvnd5HauSYk9biV0bCHfzJP+6XXM0QNo2TNvHFQ5O1/wJ1XdV3uBvupLjrxMtZOqs4ZcU1Z8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775902324; c=relaxed/simple;
-	bh=DLOxbxkuhfRrndcN7Pp5N2eb7duuklgQrYckDIDbI0s=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=fTomE2DIDrOo+vN0xBMy6WTbgGjhOEGAhjmXrBGJrFLUzVKrGGjehX9gqfduQDYHlsNxpAJGWRSvNka2hYCSQXac8dB2wFMb1RUT2NLVQ7SE1Kqs2Ec1QYKLmTybmdIn2qXqYuiJKbzETtlm4a4XkYOa/qNXENQV8noB46EYb+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fhSmV+4Z; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fhSmV+4Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C0AB4C4CEF7;
-	Sat, 11 Apr 2026 10:12:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775902323;
-	bh=DLOxbxkuhfRrndcN7Pp5N2eb7duuklgQrYckDIDbI0s=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=fhSmV+4ZfjkYG+CPowdTbhn9zbEkv+3k2p3jI4XNHC1+JA/afof6L4qIpU6Regkd2
-	 Y3h79D+yy7quEu8rxg4WiE7zDwKwmJ38lE0m7ZV3Mj6Cmis0zO2hyt0mj0nj2/YA6B
-	 jncnG2wUVrw655yUZ/nwOwPPX4Khl+WPNpxhnSts15KfuUxaWrHawyXRAiUe1iqMOr
-	 Xjc0oX2EEvpLOpdNNI4TsdysWsYQKx/1iMp+0cmHTVGHh3j/lejGEy95nLNnWQZpn0
-	 gpqnDjQcBtP2kuA2TdppMsfSQ6x/EWi9Uy6BqCB6jLFaYMRk79J0bE96UGulGYLxin
-	 9SSbUNvFr8MRQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B3A3BF4487B;
-	Sat, 11 Apr 2026 10:12:03 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Subject: [PATCH v2 0/2] Add initial dual front camera and rear flash
- support for Pixel 3 / 3 XL
-Date: Sat, 11 Apr 2026 12:12:01 +0200
-Message-Id: <20260411-pixel3-camera-v2-0-41b889abb14c@ixit.cz>
+	s=arc-20240116; t=1775902685; c=relaxed/simple;
+	bh=P7JgAQUkHvF8eV5CI8MNiikfBhYq8gaNjsfbWNvhsfw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e+bcMU28BQ5RIsXWxdhzsOUO3DE9y8NueKfwzjRVOeLAYsInZI1kwWGZPNgjNGFGWotci2IwCTB5d0FYDCCwMJi2C0m03OK7a5uGWrx/XcEsYGsLhhKaqpeiNiAoKEhdjAJls7imt+T+v8WX3R89ZZ74ckegRXf0sLB2lA/yLa4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.1])
+	by APP-03 (Coremail) with SMTP id rQCowABHaeDJH9pp6sKrDQ--.17907S2;
+	Sat, 11 Apr 2026 18:17:46 +0800 (CST)
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>
+Cc: devicetree@vger.kernel.org,
+	linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Subject: [PATCH 0/2] Enable LPC interrupt controller on MIPS LS7A systems
+Date: Sat, 11 Apr 2026 18:17:42 +0800
+Message-ID: <20260411101744.4020216-1-zhengxingda@iscas.ac.cn>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAHEe2mkC/13MQQ6CMBCF4auQWTumLbZQV97DsCh1kEkUSEsIS
- np3i+5c/pN53waRAlOEc7FBoIUjj0MOdSjA9264E/ItNyihjCilxolXepTo3ZOCQ2dtbdtO15Y
- I8mYK1OWH3bs2uXuO8xheX36R+/UnnaT8kxaJAlWlKyOMlro1F155Pvo3NCmlD4dHHG+oAAAA
-X-Change-ID: 20260315-pixel3-camera-a9989bf589ee
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Petr Hodina <petr.hodina@protonmail.com>, 
- Richard Acayan <mailingradian@gmail.com>, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=890; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=DLOxbxkuhfRrndcN7Pp5N2eb7duuklgQrYckDIDbI0s=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBp2h5yHbY9dH0lvE0VfYTk/4S24aBifMgf50F0+
- 1ojp091LzWJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCadoecgAKCRBgAj/E00kg
- ctlKEACG0RG2U5WBXLLDbuCpUaNeRVOiZvCkIRRBRJxM9QQzTEthaaa7wq8hItNc/AiKNmO+hSv
- T6nFnV2w8xzhaZjilYfgAs2dNGti5YJrViyfCfOm2GSp1eOGtC7RxJeO/ECNnXVipvrA3EEv/KC
- +V0ydCoVNRIxHyoK3R7LLqEOw46GvSK6mMHbCNUFmqU6ciapKcl4tlTw08S/18ZrptmU8Z9uRUj
- wpKvmvCVuAdA2exbiL7kV7KIFnTkfTp2liGDs57AG3EKjY7n1jdAIExaMb8VrRyKrMH0wMD6zk4
- J7k3fmsj0RgHziQn0aEgKBaJwnEaDVv4I3kdEq4L9iWKovaKLmiXs4X5F5timOyZYtqvwUyrOir
- pCkY/zDIeaNsxhZHcC+2mfFCjOe7DflVgRJMUsE6eRM4igFnKhQ3jHlQT5OilVT0kRDQQ7iBmLm
- iWaWJcl2Bh+QB7MPqh5tovRaryafO3EQ+bU/bKtNDYi2nJ+aW+jZ72TTbQmQq1GFtzqlYbZqG/y
- Qq8diq53lVy8IGDW2v0D3vME9nRc/7jpE9/kZxSpr/e5wVR0o5CbvaWPbOsfTxmTaF9LjNI3qMv
- WPXnWPw0YV2aLAr4Q3WPnK+cdMbjJfEJOihk6YiqxT3jX3i5sACx3/0reZvmPexzXICVitjthF9
- o2okzcb/6dMfKcw==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowABHaeDJH9pp6sKrDQ--.17907S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrCFW8Cw43CryUKw18ur4rKrg_yoWxWrg_GF
+	yIvrZ3Ga47Xas7JFZ7ZF1IgrW7WFWUuw1xC3Wvqr48t34Yyw4fJF4DCrW5JFn3XFZ0qF1r
+	Wr4kXFWrZ3ZIqjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbcAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+	Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r1q
+	6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
+	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
+	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+	WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
+	IxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjfUonmRUUUUU
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-Describe the dual front-facing IMX355 sensors (standard and wide)
-and enable the PMI8998 flash LED with hardware-accurate limits.
+This patchset tries to enable support for LPC interrupts on MIPS-based
+Loongson systems with Loongson 7A1000 PCH chip.
 
-This brings up the basic camera topology and flash support in DT.
+The corresponding irqchip support (along with the DT binding) is already
+added to the tip tree.
 
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
-Changes in v2:
-- leds.h include escaped the initial submission. Fixed.
-- Link to v1: https://lore.kernel.org/r/20260411-pixel3-camera-v1-0-2757606515b6@ixit.cz
+Tested on a Haier Boyue G51 system with legacy i8042 keyboard/mouse as
+integrated ones.
 
----
-David Heidelberg (2):
-      arm64: dts: qcom: sdm845-google: Add dual front IMX355 cameras
-      arm64: dts: qcom: sdm845-google: Enable PMI8998 camera flash LED
+This patchset is splitted from the original patchset that contains both
+driver part and DT part.
 
- arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 201 ++++++++++++++++++++-
- 1 file changed, 200 insertions(+), 1 deletion(-)
----
-base-commit: db7efce4ae23ad5e42f5f55428f529ff62b86fab
-change-id: 20260315-pixel3-camera-a9989bf589ee
+Icenowy Zheng (2):
+  MIPS: Loongson64: dts: Sort nodes
+  MIPS: Loongson64: dts: Add node for LS7A PCH LPC
 
-Best regards,
+ arch/mips/boot/dts/loongson/ls7a-pch.dtsi | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
+
 -- 
-David Heidelberg <david@ixit.cz>
-
+2.52.0
 
