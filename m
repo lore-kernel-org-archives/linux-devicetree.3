@@ -1,653 +1,179 @@
-Received: from mail-oo1-f97.google.com (mail-oo1-f97.google.com [209.85.161.97])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CFD7285050
-	for <devicetree@vger.kernel.org>; Sat, 11 Apr 2026 02:47:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11C85296BA9;
+	Sat, 11 Apr 2026 02:48:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775875675; cv=none; b=lt8djv5SsebNC9saFZ8QqbmWOCmU0fm/QmSM3F3qJ+kDlM8u5PDlpPXMtwKYkMiDqIrxjtI+RMjUtuR7Wfn0lcjcKtzyr/uK4wxun6aVap64J1UsJDEIHq+0Ryx6jIa/9rjC+pCCeL79+49qw3pn+lYERHMS8nQnwcirzvq7jzQ=
+	t=1775875709; cv=none; b=u74vQh6/fcY6BUwfXFNq5edrUwiyBi6UAw4CJOkwbSITfIECsZvD8nwId72Jp1DnFSsqRM90CBpQA8SGwNDbwwrpE8gmmOCWea+aOxZYYjQ07DkjqE6vI7O8v7WOPg8EPBm0K2kU/4/Uh/ZXv4qn3CRjBCBjYlS18XDbBzmECdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775875675; c=relaxed/simple;
-	bh=vQUxmko/Jd/65zUwvghbSPz6GGysPc//QGxB+93y4RM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ejYIh84W5ReD2vO3tqB9PDjTlCbUkSJwCFq3qpj1ItyhnOWqLyE4eQcwR+TtWRoC8HhjzTGV/kwGdZXoiVI9CFryhBcX7Lt3me4tK0OMF8V8spLl0DHEGSzjTccM2lew5jZ0Gyg39Lh7tJ2kHmJej5rO4UQ411ZDaIpilI8etKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ausil.us; spf=pass smtp.mailfrom=ausil.us; dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b=jt1U4aiu; arc=none smtp.client-ip=209.85.161.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ausil.us
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ausil.us
+	s=arc-20240116; t=1775875709; c=relaxed/simple;
+	bh=C1L68wEOa7QMkQeMg6JXJEZiMI7tywqjcBSBQ2MYaUQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AF+DJXxcAvmab90wM11zlZ+nT34jX0eDG4WX1r1jQflEpxVO42cMoX7wAMSTw23nNoRWUJ/2T4ZVyxdT55M6bISBORLrW01BRE23HbMHn0uM9wYdPjYalPKgE+avuP7hqL0qFDVCj8CybHTrMd00XUtuCrxHyp8dpIJO3zD/4hk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g433Igv1; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b="jt1U4aiu"
-Received: by mail-oo1-f97.google.com with SMTP id 006d021491bc7-662f30d3f1fso1554244eaf.1
-        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 19:47:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ausil.us; s=google; t=1775875670; x=1776480470; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=KWb3wq+tLz2SXSLe84zxMiTa2uE6dgIP0LkrcchIYxY=;
-        b=jt1U4aiuZ4e7Cup7dg3m6Dzfowyw4Zu/JnxWk8PmMujYzhHbDRMJx5wkTRoQuN5lcI
-         EtM4+tjYEbf0p+rCPeyWDFPLGyFWXW5lo28MzarjfsUObz/NtbG9eWw6ESK61R9Ytl4D
-         64cb3biaLF/lIW72okMMTD2vvkrkvnKEHoewRd1QB32n/CepE0QhGWxcQ4y/vIFgYz7c
-         fSmw0V+Oo0HlDQdYOeGdC38XGgmFIzagWfSlHrvemmMQh5Yg4q6Ptcyppbs9q3xT1bfc
-         SlxAQTYOW9R4fP2ni/nfauqDyJrR8hosIa9Aa4p0XcAVDdMeUYiiCG7KNcs7+gycdJQs
-         5qSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775875670; x=1776480470;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=KWb3wq+tLz2SXSLe84zxMiTa2uE6dgIP0LkrcchIYxY=;
-        b=GUfrIHUwlDT5exs3kkDzHU9MvMlMYajRjqgTSf5TDZjLeKwwuEdX70nc7qeHnf20sv
-         ce6STWCmNphLt32Gm5WkHt/y+0LJ2Y0p7004ZE7CMPUZOLeHGIaR6yrFEOHdFqeQcZyN
-         0P8rApL6R3rr5OMPx0vA7QkAafViasoy2czFVfZ+EuiY1seRfVTuoJtCyeCnF1vqEyji
-         r4SDPRS/OHqBtDwlXsKwHpjAWt+ZmglkJXwHwRS1SX89RZLy6rSiL2uBwKBn1Wfhhcwn
-         x38uOxIEykwlMEmvIPD+lTE/2wp+Tjmg4R/2miOVjnFDs/FiOjEbrqmmMm1NqU9cCur8
-         H0Tw==
-X-Forwarded-Encrypted: i=1; AJvYcCVgnSHBYCARIuP2dGNnZT7VlMDtXp2OEfg1mzmiffAlpGbD6NXMDAc6SRN/yUgByYZEm2eybekPPy+W@vger.kernel.org
-X-Gm-Message-State: AOJu0YxwTRK+VgVqF5hsHITYIeehGoEGNL9wjdqtor/9y6ERz7ym1AoZ
-	/0R/rQwTJKEiXnrNZ6sF+Q7FalT9L9xFo2hs36zdP0nldvzJ8Yzje8pX3XfhUP/gMTk7s9O+Luq
-	u4hl9b2AKPWDhSuvNq0F5ELyLwrmK+K7oizcY
-X-Gm-Gg: AeBDiete1wmQsdp7sClZKrS0fg4d7RSm0vWzoNMB3ysSG/TMcFK+UQmbrezUC62eREH
-	H/8UuAgqAE5Lu7l9N7h6qh/q8agk0n1on+cDfFQLFHAB08QDgXypAa2mOIX/kMIeIcc5QLZDlbR
-	CTgDPIhOAZeQh81Q5L0Uv+D2ZLZp5hB/4tCWSRXgBhES8Ifou1cH/UK+631KZjkTYzgW2alD33R
-	1W6xlarkOSNwqMu+dEkJyShL/iZc1kGAxHaXDVEGPuEagJx5v+b7MdvH4FgF2/SvZCI135JXa5C
-	T/PqCw0GeK5/0z3+/VHL4G0Od8SzVmd3xKWg4UlnCe/hNjfxCNWkdljYTrT1NCCTSqveQsmGYkh
-	Lz42eh5qP2CzkkaHtv5x8iRGt8OpEDlc2hDLqKpXuIJwa
-X-Received: by 2002:a05:6820:7513:b0:682:47e0:5d4e with SMTP id 006d021491bc7-68a68d5f842mr3068714eaf.14.1775875670052;
-        Fri, 10 Apr 2026 19:47:50 -0700 (PDT)
-Received: from ryac.ausil.us (207-179-239-100.mtco.net. [207.179.239.100])
-        by smtp-relay.gmail.com with ESMTPS id 586e51a60fabf-423ddd32ab3sm599086fac.16.2026.04.10.19.47.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Apr 2026 19:47:50 -0700 (PDT)
-X-Relaying-Domain: ausil.us
-From: dennis@ausil.us
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: FUKAUMI Naoki <naoki@radxa.com>,
-	Hsun Lai <i@chainsx.cn>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Chaoyi Chen <chaoyi.chen@rock-chips.com>,
-	John Clark <inindev@gmail.com>,
-	Michael Opdenacker <michael.opdenacker@rootcommit.com>,
-	Quentin Schulz <quentin.schulz@cherry.de>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Chukun Pan <amadeus@jmu.edu.cn>,
-	Alexey Charkov <alchark@gmail.com>,
-	Peter Robinson <pbrobinson@gmail.com>,
-	Dennis Gilmore <dennis@ausil.us>,
-	Michael Riesch <michael.riesch@collabora.com>,
-	Mykola Kvach <xakep.amatop@gmail.com>,
-	Jimmy Hon <honyuenkwun@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v6 2/3] arm64: dts: rockchip: refactor items from Orange Pi 5/b to prep for Pro
-Date: Fri, 10 Apr 2026 21:47:42 -0500
-Message-ID: <20260411024743.195385-3-dennis@ausil.us>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260411024743.195385-1-dennis@ausil.us>
-References: <20260411024743.195385-1-dennis@ausil.us>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g433Igv1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0A6DC2BC9E;
+	Sat, 11 Apr 2026 02:48:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775875708;
+	bh=C1L68wEOa7QMkQeMg6JXJEZiMI7tywqjcBSBQ2MYaUQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=g433Igv1pb8nfxFa7rj3ZTc49IIxGzXLBizezqRH4XX0qqVj55+mIGjqhDbPGZURa
+	 IKvEazGCxKsucmjEZTRs2uAUQE5amkO3kD9BuUfakVl2pjT6wQJ7XSh5kW/NBYWlmU
+	 JyVWVyJynrmoiZulNiqdYZVnXGKX/9J3pKyZZ7ubpH9+OZyL9Or0V27o5M/dDSFPfU
+	 f2QxUWsIz0KVb+sLAcWy8GNvOjm6KU6zstyhh3CWPS50ut18aFngmJ8f5KKx+U3Dh8
+	 GtRgDGeAAUuk6eVm3ZroXz8H+Q7X5f0/c6WcA5oZoRMaNJ1QTAtNX/cJwRQUP7sfXQ
+	 9DZ6s6YRwXPjw==
+Date: Fri, 10 Apr 2026 21:48:25 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, cros-qcom-dts-watchers@chromium.org, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 00/35] irqchip/qcom-pdc: Clean up register mapping and DT
+ descriptions
+Message-ID: <adm1uXe6QRes8DiX@baldur>
+References: <20260410184124.1068210-1-mukesh.ojha@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260410184124.1068210-1-mukesh.ojha@oss.qualcomm.com>
 
-From: Dennis Gilmore <dennis@ausil.us>
+On Sat, Apr 11, 2026 at 12:10:37AM +0530, Mukesh Ojha wrote:
+> The Qualcomm PDC (Power Domain Controller) hardware exposes multiple DRV
+> (Driver) regions, each 0x10000 bytes in size, where each region serves a
+> specific client in the system . Linux only needs access to the APSS DRV
+> region.
+> 
+> Despite this, the driver was mapping up to 0x30000 bytes (three DRV
+> regions) via a QCOM_PDC_SIZE clamp introduced as a workaround for old
+> sm8150 DTs that described a too-small register window. Correspondingly,
+> most platform DTS files described the PDC reg as 0x30000 in size, and
+> several also carried a second, entirely unused reg entry pointing at an
+> unrelated register region that the driver never maps.
+> 
+> This series cleans all of that up in three logical steps:
+> 
+> 1. (patches 2-6):
+> 
 
-The Orange Pi 5 Pro uses the same SoC and base as the Orange Pi 5 and
-Orange Pi 5B but has had sound, USB, and leds wired up differently. The
-boards also use gmac for ethernet where the Pro has a PCIe attached NIC.
+These patches are for the IRQ subsystem/maintainer.
 
-I have not changed the definitions from what was in rk3588s-orangepi-5.dtsi
+> Split __pdc_enable_intr() into two focused per-version helpers
+> to separate the HW < 3.2 bank-based path from the HW >= 3.2 per-pin
+> path. Replace the pdc_version global with a function pointer assigned
+> once at probe time, moving the version check out of the hot path.
+> Tighten the ioremap clamp from QCOM_PDC_SIZE (0x30000) to PDC_DRV_SIZE
+> (0x10000) now that the DT fixes below make the workaround unnecessary.
+> Also add a PDC_VERSION() constructor macro and use FIELD_GET() for bank
+> index extraction to make the bit encoding self-documenting.
+> 
+> 2. (patches 1, 7-28):
+> 
 
-Signed-off-by: Dennis Gilmore <dennis@ausil.us>
----
- .../dts/rockchip/rk3588s-orangepi-5-5b.dtsi   | 192 +++++++++++++++++
- .../boot/dts/rockchip/rk3588s-orangepi-5.dts  |   6 +-
- .../boot/dts/rockchip/rk3588s-orangepi-5.dtsi | 198 +-----------------
- .../boot/dts/rockchip/rk3588s-orangepi-5b.dts |   2 +-
- 4 files changed, 209 insertions(+), 189 deletions(-)
- create mode 100644 arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi
+And these patches are for the Qualcomm SoC/DT tree.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi
-new file mode 100644
-index 000000000000..b04dd667605d
---- /dev/null
-+++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi
-@@ -0,0 +1,192 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Device tree definitions shared by the Orange Pi 5 and Orange Pi 5B
-+ * but not the Orange Pi 5 Pro.
-+ */
-+
-+#include <dt-bindings/usb/pd.h>
-+#include "rk3588s-orangepi-5.dtsi"
-+
-+/ {
-+	aliases {
-+		ethernet0 = &gmac1;
-+	};
-+
-+	analog-sound {
-+		compatible = "simple-audio-card";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&hp_detect>;
-+		simple-audio-card,name = "rockchip,es8388";
-+		simple-audio-card,bitclock-master = <&masterdai>;
-+		simple-audio-card,format = "i2s";
-+		simple-audio-card,frame-master = <&masterdai>;
-+		simple-audio-card,hp-det-gpios = <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
-+		simple-audio-card,mclk-fs = <256>;
-+		simple-audio-card,routing =
-+			"Headphones", "LOUT1",
-+			"Headphones", "ROUT1",
-+			"LINPUT1", "Microphone Jack",
-+			"RINPUT1", "Microphone Jack",
-+			"LINPUT2", "Onboard Microphone",
-+			"RINPUT2", "Onboard Microphone";
-+		simple-audio-card,widgets =
-+			"Microphone", "Microphone Jack",
-+			"Microphone", "Onboard Microphone",
-+			"Headphone", "Headphones";
-+
-+		simple-audio-card,cpu {
-+			sound-dai = <&i2s1_8ch>;
-+		};
-+
-+		masterdai: simple-audio-card,codec {
-+			sound-dai = <&es8388>;
-+			system-clock-frequency = <12288000>;
-+		};
-+	};
-+
-+	pwm-leds {
-+		compatible = "pwm-leds";
-+
-+		led {
-+			color = <LED_COLOR_ID_GREEN>;
-+			function = LED_FUNCTION_STATUS;
-+			linux,default-trigger = "heartbeat";
-+			max-brightness = <255>;
-+			pwms = <&pwm0 0 25000 0>;
-+		};
-+	};
-+};
-+
-+&gmac1 {
-+	clock_in_out = "output";
-+	phy-handle = <&rgmii_phy1>;
-+	phy-mode = "rgmii-rxid";
-+	pinctrl-0 = <&gmac1_miim
-+		     &gmac1_tx_bus2
-+		     &gmac1_rx_bus2
-+		     &gmac1_rgmii_clk
-+		     &gmac1_rgmii_bus>;
-+	pinctrl-names = "default";
-+	tx_delay = <0x42>;
-+	status = "okay";
-+};
-+
-+&i2c6 {
-+	es8388: audio-codec@10 {
-+		compatible = "everest,es8388", "everest,es8328";
-+		reg = <0x10>;
-+		clocks = <&cru I2S1_8CH_MCLKOUT>;
-+		AVDD-supply = <&vcc_3v3_s0>;
-+		DVDD-supply = <&vcc_1v8_s0>;
-+		HPVDD-supply = <&vcc_3v3_s0>;
-+		PVDD-supply = <&vcc_3v3_s0>;
-+		assigned-clocks = <&cru I2S1_8CH_MCLKOUT>;
-+		assigned-clock-rates = <12288000>;
-+		#sound-dai-cells = <0>;
-+	};
-+
-+	usbc0: usb-typec@22 {
-+		compatible = "fcs,fusb302";
-+		reg = <0x22>;
-+		interrupt-parent = <&gpio0>;
-+		interrupts = <RK_PD3 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&usbc0_int>;
-+		vbus-supply = <&vbus_typec>;
-+		status = "okay";
-+
-+		usb_con: connector {
-+			compatible = "usb-c-connector";
-+			label = "USB-C";
-+			data-role = "dual";
-+			op-sink-microwatt = <1000000>;
-+			power-role = "dual";
-+			sink-pdos =
-+				<PDO_FIXED(5000, 1000, PDO_FIXED_USB_COMM)>;
-+			source-pdos =
-+				<PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
-+			try-power-role = "source";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					usbc0_hs: endpoint {
-+						remote-endpoint = <&usb_host0_xhci_drd_sw>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					usbc0_ss: endpoint {
-+						remote-endpoint = <&usbdp_phy0_typec_ss>;
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+					usbc0_sbu: endpoint {
-+						remote-endpoint = <&usbdp_phy0_typec_sbu>;
-+					};
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&i2s1_8ch {
-+	rockchip,i2s-tx-route = <3 2 1 0>;
-+	rockchip,i2s-rx-route = <1 3 2 0>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2s1m0_sclk
-+	             &i2s1m0_mclk
-+	             &i2s1m0_lrck
-+	             &i2s1m0_sdi1
-+	             &i2s1m0_sdo3>;
-+	status = "okay";
-+};
-+
-+&pwm0 {
-+	pinctrl-0 = <&pwm0m2_pins>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+};
-+
-+&usb_host0_xhci {
-+	dr_mode = "otg";
-+	usb-role-switch;
-+
-+	port {
-+		usb_host0_xhci_drd_sw: endpoint {
-+			remote-endpoint = <&usbc0_hs>;
-+		};
-+	};
-+};
-+
-+&usb_host2_xhci {
-+	status = "okay";
-+};
-+
-+&usbdp_phy0 {
-+	mode-switch;
-+	orientation-switch;
-+	sbu1-dc-gpios = <&gpio4 RK_PA5 GPIO_ACTIVE_HIGH>;
-+	sbu2-dc-gpios = <&gpio4 RK_PA7 GPIO_ACTIVE_HIGH>;
-+
-+	port {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		usbdp_phy0_typec_ss: endpoint@0 {
-+			reg = <0>;
-+			remote-endpoint = <&usbc0_ss>;
-+		};
-+
-+		usbdp_phy0_typec_sbu: endpoint@1 {
-+			reg = <1>;
-+			remote-endpoint = <&usbc0_sbu>;
-+		};
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dts b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dts
-index 83b9b6645a1e..d76bdf1b5e90 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dts
-@@ -2,12 +2,16 @@
- 
- /dts-v1/;
- 
--#include "rk3588s-orangepi-5.dtsi"
-+#include "rk3588s-orangepi-5-5b.dtsi"
- 
- / {
- 	model = "Xunlong Orange Pi 5";
- 	compatible = "xunlong,orangepi-5", "rockchip,rk3588s";
- 
-+	aliases {
-+		mmc0 = &sdmmc;
-+	};
-+
- 	vcc3v3_pcie20: regulator-vcc3v3-pcie20 {
- 		compatible = "regulator-fixed";
- 		enable-active-high;
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi
-index dafad29f9854..5c154cc6c62a 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi
-@@ -3,19 +3,13 @@
- /dts-v1/;
- 
- #include <dt-bindings/gpio/gpio.h>
--#include <dt-bindings/leds/common.h>
- #include <dt-bindings/input/input.h>
-+#include <dt-bindings/leds/common.h>
- #include <dt-bindings/pinctrl/rockchip.h>
- #include <dt-bindings/soc/rockchip,vop2.h>
--#include <dt-bindings/usb/pd.h>
- #include "rk3588s.dtsi"
- 
- / {
--	aliases {
--		ethernet0 = &gmac1;
--		mmc0 = &sdmmc;
--	};
--
- 	chosen {
- 		stdout-path = "serial2:1500000n8";
- 	};
-@@ -34,38 +28,6 @@ button-recovery {
- 		};
- 	};
- 
--	analog-sound {
--		compatible = "simple-audio-card";
--		pinctrl-names = "default";
--		pinctrl-0 = <&hp_detect>;
--		simple-audio-card,name = "rockchip,es8388";
--		simple-audio-card,bitclock-master = <&masterdai>;
--		simple-audio-card,format = "i2s";
--		simple-audio-card,frame-master = <&masterdai>;
--		simple-audio-card,hp-det-gpios = <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
--		simple-audio-card,mclk-fs = <256>;
--		simple-audio-card,routing =
--			"Headphones", "LOUT1",
--			"Headphones", "ROUT1",
--			"LINPUT1", "Microphone Jack",
--			"RINPUT1", "Microphone Jack",
--			"LINPUT2", "Onboard Microphone",
--			"RINPUT2", "Onboard Microphone";
--		simple-audio-card,widgets =
--			"Microphone", "Microphone Jack",
--			"Microphone", "Onboard Microphone",
--			"Headphone", "Headphones";
--
--		simple-audio-card,cpu {
--			sound-dai = <&i2s1_8ch>;
--		};
--
--		masterdai: simple-audio-card,codec {
--			sound-dai = <&es8388>;
--			system-clock-frequency = <12288000>;
--		};
--	};
--
- 	hdmi0-con {
- 		compatible = "hdmi-connector";
- 		type = "a";
-@@ -77,18 +39,6 @@ hdmi0_con_in: endpoint {
- 		};
- 	};
- 
--	pwm-leds {
--		compatible = "pwm-leds";
--
--		led {
--			color = <LED_COLOR_ID_GREEN>;
--			function = LED_FUNCTION_STATUS;
--			linux,default-trigger = "heartbeat";
--			max-brightness = <255>;
--			pwms = <&pwm0 0 25000 0>;
--		};
--	};
--
- 	vbus_typec: regulator-vbus-typec {
- 		compatible = "regulator-fixed";
- 		enable-active-high;
-@@ -101,15 +51,6 @@ vbus_typec: regulator-vbus-typec {
- 		vin-supply = <&vcc5v0_sys>;
- 	};
- 
--	vcc5v0_sys: regulator-vcc5v0-sys {
--		compatible = "regulator-fixed";
--		regulator-name = "vcc5v0_sys";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <5000000>;
--		regulator-max-microvolt = <5000000>;
--	};
--
- 	vcc_3v3_sd_s0: regulator-vcc-3v3-sd-s0 {
- 		compatible = "regulator-fixed";
- 		gpios = <&gpio4 RK_PB5 GPIO_ACTIVE_LOW>;
-@@ -119,6 +60,15 @@ vcc_3v3_sd_s0: regulator-vcc-3v3-sd-s0 {
- 		regulator-max-microvolt = <3300000>;
- 		vin-supply = <&vcc_3v3_s3>;
- 	};
-+
-+	vcc5v0_sys: regulator-vcc5v0-sys {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc5v0_sys";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+	};
- };
- 
- &combphy0_ps {
-@@ -161,20 +111,6 @@ &cpu_l3 {
- 	cpu-supply = <&vdd_cpu_lit_s0>;
- };
- 
--&gmac1 {
--	clock_in_out = "output";
--	phy-handle = <&rgmii_phy1>;
--	phy-mode = "rgmii-rxid";
--	pinctrl-0 = <&gmac1_miim
--		     &gmac1_tx_bus2
--		     &gmac1_rx_bus2
--		     &gmac1_rgmii_clk
--		     &gmac1_rgmii_bus>;
--	pinctrl-names = "default";
--	tx_delay = <0x42>;
--	status = "okay";
--};
--
- &gpu {
- 	mali-supply = <&vdd_gpu_s0>;
- 	status = "okay";
-@@ -270,69 +206,6 @@ &i2c6 {
- 	pinctrl-0 = <&i2c6m3_xfer>;
- 	status = "okay";
- 
--	es8388: audio-codec@10 {
--		compatible = "everest,es8388", "everest,es8328";
--		reg = <0x10>;
--		clocks = <&cru I2S1_8CH_MCLKOUT>;
--		AVDD-supply = <&vcc_3v3_s0>;
--		DVDD-supply = <&vcc_1v8_s0>;
--		HPVDD-supply = <&vcc_3v3_s0>;
--		PVDD-supply = <&vcc_3v3_s0>;
--		assigned-clocks = <&cru I2S1_8CH_MCLKOUT>;
--		assigned-clock-rates = <12288000>;
--		#sound-dai-cells = <0>;
--	};
--
--	usbc0: usb-typec@22 {
--		compatible = "fcs,fusb302";
--		reg = <0x22>;
--		interrupt-parent = <&gpio0>;
--		interrupts = <RK_PD3 IRQ_TYPE_LEVEL_LOW>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&usbc0_int>;
--		vbus-supply = <&vbus_typec>;
--		status = "okay";
--
--		usb_con: connector {
--			compatible = "usb-c-connector";
--			label = "USB-C";
--			data-role = "dual";
--			op-sink-microwatt = <1000000>;
--			power-role = "dual";
--			sink-pdos =
--				<PDO_FIXED(5000, 1000, PDO_FIXED_USB_COMM)>;
--			source-pdos =
--				<PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
--			try-power-role = "source";
--
--			ports {
--				#address-cells = <1>;
--				#size-cells = <0>;
--
--				port@0 {
--					reg = <0>;
--					usbc0_hs: endpoint {
--						remote-endpoint = <&usb_host0_xhci_drd_sw>;
--					};
--				};
--
--				port@1 {
--					reg = <1>;
--					usbc0_ss: endpoint {
--						remote-endpoint = <&usbdp_phy0_typec_ss>;
--					};
--				};
--
--				port@2 {
--					reg = <2>;
--					usbc0_sbu: endpoint {
--						remote-endpoint = <&usbdp_phy0_typec_sbu>;
--					};
--				};
--			};
--		};
--	};
--
- 	hym8563: rtc@51 {
- 		compatible = "haoyu,hym8563";
- 		reg = <0x51>;
-@@ -346,18 +219,6 @@ hym8563: rtc@51 {
- 	};
- };
- 
--&i2s1_8ch {
--	rockchip,i2s-tx-route = <3 2 1 0>;
--	rockchip,i2s-rx-route = <1 3 2 0>;
--	pinctrl-names = "default";
--	pinctrl-0 = <&i2s1m0_sclk
--	             &i2s1m0_mclk
--	             &i2s1m0_lrck
--	             &i2s1m0_sdi1
--	             &i2s1m0_sdo3>;
--	status = "okay";
--};
--
- &i2s5_8ch {
- 	status = "okay";
- };
-@@ -404,12 +265,6 @@ typec5v_pwren: typec5v-pwren {
- 	};
- };
- 
--&pwm0 {
--	pinctrl-0 = <&pwm0m2_pins>;
--	pinctrl-names = "default";
--	status = "okay";
--};
--
- &rknn_core_0 {
- 	npu-supply = <&vdd_npu_s0>;
- 	sram-supply = <&vdd_npu_s0>;
-@@ -841,26 +696,7 @@ &uart2 {
- };
- 
- &usbdp_phy0 {
--	mode-switch;
--	orientation-switch;
--	sbu1-dc-gpios = <&gpio4 RK_PA5 GPIO_ACTIVE_HIGH>;
--	sbu2-dc-gpios = <&gpio4 RK_PA7 GPIO_ACTIVE_HIGH>;
- 	status = "okay";
--
--	port {
--		#address-cells = <1>;
--		#size-cells = <0>;
--
--		usbdp_phy0_typec_ss: endpoint@0 {
--			reg = <0>;
--			remote-endpoint = <&usbc0_ss>;
--		};
--
--		usbdp_phy0_typec_sbu: endpoint@1 {
--			reg = <1>;
--			remote-endpoint = <&usbc0_sbu>;
--		};
--	};
- };
- 
- &usb_host0_ehci {
-@@ -872,15 +708,7 @@ &usb_host0_ohci {
- };
- 
- &usb_host0_xhci {
--	dr_mode = "otg";
--	usb-role-switch;
- 	status = "okay";
--
--	port {
--		usb_host0_xhci_drd_sw: endpoint {
--			remote-endpoint = <&usbc0_hs>;
--		};
--	};
- };
- 
- &usb_host1_ehci {
-@@ -891,7 +719,7 @@ &usb_host1_ohci {
- 	status = "okay";
- };
- 
--&usb_host2_xhci {
-+&vop {
- 	status = "okay";
- };
- 
-@@ -899,10 +727,6 @@ &vop_mmu {
- 	status = "okay";
- };
- 
--&vop {
--	status = "okay";
--};
--
- &vp0 {
- 	vp0_out_hdmi0: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
- 		reg = <ROCKCHIP_VOP2_EP_HDMI0>;
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5b.dts b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5b.dts
-index d21ec320d295..8af174777809 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5b.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5b.dts
-@@ -2,7 +2,7 @@
- 
- /dts-v1/;
- 
--#include "rk3588s-orangepi-5.dtsi"
-+#include "rk3588s-orangepi-5-5b.dtsi"
- 
- / {
- 	model = "Xunlong Orange Pi 5B";
--- 
-2.53.0
+> All 28 platform DTS files that described the PDC reg window as 0x30000
+> are corrected to 0x10000, reflecting the single APSS DRV region that
+> Linux actually maps.
+> 
+> 3. (patches 29-35):
+> 
 
+Same with these.
+
+
+I don't see any dependencies between the IRQ and DT patches, can they be
+merged independently? Why did you send them together?
+
+Regards,
+Bjorn
+
+> Seven platform DTS files (kaanapali, lemans, milos, monaco, sc8280xp,
+> sdx75, talos) carried a second reg entry pointing at an unrelated
+> hardware block. The driver only ever calls of_address_to_resource(node,
+> 0, ...) so this second entry was never mapped or accessed. Remove it.
+> 
+> The net result is that every PDC node in the tree now describes exactly
+> one register region of exactly 0x10000 bytes — the APSS DRV region that
+> the driver actually uses — and the driver's ioremap clamp matches that
+> reality.
+> 
+> Mukesh Ojha (35):
+>   dt-bindings: qcom,pdc: Tighten reg to single APSS DRV region
+>   irqchip/qcom-pdc: Split __pdc_enable_intr() into per-version helpers
+>   irqchip/qcom-pdc: Tighten ioremap clamp to single DRV region size
+>   irqchip/qcom-pdc: Replace pdc_version global with a function pointer
+>   irqchip/qcom-pdc: Add PDC_VERSION() macro to describe version register
+>     fields
+>   irqchip/qcom-pdc: Use FIELD_GET() to extract bank index and bit
+>     position
+>   arm64: dts: qcom: sdm845: Fix PDC reg size to single APSS DRV region
+>   arm64: dts: qcom: sdm670: Fix PDC reg size to single APSS DRV region
+>   arm64: dts: qcom: sc7180: Fix PDC reg size to single APSS DRV region
+>   arm64: dts: qcom: sc7280: Fix PDC reg size to single APSS DRV region
+>   arm64: dts: qcom: sc8180x: Fix PDC reg size to single APSS DRV region
+>   arm64: dts: qcom: sm8150: Fix PDC reg size to single APSS DRV region
+>   arm64: dts: qcom: sc8280xp: Fix PDC reg size to single APSS DRV region
+>   arm64: dts: qcom: sm8250: Fix PDC reg size to single APSS DRV region
+>   arm64: dts: qcom: sm8350: Fix PDC reg size to single APSS DRV region
+>   arm64: dts: qcom: sm8450: Fix PDC reg size to single APSS DRV region
+>   arm64: dts: qcom: sm8550: Fix PDC reg size to single APSS DRV region
+>   arm64: dts: qcom: sm8650: Fix PDC reg size to single APSS DRV region
+>   arm64: dts: qcom: sm4450: Fix PDC reg size to single APSS DRV region
+>   arm64: dts: qcom: x1e80100: Fix PDC reg size to single APSS DRV region
+>   arm64: dts: qcom: sm6350: Fix PDC reg size to single APSS DRV region
+>   arm64: dts: qcom: sar2130p: Fix PDC reg size to single APSS DRV region
+>   arm64: dts: qcom: qcs615: Fix PDC reg size to single APSS DRV region
+>   arm64: dts: qcom: qcs8300: Fix PDC reg size to single APSS DRV region
+>   arm64: dts: qcom: sa8775p: Fix PDC reg size to single APSS DRV region
+>   arm64: dts: qcom: sdx75: Fix PDC reg size to single APSS DRV region
+>   arm64: dts: qcom: milos: Fix PDC reg size to single APSS DRV region
+>   arm64: dts: qcom: qdu1000: Fix PDC reg size to single APSS DRV region
+>   arm64: dts: qcom: kaanapali: Drop unused second PDC reg entry
+>   arm64: dts: qcom: lemans: Drop unused second PDC reg entry
+>   arm64: dts: qcom: milos: Drop unused second PDC reg entry
+>   arm64: dts: qcom: monaco: Drop unused second PDC reg entry
+>   arm64: dts: qcom: sc8280xp: Drop unused second PDC reg entry
+>   arm64: dts: qcom: sdx75: Drop unused second PDC reg entry
+>   arm64: dts: qcom: talos: Drop unused second PDC reg entry
+> 
+>  .../interrupt-controller/qcom,pdc.yaml        |  2 +-
+>  arch/arm64/boot/dts/qcom/hamoa.dtsi           |  2 +-
+>  arch/arm64/boot/dts/qcom/kaanapali.dtsi       |  3 +-
+>  arch/arm64/boot/dts/qcom/kodiak.dtsi          |  2 +-
+>  arch/arm64/boot/dts/qcom/lemans.dtsi          |  3 +-
+>  arch/arm64/boot/dts/qcom/milos.dtsi           |  3 +-
+>  arch/arm64/boot/dts/qcom/monaco.dtsi          |  3 +-
+>  arch/arm64/boot/dts/qcom/qdu1000.dtsi         |  2 +-
+>  arch/arm64/boot/dts/qcom/sar2130p.dtsi        |  2 +-
+>  arch/arm64/boot/dts/qcom/sc7180.dtsi          |  2 +-
+>  arch/arm64/boot/dts/qcom/sc8180x.dtsi         |  2 +-
+>  arch/arm64/boot/dts/qcom/sc8280xp.dtsi        |  2 +-
+>  arch/arm64/boot/dts/qcom/sdm670.dtsi          |  2 +-
+>  arch/arm64/boot/dts/qcom/sdm845.dtsi          |  2 +-
+>  arch/arm64/boot/dts/qcom/sdx75.dtsi           |  3 +-
+>  arch/arm64/boot/dts/qcom/sm4450.dtsi          |  2 +-
+>  arch/arm64/boot/dts/qcom/sm6350.dtsi          |  2 +-
+>  arch/arm64/boot/dts/qcom/sm8150.dtsi          |  2 +-
+>  arch/arm64/boot/dts/qcom/sm8250.dtsi          |  2 +-
+>  arch/arm64/boot/dts/qcom/sm8350.dtsi          |  2 +-
+>  arch/arm64/boot/dts/qcom/sm8450.dtsi          |  2 +-
+>  arch/arm64/boot/dts/qcom/sm8550.dtsi          |  2 +-
+>  arch/arm64/boot/dts/qcom/sm8650.dtsi          |  2 +-
+>  arch/arm64/boot/dts/qcom/talos.dtsi           |  3 +-
+>  drivers/irqchip/qcom-pdc.c                    | 56 +++++++++++--------
+>  25 files changed, 57 insertions(+), 53 deletions(-)
+> 
+> -- 
+> 2.53.0
+> 
