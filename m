@@ -1,67 +1,33 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E8033264F5
-	for <devicetree@vger.kernel.org>; Sat, 11 Apr 2026 07:20:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6D5F2BE642;
+	Sat, 11 Apr 2026 07:36:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775892032; cv=none; b=KExDyrKXoqtvrhULQ6+I+hK/e2zkxH0k1Kggpl14uWGEoqwVC1IruJRfvH0MI4WQaecP5YDXvQIBsq3Lk6zpowf8FiudYfgM2LH+okluCNUM97qDOub93B/nRx7eRZ2ACYRri+yDX8HHNjIIJXAPNpE24NPRssZztTEAw15TsRM=
+	t=1775893008; cv=none; b=DCj8Bg+j1H0sbJBJFAOCatBKeiNyZ9J9Thd05WXgXpzrfCLNnSjzUDkJEUHMIL5la99wELMdDR8RbOXapyHPd9Tnkeu9uCOE3/JuyxNiyBqa9rAPQyX2sat0OzIMmNDylthaDLaYVIPSUB9wO3wvfJatEOjVrh1e0sGKoGKkHtE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775892032; c=relaxed/simple;
-	bh=giGY+nVbFQQ4Xw5h+OvpqFsfwqaC6d2zZAaoZfV8m6Q=;
+	s=arc-20240116; t=1775893008; c=relaxed/simple;
+	bh=a86LqrkcFQtSNbTYoEWxULDe7eYPjwXuk3wADShiM9o=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=k9qYGtBgBdPhDFTKC4rX24gYpKcjtQ/apXoBP+NTBzS5O0nhqRDsFyjYEEeLQDGBYEj9Ux7k7nLCbmscH78riA0TPNbotfYhW7uETNm/WEK3Zns7TRyj+/PsT+uUnLKlUNAx0XBxe3G5k4qK9b1z9BxCRcnKRjqs/calf2PI5fY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h6wkAzBv; arc=none smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=fgzOlUeXUrxS3xBM4yXbFc1fnjfzI0jHzMpxvbGGu1EeIudXoaH7Fh+69xDezzLPYhQ1O7k5esccfHxkUZAx7BC1FD3E1ag+9wy7znuYdbZIQ7kmPjKj+p/Rvdq/vI1dXI1AUlfOwuftmu71L2MbYXlKU3drqWfCz6Qr9SFm0Sk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lrtPWuqE; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h6wkAzBv"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-35da2d35eccso2190684a91.0
-        for <devicetree@vger.kernel.org>; Sat, 11 Apr 2026 00:20:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775892031; x=1776496831; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=VlHFHyv7lotD4cDN/ipcHMLKOy2CDqZhb9XbRaJOH1U=;
-        b=h6wkAzBvB2DI6GRbAcT03i/5nmeRpuWPKr8xtzuTDRqqKTXLtuXmzgxS9JJjbhGjz8
-         81fj1S2a7sAl0WZe74H65R5DcSNslDqJEozYH/aWnsKFFPyY1T2xZE9JvZsP9Y8t45+7
-         mXuMtNKXWhzF+d8an6fLn3FoAmUKkoCa8MEsZsyg/uIqNRB9Avdee48D0+wt8ZXv61ta
-         ywVtNobAfgqGPZHV1PuN+5hhGUGpbuGYfYtJ9+xCHu4EbhNBJaYza0dPGaWnx4g8qrSg
-         mF5QzJ7f0DPLhIj1A57kbcs5aheAme4BZz3J2cA6x+ZLcePqSZ04erdB6bYd2JGdpmJV
-         C8hA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775892031; x=1776496831;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=VlHFHyv7lotD4cDN/ipcHMLKOy2CDqZhb9XbRaJOH1U=;
-        b=Yjefc+mglxGCUCVsEfXeVTJI9rz4aY4cD37GQA8+eFz+Ci0bkZTQRRNeUb5857EwDy
-         yx/sB/3/K0WVClTUFiRvqrOnMbExCZ0oReDcvZI6oWeqaCjEJJBljQgF1TjUG824avqJ
-         1ViJws/YPipZ8aTNGHYNWBCtKWkd8VjuY49FOMc6VgmMsgxf1wPjupbch3b4kiMZNcmS
-         J8SZSWTpBF+4wjfncyJYBxL5H7EPzG9IgwIpz/BgjkBaoJuJ15W6WIPU1z3kZwbGG7aR
-         yt0nWhTcDMULzcu9WJoFEnxzQ8BVX3wV3YWACBKF5jp9EkKdgPjv1hugeEK301ocbhtP
-         Js3w==
-X-Forwarded-Encrypted: i=1; AJvYcCXZpjyimpf7/IiAHRkhRbn+/I+6G61jsoTZFM30yvJ3OixuCFpWmGNPVnmws7pMDXZ3+aa8d1JyLO9A@vger.kernel.org
-X-Gm-Message-State: AOJu0YwLq59xN/LsGiWuTtLCzd6lwUnaMtY1FJWmzQ7THFSqGpeAa70y
-	ocKMY1Uf2Rg87HjF3d8AlbOj2W+Jt5XMUnLlrFjif2k2DEmejDyCBWwB
-X-Gm-Gg: AeBDietqJYmrFAvSANJYgL52G6r9x3QUcfH9OI3r03O7CzdpS8G26ugOvPnXT3fuB2O
-	nQoa5v0zMhV+CtOU8FT/L1KJiaXmryZ/0Olt/YTOD75XP5XUgx0Jv5yqoITHZFsgK5bqdnf51YC
-	jwmf2USk4PMO6S0WgMEQwJzCjIK5ibRR1Wy6ltFCk04p9cJCxpkm72g+dGacHNaXm2kwKOiu4ly
-	jTrggS9T0m9kRI57fZFnudV/1TJryGaHux/KuVxHpIbkC0z2m7BWoBoWAT5WlEjO7BS3gVyxDsr
-	WMl/JO4PxKFwIfl3dyb3SilEmaKB8HsuAbEnu+rUtecBNElL8vbdsnf7Xy1h8FQDYZ035PgEnAW
-	Kiw26uP6DX8fH+eLZPBCwo4vyERRiKdbuQTSK9/15MvJfTi7jIHOq+NS/0lAOGZgwn/ekPNWFf/
-	NEmQumLE936serGlm1A4ZnZ9QREcfYyHvYmBbBkgWJsIh1dStTDoEbhxMYX4lTnzY8MQjvTmdT
-X-Received: by 2002:a17:90b:2ccb:b0:35b:c900:79a6 with SMTP id 98e67ed59e1d1-35e4274e341mr5769646a91.4.1775892030776;
-        Sat, 11 Apr 2026 00:20:30 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35e35155829sm9191314a91.13.2026.04.11.00.20.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 11 Apr 2026 00:20:30 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <d0f1f053-589a-4681-8c8f-8e4b5daec145@roeck-us.net>
-Date: Sat, 11 Apr 2026 00:20:28 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lrtPWuqE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3CD5C4CEF7;
+	Sat, 11 Apr 2026 07:36:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775893008;
+	bh=a86LqrkcFQtSNbTYoEWxULDe7eYPjwXuk3wADShiM9o=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=lrtPWuqE9Xpk8wnPJJM1j/nQBhPQWbpNGYSgkkk0RzaMp/qW+/m3hFkUFYa37PQpc
+	 ru99ycn7Z2VR7I/4mpHSgSc9UDBUSjFp9dNtEPbu1DXHLtZ/nk7lBdNAyFKa4Si/ic
+	 A+YxosuFDHghkhcOQKp9VA/jdt2Oirr409j6OzyTTmtbgjXkrV1SCTF+KoLLHW1W0b
+	 gisd4I/ZvyiHxyKJ3ocC92Wig1up96JZo+tvxWQ/ClhXeP+vct+QEk20+2E7ivdFxo
+	 GfxGYVYcQzPuszAIshK7QGRN0y9AsDDdbmcLItTYBCDsAGMEOO5YmvmBMAL9VlMR52
+	 LWCsg2xmJ0cjA==
+Message-ID: <6862f882-47d2-4cc8-b450-99fe9e6eacbf@kernel.org>
+Date: Sat, 11 Apr 2026 09:36:44 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,98 +35,132 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 13/13] arm64: defconfig: Enable I3C and SPD5118 hwmon
-To: Akhil R <akhilrajeev@nvidia.com>, krzk@kernel.org
-Cc: Frank.Li@nxp.com, acpica-devel@lists.linux.dev,
- alexandre.belloni@bootlin.com, conor+dt@kernel.org,
- devicetree@vger.kernel.org, ebiggers@kernel.org, krzk+dt@kernel.org,
- lenb@kernel.org, linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org,
- miquel.raynal@bootlin.com, p.zabel@pengutronix.de, rafael@kernel.org,
- robh@kernel.org, sakari.ailus@linux.intel.com,
- wsa+renesas@sang-engineering.com
-References: <5c751739-5044-4d23-9648-8d46dd0945d1@kernel.org>
- <20260411053433.49655-1-akhilrajeev@nvidia.com>
+Subject: Re: [PATCH v3 1/4] ARM: dts: qcom: msm8960: expressatt: Sort node
+ references and includes
+To: David Heidelberg <david@ixit.cz>, Rudraksha Gupta <guptarud@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260401-expressatt_fuel_guage-v3-0-9674cfc0b5a2@gmail.com>
+ <20260401-expressatt_fuel_guage-v3-1-9674cfc0b5a2@gmail.com>
+ <8e4ee378-113e-463d-8b21-eeef74b84120@kernel.org>
+ <b8b04f36-2f4d-4d0e-b0af-a01d129a5199@gmail.com>
+ <a27ee109-0716-45e9-9aa2-b58a57cbbd46@kernel.org>
+ <eb1eebd2-75c0-4ffe-95e7-9f5d5d02edd1@ixit.cz>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260411053433.49655-1-akhilrajeev@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <eb1eebd2-75c0-4ffe-95e7-9f5d5d02edd1@ixit.cz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 4/10/26 22:34, Akhil R wrote:
-[ ... ]
->>>> And it
->>>> should bring me clear rule what I can or cannot remove from defconfig,
->>>> if in 2 years I come and start pruning it from symbols.
+On 07/04/2026 23:46, David Heidelberg wrote:
+> On 07/04/2026 23:04, Krzysztof Kozlowski wrote:
+>> On 07/04/2026 22:39, Rudraksha Gupta wrote:
+>>>
+>>> On 4/7/26 12:59, Krzysztof Kozlowski wrote:
+>>>> On 01/04/2026 22:32, Rudraksha Gupta via B4 Relay wrote:
+>>>>> From: Rudraksha Gupta <guptarud@gmail.com>
+>>>>>
+>>>>> Reorganize the DTS file for consistency with other msm8960 board files.
+>>>>>
+>>>>> Assisted-by: Claude:claude-opus-4.6
+>>>>> Signed-off-by: Rudraksha Gupta <guptarud@gmail.com>
+>>>>> ---
+>>>>>    .../dts/qcom/qcom-msm8960-samsung-expressatt.dts   | 408 +++++++++++----------
+>>>>>    1 file changed, 207 insertions(+), 201 deletions(-)
+>>>>>
+>>>> Sorry, but no. We are not taking Claude as one determining coding style.
+>>>> Are we going to do the work again the moment we come with proper tool?
+>>>
+>>> There is no tool currently to auto format DTS, and doesn't seem to be
+>>> coming for a while:
+>>>
+>>> https://www.youtube.com/watch?v=cvoIbTL_ZQA
+>>>
+>>>
+>>> Claude didn't determine the coding style. I did based on sony-huashan,
+>>> which is already upstream:
+>>>
+>>> https://github.com/torvalds/linux/blob/master/arch/arm/boot/dts/qcom/qcom-msm8960-sony-huashan.dts
+>>>
+>>>
+>>> I just used Claude to do the manual work for me. In v2, I made sure the
+>>> diff before and after the change was nill. v3 included additional
+>>> changes requested by Konrad and some comments that I remembered during
+>>> prior attempts mainlining patch series for this device.
+>>
+>> IMO, it is just too risky to let Claude reorganize the nodes, but I
+>> assume reviewers of your code did run dtx_diff.
 > 
-> I am still a little confused on what information would likely accept (and
-> keep) these configs in the defconfig. Would updating the commit message
-> as below work?
+> I think it depends on the prompt. Since I’m performing many of the same tasks 
+> repeatedly across multiple sdm845 devices, asking an LLM to do node-by-node 
+> reorganization can be reasonably reviewable (at least when reviewing incremental 
+> progress, not just the final diff).
 > 
-> "These configs enable the support for SPD5118 within the
-> Small-Outline-Compression-Attached Memory Modules (SOCAMM) LPDDR5X found
-> in the NVIDIA Vera CPUs. The Vera CPU uses ACPI and is part of platforms
-> such as Vera Rubin."
+> I would prefer to do more of the sorting myself, but I find it quite tedious. 
+> The diff tool struggles when similar or identical lines appear in different 
+> nodes, which often results in a messy final diff (I noticed this in Sajattack’s 
+> sdm845 LG patchset).
 > 
+> This leads me to an idea:
+> 
+> For these sorting cleanups, perhaps we could introduce a “squash mode”?
+> 
+> Contributors could submit commits per node, making the reorganization clearly 
+> visible (and ensuring nothing is accidentally lost), and then the maintainer 
+> could squash them into a single commit to avoid cluttering the git log.
+> 
+> What do you think?
 
-It is quite interesting that we argue about SPD5118 which is mandatory in
-DDR5 systems. At the same time, CONFIG_IGB_HWMON, CONFIG_SENSORS_MACSMC_HWMON,
-CONFIG_SENSORS_RASPBERRYPI_HWMON, and CONFIG_RTC_DRV_DS3232_HWMON _are_
-enabled in arm64:defconfig. CONFIG_IGB_HWMON is even built-in.
+It would help review on the lists, although the actual solution is to
+use deterministic tools. That's why usage of Claude is wrong. It
+requires you and us to thoroughly review it. If you did not thoroughly
+review that patch, you would be sending microslop.
 
-It is kind of difficult to understand why those are more important than
-the temperature sensor on DDR5 modules (or the temperature sensor on DDR4
-modules, for that matter).
-
-I don't know what the policy for defconfig is, but just based on that it does
-seem to lack consistency.
-
-A separate question is if it is time to enable I3C in default configurations.
-I'd think so - more and more chip vendors support it, and presumably they would
-not invest in it if there was no demand, but that is just my personal opinion.
-
-Guenter
-
+Best regards,
+Krzysztof
