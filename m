@@ -1,207 +1,221 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2F583D7D80;
-	Fri, 10 Apr 2026 14:52:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 484D43CCFA0
+	for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 15:04:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775832728; cv=none; b=kwTpeR9V/jVNDdLFhA6GVl0lI5D7ibfAm94jTV7TURgZ49lsOlAAn3sPA9bfU0YROQzG1c5pvxQbYceh8tebwpSRfoiH4Fj33z5uK9ws8ST5sXhSV5ys4BypxLJAO5TXujzznyuZ9hAMHzV5P0jseofM4Jpt39UqSqEX2/oGO2E=
+	t=1775833493; cv=none; b=BhhzGMQCEAkRif53C3E43CQPnbQgWKKkVIahAfdyDIB/yELurcwQIah+g248BZ3y+IWaiHdHtSbRpG44ead1MYDkP8yrWv5kvtpEGllfoUkl3uNNVrnbsX+RKVKHcRbZjQCa3zy0iy9NSPv8olHJRUIrLaTV156TbkZZ60uPGN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775832728; c=relaxed/simple;
-	bh=8iacYD4Q9X98eAO3t1FmQlQJSOBjoGjOTKh5Fz9WYbM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cADjnJU9cp4HTlgD6/t6MSygj/FuAxN0c3tEKKfNydtJ4vEUZJQne6ELFxQohKIb4AJwENIF/zSCYVL5MZBZTnzOf5T/DI3gi8a740/gl+WvZtoR7wU5jeNtkgplIw8Gpu0LEgGtK2lrSX4YlKf9H/+qZIUZ4cQTBcNqsOzmhVE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bfhD2nH8; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775833493; c=relaxed/simple;
+	bh=LOamkOoU4OVVI8X9g75MJ4lPXrvJuQtSV7WWo3C0igs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=TATqNDzPj1Sg+heLiZCYzzDzp49y4j/OUU+XL/UaJ1S+uLgT7khBDp8O1FcNqgoUTV9FEB5USiTgZmwePZcXkWl4aasoMccEJjyJuFpYfMK72jVBl/EBKImufLKosaolpnaOGcv2xkEtQ5Q7kAtZSI6xbTC6wO5LGYW6iBit8HE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=FDcg1y4P; arc=none smtp.client-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bfhD2nH8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4422AC19421;
-	Fri, 10 Apr 2026 14:52:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775832727;
-	bh=8iacYD4Q9X98eAO3t1FmQlQJSOBjoGjOTKh5Fz9WYbM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bfhD2nH8ojSSFSzKyidMmGXnPXbqC8/vNwxzgYlvBMFniSY4zuMflUTbLUZ/YJ3Za
-	 1SuLYpMLW1RU8a9JsXRjXfYZZrbQrl4fJtPTlup54GEDtJfS3zGYxzVjpRgdJENpt3
-	 eTbSOK16DD9phgUC5Wy3QJrGrfmpJUB53zad5u5EvpRPPPCg2xmHzHAyVf8p/8qgJ1
-	 /yVpU6CvtErO4+HwMQQkxcaEHA2WsozCwIx4LB25PdWYUqBLwFcfZCYmmkhSIl5WVS
-	 AyVkMxAtg8LZALXcJSCXPilyRM8Rv0VrJh045FBX7DouhWWUkgA3Zd850blGzCEQ/C
-	 3r7nbYnCarE/A==
-Date: Fri, 10 Apr 2026 09:52:05 -0500
-From: Rob Herring <robh@kernel.org>
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Wesley Cheng <quic_wcheng@quicinc.com>,
-	Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
-	Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v7 1/2] arm64: dts: qcom: glymur: Add USB related nodes
-Message-ID: <20260410145205.GA554754-robh@kernel.org>
-References: <20260320-dts-qcom-glymur-add-usb-support-v7-0-ba367eda6010@oss.qualcomm.com>
- <20260320-dts-qcom-glymur-add-usb-support-v7-1-ba367eda6010@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="FDcg1y4P"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-82cec955160so1588493b3a.0
+        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 08:04:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1775833492; x=1776438292; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=nyFmM55+8nwlvhnoFbA02HWarg4SN6Bckaku3Nj5Ch0=;
+        b=FDcg1y4PgvgSEYY4XlRNZ2A+4Sin8TE9UW/amTKO1BJ0RGpee/L0wWzfFzIwCMW2cu
+         m+7nj+Ud512RPklYyj4zYfTfPtqDW6ohDcqJKe6XKrzi65pfo4G+/8BwR0vXSM5INKOA
+         HGq8E3UqF3pMIXSUAqvOQh4q6EBcOWMfC8lFvuLyUE4OAXKPYnAIjW/X0vNEhwfEaNSC
+         UuRS41k/J0w5sx08WaJfEZDINnwACYtLZrXWwd7usVpaEf7mK6QgX5tlgfYDGPJ/93uC
+         pvl+uZAT+nqpBVpEuTEiPYGOjX4P48AXOzPGC3SI9egcTtulq7JJTvlCSodrO0jEQ3Bb
+         XitA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775833492; x=1776438292;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=nyFmM55+8nwlvhnoFbA02HWarg4SN6Bckaku3Nj5Ch0=;
+        b=oPxwepJLggiZgnYvCh84ibYhwybbHdlQypfffvWMTipTBoZg1Rx6MjSBFEl4yb4V2Z
+         c169xP/be9Sud7Y45h/C54zj/UcU61iVk2yKpC3YrFzB5FykrPcxIEJDBrCSHMPytI8K
+         zqsBCS3FCGsz6T7F1gPUzzUbrdqJdnJ1QGQiQ3xAXxGrrQ1RHfU0PmZ8UY+pTpechwfx
+         Me6+FosXwyAd49pw9jYqmZ4mHUaIFLG7xwWL/+Qfy0P6NJuh3dw1SbMQh8edfkzexWt6
+         0EVzrVEM+iUz7Bf9PXAJ2a7Wsl5evyQEL9pYW+H7TazD/oP8jpKcTFmncqnpKerEc9jZ
+         aNRg==
+X-Forwarded-Encrypted: i=1; AJvYcCWkhWa1gyCqOcWQN/83SwcDkWv8CXGeRlDipZPnTybH607B9gCjPJPgDOcdhsC+5a4mRb4V7rIIOwXH@vger.kernel.org
+X-Gm-Message-State: AOJu0YywTIHHofyxfFwv/oW5kcAJElKTgfxE4UNybqzx7f3MNiDZsNyh
+	xLp2UiE1+BCf+FgQaeKdOsnfSIe6ndWX2d7noyYsu77Sk+F6PFVZTO5NHOctpU1rAic=
+X-Gm-Gg: AeBDieut4tP6CHXWu2nNWfSVly0/7t3hzxaaafa5YhcD9f8QJRttugEikGc3HmOk+4+
+	E89vgUClnSVo2wRqDGqeZMMCJpz2qcBMkG93cFPlUy6lvedi4E57C7IHA++XpxyIf0KKfCBQtvL
+	fjNQh4EFocvle3B+nxNmSSqc0i0D4JAi73D1FPqRqRT6CfdqXgy3okNDoetvYsSdhhNPsELOUCG
+	heM4i2X7flzPlupCp839rGu27U2FrJuKCa3p7QL2MIwf+OE8fZ7pFEWE0B+GWSbvK8ThAb1D4cA
+	fWb4tAfRpFfQx+AZyiMw53Khf7N5190rkpyzurOSG5uLOe4/Hi/Q7EhjvghDUf49V631YpOYebS
+	79XbvV1bt3U41xxnCHGPapi5YhwBNZYWqtQmQqrfQbmj4ZvCK5lmNlnvNwGMZML0FzG/C2/43Rq
+	Z9WAAEX4y9shec8uq1qYWkugR0TiYdpatw+wbmj/bOGQy4L9BILIrYee68QdUa2JcE
+X-Received: by 2002:a05:6a00:400b:b0:82c:6b46:271d with SMTP id d2e1a72fcca58-82f0c2efb17mr4220868b3a.48.1775833491374;
+        Fri, 10 Apr 2026 08:04:51 -0700 (PDT)
+Received: from [127.0.1.1] ([45.8.220.15])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82f0c4d5413sm2970532b3a.40.2026.04.10.08.04.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 10 Apr 2026 08:04:50 -0700 (PDT)
+From: Guodong Xu <guodong@riscstar.com>
+Subject: [PATCH v8 0/3] spi: support the SpacemiT K1 SPI controller
+Date: Fri, 10 Apr 2026 23:04:19 -0400
+Message-Id: <20260410-spi-spacemit-k1-v8-0-53ebb48a4146@riscstar.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260320-dts-qcom-glymur-add-usb-support-v7-1-ba367eda6010@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADO62WkC/yXMyw5AMBCF4VeRWWvS1t2riAU1GOKSDiIR765Yn
+ MW3OP8FjJaQIfcusHgQ0zI7pL4Hpq/mDgU1zqCljmUoE8EruVUGJ9rEqATKLEpMoJSKNLjXarG
+ l8ysW5W/e6wHN9mbgvh/8TjubcwAAAA==
+X-Change-ID: 20260407-spi-spacemit-k1-e0957c311152
+To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Alex Elder <elder@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, Guodong Xu <guodong@riscstar.com>, 
+ Alex Elder <elder@riscstar.com>, Conor Dooley <conor.dooley@microchip.com>, 
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
+ Yixun Lan <dlan@kernel.org>
+X-Mailer: b4 0.15.1
 
-On Fri, Mar 20, 2026 at 12:56:52PM +0200, Abel Vesa wrote:
-> From: Wesley Cheng <wesley.cheng@oss.qualcomm.com>
-> 
-> The Glymur USB subsystem contains three USB 3.2 Gen 2 controllers,
-> one USB 3.2 multi-port controller, and one USB 2.0-only controller.
-> This includes five SS USB QMP PHYs (three combo and two UNI) and six M31
-> eUSB2 PHYs.
-> 
-> All controllers are based on SNPS DWC3, so describe them as Qualcomm
-> flattened DWC3 nodes.
-> 
-> Signed-off-by: Wesley Cheng <wesley.cheng@oss.qualcomm.com>
-> Co-developed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Tested-by: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/glymur.dtsi | 691 ++++++++++++++++++++++++++++++++++-
->  1 file changed, 686 insertions(+), 5 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
-> index bde287f645ee..641707ba1e78 100644
-> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
-> @@ -750,11 +750,11 @@ gcc: clock-controller@100000 {
->  				 <0>,				/* UFS PHY RX Symbol 0 */
->  				 <0>,				/* UFS PHY RX Symbol 1 */
->  				 <0>,				/* UFS PHY TX Symbol 0 */
-> -				 <0>,				/* USB3 PHY 0 */
-> -				 <0>,				/* USB3 PHY 1 */
-> -				 <0>,				/* USB3 PHY 2 */
-> -				 <0>,				/* USB3 UNI PHY pipe 0 */
-> -				 <0>,				/* USB3 UNI PHY pipe 1 */
-> +				 <&usb_0_qmpphy QMP_USB43DP_USB3_PIPE_CLK>,
-> +				 <&usb_1_qmpphy QMP_USB43DP_USB3_PIPE_CLK>,
-> +				 <&usb_2_qmpphy QMP_USB43DP_USB3_PIPE_CLK>,
-> +				 <&usb_mp_qmpphy0 QMP_USB43DP_USB3_PIPE_CLK>,
-> +				 <&usb_mp_qmpphy1 QMP_USB43DP_USB3_PIPE_CLK>,
->  				 <0>,				/* USB4 PHY 0 pcie pipe */
->  				 <0>,				/* USB4 PHY 0 Max pipe */
->  				 <0>,				/* USB4 PHY 1 pcie pipe */
-> @@ -2264,6 +2264,254 @@ &config_noc SLAVE_QUP_0 QCOM_ICC_TAG_ALWAYS>,
->  			};
->  		};
->  
-> +		usb_hs_phy: phy@fa0000 {
-> +			compatible = "qcom,glymur-m31-eusb2-phy",
-> +				     "qcom,sm8750-m31-eusb2-phy";
-> +			reg = <0x0 0x00fa0000 0x0 0x154>;
-> +			#phy-cells = <0>;
-> +
-> +			clocks = <&tcsr TCSR_USB2_1_CLKREF_EN>;
-> +			clock-names = "ref";
-> +
-> +			resets = <&gcc GCC_QUSB2PHY_USB20_HS_BCR>;
-> +
-> +			status = "disabled";
-> +		};
-> +
-> +		usb_mp_hsphy0: phy@fa1000 {
-> +			compatible = "qcom,glymur-m31-eusb2-phy",
-> +				     "qcom,sm8750-m31-eusb2-phy";
-> +
-> +			reg = <0x0 0x00fa1000 0x0 0x29c>;
-> +			#phy-cells = <0>;
-> +
-> +			clocks = <&tcsr TCSR_USB2_1_CLKREF_EN>;
-> +			clock-names = "ref";
-> +
-> +			resets = <&gcc GCC_QUSB2PHY_HS0_MP_BCR>;
-> +
-> +			status = "disabled";
-> +		};
-> +
-> +		usb_mp_hsphy1: phy@fa2000  {
-> +			compatible = "qcom,glymur-m31-eusb2-phy",
-> +				     "qcom,sm8750-m31-eusb2-phy";
-> +
-> +			reg = <0x0 0x00fa2000 0x0 0x29c>;
-> +			#phy-cells = <0>;
-> +
-> +			clocks = <&tcsr TCSR_USB2_2_CLKREF_EN>;
-> +			clock-names = "ref";
-> +
-> +			resets = <&gcc GCC_QUSB2PHY_HS1_MP_BCR>;
-> +
-> +			status = "disabled";
-> +		};
-> +
-> +		usb_mp_qmpphy0: phy@fa3000 {
-> +			compatible = "qcom,glymur-qmp-usb3-uni-phy";
-> +			reg = <0x0 0x00fa3000 0x0 0x2000>;
-> +
-> +			clocks = <&gcc GCC_USB3_MP_PHY_AUX_CLK>,
-> +				 <&tcsr TCSR_USB3_0_CLKREF_EN>,
-> +				 <&rpmhcc RPMH_CXO_CLK>,
-> +				 <&gcc GCC_USB3_MP_PHY_COM_AUX_CLK>,
-> +				 <&gcc GCC_USB3_MP_PHY_PIPE_0_CLK>;
-> +			clock-names = "aux",
-> +				      "clkref",
-> +				      "ref",
-> +				      "com_aux",
-> +				      "pipe";
-> +
-> +			power-domains = <&gcc GCC_USB3_MP_SS0_PHY_GDSC>;
-> +
-> +			resets = <&gcc GCC_USB3_MP_SS0_PHY_BCR>,
-> +				 <&gcc GCC_USB3UNIPHY_PHY_MP0_BCR>;
-> +			reset-names = "phy",
-> +				      "phy_phy";
-> +
-> +			clock-output-names = "usb3_uni_phy_0_pipe_clk_src";
-> +			#clock-cells = <0>;
-> +			#phy-cells = <0>;
-> +
-> +			status = "disabled";
-> +		};
-> +
-> +		usb_mp_qmpphy1: phy@fa5000 {
-> +			compatible = "qcom,glymur-qmp-usb3-uni-phy";
-> +			reg = <0x0 0x00fa5000 0x0 0x2000>;
-> +
-> +			clocks = <&gcc GCC_USB3_MP_PHY_AUX_CLK>,
-> +				 <&tcsr TCSR_USB3_1_CLKREF_EN>,
-> +				 <&rpmhcc RPMH_CXO_CLK>,
-> +				 <&gcc GCC_USB3_MP_PHY_COM_AUX_CLK>,
-> +				 <&gcc GCC_USB3_MP_PHY_PIPE_1_CLK>;
-> +			clock-names = "aux",
-> +				      "clkref",
-> +				      "ref",
-> +				      "com_aux",
-> +				      "pipe";
+This series adds support for the SPI controller found in the SpacemiT
+K1 SoC.  The driver currently supports only master mode.  The controller
+has two 32-entry FIFOs and supports PIO and DMA for transfers.
 
-New warnings:
+Starting with v8, I am taking over from Alex Elder to shepherd this
+series upstream.  Alex developed versions 1 through 7.
 
-      4 (qcom,glymur-qmp-usb3-uni-phy): clock-names: ['aux', 'clkref', 'ref', 'com_aux', 'pipe'] is too long
-      4 (qcom,glymur-qmp-usb3-uni-phy): clock-names:3: 'pipe' was expected
-      4 (qcom,glymur-qmp-usb3-uni-phy): clock-names:2: 'com_aux' was expected
-      4 (qcom,glymur-qmp-usb3-uni-phy): clock-names:1: 'ref' was expected
-      1 (qcom,glymur-qmp-usb3-uni-phy): clocks: [[70, 329], [42, 9], [58, 0], [70, 331], [70, 332]] is too long
-      1 (qcom,glymur-qmp-usb3-uni-phy): clocks: [[70, 329], [42, 10], [58, 0], [70, 331], [70, 334]] is too long
-      1 (qcom,glymur-qmp-usb3-uni-phy): clocks: [[56, 329], [29, 9], [44, 0], [56, 331], [56, 332]] is too long
-      1 (qcom,glymur-qmp-usb3-uni-phy): clocks: [[56, 329], [29, 10], [44, 0], [56, 331], [56, 334]] is too long
+Version 8 reworks the driver based on Mark Brown's review of v7, making
+much better use of the SPI core framework.
 
+(Note, this is a distinct series from the QSPI driver, which was
+merged recently.)
 
-You did test this series for DT warnings before sending, right? Please 
-fix and ensure they get into 7.1.
+ -
+ Guodong
 
-Rob
+Between version 7 and version 8:
+  - Use // comments for the file header (Mark Brown)
+  - Remove open-coded DMA mapping (k1_spi_map_dma_buffer(),
+    k1_spi_unmap_dma_buffer(), k1_spi_map_dma_buffers(), the dummy
+    buffer, k1_spi_io struct); use SPI core DMA mapping via
+    transfer->tx_sg/rx_sg instead
+  - Add can_dma() callback, replacing open-coded transfer length
+    checks
+  - Add set_cs() callback for chip select control via the
+    TOP_HOLD_FRAME_LOW bit
+  - Switch from transfer_one_message() to transfer_one()
+  - DMA completion calls spi_finalize_current_transfer() directly
+    instead of using a completion
+  - Add SSP_STATUS_BCE (bit count error) to error detection
+  - Return IRQ_NONE early if no transfer is active, before
+    acknowledging interrupts
+  - Simplify k1_spi_driver_data struct
+  - ~160 fewer lines of code
+
+Here is version 7 of this series:
+  https://lore.kernel.org/lkml/20251114185745.2838358-1-elder@riscstar.com/
+
+Between version 6 and version 7:
+  - DIV_ROUND_UP_ULL() is now used when setting the speed, to address
+    two errors reported by the Intel kernel test robot on 32-bit builds
+  - Fixed a bug interpreting the resource pointer in k1_spi_dma_cleanup()
+  - The driver is now built as a module by default, if ARCH_SPACEMIT
+    is defined
+
+Here is version 6 of this series:
+  https://lore.kernel.org/lkml/20251027125504.297033-1-elder@riscstar.com/
+
+Between version 5 and version 6:
+  - Rebase only
+
+Here is version 5 of this series:
+  https://lore.kernel.org/lkml/20251013123309.2252042-1-elder@riscstar.com/
+
+Between version 4 and version 5:
+  - Added Yixun's Reviewed-by tag on patch 3
+
+Here is version 4 of this series:
+  https://lore.kernel.org/lkml/20250925121714.2514932-1-elder@riscstar.com/
+
+Between version 3 and version 4 (all suggested by Yixun):
+  - Fixed an underrun/overrun comment error
+  - Renamed a pinctrl node
+  - Formatted dmas and dma-names properties on one line
+
+Here is version 3 of this series:
+  https://lore.kernel.org/lkml/20250922161717.1590690-1-elder@riscstar.com/
+
+Between version 2 and version 3:
+  - Add Conor's Acked-by to patch 1
+  - Add Rob's Reviewed-by to patch 1
+  - Added imply_PDMA to the SPI_SPACEMIT_K1 Kconfig option
+  - Fixed a bug pointed out by Vivian (and Troy) in word-sized reads
+  - Added a comment stating we use 1, 2, or 4 bytes per word
+  - Cleaned up DMA channels properly in case of failure setting up
+  - No longer use devm_*() for allocating DMA channels or buffer
+  - Moved the SPI controller into the dma-bus memory region
+
+Here is version 2 of this series:
+  https://lore.kernel.org/lkml/20250919155914.935608-1-elder@riscstar.com/
+
+Between version 1 and version 2:
+  - Use enum rather than const for the binding compatible string
+  - Omit the label and status property in the binding example
+  - The spi-spacemit-k1.o make target is now added in sorted order
+  - The SPI_SPACEMIT_K1 config option is added in sorted order
+  - The SPI_SPACEMIT_K1 config does *not* depend on MMP_PDMA,
+    however MMP_PDMA is checked at runtime, and if not enabled,
+    DMA will not be used
+  - Read/modify/writes of registers no longer use an additional
+    "virt" variable to hold the address accessed
+  - The k1_spi_driver_data->ioaddr field has been renamed base
+  - The DMA address for the base address is maintained, rather than
+    saving the DMA address of the data register
+  - The spi-max-frequency property value is now bounds checked
+  - A local variable is now initialized to 0 in k1_spi_write_word()
+  - The driver name is now "k1-spi"
+  - DT aliases are used rather than spacemit,k1-ssp-id for bus number
+  - The order of two pin control properties was changed as requested
+  - Clock names and DMA names are now on one line in the "k1.dtsi"
+  - The interrupts property is used rather than interrupts-extended
+
+Here is version 1 of this series:
+  https://lore.kernel.org/lkml/20250917220724.288127-1-elder@riscstar.com/
+
+Alex Elder (3):
+  dt-bindings: spi: add SpacemiT K1 SPI support
+  spi: spacemit: introduce SpacemiT K1 SPI controller driver
+  riscv: dts: spacemit: define a SPI controller node
+
+Signed-off-by: Guodong Xu <guodong@riscstar.com>
+---
+Alex Elder (3):
+      dt-bindings: spi: add SpacemiT K1 SPI support
+      spi: spacemit: introduce SpacemiT K1 SPI controller driver
+      riscv: dts: spacemit: define a SPI controller node
+
+ .../devicetree/bindings/spi/spacemit,k1-spi.yaml   |  84 +++
+ arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts    |   7 +
+ arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi       |  20 +
+ arch/riscv/boot/dts/spacemit/k1.dtsi               |  15 +
+ drivers/spi/Kconfig                                |   9 +
+ drivers/spi/Makefile                               |   1 +
+ drivers/spi/spi-spacemit-k1.c                      | 782 +++++++++++++++++++++
+ 7 files changed, 918 insertions(+)
+---
+base-commit: 7aaa8047eafd0bd628065b15757d9b48c5f9c07d
+change-id: 20260407-spi-spacemit-k1-e0957c311152
+
+Best regards,
+--  
+Guodong Xu <guodong@riscstar.com>
+
