@@ -1,43 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB3AE21D00A;
-	Sat, 11 Apr 2026 14:00:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B101D2D5922;
+	Sat, 11 Apr 2026 14:01:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775916020; cv=none; b=JVNJOIbr5tETTXPhnBOvp32qZXlz5HX7u+bnWaFKYx2u5gZ3qVBzTg00FT76YaXH1SWZ2I02OTDKz4f13IhCefFXVYEAq+SaKnys7YxuPX9OR637icGFySStMq6x64T5PuflmgSYQ4lTpWLZPdTqYEYUbc0tZ6HeIgczQ+w85K4=
+	t=1775916074; cv=none; b=DcGZKrzdBRXA1IZXOThTDJeuKXidMYmDDgUB27azQPsORNoUcJReN6WQtjneMhBkMLZiro4e1GhLSSIlHy9rmin6nWCE2KiT24Vk8tON/WC5bEABIRFH513QhHPb6cNB0hkRLnFzrm9fqOghnbcOitVMMAMtbICMRkez77vEF1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775916020; c=relaxed/simple;
-	bh=eqFeAHxrEYN3OzWoPOqqSDvpIsKjCesHynxNPsz0T1Q=;
+	s=arc-20240116; t=1775916074; c=relaxed/simple;
+	bh=zMQAjZnqu7cingfSFT93HgX3xVl7kJGu55bIC2BPZC0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ohnbEon07klb+RCddP5ZkXEcQD5KSW0804sGpcodooYP17jkBb+c0MKctc2mnGIWc8m8go4qIWL1+SioaW1WmTYYITL+LvpKiDd3YqH7zj5AmpSprca2YGMRstb0fSXL7O9vvw/5EA8TZfDHgM4mbEYE1/VjSQr7oYcNN9Sx758=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sHbCmAR0; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=DUqhKEKscmJkUJL0sQQXjHEBeVmYhHAXGCWvzvWUUCDbWkqQr43s1FIY6wl5EE1a4ogvfhqgZkpssY6qvN6jIHet+QJS6mZCBfcUb4hOnnNOReeIwcmTwERL0wLS3mumtLge2HcLwydqjh9gpoT5isH3M3BUlX8UtVGy6CAmENM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fibVdRXp; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sHbCmAR0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4003EC4CEF7;
-	Sat, 11 Apr 2026 14:00:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fibVdRXp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAD43C4CEF7;
+	Sat, 11 Apr 2026 14:01:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775916019;
-	bh=eqFeAHxrEYN3OzWoPOqqSDvpIsKjCesHynxNPsz0T1Q=;
+	s=k20201202; t=1775916074;
+	bh=zMQAjZnqu7cingfSFT93HgX3xVl7kJGu55bIC2BPZC0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=sHbCmAR0mSzuOuplVT3pe0uLj4gp/ucoiZJBSWBkwRvajoSeRS7ASF6z8QKhid820
-	 oRGZ/K+j+PNibwdt9eNpO820S8PxNPLqPhXrzWE8BL08Op2VK8q524hHyBUUuAEd4i
-	 puvjdvvVkdDuGVMDaOp3bDc8K6sR0NnjfPVPO9/2v1RAY+zNRhSQduQA0TWRabdBDj
-	 zsMFF+MovczVfM5GkwfzJniipZ3hZg6p834Dy0hAqMFd8j9hmX2fx+hHzu9oF/C2rr
-	 oCcVnSoViSbszisjWykFxRnBP49TPIDkeWuffznAoFFcDiQE2bqvDJPADxDxtovTtE
-	 uH8FhIuk6wSLQ==
-Date: Sat, 11 Apr 2026 16:00:17 +0200
+	b=fibVdRXpFVBtMh8is7+fWFJ/FwQnltlwXPrjcVyD1/DX/+whtdITt+HgUl+9DBi48
+	 fne8Q+juqdi6mzg5B/DqvMzaWAcYfXhxOtBZqqn+tZPep9kSM64s2AyZ6yibdHdq1Y
+	 MzgRnlKpVIPWWm1fGjdUmyNn9Ej94ZapvduXyuElPrqIkN8I3CZ3nO8mWhHGiURbMQ
+	 bn0O9l6gf4xOF4wNajddiyQ4Er1Pz2STKoSctR44WVGrPIszV+QAT46ix2EpRlvkA3
+	 rw2EUaYEkjSdpmZTKNNClNBqPAQV6z25v+1HTW/8VTZ2scBFENkhPa81L23swDe71w
+	 OKGzWb9Z1upoA==
+Date: Sat, 11 Apr 2026 16:01:12 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: nick.hawkins@hpe.com
-Cc: catalin.marinas@arm.com, will@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, krzysztof.kozlowski@oss.qualcomm.com, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 3/4] arm64: dts: hpe: Add HPE GSC SoC and DL340 Gen12
- board DTS
-Message-ID: <20260411-condor-of-algebraic-realization-b2e0be@quoll>
-References: <20260410171611.2547255-1-nick.hawkins@hpe.com>
- <20260410171611.2547255-4-nick.hawkins@hpe.com>
+To: David Heidelberg <david@ixit.cz>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Henrik Rydberg <rydberg@bitmath.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Petr Hodina <petr.hodina@protonmail.com>, linux-input@vger.kernel.org, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	phone-devel@vger.kernel.org
+Subject: Re: [PATCH v4 07/11] dt-bindings: input: touchscreen: st,stmfts:
+ Introduce reset GPIO
+Message-ID: <20260411-proficient-observant-bonobo-fc98b8@quoll>
+References: <20260409-stmfts5-v4-0-64fe62027db5@ixit.cz>
+ <20260409-stmfts5-v4-7-64fe62027db5@ixit.cz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,23 +51,15 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260410171611.2547255-4-nick.hawkins@hpe.com>
+In-Reply-To: <20260409-stmfts5-v4-7-64fe62027db5@ixit.cz>
 
-On Fri, Apr 10, 2026 at 05:16:10PM +0000, nick.hawkins@hpe.com wrote:
-> +		uarte: serial@c00003e0 {
-> +			compatible = "ns16550a";
-> +			reg = <0xc00003e0 0x8>;
-> +			clock-frequency = <1846153>;
-> +			interrupt-parent = <&gic>;
-> +			interrupts = <GIC_SPI 12 IRQ_TYPE_LEVEL_HIGH>;
-> +			reg-shift = <0>;
-> +		};
-> +
-> +		gic: gic@ce000000 {
-
-Nodename should be interrupt-controller@
-
-With this fixed:
+On Thu, Apr 09, 2026 at 12:15:50AM +0200, David Heidelberg wrote:
+> FTS has associated reset GPIO, document it.
+> 
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> ---
+>  Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml | 4 ++++
+>  1 file changed, 4 insertions(+)
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
