@@ -1,279 +1,166 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2EF62C11C4
-	for <devicetree@vger.kernel.org>; Sat, 11 Apr 2026 06:55:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E8033264F5
+	for <devicetree@vger.kernel.org>; Sat, 11 Apr 2026 07:20:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775890523; cv=none; b=QBZmn7G3vvdm6iKgjI4NOoil2hDDZ4o8ZincFjwH+i5oZHf6NS6b8Etskn2rwki4vfeUKltP5rYq7D7A1klGLnPuE66qzfC77fBuOohO0HbRe2jDgoXyh1hAMjHr9AaAJTkR7+xaAPYEOJgEeIgAtGxW1a/RhP7pKFpg0Ayw3kE=
+	t=1775892032; cv=none; b=KExDyrKXoqtvrhULQ6+I+hK/e2zkxH0k1Kggpl14uWGEoqwVC1IruJRfvH0MI4WQaecP5YDXvQIBsq3Lk6zpowf8FiudYfgM2LH+okluCNUM97qDOub93B/nRx7eRZ2ACYRri+yDX8HHNjIIJXAPNpE24NPRssZztTEAw15TsRM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775890523; c=relaxed/simple;
-	bh=MA5GTAanaW796ZrIDAwpmtb/vdrskv+s1zS/5cubXdw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k+7omjCrRtr9NFUTeyGuuj5AxSJm2eZk+fnv08gBjhQUAsu+p2ENWqn2Hn2hyfIQQWQw13hx3RZ8BFo4y8lrbIHJUuEKJ5NAFi9JjE7XImagBs1lpP7ugyuzKhALKJIE5noMOtGCgPYUFBMadWjaWqBdiE9VSTrcGRbFd6FTE9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=idXEI6Ul; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PbAxD6tR; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1775892032; c=relaxed/simple;
+	bh=giGY+nVbFQQ4Xw5h+OvpqFsfwqaC6d2zZAaoZfV8m6Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=k9qYGtBgBdPhDFTKC4rX24gYpKcjtQ/apXoBP+NTBzS5O0nhqRDsFyjYEEeLQDGBYEj9Ux7k7nLCbmscH78riA0TPNbotfYhW7uETNm/WEK3Zns7TRyj+/PsT+uUnLKlUNAx0XBxe3G5k4qK9b1z9BxCRcnKRjqs/calf2PI5fY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h6wkAzBv; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="idXEI6Ul";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PbAxD6tR"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63B3xqda516238
-	for <devicetree@vger.kernel.org>; Sat, 11 Apr 2026 06:55:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	hHKEi7uH4ZAa8e40WTkZOguWjTipDJeR1p4bGjZ8ENc=; b=idXEI6UlmKGRfxfq
-	QwdM1iGI6ih4tpHt+IYgaig5Rh6jqXupsUNaRiQNXWquXyAe4Ozqhe31FQ+7tHfK
-	pi0h8aAXDeZdh9cggY8a35U8j6JNc9UKfSkaxzkVNbD4tq2NmXn676ShZuyIIGHL
-	4fRPL8Pc9/h/9Rew6kbLA79SNfCW16vGfBZnrYqYsfT9QZ5EM2eyzg51cP+ufLc4
-	VL4s3BWS3cj++a1PAnLJNaSFn098OI05SKifd6S79OX7mGovP+uZwzRaK4eiuxPR
-	OitCzpXjiYNYyDbVReq/vgdosj/xOiDxA4M6xDwYi7nbB7r5WH3ONt/5dHZGEBhO
-	eg5BEA==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dfevtg868-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 11 Apr 2026 06:55:20 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2b0bf2b3879so56437875ad.1
-        for <devicetree@vger.kernel.org>; Fri, 10 Apr 2026 23:55:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h6wkAzBv"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-35da2d35eccso2190684a91.0
+        for <devicetree@vger.kernel.org>; Sat, 11 Apr 2026 00:20:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775890519; x=1776495319; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=hHKEi7uH4ZAa8e40WTkZOguWjTipDJeR1p4bGjZ8ENc=;
-        b=PbAxD6tRiPxroDC1lP7K7a0X+ycrzIjnM2P1/9sdoteLKldgh2agvmJiQiao29xzqP
-         5BbNJw91IP4jXaT0K3ij7WPeeYYTKKTnD6jgvEIBhU4RScd1gpzHsS2dYdAPKtsgCLiN
-         kyzDLy2BHz4aDGjkCf6CQmQ3i5i+36XOs+SBXCZfjdDQ0zJRvzijw//7xUIMDzRtBw0i
-         nJju+sa+yzFDxQXMucq9FG6EFmLEIaMjk7UUTiyFoEZD0q6FWnqW7w3EmHFYZYApTux+
-         7SULzocIAYzrw0NgKzu2wAqgdWHlVoVb0Zy7j6nstqWaApI9kYlWIewO6ONqqkB6Bas+
-         Dbyw==
+        d=gmail.com; s=20251104; t=1775892031; x=1776496831; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=VlHFHyv7lotD4cDN/ipcHMLKOy2CDqZhb9XbRaJOH1U=;
+        b=h6wkAzBvB2DI6GRbAcT03i/5nmeRpuWPKr8xtzuTDRqqKTXLtuXmzgxS9JJjbhGjz8
+         81fj1S2a7sAl0WZe74H65R5DcSNslDqJEozYH/aWnsKFFPyY1T2xZE9JvZsP9Y8t45+7
+         mXuMtNKXWhzF+d8an6fLn3FoAmUKkoCa8MEsZsyg/uIqNRB9Avdee48D0+wt8ZXv61ta
+         ywVtNobAfgqGPZHV1PuN+5hhGUGpbuGYfYtJ9+xCHu4EbhNBJaYza0dPGaWnx4g8qrSg
+         mF5QzJ7f0DPLhIj1A57kbcs5aheAme4BZz3J2cA6x+ZLcePqSZ04erdB6bYd2JGdpmJV
+         C8hA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775890519; x=1776495319;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=hHKEi7uH4ZAa8e40WTkZOguWjTipDJeR1p4bGjZ8ENc=;
-        b=P2ZjLDeIrDvc6oUC6Q+iCmYaaY23LPoM+2LaHjgPvydGAaGBKi8LJWOH+BV1S64iF3
-         4N15dJnDranrKHsBXZuN7j9z24xBx0cIx5vHwJrxL40hsnjaUhooirczpG0kEM38ePOa
-         /fhR4pUnjvjJ/G59ldWFl4QH1J3g8GG7/JA0iWFbaILCOvn7xpOZ/V7MhLQ2bDUgIASA
-         J31OGb7f48fKuWtM92a0bziS6H9AOYgc596UNl/4yBwfvP32edlQU7Ozm8MczAF++4qh
-         kgPS3vaDRLF43C6T3239dy6ntuSRqMexKezgvqG6fcZMEV0wLmE70f5KOy146mc96xUG
-         39JQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVbR7UCSeverOp1ZW8d31Tn1HGpw1c8Zj1pnMNW2vw34iHOBy0zpZ2yTAKDywrzz6BwAgCJNrgvwz7W@vger.kernel.org
-X-Gm-Message-State: AOJu0YzCPK7+HYF5WBlyeWqWe79Yy+9peuPAZT2OrGpR1cJq+RMSHy7Z
-	2Q/7S9MgxGnFInlZqYJgKhw8a2fxqbH2XyK4hNKruCtE0J4pO6rj+ykfGhPIZqNQ37e57XlkEMv
-	UECr3fSQN8arqGxOPnmDgpWcYYLwIHsH/gayQ9WeaHnGomRSQ0jK4lhEi7oGudLo6
-X-Gm-Gg: AeBDiesnHg2IYYhua5B9ovCNYuw2+2BDfbeWp9+MAKMhBwkdSKbRezipZBOmL6Oa8Yn
-	eqvyjmGh/LO43JjkFrnxJom26ZdrMBFRqlbM1q9dbfZ/aNuxN5b7VYDMHUlXkrtlj/hCnVAVCkE
-	2JFKfx3UkbeYA+Hi0rXCnM5DQhGeAnCwbB13UDuG2CIUwkwlAR+eFlBYT1IhqWuZ2jlTQdunLfO
-	9Cypj1cRxkvweoUzNcBbUC72qO0Sg66+ghTcYqoemXcglcQZXTFQON7CWrmR/H+YOLhidQlwK7o
-	y4z0rmUd2NOt9jZTJgPguVGD6779tFx4uzf0f4ist3L8m/NXEBUSEaUji1eFf+7rmBSjPhIrQbe
-	IW1vJ24y5j7fqfHmf5+59qrrrlLRqGit3hyho3IbsNWGKgljS
-X-Received: by 2002:a17:903:196b:b0:2b2:4728:aa26 with SMTP id d9443c01a7336-2b2d5a78154mr73952055ad.35.1775890519382;
-        Fri, 10 Apr 2026 23:55:19 -0700 (PDT)
-X-Received: by 2002:a17:903:196b:b0:2b2:4728:aa26 with SMTP id d9443c01a7336-2b2d5a78154mr73951745ad.35.1775890518838;
-        Fri, 10 Apr 2026 23:55:18 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b2d4f48d6csm64004765ad.83.2026.04.10.23.55.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Apr 2026 23:55:18 -0700 (PDT)
-Date: Sat, 11 Apr 2026 12:25:12 +0530
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 00/35] irqchip/qcom-pdc: Clean up register mapping and DT
- descriptions
-Message-ID: <20260411065512.eyezltamlqqgsgfc@hu-mojha-hyd.qualcomm.com>
-References: <20260410184124.1068210-1-mukesh.ojha@oss.qualcomm.com>
- <adm1uXe6QRes8DiX@baldur>
+        d=1e100.net; s=20251104; t=1775892031; x=1776496831;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=VlHFHyv7lotD4cDN/ipcHMLKOy2CDqZhb9XbRaJOH1U=;
+        b=Yjefc+mglxGCUCVsEfXeVTJI9rz4aY4cD37GQA8+eFz+Ci0bkZTQRRNeUb5857EwDy
+         yx/sB/3/K0WVClTUFiRvqrOnMbExCZ0oReDcvZI6oWeqaCjEJJBljQgF1TjUG824avqJ
+         1ViJws/YPipZ8aTNGHYNWBCtKWkd8VjuY49FOMc6VgmMsgxf1wPjupbch3b4kiMZNcmS
+         J8SZSWTpBF+4wjfncyJYBxL5H7EPzG9IgwIpz/BgjkBaoJuJ15W6WIPU1z3kZwbGG7aR
+         yt0nWhTcDMULzcu9WJoFEnxzQ8BVX3wV3YWACBKF5jp9EkKdgPjv1hugeEK301ocbhtP
+         Js3w==
+X-Forwarded-Encrypted: i=1; AJvYcCXZpjyimpf7/IiAHRkhRbn+/I+6G61jsoTZFM30yvJ3OixuCFpWmGNPVnmws7pMDXZ3+aa8d1JyLO9A@vger.kernel.org
+X-Gm-Message-State: AOJu0YwLq59xN/LsGiWuTtLCzd6lwUnaMtY1FJWmzQ7THFSqGpeAa70y
+	ocKMY1Uf2Rg87HjF3d8AlbOj2W+Jt5XMUnLlrFjif2k2DEmejDyCBWwB
+X-Gm-Gg: AeBDietqJYmrFAvSANJYgL52G6r9x3QUcfH9OI3r03O7CzdpS8G26ugOvPnXT3fuB2O
+	nQoa5v0zMhV+CtOU8FT/L1KJiaXmryZ/0Olt/YTOD75XP5XUgx0Jv5yqoITHZFsgK5bqdnf51YC
+	jwmf2USk4PMO6S0WgMEQwJzCjIK5ibRR1Wy6ltFCk04p9cJCxpkm72g+dGacHNaXm2kwKOiu4ly
+	jTrggS9T0m9kRI57fZFnudV/1TJryGaHux/KuVxHpIbkC0z2m7BWoBoWAT5WlEjO7BS3gVyxDsr
+	WMl/JO4PxKFwIfl3dyb3SilEmaKB8HsuAbEnu+rUtecBNElL8vbdsnf7Xy1h8FQDYZ035PgEnAW
+	Kiw26uP6DX8fH+eLZPBCwo4vyERRiKdbuQTSK9/15MvJfTi7jIHOq+NS/0lAOGZgwn/ekPNWFf/
+	NEmQumLE936serGlm1A4ZnZ9QREcfYyHvYmBbBkgWJsIh1dStTDoEbhxMYX4lTnzY8MQjvTmdT
+X-Received: by 2002:a17:90b:2ccb:b0:35b:c900:79a6 with SMTP id 98e67ed59e1d1-35e4274e341mr5769646a91.4.1775892030776;
+        Sat, 11 Apr 2026 00:20:30 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35e35155829sm9191314a91.13.2026.04.11.00.20.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 11 Apr 2026 00:20:30 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <d0f1f053-589a-4681-8c8f-8e4b5daec145@roeck-us.net>
+Date: Sat, 11 Apr 2026 00:20:28 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <adm1uXe6QRes8DiX@baldur>
-X-Authority-Analysis: v=2.4 cv=RYWgzVtv c=1 sm=1 tr=0 ts=69d9f058 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=L-6A6lN07slBTXrf2UAA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-GUID: tMSdqmt_9eIfAkgoTKISrJUdQGhEKssk
-X-Proofpoint-ORIG-GUID: tMSdqmt_9eIfAkgoTKISrJUdQGhEKssk
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDExMDA0OSBTYWx0ZWRfX/VxiZ5Zk40fU
- 7jZtcg/pDi5W16T6e6OM6UiE1BxruZIVrqy3HZaQ/yBx7zLLhscF63tNEFJCotZkhBhJB1G87kN
- DZuqKjqKXQPy0gUua2htXoDgdHUbfP/Hnj4g6sYpyMhnbluWLpjSls/Xetuv5wriF7m2cRyWjhr
- Hv6UY/NgpHUtmWxLltzqY1RoCV1uzDp68psD5Q9+EBqixlDTvhln9JlpRVUdJHsTYwbJa0/FHfU
- dr7UEQXAcgAU5LDh6yK1viNUh3oSFtc/yVAD0kS9Ps0Ebfe1FUnKHEBu2ZrFHbmhj/YNDS5zvF+
- mqTtRWYdZkWXAoCp4HwalX3KyH4YQ9unzee7YCTbK8Be5nbXHCLcob51fQDTboW8/KqT0N2zlHr
- ALpinwrl0IW5ZMZv+g2SVrOlME0Y9KM2GwZ6XtRYEfDEwwXhI5q4WxOPrxD/AzjqLh6A9kveKJe
- a7tycEk471tMZCUMUPA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-11_01,2026-04-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0 spamscore=0 impostorscore=0 phishscore=0
- clxscore=1015 suspectscore=0 priorityscore=1501 adultscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
- definitions=main-2604110049
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 13/13] arm64: defconfig: Enable I3C and SPD5118 hwmon
+To: Akhil R <akhilrajeev@nvidia.com>, krzk@kernel.org
+Cc: Frank.Li@nxp.com, acpica-devel@lists.linux.dev,
+ alexandre.belloni@bootlin.com, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, ebiggers@kernel.org, krzk+dt@kernel.org,
+ lenb@kernel.org, linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org,
+ miquel.raynal@bootlin.com, p.zabel@pengutronix.de, rafael@kernel.org,
+ robh@kernel.org, sakari.ailus@linux.intel.com,
+ wsa+renesas@sang-engineering.com
+References: <5c751739-5044-4d23-9648-8d46dd0945d1@kernel.org>
+ <20260411053433.49655-1-akhilrajeev@nvidia.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260411053433.49655-1-akhilrajeev@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Apr 10, 2026 at 09:48:25PM -0500, Bjorn Andersson wrote:
-> On Sat, Apr 11, 2026 at 12:10:37AM +0530, Mukesh Ojha wrote:
-> > The Qualcomm PDC (Power Domain Controller) hardware exposes multiple DRV
-> > (Driver) regions, each 0x10000 bytes in size, where each region serves a
-> > specific client in the system . Linux only needs access to the APSS DRV
-> > region.
-> > 
-> > Despite this, the driver was mapping up to 0x30000 bytes (three DRV
-> > regions) via a QCOM_PDC_SIZE clamp introduced as a workaround for old
-> > sm8150 DTs that described a too-small register window. Correspondingly,
-> > most platform DTS files described the PDC reg as 0x30000 in size, and
-> > several also carried a second, entirely unused reg entry pointing at an
-> > unrelated register region that the driver never maps.
-> > 
-> > This series cleans all of that up in three logical steps:
-> > 
-> > 1. (patches 2-6):
-> > 
+On 4/10/26 22:34, Akhil R wrote:
+[ ... ]
+>>>> And it
+>>>> should bring me clear rule what I can or cannot remove from defconfig,
+>>>> if in 2 years I come and start pruning it from symbols.
 > 
-> These patches are for the IRQ subsystem/maintainer.
+> I am still a little confused on what information would likely accept (and
+> keep) these configs in the defconfig. Would updating the commit message
+> as below work?
+> 
+> "These configs enable the support for SPD5118 within the
+> Small-Outline-Compression-Attached Memory Modules (SOCAMM) LPDDR5X found
+> in the NVIDIA Vera CPUs. The Vera CPU uses ACPI and is part of platforms
+> such as Vera Rubin."
+> 
 
-It's bad on my part that I didn't expect this to be merged in the first
-iteration itself, but yes, I could have put PDC register sizing and
-related device tree binding and driver changes together with the device
-tree as one set. Like in the current patch series, it would be patches
-1, 3, and all "Fix PDC reg size..." patches or may be the removing the
-2nd register space change as well in one set and pdc driver clean up as
-separate ?
+It is quite interesting that we argue about SPD5118 which is mandatory in
+DDR5 systems. At the same time, CONFIG_IGB_HWMON, CONFIG_SENSORS_MACSMC_HWMON,
+CONFIG_SENSORS_RASPBERRYPI_HWMON, and CONFIG_RTC_DRV_DS3232_HWMON _are_
+enabled in arm64:defconfig. CONFIG_IGB_HWMON is even built-in.
 
-> 
-> > Split __pdc_enable_intr() into two focused per-version helpers
-> > to separate the HW < 3.2 bank-based path from the HW >= 3.2 per-pin
-> > path. Replace the pdc_version global with a function pointer assigned
-> > once at probe time, moving the version check out of the hot path.
-> > Tighten the ioremap clamp from QCOM_PDC_SIZE (0x30000) to PDC_DRV_SIZE
-> > (0x10000) now that the DT fixes below make the workaround unnecessary.
-> > Also add a PDC_VERSION() constructor macro and use FIELD_GET() for bank
-> > index extraction to make the bit encoding self-documenting.
-> > 
-> > 2. (patches 1, 7-28):
-> > 
-> 
-> And these patches are for the Qualcomm SoC/DT tree.
+It is kind of difficult to understand why those are more important than
+the temperature sensor on DDR5 modules (or the temperature sensor on DDR4
+modules, for that matter).
 
-Yes, As I said, I could have done better..
+I don't know what the policy for defconfig is, but just based on that it does
+seem to lack consistency.
 
-> 
-> > All 28 platform DTS files that described the PDC reg window as 0x30000
-> > are corrected to 0x10000, reflecting the single APSS DRV region that
-> > Linux actually maps.
-> > 
-> > 3. (patches 29-35):
-> > 
-> 
-> Same with these.
-> 
-> 
-> I don't see any dependencies between the IRQ and DT patches, can they be
-> merged independently? Why did you send them together?
+A separate question is if it is time to enable I3C in default configurations.
+I'd think so - more and more chip vendors support it, and presumably they would
+not invest in it if there was no demand, but that is just my personal opinion.
 
-For better context, register sizing changes can be sent together
-including binding, driver, and DT's as well.
+Guenter
 
-> 
-> Regards,
-> Bjorn
-> 
-> > Seven platform DTS files (kaanapali, lemans, milos, monaco, sc8280xp,
-> > sdx75, talos) carried a second reg entry pointing at an unrelated
-> > hardware block. The driver only ever calls of_address_to_resource(node,
-> > 0, ...) so this second entry was never mapped or accessed. Remove it.
-> > 
-> > The net result is that every PDC node in the tree now describes exactly
-> > one register region of exactly 0x10000 bytes — the APSS DRV region that
-> > the driver actually uses — and the driver's ioremap clamp matches that
-> > reality.
-> > 
-> > Mukesh Ojha (35):
-> >   dt-bindings: qcom,pdc: Tighten reg to single APSS DRV region
-> >   irqchip/qcom-pdc: Split __pdc_enable_intr() into per-version helpers
-> >   irqchip/qcom-pdc: Tighten ioremap clamp to single DRV region size
-> >   irqchip/qcom-pdc: Replace pdc_version global with a function pointer
-> >   irqchip/qcom-pdc: Add PDC_VERSION() macro to describe version register
-> >     fields
-> >   irqchip/qcom-pdc: Use FIELD_GET() to extract bank index and bit
-> >     position
-> >   arm64: dts: qcom: sdm845: Fix PDC reg size to single APSS DRV region
-> >   arm64: dts: qcom: sdm670: Fix PDC reg size to single APSS DRV region
-> >   arm64: dts: qcom: sc7180: Fix PDC reg size to single APSS DRV region
-> >   arm64: dts: qcom: sc7280: Fix PDC reg size to single APSS DRV region
-> >   arm64: dts: qcom: sc8180x: Fix PDC reg size to single APSS DRV region
-> >   arm64: dts: qcom: sm8150: Fix PDC reg size to single APSS DRV region
-> >   arm64: dts: qcom: sc8280xp: Fix PDC reg size to single APSS DRV region
-> >   arm64: dts: qcom: sm8250: Fix PDC reg size to single APSS DRV region
-> >   arm64: dts: qcom: sm8350: Fix PDC reg size to single APSS DRV region
-> >   arm64: dts: qcom: sm8450: Fix PDC reg size to single APSS DRV region
-> >   arm64: dts: qcom: sm8550: Fix PDC reg size to single APSS DRV region
-> >   arm64: dts: qcom: sm8650: Fix PDC reg size to single APSS DRV region
-> >   arm64: dts: qcom: sm4450: Fix PDC reg size to single APSS DRV region
-> >   arm64: dts: qcom: x1e80100: Fix PDC reg size to single APSS DRV region
-> >   arm64: dts: qcom: sm6350: Fix PDC reg size to single APSS DRV region
-> >   arm64: dts: qcom: sar2130p: Fix PDC reg size to single APSS DRV region
-> >   arm64: dts: qcom: qcs615: Fix PDC reg size to single APSS DRV region
-> >   arm64: dts: qcom: qcs8300: Fix PDC reg size to single APSS DRV region
-> >   arm64: dts: qcom: sa8775p: Fix PDC reg size to single APSS DRV region
-> >   arm64: dts: qcom: sdx75: Fix PDC reg size to single APSS DRV region
-> >   arm64: dts: qcom: milos: Fix PDC reg size to single APSS DRV region
-> >   arm64: dts: qcom: qdu1000: Fix PDC reg size to single APSS DRV region
-> >   arm64: dts: qcom: kaanapali: Drop unused second PDC reg entry
-> >   arm64: dts: qcom: lemans: Drop unused second PDC reg entry
-> >   arm64: dts: qcom: milos: Drop unused second PDC reg entry
-> >   arm64: dts: qcom: monaco: Drop unused second PDC reg entry
-> >   arm64: dts: qcom: sc8280xp: Drop unused second PDC reg entry
-> >   arm64: dts: qcom: sdx75: Drop unused second PDC reg entry
-> >   arm64: dts: qcom: talos: Drop unused second PDC reg entry
-> > 
-> >  .../interrupt-controller/qcom,pdc.yaml        |  2 +-
-> >  arch/arm64/boot/dts/qcom/hamoa.dtsi           |  2 +-
-> >  arch/arm64/boot/dts/qcom/kaanapali.dtsi       |  3 +-
-> >  arch/arm64/boot/dts/qcom/kodiak.dtsi          |  2 +-
-> >  arch/arm64/boot/dts/qcom/lemans.dtsi          |  3 +-
-> >  arch/arm64/boot/dts/qcom/milos.dtsi           |  3 +-
-> >  arch/arm64/boot/dts/qcom/monaco.dtsi          |  3 +-
-> >  arch/arm64/boot/dts/qcom/qdu1000.dtsi         |  2 +-
-> >  arch/arm64/boot/dts/qcom/sar2130p.dtsi        |  2 +-
-> >  arch/arm64/boot/dts/qcom/sc7180.dtsi          |  2 +-
-> >  arch/arm64/boot/dts/qcom/sc8180x.dtsi         |  2 +-
-> >  arch/arm64/boot/dts/qcom/sc8280xp.dtsi        |  2 +-
-> >  arch/arm64/boot/dts/qcom/sdm670.dtsi          |  2 +-
-> >  arch/arm64/boot/dts/qcom/sdm845.dtsi          |  2 +-
-> >  arch/arm64/boot/dts/qcom/sdx75.dtsi           |  3 +-
-> >  arch/arm64/boot/dts/qcom/sm4450.dtsi          |  2 +-
-> >  arch/arm64/boot/dts/qcom/sm6350.dtsi          |  2 +-
-> >  arch/arm64/boot/dts/qcom/sm8150.dtsi          |  2 +-
-> >  arch/arm64/boot/dts/qcom/sm8250.dtsi          |  2 +-
-> >  arch/arm64/boot/dts/qcom/sm8350.dtsi          |  2 +-
-> >  arch/arm64/boot/dts/qcom/sm8450.dtsi          |  2 +-
-> >  arch/arm64/boot/dts/qcom/sm8550.dtsi          |  2 +-
-> >  arch/arm64/boot/dts/qcom/sm8650.dtsi          |  2 +-
-> >  arch/arm64/boot/dts/qcom/talos.dtsi           |  3 +-
-> >  drivers/irqchip/qcom-pdc.c                    | 56 +++++++++++--------
-> >  25 files changed, 57 insertions(+), 53 deletions(-)
-> > 
-> > -- 
-> > 2.53.0
-> > 
-
--- 
--Mukesh Ojha
