@@ -1,199 +1,117 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F262E5B1B
-	for <devicetree@vger.kernel.org>; Sat, 11 Apr 2026 18:37:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C669285041
+	for <devicetree@vger.kernel.org>; Sat, 11 Apr 2026 19:09:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775932626; cv=none; b=WKKzvXfaZf5p5LF42M9M3zLjqbd5rD5QjmvemODZBN6QGSroYEj4ZdB1Cv3frm6YcXhWlyDn31QSF1X1hfZtgnXig3eSqoUDN1CgE0j8V7nVaNif7dGVv9cSUN+hWHjZ5W5T7ZtcGJZ/fRIB8TZpk9qI6eQr0mTgKIkBUipWc88=
+	t=1775934545; cv=none; b=EKJFyDeTVQXtL4nMw4tRq46OcXB8QZdD+SuLJ0N/IrOTXZAj3MahgA73Z0brRAlqzL0TohpVsuYzkD3dc/bEDE0CO/wCo41ogSPHjjArvN2hPIT3K0k3eJx/epKiADz7meI5NmaYBcO4FEmkNEoaIVV75OE67uVxEz9OWX9kMJQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775932626; c=relaxed/simple;
-	bh=iV9tJ+vi8bYCDpW+9uQlTp604xvZSZseQVgrphqeQrs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I9gWE4zD3uExbCck1r4p06DSHwKR6xP67TYyOsGOGe41xX5mwLR7Yki8h+W8VPB3QjM1fAoNuZdUp3TF+m0Q3rmdp2ZoRYL/KExpyNxP1DG6u5DYBJXQeBmeFmSCvLqAs31UAdaHMBKdd00UF4PDGJDtB76T+Tgd/xqgHDX5p5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p0tFAnnJ; arc=none smtp.client-ip=209.85.210.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1775934545; c=relaxed/simple;
+	bh=GaqiYCRODZ244NhliFDDI5/uKWNx6Zw+ryBpn5Lzn88=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Z0kTBoU28X2Bsb/27pAqH4TguN/orHznZto7Np+v7Oy3FI2yXQzcaSq0fNyP4NwIA/s/sQ4S/Cl0UXpqeFOaEC5U0ED+JksC/1CGdGDfhNS6tn6QEA7U1vha/Y2o/rTkgbWQY1OtOwqEkxc2snPaJpMo8jV+V0jS18TyLEdnmi4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=FG7eOP6Y; arc=none smtp.client-ip=209.85.161.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p0tFAnnJ"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-82f1f6103afso322158b3a.1
-        for <devicetree@vger.kernel.org>; Sat, 11 Apr 2026 11:37:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="FG7eOP6Y"
+Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-68beff25252so720545eaf.0
+        for <devicetree@vger.kernel.org>; Sat, 11 Apr 2026 12:09:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775932623; x=1776537423; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=O1ScsqIgcchK6ddkznfoLoUzc44ntc6r+7NNgsSVREk=;
-        b=p0tFAnnJC5bOPF+2LefvaP5ptDKMHq8RSBenI+lESFxrgXbSOVI9CLl/S59hgbw6vU
-         gtyVgbrVj7EkOF55yJQ+pu1+HMCdWDQx5bVacQvdS3y6H8K+OXl8IgJQZtpAFVJmVrcQ
-         AF/LLzh93Cz4WyqdvV+Mu9PyxuG3LjTXhKEvD7e8tvMesCbLz3+sz4WUOHmlX0dOamgg
-         ilj1A3nitpJucm43G3F5AJ2pIi8XC5ufAmAygPE3wIgVeOuue36PvYq17bdtt8VvF2Sh
-         h21sLh8rB58gcsIkqzU46rTKYNSHYynwlqODugIG4CzrqR4vlHaqZzj8+HrBhjN3ycTC
-         78Fg==
+        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1775934541; x=1776539341; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=NUa98CfZyPwdTLM0QyGm53BD0k9kVlpXi2OBQuDga70=;
+        b=FG7eOP6YtzJWyu4I/c2M26nGEcJSjN8OtIInpCvWMYlXumiXBiR9S8OOM5KUhPbBUB
+         KqVQqIl2CIehH7cHHxQNy1XTi2FYdHHZVO8koAzHjY/tlpfcriqpvYg//yv5tjU3NmGv
+         z5UJ3Gx5Q/EQXoHvNzIuqKoTQ8c1uzbKD3lQ5rX2NjdHn4jNxUD9PhenwPetA/XepOg3
+         4OO26b3CLiXMSG6xoHZX5LURY+aqywpceoSLfQ2n8Gc/qAvl+q+49+opwO0X5rPgrtXp
+         fjOMHnD4q8vOmuSkJQsWdfo74qM05Gw4AvILD8Hej1x0Pnlenuq04IrddmC5PG4wUicw
+         Lzkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775932623; x=1776537423;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=O1ScsqIgcchK6ddkznfoLoUzc44ntc6r+7NNgsSVREk=;
-        b=Y45oqLBo9okhZ4Ten84tr9M02taqGa8Al8ptyqao7+9eY/Jogx2h8Et3u8xp1cx7gx
-         YJGtoEYSjplVcwQBdryKLlg3qitrdVrH8kWc2N6RyzFnWMZ0c370TAvyioTTjQhCzIuL
-         RSUSRvM5IKS0ZMPqTZaJqPtX3kwOD1ZHZF26N7tmlshZ3JFG1KNV6a7xIvSY7J5dVJpU
-         P4Np/GTiE3neGLTn+NdMyKRkdz1wXNI8eyIqDWihKG6vCSvPDmuTTRsnqjyV0qOujeSz
-         8mhtYT/TrsTcf31e08mn3pjnW0AqYEBLE9wbpUZMW3SkR1dGRJ5FTrDmmX6+V1xnazBn
-         FzGA==
-X-Forwarded-Encrypted: i=1; AJvYcCVj7zqMVTOMStNAPbII6hH1akWChdDiSZiXlckv0m/+vfWRA8Rv9mZ+57qoX+m3r62s39e16irbfiW5@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywf9p0anpGdOmAbh/8H/mPtNsJU4dqGA0isaAXRnuBLjMI2CDvV
-	LtExYEUm5zR1EL1gq/qYj1d2dyq56Exxq/SC7PPe0xuYuGfCSZwtB3RGIC1swQ==
-X-Gm-Gg: AeBDievkbi2yjTGYhUIhqW58G1e03uxV4rKqzUunslt3Iuq6RWK34lbtjpDRgLhjc/S
-	xmc2RRG6hbUb9pfHrwNNtYiFJ+K7SLZloPOgHmjGq0kCzLcngIynPod6w6yQ9yY0aSZ/HB9XEZi
-	G38Fvj1J22JnTa5hzBgx3JV8BlC0B2XniHOxnoRslLo5JnvnLdHpWUMMBSRr93UVLjBdwnaIpBX
-	takTKj7Sjoab+tbIiBDKIZqJ+mPH48EPk9KJNnn9fIcnsIGKKgZdtagg6iNmtWq/jYeKdIqP4qW
-	S/2UJvuYcIv9XS1kGOySnjDnz/7jiXuxe64TDLVP0t1LfFNbvIW92USG+PhYViycqSB8XYO7e3F
-	7YdA3csX6TLp62HtoS0Gqe9rP2wtL0B+st2zBexuTf1mA3kzKlBpQSt+YYWHLWENHTtn/6DqJav
-	2HZjEsp+Xs3CTRXqSu9j96jnCL2Q==
-X-Received: by 2002:a05:6a00:450d:b0:82c:ec3d:28b1 with SMTP id d2e1a72fcca58-82f0c402644mr8116511b3a.51.1775932622965;
-        Sat, 11 Apr 2026 11:37:02 -0700 (PDT)
-Received: from snowman ([2400:7be0:12:e4dd:27b5:1cbd:36ed:c390])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82f0c337b1dsm7350091b3a.18.2026.04.11.11.36.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 11 Apr 2026 11:37:02 -0700 (PDT)
-From: Khushal Chitturi <khushalchitturi@gmail.com>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	liviu.dudau@arm.com,
-	sudeep.holla@kernel.org,
-	lpieralisi@kernel.org
-Cc: pawel.moll@arm.com,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Khushal Chitturi <khushalchitturi@gmail.com>
-Subject: [PATCH v2] dt-bindings: ARM: arm,vexpress-scc: convert to DT schema
-Date: Sun, 12 Apr 2026 00:03:55 +0530
-Message-ID: <20260411183355.8847-1-khushalchitturi@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20251104; t=1775934541; x=1776539341;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=NUa98CfZyPwdTLM0QyGm53BD0k9kVlpXi2OBQuDga70=;
+        b=ADIJ/SG4uIh4tUlM9n2anj7lrk5oZKj3Gn+gikeTm7FbzBwuuIRfLg6aXTI/RMCpXF
+         iPUSqQ32oSZWj6gRoIz2yAvdKtQndzeqIVuieSNh3Xy5byKxb/2125ny6VEj3s8jDYJQ
+         uQ3TTs4CLhI8SbK+DQfAmNRiOYtS577U5DPZhEXV+CaKOXs2IWDYYeYCkDh53IjKWqZ7
+         BUI+2ZId1K36qj04as1naHhOceVieeryZYsFYzrwe2EPo66SJjylAzRNGOLVVuRvnmWu
+         FUyx84OgSbTl5FUUgzUu+zwoKRte0x30gJwsbn7kjr9VgTPQHjR1SVagLVt15Wowe18U
+         5ySA==
+X-Forwarded-Encrypted: i=1; AJvYcCVs9r/C3dlbCI4cZ0aaLxGJdvspT0iAsIMTgLJlYARh1u68qyc9tPGwwqFo+1nU63s079x+NNJJ27Z/@vger.kernel.org
+X-Gm-Message-State: AOJu0YwMHnK6FqTcSAX5ye+ncFrnT0E4az+XscL9iPbVdeFrkPQTMswD
+	qfrxt6GKbcCiZD1Q6IDEkDFLCng7TEQo+xqB9w1gjvgzIgQsQS6Lk9zw1q72c+/iwIs=
+X-Gm-Gg: AeBDieuFXuy1UEKYInjXhEqidyeBJ2oj9R0sofd2lldkTVeULhp8ONaxYhB3FuGeTsM
+	HS7VKTxmCzTLlEULiFxXIFmWcxqmrXPNDdqf+nJl7NFro2P8QmP3q06rO8G2LQG+vL0z3XsTQKI
+	AVCeh6nNnBDmuCGaEJUijyNyR3tRkMYZY06+OQy2+eUbK8dAq0rTTyx9bMrEvgXY9qPc7MpBElw
+	uILgy1AI347JYPBx+xWe+Sf50ajgQik/oxyANQeT8IFaeI384apN0PnwRDvkFX8v+nqBzYuVWZq
+	AIEUi8halcMrtrQT8siSciIj+EYkzrfPBktyeio7yuev/laaVvzRb7FSqb0V3H/9xCcf0f4u5B8
+	F2Rh2658qwYhLabDJYO/iZ66VHHHEZmPwAcx8SqKnpo+TuRFMfAD5t/T5LkAFtu0/5uL6Y4FUO0
+	UWWWF6lTjfirTyC2ilqaD2V9Pwy/BgXYTVcp0TkcQ+AhHC9QNQ1OOWBksaAM7GyCUT+N6zf6Ggv
+	w==
+X-Received: by 2002:a05:6820:f001:b0:68d:dfd2:8db3 with SMTP id 006d021491bc7-68ddfd2906emr990879eaf.8.1775934541346;
+        Sat, 11 Apr 2026 12:09:01 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:d2e5:c81c:5b23:fe55? ([2600:8803:e7e4:500:d2e5:c81c:5b23:fe55])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-68bcb67e49bsm3509908eaf.14.2026.04.11.12.08.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 11 Apr 2026 12:09:00 -0700 (PDT)
+Message-ID: <cf4ac074-9098-45f5-9cd6-0eeea0b41179@baylibre.com>
+Date: Sat, 11 Apr 2026 14:08:59 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/5] dt-bindings: iio: adc: ad4130: Add new supported
+ parts
+To: Jonathan Santos <Jonathan.Santos@analog.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Cc: lars@metafoo.de, Michael.Hennerich@analog.com, jic23@kernel.org,
+ nuno.sa@analog.com, andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <cover.1774996100.git.Jonathan.Santos@analog.com>
+ <7bf387e8ad20e2f2bb14534fb03608bbadfa47d2.1774996100.git.Jonathan.Santos@analog.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <7bf387e8ad20e2f2bb14534fb03608bbadfa47d2.1774996100.git.Jonathan.Santos@analog.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Convert the ARM Versatile Express Serial Configuration Controller
-bindings to DT schema.
+On 4/1/26 6:58 AM, Jonathan Santos wrote:
+> Extend driver support for AD4129-4/8, AD4130-4, and AD4131-4/8 ADC
+> variants.
+> 
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Jonathan Santos <Jonathan.Santos@analog.com>
+> ---
+> Changes in v3:
+> * None.
+> 
+> Changes in v2:
+> * None.
+> ---
+>  .../devicetree/bindings/iio/adc/adi,ad4130.yaml   | 15 +++++++++++++--
+>  1 file changed, 13 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4130.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad4130.yaml
+> index fcc00e5cfd54..f4cad68fa04d 100644
+> --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4130.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4130.yaml
+> @@ -5,19 +5,30 @@
+>  $id: http://devicetree.org/schemas/iio/adc/adi,ad4130.yaml#
+>  $schema: http://devicetree.org/meta-schemas/core.yaml#
+>  
+> -title: Analog Devices AD4130 ADC device driver
+> +title: Analog Devices AD4130 family ADC device driver
 
-Signed-off-by: Khushal Chitturi <khushalchitturi@gmail.com>
----
-Changelog:
-v1 -> v2:
-- Modified compatible string to use an enum instead of a generic pattern.
-- Updated maintainers list.
-
- .../bindings/arm/arm,vexpress-scc.yaml        | 53 +++++++++++++++++++
- .../devicetree/bindings/arm/vexpress-scc.txt  | 33 ------------
- 2 files changed, 53 insertions(+), 33 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/arm/arm,vexpress-scc.yaml
- delete mode 100644 Documentation/devicetree/bindings/arm/vexpress-scc.txt
-
-diff --git a/Documentation/devicetree/bindings/arm/arm,vexpress-scc.yaml b/Documentation/devicetree/bindings/arm/arm,vexpress-scc.yaml
-new file mode 100644
-index 000000000000..9b8f7e0c4ea0
---- /dev/null
-+++ b/Documentation/devicetree/bindings/arm/arm,vexpress-scc.yaml
-@@ -0,0 +1,53 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/arm/arm,vexpress-scc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: ARM Versatile Express Serial Configuration Controller
-+
-+maintainers:
-+  - Liviu Dudau <liviu.dudau@arm.com>
-+  - Sudeep Holla <sudeep.holla@arm.com>
-+
-+description: |
-+  Test chips for ARM Versatile Express platform implement SCC (Serial
-+  Configuration Controller) interface, used to set initial conditions
-+  for the test chip.
-+
-+  In some cases its registers are also mapped in normal address space
-+  and can be used to obtain runtime information about the chip internals
-+  (like silicon temperature sensors) and as interface to other subsystems
-+  like platform configuration control and power management.
-+
-+properties:
-+  compatible:
-+    items:
-+      - enum:
-+          - arm,vexpress-scc,v2p-ca15_a7
-+      - const: arm,vexpress-scc
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    bus {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
-+        scc@7fff0000 {
-+            compatible = "arm,vexpress-scc,v2p-ca15_a7", "arm,vexpress-scc";
-+            reg = <0 0x7fff0000 0 0x1000>;
-+            interrupts = <0 95 4>;
-+        };
-+    };
-+...
-diff --git a/Documentation/devicetree/bindings/arm/vexpress-scc.txt b/Documentation/devicetree/bindings/arm/vexpress-scc.txt
-deleted file mode 100644
-index ae5043e42e5d..000000000000
---- a/Documentation/devicetree/bindings/arm/vexpress-scc.txt
-+++ /dev/null
-@@ -1,33 +0,0 @@
--ARM Versatile Express Serial Configuration Controller
-------------------------------------------------------
--
--Test chips for ARM Versatile Express platform implement SCC (Serial
--Configuration Controller) interface, used to set initial conditions
--for the test chip.
--
--In some cases its registers are also mapped in normal address space
--and can be used to obtain runtime information about the chip internals
--(like silicon temperature sensors) and as interface to other subsystems
--like platform configuration control and power management.
--
--Required properties:
--
--- compatible value: "arm,vexpress-scc,<model>", "arm,vexpress-scc";
--		    where <model> is the full tile model name (as used
--		    in the tile's Technical Reference Manual),
--		    eg. for Coretile Express A15x2 A7x3 (V2P-CA15_A7):
--	compatible = "arm,vexpress-scc,v2p-ca15_a7", "arm,vexpress-scc";
--
--Optional properties:
--
--- reg: when the SCC is memory mapped, physical address and size of the
--       registers window
--- interrupts: when the SCC can generate a system-level interrupt
--
--Example:
--
--	scc@7fff0000 {
--		compatible = "arm,vexpress-scc,v2p-ca15_a7", "arm,vexpress-scc";
--		reg = <0 0x7fff0000 0 0x1000>;
--		interrupts = <0 95 4>;
--	};
--- 
-2.53.0
+I'm surprised that on one said anything about the word "driver"
+in a devicetree binding. :-)
 
