@@ -1,43 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E73419AD5C;
-	Sun, 12 Apr 2026 09:18:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF95B312803;
+	Sun, 12 Apr 2026 09:20:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775985497; cv=none; b=mtqDi1zTRi4DH78NuHd0k6JE9u7PvPy0xE0l2REBsu2pgyNwvRtR6vvufJmm9s5Tc7dwfB9EUaOljjHwdZSPgxa7SkJW7JGJCrGbwgFyU7CYqO+f/iM/arfuw9f4sJuMpgC/aXuNFR7gWbeCi0tSJhz98GyYVq334IqpIjkOM7I=
+	t=1775985647; cv=none; b=V0qVFfqr0hZVJXFtUmQGToppMdpoKy6l6+i7PDXOmp5Opvw/n420hdywcRNsgHldic8Z+Cj2WrBhP6FJ6w4UkssuAOuVEZnywMHBXylKPOLdGX8sLd4VnoTToasBfuysZ5/qTYcEuTIK1/t5NYn99dXf08LZUYtYkIhlphhq30k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775985497; c=relaxed/simple;
-	bh=9zcRZ+5PCI5Z2fw1/LxfwKyquv5HdTAAezig+TuHOzE=;
+	s=arc-20240116; t=1775985647; c=relaxed/simple;
+	bh=rczNStscr53iHBjcCqFVqCWDf/LgHdrfBQWMDLQbIgY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qpZ0hs/zIeTV9hmq3irl8D66UUkqyny3q3VDSeK8u8zlvAnf/sCuHdJ3Tk9eSG4MCXq+ySHJmnwr58Quee7GC6LD4HiANcM3GC/KW0deRudyNVgwmo+NvcOFF44QPHAlsfnbDP3N5QIuz1qFU8EcmtDap7rSw+iV7FNnUa6ETCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RDRBhUsq; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=suzHfMBUGhLN35HW0rM5WqTLhVV7YKyQIbd6CExLCur+eSQiFPdbDPvLZjkReAsqnKr01gk1D8mZZNm/rawLaIB4j0axeW5lrdaLVZvSo+mkt+oPNkJG6JOH1rxm+HIKfykd/izIPfN/dcWvUQrwCBdndiiYufMR1PJr2g25/UE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ALCNqMc8; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RDRBhUsq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77DE4C19424;
-	Sun, 12 Apr 2026 09:18:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ALCNqMc8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C24EDC19424;
+	Sun, 12 Apr 2026 09:20:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775985496;
-	bh=9zcRZ+5PCI5Z2fw1/LxfwKyquv5HdTAAezig+TuHOzE=;
+	s=k20201202; t=1775985647;
+	bh=rczNStscr53iHBjcCqFVqCWDf/LgHdrfBQWMDLQbIgY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RDRBhUsqCCWSwAssF/9giJVfEb8/z/9qKI5PWbBTN+5sPXpuOjuHnOTZ3cDbKPaqB
-	 Y+vUW2vqRh2VYtf7OuZr0RHzIssPLLTkKwl4FBdgDStY/+N6EPT0VZM58zq8iJR4sO
-	 rHzFE2KK/WkWpiH88A4e59PO/3tbCkEI7YC8TXxj8mrdKp6j2BsRIDnige6nfDAs/7
-	 yaPl1mljvJcy1+Wbtmdlushm72R01n3Pbp8XFKiXRTqqhtm89pxiGeZKIL59klnOma
-	 egbPQm3K8hOYdjBx6HpLNpkDFVBVdZnzJwPdmE4/UPKtlT+FdEmqsDaJ6O5o9chcK5
-	 vE6dgrJlsPVDw==
-Date: Sun, 12 Apr 2026 11:18:14 +0200
+	b=ALCNqMc807cOnpuj/vzKIl/RhVfL4NOVch/USLcg39xaO1JZB2xJpSSAP3gRt5h1i
+	 EKmsTD9+OoSB0DicvqKI5n3ge/ehwC7Hx2B+x5TZxCY9jquSaVVtFhD5kBldrAknOw
+	 NEpKTA8lzq5FJbtojsus8omjX3B2rgMh4v9NL87m3MN1cT6/zR+oV5OxuN6Oc6ak9z
+	 2fv7BG04zNvWXZKLLzb16hT/DZczh6akwCKo4IUTSEx6cKI8XNki449zaErQtQ5e+L
+	 Zx19E+wjNEBJ6htte0HqCPwVU1Uf1yzWAoNyNtPVTH0PU89h6z7UoMcahbs0VdT2bb
+	 61ozkiM0CZlkg==
+Date: Sun, 12 Apr 2026 11:20:44 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Anushka Badhe <anushkabadhe@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, linux-sound@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] ASoC: dt-bindings: rockchip: convert rk3399-gru-sound
- to DT Schema
-Message-ID: <20260412-copper-hummingbird-of-saturation-cdde95@quoll>
-References: <20260410055532.60868-1-anushkabadhe@gmail.com>
+To: Andrea della Porta <andrea.porta@suse.com>
+Cc: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+	linux-pwm@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Naushir Patuck <naush@raspberrypi.com>, Stanimir Varbanov <svarbanov@suse.de>, mbrugger@suse.com
+Subject: Re: [PATCH v2 1/3] dt-bindings: pwm: Add Raspberry Pi RP1 PWM
+ controller
+Message-ID: <20260412-elite-mushroom-of-happiness-fade9c@quoll>
+References: <cover.1775829499.git.andrea.porta@suse.com>
+ <6f0fa1a817b5af5040b652320daa7268297932a9.1775829499.git.andrea.porta@suse.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,25 +49,23 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260410055532.60868-1-anushkabadhe@gmail.com>
+In-Reply-To: <6f0fa1a817b5af5040b652320daa7268297932a9.1775829499.git.andrea.porta@suse.com>
 
-On Fri, Apr 10, 2026 at 11:25:32AM +0530, Anushka Badhe wrote:
-> Convert the rockchip,rk3399-gru-sound.txt DT binding to DT Schema
-> format.
+On Fri, Apr 10, 2026 at 04:09:57PM +0200, Andrea della Porta wrote:
+> From: Naushir Patuck <naush@raspberrypi.com>
 > 
-> Update rockchip,cpu from a single I2S controller phandle to a
-> phandle-array. Add an optional second entry for the SPDIF controller,
-> as seen in rk3399-gru.dtsi, required by boards with DisplayPort audio.
+> Add the devicetree binding documentation for the PWM
+> controller found in the Raspberry Pi RP1 chipset.
 > 
-> Signed-off-by: Anushka Badhe <anushkabadhe@gmail.com>
+> Signed-off-by: Naushir Patuck <naush@raspberrypi.com>
+> Co-developed-by: Stanimir Varbanov <svarbanov@suse.de>
+> Signed-off-by: Stanimir Varbanov <svarbanov@suse.de>
+> Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
 > ---
-> Changes in v2:
-> - Fix subject and body: "YAML Schema" -> "DT Schema"
-> - Fix title: "ROCKCHIP" -> "Rockchip"
-> - List items for rockchip,cpu with I2S and SPDIF descriptions
-> - List items for rockchip,codec
-> - Update descriptions for rockchip,cpu, rockchip,codec and
->   dmic-wakeup-delay-ms
+>  .../bindings/pwm/raspberrypi,rp1-pwm.yaml     | 54 +++++++++++++++++++
+>  1 file changed, 54 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
+> 
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
