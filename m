@@ -1,94 +1,134 @@
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 553F02770A
-	for <devicetree@vger.kernel.org>; Sun, 12 Apr 2026 15:38:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F01C1459FA
+	for <devicetree@vger.kernel.org>; Sun, 12 Apr 2026 15:40:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776008330; cv=none; b=Ysq3EhCC+M/nmKAD/XXxivn+C+MXUgwUYQIiQAeNCeUxvmkqVM62Ua7E05uAtzCRPkWUN5QsTR8PkOUupvR0t36W+170SY2PM+LfyEHn2K814TQu/CxdMdUE4+NxWcnSrWhVZYHAxu0Ak9vZ2+X9nYWfRC7vK12FN3ZJr3OeZy8=
+	t=1776008408; cv=none; b=WmgZo08P21+ko8+ugZU2iVvaLuVrpYdZGJqJn+Sq6xVE80KhvbB0B3tHINrGVFSUSZ6aAj0/WFyjmiQRZXA6Jz5gRl+NFxvqOeImCt9zzLenEzEuV0qGvJeIyHVS1L0kp2Qbc1LpudY9g11UPNYX2MOoLC6aadxSs6/XTs8NJiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776008330; c=relaxed/simple;
-	bh=jEgfcSbwJlLH0Oyy6WeC0ojZ+uUmj7VN65R/Quwt3EI=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=BwP8K/T/9ndZE5kidJTIO6uazNQN9Bd8pRrLdhduph9yfiEXwrHRP0VHBdyTANzE4WYweh3N+LzEyTvIT5LA54YYauJXNOOZlkCWee1ceTG3/cQUqd3R9/hVHTCaARrccRfEvl65DH81hHnYKgEcADwI+gDpssIdvqgbZjhtFVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=WXmrPcJ9; arc=none smtp.client-ip=185.70.43.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1776008408; c=relaxed/simple;
+	bh=u41TX8cclHQaEIWsPGpvvV6rWGXz/ZN1AEH1kfPgIic=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ZWopG7USLIeArUcgwB68kP3+98uM8Av7la3yU10bRKNZQx5mEg2QYZfdp+FZL7GsZtG1sBACmRxB8bwVK1A7HGaWIg1HNvceGPs6YOY2aarg++5Q+xgyz6iW4ib96YdVf88NUeEwUW91/xZI2nSYuandkMb5SZ6eU/vyCn+ONj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=R/4eHF0u; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="WXmrPcJ9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1776008327; x=1776267527;
-	bh=jEgfcSbwJlLH0Oyy6WeC0ojZ+uUmj7VN65R/Quwt3EI=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=WXmrPcJ9Lq/eV9kLi2JkLpg7Zircw1k8YOZI9npziIjdjfEjKeO3Dv8is56aW4uXU
-	 h3mdo1jAUK1yydi1joJLnuC+NkMen4/GBTw6twwuxnKjFn8OEdnxMaCQY8ECJ9A4FP
-	 CNiGO/2PD4JaObiC3uB58a/DwQcwZEp4AHDIUaWeGszCcxqP4hUhyq7laF6FR09aC6
-	 qmMNKB+WkkPpTBpKc88gkdDT3nokVCTbJYINBcDUaQtKcX1DnH0i3M5F68aFkTO/fv
-	 viLdCjuZRoImNkxIJMgU8m4MS0RqyceYkoHJkSceci/T7Ywf1sNJ/Wb44cM7rta8bU
-	 IxyKHNG6XR9Mw==
-Date: Sun, 12 Apr 2026 15:38:43 +0000
-To: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Alexander Koskovich <akoskovich@pm.me>
-Subject: [PATCH] arm64: dts: qcom: eliza: Fix reserved memory addresses & sizes
-Message-ID: <20260412-eliza-reserved-memory-fix-v1-1-05cb3e33a9fe@pm.me>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: 9d3b2bdffb6a6b82d2865081f6831ce4c2ba83d8
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="R/4eHF0u"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 106A9C5B18C;
+	Sun, 12 Apr 2026 15:40:40 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id B73705FFB9;
+	Sun, 12 Apr 2026 15:40:03 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7ACDA10450205;
+	Sun, 12 Apr 2026 17:40:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1776008402; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=dJRi3G08EotndWb5PLTNZCDsFkZ8CfeE8f3gT2OHZrw=;
+	b=R/4eHF0urgb6Li7+kegjuFaoLnNbEr25/AR9mH2NzoEdOUgtbBzbJdgJUqXbZM4jx/h7K7
+	KCbDNfZfEPsA9fm3RR+ha6rDw1QtkLi3O/Q2QTMyI9kfQxhCg/JnYowZlQ4xBIL+GfzIE/
+	U4g4S44LrQ6h637Q9QBeJKSKz7G2jmfV+jNN8yv5Fmt3ne1q5id26a8NCY1a0vD39aK3BY
+	qn8wcUM3XxonYarbvifqNrQxac7TzOKxgpKTgbAS6KcLCJPnz+sdqpMjflk6bC2om4UFmj
+	rgnU2scqvtjUMfa/Fh1kpbZR+sNhVITHFrFVNdm0Cig4/2pn925+zbVu4M0sQA==
+Date: Sun, 12 Apr 2026 17:40:00 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: Kyle Bonnici <kylebonnici@hotmail.com>
+Cc: "devicetree-compiler@vger.kernel.org"
+ <devicetree-compiler@vger.kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, devicetree@vger.kernel.org
+Subject: Re: Phandles
+Message-ID: <20260412173916.7a971a45@bootlin.com>
+In-Reply-To: <D22046DB-95B3-431E-8E80-0BA806811D01@hotmail.com>
+References: <BB363BC4-B813-4D03-8737-587DF7425908@hotmail.com>
+	<20260412145144.4737fde6@bootlin.com>
+	<D22046DB-95B3-431E-8E80-0BA806811D01@hotmail.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Update cpusys_vm_mem from 256KiB to 4MiB, cpucp_mem from 2MiB to 1MiB
-and fix cpucp_scandump_mem node name to match actual reg address.
+Hi Kyle,
 
-This matches the downstream memmap and kera-reserved-memory.dtsi.
++Cc Kernel device-tree maintainers
 
-Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
----
- arch/arm64/boot/dts/qcom/eliza.dtsi | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+On Sun, 12 Apr 2026 13:51:35 +0000
+Kyle Bonnici <kylebonnici@hotmail.com> wrote:
 
-diff --git a/arch/arm64/boot/dts/qcom/eliza.dtsi b/arch/arm64/boot/dts/qcom=
-/eliza.dtsi
-index 4a7a0ac40ce6..349dbf1fc819 100644
---- a/arch/arm64/boot/dts/qcom/eliza.dtsi
-+++ b/arch/arm64/boot/dts/qcom/eliza.dtsi
-@@ -405,12 +405,12 @@ gunyah_hyp_mem: gunyah-hyp@80000000 {
- =09=09};
-=20
- =09=09cpusys_vm_mem: cpusys-vm-mem@80e00000 {
--=09=09=09reg =3D <0x0 0x80e00000 0x0 0x40000>;
-+=09=09=09reg =3D <0x0 0x80e00000 0x0 0x400000>;
- =09=09=09no-map;
- =09=09};
-=20
- =09=09cpucp_mem: cpucp@81200000 {
--=09=09=09reg =3D <0x0 0x81200000 0x0 0x200000>;
-+=09=09=09reg =3D <0x0 0x81200000 0x0 0x100000>;
- =09=09=09no-map;
- =09=09};
-=20
-@@ -444,7 +444,7 @@ smem_mem: smem@81d00000 {
- =09=09=09no-map;
- =09=09};
-=20
--=09=09cpucp_scandump_mem: cpucp-scandump@82000000 {
-+=09=09cpucp_scandump_mem: cpucp-scandump@82200000 {
- =09=09=09reg =3D <0x0 0x82200000 0x0 0x180000>;
- =09=09=09no-map;
- =09=09};
+> > On 12 Apr 2026, at 14:51, Herve Codina <herve.codina@bootlin.com> wrote:
+> > 
+> > Hi Kyle,
+> > 
+> > On Sat, 11 Apr 2026 18:33:33 +0000
+> > Kyle Bonnici <kylebonnici@hotmail.com> wrote:
+> >   
+> >> Hi
+> >> 
+> >> I have been looking at the the code for the compiler and I am wondering which specifications marks the below properties MUST BE Nexus Properties hence the validation.
+> >> 
+> >> WARNING_PROPERTY_PHANDLE_CELLS(clocks, "clocks", "#clock-cells");
+> >> WARNING_PROPERTY_PHANDLE_CELLS(cooling_device, "cooling-device", "#cooling-cells");
+> >> WARNING_PROPERTY_PHANDLE_CELLS(dmas, "dmas", "#dma-cells");
+> >> WARNING_PROPERTY_PHANDLE_CELLS(hwlocks, "hwlocks", "#hwlock-cells");
+> >> WARNING_PROPERTY_PHANDLE_CELLS(interrupts_extended, "interrupts-extended", "#interrupt-cells");
+> >> WARNING_PROPERTY_PHANDLE_CELLS(io_channels, "io-channels", "#io-channel-cells");
+> >> WARNING_PROPERTY_PHANDLE_CELLS(iommus, "iommus", "#iommu-cells");
+> >> WARNING_PROPERTY_PHANDLE_CELLS(mboxes, "mboxes", "#mbox-cells");
+> >> WARNING_PROPERTY_PHANDLE_CELLS(msi_parent, "msi-parent", "#msi-cells", true);
+> >> WARNING_PROPERTY_PHANDLE_CELLS(mux_controls, "mux-controls", "#mux-control-cells");
+> >> WARNING_PROPERTY_PHANDLE_CELLS(phys, "phys", "#phy-cells");
+> >> WARNING_PROPERTY_PHANDLE_CELLS(power_domains, "power-domains", "#power-domain-cells");
+> >> WARNING_PROPERTY_PHANDLE_CELLS(pwms, "pwms", "#pwm-cells");
+> >> WARNING_PROPERTY_PHANDLE_CELLS(resets, "resets", "#reset-cells");
+> >> WARNING_PROPERTY_PHANDLE_CELLS(sound_dai, "sound-dai", "#sound-dai-cells");
+> >> WARNING_PROPERTY_PHANDLE_CELLS(thermal_sensors, "thermal-sensors", "#thermal-sensor-cells");  
+> > 
+> > All of those properties are defined as phandles.
+> > 
+> > For instance, the 'pwms' property available in a node means the the node is
+> > a pwm consumer. It must follow the pwm consumer binding [1] and so a phandle
+> > is involved.
+> > 
+> > This phandle can have arguments and the number of argument is defined by the
+> > #pwm-cells property set in the pwm provider node [2], [3].
+> > 
+> > [1] https://elixir.bootlin.com/zephyr/v4.4.0-rc3/source/dts/bindings/pwm/pwm-controller.yaml
+> > [2] https://github.com/zephyrproject-rtos/zephyr/blob/main/dts/bindings/pwm/pwm-controller.yaml
+> > [3] https://elixir.bootlin.com/linux/v7.0-rc7/source/Documentation/devicetree/bindings/pwm/pwm.yaml
+> >   
+> >> 
+> >> 
+> >> These can be found here: https://github.com/dgibson/dtc/blob/main/checks.c#L1498 this is relevant for https://github.com/zephyrproject-rtos/zephyr/issues/107066  
+> > 
+> > Examples provided in the zephyrproject issue link are, in my opinion, incorrect.
+> > 
+> >  Case 1:
+> >  / {
+> >      node1 {
+> >           pwms = <1 &pwm0 1 20 PWM_POLARITY_NORMAL>;
+> > 
+> >           Here the first cell '1' is not a phandle.  
+> 
+> Here the compiler is making an assumption here that all `pwms` properties must be specifier properties and all use `pwm` specifier.
 
----
-base-commit: 66672af7a095d89f082c5327f3b15bc2f93d558e
-change-id: 20260412-eliza-reserved-memory-fix-dc0f65d29996
+I think the purpose of 'select: true' is to have the binding always applied:
+  https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/pwm/pwm-consumer.yaml#L15
+
+If this is confirmed, DTC performs correct checks as this binding must always
+be applied and so the 'pwms' property must be a phandle-array property.
+
+Device-tree maintainers, can you confirm the purpose of 'select: true' set
+in a DT binding ?
 
 Best regards,
---=20
-Alexander Koskovich <akoskovich@pm.me>
-
-
+Hervé
