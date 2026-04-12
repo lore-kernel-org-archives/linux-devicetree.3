@@ -1,106 +1,100 @@
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25E131A6828;
-	Sun, 12 Apr 2026 03:48:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6935C2EA;
+	Sun, 12 Apr 2026 04:29:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775965707; cv=none; b=T1+D9cl3vBP7TzCks4SVdzF4vCTJMbKBjJTMKmcOTHbqURnGxqgz0Zn+w6plsgC1U8eLvJJSgaUA1xA10ainuRc21KAsAWFhk+5bh9pCZr1+wOtPyczeVSRVv+SLX6rYTsllR6hOxAT+Zn2Lvnqr5OI3C1+h5dMb9uB4TNwqR2c=
+	t=1775968165; cv=none; b=t0ZsvaHQsH0r5qeGIl1hpy/9RjpIMl+Vt4pJXqcJ++F/oz9Zn1gl8I8gYGYCKB+iP86DiMZNM0c4Sytytf1/ssvTVTidQ20pGfvZlDUtjI2WTJgC1YJCw0yi1kQ3fi0UbnfezyHzYu3SE53WN1jM18bDS7UyII8cnFxmu/8QYRQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775965707; c=relaxed/simple;
-	bh=Shwe1898vRBh8CC7NQ/j/z7cBo75OO6vQGWWvCPe85Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZCuZv6vUeCf3xyHpDJT1wxLG8SmVJ41AAPjegYQUnr7gJu7KhRfAu1pDJAaRE5KG5d8JM41gxzEsG89hfMTqm/UcE8e48d1fdukRz5cSJX7j/sZjmZ2BFhAzJ4WofMbXkgEJQIRWa95ZKU6pLsjNrze0WCAv3TMUVUffLxfNBrY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.204.34.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpgz4t1775965668te83a6abb
-X-QQ-Originating-IP: qUAYpAzp+h5uzx9PSZQMQCkfZr6QGRT/gnzLBcy3tmU=
-Received: from [127.0.0.1] ( [116.234.85.158])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Sun, 12 Apr 2026 11:47:46 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 4709009809936813395
-Message-ID: <A76960166F7A473E+e74b8c44-c412-4eb3-ac13-ab9a8ebce8e5@radxa.com>
-Date: Sun, 12 Apr 2026 11:47:46 +0800
+	s=arc-20240116; t=1775968165; c=relaxed/simple;
+	bh=mMj8xJVXlOsR/4sGO+dUgAd/881AhDLmkyFvhyKAm2w=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=UPz6/cUbv2EDP/aLetX83pruI1wEOdPD1AfhFd2CKR2Ny2TWwhsPTro18pWUc/wMeV6IHKdwLbk070cHhjD2FyMlmqXaIGkFefnU5inwjvDKYeWSHonftRtD7+P5+Wh9DTBxS7mJXgKKNuHDCzsEcRw7Mk+rt2N40Tr0H8tqtGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=Myw/eE2E; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="Myw/eE2E"
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id BD4F825F30;
+	Sun, 12 Apr 2026 06:29:20 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id aX68PLeuX5Sz; Sun, 12 Apr 2026 06:29:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1775968160; bh=mMj8xJVXlOsR/4sGO+dUgAd/881AhDLmkyFvhyKAm2w=;
+	h=Date:Cc:Subject:From:To:References:In-Reply-To;
+	b=Myw/eE2EjhmmSrDx/TAnW1g/LHDUHzhnIDjy6lxojsnnBLAye7iSRv9fNCKNAhfxr
+	 mzLJ+KwAqxgvS+fJmSaOmyaRbQC4XXbgpFCak7jZ8gt2m5fMqGtKK3mwNhztGkz2QD
+	 ZUgHc1s2KZr7WUGYWhkgLeEmwYmvPHD9bRxp6dEvCJpYTcURWgRO7ntUI0KL27PH6Y
+	 8+HYOC6ukTEd2BbJmnWNHQH2iRFaLFfJK9mfdbefUulQNs6HjywkLDLnRHHuj8dTlK
+	 O+4S+X3/uM8Vk/Y9CuAdFOEwd1Y8jz0VpJTOIuPFocSUnAxHK9Y0nH9NYBQmk7742F
+	 E4VRt2htJ77tA==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/12] ASoC: dt-bindings: google,sc7280-herobrine: Add
- Radxa Dragon Q6A sound card
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Judy Hsiao <judyhsiao@chromium.org>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, linux-sound@vger.kernel.org
-References: <20260407-dragon-q6a-feat-fixes-v1-0-14aca49dde3d@radxa.com>
- <20260407-dragon-q6a-feat-fixes-v1-11-14aca49dde3d@radxa.com>
- <20260408-pretty-poodle-from-atlantis-dfd1fb@quoll>
-Content-Language: en-US
-From: Xilin Wu <sophon@radxa.com>
-In-Reply-To: <20260408-pretty-poodle-from-atlantis-dfd1fb@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: N+n6UtIkOPCa+7mPMHsiXOG9eC2loerQlrRrmuH2WXJeQeRdVuIP+OFu
-	NgyEkYYgYz5yPPEdCb82Mx6eAj2vqJBnPPlL8WMzzDrl0niu2VtOnO1hw1puEhlKlCF/HH6
-	VXh0VC7mX+B2CL78A0FgRwkYZAMVghDO9Brovp3wfsVuhRSb4Q4baftHTebqjdHj+i6pqXd
-	JgU5NPzaTKk0k02Ha+dcQ2TmMEui2X2iSXJFWH+nrR5+tkrYpbYAVDpmSmtw6amTiOha2CG
-	6agOeTeVyrTg962HBviU20/JdX8ZAFsCs8ZcO0YY6fTd34WmuAUZAPJyAIWbrQphIUccmTs
-	NGQh5PGVb0O+1MnJGCmUY3KxUzxBcpPmGMaHhLK/H8jmUA/CD/LozcMMOFkJg1cZ89O0iso
-	jezXE8kFyPjChXgyg9BRa6GqU54t1kqVcSO+LTC0r616gFh+qX0p/XGr/2ekwuIIWqVaKaI
-	zKfItLddtbcyvOPdP/iY4TRzu9w7HWDpMvGi0kjXaIHe/z4wjJRnrz7Qg/xJa9kcu6x6HHA
-	QJJq7iN/5fuCavQprZW/gZajmQgfhiMJIFgMouB2nhI0LjOlzP9o1k9EAjyJThpIuqDu9xR
-	wp9uI1PWRVNwUoWXXehHZQi+ShLxcfOTqNQdgJvLbBb4Ek8TgPivV1olRlFaFVm4ocMhycy
-	YkWOqeAIrlVDEV+PiTn3aY2D1dSRoxq+t1m/8kGekc6dqWne8S01qEEAavrINFo5WgNKNQ5
-	ouBv5d0wNPEuJ73jqm1b5PuB3yUddP1YxdCfLu7OZlYabxgQshubcAujYx9VVl56kbxQLNL
-	9KbUQ2kO2YXuxWDCLYuATBlkNy2osLaWoY136Qia93hrmhcaT9TivjmMlKOcaNZ4C59Hil+
-	eMKH34aHkWQ+O714cvKUt0kQVE9q9h5X+dWS/QsVWHIWGwkFUK48KLLzalCzSubpyx3d73B
-	wAxMvq2qE/jKVNyM453ibiE8cD49tqh9nM/KNK7HNFbgMSyn+PEf4550y0uZLwaIG1a9ftr
-	lxgUbyD7g3NFiU6FWAm7GKI3lfMCw=
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 12 Apr 2026 09:59:10 +0530
+Message-Id: <DHQW60ZTLODV.3C6OG2KUNVSBR@disroot.org>
+Cc: <linux-mmc@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/2] dt-bindings: mmc: dw-mshc-common: add option for
+ configuring DMA threshold
+From: "Kaustabh Chakraborty" <kauschluss@disroot.org>
+To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Kaustabh Chakraborty"
+ <kauschluss@disroot.org>, "Ulf Hansson" <ulfh@kernel.org>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Jaehoon Chung" <jh80.chung@samsung.com>,
+ "Shawn Lin" <shawn.lin@rock-chips.com>
+References: <20260412-dwmmc-dma-thr-v1-0-75a2f658eee3@disroot.org>
+ <20260412-dwmmc-dma-thr-v1-1-75a2f658eee3@disroot.org>
+ <6d692d1f-ab67-463a-9135-520a36977d5d@kernel.org>
+In-Reply-To: <6d692d1f-ab67-463a-9135-520a36977d5d@kernel.org>
 
-On 4/8/2026 4:48 PM, Krzysztof Kozlowski wrote:
-> On Tue, Apr 07, 2026 at 11:20:03PM +0800, Xilin Wu wrote:
->> The Radxa Dragon Q6A can boot in EL2, allowing the kernel to access the
->> LPASS hardware directly. Add the compatible for it to the bindings.
-> 
-> You are not adding compatible for LPASS, but for the sound card. And
-> since you mentioned it, what happens when you boot in EL1?
-> 
-> You need to post bindings for both cases.
-> 
+On 2026-04-11 22:27 +02:00, Krzysztof Kozlowski wrote:
+> On 11/04/2026 21:43, Kaustabh Chakraborty wrote:
+>> Some controllers, such as certain Exynos SDIO ones, are unable to
+>> perform DMA transfers of small amount of bytes properly. Add a property
+>> to configure the DMA transfer threshold.
+>>=20
+>> Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
+>> ---
+>>  .../devicetree/bindings/mmc/synopsys-dw-mshc-common.yaml          | 8 +=
++++++++
+>>  1 file changed, 8 insertions(+)
+>>=20
+>> diff --git a/Documentation/devicetree/bindings/mmc/synopsys-dw-mshc-comm=
+on.yaml b/Documentation/devicetree/bindings/mmc/synopsys-dw-mshc-common.yam=
+l
+>> index 6f11b2adf1036..1693277957a91 100644
+>> --- a/Documentation/devicetree/bindings/mmc/synopsys-dw-mshc-common.yaml
+>> +++ b/Documentation/devicetree/bindings/mmc/synopsys-dw-mshc-common.yaml
+>> @@ -57,6 +57,14 @@ properties:
+>>        force fifo watermark setting accordingly.
+>>      $ref: /schemas/types.yaml#/definitions/flag
+>> =20
+>> +  dma-threshold-bytes:
+>> +    description:
+>> +      DMA transfer takes place only if the transfer size is equal to or=
+ greater
+>> +      than the number of bytes defined by the threshold value. Some con=
+trollers are
+>> +      unable to perform the DMA transfer properly with small amounts of=
+ data.
+>
+> Looks like controller specific, thus should be deducible from the
+> compatible.
+
+"samsung,dma-threshold-bytes"? So you also suggest I move it to the
+Samsung's schema? Okay.
+
+>
 > Best regards,
 > Krzysztof
-> 
-> 
 
-Hi Krzysztof,
-
-Thank you for the review. You are right that this patch adds a 
-board-specific compatible for the sound card, not for the LPASS block 
-itself.
-
-For EL1, the default Dragon Q6A DTS already uses the generic
-"qcom,qcs6490-rb3gen2-sndcard" compatible, and for the EL2 LPASS-CPU
-variant I can also just keep using the generic
-"google,sc7280-herobrine" compatible.
-
-Would it be better if I simply drop this binding patch and keep both
-cases on their existing generic compatibles instead of introducing
-"radxa,dragon-q6a-sndcard"?
-
--- 
-Best regards,
-Xilin Wu <sophon@radxa.com>
