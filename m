@@ -1,46 +1,43 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail-43103.protonmail.ch (mail-43103.protonmail.ch [185.70.43.103])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1FAA313E10;
-	Sun, 12 Apr 2026 09:58:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54F5D30FF21
+	for <devicetree@vger.kernel.org>; Sun, 12 Apr 2026 10:05:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.103
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775987925; cv=none; b=lINAdrLXOM2XNHF4kYea3Bo9426f1po3ysxzJfsHz93mPwlMVoBUcISXxC2g+AvZXDi3Web+qTv4E8fsMJcmUhSD4nmy3HWroofrcmqqVe8cG058vC5arNB5FnzbWQtik/+B1X1KXzukOdooPSz0YynDb0QmGpjAwVOHq8oIE7M=
+	t=1775988329; cv=none; b=WocWKER4WGi2fxbX3tRcEfYy3a3JKbgIWeSkewZAnZ8n4PuOVx+cogfN8je1YhtgF9gWsuGHZ4l53v2lChNLLRkoOaIA9eqWUI+ufPbzAKN2sDf1wYDaUrAr74LqwGyfZnRnVibeh8Kkx0d8fzMiy6lPKH8nUFlLer4HfHTOOVE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775987925; c=relaxed/simple;
-	bh=zIplO9XJuBXyoCejItnRIwDvvhcyaRbki3fs/p1THpU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qICJEmA6GX39Q0Er2TtT/0GD7a7ubCdJsJAfucb7nHHyTLe++ANdBhlcyJ1EVYr1jWBT2s7dzyViw866D4pyT5gWOcds+wGEPWo43SpmIFD3jU+7MSujGtWcL/heSg97v11wupxstBdQgnDxtTNJDcnuRutjnXtRQdM2qzrLnII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ApjeXvFz; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1775988329; c=relaxed/simple;
+	bh=Ro2s/DMoOSY/diz7ztskdLsgT8ew6ri0RnDa+U4SOEg=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cfX8ULU+FtMyqsZTDLw8nGj8mpuk5hzRgynEHyG2jQ+6PXkeEHz8bKkRR2CGZaTzpehwudtMEzs5auxqm+WswXjiHLrDkNSj4X7sL3RsMeCV0DQhCCU2gKDksqmPrr7liPNDq7RhlcPfIsZ8mg3MQPpq1ggghZCYWbAfRnFM5AE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=WmxN1zdb; arc=none smtp.client-ip=185.70.43.103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ApjeXvFz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 256E7C19424;
-	Sun, 12 Apr 2026 09:58:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1775987924;
-	bh=zIplO9XJuBXyoCejItnRIwDvvhcyaRbki3fs/p1THpU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ApjeXvFzueV95XP2YOnVk5tJ0hV4tBLnKhSecuiG6Gr4VAnKHjqAds8qb8X+3u4z3
-	 d+GsxDjxfrEgPac1NbkCR7/jkZEplLioV9Mo8C5k0D8W2LO3AtjRxn7pgLLlai7YiD
-	 fdiQF2o2RiIAAT0s9qmOEZJg2yY0NVFO2krzfU1oE+mTo/DG24LMs99IHCa7okyUXu
-	 v+iuiDzsNyyzrEkCR6sQySiSHfkoCr+gpXHP7pr8o1G6CAli+SG0hJn09J6mxoDgVe
-	 Sn5L8R2ckRzp17fFBBXzuftPMtehuOJChwRh0keHyGY86ivNjGiKOZJ8OcsPkoJ0X7
-	 zBRj8og8Qz+7g==
-Date: Sun, 12 Apr 2026 11:58:42 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Cc: Guillaume La Roque <glaroque@baylibre.com>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Jerome Brunet <jbrunet@baylibre.com>, Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
-	linux-pm@vger.kernel.org, linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 1/8] dt-bindings: thermal: amlogic: Add support for T7
-Message-ID: <20260412-abiding-silver-turkey-1623cc@quoll>
-References: <20260410-add-thermal-t7-vim4-v1-0-19f2b8da74d7@aliel.fr>
- <20260410-add-thermal-t7-vim4-v1-1-19f2b8da74d7@aliel.fr>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="WmxN1zdb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1775988320; x=1776247520;
+	bh=6Tx4vVjdh5D09eYTtMxiFd+EQ6vkk9v/jTtyqYbyAPY=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=WmxN1zdbHIFdTzig64vEEmOjFcUtwIWaArLyd/dgm3dbA30j4Q8TSg2EeEptyCUfb
+	 weKjUJFedmoIVWLbIWKNp1Km0JkkMoxAbjWr0RQ830FP7wJggSNX7tspe3A9gvsaj+
+	 +w0dQWj3mA1kX8uiuWVS2gBlHWcOELTVxvILZwDqd/SSzdvOyjzQCRCnt2DYe00fs3
+	 upjuPVkyKM7VNwY3BQx1BKPpexG2bbNBTCceuNUxo5u3kFIgGwLklT3DxwokgmRl/H
+	 oodhtB9PNy072EUle1sNOs3vinF28810hYpVczEFKHQ2/Ri63wWsKtqPbN5TEsmwoM
+	 a9LUCSRSvxybQ==
+Date: Sun, 12 Apr 2026 10:05:15 +0000
+To: David Lechner <dlechner@baylibre.com>, Hardik Phalet <hardik.phalet@pm.me>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+From: Hardik Phalet <hardik.phalet@pm.me>
+Cc: Jonathan Cameron <jic23@kernel.org>, =?utf-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Brigham Campbell <me@brighamcampbell.com>, Shuah Khan <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev
+Subject: Re: [PATCH v2 0/4] Add QST QMC5883P magnetometer driver
+Message-ID: <DHR3B98LQ4I5.3R5K7W1J1EJC3@pm.me>
+In-Reply-To: <ac8912f2-3bee-483f-91f1-72c5346792c6@baylibre.com>
+References: <20260409210639.3197576-1-hardik.phalet@pm.me> <ac8912f2-3bee-483f-91f1-72c5346792c6@baylibre.com>
+Feedback-ID: 166659585:user:proton
+X-Pm-Message-ID: 7c9b77c591f5f02e0a9d71b2e0405bbeb18ac855
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,83 +45,64 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260410-add-thermal-t7-vim4-v1-1-19f2b8da74d7@aliel.fr>
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Apr 10, 2026 at 06:48:02PM +0200, Ronald Claveau wrote:
-> Add the amlogic,t7-thermal compatible for the Amlogic T7 thermal sensor.
-> 
-> Unlike existing variants which use a phandle to the ao-secure syscon,
-> the T7 relies on a secure monitor interface described by a phandle and
-> a sensor index argument.
-> 
-> Introduce the amlogic,secure-monitor property as a phandle-array and
-> make amlogic,ao-secure or amlogic,secure-monitor conditionally required
-> depending on the compatible.
-> 
-> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
-> ---
->  .../bindings/thermal/amlogic,thermal.yaml          | 40 +++++++++++++++++++++-
->  1 file changed, 39 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
-> index 70b273271754b..85ee73c6e1161 100644
-> --- a/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
-> +++ b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
-> @@ -22,6 +22,7 @@ properties:
->                - amlogic,g12a-ddr-thermal
->            - const: amlogic,g12a-thermal
->        - const: amlogic,a1-cpu-thermal
-> +      - const: amlogic,t7-thermal
+On Sat Apr 11, 2026 at 12:56 AM IST, David Lechner wrote:
+> On 4/9/26 4:07 PM, Hardik Phalet wrote:
+>
+> For a series this be, please wait at least a week for more feedback
+> before submitting the next revision.
+>
+Noted.=20
 
-So these two entries are enum.
+>> This series adds initial Linux support for the QST QMC5883P, a 3-axis
+>> anisotropic magneto-resistive (AMR) magnetometer with a 16-bit ADC that
+>> communicates over I2C. To my knowledge there is no existing upstream
+>> driver for this device.
+>>
+>> The driver supports:
+>>   - Raw magnetic field readings on X, Y, and Z axes
+>>   - Four selectable full-scale ranges (=C2=B12 G, =C2=B18 G, =C2=B112 G,=
+ =C2=B130 G)
+>>   - Configurable output data rate (10, 50, 100, 200 Hz)
+>>   - Configurable oversampling ratio (1, 2, 4, 8)
+>>   - Configurable downsampling ratio (1, 2, 4, 8) via a custom sysfs
+>
+> What is the difference between oversampling and downsampling? I think
+> we have used some filter attribute for downsampling/decimation in some
+> other drivers so maybe that could be a good fit?
+>
+I mentioned my problem with it in my reply to your review for the third
+patch in the series. Meanwhile, I will also have a look at how other
+drivers are handling it.
 
->  
->    reg:
->      maxItems: 1
-> @@ -42,12 +43,40 @@ properties:
->    '#thermal-sensor-cells':
->      const: 0
->  
-> +  amlogic,secure-monitor:
-> +    description: phandle to the secure monitor
-> +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> +    items:
-> +      - items:
-> +          - description: phandle to the secure monitor
-> +          - description: sensor index
+>>     attribute
+>>   - Runtime PM with a 2 s autosuspend delay
+>>   - System suspend/resume via pm_runtime_force_suspend/resume
+>>
+>> Regmap with an rbtree cache is used throughout. CTRL_1 and CTRL_2
+>> bit fields are accessed via regmap_field to avoid read-modify-write
+>> races. The STATUS register is marked precious so regmap never reads
+>> it speculatively and clears the DRDY/OVFL bits unexpectedly.
+>>
+>> The init sequence on probe is: soft reset =E2=86=92 wait 1 ms =E2=86=
+=92 deassert
+>> reset =E2=86=92 configure SET/RESET control =E2=86=92 apply default ODR/=
+OSR/DSR/RNG
+>> =E2=86=92 enter normal mode. This ordering was determined empirically on
+>> hardware to produce reliable, non-zero axis readings.
+>>
+>> The driver is placed under drivers/staging/iio/magnetometer/ with a
+>> TODO file tracking the remaining work before it can graduate:
+>>   - Triggered buffer support (iio_triggered_buffer_setup)
+>>   - DRDY interrupt support
+>>   - Self-test implementation
+>
+> These are not reasons to have the driver in staging. It is fine
+> to have a driver that doesn't implement all functionality. We should
+> be able to add those features without breaking anything.
+Noted.
 
-For what exactly this sensor index is needed? commit msg explained me
-nothing, instead repeated what you did. That's pointless, explain why
-you did it.
-
-> +
->  required:
->    - compatible
->    - reg
->    - interrupts
->    - clocks
-> -  - amlogic,ao-secure
-> +
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - amlogic,g12a-cpu-thermal
-> +              - amlogic,g12a-ddr-thermal
-
-Drop both, you need only fallback.
-
-> +              - amlogic,a1-cpu-thermal
-
-And list is sorted alphabetically.
-
-> +    then:
-> +      required:
-> +        - amlogic,ao-secure
-
-Best regards,
-Krzysztof
+Regards,
+Hardik
 
