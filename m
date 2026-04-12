@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16009352C35;
-	Sun, 12 Apr 2026 18:39:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41F97342535;
+	Sun, 12 Apr 2026 18:39:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776019195; cv=none; b=b90DeOYBUdE5rHxMobnfmpMPtHpnkPyecAx9K1DZvL6DTNiM8ClXewV2tTUT7BLrvIN3ib5oQgjujVXg/Pqt7loihQXji97DnWCMRgVVaHN/XB7ACXzJqfHo26eI2Q6l4wNVu43/tPGNuLrY+vfjfaUIwu/pNK2zMupDHUjvmdw=
+	t=1776019199; cv=none; b=JlC/Wh/ZWhi2jffUW45hW57xpkHfQvReiRDHBoAr23oBN+NZoJCpLnrtlafQSSTpZK/MbSS/PHBkbB+Fr5AUlPc6KiSrevDUUthnqFFKJBAomgeiIYUuyyX0M+PZG1mT+HzIt1DUUxzRndIBWk/lpMgrpeyKXa0ldAYgQ5+4sis=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776019195; c=relaxed/simple;
-	bh=vaml1hSzw+9RCWC9HR9TAaFcOV2ZecWUCGmJ+JRv0QU=;
+	s=arc-20240116; t=1776019199; c=relaxed/simple;
+	bh=uuJ60iTvnBWcy4FZEW+4SLjrsWF4Mznbw3w3T4mzkag=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oje+Ti1ShvEFCruax2GbjEcfckvKp2dTERcQAXKC82ZLEsv/jvvCf68jzzIMwDpOCRkogladRrJJr2WLSCDZQ7Umnx7Vp42Y35BtIMnRuq53c3/sF5VGFaUBYSAekpGPg5u7PRmLHarcDxj3JEItuCo/QPoX75Xrj6aeCG9gzyY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kCmnwEat; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=Wrx0GgLN1Fy4h2b6vpndOL3GQQ5X4++rpbeO7CUTsqKY2lNaTyVKfXSoFVkx3ti7qu+G+AX176vcEl2mywIr6vwhB9sYBQoihw0KouQg0wl4q1ZCvZ6rK5+BmQ+Jj7/yuGztV0DvgITOhGXivXZcCPWXz7yKZgwXbwKDOW63A+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gOG3fNh8; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kCmnwEat"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE89CC19424;
-	Sun, 12 Apr 2026 18:39:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gOG3fNh8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC8E9C19425;
+	Sun, 12 Apr 2026 18:39:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776019194;
-	bh=vaml1hSzw+9RCWC9HR9TAaFcOV2ZecWUCGmJ+JRv0QU=;
+	s=k20201202; t=1776019198;
+	bh=uuJ60iTvnBWcy4FZEW+4SLjrsWF4Mznbw3w3T4mzkag=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=kCmnwEatYzy/ZEYh5Onzp/Q+E13kCEFYNm4CQpA/eZweRcNKyIB5QobVliOjvugaD
-	 iF5RE9UWryx4D+dGJdN8F3Y72mqIEdIiFvFVlt9Q82nf0sd/xQhF0SZm0dndysyDRA
-	 M6JLaPe7OQJR8YmVYGPXwq98jp9Te6wCKbFOUXQF5epTA1gz//96UVooaw9AxBpC4c
-	 VrjPtdF2SAn2B+Z68vX+vobDMPZp0WBr7IfDA8V45mM8EwoPCeWkrzua/XwGHEOVbL
-	 XXzEyCxPzSD4EYMCqhj/KzYXq8wSR5/cQ/lTK6WC9CtViNwx7OnVuoJxqIoMA2eZJX
-	 mQSO7za0i1l/g==
-Message-ID: <f22c6b07-d88a-481f-8f43-401f3e372765@kernel.org>
-Date: Sun, 12 Apr 2026 20:39:50 +0200
+	b=gOG3fNh81EHu4KbYrsAz60rHWGQR823YpaEeEcoqNU3vYnailJE8FjHDbifxP7kn/
+	 T8NqsboYU6bX0c5PxlEq8E8Bah2YiFDsffbCNIQGkfN6b9UYJUjJJJJG6nZ1Ntzs0z
+	 TS3pLu3+xNmUqmAbMpM/BxhUW283RnYVRiV/xoc3yENqyVw/cg/eq2JQ3oiVR7nQpZ
+	 fPdR2LTPTHDgOb+98OiBPsQAyzhB7QWwhiQ+RGNEwYDIqr3sRce8Oq1+QhN1Oqxk9J
+	 H8yiXxqNJ0VRj4pqrGsdCkgiiQHhJOtneHBN1M2a+jD1LJPzq085LaoWj0GjXn84a6
+	 RBH9EKDOnn3FQ==
+Message-ID: <6b0c63fb-3e16-4392-a704-2d6ce45a1de0@kernel.org>
+Date: Sun, 12 Apr 2026 20:39:56 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,7 +35,7 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: arm: qcom,ids: Add SoC ID for SM7750
+Subject: Re: [PATCH 2/2] soc: qcom: socinfo: Add SoC ID for SM7750
 To: Alexander Koskovich <akoskovich@pm.me>,
  Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -43,7 +43,7 @@ To: Alexander Koskovich <akoskovich@pm.me>,
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
 References: <20260412-sm7550-id-v1-0-958a673ff791@pm.me>
- <20260412-sm7550-id-v1-1-958a673ff791@pm.me>
+ <20260412-sm7550-id-v1-2-958a673ff791@pm.me>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,16 +89,18 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260412-sm7550-id-v1-1-958a673ff791@pm.me>
+In-Reply-To: <20260412-sm7550-id-v1-2-958a673ff791@pm.me>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 12/04/2026 17:42, Alexander Koskovich wrote:
-> Document the ID for SM7750, an Eliza SoC variant that can be found on
-> the Nothing Phone (4a) Pro.
+> Recognize the SM7750 SoC which is an Eliza SoC variant.
 > 
 > Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
 > ---
+>  drivers/soc/qcom/socinfo.c | 1 +
+>  1 file changed, 1 insertion(+)
+
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
