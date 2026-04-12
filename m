@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8971533D6CA;
-	Sun, 12 Apr 2026 13:23:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B03E555;
+	Sun, 12 Apr 2026 13:32:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776000183; cv=none; b=EDx0giIr4664KP6FEHgfZyzmignbbsiMA5TWsxfxcyYnxUBOTvCNz4qgeUVH7Wsu9Si6IWk8uKUB6/K2OhGxUX6iNUpcizIAaHj+wKIe2af7tmTJXTxo2roZt1aQEOIEvega6f8VXfiUgqpE0MQ+dJ46WgXGAsPTIgL8pMFEfEU=
+	t=1776000755; cv=none; b=NJz0fD/hXZdv5Vyt/mAAP79lqr9ayDhvO1Ps+sWz94MGjBfF1VmgFSFbLZuqc8I/UySr6+TSddWghUC2dVkdrJU5o+/KMArB7SuJtoeq0h8Cj6WiB9Tw4+v4PRAarrpxuoimH7c8QoY2uLiButcdDL+yPxznOinmzOzFU46e8Vo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776000183; c=relaxed/simple;
-	bh=aYHqWJYLBiMXrDvtCOwuoP3WgzDcSKZ3t2fT5JRVxmI=;
+	s=arc-20240116; t=1776000755; c=relaxed/simple;
+	bh=z6WgQh/ArnAhmplYX1CEz9iRQGLFseHcrBMZ6G2udvw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SzZNfXH+0SjaAgZ0OHHtxZavuwpOB+AxXwNTNeirT/6LBi47yfFf/BqqiQlrKLjVuem1zkTocTXQtphdQsVB1ZW9tFRHykWpbNjkjSUxsRyC4Sxgs66X5b7DByO/zyMa+Sv7GBdyEW2EmtgshHI9Z9O6nX0hyCJxGLlDHOvBSH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BhRJKm7J; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=ReARtN2n6YCX01ZUnC4CNq4kc2jtdzD83JThssT8VdNU/UcuHFEmc5ze0rST4OCDdkgRMqpXO1jRZAoPtHhMIIbNqCv3jPYIIgvMYBPl1hGqa7iRVvEFoNsOL6uBm1igWmcvyVa7ghRD/gC+fzwdJZTKqlafOe44oy8S21XbY8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bRd4IcVR; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BhRJKm7J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C653AC19424;
-	Sun, 12 Apr 2026 13:22:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bRd4IcVR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC47CC19424;
+	Sun, 12 Apr 2026 13:32:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776000183;
-	bh=aYHqWJYLBiMXrDvtCOwuoP3WgzDcSKZ3t2fT5JRVxmI=;
+	s=k20201202; t=1776000754;
+	bh=z6WgQh/ArnAhmplYX1CEz9iRQGLFseHcrBMZ6G2udvw=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=BhRJKm7JyCu2kDZeR6utCxxXiTnkqzdEdkbNPdbrvkqhiFIgT3EzWOFQS6J9lpLIk
-	 Nw1i78o3a6XFllRd5th6ZEaUe0lynNoN1diC1iU0SqyjyF9bi71K7aeESBtQ4uS0ae
-	 r2sy8fTq47NsPGOJ1t+kKqY0afvNsMBlFim8QrmRgUsQf42yJAT640gHC30OzBP6Ra
-	 HTITde693ewpS6iypVIQGASZA6NoyRiSSokXdV1atxlZ717S6TOk3hCgPLbsyZM2hm
-	 L8OLt4STnZ9Cp/QNR3m+qQ4AsbUjS/MDnoywgIrYvLFIIoeyxRy2wfLQYuckjO6bRA
-	 lNy2bIh1QqZpw==
-Message-ID: <125cad6c-fb58-4498-a967-41778f6f91f6@kernel.org>
-Date: Sun, 12 Apr 2026 15:22:51 +0200
+	b=bRd4IcVRz3hgWmVkV1KSgKXtgsgIemwIHlNZ4J4FVRbsSxDEMpiuMZbCJgElm1S5h
+	 Bi6VU5tdUVZ4Ubv4xcQW6jKBL2HPEl/3WwdrfC0zMuCrgHeCoozOd855htEk4llqIY
+	 VQalqIh9VT9rt0QbwMGPi/bgWmafna9saTS+WoiTmXjgyeubGF2q4k9pm17Ac0pQs8
+	 VVIZbDVTxUcax6XaBitQpIev1GO/RPJvFVpkJmM8ZRoUrLtNdGAuMLZMi4PrfVoXY6
+	 FX7x2fgMbQBh45wibFrxEThdvF9QNtaCPck0WXxJpJpEIatmIfR1sNa0sqQzQwO5S5
+	 I682aty4mMOdg==
+Message-ID: <ef05d6fd-97d9-4795-9626-e69895e5df74@kernel.org>
+Date: Sun, 12 Apr 2026 15:32:23 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,27 +35,19 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/2] dt-bindings: embedded-controller: Add synology
- microp devices
-To: Markus Probst <markus.probst@posteo.de>
-Cc: Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Lee Jones <lee@kernel.org>,
- Pavel Machek <pavel@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- platform-driver-x86@vger.kernel.org, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org
-References: <20260411-synology_microp_initial-v7-0-9a3a094e763a@posteo.de>
- <20260411-synology_microp_initial-v7-2-9a3a094e763a@posteo.de>
- <20260412-cuddly-taipan-of-reputation-1cafe0@quoll>
- <485ab9e829e902e3f29172059be8c3203062d06b.camel@posteo.de>
+Subject: Re: [PATCH v2 13/13] arm64: defconfig: Enable I3C and SPD5118 hwmon
+To: Guenter Roeck <linux@roeck-us.net>, Akhil R <akhilrajeev@nvidia.com>
+Cc: Frank.Li@nxp.com, acpica-devel@lists.linux.dev,
+ alexandre.belloni@bootlin.com, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, ebiggers@kernel.org, krzk+dt@kernel.org,
+ lenb@kernel.org, linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org,
+ miquel.raynal@bootlin.com, p.zabel@pengutronix.de, rafael@kernel.org,
+ robh@kernel.org, sakari.ailus@linux.intel.com,
+ wsa+renesas@sang-engineering.com
+References: <5c751739-5044-4d23-9648-8d46dd0945d1@kernel.org>
+ <20260411053433.49655-1-akhilrajeev@nvidia.com>
+ <d0f1f053-589a-4681-8c8f-8e4b5daec145@roeck-us.net>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -101,59 +93,68 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <485ab9e829e902e3f29172059be8c3203062d06b.camel@posteo.de>
+In-Reply-To: <d0f1f053-589a-4681-8c8f-8e4b5daec145@roeck-us.net>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12/04/2026 15:21, Markus Probst wrote:
-> On Sun, 2026-04-12 at 10:26 +0200, Krzysztof Kozlowski wrote:
->> On Sat, Apr 11, 2026 at 05:27:35PM +0200, Markus Probst wrote:
->>> +properties:
->>> +  compatible:
->>> +    enum:
->>> +      - synology,ds923p-microp
->>> +      - synology,ds918p-microp
->>> +      - synology,ds214play-microp
->>> +      - synology,ds225p-microp
->>> +      - synology,ds425p-microp
->>> +      - synology,ds710p-microp
->>> +      - synology,ds1010p-microp
->>> +      - synology,ds723p-microp
->>> +      - synology,ds1522p-microp
->>> +      - synology,rs422p-microp
->>> +      - synology,ds725p-microp
->>> +      - synology,ds118-microp
->>> +      - synology,ds124-microp
->>> +      - synology,ds223-microp
->>> +      - synology,ds223j-microp
->>> +      - synology,ds1823xsp-microp
->>> +      - synology,rs822p-microp
->>> +      - synology,rs1221p-microp
->>> +      - synology,rs1221rpp-microp
->>> +      - synology,ds925p-microp
->>> +      - synology,ds1525p-microp
->>> +      - synology,ds1825p-microp
+On 11/04/2026 09:20, Guenter Roeck wrote:
+> On 4/10/26 22:34, Akhil R wrote:
+> [ ... ]
+>>>>> And it
+>>>>> should bring me clear rule what I can or cannot remove from defconfig,
+>>>>> if in 2 years I come and start pruning it from symbols.
 >>
->> Previous comment is not resolved. For example you stated that ds723p is
->> compatible with ds725p, so this should be expressed.
-> Using this expression?
+>> I am still a little confused on what information would likely accept (and
+>> keep) these configs in the defconfig. Would updating the commit message
+>> as below work?
+>>
+>> "These configs enable the support for SPD5118 within the
+>> Small-Outline-Compression-Attached Memory Modules (SOCAMM) LPDDR5X found
+>> in the NVIDIA Vera CPUs. The Vera CPU uses ACPI and is part of platforms
+>> such as Vera Rubin."
+>>
 > 
-> properties:
->   compatible:
->     oneOf:
->       - enum:
->           - synology,ds923p-microp
->           - synology,ds1522p-microp
->       - enum:
->           - synology,ds918p-microp
->           - synology,ds415p-microp
->       - const: synology,ds214play-microp
-> ...
-> ?
-> If so shall there each be a description?
+> It is quite interesting that we argue about SPD5118 which is mandatory in
+> DDR5 systems. At the same time, CONFIG_IGB_HWMON, CONFIG_SENSORS_MACSMC_HWMON,
+> CONFIG_SENSORS_RASPBERRYPI_HWMON, and CONFIG_RTC_DRV_DS3232_HWMON _are_
+> enabled in arm64:defconfig. CONFIG_IGB_HWMON is even built-in.
 
-No, you changed nothing. You need fallbacks, please read example-schema
-or DTS101 slides.
+Why CONFIG_SENSORS_MACSMC_HWMON is weird? It is part of the soc using
+the defconfig?
+
+The author here has troubles bringing any arguments why his drivers
+should be defconfig and keeps asking what do I want to hear. If one
+cannot make an argument why a change is needed, then maybe the change
+should not be sent?
+
+It's the job of the author to convince why the community needs this
+change, unless it is obvious, ofc.
+
+> 
+> It is kind of difficult to understand why those are more important than
+> the temperature sensor on DDR5 modules (or the temperature sensor on DDR4
+> modules, for that matter).
+
+No one discussed this. I have no clue what is SPD5118 and commit msg did
+not explain that. Did not even provide accurate user of that.
+
+> 
+> I don't know what the policy for defconfig is, but just based on that it does
+> seem to lack consistency.
+
+No wonder... people write poor commits and send that to upstream. And
+when asked "why do we want this" they got stuck.
+
+> 
+> A separate question is if it is time to enable I3C in default configurations.
+> I'd think so - more and more chip vendors support it, and presumably they would
+> not invest in it if there was no demand, but that is just my personal opinion.
+
+Isn't I3C needed for SPD5118. Otherwise I understand even less from this
+rationale - why I3C is being enabled here?
+
+And before author asks what do I want to here: no, it is author's job to
+convince me to accept I3C in defconfig. Not mine.
 
 Best regards,
 Krzysztof
