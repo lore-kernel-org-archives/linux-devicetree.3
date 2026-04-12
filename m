@@ -1,33 +1,67 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com [209.85.167.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41F97342535;
-	Sun, 12 Apr 2026 18:39:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04D1229B78D
+	for <devicetree@vger.kernel.org>; Sun, 12 Apr 2026 18:45:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776019199; cv=none; b=JlC/Wh/ZWhi2jffUW45hW57xpkHfQvReiRDHBoAr23oBN+NZoJCpLnrtlafQSSTpZK/MbSS/PHBkbB+Fr5AUlPc6KiSrevDUUthnqFFKJBAomgeiIYUuyyX0M+PZG1mT+HzIt1DUUxzRndIBWk/lpMgrpeyKXa0ldAYgQ5+4sis=
+	t=1776019545; cv=none; b=X+SptiXK8oVwF8jqiyciqxDCnRCHJgWB7l2DaIpMpu5GjqKXlB18Wd//pl7hux94WZHwN0S1xWwExS23jjfrCH0baMdrPb6fxWbM79nnbhr8ORPXb6LQaAGohDFBi4TiFIYtaoh7RmCHz9PhuUpcb6lzgsoIfFFmHDoKM8LFyCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776019199; c=relaxed/simple;
-	bh=uuJ60iTvnBWcy4FZEW+4SLjrsWF4Mznbw3w3T4mzkag=;
+	s=arc-20240116; t=1776019545; c=relaxed/simple;
+	bh=oQzRgQ7NQPcP1cTNgd4z06Z6ADUV1qjY2dP5A5oq9kY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Wrx0GgLN1Fy4h2b6vpndOL3GQQ5X4++rpbeO7CUTsqKY2lNaTyVKfXSoFVkx3ti7qu+G+AX176vcEl2mywIr6vwhB9sYBQoihw0KouQg0wl4q1ZCvZ6rK5+BmQ+Jj7/yuGztV0DvgITOhGXivXZcCPWXz7yKZgwXbwKDOW63A+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gOG3fNh8; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=Gq+deGg9x3S50DnbKyt2MMGfD1CNBeCoJFwpLFwkvE/eWUsKf8UsjwdkubxMReMulxDbtreWNMUkK0jn2HQgsnnbUVJWLWWCihdNySe4oOpr/7tNfr8zjjy/8Rl2B8zS7ETJXaKeaLYhGrapL1LlXkBqUC/jRkityofYyT97pGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=OGW9U3WJ; arc=none smtp.client-ip=209.85.167.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gOG3fNh8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC8E9C19425;
-	Sun, 12 Apr 2026 18:39:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776019198;
-	bh=uuJ60iTvnBWcy4FZEW+4SLjrsWF4Mznbw3w3T4mzkag=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=gOG3fNh81EHu4KbYrsAz60rHWGQR823YpaEeEcoqNU3vYnailJE8FjHDbifxP7kn/
-	 T8NqsboYU6bX0c5PxlEq8E8Bah2YiFDsffbCNIQGkfN6b9UYJUjJJJJG6nZ1Ntzs0z
-	 TS3pLu3+xNmUqmAbMpM/BxhUW283RnYVRiV/xoc3yENqyVw/cg/eq2JQ3oiVR7nQpZ
-	 fPdR2LTPTHDgOb+98OiBPsQAyzhB7QWwhiQ+RGNEwYDIqr3sRce8Oq1+QhN1Oqxk9J
-	 H8yiXxqNJ0VRj4pqrGsdCkgiiQHhJOtneHBN1M2a+jD1LJPzq085LaoWj0GjXn84a6
-	 RBH9EKDOnn3FQ==
-Message-ID: <6b0c63fb-3e16-4392-a704-2d6ce45a1de0@kernel.org>
-Date: Sun, 12 Apr 2026 20:39:56 +0200
+	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="OGW9U3WJ"
+Received: by mail-oi1-f176.google.com with SMTP id 5614622812f47-47018d34159so2701186b6e.2
+        for <devicetree@vger.kernel.org>; Sun, 12 Apr 2026 11:45:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1776019542; x=1776624342; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=M+ZO6rZv9NGV1Yj2nIfY3XI669Ebfty85k3Q8tYt5QY=;
+        b=OGW9U3WJZDl6ektiEuFCczMHCtc+ME8EUqGijmbXrA0QcFfW72Wpq1CLFm6iX7Is81
+         tSj5PvDkSca2dGxoAYLyzNlePB/wldPvADeBtfSYw6PA2Xt/lqvF3kg52RZmALMLxCWs
+         D9znPT2DUorWB2GT7c5s5YBOoNaivA6zAJmG57f7295gYFMlSW2Mb4j1MgOGYpm6qu2p
+         8O0zkfXdhX40Do9NSgf4bBItWgswnh5B129ftmAHDssNNc1yZGNNsiFhvTLIRK3utzIG
+         IZRTWt0gRFF850mfyHPVMyCqpCBY8lk9xT9H/RRfTLkzS6z/cFvWD8W5QRiaGVVPGIsF
+         iFFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776019542; x=1776624342;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=M+ZO6rZv9NGV1Yj2nIfY3XI669Ebfty85k3Q8tYt5QY=;
+        b=YBVLMCl1RkNmKo3RVReTOK4yKsmG14LHED4uBc3qbRaWR0WPiqbHdJpkYTjxwFf+lj
+         BY3Ia0fuYxuiIzidw+qTHdMBUzF6TJmNA7Zd+8YoKXw1Jp9v7Dt48HzdF2/xlRkmcqSg
+         38be9840s4hlNoi1qYs5ko5xmSZNCcQwbcJcywrkiozaNaMUEzT8+hn84yodfS/iloHs
+         e4+LavF2x+qgh3MNYNL7h8uu93Kj5q1UQryr1mv1ALDz+tK/iYJ87tnrjiR6PEKA4huo
+         a+S2rOZEKHUHkipcYBha711w7DOID6ovvCr6H6B5T5iy3zcpi9mQKysm9D9BXMrO48zz
+         YeTA==
+X-Forwarded-Encrypted: i=1; AJvYcCUjB/p+YW4WDVOh4bcwzT6otFXkrb1kmLQgrcQylARth/6QCs1Dpw+efixKZ+yfFtlzW/T42yCaLuBA@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx1xRH79zFJS5+xoLXiCHxc2gh9ZC40mbg57VB40uai8+g91Em0
+	thA9/lkFtepuRXVL4WvT8ffpvyqipo7alVP5dtlWEsukbgaJNn1AF5Eoh6rctbg+I9M=
+X-Gm-Gg: AeBDieuDQfvaQdSYIGjK6kKuiYFPwVrdhJi6qW7jNhq3bdYfNNUytclRzJHhjIAh5XD
+	UdkdXwBAc3JgxWjQ7+QB0Y+Cw3OcpDevWDiN6mr1eizh988HLGjii8UgtgIKMLonfdTpAWk+gad
+	Qtb8WLKupuEDZxYRMPT3GdlG03CvDGCprlYE0v4Wh+kEStv7Jr675Dm1WLLZQLxRIMwR1wsBhcB
+	pzJv2t9oO/sGgJAXtu6WGDxfnFconeYsoeJSA8TyG6t5h8WR2K+JT4FS8KA+GXXCDEfo9V3Dsm3
+	H27USUtTtGHKrX8Iacc3VPNmEGKDaU+SEMGb8v8E3Z97xPki5u9MUIYkwx3VBqiYIeoMXCX5s6W
+	PwKZVjxIg3FxswDxDzqPyhgYUKD7mwHNpnuBBo8xWCCd6LE31BnK71G5QYViX2ajYENRlh4KCXN
+	dANmpdoqqMRTz5YqFZt0UqaXGWYKFsRzYrwcyvajLiUwfycD5mHprB0ZOEK3mhFWxmEAKNodB62
+	Q==
+X-Received: by 2002:a05:6808:4f49:b0:45e:b623:f9b3 with SMTP id 5614622812f47-4789f7074ddmr5377663b6e.42.1776019541977;
+        Sun, 12 Apr 2026 11:45:41 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:5c13:5a8e:1b91:8035? ([2600:8803:e7e4:500:5c13:5a8e:1b91:8035])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-478a3666dbfsm4831509b6e.15.2026.04.12.11.45.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 12 Apr 2026 11:45:40 -0700 (PDT)
+Message-ID: <801badd3-d10d-4bae-b3e1-73aa1edff47c@baylibre.com>
+Date: Sun, 12 Apr 2026 13:45:40 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,74 +69,74 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] soc: qcom: socinfo: Add SoC ID for SM7750
-To: Alexander Koskovich <akoskovich@pm.me>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260412-sm7550-id-v1-0-958a673ff791@pm.me>
- <20260412-sm7550-id-v1-2-958a673ff791@pm.me>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH RFC v2 8/9] Documentation: ABI: testing: add docs for
+ ad9910 sysfs entries
+To: Jonathan Cameron <jic23@kernel.org>,
+ Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+Cc: Rodrigo Alencar via B4 Relay
+ <devnull+rodrigo.alencar.analog.com@kernel.org>, rodrigo.alencar@analog.com,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ Lars-Peter Clausen <lars@metafoo.de>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+References: <20260318-ad9910-iio-driver-v2-0-e79f93becf11@analog.com>
+ <20260318-ad9910-iio-driver-v2-8-e79f93becf11@analog.com>
+ <20260322172257.1681de69@jic23-huawei>
+ <mtqjtmsysz6ywvybeut6qzhee2o4qedwgvr5isbn4um7bwhjbe@sg2b7hwlszwd>
+ <20260412155115.2f7a83bf@jic23-huawei>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260412-sm7550-id-v1-2-958a673ff791@pm.me>
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260412155115.2f7a83bf@jic23-huawei>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12/04/2026 17:42, Alexander Koskovich wrote:
-> Recognize the SM7750 SoC which is an Eliza SoC variant.
+On 4/12/26 9:51 AM, Jonathan Cameron wrote:
+> On Mon, 23 Mar 2026 11:36:08 +0000
+> Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:
 > 
-> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
-> ---
->  drivers/soc/qcom/socinfo.c | 1 +
->  1 file changed, 1 insertion(+)
+>> On 26/03/22 05:22PM, Jonathan Cameron wrote:
+>>> On Wed, 18 Mar 2026 17:56:08 +0000
+>>> Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+>>>   
+>>>> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+>>>>
+>>>> Add ABI documentation file for the DDS AD9910 with sysfs entries to
+>>>> control Parallel Port, Digital Ramp Generator, RAM and OSK parameters.
+>>>>
+>>>> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+>>>> ---  
+>>
+...
 
+>>>   
+>>>> +		  - "ramp_down": No-dwell low; the ramp resets to upper
+>>>> +		    limit upon reaching the lower limit.
+>>>> +		  - "ramp_up": No-dwell high; the ramp resets to lower
+>>>> +		    limit upon reaching the upper limit.
+>>>> +		  - "bidirectional_continuous": Both no-dwell high and low;
+>>>> +		    the ramp continuously sweeps without dwelling.  
+>>>
+>>> Triangle wave?  bidirectional continuous is a rather confusing term so maybe
+>>> we should rethink this one.  
+>>
+>> Mostly yes, but not only that. Sawtooth can be achieved as well by changing
+>> the step sizes, also other weird patterns can be achieved by toggling DRCTL pin.
+> 
+> Sawtooth is kind of a special triangle wave with one very steep side.
+> Wikipedia even has: "It can also be considered the extreme case of an asymmetric triangle wave"
+> https://en.wikipedia.org/wiki/Sawtooth_wave
+> 
+>> This mode is the most useful when one does not have an FPGA and want to save
+>> resources on controlling the DRCTL pin. That mode name comes from the datasheet,
+>> so I suppose it was fine.
+> 
+> Let us see if we can get more opinions on this.  Whilst I can see the logic of
+> the datasheet naming, it's a bit obscure.
+> 
+It is the same as ramp_up and ramp_down other than what happens when it hits
+the limit? If so, I would call it ramp_up_down.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
