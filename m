@@ -1,33 +1,67 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A44937C932;
-	Sun, 12 Apr 2026 13:33:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 709CB376BCD
+	for <devicetree@vger.kernel.org>; Sun, 12 Apr 2026 14:23:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776000836; cv=none; b=IbvzDYYzk3zvQlW7Fu1gDtRj1Qq/34rzOpu74epINKk0cSX4zESh6a4zAdbWhknw3zS8F2IVnGfxjtNW7NCSo/nlNceHTxf970RfWvKNrvbpbZKGd3AuXSBps99ox+h7Zgqqusf2HXw7uilP5Oyt9mk93IbIjJaIZZaq+9Oo+oc=
+	t=1776003787; cv=none; b=sTd4gPjIuZLa0wAV635UcBgffkVsqtlJQcVZSotGdzuvuoqZVqXmfjnjaZzFbhmatJKm7B5GdkEUBcsGcEzQ3wOnOMqbFigWLofd/hthzkIesEzugB8MwB2w4iVA3QJ0L4FGvOeWTFAmS8hLWyx1Wk4kEfq/wWKog9zPGwYuXgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776000836; c=relaxed/simple;
-	bh=scSfjuZM69nzVpL4Q8vryol1tcjFhxl84aCJjNlkw+M=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=ZYxbvtiZgUPDjvquHf/rCuBJlyQ3CWTjZYtoJIEXuAZSK1eUzi/ExUfvVA0CdITMqQ04EAcUS84fvllu1zJ8r3qBOyJQRAQshTN3rp3318xOEaPeN872tR8r6oWg7gpyTkhh747ZhldXil2ttIvyxn+8na6ISvUN/3gMSLH2lwo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sjdnM7yK; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776003787; c=relaxed/simple;
+	bh=S9ikXTvQyxclzbgG4oXF+aw5e1JLHj7cOX8GY1x4mx4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fkRbaS8/O3zpkc9ycr13nGLl/iaD11frbcekxOSTflE2XhsstUHyC4VoLAPHYpVJ0OJ6brmyID/dr3R17Ek7t01AnxoIIRAC2A5Eg97PuWtnLtF4K8JTTRGcaHthWj3pkQt8CCSrV/YmfPPJqtfxFOOk+4cua9F1dlGQPBoc/Es=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=VRkBSdlb; arc=none smtp.client-ip=209.85.222.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sjdnM7yK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09FC2C19424;
-	Sun, 12 Apr 2026 13:33:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776000836;
-	bh=scSfjuZM69nzVpL4Q8vryol1tcjFhxl84aCJjNlkw+M=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=sjdnM7yKk3w3+vX3F2/CKZmXC6zvSq3UwtS73XT7Fy0FLrsxD0yS4e0EGI4Ldz212
-	 XPw9knSR7Pm7G1b36XE8RfP87CQOX6e++BTlBcrFx9YQrJ2kjNp1JNAoAoZf4c6K8G
-	 izRkdXaUX64ETeTab5Oeg3GAWzdw7MCkt2ZuhlFRD9TJuiGLaYlpwTKs+EvlA17Tra
-	 mA94DOPpIkPDnYu9on2AxThuWhgQcz3C4E8vtOlLc5tl2ADLK2lYehQwIa4Nwo0mz/
-	 tO+z6co/14zCoH8doVebQG29y1tTc1FikvQozh2PkzedPvnVUlIkkSZxT9d89UNeYn
-	 lCiwMFIRnzbFw==
-Message-ID: <d62130c6-c503-479d-99d8-b4f0f0582a4b@kernel.org>
-Date: Sun, 12 Apr 2026 15:33:42 +0200
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="VRkBSdlb"
+Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-8d68bcf50fdso398944085a.2
+        for <devicetree@vger.kernel.org>; Sun, 12 Apr 2026 07:23:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1776003784; x=1776608584; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=fCwYE0TqPeRH6qXObZKYZ/Hps0Zq2xbI26bnfS8VYZ4=;
+        b=VRkBSdlbL55y7Edx/pq0amhbFSwZ5ZTr/wsnwUiCZE8DsjjbDGibA8/phOuKZvDouS
+         WqCbucnRYFshRHqh5IQ/vIiazc68dqWqSKzD5wO31WAo3XrELdOHv7HM3Y0iDlr/uqSr
+         19hvYnDWH1XVZnrX3F5yW5e0l6+TJa5QCiXXY1Iy7CQO3SX4yNqGmnjyfyGsQCh/atgg
+         5tXFdE+fNuDNiQjz4lDn6zHAJftfcgypQn391V8gUWfZjtvGvbb5tWllAWNdefQ5U5xC
+         GfX2hh+6yQd1esnLsj8BNs0/7uriiBpOzVCkCTjFf0B/YUUoOrMwEOPfASkYWrJ9Rs2/
+         xNzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776003784; x=1776608584;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=fCwYE0TqPeRH6qXObZKYZ/Hps0Zq2xbI26bnfS8VYZ4=;
+        b=oGo46nPqc4lmW/VBFrOeIVge68N5rrbyPncMHvIiic4YjklhdtMmqYpeKEKaDVrNao
+         RUzpWRiPf3MtXXhLS3ky4Z11YkGz++YKirgVX2+M3GqS/VWfFoBCmDpDH21TR/q76oM5
+         hrsfsPxloOj/ry0+8l16+jwbmzkVcfwWNCiXOwxLbZOfed2T9ooUFQH8fFfbqSgXih8T
+         YtwRYN4r4TjEW8txWVdnxXajMY/LNwcxUXn2wnydrrQmsYHrSPeODA+05k5Dc5UyilpR
+         lyWAr2R+5AoMQJlmYESvQB5DI0Rvi4HSo02P1GWLY0v6DyiEwNwxK4501g9eHM2OOcfn
+         vpfA==
+X-Forwarded-Encrypted: i=1; AJvYcCXPQkNEldGDl8Ye5ofuab87cHBqON2S5kDc+q5l3XpS0dVKt/9Qe7MuE9MBb4TDXbVkWjIys29djTVf@vger.kernel.org
+X-Gm-Message-State: AOJu0YxecKYPKDPag3Z101ua+qUD8eIUoUPf2jSXbBw96C1yDBhZOfbJ
+	h1I2W6rzEBR6vr82MqcJeKWBPQdrTOgOzz7w9BxToADxsNF16ddtpdAZQcKzqAhbHE8=
+X-Gm-Gg: AeBDies9ndPKoqG29CL5sOzBfiThm1kI6buF414RZbyQ5SgzdpvOz2boDkGiPPzeCzP
+	psaaSDjYi4xak7Y5fGF2q/VwSRC548GNUkj4Gsvpbb/GWWr2DudFwBq3wNA/RW2SsBA0bzIBN18
+	YQSraq0AGa1Qcp9rafKEqtlJ12/i7ZsUEY+CTyXt0Q8Wqu900LjH9veWwaBmeV/3GgY+gUcGTRR
+	yfHjsvAJ5ANPxGPFcotlOUHeKCdhf0FvEwIiFgzYtxnvyA1IC6zy+XdW1f2XiRSy7mkkyV4dB9O
+	q+jboftlq0vkPNvi9NgxmLOjpSZBOOBDclMW8jLdJx6waLBW71OrfIIeA7risHgSDVvUOLNwjZh
+	l0dYOtZkV+EeyubZs+KHn3CCMMW5JG0zEv01mjE8xqhCvxgxvp7NuHX42KSnm+LvM821a3YO/tk
+	4UUZIGmlL0PPvPnDSYeC9hy+6JVAY70MCU61t9vKdFxQD2Ev0F/W6bic/BJQFci2hYJ2q73TpWd
+	59N
+X-Received: by 2002:a05:620a:4721:b0:8cf:c30c:ced5 with SMTP id af79cd13be357-8ddcd8ea3cbmr1458489585a.14.1776003784339;
+        Sun, 12 Apr 2026 07:23:04 -0700 (PDT)
+Received: from [10.211.55.5] (c-75-72-117-212.hsd1.mn.comcast.net. [75.72.117.212])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-8ddb9830344sm785313885a.41.2026.04.12.07.23.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 12 Apr 2026 07:23:03 -0700 (PDT)
+Message-ID: <517ed025-40d7-4c3f-9ca3-6c3367c97815@riscstar.com>
+Date: Sun, 12 Apr 2026 09:23:01 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,131 +69,119 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 13/13] arm64: defconfig: Enable I3C and SPD5118 hwmon
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Guenter Roeck <linux@roeck-us.net>, Akhil R <akhilrajeev@nvidia.com>
-Cc: Frank.Li@nxp.com, acpica-devel@lists.linux.dev,
- alexandre.belloni@bootlin.com, conor+dt@kernel.org,
- devicetree@vger.kernel.org, ebiggers@kernel.org, krzk+dt@kernel.org,
- lenb@kernel.org, linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org,
- miquel.raynal@bootlin.com, p.zabel@pengutronix.de, rafael@kernel.org,
- robh@kernel.org, sakari.ailus@linux.intel.com,
- wsa+renesas@sang-engineering.com
-References: <5c751739-5044-4d23-9648-8d46dd0945d1@kernel.org>
- <20260411053433.49655-1-akhilrajeev@nvidia.com>
- <d0f1f053-589a-4681-8c8f-8e4b5daec145@roeck-us.net>
- <ef05d6fd-97d9-4795-9626-e69895e5df74@kernel.org>
+Subject: Re: [PATCH v8 2/3] spi: spacemit: introduce SpacemiT K1 SPI
+ controller driver
+To: Mark Brown <broonie@kernel.org>, Guodong Xu <guodong@riscstar.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+ Alex Elder <elder@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260410-spi-spacemit-k1-v8-0-53ebb48a4146@riscstar.com>
+ <20260410-spi-spacemit-k1-v8-2-53ebb48a4146@riscstar.com>
+ <adkhJhEQIZHgIQpH@sirena.co.uk>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <ef05d6fd-97d9-4795-9626-e69895e5df74@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <adkhJhEQIZHgIQpH@sirena.co.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 12/04/2026 15:32, Krzysztof Kozlowski wrote:
-> On 11/04/2026 09:20, Guenter Roeck wrote:
->> On 4/10/26 22:34, Akhil R wrote:
->> [ ... ]
->>>>>> And it
->>>>>> should bring me clear rule what I can or cannot remove from defconfig,
->>>>>> if in 2 years I come and start pruning it from symbols.
->>>
->>> I am still a little confused on what information would likely accept (and
->>> keep) these configs in the defconfig. Would updating the commit message
->>> as below work?
->>>
->>> "These configs enable the support for SPD5118 within the
->>> Small-Outline-Compression-Attached Memory Modules (SOCAMM) LPDDR5X found
->>> in the NVIDIA Vera CPUs. The Vera CPU uses ACPI and is part of platforms
->>> such as Vera Rubin."
->>>
+On 4/10/26 11:11 AM, Mark Brown wrote:
+> On Fri, Apr 10, 2026 at 11:04:21PM -0400, Guodong Xu wrote:
 >>
->> It is quite interesting that we argue about SPD5118 which is mandatory in
->> DDR5 systems. At the same time, CONFIG_IGB_HWMON, CONFIG_SENSORS_MACSMC_HWMON,
->> CONFIG_SENSORS_RASPBERRYPI_HWMON, and CONFIG_RTC_DRV_DS3232_HWMON _are_
->> enabled in arm64:defconfig. CONFIG_IGB_HWMON is even built-in.
-> 
-> Why CONFIG_SENSORS_MACSMC_HWMON is weird? It is part of the soc using
-> the defconfig?
-> 
-> The author here has troubles bringing any arguments why his drivers
-> should be defconfig and keeps asking what do I want to hear. If one
-> cannot make an argument why a change is needed, then maybe the change
-> should not be sent?
-> 
-> It's the job of the author to convince why the community needs this
-> change, unless it is obvious, ofc.
-> 
->>
->> It is kind of difficult to understand why those are more important than
->> the temperature sensor on DDR5 modules (or the temperature sensor on DDR4
->> modules, for that matter).
-> 
-> No one discussed this. I have no clue what is SPD5118 and commit msg did
-> not explain that. Did not even provide accurate user of that.
-> 
->>
->> I don't know what the policy for defconfig is, but just based on that it does
->> seem to lack consistency.
-> 
-> No wonder... people write poor commits and send that to upstream. And
-> when asked "why do we want this" they got stuck.
-> 
->>
->> A separate question is if it is time to enable I3C in default configurations.
->> I'd think so - more and more chip vendors support it, and presumably they would
->> not invest in it if there was no demand, but that is just my personal opinion.
-> 
-> Isn't I3C needed for SPD5118. Otherwise I understand even less from this
-> rationale - why I3C is being enabled here?
-> 
-> And before author asks what do I want to here: no, it is author's job to
-> convince me to accept I3C in defconfig. Not mine.
+>> This patch introduces the driver for the SPI controller found in the
+>> SpacemiT K1 SoC.  Currently the driver supports master mode only.
+>> The SPI hardware implements RX and TX FIFOs, 32 entries each, and
+>> supports both PIO and DMA mode transfers.
 
-BTW, all this was asked at v1 and author did not improve the commit msg
-beside giving quite broad/unspecific "Vera".
+Caveat:  I haven't really looked closely at this code for
+a few months, but I thought all issues had been addressed.
+I was wrong...  Guodong will be addressing your comments but
+I wanted to weigh in.
 
-Best regards,
-Krzysztof
+>> +static struct dma_async_tx_descriptor *
+>> +k1_spi_dma_prep(struct k1_spi_driver_data *drv_data,
+>> +		struct spi_transfer *transfer, bool tx)
+>> +{
+>> +	phys_addr_t addr = drv_data->base_addr + SSP_DATAR;
+>> +	u32 burst_size = K1_SPI_THRESH * drv_data->bytes;
+>> +	struct dma_slave_config cfg = { };
+>> +	enum dma_transfer_direction dir;
+>> +	enum dma_slave_buswidth width;
+>> +	struct dma_chan *chan;
+>> +	struct sg_table *sgt;
+>> +
+>> +	width = drv_data->bytes == 1 ? DMA_SLAVE_BUSWIDTH_1_BYTE :
+>> +		drv_data->bytes == 2 ? DMA_SLAVE_BUSWIDTH_2_BYTES :
+>> +		/* bytes == 4 */       DMA_SLAVE_BUSWIDTH_4_BYTES;
+> 
+> Please use normal conditional statements (in this case a case statement)
+> to keep the code legible.
+> 
+>> +static irqreturn_t k1_spi_ssp_isr(int irq, void *dev_id)
+>> +{
+>> +	struct k1_spi_driver_data *drv_data = dev_id;
+>> +	u32 val;
+> 
+>> +	/* Return immediately if we're not expecting any interrupts */
+>> +	if (!drv_data->transfer)
+>> +		return IRQ_NONE;
+> 
+> That does't mean the hardware agrees!
+
+You're right.  We need to clear whatever caused the
+interrupt it or we'll keep getting interrupted.  This
+obviously didn't happen during testing but thanks for
+mentioning this.
+
+>> +	/* Get status and clear pending interrupts; all are handled below */
+>> +	val = readl(drv_data->base + SSP_STATUS);
+>> +	writel(val, drv_data->base + SSP_STATUS);
+> 
+> Nothing after here can report IRQ_NONE, even if SSP_STATUS didn't flag
+> anything.  I'd just move the checks for transfer to when we're handling
+> FIFOs and have the IRQ_NONE report be based on there being something set
+> in the ISR.
+
+Sounds good.
+
+>> +	/*
+>> +	 * For SPI, bytes are transferred in both directions equally, and
+>> +	 * RX always follows TX.  Start by writing if there is anything to
+>> +	 * write, then read.  Once there's no more to read, we're done.
+>> +	 */
+>> +	if (drv_data->tx_resid && (val & SSP_STATUS_TNF)) {
+>> +		/* If we finish writing, disable TX interrupts */
+>> +		if (k1_spi_write(drv_data, val)) {
+>> +			val = SSP_INT_EN_RX | SSP_INT_EN_ERROR;
+>> +			writel(val, drv_data->base + SSP_INT_EN);
+>> +		}
+>> +	}
+> 
+> This overwrites val...
+
+That's no good.  We need to assign the interrupt status to a
+different variable if things are going to be handled this way.
+
+> 
+>> +
+>> +	/* We're not done unless we've read all that was requested */
+>> +	if (drv_data->rx_resid) {
+>> +		/* Read more if there FIFO is not empty */
+>> +		if (val & SSP_STATUS_RNE)
+>> +			if (k1_spi_read(drv_data, val))
+>> +				goto done;
+> 
+> ...so the read won't see that there's data to read and we'll need
+> another interrupt.  I would suggest using a more meaingful name for the
+> actual interrupt status.
+
+Yes.  I actually think you commented on this before, and I thought
+I had addressed it but it's clear I did not.
+
+Thanks for your review.  Sorry for not fixing everything.
+
+					-Alex
