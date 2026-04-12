@@ -1,39 +1,67 @@
-Received: from ixit.cz (ixit.cz [185.100.197.86])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFA23346AC4;
-	Sun, 12 Apr 2026 21:17:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C481123BD06
+	for <devicetree@vger.kernel.org>; Sun, 12 Apr 2026 21:26:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776028677; cv=none; b=bJ422fSVAhAT9uy5pnYM2X4HSIFg9RyFefskTQ6KDZZg7YSWOAZ+eHLZv01RKHuye6bPV79Adks0clNASGsnnxVE+afnZHO3bzjfa7+QRSRXFM/Ah8YqQES6JW60h1Rx/EskerwX5WjOTr2tuSxnQfmZQcPyn4sQQaYyLAODoMg=
+	t=1776029168; cv=none; b=Xhnj8GzVtaLyQZv1ogvjnzZKBCSS5Djgpnwp/rKdhdTtvwZYuxVhwnP4vI3F7wNZaeKingb8gGq1CUGhtrqptMYGmSc+dmJJuElfghu5y5hIteVUEOKeBXZ+CADz3T7IVSgDrFiTnnpUBGgh9YipXpgAA4XeZ5tx516OZ1Gs8+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776028677; c=relaxed/simple;
-	bh=GM6iMDN2YUV8xzVPHB+I91ujMs9YMCNsVLQZDf+ckGE=;
+	s=arc-20240116; t=1776029168; c=relaxed/simple;
+	bh=yNLe+SGJdzNljhesx4aut5AQpUeuoltAcUMEObSLyyo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=M908eEepMHnq2Knw1hzbawxnLYK2QcH72N8bvM68H3m/RRpRzRnrpqB+98Y9HmzI35h8yPMKSDsgkbXlcKysf8zZ34ccmRcrZ0zqNo+ggMNb0Y69W76StFdhkjynDkTkXlz2/4jZFC1ViQgpNf3szBmDgQZgW92Fsp+341z4qxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=UJHA07l/; arc=none smtp.client-ip=185.100.197.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	 In-Reply-To:Content-Type; b=sOHkbDdFTh3pTZtJkex6HFwAE3pd79YFUQXDW/dH9epXtBfoL8K0C+83WkNtrqvIeEoebaRkCDzpowP6H3pANCUkpHvDtPJxNhI/Ruc9yMfR/J7ymd7azk3rDdgglZUTiuzxRfl1QJ1fXsfh+ahSf7VuWKXsTrxNaamSRJf9x0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S/1gnAtc; arc=none smtp.client-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="UJHA07l/"
-Received: from [IPV6:2a02:f000:10bd:e301::1d7] (unknown [IPv6:2a02:f000:10bd:e301::1d7])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 7F02F53404BA;
-	Sun, 12 Apr 2026 23:17:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1776028671;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=ncqdOxE8s0YZrdPCoYNMsGq4OFTLbQj1V1GMjI683K8=;
-	b=UJHA07l/4prPEymdteGlN73mXLQg7i2bBKwg5P79Ypkc4aHfNM9RoT+HFpXDQEMrpPOygz
-	/NQqhjddot7E/788gMur6YBJVfRntlEyaYxHVdi4KHPl41DkjVNjp7oTSwBet3VPJ3JbJ6
-	ztXpnKSvOXWBOy+p1GyrqT9iM76Tbis=
-Message-ID: <9c218407-3340-42fa-af83-bf22fe6be96d@ixit.cz>
-Date: Sun, 12 Apr 2026 23:17:50 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S/1gnAtc"
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-2c156c4a9efso5176540eec.1
+        for <devicetree@vger.kernel.org>; Sun, 12 Apr 2026 14:26:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776029166; x=1776633966; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=g5YONsemN2vvgZ9asQJIXKdXNxh3MWkRpVIQ/RmrGZw=;
+        b=S/1gnAtcRW4q8vMrKXaZo+3yw/hONK0ou8exVTXxPO09fhkJQ7LKAk5HtqX5y/ivtg
+         wUjWMeRoWe+QUjx+YMXo43S0tOqd4YMdsgxbVjZngJ4VwiempCc7fqqQvKW6B4eRLKeG
+         +W+nli4HZ/oJV5gS5BGXOztyQ2GbDp4xQZq4+4NnOhpqWYgrrTknIbf+YoKyHh13rB7y
+         6wfkfGWIKKC8wBnXGxe//lfOUw/THWKln6exL854wxvn1a6tWK2UA4QT0wXikZPnHX3B
+         2RzZA/0acMSs4JoWHNlx9MmYs02AfvmImXcpXWhHRadh5Rq7GyREuP/viHg61SIISWd1
+         Fm5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776029166; x=1776633966;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=g5YONsemN2vvgZ9asQJIXKdXNxh3MWkRpVIQ/RmrGZw=;
+        b=KdAcvxyv17yEl5u4G0672FdXCMh11ks+tlXEo61jwKac2f5zYTEIznJbkoO0o7YpAy
+         zb5KfW0tqksvk3Xlebyh+ReyCGY2emQFXxcJat7dgMH3t4hNS/NtSH60TLH7mcN1yxJI
+         f5fHWB1AuyEliJpum5/BF01so8726WulfaRx77ZP9U4H34D75nGVN4J/TyxsMrOhSknb
+         VWWOP29cJvUH9rKfA6+y65rp1TsmgOFhgbD/wJL+Sy6OQiet2PhFhL2DKac1+wBkQuGQ
+         8QAEycppod8Jf2NHvopcX7wAPCJ027YHqNqNrdFCx4G86wbv7jRtBB4Yx2/axZ4p2ZX9
+         Qumg==
+X-Forwarded-Encrypted: i=1; AFNElJ8lWTCvyASYkgWjPr52bRDJZET/ISOEqWxpc44hV10aVsVGddUfi/5vniZSKBqyUx+xpbUq8A6nYCwE@vger.kernel.org
+X-Gm-Message-State: AOJu0YyEhw2FmuiR9ecW3viOOOgu3cWCsZQtCDdDrFmGEpGllqZfgUme
+	3bNEwsC9x1y7Ke8Ry0E8M5mmIruHMGkQyYyDxnWpCh92k53UmvTbKotr
+X-Gm-Gg: AeBDieu2mmDvjH1H3ESkUPJ7wtlwnNi8XfIld9p0/9MF2xrgS/itWhprReEqPxjX4pm
+	5p9fyJNWKe4IW83EN5iYPZrwCeG9HeyTBjYQGmnAgdtIq8VqcDQ9KFttotNObLLJPe1zd165N9p
+	rtr4A1A0lZFJI/JBYgoW9OHvP1MVT28N/jPbcj6dcfZ3WHMqJLQOjg4huv0M7hMJAwaAkzn8OW1
+	X0Bizq5lwu6u+CLSuhnt/um0mn7Mkf0p/C8OvUJNyNBsl8ZXRODXaYNFEe4myD9fypacQY+tjz8
+	XkHnuDG1tCUUPtCA5tXmEAwsjJhdAI9RrA4GCfs6dQq7KOd+QYgxrKmqG6rPoFVPYxSP05AFvOV
+	SpOC6u0MCy8AJSO5f9jU3cMdvKQqksKMhBVGsSU+VMK7ZP4YopRkWVjVmTgxTQuS/yTyNVvUCez
+	915r/WVpD0xZ8WD0SNwVCxfywjQ1tm/cBUgD5OXMLrjg6QyCp1PAeKaE4DKLiuwVl+N3og+Uhc
+X-Received: by 2002:a05:693c:2c84:b0:2c5:d833:a4f3 with SMTP id 5a478bee46e88-2d58907b4admr6254248eec.18.1776029165814;
+        Sun, 12 Apr 2026 14:26:05 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2d55faa42dasm13905817eec.7.2026.04.12.14.26.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 12 Apr 2026 14:26:05 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <e7418ef5-b41e-489b-b913-aeebcf9a5235@roeck-us.net>
+Date: Sun, 12 Apr 2026 14:26:03 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,103 +69,102 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] arm64: dts: qcom: sdm845-google: Add dual front
- IMX355 cameras
-To: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Petr Hodina <petr.hodina@protonmail.com>,
- Richard Acayan <mailingradian@gmail.com>, linux-arm-msm@vger.kernel.org,
+Subject: Re: [PATCH v2 12/13] hwmon: spd5118: Add I3C support
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Akhil R <akhilrajeev@nvidia.com>, Frank Li <Frank.Li@nxp.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, "Rafael J . Wysocki"
+ <rafael@kernel.org>, Robert Moore <robert.moore@intel.com>,
+ Len Brown <lenb@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Eric Biggers <ebiggers@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, linux-i3c@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- phone-devel@vger.kernel.org
-References: <20260412-pixel3-camera-v3-0-e26b090a6110@ixit.cz>
- <20260412-pixel3-camera-v3-1-e26b090a6110@ixit.cz>
+ linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev,
+ linux-hwmon@vger.kernel.org
+References: <20260409105747.48158-1-akhilrajeev@nvidia.com>
+ <20260409105747.48158-13-akhilrajeev@nvidia.com>
+ <19218853-499c-46a2-8843-0bafa17c81d5@roeck-us.net>
+ <20260412201629345ffec6@mail.local>
 Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260412-pixel3-camera-v3-1-e26b090a6110@ixit.cz>
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
+ RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
+ nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
+ 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
+ gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
+ IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
+ kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
+ VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
+ jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
+ BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
+ ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
+ CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
+ oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
+ VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
+ 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
+ onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
+ DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
+ rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
+ WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
+ qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
+ 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
+ qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
+ 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
+ pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
+ J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
+ pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
+ 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
+ ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
+ I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
+ nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
+ HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
+ JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
+ H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
+ njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
+ dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
+ j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
+ scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
+ zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
+ RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
+ F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
+ FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260412201629345ffec6@mail.local>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 12/04/2026 18:35, David Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
+Hi Alexandre,
+
+On 4/12/26 13:16, Alexandre Belloni wrote:
+> On 09/04/2026 07:19:25-0700, Guenter Roeck wrote:
+>> On 4/9/26 03:57, Akhil R wrote:
+>>> Add a regmap config and a probe function to support for I3C based
+>>> communication to SPD5118 devices.
+>>>
+>>> On an I3C bus, SPD5118 are enumerated via SETAASA and always require an
+>>> ACPI or device tree entry. The device matching is hence through the OF
+>>> match tables only and do not need an I3C class match table. The device
+>>> identity is verified in the type registers before proceeding to the
+>>> common probe function.
+>>>
+>>> Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
+>>
+>> Acked-by: Guenter Roeck <linux@roeck-us.net>
+>>
 > 
-> The Pixel 3 features two front-facing Sony IMX355 sensors with
-> different focal lengths (standard and wide-angle).
-> 
-> Both sensors are connected via CSIPHY1 and controlled over CCI I2C1,
-> using MCLK2 as the clock source. Describe the camera nodes and
-> associated resources in the device tree.
-> 
-> This enables support for the dual front camera configuration.
-> 
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
->   arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 193 ++++++++++++++++++++-
->   1 file changed, 192 insertions(+), 1 deletion(-)
+> Guenter, I guess you can actually take 11/13 and 12/13 for 7.1 if you
+> prefer as they don't seem to actually have any dependency on the
+> previous patches. The worst that can happen is that the driver won't be
+> probed because the I3C subsystem will not enumerate the device.
 > 
 
-...
+Thanks, but Linus released 7.0 today, and the 7.1 commit window is open,
+so it is a bit late for adding content to it.
 
-> -	/* front camera, imx355 @1a */
-> +	front_cam: camera@10 {
-> +		compatible = "sony,imx355";
-> +		reg = <0x10>;
-> +
-> +		clocks = <&clock_camcc CAM_CC_MCLK2_CLK>;
-> +		assigned-clocks = <&clock_camcc CAM_CC_MCLK2_CLK>;
-> +		/*
-> +		 * The sensor can accept a 24 MHz clock, but 19.2 MHz has
-> +		 * better driver compatibility.
-> +		 */
-> +		assigned-clock-rates = <19200000>;
+I can queue the patches for 7.2 after the commit window closes.
 
-Currently I working on a patch which add 24 MHz to imx355, so this may not be 
-necessary.
+Guenter
 
-Please wait with merging, after the patch gets tested also on Pixel 3a, I'll 
-send it :)
-
-David
