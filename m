@@ -1,101 +1,111 @@
-Received: from s106b.cyber-folks.pl (s106b.cyber-folks.pl [195.78.66.88])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C11D3256C70;
-	Sun, 12 Apr 2026 17:42:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.78.66.88
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC3F33630A9;
+	Sun, 12 Apr 2026 17:43:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776015781; cv=none; b=cSEDjOtHEd4ssi4qmDb5JxovU2yUpoFxRhgeZP7jeyTaATs670dDo2OMSiqjF0UIIV9qFSAqdd1eVmqEM5K0cUIqk3goYkFNJ7191lgpne8eKBbnA1z2DmYI+hIXfSpENjh/KrADP0IEVzlF4xAk+J+/upFqWDd4ArMYBjdlHCk=
+	t=1776015794; cv=none; b=HGsRiFokFYoKrRHdl/RfRJXq5kPZA6vMdmAcwqhJwh8UhjO0bBEz0xjGfCSAu6ok0BMS81DeeSmlUR05Y7KpNvFwkK1xFD30fnvY+U7qUU0j5qDqjIRQmUx3HE/zMm8yR0rG0FcB58sISNB6c1DKTu/FZBdQ9hu201Z6yGcbSE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776015781; c=relaxed/simple;
-	bh=4a5CpNLwijqEeoBxf58LElhGXYoxLZYamglg2D+v9G0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=nMRyUkrVXeQpNGOP5sB94COuZanrlZh/PmtFEMTI4HWyZhQgloFMYi590amlAJuo6jxY7/70K/MyK9swR+8Tko6xAP+Z0GPbopsi8lUpZTbCktE5WOxtO8Oy1EAZJrjHZTWgL+yDYwSh8QMxqB+kyOa3IwD31fjaB5B4Jx0g2qg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mmpsystems.pl; spf=pass smtp.mailfrom=mmpsystems.pl; dkim=pass (2048-bit key) header.d=mmpsystems.pl header.i=@mmpsystems.pl header.b=fFO122tL; arc=none smtp.client-ip=195.78.66.88
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mmpsystems.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mmpsystems.pl
+	s=arc-20240116; t=1776015794; c=relaxed/simple;
+	bh=oICM/2L/XIa2dpeo8QIMB1FYt+w74TRv/ukrIkGGiLg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=S5VD5/I7ZGP9ONHRp6+o0cXGYET4s5pNcxLbH2V4tD/nXH6F25ywmZ5vfdb5SlKm4015ppg2Xn59FLCEik58bcZMcoGiRYraknU8T+tKE70dJFICCntjC9ZXGcT7Shlkk7cYDUx2Iudoy6ZAomrIFmmwNkcCGxvaSVp4sScnOqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WM7PHEJO; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mmpsystems.pl header.i=@mmpsystems.pl header.b="fFO122tL"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=mmpsystems.pl; s=x; h=Cc:To:Message-Id:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:Subject:Date:From:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=BCp70hr3uicHLXM/GL0GyVEZjJkjXaoYY9yWIBjEisA=; b=fFO122tLYz42xK+DEPSZbMUJDg
-	FdxmKDgp01GpFPjt53T1Ekg/syfTdLKKA5hC/20s7nvU8KQFuoOiNRXMJNy70s/4m+xpdT97gz348
-	lzY+cNWojtt4e0cmE3E+y8Y/fKxuc+iKv2EoiIXTlHUqrPNUbl3l+QtrD9FEXh8kl81FTzJh7s285
-	MUB9gNlFNNGPY6UX47A/8pDR2c/p1nIkXCuFinQdUP+iUIhDH9kbYP0WTuXWIuZaSvUZEjVkb934c
-	tLzgxdef+/efWIl+zaFa0Sv9Xv86imfJ6TydPZnvIj+Lv0HzpEDehQbj/D8nyppFAqTCJnBOWZpUd
-	W1j5brsg==;
-Received: from user-5-173-16-91.play-internet.pl ([5.173.16.91] helo=localhost)
-	by s106.cyber-folks.pl with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <michal.piekos@mmpsystems.pl>)
-	id 1wBypj-0000000A5MM-059X;
-	Sun, 12 Apr 2026 19:42:55 +0200
-From: Michal Piekos <michal.piekos@mmpsystems.pl>
-Date: Sun, 12 Apr 2026 19:42:10 +0200
-Subject: [PATCH] arm: dts: allwinner: t113s mangopi: enable watchdog for
- reboot
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WM7PHEJO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 775E2C2BCB7;
+	Sun, 12 Apr 2026 17:43:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776015794;
+	bh=oICM/2L/XIa2dpeo8QIMB1FYt+w74TRv/ukrIkGGiLg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=WM7PHEJOPCQyiMggVds1ZZI5y/1t1jTxW/uUL8k1rPKDzntTEN8nY1f7eCgK/fRzx
+	 0ns+0DIHdIK4w+p3gWJEuGd13Y57f0nKA2R200ZySeuyE5RoqAuPOCyB8wo3l8J3Te
+	 Eg3xx9jpsHcNT+40MVcCV8pZJAw7mbCsOjuXj3hFNvc0TtB8dgiWykDHm2IvDtTtbx
+	 guss+fSuw9QuDQ0tPG+vta6p50rTukP7FkqkPM00gZXyfBwJymYZbaP7YQ2vu1AqeN
+	 vdN38bGEC77ZfQJCgRScBn9csrQIT4GIbzn7qc5vnFv+Pd+EWPnEsnj4P4r9U+VYjJ
+	 PknZRyCZ431Cw==
+Date: Sun, 12 Apr 2026 18:43:01 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: David Lechner <dlechner@baylibre.com>
+Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
+ Hennerich <Michael.Hennerich@analog.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?=
+ <ukleinek@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
+ <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>, Bartosz
+ Golaszewski <brgl@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v7 3/6] iio: adc: ad4691: add triggered buffer support
+Message-ID: <20260412184301.05544396@jic23-huawei>
+In-Reply-To: <0f05add7-96c0-4eee-b396-d6e1be904c09@baylibre.com>
+References: <20260409-ad4692-multichannel-sar-adc-driver-v7-0-be375d4df2c5@analog.com>
+	<20260409-ad4692-multichannel-sar-adc-driver-v7-3-be375d4df2c5@analog.com>
+	<0f05add7-96c0-4eee-b396-d6e1be904c09@baylibre.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260412-t113-mangopi-reboot-hang-v1-1-5002cfa6e0cc@mmpsystems.pl>
-X-B4-Tracking: v=1; b=H4sIAHHZ22kC/x2MQQ5AMBBFryKzNokOEVxFLNoazIJKKyJpendl+
- fLffxECe+EAQxHB8y1B3JFBlQXYTR8ro8yZgSpqq0YRXkrVuOfFnYKejXMXfiLaXvczLx0xGcj
- 30/Miz58ep5ReK/Yrd2oAAAA=
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Michal Piekos <michal.piekos@mmpsystems.pl>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776015732; l=986;
- i=michal.piekos@mmpsystems.pl; s=20260301; h=from:subject:message-id;
- bh=4a5CpNLwijqEeoBxf58LElhGXYoxLZYamglg2D+v9G0=;
- b=2uyGbcT9UsQQiVrajLnas48wLY7waq2GcuVc54VU/0QPLzJPeNy+QgQ5FmsgNpz942CaHtYsi
- zzs9eMoYHEeCoLq3jY2nZTDZ7VSnu0ohImT9m7SIeAlRYKiPv3IATyS
-X-Developer-Key: i=michal.piekos@mmpsystems.pl; a=ed25519;
- pk=Aixyx03If7ZDamiKKN0lsa+0mtA+WjIuIf2ZQVYNBqg=
-X-Authenticated-Id: michal.piekos@mmpsystems.pl
 
-Reboot hangs on MangoPi MQ-R T113s because no restart handler is
-available.
+On Fri, 10 Apr 2026 15:46:36 -0500
+David Lechner <dlechner@baylibre.com> wrote:
 
-Enable the SoC watchdog whose driver registers a restart handler.
+> On 4/9/26 10:28 AM, Radu Sabau via B4 Relay wrote:
+> > From: Radu Sabau <radu.sabau@analog.com>
+> > 
+> > Add buffered capture support using the IIO triggered buffer framework.
+> >   
+> 
+> ...
+> 
+> > @@ -201,8 +245,45 @@ struct ad4691_state {
+> >  	 * atomicity of consecutive SPI operations.
+> >  	 */
+> >  	struct mutex lock;
+> > +	/*
+> > +	 * Per-buffer-enable lifetime resources:
+> > +	 * Manual Mode - a pre-built SPI message that clocks out N+1
+> > +	 *		 transfers in one go.
+> > +	 * CNV Burst Mode - a pre-built SPI message that clocks out 2*N
+> > +	 *		    transfers in one go.
+> > +	 */
+> > +	struct spi_message scan_msg;
+> > +	/* max 16 + 1 NOOP (manual) or 2*16 + 2 (CNV burst). */
+> > +	struct spi_transfer scan_xfers[34];
+> > +	/*
+> > +	 * CNV burst: 16 AVG_IN addresses + state-reset address + state-reset
+> > +	 * value = 18.  Manual: 16 channel cmds + 1 NOOP = 17.
+> > +	 */
+> > +	__be16 scan_tx[18];  
+> 
+> Needs __aligned(IIO_DMA_MINALIGN) since it is used with SPI.
+As below.
+> 
+> > +	/* Scan buffer: one BE16 slot per channel (rx'd directly), plus timestamp */
+> > +	struct {
+> > +		__be16 vals[16];
+> > +		aligned_s64 ts;
+> > +	} scan;  
+> 
+> Unless it is required that all channels are always enabled:
+> 
+> 	IIO_DECLARE_BUFFER_WITH_TS(__be16, scan_rx, 16);
+> 
+> In any case, needs to be DMA-safe for SPI.
+Custom regmap that uses spi_write_then_read() for all cases so it
+should be bounced anyway.
 
-Tested on MangoPi MQ-R T113s.
+Perhaps a comment to that affect would be useful.
 
-Signed-off-by: Michal Piekos <michal.piekos@mmpsystems.pl>
----
- arch/arm/boot/dts/allwinner/sun8i-t113s-mangopi-mq-r-t113.dts | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/arch/arm/boot/dts/allwinner/sun8i-t113s-mangopi-mq-r-t113.dts b/arch/arm/boot/dts/allwinner/sun8i-t113s-mangopi-mq-r-t113.dts
-index 8b3a75383816..f0232a5e903b 100644
---- a/arch/arm/boot/dts/allwinner/sun8i-t113s-mangopi-mq-r-t113.dts
-+++ b/arch/arm/boot/dts/allwinner/sun8i-t113s-mangopi-mq-r-t113.dts
-@@ -33,3 +33,7 @@ rtl8189ftv: wifi@1 {
- 		interrupt-names = "host-wake";
- 	};
- };
-+
-+&wdt {
-+	status = "okay";
-+};
-
----
-base-commit: f5459048c38a00fc583658d6dcd0f894aff6df8f
-change-id: 20260412-t113-mangopi-reboot-hang-c9a9def82e2b
-
-Best regards,
--- 
-Michal Piekos <michal.piekos@mmpsystems.pl>
+J
 
