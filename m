@@ -1,213 +1,122 @@
-Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch [79.135.106.30])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9813A30FF21;
-	Sun, 12 Apr 2026 09:54:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67C6236A01E;
+	Sun, 12 Apr 2026 09:55:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775987663; cv=none; b=ImehWTsWvfQEKHsGNsDhx5XOzOm6cl9l2Yv8+IgnkiItcarrsJ6O6ZYWlHD4GX6zNNzcpi+0ZVjcNs/f+6XO4qTJZofcbwLUcnxWRSely2CWj9yxMj2hqyC8YLPnImiVmqQO3qQiJKYZUMRWTMB+XZabHkqc0dDKRbC/IapSu+k=
+	t=1775987735; cv=none; b=oo1b+gCw3avGE7OVwvLp978/zBASIfcUkYqKoWbZ3cyPchz0ghhcHlhTNDB8cbhPuXzgDq6g4J8gBZ5mp0T6Su27Iym6NXE+yZAWme1zwR6L1OusZdkgJxlGw0AXVFg4VEiveixSlUj0bLFcdU7bO/kqOSCqTQG0y8WVbFpFSqA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775987663; c=relaxed/simple;
-	bh=iXA+hI/Efvr0jnAb4U1G+XY4odCQ7UR4/pCLV7jSlWQ=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=O1A86PxKF+L95Eicw0GhixlYaAL5+K94f4CCr7Bp53clMBnV7FccNeLCK6GmE1rf4HUtTf1EkVXxUAxxAY2VrhmqZJmzS26niLXt3IbWpZHsYK/1tFBTJ1yi8kuQGZduHQ38qxkJp3k2PuvmfmgWxbo67pVUAN4GoBF0mZ7DU80=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=minvURCS; arc=none smtp.client-ip=79.135.106.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1775987735; c=relaxed/simple;
+	bh=Jy/ehqt0DfwlsLPX46NJEmjRWPWkCPwiCn1VTpbPT8k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d60nxPylwFEOkTTNMXiJ2iW57CnoYdDiZAqNt5njwUpl7s1WpjbvqPtZTkQMb40P9s/tu3ekPObamIQy57Ozm0uWxXagD6r2MKKBPcq8VY7qfF+Syg+rqmRBzr4N+s3aHNYrlenRtu4JZ9DRgM0SG2QnXrT+R/EP1qNuJxuzKQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nGSshU1Q; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="minvURCS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1775987658; x=1776246858;
-	bh=dJttnkqYgp1JUqhsR0KFuNpwYldDjOyoJeaymBvYBdY=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=minvURCSKSJC6sGObre815pZm2CkhejwLOGYxRuZdnk0jygOpJxkOKvwJtVWCtKI0
-	 0qDUdM8+dqZ/DykHvfvKR8SKqyK2lvdiWpLGc9zg2w3DGBEXIe39Tme0typ9h+JEO9
-	 iY/J4GldVCIPeMVkuZrbKw1PSgXmR05NYtXYMn/7zCqxPa4oUNa5dnlFliInG13MZB
-	 Z7D9HD37D5ZEE94m9p7XZ1lbnofxta9yX88p8HMvRQbxVaoth0avHbVGq0Y87xiLPF
-	 Gj7qJ5j5gP9I/RRboKn7rcoyQWlNcbar5CX1ZCD8sXOiHfoOoL3d+e5bF7lbya/gxU
-	 aPT+VeDW7NYTQ==
-Date: Sun, 12 Apr 2026 09:54:12 +0000
-To: David Lechner <dlechner@baylibre.com>, Hardik Phalet <hardik.phalet@pm.me>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-From: Hardik Phalet <hardik.phalet@pm.me>
-Cc: Jonathan Cameron <jic23@kernel.org>, =?utf-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Brigham Campbell <me@brighamcampbell.com>, Shuah Khan <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev
-Subject: Re: [PATCH v2 3/4] staging: iio: magnetometer: Add QST QMC5883P driver
-Message-ID: <DHR32TA81G99.14OO5FKEDU8CB@pm.me>
-In-Reply-To: <736964f9-1e93-47e7-80ca-1a89f239a353@baylibre.com>
-References: <20260409210639.3197576-1-hardik.phalet@pm.me> <20260409210639.3197576-4-hardik.phalet@pm.me> <736964f9-1e93-47e7-80ca-1a89f239a353@baylibre.com>
-Feedback-ID: 166659585:user:proton
-X-Pm-Message-ID: f945d8a8660e08a8b18a72b33cd71943d441fff6
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nGSshU1Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B027C19424;
+	Sun, 12 Apr 2026 09:55:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775987735;
+	bh=Jy/ehqt0DfwlsLPX46NJEmjRWPWkCPwiCn1VTpbPT8k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=nGSshU1Q+ZSNsrr6DUWhjnWjH5GDLq7PxpDWTFBWcoizuZKB/+eZGN5+b4VkFIHFE
+	 5SK0KWNaabiAuC0qGauhTuo82EsKP4buNStEMhkqAqzVQ1RHgvNI8sQAnMSypP1i5V
+	 1MJQ8SBpy8ZrDCvsEpvCGCGhRt08RBkTTAtasw/HTRTQjhW4UsOFoVJ5edw0cHDPSv
+	 J2wFus2pzPDfN0zLMPzr/jCxoTuglpV2YldC6dxe+0Gq8ADdfMoOeT251cEs41Q06E
+	 H/iMYuLBwLSTi02pvmZuYCPRarRFKHOch92jLIsgQ2iVAKhoCR/VYfh3dUhb1YfOYW
+	 58a0WKqNd1JRA==
+Message-ID: <9a4f69e7-838a-4992-af1d-46324e14eb48@kernel.org>
+Date: Sun, 12 Apr 2026 11:55:30 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] soc: amlogic: clk-measure: Add A1 and T7 support
+To: Jian Hu <jian.hu@amlogic.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Jerome Brunet <jbrunet@baylibre.com>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ robh+dt <robh+dt@kernel.org>, Rob Herring <robh@kernel.org>
+Cc: devicetree <devicetree@vger.kernel.org>,
+ linux-amlogic <linux-amlogic@lists.infradead.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+References: <20260410100329.3167482-1-jian.hu@amlogic.com>
+ <20260410100329.3167482-3-jian.hu@amlogic.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260410100329.3167482-3-jian.hu@amlogic.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat Apr 11, 2026 at 1:32 AM IST, David Lechner wrote:
-> On 4/9/26 4:07 PM, Hardik Phalet wrote:
->
-> This is a little bit much to review all in one patch. Could be nice
-> to split out power management to a separate patch.
->
-> Oversampling/downsampling could be split to a separate patch or two
-> as well.
->
-Noted David. I will handle it in v3. I think downsampling can be another
-patch.
+On 10/04/2026 12:03, Jian Hu wrote:
+> Add support for the A1 and T7 SoC family in amlogic clk measure.
+> 
+> Signed-off-by: Jian Hu <jian.hu@amlogic.com>
+> ---
+>  drivers/soc/amlogic/meson-clk-measure.c | 272 ++++++++++++++++++++++++
+>  1 file changed, 272 insertions(+)
+> 
+> diff --git a/drivers/soc/amlogic/meson-clk-measure.c b/drivers/soc/amlogic/meson-clk-measure.c
+> index d862e30a244e..083524671b76 100644
+> --- a/drivers/soc/amlogic/meson-clk-measure.c
+> +++ b/drivers/soc/amlogic/meson-clk-measure.c
+> @@ -787,6 +787,258 @@ static const struct meson_msr_id clk_msr_s4[] = {
+>  
+>  };
+>  
+> +static struct meson_msr_id clk_msr_a1[] = {
 
->> +#define QMC5883P_REG_Y_MSB 0x04
->> +#define QMC58
->> 83P_REG_Z_LSB 0x05
->
-> Were you manually editing the patch?
-No. Maybe it's my email client (AERC). I will make sure the next version
-is tight.
+And existing code uses what sort of array? Seems you send us obsolete or
+downstream code.
 
->
->> +#define QMC5883P_RSTCTRL_SET_RESET \
->> +=090x00 /* Set and reset on, i.e. the offset of device is renewed */
->> +#define QMC5883P_RSTCTRL_SET_ONLY 0x01 /* Set only on */
->> +#define QMC5883P_RSTCTRL_OFF 0x02 /* Set
->> and reset off */
->
-> Or maybe you mail client mangled the patch? These wraps are
-> happening in many places.
->
-Yes. Exactly this.
-
->> +=09if (regval !=3D QMC5883P_CHIP_ID)
->> +=09=09return dev_err_probe(data->dev, -ENODEV,
->
-> We don't consider ID match an error. It has happened too many times
-> that there is a compatible part with a different ID. This can just
-> be dev_info() and return success.
->
-Noted. Will handle in v3.
-
->> +static int qmc5883p_chip_init(struct qmc5883p_data *data)
->> +{
->> +=09int ret;
->> +
->> +=09ret =3D regmap_field_write(data->rf.sftrst, 1);
->> +=09if (ret)
->> +=09=09return ret;
->> +
->> +=09usleep_range(1000, 2000);
->
-> Use fsleep() instead and add a comment explaining why this specific durat=
-ion
-> was selected.
->
-Noted, will handle in v3.
-
->> +=09ret =3D regmap_field_write(data->rf.odr, QMC5883P_DEFAULT_ODR);
->> +=09if (ret)
->> +=09=09return ret;
->
-> Since we just reset the chip, why do we need to set everything to a
-> new default instead of using the chip's default? If there is a good
-> reason, add a comment, otherwise we can leave this out.
->
-These were simply more aligned with my usecase, so more of a development
-artifact. Chip defaults are sufficient. I will leave this out.=20
-
->> +
->> +=09return regmap_field_write(data->rf.mode, QMC5883P_MODE_NORMAL);
->
-> Does this start sampling? Seems like it could be out of place here.
->
-Yes, normal mode starts sampling data. Your point makes sense, I will
-remove it in the next version. Incorrect mental model, I apologise.
-
->> +=09ret =3D regmap_read_poll_timeout(data->regmap, QMC5883P_REG_STATUS,
->> +=09=09=09=09       status, status & QMC5883P_STATUS_DRDY,
->> +=09=09=09=09       QMC5883P_DRDY_POLL_US, 150000);
->
-> Numbers with lots of 0s are easier to read as 150 * (MICRO / MILLI).
->
-My bad, will handle in v3.
-
->> +static IIO_DEVICE_ATTR(downsampling_ratio, 0644, downsampling_ratio_sho=
-w,
->> +=09=09       downsampling_ratio_store, 0);
->> +static IIO_CONST_ATTR(downsampling_ratio_available, "1 2 4 8");
->
-> As mentioned in the cover letter, we'd like to know more about what
-> this actually does. If there is a good reason it doesn't fit with
-> any existing filter attribute, then we'll need a patch to document
-> the sysfs ABI as well.
->
-In the device datasheet, OSR2("Down sampling ratio") is mentioned like this=
-:
-"Another filter is added for better noise performance; the depth can be
-adjusted through OSR2". OSR2's defintion is called "down sampling ratio"
-in a table. Nowhere else. I didn't know what attribute to map it to in
-this case.
-
-> Could save some dupilcation by making a macro that takes X/Y/Z
-> as parameter. e.g.
->
-> #define QMC5883P_CHAN(ch) \
-> =09...=09=09=09=09\
-> =09.channel2 =3D IIO_MOD_##ch,=09\
-> =09...=09=09=09=09\
-> =09.address =3D AXIS_##ch,=09=09\
-> =09...
->
-Noted. Will do this in v3.
-
->> +=09ret =3D devm_regulator_get_enable_optional(dev, "vdd");
->> +=09if (ret && ret !=3D -ENODEV)
->> +=09=09return dev_err_probe(dev, ret,
->> +=09=09=09=09"failed to get vdd regulator\n");
->> +
->> +=09/* Datasheet specifies up to 50 ms supply ramp + 250 us POR time. */
->> +=09fsleep(50000);
->> +
->> +=09i2c_set_clientdata(client, indio_dev);
->> +
->> +=09ret =3D qmc5883p_rf_init(data);
->
-> Would be more logical to move this up right after regmap is declared.
->
-Makes sense, I will move it up in v3.
-
->> +=09ret =3D devm_iio_device_register(dev, indio_dev);
->
-> Usually, we just return directly here. This pretty much doesn't ever fail=
-.
->
-Okay. Will remove the dev_err_probe() in v3.=20
-
->> +=09ret =3D regmap_field_write(data->rf.mode, QMC5883P_MODE_NORMAL);
->> +=09if (ret)
->> +=09=09return ret;
->> +
->> +=09usleep_range(10000, 11000);
->
-> Again, fsleep() and comment.
->
-Noted.
-
-
->> +static const struct i2c_device_id qmc5883p_id[] =3D {
->> +=09{ "qmc5883p", 0 },
->> +=09{},
->
-> IIO style for this is:
->
-> =09{ }
->
-> space between braces and no trailing comma.
->
-Noted. Will take it up in v3.
-
-Thanks for the in-depth review David. I really appreciate it.
-
-Regards,
-Hardik
-
+Best regards,
+Krzysztof
