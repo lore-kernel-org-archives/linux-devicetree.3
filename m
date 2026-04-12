@@ -1,67 +1,67 @@
-Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com [209.85.167.176])
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04D1229B78D
-	for <devicetree@vger.kernel.org>; Sun, 12 Apr 2026 18:45:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A17DE285061
+	for <devicetree@vger.kernel.org>; Sun, 12 Apr 2026 18:52:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776019545; cv=none; b=X+SptiXK8oVwF8jqiyciqxDCnRCHJgWB7l2DaIpMpu5GjqKXlB18Wd//pl7hux94WZHwN0S1xWwExS23jjfrCH0baMdrPb6fxWbM79nnbhr8ORPXb6LQaAGohDFBi4TiFIYtaoh7RmCHz9PhuUpcb6lzgsoIfFFmHDoKM8LFyCs=
+	t=1776019936; cv=none; b=f/t7DpIClu87JihdU96nAAUbFEy40sqR46jPofbbUJTUiTD84VpLWqKFSiBQ9gD5of2D/dVkPEFoLFYmogY7zSQ7aIjHctD0/9kTDZ0dvshdAcFAZLE2RFk6Mf18VEuwTAKCP3M9Gc/3PzgX1XC8tfDEjicHzAckmz3WaoH6pyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776019545; c=relaxed/simple;
-	bh=oQzRgQ7NQPcP1cTNgd4z06Z6ADUV1qjY2dP5A5oq9kY=;
+	s=arc-20240116; t=1776019936; c=relaxed/simple;
+	bh=Pd/hnVKuluDMGXFrmK+hPDJ6CozFH0uTu02gz7MUWBE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Gq+deGg9x3S50DnbKyt2MMGfD1CNBeCoJFwpLFwkvE/eWUsKf8UsjwdkubxMReMulxDbtreWNMUkK0jn2HQgsnnbUVJWLWWCihdNySe4oOpr/7tNfr8zjjy/8Rl2B8zS7ETJXaKeaLYhGrapL1LlXkBqUC/jRkityofYyT97pGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=OGW9U3WJ; arc=none smtp.client-ip=209.85.167.176
+	 In-Reply-To:Content-Type; b=ZjwKxOnF/JRTRC6bgNT4fW0x/i0bBzf/fHc+RxPx3VN2tBpeEnKUMxykhyPlLFlU3QUXhXNrXzAt9Tfh/agPWq29moL2btCwJnKqwHg8G+H2MTQghFSxPjxaiL8y50l3kSijdnWABs0Jscs6XjcHurNiWyymztDzypa2kblB3hs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=hjC+hqwe; arc=none smtp.client-ip=209.85.210.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="OGW9U3WJ"
-Received: by mail-oi1-f176.google.com with SMTP id 5614622812f47-47018d34159so2701186b6e.2
-        for <devicetree@vger.kernel.org>; Sun, 12 Apr 2026 11:45:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="hjC+hqwe"
+Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-7dbd08144deso3432615a34.0
+        for <devicetree@vger.kernel.org>; Sun, 12 Apr 2026 11:52:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1776019542; x=1776624342; darn=vger.kernel.org;
+        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1776019934; x=1776624734; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=M+ZO6rZv9NGV1Yj2nIfY3XI669Ebfty85k3Q8tYt5QY=;
-        b=OGW9U3WJZDl6ektiEuFCczMHCtc+ME8EUqGijmbXrA0QcFfW72Wpq1CLFm6iX7Is81
-         tSj5PvDkSca2dGxoAYLyzNlePB/wldPvADeBtfSYw6PA2Xt/lqvF3kg52RZmALMLxCWs
-         D9znPT2DUorWB2GT7c5s5YBOoNaivA6zAJmG57f7295gYFMlSW2Mb4j1MgOGYpm6qu2p
-         8O0zkfXdhX40Do9NSgf4bBItWgswnh5B129ftmAHDssNNc1yZGNNsiFhvTLIRK3utzIG
-         IZRTWt0gRFF850mfyHPVMyCqpCBY8lk9xT9H/RRfTLkzS6z/cFvWD8W5QRiaGVVPGIsF
-         iFFA==
+        bh=0fys629eMO179bbNIA9Bgqf2+pU0BIPxhSDRjIB2+TI=;
+        b=hjC+hqweer1c503LY4v2CrRg3RNNLOLlteF31ZA+iJRx3xwk77m/TNgptp+IjfoDsT
+         SJaoSwQ1//2HL+oUbIo5Iwqht5HH41VwIhWEVde+NTJmrwzoqImA+O1EUtwf4II45hYu
+         C0mucamE0qG08ORqPezabOWMKfNP56sIYE8tCkhv1gCBxxOYezmBHTzpb8ZHjXHt6PkZ
+         S1/C7V50rScloO5A9GCIBqTDwVvUzNMvfm0/wrf5QR4+R5uHkfyEGgWBFC/PcAIZBqZw
+         mLbPXUBVkwqSAuXn0SAEoilp7KYnLVw4rWBqPozu+NDZRrYYDL29FCnF1pKILQBjmHhu
+         dqFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776019542; x=1776624342;
+        d=1e100.net; s=20251104; t=1776019934; x=1776624734;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=M+ZO6rZv9NGV1Yj2nIfY3XI669Ebfty85k3Q8tYt5QY=;
-        b=YBVLMCl1RkNmKo3RVReTOK4yKsmG14LHED4uBc3qbRaWR0WPiqbHdJpkYTjxwFf+lj
-         BY3Ia0fuYxuiIzidw+qTHdMBUzF6TJmNA7Zd+8YoKXw1Jp9v7Dt48HzdF2/xlRkmcqSg
-         38be9840s4hlNoi1qYs5ko5xmSZNCcQwbcJcywrkiozaNaMUEzT8+hn84yodfS/iloHs
-         e4+LavF2x+qgh3MNYNL7h8uu93Kj5q1UQryr1mv1ALDz+tK/iYJ87tnrjiR6PEKA4huo
-         a+S2rOZEKHUHkipcYBha711w7DOID6ovvCr6H6B5T5iy3zcpi9mQKysm9D9BXMrO48zz
-         YeTA==
-X-Forwarded-Encrypted: i=1; AJvYcCUjB/p+YW4WDVOh4bcwzT6otFXkrb1kmLQgrcQylARth/6QCs1Dpw+efixKZ+yfFtlzW/T42yCaLuBA@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx1xRH79zFJS5+xoLXiCHxc2gh9ZC40mbg57VB40uai8+g91Em0
-	thA9/lkFtepuRXVL4WvT8ffpvyqipo7alVP5dtlWEsukbgaJNn1AF5Eoh6rctbg+I9M=
-X-Gm-Gg: AeBDieuDQfvaQdSYIGjK6kKuiYFPwVrdhJi6qW7jNhq3bdYfNNUytclRzJHhjIAh5XD
-	UdkdXwBAc3JgxWjQ7+QB0Y+Cw3OcpDevWDiN6mr1eizh988HLGjii8UgtgIKMLonfdTpAWk+gad
-	Qtb8WLKupuEDZxYRMPT3GdlG03CvDGCprlYE0v4Wh+kEStv7Jr675Dm1WLLZQLxRIMwR1wsBhcB
-	pzJv2t9oO/sGgJAXtu6WGDxfnFconeYsoeJSA8TyG6t5h8WR2K+JT4FS8KA+GXXCDEfo9V3Dsm3
-	H27USUtTtGHKrX8Iacc3VPNmEGKDaU+SEMGb8v8E3Z97xPki5u9MUIYkwx3VBqiYIeoMXCX5s6W
-	PwKZVjxIg3FxswDxDzqPyhgYUKD7mwHNpnuBBo8xWCCd6LE31BnK71G5QYViX2ajYENRlh4KCXN
-	dANmpdoqqMRTz5YqFZt0UqaXGWYKFsRzYrwcyvajLiUwfycD5mHprB0ZOEK3mhFWxmEAKNodB62
+        bh=0fys629eMO179bbNIA9Bgqf2+pU0BIPxhSDRjIB2+TI=;
+        b=sEKYe8jBv+iLi/C+kI4C24taNVSgXhFZtCfbEgtzQpAKVRxa/6GNRODQ4dWcXvyO3X
+         SMSVerUh0VEkSCa5JG+7CiIOX91lhBY63cqbc9u9TRfOuBGf+udRDoZm37cGuqj7Ogds
+         ienPRRtyEIn2OgSOu66v+EGl0mhVnafFdgWiJXws5qYvne8OTLj87kXhTlKSo4fSm6c4
+         7K370gH4oYVycxLsJmwSl5HELyksw5yyMK/uXM2sEQ0LLT7DT0gULsc7OPkpHXTg32lH
+         tHT5jcLMKyldDbUWjFM+zq0byrr4X48aW71WwoyMjcHB4XoWw54a/2Aq2zbPliHHRPIB
+         AjHQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUolrljMn3oaNIzyVcYqNgiu0D5qci7mjH3ColHj+IN6Ju/lXbXWNP5/fe2DNAJzqbz5kIS98qls4cF@vger.kernel.org
+X-Gm-Message-State: AOJu0YzYmYkpgTeviJAS5ZN3WXqKGwt2x5hkK8srIKmM1pORU/WYMR4w
+	RM4vBbbt4EvDAKHxF720vIb62Ma7KMUsbwf5ZThAyP4991DK6iaBqHL99lac0Yo6YIU=
+X-Gm-Gg: AeBDievaFi/RYxaeiMOE60iv8uOa/NjqbY8bDzOYLINGOniraazo9OeAjozbPoVfzN1
+	GpOSv5IRsMYFi2Bq0rkFguFUf18JmduYvwU8LOj8grdWZ1eGB+SnPaO0CGhlqQAFJ23k+yXb2EY
+	maG4c7+owtACJ76WbkoUTyjV4rQtvBjyHsZBk63H5IJEx6OPzitRTIDJ8Il/zSCiVOg26/po3pQ
+	0bs9n3ehawIWoVvuuIeWftsCEbjZLfRYjaVqgX66prAZIAB2m8+INqJEzkj1pRhG4qz43glPhZo
+	yMsGrlq8Ujwk4B1muLcvqL3LEsP9Af9tbYAjDYzN7xio3F7MQGzqZmDy4maksLbXL0w1dwenFQF
+	UGD9IU9w+8Jp7K7XmUE2UQKweICkcjKsFCV33cyteCs57KBnmbz1ld37h4PdznC+tlbarbLULi5
+	UyrCjxT5/lRInToG19PSahyhjrGAvU7WKGWjpo0Vpd67vmzGxNlWv6wSTxMs9xp909c91jnmSYT
 	Q==
-X-Received: by 2002:a05:6808:4f49:b0:45e:b623:f9b3 with SMTP id 5614622812f47-4789f7074ddmr5377663b6e.42.1776019541977;
-        Sun, 12 Apr 2026 11:45:41 -0700 (PDT)
+X-Received: by 2002:a05:6830:4116:b0:7d8:7d95:fa59 with SMTP id 46e09a7af769-7dc27a28405mr7191572a34.0.1776019933611;
+        Sun, 12 Apr 2026 11:52:13 -0700 (PDT)
 Received: from ?IPV6:2600:8803:e7e4:500:5c13:5a8e:1b91:8035? ([2600:8803:e7e4:500:5c13:5a8e:1b91:8035])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-478a3666dbfsm4831509b6e.15.2026.04.12.11.45.40
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7dc26965485sm6752348a34.22.2026.04.12.11.52.12
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 12 Apr 2026 11:45:40 -0700 (PDT)
-Message-ID: <801badd3-d10d-4bae-b3e1-73aa1edff47c@baylibre.com>
-Date: Sun, 12 Apr 2026 13:45:40 -0500
+        Sun, 12 Apr 2026 11:52:13 -0700 (PDT)
+Message-ID: <2d966423-52b5-4b8a-a4d1-0edcd93a841b@baylibre.com>
+Date: Sun, 12 Apr 2026 13:52:12 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,74 +69,53 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v2 8/9] Documentation: ABI: testing: add docs for
- ad9910 sysfs entries
-To: Jonathan Cameron <jic23@kernel.org>,
- Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-Cc: Rodrigo Alencar via B4 Relay
- <devnull+rodrigo.alencar.analog.com@kernel.org>, rodrigo.alencar@analog.com,
+Subject: Re: [PATCH v2 3/4] staging: iio: magnetometer: Add QST QMC5883P
+ driver
+To: Hardik Phalet <hardik.phalet@pm.me>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Brigham Campbell
+ <me@brighamcampbell.com>, Shuah Khan <skhan@linuxfoundation.org>,
  linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- Lars-Peter Clausen <lars@metafoo.de>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-References: <20260318-ad9910-iio-driver-v2-0-e79f93becf11@analog.com>
- <20260318-ad9910-iio-driver-v2-8-e79f93becf11@analog.com>
- <20260322172257.1681de69@jic23-huawei>
- <mtqjtmsysz6ywvybeut6qzhee2o4qedwgvr5isbn4um7bwhjbe@sg2b7hwlszwd>
- <20260412155115.2f7a83bf@jic23-huawei>
+ linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev
+References: <20260409210639.3197576-1-hardik.phalet@pm.me>
+ <20260409210639.3197576-4-hardik.phalet@pm.me>
+ <736964f9-1e93-47e7-80ca-1a89f239a353@baylibre.com>
+ <DHR32TA81G99.14OO5FKEDU8CB@pm.me>
 Content-Language: en-US
 From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260412155115.2f7a83bf@jic23-huawei>
+In-Reply-To: <DHR32TA81G99.14OO5FKEDU8CB@pm.me>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 4/12/26 9:51 AM, Jonathan Cameron wrote:
-> On Mon, 23 Mar 2026 11:36:08 +0000
-> Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:
-> 
->> On 26/03/22 05:22PM, Jonathan Cameron wrote:
->>> On Wed, 18 Mar 2026 17:56:08 +0000
->>> Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
->>>   
->>>> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
->>>>
->>>> Add ABI documentation file for the DDS AD9910 with sysfs entries to
->>>> control Parallel Port, Digital Ramp Generator, RAM and OSK parameters.
->>>>
->>>> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
->>>> ---  
+On 4/12/26 4:54 AM, Hardik Phalet wrote:
+> On Sat Apr 11, 2026 at 1:32 AM IST, David Lechner wrote:
+>> On 4/9/26 4:07 PM, Hardik Phalet wrote:
 >>
+>> This is a little bit much to review all in one patch. Could be nice
+>> to split out power management to a separate patch.
+>>
+
 ...
 
->>>   
->>>> +		  - "ramp_down": No-dwell low; the ramp resets to upper
->>>> +		    limit upon reaching the lower limit.
->>>> +		  - "ramp_up": No-dwell high; the ramp resets to lower
->>>> +		    limit upon reaching the upper limit.
->>>> +		  - "bidirectional_continuous": Both no-dwell high and low;
->>>> +		    the ramp continuously sweeps without dwelling.  
->>>
->>> Triangle wave?  bidirectional continuous is a rather confusing term so maybe
->>> we should rethink this one.  
+>>> +static IIO_DEVICE_ATTR(downsampling_ratio, 0644, downsampling_ratio_show,
+>>> +		       downsampling_ratio_store, 0);
+>>> +static IIO_CONST_ATTR(downsampling_ratio_available, "1 2 4 8");
 >>
->> Mostly yes, but not only that. Sawtooth can be achieved as well by changing
->> the step sizes, also other weird patterns can be achieved by toggling DRCTL pin.
+>> As mentioned in the cover letter, we'd like to know more about what
+>> this actually does. If there is a good reason it doesn't fit with
+>> any existing filter attribute, then we'll need a patch to document
+>> the sysfs ABI as well.
+>>
+> In the device datasheet, OSR2("Down sampling ratio") is mentioned like this:
+> "Another filter is added for better noise performance; the depth can be
+> adjusted through OSR2". OSR2's defintion is called "down sampling ratio"
+> in a table. Nowhere else. I didn't know what attribute to map it to in
+> this case.
 > 
-> Sawtooth is kind of a special triangle wave with one very steep side.
-> Wikipedia even has: "It can also be considered the extreme case of an asymmetric triangle wave"
-> https://en.wikipedia.org/wiki/Sawtooth_wave
-> 
->> This mode is the most useful when one does not have an FPGA and want to save
->> resources on controlling the DRCTL pin. That mode name comes from the datasheet,
->> so I suppose it was fine.
-> 
-> Let us see if we can get more opinions on this.  Whilst I can see the logic of
-> the datasheet naming, it's a bit obscure.
-> 
-It is the same as ramp_up and ramp_down other than what happens when it hits
-the limit? If so, I would call it ramp_up_down.
+I wonder if there is an application note or something that explains it
+in more detail if the datasheet does not.
 
+We could always omit the feature if no one knows what it actually does.
