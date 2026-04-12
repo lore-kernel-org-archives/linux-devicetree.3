@@ -1,170 +1,85 @@
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C481123BD06
-	for <devicetree@vger.kernel.org>; Sun, 12 Apr 2026 21:26:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B3BD317150;
+	Sun, 12 Apr 2026 21:50:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776029168; cv=none; b=Xhnj8GzVtaLyQZv1ogvjnzZKBCSS5Djgpnwp/rKdhdTtvwZYuxVhwnP4vI3F7wNZaeKingb8gGq1CUGhtrqptMYGmSc+dmJJuElfghu5y5hIteVUEOKeBXZ+CADz3T7IVSgDrFiTnnpUBGgh9YipXpgAA4XeZ5tx516OZ1Gs8+M=
+	t=1776030658; cv=none; b=LM7NyY2CB6luFNrysS/MlFrBCJvgea+pP2RrOppwwTgl+BZoZ+EAU4S1ppbGSx1zsu5N19vXDwzdp+cwRkUQ53Kw507pQVHqntcxLoLpLlEGeDjDJOwkJ0NTbL9Is+i3RUrOCdMwkkid6Cr6P2Gxsm94NqJqFg1vHxczeY+T4zg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776029168; c=relaxed/simple;
-	bh=yNLe+SGJdzNljhesx4aut5AQpUeuoltAcUMEObSLyyo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sOHkbDdFTh3pTZtJkex6HFwAE3pd79YFUQXDW/dH9epXtBfoL8K0C+83WkNtrqvIeEoebaRkCDzpowP6H3pANCUkpHvDtPJxNhI/Ruc9yMfR/J7ymd7azk3rDdgglZUTiuzxRfl1QJ1fXsfh+ahSf7VuWKXsTrxNaamSRJf9x0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S/1gnAtc; arc=none smtp.client-ip=74.125.82.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1776030658; c=relaxed/simple;
+	bh=bmDKCVvevzuEaJk6LnhohHtZWfWE/xf9pYtUeIB7eOk=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=DVYQd9M307UxCXOdsTLB12uAmi1gnVT8GdShmxnkR1wlDbnjiv+x/vl6Ub1J+sVTOSc83aPh3589kHsCc+2Iv4ar9CGwzdQvZ+MsA1mJICV4w8mHszuL+QGfnAiG0o6J/24hyqBqdg9ZVqJnIHnBL01AZjaF/hDkhOo/YN127/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oUXkgbrg; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S/1gnAtc"
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-2c156c4a9efso5176540eec.1
-        for <devicetree@vger.kernel.org>; Sun, 12 Apr 2026 14:26:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776029166; x=1776633966; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=g5YONsemN2vvgZ9asQJIXKdXNxh3MWkRpVIQ/RmrGZw=;
-        b=S/1gnAtcRW4q8vMrKXaZo+3yw/hONK0ou8exVTXxPO09fhkJQ7LKAk5HtqX5y/ivtg
-         wUjWMeRoWe+QUjx+YMXo43S0tOqd4YMdsgxbVjZngJ4VwiempCc7fqqQvKW6B4eRLKeG
-         +W+nli4HZ/oJV5gS5BGXOztyQ2GbDp4xQZq4+4NnOhpqWYgrrTknIbf+YoKyHh13rB7y
-         6wfkfGWIKKC8wBnXGxe//lfOUw/THWKln6exL854wxvn1a6tWK2UA4QT0wXikZPnHX3B
-         2RzZA/0acMSs4JoWHNlx9MmYs02AfvmImXcpXWhHRadh5Rq7GyREuP/viHg61SIISWd1
-         Fm5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776029166; x=1776633966;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=g5YONsemN2vvgZ9asQJIXKdXNxh3MWkRpVIQ/RmrGZw=;
-        b=KdAcvxyv17yEl5u4G0672FdXCMh11ks+tlXEo61jwKac2f5zYTEIznJbkoO0o7YpAy
-         zb5KfW0tqksvk3Xlebyh+ReyCGY2emQFXxcJat7dgMH3t4hNS/NtSH60TLH7mcN1yxJI
-         f5fHWB1AuyEliJpum5/BF01so8726WulfaRx77ZP9U4H34D75nGVN4J/TyxsMrOhSknb
-         VWWOP29cJvUH9rKfA6+y65rp1TsmgOFhgbD/wJL+Sy6OQiet2PhFhL2DKac1+wBkQuGQ
-         8QAEycppod8Jf2NHvopcX7wAPCJ027YHqNqNrdFCx4G86wbv7jRtBB4Yx2/axZ4p2ZX9
-         Qumg==
-X-Forwarded-Encrypted: i=1; AFNElJ8lWTCvyASYkgWjPr52bRDJZET/ISOEqWxpc44hV10aVsVGddUfi/5vniZSKBqyUx+xpbUq8A6nYCwE@vger.kernel.org
-X-Gm-Message-State: AOJu0YyEhw2FmuiR9ecW3viOOOgu3cWCsZQtCDdDrFmGEpGllqZfgUme
-	3bNEwsC9x1y7Ke8Ry0E8M5mmIruHMGkQyYyDxnWpCh92k53UmvTbKotr
-X-Gm-Gg: AeBDieu2mmDvjH1H3ESkUPJ7wtlwnNi8XfIld9p0/9MF2xrgS/itWhprReEqPxjX4pm
-	5p9fyJNWKe4IW83EN5iYPZrwCeG9HeyTBjYQGmnAgdtIq8VqcDQ9KFttotNObLLJPe1zd165N9p
-	rtr4A1A0lZFJI/JBYgoW9OHvP1MVT28N/jPbcj6dcfZ3WHMqJLQOjg4huv0M7hMJAwaAkzn8OW1
-	X0Bizq5lwu6u+CLSuhnt/um0mn7Mkf0p/C8OvUJNyNBsl8ZXRODXaYNFEe4myD9fypacQY+tjz8
-	XkHnuDG1tCUUPtCA5tXmEAwsjJhdAI9RrA4GCfs6dQq7KOd+QYgxrKmqG6rPoFVPYxSP05AFvOV
-	SpOC6u0MCy8AJSO5f9jU3cMdvKQqksKMhBVGsSU+VMK7ZP4YopRkWVjVmTgxTQuS/yTyNVvUCez
-	915r/WVpD0xZ8WD0SNwVCxfywjQ1tm/cBUgD5OXMLrjg6QyCp1PAeKaE4DKLiuwVl+N3og+Uhc
-X-Received: by 2002:a05:693c:2c84:b0:2c5:d833:a4f3 with SMTP id 5a478bee46e88-2d58907b4admr6254248eec.18.1776029165814;
-        Sun, 12 Apr 2026 14:26:05 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2d55faa42dasm13905817eec.7.2026.04.12.14.26.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 12 Apr 2026 14:26:05 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <e7418ef5-b41e-489b-b913-aeebcf9a5235@roeck-us.net>
-Date: Sun, 12 Apr 2026 14:26:03 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oUXkgbrg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73ABFC19424;
+	Sun, 12 Apr 2026 21:50:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776030658;
+	bh=bmDKCVvevzuEaJk6LnhohHtZWfWE/xf9pYtUeIB7eOk=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+	b=oUXkgbrgppoq0WYF3j3hrwy96SBRYXjV4H/fgT6jWVbBbGxkH1QOFGOn8jIDkEFDS
+	 nHNfd0fsdaS0Gj6UjJbIMM6uuOitbaFObWLC+6Mf36d8vdc6/RzahxI/6POVd4vzVK
+	 6b0vK4a7aQsI94w7x1QPGL2/qBVBx/Q3Oudg2BfyN4ceOstMZhALSqZmsdPXbCJoX0
+	 t31AOWwm/kWkG6qMIw1dYUJEf7e2uh9d7SIyi6jYKYVwr3qBYO/88pJOEwTv5XyZQk
+	 SRFt6IXFGYxnGe6HIsqtCG2gmOvoAQqNvohfd+gdzU86+QDdCP57tz1sr/SRs21meX
+	 L0O/DrdocWYyQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 02EB53809A8C;
+	Sun, 12 Apr 2026 21:50:32 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 12/13] hwmon: spd5118: Add I3C support
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: Akhil R <akhilrajeev@nvidia.com>, Frank Li <Frank.Li@nxp.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, "Rafael J . Wysocki"
- <rafael@kernel.org>, Robert Moore <robert.moore@intel.com>,
- Len Brown <lenb@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Eric Biggers <ebiggers@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, linux-i3c@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev,
- linux-hwmon@vger.kernel.org
-References: <20260409105747.48158-1-akhilrajeev@nvidia.com>
- <20260409105747.48158-13-akhilrajeev@nvidia.com>
- <19218853-499c-46a2-8843-0bafa17c81d5@roeck-us.net>
- <20260412201629345ffec6@mail.local>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260412201629345ffec6@mail.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v5 0/3] Add support for PIC64-HPSC/HX MDIO
+ controller
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <177603063079.3833036.7371317402056345976.git-patchwork-notify@kernel.org>
+Date: Sun, 12 Apr 2026 21:50:30 +0000
+References: <20260408131821.1145334-1-charles.perry@microchip.com>
+In-Reply-To: <20260408131821.1145334-1-charles.perry@microchip.com>
+To: Charles Perry <charles.perry@microchip.com>
+Cc: netdev@vger.kernel.org, MameMaria.Mbaye@microchip.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ devicetree@vger.kernel.org
 
-Hi Alexandre,
+Hello:
 
-On 4/12/26 13:16, Alexandre Belloni wrote:
-> On 09/04/2026 07:19:25-0700, Guenter Roeck wrote:
->> On 4/9/26 03:57, Akhil R wrote:
->>> Add a regmap config and a probe function to support for I3C based
->>> communication to SPD5118 devices.
->>>
->>> On an I3C bus, SPD5118 are enumerated via SETAASA and always require an
->>> ACPI or device tree entry. The device matching is hence through the OF
->>> match tables only and do not need an I3C class match table. The device
->>> identity is verified in the type registers before proceeding to the
->>> common probe function.
->>>
->>> Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
->>
->> Acked-by: Guenter Roeck <linux@roeck-us.net>
->>
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Wed, 8 Apr 2026 06:18:13 -0700 you wrote:
+> Hello,
 > 
-> Guenter, I guess you can actually take 11/13 and 12/13 for 7.1 if you
-> prefer as they don't seem to actually have any dependency on the
-> previous patches. The worst that can happen is that the driver won't be
-> probed because the I3C subsystem will not enumerate the device.
+> This series adds a driver for the two MDIO controllers of PIC64-HPSC/HX.
+> The hardware supports C22 and C45 but only C22 is implemented for now.
 > 
+> This MDIO hardware is based on a Microsemi design supported in Linux by
+> mdio-mscc-miim.c. However, The register interface is completely different
+> with pic64hpsc, hence the need for a separate driver.
+> 
+> [...]
 
-Thanks, but Linus released 7.0 today, and the 7.1 commit window is open,
-so it is a bit late for adding content to it.
+Here is the summary with links:
+  - [net-next,v5,1/3] dt-bindings: net: document Microchip PIC64-HPSC/HX MDIO controller
+    https://git.kernel.org/netdev/net-next/c/268bb35d1a34
+  - [net-next,v5,2/3] net: mdio: add a driver for PIC64-HPSC/HX MDIO controller
+    https://git.kernel.org/netdev/net-next/c/f76aef980206
+  - [net-next,v5,3/3] net: phy: add a PHY write barrier when disabling interrupts
+    https://git.kernel.org/netdev/net-next/c/96aefe3afe0e
 
-I can queue the patches for 7.2 after the commit window closes.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-Guenter
 
