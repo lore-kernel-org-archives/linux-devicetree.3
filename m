@@ -1,187 +1,265 @@
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 709CB376BCD
-	for <devicetree@vger.kernel.org>; Sun, 12 Apr 2026 14:23:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B643125A9;
+	Sun, 12 Apr 2026 14:51:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776003787; cv=none; b=sTd4gPjIuZLa0wAV635UcBgffkVsqtlJQcVZSotGdzuvuoqZVqXmfjnjaZzFbhmatJKm7B5GdkEUBcsGcEzQ3wOnOMqbFigWLofd/hthzkIesEzugB8MwB2w4iVA3QJ0L4FGvOeWTFAmS8hLWyx1Wk4kEfq/wWKog9zPGwYuXgI=
+	t=1776005486; cv=none; b=VSHjFIMova8bGzoLqPDDVu3CqSSz1/ojvxV+0ObLXzTfslyWOFbUH2BeKgMjmwQC0uVOVTetCZXjXN9xEU67mg4UpdTm2tA5vti/ulZvucYlEh3zA+ra26Iwm92oGZFMAOqKB6K0kX4JmkEkR3fDDYg+1EfLd2FiUbkmZllUmu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776003787; c=relaxed/simple;
-	bh=S9ikXTvQyxclzbgG4oXF+aw5e1JLHj7cOX8GY1x4mx4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fkRbaS8/O3zpkc9ycr13nGLl/iaD11frbcekxOSTflE2XhsstUHyC4VoLAPHYpVJ0OJ6brmyID/dr3R17Ek7t01AnxoIIRAC2A5Eg97PuWtnLtF4K8JTTRGcaHthWj3pkQt8CCSrV/YmfPPJqtfxFOOk+4cua9F1dlGQPBoc/Es=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=VRkBSdlb; arc=none smtp.client-ip=209.85.222.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1776005486; c=relaxed/simple;
+	bh=lvYa7oWh1GwSJI6uRxzS53tioYb31LvQvCij/pmNvCM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ZCKB39VkfGhEWVmJoH00uA2CI0bJhS0hkMBkbiCuMOAxJtTilNRR+VVzd5PjiRz42y0BjGjs7vwsGTvCbE29KQSXYfC5nbWBmINesVixI2yX4XgLZ1GX6NacsZRXAqpCzIWqjW9pqhLe9J0ssXJ5Iyh43SjfDjeywrReRLYcmmA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JsLlZ4Gx; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="VRkBSdlb"
-Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-8d68bcf50fdso398944085a.2
-        for <devicetree@vger.kernel.org>; Sun, 12 Apr 2026 07:23:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1776003784; x=1776608584; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=fCwYE0TqPeRH6qXObZKYZ/Hps0Zq2xbI26bnfS8VYZ4=;
-        b=VRkBSdlbL55y7Edx/pq0amhbFSwZ5ZTr/wsnwUiCZE8DsjjbDGibA8/phOuKZvDouS
-         WqCbucnRYFshRHqh5IQ/vIiazc68dqWqSKzD5wO31WAo3XrELdOHv7HM3Y0iDlr/uqSr
-         19hvYnDWH1XVZnrX3F5yW5e0l6+TJa5QCiXXY1Iy7CQO3SX4yNqGmnjyfyGsQCh/atgg
-         5tXFdE+fNuDNiQjz4lDn6zHAJftfcgypQn391V8gUWfZjtvGvbb5tWllAWNdefQ5U5xC
-         GfX2hh+6yQd1esnLsj8BNs0/7uriiBpOzVCkCTjFf0B/YUUoOrMwEOPfASkYWrJ9Rs2/
-         xNzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776003784; x=1776608584;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=fCwYE0TqPeRH6qXObZKYZ/Hps0Zq2xbI26bnfS8VYZ4=;
-        b=oGo46nPqc4lmW/VBFrOeIVge68N5rrbyPncMHvIiic4YjklhdtMmqYpeKEKaDVrNao
-         RUzpWRiPf3MtXXhLS3ky4Z11YkGz++YKirgVX2+M3GqS/VWfFoBCmDpDH21TR/q76oM5
-         hrsfsPxloOj/ry0+8l16+jwbmzkVcfwWNCiXOwxLbZOfed2T9ooUFQH8fFfbqSgXih8T
-         YtwRYN4r4TjEW8txWVdnxXajMY/LNwcxUXn2wnydrrQmsYHrSPeODA+05k5Dc5UyilpR
-         lyWAr2R+5AoMQJlmYESvQB5DI0Rvi4HSo02P1GWLY0v6DyiEwNwxK4501g9eHM2OOcfn
-         vpfA==
-X-Forwarded-Encrypted: i=1; AJvYcCXPQkNEldGDl8Ye5ofuab87cHBqON2S5kDc+q5l3XpS0dVKt/9Qe7MuE9MBb4TDXbVkWjIys29djTVf@vger.kernel.org
-X-Gm-Message-State: AOJu0YxecKYPKDPag3Z101ua+qUD8eIUoUPf2jSXbBw96C1yDBhZOfbJ
-	h1I2W6rzEBR6vr82MqcJeKWBPQdrTOgOzz7w9BxToADxsNF16ddtpdAZQcKzqAhbHE8=
-X-Gm-Gg: AeBDies9ndPKoqG29CL5sOzBfiThm1kI6buF414RZbyQ5SgzdpvOz2boDkGiPPzeCzP
-	psaaSDjYi4xak7Y5fGF2q/VwSRC548GNUkj4Gsvpbb/GWWr2DudFwBq3wNA/RW2SsBA0bzIBN18
-	YQSraq0AGa1Qcp9rafKEqtlJ12/i7ZsUEY+CTyXt0Q8Wqu900LjH9veWwaBmeV/3GgY+gUcGTRR
-	yfHjsvAJ5ANPxGPFcotlOUHeKCdhf0FvEwIiFgzYtxnvyA1IC6zy+XdW1f2XiRSy7mkkyV4dB9O
-	q+jboftlq0vkPNvi9NgxmLOjpSZBOOBDclMW8jLdJx6waLBW71OrfIIeA7risHgSDVvUOLNwjZh
-	l0dYOtZkV+EeyubZs+KHn3CCMMW5JG0zEv01mjE8xqhCvxgxvp7NuHX42KSnm+LvM821a3YO/tk
-	4UUZIGmlL0PPvPnDSYeC9hy+6JVAY70MCU61t9vKdFxQD2Ev0F/W6bic/BJQFci2hYJ2q73TpWd
-	59N
-X-Received: by 2002:a05:620a:4721:b0:8cf:c30c:ced5 with SMTP id af79cd13be357-8ddcd8ea3cbmr1458489585a.14.1776003784339;
-        Sun, 12 Apr 2026 07:23:04 -0700 (PDT)
-Received: from [10.211.55.5] (c-75-72-117-212.hsd1.mn.comcast.net. [75.72.117.212])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-8ddb9830344sm785313885a.41.2026.04.12.07.23.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 12 Apr 2026 07:23:03 -0700 (PDT)
-Message-ID: <517ed025-40d7-4c3f-9ca3-6c3367c97815@riscstar.com>
-Date: Sun, 12 Apr 2026 09:23:01 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JsLlZ4Gx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F17AC19424;
+	Sun, 12 Apr 2026 14:51:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776005486;
+	bh=lvYa7oWh1GwSJI6uRxzS53tioYb31LvQvCij/pmNvCM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=JsLlZ4GxoDgppshs8MYfL3c7ggkVsPrgraSM52CSwMznHNeCIhS68dAJSvF0cR2fz
+	 4gaorreSBkZupwBW9RGNDhle5wA8R7F+yaQxXWzvBcWpBqKPCEViOZ5YJKno4WaoSU
+	 japh9BtPL3pKSE33lhZAjTHDzRgvXALG9FKrBsYHU4bxwWmPxCDIRSaYP03/L8EzJY
+	 czIAKvkQTQP6wk9NnFJVR94/WFoqhY5ChSo2e2G0KlTI+I88cvBUVMKnOt4DfXUK1F
+	 qnIsKMW0Y7O8ClXx6EqJCtvDp+nCMNlT/zJoPCoSiJrQcEJt0ZrscjZNfsq7RhN7CF
+	 HzgUEgNNJH7sA==
+Date: Sun, 12 Apr 2026 15:51:15 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+Cc: Rodrigo Alencar via B4 Relay
+ <devnull+rodrigo.alencar.analog.com@kernel.org>,
+ rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>, Michael
+ Hennerich <Michael.Hennerich@analog.com>, David Lechner
+ <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Jonathan
+ Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [PATCH RFC v2 8/9] Documentation: ABI: testing: add docs for
+ ad9910 sysfs entries
+Message-ID: <20260412155115.2f7a83bf@jic23-huawei>
+In-Reply-To: <mtqjtmsysz6ywvybeut6qzhee2o4qedwgvr5isbn4um7bwhjbe@sg2b7hwlszwd>
+References: <20260318-ad9910-iio-driver-v2-0-e79f93becf11@analog.com>
+	<20260318-ad9910-iio-driver-v2-8-e79f93becf11@analog.com>
+	<20260322172257.1681de69@jic23-huawei>
+	<mtqjtmsysz6ywvybeut6qzhee2o4qedwgvr5isbn4um7bwhjbe@sg2b7hwlszwd>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/3] spi: spacemit: introduce SpacemiT K1 SPI
- controller driver
-To: Mark Brown <broonie@kernel.org>, Guodong Xu <guodong@riscstar.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
- Alex Elder <elder@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260410-spi-spacemit-k1-v8-0-53ebb48a4146@riscstar.com>
- <20260410-spi-spacemit-k1-v8-2-53ebb48a4146@riscstar.com>
- <adkhJhEQIZHgIQpH@sirena.co.uk>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <adkhJhEQIZHgIQpH@sirena.co.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 4/10/26 11:11 AM, Mark Brown wrote:
-> On Fri, Apr 10, 2026 at 11:04:21PM -0400, Guodong Xu wrote:
->>
->> This patch introduces the driver for the SPI controller found in the
->> SpacemiT K1 SoC.  Currently the driver supports master mode only.
->> The SPI hardware implements RX and TX FIFOs, 32 entries each, and
->> supports both PIO and DMA mode transfers.
+On Mon, 23 Mar 2026 11:36:08 +0000
+Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:
 
-Caveat:  I haven't really looked closely at this code for
-a few months, but I thought all issues had been addressed.
-I was wrong...  Guodong will be addressing your comments but
-I wanted to weigh in.
-
->> +static struct dma_async_tx_descriptor *
->> +k1_spi_dma_prep(struct k1_spi_driver_data *drv_data,
->> +		struct spi_transfer *transfer, bool tx)
->> +{
->> +	phys_addr_t addr = drv_data->base_addr + SSP_DATAR;
->> +	u32 burst_size = K1_SPI_THRESH * drv_data->bytes;
->> +	struct dma_slave_config cfg = { };
->> +	enum dma_transfer_direction dir;
->> +	enum dma_slave_buswidth width;
->> +	struct dma_chan *chan;
->> +	struct sg_table *sgt;
->> +
->> +	width = drv_data->bytes == 1 ? DMA_SLAVE_BUSWIDTH_1_BYTE :
->> +		drv_data->bytes == 2 ? DMA_SLAVE_BUSWIDTH_2_BYTES :
->> +		/* bytes == 4 */       DMA_SLAVE_BUSWIDTH_4_BYTES;
+> On 26/03/22 05:22PM, Jonathan Cameron wrote:
+> > On Wed, 18 Mar 2026 17:56:08 +0000
+> > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+> >   
+> > > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > > 
+> > > Add ABI documentation file for the DDS AD9910 with sysfs entries to
+> > > control Parallel Port, Digital Ramp Generator, RAM and OSK parameters.
+> > > 
+> > > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > > ---  
 > 
-> Please use normal conditional statements (in this case a case statement)
-> to keep the code legible.
+> ...
 > 
->> +static irqreturn_t k1_spi_ssp_isr(int irq, void *dev_id)
->> +{
->> +	struct k1_spi_driver_data *drv_data = dev_id;
->> +	u32 val;
+> > > +What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_profile
+> > > +KernelVersion:
+> > > +Contact:	linux-iio@vger.kernel.org
+> > > +Description:
+> > > +		Read/write the active profile index [0, 7] from/to the physical
+> > > +		channel. The AD9910 supports 8 profiles, each storing a complete
+> > > +		set of single tone (frequency, phase, amplitude) and RAM playback
+> > > +		parameters.  
+> > 
+> > This one is interesting.  Can we treat them as symbols that we are picking
+> > between?  We have similar DAC ABIs for that already.  
 > 
->> +	/* Return immediately if we're not expecting any interrupts */
->> +	if (!drv_data->transfer)
->> +		return IRQ_NONE;
-> 
-> That does't mean the hardware agrees!
+> The profile concept comes from the datasheet and defines sets of configuration
+> for single tone and RAM control mode. I am not sure how we fit this idea into a
+> "symbol"
 
-You're right.  We need to clear whatever caused the
-interrupt it or we'll keep getting interrupted.  This
-obviously didn't happen during testing but thanks for
-mentioning this.
-
->> +	/* Get status and clear pending interrupts; all are handled below */
->> +	val = readl(drv_data->base + SSP_STATUS);
->> +	writel(val, drv_data->base + SSP_STATUS);
-> 
-> Nothing after here can report IRQ_NONE, even if SSP_STATUS didn't flag
-> anything.  I'd just move the checks for transfer to when we're handling
-> FIFOs and have the IRQ_NONE report be based on there being something set
-> in the ISR.
-
-Sounds good.
-
->> +	/*
->> +	 * For SPI, bytes are transferred in both directions equally, and
->> +	 * RX always follows TX.  Start by writing if there is anything to
->> +	 * write, then read.  Once there's no more to read, we're done.
->> +	 */
->> +	if (drv_data->tx_resid && (val & SSP_STATUS_TNF)) {
->> +		/* If we finish writing, disable TX interrupts */
->> +		if (k1_spi_write(drv_data, val)) {
->> +			val = SSP_INT_EN_RX | SSP_INT_EN_ERROR;
->> +			writel(val, drv_data->base + SSP_INT_EN);
->> +		}
->> +	}
-> 
-> This overwrites val...
-
-That's no good.  We need to assign the interrupt status to a
-different variable if things are going to be handled this way.
+Think of those tones as just different frequencies (the other stuff could be the same)
+then this is FSK with 8 symbols.
 
 > 
->> +
->> +	/* We're not done unless we've read all that was requested */
->> +	if (drv_data->rx_resid) {
->> +		/* Read more if there FIFO is not empty */
->> +		if (val & SSP_STATUS_RNE)
->> +			if (k1_spi_read(drv_data, val))
->> +				goto done;
+> > Is this picking between them for purposes of configuration or setting which one is
+> > in being output currently?  
 > 
-> ...so the read won't see that there's data to read and we'll need
-> another interrupt.  I would suggest using a more meaingful name for the
-> actual interrupt status.
+> Well, this is being used for configuration and activating, then, yes, you can only configure
+> an active profile, but I was not seeing that as an issue. I suppose that simplifies the
+> ABI a bit.
+If you are only configuring the one that is active, short of a small overhead
+of having to configure more than one property why have this at all?
 
-Yes.  I actually think you commented on this before, and I thought
-I had addressed it but it's clear I did not.
+Just leave it in a profile and have userspace reconfigure everything it wants to.
 
-Thanks for your review.  Sorry for not fixing everything.
+However, I see that in some of them modes below this is more complex
+as the profiles are cycled through - for ram playback anyway.
+It may make sense to separate the ram case from tone ones.
 
-					-Alex
+
+> 
+> ...
+> 
+> > > +What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_destination
+> > > +KernelVersion:
+> > > +Contact:	linux-iio@vger.kernel.org
+> > > +Description:
+> > > +		Read/write the digital ramp generator (DRG) or the RAM control
+> > > +		destination parameter. Determines which DDS core parameter is to
+> > > +		be modulated when the child mode channel is enabled.
+> > > +
+> > > +		Available values can be read from the corresponding
+> > > +		out_altvoltageY_destination_available attribute.
+> > > +
+> > > +		Valid values: "polar" (only for RAM control), "frequency", "phase"
+> > > +		and "amplitude"  
+> > 
+> > This is very device specific. Maybe we are better representing these as separate
+> > channels each with their own controls for DRG.  No problem if changing one changes
+> > another.  
+> 
+> You mean removing this generic Y there? Indeed, there are separate configs for each one.
+
+No, I mean having more channels.  One for each of polar, frequency, phase and frequency for
+each channel.  Then enables for which channel is turned on.  Might not work out,
+but I'd like you to explore what problems that type of interface would bring.
+
+The aim here is to add as little new ABI as possible as custom ABI is a real
+pain for generic userspace.
+
+
+> 
+> ...
+> 
+> > > +What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_operating_mode
+> > > +KernelVersion:
+> > > +Contact:	linux-iio@vger.kernel.org
+> > > +Description:
+> > > +		Read/write the DRG or RAM control operating mode. For the DRG
+> > > +		channel it controls the no-dwell behavior of the ramp.
+> > > +
+> > > +		Available values can be read from the corresponding
+> > > +		out_altvoltageY_operating_mode_available attribute.
+> > > +
+> > > +		Valid values for DRG channel:
+> > > +
+> > > +		  - "bidirectional": Normal ramp generation (ramp up then
+> > > +		    down, dwelling at limits).  
+> > 
+> > Some sort of trapezium wave?  Maybe this and continuous forms are combined
+> > and we have a separate dwell time control?  
+> 
+> Yes, sort of. Dwell control is made by an external pin (DRCTL), often controlled
+> by an FPGA to achieve certain required timings. I can say that software control
+> is not really recommended, unless only a one-shot ramp is necessary.
+
+So is it worth exposing this software control at all?  Maybe just make it a firmware
+description problem as to whether that DRCTL is connected or not.
+
+> 
+> When adding the IIO backend support, extendend attributes will be added to
+> support control of dwell times.
+> 
+> >   
+> > > +		  - "ramp_down": No-dwell low; the ramp resets to upper
+> > > +		    limit upon reaching the lower limit.
+> > > +		  - "ramp_up": No-dwell high; the ramp resets to lower
+> > > +		    limit upon reaching the upper limit.
+> > > +		  - "bidirectional_continuous": Both no-dwell high and low;
+> > > +		    the ramp continuously sweeps without dwelling.  
+> > 
+> > Triangle wave?  bidirectional continuous is a rather confusing term so maybe
+> > we should rethink this one.  
+> 
+> Mostly yes, but not only that. Sawtooth can be achieved as well by changing
+> the step sizes, also other weird patterns can be achieved by toggling DRCTL pin.
+
+Sawtooth is kind of a special triangle wave with one very steep side.
+Wikipedia even has: "It can also be considered the extreme case of an asymmetric triangle wave"
+https://en.wikipedia.org/wiki/Sawtooth_wave
+
+> This mode is the most useful when one does not have an FPGA and want to save
+> resources on controlling the DRCTL pin. That mode name comes from the datasheet,
+> so I suppose it was fine.
+
+Let us see if we can get more opinions on this.  Whilst I can see the logic of
+the datasheet naming, it's a bit obscure.
+
+> 
+> > > +
+> > > +		Valid values for RAM control channel:
+> > > +
+> > > +		  - "direct_switch": start address defines fixed word to be used
+> > > +		    by the selected profile.
+> > > +		  - "ramp_up": One-shot ramp up through current profile's address
+> > > +		    range.
+> > > +		  - "bidirectional": Ramp up then down through PROFILE0 pin.  
+> > 
+> > Avoid specifics like this.  Can we call external control pin or something like that?
+> >   
+> > > +		  - "bidirectional_continuous": Continuous ramp up/down
+> > > +		    through current profile's address range.
+> > > +		  - "ramp_up_continuous": Continuous ramp up through
+> > > +		    current profile's address range.  
+> > 
+> > I guess this goes back to start on finishing ramping up?  
+> 
+> Yes, any dwell time should be considered when loading the "waveform" into the RAM
+> 
+> >   
+> > > +		  - "sequenced": Sequenced playback of RAM profiles up to
+> > > +		    the active profile. Requires active profile > 0.  
+> > Is this just running through each profile one after another? (other than profile 0)?  
+> 
+> for this, this would be the actions:
+> - configure all desired profiles (0 up to X) 
+> - Set the operating mode to sequenced (profile X would be active at this point)
+> - Enable RAM mode
+Ah. This reflects on the profile control above. As I mention there I'm not sure we
+shouldn't separate the use of profile for tones (where it is symbol like) to that
+for RAM addresses.
+
+For the ram addresses I think I'd expose separate attributes for each (there aren't
+that many) rather than a selector + controls.
+
+Another option would be to push the control of this into the firmware files
+(some sort of header).  Whether that is sufficient would depend on the usecases
+for the device.  It would definitely make for an easier runtime configuration
+though!
+
+> 
+> When RAM mode is enabled, it would trigger the execution of profiles 0 up to X,
+> in sequence, according to the configured address range and sample rate for each profile.
+> When one profile ends the next starts until profile X finishes.
+> 
+> > > +		  - "sequenced_continuous": Continuous sequenced playback
+> > > +		    of RAM profiles up to the active profile. Requires
+> > > +		    active profile > 0.  
+> > Similar to above, maybe separate out dwell time if that's the difference between
+> > sequenced and sequenced_continuous.  
+> 
+> The difference here is that when Profile X finishes, Profile 0 starts again.
+> So the previous one is kind of an one-shot mode of multiple profiles in sequence
+
+They had fun designing this didn't they!
+
+Anyhow, I think we'll need to work through a few more versions of this to get
+as extensible an interface as possible.
+
+> 
+> ...
+> 
+
