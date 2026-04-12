@@ -1,87 +1,87 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8AD125DB12
-	for <devicetree@vger.kernel.org>; Sun, 12 Apr 2026 00:56:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F61257844
+	for <devicetree@vger.kernel.org>; Sun, 12 Apr 2026 01:07:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1775955367; cv=none; b=dBEZ8GCMN680MZa3LZ3GSkaTc+yTNH55ehsuH/qFP/rskBxuXEYDFb0TpMWkPCXqWQXJlHKtS85LCH6Q9idr/HTf0Q2N9aUcGWXUaFne5z2OmB+oKIPFUYSt+xIucd2qzO3Gi7JA60ZtRcWM+t15tlubaTOfnX7D7kvk96nD6d0=
+	t=1775956024; cv=none; b=XlxgvHJ/i/usgtPbvFosFRIkk+OWgAD5zOcyu+Lo39yg1AI/DB9txbdy1Np2dRNGG76k/1APHlaOPW8pCuyQsXt+XhkRk3r0gIh9I5WYj3Eb433EQhQDfYgZJ33kdo16TvEJF52lQTJq6Sr3NlHACJaCFUaep2EGnPpT4/dh+j0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1775955367; c=relaxed/simple;
-	bh=yMIm69GvAokgqD9AWYc8TnfCXV1g0OPwrwxdmUnvty4=;
+	s=arc-20240116; t=1775956024; c=relaxed/simple;
+	bh=QDUhZKKvtr2X4IM8glTRV7TMMVZIqOuU1zNVoqUWBM0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uyp3ujNqjh2G7WUyg56u6ZlIgm426AJ7KsvxtEFeRsRLmIdpDsRAtA7+b5X6t3cc/NtowuG0LgdPYxp5nS6Zi+m+HH5/MUYuLURZlKObyR5z9Siod33zfJ58wImx4GWnJpCuu5DSfvUQlMTJSSacoy1Mz+4rtuMp9eY56Ni3R8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=M/dTcW4e; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=g3tIRTyE; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:Content-Type; b=Sf1AizTvlZn0xRY+Nbx82RG5CQ9C/hJUTizeWURDdyrXK9dUCceNLeTTjDshlc87NJzxFHArw3RJFjwmmhavvFJTyjfVkGz8lZBIyXc9Ck4GsN3jsX3pJCgXmLA5x6JVOLTOMnQIL/04QHKBm6LHL2lpvaOPtG1hZ4VzFYFEZX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bDK5SyAt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eAAjnHbK; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="M/dTcW4e";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g3tIRTyE"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63BLSSha2734979
-	for <devicetree@vger.kernel.org>; Sun, 12 Apr 2026 00:56:05 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bDK5SyAt";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eAAjnHbK"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63BNqrW51594312
+	for <devicetree@vger.kernel.org>; Sun, 12 Apr 2026 01:07:02 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	TJuL2zAsm/mRJ/D1VYU3rw82pVVk6vC6Tovx7zEwBXA=; b=M/dTcW4eqMV9UT5J
-	neJpe+CIbzgS6vWRohc8c3boDooB6Swyb2uCUFaoaDlPgN+f0NvNLBICPgxziU5u
-	eINzJorwj1P8C+l/jdj+G1+qJV1dJ0Rv/zTCscUBcGXKQTKRL3kAGIk2LmqljzLO
-	d0izi5qCx/zSvFlLkVHRrVQxfuyCPwt6RVHDqEUxrEsQL+2ympsqaBSoG3u7iixf
-	WpNgAgaras8qehSb2J9mUUv0n304Rzh/5t6k1RTTHMSYrae8Kbvcvs692WO88xdc
-	iNOKF55F/6oLtTkEjQLG1vLIha7Of+V7+l2KtqWAvnUd/c7UnGD6/lFrajC1iE7e
-	wakOZA==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dfexfskmw-1
+	Cj8Mv/ie2mU8MZuhnfvt5j6+NsZ00dsXgrPHeC4p2KE=; b=bDK5SyAtxhPNqro1
+	6lhbERpWBuOxd727/SN+AagqeMkwhsq11T80PHXYmWmgYQIDidfkzGbKUlSuOgLh
+	81a5IIkZlY5ym4OmJE7vaSgSrr2ydiB/SllrKh5wmxACnts2QAkaTJqr6RSzATL3
+	W5fZzRyXSeL3+SvF3r8Sh0fU5beg+tSouU9erl/8TwRgdTePokqXb25DQJzB/Y8s
+	dV+0fTP1rn8OorLmkcB3CyhAk9uB5GeSLYiKYvlOG2egFzhvaq2FHhgVqaphNKgS
+	0+N5u6OPx4utNo2Lj+XlTSsHDykiu6OuglzlhYnpasQRvxZBdXB/XxvxCUpd4CXp
+	KyrFVQ==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dfewkskvu-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 12 Apr 2026 00:56:04 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-35d92f8408cso3707744a91.3
-        for <devicetree@vger.kernel.org>; Sat, 11 Apr 2026 17:56:04 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Sun, 12 Apr 2026 01:07:01 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2b2e06219cbso9803265ad.3
+        for <devicetree@vger.kernel.org>; Sat, 11 Apr 2026 18:07:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1775955364; x=1776560164; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1775956021; x=1776560821; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=TJuL2zAsm/mRJ/D1VYU3rw82pVVk6vC6Tovx7zEwBXA=;
-        b=g3tIRTyEOjr0JsbxSobq+VuHm5/QSP1H9xH6wZ6JBihldQivRj/k9XeINWpI/3rYDh
-         JKIVIO9s2fOcOrdCfHkm12nV2iP5gJ7bAGhI5Wjr+8Y7e7K+o+o4cN6CCCaZVPyY1XyI
-         vCX21nftJQVUQ0PPV3n14eoCBFL1hgje72/ijTGl6KrBJDMVQaExA5kXR9J866OdUPMf
-         0Ae4YoSk3EmItVEyvNcq2eMSK55aZXy2KX8oe8RGX7eWcgicpEem15DLa5/s3i6AL0iw
-         Z7yfuJfDJm9DBspL6ZVPb+VQ3ByLt6T/1k8MJ95IH/KXW6xnZDhXi52r/eena4k6zTbj
-         /4Uw==
+        bh=Cj8Mv/ie2mU8MZuhnfvt5j6+NsZ00dsXgrPHeC4p2KE=;
+        b=eAAjnHbK0E2dnl4110m8G7lf4RyD4KCHQgzKLz6CC9tA75G7IJRQB52CEGcD2NEm07
+         VhC46xwyE9QHLX1f/zjz6/FuH4H39h9rvCGaVSlC1k6vyra2DJpsPJ4Md7C3PJeUub6X
+         ydGNiqXBO8nrPckmQ+JIIvvWZQyzdlhGgWJdBeprtawFxz3mCdRa6L+FN6YhrD+vA8wC
+         NoKSuOOPUl5tQCe1Q+rcWfvK6BoYZFmFAz00g0dCnrVYUZgzJ7sK+d51Xswu4npwgJ6Y
+         1blv70GiY5TaSV+nDLiH/WiPsSaphNCGYe670vydlfd9XQxuQtEEfWuhUc+hrZOXkd3n
+         W66w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775955364; x=1776560164;
+        d=1e100.net; s=20251104; t=1775956021; x=1776560821;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=TJuL2zAsm/mRJ/D1VYU3rw82pVVk6vC6Tovx7zEwBXA=;
-        b=VmXgLBUtz0DD0Ld03nsyKgvxBn5a3G8U5dE/+LfhjSfE4zbZpGIAFGML2VmNZqxcrg
-         agFVZk88xbdigyqBC1/v1FI1tKe6Wg1Dpq9YVw9KItAaZBSQ5YMea8AOqJcJTYaFPWTi
-         XcZafJ1CXbHgGHnc+ir34P3nf7DJHSPEGdnW90YrUCcXMrXL66a3L8HmbnmY0wIGV5lV
-         GHrbzIU0+bBxtplunkDzT+JuukmT/LW42Grh7ru1bxZNKcRduw7cWmfKMaUSgwbcwbCH
-         wXCsPQ2UgG3MRYiezmLKHO9czDByNBO44WWxA7P2CX6ODZTvRN9AyRw+CK124FH0SM85
-         K2AA==
-X-Forwarded-Encrypted: i=1; AFNElJ97AyLKZ/opbCEEuhQxWXtVjyD5PEMqJfSb1PGiIm9jiDmwD26HpjWJ20EsC9fnfEpOX7A6H5cCWPD2@vger.kernel.org
-X-Gm-Message-State: AOJu0YzX4TcvX9ktwa8q6hAMg1Y3Ffx/DuVJ8qE5SrNk0PgYJpUUKAFJ
-	4hCClwurQ7//lDa9gHRgRC5wvdBJqZkcPSVSlJuQEGv9YIbSf6qSsNoiEeJCUzL0DvCJCSQckdJ
-	P2u+Bz9qua0Vqafw5HFvkQxqumBMl/Gridyw6JAdPTYCp8bAu5y6sYOY3H4BP2+4m
-X-Gm-Gg: AeBDieum4gy7sD9aOgDa5DeksQhSrfPMrgc8Nv9SoKUev1wI9DWZcz1GY+Az0yiUi39
-	DIy8fzcTnOK6kKLJHquj2PV4eCwpR2dAn4B76DyvSFOh48TEjvUT3YyrgbckO1RJaA8pbhPHID7
-	bpOvXMhCc69ey1SgKByErwJnfgHcpTJOCWJq2hC7wcEqMOoaNp0i3df20mSrvWrE1XZCyzaMPOS
-	kpl703wzqxDVOOkODapgoJ078Ow2LS0rp4jtME73q0QUJxISXQhwU5t3w0t072MseX8uQl0OIEV
-	LmWII08iiRi2PRBZ1oDEFQhzAXEiRoFiqK89OJ+cPZxDVUgYhnupDOTv4qdwU/X9CWxT6O1s9ue
-	ghsSzu8/t5kB1c7f7OwgNHee/XgauQma0naeD0Sve7EL10rNsY4ZQnWKpLmxnUQH5aduSSOjdlM
-	1/mBCzXF1sKw==
-X-Received: by 2002:a17:90b:538c:b0:35b:9896:cbcd with SMTP id 98e67ed59e1d1-35e42854dfemr8109843a91.27.1775955363644;
-        Sat, 11 Apr 2026 17:56:03 -0700 (PDT)
-X-Received: by 2002:a17:90b:538c:b0:35b:9896:cbcd with SMTP id 98e67ed59e1d1-35e42854dfemr8109804a91.27.1775955363114;
-        Sat, 11 Apr 2026 17:56:03 -0700 (PDT)
+        bh=Cj8Mv/ie2mU8MZuhnfvt5j6+NsZ00dsXgrPHeC4p2KE=;
+        b=f81oYPQY+j/XHiPjY74/pinL7hRcPHPx7Cqz8zv3kCdbxzvqzvfI6QAVIT0TN57JSH
+         QlPlX9QVs9IOQYmHYKMf5ciShXD087tppj6Ap4Shb46c6/YwV7ScKCqkqlEQipi5iH3U
+         c0xwcsHKFDdWpDhKVs+ofAZqb9A0NHsaVxGHoBAeL4MpFHDx7SqghXj1aYU8vPKJgI0A
+         q+D+ygkunA08ANBDISWUot85ed7qGfytBLuClYd/MTrbfUi9MYRb8o2zHNAr3aVZIw/3
+         0WkwX5zdNAebWvhlpXuB0TYnMpA+qJ8yR0Ji8qxSJLPVnmJZt6rbW+PwmczVwYRR+3ZH
+         QWgw==
+X-Forwarded-Encrypted: i=1; AFNElJ/JFd4MD9eySeL72BmXDAKM/rbmin7Yd305Dhd4dd7ptthnUEk9gf6qmMnwPHsKZaGqKZK+QIDgY/DJ@vger.kernel.org
+X-Gm-Message-State: AOJu0YxPWO9Px7EORsJ2iQOGzd08lgwLblEO5zx6EfuCUy+r+3O3QAQq
+	anV04Zn187k0RDk/nv8Q8kgDV/BlhfGFlT1MdmlY3JEY1Wds1ndH8ILWQSVLu49W407F5XlV5rb
+	vJOJwERxZUeWd7rvZsCGEr+mKs9HrtlIkVNEtOcSzcB/nW9GphnDiIyUKsXD6Wb4s
+X-Gm-Gg: AeBDietyJkwYsnxLk0GkYqH8KDKopyAj2FY2XZ4YPFzMg73Dn66fhssq8Bu/Tc3nU2i
+	1wICzOb1j5PGSU4xCO0JP1pG9WUcAsU0e4CLqOvEZ5gh4VfyIc9Qba0CAzlVlTJPEMkKt71zbHT
+	8g+DpglVd+fHSx4FZTSSE+NSJAKL891S2gvfMI2cGTi9fPODgT2FCyCiaE82CDVbdEp+/JBjanO
+	n8Ny8vd6uRNt+Gqc8Nx8+wAodlH7X37nbBouIxh7xuw0T4oqhgdTK3UASssaLozAs1DHSeS3OBz
+	pGGKhIeqg5YUxEUQ8LcDkhuePRXMdxNsFmNRxZBu0tJaDk1hHZiJhIVr84J82C2bwWYcUluxJYH
+	+2Sxqe2fgwnYyFGbF7alWcPmoimP/bx7hZCkFBZoOiw+npZ34XrJq7G9J3OXbEaPS7K/4GTGBsk
+	ceXfGzbzuNmg==
+X-Received: by 2002:a17:902:a982:b0:2b0:445a:8c7b with SMTP id d9443c01a7336-2b2d59a0c3cmr64582095ad.15.1775956020869;
+        Sat, 11 Apr 2026 18:07:00 -0700 (PDT)
+X-Received: by 2002:a17:902:a982:b0:2b0:445a:8c7b with SMTP id d9443c01a7336-2b2d59a0c3cmr64581845ad.15.1775956020278;
+        Sat, 11 Apr 2026 18:07:00 -0700 (PDT)
 Received: from [10.133.33.83] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35e42e8fc1asm3241796a91.5.2026.04.11.17.55.56
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b2d4f27048sm67859815ad.62.2026.04.11.18.06.53
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 11 Apr 2026 17:56:02 -0700 (PDT)
-Message-ID: <d62614ae-53dd-4925-b185-6834dc8a63ac@oss.qualcomm.com>
-Date: Sun, 12 Apr 2026 08:55:55 +0800
+        Sat, 11 Apr 2026 18:06:59 -0700 (PDT)
+Message-ID: <5d1dd70e-0300-4ca0-adb9-73f03cf4bf4d@oss.qualcomm.com>
+Date: Sun, 12 Apr 2026 09:06:51 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,8 +89,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 12/21] drm/panel: jadard-jd9365da-h3: support variable
- DSI configuration
+Subject: Re: [PATCH v2 21/21] gpio: add GPIO controller found on Waveshare DSI
+ TOUCH panels
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
         Neil Armstrong <neil.armstrong@linaro.org>,
         Jessica Zhang <jesszhan0024@gmail.com>,
@@ -110,176 +110,321 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
         Riccardo Mereu <r.mereu@arduino.cc>
 References: <20260411-waveshare-dsi-touch-v2-0-75cdbeac5156@oss.qualcomm.com>
- <20260411-waveshare-dsi-touch-v2-12-75cdbeac5156@oss.qualcomm.com>
+ <20260411-waveshare-dsi-touch-v2-21-75cdbeac5156@oss.qualcomm.com>
 Content-Language: en-US
 From: Jie Gan <jie.gan@oss.qualcomm.com>
-In-Reply-To: <20260411-waveshare-dsi-touch-v2-12-75cdbeac5156@oss.qualcomm.com>
+In-Reply-To: <20260411-waveshare-dsi-touch-v2-21-75cdbeac5156@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: NfwY-pw7Ze_nTKvNx-ou5cWSQ506L0ya
-X-Authority-Analysis: v=2.4 cv=OpZ/DS/t c=1 sm=1 tr=0 ts=69daeda4 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+X-Authority-Analysis: v=2.4 cv=bcFbluPB c=1 sm=1 tr=0 ts=69daf035 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
  a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=jw4kvcsodkeSSt-x1xwA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-ORIG-GUID: NfwY-pw7Ze_nTKvNx-ou5cWSQ506L0ya
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEyMDAwNiBTYWx0ZWRfX9XzgDEM6eY1S
- oPfHtl4gOoQE0fep6XEl1+SZlAhxSUKb5ZVHkWxgIwtQRVpI9tG5DvzfsXbW5x7ZE6U+Qi2H6nM
- aHl59rGJdKbcxl/cF5C+0ZiwjK5hK74nlKrBikQlRBXbF7BWxL6Sd3Vpq9DEsjiraSWhQKRWPQj
- MmaPIS5f+1ungom+pLdg4P4mZ6zejbHowMvTMaBcShYTO15fqBDLtNucPCYmZEIev/WgKdlKF5t
- uCrDPM013i0PaIHsLDPRyC6OjaAWz2vfp3+EyMg4lIAzU52NfBLtFaglk3z5sfguML4rp3J4k7k
- 1+mZuuAZ4tK1odwW/1q22dSmu/uWZySHKQ/Kr8+DL04KSbrAstTPd0pqNXxJSzZXKNZHsjfDQBA
- jRxfKKYhfd/ksfzoqZCjrSPnXfpGSfkGRASxPCvRRvssgG3d6OH2DW7lxg21aWyJeL0+Z/uL305
- tgzyZsgU/bk19YhaZxg==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=f_8IO1HHPxn9Zh0c9RAA:9 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEyMDAwOCBTYWx0ZWRfX9fRYAZXDSd8N
+ IVaNh55baofnOloYbOOzsfVz5PtkkYSzHlUglGRtROzacmXtUg0k771gFCx9fUMXiAypcllOJEG
+ JYpwPIcCDAfaid1fBs9l0MaZXOytPVlwBs56+znpOJXhLEJcduYBJ+CuEavWl2o/vNVGNZOKwPE
+ lnfpx6dKc3UmgL2uPdj1wWMGW0NTyjxKi7ZncvuNAF8qtIfA+XQeDcMjzuD7CJEiUlbHZc2kMgC
+ Yim6/WL4v/ZAcuC4oVxlLfz6tXrPz/wAdgNQSz9PJOK2Z5AGa+zz/JNRlaYRKzsGeDwWOTZAWgy
+ Jx/jSkI2UAumhO7V0y0i+2WqBhF2HGOdd8lJaX3H+dqxlHhYZsuvifg6jwBc7+CDT0LpB8DTvSC
+ IMGAUAqn1q0io+POXO23Y7ZvI28H9UBEwUaOrZTg/KaDrTjxbh+8WxPs22wjRJC9XKBDZAN+1h9
+ fwrUa2OoGSaqwUvPi0w==
+X-Proofpoint-ORIG-GUID: Vd-XeiHXMi8H-sOQQZWNsC5RG-mT9vNe
+X-Proofpoint-GUID: Vd-XeiHXMi8H-sOQQZWNsC5RG-mT9vNe
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-11_07,2026-04-09_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 spamscore=0 bulkscore=0 priorityscore=1501
- adultscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604120006
+ lowpriorityscore=0 clxscore=1015 impostorscore=0 malwarescore=0
+ suspectscore=0 adultscore=0 bulkscore=0 phishscore=0 priorityscore=1501
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
+ definitions=main-2604120008
 
 
 
 On 4/11/2026 8:10 PM, Dmitry Baryshkov wrote:
-> Several panels support attachment either using 4 DSI lanes or just 2. In
-> some cases, this requires a different panel mode to fulfill clock
-> requirements. Extend the driver to handle such cases by letting the
-> panel description to omit lanes specification and parsing number of
-> lanes from the DT.
+> The Waveshare DSI TOUCH family of panels has separate on-board GPIO
+> controller, which controls power supplies to the panel and the touch
+> screen and provides reset pins for both the panel and the touchscreen.
+> Also it provides a simple PWM controller for panel backlight. Add
+> support for this GPIO controller.
 > 
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
 > Tested-by: Riccardo Mereu <r.mereu@arduino.cc>
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
->   drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c | 32 +++++++++++++++++-------
->   1 file changed, 23 insertions(+), 9 deletions(-)
+>   drivers/gpio/Kconfig              |  10 ++
+>   drivers/gpio/Makefile             |   1 +
+>   drivers/gpio/gpio-waveshare-dsi.c | 208 ++++++++++++++++++++++++++++++++++++++
+>   3 files changed, 219 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c b/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
-> index 1884ad2404cd..5d9db2e1f28f 100644
-> --- a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
-> +++ b/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
-> @@ -10,6 +10,7 @@
+> diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
+> index dbe7c6e63eab..1b210c451151 100644
+> --- a/drivers/gpio/Kconfig
+> +++ b/drivers/gpio/Kconfig
+> @@ -805,6 +805,16 @@ config GPIO_VISCONTI
+>   	help
+>   	  Say yes here to support GPIO on Tohisba Visconti.
 >   
->   #include <drm/drm_mipi_dsi.h>
->   #include <drm/drm_modes.h>
-> +#include <drm/drm_of.h>
->   #include <drm/drm_panel.h>
->   #include <drm/drm_print.h>
->   #include <drm/drm_probe_helper.h>
-> @@ -23,7 +24,8 @@
->   struct jadard;
->   
->   struct jadard_panel_desc {
-> -	const struct drm_display_mode mode;
-> +	const struct drm_display_mode *mode_4ln;
-> +	const struct drm_display_mode *mode_2ln;
->   	unsigned int lanes;
->   	enum mipi_dsi_pixel_format format;
->   	int (*init)(struct jadard *jadard);
-> @@ -57,7 +59,10 @@ static void jadard_enable_standard_cmds(struct mipi_dsi_multi_context *dsi_ctx)
->   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe1, 0x93);
->   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe2, 0x65);
->   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe3, 0xf8);
-> -	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x80, 0x03);
-> +	if (dsi_ctx->dsi->lanes == 2)
-> +		mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x80, 0x01);
+> +config GPIO_WAVESHARE_DSI_TOUCH
+> +	tristate "Waveshare GPIO controller for DSI panels"
+> +	depends on BACKLIGHT_CLASS_DEVICE
+> +	depends on I2C
+> +	select REGMAP_I2C
+> +	help
+> +	  Enable support for the GPIO and PWM controller found on Waveshare DSI
+> +	  TOUCH panel kits. It provides GPIOs (used for regulator control and
+> +          resets) and backlight support.
+> +
+>   config GPIO_WCD934X
+>   	tristate "Qualcomm Technologies Inc WCD9340/WCD9341 GPIO controller driver"
+>   	depends on MFD_WCD934X
+> diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
+> index 20d4a57afdaa..75ce89fc3b93 100644
+> --- a/drivers/gpio/Makefile
+> +++ b/drivers/gpio/Makefile
+> @@ -207,6 +207,7 @@ obj-$(CONFIG_GPIO_VIRTUSER)		+= gpio-virtuser.o
+>   obj-$(CONFIG_GPIO_VIRTIO)		+= gpio-virtio.o
+>   obj-$(CONFIG_GPIO_VISCONTI)		+= gpio-visconti.o
+>   obj-$(CONFIG_GPIO_VX855)		+= gpio-vx855.o
+> +obj-$(CONFIG_GPIO_WAVESHARE_DSI_TOUCH)	+= gpio-waveshare-dsi.o
+>   obj-$(CONFIG_GPIO_WCD934X)		+= gpio-wcd934x.o
+>   obj-$(CONFIG_GPIO_WHISKEY_COVE)		+= gpio-wcove.o
+>   obj-$(CONFIG_GPIO_WINBOND)		+= gpio-winbond.o
+> diff --git a/drivers/gpio/gpio-waveshare-dsi.c b/drivers/gpio/gpio-waveshare-dsi.c
+> new file mode 100644
+> index 000000000000..f4a1d4d3b872
+> --- /dev/null
+> +++ b/drivers/gpio/gpio-waveshare-dsi.c
+> @@ -0,0 +1,208 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (C) 2024 Waveshare International Limited
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#include <linux/backlight.h>
+> +#include <linux/err.h>
+> +#include <linux/fb.h>
+> +#include <linux/gpio/driver.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/regmap.h>
+> +
+> +/* I2C registers of the microcontroller. */
+> +#define REG_TP		0x94
+> +#define REG_LCD		0x95
+> +#define REG_PWM		0x96
+> +#define REG_SIZE	0x97
+> +#define REG_ID		0x98
+> +#define REG_VERSION	0x99
+> +
+> +enum {
+> +	GPIO_AVDD = 0,
+> +	GPIO_PANEL_RESET = 1,
+> +	GPIO_BL_ENABLE = 2,
+> +	GPIO_IOVCC = 4,
+> +	GPIO_VCC = 8,
+> +	GPIO_TS_RESET = 9,
+> +};
+> +
+> +#define NUM_GPIO 16
+> +
+> +struct waveshare_gpio {
+> +	struct mutex dir_lock;
+> +	struct mutex pwr_lock;
+> +	struct regmap *regmap;
+> +	u16 poweron_state;
+> +
+> +	struct gpio_chip gc;
+> +};
+> +
+> +static const struct regmap_config waveshare_gpio_regmap_config = {
+> +	.reg_bits = 8,
+> +	.val_bits = 8,
+> +	.max_register = REG_PWM,
+
+.max_register = REG_VERSION,
+
+check comments in probe
+
+> +};
+> +
+> +static int waveshare_gpio_get(struct waveshare_gpio *state, unsigned int offset)
+> +{
+> +	u16 pwr_state;
+> +
+> +	guard(mutex)(&state->pwr_lock);
+> +	pwr_state = state->poweron_state & BIT(offset);
+> +
+> +	return !!pwr_state;
+> +}
+> +
+> +static int waveshare_gpio_set(struct waveshare_gpio *state, unsigned int offset, int value)
+> +{
+> +	u16 last_val;
+> +	int err;
+> +
+> +	guard(mutex)(&state->pwr_lock);
+> +
+> +	last_val = state->poweron_state;
+> +	if (value)
+> +		last_val |= BIT(offset);
 > +	else
-> +		mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x80, 0x03);
->   }
->   
->   static inline struct jadard *panel_to_jadard(struct drm_panel *panel)
-> @@ -151,7 +156,10 @@ static int jadard_get_modes(struct drm_panel *panel,
->   {
->   	struct jadard *jadard = panel_to_jadard(panel);
->   
-> -	return drm_connector_helper_get_modes_fixed(connector, &jadard->desc->mode);
-> +	if (jadard->dsi->lanes == 2)
+> +		last_val &= ~BIT(offset);
+> +
+> +	state->poweron_state = last_val;
+> +
+> +	err = regmap_write(state->regmap, REG_TP, last_val >> 8);
+> +	if (!err)
+> +		err = regmap_write(state->regmap, REG_LCD, last_val & 0xff);
+> +
+> +	return err;
+> +}
+> +
+> +static int waveshare_gpio_gpio_get_direction(struct gpio_chip *gc, unsigned int offset)
+> +{
+> +	return GPIO_LINE_DIRECTION_OUT;
+> +}
+> +
+> +static int waveshare_gpio_gpio_get(struct gpio_chip *gc, unsigned int offset)
+> +{
+> +	struct waveshare_gpio *state = gpiochip_get_data(gc);
+> +
+> +	return waveshare_gpio_get(state, offset);
+> +}
+> +
+> +static int waveshare_gpio_gpio_set(struct gpio_chip *gc, unsigned int offset, int value)
+> +{
+> +	struct waveshare_gpio *state = gpiochip_get_data(gc);
+> +
+> +	return waveshare_gpio_set(state, offset, value);
+> +}
+> +
+> +static int waveshare_gpio_update_status(struct backlight_device *bl)
+> +{
+> +	struct waveshare_gpio *state = bl_get_data(bl);
+> +	int brightness = backlight_get_brightness(bl);
+> +
+> +	waveshare_gpio_set(state, GPIO_BL_ENABLE, brightness);
+> +
+> +	return regmap_write(state->regmap, REG_PWM, brightness);
+> +}
+> +
+> +static const struct backlight_ops waveshare_gpio_bl = {
+> +	.update_status = waveshare_gpio_update_status,
+> +};
+> +
+> +static int waveshare_gpio_probe(struct i2c_client *i2c)
+> +{
+> +	struct backlight_properties props = {};
+> +	struct waveshare_gpio *state;
+> +	struct device *dev = &i2c->dev;
+> +	struct backlight_device *bl;
+> +	struct regmap *regmap;
+> +	unsigned int data;
+> +	int ret;
+> +
+> +	state = devm_kzalloc(dev, sizeof(*state), GFP_KERNEL);
+> +	if (!state)
+> +		return -ENOMEM;
+> +
+> +	ret = devm_mutex_init(dev, &state->dir_lock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = devm_mutex_init(dev, &state->pwr_lock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	regmap = devm_regmap_init_i2c(i2c, &waveshare_gpio_regmap_config);
 
-Worth to add a check here:
-if (jadard->dsi->lanes == 2 && jadard->desc->mode_2ln)
+for waveshare_gpio_regmap_config: .max_register = REG_PWM,
 
-Some pre-existing panel desc(e.g. radxa_display_8hd_ad002_desc) only set 
-mode_4ln, leaving mode_2ln = NULL. So if such a panel attaches to a 
-2-lane DSI host, the NULL pointer dereference causes a kernel oops.
+> +	if (IS_ERR(regmap))
+> +		return dev_err_probe(dev, PTR_ERR(regmap), "Failed to allocate register map\n");
+> +
+> +	state->regmap = regmap;
+> +	i2c_set_clientdata(i2c, state);
+> +
+> +	ret = regmap_read(regmap, REG_ID, &data);
+
+REG_ID here is 0x98,
+
+in _regmap_read -> regmap_readable will check the max_register, then 
+return -EIO.
+
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "Failed to read register\n");
+> +
+> +	dev_dbg(dev, "waveshare panel hw id = 0x%x\n", data);
+> +
+> +	ret = regmap_read(regmap, REG_SIZE, &data);
+
+ditto.
 
 Thanks,
 Jie
 
-> +		return drm_connector_helper_get_modes_fixed(connector, jadard->desc->mode_2ln);
-> +	else
-> +		return drm_connector_helper_get_modes_fixed(connector, jadard->desc->mode_4ln);
->   }
->   
->   static enum drm_panel_orientation jadard_panel_get_orientation(struct drm_panel *panel)
-> @@ -354,7 +362,7 @@ static int radxa_display_8hd_ad002_init_cmds(struct jadard *jadard)
->   };
->   
->   static const struct jadard_panel_desc radxa_display_8hd_ad002_desc = {
-> -	.mode = {
-> +	.mode_4ln = &(const struct drm_display_mode) {
->   		.clock		= 70000,
->   
->   		.hdisplay	= 800,
-> @@ -586,7 +594,7 @@ static int cz101b4001_init_cmds(struct jadard *jadard)
->   };
->   
->   static const struct jadard_panel_desc cz101b4001_desc = {
-> -	.mode = {
-> +	.mode_4ln = &(const struct drm_display_mode) {
->   		.clock		= 70000,
->   
->   		.hdisplay	= 800,
-> @@ -819,7 +827,7 @@ static int kingdisplay_kd101ne3_init_cmds(struct jadard *jadard)
->   };
->   
->   static const struct jadard_panel_desc kingdisplay_kd101ne3_40ti_desc = {
-> -	.mode = {
-> +	.mode_4ln = &(const struct drm_display_mode) {
->   		.clock		= (800 + 24 + 24 + 24) * (1280 + 30 + 4 + 8) * 60 / 1000,
->   
->   		.hdisplay	= 800,
-> @@ -1070,7 +1078,7 @@ static int melfas_lmfbx101117480_init_cmds(struct jadard *jadard)
->   };
->   
->   static const struct jadard_panel_desc melfas_lmfbx101117480_desc = {
-> -	.mode = {
-> +	.mode_4ln = &(const struct drm_display_mode) {
->   		.clock		= (800 + 24 + 24 + 24) * (1280 + 30 + 4 + 8) * 60 / 1000,
->   
->   		.hdisplay	= 800,
-> @@ -1326,7 +1334,7 @@ static int anbernic_rgds_init_cmds(struct jadard *jadard)
->   };
->   
->   static const struct jadard_panel_desc anbernic_rgds_display_desc = {
-> -	.mode = {
-> +	.mode_4ln = &(const struct drm_display_mode) {
->   		.clock		= (640 + 260 + 220 + 260) * (480 + 10 + 2 + 16) * 60 / 1000,
->   
->   		.hdisplay	= 640,
-> @@ -1562,7 +1570,7 @@ static int taiguan_xti05101_01a_init_cmds(struct jadard *jadard)
->   };
->   
->   static const struct jadard_panel_desc taiguan_xti05101_01a_desc = {
-> -	.mode = {
-> +	.mode_4ln = &(const struct drm_display_mode) {
->   		.clock		= (800 + 24 + 24 + 24) * (1280 + 30 + 4 + 8) * 60 / 1000,
->   
->   		.hdisplay	= 800,
-> @@ -1614,6 +1622,12 @@ static int jadard_dsi_probe(struct mipi_dsi_device *dsi)
->   
->   	dsi->format = desc->format;
->   	dsi->lanes = desc->lanes;
-> +	if (!dsi->lanes) {
-> +		dsi->lanes = drm_of_get_data_lanes_count_remote(dsi->dev.of_node, 0, -1, 2, 4);
-> +		if (dsi->lanes < 0)
-> +			return dsi->lanes;
-> +	}
-> +	dev_dbg(&dsi->dev, "lanes: %d\n", dsi->lanes);
->   
->   	jadard->reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
->   	if (IS_ERR(jadard->reset))
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "Failed to read register\n");
+> +
+> +	dev_dbg(dev, "waveshare panel size = %d\n", data);
+> +
+> +	ret = regmap_read(regmap, REG_VERSION, &data);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "Failed to read register\n");
+> +
+> +	dev_dbg(dev, "waveshare panel mcu version = 0x%x\n", data);
+> +
+> +	ret = waveshare_gpio_set(state, GPIO_TS_RESET, 1);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to program GPIOs\n");
+> +
+> +	msleep(20);
+> +
+> +	state->gc.parent = dev;
+> +	state->gc.label = i2c->name;
+> +	state->gc.owner = THIS_MODULE;
+> +	state->gc.base = -1;
+> +	state->gc.ngpio = NUM_GPIO;
+> +
+> +	/* it is output only */
+> +	state->gc.get = waveshare_gpio_gpio_get;
+> +	state->gc.set = waveshare_gpio_gpio_set;
+> +	state->gc.get_direction = waveshare_gpio_gpio_get_direction;
+> +	state->gc.can_sleep = true;
+> +
+> +	ret = devm_gpiochip_add_data(dev, &state->gc, state);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to create gpiochip\n");
+> +
+> +	props.type = BACKLIGHT_RAW;
+> +	props.max_brightness = 255;
+> +	props.brightness = 255;
+> +	bl = devm_backlight_device_register(dev, dev_name(dev), dev, state,
+> +					    &waveshare_gpio_bl, &props);
+> +	return PTR_ERR_OR_ZERO(bl);
+> +}
+> +
+> +static const struct of_device_id waveshare_gpio_dt_ids[] = {
+> +	{ .compatible = "waveshare,dsi-touch-gpio" },
+> +	{},
+> +};
+> +MODULE_DEVICE_TABLE(of, waveshare_gpio_dt_ids);
+> +
+> +static struct i2c_driver waveshare_gpio_regulator_driver = {
+> +	.driver = {
+> +		.name = "waveshare-regulator",
+> +		.of_match_table = of_match_ptr(waveshare_gpio_dt_ids),
+> +	},
+> +	.probe = waveshare_gpio_probe,
+> +};
+> +
+> +module_i2c_driver(waveshare_gpio_regulator_driver);
+> +
+> +MODULE_DESCRIPTION("GPIO controller driver for Waveshare DSI touch panels");
+> +MODULE_LICENSE("GPL");
 > 
 
