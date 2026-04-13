@@ -1,67 +1,68 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B9D93B19C1
-	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 09:24:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 960FD3A16BD
+	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 09:25:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776072289; cv=none; b=Oq/yfTODtI1TvFi3VEJUTKctS29JQ7TudiLatvUOlR6+13Vzhp7Iiz2Tu4hi42L3aqSZf+YE0HEnQ6JC9ptBDmTxC75D09+M/QlClczE4xlRgSSEkHl9GbODdenqseYyZ7JtWH2uatEh7/e5PAhe9PppF9DsFIlyIZOM3hg2Edk=
+	t=1776072355; cv=none; b=jh1hHN0qc8afg0HExL11+ZcqyLa+RNez3ltaovXfbSB3KtyGMKw9aFwxdTBgqCYp+hxveqZ6y88rtE8P4GLNkLncwFPcL7FqZiiJLGoHt6CTRxdCU1Jz42wrk2G9RI6H2NvzBBL1nQLS4pVDfyV0Qiwgs8F7+RKYQnr8uBe9HiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776072289; c=relaxed/simple;
-	bh=a20GCVEICRer0YqKfRCtAzVvD7mYgtgR92L5iy72zJs=;
+	s=arc-20240116; t=1776072355; c=relaxed/simple;
+	bh=bV113SFRteRf/lfCkd8TXPKJE+so+EzuNa++sYxn6s4=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=K+nMJQchcDygHSEpNpOho1a9df5FBncAZ3bJBi3DAq/GgNjh6Grl09AAHX2K0BI5AQgXIp56akH9gclYfsCB4hf1Q5mM89oqqeipI3raKl0cpkCGT6PbFEodKz+uq/Nm8lV7T0Ncip6LNgtZSn93+Y8LmuvcLocj9DJa4J1REw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=hxQLChOB; arc=none smtp.client-ip=209.85.128.49
+	 In-Reply-To:Content-Type; b=Tq7cTyb7G/AwsyVN9POvKVm98qTY7O2HjiWPIpkTFxNAgVVKav4/0Ome1Ieg55arruS7/L1Gl15WqrZEN0cjCnSF0Ww8Zc+gJMn1E9Mn4GYtmWF7Qg7HEQSgq4pv+xmbD7w+NWk7m9TSEMSfbEN+0DLKAfbXnLdW55vA8VhNRlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=aMTCIEFa; arc=none smtp.client-ip=209.85.128.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="hxQLChOB"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-488a29e6110so45624355e9.3
-        for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 02:24:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="aMTCIEFa"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-488a041eae5so30074385e9.1
+        for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 02:25:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1776072287; x=1776677087; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1776072352; x=1776677152; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:references:cc:to:subject:reply-to:from:user-agent
          :mime-version:date:message-id:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=++gWQ1SwhCFjmBGRgz/y7dJIShpHiYWMcQltdeeVLx4=;
-        b=hxQLChOBDEEYekNgdOsJ172JV72/EtbbB/Em8JcqP/uDA3pYXRjCNadTSClNjoaAsE
-         ayHbLYdY50E0XHT0RtjEnGJCf5D93++VffvI4k9PHb7EEPhRsXjScTGzf/CRFWGKDDUe
-         hbH/uFIhoVJnLI101xhn5tl1tTOHXFt2NZhu+7hNTbbd11vCcKkPPEsxRNZtZZtrWWsT
-         cuDOOii6Sl14dykefljLkDtDoacsW9eHbn/kxs+Juve5KxaJL9u/b39TrK0UKm77fPUQ
-         inG5gJPT+DNr1lyc7MF3Iv8LdLfY81Ui+CO3Em/osz6dFjPNzwLyyBZwom3zfE1tjuhL
-         qgCQ==
+        bh=WxTuUhvNuyjpocH8H2TWu25ZZLHbeZ5L/TpNb0PyPXg=;
+        b=aMTCIEFaiF3Fr6yJRlz1FiOFA+BY9ERsIFyNANlS43BBEvmY++Ro6M4eekU1Ve3aNe
+         uB+a22sfwXVB/6fQOJh3QrPXG3ZWykaYtd/5djJRhO9lLmpA/8fhxXKZ1cibmx0XxLgt
+         PICfPsL0YMY0rDfBYamtcp5WSaqf8PktJPtvsCCzLv39TyNnbhkySHyFJT4M0tTqEyw6
+         TqW3fszZOGwau0MX9bKIFqyRb2dDEleoDUpFd/kZonm851xwq/fWttZuULWZsexVU+OO
+         OH5iOCnMHzVzOX6H48PTpJU1JoTnkkLkvPFCbOHrTOk1dh0hoeY0V+bVeF5l/Ok4lXkx
+         nfnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776072287; x=1776677087;
+        d=1e100.net; s=20251104; t=1776072352; x=1776677152;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:references:cc:to:subject:reply-to:from:user-agent
          :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=++gWQ1SwhCFjmBGRgz/y7dJIShpHiYWMcQltdeeVLx4=;
-        b=g23jqCxeiyWUMe2xbtO/LMwxP6yUoxbZ6oBRurqScO9MvvTk0wyuwWpbKr2LSSV0xW
-         NE1nn68n6thvuOI49rOHl1ggkfz0OkhwMjtUzsbKWLGn4eBCSrtpLoJ2hSPvAc+lye+M
-         uOCKvRAopdnV2+ki34f61NEH1Ts6uvABc15BySinvpVYelsIanKLCs4X/57BDA/I0ebB
-         wPJctufA25MEG6xqhOJsynhTCDwZndJkB5Mjarp5ORJfV+56UDuQzssy1iMXmt39HJLo
-         GThbxf1u0Dn5i2/Dq4iGEolGOuiNpOgnEhFVpJ+nDkV7fqMbvANjJtlUIZ6jojUJymo3
-         IoDw==
-X-Gm-Message-State: AOJu0YyRtKAarLoefu5mZb87GrJHmHV0rrGcNVbHKUk67FCfdnEZjK5B
-	9ph4xyF+t4YksSikvq4KDC+G6gbNb5YjmAfT8fc9pbyHFP8dKaO5iAtxC5/6xdfUYeg=
-X-Gm-Gg: AeBDieuMb/TlGgj02t5/7lNsoamtM7rdkGjc53njWdcDxtpYeUkc5GybKbkqZAx3Urv
-	Nw3GAB76PHA+Eg9PXCTfiA7LG7sA2LHGezqCDSOM9vwXzVvRA/l8eLWAUZd7SBE4U66jcFC9Bpg
-	HfpY1BNQpewCXlQ76QqqU+AEjAzm76TX9qPH+RdHXZ6rnWgSdmq6xuffRgWLOTpDiRKf3bUwyZg
-	PVg3dzFy0ZmhZz3K+oEmAA8JTiU4uHooOA7eMDXSb/XCcWWwB1j+M1EiUOFxlVrdjNSOWELAgHe
-	nczeVH0wmtwXvUmfVobJAfCXpp8Buvff9pleyY2NXy1P+M+eJSdlcDQ6UNmP7r0n/8cBkbBuOgo
-	4rcUM+l37gwNH2ruQOooMbSGk6hboy0/oR05pd5/TI4MnXm1zVRezJfEUpZDWUC3x/+xbdX5pD/
-	r/jZiTP7CWqO8z6nC9ydAHjCstzSyzFWFJ+mVmmN1pG7YaO8MiEBN/I5cMnCvZcojS7YqjvlQqp
-	MsoRZKv
-X-Received: by 2002:a05:600c:5292:b0:486:fe39:28b7 with SMTP id 5b1f17b1804b1-488d67fa48emr177471465e9.9.1776072286480;
-        Mon, 13 Apr 2026 02:24:46 -0700 (PDT)
+        bh=WxTuUhvNuyjpocH8H2TWu25ZZLHbeZ5L/TpNb0PyPXg=;
+        b=NNpJEKpqz2iOyVmvddaHdplexTSedDotxNtIQaR+//dOcDF5VewcYLtn77T7pYrcnk
+         sUbbuRAlcs5YcuMeVqKQRBEIqe+Fu7ZKm90WezHYbvnjZz/Gf3iyYyvvkEBBSowm1ZuB
+         ZR/AslnkebKhgGmQSma/V0dtqpg00jNu+EYoRyB+H54oQjWCVgc0yq0n3xE3MhEdrp86
+         O8WrGnqldYdOyTCfQ1Lb1bZFoWqLrPYlEPGuLfdenQaLvRY3vYTE6ag29lEYwvXl/nqx
+         T10XGrNZDQVmvIcsdxC8GfQZaFE7qtw4JoDZGrFrb3zW2mUcwsbDwgIkNUzg/oiIAJVX
+         kNLg==
+X-Forwarded-Encrypted: i=1; AFNElJ99gS4Ci2xauyBGiH2NDqyW591eUw8jjdCwjiaE67duBpeMbkyaLpk9nhLAVOg8I25iTwuMaEKKJUJW@vger.kernel.org
+X-Gm-Message-State: AOJu0YxlQrKoLCnrKB3Qece9rEGWQb+is8VOBrVQtLSjQCw37Fvq48dU
+	YP9f8uY8amo1FKg1Xnh7gxAwbGEAi6hZqP8Mkyp9Xh5Mhq+2VRxd4TJrAZexJ3Xi/Ds=
+X-Gm-Gg: AeBDiesevhY/0PnZyo38FRlNtrDB9Uxcr5lb8c+/v3zW9Jova8efullQE4NXP9YXROm
+	ClgVjAu3wJ9JilPThhrAU36I9fykNscpFlATe6RxoWSXCJnl4VUIKeYmLgIbiWZakhKGR5NytfJ
+	gR7K7qk65sFX2rSDtrQo+dpiG16ewpuR+7q74Hv+BnsYIu5xV70AQ4cfO8rX1BFaiETlSHCWCd3
+	b7ux8H2z9uTazM/SmVkFZ9JxT9Ho8tyIljxZPyMrd/B2WHujfG6Bs7X+Vewys08DI/yMKzEyDxD
+	kOvnpb+oTNvhK7dXgkSbIYmIVnHMLG7PD4UzQS4uJqWdMw+g8+NM0iKIF50/I3rAEbNNEpz7N6S
+	2UEdbcvQmv4YJHGLNM7RDuKgZFO2x33OUoB0gAhyU5s2I+Qs9E38edLNj/SQdcxaqli7qhr1zxm
+	3Y8jmC7i407Zy3p+TEUMYbE4IS4KND5LhW4OQohNy8v5WvpE6EjpGDr75+H43It+X4pWz/CQf+V
+	QGeXEtT
+X-Received: by 2002:a05:600c:c10d:b0:488:ae4e:51a5 with SMTP id 5b1f17b1804b1-488d683d633mr115963445e9.15.1776072351876;
+        Mon, 13 Apr 2026 02:25:51 -0700 (PDT)
 Received: from ?IPV6:2a01:cb1c:fcf:4600:4cfb:7427:8a08:9d25? ([2a01:cb1c:fcf:4600:4cfb:7427:8a08:9d25])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488d531f229sm373689155e9.3.2026.04.13.02.24.45
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488d684b55fsm94935965e9.26.2026.04.13.02.25.51
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 13 Apr 2026 02:24:46 -0700 (PDT)
-Message-ID: <3a08bb84-b313-4b3b-bb61-1b686226e902@linaro.org>
-Date: Mon, 13 Apr 2026 11:24:45 +0200
+        Mon, 13 Apr 2026 02:25:51 -0700 (PDT)
+Message-ID: <a32bd2ec-10c4-4cfe-b206-9e96bdab37fd@linaro.org>
+Date: Mon, 13 Apr 2026 11:25:50 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,21 +72,20 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 2/4] soc: amlogic: clk-measure: Add A1 and T7 support
-To: Krzysztof Kozlowski <krzk@kernel.org>, Jian Hu <jian.hu@amlogic.com>,
- Jerome Brunet <jbrunet@baylibre.com>, Kevin Hilman <khilman@baylibre.com>,
- Michael Turquette <mturquette@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- robh+dt <robh+dt@kernel.org>, Rob Herring <robh@kernel.org>
-Cc: devicetree <devicetree@vger.kernel.org>,
- linux-amlogic <linux-amlogic@lists.infradead.org>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-References: <20260410100329.3167482-1-jian.hu@amlogic.com>
- <20260410100329.3167482-3-jian.hu@amlogic.com>
- <9a4f69e7-838a-4992-af1d-46324e14eb48@kernel.org>
- <274d2abd-05b9-4dbd-b962-ff70044b8d07@amlogic.com>
- <b0d81181-d4a4-4c03-8c26-c7f6e8cde70f@kernel.org>
+Subject: Re: [PATCH 2/2] drm/panel: simple: Add Startek KD070HDFLD092 LVDS
+ panel support
+To: Stefan Kerkmann <s.kerkmann@pengutronix.de>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Thierry Reding
+ <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260407-panel-simple-startek-upstream-v1-0-76721696655f@pengutronix.de>
+ <20260407-panel-simple-startek-upstream-v1-2-76721696655f@pengutronix.de>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -112,74 +112,68 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <b0d81181-d4a4-4c03-8c26-c7f6e8cde70f@kernel.org>
+In-Reply-To: <20260407-panel-simple-startek-upstream-v1-2-76721696655f@pengutronix.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 4/13/26 11:10, Krzysztof Kozlowski wrote:
-> On 13/04/2026 10:21, Jian Hu wrote:
->>
->> On 4/12/2026 5:55 PM, Krzysztof Kozlowski wrote:
->>> [ EXTERNAL EMAIL ]
->>>
->>> On 10/04/2026 12:03, Jian Hu wrote:
->>>> Add support for the A1 and T7 SoC family in amlogic clk measure.
->>>>
->>>> Signed-off-by: Jian Hu <jian.hu@amlogic.com>
->>>> ---
->>>>    drivers/soc/amlogic/meson-clk-measure.c | 272 ++++++++++++++++++++++++
->>>>    1 file changed, 272 insertions(+)
->>>>
->>>> diff --git a/drivers/soc/amlogic/meson-clk-measure.c b/drivers/soc/amlogic/meson-clk-measure.c
->>>> index d862e30a244e..083524671b76 100644
->>>> --- a/drivers/soc/amlogic/meson-clk-measure.c
->>>> +++ b/drivers/soc/amlogic/meson-clk-measure.c
->>>> @@ -787,6 +787,258 @@ static const struct meson_msr_id clk_msr_s4[] = {
->>>>
->>>>    };
->>>>
->>>> +static struct meson_msr_id clk_msr_a1[] = {
->>> And existing code uses what sort of array? Seems you send us obsolete or
->>> downstream code.
->>
->>
->> Thanks for your review.
->>
->>
->> I have checked the previous Amlogic SoC's commits. Such as Amlogic AXG,
->> G12A, C3, S4.
->>
->> The clk_msr_xx entry is added after last SoC's array, sorted by
->> submissin date rather than alphabetical order.
->>
->> So I place A1 and T7 after S4 accordingly.
->>
->>
->> The A1 clock controller driver was already supported in
->> https://lore.kernel.org/all/20230523135351.19133-7-ddrokosov@sberdevices.ru/
->>
->> It is also present in the mainline kernel:
->> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/clk/meson/Kconfig#n113
->>
->>
->> This clock measure IP is used to measure the internal clock paths
->> frequencies,  and A1 clock controller driver was supported.
->>
->> Since the corresponding clock measure driver does not support A1 yet, So
->> add A1 clk msr here.
+On 4/7/26 11:31, Stefan Kerkmann wrote:
+> The Startek KD070HDFLD092 is a 7" WSVGA LVDS panel.
 > 
-> No, what qualifiers or keywords are used for existing arrays? IOW,
-> please investigate and understand why you are doing this very different
-> than existing code. Maybe because you sent us downstream, so you
-> replicated all other downstream issues.
+> Signed-off-by: Stefan Kerkmann <s.kerkmann@pengutronix.de>
+> ---
+>   drivers/gpu/drm/panel/panel-simple.c | 29 +++++++++++++++++++++++++++++
+>   1 file changed, 29 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+> index 91ab280869bac..737a1014f8112 100644
+> --- a/drivers/gpu/drm/panel/panel-simple.c
+> +++ b/drivers/gpu/drm/panel/panel-simple.c
+> @@ -4540,6 +4540,32 @@ static const struct panel_desc starry_kr070pe2t = {
+>   	.connector_type = DRM_MODE_CONNECTOR_DPI,
+>   };
+>   
+> +static const struct display_timing startek_kd070hdfld092_timing = {
+> +	.pixelclock = { 40800000, 51200000, 67200000 },
+> +	.hactive = { 1024, 1024, 1024 },
+> +	.hfront_porch = { 40, 160, 216 },
+> +	.hback_porch = { 30, 140, 140 },
+> +	.hsync_len = { 20, 20, 20 },
+> +	.vactive = { 600, 600, 600 },
+> +	.vfront_porch = { 2, 12, 177 },
+> +	.vback_porch = { 5, 20, 20 },
+> +	.vsync_len = { 3, 3, 3 },
+> +	.flags = DISPLAY_FLAGS_DE_HIGH,
+> +};
+> +
+> +static const struct panel_desc startek_kd070hdfld092 = {
+> +	.timings = &startek_kd070hdfld092_timing,
+> +	.num_timings = 1,
+> +	.bpc = 8,
+> +	.size = {
+> +		.width = 154,
+> +		.height = 86,
+> +	},
+> +	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
+> +	.bus_flags = DRM_BUS_FLAG_DE_HIGH,
+> +	.connector_type = DRM_MODE_CONNECTOR_LVDS,
+> +};
+> +
+>   static const struct display_timing startek_kd070wvfpa_mode = {
+>   	.pixelclock = { 25200000, 27200000, 30500000 },
+>   	.hactive = { 800, 800, 800 },
+> @@ -5532,6 +5558,9 @@ static const struct of_device_id platform_of_match[] = {
+>   	}, {
+>   		.compatible = "starry,kr070pe2t",
+>   		.data = &starry_kr070pe2t,
+> +	}, {
+> +		.compatible = "startek,kd070hdfld092",
+> +		.data = &startek_kd070hdfld092,
+>   	}, {
+>   		.compatible = "startek,kd070wvfpa",
+>   		.data = &startek_kd070wvfpa,
+> 
 
-I see, the existing uses "static const struct".
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Jian, could to switch to that please ?
-
+Thanks,
 Neil
-
-> 
-> Best regards,
-> Krzysztof
-
