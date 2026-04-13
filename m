@@ -1,189 +1,233 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022138.outbound.protection.outlook.com [52.101.126.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA423AF667
-	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 11:18:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776079104; cv=none; b=lLmDPdGUYGgODWXmC//oG35vCfCSqxXiaHKoBgjwvvhLNIjb1pGkoLkogGJEkSrT6L2TaoHdhY2T01K7NccS3f3x+qL2F5X2G2Q/1DDcWO2L30Z0koz3pH/FpZfAUiW3y9BNIRHbPm+UxzKNBQY4/6o+BdvZVxReKtPp0UlhHAE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776079104; c=relaxed/simple;
-	bh=eH8jzy/3275qHq8UWVm0QvGRDLmZWwo/AC55TjS47JE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SvLSgoAsiq3Q9SaD1muzmxpfiqFOjbEElpSEe69GpeGxx5acHriVpexp7XrVlpiKhzb8ZTSmfEe8poC5rJxCySq/HsBWlGZpkgnb9l2MRviH+7YNXveYT0AGF/ltYar4FaEOOigpbcXKpvPn7U9vnruSBQ4imopgg88RePbCW18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hMcKBObn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FqW4ZCiF; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88A2331195B;
+	Mon, 13 Apr 2026 11:33:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.138
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776080005; cv=fail; b=J6mnZC1qHh9qd9arh8DU6OHoUcee7mRsINer0AYyXhFe5vqQ/WKuWQuX3D7bR5PjRrTXXmnV8kTpYKO7gxkpHIpsGQkTCuGAnXDRzyiOMMQulHN1qvGNoKAPHyZq+43b7q/V3OJWzOWL33dnWqhafPCBDYlOpaB6+5dxKRjLUi8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776080005; c=relaxed/simple;
+	bh=/NutcVhRDiMZJjOTc7XtdI8SSJIN5yn1Meonz5XpV3o=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=miGwl/uk9z7sLPYMENIFsjny6YUHdt9xT1brQNtmaJrN84u53AmgZFoh1ddQi8ndaLFs0zWRL+ERBMO47H5c+aipM51FCjrnDu2bXTg/1PzQHiHE5J94akfy8bia2LnWvbP/I2TrdXkSk31g+oJsuHkDEhvHGY54z6JO5qOauak=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=btUF23o5; arc=fail smtp.client-ip=52.101.126.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hMcKBObn";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FqW4ZCiF"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63D7H3W74068497
-	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 11:18:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Jk3X4v8HgxegViSZYWAtqUOG4jcrWQNEUqyBoBn/fnE=; b=hMcKBObndxAouxNz
-	g02IgvAcySRvKWlRUMnPuJTgDZYeRDSDy+8C372Ea9oBt3xMjdV5WG0l28e9q1Hf
-	L7egosE/YliOAUrIUwf90I3k4Vbpgsd12MjpWeZaY49nnSRU9pTBKBXgucTugnoB
-	OIlkS8Z3X2SShVuWIA+26Jxig9k/X3vF/UkfCsHCLLwsreJX/JYGjI8u3DTrVaaq
-	8qL6xY/2M/KWql+/IVibGOOku+K+alnoawTlr8GTaFE36hRXMWIVE908NFovcHMJ
-	oh/5ZmhQEnocj/LjwulDNmRqhJEZL9/u1llzUuwQhPJzV5tSf6i7M+3oMVwJz4i+
-	k6+7eA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dfewkw3hg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 11:18:21 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-50db373cf13so6371711cf.1
-        for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 04:18:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776079101; x=1776683901; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Jk3X4v8HgxegViSZYWAtqUOG4jcrWQNEUqyBoBn/fnE=;
-        b=FqW4ZCiF3aR/YrS3dr6IEG02Lnnqh59bmXP+OPOzCT1MYbXHOFjaTtA2VD1PlOEjf9
-         PYMdNaT4tx7li60NnrzkzDcKIzOAY2ce+TTgU3pekj0LByyVxVs+owAtJLtwMJ+WCR18
-         LU4ivorJ3Db3+Flr+C+XeXfEYNNl/2sK947L0/8VlPcIXfReiH2591Hnb2/rRIwdy23L
-         2qV6qIKmWIfNO1/n9nuUoYaGlX7ePgZRxKR9G0xYEXh5CeEtTKOlF1iHXLNz8hupbbZx
-         CpStC0wpTu+oC/4kptz6Cl1FtZfaNDfziLH85q+Uk86B7pOKvayS1a71x2QKEeOjHUxc
-         ddPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776079101; x=1776683901;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Jk3X4v8HgxegViSZYWAtqUOG4jcrWQNEUqyBoBn/fnE=;
-        b=k9lNq4I/q4HKKiM4p15ut8QW80TDm7qRKi0rbVqaMye0Gb7Q/sriRk9JUrqZ6Zm3Ww
-         F4tDyRdcwUViXzUAzAyBRS5kPHmlA+SW8Sh83B0shuNt7xFKA8hTxnYpHoSE2lXCsIuZ
-         OIdn2RxCj6/qhfoBuXV4IS8C0zj30yOhK6BsJtKq4c9imm4PKG7eBABc8ZhogsVx0rJ5
-         7yy9G/ITHHJYgQWL1mz1t29zS4OnEUPxbGRJFMcnGgekGrdpvVgc0m53xjlSKYbHvE7l
-         lC8VqVxb36DxUGcijHmI8FsU/f1EE1aVk+4ajzuVfF2iZogbvF0QL8CWnq/pjtR17JS3
-         85rA==
-X-Forwarded-Encrypted: i=1; AFNElJ/pwbg1WlIGDs+KyC9B7xgpamtSg+bQo+2IyrLNnJfeZP48d6Fr0y4PwcxxVELphrcFHPO9ze4EnlLL@vger.kernel.org
-X-Gm-Message-State: AOJu0YzLTtI1MoHH5eivgL2zepxi3iyHQtMcl20Lkytc1uumdsRNscKO
-	jIW5y1hZN8khRU7P6IEOFOsxTbFlkIyiNUN2TVDeorfYa2V32nLbqMRphheYOzc3+vB7NAyK5LS
-	KJtJWkbx+36z5T89tZPfbzRqIvn9d1J3vB7p0WRrgtYwkO5sieOaMN3oGI30q4XoP
-X-Gm-Gg: AeBDievyLO1umu/MxtwIxOZ964HmOjR39GJd5U4yMyyGuEvhT7yzqimD7R/1ynfUt6M
-	hMLwrsIz6dELXzwpu6G3I9ZvkzxlgQ1cyeCsd9ZeHED4r0jjRQNiZi0GHFv0jNfH+znD/1hLoNz
-	EYcWPgbcagTVsNECZNgDw7Ek1wLR4MFld1lFsgTsObCSe1RXHLgTHERKsyl9QkRpfeIIXUs1kKJ
-	Z1QrVhWKH5JJ4HNUZ6wx0ML5R4C5yqjj6Hy+dgRMpMgapLu1fz2Xh6fg3xgM/4BT2JaRhVTYNYr
-	T5mg2ENIolURtZORJy12sE8jWqGXgXcFWcn1t+3DeGUzECJ8iBP8wiJ9qaLfxEIfRtswaw+C12t
-	y1HTSm7Zm8dldkeo1nYFb1QF/FI322kdchG5fMdsabLxqVSVI8Rh/X/WN0y9zMl1XB/jh1d8U7e
-	XgDyc=
-X-Received: by 2002:a05:622a:1c0f:b0:50d:5af1:65bb with SMTP id d75a77b69052e-50dd82879c6mr123727481cf.5.1776079100995;
-        Mon, 13 Apr 2026 04:18:20 -0700 (PDT)
-X-Received: by 2002:a05:622a:1c0f:b0:50d:5af1:65bb with SMTP id d75a77b69052e-50dd82879c6mr123727081cf.5.1776079100591;
-        Mon, 13 Apr 2026 04:18:20 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9d6e5c5824sm302144866b.38.2026.04.13.04.18.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 13 Apr 2026 04:18:19 -0700 (PDT)
-Message-ID: <3d4a12f1-a9ba-4955-b018-f1c271aab766@oss.qualcomm.com>
-Date: Mon, 13 Apr 2026 13:18:16 +0200
+	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="btUF23o5"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Vof3FW/lZ0NXt+4Kfcuz28w5Jqzi9RxLFVlz+/e6u7O8t8iOJbRgPPTQhF4DxGHh4iLh8b/1LeR0/P5HuRnPMPV26apaUIKluMjx3t0nenBT4wLFehBJsLdzVsQ4/rXQ5USlN6Vrh6zp7699wFHbiMnjAz3G6BlaZn7qUwU1pSGsk/yhaTWte5j50qQ1JO7P+PFyvp25HV8XkT2IfTh6a68GC9rzdxOiQbbZDSKJaMwhBLv4OizdJoZj6guzcgmgzb2hZ8B/DaLy1cl61x/UgKKdKFknqDrB2FYBSyaCq5JwAkfWmK8iHhOiro0YCkdxm8KtXJhoL1fOEUa29go2dQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HuZ9akBJJiiR4ZCh9/MqoKk9hEqWGojtzjXzQspQEFs=;
+ b=mfx2+KBV7QwbT+kZoR3H+N1NpXca69cOiNXda/hBvon4aYr7/e58xmpsEh1e4/4pPoxXLrusOd5xNGKOfPWX3wjDrelXJSb5MpXvtMb5VzCvsViS4Um/PRS17M+L10NhcJ3stCzlrd0tesEUCSWzNxosvf/QIScUQlAumaiIlc0oj8LlwHzAw7wYDSR9jcDw9TCtyYxXvHWJM/exgGWzHVBu49N8x0OOQdt+njth/vfxI3VPwkg3hV5gHOzLgLEaOJVdtERgA+ou9oEM0rbWbRn+2204ylzFp192GcEZHVDzMNq0cN/ghi+mv+XaS9StbhJQA93NLR/h7CnTga6SMA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HuZ9akBJJiiR4ZCh9/MqoKk9hEqWGojtzjXzQspQEFs=;
+ b=btUF23o55iCnu48P0r4mXsSTsqCClO6W6jKkxFuYlUxXZ76XiFAJR55Nbr2xlBqUwNub0dPuDDV6uCc+R5DNX83rOTkbSfYoO0vp8YtoLyDQ6OSiSde3lWczkKdCcbJ/AHrPDLxvGyu3BJQziEhjQ+lXj0kSA23a66qcrz9RlpZ2jRPfllOVdrBe2U0O6WGzwnO5dT/nONUx/W6HzK6RcBBBTASSpm4l/u7E0pQj1+mmpirWzHNdzFsKs3Y8VgywiEUO1pQHSRu5jkcbyF8xpkhUmxPzM2MK747dPmeXoOeKi+W68tUiBjFuCXO+jOHjS2NpGDpXhqWFJ13M8Ad2dw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from KL1PR03MB7149.apcprd03.prod.outlook.com (2603:1096:820:ca::7)
+ by SEZPR03MB7402.apcprd03.prod.outlook.com (2603:1096:101:12e::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Mon, 13 Apr
+ 2026 11:33:19 +0000
+Received: from KL1PR03MB7149.apcprd03.prod.outlook.com
+ ([fe80::2f06:12a:fff0:6506]) by KL1PR03MB7149.apcprd03.prod.outlook.com
+ ([fe80::2f06:12a:fff0:6506%5]) with mapi id 15.20.9769.046; Mon, 13 Apr 2026
+ 11:33:18 +0000
+Message-ID: <93dde817-df7c-4492-9a7d-e286762a7c9f@amlogic.com>
+Date: Mon, 13 Apr 2026 19:33:16 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] soc: amlogic: clk-measure: Add A1 and T7 support
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ robh+dt <robh+dt@kernel.org>, Rob Herring <robh@kernel.org>
+Cc: devicetree <devicetree@vger.kernel.org>,
+ linux-amlogic <linux-amlogic@lists.infradead.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+References: <20260410100329.3167482-1-jian.hu@amlogic.com>
+ <20260410100329.3167482-3-jian.hu@amlogic.com>
+ <9a4f69e7-838a-4992-af1d-46324e14eb48@kernel.org>
+ <274d2abd-05b9-4dbd-b962-ff70044b8d07@amlogic.com>
+ <b0d81181-d4a4-4c03-8c26-c7f6e8cde70f@kernel.org>
+ <3a08bb84-b313-4b3b-bb61-1b686226e902@linaro.org>
+From: Jian Hu <jian.hu@amlogic.com>
+In-Reply-To: <3a08bb84-b313-4b3b-bb61-1b686226e902@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SG2PR02CA0080.apcprd02.prod.outlook.com
+ (2603:1096:4:90::20) To KL1PR03MB7149.apcprd03.prod.outlook.com
+ (2603:1096:820:ca::7)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 3/4] clk: qcom: tcsrcc-glymur: Migrate
- tcsr_pcie_N_clkref_en to clk_ref common helper
-To: Qiang Yu <qiang.yu@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: Taniya Das <taniya.das@oss.qualcomm.com>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, johan@kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260331-qref_vote-v1-0-3fd7fbf87864@oss.qualcomm.com>
- <20260331-qref_vote-v1-3-3fd7fbf87864@oss.qualcomm.com>
- <ebce5979-0ab5-47ff-963e-68e27216821d@oss.qualcomm.com>
- <ac306hTHe3qVORk2@hu-qianyu-lv.qualcomm.com> <adem2WKh2B-Leivq@baldur>
- <adyV7qKQL+SJ6TxL@hu-qianyu-lv.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <adyV7qKQL+SJ6TxL@hu-qianyu-lv.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=bcFbluPB c=1 sm=1 tr=0 ts=69dcd0fd cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=lt5JZrjwga_6XPCI6XsA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEzMDExMCBTYWx0ZWRfX8m7zS1+cE0iY
- EKxPnPn9NT2nP1cF2KvlSpzjCa+IFbenipK0f2OzmLcP4J+J05EHrfR9KEEmDw8s97h0TN8E5ws
- XM2GmyZU12KaS/XwSRP9bPzGn6ZBck6FUe6FKbvnizXoQw4HPxQzbVC9POtsM2fgbQxvk8Zv5dh
- RiFvuHP5B8Aq+aHiGxhsuj5JpjGAT3nRgR5gSW/71ypCkerrDAS8rxG/J5trNL3UmmKl3U9EIgZ
- jqUpOQ/Umw2v1vo1Q9vqlsLyCJnL7duqaNKnhyQanFIZW6NkERk1uyA3ZBh/mh5BIGg36l+cNr5
- OjulUODJFkpez6TrmxFe0yk+nXTLcBsHzM1QDsitsw0NdoNh6D32HrpUQeB7wQc2Uuru8qz4xVb
- YBDP9LmwcWB1MLkxItDKTn8xAl7iCVNB0OE/cz9RcQMM0llEZz09puJW5vGs/uMx/LtjW6E7Tf9
- Ng7992/onJw/e7ffWmQ==
-X-Proofpoint-ORIG-GUID: 2YIzckcBOHeZpgvINGJOyTF2LAjkikhk
-X-Proofpoint-GUID: 2YIzckcBOHeZpgvINGJOyTF2LAjkikhk
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-13_03,2026-04-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 impostorscore=0 malwarescore=0
- suspectscore=0 adultscore=0 bulkscore=0 phishscore=0 priorityscore=1501
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
- definitions=main-2604130110
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: KL1PR03MB7149:EE_|SEZPR03MB7402:EE_
+X-MS-Office365-Filtering-Correlation-Id: f6875641-fd96-4b75-ba0c-08de995075c6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	JejGoYyAP1Og8Gu7ETO12rQOD4iCajtqEP0retBbK1MHzvVuUA+klaa2n/m4u1DLf//16Ya96+K2OyIaD9pFjQSRlyAbwd7lq5JEMcu/pNmmmb+sB/NAiJFoL6y3qPel6ywh6EYY+lx3wBxJMbRPbZVC5O7+uQfFgLk603tNu8XVbqYdeloOPQQy8jTGSU60W0Y9bZZ/9gW1CvQHKwcCQm/F4rWUo2c4+Rf8bgnrWDEjQqkNbbM1kSp36DAzUQ23YIT7nQQhYpGHVfjP81+9LsU8HAEAuWPGn/u4lMmOIk7/xG7i18AcvL/DUjOGLpsJwdeBTCI8shOUKnHl+8NGH5T3ZAIMOCvE7pdofGYSRroRtadooFxpShJ4BVMMBcvE0Nc4o/1UKeI616LcZO2db4O5E+3kvVEr220gWfIkWX8deBLY/qvVzkm1Y1BCURg+2iiYfjqZX7T29Cq80aRy1kc386gwYlC43eplDePwkGQycSOfYW1Qm9RB3tBz3TMN5UwedAngmcMkm5wK3AMhHBDSEF1XkYq+lRMUiX8exx5xxmpj+W9No7njZJg9hl4c4wk8smfVGjOhBPr/Up2zNHma0Mlb15+OFQQ300Ua+r6zKvQBcVcEHNZmRnVaXx0t0yj+5IKFA0J2XrFTdgWdukpKofohgOtk7I3duF1HxwmqwTwIhZwMqLUrZsgoDgqk
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB7149.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bGdFREttc3VmZkRZbGtIejc0elRydHVMY2Vla2V0R3RmWm5DWVBtK1NWNUl2?=
+ =?utf-8?B?QlhlKzc4SnRSZW9BVndlaUpCaTZCUjFCNndDMm9IODhGZHpVTVpuaE9ZZjJs?=
+ =?utf-8?B?QmlqblppTVVKaU9lRUZyWU1XRGZacUVQUTNsa09lbkkzZEZDQmcxSjBnWENx?=
+ =?utf-8?B?RlVsWk9IbGRzcmZPaWlSbXdHQXc1M0NERTdaOGowaTgrOEJkZ3BmYXRrdjlY?=
+ =?utf-8?B?SlJXcmhNWWcrNFQyU0EydzNVZEU1YzlwblVpekNPbVFXUEVCYzJ2eUtBM3R2?=
+ =?utf-8?B?MDEvMnUwWE1BTmJ5UjFsbVlsM2RTdUFFU2tCdU1jUUY5NSs2RmhCeXpEQzN6?=
+ =?utf-8?B?NUV2OEc2OEZKbEx1b1R0cE1lK3lNcW1CNjF6T0dRcWxuK0FZRlFTK2lVSERO?=
+ =?utf-8?B?dVN1V2hQeG5qV3p6WklKalVtNGNnYmpRZ1NPSWtmQjFYZGhhc09oR2RhOWdj?=
+ =?utf-8?B?b3dVQk9wNUhFRFA1MDlvRnE3YmZJWFdCQW1rZlpkcVR1dTN3SmlCSEhzb0ZU?=
+ =?utf-8?B?OTZmZkMrMktGNE1LNlVVTVNPOU5pUXV2SFA4Nld5VFlCOWhzc25aK01ORDF6?=
+ =?utf-8?B?bGJnTTN6QVdXakp2elR1MVVOTTQ4UXBCNHR1WlpEdzNQL1JoOFRBUE5seGh6?=
+ =?utf-8?B?N3pweEYvMTZ2Zmh0RjJ4N3FEaGlKMEw5Y0xxejUxOC85TXMxVCs3ZHJvOVND?=
+ =?utf-8?B?MElBM0pHYVZpdkwreSt1TmRPNTdXL3FxV3lidjBXMlR3REJIR2p5U2JsM1Z2?=
+ =?utf-8?B?UitlRE9YVkc1bHJVNGdpZjhUMU9nV3A4RTJST0dSaEMxSzBPb3l6eGFITXJ0?=
+ =?utf-8?B?QkZiQ0I5bGtzaElqb1JOYVZxSGl1OWc0ekFGV29GRXBUN2dBeFNHTWxNa2Nj?=
+ =?utf-8?B?MytWSHlDRXdiNldRUXdNMkdBaE9FZDhsRTNpdlh2dXpmOUpia1ZKNDB3VmZP?=
+ =?utf-8?B?THgxeG80QVRxVzhWVVkvNlhkZ0xXZDRSQ2lmUVVUVjV2a3lneEFlSzVmMGlE?=
+ =?utf-8?B?ekJLOWlYZ0cxWHYvQ1FURE5FbnN2SExaaW5pVkNnTHRjT1BEVkFrQkJIeG03?=
+ =?utf-8?B?SEZXRUFNb05GeGlPTGVXWEQ5QXhFSzZZYTkramlVdHZBMWVhc25kNDdBWEVV?=
+ =?utf-8?B?N0xPOHZEdWNxU2pjbDlETWMwaFNBOFVKMTVyT0s4T3phaHd6cHppYnFCZEU1?=
+ =?utf-8?B?U3owa0F4NWNFQmhiNUJqdmY4UTVqZ0k2MGFQZVVTN1IrQkNBanZUUnc5Yk1G?=
+ =?utf-8?B?MDVSY1ZreTFQNlZpaFBaM0FYSE5haWRFNEN6NjhJOG12SVd5UjNZR21Uazly?=
+ =?utf-8?B?UkQ2WWtNYXpncldjaWNVeFoxTUoyMzZmWHdqelpJeTBJbTg4bUxJYi9BaUZh?=
+ =?utf-8?B?RFVTdk1uWEJPbEtibXpxYWlLelhvOHN2MVBBWllUaHd5MEEvY2c3UEdBcWlt?=
+ =?utf-8?B?ODlLSklyKzgrVUZabGJ1M3NCbVk1Uml0dFhEVVFULzBmOWpkZzQ1cWNWOE5U?=
+ =?utf-8?B?aDVLb0NxRE5HZC9Lc1hVZ1BieDRqbmREV3RNUWovNUVjK0FvSDFOSVVuL2p6?=
+ =?utf-8?B?dk9WajIvM1NqZlZlRjQzN3RYanMrSTJ5V2U4K21VV1JIU0JBVTd5b1JrM0tF?=
+ =?utf-8?B?V1E0U0FLMU12VG5SYUdJZ1RzQ3pmZ29ZbTZZbVBveS9kdG84L09yTEJYNkh0?=
+ =?utf-8?B?ei80TVcwMTFpSGh6cEZ4UWtVTlVYakhteis2b2dwc005YzZzQjVUandyZkhB?=
+ =?utf-8?B?RGtmZWRIZWZ1R1FwTXRUMjVpZVByRjI2ekh0L1o3ZTUrbUFscGFjVHljdXRk?=
+ =?utf-8?B?aU5meDZzSG44QlhZZEZOK203S3YvZ1pyRlRNRDJlUVlJbWc0MWJ1ZFhJZjQ3?=
+ =?utf-8?B?bTJnclB4bGlybldzVElyUkRZM1NPd3Bid3VCSnRCbUlSTFF4MERFeXVtUURp?=
+ =?utf-8?B?alFQdWJjRkpjL1VSUFM1RzNZcDJVK09XK1lqbHM0Ti8xVjlZdGtVQy80ckNq?=
+ =?utf-8?B?ZW5xa0YyQkZlMGI4azA2Y3RBWEo4UCs3VHh4YVYzRSs4TTFhRzlxK254bFlw?=
+ =?utf-8?B?VE1GRHQ4UHBlRlRGbFhJay9jcW5rV2ozeGVmd3FyL1p4QTZUa2M3OFdNeGtz?=
+ =?utf-8?B?RnJScSthZGR3QThaWStYQWZpZzBZV1FINThPWTdqOXFNbnNEMHlmZzhTMm5y?=
+ =?utf-8?B?WnNXOVhnTk0yV0xXbUsveTZRc0ZHN2hsem1pQnJDcDhzRy9iM3VFcy9DTHox?=
+ =?utf-8?B?NGFGa0Q2alJpcmxhMHlUSDhySXNVZnp1Q0ZNNmwzRzllM0NtakdQZ1hIYitk?=
+ =?utf-8?B?OG1oUktEOU0vMVZyT2tpR1dOSVNaQ0kzNEp1ZVVYSDJFTlBHL2orUT09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f6875641-fd96-4b75-ba0c-08de995075c6
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB7149.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2026 11:33:18.6826
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PJT11gRv6rEFtk6bn7vxcHfZTF9lzu7Cq+RodOyixCqaiH9bYdXJ4nYePPtAroHMbs7EUkXWc4zF8tBh4Z9YlQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR03MB7402
 
-On 4/13/26 9:06 AM, Qiang Yu wrote:
-> On Thu, Apr 09, 2026 at 08:19:41AM -0500, Bjorn Andersson wrote:
->> On Wed, Apr 01, 2026 at 09:47:38PM -0700, Qiang Yu wrote:
->>> On Wed, Apr 01, 2026 at 10:05:12PM +0530, Taniya Das wrote:
->>>> On 4/1/2026 12:05 PM, Qiang Yu wrote:
->>>>> diff --git a/drivers/clk/qcom/tcsrcc-glymur.c b/drivers/clk/qcom/tcsrcc-glymur.c
->> [..]
->>>>> +static const char * const tcsr_pcie_4_regulators[] = {
->>>>> +	"vdda-refgen-0p9",
->>>>> +	"vdda-refgen-1p2",
->>>>> +	"vdda-qreftx1-0p9",
->>>>> +	"vdda-qrefrpt0-0p9",
->>>>> +	"vdda-qrefrpt1-0p9",
->>>>> +	"vdda-qrefrpt2-0p9",
->>>>> +	"vdda-qrefrx2-0p9",
->>>>> +};
->>>>> +
->>>>
->>>> TCSR clock refs are just not for PCIe alone, they would have supplies
->>>> for all the ref clocks. These supplies can also be shared across other
->>>> clock refs. I think it is not the correct way to handle the supplies, as
->>>> TCSR does not have the complete supplies map.
->>>>
->>> We have complete supplies map. You can get it on ipcatlog. Here is example
->>> for other instances eg USB and EDP:
->>> - Glymur (eDP): CXO PAD -> TX0 -> RPT0 -> RX0 -> eDP
->>> - Glymur (USB4_2): CXO PAD -> TX0 -> RPT0 -> RPT1 -> RX1 -> USB4_2
->>> - Glymur (USB3): CXO PAD -> TX0 -> RPT3 -> RPT4 -> RX4 -> USB3_SS3
+
+On 4/13/2026 5:24 PM, Neil Armstrong wrote:
+> [ EXTERNAL EMAIL ]
+>
+> On 4/13/26 11:10, Krzysztof Kozlowski wrote:
+>> On 13/04/2026 10:21, Jian Hu wrote:
 >>>
->>> I only add supplies for PCIe in this series because USB and EDP vote these
->>> LDO in their PHY driver. They can remove them in PHY dts node and add same
->>> regulator list here.
+>>> On 4/12/2026 5:55 PM, Krzysztof Kozlowski wrote:
+>>>> [ EXTERNAL EMAIL ]
+>>>>
+>>>> On 10/04/2026 12:03, Jian Hu wrote:
+>>>>> Add support for the A1 and T7 SoC family in amlogic clk measure.
+>>>>>
+>>>>> Signed-off-by: Jian Hu <jian.hu@amlogic.com>
+>>>>> ---
+>>>>>    drivers/soc/amlogic/meson-clk-measure.c | 272 
+>>>>> ++++++++++++++++++++++++
+>>>>>    1 file changed, 272 insertions(+)
+>>>>>
+>>>>> diff --git a/drivers/soc/amlogic/meson-clk-measure.c 
+>>>>> b/drivers/soc/amlogic/meson-clk-measure.c
+>>>>> index d862e30a244e..083524671b76 100644
+>>>>> --- a/drivers/soc/amlogic/meson-clk-measure.c
+>>>>> +++ b/drivers/soc/amlogic/meson-clk-measure.c
+>>>>> @@ -787,6 +787,258 @@ static const struct meson_msr_id 
+>>>>> clk_msr_s4[] = {
+>>>>>
+>>>>>    };
+>>>>>
+>>>>> +static struct meson_msr_id clk_msr_a1[] = {
+>>>> And existing code uses what sort of array? Seems you send us 
+>>>> obsolete or
+>>>> downstream code.
 >>>
+>>>
+>>> Thanks for your review.
+>>>
+>>>
+>>> I have checked the previous Amlogic SoC's commits. Such as Amlogic AXG,
+>>> G12A, C3, S4.
+>>>
+>>> The clk_msr_xx entry is added after last SoC's array, sorted by
+>>> submissin date rather than alphabetical order.
+>>>
+>>> So I place A1 and T7 after S4 accordingly.
+>>>
+>>>
+>>> The A1 clock controller driver was already supported in
+>>> https://lore.kernel.org/all/20230523135351.19133-7-ddrokosov@sberdevices.ru/ 
+>>>
+>>>
+>>> It is also present in the mainline kernel:
+>>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/clk/meson/Kconfig#n113 
+>>>
+>>>
+>>>
+>>> This clock measure IP is used to measure the internal clock paths
+>>> frequencies,  and A1 clock controller driver was supported.
+>>>
+>>> Since the corresponding clock measure driver does not support A1 
+>>> yet, So
+>>> add A1 clk msr here.
 >>
->> The regulators are reference counted. Can't we add the USB and eDP
->> handling here as well now, and then after they are voted here we remove
->> them from the PHY?
+>> No, what qualifiers or keywords are used for existing arrays? IOW,
+>> please investigate and understand why you are doing this very different
+>> than existing code. Maybe because you sent us downstream, so you
+>> replicated all other downstream issues.
+>
+> I see, the existing uses "static const struct".
+>
+> Jian, could to switch to that please ?
+>
+> Neil
+>
 >>
-> 
-> For USB, I’m not yet sure which tcsr_*_clkref_en each USB instance in the
-> QREF diagram is tied to. I need to confirm that mapping first, I'm
-> checking with Wesley Cheng.
+>> Best regards,
+>> Krzysztof
 
-I think on at least some platforms the reference clock for the primary
-USB controller is not sw-controllable (so we wouldn't get a handle to
-toggle the regulator this way).. please check that
 
-Konrad
+Hi, Krysztof & neil
+
+
+Got it. Thank you pointing out the missing "const".  I mistakenly 
+thought it was an alphabetical order issue.
+
+I will fix it in the next verion.
+
+
+Best regards,
+
+Jian
+
