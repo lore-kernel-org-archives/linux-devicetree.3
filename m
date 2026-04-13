@@ -1,78 +1,169 @@
-Received: from mail-m49251.qiye.163.com (mail-m49251.qiye.163.com [45.254.49.251])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 113DD3ACF18;
-	Mon, 13 Apr 2026 08:50:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8E5E3AE188;
+	Mon, 13 Apr 2026 08:55:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776070212; cv=none; b=FwyReRoiK+gNYWKBsUr6CHjYYfVACbAbZmjV6mBMnVswERyt48t115LNi6S/a++j7yhuaN4pmLrLyKlA9miq8irvfjOeYHTbki5LoACIPAdtlJDGey/IrTHNFdY+589OBA1iYsJ5RwMMgXl7Qq1v+jSW7DGDDdnLZU0y08aGRzc=
+	t=1776070506; cv=none; b=cBzbJoZvdyBfUGGg4BbvvH6tYZ0M2Stk5DS5RbpVWMp+Q0x/hQzgMGpfqxHQhSkhdrmKDls+C2warBLwvYXe3V/hSXwbnAT8UdG4+Z0PlM3WjZcvuj8MndrtFdC71u7ePVj0mWJyE7QZYgw10zvnKVdxahMDuuF4xAYLlYnjTT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776070212; c=relaxed/simple;
-	bh=a5cfvD79s13RodOBSnnS6MZy+PfOZ1JpGpK2+xNbky4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MKn5iNrxy/n+0917vW/v06US0w+j7r5Z7z9N9iaZTVn4DYv9+9qT32XA5R6ZhBBjPeHG/tC03hiEsNBvSTRW0XvmKb61nlO279lsggjiGWrsFHFGtPoOy4B6RZbYZ+AE2IrO3lskCqlJX1iX11NwI8wLQGV9ujy3JU5zGcryLAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=JZktgYiO; arc=none smtp.client-ip=45.254.49.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
+	s=arc-20240116; t=1776070506; c=relaxed/simple;
+	bh=MnXbCdsjlvyvs9JqkHFM6tGL70LIXsHZjV87wjkRqjk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ao0OlDLSa65kL2xz1DauMRCQo1CG5LEc70J8s40RoBwGOXdWmMOna4Guf+gabBP77KjLJdZEQjG2/YfcE7hR/3MTvycnsxN+LtNGj2PHtTmZ1/Ml5AH2cPW6WaUzeCXzCHt6+uu2E4ldmQBsFH1MY4WaJsC5WGAjBxBK93dbZFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O4Kc/F4O; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="JZktgYiO"
-Received: from albert-OptiPlex-7080.. (unknown [112.65.126.162])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 3a8013ec1;
-	Mon, 13 Apr 2026 16:34:41 +0800 (GMT+08:00)
-From: Albert Yang <yangzh0906@thundersoft.com>
-To: krzk@kernel.org,
-	arnd@arndb.de
-Cc: krzk+dt@kernel.org,
-	robh@kernel.org,
-	conor+dt@kernel.org,
-	gordon.ge@bst.ai,
-	bst-upstream@bstai.top,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	yangzh0906@thundersoft.com
-Subject: [PING] Re: [PATCH v7 0/2] arm64: dts/defconfig: enable BST C1200 eMMC
-Date: Mon, 13 Apr 2026 16:34:41 +0800
-Message-ID: <20260413083441.1758438-1-yangzh0906@thundersoft.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260310091211.4171307-1-yangzh0906@thundersoft.com>
-References: <20260310091211.4171307-1-yangzh0906@thundersoft.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O4Kc/F4O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F110CC116C6;
+	Mon, 13 Apr 2026 08:55:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776070506;
+	bh=MnXbCdsjlvyvs9JqkHFM6tGL70LIXsHZjV87wjkRqjk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=O4Kc/F4OU4saMe+vQG/0hl2CUrlQBpNgvdNexwjYPYUEFpb7UCUoRsJlzx7I2B6Sm
+	 CAj74iiv24pXXhLNxjHyMlBgHt/R+CdRZXDB5lfSoYPRM8TH/VFpmXABv2KN/3aDpi
+	 mCbv0PFfO7m+brK0Ob0ahZqw6fGJTderxW2iWZoWBuneAJOcmEcEutVp2miHOEIxYP
+	 ustGCSsvElvLIQYizHxDmV4HZdPqD8Uu+fYNvWvgbPY+FhVm3RVV9TYho+dMIJ2nYf
+	 dMheiuh9rE3NbzDSmQ3mMA9DRqLDodQkez56OHoVpGit9wTV8mYLd+TJ+Wpac8T0EM
+	 +WfxdomAMw5/w==
+Date: Mon, 13 Apr 2026 10:55:03 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Xilin Wu <sophon@radxa.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Nikita Travkin <nikita@trvn.ru>, linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH 2/2] pwm: clk-pwm: add GPIO and pinctrl support for
+ constant output levels
+Message-ID: <adys5EQcZXP7BBmg@monoceros>
+References: <20260406-clk-pwm-gpio-v1-0-40d2f3a20aff@radxa.com>
+ <20260406-clk-pwm-gpio-v1-2-40d2f3a20aff@radxa.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9d85fa86b809cckunmf74b8d5778cf66
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWS1ZQUlXWQ8JGhUIEh9ZQVlCSE1MVkJKHR4eGB4eTk4YTlYVFAkWGhdVEwETFh
-	oSFyQUDg9ZV1kYEgtZQVlKSklVTU5VSklNVUpNSVlXWRYaDxIVHRRZQVlPS0hVSktJT09PSFVKS0
-	tVSkJLS1kG
-DKIM-Signature: a=rsa-sha256;
-	b=JZktgYiOjdFMsJrxGJj2UQzex9sE2av8KIhm6YmDwj4Sp32hnsDurgnAodc8/nRAkMyd4qcUmCxdnUoxEylVWwzIeINsScDfCcxB99q9nMdBA8oJRS4afVj63efkiPZR0J8s0z5KqliwCz7vOph8io5yYdzsTe0DUoxIKsEqbqI=; s=default; c=relaxed/relaxed; d=thundersoft.com; v=1;
-	bh=a5cfvD79s13RodOBSnnS6MZy+PfOZ1JpGpK2+xNbky4=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="f4ox6y2gzf7pofli"
+Content-Disposition: inline
+In-Reply-To: <20260406-clk-pwm-gpio-v1-2-40d2f3a20aff@radxa.com>
 
-Hi Krzysztof, Arnd, Rob, and Conor,
 
-Gentle ping for this v7 series posted on 2026-03-10:
-https://lore.kernel.org/lkml/20260310091211.4171307-1-yangzh0906@thundersoft.com/
+--f4ox6y2gzf7pofli
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 2/2] pwm: clk-pwm: add GPIO and pinctrl support for
+ constant output levels
+MIME-Version: 1.0
 
-This series only contains the remaining DTS + defconfig parts for BST C1200 eMMC:
-- 1/2 arm64: dts: bst: enable eMMC controller in C1200 CDCU1.0 board
-- 2/2 arm64: defconfig: enable BST SDHCI controller
+Hello,
 
-The MMC driver-side patches were already applied in mmc-next, so this series is for
-arm64/DT review and merge path.
+On Mon, Apr 06, 2026 at 11:50:02PM +0800, Xilin Wu wrote:
+> @@ -45,14 +54,36 @@ static int pwm_clk_apply(struct pwm_chip *chip, struc=
+t pwm_device *pwm,
+>  	u32 rate;
+>  	u64 period =3D state->period;
+>  	u64 duty_cycle =3D state->duty_cycle;
+> +	bool constant_level =3D false;
+> +	int gpio_value =3D 0;
+> =20
+>  	if (!state->enabled) {
+> -		if (pwm->state.enabled) {
+> +		constant_level =3D true;
+> +		gpio_value =3D 0;
+> +	} else if (state->duty_cycle =3D=3D 0) {
+> +		constant_level =3D true;
+> +		gpio_value =3D (state->polarity =3D=3D PWM_POLARITY_INVERSED) ? 1 : 0;
+> +	} else if (state->duty_cycle >=3D state->period) {
+> +		constant_level =3D true;
+> +		gpio_value =3D (state->polarity =3D=3D PWM_POLARITY_INVERSED) ? 0 : 1;
+> +	}
+> +
+> +	if (constant_level) {
+> +		if (pcchip->gpiod) {
+> +			pinctrl_select_state(pcchip->pinctrl, pcchip->pins_gpio);
+> +			gpiod_direction_output(pcchip->gpiod, gpio_value);
 
-No functional code changes since v7. If preferred, I can send a rebase/refresh (v8)
-on top of current mainline immediately.
+Please swap these two calls to reduce glitches.
 
-Could you please help review and let me know if any changes are still needed?
+> +		}
+> +		if (pcchip->clk_enabled) {
+>  			clk_disable(pcchip->clk);
+>  			pcchip->clk_enabled =3D false;
+>  		}
+>  		return 0;
+> -	} else if (!pwm->state.enabled) {
+> +	}
+> +
+> +	if (pcchip->gpiod)
+> +		pinctrl_select_state(pcchip->pinctrl, pcchip->pins_default);
+> +
+> +	if (!pcchip->clk_enabled) {
+>  		ret =3D clk_enable(pcchip->clk);
+>  		if (ret)
+>  			return ret;
+> @@ -97,6 +128,35 @@ static int pwm_clk_probe(struct platform_device *pdev)
+>  		return dev_err_probe(&pdev->dev, PTR_ERR(pcchip->clk),
+>  				     "Failed to get clock\n");
+> =20
+> +	pcchip->pinctrl =3D devm_pinctrl_get(&pdev->dev);
+> +	if (IS_ERR(pcchip->pinctrl)) {
+> +		ret =3D PTR_ERR(pcchip->pinctrl);
+> +		pcchip->pinctrl =3D NULL;
+> +		if (ret =3D=3D -EPROBE_DEFER)
+> +			return ret;
 
-Thanks for your time.
+I think you want to return all failures of devm_pinctrl_get() to the
+caller.
 
-Best regards,
-Albert
+> +	} else {
+> +		pcchip->pins_default =3D pinctrl_lookup_state(pcchip->pinctrl,
+> +							    PINCTRL_STATE_DEFAULT);
+> +		pcchip->pins_gpio =3D pinctrl_lookup_state(pcchip->pinctrl,
+> +							 "gpio");
+> +		if (IS_ERR(pcchip->pins_default) || IS_ERR(pcchip->pins_gpio))
+> +			pcchip->pinctrl =3D NULL;
+> +	}
+> +
+> +	/*
+> +	 * Switch to GPIO pinctrl state before requesting the GPIO.
+> +	 * The driver core has already applied the "default" state, which
+> +	 * muxes the pin to the clock function and claims it.  We must
+> +	 * release that claim first so that gpiolib can request the pin.
+> +	 */
+> +	if (pcchip->pinctrl)
+> +		pinctrl_select_state(pcchip->pinctrl, pcchip->pins_gpio);
+
+Why is this needed? Ideally the probe function doesn't interrupt an
+already setup output.
+
+> +	pcchip->gpiod =3D devm_gpiod_get_optional(&pdev->dev, NULL, GPIOD_ASIS);
+> +	if (IS_ERR(pcchip->gpiod))
+> +		return dev_err_probe(&pdev->dev, PTR_ERR(pcchip->gpiod),
+> +				     "Failed to get gpio\n");
+> +
+>  	chip->ops =3D &pwm_clk_ops;
+> =20
+>  	ret =3D pwmchip_add(chip);
+
+Best regards
+Uwe
+
+--f4ox6y2gzf7pofli
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmncr2UACgkQj4D7WH0S
+/k6FEggAkJfA5MMjYLXW8hLVGywXB033oMDgsSDYYcWAzKVcPCSxDEwuQ+XYA2hR
+NpBkvZltVwEKLXproo55NCk6m20cR402euznjHcI7FyERYpgKrILBa9h9lbOPTFW
+mkup4ikkNq09TyZwSh4A8+YO7XbMfskK+m1Nyn3CFcOkq3PCJ5BkA2IvpK7xkvTC
+axvn1tWK/FHPoFpgi7YuvGLXmpm/d+SDmSF603GkzkxAPm9oEciNp7DR2AmnSW2F
+CvfBnasi+qgTGYCBmAdsgYR/gB+rGPxuI3/B51PMJ92W7BvrxkIvOxrPnkzoj1eF
+dY2lpiPkiwXW7sO8urVykWuhel2aSw==
+=IMQs
+-----END PGP SIGNATURE-----
+
+--f4ox6y2gzf7pofli--
