@@ -1,205 +1,171 @@
-Received: from ixit.cz (ixit.cz [185.100.197.86])
+Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1DBE3BAD8F;
-	Mon, 13 Apr 2026 10:50:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D21E2318EE2;
+	Mon, 13 Apr 2026 10:56:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.61.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776077439; cv=none; b=PwsvQRJHHECkVj0YYpVlemRgchfQVyK0+YfSzqU31a0BTZFol0rypTdgUe9bDrKlLXCD6mUkw+OWXYUJhtuo3ygb7j7iYNtEokv3Uq9TbyMlf3oR+hhlW0iugqkcgIUodnIODIfxnOuaamO9LeDJ5Uza3Uio0b4UXJXbkLJpM0c=
+	t=1776077796; cv=none; b=Y5iGMPl7X8AET2tKnaIxkI/oPHTVMcjKBveKU3bEFn+pDq3VKyayIXp5pyViCQHCKmkBq+DcmtfHFDlU8gdeq754Ssg87DUFn4qR6wkIv3+gb5EpD+VVywtIAC01wC/AApw/BLqY8G/bhEWhlY+b5Kn30glZI4RMyUR2cNqW8SM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776077439; c=relaxed/simple;
-	bh=LcXNEkl0aLOzszcxAPeZxXnku2FVKM5ighzTFReIJC8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Nq/eJnKqkWYvhiVw27Xjd5SOniVcYAdUt8H6f6mL1DB3K5YBmoULcp3sfGlzYP9Yp91oUUG5M9e6UvnCO4TRX/9ErjoDh+QejiV/gPxlwekC0gxVrqQIxwa7LJbWyuM0rMfzl1A3iVAo3+XlPjDvz3FTP9kMbj9CZab1ZzX4au0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=PyFR8+rF; arc=none smtp.client-ip=185.100.197.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1776077796; c=relaxed/simple;
+	bh=VH/voXByB5HtcB/2r/SxeBGsrj4jRhHLjfwo5awLI+E=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ueiCVKaebZ+pXI/dwww7o79vQbaXF6BSNmRVSSMM9q8sMsG6QKX35Gl78iqYzAYKQpRXjQvOIqZQGjKwxoajE9p/kUS5JSZDakxS7X20ptsmNZ3ahjDWCBAnvAXUWLxwA8grrvXAaJuxPwKf62AxEXxrvuzAvuA26yInPOr8560=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aliel.fr; spf=pass smtp.mailfrom=aliel.fr; dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b=LuQrh8R0; arc=none smtp.client-ip=65.21.61.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aliel.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="PyFR8+rF"
-Received: from [192.168.118.16] (194-212-161-213.customers.tmcz.cz [194.212.161.213])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 4FB385340975;
-	Mon, 13 Apr 2026 12:50:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1776077428;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=2R84ggm7/XMCK1jUf42iFkl6q3FL4V9P67eEmcX7p3o=;
-	b=PyFR8+rFr8OHyyoDhuOwxdGOkyL/PP5sc5Aurfu+s+YUwLjBHmr8foT8kQqIlcGds3/whL
-	jtOY1vWWXoo3BzusD40Bkbz8ysCaKPfZrwU1+89+CBMf5NSUO66jNNXc+zbyFPb8YSGbR+
-	gyWcy/6z90Noxx6aLEA7gi/BuzIZI8o=
-Message-ID: <3498c03b-beb4-4235-91c1-c2867ad8c956@ixit.cz>
-Date: Mon, 13 Apr 2026 12:50:26 +0200
+	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b="LuQrh8R0"
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
+	s=courrier-s1; t=1776077792;
+	bh=VH/voXByB5HtcB/2r/SxeBGsrj4jRhHLjfwo5awLI+E=;
+	h=From:Subject:Date:To:Cc;
+	b=LuQrh8R0ELHCVZfe5/zqqS1C9CUwyY2Jrs0tsOXwuK0C1VXq+A8QovHHIQs5jbyt/
+	 fJ54lrzLcAnluI4bijG4C5j3PJPMJEsfzQZZMSC9ol8hQ/X7rhksUUrm2PAZCEiKFC
+	 QvtU/oJGzYmhovPzZ/Piz7bbtwOCgTg9VrJXjdSo=
+Subject: [PATCH v2 0/8] arm64: amlogic: T7 thermal support
+Date: Mon, 13 Apr 2026 12:52:41 +0200
+Message-Id: <20260413-add-thermal-t7-vim4-v2-0-1002d90a0602@aliel.fr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] arm64: dts: qcom: sdm845: Add missing MDSS reset
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20260217-sdm845-hdk-v1-3-866f1965fef7@oss.qualcomm.com>
- <590f75c2-6418-4d39-ba7e-589acdf98786@oss.qualcomm.com>
- <e43d5bb2-bdbf-4439-933e-36591dcfd3c1@ixit.cz>
- <9405b67b-9e08-472d-a937-38c038fdf73a@oss.qualcomm.com>
- <ljser6u4fd5qc4lxxde77igtxz6ertbeucsg6s3zbwlykfowpj@yf7h6tqh6cik>
- <9b4cb352-d1ed-402d-a55d-cce2d2fe1eed@oss.qualcomm.com>
- <t5akkkyyv5yebjmowvqu3nnweu5hz47tagdzv3ifzqwlgib2v2@5jugyaiav5wn>
- <8cd9693d-9ec0-4173-bcca-786915b5c4cc@ixit.cz>
- <xbbaffnmi6z5ohzw3p4m6ox75gasgc3nw5cf6yo7h3td2bmsrb@px2mntm74rhb>
- <5b45a40d-54a6-40b5-b4b6-eac344827dc9@oss.qualcomm.com>
- <cm7cowdic42qziuwpe22b2yuakg2k5lqcdnfs3mspvbvprnbto@6kxucxrbnsc6>
- <e321f7dc-4053-4a4d-a0e3-40c3a8fc0fd8@oss.qualcomm.com>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <e321f7dc-4053-4a4d-a0e3-40c3a8fc0fd8@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/31Sy27bMBD8FUPn0uCbolEU+Y8gh13uMmIjyY4kC
+ wkC/3tp2YcaDXrgYQnMDObx1cw8FZ6bw+6rmXgtczmO9dA/dk3qYHxlUajejZbaS6ukACKxdDw
+ N0IsliLUMVkjJLigESkk1FXmaOJePjfX55XZP/H6u5Mvtsxl4nmEjP+x+btymvqi9dXslXT2UU
+ OJ3gXHfnZ9g6I+vJe3Tcfi18cOSug3rHTgKPmfCFNEAoDGtQ/QuodRBSpuM5MCPKG2C9rGVqtW
+ eyACFjMozWgrkyTKgk1aH9hHlAkeULUTfAlN21pAhSc6nrBJYQi1Rg/LN39lVsbu7LTlMgzXBa
+ VGtVOaCPQuursHmEIOBw6ofRTEYmR1bjayojaSiYW+gcjobXSLMOgUK+K2okaL2IMq4Ql9InKb
+ jiaflUyCysxSNyUHdFf/Fqg1bo7/WPJ77Xkw88yI0etky5khgD6v6Dmyl3twO6SwyjOKtA4L5t
+ hVIKlV5Z2pfd22Ema+BDGU57Eb+qBq3zEJzXU9X5uU4fW4TrXrX+fx3jasSUqiYNbYEoXb6VN1
+ zv89T83K5XP4APzABivMCAAA=
+X-Change-ID: 20260410-add-thermal-t7-vim4-00e571badcc1
+To: Guillaume La Roque <glaroque@baylibre.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: linux-pm@vger.kernel.org, linux-amlogic@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ Ronald Claveau <linux-kernel-dev@aliel.fr>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openssh-sha256; t=1776077788; l=5536;
+ i=linux-kernel-dev@aliel.fr; s=id_ed25519; h=from:subject:message-id;
+ bh=VH/voXByB5HtcB/2r/SxeBGsrj4jRhHLjfwo5awLI+E=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgMGec55oxeeisqykQiUedekMYyOnR9
+ BG9E/7rDWyqdNoAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QI9Kcp7fysQlVZVvMcg6K6TWQFUp6iYfci2zxdto5lYVPWlnkIdx+Z32YaDSz5jiGLl8XIVpg7P
+ eWihqS7SvlQA=
+X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openssh;
+ fpr=SHA256:kch4osYZ6A1BrPps5AUs6KnfdE2wm4ocMtyTc8TmZMs
 
-On 13/04/2026 12:28, Konrad Dybcio wrote:
-> On 4/12/26 2:41 AM, Dmitry Baryshkov wrote:
->> On Fri, Apr 10, 2026 at 10:55:53AM +0200, Konrad Dybcio wrote:
->>> On 4/9/26 11:24 PM, Dmitry Baryshkov wrote:
->>>> On Thu, Apr 09, 2026 at 10:38:15PM +0200, David Heidelberg wrote:
->>>>> On 18/02/2026 16:59, Dmitry Baryshkov wrote:
->>>>>> On Wed, Feb 18, 2026 at 03:28:01PM +0100, Konrad Dybcio wrote:
->>>>>>>
->>>>>>>
->>>>>>> On 18-Feb-26 12:58, Dmitry Baryshkov wrote:
->>>>>>>> On Wed, Feb 18, 2026 at 12:24:26PM +0100, Konrad Dybcio wrote:
->>>>>>>>> On 2/18/26 12:18 PM, David Heidelberg wrote:
->>>>>>>>>> On 18/02/2026 11:30, Konrad Dybcio wrote:
->>>>>>>>>>> On 2/17/26 10:20 PM, Dmitry Baryshkov wrote:
->>>>>>>>>>>> From: David Heidelberg <david@ixit.cz>
->>>>>>>>>>>>
->>>>>>>>>>>> If the OS does not support recovering the state left by the
->>>>>>>>>>>> bootloader it needs a way to reset display hardware, so that it can
->>>>>>>>>>>> start from a clean state. Add a reference to the relevant reset.
->>>>>>>>>>>
->>>>>>>>>>> This is not the relevant reset
->>>>>>>>>>>
->>>>>>>>>>> You want MDSS_CORE_BCR @ 0xaf0_2000
->>>>>>>>>>
->>>>>>>>>> Thanks, I prepared the fixes [1].
->>>>>>>>>>
->>>>>>>>>> I'll try to test it if it's not breaking anything for us and send as v2 of [2].
->>>>>>>>>>
->>>>>>>>>> David
->>>>>>>>>>
->>>>>>>>>> [1] https://codeberg.org/sdm845/linux/commits/branch/b4/mdss-reset
->>>>>>>>>> [2] https://patchwork.kernel.org/project/linux-arm-msm/patch/20260112-mdss-reset-v1-1-af7c572204d3@ixit.cz/
->>>>>>>>>
->>>>>>>>> Please don't alter the contents of dt-bindings, it really doesn't matter
->>>>>>>>> if on sdm845 it's reset0 or reset1, that's why we define them in the first
->>>>>>>>> place
->>>>>>>>
->>>>>>>> I dpn't think that will pass. Current reset is defined as RSCC, we can't
->>>>>>>> change that to CORE behind the scene. I'd prefer David's approach.
->>>>>>>
->>>>>>> Back when I replied, David had a patch that removed the current RSCC
->>>>>>> reset definition in dt-bindings (at index 0) and re-used that index
->>>>>>> for CORE, putting RSCC at index 1. Perhaps it's better to link to
->>>>>>> specific commits when making comments, note to self :P
->>>>>>
->>>>>> Yes, I saw the commit having two resets. Anyway, as we saw, it doesn't
->>>>>> work.
->>>>>
->>>>> So, finally I spent "so much effort" (read throwing it at LLM) looking at:
->>>>>
->>>>> arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402,
->>>>> iova=0x9d4bb500, fsynr=0x170021, cbfrsynra=0xc88, cb=11
->>>>> arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0xc88
->>>>> arm-smmu 15000000.iommu: FSYNR0 = 00170021 [S1CBNDX=23 PNU PLVL=1]
->>>>
->>>> [...]
->>>>
->>>>>
->>>>> These (or very similar warnings) are around sdm845 definitely 6.19+ /
->>>>> linux-next kernels for some time, but pretty harmless.
->>>>>
->>>>> LLM suggested multiple fixes, but when presenting possibility of
->>>>> implementing mdss reset it found it as most preferable [1].
->>>>>
->>>>> Adding MDSS reset would most likely solve it. It's not critical, but not
->>>>> nice to see many red lines in the dmesg.
->>>>>
->>>>> Is there something I could experiment with to get closer to have proper MDSS reset?
->>>>
->>>> I don't have a sensible solution at this point. We tried using the MDSS
->>>> reset on several SDM845 devices, but they just reset. So... I don't have
->>>> any possible solution.
->>>
->>> The older context talks about altering the existing dt-bindings values
->>> and now we're at hardware (mis)behaving? What is the issue here?
->>
->> The HDK and DB845c reset if I try touching MDSS core reset.
-> 
-> And David, does that also happen on your other boards?
+This series adds thermal monitoring support for the Amlogic T7 SoC,
+used on the Khadas VIM4 board.
 
-yes, I recall OnePlus 6 or 6T going to crashdump and Pixel 3 crashing too.
+The T7 exposes six thermal sensors (a53, a73, gpu, nna, vpu, hevc),
+each accessible through the secure monitor firmware interface rather
+than a directly mapped eFuse register as on older SoCs.
 
-David
+The series is organized as follows:
 
-> 
-> Konrad
+- Patch 1 extends the amlogic,t7-thermal DT binding to describe the
+  new amlogic,secure-monitor property.
+- Patches 2-3 extend the Meson secure monitor driver to expose a
+  thermal calibration read command (SMC ID 0x82000047).
+- Patch 4 adds the secure monitor readout path to the amlogic thermal
+  driver and introduces the amlogic,t7-thermal compatible.
+- Patches 5-7 wire up the T7 DTSI with CPU cooling cells, sensor
+  nodes, and thermal zones.
+- Patch 8 extends the Khadas VIM4 DTS to map all thermal zones to the
+  on-board MCU fan controller (states 30–100, corresponding to the
+  FAN_CTRL register range 0x1E–0x64).
 
+Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+---
+Changes in v2:
+- PATCH 1: change two const entries to enum, explain why sensor index is needed
+  reorder conditional compatible for required, and fallback only according to
+  Krzysztof's feedback.
+- PATCH 3: Add kerneldoc for meson_sm_get_thermal_calib exported function
+  according to Krzysztof's feedback.
+- Link to v1: https://lore.kernel.org/r/20260410-add-thermal-t7-vim4-v1-0-19f2b8da74d7@aliel.fr
+
+---
+Ronald Claveau (8):
+      dt-bindings: thermal: amlogic: Add support for T7
+      firmware: meson: sm: Thermal calibration read via secure monitor
+      firmware: meson: sm: Add thermal calibration SMC call
+      thermal: amlogic: Add support for secure monitor calibration readout
+      arm64: dts: amlogic: t7: Add cooling cells to all CPUs
+      arm64: dts: amlogic: t7: Add thermal sensor nodes
+      arm64: dts: amlogic: t7: Add thermal zones
+      arm64: dts: amlogic: t7: khadas-vim4: Add fan cooling to thermal zones
+
+ .../bindings/thermal/amlogic,thermal.yaml          |  42 +++-
+ .../dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts  | 102 +++++++++
+ arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi        | 245 +++++++++++++++++++++
+ drivers/firmware/meson/meson_sm.c                  |  29 ++-
+ drivers/thermal/amlogic_thermal.c                  |  58 ++++-
+ include/linux/firmware/meson/meson_sm.h            |   3 +
+ 6 files changed, 467 insertions(+), 12 deletions(-)
+---
+base-commit: f7b64ed948718290209074a50bb0df17e5944873
+change-id: 20260410-add-thermal-t7-vim4-00e571badcc1
+prerequisite-message-id: <20260326092645.1053261-1-jian.hu@amlogic.com>
+prerequisite-patch-id: f03a086b4137158412b2d47b3de793b858de8dde
+prerequisite-patch-id: 123970c9b29c2090440f2fd71c85d3c6fd8e36de
+prerequisite-patch-id: 3e2e56b0926ba327b520f935df4ced5089bbe503
+prerequisite-patch-id: 65a5d76ffdbc9b3aab3385bb65cb027004c30e7e
+prerequisite-patch-id: 237269801826dd3ad7fb16eb4d7d6d4eab504278
+prerequisite-patch-id: 57e9b08a968aedf543d3d0d56cf1ca4db20b2a16
+prerequisite-change-id: 20260326-add-bcm43752-compatible-e264a4f7973a:v2
+prerequisite-patch-id: cd98b74fa56af72af2553f391c400981d83cd4f4
+prerequisite-patch-id: b730f5e42be1d89d193e63a0265495cdbf2c7d7b
+prerequisite-change-id: 20260330-fix-invalid-property-bbe54d933f71:v2
+prerequisite-patch-id: 8d675e7a239985c762843515b241f0a2f45f9c92
+prerequisite-change-id: 20260331-fix-aml-t7-null-reset-2b608ebf9da4:v1
+prerequisite-patch-id: 5b5de77af11747ce964404fb827d2ee2bff47ea5
+prerequisite-patch-id: 1e37fc75fed1e533adee0f3e7e6ead1f8ff3c55c
+prerequisite-patch-id: 65a5d76ffdbc9b3aab3385bb65cb027004c30e7e
+prerequisite-patch-id: 2daf583fb5e7449a02bd217d8aca330171b598aa
+prerequisite-patch-id: 237269801826dd3ad7fb16eb4d7d6d4eab504278
+prerequisite-patch-id: d1ddf9b7710e91f8062de83bd7ba55afb2c4c112
+prerequisite-patch-id: 57e9b08a968aedf543d3d0d56cf1ca4db20b2a16
+prerequisite-patch-id: cd98b74fa56af72af2553f391c400981d83cd4f4
+prerequisite-patch-id: b730f5e42be1d89d193e63a0265495cdbf2c7d7b
+prerequisite-patch-id: 9debd88fa60febed9cd7208f86603b4c2d270520
+prerequisite-patch-id: 314ef9ff0c4d1d15dab1dea9d92aa065f1eac3e9
+prerequisite-change-id: 20260402-add-mcu-fan-khadas-vim4-ac1cbe553c9b:v2
+prerequisite-patch-id: f03a086b4137158412b2d47b3de793b858de8dde
+prerequisite-patch-id: 123970c9b29c2090440f2fd71c85d3c6fd8e36de
+prerequisite-patch-id: 3e2e56b0926ba327b520f935df4ced5089bbe503
+prerequisite-patch-id: 65a5d76ffdbc9b3aab3385bb65cb027004c30e7e
+prerequisite-patch-id: 237269801826dd3ad7fb16eb4d7d6d4eab504278
+prerequisite-patch-id: 57e9b08a968aedf543d3d0d56cf1ca4db20b2a16
+prerequisite-patch-id: cd98b74fa56af72af2553f391c400981d83cd4f4
+prerequisite-patch-id: b730f5e42be1d89d193e63a0265495cdbf2c7d7b
+prerequisite-patch-id: 8d675e7a239985c762843515b241f0a2f45f9c92
+prerequisite-patch-id: 9debd88fa60febed9cd7208f86603b4c2d270520
+prerequisite-patch-id: 314ef9ff0c4d1d15dab1dea9d92aa065f1eac3e9
+prerequisite-patch-id: 34a2bbfe3ce30c530e69af5083aa26534b2c2560
+prerequisite-patch-id: 406f88d7dabd3a870b358fb53c21686f29eb32b7
+prerequisite-patch-id: d7a75ae3be0f54e0a7e81ccb0043a2f05423c9d0
+prerequisite-patch-id: 5e19dc5ace12b532284246f5c2ff3f214d8a9c4f
+prerequisite-patch-id: d6a87ebcf5246eb67b94ca0908afa3df9f9383fe
+prerequisite-patch-id: 4809bbedf79f59e1abc52c17cffc0b1bbb43d365
+prerequisite-patch-id: c050e8bac4b5491f6c7008a5ccb26f20fad38b46
+prerequisite-patch-id: 30677db8fc57270787245103c0d5acf8791307b0
+
+Best regards,
 -- 
-David Heidelberg
+Ronald Claveau <linux-kernel-dev@aliel.fr>
 
