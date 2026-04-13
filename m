@@ -1,153 +1,158 @@
-Received: from cornsilk.ash.relay.mailchannels.net (cornsilk.ash.relay.mailchannels.net [23.83.222.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05B1C30BBB8;
-	Mon, 13 Apr 2026 20:54:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=23.83.222.40
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776113688; cv=pass; b=twGzqwuCQQmpZ5rjgMkljIV2UrbpDE/D/dZwwoFcqBXRhcFQ+WsuY9OWfilh7eMKCTkp/Y9w3t7ECEuxwSa9aOb98Efp0Ipd4wyYCoMDQahQuA+YoUZM2m7SAsU0Di+o/o+Fn2pGYtHnAI1s3e734ynWAllxKIRbuBMGYdCGtDY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776113688; c=relaxed/simple;
-	bh=U6pA1aVfY84fYP2Mcf/JJjk/A5tY6QAInlV/pSog1bU=;
-	h=From:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc:Date; b=ToezqeyKc38R7/RkkrPPQXAKhVJ9Sd9ww22Eul/dkhypqC1VoH8K6jKI7wRmR6Z2r6LfMBP/zeW3MygnX25GGTFcZGH7l3nCVSiFT5Z/9ghp9IZgYYQfy3cmzCT8WTJr3X9N8aZIMDgbItF5jmZNqbsPzBXhT0RogMr2jwut/ww=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com; spf=pass smtp.mailfrom=smankusors.com; dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b=NXUWCaiW; arc=pass smtp.client-ip=23.83.222.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smankusors.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF38034DCF3
+	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 21:53:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776117238; cv=none; b=nPI921N3QcvSD4lbut8lVe3hxzs+qxYwls7Pntls3qc9HyI8I61w1WalZ+xn+iOukQRHh1awXrZsn/BxGIfH3Z2JiuVw7GhQOBMsT4Y9fvHvENhQ1l7rEPKIlH4QY09m0bZtvsPyZc/4cmnG+mlXFwQWeCzZLNAUzh/hZXw3reM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776117238; c=relaxed/simple;
+	bh=GduQs4mnC0TiWfiB1zr130rkIiYVwmD7FjRW7S78JNA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Fu7dd4csICBe9RfsDnbOKCcmDN1MlB8+XUWfk7mYrLnqHNsMTvKP83sCTROof6HbaSdhNluwSzyBzrGdIe92UvXpz1huC4I+jdGmGAFN/41+vgD4Cr5iwJxqz6wYwVMMVDVy5ttIaCQmkeJ6evq198FGkPMZwqp012iP5Ynwc6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R2geWxAe; arc=none smtp.client-ip=209.85.167.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b="NXUWCaiW"
-X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id F3DBF7E2AA9;
-	Mon, 13 Apr 2026 18:33:03 +0000 (UTC)
-Received: from fr-int-smtpout18.hostinger.io (trex-green-6.trex.outbound.svc.cluster.local [100.123.14.186])
-	(Authenticated sender: hostingeremail)
-	by relay.mailchannels.net (Postfix) with ESMTPA id E5D547E0D5D;
-	Mon, 13 Apr 2026 18:32:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; d=mailchannels.net; s=arc-2022; cv=none;
-	t=1776105183;
-	b=0BBq547em35IjlTX5qCI/Ccdlp94OBsl1D+aMDZxrsmsEKThHOOgiX09weHgCSK/a3xA8t
-	3irEIL1S66Aqlh4oU5QAe5A25VHCkAuBgE2bu93/Ph4x20odVUEbmTNHELG0NPiexTOohW
-	ujIT/mpVYXZ7kR3I3hdEPVOyOY4NehFEoP+13TMP5t1ucscKGegHWS4nfrwnpe+MDS9vSI
-	48/1HRJytwFlw200jFOlQRf9INFXmr5+bmmSYJbVveSX1BYuZ9bvW4IHXXIVq8oc9WRwtI
-	iVgn+K/4RsfxX+KSz+MY/WOJOS3nnTR7BIECb4EsYONC5H65qlwDuhZPxtd6rA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mailchannels.net;
-	s=arc-2022; t=1776105183;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:dkim-signature;
-	bh=gweJvZokbOBgUbozqmqR8MK+vNTuBwBArwOt+IkuJTM=;
-	b=Wx/rsBoN2LmdTDPqVYqkCLmPrZLicpd7Nny5CgrjF3Yp/LFylSrBA33+5M+nVpCcRno3Qp
-	MsZEJjZ5+zJAiLuQCq9vGiuDqdGZetEZmd91zVcwL7oip+znOxHXWAoZ4CKdXolmB6oNXx
-	nsW0MglvDuTQ/LiukimMDvKsXGm27j5x7mhcPPAjvNB0NDoBh+Hl6eCEIT6GYK+pO5chS4
-	oujIBwEq/k/IfW7Sk7N0/IGeTpckq8tPnJO+sqsthbLro7qr25vvxkHhdyJT1DV1Hh2vcQ
-	HKnFKVUdYueyBuAVK7RxiczB6Iz+imMPTgRoRVOLpMzYIgRSX8BLGcIzWczBBw==
-ARC-Authentication-Results: i=1;
-	rspamd-7d86dcc447-rcb8t;
-	auth=pass smtp.auth=hostingeremail smtp.mailfrom=linux@smankusors.com
-X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: hostingeremail|x-authuser|linux@smankusors.com
-X-MailChannels-Auth-Id: hostingeremail
-X-Abiding-Gusty: 07eb788b0f2cbdda_1776105183746_3176115138
-X-MC-Loop-Signature: 1776105183745:2538366678
-X-MC-Ingress-Time: 1776105183745
-Received: from fr-int-smtpout18.hostinger.io (fr-int-smtpout18.hostinger.io
- [148.222.54.9])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.123.14.186 (trex/7.1.5);
-	Mon, 13 Apr 2026 18:33:03 +0000
-Received: from [172.17.0.2] (unknown [180.247.251.74])
-	(Authenticated sender: linux@smankusors.com)
-	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4fvbck0kMJz1xqN;
-	Mon, 13 Apr 2026 18:32:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smankusors.com;
-	s=hostingermail-a; t=1776105177;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gweJvZokbOBgUbozqmqR8MK+vNTuBwBArwOt+IkuJTM=;
-	b=NXUWCaiWtjLOwuo3iNIYVx3Wzqxq+UQBfjwHhWJVhCXIksu+mLLMPRwOxzfc4aoSwE2yXb
-	merSvwtX3lPAuw714Mtt0rjyknuIARwdOghJ+0Z23Hvs6uIv8fWjdhF801wTolp2vlHmGW
-	IIgWhHpQB148D7b3CKwdLNW89FquBZ/lms9I6R0SHAsYPrTSVkYL2VDf3HiyF3Bf/Tu9To
-	CjU4f49T46Em8XtzIAoQfrR5oknPAPomrfzDgoUlBh84XGxWKkYFK4x0AlVyGSJ22RDnGE
-	NXLWyXb2HcaMoNDAUoUEfKGdTsjWcNQMM3E59JPKXxkIe/NPPNfXXz2tq18iNA==
-From: Antony Kurniawan Soemardi <linux@smankusors.com>
-Subject: [PATCH 01/10] dt-bindings: clock: qcom,rpmcc: add msm8960
- compatible
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R2geWxAe"
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-59de8155501so5403877e87.3
+        for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 14:53:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776117235; x=1776722035; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=AOXMNTIIXoqpY3VFkb3PMLMzullDNaoQaiXPYXq2Yho=;
+        b=R2geWxAeqwzXUuZtu0Fq5QRkt0BS9SE0GZAksYUusqzxQPNXKVT2WbnKq+eNUPMtog
+         qI9ZopWTBqgjUqRa1B/sW23zLEq7Q7nlqUUPUg3Q272Mlnh8Ti4B7X489ieiqNCNc/5M
+         9u8NW5LZT6+gbumOABm9iFVD+Y0RFQQTA1vcaJZmwwu5uKgdz/Yn+r0/2aGKwntcC6Yz
+         VIVQtsfQxoqc5uwV3rbLaDXnvM+EpMF4cU65o/zwysj8ItP8K2a0r9h2JXR9Q//yC/vL
+         ulLQ9trTOsFwHeiy8S+WoImxtUwc1H11KDHHSEEEChrRHNL8W1GA2UtDdZ0MoxKfAPwN
+         4BWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776117235; x=1776722035;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=AOXMNTIIXoqpY3VFkb3PMLMzullDNaoQaiXPYXq2Yho=;
+        b=rBHWK8Q208e0EAB6oQ2fLkfbdzn/FdhXNVEmmJiPHBlJKNTQmuokhVgylK6YBZEeyw
+         Gr/gUNUIpEiKlJycUxJ+I6cwZcLGebJwhNiIe0DfTKGpTbNbhf4AqH/ve82ViA9bLlJD
+         u/DAncQ2AaRvU7jtCCLxpVi2CHI9QXoFQ99kDr1vVMkCnisEw5luEzmRzlRq/zjaTG+A
+         QJID43v2odfJiIiQNr0TeHHr5YIfWvOzF7IEovNPB0r1kHuxLnIrlTDwS1mLFYPfQrZN
+         72ixqud35bCX9BZO3HxENQjNS8K7pi12maxEBedv6yqWVhk8NwZcSD8BYTGXH2pt6Jbv
+         VPlA==
+X-Forwarded-Encrypted: i=1; AFNElJ+cL80TKuF/2icd32oNWLno1RzUFrEsdQc9opR1ZUVkQpK4rdBnUxwOHTBkbKb/MLwl9wuaoY0QXMDz@vger.kernel.org
+X-Gm-Message-State: AOJu0YzxjlHyEkmQeMcx0ivKv5nCjJoPqNNujfUg/b3Pl0cGJoP3NDXP
+	1VWrnmgsmMwyvAmkuIOUTWz3DHEjza61uWsjheXIQt56ONoyOm84L803
+X-Gm-Gg: AeBDieuvvqerhuyoIJ3sgNilsON/fDKt25Xba8i9do2HMgtUeEiB3UHa3lNhbvaZxNf
+	tOBlUK+6sf2yxj5nDzv3WVPJ4xpaB7errj2FI9kwhCov6b5fZ3LQC49Q+jaTyan0ScaFe2/elMr
+	xQzUg5su+R73RhWmCfP3CNycDGV8h6nM2K7uL+ZTPn0XPnVOI9HQzKJBmXPvScr7dGqM9bQu1BB
+	nPeYhvb1lLad4hMgeDbkODEb1uWd503NSJY1AGlzS748R6F18uuErwWKf9Jpr1oLpJAUmqo07aI
+	+Hl1CZa36ItWKa7q3GHMirRHkZQCofx3C5sMg1aXv4xQ5Oy26NvJPdCHWDRS1rxgdjg8Ra/HnSI
+	lAUnMNMBfHP3R79XNHPoZRF0+Fm3eZr/M/Xqx1JunTC7A3bDQ0wFAz1sovxDscT17WJNC9RYz9o
+	e8TGCR22pb8II7g2n4WWSTNRppbVjvUC4AMlDPYWN0q9sZJMV7vuy/IMEZxfl+rh35F0Ug0e/mv
+	K4uMYkCG9t7/E+4sWbCmHKXXOfW4g==
+X-Received: by 2002:a05:6512:108d:b0:5a4:d4:5c5e with SMTP id 2adb3069b0e04-5a400d45e20mr1006936e87.22.1776117234891;
+        Mon, 13 Apr 2026 14:53:54 -0700 (PDT)
+Received: from rocky.so.lan (9091-40f8-8d6a-8ea6-6a01-841a-07d0-2001.dyn.estpak.ee. [2001:7d0:841a:6a01:8ea6:8d6a:40f8:9091])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a3fe65214fsm806370e87.49.2026.04.13.14.53.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 13 Apr 2026 14:53:53 -0700 (PDT)
+From: Sten-Silver Ots <stensilver@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Sten-Silver Ots <stensilver@gmail.com>,
+	FUKAUMI Naoki <naoki@radxa.com>,
+	Torsten Duwe <duwe@lst.de>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Andy Yan <andy.yan@rock-chips.com>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] arm64: dts: rockchip: Enable the NPU on rk3588-rock-5-itx
+Date: Tue, 14 Apr 2026 00:52:49 +0300
+Message-ID: <20260413215301.4656-1-stensilver@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260414-msm8960-wifi-v1-1-01c081e54610@smankusors.com>
-References: <20260414-msm8960-wifi-v1-0-01c081e54610@smankusors.com>
-In-Reply-To: <20260414-msm8960-wifi-v1-0-01c081e54610@smankusors.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org, 
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
- Rudraksha Gupta <guptarud@gmail.com>, 
- Antony Kurniawan Soemardi <linux@smankusors.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776105169; l=1316;
- i=linux@smankusors.com; s=20250609; h=from:subject:message-id;
- bh=U6pA1aVfY84fYP2Mcf/JJjk/A5tY6QAInlV/pSog1bU=;
- b=uwEnY1ble7sSF78syhQpXffCxdtR7rPEiwh3JFH+/iMEn5zvOd3W9LKmEIwMHjCem+ZnO1ViP
- zK8xuQ6KQxDCY2gnSRC5OQjnS6kBesWimsnNt6MpH7jNL/f7c/vguIa
-X-Developer-Key: i=linux@smankusors.com; a=ed25519;
- pk=65wTy06fJl2/h/EJwjr704YG+yjHFhZObJBWzzK+N00=
-Date: Mon, 13 Apr 2026 18:32:53 +0000 (UTC)
-X-CM-Envelope: MS4xfG/QsaR8NFMUliYCCXcisZpy8QGAwERd9v8CwfJnc0uSCzZNjB/EtnP+X+v4XiXcsLqHOFY5xZDMxDINhNiJiYuuXV4A0zD1n3YnI7Dyeu3f6IFeC9Sb 4rKru40xrVExBe3hTYFQ0tNl/KVK5ibqlvM9R8BEzcroPuawPwLn4l8CGgyGzmaMOV+tyMkpT1YqSiCiyAbI+Sn+en8V3fJknuLqJ0UctuNRBvMgbfWnsZ85 g036R2jIp2Xvt4SadwoOartRi+93TQX3x6xO3zD2Eqph4wquY7/zipNAVgpn1KtlHY1/6jn344UCp4Toz3AVbJQUGM2hqg4Ujq7zYkwi1nUb6g8/gbTAsv5X dAQIEIOobU1mDeMLLc0JCsv6q5/60Kk7WZbiFvtcd55+dgnHMtZB+MNS6v7jcX/GCdej1bcWNb9Vrsbhk82k0cYD7smMvyFBUmRMdQMDb1ysHFW9P1FVr/fD UG8XCxo+i8013u81TFaBMX8PiHWlYJOEMTwq9cp3l91ri0a8mocfJVDM2Xd0BMWJZi+ocULXI4rXsUJ8E1BKw0J64UW5HkvgMkx6EJXjZeWvh1HnpysIwIne QOm7TKlJ4u5imaoyU9TdCpaNyurQS+QeG2Fz3C7yFOdiWtSbMCwi4gmjB+OyqsPGbQw9E1RYD1u35wVeX73Yo/eP
-X-CM-Analysis: v=2.4 cv=Gq4Q+V1C c=1 sm=1 tr=0 ts=69dd36d9 a=iMBLmzX4nuXcozcv68JNPw==:117 a=iMBLmzX4nuXcozcv68JNPw==:17 a=IkcTkHD0fZMA:10 a=wxLWbCv9AAAA:8 a=eyO_MXq6ogTu2Ra450oA:9 a=QEXdDO2ut3YA:10 a=QJY96suAAestDpCc5Gi9:22
-X-AuthUser: linux@smankusors.com
+Content-Transfer-Encoding: 8bit
 
-Document the qcom,rpmcc-msm8960 compatible.
+This commit enables the NPU on Radxa Rock 5 ITX board.
+The regulator vdd_npu_s0 was already in place and since the NPUs
+power domain supply is now described remove the always-on property
+from the regulator.
 
-The MSM8960 platform shares the same RPM clock definitions as
-APQ8064, so extend the existing conditional schema to treat
-qcom,rpmcc-msm8960 the same as qcom,rpmcc-apq8064.
-
-Signed-off-by: Antony Kurniawan Soemardi <linux@smankusors.com>
+Signed-off-by: Sten-Silver Ots <stensilver@gmail.com>
 ---
- Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ .../boot/dts/rockchip/rk3588-rock-5-itx.dts   | 35 ++++++++++++++++++-
+ 1 file changed, 34 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml b/Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml
-index ab97d4b7dba8bc8d38903b399d2bd4bda087db8a..f84d08199e47f45ecb176d350eeb7df8c3ff506b 100644
---- a/Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml
-+++ b/Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml
-@@ -36,6 +36,7 @@ properties:
-           - qcom,rpmcc-msm8937
-           - qcom,rpmcc-msm8940
-           - qcom,rpmcc-msm8953
-+          - qcom,rpmcc-msm8960
-           - qcom,rpmcc-msm8974
-           - qcom,rpmcc-msm8976
-           - qcom,rpmcc-msm8992
-@@ -90,7 +91,9 @@ allOf:
-       properties:
-         compatible:
-           contains:
--            const: qcom,rpmcc-apq8064
-+            enum:
-+              - qcom,rpmcc-apq8064
-+              - qcom,rpmcc-msm8960
-     then:
-       properties:
-         clocks:
-
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-rock-5-itx.dts b/arch/arm64/boot/dts/rockchip/rk3588-rock-5-itx.dts
+index de154adb1497..d3ab6c68a60b 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-rock-5-itx.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-rock-5-itx.dts
+@@ -421,7 +421,6 @@ vdd_npu_s0: regulator@42 {
+ 		reg = <0x42>;
+ 		fcs,suspend-voltage-selector = <1>;
+ 		regulator-name = "vdd_npu_s0";
+-		regulator-always-on;
+ 		regulator-boot-on;
+ 		regulator-min-microvolt = <550000>;
+ 		regulator-max-microvolt = <950000>;
+@@ -683,6 +682,10 @@ &pd_gpu {
+ 	domain-supply = <&vdd_gpu_s0>;
+ };
+ 
++&pd_npu {
++	domain-supply = <&vdd_npu_s0>;
++};
++
+ &pinctrl {
+ 	hym8563 {
+ 		rtc_int: rtc-int {
+@@ -802,6 +805,36 @@ dp1_hpd: dp1-hpd {
+ 	};
+ };
+ 
++&rknn_core_0 {
++	npu-supply = <&vdd_npu_s0>;
++	sram-supply = <&vdd_npu_s0>;
++	status = "okay";
++};
++
++&rknn_core_1 {
++	npu-supply = <&vdd_npu_s0>;
++	sram-supply = <&vdd_npu_s0>;
++	status = "okay";
++};
++
++&rknn_core_2 {
++	npu-supply = <&vdd_npu_s0>;
++	sram-supply = <&vdd_npu_s0>;
++	status = "okay";
++};
++
++&rknn_mmu_0 {
++	status = "okay";
++};
++
++&rknn_mmu_1 {
++	status = "okay";
++};
++
++&rknn_mmu_2 {
++	status = "okay";
++};
++
+ &pwm14 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pwm14m1_pins>;
 -- 
-2.34.1
+2.53.0
 
