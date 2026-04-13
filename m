@@ -1,160 +1,104 @@
-Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5C03032AAA7;
-	Mon, 13 Apr 2026 13:45:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.175.24.41
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D51F43CB2C1;
+	Mon, 13 Apr 2026 14:03:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776087924; cv=none; b=b0D/dOkT50xAiCCN7V4BynJGLRH3jhg2bgz1hVu/i9SeMjpFXgvA6L+P8mT0S9EDpfhjfAvwoYd9DcMliyZWBQDYUKe6JFDlj7+aiTgMyrYlr86KnUB+5CGJygHw7HBfXR7wk7MyaX7WDIjtLw3jJf36RpkiGd4zCl8GeY9sjCU=
+	t=1776088992; cv=none; b=YZceBHgH4bUMaps8QTPAPDTRV0J6kkPj+/M5WeNmMP2isXzJV/9Em9nF9+Tmu06pC+YLxm6kOBmo6Qqm9Mj+OpDgGvwcouJ58/8/1dp6wxJmwukDSDaZjRuE3+GQmf/IBqYyAd+pAwwqLgC5ixMzVK6anX8QrEqIslYIgsbvVRM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776087924; c=relaxed/simple;
-	bh=909Q03nLYzRnV2uD3X2X/W7tkeK+QT5NOhuVd+eYU8g=;
+	s=arc-20240116; t=1776088992; c=relaxed/simple;
+	bh=ZujmsWUiIlgFWuYStOUbuRgZOWkohs/X7TyfIkjFDX0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FhfbsXkNDMUqbP2WUoQztqoRvbR19bDNXKCQTizLEIQZVWRLV0oDMxe8PLdM8VqSnN39AgrxIrWP7Cd8haGBg1gjJ/wxFCdgK+FpgF+gEQuqfHYN/iqsFD+/o0OPp6Jo23g1AOOE/zcqULJD5kX/wUffpHqKIcnnDkIB0QLOuvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de; spf=pass smtp.mailfrom=alpha.franken.de; arc=none smtp.client-ip=193.175.24.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpha.franken.de
-Received: from uucp by elvis.franken.de with local-rmail (Exim 3.36 #1)
-	id 1wCHbE-0004aH-00; Mon, 13 Apr 2026 15:45:12 +0200
-Received: by alpha.franken.de (Postfix, from userid 1000)
-	id D4B6BC0C39; Mon, 13 Apr 2026 15:44:14 +0200 (CEST)
-Date: Mon, 13 Apr 2026 15:44:14 +0200
-From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-To: =?iso-8859-1?Q?Beno=EEt?= Monin <benoit.monin@bootlin.com>
-Cc: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
-	Gregory CLEMENT <gregory.clement@bootlin.com>,
-	=?iso-8859-1?Q?Th=E9o?= Lebrun <theo.lebrun@bootlin.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Linus Walleij <linusw@kernel.org>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Tawfik Bayouk <tawfik.bayouk@mobileye.com>,
-	linux-mips@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v4 00/13] Introducing the Mobileye EyeQ6Lplus SoC
-Message-ID: <adzzLvq2tA9mzwc2@alpha.franken.de>
-References: <20260316-eyeq6lplus-v4-0-bf44dfc7a261@bootlin.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=efDZ2JdPE90FGg9ogvnnpHIbKTrfSznnGKNM10b1x33TwmWyA9///HlchC6Nc/o7urdMZKzL/xfm1NKAPB6iCc5nJK4qZEtxelDFnoqRYnk+nzbJEamrUn+Dpl6LI/EMRClzTd9AX5FXHtJhCGRfGMV6l8v8mXU8L87XeXa7bBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DE95C2BCAF;
+	Mon, 13 Apr 2026 14:03:03 +0000 (UTC)
+Date: Mon, 13 Apr 2026 19:32:53 +0530
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Rob Herring <robh@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nicolas.schier@linux.dev>, 
+	Hans de Goede <hansg@kernel.org>, Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, 
+	Mark Pearson <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Bartosz Golaszewski <brgl@bgdev.pl>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org, 
+	platform-driver-x86@vger.kernel.org, linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org, linux-pm@vger.kernel.org, 
+	Stephan Gerhold <stephan.gerhold@linaro.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	linux-acpi@vger.kernel.org, Hans de Goede <johannes.goede@oss.qualcomm.com>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v7 0/8] Add support for handling PCIe M.2 Key E
+ connectors in devicetree
+Message-ID: <fpcs4p62f35a5qyqwgm5ysa73stbysxcr62tkmmkrrcvsuf4t4@4ivukyqjey57>
+References: <20260326-pci-m2-e-v7-0-43324a7866e6@oss.qualcomm.com>
+ <20260413075459.GA2626902@google.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260316-eyeq6lplus-v4-0-bf44dfc7a261@bootlin.com>
+In-Reply-To: <20260413075459.GA2626902@google.com>
 
-On Mon, Mar 16, 2026 at 04:25:37PM +0100, Beno�t Monin wrote:
-> The Eyeq6Lplus is a new system-on-chip part of Mobileye's EyeQ family
-> of SoC aimed at Advanced Driver Assistance Systems (ADAS). It is built
-> around a multicore MIPS I6500 with 2 cores and 8 threads and integrates
-> controllers and accelerators dedicated to driving assistance.
+On Mon, Apr 13, 2026 at 03:54:59PM +0800, Chen-Yu Tsai wrote:
+> Hi,
 > 
-> This patchset adds the initial support for the EyeQ6Lplus and its
-> evaluation board with the following list of controllers:
-> * The OLB ("Other Logic Block") providing clocks, resets and pin controls.
-> * One UART from DesignWare.
-> * One GPIO controller from DesignWare.
-> * Two SPI controllers from DesignWare, one in host mode and one in target
->   mode.
-> * One octoSPI flash controller from Cadence, identical to the one found
->   in the EyeQ5.
-> * Two I2C controllers from Designware.
+> On Thu, Mar 26, 2026 at 01:36:28PM +0530, Manivannan Sadhasivam wrote:
+> > Hi,
+> > 
+> > This series is the continuation of the series [1] that added the initial support
+> > for the PCIe M.2 connectors. This series extends it by adding support for Key E
+> > connectors. These connectors are used to connect the Wireless Connectivity
+> > devices such as WiFi, BT, NFC and GNSS devices to the host machine over
+> > interfaces such as PCIe/SDIO, USB/UART and NFC. This series adds support for
+> > connectors that expose PCIe interface for WiFi and UART interface for BT. Other
+> > interfaces are left for future improvements.
 > 
-> The patch series adds the device tree bindings for the SoC and the OLB.
-> It also adds the Kconfig entry for the EyeQ6Lplus, the SoC and evaluation
-> board device tree, and the defconfig. For the OLB, the series adds the
-> match data to the clk-eyeq, reset-eyeq and pinctrl-eyeq5 drivers.
+> Thanks for working on this. I started playing with it now that it is in
+> -next. The PCIe part works fine. I'm looking into how to fit the pwrseq
 > 
-> It also brings three other changes. One is for the pinctrl-eyeq5 driver
-> to access the pin descriptions, pin functions, and pin bank registers
-> via the match data instead of directly. This is needed to add support
-> for the EyeQ6Lplus alongside the EyeQ5 to the pinctrl driver.
+> A couple questions:
 > 
-> To be able to match against compatible entries, an OF node is needed
-> but the pinctrl-eyeq5 does not have one as it is an auxiliary device
-> of clk-eyeq. As part of his MACB phy series[1], Th�o switched to
-> devm_auxiliary_device_create() to register the auxiliary devices, and
-> this helper sets the OF node of the auxiliary device.
+> - Given that this connector actually represents two devices, how do I
+>   say I want the BT part to be a wakeup source, but not the WiFi part?
+>   Does wakeup-source even work at this point?
 > 
-> So this series depends on Th�o's patchset so that eq5p_probe() can use
-> the OF node to get the match data, similar to what is done in eqr_probe()
-> in reset-eyeq.
-> 
-> The two other changes are in the clk-eyeq driver. First we skip the
-> post-divisor when computing the PLL frequency in the clk-eyeq driver,
-> to match how the clock signal is wired internally in all EyeQ PLL and
-> compute the correct frequency for the PLL of the EyeQ6Lplus. Second we
-> adjust the accuracy and down spreading computation of the PLL frequency
-> as the spread spectrum of all EyeQ PLL is in 1/1024 and not in 1/1000
-> as previously thought.
-> 
-> [1]: https://lore.kernel.org/lkml/20260225-macb-phy-v7-0-665bd8619d51@bootlin.com/
-> 
-> Signed-off-by: Beno�t Monin <benoit.monin@bootlin.com>
-> ---
-> Changes in v4:
-> - Simplify entries in Kconfig for clk-eyeq and reset-eyeq, since all
->   Mobileye EyeQ SoCs use these drivers.
-> - Link to v3: https://lore.kernel.org/r/20260226-eyeq6lplus-v3-0-9cbeb59268b0@bootlin.com
-> 
-> Changes in v3:
-> - Rebase series on v7.0-rc1 + Th�o's patchset[1].
-> - Refresh the defconfig.
-> - Add missing cdns,fifo-depth entry in octospi node of the SoC device tree.
-> - Simplify eq5p_probe() now that the OF node is set in clk-eyeq driver.
-> - Link to v2: https://lore.kernel.org/r/20251223-eyeq6lplus-v2-0-cd1fd21d182c@bootlin.com
-> 
-> Changes in v2:
-> - Rebased on v6.19-rc2.
-> - Drop spidev nodes from the evaluation board DT, they were
->   here for test only.
-> - Fix bug in eq5p_pinconf_set() using uninitialized value.
-> - Link to v1: https://lore.kernel.org/r/20251217-eyeq6lplus-v1-0-e9cdbd3af4c2@bootlin.com
-> 
-> ---
-> Beno�t Monin (13):
->       dt-bindings: mips: Add Mobileye EyeQ6Lplus SoC
->       dt-bindings: soc: mobileye: Add EyeQ6Lplus OLB
->       MIPS: Add Mobileye EyeQ6Lplus support
->       reset: eyeq: Add Mobileye EyeQ6Lplus OLB
->       pinctrl: eyeq5: Use match data
->       pinctrl: eyeq5: Add Mobileye EyeQ6Lplus OLB
->       clk: eyeq: Skip post-divisor when computing PLL frequency
->       clk: eyeq: Adjust PLL accuracy computation
->       clk: eyeq: Add Mobileye EyeQ6Lplus OLB
->       MIPS: Add Mobileye EyeQ6Lplus SoC dtsi
->       MIPS: Add Mobileye EyeQ6Lplus evaluation board dts
->       MIPS: config: add eyeq6lplus_defconfig
->       MAINTAINERS: Mobileye: Add EyeQ6Lplus files
-> 
->  .../devicetree/bindings/mips/mobileye.yaml         |   5 +
->  .../soc/mobileye/mobileye,eyeq6lplus-olb.yaml      | 208 ++++++++++
->  MAINTAINERS                                        |   4 +-
->  arch/mips/boot/dts/mobileye/Makefile               |   1 +
->  arch/mips/boot/dts/mobileye/eyeq6lplus-epm6.dts    | 103 +++++
->  arch/mips/boot/dts/mobileye/eyeq6lplus-pins.dtsi   |  84 ++++
->  arch/mips/boot/dts/mobileye/eyeq6lplus.dtsi        | 170 ++++++++
->  arch/mips/configs/eyeq6lplus_defconfig             | 117 ++++++
->  arch/mips/mobileye/Kconfig                         |   3 +
->  arch/mips/mobileye/Platform                        |   1 +
->  drivers/clk/Kconfig                                |   4 +-
->  drivers/clk/clk-eyeq.c                             |  90 ++++-
->  drivers/pinctrl/Kconfig                            |   4 +-
->  drivers/pinctrl/pinctrl-eyeq5.c                    | 437 +++++++++++++++------
->  drivers/reset/Kconfig                              |   4 +-
->  drivers/reset/reset-eyeq.c                         |  31 ++
->  .../dt-bindings/clock/mobileye,eyeq6lplus-clk.h    |  37 ++
->  17 files changed, 1156 insertions(+), 147 deletions(-)
 
-series applied to mips-next
+You can't use the DT property since the devices are not described in DT
+statically. But you can still use the per-device 'wakeup' sysfs knob to enable
+wakeup.
 
-Thomas.
+> - Are there plans to do the SDIO part?
+> 
+
+No, not at the moment. Feel free to take it up if you have the hardware and
+motivation :)
+
+> - The matching done in the M.2 connector driver for pwrseq_get() seems a
+>   bit naive. It simply checks if the remote device in the OF graph is
+>   the same as the requesting device.
+> 
+>   I think this would run into issues with USB hubs. If I have a USB hub
+>   and two M.2 connectors, with both connectors connected to the same
+>   hub, pwrseq_get() is going to always return only one of the instances.
+>   This is because the USB hub has one device node with multiple OF graph
+>   ports.
+> 
+
+Yeah, this is a known limitation. I'm trying to improve this part now and have
+the WIP commits here: https://github.com/Mani-Sadhasivam/linux/tree/pwrseq-bt-en-fixes
+
+Once the merge window closes, I'll submit these.
+
+- Mani
 
 -- 
-Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
-good idea.                                                [ RFC1925, 2.3 ]
+மணிவண்ணன் சதாசிவம்
