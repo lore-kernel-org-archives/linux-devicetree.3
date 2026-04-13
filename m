@@ -1,140 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD4BC19AD5C;
-	Mon, 13 Apr 2026 13:30:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5C03032AAA7;
+	Mon, 13 Apr 2026 13:45:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.175.24.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776087032; cv=none; b=uxemcw7ySgZ63Na9Hv92IcvX0dcvVkCDkXqbAdkd/l/9iBK9SNb/vZCtOZ5TPP0QKAbMaImlYo4lkD+ELkGCv3X1zxZ3qRxMcvSmB04xqEOJ2vDPwJodilqpNevLDRLystqpDW52Wt+m4TmqzzkXus6/Pic7LDnoj2mF0vTBPXg=
+	t=1776087924; cv=none; b=b0D/dOkT50xAiCCN7V4BynJGLRH3jhg2bgz1hVu/i9SeMjpFXgvA6L+P8mT0S9EDpfhjfAvwoYd9DcMliyZWBQDYUKe6JFDlj7+aiTgMyrYlr86KnUB+5CGJygHw7HBfXR7wk7MyaX7WDIjtLw3jJf36RpkiGd4zCl8GeY9sjCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776087032; c=relaxed/simple;
-	bh=peQnt/WQnyBJ03OMY6/p3SaAXOb1dzTAiqbJZnDNcNs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cJ7A+V/RGJ3mMc0y7IkGVWNjIXC+ZDlzSylfF3w5ZtO6ZxPfG3tT3GqhnElcWsmU8bAGA6FnRE+jMzfD9/I6IEm5Ix5uqopXmUFkXDMZrikHcqiHrY2pGMgHMRS7aPBx+G8bKmvPaY2LwO/6vYLplCnLgQuywvtyLkJL1dEHfvE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uEKI9Zcz; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uEKI9Zcz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F292BC2BCAF;
-	Mon, 13 Apr 2026 13:30:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776087032;
-	bh=peQnt/WQnyBJ03OMY6/p3SaAXOb1dzTAiqbJZnDNcNs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=uEKI9ZczSKeDI243Pj2YeWlQ9CGbD/z0hH5XYN3oSLcPbAj2THmBZVaR3hxPYrifm
-	 OJsVAIT/tpp8yW1oCaTkTnswZwBKr1oChgdiD1g43u7L2Ak+0qcyqFH5WzL6odAhu4
-	 b1RsY42i/fJR4X3lwNtF5rXWF4ur4XEOY0y+2u3h0eud9nDk1KUMoW14ql5y3ik91F
-	 ssqMaOWJYLCpWiKE346U2g3pB63ZQ3nO0f6QbTJov99+eUskyc+hdVe/dKIL45IeNv
-	 N6RM/JUQJK2GRSByjGU8upd2fZ5UlTHHhuRHLAusZs+FQcVlpLPJflFS/dR3hZKxxC
-	 68t3+6ed751uA==
-Message-ID: <cc08a091-9f2d-48de-9284-2f0c68fd343a@kernel.org>
-Date: Mon, 13 Apr 2026 15:30:28 +0200
+	s=arc-20240116; t=1776087924; c=relaxed/simple;
+	bh=909Q03nLYzRnV2uD3X2X/W7tkeK+QT5NOhuVd+eYU8g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FhfbsXkNDMUqbP2WUoQztqoRvbR19bDNXKCQTizLEIQZVWRLV0oDMxe8PLdM8VqSnN39AgrxIrWP7Cd8haGBg1gjJ/wxFCdgK+FpgF+gEQuqfHYN/iqsFD+/o0OPp6Jo23g1AOOE/zcqULJD5kX/wUffpHqKIcnnDkIB0QLOuvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de; spf=pass smtp.mailfrom=alpha.franken.de; arc=none smtp.client-ip=193.175.24.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpha.franken.de
+Received: from uucp by elvis.franken.de with local-rmail (Exim 3.36 #1)
+	id 1wCHbE-0004aH-00; Mon, 13 Apr 2026 15:45:12 +0200
+Received: by alpha.franken.de (Postfix, from userid 1000)
+	id D4B6BC0C39; Mon, 13 Apr 2026 15:44:14 +0200 (CEST)
+Date: Mon, 13 Apr 2026 15:44:14 +0200
+From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+To: =?iso-8859-1?Q?Beno=EEt?= Monin <benoit.monin@bootlin.com>
+Cc: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
+	Gregory CLEMENT <gregory.clement@bootlin.com>,
+	=?iso-8859-1?Q?Th=E9o?= Lebrun <theo.lebrun@bootlin.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Linus Walleij <linusw@kernel.org>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Tawfik Bayouk <tawfik.bayouk@mobileye.com>,
+	linux-mips@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v4 00/13] Introducing the Mobileye EyeQ6Lplus SoC
+Message-ID: <adzzLvq2tA9mzwc2@alpha.franken.de>
+References: <20260316-eyeq6lplus-v4-0-bf44dfc7a261@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] dt-bindings: arm: cpus: Add compatible qcom,oryon-1-5
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260413091625.607976-1-shengchao.guo@oss.qualcomm.com>
- <20260413091625.607976-3-shengchao.guo@oss.qualcomm.com>
- <a1f8cdcb-fddb-43ca-adbd-07e36949eef2@kernel.org>
- <adzjYypJciYFLT6F@QCOM-aGQu4IUr3Y>
- <1c06bd0f-24ce-4ea2-a7a1-4c61827b4763@kernel.org>
- <adzrY4AijnKqXDrh@QCOM-aGQu4IUr3Y>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <adzrY4AijnKqXDrh@QCOM-aGQu4IUr3Y>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260316-eyeq6lplus-v4-0-bf44dfc7a261@bootlin.com>
 
-On 13/04/2026 15:10, Shawn Guo wrote:
-> On Mon, Apr 13, 2026 at 02:40:18PM +0200, Krzysztof Kozlowski wrote:
->>>> Please organize your patchset correctly.
->>>
->>> Are you asking for a big series that consists of all the new bindings
->>> used by Nord DTS and DTS itself?  Unless this big series gets applied as
->>> one-go, there are still chances that bindings get into a kernel release
->>> without any users, e.g. subsystem maintainers pick up bindgins being
->>> reviewed, but DTS requires more iterations and thus misses the release.
->>
->> Please follow existing rules, communicated multiple times on the mailing
->> list. Qualcomm also has internal guideline clarifying this.
->>
->> Below are some upstream discussion clarifying this:
->> https://lore.kernel.org/linux-samsung-soc/CADrjBPq_0nUYRABKpskRF_dhHu+4K=duPVZX==0pr+cjSL_caQ@mail.gmail.com/T/#m2d9130a1342ab201ab49670fa6c858ee3724c83c
->> https://lore.kernel.org/all/49258645-d4d8-44a5-a4fc-b403c926a5d1@kernel.org/
->>
->> And how to do it:
->> https://lore.kernel.org/all/20231121-topic-sm8650-upstream-dt-v3-0-db9d0507ffd3@linaro.org/
+On Mon, Mar 16, 2026 at 04:25:37PM +0100, Benoît Monin wrote:
+> The Eyeq6Lplus is a new system-on-chip part of Mobileye's EyeQ family
+> of SoC aimed at Advanced Driver Assistance Systems (ADAS). It is built
+> around a multicore MIPS I6500 with 2 cores and 8 threads and integrates
+> controllers and accelerators dedicated to driving assistance.
 > 
-> That's what I'm trying to do, posting bindings in prior to DTS, so that
-
-Hm? Nothing above claimed that. I am sorry, but which rule either
-communicated publicly or privately encouraged or even allowed that?
-
-> when posting DTS, either bindings is already merged or we can refer to
-> lore link of bindings.
+> This patchset adds the initial support for the EyeQ6Lplus and its
+> evaluation board with the following list of controllers:
+> * The OLB ("Other Logic Block") providing clocks, resets and pin controls.
+> * One UART from DesignWare.
+> * One GPIO controller from DesignWare.
+> * Two SPI controllers from DesignWare, one in host mode and one in target
+>   mode.
+> * One octoSPI flash controller from Cadence, identical to the one found
+>   in the EyeQ5.
+> * Two I2C controllers from Designware.
 > 
-> I still need to understand you comment "Bindings come with the user".
-> Are you saying that bindings and DTS in different series should be posted
-> at the same time to show bindings has an user?
+> The patch series adds the device tree bindings for the SoC and the OLB.
+> It also adds the Kconfig entry for the EyeQ6Lplus, the SoC and evaluation
+> board device tree, and the defconfig. For the OLB, the series adds the
+> match data to the clk-eyeq, reset-eyeq and pinctrl-eyeq5 drivers.
+> 
+> It also brings three other changes. One is for the pinctrl-eyeq5 driver
+> to access the pin descriptions, pin functions, and pin bank registers
+> via the match data instead of directly. This is needed to add support
+> for the EyeQ6Lplus alongside the EyeQ5 to the pinctrl driver.
+> 
+> To be able to match against compatible entries, an OF node is needed
+> but the pinctrl-eyeq5 does not have one as it is an auxiliary device
+> of clk-eyeq. As part of his MACB phy series[1], Théo switched to
+> devm_auxiliary_device_create() to register the auxiliary devices, and
+> this helper sets the OF node of the auxiliary device.
+> 
+> So this series depends on Théo's patchset so that eq5p_probe() can use
+> the OF node to get the match data, similar to what is done in eqr_probe()
+> in reset-eyeq.
+> 
+> The two other changes are in the clk-eyeq driver. First we skip the
+> post-divisor when computing the PLL frequency in the clk-eyeq driver,
+> to match how the clock signal is wired internally in all EyeQ PLL and
+> compute the correct frequency for the PLL of the EyeQ6Lplus. Second we
+> adjust the accuracy and down spreading computation of the PLL frequency
+> as the spread spectrum of all EyeQ PLL is in 1/1024 and not in 1/1000
+> as previously thought.
+> 
+> [1]: https://lore.kernel.org/lkml/20260225-macb-phy-v7-0-665bd8619d51@bootlin.com/
+> 
+> Signed-off-by: Benoît Monin <benoit.monin@bootlin.com>
+> ---
+> Changes in v4:
+> - Simplify entries in Kconfig for clk-eyeq and reset-eyeq, since all
+>   Mobileye EyeQ SoCs use these drivers.
+> - Link to v3: https://lore.kernel.org/r/20260226-eyeq6lplus-v3-0-9cbeb59268b0@bootlin.com
+> 
+> Changes in v3:
+> - Rebase series on v7.0-rc1 + Théo's patchset[1].
+> - Refresh the defconfig.
+> - Add missing cdns,fifo-depth entry in octospi node of the SoC device tree.
+> - Simplify eq5p_probe() now that the OF node is set in clk-eyeq driver.
+> - Link to v2: https://lore.kernel.org/r/20251223-eyeq6lplus-v2-0-cd1fd21d182c@bootlin.com
+> 
+> Changes in v2:
+> - Rebased on v6.19-rc2.
+> - Drop spidev nodes from the evaluation board DT, they were
+>   here for test only.
+> - Fix bug in eq5p_pinconf_set() using uninitialized value.
+> - Link to v1: https://lore.kernel.org/r/20251217-eyeq6lplus-v1-0-e9cdbd3af4c2@bootlin.com
+> 
+> ---
+> Benoît Monin (13):
+>       dt-bindings: mips: Add Mobileye EyeQ6Lplus SoC
+>       dt-bindings: soc: mobileye: Add EyeQ6Lplus OLB
+>       MIPS: Add Mobileye EyeQ6Lplus support
+>       reset: eyeq: Add Mobileye EyeQ6Lplus OLB
+>       pinctrl: eyeq5: Use match data
+>       pinctrl: eyeq5: Add Mobileye EyeQ6Lplus OLB
+>       clk: eyeq: Skip post-divisor when computing PLL frequency
+>       clk: eyeq: Adjust PLL accuracy computation
+>       clk: eyeq: Add Mobileye EyeQ6Lplus OLB
+>       MIPS: Add Mobileye EyeQ6Lplus SoC dtsi
+>       MIPS: Add Mobileye EyeQ6Lplus evaluation board dts
+>       MIPS: config: add eyeq6lplus_defconfig
+>       MAINTAINERS: Mobileye: Add EyeQ6Lplus files
+> 
+>  .../devicetree/bindings/mips/mobileye.yaml         |   5 +
+>  .../soc/mobileye/mobileye,eyeq6lplus-olb.yaml      | 208 ++++++++++
+>  MAINTAINERS                                        |   4 +-
+>  arch/mips/boot/dts/mobileye/Makefile               |   1 +
+>  arch/mips/boot/dts/mobileye/eyeq6lplus-epm6.dts    | 103 +++++
+>  arch/mips/boot/dts/mobileye/eyeq6lplus-pins.dtsi   |  84 ++++
+>  arch/mips/boot/dts/mobileye/eyeq6lplus.dtsi        | 170 ++++++++
+>  arch/mips/configs/eyeq6lplus_defconfig             | 117 ++++++
+>  arch/mips/mobileye/Kconfig                         |   3 +
+>  arch/mips/mobileye/Platform                        |   1 +
+>  drivers/clk/Kconfig                                |   4 +-
+>  drivers/clk/clk-eyeq.c                             |  90 ++++-
+>  drivers/pinctrl/Kconfig                            |   4 +-
+>  drivers/pinctrl/pinctrl-eyeq5.c                    | 437 +++++++++++++++------
+>  drivers/reset/Kconfig                              |   4 +-
+>  drivers/reset/reset-eyeq.c                         |  31 ++
+>  .../dt-bindings/clock/mobileye,eyeq6lplus-clk.h    |  37 ++
+>  17 files changed, 1156 insertions(+), 147 deletions(-)
 
-I am saying that you cannot post bindings alone where there is no user.
-Why do want even such binding? I see no point in having it in the
-kernel, unless you speak about very specific exception, but then please
-clarify that exception and why it applies to this work.
+series applied to mips-next
 
-Best regards,
-Krzysztof
+Thomas.
+
+-- 
+Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
+good idea.                                                [ RFC1925, 2.3 ]
