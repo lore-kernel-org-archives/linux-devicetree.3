@@ -1,167 +1,168 @@
-Received: from sonic301-20.consmr.mail.gq1.yahoo.com (sonic301-20.consmr.mail.gq1.yahoo.com [98.137.64.146])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B713F77F39
-	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 00:13:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=98.137.64.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 540CF1A683E
+	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 00:56:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776039218; cv=none; b=ujX7+goFRYVALg1ayMvD7L4agS4+5L2FG5OeP84DsNr5zJGxEZ/Qc7nxTlyJwivDQEs5H3UL5NtsQoPCkecit4/he/cichZes/v4YGJOMyC272+noloSEedPAfkWaZltpU3eMdGU1xmMaHP8LdJ+kUAEQBwsp5E/VTXuyqUcD1w=
+	t=1776041777; cv=none; b=rqwi7pzycFffDy96SXeWAgfxk8AawTQT5MsZ9G9k3AJNzsJFeqLSyZ6Ph+UE9/O27l/MnfPE9RbLU0doTRqWEJBY5T/Ks1Je3B1OzPb9mLu56PsVLqa4F+Yei6Y0DslJZ2UiNH7vSTBI3eyhD+l1C+CLUe/+sAtP4JwtAZBW0hk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776039218; c=relaxed/simple;
-	bh=DvcdHr5WV7t2vSg6J9ISv6gWSBfoWpAGpSBhtnTPK5U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:References; b=ijBlD5IeM4L36ZwnYJ0OV5ryOI9VAJD50p3aRC2Rv4wQQLpudrCgDfHAFI1vVATLxFDxZrzovutas0EXXYrSdSgGtlLX7lczDwHqaeuEJWA1C2YpZDKqoCvqvPBl3SBfeT3zAxjhypBK5z+ro3NxxuMPbrHw2jbEC5Kqo/Y8dJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=MH/x+wS8; arc=none smtp.client-ip=98.137.64.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1776041777; c=relaxed/simple;
+	bh=V5ifw+ouAt9/h76UJRk28uWOsbTjGziQXpcaQNQUtmA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VkDZLD/cbvYXMaa7TesaMCo7qxBMCW0xuBaJMhkqmAKX1SgKsa7SfDnJ5p9xwpZ7hQ3cmsR7RSTiH2NfkTzh0MvlcI7HcD/IxrmlUEH1A1lnuvB4OEIkjXK03P93jxCIhpFLR9g8PAvK8VUeXqEyi7BKFvi7HOaaTUFONG1ci+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ouj5s11M; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BQS6KdVh; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="MH/x+wS8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1776039216; bh=CZlO7FMM9s8j+IpZHrd2gBaWbbjNweo7kmcN0jFoFvY=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=MH/x+wS86fj+cUzrXNfqQWpr1v1OitVvMUEavPt3O0xU+wJ+3Sd1MrgPfGfJSp+xLj5Rbgl8jHDCvQK12Q56Hj0VNgrmHiyQjs7DEAAtAFJju7UXqJcU5zd9ID3SNUkEoCMMEs2N2g8yT/nFtUyz/geY76ZzCfCqZq8tncvDehYygZ0EhLJBAfxa6fAXVZ8UrVtVHX4xRF75fSviTtMBbX0i5psLPRmwjX0o9umej3y/dtsPnr1cttfYOhRPHXfQAAH4WbkO5dgLpicwoqaacxBXK+01H5E0+UDHq6gikFWZ6W8arSaivQAU35WFLaw8vdIS+AGSPK77K3ggVD3sag==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1776039216; bh=zon44ie4+C7sfpVs1vovm02lb9XW0lAiMEiRtVpH3H1=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=nyGfl68MGxOlDdry/4+1RgEpDhq6NPk4cJsckAGM335NAisiHiBNT9HUBHj9DpE+Jhu8Iyp4tFCLU4tw6Fi+XlL4Ovuq3/yK56LBBZ6BQzWQFJ0d/mrh5scUaL7u5nCZgtkvC4k25UWyVRYgrLsG35h4FD8JDMVVdWbUKiJ6pJzTI1vVtOoa/Zr6N9+cSkdFddyjtRXIW+ob+Lus89wjLSQ+LEyeCdzP8MKPYYQ5pyeew8FEVQCqKA4RI1Oo92CIDMNXKFTiNGs3HyC9YQl2vc2S+0Y/78KuLSpbUjixlCDdvdz7gU2wsiMbZiriUDvWyJ8jTKa54g7DE4DMkf2Yfw==
-X-YMail-OSG: gEoLZzAVM1m2f0jSnvkvaKc5sMh4nxHOSNily3EaJQEcxdWuL9LXRBa247AaMut
- bGElM3ok_A_ZDftuL3NEdq6kbIzb07mR2GyUPrX17kE7jcm_PgYBc9OpC7vWomAB3JqxfgJRSXUs
- r2C0_bmsM_raCj5YJD1thpBEKEue_KmXFyMwwB3M5zUPAToKekCnYt2MxHleLt8PnWHpAOzRGdoE
- 5.hQF6mjGyRzhZJQg_7dgn1wY7cjkpDoHfKY6YychrxWGqzov9y3E2N2e5yD9MuK5p1xGGipyQ9a
- e6yBmRqj4PVCbNXqCFN15hCZrL3Kt4faScayt6wZoam50EcE56vK9BEGm5ipe5WYcePMPjBOakBT
- iF44t92FoAvjYU3C6Vo7av4jR5gHzwy7QnvV3sv750h8MFpcWi0MPWTIXHFiXyKKeS.iE9yZOqnM
- B7.boJa6ENefh5RWE5zY1ayHe6lMcXDPzIq3CPK3p7EFeRsaxmSNkh.31EmAO5zAR14kKxYh2lDs
- agw9jrJtk8j2HLbTDn_RTtwm6PauqvsF9.uN68DbHXPeKh_yp4GOEbevz4UI4j97ywd9FlfVQ9Yk
- owHEHyDdIJeR9YcSZnbfTbts4AP7p.VF9qPwpb35EIAaaNtqL32.3Vf1zXf7yhffFCZNbdC5dp1A
- KXrKdwH23zcall6mJvpGZiH00GEIGL0itZ5y4W9WKr_nJ0nQ8iOCD.Wk.eU7a6dGZEMfIHX8EQW2
- M9QSAFaVFDJxJsA9F98YyQFDedIFXMiBs4sz7xvcFfCbJI2rTLlihZxQ7_Fdcxoxjt0Y1cZrcYuq
- A.gy0yBDFKFlYNKlJCCkFCR6I4oXMm5jUa6GrjkWXiFU7.PrfeTD2BJJcav6IqGQLmSE0DIm4k_7
- jlAGTO1NhQJdg__js8vPdgclO4huMLaG7IPZv7ffxbyCpb0aApiTLhu7ssrHmSiEdFD7bFMEeSOq
- .0Q0APbpfeHGDsh25vhALu6K5eWg3JLJUXUuDDD2z1irH7kx.GxepUT8RmIcZr_Brlx0i_ouJzZ.
- IH5HOiBTu9eb7n1YA9RvOIsMXvy.2_gufndkKBSSR8hX2FRmUj7DTV0LD20u7XFs_pVproIyyBFI
- hJNkKBoKeSt7SSzAJgPrdONCEs43B32vgI77ogNmtACHjXGCSWgwcWKiTFM0TYoWgV.ecVYr18j5
- h8ENm3knA_u3Qr_8I2GYFUxKazYo.wdXhF.utT9DtWWogBQXOPsFDWVI_3CJ5UNYtDD94F7G17av
- fsH6yqCEDl6eK7LYkeg4dPDDndJk_xWNRqp5B5gR8JUzt.PEhgVGfZstZDPqGlIW0SZsj0Za0L3L
- SqJX2Of8kH8OqrCPqDZJ3.Rjzswy6jL3qzcLQtUJefzNd7.GX8o_e7BUhfLVXwGxet44js1aeA2b
- vn1y9hayb0UY8LsDzoa4hz3fn8P0q_Y5gvd5RQcU3fIqPyeAOu2GYLCgrWAFRnD0ryFtdkPDFD7m
- PCHrmpRJxlv5Lq63ev0zOkYvZKK.RmbM3GYONKf7X6JO1TErID1Yz2Jc4ShC44x9T7xOWI.rc3hV
- 5suzlVXKxThn3XgnqNpWa8i5YZEu9uQY3vhxEpHeU2vyRG7tUwDRlPJFNV5y0cC_ruoGP2oz40QQ
- 8.RdMJBOt.ISy9hx4LVT.1xBqmoW6Fu2YnjQwbjJZBjVaOkCAPxN6vCpCn5U0p5PLyDq.lobZ5G_
- JuUaCJY80JCqmTG0xJR.fo.aK3FHfq_vFbN7LfSlkMGvcc_CMfKxJWNaNWKlQNfVncTCqo2ydAs1
- LO7_zGpAUCb.lUiZ.Iv4psWkxfIJkBvAjoRmQeOnNn..bX0XZNppczECymDy4BwmKQQ.BCX7aZuq
- dH1Ubu0PtPhx6qHDWE.z6OB4fNcsXwYAwCqUTK8Kt_fswC_jwbUYkoya55wA97kiYtYwxfijaFQ8
- 4is65fBUo2jWRBEjiSZMDXEe8LLJVR9Rmkai1iv0Pj.vsPrilGnjqj76oX10aKpSjODWvGrEh4YR
- Ak.betLV2nhnTON1nKGKjjnZ1pl9EM..RLZvudMpLY_KEPsv6a0EVE4M2eB2o0UTeiYzkuU_mVoX
- GoY8NqI4gdn8RlPZOCDiaqaudkQLB.EOjktJVjByLbQG9hpn9RPpOKyhS_9dIBkOF_IMtEVYvun8
- GdMz1PUbwpK1YR7FygHJUV_Hsi.FdgaVsqYGo3ERzxu7QTznJNvGPrh4i0U8gT3Pu89Bmpj.bj81
- 5KPejwP6c6t_E1L2_19oUT7rMoogiBNkipcuMSlnLUgPgvWutj2D8awLG0qaa8pSdEGcDsRE-
-X-Sonic-MF: <sainiharpreet29@yahoo.com>
-X-Sonic-ID: 7cbd3f3d-fd25-4d4f-930f-a7370acbd5ca
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic301.consmr.mail.gq1.yahoo.com with HTTP; Mon, 13 Apr 2026 00:13:36 +0000
-Received: by hermes--production-ne1-555c74f9db-72v8p (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 298e7ac331929bb0df4f7fbb414ef451;
-          Mon, 13 Apr 2026 00:03:23 +0000 (UTC)
-From: Harpreet Saini <sainiharpreet29@yahoo.com>
-To: jic23@kernel.org
-Cc: Harpreet Saini <sainiharpreet29@yahoo.com>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-	Marek Vasut <marex@nabladev.com>,
-	"Kael D'Alcamo" <dev@kael-k.io>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: iio: light: Add PixArt PAJ7620 gesture sensor
-Date: Sun, 12 Apr 2026 20:02:55 -0400
-Message-ID: <20260413000308.7618-1-sainiharpreet29@yahoo.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ouj5s11M";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BQS6KdVh"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63CE4m2x3830533
+	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 00:56:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=HijQAzOwombW0sXEz2D/Ph1M
+	agV/nyykDUHyc/yg8Tk=; b=Ouj5s11Mh1U09Z/e3VoJZM+qKJ5LCf0cZdXI/iio
+	4fLEtDaRgbRAf+a4WkNBJV7KUrGL16XzNJt8/ynV6mCkj25Ba+W6Z44NufE5nRKM
+	IbbrHcomYp9PchajxCDdn8ufUTgvbhi8lcJykAlPrA2Yxc38rHYDM3wD5AiHwgfR
+	16vXbBfPWi7Hsfaa0Ukx7zi0/kflDeOqI9brP2N/1EfG8WhXnJJZ/W97MRiIhi1a
+	bvBTk8WSRTRzn2WG/xdeG0vhAwpWcckaw02mIQr/BBwgbFYUnphpcniqU1Me+FCV
+	zwBFkpDT/uy80zo+mO7PNv4HuI8vdDJtMqtGNl7KmtKMJw==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dfew037uu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 00:56:14 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50d831e8083so50875091cf.3
+        for <devicetree@vger.kernel.org>; Sun, 12 Apr 2026 17:56:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1776041774; x=1776646574; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=HijQAzOwombW0sXEz2D/Ph1MagV/nyykDUHyc/yg8Tk=;
+        b=BQS6KdVhnt7fXLLotDhEF6zrsE5N5aqGrQhN5qA9MAA6SgmAG1wZZCWhxThum/PmAJ
+         R3qsdqIg4JaJ1oJbLNZNp83lF+jvaijXzRtxsStC+f9KE8w8pT3Krksgh3B8XhltFut/
+         rYrXU9/6EcYCVGSHcFjipSqLWO91PWQRTN8aTSWRL1+SKpGpSIWYEsmJebH1NrTmuYLi
+         UBRUvb/SKDSpQre56wZAhPjl0d69qFFD/vN0G8d0Rm77K1ptY4jlDaD2IaXp4KQRCWOE
+         3zZUJvmO4TEk4xRvXJgY0tCzTl9GOh6UAmQFeWCEsvPH+2IC4ij/5iY2Iv1hto+qZrIc
+         T6tQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776041774; x=1776646574;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=HijQAzOwombW0sXEz2D/Ph1MagV/nyykDUHyc/yg8Tk=;
+        b=cSMHbC/0LJ0OGg3zsf5ORjz/82Ud0Uu864mK78Q5EJsJdL4rtz9PUH/UaxW2Qoy5Ia
+         1if52QppmeMNu+Xo3hnXCP5+LuatYYD0CdX79IcekpMe88srmBWdhZS678LL/1K7TsCU
+         y/HLGA0z6XoAZjQrdQdXlrmCs4dd3huQFzuyX/q9dVmhhQudns80nolZTXZGXPQqGqDJ
+         b175y6vfyLwKJ4PAvhKSRAmj2EZN1cL/IBddfyJL0qb59VupajOwaEv5dYcgH9blJE5/
+         XTLIwa4Wr3uEElKFNq5b0TEZvTfMkDWnCMvX9BD08EVXunQzOV49D4+I6xII2GMaBeow
+         Btmw==
+X-Forwarded-Encrypted: i=1; AJvYcCUxWt+dBYKmpTTwsHs6ZF6VAYP/t1gum4AdEie0pvrl12IJJCbCg0sb/UW7sZxvj/3ZKtueClucckap@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw8FDDOIufyRF6XsWntQjEVVlnBLDHIoXonRc+Xbm1zhXeHBUrl
+	cmhV3TfjlrEwv9EEGEW1G1sWYvCz4c43fcOfdFwoQU84RhxnSfZuCeB881uUINOppELYYR9EZ5F
+	vHMC7ceXuSWYrBnxMFOUzPWDGRuxf/JDIneA66x2vIHN2iSx6VDvOMAv25hqts1nF
+X-Gm-Gg: AeBDietZ6zc6gvLoWLgOlOE76VgQz6qmvYZ/cOJCLFu4+3Klbl/gWuANvU9tyH1F5af
+	89aka/rnkaj2AMwmBZMZmt2rAfiw3g5xPZeITMChHauyWo4+8k9FGGV3uKV5IWqxY+COKfO5p6V
+	xNzaAQd6dlG2YGrfXzOcbI6k/OzVflOB9QIcu7aSPq5mOElRL0nlgmPdv+vfqPx6Q4z2FmrjlAV
+	Io/0ukJxZdoBG7EjZ3HgyK8RkJBzQNjsU0rOOevh4yzpBC4CcwoTl/KuYKgnLikfuus6EZ6VZ+D
+	8+sgmmTMiQHEIoOJnAUsfOXMZV5sNmDnGJCDlHnoR/zGKCm33n+QuNIAJeYIQr5h9X+CXI/WIK0
+	7qoWBxB9xkV0xw39iTEynGcXJcQiBNurh4y+w6O/g4uqOntMOxDpqeLegE1vqxwBQamOqzwbXaE
+	VEJb8EUFLvXtpsGmGjU1u87nmcC+RPc/yb/M4=
+X-Received: by 2002:ac8:5a92:0:b0:50d:a637:6bdc with SMTP id d75a77b69052e-50dd5bcef84mr180329431cf.41.1776041773620;
+        Sun, 12 Apr 2026 17:56:13 -0700 (PDT)
+X-Received: by 2002:ac8:5a92:0:b0:50d:a637:6bdc with SMTP id d75a77b69052e-50dd5bcef84mr180328931cf.41.1776041773128;
+        Sun, 12 Apr 2026 17:56:13 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-38e49541ddfsm23293661fa.27.2026.04.12.17.56.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 12 Apr 2026 17:56:12 -0700 (PDT)
+Date: Mon, 13 Apr 2026 03:56:10 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Cong Yang <yangcong5@huaqin.corp-partner.google.com>,
+        Ondrej Jirman <megi@xff.cz>,
+        Javier Martinez Canillas <javierm@redhat.com>,
+        Jagan Teki <jagan@edgeble.ai>, Liam Girdwood <lgirdwood@gmail.com>,
+        Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>, dri-devel@lists.freedesktop.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-gpio@vger.kernel.org, Riccardo Mereu <r.mereu@arduino.cc>
+Subject: Re: [PATCH v2 20/21] dt-bindings: gpio: describe Waveshare GPIO
+ controller
+Message-ID: <mzuwcmkg6u3l3b36wiemdliq7fjrmu3hx6bxba4k6nyhfffibs@a7qh6wcivc5v>
+References: <20260411-waveshare-dsi-touch-v2-0-75cdbeac5156@oss.qualcomm.com>
+ <20260411-waveshare-dsi-touch-v2-20-75cdbeac5156@oss.qualcomm.com>
+ <20260412-diligent-ginger-flamingo-f5059d@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-References: <20260413000308.7618-1-sainiharpreet29.ref@yahoo.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260412-diligent-ginger-flamingo-f5059d@quoll>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEzMDAwNiBTYWx0ZWRfX/LiIdma+EDPt
+ o1MuuMMWaFHyD8zwos5LVWUW8Cp5e7jTR45pizR880/RvpOt6sQEZhWtlCkp3tL8HV2kgm9bSVO
+ iOkaBjtnOfwTZ5Bn/n9gOQNHP6fP1ZduZiQj6B22zSEhzn9fyiK6tFZXziOHhhcgD2RpssYZV0h
+ kRmDshL3gUkRngkIZu/iWriKuo5lp441eL0od1rmmsCz6QT5pT/LntFfAszD+2+29UK8G5KMHPX
+ EMvM+sqryLXTsvhKiL5upU0liNKEQXH/Qe2Z6CjWNmRIndDwzcsw46bvS8eIludGM+zC4u0np76
+ Vac3rH42m8UldrVNmeNxwQ/maZ7RWBFvKP9atx9X3U6o0D5L+GLvCd7fP40Vdd1oxit5WnwWF8V
+ Z4yXEQ/C4KcQUgUM7J70stoSkCsvXELGBWE5M7/tH6IyT/xAcUpUO7hqhGtSLppwQKn7ELRvCEE
+ QnKB4uCsTlCCBBLNF8g==
+X-Proofpoint-GUID: MhTV9OAZHAAyEODeX3dp8UWtmI7jeEwF
+X-Authority-Analysis: v=2.4 cv=AofeGu9P c=1 sm=1 tr=0 ts=69dc3f2e cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=7GRFYvq2Tdryq9sLJf8A:9
+ a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-ORIG-GUID: MhTV9OAZHAAyEODeX3dp8UWtmI7jeEwF
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-12_06,2026-04-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 bulkscore=0 adultscore=0 phishscore=0 priorityscore=1501
+ clxscore=1015 impostorscore=0 suspectscore=0 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604130006
 
-Signed-off-by: Harpreet Saini <sainiharpreet29@yahoo.com>
----
-This is part 1 of a 2-patch series proposing a driver for the PixArt
-PAJ7620 gesture sensor. This patch adds the Device Tree bindings and 
-registers the "pixart" vendor prefix. The driver patch will follow in 
-a succeeding branch.
+On Sun, Apr 12, 2026 at 11:48:46AM +0200, Krzysztof Kozlowski wrote:
+> On Sat, Apr 11, 2026 at 03:10:40PM +0300, Dmitry Baryshkov wrote:
+> > The Waveshare DSI TOUCH family of panels has separate on-board GPIO
+> > controller, which controls power supplies to the panel and the touch
+> > screen and provides reset pins for both the panel and the touchscreen.
+> > Also it provides a simple PWM controller for panel backlight.
+> > 
+> > Add bindings for these GPIO controllers. As overall integration might be
+> > not very obvious (and it differs significantly from the bindings used by
+> > the original drivers), provide complete example with the on-board
+> > regulators and the DSI panel.
+> > 
+> > Tested-by: Riccardo Mereu <r.mereu@arduino.cc>
+> 
+> You cannot test a binding, it is not possible. Otherwise explain me how
+> did you copy it to the device and what sort of device runs YAML.
 
- .../bindings/iio/light/pixart,paj7620.yaml    | 48 +++++++++++++++++++
- .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
- 2 files changed, 50 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/iio/light/pixart,paj7620.yaml
+I'll drop it from the next iteration.
 
-diff --git a/Documentation/devicetree/bindings/iio/light/pixart,paj7620.yaml b/Documentation/devicetree/bindings/iio/light/pixart,paj7620.yaml
-new file mode 100644
-index 000000000000..301816485fcc
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/light/pixart,paj7620.yaml
-@@ -0,0 +1,48 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/light/pixart,paj7620.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: PixArt PAJ7620 Gesture Sensor
-+
-+maintainers:
-+  - Harpreet Saini <sainiharpreet29@yahoo.com>
-+
-+description: |
-+  The PixArt PAJ7620 is a gesture recognition sensor with an integrated
-+  infrared LED and CMOS array. It communicates over an I2C interface and
-+  provides gesture data via a dedicated interrupt pin.
-+
-+properties:
-+  compatible:
-+    const: pixart,paj7620
-+
-+  reg:
-+    maxItems: 1
-+    description: The I2C address of the sensor.
-+
-+  interrupts:
-+    maxItems: 1
-+    description: Interrupt mapping for the sensor's physical INT pin.
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        paj7620@73 {
-+            compatible = "pixart,paj7620";
-+            reg = <0x73>;
-+            interrupts = <4 IRQ_TYPE_EDGE_FALLING>;
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index ee7fd3cfe203..d73a0bf62b62 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1273,6 +1273,8 @@ patternProperties:
-     description: Pine64
-   "^pineriver,.*":
-     description: Shenzhen PineRiver Designs Co., Ltd.
-+  "^pixart,.*":
-+    description: PixArt Imaging Inc.
-   "^pixcir,.*":
-     description: PIXCIR MICROELECTRONICS Co., Ltd
-   "^plantower,.*":
+> 
+> The tag was given here explicitly, so I really do not understand this. I
+> could imagine tags coming from a reply to the cover letter, but adding
+> tag here? That's just fake test.
+> 
+> Best regards,
+> Krzysztof
+> 
+
 -- 
-2.43.0
-
+With best wishes
+Dmitry
