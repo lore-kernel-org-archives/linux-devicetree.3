@@ -1,113 +1,78 @@
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
+Received: from mail-m49251.qiye.163.com (mail-m49251.qiye.163.com [45.254.49.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BBF837C93A;
-	Mon, 13 Apr 2026 08:46:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 113DD3ACF18;
+	Mon, 13 Apr 2026 08:50:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776069988; cv=none; b=I3X8/ZuSk1wCq2Wa27HzoXLOrnHha9s11vw7qP9KsN/WGmNcSBAs2pagE87V3Q1MFJSW/5pcH/YBsb1pDxnRdtoTQbsZRGjzuKlhaF9tVjGt+sPtwoO6cX4mI6wU58jBRPUhiT1ZtoJkYs58gauVYNX20IHioZpRrRZVhbuz2+8=
+	t=1776070212; cv=none; b=FwyReRoiK+gNYWKBsUr6CHjYYfVACbAbZmjV6mBMnVswERyt48t115LNi6S/a++j7yhuaN4pmLrLyKlA9miq8irvfjOeYHTbki5LoACIPAdtlJDGey/IrTHNFdY+589OBA1iYsJ5RwMMgXl7Qq1v+jSW7DGDDdnLZU0y08aGRzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776069988; c=relaxed/simple;
-	bh=6enhhXH/CJEIPrzagw+rdyNIsjC87WLeT+KTFs81HfE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WrhkUQ988D7iTY+g+M8+Okfun4SzI1SFLtBeoP7V6lb1+GZ7X5fxzK2VIYt6L/lKmPSXKBH+WAqTuQxjKTFICJbPoWqc6RZhUhRwj+HPVa6+th8NV10swNBzYpIxT6G8l9WIcJuWJNYpi3iUtH+bKwO8zeMavYlcuGBJPYb2Jro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.92.39.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: esmtpsz11t1776069934tc0e6f556
-X-QQ-Originating-IP: 5r2GTatSwY3Uul1iODbL62wL+DJW79DDgHXv81kb6e8=
-Received: from [127.0.0.1] ( [116.234.85.158])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 13 Apr 2026 16:45:32 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 15065568213300330693
-Message-ID: <CEA509826F1319B9+712fdfb3-916a-44fb-bca7-1c5c8b81cd91@radxa.com>
-Date: Mon, 13 Apr 2026 16:45:31 +0800
+	s=arc-20240116; t=1776070212; c=relaxed/simple;
+	bh=a5cfvD79s13RodOBSnnS6MZy+PfOZ1JpGpK2+xNbky4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MKn5iNrxy/n+0917vW/v06US0w+j7r5Z7z9N9iaZTVn4DYv9+9qT32XA5R6ZhBBjPeHG/tC03hiEsNBvSTRW0XvmKb61nlO279lsggjiGWrsFHFGtPoOy4B6RZbYZ+AE2IrO3lskCqlJX1iX11NwI8wLQGV9ujy3JU5zGcryLAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=JZktgYiO; arc=none smtp.client-ip=45.254.49.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="JZktgYiO"
+Received: from albert-OptiPlex-7080.. (unknown [112.65.126.162])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 3a8013ec1;
+	Mon, 13 Apr 2026 16:34:41 +0800 (GMT+08:00)
+From: Albert Yang <yangzh0906@thundersoft.com>
+To: krzk@kernel.org,
+	arnd@arndb.de
+Cc: krzk+dt@kernel.org,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	gordon.ge@bst.ai,
+	bst-upstream@bstai.top,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	yangzh0906@thundersoft.com
+Subject: [PING] Re: [PATCH v7 0/2] arm64: dts/defconfig: enable BST C1200 eMMC
+Date: Mon, 13 Apr 2026 16:34:41 +0800
+Message-ID: <20260413083441.1758438-1-yangzh0906@thundersoft.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260310091211.4171307-1-yangzh0906@thundersoft.com>
+References: <20260310091211.4171307-1-yangzh0906@thundersoft.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: pwm: clk-pwm: add optional GPIO and
- pinctrl properties
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Nikita Travkin <nikita@trvn.ru>,
- linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <20260406-clk-pwm-gpio-v1-0-40d2f3a20aff@radxa.com>
- <20260406-clk-pwm-gpio-v1-1-40d2f3a20aff@radxa.com>
- <adyr_17yvFGkihU5@monoceros>
-Content-Language: en-US
-From: Xilin Wu <sophon@radxa.com>
-In-Reply-To: <adyr_17yvFGkihU5@monoceros>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: NBwM60nxo3yxgNwuJcwZlEMVEv5UIyREsG3wZ+GSNkhtSnn7vegPhR4M
-	uc107NI0HDW8SO8OYOfB0EwAf9GCh7dK4Q9rtn/DdpU7t1IRceWU1plVfEUoEEPUprofZpE
-	ddbNNGX+FkW9QV7xy2/+Zv1+tCu0qxNDNuV3VOKnkMs3W7mVOhIGotw/TrSCfFg0QS2YxPy
-	VnhVqjyX6VGSiUZUhdvpGCReoR2+FA+ET3CWAj88opAclo5dGVYLVa6hkErZNksvrfoXglh
-	Ct7z0a/2VvtqHDeQ9gaimCx62Vyr9yx7l5W5jo4a7q0XLMeftLSo3pnfa+rYiq2h5eBbw2K
-	gis27pGLVeW9IyaBeUm7c5QGAhoIGu45erJK72wb1iIpvn05AF5wBtXtRuBt4Q04OqFswtJ
-	YBbty7LlMOFI9wNKVDloeO0dYz5NY7AzgvNLbZLOJXRazSm6G/XawT0BF3iOmPZ/CPkMqJC
-	LNec8f1Y8taE/9c3HHQZ7np/Vh/38CdlReZSAb5poikgoDr4IFaKaCYl8ZkffvfQlGHycms
-	dcgyGTajsHMkZJtA1hPTgRFdbbdxEcWk4VHMwxTxpK/ZmSWER+p6BuJkUhRKsXTwkXVOOeT
-	k2BqXpHFwng/L4ebGhhyXvFBtSl0zTads9lZWZXGYWug1Bs3BEcRiYAssu/q/Dvve8IbWWW
-	3ji4ZXo5Ky3NGxF0gice8t2Fxd/cygfMJBmjZx2D4UIu5ghSEDZorND3cxfSXAdyjBczsNo
-	fF2Rv50nKiqvu6uJZMghPU5L1saui5+JWfAD/JyWSHoWg4YclOGpFidCCblvTmcNOzUEAB6
-	T2nUJHjUY+TavO6b3lbVNVxtTolEUBqJFAx9Oypl7HgC3VT+GiWZhWjgCOy5D+9HavWTU3a
-	lJat/XAzMkCwUpZbbQxrmRSU0GurhGFacGEKZlNK1f0T9UN3K2ELXBFOdGJZ8dYjLnCvrEa
-	A2/OdEV1aY52z/xE7RAqhzEt3gGFwKkmHPtHxtVBvfAMpuevXAoisO2jLcGm6X56mgxY=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+X-HM-Tid: 0a9d85fa86b809cckunmf74b8d5778cf66
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWS1ZQUlXWQ8JGhUIEh9ZQVlCSE1MVkJKHR4eGB4eTk4YTlYVFAkWGhdVEwETFh
+	oSFyQUDg9ZV1kYEgtZQVlKSklVTU5VSklNVUpNSVlXWRYaDxIVHRRZQVlPS0hVSktJT09PSFVKS0
+	tVSkJLS1kG
+DKIM-Signature: a=rsa-sha256;
+	b=JZktgYiOjdFMsJrxGJj2UQzex9sE2av8KIhm6YmDwj4Sp32hnsDurgnAodc8/nRAkMyd4qcUmCxdnUoxEylVWwzIeINsScDfCcxB99q9nMdBA8oJRS4afVj63efkiPZR0J8s0z5KqliwCz7vOph8io5yYdzsTe0DUoxIKsEqbqI=; s=default; c=relaxed/relaxed; d=thundersoft.com; v=1;
+	bh=a5cfvD79s13RodOBSnnS6MZy+PfOZ1JpGpK2+xNbky4=;
+	h=date:mime-version:subject:message-id:from;
 
-On 4/13/2026 4:41 PM, Uwe Kleine-König wrote:
-> Hello,
-> 
-> On Mon, Apr 06, 2026 at 11:50:01PM +0800, Xilin Wu wrote:
->> The clk-pwm driver cannot produce constant output levels (0% or 100%
->> duty cycle, or disabled state) through the clock hardware alone - the
->> actual pin level when the clock is off is undefined and
->> hardware-dependent.
->>
->> Document optional gpios, pinctrl-names, pinctrl-0, and pinctrl-1
->> properties that allow the driver to switch the pin between clock
->> function mux (for normal PWM output) and GPIO mode (to drive a
->> deterministic constant level).
->>
->> Signed-off-by: Xilin Wu <sophon@radxa.com>
->> ---
->>   Documentation/devicetree/bindings/pwm/clk-pwm.yaml | 36 +++++++++++++++++++++-
->>   1 file changed, 35 insertions(+), 1 deletion(-)
->>
->> diff --git a/Documentation/devicetree/bindings/pwm/clk-pwm.yaml b/Documentation/devicetree/bindings/pwm/clk-pwm.yaml
->> index ec1768291503..2a0e3e02d27b 100644
->> --- a/Documentation/devicetree/bindings/pwm/clk-pwm.yaml
->> +++ b/Documentation/devicetree/bindings/pwm/clk-pwm.yaml
->> @@ -15,6 +15,11 @@ description: |
->>     It's often possible to control duty-cycle of such clocks which makes them
->>     suitable for generating PWM signal.
->>   
->> +  Optionally, a GPIO and pinctrl states can be provided. When a constant
->> +  output level is needed (0%, 100%, or disabled), the pin is switched to
-> 
-> A constant output isn't needed when disabled. The state is undefined
-> then. A plain clk_disable() is fine then.
-> 
-> Best regards
-> Uwe
+Hi Krzysztof, Arnd, Rob, and Conor,
 
-Ack. I will change the binding description and the driver behavior in 
-the next revision.
+Gentle ping for this v7 series posted on 2026-03-10:
+https://lore.kernel.org/lkml/20260310091211.4171307-1-yangzh0906@thundersoft.com/
 
-Thank you for the review.
+This series only contains the remaining DTS + defconfig parts for BST C1200 eMMC:
+- 1/2 arm64: dts: bst: enable eMMC controller in C1200 CDCU1.0 board
+- 2/2 arm64: defconfig: enable BST SDHCI controller
 
--- 
+The MMC driver-side patches were already applied in mmc-next, so this series is for
+arm64/DT review and merge path.
+
+No functional code changes since v7. If preferred, I can send a rebase/refresh (v8)
+on top of current mainline immediately.
+
+Could you please help review and let me know if any changes are still needed?
+
+Thanks for your time.
+
 Best regards,
-Xilin Wu <sophon@radxa.com>
-
+Albert
