@@ -1,156 +1,81 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A4341EB19B
-	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 10:30:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A6A93148CF;
+	Mon, 13 Apr 2026 10:32:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.61.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776076250; cv=none; b=m0/kFflO8QcqyUpp/VQ1mSJglL5Ybds3LsgeLyAbUwe/rHeZPg1m2wdy2KDjroMTzP+F0j48kiecaeximu2Ao3Y6YHt3qvLPf4wWBr1C/XvTmJXZoXlQTJ3APoggYwKnzP9wsNVs+7CAOjSF22SlfslEyr9SYsaHTV87IqFqTN8=
+	t=1776076328; cv=none; b=MsMKgKRmVczFnjeUJLiN4o3wg40gNIpKTVVQfsUdtJep6Egzsckv4Cdd4UhsmSE2ETzUx3nMB5HP4mdCkh5uPvmc+wfehijwpFq8upxamY+aXZuuZhyw3hcW5B5gwQXjU7WcZD0286e0f35IvBjLrPqh8v10W7FhHYBDtcjPL04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776076250; c=relaxed/simple;
-	bh=lFcFko4QriSwkpIDl0tEUb076hlM1VvGQGB9sf/JwHw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qf5PrncaM/A+nV3eTa5//TnCMvxA9hxFVPoxaWFluNywSC1o8V1JflWq9oxaYUpLrwmNMpaVhTyY03N1tjY2qQWI8F/QVZ+ek6mWKENiZSo6A9+nyDimbF4l9gv7LOlhx3F0XSqxwg8FQxluEfnFl45uu73AEVjMNgK36MFVQmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=eJ+2lgWx; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1776076328; c=relaxed/simple;
+	bh=ZqPutyXfURY4JqAzvot3E4VaS+HrR8bVUot2j45xsQg=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=OsTjzGfXXUEJ2acLXCg0PaWJabg+W1s1MNKpWZti2O1AWyL/XwkWXqZhAr2YaSeI3XCSjV1T/RTafRIK8gRed1bGsHd/kzKhHzSiLF7NHC8wM9zn9NP3NiSXOE1hN+xGIQGt/3pI8GE3JP6UYAWrTOsjoR52CalnU2MfjoIohlY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aliel.fr; spf=pass smtp.mailfrom=aliel.fr; dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b=VW4zImkQ; arc=none smtp.client-ip=65.21.61.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aliel.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="eJ+2lgWx"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id E140C1A320B;
-	Mon, 13 Apr 2026 10:30:45 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id B63BC5FFB9;
-	Mon, 13 Apr 2026 10:30:45 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 28F8B104501E1;
-	Mon, 13 Apr 2026 12:30:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1776076245; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=XEHjALJ1gQ0Wyww5UZiQGxFjQFIHZv869B+/Zwz/kug=;
-	b=eJ+2lgWxVgmZ7uZmCe79Q0eitQaTRlrevyr6IKM1gcrbocUEa6aJf4mhV1t5nWSBxTlTsp
-	fBdqqG5VoEPp+WUgT3Xkano7q6ARFhr5yQ/kVPhYGJHkLGH8iOzWXZvcl9b5UeVNba07SG
-	qHfd3YOX851nQtP/W7SoL9C086EIsi+HnRjL5f7o0JUif3WLO+NXZr5Dry1+FTZMy2Mrpr
-	Xdh4C9f52xU02PStXVPBLih24ajWvzwevcW9g0o1WnjOIgjtarpk+npxc3pxRnRCbeqMPN
-	eG18Yso3KfjdoPcEVU1LgTmlOYiJaSpUr74cn0iK+0f43gtJUR0I3prTiRdsQA==
-Date: Mon, 13 Apr 2026 12:30:41 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Kyle Bonnici <kylebonnici@hotmail.com>,
- "devicetree-compiler@vger.kernel.org"
- <devicetree-compiler@vger.kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org
-Subject: Re: Phandles
-Message-ID: <20260413123041.6273d44e@bootlin.com>
-In-Reply-To: <72dc4a71-1a3d-4e36-9bcc-d9a4de3de6cc@kernel.org>
-References: <BB363BC4-B813-4D03-8737-587DF7425908@hotmail.com>
-	<20260412145144.4737fde6@bootlin.com>
-	<D22046DB-95B3-431E-8E80-0BA806811D01@hotmail.com>
-	<20260412173916.7a971a45@bootlin.com>
-	<72dc4a71-1a3d-4e36-9bcc-d9a4de3de6cc@kernel.org>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b="VW4zImkQ"
+Message-ID: <451ba56f-83cd-456c-81bc-c09e2594df1a@aliel.fr>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
+	s=courrier-s1; t=1776076318;
+	bh=ZqPutyXfURY4JqAzvot3E4VaS+HrR8bVUot2j45xsQg=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=VW4zImkQz89KLlouelDsZND4ph6bmMU0+d0qca5XJBMBjxMbUvxn6n0PXW1tWhMTX
+	 kjD3GTvokQ001Fcj0A8STZTQ0ZC5LKE0o89NclXOWONePbxi/XQ4eUoNOABQg8+NEm
+	 e7rotYrheKjtu5qvYBubSQUreNZkJ227bWbb+gxc=
+Date: Mon, 13 Apr 2026 12:31:56 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird Beta
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Subject: Re: [PATCH 3/8] firmware: meson: sm: Add thermal calibration SMC call
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-pm@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ Guillaume La Roque <glaroque@baylibre.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+References: <20260410-add-thermal-t7-vim4-v1-0-19f2b8da74d7@aliel.fr>
+ <20260410-add-thermal-t7-vim4-v1-3-19f2b8da74d7@aliel.fr>
+ <6200b372-149f-48f7-ae91-a5364562058c@kernel.org>
+Content-Language: en-US
+In-Reply-To: <6200b372-149f-48f7-ae91-a5364562058c@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 7bit
 
-Hi Krzysztof
-
-On Mon, 13 Apr 2026 08:33:49 +0200
-Krzysztof Kozlowski <krzk@kernel.org> wrote:
-
-> On 12/04/2026 17:40, Herve Codina wrote:
-> > Hi Kyle,
-> > 
-> > +Cc Kernel device-tree maintainers
-> > 
-> > On Sun, 12 Apr 2026 13:51:35 +0000
-> > Kyle Bonnici <kylebonnici@hotmail.com> wrote:
-> >   
-> >>> On 12 Apr 2026, at 14:51, Herve Codina <herve.codina@bootlin.com> wrote:
-> >>>
-> >>> Hi Kyle,
-> >>>
-> >>> On Sat, 11 Apr 2026 18:33:33 +0000
-> >>> Kyle Bonnici <kylebonnici@hotmail.com> wrote:
-> >>>     
-> >>>> Hi
-> >>>>
-> >>>> I have been looking at the the code for the compiler and I am wondering which specifications marks the below properties MUST BE Nexus Properties hence the validation.
-> >>>>
-> >>>> WARNING_PROPERTY_PHANDLE_CELLS(clocks, "clocks", "#clock-cells");
-> >>>> WARNING_PROPERTY_PHANDLE_CELLS(cooling_device, "cooling-device", "#cooling-cells");
-> >>>> WARNING_PROPERTY_PHANDLE_CELLS(dmas, "dmas", "#dma-cells");
-> >>>> WARNING_PROPERTY_PHANDLE_CELLS(hwlocks, "hwlocks", "#hwlock-cells");
-> >>>> WARNING_PROPERTY_PHANDLE_CELLS(interrupts_extended, "interrupts-extended", "#interrupt-cells");
-> >>>> WARNING_PROPERTY_PHANDLE_CELLS(io_channels, "io-channels", "#io-channel-cells");
-> >>>> WARNING_PROPERTY_PHANDLE_CELLS(iommus, "iommus", "#iommu-cells");
-> >>>> WARNING_PROPERTY_PHANDLE_CELLS(mboxes, "mboxes", "#mbox-cells");
-> >>>> WARNING_PROPERTY_PHANDLE_CELLS(msi_parent, "msi-parent", "#msi-cells", true);
-> >>>> WARNING_PROPERTY_PHANDLE_CELLS(mux_controls, "mux-controls", "#mux-control-cells");
-> >>>> WARNING_PROPERTY_PHANDLE_CELLS(phys, "phys", "#phy-cells");
-> >>>> WARNING_PROPERTY_PHANDLE_CELLS(power_domains, "power-domains", "#power-domain-cells");
-> >>>> WARNING_PROPERTY_PHANDLE_CELLS(pwms, "pwms", "#pwm-cells");
-> >>>> WARNING_PROPERTY_PHANDLE_CELLS(resets, "resets", "#reset-cells");
-> >>>> WARNING_PROPERTY_PHANDLE_CELLS(sound_dai, "sound-dai", "#sound-dai-cells");
-> >>>> WARNING_PROPERTY_PHANDLE_CELLS(thermal_sensors, "thermal-sensors", "#thermal-sensor-cells");    
-> >>>
-> >>> All of those properties are defined as phandles.
-> >>>
-> >>> For instance, the 'pwms' property available in a node means the the node is
-> >>> a pwm consumer. It must follow the pwm consumer binding [1] and so a phandle
-> >>> is involved.
-> >>>
-> >>> This phandle can have arguments and the number of argument is defined by the
-> >>> #pwm-cells property set in the pwm provider node [2], [3].
-> >>>
-> >>> [1] https://elixir.bootlin.com/zephyr/v4.4.0-rc3/source/dts/bindings/pwm/pwm-controller.yaml
-> >>> [2] https://github.com/zephyrproject-rtos/zephyr/blob/main/dts/bindings/pwm/pwm-controller.yaml
-> >>> [3] https://elixir.bootlin.com/linux/v7.0-rc7/source/Documentation/devicetree/bindings/pwm/pwm.yaml
-> >>>     
-> >>>>
-> >>>>
-> >>>> These can be found here: https://github.com/dgibson/dtc/blob/main/checks.c#L1498 this is relevant for https://github.com/zephyrproject-rtos/zephyr/issues/107066    
-> >>>
-> >>> Examples provided in the zephyrproject issue link are, in my opinion, incorrect.
-> >>>
-> >>>  Case 1:
-> >>>  / {
-> >>>      node1 {
-> >>>           pwms = <1 &pwm0 1 20 PWM_POLARITY_NORMAL>;
-> >>>
-> >>>           Here the first cell '1' is not a phandle.    
-> >>
-> >> Here the compiler is making an assumption here that all `pwms` properties must be specifier properties and all use `pwm` specifier.  
-> > 
-> > I think the purpose of 'select: true' is to have the binding always applied:
-> >   https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/pwm/pwm-consumer.yaml#L15
-> > 
-> > If this is confirmed, DTC performs correct checks as this binding must always
-> > be applied and so the 'pwms' property must be a phandle-array property.
-> > 
-> > Device-tree maintainers, can you confirm the purpose of 'select: true' set
-> > in a DT binding ?  
+On 4/12/26 12:47 PM, Krzysztof Kozlowski wrote:
+> On 10/04/2026 18:48, Ronald Claveau wrote:
+>> @@ -245,6 +246,14 @@ struct meson_sm_firmware *meson_sm_get(struct device_node *sm_node)
+>>  }
+>>  EXPORT_SYMBOL_GPL(meson_sm_get);
+>>  
+>> +int meson_sm_get_thermal_calib(struct meson_sm_firmware *fw, u32 *trim_info,
 > 
-> The quoted parts were mentioning Zephyr. Here you mentioned DTC, but ask
-> about "select: true", so dtschema. I don't get the context... dtschema
-> has nothing to do with DTC and Zephyr.
+> Exported functions should have kerneldoc.
+> 
 
-I wanted be sure about checks done by DTC itself.
+Thanks for your feedback, I will add it.
 
-My feeling was that if a binding defined in dtschema has to be always applied
-(i.e. select: true) it is a legit case to have DTC performing some checks
-according to this binding.
+>> +			       u32 tsensor_id)
+>> +{
+>> +	return meson_sm_call(fw, SM_THERMAL_CALIB_READ, trim_info, tsensor_id,
+>> +			     0, 0, 0, 0);
+> 
+> Best regards,
+> Krzysztof
 
-Kyle seems to define the 'pwms' property to be something other than a phandle.
-IMHO, this is wrong but the 'pwms' property is only defined in dtschema.
 
+-- 
 Best regards,
-Hervé
+Ronald
