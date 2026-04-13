@@ -1,163 +1,228 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E31C72BEC2B
-	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 09:32:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAC6E21B185;
+	Mon, 13 Apr 2026 09:35:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776072740; cv=none; b=LTFfqXw5gEc4S2nkvtBclm0xFNY2E0vxsBe+pyEEv9Ppy3tR11kelSb4rhaX2PImphTe7EYstfvQmooeDSJTT7kOlGJ2vAq1GDvEWMupIG/V2qSVTgWVAWs640Briasv7jcB7CEqcDFilBpyMWGoNhRtIwGo0lAaTBaBX6YBk5A=
+	t=1776072949; cv=none; b=quyU+q+nCh7qwH9jhd7+ElU7n4FB7Oi9/FBnZ/wJYp+jnZDfOBKsaJupr677CZulqb9rfQharxEd92wPySM1H4YZkFJ7av277cApI/4olr6zv559c0C9LRp9NdLi+ng1msfjhjgdoGzK1l3TC3fAUZtGo6q/LzRFZghOLzub1dI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776072740; c=relaxed/simple;
-	bh=r5ox1dFrYoySIHS4XOEUtJOp25+xZgVyE1/HrKTClvA=;
+	s=arc-20240116; t=1776072949; c=relaxed/simple;
+	bh=qiSFmjvv5lf+NtOOLOQm0uLeRuLoVxlpeEyskUaC3G4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CnQM+gpIl+lZvPK68lswyYNs/JGZ4SVcF1XOf1hxS6UeExulkxp1APfaUVfpkMsZaSZnKA6VdWItk9AKm+thV7Q0/Z96mY0Z8oXjwZAOqr2hRiVyC214PQxeGg8VQkyM9L09BWwiGlcaAKINSy620dMh9cd3kwpPpacCSUiXysQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=osbBTfx2; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=jQKhsQj7/0pfjc90bL4A5lrQbJ6gs1/sy8B90CZmbZU/DoG2R3MD3tHP3yMFaD6wwei37b8tOkPCwxudhfMmP8aqpYGdeWY3Iewtj6CbZDMbwNgi7/BNlng/bffHK/wvxXPf75xn7ccAiza9Kcm06CRGLwL01vmRnwKs0l0ZcJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bx+8O1xs; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="osbBTfx2"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-48374014a77so58931035e9.3
-        for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 02:32:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776072737; x=1776677537; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=AtkvQUwJwxJbSQun1xp3UJ1EVjDwjdDQxfbDiJ20NYU=;
-        b=osbBTfx2EuPaopnJhnQ6tZhL+KgZ+jKpAmh6Jnb3rnmlrZfZDqc3ue6S/YIG92WoJv
-         yw8RrIUL0fcZETO9WrBngZE10BnkO8us4nXreihw7QmfB9npgaY+8WoCOnwV2gTPH1yI
-         l/guAHJhfjoKwtFrYY5dY98/IjIirgVbKlpbl2E9a1WnLMFcvjf4+EbzXacxld0t7Qes
-         V5ywmUBsY4KYUbfswg4R+KDD0Q4KpoUQtWbZk9b734pwwd4W0AfFDMHTjgb8ejyigrTf
-         19P0ZcOFiE2WQUEpj+ROosJw4nIesy+VCOu0AEjEiDr59TVVh8lzuCZAby0ix4bNaEhA
-         4RdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776072737; x=1776677537;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=AtkvQUwJwxJbSQun1xp3UJ1EVjDwjdDQxfbDiJ20NYU=;
-        b=TXg4zN5Cj3F9bvyhpzgpdLJcuEiLfIRxMylu0ViuGgr3EeATUG0Cq+ZRyul/gWsDnE
-         f/+oVD3tDbFQPoAase4tSF+DQxT/PQjK9FhA/hUp7OzeBwglKx7WGPycLD9A9kcMBdLX
-         cNMkKuLYQNVpW13QxACnRsAZL907hfDW18KfED6l8P4opWIGxg6LRnOzrTf0osVjBA2/
-         losWWZuqnHDY5yVfTXrrg1dal7gBd6k8dQXC7/9c3yiKW5k0IYhvRdozwKq/vH+Kkkjq
-         1zYCihIzCH95kXWKOaZMfBWMiSnQUJV1ZxKf6Id8bnTDSsUjYqwP/rwnOMbHjYEvWMr6
-         WlgA==
-X-Forwarded-Encrypted: i=1; AFNElJ/g2NVMgR0yhyLrg/a91Asyrh+D+2W7TEe3UxFsy5gwV+XKSNgX3hxQ/aMO8OhpgwjHzo/nDM+jgzG2@vger.kernel.org
-X-Gm-Message-State: AOJu0YylsKGGJgoht1EFZ/h6dCVgHi+6thSnKUA13FHYS6xmYKUMZWML
-	tYOoeq5KyIZBQHN7C8qFdWKRBmu0XafrlIeUcLeZXqp5nm7lGsDjY3qg
-X-Gm-Gg: AeBDieu0GfLqKP+AwGbsqzYnErOoh4lQ8A39ZemJZ6tG/OM2hOTKxbSU1aINFmX+7FK
-	pHyFoHmKAQYwU51LibfHRtcRNdl+wk4sTRlR0xyvAjijWPzJUcKlFHbwaXd1McEyQP43KJ9SJ6G
-	I6z1tuPZQjao3ADE5Fa1TAyZRDtvBq0JL2yrEO4d7pUVRlDQgNdLxJaF3wTD0DQqzNACwKs+nf7
-	zluODJF2Yup7QS6skw8UbMtjG3HpF22J8WQjpatzj3inNkeqKX8vUV94Z0G8zMYkTucohD2B5fg
-	vQ2t3DaTcWmqg+GXgsjGLxvdKFGoB3nvHty0eg0Iv3uSCSIw5fI+3RBgiv9LhQzBlkTIRihceAe
-	LmFQRFB/Y9hosYpcLbgzawxfSqn5w2wVTCZa7u38wrwip5nCK7Cexs+iTsd0Lp3GBqzj+tQ15tJ
-	SwmR7uwVqFKK3kZTE8DCkx4fmJobR+eumSZJenCfPW3qeaaXV49Tme6ThG+4apyKrnrdwtlHLfl
-	zekx41rjfccP+hq+YvEFhvPVZM=
-X-Received: by 2002:a05:600c:1391:b0:486:fe23:1707 with SMTP id 5b1f17b1804b1-488d687116amr185252315e9.20.1776072737113;
-        Mon, 13 Apr 2026 02:32:17 -0700 (PDT)
-Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488d531f229sm374255055e9.3.2026.04.13.02.32.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Apr 2026 02:32:16 -0700 (PDT)
-Date: Mon, 13 Apr 2026 11:32:15 +0200
-From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-To: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
-Cc: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
-	Jeff Johnson <jeff.johnson@oss.qualcomm.com>, Jeff Johnson <jjohnson@kernel.org>, 
-	Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>, 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bx+8O1xs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6266CC116C6;
+	Mon, 13 Apr 2026 09:35:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776072949;
+	bh=qiSFmjvv5lf+NtOOLOQm0uLeRuLoVxlpeEyskUaC3G4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=bx+8O1xsLMg1XvBrUY7YbsV+O9u6e1FnpGe3gUhAwPIlmYzi5Hmc2Y1+Jj0NMfA8M
+	 fygbPc3FZs8fQtu/IOb9+z6G8NYERzukKabqj2bp49YuZaxJ1PlM6LzLvwK+ep/CHL
+	 1Z/FjbieYQp2GzajCnSW/GLW1NXyZhTiiZzMnZicPhXKvqmc1ctpcSGyggNuVPhRcL
+	 eK7OL9M0tpVt/+QDLeK7HdmyDFaT7t0WQoQufgqVLCD6YiQULqN08AEWQ3EH6iZfOA
+	 K6Udbe/py48uw7F+jc4JdXKbGkgvdnC/UCN/7G/DxUsrctbI9mVDz2yO2o73wNnoCk
+	 pEMqkqVqKfECw==
+Date: Mon, 13 Apr 2026 11:35:47 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: george.moussalem@outlook.com
+Cc: Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, ath10k@lists.infradead.org, 
-	ath11k@lists.infradead.org, devicetree@vger.kernel.org, ath12k@lists.infradead.org, 
-	Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>
-Subject: Re: [PATCH 0/2] wifi: ath: Use static calibration variant table for
- devicetree platforms
-Message-ID: <77vowy4ax4cl6dlc45i2q3fjmwn3q676wqghq267tmbix7773b@27h5t66mflur>
-References: <20251114-ath-variant-tbl-v1-0-a9adfc49e3f3@oss.qualcomm.com>
- <2fd84ab2-2e3e-4d05-add5-17930a35fedf@oss.qualcomm.com>
- <jnggqxqv3rjzhyevovnnxzplfhl3t6auhhvmoz7wxmsf6awgdx@dusdgxwsxvts>
- <b8277024-f9d4-4f17-946f-c2c390669067@oss.qualcomm.com>
- <exfmj52dqu3uctwsb2gopcjg7744vq5avlkahtmgfw4opw4mfl@t2svrln72u53>
- <f853d9b2-47f8-47b5-a02d-6aa8f12a4283@oss.qualcomm.com>
- <trr5j57vwk2dhoibdgdxnlkftnmfcmjkwmicsiltmhybxanjaf@tzaeeqcyz56l>
- <fasihmiu2szj6m2r3qef5slvzlvdjo2ajhrd6xyqsa5cajrbzq@a5dyulg2dnac>
- <ff11954f-345f-4865-a86e-759aa167768d@oss.qualcomm.com>
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Devi Priya <quic_devipriy@quicinc.com>
+Subject: Re: [PATCH v21 2/6] pwm: driver for qualcomm ipq6018 pwm block
+Message-ID: <ady2pLwiNT9FffF7@monoceros>
+References: <20260406-ipq-pwm-v21-0-6ed1e868e4c2@outlook.com>
+ <20260406-ipq-pwm-v21-2-6ed1e868e4c2@outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5u5li7rew6iszz66"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ff11954f-345f-4865-a86e-759aa167768d@oss.qualcomm.com>
+In-Reply-To: <20260406-ipq-pwm-v21-2-6ed1e868e4c2@outlook.com>
 
-On Wed, Apr 08, 2026 at 02:06:00PM +0800, Baochen Qiang wrote:
-> 
-> 
-> On 11/25/2025 5:57 PM, Ernest Van Hoecke wrote:
-> > On Tue, Nov 18, 2025 at 12:23:20PM +0530, Manivannan Sadhasivam wrote:
-> >>
-> >> ath12k doesn't seem to require a calibration variant. But even if the user
-> >> replaces ath11k chipset with ath10k one, the calibration variant should be the
-> >> same as it is platform specific except for WSI.
-> >>
-> >> - Mani
-> >>
-> >> -- 
-> >> மணிவண்ணன் சதாசிவம்
-> >>
-> > 
-> > Hi all,
-> > 
-> > Jumping in on this thread to ask about how we should handle variants.
-> > 
-> > We are using the WCN7850 device with the ath12k driver and received three
-> > board files for this from Silex, signed by Qualcomm. All three support the
-> > same board (SX-PCEBE), where one is the board file to be used for the
-> > US/EU/JP and the other two are one for higher emissions in the UK/CA and
-> > one for lower emissions in the UK/CA.
-> > 
-> > Since these are needed for regulatory differences but support the same
-> > board, we were wondering about your views on how to handle that in
-> > mainline. I see that there is no support for the board file selection in
-> > the device tree for ath12k, and that there is some discussion on how to
-> > handle variants in general. We are using a device tree-based setup and no
-> > ACPI.
-> 
-> does your machine has different 'model' property for different BDFs ?
-> does the existing ath11k 'calibration' property based mechanism satisfy your requirement?
-> 
 
-We have a SoM with always the same WiFi SoC on board. These SoMs are
-then mated with a carrier board, in our case often a development board,
-and together they form a whole machine for which we have a specific
-device tree with a specific model and compatible name.
+--5u5li7rew6iszz66
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v21 2/6] pwm: driver for qualcomm ipq6018 pwm block
+MIME-Version: 1.0
 
-Customers that create their own carrier board would have their own
-device tree with their own model string. These carrier board device
-trees include the base SoM dtsi.
+Hello,
 
-When these devices are sold in multiple markets, the model string is
-thus not specific to it. For example, the same model string can be sold
-in Japan and in Canada, with different regulatory requirements and thus
-a different board file that needs to be used.
+On Mon, Apr 06, 2026 at 10:24:39PM +0200, George Moussalem via B4 Relay wro=
+te:
+> From: Devi Priya <quic_devipriy@quicinc.com>
+>=20
+> Driver for the PWM block in Qualcomm IPQ6018 line of SoCs. Based on
+> driver from downstream Codeaurora kernel tree. Removed support for older
+> (V1) variants because I have no access to that hardware.
+>=20
+> Tested on IPQ5018 and IPQ6010 based hardware.
+>=20
+> Co-developed-by: Baruch Siach <baruch.siach@siklu.com>
+> Signed-off-by: Baruch Siach <baruch.siach@siklu.com>
+> Signed-off-by: Devi Priya <quic_devipriy@quicinc.com>
+> Reviewed-by: Bjorn Andersson <andersson@kernel.org>
+> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
 
-In short: no, the machine does not have a different model property for
-different BDFs.
+I have a few remaining nitpicks. If you're ok I'll squash the following
+diff into this patch and apply it:
 
-Similarly, the WCN7850 would also not have a different PCI ID in
-different regions since the hardware sold is the same.
+diff --git a/drivers/pwm/pwm-ipq.c b/drivers/pwm/pwm-ipq.c
+index b79e5e457d1a..65af19ded72c 100644
+--- a/drivers/pwm/pwm-ipq.c
++++ b/drivers/pwm/pwm-ipq.c
+@@ -2,7 +2,7 @@
+ /*
+  * Copyright (c) 2016-2017, 2020 The Linux Foundation. All rights reserved.
+  *
+- * Hardware notes / Limitations:
++ * Limitations:
+  * - The PWM controller has no publicly available datasheet.
+  * - Each of the four channels is programmed via two 32-bit registers
+  *   (REG0 and REG1 at 8-byte stride).
 
-The existing ath11k calibration property did provide a way to specify in
-the DT which BDF should be used, so in that way it can provide a
-solution yes. Of course, with the drawback that the PCI device has to be
-specified in the DT.
+This is to make
 
-This would allow customers to ship their device with a different DT
-based on the the target market and its regulatory requirements. Another
-mechanism that allows them to specify which variant to use in SW/HW
-in- or outside the device tree would also work.
+	sed -rn '/Limitations:/,/\*\/?$/p' drivers/pwm/*.c
 
-Thanks for looking at this and kind regards,
-Ernest
+do the right thing. I know "Limitations" isn't a good subject for this,
+but until I come around to pick a better marker, doing the same in all
+drivers is good.
+
+@@ -44,13 +44,6 @@
+=20
+ #define IPQ_PWM_REG1			4
+ #define IPQ_PWM_REG1_PRE_DIV		GENMASK(15, 0)
+-
+-/*
+- * The max value specified for each field is based on the number of bits
+- * in the pwm control register for that field (16-bit)
+- */
+-#define IPQ_PWM_MAX_DIV			FIELD_MAX(IPQ_PWM_REG0_PWM_DIV)
+-
+ /*
+  * Enable bit is set to enable output toggling in pwm device.
+  * Update bit is set to trigger the change and is unset automatically
+@@ -59,6 +52,12 @@
+ #define IPQ_PWM_REG1_UPDATE		BIT(30)
+ #define IPQ_PWM_REG1_ENABLE		BIT(31)
+=20
++/*
++ * The max value specified for each field is based on the number of bits
++ * in the pwm control register for that field (16-bit)
++ */
++#define IPQ_PWM_MAX_DIV			FIELD_MAX(IPQ_PWM_REG0_PWM_DIV)
++
+ struct ipq_pwm_chip {
+ 	void __iomem *mem;
+ 	unsigned long clk_rate;
+
+This is just about ordering definitions taken 1:1 from the manual before
+driver specific stuff.
+
+@@ -95,6 +94,12 @@ static int ipq_pwm_apply(struct pwm_chip *chip, struct p=
+wm_device *pwm,
+ 	unsigned long val =3D 0;
+ 	unsigned long hi_dur;
+=20
++	if (!state->enabled) {
++		/* clear IPQ_PWM_REG1_ENABLE */
++		ipq_pwm_reg_write(pwm, IPQ_PWM_REG1, IPQ_PWM_REG1_UPDATE);
++		return 0;
++	}
++
+ 	if (state->polarity !=3D PWM_POLARITY_NORMAL)
+ 		return -EINVAL;
+=20
+This ensures that the PWM can be disabled even if state->polarity is
+bogus or period and duty_cycle are out of range.
+
+@@ -102,7 +107,8 @@ static int ipq_pwm_apply(struct pwm_chip *chip, struct =
+pwm_device *pwm,
+ 	 * Check the upper and lower bounds for the period as per
+ 	 * hardware limits
+ 	 */
+-	period_ns =3D max(state->period, IPQ_PWM_MIN_PERIOD_NS);
++	if (state->period < IPQ_PWM_MIN_PERIOD_NS)
++		return -ERANGE;
+ 	period_ns =3D min(state->period, IPQ_PWM_MAX_PERIOD_NS);
+ 	duty_ns =3D min(state->duty_cycle, period_ns);
+=20
+This is about correctness. A driver is expected to never configure a
+higher value than requested. (And otherwise I would have converted that
+to clamp().)
+
+@@ -134,7 +140,7 @@ static int ipq_pwm_apply(struct pwm_chip *chip, struct =
+pwm_device *pwm,
+=20
+ 	/* pwm duty =3D HI_DUR * (PRE_DIV + 1) / clk_rate */
+ 	hi_dur =3D mul_u64_u64_div_u64(duty_ns, ipq_chip->clk_rate,
+-				     (u64)(pre_div + 1) * NSEC_PER_SEC);
++				     (u64)NSEC_PER_SEC * (pre_div + 1));
+=20
+ 	val =3D FIELD_PREP(IPQ_PWM_REG0_HI_DURATION, hi_dur) |
+ 		FIELD_PREP(IPQ_PWM_REG0_PWM_DIV, pwm_div);
+
+Just consistency with the period calculation
+
+@@ -144,9 +150,7 @@ static int ipq_pwm_apply(struct pwm_chip *chip, struct =
+pwm_device *pwm,
+ 	ipq_pwm_reg_write(pwm, IPQ_PWM_REG1, val);
+=20
+ 	/* PWM enable toggle needs a separate write to REG1 */
+-	val |=3D IPQ_PWM_REG1_UPDATE;
+-	if (state->enabled)
+-		val |=3D IPQ_PWM_REG1_ENABLE;
++	val |=3D IPQ_PWM_REG1_UPDATE | IPQ_PWM_REG1_ENABLE;
+ 	ipq_pwm_reg_write(pwm, IPQ_PWM_REG1, val);
+=20
+ 	return 0;
+
+Simplification that is possible after checking for state->enabled early.
+
+@@ -174,7 +178,7 @@ static int ipq_pwm_get_state(struct pwm_chip *chip, str=
+uct pwm_device *pwm,
+ 	hi_dur =3D FIELD_GET(IPQ_PWM_REG0_HI_DURATION, reg0);
+ 	pre_div =3D FIELD_GET(IPQ_PWM_REG1_PRE_DIV, reg1);
+=20
+-	effective_div =3D (u64)(pre_div + 1) * (pwm_div + 1);
++	effective_div =3D (u64)(pwm_div + 1) * (pre_div + 1)
+=20
+ 	/*
+ 	 * effective_div <=3D 0x100000000, so the multiplication doesn't overflow.
+
+Again consistency.
+
+A nice followup for this patch would be the conversion to the waveform
+API; just in case you're still motivated to work on this driver :-)
+
+Best regards
+Uwe
+
+--5u5li7rew6iszz66
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmncuPAACgkQj4D7WH0S
+/k6j2ggAi6ViW/EbwGsB3KMUtRdeCBKA1j/00S/Dirdtq6zPgEP4NdESKK/dC8NK
+dAEL8QG5001/3TAsWqRPZLTgqTaefy0MFnqTWFZ9IvrveGJ2OgydifghV1rO/d/W
+xCPkzF+IVf/0r2TXTaHdyVTVYpdm3M432AlYoNv7QRSuE5Lga1LmNLR21fgCUosS
+XQH54r9AYH9ORQEXQm7KgiNfDBnzLvYmMIwTiaxJO72curvNHUjlOchnoeYSWLOS
+prkwooNqVME5Lm/QD9UqXN/aFSToaOsZbzKWGAFZn/hngwzl4TdplA0Tdd/juGe4
+onbAs6qgAxlQ8J4eS55a877V4RYPmw==
+=m3gv
+-----END PGP SIGNATURE-----
+
+--5u5li7rew6iszz66--
