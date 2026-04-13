@@ -1,251 +1,172 @@
-Received: from mx0b-002e3701.pphosted.com (mx0b-002e3701.pphosted.com [148.163.143.35])
+Received: from poodle.tulip.relay.mailchannels.net (poodle.tulip.relay.mailchannels.net [23.83.218.249])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D2638C422;
-	Mon, 13 Apr 2026 18:33:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.143.35
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776105203; cv=none; b=VlGINoyNkIbbldR12w8Uq289Qs8sRXvGRuoFSr3b6It75FOS8ODxG0HVrhHmalZj8TjMtx1ql6nLqIIm/voOc9obmHmJpLQ+k3rjwdSxCcHPmR0c2U8FLIJTFNLxUVdn+bfw/8NMNXdFbWxXzqlQmsTshWrE6221gXs0SX4Iaxs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776105203; c=relaxed/simple;
-	bh=QGIfopU+Q8Wmy+WDBzLfttJNjP8B1DiaVkgLMLIJTgY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W7xhH6AbZt/kdl/QFnlVziaALnKxZKgB9VAXMfxwsUBwZm6v1wyoTQwYb871bfnDyhkl/kmAc1lvppvJd6NN6XdoesVtFOcVhOJccgsKeWNSJcL+ggan/1qAxJeYqhcr5k3tZV4YAt+h5P33XMIfJgD1Jo45CdYah2yh1J4GON8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hpe.com; spf=pass smtp.mailfrom=hpe.com; dkim=pass (2048-bit key) header.d=hpe.com header.i=@hpe.com header.b=MbR40wRB; arc=none smtp.client-ip=148.163.143.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hpe.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hpe.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A5B38F64E;
+	Mon, 13 Apr 2026 18:40:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=23.83.218.249
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776105645; cv=pass; b=aFJ4pt3yok52fiUy9lBQA/8hLy4uD/HatA2YF7xqiFtHz7zs7+b/OrdMLcrFNb6Mzth5Cpky1Vpjsp+re9namhRrIL+2Ccrrugybi3c+XRTVN3dan01G7tHWsSNSFHAj8bR907hpyspdL7i3UuDhGF3iDlMciF4T9t/4Vyjlxbk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776105645; c=relaxed/simple;
+	bh=52sN7cxj/7Bd4nf5gMwyPBNngTDrvT+m5lyiAdubMvU=;
+	h=From:Subject:Message-Id:MIME-Version:Content-Type:To:Cc:Date; b=sU39YJiu/0HD/KxuJexvgCVtOuBfZw3u4cm8gtboO+gDG0l7GG8xDNS7prlRapvoVr0EwY+zJhcW8m43xAtfY1glN+Bu3YZxwQ0Jlb249/BM4fWD/nHLVZpZktyl2gItWRqNFQm8vAdd6ocVYoyz0pu67WpYC2+JnpB4Z2GQu3c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com; spf=pass smtp.mailfrom=smankusors.com; dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b=Yinr1tDX; arc=pass smtp.client-ip=23.83.218.249
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smankusors.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hpe.com header.i=@hpe.com header.b="MbR40wRB"
-Received: from pps.filterd (m0134425.ppops.net [127.0.0.1])
-	by mx0b-002e3701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63DHTlkY2253730;
-	Mon, 13 Apr 2026 18:32:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hpe.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pps0720; bh=8h27RIqAXbauC
-	Pey4dOUREgplC+L2RbYGkXpU23cZBk=; b=MbR40wRBMU4NCYieeLGe7rwTmLbax
-	VrK8ZzfHsmfHT9yT/CLnv4iq6HJTDa1EZ2nw+qyVw7nkW2u3gVS6SlxR8l9r8FAF
-	uSwPgDw8oAHN/x/K+CyX4h5iEY3PNLEkkKe0XDN4bBMG9VHlWyqIWAlgYrKQ3mnH
-	FqxXucOkm1ccLZwLJdlUf1Ph3xeZE+OdSAloUXWKfV+yLjlahbSHmHJX1MJ3X9Tw
-	nuUbM1IzyZtFstpCSoispsO+V3hkrPEkT0N+1EEmeKpsIeNhcu9LeqiHhQWxITCH
-	gd3gEYeUfUxfp2v2E3QCrq0e85W/74rzssa/wn/miWKUrNxj6vpmUVphg==
-Received: from p1lg14879.it.hpe.com (p1lg14879.it.hpe.com [16.230.97.200])
-	by mx0b-002e3701.pphosted.com (PPS) with ESMTPS id 4dh2kujkad-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 13 Apr 2026 18:32:58 +0000 (GMT)
-Received: from p1lg14886.dc01.its.hpecorp.net (unknown [10.119.18.237])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by p1lg14879.it.hpe.com (Postfix) with ESMTPS id 2611026F;
-	Mon, 13 Apr 2026 18:32:57 +0000 (UTC)
-Received: from hpe.com (unknown [16.231.227.36])
-	by p1lg14886.dc01.its.hpecorp.net (Postfix) with ESMTP id 8D96D8000B6;
-	Mon, 13 Apr 2026 18:32:57 +0000 (UTC)
-From: nick.hawkins@hpe.com
-To: catalin.marinas@arm.com, will@kernel.org
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        krzysztof.kozlowski@oss.qualcomm.com, devicetree@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-        Nick Hawkins <nick.hawkins@hpe.com>
-Subject: [PATCH v6 3/4] arm64: dts: hpe: Add HPE GSC SoC and DL340 Gen12 board DTS
-Date: Mon, 13 Apr 2026 18:32:46 +0000
-Message-ID: <20260413183247.1381172-4-nick.hawkins@hpe.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260413183247.1381172-1-nick.hawkins@hpe.com>
-References: <20260413183247.1381172-1-nick.hawkins@hpe.com>
+	dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b="Yinr1tDX"
+X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id 55285443094;
+	Mon, 13 Apr 2026 18:33:00 +0000 (UTC)
+Received: from fr-int-smtpout18.hostinger.io (trex-green-5.trex.outbound.svc.cluster.local [100.103.3.248])
+	(Authenticated sender: hostingeremail)
+	by relay.mailchannels.net (Postfix) with ESMTPA id 566C6442DA1;
+	Mon, 13 Apr 2026 18:32:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; d=mailchannels.net; s=arc-2022; cv=none;
+	t=1776105178;
+	b=1War/9gLfY9ckwAul+BHzYyNjuXwl0H5NtWyyKgIJDC7YEE6l/v3JgSV0dmCfXgRyZICp5
+	0znDaSJEUWVCtGGN9q0606Dk1F+5hDYwRLr+K7eeaxTcuTRbvV5oKVo/iCtcBGmzI5UljI
+	SV8vwuhSumiramJKY/ypdUVIMU6A4rt0mzIGZX00bHZHVMbceRZowh7zffenkyVUCHx3J8
+	O8a+SaACZzAY5tOTdJOvPvdfTp9CeqE/mn3VbMeScqqy8FgyzuGt1zeM+7xSclFTCivS6Y
+	B1D0AT3Zj/AnZva3PZdSZs95kqLENiAXVuhXHmfydke5EwnVTA6g+ohw8zmE0Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mailchannels.net;
+	s=arc-2022; t=1776105178;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:dkim-signature;
+	bh=5VmPqTvLOfUwbsB9JR/cj2dmOe8UgYkfqn/CCYd62ps=;
+	b=pdSZJS/w3l46x/Daoe2zQ93hyU247wKZ7ejA3cZX7sQMdHJ/TqmRGuDYITkZdFH5hLcPLX
+	KUeHs7IJ8GpGbhi8F5VOpPuw5wW/ti9Uyno37ohbkfyU+9ynbkuWhSvuvvQUbkntqRqnRX
+	YuGsjLCFyTMqSYyPD5lFPAseELMFZExDlFSRR7hwJxwbZwPvMvU9Dn2T0LPuom3LmKbuC6
+	2QqTP3Tlyi/jRr7Z2sC/up8qmFM0tKz39xN2hvRqVyXzJS0IjD4n6NnTUtz/4JKrkLAPwA
+	dIkROn9bUUu8WKNhcEaHOwmZWpqbay/pM4qEmCz+SwNsfM7hPz4GBqKDQy5Isg==
+ARC-Authentication-Results: i=1;
+	rspamd-7d86dcc447-brlgt;
+	auth=pass smtp.auth=hostingeremail smtp.mailfrom=linux@smankusors.com
+X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: hostingeremail|x-authuser|linux@smankusors.com
+X-MailChannels-Auth-Id: hostingeremail
+X-Inform-Vacuous: 5ab0c4dc75ed8708_1776105180110_2651789384
+X-MC-Loop-Signature: 1776105180110:4023615666
+X-MC-Ingress-Time: 1776105180110
+Received: from fr-int-smtpout18.hostinger.io (fr-int-smtpout18.hostinger.io
+ [148.222.54.9])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.103.3.248 (trex/7.1.5);
+	Mon, 13 Apr 2026 18:33:00 +0000
+Received: from [172.17.0.2] (unknown [180.247.251.74])
+	(Authenticated sender: linux@smankusors.com)
+	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4fvbcf14N3z1xvd;
+	Mon, 13 Apr 2026 18:32:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smankusors.com;
+	s=hostingermail-a; t=1776105173;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=5VmPqTvLOfUwbsB9JR/cj2dmOe8UgYkfqn/CCYd62ps=;
+	b=Yinr1tDXrBCda5iPxXoTm5zo9f/kxFu100uO1w60Arm9cnsOfELLOcYuvrNoEwkdEaDKSR
+	Tgpjf2Mb1V7dYYsCkxPpZ+2+4XnRa3q5XlF3F4CcqrxQ0bt5XoSh5V2+nYSmlUhLerz8cL
+	YIO0JgBrW7BotryFXGYtaNvVF02jN+FZQt8b2T0lApQB+rOqRypxoaH6Rru6NNXiXEkOA9
+	5NuUq1NKeISYUqU7NQJlOJJt5TN0knzMvKvzTHw+TRCWaN+qaXiUP48eaIViLLeA1ghieC
+	DVIzLpxxlK5BvgLO775jPJ7ILPfOBm1DyrJDIfQwo5Y2UnIK7Ru91LcyJwi5Mw==
+From: Antony Kurniawan Soemardi <linux@smankusors.com>
+Subject: [PATCH 00/10] ARM: qcom: msm8960: enable WCNSS (Bluetooth & Wi-Fi)
+Message-Id: <20260414-msm8960-wifi-v1-0-01c081e54610@smankusors.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEzMDE4MiBTYWx0ZWRfX3Jh6sSgOqqcA
- D2kPFVhCXcZtBfaS/BpQimlgBwGdwjqS8WzRpr0dq2gsUNf8aDhDbHj0IXEXYejPQVdFawUCKX/
- AVsYqfLHtWUdMbUaPUKGE6CS/1lnzweVexv/dezYD6BdX0A1uPsaSi2o9enAkOXg6dob+PG+2kU
- F8VsMQQnTxAg+gq5MamF3qbyUgjz7KRElAByLd8WtKRqbvxArShC9/7H136IshDLtIJLTCCvfY9
- Y9N9idfp2ua4nb0JKXVcjHYDhI2Yiy73YrgcQezgmNfznUS7sJUdlgvZX5EZLQjwmBfgDFICfyu
- 10lJYo5sWSGaypjSbNjoy30kmxVU+KiJ2nssG/vsDLXMik5a7n5YetQD+RPc15dIXmcNVRSoQTx
- +pANVxOFRRUS8UkSySgFeF4vPZnDbCCc0oQNa2FSU2hDY+GWtPFh4Sk22rZjBy5D+DFZrcb8y+m
- 6Z4PDed95Of0yGB//tw==
-X-Proofpoint-ORIG-GUID: wV-HMlNhab_5TKxgiDkTjpU3-8hZBP4N
-X-Authority-Analysis: v=2.4 cv=FKcrAeos c=1 sm=1 tr=0 ts=69dd36da cx=c_pps
- a=5jkVtQsCUlC8zk5UhkBgHg==:117 a=5jkVtQsCUlC8zk5UhkBgHg==:17
- a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22 a=gQcMVamqm3wCPoSYhaRC:22
- a=ZSrvDirOKP4VPF05hnFf:22 a=MvuuwTCpAAAA:8 a=EUspDBNiAAAA:8
- a=KK1IH8HFS8MDNeiM4vUA:9
-X-Proofpoint-GUID: wV-HMlNhab_5TKxgiDkTjpU3-8hZBP4N
-X-HPE-SCL: -1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-13_03,2026-04-13_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 adultscore=0 priorityscore=1501 malwarescore=0
- clxscore=1015 impostorscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604130182
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACY23WkC/x3MQQ5AQAxA0atI15rQ0OAqYsEouhhkmiCRubuJ5
+ Vv8/4JJUDHosheCXGp67AllnoHbxn0V1DkZqKC6JGL05puWC7x1UZxE3NyyY64YUnIGWfT5d/0
+ Q4wdy1J4oXgAAAA==
+X-Change-ID: 20251226-msm8960-wifi-beecd96c6646
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
+ Rudraksha Gupta <guptarud@gmail.com>, 
+ Antony Kurniawan Soemardi <linux@smankusors.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776105169; l=2609;
+ i=linux@smankusors.com; s=20250609; h=from:subject:message-id;
+ bh=52sN7cxj/7Bd4nf5gMwyPBNngTDrvT+m5lyiAdubMvU=;
+ b=ldTK2rqmxkwGe8TRHFcJ+AGxmJktLlOckn2dgPw0i8VOGS1Q3Oe8nulUmUHDGrp2k4OZE0pbf
+ oNcginx8YPbA2HNBeDPyGFX8m5MB5X8VCrTsoR/+iTXDpoLyYEJUC77
+X-Developer-Key: i=linux@smankusors.com; a=ed25519;
+ pk=65wTy06fJl2/h/EJwjr704YG+yjHFhZObJBWzzK+N00=
+Date: Mon, 13 Apr 2026 18:32:49 +0000 (UTC)
+X-CM-Analysis: v=2.4 cv=UN2PHzfy c=1 sm=1 tr=0 ts=69dd36d5 a=iMBLmzX4nuXcozcv68JNPw==:117 a=iMBLmzX4nuXcozcv68JNPw==:17 a=IkcTkHD0fZMA:10 a=NEAV23lmAAAA:8 a=wxLWbCv9AAAA:8 a=1XrRl8l2ajt_F3_S8g0A:9 a=QEXdDO2ut3YA:10 a=QJY96suAAestDpCc5Gi9:22
+X-CM-Envelope: MS4xfOENm35fBi4cnyIyIiaBILKk8BZuKifS1T1DeSonUwk1/pgaLGxwi87AVe4eXJlArbtnNgoeE5vuh47JV+DU/PXmm1pxesoLZRYUMyS1CcNSDGHrGjrO PK8zoz+w7rxdGjjFPagx2TZZEBJi0mgc4twApQHdZmRIMo9ooeAYtyYOs6kNHK2lloV0oibATei19Y7RpEZz3hvju2xbkiP4zaHjvNnojfrWQs9U5xHW/34D NQa67CmAqYyjKVbH35TFYBwrhintUdK3DCGIWkMzyQLBP3+RHEhd/CKMw3FgSAxJuxr6z7WTE4/Dr7YMgm6oHEnvYGIKoo4Oio3W0gxJ/ILuCApAhyiw69rH kdtTmgS+WoyLL20Q8IzwhdDgd8e1MeVDd5ObKVojnocmQ7y+8b8LNLywbONYQxHUjIzcIeA7V7aUhHcSdvToP+rTzxFKUxq3eCq7+pjIbuk2UVuXFwln+KvC HApZeVW2WsSMe76uWupYhR11BLIVb0lhOXt7TZGCYBCWRobHJfsS2dn8QIFgIQX2u2j9LvjIdi76hgYh2FGUt0huDowIfABx6tpMh3L4LvcmOsuvKL+nBf51 Rw2J8ku3Q0XpNRMLx4FdvQjhW5iHS4HcbvzwXm2mnEyKzk2PUoEoJ7pyuy9RAnTdSMirvQMNWDBZ2/BJWN+cRat4
+X-AuthUser: linux@smankusors.com
 
-From: Nick Hawkins <nick.hawkins@hpe.com>
+Enable the WCNSS (Riva) subsystem on MSM8960-based devices to support
+Bluetooth and Wi-Fi.
 
-Add SoC-level DTSI for the HPE GSC ARM64 BMC SoC, covering the CPU
-cluster, GIC v3 interrupt controller, ARM64 generic timer, and console
-UART.
+Add the required device tree nodes and resources, including memory
+regions, clocks, interconnects, and communication interfaces used by
+the WCNSS firmware and drivers.
 
-Add the board-level DTS for the HPE DL340 Gen12, which includes
-gsc.dtsi and adds memory and chosen nodes.
+Changes:
+- Add Riva (WCNSS) nodes: firmware memory, WCN3660 iris radio,
+  Bluetooth and Wi-Fi subdevices, and pinctrl states
+- Add SMSM and SPS nodes for coordination with the WCNSS subsystem
+- Add shared memory and hardware mutex for inter-processor communication
+- Add SCM node for secure channel manager interaction
+- Add RPM clock controller and required QDSS clock resource
+- Add bindings for SPS interrupt controller and RPM clocks
 
-Signed-off-by: Nick Hawkins <nick.hawkins@hpe.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Known limitations (not addressed in this series):
+The wcn36xx driver appears to misclassify 2.4 GHz networks as 5 GHz
+during hardware scanning, preventing association with 2.4 GHz networks.
+This issue has also been observed on MSM8916 and MSM8953 platforms
+using WCN3620 [1][2].
+
+Tested on:
+- Sony Xperia SP
+- Samsung Galaxy Express (SGH-I437) - secure firmware loading not yet
+  functional (separate series pending)
+
+[1] https://github.com/msm8916-mainline/linux/commit/cc4abc694fcf2c942410136bc58a61e79bf21e83
+[2] https://github.com/msm8953-mainline/linux/commit/779c9627ec0b971bf466588e64fe530cf78a414d
+
+Signed-off-by: Antony Kurniawan Soemardi <linux@smankusors.com>
 ---
- arch/arm64/boot/dts/hpe/Makefile           |   2 +
- arch/arm64/boot/dts/hpe/gsc-dl340gen12.dts |  18 ++++
- arch/arm64/boot/dts/hpe/gsc.dtsi           | 104 +++++++++++++++++++++
- 3 files changed, 124 insertions(+)
- create mode 100644 arch/arm64/boot/dts/hpe/Makefile
- create mode 100644 arch/arm64/boot/dts/hpe/gsc-dl340gen12.dts
- create mode 100644 arch/arm64/boot/dts/hpe/gsc.dtsi
+Antony Kurniawan Soemardi (10):
+      dt-bindings: clock: qcom,rpmcc: add msm8960 compatible
+      dt-bindings: mfd: syscon: add qcom,msm8960-sps-sic
+      mfd: qcom_rpm: add msm8960 QDSS clock resource
+      clk: qcom: clk-rpm: add msm8960 compatible
+      ARM: dts: qcom: msm8960: add RPM clock controller and fix USB clocks
+      ARM: dts: qcom: msm8960: add SCM
+      ARM: dts: qcom: msm8960: add SMEM & hwmutex
+      ARM: dts: qcom: msm8960: add SMSM & SPS
+      ARM: dts: qcom: msm8960: add Riva
+      ARM: dts: qcom: msm8960: huashan: enable Wi-Fi and Bluetooth
 
-diff --git a/arch/arm64/boot/dts/hpe/Makefile b/arch/arm64/boot/dts/hpe/Makefile
-new file mode 100644
-index 000000000000..6b547b8a8154
---- /dev/null
-+++ b/arch/arm64/boot/dts/hpe/Makefile
-@@ -0,0 +1,2 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+dtb-$(CONFIG_ARCH_HPE) += gsc-dl340gen12.dtb
-diff --git a/arch/arm64/boot/dts/hpe/gsc-dl340gen12.dts b/arch/arm64/boot/dts/hpe/gsc-dl340gen12.dts
-new file mode 100644
-index 000000000000..7a3d9f1c4b2e
---- /dev/null
-+++ b/arch/arm64/boot/dts/hpe/gsc-dl340gen12.dts
-@@ -0,0 +1,18 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/dts-v1/;
-+
-+#include "gsc.dtsi"
-+
-+/ {
-+	compatible = "hpe,gsc-dl340gen12", "hpe,gsc";
-+	model = "HPE ProLiant DL340 Gen12";
-+
-+	chosen {
-+		stdout-path = &uartc;
-+	};
-+
-+	memory@0 {
-+		device_type = "memory";
-+		reg = <0x00000000 0x40000000>;
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/hpe/gsc.dtsi b/arch/arm64/boot/dts/hpe/gsc.dtsi
-new file mode 100644
-index 000000000000..1f4c2a7b3d91
---- /dev/null
-+++ b/arch/arm64/boot/dts/hpe/gsc.dtsi
-@@ -0,0 +1,104 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Device Tree file for HPE GSC
-+ */
-+
-+#include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+/ {
-+	#address-cells = <1>;
-+	#size-cells = <1>;
-+
-+	osc: clock-33333333 {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-output-names = "osc";
-+		clock-frequency = <33333333>;
-+	};
-+
-+	cpus {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		cpu@0 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a53";
-+			reg = <0>;
-+			enable-method = "spin-table";
-+			cpu-release-addr = <0 0xa0008048>;
-+		};
-+
-+		cpu@1 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a53";
-+			reg = <1>;
-+			enable-method = "spin-table";
-+			cpu-release-addr = <0 0xa0008048>;
-+		};
-+	};
-+
-+	timer {
-+		compatible = "arm,armv8-timer";
-+		interrupt-parent = <&gic>;
-+		interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_LOW>,
-+			     <GIC_PPI 14 IRQ_TYPE_LEVEL_LOW>,
-+			     <GIC_PPI 11 IRQ_TYPE_LEVEL_LOW>,
-+			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>;
-+	};
-+
-+	soc: soc@80000000 {
-+		compatible = "simple-bus";
-+		reg = <0x80000000 0x80000000>;
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		uarta: serial@c00000e0 {
-+			compatible = "ns16550a";
-+			reg = <0xc00000e0 0x8>;
-+			clock-frequency = <1846153>;
-+			interrupt-parent = <&gic>;
-+			interrupts = <GIC_SPI 17 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-shift = <0>;
-+		};
-+
-+		uartb: serial@c00000e8 {
-+			compatible = "ns16550a";
-+			reg = <0xc00000e8 0x8>;
-+			clock-frequency = <1846153>;
-+			interrupt-parent = <&gic>;
-+			interrupts = <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-shift = <0>;
-+		};
-+
-+		uartc: serial@c00000f0 {
-+			compatible = "ns16550a";
-+			reg = <0xc00000f0 0x8>;
-+			clock-frequency = <1846153>;
-+			interrupt-parent = <&gic>;
-+			interrupts = <GIC_SPI 19 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-shift = <0>;
-+		};
-+
-+		uarte: serial@c00003e0 {
-+			compatible = "ns16550a";
-+			reg = <0xc00003e0 0x8>;
-+			clock-frequency = <1846153>;
-+			interrupt-parent = <&gic>;
-+			interrupts = <GIC_SPI 12 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-shift = <0>;
-+		};
-+
-+		gic: interrupt-controller@ce000000 {
-+			compatible = "arm,gic-v3";
-+			reg = <0xce000000 0x10000>,
-+			      <0xce060000 0x40000>,
-+			      <0xce200000 0x40000>;
-+			#address-cells = <0>;
-+			#interrupt-cells = <3>;
-+			#redistributor-regions = <1>;
-+			interrupt-controller;
-+			redistributor-stride = <0x0 0x20000>;
-+		};
-+	};
-+};
--- 
-2.34.1
+ .../devicetree/bindings/clock/qcom,rpmcc.yaml      |   5 +-
+ Documentation/devicetree/bindings/mfd/syscon.yaml  |   2 +
+ .../boot/dts/qcom/qcom-msm8960-sony-huashan.dts    |  19 +++
+ arch/arm/boot/dts/qcom/qcom-msm8960.dtsi           | 157 ++++++++++++++++++++-
+ drivers/clk/qcom/clk-rpm.c                         |   1 +
+ drivers/mfd/qcom_rpm.c                             |   1 +
+ 6 files changed, 182 insertions(+), 3 deletions(-)
+---
+base-commit: 978e0d8216cae014f10326c9a257890cf98a6398
+change-id: 20251226-msm8960-wifi-beecd96c6646
+
+Best regards,
+--
+Antony Kurniawan Soemardi <linux@smankusors.com>
+
