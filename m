@@ -1,184 +1,128 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E2AEC2FFFBE
-	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 16:24:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B01E6318ED2;
+	Mon, 13 Apr 2026 16:56:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.156.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776097475; cv=none; b=SP6LW3UGIuHBnCIT/jK8CpbOVzrtr8btoK8gNxOnjAuAYyRnEFYyvHIvlhkLh0uFDMlZsecq9Sam4kRKNB4JbKtAYbKRpwzpi/5fem1kYkNpL6NS5DPiFX5ZA9YCSiRLjkczl4BhWa45NhfdHKDfQAUV28hT+VCYXTgeX9gSMKM=
+	t=1776099398; cv=none; b=gKdNHMDkr2uh3/WqAwYMJJsoLJ5WdFFYBNUl6MIlY6cLpsU2vEgs99nTXykIosSaNyvLvwsULnuGLTLCz5hmzV8V6EUEAyDrFrC+9W0TnzXfCG9cDchM53WRQuKboG/IWoYfNRlhSed8cTjnlCryH05i0mSrVJkbkgbqRl25DXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776097475; c=relaxed/simple;
-	bh=ca3Hsb1xEPYF4Zp0GZJuEQqYeXADs3iCcyIw18ya/No=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o9MsFVE9+y/4rp144HUAHEdSsYcDvaA56zM7yCPF6/WU/reLKULEAs1ziWUkpGhZgUlFmZGe2GuHFHYLDHsBUB033rOnekVb0mdHBMZ43hq8m9j6hIlga+/Z9EqDk40ppnbBko/X9duGncI44Ut/6eQzWcW0iUbCUMwLbOR76sE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=AanzIetp; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1776099398; c=relaxed/simple;
+	bh=AuWb7HW5VkrRk14/Y3YtJvPjs7s/zO4LfmozcOxWUVc=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=bIvwuhQ3AxUAZOAUxobM1fIzjqaATUzATuF5q8URKpIgAuN32LaPrcAp/CyWPsBGz5tswNL1TEE+XFGroWn39CxUO2qA6dNa/CqDE1CZIge6x0lSYxiEvmv/z6WgDvTTPo48tDnmyq06mfDJzab4FkGWF/2aAVLuJhvosyRIpyA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=Ztayu3j8; arc=none smtp.client-ip=67.231.156.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="AanzIetp"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 515C73563
-	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 09:24:25 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id C81603F641
-	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 09:24:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1776097471; bh=ca3Hsb1xEPYF4Zp0GZJuEQqYeXADs3iCcyIw18ya/No=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=AanzIetpzbqmOFuk9+Xkq7YH1lEKMDblvJfJc5vfk2V/T6H9mFxXRblqEUyC6IoNo
-	 TJBdDMMOnJEtaMAxVdJ3bXsl1bZeIYkoPA6y+C96EgMYB+GnRJnc36ny2IjkHfMopJ
-	 uQJyi6gKwu2yyvuGq8+KntLoJyAkOOC19jDJSlxY=
-Date: Mon, 13 Apr 2026 17:24:22 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Khushal Chitturi <khushalchitturi@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	sudeep.holla@kernel.org, lpieralisi@kernel.org, pawel.moll@arm.com,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: ARM: arm,vexpress-scc: convert to DT
- schema
-Message-ID: <ad0YtjflxRQggNbS@e142607>
-References: <20260411183355.8847-1-khushalchitturi@gmail.com>
+	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="Ztayu3j8"
+Received: from pps.filterd (m0045851.ppops.net [127.0.0.1])
+	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63D8f4j83064118;
+	Mon, 13 Apr 2026 09:56:27 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+	cc:content-type:date:from:message-id:mime-version:subject:to; s=
+	pfpt0220; bh=SaMe/XCfATJZ2LJcHZ4lSlaqFFo8ZIhHj8aFqQq8m1w=; b=Zta
+	yu3j8M08aS2q2T+sEcF+zHOzBiAPJCdRJdB3/oDXS/Eqak3li39quJDhQKkJISvD
+	FaEna2J9kDMm9aZz5QC1L5gsJ+ImrnbeaqzzRgqx9UVseAjrLPok/bxYlpqD/AhF
+	ELBTS3v352+BGq+9SIjjqehSYyML+QDQ8ekaMGlTfhrcQuZAvskQS0hvuOe230yW
+	4v327coq8jqpjZFQ3o805ABLcBx4JeoKrJuF4MJ04JKU75tPPYDH2J9QYwnaaz/A
+	M29sPSvJHeozFzmoCHHJlMW0BFKVKNOrq4nG0bN8E26O8Y8Gh8DtqkwAS0vONhqM
+	FphNsxWz7WFX6gKx6pQ==
+Received: from dc5-exch05.marvell.com ([199.233.59.128])
+	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4dgw6hh3sf-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 13 Apr 2026 09:56:27 -0700 (PDT)
+Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
+ DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Mon, 13 Apr 2026 09:56:26 -0700
+Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
+ DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Mon, 13 Apr 2026 09:56:25 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
+ (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
+ Transport; Mon, 13 Apr 2026 09:56:25 -0700
+Received: from hyd1soter3.marvell.com (unknown [10.29.37.12])
+	by maili.marvell.com (Postfix) with ESMTP id E3EAD3F7075;
+	Mon, 13 Apr 2026 09:56:22 -0700 (PDT)
+From: Geetha sowjanya <gakula@marvell.com>
+To: <linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>
+CC: <mark.rutland@arm.com>, <will@kernel.org>, <krzk+dt@kernel.org>
+Subject: [PATCH v5 0/2] perf: marvell: Add CN20K DDR PMU support
+Date: Mon, 13 Apr 2026 22:26:19 +0530
+Message-ID: <20260413165621.10921-1-gakula@marvell.com>
+X-Mailer: git-send-email 2.17.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260411183355.8847-1-khushalchitturi@gmail.com>
+Content-Type: text/plain
+X-Authority-Analysis: v=2.4 cv=BY7oFLt2 c=1 sm=1 tr=0 ts=69dd203b cx=c_pps
+ a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
+ a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
+ a=QXcCYyLzdtTjyudCfB6f:22 a=M5GUcnROAAAA:8 a=adgkevBCHCmUBQKKAzcA:9
+ a=OBjm3rFKGHvpk9ecZwUJ:22
+X-Proofpoint-GUID: mimk6iZsQBwJGLdnfxC0-_l_kfZuqGiR
+X-Proofpoint-ORIG-GUID: mimk6iZsQBwJGLdnfxC0-_l_kfZuqGiR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEzMDE2NiBTYWx0ZWRfXxW18DiTN7u24
+ T8+lCtTW87VKhOR7/FFOZQL86/hY7zUFGBIGw3sNPbRA0k7FIfMIgNv0t9zicES6vXWb6OeJsUg
+ TZ3427BLf+6/WA/HhIghVqLj45BIlcj1/v9eOc7XvzT0p+w+XiwNUdspWzBTycv/FAf6fpOdEkd
+ 8w6j2HPzLwIyOU38Hy8ULNrRkDQogx3EIvDfn5LtDtyzwx7/5GLysI9UWLlDvl2Fx+qqZ8BrUjO
+ bKeritahmHOCm8NNz1bAyLrLzsZQ2b/ENsEVpxzwG6SO+MV685oVOSAl4tVqTWNSIEayan7TljH
+ 4roV4VWAiaa6ihbkUDkOXiOBM4PgurBFQ5zpOnNOFMWI0LRIeyvc+AkvjpNO1Etq6mKV3e2f2dy
+ exL1tKV5qC+Q4rEWpJOsXjIxX167bf8I9ZB/sUq5Xgkx8ji5WH7UZ2blBxnGPCGwEJpkjLlnVnY
+ m/PdpZpBVghLelyc+xw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-13_03,2026-04-13_04,2025-10-01_01
 
-On Sun, Apr 12, 2026 at 12:03:55AM +0530, Khushal Chitturi wrote:
-> Convert the ARM Versatile Express Serial Configuration Controller
-> bindings to DT schema.
-> 
-> Signed-off-by: Khushal Chitturi <khushalchitturi@gmail.com>
+This series adds support for the DDR Performance Monitoring Unit (PMU)
+present in Marvell CN20K SoCs.
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+The DDR PMU is part of the DRAM Subsystem (DSS) and provides hardware
+counters to monitor DDR traffic and performance events. The block
+implements eight programmable counters and two fixed-function counters
+tracking DDR read and write activity, and is accessed via a dedicated
+MMIO region.
 
-Best regards,
-Liviu
+CN20K is the successor to CN10K, and the DDR PMU hardware is functionally
+equivalent to the CN10K implementation, with only minor differences in
+register offsets and event mappings. To allow software to distinguish
+between the two silicon variants, this series introduces a specific
+"marvell,cn20k-ddr-pmu" compatible and extends the existing
+marvell_cn10k_ddr_pmu driver to handle CN20K via variant-specific data.
 
-> ---
-> Changelog:
-> v1 -> v2:
-> - Modified compatible string to use an enum instead of a generic pattern.
-> - Updated maintainers list.
-> 
->  .../bindings/arm/arm,vexpress-scc.yaml        | 53 +++++++++++++++++++
->  .../devicetree/bindings/arm/vexpress-scc.txt  | 33 ------------
->  2 files changed, 53 insertions(+), 33 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/arm/arm,vexpress-scc.yaml
->  delete mode 100644 Documentation/devicetree/bindings/arm/vexpress-scc.txt
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/arm,vexpress-scc.yaml b/Documentation/devicetree/bindings/arm/arm,vexpress-scc.yaml
-> new file mode 100644
-> index 000000000000..9b8f7e0c4ea0
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/arm/arm,vexpress-scc.yaml
-> @@ -0,0 +1,53 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/arm/arm,vexpress-scc.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: ARM Versatile Express Serial Configuration Controller
-> +
-> +maintainers:
-> +  - Liviu Dudau <liviu.dudau@arm.com>
-> +  - Sudeep Holla <sudeep.holla@arm.com>
-> +
-> +description: |
-> +  Test chips for ARM Versatile Express platform implement SCC (Serial
-> +  Configuration Controller) interface, used to set initial conditions
-> +  for the test chip.
-> +
-> +  In some cases its registers are also mapped in normal address space
-> +  and can be used to obtain runtime information about the chip internals
-> +  (like silicon temperature sensors) and as interface to other subsystems
-> +  like platform configuration control and power management.
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - enum:
-> +          - arm,vexpress-scc,v2p-ca15_a7
-> +      - const: arm,vexpress-scc
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    bus {
-> +        #address-cells = <2>;
-> +        #size-cells = <2>;
-> +
-> +        scc@7fff0000 {
-> +            compatible = "arm,vexpress-scc,v2p-ca15_a7", "arm,vexpress-scc";
-> +            reg = <0 0x7fff0000 0 0x1000>;
-> +            interrupts = <0 95 4>;
-> +        };
-> +    };
-> +...
-> diff --git a/Documentation/devicetree/bindings/arm/vexpress-scc.txt b/Documentation/devicetree/bindings/arm/vexpress-scc.txt
-> deleted file mode 100644
-> index ae5043e42e5d..000000000000
-> --- a/Documentation/devicetree/bindings/arm/vexpress-scc.txt
-> +++ /dev/null
-> @@ -1,33 +0,0 @@
-> -ARM Versatile Express Serial Configuration Controller
-> ------------------------------------------------------
-> -
-> -Test chips for ARM Versatile Express platform implement SCC (Serial
-> -Configuration Controller) interface, used to set initial conditions
-> -for the test chip.
-> -
-> -In some cases its registers are also mapped in normal address space
-> -and can be used to obtain runtime information about the chip internals
-> -(like silicon temperature sensors) and as interface to other subsystems
-> -like platform configuration control and power management.
-> -
-> -Required properties:
-> -
-> -- compatible value: "arm,vexpress-scc,<model>", "arm,vexpress-scc";
-> -		    where <model> is the full tile model name (as used
-> -		    in the tile's Technical Reference Manual),
-> -		    eg. for Coretile Express A15x2 A7x3 (V2P-CA15_A7):
-> -	compatible = "arm,vexpress-scc,v2p-ca15_a7", "arm,vexpress-scc";
-> -
-> -Optional properties:
-> -
-> -- reg: when the SCC is memory mapped, physical address and size of the
-> -       registers window
-> -- interrupts: when the SCC can generate a system-level interrupt
-> -
-> -Example:
-> -
-> -	scc@7fff0000 {
-> -		compatible = "arm,vexpress-scc,v2p-ca15_a7", "arm,vexpress-scc";
-> -		reg = <0 0x7fff0000 0 0x1000>;
-> -		interrupts = <0 95 4>;
-> -	};
-> -- 
-> 2.53.0
-> 
+Signed-off-by: Geetha sowjanya <gakula@marvell.com>
+
+Chnages in v4:
+ - Fixed document file name.
+
+Chnages in v3:
+- Expanded cover letter and commit message to better describe the DDR PMU
+  hardware and its relationship to CN10K
+- Fixed the file name.
+
+Changes in v2:
+ - Fixed YAML syntax error triggered by a tab character in the examples
+  section, which caused dt_binding_check to fail.
+
+Changes in v1:
+- Added a description field to the binding.
+- Simplified the compatible property using 'const' instead of 'items/enum'.
+- Updated the example node name to include a unit-address matching the reg base.
+
+Geetha sowjanya (2):
+  dt-bindings: perf: marvell: Document CN20K DDR PMU
+  perf: marvell: Add CN20K DDR PMU support
+
+ .../bindings/perf/marvell,cn20k-ddr-pmu.yaml  |  39 ++++
+ drivers/perf/marvell_cn10k_ddr_pmu.c          | 187 ++++++++++++++++--
+ 2 files changed, 210 insertions(+), 16 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/perf/marvell,cn20k-ddr-pmu.yaml
 
 -- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+2.25.1
+
