@@ -1,57 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2987B3DF010;
-	Mon, 13 Apr 2026 15:39:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88DF23E122E;
+	Mon, 13 Apr 2026 15:40:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776094749; cv=none; b=HNsu4llro1j8slUrLcADXsJz7S6rcejKxMAVuwrDb7gbPisMfh3u5ewV3Xg3ixRyl+GfkDVQ7VC6b9WXAO2CGTQRlCzgwQKjizv/BJVa+KWXrvLDyQUWLTk+dLWr91wIZeCuRR+XC6bWoWGOELF2JpucvECrd6Qt7EBupsf4D7U=
+	t=1776094816; cv=none; b=EmVt6fYur82EsTjEOnOcPeFnzm7Dq9lqV21vsZcBD4dHp7Y5ZfZWupFKWpUXv8g02dPuBPlwWjQtRng4dJczlCixyJerlXIWvd7OjoG2ArUhLbtWHPW605W7RnLghTScjUOzKkpVE6JC9CBTSubUyTn0pY12fNTO1bxCYVFc/Gk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776094749; c=relaxed/simple;
-	bh=5QadCKKgpXr3kgDA5Kh5wEnfHoR6sXkaWzTiQDRCL8E=;
+	s=arc-20240116; t=1776094816; c=relaxed/simple;
+	bh=aHXOlXLBnV7UlZptakys60ytQxlgey+InItFueoAcSw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o3Ug9mdS0hyWbCAUPhhmYrMI7I6/EAROQkVKSjjgl2JdlRuQqJy4wLLhtrBKJYd8Pc9FCc4UpBziLrxG5wHrEHfhyp7wfCIScYdh85FqkX19YXsRDTKb5dgktJIhBK4OR6qph8x+zTgiv49bs7SPbKkoFNZX1bSvpCmi80sWlAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DSDcF0Mq; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=thiJ5/m9cH78GxrKhJo0WzrtYRh6NcvF0COPBlY/eRiJiAatJi34ezwDEsEg4e0LS404wM0kF6+sl49gvFirBaSsLYUzoGyRD2eqPub6ySEDN4O9yQ3YczflKCMeb6bg/AhMUWPga1F1jxoxf8OveMRfBugC5ZNg2lx3aOsGfno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fgoiIU9Y; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DSDcF0Mq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77BCCC2BCB0;
-	Mon, 13 Apr 2026 15:39:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fgoiIU9Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF8ECC2BCB0;
+	Mon, 13 Apr 2026 15:40:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776094748;
-	bh=5QadCKKgpXr3kgDA5Kh5wEnfHoR6sXkaWzTiQDRCL8E=;
+	s=k20201202; t=1776094816;
+	bh=aHXOlXLBnV7UlZptakys60ytQxlgey+InItFueoAcSw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DSDcF0MqFhxRfd6z8Mq9kpdj2Of1AdRqwPDq9/WY6gX67s2Fdpq091C3uhjJek37e
-	 rDJv5nnj58b4BsDHX/dhWlXb0pPPX2vrFlgmaA+81CqZMbvu3LEsMxSlgjr6eMwRur
-	 Tz343eqnCM8jtACyImiVQldcbgKsTEhVpRlume0ysXuOYIQAHX3p1n9TgandQaNPhE
-	 rUWsWd8fFM7y9EAen8wMbIAWKGhpAFpzsFzymBBbNimOixYXo7QN03Z6+I7zO2JgOw
-	 Q6w3+Gm4jiKZuwXVPVFfxUW3dl+30LSk4xDykzvSjVwGCzI27aNHVk6ODxfHzut7b0
-	 xT5BYngh1aqHQ==
-Date: Mon, 13 Apr 2026 16:39:02 +0100
+	b=fgoiIU9YXAMhhNLWe3EcROUjkJ92dAczKRrGN8x818+HdXazyrKifc4vPovBPpc2q
+	 z4f2t3yT7t3mpN1nJX1oRYGQMEIDoP/kZkbPonOdsTBrdyelYXeKaoQsk+QbGc+J4F
+	 BeveV17gfW/AZhLZ7kkdHgqP4sLatl+34CIB6wvKBxKEAlYzUJY/0jGCb3okCh1r0V
+	 eF0KFFeDSEjh5Q8EaBi9Gj18dVGr5o7/OT6+3cpAvHa8/OQR+W12GEznPNSZJ8rIrU
+	 WGrYdigOz8U1o4UawHqQ4QdzW2AZmtDV2MR2gu815MoH4OM6s95wt4xg+fMhw3LZ/0
+	 6aAwj8jtTnCBg==
+Date: Mon, 13 Apr 2026 16:40:11 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
+To: Chunfeng Yun <chunfeng.yun@mediatek.com>
+Cc: Vinod Koul <vkoul@kernel.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Cong Yang <yangcong5@huaqin.corp-partner.google.com>,
-	Ondrej Jirman <megi@xff.cz>,
-	Javier Martinez Canillas <javierm@redhat.com>,
-	Jagan Teki <jagan@edgeble.ai>, Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jie Gan <jie.gan@oss.qualcomm.com>, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v3 20/21] dt-bindings: gpio: describe Waveshare GPIO
- controller
-Message-ID: <20260413-unwed-energy-02b0f152d165@spud>
-References: <20260413-waveshare-dsi-touch-v3-0-3aeb53022c32@oss.qualcomm.com>
- <20260413-waveshare-dsi-touch-v3-20-3aeb53022c32@oss.qualcomm.com>
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 RESEND 1/2] dt-bindings: phy: mediatek,xsphy: add
+ property to set disconnect threshold
+Message-ID: <20260413-disorder-quote-8d8ee49c97eb@spud>
+References: <20260413122836.4848-1-chunfeng.yun@mediatek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -59,41 +50,73 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mU8o5eBcLdlDCcZO"
+	protocol="application/pgp-signature"; boundary="zOeBsFTfE7j7c4kz"
 Content-Disposition: inline
-In-Reply-To: <20260413-waveshare-dsi-touch-v3-20-3aeb53022c32@oss.qualcomm.com>
+In-Reply-To: <20260413122836.4848-1-chunfeng.yun@mediatek.com>
 
 
---mU8o5eBcLdlDCcZO
+--zOeBsFTfE7j7c4kz
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Apr 13, 2026 at 05:05:43PM +0300, Dmitry Baryshkov wrote:
-> The Waveshare DSI TOUCH family of panels has separate on-board GPIO
-> controller, which controls power supplies to the panel and the touch
-> screen and provides reset pins for both the panel and the touchscreen.
-> Also it provides a simple PWM controller for panel backlight.
+On Mon, Apr 13, 2026 at 08:28:35PM +0800, Chunfeng Yun wrote:
+> Add a property to tune usb2 phy's disconnect threshold.
+> And add a compatible for mt8196.
 >=20
-> Add bindings for these GPIO controllers. As overall integration might be
-> not very obvious (and it differs significantly from the bindings used by
-> the original drivers), provide complete example with the on-board
-> regulators and the DSI panel.
+> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collab=
+ora.com>
+> Signed-off-by: Chunfeng Yun <chunfeng.yun@mediatek.com>
+> ---
+> v2: change property name
+> ---
+>  Documentation/devicetree/bindings/phy/mediatek,xsphy.yaml | 8 ++++++++
+>  1 file changed, 8 insertions(+)
 >=20
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> diff --git a/Documentation/devicetree/bindings/phy/mediatek,xsphy.yaml b/=
+Documentation/devicetree/bindings/phy/mediatek,xsphy.yaml
+> index 0bed847bb4ad..9017a9c93eb9 100644
+> --- a/Documentation/devicetree/bindings/phy/mediatek,xsphy.yaml
+> +++ b/Documentation/devicetree/bindings/phy/mediatek,xsphy.yaml
+> @@ -50,6 +50,7 @@ properties:
+>            - mediatek,mt3611-xsphy
+>            - mediatek,mt3612-xsphy
+>            - mediatek,mt7988-xsphy
+> +          - mediatek,mt8196-xsphy
+>        - const: mediatek,xsphy
+> =20
+>    reg:
+> @@ -130,6 +131,13 @@ patternProperties:
+>          minimum: 1
+>          maximum: 7
+> =20
+> +      mediatek,disconnect-threshold:
+> +        description:
+> +          The selection of disconnect threshold (U2 phy)
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+Why is this unitless? What does the threshold represent? Time? Voltage?
+Something else?
 
---mU8o5eBcLdlDCcZO
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        minimum: 1
+> +        maximum: 15
+> +
+>        mediatek,efuse-intr:
+>          description:
+>            The selection of Internal Resistor (U2/U3 phy)
+> --=20
+> 2.45.2
+>=20
+
+--zOeBsFTfE7j7c4kz
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHQEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCad0OEgAKCRB4tDGHoIJi
-0gC+APiip+54dvGW6xw4Pg/dOwwMiT7o7wl2wFDjy02hzx0xAQDTPdnt6DUjttpa
-Sjd8YI561hvPMtRCDjboZ6XIiLoiAA==
-=htZd
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCad0OWwAKCRB4tDGHoIJi
+0iK6AP4y8shTRP4IN/Atsh6JGHHKZgJ2BIXF2x//7klI+p459QD+PzeOECp3Gcpt
+89sWMn/MpBwodYWGyX6lMwuCOCM6MQ8=
+=kOMk
 -----END PGP SIGNATURE-----
 
---mU8o5eBcLdlDCcZO--
+--zOeBsFTfE7j7c4kz--
