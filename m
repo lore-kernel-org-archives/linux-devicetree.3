@@ -1,157 +1,522 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08DE43B2FD2
-	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 09:17:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7674619C546
+	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 09:17:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776071825; cv=none; b=DcCSef56oMcbVQGCcRR8g7lGXk1Akza9a7EU5I1HLCSruBQnBrSspmBWSlP+VgHj+xfCbd6W/7paxpoKCkFyNKbq7hmEyxpwSzgVNLic8nnaTTADI3sfwurULK6+E0v3mWaX0zF/wz7zlkKYAQr1ZIpDoqGnDOgycqXzJd2rDzo=
+	t=1776071837; cv=none; b=W0Ns4vYSAb0k+yrZYSnxouipLPC1yWX5YqcZwCdhFRkbPcriwcBvvqw78B5d641Qn6eVwsfzq2XYfRm1w7xaxNtjjIOpqZe5Ba6u+4w9cSRnQlTTAoseGhbirIu8B/xIWy/jFJLSdnsQ0YLRhYZ2y8OxS80K5t7mUSGMIqs+EWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776071825; c=relaxed/simple;
-	bh=lqq2IfHlkFH+xqMsu2m/xGebIN7BMnOm/EZR6HzHe0c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PzmQvKoubCy+mTNILnSiFnMkOBt/V95WZpOGAMjayCWyUkKylMUVd3NNYEfzg5Zm8H2z+Ud/yRUlTnyJxmHjMncLcUYyEaqAi6wxjSGM0zk6AnAL2Y43ozL318aWCoK09Gv9fgkN/LieSqzq3/tq1pyn37inO2Owzqf/G9QiHtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=h5On11Il; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SXqQ2nvv; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1776071837; c=relaxed/simple;
+	bh=Uf8KM2JrcYGj++XbI6YhfQR9Ci6yG3BgYArc86DvSDM=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=XR9DX4mu4ZyqgJAwIM3LR0jCuMEALjh8DYz+y9Xs5DnwYIBUIoQg9Uqx+tF7RBM14nW4ChG9AU2EoFn3yb6feqr8Oiyy7bvi50LueFCSZqgr6kR5efaUNFiYKOb/NZsmshNw+/IPYCCMcJUr253Hq9OpnqWO2nFQvISYVrwJ+Ss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=eVDNq86I; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="h5On11Il";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SXqQ2nvv"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63D5CeiH3560421
-	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 09:17:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=rtDg6wg+zXc
-	8K3rv9TpWuQ9j/5nJjIGixceMJjhljqE=; b=h5On11IlkOUikTS7qiX7XptJwkr
-	aazoPRWF4eu01m1SslcLMESAPQPtdI+x21KeTaLVIc/FqwQ/eaSIZaNHCziWVAda
-	nsiD5ZxZtGbkVbDU7i8XRmv6AYbp1uMV7U3iI0DDoWeDrVzld0K0+luOhpq5ykmZ
-	0aT5Ippo2vCvERHXtrAHUAATsfn2cjlS+cNYWTHfN91S8tuOPoEuHt61JNSLxs8R
-	lp7VaTVUrdv/hwiVUZ8duSHdjue3ZTOF3LIerUtI54KC/hDxLZoQh6l46hYOzUo3
-	gnEah2uRWoBD+WSEiVBKJllUZt6KGmKVGT2v2U9QoxAOMYEP4mGdt23HIMg==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dffb0mk62-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 09:17:03 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-2d8a677cdfaso1011287eec.1
-        for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 02:17:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="eVDNq86I"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4887f49ec5aso51372885e9.1
+        for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 02:17:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776071823; x=1776676623; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=rtDg6wg+zXc8K3rv9TpWuQ9j/5nJjIGixceMJjhljqE=;
-        b=SXqQ2nvv120yCDiDl2tRUWVd1zK+7Nx7nObRyjzBGJ23w9z+s6UpTib/DYy8LFS1xP
-         V5xia9XkLQZfSL6WcZA9yhLPrVMeSM40S3r2dgtb9Xf0Gn/74dORLqufi1HLICCJz2aX
-         Zu4f1AqzW4+bPxAvEVl10wXyzi0s8a6zVp74n8yh2EaO5nQraqQGdQRyQ7DwGMoj87Zg
-         /AMdltd+PQQHl9Bjr74vnkw4Oggm7PL9K9Lt5mVI1X6ob/bNA8NbmCjIpjEpaoZEratQ
-         cjvO94PpxgJ8xXvxdmHa8pWpGZ6o4leqv8BSh+WKisAwrWAJB1dmIq6H0ndnFWxRyuHP
-         r+Gg==
+        d=linaro.org; s=google; t=1776071834; x=1776676634; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=BBXQV8IQIM5Jz+pAvVnKIgGMT01hQYDxhN8tz3TvSyk=;
+        b=eVDNq86Iwk5ORpvat0ArsYYxWJ8giG5EXUGzOvL2+mUgPJKytSXWPFqVFO0fVuazgO
+         Si0g9IddwYsxuFgXWsZkt2MO1xlt7WcjPlqNfJwKaUDLeNUuIDo/Xizh2u9hBe6Y5Wdf
+         yse4V07eJthv/PPEQITFISbVWepwcHlDDvfCCpIqwozTpGfaFwfWxIM5wvc+itJcs6Vv
+         HAI24dUIWRwKVZuYmrgY0jmrlk4IEJEeBPcJGEt+KZyLnoRFiRpmj/MfAxmjSK/fTtye
+         y+ISjp07q9iKG4CaYXy4mxAKr9xwqyECIMqX3Vp7kEMr4ugkRaOoS5JF8ZKyMC/OKjYB
+         5Btw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776071823; x=1776676623;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=rtDg6wg+zXc8K3rv9TpWuQ9j/5nJjIGixceMJjhljqE=;
-        b=p8GWX62ni/LuKHoHVglzTFRzmu3iU1bNf6H1xb3BSyO2umvZ3977qS0L/negY/wTOD
-         pp1pRTFKN/ZFOuv7LuWUVFOFmW0SpNU2jtUztlaeRarlPC01sQlyQ6A1Qi99liUjaSYm
-         E6ueT5aaXMcsUp9WdA40J8cDw37NXaDuQA6dMs5KUUUf46ouZZUzTcD9/RUA2MessmCO
-         +ldXIPtIe42mvn7imbRfbjsG/D9oevSrzQMmEi8tSMozrOGwGd6UNVE4jmaBA5AhhZ8j
-         InWTJ2Ey2rh2KqsbN1UD9lCuwrpwoLnnOxnLOse6aw8XwB8tlK53I1NSCjL5m07XxztC
-         kI8A==
-X-Forwarded-Encrypted: i=1; AFNElJ/y7/ohJQ43zpAiJ21xZXgUIGkTC1TwGM2U1a1hZ9Fn4PAvpigp4iAcX1Z9LzkYvLpfOqhNyxYpbb4z@vger.kernel.org
-X-Gm-Message-State: AOJu0YxAAiwUphXGMnOnEkw3oK8RHzDR6EKi6BDRS4HEPUDdMgimhe79
-	Pw4syLUYSuJgcd58wlWD0+9qqOhy7YNF8Ss5TIDC0izlXoiYr1utE7AmzCYWuFcSqMnSNFHLbrW
-	iYwKS7bIvwg2M9MzdPIecpQgJ8yVqlcL8mGwMJyNgP/sHTnI5gC1CUuI8RrqDi2j/
-X-Gm-Gg: AeBDies5z85QBmC9aXi/5n55vzhVlzlvc+VMC2PQy1udzco3c1TaioWzBmpuE64MjBE
-	YjNLJI+wd+lVSdZnsnYqLxNYBgcmY2SZpVS0oDEqHi3WAgxML5WJfTD0VBXDmQqlYFpZZCcZQSd
-	cThTr4aLagxcv0UuNI0HxyOw2wgPln47kbWQVgYqrule/sUgCpIQ92aSF5UMDSz/LC/FY15nPyZ
-	ZoaK9zPP/M5Z8SoBHyA4jk0FOVDVEcjB51mA1VguFCgnBHrVWM/qhM0EfIGAygeclhZgX32NdZw
-	9cfAGsvKZFvqaIIrjc1FgFv5DlysOJkZ6phuNbtTHCUqbIYmVFJnq4SKiImXrmlx6XtP/n4HxPu
-	0LCWgdVWzHzQoDdFzwPTVzW8bctaHGIJO21TZt9CAI4bjJrEMjmNP2U1KmGEAc4Yj137aMtK4Bm
-	/9/Cz0SQ==
-X-Received: by 2002:a05:7300:1489:b0:2d9:9f55:25c8 with SMTP id 5a478bee46e88-2d99f5527d7mr1048985eec.0.1776071822747;
-        Mon, 13 Apr 2026 02:17:02 -0700 (PDT)
-X-Received: by 2002:a05:7300:1489:b0:2d9:9f55:25c8 with SMTP id 5a478bee46e88-2d99f5527d7mr1048971eec.0.1776071822244;
-        Mon, 13 Apr 2026 02:17:02 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2d55faa571csm18349212eec.10.2026.04.13.02.16.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Apr 2026 02:17:01 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH 2/2] dt-bindings: arm: cpus: Add compatible qcom,oryon-1-5
-Date: Mon, 13 Apr 2026 17:16:25 +0800
-Message-ID: <20260413091625.607976-3-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260413091625.607976-1-shengchao.guo@oss.qualcomm.com>
-References: <20260413091625.607976-1-shengchao.guo@oss.qualcomm.com>
+        d=1e100.net; s=20251104; t=1776071834; x=1776676634;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=BBXQV8IQIM5Jz+pAvVnKIgGMT01hQYDxhN8tz3TvSyk=;
+        b=BK5Ceg/r/EwK+xSM2CGnK/7VLFQ0fOPx7Nk3J54QmpjZ/SxqAMPel+DB6zP7rnQcIW
+         hZIEp/2+Zp//Yv95dJD0JYn9AkTzfw1ORNLhjFIsyTvSK4slfcuPBqq7qRHxe5GxSYls
+         UoV8sTVMf543ltdBF9VjJjQkKhj8rAOcS30ZqGWudy5SnowKW0w0SHQQ8OyfOrABV+nW
+         B+5UAH0gAmhrPXMS1lwivO7nfyOgKEHc5QFHV/iAuCTs+OhINVOPQxhfZZu2WyhtaB0j
+         O+uxbqxnIMigRSkKEp9gPI6TyArf2Ne8BWQtU+Hik1ik0u3kfcQdhgn2T65uCLUmriK7
+         BWzA==
+X-Forwarded-Encrypted: i=1; AFNElJ8G9WUA/7ThfiwX1APM8khuV7lYr02Djgj7CrVhLcj3upBAKa7skVudic+J9KcKc4YZgzHqLvmOBYTZ@vger.kernel.org
+X-Gm-Message-State: AOJu0YxpTiKPhBSzu5ioikw5Oz1P65d3MYHEVV4PeUawJt9FfRie1fz+
+	xgXGhkqEHIa22ycvLT1dLs+ELK5amwGnTmUv1PPLjDfeXFXHWvwZbd9RtYBQCS/yfFw=
+X-Gm-Gg: AeBDietBOoneRfV1H89rtjsNLHkQhkMC/Bx1h7H6dmowFNBjzvEFXZamyjccGljPq2v
+	M/I6e4PtgU0Ugx7eRMd0TdYeutdUQREzQn3vcO0MC9xnZqZlyIMgrZYvHxYZf/9lNgeZS+7DWT5
+	5U3saWObMhjdyaWfiYVMqFO6q+ZOu5b92euYUbR2j5Qg/VCBa0ZR9Bk6CR/0AvntoDirsOr1Iey
+	UKutFFiPh+f56BaCsU2hZNEwttCfQh65qs02WXVLwWpHCHhl+juJTxnxPCuAzOi1JaJrMrfnEh4
+	LfxGFlrmV7oDK8GutAIkGaJ+mJZ5oRsYNmx/9ri2oKjToRE+RQxeV1zgzR2s+HzUGRFJT0CTyo4
+	1nn/A9OBlstDuKqykANQZJIK4U3mItMD+O/kX8epwapU1AxxRfvkf7T+CBvkm08K6tac6v2SluZ
+	WbJbXhez7wq8wSnBmWsiTwxDuavdONP1PRFu/LISxX3P7eEy3itnuA/AV7axrSL2aGJd0TbF3Zp
+	j5RWvTSsEqTmx+t7Q==
+X-Received: by 2002:a05:600c:5298:b0:488:c014:34da with SMTP id 5b1f17b1804b1-488d688687cmr180555835e9.26.1776071833592;
+        Mon, 13 Apr 2026 02:17:13 -0700 (PDT)
+Received: from ?IPV6:2a01:cb1c:fcf:4600:4cfb:7427:8a08:9d25? ([2a01:cb1c:fcf:4600:4cfb:7427:8a08:9d25])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488d5888c12sm332474845e9.3.2026.04.13.02.17.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 13 Apr 2026 02:17:13 -0700 (PDT)
+Message-ID: <63870098-5e70-44af-ba18-1fd726b5ef5a@linaro.org>
+Date: Mon, 13 Apr 2026 11:17:12 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=YfmNIQRf c=1 sm=1 tr=0 ts=69dcb48f cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=qjHcU3mlnP7Z_ZZz7yIA:9 a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEzMDA5MCBTYWx0ZWRfX9XTcz7JO/prk
- TEuqOz5vtC/EkyPBOFWshdFacNowCOfN3DYrMxPpbfsBpDqGtHU/3+G1+T2OItxrZu0TbTWSooU
- hRZuIPaSGXl1rHIA1csxIGwP84+iSYAhnLgQrIsDkGm6eC8WTca5Q8TL4w3WoCowCkroq6H5aJE
- ogn4zghb8mXNYcc8ZlOc5bznxOYs7d7Eb1FQt245Sm5miqdgl1GXH4J2403JSRI96FIQOy3pk87
- 8gKUd+E4Ibil/PMuE+UIx2t+TBd3w0yQJWZfDdsS2EBKPvAvTagqyNp+PIAgEtOQwO2HiumQP0M
- FHgE8Sb2ied00GNTEsdQPntV4H1HjU/OT/7qHqzYUBTmdMKDbHEph98ti3RS/Gts10BISeS2rM4
- FtcM+fHTMQHecFgVjDjornN7EukUvfNvucnxrREAmZ6pBbfRn4GgDQatG4CP7toUefdc71Xma9E
- Sio2FD/RNHTFcSQDe1g==
-X-Proofpoint-ORIG-GUID: Dzxfvt4P8MjM7m4MESLogxw6Bg7WUXse
-X-Proofpoint-GUID: Dzxfvt4P8MjM7m4MESLogxw6Bg7WUXse
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-13_02,2026-04-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 impostorscore=0 adultscore=0 phishscore=0 malwarescore=0
- spamscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604130090
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v4 2/2] drm/panel: Add panel driver for ChipWealth
+ CH13726A based panels
+To: webgeek1234@gmail.com, Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>
+References: <20260408-ch13726a-v4-0-9bb1a9b8f329@gmail.com>
+ <20260408-ch13726a-v4-2-9bb1a9b8f329@gmail.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260408-ch13726a-v4-2-9bb1a9b8f329@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Qualcomm Oryon 1-5 is found on Nord SoC.  Add compatible for it.
+On 4/8/26 07:32, Aaron Kling via B4 Relay wrote:
+> From: Teguh Sobirin <teguh@sobir.in>
+> 
+> This is used by the AYN Thor for the bottom panel.
+> 
+> Signed-off-by: Teguh Sobirin <teguh@sobir.in>
+> Co-developed-by: Aaron Kling <webgeek1234@gmail.com>
+> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> ---
+>   drivers/gpu/drm/panel/Kconfig                     |  11 +
+>   drivers/gpu/drm/panel/Makefile                    |   1 +
+>   drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c | 339 ++++++++++++++++++++++
+>   3 files changed, 351 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+> index d6863b28ddc559..e2c00f08f4507d 100644
+> --- a/drivers/gpu/drm/panel/Kconfig
+> +++ b/drivers/gpu/drm/panel/Kconfig
+> @@ -105,6 +105,17 @@ config DRM_PANEL_BOE_TV101WUM_LL2
+>   	  Say Y here if you want to support for BOE TV101WUM-LL2
+>   	  WUXGA PANEL DSI Video Mode panel
+>   
+> +config DRM_PANEL_CHIPWEALTH_CH13726A
+> +	tristate "CHIPWEALTH CH13726A-based DSI panel"
+> +	depends on OF
+> +	depends on DRM_MIPI_DSI
+> +	depends on BACKLIGHT_CLASS_DEVICE
+> +	select DRM_DISPLAY_DP_HELPER
+> +	select DRM_DISPLAY_HELPER
+> +	help
+> +	  Say Y here if you want to enable support for ChipWealth
+> +	  CH13726A-based display panels.
+> +
+>   config DRM_PANEL_EBBG_FT8719
+>   	tristate "EBBG FT8719 panel driver"
+>   	depends on OF
+> diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
+> index a4291dc3905bed..343d283d1620fb 100644
+> --- a/drivers/gpu/drm/panel/Makefile
+> +++ b/drivers/gpu/drm/panel/Makefile
+> @@ -9,6 +9,7 @@ obj-$(CONFIG_DRM_PANEL_BOE_TD4320) += panel-boe-td4320.o
+>   obj-$(CONFIG_DRM_PANEL_BOE_TH101MB31UIG002_28A) += panel-boe-th101mb31ig002-28a.o
+>   obj-$(CONFIG_DRM_PANEL_BOE_TV101WUM_LL2) += panel-boe-tv101wum-ll2.o
+>   obj-$(CONFIG_DRM_PANEL_BOE_TV101WUM_NL6) += panel-boe-tv101wum-nl6.o
+> +obj-$(CONFIG_DRM_PANEL_CHIPWEALTH_CH13726A) += panel-chipwealth-ch13726a.o
+>   obj-$(CONFIG_DRM_PANEL_DSI_CM) += panel-dsi-cm.o
+>   obj-$(CONFIG_DRM_PANEL_LVDS) += panel-lvds.o
+>   obj-$(CONFIG_DRM_PANEL_SIMPLE) += panel-simple.o
+> diff --git a/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c b/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
+> new file mode 100644
+> index 00000000000000..48a5e20e07c487
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
+> @@ -0,0 +1,339 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * ChipWealth CH13726A MIPI-DSI panel driver
+> + * Copyright (c) 2024, Teguh Sobirin <teguh@sobir.in>.
+> + */
+> +
+> +#include <linux/backlight.h>
+> +#include <linux/delay.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/regulator/consumer.h>
+> +
+> +#include <drm/drm_mipi_dsi.h>
+> +#include <drm/drm_modes.h>
+> +#include <drm/drm_panel.h>
+> +
+> +#include <video/mipi_display.h>
+> +
+> +struct ch13726a_panel {
+> +	struct drm_panel panel;
+> +	struct mipi_dsi_device *dsi;
+> +	struct regulator_bulk_data supplies[4];
+> +	struct gpio_desc *reset_gpio;
+> +	struct ch13726a_desc *desc;
+> +	enum drm_panel_orientation orientation;
+> +	bool prepared;
 
-  $ cat /proc/cpuinfo
-  ...
-  CPU implementer : 0x51
-  CPU architecture: 8
-  CPU variant     : 0x5
-  CPU part        : 0x001
-  CPU revision    : 4
+Drop this, it's handled by the panel core now.
 
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
----
- Documentation/devicetree/bindings/arm/cpus.yaml | 1 +
- 1 file changed, 1 insertion(+)
+> +};
+> +
+> +struct ch13726a_desc {
+> +	unsigned int width_mm;
+> +	unsigned int height_mm;
+> +	unsigned int bpc;
+> +
+> +	const struct drm_display_mode *modes;
+> +	unsigned int num_modes;
+> +};
+> +
+> +static inline struct ch13726a_panel *to_ch13726a_panel(struct drm_panel *panel)
+> +{
+> +	return container_of(panel, struct ch13726a_panel, panel);
+> +}
+> +
+> +static void ch13726a_reset(struct ch13726a_panel *ctx)
+> +{
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> +	usleep_range(10000, 11000);
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> +	usleep_range(10000, 11000);
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> +	usleep_range(10000, 11000);
+> +}
+> +
+> +static int ch13726a_on(struct ch13726a_panel *ctx)
+> +{
+> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> +
+> +	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
+> +
+> +	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf0, 0x50);
+> +	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb9, 0x00);
+> +
+> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+> +
+> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+> +
+> +	return dsi_ctx.accum_err;
+> +}
+> +
+> +static int ch13726a_disable(struct drm_panel *panel)
+> +{
+> +	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
+> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> +
+> +	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
+> +
+> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+> +	mipi_dsi_msleep(&dsi_ctx, 50);
+> +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+> +
+> +	return dsi_ctx.accum_err;
+> +}
+> +
+> +static int ch13726a_prepare(struct drm_panel *panel)
+> +{
+> +	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
+> +	struct device *dev = &ctx->dsi->dev;
+> +	int ret;
+> +
+> +	if (ctx->prepared)
+> +		return 0;
+> +
+> +	ret = regulator_bulk_enable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
+> +	if (ret < 0) {
+> +		dev_err(dev, "Failed to enable regulators: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	ch13726a_reset(ctx);
+> +
+> +	ret = ch13726a_on(ctx);
+> +	if (ret < 0) {
+> +		dev_err(dev, "Failed to initialize panel: %d\n", ret);
+> +		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> +		regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
+> +		return ret;
+> +	}
+> +
+> +	msleep(28);
+> +
+> +	ctx->prepared = true;
+> +
+> +	return 0;
+> +}
+> +
+> +static int ch13726a_unprepare(struct drm_panel *panel)
+> +{
+> +	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
+> +
+> +	if (!ctx->prepared)
+> +		return 0;
+> +
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> +	regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
+> +
+> +	ctx->prepared = false;
+> +	return 0;
+> +}
+> +
+> +static const struct drm_display_mode thor_bottom_modes[] = {
+> +	{
+> +		/* 120Hz */
+> +		.clock = (1080 + 28 + 4 + 36) * (1240 + 16 + 4 + 8) * 120 / 1000,
+> +		.hdisplay = 1080,
+> +		.hsync_start = 1080 + 28,
+> +		.hsync_end = 1080 + 28 + 4,
+> +		.htotal = 1080 + 28 + 4 + 36,
+> +		.vdisplay = 1240,
+> +		.vsync_start = 1240 + 16,
+> +		.vsync_end = 1240 + 16 + 4,
+> +		.vtotal = 1240 + 16 + 4 + 8,
+> +	},
+> +	{
+> +		/* 60Hz */
+> +		.clock = (1080 + 28 + 4 + 36) * (1240 + 16 + 4 + 8) * 60 / 1000,
+> +		.hdisplay = 1080,
+> +		.hsync_start = 1080 + 28,
+> +		.hsync_end = 1080 + 28 + 4,
+> +		.htotal = 1080 + 28 + 4 + 36,
+> +		.vdisplay = 1240,
+> +		.vsync_start = 1240 + 16,
+> +		.vsync_end = 1240 + 16 + 4,
+> +		.vtotal = 1240 + 16 + 4 + 8,
+> +	}
+> +};
+> +
+> +static struct ch13726a_desc thor_bottom_desc = {
+> +	.modes = thor_bottom_modes,
+> +	.num_modes = ARRAY_SIZE(thor_bottom_modes),
+> +	.width_mm = 65,
+> +	.height_mm = 75,
+> +	.bpc = 8,
+> +};
+> +
+> +static int ch13726a_get_modes(struct drm_panel *panel,
+> +					struct drm_connector *connector)
+> +{
+> +	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
+> +
+> +	for (uint8_t i = 0; i < ctx->desc->num_modes; i++) {
+> +		const struct drm_display_mode *m = &ctx->desc->modes[i];
+> +		struct drm_display_mode *mode;
+> +
+> +		mode = drm_mode_duplicate(connector->dev, m);
+> +		if (!mode) {
+> +			dev_err(&ctx->dsi->dev, "failed to add mode %ux%u@%u\n",
+> +				m->hdisplay, m->vdisplay, drm_mode_vrefresh(m));
+> +			return -ENOMEM;
+> +		}
 
-diff --git a/Documentation/devicetree/bindings/arm/cpus.yaml b/Documentation/devicetree/bindings/arm/cpus.yaml
-index 5f5ff5e51e51..5be89c584026 100644
---- a/Documentation/devicetree/bindings/arm/cpus.yaml
-+++ b/Documentation/devicetree/bindings/arm/cpus.yaml
-@@ -223,6 +223,7 @@ properties:
-           - qcom,oryon-1-2
-           - qcom,oryon-1-3
-           - qcom,oryon-1-4
-+          - qcom,oryon-1-5
-           - qcom,oryon-2-1
-           - qcom,oryon-2-2
-           - qcom,oryon-2-3
--- 
-2.43.0
+Can you use drm_connector_helper_get_modes_fixed instead ?
+
+> +
+> +		mode->type = DRM_MODE_TYPE_DRIVER;
+> +		if (i == 0)
+> +			mode->type |= DRM_MODE_TYPE_PREFERRED;
+> +
+> +		drm_mode_set_name(mode);
+> +		drm_mode_probed_add(connector, mode);
+> +	}
+> +
+> +	connector->display_info.width_mm = ctx->desc->width_mm;
+> +	connector->display_info.height_mm = ctx->desc->height_mm;
+> +	connector->display_info.bpc = ctx->desc->bpc;
+> +
+> +	return ctx->desc->num_modes;
+> +}
+> +
+> +static enum drm_panel_orientation ch13726a_get_orientation(struct drm_panel *panel)
+> +{
+> +	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
+> +
+> +	return ctx->orientation;
+> +}
+> +
+> +static const struct drm_panel_funcs ch13726a_panel_funcs = {
+> +	.prepare = ch13726a_prepare,
+> +	.unprepare = ch13726a_unprepare,
+> +	.disable = ch13726a_disable,
+> +	.get_modes = ch13726a_get_modes,
+> +	.get_orientation = ch13726a_get_orientation,
+> +};
+> +
+> +static int ch13726a_bl_update_status(struct backlight_device *bl)
+> +{
+> +	struct mipi_dsi_device *dsi = bl_get_data(bl);
+> +	u16 brightness = backlight_get_brightness(bl);
+> +	int ret;
+> +
+> +	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
+> +
+> +	ret = mipi_dsi_dcs_set_display_brightness(dsi, brightness);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct backlight_ops ch13726a_bl_ops = {
+> +	.update_status = ch13726a_bl_update_status,
+> +};
+> +
+> +static struct backlight_device *
+> +ch13726a_create_backlight(struct mipi_dsi_device *dsi)
+> +{
+> +	struct device *dev = &dsi->dev;
+> +	const struct backlight_properties props = {
+> +		.type = BACKLIGHT_RAW,
+> +		.brightness = 255,
+> +		.max_brightness = 255,
+> +	};
+> +
+> +	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
+> +					      &ch13726a_bl_ops, &props);
+> +}
+> +
+> +static int ch13726a_probe(struct mipi_dsi_device *dsi)
+> +{
+> +	struct device *dev = &dsi->dev;
+> +	struct ch13726a_panel *ctx;
+> +	int ret;
+> +
+> +	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
+> +	if (!ctx)
+> +		return -ENOMEM;
+> +
+> +	ctx->desc = (struct ch13726a_desc *)of_device_get_match_data(dev);
+> +	if (!ctx->desc)
+> +		return -ENODEV;
+> +
+> +	ctx->supplies[0].supply = "vdd1v2";
+> +	ctx->supplies[1].supply = "vddio";
+> +	ctx->supplies[2].supply = "vdd";
+> +	ctx->supplies[3].supply = "avdd";
+> +
+> +	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ctx->supplies),
+> +				      ctx->supplies);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "Failed to get regulators\n");
+> +
+Can you switch to devm_regulator_bulk_get_const ?
+
+> +	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
+> +	if (IS_ERR(ctx->reset_gpio))
+> +		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
+> +				     "Failed to get reset-gpios\n");
+> +
+> +	ret = of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
+> +	if (ret < 0) {
+> +		dev_err(dev, "%pOF: failed to get orientation %d\n", dev->of_node, ret);
+> +		return ret;
+> +	}
+> +
+> +	ctx->dsi = dsi;
+> +	mipi_dsi_set_drvdata(dsi, ctx);
+> +
+> +	dsi->lanes = 4;
+> +	dsi->format = MIPI_DSI_FMT_RGB888;
+> +	dsi->mode_flags = MIPI_DSI_MODE_VIDEO |
+> +			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
+> +
+> +	drm_panel_init(&ctx->panel, dev, &ch13726a_panel_funcs,
+> +		       DRM_MODE_CONNECTOR_DSI);
+
+Please use devm_drm_panel_alloc() instead.
+
+> +	ctx->panel.prepare_prev_first = true;
+> +
+> +	ctx->panel.backlight = ch13726a_create_backlight(dsi);
+> +	if (IS_ERR(ctx->panel.backlight))
+> +		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
+> +				     "Failed to create backlight\n");
+> +
+> +	drm_panel_add(&ctx->panel);
+> +
+> +	ret = mipi_dsi_attach(dsi);
+> +	if (ret < 0) {
+> +		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
+> +		drm_panel_remove(&ctx->panel);
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static void ch13726a_remove(struct mipi_dsi_device *dsi)
+> +{
+> +	struct ch13726a_panel *ctx = mipi_dsi_get_drvdata(dsi);
+> +	int ret;
+> +
+> +	ret = mipi_dsi_detach(dsi);
+> +	if (ret < 0)
+> +		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+> +
+> +	drm_panel_remove(&ctx->panel);
+> +}
+> +
+> +static const struct of_device_id ch13726a_of_match[] = {
+> +	{ .compatible = "ayntec,thor-panel-bottom", .data = &thor_bottom_desc },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, ch13726a_of_match);
+> +
+> +static struct mipi_dsi_driver ch13726a_driver = {
+> +	.probe = ch13726a_probe,
+> +	.remove = ch13726a_remove,
+> +	.driver = {
+> +		.name = "panel-ch13726a-amoled",
+> +		.of_match_table = ch13726a_of_match,
+> +	},
+> +};
+> +module_mipi_dsi_driver(ch13726a_driver);
+> +
+> +MODULE_DESCRIPTION("DRM driver for CH13726A DSI panels");
+> +MODULE_LICENSE("GPL");
+> 
 
