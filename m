@@ -1,236 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E3503E1CE4;
-	Mon, 13 Apr 2026 19:24:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776108247; cv=none; b=p2a3NyO2bnueW7naTSFK/0ivbBkDSpCjH4UkXBYF3fzcn8okfVUxaFbmDKzafXlCQGeXveFrPVfUbGKwUKTTB7UNCTF3cJqL6jdKIigg2vQPSrbuAU94tMmlMRKKBX6utugcH5cSexVR+TKdkJU5QgOwG92Q2Lr+CgT6TdhLICQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776108247; c=relaxed/simple;
-	bh=8KRDSTf0HhUXanWQxJnM/XPPYz1LpFytWo8+xt8KtaQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=g2EMs1Nhp2fAs21UTv1EdRSIpgTDh2kUxT8eii377TAXMuXnrAnXWmmweR6LlBISM5zG7EpYvtKKyDBqA9ja0QffA6G/6kxWwx1FBpEHKcSJ6v8PTCepWEj+loB0Zq6gk8i6/tSw87P7KZIX46usVB6NEhGjl0U6huEMKYAwuOg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QKJ8BJRM; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAEBE38F239
+	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 19:28:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776108516; cv=pass; b=UIv2v+sYOS8pLC+Fj/nhVMdOyS+UU+jXzSCoLQR5uW/8z0ENJMNuq7DXeV7Lff+vHR7xU2r8Fl945oyp77qcwmPG4dH1PJ81GFEMkAU8JR+C3KZEcn9xBHzGTIZf6wgiSfsPl/dOBY2LUnRgWTLPkNf0RimKiv11wZ3Mcz6QMDc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776108516; c=relaxed/simple;
+	bh=at1sLsxz7zG/NI4eVz+XUTJj1sDPXHu9VBu5AMReNzA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=g/Bs2Vizu9ugMVRkemqun+RMWZwUQ4lSkdoPGBZFAdOoloD8F/uuwhAx7r3tGcZ4sdbRy0hxsA3JDNfNRNNd+DNVdqmjs5CLcPHsimWznuNwWTqWH7yYnaeOy5prlHIqz4eB9EDUmDXG+Va3iL7biUsqwULZWz5RHfLJkvrYoic=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ojlFCLVm; arc=pass smtp.client-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QKJ8BJRM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0B7FC2BCB0;
-	Mon, 13 Apr 2026 19:24:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776108246;
-	bh=8KRDSTf0HhUXanWQxJnM/XPPYz1LpFytWo8+xt8KtaQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=QKJ8BJRMIk/MY+JQFaFy5ITnNH1++UGk+PmoHYsgm1cxoR1KAe+s5D/w7x/lAjxwt
-	 vtrcQCSXOn/S7pXDgJi7rK2nBpMFZ7+fT4qrdJq6G3pUfTeDYodH5tJChdKq4rMBpx
-	 mEa8/vtm5qGsfZGg1dwWx79GChM1y4dU3zolueaw5SJZnzSti2pnniZAYUj0VDAUPr
-	 M0ebI+oNOL9S1b6/O5ueyBhhVmPrlYzmSS4uEoz19XGqnlL4iCLrkNt/NMpTIPy1uh
-	 4J0ppdluBnBQjYROlK4EVkwKGyQmnRvtCFWHx5lGFTr1fR3w0GQhbGN0cvF+/j9AEb
-	 xIZs3Tx+a1HGQ==
-Date: Mon, 13 Apr 2026 20:23:56 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Chris Morgan <macroalpha82@gmail.com>
-Cc: linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
- dlechner@baylibre.com, jean-baptiste.maneyrol@tdk.com,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
- andriy.shevchenko@intel.com, Chris Morgan <macromorgan@hotmail.com>
-Subject: Re: [PATCH V3 4/9] iio: imu: inv_icm42607: Add Buffer support
- functions to icm42607
-Message-ID: <20260413202356.1afb4b8f@jic23-huawei>
-In-Reply-To: <20260330195853.392877-5-macroalpha82@gmail.com>
-References: <20260330195853.392877-1-macroalpha82@gmail.com>
-	<20260330195853.392877-5-macroalpha82@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ojlFCLVm"
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-b9c603ec2dfso637827866b.1
+        for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 12:28:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776108512; cv=none;
+        d=google.com; s=arc-20240605;
+        b=V3Mwi9FLTiHpdwFGDWVZRQ0OjZTk1aN3nAEZDgzHnln0CK7/rJ7LaN5uKDPVaZVVew
+         DC4c3ADmO+amWkFIVZU2VELfwI5BGJgUA4kO//V3LHQAtEkzpYne6Y7yXXiR6nmo9SrD
+         mGsQIXj2tBJVOruna+GjWfAFBTWcPLBGOGz8rwhsewgCu1WZN4VHzQ7tvu2itt482N+3
+         VYaTk4g8mQtkVb27b2uo8k1LcZk1pe3ZIZFxRxsdCbYgzyknDx1H0cihLx6UTH7fEkb4
+         lYuPmj1FQtYOa/epgK1AZDGUrmGrp+MR+ff+W/gs4V85+7qtNwrKKy3+11aRg1K7kTxc
+         e3bQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=9bF/zvI2KpjlnALCVbm2BiZRYcKLJLbXhP543C6RUbg=;
+        fh=Y+2FrDqcVhmGT8VnS8Jj+DUby/neAEzCJDRSL5vh6iA=;
+        b=boYpkGRsTKT30kD8Y0aZj98GQbCsAPcU5JpVK2axoSACmxYGL2iilpuv3DT3sBVWEA
+         Fg8jGBmvTOwV1vj9A2UUp+idsIuVVF0Ccm3wkFjZSOzkAIt0DLfwfffXSQHdIlrZZSuy
+         M3FRt63rnUC4Gew8wJiVj21Pgzj+B1vLtovoxlp3ccs5XCIL+/vvpGzkrcqO7S7n+v3B
+         oAV6M0n9pI/XUQwCfX2aCmn9W+NKRLMBpw655k58Fk/AvTWNm6TtVGqMARwkgkPJXeWI
+         vB67y1OshRJH203B3996NSCsVbaiotJy7w5AIEOBFeJdrYj+ilIYahaB8dtPoTuw5InK
+         bqJw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776108512; x=1776713312; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9bF/zvI2KpjlnALCVbm2BiZRYcKLJLbXhP543C6RUbg=;
+        b=ojlFCLVmQ3JjaI/LwRrziMPxHWOtchfdQtjaizbgUnhs2dfVSKLN67sSOZLKU7dodg
+         lCpPSRBelfP/uxuC52nThYAVfHZhWn5gBCW7KRfGNwmSea+oexzZdpCvYHfRsVEol29C
+         9/4uUpEmU4DJc0IzAps0qOY3qAuZ4MtMg63WYIr8ALzQ1agEFt/PLJG+ymddbIJxa1Sy
+         2ivgZnbkLm6f9S6ls6cJJRkJrm2wofjrazc6iMIV9b1U1H26hNVnrOUlxzuh9XPgoBgN
+         WjbzWLH5hi86THBcYgFdDzE30P7oebZWt+3+DvihgNHkZPZbKYUYgzbWC2FONWfEfWLU
+         LvpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776108512; x=1776713312;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=9bF/zvI2KpjlnALCVbm2BiZRYcKLJLbXhP543C6RUbg=;
+        b=G50sVQZ3yHfRtsSWlrITCNs4ZArpgSYntyTsVzlrGO766NzVsgssYdMdq+MNd3Txcd
+         nJVfhrliBdE8zsdO7LXyOL0vIfsl9VRePn0KoyLh9agU+2mnD409Oi3BXUF9dpoW8Pu/
+         6vVK4GMq228IY6KKZa/2B/4qiH25S7rKrVpT7emrlgGXvr6JWfBAtl9W1lYwgfOALMwp
+         /aMAz1HpnjVrWOHTHPhqNnygKppvUn5m894OTXp9FgvTItNsRWvqZDOIituPyYf1S7iw
+         CDiAlfzOt10h2cJqfnRBWTzYkgcHK3mwMcc33PcsAz3WrUjzIVb6EbA34vq0GkGVNqaq
+         KkwQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+802qPFnJk8F220eNPdexBSRGuSVVqY6Iz+Z+ridqicXQWT1a5YJcabZpoRycTBzg1ScEZdkHs0LPO@vger.kernel.org
+X-Gm-Message-State: AOJu0YwderO3SnjLUNcUvml9px1oKhClq7nxZSywlEbc7cAdgpdjFP0p
+	svE12B7KzCtz+tvyOGFpGNhdpJxBBBF8IP/2EY000lkZd9+ugSjqbG005OJpqgef/aLzpdEhfsR
+	1IEpzeWYT7AOZfj9YOubsHbjf4NSKa9M=
+X-Gm-Gg: AeBDiesANQ/2Umne0e5nhaPXPWdplGZPvP5ctIvrNzkHsbeUJ4naw/Jwm/KDi7yjbUu
+	jP61MzMwe2sgsX/SWVxjfuE6MMIhFbOVg4fJejax0VJtgBpdG1Wr4MMH7556/B29fjB7r63zMIP
+	aQFwkY1TbhHIxdhKJuqnfzOmkcQcHUT7syXXidDoV5ZiTIfAvPTdcvFwLglhrGDmtKSGy+RfjZY
+	+w9nW6TiAzxJH/MHG04gCK4U6ETlZSTvo/vMCFkgFfvAgILe+eCd4ICK626//BT45eJYtVSg1He
+	+QVqKR8HI/pfigiP09CdgQhOsnAkJfcYURtOzo7kP8GR9oF9j8UGWgMhkZxPHiY/qDfVdeQN+bn
+	7pSqXxw==
+X-Received: by 2002:a17:907:6c0f:b0:b97:e32f:7ee8 with SMTP id
+ a640c23a62f3a-b9d7298ffe1mr758494466b.37.1776108511829; Mon, 13 Apr 2026
+ 12:28:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260413092148.3870746-1-arnd@kernel.org>
+In-Reply-To: <20260413092148.3870746-1-arnd@kernel.org>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Mon, 13 Apr 2026 12:28:19 -0700
+X-Gm-Features: AQROBzDRhEA53Q6D19izUguGZUF4CJzwH_A7MqptLtlQ6pim0lENIBLGjdUpTss
+Message-ID: <CAKxU2N9iBwbt2frA5v3=BgAdUgQm6zSdVU01ZVV2AqOJb-ntRw@mail.gmail.com>
+Subject: Re: [PATCH] ARM: dts: bcm4709: fix bus range assignment
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>, Hauke Mehrtens <hauke@hauke-m.de>, 
+	=?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	soc@lists.linux.dev, Arnd Bergmann <arnd@arndb.de>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 30 Mar 2026 14:58:48 -0500
-Chris Morgan <macroalpha82@gmail.com> wrote:
-
-> From: Chris Morgan <macromorgan@hotmail.com>
-> 
-> Add all FIFO parsing and reading functions to support
-> inv_icm42607 hardware.
-> 
-> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
-A few minor things inline.
-
-Thanks,
-
-Jonathan
-
+On Mon, Apr 13, 2026 at 2:21=E2=80=AFAM Arnd Bergmann <arnd@kernel.org> wro=
+te:
+>
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> The netgear r8000 dts file limits the bus range for the first host
+> bridge to exclude bus 0, but the two devices on the first bus are
+> explicitly assigned to bus 0, causing a build time warning:
+>
+> /home/arnd/arm-soc/arch/arm/boot/dts/broadcom/bcm4709-netgear-r8000.dts:1=
+42.3-27: Warning (pci_device_bus_num): /axi@18000000/pcie@13000/pcie@0/pcie=
+@0,0/pcie@1,0:bus-range: PCI bus number 0 out of range, expected (1 - 255)
+> /home/arnd/arm-soc/arch/arm/boot/dts/broadcom/bcm4709-netgear-r8000.dts:1=
+42.3-27: Warning (pci_device_bus_num): /axi@18000000/pcie@13000/pcie@0/pcie=
+@0,0/pcie@2,0:bus-range: PCI bus number 0 out of range, expected (1 - 255)
+>
+> I could not find any reason why this is done in the first place, but
+> this can be easily addressed by reassigning the two devices to
+> bus 1, or by dropping the bus-range property in order to allow
+> secondary bus 0 to be assigned.
+>
+> Assuming the bus-range is intentional, fix this by moving the
+> devices to the first valid secondary bus number.
+No, bus-range is not intentional. It should be removed instead.
+>
+> Fixes: 893faf67438c ("ARM: dts: BCM5301X: add root pcie bridges")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 > ---
->  drivers/iio/imu/inv_icm42607/inv_icm42607.h   |   4 +
->  .../imu/inv_icm42607/inv_icm42607_buffer.c    | 496 ++++++++++++++++++
->  .../imu/inv_icm42607/inv_icm42607_buffer.h    |  98 ++++
->  .../iio/imu/inv_icm42607/inv_icm42607_core.c  |  25 +
->  4 files changed, 623 insertions(+)
->  create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
->  create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.h
-> 
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607.h b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
-> index 7d13091aa8df..5530fd3bc03f 100644
-> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607.h
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
-
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
-> new file mode 100644
-> index 000000000000..4f5f199586fc
-> --- /dev/null
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
-> @@ -0,0 +1,496 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (C) 2026 InvenSense, Inc.
-> + */
-> +
-> +#include <linux/kernel.h>
-> +#include <linux/device.h>
-> +#include <linux/minmax.h>
-> +#include <linux/mutex.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/regmap.h>
-> +#include <linux/delay.h>
-> +
-> +#include <linux/iio/buffer.h>
-> +#include <linux/iio/common/inv_sensors_timestamp.h>
-> +#include <linux/iio/iio.h>
-
-Alphabetical order (+ a block for IIO) for headers.
-
-> +
-> +static unsigned int inv_icm42607_wm_truncate(unsigned int watermark,
-> +					     size_t packet_size)
-> +{
-> +	size_t wm_size;
-> +	unsigned int wm;
-> +
-> +	wm_size = watermark * packet_size;
-> +	if (wm_size > INV_ICM42607_FIFO_WATERMARK_MAX)
-> +		wm_size = INV_ICM42607_FIFO_WATERMARK_MAX;
-> +
-> +	wm = wm_size / packet_size;
-> +
-> +	return wm;
-
-Why not
-
-	return wm_size / packet_size;
-
-> +}
-
-
-> +int inv_icm42607_buffer_hwfifo_flush(struct inv_icm42607_state *st,
-> +				     unsigned int count)
-> +{
-> +	s64 gyro_ts, accel_ts;
-> +	int ret;
-> +
-> +	gyro_ts = iio_get_time_ns(st->indio_gyro);
-> +	accel_ts = iio_get_time_ns(st->indio_accel);
-> +
-> +	ret = inv_icm42607_buffer_fifo_read(st, count);
-> +
-> +	return ret;
-Either
-	return inv_...
-or
-	ret = 
-	if (ret)
-		return ret;
-
-	return 0;
-
-2nd one only if this is going to get more complex in later patches.
-
-> +}
-> +
-> +int inv_icm42607_buffer_init(struct inv_icm42607_state *st)
-> +{
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	st->fifo.watermark.eff_gyro = 1;
-> +	st->fifo.watermark.eff_accel = 1;
-> +
-> +	/* Configure FIFO_COUNT format in bytes and big endian */
-> +	val = INV_ICM42607_INTF_CONFIG0_FIFO_COUNT_ENDIAN;
-> +	ret = regmap_update_bits(st->map, INV_ICM42607_REG_INTF_CONFIG0,
-> +				 val, val);
-regmap_set_bits();
-
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Initialize FIFO in bypass mode */
-> +	return regmap_write(st->map, INV_ICM42607_REG_FIFO_CONFIG1,
-> +			    INV_ICM42607_FIFO_CONFIG1_BYPASS);
-> +}
-
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.h b/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.h
-> new file mode 100644
-> index 000000000000..64a66c00a861
-> --- /dev/null
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.h
-...
-
-> +/* FIFO data packet */
-> +struct inv_icm42607_fifo_sensor_data {
-> +	__be16 x;
-> +	__be16 y;
-> +	__be16 z;
-> +} __packed;
-
-Why packed? It will be anyway unless I'm missing something.
-
-> +#define INV_ICM42607_FIFO_DATA_INVALID		-32768
-
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-> index da04c820dab2..344071089042 100644
-> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-
-...
-
-> @@ -436,6 +449,8 @@ static int inv_icm42607_suspend(struct device *dev)
->  static int inv_icm42607_resume(struct device *dev)
->  {
->  	struct inv_icm42607_state *st = dev_get_drvdata(dev);
-> +	struct inv_icm42607_sensor_state *gyro_st = iio_priv(st->indio_gyro);
-> +	struct inv_icm42607_sensor_state *accel_st = iio_priv(st->indio_accel);
->  	struct device *accel_dev;
->  	bool wakeup;
->  	int ret;
-> @@ -462,6 +477,16 @@ static int inv_icm42607_resume(struct device *dev)
->  	ret = inv_icm42607_set_pwr_mgmt0(st, st->suspended.gyro,
->  					 st->suspended.accel,
->  					 st->suspended.temp, NULL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (st->fifo.on) {
-I've not checked, but if this doesn't get more complex you can do
-	if (!st->fifo.on)
-		return 0;
-
-	inv_....
-
-	return regmap_write();
-
-> +		inv_sensors_timestamp_reset(&gyro_st->ts);
-> +		inv_sensors_timestamp_reset(&accel_st->ts);
-> +		ret = regmap_write(st->map, INV_ICM42607_REG_FIFO_CONFIG1,
-> +				   INV_ICM42607_FIFO_CONFIG1_MODE);
-> +	}
-> +
->  	return ret;
->  }
->  
-
+>  arch/arm/boot/dts/broadcom/bcm4709-netgear-r8000.dts | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/arch/arm/boot/dts/broadcom/bcm4709-netgear-r8000.dts b/arch/=
+arm/boot/dts/broadcom/bcm4709-netgear-r8000.dts
+> index d170c71cbd76..355be5014943 100644
+> --- a/arch/arm/boot/dts/broadcom/bcm4709-netgear-r8000.dts
+> +++ b/arch/arm/boot/dts/broadcom/bcm4709-netgear-r8000.dts
+> @@ -147,7 +147,7 @@ pcie@0,0 {
+>
+>                 pcie@1,0 {
+>                         device_type =3D "pci";
+> -                       reg =3D <0x800 0 0 0 0>;
+> +                       reg =3D <0x10800 0 0 0 0>;
+>
+>                         #address-cells =3D <3>;
+>                         #size-cells =3D <2>;
+> @@ -162,7 +162,7 @@ wifi@0,0 {
+>
+>                 pcie@2,0 {
+>                         device_type =3D "pci";
+> -                       reg =3D <0x1000 0 0 0 0>;
+> +                       reg =3D <0x11000 0 0 0 0>;
+>
+>                         #address-cells =3D <3>;
+>                         #size-cells =3D <2>;
+> --
+> 2.39.5
+>
