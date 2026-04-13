@@ -1,455 +1,159 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010018.outbound.protection.outlook.com [52.101.46.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 213B73AEF2E;
-	Mon, 13 Apr 2026 09:10:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776071406; cv=fail; b=cMH/ET2XTrWG5/MDhGZYsmbXPBuWwfsX4N+s3g9mlbd7OPIbmYgWnpZq/DASEM8RS7okPE3jDO4Sl+5gJQ+F4RH9JwipvjWjwPNGBcFzoEL2oYrX/FrBMpeN6Rfw3iA3cgbuv/gUHbm9Vbd6YmaFIPOcxcFjqgxCNg0L0xOO1xI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776071406; c=relaxed/simple;
-	bh=vy/q/UP7u9JNS894FnuNCc9rV6t7Qxi276+bnXp/CpY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=ZB3I+GGF2FXSNz+9rIP0iv2/+WdobOqXlRRuL1UiV6rBhL+oQDmfhUXjepFjAt2h9ArS30xABV5Gfv5oIfZCxetyJQP5ohNiqjl9na5gu5UwRg6rYQ7Z8W92Q0Fg3k+z30K3fNTiVzD7kxSBkj49ydtUJ+I0S1zxjfjAUGIg4zE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=axon.com; spf=pass smtp.mailfrom=axon.com; dkim=pass (1024-bit key) header.d=axon.com header.i=@axon.com header.b=ZdYFktG8; arc=fail smtp.client-ip=52.101.46.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=axon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 793873B19A6;
+	Mon, 13 Apr 2026 09:10:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776071435; cv=none; b=IOF0BXRcEZDpzLih61yla5qGKbHl0Lb4NYj0R1ka6eMK8WG2VR6OsQliCy2YlwhOp6iMSCKvNzMY1VERbfnHanRQdo8rUEZWiYO+VrDzdxZ9o9DtfXcHVYwmjM35Rt+FFvMVStYlbaPq4Ap4chq2n0vYTuo6qX8rO01vDbuxPOU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776071435; c=relaxed/simple;
+	bh=SrSZiqxJwReULWnjaaQIC3mrh4DMqvNbscfFISsWAyg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nrZPvN7vK8yeIysyGryt0eVBBkoJ5l796UoVoyB9CBiO5qh2rAxapT93Y+PbQcMIiHCulbnwWiFqDlU9EixD4rWoJz5hju/nvF4cnxis2BGJ2Lv95UgdcyO1k9QW9W1t3NklLfpU4a3a4QvWownY4HLOXTb4PCexbA9yBoB8Uog=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=imUvg10Q; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=axon.com header.i=@axon.com header.b="ZdYFktG8"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=H0VvfiFii/ptG+oPLU89SAOdFVgN8LEbZEAivAykWrrzcLMG1d3vc1jWf0ZkpukasrPuzNcjkfj6pTxx6UPZFxswCDM6wiDDYwS2iocmk4+yqe2JtMpdwqarp4ijIklXl6CUO7dC/zD40V1+2WJ1AjuTRWg/qMY709WSGK5Q3EdJTFcEZXHaXGgLne7Ac1qIyjB/wnVkBXvLRPvHlz68+OgYVncmjECRevUyZBHKVoDUMs+NJNd3Qz186cw0+1RE0S0ObkaS2Tp5/lH3nszqvmX9JmOmk6ZkOoSi8jXGpql9GOFA0KlPw//McJMXFwDkByA+Lf54nv7ZKHlecv4eOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nJgD98GxhW9rZj73Ic80yb+ZB1d3Vj0gm7MxOC2Jggg=;
- b=VE2irZCPNUt9IkFLr/1FrbLCJOhZMZCZYFKp4cT5dk4kWFE44GQdfJQwHHYbmaUzQsfofUaLszBFrb3uKcLlFAkF7b7/BI09qtFR0AFOLUTqZUv7JQWz8KRBnx1H+Yw0wRvrfeBUxyWzLz9UN5Nv8+9NGG+inXO2YN/KzTr1F1BR4o+gFefaVezE3rf/IndjSzug6MkgoJy9jm+xb/B9dSCSAfkoVnoQC9SINOQkrnqr7LcxkcyxFHirDkY88JgVJwiaSauJVorDkwrgM5hTmDhRayRjMQcFkrDSrH/8Z4A2nda/Q0FPgrp9Noi+/HXQQEmNeQsbIkCiIkecqmBFWQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=axon.com; dmarc=pass action=none header.from=axon.com;
- dkim=pass header.d=axon.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axon.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nJgD98GxhW9rZj73Ic80yb+ZB1d3Vj0gm7MxOC2Jggg=;
- b=ZdYFktG8QZldDZypdbyycjxPbPJLVPO3BTHRn4fa02pfDM+Wzg4PSMNUqKX8a1vNJWjrrTO4g1zIo/PAa+YG8rSFFB2zPxIUH2vKrp3l5gQ2vw7OCk+eXQ6go3YppKU41vKS57h447mjv8PAmQMIzZ09YZR51SWMjXihE2lMB3w=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axon.com;
-Received: from SA2PR10MB4524.namprd10.prod.outlook.com (2603:10b6:806:118::8)
- by SA1PR10MB6367.namprd10.prod.outlook.com (2603:10b6:806:257::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Mon, 13 Apr
- 2026 09:10:03 +0000
-Received: from SA2PR10MB4524.namprd10.prod.outlook.com
- ([fe80::f41d:e38a:4741:e76c]) by SA2PR10MB4524.namprd10.prod.outlook.com
- ([fe80::f41d:e38a:4741:e76c%4]) with mapi id 15.20.9769.046; Mon, 13 Apr 2026
- 09:10:02 +0000
-Date: Mon, 13 Apr 2026 10:09:59 +0100
-From: Joe Sandom <jsandom@axon.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 5/5] arm64: dts: qcom: qcs8550: add QCS8550 RB5Gen2
- board support
-Message-ID: <20260413090959.pt3smt7oxqb4toxr@linaro>
-References: <20260409-rb5gen2-dts-v3-0-be736355d4b4@axon.com>
- <20260409-rb5gen2-dts-v3-5-be736355d4b4@axon.com>
- <luljw64s2p5kvxe5itn6zwbjaugkj7a3hndfn6ff25wbwqcwv2@numatjdny6ho>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <luljw64s2p5kvxe5itn6zwbjaugkj7a3hndfn6ff25wbwqcwv2@numatjdny6ho>
-X-ClientProxiedBy: LO4P123CA0486.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a8::23) To SA2PR10MB4524.namprd10.prod.outlook.com
- (2603:10b6:806:118::8)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="imUvg10Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27EF9C116C6;
+	Mon, 13 Apr 2026 09:10:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776071434;
+	bh=SrSZiqxJwReULWnjaaQIC3mrh4DMqvNbscfFISsWAyg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=imUvg10Q336zJleZMGPGm/EmAzkgDRNQf1E8cZaoJDb+3Y0NIBnKQhGv3a/r9e2YE
+	 IC7xUL2qUzzdJPBcF4xoPd4FYvxjDjv+TVQk8GSjH1WGT3fL3ydkNE5/p//l3TyPMI
+	 4pTq7UrIrnwNX5qlvKiWzVGsKRpXgkBWzhm9cLEA2okFBFDSZGnQm9/y27NnehydoJ
+	 qqpDU+BUn6KoPGUup+jRpEB1fwUB40CZYHGGS6Z2ikuFSbjQaH6nlGPUFD4vo6SYGJ
+	 G050tX/owazGVhTCtC/yNYFJFSaFnVm/PJwV7SALSm1oIags9j4dJiCzdirb7pyxeI
+	 FcCkmGUNzgN8Q==
+Message-ID: <b0d81181-d4a4-4c03-8c26-c7f6e8cde70f@kernel.org>
+Date: Mon, 13 Apr 2026 11:10:30 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PR10MB4524:EE_|SA1PR10MB6367:EE_
-X-MS-Office365-Filtering-Correlation-Id: e3a91da3-29d8-400b-19f2-08de993c71cb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	BtIxlSqZKkfBV68+qjO2M92eEGUvFom6lHMMxuHwpaINpiEvLp4W0SPrSkam5WPUKLyQdi+Lbgn+awW15n/z5qgDIhKGweRsJBqj2sCaJXrAoX7gGs1RCUIKANR/ZR05OUkb/GivWHHjHfHbLBImJNSHtqNYd1hsMsP2qwWC7xYAhHP4Z1uj+F31n5hbmbvy2kG/EiJ7hCwbaK5NCEc7Yws40t9L/YAuUEVdqOI3vxSzq1NbQcTvc9bYATmr9fRkIMeJTUOIpShbFEU7WLfwScKl8+V6hDuBEY98ZnG5LyCU3StCHYg1nxBg2xjdyVIVo77x08BnrO3hLbVVFYUvdzqKwCUXO1I2D0dW66vmIH1umvArUc1pK3Lzu4XxRMzcsFSElIoxMo0WD6PLlJOW7foIS5xnR2e3IlCMa/gb+u7QIslHKO1iczlxVZfTVC79HV01xraoKVm85wQesfdtGCfluiAbkl/szSTZzuJka8yZi6V/9JX4PmCHSKaIgimuaTw5iit2f20NrGmOc7qMSwognY8kJrdZCw6EWdRbzLj+XY4JR2zWXEbINuGZA2IJuoXJa3RlZzcKw9iVTKNwfBZ9vaAB7Dt3riYOZstMGBRqfe+cPU4q518so3u2GIcfN5WtGGNYa5Lu1GNmwSqzd2UwScqAikE6tdZj0hDUxdOpvmTlHiwFvVghB/AgiriJ
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA2PR10MB4524.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?YbdJ3uOVUGjGPVGl+4QswiCyV4xvQMXGL8x75D6Lgis8FmRg1C0fNp6wPhgu?=
- =?us-ascii?Q?9OTSFy5KMgcHj5lFsMppxrsEbJve/f4MwWSyill1KVm/bLCPgnbiRNPvuIxU?=
- =?us-ascii?Q?Wazm0EpvKTxbelNrPI6ZKTmGAubc2ebzZh2VaeljQSO9ulTAMl0QblYzV9UV?=
- =?us-ascii?Q?1CDAeRASGdI4D4+rZoBvLXyWLzDvocFqUB64s7MKKTx533Hqw0rtVoVy/vbB?=
- =?us-ascii?Q?Ik8mOYVmS00EDGXJmX5KNVJClStmyD/NNQzwENVyfn5wkKxddQr2vVBwA59j?=
- =?us-ascii?Q?OGU6ACKalXuIVlXAAwCa+4XJTPyGhFpvgdQbvFYjuLRL37wziKe0qKzJykjo?=
- =?us-ascii?Q?5XV9v7x2rcNmNnaunsI0yx6lqbtF1tY/xfhKbVXJwzVNIz6GKb3l+VGxH6tW?=
- =?us-ascii?Q?0FMbqENKp4gRk5cTmhfWba3+p3MOS0LV97gPhYvF4dyTch0F5LXmazUVyuT6?=
- =?us-ascii?Q?P57egLdgw9zZqFDscLH6saDBDpllZvluYgdAhC1Qr60cBWLtPA2/ykxftGf2?=
- =?us-ascii?Q?azW92ED3tlhftVsfEeRg3nKhwv9SnqQChgNEpTohl9v1S5qItdyYfytNbkue?=
- =?us-ascii?Q?YXj1gVLnkW6HBNnto/k8rJIfQGpG6Zu3BCqKefF0mcNMug4UatiwBnTo6z4N?=
- =?us-ascii?Q?Nguigmqj/BWLBmnnrTmsTmTgtN7+N7ZS/4E3WdqgSgGjluMWBWKXsDFkpErC?=
- =?us-ascii?Q?zYsQuqDRWsuX7t8L/m77sjI1ZVbdMXIlrpYtjdhCRFL8IN4cbK/QVRCDIzNS?=
- =?us-ascii?Q?RFgYeqcPVJnpX2oPuXziud+r5U1Hqtu0tWMx9KU4J04KuZVcXaqP1J1hPzWX?=
- =?us-ascii?Q?SeqOML3726SnRwTt1Vs2dStX7JH8hIy1mYO6oMAbIYBLnDHvyjoPvrqWG+2D?=
- =?us-ascii?Q?NIevjMJDnZputVWN5/zWKFGy5VIxkwATblsv9S2S1EhsYLSjKOrYIakVC4Fa?=
- =?us-ascii?Q?tX1TmstTHEc7v7jD7LXUJVQ5T1wSuvO7YoMAS9ui3cDBXMaJZZwDRCunsg8S?=
- =?us-ascii?Q?ZIMUGA3XygNOBp0VFWR33vr2vXU+cYAig1abBu34eicViF8wQLCf4RhWKe/n?=
- =?us-ascii?Q?OtNEixRYC29fffk11aBhlB2zREYXZaFYarz6onQl/n1GImLys89QxOBT9mUo?=
- =?us-ascii?Q?WNx7A6atD9WyVQXXbPdeBQ+5n4MjiPwpautLJwugPrjH+WQ24VaD+EbI8Lb7?=
- =?us-ascii?Q?+fPlWkPm6fFRAvU2Y+OUwHCFXRBaUDVxzsGTbB6Blkgjx7AGWlLzLhLoaOIZ?=
- =?us-ascii?Q?kyeTjqZEsDbDoxM4MMvQJPI7/TTBHAHJJhvR/3fHGbIKzo64+e64VM/OdKnb?=
- =?us-ascii?Q?768lYHaXYEtYJElV/cG6E68UQls27Ob9xqrNFgbpjfpTosjhUW54QKISC2Ke?=
- =?us-ascii?Q?m6uSM55UwAyOx6LsqejRSvbhIwfivBAYLhndAF0F593BIEn1yWgguFxfotbz?=
- =?us-ascii?Q?Z4HlV9jRxE4t4kXHSWuEAQGojqr1EcLfBzgRT988jL9Dotk9LDCfrfud3U58?=
- =?us-ascii?Q?/5Pc8ozKNMKjLzeGH0QjTkjP6uxb/2lHc8CbIc1FsDldpe6hFI292o6M19hx?=
- =?us-ascii?Q?PWnIeQgEaiXtU69bsmFyUvFN/rdU54fe4ExahDC1CDqpyjSyncSnG+NTS9Dq?=
- =?us-ascii?Q?VrwIywQPUUu7fYzBf0/+DDXfSWNcKCQS3h0F58o3L5tHP88vDobntlKXdMo8?=
- =?us-ascii?Q?YNwZWBIpDn9F/Lx/iesYLczQ7KxvWQywbp/a5YjqghVH4mM1?=
-X-OriginatorOrg: axon.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e3a91da3-29d8-400b-19f2-08de993c71cb
-X-MS-Exchange-CrossTenant-AuthSource: SA2PR10MB4524.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2026 09:10:02.1785
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b575368d-7461-447d-a9a4-f90f22962981
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: v3I1zG0jFZL3wbNS085x4+s6901jk2Svqu1pWQbJhpVwkTLedj5Q097ZdjxUpXNkgSx8fYv2wkkVjILZ3fZmdA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR10MB6367
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] soc: amlogic: clk-measure: Add A1 and T7 support
+To: Jian Hu <jian.hu@amlogic.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Jerome Brunet <jbrunet@baylibre.com>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ robh+dt <robh+dt@kernel.org>, Rob Herring <robh@kernel.org>
+Cc: devicetree <devicetree@vger.kernel.org>,
+ linux-amlogic <linux-amlogic@lists.infradead.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+References: <20260410100329.3167482-1-jian.hu@amlogic.com>
+ <20260410100329.3167482-3-jian.hu@amlogic.com>
+ <9a4f69e7-838a-4992-af1d-46324e14eb48@kernel.org>
+ <274d2abd-05b9-4dbd-b962-ff70044b8d07@amlogic.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <274d2abd-05b9-4dbd-b962-ff70044b8d07@amlogic.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Apr 13, 2026 at 04:39:55AM +0300, Dmitry Baryshkov wrote:
-> On Thu, Apr 09, 2026 at 04:26:57PM +0100, Joe Sandom wrote:
-> > The RB5gen2 is an embedded development platform for the
-> > QCS8550, based on the Snapdragon 8 Gen 2 SoC (SM8550).
-> > 
-> > This change implements the main board, the vision mezzanine
-> > will be supported in a follow up patch.
-> > 
-> > The main board has the following features:
-> > - Qualcomm Dragonwing QCS8550 SoC
-> > - Adreno GPU 740
-> > - Spectra ISP
-> > - Adreno VPU 8550
-> > - Adreno DPU 1295
-> > - 1 x 1GbE Ethernet (USB Ethernet)
-> > - WIFI 7 + Bluetooth 5.4
-> > - 1 x USB 2.0 Micro B (Debug)
-> > - 1 x USB 3.0 Type C (ADB, DP out)
-> > - 2 x USB 3.0 Type A
-> > - 1 x HDMI 1.4 Type A
-> > - 1 x DP 1.4 Type C
-> > - 2 x WSA8845 Speaker amplifiers
-> > - 2 x Speaker connectors
-> > - 1 x On Board PDM MIC
-> > - Accelerometer + Gyro Sensor
-> > - 96Boards compatible low-speed and high-speed connectors [1]
-> > - 7 x LED indicators (4 user, 2 radio, 1 power)
-> > - Buttons for power, volume up/down, force USB boot
-> > - 3 x Dip switches
-> > 
-> > On-Board PMICs:
-> > - PMK8550 2.1
-> > - PM8550 2.0
-> > - PM8550VS 2.0 x4
-> > - PM8550VE 2.0
-> > - PM8550B 2.0
-> > - PMR735D 2.0
-> > - PM8010 1.1 x2
-> > 
-> > Product Page: [2]
-> > 
-> > [1] https://urldefense.com/v3/__https://www.96boards.org/specifications/__;!!K76kBA!3gMyDZ3RqJTInuD9UAhneyD_Ga1OTDOm5CbLp15KXHLPV8aflL7_S_i89xs_S_dJ2SHGHnEEyMD5zZMi7iWLAuaVhZPXvg$ 
-> > [2] https://urldefense.com/v3/__https://www.thundercomm.com/product/qualcomm-rb5-gen-2-development-kit__;!!K76kBA!3gMyDZ3RqJTInuD9UAhneyD_Ga1OTDOm5CbLp15KXHLPV8aflL7_S_i89xs_S_dJ2SHGHnEEyMD5zZMi7iWLAuaUXzBHLA$ 
-> > 
-> > The default msi-map from sm8550.dtsi is deleted for both pcie0 and
-> > pcie1. The QPS615 PCIe switch on each port exposes more than two
-> > devices (1 USP + 3 DSPs), but Gunyah currently limits ITS device
-> > mappings to two per root complex to save memory. With msi-map
-> > present, the ITS MAPD command times out.
-> > 
-> > Deleting msi-map causes the DWC controller to fall back to its
-> > internal iMSI-RX module, which handles MSIs without this limitation.
-> > 
-> > Signed-off-by: Joe Sandom <jsandom@axon.com>
-> > ---
-> >  arch/arm64/boot/dts/qcom/Makefile            |    1 +
-> >  arch/arm64/boot/dts/qcom/qcs8550-rb5gen2.dts | 1573 ++++++++++++++++++++++++++
-> >  2 files changed, 1574 insertions(+)
-> > 
-> > +
-> > +	lt9611_1v2: lt9611-regulator-1v2 {
+On 13/04/2026 10:21, Jian Hu wrote:
 > 
-> I think that comes from the RB5 or something similar. Could you please
-> rename the nodes to follow the pattern used by other regulators
-> (regulator-foo-bar) and place these supplies accordingly.
->
-Good point, will amend for v4.
-> > +		compatible = "regulator-fixed";
-> > +		regulator-name = "LT9611_1V2";
-> > +
-> > +		regulator-min-microvolt = <1200000>;
-> > +		regulator-max-microvolt = <1200000>;
-> > +
-> > +		vin-supply = <&vreg_l14b_3p2>;
-> > +	};
-> > +
-> > +	lt9611_3v3: lt9611-regulator-3v3 {
-> > +		compatible = "regulator-fixed";
-> > +		regulator-name = "LT9611_3V3";
-> > +
-> > +		regulator-min-microvolt = <3300000>;
-> > +		regulator-max-microvolt = <3300000>;
-> > +
-> > +		vin-supply = <&vreg_l14b_3p2>;
-> > +	};
-> > +
-> > +	pmic-glink {
-> > +		compatible = "qcom,sm8550-pmic-glink", "qcom,pmic-glink";
-> > +		#address-cells = <1>;
-> > +		#size-cells = <0>;
-> > +
-> > +		connector@0 {
-> > +			compatible = "usb-c-connector";
-> > +			reg = <0>;
-> > +			power-role = "dual";
-> > +			data-role = "dual";
-> > +
-> > +			ports {
-> > +				#address-cells = <1>;
-> > +				#size-cells = <0>;
-> > +
-> > +				port@0 {
-> > +					reg = <0>;
-> > +
-> > +					pmic_glink_hs_in: endpoint {
-> > +						remote-endpoint = <&usb_1_dwc3_hs>;
-> > +					};
-> > +				};
-> > +
-> > +				port@1 {
-> > +					reg = <1>;
-> > +
-> > +					pmic_glink_ss_in: endpoint {
-> > +						remote-endpoint = <&redriver_usb_con_ss>;
-> > +					};
-> > +				};
-> > +
-> > +				port@2 {
-> > +					reg = <2>;
-> > +
-> > +					pmic_glink_sbu_in: endpoint {
-> > +						remote-endpoint = <&redriver_usb_con_sbu>;
-> > +					};
-> > +				};
-> > +			};
-> > +		};
-> > +	};
-> > +
-> > +	pcie_upd_1p05: regulator-pcie-upd-1p05 {
-> > +		compatible = "regulator-fixed";
-> > +		regulator-name = "PCIE_UPD_1P05";
-> > +		gpio = <&tlmm 179 GPIO_ACTIVE_HIGH>;
-> > +		vin-supply = <&vdd_ntn_0p9>;
-> > +		regulator-min-microvolt = <1050000>;
-> > +		regulator-max-microvolt = <1050000>;
-> > +		enable-active-high;
-> > +		regulator-enable-ramp-delay = <5000>;
-> > +		pinctrl-0 = <&upd_1p05_en>;
-> > +		pinctrl-names = "default";
-> > +	};
-> > +
-> > +	pcie_upd_3p3: regulator-pcie-upd-3p3 {
-> > +		compatible = "regulator-fixed";
-> > +		regulator-name = "PCIE_UPD_3P3";
-> > +		gpio = <&tlmm 13 GPIO_ACTIVE_HIGH>;
-> > +		vin-supply = <&pcie_upd_1p05>;
-> > +		regulator-min-microvolt = <3300000>;
-> > +		regulator-max-microvolt = <3300000>;
-> > +		enable-active-high;
-> > +		regulator-enable-ramp-delay = <10000>;
-> > +		pinctrl-0 = <&upd_3p3_en>;
-> > +		pinctrl-names = "default";
-> > +	};
-> > +
-> > +	vdd_ntn_0p9: regulator-vdd-ntn-0p9 {
-> > +		compatible = "regulator-fixed";
-> > +		regulator-name = "VDD_NTN_0P9";
-> > +		vin-supply = <&vdd_ntn_1p8>;
-> > +		regulator-min-microvolt = <899400>;
-> > +		regulator-max-microvolt = <899400>;
-> > +		regulator-enable-ramp-delay = <4300>;
-> > +	};
-> > +
-> > +	vdd_ntn_1p8: regulator-vdd-ntn-1p8 {
-> > +		compatible = "regulator-fixed";
-> > +		regulator-name = "VDD_NTN_1P8";
-> > +		gpio = <&tlmm 67 GPIO_ACTIVE_HIGH>;
-> > +		regulator-min-microvolt = <1800000>;
-> > +		regulator-max-microvolt = <1800000>;
-> > +		enable-active-high;
-> > +		pinctrl-0 = <&ntn0_en>;
-> > +		pinctrl-names = "default";
-> > +		regulator-enable-ramp-delay = <10000>;
-> > +	};
-> > +
-> > +	vdd_ntn1_0p9: regulator-vdd-ntn1-0p9 {
-> > +		compatible = "regulator-fixed";
-> > +		regulator-name = "VDD_NTN1_0P9";
-> > +		vin-supply = <&vdd_ntn1_1p8>;
-> > +		regulator-min-microvolt = <899400>;
-> > +		regulator-max-microvolt = <899400>;
-> > +		regulator-enable-ramp-delay = <4300>;
-> > +	};
-> > +
-> > +	vdd_ntn1_1p8: regulator-vdd-ntn1-1p8 {
-> > +		compatible = "regulator-fixed";
-> > +		regulator-name = "VDD_NTN1_1P8";
-> > +		gpio = <&tlmm 42 GPIO_ACTIVE_HIGH>;
-> > +		regulator-min-microvolt = <1800000>;
-> > +		regulator-max-microvolt = <1800000>;
-> > +		enable-active-high;
-> > +		pinctrl-0 = <&ntn1_en>;
-> > +		pinctrl-names = "default";
-> > +		regulator-enable-ramp-delay = <10000>;
-> > +	};
-> > +
-> > +	vph_pwr: regulator-vph-pwr {
-> > +		compatible = "regulator-fixed";
-> > +		regulator-name = "vph_pwr";
-> > +		regulator-min-microvolt = <3700000>;
-> > +		regulator-max-microvolt = <3700000>;
-> > +
-> > +		regulator-always-on;
-> > +		regulator-boot-on;
-> > +	};
-> > +
-> > +	sound {
-> > +		compatible = "qcom,sm8550-sndcard", "qcom,sm8450-sndcard";
-> > +		model = "QCS8550-RB5Gen2";
-> > +		audio-routing = "SpkrLeft IN", "WSA_SPK1 OUT",
-> > +				"SpkrRight IN", "WSA_SPK2 OUT",
-> > +				"VA DMIC0", "vdd-micb",
-> > +				"VA DMIC1", "vdd-micb";
-> > +
-> > +		wsa-dai-link {
-> > +			link-name = "WSA Playback";
-> > +
-> > +			cpu {
-> > +				sound-dai = <&q6apmbedai WSA_CODEC_DMA_RX_0>;
-> > +			};
-> > +
-> > +			codec {
+> On 4/12/2026 5:55 PM, Krzysztof Kozlowski wrote:
+>> [ EXTERNAL EMAIL ]
+>>
+>> On 10/04/2026 12:03, Jian Hu wrote:
+>>> Add support for the A1 and T7 SoC family in amlogic clk measure.
+>>>
+>>> Signed-off-by: Jian Hu <jian.hu@amlogic.com>
+>>> ---
+>>>   drivers/soc/amlogic/meson-clk-measure.c | 272 ++++++++++++++++++++++++
+>>>   1 file changed, 272 insertions(+)
+>>>
+>>> diff --git a/drivers/soc/amlogic/meson-clk-measure.c b/drivers/soc/amlogic/meson-clk-measure.c
+>>> index d862e30a244e..083524671b76 100644
+>>> --- a/drivers/soc/amlogic/meson-clk-measure.c
+>>> +++ b/drivers/soc/amlogic/meson-clk-measure.c
+>>> @@ -787,6 +787,258 @@ static const struct meson_msr_id clk_msr_s4[] = {
+>>>
+>>>   };
+>>>
+>>> +static struct meson_msr_id clk_msr_a1[] = {
+>> And existing code uses what sort of array? Seems you send us obsolete or
+>> downstream code.
 > 
-> codec < cpu
-Ack. Will amend for v4.
 > 
-> > +				sound-dai = <&left_spkr>, <&right_spkr>,
-> > +					    <&swr0 0>, <&lpass_wsamacro 0>;
-> > +			};
-> > +
-> > +			platform {
-> > +				sound-dai = <&q6apm>;
-> > +			};
-> > +		};
-> > +
-> > +		va-dai-link {
-> > +			link-name = "VA Capture";
-> > +
-> > +			cpu {
-> > +				sound-dai = <&q6apmbedai VA_CODEC_DMA_TX_0>;
-> > +			};
-> > +
-> > +			codec {
-> > +				sound-dai = <&lpass_vamacro 0>;
-> > +			};
-> > +
-> > +			platform {
-> > +				sound-dai = <&q6apm>;
-> > +			};
-> > +		};
-> > +	};
-> > +
-> > +
-> > +&i2c_hub_3_gpio {
-> > +	clock-frequency = <400000>;
-> > +
-> > +	status = "okay";
-> > +
-> > +	lt9611_codec: hdmi-bridge@2b {
-> > +		compatible = "lontium,lt9611uxc";
-> > +		reg = <0x2b>;
-> > +
-> > +		interrupts-extended = <&tlmm 40 IRQ_TYPE_EDGE_FALLING>;
-> > +		reset-gpios = <&tlmm 7 GPIO_ACTIVE_HIGH>;
-> > +
-> > +		vdd-supply = <&lt9611_1v2>;
-> > +		vcc-supply = <&lt9611_3v3>;
-> > +
-> > +		pinctrl-0 = <&lt9611_irq_pin &lt9611_rst_pin>;
+> Thanks for your review.
 > 
-> pinctrl-0 = <&lt9611_irq_pin>, <&lt9611_rst_pin>;
 > 
-Ack. Also another instance of this for the tc9563. Will amend both for
-v4.
+> I have checked the previous Amlogic SoC's commits. Such as Amlogic AXG, 
+> G12A, C3, S4.
 > 
-> > +		pinctrl-names = "default";
-> > +
-> > +		ports {
-> > +			#address-cells = <1>;
-> > +			#size-cells = <0>;
-> > +
-> > +			port@0 {
-> > +				reg = <0>;
-> > +
-> > +				lt9611_a: endpoint {
-> > +					remote-endpoint = <&mdss_dsi0_out>;
-> > +				};
-> > +			};
-> > +
-> > +			port@2 {
-> > +				reg = <2>;
-> > +
-> > +				lt9611_out: endpoint {
-> > +					remote-endpoint = <&hdmi_con>;
-> > +				};
-> > +			};
-> > +		};
-> > +	};
-> > +};
-> > +
-> > +
-> > +&remoteproc_adsp {
-> > +	firmware-name = "qcom/qcs8550/adsp.mbn",
-> > +			"qcom/qcs8550/adsp_dtb.mbn";
+> The clk_msr_xx entry is added after last SoC's array, sorted by 
+> submissin date rather than alphabetical order.
 > 
-> Sound and GPU firmware is under qcom/sm8550/. Let's don't multiply
-> entities and keep all firmware in the same subdir (including the IPA
-> firmware too).
+> So I place A1 and T7 after S4 accordingly.
 > 
-Fair point. Will amend for v4.
-> > +	status = "okay";
-> > +};
-> > +
-> > +&remoteproc_cdsp {
-> > +	firmware-name = "qcom/qcs8550/cdsp.mbn",
-> > +			"qcom/qcs8550/cdsp_dtb.mbn";
-> > +	status = "okay";
-> > +};
-> > +
-> > +&remoteproc_mpss {
-> > +	firmware-name = "qcom/qcs8550/modem.mbn",
-> > +			"qcom/qcs8550/modem_dtb.mbn";
-> > +	status = "okay";
-> > +};
-> > +
 > 
-> -- 
-> With best wishes
-> Dmitry
-Thanks for your review Dmitry.
-- Joe
+> The A1 clock controller driver was already supported in 
+> https://lore.kernel.org/all/20230523135351.19133-7-ddrokosov@sberdevices.ru/
+> 
+> It is also present in the mainline kernel: 
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/clk/meson/Kconfig#n113
+> 
+> 
+> This clock measure IP is used to measure the internal clock paths 
+> frequencies,  and A1 clock controller driver was supported.
+> 
+> Since the corresponding clock measure driver does not support A1 yet, So 
+> add A1 clk msr here.
+
+No, what qualifiers or keywords are used for existing arrays? IOW,
+please investigate and understand why you are doing this very different
+than existing code. Maybe because you sent us downstream, so you
+replicated all other downstream issues.
+
+Best regards,
+Krzysztof
