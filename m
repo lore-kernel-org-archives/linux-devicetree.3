@@ -1,131 +1,105 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-36.ptr.blmpb.com (va-2-36.ptr.blmpb.com [209.127.231.36])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB24A40DFD5;
-	Mon, 13 Apr 2026 04:37:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B77A39150F
+	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 06:05:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.36
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776055044; cv=none; b=nSJixZmofrPAeHP3EV2fpe4BVt1Qbp1MNux4beuQYj5BnSbzQbNLPnxzzOFlputRLIplrPb8ngZM8twO+obeY1xPf6GmSdij3d0PxDO6JgZTgKnP2S/fw9SNCoqyBnZXobm49cWLQ16vePol4umsagJjBXQgq5Z0U2xFFZcRl0k=
+	t=1776060358; cv=none; b=CrIQc0QrgVIocDriPHtnG4W61h/bKMkj9WW38OIbazRyvXMNMmUyQMpkM0lFSha0A2VQ1dHp+0H1Pvu5MoeEksCAAMVDhL94/nUzKECo6ND9PFjF9maPAXkbgOT37UCHSpK0MHwFJouGrhG9QvH6lEn7fiOSCc96Z3XjecBOy9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776055044; c=relaxed/simple;
-	bh=u8olDRAn+hl0hJ5Z1mDghlaD5HAs5h5t5DJwPvfPy/8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZktS2EI4Ca2dAax7xP6GV0Vf8fIPVeDzrT0CxrZojOPybgTVi2kGsTIXF1vXtP74YFAXpnZMCglwlV6rU4vSUgXdmhSpvnfpO6EH0tDifuG9a/+IOoMmHYeMoVsiMBTYz7qpePabMqINv2l7FwLxZWji+ykZ3qTbgAXUlILZGH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iMsdj71n; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1776060358; c=relaxed/simple;
+	bh=Mp8nGlKsl0cKOOs3q/ULEQWIVfYynz7M94oaQPLQjVM=;
+	h=Date:Message-Id:Cc:From:Subject:Mime-Version:Content-Type:To; b=W9f1pfILMm4nK7yO+pSWGWoFtB7gOKEQ37asJnnsS7IOBHHYh6pPLklPwH3kZ2VYV3Q2937/RwXF2vP7mYY8capQB2BpRhEL4i77EbBNC7apdhjeZojl8Y24a0jJjj0BEG8bsN93e8cdqEmTlNTtSPDCHM8vhl7HWkCtFdPnkzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io; spf=pass smtp.mailfrom=deepcomputing.io; dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b=rR0ybaSk; arc=none smtp.client-ip=209.127.231.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iMsdj71n"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63CLLhXO370987;
-	Mon, 13 Apr 2026 04:37:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=14x57Xoq7vInBfNcDrCeYK+uyMrJyTwhQQh
-	pVMXu+0Y=; b=iMsdj71n5yU0vp0gYytHCR14qGaGxrc5Fhi4DUolQVQtbqS/c+r
-	AiHcc7Ds5lFvPDbk/vba8ODk+2mltBcRm0Kdue6DngbqfSP+oq+wIzhh6/Eete5c
-	rStk889JCtLzQvsMyux0LJFPdLGKISXjnIQPCtGt7dbDnzdUlhtdRuoJ/BpzSkBe
-	2WihcwFd2SJOi8M30ln1uizJ5pEaLA2R5dMR4CTBuzwtXwzentyBg/FItq674Nyi
-	TqI+4OaDPOUiB0wH+Qv+h3gzVanW2emEUVbqedoPLlAlcpZzkBDWR/N43/naVoUq
-	LMtZThpDY58Cyyuy/uvZetP/QHO3JWyJgnA==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dfffhun2b-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 13 Apr 2026 04:37:20 +0000 (GMT)
-Received: from pps.filterd (NALASPPMTA05.qualcomm.com [127.0.0.1])
-	by NALASPPMTA05.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 63D4bJ6x020456;
-	Mon, 13 Apr 2026 04:37:19 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by NALASPPMTA05.qualcomm.com (PPS) with ESMTPS id 4dg5gqqd5k-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 13 Apr 2026 04:37:19 +0000 (GMT)
-Received: from NALASPPMTA05.qualcomm.com (NALASPPMTA05.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 63D4bJ91020357;
-	Mon, 13 Apr 2026 04:37:19 GMT
-Received: from hu-devc-lv-u22-c.qualcomm.com (hu-kumaranu-lv.qualcomm.com [10.81.89.194])
-	by NALASPPMTA05.qualcomm.com (PPS) with ESMTPS id 63D4bJh0020226
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 13 Apr 2026 04:37:19 +0000 (GMT)
-Received: by hu-devc-lv-u22-c.qualcomm.com (Postfix, from userid 4187942)
-	id 1B0B36B0; Sun, 12 Apr 2026 21:37:19 -0700 (PDT)
-From: Kumar Anurag <kumar.singh@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Kumar Anurag <kumar.singh@oss.qualcomm.com>
-Subject: [PATCH v1] arm64: dts: qcom: lemans: Enable DISPLAY-PORT
-Date: Sun, 12 Apr 2026 21:37:13 -0700
-Message-Id: <20260413043713.1659-1-kumar.singh@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b="rR0ybaSk"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1776060345;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=jc7SW3G3n7gqDEES3NqW5Omx0t1DvQGVxUWrewOE79c=;
+ b=rR0ybaSkWeUEFJxyTc/nNZjsptHaZj/fHMF1Wf/psKULYrevZLewlokwUoJKhCXR9MB0ru
+ c6TloqxNgCAM8velyd+m/+JIKQSArzWv3sgNxgoJyXZJBspbcjrYPClUdjIYfPHupGJi3A
+ zcElHQyv8Q4K5Mdm3328wrTXUCz8X7m2TsjpGlB105zibcXhBSrZ/+p0fi0aw2PGatOjQS
+ i3SfBzeaff37xyel4IxT0SrNopBDL8A9YdJr/SHZMvt9wFb9SInOlnbXNLGI+6FZtIs0Rm
+ 82DkP+i34KOkN2JJQ46NWi5TszIXR3mGyylrmNwcrZ23xf5tAwZaIuFZGizZrg==
+Date: Mon, 13 Apr 2026 14:05:24 +0800
+X-Original-From: Sandie Cao <sandie.cao@deepcomputing.io>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260413060524.1235982-1-sandie.cao@deepcomputing.io>
+X-Lms-Return-Path: <lba+269dc87b7+874f16+vger.kernel.org+sandie.cao@deepcomputing.io>
+Cc: "Conor Dooley" <conor+dt@kernel.org>, 
+	"Emil Renner Berthing" <kernel@esmil.dk>, 
+	"Rob Herring" <robh@kernel.org>, 
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
+	"Paul Walmsley" <paul.walmsley@sifive.com>, 
+	"Palmer Dabbelt" <palmer@dabbelt.com>, 
+	"Albert Ou" <aou@eecs.berkeley.edu>, 
+	"Heinrich Schuchardt" <heinrich.schuchardt@canonical.com>, 
+	"Michael Opdenacker" <michael.opdenacker@rootcommit.com>, 
+	"Guodong Xu" <guodong@riscstar.com>, 
+	"Hendrik Hamerlinck" <hendrik.hamerlinck@hammernet.be>, 
+	"Yangyu Chen" <cyy@cyyself.name>, <spacemit@lists.linux.dev>, 
+	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, 
+	"Sandie Cao" <sandie.cao@deepcomputing.io>
+From: "Sandie Cao" <sandie.cao@deepcomputing.io>
+Subject: [PATCH v4 0/2]  Add DeepComputing FML13V05 board dts
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEzMDA0MSBTYWx0ZWRfXy28nrRt+gDnJ
- LmhQZ8jqtV8e4HbgrbQbvFpHFRoQvdHgcctQdPSO5fBOVVL6g+FpW2V8HF6UNSRJ/CERdjr23TG
- 7JutKD/TGB1uLKldAIAwl/qdCUhp4TsaUvFG+vU3EbFmGh1o0pidskNIOnlI7W2ilM0iIGzG5V5
- KcYWhHh2+Gv/UpShJsElFO4/GT3yWHy4Y0zZGLKJvYmRLJO8aE9iSFYiyNqsJ3Y+94U84z3YxVA
- KVTRrVb6J+n/v/601Wwh5cvbIBCothkZybd5PrYCpTpxVGah3oTdu+gtZpWDwddo1eemHMpbyQ2
- W6XCwy7rnfOrjy+JUdpu4YOBInYCBwUyeP/vQqv40w1dAAVbyw830TKxjjdhS2F8gvvVMifvxEK
- P3QuiNMc8VlDQpBGdvvmi4O8TS6kOnGtS7G7gJkIulgwQaocjuntlD7IcN5Cuvbv43m+Hip6DUp
- Ocm+505goUkIzqplDlw==
-X-Proofpoint-ORIG-GUID: 01GAHORaMxHXcuXD4nxvkEk1SrIIGeyw
-X-Authority-Analysis: v=2.4 cv=FOkrAeos c=1 sm=1 tr=0 ts=69dc7300 cx=c_pps
- a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8 a=A_ssk2uQ36vgysvW6AMA:9
-X-Proofpoint-GUID: 01GAHORaMxHXcuXD4nxvkEk1SrIIGeyw
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-13_01,2026-04-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 impostorscore=0 suspectscore=0 priorityscore=1501
- clxscore=1011 spamscore=0 phishscore=0 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604130041
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+To: "Yixun Lan" <dlan@kernel.org>, 
+	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+Received: from roma-Laptop-12th-Gen-Intel-Core.. ([61.141.250.238]) by smtp.feishu.cn with ESMTPS; Mon, 13 Apr 2026 14:05:42 +0800
+X-Mailer: git-send-email 2.43.0
 
-Add dailinks for DISPLAY-PORT to enable audio functionality
-on edp0.
+This series updates Device Tree related files to introduce the
+FML13V05 board from DeepComputing, which incorporates a Spacemit
+K3 SoC.  This board is designed for use on the Framework Laptop 13
+Chassis, which has (Framework) SKU FRANHQ0001.
 
-Signed-off-by: Kumar Anurag <kumar.singh@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/lemans-evk.dts | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+The series is rebased on k1/dt-for-next.
 
-diff --git a/arch/arm64/boot/dts/qcom/lemans-evk.dts b/arch/arm64/boot/dts/qcom/lemans-evk.dts
-index 90fce947ca7e..daed18b1e6f5 100644
---- a/arch/arm64/boot/dts/qcom/lemans-evk.dts
-+++ b/arch/arm64/boot/dts/qcom/lemans-evk.dts
-@@ -130,6 +130,22 @@ platform {
- 				sound-dai = <&q6apm>;
- 			};
- 		};
-+
-+		dp0-dai-link {
-+			link-name = "DisplayPort0 Playback";
-+
-+			cpu {
-+				sound-dai = <&q6apmbedai DISPLAY_PORT_RX_0>;
-+			};
-+
-+			codec {
-+				sound-dai = <&mdss0_dp0>;
-+			};
-+
-+			platform {
-+				sound-dai = <&q6apm>;
-+			};
-+		};
- 	};
+v4:
+- Patch 1:
+  Add Acked-by Conor Dooley.
+- Patch 2:
+  Copyright begins from 2026.
+
+v3:
+rebased on k1/dt-for-next.
+- Patch 1:
+   Use formal format user name.
+   Remove Reviewed-by Heinrich Schuchardt from internal system.
+- Patch 2:
+   Use formal format user name.
+   Remove Reviewed-by Heinrich Schuchardt from internal system.
+   Add uart0 pinctrl.
+Link to v3: https://lore.kernel.org/all/20260407055557.1202713-1-sandie.cao@deepcomputing.io/
  
- 	vbus_supply_regulator_0: regulator-vbus-supply-0 {
--- 
-2.34.1
+v2 (deprecated):
+Link to v2: https://lore.kernel.org/all/20260331071110.68321-1-sandie.cao@deepcomputing.io/
 
+v1:
+Link to v1: https://lore.kernel.org/all/20260331034423.67142-1-sandie.cao@deepcomputing.io/
+
+Sandie Cao (2):
+  dt-bindings: riscv: spacemit: add deepcomputing,fml13v05
+  riscv: dts: spacemit: add DeepComputing FML13V05 board device tree
+
+ .../devicetree/bindings/riscv/spacemit.yaml   |  1 +
+ arch/riscv/boot/dts/spacemit/Makefile         |  1 +
+ .../spacemit/k3-deepcomputing-fml13v05.dts    | 31 +++++++++++++++++++
+ 3 files changed, 33 insertions(+)
+ create mode 100644 arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+
+
+base-commit: af62a095eb0c3359d477b55ef72d2afd94c83c8f
+-- 
+2.43.0
