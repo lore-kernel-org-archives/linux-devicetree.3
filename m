@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62358390C8B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62487390CAE;
 	Mon, 13 Apr 2026 19:00:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776106822; cv=none; b=E4ZJ2iMYtMCRpppb/jbu4/E2RWz47jj95i55k2vYkknv9QBTJ3CZjfmSaHrfto5ZgSIMbqMtmhwfEV8frGLfuBw/M+Q8paZehc1BnzndvDf0rLpUyC9vK8xDB/MZ2RxXSSvag9tOv3EyNZR8EdWb7yD71V3y5w8vt2jNWoewGGk=
+	t=1776106822; cv=none; b=NI9GOm4+/YYunuQk46fjej94MyEPaRd2B94T0thufxi6vyDJFrFz/6nSnNtctp5nAt++u/tUpDXAL2MVXBpUqlNT4+jhn152eCcBvBcQ5hJgkcUg5o30nhbbalwVoSx6imHcThA1+GSpE10+FggYCaYaf+NIpO0P8zRzU/+eKbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1776106822; c=relaxed/simple;
-	bh=hwGFRjkjIVh+vw2wDg9M/94dpLvDuKgHoeS0o9X0fE0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HKkC4c0ZBbp3juwfief9b3DidyVJh7jKngJG+SLdlKGKFpLo2CaV64jcathxuySo6nCjABa0VSvJAP3WLFk64DEt1BUFTIIgD3zDqGfgUT6r4A+9StcbOn4RLwAIE2ryUJ+PCAMqBnt8Hmf8fTJAOBZcW5M4X3VoAI4DM7sTVgI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pAMLGmFk; arc=none smtp.client-ip=10.30.226.201
+	bh=NYwF55QA6txdrIoAGxylJ/Rgbbu7ua+pdJtGzMjggQ4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=eTN6B7GFgH8yMXkGvDk46l4OkQQUP15WO6+siV6R0s7wBb/Ydml7hfznx63l3zORnFyn7GJxt3+lNqSQJFSeVaA6pBGbuegMaZxXj/JINYO2fywiOKTvRcEwJDQDDc7g5dtqztEwsGnrRqBsYn+wSdZnMvWxDQ4iFJpgF3+xEPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RNhjdJQ9; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pAMLGmFk"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 27794C2BCB7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RNhjdJQ9"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 05D85C2BCB0;
 	Mon, 13 Apr 2026 19:00:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1776106822;
-	bh=hwGFRjkjIVh+vw2wDg9M/94dpLvDuKgHoeS0o9X0fE0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=pAMLGmFkZSwctk5zpuJsdKwZdvM8GHlTuzNV/PiHcrRlduH74stO3xTjlRz5dj58B
-	 gYhNnmgY8d4Xb/tzEpjK0JiEg4wkDpINFn2d0ZY6r4TGWeKwWAx1G2ygwgFMqbZtcU
-	 n+huLut1OTkrSVSePAsSDPKQAcK+JnbTcoyFVbQxyVotVKDNGcAcrtwpvgIHiRpd29
-	 OGIWcTgyQstREwMXkYWCjnNHRNHuC7jXBUssdIkUBC34Vso1JcvKYwyG/qfGdSU5rH
-	 PUbkyTcf0rZkXFU0puxOwuBhuNBgPsS6WiTIbrWf2vEehPGoKNa6zDYsfRFlKVaZok
-	 kJtx9/sKsDimg==
+	bh=NYwF55QA6txdrIoAGxylJ/Rgbbu7ua+pdJtGzMjggQ4=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=RNhjdJQ9NTJS4jh1DOz5RrvsEy6BLsNNdPtQmiXO/I9Bk9kHF31dz2H9fJDnYNQRA
+	 88fQQ1lYvNmAeuTop1ohQBodjAPzEzSexH+3CgZ4ltPGZZsHFYt1i0SjOBeOGV5i1d
+	 ri0K4hn3dli/cCnVSVnVBLsOlfr1hYiMcSwsHT/ra8g/z2vXYdPgZ/ai7Ktn56ekO8
+	 c3tEijl/1yYgVSQDIARX6Wq/pkf2crpkwHNNey5p1jFZ5DydXe87y/MfB3Xp3I58S9
+	 NSolhOdHTRyAoYuSuPCl73Smvf5MPk/zxZXKF68OKiRC9zhtPycM+A1Uci6KAGYbnb
+	 xbPqizMlt+FFQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 18C41F531C4;
-	Mon, 13 Apr 2026 19:00:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E7F77F531C7;
+	Mon, 13 Apr 2026 19:00:21 +0000 (UTC)
 From: Antony Kurniawan Soemardi via B4 Relay <devnull+linux.smankusors.com@kernel.org>
-Date: Tue, 14 Apr 2026 01:55:29 +0700
-Subject: [PATCH 02/10] dt-bindings: mfd: syscon: add qcom,msm8960-sps-sic
+Subject: [PATCH 00/10] ARM: qcom: msm8960: enable WCNSS (Bluetooth & Wi-Fi)
+Date: Tue, 14 Apr 2026 01:55:27 +0700
+Message-Id: <20260414-msm8960-wifi-v1-0-007fda9d6134@smankusors.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,9 +40,10 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260414-msm8960-wifi-v1-2-007fda9d6134@smankusors.com>
-References: <20260414-msm8960-wifi-v1-0-007fda9d6134@smankusors.com>
-In-Reply-To: <20260414-msm8960-wifi-v1-0-007fda9d6134@smankusors.com>
+X-B4-Tracking: v=1; b=H4sIAB883WkC/x3MQQ5AQAxA0atI15rQ0OAqYsEouhhkmiCRubuJ5
+ Vv8/4JJUDHosheCXGp67AllnoHbxn0V1DkZqKC6JGL05puWC7x1UZxE3NyyY64YUnIGWfT5d/0
+ Q4wdy1J4oXgAAAA==
+X-Change-ID: 20251226-msm8960-wifi-beecd96c6646
 To: Bjorn Andersson <andersson@kernel.org>, 
  Michael Turquette <mturquette@baylibre.com>, 
  Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -55,11 +56,11 @@ Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
  Rudraksha Gupta <guptarud@gmail.com>, 
  Antony Kurniawan Soemardi <linux@smankusors.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776106820; l=1120;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776106820; l=2611;
  i=linux@smankusors.com; s=20250609; h=from:subject:message-id;
- bh=mIW20FISbOXB32b/vpmGZrFFpfMx94QhJtXj8cpMSMk=;
- b=cho2hesCQxrEf90foy0lm70DCmysnadQ43iMkAv0rZ9uTlR2YnFLPsee81lFbN9svpgq4zi0k
- EjkMg+VGD4kDQO09PCs9MDLbUSK4M2EqQ9hPkOTKqm6EgiFUSsqcTXS
+ bh=NYwF55QA6txdrIoAGxylJ/Rgbbu7ua+pdJtGzMjggQ4=;
+ b=EEEnBqermgK5yZU8PP0youZRIua/s25daTd5ma8b7a1S2XEenHGNFhQbRsOWo0L3nXNT6qDKv
+ xqpqURXV1/kBVw6c++UcPgP+60pJbZthSABVgD5SmpyT5OG9yyDjrrk
 X-Developer-Key: i=linux@smankusors.com; a=ed25519;
  pk=65wTy06fJl2/h/EJwjr704YG+yjHFhZObJBWzzK+N00=
 X-Endpoint-Received: by B4 Relay for linux@smankusors.com/20250609 with
@@ -67,38 +68,63 @@ X-Endpoint-Received: by B4 Relay for linux@smankusors.com/20250609 with
 X-Original-From: Antony Kurniawan Soemardi <linux@smankusors.com>
 Reply-To: linux@smankusors.com
 
-From: Antony Kurniawan Soemardi <linux@smankusors.com>
+Enable the WCNSS (Riva) subsystem on MSM8960-based devices to support
+Bluetooth and Wi-Fi.
 
-Add compat for Smart Peripheral System (SPS) Interrupt Controller (SIC)
-present on Qualcomm MSM8960 SoC.
+Add the required device tree nodes and resources, including memory
+regions, clocks, interconnects, and communication interfaces used by
+the WCNSS firmware and drivers.
+
+Changes:
+- Add Riva (WCNSS) nodes: firmware memory, WCN3660 iris radio,
+  Bluetooth and Wi-Fi subdevices, and pinctrl states
+- Add SMSM and SPS nodes for coordination with the WCNSS subsystem
+- Add shared memory and hardware mutex for inter-processor communication
+- Add SCM node for secure channel manager interaction
+- Add RPM clock controller and required QDSS clock resource
+- Add bindings for SPS interrupt controller and RPM clocks
+
+Known limitations (not addressed in this series):
+The wcn36xx driver appears to misclassify 2.4 GHz networks as 5 GHz
+during hardware scanning, preventing association with 2.4 GHz networks.
+This issue has also been observed on MSM8916 and MSM8953 platforms
+using WCN3620 [1][2].
+
+Tested on:
+- Sony Xperia SP
+- Samsung Galaxy Express (SGH-I437) - secure firmware loading not yet
+  functional (separate series pending)
+
+[1] https://github.com/msm8916-mainline/linux/commit/cc4abc694fcf2c942410136bc58a61e79bf21e83
+[2] https://github.com/msm8953-mainline/linux/commit/779c9627ec0b971bf466588e64fe530cf78a414d
 
 Signed-off-by: Antony Kurniawan Soemardi <linux@smankusors.com>
 ---
- Documentation/devicetree/bindings/mfd/syscon.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+Antony Kurniawan Soemardi (10):
+      dt-bindings: clock: qcom,rpmcc: add msm8960 compatible
+      dt-bindings: mfd: syscon: add qcom,msm8960-sps-sic
+      mfd: qcom_rpm: add msm8960 QDSS clock resource
+      clk: qcom: clk-rpm: add msm8960 compatible
+      ARM: dts: qcom: msm8960: add RPM clock controller and fix USB clocks
+      ARM: dts: qcom: msm8960: add SCM
+      ARM: dts: qcom: msm8960: add SMEM & hwmutex
+      ARM: dts: qcom: msm8960: add SMSM & SPS
+      ARM: dts: qcom: msm8960: add Riva
+      ARM: dts: qcom: msm8960: huashan: enable Wi-Fi and Bluetooth
 
-diff --git a/Documentation/devicetree/bindings/mfd/syscon.yaml b/Documentation/devicetree/bindings/mfd/syscon.yaml
-index e57add2bacd3..39a24c3ff9cf 100644
---- a/Documentation/devicetree/bindings/mfd/syscon.yaml
-+++ b/Documentation/devicetree/bindings/mfd/syscon.yaml
-@@ -106,6 +106,7 @@ select:
-           - nxp,s32g3-gpr
-           - qcom,apq8064-mmss-sfpb
-           - qcom,apq8064-sps-sic
-+          - qcom,msm8960-sps-sic
-           - rockchip,px30-qos
-           - rockchip,rk3036-qos
-           - rockchip,rk3066-qos
-@@ -219,6 +220,7 @@ properties:
-               - nxp,s32g3-gpr
-               - qcom,apq8064-mmss-sfpb
-               - qcom,apq8064-sps-sic
-+              - qcom,msm8960-sps-sic
-               - rockchip,px30-qos
-               - rockchip,rk3036-qos
-               - rockchip,rk3066-qos
+ .../devicetree/bindings/clock/qcom,rpmcc.yaml      |   5 +-
+ Documentation/devicetree/bindings/mfd/syscon.yaml  |   2 +
+ .../boot/dts/qcom/qcom-msm8960-sony-huashan.dts    |  19 +++
+ arch/arm/boot/dts/qcom/qcom-msm8960.dtsi           | 157 ++++++++++++++++++++-
+ drivers/clk/qcom/clk-rpm.c                         |   1 +
+ drivers/mfd/qcom_rpm.c                             |   1 +
+ 6 files changed, 182 insertions(+), 3 deletions(-)
+---
+base-commit: 978e0d8216cae014f10326c9a257890cf98a6398
+change-id: 20251226-msm8960-wifi-beecd96c6646
 
--- 
-2.34.1
+Best regards,
+--  
+Antony Kurniawan Soemardi <linux@smankusors.com>
 
 
