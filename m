@@ -1,108 +1,152 @@
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99CAD3C1992
-	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 12:39:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72B6B3BBA17;
+	Mon, 13 Apr 2026 12:40:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776083966; cv=none; b=EE20viYV2IGYq3nGT/Ae9DFd2y9uhORZgvrk8PmF3rN3RPyb/qrAh6I+09Ctq023iq+dc5bJOdZ3zYjU7WQQJk4zADzIoyZLAsO72eGYxWHCQq/ZJrZZo0cajHtkNvUJkQ36Zr0hImwGP59B5YCddBcw3pziU3DWOIs7g9b0Btg=
+	t=1776084023; cv=none; b=tsgMY0WdC2dqu7OS9H8hLNbC2SQkG4WhU/n8TTKQa9MFbxuab3gxz2cD21/6p1XLo2nUXO5/uohJqVoVJxjTOXJqzVBbHWooOzDYETNbYT8j7H8JqSHCXFUkekf/UFeAl+A4nTRHnvK2vGYKmedcU7oAH4WXfPBsVXLXfiMj4iI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776083966; c=relaxed/simple;
-	bh=Eltpam/vgsJqWDDmBNuLJKAQCg+4CI1hVv/dIvLONqI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rYvlUf5myuCb7hl6NSFUpwGGKEip+MnPoJOuhZIxNMmUEBPR/KjH6jfrXYUiDNmzsjqtjCrp7HxG4KsST42rKOFteoSf00YJEQUhUk1C69aRNW8K46H4xWdXgdwolEBo+JXqKDYndeSd8MSHCxFPMVwCwCvOlePso63fatKmJeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dE2huxmg; arc=none smtp.client-ip=209.85.167.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1776084023; c=relaxed/simple;
+	bh=GdII9PjHzpqaWxfxiEeyAb9BhYynzlRBsDgfZ4nOZ8Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qRdqdVfh++eTOpSNoP4UFn++WOZa6tz6rBWK+WH1zB6TkiFEsDFnZpPws1wxaaixAxbSrhtkDjhVOk5A01+CA59Zj+p3yRF78XkdTNwcoNGD+reKrMOt1SmfMopo1JGYiaTyCjZjTO/BbV9V2ISAWFfZOf7nOGEUvhnofSHuCmo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XmOi9aJG; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dE2huxmg"
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5a3af1b7549so5443384e87.1
-        for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 05:39:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776083963; x=1776688763; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=rqFxz1QFpJJAZz46pmSBmZ9ZWT6FZnXdjLeoytZTkRQ=;
-        b=dE2huxmgsrvgeQjSjbFocoh53G8iOpb9tXjIh2gY7JQ0RG0Frm83BxuPJp5yN29h0Z
-         oyqRsBOeFrBhgncksJeeBQmksTuHmJLrMc7xKck6iSQajEldHsrgXGjnAra0ajck62sg
-         V1KnbdVsUgq7iv1A50dRhJEVabUmZbJ6ZyUHzmJNXBGFjXInr8gY4XbYFttuDmONGd7S
-         Mq+B3eB+UMlHGC5A7T3W5XPzXA4YFoTMbtVauSvqBAgT3i1czHTj3Ipo0TrqPhbw2ldM
-         ePFKEoqNA/MGfdJOsXehiAZbclL0sFsS23R2Sn8GnUgCpNoCTFPNiB2JJyV1/1VRo9wG
-         DJSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776083963; x=1776688763;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=rqFxz1QFpJJAZz46pmSBmZ9ZWT6FZnXdjLeoytZTkRQ=;
-        b=rL35g+Yiqpa1XAGy2mIMMLYF469i7sTVNdU9J9bNU2/nPvuZDMQv2QFsS+hmjHN4G7
-         cKSOWKglAZPJ4ah74mzkCgPAKaed0Uyouj+JF11dUEOu9eN9wdQ2ebix4nctlVGvStyz
-         ROvFSUldOXduLHDjibJrCd5JJYNbMZJX48P2kT6PmabuNKMqa6I1GC1T2Fzzry7B3V4f
-         DiYV1iMHvPMlF/ivOOOgGl5V/qffnu3OOnR9AZS+48qmkHeeCqUY+mMRez4oHLD8pR78
-         zVVY+tBo6IZyOod9LXTOnq0ogczbhENLd4XdjtDzdk0ipxZ8R36xLaA7GD9xKq9pateO
-         s2ig==
-X-Forwarded-Encrypted: i=1; AFNElJ8i7ZWd7mwA7gFFhFXxpY8aa9Z2sWCRQYssF9xVvTdJHtAszqvMM1vZk1YvTHnWuix5nd7+YDLsfwMp@vger.kernel.org
-X-Gm-Message-State: AOJu0Yytub12CwvN1ifiC7dgw8Z87qgBWstpV0LSc1li5QlsFmuK/38w
-	0yH5HbKaTQR/mI7kebMe49iNh3lvlOk2fnXJh/fZ4A9+fTPi+moU6J+v
-X-Gm-Gg: AeBDievWk8ffC3YN9p038TeA+mn4Qk8NcCJZ0WQpyYCbCk3s6CDBY7Q/B3nDsTj0UYt
-	Nd5fyovgzFpVY8BlW3/LHWaENP9APgFPOXb2Fkt+5fwiYYj9Z3vI+P3ZRH7GFItmJDetSvm12M+
-	T8Be8288VWUoqbqM+Dp+MgnnI5p1NNPdEzw+Bs4aHBD9oC0oH/6utIRcgaCd0akv4e4lAbnTc2O
-	g+CPwPoh7ZsFcTHHfPm1wBeoA0RO75cwjVbysnQwBv99uTN5v9WGYn0PaG9HvO4SUIAKLMi1XwU
-	3foqP9Evu0txxf9h+GbhgrB/1FdFPp8cH584wAe38K80EJe7qt8o8aVWSEzC7arG4QOppwHD/Mt
-	BsWzD/hv7fhU8E5S8DUNqQGw2e++cKWdtO0wlHea8IEkSRwEPxjUovXr+TGPo3KsXBtfMc6H7g8
-	pCBWmmXW6GFdYoPvqwtmLcWtHPD7dJwttiCed0LIZprMzqig==
-X-Received: by 2002:a05:6512:3503:b0:5a1:1496:922 with SMTP id 2adb3069b0e04-5a3efd8b5c4mr4514818e87.33.1776083962516;
-        Mon, 13 Apr 2026 05:39:22 -0700 (PDT)
-Received: from wpc (host-95-152-45-178.dsl.sura.ru. [95.152.45.178])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a3eef00327sm2532549e87.73.2026.04.13.05.39.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Apr 2026 05:39:22 -0700 (PDT)
-From: bigunclemax@gmail.com
-To: richard.genoud@bootlin.com
-Cc: conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	jernej.skrabec@gmail.com,
-	joao@schimsalabim.eu,
-	jstultz@google.com,
-	krzk+dt@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-pwm@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	p.zabel@pengutronix.de,
-	paulk@sys-base.io,
-	robh@kernel.org,
-	samuel@sholland.org,
-	thomas.petazzoni@bootlin.com,
-	u.kleine-koenig@baylibre.com,
-	wens@csie.org
-Subject: [PATCH v4 2/4] pwm: sun50i: Add H616 PWM support
-Date: Mon, 13 Apr 2026 15:39:20 +0300
-Message-ID: <20260413123920.2459916-1-bigunclemax@gmail.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260305091959.2530374-3-richard.genoud@bootlin.com>
-References: <20260305091959.2530374-3-richard.genoud@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XmOi9aJG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1E6EC2BCAF;
+	Mon, 13 Apr 2026 12:40:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776084023;
+	bh=GdII9PjHzpqaWxfxiEeyAb9BhYynzlRBsDgfZ4nOZ8Q=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=XmOi9aJGfq/oC08SwYXbBOZJLLSGXSGQh0Emi0ty+84k+aYvDIPQZ301guy+2GxEA
+	 rePXNegkwdYoGgR2gpUeoNIh/BhSw0lhkMpoctpoPr7yxOJke/AR7Z8ujAV2bYXtdA
+	 Ha4coA7AuGC+OLvkxVn+HRHb5l0GjLgwW/nrWUEo/DpKyxGkl4mQG4RmVdc2mytuV0
+	 6WgDbZCMjD9Bnmxo8oRhLjGKVGXXYqHAZRV3sAhusrWLfKDYFMqNu3HV/KqV7xUteI
+	 9lD5ZZr2y+UiR3FeZZ7j7NS+6+MpdgI2TgBwRm/HiNBy8XLJXnA9KuD+OJDmpw7yOI
+	 AMKNW3V3MWy2g==
+Message-ID: <1c06bd0f-24ce-4ea2-a7a1-4c61827b4763@kernel.org>
+Date: Mon, 13 Apr 2026 14:40:18 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] dt-bindings: arm: cpus: Add compatible qcom,oryon-1-5
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260413091625.607976-1-shengchao.guo@oss.qualcomm.com>
+ <20260413091625.607976-3-shengchao.guo@oss.qualcomm.com>
+ <a1f8cdcb-fddb-43ca-adbd-07e36949eef2@kernel.org>
+ <adzjYypJciYFLT6F@QCOM-aGQu4IUr3Y>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <adzjYypJciYFLT6F@QCOM-aGQu4IUr3Y>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Richard,
+On 13/04/2026 14:36, Shawn Guo wrote:
+> On Mon, Apr 13, 2026 at 12:02:48PM +0200, Krzysztof Kozlowski wrote:
+>> On 13/04/2026 11:16, Shawn Guo wrote:
+>>> Qualcomm Oryon 1-5 is found on Nord SoC.  Add compatible for it.
+>>>
+>>>   $ cat /proc/cpuinfo
+>>>   ...
+>>>   CPU implementer : 0x51
+>>>   CPU architecture: 8
+>>>   CPU variant     : 0x5
+>>>   CPU part        : 0x001
+>>>   CPU revision    : 4
+>>>
+>>> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+>>> ---
+>>>  Documentation/devicetree/bindings/arm/cpus.yaml | 1 +
+>>>  1 file changed, 1 insertion(+)
+>>
+>> No. I said many times. Bindings come with the user. We don't care what
+>> is in cpuinfo of some non-upstream board (and lack of user means it is
+>> non-upstream currently).
+> 
+> I was not aware of this requirement, and I see many bindings that
 
-> +
-> +/* PWM Capture Fall Lock Register */
-> +#define H616_PWM_CFLR(x)		(0x74 + (x) * 0x20)
-> +
-> +#define H616_PWM_PAIR_IDX(chan)		((chan) >> 2)
-> +
+I am not saying anything new here.
 
-It looks like there's a typo or a mistake in the PAIR_IDX calculation.
-It should be like ((chan) >> 1).
-For example, for the 5th channel the result will be 1, but it should be 2.
+> currently do not have any in-tree users, e.g. qcom,oryon-2-3 in cpus.yaml.
 
-Best regards
-Maksim
+And what is the reason for having oryon-2-3 in the kernel? I treat
+arguments "I found a code like this, so I can do the same" as proof of
+lack of actual technical arguments.
+
+> 
+>> Please organize your patchset correctly.
+> 
+> Are you asking for a big series that consists of all the new bindings
+> used by Nord DTS and DTS itself?  Unless this big series gets applied as
+> one-go, there are still chances that bindings get into a kernel release
+> without any users, e.g. subsystem maintainers pick up bindgins being
+> reviewed, but DTS requires more iterations and thus misses the release.
+
+Please follow existing rules, communicated multiple times on the mailing
+list. Qualcomm also has internal guideline clarifying this.
+
+Below are some upstream discussion clarifying this:
+https://lore.kernel.org/linux-samsung-soc/CADrjBPq_0nUYRABKpskRF_dhHu+4K=duPVZX==0pr+cjSL_caQ@mail.gmail.com/T/#m2d9130a1342ab201ab49670fa6c858ee3724c83c
+https://lore.kernel.org/all/49258645-d4d8-44a5-a4fc-b403c926a5d1@kernel.org/
+
+And how to do it:
+https://lore.kernel.org/all/20231121-topic-sm8650-upstream-dt-v3-0-db9d0507ffd3@linaro.org/
+
+Best regards,
+Krzysztof
