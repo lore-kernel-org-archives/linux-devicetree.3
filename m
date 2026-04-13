@@ -1,63 +1,61 @@
 Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 111263C278A;
-	Mon, 13 Apr 2026 12:17:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F2BB3932E7;
+	Mon, 13 Apr 2026 12:28:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776082665; cv=none; b=cLyrJmyMONT0XBRTU5K76kc8UfvmdvSusAu8skDlKcfO+Mikn6okCfmDPEsnwXiqKKpUPQ7dTx5Pv7ChoAVUF0J//N6v7kMtyddNjiPeOea0eHj2IJsQbCX2U5U6CHfnAOdSp3y6/4Vlowu9WoWKQE8GcnM+X/FnrHcTXR9KDP0=
+	t=1776083326; cv=none; b=SCDIOA5CjzeDVD9f38Tsg/mtOPPJinIWhm3Do1cwkpSuM8PWFFN4xk2eFNwiS7zH63neK6636o/VovoPUfrj3gWQvCduQHBHgjiVHwMetaX0FLnDP9aX5vUQyaotdW2FwG4qgIKRGuYtt2YcyzvRYdidYnQqrieaQ++zdzo+S3U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776082665; c=relaxed/simple;
-	bh=VddjetoYugZBsTP+K2fjJ3Jsx3i8QtL+52l/dv1g5PY=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HXEza5KyZ6ZM6KXG3Mndrq4I14QllgmIjQosBZU/7sxCW5Qk8QoaCT2MQdGRA3XyPftp3MbgGWBS3ojiLDRKEfQwNfQyuCCHQt9pAktmGthe1EEtGOeXBzcy/asDg53Ti5sECCI3NmHJL+HmukbZIy9qTC5j7WVYhUElRP8LXrw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=ITg7t9LP; arc=none smtp.client-ip=210.61.82.184
+	s=arc-20240116; t=1776083326; c=relaxed/simple;
+	bh=g8EdmtTqCRSUZ4feAgZqoLbBRhieDGLtGsThOXOUxcg=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=G1ShZIRqzXX8MeoyLkbKsZAyGohNR9HhnWvGJHhk0U2XStuPkUxAY4QiG7LmUGDthwpEJ6fgnB29QYXV429X7AznLQTTABvgryHn0K3qykMvnAdZhfybFDxJldbzbSn7RTcA5Glbs1RSPHh6WhrgomKpb1wOsmVsC11B4/vKSHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=RRKx/WZf; arc=none smtp.client-ip=210.61.82.184
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="ITg7t9LP"
-X-UUID: beceda4a373211f19a16598d5ca7f8ec-20260413
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="RRKx/WZf"
+X-UUID: 4d96f202373411f19a16598d5ca7f8ec-20260413
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=IuZN2SYLC2G9lYXG6DFyga2vEQPqp18kfGbM5VhBs+I=;
-	b=ITg7t9LPETcKYYckFczhTnZSFP3ovF9wree38zMsXivWE5hNJYitAav7BB81vKwHwu+xixEU1UviceAXDmyMxPq/SJw7lH40E/MgJy2FR8N87KR2S8rms7YqL0uI8eRJ/SeCUVLE5tA8QuC4DLJthaBQnhGhRPwDOljXixvGqpk=;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=AGiehZZNyaMCBy3EGSOGSIxMabypmgMQbg0NvoD0/8w=;
+	b=RRKx/WZfJ7SHI3ArpakS8EVDOJePhNEbuNjXn4ltuK3/WBeD0JJvQZnIZ0cFok0MASZDNmowdjz7n6XrZTyBVy9uAkkEK39T3C/bR3N7cX2vMm3ybB06ZXWDN9QjLYjtysvyxq/vr6AaBihgN68kLLONNsc6KqiS2qHrG/QLEto=;
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:2145d9ee-60ef-48be-bc0d-51ca81257420,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:e7bac3a,CLOUDID:a2b5ce24-cb5c-4236-a89a-9a7fb20c9bc4,B
-	ulkID:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|836|865|888|898,TC:-5,Cont
-	ent:0|15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0
-	,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-O-INFO: VERSION:1.3.12,REQID:7459d8ba-e485-4ce1-87d2-8424b98551bf,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:e7bac3a,CLOUDID:caeccdd5-060f-4ecc-9ee0-121eeeb4a682,B
+	ulkID:nil,BulkQuantity:0,Recheck:0,SF:102|836|865|888|898,TC:-5,Content:0|
+	15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0
+	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
 X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: beceda4a373211f19a16598d5ca7f8ec-20260413
-Received: from mtkmbs09n1.mediatek.inc [(172.21.101.35)] by mailgw02.mediatek.com
+X-UUID: 4d96f202373411f19a16598d5ca7f8ec-20260413
+Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by mailgw02.mediatek.com
 	(envelope-from <chunfeng.yun@mediatek.com>)
 	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 953262753; Mon, 13 Apr 2026 20:17:31 +0800
-Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+	with ESMTP id 1623289792; Mon, 13 Apr 2026 20:28:40 +0800
+Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
+ mtkmbs13n1.mediatek.inc (172.21.101.193) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Mon, 13 Apr 2026 20:17:30 +0800
+ 15.2.2562.29; Mon, 13 Apr 2026 20:28:39 +0800
 Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
- mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Mon, 13 Apr 2026 20:17:29 +0800
+ mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Mon, 13 Apr 2026 20:28:38 +0800
 From: Chunfeng Yun <chunfeng.yun@mediatek.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, AngeloGioacchino Del
- Regno <angelogioacchino.delregno@collabora.com>
-CC: Chunfeng Yun <chunfeng.yun@mediatek.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>, <linux-usb@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>,
+To: Vinod Koul <vkoul@kernel.org>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>
+CC: Chunfeng Yun <chunfeng.yun@mediatek.com>, Neil Armstrong
+	<neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias
+ Brugger <matthias.bgg@gmail.com>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-mediatek@lists.infradead.org>, <linux-phy@lists.infradead.org>,
 	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v4 2/2] usb: mtu3: add support remote wakeup of mt8196
-Date: Mon, 13 Apr 2026 20:17:26 +0800
-Message-ID: <20260413121727.4702-2-chunfeng.yun@mediatek.com>
+Subject: [PATCH v2 RESEND 1/2] dt-bindings: phy: mediatek,xsphy: add property to set disconnect threshold
+Date: Mon, 13 Apr 2026 20:28:35 +0800
+Message-ID: <20260413122836.4848-1-chunfeng.yun@mediatek.com>
 X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20260413121727.4702-1-chunfeng.yun@mediatek.com>
-References: <20260413121727.4702-1-chunfeng.yun@mediatek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,70 +66,43 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-MTK: N
 
-There are three USB controllers on mt8196, each controller's wakeup
-control is different, add some specific versions for them.
+Add a property to tune usb2 phy's disconnect threshold.
+And add a compatible for mt8196.
 
 Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Signed-off-by: Chunfeng Yun <chunfeng.yun@mediatek.com>
 ---
-v4: add reviewed-by
-v3: add the ommitted third dual-role controller add acked by Conor
-v2: new patch for dual-role controllers
+v2: change property name
 ---
- drivers/usb/mtu3/mtu3_host.c | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
+ Documentation/devicetree/bindings/phy/mediatek,xsphy.yaml | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/usb/mtu3/mtu3_host.c b/drivers/usb/mtu3/mtu3_host.c
-index 7c657ea2dabd..8138b3f3096a 100644
---- a/drivers/usb/mtu3/mtu3_host.c
-+++ b/drivers/usb/mtu3/mtu3_host.c
-@@ -46,6 +46,14 @@
- #define WC1_IS_P_95		BIT(12)
- #define WC1_IS_EN_P0_95		BIT(6)
+diff --git a/Documentation/devicetree/bindings/phy/mediatek,xsphy.yaml b/Documentation/devicetree/bindings/phy/mediatek,xsphy.yaml
+index 0bed847bb4ad..9017a9c93eb9 100644
+--- a/Documentation/devicetree/bindings/phy/mediatek,xsphy.yaml
++++ b/Documentation/devicetree/bindings/phy/mediatek,xsphy.yaml
+@@ -50,6 +50,7 @@ properties:
+           - mediatek,mt3611-xsphy
+           - mediatek,mt3612-xsphy
+           - mediatek,mt7988-xsphy
++          - mediatek,mt8196-xsphy
+       - const: mediatek,xsphy
  
-+/* mt8196 */
-+#define PERI_WK_CTRL0_8196	0x08
-+#define WC0_IS_EN_P0_96		BIT(0)
-+#define WC0_IS_EN_P1_96		BIT(7)
-+
-+#define PERI_WK_CTRL1_8196	0x10
-+#define WC1_IS_EN_P2_96		BIT(0)
-+
- /* mt2712 etc */
- #define PERI_SSUSB_SPM_CTRL	0x0
- #define SSC_IP_SLEEP_EN	BIT(4)
-@@ -59,6 +67,9 @@ enum ssusb_uwk_vers {
- 	SSUSB_UWK_V1_3,		/* mt8195 IP0 */
- 	SSUSB_UWK_V1_5 = 105,	/* mt8195 IP2 */
- 	SSUSB_UWK_V1_6,		/* mt8195 IP3 */
-+	SSUSB_UWK_V1_7, 	/* mt8196 IP0 */
-+	SSUSB_UWK_V1_8, 	/* mt8196 IP1 */
-+	SSUSB_UWK_V1_9, 	/* mt8196 IP2 */
- };
+   reg:
+@@ -130,6 +131,13 @@ patternProperties:
+         minimum: 1
+         maximum: 7
  
- /*
-@@ -100,6 +111,21 @@ static void ssusb_wakeup_ip_sleep_set(struct ssusb_mtk *ssusb, bool enable)
- 		msk = WC0_IS_EN_P3_95 | WC0_IS_C_95(0x7) | WC0_IS_P_95;
- 		val = enable ? (WC0_IS_EN_P3_95 | WC0_IS_C_95(0x1)) : 0;
- 		break;
-+	case SSUSB_UWK_V1_7:
-+		reg = ssusb->uwk_reg_base + PERI_WK_CTRL0_8196;
-+		msk = WC0_IS_EN_P0_96;
-+		val = enable ? msk : 0;
-+		break;
-+	case SSUSB_UWK_V1_8:
-+		reg = ssusb->uwk_reg_base + PERI_WK_CTRL0_8196;
-+		msk = WC0_IS_EN_P1_96;
-+		val = enable ? msk : 0;
-+		break;
-+	case SSUSB_UWK_V1_9:
-+		reg = ssusb->uwk_reg_base + PERI_WK_CTRL1_8196;
-+		msk = WC1_IS_EN_P2_96;
-+		val = enable ? msk : 0;
-+		break;
- 	case SSUSB_UWK_V2:
- 		reg = ssusb->uwk_reg_base + PERI_SSUSB_SPM_CTRL;
- 		msk = SSC_IP_SLEEP_EN | SSC_SPM_INT_EN;
++      mediatek,disconnect-threshold:
++        description:
++          The selection of disconnect threshold (U2 phy)
++        $ref: /schemas/types.yaml#/definitions/uint32
++        minimum: 1
++        maximum: 15
++
+       mediatek,efuse-intr:
+         description:
+           The selection of Internal Resistor (U2/U3 phy)
 -- 
 2.45.2
 
