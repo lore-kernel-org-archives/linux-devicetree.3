@@ -1,228 +1,204 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011024.outbound.protection.outlook.com [40.107.208.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAC6E21B185;
-	Mon, 13 Apr 2026 09:35:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776072949; cv=none; b=quyU+q+nCh7qwH9jhd7+ElU7n4FB7Oi9/FBnZ/wJYp+jnZDfOBKsaJupr677CZulqb9rfQharxEd92wPySM1H4YZkFJ7av277cApI/4olr6zv559c0C9LRp9NdLi+ng1msfjhjgdoGzK1l3TC3fAUZtGo6q/LzRFZghOLzub1dI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776072949; c=relaxed/simple;
-	bh=qiSFmjvv5lf+NtOOLOQm0uLeRuLoVxlpeEyskUaC3G4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jQKhsQj7/0pfjc90bL4A5lrQbJ6gs1/sy8B90CZmbZU/DoG2R3MD3tHP3yMFaD6wwei37b8tOkPCwxudhfMmP8aqpYGdeWY3Iewtj6CbZDMbwNgi7/BNlng/bffHK/wvxXPf75xn7ccAiza9Kcm06CRGLwL01vmRnwKs0l0ZcJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bx+8O1xs; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15CAB3B47C7;
+	Mon, 13 Apr 2026 09:49:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.24
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776073801; cv=fail; b=oSZqUUkyq2/GpJmjN5Y4mxUwW7LGrPR9isfGGvzvSmZhO+QMo5VLi9ImIN5qhou58OcGgpbNqBMNVSf93LFVdOV6A2iZKlw3fU3xEXClIUg+MhqtIyNTBcgg/OnaOXyBtZPdzMJeHOPriOv5siJA5hkSLgliMAe1UFhOWuXDGHY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776073801; c=relaxed/simple;
+	bh=igmQrlavB6JUW9xEJx8amUyY2HIwfb+m0WNzOS4l/lk=;
+	h=Message-ID:Date:Subject:From:To:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=l3lIUFbB67WYxSmiV35g76eXQJVRH0BwVCwrws/uyFPnIbMbxR2jPXuZT/5YeCmwdvBN6YHCWEKvfWBmcs3oU5q2AYKZ9aKG8F36ccX55KMH+nQZHID69IdH14SmHBjELVksbZ5powEMaQQR3pdjzVetLP3wqgvvL109Pai3itg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=fH9kgHaa; arc=fail smtp.client-ip=40.107.208.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bx+8O1xs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6266CC116C6;
-	Mon, 13 Apr 2026 09:35:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776072949;
-	bh=qiSFmjvv5lf+NtOOLOQm0uLeRuLoVxlpeEyskUaC3G4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bx+8O1xsLMg1XvBrUY7YbsV+O9u6e1FnpGe3gUhAwPIlmYzi5Hmc2Y1+Jj0NMfA8M
-	 fygbPc3FZs8fQtu/IOb9+z6G8NYERzukKabqj2bp49YuZaxJ1PlM6LzLvwK+ep/CHL
-	 1Z/FjbieYQp2GzajCnSW/GLW1NXyZhTiiZzMnZicPhXKvqmc1ctpcSGyggNuVPhRcL
-	 eK7OL9M0tpVt/+QDLeK7HdmyDFaT7t0WQoQufgqVLCD6YiQULqN08AEWQ3EH6iZfOA
-	 K6Udbe/py48uw7F+jc4JdXKbGkgvdnC/UCN/7G/DxUsrctbI9mVDz2yO2o73wNnoCk
-	 pEMqkqVqKfECw==
-Date: Mon, 13 Apr 2026 11:35:47 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: george.moussalem@outlook.com
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Devi Priya <quic_devipriy@quicinc.com>
-Subject: Re: [PATCH v21 2/6] pwm: driver for qualcomm ipq6018 pwm block
-Message-ID: <ady2pLwiNT9FffF7@monoceros>
-References: <20260406-ipq-pwm-v21-0-6ed1e868e4c2@outlook.com>
- <20260406-ipq-pwm-v21-2-6ed1e868e4c2@outlook.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="fH9kgHaa"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NSEeNXe0tQ/BSBRc8Mw/dnK92cyW8zQGmArB6o9kwW1joTCVjJYWVftGgupPZ9FbE3da4ik78iDUhgPfLowgyinhmk6SBBYoSJIkkKCCOmNIrzU4xnjLiUMMQ6SaFSwTOMRiijkvMB60yZdYA0TnYIC/jYlog7YmtzZlNi36jUtyn21SVfosWMjlIUfUVwwCOvfGixNDcChqK6Q49xDhA6LlG0GEgnPEWrakWWhkH/JiZ7XV9XeyGrF8HUs6ko4edV9KLTNBKPplcZg7NoGET//PNXWryLCPIKe0tYDKIDPLk7Bt1Q5YEmR0Y5+xTOkUfF1WidT6iUZUeX7118EdVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=89rKApablbImSYOTduYme/Cl3KpRE95ag6QvNaa+hnE=;
+ b=qBkZ4jXQyU8Ix6G17k73XA5RmkplINhPgozX7rKZ19Sr3gY0d7AjC6fb8lKGtx1nXYMJs6bd3kq6mUMww3EwW12oZb0vAVw7sXHyz6HWtQfgALItVWWP188EYECLcR2YCJCMEVOQp2UcgGBVZtI4niJfjN6OO66rBItzjmHx0xgNsSWESbXlE15KB+E8qyil4dYZyS5Jz6pHCCT5lJ9RRojYGyHrYKynv2G21PoY6MRLc1ZQYAqw40JsiV0FlnpNX5wgMg2HOjLtbkL3+YoLpcAjL2hlcJgJPTTpTDgYRysJLPCiuvt4rvSH7FSu1IS0vYVHOnN3E0AQCXdE+SBQ9A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=89rKApablbImSYOTduYme/Cl3KpRE95ag6QvNaa+hnE=;
+ b=fH9kgHaajUP5lTRrm4l4e6JmkH4nd7qTgU/hjQe3D+rU8qQAzh8IUimQhIFhfp3VKnbA7fXNjp+Fy/Wp47uMWsC0f43/FO0CBuU3DhTB7p3XaTuKW97aGsHIulGgliWPhxJcyb0ppXjnGh4eVjZJM7xIweS3xKp8oD1ul2wx+6Gjod/YdMytGOfiKYOl4D2COINFs/8bY8NWzAsXkeJugp9KiQ6pmsZuP7D42M4IXsqQRJIM3LrN9gmdDDqCcwkpRqEEQ+8X3X7K8Sj5ZH+IkAZPum0QtS3ufVtv4rutkxDOQ3ZTNBk0UGQwAMOovZ1CfCdYOtP7MZzysIcKm3tM4A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS2PR12MB9750.namprd12.prod.outlook.com (2603:10b6:8:2b0::12)
+ by IA1PR12MB7640.namprd12.prod.outlook.com (2603:10b6:208:424::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Mon, 13 Apr
+ 2026 09:49:56 +0000
+Received: from DS2PR12MB9750.namprd12.prod.outlook.com
+ ([fe80::56a8:d6bf:e24c:b391]) by DS2PR12MB9750.namprd12.prod.outlook.com
+ ([fe80::56a8:d6bf:e24c:b391%6]) with mapi id 15.20.9769.046; Mon, 13 Apr 2026
+ 09:49:55 +0000
+Message-ID: <19f390ab-ffa9-4237-9f24-ead07b627a89@nvidia.com>
+Date: Mon, 13 Apr 2026 10:49:50 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/6] arm64: defconfig: make Tegra238 and Tegra264 Pinctrl
+ a loadable module
+From: Jon Hunter <jonathanh@nvidia.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>, pshete@nvidia.com,
+ linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, arnd@arndb.de,
+ bjorn.andersson@oss.qualcomm.com, conor+dt@kernel.org,
+ dmitry.baryshkov@oss.qualcomm.com, ebiggers@kernel.org,
+ geert@linux-m68k.org, krzk+dt@kernel.org, kuninori.morimoto.gx@renesas.com,
+ linusw@kernel.org, luca.weiss@fairphone.com, michal.simek@amd.com,
+ prabhakar.mahadev-lad.rj@bp.renesas.com, robh@kernel.org, rosenp@gmail.com,
+ sven@kernel.org, thierry.reding@kernel.org, webgeek1234@gmail.com
+References: <20260409131340.168556-1-pshete@nvidia.com>
+ <20260409131340.168556-7-pshete@nvidia.com>
+ <9408f231-7a12-425c-b8de-2990d3162bb3@kernel.org>
+ <097f71e0-cbc8-44e3-ba60-8bac79cf5217@nvidia.com>
+Content-Language: en-US
+In-Reply-To: <097f71e0-cbc8-44e3-ba60-8bac79cf5217@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P123CA0614.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:314::15) To DS2PR12MB9750.namprd12.prod.outlook.com
+ (2603:10b6:8:2b0::12)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5u5li7rew6iszz66"
-Content-Disposition: inline
-In-Reply-To: <20260406-ipq-pwm-v21-2-6ed1e868e4c2@outlook.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PR12MB9750:EE_|IA1PR12MB7640:EE_
+X-MS-Office365-Filtering-Correlation-Id: 573f1d5e-81f6-4a07-4d36-08de99420492
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|366016|10070799003|1800799024|921020|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	bIEq4eGTMTi9hLsA/WxEUmacH7RTw3QEqWbjUJmqvXPvJsmezuJXYVgjOaohfyLFr7T6GgVRB/b4E88rihStwsNjEs7gtefq3WX58ZZSqcsXuX1oUR4YNho1khC8mMkPbuk5lmrG9HavGgZsjh9152kKSIgfT+dpqPBaBxeSYtV3VuxbDSploKfQzwYAsDRzVgjwNHj9p9lwPHlUpIGhFcniHcRmmtaAasypaMYnQhHX/+Xt3uEaLsO+bTBkx5kCI8c+wCFJQ43swCA0godatEm3Rj4fPF+MvxT6wr5zXM1ULUYAbEt1J8dXlCkpj+KqpCJIRgs1VWEBeKgrHWceoJweWC2vdykMLNNKnX5CWbAzavT5i0sRh99uBWLobjCbyVqwN19Yr1aSXpBj55QHwlq6pa/aV1YSwZeE9LMzTHoBJ1jw5H9agUB0CIyPSMccZYRK+oDV0d1HvCeWejDTbgR/usnyFcPovKeoAMHnSHVd3dhIxCo4Y2Wwg9zJ552tuCk4SJoa59vaR3wPqwMcCtTOObSPe69sa4yyPixclv1jqFtIYyvvwX/zfOReoWlypwVfduXgfh50K2US2MreiYH0+0MACPmpNNroyIrZ1MhMu2bfP9yNZPeUXLqQN8GCwSDPoGoP8umm4siA0dv841f+wd9U6dhgxfbdmMGjWuoqaqabvMoMndoHsLBvha/vrbKwBD1vk7dVo/GMgSJSVkIGDvx8FHMCfbba2eDk0CBLXY36JWGi+81uyjZPls1ywMDo1rKovO5BZqbRImoaVA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS2PR12MB9750.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(10070799003)(1800799024)(921020)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?M3RMaFlQK0pkeWk1bWlUWjVXbU85aWNGaVNwZU1TbmIyTTdYZGdmMzF1clNa?=
+ =?utf-8?B?SVc5ZXBJT3FhYUViWDg2YW01d0hZd013TElTZGYvdWpTU1YvQmlXRHlJYUEy?=
+ =?utf-8?B?KzN2M045b1ArbndLeEFzQ2JUMmp3SnM4aGVQbXRiNGYyVGRNV25TbkhabU4z?=
+ =?utf-8?B?bVZWa01CRkpUTjJvQklvWDZPNWQ2NnJtdWMyVWtnOWExaTN3UnVkSTRLd3Fh?=
+ =?utf-8?B?T3BrdDkyUXF3OUptMXM2bkl3cVZwK2J4VndlNEpOVGF0emJCZCsvRSt4Y3dD?=
+ =?utf-8?B?Ulp5Q3I5TXdTV0lqWUVLdWVSaTZDczZuY3FWelNObGFlSVNWaFovUzhIcVhS?=
+ =?utf-8?B?K2M2R29mbXhTSm9KbEtLUzJPY20rTUN0dUorc0Q1RjlpTjNuOCs3UFd2ZUpM?=
+ =?utf-8?B?Vkhnd2lnWGtNY3hwMGhrclpEZ3FzcURpOHUvSjRPQjhySG42NUFrMXRnS3dQ?=
+ =?utf-8?B?TFM1Skl5MlNma1BpcTJrNUZZcHhqdDhka1ZnUDQrN1lxN3FZM2pqRHF2MDdQ?=
+ =?utf-8?B?YWNZRGJWTXVHVHVoeUVIZ2V1d2wyOGVqM2FRVjE2dEx1d3NPUHIyb0dObEYy?=
+ =?utf-8?B?OW5JN3BQTVZ1cXNOc3hFWVdPU1VzVjkyemYrUHBPc21RdHFGQmJUalEzTmhX?=
+ =?utf-8?B?ZCt3YmFNbExBYmoyTnQ3UytCWUVNYXlDTFZzTUZWTTRzUjUwY0VQaUtMaHNi?=
+ =?utf-8?B?MXlSWGtOck5mUCswV0ttTE1CL0ZKU1hlUkJyT2hvR0EzSmdvcXV1c213U3k0?=
+ =?utf-8?B?cGp5eUkxNmxEZ2pKYmFBKzNTa3p4L2VCOVNzQmdBZjRvZGtCOEI3dFpSUDRO?=
+ =?utf-8?B?Z2orL1NuTXVPdzZhbkVMNFllcEF4MnJjUGFwbDhwaHpyM0JnbXYxYS9Qd2ps?=
+ =?utf-8?B?VGNja2FpZU01QlpmSk1MWVJQb01iQ3pvRzMyY0doY2pydjJwWmNPQk5XckRq?=
+ =?utf-8?B?STkrRk4vQVF6TXVvNm1qdER0UURwY081WFI3amVRT3Y2Ris3WUdLelRTZzMv?=
+ =?utf-8?B?WXJxQlNjMG45NXhDNGdLUExuMGYrcnlaQ09CSnJMNGY1TFk3eXQwcFV4VDFH?=
+ =?utf-8?B?MTZCZ0g1OVduVytuZGxKMnV5RUw0VkF4VnFET2RMeGJ4OW1jdW1KaGcyV1Qx?=
+ =?utf-8?B?UW9uTjViOVhrTEFUNFRlT3oxUkNTQmVvNnQwZ25vWXc5dTRZYzhSUjk2YU8z?=
+ =?utf-8?B?Sy9iaDRKUTcrdTVHazVISW9jRmV2eHp0cEF5RnQweHpNQzgydGg3TWpBdjVn?=
+ =?utf-8?B?cVZHd1NWajE0SXp4WGVwYmFTcnFmdFVSMnJEWHJRTnRUWmtCR0loczRWZ0I3?=
+ =?utf-8?B?aXJHV0N0N2lZbyt4WVdTYWZQQzBIaTJCSVVpVUp1MytMWXFxYVdqR0k0VUNL?=
+ =?utf-8?B?OXU2eGpOaFVsOXpJbHhBNnRqMkJOMUFnY0VKUWEwRG9tbEY4b2UyenM1VUN4?=
+ =?utf-8?B?WVUySWFuQ3lRclR3RTF5QWRyeW5RUnh4MzJYbFhNa0U5YjlLQ2JjNXRzc045?=
+ =?utf-8?B?MVJQRVJpeE5XQXN2dldURlhua29QTER3d1hCYWNSVjRoNDNjcjdjL2x0aVlQ?=
+ =?utf-8?B?Q0h3ZnhYcXlaMEx3Um10ZGFRUzVFL1pxcGRTUXFtSUkvbFQ0TWI3RTdqd1cx?=
+ =?utf-8?B?ZzNVQkJ2b0xsQU5SczdQNHhvaWhIa20xMkk4R0VnWTMzMGlIcCs5TXNoWkF2?=
+ =?utf-8?B?eUp0SW1zcytqdTRSdlZXU1FBNEVhQmhuS01kbG13QmV6a1o5K3JWZXltUmxo?=
+ =?utf-8?B?cW9yVzVrNSt3VUhPSEJSbkVCMGRoT0NTNy9pRmNVOVd3M3Q0Wm43dnNxN3pW?=
+ =?utf-8?B?SkdDcFJFRExiTDJ1YzhWNUFadkFTREhhVlNOejRVWFFzR2hnUmltMFZtejVz?=
+ =?utf-8?B?UU1Tc2JCc2xOWWtldWhPbjJJc25ZUG42NGZCakR1ckFxSEJDNk5ObEUvYkdz?=
+ =?utf-8?B?SWdRVldPL0VrZ3JCbnlVeDAyNHZ3NWdEOE8vckVSaldSZjEwOWZCeVpsLzlM?=
+ =?utf-8?B?S25ZNXhDM09PWXVLbFVqTE8vYUtteW1HN0tGREJQcDZ6YnovSmV3YWp4YXBI?=
+ =?utf-8?B?Q05ZV2RsOFczUklqcHFHK0lUeWp3d0dtVDUyWHRKckx4cGZMQUFlMjZIZEU2?=
+ =?utf-8?B?TzdMa2RKWVlBZEhEc2pTTGpmV2NwbCtDMjhNZk5nWERtVFI2QUZzdXNaZ2th?=
+ =?utf-8?B?VXk2cGtEZURlZWlTak9VU3hWMHd1VlFhaEJ4ZlRKNnNIS0ZWMjVsVExtSlJq?=
+ =?utf-8?B?Qno5aDY4WDJ4SjdXenRTMlI2eit2MWM4Ny9TOU1tdFZ0SzRPeWdsUHgzU3A2?=
+ =?utf-8?B?WlhzVzBVb2k4OGVvQjZYaEk5Tk1ha09Qd2VMeGNOYlVHM1Y1UG9CTnEwdlZK?=
+ =?utf-8?Q?0hid1YPBKK78NfmqiJByhovt8AGS6K/KN8vLnVXeUzSmj?=
+X-MS-Exchange-AntiSpam-MessageData-1: iYFSQu2BBsc/dw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 573f1d5e-81f6-4a07-4d36-08de99420492
+X-MS-Exchange-CrossTenant-AuthSource: DS2PR12MB9750.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2026 09:49:55.7626
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wPBy4/beCU2Vro6u6pNh9N6xB0GBKGQrXABieHbn/jQ0WaE3Ku5/hjrnXTy/24ph2soJLtVRdHiHdnmIdVFYSA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7640
 
 
---5u5li7rew6iszz66
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v21 2/6] pwm: driver for qualcomm ipq6018 pwm block
-MIME-Version: 1.0
+On 10/04/2026 09:25, Jon Hunter wrote:
+> 
+> 
+> On 10/04/2026 07:37, Krzysztof Kozlowski wrote:
+>> On 09/04/2026 15:13, pshete@nvidia.com wrote:
+>>> From: Prathamesh Shete <pshete@nvidia.com>
+>>>
+>>> Building the Pinctrl driver into the kernel image increases its size.
+>>
+>> That's obvious.
+>>
+>>> These drivers are not required during early boot, build them as a 
+>>> loadable
+>>> module instead to reduce the kernel image size.
+>>
+>> So you replace built-in into module?
+>>>
+>>> Signed-off-by: Prathamesh Shete <pshete@nvidia.com>
+>>> ---
+>>>   arch/arm64/configs/defconfig | 2 ++
+>>>   1 file changed, 2 insertions(+)
+>>>
+>>> diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+>>> index dd1ac01ee29b..f525670d3b84 100644
+>>> --- a/arch/arm64/configs/defconfig
+>>> +++ b/arch/arm64/configs/defconfig
+>>> @@ -711,6 +711,8 @@ CONFIG_PINCTRL_SC8280XP_LPASS_LPI=m
+>>>   CONFIG_PINCTRL_SM8550_LPASS_LPI=m
+>>>   CONFIG_PINCTRL_SM8650_LPASS_LPI=m
+>>>   CONFIG_PINCTRL_SOPHGO_SG2000=y
+>>> +CONFIG_PINCTRL_TEGRA238=m
+>>> +CONFIG_PINCTRL_TEGRA264=m
+>>
+>> No, you just added as module. Why do we want them in upstream defconfig?
+>>
+>> Standard question, already asked Nvidia more than once.
+> 
+> Yes :-)
+> 
+> Prathamesh, what we need to do is ...
+> 
+> 1. Add a patch to populate the pinctrl DT nodes for Tegra264 device.
+> 2. In this patch, only enable pinctrl for Tegra264 because we are
+>     lacking an upstream board for Tegra238 for that moment. In the commit
+>     message we should add a comment to indicate with Tegra264 platform is
+>     using this.
 
-Hello,
+Thinking about this some more, I think I would prefer that we skip the 
+defconfig patch and just add ...
 
-On Mon, Apr 06, 2026 at 10:24:39PM +0200, George Moussalem via B4 Relay wro=
-te:
-> From: Devi Priya <quic_devipriy@quicinc.com>
->=20
-> Driver for the PWM block in Qualcomm IPQ6018 line of SoCs. Based on
-> driver from downstream Codeaurora kernel tree. Removed support for older
-> (V1) variants because I have no access to that hardware.
->=20
-> Tested on IPQ5018 and IPQ6010 based hardware.
->=20
-> Co-developed-by: Baruch Siach <baruch.siach@siklu.com>
-> Signed-off-by: Baruch Siach <baruch.siach@siklu.com>
-> Signed-off-by: Devi Priya <quic_devipriy@quicinc.com>
-> Reviewed-by: Bjorn Andersson <andersson@kernel.org>
-> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+  default m if ARCH_TEGRA_238_SOC
 
-I have a few remaining nitpicks. If you're ok I'll squash the following
-diff into this patch and apply it:
+  default m if ARCH_TEGRA_264_SOC
 
-diff --git a/drivers/pwm/pwm-ipq.c b/drivers/pwm/pwm-ipq.c
-index b79e5e457d1a..65af19ded72c 100644
---- a/drivers/pwm/pwm-ipq.c
-+++ b/drivers/pwm/pwm-ipq.c
-@@ -2,7 +2,7 @@
- /*
-  * Copyright (c) 2016-2017, 2020 The Linux Foundation. All rights reserved.
-  *
-- * Hardware notes / Limitations:
-+ * Limitations:
-  * - The PWM controller has no publicly available datasheet.
-  * - Each of the four channels is programmed via two 32-bit registers
-  *   (REG0 and REG1 at 8-byte stride).
+... in the respective Kconfig files for the drivers.
 
-This is to make
+Jon
 
-	sed -rn '/Limitations:/,/\*\/?$/p' drivers/pwm/*.c
+-- 
+nvpublic
 
-do the right thing. I know "Limitations" isn't a good subject for this,
-but until I come around to pick a better marker, doing the same in all
-drivers is good.
-
-@@ -44,13 +44,6 @@
-=20
- #define IPQ_PWM_REG1			4
- #define IPQ_PWM_REG1_PRE_DIV		GENMASK(15, 0)
--
--/*
-- * The max value specified for each field is based on the number of bits
-- * in the pwm control register for that field (16-bit)
-- */
--#define IPQ_PWM_MAX_DIV			FIELD_MAX(IPQ_PWM_REG0_PWM_DIV)
--
- /*
-  * Enable bit is set to enable output toggling in pwm device.
-  * Update bit is set to trigger the change and is unset automatically
-@@ -59,6 +52,12 @@
- #define IPQ_PWM_REG1_UPDATE		BIT(30)
- #define IPQ_PWM_REG1_ENABLE		BIT(31)
-=20
-+/*
-+ * The max value specified for each field is based on the number of bits
-+ * in the pwm control register for that field (16-bit)
-+ */
-+#define IPQ_PWM_MAX_DIV			FIELD_MAX(IPQ_PWM_REG0_PWM_DIV)
-+
- struct ipq_pwm_chip {
- 	void __iomem *mem;
- 	unsigned long clk_rate;
-
-This is just about ordering definitions taken 1:1 from the manual before
-driver specific stuff.
-
-@@ -95,6 +94,12 @@ static int ipq_pwm_apply(struct pwm_chip *chip, struct p=
-wm_device *pwm,
- 	unsigned long val =3D 0;
- 	unsigned long hi_dur;
-=20
-+	if (!state->enabled) {
-+		/* clear IPQ_PWM_REG1_ENABLE */
-+		ipq_pwm_reg_write(pwm, IPQ_PWM_REG1, IPQ_PWM_REG1_UPDATE);
-+		return 0;
-+	}
-+
- 	if (state->polarity !=3D PWM_POLARITY_NORMAL)
- 		return -EINVAL;
-=20
-This ensures that the PWM can be disabled even if state->polarity is
-bogus or period and duty_cycle are out of range.
-
-@@ -102,7 +107,8 @@ static int ipq_pwm_apply(struct pwm_chip *chip, struct =
-pwm_device *pwm,
- 	 * Check the upper and lower bounds for the period as per
- 	 * hardware limits
- 	 */
--	period_ns =3D max(state->period, IPQ_PWM_MIN_PERIOD_NS);
-+	if (state->period < IPQ_PWM_MIN_PERIOD_NS)
-+		return -ERANGE;
- 	period_ns =3D min(state->period, IPQ_PWM_MAX_PERIOD_NS);
- 	duty_ns =3D min(state->duty_cycle, period_ns);
-=20
-This is about correctness. A driver is expected to never configure a
-higher value than requested. (And otherwise I would have converted that
-to clamp().)
-
-@@ -134,7 +140,7 @@ static int ipq_pwm_apply(struct pwm_chip *chip, struct =
-pwm_device *pwm,
-=20
- 	/* pwm duty =3D HI_DUR * (PRE_DIV + 1) / clk_rate */
- 	hi_dur =3D mul_u64_u64_div_u64(duty_ns, ipq_chip->clk_rate,
--				     (u64)(pre_div + 1) * NSEC_PER_SEC);
-+				     (u64)NSEC_PER_SEC * (pre_div + 1));
-=20
- 	val =3D FIELD_PREP(IPQ_PWM_REG0_HI_DURATION, hi_dur) |
- 		FIELD_PREP(IPQ_PWM_REG0_PWM_DIV, pwm_div);
-
-Just consistency with the period calculation
-
-@@ -144,9 +150,7 @@ static int ipq_pwm_apply(struct pwm_chip *chip, struct =
-pwm_device *pwm,
- 	ipq_pwm_reg_write(pwm, IPQ_PWM_REG1, val);
-=20
- 	/* PWM enable toggle needs a separate write to REG1 */
--	val |=3D IPQ_PWM_REG1_UPDATE;
--	if (state->enabled)
--		val |=3D IPQ_PWM_REG1_ENABLE;
-+	val |=3D IPQ_PWM_REG1_UPDATE | IPQ_PWM_REG1_ENABLE;
- 	ipq_pwm_reg_write(pwm, IPQ_PWM_REG1, val);
-=20
- 	return 0;
-
-Simplification that is possible after checking for state->enabled early.
-
-@@ -174,7 +178,7 @@ static int ipq_pwm_get_state(struct pwm_chip *chip, str=
-uct pwm_device *pwm,
- 	hi_dur =3D FIELD_GET(IPQ_PWM_REG0_HI_DURATION, reg0);
- 	pre_div =3D FIELD_GET(IPQ_PWM_REG1_PRE_DIV, reg1);
-=20
--	effective_div =3D (u64)(pre_div + 1) * (pwm_div + 1);
-+	effective_div =3D (u64)(pwm_div + 1) * (pre_div + 1)
-=20
- 	/*
- 	 * effective_div <=3D 0x100000000, so the multiplication doesn't overflow.
-
-Again consistency.
-
-A nice followup for this patch would be the conversion to the waveform
-API; just in case you're still motivated to work on this driver :-)
-
-Best regards
-Uwe
-
---5u5li7rew6iszz66
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmncuPAACgkQj4D7WH0S
-/k6j2ggAi6ViW/EbwGsB3KMUtRdeCBKA1j/00S/Dirdtq6zPgEP4NdESKK/dC8NK
-dAEL8QG5001/3TAsWqRPZLTgqTaefy0MFnqTWFZ9IvrveGJ2OgydifghV1rO/d/W
-xCPkzF+IVf/0r2TXTaHdyVTVYpdm3M432AlYoNv7QRSuE5Lga1LmNLR21fgCUosS
-XQH54r9AYH9ORQEXQm7KgiNfDBnzLvYmMIwTiaxJO72curvNHUjlOchnoeYSWLOS
-prkwooNqVME5Lm/QD9UqXN/aFSToaOsZbzKWGAFZn/hngwzl4TdplA0Tdd/juGe4
-onbAs6qgAxlQ8J4eS55a877V4RYPmw==
-=m3gv
------END PGP SIGNATURE-----
-
---5u5li7rew6iszz66--
