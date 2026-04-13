@@ -1,97 +1,113 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 531CB3ACEE3;
-	Mon, 13 Apr 2026 08:45:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BBF837C93A;
+	Mon, 13 Apr 2026 08:46:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776069914; cv=none; b=kozYbpUGzP8le9KlwSlpF7+v6PE6QTRS0W5mlXwqWspMygUJKIiULbQzckLJEnBFQgsQqUSAtXqwYhiqKDS3YC0HFVJukydyWBZ/z6BzNMbLq/Ie1ygvK6i1ctl+zXX5ifvrW6hB+8Yl01Ol/b/miPd5CqYup4njvH90+9c2CzA=
+	t=1776069988; cv=none; b=I3X8/ZuSk1wCq2Wa27HzoXLOrnHha9s11vw7qP9KsN/WGmNcSBAs2pagE87V3Q1MFJSW/5pcH/YBsb1pDxnRdtoTQbsZRGjzuKlhaF9tVjGt+sPtwoO6cX4mI6wU58jBRPUhiT1ZtoJkYs58gauVYNX20IHioZpRrRZVhbuz2+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776069914; c=relaxed/simple;
-	bh=tmQJpknZ8K4PSRjinbsN1H/HEMJHlC8GhEtPYDeXP10=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P39Yw8ov0KqxWV3TmHh4FGE69+3IH4bWcHxDx/NcQWhCmcBcE/Q4lKB3evuZLCcB457PgCpAcSi23ycOO57cWK1kgKtHDTwxBd2yZXPpXOYsrDaZSSRdnOZ0jDo2TWUqtDMf67VfncbnLCgceBru46BJ1jSrk02FZj8LRrb7UEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=v4e01hq2; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="v4e01hq2"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 373BEC5C183;
-	Mon, 13 Apr 2026 08:45:47 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id A7AD25FFB9;
-	Mon, 13 Apr 2026 08:45:10 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8C75A1045022E;
-	Mon, 13 Apr 2026 10:45:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1776069909; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=OAcntNoyq2S1cVcahMpYXYXm/PDPKoqEbIewOEJeAjU=;
-	b=v4e01hq22EDC4/XGzWZC0N932NKIdtmZmagCALKezEcHag8wUtTAHANpsuIN11hBq+shHX
-	G5sYe6E0JaLYgooFVPt4Wqgjue55ZOv6lyofk9DSX7fgBAofgaPetE0gCl7cvGg6sX0T4K
-	pyzCiinPnNqL8O2DfpF6fgx629SxxgditTjsDVR9mwYD2Ksg0F0OV0f2WCO60Lf3W4ksRk
-	HFGI/cGkhSGnTxSP1BHCtY6SjHwxFOcD55x9gPJ9Zeo9bZHTRwpbyl85xh4gJWUKIEKDoq
-	g2PR2rFbNcY7o+qoZP/rrr3ChCsTy1q31N1icM9ZZym74WaeI7ODM2cVf8iZzA==
-Date: Mon, 13 Apr 2026 10:45:02 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Akhil R <akhilrajeev@nvidia.com>
-Cc: frank.li@nxp.com, acpica-devel@lists.linux.dev, conor+dt@kernel.org,
-	devicetree@vger.kernel.org, ebiggers@kernel.org, krzk+dt@kernel.org,
-	lenb@kernel.org, linux-acpi@vger.kernel.org,
-	linux-hwmon@vger.kernel.org, linux-i3c@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux@roeck-us.net,
-	miquel.raynal@bootlin.com, p.zabel@pengutronix.de,
-	rafael@kernel.org, robert.moore@intel.com, robh@kernel.org,
-	sakari.ailus@linux.intel.com, wsa+renesas@sang-engineering.com
-Subject: Re: [PATCH v2 09/13] i3c: dw-i3c-master: Add a quirk to skip clock
- and reset
-Message-ID: <2026041308450274636352@mail.local>
-References: <adhkNYQW73yQ728h@lizhi-Precision-Tower-5810>
- <20260410060712.30377-1-akhilrajeev@nvidia.com>
+	s=arc-20240116; t=1776069988; c=relaxed/simple;
+	bh=6enhhXH/CJEIPrzagw+rdyNIsjC87WLeT+KTFs81HfE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WrhkUQ988D7iTY+g+M8+Okfun4SzI1SFLtBeoP7V6lb1+GZ7X5fxzK2VIYt6L/lKmPSXKBH+WAqTuQxjKTFICJbPoWqc6RZhUhRwj+HPVa6+th8NV10swNBzYpIxT6G8l9WIcJuWJNYpi3iUtH+bKwO8zeMavYlcuGBJPYb2Jro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.92.39.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: esmtpsz11t1776069934tc0e6f556
+X-QQ-Originating-IP: 5r2GTatSwY3Uul1iODbL62wL+DJW79DDgHXv81kb6e8=
+Received: from [127.0.0.1] ( [116.234.85.158])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 13 Apr 2026 16:45:32 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 15065568213300330693
+Message-ID: <CEA509826F1319B9+712fdfb3-916a-44fb-bca7-1c5c8b81cd91@radxa.com>
+Date: Mon, 13 Apr 2026 16:45:31 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260410060712.30377-1-akhilrajeev@nvidia.com>
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: pwm: clk-pwm: add optional GPIO and
+ pinctrl properties
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Nikita Travkin <nikita@trvn.ru>,
+ linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+References: <20260406-clk-pwm-gpio-v1-0-40d2f3a20aff@radxa.com>
+ <20260406-clk-pwm-gpio-v1-1-40d2f3a20aff@radxa.com>
+ <adyr_17yvFGkihU5@monoceros>
+Content-Language: en-US
+From: Xilin Wu <sophon@radxa.com>
+In-Reply-To: <adyr_17yvFGkihU5@monoceros>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: NBwM60nxo3yxgNwuJcwZlEMVEv5UIyREsG3wZ+GSNkhtSnn7vegPhR4M
+	uc107NI0HDW8SO8OYOfB0EwAf9GCh7dK4Q9rtn/DdpU7t1IRceWU1plVfEUoEEPUprofZpE
+	ddbNNGX+FkW9QV7xy2/+Zv1+tCu0qxNDNuV3VOKnkMs3W7mVOhIGotw/TrSCfFg0QS2YxPy
+	VnhVqjyX6VGSiUZUhdvpGCReoR2+FA+ET3CWAj88opAclo5dGVYLVa6hkErZNksvrfoXglh
+	Ct7z0a/2VvtqHDeQ9gaimCx62Vyr9yx7l5W5jo4a7q0XLMeftLSo3pnfa+rYiq2h5eBbw2K
+	gis27pGLVeW9IyaBeUm7c5QGAhoIGu45erJK72wb1iIpvn05AF5wBtXtRuBt4Q04OqFswtJ
+	YBbty7LlMOFI9wNKVDloeO0dYz5NY7AzgvNLbZLOJXRazSm6G/XawT0BF3iOmPZ/CPkMqJC
+	LNec8f1Y8taE/9c3HHQZ7np/Vh/38CdlReZSAb5poikgoDr4IFaKaCYl8ZkffvfQlGHycms
+	dcgyGTajsHMkZJtA1hPTgRFdbbdxEcWk4VHMwxTxpK/ZmSWER+p6BuJkUhRKsXTwkXVOOeT
+	k2BqXpHFwng/L4ebGhhyXvFBtSl0zTads9lZWZXGYWug1Bs3BEcRiYAssu/q/Dvve8IbWWW
+	3ji4ZXo5Ky3NGxF0gice8t2Fxd/cygfMJBmjZx2D4UIu5ghSEDZorND3cxfSXAdyjBczsNo
+	fF2Rv50nKiqvu6uJZMghPU5L1saui5+JWfAD/JyWSHoWg4YclOGpFidCCblvTmcNOzUEAB6
+	T2nUJHjUY+TavO6b3lbVNVxtTolEUBqJFAx9Oypl7HgC3VT+GiWZhWjgCOy5D+9HavWTU3a
+	lJat/XAzMkCwUpZbbQxrmRSU0GurhGFacGEKZlNK1f0T9UN3K2ELXBFOdGJZ8dYjLnCvrEa
+	A2/OdEV1aY52z/xE7RAqhzEt3gGFwKkmHPtHxtVBvfAMpuevXAoisO2jLcGm6X56mgxY=
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 
-On 10/04/2026 11:37:11+0530, Akhil R wrote:
-> On Thu, 9 Apr 2026 22:45:09 -0400, Frank Li wrote:
-> > On Thu, Apr 09, 2026 at 04:27:39PM +0530, Akhil R wrote:
-> >> Some ACPI-enumerated devices like Tegra410 do not have clock and reset
-> >> resources exposed via the clk/reset frameworks. Add a match data for
-> > 
-> > why not export fix clock at ACPI?
-> > 
-> >> such devices to skip acquiring clock and reset controls during probe.
-> >>
-> >> Move match data parsing before clock/reset acquisition so the quirk is
-> >> available early enough.  When the quirk is set, fall back to reading
-> >> the clock rate from the "clock-frequency" device property instead.
-> > 
-> > "clock-frequency" is legacy proptery.
+On 4/13/2026 4:41 PM, Uwe Kleine-König wrote:
+> Hello,
 > 
-> The document ACPI on ARMv8 Servers [1] suggests not to use clock or reset
-> framework at all. I also could not find any proper way to export the clock
-> to the kernel from the ACPI table. The same document suggests to use only
-> _DSD properties, if to pass any data to the kernel.
+> On Mon, Apr 06, 2026 at 11:50:01PM +0800, Xilin Wu wrote:
+>> The clk-pwm driver cannot produce constant output levels (0% or 100%
+>> duty cycle, or disabled state) through the clock hardware alone - the
+>> actual pin level when the clock is off is undefined and
+>> hardware-dependent.
+>>
+>> Document optional gpios, pinctrl-names, pinctrl-0, and pinctrl-1
+>> properties that allow the driver to switch the pin between clock
+>> function mux (for normal PWM output) and GPIO mode (to drive a
+>> deterministic constant level).
+>>
+>> Signed-off-by: Xilin Wu <sophon@radxa.com>
+>> ---
+>>   Documentation/devicetree/bindings/pwm/clk-pwm.yaml | 36 +++++++++++++++++++++-
+>>   1 file changed, 35 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/pwm/clk-pwm.yaml b/Documentation/devicetree/bindings/pwm/clk-pwm.yaml
+>> index ec1768291503..2a0e3e02d27b 100644
+>> --- a/Documentation/devicetree/bindings/pwm/clk-pwm.yaml
+>> +++ b/Documentation/devicetree/bindings/pwm/clk-pwm.yaml
+>> @@ -15,6 +15,11 @@ description: |
+>>     It's often possible to control duty-cycle of such clocks which makes them
+>>     suitable for generating PWM signal.
+>>   
+>> +  Optionally, a GPIO and pinctrl states can be provided. When a constant
+>> +  output level is needed (0%, 100%, or disabled), the pin is switched to
 > 
-> I can rename the property to 'default-clock-rate' if that sounds good.
-> Please let me know your suggestion.
+> A constant output isn't needed when disabled. The state is undefined
+> then. A plain clk_disable() is fine then.
 > 
+> Best regards
+> Uwe
 
-"clock-frequency" is fine for ACPI
+Ack. I will change the binding description and the driver behavior in 
+the next revision.
 
-> [1]: https://www.kernel.org/doc/html/v6.1/arm64/arm-acpi.html#programmable-power-control-resources
-> 
-> Best Regards,
-> Akhil
+Thank you for the review.
 
 -- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Best regards,
+Xilin Wu <sophon@radxa.com>
+
