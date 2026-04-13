@@ -1,137 +1,143 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 703393A4539
-	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 08:11:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776067863; cv=none; b=XGxRQ4F/RMwvqLAQOhcYEbFgHvLQ9jXv+hrdUgQlF1WH92lXaUPmnhOpQYBv7QVG5Tk3OqgAVCrL0ThddRNPIAQFsOHKFNKv9s+N887bG0AbFxWX4Jk6sf3UwgmqiA0/Wmq9JIxEqkNbkCj4ow0o/NWB4XiNufNb6e9RWaDaLzk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776067863; c=relaxed/simple;
-	bh=/+6tUc5Icac52+bULFFdig49bOIepahG9SlYDk26akg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=siwJ6jHOEPCtdLwAacT6gUBTqObQm8sDCNEMEJcfS0A/059Iw41/7Fvev/X8ooahxxmSYMkWikDheL67oVugx0hTdIFYBx9AZ+dli0jkWoplkNih3qByMIyAUQ+JZSgGftZTIgvfBqFBEw+UbswobVvUSmcvB8gfqr2+M6QdhN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wCCNM-00032k-QK; Mon, 13 Apr 2026 10:10:32 +0200
-Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wCCNL-0058dy-2z;
-	Mon, 13 Apr 2026 10:10:31 +0200
-Received: from pza by lupine with local (Exim 4.98.2)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wCCNL-000000004UV-3YPU;
-	Mon, 13 Apr 2026 10:10:31 +0200
-Message-ID: <2675a315153c83c14d1581e019fdddb611139da7.camel@pengutronix.de>
-Subject: Re: [PATCH v3 3/5] phy: qcom: qmp-pcie: Support multiple nocsr
- resets
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Qiang Yu <qiang.yu@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson	 <andersson@kernel.org>, Konrad
- Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 13 Apr 2026 10:10:31 +0200
-In-Reply-To: <20260412-glymur_gen5x8_phy_0413-v3-3-affcebc16b8b@oss.qualcomm.com>
-References: 
-	<20260412-glymur_gen5x8_phy_0413-v3-0-affcebc16b8b@oss.qualcomm.com>
-	 <20260412-glymur_gen5x8_phy_0413-v3-3-affcebc16b8b@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B273A6F0E
+	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 08:18:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776068284; cv=pass; b=Awi1dICfHsMxYsk5ODOfMDpV6Wth1aXczjmXxgJ4DLGWRuf4bgfDyoMr9D9Yi4VLoJsUs8ad8bQC5J50flGbf6ySxdH/Go+tTwHaDYckJtPyD/LVTtspS6/LU8kXLKkI3KNdq/7YwSDUWKQbVnxPhWolVqqU/o7wOlAvU6PsLQY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776068284; c=relaxed/simple;
+	bh=Kr7oDKdU55g5UujuqnKWNs4YuX6K9H43zs6YbbtsyO0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=t44MzWyBDFXBDA+G1NQMqRm2ZysRVG9SFFiiwk3wwC9Ez9QB0l5AoQR7CeZfJsKz6v889vbZuBjgJ3B/FLDpjzRKXhb0ggzMqnQMgUnBcdC8t1pbcBeusCG63AH5eoyuUQC8/7FHqSgzSINFXTjYYQJBfRanMxN26nHQmBwh2PE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SrqBdkSz; arc=pass smtp.client-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SrqBdkSz"
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-b8f97c626aaso638623666b.2
+        for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 01:18:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776068280; cv=none;
+        d=google.com; s=arc-20240605;
+        b=b9dqP0/tDJXcL+35i8G+nT9Z4zMWcA5bdC6ommMIPJirHuSETK2xLjrnUlI0wikJFB
+         xt0ec/XSavykN1nXxdhorr5Zjxg7ij9pX4WSjFafQrF1cRsgGlwXc+huTHb4B37UygCx
+         n+QVAVJs5AS108+grcUg2gDtpb8v/6gh/JoYrTH3WDOEz38SZxztoATXqGv+X+MNH3J7
+         sxxYbgy4VbJOOxmL4cEBnbutHX1xuMiTq4rdcaOkOFINjZwSRx24uJgYJBt1StFBFmVv
+         TMZHPYuvrEfBefZza25G+Dt8x/Y1D2WyLw5rXWFu88Hodm/UcFV3hRkNwyO7W8yBV//h
+         2MYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=HKKtC3Qnmy/nhNGVLZ07dvj7VhPVzyQUkTlW6PGzNKw=;
+        fh=BIe8Yg2cNj2eirkOuTkXBOKnqNcC7nf+gE63VdCwn9g=;
+        b=jx/r56rz9kzAHpGVlTXmGHhYdYPcfAgxey8u0Y6t1wkOGk/Rh7ym5qCpZc0kTadsee
+         wazXzD9lScHBqG0xoQO+uSvaegdRpDOd1M6OR7B8V+EFrwwbK7xzDGDQC9G5DrEjTSep
+         GJlG11fLMm9JMn4z4/exgcAN5svB4Hy5Ttg8zqROWVTaqYp4/VpeFIwrs1Rviz5/+IZA
+         BPUrxAIy0/snqkHNo4ZHS7HOaCB/T2qvhaYXOuwSznx7MiRYvwwS96TUdWpAdMwvLwEw
+         lyyPrNxKtOAvyskXDkt9r73cRwtaLrD2BphKUgO7qNseKBF4cFfNY6XAN8B5uHpbsyM6
+         9bqA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776068280; x=1776673080; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=HKKtC3Qnmy/nhNGVLZ07dvj7VhPVzyQUkTlW6PGzNKw=;
+        b=SrqBdkSz3IimTGrj3sYDJ2vp38C2TcOYM5k5gzFIAoGUp8yIcub0LceMVX+/z/nvo3
+         ePark7QRopoaUOTkISEY9Bu56d70UuCvNr7PFmGqe8PYo3HZWC0FmpDggLPkbhhoc0PS
+         hpbul78v6GT8P4YYRRGBrSGnSyUSBmGoICSHH/eOMnysZl19iXPG2bk/Eahnq7VTVVHO
+         7bbuhemlvbG22AVCy8S40k2yo36Y4ZNaSpwnnS+mXpGbtmLiJQFK1jSxj4FqyPiUvx6j
+         7IxrWSSqUeXOSsLSECdvlDnT18rTAVWjJCXhimicZjrN4EHlV8cergaMjv7RdBoW/gch
+         5tEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776068280; x=1776673080;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=HKKtC3Qnmy/nhNGVLZ07dvj7VhPVzyQUkTlW6PGzNKw=;
+        b=cn/D3RmNZaKcGfd0+MkKgSPEG+wI3CYmsqe8mgzI7e7G8OXXm2Z7IPvXVdGfr76QJV
+         qR3g02Htx0ix/wLpkmx+dljHlUWMtvf0moI5sqckBWlwg4rElwAgIudZpN0katQCHseN
+         NuQyklbeQjclqbxKnB6rEgRdvB0cBlPRuOBSELBJt60PeUiCfYOj3c1zwUjZVWuG4Zzo
+         N4hf9Nrnq+Jg8KsEUAEsY7pAyLO6w4X7CnF40CXoGaZJdjp7Eq6UlIcU90O5760a6ga7
+         bggF36Rj+jQcjwNaZEsC5ApuueJAZZsQxqcqV2iSoG6czHCgqpn+UzIvPaoNuiDTc5jF
+         k5HA==
+X-Forwarded-Encrypted: i=1; AJvYcCUR1lJshxggiO1C53MzgByPAn05efAoqFZxfGOateIPOZfVVIc9gcJ6+tLc1nhF7iyydtPwo6r0sJq3@vger.kernel.org
+X-Gm-Message-State: AOJu0YzIPBj81XIRkaiitsoz55wUmaShGtz8RMgOKWndPXPCpBkUnaqw
+	vgSoVECwONdjEgWAZF8f5eu2kwH+Aak6CHeZkoZqp2qH0JnCMymr+p9vBlKXwWtmDPsibqKzCb9
+	aqnBhgihw0MItN+5RmZ3enzDX/jZpBSI=
+X-Gm-Gg: AeBDievygrxovoZWmWRrprWGcuDc17TD7UyJJanH18RYpI1xHW4xhv30mIK/C7DoW/M
+	3luwTGIdr74eaq90sq7fGuu6AQtXZ8FGe/l26LBLioSNcphrfzGLynbgi3q4p4om08ciuYymBUp
+	ZD8nwFcKVhpolKplcX0dIHnjDvi0XWboxy7aUKG9stATRCQKI2H1otCCQgsWv907MrpIIEaRD6I
+	enPRgAy9IsSL8ry9O2xwaQYM0u0l8Vbp35nIEUKKFD9wnAjigeSHohazEwVleXyUSqYnj89aCXa
+	Q9dvyQGNYJ1+oigxnw0F1HC+Xhj1D/zayV5C6yROgFuU4v2kSKgJpHVIUMW44sv0zsgAnrG5zu2
+	jmOYFRNo=
+X-Received: by 2002:a17:906:ef0c:b0:b97:34e7:ea87 with SMTP id
+ a640c23a62f3a-b9d7248ab15mr627211066b.19.1776068279504; Mon, 13 Apr 2026
+ 01:17:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: p.zabel@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
+References: <cover.1775900045.git.zhoubinbin@loongson.cn> <CAHp75Ve59GPAFvKM6yOkPmr=kmHBjVL-Vz78X0WDikiWd+2arQ@mail.gmail.com>
+ <CAMpQs4+QmyAObvCcJOFnfTuufG8=M0q5m+XMkaP6-SOp-8wq9w@mail.gmail.com>
+In-Reply-To: <CAMpQs4+QmyAObvCcJOFnfTuufG8=M0q5m+XMkaP6-SOp-8wq9w@mail.gmail.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Mon, 13 Apr 2026 11:17:22 +0300
+X-Gm-Features: AQROBzBJwSsZg2tUBgFtmmJxajkFQLHqP5eXC7UwkUnFX9NthWB1sHncPf4yD5E
+Message-ID: <CAHp75Veymi3z2atMuSeDyrhyx-HLHgCMzJF5EgpJZzTGgpcD3Q@mail.gmail.com>
+Subject: Re: [PATCH v7 0/2] i2c: Add Loongson-2K0300 I2C controller support
+To: Binbin Zhou <zhoubb.aaron@gmail.com>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Huacai Chen <chenhuacai@loongson.cn>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Andi Shyti <andi.shyti@kernel.org>, Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+	Andy Shevchenko <andy@kernel.org>, linux-i2c@vger.kernel.org, 
+	Huacai Chen <chenhuacai@kernel.org>, Xuerui Wang <kernel@xen0n.name>, loongarch@lists.linux.dev, 
+	devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On So, 2026-04-12 at 23:25 -0700, Qiang Yu wrote:
-> Refactor nocsr reset handling to support multiple nocsr resets required
-> for PHY configurations with bifurcated operation modes.
->=20
-> The Glymur SoC's 3rd PCIe instance supports 8-lane mode using two PHYs
-> in bifurcation, where each PHY requires its own nocsr reset to be
-> controlled simultaneously. The current implementation only supports a
-> single nocsr reset per PHY configuration.
->=20
-> Add num_nocsr and nocsr_list fields to struct qmp_phy_cfg to represent th=
-e
-> number and names of a group of nocsr reset names. Initialize these fields
-> for all PHYs that have nocsr resets, allowing the driver to correctly
-> acquire multiple nocsr resets during probe and control them as an array
-> by using reset_control_bulk APIs.
->=20
-> The refactoring maintains backward compatibility for existing single
-> nocsr reset configurations while enabling support for multi-PHY
-> scenarios like Glymur's 8-lane bifurcation mode.
->=20
-> Additionally, introduces x1e80100_qmp_gen3x2_pciephy_cfg as a separate
-> configuration from sm8550_qmp_gen3x2_pciephy_cfg since the x1e80100 Gen3x=
-2
-> PHY requires nocsr reset support while the sm8550 Gen3x2 PHY does not.
->=20
-> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
-> ---
->  drivers/phy/qualcomm/phy-qcom-qmp-pcie.c | 87 ++++++++++++++++++++++++++=
-++----
->  1 file changed, 77 insertions(+), 10 deletions(-)
->=20
-> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c b/drivers/phy/qualc=
-omm/phy-qcom-qmp-pcie.c
-> index 424c935e27a8766e1e26762bd3d7df527c1520e3..51db9eea41255bad0034bbcfb=
-fdc36894c2bc95f 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
-[...]
-> @@ -4998,14 +5054,25 @@ static int qmp_pcie_reset_init(struct qmp_pcie *q=
-mp)
->  	for (i =3D 0; i < cfg->num_resets; i++)
->  		qmp->resets[i].id =3D cfg->reset_list[i];
-> =20
-> -	ret =3D devm_reset_control_bulk_get_exclusive(dev, cfg->num_resets, qmp=
-->resets);
-> +	ret =3D devm_reset_control_bulk_get_exclusive(dev, cfg->num_resets,
-> +						    qmp->resets);
+On Mon, Apr 13, 2026 at 11:08=E2=80=AFAM Binbin Zhou <zhoubb.aaron@gmail.co=
+m> wrote:
+> On Mon, Apr 13, 2026 at 3:52=E2=80=AFPM Andy Shevchenko
+> <andy.shevchenko@gmail.com> wrote:
+> > On Sat, Apr 11, 2026 at 12:58=E2=80=AFPM Binbin Zhou <zhoubinbin@loongs=
+on.cn> wrote:
 
-Unrelated and unnecessary change.
+...
 
->  	if (ret)
->  		return dev_err_probe(dev, ret, "failed to get resets\n");
-> =20
-> -	qmp->nocsr_reset =3D devm_reset_control_get_optional_exclusive(dev, "ph=
-y_nocsr");
-> -	if (IS_ERR(qmp->nocsr_reset))
-> -		return dev_err_probe(dev, PTR_ERR(qmp->nocsr_reset),
-> -							"failed to get no-csr reset\n");
-> +	if (!cfg->num_nocsr_resets)
-> +		return 0;
-> +	qmp->nocsr_reset =3D devm_kcalloc(dev, cfg->num_nocsr_resets,
-> +				   sizeof(*qmp->nocsr_reset), GFP_KERNEL);
-> +	if (!qmp->nocsr_reset)
-> +		return -ENOMEM;
-> +
-> +	for (i =3D 0; i < cfg->num_nocsr_resets; i++)
-> +		qmp->nocsr_reset[i].id =3D cfg->nocsr_reset_list[i];
-> +
-> +	ret =3D devm_reset_control_bulk_get_exclusive(dev, cfg->num_nocsr_reset=
-s,
-> +						    qmp->nocsr_reset);
+> > >  - parent_rate_MHz -> parent_rate_mhz to avoid CamelCase.
+> >
+> > Was it a special requirement from maintainers?
+>
+> I=E2=80=99m actually a bit confused, because when I submitted the v6 patc=
+hset,
+> checkpatch didn=E2=80=99t issue this warning.
+> But now, it produces the following output:
+>
+> scripts/checkpatch.pl --strict i2c-ls2k0300-v6/v6-0002*
+> CHECK: Avoid CamelCase: <parent_rate_MHz>
 
-Should this be devm_reset_control_bulk_get_optional_exclusive()?
+It's a false positive of the checkpatch.
 
-regards
-Philipp
+> #512: FILE: drivers/i2c/busses/i2c-ls2x-v2.c:437:
+> +       priv->parent_rate_MHz =3D clk_get_rate(priv->clk);
+>
+> total: 0 errors, 0 warnings, 1 checks, 574 lines checked
+>
+> NOTE: For some of the reported defects, checkpatch may be able to
+>       mechanically convert to the typical style using --fix or --fix-inpl=
+ace
+>
+> > Note, the physical units are special. The m and M have quite a
+> > different multiplier value. So, even if asked by somebody I think it's
+> > still arguably should be kept as MHz.
+
+See above why.
+
+--=20
+With Best Regards,
+Andy Shevchenko
