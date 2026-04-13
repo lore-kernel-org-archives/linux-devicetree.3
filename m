@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E62D8391850;
-	Mon, 13 Apr 2026 06:30:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 632917DA66;
+	Mon, 13 Apr 2026 06:33:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776061806; cv=none; b=aNElZ0A2CiqXqaLYUfOb/Q6mE9HJ8AvCoq6+qxfwFyOV99Krvd4xkg5yIglc630oGq/1XikHQ+Z/0JBkoP3k2iKULabG70kwTiykbiF+QWkPflT5eMZybG5LhJoWB2R9RFGLAQejMvOVXdLHtehrfA7NVK+QQTcZIJMaucqMQU8=
+	t=1776062033; cv=none; b=p6h0E5JiGW+7K+mq1DdSo8MC3jDRPK8xY1jR+YrtAR0zyv/Zl4qNZ38fx5eGlTkwe24reFy3mbwoh0apAitmbqNquDA4/Pa6V3FaWtwXNLvNg3l8Fs53SsaREFAvAeonvOLqejh3U9ru2nv1uYLYF7Ebk8HmwTNAUq0qwhCd0/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776061806; c=relaxed/simple;
-	bh=GMAzW9yd4GJ75aw8shQ4m7dydffrityIfJeRqextRW4=;
+	s=arc-20240116; t=1776062033; c=relaxed/simple;
+	bh=cbZPdx/gHbRAyj94PZOO6f26UmM1RzHGZwCfNYE0LNQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TBXGIVbqX1rYBZkL+wC2ibBH3kPwuyckvctS2rRDwLovSGHtinXkU/NIcmlnPi8EVpjUAFJWw/l5S8Qcai5XR7PtLqfD1WLyYft8CZzwuU6tB4RbqzBtWkYW6xrKNeyGnvHHvz/Dm5UoMXTNjYQId7s5QUplGbMZu6hn5qObe8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MOk1VOWu; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=K0gp6cM95akZCQuX7AiuzWsVfBoGtWJGW6pHLJjNWBnBoeARm9AqyluPu7gn2AJLfCJBOufYErFjK+5pdhNGgX9mJYg4Nxo3i6Ruy5Cv8N2beEDopSZJDN0bMuGSkdCbjskY6p34bPpspMrYHPOlrG2vB5nRRYAtmGprbYyGReM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XforbCwf; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MOk1VOWu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22F5FC116C6;
-	Mon, 13 Apr 2026 06:30:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XforbCwf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DE48C116C6;
+	Mon, 13 Apr 2026 06:33:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776061805;
-	bh=GMAzW9yd4GJ75aw8shQ4m7dydffrityIfJeRqextRW4=;
+	s=k20201202; t=1776062033;
+	bh=cbZPdx/gHbRAyj94PZOO6f26UmM1RzHGZwCfNYE0LNQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=MOk1VOWuskaW5l+IBBO1bQVRs184lmVuNw2jcIL46mgtmwKBdhwZQmP1GLPKp/FBV
-	 Y2RdLAntM11Vu4NvOonUl07Mur44vb4NfAWI+w1XNpssz0LbxEZrB6gX+c2VUXhjBv
-	 L9pn8rm2Xta9jaip0DVBRS26AV7tEtVp/gEW/6+ZYnAGWI5l6mlyOWPSI6karAeZu7
-	 fUgUMeu/w7dozr2L1cOAuImT3HLUkXhfW0jQrxL+GbvLFPL5dHR68SjNF82aXBIrKK
-	 8eeF4+AN3OJ9SLLOYnXm+nn3wjRUkRTOU23tiHYBBC5cy3NpW2laF1UGqLW1aRcwd+
-	 2R8JxZTVR8mXg==
-Message-ID: <2ef9a232-0832-4951-846f-b3d49275e52e@kernel.org>
-Date: Mon, 13 Apr 2026 08:30:01 +0200
+	b=XforbCwfC3/G1HnFCQABGvTr2W0Xin9jXFvxjvSYjOb9T0Qqs1zDqlWTHwjGiUuXm
+	 ChMUMjzq5ddUeWA4DildmGULbxZOvBnqWUqJ1rJwP6eufQJtyxHZjXm/N5BtlTlR8W
+	 ie7GSENyClp75k+W3baAhi0BZRaav+Jo3OC9HRkOXOSaT1gSFKsWKh97ztQysm5TTZ
+	 0BVADSf4/pDsRPBBG51/QKIT8s7FZb2oFwXkEpZ6rkUC+xtmqqXWKGfKtggWT/N+PF
+	 b4oF/tDV/gBTFkYKrDytFODhz2THHMDsermX+ukZhW4QTfQsOJTi+vpFKOm5QdO6tj
+	 4OqJBYNdKvHyg==
+Message-ID: <72dc4a71-1a3d-4e36-9bcc-d9a4de3de6cc@kernel.org>
+Date: Mon, 13 Apr 2026 08:33:49 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,19 +35,17 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] dt-bindings: leds: Document LTC3208 Multidisplay
- LED Driver
-To: "Roleda, Jan carlo" <Jancarlo.Roleda@analog.com>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-leds@vger.kernel.org" <linux-leds@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
-References: <20260406-upstream-ltc3208-v3-0-7f0b1d20ee7a@analog.com>
- <20260406-upstream-ltc3208-v3-2-7f0b1d20ee7a@analog.com>
- <20260407-outstanding-sceptical-giraffe-3fd6bb@quoll>
- <BN8PR03MB4977C3A5917167F9B8BE6A3E96272@BN8PR03MB4977.namprd03.prod.outlook.com>
+Subject: Re: Phandles
+To: Herve Codina <herve.codina@bootlin.com>,
+ Kyle Bonnici <kylebonnici@hotmail.com>
+Cc: "devicetree-compiler@vger.kernel.org"
+ <devicetree-compiler@vger.kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, devicetree@vger.kernel.org
+References: <BB363BC4-B813-4D03-8737-587DF7425908@hotmail.com>
+ <20260412145144.4737fde6@bootlin.com>
+ <D22046DB-95B3-431E-8E80-0BA806811D01@hotmail.com>
+ <20260412173916.7a971a45@bootlin.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -93,68 +91,86 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <BN8PR03MB4977C3A5917167F9B8BE6A3E96272@BN8PR03MB4977.namprd03.prod.outlook.com>
+In-Reply-To: <20260412173916.7a971a45@bootlin.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 13/04/2026 01:37, Roleda, Jan carlo wrote:
-> Hello Krzysztof,
+On 12/04/2026 17:40, Herve Codina wrote:
+> Hi Kyle,
 > 
-> Thank you again for the review. 
+> +Cc Kernel device-tree maintainers
 > 
-> For clarification,
+> On Sun, 12 Apr 2026 13:51:35 +0000
+> Kyle Bonnici <kylebonnici@hotmail.com> wrote:
 > 
->> -----Original Message-----
->> From: Krzysztof Kozlowski <krzk@kernel.org>
->> Sent: Tuesday, April 7, 2026 2:58 PM
->> To: Roleda, Jan carlo <Jancarlo.Roleda@analog.com>
->> Cc: Lee Jones <lee@kernel.org>; Pavel Machek <pavel@kernel.org>; Rob
->> Herring <robh@kernel.org>; Krzysztof Kozlowski <krzk+dt@kernel.org>; Conor
->> Dooley <conor+dt@kernel.org>; linux-kernel@vger.kernel.org; linux-
->> leds@vger.kernel.org; devicetree@vger.kernel.org
->> Subject: Re: [PATCH v3 2/2] dt-bindings: leds: Document LTC3208 Multidisplay
->> LED Driver
->>
->> [External]
->>
->> On Mon, Apr 06, 2026 at 03:17:06PM +0800, Jan Carlo Roleda wrote:
->>> Add Documentation for LTC3208 Multidisplay LED Driver.
+>>> On 12 Apr 2026, at 14:51, Herve Codina <herve.codina@bootlin.com> wrote:
 >>>
->>> Signed-off-by: Jan Carlo Roleda <jancarlo.roleda@analog.com>
->>> ---
+>>> Hi Kyle,
+>>>
+>>> On Sat, 11 Apr 2026 18:33:33 +0000
+>>> Kyle Bonnici <kylebonnici@hotmail.com> wrote:
+>>>   
+>>>> Hi
+>>>>
+>>>> I have been looking at the the code for the compiler and I am wondering which specifications marks the below properties MUST BE Nexus Properties hence the validation.
+>>>>
+>>>> WARNING_PROPERTY_PHANDLE_CELLS(clocks, "clocks", "#clock-cells");
+>>>> WARNING_PROPERTY_PHANDLE_CELLS(cooling_device, "cooling-device", "#cooling-cells");
+>>>> WARNING_PROPERTY_PHANDLE_CELLS(dmas, "dmas", "#dma-cells");
+>>>> WARNING_PROPERTY_PHANDLE_CELLS(hwlocks, "hwlocks", "#hwlock-cells");
+>>>> WARNING_PROPERTY_PHANDLE_CELLS(interrupts_extended, "interrupts-extended", "#interrupt-cells");
+>>>> WARNING_PROPERTY_PHANDLE_CELLS(io_channels, "io-channels", "#io-channel-cells");
+>>>> WARNING_PROPERTY_PHANDLE_CELLS(iommus, "iommus", "#iommu-cells");
+>>>> WARNING_PROPERTY_PHANDLE_CELLS(mboxes, "mboxes", "#mbox-cells");
+>>>> WARNING_PROPERTY_PHANDLE_CELLS(msi_parent, "msi-parent", "#msi-cells", true);
+>>>> WARNING_PROPERTY_PHANDLE_CELLS(mux_controls, "mux-controls", "#mux-control-cells");
+>>>> WARNING_PROPERTY_PHANDLE_CELLS(phys, "phys", "#phy-cells");
+>>>> WARNING_PROPERTY_PHANDLE_CELLS(power_domains, "power-domains", "#power-domain-cells");
+>>>> WARNING_PROPERTY_PHANDLE_CELLS(pwms, "pwms", "#pwm-cells");
+>>>> WARNING_PROPERTY_PHANDLE_CELLS(resets, "resets", "#reset-cells");
+>>>> WARNING_PROPERTY_PHANDLE_CELLS(sound_dai, "sound-dai", "#sound-dai-cells");
+>>>> WARNING_PROPERTY_PHANDLE_CELLS(thermal_sensors, "thermal-sensors", "#thermal-sensor-cells");  
+>>>
+>>> All of those properties are defined as phandles.
+>>>
+>>> For instance, the 'pwms' property available in a node means the the node is
+>>> a pwm consumer. It must follow the pwm consumer binding [1] and so a phandle
+>>> is involved.
+>>>
+>>> This phandle can have arguments and the number of argument is defined by the
+>>> #pwm-cells property set in the pwm provider node [2], [3].
+>>>
+>>> [1] https://elixir.bootlin.com/zephyr/v4.4.0-rc3/source/dts/bindings/pwm/pwm-controller.yaml
+>>> [2] https://github.com/zephyrproject-rtos/zephyr/blob/main/dts/bindings/pwm/pwm-controller.yaml
+>>> [3] https://elixir.bootlin.com/linux/v7.0-rc7/source/Documentation/devicetree/bindings/pwm/pwm.yaml
+>>>   
+>>>>
+>>>>
+>>>> These can be found here: https://github.com/dgibson/dtc/blob/main/checks.c#L1498 this is relevant for https://github.com/zephyrproject-rtos/zephyr/issues/107066  
+>>>
+>>> Examples provided in the zephyrproject issue link are, in my opinion, incorrect.
+>>>
+>>>  Case 1:
+>>>  / {
+>>>      node1 {
+>>>           pwms = <1 &pwm0 1 20 PWM_POLARITY_NORMAL>;
+>>>
+>>>           Here the first cell '1' is not a phandle.  
 >>
->> Still incorrect order.
-
-You still did not correct the order of patches. I already asked you at v2.
-
->>
->> ...
->>
->>> +
->>> +      led-controller@1b {
->>> +        compatible = "adi,ltc3208";
->>> +        reg = <0x1b>;
->>> +        #address-cells = <1>;
->>> +        #size-cells = <0>;
->>> +        adi,disable-camhl-pin;
->>> +        adi,cfg-enrgbs-pin;
->>> +        adi,disable-rgb-aux4-dropout;
->>> +
->>> +        led@0 {
->>> +          reg = <0>;
->>
->> I still expect this to be complete, so at least function and color.
->>
->> Best regards,
->> Krzysztof
+>> Here the compiler is making an assumption here that all `pwms` properties must be specifier properties and all use `pwm` specifier.
 > 
-> Are you referring here to keep the led@0-6,
-> but instead of only the reg I should include other LED properties (i.e. function and color)?
-> If so, I will add them as such in the next patch.
+> I think the purpose of 'select: true' is to have the binding always applied:
+>   https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/pwm/pwm-consumer.yaml#L15
 > 
-> Do let me know if this is correct.
+> If this is confirmed, DTC performs correct checks as this binding must always
+> be applied and so the 'pwms' property must be a phandle-array property.
+> 
+> Device-tree maintainers, can you confirm the purpose of 'select: true' set
+> in a DT binding ?
 
-Make the example complete.
+The quoted parts were mentioning Zephyr. Here you mentioned DTC, but ask
+about "select: true", so dtschema. I don't get the context... dtschema
+has nothing to do with DTC and Zephyr.
 
 Best regards,
 Krzysztof
