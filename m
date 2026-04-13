@@ -1,121 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43AC73B6BEC;
-	Mon, 13 Apr 2026 10:02:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC64438237E
+	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 10:07:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776074573; cv=none; b=T3vDmY9YAplTPeaPRCm+U9qqkYDsw9fpMxufc1U+XhkbItNCsIetgycj6ndODe0rSlcpf6IpMgxvG8v5+T7sneDF2S8tZMomEGt3z9Oc78WHbY+y5xWmwQtqL1a4/2bUs1c7VTI09Y882wXl1HEvqAg8dxeS7NRiscS4n95i5/o=
+	t=1776074840; cv=none; b=bmkcRuYOY4iNHHee6qf6gckhNMps7UVrryuc1ogL0X8rJS97rlf3OqSARcdbhIerpvHYkEeamyM27eIYDIVRJxoV+HoqDEq4cUhWzek3rwDLwwgjzGCUbz1Ntj0ITdILgzjK+u+EiD+qwe0eFOl7FZ1mdfkqAnWFE0MuRO4ldOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776074573; c=relaxed/simple;
-	bh=aMgWqZSZVz2J9ZBnkq1mg69TUkC/SVryqWeWsAff7Zo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qm/F0lYKB8G4lg6uw6AA8s/8d3KPZCX1vcgMUzYkWt80hmMiJem7vIY0sFn3LM/JfqcWKRa1nvcFSYx5i5IsGBPOLdLSMwRSgPy9EK6pmSEEZSOJj+0PFyBZp+tc/Sdx4DEOsqNt7ITa7njTBxSIJM37kvc7Gz3j/Kj3Q6JEeu8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B6uDD3WP; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776074840; c=relaxed/simple;
+	bh=UxDiNz5aVAd8jaiS8WbKwd6IwvkgGniodqaG9fbAjlc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ztzu5b2nyjCsBx8+RtKW9XZ1AYSbW3/6nUiW7QkXDsRvfj4KhWJR9J4kK0rlaTJzikMJa1SgrCECndXcBjTq61EPUkFOeTAAnqQ3F98xJwfQyQcmmt7ji0eMPnFpR+DV3coJopQGcG5fmZvbXo+B09d9F4dnGIqcumUKmQsob2I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Puu4Oz87; arc=none smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B6uDD3WP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87258C116C6;
-	Mon, 13 Apr 2026 10:02:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776074572;
-	bh=aMgWqZSZVz2J9ZBnkq1mg69TUkC/SVryqWeWsAff7Zo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=B6uDD3WPkAcjvPILe4Pfln+UkJijjoTqRFmkiVF6iH9Tkh92bl6rdRgV+jD9+QaZ3
-	 O6d5kjMd1SXjIraGOZfcLZMfv0h7G/uc5TRZz6TGYvPLwFITsv+70WYOwNKCv2btVh
-	 FbiNfDwAkLCvw//aLe8+lgB8Fdu6kUaYOn9FpVoeT0EP8D5Dm0HwZr4CJuug7C+F4n
-	 KRZUGW7ZMyXmmmagawNvrVGAFBMrGOh2ByxDk0gQ//9n4K6mLaG+Si4Fb1Fq8LieMj
-	 cEc5L09SeC3NsUspkbpqYK96paEuI1MK5gxxtPFHOq8JTTl0PMcEONwCl5/MEhIqll
-	 iNDvwH8orllxg==
-Message-ID: <a1f8cdcb-fddb-43ca-adbd-07e36949eef2@kernel.org>
-Date: Mon, 13 Apr 2026 12:02:48 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Puu4Oz87"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-823c56765fdso2343848b3a.1
+        for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 03:07:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776074839; x=1776679639; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=qz15EdajgaOwwJlVpi9rRF2MEm37YEfE9zUFEPe5XVQ=;
+        b=Puu4Oz87KxIsta5K9aTtHoBxLJqMIHgxrKMkNcJfIFa1QeLxPIkM3xIf6Co+94yJnR
+         B2SA0FVv1tHVujw9PCbOHKa7Si7dJDhX37oTVqy8/hERVJL6CO9YoxYilbtWh9X7PoDN
+         Vi/jTwa7Wwk3Cuk7ZllmWJC3/ttettDJPwotnis5LYNrMlHYSvjWhXHqsYuWal+Xys/N
+         5SSM7jHqHJc4yDTlIOJj4NUhRKdQ6vqVu702C1mY9WESenHvaN/Lpt2eO0hZ7tXIPLXL
+         IRb0f5f5YG7Xicvnw0de54USHo3fw6BHdpJFneiP56IFc/2NTvpmm7mHFtzWGSESag3u
+         SC8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776074839; x=1776679639;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=qz15EdajgaOwwJlVpi9rRF2MEm37YEfE9zUFEPe5XVQ=;
+        b=XDBTB5V7TZnD314wtra95CLXAoFn7RbxN0gXhqvdiCjJSvNEgxMSePQXwE6e6l4ptm
+         lVWq5ylvQ6PIjqeSK4/S/sOkebb/5DsVyEuTN4/5rxg42CdX7iObGsk+vSWZHJ71X4WR
+         Sf6u3cnmNpDdLexSSyTdTMdI1QtX+eXzSTrzamkRjyKVV5O23UOdhzQxM2ITq668M9hY
+         nEGiDWD/9GuAThgMoYV0I1ZiMjBZMp55iOE0Ux26FH1GU11PLv31iFeF4TDuS/+Ps40V
+         Ca8NEUCyiJuGQojPlyHJsjXnfMBTrSUmyiN8LFia+fA4b2fkUnGEq02qpss8NN9MpAin
+         48iA==
+X-Forwarded-Encrypted: i=1; AFNElJ9qTvU63A8MJ4x7xsqnptvnNowPP/hO0/bkrFoCEczLgfZVnUA4+EGquWUVc/X5wouoW4dP5sNGrv7G@vger.kernel.org
+X-Gm-Message-State: AOJu0YzVo7u4EcRe90V67AxPVMye9xHG93+WP3MuT1Kl+kbD01yFbxfR
+	9thxsJWIz59brDOpiQgJr14YNvOqU/P/7XVHLj0/X6ZS02Z2Rlkqo6FN
+X-Gm-Gg: AeBDietwzuH05/TBTqafQWfZycHq7GqLwqL2+0sdueHc3kajnpOYSUWD6wGlGrPFH01
+	1J7lset0iAAj5glHQ6BqMm/UoUmXa3m4S3fotY2oZt/Xe5kMh0YxZKcX4j5/ZaoN5efxv5fNby+
+	msHopfP0uCZOHVF3sldPl4/TvHGHiISYWAYRk88SGZwnlbDeHCTlfgE+rnZOkrQmH+vjpOm5o4t
+	yW0RvQvwvax3kmYx/g5xCAhXVvYblvFDhWAFA27rX1KD+0PBCY52My5Te2vhO0/Bzl4LSDdfsBU
+	PzwcHjTaNQhdhb6dqGSsxdsdbQMe2p0Q06IVskreMy8PlcofLN+uJUv/4+pzWY4f1EFlb/HXsRr
+	L/FxOhKlw7SQCCpgUP2K1aCuBF3tEkATjnnu4HbVEGIST7YBG7C5vRD9E1q/4LweGnD86+aXG89
+	K2IK0UywC10fnQTDzeJJ+5CTZhe8C6aJ7S0eL/E+FTHuJvZZXZxYwd9de8PQ==
+X-Received: by 2002:a05:6a00:aa85:b0:829:8942:2c93 with SMTP id d2e1a72fcca58-82f0c1cc16emr11475540b3a.9.1776074838631;
+        Mon, 13 Apr 2026 03:07:18 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82f0c50a8f7sm10232140b3a.56.2026.04.13.03.07.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 13 Apr 2026 03:07:18 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: kuninori.morimoto.gx@renesas.com,
+	broonie@kernel.org
+Cc: lgirdwood@gmail.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	geert+renesas@glider.be,
+	magnus.damm@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH v2 0/6] ASoC: renesas: fsi: Fix system hang by adding SPU clock
+Date: Mon, 13 Apr 2026 17:06:54 +0700
+Message-ID: <20260413100700.30995-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] dt-bindings: arm: cpus: Add compatible qcom,oryon-1-5
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260413091625.607976-1-shengchao.guo@oss.qualcomm.com>
- <20260413091625.607976-3-shengchao.guo@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260413091625.607976-3-shengchao.guo@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 13/04/2026 11:16, Shawn Guo wrote:
-> Qualcomm Oryon 1-5 is found on Nord SoC.  Add compatible for it.
-> 
->   $ cat /proc/cpuinfo
->   ...
->   CPU implementer : 0x51
->   CPU architecture: 8
->   CPU variant     : 0x5
->   CPU part        : 0x001
->   CPU revision    : 4
-> 
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/arm/cpus.yaml | 1 +
->  1 file changed, 1 insertion(+)
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-No. I said many times. Bindings come with the user. We don't care what
-is in cpuinfo of some non-upstream board (and lack of user means it is
-non-upstream currently).
+Hi all,
 
-Please organize your patchset correctly.
+The FSI on r8a7740 requires the SPU clock to be enabled before accessing
+its internal registers. Without this clock, register access can lead to a
+system hang, even when the FSI functional clock is properly enabled.
+This series adds the missing clocks and aligns their names with those
+used in the driver.
+Following feedback from Morimoto-san, the driver is refactored to improve
+stability. Clock initialization is moved from the runtime path to the probe
+function to simplify the flow and avoid redundant setups. Additionally, the
+shutdown sequence is reordered to ensure the stream is properly stopped 
+before the hardware is shut down.
 
-Best regards,
-Krzysztof
+Changes in v2:
+ - DT Bindings:
+   Define "own" clock and add "spu", "icka/b", "diva/b", "xcka/b" to the 
+   clock tree.
+   Use YAML anchors and "if" rules to enforce clock-names and r8a7740 
+   requirements.
+   Relocate allOf block and update example with full 8-clock configuration.
+
+ - DTS:
+   Rename "fsi" clock to "own" to match driver implementation.
+   Add missing clock names: "icka", "ickb", "xcka", "xckb".
+ 
+ - In the driver:
+   Refactor clock initialization.
+   Reorder shutdown: stop stream before hardware shutdown.
+   Move SPU clock enable/disable handling to fsi_hw_startup/shutdown.
+v1 links : 
+   https://lore.kernel.org/all/20260403112655.167593-1-phucduc.bui@gmail.com/
+Testing:
+  - Verified on r8a7740 (Armadillo-800EVA): FSI slave / Codec master mode.
+  - FSI master mode is currently compile-tested only. Full verification
+    requires a dedicated HDMI driver (FSIB) or hardware modifications 
+    (resoldering board resistors) (FSIA).Full support for fsidiv requires 
+    additional DT bindings and a corresponding driver.
+
+
+bui duc phuc (6):
+  ASoC: renesas: fsi: Add shared SPU clock support
+  ASoC: renesas: fsi: Fix hang by enabling SPU clock
+  ASoC: renesas: fsi: Fix trigger stop ordering
+  ASoC: renesas: fsi: refactor clock initialization
+  arm: dts: renesas: r8a7740: Add clocks for FSI
+  ASoC: dt-bindings: renesas,fsi: add support for multiple clocks
+
+ .../bindings/sound/renesas,fsi.yaml           |  61 +++++-
+ arch/arm/boot/dts/renesas/r8a7740.dtsi        |  12 +-
+ sound/soc/renesas/fsi.c                       | 181 ++++++++++--------
+ 3 files changed, 171 insertions(+), 83 deletions(-)
+
+-- 
+2.43.0
+
