@@ -1,117 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A9B624DCF6;
-	Mon, 13 Apr 2026 16:10:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71FE02F8BC3;
+	Mon, 13 Apr 2026 16:20:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.120.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776096644; cv=none; b=lMuEavutywTt9lPeqbG2wCBsck3Ql4YdatEarL8XtnLyh1s609acooQQBcko9xKeu+N1kfJPwc7Jr9HoM5ZPd8+qpGauIxPYM3Ac2QLs7BtiWfZOePQ0UCjs9JpcSpjaocDEfo+/rfQxZjleaILJ7EODA3A7Mc+dH5AFea3Yy0U=
+	t=1776097242; cv=none; b=B9rQpsGxWxNp4CBkavJehWFstEh5dOVlowIDU1huSlNfIDV99HPqSobkSK00o0lLtjIUnDjSNRY0XERVyJqHx8nlVsQ3eGAtttL/AWr3zSRl82YJArdQ8LpVnpn+Gz63rrU0hM8NeH69R6TcOkA9zdBIYFyWN9arPn9aqgWiC8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776096644; c=relaxed/simple;
-	bh=uDBJqMGwbfPLkSqGOIhJ/CIup+/YwhMnkgRVGoUyIiI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IqhUeVbNg/XONudmnmUGmCa2zi7wQcHIDnKpWlD8eQj6NMH5Ge+wM+09KdR3T8pGS5gJcQQtGMAayI4Ek/jAZIBKGdJCTfFvweH3MmhRaR9w+1cQkp8r/Ksty6d4s7tbnWfXFKBF3aK72jO2haZujrnk96fG99tj1T8BtT9fR4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iSRLtEPr; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776097242; c=relaxed/simple;
+	bh=g/WtVQkyeD/GocRIbrpr/aBI66iBgMs11BwvGQKEUnk=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=qxqInaKEJ2aBWnVkxWkklR8k/857/08Ra8XYreGMBE0D27hY1OMhFznMFes865M3/StiXOC+61hMAnQ7KHAUKndwIKqI76KaE3yYwBq2/4XnxfxM7DOs6YE6tEsdxTnxm7qlg9HzrQq2xQ6HF+/vCjo4++1K6F1yDVLNB/ha7Dg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com; spf=pass smtp.mailfrom=hugovil.com; dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b=ALkNiugE; arc=none smtp.client-ip=162.243.120.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iSRLtEPr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0009CC2BCAF;
-	Mon, 13 Apr 2026 16:10:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776096644;
-	bh=uDBJqMGwbfPLkSqGOIhJ/CIup+/YwhMnkgRVGoUyIiI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=iSRLtEPr2pi4XyQUZdOL4AMx5IvZeuUExI4FnAjUIQkti1FSQF9yay6AFVQO62cgh
-	 VsLcGcGIhLbAzbi6RvT6a3v/CmYJlpxw2cbqHT0VtJBF4T16XLiaNRqeiOBlFUdVtx
-	 fZEo+jH2GLX7bNcOyXqktH9yH5yzorBzyip2ECmQOyqTNh/MlJES456C3kcx4VLgQf
-	 s2X3/rITHjovK6G5ON8tGSRnod71wDceLN6I/v2r8XxXZ1zpiiuLNnGFGARVXoAdXN
-	 QkB30kGXlBXAQjqfGMWLu6LC2cxm7Q8Sdq0zN4APeMey9kLbQxE2FJsNLjg+uNBCE8
-	 gEd3i3qJoDbUQ==
-Message-ID: <516270e3-1d59-403c-ad01-7153147c9e30@kernel.org>
-Date: Mon, 13 Apr 2026 18:10:39 +0200
+	dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b="ALkNiugE"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
+	; s=default; h=Content-Transfer-Encoding:Mime-Version:Message-Id:Subject:Cc:
+	To:From:Date:subject:date:message-id:reply-to;
+	bh=YH0mHltCpk09vpZSv6nIZp375YekbuGJG93Vt+2dp8Y=; b=ALkNiugEU9QiB3sJvasopnP1WS
+	kPR56ItS7pU6bT5IH8rswElfE1WdMcdIDusm0jcm9/uDclmAMqs79cE2jmokMOPy2XWOhBC38obV7
+	CY9jjmfZ5fa3Mf90rM4Lo9YhfnlZMMnfbwkT2BrOhU/+ApeCaJKd5hqCiVwMmJxvIGco=;
+Received: from modemcable168.174-80-70.mc.videotron.ca ([70.80.174.168] helo=pettiford.lan)
+	by mail.hugovil.com with esmtpa (Exim 4.98.2)
+	(envelope-from <hugo@hugovil.com>)
+	id 1wCK1R-0000000038Y-2Ca0;
+	Mon, 13 Apr 2026 12:20:26 -0400
+Date: Mon, 13 Apr 2026 12:20:24 -0400
+From: Hugo Villeneuve <hugo@hugovil.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: robin@protonic.nl, andy@kernel.org, geert@linux-m68k.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ dmitry.torokhov@gmail.com, hvilleneuve@dimonoff.com,
+ mkorpershoek@kernel.org, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, lee@kernel.org,
+ alexander.sverdlin@gmail.com, marek.vasut@gmail.com, akurz@blala.de,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH v5 4/4] Input: charlieplex_keypad: add GPIO charlieplex
+ keypad
+Message-Id: <20260413122024.0abf7e1da5e1e954edc52bc9@hugovil.com>
+In-Reply-To: <abPXX1eWoq7C7J1R@ashevche-desk.local>
+References: <20260312180304.3865850-1-hugo@hugovil.com>
+	<20260312180304.3865850-5-hugo@hugovil.com>
+	<abPXX1eWoq7C7J1R@ashevche-desk.local>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] soc: qcom: llcc-qcom: Capitalize LLCC/EDAC in
- comments and diagnostics
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
- Francisco Munoz Ruiz <francisco.ruiz@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor@kernel.org>,
- Jonathan Cameron <jonathan.cameron@huawei.com>, Rob Herring
- <robh@kernel.org>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260407-external_llcc_changes2set-v2-0-b5017ce2020b@oss.qualcomm.com>
- <20260407-external_llcc_changes2set-v2-3-b5017ce2020b@oss.qualcomm.com>
- <20260413152528.muemkbfuow2qg3ta@hu-mojha-hyd.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260413152528.muemkbfuow2qg3ta@hu-mojha-hyd.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
+X-Spam_score: -2.0
+X-Spam_bar: --
 
-On 13/04/2026 17:25, Mukesh Ojha wrote:
-> On Tue, Apr 07, 2026 at 02:51:49PM -0700, Francisco Munoz Ruiz wrote:
->> Capitalize occurrences of the acronym "LLCC" and "EDAC" in comments
->> and diagnostic text to improve consistency and readability.
->>
->> Signed-off-by: Francisco Munoz Ruiz <francisco.ruiz@oss.qualcomm.com>
->> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Hi Dmitry,
+
+On Fri, 13 Mar 2026 11:22:39 +0200
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+
+> On Thu, Mar 12, 2026 at 02:00:58PM -0400, Hugo Villeneuve wrote:
+> > 
+> > Add support for GPIO-based charlieplex keypad, allowing to control
+> > N^2-N keys using N GPIO lines.
+> > 
+> > Reuse matrix keypad keymap to simplify, even if there is no concept
+> > of rows and columns in this type of keyboard.
 > 
-> This could have been sent alone..
+> LGTM,
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-No, not necessarily. It is close to churn, so multiple subsystems ask
-for doing this only with some other work. The process here was correct.
+I was just wondering if this will go into v7.1, as I am not seing the
+patch series in your input/next tree/branch for the moment? Let me know
+if you need me to rebase it on v7.0.
 
-Best regards,
-Krzysztof
+-- 
+Hugo Villeneuve
