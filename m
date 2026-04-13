@@ -1,88 +1,88 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E3503DD526
-	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 14:06:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B2C73DDDCB
+	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 14:06:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776089187; cv=none; b=O4D8Y2Z69hGhvO01R4d+fPLudA9cotlDhI3kY/drazVxDrPzqg/hwbA2c2bQ/rQY2tk5BTjXw6jyihgh8XYvFFHdCgjNs1Ix81kq7f+FogIlDJZOoCAb+x2A8B4tB0TqhjHJHDPdeE3Wux8jIoASz0EBgYVgTc4QremFn6kG8bM=
+	t=1776089189; cv=none; b=avD4DaSTZWaWKvPv/qpqDjHqkawI+veTxA9a1zOUfW+/HvtYfcHEKYDOeYNvscF1Aivmmz2ohpeRAwSJKX4fNazJkURclVl+rS/Xiu43q4U7uTtjq2lgRXEjztKNeQxOnlnWBHYkF5XeHr7O51kNEEbFk/MIrQxispUSTTA7/2U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776089187; c=relaxed/simple;
-	bh=ME4roFLF5kQS3ILE+qVmFR5ny/0HVBFtJjwmIHIWOBw=;
+	s=arc-20240116; t=1776089189; c=relaxed/simple;
+	bh=NxOTOcbnEcq1UCCLVr2MVAq8PhJPaj6hbxOeziIVdG0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cS/2gCdMBg7zUaSVHrEqIsiRyA/o/EkfX3Lpt8t1wV95vfSwN3T5/uopfsYRQv0LAsUG+VFa1ipuIgEHbhD4J6Ih29v2bEpwX0zLS8Z/FwIhoBhHn2yew3+VzMH3dH1Z1Ru44FAxxXxmwhnuKP9DSK800Cvl9YNNv1Us7s2qLHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FrycF7jE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ONcPOERY; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=TKnjfhKYlZEp1f1d/gXRT7cjqIaAlIHbTY99Mf93JV40mxuE2WNgFE7jwxTuBnf9l68DBdBw0tnAugxoAdqgRlYSHCOmnvUheNK07aqIjY6uUoiKtIWzJE6I10Hc7gOKiKeYV1ZkHVPCpjcqXhndafnaKB6LCKYpiOZRV7K0pFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MbV555wZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iLw15uoO; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FrycF7jE";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ONcPOERY"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63DE263a479978
-	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 14:06:24 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MbV555wZ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iLw15uoO"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63DDlxkT1496719
+	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 14:06:26 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	8LKKLDk/nGutkoYnIlWHeYdiYX58VLqnbBajsoZj2yQ=; b=FrycF7jEDSNkQOIX
-	LWGVCkHStfEAfvFYM9Wfl3NK0OETS/GHjvtrzv/A0kPLC0qBhTs5kJin9f1cY1Y2
-	4YAFZxCTX2Y0lAhz+YzzIweGWEGH22+RVqr8PA/FKXP6MiIUP6rmhJtcgSkQg+a7
-	xJrvThsBQOy4rlekAm1yFBif7wbqZt6FnXnLonbwjhKISPt/uEwbumWuWCVjOPFK
-	zkkOhQVnTuzqfRsvHQMPv7KDNvaumuELeo1VenIFUEf+SxGTU2dgOPalS4x8PcYh
-	zyYVAYagHnxnLS18DHdS9imYWlmMDTghZu/gu16WNHrMh7IU8l4wKE5qELFvrTm7
-	MJCAUw==
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dguuj9dqr-1
+	7WjVXXDUz+b865LEXWgbJquW7AHByUWxUZ2e7FwcrFA=; b=MbV555wZ7gt/jskI
+	8sJl+Yg4FtdsndyBJmwetOSOj68lMxTv0lOpFSp6ZhhQdoqBvGlz1QA8BgbKnbcv
+	N3XRXapDFWTgy4TW0HGee0F24WsT953NTEyCcq+Y7cMzIdJU/ioRCb9r8r0f2s0F
+	vyZy7XJ+UBx+GLRyG1gE1PA+ruxE7opnrfD3hgM8pb1GrOAoIWjkVBDhxJyrNKgD
+	3AfjW66zLC9INGmVllEoLcJEYc7CKYo/NYcyRgCsuwq4F6E3ofrQCkojmwI0ScEa
+	J4xibrmPH42iHUxFK65xIvvyoNVI8u8RyxeA4orjQJvscPzRJNjsRLRDDy1NMPOD
+	ig4D9Q==
+Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dh1pk82yf-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 14:06:24 +0000 (GMT)
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7d7e9e02363so8106884a34.2
-        for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 07:06:24 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 14:06:25 +0000 (GMT)
+Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-683b5d81209so8405055eaf.0
+        for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 07:06:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776089183; x=1776693983; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1776089185; x=1776693985; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=8LKKLDk/nGutkoYnIlWHeYdiYX58VLqnbBajsoZj2yQ=;
-        b=ONcPOERYxTCKyYLHv2TOgWu9WtVRghFdxOPGrZ+yucPg8Sj9bFNr7M0zs3iENk/gh/
-         pI8NmEoknTZJRF8m4Zxx0mTC+NlupHvxMBK1Ba55EaB3fiSDoPOLC+ACVgJ3m66+sVlk
-         PGTn/iEqA5eKNPWivYeDB6m6CDv3n3dj/VDWK3axQuvvFg+VZio6rLI9TTT9a7pTHkko
-         EJUonIcTg5lfQ7sjc/8guVS6hOgSwUIw8Gpr0LoqESVQSlrdmeVMab1bUvOuqFbfTsYq
-         DdLiQ9dr1MNJuizDNllepAiPxdtKg7okB9y1v24eOwvGMWC7/gRJuAHj58lcLhI/GKPx
-         cGGQ==
+        bh=7WjVXXDUz+b865LEXWgbJquW7AHByUWxUZ2e7FwcrFA=;
+        b=iLw15uoOLM/gzCfcO5u5dsNC5rN9OQi/fep6y/+z/ammD+U9aGtjPqaISTbGPx62C1
+         Pzf9YKK4eGVaFMrQu+gBQy34bKMzvagSVnfO+mvBdQPgdBtr3gWfkXOC4qU0OuF7GoY8
+         dFmmeQT8Y+tBx/ieYsnmiOR2EMlpJFm8RrydAnz7+OtXPYEXeKPdhnds1ez33IPIbfFR
+         syIT3GPP4t12r21DSGvA1XfIdZqoQk2uo/9/dbHoZfYiMnCAD5cT1j7rgyURXfI5DBxV
+         PwWyar3BMotMWJbXU5gj3AdqzPOH9Iwe47xLWw1MHHSHsWkTQPDtA/gLSpdFltKgUyYj
+         ZEaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776089183; x=1776693983;
+        d=1e100.net; s=20251104; t=1776089185; x=1776693985;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=8LKKLDk/nGutkoYnIlWHeYdiYX58VLqnbBajsoZj2yQ=;
-        b=cPac8naaSeIfm2ceGAJRAZOdKafR3QR79ezgSOZfy6hNsnpm5EStXo0v0Vo1miMzIu
-         7iPEx/s99qB7NoZqjcpCSasydRX9hStwID+DKnIv/7ERASfxoi0B1m5obbDHihESxqu8
-         QCX9u9ahEW1RPKqtn2nYOSt/D/P5gITWuSU+ulfGPfHBqngKzZPfLLv+KOiFPKHFq1Vh
-         pVklsvkRKuNI2Smdn3g8juIb2wsMFNOUwAJ2mGtK3hsOK3XWgr0NTRms4nuEeW3ZOVob
-         5cDWDkdn3GahXzld9fkoNGH2cr84jN9b5CaIVZ4DXas8xOiyRySc+L5IUEk2BP8xYgZD
-         clzA==
-X-Forwarded-Encrypted: i=1; AFNElJ87cwkiCwmnPRWGD8xx7Rca/lYN1MQsYTHPGXPB9bPum7CpubXSeO32AOeYdnJmy2NumnTgpneLOTfG@vger.kernel.org
-X-Gm-Message-State: AOJu0YwzHtIkPQz9RRY/wiAGckDPzSa9PNoogvI3ABHdJntdGpCeQLIj
-	45MOcdZZQs7r2SwxGrqwWixTow8/K1gdQS6PCERbWTSVMzMc4nNMo2hOF/D9I7F/qVSrb0P4g5P
-	bKGySzTMOy5neftRrlkhd0NqwR8Md+tkvssIT0U4R5N0XgvXbQdGojD43KviQA/Vt
-X-Gm-Gg: AeBDiesLoO7MKaXyv7VqQHfUOnjFQLETBmcXTN7bC4UHuN0QIzRTyOd+GVgKfPrb/8r
-	VFJpcNE+7bxA4tlbhuG2ybVmsUF4GpaeWpLs941LzbHyR2sujDMhnx7g0L7zidhXvg8+fvRv2Ya
-	PBNzu8vWlJQfg58zTaIZFDcPwlRRiOLs/zu63LWO0zw0W1grr8ASm8P5Ujju9ZMmJfMDlKqbgWP
-	Eys9eoUCL+KxGFY03a7Qd/nD4hHwzyXSJ8nd1o/z9Hk6CQEG8ziDJcQ84NribkdBvkY/st1plBz
-	xUy8VFnOhuEw/WUOsQ1cjkI5DpEtucL3j0H0FH18ShCVkzaf+NirDPW5mRSLr32tXaZrvG4PRKE
-	FKp/QZwyxXOeNZ7CLR0iyxDZsw6HaOH6Ho0xBElFbj6ooTcyK6mPmRej0KFHyzTWr3/akXZ2qGv
-	Fjg1GdTfXN5nWSjwyX4cOXNrBY7dAs/Q6IARQ=
-X-Received: by 2002:a05:6808:660b:b0:467:58e:5d6e with SMTP id 5614622812f47-4789f60519cmr6343884b6e.30.1776089183311;
-        Mon, 13 Apr 2026 07:06:23 -0700 (PDT)
-X-Received: by 2002:a05:6808:660b:b0:467:58e:5d6e with SMTP id 5614622812f47-4789f60519cmr6343819b6e.30.1776089182771;
-        Mon, 13 Apr 2026 07:06:22 -0700 (PDT)
+        bh=7WjVXXDUz+b865LEXWgbJquW7AHByUWxUZ2e7FwcrFA=;
+        b=lNrD//dCQH/LRVOZY9lr8G6pT7tjGI69WTP3HNtrce20K4IvbSjrP7OQ7v6P/wtHPd
+         HrnizhzRT/18rYGu70Ampg2IYorlzkB9ZQuWM7yfkJFAQS4vYGAZsYGP2mRY0664IL+V
+         McjL4/klay+k0xeyJAJloFCI195nFlQMYdhYw2QNi+6hf/8R1pisdvTO7KbIwUvk7pSJ
+         gEg1mLalgBwD0kp7pRuKqtNG4wc0Db45x8W3EULyeKYnAU9r3ms/BWoDS0oI1DnRoqAX
+         hb41R0d0e6sKLOtwPoF+4eoJTxHxOIHxZ+Fa1rg/GgAuYumuC2Umk0MrpejmLFLnanP3
+         gSZw==
+X-Forwarded-Encrypted: i=1; AFNElJ+Qene6dfBU0vBr43pmYIG5gfl2ZneveTumZafoG/EYqcCFxc3Ni7x1qhlm/Ha73Fibr1kKFI9kPNne@vger.kernel.org
+X-Gm-Message-State: AOJu0YyGjU74eLFuufP9jcLCb/ciDMmywgmVbBg36X+VjlHu3RooMyQL
+	zimWMtbbdKRpxud23qgjhtzNLILhfSwMKvokvRA0VLEq1IX9xxcRNDiGdFbpcQ/7Z+2xgLntERl
+	UXJuvbKKqUYIIjQhWe/M+qpDf2vNY8WxKq8cyDi/pQOIjbpU2i48yi8V1LQ7W2D5u
+X-Gm-Gg: AeBDietvoC1w2+ZRhnm9p+GqPmEjEntaHIkOV2JdhZft2irHdM8D0H0I9OI2AvWcsCx
+	zEvwnnzPEGLxHeQIEtoUAI+8JRJwnQ+DY+hB9AXCYD2RS0TXmB3wOpzUstwSoa7Um2x7HVnhAmv
+	z6HRWSUsfGhcglejz5jIuMdDV2LouoJBpi7b0i6B+P/7OsyeN6LvnQadVotneHS/XUf050Hd7WT
+	p/xN58nNPpsuBXRv4hv0Xvj1j4/DFAE8N/w30jAW7ntcMNZGPnm1a9xgFq7hh2HmUE59ROFri5T
+	imna+Kd1slEM6bkcV2JaC/vaCyeDwPuAYsYgbUfCmOsCPCCkbVmkeHrWFu7K/Qk7PWwWjBaOmaC
+	PpTEJlgjGO8XaJjAgNVPUlGNFs76cF8RsjxQ+v6cpNhcljKM1ze4pPwgsGuYFl1OGYbaZ12Zn7u
+	ZTSZOhxehFN6Y8cE3ZcUjOsTV7C46004qI+RA=
+X-Received: by 2002:a05:6808:1796:b0:467:db23:25c with SMTP id 5614622812f47-4789f9008e6mr6468624b6e.46.1776089185103;
+        Mon, 13 Apr 2026 07:06:25 -0700 (PDT)
+X-Received: by 2002:a05:6808:1796:b0:467:db23:25c with SMTP id 5614622812f47-4789f9008e6mr6468565b6e.46.1776089184531;
+        Mon, 13 Apr 2026 07:06:24 -0700 (PDT)
 Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a3eee8c91csm2687521e87.19.2026.04.13.07.06.21
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a3eee8c91csm2687521e87.19.2026.04.13.07.06.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Apr 2026 07:06:21 -0700 (PDT)
+        Mon, 13 Apr 2026 07:06:23 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Mon, 13 Apr 2026 17:05:42 +0300
-Subject: [PATCH v3 19/21] drm/panel: add driver for Waveshare 8.8" DSI
- TOUCH-A panel
+Date: Mon, 13 Apr 2026 17:05:43 +0300
+Subject: [PATCH v3 20/21] dt-bindings: gpio: describe Waveshare GPIO
+ controller
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,7 +91,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260413-waveshare-dsi-touch-v3-19-3aeb53022c32@oss.qualcomm.com>
+Message-Id: <20260413-waveshare-dsi-touch-v3-20-3aeb53022c32@oss.qualcomm.com>
 References: <20260413-waveshare-dsi-touch-v3-0-3aeb53022c32@oss.qualcomm.com>
 In-Reply-To: <20260413-waveshare-dsi-touch-v3-0-3aeb53022c32@oss.qualcomm.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
@@ -112,321 +112,164 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8361;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3582;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=ME4roFLF5kQS3ILE+qVmFR5ny/0HVBFtJjwmIHIWOBw=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBp3PgpLEhsqxoLgLo3jbYp7nEh2ZBpLYh/4SK12
- 4yCFP0QstiJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCadz4KQAKCRCLPIo+Aiko
- 1XTRB/0U4axfmYExh+0IkahMe1OYpyHDQdRsGD8dI4V0s7G/q68sghoH1RC7a9e6sFOtYXMwghb
- MenUT7wsNkxEShmOBkIFWKv1NkBL+8x1Ir6zRKhfRAr3T8xcd28xsFHkN9JR7esKltz+ODuNj2O
- QMZg2oiZzHEa6RyBlW0R5emeNZGRiMZ95bUVTAYPGgvnmw51X8F7wGXbQ3qxmiGLnYehI82mdfW
- XnZowAoMJ9z4j0ay1D8UYaSA5Ql7sXxpGYdAna18ybuVkhcE/Pvt4kYp/yCApRTgCsyvbrLUo9+
- TCYe5ieK+ckMWs9QapsFC4lZCAc1KgBFzeUeMApyTbhT8JGS
+ bh=NxOTOcbnEcq1UCCLVr2MVAq8PhJPaj6hbxOeziIVdG0=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBp3PgpJbQp7/Thx5AFbDZ3MJz1gCOh8B6IHEIIW
+ fv5ZYu/LouJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCadz4KQAKCRCLPIo+Aiko
+ 1WlsB/9jCSy7PdUg/mLPbALC+8TGXtsfMpAIz+y/8wCXE020hB6PkIF3wXzJPj1fgghhVvm96+o
+ V+llBWNzGIG6xJOLUaTAYK8aJ01D7Vxf5h6mjbldw9m3yFVyRI2yys5vSipyVw9Wk1/SzKxOxaj
+ PgQVJh37OWIinWagd2PrA+gvCOLqEqRuGG0Kd8CT6oXMH7bBTNQLrVpKS7DfisGHcBMTEaJWvTM
+ lwV9+R0HVmdkogNr0isj1DFP92rnsMQXDvdXXoFaAWuTqcbseOBKGVK2RKhsaPoRT7L+GuJ302l
+ dI1npvbMOw+/Km9vf9Dzm8uGawi2mmG5y1OPEy+E3LpGkrAI
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEzMDEzOCBTYWx0ZWRfX3lJNERj73Nn5
- djoehFMIu2Aev4MXng+UY1+3oVnHGRJ1jdbBdVxnHCe1jqOiCCXLLblbxilkPcV8SDDZpnxt6Vb
- hiFbRTc7oMk+DpSJsiFwNPZnFq/UaZyYrwSYXHkxYiZEbqIVHi9e/jPFeFRU3gCH1vy3bCKflfT
- Wpt0NDID0HcEfIiPYEFUJvuOHrwdGGtM4qUcvXRzUwCWCB9OOHOJsRyOUOYBE9aVBRf/9DsTSyn
- E+/+MPCTVcYalmAHilnhsXhev+C63SINKu0DZ2qevi4z7E9zDRj6gwYuxibzszw/x0dmeWYjxdq
- Nnl3RhCBQwn8QX3ECNJDTFKskANK36B09SmnJMZxs09t8D0eg/VNGKCpm6T/hU0ApxS2YmfZ6tx
- bteOzyoza78slW50O1D2ktPfwyWy9aMZWhWEjjou7zvZjv4VbPsfhaOWUI5pI50bUj9u74TTns5
- WSPBRzGl6lhJN80ZJGQ==
-X-Authority-Analysis: v=2.4 cv=c/ibhx9l c=1 sm=1 tr=0 ts=69dcf860 cx=c_pps
- a=7uPEO8VhqeOX8vTJ3z8K6Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-ORIG-GUID: EjZSGiQwx2fF_lCLmzcZJMAXtDGLshyo
+X-Proofpoint-GUID: EjZSGiQwx2fF_lCLmzcZJMAXtDGLshyo
+X-Authority-Analysis: v=2.4 cv=BoitB4X5 c=1 sm=1 tr=0 ts=69dcf861 cx=c_pps
+ a=wURt19dY5n+H4uQbQt9s7g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=I0FmcsL6nTCMfcQUCV4A:9 a=QEXdDO2ut3YA:10
- a=EXS-LbY8YePsIyqnH6vw:22
-X-Proofpoint-GUID: 7QNGdzQ0BWBqEPRNzZAkKSeNz3D1vwei
-X-Proofpoint-ORIG-GUID: 7QNGdzQ0BWBqEPRNzZAkKSeNz3D1vwei
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=gEfo2CItAAAA:8
+ a=EUspDBNiAAAA:8 a=ClTKKeZw4Bcbv9k5X4IA:9 a=QEXdDO2ut3YA:10
+ a=-UhsvdU3ccFDOXFxFb4l:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEzMDEzOCBTYWx0ZWRfX8w2owxI9k7z6
+ dNs7nKa3XBAh5GqMya1D0YGxTe0QKWaz5DpnY5DNwQv///ObPC8qGMgRTU/RVyIcFO5KSo2zuKC
+ brIdt7AN8HmZ7azwxqpQC2r61JlyVhWPhIUjhEn6VyoGxmYtKproU92jWBKfhoqnOt5ofmFPb4g
+ 2gYjKDiRoHlLjUU7uk5hazYTagcdGxudAXBNkZVaDKZaQvuBWFFSnzSR+KJDsWJ4FEKDkRhjrLg
+ lHCjYQx+PZFgvmVVpKtjmOhAx8RbX46/8dmVM1xB5YN8R7Ha9OM1gM0a+fl1ZOOBNyJMDObGdqE
+ LpV0VHF3plJk1MD8ukK3AzS32lc9nBApcKHAbwLlwCLitPRg/54kdrNujwNfzgjxP+bN2LcG1DD
+ uka+94uz15ZDPq5Qq86980ojVt26qgAaIRTOBiWa261JuMpzmAPx0AV6Qz4RoXYicY6Bf8BJmBY
+ OwGGgvQiI+mGvqis9pw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-13_03,2026-04-13_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 spamscore=0 adultscore=0 lowpriorityscore=0
- clxscore=1015 malwarescore=0 phishscore=0 suspectscore=0 impostorscore=0
+ impostorscore=0 phishscore=0 malwarescore=0 bulkscore=0 priorityscore=1501
+ clxscore=1015 adultscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604130138
 
-Add driver for the panel found on Waveshare 8.8" DSI TOUCH-A kit. It
-uses ota7290b IC as a controller.
+The Waveshare DSI TOUCH family of panels has separate on-board GPIO
+controller, which controls power supplies to the panel and the touch
+screen and provides reset pins for both the panel and the touchscreen.
+Also it provides a simple PWM controller for panel backlight.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Add bindings for these GPIO controllers. As overall integration might be
+not very obvious (and it differs significantly from the bindings used by
+the original drivers), provide complete example with the on-board
+regulators and the DSI panel.
+
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/panel/Kconfig                    |  12 ++
- drivers/gpu/drm/panel/Makefile                   |   1 +
- drivers/gpu/drm/panel/panel-focaltech-ota7290b.c | 226 +++++++++++++++++++++++
- 3 files changed, 239 insertions(+)
+ .../bindings/gpio/waveshare,dsi-touch-gpio.yaml    | 100 +++++++++++++++++++++
+ 1 file changed, 100 insertions(+)
 
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index ba527b4d7737..979109c27b9b 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -144,6 +144,18 @@ config DRM_PANEL_FEIYANG_FY07024DI26A30D
- 	  Say Y if you want to enable support for panels based on the
- 	  Feiyang FY07024DI26A30-D MIPI-DSI interface.
- 
-+config DRM_PANEL_FOCALTECH_OTA7290B
-+	tristate "Focaltech OTA7290B"
-+	depends on DRM_MIPI_DSI
-+	depends on I2C
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	select DRM_KMS_HELPER
-+	help
-+	  Enable support for panels using OTA7290B as a controller (for
-+	  example, Waveshare 12.3" DSI TOUCH-A panel). Say Y here if you want
-+	  to enable support for this panel. To compile this driver as a module,
-+	  choose M here.
-+
- config DRM_PANEL_DSI_CM
- 	tristate "Generic DSI command mode panels"
- 	depends on OF
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index a4291dc3905b..0d694acbfbb6 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -17,6 +17,7 @@ obj-$(CONFIG_DRM_PANEL_EBBG_FT8719) += panel-ebbg-ft8719.o
- obj-$(CONFIG_DRM_PANEL_ELIDA_KD35T133) += panel-elida-kd35t133.o
- obj-$(CONFIG_DRM_PANEL_FEIXIN_K101_IM2BA02) += panel-feixin-k101-im2ba02.o
- obj-$(CONFIG_DRM_PANEL_FEIYANG_FY07024DI26A30D) += panel-feiyang-fy07024di26a30d.o
-+obj-$(CONFIG_DRM_PANEL_FOCALTECH_OTA7290B) += panel-focaltech-ota7290b.o
- obj-$(CONFIG_DRM_PANEL_HIMAX_HX8279) += panel-himax-hx8279.o
- obj-$(CONFIG_DRM_PANEL_HIMAX_HX83102) += panel-himax-hx83102.o
- obj-$(CONFIG_DRM_PANEL_HIMAX_HX83112A) += panel-himax-hx83112a.o
-diff --git a/drivers/gpu/drm/panel/panel-focaltech-ota7290b.c b/drivers/gpu/drm/panel/panel-focaltech-ota7290b.c
+diff --git a/Documentation/devicetree/bindings/gpio/waveshare,dsi-touch-gpio.yaml b/Documentation/devicetree/bindings/gpio/waveshare,dsi-touch-gpio.yaml
 new file mode 100644
-index 000000000000..8c135697a0fd
+index 000000000000..410348fcda25
 --- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-focaltech-ota7290b.c
-@@ -0,0 +1,226 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2024 Waveshare International Limited
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
++++ b/Documentation/devicetree/bindings/gpio/waveshare,dsi-touch-gpio.yaml
+@@ -0,0 +1,100 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/gpio/waveshare,dsi-touch-gpio.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+#include <linux/delay.h>
-+#include <linux/device.h>
-+#include <linux/err.h>
-+#include <linux/errno.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
++title: Waveshare GPIO controller on DSI TOUCH panels
 +
-+#include <linux/gpio/consumer.h>
-+#include <linux/regulator/consumer.h>
++maintainers:
++  - Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 +
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_probe_helper.h>
++description:
++  Waveshare DSI TOUCH panel kits contain separate GPIO controller for toggling
++  power supplies and panel / touchscreen resets.
 +
-+struct ota7290b {
-+	struct drm_panel panel;
-+	struct mipi_dsi_device *dsi;
++properties:
++  compatible:
++    const: waveshare,dsi-touch-gpio
 +
-+	struct regulator *power;
-+	struct gpio_desc *reset;
-+	struct regulator *avdd;
-+	struct regulator *vdd;
-+	struct regulator *vcc;
++  reg:
++    maxItems: 1
 +
-+	enum drm_panel_orientation orientation;
-+};
++  gpio-controller: true
 +
-+static inline struct ota7290b *panel_to_ota(struct drm_panel *panel)
-+{
-+	return container_of(panel, struct ota7290b, panel);
-+}
++  '#gpio-cells':
++    const: 2
 +
-+static int ota7290b_prepare(struct drm_panel *panel)
-+{
-+	struct ota7290b *ctx = panel_to_ota(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+	int ret;
++required:
++  - compatible
++  - reg
++  - gpio-controller
++  - "#gpio-cells"
 +
-+	if (ctx->vcc) {
-+		ret = regulator_enable(ctx->vcc);
-+		if (ret)
-+			dev_err(panel->dev, "failed to enable VCC regulator: %d\n", ret);
-+	}
++additionalProperties: false
 +
-+	if (ctx->reset) {
-+		gpiod_set_value_cansleep(ctx->reset, 0);
-+		msleep(60);
-+		gpiod_set_value_cansleep(ctx->reset, 1);
-+		msleep(60);
-+	}
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
 +
-+	if (ctx->vdd) {
-+		ret = regulator_enable(ctx->vdd);
-+		if (ret)
-+			dev_err(panel->dev, "failed to enable VDD regulator: %d\n", ret);
-+	}
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
 +
-+	if (ctx->reset) {
-+		gpiod_set_value_cansleep(ctx->reset, 0);
-+		msleep(60);
-+	}
++        wsgpio: gpio@45 {
++            compatible = "waveshare,dsi-touch-gpio";
++            reg = <0x45>;
++            gpio-controller;
++            #gpio-cells = <2>;
++        };
++    };
 +
-+	if (ctx->avdd) {
-+		ret = regulator_enable(ctx->avdd);
-+		if (ret)
-+			dev_err(panel->dev, "failed to enable AVDD regulator: %d\n", ret);
-+	}
++    panel_avdd: regulator-panel-avdd {
++        compatible = "regulator-fixed";
++        regulator-name = "panel-avdd";
++        gpios = <&wsgpio 0 GPIO_ACTIVE_HIGH>;
++        enable-active-high;
++    };
 +
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 120);
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 50);
++    panel_iovcc: regulator-panel-iovcc {
++        compatible = "regulator-fixed";
++        regulator-name = "panel-iovcc";
++        gpios = <&wsgpio 4 GPIO_ACTIVE_HIGH>;
++        enable-active-high;
++    };
 +
-+	if (dsi_ctx.accum_err < 0)
-+		dev_err(panel->dev, "failed to init panel: %d\n", dsi_ctx.accum_err);
++    panel_vcc: regulator-panel-vcc {
++        compatible = "regulator-fixed";
++        regulator-name = "panel-vcc";
++        gpios = <&wsgpio 8 GPIO_ACTIVE_HIGH>;
++        enable-active-high;
++        regulator-always-on;
++    };
 +
-+	return dsi_ctx.accum_err;
-+}
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
 +
-+static int ota7290b_unprepare(struct drm_panel *panel)
-+{
-+	struct ota7290b *ctx = panel_to_ota(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
++        panel@0 {
++            reg = <0>;
++            compatible = "waveshare,8.0-dsi-touch-a", "jadard,jd9365da-h3";
++            reset-gpios = <&wsgpio 1 GPIO_ACTIVE_LOW>;
++            vdd-supply = <&panel_avdd>;
++            vccio-supply = <&panel_iovcc>;
++            backlight = <&wsgpio>;
 +
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
++            port {
++                  panel_in: endpoint {
++                      remote-endpoint = <&dsi_out>;
++                  };
++            };
++        };
 +
-+	if (ctx->avdd)
-+		regulator_disable(ctx->avdd);
-+
-+	if (ctx->reset) {
-+		gpiod_set_value_cansleep(ctx->reset, 1);
-+		msleep(5);
-+	}
-+
-+	if (ctx->vdd)
-+		regulator_disable(ctx->vdd);
-+
-+	if (ctx->vcc)
-+		regulator_disable(ctx->vcc);
-+
-+	return 0;
-+}
-+
-+static const struct drm_display_mode waveshare_dsi_touch_8_8_a_mode = {
-+	.clock = 75000,
-+
-+	.hdisplay = 480,
-+	.hsync_start = 480 + 50,
-+	.hsync_end = 480 + 50 + 50,
-+	.htotal = 480 + 50 + 50 + 50,
-+
-+	.vdisplay = 1920,
-+	.vsync_start = 1920 + 20,
-+	.vsync_end = 1920 + 20 + 20,
-+	.vtotal = 1920 + 20 + 20 + 20,
-+
-+	.width_mm = 68,
-+	.height_mm = 219,
-+	.type = DRM_MODE_TYPE_DRIVER,
-+};
-+
-+static int ota7290b_get_modes(struct drm_panel *panel,
-+			      struct drm_connector *connector)
-+{
-+	return drm_connector_helper_get_modes_fixed(connector, &waveshare_dsi_touch_8_8_a_mode);
-+}
-+
-+static enum drm_panel_orientation ota7290b_get_orientation(struct drm_panel *panel)
-+{
-+	struct ota7290b *ctx = panel_to_ota(panel);
-+
-+	return ctx->orientation;
-+}
-+
-+static const struct drm_panel_funcs ota7290b_funcs = {
-+	.prepare = ota7290b_prepare,
-+	.unprepare = ota7290b_unprepare,
-+	.get_modes = ota7290b_get_modes,
-+	.get_orientation = ota7290b_get_orientation,
-+};
-+
-+static int ota7290b_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct ota7290b *ctx;
-+	int ret;
-+
-+	ctx = devm_drm_panel_alloc(&dsi->dev, struct ota7290b, panel,
-+				   &ota7290b_funcs,
-+				   DRM_MODE_CONNECTOR_DSI);
-+	if (!ctx)
-+		return -ENOMEM;
-+	mipi_dsi_set_drvdata(dsi, ctx);
-+	ctx->dsi = dsi;
-+
-+	ctx->reset = devm_gpiod_get_optional(&dsi->dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(ctx->reset))
-+		return dev_err_probe(&dsi->dev, PTR_ERR(ctx->reset),
-+				     "Couldn't get our reset GPIO\n");
-+
-+	ctx->vcc = devm_regulator_get_optional(&dsi->dev, "vcc");
-+	if (IS_ERR(ctx->vcc))
-+		return dev_err_probe(&dsi->dev, PTR_ERR(ctx->vcc),
-+					"Couldn't get our VCC supply\n");
-+
-+	ctx->avdd = devm_regulator_get_optional(&dsi->dev, "avdd");
-+	if (IS_ERR(ctx->avdd))
-+		return dev_err_probe(&dsi->dev, PTR_ERR(ctx->avdd),
-+					"Couldn't get our AVDD supply\n");
-+
-+	ctx->vdd = devm_regulator_get_optional(&dsi->dev, "vdd");
-+	if (IS_ERR(ctx->vdd))
-+		return dev_err_probe(&dsi->dev, PTR_ERR(ctx->vdd),
-+					"Couldn't get our VDD supply\n");
-+
-+	ret = of_drm_get_panel_orientation(
-+			dsi->dev.of_node, &ctx->orientation);
-+	if (ret) {
-+		dev_err(&dsi->dev, "%pOF: failed to get orientation: %d\n",
-+			dsi->dev.of_node, ret);
-+		return ret;
-+	}
-+
-+	ret = drm_panel_of_backlight(&ctx->panel);
-+	if (ret)
-+		return ret;
-+
-+	ctx->panel.prepare_prev_first = true;
-+
-+	ret = devm_drm_panel_add(&dsi->dev, &ctx->panel);
-+	if (ret)
-+		return ret;
-+
-+	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_HSE |
-+		MIPI_DSI_MODE_LPM | MIPI_DSI_CLOCK_NON_CONTINUOUS,
-+	dsi->format = MIPI_DSI_FMT_RGB888,
-+	dsi->lanes = 2;
-+
-+	return devm_mipi_dsi_attach(&dsi->dev, dsi);
-+}
-+
-+static const struct of_device_id ota7290b_of_match[] = {
-+	{ .compatible = "waveshare,8.8-dsi-touch-a", },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, ota7290b_of_match);
-+
-+static struct mipi_dsi_driver ota7290b_driver = {
-+	.probe		= ota7290b_probe,
-+	.driver = {
-+		.name		= "focaltech-ota7290b",
-+		.of_match_table	= ota7290b_of_match,
-+	},
-+};
-+module_mipi_dsi_driver(ota7290b_driver);
-+
-+MODULE_DESCRIPTION("Panel driver for Focaltech OTA7290B panels");
-+MODULE_LICENSE("GPL");
++        port {
++            dsi_out: endpoint {
++                data-lanes = <0 1 2 3>;
++                remote-endpoint = <&panel_in>;
++            };
++        };
++    };
++...
 
 -- 
 2.47.3
