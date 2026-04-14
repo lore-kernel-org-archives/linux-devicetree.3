@@ -1,110 +1,150 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34FE22C21F4;
-	Tue, 14 Apr 2026 06:04:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 696D634CFC5;
+	Tue, 14 Apr 2026 06:23:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776146697; cv=none; b=l1IZQ/MLUtm5x/8awsq8kPySANHoxnJAQNUR5k/tVOmynoqQ2WcTU4sqUN0aw9X3mkkx98rpK/u34EJ+HTva23B988Ih0JTdcGpf/GxYufq6cejdwcXtstapa4YlHcElFwK+SlbWSkTonK/gaH9VZk32oiZmjxpYrdLxCTNW2uo=
+	t=1776147797; cv=none; b=uRiJTznIMjckThQKicGXMw/scElpjKE5neSpL8QGLycik20JuprBEyfE+hZv+JYluGrV72b1ppvoC3ejFmdz/Y8oDihXCovWtHmgkRLZhCz/XbM1ZOrcBJUSTYgQI7mTmM983uh7wgxSemA9fbn2HsQHyuK16Vd2cUxlXkyeuqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776146697; c=relaxed/simple;
-	bh=l6iBfcudaZxGwh852DmRi0hqjipK/40+/a0KJ/CaPyA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IrYf5OcCkLTqLu9n9Fzl09Pz4AAbZwJRkR9qjV0yHd8e+We2dQQRLuzREzt51kuzIpUKBnvvWbiZ1g9xdgb7de2Wpgf1lGEBZCZz/g4PYsnDWmJMVeYznmka3F4iNBs+tJdTedRyGX51a0q7+oCf5VyfYhZrsGePg/oLyc9kedI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tkYJbgrc; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776147797; c=relaxed/simple;
+	bh=2lE1EkdZf14s0caVeyTITCm670M9QH9DJ6x77cxqXho=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ObOVnyAaGM3rec+qnBoy5FmH8R5WRlKc/RextJOsOV9tGF6yBHB73n2awe4P5ayyczz9IRGYVtjuDos9bCq5czcSepUWXeQBfqswN8AWWNjPu+xpszhBSVezYhWZiAgY35VFAitzeSn6LxTtdObZt1VYsfCucvC/H073OIkseKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lbzB2ADx; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tkYJbgrc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63420C19425;
-	Tue, 14 Apr 2026 06:04:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lbzB2ADx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A03EC19425;
+	Tue, 14 Apr 2026 06:23:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776146696;
-	bh=l6iBfcudaZxGwh852DmRi0hqjipK/40+/a0KJ/CaPyA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tkYJbgrczCaFmWG7KuMw4rMZsZ3tEH+yUIbVhVyTfBIVmOh+3LqxmxCJBIo2oPJYw
-	 Xht/EvbxkeJv5tGcJxZxtofyd6SZhbTXyc0eSk1okQ1OADs37rMEOcrHCgE3Xca5qA
-	 R71ORwt0WTwOy3MvQixkRwIDHFpGYbs7+ku34IdONQdifs1nr+JXzBonhaOwYJzTNT
-	 qrf13IZ+FqGfVXTZUIWObDTi78ZAQxAz3aGeYlbN57PAVGKjRTY/NWMycYgBxccoMP
-	 +C5I0ujLEDV/BNqWWNJ2rbwWJaM17EnRpOXPm5kW3SDtY3CN1X6jNy/fi8f++sNVVe
-	 EqS/CiwnNHBMQ==
-Date: Tue, 14 Apr 2026 06:04:53 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Duje =?utf-8?Q?Mihanovi=C4=87?= <duje@dujemihanovic.xyz>,
-	linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev
-Subject: Re: [PATCH 2/2] pwm: pxa: Add optional bus clock
-Message-ID: <20260414060453-GKA203300@kernel.org>
-References: <20260409-03-k3-pwm-drv-v1-0-1307a06fba38@kernel.org>
- <20260409-03-k3-pwm-drv-v1-2-1307a06fba38@kernel.org>
- <adyq-Uckwwe9uACA@monoceros>
+	s=k20201202; t=1776147796;
+	bh=2lE1EkdZf14s0caVeyTITCm670M9QH9DJ6x77cxqXho=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=lbzB2ADxQNqLVDqruF91YbDuEXVKv2eTLxxgIp4YVU1G9v9zkP8AQHpyNa3CzJZ46
+	 c1yv0BfyJwzX++sGSpuIA05qaCO1mCHn67U8lRooKWEICaHHpUZZAEBFxwBt3iO5pm
+	 VvdwMdgAfJPVZlvqFodVeCWH00ayrqYll9M9QgkdekVmx/l/gdtUUgz3ompsfMbbVk
+	 RAZCZrXlsEjEPcJiOO+3G92aZfru+55zZRX4oGd24t9vLoYtGoJocF3JzEMhMFRETO
+	 FoqU4Bb2pbVjLlaqa7lsIa+fqk2870iUO4bRGva2DoHiK9CqkEzPIlRzReWIh/9jte
+	 hYM+dgJv7nquA==
+Message-ID: <27f57fd6-71cc-4f88-9d8f-6c6fc778008a@kernel.org>
+Date: Tue, 14 Apr 2026 08:23:12 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <adyq-Uckwwe9uACA@monoceros>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] dt-bindings: arm: cpus: Add compatible qcom,oryon-1-5
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260413091625.607976-1-shengchao.guo@oss.qualcomm.com>
+ <20260413091625.607976-3-shengchao.guo@oss.qualcomm.com>
+ <a1f8cdcb-fddb-43ca-adbd-07e36949eef2@kernel.org>
+ <adzjYypJciYFLT6F@QCOM-aGQu4IUr3Y>
+ <1c06bd0f-24ce-4ea2-a7a1-4c61827b4763@kernel.org>
+ <adzrY4AijnKqXDrh@QCOM-aGQu4IUr3Y>
+ <cc08a091-9f2d-48de-9284-2f0c68fd343a@kernel.org>
+ <adz--4_2qAs7lkTu@QCOM-aGQu4IUr3Y>
+ <d671229f-1c9f-470f-b1d1-7d015c0721e8@kernel.org>
+ <ad2WsFuUjtcjZ1wU@QCOM-aGQu4IUr3Y>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <ad2WsFuUjtcjZ1wU@QCOM-aGQu4IUr3Y>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Uwe,
+On 14/04/2026 03:21, Shawn Guo wrote:
+> On Mon, Apr 13, 2026 at 06:08:49PM +0200, Krzysztof Kozlowski wrote:
+>> On 13/04/2026 16:34, Shawn Guo wrote:
+>>> In short, there will be Nord DTS using the binding coming, and I do not
+>>
+>> Maybe there will, maybe there will not.
+>>
+>>> think posting them at the same time should be a requirement.
+>>
+>> Well, it is a requirement as I explained previously, said that
+>> *multiple* times on the mailing list, documented expectations in
+>> mentioned/linked email threads.
+> 
+> To be honest, I can only read the following from mentioned email
+> threads.
+> 
+>  - Binding and DTS should be organized in separate series per subsystem
+>  - DTS should reference binding series by a lore link
+> 
+> 
 
-On 10:38 Mon 13 Apr     , Uwe Kleine-König wrote:
-> Hello,
-> 
-> On Thu, Apr 09, 2026 at 12:45:12AM +0000, Yixun Lan wrote:
-> > Add one secondary optional bus clock for the PWM PXA driver, also keep it
-> > compatible with old single clock.
-> > 
-> > The SpacemiT K3 SoC require one bus clock for PWM controller, acquire
-> 
-> s/one/a/ ?
-> 
-Ok
+The links told explicitly to organize series per subsystem/maintainer.
+Who is the subsystem here?
 
-> > and enable it during probe phase.
-> > 
-> > Signed-off-by: Yixun Lan <dlan@kernel.org>
-> > ---
-> >  drivers/pwm/pwm-pxa.c | 8 +++++++-
-> >  1 file changed, 7 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/pwm/pwm-pxa.c b/drivers/pwm/pwm-pxa.c
-> > index 0f5bdb0e395e..2ace31405c2d 100644
-> > --- a/drivers/pwm/pwm-pxa.c
-> > +++ b/drivers/pwm/pwm-pxa.c
-> > @@ -53,6 +53,7 @@ struct pxa_pwm_chip {
-> >  	struct device	*dev;
-> >  
-> >  	struct clk	*clk;
-> > +	struct clk	*bus_clk;
-> >  	void __iomem	*mmio_base;
-> >  };
-> >  
-> > @@ -177,7 +178,12 @@ static int pwm_probe(struct platform_device *pdev)
-> >  		return PTR_ERR(chip);
-> >  	pc = to_pxa_pwm_chip(chip);
-> >  
-> > -	pc->clk = devm_clk_get(dev, NULL);
-> > +	pc->bus_clk = devm_clk_get_optional_enabled(dev, "bus");
-> > +	if (IS_ERR(pc->bus_clk))
-> > +		return dev_err_probe(dev, PTR_ERR(pc->bus_clk), "Failed to get bus clock\n");
-> > +
-> > +	/* Get named func clk if bus clock is valid */
-> > +	pc->clk = devm_clk_get(dev, pc->bus_clk ? "func" : NULL);
+These are what I'm trying to do, and I'm not just posting DTS
+> simultaneously.  I do not really read the requirement of posting
+> binding and DTS using it simultaneously from the email threads.
 > 
-> A local variable for bus_clk would be sufficient.
+> Taking a step back, even if the requirement is mentioned in an email
+> thread like this one, I'm not sure it's the correct or well received
+> way to define a requirement.  And that might be why you had to keep
+> repeating yourself.
 > 
-Ok, will do
+>> It's also documented in submitting
+>> patches in DT (although not with that strong wording).
+> 
+> Either I'm blind or reading the wrong document.  I failed to find
+> the requirement of posting binding and DTS using it simultaneously
+> in Documentation/devicetree/bindings/submitting-patches.rst.  Could you
+> point it out explicitly?
 
-> I'm not sure, but I think passing "func" unconditionally to
-> devm_clk_get() would also work fine.
-Passing "func" unconditionally, will break old compatibles(not k3-pwm), as only
-one clocks property is provided, but no clock-names property
+Rule 8.
 
--- 
-Yixun Lan (dlan)
+Best regards,
+Krzysztof
