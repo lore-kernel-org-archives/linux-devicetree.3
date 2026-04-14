@@ -1,42 +1,42 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC0803E0C5D;
-	Tue, 14 Apr 2026 11:45:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B01283537C4;
+	Tue, 14 Apr 2026 11:45:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776167127; cv=none; b=Um1hrUZyW7nnshjmeCvHaN/qNxhHDuze6FOYkstybpz6sUJM6oCglVRVrd0PK6chY123R4ZSKePWd7lgcOgYQzUosTWIVpHUtJmkmPz7J51PEwGX0lA5B0pDt6DYiHW7GSOmhCPpJ6V89CkkRxjnbPFMOniJsA3x5CLkrDs4MXA=
+	t=1776167128; cv=none; b=M6pPGlBYyrXAJlmEqAcjup6bWtBpPhDULhngJJ6C+HmWEluNe5Moc5jpp42Jis2I8XuqEVTj8KzumDyV/y2xjd7xjjq+e29NHyEIhjFVn/m6gHYDg/NSS5USEUhB5YM+NbIsUGz9fHd2JrYjg6ymCte/xMr0dBwWbvjRKs0jJBA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776167127; c=relaxed/simple;
-	bh=aI+GsF4qLZxdAdL4+6dfOIL7e+YBWTxqXJ+gFC9fnX0=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=mPzO+I1yiR0ouHvTtNqruEpZTZhgDW5kkmbg6LPgI/ImAmhpDo2LDfJVyCTvo5jbVCiGn/Gr2wXkPIMVSjH+W9eJ5AwiaRk5FVofVr1KZfyl2nXde1iBT159GQtwqPlLHTOuDoFIZXp6vXY0F8qj6X6b8vl4t1JPwMpshcOadZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=a3Ww08EN; arc=none smtp.client-ip=148.251.105.195
+	s=arc-20240116; t=1776167128; c=relaxed/simple;
+	bh=tx6YHplKw2wzbPUqEn6qcYrqTXhPiMFKrMER9Kp00HM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=HNeUS99TsZSwjHLroiKuVx+QPo9veFxxL0ZSKvpHz3XuXm6ZoODQ1L5siAEeA7g1f4xbgI8cABUvSPyKlnwfPk58U7YbJ4HmwKzWO9zyc/yHRDlbj++uz3Ndl4aIFdyzRq+V99NqMI+oODX2fHqH2Mdl5m/U+QO02o9UHiW2mgw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=kDS7qidn; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="a3Ww08EN"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="kDS7qidn"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1776167124;
-	bh=aI+GsF4qLZxdAdL4+6dfOIL7e+YBWTxqXJ+gFC9fnX0=;
-	h=From:Subject:Date:To:Cc:From;
-	b=a3Ww08EN2FtM/L76S/PV5DUWhAUDxQKM1HZ19P2dsn7sC8tqFMLSFDAjwhhP4DSlB
-	 BsM80pbeLSCFHNSAzXpXye3/A01brdEaZPAozqjOOVEo6cAZJ7uQrKAyO1OlsYNKcf
-	 XoJ+zlkZ7N4wD0n9JHqJA+NzIF7YE2JbTQn7Gp/vR580bDLidO2VvpKKm4LYTBpHHv
-	 oNRWcz2kJtAtLRuCms9KXYyqbsFcybUFsAP/16vLrEq5PgIV0t12Fl5a8k8MBWzJ9b
-	 2ojnWFsd7yyW11xzqNC54OctYlC/sqLIxSC2bpipDtzVxsgMtt5r1GFFJLYtmzr8nH
-	 vi1zezhZ2hnPA==
+	s=mail; t=1776167125;
+	bh=tx6YHplKw2wzbPUqEn6qcYrqTXhPiMFKrMER9Kp00HM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=kDS7qidnpnqUHyiIcaFtEfHBBYYSt2EkBlFs2e2od6gdxcvH0cv1u/mxrQ98a/A0E
+	 ZjlpQJyJP5+xaLeNMVmB5JtzXbSpfekQ89Q6nKQ6hWS5GrVGfApE/pL3ZiD1n4jONL
+	 mewgXuDbcCEv5Ue0VK3E4H0zwf4n1dsUKtbOia+zrY5+Z4DTmY4yWge20f+iSrw89Z
+	 2Dz2CPtqZs7opFvUhcw3HGNnxNHF+RQmcNpG03T4wZNKstJwVJrgJ8ZA8mWnJyC3c+
+	 0Ja1gp74Axk89kRZMX8x42jSovQwKjkOnZNFbxCrls7YVk4jxdTXfSW8heRnom9fFT
+	 kK+sehbySWosg==
 Received: from yukiji.home (unknown [100.64.0.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: laeyraud)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0904D17E12E5;
-	Tue, 14 Apr 2026 13:45:22 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 406B417E1313;
+	Tue, 14 Apr 2026 13:45:24 +0200 (CEST)
 From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Subject: [PATCH 0/3] Mediatek Genio 1200-EVK: MT6315/MT6360 PMIC regulator
- supply cleanup
-Date: Tue, 14 Apr 2026 13:44:09 +0200
-Message-Id: <20260414-mtk-g1200-pmic-cleanup-v1-0-2a7193ed4e93@collabora.com>
+Date: Tue, 14 Apr 2026 13:44:10 +0200
+Subject: [PATCH 1/3] regulator: dt-bindings: mt6360: add buck regulator
+ supplies
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,10 +45,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2N2wrDIBBEf0X2uQtqLpT8SsmD2m26tBqrJgRC/
- r3SdN7OwJzZIVNiyjCIHRKtnHkOFdRFgHuaMBHyvTJoqXvZqgZ9eeGktJQYPTt0bzJhidjXtI2
- 9drbTUMcx0YO3n/g2npzos1R/OUuwJhO62Xsugwi0Ffx/SBiP4wsNoZI5mQAAAA==
-X-Change-ID: 20260413-mtk-g1200-pmic-cleanup-666643b85b52
+Message-Id: <20260414-mtk-g1200-pmic-cleanup-v1-1-2a7193ed4e93@collabora.com>
+References: <20260414-mtk-g1200-pmic-cleanup-v1-0-2a7193ed4e93@collabora.com>
+In-Reply-To: <20260414-mtk-g1200-pmic-cleanup-v1-0-2a7193ed4e93@collabora.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
  Matthias Brugger <matthias.bgg@gmail.com>, 
@@ -60,46 +59,42 @@ Cc: kernel@collabora.com, devicetree@vger.kernel.org,
  linux-mediatek@lists.infradead.org, 
  Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776167122; l=1472;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776167122; l=1149;
  i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
- bh=aI+GsF4qLZxdAdL4+6dfOIL7e+YBWTxqXJ+gFC9fnX0=;
- b=+Q4SR4LvyWtlRcvDWXR3m1Kwm9b2GQ/qVx5JIaActwhspyeGtCkrRFh9fmrQY+6FY0stzqrzF
- CtyJwFU+4oMAcDTfHBOPmAuR0Q1X+KySbiFCbym0eOxXoUupL5ZZ/np
+ bh=tx6YHplKw2wzbPUqEn6qcYrqTXhPiMFKrMER9Kp00HM=;
+ b=Bsu7eHJDGAZi8VLbWxRKUzSwo3gi7EeXTNYA7Etr10Z9AyArwuf8c5v4VkQb58/XgP1xMZ2I/
+ sJZtLUkIcuUBH5dBMJMYd2WzMsi3tUWoJVnHczk5Ur6h6wsnDEulKrK
 X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
  pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
 
-This series goal is to cleanup the power supplies of MT6315 and MT6360
-PMIC regulators, that are either missing or incorrect in the Mediatek
-Genio 1200-EVK board devicetree.
+MT6360 PMIC provides 2 buck and 6 ldo regulators, that have each one a
+separate supply.
+Currently, the supplies for the ldo regulators are described in the
+dt-bindings but the ones for the buck regulators are not.
 
-Patch 1 completes the MT6360 dt-bindings by adding the missing power
-supply descriptions for its buck regulators, that already handled by
-the mt6360 regulator driver.
-Patch 2 adds for the board the MT6315 regulator supply properties, that
-were added in the dt-bindings by [1].
-Patch 3 adds for the board the MT6360 regulator supply properties and
-fixes the existing one.
-
-The series has been tested on Genio 1200-EVK board with a kernel based
-on linux-next (tag: next-20260410).
-
-[1]: https://lore.kernel.org/linux-mediatek/20260326081050.1115201-1-wenst@chromium.org/
+Add the descriptions for these missing supplies.
 
 Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 ---
-Louis-Alexis Eyraud (3):
-      regulator: dt-bindings: mt6360: add buck regulator supplies
-      arm64: dts: mediatek: mt8395-genio-common: add MT6315 PMIC supplies
-      arm64: dts: mediatek: mt8395-genio-common: add MT6360 PMIC supplies
+ Documentation/devicetree/bindings/regulator/mt6360-regulator.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
 
- .../bindings/regulator/mt6360-regulator.yaml       |  4 +++
- .../boot/dts/mediatek/mt8395-genio-common.dtsi     | 32 +++++++++++++++++++++-
- 2 files changed, 35 insertions(+), 1 deletion(-)
----
-base-commit: f244905cd8cff7a7249cd3dac8a366e02d61ad4f
-change-id: 20260413-mtk-g1200-pmic-cleanup-666643b85b52
+diff --git a/Documentation/devicetree/bindings/regulator/mt6360-regulator.yaml b/Documentation/devicetree/bindings/regulator/mt6360-regulator.yaml
+index 9c879bc3c360..cbb74e8e875d 100644
+--- a/Documentation/devicetree/bindings/regulator/mt6360-regulator.yaml
++++ b/Documentation/devicetree/bindings/regulator/mt6360-regulator.yaml
+@@ -17,6 +17,10 @@ properties:
+   compatible:
+     const: mediatek,mt6360-regulator
+ 
++  BUCK1_VIN-supply:
++    description: Input supply phandle(s) for BUCK1
++  BUCK2_VIN-supply:
++    description: Input supply phandle(s) for BUCK2
+   LDO_VIN1-supply:
+     description: Input supply phandle(s) for LDO1/2/3
+   LDO_VIN2-supply:
 
-Best regards,
 -- 
-Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+2.53.0
 
