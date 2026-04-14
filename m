@@ -1,202 +1,174 @@
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA7C7399017
-	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 10:28:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51F0F3D5225
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 10:29:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.54
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776162515; cv=pass; b=agYlGBirGumX/YZKWfRgJ3Gpt1KQw2JOgdeYM7KQ+pMpu0em4s7DuFnmnrzXoGO7iMvWK4he5wP0iUVOX5JoloqpB3BCFFUNLIN7rtEkvigcWrycm1eow1j/JMWEDkrI5d8uRHD8RsHtEmCxvJFe7Kpgnde1kHgr0qB+kEKfew4=
+	t=1776162563; cv=pass; b=TwgOpG/qVk1XVTgCFyYsb60lshNqEZeDUP6PVBz17ygaQi6MMarvNufmAhHTHg1MIRWyTsnPHRvd0S2Pu8D0Yh8W0oIG3ixs9Vdf9P46p2VYTqxbYDgGAmPot/A6aSIdNsWhMi7KJ2gJu2v6mR62fkP3wim7FawVWv62nTeAv8I=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776162515; c=relaxed/simple;
-	bh=lrmJycYsABuOjKqSc9d0hOXzD3f0R5HKmLZc5qFfWUw=;
+	s=arc-20240116; t=1776162563; c=relaxed/simple;
+	bh=Ido82lTsBObPiLyE+cnbnYTa5RnXovthshiMl4cqqxw=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Nw9q6OH+mQpEPBbhQxVbFr0ZBMQxZkDafmSHcNwLNyzDhXxnR3rqUY1nH813z9WpBbVFdYHTG/mP5qee/OMyeRu08wBJRrtygrlragOIkHHGHPUPFdXZw2FrNwCQmF5UH8gjDIBy070AMtl8cz8bwCpOjD9hwZ7nan7SXQ29rfY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vayavyalabs.com; spf=pass smtp.mailfrom=vayavyalabs.com; dkim=pass (1024-bit key) header.d=vayavyalabs.com header.i=@vayavyalabs.com header.b=UGKyHmtW; arc=pass smtp.client-ip=209.85.160.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vayavyalabs.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vayavyalabs.com
+	 To:Cc:Content-Type; b=LfvLuXxA6dKwlJomwLcA2lCp7QAPxfTTXqh+SfnS633hD/eXqu0UgDrGh8dUNypmTn3Q6asDGg4YUMQU6HSEkoHol8hNhs5PwrFCEcBTlUgxEwP2JgLZQcX3RKS02Ib3max6THdPVf0mCblo/fRYq7Oms9LspO2XfD7gsSKACv4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=CAg1W+YC; arc=pass smtp.client-ip=209.85.167.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=vayavyalabs.com header.i=@vayavyalabs.com header.b="UGKyHmtW"
-Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-506aa68065eso42144401cf.1
-        for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 03:28:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776162508; cv=none;
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="CAg1W+YC"
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-59e4a04f059so5019103e87.2
+        for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 03:29:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776162554; cv=none;
         d=google.com; s=arc-20240605;
-        b=ZQUukr84495BOfKuwOnli5wdtrZ9sxgEjDG2FDYYQfRqFgJXdCStaWJbOjZ9rHvYdZ
-         C0kLiRBlh0Fzav0wc3ALJ58jOewIxz3P0xyl3xpXv4q2Lblb3+YK5cMwnykF1TOy91bI
-         a5ayIjdyiVcHnYyVYT/9xKT0QQORdf4xDCyG3fjdE6i55kWrcKseJQHQEGLMrqXahzO1
-         2G2KpfgUtDdT3qPDmoCZzpVTYa2b17axQrBufhqga77PIGGvGWisoPZzS/ymUvIxJySm
-         AOUFusXXkA2gk24oYZJ5FslFGvq7xUeIav+3XJ46fQJHboJeRi7olwr11OHPa0Wh2ytK
-         wGRg==
+        b=XRnhOO84KPxdEcUIdgZyyxXVOB6DOH3RrwN1CVYxdINfXNTzgMcSt+A18/d4UUyJzr
+         LTQMtnIRnZiLLuaJWw58+OdCzxzGiJh6Z/i5SD+ikjmQfmNojOwQoYXJV2k8ZjjgQCok
+         xNWS9I89H9ZxNKjGosX1KiqJ0jx0HUaNAgImpnqH+zY5qPW0tOuGJndeo/N8+wZ24y1m
+         lW/j45npnqhXyurhRnkjiYC51qn1QEkdiV5sL5OKb7wSDd5cPB3SvBRle4MlLp1rEc9V
+         0UKRKYaYFkYHrOyuw6st3wuwy0uc/SbSlGPwvd16IbZZ4j/eOHGoZv1k7s3neXRzYLHz
+         nzqQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=EbKz3DQzt83f/P1RrZXts9tDEfXZSdSj2yob2J1dqQE=;
-        fh=w4K+ez/MxTcDZtDsIj/YENFewLhH9MAyxgobm1UN1gA=;
-        b=Oyd1QaXhewmH4NJV4GHylCoht5NgnKa1fGOJuR49YhZxwAhqaSg4RCA0TfMtnv4Adz
-         wtwfKQVDIOv7g1Ja2wY3TIYKgxsB4sI6p2NpqYNeCo9RW5iphrZePmNDDPa+Iu3wG5ay
-         CWkYS3tXz0LkPOotcbQ8OyoYWAfhhR7g5t6fyyeaNwOsTscFafgLcEYI0NRrlg3xQFTs
-         cWIyZVB8poPa9XrbjiKHp8KQJKUhEaSGxJtn1IOiFDecVphGoZVkUr4CEEkoSuoY9qAL
-         KfY21o9HhDag8h9Jmv73SbwnDgYZ3KEyUtdU60sa8R2ea03jfWo3AzjaXJ9u6ALoM/8V
-         8IuQ==;
+        bh=obCwu9OJRNTUN7BsZbzZ8PH73jQ+TTI+BXXfuHZowXE=;
+        fh=T/Y6Vu0OhEMju14XCZBJssddhZBO3tSAGoRutSlQx1I=;
+        b=TcRoNflyqSYCG+Xtv4Ex7T8PGnaBs3BbwjAw/R6lRpVTnklnK8EZAptNa0iBAL2LQ6
+         cgV8u2IQQweBujKeZlqcADV0J85bPheSqWsjM5nJ0CYVdDBdQk8VrIbtTs72fqaubXZg
+         8IULoY0uJl2fv+ZzLee0Vtm+HHZIuu2ZofRDzuHNh0lFWvd2tuS0xTIS0PIWEA645H3W
+         8DfjrZJk8g/svujQlsHuziQiV9qQug4Q9JKh7kiWzhaWWqbFNyI//osvhI+iOArhEPj+
+         +tQJy5Drr8yxtM6qUIt5qCtgVg/qayZQxzDxNQhyw2UD8wTWyiJC/bqZaqKPRK+/L3Ww
+         BH+g==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=vayavyalabs.com; s=google; t=1776162508; x=1776767308; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1776162554; x=1776767354; darn=vger.kernel.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EbKz3DQzt83f/P1RrZXts9tDEfXZSdSj2yob2J1dqQE=;
-        b=UGKyHmtWQpxhpS5AwJhZWSVst41dokHijuUCKK5Actemb697xQVH+jAeGzgIu4OEhH
-         XRCRnuhtXdqt5NbnCFiRo7+uJuBcQ9l7GCE2V4Vi1NSWCmtOUeADL4XUYtdk3hDpef2Z
-         5xWaACAm3PbLJj0AqmOtUYT+paqM0KPih14BI=
+        bh=obCwu9OJRNTUN7BsZbzZ8PH73jQ+TTI+BXXfuHZowXE=;
+        b=CAg1W+YCDWa+7hMyoFTX9wrJnea3anbAiHdxWmpDFPNhe7kCyRPxDRCs4+n9KcUSjl
+         w6nzvTJigwS7oM6UFv5A3HKxmii0VyJz1d3VSyhkRHh9KbLCHy+zvkfyRpySbb5xZhZu
+         JuL3QYV3wyDOI2wfxl8ehTcAnuZZDMlWKsh4c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776162508; x=1776767308;
+        d=1e100.net; s=20251104; t=1776162554; x=1776767354;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=EbKz3DQzt83f/P1RrZXts9tDEfXZSdSj2yob2J1dqQE=;
-        b=n05vqz45QKjpPBLud+STFQGA9pm6+BRwe8Hz7Z8wbRT7tOCv2lpbSGpdu9+SkOGIqO
-         hes7/YYpX4A3N84eYlqxiWZukupm0FhDyXeELNaU4IH1ZwXk8soJmrlllnKBOfwc9Pgc
-         eo4Zw8oFS8NBIKOPSLuOEjnKxQVqfp4nq2ZHFc2bbeY8SlLC+CUjjbZqUuo/ICUuxUxa
-         pL8Um+xqiMc9CYDcVnvLg/2BcMlsCkuCWGH9oXII8Q/RjbzPIqdqapGtTW+MK4uzF1NI
-         +hY7VIqQ9tK2//KmDnDQOZVRouHeK28cOw4gE5zG6G3tzw+FQO8fSuW4ZFLCTg2hu2Tc
-         r9OQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8YnpilPdWKtJzOlBg6Yz4kUMgc8+FYQywZGqIZyolBe2oPHzedfXe3AwKfepTQuth9/TNjGs4ANGDl@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw2ErhQ8tI87A8VOyNqNGy2TnVgNPJQ0gvKryXy5hYOJuTDnWpQ
-	YdHmqeuTcgh03lP3nWdukmTeURV7aj18rN9By+dcKIclXKFgplI1uO/m3gjKQZUEINQbw1AOYS3
-	6ys3WoG4qx1PNiIW+zqGLWqwlYFFpN3HNh3HOUJ/hFw==
-X-Gm-Gg: AeBDieuQZ/UQoLXAyn3/5ppjyIHdu82n6wxx73YB0L4VVCGazg0N2emiOQ3harAEm/F
-	vw5kp21A6c09j0I6X/Jx+lqiJLn8c3WJFS3JB+fSWqdixsfDUV+iIRbteu9Qg+L9rC1zkdjy+Ai
-	jTJ+XksabQi8abhE091zUqCs6vHBY/tQjuUoUjbrSXXD45MWFfFT2TepdcwW5R/0XKiOzyuSwiv
-	YxK+aBWK7U6zY9mzaNwdcCC1AMOuwr8ZOW0LKMsiEwYIdY+fVmIl4hbvKhWAkETmuVy0jd/tPJQ
-	CnRy7UkE78O0zLubRnb37NN7JquzHqavqQ5J+2F4VvOG/590NkbjjOuINYeEjjbPyG805HPyd9N
-	8jdW6Ei2wZxdqDh9kpdTbUFTbkwMP33vxAkb2dySQ90WhrOrlCXitvtAd+g==
-X-Received: by 2002:a05:622a:550d:b0:50b:2876:586 with SMTP id
- d75a77b69052e-50dd5ad112emr252830511cf.5.1776162507725; Tue, 14 Apr 2026
- 03:28:27 -0700 (PDT)
+        bh=obCwu9OJRNTUN7BsZbzZ8PH73jQ+TTI+BXXfuHZowXE=;
+        b=o9NeMiZ/bo+uorYchFHoJ2WmiO2lo1ykZIrFfIrU9k9xz+moeN5lGAtREJUOVPni7I
+         vFl+9mK9I5J/LwkLT6KADhvn1yY9fgPlGppbDnms+XdUgByi3SaPfY3LIOBYM3YkRxBQ
+         u1HHjoDt4+ghsOzbsrtyz9Ek31oD3b5iaYkgPIssBA66+2MJC3I+D1P7/FfPZwJKOrWx
+         0gvORlQkV+TZzPgSZW5zXKEXo1lq0GDngdEc92BGbh3Y/s2ba0W6E85I01nw/uQkCrlZ
+         N9nKBn6LE/6hfGPv5LEjG6oWxHsaKED94lh9shkgAE5NjjdvB6H7waQCzeCD+/+5uIiE
+         VEbw==
+X-Forwarded-Encrypted: i=1; AFNElJ/3QczfS1J/XLeY7ofJxOEdS6Ny2ryU7shZjGgLpLbJaT+l/7Ozv8xIiUjBdJX8Gi9TOtQYe2WII+6L@vger.kernel.org
+X-Gm-Message-State: AOJu0YzKxWzourr6ZSQc0PMAbLBZuz8dVSqh+ld9eczfj977wJ2YvBCg
+	9RpbQ61du6K99jKo/+SfChLmO9yRc4570vi00sn4YvZKpEYDSeKsW0sD2pzR3//xIQmLWR29pt+
+	cxgSi1ndbce1Si7wH5Phgk/MTM/S22n/WLeVT2VYn
+X-Gm-Gg: AeBDievOyKurQyE3G29JF34N/rEnd4yFGtcaJWSxgTejtTW4W7MpFoKQ/8Np1B90k+s
+	BWy4YpsI7wP/NOVpe/P8JTveQXOZO15PjMLAykTpJhaZjoefl6lADmH1U536ld7wkoAxiYUqXue
+	AFaUeJ9svN5IYXTuliaqAgyO3NBKHAyyF+9ZDkvL8+xrzl/EmpBi+RZzwITU2W8BpRcNMAgnAxl
+	PZGPMe1DdhxizTJyCXm5VgOMnwK2zwuSD62sZXzGJastTTDeloIfOKWaKZ0tiGcmKdqrMoL1oSH
+	Ht9qFpl2qhc6djSaFmV6vnICIj30F8xCPs3MhodElowVV7+9
+X-Received: by 2002:a05:6512:68e:b0:5a2:ae27:c879 with SMTP id
+ 2adb3069b0e04-5a3efd7f0d8mr4850095e87.29.1776162554447; Tue, 14 Apr 2026
+ 03:29:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260318071808.817074-1-pavitrakumarm@vayavyalabs.com>
- <20260318071808.817074-3-pavitrakumarm@vayavyalabs.com> <acZL65nbtfMCPHhq@gondor.apana.org.au>
- <CALxtO0nFEG2Lm18Fnb=YVQfy4-Qjb5+WtOxsHNOwYTy2Kzyb4g@mail.gmail.com>
-In-Reply-To: <CALxtO0nFEG2Lm18Fnb=YVQfy4-Qjb5+WtOxsHNOwYTy2Kzyb4g@mail.gmail.com>
-From: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
-Date: Tue, 14 Apr 2026 15:58:16 +0530
-X-Gm-Features: AQROBzAtNMeWlauuG2iBoAxxFsqw-tyFJ9-jcGZZ7ytu53NJX8wZj4aZKG2Fw2Q
-Message-ID: <CALxtO0kj4JfL94qY-radGcLwMeTnq4NQF7vPqs6giuhBinvALw@mail.gmail.com>
-Subject: Re: [PATCH v11 2/4] crypto: spacc - Add SPAcc ahash support
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, 
-	Ruud.Derwig@synopsys.com, manjunath.hadli@vayavyalabs.com, 
-	adityak@vayavyalabs.com, navami.telsang@vayavyalabs.com, 
-	bhoomikak@vayavyalabs.com
+References: <20260326-pci-m2-e-v7-0-43324a7866e6@oss.qualcomm.com>
+ <20260413075459.GA2626902@google.com> <fpcs4p62f35a5qyqwgm5ysa73stbysxcr62tkmmkrrcvsuf4t4@4ivukyqjey57>
+ <eeytuhqpgdz4do4tgtbmfntub2femtyq7bij7svhodpyjwaylx@j3gmvq2a2zqc>
+ <CAGXv+5E=tujhtZjwi6Qm7hk3Ks74UzTQHWq82NiTEw1+vYod5g@mail.gmail.com> <ad36pIu-0dutL7Nk@ashevche-desk.local>
+In-Reply-To: <ad36pIu-0dutL7Nk@ashevche-desk.local>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Tue, 14 Apr 2026 18:29:02 +0800
+X-Gm-Features: AQROBzDHB_HCwto4iaprIWgL7mrQWt62yIrtGAtxckKlX4EUkJwTT3ZqPu-YslU
+Message-ID: <CAGXv+5EGe59nJctLweEdZjb3MNmMvjuCHngGSfptzN985OiLdg@mail.gmail.com>
+Subject: Re: [PATCH v7 0/8] Add support for handling PCIe M.2 Key E connectors
+ in devicetree
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>, 
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, Rob Herring <robh@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nicolas.schier@linux.dev>, 
+	Hans de Goede <hansg@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Mark Pearson <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
+	Bartosz Golaszewski <brgl@bgdev.pl>, Bartosz Golaszewski <brgl@kernel.org>, linux-serial@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org, 
+	platform-driver-x86@vger.kernel.org, linux-pci@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-bluetooth@vger.kernel.org, linux-pm@vger.kernel.org, 
+	Stephan Gerhold <stephan.gerhold@linaro.org>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, linux-acpi@vger.kernel.org, 
+	Hans de Goede <johannes.goede@oss.qualcomm.com>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Herbert,
-   If the above snip looks good, I can push that and some more code
-clean-ups/improvements as part of V12 patchset. Do let me know.
-
-Below are the code fixes and improvements
-1. Multi-device safety handling - All packed up inside priv
-2. Minor code polishes
-3. memzero_explicit inside setkey, spacc_compute_xcbc_key etc.
-4. Algo registration clean-ups
-
-Warm regards,
-PK
-
-
-
-On Thu, Apr 2, 2026 at 1:30=E2=80=AFPM Pavitrakumar Managutte
-<pavitrakumarm@vayavyalabs.com> wrote:
+On Tue, Apr 14, 2026 at 4:28=E2=80=AFPM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
 >
-> Hi Herbert,
->    As per your inputs, I've replaced the do_shash switch to use
-> lib/crypto single-shot calls for SHA-1, SHA-224, SHA-256, SHA-384,
-> SHA-512, and MD5.
+> On Tue, Apr 14, 2026 at 01:03:19PM +0800, Chen-Yu Tsai wrote:
+> > On Tue, Apr 14, 2026 at 12:08=E2=80=AFAM Manivannan Sadhasivam <mani@ke=
+rnel.org> wrote:
+> > > On Mon, Apr 13, 2026 at 07:33:12PM +0530, Manivannan Sadhasivam wrote=
+:
+> > > > On Mon, Apr 13, 2026 at 03:54:59PM +0800, Chen-Yu Tsai wrote:
+> > > > > On Thu, Mar 26, 2026 at 01:36:28PM +0530, Manivannan Sadhasivam w=
+rote:
 >
-> However, SM3 does not have a single-shot library API in lib/crypto yet
-> =E2=80=94 include/crypto/sm3.h exposes sm3_init() and sm3_block_generic()=
-,
-> with no sm3()/sm3_update()/sm3_final() equivalents.
+> ...
 >
-> For now, I've retained do_shash only for the SM3 case. Would this be
-> acceptable, or would you prefer a different approach?
->
->
-> Code snippet below for your reference
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D snip start =3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->
->  switch (salg->mode->id) {
->  case CRYPTO_MODE_HMAC_SHA224:
->          sha224(key, keylen, tctx->ipad);
->          break;
->
->  case CRYPTO_MODE_HMAC_SHA256:
->          sha256(key, keylen, tctx->ipad);
->          break;
->
->  case CRYPTO_MODE_HMAC_SHA384:
->          sha384(key, keylen, tctx->ipad);
->          break;
->
->  case CRYPTO_MODE_HMAC_SHA512:
->          sha512(key, keylen, tctx->ipad);
->          break;
->
->  case CRYPTO_MODE_HMAC_MD5:
->          md5(key, keylen, tctx->ipad);
->          break;
->
->  case CRYPTO_MODE_HMAC_SHA1:
->          sha1(key, keylen, tctx->ipad);
->          break;
->
->  case CRYPTO_MODE_HMAC_SM3:
->          rc =3D do_shash(salg->dev, "sm3", tctx->ipad, key,
->                  keylen);
->          if (rc < 0) {
->                  dev_err(salg->dev,
->                          "ERR: %d computing shash for sm3\n", rc);
->                  return -EIO;
->          }
->          break;
->
->  default:
->          return -EINVAL;
->  }
->
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D snip end =3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D
->
-> Warm Regards,
-> PK
->
->
->
-> On Fri, Mar 27, 2026 at 2:50=E2=80=AFPM Herbert Xu <herbert@gondor.apana.=
-org.au> wrote:
+> > > > > - Given that this connector actually represents two devices, how =
+do I
+> > > > >   say I want the BT part to be a wakeup source, but not the WiFi =
+part?
+> > > > >   Does wakeup-source even work at this point?
+> > > >
+> > > > You can't use the DT property since the devices are not described i=
+n DT
+> > > > statically. But you can still use the per-device 'wakeup' sysfs kno=
+b to enable
+> > > > wakeup.
 > >
-> > On Wed, Mar 18, 2026 at 12:48:06PM +0530, Pavitrakumar Managutte wrote:
-> > >
-> > > +             switch (salg->mode->id) {
-> > > +             case CRYPTO_MODE_HMAC_SHA224:
-> > > +                     rc =3D do_shash(salg->dev, "sha224", tctx->ipad=
-, key,
-> > > +                                   keylen);
-> > > +                     break;
-> >
-> > Since you're doing a giant switch statement anyway, please convert
-> > this to use lib/crypto instead of shash.
-> >
-> > Thanks,
-> > --
-> > Email: Herbert Xu <herbert@gondor.apana.org.au>
-> > Home Page: http://gondor.apana.org.au/~herbert/
-> > PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+> > I see. I think not being able to specify generic properties for the dev=
+ices
+> > on the connector is going to be a bit problematic.
+>
+> This is nature of the open-connectors, especially on the busses that are
+> hotpluggable, like PCIe. We never know what is connected there _ahead_.
+
+I believe what you mean by "hotpluggable" is "user replaceable".
+
+> In other words you can't describe in DT something that may not exist.
+
+But this is actually doable with the PCIe slot representation. The
+properties are put in the device node for the slot. If no card is
+actually inserted in the slot, then no device is created, and the
+device node is left as not associated with anything.
+
+It's just that for this new M.2 E-key connector, there aren't separate
+nodes for each interface. And the system doesn't associate the device
+node with the device, because it's no longer a child node of the
+controller or hierarchy, but connected over the OF graph.
+
+Moving over to the E-key connector representation seems like one step
+forward and one step backward in descriptive ability. We gain proper
+power sequencing, but lose generic properties.
+
+The latter part is solvable, but we likely need child nodes under the
+connector for the different interfaces. Properties that make sense for
+one type might not make sense for another.
+
+
+Thanks
+ChenYu
+
+P.S. We could also just add child device nodes under the controller to
+put the generic properties, but that's splitting the description into
+multiple parts. Let's not go there if at all possible.
