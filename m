@@ -1,145 +1,161 @@
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B43539DBF2;
-	Tue, 14 Apr 2026 08:13:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43A8F3A257E
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 08:24:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776154424; cv=none; b=EGMyBTXQq4gnmB6ogDChcy5LgZ5iufIewhb8CVoAMl9jbkSWSY2CUciO4U/IE56GFIcaZaGY3ghwve0F0KMaCWBapBUf/5W+nZeLfIK3s7uKS2+3a1MuE6Kb2pvt/MwjTjq0sVi91HaCNz+K2WRPe+j3XLbhU9HFCQrtz4sKlT0=
+	t=1776155077; cv=none; b=Bt0JB7CMvu6u3B/JbdV0K2V4yhsLu5SCCgGOSwgJZCtoO6TNRvA8lRTGj8q/OPOFSrqa0m6Ao+s5O4Zg018vJ+HJ+52u3rJ7JcXKEJ6PSqw7qUDb4Qo0mUlHCc8QJIUKbImscV7GqOuCr1EkPjlrN7FTXL/ogGBPjKQE1FN5Rqo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776154424; c=relaxed/simple;
-	bh=3EfHadgTZizCs2YTDIikcllKAbYD3PM4lNlIMq0xj6E=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=qaBoa/WLekYC6rPXnWvl7kfpXVmyHlFzKAx1EHi74SnnrwNv7w58vjQ1Ka7muhLjrjfEUPkqaq8QDqkah85ch4Fmh0BwHh+WTiOO/glYc+7mRV91xAmuF1kEXMdD+cKw0DtEQ7a4D62IHwE5LSk7kqStPCjJ7bbnyaFufx9NdvQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.dev; spf=none smtp.mailfrom=linux.spacemit.com; arc=none smtp.client-ip=54.204.34.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
-X-QQ-mid: esmtpgz11t1776154412t2aeae6dd
-X-QQ-Originating-IP: t5qvFoqOO49dshmNhNcUn+LEJies/jN4pY7I/s4bMd4=
-Received: from = ( [183.48.244.18])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 14 Apr 2026 16:13:29 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 8640859911972310649
-X-QQ-CSender: troy.mitchell@linux.spacemit.com
-Sender: troy.mitchell@linux.spacemit.com
+	s=arc-20240116; t=1776155077; c=relaxed/simple;
+	bh=9IF9m1mKLVzcQNa7yd1qS+gKQCjkoMgglb99+nR4csA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SuSrLnhNOPDIigr5rwlSFtMIdtnPnMQiz+V6YzJroDPXoEsBNzN+sTDmZlrPwGIU/+wDVP4aSyFYC6EYIvA4shC1j246YKZRxx+hvG+pxHCiNibZv1+WhsAB3Kvr0xYB7KifOsnkMAYp2M+SN0JboP/QZmzqBJyh7yYlqSy/qMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=R7Se93AD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HNe1n/8L; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="R7Se93AD";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HNe1n/8L"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63E6bxlu969091
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 08:24:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=aIMSYQ0X7vND3I65jUYYSFUk
+	nWvgiYPlHx2DQST0cP8=; b=R7Se93ADokkKnwQTqrzGYCGmgfCsHHcNAYh3ebmP
+	rl9XNbnOZGCrsnG1yD4dluHBO9erC1T8klrNo3afg//7n2/QlYaIc0Jh+QFV/PzX
+	FiqAgJBtWgKEtwz2CWviItqBD78GameoxWi1sOWR97B/WO9dDQwucrPOC2mFGh3x
+	dv8Zm8syqY8F2N0cuWPTDjaaR/gYEpUy9bVMyD8E7PEwGDDqm4Jd54DNFjc89xTg
+	pT8kBD1fiag2geFEbRVDstutB3VO4U7WQ1jKbk0fCZH0zMYlU5cSHLKf75P2kjOx
+	4rXpLkua566QR3jOQI6CsuKOM3UbxHugQcFPybP2iTSPpg==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dh86v1qtp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 08:24:35 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2b24af7ca99so75030265ad.1
+        for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 01:24:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1776155074; x=1776759874; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=aIMSYQ0X7vND3I65jUYYSFUknWvgiYPlHx2DQST0cP8=;
+        b=HNe1n/8L2wh4sR4k5oIX9XuxtMFt9KJo603keulaYu7EeWYTW1oBHu3CRPQbuKqgfn
+         XbGd5fFD9lwREjn5MtzKqSI2V8dbnQaC+4rr1P23LoLKSSFG0ndZiuyzXHZ5S4vvIMSM
+         EDgEHVVy4siPhM4kQf7Pjsm6eEw3ms54uMfuz6hI/OSQZkSqcq7ArN/uNoWGbA3GFjSl
+         dtHLlEoIRtpjgVoesIcjJ1Ogc5K3bc/cn6jvSNFn7Za4pFU72GXS6THTsYLrVVwCIMjF
+         cmxci+Ev2jNQX7owcJuceAfAvDCjufciB8q7Ark4PTqsAGe7Rd1zDayD5DUQgeqE1jBS
+         aygQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776155074; x=1776759874;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=aIMSYQ0X7vND3I65jUYYSFUknWvgiYPlHx2DQST0cP8=;
+        b=IVF8QLv8ZabWt7pgL5/efyB2PjCwhaXAqGlP3VUTIe0DEVIdsmsjqmuO+pClZDvsEa
+         Bjz8n1ODfib011vkG6yL67fMsGDOceN/DEDfXoc3hdL9e7Sag6aHLpcpns0PvkEp1tEB
+         29APioo/ropXogU2b0YNy5+Xifpal0hj0NiamWpxczYD9gIBB+p3/9ok5JPOLfp6a0iH
+         KAGOTLVow64F6O7SgTr7emU7+cKzv7fVdr159iDRSf21DWG02UVMEcHMeUIudhmtcju2
+         SDCbyLHW2QSO3lC4iql8PvT96WPC+z3IfMot785kKuFnvz0WrNmEmULCa2aSxfvc9+T5
+         oWkQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+bQZs2ruTkD8xOXP6vnuB+oiFLrGz3HKw7JyoUkC76CqkTkelgfHQHpxYyxxa9A8ac9RdiJGQnqImu@vger.kernel.org
+X-Gm-Message-State: AOJu0YwaWwAnX17L2en0OdPk0sDJtoallmMZDS8qvKVCkyLGPtbI/A9f
+	FQavAUTFuCshRcAPniC4l18LeKGopHKJQ/7TcHtTNrxq40xCAFSuydZSAEa86t7TcdN9z+0hjBo
+	kCqg1lST44QYy/n5/UHYpufU85qnVE/4VJth5pGFG5ghWSbQjkMMSOZwcQ5/GTRMM
+X-Gm-Gg: AeBDieu+9Ji2czj2FYT8qoluEdcwumdLHo/X/P7ZeBxJ8Yl4Z09cLQVilxKhFmTR1EL
+	KOG7s1RTjPZR4Yj+tDTHoTylY2GWv9HfS6KmY8H/fhzgQR/s/A3uJMQIMocSnIbik0n5mU2kfxQ
+	w0LV+Iuy68uMNBVnNFMTWwvwqUpSIJXbM/btVxYM9xVgO+NqoGYUG3dCVbbKnRU0f1NBU0F/VKs
+	j1LKGb7ErTmL8tV3IM9Qiv8cLr4PNZ7gz7xWSXyYHV5kmcnrmim8G6Kz7Z+TZtu/K5YiFpbAn9V
+	pQHA23DgV+9lJQiM5ke9eq9pu7oHpD2r4SBzEzUbqT0T0Aoi+SwN6+0vNCs5s9gtgGhqlCqb8uS
+	5524/hMGrn8hRXAiTPc+3msw+WhS23Yu+30lFgrDHo3JcRL12
+X-Received: by 2002:a17:902:d504:b0:2b4:5ff5:e51a with SMTP id d9443c01a7336-2b45ff5ed39mr67690165ad.19.1776155074139;
+        Tue, 14 Apr 2026 01:24:34 -0700 (PDT)
+X-Received: by 2002:a17:902:d504:b0:2b4:5ff5:e51a with SMTP id d9443c01a7336-2b45ff5ed39mr67689695ad.19.1776155073576;
+        Tue, 14 Apr 2026 01:24:33 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b2d4dabcdesm146235985ad.2.2026.04.14.01.24.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 14 Apr 2026 01:24:33 -0700 (PDT)
+Date: Tue, 14 Apr 2026 13:54:26 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 01/35] dt-bindings: qcom,pdc: Tighten reg to single APSS
+ DRV region
+Message-ID: <20260414082426.fhkgwpjth7a6hzxe@hu-mojha-hyd.qualcomm.com>
+References: <20260410184124.1068210-1-mukesh.ojha@oss.qualcomm.com>
+ <20260410184124.1068210-2-mukesh.ojha@oss.qualcomm.com>
+ <gd5ixcfablbyyyz2wdacrvg43jogwg425na6utsgfcterm276k@tdko64tn6gwh>
+ <ecb75ada-60c4-40e6-81bd-fc392007e9d8@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 14 Apr 2026 16:13:29 +0800
-Message-Id: <DHSQ6VG82QYX.1EVAYV9JTBCL7@linux.dev>
-Cc: "Ulf Hansson" <ulf.hansson@linaro.org>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Adrian Hunter" <adrian.hunter@intel.com>, "Paul
- Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
- Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, "Yixun Lan"
- <dlan@kernel.org>, "Troy Mitchell" <troy.mitchell@linux.dev>, "Michael
- Opdenacker" <michael.opdenacker@rootcommit.com>, "Javier Martinez Canillas"
- <javierm@redhat.com>, <linux-mmc@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>, "Anand Moon"
- <linux.amoon@gmail.com>, "Trevor Gamblin" <tgamblin@baylibre.com>, "Vincent
- Legoll" <legoll@online.fr>
-Subject: Re: [PATCH v8 0/9] riscv: spacemit: enable SD card support with UHS
- modes for OrangePi RV2
-From: "Troy Mitchell" <troy.mitchell@linux.dev>
-To: "Iker Pedrosa" <ikerpedrosam@gmail.com>, "Krzysztof Kozlowski"
- <krzk@kernel.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260413-orangepi-sd-card-uhs-v8-0-c21c40ec16d0@gmail.com>
- <f58ec12c-3957-4d44-b823-6a1ae1a1dd94@kernel.org>
- <CABdCQ=NhTkGJUh_fKnZoQMzdpyO-UbV5zrSfiNVUC7bkSBifTA@mail.gmail.com>
-In-Reply-To: <CABdCQ=NhTkGJUh_fKnZoQMzdpyO-UbV5zrSfiNVUC7bkSBifTA@mail.gmail.com>
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NwzkBiTYPEyUCrsQl1xjU+epwdSOa/J/dxUu58fgXZ6q133ACAq7W9DS
-	Is2Io7Lu9XDyFy5vUGmjUPJpl1xRHQ7ntoJA2nvt+MmW9X8cwDyBIMgS9wJ44tDd07jlFXx
-	pUAUMrI8cICnjvB0ReNEbcDDCR2ahcc1vyUMDkV1FxmrSC7bLnx2lYyzdYyCC6QKK3JGFQM
-	vH30KJab+HG+jM0aMcn95I1QiLk5+fA0ngQ6BWW4iYgW0z7gUuinfmqvqpKqX0+Uw1t9ZG2
-	ejJf8cr80qxGB35qPGFKRKaDYWxVQYEZgZ21VyxPq4oqzU13Xl+LeGh42JbzydPJyzsCf3o
-	+PtqLtOcQEYph8JYtb8uCvzv8RRmcjWODBG5SadQpjlFhI5OC7P/TFyQuVNoPaAYgIH2mYM
-	4T7RtWKPmqkYj+y3cWILRKavmVbRHj9QNFmmzwZ2hJhqxwsfBRyqozudZ9uzWqYInlGjSV/
-	CfyF7hSr4QzT9EBN5UEmePsf01gc3sliFCZJyXWmx2s4mxGmpzB4d2LTjNs7CsNeRIluh+P
-	AEpRpp6TA691SAtcBdpOmrDBRPZJaOWNnPyO2feprC7xW7lCo2wIYAfz1S/ccD0Ry3jNZin
-	j+mrsQSKzCitIK5spUnIhTYf9FpMCUOEpyEdJGYy8WCXI3K/WBXWfJ/HBW8e0MQlbbsEDaj
-	SP2GsnadAmtG1BVWqVTa7dWaOlYMGeT3ei55Yx2ZmygJToT/YjvjChU5g+/YxypFMPr76lm
-	ttosZIpIaNiFr1qXbt5H3nC1r2oNSJFkqJTqmRgt7eEOIq1a7Q6yw0IZly1hDJdalvNJuMd
-	LO26WmJwWUxoodwHJh8tLpSjm63zGmixxHr+NAhRjtb9BIRhoDi15Lw+r4w1Wohu+SnlFvM
-	W8XlN3DeyBHAMTDxhhnrrCogSdXBRhIIi0YI2ueE2VepwjMUOUr+WXiG/8OElPPj3LN3Di+
-	aDZHKkTgQWJ/kgtQSEWqZqDZ0f32swXU/uW4RMujF15ukzi9cwgDxY9zLZV3O35uxVwZyhi
-	DGhqJKIjrLXug7KDOlpOlZbYjVHqWJ4xLR7Pjnfs4LrvI8kRQDukpIVMCeJWvIaq5OzBbZD
-	L7nXlKqnU8q
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ecb75ada-60c4-40e6-81bd-fc392007e9d8@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE0MDA3NyBTYWx0ZWRfX6uxnEhG/YnpU
+ 4PTUD/XiFhiAXaeMmLioqFII+IBo5eMsiBKvtmd3IrF8M7vQ1i4q1bNsqUQvjiX9hm0vbnhwNYE
+ Sq/2M1KPITYBPVTcI1FqnZC56FY5FbAlQ/bxLBMR4rFIp/ZECZ4JGcoqXTz/tz3kau5xaa+jDND
+ Kx3L5H9mEJ7yaV2AJ6HHAWWuiwMPaijeieWIIr2054pH0wh+bpV4VrnCnZtKB+MsWmIf3yNVMPd
+ ay3h4fjxK4ZgpuZ70JWG40QlEp7dz/2du++/WigpcFPqpU9SjYYGr7CeXrKQFJcOXSFDWyCSRhq
+ IlnHCSY6+K643AJafZBkcmMPXAbXekD6vi0ouCYJLoYALZ+iLPrke2IT/1atUJFwVJLXRFa5gt8
+ AKHWwemONl6MuZuE7KIlE843H7HvhPUpQLzFyzBUxCPxH3RHBAs/UBDlAIedZXv5GJoZG2ggjKT
+ B+2A6IWodCsS4igOTkA==
+X-Proofpoint-ORIG-GUID: J8e4A2Op_Pk1OuXm1ONduB93bL-BNjAT
+X-Authority-Analysis: v=2.4 cv=Iowutr/g c=1 sm=1 tr=0 ts=69ddf9c3 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=5-FrFs3OjuvqJegpMgEA:9 a=CjuIK1q_8ugA:10 a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-GUID: J8e4A2Op_Pk1OuXm1ONduB93bL-BNjAT
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-14_02,2026-04-13_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 impostorscore=0 lowpriorityscore=0 bulkscore=0
+ spamscore=0 phishscore=0 clxscore=1015 malwarescore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604140077
 
-On Tue Apr 14, 2026 at 3:12 PM CST, Iker Pedrosa wrote:
-> El lun, 13 abr 2026 a las 10:07, Krzysztof Kozlowski
-> (<krzk@kernel.org>) escribi=C3=B3:
->>
->> On 13/04/2026 10:02, Iker Pedrosa wrote:
->> > This series enables complete SD card support for the Spacemit K1-based
->> > OrangePi RV2 board, including UHS (Ultra High Speed) modes for
->> > high-performance SD card operation.
->> >
->> > Background
->> >
->> > The Spacemit K1 SoC includes an SDHCI controller capable of supporting
->> > SD cards up to UHS-I speeds (SDR104 at 208MHz). However, mainline
->> > currently lacks basic SD controller configuration, SDHCI driver
->> > enhancements for voltage switching and tuning, and power management
->> > infrastructure.
->> >
->> > Implementation
->> >
->> > The series enables SD card support through coordinated layers:
->> >
->> > - Hardware infrastructure (patches 1-2): Device tree bindings for volt=
-age
->> > switching hardware and essential clock infrastructure.
->> > - SDHCI driver enhancements (patches 3-7): Regulator framework
->> > integration, pinctrl state switching for voltage domains, AIB register
->> > programming, and comprehensive SDR tuning support for reliable UHS
->> > operation.
->> > - SoC and board integration (patches 8-10): Complete K1 SoC controller
->> > definitions, PMIC power infrastructure, and OrangePi RV2 board enablem=
-ent
->> > with full UHS support.
->> >
->> > This transforms the OrangePi RV2 from having no SD card support to ful=
-l
->> > UHS-I capability, enabling high-performance storage up to 208MHz.
->> >
->> > Tested-by: Michael Opdenacker <michael.opdenacker@rootcommit.com>
->> > Signed-off-by: Iker Pedrosa <ikerpedrosam@gmail.com>
->> > ---
->> > Changes in v8:
->> > - Resending the series as v8. The v7 submission failed due to an SMTP
->> >   error during transit, which resulted in a broken thread on the maili=
-ng
->> >   list.
->>
->> Hm? Everything is here:
->> https://lore.kernel.org/all/20260413-orangepi-sd-card-uhs-v7-1-16650f49c=
-022@gmail.com/
->>
->> You can send individual patches to fix up threading, use --in-reply-to.
->
-> My apologies for the noise and the rapid resend.
->
-> The reason for v8 was that the v7 cover letter (0/9) failed to reach
-> the mailing list due to an SMTP error on my end. This left the v7
-> thread "headless" in the archives without the changelog or the full
-> context of the series. I was attempting to fix the threading
-> immediately so that reviewers would have a complete set of patches to
-> look at, but I realize now that resending the entire series on the
-> same day was premature.
-So that's why Krzysztof said you should send individual patch with --in-rep=
-ly-to.
+On Mon, Apr 13, 2026 at 10:23:59AM +0200, Konrad Dybcio wrote:
+> On 4/11/26 4:32 PM, Dmitry Baryshkov wrote:
+> > On Sat, Apr 11, 2026 at 12:10:38AM +0530, Mukesh Ojha wrote:
+> >> The PDC has multiple DRV regions, each sized 0x10000, where each region
+> >> serves a specific client in the system. Linux only needs access to the
+> > 
+> > Nit: there are other OS than Linux. Would you rather point out that
+> > other DRV regions are to be used by ... what?
+> 
+> TZ, HYP, HLOS, CPUCP..
 
-                                      - Troy
+Thanks for pitching in..
+
+> 
+> I'm wondering if we can make use of the HYP one on e.g. Glymur, to
+> parallelize accesses (and whether that would bring any practical
+> benefit).
+
+I mean, Ideally, It makes sense to utilize extra 0x10000 to use or just
+to use the hypervisor one for Glymur.
+
+ 
+> In the RPMH architecture, each "client" has their own (GPU, AOP, DISP,
+> etc.). Then, each one of those clients may have an associates RSC
+> (Resource State Coordinator) and/or anyOf BCM ("interconnect"), VRM
+> ("regulator"), ARC ("RPMHPD") voting interfaces
+> 
+
+> Konrad
+
+-- 
+-Mukesh Ojha
