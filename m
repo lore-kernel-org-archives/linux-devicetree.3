@@ -1,139 +1,113 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DDD33D6698;
-	Tue, 14 Apr 2026 10:50:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776163809; cv=none; b=iall4SSJuDiCtS84Wk/64l88FEReiHZjG2jvaZ0e14Eemk/xlmwF0OPwP/uNBw+2ImBcezhBxb3AJbJc2bP7mQy7vNSTYbPL8Pf4PvQwcCJnhtXL/VRJF6+qeqWPelq1zuZxemouNd/546qvBYeSMaZMvQt4aifSZRvr09cnC3E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776163809; c=relaxed/simple;
-	bh=ATR7jPCiqFhUJZWvipHfB9fQLlfRKaC77BcEuJfekz4=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=aDa7rCwAYPQvxbZPwXYlyNrvJCJeWUsF0eMGAhN5p5ZNYlv421rJONeaTi2vyRfj6dzbgS+AZAGcau5sk8ivlZ7dFuYPh1vTM+uQfWBBTNDpjP5pZnDJI9wxgL1OgUQxwAoqQ4WQg8ClbxcCOHYKJvUVBo7OgmW3ciDqj+hJnII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=bU5WOgvD; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 198223D75B9
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 10:54:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776164049; cv=pass; b=LWT9WFAXHplSX3zcjuqPu2VhfiNmHnxZm6Es2sjrRPXXoZC8DFcAc50g+2u2pVY0AziZlaU6ocdsZ1knLAILJ/jwSEgwYPyxF79+5PxlC4lkDUrt4E37AMwr8LED4BVUvDHuRTLiH0qAkT9FW+56YS35gH8YKdnw24fJR7Sn9Bs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776164049; c=relaxed/simple;
+	bh=IJ6eZNFa4BvzEyhZzc3NkU6Mj7y0nTg/7TgB/BQzNgs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Mskbjtye4pXjSNVealTMksrw96hWQplyVY5VTGM4RLLcqq8YCayyx6aIoPUV0eVtAEyfKxzEBww5bBS1vxTq37jozuVTvQ6o/hyYev9SKrIx8gx0fXoxLVHjhiP5pLHH9HGmoPkcwm884MHLvTMvRvH/mFJ2JQBtkIajCw1KZaU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O+bHQ/XX; arc=pass smtp.client-ip=209.85.215.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="bU5WOgvD"
-Received: from [127.0.0.1] (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id A11F32673A;
-	Tue, 14 Apr 2026 12:50:02 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id ah9wOf_RKuH4; Tue, 14 Apr 2026 12:50:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1776163801; bh=ATR7jPCiqFhUJZWvipHfB9fQLlfRKaC77BcEuJfekz4=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=bU5WOgvDZTzvFknUo05leQFShBt352kJl6xDKxA//wTjNOpFR0BsbGj2lmpW4LxFo
-	 /6L+yP5O/Q+XDIAZSaQ7wgjFsc30YZYUbEFOgj6mPt03OLnnpJ6uw4nxzK5+9+obwp
-	 2ZqbjkPEtZPrbqRAjxdGO5HqbXCNboQhy2WrgyE2WVNOx8hc116sj/bfJ3XtOW4wmE
-	 PXNkMieYy1iXmiell9tTjrk1extFxAcOjyQhEguYEQCEfkf77jgyPsLxZb9f0mQCs/
-	 b1p+jWbCMMKNvyGas1o/maZmXZBOJ6M5E/jzMtoQfhwUhZHtb06n5AOKCXBUnDcEMf
-	 XXhykpnNkkWlA==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O+bHQ/XX"
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-c76b9efc299so2141183a12.0
+        for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 03:54:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776164046; cv=none;
+        d=google.com; s=arc-20240605;
+        b=UX/K6Ud+TTSU8eAmIVUwYYnQtjtM5FWVPK9dGEQupaNuWTbg4UiUk/Dt5Vvh841HNd
+         0/XXzVoO5RceToaS2PR9sVl53FrL0cF8anVR0eljRasq7CfJx6RPnpGBxs2+J4qT+Rmu
+         0ih0PGT76iJUnBFQKBWiwUcLeo2pN5L12rwM4BFNQvRdAEdIfUeo1AJdNGi2mJgO4xoF
+         qN4Mvl5q1P1S7TjoJkx3FQy/n5DlhpVYaGT8qrHoI+238rlaFL0Qvjc4GAI7N+zzxMsW
+         p6RfdR7JnARkWAFOXPZ7cjZXIUEVNcMxzuYf+v5cNNfDS15T4EEGv4ypCYlt7IyMPupe
+         66Gw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=IJ6eZNFa4BvzEyhZzc3NkU6Mj7y0nTg/7TgB/BQzNgs=;
+        fh=qLE+AxAPrw24OOl1otOAc/nGoLCaDFL3Ah7pYljs7LQ=;
+        b=V7FWaDsRGRrGvyXtsH7qtPFo1PW7Ssi7ufBbcGDMUgsCD8YhccFI/nh3nI5YUcVbpb
+         seYeikwYN6gB780FLlbImlFp7oGAWGdDwkhj0Dep9ssuSzFQWJwt8UVtaSHEicNCqiGN
+         LlXZDjjTF7kYl4w7JlkqRAcAcbkSilFiNXH9reUZ0MzWkGiAw1V7+Lug1o6eASE+9vhi
+         GaaRvZO+6sQutmTlKyYBESC6ZOat1sBjTE2+UoovPYOwGOefG+ovP2PSwpcGnKHAdSA7
+         K4Kgv9MzijVUzeQMPHAgzKH9dWer7/9ewBwbn9H2xVT0bX2D2tx6KyMpxmUqR+iJVooH
+         YWNA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776164046; x=1776768846; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=IJ6eZNFa4BvzEyhZzc3NkU6Mj7y0nTg/7TgB/BQzNgs=;
+        b=O+bHQ/XXtMGwOQKs7GXvIf1SYUw0hn5HcY0huKkwdIYFQr+5ASKkIzPgfvjvu/SPBm
+         wlrKWa7vT2KMB6lrdVmz1jXhGzaMdGt80RelWBHBV27o+OnkDaK4gtNpEY6P/mUzD3Yi
+         FQhIQzuJf48ekau/E2Xt65k1WyPv/xlJNadUaPjFhGotWXGMR/7LipkbY33NXiqjF/Eg
+         AqxCpCr+5GjZVaTbIZlNtBaDgQSvKnz4BnsRIwokRoomXvjWZZqUtyfJ7hNX/UwYSK2A
+         PUl9tqmNgchVRx71zA4nfsGJy3nmyUCsdYffgFWeCxU5eH286nPrCl15Eb80i7HiaRvK
+         1DNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776164046; x=1776768846;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=IJ6eZNFa4BvzEyhZzc3NkU6Mj7y0nTg/7TgB/BQzNgs=;
+        b=JdenIVuJhJIz/zy56G+/BYPyQdPsghAEwjXPyVUZxAsMNgQVJbKJCizvvlWPWkcjQS
+         pyWHekiwtBa1d8fmfLQuK6KP/s12fTqDsV4isM3QhK4KG1Iu/29uNEzszda0TjJDkFp3
+         d8KcfRLIJeSGmCscnQPcfe5qeG/gscrLLZd6BVMENpnoCbnDNEVCoApHRNwX1H602IOE
+         42IIP+FDipahOI5JP3wyF9G9+Wa0IXS7RbYxONcp5EgAc+fQHjb4X2O2aor7zQTxiWab
+         w1QlVktVIoiT8M5hP+Ok/1oiNjnOhjN8A0fvVWTTELZxkwPN7OcUHCiuLD3OoaS9+gUs
+         Hwpw==
+X-Forwarded-Encrypted: i=1; AFNElJ8QFKfo79OHvkupstlwLEHQjdLfcYOke4cEhUsN0mut3RLi9bAWhn/Q4sWFUM3nbE4H/hmTuHnl15ib@vger.kernel.org
+X-Gm-Message-State: AOJu0YxG/6fqVX/6JcdoLWNLS4MHiqC/l57iciom4Fx64oK5P0qYSuA5
+	PGKAM2ocO03DVjks4iCBGX4d4O8ZAvGzqjjTtHZY2N9zgbDjR53LbYSG2snEzmW2fRXkURmaker
+	/uG5fOLOCVnSlzDBVPr5IK71B11A8Ax8=
+X-Gm-Gg: AeBDiettCBLvn1rTvZJamu4uhP3BtDaHLpnPyO1kEv9nXzFWcEGtqEkaqQLFShEWsqT
+	sVUfiPGOKsRmCachhCW2tFFTOi30w1pJPu9VOKCM3O9EFOH/0pkIHZf5bQEJdEN8mlLFTBQlPXm
+	RyNHzVhd80lf/HQc5fqVljbMW35PyCt+RbUu6QjTeBmInl7ia9YN5jwf3Ngk/ZIqssOy2/vBVme
+	6gzbcyA94ipUDOEdqXQww8wH+O0KUWvDI0yfuDnAQ/z95DqFtzkLdjAWq60HDYgSaoot4n8NlUW
+	NECzE5j8PGdDNWIkkKkNi1ptLKswECs4D2bIJQ==
+X-Received: by 2002:a05:6a20:6a13:b0:398:a060:a97b with SMTP id
+ adf61e73a8af0-39fe3c2d507mr18527614637.1.1776164046322; Tue, 14 Apr 2026
+ 03:54:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 14 Apr 2026 16:19:52 +0530
-Message-Id: <DHSTILN3EP1X.1KGAMPFVIKXJC@disroot.org>
-Subject: Re: [PATCH v2 1/2] mmc: dw_mmc: implement option for configuring
- DMA threshold
-From: "Kaustabh Chakraborty" <kauschluss@disroot.org>
-To: "Shawn Lin" <shawn.lin@rock-chips.com>, "Kaustabh Chakraborty"
- <kauschluss@disroot.org>, "Ulf Hansson" <ulfh@kernel.org>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Jaehoon Chung" <jh80.chung@samsung.com>,
- "Krzysztof Kozlowski" <krzk@kernel.org>, "Alim Akhtar"
- <alim.akhtar@samsung.com>
-Cc: <linux-mmc@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-samsung-soc@vger.kernel.org>
-References: <20260414-dwmmc-dma-thr-v2-0-4058078f5361@disroot.org>
- <20260414-dwmmc-dma-thr-v2-1-4058078f5361@disroot.org>
- <cec99f99-5ac4-7f0d-8e2a-947edfef8930@rock-chips.com>
-In-Reply-To: <cec99f99-5ac4-7f0d-8e2a-947edfef8930@rock-chips.com>
+MIME-Version: 1.0
+References: <20260413100700.30995-1-phucduc.bui@gmail.com> <20260413100700.30995-2-phucduc.bui@gmail.com>
+ <87v7dupfx6.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87v7dupfx6.wl-kuninori.morimoto.gx@renesas.com>
+From: Bui Duc Phuc <phucduc.bui@gmail.com>
+Date: Tue, 14 Apr 2026 17:53:54 +0700
+X-Gm-Features: AQROBzDvbXBRQEOHytM6mfwHKRF-_puUL3-UZMWiLosO-tI7eLbkJKI2mRDU4oM
+Message-ID: <CAABR9nGu6HyP7HA-0RJX7t0kbufu7pAkbUq9MV9cWUAd+uzS3g@mail.gmail.com>
+Subject: Re: [PATCH v2 1/6] ASoC: renesas: fsi: Add shared SPU clock support
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: broonie@kernel.org, lgirdwood@gmail.com, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, geert+renesas@glider.be, 
+	magnus.damm@gmail.com, perex@perex.cz, tiwai@suse.com, 
+	linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 2026-04-14 16:50 +08:00, Shawn Lin wrote:
-> =E5=9C=A8 2026/04/14 =E6=98=9F=E6=9C=9F=E4=BA=8C 16:36, Kaustabh Chakrabo=
-rty =E5=86=99=E9=81=93:
->> Some controllers, such as certain Exynos SDIO ones, are unable to
->> perform DMA transfers of small amount of bytes properly. Following the
->> device tree schema, implement the property to define the DMA transfer
->> threshold (from a hard coded value of 16 bytes) so that lesser number of
->> bytes can be transferred safely skipping DMA in such controllers. The
->> value of 16 bytes stays as the default for controllers which do not
->> define it. This value can be overridden by implementation-specific init
->> sequences.
->>=20
->> Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
->> ---
->>   drivers/mmc/host/dw_mmc.c | 5 +++--
->>   drivers/mmc/host/dw_mmc.h | 2 ++
->>   2 files changed, 5 insertions(+), 2 deletions(-)
->>=20
->> diff --git a/drivers/mmc/host/dw_mmc.c b/drivers/mmc/host/dw_mmc.c
->> index 20193ee7b73eb..9dd9fed4ccf49 100644
->> --- a/drivers/mmc/host/dw_mmc.c
->> +++ b/drivers/mmc/host/dw_mmc.c
->> @@ -40,7 +40,6 @@
->>   				 SDMMC_INT_RESP_ERR | SDMMC_INT_HLE)
->>   #define DW_MCI_ERROR_FLAGS	(DW_MCI_DATA_ERROR_FLAGS | \
->>   				 DW_MCI_CMD_ERROR_FLAGS)
->> -#define DW_MCI_DMA_THRESHOLD	16
->>  =20
->>   #define DW_MCI_FREQ_MAX	200000000	/* unit: HZ */
->>   #define DW_MCI_FREQ_MIN	100000		/* unit: HZ */
->> @@ -821,7 +820,7 @@ static int dw_mci_pre_dma_transfer(struct dw_mci *ho=
-st,
->>   	 * non-word-aligned buffers or lengths. Also, we don't bother
->>   	 * with all the DMA setup overhead for short transfers.
->>   	 */
->> -	if (data->blocks * data->blksz < DW_MCI_DMA_THRESHOLD)
->> +	if (data->blocks * data->blksz < host->dma_threshold)
->>   		return -EINVAL;
->>  =20
->>   	if (data->blksz & 3)
->> @@ -3245,6 +3244,8 @@ int dw_mci_probe(struct dw_mci *host)
->>   		goto err_clk_ciu;
->>   	}
->>  =20
->> +	host->dma_threshold =3D 16;
->
-> I'd prefer to set it in dw_mci_alloc_host() instead of picking up
-> a random place to put it, for better code management.
+Hi,
 
-Okay, that function is in -next I see.
+Thanks for the review and explanation.
 
->
->> +
->>   	if (host->rstc) {
->>   		reset_control_assert(host->rstc);
->>   		usleep_range(10, 50);
->> diff --git a/drivers/mmc/host/dw_mmc.h b/drivers/mmc/host/dw_mmc.h
->> index 42e58be74ce09..fc7601fba849f 100644
->> --- a/drivers/mmc/host/dw_mmc.h
->> +++ b/drivers/mmc/host/dw_mmc.h
->> @@ -164,6 +164,8 @@ struct dw_mci {
->>   	void __iomem		*fifo_reg;
->>   	u32			data_addr_override;
->>   	bool			wm_aligned;
->> +	/* Configurable data byte threshold value for DMA transfer. */
->
-> No here, there is a long section of comment before struct dw_mci{ } that
-> describes each member of it, please add it there.
+> You added clk_spu in this patch, but not touched.
+> When I checked whole patch-set, you initialize it at [4/6], but [2/6] is
+> using it. Maybe it works, but is strange.
 
-Ah, you mean the documenting comment. Shouldn't have missed in either
-way.
+You are right, clk_spu is used before being initialized.
+I was not careful with the patch ordering and only ensured the series
+worked as a whole.
+I understand now and will fix the ordering accordingly.
 
->
->> +	u32			dma_threshold;
->>  =20
->>   	struct scatterlist	*sg;
->>   	struct sg_mapping_iter	sg_miter;
->>=20
+Best regards,
+Phuc
