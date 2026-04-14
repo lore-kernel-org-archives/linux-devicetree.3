@@ -1,33 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AEA32C11FA;
-	Tue, 14 Apr 2026 14:12:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 744BF31159C
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 14:15:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776175964; cv=none; b=Xt4xzKzMPyNFbx3oRS2HoCwOMdwjTXXoFMNSH0op14lqrCH4jCrPbV0/E8h2DlxGLgtF0Vo+1EH9Q59f0ID7lOLCUR0a98I4FnnvgPZA5inY9PUOC2hBpF22YHKnfx2uW4VUJlDqE82ZFb4s5g/eH0q2ANBh+9/6rfbEiiwl8e8=
+	t=1776176154; cv=none; b=bsRMEyDy4BVm+944GJLDn9E08hk6O9cCxxjZjlfGjYO88YAwyzU2sCdnVpdFihkbsMdiyspETcEsvQKw7VE5jUIeQhy876ILzOuomAvmBU0pCQVn1pjLDnaFyTGVbGhj7166bJf9AqDMOy9GAGvX/KwRsSHQTXmsq19yH0ygU3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776175964; c=relaxed/simple;
-	bh=WlH7WsSUqw0QpoPiI2l2MTr6QiRnePDgSL/y4mefmdE=;
+	s=arc-20240116; t=1776176154; c=relaxed/simple;
+	bh=Q8K2JZDt+sO0CClm4/rVIlM7ktFn4GpWofwVDkYPZn8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Swz2P8BZ0FdGWB6nhEFaAmO2WaMqU5BZ4FHWBIUfl5EetZTGuxv30AY4yAudQcnc0dJrKJ03NLAkEYjBNjMqM5UrdgIA/tYKx16ah+DBFLGePdR7H1yUU2xF0wvTSUDPX/NYZjEZe/Oc5yTRiVWlIXkrNaCs8OQCHBVftECFOc0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qPliRY52; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=IkN4oaN0EtcNwwsbGqCTHggVuI9Zh0VPetc0slXavjic6y0NI5tDrQZsCDiJRAJ7iDn8Fo/7SirCWUEicUPqQ6rkZQl6yWHhsgPwGFF8oW8NxcYzK3A7hXiAHur6Tgod4soEXFMgN8w02UKXnt4ypGlHDmuQ1NGgpGjWz+nP6IM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TikPlKnk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GvcmasCw; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qPliRY52"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0169C19425;
-	Tue, 14 Apr 2026 14:12:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776175963;
-	bh=WlH7WsSUqw0QpoPiI2l2MTr6QiRnePDgSL/y4mefmdE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=qPliRY52jXXxQrUo0YryBcH8lTQhb/vhW1dpZb+gnhByeRzbLlqBmHi2xWHZZPeKE
-	 BmsWlWZzFJ6f6D98cFvcllablPOE2JkXD1JjHmXi5wTUwddzuNx9oXNZrvhlE0CQvK
-	 uX77Z4CCzWFuSwcuNi6sAHTS4N4t8xHC+66DLbdmC0k3zxQnv/bfe67cCyW0+LeOoi
-	 trhLSNrbfxhyVuql6hXrKoJm9tOwQosi5YY9Kev3xBWeAmdAuen6a/fGI9C61Wxl+k
-	 I1DUJqnpdwTMhDzCYfzQuh+flDhAENQdNg6fjfc9teHDWpOY1YE7+a1xrUXwVqQfTO
-	 mIZ6SW1QBJWqQ==
-Message-ID: <cadd1ab2-a70a-4f7f-9bd8-3146ddacc2cc@kernel.org>
-Date: Tue, 14 Apr 2026 16:12:38 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TikPlKnk";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GvcmasCw"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63EBjGxc3505410
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 14:15:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	1uRMEoih+r45aOBffP43wZDGR9c/DoTnGgL0tCnr/A8=; b=TikPlKnk8m50HHkv
+	B7lmviyhIoAPAAfYTHWrgnQHj01HPgEw/yRW3tauzxDuO14R80J5QdUi3P8mkSaf
+	mmYZr66H0eSBPsb5AvuKu6SWvsDIPB8qhFg3IVWPH2dos4jkAQ2WHBx3Nh9kShXu
+	GGCemk8oiZpfHdZVu8jPQSlR4YEgLWKpnOpM9jZogMEZckAhPKdwuCnya+wwGn3Q
+	7Ab7gNtZyeGacw+iSuiMPMFwQ6ktoFT5vrzNcrF97PWM7/VvU9pmZQYJsuqC3xOO
+	UAiGG8Y7/40kcSBOPSMG1bEEP2x3Tnc3mmH+PJMcHULfo/8dIqdzsUIp5njy1k1D
+	RHgbow==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dh870k2h9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 14:15:52 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8a18178713cso12950746d6.3
+        for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 07:15:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1776176151; x=1776780951; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=1uRMEoih+r45aOBffP43wZDGR9c/DoTnGgL0tCnr/A8=;
+        b=GvcmasCwODEIALsYpgP7JOUAwbK0SrEv2oE2WpkjNj5X2jKgopJQAnYB05w87Gr4Ds
+         s6Eg2vjCYJKxu5TaTG2bzNq5KCuGWuagkRMP3sC39doN1Anp/YSBzlvu6cqsIPyFKBdA
+         18Dqbt+bfIZpv1Yk+7D2cEtWn6tyuzaF9/YxCiHID8tEBv+0W31sxjs+7iqqAXVN2IMR
+         xWbDoUHZ/yX1lvnApIXPsgS5NNneMYO6mIe+okBRQwX0rmK1Yhr1iU1vebJXs5nSGD9H
+         37nQlA4U/7pZJ8HOCWYCxPhfEoC4Qzz6EaxoxJPs1Dwyd7aUMy7s2NyKC22i+VgyJRXz
+         nsHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776176151; x=1776780951;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=1uRMEoih+r45aOBffP43wZDGR9c/DoTnGgL0tCnr/A8=;
+        b=HP++SQeiALeYqApFZLZldG9++6qraNVi9srSuhATTucDLSkRP5ng+kKlaTsvx6TVxf
+         K5C/wjH9Wk4cufpIsrcPEEiO09Ood8DTWtwG7C+00/5h0Kco9RN3YAP0bDRXi4RNXKS2
+         Z2ktrfdTkF8nE8T1VjTteMA03XUIHZn7U/eCxzF5NOaOQloDTVqmvOJrLkGGAutPbL40
+         FUwO3ncWaoEORC5Ukh6g9gAxx0W5P18YFDgFRggVZ8hZDcpCulUMIe/Od+a5Yb/1PSwv
+         6isalBQm7GGLbzOGJnGzdnn+WIh6seyLO7UwZN3awsav20rN3XLGS8ZfElfgjjsTdOq3
+         GISQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+bB4vA1962SjhaDS8U32q5S6JDigd7DW7r1YBST7K5BGOf9D7rHuzN2yMbq5gH90I5kzaWCZngRHgw@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw0AVhX4hfoRJc7oZuiHuXvkMg85aVoq9idr9QOLKBYxTcAF5sF
+	lP/m77MvuTNrqhUtBXj7D0dTwztyIPP+NHpETNQ3FZ7P28ibAhOewhaxkiV1fsDgr3VvzEjwSWT
+	nlU5wLfcgWodlj+ri/hRVBiurBHLNE5j80KHbKccNHEiOC81N26kp1ow53xY7revC
+X-Gm-Gg: AeBDieuACeLvKi81lNGblmluyd/v1+o0LIcCo6a7pEe9I3bVp7S8mL3YAX1rBX8DPH8
+	Nwfj2ChmOcvJSB8LMj3GUHy7zTREEaCI1ksJ9o7ee/y37vZxnOSE3jiDET9qiFKrDahSd00lGLa
+	m8DjQAgILq4eUGq1PaCNG+zHOTkwAj0ei017kQtgHauVzl9ilpidpreFzPNkbsqzrCp/FEeg5QT
+	6kD+qczG1LOJZjAoyhNRdPAcG6oQdDcHQrdmKeLtcaQV8bcef4AnyHQvJUGUEivJgup8PCFJlUN
+	kiVt4ESVqqqISKEkkY/aVzpozfvh2PfHeNyfFbF9YxUB9z10UFmIk+OjvHJg20SIAVs0Q4arNic
+	nBs2nTNWealXhY/0nRwcAt/H6F64ja8NFi7rwA79vuUaMJUN3HEHI/1PvsM50nom2nERLXJWM9X
+	FrAq5ub5yI3Q6IjA==
+X-Received: by 2002:ad4:5767:0:b0:8ae:6380:8fae with SMTP id 6a1803df08f44-8ae63809759mr12532306d6.3.1776176151198;
+        Tue, 14 Apr 2026 07:15:51 -0700 (PDT)
+X-Received: by 2002:ad4:5767:0:b0:8ae:6380:8fae with SMTP id 6a1803df08f44-8ae63809759mr12531916d6.3.1776176150584;
+        Tue, 14 Apr 2026 07:15:50 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9d6dedef0dsm404627066b.14.2026.04.14.07.15.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 14 Apr 2026 07:15:49 -0700 (PDT)
+Message-ID: <fb7ce90c-a7bc-48d7-b87a-640c7ee0b6eb@oss.qualcomm.com>
+Date: Tue, 14 Apr 2026 16:15:47 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,84 +89,71 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] MAINTAINERS: add Axiado SGPIO controller
-To: Petar Stepanovic <pstepanovic@axiado.com>, Tzu-Hao Wei <twei@axiado.com>,
- Swark Yang <syang@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>,
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
- SriNavmani A <srinavmani@axiado.com>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260414-axiado-ax3000-sgpio-controller-v1-0-b5c7e4c2e69b@axiado.com>
- <20260414-axiado-ax3000-sgpio-controller-v1-3-b5c7e4c2e69b@axiado.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v2] arm64: dts: qcom: x1e80100-dell-xps13-9345: enable
+ onboard accelerometers
+To: Aleksandrs Vinarskis <alex@vinarskis.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: laurentiu.tudor1@dell.com, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20260331-dell-xps-9345-accel-v2-1-7dacbd24b43d@vinarskis.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260414-axiado-ax3000-sgpio-controller-v1-3-b5c7e4c2e69b@axiado.com>
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260331-dell-xps-9345-accel-v2-1-7dacbd24b43d@vinarskis.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE0MDEzNCBTYWx0ZWRfX/1gWyS9Zzb26
+ 7Gwq2RI2fTq3FZ0P3d1Pk7Vb7x6RgL1YfmDNs6Xy97vywORUGtLyA4kW0PbD21PyICZJDR0BNQG
+ REnby/a069dgWJe8JkcKRreKb9nqG29GplUbymnxzjdo+6T/LzOtcPNPyRjynp8mMHHWEJQoudY
+ B06A0Tc0S6gM8hXmXICwskOJerwlTbUT8Cdf/w9UFVeLW252b6AfMIEEMJoaRmYfwzd3J596ncU
+ CAsQjbtL9jJZxsCM6sN7e525YUvARuZarrAt2LuXg2VOk3Q+9PFk9rRKItU2DkQXNikRkjqOsIz
+ QSlff6OI48nqcwGI68YG79rvOpwcECgek/Jt4o2MaCxtRxRuYdmLpSrxk6Ko1o6NvXASCO+TEaf
+ JWnB3e6x0h58qPoKC7HbKPUknbITz4xqZ0790kXOIFo1CZ0iN2Gkev20N/liQUqNz6ioZBK0hIw
+ bx5ZkxxoF8mL91fypoQ==
+X-Proofpoint-ORIG-GUID: YijyVdUwgFCwRRLlJYduuBlQIkl0kXFV
+X-Proofpoint-GUID: YijyVdUwgFCwRRLlJYduuBlQIkl0kXFV
+X-Authority-Analysis: v=2.4 cv=btZ8wkai c=1 sm=1 tr=0 ts=69de4c18 cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=I76Qk8w-AAAA:8 a=EUspDBNiAAAA:8 a=brg3RTsmiy1XP5ZoLEsA:9 a=QEXdDO2ut3YA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22 a=vUPM0Wvl0xcrLs4nqPIT:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-14_03,2026-04-13_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 spamscore=0 impostorscore=0 phishscore=0
+ priorityscore=1501 bulkscore=0 suspectscore=0 clxscore=1015 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604140134
 
-On 14/04/2026 15:48, Petar Stepanovic wrote:
+On 3/31/26 3:36 PM, Aleksandrs Vinarskis wrote:
+> Particular laptop comes with two sets of sensors:
+> 1. Motherboard: accelerometer
+> 2. Display/Camera module: accelerometer, ambient ligth (and more)
+>    sensor
 > 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 67db88b04537..56835c0a1863 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -4234,6 +4234,15 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/sound/axentia,*
->  F:	sound/soc/atmel/tse850-pcm5142.c
->  
-> +AXIADO SGPIO DRIVER
-> +M:	Petar Stepanovic <pstepanovic@axiado.com>
-> +M:	SriNavmani A <srinavmani@axiado.com>
-> +M:	Prasad Bolisetty <pbolisetty@axiado.com>
+> Both i2c busses are bound to Snapdragon Sensor Core (SSC) and are
+> typically controlled by (A)DSP thus allowing for great power
+> efficiency. This however requires DSP libraries matching ADSP firmware,
+> sensors descriptions (must be extracted from Windows) and other
+> potentially closed-source libraries. Opensource tooling includes
+> `libssc` and `hexagonrpcd`, but they were not verified to be working.
+> 
+> Until SSC support for X1E lands, bitbang both i2c busses to enable
+> accelerometer functionality. In the future if/when sensors on this
+> platform can be used from DSP directly, this commit can be reverted.
+> 
+> Both accelerometers were tested individually via `monitor-sensor`.
+> Display accelerometer is defined first, as it appears automatic
+> screen rotation tools simply pick the 1st iio device.
+> 
+> Signed-off-by: Aleksandrs Vinarskis <alex@vinarskis.com>
+> ---
 
+Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-I also expect reviews from the remaining maintainers, especially in all
-the trivialities like posting very old code patterns.
-
-Best regards,
-Krzysztof
+Konrad
