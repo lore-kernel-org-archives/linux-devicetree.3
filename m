@@ -1,338 +1,155 @@
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012064.outbound.protection.outlook.com [40.107.209.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 865113E6DF5
-	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 13:25:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 021C7217723;
+	Tue, 14 Apr 2026 13:39:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.64
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776173136; cv=pass; b=b3Lok9IAt0FzRWh1M87Dl4PBTioe2AcoVxaqAreyqjAVSUU423+lqTlp7D+xvjMOTrKsdonu03SZunTtVt1z6S7emJcLW511svJb2iwsnTIu6VBYxNVE5+vLq8fBbbygQvwo7egoe1F3eaf68fgiwxggOEXTe/9vUHCB/pKeCkY=
+	t=1776173977; cv=fail; b=ju2uqqrwxKZ5kxD6wLIyZmftTYdMti1PNNJGDf7JytG8T0O2JnNlpwVcLWtnKwqCYzfUAbjmH4ezKPOdjnDVM/0XrtVDsBlRjkCvQHgHzh5E7xHnpwJA8zQF1YmKdVqnG2SH0O68luOS96gER7B+QfgF+hhcrxtxD6t68Ujhv/U=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776173136; c=relaxed/simple;
-	bh=dmToRAa8rVmFxITbHNAQ7orPAttrnubK2XAvnPFoPcg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=o/4sSDuoVyjeUddC7O453FKuvLr2z/LCuMGK5uEkLBJDLUYTA25a1TL4PbkTshwLLeF7uGAsc43XJbsKPA1f/t3AcdKbFYpSPVbEwPTDBqaarMC1ZO3MPClxnQ7DV76bXysaUc2uZbRUu3rhvAQ+xhvwuLrme2jrYrdrGjoslDc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oT4GN7Vv; arc=pass smtp.client-ip=209.85.218.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1776173977; c=relaxed/simple;
+	bh=gHXQXsEsnHR0ZTqrq2jMWiZAgNR7nvEooWPX1W5qSIo=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=oXsExW5viXcviyk3+GYZXsrQuYh+aqR0k/nO434RHVkoyF4seGQt3k0j+N11De3C73xMeCVsvbXAewOCB5ywJJE4qe5LLaz9nYkxg6pwKN136xLRlG/KCAJnw0N4XIXK+lIteaYud7qfCgfvg3/3kJlmkR+kA7oL8LRqUAHxS+I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=sWjzKGAk; arc=fail smtp.client-ip=40.107.209.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oT4GN7Vv"
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-b9c6f1d1282so745429966b.3
-        for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 06:25:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776173133; cv=none;
-        d=google.com; s=arc-20240605;
-        b=XNNR2bufse1WqCaRa0vOpbOncSs/3AQbZrj6/iww3Z/1DGLJy87uoiOG4jIBh+RF4C
-         h+nA1k7FZ+PGmZ/9v7Nqz53O8oc5GxPvwA0mT8n0fUyoMpryxSc/d5KPy10wegPq9y9F
-         VtMz/GjyEjN3bQ2l+hL03/0mhB8QWrVzL35NVm9xIwzopkfMvTY0nk0A21v9pYPKe7TX
-         WdhwrWQXp600cdAWLlPV45kBjkuuYk1Nu8gMlSdxPwNMWZN7pWd+AQiSa8bQlpiHbXPh
-         CAtmG/pt0yR5EVJnSGGJElhtLZm0wlR19r2OB3OMKfAT59x5HNsXoEbQdLe3YAK+Adji
-         rAtQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=1rwaCRc2r8z5iPqTUdHmuFvHmmiQ+YCHzv+doVAKPkg=;
-        fh=oOFcFR45S5wtMdhuk/gXAPhfPlTbCgyA1CwYH1hPRR4=;
-        b=hxG7du12BwvBs9NePbZOJrzPVXwXnMlJCOSUBTyH59SryMhJ5w5cElcoRSnLnBvYhF
-         D55xXxSLz4vReea7KnLj1h494GgEwdLV2wgFqWVr74LG3nNv5NztKjmUTC6z3h87hpAP
-         utJt+FDg6pRzEtMcE8gXcmPi8GxNTxhkeNqSggVGo4ai0j9EOk+B7cdXExVjBSCnxfqu
-         1s/vkmS3dxOD585RlJS8YWmh3d4Zbu5+oSVbJM4/KCN++ZBV/5d8jhaCwX+kzs/Vsmb8
-         qWMiQ46qcAv1cdHmTt0s3tpPSvrRGEpU6kG7WIK7FlxuUFxSqA38qX2U93oetQ7pJQ6q
-         QwHA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776173133; x=1776777933; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=1rwaCRc2r8z5iPqTUdHmuFvHmmiQ+YCHzv+doVAKPkg=;
-        b=oT4GN7VvgRQ/5JQR1IgmPKVxb1MzrBjTsTwAIzwTpN3XUi2RU92j+KMgkJL+GIUsHr
-         H+3U+bFZ7VlsZmjzGn1zlxRy8qwokV4mE2KwkmIEAsD/P76gf6nXxJwrp8AH2L89wYIu
-         reB7+Yw+sTQyQXmSOb9j/FgUMpEzazHHoHcIV4q92P1nVl1jD0z9cG1Y0IfA2YoxpM9Z
-         K7vLeseHZWV9CGf78/jpL7/vvRlr4gdxMxwhiG/PgY7s7D8x6cZozmp/kxoJVYSVYBom
-         sJgfmhoecdtMUh6pPY2UOfeJv+efVLRCc0kiOZxhXJj6mv+bjuzEHh08OB0j/RAOSV+q
-         7ttg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776173133; x=1776777933;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=1rwaCRc2r8z5iPqTUdHmuFvHmmiQ+YCHzv+doVAKPkg=;
-        b=PUnaEq+wfhFDZxMyYKkIp42T/oNXMuofNkdGAbE1FlvszMT9FYxPtrhVdvoOoqrG4N
-         YbUjC0BrhR+f/4n0wCGN7LYIowd+FY9lkGqdMoTzzjHTXZftQld9E3jBi1WljLdWJfgb
-         /KVL/npdyL5F0PxnhLX0rdnjKcsZEQqCibc5VO/t77aocegximHwFWrdTddSMt/4i7JF
-         wVU8/UddHw1wb1+D6u+VMcHYs56Sxn3L5mvBrSxmsB/ANLk5W+7z83OfFdGvxYaMp5OT
-         kCjrpNBbxDrC/DXPuA9kJ1doZfrGUCKVaZ3VY3Jlla0CZs4DUd3WhYyA9Q3gJKpu9YPi
-         yJdQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+ptE87+4gWLNbC8eEgTF6cs27kIbncRUGbyqDEN6gkZ90LIJr1rTTqYGTXGg6p9JNtaG881sLqccnx@vger.kernel.org
-X-Gm-Message-State: AOJu0YyHLdSZJljLjuRWjDGugL4r2qhm9Q66JFpey373ushs+DQmT7rM
-	mo58NhJmjFBt1PXNm/ReH65Z26sBd7IdMGDc7k8eo+T+sWMYLGi41pn7RyPkPvRxUqcNDIJJph6
-	bcdbOgUjqvSMPNdCnKU+gyAkRU83Sg7g=
-X-Gm-Gg: AeBDietxaiDjHVjEwZQFSUXFYYpJmV+cHJi3q6WaGrSqBp/gityHXh87QWGXQG+e+CS
-	bbOBmm62R8VmcJC9TxUplQjJ/q+CdwNrPEIv7XLVbewpWQfEsZKWBWsHLYksByeV/aUPAmDb0BS
-	DZTGmGL3T6QEg0TYsA/OxN5QkRlXvkkCcCaeFC788wM2EE7vhVAouw6D1SNHQid0iIqOguO2To9
-	yGHoKmzjHZTglsQigPIk91UIztE35c3DqnDuQjMls5txhhWI4qL5c+uemIdUN80f7nENoWuEEQm
-	sv6sbA==
-X-Received: by 2002:a17:906:ba8b:b0:b98:b08:7442 with SMTP id
- a640c23a62f3a-b9d7277caf6mr927238066b.7.1776173132486; Tue, 14 Apr 2026
- 06:25:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="sWjzKGAk"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CeL7OhNVaTCYBCJerChja9RVPtCPXQ10Q5PTDchB0u6YFKbEs7yP7fi5ME0kre3NLaTShSi9NoZ9YwbmsP2ySQqL1tXeySACCiHOR9BQJEqqUS9PYxIqb0VrDk8VPdmdkbff6CQR7iUzoS71eQljgr+LGDRavYsBdcgtVXKvsk8S3MeHegIjM1Si2YZrK4IQ7einrJxTD7HfzBvY6ehRGFQd2t+5Hgxwnh3qA+J45J+5ZZYgoR/7bUoolK9sYb3Tu3x3qD2yLnAS78jVSshw0/iNnP6hVADUwtx44eU9BBfZuhg00+Uaarae6x8ZRtwtcw8s5sCC0A0qgpEl3LoJTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gHXQXsEsnHR0ZTqrq2jMWiZAgNR7nvEooWPX1W5qSIo=;
+ b=HP4Ivp7+Z1L0q4FJkWdW5ZarHZoIr1AACaLXiAQ/LXaiHjUSCvD9ksOHGLDvdHMmWtKK7ZzkzD90jjr2YmHxb3mOD1IHdwR0pSnpaHKrprCnL+qpTMLRu2aNEjjKuLU0d1T9m8fGQfaMZxkHjA7VgsoFF0ZisusINoPVsfsLLp16vzvY9/mBsbHw/4S8y+Km3s4OeD870igfozXD7FWz2wXDs/7l+aF/4sQUyrO3LIcHa89WYVKraj+v9LItVAv6dRViZCoyEbPApNrtUtn+X5/2HOYfhXguzBs66AHfKmKyMY8AYRj0sYQeTHl6SrCi1Mv2pr8ykW4jn6iABD5mAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microchip.com; dmarc=pass action=none
+ header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microchip.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gHXQXsEsnHR0ZTqrq2jMWiZAgNR7nvEooWPX1W5qSIo=;
+ b=sWjzKGAk28qu9uVe6k17XUHvARrD4xXeU70JaTb/utbVNnyLyRQn2Eb3ftGD4MgJLrmnzzYxK133licpRUzOH+4eJpO0eNl1SNpRAmrqOCF5qUHKDaM3qiVlGv7thcpbCc8gyWCIpGPLNDXf3ih78/ohoeTT74mFMkDnYLqLWhuVMVUVo9a17Kjc242mEmehagpOfi7oSr75jVtXriiNejWF+rieUZAbY4Jzg/wh+jn9jn55jG1ArWsIg14ocOqgyD8yyA+MHESduu/h3Yr9B+P3xpogRMKVNdvQk1lf0dsbQ/eLfHin1v18cyNZpfiOL7BaBx+M0DYsCNUsRCPTkA==
+Received: from PH7PR11MB8251.namprd11.prod.outlook.com (2603:10b6:510:1a9::9)
+ by PH3PPF55C5E51F2.namprd11.prod.outlook.com (2603:10b6:518:1::d20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Tue, 14 Apr
+ 2026 13:39:32 +0000
+Received: from PH7PR11MB8251.namprd11.prod.outlook.com
+ ([fe80::e81b:3e24:1804:5c7c]) by PH7PR11MB8251.namprd11.prod.outlook.com
+ ([fe80::e81b:3e24:1804:5c7c%3]) with mapi id 15.20.9818.017; Tue, 14 Apr 2026
+ 13:39:32 +0000
+From: <Ariana.Lazar@microchip.com>
+To: <conor@kernel.org>
+CC: <dlechner@baylibre.com>, <nuno.sa@analog.com>,
+	<Conor.Dooley@microchip.com>, <Jonathan.Cameron@huawei.com>,
+	<robh@kernel.org>, <jic23@kernel.org>, <andy@kernel.org>,
+	<krzk+dt@kernel.org>, <linux-iio@vger.kernel.org>, <conor+dt@kernel.org>,
+	<linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>
+Subject: Re: [PATCH 1/2] dt-bindings: iio: dac: add support for Microchip
+ MCP48FEB02 to MCP47FEB02
+Thread-Topic: [PATCH 1/2] dt-bindings: iio: dac: add support for Microchip
+ MCP48FEB02 to MCP47FEB02
+Thread-Index: AQHcw1exsFmkkxZFuEKBWaeFsPQju7XNNI2AgBFtAwA=
+Date: Tue, 14 Apr 2026 13:39:32 +0000
+Message-ID: <dd516b8155d9e782855f5e06e2260d57b596184b.camel@microchip.com>
+References: <20260403-mcp47feb02-fix2-v1-0-da60c773550e@microchip.com>
+	 <20260403-mcp47feb02-fix2-v1-1-da60c773550e@microchip.com>
+	 <20260403-speed-childless-1360de358229@spud>
+In-Reply-To: <20260403-speed-childless-1360de358229@spud>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microchip.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH7PR11MB8251:EE_|PH3PPF55C5E51F2:EE_
+x-ms-office365-filtering-correlation-id: 8955b231-7a52-4d10-6b21-08de9a2b4298
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|7416014|366016|1800799024|38070700021|56012099003|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ dwtZ/RImoBybKJQ3QiYAVKg5lLWbP7HzdCx29cnNk0kR7fzXWevMWrWegJt+vDyCyNv2unxEUclqw3vRg2dvHbyapcOxiYYCvdOgSkfxVbPqtSwm7iuuuU77XYUtnbm+ASyzN+yWZU8S48iUufh60NOixr2rouHcuJJ8xkCB7kqkrm7RlLy2VzDbpkHo5V8XEiN21tGGY9Or6kRZtIV+NM8Qyqe++0spM+Z7MGsCKz3uMSoHFw3mFpDSzP9Qc/wcHkV5ZJ3DePrH+AAA2TpPBHi6nDkZTm8RNv2dbh9Pvi7aTvkhPIMe7eZw0iXbMh0c4wuP6/vcImWYrT5+v41X3DR+OaK4NDTY6ajw2hAWNyEONKVJO90SWsKRUVYerR3nMcekXQZQPJ0naJUopyJUx5EIfymLL008IVZKZaG+p2l6i/8pxYIR3aQG7K4Kw+uUAzcbru7PCwEeyinQfQ2uGWnazMtVMKtX8ShgtfZfIEipLei9NQvnuFOWiiKS/sRSCQY6ZPgTGp3KfiQ0kFPOEEsNKSInH3q/mCd0V0V7gHXjokv2lUpEa3naQddU+9R3USHdruwQohk/v6CoMhOpRMYsfwI5+OzMTNc2mi/JThWKbmf6lGxHgwdulfzZL9+K7PkfsVN0w1NMFmjkqmx3U/Z1bVJAzyVM35hUsMhesR/SpibWmvSlBYVJemf3O2G2ZEGPO6Zd22dn31k+mTJ7Qi50nAUp5BsEx2QbQeSuaaooltwsWAp/b9b1L344+vgSIKutOeIAAIw9wcs054xr/W3I7jdjyyXIRP1xj1g0mXs=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB8251.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(38070700021)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?cjFFV0JHQ0JMU3k2Z2EvcWVnUFRUSnk2NWhZRURMVHZrbXNNc3lTZHdJbGQ0?=
+ =?utf-8?B?VVlvSld0R2R6Vm04dUhHbVhMK0MraWZvUkRPMlBkT2w4TWo0UEFKeThBT2ZP?=
+ =?utf-8?B?aHBkZVBRZ1NIOVcveWc3QzV1OFZZMEJwbkQ0WlQxdElBMHlPWnNxb1hTUElp?=
+ =?utf-8?B?T0tQY1dlOVNQQnMrWVJaeERTSldqUUpxcE5yVGJ1UFd0R0JXRlFnQUhUM3pO?=
+ =?utf-8?B?Q1hwMTgyZGJJUFREYWRkYjZpR0hPMGZMTjI2RmUrNzN2OWQwcU5VdkpCd3U4?=
+ =?utf-8?B?VktHVWRucjU4WEhadndLamM4OThsUjNZTGd3WUlEWHhETGxRakVyK3pOakJN?=
+ =?utf-8?B?aVZGaDhsK2V6Z2xiOXd2YXVDT3Q3MlZvZlFKaUtmVzVpaWtFSUxnR3VkKy9I?=
+ =?utf-8?B?YndWU1RYWmRXbkp0TG51b3VRU0VnZG9saXBkM1dqN21UWmVnamZhMFZWMTlq?=
+ =?utf-8?B?bkc5WGp4dXk3dkcwTDVVaS8zMWU4SmxJekd0S2F5d0ZyRHhQcWdmQXh3d0Zz?=
+ =?utf-8?B?ZFBqeUJGZmJBcHhVamlFY3JZdHExcldYWlVaMlFiK0xvbTNpSUQ1ZDNTWFJS?=
+ =?utf-8?B?VjhaN2pCSXgwQmJmOTNib3doK2p3RW9WNDZtM3pOc09lLzVYOFdZVXhXNjVL?=
+ =?utf-8?B?V24ya2MwQ011UmhtRmtGZ244ZjhtQ2N3cGgwSVJpbU44TEFmRHYvYm9Jc2hy?=
+ =?utf-8?B?alFFeG83UnhlWFRsMGc4KzFodlphTmxkNm5XWk5VVGFRQ2p1TkdBL29GUW5P?=
+ =?utf-8?B?NG9WRWZXZE5HWWdhRnJkK3FGNWNlTUltbWZlK05FWGxNMGxueUlFL2k0cG9T?=
+ =?utf-8?B?NFpodUZDdDVOU2Z4YkRjdVNBRy85VVpnOVRiSzlTUjRWR0xOcDYwV2xoTmJ6?=
+ =?utf-8?B?ckZiQjVYS1RxdVlQUFEvUFdKUnVJU0dlTGtFd0U4R3JsdmZvRk9iVmh2SkFH?=
+ =?utf-8?B?ZGwyTEtwZVB5OUpoRkZUa0cvMFVuVEx1UUlYeXg5WmFLdk1JTnRvdTE2NHJ2?=
+ =?utf-8?B?b0djSlV4Wk11c3JocXJrYm1qUGhtbEZmYkNBOGw2c3k2byszRm5lMHRPcEM3?=
+ =?utf-8?B?aThYVmUzL3g1ZzRZTkhXSlgxbkwwMWdSL0dIaDIvR0dMUGFHSzJrQnpTWTlk?=
+ =?utf-8?B?UFZmbHZsRTV2dC9PWTB2aDI3MFFzU0RDcHA4WGVVUlVBeWI4OGUyeWtDQW5G?=
+ =?utf-8?B?UlhIWVQ2K2pEbWV2QUYrZXpBN0pzakoycWM4aElGZWdGSnB2VEFWZUNkMVZa?=
+ =?utf-8?B?WkpMeTkwQUoycFUyclZER1hONFdXYkxIMHA0dXFrQkxPdmdrbjNkVGVPRmpm?=
+ =?utf-8?B?OVZIRmdjdmI1Z3FwUElOR3U2Rm1jZzltNUF3RjFSemYvSnl6aXBpMEkwdzFp?=
+ =?utf-8?B?SkdraFNjSmo4OE5YbnhJTWlwbkNwckk5OC9WSzk2ZGVHeWRGS0V3SklpVGRG?=
+ =?utf-8?B?ZjRyMG9TYlY1RUdqblYzUkJweFJKYmZYRnB4UCtCYm4zN0trc0xSTXMwbFJZ?=
+ =?utf-8?B?ZWRPNXBMa0k5QjVtZWh5bXcwNkJwZkhwVFl1UFNLZ1dHU2VISWUzeG5pRTVJ?=
+ =?utf-8?B?YlBwUEkvamV6dUtDSmZkNUpYSWFrdjF0dXFDQzB5TUM2R0tQbkI0MlRtWVdY?=
+ =?utf-8?B?SUl3bXVCQjhNTVExSDh1SW5uS2QzSXhDa3pXMlE2UlhqMGZ3UjdYUVJhMWJw?=
+ =?utf-8?B?NWg2WEtvQTRJVGdhQktveEhDRnowemszSTVNM1ZMODFFVUFSRys4WW5YZHpY?=
+ =?utf-8?B?cDE2M3lQeWd2QmFhYm9QclNUMEZaZ3BjdWhaUHMxT3YwQWQvVGw4NlpYYUhQ?=
+ =?utf-8?B?MGpuSWk0UXd6Q3FiTWJiMXRDWDQycGJrNkNQVVJmQUN5OXF3c0tOVDdOR0RY?=
+ =?utf-8?B?RzFPYTYzZDF3Mm1PUEZ1eE5EUU9tQ1RpUENON1Z6dmhsUHZvNnVJRjhMR1NM?=
+ =?utf-8?B?Y29sOHRxdWZCSjk4cUsvaG9pRDkvOTJmT0F6bm1DQSt5NzNZTGE5SFBJQW5h?=
+ =?utf-8?B?QXg3N0pCcHVQYmtoV2FkeFlxS1MwTGgrcXVSVm0yVG1qZkxxdlJCNFY4eUFP?=
+ =?utf-8?B?T0x4OFZoMTNrZ2NyUUYzbU9GWEZsM3hiaFBrS1NPY3h0KytuOGRoYTZxWjRP?=
+ =?utf-8?B?VFVyRDEwQ09LdDNDeE5mTU0yMjZXeWtiREhyaXhsYTFDZHorbEtweTR0bzlY?=
+ =?utf-8?B?R2o5elEvbjgrNC95eVhJMkx3YzhCWVE3ZHZjRUkwUmJKQ1EweEIyUWhtcW8z?=
+ =?utf-8?B?YkJxNDhoSDArbHY0bis1SUhlelNuUUZQdlRMWFJoU1JVRm1uUlRmQ3hFUXNi?=
+ =?utf-8?B?NkQyNjBxeW15Y2h4d0l4dlp3TS9Ha1ZMS2Zmc1pqNHdNQU0zMzFoNDEvcW11?=
+ =?utf-8?Q?eeVXd9KB1tGbnK0w=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <A42DB95F857E8543AA8649BE9AE58003@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260410-shadow-deps-v2-0-4e16b8c0f60e@mailbox.org> <20260410-shadow-deps-v2-2-4e16b8c0f60e@mailbox.org>
-In-Reply-To: <20260410-shadow-deps-v2-2-4e16b8c0f60e@mailbox.org>
-From: Anand Moon <linux.amoon@gmail.com>
-Date: Tue, 14 Apr 2026 18:55:16 +0530
-X-Gm-Features: AQROBzA45N5tX_gxF8wNR9dEOurmKJqRG5G4HXCsGJ5ETbsePSdurO7YbSqgcRs
-Message-ID: <CANAwSgSNHO3MNewNzpYbhuj4K3NTdfzDC9KPoUHbFH97P4M_UQ@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] riscv: dts: spacemit: Add cpu scaling for K1 SoC
-To: Shuwei Wu <shuwei.wu@mailbox.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	spacemit@lists.linux.dev, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-OriginatorOrg: microchip.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB8251.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8955b231-7a52-4d10-6b21-08de9a2b4298
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Apr 2026 13:39:32.3806
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 3805bjWGqAkd7tCZgEXLYo6IYK6RsfdmPGnIILcKyhascRaPXO9u6Usw/10wFgJTJgUZdrXj9J26yhGTgLfJEJzjXsaJ1P2fU+HVgDa3Flc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH3PPF55C5E51F2
 
-Hi Shuwei,
-
-On Fri, 10 Apr 2026 at 13:30, Shuwei Wu <shuwei.wu@mailbox.org> wrote:
->
-> Add Operating Performance Points (OPP) tables and CPU clock properties
-> for the two clusters in the SpacemiT K1 SoC.
->
-> Also assign the CPU power supply (cpu-supply) for the Banana Pi BPI-F3
-> board to fully enable CPU DVFS.
->
-> Signed-off-by: Shuwei Wu <shuwei.wu@mailbox.org>
->
-> ---
-> Changes in v2:
-> - Add k1-opp.dtsi with OPP tables for both CPU clusters
-> - Assign CPU supplies and include OPP table for Banana Pi BPI-F3
-> ---
->  arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts |  35 +++++++-
->  arch/riscv/boot/dts/spacemit/k1-opp.dtsi        | 105 ++++++++++++++++++++++++
->  arch/riscv/boot/dts/spacemit/k1.dtsi            |   8 ++
->  3 files changed, 147 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> index 444c3b1e6f44..3780593f610d 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> @@ -5,6 +5,7 @@
->
->  #include "k1.dtsi"
->  #include "k1-pinctrl.dtsi"
-> +#include "k1-opp.dtsi"
->
->  / {
->         model = "Banana Pi BPI-F3";
-> @@ -86,6 +87,38 @@ &combo_phy {
->         status = "okay";
->  };
->
-> +&cpu_0 {
-> +       cpu-supply = <&buck1_3v45>;
-> +};
-> +
-> +&cpu_1 {
-> +       cpu-supply = <&buck1_3v45>;
-> +};
-> +
-> +&cpu_2 {
-> +       cpu-supply = <&buck1_3v45>;
-> +};
-> +
-> +&cpu_3 {
-> +       cpu-supply = <&buck1_3v45>;
-> +};
-> +
-> +&cpu_4 {
-> +       cpu-supply = <&buck1_3v45>;
-> +};
-> +
-> +&cpu_5 {
-> +       cpu-supply = <&buck1_3v45>;
-> +};
-> +
-> +&cpu_6 {
-> +       cpu-supply = <&buck1_3v45>;
-> +};
-> +
-> +&cpu_7 {
-> +       cpu-supply = <&buck1_3v45>;
-> +};
-> +
->  &emmc {
->         bus-width = <8>;
->         mmc-hs400-1_8v;
-> @@ -201,7 +234,7 @@ pmic@41 {
->                 dldoin2-supply = <&buck5>;
->
->                 regulators {
-> -                       buck1 {
-> +                       buck1_3v45: buck1 {
->                                 regulator-min-microvolt = <500000>;
->                                 regulator-max-microvolt = <3450000>;
->                                 regulator-ramp-delay = <5000>;
-> diff --git a/arch/riscv/boot/dts/spacemit/k1-opp.dtsi b/arch/riscv/boot/dts/spacemit/k1-opp.dtsi
-> new file mode 100644
-> index 000000000000..768ae390686d
-> --- /dev/null
-> +++ b/arch/riscv/boot/dts/spacemit/k1-opp.dtsi
-> @@ -0,0 +1,105 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-> +
-> +/ {
-> +       cluster0_opp_table: opp-table-cluster0 {
-> +               compatible = "operating-points-v2";
-> +               opp-shared;
-> +
-> +               opp-614400000 {
-> +                       opp-hz = /bits/ 64 <614400000>;
-> +                       opp-microvolt = <950000>;
-> +                       clock-latency-ns = <200000>;
-> +               };
-> +
-> +               opp-819000000 {
-> +                       opp-hz = /bits/ 64 <819000000>;
-> +                       opp-microvolt = <950000>;
-> +                       clock-latency-ns = <200000>;
-> +               };
-> +
-> +               opp-1000000000 {
-> +                       opp-hz = /bits/ 64 <1000000000>;
-> +                       opp-microvolt = <950000>;
-> +                       clock-latency-ns = <200000>;
-> +               };
-> +
-> +               opp-1228800000 {
-> +                       opp-hz = /bits/ 64 <1228800000>;
-> +                       opp-microvolt = <950000>;
-> +                       clock-latency-ns = <200000>;
-> +               };
-> +
-> +               opp-1600000000 {
-> +                       opp-hz = /bits/ 64 <1600000000>;
-> +                       opp-microvolt = <1050000>;
-> +                       clock-latency-ns = <200000>;
-> +               };
-> +       };
-> +
-> +       cluster1_opp_table: opp-table-cluster1 {
-> +               compatible = "operating-points-v2";
-> +               opp-shared;
-> +
-> +               opp-614400000 {
-> +                       opp-hz = /bits/ 64 <614400000>;
-> +                       opp-microvolt = <950000>;
-> +                       clock-latency-ns = <200000>;
-> +               };
-> +
-> +               opp-819000000 {
-> +                       opp-hz = /bits/ 64 <819000000>;
-> +                       opp-microvolt = <950000>;
-> +                       clock-latency-ns = <200000>;
-> +               };
-> +
-> +               opp-1000000000 {
-> +                       opp-hz = /bits/ 64 <1000000000>;
-> +                       opp-microvolt = <950000>;
-> +                       clock-latency-ns = <200000>;
-> +               };
-> +
-> +               opp-1228800000 {
-> +                       opp-hz = /bits/ 64 <1228800000>;
-> +                       opp-microvolt = <950000>;
-> +                       clock-latency-ns = <200000>;
-> +               };
-> +
-> +               opp-1600000000 {
-> +                       opp-hz = /bits/ 64 <1600000000>;
-> +                       opp-microvolt = <1050000>;
-> +                       clock-latency-ns = <200000>;
-> +               };
-> +       };
-> +};
-> +
-> +&cpu_0 {
-> +       operating-points-v2 = <&cluster0_opp_table>;
-> +};
-> +
-> +&cpu_1 {
-> +       operating-points-v2 = <&cluster0_opp_table>;
-> +};
-> +
-> +&cpu_2 {
-> +       operating-points-v2 = <&cluster0_opp_table>;
-> +};
-> +
-> +&cpu_3 {
-> +       operating-points-v2 = <&cluster0_opp_table>;
-> +};
-> +
-> +&cpu_4 {
-> +       operating-points-v2 = <&cluster1_opp_table>;
-> +};
-> +
-> +&cpu_5 {
-> +       operating-points-v2 = <&cluster1_opp_table>;
-> +};
-> +
-> +&cpu_6 {
-> +       operating-points-v2 = <&cluster1_opp_table>;
-> +};
-> +
-> +&cpu_7 {
-> +       operating-points-v2 = <&cluster1_opp_table>;
-> +};
-> diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/spacemit/k1.dtsi
-> index 529ec68e9c23..bdd109b81730 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
-> @@ -54,6 +54,7 @@ cpu_0: cpu@0 {
->                         compatible = "spacemit,x60", "riscv";
->                         device_type = "cpu";
->                         reg = <0>;
-> +                       clocks = <&syscon_apmu CLK_CPU_C0_CORE>;
->                         riscv,isa = "rv64imafdcbv_zicbom_zicbop_zicboz_zicntr_zicond_zicsr_zifencei_zihintpause_zihpm_zfh_zba_zbb_zbc_zbs_zkt_zvfh_zvkt_sscofpmf_sstc_svinval_svnapot_svpbmt";
->                         riscv,isa-base = "rv64i";
->                         riscv,isa-extensions = "i", "m", "a", "f", "d", "c", "b", "v", "zicbom",
-> @@ -84,6 +85,7 @@ cpu_1: cpu@1 {
->                         compatible = "spacemit,x60", "riscv";
->                         device_type = "cpu";
->                         reg = <1>;
-> +                       clocks = <&syscon_apmu CLK_CPU_C0_CORE>;
-
-Based on the Spacemit kernel source, the k1-x_opp_table.dtsi file
-defines several additional clocks for the Operating Performance Points
-(OPP) table:
-
- clocks = <&ccu CLK_CPU_C0_ACE>, <&ccu CLK_CPU_C1_ACE>, <&ccu CLK_CPU_C0_TCM>,
-                        <&ccu CLK_CCI550>, <&ccu CLK_PLL3>, <&ccu
-CLK_CPU_C0_HI>, <&ccu CLK_CPU_C1_HI>;
-                clock-names = "ace0","ace1","tcm","cci","pll3", "c0hi", "c1hi";
-
-These hardware clocks are also explicitly registered in the APMU clock driver
-via the k1_ccu_apmu_hws array, confirming their availability for frequency
-and voltage scaling on the K1-X SoC.
-
-static struct clk_hw *k1_ccu_apmu_hws[] = {
-        [CLK_CCI550]            = &cci550_clk.common.hw,
-        [CLK_CPU_C0_HI]         = &cpu_c0_hi_clk.common.hw,
-        [CLK_CPU_C0_CORE]       = &cpu_c0_core_clk.common.hw,
-        [CLK_CPU_C0_ACE]        = &cpu_c0_ace_clk.common.hw,
-        [CLK_CPU_C0_TCM]        = &cpu_c0_tcm_clk.common.hw,
-        [CLK_CPU_C1_HI]         = &cpu_c1_hi_clk.common.hw,
-        [CLK_CPU_C1_CORE]       = &cpu_c1_core_clk.common.hw,
-        [CLK_CPU_C1_ACE]        = &cpu_c1_ace_clk.common.hw,
-
-Yes, it is possible to add these clocks for DVFS to work correctly,
-provided they are managed by the appropriate driver and declared in
-the Device Tree (DT).
-
-Thanks
--Anand
+SGkgQ29ub3IsDQoNCj4gPiDCoA0KPiA+IMKgcGF0dGVyblByb3BlcnRpZXM6DQo+ID4gQEAgLTE2
+MSw4ICsyMjIsNyBAQCBwYXR0ZXJuUHJvcGVydGllczoNCj4gPiDCoMKgwqDCoCBwcm9wZXJ0aWVz
+Og0KPiA+IMKgwqDCoMKgwqDCoCByZWc6DQo+ID4gwqDCoMKgwqDCoMKgwqDCoCBkZXNjcmlwdGlv
+bjogVGhlIGNoYW5uZWwgbnVtYmVyLg0KPiA+IC3CoMKgwqDCoMKgwqDCoCBtaW5JdGVtczogMQ0K
+PiA+IC3CoMKgwqDCoMKgwqDCoCBtYXhJdGVtczogOA0KPiA+ICvCoMKgwqDCoMKgwqDCoCBtYXhJ
+dGVtczogMQ0KPiANCj4gV2h5IGlzIHRoaXMgY2hhbmdpbmc/IFdhcyBpdCBvcmlnaW5hbGx5IGEg
+bWlzdGFrZSBhbmQgd2hhdCB5b3Ugd2FudGVkDQo+IHdhcyBhIG1heCBvZiA4IGJ1dCBvbmx5IG9u
+ZSBlbnRyeT8NCj4gDQo+ID4gDQoNCg0KVGhhbmsgeW91IGZvciB0aGUgcmV2aWV3Lg0KDQpJdCB3
+YXMgYSBtaXN0YWtlIEkgbWlzc2VkIGluIHRoZSBkZXZpY2V0cmVlDQpiaW5kaW5nIGZvciB0aGUg
+bWNwNDdmZWIwMiBkcml2ZXIuIFRoZSBwcm9wZXJ0eSBjb250YWlucyBhIHNpbmdsZQ0KaW50ZWdl
+ciByZXByZXNlbnRpbmcgdGhlIGNoYW5uZWwgbnVtYmVyICgwLTcpLCBhcyB5b3Ugc2FpZC4NCg0K
+U2hvdWxkIEkgc2VuZCBhIGZpeCBmb3IgdGhlIG1jcDQ3ZmViMDIgYmluZGluZyBmaXJzdCBvciBj
+YW4gSSBjb250aW51ZQ0KdG8gcmV3cml0ZS9zcGxpdCBtY3A0N2ZlYjAyIGRyaXZlciBpbnRvIHRo
+ZSBjb3JlIG1vZHVsZSB3aXRoIEkyQw0KcHJvdG9jb2wgZmlsZSBhbmQgaW5jbHVkZSB0aGlzIGJp
+bmRpbmcgZml4IHRoZXJlIHRvbz8NCg0KQmVzdCByZWdhcmRzLA0KQXJpYW5hDQo=
