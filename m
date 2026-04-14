@@ -1,145 +1,223 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72E322D94AF
-	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 17:56:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A501E2D94AF;
+	Tue, 14 Apr 2026 17:56:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776189377; cv=none; b=jAysWHSiiRTD0n/XQ8GL5odaNuE1/jIDGcUqr6gdDCCwxdL5QBcbgt4gt+W3ytbRe0rUj4sJ4BNXj3yBYQQaT4zNtdIhU9qFODFAEPLYJHK60S1v/hFjopCkEfzfB4HAMMeoqJZ4Oj84J5wCwY6KhE2m/zhXQrKGTwi6NPRz0V0=
+	t=1776189381; cv=none; b=EiZdCvxZtkz0WQbGdAp5tsLeXHthwBKsFSnbYe6R/IHC2yCMHfIJvNWECw/vge4DRH/4IaUg6KP9H/W6W406dlB0+GodmSWfoFyfd9dcqnOoZy4qT2Lh/QqrhmSdpvGA+SUHanYGt7MS+Vu2CQSqV9GdtXer6BqUrgtYcWdNtO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776189377; c=relaxed/simple;
-	bh=sujtAKk+T7XyzLJV3sWvURJUp2YcVbTYukhr8ZVBGLw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Kkpzlcltd4wM2X3oqHSlsrPb8nj0vnwMCaNr0urszQuau/K6Y6CueLJEBGnfMWzEx2RDgHB68rqcQeVlfS7Khb3+E7Nl4px8D7+c1NpG2Gcg66PTCl2d43LxrEMyov+8aG+Z+HSupbibCeDCid/hTAikGqm1RCjPrB3Dq99bhsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DDhoyDl+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CfnJezc9; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1776189381; c=relaxed/simple;
+	bh=ITnv3BrsSdGjP9wuxqeknqRZJkJsbYlTwOKIU4L4FcA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FnAhg0zouANgb7BlORd6n3wxELFBRpQmJoHnO0H86ThXGiIV4X5dZpjip6/ysR++WMDnQKsjDT4vfE/LM2sP55V2frmxSog2sp8exQBd228gIPXVvX08hGk2V5YO/GxLvgdexruv5RcwSIhQT8ujWMg+v97zIFR/jvJYGFCSMyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D72A1F4H; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DDhoyDl+";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CfnJezc9"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63EG9jYP731460
-	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 17:56:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=92cOdrzkvy2wsq8U5FBiGJgp
-	keDCiW3kVyU8oL/89W0=; b=DDhoyDl+Gnd0V94q/SKUb78vAwArOWUEga0HVkuH
-	FyBUpbMlZ6Qed3/fJPFVohzFqmAdK3mDwXS+02G/Z/urDdnj+SRhhEnKErZGNR6f
-	sFBoS6MR48zWPZstEeONDvK+b6Ib/2KVAzgj9GOXPyAE5tF5QVzqh1BvGcEpNmYE
-	WmlYKFQOBWm7EcVkeT+pFqCvxSFLnMa4QYShJYCYENV9vFwBsz1uRNYKNIITUfFD
-	k4iKjDXkQtCgdxK+kPO3hcEoZaZ3KKJOpGHGJsGRKwDa/Y1ahsvsuIxK9/mU/ro0
-	1kxM+g2TUAhCfuHR58KCwW6WkEK/KnAVKU80HiB45sj9wQ==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dhruu8et4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 17:56:15 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50d63962d83so138198711cf.2
-        for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 10:56:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776189375; x=1776794175; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=92cOdrzkvy2wsq8U5FBiGJgpkeDCiW3kVyU8oL/89W0=;
-        b=CfnJezc9q8x4bKzSKojtYj5fD2z16W9SYxKcy60w4M01yjri/axSinwRP4i9wh1PAx
-         QcWAX6BN7JXHP96VYvp+Kvgnz4lQqxV7m8pZnXfSkrsi5aPp0931UXzb4jlN4eP4sa5C
-         EtUh8LRVelej2/iXXGjtObIs655YMXvd6caDWK+EqQrDUhIXlnrSSdVtHkSxlPvpQERY
-         RgaMhJpK7EcnlYl6U2ZQ4FIetdqNw1WXfQ0PlYO0gRJowYPE44I/KnMb+rKBtJqBmS1G
-         wryvRpFdcdLTwfi74jV4gwZcZYWi5alVqYeYzznN4FnKOlYX+6Ts0Q9td7Lbu8VAL2DI
-         bsbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776189375; x=1776794175;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=92cOdrzkvy2wsq8U5FBiGJgpkeDCiW3kVyU8oL/89W0=;
-        b=MqWzZkShEuOcrifhF/s+wOqvoHIkBcX0aEBUr/w4k2/n20qdoGfD8Rm6ZTIMTDQwdr
-         dik/H5S5xjPZRgLkG3Klo4JhNxc8CXsQqMHk1OdZDCKkKacBB5TsfpZRpwqSYqUXmNNP
-         m1u4LX+XxQVmWxTj+Sw41uL3HYiFb4F/AahE5c+BgMQ6Oq3SsIo5mmsETjuoRN9zMz0T
-         TXt8nFVdZwOSdVk2pinG9HUZDu8Yf5axFtICcC+UOKVJiSePRUXfR7gmug59yFPlUEUH
-         YY0QTJsTaoEeud3pwVt+OFPge/wKtTwdXHZehfAnjOeeJUhayeuLhyXAkSNkrKP/fe3j
-         75MA==
-X-Forwarded-Encrypted: i=1; AFNElJ+XXFtXKIIv8hQ8enRehMt1TgftXB8DPZtLrSC8Lb60joshFTPj4bDBAxFnIRPcb+aObNElfRr9MiPC@vger.kernel.org
-X-Gm-Message-State: AOJu0YzcpK8ux/qxSmrHezfHfzLFt86RzVG+rC2n2E0vpTEdONQZmASU
-	k6cii+KQUMkZNCPeKKHNbVA93tEANSIyJXDmavq8AKcmuD0WBT7l8wCsQsI/gD4FDyP70DceGak
-	CHXh/LKyf5T39RyhXxCXBUOE6Fhtkc77Y6CbcqV4atbRCyzoePr1HyRwAih73gqvs
-X-Gm-Gg: AeBDiesseE2yr7EvvKBRB2zWVneWS/RZKgTVZNW4l0Pirva+VmvmUjUoeNp1suZ8mTf
-	fNIV02l0/TcleR5phNAHiWG5I7uCmuatb76ootCQAsKSgaKj8Pmi39ypesVUM3i9iRpb6Hpy2SU
-	BrnvlYsBhEOQbHF6UJ9Q52/WXtdxzac+VavW1f4IdnU7mQ+/iP8TV2qsTbR4s/3zwWi136N5lae
-	+10AxFki1B7IzVKY0HA/6L3cCHXUCWPocgMqQmfvmOm3MKjZMOJIXBXB8SVU/cDoBkA08ZPaTgg
-	Q/IkYtlju34UVd5RuLLVyNOeJgwM3uHSZPFmOwSCZkrg8nHF5dU1cUbldTaBT9ueiuA4gy9W2BR
-	MbQbWySRqvGwURGnDdA5g3YJhWstYjCN0Zv39KYnxvOMJwbgCjBsiF6tEgr7u4O2Mwx976Sp1HH
-	DKuu4doAsa161vjBvEJ9txZjE3C7z8boXKMWXueO0VUeotVw==
-X-Received: by 2002:a05:622a:998:b0:50d:830a:4213 with SMTP id d75a77b69052e-50dd5b2ef3dmr288491861cf.6.1776189374798;
-        Tue, 14 Apr 2026 10:56:14 -0700 (PDT)
-X-Received: by 2002:a05:622a:998:b0:50d:830a:4213 with SMTP id d75a77b69052e-50dd5b2ef3dmr288491291cf.6.1776189374332;
-        Tue, 14 Apr 2026 10:56:14 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a400d8d33fsm1083112e87.28.2026.04.14.10.56.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Apr 2026 10:56:13 -0700 (PDT)
-Date: Tue, 14 Apr 2026 20:56:11 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
-        linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 6/7] arm64: dts: qcom: kodiak: Add QSPI memory
- interconnect path
-Message-ID: <u2nfci7pul42sj65udak5liwpddqzrm23g5af56u3ancjixuf2@kwmxmiindqc4>
-References: <20260414-spi-nor-v2-0-bcca40de4b5f@oss.qualcomm.com>
- <20260414-spi-nor-v2-6-bcca40de4b5f@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D72A1F4H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C97B2C19425;
+	Tue, 14 Apr 2026 17:56:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776189381;
+	bh=ITnv3BrsSdGjP9wuxqeknqRZJkJsbYlTwOKIU4L4FcA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=D72A1F4HVtoExY4l7fzIXrXze9dlN7iNgtNw55wSz88M4IohOc7eHfFYRdH9Mp4Wu
+	 jmUoybPBRLnIliYAI78C7x4x0vgTsyd/TJ4y7VJyXIn6xKC9H4LKIZS7+QY3PqwUIQ
+	 Mbwp4Wlep1TlotgfDvlZL4YSn/wYbx/pHOiXGpOA4v1oJsfKwy2/iP5CJmzSMhTV15
+	 25H1+tCjEaCBd0ZH/YseTEv+5P9HwBstpT9KHERtW52Y/QDeA7GR7KfvnxvyWwPyQ/
+	 sb3gJna3w+My6RAAIvdKN5j+tjupnUL+yHsdjzmp+R1DvDkhroHS+z73NoQ4nx2FqA
+	 hEkyDBjvmSUnQ==
+Message-ID: <8e40020d-3471-4c72-9de9-ed5eb53433a7@kernel.org>
+Date: Tue, 14 Apr 2026 19:56:17 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260414-spi-nor-v2-6-bcca40de4b5f@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: 9kMA-NB6BYjMG1Ue6eHKRp_pfhDRCe7V
-X-Authority-Analysis: v=2.4 cv=dpfrzVg4 c=1 sm=1 tr=0 ts=69de7fbf cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=CipEwJKW4Sg1KE0sZiEA:9 a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE0MDE2NyBTYWx0ZWRfXwefGvK1lqIvE
- AOGtJTExbA7YCn9MqN7UEAbxck+j0sh/AurrV8goVcQoPL0UfWJYTRzmxJuEdPEcqsrIBpayeQO
- FbDk1DIs6uF7F7kyVZX6AfdVl4nHu9t6IJJ6t/nsIizSJXBeQQvzuKOu4AExvOfHyfuZXAYdgs2
- JNiosL0nA1eLR6ndQhg0Oa3F5iL6eWQ21Qn1Ccqfiz41k1AgDruea46iuhSnxN7oNPwsG+PQXVL
- FY6+pnt2uxe/R2mQMk7KoWQ030x1hi4PFxXMMbRvuEnymWA21wij2bAjClMIZDJqUx+pg/+GJ4v
- rf0as4RLnQZLSWJqF8lHl7iHkFNmiucLcM7T3Jsq7PEBnDAW3kVBUiuxN1LBfptXuIl0rm5zKLU
- brynT6qzUT0a79E4lG9LYCyMvNMwFukpoT288E8bxTZrfCkw4b3GAIMFcikiaYS/iyZIb6r0MNT
- Ghx6O51UqFKJzreocQg==
-X-Proofpoint-GUID: 9kMA-NB6BYjMG1Ue6eHKRp_pfhDRCe7V
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-14_03,2026-04-13_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 spamscore=0 adultscore=0 priorityscore=1501
- clxscore=1015 phishscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604140167
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] remoteproc: add AMD MicroBlaze driver
+To: Ben Levinsky <ben.levinsky@amd.com>, andersson@kernel.org,
+ mathieu.poirier@linaro.org
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, tanmay.shah@amd.com, michal.simek@amd.com
+References: <20260414161558.2579920-1-ben.levinsky@amd.com>
+ <20260414161558.2579920-3-ben.levinsky@amd.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
+ QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
+ +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
+ ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
+ 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
+ hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
+ tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
+ 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
+ naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
+ hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
+ whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
+ Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
+ MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
+ OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
+ GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
+ 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
+ YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
+ 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
+ BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
+ JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
+ 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
+ YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
+ qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
+ RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
+ Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
+ H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
+ dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
+ AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
+ jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
+ zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
+ XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
+In-Reply-To: <20260414161558.2579920-3-ben.levinsky@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Apr 14, 2026 at 10:38:24PM +0530, Viken Dadhaniya wrote:
-> Add the missing QSPI-to-memory interconnect path alongside the existing
-> configuration path. Without it, the interconnect framework cannot vote for
-> the bandwidth required by QSPI DMA data transfers.
+On 14/04/2026 18:15, Ben Levinsky wrote:
+>  Add an AMD MicroBlaze remoteproc driver.
 > 
-> Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/kodiak.dtsi | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
+>  The driver parses the executable firmware memory window from
+>  the remoteproc device node's reg property, interprets that
+>  address and size in the MicroBlaze-local address space, and
+>  then uses standard devicetree address translation through the
+>  parent bus ranges property to obtain the corresponding
+>  Linux-visible system physical address.
+> 
+>  The resulting translated region is registered as the executable
+>  remoteproc carveout and coredump segment.
+> 
+>  The MicroBlaze is controlled through an active-low reset GPIO and kept in
+>  reset until firmware loading completes.
+> 
+>  The firmware-name property is optional, allowing firmware to be
+>  assigned later through the remoteproc framework.
 > 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Fix your commit msg so it uses sane style, not some indentation.
 
+Look at how other commits are written, if you have doubts.
 
--- 
-With best wishes
-Dmitry
+...
+
+> +
+> +static int mb_rproc_start(struct rproc *rproc)
+> +{
+> +	struct mb_rproc *mb = rproc->priv;
+> +
+> +	/* reset-gpios is declared active-low, so logical 0 releases reset */
+
+If reset-gpios is declared active-high, then logical 0 also releases reset.
+
+Drop comment, not correct.
+
+> +	gpiod_set_value_cansleep(mb->reset, 0);
+> +
+> +	return 0;
+> +}
+> +
+> +static int mb_rproc_stop(struct rproc *rproc)
+> +{
+> +	struct mb_rproc *mb = rproc->priv;
+> +
+> +	/* reset-gpios is declared active-low, so logical 1 asserts reset */
+> +	gpiod_set_value_cansleep(mb->reset, 1);
+> +
+> +	return 0;
+> +}
+> +
+> +static int mb_rproc_parse_fw(struct rproc *rproc, const struct firmware *fw)
+> +{
+> +	int ret;
+> +
+> +	ret = rproc_elf_load_rsc_table(rproc, fw);
+> +	if (ret == -EINVAL) {
+> +		dev_dbg(&rproc->dev, "no resource table found\n");
+> +		return 0;
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+> +static const struct rproc_ops mb_rproc_ops = {
+> +	.prepare	= mb_rproc_prepare,
+> +	.start		= mb_rproc_start,
+> +	.stop		= mb_rproc_stop,
+> +	.load		= rproc_elf_load_segments,
+> +	.sanity_check	= rproc_elf_sanity_check,
+> +	.get_boot_addr	= rproc_elf_get_boot_addr,
+> +	.parse_fw	= mb_rproc_parse_fw,
+> +};
+> +
+> +static int mb_rproc_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct mb_rproc *mb;
+> +	struct rproc *rproc;
+> +	const char *fw_name = NULL;
+> +	int ret;
+> +
+> +	ret = rproc_of_parse_firmware(dev, 0, &fw_name);
+> +	if (ret < 0 && ret != -EINVAL)
+> +		return dev_err_probe(dev, ret,
+> +				     "failed to parse firmware-name property\n");
+> +
+> +	rproc = devm_rproc_alloc(dev, dev_name(dev), &mb_rproc_ops, fw_name,
+> +				 sizeof(*mb));
+> +	if (!rproc)
+> +		return -ENOMEM;
+> +
+> +	mb = rproc->priv;
+> +	mb->dev = dev;
+> +
+> +	/*
+> +	 * Keep the MicroBlaze in reset until remoteproc has finished loading
+> +	 * firmware into the executable memory window described by reg and
+> +	 * translated through the parent bus ranges property.
+> +	 */
+> +	mb->reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
+> +	if (IS_ERR(mb->reset))
+> +		return dev_err_probe(dev, PTR_ERR(mb->reset),
+> +				     "failed to get reset gpio\n");
+> +
+> +	rproc->auto_boot = false;
+> +
+> +	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(64));
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to set DMA mask\n");
+> +
+> +	platform_set_drvdata(pdev, rproc);
+> +
+> +	ret = devm_rproc_add(dev, rproc);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to register rproc\n");
+> +
+> +	dev_dbg(dev, "MicroBlaze remoteproc registered\n");
+
+Drop. This does not look like useful printk message. Drivers should be
+silent on success:
+https://elixir.bootlin.com/linux/v6.15-rc7/source/Documentation/process/coding-style.rst#L913
+https://elixir.bootlin.com/linux/v6.15-rc7/source/Documentation/process/debugging/driver_development_debugging_guide.rst#L79
+
+Core already gives way to see probe success.
+
+Best regards,
+Krzysztof
