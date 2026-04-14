@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA76A37CD31
-	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 07:16:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAD3437CD50
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 07:17:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776151009; cv=none; b=qB6sJj/9/rIASnPdzXweJhJT6KCXM1kJscThZl3pKMqE8vI/HezUcXRTe1HWjS2rT5KYq3OCf53ZtONf6+enJVorhMV4aaiA6L9pQdZRfKazwsvo4Cbcemh6SI4S8hA+Es1alFe3Hqhu1dPRjltNKw0g+N8cD6eme3FyZ7+IobQ=
+	t=1776151059; cv=none; b=uE4xgLhsKxNLlaeg9VbLMsRzxlsNYR46fc/GFmaT9ZkRczoBMQMBRW4WACo2PcFR3cM6ShxBTdC0b4KTEcmRGw/y5spfNOQp95S2Mv7N9V3Le2YvPNTIgxXkG+446I4GGB/YiGEYYbuKzz+hBfiYFqg9/U4ZkCyStzwD8oLbBK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776151009; c=relaxed/simple;
-	bh=Oyu9hMZpLdbkIeLLjHSSf/QrtpxQZFaZr442VT2jh9k=;
+	s=arc-20240116; t=1776151059; c=relaxed/simple;
+	bh=7Dmt/MiAmo5xB+PDGE2wLhfeSkGGhjTNlGfwTXY8+nw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W1sp/FjiaBagc5QovF8xl6HUGbziVP7g7P/SFSUD/JXp7qvHBiADavv+WDCzExq4M36e5CUwIgk0qExQl06Rqdkx1xIqrKMmEKYmg+ZqOXxLvEe1bqj+poojmJ+wKvfLQL0ntEuFJwudcy7asH/H6LLQ5yaQI8heXyNyYBXr35I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O6C1sVnr; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=AGK2rNYN7B3DyhGiVKCmirk9r+DkaP/bQKd7eEmNX+QsLSCNSUkh9nei/bhuE2lM6MBFSpChzo0j+hE9rwMxrsPlV797B2FYEpkgo87peIx5m52EV7E5x/Y5LS/vNdxeDSlFEhkXBeB59OOkIWbU3taddfKMbNCSDW2li/8buM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o6lBR2e6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O6C1sVnr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CD94C19425;
-	Tue, 14 Apr 2026 07:16:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o6lBR2e6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3BEDC19425;
+	Tue, 14 Apr 2026 07:17:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776151009;
-	bh=Oyu9hMZpLdbkIeLLjHSSf/QrtpxQZFaZr442VT2jh9k=;
+	s=k20201202; t=1776151058;
+	bh=7Dmt/MiAmo5xB+PDGE2wLhfeSkGGhjTNlGfwTXY8+nw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=O6C1sVnreaI0jCGpj8UCyJEgx4DrxCSc1iDz6SgiGYoBxJKsmKZ53hlcEbXeCgCDp
-	 B0SRqC5hw/gke7FOqiKddfVd1KTflWnIUp/OR7A865wJMF6AIAyuoOlrWOZvZ1JLje
-	 z9F8aK3lpNWRq/LW6TCD2qkv4gqUiLDp4J7WUZmZlWJcufpT6twaUlBpefxG6gwohP
-	 cuQYZvxn8gKVYQ2P8er5rFEWD6dh/tCJ+O93hHZM/GR7Wc18T4Zdy+Jlxn7tNF/wAg
-	 iC2CGir+de6EsFHs5miew19XEHF4EkTme2fEDYP9Y6yFhvZsQkQ+bDW+pys117zKHd
-	 Q5mOd41GU/qCQ==
-Date: Tue, 14 Apr 2026 09:16:47 +0200
+	b=o6lBR2e61fUSwrhVQQmt9aGxbbVeMr9eHmRVEole98mZDqnqrvjwSyCcmfKxlQauC
+	 CZLN20Xs3Tuv8wtrDPNl/PegDMEYzw6cPIZGpY/22ZvOjy9O+cTgF9SeDkDTnG8LOw
+	 GZMd1L09EtFelyHM+oLwlhZtPzUl4bscMCiXz2awyqWkdxaAcolPk2QszbD2Nenz7G
+	 JKHxutyohzg3satWsxNEIO75P3dLjSbczAoPHXfTVUKTzK6u8/kszXDH4/EwHUa0/v
+	 9eDUxuyDx3htzv93DQI3heNAYouWvIIne0phgtMQjI7ClCmuIJ0WTzJqqCsflx1ayw
+	 qpkj9idpk16NA==
+Date: Tue, 14 Apr 2026 09:17:36 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Dinh Nguyen <dinguyen@kernel.org>
 Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
 	devicetree@vger.kernel.org
 Subject: Re: [PATCH 1/2] dt-bindings: socfpga: Add the Agilex7 series SoC's
-Message-ID: <20260414-goldfish-of-striking-shopping-aab9a0@quoll>
+Message-ID: <20260414-certain-puffin-from-avalon-29ceeb@quoll>
 References: <20260413144553.132737-1-dinguyen@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -47,18 +47,8 @@ In-Reply-To: <20260413144553.132737-1-dinguyen@kernel.org>
 On Mon, Apr 13, 2026 at 09:45:52AM -0500, Dinh Nguyen wrote:
 > The Agilex7 is a series of devices from Altera that are derived from
 > the Agilex family.
-
-SoCs?
-
 > 
 > The Agilex7F device supports PCIE 4.0 and DDR4. The Agilex7I device supports
-
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
-
 > PCIE 5.0 and DDR4, while the Agilex7M device supports DDR4, DDR5, LPDDR5
 > and PCIE 5.0.
 > 
@@ -82,17 +72,14 @@ fix. Feel free to get in touch if the warning is not clear.
 > +        items:
 > +          - enum:
 > +              - intel,socfpga-agilex7m-socdk
-
-Why does "7m-socdk" go with "7i" and "7m"? If these are SoCs, then board
-using soc 7m cannot use 7i or 7f fallback.
-
-Or board is not using 7m SoC, but then the name is misleading.
-
 > +          - enum:
 > +              - intel,socfpga-agilex7f
 > +              - intel,socfpga-agilex7i
 > +              - intel,socfpga-agilex7m
 > +          - const: intel,socfpga-agilex
+
+And separate question - why previous soc "agilex" is used as fallback?
+Even more confusing.
 
 Best regards,
 Krzysztof
