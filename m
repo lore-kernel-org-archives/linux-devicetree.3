@@ -1,375 +1,214 @@
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE85B19ABC6
-	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 14:03:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776175437; cv=pass; b=npahZLSmfcgIyoUfmLFFWmxtiSjIj2jyN6egfx2uNoirmOsIKbLIsUdZ/39VWX1grU8WTi8nLo+V0NMR5cGt0/TXRzGvlixi8hS+hJzkUwOnqKofl1SdiemAnM76RcfBRcXiXuEl0/Q01Zzcr+Q/OTcsakSZUR0tDt06GfLcbbY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776175437; c=relaxed/simple;
-	bh=Fveyq6Me/SSUIiNKykDc2O0ENPgqNAoNXbo41+6mBwU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VHIJ50T0EjLGco/jvNUkIDlMt4s6t/Gd9Z5pUm9fn6ued4MeRn96AF/8ELb/xVfqE6IFHxEjQE04Xf4MVt6nH3efBzIct0wkeABmJLZypFfGwt+o6ScOrbELue8r7BHXfFxA20ZiSuUWgd0iYzXW1Zg3JuA0rv7KfUgBJzxdlUE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=c0eSv/HU; arc=pass smtp.client-ip=209.85.167.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 513543A4F37;
+	Tue, 14 Apr 2026 14:05:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776175505; cv=none; b=cJ4hXGrqFB08LXuiI6+BHaqOTckErJHp/9uYo85T6Z5vpoPef7e69Su3xGTjtKKN4kXXfsxB2h6mJ5ujbknHOcS76marJgTrCRmD6UPi4gbZVvfj9G9Y3cFD2qxirRdPRxm44tx1h0909WsPFGoarhVDhh0LEaN+GDbDCMy509w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776175505; c=relaxed/simple;
+	bh=OF74E1jQi9q8RugvWARpV7zDv+GE0MY3No45lifQv/4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=N4WjZd0yj6LnoY1tIqY2YZ6oPcYOgSeHwSwfhHQC1xUf3njs7HUvsEsDHXBmOUH1iU046dgQSLBwfLmEu9TfbebI8jyhNHMni8Ss6KrPqeAoGSkjkdeXFnqi+W2k4e1Ud8+kAArPfqPCxHD5tPew6/FwBcaMS2MG3Naw16dFwQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XRQYte4a; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="c0eSv/HU"
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5a2b5ea59a1so6385837e87.1
-        for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 07:03:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776175433; cv=none;
-        d=google.com; s=arc-20240605;
-        b=IYFjucH1zOD4Y7PyXewKSr9gcpcjZcm4tNU7Qg1phGKIva0uqXY9dR0CfU5/VEEeSi
-         1ojDvaVUt0I5t2gMRPs3M2qlnYu9yxJP16t+kvVfuP9iXaK7s6D6KXWiZs5pLaypD00Q
-         P9wHfDr7n4JQZiNThELsZzVU43a2LP3ab46TBWr3oQRxhRhi/Fh7AwsHwmyTkg+pvyu9
-         +OgUL01gW1Ikajsq/ASwX1rfLtY9aam49K51XkGJwJwFiw+mA3p+SX9oyd6ozGZNAF2T
-         KNyeGsHDZVywJ6f9UHmZxNslsC1GYVL0ZWqSEcL/IyP9/F90WLuQ95gt+g22ltJ0FZuS
-         4hGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=gPnoP/VtWVc+m+Hy+JavXf/s8kHjIuaUNf4svkasJrs=;
-        fh=lz0cvspxMESYYjFcd5GKdWhjx7fTHI68cfZl/tSR1F4=;
-        b=NyJXephwdSNp6UN532RsIq3pJqAETcCHIr1HrUu9Ng+QoCo8IEGYiaWzPR9rOHAVXU
-         M+nRVIKmmr4J0iRb2zAtZEsmvDGTAA23rPBuTAOH+Nnm0pWo8VhgS+vapb4poqWQxFxD
-         fE82zRVDK2PuaLFAEd2HnGppk1ag/539MbkQKdZaNoUei+YNwMGHWeIKuAMLD6eCe+1o
-         geqCdPqM/8x3hb/ur5YXH6PNV8lHd6ImBI/qI0WCs48jaNj+MZmX0qhhU4KN4wT1cQoz
-         d1A34ZR11Iqv6AUT8RcxE8AuiuusEP0eZC7NkeAVW8bMh1UbjscrWueEjXw+EvDU63Tc
-         gKwA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1776175433; x=1776780233; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=gPnoP/VtWVc+m+Hy+JavXf/s8kHjIuaUNf4svkasJrs=;
-        b=c0eSv/HUNydIqufr5n9DteyuW4GmKCnOQRoW97DkDGqQmS3ZddYlaXbhmF8NnD2xwl
-         dKE2dLURXQ9bPcYoLS3FQ5MVipAsHogn6RNtFZ/sswvyfCMuGVZVXXnKS1lxB0jspcj1
-         7XMIkbe5HLeixUch1T54JSbHB/aty3QRUyiwHF8z2QeEwhMwuGgAuQ4F5uya4s12noIF
-         nFzBTU3sDeCjBLZDNrJTV7a8YQJ+0xSXkuiFej71dOeYaJ3RU415Qu5xXQV2DeilJbzG
-         EfWDV6ByTWppMUBmI3LxvHdiAak24UeLw4KLbjmLgOLEXIbmhkuciWKWcFRVTfPZrmya
-         +Jgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776175433; x=1776780233;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=gPnoP/VtWVc+m+Hy+JavXf/s8kHjIuaUNf4svkasJrs=;
-        b=RBguKDQEYGB1J055d96SDXhzTMNqUpKuiFu2n7vo7i4ZjQccbjLL6I/2sV+k6s6fHR
-         vaQ6xhGQNnneRPewUSS/BBzF7KjfcUjTytLj6Gy5tdw8CipjYiqsMz1uof/G5IJgJ/fe
-         fdcaYupYm1zMEdsY8/RJW3WVfeV45rk53JOSF3Uoe6KI2EKevSNXol087dcLbhfw1IMy
-         VTgX5DMImRe6w3uzLRAuBPe4HFDNUOePrNCXUdPZQKG/7MGmFi92RH/ukXwHKknQmGt5
-         0+/t6b32iiz8iHy1syVfL7CpmzD1TZC3OKZi5ZNFhLGhaYNVuXjk3I7Ry+QP0EFhlHyN
-         319g==
-X-Forwarded-Encrypted: i=1; AFNElJ8QENscXF2ezs/72MZ05tA2wpOrRHJFULsJ+wT/PbD6rlGa1b7oYWaKnu9dlgF1Pld8udQZDfYVOeWp@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy7oYT1pgYvWrNNY7nJhLe9GTKRhlc8DyLEGm9ji/kqZZrkv+iH
-	uVuQ43GTxDgFgvDsNPqg3XN4wuZdbiANIyveyxV/m17CBvwtGiNri8rzkVXo54cbl8cQcme4TUr
-	Bxpzn5MZpGQjYmBz9eUxf7hOJDve7rWDFQ0Zqo8MsKA==
-X-Gm-Gg: AeBDiet6zjMamFVnGaJqQDNGMtSkhUzdPrkIXe53gUFOJRnNBDfIJzGwi3Zq2XwhcyE
-	U1/Z5jnBCKSplpxafirX02+x1K7UJDR/Lj5iZ0C8idsJ/kYl110+IXWIL/JeXrcckED97PvP8Zb
-	bcZlsOZtQuMFJ66v5yTdz//8LTl99ZSdhneqz2vppIqWvRqA1SfCmNrMf0alSj8zQjoC50rToTu
-	b/9SB0JsoWLQxcU1/53isAXcBmHndNtCBHbC4UAXbnO1Rx/wYiRVLKGTMYABQcG/C5gSVG0jdnp
-	Izq7SAUdqajLMqjno50=
-X-Received: by 2002:ac2:4bc4:0:b0:5a3:fcba:559d with SMTP id
- 2adb3069b0e04-5a3fcba55f9mr2772672e87.20.1776175432630; Tue, 14 Apr 2026
- 07:03:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XRQYte4a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF9C0C19425;
+	Tue, 14 Apr 2026 14:05:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776175504;
+	bh=OF74E1jQi9q8RugvWARpV7zDv+GE0MY3No45lifQv/4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=XRQYte4arHLokcDvFI9HBWgNA9wtDMJVYVJbkgQeM2bC47GJWfUNsI4BoF5ra/O8D
+	 bAh6VdqSSceAQeK4BW1KcIJDDxbp3mthjclhC8Kc1c7wFfoFNCot5w09okpk6ZOVQD
+	 /pItKbut6ccWoajFKFZ2XWijoqG1s2nshmzdA/nfB4VSyou7tGxjAOxLuoNk1Bn+5q
+	 Fgu/vk9cAMDWElgaYzZpHA6EBs7GtLtXCPQ9k8K+SGQdwFVTibwShZuw23DZk9rH6G
+	 UrRxl/x3RuLoD/xry8YYLU6yj8rBQH21z2pL6nkSiQXE3/cJbLlh9sd6mmKOoxI2sB
+	 LUWCi73Ox/S1g==
+Message-ID: <247a2a55-14e5-469b-908a-54ffebe035d8@kernel.org>
+Date: Tue, 14 Apr 2026 16:04:59 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260410-topic-lpm-pmdomain-child-ids-v2-0-83396e4b5f8b@baylibre.com>
- <20260410-topic-lpm-pmdomain-child-ids-v2-2-83396e4b5f8b@baylibre.com>
-In-Reply-To: <20260410-topic-lpm-pmdomain-child-ids-v2-2-83396e4b5f8b@baylibre.com>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Tue, 14 Apr 2026 16:03:16 +0200
-X-Gm-Features: AQROBzC039XjBS1eS-X-kRqOO7vWEj2nJaYb7iw3kPhkkHtYapY69V2VqSFFETc
-Message-ID: <CAPDyKFrbk8SZs+-WMkbKnh12+OTBtoZ2bwtuASGvAsZwJEd4vQ@mail.gmail.com>
-Subject: Re: [PATCH v2 2/3] pmdomain: core: add support for power-domains-child-ids
-To: "Kevin Hilman (TI)" <khilman@baylibre.com>
-Cc: Rob Herring <robh@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>, linux-pm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] gpio: axiado: add SGPIO controller support
+To: Petar Stepanovic <pstepanovic@axiado.com>, Tzu-Hao Wei <twei@axiado.com>,
+ Swark Yang <syang@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>,
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
+ SriNavmani A <srinavmani@axiado.com>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260414-axiado-ax3000-sgpio-controller-v1-0-b5c7e4c2e69b@axiado.com>
+ <20260414-axiado-ax3000-sgpio-controller-v1-2-b5c7e4c2e69b@axiado.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260414-axiado-ax3000-sgpio-controller-v1-2-b5c7e4c2e69b@axiado.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, 11 Apr 2026 at 01:44, Kevin Hilman (TI) <khilman@baylibre.com> wrote:
->
-> Currently, PM domains can only support hierarchy for simple
-> providers (e.g. ones with #power-domain-cells = 0).
->
-> Add support for oncell providers as well by adding a new property
-> `power-domains-child-ids` to describe the parent/child relationship.
->
-> For example, an SCMI PM domain provider has multiple domains, each of
-> which might be a child of diffeent parent domains. In this example,
-> the parent domains are MAIN_PD and WKUP_PD:
->
->     scmi_pds: protocol@11 {
->         reg = <0x11>;
->         #power-domain-cells = <1>;
->         power-domains = <&MAIN_PD>, <&WKUP_PD>;
->         power-domains-child-ids = <15>, <19>;
->     };
->
-> With this example using the new property, SCMI PM domain 15 becomes a
-> child domain of MAIN_PD, and SCMI domain 19 becomes a child domain of
-> WKUP_PD.
->
-> To support this feature, add two new core functions
->
-> - of_genpd_add_child_ids()
-> - of_genpd_remove_child_ids()
->
-> which can be called by pmdomain providers to add/remove child domains
-> if they support the new property power-domains-child-ids.
->
-> The add function is "all or nothing".  If it cannot add all of the
-> child domains in the list, it will unwind any additions already made
-> and report a failure.
->
-> Signed-off-by: Kevin Hilman (TI) <khilman@baylibre.com>
-> ---
->  drivers/pmdomain/core.c   | 166 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
->  include/linux/pm_domain.h |  16 ++++++++++++++++
->  2 files changed, 182 insertions(+)
->
-> diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
-> index 61c2277c9ce3..f978477dd546 100644
-> --- a/drivers/pmdomain/core.c
-> +++ b/drivers/pmdomain/core.c
-> @@ -2909,6 +2909,172 @@ static struct generic_pm_domain *genpd_get_from_provider(
->         return genpd;
->  }
->
-> +/**
-> + * of_genpd_add_child_ids() - Parse power-domains-child-ids property
-> + * @np: Device node pointer associated with the PM domain provider.
-> + * @data: Pointer to the onecell data associated with the PM domain provider.
-> + *
-> + * Parse the power-domains and power-domains-child-ids properties to establish
-> + * parent-child relationships for PM domains. The power-domains property lists
-> + * parent domains, and power-domains-child-ids lists which child domain IDs
-> + * should be associated with each parent.
-> + *
-> + * Uses "all or nothing" semantics: either all relationships are established
-> + * successfully, or none are (any partially-added relationships are unwound
-> + * on error).
-> + *
-> + * Returns 0 on success, -ENOENT if properties don't exist, or negative error code.
-> + */
+On 14/04/2026 15:48, Petar Stepanovic wrote:
+> +
+> +	for (i = 0; i < sgpio->max_offset_regs; i++) {
+> +		sgpio->slices[2].reg_ss[i] = 0;
+> +		dout_value = be32_to_cpu(prop[i]);
+> +
+> +		for (dout_reverse = 0; dout_reverse < 32; ++dout_reverse) {
+> +			sgpio->slices[2].reg_ss[i] <<= 1;
+> +			sgpio->slices[2].reg_ss[i] |= (dout_value & 1);
+> +			dout_value >>= 1;
+> +		}
+> +	}
+> +
+> +	sgpio_hw_init(sgpio);
+> +
+> +	irq = platform_get_irq(pdev, 0);
+> +
 
-As I mentioned in my earlier reply for the previous version, returning
-a specific error code when the property doesn't exist will complicate
-handling for the caller. Moreover, we also need to make sure we don't
-returning the same error code (-ENOENT) for a different error further
-down the execution path in of_genpd_add_child_ids(). Otherwise it
-would the caller treat the error code in the wrong way.
+Odd style
 
-To me, there are two better ways to address this. For both options,
-of_genpd_add_child_ids() should return 0 when
-"power-domains-child-ids" is missing.
+> +	if (irq < 0) {
+> +		dev_err(&pdev->dev, "Failed to get parent IRQ: %d\n", irq);
+> +		return irq;
+> +	}
+> +	/* Store parent IRQ for cleanup */
+> +	sgpio->parent_irq = irq;
+> +
+> +	rc = devm_request_threaded_irq(&pdev->dev, irq, NULL, sgpio_irq_handler,
+> +				       IRQF_ONESHOT, "axiado-sgpio", sgpio);
+> +
+> +	if (rc < 0) {
+> +		dev_err(&pdev->dev, "Failed to request threaded IRQ %d: %d\n",
+> +			irq, rc);
 
-1) Add another helper function that checks if
-"power-domains-child-ids" exists. The caller can then use this to
-pre-parse the property and decide whether to treat it as an error.
+Nope
 
-2) As I suggested earlier, let of_genpd_add_child_ids() return the
-number of assigned parents/children, while still using the all or
-nothing approach, of course.
+> +		return rc;
+> +	}
+> +
+> +	sgpio->chip.parent = &pdev->dev;
+> +	sgpio->chip.ngpio = sgpio->ngpios * 2;
+> +	sgpio->chip.owner = THIS_MODULE;
+> +	sgpio->chip.direction_input = ax3000_sgpio_dir_in;
+> +	sgpio->chip.direction_output = ax3000_sgpio_dir_out;
+> +	sgpio->chip.get = ax3000_sgpio_get;
+> +	sgpio->chip.set = ax3000_sgpio_set;
+> +	sgpio->chip.label = dev_name(&pdev->dev);
+> +	sgpio->chip.base = -1;
+> +
+> +	girq = &sgpio->chip.irq;
+> +
+> +	girq->chip = &axiado_sgpio_irqchip;
+> +	girq->handler = handle_edge_irq;
+> +	girq->default_type = IRQ_TYPE_NONE;
+> +	girq->num_parents = 1;
+> +	girq->parents =
+> +		devm_kcalloc(&pdev->dev, 1, sizeof(*girq->parents), GFP_KERNEL);
+> +	if (!girq->parents) {
+> +		dev_err(&pdev->dev, "Failed to allocate parents array\n");
+> +		return -ENOMEM;
 
-Kind regards
-Uffe
+Ykes...
 
-> +int of_genpd_add_child_ids(struct device_node *np,
-> +                          struct genpd_onecell_data *data)
+> +	}
+
+
+
+> +
+> +static struct platform_driver sgpio_driver = {
+> +	.driver = {
+> +		.name = "sgpio",
+> +		.owner = THIS_MODULE,
+
+Uh, that's 13 year old code. Please drop everything and write from
+scratch using latest reviewed drivers as your base. No point to repeat
+same review and fix the same issues we already fixed during last 13 years...
+
+> +		.of_match_table = ax_sgpio_match,
+> +	},
+> +	.probe = sgpio_probe,
+> +	.remove = sgpio_remove,
+> +};
+> +
+> +static int __init ax_sgpio_init(void)
 > +{
-> +       struct of_phandle_args parent_args;
-> +       struct generic_pm_domain *parent_genpd, *child_genpd;
-> +       struct generic_pm_domain **pairs; /* pairs[2*i]=parent, pairs[2*i+1]=child */
-> +       u32 child_id;
-> +       int i, ret, count, child_count, added = 0;
+> +	int ret;
 > +
-> +       /* Check if both properties exist */
-> +       count = of_count_phandle_with_args(np, "power-domains", "#power-domain-cells");
-> +       if (count <= 0)
-> +               return -ENOENT;
+> +	ret = platform_driver_register(&sgpio_driver);
+> +	if (ret < 0) {
+> +		pr_err("Failed to register SGPIO driver\n");
+> +		return ret;
+> +	}
 > +
-> +       child_count = of_property_count_u32_elems(np, "power-domains-child-ids");
-> +       if (child_count < 0)
-> +               return -ENOENT;
-> +       if (child_count != count)
-> +               return -EINVAL;
-> +
-> +       /* Allocate tracking array for error unwind (parent/child pairs) */
-> +       pairs = kmalloc_array(count * 2, sizeof(*pairs), GFP_KERNEL);
-> +       if (!pairs)
-> +               return -ENOMEM;
-> +
-> +       for (i = 0; i < count; i++) {
-> +               ret = of_property_read_u32_index(np, "power-domains-child-ids",
-> +                                                i, &child_id);
-> +               if (ret)
-> +                       goto err_unwind;
-> +
-> +               /* Validate child ID is within bounds */
-> +               if (child_id >= data->num_domains) {
-> +                       pr_err("Child ID %u out of bounds (max %u) for %pOF\n",
-> +                              child_id, data->num_domains - 1, np);
-> +                       ret = -EINVAL;
-> +                       goto err_unwind;
-> +               }
-> +
-> +               /* Get the child domain */
-> +               child_genpd = data->domains[child_id];
-> +               if (!child_genpd) {
-> +                       pr_err("Child domain %u is NULL for %pOF\n", child_id, np);
-> +                       ret = -EINVAL;
-> +                       goto err_unwind;
-> +               }
-> +
-> +               ret = of_parse_phandle_with_args(np, "power-domains",
-> +                                                "#power-domain-cells", i,
-> +                                                &parent_args);
-> +               if (ret)
-> +                       goto err_unwind;
-> +
-> +               /* Get the parent domain */
-> +               parent_genpd = genpd_get_from_provider(&parent_args);
-> +               of_node_put(parent_args.np);
-> +               if (IS_ERR(parent_genpd)) {
-> +                       pr_err("Failed to get parent domain for %pOF: %ld\n",
-> +                              np, PTR_ERR(parent_genpd));
-> +                       ret = PTR_ERR(parent_genpd);
-> +                       goto err_unwind;
-> +               }
-> +
-> +               /* Establish parent-child relationship */
-> +               ret = pm_genpd_add_subdomain(parent_genpd, child_genpd);
-> +               if (ret) {
-> +                       pr_err("Failed to add child domain %u to parent in %pOF: %d\n",
-> +                              child_id, np, ret);
-> +                       goto err_unwind;
-> +               }
-> +
-> +               /* Track for potential unwind */
-> +               pairs[2 * added] = parent_genpd;
-> +               pairs[2 * added + 1] = child_genpd;
-> +               added++;
-> +
-> +               pr_debug("Added child domain %u (%s) to parent %s for %pOF\n",
-> +                        child_id, child_genpd->name, parent_genpd->name, np);
-> +       }
-> +
-> +       kfree(pairs);
-> +       return 0;
-> +
-> +err_unwind:
-> +       /* Reverse all previously established relationships */
-> +       while (added-- > 0)
-> +               pm_genpd_remove_subdomain(pairs[2 * added], pairs[2 * added + 1]);
-> +       kfree(pairs);
-> +       return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(of_genpd_add_child_ids);
-> +
-> +/**
-> + * of_genpd_remove_child_ids() - Remove parent-child PM domain relationships
-> + * @np: Device node pointer associated with the PM domain provider.
-> + * @data: Pointer to the onecell data associated with the PM domain provider.
-> + *
-> + * Reverses the effect of of_genpd_add_child_ids() by parsing the same
-> + * power-domains and power-domains-child-ids properties and calling
-> + * pm_genpd_remove_subdomain() for each established relationship.
-> + *
-> + * Returns 0 on success, -ENOENT if properties don't exist, or negative error
-> + * code on failure.
-> + */
-> +int of_genpd_remove_child_ids(struct device_node *np,
-> +                          struct genpd_onecell_data *data)
-> +{
-> +       struct of_phandle_args parent_args;
-> +       struct generic_pm_domain *parent_genpd, *child_genpd;
-> +       u32 child_id;
-> +       int i, ret, count, child_count;
-> +
-> +       /* Check if both properties exist */
-> +       count = of_count_phandle_with_args(np, "power-domains", "#power-domain-cells");
-> +       if (count <= 0)
-> +               return -ENOENT;
-> +
-> +       child_count = of_property_count_u32_elems(np, "power-domains-child-ids");
-> +       if (child_count < 0)
-> +               return -ENOENT;
-> +       if (child_count != count)
-> +               return -EINVAL;
-> +
-> +       for (i = 0; i < count; i++) {
-> +               if (of_property_read_u32_index(np, "power-domains-child-ids",
-> +                                              i, &child_id))
-> +                       continue;
-> +
-> +               if (child_id >= data->num_domains || !data->domains[child_id])
-> +                       continue;
-> +
-> +               ret = of_parse_phandle_with_args(np, "power-domains",
-> +                                                "#power-domain-cells", i,
-> +                                                &parent_args);
-> +               if (ret)
-> +                       continue;
-> +
-> +               parent_genpd = genpd_get_from_provider(&parent_args);
-> +               of_node_put(parent_args.np);
-> +               if (IS_ERR(parent_genpd))
-> +                       continue;
-> +
-> +               child_genpd = data->domains[child_id];
-> +               pm_genpd_remove_subdomain(parent_genpd, child_genpd);
-> +       }
-> +
-> +       return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(of_genpd_remove_child_ids);
-> +
->  /**
->   * of_genpd_add_device() - Add a device to an I/O PM domain
->   * @genpdspec: OF phandle args to use for look-up PM domain
-> diff --git a/include/linux/pm_domain.h b/include/linux/pm_domain.h
-> index f67a2cb7d781..b44615d79af6 100644
-> --- a/include/linux/pm_domain.h
-> +++ b/include/linux/pm_domain.h
-> @@ -465,6 +465,10 @@ struct generic_pm_domain *of_genpd_remove_last(struct device_node *np);
->  int of_genpd_parse_idle_states(struct device_node *dn,
->                                struct genpd_power_state **states, int *n);
->  void of_genpd_sync_state(struct device_node *np);
-> +int of_genpd_add_child_ids(struct device_node *np,
-> +                          struct genpd_onecell_data *data);
-> +int of_genpd_remove_child_ids(struct device_node *np,
-> +                             struct genpd_onecell_data *data);
->
->  int genpd_dev_pm_attach(struct device *dev);
->  struct device *genpd_dev_pm_attach_by_id(struct device *dev,
-> @@ -534,6 +538,18 @@ struct generic_pm_domain *of_genpd_remove_last(struct device_node *np)
->  {
->         return ERR_PTR(-EOPNOTSUPP);
->  }
-> +
-> +static inline int of_genpd_add_child_ids(struct device_node *np,
-> +                                        struct genpd_onecell_data *data)
-> +{
-> +       return -EOPNOTSUPP;
+> +	return 0;
 > +}
 > +
-> +static inline int of_genpd_remove_child_ids(struct device_node *np,
-> +                                           struct genpd_onecell_data *data)
+> +static void __exit ax_sgpio_exit(void)
 > +{
-> +       return -EOPNOTSUPP;
+> +	platform_driver_unregister(&sgpio_driver);
 > +}
->  #endif /* CONFIG_PM_GENERIC_DOMAINS_OF */
->
->  #ifdef CONFIG_PM
->
-> --
-> 2.51.0
->
+> +
+> +module_init(ax_sgpio_init);
+> +module_exit(ax_sgpio_exit);
+
+And that's one more.
+
+module_platform_driver, no?
+
+> +
+> +MODULE_DESCRIPTION("Axiado Serial GPIO Driver");
+> +MODULE_AUTHOR("Axiado Corporation");
+> +MODULE_LICENSE("GPL");
+> 
+
+
+Best regards,
+Krzysztof
