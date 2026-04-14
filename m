@@ -1,28 +1,28 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013032.outbound.protection.outlook.com [40.107.162.32])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010044.outbound.protection.outlook.com [52.101.69.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA0503E9F83;
-	Tue, 14 Apr 2026 15:29:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.32
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B49D3E9F80;
+	Tue, 14 Apr 2026 15:29:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.44
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776180566; cv=fail; b=md0L0oh4DJP9RhPQWFfnsVCTXPBQ0BbXpRXo9B3FD1gMsZIwm0mOASDasPMNpEj17Vu6efwDs6brWra+v0Ad50WAdNDXlyrJ5OdzscJmRBLx9VosNK3iae9WnJEpSJfwGuUmEb3phr8y9FJRnquIwJmfX1EFU+XUxzDcQ4VcF8E=
+	t=1776180568; cv=fail; b=IBpyWDWVwprLk1IjunriCRkHkv36q0tT+KP6FnWrIU0oqrGqcKiuRfXgsVqRRUTYrBmSkEofTNt4UHxy1M8phmTuqXYOvzqCVW+Mz+pt/Q4/3YJp0iML2zoJUp1+Dm0WxSAG+ftCVLzHd60U80fq/jLefHLG/2bnsWAL1nu6/rc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776180566; c=relaxed/simple;
-	bh=H9+Rx0sZSUE47cM4LHZAiZsdZ3jyKcTyG734gKuH2bA=;
+	s=arc-20240116; t=1776180568; c=relaxed/simple;
+	bh=9TbGoE0uWmB7CpOTqC4ED3PI2uobOeLInxZoSdu3bpw=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Qkvd8rM8Jduk7BIpUxmFt+l+X/ZDzDpjz+SPcRzyjcQdl86tYHnEfbrtQ5NHZQ9VK8yk0KHHXU6EKigA8HVYDMaW0GERxQewcC1FyZBTCjSDipN0tg3WmbBwAVfLtYDc3Ii15uD0nLLxy6waIy87Wq9mfcaXpdzUP7Q812VKx54=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=Gz5ag2Dj; arc=fail smtp.client-ip=40.107.162.32
+	 MIME-Version:Content-Type; b=NxY42y3dRHNAZKkOjswWZxw6ccns0vcYDVJQEscXIfBYBlGlX+C/AP7OgxTQx6svX3kfND/81R/Nd45PimgPYdOs1BrrI7xOT9IwN8QxHTTn7oWH6aRVA+flZnWxkS0gLW/HD4ymXh1q/10PmFn8FYMoyMOBnYMIkyUEEDs10/A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=hys56DtJ; arc=fail smtp.client-ip=52.101.69.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="Gz5ag2Dj"
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="hys56DtJ"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OqqjPBbAFx9d0p8cV7bcxPCrIEDYAMI2gycPsz+hv03oyDEE+PNNkI+yps/j5lDD1xOG1aSIKg7ToLIhTWtRDTMsnDHKGmLy9wi/I87oMooRPDNwGkMW3LZ5yhYQj9ojWWJEANdvcU2ru6d2B5lTzNkoU9hknYalWX9eDBp7VC+H+CKr8euysWzavhvV2xKYVfO8bJa65aQE02c9aTXNj9MiHgAxLvmMPqGd5mkqfy338FWFegM0Q4Xgevjm6pB9Vv7E2VJHuPL1VXAF/P5nQ5VcCzwDH2YJXFWaBLgKVhRj2x5Lo5KodLkg9Fx6BMWmwDupv8+8Y8yAO1qIx3q9bA==
+ b=SZfacEsZ0/tc2pguecsRjSRuoXvFT0/IfhXrjkc/q+8wuOkKTQl5vMhMbiZoo/YNrGNx2uypofeux1bRtvuoo6JLnnDqLHzVvJMZPnyd00hD7BwMv7f07sO5DYzUSO1or9UKX/t6HC5fLg9uqhhvLYwK3QfqZybSNh+8H7X+oJw63WGBHOoMKwbijKE+wFjSP1HGmX4N5DH8Ef1VeRDtEqAUUVfnHyjJ0qd6NXVgMhC/6E26PHb5lET1a2beqwwTRYagXj5n2OlRteV9TCtptSj2jBT4xuGLod+avCGCyzsExIShy3oOnsz6IpDsl7og3W8g+Mng4kDmqMWFhnM8cw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TsZA2EnshfnaacFfzKboi8kXs1ZJm3gOYoQM5LUOrKY=;
- b=NGZRjFFeUYFfpO2nD3Z969jYQhSrn02H3/OoE9jr+vy7y7IkmUu3m3EFJlJ/I0V8blLkL/Bi826DrlI1GpifDuqQS0SWiIMiktFGV/uPCI1lO7Zn+99/C6bkFk5uSNCUQROlYaDquJhswUjyB4QzMv1AjXu9AzaykJuDajRQc+JTl76tRtBtkx7qynYqqTQkWtOcNNLn5iLdGXnWvHvVJvYzdxh1ZhfpVZBL2nvlfaIhKbQSmF3AmJbHPWM7/5WncBEzpygc8piiFp/mSas9I9EM2H0C/cpW3A/EvVyq+lMyD24FUerYOiULDeDqDBpWpoVn3NIRaMsXEjihEuCu/g==
+ bh=5LxG/8R8/DSUM5+srOguxfAA0jx8iuRv3/EZ7ZTHSYc=;
+ b=KSz79/uym+3PncS3rieowmIKw9DGSkoKfSB4236ekMMC0NG1V3UL5AcYvOHCA+8/TfntxamAOkGuNAno6+jwyxzPbfWf7pDQI1KwVIHnao5Cg5g0kk6uSgWJtUX6cSMFS5nKdX3A0A19pVEZ4WW/JtWFKA86EZtRS0KPfuvEhKeCAWSOqxzvZoj3M5X5IDT6m9VNvShbBYlf+udWZGEwrFyKLSfoS06K2TyWTIe/AwUH30R1OgR8KO8mplu5ddS+/VgHlCHBSwiJ8lLOlFvHybRVLW5LdZbFVCVJC/gEpym3RICugnWPfY+t+uuSTp36J+vKd6V1kfPRKDivjJ3/4A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
  164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
  dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
@@ -30,18 +30,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TsZA2EnshfnaacFfzKboi8kXs1ZJm3gOYoQM5LUOrKY=;
- b=Gz5ag2DjWxxCdeqxG/GmKegEzRXY5lXntusxpfwyGpa4VMmhl52zWkSLaUGRCiSDO28tgNgoAwnDnZhT4r9DJXpNZQwCffOnq1KSpQ+h5SWGXw5WYs3qJRpmFF7ijDPMX4CrqZ45nxVXOgSyq0IxpjkRVb16ca4yeiW2upryasF3cZLUht3kDn1wWdRKOn+mCKcTJ+6t7c3hNgdViQ8h3rxQySg6FluGMOahsvFPGsyxIx6VY/rOevWd7sBg5s8mbM6HwayC2f7wpGUv1ogHIvAXkCKz1+SNmhac7ABbxWx0IMMOm2T3jjjwh429qp5olmEdAHM4OHpsmVVfGHxRxQ==
-Received: from DU2P250CA0021.EURP250.PROD.OUTLOOK.COM (2603:10a6:10:231::26)
- by DU0PR10MB6020.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:3b0::14) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=5LxG/8R8/DSUM5+srOguxfAA0jx8iuRv3/EZ7ZTHSYc=;
+ b=hys56DtJDwd3f6PWKIZkqmy3iYkKa6/U5s5y5OFNioexPMOGxRYYPvrpTzCsrVXYaZfK5lr8EIS3vgeTUGwV3PnrfYxEZz9gWaHzIFnHszRqaWO4n7bz8VnlC35VNc5UPrj7urDOEDMVPwJU7Jd+YKRCodrDAZ3yGQ89cZTEefPsBazaIjtAPVh20ljnXW3Q1uIbKvLmBqCzxECVfzhz8Kry3jWWKGkdT4btwF41M6rUvD8xYQoHZIdp02q2QB8mVbDIjhWvSri9WepqWiXz4ICKCkSKAxZlax94lDp5TBoq8UvKZ4/nZ0AM8GJ7q/bkMCr0h51wwGZSgxAtsRSCSw==
+Received: from DU7PR01CA0020.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:50f::25) by PAXPR10MB5352.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:102:281::18) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Tue, 14 Apr
- 2026 15:29:19 +0000
-Received: from DB1PEPF000509E9.eurprd03.prod.outlook.com
- (2603:10a6:10:231:cafe::2a) by DU2P250CA0021.outlook.office365.com
- (2603:10a6:10:231::26) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 15:29:22 +0000
+Received: from DB1PEPF000509E3.eurprd03.prod.outlook.com
+ (2603:10a6:10:50f:cafe::73) by DU7PR01CA0020.outlook.office365.com
+ (2603:10a6:10:50f::25) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.48 via Frontend Transport; Tue,
- 14 Apr 2026 15:29:19 +0000
+ 14 Apr 2026 15:29:22 +0000
 X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
  smtp.mailfrom=foss.st.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=none header.from=foss.st.com;
@@ -49,17 +49,17 @@ Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
  designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
  client-ip=164.130.1.59; helo=smtpO365.st.com;
 Received: from smtpO365.st.com (164.130.1.59) by
- DB1PEPF000509E9.mail.protection.outlook.com (10.167.242.59) with Microsoft
+ DB1PEPF000509E3.mail.protection.outlook.com (10.167.242.53) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Tue, 14 Apr 2026 15:29:19 +0000
+ 15.20.9745.21 via Frontend Transport; Tue, 14 Apr 2026 15:29:21 +0000
 Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
  (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Tue, 14 Apr
- 2026 17:32:28 +0200
+ 2026 17:32:30 +0200
 Received: from localhost (10.252.12.46) by STKDAG1NODE2.st.com (10.75.128.133)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Tue, 14 Apr
- 2026 17:29:18 +0200
+ 2026 17:29:20 +0200
 From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
 	<mathieu.poirier@linaro.org>, Jens Wiklander <jens.wiklander@linaro.org>,
@@ -69,9 +69,9 @@ CC: <linux-stm32@st-md-mailman.stormreply.com>,
 	<linux-arm-kernel@lists.infradead.org>, <linux-remoteproc@vger.kernel.org>,
 	<linux-kernel@vger.kernel.org>, <op-tee@lists.trustedfirmware.org>,
 	<devicetree@vger.kernel.org>, Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Subject: [PATCH v22 4/7] remoteproc: Introduce optional release_fw operation
-Date: Tue, 14 Apr 2026 17:28:59 +0200
-Message-ID: <20260414152904.1679724-5-arnaud.pouliquen@foss.st.com>
+Subject: [PATCH v22 6/7] remoteproc: stm32: Create sub-functions to request shutdown and release
+Date: Tue, 14 Apr 2026 17:29:01 +0200
+Message-ID: <20260414152904.1679724-7-arnaud.pouliquen@foss.st.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260414152904.1679724-1-arnaud.pouliquen@foss.st.com>
 References: <20260414152904.1679724-1-arnaud.pouliquen@foss.st.com>
@@ -87,132 +87,147 @@ X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
  (10.75.128.133)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB1PEPF000509E9:EE_|DU0PR10MB6020:EE_
-X-MS-Office365-Filtering-Correlation-Id: 362f149b-3e26-41a0-a58e-08de9a3a98cf
+X-MS-TrafficTypeDiagnostic: DB1PEPF000509E3:EE_|PAXPR10MB5352:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5b9854d8-0253-4a4a-2a59-08de9a3a9a16
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|376014|7416014|18002099003|56012099003|22082099003;
+	BCL:0;ARA:13230040|36860700016|1800799024|376014|7416014|82310400026|56012099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	iyZTotZBS/maypsy/w9+gwU1cyxPCHjBEOA93tWDznNStAiXyeall3F+aAz305En57a0v73HNO2UCSc67T24Gndgmw9ZNvTJ3dmE29jPzyOQ2NPUjmeqDNpBkuWHhKgxWzeaUMa5ChxHgZlCebfR/DUx6filZ5SF2XM1Q5oiJ+QBwrSNnv31Zd2zrMOdY/TUUPv0i+V9SnOAuCGzTCsHfL59z58eSCPDbI0PFEcxeT43wpjDZkmDgNJh714RlH4FTc2PxxeAC/SibloCZMedOp7bqyECMVxfBZNeHMZb9ksrT8CnewWV1yH3wFchYYMLpSqLAIdhRJnxkZCJAlR0hl0UjvRHdss/77WQ+8UPOePnoHtz+VYDlJsWZAgxx5OZwWVvIyIrcK2zB7Dt+pPshS1RabBRUPK/JadtK+akKOVstdQDU103k6uu4TIqbHsWwzzbxeBwBEeHIHdebCodOLqRJRPVUKQgNoObkXC2PQptpLf0Zlw+XIrsH56fc6guL4mjmzzWd6O11tKE+uivw0K8Cng02N3jKPln3NAtkY0uqJPNa5YpY98zjwRo/XuyBxZ+g4Vb94XE9Ai8vuSfjOal96MSSmDn384KKZH510nyuMyLlxGu6/wYUYHAKjjMxT1cv7ubVCaKotiR55UiSuNU19llYs2rVTrzPbpuNeFdfnlqHeJkwiQhNTMboNiV1aWigXemjQxtJnwve3ps2UvdfXxA/jYncahwZ0OWPJ/VRCF4rmNOP/rHFaSxzMT+I1nBfDFxSlg8qd8J0GTzCw==
+	oa2Q8IRywOqjgJtYbPSYh1Y6hoha3j5cyo5AXP7e1hC86aRUyNwRvijGRkWgZlApvqlGCHkhd6KgORwjRS8HlEr7YiKSsm3GaMBAEnmCOGmJj6BeemwiRSOrdZvfMI9lZ5XsK5Lz3DFNZAGH/EdAOfSG2ecb+JHo153G7diVkmFMSKKzv0lo1/onCOdhvi1C3kL+ODT7uvaRo6EqFNargOiPzPhgKkZEdIdAnzIKtHI0ubYfhRGa+ShMAMTQsOgqn6NCaaQMCZcbH9UwLlmu7DENBmhqDfISFAhmSUWrqtdZbfh/+qMwevIlLAvmOeiucT7rqMbpq2Hu5TQ8elL3qY9PmzkwZj7+MX+OFbIDNhavHQkELVgSJzX91Xt557eeqKM6Ki+z0HqJgDwdUiERmIw8gNOoGpILBl0g5i34h2bfndrSfFBVvTU6Xkj6dEF1yTquH0zHEm8CKM46TvvOGVBw7aEfFAShfoZAZ4T3cyf3Hg42vZxDnBz15qS1P5b/GD6pizmEKLpQXFhaYCG2bi6nxGm8MLn54Vijf9Jv6wZtW8etBAX8lBvhHQKRaYHz0wTM1FSkWZkJq5mYM0+WYgJPyvir1YofOeRkwIrRKjWZJXzLiwM+HUAwfMQcStidvKPfyvGeVPTTpoWdmb/32i/uJJ2gT52dA0Z6FxKG7nTNLn5BxUjpSvMm1kmRSCwb0EDH2pc8UGCJ/TDbX599XHlPIg+jy2GR6IBtOVvgATE0AQ8k/AzjoKfc7e/x1R5TCTh88xjVo4PGIszrwXtGcg==
 X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(7416014)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(376014)(7416014)(82310400026)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	1ClBhaudzeOhcoIMDD8O8j/GrONHdJXPCdlvztLiUsp8jU8jDVRXgqc5E+42OyP9KZgg2iiGWXg6hGPukTjzqjoukLDCjfH53SBAdiF3H8w6pe9gXzdlT7WZSaMeHZs2vUk++H94IuEXzhSQPKNYh4LlX76C+6Uc3xa95mSc245J+FB4XwZ1GQZJheOshG1vu0lzEc+ujSaJPQLmPYQ/n0muLLA7wGlvuRztRvo8BagzPrRgd3nHL46+fF4irN9Mqeg4guoRfdeCcRgcOyklLPJ7NbNVotwtAq8SbvhxH35ctdXUPQFs+qQ3MicaW3NtP2JlgCLhMdWvpiTLwFGppSea2QZAOuaxT5S45eirMKji2sGkdkypxQJ9Y63pMZrJ5um7f95X4Mj5/umcbOYqlsrYgpq4w2pBxEO+lA06Lm0TUIYdIIJ9AyLlRs+uFdWT
+	JIMjUqM7q/oNBptcKmQ84H/AwEkIg6zjv8nYhYPsYLknN6Ks8rwoYe1g32aZxTJ1IDDUIsgM0dSheCzi5gCtSQZzlS0/wsq2dtTgAEar4OfKFK6PKKzI1hwH9QQ0qDnvKTkeWCqAuf4WP5q4zGAnIZAFOgs/ZJLlbTHi514wa17FYthyIwrqBDrNiNjMVCKz89mAAlYtGoMlFe9Z95FmpeDIKFLtvr4pwBSFfo8vIID3ilq1diDJbYMD8oWs3zJSPeyEgOut32r33EPdP0hFF5dXmRK8nM5sWkVjw2FgAk8pgW0XgerDxfFgYP/22ZLdel4MAAazIdBMV2C4SHKjFmNMqX9fi+ouWrJFg5sIefJwx3rEMd6Lfx4dAcvVip8J4qv724xWD3N1ydWYAMzR3mIXoJNDk+bLbgzA50qp0e4nKCE+PNpfHIESRBgro19o
 X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2026 15:29:19.4550
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2026 15:29:21.5907
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 362f149b-3e26-41a0-a58e-08de9a3a98cf
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5b9854d8-0253-4a4a-2a59-08de9a3a9a16
 X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DB1PEPF000509E9.eurprd03.prod.outlook.com
+	DB1PEPF000509E3.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR10MB6020
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR10MB5352
 
-The release_fw operation allows releasing remote processor resources
-configured during rproc_parse_fw() and rproc_load_segments().
-For example, it can release carveouts mapped during these operations.
-
-This operation is invoked in the following cases:
- - When an error occurs during remote processor boot.
- - When an error occurs during remote processor recovery start.
- - After stopping the remote processor.
-
-This operation is required for the remoteproc_tee implementation following
-a stop or upon encountering an error. Since the remoteproc image is loaded
-during resource table parsing, multiple failure scenarios may occur prior
-to remote processor startup, including issues with resource handling and
-carveout allocation.
+To prepare for the support of TEE remoteproc, create sub-functions
+that can be used in both cases, with and without remoteproc TEE support.
 
 Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-
 ---
+ drivers/remoteproc/stm32_rproc.c | 82 +++++++++++++++++++-------------
+ 1 file changed, 49 insertions(+), 33 deletions(-)
 
-Updates from version 18:
-- Rewrite rproc_ops::release_fw documentation
-- Improve commit message
-
-Updates from version 16:
-- Removed the rproc:load_fw() ops introduced in previous version.
-- Removed duplicate calls to rproc_release_fw in rproc_fw_boot and rproc_boot.
----
- drivers/remoteproc/remoteproc_core.c     | 6 ++++++
- drivers/remoteproc/remoteproc_internal.h | 6 ++++++
- include/linux/remoteproc.h               | 5 +++++
- 3 files changed, 17 insertions(+)
-
-diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-index ec1860e1cfa9..93ab505ff014 100644
---- a/drivers/remoteproc/remoteproc_core.c
-+++ b/drivers/remoteproc/remoteproc_core.c
-@@ -1856,6 +1856,8 @@ static int rproc_boot_recovery(struct rproc *rproc)
- 
- 	/* boot the remote processor up again */
- 	ret = rproc_start(rproc, firmware_p);
-+	if (ret)
-+		rproc_release_fw(rproc);
- 
- 	release_firmware(firmware_p);
- 
-@@ -1997,6 +1999,8 @@ int rproc_boot(struct rproc *rproc)
- 		}
- 
- 		ret = rproc_fw_boot(rproc, firmware_p);
-+		if (ret)
-+			rproc_release_fw(rproc);
- 
- 		release_firmware(firmware_p);
- 	}
-@@ -2066,6 +2070,8 @@ int rproc_shutdown(struct rproc *rproc)
- 
- 	rproc_disable_iommu(rproc);
- 
-+	rproc_release_fw(rproc);
-+
- 	/* Free the copy of the resource table */
- 	kfree(rproc->cached_table);
- 	rproc->cached_table = NULL;
-diff --git a/drivers/remoteproc/remoteproc_internal.h b/drivers/remoteproc/remoteproc_internal.h
-index 0cd09e67ac14..c7fb908f8652 100644
---- a/drivers/remoteproc/remoteproc_internal.h
-+++ b/drivers/remoteproc/remoteproc_internal.h
-@@ -221,4 +221,10 @@ bool rproc_u64_fit_in_size_t(u64 val)
- 	return (val <= (size_t) -1);
+diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
+index 632614013dc6..4bcd6a784935 100644
+--- a/drivers/remoteproc/stm32_rproc.c
++++ b/drivers/remoteproc/stm32_rproc.c
+@@ -209,6 +209,52 @@ static int stm32_rproc_mbox_idx(struct rproc *rproc, const unsigned char *name)
+ 	return -EINVAL;
  }
  
-+static inline void rproc_release_fw(struct rproc *rproc)
++static void stm32_rproc_request_shutdown(struct rproc *rproc)
 +{
-+	if (rproc->ops->release_fw)
-+		rproc->ops->release_fw(rproc);
++	struct stm32_rproc *ddata = rproc->priv;
++	int err, idx;
++
++	/* Request shutdown of the remote processor */
++	if (rproc->state != RPROC_OFFLINE && rproc->state != RPROC_CRASHED) {
++		idx = stm32_rproc_mbox_idx(rproc, STM32_MBX_SHUTDOWN);
++		if (idx >= 0 && ddata->mb[idx].chan) {
++			err = mbox_send_message(ddata->mb[idx].chan, "detach");
++			if (err < 0)
++				dev_warn(&rproc->dev, "warning: remote FW shutdown without ack\n");
++		}
++	}
 +}
 +
- #endif /* REMOTEPROC_INTERNAL_H */
-diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
-index 8fd0d7f63c8e..a2bb51a113b1 100644
---- a/include/linux/remoteproc.h
-+++ b/include/linux/remoteproc.h
-@@ -381,6 +381,10 @@ enum rsc_handling_status {
-  * @panic:	optional callback to react to system panic, core will delay
-  *		panic at least the returned number of milliseconds
-  * @coredump:	  collect firmware dump after the subsystem is shutdown
-+ * @release_fw:	Optional function to release resources allocated during
-+ *		parse_fw() or load() operations. This function is called after
-+ *		stopping the remote processor or in case of an error during the
-+ *		boot or recovery sequence.
-  */
- struct rproc_ops {
- 	int (*prepare)(struct rproc *rproc);
-@@ -403,6 +407,7 @@ struct rproc_ops {
- 	u64 (*get_boot_addr)(struct rproc *rproc, const struct firmware *fw);
- 	unsigned long (*panic)(struct rproc *rproc);
- 	void (*coredump)(struct rproc *rproc);
-+	void (*release_fw)(struct rproc *rproc);
- };
++static int stm32_rproc_release(struct rproc *rproc)
++{
++	struct stm32_rproc *ddata = rproc->priv;
++	int err = 0;
++
++	/* To allow platform Standby power mode, set remote proc Deep Sleep */
++	if (ddata->pdds.map) {
++		err = regmap_update_bits(ddata->pdds.map, ddata->pdds.reg,
++					 ddata->pdds.mask, 1);
++		if (err) {
++			dev_err(&rproc->dev, "failed to set pdds\n");
++			return err;
++		}
++	}
++
++	/* Update coprocessor state to OFF if available */
++	if (ddata->m4_state.map) {
++		err = regmap_update_bits(ddata->m4_state.map,
++					 ddata->m4_state.reg,
++					 ddata->m4_state.mask,
++					 M4_STATE_OFF);
++		if (err) {
++			dev_err(&rproc->dev, "failed to set copro state\n");
++			return err;
++		}
++	}
++
++	return 0;
++}
++
+ static int stm32_rproc_prepare(struct rproc *rproc)
+ {
+ 	struct device *dev = rproc->dev.parent;
+@@ -511,17 +557,9 @@ static int stm32_rproc_detach(struct rproc *rproc)
+ static int stm32_rproc_stop(struct rproc *rproc)
+ {
+ 	struct stm32_rproc *ddata = rproc->priv;
+-	int err, idx;
++	int err;
  
- /**
+-	/* request shutdown of the remote processor */
+-	if (rproc->state != RPROC_OFFLINE && rproc->state != RPROC_CRASHED) {
+-		idx = stm32_rproc_mbox_idx(rproc, STM32_MBX_SHUTDOWN);
+-		if (idx >= 0 && ddata->mb[idx].chan) {
+-			err = mbox_send_message(ddata->mb[idx].chan, "detach");
+-			if (err < 0)
+-				dev_warn(&rproc->dev, "warning: remote FW shutdown without ack\n");
+-		}
+-	}
++	stm32_rproc_request_shutdown(rproc);
+ 
+ 	err = stm32_rproc_set_hold_boot(rproc, true);
+ 	if (err)
+@@ -533,29 +571,7 @@ static int stm32_rproc_stop(struct rproc *rproc)
+ 		return err;
+ 	}
+ 
+-	/* to allow platform Standby power mode, set remote proc Deep Sleep */
+-	if (ddata->pdds.map) {
+-		err = regmap_update_bits(ddata->pdds.map, ddata->pdds.reg,
+-					 ddata->pdds.mask, 1);
+-		if (err) {
+-			dev_err(&rproc->dev, "failed to set pdds\n");
+-			return err;
+-		}
+-	}
+-
+-	/* update coprocessor state to OFF if available */
+-	if (ddata->m4_state.map) {
+-		err = regmap_update_bits(ddata->m4_state.map,
+-					 ddata->m4_state.reg,
+-					 ddata->m4_state.mask,
+-					 M4_STATE_OFF);
+-		if (err) {
+-			dev_err(&rproc->dev, "failed to set copro state\n");
+-			return err;
+-		}
+-	}
+-
+-	return 0;
++	return stm32_rproc_release(rproc);
+ }
+ 
+ static void stm32_rproc_kick(struct rproc *rproc, int vqid)
 -- 
 2.43.0
 
