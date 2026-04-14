@@ -1,178 +1,134 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45ED53A6408
-	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 10:05:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA7DC3AC0FC;
+	Tue, 14 Apr 2026 10:06:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776161105; cv=none; b=NmdFEGrGkDDJRX2dbQkYJWcvUQgfN/meDT4uf8oE+E9YFsCoKCAd8fhLKoEQGc4xWFTcYllzV+ncE0AoRVEbe8b4kuMUdQzYZ7HHESlRcRlf/NcgdFWzKtqXo9ZIb/wwWTvmOcLh8vLSSxTpxbg0NGy9z6T5R6JU3ioo+mLs8pM=
+	t=1776161185; cv=none; b=CIj3Qg5AflPprSU9fCA7v8lQO6pv5Wb9Xf9DIvEl78TctCjxb8xsAOUAw8it0XBHiKE60YPyJ1bfNa2eg13aB8uWHojhjb4UuRWTT6WZgOUNgBhas9lSb2nGYj6XgQ4VZvn20yqtxdES6nZprHeIG7WSDllxM3+TQm2ajNCr9Gs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776161105; c=relaxed/simple;
-	bh=8Wx4Krs6AGxwgNFSv6fzfnOE9NXDgIszdipj5pZUQEg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jPrNG2gG6fxwlqERyra2vL3Wkhc75Pojn2g+eid/mX8po7jjITX+XwwVnK5Z+US/tNRVFBGWPYNOKMjPpqoE/4luJ0ht7igjdnvBv7Ln+AoCw316qQQJFoJogfOCgv3k5I8RadTLVD9qfcVsYLZXAQApyNjbMGuGuh0j+twn0fA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Oj/89Ahc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UVDccFi4; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1776161185; c=relaxed/simple;
+	bh=tHQoTY8SV7CyDiDPhZ/GDk+DYRpzE66BamPWxv3QsCs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jrfqUJK0DhQBDLsUB4w3KaxzQA/z8aho0F5c6Xlj9IJIuNDunrJOFM9CewTLCRfaq4vH0pPHQv2LXmN755072j2F9kNRCX2zq9w5cRO0GlxC/lITEXHcD7WtZnc69GzMzl6+psiH7i2n5dBT5XYu9EU8hcqZbNDbJNQecjzPbxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fHBcd51o; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Oj/89Ahc";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UVDccFi4"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63E6VNHw3157277
-	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 10:05:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	J7qBFKS/RQGm4G9FxW8wVL0yrqFmIaMojcREHOXJ4Rk=; b=Oj/89AhcnfmzdOz5
-	4p86RIKyspBCZ7AvemDpQBpEuhCySQj61t5z7URF6HDiKI5RRd7prrfigHRIJYgT
-	TE5QqohxMss0pdclvW+a68lq1fiwjBtLszb0alJmqNQCmQ0NL8rN9XkYPBI21x2x
-	6b/Y+Rcw2O/mECk+soofI619fGVe7xOjLhL76dzU/f2oTcrTUSKc4+O4GyCgg1x+
-	nPRKyDFytphJ1gyAg0iZpqaCtVaWWiqkERwHwpGW3vNqlN8eZm4dEwQfPE2mdJqK
-	5W59MJja0kqfuKY7/zwm+AJxf7LiUfo8saKtaB+0uoCAWpPpatGWYkh/RVfXnx7P
-	7yYONw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dh86ba6um-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 10:05:03 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-8cff2297253so149337085a.2
-        for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 03:05:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776161102; x=1776765902; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=J7qBFKS/RQGm4G9FxW8wVL0yrqFmIaMojcREHOXJ4Rk=;
-        b=UVDccFi4OpU0lFMACXOnyF6f5wBvRI4IthqRr0PMptQUceHgGZTklW7rAeb/6m4GDk
-         c7UY4XKVNbCjiiFCBElEGJfVaapvyi0R7m5jvXwbrZu4cpniPvhQh/xF6kyOKapx/T0U
-         Qvb1XJhX7XGv+3vvZc8R6arT787cudDOypjDHxyQisuaW5N8rHFEIfU0h86iVIY6YJai
-         6N2K4ccyugh7El4nha+lyJIF8+zndB3LH/LYducApZ9tyYCAiS/ufpIQUDEg5KEEjFp0
-         TlPas0aarLKeVXlXgUM/FOmP0uysPKQQLksBL/lTzuxDvaB2jpkKuH+0KjHiUO6r6svr
-         fBKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776161102; x=1776765902;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=J7qBFKS/RQGm4G9FxW8wVL0yrqFmIaMojcREHOXJ4Rk=;
-        b=ZniJUmKXoICg7fj0jJeLNu3Ner402gpUiP1FPC1agLnaPMXxOpBRWn5rlT1Dm2DUo1
-         YZgcilL3PENG7kQykP9kJldvayBO2WW1cyKx9OBvJv04/kmYH3eIoXeEd79bHcpvsdu5
-         I9w6dehfmA3kRThqFLTikL9cxZYLwHefRkyPNqS/Fl75UxweVId9iOldaB+OXo69P87a
-         BZ3muozXnI4wkxs2Kqc38qMYHHP7aW7hGugtGUGDkK82pR568oVVPOtoIqJJitWIDXDN
-         rKslWCe11Z9dbK2YUHzwtDXwBrrFZ13UZOWgL5mExzb79KS+FWyaQ6EY3UkynaCBxer/
-         HYYA==
-X-Forwarded-Encrypted: i=1; AFNElJ9YUwMysvaGkxurLJPA6vcHs9OHPY91Y63RKrVfxGlWd/2PgytdktXCnH3daic9pSLBLdwXtfqBt7Z5@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx9OOQTBNZMurGtMbPtZ0/ezAtmV8mv9WBVuZB1BZtnkQIczqGE
-	Ie9ySpnbrvUgca9tYazqCcheSYV6aza9gF5umpz4riS5tPorhTIV7i8dmiQF8Dme/NtSXfzfue2
-	8WwPGb3aR5GGUc87J3a8RH9MxU6Qh2PxjRjIZG0wctIDSkYSaDMLp9uucWkCQFkFx
-X-Gm-Gg: AeBDiesyjorcQB0DLKo4Gf7iKQqmJJWeLnRdDELWZBFZPEtAJeCqt4BfyrD/Y2MI4Px
-	gam+yZSSBXPQP19p1YwhHqjKiJsSc8luzDy48Sks0z5s8VFxPy+XW4/1llU3V4s7seMOgGEO8xg
-	gjEjajGQQbYYW5zQ9vyAIs3k1mit6JOmJBys6QzfthfVFW+hkVcWoMFsYQWo95xKrKud6s2Llz/
-	k8ALAMPM08Vp96X966wDFu3H784CDumc49esZQKdDtPMxVWuGjWuK800fpc4S6NI9HkThs9IeGN
-	sVc3x79bxU2pybCTm4hoin5kewuCCwfNgXkLP2RZ56yncoiubq9APIJEmLUmVtZxa9DGKSy8m6S
-	7KG4Iz9xp/5iNuVtmC5Gr5WAhaCQ5hdUsspr3WkCkkkrgPVAaz8/A0ahFLkwYA0AWpZyfGDSJtO
-	zRoQK0sASGoAj63A==
-X-Received: by 2002:a05:620a:19a7:b0:8cf:df8b:1e6b with SMTP id af79cd13be357-8ddcd21924bmr1557790485a.1.1776161102418;
-        Tue, 14 Apr 2026 03:05:02 -0700 (PDT)
-X-Received: by 2002:a05:620a:19a7:b0:8cf:df8b:1e6b with SMTP id af79cd13be357-8ddcd21924bmr1557787185a.1.1776161101945;
-        Tue, 14 Apr 2026 03:05:01 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-670e93f1898sm2113897a12.16.2026.04.14.03.04.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 14 Apr 2026 03:05:00 -0700 (PDT)
-Message-ID: <717c4b3b-426b-4e1a-b910-af466f8ef2b4@oss.qualcomm.com>
-Date: Tue, 14 Apr 2026 12:04:57 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fHBcd51o"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1776161184; x=1807697184;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=tHQoTY8SV7CyDiDPhZ/GDk+DYRpzE66BamPWxv3QsCs=;
+  b=fHBcd51o1B1NVwkvhH2HZ04vyWo5KX17Bz9BldH6AM7aFGKZpKBQ36uO
+   QA3F4b9JU7wGuLzEZT95EyiKPncbpv7do/FK1K1/DkcDf9d0Ynn5rkCW7
+   5OmDe2GrjWKLs6krt59EXdWQxT8MXR1V8b7n/FQhfyb2q3CbBi4UZ9DcC
+   lMDiBfuYlcSodIzdxOG8uqa1GbhDr34RM6hOOr5gn0TotMWYqEIAam4q6
+   iYS2kVyVG8f33DUq9iYAn37yf9DLfW6nyflkcQGUCa2hPcOnRoNexPdU2
+   bobijF7axDNBhAfnRQ/AJlCXLi0rV4HPc5jVTUKSRZWBq4eZjs3Y9YqzS
+   w==;
+X-CSE-ConnectionGUID: 8y6fSYstTTqgRUi7SwF6zQ==
+X-CSE-MsgGUID: H/l8HEoZTPKEjnjfznB4Pw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11758"; a="94513630"
+X-IronPort-AV: E=Sophos;i="6.23,179,1770624000"; 
+   d="scan'208";a="94513630"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Apr 2026 03:06:23 -0700
+X-CSE-ConnectionGUID: d8zoFkAHT2+CTknHr9L9fg==
+X-CSE-MsgGUID: kxzvHMgpT9q9tX5STKoF5A==
+X-ExtLoop1: 1
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.154])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Apr 2026 03:06:19 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id C41DA120333;
+	Tue, 14 Apr 2026 13:06:37 +0300 (EEST)
+Date: Tue, 14 Apr 2026 13:06:37 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
+	Tarang Raval <tarang.raval@siliconsignals.io>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
+	Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>,
+	Jingjing Xiong <jingjing.xiong@intel.com>,
+	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 2/2] media: i2c: add os02g10 image sensor driver
+Message-ID: <ad4RrbNLa1EXYZM0@kekkonen.localdomain>
+References: <20260414084952.217215-1-elgin.perumbilly@siliconsignals.io>
+ <20260414084952.217215-3-elgin.perumbilly@siliconsignals.io>
+ <20260414092758.GE4061@killaraus.ideasonboard.com>
+ <MA0P287MB2178FAA81D07B561FA68014988252@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
+ <20260414095727.GF4061@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/7] arm64: dts: qcom: talos: Add label properties to
- CoreSight devices
-To: Jie Gan <jie.gan@oss.qualcomm.com>,
-        Bjorn Andersson
- <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260410-add-label-to-coresight-device-v1-0-d71a6759dbc2@oss.qualcomm.com>
- <20260410-add-label-to-coresight-device-v1-2-d71a6759dbc2@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260410-add-label-to-coresight-device-v1-2-d71a6759dbc2@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE0MDA5MyBTYWx0ZWRfX5aSULwY62pCW
- OPFyB/Jd0zuo2sGLPJJfBvS4EQG/ALJM4jmSI2aRcCLSsAowf0WQgCI3Gy+FvPYhpu5xAVSwStI
- 1mLpBEOuF0wFFGx9H6NFeb/DmQw75N1Lm2YAi8tvn06kyLd76WxtbCWbuuZjgrSboIzK8nGHLtn
- WwwAZLSeTplVhPbkwEqHi27iRKV4IJewp9fBYClHwLoPQgjt5fxMNvTe7qZ6UOy+4v5nea4ReJC
- F7TU12O+/f+3s4/bbjpKU3c+A21ILs9GDaf3zc2nbr71mIruj8JjiGzlwrGHB31aJDSUYIuJYui
- 9dl+U0CMbjrScOQ3r7XcdroUhjMa/SXHMm3hIOTwLG4JlwpNwikk55+4J/TQRzuVpVytD3ogYqK
- KEgSJJdMMwSl5I2Ks52CUcKSwHZZHhcoIoQKoq41ZmXhStP/PRmPaahmAaJUyMl4TcrD9zLfn+u
- n5jEHdp+HPpGzlhtmmg==
-X-Authority-Analysis: v=2.4 cv=MahcfZ/f c=1 sm=1 tr=0 ts=69de114f cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=DmPo0rGNWzzyqNjFmuoA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-ORIG-GUID: muZziKUav8zGgxhGEcdYZfJlshr4blQo
-X-Proofpoint-GUID: muZziKUav8zGgxhGEcdYZfJlshr4blQo
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-14_02,2026-04-13_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 lowpriorityscore=0 adultscore=0 impostorscore=0
- priorityscore=1501 phishscore=0 suspectscore=0 malwarescore=0 spamscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604070000
- definitions=main-2604140093
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260414095727.GF4061@killaraus.ideasonboard.com>
 
-On 4/10/26 5:08 AM, Jie Gan wrote:
-> Add label properties to CTI and TPDM nodes in the talos device tree to
-> provide human-readable identifiers for each CoreSight device. These
-> labels allow userspace tools and the CoreSight framework to identify
-> devices by name rather than by base address.
+Hi Laurent,
+
+On Tue, Apr 14, 2026 at 12:57:27PM +0300, Laurent Pinchart wrote:
+> On Tue, Apr 14, 2026 at 09:43:32AM +0000, Elgin Perumbilly wrote:
+> > Hi Laurent,
+> >  
+> > > I sent a review comment on v1.
+> > >
+> > > On Tue, Apr 14, 2026 at 02:19:45PM +0530, Elgin Perumbilly wrote:
+> > > > Add a v4l2 subdevice driver for the Omnivision os02g10 sensor.
+> > > >
+> > > > The Omnivision os02g10 is a CMOS image sensor with an active array size of
+> > > > 1920 x 1080.
+> > > >
+> > > > The following features are supported:
+> > > > - Manual exposure an gain control support
+> > > > - vblank/hblank control support
+> > > > - vflip/hflip control support
+> > > > - Test pattern control support
+> > > > - Supported resolution: 1920 x 1080 @ 30fps (SBGGR10)
+> > > >
+> > > > Signed-off-by: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
+> > > > Reviewed-by: Tarang Raval <tarang.raval@siliconsignals.io>
+> > > > ---
+> > > >  MAINTAINERS                 |    1 +
+> > > >  drivers/media/i2c/Kconfig   |   10 +
+> > > >  drivers/media/i2c/Makefile  |    1 +
+> > > >  drivers/media/i2c/os02g10.c | 1039 +++++++++++++++++++++++++++++++++++
+> > > >  4 files changed, 1051 insertions(+)
+> > > >  create mode 100644 drivers/media/i2c/os02g10.c
+> >  
+> > I have added a new function, os02g10_set_framefmt, which dynamically sets
+> > the mode register.
+> >  
+> > Please let me know if I have missed anything or if further changes are
+> > needed.
 > 
-> Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
-> ---
+> You also need to drop the supported_modes array, and implement support
+> for .set_selection().
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+I don't think we have a very well established behaviour for set_selections
+on sensors before the common raw sensor model, do we? I guess it can be the
+same as get_selections, though.
 
-Konrad3597,6 +3652,7 @@ tpdm@78b0000 {>  
->  			clocks = <&aoss_qmp>;
->  			clock-names = "apb_pclk";
-> +			label = "tpdm_llm_gold";
->  
->  			qcom,cmb-element-bits = <32>;
->  			qcom,cmb-msrs-num = <32>;
-> @@ -3664,6 +3720,7 @@ cti@78e0000 {
->  
->  			clocks = <&aoss_qmp>;
->  			clock-names = "apb_pclk";
-> +			label = "cti_apss";
->  		};
->  
->  		cti@78f0000 {
-> @@ -3672,6 +3729,7 @@ cti@78f0000 {
->  
->  			clocks = <&aoss_qmp>;
->  			clock-names = "apb_pclk";
-> +			label = "cti_apss_1";
->  		};
->  
->  		cti@7900000 {
-> @@ -3680,6 +3738,7 @@ cti@7900000 {
->  
->  			clocks = <&aoss_qmp>;
->  			clock-names = "apb_pclk";
-> +			label = "cti_apss_2";
->  		};
->  
->  		remoteproc_cdsp: remoteproc@8300000 {
-> 
+Hopefully we can merge the metadata series soon...
+
+-- 
+Regards,
+
+Sakari Ailus
