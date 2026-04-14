@@ -1,147 +1,202 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 888C43D3D16
-	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 10:22:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776162145; cv=none; b=UTSr4ntk8J67BWLs3SYk59lxywjhWI2h8sQYUeKpYfoX4fHR1gjfJ40P0TZWlNZxEvFv/GjkQh1StoiU70C4wIa4YwONmPG1IRQjBVawNAeBBw0M6ecndUCOZnuuPfu6NSxJYnA8gvGUuQtWp3thSOPCzZThWmG8mXwdp/Z7nBM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776162145; c=relaxed/simple;
-	bh=xZvQV0btEQC7XEW4VG5tg7Lr9QviucOi1s3YfDjh96E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IlX7eX3HHIrFXq7+TFAU1q4JtOpvG2+8Grov38aR/85daGbiBFERj7cNudO7sc87h4X8EdBn18J5d++b1A4SYiLXScITCPxiW/u2kX9u3uShm9gtl3K8Mc0aTiEls/UiYYTrc7W/AG/gKQO6qV8Lw9UigyqZYRuDlvxtUa4nlEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Hk+1n8Zj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EZvXG5EF; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA7C7399017
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 10:28:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776162515; cv=pass; b=agYlGBirGumX/YZKWfRgJ3Gpt1KQw2JOgdeYM7KQ+pMpu0em4s7DuFnmnrzXoGO7iMvWK4he5wP0iUVOX5JoloqpB3BCFFUNLIN7rtEkvigcWrycm1eow1j/JMWEDkrI5d8uRHD8RsHtEmCxvJFe7Kpgnde1kHgr0qB+kEKfew4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776162515; c=relaxed/simple;
+	bh=lrmJycYsABuOjKqSc9d0hOXzD3f0R5HKmLZc5qFfWUw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Nw9q6OH+mQpEPBbhQxVbFr0ZBMQxZkDafmSHcNwLNyzDhXxnR3rqUY1nH813z9WpBbVFdYHTG/mP5qee/OMyeRu08wBJRrtygrlragOIkHHGHPUPFdXZw2FrNwCQmF5UH8gjDIBy070AMtl8cz8bwCpOjD9hwZ7nan7SXQ29rfY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vayavyalabs.com; spf=pass smtp.mailfrom=vayavyalabs.com; dkim=pass (1024-bit key) header.d=vayavyalabs.com header.i=@vayavyalabs.com header.b=UGKyHmtW; arc=pass smtp.client-ip=209.85.160.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vayavyalabs.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vayavyalabs.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Hk+1n8Zj";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EZvXG5EF"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63E6CtmU363068
-	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 10:22:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	WiLWJ6pQMYgwg6cQ9yFxe+yYkkxwmMyZ1v9obgTWDr0=; b=Hk+1n8Zj+hgYtzDn
-	9FkWtgXpC/fBh5sM3QrJYQj1jql1Gy55waqrO3p6iBmO67bhVGgDEe+pkwLfZMqv
-	e+SOkx2NMxY1OFL1HOtwLiHseZNnNB6aoPFFtTgY/K0ryJPLIHxGIP/pbei32BTp
-	XRzJ+37zYmk485nF7zCzdYkVS/GwOYqDMvPWEZYfIbNHpQajUlzUA2g56HS6DwgI
-	PlPgxc+0SzzdZbHjm7McdpZQIdocJsA8BS2A5exTE0Oc5Qv5vESTM9y8V8slXZST
-	Edjjlhc3slWE0KolIv1zZ26Rehuwf5Nwi010eU/78eEl3jCHgwo1BNejZInT4hlk
-	1RD/5w==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dh870t9jv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 10:22:15 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50b33a19837so16788331cf.3
-        for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 03:22:14 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=vayavyalabs.com header.i=@vayavyalabs.com header.b="UGKyHmtW"
+Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-506aa68065eso42144401cf.1
+        for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 03:28:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776162508; cv=none;
+        d=google.com; s=arc-20240605;
+        b=ZQUukr84495BOfKuwOnli5wdtrZ9sxgEjDG2FDYYQfRqFgJXdCStaWJbOjZ9rHvYdZ
+         C0kLiRBlh0Fzav0wc3ALJ58jOewIxz3P0xyl3xpXv4q2Lblb3+YK5cMwnykF1TOy91bI
+         a5ayIjdyiVcHnYyVYT/9xKT0QQORdf4xDCyG3fjdE6i55kWrcKseJQHQEGLMrqXahzO1
+         2G2KpfgUtDdT3qPDmoCZzpVTYa2b17axQrBufhqga77PIGGvGWisoPZzS/ymUvIxJySm
+         AOUFusXXkA2gk24oYZJ5FslFGvq7xUeIav+3XJ46fQJHboJeRi7olwr11OHPa0Wh2ytK
+         wGRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=EbKz3DQzt83f/P1RrZXts9tDEfXZSdSj2yob2J1dqQE=;
+        fh=w4K+ez/MxTcDZtDsIj/YENFewLhH9MAyxgobm1UN1gA=;
+        b=Oyd1QaXhewmH4NJV4GHylCoht5NgnKa1fGOJuR49YhZxwAhqaSg4RCA0TfMtnv4Adz
+         wtwfKQVDIOv7g1Ja2wY3TIYKgxsB4sI6p2NpqYNeCo9RW5iphrZePmNDDPa+Iu3wG5ay
+         CWkYS3tXz0LkPOotcbQ8OyoYWAfhhR7g5t6fyyeaNwOsTscFafgLcEYI0NRrlg3xQFTs
+         cWIyZVB8poPa9XrbjiKHp8KQJKUhEaSGxJtn1IOiFDecVphGoZVkUr4CEEkoSuoY9qAL
+         KfY21o9HhDag8h9Jmv73SbwnDgYZ3KEyUtdU60sa8R2ea03jfWo3AzjaXJ9u6ALoM/8V
+         8IuQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776162134; x=1776766934; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=WiLWJ6pQMYgwg6cQ9yFxe+yYkkxwmMyZ1v9obgTWDr0=;
-        b=EZvXG5EFjdUafvVXBXFL7Hemu1fR7m+4V9iKbP4YaYJy05X4Xf56dSB6G0/StZkHI7
-         9DkKmCFyw86sMBSYEnHvxUcH2mn3tyDPegJUqSvO2U0IzSjwU//0fh9HBgDUxJKaStEz
-         g8vJjACUz7VdnN4KbWCtXk4KGyG16m+CbFWABxJ7FGAzC6OS7xpC/Y4YHsaS6ltvsmNB
-         wmFrkRoKayh5baDBJw2B3innKK16E2T9mG9H/xDj+1bTqgMF46WF3O2MolZMIWLt3MDW
-         DuBUvTL9Iu3nz5OWbuZ3Tz+koeq3DAQUY5IMrTI5VlLEKoQ1D5ejD6+OHob76+6xhLvo
-         1ALQ==
+        d=vayavyalabs.com; s=google; t=1776162508; x=1776767308; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=EbKz3DQzt83f/P1RrZXts9tDEfXZSdSj2yob2J1dqQE=;
+        b=UGKyHmtWQpxhpS5AwJhZWSVst41dokHijuUCKK5Actemb697xQVH+jAeGzgIu4OEhH
+         XRCRnuhtXdqt5NbnCFiRo7+uJuBcQ9l7GCE2V4Vi1NSWCmtOUeADL4XUYtdk3hDpef2Z
+         5xWaACAm3PbLJj0AqmOtUYT+paqM0KPih14BI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776162134; x=1776766934;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=WiLWJ6pQMYgwg6cQ9yFxe+yYkkxwmMyZ1v9obgTWDr0=;
-        b=nOTFfheWyo3T/2dCjr3uTLTtDICu3WqvS5cxtbEArwd5MCdLxcghkOYmdGeCd/scb1
-         xN1yUo2IP1eCVWxgX9D5ym2NawOg5GhyeIXJohG5/X4sy+ytBVZ0+skqqgvA+44in/wN
-         bvyXoo+sp7bVl+VU9YidbY5CW1lS3JlA81xwRQ56YX66z5u1S71m7F6KJuPM//8czDjj
-         jeiM0lE6dbiDc1Wa0PXhs08Sap7+tWCdd7hFaio1UjwvgMFOtuEHuOiSPwmo0bwi+p8a
-         GpxE8wCVSe8ZKiXO5efs45neB4Ve+3QvXpiWbz4K8SxcyXaypGC79q2+a6kB6PlVgmV4
-         GUTQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/tiaXjWRmBJGBIUFmVz0ktPc7ac2sqCtRNPA7o/HFwSstzkxu9mCHgPMKDttsr1im0+CM0QuLdq8rP@vger.kernel.org
-X-Gm-Message-State: AOJu0YwCB1cNIkZRpVyE7HODvCL38es/Hb3OWaDGH5PYmQzeNYX7PR+i
-	660mHtV3Lh66oghtjb8leZuWb1d0/+WLrJ5CvmDTi8DE33LUzNIeYF27K5dvvxH7CplyTBpcDD1
-	nB+wRyZUZR4PuEdar5x/q5MFNZjG1CeICpWG8endf79XmooSwr8pdIU05/Z1QmsRg
-X-Gm-Gg: AeBDieucc7wVBrcyWUi8aHxn5lZbssLWo88M2WCMWmFyrPR+Wz5/BpPlX7BnvLd/VqV
-	0cGf9Si+eXh6FphRM9nvmIdrwK69fc1jGfJeH/ynL6kB2g+GVL8Yhp3YdINHxDBAWxbzQZziD2h
-	+rQ+KkWlmlxRhEE7eWv4buUhCq3dKXlt2ZqXD3Flxtjf/Lk/B0uq4IV+AtGrfdHnqiA/jqRWOmd
-	RJGH4JmCJaojv7gLha7xI7Bw/RxLSDrAF8XF9h9LnTZ+ldMO5MachrMF1qiA6IvY5k93Za4Xcge
-	sHsb40oGoteGRIxhxW4jyGGfJljKVWjTLc13OK60VthV3yE2+y5UODiuLZSudAu0FeC3/m/mFY7
-	C85mdHoxyhLdviizMEJyh+0G+DLpJRphqJbn0fV5cHSPfeKIT7wLPS4ViPh0Qo208ZCVXiUFxTP
-	Ts27NCqJxeYJZhZA==
-X-Received: by 2002:a05:622a:5815:b0:50d:a92e:fead with SMTP id d75a77b69052e-50dd5bf0cf5mr174980051cf.3.1776162134132;
-        Tue, 14 Apr 2026 03:22:14 -0700 (PDT)
-X-Received: by 2002:a05:622a:5815:b0:50d:a92e:fead with SMTP id d75a77b69052e-50dd5bf0cf5mr174979831cf.3.1776162133703;
-        Tue, 14 Apr 2026 03:22:13 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6717ae8cb15sm1311068a12.19.2026.04.14.03.22.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 14 Apr 2026 03:22:12 -0700 (PDT)
-Message-ID: <9a424637-2c53-4436-b2fa-a0a77b22bc5b@oss.qualcomm.com>
-Date: Tue, 14 Apr 2026 12:22:08 +0200
+        d=1e100.net; s=20251104; t=1776162508; x=1776767308;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=EbKz3DQzt83f/P1RrZXts9tDEfXZSdSj2yob2J1dqQE=;
+        b=n05vqz45QKjpPBLud+STFQGA9pm6+BRwe8Hz7Z8wbRT7tOCv2lpbSGpdu9+SkOGIqO
+         hes7/YYpX4A3N84eYlqxiWZukupm0FhDyXeELNaU4IH1ZwXk8soJmrlllnKBOfwc9Pgc
+         eo4Zw8oFS8NBIKOPSLuOEjnKxQVqfp4nq2ZHFc2bbeY8SlLC+CUjjbZqUuo/ICUuxUxa
+         pL8Um+xqiMc9CYDcVnvLg/2BcMlsCkuCWGH9oXII8Q/RjbzPIqdqapGtTW+MK4uzF1NI
+         +hY7VIqQ9tK2//KmDnDQOZVRouHeK28cOw4gE5zG6G3tzw+FQO8fSuW4ZFLCTg2hu2Tc
+         r9OQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8YnpilPdWKtJzOlBg6Yz4kUMgc8+FYQywZGqIZyolBe2oPHzedfXe3AwKfepTQuth9/TNjGs4ANGDl@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw2ErhQ8tI87A8VOyNqNGy2TnVgNPJQ0gvKryXy5hYOJuTDnWpQ
+	YdHmqeuTcgh03lP3nWdukmTeURV7aj18rN9By+dcKIclXKFgplI1uO/m3gjKQZUEINQbw1AOYS3
+	6ys3WoG4qx1PNiIW+zqGLWqwlYFFpN3HNh3HOUJ/hFw==
+X-Gm-Gg: AeBDieuQZ/UQoLXAyn3/5ppjyIHdu82n6wxx73YB0L4VVCGazg0N2emiOQ3harAEm/F
+	vw5kp21A6c09j0I6X/Jx+lqiJLn8c3WJFS3JB+fSWqdixsfDUV+iIRbteu9Qg+L9rC1zkdjy+Ai
+	jTJ+XksabQi8abhE091zUqCs6vHBY/tQjuUoUjbrSXXD45MWFfFT2TepdcwW5R/0XKiOzyuSwiv
+	YxK+aBWK7U6zY9mzaNwdcCC1AMOuwr8ZOW0LKMsiEwYIdY+fVmIl4hbvKhWAkETmuVy0jd/tPJQ
+	CnRy7UkE78O0zLubRnb37NN7JquzHqavqQ5J+2F4VvOG/590NkbjjOuINYeEjjbPyG805HPyd9N
+	8jdW6Ei2wZxdqDh9kpdTbUFTbkwMP33vxAkb2dySQ90WhrOrlCXitvtAd+g==
+X-Received: by 2002:a05:622a:550d:b0:50b:2876:586 with SMTP id
+ d75a77b69052e-50dd5ad112emr252830511cf.5.1776162507725; Tue, 14 Apr 2026
+ 03:28:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/7] arm64: dts: qcom: hamoa: Add label properties to
- CoreSight devices
-To: Jie Gan <jie.gan@oss.qualcomm.com>,
-        Bjorn Andersson
- <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260410-add-label-to-coresight-device-v1-0-d71a6759dbc2@oss.qualcomm.com>
- <20260410-add-label-to-coresight-device-v1-7-d71a6759dbc2@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260410-add-label-to-coresight-device-v1-7-d71a6759dbc2@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=C9vZDwP+ c=1 sm=1 tr=0 ts=69de1557 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=uGyuuOI-cJ-b_BVNecgA:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE0MDA5NiBTYWx0ZWRfXxN24qAzNo4fR
- AkqwpSygKEuqlsUv+UDBTKepWsxOsowb7jI//VgdBH+cByIgVxH0meaMaTs2HkckUsA7OrC5yio
- LffV4pqL1K+jzEfsmygI1SYexC0QO8rdZ/ZmmXmhCpC8zEyt5BkyISNFqPw7em0ftrOFLUVOTki
- 86WLGWgP/axrfly0XWZU0ktn8Je3ys+VyRrsF/H+tW6DA6/CIGKluI6+/8m9TjcC0nsgDaTv8ON
- MuRmu6uejVklx1YzCZTh3/PLmn7+b/vtIf+FvGkTu2fHp8/i2ZQPHVD62GXT4sijh92nOLXC6SZ
- 38C8DT9y+P+bN4LpzhvhIUwSO2wxQYyLkin0LTgUq4zDdOPGufaE/vrVbl400/nl35LtdhfoZFM
- q3ButyjTOkrX1Q6C1HsDxrWbDFKPqHywCRQZui6VOAnQBIM+M5wTP7NpjaXMDhVujS8uG1gKPW9
- ItveIOr4aGSYCzBKApg==
-X-Proofpoint-GUID: Zf9J00bdVPOkKeYuv631gzLhZy6W9tRe
-X-Proofpoint-ORIG-GUID: Zf9J00bdVPOkKeYuv631gzLhZy6W9tRe
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-14_02,2026-04-13_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 clxscore=1015 malwarescore=0
- lowpriorityscore=0 phishscore=0 bulkscore=0 spamscore=0 impostorscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604070000
- definitions=main-2604140096
+References: <20260318071808.817074-1-pavitrakumarm@vayavyalabs.com>
+ <20260318071808.817074-3-pavitrakumarm@vayavyalabs.com> <acZL65nbtfMCPHhq@gondor.apana.org.au>
+ <CALxtO0nFEG2Lm18Fnb=YVQfy4-Qjb5+WtOxsHNOwYTy2Kzyb4g@mail.gmail.com>
+In-Reply-To: <CALxtO0nFEG2Lm18Fnb=YVQfy4-Qjb5+WtOxsHNOwYTy2Kzyb4g@mail.gmail.com>
+From: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
+Date: Tue, 14 Apr 2026 15:58:16 +0530
+X-Gm-Features: AQROBzAtNMeWlauuG2iBoAxxFsqw-tyFJ9-jcGZZ7ytu53NJX8wZj4aZKG2Fw2Q
+Message-ID: <CALxtO0kj4JfL94qY-radGcLwMeTnq4NQF7vPqs6giuhBinvALw@mail.gmail.com>
+Subject: Re: [PATCH v11 2/4] crypto: spacc - Add SPAcc ahash support
+To: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, 
+	Ruud.Derwig@synopsys.com, manjunath.hadli@vayavyalabs.com, 
+	adityak@vayavyalabs.com, navami.telsang@vayavyalabs.com, 
+	bhoomikak@vayavyalabs.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 4/10/26 5:08 AM, Jie Gan wrote:
-> Add label properties to TPDM and CTI nodes in the hamoa device tree to
-> provide human-readable identifiers for each CoreSight device. These
-> labels allow userspace tools and the CoreSight framework to identify
-> devices by name rather than by base address.
-> 
-> Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
-> ---
+Hi Herbert,
+   If the above snip looks good, I can push that and some more code
+clean-ups/improvements as part of V12 patchset. Do let me know.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Below are the code fixes and improvements
+1. Multi-device safety handling - All packed up inside priv
+2. Minor code polishes
+3. memzero_explicit inside setkey, spacc_compute_xcbc_key etc.
+4. Algo registration clean-ups
 
-Konrad
+Warm regards,
+PK
+
+
+
+On Thu, Apr 2, 2026 at 1:30=E2=80=AFPM Pavitrakumar Managutte
+<pavitrakumarm@vayavyalabs.com> wrote:
+>
+> Hi Herbert,
+>    As per your inputs, I've replaced the do_shash switch to use
+> lib/crypto single-shot calls for SHA-1, SHA-224, SHA-256, SHA-384,
+> SHA-512, and MD5.
+>
+> However, SM3 does not have a single-shot library API in lib/crypto yet
+> =E2=80=94 include/crypto/sm3.h exposes sm3_init() and sm3_block_generic()=
+,
+> with no sm3()/sm3_update()/sm3_final() equivalents.
+>
+> For now, I've retained do_shash only for the SM3 case. Would this be
+> acceptable, or would you prefer a different approach?
+>
+>
+> Code snippet below for your reference
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D snip start =3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>
+>  switch (salg->mode->id) {
+>  case CRYPTO_MODE_HMAC_SHA224:
+>          sha224(key, keylen, tctx->ipad);
+>          break;
+>
+>  case CRYPTO_MODE_HMAC_SHA256:
+>          sha256(key, keylen, tctx->ipad);
+>          break;
+>
+>  case CRYPTO_MODE_HMAC_SHA384:
+>          sha384(key, keylen, tctx->ipad);
+>          break;
+>
+>  case CRYPTO_MODE_HMAC_SHA512:
+>          sha512(key, keylen, tctx->ipad);
+>          break;
+>
+>  case CRYPTO_MODE_HMAC_MD5:
+>          md5(key, keylen, tctx->ipad);
+>          break;
+>
+>  case CRYPTO_MODE_HMAC_SHA1:
+>          sha1(key, keylen, tctx->ipad);
+>          break;
+>
+>  case CRYPTO_MODE_HMAC_SM3:
+>          rc =3D do_shash(salg->dev, "sm3", tctx->ipad, key,
+>                  keylen);
+>          if (rc < 0) {
+>                  dev_err(salg->dev,
+>                          "ERR: %d computing shash for sm3\n", rc);
+>                  return -EIO;
+>          }
+>          break;
+>
+>  default:
+>          return -EINVAL;
+>  }
+>
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D snip end =3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>
+> Warm Regards,
+> PK
+>
+>
+>
+> On Fri, Mar 27, 2026 at 2:50=E2=80=AFPM Herbert Xu <herbert@gondor.apana.=
+org.au> wrote:
+> >
+> > On Wed, Mar 18, 2026 at 12:48:06PM +0530, Pavitrakumar Managutte wrote:
+> > >
+> > > +             switch (salg->mode->id) {
+> > > +             case CRYPTO_MODE_HMAC_SHA224:
+> > > +                     rc =3D do_shash(salg->dev, "sha224", tctx->ipad=
+, key,
+> > > +                                   keylen);
+> > > +                     break;
+> >
+> > Since you're doing a giant switch statement anyway, please convert
+> > this to use lib/crypto instead of shash.
+> >
+> > Thanks,
+> > --
+> > Email: Herbert Xu <herbert@gondor.apana.org.au>
+> > Home Page: http://gondor.apana.org.au/~herbert/
+> > PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
