@@ -1,66 +1,87 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F59D3D5226
-	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 10:20:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 888C43D3D16
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 10:22:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776162043; cv=none; b=QiQvB/yptfhBiTaxw4U7vrevgDQ5501xBBPzYJFvDAfQ4GdfGXR/HXTwFZH0pwPk66mstx4m0T034yoE717ncKJAsA+XhZ3FNOZTmgQYbuZpPBCW3wM7aAd3cu+pq3mK+nQ7l75V57JbiePSXIrdSUjV1S2aP/+T5GHtiQSjkDI=
+	t=1776162145; cv=none; b=UTSr4ntk8J67BWLs3SYk59lxywjhWI2h8sQYUeKpYfoX4fHR1gjfJ40P0TZWlNZxEvFv/GjkQh1StoiU70C4wIa4YwONmPG1IRQjBVawNAeBBw0M6ecndUCOZnuuPfu6NSxJYnA8gvGUuQtWp3thSOPCzZThWmG8mXwdp/Z7nBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776162043; c=relaxed/simple;
-	bh=2l2un2dJbMhS4rHXZeYIIG4tWC1pBRspQ9Web4LJIGA=;
+	s=arc-20240116; t=1776162145; c=relaxed/simple;
+	bh=xZvQV0btEQC7XEW4VG5tg7Lr9QviucOi1s3YfDjh96E=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OyzV3Mof7N1Z4WtgsnUVLfsEbW+5aadRBg3wLhxrzMWX26iGj4QTLcx0tKlwdyc3ltVmLBEzWporyHDoQxYhsIEyeMYu23IC7pyxBrSgzXIS+rbvKc/HtXaWCKtKY1XPUCzwhw/VlllwF/gLjnoDsT237YclrfIiNyNyzalnlWM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=CJkc4YdC; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	 In-Reply-To:Content-Type; b=IlX7eX3HHIrFXq7+TFAU1q4JtOpvG2+8Grov38aR/85daGbiBFERj7cNudO7sc87h4X8EdBn18J5d++b1A4SYiLXScITCPxiW/u2kX9u3uShm9gtl3K8Mc0aTiEls/UiYYTrc7W/AG/gKQO6qV8Lw9UigyqZYRuDlvxtUa4nlEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Hk+1n8Zj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EZvXG5EF; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="CJkc4YdC"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-43d6fbd0954so1930847f8f.1
-        for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 03:20:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Hk+1n8Zj";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EZvXG5EF"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63E6CtmU363068
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 10:22:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	WiLWJ6pQMYgwg6cQ9yFxe+yYkkxwmMyZ1v9obgTWDr0=; b=Hk+1n8Zj+hgYtzDn
+	9FkWtgXpC/fBh5sM3QrJYQj1jql1Gy55waqrO3p6iBmO67bhVGgDEe+pkwLfZMqv
+	e+SOkx2NMxY1OFL1HOtwLiHseZNnNB6aoPFFtTgY/K0ryJPLIHxGIP/pbei32BTp
+	XRzJ+37zYmk485nF7zCzdYkVS/GwOYqDMvPWEZYfIbNHpQajUlzUA2g56HS6DwgI
+	PlPgxc+0SzzdZbHjm7McdpZQIdocJsA8BS2A5exTE0Oc5Qv5vESTM9y8V8slXZST
+	Edjjlhc3slWE0KolIv1zZ26Rehuwf5Nwi010eU/78eEl3jCHgwo1BNejZInT4hlk
+	1RD/5w==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dh870t9jv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 10:22:15 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50b33a19837so16788331cf.3
+        for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 03:22:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1776162037; x=1776766837; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1776162134; x=1776766934; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=HjjP3x2s4FAG01oUrkjM+enP8FGX1QBSjIAMGgLldEs=;
-        b=CJkc4YdCoQjH3GN88jmk+eLTvdY7mmpiML+zSvvz1oMgY8lgqrXGSUTb0E36hpjQiC
-         L5bt+ugFfq1dsRkoOZDQ8pwovasweKdeTragSRq0d4Sxiu7erlwX9aN3sbQwPiMYImZd
-         SYHLmJ81Ci6d+uC+zqJPITPmvO3HODAMBmNQ+J7Q/FQzesWANy9gFgu2m3TrMRJ4W8TZ
-         N2/L1jBOuzbu3yRMaz/s+fcxh6sYHLxV8SHmpKVlxg1iHXRWAANr1NmJkYkHcQwrgti3
-         a2iKjLlaHWYUSYhRxwwrDVjPFb+low5v+TQ7MpyMsA2FG/vPnzpFO6sSsk66pkbbDvvS
-         V3DA==
+        bh=WiLWJ6pQMYgwg6cQ9yFxe+yYkkxwmMyZ1v9obgTWDr0=;
+        b=EZvXG5EFjdUafvVXBXFL7Hemu1fR7m+4V9iKbP4YaYJy05X4Xf56dSB6G0/StZkHI7
+         9DkKmCFyw86sMBSYEnHvxUcH2mn3tyDPegJUqSvO2U0IzSjwU//0fh9HBgDUxJKaStEz
+         g8vJjACUz7VdnN4KbWCtXk4KGyG16m+CbFWABxJ7FGAzC6OS7xpC/Y4YHsaS6ltvsmNB
+         wmFrkRoKayh5baDBJw2B3innKK16E2T9mG9H/xDj+1bTqgMF46WF3O2MolZMIWLt3MDW
+         DuBUvTL9Iu3nz5OWbuZ3Tz+koeq3DAQUY5IMrTI5VlLEKoQ1D5ejD6+OHob76+6xhLvo
+         1ALQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776162037; x=1776766837;
+        d=1e100.net; s=20251104; t=1776162134; x=1776766934;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=HjjP3x2s4FAG01oUrkjM+enP8FGX1QBSjIAMGgLldEs=;
-        b=gLVj4OzikMreDqaim5VNAE4jU/veITRBYFbbxeOqO0ldT2VFNGkVMyBm5WCeab5iSd
-         sRJ4AO8VVvN/QAfucKWewFbDVS7Us9wkEsag5w20UBDaT5LUcr+gfar2/6asWKAg27Ri
-         36jxBwrL00Faogz7ea4chI55nIARcGkN1SPqtyRxFwqcvJjh01rFZ15p0bffRwqXwOxa
-         iq0Uv5scH7f7eLL5z2Azeh+TijghLam5f7KKeGsbLbTnQ5F82TeOFr0mdaSdosfhLdJ3
-         BHE5J37YLFTvKxvoMLN6fdnPm61WmOsAho+169hy4mfjLckWGnlF8ZgB+Dm7Z0VxwMX2
-         svIg==
-X-Forwarded-Encrypted: i=1; AFNElJ8avdi6SEkB/dhz1TerCHt5/5fY1Tl6xVgRuEe+2iuSDm9jt3IgglrvpPUwYN4jEBc8frKqNgLyukj7@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz4E9iMf6sciGiHquYM/IUlauLPPiVu2eAK2Diyrq2kyxYCpONS
-	inYioZ7T4pYqEEqPfZ3mo7zHUhfo2wDwSDbTLIReViMVXJF86TBhSsP/N0Tc3b+I2Ts=
-X-Gm-Gg: AeBDietlZD8pwCj5aptsw9+lAptKzQQnTbOCUfjYc+4JjX79uRpxFlmN9RRJ11mEMQ0
-	QNroKToxQHW/QrjM3UxfmJ3c1rXoZhOiBDOyu3LzgUGvxHGunDNxEHU8Qy9B9l1j8a9KjdUEbAb
-	AVmr4S+oBPTq1o3LUlPuuDEQHwpymxuusnwTd4dBmoGRIl44yFZWKstpXgLxKjE3lF2os40Norr
-	ErDeiWY/5a0Hkg5F1tctmXCqsZDF5fd3IlFfTbdRwjFgUmkHVZHwlViS9suAGPDjqB+n+7StNxj
-	+SxXn5bm0mXZC1vFF7NCm5njwjHe6AaQpckYVZnmHisHAYKOuTH8HlxLBiJza0n4geWtRPtDlzf
-	8N4y2KAS+pbL93QTa8AzUwtYYTePuavLFnLGT4ongUs80kNPseF103PcBGnqf1nD/zLb7ngVEVh
-	J00uUouOsScOUVN+zLhEEZ0RS0gYXjUMzGjC4D3cufHg==
-X-Received: by 2002:a05:6000:1a8d:b0:43d:1bf6:30f3 with SMTP id ffacd0b85a97d-43d6424c4f6mr24710460f8f.14.1776162037022;
-        Tue, 14 Apr 2026 03:20:37 -0700 (PDT)
-Received: from [10.11.12.108] ([79.115.63.48])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43d73e36e7csm20342473f8f.10.2026.04.14.03.20.36
+        bh=WiLWJ6pQMYgwg6cQ9yFxe+yYkkxwmMyZ1v9obgTWDr0=;
+        b=nOTFfheWyo3T/2dCjr3uTLTtDICu3WqvS5cxtbEArwd5MCdLxcghkOYmdGeCd/scb1
+         xN1yUo2IP1eCVWxgX9D5ym2NawOg5GhyeIXJohG5/X4sy+ytBVZ0+skqqgvA+44in/wN
+         bvyXoo+sp7bVl+VU9YidbY5CW1lS3JlA81xwRQ56YX66z5u1S71m7F6KJuPM//8czDjj
+         jeiM0lE6dbiDc1Wa0PXhs08Sap7+tWCdd7hFaio1UjwvgMFOtuEHuOiSPwmo0bwi+p8a
+         GpxE8wCVSe8ZKiXO5efs45neB4Ve+3QvXpiWbz4K8SxcyXaypGC79q2+a6kB6PlVgmV4
+         GUTQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/tiaXjWRmBJGBIUFmVz0ktPc7ac2sqCtRNPA7o/HFwSstzkxu9mCHgPMKDttsr1im0+CM0QuLdq8rP@vger.kernel.org
+X-Gm-Message-State: AOJu0YwCB1cNIkZRpVyE7HODvCL38es/Hb3OWaDGH5PYmQzeNYX7PR+i
+	660mHtV3Lh66oghtjb8leZuWb1d0/+WLrJ5CvmDTi8DE33LUzNIeYF27K5dvvxH7CplyTBpcDD1
+	nB+wRyZUZR4PuEdar5x/q5MFNZjG1CeICpWG8endf79XmooSwr8pdIU05/Z1QmsRg
+X-Gm-Gg: AeBDieucc7wVBrcyWUi8aHxn5lZbssLWo88M2WCMWmFyrPR+Wz5/BpPlX7BnvLd/VqV
+	0cGf9Si+eXh6FphRM9nvmIdrwK69fc1jGfJeH/ynL6kB2g+GVL8Yhp3YdINHxDBAWxbzQZziD2h
+	+rQ+KkWlmlxRhEE7eWv4buUhCq3dKXlt2ZqXD3Flxtjf/Lk/B0uq4IV+AtGrfdHnqiA/jqRWOmd
+	RJGH4JmCJaojv7gLha7xI7Bw/RxLSDrAF8XF9h9LnTZ+ldMO5MachrMF1qiA6IvY5k93Za4Xcge
+	sHsb40oGoteGRIxhxW4jyGGfJljKVWjTLc13OK60VthV3yE2+y5UODiuLZSudAu0FeC3/m/mFY7
+	C85mdHoxyhLdviizMEJyh+0G+DLpJRphqJbn0fV5cHSPfeKIT7wLPS4ViPh0Qo208ZCVXiUFxTP
+	Ts27NCqJxeYJZhZA==
+X-Received: by 2002:a05:622a:5815:b0:50d:a92e:fead with SMTP id d75a77b69052e-50dd5bf0cf5mr174980051cf.3.1776162134132;
+        Tue, 14 Apr 2026 03:22:14 -0700 (PDT)
+X-Received: by 2002:a05:622a:5815:b0:50d:a92e:fead with SMTP id d75a77b69052e-50dd5bf0cf5mr174979831cf.3.1776162133703;
+        Tue, 14 Apr 2026 03:22:13 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6717ae8cb15sm1311068a12.19.2026.04.14.03.22.09
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 14 Apr 2026 03:20:36 -0700 (PDT)
-Message-ID: <5797be19-8886-45a2-bfce-eb7d5f0df6c2@linaro.org>
-Date: Tue, 14 Apr 2026 13:20:31 +0300
+        Tue, 14 Apr 2026 03:22:12 -0700 (PDT)
+Message-ID: <9a424637-2c53-4436-b2fa-a0a77b22bc5b@oss.qualcomm.com>
+Date: Tue, 14 Apr 2026 12:22:08 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,95 +89,59 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: exynos850: Add SRAM node
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Alexey Klimov <alexey.klimov@linaro.org>,
- Sam Protsenko <semen.protsenko@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>
-Cc: linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Juan Yescas <jyescas@google.com>, Peter Griffin <peter.griffin@linaro.org>,
- =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-References: <20260413-exynos850_sram-v1-1-7fda5b7fb7d4@linaro.org>
- <2ff077e1-8983-4a41-bb21-5e4140545aa3@kernel.org>
- <DHSR70EGYY4N.2EA2HWIXJR7QR@linaro.org>
- <4c6a92e0-15a1-4f82-afc9-542f5ad9d2df@kernel.org>
+Subject: Re: [PATCH 7/7] arm64: dts: qcom: hamoa: Add label properties to
+ CoreSight devices
+To: Jie Gan <jie.gan@oss.qualcomm.com>,
+        Bjorn Andersson
+ <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260410-add-label-to-coresight-device-v1-0-d71a6759dbc2@oss.qualcomm.com>
+ <20260410-add-label-to-coresight-device-v1-7-d71a6759dbc2@oss.qualcomm.com>
 Content-Language: en-US
-From: Tudor Ambarus <tudor.ambarus@linaro.org>
-In-Reply-To: <4c6a92e0-15a1-4f82-afc9-542f5ad9d2df@kernel.org>
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260410-add-label-to-coresight-device-v1-7-d71a6759dbc2@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=C9vZDwP+ c=1 sm=1 tr=0 ts=69de1557 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=uGyuuOI-cJ-b_BVNecgA:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE0MDA5NiBTYWx0ZWRfXxN24qAzNo4fR
+ AkqwpSygKEuqlsUv+UDBTKepWsxOsowb7jI//VgdBH+cByIgVxH0meaMaTs2HkckUsA7OrC5yio
+ LffV4pqL1K+jzEfsmygI1SYexC0QO8rdZ/ZmmXmhCpC8zEyt5BkyISNFqPw7em0ftrOFLUVOTki
+ 86WLGWgP/axrfly0XWZU0ktn8Je3ys+VyRrsF/H+tW6DA6/CIGKluI6+/8m9TjcC0nsgDaTv8ON
+ MuRmu6uejVklx1YzCZTh3/PLmn7+b/vtIf+FvGkTu2fHp8/i2ZQPHVD62GXT4sijh92nOLXC6SZ
+ 38C8DT9y+P+bN4LpzhvhIUwSO2wxQYyLkin0LTgUq4zDdOPGufaE/vrVbl400/nl35LtdhfoZFM
+ q3ButyjTOkrX1Q6C1HsDxrWbDFKPqHywCRQZui6VOAnQBIM+M5wTP7NpjaXMDhVujS8uG1gKPW9
+ ItveIOr4aGSYCzBKApg==
+X-Proofpoint-GUID: Zf9J00bdVPOkKeYuv631gzLhZy6W9tRe
+X-Proofpoint-ORIG-GUID: Zf9J00bdVPOkKeYuv631gzLhZy6W9tRe
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-14_02,2026-04-13_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 clxscore=1015 malwarescore=0
+ lowpriorityscore=0 phishscore=0 bulkscore=0 spamscore=0 impostorscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604070000
+ definitions=main-2604140096
 
-Hi!
+On 4/10/26 5:08 AM, Jie Gan wrote:
+> Add label properties to TPDM and CTI nodes in the hamoa device tree to
+> provide human-readable identifiers for each CoreSight device. These
+> labels allow userspace tools and the CoreSight framework to identify
+> devices by name rather than by base address.
+> 
+> Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
+> ---
 
-On 4/14/26 12:08 PM, Krzysztof Kozlowski wrote:
-> On 14/04/2026 11:00, Alexey Klimov wrote:
->> On Mon Apr 13, 2026 at 4:23 PM BST, Krzysztof Kozlowski wrote:
->>> On 13/04/2026 16:52, Alexey Klimov wrote:
->>>> SRAM is used by the ACPM protocol to retrieve the ACPM channels
->>>> information and configuration data. Add the SRAM node.
->>>>
->>>> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
->>>> ---
->>>>  arch/arm64/boot/dts/exynos/exynos850.dtsi | 8 ++++++++
->>>>  1 file changed, 8 insertions(+)
->>>>
->>>> diff --git a/arch/arm64/boot/dts/exynos/exynos850.dtsi b/arch/arm64/boot/dts/exynos/exynos850.dtsi
->>>> index cb55015c8dce..cf4a6168846c 100644
->>>> --- a/arch/arm64/boot/dts/exynos/exynos850.dtsi
->>>> +++ b/arch/arm64/boot/dts/exynos/exynos850.dtsi
->>>> @@ -910,6 +910,14 @@ spi_2: spi@11d20000 {
->>>>  			};
->>>>  		};
->>>>  	};
->>>> +
->>>> +	apm_sram: sram@2039000 {
->>>> +		compatible = "mmio-sram";
->>>> +		reg = <0x0 0x2039000 0x40000>;
->>>> +		#address-cells = <1>;
->>>> +		#size-cells = <1>;
->>>> +		ranges = <0x0 0x0 0x2039000 0x40000>;
->>>
->>> You miss here children.
->>
->> Thank you! I guess I should convert it to smth like this:
->>
->> apm_sram: sram@2039000 {
->> 		compatible = "mmio-sram";
->> 		reg = <0x0 0x2039000 0x40000>;
->> 		ranges = <0x0 0x0 0x2039000 0x40000>;
->> 		#address-cells = <1>;
->> 		#size-cells = <1>;
->>
->> 		acpm_sram_region: sram-section@0 {
->> 			reg = <0x0 0x40000>;
-> 
-> This covers entire block, so feels pointless. Maybe requirement of
-> children should be dropped. What's the point of having children? Why
-> does the driver need them?
-> 
->> 		};
->> 	};
->>
->> And then later reference shmem = &acpm_sram_region from acpm node.
->>
->>> Also, 'ranges' should be after 'reg'.
->>
->> Thanks, will fix this.
->>
->> FWIW this commit is a copy of commit 48e7821b26904
->> https://lore.kernel.org/r/20250207-gs101-acpm-dt-v4-1-230ba8663a2d@linaro.org
-> 
-> 
-> Huh, we should fix that one as well.
-> 
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-On gs101, likely on e850 too, ACPM parses the SRAM and discovers at runtime where
-the TX/RX queue offsets are in SRAM. So we can't define static partitions in DT.
-I remember that I thought about extending the SRAM driver to add dynamic
-partitions (clients to request the mmio-sram driver to create partitions at
-runtime), but it was just ACPM that's using SRAM, so I didn't need it.
-
-Cheers,
-ta
+Konrad
