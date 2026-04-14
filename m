@@ -1,224 +1,148 @@
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11022121.outbound.protection.outlook.com [40.93.195.121])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FA3222D4E9
-	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 13:43:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 354343E5591;
+	Tue, 14 Apr 2026 13:48:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.121
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776174209; cv=pass; b=ZVxF8Kk4Rg1R/e86ir9mDa/rCV+rhr36mJ36EbyJhaAHD5a1W/NHqm2qxn4htzefBTIn6BncZKfYaFdQ9AQRyzKgAyRHHlzSfRHEcW0HrcA8EyD1O44KTlDL4Yzto55T76tk8/uvnQAEfcUsPr2eWik7+k9tvDRnANB4KddDvVs=
+	t=1776174538; cv=fail; b=eusl7bv4yg4OS7kdFaxxGOnKf3gjSz0VMSNH8omrfn+EnvZJ3f3V8uoNw5zOePfeQVDx0oF5AiGX67ImALU6uDqszxqj0EKKyfd9W1gTuFqQOJTCjqyQGb+sVFCGw1G24l9+E9iWoMAsVSkBalPJjISPw2GxnYcFhZjHKljnL3c=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776174209; c=relaxed/simple;
-	bh=+FMcleE/RJk8JXq4ZJIsUVYV4jwK9150VQYwhJJuz3Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PYnSbsC6AyNStFEqY5TEqJAubsG5GVJUycc5vArEQJU7FegBNGvzGUaK7TxW6GX07UQ8476dhfhhWjENIGwftlCO3gknALBDWyx2Y8xGl4/4pFw0TFw/DVNhLeCNbmfW8hP65c9pavCWqphBSKslCErelthGW6UditWtcja0BlI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=MzGXfcs1; arc=pass smtp.client-ip=209.85.167.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1776174538; c=relaxed/simple;
+	bh=O/NQ15M3jf6zoB3avakSr+NPUQcnUOEs0mRcdd+JWkw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=rkIVMOEDn2IEzj082XIBCGLj3/c3o1iEA7x2jCP9u7DLNeC7dhJhOEvztFayrxqWVIMqDR8GigejY676WBjRB2uk9lVdpmjLd1UDlfa8FvbHzmmjxuAKQoM2CZbzVdF7tGcjZtlBtRXR35zku7D2Ri4xPgtHmGntQmEq/tIjHMk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=eOguIwwO; arc=fail smtp.client-ip=40.93.195.121
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="MzGXfcs1"
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5a2c500750dso5566946e87.1
-        for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 06:43:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776174206; cv=none;
-        d=google.com; s=arc-20240605;
-        b=CQ1FV3ja459PtyypaJ/HP2vOPE3mtWtEh8uOieoyPYRSit1NmewLWUDhVXoHa0qTQR
-         7ze1PSE3Z19c5ZbgaUX8nYxQ8P+ykVUFBsUeX3FJ9x6RoV97v36tD4I5e2pSSOQpHmz6
-         wtlO3bY4QPhNz8Hx2ZAOeDvLaouv3sThc++lO21UuAdZjH7mrpdIFMgttI3Hwq+zvcyh
-         kP/ekN7DTNzzBozbPpfvV7j7RPwjSXmglJ0RjZxNr3Zic4dA2Mghk0LGgT+Rvh6yevg3
-         ZtLX7KaCFyY4+04LZdh9wOTBSbmRcf+mkdkKO7Jz4K9W2odz1r8Ul6g3IHf2rq0tyxc2
-         90tQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=Zy/0PzEut0PvWHR237jELAY9rSr5MyVNvmg6pBAc6Og=;
-        fh=g2ANjnAUZEp+9EZQpjGBrv1wzgw2/pe9gwIWgj2xg6g=;
-        b=SA5FhcDtAhvSz8mV7EMYmMqH7afeVWUkP5XvLk+Hoq8SBOfqw/5qHCIPFFKZZLoY//
-         7/JRzus+tztCmYOUtST5j1CtMLb9XuhWxyx0uLj0rrIK7f/N1lsxMMRqBTOyttj1bQKo
-         UhC4hq2imgX3DQUL7RZNxqi8ofvvD3PpusNkL+ebiv2NKbRfWfQvoZxGlK5pVte7aya/
-         /9TzrH0W4uNlHs9LhlODJj5lwDdp/kbP7gGfRvayXkRxkNZMMS1JTxNE8Aw9ygyDze6s
-         fdNM00ZZnfAO0K/g7sx3x+ptcASAKN04Xk9pd2SKwEndv4sqO+PWEWbuBxUf9+vv7P7W
-         +tHg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1776174206; x=1776779006; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=Zy/0PzEut0PvWHR237jELAY9rSr5MyVNvmg6pBAc6Og=;
-        b=MzGXfcs1iOQSunlCSB7WO0Z7I5Zt2w0pLfXkAxiFTN86ZKsQkD0Kcq5WR+Ldg0ps5p
-         vhYpW4hEFLI1dY9mZ9wLG7mNUuW1iihIdFpd4VMkO9FH6TZkdZsoBV9Ir6HVacdXJeUb
-         0dSs5OFUKdbRs1NsrcxJetfOUIGwUKtn9dx2yaW9++G7vcwQXdaa5SaS4j/5BdHRHOsb
-         LDipjcwb1SBg8JAvf5kkoFZjNU5Ezc8QLcElWRqfxYawL9o1HW7sUtEOwFiw32JFgyJg
-         ZL2qznySay7+ha1NOnCez+73WpuDSzC1+VgFK4esY4Ems05DGSJr0CD3SMVMk1pMqjaS
-         jL4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776174206; x=1776779006;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Zy/0PzEut0PvWHR237jELAY9rSr5MyVNvmg6pBAc6Og=;
-        b=XMiEe4F1eDar8tmr44Q0Hwsv9YC0ytqS37BMZ5RtzQhEmrfyqWSQJ4k4wvNKU7C4YX
-         PSRzvV5laZ5MFDtZUzY0aRV2C52FoRZqbj1RqqBZ9n+wtI3vPNrmOToUP5K4x56Tia21
-         U9loHbYyqqH/wtNCvxv2X3bQ/gEz9MC3SuM/JqlBP6x8r5pbPIHIA+XGTqrXht5qHL2N
-         r+Nn4vmTOicYsqiYz2xz3SXktImT5WWpVdyuUgUehlfRRSQ/sdNBlxwJLC/2Mr3ZvOkf
-         WmBjrL6fKZ5qghUdQVBis9NSxfARqxewCQLuylpSievLqdlEm0iQBE4bFW9qhrp4ry94
-         RFmw==
-X-Forwarded-Encrypted: i=1; AFNElJ+chuXnU4CV8giWoqkwW1VsEZdrZJLUiXdmQ1MWcvy4TEN/Qm5YJ3M6uV01H9tnP/Rv9ohD+W51QKMH@vger.kernel.org
-X-Gm-Message-State: AOJu0YwS/fRXoVLwxdl0z7ZuQYtmgOL0JToq4FAMuH7NGXstRejBDwiI
-	l2489dmGCK/zwzZ2sljKqzuhHBno8I88jGh32wxYk5lMtLVX2AzU/6gWPZAEAQWmoLPs+AmP0DY
-	lphDsSRO1UR6OwGquz5VoMLLE3BHjUNPtLiiy+ZK/Ow==
-X-Gm-Gg: AeBDietQXNeV2sj/IzYjt1mcPqXmF6AowynCFxV/YhJCMQeyusewgj4n8ZjqUGrl/MV
-	xF1cRF+4bA6UgRG6z9V6GoWu4OkEZhvlaWCHfTyfypQohPiLciO0OwtpSqCeEQwT/01XMRxL3cq
-	E3V8k8r5Yz55LrpqeAjaHVyBjqtFwiZpLttPED5hdeOOlA4yV4kgMVz48oB9nUeqZnPY3Rhjjbg
-	Nz8oA9M+rUhb0zHOJzXgKc2j4370cGr5nYoSdvRazb/bTTSqaeAs5+MC52A9MkOvXA5b2HPSDb/
-	I0m5IZvboE2XKiGxFrA=
-X-Received: by 2002:a05:6512:692:b0:5a3:d3ac:505e with SMTP id
- 2adb3069b0e04-5a3efb62ae8mr5639501e87.44.1776174205307; Tue, 14 Apr 2026
- 06:43:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="eOguIwwO"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Imboo+I/Ue6uIGnlCWjmhq+QQft6mzthsXqjypa6TyTUJnw+hO0KZsdeneBEy7cFYfF3zaK8NVDsqI9B4C9aGoQAwaYzYD1Zaqk5vrR1ixWlcYOZDwOxcgx/HUviZ4QeOoth2snar2pwwIKDGBIghbLMUZG65Pojyqiw1KMus+6B/2MCl0rvhNmd+w2mR2pC8CbZXEp0hy8XWGZSkbUuIl/COaRIlYncEmugStCGTQTwU2v/DwsIpEhmX9pFxQwhPrLlSwQhdNK6FbHuKCoRh+xMDr8/mZv+rrW6sman2JZn09LaaPgcvbHTxgyoWEG6mTs7HQqljBA0b6gNHELDvw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zId+5TVYAXJATNMn5KcJzAqrhS1LRW/2tp29vPuvmCY=;
+ b=tSQo7Vtv0TSnt4HLwcZfsPnIBo6+IUc/KTuW4imcQafwcIoXjGOvQnMw5xb3x/Yr48Mo5NZ7Gv/cQzdB0rrWGzSJwL0JS9PyzMEPen43RqBLbVD9B/C64A1zbxwfLGlVVKlUt7pFBbqCW3jmmBi5oIXax6SFUCZmrrqnRqZYEAri/IPcZu3QHbsunVP1PWgrG7oDD4gGJrhU4Gbnd/93C95faysYwx5qQ3i5BFqiE2TltnBHSDLfEQvJvG7uzKwFtjkg9qBpO1bHDqMa0FEk6caEgY4y2YM5eVWgaH77Mc9M3O4C/jRKpasqay6z9S1V6H89iJdKQ3VYmF4bmtBfvA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 50.233.182.194) smtp.rcpttodomain=axiado.com smtp.mailfrom=axiado.com;
+ dmarc=none action=none header.from=axiado.com; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zId+5TVYAXJATNMn5KcJzAqrhS1LRW/2tp29vPuvmCY=;
+ b=eOguIwwOrbyw3iNJ+lardiFHhzdcXd6JrGd03B57qCpYs5Ai2OzeeLZGS0JwXzVhhoeiinXpAWmZe1oHmmqawhJaeM2+IOWFJ0aOUMYk0kS4xqeMnnj0WRz0P+VUxtJTx6aR+TfH3DI/GuArHSJq1rNVnHVkCp7eGn11YeLY/spOJHbYzFZAHiWG0CPLe6/Rbaa3AowpBZIwY9qH/w8AvOg3XnsyRKUsZuLCqeUwCjwzqXYUrntXZQWl3nhppDSdShvR+BptrHh6OquizDlbBv/oP3+mmyzCRluOOUHvPtptRFjYyumb+7dm5aqqK0rRQ1qw6s5BY+myF8j87TVpRQ==
+Received: from PH8PR20CA0011.namprd20.prod.outlook.com (2603:10b6:510:23c::14)
+ by PH3PPF6D3BD054F.namprd18.prod.outlook.com (2603:10b6:518:1::ca1) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.46; Tue, 14 Apr
+ 2026 13:48:53 +0000
+Received: from SJ1PEPF000023D9.namprd21.prod.outlook.com
+ (2603:10b6:510:23c:cafe::75) by PH8PR20CA0011.outlook.office365.com
+ (2603:10b6:510:23c::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.48 via Frontend Transport; Tue,
+ 14 Apr 2026 13:48:53 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 50.233.182.194)
+ smtp.mailfrom=axiado.com; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axiado.com;
+Received-SPF: Fail (protection.outlook.com: domain of axiado.com does not
+ designate 50.233.182.194 as permitted sender)
+ receiver=protection.outlook.com; client-ip=50.233.182.194;
+ helo=smtp.corp.axiado.com;
+Received: from smtp.corp.axiado.com (50.233.182.194) by
+ SJ1PEPF000023D9.mail.protection.outlook.com (10.167.244.74) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9846.0
+ via Frontend Transport; Tue, 14 Apr 2026 13:48:53 +0000
+Received: from axz-uw1-build-vm02.corp.axiado.com (unknown [10.14.1.22])
+	by smtp.corp.axiado.com (Postfix) with ESMTP id 8CE594186B5B;
+	Tue, 14 Apr 2026 06:48:51 -0700 (PDT)
+From: Petar Stepanovic <pstepanovic@axiado.com>
+Date: Tue, 14 Apr 2026 06:48:34 -0700
+Subject: [PATCH 3/3] MAINTAINERS: add Axiado SGPIO controller
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260310-topic-lpm-pmdomain-child-ids-v1-0-5361687a18ff@baylibre.com>
- <20260310-topic-lpm-pmdomain-child-ids-v1-2-5361687a18ff@baylibre.com>
- <CAPDyKFquJ7K4NcWuKMr1sjrnFVVPGAeLCiSF_FhvJf9Frbn1uA@mail.gmail.com>
- <7h4iljskvz.fsf@baylibre.com> <CAPDyKFrR2zyMFXTAkKs1XRgB-u5jSP256g730s=7SLuOZKsKVg@mail.gmail.com>
- <7hqzomqwpv.fsf@baylibre.com>
-In-Reply-To: <7hqzomqwpv.fsf@baylibre.com>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Tue, 14 Apr 2026 15:42:47 +0200
-X-Gm-Features: AQROBzD-JbDP-fgOPRrseyRbXAcHRr7LSIAAw6wp14sGFXLCR1gaiFIhrIczbGk
-Message-ID: <CAPDyKFpWwwuxdU63Kuq_zoKkrFhkSjN6RrxdOCoL2u7JuH9B2w@mail.gmail.com>
-Subject: Re: [PATCH 2/3] pmdomain: core: add support for power-domains-child-ids
-To: Kevin Hilman <khilman@baylibre.com>
-Cc: Rob Herring <robh@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>, linux-pm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260414-axiado-ax3000-sgpio-controller-v1-3-b5c7e4c2e69b@axiado.com>
+References: <20260414-axiado-ax3000-sgpio-controller-v1-0-b5c7e4c2e69b@axiado.com>
+In-Reply-To: <20260414-axiado-ax3000-sgpio-controller-v1-0-b5c7e4c2e69b@axiado.com>
+To: Petar Stepanovic <pstepanovic@axiado.com>, 
+ Tzu-Hao Wei <twei@axiado.com>, Swark Yang <syang@axiado.com>, 
+ Prasad Bolisetty <pbolisetty@axiado.com>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>, 
+ SriNavmani A <srinavmani@axiado.com>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776174532; l=927;
+ i=pstepanovic@axiado.com; s=20250916; h=from:subject:message-id;
+ bh=O/NQ15M3jf6zoB3avakSr+NPUQcnUOEs0mRcdd+JWkw=;
+ b=uHvkvAfBgxfkT6nA/m5Aa1Z+P8HZWLqbAuvTUUSbHOgqy0Q0838lC9VTw1L+mpZDeFObztmTl
+ WvbC1N/QsSNAdfQe4PqaFa05iIqI3+VC2PgsIyJmFVlMJEk7D4CM9m5
+X-Developer-Key: i=pstepanovic@axiado.com; a=ed25519;
+ pk=70f1UJOGT9U11ZK6o+ENXtv0I5wBE3e+Y9YWODzRsdI=
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D9:EE_|PH3PPF6D3BD054F:EE_
+X-MS-Office365-Filtering-Correlation-Id: 98fd6cdf-9857-4cd5-e0f4-08de9a2c90e7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|376014|1800799024|921020|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	2mpQJPwv66mgsG5xeAZ+tKmil7uZpvf3fdeaqw+1foFrCxdhl8E2PGrr0pNgvGAY+X7rlrWCDrXDiXTpbKJK8V6zD1KjOPUSKeUPTQgIa8bE6+okck1mywgvz7qQzuhUEd2mh6tkTCGrPI6JHXWFZ6Ln+MNCsT64WjsPTq2Lfab0W1w3Hrv2DousB8I3hf2PUD/XD5ZVT0VdWik0GseX/AMmoP782ibXkWwU/X7zvZQsweQXQ6xQuKqyhoEnipMa/up1xuOql4KJtx9EfmkO8ES7mLPVYgkVZqUHYHztIhaC1B8AktHezHWbWIuU7aTC8D4AO749v7LFNq/9EvN32O0DWLG9hW89S0NpgpUo14fV5V9gu6149hVi/0puAeTQh9wZii2AjvP/o0ghIMAberES+XtfYYm+XOjYEmJP43mb2jnCySvqxamIkY2e+V6AwuMM8YbZ5/TL1UkBP69bb1t38LaYnbccC6WzbWFBToBQ6QNoTm0ZwEHtVmPmNwXO+iBNnYrJn+IJ39GxtMqEhl4sa3dARpbvuLFnlI2HbSkiZSaDjPHZ8nKvngkW7V43Qme91rxvHh6RFps5xjIad2nkDlpQQ7zk425QYHJjzKl77FgyzTfrc3SE4xXOFEVGUWhOrNWQhiUIxCFafIMNBMpLbiSY8Tag6S3vjKWXrp0U1rECHfCnldAain4wDpPQAz6rZQ+7nfmdj+Kepphwsre8MJtvlhv2sPMIrAqNf+L0HU9M3pnvjzdNh/Gy1GV2el2D7gdTgC0Xpd0XuCT0ZNaG7u7kVTUqRUPxi4imZUNUHbg5Hem+nuI+qgMAWrZ6
+X-Forefront-Antispam-Report:
+	CIP:50.233.182.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.corp.axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(921020)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	GPGYhW90D+Y8ZzeccibGMbHha+t9JG/L18pXqf3q36nOwbiLhBWaAvp78ydRyLvf1SokkHQnWkyhrjp+w+dd4o/3AROaYUG7cxNJGOzyQWWt5szxqjuia4IFxEHzLcy4gCGiUUJoiS83Q4Dnz7yPzGh4Ary6SYWee7Uk8w3FkYUIGhYvqF/XhWZMOYKwcf8jHPsgSq346sfO1W25wt58ix7fEA+BL3ahxLB3FZGAQlCU3sEv8mcxg8pAQQ8RuzdH1VRsurVCMGzzKwWSwo+fzTKLkaCNSsRdXEJ+/yNed8S5urJ22VqaLuiRS4rXZsOgvTGgMMHBOjoBLTPpqQhQwLsearQ2JGPUEJZ2OS1syUaMYRrATbR9FT/VDwrG6FZ+EmOOMDSilsw+1NL/VEQVJPIJ9XUlaNKyr03CtaXgwtut6ZNb/fH+smiKDrFugCEO
+X-OriginatorOrg: axiado.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2026 13:48:53.2357
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98fd6cdf-9857-4cd5-e0f4-08de9a2c90e7
+X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=ff2db17c-4338-408e-9036-2dee8e3e17d7;Ip=[50.233.182.194];Helo=[smtp.corp.axiado.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000023D9.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH3PPF6D3BD054F
 
-On Sat, 11 Apr 2026 at 00:25, Kevin Hilman <khilman@baylibre.com> wrote:
->
-> Ulf Hansson <ulf.hansson@linaro.org> writes:
->
-> > On Fri, 10 Apr 2026 at 02:45, Kevin Hilman <khilman@baylibre.com> wrote:
-> >>
-> >> Ulf Hansson <ulf.hansson@linaro.org> writes:
-> >>
-> >> > On Wed, 11 Mar 2026 at 01:19, Kevin Hilman (TI) <khilman@baylibre.com> wrote:
-> >> >>
-> >> >> Currently, PM domains can only support hierarchy for simple
-> >> >> providers (e.g. ones with #power-domain-cells = 0).
-> >> >>
-> >> >> Add support for oncell providers as well by adding a new property
-> >> >> `power-domains-child-ids` to describe the parent/child relationship.
-> >> >>
-> >> >> For example, an SCMI PM domain provider has multiple domains, each of
-> >> >> which might be a child of diffeent parent domains. In this example,
-> >> >> the parent domains are MAIN_PD and WKUP_PD:
-> >> >>
-> >> >>     scmi_pds: protocol@11 {
-> >> >>         reg = <0x11>;
-> >> >>         #power-domain-cells = <1>;
-> >> >>         power-domains = <&MAIN_PD>, <&WKUP_PD>;
-> >> >>         power-domains-child-ids = <15>, <19>;
-> >> >>     };
-> >> >>
-> >> >> With this example using the new property, SCMI PM domain 15 becomes a
-> >> >> child domain of MAIN_PD, and SCMI domain 19 becomes a child domain of
-> >> >> WKUP_PD.
-> >> >>
-> >> >> To support this feature, add two new core functions
-> >> >>
-> >> >> - of_genpd_add_child_ids()
-> >> >> - of_genpd_remove_child_ids()
-> >> >>
-> >> >> which can be called by pmdomain providers to add/remove child domains
-> >> >> if they support the new property power-domains-child-ids.
-> >> >>
-> >> >> Signed-off-by: Kevin Hilman (TI) <khilman@baylibre.com>
-> >> >
-> >> > Thanks for working on this! It certainly is a missing feature!
-> >>
-> >> You're welcome, thanks for the detailed review.
-> >>
-> >> >> ---
-> >> >>  drivers/pmdomain/core.c   | 169 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-> >> >>  include/linux/pm_domain.h |  16 ++++++++++++++++
-> >> >>  2 files changed, 185 insertions(+)
-> >> >>
-> >> >> diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
-> >> >> index 61c2277c9ce3..acb45dd540b7 100644
-> >> >> --- a/drivers/pmdomain/core.c
-> >> >> +++ b/drivers/pmdomain/core.c
-> >> >> @@ -2909,6 +2909,175 @@ static struct generic_pm_domain *genpd_get_from_provider(
-> >> >>         return genpd;
-> >> >>  }
-> >> >>
-> >> >> +/**
-> >> >> + * of_genpd_add_child_ids() - Parse power-domains-child-ids property
-> >> >> + * @np: Device node pointer associated with the PM domain provider.
-> >> >> + * @data: Pointer to the onecell data associated with the PM domain provider.
-> >> >> + *
-> >> >> + * Parse the power-domains and power-domains-child-ids properties to establish
-> >> >> + * parent-child relationships for PM domains. The power-domains property lists
-> >> >> + * parent domains, and power-domains-child-ids lists which child domain IDs
-> >> >> + * should be associated with each parent.
-> >> >> + *
-> >> >> + * Returns 0 on success, -ENOENT if properties don't exist, or negative error code.
-> >> >
-> >> > I think we should avoid returning specific error codes for specific
-> >> > errors, simply because it usually becomes messy.
-> >> >
-> >> > If I understand correctly the intent here is to allow the caller to
-> >> > check for -ENOENT and potentially avoid bailing out as it may not
-> >> > really be an error, right?
-> >>
-> >> Right, -ENOENT is not an error of parsing, it's to indicate that there
-> >> are no child-ids to be parsed.
-> >>
-> >> > Perhaps a better option is to return the number of children for whom
-> >> > we successfully assigned parents. Hence 0 or a positive value allows
-> >> > the caller to understand what happened. More importantly, a negative
-> >> > error code then really becomes an error for the caller to consider.
-> >>
-> >> I explored this a bit, but it gets messy quick.  It means we have to
-> >> track cases where only some of the children were added as well as when
-> >> all children were added.   Personally, I think this should be an "all or
-> >> nothing" thing.  If all the children cannot be parsed/added, then none
-> >> of them should be added.
-> >>
-> >> This also allows the remove to not have to care about how many were
-> >> added, and just remove them all, with the additional benefit of not
-> >> having to track the state of how many children were successfully added.
-> >>
-> >
-> > I fully agree, it should be all or nothing. Failing with one
-> > child/parent should end up with an error code being returned.
-> >
-> > That said, it still seems to make perfect sense to return the number
-> > of children for whom we assigned parents for, no?
->
-> No, because what will the caller use that number for?  If we are
-> assuming "all or nothing", what would we use it for (other than a debug print?)
->
-> It also makes it a bit confusing what a zero return value means.  Does
-> that mean success?  Or that zero children were added (which would be
-> fail.)
->
-> I prefer to keep it as is.
+Add MAINTAINERS entry for the Axiado SGPIO controller driver
+and corresponding device tree binding.
 
-In that case, how should we treat the scenario where the device node
-lacks a "power-domains-child-ids" property? In some cases it is
-probably fine, while in others it may not be.
+Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
+---
+ MAINTAINERS | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-I guess the caller of of_genpd_add_child_ids(), would then need to
-pre-parse for the "power-domains-child-ids" property before deciding
-to call of_genpd_add_child_ids().
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 67db88b04537..56835c0a1863 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4234,6 +4234,15 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/sound/axentia,*
+ F:	sound/soc/atmel/tse850-pcm5142.c
+ 
++AXIADO SGPIO DRIVER
++M:	Petar Stepanovic <pstepanovic@axiado.com>
++M:	SriNavmani A <srinavmani@axiado.com>
++M:	Prasad Bolisetty <pbolisetty@axiado.com>
++L:	linux-gpio@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/gpio/axiado,sgpio.yaml
++F:	drivers/gpio/gpio-axiado-sgpio.c
++
+ AXIS ARTPEC ARM64 SoC SUPPORT
+ M:	Jesper Nilsson <jesper.nilsson@axis.com>
+ M:	Lars Persson <lars.persson@axis.com>
 
-At least, we don't of_genpd_add_child_ids() to return an error code if
-there is no "power-domains-child-ids" in the device node, as that
-would just confuse the caller.
+-- 
+2.34.1
 
-Kind regards
-Uffe
