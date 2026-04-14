@@ -1,177 +1,96 @@
-Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 038B840DFAF;
-	Tue, 14 Apr 2026 12:33:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.61.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D379282F3F
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 12:53:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776170018; cv=none; b=O4XzVkBw6+KHKDQwSlEXnoc/azA+goUU2eG913W5g8y2XRVmjVNxC+IENi4nqcs0uqGOjv7bPHNlNVKL96dhLHPSu3VeS2vgG/zRFly07mr5d+yXEhmjJpUEFBi+dbVuXvOeGDtJp2OZevvhr9mPjUDT9yUlpIs3ESfgndaDlMo=
+	t=1776171222; cv=none; b=D44yyPr01Mi+iWt7bANjDUkHiMg+ffmZIK1YkN4krKfeUVuaWEVcvSQ+Sso1HngwmO52hs0m67skNrWdtLje119jFAZjcaNqNMuQ+7QrOmD5vgJ8wbNrM+6csYBVDYO1p4ze2R3fAMZFxb6hQMH6hcZl65h/yupcqfuWhFHovmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776170018; c=relaxed/simple;
-	bh=d3bktvVna1J5QQvrEvpiMs7fPfSFe03MCbAM/nAAbGc=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=GaWxm5mEocu5fUrsuOKnqNo/lA6tymjpDOPe2ckutvUbqTeP8EqfC3pi7jU97oiH99tp4Z/wkUmvaM7I0nWCAhpqMRjjj5z4G6LQQLjhRiamsTgMfsVxiWNjaWw7tBwFR8D50Dv9RiePk9tAZuHv18kGQ8pt9l8ToKRATAVpmt4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aliel.fr; spf=pass smtp.mailfrom=aliel.fr; dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b=kz77AKNl; arc=none smtp.client-ip=65.21.61.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aliel.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
+	s=arc-20240116; t=1776171222; c=relaxed/simple;
+	bh=qqTfbzCJb+zoF0M6GZZvJtDXIS9C58IcQDhX2CEZM00=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cZzDebgYIwNDyI16EfOisR3T3mGYpejy7QD2uJcehyLr+xFmZgCW1M6KCXQJeXPz+7rg7SkFAHJkIZdwTUJX7TYpfb5w4PFsHTNwPdWb2wapUakCzSACogAz5UHs9ZNV8CXfEfPDoUq6eeFBTAjjJzJQZ4cW2jSgIDJy77QFYps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rgLcN1R7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b="kz77AKNl"
-Message-ID: <69196110-0eff-4442-ab31-21e8e84781d8@aliel.fr>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
-	s=courrier-s1; t=1776170008;
-	bh=d3bktvVna1J5QQvrEvpiMs7fPfSFe03MCbAM/nAAbGc=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=kz77AKNlRM42Ei5wKqG+wr9GAcyb8/2iizonAQxHaYw7kfdWEgckgaS9Bs9bXooMs
-	 nqT55MrItap3FQ65IYwKYIG9CdqS+D8KhXdVeSmEIhPPf/EGZw+ZHKeIUEolXuP1kx
-	 9LQ8bDTniToDhR0NZNkX+ISN5llnL4/x0VDR82GQ=
-Date: Tue, 14 Apr 2026 14:33:26 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rgLcN1R7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6050AC19425;
+	Tue, 14 Apr 2026 12:53:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776171221;
+	bh=qqTfbzCJb+zoF0M6GZZvJtDXIS9C58IcQDhX2CEZM00=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=rgLcN1R7iEbOn4of5JqhXWrPkcKlANV2JfSWPLuiLUTN6o1pWKAx3/4HD4vQdiqgs
+	 AloI01rR3rLSzQnX8K6nUN/0I0nbHPC1snDYsuqKHkrGh4/5PZB+cidPsyb91VzRKY
+	 kBFmTjMHnpSLCapXcedr/KWo5sJPk9LKcfQUi4tfFCXBcbn2FQN5x1V3FPf/dArj14
+	 Kwi8lvO/lGoezy0nHCa2HjHAhHQ0qnlV5+d4U2EObtUZV060fzFvRcMESB6iftEu/5
+	 qIgNV90fXCNpO3iJWEKu8Ueige7fqUxjF1ZJAtGulsqKw53dZ2SSQskP0vTywD5+3C
+	 4YIoarF1csmmA==
+Message-ID: <a2945037-d8c9-45b5-b161-ac55ac9b0835@kernel.org>
+Date: Tue, 14 Apr 2026 07:53:39 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Subject: Re: [PATCH v2 1/8] dt-bindings: thermal: amlogic: Add support for T7
-To: Conor Dooley <conor@kernel.org>
-Cc: Guillaume La Roque <glaroque@baylibre.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-pm@vger.kernel.org, linux-amlogic@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260413-add-thermal-t7-vim4-v2-0-1002d90a0602@aliel.fr>
- <20260413-add-thermal-t7-vim4-v2-1-1002d90a0602@aliel.fr>
- <20260413-impose-cartel-bd7d18f91a24@spud>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: socfpga: Add the Agilex7 series SoC's
 Content-Language: en-US
-In-Reply-To: <20260413-impose-cartel-bd7d18f91a24@spud>
-Content-Type: text/plain; charset=UTF-8
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org
+References: <20260413144553.132737-1-dinguyen@kernel.org>
+ <20260414-certain-puffin-from-avalon-29ceeb@quoll>
+From: Dinh Nguyen <dinguyen@kernel.org>
+In-Reply-To: <20260414-certain-puffin-from-avalon-29ceeb@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 4/13/26 5:42 PM, Conor Dooley wrote:
-> On Mon, Apr 13, 2026 at 12:52:42PM +0200, Ronald Claveau wrote:
->> Add the amlogic,t7-thermal compatible for the Amlogic T7 thermal sensor.
+
+
+On 4/14/26 02:17, Krzysztof Kozlowski wrote:
+> On Mon, Apr 13, 2026 at 09:45:52AM -0500, Dinh Nguyen wrote:
+>> The Agilex7 is a series of devices from Altera that are derived from
+>> the Agilex family.
 >>
->> Unlike existing variants which use a phandle to the ao-secure syscon,
->> the T7 relies on a secure monitor interface described by a phandle and
->> a sensor index argument.
+>> The Agilex7F device supports PCIE 4.0 and DDR4. The Agilex7I device supports
+>> PCIE 5.0 and DDR4, while the Agilex7M device supports DDR4, DDR5, LPDDR5
+>> and PCIE 5.0.
 >>
->> The T7 integrates multiple thermal sensors, all accessed through the
->> same SMC call. The sensor index argument is required to identify which
->> sensor's calibration data the secure monitor should return, as a single
->> SM_THERMAL_CALIB_READ command serves all of them.
+>> All other peripherals from these devices are the same as the Agilex
+>> device.
 >>
->> Introduce the amlogic,secure-monitor property as a phandle-array and
->> make amlogic,ao-secure or amlogic,secure-monitor conditionally required
->> depending on the compatible.
->>
->> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+>> Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
 >> ---
->>  .../bindings/thermal/amlogic,thermal.yaml          | 42 ++++++++++++++++++++--
->>  1 file changed, 40 insertions(+), 2 deletions(-)
+>>   Documentation/devicetree/bindings/arm/altera.yaml | 10 ++++++++++
+>>   1 file changed, 10 insertions(+)
 >>
->> diff --git a/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
->> index 70b273271754b..1c096116b2dda 100644
->> --- a/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
->> +++ b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
->> @@ -21,7 +21,9 @@ properties:
->>                - amlogic,g12a-cpu-thermal
->>                - amlogic,g12a-ddr-thermal
->>            - const: amlogic,g12a-thermal
->> -      - const: amlogic,a1-cpu-thermal
->> +      - enum:
->> +          - amlogic,a1-cpu-thermal
->> +          - amlogic,t7-thermal
->>  
->>    reg:
->>      maxItems: 1
->> @@ -42,12 +44,39 @@ properties:
->>    '#thermal-sensor-cells':
->>      const: 0
->>  
->> +  amlogic,secure-monitor:
->> +    description: phandle to the secure monitor
->> +    $ref: /schemas/types.yaml#/definitions/phandle-array
->> +    items:
->> +      - items:
->> +          - description: phandle to the secure monitor
->> +          - description: sensor index to get specific calibration data
->> +
->>  required:
->>    - compatible
->>    - reg
->>    - interrupts
->>    - clocks
->> -  - amlogic,ao-secure
->> +
->> +allOf:
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            enum:
->> +              - amlogic,a1-cpu-thermal
->> +              - amlogic,g12a-thermal
->> +    then:
->> +      required:
->> +        - amlogic,ao-secure
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            const: amlogic,t7-thermal
+>> diff --git a/Documentation/devicetree/bindings/arm/altera.yaml b/Documentation/devicetree/bindings/arm/altera.yaml
+>> index 206686f3eebc..5ee09f8d4698 100644
+>> --- a/Documentation/devicetree/bindings/arm/altera.yaml
+>> +++ b/Documentation/devicetree/bindings/arm/altera.yaml
+>> @@ -115,6 +115,16 @@ properties:
+>>                 - intel,socfpga-agilex5-socdk-nand
+>>             - const: intel,socfpga-agilex5
+>>   
+>> +      - description: Agilex7 series F, I and M boards
+>> +        items:
+>> +          - enum:
+>> +              - intel,socfpga-agilex7m-socdk
+>> +          - enum:
+>> +              - intel,socfpga-agilex7f
+>> +              - intel,socfpga-agilex7i
+>> +              - intel,socfpga-agilex7m
+>> +          - const: intel,socfpga-agilex
 > 
-> This can just be replaced by a else I think.
+> And separate question - why previous soc "agilex" is used as fallback?
+> Even more confusing.
 > 
 
-Thank you for your feedback, I will replace this `if` condition by an
-`else`.
+You're right. Sorry for the confusion. The Agilex7M, I, F devices are 
+basically "agilex" devices with some few additions (PCIE, DDR5). Maybe I 
+should place the Agilex7M/I/F devices into the "agilex" boards area?
 
->> +    then:
->> +      required:
->> +        - amlogic,secure-monitor
->>  
->>  unevaluatedProperties: false
->>  
->> @@ -62,4 +91,13 @@ examples:
->>          #thermal-sensor-cells = <0>;
->>          amlogic,ao-secure = <&sec_AO>;
->>      };
->> +  - |
->> +    a73_tsensor: temperature-sensor@20000 {
-> 
-> Can drop the label here, it has no users.
-> 
-
-Ok, I will remove this label.
-
-> Otherwise, seems fine.
-> 
-> Cheers,
-> Conor.
-> 
-> pw-bot: changes-requested
-> 
->> +        compatible = "amlogic,t7-thermal";
->> +        reg = <0x0 0x20000 0x0 0x50>;
->> +        interrupts = <GIC_SPI 31 IRQ_TYPE_LEVEL_HIGH>;
->> +        clocks = <&clkc_periphs CLKID_TS>;
->> +        #thermal-sensor-cells = <0>;
->> +        amlogic,secure-monitor = <&sm 1>;
->> +    };
->>  ...
->>
->> -- 
->> 2.49.0
->>
-
-
--- 
-Best regards,
-Ronald
+Thanks,
+Dinh
