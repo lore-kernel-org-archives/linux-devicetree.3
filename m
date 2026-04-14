@@ -1,70 +1,221 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f97.google.com (mail-vs1-f97.google.com [209.85.217.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BEB523E358;
-	Tue, 14 Apr 2026 20:22:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A653438643E
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 21:41:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776198137; cv=none; b=iSnEvqUXZyJ+46SvqXZcb8pKGiotpUsq6eOL7BjCRfQZqCtDhv9hymSEJNo2Vh8XYtDQiGhlbUWsoiQHaC7sIR4sltB4AWA8GRGbobn0U5YBNgrkAvQZ4lLHCPtaCZLNsT6nB1EXET3N7vMxcdFQ5NmxXZDLpoeGRRn6U1rMH9g=
+	t=1776202871; cv=none; b=H/GijPBmJGR9lc8lJBNLFVSUsrcBZtLsd+lIGO0lkois3LrZAcnPj+I4A4kuqJDezMbNikf++opLJAuKcZhIn7ZBS9h0LnsNncklT+3s1+bR6RxXV7w+xs8bZh/J8N0dKP7H/KihqmylvlSfSMfPjFvdiYotAQTPQDME20xG8IM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776198137; c=relaxed/simple;
-	bh=u8VoH0br5aPKxM88rZ468ccIiZFO2OyEnXm8yn1sFoI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=t4qWVS4q9m1UuFbxKN6+y6b48G9w0/l6TtUiFhSt54FZCYYu6cZnR3pf0PwKsIKSJ4bO75I/YyRmNsWc2r3fS5O+2yx9Q/Xu8BRYcbWcWw02JtHJjKQGrEWOMLvLaFHZ3SiGWM3O4T8jarckDpRul+MC8Akcr4Vb9pwdG1PKK4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mZv4kwTn; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776202871; c=relaxed/simple;
+	bh=bYjYVEjqJxp5cvXJIh8Uux0HX4pVwHIQSXITramwke8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=SllKfGCgrs1G0rlVQBBI0vHbRjrt7o/XXh9m3QM2VPnAfO2qkGjanGxhuM83YzMQfWgXJ7Yfz7JCNOdyGm63f3QLSocIYUKejKG6px3/tMYHPzsb6tSkb7T6EzkSTg+EH93xJRkhMEsSoo5HcP44FaoTyXHYA2P4DvR/Y2giSys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ausil.us; spf=pass smtp.mailfrom=ausil.us; dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b=mQlRR6Tk; arc=none smtp.client-ip=209.85.217.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ausil.us
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ausil.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mZv4kwTn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCFACC19425;
-	Tue, 14 Apr 2026 20:22:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776198137;
-	bh=u8VoH0br5aPKxM88rZ468ccIiZFO2OyEnXm8yn1sFoI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=mZv4kwTn3d3oY3PpENWwiKPw99H1poJ53Cp9LpExkbQzdTFANpZu8a09rb6aGHRhd
-	 ROc+1FfHi3mmfTQkPQgF+5hZNk7pup0NKDmM+YgnEmLIiISVF2+mW4E8Eh8t1FIiJc
-	 YH02tjDD7Nyu2eaA66UoCzee1yQiK7mG5nN6cTRisDlGTeJ30vVYBJJKpTlqIVpHeX
-	 MLloz0soe4UuRu++BER7gGkUs7++xdB3Gh+06h4IQyr+jce1sGUgue6CziQ2SQofeP
-	 ogJMWZXQwrhmd2txQkU/MUgrB3nlfLZT4uPYmZUurUFxSYysrWwgsj6l2en7JFpATB
-	 UBMqC1H2Bazyg==
-From: Sven Peter <sven@kernel.org>
-To: Janne Grunau <j@jannau.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b="mQlRR6Tk"
+Received: by mail-vs1-f97.google.com with SMTP id ada2fe7eead31-60fce51aa55so834547137.3
+        for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 14:41:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ausil.us; s=google; t=1776202868; x=1776807668; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=9sQVj34tJCzHG+OSzAE6qEOKAh1LdGOwM6EDuxjty+c=;
+        b=mQlRR6TkeUfKi0KTF6ajyJgJjS3jwdSwgbY7FqxvhInW7bjoXQqGOKgfuE8/qghSwT
+         l15+jw21iaSaxBA2UrfkAWFPrQ4hxxLKKO2cTed+nhWTPxZSre7GdwLY6X1vKjNYvdrA
+         Qm6p442SaBHHXSS+QinZOjBGYs+4abcEmUDqrad69VkKodDFuuXYwicsvu21Srb6Q2uI
+         DidKAZ2KAN5AnroQxb7xZ15Pjrr/rvXe9KHQmfxe61/dC+n5c+uPRLTcci1XUnW+LgPe
+         8KkTOO2JBA19pF0I68q4Wjd+sBaaTzHuk/l5nwjbqYGebCQ8Om037t7VSthK2Bc8zBKK
+         8oGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776202868; x=1776807668;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9sQVj34tJCzHG+OSzAE6qEOKAh1LdGOwM6EDuxjty+c=;
+        b=cfb9I39ZaYYk5LC/S83AZ9dey2qH6bPMGvCs24pVoEkPwOogX4NefXk4K3vwezNLvr
+         zcH8Ak4tqQ9TNj2HJ4z//sYkzVJvLKn8YCrlunbgGe/pxWGKqxuAWr12N3g9VDhlpReZ
+         1PH6/5zrT54rlh1+VzSo8yuiqDx4ZfFVbRZgQH+ovJJer2Yikknz6yG9UWnXEiOdO8ih
+         sKPPnhpNieiUE0TLc2lw/7EcchdrRWe4tTXq9To6u7NhouSHU/+eS1tag1e+eGZWdYHa
+         WesILRWr3NP7z+3YMVlNbgSI82Bjow7uVrldjUVQLPOKyD6Ckg7/rMuDX4xyxPzKWIGq
+         enVw==
+X-Forwarded-Encrypted: i=1; AFNElJ+/Nfx2yC4iXpriY3Wk0I0fo1W/0m52EoCCzgUVVB5XuS9HOMdmc51dguaGgqYFyTJ5zgwcSMMgc5FR@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz1k8yTAssuBv9KTPgh6xFX//h3h5SSJD+I6MGXNb+33fM6Vler
+	ZBW+KoulaYVik2oX5glOqWq35zIYdZFsWBMoQ2vY8dV/to+mro19hLZzrIpJ/xGiuM3fo9kZUzv
+	YiMcZeNvhFOjNUj3op4MLNdEEhjGzF1dWbjHM
+X-Gm-Gg: AeBDiesW/4m+xLZh4OCw/wAcjq/snd5RgKPENxgx3tqKOTJA8zk2drH9sRt7CzeQSoQ
+	213ZrqFz6ZSIBv2WBwZaYCwGNZcltd+wwme+Qlk7ZIpNZ2M3wX6phQxCwrXIDqBiEeyN7rI8Yna
+	N6jhBOeEfwRR4kvf+ij8QMAjPneJKRW/74H0Li2AogL68o42F/sUeFSSQ1O+waKHAfWhT6nthqN
+	OrQAwbvlqjlghIPsbQpk6l3tmcRkzsCNgxkFr6JXxEk/VxN3/ZjLoMwW4X81MQjhL5j5aR8fp/p
+	/4J5bteYNM+zcvdqyfaRZ+UPOGjYI/hw8X3VeqA38M3KfSuGyg6DTIuOMC1ZKJo7fUuqEghpjp6
+	tvhdx8gVsqqnm+Z2iI7ge6o8SStM1792glnEkH5ubyx/QcaZ9uAVJ2w4=
+X-Received: by 2002:a05:6102:10ce:b0:60a:9cac:d286 with SMTP id ada2fe7eead31-60a9cacdb01mr5997352137.12.1776202868454;
+        Tue, 14 Apr 2026 14:41:08 -0700 (PDT)
+Received: from ryac.ausil.us (207-179-239-100.mtco.net. [207.179.239.100])
+        by smtp-relay.gmail.com with ESMTPS id a1e0cc1a2514c-95691131afesm346899241.1.2026.04.14.14.41.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 14 Apr 2026 14:41:08 -0700 (PDT)
+X-Relaying-Domain: ausil.us
+From: Dennis Gilmore <dennis@ausil.us>
+To: 
+Cc: Alexey Charkov <alchark@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Chaoyi Chen <chaoyi.chen@rock-chips.com>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Neal Gompa <neal@gompa.dev>,
-	asahi@lists.linux.dev,
-	Sasha Finkelstein <k@chaosmail.tech>
-Cc: Sven Peter <sven@kernel.org>,
+	David Airlie <airlied@gmail.com>,
+	Dennis Gilmore <dennis@ausil.us>,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	FUKAUMI Naoki <naoki@radxa.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Hsun Lai <i@chainsx.cn>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Jimmy Hon <honyuenkwun@gmail.com>,
+	John Clark <inindev@gmail.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 0/2] Update Sasha Finkelstein's email address
-Date: Tue, 14 Apr 2026 22:21:58 +0200
-Message-ID: <177619775021.3727.15345405608996383354.b4-ty@kernel.org>
+	linux-rockchip@lists.infradead.org,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Michael Opdenacker <michael.opdenacker@rootcommit.com>,
+	Michael Riesch <michael.riesch@collabora.com>,
+	Mykola Kvach <xakep.amatop@gmail.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Peter Robinson <pbrobinson@gmail.com>,
+	Quentin Schulz <quentin.schulz@cherry.de>,
+	Robert Foss <rfoss@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Simona Vetter <simona@ffwll.ch>,
+	Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v7 0/6] Add support for Orange Pi 5 Pro
+Date: Tue, 14 Apr 2026 16:40:51 -0500
+Message-ID: <20260414214104.1363987-1-dennis@ausil.us>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260411-mailmap-v1-0-5a519f7b00b5@chaosmail.tech>
-References: <20260411-mailmap-v1-0-5a519f7b00b5@chaosmail.tech>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Sat, 11 Apr 2026 16:36:06 +0200, Sasha Finkelstein wrote:
-> Moving away from gmail
-> 
-> 
+This series adds initial support for Orange Pi 5 Pro. The PCIe attached
+network driver(dwmac-motorcomm) was just added.
 
-Applied to local tree (apple-soc/fixes-7.0), thanks!
+The series was tested against Linux 7.0-rc7
 
-[1/2] mailmap: Update Sasha Finkelstein's email address
-      https://github.com/AsahiLinux/linux/commit/b04a4f8ff704
-[2/2] dt-bindings: Update Sasha Finkelstein's email address
-      https://github.com/AsahiLinux/linux/commit/44d9ae042c58
+Please take a look.
 
-Best regards,
+Thank you,
+
+Dennis Gilmore
+
+Changes in v7:
+- Fix up whitespace issues identified by checkpatch.pl --strict in
+  rk3588s-orangepi-5-5b.dtsi
+- checkpatch gave a warning for WARNING: phy-mode "rgmii-rxid" without
+  comment, as this was moved over I left it untouched
+- Added lontium,lt8711uxd to the compatible enum in the simple-bridge
+  binding
+- Added lontium,lt8711uxd match entry with DRM_MODE_CONNECTOR_HDMIA to
+  the simple-bridge driver
+- New patch to rename the regulator labels for the es8388 supplies to
+  match the schematics as they all use vcca_*
+- RK806 PLDO1 and PLDO2 outputs are swapped between the 5/5B and pro.
+  move their definition to the shared 5/5B dtsi and 5 Pro dts
+- Fixed ES8388 PVDD-supply — vcca_3v3_s0 → vcca_1v8_s0, 5 Pro is
+  different to 5 and 5b.
+- analog-sound: use CPU-as-clock-master on the Pro. The ES8388 is wired to
+  i2s2_2ch (the only I2S block physically routed to the codec pins on this
+  board), which uses the legacy rockchip_i2s driver. That driver's
+  slave-mode trigger path hangs for 200 µs polling I2S_CLR and bails with
+  -ETIMEDOUT ("lrclk update failed"). The TDM-capable i2s0/i2s1/i2s5
+  blocks served by rockchip_i2s_tdm don't have this issue, which is why
+  other mainline ES8388 boards get away with bitclock-master = masterdai.
+  Drop bitclock-master/frame-master and the masterdai label to let the I2S
+  block generate BCLK/LRCK itself
+- Added pinctrl entries for all GPIO pins (dp_bridge_en, vcc3v3_phy1_en,
+  wifi_enable_h, pcie2x1l1_rst, pcie2x1l2_rst)
+- DP bridge rework — replaced dp-connector node with proper chain:
+    - lt8711uxd bridge node (compatible lontium,lt8711uxd, with port@0/port@1
+      endpoints). Bridge power is gated by the vcc3v3_dp regulator, whose
+      enable GPIO (GPIO3_PC2) is driven via the dp_bridge_en pinctrl group;
+      no enable-gpios/vdd-supply on the bridge node itself.
+    - hdmi1-con connector node (compatible hdmi-connector, type a)
+    - dp0_out endpoint now points to bridge input instead of old connector
+- drop accidentally included, unrelated changes to
+  drivers/gpu/drm/bridge/synopsys/dw-dp.c and
+  Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
+- link to v6 https://lore.kernel.org/linux-devicetree/20260411024743.195385-1-dennis@ausil.us/
+
+Changes in v6:
+- Move the shared configs for the Orange Pi 5 and Orange Pi 5b from each
+  devices dts to a shared rk3588s-orangepi-5-5b.dtsi to avoid duplication
+- Remove empty ports subnodeis from typea_con
+- Move i2s2m1_mclk pinctrl from &i2s2 to the es8388 codec node
+- Add dp-con, dp0_out, dp0_in, and vp1 nodes, plus the vcc3v3_dp regulator
+  in order to get the second HDMI port working via its transparent
+  LT8711UXD DP to HDMI bridge
+- link to v5 https://lore.kernel.org/linux-devicetree/20260401010707.2584962-1-dennis@ausil.us/
+
+Changes in v5:
+- define a connector node for Type-A port, and list the regulator as its VBUS supply explicitly.
+- Requires https://lore.kernel.org/all/20260217-typea-vbus-v1-1-657b4e55a4c2@flipper.net/
+- link to v4 https://lore.kernel.org/linux-devicetree/20260310031002.3921234-1-dennis@ausil.us/
+
+Changes in v4:
+- rename vcc3v3_pcie20 copied from rk3588s-orangepi-5.dts to vcc3v3_phy1 to match the schematic
+- use vcc_3v3_s3 as the supply not vcc5v0_sys for PCIe
+- remove the definition for vcc3v3_pcie_m2 as it does not really exist
+  as a regulator
+
+- link to v3 https://lore.kernel.org/linux-devicetree/20260306024634.239614-1-dennis@ausil.us/
+
+Changes in v3:
+- moved leds from gpio-leds to pwm-leds
+- remove disable-wp from sdio
+- rename vcc3v3_pcie_eth regulator to vcc3v3_pcie_m2 to reflect the
+  purppose
+- actually clean up the delete lines and comments missed in v2
+- link to v2 https://lore.kernel.org/linux-devicetree/20260304025521.210377-1-dennis@ausil.us/
+
+Changes in v2:
+- moved items not shared by orangepi 5/5b/5 Pro from dtsi to 5 and 5b
+  dts files
+- removed all the comments and deleted properties from 5 Pro dts
+- Link to v1 https://lore.kernel.org/linux-devicetree/20260228205418.2944620-1-dennis@ausil.us/
+
+
+Dennis Gilmore (6):
+  dt-bindings: arm: rockchip: Add Orange Pi 5 Pro
+  dt-bindings: display: bridge: simple: document the Lontium LT8711UXD
+    DP-to-HDMI bridge
+  drm/bridge: simple: Add the Lontium LT8711UXD DP-to-HDMI bridge
+  arm64: dts: rockchip: rk3588s-orangepi-5: rename PLDO regulator labels
+    to match schematic
+  arm64: dts: rockchip: refactor items from Orange Pi 5/b to prep for
+    Pro
+  arm64: dts: rockchip: Add Orange Pi 5 Pro board support
+
+ .../devicetree/bindings/arm/rockchip.yaml     |   1 +
+ .../display/bridge/simple-bridge.yaml         |   1 +
+ arch/arm64/boot/dts/rockchip/Makefile         |   1 +
+ .../dts/rockchip/rk3588s-orangepi-5-5b.dtsi   | 222 +++++++++
+ .../dts/rockchip/rk3588s-orangepi-5-pro.dts   | 442 ++++++++++++++++++
+ .../boot/dts/rockchip/rk3588s-orangepi-5.dts  |   6 +-
+ .../boot/dts/rockchip/rk3588s-orangepi-5.dtsi | 235 +---------
+ .../boot/dts/rockchip/rk3588s-orangepi-5b.dts |   2 +-
+ drivers/gpu/drm/bridge/simple-bridge.c        |   5 +
+ 9 files changed, 695 insertions(+), 220 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi
+ create mode 100644 arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-pro.dts
+
 -- 
-Sven Peter <sven@kernel.org>
+2.53.0
 
