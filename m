@@ -1,67 +1,87 @@
-Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F893257435
-	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 15:02:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65E453E51F4
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 15:07:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776178956; cv=none; b=EuBm0D8jxTT+LFRxRMmD5SuVtAPpNBAMKH/rcsxH/FX+7FltJsiaS0CvIr6pk35tCC7bk7ZHNP/JcDTOgixqdf3a68htgQ6q8C/+UHFpElPwuMeOb8Q4VsIc7dZGVOPbDsMuOiHPQALNOqH8/3sUnn8i92y9cEBMVSWATGzt6wQ=
+	t=1776179263; cv=none; b=RkKGKf2AtLIhXgvMDr2LLAEY2NEj8vTYSVlCb9jLdiTRRviiD9hIP50sK10Ho2DU8njrtIFdnSCe4C4wtckvmR2JGe5pI5vKBUotvXEAfFHcfyaWM1Gtz2Y6VNoE1Vion3hQLnr6Owb256zWeRZNp2cnprX7+/j7krek9uWc1A8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776178956; c=relaxed/simple;
-	bh=pR7yMGzINuh7Tg+rgoLYT2relUB3Xn6nd5b/yiBK3yM=;
+	s=arc-20240116; t=1776179263; c=relaxed/simple;
+	bh=1Skg35o4gzaEBl/SA0WgGy1u3loyQSqtV+weaqFKwIU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JfW1JBcwon5JF5hvy54P3/TfHqEfYVptAV1o77Jne3sLEq1JBdYD0T3juXnOiMOrSeXAGj27VwN0YvbWnhVf6imUgGrzmkx7DSv23tIpquaDw0f/krjRCDxb/L4CFKDrOEHNBuzrUeWUxS4+yaOfp/7j2YGw0iKvyq7c5m8F3Yc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=S8CGAeVo; arc=none smtp.client-ip=209.85.160.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	 In-Reply-To:Content-Type; b=awLAx1y7OLHpwaEWQKU9gm/uN3sJBLxdpO7WTMVCC3RGAr91O4p2Y5KFv1eQds2AiCGQx2+qPcCzeeN1/+yERPZsqH3JRl5VT4BVPBsWOs8XJlUbpp18Uatd4wyq/NzxllVFtOnuct1UJppn9pYF2vGSIHQj2CVH/Qn2KiK1ojk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HcMztV4I; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CxpOAEbM; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="S8CGAeVo"
-Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-415e568a7ecso2042518fac.0
-        for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 08:02:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HcMztV4I";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CxpOAEbM"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63ECHKLh3157265
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 15:07:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	FwHJdsDcQ45697KmlXXjyx2PvzjyhECBzef7owi2Buk=; b=HcMztV4Iinl2W6o2
+	G0j0GaG2Bv1W+A/SwN1P81x5ftK5ya2IfVoYBrTc/TTiw3UzDYZkrVFi40NNUXVx
+	O2CNvOkd2IVtIgWlUmyUQ4xzzhgz0X89p8ev5ReEQDla+kBJ0ACr0OGE40jRtl6E
+	7N5Qa1UU0zEqL5cygWzVAOVTQvjUaVxH8Bb8Qx2qyD5iDQAG4hbnahC6cYwJSV/Z
+	PASK/w86s9Lbha2/1Iv+PGx8FnmEZiZUh+L3nxpAzeR10Fimml/N8UeBgwYIvmwE
+	SX53WEgGsqRMnYYDVf1EYJ+iEu1687qEFmnZqokXNJP/RfP7rvnsF+zgacq+frPy
+	y+MYQw==
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dh86bb7sb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 15:07:40 +0000 (GMT)
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4638ca66624so997337b6e.2
+        for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 08:07:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1776178953; x=1776783753; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1776179260; x=1776784060; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=72WPnVzQjKjXI3MDfuIkyAD5bPg/rh8SgDqYgiN/6GI=;
-        b=S8CGAeVoEi+deFP4+cHQ1txTffIqNW6G9nX1e01JQNJHNZB/ZnqtcLbbYWBWHhXGq1
-         tDwzquR9RSDI9i31D8xsyu0fZN6gWJkBMOZYYJRNYJJm9gyMMiOqj33J/0RjpOl5UWrL
-         vtPZyol8xPer1B2f4j57bGNFXeuYqpaYINmzV/M2adxr7mKp+oyh41CKw5jel2OhBbqz
-         +FWCRmHuDSXcw3VIbFoaiYpleVDx+/dt8xgBqO19/x3/GYWaBuCEmUbXxKG2haEcfnPL
-         236bnvcTkdt7QACNHmy91TeMPzz8ygzvOG4lOVviJiLyXI+zwfm/2kDw15kwsP8RR6p+
-         1ASg==
+        bh=FwHJdsDcQ45697KmlXXjyx2PvzjyhECBzef7owi2Buk=;
+        b=CxpOAEbM+Rwq0dsX4t7+bUm+8DperOn6VKGhpOgNV5M/IpbJaUYVt3kRzpHn9AKLDL
+         6DK78qpRmOM8BHXi7biafPpaspwMEfz6E4XELjpavG2USpVWCg4HyDJMN7tzEUZTuE2J
+         nDOf2Vz5n8+RA6/5y7TWG/AY42egoF0/ZCroDup/ZMuMlMXUSj95R5cf1d7WckCWXAIY
+         bwTOrVHtt4x/nYtb+MtYheV8kel1kCh4+IVCwPsqvFXlyurw5MjDCzIGJx8gshZllbBZ
+         vJzqVVQ6ZAPnZpBtti2NKetLUdstjot25xY6FTidXo2OGgFFS2+MbXpxx/+sU917rcqb
+         Ec6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776178953; x=1776783753;
+        d=1e100.net; s=20251104; t=1776179260; x=1776784060;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=72WPnVzQjKjXI3MDfuIkyAD5bPg/rh8SgDqYgiN/6GI=;
-        b=fAInC7Heognansc5rP43Ja8favjf4P4U9MG26uhLhb7qiOEYXu0+L9POdHKlaiNi7Z
-         3NRw+C0QKjwHydyGqBlnA+rVAU4KBwKblmiSmmotSgG6uRwVaM6tuEVvNAeqIbyOK7C4
-         RWD51a5Tzja71cNgUsjprxNq5fUY4wL95Axf6qbj9hQjdEhcA4eRBwIPIvw/hP6hmOx7
-         0QexB6DrgGH4b1GWKSm3Vvy7oBr1aEgPLaHRXQW8fYy0KxvMpYUrJWBE+dUCli6AL0Kc
-         56vS5omOdfcJYGAFACtDLYU+AG8pmWnvQB2EMvswM4WdVfSXVVV85hfH6nWajDSRgJvP
-         gDqQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8a7hzJnKQ5EjV4tJfxG7EdJ+DSAX9+ctxXcYMMJOM4iuj8sgd97IAlXNi3iI9eGS+7m3Cewvh+GzJn@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy/eYA9irivp0HL3AMekwLgvCmtNyFxUQMRYxzAqh3G9LVB3jjY
-	iXZ7QMt8iiVyvyU6fy06AtnR85RME+Si0rF/Y8cpb6/PLFhiZblSD/F6E9+xoozTc0o=
-X-Gm-Gg: AeBDiesGSRO/ItJ6EINhhGUce5bkCHOJ+PuSBmvIXsC55o0ucwfd6Xyqnb3DB4J1XU5
-	QJELu9qyNGHOj8eL2smTiLYP8G09wgpk0yfSEUDN9914WZV+LUKxmqlkD1R+bXXW6VKs2kvKlnM
-	yF6RWwlA3Aa2D5u+kuzAJ1t72FL+xSww5Bp7DYxhw0xCeD/UQcKy+/liXi1AMPXkpx6S3TPMtoF
-	UkEjWmp+lK/u/VfhSbUFeHbHx+igvoLqJ1jYWBcqOgYu8qKpIokYYopq/JA4p9tgfPtdmO/1s6o
-	DlQxMMzqZAlj1zsev1624uyK184InH6upRK2yrKtq+U9pPBgyy6qdOHtlrDT77YNfP7b38ji1f8
-	nZ+Du0WfD1l3aUQv2QKJkxNWxxdiDEJlcC2KLUMHn/jVX/hYZy0IPOBIVW9gFtkGaKapwdtk/v0
-	kNo04wkTJgk6O4mwQtkBPi2IAlEMJbrb65C/b+X5MtjSr8ngpTEq2HwLzCMHn6uDVFq+xb/syoW
-	DM66j2Scl2W
-X-Received: by 2002:a05:6870:a093:b0:417:f38:f54d with SMTP id 586e51a60fabf-423e1081b4bmr10571548fac.29.1776178953139;
-        Tue, 14 Apr 2026 08:02:33 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:5bfd:a817:5527:c417? ([2600:8803:e7e4:500:5bfd:a817:5527:c417])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-423dd3960bbsm11211900fac.4.2026.04.14.08.02.31
+        bh=FwHJdsDcQ45697KmlXXjyx2PvzjyhECBzef7owi2Buk=;
+        b=fnS43TIa/JQQlU2V9G9WpUJkAW0zmip3/8zfbIFaZbUXm9uhhYO0tGIMhwA2ISC5i1
+         op8d95yuOsHP1x0G/2dgEt/gp0mwvCkstO+ItjF+3Y9V22fiwPcVdH5atAlYnAVJUxYD
+         ObmWmuduYU4T+MjIKN9xraKBe9Li/ZkaBAMk2CfE6jUXDcOwFNzkZa2a2dDboLfcPN3k
+         G+pU0h+zmaKDZV+YKhsp3b3MVAvJF5o0FZd/gN/b3aH5bA/9m+16RwrN08KUZyRo5xjK
+         dI65dnxH4t/k+kqOlKLNi9WdE585R9VZ1opl/6ntxRBpKaHwiVujeMdWaosSdiyNSmbU
+         Z8UQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+EV6X4+7QQILLSE6396jIVLgWEzr+K8QEdHx3u9vIMDNLttO4nyybqYQhpn0ppwBE/rZsljKNS1JM6@vger.kernel.org
+X-Gm-Message-State: AOJu0YzhAryPPqrtfaBlPtJvrSRL4vDZhvagXZYQwhdQnUR9xGcXS9UZ
+	EwwOH3ltXdVvvP9Q88OzxVMkknf/94tMUhRjkZn1YW9jG+ftcX7CQavzmvWt7LaPtwHuRqq9pyY
+	kyxXAiWowK7M5yDWF4w8qHppD8O2Hum5t+4bYDtd5TsxyMtDZ0/13R3YCQhTpDmLy
+X-Gm-Gg: AeBDieuIMb2Ra+X/rN5zwMKvwPtke6wLeZTzQet3Uuw6rKnpDI2z7Xu2cLVzq9S2AUm
+	UBdsRGqSfrQ2N1UErifjQcxy+uYGOwzld17RwAxEdsQc9zToJsDQ3vkEjBq1tGwq+aoaWp2/v5X
+	OJRdOBYzGdZ+V8lXJ/cCV5FuhPD4yh/7+2Qu7cMjNv94Xjs63cq8ZWAEubh91p+cSNSDvwk7g84
+	zN0nq3K/kkcFoptXP2DYGikLcgk23pTRCaTF/g/Cqww6Y5O/VtjCWDkgW4W6VyhpwHqRyfF6zGY
+	AYsCeiK7OpI0n6pT/9jbOFzG6mhCbLDw3Z3wV4XG9qa43gyNQLQXujSINnWFXeym7lUgKyvv2rQ
+	Zu+YacWUIea1gQnVhQoIW5ZOn6ZJi2yTPzvvLnewEYQ8uUa6vCw/2+GnuVNCdob++K41ZOi9H+d
+	pCxxZxsW88r+wKNg==
+X-Received: by 2002:a05:6808:1456:b0:467:df85:e243 with SMTP id 5614622812f47-4789f00c865mr5015504b6e.5.1776179259981;
+        Tue, 14 Apr 2026 08:07:39 -0700 (PDT)
+X-Received: by 2002:a05:6808:1456:b0:467:df85:e243 with SMTP id 5614622812f47-4789f00c865mr5015490b6e.5.1776179259429;
+        Tue, 14 Apr 2026 08:07:39 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-b9d6e7f189esm399575766b.58.2026.04.14.08.07.36
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 14 Apr 2026 08:02:32 -0700 (PDT)
-Message-ID: <b352b76c-8047-4a1f-8b83-db8144466c36@baylibre.com>
-Date: Tue, 14 Apr 2026 10:02:31 -0500
+        Tue, 14 Apr 2026 08:07:38 -0700 (PDT)
+Message-ID: <1bf5b11c-620e-4d81-af33-a987136b0f21@oss.qualcomm.com>
+Date: Tue, 14 Apr 2026 17:07:35 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,149 +89,57 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 5/6] iio: adc: ad4691: add oversampling support
-To: "Sabau, Radu bogdan" <Radu.Sabau@analog.com>,
- Jonathan Cameron <jic23@kernel.org>
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
- "Hennerich, Michael" <Michael.Hennerich@analog.com>,
- "Sa, Nuno" <Nuno.Sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
- <ukleinek@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, Philipp Zabel
- <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>,
- "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
-References: <20260409-ad4692-multichannel-sar-adc-driver-v7-0-be375d4df2c5@analog.com>
- <20260409-ad4692-multichannel-sar-adc-driver-v7-5-be375d4df2c5@analog.com>
- <742b1821-9103-414e-a860-c2e8d5406e35@baylibre.com>
- <20260412185821.739e477f@jic23-huawei>
- <LV9PR03MB8414E0A68C5676302909E220F7252@LV9PR03MB8414.namprd03.prod.outlook.com>
+Subject: Re: [PATCH v1] arm64: dts: qcom: Enable CAN RX via GPIO expander
+To: Anup Kulkarni <anup.kulkarni@oss.qualcomm.com>, andersson@kernel.org,
+        konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: mukesh.savaliya@oss.qualcomm.com, viken.dadhaniya@oss.qualcomm.com
+References: <20260402105253.3009382-1-anup.kulkarni@oss.qualcomm.com>
 Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <LV9PR03MB8414E0A68C5676302909E220F7252@LV9PR03MB8414.namprd03.prod.outlook.com>
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260402105253.3009382-1-anup.kulkarni@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE0MDE0MiBTYWx0ZWRfX4B1ST3DZ/Hp9
+ hj49n1FFJT2r1AHcEg3IW33U1LegqkF7FE3DXolmcS/RBTSZJzcq+zbPuGak8SRi+IJPlXh6gEo
+ 2yUuaNc/BuKFT2BiAZbqFFl1IQt8WnYp+gNVDiWjfV9Y0YmV/XkuWlc3HsLFEFBw1jZjfQ2ppKI
+ lqgyAEuu1g3HlnBOwReRmtNWELjFHYKJ3af5gcny4porbuADBJs30ETYvnBE8XKO0LT/eJKsdM3
+ c7G1KrI8PCdAQ1ddbSWzqkmkNwa/x11fEfhLX3BaGWKBgqCADaJ1ZdmOuNbC7TYHAlr8710niAM
+ 3gIPdDpDgEtP2f1LNm1YrDm7GCt2evtwvn8slMY2i5WY5KXDtGLEMLDXKsjhcNUM9m7stXkoMSf
+ 2N0K1vmVsDe0fdutV0+1J2FUoqSHkCy2rM0l560+pSLIEDMdWP7HZqSF522tPGQmsOZPARPcrYu
+ GS/imgYF4fpQ8qSO3iw==
+X-Authority-Analysis: v=2.4 cv=MahcfZ/f c=1 sm=1 tr=0 ts=69de583d cx=c_pps
+ a=AKZTfHrQPB8q3CcvmcIuDA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=NDwzWBFMEALbooAduq4A:9 a=QEXdDO2ut3YA:10
+ a=pF_qn-MSjDawc0seGVz6:22
+X-Proofpoint-ORIG-GUID: FA-1C1AWRAdG20i8JlmztWRdfbxME2-C
+X-Proofpoint-GUID: FA-1C1AWRAdG20i8JlmztWRdfbxME2-C
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-14_03,2026-04-13_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 lowpriorityscore=0 adultscore=0 impostorscore=0
+ priorityscore=1501 phishscore=0 suspectscore=0 malwarescore=0 spamscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604070000
+ definitions=main-2604140142
 
-On 4/14/26 9:25 AM, Sabau, Radu bogdan wrote:
+On 4/2/26 12:52 PM, Anup Kulkarni wrote:
+> Few CAN controllers, part of RTSS sub-system on LeMans, route
+> their RX signal through a I2C GPIO expander at address 0x3b.
+> RTSS subsystem is an MCU like sub-system on LeMans with independent
+> booting capability through OSPI interface and supports peripherals like
+> RGMII, CAN-FD, UART, I2C, SPI etc.
 > 
+> Describe this hardware wiring by configuring the expander GPIO 4 pin as
+> hog with output-high, asserting the selected line during boot.
 > 
->> -----Original Message-----
->> From: Jonathan Cameron <jic23@kernel.org>
->> Sent: Sunday, April 12, 2026 8:58 PM
->> To: David Lechner <dlechner@baylibre.com>
->> Cc: Sabau, Radu bogdan <Radu.Sabau@analog.com>; Lars-Peter Clausen
->> <lars@metafoo.de>; Hennerich, Michael <Michael.Hennerich@analog.com>;
->> Sa, Nuno <Nuno.Sa@analog.com>; Andy Shevchenko <andy@kernel.org>;
->> Rob Herring <robh@kernel.org>; Krzysztof Kozlowski <krzk+dt@kernel.org>;
->> Conor Dooley <conor+dt@kernel.org>; Uwe Kleine-König
->> <ukleinek@kernel.org>; Liam Girdwood <lgirdwood@gmail.com>; Mark Brown
->> <broonie@kernel.org>; Linus Walleij <linusw@kernel.org>; Bartosz
->> Golaszewski <brgl@kernel.org>; Philipp Zabel <p.zabel@pengutronix.de>;
->> Jonathan Corbet <corbet@lwn.net>; Shuah Khan
->> <skhan@linuxfoundation.org>; linux-iio@vger.kernel.org;
->> devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; linux-
->> pwm@vger.kernel.org; linux-gpio@vger.kernel.org; linux-doc@vger.kernel.org
->> Subject: Re: [PATCH v7 5/6] iio: adc: ad4691: add oversampling support
->>
->> [External]
->>
->> On Fri, 10 Apr 2026 16:15:20 -0500
->> David Lechner <dlechner@baylibre.com> wrote:
->>
->>> On 4/9/26 10:28 AM, Radu Sabau via B4 Relay wrote:
->>>> From: Radu Sabau <radu.sabau@analog.com>
->>>>
->>>> Add per-channel oversampling ratio (OSR) support for CNV burst mode.
->>>> The accumulator depth register (ACC_DEPTH_IN) is programmed with the
->>>> selected OSR at buffer enable time and before each single-shot read.
->>>>
->>>> Supported OSR values: 1, 2, 4, 8, 16, 32.
->>>>
->>>> Introduce AD4691_MANUAL_CHANNEL() for manual mode channels,
->> which do
->>>> not expose the oversampling ratio attribute since OSR is not applicable
->>>> in that mode. A separate manual_channels array is added to
->>>> struct ad4691_channel_info and selected at probe time; offload paths
->>>> reuse the same arrays with num_channels capping access before the soft
->>>> timestamp entry.
->>>>
->>>> The reported sampling frequency accounts for the active OSR:
->>>> effective_freq = oscillator_freq / osr
->>>
->>> Technically, the way this is implemented is fine according to IIO ABI
->>> rules. Writing any attribute can cause others to change. It does
->>> introduce a potential pitfall though. Currently, changing the OSR will
->>> change the sampling frequency, so you have to always write
->> oversampling_ratio
->>> first, then write sampling_frequency to get what you asked for. If you want
->>> to change the OSR and keep the same sample rate, you still have to write
->> both
->>> attributes again.
->>>
->>> In other drivers, I've implemented it so that the requested sampling
->> frequency
->>> is stored any you always get the closest sampling frequency available based
->> on
->>> the oversampling ratio. This way, it doesn't matter which order you write
->>> the attributes. In that case, the actual periodic trigger source isn't set up
->>> until we actually start sampling.
->>>
->> Agreed. This is more intuitive. Now generally the userspace should
->> be sanity checking the value anyway as limitations may mean the new
->> sampling frequency is not particularly close to the original one but
->> at least it increases the chances of getting the expected value somewhat!
->>
->> So to me this is a nice useability improvement given the code to implement
->> it tends not to be too complex.
->>
-> 
-> Hi David, Jonathan,
-> 
-> What I understand from this is that the osr should be taken into account when writing
-> the sampling frequency as well, right? Here's what I understand:
-> 
-> If the user wants a 125kHz freq with 4 OSR, then when internal osc will be written
-> to 500kHz before single-shot read, buffer preenable/postenable.
-> However, if the user wants a 500kHz frequency with 4 OSR, that would mean a 2MHz
-> Internal osc freq, which is impossible.
+> Signed-off-by: Anup Kulkarni <anup.kulkarni@oss.qualcomm.com>
+> ---
 
-It is up to the user to request something that is legal. They should know this
-from reading the datasheet.
+Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-> 
-> More than this, if the OSR is 32 the maximum effective rate would be 31250, so 25kHz
-> would make it the closes available one. If the user would select 1MHz from the available
-> list it would be weird I would say. So perhaps a solution for this is to display the avail list
-> depending on the set OSR value.
-
-Yes, the available list should reflect the current state of any other attributes
-that affect it.
-
-> 
-> Linking the two together is perhaps wrong to begin with from my end, since in this
-> driver's case, the per-channel sampling frequency is controlled by the internal oscillator
-> which has static available values. So perhaps sampling frequency should be separate, and
-> OSR separate as well, which would make everything cleaner.
-> 
-> Indeed, the effective rate is changed by OSR, but perhaps that is something the user
-> should be aware of, since the sampling frequency is the rate at which the channel samples
-> (1 sample per period) and OSR is how many times the channel samples upon a final sample
-> is to be read. The user already has to take this into account when setting the buffer
-> sampling frequency, so it would make sense to take this into account here too.
-
-We can't change the definition of the IIO ABI just to make one driver simpler
-to implement. The OSR and sample rate can't be completely independent.
-
-If you want to leave it the way it is currently implemented though, that is fine.
-
-> 
-> Please let me know you thoughts on this,
-> Radu
-
+Konrad
