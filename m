@@ -1,242 +1,213 @@
-Received: from mail-10696.protonmail.ch (mail-10696.protonmail.ch [79.135.106.96])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2BC322B87
-	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 18:44:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.96
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F404622CBE6;
+	Tue, 14 Apr 2026 18:54:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776192303; cv=none; b=Q53CuxX5igh9RAfezOw/NbHHGbbQvRr0+0NKIOQuAWB/PybQiGQ0Kk8pGa05XcAJb4E4mhglZ/KvZGgX/MJszCL20exxQW2zo18ya/0K7zgfszFyPSXOlOKmCLrOG8xCKbJfeegn/eu5l5NDmo4+AZwiMoO7DzTGAx+33Pkxk3w=
+	t=1776192850; cv=none; b=P0NSGqJNj028ZGndzLCeba7IK1xUQ3PhuQ5fu22Vsm/M6dqdJJRqHsZhq0R0mIrW+OC2s4Fz8EnUQmIJUXBTfjoxOUm3Qrdu79H5paSYgYHEzBqaXLglz6PVlwaQwuRj7RXEVWxqW2IDwds+dK+NUpDhtcFbYCuNOBeqfXtB0LI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776192303; c=relaxed/simple;
-	bh=0CF4/Bk0Wq2cuRuYQJOqFwMzntOOt7x4YDP7XlM1I9k=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=h87bpHCDZvWau0Hg174et79MeSB/EcD3HwwQmyOoPyzi0XceFetANuAJt2wBPpgbv4pPBAaJTCs0cmDoO5w2vai37f+YOzJi/ibkL7K6AdPnLYTq7ax71ObHexj6T/niUBpPwDjZujtEvhIHMLTaXPw/RiMxD7gAPRJDLL/INXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=iukSMsVU; arc=none smtp.client-ip=79.135.106.96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1776192850; c=relaxed/simple;
+	bh=LuQmmjJdwCVVG5v6DDGS4fNd3ICpGBA3E52fCo0Nw6w=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=NMZ5DSJAu1Yrq0daS7+m45GIFDLXP+5wwgoQFfN8NM7keI3pxq3tI/nf94wf626Pq011+Ref8APjEoYve/Y3LbGbH/XyO5vLOdrQGATFGqBphrmanl96BwICIFVKd2QBMG5j9DtP2deLur8NCFKZe/rsLXHpMBM3CeyAVc2mnuk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nflHdoN9; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="iukSMsVU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1776192297; x=1776451497;
-	bh=wF7XGc8CIQcRmH2ZlRKGhnkkkCJEh4IZ11LTi6Y90gQ=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=iukSMsVU7cAAVfZSIAaRZ2y6CMjBJrTWR8y2hF49xTYgpql1pyQj/ZBGVQGRkUXEP
-	 EAiAsEWYucs2XT+SUJhlWvRczbsWhzbjF1TQgev7KGn0io69jZdrMRCtRNBfdXXR53
-	 +cLW2F1+lzJakIknPW+y1Ugsz77BTe81VprWRO8w6aLhGtFTVTl8sdevGY9esPWSKK
-	 DTUzlZhMDJLhy6YSz7FW1glEs4Y0v/SscWCGbmPrF/QBM8rdXaHmOBOVJRPbv3688+
-	 ZKX1WGIkWm/sXEpmd9rK0Dk1yuQJHZM7dwFIQY0HIvIcs7rVHvc0sA6V4L5H5Ol3YM
-	 /XJLw5Zec9BCw==
-Date: Tue, 14 Apr 2026 18:44:55 +0000
-To: linux-kernel@vger.kernel.org
-From: "Lin, Meng-Bo" <linmengbo06890@proton.me>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, "Lin, Meng-Bo" <linmengbo06890@proton.me>
-Subject: [PATCH 2/2] arm64: dts: qcom: msm8916-panasonic-eluga-u2: add initial device tree
-Message-ID: <20260414184429.168612-3-linmengbo06890@proton.me>
-In-Reply-To: <20260414184429.168612-1-linmengbo06890@proton.me>
-References: <20260414184429.168612-1-linmengbo06890@proton.me>
-Feedback-ID: 112742687:user:proton
-X-Pm-Message-ID: 7f4e5896de6de4358243d6ac5b38867072e8c426
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nflHdoN9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22E8DC2BCB5;
+	Tue, 14 Apr 2026 18:54:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776192849;
+	bh=LuQmmjJdwCVVG5v6DDGS4fNd3ICpGBA3E52fCo0Nw6w=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=nflHdoN9bQkuLQsg04eH2YmDIfCrMTHPO/MK0tSjojaVi97RR/3J7v6rPyeRutbuw
+	 fUP45nXA2G3gGJLnW7puA8/2v0FoKtFwqdktWjiP1i8X26jXdVYwiFMRf0DMPys7Dy
+	 upopRI3IwtofZbHy6SWsMR03CHt4Dlhgc74Er67D4UNXmF4rFnf8migEdrip8+Np1h
+	 2uJNVCWJpf00Z/2Vx7K/+IWbxag7+iUw12x+7Yyh0dDcf5cOQJSgT1u+C+heUcHli7
+	 EWmwdCfs0M09mg4qBAsPR49U9jWJIlXZ9XrE9LDI6UuicQ61VP7mASv6NoS1T0vxH6
+	 hGxO2NbeThDsQ==
+Date: Tue, 14 Apr 2026 19:54:00 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, "David Lechner" <dlechner@baylibre.com>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
+ <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, Andy Shevchenko
+ <andriy.shevchenko@intel.com>
+Subject: Re: [PATCH v7 2/2] iio: dac: ad5706r: Add support for AD5706R DAC
+Message-ID: <20260414195400.60d39158@jic23-huawei>
+In-Reply-To: <20260410-dev_ad5706r-v7-2-af93a4caa186@analog.com>
+References: <20260410-dev_ad5706r-v7-0-af93a4caa186@analog.com>
+	<20260410-dev_ad5706r-v7-2-af93a4caa186@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Panasonic ELUGA U2 is a phone using the MSM8916 SoC released in 2015.
+On Fri, 10 Apr 2026 14:48:17 +0800
+Alexis Czezar Torreno <alexisczezar.torreno@analog.com> wrote:
 
-Add a device tree for with initial support for:
+> Add support for the Analog Devices AD5706R, a 4-channel 16-bit
+> current output digital-to-analog converter with SPI interface.
+> 
+> Features:
+>   - 4 independent DAC channels
+>   - Hardware and software LDAC trigger
+>   - Configurable output range
+>   - PWM-based LDAC control
+>   - Dither and toggle modes
+>   - Dynamically configurable SPI speed
+> 
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+> 
+Hi Alexis,
 
-- GPIO keys
-- GPIO LEDs
-- pm8916-vibrator
-- SDHCI (internal and external storage)
-- USB Device Mode
-- UART
-- Regulators
+A few little comments from me.
 
-Signed-off-by: "Lin, Meng-Bo" <linmengbo06890@proton.me>
----
- arch/arm64/boot/dts/qcom/Makefile             |   1 +
- .../dts/qcom/msm8916-panasonic-eluga-u2.dts   | 149 ++++++++++++++++++
- 2 files changed, 150 insertions(+)
- create mode 100644 arch/arm64/boot/dts/qcom/msm8916-panasonic-eluga-u2.dts
+Thanks,
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/M=
-akefile
-index 4ba8e7306419..4cbb4a079420 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -81,6 +81,7 @@ dtb-$(CONFIG_ARCH_QCOM)=09+=3D msm8916-motorola-harpia.dt=
-b
- dtb-$(CONFIG_ARCH_QCOM)=09+=3D msm8916-motorola-osprey.dtb
- dtb-$(CONFIG_ARCH_QCOM)=09+=3D msm8916-motorola-surnia.dtb
- dtb-$(CONFIG_ARCH_QCOM)=09+=3D msm8916-mtp.dtb
-+dtb-$(CONFIG_ARCH_QCOM)=09+=3D msm8916-panasonic-eluga-u2.dtb
- dtb-$(CONFIG_ARCH_QCOM)=09+=3D msm8916-samsung-a3u-eur.dtb
- dtb-$(CONFIG_ARCH_QCOM)=09+=3D msm8916-samsung-a5u-eur.dtb
- dtb-$(CONFIG_ARCH_QCOM)=09+=3D msm8916-samsung-coreprimeltevzw.dtb
-diff --git a/arch/arm64/boot/dts/qcom/msm8916-panasonic-eluga-u2.dts b/arch=
-/arm64/boot/dts/qcom/msm8916-panasonic-eluga-u2.dts
-new file mode 100644
-index 000000000000..8eff59119760
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/msm8916-panasonic-eluga-u2.dts
-@@ -0,0 +1,149 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+
-+/dts-v1/;
-+
-+#include "msm8916-pm8916.dtsi"
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/leds/common.h>
-+
-+/ {
-+=09model =3D "Panasonic ELUGA U2";
-+=09compatible =3D "panasonic,eluga-u2", "qcom,msm8916";
-+=09chassis-type =3D "handset";
-+
-+=09aliases {
-+=09=09mmc0 =3D &sdhc_1; /* eMMC */
-+=09=09mmc1 =3D &sdhc_2; /* SD card */
-+=09=09serial0 =3D &blsp_uart2;
-+=09};
-+
-+=09chosen {
-+=09=09stdout-path =3D "serial0";
-+=09};
-+
-+=09gpio-keys {
-+=09=09compatible =3D "gpio-keys";
-+
-+=09=09pinctrl-0 =3D <&gpio_keys_default>;
-+=09=09pinctrl-names =3D "default";
-+
-+=09=09label =3D "GPIO Buttons";
-+
-+=09=09button-volume-up {
-+=09=09=09label =3D "Volume Up";
-+=09=09=09gpios =3D <&tlmm 107 GPIO_ACTIVE_LOW>;
-+=09=09=09linux,code =3D <KEY_VOLUMEUP>;
-+=09=09};
-+=09};
-+
-+=09gpio-leds {
-+=09=09compatible =3D "gpio-leds";
-+=09=09pinctrl-0 =3D <&pm8916_mpps_leds_default>;
-+=09=09pinctrl-names =3D "default";
-+
-+=09=09led-green {
-+=09=09=09function =3D LED_FUNCTION_STATUS;
-+=09=09=09color =3D <LED_COLOR_ID_GREEN>;
-+=09=09=09gpios =3D <&pm8916_mpps 2 GPIO_ACTIVE_LOW>;
-+=09=09=09default-state =3D "off";
-+=09=09};
-+
-+=09=09led-blue {
-+=09=09=09function =3D LED_FUNCTION_STATUS;
-+=09=09=09color =3D <LED_COLOR_ID_BLUE>;
-+=09=09=09gpios =3D <&pm8916_mpps 4 GPIO_ACTIVE_LOW>;
-+=09=09=09default-state =3D "off";
-+=09=09};
-+=09};
-+
-+=09usb_id: usb-id {
-+=09=09compatible =3D "linux,extcon-usb-gpio";
-+=09=09id-gpios =3D <&tlmm 110 GPIO_ACTIVE_HIGH>;
-+=09=09pinctrl-0 =3D <&usb_id_default>;
-+=09=09pinctrl-names =3D "default";
-+=09};
-+};
-+
-+&blsp_uart2 {
-+=09status =3D "okay";
-+};
-+
-+&pm8916_mpps {
-+=09pm8916_mpps_leds_default: pm8916-mpps-state {
-+=09=09pins =3D "mpp2", "mpp4";
-+=09=09function =3D "digital";
-+=09=09output-low;
-+=09};
-+};
-+
-+&pm8916_resin {
-+=09linux,code =3D <KEY_VOLUMEDOWN>;
-+=09status =3D "okay";
-+};
-+
-+&pm8916_rpm_regulators {
-+=09pm8916_l17: l17 {
-+=09=09regulator-min-microvolt =3D <2850000>;
-+=09=09regulator-max-microvolt =3D <2850000>;
-+=09};
-+};
-+
-+&pm8916_vib {
-+=09status =3D "okay";
-+};
-+
-+&sdhc_1 {
-+=09status =3D "okay";
-+};
-+
-+&sdhc_2 {
-+=09pinctrl-0 =3D <&sdc2_default &sdc2_cd_default>;
-+=09pinctrl-1 =3D <&sdc2_sleep &sdc2_cd_default>;
-+=09pinctrl-names =3D "default", "sleep";
-+
-+=09cd-gpios =3D <&tlmm 38 GPIO_ACTIVE_LOW>;
-+
-+=09status =3D "okay";
-+};
-+
-+&usb {
-+=09extcon =3D <&usb_id>, <&usb_id>;
-+=09status =3D "okay";
-+};
-+
-+&usb_hs_phy {
-+=09extcon =3D <&usb_id>;
-+};
-+
-+&tlmm {
-+=09gpio_keys_default: gpio-keys-default-state {
-+=09=09pins =3D "gpio107";
-+=09=09function =3D "gpio";
-+=09=09drive-strength =3D <2>;
-+=09=09bias-pull-up;
-+=09};
-+
-+=09sdc2_cd_default: sdc2-cd-default-state {
-+=09=09pins =3D "gpio38";
-+=09=09function =3D "gpio";
-+=09=09drive-strength =3D <2>;
-+=09=09bias-disable;
-+=09};
-+
-+=09usb_id_default: usb-id-default-state {
-+=09=09pins =3D "gpio110";
-+=09=09function =3D "gpio";
-+=09=09drive-strength =3D <8>;
-+=09=09bias-pull-up;
-+=09};
-+};
-+
-+&venus {
-+=09status =3D "okay";
-+};
-+
-+&venus_mem {
-+=09status =3D "okay";
-+};
---=20
-2.47.3
+Jonathan
 
+> diff --git a/drivers/iio/dac/ad5706r.c b/drivers/iio/dac/ad5706r.c
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..026f871ce121cd63331b2a34da8879491b2d0f3c
+> --- /dev/null
+> +++ b/drivers/iio/dac/ad5706r.c
+> @@ -0,0 +1,253 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * AD5706R 16-bit Current Output Digital to Analog Converter
+> + *
+> + * Copyright 2026 Analog Devices Inc.
+> + */
+> +
+> +#include <linux/array_size.h>
+> +#include <linux/bits.h>
+> +#include <linux/dev_printk.h>
+> +#include <linux/err.h>
+> +#include <linux/iio/iio.h>
+> +#include <linux/minmax.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/regmap.h>
+> +#include <linux/spi/spi.h>
+> +#include <linux/types.h>
+> +#include <linux/unaligned.h>
+> +
+> +/* SPI frame layout */
+> +#define AD5706R_RD_MASK			BIT(15)
+> +#define AD5706R_ADDR_MASK		GENMASK(11, 0)
+> +
+> +/* Registers */
+> +#define AD5706R_REG_DAC_INPUT_A_CH(x)		(0x60 + ((x) * 2))
+> +#define AD5706R_REG_DAC_DATA_READBACK_CH(x)	(0x68 + ((x) * 2))
+> +
+> +#define AD5706R_DAC_RESOLUTION		16
+> +#define AD5706R_DAC_MAX_CODE		BIT(16)
+
+Trivial but I'd expect something called MAX_CODE to be GENMASK(15, 0)
+not BIT(16). E.g. inclusive limit.
+
+> +#define AD5706R_MULTIBYTE_REG_START	0x14
+> +#define AD5706R_MULTIBYTE_REG_END	0x71
+> +#define AD5706R_MAX_REG			0x77
+> +#define AD5706R_SINGLE_BYTE_LEN		1
+> +#define AD5706R_DOUBLE_BYTE_LEN		2
+
+See below. I'm not sure these two defines bring us anything.
+
+> +
+> +struct ad5706r_state {
+> +	struct spi_device *spi;
+> +	struct regmap *regmap;
+> +
+> +	u8 tx_buf[4] __aligned(IIO_DMA_MINALIGN);
+> +	u8 rx_buf[4];
+> +};
+> +
+> +static int ad5706r_reg_len(unsigned int reg)
+> +{
+> +	if (reg >= AD5706R_MULTIBYTE_REG_START && reg <= AD5706R_MULTIBYTE_REG_END)
+> +		return AD5706R_DOUBLE_BYTE_LEN;
+
+What do the defines for 2 == 2-bytes and 1 == 1-byte bring us over using numbers
+directly?  E.g.
+
+	if (reg >= AD5706R_MULTIBYTE_REG_START && reg <= AD5706R_MULTIBYTE_REG_END)
+		return 2;
+	return 1;
+
+> +
+> +	return AD5706R_SINGLE_BYTE_LEN;
+> +}
+> +
+> +static int ad5706r_regmap_write(void *context, const void *data, size_t count)
+> +{
+> +	struct ad5706r_state *st = context;
+> +	unsigned int num_bytes, val;
+> +	u16 reg;
+> +
+> +	if (count != 4)
+> +		return -EINVAL;
+> +
+> +	reg = get_unaligned_be16(data);
+> +	num_bytes = ad5706r_reg_len(reg);
+> +
+> +	struct spi_transfer xfer = {
+> +		.tx_buf = st->tx_buf,
+> +		.len = num_bytes + 2,
+> +	};
+> +
+> +	val = get_unaligned_be32(data);
+> +	put_unaligned_be32(val, &st->tx_buf[0]);
+> +
+> +	/* For single byte, copy the data to the correct position */
+> +	if (num_bytes == AD5706R_SINGLE_BYTE_LEN)
+> +		st->tx_buf[2] = st->tx_buf[3];
+
+This does feel a bit odd vs using if / else if as you do in the read
+case.  Also, same as above wrt to single bytes having a length of
+1 meaning that just using a 1 might be easier to read.
+
+> +
+> +	return spi_sync_transfer(st->spi, &xfer, 1);
+> +}
+
+> +static int ad5706r_write_raw(struct iio_dev *indio_dev,
+> +			     struct iio_chan_spec const *chan,
+> +			     int val, int val2, long mask)
+> +{
+> +	struct ad5706r_state *st = iio_priv(indio_dev);
+> +	unsigned int reg;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+> +		if (!in_range(val, 0, AD5706R_DAC_MAX_CODE))
+
+I'm not seeing a strong reason to use in_range() here (hopefully
+I didn't suggest it in an earlier review ;)  It make sense when
+we have a  val >= base && val < base + length. With base as 0
+and MAX_CODE not 'obviously' from it's name being the length
+(it only is becauset he base is 0) this seems odd.
+
+		if (val < 0 || val >= AD5706R_DAC_MAX_CODE)
+Though see above on MAX_CODE not being the maximum code...
+
+> +			return -EINVAL;
+> +
+> +		reg = AD5706R_REG_DAC_INPUT_A_CH(chan->channel);
+> +		return regmap_write(st->regmap, reg, val);
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
 
