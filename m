@@ -1,128 +1,174 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 00DC13BED18;
-	Tue, 14 Apr 2026 09:32:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D83F3C343F
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 09:33:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776159171; cv=none; b=QuNeuNt8hODxJXolGhXLVH1nM2Yi2QqrrkYLaMQ1bsg4bHZAeinQ1EljWQjoXQTkU+wGMd3I4ZZNIIRw3RPMY8yqm2nFKE6zwsoImj5ihfbTUoSwLJMY8ihzYu1wdLFpxrYR/CITkO7csCfLZhIpgqHyW6ULxkETUxN3K6VVjGI=
+	t=1776159218; cv=none; b=sI3TJ1LL859eaS4934L5WDFHaP3KzDMe52uyop5dp9h6UoNNIzSzQxQnV6A6FP7RygPso1PhMHiCy5I+fxFBtilxr0iqcGEIqtJ/y+Xq8XfdzSDyP+vbc++ZhEJp8r99YCGo+zHl3NqpEi3wz6Vxqdu7gdFwTYgO2nFZwWK3SUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776159171; c=relaxed/simple;
-	bh=jTWzlRycGRpVWiKNXzA9qh3yTm1b3S1Q+nrZUipHBtI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kr7fjGM2O8fPyYoQn3qLv5v7E2GEct+HfhH3X+D5TWHSa3CxycdGElF57cV59THlx77ft7EjWX5Ukk9BxsQ3M74D935K6Vgqcizm7qfrcCJMYewC4aS6FPN6VWkmUUmZo0/5lXhTujwfcVBoEJ4foXHVOCCpVli8DHhWWwA+q2g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=LCTzENxW; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1776159218; c=relaxed/simple;
+	bh=0BPZxwyeCDxt/qQ3n1UlOe0NaqQe38QUBg+xfperdj4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VUY30Q9k9RYO4XMANEtJjEsQ/sVj+PmVVmnVU+IUIk4yRw0OBeyq8sLWQDHuW+KoSOZscb0RdE+C0N6WhHb+raWGPk/6r5SCZ0yKz9VfD4D5qfykDI9huvmozMY5lk/2yBs4cpcSOh/O+TGkhlt709YQUUel/FSBiW0S3cZAISc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YJKMVZ4A; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PbRKnYhp; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="LCTzENxW"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B3F8B4ECD;
-	Tue, 14 Apr 2026 02:32:40 -0700 (PDT)
-Received: from [10.57.88.167] (unknown [10.57.88.167])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AFF293F7B4;
-	Tue, 14 Apr 2026 02:32:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1776159166; bh=jTWzlRycGRpVWiKNXzA9qh3yTm1b3S1Q+nrZUipHBtI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=LCTzENxWnWTYJde+K6dRWwtBKjvZj0Cebfia5XXWv2bCQlUKRgr+TmvN5yvRu1TZV
-	 f15gaSehy9FlrMM9uWnPkl6z6TNHc4uMt+gvap1DeYMei7GMq7+yQy0fbJC7x/ok0v
-	 aSy5rOSFG8Azu4jR/s2PuuRRhiaCd4QGYuKeZFDo=
-Message-ID: <ba1c2728-218e-4f53-9b20-eebf26274ccc@arm.com>
-Date: Tue, 14 Apr 2026 10:32:35 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YJKMVZ4A";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PbRKnYhp"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63E6Li81395284
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 09:33:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=mSbqfMc6xRfrir7P9sbbGiVO
+	qRkXoiDCed3ZiNBf5fk=; b=YJKMVZ4Adyx6ojrbYHIw6Si593Z37yloSz8aGqg5
+	DBEIwsJA+NOP0telQpGWfp1aVu4rf4qRteIHNVjnLk8laJVWRbv6DAQ+VAhJid0d
+	dxWWxQg+o3VDoXlpUalH+ii5DSmddfXh2EDnCnex4X3ew5mS/MolJf2LnzOxvnx2
+	KyF0LDdv51HTDtvrzjgfYapa3kijKH2fiDjsx0Hd7KMnwbQawoh+TKd67pgfypLT
+	IqoYNFyav45qxmUeSEdKcWbNpWUbigULEGQHJ/Tlk3bl4oVKslueF1IE/667PURk
+	JxkGxR3dpCIgZiVEfgukf3DlPZCR4zlZvltkD9VFuJcrhQ==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dh870t472-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 09:33:36 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2b2e6ee9444so27505655ad.1
+        for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 02:33:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1776159215; x=1776764015; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=mSbqfMc6xRfrir7P9sbbGiVOqRkXoiDCed3ZiNBf5fk=;
+        b=PbRKnYhpS7rvlFXBM7pQi6F3Qr4FuUq19DejxuQy+VtpeATlagjHtxMuHsN5nD+JQE
+         0uhANXjeIJqZ0rLapt5e9Q7JyPpb791KnubKTScZgwDyoDhg5l5grLTYbE/2OElRBX5y
+         r0viU/lGu0IhzW7kvF3kqmamlSjw1WMhJR/7nQsxAVq14HNi3DlzvFOqxiOy5DoPzA+B
+         zfHzRDp2ZNtTPxMDPciLQ17SlTe+z1rdAhMjf3iA97XaUg34mG84JdpuBkxFz0q8GUdY
+         pBTGH/c0ZVfiMwT2u0HRxIgAsPNt4j61vJBZLLOiZo1JoroFjUd6RJIFqd6qjKJCFYTR
+         zotw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776159215; x=1776764015;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=mSbqfMc6xRfrir7P9sbbGiVOqRkXoiDCed3ZiNBf5fk=;
+        b=Mxx1Lxdv18zd78o+lzNNpN1FIIyQaeeDewzL1TillAyVIpoXlIV0VzpXIyHjhpOwth
+         D2QWQMHTCnpG6aYYLKoXViN9LmKwgimeDPKlsb+G6I1FwY8wvuBQNOqbpmZRGCcumKoD
+         d7XDlY+AHJkdZqf4y1wblmM7LSqRi4vbtpDsKPFKxfaaaN/Sv+Q+1tWe7UYmnayrwXGY
+         RBTR5DJMMxCLtRq3pLazOQYzeujMck9lSAyKJiBCr9ajBdtwKgQVtjSApqqPDRChbSC5
+         LiAAfxH2AI9fY3M0/yanH+jAqDIokKQDprXYo0Q8QmqhCyqPCKTrUkCBbmrdXEoYW/T4
+         TkEQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8EMtYLJ29YrX2h1nPAruFFEZpPY7jWRFYWgoWkiQIwPbTJgVKcmAFP+WJS41SvvmcNQL9H24j4Foa4@vger.kernel.org
+X-Gm-Message-State: AOJu0YxlwwTtAcHUybJ3XaxqWqRU+kt39UGS2DYLnBaM2dqlEncLIAFW
+	lzCkkUhIxkDVts4RFuaoIvxbkWc/IxZZATqXL02Mv24OIUV5YUR8ohgsIukdtiB3O1Qg0WDHJwr
+	XvvJGgjiJAYmHUULekOxA5m9rRZfYLqH2FgIDCTkc/W4y1vlArti8WmaBnUo9jtrz
+X-Gm-Gg: AeBDietmrnjpAwMciW5wRQSi5y3gDXln+Fs5bngMh0K/DIgsrcjGTrkoX+jU5xr0kk5
+	tbmKEorY/jUiX1Bao8/EjWvXYcN10//n8COzWlKDEDO1aOlOXuJjeaeSdGM2ePuPHFjcaWw/v3s
+	7lUzXwt3aztFM9AyQgIdAsoXIV2FC5hB88CGakkmDW1tpSi77f9U9pzwt5VnNn/s41/adEfXg5v
+	1bkgtyDk1cPu4lv6C/8Gyr9dt0VcX3M2hjsuBYLcMA3U35/MkDJRWh2mEX0HyQOOA4oSbl0EJZ5
+	wimZC9gbbpf1GutHLbNnyt4makaIglztAhJ7jUii9zHezWVIINFsi5wp7Jrb+ZL879ryMY2S87t
+	21Xg/Bt+9y7QjedCy0+4xyhYQoujn6vcR9+y/D6BmFAqT3x5S
+X-Received: by 2002:a17:903:3c6e:b0:2b0:6068:4c5f with SMTP id d9443c01a7336-2b2c7260fb9mr194441115ad.8.1776159215260;
+        Tue, 14 Apr 2026 02:33:35 -0700 (PDT)
+X-Received: by 2002:a17:903:3c6e:b0:2b0:6068:4c5f with SMTP id d9443c01a7336-2b2c7260fb9mr194440675ad.8.1776159214669;
+        Tue, 14 Apr 2026 02:33:34 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b45e949464sm76959135ad.24.2026.04.14.02.33.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 14 Apr 2026 02:33:34 -0700 (PDT)
+Date: Tue, 14 Apr 2026 15:03:25 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Stefan Schmidt <stefan.schmidt@linaro.org>,
+        Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, iommu@lists.linux.dev
+Subject: Re: [PATCH 05/11] media: iris: Enable Secure PAS support with IOMMU
+ managed by Linux
+Message-ID: <20260414093325.clafqgd367jrqpvq@hu-mojha-hyd.qualcomm.com>
+References: <20260414-glymur-v1-0-7d3d1cf57b16@oss.qualcomm.com>
+ <20260414-glymur-v1-5-7d3d1cf57b16@oss.qualcomm.com>
+ <20260414063128.6ass64wfi7nmtzti@hu-mojha-hyd.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] arm-smmu-v3: Add PMCG child support and update PMU
- MMIO mapping
-To: Peng Fan <peng.fan@oss.nxp.com>
-Cc: Will Deacon <will@kernel.org>, Joerg Roedel <joro@8bytes.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
-References: <20260408-smmu-perf-v1-0-d75dac96e828@nxp.com>
- <2c1a1694-9597-400d-b441-714225b5377b@arm.com> <adZcaEKm3vIYSy3N@shlinux89>
- <65629411-0e1c-4c9c-bc9f-6488097bd77f@arm.com> <ad3w/P1vA2uKsV/o@shlinux89>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <ad3w/P1vA2uKsV/o@shlinux89>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260414063128.6ass64wfi7nmtzti@hu-mojha-hyd.qualcomm.com>
+X-Proofpoint-ORIG-GUID: FJrJsfXMv09kQjaF2v1_7114ROreVTey
+X-Proofpoint-GUID: FJrJsfXMv09kQjaF2v1_7114ROreVTey
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE0MDA4OCBTYWx0ZWRfX9XFQEXwuBRg2
+ WrTGxBF330BtobdrvmkinZcMgAkW/E3sn3ciVukboCukSdGBCADioPCSO3IVqGvD+Zy3Ecawygl
+ BStOuhNupoado5ePk5BTbNF8w94Q2qSw/BaDZzn5t13NaFlVNY4gLvkN4MyzlflrbhZmJWHcJJ9
+ pwcFeL3VJHqlHc61U2rlb8BWkrDxggVoR9PAKkO9OfBug0zvo9GrqbMlQjouAIuPD7xslV8Mm5Q
+ 6w1cFoJ8cmfDlkDxcOTmij/SFQfOTI3TG0QzG+7m2cWtSRWBPCaZeOWKmR5IoczzzSO4UPCbWHq
+ 7+0hdcqRcdnXDBY0zafFvYi1VkUyTyZcgHoEN3lePuYtwYC6wnCHBVg3WIkZvhTLg1zwMPR//Y9
+ TTKv+YOuk0ACY/f8sKxSZBDEBJAoFri01+2Aew+yB+1VRZQIbJAo8tWbl7ZWv/ix0yEFqdi8Myp
+ 2EQ7CwW9Iuq/ZeqWG6Q==
+X-Authority-Analysis: v=2.4 cv=MK9QXsZl c=1 sm=1 tr=0 ts=69de09f0 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=TLljPvHKC21aDJODJdYA:9 a=CjuIK1q_8ugA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-14_02,2026-04-13_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0
+ clxscore=1015 suspectscore=0 spamscore=0 bulkscore=0 malwarescore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604070000
+ definitions=main-2604140088
 
-On 2026-04-14 8:47 am, Peng Fan wrote:
-> Hi Robin,
-> 
-> On Fri, Apr 10, 2026 at 01:07:29PM +0100, Robin Murphy wrote:
->> On 08/04/2026 2:47 pm, Peng Fan wrote:
->>> On Wed, Apr 08, 2026 at 12:15:31PM +0100, Robin Murphy wrote:
->>>> On 2026-04-08 8:51 am, Peng Fan (OSS) wrote:
->>>>> This patch series adds proper support for describing and probing the
->>>>> Arm SMMU v3 PMCG (Performance Monitor Control Group) as a child node of
->>>>> the SMMU in Devicetree, and updates the relevant drivers accordingly.
->>>>>
->>>>> The SMMU v3 architecture allows an optional PMCG block, typically
->>>>> associated with TCUs, to be implemented within the SMMU register
->>>>> address space. For example, mmu700 PMCG is at the offset 0x2000 of the
->>>>> TCU page 0.
->>>>
->>>> But what's wrong with the existing binding? Especially given that it even has
->>>> an upstream user already:
->>>>
->>>> https://git.kernel.org/torvalds/c/aef9703dcbf8
->>>>
->>>>> Patch 1 updates the SMMU v3 Devicetree binding to allow PMCG child nodes,
->>>>> referencing the existing arm,smmu-v3-pmcg binding.
->>>>>
->>>>> Patch 2 updates the arm-smmu-v3 driver to populate platform devices for
->>>>> child nodes described in DT once the SMMU probe succeeds.
->>>>>
->>>>> Patch 3 updates the SMMUv3 PMU driver to correctly handle MMIO mapping when
->>>>> PMCG is described as a child node. The PMCG registers occupy a sub-region
->>>>> of the parent SMMU MMIO window, which is already requested by the SMMU
->>>>
->>>> That has not been the case since 52f3fab0067d ("iommu/arm-smmu-v3: Don't
->>>> reserve implementation defined register space") nearly 6 years ago, where the
->>>> whole purpose was to support Arm's PMCG implementation properly. What kernel
->>>> is this based on?
->>>
->>> Seems I am wrong. I thought PMCG is in page 0, so there were resource
->>> conflicts. I just retest without this patchset, all goes well.
->>>
->>> But from dt perspective, should the TCU PMCG node be child node of
->>> SMMU node?
->>
->> No. PMCGs can be used entirely independently of the SMMU itself, and while
->> most of the events do relate to SMMU translation and thus aren't necessarily
->> meaningful if it's not in use, there are still some which can be useful for
->> basic traffic counting, monitoring GPT/translation activity from _other_
->> security states (if observation is delegated to Non-Secure) and possibly
->> other things, even if the "main" Non-Secure SMMU interface isn't advertised
->> at all. It would be unreasonable to require the SMMU node to be present and
->> enabled *and* have a driver to populate PMCGs, to monitor events which are
->> outside the scope of that driver.
-> 
-> Thanks for explaining this in detail.
-> 
-> Just have one more question, we are using mmu-700, but MMU-700 implementation
-> defined TCU and TBU events are not supported.
-> 
-> Should we introduce a compatible string saying "arm,mmu700-tcu-pmcg" or
-> "arm,mmu700-tbu-pmcg"? TBH, I have not checked MMU600(AE) or else.
+On Tue, Apr 14, 2026 at 12:01:28PM +0530, Mukesh Ojha wrote:
+> On Tue, Apr 14, 2026 at 10:30:01AM +0530, Vishnu Reddy wrote:
+> > From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> > 
+> > Most Qualcomm platforms feature a proprietary hypervisor (such as Gunyah
+> > or QHEE), which typically handles IOMMU configuration. This includes
+> > mapping memory regions and device memory resources for remote processors
+> > by intercepting qcom_scm_pas_auth_and_reset() calls. These mappings are
+> > later removed during teardown. Additionally, SHM bridge setup is required
+> > to enable memory protection for both remoteproc metadata and its memory
+> > regions.
+> > 
+> > When the hypervisor is absent, the operating system must perform these
+> > configurations instead.
+> > 
+> > Support for handling IOMMU and SHM setup in the absence of a hypervisor
+> > is now in place. Extend the Iris driver to enable this functionality on
+> > platforms where IOMMU is managed by Linux (i.e., non-Gunyah, non-QHEE).
+> > 
+> > Additionally, the Iris driver must map the firmware and its required
+> > resources to the firmware SID, which is now specified via iommu-map in
+> > the device tree.
+> > 
+> > Co-developed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> > Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> > Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> > Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+This works as long as IRIS does not have optional resources. Once it
+starts needing mandatory resources like some peripheral access mapped
+before IRIS is brought out of reset, it will need a resource table SCM
+call, which we currently added for remote processors like ADSP and CDSP.
 
-MMU-700 and all other Arm implementations are still fully compatible 
-with "arm,mmu-600-pmcg" in terms of what that means. That lets the 
-driver correctly construct the "identifier" attribute, which then allows 
-userspace to know what exact PMU implementation it is.
+Let me know if you have plans to add that. I have a few sets of changes
+in the remoteproc resource table and an API which we added in the
+initial series that I could bring in.
 
-We don't maintain ever-growing lists of aliases for imp-def events in 
-the kernel driver, same as we don't for CPU PMUs either. Generally, 
-anyone who has reason to go near those is likely to already have the TRM 
-to hand and thus have the encodings anyway, but I suppose you could add 
-jevents with the proper meaningful descriptions if you really wanted to.
-
-Thanks,
-Robin.
+-Mukesh
