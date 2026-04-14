@@ -1,76 +1,179 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DA6A3914F0;
-	Tue, 14 Apr 2026 11:16:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F45F3D902A
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 11:29:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776165424; cv=none; b=dIitQ9oU5Mf3O2kgrFR/vEGsNAIJAMgJwIDazLcxCfNhgnSXdDDf0qXEDsXibowITocDzKXmMrGo2j1NSbTIjpM8xvlamujdY9mI2iqRan5QqaCKVkvPp3c2lOJhrOSfGgG0r9u1NFq747amQlllflNkLKPwzlfl8SouRxTChlc=
+	t=1776166197; cv=none; b=nXOnSlzvMPABev856/ONEM+QCMmdxU38F/lAcIkcyvW6buuGrrF7uTT+GTNMfYhs6Va78IbKWJffHPHBc56PsPkrl+VTPVheI5mZnwgNcUQ00Tq/P+zspM8was3Y3pGyjY1prVhSsHBn5WPfKJ/pp2jgrS0wP3xQiTL1hj5PT/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776165424; c=relaxed/simple;
-	bh=tnSETDCgBj8UM0Ny7d5jOq8TMDd3NcVy67Q/ltBadYI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H3NFQ5gLtTe2sdgN1Y+bkOweFzkHcYHBwSWZoEMXsDZDZ+6uA58RJl8reVPFX+uSeHRZH51nslushWo0WJdnuESn6qvD9oLx16QPXq2R63BUJ3Xd9Jn9+EkWWtfo3EgeDIPG0KYRtVUzww8nsTqjiF2wzuJQ8o6JoDphrjedr3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=KEU0GU0F; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	s=arc-20240116; t=1776166197; c=relaxed/simple;
+	bh=2IXKWrkYyeRb+s9HVtPXBjviMqj5Tdo1Egu9bREL+u8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=G6+0fyJzGPmW514g8bwPnQs5B0JIKG2cvAf45KdD+rGMSpxfk8hUB6W6jJB3LpjQXeBGE2yuxbyWiajWia7t84FB04EBmamfD5iY8fA9TNN0aZ41mtgEvlVFqk0SsRUhW2foO6VPG15cB0gP9H7eCVmpAz4JtOHbwcYgIxP2J4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cHkQPZCD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=N/lQz/kZ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="KEU0GU0F"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=M/1Cl1M9mS/TId0xoFqflfEvIxM7Sb8tWX4TogxlKPk=; 
-	b=KEU0GU0FFiqfLpEFBtReTaollVQ9U1i5vH6JPyjFICdMZZKuwnIX2iYsKon2LrHS1Dh8TP9oZrA
-	Hp8+/eEdMlbMYxTiemDfid4e6BFqwFZGpXd1jQ9n4hXHzI+J/cXg6SzEJ/Iw+7sZAXPrcCTlQZIUR
-	5m6p4rligW3XuLiJirKp11DUOBhpGM1jUPE6y4RNqDc2t3Sm03tJx+eThpv23HwmZUOxpfQS93DdG
-	E+sK3KGMrqV9BqDCgIc4mNCj6yUYsdrxfAxP9XM2ZBhFV40NUAWlUG2x3AUIlNbcQ0hfpaOwo57zT
-	W41fiXDM+XLhVt2D6T2rjIWfqbXEVZ2ssMjQ==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.96 #2 (Debian))
-	id 1wCbLo-00609n-08;
-	Tue, 14 Apr 2026 19:16:55 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Tue, 14 Apr 2026 19:16:54 +0800
-Date: Tue, 14 Apr 2026 19:16:54 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
-Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
-	Ruud.Derwig@synopsys.com, manjunath.hadli@vayavyalabs.com,
-	adityak@vayavyalabs.com, navami.telsang@vayavyalabs.com,
-	bhoomikak@vayavyalabs.com
-Subject: Re: [PATCH v11 2/4] crypto: spacc - Add SPAcc ahash support
-Message-ID: <ad4iJhEM-ZwgadBh@gondor.apana.org.au>
-References: <20260318071808.817074-1-pavitrakumarm@vayavyalabs.com>
- <20260318071808.817074-3-pavitrakumarm@vayavyalabs.com>
- <acZL65nbtfMCPHhq@gondor.apana.org.au>
- <CALxtO0nFEG2Lm18Fnb=YVQfy4-Qjb5+WtOxsHNOwYTy2Kzyb4g@mail.gmail.com>
- <CALxtO0kj4JfL94qY-radGcLwMeTnq4NQF7vPqs6giuhBinvALw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cHkQPZCD";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="N/lQz/kZ"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63E6T8BF2633484
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 11:29:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	OBqaK0JNjPjAUSVizOw4HOKXhA14WjZ3HGAdeAIv7aY=; b=cHkQPZCDaE8Gn/hk
+	kZadwKjb36ZUVebhBimJp70auKUpWxS0O3Y22wJmyGHyYUxUBM+XW2BMz5+pgB/+
+	6xU2dKmh0AA9FYzN3licgZjldBRfCgo64XxWk1X1jWBCyQhCAZqr74mqSozhGy+D
+	Xrh9TOEdcIzOYCByK/3j6EHwDT8iv1t+ZIb+16PreU+PKS9zyLATW9FdHI5U5wwz
+	pP5ikmS6k3W/emn0XWbYoEMeZyPaX8Ac0vZEVPK6Zj5NqLz7k2BWeFbfMb+MDvic
+	2h16gfqdzPrtXYR2sSp4kedUqj0kyIJuomu8VR1Qzhfy4UhuwlFtuAqHhX/DsvR7
+	xUxUCg==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dh86cag1h-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 11:29:54 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2b4654f9bb6so18105805ad.2
+        for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 04:29:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1776166194; x=1776770994; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=OBqaK0JNjPjAUSVizOw4HOKXhA14WjZ3HGAdeAIv7aY=;
+        b=N/lQz/kZk65aIqxMi/URvpJnGj7pNYT8AGMlQKkDi/CxAT8BbpHRthNWIBjlEGpPXj
+         MMlMeBMZA+lx7qFHS+nPP3ljZOcxzHDx2p/Ea1jPOtwr+2bzRXBY0akYMM6oObIek0Dd
+         Ppq257cNaJnZv0aw5Dfkq+tgmYCYZgcWVg+6X9LONf+GNZmHKEkifEOo+u/Fh0r4sORs
+         gA9GifAwSB/R9jNnvXB0kYLtZcQj4WjWwzH1K4GST8F3ADEeN9MD9jwTcLj4NJ8/BStJ
+         0fFRcAdCTxkiES1G9w273ENdz/18LfBg6+ewXalJVaovu7d0g4PzmCrBd2mIjWqvnAz7
+         f/RQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776166194; x=1776770994;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=OBqaK0JNjPjAUSVizOw4HOKXhA14WjZ3HGAdeAIv7aY=;
+        b=kE56Q4LPIy4vBghpXrzaDbCTj1qf3rHyskw+83Iq85k9lxUeyLTkAI0PYgL0IqzZMv
+         MGCuJ3HHl3bIWPqxMx+JM0DSrEnFB8qqjlg+E7WlEfrZHftj6n3spC3NNEybNfNHvKYX
+         G6H2tZU5YG5Pv51JK9Zt7jjnyMfkJQloxbykRVGjt2JOA4mofh1BXTYEEg5u34wDHlXs
+         RZYZOBUkRpyT/ZNXE7p1BLHEs3ZNFdeEPRudHgXFLTKxQCUoSkRrTZd+pcVqUmJSO1z/
+         D6sSrsB+e6VolnNrCK8ybITlZgAlxS1j1x1xAHrm1sqJQs7TY0x5FAmSD1/SvFEtpAKP
+         bzpw==
+X-Forwarded-Encrypted: i=1; AFNElJ8YxnGyjv0Qo7yBaZS/a3VDb44AcNmmB98LKdi0jPxCjf4YcZ+XUDRvdNIX63F9u8oJZ9y7gpLpFkEX@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx/q7CBF17HWe2l9asKBkVOZX9q9T0G8c2/s9maRvA6g9rY7VbN
+	DkFTh7jf3ukFJHAowOLwZ/NkAEX58i8AkFhd1JpTQBIrBclkgfyiQhCpKl8vvE/ZHjZNgzbgF80
+	oeNEKhyep57ubIduU5RKEalj3iHAXlWVglIaIylcIcBuRM7tXk+wrIpqgG6cMZQ2W
+X-Gm-Gg: AeBDieslbwSMAfEIqcOlLeWuwmYKdBYa0bGiqq40ny3sO72UglqQEsgJrwKeaCzRNsZ
+	5A+emAY3tQJjiDA+MXMu6JaK3uujlBkKwEipoqennp9RgpzEXr4bgz/3UvCA8n2e8GReXHQ5wTR
+	qEhLBKCRacxijb6lVzHEmmGmp9LgY0SYAy51LMszkTavLZ5L29R99c3klyj4hblal0B5of1R/VD
+	XzAD9enK4HqOIya/YsVOH0OA4E+/QBvS72kbA/RTYCimilW4Ozuay0ThDXkbqx/WExaQpLcbsjD
+	y4SfvTLy1IqE7DHRALvzpXRDZnB5L5XfoVWBcqXsLxhLua+hYd/jqkOsAFAIFw/PXgjWS82IRPH
+	de4t8N1OtvFQYsJB0hXKKRqXIlwZSH6/z1wSOkReyrzvwL2LNeX+tAzfJx+SeQFwlWjMjDbTI8a
+	bqVlU3j8xMtg==
+X-Received: by 2002:a17:903:1aad:b0:2b0:571f:6f09 with SMTP id d9443c01a7336-2b2d5aaadeamr183190185ad.44.1776166194173;
+        Tue, 14 Apr 2026 04:29:54 -0700 (PDT)
+X-Received: by 2002:a17:903:1aad:b0:2b0:571f:6f09 with SMTP id d9443c01a7336-2b2d5aaadeamr183189895ad.44.1776166193694;
+        Tue, 14 Apr 2026 04:29:53 -0700 (PDT)
+Received: from [10.133.33.11] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b45f192203sm60466495ad.23.2026.04.14.04.29.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 14 Apr 2026 04:29:53 -0700 (PDT)
+Message-ID: <efc7038c-c944-4c41-b80e-17d37ff1597a@oss.qualcomm.com>
+Date: Tue, 14 Apr 2026 19:29:48 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CALxtO0kj4JfL94qY-radGcLwMeTnq4NQF7vPqs6giuhBinvALw@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/7] arm64: dts: qcom: sm8750: Add label properties to
+ CoreSight devices
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260410-add-label-to-coresight-device-v1-0-d71a6759dbc2@oss.qualcomm.com>
+ <20260410-add-label-to-coresight-device-v1-6-d71a6759dbc2@oss.qualcomm.com>
+ <6187fa72-d14c-40a1-bc03-ba43860d0e27@oss.qualcomm.com>
+Content-Language: en-US
+From: Jie Gan <jie.gan@oss.qualcomm.com>
+In-Reply-To: <6187fa72-d14c-40a1-bc03-ba43860d0e27@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: XXs0rXsq8hbsXwINGCCuWO_pvKoEapr3
+X-Authority-Analysis: v=2.4 cv=RoH16imK c=1 sm=1 tr=0 ts=69de2532 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=7ipe1zbxdwhyCGfuPS0A:9 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE0MDEwNiBTYWx0ZWRfX5xvwR+1vYYBj
+ fVNzR6cFK6pSkWG/GGqAVO2ZTRL+JutKFUEysM3bNvClKGwNd3j2CV0QSxyegwLgPH1tTMD+xDj
+ fTGAfAkHhffIRXVUkCzIXUs1729FrFx375hk4LB5Uy7ntgaK/8e3TXfE88Waz2ZmDfU67Fc2AVZ
+ ujpBAisB/KC8VMFLHQtaKz7bCLLXWDRFXme+ia5v2gi9nnu6LbAWNXbNLkoH7LbR7vYgs4AQ6Z1
+ QhBJ+i8y2L4AtesHFYrmeWiPHCG+ANPLRzu8t8uAZALUqR79hdBZt44fplwnUKENrv5PuulDl8T
+ bir+4WJjzCta4/JhcS59FOO5Ha7A9GenA77P4So/KZXji0Q94Ro7taLUqCyOFjL5+M/zzHYqozf
+ H6zF1ysXiH7BhUPmfqSyg1Xym8oMRciUlF4FhayGDuEJo7SUGk8ytJpSjdbp1iR+9FNNOmCDvkF
+ sXHc5VHNLx+v7UqvvVA==
+X-Proofpoint-GUID: XXs0rXsq8hbsXwINGCCuWO_pvKoEapr3
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-14_03,2026-04-13_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 spamscore=0 priorityscore=1501 impostorscore=0
+ bulkscore=0 phishscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604140106
 
-On Tue, Apr 14, 2026 at 03:58:16PM +0530, Pavitrakumar Managutte wrote:
-> Hi Herbert,
->    If the above snip looks good, I can push that and some more code
-> clean-ups/improvements as part of V12 patchset. Do let me know.
+
+
+On 4/14/2026 6:19 PM, Konrad Dybcio wrote:
+> On 4/10/26 5:08 AM, Jie Gan wrote:
+>> Add label properties to TPDM and CTI nodes in the sm8750 device tree to
+>> provide human-readable identifiers for each CoreSight device. These
+>> labels allow userspace tools and the CoreSight framework to identify
+>> devices by name rather than by base address.
+>>
+>> Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
+>> ---
 > 
-> Below are the code fixes and improvements
-> 1. Multi-device safety handling - All packed up inside priv
-> 2. Minor code polishes
-> 3. memzero_explicit inside setkey, spacc_compute_xcbc_key etc.
-> 4. Algo registration clean-ups
+> [...]
+> 
+>>   	tpdm-cdsp-llm {
+>>   		compatible = "qcom,coresight-static-tpdm";
+>> +			label = "tpdm_cdsp_llm";
+>>   		qcom,cmb-element-bits = <32>;
+>>   
+>>   		out-ports {
+>> @@ -6814,6 +6839,7 @@ tpdm_cdsp_llm_out: endpoint {
+>>   
+>>   	tpdm-cdsp-llm2 {
+>>   		compatible = "qcom,coresight-static-tpdm";
+>> +			label = "tpdm_cdsp_llm2";
+>>   		qcom,cmb-element-bits = <32>;
+>>   
+>>   		out-ports {
+>> @@ -6827,6 +6853,7 @@ tpdm_cdsp_llm2_out: endpoint {
+>>   
+>>   	tpdm-modem1 {
+>>   		compatible = "qcom,coresight-static-tpdm";
+>> +			label = "tpdm_modem_1";
+> 
+> Please fix the extra \t
 
-I would prefer if you left out sm3 for now.  If it really mattered
-someone would move it to lib/crypto.
+noted.
 
 Thanks,
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+Jie
+
+> 
+> Konrad
+
