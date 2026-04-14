@@ -1,33 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF99282F3F
-	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 12:55:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C91F3E5ED2
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 12:57:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776171342; cv=none; b=i8PJYrJlR4/g2kNeggLCh3HmkGCmR3PelkOQ+xdkTOPCCDyZrKbWqhRII1BykybbLlbT0OFb7LL1xrRMVO3n5DB6OdAHTSrFpY4oScjFyMoXJUGn+Ce0pN5iBXF9fH55k/B3tfWN7Ky5+mAKVvx6aJoo/wwUDHY32Rc5dM+AOg0=
+	t=1776171446; cv=none; b=tLF7Rhso23K4qPzeHeBsSru04Q6X8B58Nbj2dVkUrATiY6wxbEPC9LVmzH7pxXPdKVWOualZqfoyhusAOv0ynEAlUdVAPxNXKDLQ73a727187rfU+fawUYlWXXDCpgx3VTtDj4Fk0yRnuGW8iZ+EWTh6nRDJUlCrlrhei4e5Pmk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776171342; c=relaxed/simple;
-	bh=p+/57FhXiocGhvzntYLX/Iap3nsckS06pE9oCcFGd8c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Y/WyTX+0xlf8GSvhblRx8lIGcAq2JWK8vSbbo5lblQrLNyd4igpfXp0znOi1zEbjZpmkrk2dDcwdERJWhRrLowhFnGxjhNgBghr5IjBBrAKXuxtg9wXT/dPp88qzfkQLbDgxa9SvR4t3j5PaQbZbLYwp1IRdKa3WdWhBY/nEpDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OuBHeBSu; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776171446; c=relaxed/simple;
+	bh=e/s4sHiPD188qy99lreTnt+v6QiRnMlL22G3zDTSYJs=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=fdLA3IwfwnNZG9ANg7g8cy1obNg/I+2GMQx8SPiMjUs08gDkqEr6+09ERWHR4j/Co6EVqTGaArNV1JZy9uRexMRLGSMbFFoOuSlbxiV6uyE/2FzFSxTSmWa3E4swStDV48QMV6qhlzZWwD2a+T2ScCl6ZeTdN0sVqKVKeoPotfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=oqhHOkfC; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OuBHeBSu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63D72C19425;
-	Tue, 14 Apr 2026 12:55:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776171341;
-	bh=p+/57FhXiocGhvzntYLX/Iap3nsckS06pE9oCcFGd8c=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=OuBHeBSuyn66CU2vlNjRImU/3bX61THz3rmxBk2fkmgkaJIvBsRwA2s9E9i1W2znJ
-	 yPq6QIQzQoaNuiPI7XLElHw94Vdpykyu6f1QBbr7ue/TVkJQOeWlRiU9UJergndrDD
-	 7NIsu51d2xzJwiLtWY56zU/vl6PrwNn9fbhlVCuuUzw+8D9BSgvXqX2ykw9/LYB/IB
-	 1uu0soPc6PEWKrUmaJo46o6nkYrdqhWFPmwe/45QqJwls2mKldC4cTydKiO2WbkPJR
-	 iA85aXYaHE20RTTNxBdNv6UONJwFaT+Iv3e2NA9iOFm4I+wowuPLQzJAWpkDw1/1tr
-	 BT5CsHwwa/tSA==
-Message-ID: <321be4a9-2633-403b-ac44-4ec9102f7d14@kernel.org>
-Date: Tue, 14 Apr 2026 14:55:38 +0200
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="oqhHOkfC"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-488a14c31eeso45804675e9.0
+        for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 05:57:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1776171444; x=1776776244; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=HNKljDlGgBzgahYp2+OYLG0r/HqoCgAeLqufCE/G6VA=;
+        b=oqhHOkfC6WEX90BmNcFWXQ8g5zjiM2C7ZAzwPrhcJCEoQmxWu8RNyn0Uw37teNyFua
+         Zd7dUqsoit+WGeDc6bAXj3HuyU3C23SgTFFs9LmpU4H+UB22YMtm31ynOy2PXSOgTpxy
+         D5tsBtRqLY0Qvids3My7O++ExW+0zCSrImDIJzMs0unomWbSkssWxA743V+tfuEUlGVp
+         jN3nnW5F5W3WEdsVyN3gebMFL74+g8domFR7R7hbxLzdQYPez29Zud56Jnr0pc53ZthX
+         VSHxk/SfBTjGwC4ySIbo7k7534Ci6zI9NTQA5/nvje+9nhtAx2H2pSIcLMlzr9qm2V3J
+         lgKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776171444; x=1776776244;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=HNKljDlGgBzgahYp2+OYLG0r/HqoCgAeLqufCE/G6VA=;
+        b=PpteWd4niea+oxxzuflNcSrQjY4lD7xidQguF5VV3WqtWufQ+G3F34lTFPTX1OJ1Fd
+         ZZ6ZvP3FollHrPDHsgvZ8XwGRjHWh33X5I65pMGAMFAoyZY0oUsqa+B4i3vuyK30LUM2
+         tT9ZRJEW2wuhS+N6L3HANENG17FUVzKQk2fEYfLDApIQ/qeaMQ8JSjc4Vyh47DoNw2W5
+         l5xIz0CW+dLa3GP05p9n/uA3XPI4xsZLBOxDNuQuZ6ZF9M+/1KVu69tnBVTHCQZV/rwm
+         T3GRCxtVAOHg4JP1WIcBnS+Wdvv4EzoYQl0grnpBXO74HwhPw/eoR8gt9FhZuBH6Dyg7
+         6F9A==
+X-Forwarded-Encrypted: i=1; AFNElJ/Nm4MhQLseEFQyLTEUWcneLgm1gExHjt9rW9b1BSiEVjw2LsKBUDQyuOnJsHj58+N4kZBMRpFE7t9k@vger.kernel.org
+X-Gm-Message-State: AOJu0YwoUG9osd2O8b6QcKbirc18zI9O7o1P2LTJQ+4zmwQ8PbfwxFcO
+	fWhf+4DqNo44Kkj8toxpLdyPBk8AvQblFWxb4CtDass2WYzfL1aB7zuk9482zYA37Hg=
+X-Gm-Gg: AeBDietHHvd7LzF6foORusunJTM/XXYjn8mEQev/t9GmQSL+7h9JLz/NVBPQo5tbqnJ
+	7lk370f2msThcVOsieZyApmzH8nynlUggPaULvox/EY1uoBhxPichObgMngOmG2RipK8l2dj6pX
+	+qsMZ5P8t4vM74fz3DDtY+Eidv9bcmf90hAJIZwgVoXW6ZOhHyalol35q7ZI/aVXszWlrx9pLjk
+	NV9mpJ19x9B3MB5vsfOSfjFU2i0eF4SQ9zFqz3QrhHyBtxVHsGjMfng7Pjp3NOXrT8KsfRO73e4
+	ojXycbBPsKMTSFVYcK51+ZQxIePEsgwuzsSkvN95vEedT6vu6TUQz0grKxan193Ar3yM4gsajHG
+	9U/jBt9F80pctYG0W7KvVp3plfhaNNzAZniJwDYSEaU8JNHL0v5Wg7OJ8+APpm6kgl+dswxWnl0
+	l6G7QiQ2TbtTJZqHZOMUQsAY/JbJyU9+wUR8ix8x5kOiJj2ubIwdaxitlLUvMIYtAvUT3C6lJf/
+	OS3XV87Lrtodys=
+X-Received: by 2002:a05:600c:8709:b0:488:945a:ed63 with SMTP id 5b1f17b1804b1-488d6655adfmr241167395e9.0.1776171443536;
+        Tue, 14 Apr 2026 05:57:23 -0700 (PDT)
+Received: from ?IPV6:2001:861:c12:13d0:5627:3bd0:f3ee:8a22? ([2001:861:c12:13d0:5627:3bd0:f3ee:8a22])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488d67ced32sm168139455e9.7.2026.04.14.05.57.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 14 Apr 2026 05:57:23 -0700 (PDT)
+Message-ID: <b4f4d47f-b995-4554-81ed-9b47727582e7@linaro.org>
+Date: Tue, 14 Apr 2026 14:57:22 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,112 +70,264 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: socfpga: Add the Agilex7 series SoC's
-To: Dinh Nguyen <dinguyen@kernel.org>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org
-References: <20260413144553.132737-1-dinguyen@kernel.org>
- <20260414-certain-puffin-from-avalon-29ceeb@quoll>
- <a2945037-d8c9-45b5-b161-ac55ac9b0835@kernel.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
- QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
- +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
- ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
- 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
- hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
- tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
- 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
- naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
- hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
- whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
- Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
- MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
- OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
- GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
- 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
- YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
- 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
- BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
- JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
- 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
- YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
- qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
- RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
- Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
- H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
- dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
- AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
- jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
- zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
- XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <a2945037-d8c9-45b5-b161-ac55ac9b0835@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v3 07/21] drm/panel: himax-hx83102: support Waveshare
+ 12.3" DSI panel
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Cong Yang <yangcong5@huaqin.corp-partner.google.com>,
+ Ondrej Jirman <megi@xff.cz>, Javier Martinez Canillas <javierm@redhat.com>,
+ Jagan Teki <jagan@edgeble.ai>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Jie Gan <jie.gan@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
+References: <20260413-waveshare-dsi-touch-v3-0-3aeb53022c32@oss.qualcomm.com>
+ <20260413-waveshare-dsi-touch-v3-7-3aeb53022c32@oss.qualcomm.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260413-waveshare-dsi-touch-v3-7-3aeb53022c32@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 14/04/2026 14:53, Dinh Nguyen wrote:
+On 4/13/26 16:05, Dmitry Baryshkov wrote:
+> Add support for the Waveshare 12.3" DSI TOUCH-A panel. According to the
+> vendor driver, it uses different mode_flags, so let the panel
+> descriptions override driver-wide defaults.
 > 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>   drivers/gpu/drm/panel/panel-himax-hx83102.c | 144 +++++++++++++++++++++++++++-
+>   1 file changed, 142 insertions(+), 2 deletions(-)
 > 
-> On 4/14/26 02:17, Krzysztof Kozlowski wrote:
->> On Mon, Apr 13, 2026 at 09:45:52AM -0500, Dinh Nguyen wrote:
->>> The Agilex7 is a series of devices from Altera that are derived from
->>> the Agilex family.
->>>
->>> The Agilex7F device supports PCIE 4.0 and DDR4. The Agilex7I device supports
->>> PCIE 5.0 and DDR4, while the Agilex7M device supports DDR4, DDR5, LPDDR5
->>> and PCIE 5.0.
->>>
->>> All other peripherals from these devices are the same as the Agilex
->>> device.
->>>
->>> Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
->>> ---
->>>   Documentation/devicetree/bindings/arm/altera.yaml | 10 ++++++++++
->>>   1 file changed, 10 insertions(+)
->>>
->>> diff --git a/Documentation/devicetree/bindings/arm/altera.yaml b/Documentation/devicetree/bindings/arm/altera.yaml
->>> index 206686f3eebc..5ee09f8d4698 100644
->>> --- a/Documentation/devicetree/bindings/arm/altera.yaml
->>> +++ b/Documentation/devicetree/bindings/arm/altera.yaml
->>> @@ -115,6 +115,16 @@ properties:
->>>                 - intel,socfpga-agilex5-socdk-nand
->>>             - const: intel,socfpga-agilex5
->>>   
->>> +      - description: Agilex7 series F, I and M boards
->>> +        items:
->>> +          - enum:
->>> +              - intel,socfpga-agilex7m-socdk
->>> +          - enum:
->>> +              - intel,socfpga-agilex7f
->>> +              - intel,socfpga-agilex7i
->>> +              - intel,socfpga-agilex7m
->>> +          - const: intel,socfpga-agilex
->>
->> And separate question - why previous soc "agilex" is used as fallback?
->> Even more confusing.
->>
+> diff --git a/drivers/gpu/drm/panel/panel-himax-hx83102.c b/drivers/gpu/drm/panel/panel-himax-hx83102.c
+> index 8b2a68ee851e..eab67893da86 100644
+> --- a/drivers/gpu/drm/panel/panel-himax-hx83102.c
+> +++ b/drivers/gpu/drm/panel/panel-himax-hx83102.c
+> @@ -29,11 +29,14 @@
+>   #define HX83102_UNKNOWN_B8	0xb8
+>   #define HX83102_SETEXTC		0xb9
+>   #define HX83102_SETMIPI		0xba
+> +#define HX83102_UNKNOWN_BB	0xbb
+>   #define HX83102_SETVDC		0xbc
+>   #define HX83102_SETBANK		0xbd
+>   #define HX83102_UNKNOWN_BE	0xbe
+>   #define HX83102_SETPTBA		0xbf
+>   #define HX83102_SETSTBA		0xc0
+> +#define HX83102_UNKNOWN_C2	0xc2
+> +#define HX83102_UNKNOWN_C6	0xc6
+>   #define HX83102_SETTCON		0xc7
+>   #define HX83102_SETRAMDMY	0xc8
+>   #define HX83102_SETPWM		0xc9
+> @@ -78,6 +81,7 @@ struct hx83102_panel_desc {
+>   	} size;
+>   
+>   	bool has_backlight;
+> +	unsigned long mode_flags;
+>   
+>   	int (*init)(struct hx83102 *ctx);
+>   };
+> @@ -765,6 +769,111 @@ static int holitech_htf065h045_init(struct hx83102 *ctx)
+>   	return dsi_ctx.accum_err;
+>   }
+>   
+> +/* This is HX83102-E, assuming commands are the same as the normal HX83102 */
+> +static int waveshare_12_3_a_init(struct hx83102 *ctx)
+> +{
+> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> +
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETEXTC, 0x83, 0x10, 0x2e);
+> +
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETSPCCMD, 0xcd);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_UNKNOWN_BB, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETSPCCMD, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETPCTRL, 0x67, 0x2c, 0xff, 0x05);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_UNKNOWN_BE, 0x11, 0x96, 0x89);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_UNKNOWN_D9, 0x04, 0x03, 0x04);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETPOWER,
+> +				     0x10, 0xfa, 0xaf, 0xaf, 0x33, 0x33, 0xb1, 0x4d, 0x2f, 0x36,
+> +				     0x36, 0x36, 0x36, 0x22, 0x21, 0x15, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETDISP,
+> +				     0x00, 0xd0, 0x27, 0x80, 0x00, 0x14, 0x40, 0x2c, 0x32, 0x02,
+> +				     0x00, 0x00, 0x15, 0x20, 0xd7, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETCYC,
+> +				     0x98, 0xa0, 0x01, 0x01, 0x98, 0xa0, 0x68, 0x50, 0x01, 0xc7,
+> +				     0x01, 0x58, 0x00, 0xff, 0x00, 0xff);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_UNKNOWN_B6, 0x4d, 0x4d, 0xe3);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETPTBA, 0xfc, 0x85, 0x80);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_UNKNOWN_D2, 0x33, 0x33);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETGIP0,
+> +				     0x00, 0x00, 0x00, 0x00, 0x64, 0x04, 0x00, 0x08, 0x08, 0x27,
+> +				     0x27, 0x22, 0x2f, 0x15, 0x15, 0x04, 0x04, 0x32, 0x10, 0x13,
+> +				     0x00, 0x13, 0x32, 0x10, 0x1f, 0x00,
+> +				     0x02, 0x32, 0x17, 0xfd, 0x00, 0x10, 0x00, 0x00, 0x20,
+> +				     0x30, 0x01, 0x55, 0x21, 0x38, 0x01, 0x55, 0x0f);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETGMA,
+> +				     0x00, 0x0c, 0x1a, 0x23, 0x2b, 0x4f, 0x64, 0x69, 0x6c, 0x64,
+> +				     0x77, 0x77, 0x76, 0x80, 0x79, 0x7e, 0x85, 0x9a, 0x97, 0x4d,
+> +				     0x56, 0x64, 0x70, 0x00, 0x0c, 0x1a, 0x23, 0x2b, 0x4f, 0x64,
+> +				     0x69, 0x6c, 0x64, 0x77, 0x77, 0x76, 0x80, 0x79, 0x7e, 0x85,
+> +				     0x9a, 0x97, 0x4d, 0x56, 0x64, 0x76);
+> +
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETBANK, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETPOWER, 0x01, 0x9b, 0x01, 0x31);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETCLOCK,
+> +				     0x80, 0x36, 0x12, 0x16, 0xc0, 0x28, 0x40, 0x84, 0x22);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETGIP0,
+> +				     0x01, 0x00, 0xfc, 0x00, 0x00, 0x11, 0x10, 0x00, 0x0e, 0x00,
+> +				     0x01);
+> +
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETBANK, 0x02);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETCYC, 0x4e, 0x00, 0x33, 0x11, 0x33, 0x88);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETPTBA, 0xf2, 0x00, 0x02);
+> +
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETBANK, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETSTBA,
+> +				     0x23, 0x23, 0x22, 0x11, 0xa2, 0x17, 0x00, 0x80, 0x00, 0x00,
+> +				     0x08, 0x00, 0x63, 0x63);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_UNKNOWN_C6, 0xf9);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETTCON, 0x30);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETRAMDMY,
+> +				     0x00, 0x04, 0x04, 0x00, 0x00, 0x82, 0x13, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETCASCADE, 0x07, 0x04, 0x05);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETGIP1,
+> +				     0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x21, 0x20, 0x21, 0x20,
+> +				     0x01, 0x00, 0x03, 0x02, 0x05, 0x04, 0x07, 0x06, 0x1a, 0x1a,
+> +				     0x1a, 0x1a, 0x9a, 0x9a, 0x9a, 0x9a, 0x18, 0x18, 0x18, 0x18,
+> +				     0x21, 0x20, 0x21, 0x20, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18,
+> +				     0x18, 0x18, 0x18, 0x18);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETGIP2,
+> +				     0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x20, 0x21, 0x20, 0x21,
+> +				     0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x1a, 0x1a,
+> +				     0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0x1a, 0x18, 0x18, 0x18, 0x18,
+> +				     0x20, 0x21, 0x20, 0x21, 0x98, 0x98, 0x98, 0x98, 0x98, 0x98,
+> +				     0x98, 0x98, 0x98, 0x98);
+> +
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETBANK, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETTP1,
+> +				     0x00, 0x34, 0x01, 0x88, 0x0e, 0xbe, 0x0f);
+> +
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETBANK, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_UNKNOWN_C2, 0x43, 0xff, 0x10);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETPANEL, 0x02);
+> +
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETBANK, 0x03);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETDISP, 0x80);
+> +
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETBANK, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETGIP3,
+> +				     0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa,
+> +				     0xaa, 0xaa, 0xaa, 0x80, 0x2a, 0xaa, 0xaa, 0xaa, 0xaa, 0x80,
+> +				     0x2a, 0xaa, 0xaa, 0xaa);
+> +
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETBANK, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETGIP3,
+> +				     0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa,
+> +				     0xaa, 0xaa);
+> +
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETBANK, 0x02);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETGIP3,
+> +				     0xff, 0xff, 0xff, 0xff,
+> +				     0xff, 0xf0, 0xff, 0xff,
+> +				     0xff, 0xff, 0xff, 0xf0);
+> +
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, HX83102_SETBANK, 0x00);
+> +
+> +	return dsi_ctx.accum_err;
+> +};
+> +
+>   static const struct drm_display_mode starry_mode = {
+>   	.clock = 162680,
+>   	.hdisplay = 1200,
+> @@ -920,6 +1029,30 @@ static const struct hx83102_panel_desc holitech_htf065h045_desc = {
+>   	.init = holitech_htf065h045_init,
+>   };
+>   
+> +static const struct drm_display_mode waveshare_12_3_a_mode = {
+> +	.clock = 95000,
+> +	.hdisplay = 720,
+> +	.hsync_start = 720 + 10,
+> +	.hsync_end = 720 + 10 + 10,
+> +	.htotal = 720 + 10 + 10 + 12,
+> +	.vdisplay = 1920,
+> +	.vsync_start = 1920 + 64,
+> +	.vsync_end = 1920 + 64 + 18,
+> +	.vtotal = 1920 + 64 + 18 + 4,
+> +	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
+> +};
+> +
+> +static const struct hx83102_panel_desc waveshare_12_3_inch_a_desc = {
+> +	.modes = &waveshare_12_3_a_mode,
+> +	.size = {
+> +		.width_mm = 109,
+> +		.height_mm = 292,
+> +	},
+> +	.mode_flags = MIPI_DSI_MODE_VIDEO_HSE | MIPI_DSI_MODE_VIDEO |
+> +		      MIPI_DSI_MODE_LPM | MIPI_DSI_CLOCK_NON_CONTINUOUS,
+> +	.init = waveshare_12_3_a_init,
+> +};
+> +
+>   static int hx83102_enable(struct drm_panel *panel)
+>   {
+>   	msleep(130);
+> @@ -1168,8 +1301,12 @@ static int hx83102_probe(struct mipi_dsi_device *dsi)
+>   	desc = of_device_get_match_data(&dsi->dev);
+>   	dsi->lanes = 4;
+>   	dsi->format = MIPI_DSI_FMT_RGB888;
+> -	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
+> -					  MIPI_DSI_MODE_LPM;
+> +	if (desc->mode_flags)
+> +		dsi->mode_flags = desc->mode_flags;
+> +	else
+> +		dsi->mode_flags = MIPI_DSI_MODE_VIDEO |
+> +			MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
+> +			MIPI_DSI_MODE_LPM;
+>   	ctx->desc = desc;
+>   	ctx->dsi = dsi;
+>   	ret = hx83102_panel_add(ctx);
+> @@ -1220,6 +1357,9 @@ static const struct of_device_id hx83102_of_match[] = {
+>   	{ .compatible = "holitech,htf065h045",
+>   	  .data = &holitech_htf065h045_desc
+>   	},
+> +	{ .compatible = "waveshare,12.3-dsi-touch-a",
+> +	  .data = &waveshare_12_3_inch_a_desc
+> +	},
+>   	{ /* sentinel */ }
+>   };
+>   MODULE_DEVICE_TABLE(of, hx83102_of_match);
 > 
-> You're right. Sorry for the confusion. The Agilex7M, I, F devices are 
-> basically "agilex" devices with some few additions (PCIE, DDR5). Maybe I 
-> should place the Agilex7M/I/F devices into the "agilex" boards area?
 
-Compatibles should be specific and not based on families, thus what is
-"intel,socfpga-agilex"? SoC, right?
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Then "intel,socfpga-agilex7f" is a new SoC, no?
-
-Best regards,
-Krzysztof
+Thanks,
+Neil
