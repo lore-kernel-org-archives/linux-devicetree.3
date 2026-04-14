@@ -1,213 +1,135 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ED9F347BA5
-	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 03:59:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E29B4239E7F;
+	Tue, 14 Apr 2026 04:29:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776139198; cv=none; b=Njek+31nHkDl5I0edlmALJM8bFfMDEh/XYsbgHIcr8RfZX8rsbnNPIII6n9kUANNkCmgJxi66YperrYudRVNgIYjgtI0SqdSDWICxqYMHqXW/b5zFblBRzRaojMpY5X8H6ypD6AZkmQWdKyLrzd1BTEwBe2qXXmAceJUMjExyQE=
+	t=1776140984; cv=none; b=dW9f5j5pGIxyGqHAyuSjJDx3K6oQyPpqZNKIcXOYsPO0bwjbPlhIfy0ZZRAEBa7EG8P/90IquDio+QSXNQ2OqApQesQzXTHgOcIhqIGLP5YvdDJ+INIa7tR1fe14L3pvN4pt8IpwSk2grymDUvvcb2zrcJsvbQ/sDCH9nNrLMDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776139198; c=relaxed/simple;
-	bh=x+LkWqy6XylTmTJQ8yU1ekofcbrjiotnrYxB9Bhs+f0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LDA5CQmNZ5p1axnhU1ncD/dD/YkuYD2vdfIXTM7MVjGeKYuU68iXDaaTLxAcXWkQmkfJR5spUP7bKVOJ+Go/o3HQRZC9rUK66+YVyn1ODYt2eKxD7/6a+uQuAeIfVInRNB6zqzodRrf4Pxx46zk/Y6gDcvvwLYWrRybFj1wBbYI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=M+hFq9+N; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b9GsZCxg; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1776140984; c=relaxed/simple;
+	bh=3xcQT3+a9MIe9pCiakaUnB59iMwSLjwM8eNvmQio8dI=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=dUxiaQXGTqdY3ySRdwdMh30I7bpknyKnt9E3vM4QF02pSIT9cHgYTVtZXsLow3TxcbdKXxU2JP4XCLM44l+5Z3Gbkug1Yan0hFyTUCRtAJ9nGsHRZ70FEuFTGPdOJGfM9gK82/ZrKcvohBD9CBPbGbQ1A+AHfZOqvujHXuLNPOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=Rf2fbn6C; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="M+hFq9+N";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b9GsZCxg"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63DLECgH3426105
-	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 03:59:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=Bl3Ic3Mb/YW
-	2B/brqGNBesrgAr2IILTx7LZLGKQE5ZI=; b=M+hFq9+Nwdvyrv7NwfNBM7mOVLl
-	gtxa27XZB3lFUDF7c3U8Q8Hx4zsx1FB78mStzD2QiHUcrl+UMuL4mGQf8zTK5sHE
-	iSfo4kxMi0DPN9uM0np5PtSaecjrst0x/2gZJcDRvVrs1Q55qBh81EZvhkX4NQie
-	RMwAv2bOBxQmIVv8xzZzdjlAfFpCUj2aarf1xSu+5EAw5kYE3CLjKWG+U+sAmplV
-	V4yhtMe7l61Frnma9nndfmHf4WWyr+wFStmMb/g2vWqepSXz+MDXB+tNFmajq0Jx
-	t7aXBIabX8jV9sIXdtSaIA+3VsR8RBpKy7XihCDnZMgwNqw0kbmd7EBfwSg==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dh87f8wwc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 03:59:50 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-2dd1c74508cso652326eec.0
-        for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 20:59:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776139190; x=1776743990; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Bl3Ic3Mb/YW2B/brqGNBesrgAr2IILTx7LZLGKQE5ZI=;
-        b=b9GsZCxgHzSYgsAzVHEA7WK0V/mehHRf2vHFK/xS6Ij894E1/CTRMZzdOQMgoR6u/M
-         +5U5hSjHi6LVMObf6KLrLsE77pXzx4z5usydSkkNCCMNQAZyk4zLVUg6meZYP1pZI5rp
-         VLdZ0drjeaUW1M3BM/q2/YplTUbl3bAEAyesRWEAMYHz2GcUXEu/G+V3kbunv4uS2fDG
-         eKrpggL0fvtzB1hGTlUnvi8rJ7aAldgRqaF3b4yVO0FDmwt5zk+DBTYXy/LwXS/5ST/6
-         EHgDeU/PxaKLKqDwu8WiV+tcmC+nBJA9pHj9sT0IH/yu3tjtWhD5K3K5bq8TVgkZN47s
-         v4Bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776139190; x=1776743990;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=Bl3Ic3Mb/YW2B/brqGNBesrgAr2IILTx7LZLGKQE5ZI=;
-        b=Xs9j1tKS88Sx4rz4zfh6nwJ5Mpo2QzjxgsQ7PHz3UzfvDjfJHL3wpMvMsCp47O9Mkh
-         M/c1/63hKx4WBfK7GzZoXmT0Iwlk8AburbJxB6LVavAelctKvYnXSsvOe8NHkuIk/YeG
-         E3/rS8mfPvzlxLe+SfD39Q5CWe5y4W8ojFc3Siz3+JzLhPUgs12lpz+GAst+sr+/OhPq
-         dVoNW7oMOzdhwE4rWEIZOCbAwI3gU0SRjwh+XXw27lY9z9iNaxnlKZdkQWuMNEPLEOYi
-         IZ0PtT7SziyzrF7k0NHHyBrMf4ZnKbdt0nhOyyHV5eKqQwlW0cUYKaEVNZ3uhSiM4ice
-         INXw==
-X-Forwarded-Encrypted: i=1; AFNElJ/+zbMewKj5HowQuYIfg29RRrj25uE6A/XaoOZQQW7L2OjWqRq7sglXj5l5L/vueCidh5iL7GYjJfNl@vger.kernel.org
-X-Gm-Message-State: AOJu0YxtTE+wmnpEz4E9lqy4R2KTIb6bq6n3iaTY4iBlvnEnSzioBcBG
-	DPLbKP3lnYb437k2QvfXLAf+VJocx2csDmESL6jMeMLdw3eZalT/oAS7ytcFeATLYDwhjGqZqH4
-	CbRPim6Ntiah8eqn7bkqqO4+/qgJR+XE0kJEsUMnPQakYaWnfwPNv4NYTyZc7pt2r
-X-Gm-Gg: AeBDieupli8YA7gh6/9ZszR/dIEx0/mLLk/Y/pxKhJ9KuP7vRBs+GYg6db9/qIxx0yM
-	4Vpq1A7h1quw9HEL5UIv8bmcl1pu+xrDlF3alkHYaJ70XqJ+DKof7gFu/uz8LsPCTFa/hLm197w
-	PjqW15nbLgecq8kZ8JStEWGveT1f0jEIHYi+NqWiG3RvVVtZHvVf6VHicWp9rSHVpOHnksl1329
-	UCxfoApCNr0BLdNkdC0c38UCh4JL9xYLDMp2su4cnpjgGLF06b8U2xFRWkJDbxQJ7atnDJPsUeu
-	BVzLAyoGgnLE4Typ/muR4+mUn1F+ZaNvonYRizW80s5iXwobfAhbSNufyi71F6F7G4F9134xBVy
-	yE7Myr1HmKCZwXQFlpnTyZycl8b7iWCTY0rrOn++R+F1OiRqYKOcSegpEh7jXMc/FIJ01enq3r5
-	EIAca+vA==
-X-Received: by 2002:a05:7300:7311:b0:2da:d4b4:c85a with SMTP id 5a478bee46e88-2dad4b4f25emr1482725eec.11.1776139190276;
-        Mon, 13 Apr 2026 20:59:50 -0700 (PDT)
-X-Received: by 2002:a05:7300:7311:b0:2da:d4b4:c85a with SMTP id 5a478bee46e88-2dad4b4f25emr1482702eec.11.1776139189708;
-        Mon, 13 Apr 2026 20:59:49 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2d80acca4c5sm13949983eec.19.2026.04.13.20.59.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Apr 2026 20:59:49 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Ulf Hansson <ulfh@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH 3/3] pmdomain: qcom: rpmhpd: Add power domains for Nord SoC
-Date: Tue, 14 Apr 2026 11:59:09 +0800
-Message-ID: <20260414035909.652992-4-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260414035909.652992-1-shengchao.guo@oss.qualcomm.com>
-References: <20260414035909.652992-1-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="Rf2fbn6C"
+Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63E1j9QT3139121;
+	Tue, 14 Apr 2026 00:29:14 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=fXERfDlSYUI2ZGeSdS1ncd7sLK7
+	26KwEeq4oU1Gb7OY=; b=Rf2fbn6CXx7DP/VOKiKTphNfzs0u9b4r8MCVgV9s3gT
+	oRdQeO6EmEGmK8jKdLFWTn2AnmsznKIUvhihSD8xPuuUqf++HX4m4TTwnta3KPIa
+	9eldAN+J11SBPLVTcyzyp4j2wm4rUsV31pRF0c7Pttu/9wFNtkDoehBtAYxh9OAP
+	meBPlxrOZGTfgMtN3d+BcCWTcyHH+Spq7MAh/Mm5AkktFJ1HMurBwg+tY5UhX3Sr
+	Ox8m7CBdMoFPFIAKTNaH7/EhUxrToAZt3MsFfglhFGoGJo29lXgpaH/RmaqSDPfT
+	Y3IjaNwFkvSl7I50mwOwETzayleHJVh+DSRJG08qgvw==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4dh8591ffa-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 14 Apr 2026 00:29:13 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 63E4TCsP022949
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 14 Apr 2026 00:29:12 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Tue, 14 Apr
+ 2026 00:29:12 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Tue, 14 Apr 2026 00:29:12 -0400
+Received: from ATORRENO-L02.ad.analog.com ([10.66.6.190])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 63E4St4U011556;
+	Tue, 14 Apr 2026 00:28:58 -0400
+From: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+Subject: [PATCH 0/2] Add support for MAX20830 PMBUS
+Date: Tue, 14 Apr 2026 12:28:48 +0800
+Message-ID: <20260414-dev_max20830-v1-0-210d3f82c571@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE0MDAzNCBTYWx0ZWRfX/eHMyHP3qCle
- F/7ux9MBa9aNto3QiG96+uPUbVXY26byesxRw1UIxb6e6ZobDhA3zTSU0HJ14isfmIfkxARFtn1
- zpnFzRw1uqLK/rbw4peAknCShAADfOgfkjzKwqXqawQYcxUl45Q7LVoQYzPnP2cZ1ELh2NGNmAH
- vIs45TG+ae/mxlvfiGZ3A6gxttIEB1LucpPibHLmBIoKDt84ezcXNTYX97a31ABiPFrCBPxvgqH
- zevn19tcdcbivizCdT3SUvUb8qQZnkzRUq9KWCJvW7iqbB7KH77/ZycQxfO0R3Wi/y74YYbpDnk
- VMaLMragl95H6RrCo2hKFpicNsX4h5V42exM3F7DOifFUvH2Okap5FAr9i6F8gEZPljkNnk1nMI
- T4F8FTyi76Wl9lNecHqu2E3RozzbCHskv9a5PnPkPQo21G6RU5m2zaBd2UQlwzC55+TFs0Lxke4
- 6GIE1bXeC8Nb6h99HSA==
-X-Authority-Analysis: v=2.4 cv=DaYnbPtW c=1 sm=1 tr=0 ts=69ddbbb7 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=ZnOiI7GKHaE1sxxe5cYA:9 a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-GUID: p6_4fKysAQWspGlWHU6uGoJBadOXrrOj
-X-Proofpoint-ORIG-GUID: p6_4fKysAQWspGlWHU6uGoJBadOXrrOj
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAIHC3WkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDE0MT3ZTUsvjcxAojAwtjA11LEzODJEuj5DSzxEQloJaCotS0zAqwcdG
+ xtbUAGJewSV4AAAA=
+X-Change-ID: 20260414-dev_max20830-9460b92cf6aa
+To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>
+CC: <linux-hwmon@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+        Alexis Czezar
+ Torreno <alexisczezar.torreno@analog.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776140935; l=1270;
+ i=alexisczezar.torreno@analog.com; s=20250213; h=from:subject:message-id;
+ bh=3xcQT3+a9MIe9pCiakaUnB59iMwSLjwM8eNvmQio8dI=;
+ b=3FnlnOh3CwoB9XnJ2Kachyi0djFakM1U/NRWZHAijPj/+crlsKNhUl71gQf+9RsiUXVuQ/+pY
+ OgRy87ra4PGAWt5A1RusvzoH5yonOzOxOfwt1V+dBGagS/Rha6qd8Ia
+X-Developer-Key: i=alexisczezar.torreno@analog.com; a=ed25519;
+ pk=XpXmJnRjnsKdDil6YpOlj9+44S+XYXVFnxvkbmaZ+10=
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-ORIG-GUID: DHlv-TUpHiD0GBXcck3Cf8BxtsGdjn6O
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE0MDAzOSBTYWx0ZWRfX0X2e2Xqji9TW
+ gFplb3g0XPi3NMmNx0Yit6G+5zR+4fUxqMnINdcHDDj4Pf2A5Z6meeItm5zQAuFCrEUCElHjJVd
+ Uf7ZKnoz7xxLE9PEWF6YLtDbSNQS0ezjuw/ltsF2NbaI5RZhq+nzo3du2+o1rEZNvdQEK+84Zsu
+ JqSFlEeA7wEV+TpNrTzSg2RJCwxNCYJhD1rczOt6eWPZ8c7uO89eigqvYtX1O8qHhu8gk9A5TQF
+ NYewILAHtMgrpp22jWPr84NMVQKx7UdN60gW/0q8dSJCm9so0o+a8Ant9g1FjLPEDsvyQ+NWU/u
+ /0t9ATYuNVqLkU6F37d5jwEGEMXylsOow/JYC9HwLqqe+URU9MABgpDaSe64SCeOtI8PBxT24x+
+ cVC0dYYPWu1bNgnEA9HzsPlTC6j90LafRgnq0ju2S4Qi+juktM0XamwGxhmE5PURH2QGIiQO7jk
+ XznEF8CzAL9hjE2zKyg==
+X-Authority-Analysis: v=2.4 cv=Ivkutr/g c=1 sm=1 tr=0 ts=69ddc29a cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=0sLvza09kfJOxVLZPwjg:22 a=OmVn7CZJonkx5R5zMQLL:22 a=gAnH3GRIAAAA:8
+ a=pX8K7AMcFWmkIJv9s54A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: DHlv-TUpHiD0GBXcck3Cf8BxtsGdjn6O
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-13_03,2026-04-13_04,2025-10-01_01
+ definitions=2026-04-14_01,2026-04-13_04,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 malwarescore=0 phishscore=0 priorityscore=1501
- bulkscore=0 clxscore=1015 adultscore=0 spamscore=0 lowpriorityscore=0
+ phishscore=0 malwarescore=0 impostorscore=0 suspectscore=0 lowpriorityscore=0
+ clxscore=1011 bulkscore=0 spamscore=0 adultscore=0 priorityscore=1501
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604140034
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604140039
 
-From: Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
+This series adds support for the Analog Devices MAX20830 step-down
+switching regulator with PMBus interface.
 
-Add RPMh power domains required for Nord SoC.  This includes
-new definitions for power domains supplying GFX1 and NSP3 subsystem.
+The MAX20830 provides 2.7V to 16V input, 0.4V to 5.8V output, and up
+to 30A output current. It supports monitoring of input/output voltage,
+output current, and temperature via PMBus.
 
-Co-developed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Datasheet: https://www.analog.com/en/products/max20830.html
+
+Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
 ---
- drivers/pmdomain/qcom/rpmhpd.c | 35 ++++++++++++++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
+Alexis Czezar Torreno (2):
+      dt-bindings: hwmon: pmbus: add max20830
+      hwmon: (pmbus/max20830) add driver for max20830
 
-diff --git a/drivers/pmdomain/qcom/rpmhpd.c b/drivers/pmdomain/qcom/rpmhpd.c
-index ba0cf4694435..63120e703923 100644
---- a/drivers/pmdomain/qcom/rpmhpd.c
-+++ b/drivers/pmdomain/qcom/rpmhpd.c
-@@ -122,6 +122,11 @@ static struct rpmhpd gfx = {
- 	.res_name = "gfx.lvl",
- };
- 
-+static struct rpmhpd gfx1 = {
-+	.pd = { .name = "gfx1", },
-+	.res_name = "gfx1.lvl",
-+};
-+
- static struct rpmhpd lcx = {
- 	.pd = { .name = "lcx", },
- 	.res_name = "lcx.lvl",
-@@ -217,6 +222,11 @@ static struct rpmhpd nsp2 = {
- 	.res_name = "nsp2.lvl",
- };
- 
-+static struct rpmhpd nsp3 = {
-+	.pd = { .name = "nsp3", },
-+	.res_name = "nsp3.lvl",
-+};
-+
- static struct rpmhpd qphy = {
- 	.pd = { .name = "qphy", },
- 	.res_name = "qphy.lvl",
-@@ -308,6 +318,30 @@ static const struct rpmhpd_desc sa8775p_desc = {
- 	.num_pds = ARRAY_SIZE(sa8775p_rpmhpds),
- };
- 
-+/* Nord RPMH powerdomains */
-+static struct rpmhpd *nord_rpmhpds[] = {
-+	[RPMHPD_CX] = &cx,
-+	[RPMHPD_CX_AO] = &cx_ao,
-+	[RPMHPD_EBI] = &ebi,
-+	[RPMHPD_GFX] = &gfx,
-+	[RPMHPD_GFX1] = &gfx1,
-+	[RPMHPD_MX] = &mx,
-+	[RPMHPD_MX_AO] = &mx_ao,
-+	[RPMHPD_MMCX] = &mmcx,
-+	[RPMHPD_MMCX_AO] = &mmcx_ao,
-+	[RPMHPD_MXC] = &mxc,
-+	[RPMHPD_MXC_AO] = &mxc_ao,
-+	[RPMHPD_NSP0] = &nsp0,
-+	[RPMHPD_NSP1] = &nsp1,
-+	[RPMHPD_NSP2] = &nsp2,
-+	[RPMHPD_NSP3] = &nsp3,
-+};
-+
-+static const struct rpmhpd_desc nord_desc = {
-+	.rpmhpds = nord_rpmhpds,
-+	.num_pds = ARRAY_SIZE(nord_rpmhpds),
-+};
-+
- /* SAR2130P RPMH powerdomains */
- static struct rpmhpd *sar2130p_rpmhpds[] = {
- 	[RPMHPD_CX] = &cx,
-@@ -856,6 +890,7 @@ static const struct of_device_id rpmhpd_match_table[] = {
- 	{ .compatible = "qcom,hawi-rpmhpd", .data = &hawi_desc },
- 	{ .compatible = "qcom,kaanapali-rpmhpd", .data = &kaanapali_desc },
- 	{ .compatible = "qcom,milos-rpmhpd", .data = &milos_desc },
-+	{ .compatible = "qcom,nord-rpmhpd", .data = &nord_desc },
- 	{ .compatible = "qcom,qcs615-rpmhpd", .data = &qcs615_desc },
- 	{ .compatible = "qcom,qcs8300-rpmhpd", .data = &qcs8300_desc },
- 	{ .compatible = "qcom,qdu1000-rpmhpd", .data = &qdu1000_desc },
+ .../bindings/hwmon/pmbus/adi,max20830.yaml         | 58 +++++++++++++++++
+ Documentation/hwmon/index.rst                      |  1 +
+ Documentation/hwmon/max20830.rst                   | 48 ++++++++++++++
+ MAINTAINERS                                        |  9 +++
+ drivers/hwmon/pmbus/Kconfig                        |  9 +++
+ drivers/hwmon/pmbus/Makefile                       |  1 +
+ drivers/hwmon/pmbus/max20830.c                     | 74 ++++++++++++++++++++++
+ 7 files changed, 200 insertions(+)
+---
+base-commit: fb447217c59a13b2fff22d94de2498c185cd9032
+change-id: 20260414-dev_max20830-9460b92cf6aa
+
+Best regards,
 -- 
-2.43.0
+Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
 
