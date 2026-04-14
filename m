@@ -1,320 +1,192 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9119C346AC0
-	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 06:58:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88CC8301471
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 06:59:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776149936; cv=none; b=SmYVSHg5cmFEetjBGnLYHE7WtleXn4clznbE9wc3+ZARfexWFfOK0L3mvQP/6fOwxbNIvJaDLmeWWqagfQ0+DN8gOMj4ms2/DKQd13a9EqZGFvykghzeVE2CK2r8y9OfCp868DziYMtHYvrYNok2ZgsAliJ45PfDANFw7QaCh1Y=
+	t=1776149992; cv=none; b=bcGDEeUMfzSajcP+RL47ZDc5i33VcS+i4LN0I7RbIWfNc4xtBkSzKIeILXU2M0JaziZCRMx34sxDTvZWCpejTM5+33iFqTCbyolPNWUbmDoP5bs9qN5FounWl0RP+xM8XTP78K571wP+y45ldmwifchStnwEjL7teeTo0OwQYFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776149936; c=relaxed/simple;
-	bh=2fDvceWZH0uVoiXI+idreB4J3EIIZl8vYZyKQA+B/1I=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gyzPcjFdG58Vy+6q/s5fhOHGnJMNiMT+r/LcSTnj6fulA7rt6Az3eO3+WL8FsWp+Gibm7SlogWaIzYNuBeqc6Jr75QcRCANosyM0X8+cvNWL7xDNV/obbYAwuiU8sfmvre1Fd9YP3xXqHCpWcz8+w/QekXkVoLDVklQjVT8g8sk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=inventec.com; spf=pass smtp.mailfrom=inventec.com; dkim=pass (2048-bit key) header.d=inventec.com header.i=@inventec.com header.b=JYRCK/cr; arc=none smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=inventec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inventec.com
+	s=arc-20240116; t=1776149992; c=relaxed/simple;
+	bh=303Fg0QMxX4hjVtM65FCJzlhmS12ypPaA+fXGiFZlRg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=abSR3krB84h0vwj0uqMXT87O7+VLhnbrz0GVGA3lyiKHOqWOh+T/zSU8/TnkJ9W5Tzlt+xQFIrq2fVyumrbhjqKdpvVN7RyLMYuu06AiAS72Bnla7xSx93hxsdeUIPiQ7BGxPQxT/ZKbks6Y4XxPDytoJXMFFRMHE+x713+OCic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ELfYzCJT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iWniNTMZ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=inventec.com header.i=@inventec.com header.b="JYRCK/cr"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-354bc7c2c46so3272113a91.0
-        for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 23:58:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ELfYzCJT";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iWniNTMZ"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63E6SvKX2633413
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 06:59:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=+DOLJvJH/mXgJijyVkCWA54N
+	UI8M8RWmKWaTdokGLAc=; b=ELfYzCJTyV+18YYYYGT+25lFve0ZtJ0cI/8d8wSc
+	elStASSs8tVW/JMxSd2PyRjyC3371xnva03qvfwVWd9SAch54kq5BTX0FJBuQ8h1
+	d4WrV6Zh1blZZaCUI1NQXsR/BGmTtHuNoK5EG7/l2ntqo0I49uWKwLEoH44S03TJ
+	3GIEQNFVc5q73x9Q3qZsfG7o0llFXMcww1KSeEUfOqttbq+t0ySo30VQQBR7yDIp
+	GQNJC15Wx1qCBBdvnGCwgIz6dXGg5QC4zWTxE1bcaBs2x1raZR0+ScnPRqFsAlI5
+	4fDRTY1tgi8SXp2NHAKASZioJkFxtVVwQMOdyfsSUHniSA==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dh86c9fmu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 06:59:50 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-2d9da2559aeso6274078eec.0
+        for <devicetree@vger.kernel.org>; Mon, 13 Apr 2026 23:59:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=inventec.com; s=google; t=1776149934; x=1776754734; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=qnhWm4BJIe1qz1PKqfhPExcXSRC6Iyeb59/CaItSdTg=;
-        b=JYRCK/crSaCIwqYKRjU6rPKwKB2IKTkei8gPyjIVc8n8De612cB8sRu9NUR9GvzQHg
-         A1Vzf9XR9NGfLgqP2O4v5ZZnJBSQ6qFFh3O1bD2JvvYjL/9n5eA4my+ZcUPAhhDnj99X
-         0Bw7pZpMMNACmfLtCE1RoG62n0X+J7MmG3czc0/m+1tBo0uz+O0m/GpYNipX1eDSEZBt
-         /+uWIq5RmhP9d9LYpVlV8nmKJGhfbI10UyZGM74P/ZHQJNSWVhmvK9BKumge5DXtpLBd
-         mbrGAADN8T/EkhsapueEtOnPPF3f0L5FupiQ3GwauNvgzcDnS5ViXXbAhnZICP2LoJjk
-         hAbg==
+        d=oss.qualcomm.com; s=google; t=1776149990; x=1776754790; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=+DOLJvJH/mXgJijyVkCWA54NUI8M8RWmKWaTdokGLAc=;
+        b=iWniNTMZC5Q6XVCdrC+CiZ114jHR5+jiFUa0Br6yNXqtAsQ5qmYkb5HSvHF0mKFB6B
+         OczarIiP5cdIOmnaXslko5Hy11ieaXXOaIuU+TyJdRjwA5+i05AEOioHXPhgIVOacVia
+         Mz3uU3DLYuxF4qEsqZ0mO7TsxrNVnqyEabkws5IwxdDngCRF6FhYrlNFf0yY/ENeXe4G
+         dK9VP+JPsVcxrXceFRk76LrA0BpXSWiv3wjxvzaC9+XLR18L+aGzNzqVEkOiDFbU66uK
+         tmQqC0UFYoGymZtGkjJJ0p9nXonyQ7ZB9QT7u/41eCRX6a4iWj2ln4d0a3DqCo786AEY
+         2iaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776149934; x=1776754734;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=qnhWm4BJIe1qz1PKqfhPExcXSRC6Iyeb59/CaItSdTg=;
-        b=HZTYjXPEwQM+oTIG2zXRG8Vvtq0/hAE7wDZsYNNeJOoXZAt0PxpFZvCgzD1zFQzY8V
-         vzIeUJrGNmZaeOd/8pZy1EJ/PaQd/7eC3clxFS0grAvJQax2Jp1FrB9gFJAMNTtA8Omu
-         h2ugEwmej+uLP98HAVGN9aVQObNEYKkGdbqRnBGdi49VJNDhpP3KxeSsmuStmOigPU9o
-         b4/Y6OFKD0fG9yU17uAGKSAUckOi58lskWA2KMbNkODkwtKNj6lxuA6OjoHnldZjYabM
-         Ditfjfk01nYAF2sVC6Gfru+1Wb7EMmBZ+Buutm2kLh14IV+vY3FOwIpTZiv4lFsE70PI
-         zEvQ==
-X-Gm-Message-State: AOJu0YwZuIKnR1zSUw69DK4TxluH90C3Bz+0B+4TFEjMMo5PgLqfbwt0
-	rc40WcRPmFruhrVXOc/7B60WMFKdqXI7GWbfcKENIAMn5cP+wygDMXzQkP+Ajos0GYc=
-X-Gm-Gg: AeBDiesaKxbLPMm3HIGYhqHlB2eqOkOGK8n74JufniguHfugs2kOMUxXYs243xoX7de
-	1h8BM25a+1jZE9cH+oy7ZNQybJL7q4HlU1l24kMF7bPyXFS2tbGCG017aH9twCbV84xOJAOYU3a
-	XGdhbiAqJelSAuVOKJYK7Y7/uxR/bQDR0SV0ao1R1xs+FqWnzDKJ5zloL231ajt+VmfGDiFz6F5
-	U6bcrf9xqK7v9eNq63NEbpzi6ZxUpJbei1qQhzFSL6pSVvdgs5fLzIWZzlZKe0CPDJyviqldwfI
-	g3kZFjtmmjg7r6b2euuL47tzOfVUuB7M3oMfVmy9zhRsWspLC7m2mk8+UBeJnM+Cuwq7CFDvdjg
-	wBFkWt3+4WkCcqMmufxcw55IIB39PQzvwGJjryyVB5G2VL7DRSfhOkeOGu9GzhMlkaZD5f8saZf
-	RmUq/uI2H1BRN6mFjDSqhqclMaD4/VTtHSS3EPyHXxrRyUhS2CRiuovh+D3qAgb3ME0PUZVZzjp
-	MFh
-X-Received: by 2002:a17:90b:5283:b0:35c:cba:3453 with SMTP id 98e67ed59e1d1-35e428452e1mr15952554a91.22.1776149934062;
-        Mon, 13 Apr 2026 23:58:54 -0700 (PDT)
-Received: from [127.0.1.1] (59-120-179-172.hinet-ip.hinet.net. [59.120.179.172])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35fc6eac8ddsm1019714a91.8.2026.04.13.23.58.51
+        d=1e100.net; s=20251104; t=1776149990; x=1776754790;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=+DOLJvJH/mXgJijyVkCWA54NUI8M8RWmKWaTdokGLAc=;
+        b=D9hOfh4x7BG5g/IIesurPc6Nwc9kSdo1ajy3fgsEAawYt0lu1vpZoWcl0rUhJrPwTu
+         pjbQlNx+5DXAh33z02A5h6g9HuXa+LQo2AbM8b1A5lcl5sTXujdGjCAy7pUbO0M8SRJ1
+         6UlSz1bpYeeRwe8bjiA0FnJ5b3Omwq33GMbEYLPLjYEUQLiLPjArNfgE8HmZgzYK+C6f
+         I/EcZcmfG7sbXClMEtBfHnosGd6RWeY8U7r8dxaGHavXO1nWsH+0e+qVb95XXpKsVpIL
+         rlzQ4EtyFnc09iCev1SG8ia5QHaZWB8tUn0ZN35oRcJ9a082VEq/zfB1E7KA2nGhM8qN
+         D2Sg==
+X-Forwarded-Encrypted: i=1; AFNElJ9bq5DRMTdbhFwx+WmZk0UoFwmmZT/SuK/0h9v+98z94I/656hsmMFUxZLwpb44xjrsJOm0RhKZJvdC@vger.kernel.org
+X-Gm-Message-State: AOJu0YyXKjmFGiRbo21byfOmhd6K9NxOSV7AoTVCh+yjxUw9fOjAsSeC
+	TTmEt58MIMO+5WBAh2XevoHGo/xitzIu+Ry6pU5Ob3iW9TjV3Mmbz4dq3PXbDW4wMYQKsdUl+ZC
+	NcFzO1ylKgOoDU6ESs8N8ZfGUQAJ/hGsrd6ftDi/BqmtWSfx49JWnhiwpSABuZcrC
+X-Gm-Gg: AeBDiesEv71XrmaLMgP57t3MATB8omg/SONdpRv4rVJuo0julvsM+Fm6HweTTiqu0/A
+	aKxsSWP3sgXnYiNpZOXLDCDzGOTd0eDa2WQO+DdRV1yAunjdoFitumkUZfpqEYyh8ePmDbrppiB
+	pNhGziHmmUI84cljd9+qZ5pj8BPq2MZ1RbIqYP6iL2NnAb0mPlfHDrlR+w3ZvZWidxYXlX+U6Wn
+	WhZXhU5tddBDmx4wtTqlL3GDnPbJK1TL2WtRTprUKhYXd8tS9U+OTjjxCRPIEmQz9tmAhgPBW1E
+	V3Kd0ZomO06R2AjddUFk+CnHV7DfL6y625dxISGnziRIHNnUKz0j/Tttr1nKT21RwEsluYkrJPx
+	g3xSk9wivItIWKBGJvHjjWzIoZjwZdaJw8hH3MNsnRUUVfFROvG67RaH7V5Ny8Fqk
+X-Received: by 2002:a05:7300:320a:b0:2c8:6361:ab2e with SMTP id 5a478bee46e88-2d5877a7b8fmr11003069eec.8.1776149989947;
+        Mon, 13 Apr 2026 23:59:49 -0700 (PDT)
+X-Received: by 2002:a05:7300:320a:b0:2c8:6361:ab2e with SMTP id 5a478bee46e88-2d5877a7b8fmr11003052eec.8.1776149989391;
+        Mon, 13 Apr 2026 23:59:49 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2d8dee27fccsm9050136eec.28.2026.04.13.23.59.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Apr 2026 23:58:53 -0700 (PDT)
-From: Brian Chiang <chiang.brian@inventec.com>
-Date: Tue, 14 Apr 2026 06:58:43 +0000
-Subject: [PATCH v4 2/2] hwmon: (pmbus/q54sj108a2) Add support for
- q50sn12072 and q54sn120a1
+        Mon, 13 Apr 2026 23:59:49 -0700 (PDT)
+Date: Tue, 14 Apr 2026 14:59:43 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] dt-bindings: arm: cpus: Add compatible qcom,oryon-1-5
+Message-ID: <ad3l37AXKvzRrafU@QCOM-aGQu4IUr3Y>
+References: <20260413091625.607976-3-shengchao.guo@oss.qualcomm.com>
+ <a1f8cdcb-fddb-43ca-adbd-07e36949eef2@kernel.org>
+ <adzjYypJciYFLT6F@QCOM-aGQu4IUr3Y>
+ <1c06bd0f-24ce-4ea2-a7a1-4c61827b4763@kernel.org>
+ <adzrY4AijnKqXDrh@QCOM-aGQu4IUr3Y>
+ <cc08a091-9f2d-48de-9284-2f0c68fd343a@kernel.org>
+ <adz--4_2qAs7lkTu@QCOM-aGQu4IUr3Y>
+ <d671229f-1c9f-470f-b1d1-7d015c0721e8@kernel.org>
+ <ad2WsFuUjtcjZ1wU@QCOM-aGQu4IUr3Y>
+ <27f57fd6-71cc-4f88-9d8f-6c6fc778008a@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260414-add-support-for-q50sn12072-and-q54sn120a1-v4-2-b81eaea49df1@inventec.com>
-References: <20260414-add-support-for-q50sn12072-and-q54sn120a1-v4-0-b81eaea49df1@inventec.com>
-In-Reply-To: <20260414-add-support-for-q50sn12072-and-q54sn120a1-v4-0-b81eaea49df1@inventec.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, Jack Cheng <Cheng.JackHY@inventec.com>, 
- Brian Chiang <chiang.brian@inventec.com>, 
- Jack Cheng <cheng.jackhy@inventec.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776149925; l=8330;
- i=chiang.brian@inventec.com; s=20260316; h=from:subject:message-id;
- bh=CLMn8jlvGzD+hXMNiwD6qUJpGNbcZMKkkvxVny1Uuqo=;
- b=wqlAd22qpqoEMowq3X4jg6ii3ooaBiQmurQNUzp2cGPctbmFIp+YasN294AO7N9FkkbrSst4l
- rteASS80srcBJBrfJQnUjYgrdqr2LBHbR2Zl9Rqb8J1VxXozllBgMPT
-X-Developer-Key: i=chiang.brian@inventec.com; a=ed25519;
- pk=q+NqJYuJbGpA9KS9941D7f+8PVVW+k7DvaGgFykBiUc=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <27f57fd6-71cc-4f88-9d8f-6c6fc778008a@kernel.org>
+X-Proofpoint-ORIG-GUID: 9ym9OG3TlhvbZGWrqPDDwHjJv23CTGTL
+X-Authority-Analysis: v=2.4 cv=RoH16imK c=1 sm=1 tr=0 ts=69dde5e6 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=9_fcD9zaCt7FvQwzOaIA:9 a=CjuIK1q_8ugA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE0MDA2MyBTYWx0ZWRfXyUZLBvAyuYmo
+ RwRRAK2xyS0UhvA2Kb4IWjoLyFjQbiNm6tj8rhBqGwmQB0I9f9E9oKy/vdoNby0JVelCh9+tK50
+ 5DL+OKei/24tOxFeGaczyLLazlR7nwUhi9Lsj6ikQ0v5c+JOuu/Niu8Lf5n3A6Q7vX+1ISqVU2t
+ OQFEEMsYeeTobuFgcmV2X/WJDjv1eO7HuGxbZZr50xM55GrTgxPiN2HnAvYTVda2b788Ql2kDIt
+ if6cvG/fnJ6BGrlEJVMhgRmDxkjz/27nOgq6YRIPHEkgrTCgyIRFrR0GgWM+9B2T5ZRR4Z7gQ2t
+ PzgLmq2Pt0qdKdv/AdDILasV6HUodAk+L1Hpkxzg9jo0RZ59RaLjDzAPiA69Qc+GHYoFJrm/Jp7
+ GNGsl3XcvgPdmAVFJwpeokv7sYm+k9quJriXgJQ/JZ8hMzKQOFOzA1SV0S5lEbuYlbJKnVA6N2s
+ FkvtsT+oaJZpZBpMSSw==
+X-Proofpoint-GUID: 9ym9OG3TlhvbZGWrqPDDwHjJv23CTGTL
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-14_01,2026-04-13_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 spamscore=0 priorityscore=1501 impostorscore=0
+ bulkscore=0 phishscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604140063
 
-From: Jack Cheng <cheng.jackhy@inventec.com>
+On Tue, Apr 14, 2026 at 08:23:12AM +0200, Krzysztof Kozlowski wrote:
+> On 14/04/2026 03:21, Shawn Guo wrote:
+> > On Mon, Apr 13, 2026 at 06:08:49PM +0200, Krzysztof Kozlowski wrote:
+> >> On 13/04/2026 16:34, Shawn Guo wrote:
+> >>> In short, there will be Nord DTS using the binding coming, and I do not
+> >>
+> >> Maybe there will, maybe there will not.
+> >>
+> >>> think posting them at the same time should be a requirement.
+> >>
+> >> Well, it is a requirement as I explained previously, said that
+> >> *multiple* times on the mailing list, documented expectations in
+> >> mentioned/linked email threads.
+> > 
+> > To be honest, I can only read the following from mentioned email
+> > threads.
+> > 
+> >  - Binding and DTS should be organized in separate series per subsystem
+> >  - DTS should reference binding series by a lore link
+> > 
+> 
+> The links told explicitly to organize series per subsystem/maintainer.
+> Who is the subsystem here?
 
-The Q50SN12072 and Q54SN120A1 are high-efficiency, high-density DC-DC power
-module from Delta Power Modules.
+Rob Herring <robh@kernel.org> appears at the top of get_maintainer.pl
+output, so I guess it's DT/Rob?
 
-The Q50SN12072, quarter brick, single output 12V. This product provides up
-to 1200 watts of output power at 38~60V. The Q50SN12072 offers peak
-efficiency up to 98.3%@54Vin.
+> > These are what I'm trying to do, and I'm not just posting DTS
+> > simultaneously.  I do not really read the requirement of posting
+> > binding and DTS using it simultaneously from the email threads.
+> > 
+> > Taking a step back, even if the requirement is mentioned in an email
+> > thread like this one, I'm not sure it's the correct or well received
+> > way to define a requirement.  And that might be why you had to keep
+> > repeating yourself.
+> > 
+> >> It's also documented in submitting
+> >> patches in DT (although not with that strong wording).
+> > 
+> > Either I'm blind or reading the wrong document.  I failed to find
+> > the requirement of posting binding and DTS using it simultaneously
+> > in Documentation/devicetree/bindings/submitting-patches.rst.  Could you
+> > point it out explicitly?
+> 
+> Rule 8.
 
-The Q54SN120A1, quarter brick, single output 12V. This product provides up
-to 1300 watts of output power at 40~60V. The Q54SN120A1 offers peak
-efficiency up to 98.1%@54Vin.
+This one?
 
-Add support for them to q54sj108a2 driver.
+  8) If a documented compatible string is not yet matched by the
+     driver, the documentation should also include a compatible
+     string that is matched by the driver
 
-Signed-off-by: Jack Cheng <cheng.jackhy@inventec.com>
-Co-developed-by: Brian Chiang <chiang.brian@inventec.com>
-Signed-off-by: Brian Chiang <chiang.brian@inventec.com>
----
- drivers/hwmon/pmbus/q54sj108a2.c | 105 +++++++++++++++++++++++++++------------
- 1 file changed, 72 insertions(+), 33 deletions(-)
+Are we looking at the same version of the document?  How does that map
+to the requirement of posting binding and DTS using it simultaneously we
+are debating here?  I'm confused.
 
-diff --git a/drivers/hwmon/pmbus/q54sj108a2.c b/drivers/hwmon/pmbus/q54sj108a2.c
-index d5d60a9af8c5..0fd7dc37e328 100644
---- a/drivers/hwmon/pmbus/q54sj108a2.c
-+++ b/drivers/hwmon/pmbus/q54sj108a2.c
-@@ -22,7 +22,9 @@
- #define PMBUS_FLASH_KEY_WRITE		0xEC
- 
- enum chips {
--	q54sj108a2
-+	q50sn12072,
-+	q54sj108a2,
-+	q54sn120a1
- };
- 
- enum {
-@@ -55,10 +57,24 @@ struct q54sj108a2_data {
- #define to_psu(x, y) container_of((x), struct q54sj108a2_data, debugfs_entries[(y)])
- 
- static struct pmbus_driver_info q54sj108a2_info[] = {
--	[q54sj108a2] = {
-+	[q50sn12072] = {
- 		.pages = 1,
-+		/* Source : Delta Q50SN12072 */
-+		.format[PSC_VOLTAGE_OUT] = linear,
-+		.format[PSC_TEMPERATURE] = linear,
-+		.format[PSC_VOLTAGE_IN] = linear,
-+		.format[PSC_CURRENT_OUT] = linear,
- 
-+		.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_IIN | PMBUS_HAVE_PIN |
-+		PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT |
-+		PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT |
-+		PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP |
-+		PMBUS_HAVE_STATUS_INPUT | PMBUS_HAVE_POUT,
-+	},
-+	[q54sj108a2] = {
-+		.pages = 1,
- 		/* Source : Delta Q54SJ108A2 */
-+		.format[PSC_VOLTAGE_OUT] = linear,
- 		.format[PSC_TEMPERATURE] = linear,
- 		.format[PSC_VOLTAGE_IN] = linear,
- 		.format[PSC_CURRENT_OUT] = linear,
-@@ -69,6 +85,20 @@ static struct pmbus_driver_info q54sj108a2_info[] = {
- 		PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP |
- 		PMBUS_HAVE_STATUS_INPUT,
- 	},
-+	[q54sn120a1] = {
-+		.pages = 1,
-+		/* Source : Delta Q54SN120A1 */
-+		.format[PSC_VOLTAGE_OUT] = linear,
-+		.format[PSC_TEMPERATURE] = linear,
-+		.format[PSC_VOLTAGE_IN] = linear,
-+		.format[PSC_CURRENT_OUT] = linear,
-+
-+		.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_IIN | PMBUS_HAVE_PIN |
-+		PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT |
-+		PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT |
-+		PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP |
-+		PMBUS_HAVE_STATUS_INPUT | PMBUS_HAVE_POUT,
-+	},
- };
- 
- static ssize_t q54sj108a2_debugfs_read(struct file *file, char __user *buf,
-@@ -270,7 +300,9 @@ static const struct file_operations q54sj108a2_fops = {
- };
- 
- static const struct i2c_device_id q54sj108a2_id[] = {
-+	{ "q50sn12072", q50sn12072 },
- 	{ "q54sj108a2", q54sj108a2 },
-+	{ "q54sn120a1", q54sn120a1 },
- 	{ },
- };
- 
-@@ -280,6 +312,7 @@ static int q54sj108a2_probe(struct i2c_client *client)
- {
- 	struct device *dev = &client->dev;
- 	u8 buf[I2C_SMBUS_BLOCK_MAX + 1];
-+	const struct i2c_device_id *mid;
- 	enum chips chip_id;
- 	int ret, i;
- 	struct dentry *debugfs;
-@@ -292,14 +325,9 @@ static int q54sj108a2_probe(struct i2c_client *client)
- 				     I2C_FUNC_SMBUS_BLOCK_DATA))
- 		return -ENODEV;
- 
--	if (client->dev.of_node)
--		chip_id = (enum chips)(unsigned long)of_device_get_match_data(dev);
--	else
--		chip_id = i2c_match_id(q54sj108a2_id, client)->driver_data;
--
- 	ret = i2c_smbus_read_block_data(client, PMBUS_MFR_ID, buf);
- 	if (ret < 0) {
--		dev_err(&client->dev, "Failed to read Manufacturer ID\n");
-+		dev_err(dev, "Failed to read Manufacturer ID\n");
- 		return ret;
- 	}
- 	if (ret != 6 || strncmp(buf, "DELTA", 5)) {
-@@ -308,19 +336,25 @@ static int q54sj108a2_probe(struct i2c_client *client)
- 		return -ENODEV;
- 	}
- 
--	/*
--	 * The chips support reading PMBUS_MFR_MODEL.
--	 */
- 	ret = i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL, buf);
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to read Manufacturer Model\n");
- 		return ret;
- 	}
--	if (ret != 14 || strncmp(buf, "Q54SJ108A2", 10)) {
--		buf[ret] = '\0';
-+	buf[ret] = '\0';
-+	for (mid = q54sj108a2_id; mid->name[0]; mid++) {
-+		if (!strncasecmp(mid->name, buf, strlen(mid->name)))
-+			break;
-+	}
-+	if (!mid->name[0]) {
- 		dev_err(dev, "Unsupported Manufacturer Model '%s'\n", buf);
- 		return -ENODEV;
- 	}
-+	chip_id = mid->driver_data;
-+
-+	if (strcmp(client->name, mid->name) != 0)
-+		dev_notice(dev, "Device mismatch: Configured %s, detected %s\n",
-+			   client->name, mid->name);
- 
- 	ret = i2c_smbus_read_block_data(client, PMBUS_MFR_REVISION, buf);
- 	if (ret < 0) {
-@@ -341,6 +375,7 @@ static int q54sj108a2_probe(struct i2c_client *client)
- 	if (!psu)
- 		return 0;
- 
-+	psu->chip = chip_id;
- 	psu->client = client;
- 
- 	debugfs = pmbus_get_debugfs_dir(client);
-@@ -359,9 +394,6 @@ static int q54sj108a2_probe(struct i2c_client *client)
- 	debugfs_create_file("write_protect", 0444, q54sj108a2_dir,
- 			    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_WRITEPROTECT],
- 			    &q54sj108a2_fops);
--	debugfs_create_file("store_default", 0200, q54sj108a2_dir,
--			    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_STOREDEFAULT],
--			    &q54sj108a2_fops);
- 	debugfs_create_file("vo_ov_response", 0644, q54sj108a2_dir,
- 			    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_VOOV_RESPONSE],
- 			    &q54sj108a2_fops);
-@@ -383,27 +415,34 @@ static int q54sj108a2_probe(struct i2c_client *client)
- 	debugfs_create_file("mfr_location", 0444, q54sj108a2_dir,
- 			    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_MFR_LOCATION],
- 			    &q54sj108a2_fops);
--	debugfs_create_file("blackbox_erase", 0200, q54sj108a2_dir,
--			    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_BLACKBOX_ERASE],
--			    &q54sj108a2_fops);
--	debugfs_create_file("blackbox_read_offset", 0444, q54sj108a2_dir,
--			    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_BLACKBOX_READ_OFFSET],
--			    &q54sj108a2_fops);
--	debugfs_create_file("blackbox_set_offset", 0200, q54sj108a2_dir,
--			    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_BLACKBOX_SET_OFFSET],
--			    &q54sj108a2_fops);
--	debugfs_create_file("blackbox_read", 0444, q54sj108a2_dir,
--			    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_BLACKBOX_READ],
--			    &q54sj108a2_fops);
--	debugfs_create_file("flash_key", 0444, q54sj108a2_dir,
--			    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_FLASH_KEY],
--			    &q54sj108a2_fops);
-+	if (psu->chip == q54sj108a2) {
-+		debugfs_create_file("store_default", 0200, q54sj108a2_dir,
-+				    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_STOREDEFAULT],
-+				    &q54sj108a2_fops);
-+		debugfs_create_file("blackbox_erase", 0200, q54sj108a2_dir,
-+				    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_BLACKBOX_ERASE],
-+				    &q54sj108a2_fops);
-+		debugfs_create_file("blackbox_read_offset", 0444, q54sj108a2_dir,
-+				    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_BLACKBOX_READ_OFFSET],
-+				    &q54sj108a2_fops);
-+		debugfs_create_file("blackbox_read", 0444, q54sj108a2_dir,
-+				    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_BLACKBOX_READ],
-+				    &q54sj108a2_fops);
-+		debugfs_create_file("blackbox_set_offset", 0200, q54sj108a2_dir,
-+				    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_BLACKBOX_SET_OFFSET],
-+				    &q54sj108a2_fops);
-+		debugfs_create_file("flash_key", 0444, q54sj108a2_dir,
-+				    &psu->debugfs_entries[Q54SJ108A2_DEBUGFS_FLASH_KEY],
-+				    &q54sj108a2_fops);
-+	}
- 
- 	return 0;
- }
- 
- static const struct of_device_id q54sj108a2_of_match[] = {
--	{ .compatible = "delta,q54sj108a2", .data = (void *)q54sj108a2 },
-+	{ .compatible = "delta,q50sn12072" },
-+	{ .compatible = "delta,q54sj108a2" },
-+	{ .compatible = "delta,q54sn120a1" },
- 	{ },
- };
- 
-@@ -421,6 +460,6 @@ static struct i2c_driver q54sj108a2_driver = {
- module_i2c_driver(q54sj108a2_driver);
- 
- MODULE_AUTHOR("Xiao.Ma <xiao.mx.ma@deltaww.com>");
--MODULE_DESCRIPTION("PMBus driver for Delta Q54SJ108A2 series modules");
-+MODULE_DESCRIPTION("PMBus driver for Delta Q54SJ108A2 and compatibles");
- MODULE_LICENSE("GPL");
- MODULE_IMPORT_NS("PMBUS");
-
--- 
-2.43.0
-
+Shawn
