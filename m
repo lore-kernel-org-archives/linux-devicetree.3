@@ -1,128 +1,333 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D84D8370D62;
-	Tue, 14 Apr 2026 07:25:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F1D837E2F3;
+	Tue, 14 Apr 2026 07:25:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776151538; cv=none; b=Eotk2z/gLHNEjMnkjaRs+fb78zH9nfZwPar4KOLfNXBhwnB23R/nUyH+VzXjUhXQ7BQeKZJqE3tgFIopndllJT+jbwZm7k/bZK3RxopmDinn2etD4cUh2iRpYAC5nhnMFG3H8kVFmVj+rFETXDn90FcamhZgmOW+HQBpPFCG9Ws=
+	t=1776151547; cv=none; b=B7Me+IbrxZsFtGaofc7J+ak41YxKLvCiMV5xU9BIxrSDYa4UcqPN9qO2mGoBon1vBrsnZMEIo90lXn0PzaqNeYzxdqY/Z/PxfhQuuse3gzIJBPNK+CuU23K5ikiY8x0+zgJbYYwdWsQ1qXzp4bqe7qVYgUQaDsVhcXulNB4GAsk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776151538; c=relaxed/simple;
-	bh=K6l5bmd1+0GzCu/0w8RgYpx8yym1hNAtokH6NiQwEM8=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=NMwI1iLmRa2Oe2geD5vZbgd5FXnIGAcpExn1BigqNJBKehV45MvJ+Hl32euFXJ2+dgNcq6acsjlyOoIRij/Mak0rgrePlEHlTlTeLzWDUhlzWaGe3LjyXmXMCSriufqa6TjVUZRjsrRh0Xq97GzPZCLToZ2UsLzgirh6Wr3xxAk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=WlSb8mJB; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1776151547; c=relaxed/simple;
+	bh=DauAk2zk/3+8xw/i2OWrGYd42Jd5ZJqzelO+qFKztn4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cJYXF3Mje3u1dwW3OnxyvUIMjf0h4VIjY/EJ7ZJ/GWCNTgTpRpE2DWF7MwZqQxpJHruhxg+Z+48m5PLEBstskZfwDlyZ1CDbjVMVeVg4HIv3+gv3aKCdhDsCtt48vH/HcLbuVHgT0uKNs++2OY4hXAoH3QDYwsjQTv9WC7zcceE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HcFGqOtm; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="WlSb8mJB"
-Received: from [127.0.0.1] (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 784CF26F4F;
-	Tue, 14 Apr 2026 09:25:35 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id pQzWUVyRxP8u; Tue, 14 Apr 2026 09:25:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1776151534; bh=K6l5bmd1+0GzCu/0w8RgYpx8yym1hNAtokH6NiQwEM8=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=WlSb8mJBT9fy/c/Cggy/1Ikrh/ZmnJ+BWZaZ7/QNIBwrHplRuZSQBCVZFsr0xESOo
-	 fpfmTlz/eoIGFaeK3bJP2XLqGhFDhdXaYoVYocBgycUWeKdraiWvDKo/vIBoHwQPkl
-	 EuaH0Lisp6eeQ+MLiFnK0let06wePJOLSrlA7SjsFVxUqsDb/RKiRT+LiXApAg0BHI
-	 FO6Pjn/PytoOvaAnjODO0wq+5ZFyfEsrdCSO1Jow9ngw0ulwm9HTEJngn4iQzTZgf9
-	 7oOXgiYZxkjuK3cK2L4ZQ13NIAyxniItOqAist7M0LFMq3eKr5beiAwcjCeXtFXt90
-	 fLl903j8TrShw==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HcFGqOtm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A702C2BCB3;
+	Tue, 14 Apr 2026 07:25:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776151547;
+	bh=DauAk2zk/3+8xw/i2OWrGYd42Jd5ZJqzelO+qFKztn4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=HcFGqOtmgPCsIBdOl595oLTlD6UfoLBxKqIxeamoT5xjVC9XLxoKTgteUSxmJOip0
+	 cF9VBAA2ZDnFTZiVN0VsGeHsox92BJMj2pGTdDdb8oqjAWM/WOruaOF5+AExPSLXLn
+	 tDmI+j6TxGg1ulL6RZ9p9VOMBW/guoMOJFdAvpwWmRGfvJIJyOgAUGkWvgjoZeglqg
+	 ECiDXylC1yEZ0nUVDzrAh6Ehbhth4BX0oT0iM1lFd1m5/nGqs36/KxRXSbXQX/JaaQ
+	 tp/HlzVVm5vsCcIDw6K9hruDEjh3AwUsDSoIWwHVtJPhVKix+oiDHmq6TFRKdKhI12
+	 tz+pe/a96y/CQ==
+Date: Tue, 14 Apr 2026 09:25:44 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>, 
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
+	Abhinav Kumar <abhinav.kumar@linux.dev>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Stefan Schmidt <stefan.schmidt@linaro.org>, 
+	Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, iommu@lists.linux.dev
+Subject: Re: [PATCH 01/11] dt-bindings: media: qcom,glymur-iris: Add glymur
+ video codec
+Message-ID: <20260414-lush-reindeer-of-storm-bbe918@quoll>
+References: <20260414-glymur-v1-0-7d3d1cf57b16@oss.qualcomm.com>
+ <20260414-glymur-v1-1-7d3d1cf57b16@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 14 Apr 2026 12:55:20 +0530
-Message-Id: <DHSP6002AS56.3T6V08Y1VRG7X@disroot.org>
-Subject: Re: [PATCH v4 08/13] mfd: sec: resolve PMIC revision in S2MU005
-From: "Kaustabh Chakraborty" <kauschluss@disroot.org>
-To: "Kaustabh Chakraborty" <kauschluss@disroot.org>, "Lee Jones"
- <lee@kernel.org>, "Pavel Machek" <pavel@kernel.org>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "MyungJoo Ham" <myungjoo.ham@samsung.com>,
- "Chanwoo Choi" <cw00.choi@samsung.com>, "Sebastian Reichel"
- <sre@kernel.org>, "Krzysztof Kozlowski" <krzk@kernel.org>,
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>, "Jonathan Corbet"
- <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Nam Tran"
- <trannamatk@gmail.com>, =?utf-8?q?=C5=81ukasz_Lebiedzi=C5=84ski?=
- <kernel@lvkasz.us>
-Cc: <linux-leds@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-pm@vger.kernel.org>,
- <linux-samsung-soc@vger.kernel.org>, <linux-rtc@vger.kernel.org>,
- <linux-doc@vger.kernel.org>
-References: <20260414-s2mu005-pmic-v4-0-7fe7480577e6@disroot.org>
- <20260414-s2mu005-pmic-v4-8-7fe7480577e6@disroot.org>
-In-Reply-To: <20260414-s2mu005-pmic-v4-8-7fe7480577e6@disroot.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260414-glymur-v1-1-7d3d1cf57b16@oss.qualcomm.com>
 
-On 2026-04-14 12:03 +05:30, Kaustabh Chakraborty wrote:
-> In devices other than S2MPG1X, the revision can be retrieved from the
-> first register of the PMIC regmap. In S2MU005 however, the location is
-> in offset 0x73. Introduce a switch-case block to allow selecting the
-> REG_ID register.
->
-> S2MU005 also has a field mask for the revision. Apply it using
-> FIELD_GET() and get the extracted value.
->
-> Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
+On Tue, Apr 14, 2026 at 10:29:57AM +0530, Vishnu Reddy wrote:
+> Add device tree binding for the Qualcomm Glymur Iris video codec. Glymur
+> is a new generation of video IP that introduces a dual-core architecture.
+> The second core brings its own power domain, clocks, and reset lines,
+> requiring additional power domains and clocks in the power sequence.
+> 
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 > ---
->  drivers/mfd/sec-common.c | 18 +++++++++++++-----
->  1 file changed, 13 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/mfd/sec-common.c b/drivers/mfd/sec-common.c
-> index 883e6d0aa3f06..43215605191e4 100644
-> --- a/drivers/mfd/sec-common.c
-> +++ b/drivers/mfd/sec-common.c
-> @@ -16,6 +16,7 @@
->  #include <linux/mfd/samsung/irq.h>
->  #include <linux/mfd/samsung/s2mps11.h>
->  #include <linux/mfd/samsung/s2mps13.h>
-> +#include <linux/mfd/samsung/s2mu005.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
->  #include <linux/pm.h>
-> @@ -119,20 +120,27 @@ static const struct mfd_cell s2mu005_devs[] =3D {
-> =20
->  static void sec_pmic_dump_rev(struct sec_pmic_dev *sec_pmic)
->  {
-> -	unsigned int val;
-> +	unsigned int reg, mask, val;
-> =20
-> -	/* For s2mpg1x, the revision is in a different regmap */
->  	switch (sec_pmic->device_type) {
->  	case S2MPG10:
->  	case S2MPG11:
-> +		/* For s2mpg1x, the revision is in a different regmap */
->  		return;
-> -	default:
-> +	case S2MU005:
-> +		reg =3D S2MU005_REG_ID;
-> +		mask =3D S2MU005_ID_MASK;
->  		break;
-> +	default:
-> +		/* For other device types, REG_ID is always the first register. */
-> +		reg =3D S2MPS11_REG_ID;
-> +		mask =3D ~0;
->  	}
-> =20
-> -	/* For each device type, the REG_ID is always the first register */
-> -	if (!regmap_read(sec_pmic->regmap_pmic, S2MPS11_REG_ID, &val))
-> +	if (!regmap_read(sec_pmic->regmap_pmic, reg, &val)) {
-> +		val =3D FIELD_GET(S2MU005_ID_MASK, val);
+>  .../bindings/media/qcom,glymur-iris.yaml           | 220 +++++++++++++++++++++
+>  include/dt-bindings/media/qcom,glymur-iris.h       |  11 ++
+>  2 files changed, 231 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/qcom,glymur-iris.yaml b/Documentation/devicetree/bindings/media/qcom,glymur-iris.yaml
+> new file mode 100644
+> index 000000000000..10ee02cd1a7d
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/qcom,glymur-iris.yaml
+> @@ -0,0 +1,220 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/qcom,glymur-iris.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm Glymur SoC Iris video encoder and decoder
+> +
+> +maintainers:
+> +  - Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> +
+> +description:
+> +  The Iris video processing unit on Qualcomm Glymur SoC is a video encode and
+> +  decode accelerator.
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,glymur-iris
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 9
+> +
+> +  clock-names:
+> +    items:
+> +      - const: iface
+> +      - const: core
+> +      - const: vcodec0_core
 
-Bug here! FIELD_GET(mask, val) should've been used.
+iface1 goes here
+core_freerun
+vcodec0_core_freerun
+and the rest, based on sm8750. Or which previous variant did you use as
+the base?
 
->  		dev_dbg(sec_pmic->dev, "Revision: 0x%x\n", val);
-> +	}
->  }
-> =20
->  static void sec_pmic_configure(struct sec_pmic_dev *sec_pmic)
+> +      - const: iface_ctrl
+> +      - const: core_freerun
+> +      - const: vcodec0_core_freerun
+> +      - const: iface1
+> +      - const: vcodec1_core
+> +      - const: vcodec1_core_freerun
+> +
+> +  dma-coherent: true
+> +
+> +  firmware-name:
+> +    maxItems: 1
+> +
+> +  interconnects:
+> +    maxItems: 2
+> +
+> +  interconnect-names:
+> +    items:
+> +      - const: cpu-cfg
+> +      - const: video-mem
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  iommus:
+> +    maxItems: 4
+> +
+> +  iommu-map:
+> +    maxItems: 1
+> +
+> +  memory-region:
+> +    maxItems: 1
+> +
+> +  operating-points-v2: true
+> +  opp-table:
+> +    type: object
+> +
+> +  power-domains:
+> +    maxItems: 5
+> +
+> +  power-domain-names:
+> +    items:
+> +      - const: venus
+> +      - const: vcodec0
+> +      - const: mxc
+> +      - const: mmcx
+> +      - const: vcodec1
+> +
+> +  resets:
+> +    maxItems: 6
+> +
+> +  reset-names:
+> +    items:
+> +      - const: bus0
+
+bus1
+core
+vcodec0_core
+
+> +      - const: bus_ctrl
+
+
+> +      - const: core
+> +      - const: vcodec0_core
+> +      - const: bus1
+> +      - const: vcodec1_core
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - dma-coherent
+> +  - interconnects
+> +  - interconnect-names
+> +  - interrupts
+> +  - iommus
+> +  - memory-region
+> +  - power-domains
+> +  - power-domain-names
+> +  - resets
+> +  - reset-names
+> +
+> +unevaluatedProperties: false
+
+Use existing, most recent code as starting point.
+
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/media/qcom,glymur-iris.h>
+> +    #include <dt-bindings/power/qcom,rpmhpd.h>
+> +
+> +    video-codec@aa00000 {
+> +        compatible = "qcom,glymur-iris";
+> +        reg = <0x0aa00000 0xf0000>;
+> +
+> +        clocks = <&gcc_video_axi0_clk>,
+> +                 <&videocc_mvs0c_clk>,
+> +                 <&videocc_mvs0_clk>,
+> +                 <&gcc_video_axi0c_clk>,
+> +                 <&videocc_mvs0c_freerun_clk>,
+> +                 <&videocc_mvs0_freerun_clk>,
+> +                 <&gcc_video_axi1_clk>,
+> +                 <&videocc_mvs1_clk>,
+> +                 <&videocc_mvs1_freerun_clk>;
+> +        clock-names = "iface",
+> +                      "core",
+> +                      "vcodec0_core",
+> +                      "iface_ctrl",
+> +                      "core_freerun",
+> +                      "vcodec0_core_freerun",
+> +                      "iface1",
+> +                      "vcodec1_core",
+> +                      "vcodec1_core_freerun";
+> +
+> +        dma-coherent;
+> +
+> +        interconnects = <&hsc_noc_master_appss_proc &config_noc_slave_venus_cfg>,
+> +                        <&mmss_noc_master_video &mc_virt_slave_ebi1>;
+> +        interconnect-names = "cpu-cfg",
+> +                             "video-mem";
+> +
+> +        interrupts = <GIC_SPI 174 IRQ_TYPE_LEVEL_HIGH>;
+> +
+> +        iommus = <&apps_smmu 0x1940 0x0>,
+> +                 <&apps_smmu 0x1943 0x0>,
+> +                 <&apps_smmu 0x1944 0x0>,
+> +                 <&apps_smmu 0x19e0 0x0>;
+> +
+> +        iommu-map = <IRIS_FIRMWARE &apps_smmu 0x19e2 0x1>;
+> +
+> +        memory-region = <&video_mem>;
+> +
+> +        operating-points-v2 = <&iris_opp_table>;
+> +
+> +        power-domains = <&videocc_mvs0c_gdsc>,
+> +                        <&videocc_mvs0_gdsc>,
+> +                        <&rpmhpd RPMHPD_MXC>,
+> +                        <&rpmhpd RPMHPD_MMCX>,
+> +                        <&videocc_mvs1_gdsc>;
+> +        power-domain-names = "venus",
+> +                             "vcodec0",
+> +                             "mxc",
+> +                             "mmcx",
+> +                             "vcodec1";
+> +
+> +        resets = <&gcc_video_axi0_clk_ares>,
+> +                 <&gcc_video_axi0c_clk_ares>,
+> +                 <&videocc_mvs0c_freerun_clk_ares>,
+> +                 <&videocc_mvs0_freerun_clk_ares>,
+> +                 <&gcc_video_axi1_clk_ares>,
+> +                 <&videocc_mvs1_freerun_clk_ares>;
+> +        reset-names = "bus0",
+> +                      "bus_ctrl",
+> +                      "core",
+> +                      "vcodec0_core",
+> +                      "bus1",
+> +                      "vcodec1_core";
+> +
+> +        iris_opp_table: opp-table {
+> +            compatible = "operating-points-v2";
+> +
+> +            opp-240000000 {
+> +                opp-hz = /bits/ 64 <240000000 240000000 360000000>;
+> +                required-opps = <&rpmhpd_opp_svs>,
+> +                                <&rpmhpd_opp_low_svs>;
+> +            };
+> +
+> +            opp-338000000 {
+> +                opp-hz = /bits/ 64 <338000000 338000000 507000000>;
+> +                required-opps = <&rpmhpd_opp_svs>,
+> +                                <&rpmhpd_opp_svs>;
+> +            };
+> +
+> +            opp-366000000 {
+> +                opp-hz = /bits/ 64 <366000000 366000000 549000000>;
+> +                required-opps = <&rpmhpd_opp_svs_l1>,
+> +                                <&rpmhpd_opp_svs_l1>;
+> +            };
+> +
+> +            opp-444000000 {
+> +                opp-hz = /bits/ 64 <444000000 444000000 666000000>;
+> +                required-opps = <&rpmhpd_opp_svs_l1>,
+> +                                <&rpmhpd_opp_nom>;
+> +            };
+> +
+> +            opp-533333334 {
+> +                opp-hz = /bits/ 64 <533333334 533333334 800000000>;
+> +                required-opps = <&rpmhpd_opp_svs_l1>,
+> +                                <&rpmhpd_opp_turbo>;
+> +            };
+> +
+> +            opp-655000000 {
+> +                opp-hz = /bits/ 64 <655000000 655000000 982000000>;
+> +                required-opps = <&rpmhpd_opp_nom>,
+> +                                <&rpmhpd_opp_turbo_l1>;
+> +            };
+> +        };
+> +    };
+> diff --git a/include/dt-bindings/media/qcom,glymur-iris.h b/include/dt-bindings/media/qcom,glymur-iris.h
+> new file mode 100644
+> index 000000000000..5766db0b9247
+> --- /dev/null
+> +++ b/include/dt-bindings/media/qcom,glymur-iris.h
+> @@ -0,0 +1,11 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#ifndef _DT_BINDINGS_MEDIA_QCOM_GLYMUR_IRIS_H_
+> +#define _DT_BINDINGS_MEDIA_QCOM_GLYMUR_IRIS_H_
+> +
+> +#define IRIS_FIRMWARE	0
+
+For what is this define? IOMMU map? Binding is quiet about it, so
+probably this should have some prefix to make it obvious.
+IOMMU_? DEV_? What does this define express?
+
+Best regards,
+Krzysztof
 
