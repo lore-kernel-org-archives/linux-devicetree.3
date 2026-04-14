@@ -1,80 +1,57 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail-10699.protonmail.ch (mail-10699.protonmail.ch [79.135.106.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79AD01E511;
-	Tue, 14 Apr 2026 18:29:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC7F256C6D
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 18:44:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776191364; cv=none; b=PbymFub+aXJCjadmUJTsFfKWpH51HoYaXFs/UCILnQb51TPLCqzSga0e3j8knCM7/fw7d0nikvAh2s2zkbdg3SRFU4ZpmZK79qCr3r9jbw2tJYDvk5T/VbmYyQOpwpivlm8heynHbhlaQaPNrnsuvPqaGm8AivqYbNJCP4Ziqnw=
+	t=1776192293; cv=none; b=U5mvHZXd/St8ulOXiAUlbuNT5dww42DTBGbOddksG+BXYXozUkb6AOTglQEttuPOZsJT8Rv2MnF+yyFs65G5kTjjxJwWbyLnJho8IVWoHe/QuhQ6LuBpsDLvCey+UHheoW7vkcN/4gqNhmD1ysUSm7TDl/+ZpTOyc+XoG//6FCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776191364; c=relaxed/simple;
-	bh=bZhOSn23zxWxgujY4eCddNVUXmuhP+1hxbBgE3l3NJE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Z9+V6hPGZ8LWdjAsItFXYVwKzLA8MVfUGny5Iv5sJZRXGt4rbFYyyy8pcSzEABbX8ox+6nwP0bxsTmwYqEVpjLH4SMjbLm2loj5AFWoOGTo8MSl+F/1B1zYn4QXwvpHhgDMd0Cy2FKY7c43KgAW5dwrHQB9Hug34U4nzhbIwer0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RzdLSAF7; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776192293; c=relaxed/simple;
+	bh=tn+dTXAjb8W6N8RakVv8gZBrvorEtqpgp+TENHJrjMM=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=udwgtX1IXOBVgNSr8C2OQkBKc9iVtL1j4x5/fnd4JUloiW/e2x7qFmbtKubsGw1vBc7IaKeUvi6EubJ6f+p4iC53CdvlO4GOiKigt5j0AEGQfRvjMVT1j0WFNwSS6dJ9wFS3xoE0LsP5jmLcl3aAw1/XIWJB0hod6H3TQGRulVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=DnJ+IvAn; arc=none smtp.client-ip=79.135.106.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RzdLSAF7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00AD6C19425;
-	Tue, 14 Apr 2026 18:29:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776191364;
-	bh=bZhOSn23zxWxgujY4eCddNVUXmuhP+1hxbBgE3l3NJE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=RzdLSAF7SCjY1x3Ksr02OMk2D9F+QBPgy0OglB9AUj5Ow9wfpjacx2uJoEjD0jetk
-	 6e6Zn6hj3HALkv8OGTy0B857v4C38fgEQ3o5DPp4uLakPld8UokMiVHd7l0y2kiV0B
-	 /q3McSRY1rV8Rifen3pPi+QfzO9EMX0dB6TQ25Pl/Bx3FQ3cADcNksK/RpBFCYIfnX
-	 lpaMN1UPQ6KY/9NlIuHkMNWHbA53SsBXl8pYXY+7mIcw232IUeatRRhb/507jqLFnr
-	 h51yCifXOVLvAewTmqdfHhRkvMpD/wMxZhkv6LvlcXz+ecd8kIqXULyyY1Jd/juw0e
-	 jI7D82POV3pYw==
-Date: Tue, 14 Apr 2026 19:29:14 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Chris Morgan <macroalpha82@gmail.com>, linux-iio@vger.kernel.org,
- andy@kernel.org, nuno.sa@analog.com, dlechner@baylibre.com,
- jean-baptiste.maneyrol@tdk.com, linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org, heiko@sntech.de, conor+dt@kernel.org,
- krzk+dt@kernel.org, robh@kernel.org, Chris Morgan <macromorgan@hotmail.com>
-Subject: Re: [PATCH V3 2/9] iio: imu: inv_icm42607: Add Core for
- inv_icm42607 Driver
-Message-ID: <20260414192914.3661409b@jic23-huawei>
-In-Reply-To: <ad3paMbRXtq6BrCu@ashevche-desk.local>
-References: <20260330195853.392877-1-macroalpha82@gmail.com>
-	<20260330195853.392877-3-macroalpha82@gmail.com>
-	<20260413200547.75bfd672@jic23-huawei>
-	<ad3paMbRXtq6BrCu@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="DnJ+IvAn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1776192286; x=1776451486;
+	bh=tn+dTXAjb8W6N8RakVv8gZBrvorEtqpgp+TENHJrjMM=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=DnJ+IvAnKWv0gepPVq3jdSaanf3zf9H3fAdg2Z/LxbEkYRJpGfHvm3lM8CZtMY5/x
+	 g4hz4pXqLVfNCfl4GxZ43wiJ5Jv8C97CkfxCuv/OZENhjkknguuAlA7CiKe8MklxFj
+	 2enYiELeOF7Rrhm4fTabp1An/9LztPR+soko32TBFVQdJUF6/M2esAiR0rMVoeRX4J
+	 ZAkHcLMfO5RwYDyAw2/wSJ4G+iD3nmnh4zkiJ1g7u2KUECpqI4/c4RmPyX7NudLrUD
+	 bLk1WiAhpVbpkkVpX4UwN57yBoE31W5K3VwJRxExeXJjh2Xxb8S8d9a+1mfsQN3oqW
+	 VAyFnLnPPXgfw==
+Date: Tue, 14 Apr 2026 18:44:41 +0000
+To: linux-kernel@vger.kernel.org
+From: "Lin, Meng-Bo" <linmengbo06890@proton.me>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, "Lin, Meng-Bo" <linmengbo06890@proton.me>
+Subject: [PATCH 0/2] arm64: dts: qcom: msm8916-panasonic-eluga-u2: add initial device tree
+Message-ID: <20260414184429.168612-1-linmengbo06890@proton.me>
+Feedback-ID: 112742687:user:proton
+X-Pm-Message-ID: 2cbf5ead8d24619b0b34c362484eeb6b031f32e8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 14 Apr 2026 10:14:48 +0300
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+Panasonic ELUGA U2 is a phone using the MSM8916 SoC released in 2015.
 
-> On Mon, Apr 13, 2026 at 08:06:54PM +0100, Jonathan Cameron wrote:
-> > On Mon, 30 Mar 2026 14:58:46 -0500
-> > Chris Morgan <macroalpha82@gmail.com> wrote:  
-> 
-> ...
-> 
-> > > +	if (!conf->temp_en)
-> > > +		val |= INV_ICM42607_PWR_MGMT0_ACCEL_LP_CLK_SEL;  
-> > 
-> > Could make this 
-> > 	val |= FIELD_PREP(INV_ICM42607_PWR_MGMT0_ACCEL_LP_CLK_SEL,
-> > 			  !conf->temp_en);
-> > Not particularly important though if you prefer the if.  
-> 
-> Isn't this becomes FIELD_MODIFY()?
-> 
-Yes, in this particular case as the bit has never been set before
-this line, they end up the same. If the compiler fails to notice it
-doesn't need to zero the bit if conf->temp_en is true might make it more
-efficient to do it the way I had it but given this isn't a fast
-path, FIELD_MODIFY() is fine.
+Add a device tree for with initial support for:
 
-Jonathan
+- GPIO keys
+- GPIO LEDs
+- pm8916-vibrator
+- SDHCI (internal and external storage)
+- USB Device Mode
+- UART
+- Regulators
+
