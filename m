@@ -1,103 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B979310645;
-	Tue, 14 Apr 2026 18:08:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC4D2313E10
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 18:09:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776190117; cv=none; b=koUADiCOdgrysnmUCc8XdRLIYvcizhd4aGQBrp9jkaDHIpNtaGJ4Wp0e+Ew9iU/Wh4DQ2qarFNCXb67tS3RKWUP9e6fylZJ5tyOTdf1kBLCf1/iawPQmzSiGXWQgsyYdPhvd5xaxqWbhcph2Vi7VoftcODjvHC+yKZwcztX+EB8=
+	t=1776190178; cv=none; b=rWvvk6qW5YfmUkbo70fdxa0BoKX59YPQvuhbg13Yd9//UWe2K39KZ+SLqZlfH14zo4/U2x6SYKnfIa0VaY5wQxbYpM33yAJ+7rnxNn7tjSvdr2bwTkwPPrty+a01t0tt88qzPUT9Rt3cLeyka8Rl+GYAaMTL59Y6RIy/zdrufhE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776190117; c=relaxed/simple;
-	bh=Ozd025/xrTDLOxNrVs7b7G0/NZigIYX3P6EPqj9AhuM=;
+	s=arc-20240116; t=1776190178; c=relaxed/simple;
+	bh=5w82pKv2WXWufedJS7qwaq74wFIN3FEp4pAdIB3xyIQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SDoeM+bxH9whZtW6RNqWCf9TtmP9qcMS7smQCekZPlZ0/SKvOYqw7kSiDCsxYOnjF/SKLrA1HlrOs2JWjzrEF2e94TLPf3WQ7M/Za+IA+LKXaM3P1Zux1RANFqYvOUvZAATB7NVNFmz0X9thp2QzKbO6MxMIjzyYWk12D5bXdAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pMx6PxZV; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=GpQGdsjCes4YVFIDczbJ12Aggbilxf+h/lzbP8J0XD1TqbS1qKRXsybWfQpynhN51xwfoMDlJF4S3IcUUULlrz/KxEfC+cBNvluWwruGIDUH7fJiWTg/aFjvprp+cN60K7aMVhNljPYIBGpKXDLHjD9WltIv0QMTHmPpwtyellg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=T/wX7mNb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KfpRw3Yo; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pMx6PxZV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91375C19425;
-	Tue, 14 Apr 2026 18:08:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776190116;
-	bh=Ozd025/xrTDLOxNrVs7b7G0/NZigIYX3P6EPqj9AhuM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pMx6PxZVtg1YD6BqeoXbOcy7HqZwkldhJSAyr0xufTyS/YllC7dbQB3GP5Poe8IaC
-	 wXOmf5XIuISpJSG/BsAZR422xofrUtae4Cic1b3wnPwfFBxoMtANkgD3KIYpWYc9ij
-	 36Oa+uALakZnnZ4z73xM8EaMCAOS0jlAbzOS8ADDnDcpnm0EOSO1YGmFPWTo78Iq07
-	 Z2rjlZ6EBwD7RQsq3KWGE53Vju7oG9FgGvn6y5tweZsEOIvdY+/Ndqgm3ShECAxPk+
-	 FG3527VjLfjS53p+M8ZpwfgrNDYRJNI/8YKjHzlkVRG5gC9uaJjhrUlZxVb48HeGIq
-	 nCZRpg3Ib9KRA==
-Date: Tue, 14 Apr 2026 19:08:30 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Sen Wang <sen@ti.com>
-Cc: linux-sound@vger.kernel.org, lgirdwood@gmail.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
-	perex@perex.cz, tiwai@suse.com, shenghao-ding@ti.com,
-	kevin-lu@ti.com, baojun.xu@ti.com, niranjan.hy@ti.com,
-	l-badrinarayanan@ti.com, devarsht@ti.com, v-singh1@ti.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/4] ASoC: codecs: Add TAS67524 quad-channel audio
- amplifier driver
-Message-ID: <dd740c4c-e0bc-4140-961d-6c6c604a594d@sirena.org.uk>
-References: <20260409220607.686146-1-sen@ti.com>
- <20260409220607.686146-3-sen@ti.com>
- <adkC_fNHcpRA_ffo@sirena.co.uk>
- <a0f50798-3293-4b2b-8d9c-7a85fce9e8e7@ti.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="T/wX7mNb";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KfpRw3Yo"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63EHbYCg1701737
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 18:09:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=tQW4iwUWFCyZ/sLRwcLBhiq2
+	cIYCo+JQjo0/ZUZNJxc=; b=T/wX7mNbSFD/lS7IypR04Pg08Xt+/elmHObc+CtY
+	PV8d0sfcC+HkfoV1oELHC4DI32KYL+taLtuDfa1nVXFCV34i9GxnGDSmnNqSx4Q7
+	laJfDIjOdppBYk1O0bFqMB0ugtgTVaFmRrLoGv+yNoRaaRY2l27TwtMEaoenDjt+
+	THZisUhsKGRq9AJUvOsLl5DSM1WHL4qsd9x49fbKR6bU3E7Xm60e7CPGD8YQbAm+
+	x1NVLn8VNwRrLZd26wdwH/9NtNlArxKEWKoEg5hNcefN6QvDud4GRHvFdoIQcRQ6
+	fZrFy3SAaFYZNBfgbmd2JOa5flbM32JXvQGNWICvoms38A==
+Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dht56r45q-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 18:09:34 +0000 (GMT)
+Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-956732444ffso7172979241.1
+        for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 11:09:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1776190174; x=1776794974; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=tQW4iwUWFCyZ/sLRwcLBhiq2cIYCo+JQjo0/ZUZNJxc=;
+        b=KfpRw3Yo0Vags5xa3gbIE9L5AigsyQaRbuNgUokLqqKGWp1ZhSwEZwuMXf0PddOljb
+         6ktBDt9cbinongzYnbKePF7ot0me9N2mLvQ7LP+CNKVUUraLpJiQTR11sHXLFGuKBnbR
+         kizbU2QIwnDeBrOnefVnWMKkOgF+TIKFqf4zCOS85QckUlhqlknq4yAo3xVJB+tg8CA3
+         1VZGMGfOy2irE3B4l8uDmnlGoPtyjOSh0/H3zaw7KWfRv8aw1uosSfBZ6Usa8+sqeso+
+         uYU810HL7hALaSzhmcjpTvmJBoTFy8m1X3W64UcDoX2vGFsKRExnPSa6A4cwwKUHDAXa
+         lWsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776190174; x=1776794974;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=tQW4iwUWFCyZ/sLRwcLBhiq2cIYCo+JQjo0/ZUZNJxc=;
+        b=eHbKP+dBnl2Fia1de27xSWgINMuXLEPGG+il8AAPNmSnnDADEHruwiq6VFWw9zD/iG
+         VuryYKjibLQMQTv7Cap0PlLYeh0ogo2H4HCtFb08UP+0YN1Z1VtNWHe6IbnsaBoG0uhp
+         VW4E0q1rT9u+fCZHamjWR4bDyi9QOQHFRGx6Wmob+FOB+5BqveFlbgxEsDpgnjF/GbGx
+         tB54vOrCBOaF5/BeVGohi4tKYxjmWyb4UwydM30EP+/9Lnv4MKLQCWFkTlnMz3lVrNyR
+         rHaohHD/Vcj1cUIZUNMuJH6CusCfkAZSZxrulpE/sbkbYIaWhLLiwW+CYc0KHzhK2V2/
+         k3XA==
+X-Forwarded-Encrypted: i=1; AFNElJ+wf2XboMEPbvyYFGPRuuCRzIKMV2humw3fk0/JFtku2mBHrHGe5aHFKZotPNJ1pgJ1puaGNtuBAtkG@vger.kernel.org
+X-Gm-Message-State: AOJu0YxCQB819kMMptrgOGqkYvyx+hQGJpMtJNpFdSDoc78sQkpaE7+w
+	YkktsZyftYOW/3jgeBZyLpsiQh6fqsJDCL1J3GQpAOH9rGsXSvjqxPUTeC5XTqNNyvxKsVVbFAD
+	dcEOjiJNbf8koXrJuGDt0exyEk2tT/V1kh6fHSUBF5vEWlPXh6svhWsi4zx4tyvve
+X-Gm-Gg: AeBDievvdfBvp3nQhgMIxsCLbcAUpqTFDfOMPyNCH6KiOLYgg08R5KhvZy6OzF1zvr5
+	LQgblekTyxR9FMKxb/TD4h3nZYOS/n6H+gTJuJSXchNiO3JwnucNvLkq4WsQmUsIisMISv+O/TD
+	JZoDEKrvqKCjYSCeZZdQsb/DyNobl7+3A8L1qB2Ss5rbswn+0ZpCmBFi4nbtun0DfgPMa2UUHKp
+	8w/RvJMg8o8MPwprmMVGNdjvJITuybfaf9heDopoRKJxdLevNOWxttNHgqLXTWV+zQXpwhZ4jGy
+	Lk1w5DOA4hCLiqx7ed6QQwTUUZ5TTuqJhUcKkq+z3WW0j7TgmUA4cHxHPSGrAwoDpA0sovKGIh3
+	owByHgcyiYzFogSzQsTRq7+6UIGWfYc6PvnWKxEOBDHuRS49rElDjpM7e79GH3KJp4ersw/J2zs
+	9spIP8lHA2gP9Gxyajw9O3J1Ob9rhKkacxX0WdKGFl8MGJnQ==
+X-Received: by 2002:a05:6102:6a94:b0:605:2ab5:5c1d with SMTP id ada2fe7eead31-60a00840e84mr9198633137.22.1776190174104;
+        Tue, 14 Apr 2026 11:09:34 -0700 (PDT)
+X-Received: by 2002:a05:6102:6a94:b0:605:2ab5:5c1d with SMTP id ada2fe7eead31-60a00840e84mr9198625137.22.1776190173741;
+        Tue, 14 Apr 2026 11:09:33 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a3eee86641sm3393244e87.3.2026.04.14.11.09.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 14 Apr 2026 11:09:32 -0700 (PDT)
+Date: Tue, 14 Apr 2026 21:09:29 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Anup Kulkarni <anup.kulkarni@oss.qualcomm.com>, andersson@kernel.org,
+        konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        mukesh.savaliya@oss.qualcomm.com, viken.dadhaniya@oss.qualcomm.com
+Subject: Re: [PATCH v1] arm64: dts: qcom: Enable CAN RX via GPIO expander
+Message-ID: <lghedhcnuh2fm4mp64mkgsgtpkd32yneftjazgrye7bovxxaby@uscrda3wtyoj>
+References: <20260402105253.3009382-1-anup.kulkarni@oss.qualcomm.com>
+ <tuanv2szadq5pnndy4zfxg4mo73pplfv3omanpsc3mcjorpmbc@itd2hayrix5h>
+ <9cf3b035-79c0-4e9b-8ab6-a81f8d27728f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="PuUWRM09uVj7iFkS"
-Content-Disposition: inline
-In-Reply-To: <a0f50798-3293-4b2b-8d9c-7a85fce9e8e7@ti.com>
-X-Cookie: Academicians care, that's who.
-
-
---PuUWRM09uVj7iFkS
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <9cf3b035-79c0-4e9b-8ab6-a81f8d27728f@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: vvv48TAnmzZYnKlmPEOtc0k21dZ-rVkp
+X-Proofpoint-GUID: vvv48TAnmzZYnKlmPEOtc0k21dZ-rVkp
+X-Authority-Analysis: v=2.4 cv=K9gS2SWI c=1 sm=1 tr=0 ts=69de82de cx=c_pps
+ a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=fqqIX7z1rOFd2Gj4uCoA:9 a=CjuIK1q_8ugA:10 a=TOPH6uDL9cOC6tEoww4z:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE0MDE2OSBTYWx0ZWRfX5cFqtGDk3NbX
+ 74ylY0j9WGDQuCtwuvv/uHFMUzY/I5kQS47psuYmvvnpw9/TAroCHnI7AOTDdzi5y/TX9eTRk6A
+ NM8UHVJ9PY9UYp2rXZ/OXz94HgLshEIu2t02p4+0uIMJvqqeiB3klGFCzKi3J7h310uKNfDFzCP
+ HpTDZ/TpAxB0pQEYOEz8uBu3qAv2lTfxlzFrQF0FeYCP5E5FzRuuAwAp80mW3jj8XU0cjrSkdxA
+ K1GWF44Ca7xH0exGb0Q52daZbzEKOy+onQX2x8klihiVq2DpbLiIVFwh0tvBzWcXUpFfFHO7Lqo
+ z6NuK1PT0aO9pMIHVec0KQ//OAAWga2Hrpzv5JAUr/FppJy+ZKNiyLciwnn0iGweN2cuosQdqBd
+ Wub8Ady1Cj6wGa7GxAIzBMVTq1KkJ86mXK/1q4FaLkGbZ17RONkAzDUZ7RTDJvx0J8c3euBwwz0
+ Fdu+KAzgyQfcCfaEKOQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-14_03,2026-04-13_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 impostorscore=0 suspectscore=0 malwarescore=0
+ priorityscore=1501 spamscore=0 clxscore=1015 phishscore=0 bulkscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604070000
+ definitions=main-2604140169
 
-On Fri, Apr 10, 2026 at 12:56:47PM -0500, Sen Wang wrote:
-> On 4/10/26 09:02, Mark Brown wrote:
+On Tue, Apr 14, 2026 at 06:20:14PM +0200, Konrad Dybcio wrote:
+> On 4/14/26 6:08 PM, Dmitry Baryshkov wrote:
+> > On Thu, Apr 02, 2026 at 04:22:53PM +0530, Anup Kulkarni wrote:
+> >> Few CAN controllers, part of RTSS sub-system on LeMans, route
+> >> their RX signal through a I2C GPIO expander at address 0x3b.
+> >> RTSS subsystem is an MCU like sub-system on LeMans with independent
+> >> booting capability through OSPI interface and supports peripherals like
+> >> RGMII, CAN-FD, UART, I2C, SPI etc.
+> >>
+> >> Describe this hardware wiring by configuring the expander GPIO 4 pin as
+> >> hog with output-high, asserting the selected line during boot.
+> > 
+> > Missing platform name in the subject.
+> > 
+> >>
+> >> Signed-off-by: Anup Kulkarni <anup.kulkarni@oss.qualcomm.com>
+> >> ---
+> >>  arch/arm64/boot/dts/qcom/lemans-evk.dts | 7 +++++++
+> >>  1 file changed, 7 insertions(+)
+> >>
+> >> diff --git a/arch/arm64/boot/dts/qcom/lemans-evk.dts b/arch/arm64/boot/dts/qcom/lemans-evk.dts
+> >> index a1ef4eba2a20..b8371bdf9933 100644
+> >> --- a/arch/arm64/boot/dts/qcom/lemans-evk.dts
+> >> +++ b/arch/arm64/boot/dts/qcom/lemans-evk.dts
+> >> @@ -615,6 +615,13 @@ expander3: gpio@3b {
+> >>  		interrupts-extended = <&tlmm 39 IRQ_TYPE_LEVEL_LOW>;
+> >>  		pinctrl-0 = <&expander3_int>;
+> >>  		pinctrl-names = "default";
+> >> +
+> >> +		rtss-can-sel-hog {
+> > 
+> > Why is it being described as a hog rather than a pinctrl used by the
+> > CAN device?
+> 
+> My understanding is that the CAN bus is managed by SAIL ("RTSS")
 
-> > This looks mostly good, but one issue I see is that AFAICT we only stop
-> > fault_check_work during runtime suspsend - if runtime PM is disabled, or
-> > if the driver is removed, the work will be left running.
+So, Linux can affect what is being required for the safety island?
 
-> Regarding fault_check_work w/o runtime PM: the device has fault
-> conditions that fire regardless of stream state, so the work runs for the
-> duration of the active power state (runtime PM) rather than stream state.
-
-> I could add a DAPM event fallback to gate the work when runtime PM is not
-> defined, but that's more restrictive; it could miss faults outside of active
-> playback, and adds complexity for what is a fairly niche configuration
-> (optional check_work with runtime PM disabled).
-
-> Do you think the DAPM fallback would suffice, or is the current approach
-> (poll until removal) acceptable given the hardware behavior? Any other
-> suggestions would be greatly appreciated!
-
-It's fine to keep on checking for faults if there's faults that can be
-generated, the only reason I mentioned runtime PM there was that it's
-the only thing that stops the polling in the current version.  So long
-as everything is stopped when the device is removed it's fine.  No need
-for a DAPM fallback.
-
---PuUWRM09uVj7iFkS
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnegp0ACgkQJNaLcl1U
-h9C9ugf+JNbqHw5I2t2EAaLsAQ11sZ+f7RXRJosA6Wmpi1UloKFB5/ymnjyFdf2u
-l69xtkCApVtwTedMHR9gaaKx/UaD4fADapfvp2se+r0RtsYapr+wWRJJ5mc80KG6
-pOlpiqkTFuAPqrUiBH4SaN0aFWCieRoDmapYbU/E1awrc0vDNraB/emGobkwhVnp
-l3uo2Q3eormVkRANYNAnBPgL+0LGYyYl445UHtfpVp4o+1DeJ6TcNoqcVdmh5ryI
-YnjgQd36XR5lWmL9KUq9vPpngp1b+DF8der065ApOvp+ERe+FYuixoL2u9S2EHgF
-kTCiLqUHCZc8WzMKL4sP+GfalaXKoQ==
-=T1F7
------END PGP SIGNATURE-----
-
---PuUWRM09uVj7iFkS--
+-- 
+With best wishes
+Dmitry
