@@ -1,161 +1,344 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012016.outbound.protection.outlook.com [40.107.209.16])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013028.outbound.protection.outlook.com [40.107.159.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0046F3EAC6C;
-	Tue, 14 Apr 2026 15:28:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD49840DFC3;
+	Tue, 14 Apr 2026 15:29:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.28
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776180515; cv=fail; b=l9hcP4s0+oUqaTAT/ADWRMfGqAMrFGTgHeHwJ28PR1KIQPMqmmHvIoyZSxkXoFm5lnamRe7tlOhoxVrcIHtaQ+xv7UuIalfuJfkHnkc5QXa4YK/EJ10S/hcFgv7ApOLwVISeLGd77ULPW2FG3XFtof5gcKJW8nlgsd0GtrbmMKk=
+	t=1776180563; cv=fail; b=UiHJVZqdEVeWT0sOdyGWC+LnZehqwLPZRjo5pFOYUpBkmYTNxXNX8PApixH3/MZ7AuBfmirMSgdByaGCNvrwZlXprZmQ8gn9urrF96ZdB+THTVNeEnAtL9JzSYuCh8k8pyKQhJP0dVx9u9MZu+COi+u4UytXl5xFRVMKHm03Ht8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776180515; c=relaxed/simple;
-	bh=XhYtSpScLhRcsnkokqJQuxjsnApkvWOq7LSFsJ/unTE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=TAtJLSIWP+pnZr85vcOZOgHA/YhCUnXJ4KXzC8uDOji7f2JPjwmMo3ryKT+GKOfERTJvp1fzrXtWLeMtuLSWQj5mKwFNs9V3TLj32lwbPtdLyYEaCPv8eLNsMvSd0hKfwWH4XuD59BJe+cx1DzDUanc8WoN+5Ny9QSNEV5c+6tI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=Qn3FWehT; arc=fail smtp.client-ip=40.107.209.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1776180563; c=relaxed/simple;
+	bh=giOc6TOb73N4EDrVY2MlusCWl3yrIKTVkvuFk2HBrAQ=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=N9f6TSBPjerdaZ+2/A5w2t/sudq4O9XmiukXgK4JTWy6O7lx/MD7pB2iolsuy3PZ78pIJG3qvR1sC6/km+1l43Uo9LQQrY/StmWuHgRLMMKLnXYfYjBaVOTDYVOnQtPjuEaRs6Nj8lAUa9vqNl5JhpHNOlJpXHRJyfpBXpHkrrg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=fuupeLPA; arc=fail smtp.client-ip=40.107.159.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="Qn3FWehT"
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="fuupeLPA"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lqiArj9uirMhaRgeeVxCO4UcmBu0kLYGaNw/ruOq92wbHtLFaA4d33ftVFLxJgg1uuWfa+W/t5VWT4mimFwtl+a5zrOwsKSFM+fyQGpiDo/IuxYIxWeqLeDlwdkHk6DDdQOiPmPNfv4p70QVFwWmHhpjB/kVPlGYW0gpIDcSJJ9w9hct3hGliYvJjsY/q3jvh0LEp96dZoqTlpLd09Zv8paHZAHvw/EpLE09UNrHah2YWzBwAueSr+igl0qSgQrHs8PiQAKO1SlkI7cws4DlDKjVqSD3MsWyfKiQHewopp+RuqHNAj37jsuaptGbm97wcdEzHLmjVCAe4g1HLPGfSQ==
+ b=Ud+VnPAZCUnIvxuE8M0xG8kS5+jv1Ory3zyTcXCl8S+otAQ9L7JYkkgKSC4J6/AzpPSW5XVeWXcWriwAurETisAhqcOhJTm/cki6olP1H9gQpxAA7biybxTF1EU+MwxnPJPA7DZlJ6zPffI5QvBZQxFhPdcJQG0kQu6Gtpg7QD7l2rT6fuM8HXmxQTrE+tayeuuRNlsaKbTheAVgc3EmwRnhZakuTkQVF+MTYBbP1JjAXW2ZypMdNGqhpjJrjS9I3Atfe0dk1uuklBIFgtBRwXdUQeBPCzMGZcjGejll9H5vvrs+U7ziW0dj7iEMfSZfspvxXC413y+9zTOXbBT3Ww==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XhYtSpScLhRcsnkokqJQuxjsnApkvWOq7LSFsJ/unTE=;
- b=V73D321ZX8OBtOVNMgGOd9QCWlMYSrGguWhKJ6VSydjIfLJjc3Ef2uDoPRentqElJYGcXQ76zPw1zxfRu6JTeQGyTIq4sxoMjQG/QOLdVaZq6w6iOnqX8ZHXF6QEIiMF9jt1BELHEx9KVs58z0R2n/P8TSbSDug/87VKRssMmZ8B51t+hXjCxiDEaVvBCvOzTxcY3hHzLMVVkmf5gHtT8Fnro52e7nUT0itDnbIrXOe1cHpVboUs7mvQGtNMZy9JodKfil5NfVsYJ9VABel+6tfZ7VA324krARQ3Ql9HFwaXfOANZo2i2io0gTUeEbjhrrOPjNW3OCox47haqWoA4A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microchip.com; dmarc=pass action=none
- header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microchip.com;
- s=selector1;
+ bh=3Rv2hBr+cq9z5FsQM48NbdcxB8xr/I6jecP4znGx7DQ=;
+ b=lj6kWZ+nbFV3OVcQ3DWGRFGHtgasUpZNOc5IUqkyDq4KimKCUxsESAXxoLKtQpBnTzHjqQXnZSrLPqBHLyCpoN+BcOmMfUBze23qU9nF0U8Ic3cCFfKpu/n6ywEoNEZnhVNRFnpTBFvjnyMXi6txRCHWtXBqbtVfS+W7NaZcpR5RwDk9np/v7fz0ZDZPs5bKRtMSPoUUvf+q2zchFlW2yNkQWy6OzxuYfDGMyn0wuXW1rMJg3qpDr1mMMrwUvDRyuvRS00df4YIV6f0eN8KY1JOUoJClk/FZcW/rpznzH6+ZOxvh1Nc3SqJkmfUMYBhwEgCQt0D0rqqifzBpxbcoqw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XhYtSpScLhRcsnkokqJQuxjsnApkvWOq7LSFsJ/unTE=;
- b=Qn3FWehT8EqhyP7ss07FJwzojtL3zNW4JegXtn8xusNE5tEf6Xxti91nLRZ6KHTiN0g3Sl1t3WeAjDGUF2TBnuaojIsfVdbPfX6lBP1IiOlm/NEhQurivEQGBgAuNAkc6qQ8ecp71Wa5bQHdCj3T5Iw0fUdlOQ3nawZ+AuaLQn46Fyd8+YgS6HirR02UcvUSEtGyPdeeo//Y0XaVVZm5E53aF0zU9DC7W/XWe3VbWYW0qMyOVnmTFTvMTHa8ZPp/F/LdFT/WUxezNGeQb6fF/0pn3KLQWoP73c6O4OO5F+6URuzsdHKuMN0LdREMH/BvqYmW7JeJAYE3EiuUCQwpSw==
-Received: from PH7PR11MB8251.namprd11.prod.outlook.com (2603:10b6:510:1a9::9)
- by MW4PR11MB5889.namprd11.prod.outlook.com (2603:10b6:303:168::10) with
+ bh=3Rv2hBr+cq9z5FsQM48NbdcxB8xr/I6jecP4znGx7DQ=;
+ b=fuupeLPAHMLx4IMN0Fyr0LDI/LsYnyHdz5LBWJDbBNG3x09ch79wT7DHrp/QyilaE5FZ9wt6WT389BNNTn57T7e2yZzJfkOcYQqhRJmJHxO4AWKPnS5r8WHjLWz43pDF6LEi4w2s2pmRndjVZPGzMeV1SDk0/jT+orx4wFd1OKd5lrgsZxWlSd8wFAuMwg/tLezwnGKugrRpuzx4qeAwjdZbNMWqo8NSJm1DZ/Rx0yq9a0H21ZqGtXnKcD9R2u1I75zDiBu+82MwrnAttEcws4AWi1BwpKDCqIvF0Pxsurna6XDSY1Z1gq7mhtR2lBVv+k/FOs0tCaf/neo+d3ZqFQ==
+Received: from DB8PR04CA0016.eurprd04.prod.outlook.com (2603:10a6:10:110::26)
+ by PA2PR10MB8577.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:425::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.15; Tue, 14 Apr
- 2026 15:28:29 +0000
-Received: from PH7PR11MB8251.namprd11.prod.outlook.com
- ([fe80::e81b:3e24:1804:5c7c]) by PH7PR11MB8251.namprd11.prod.outlook.com
- ([fe80::e81b:3e24:1804:5c7c%3]) with mapi id 15.20.9818.017; Tue, 14 Apr 2026
- 15:28:29 +0000
-From: <Ariana.Lazar@microchip.com>
-To: <robh@kernel.org>, <krzk+dt@kernel.org>, <jic23@kernel.org>,
-	<nuno.sa@analog.com>, <dlechner@baylibre.com>, <conor+dt@kernel.org>,
-	<andy@kernel.org>
-CC: <Jonathan.Cameron@huawei.com>, <Conor.Dooley@microchip.com>,
-	<devicetree@vger.kernel.org>, <linux-iio@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 2/2] iio: dac: mcp47feb02: add MCP48FEB02 SPI driver to
- MCP47FEB02 I2C driver
-Thread-Topic: [PATCH 2/2] iio: dac: mcp47feb02: add MCP48FEB02 SPI driver to
- MCP47FEB02 I2C driver
-Thread-Index: AQHcw1e0MHwcUzmpM0eA/CxxgMNbArXO7SaAgA/S24A=
-Date: Tue, 14 Apr 2026 15:28:29 +0000
-Message-ID: <4b289795ffe7ce3505087446a5f2aee053ace561.camel@microchip.com>
-References: <20260403-mcp47feb02-fix2-v1-0-da60c773550e@microchip.com>
-	 <20260403-mcp47feb02-fix2-v1-2-da60c773550e@microchip.com>
-	 <1e05b8f9-e95e-458d-9179-ac8268023ae5@baylibre.com>
-In-Reply-To: <1e05b8f9-e95e-458d-9179-ac8268023ae5@baylibre.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microchip.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR11MB8251:EE_|MW4PR11MB5889:EE_
-x-ms-office365-filtering-correlation-id: 360c8e23-7fc1-48fc-0c80-08de9a3a7ac1
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|376014|7416014|38070700021|18002099003|56012099003|22082099003;
-x-microsoft-antispam-message-info:
- ZyT4L7zTsYBZJAdTbVpf9FtSBhwr7iT2WdrVogHMUV5r9bsLMHk9cAuaRZd7jZzEN04+91L2AcekIeYvZUlTJ2mzTgWHDdIVsZX552A/KEvC5NpuiBnJOlY9ZfuRgDb1pRwmakqm4bRvUiCnbyNzcy0vpPhG417vmXFqCKpZvbMV1ZPyX5tHnEe/BKqZJdepwTh/nI/U2xvcFP/wDdx7KspYp1q6zxvu0hhOvw22/7ewpF6EANeOCpTFd4lf9OVR6kZU7HYx5+r9h4T8N931zBMEeJ0yQgEclSF50bDdufoFQSSDqZUJWYhgRmMxBRP8huREKYaVfwG4Z9vEfKrlbLnXL6W+Ulcsv3xFrVnc3/KwUmLkf7rnXl34j5/xHKWifgmOQQTFnr3+OY3pSxIOmYAEkY4i/fDC0vyBJrtI0BVThWlrk934rWnlQTcULSMBLHOS0rgNRyZTovJItYlv7Azf9+y4x0Q5n8caRAfVtx+vMFWrfFZrbhN8khB/u/rZmZiHkwd/6cCORZZM3eDGgojz5cQgy+JzjhkI+NfEhLGr4B3b/VL9MStCVpuH2UIDogswKie6vZWlqY08eGHUXR6lyBwdXurQMtz+JVDs4fVpWfLIYec1iYG/N41XGV0oMF8y9zEpDiYVcY305JCz/yUvc1KS3hHN2D1G0s3g4eIf8nc6wzsXUHVsVzlfXYjxcSSwjPMz23jp8A3xWK/EVIP1VrTMUY2gEdDAikYrUQa85Kub6VoOrEVCqq/s3U5B7l9uF43IfG4Svulw1GfeChhi3wQS3zmrfNH/6ereURg=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB8251.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(38070700021)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?UzJad0RBL3JsbHJ2YUs0T2s0QnpieEMzdEdxZk4yTTMybkRCNkMxN3JKNE5X?=
- =?utf-8?B?VUlPOGs2U1BKd0RFNEkzUnF0UVhOd2JhdWxlRVBhV1ZkZEhXZURpL09nOVZk?=
- =?utf-8?B?QUlwdkdrcHhvSjl6NFNnL0I5aTAvNGZHSXZtMEJQYVdoT2FvcERiNjFycXRz?=
- =?utf-8?B?Q2RGN1ZYek4wVnk1SUZGTC8wOE5zV2ZvSGM5YkF1ZE5CZDlYcXBxV3VRUzZm?=
- =?utf-8?B?ZjdlOU5TcHExWW1WbWp0M09jVk14UnV5RWl1cmtHNlJWK0NlU3N0MWVNd1Jj?=
- =?utf-8?B?SUpVQUJ4dXhvYWw2aU96RTVzUy8rRmJySUlYKzhQSm1vR1JqZGJubjZ6RnBK?=
- =?utf-8?B?MDFFMmROK1ZzeWdwMXpSZ3RSemZtNUd6U0hEdVg0QjdtdTg3YlRGN3VqTjdI?=
- =?utf-8?B?cnhTRU1zZk93QVJVRXY5Rlh6UE9HeFZXL0pYanhlay9EN2pBQzBobXV6TlJt?=
- =?utf-8?B?VThCeG85aCtWR000Z1lkSUQ2dU5mdFlpbzdYSDJWOGhhdW9IclRFS1dJa29a?=
- =?utf-8?B?MDE5VUxocG1BYlJHY3FzZjJWTTRHWjM5dElGNzFIdk44OGVtMjZsUVAzOVEy?=
- =?utf-8?B?ODM1bllnenUwN1VUbitKSFBHWmFoWFhXM0xudmhEdzdncWRJcDlWQkVsQ0Ja?=
- =?utf-8?B?c1dOSUFxR01kQTg0M1N4UGJYczBHTlNVNmtJZytNK0EyRDB4MHJHR0RDanBX?=
- =?utf-8?B?a2haZnEwWWtFZWJib25iNXMxamFrSHR3REFONDMrR0R4UkcwTjNuamh1eGY3?=
- =?utf-8?B?Tjl1OUdRTXdIUmdHZjVFLzRTRHU2d3dwTHpydEloL2d6azRIU3A3cVgvQ0ln?=
- =?utf-8?B?cXNnUTZ2OTZkNms5SDg1RlhsMUxiYnlOcGVsSXp4K1k1ZW4ycURiUWVMbnNK?=
- =?utf-8?B?bjNUcVNra3YvYk5ybEp3MVNKaWI0ZmRqeStRVUY2eVo3NzRxN3FidmQrTzJw?=
- =?utf-8?B?UzdBRGgxcHZLeEhEeEVDL2MxejVkdndPUk9ncyszZzFlZ08xUzBsZzhUalNS?=
- =?utf-8?B?KytEZHRMY2tCb3FwaXQvNXJuSmprTjRvUW9iYW9TdStxRk9hQXEwYTA4T05R?=
- =?utf-8?B?clFZRHlxQWltZFlBRktKenFZalRjZmhxUGFVb0d1Z2ZNeDFwRW91K0o2VGdT?=
- =?utf-8?B?bzdTUEhwV2tFeVNML3Y4Qk5YYWhqblpsMzhDaTJubE9NNG16aks3b0JobjV6?=
- =?utf-8?B?NzBxY0VpQW93K1p2NFkvQjdhNGU4TjFMRUhRRSt1NCtLQXNIdUNZb1ljbWhC?=
- =?utf-8?B?Q2FWQTV4bEtSUDNadkhqd21sdkpQZUxWZnFrV2t5dnVkWlZyVVZHdm9vbkFE?=
- =?utf-8?B?TERaTkdXMmlJc2plZ2VtUEpLQmhtMnk1Wm5qVTZDUHpaL0lXeWxSTm50Vkdu?=
- =?utf-8?B?Z09RTjBKZkZDQmZxVW5GblprNTVsUVlLUzVNU1l5YkhaSkpKWnIxbW9hQWNy?=
- =?utf-8?B?VUFNRFFBeU9SZUl6M25ZUWtUL2xvejBPQ2VIZ2NVc0dNSlp5NzBGVWFKQnZM?=
- =?utf-8?B?Y2JtdnBDUHEyWC9rMElPV3FyRHlXSk05amVkc0FHVS9vTnhjYTdaallOQWlW?=
- =?utf-8?B?TmY2Y0FWVWF6UnRVc2Job3l6STFXNzhxYndSczI2Q1JTV0s1eE5pbFcyazdP?=
- =?utf-8?B?MUltdEgzZ25DVTRBMHQ4WUlKVSttQkpaMGoxb3JOYjlsb2YzbzFwK1d4eVVM?=
- =?utf-8?B?emNhYXNxRW5oZStCWnRLa3REalNPNTNTeDZwM0FJZDVqMnVxTmt2dDFsZWFR?=
- =?utf-8?B?dXN4bXd5dEhSOGpFZUwwUDBZWnRPT042RXF4bjVPUjlmU3VOdXJXUVZUVXpB?=
- =?utf-8?B?Qkp4Q3VHRWJTcGxMSlk5NnBTSXc1Q1lJOVdFZURaMlhsQjJ4MW5yenJEU1Jh?=
- =?utf-8?B?dndraEZCKzg1bGNUUHlvVGUrODk2SEdwZnpOK3U3bzlzaUN1V0JtbGp1Nldo?=
- =?utf-8?B?TmhtNkpQd0ZUOUtjS3ByOUxTYnZqK2NWNG9KaXdvU1ZNR3JaRm1Zai9BU2Fa?=
- =?utf-8?B?REVrNzNkdXJSdGNwb2VLSzVSTDBnZFd2cG9ZY3VjVmtGM1VtQUpqNmQxWXUv?=
- =?utf-8?B?MjIwaUdRTkQ5dHFhUEw4Q0VOZ3Z2aEtmcXoraEkwNkszdXlLSlY4VmN6cFZ4?=
- =?utf-8?B?a2FmSUt2SXAzSVZCT05oNEhvZXRxVFkyVHEranpKK3J0TDdTenBlTnNVKzZR?=
- =?utf-8?B?eGc3ZTg2a1l0WWZtaTNsaEFYa1hjZDllNXBhSThEZnhEZHhTWTRoVy9hSVFH?=
- =?utf-8?B?WERjYWZObitXdUhjQlNiNnhaVVUvblA1c1lMcE9NRUhSU2pRUGN2VDR2aXZw?=
- =?utf-8?B?UFk1a2R4V3ZxblovTm1jbXl0Q1BqajNwMm5ob1NaYjFLNUJ4RkErK0xrc2h0?=
- =?utf-8?Q?ILVz20XbB5h+c2BA=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <E1D673EFBDE1D3459C5C8E6A1B3EDC22@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Tue, 14 Apr
+ 2026 15:29:16 +0000
+Received: from DB1PEPF000509E2.eurprd03.prod.outlook.com
+ (2603:10a6:10:110:cafe::a4) by DB8PR04CA0016.outlook.office365.com
+ (2603:10a6:10:110::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.48 via Frontend Transport; Tue,
+ 14 Apr 2026 15:29:15 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ DB1PEPF000509E2.mail.protection.outlook.com (10.167.242.52) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Tue, 14 Apr 2026 15:29:15 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Tue, 14 Apr
+ 2026 17:32:24 +0200
+Received: from localhost (10.252.12.46) by STKDAG1NODE2.st.com (10.75.128.133)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Tue, 14 Apr
+ 2026 17:29:15 +0200
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
+	<mathieu.poirier@linaro.org>, Jens Wiklander <jens.wiklander@linaro.org>,
+	"Rob Herring" <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	"Conor Dooley" <conor+dt@kernel.org>, Sumit Garg <sumit.garg@kernel.org>
+CC: <linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-remoteproc@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <op-tee@lists.trustedfirmware.org>,
+	<devicetree@vger.kernel.org>, Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Subject: [PATCH v22 0/7] Introduction of a remoteproc tee to load signed firmware
+Date: Tue, 14 Apr 2026 17:28:55 +0200
+Message-ID: <20260414152904.1679724-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: microchip.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB8251.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 360c8e23-7fc1-48fc-0c80-08de9a3a7ac1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Apr 2026 15:28:29.0909
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB1PEPF000509E2:EE_|PA2PR10MB8577:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5e39fe9f-9cd7-4d86-6ed2-08de9a3a969d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|30052699003|376014|7416014|13003099007|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	+sexLr0348SR898SlzKRzwNZWhMJ4+lU4TL14M1ukPj9pnMB55l7CQvLiJqQ/yZgBptrMvPDh5VXPf1HILhdpoOHRct+PCNpTcclEHx7D+yyj+wkchn324UW7jNh5D6QMdBimOm1lbo7jhonWiXNkk2ctU6m/1Sz4fV+bO/fimoY3AyLPrFvEtj+e2ECRkpwzJ7VB9mKYAH+9JhPOfpeLx3c49qMPax1dFN1ujwjjNMd2tf7pXouWvGEDdDtNpGES8dGp/LdOOt+aAjgUqIntN2AIUq/zbIyGEf48DJvMNbXrT3TnachFcVz2B2oWS3zoICLdgEKOdATaM4Q7a6kakkSG6mOoQKIkLIc0u+hj+m4oLbqINcruOCMkkgMJC80k0AvpIKPtMJuMZhreVZUQw4im+Yc/PDBzsV7/6mtAYpTLSPZBLjyaQsLyyMe6JDDUQ6EbuAAHleqOrvIBcHHX0qZZb3AG+jI82DIYQycWvJGXtFDq12VYtpSsGWaa0NhiYnE5c1r+752gx31k6rQtTNk1Q8eSfup2sjErbFsMY5aHufkFNgbE51yQ4v+46wCXB8qYLCEsgpcNplyZ+qcAaJw29hm443JpBMR1SRfWcqnVrtibOztCDU1AD/Y/W/bbgH3zaKuK7oGQZQNT44JS3UF7tDmEM62Hz3AEWpobLrbdpud7QAVI4qu/y4azMbtSeiv4Fd6WdeQDb31mgF/xO5CM6rQCh7gvgF17gcbEAc=
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(30052699003)(376014)(7416014)(13003099007)(56012099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	/u9j1UbjCxwLX6108yMfeGaHBMcIxkQmGTENIRWujESQENLfdqTDPyGgQSvtbCOSpUeBU+l4Qe6QAcrgGilZYk0BjvdPxe+vpTvaQl8CjvFFWFpxIVQQ62db3k2FY6Rork73xtKzZp4r1xPBrxxFk3cLM97Y60xIOHhDRSjy2P6YrdUgQrxDgwfokhi0RhEZRVTgoHyUdnKq853bhb+cmmACamIMOkZmaA/Xp5VmGU/SAttN20OPYdX8Fpfr7ILyvsDZM0m6EPxzw6SBJQ0qu3P1UdLdqtIPSn5sQzOHowIfw9h3+hO5FindZlAyCiOQsEqzYanfVDCCEi9X8YUZ9V7S9OixzjiOwBCnHXTx79KhRP7eA3Aj/UnFf4En33QIFq4JbdGOzLkaIDILmh7mKvc9X4eatK+USvELXI0e8YHlcn1JOHK/KZH5nYo5S2IJ
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2026 15:29:15.7640
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: mtxYqnKVzGgQ3Gpuki4N4y78nqnSS3Tdv7x2aSn7hXw/ct9Xo89Ww9q323UebzNAwJ0DZNKxrUMKy3yKngTRGEFnM+p6YzNrlGhRCuburc4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB5889
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5e39fe9f-9cd7-4d86-6ed2-08de9a3a969d
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB1PEPF000509E2.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA2PR10MB8577
 
-SGkgRGF2aWQsDQoNCj4gPiAtLS0gYS9kcml2ZXJzL2lpby9kYWMvTWFrZWZpbGUNCj4gPiArKysg
-Yi9kcml2ZXJzL2lpby9kYWMvTWFrZWZpbGUNCj4gPiBAQCAtNTQsNiArNTQsOSBAQCBvYmotJChD
-T05GSUdfTUFYNTgyMSkgKz0gbWF4NTgyMS5vDQo+ID4gwqBvYmotJChDT05GSUdfTUNQNDcyNSkg
-Kz0gbWNwNDcyNS5vDQo+ID4gwqBvYmotJChDT05GSUdfTUNQNDcyOCkgKz0gbWNwNDcyOC5vDQo+
-ID4gwqBvYmotJChDT05GSUdfTUNQNDdGRUIwMikgKz0gbWNwNDdmZWIwMi5vDQo+IA0KPiBTaG91
-bGRuJ3Qgd2UgYmUgcmVtb3ZpbmcgdGhpcyBvbGQgZmlsZT8NCj4gDQo+IFRoZSBwYXRjaCBzZXJp
-ZXMgd291bGQgYmUgZWFpc2VyIHRvIHVuZGVyc3RhbmQgaWYgaXQgd2FzIHNwbGl0IGludG8NCj4g
-b25lIGNvbW1pdCB0byBzcGxpdCB0aGUgZXhpc3RpbmcgZHJpdmVyIGludG8gdHdvIGZpbGVzIGFu
-ZCB0aGVuDQo+IGFub3RoZXIgY29tbWl0IHRvIGFkZCBzdXBwb3J0IGZvciB0aGUgbmV3IHBhcnRz
-Lg0KPiANCj4gDQo+ID4gK21jcDQ3ZmViMDItb2JqcyA6PSBtY3A0N2ZlYjAyLWNvcmUubw0KPiA+
-ICtvYmotJChDT05GSUdfTUNQNDdGRUIwMl9JMkMpICs9IG1jcDQ3ZmViMDItaTJjLm8NCj4gPiAr
-b2JqLSQoQ09ORklHX01DUDQ3RkVCMDJfU1BJKSArPSBtY3A0N2ZlYjAyLXNwaS5vDQo+ID4gwqBv
-YmotJChDT05GSUdfTUNQNDgyMSkgKz0gbWNwNDgyMS5vDQo+ID4gwqBvYmotJChDT05GSUdfTUNQ
-NDkyMikgKz0gbWNwNDkyMi5vDQo+ID4gwqBvYmotJChDT05GSUdfU1RNMzJfREFDX0NPUkUpICs9
-IHN0bTMyLWRhYy1jb3JlLm8NCj4gDQoNClRoYW5rIHlvdSBmb3IgdGhlIHJldmlldy4NCg0KSSBr
-ZXB0IHRoYXQgbGluZSBzbyB0aGUgY29yZSBtb2R1bGUgd291bGQgY29tcGlsZSBhcyAnbWNwNDdm
-ZWIwMi5rbycuDQpJZiB5b3UgcHJlZmVyLCBJIGNhbiByZW5hbWUgdGhlIGNvcmUgZmlsZSB0byBt
-Y3A0N2ZlYjAyLmMgYW5kIGFkZCBqdXN0DQp0aGUgbGluZXMgZm9yIHRoZSBTUEkgYW5kIEkyQyBt
-b2R1bGVzIGluIHRoZSBNYWtlZmlsZS4NCg0KQW5vdGhlciBvcHRpb24gd291bGQgYmUgdG8ga2Vl
-cCB0aGUgY29yZSBtb2R1bGUgbmFtZWQgbWNwNDdmZWIwMi1jb3JlLmMNCmFuZCBjb21waWxlIGl0
-IGFzICdtY3A0N2ZlYjAyLWNvcmUua28nLg0KDQpCZXN0IHJlZ2FyZHMsDQpBcmlhbmENCg==
+Main updates from version V21[1]:
+--------------------------------
+This version removes the st,stm32mp1-m4-tee compatibility string,
+which no longer seems to be accepted by the Devicetree maintainers.
+As a consequence, the stm32-rproc-tee driver, introduced to simplify
+the code, is removed. The STM32 integration reuses the existing
+stm32_rproc driver implemented in V19.
+
+The devicetree is now structured as follows:
+
+    firmware {
+        tee_rproc: optee-rproc {
+            compatible = "80a4c275-0a47-4905-8285-1486a9771a08";
+        };
+    };
+
+    m4: m4@10000000 {
+      compatible = "st,stm32mp1-m4";
+      reg = <0x10000000 0x40000>,
+            <0x30000000 0x40000>,
+            <0x38000000 0x10000>;
+
+      mboxes = <&ipcc 0>, <&ipcc 1>, <&ipcc 2>, <&ipcc 3>;
+      mbox-names = "vq0", "vq1", "shutdown", "detach";
+
+      memory-region = <&vdev0vring0>, <&m_ipc_shm>, <&mcuram2>,
+                      <&vdev0vring1>, <&vdev0buffer>, <&retram>;
+
+      interrupt-parent = <&exti>;
+      interrupts = <68 1>;
+
+      st,rproc-tee = <&tee_rproc 0>;
+
+      status = "okay";
+    };
+
+As a consequence, this version:
+- reintroduce v19 commits for stm32_rproc.c driver , adding the support
+  of the st,rproc-tee binding.
+- drops the dedicated remoteproc-tee.yaml and st,stm32-rproc-tee.yaml
+  bindings from the series.
+- extends st,stm32-rproc.yaml with st,rproc-tee to describe the link to
+  the TEE remoteproc backend.
+- removes the dedicated stm32_rproc_tee.c driver and reuses stm32_rproc.c
+  for both native and TEE-controlled cases.
+- keeps remoteproc_tee.c aligned with the phandle-based lookup introduced
+  in v21 and uses a device_link between the STM32 remoteproc instance and
+  the TEE backend device.
+
+More details are available in each patch commit message.
+
+Main updates from version V20[3]:
+--------------------------------
+To address Rob’s concern on v20concerning resource declaration under the
+tee node, the device tree is now structured as follows,replacing the
+child-parent hierarchy with a phandle:
+
+    firmware {
+        tee_rproc: optee-rproc {
+            compatible = "80a4c275-0a47-4905-8285-1486a9771a08";
+        };
+    };
+
+    m4: m4@0 {
+      compatible = "st,stm32mp1-m4-tee";
+      reg = <0 0>;
+
+      mboxes = <&ipcc 0>, <&ipcc 1>, <&ipcc 2>;
+      mbox-names = "vq0", "vq1", "shutdown";
+
+      memory-region = <&vdev0vring0>, <&m_ipc_shm>, <&mcuram2>,
+                      <&vdev0vring1>, <&vdev0buffer>, <&retram>;
+
+      interrupt-parent = <&exti>;
+      interrupts = <68 1>;
+
+      rproc-tee-phandle = <&tee_rproc 0>;
+      st,auto-boot;
+      wakeup-source;
+
+      status = "okay";
+    };
+
+As a consequence, this version:
+- Updates the device tree and bindings to:
+  - Change the compatible property from
+    "rproc-service-80a4c275-0a47-4905-8285-1486a9771a08" to
+    "80a4c275-0a47-4905-8285-1486a9771a08".
+  - Use the rproc-tee-phandle to avoid the parent-child hierarchy.
+- Updates stm32_rproc_tee.c and remoteproc_tee.c to adapt to the new bindings.
+- Updates remoteproc_tee.c to compute the device tree compatible string from
+  the TEE UUID.
+
+Main updates from version V19[4]:
+--------------------------------
+The devicetree is now structured as follows:
+
+	firmware {
+		optee {
+			compatible = "linaro,optee-tz";
+			method = "smc";
+			#address-cells = <1>;
+			#size-cells = <0>;
+			rproc-service@0 {
+				compatible = "rproc-service-80a4c275-0a47-4905-8285-1486a9771a08";
+				reg = <0>;
+				#address-cells = <1>;
+				#size-cells = <0>;
+				status = "okay";
+				m4: m4@0 {
+					compatible = "st,stm32mp15-m4-tee";
+					reg = <0>;
+					mboxes = <&ipcc 0>, <&ipcc 1>, <&ipcc 2>;
+					mbox-names = "vq0", "vq1", "shutdown";
+					memory-region = <&vdev0vring0>,	<&m_ipc_shm>, <&mcuram2>,
+							<&vdev0vring1>, <&vdev0buffer>, <&retram>;
+					interrupt-parent = <&exti>;
+					interrupts = <68 1>;
+					status = "okay";
+				};
+			};
+		};
+	};
+
+As a consequence, this version:
+
+- Introduces a new stm32_rproc_tee.c remoteproc driver.
+
+  Instead of further complicating the existing stm32_rproc.c driver, a
+  dedicated TEE-based driver is added. Both drivers are intended to also
+  support the STM32MP2x Cortex-M33 remote processor in a next step.
+
+- Reworks the bindings:
+  - Drop the st,stm32-rproc.yaml updates that were introduced in previous
+    revisions.
+  - Add remoteproc-tee.yaml for the
+    "rproc-service-80a4c275-0a47-4905-8285-1486a9771a08" compatible.
+  - Add st,stm32-rproc-tee.yaml for the "st,stm32mp15-m4-tee" compatible.
+
+- Reworks the probing sequence:
+
+  The m4@0 device is now probed by the remoteproc-tee driver, which itself
+  is instantiated by the TEE (OP-TEE) bus.
+
+More details are available in each patch commit message.
+
+[1] https://lore.kernel.org/linux-remoteproc/20260317180329.1207625-1-arnaud.pouliquen@foss.st.com/
+[2] https://lore.kernel.org/linux-remoteproc/20251217153917.3998544-1-arnaud.pouliquen@foss.st.com/
+[3] https://lore.kernel.org/linux-devicetree/20250625094028.758016-1-arnaud.pouliquen@foss.st.com/
+
+
+Tested-on:
+---------
+commit 591cd656a1bf ("Linux 7.0-rc7")
+
+Description of the feature:
+--------------------------
+This series proposes the implementation of a remoteproc tee driver to
+communicate with a TEE trusted application responsible for authenticating
+and loading the remoteproc firmware image in an Arm secure context.
+
+1) Principle:
+
+The remoteproc tee driver provides services to communicate with the OP-TEE
+trusted application running on the Trusted Execution Context (TEE).
+The trusted application in TEE manages the remote processor lifecycle:
+
+- authenticating and loading firmware images,
+- isolating and securing the remote processor memories,
+- supporting multi-firmware (e.g., TF-M + Zephyr on a Cortex-M33),
+- managing the start and stop of the firmware by the TEE.
+
+2) Format of the signed image:
+
+Refer to:
+https://github.com/OP-TEE/optee_os/blob/master/ta/remoteproc/src/remoteproc_core.c#L18-L57
+
+3) OP-TEE trusted application API:
+
+Refer to:
+https://github.com/OP-TEE/optee_os/blob/master/ta/remoteproc/include/ta_remoteproc.h
+
+4) OP-TEE signature script
+
+Refer to:
+https://github.com/OP-TEE/optee_os/blob/master/scripts/sign_rproc_fw.py
+
+Example of usage:
+sign_rproc_fw.py --in <fw1.elf> --in <fw2.elf> --out <signed_fw.sign> --key ${OP-TEE_PATH}/keys/default.pem
+
+
+5) Impact on User space Application
+
+No sysfs impact. The user only needs to provide the signed firmware image
+instead of the ELF image.
+
+
+For more information about the implementation, a presentation is available here
+(note that the format of the signed image has evolved between the presentation
+and the integration in OP-TEE).
+
+https://resources.linaro.org/en/resource/6c5bGvZwUAjX56fvxthxds
+
+Arnaud Pouliquen (7):
+  dt-bindings: firmware: Add TEE remoteproc service binding
+  dt-bindings: remoteproc: st,stm32-rproc: add st,rproc-tee
+  remoteproc: core: Introduce rproc_pa_to_va helper
+  remoteproc: Introduce optional release_fw operation
+  remoteproc: Add TEE support
+  remoteproc: stm32: Create sub-functions to request shutdown and
+    release
+  remoteproc: stm32: Add support of an OP-TEE TA to load the firmware
+
+ .../bindings/remoteproc/remoteproc-tee.yaml   |  36 +
+ .../bindings/remoteproc/st,stm32-rproc.yaml   |  55 +-
+ drivers/remoteproc/Kconfig                    |  10 +
+ drivers/remoteproc/Makefile                   |   1 +
+ drivers/remoteproc/remoteproc_core.c          |  56 ++
+ drivers/remoteproc/remoteproc_internal.h      |   6 +
+ drivers/remoteproc/remoteproc_tee.c           | 789 ++++++++++++++++++
+ drivers/remoteproc/stm32_rproc.c              | 249 ++++--
+ include/linux/remoteproc.h                    |   6 +
+ include/linux/remoteproc_tee.h                |  98 +++
+ 10 files changed, 1220 insertions(+), 86 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/remoteproc/remoteproc-tee.yaml
+ create mode 100644 drivers/remoteproc/remoteproc_tee.c
+ create mode 100644 include/linux/remoteproc_tee.h
+
+
+base-commit: 591cd656a1bf5ea94a222af5ef2ee76df029c1d2
+-- 
+2.43.0
+
