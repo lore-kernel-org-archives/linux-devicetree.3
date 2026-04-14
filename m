@@ -1,166 +1,175 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013058.outbound.protection.outlook.com [52.101.83.58])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ABD93D7D60
-	for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 10:41:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F1C93D810F;
+	Tue, 14 Apr 2026 10:44:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.58
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776163276; cv=pass; b=ebeWyxNJEbDLw+12963lSa+akOrftgVf3yXxMOGd+Ursrqg5CPpshzejoTIfwDejZqkLubffOjPNq1ZJ/Vv0G8ujGsdhlPQqxSsIfgYESMAKkHKiQLROmT7CxFaohaPesNFu5Fk2Dif3ss7pu6zmvMNz9kO+wVXR1lhURAmDThc=
+	t=1776163469; cv=fail; b=s9er/gXl8jyyqMubIjbhpXd4nHyOotbT+1vmKZGnq4eNyJ70OukB9CLtjgfix6bOUIV8lthZZsVONmzVjTf7RCZoNC8VE/WhFD8UkRgbjd60nfXDetE9KwOlfxL1BP6Ul0uJQwwYfYouuf0Xb+hRgxCo+mTAYSQg30NqrFUIdHs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776163276; c=relaxed/simple;
-	bh=FRJ1V4Rg7H7FZyF7SYOEYn6+kpQ3Ohx/3Kg30U4brH8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RKA4Aa7nwxiCRtU+ajuyHhm+ER6VuA8LALcTkyn8D3s2qkKPQg/yC0L+0jEW6gbByHVbZVb+xkaOwFXO1c5Ajxy5QU9hyqVzp26IsxZOSg4njKZC1MPq/L3BIQaNKdPN/+9z7sUjmU7dxVV7dp+g2CtLDg45EcGQJQXbcf1mI6I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hcAtfRjM; arc=pass smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1776163469; c=relaxed/simple;
+	bh=xHsiGFz1MZfsM5rS+2SqiQ52YSa3fEnxVpQWjWm8mAU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=kVk0QPWHusYCYKnJv9TvDfSHD8BuTrMOMsOtel9afADkyq/NIR7GkIOClyR6b4ucz3UsgcSevhpHPWys5wugyJaMNl0Q/Vx4bJZF0kd1LFPnKoSrKfgErkKVBcJxgeH2Fi6dcnEvvEZQLtCxJzggzUy6NzKryR8YDwofN3A9nFU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=J4aXgkdW; arc=fail smtp.client-ip=52.101.83.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hcAtfRjM"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-35d99031e4eso3035138a91.1
-        for <devicetree@vger.kernel.org>; Tue, 14 Apr 2026 03:41:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776163269; cv=none;
-        d=google.com; s=arc-20240605;
-        b=ELlYBixN7wyDwZ9P8atdNjYIwo39ADtO+LMhSYm8tGsMJqUzVPk/iNL4EDgw8gUmEJ
-         vO+NTpA4Wrog81orlLIlcM0C/sFqFWBIfHzLp8M38U9jou82waVSPMKlXV0cEbNS7PPK
-         rC0+0x7n1rcJMEWOvKDEhlIclrijFlkklLrJXXhAQePfcELN2Hd6oGIyKqVDrVnO+t3O
-         zLwcQmm5227MeApfdJ7dRMYagAVVXfs5qTBX4K3T1IMA1Zu0ITagusDCwAFyRJtJRjfG
-         r3Cvk/H8dyHmc036aT4KFdJZBfSZLT0Rycr27TRXt3dYYFHy/eUpRtBjlXtPl1wwr60E
-         KDug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=vDpaKgtvK1gesz/aQw1mjbgT5u/KzUnIhgbKYhPDE5I=;
-        fh=9VmarWHAaIeyMKKMeNT8YQeKGZc5R/rGAMwVpfbqe0c=;
-        b=Z0ECTWn21QwmrGqPaiYU2jWroLAtB9YjIATeKgr0/9+qOIOmYW1Hhs8+EuHId98HPW
-         AGvA87mjaALGNzmIVo4wJPzg4AcfTBwB6AItJUjtw7IAPL/vY2YcAgBmyog1+tQuXMf/
-         wGYpg9H1AyYs0b0njjnGRgDA0DbQ/EcoMXwOpyUkSF5Of36tkT44f+j0sJmcPpnDjuQu
-         /vkBTJroTRMpv6wbXkcDPTsU8YTc3Q3SoPCGFD+HI3pvM6htf3QsIrQVmIYLoqkUgRoh
-         vYChwWinuY+k+OV62SZYSz70LNpmS1HZgrGmGKnZ1HUOx4tGR+VQZMCOPmLrKhPTL9h9
-         gGVQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776163269; x=1776768069; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=vDpaKgtvK1gesz/aQw1mjbgT5u/KzUnIhgbKYhPDE5I=;
-        b=hcAtfRjM2dJeBFRpJuxJpdNi+e623wV1TUB/wleAZufLFl7Z8aNx3UW2Y4Ax8rDVzc
-         n4gUUJK2OV632+nekcK/1piRet9gbGYkg55ll2+g3LTd/ZrsQj2SiODm9TtSnF0yE/n1
-         Qi7USEY7dcC/2rLFNCe7M4PLBpyya1DFiVN1T1X2XDyqrlTOzMbPnJJWoPCQNvDFp29P
-         e9Of8oR7pPN9qORbiyhAoyGwg8+SrwE+Y4nCxqqLbtIeDThfy4V7eTe4IVbsHNQBh43t
-         lSsrobZPR2L3go8lb6FIB0+n2QNqOxGQX8sMOM64Sc93Qsokbvq6jV1QxBWwYM3T5xUq
-         TYjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776163269; x=1776768069;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vDpaKgtvK1gesz/aQw1mjbgT5u/KzUnIhgbKYhPDE5I=;
-        b=ntjErzlHaVsh3KIdKAxAuDJna3liVFtMKd+HGaom7ju69VxjP/zqLfilY3qpuEreQr
-         p/A3iISynSJXuU4lOMPwsiT2tVkkhtk4YY/iBs8S4CvOe+a5XENvxjvrfufuXGcJ+rAB
-         V9pzpZb9OWJnUHnEG1gqp6ngEaNHKJMZJUmoT0AXr/2Uk74OCOtNKpnoCVyoi5rVbPRw
-         pQlPyphCZe27RCUxllusiIZM+Akxi1BdBtI8wt/zxDywU7pcdl+YHXc5IopKW4ezMLYc
-         35RGxem5xHrvW+fD+TbdwWKg1P3G9EwQayYLxIiS26G+S0m/inPSm2CUWXdjb54aAWjj
-         FhuA==
-X-Forwarded-Encrypted: i=1; AFNElJ/Mmi4wc+f34ZXzeecjohxU8f7avUxAyga/L4A9MHk/2aAI4iYgSakwWDxFlKJSAI9tPpuKSsYYyapr@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx1mN4WWp4OZ2fCSv8VsDVWa1Hg+Pox7PPVXDXNGWUBK4vzGno/
-	RMovtq00ZGFKpdML+ZmsxHjETARE7dcbvnEWCj6+A+zAeU9Funkb/fd7dYY1a1uM/lAdSvNyh6M
-	90hW5c4qzD0bzMcAG+BT/tJnFgeXJ/Eg=
-X-Gm-Gg: AeBDiesa7EgCB1CPYOjqee1neIBrRkdXkFxLPi8MNES7oe5792H43PrOGtwfLAFuCeE
-	n2nNj2s2mCh4T1Q/kQP8gc+bBFp2edDeNgEUiB0vYP2yTVvIUNiSX0EinfFbFauHfwY+tiby4oT
-	fCxdFxgmv9Djhtkn8UzpgCXRrB7Qiz4AuRZUDoItS6qWXN9jE4yKETNeyB7OO1vxDHCTU+LWeY7
-	rj/tL0IRAAN3XLdlrn2X7snjlEgDNuykKqk6f/+Z6zPJIbf/S6VUMb+iq72v+dh1rj4Qd7qCJK7
-	rThvwsA7vUaBGI/Eaw8Q4BmHbiifdbal4ZiaNQ==
-X-Received: by 2002:a17:90b:3950:b0:35c:1695:24a3 with SMTP id
- 98e67ed59e1d1-35e4281374emr16834509a91.23.1776163269477; Tue, 14 Apr 2026
- 03:41:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="J4aXgkdW"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=W9RraaHU76RwoMnzr/zKfLg+AVxsOQL2Ncy5a7IkUcu+ePRw/VHU0Ocn6TSlwuYdWPuyOP1EEzOQRl+Hj8Keh7Nj38NPfR+jA77D6u7ifjtXwtCpsOR69DgUzOllboPn0hs+Nc3QTWuH4jbfrgq8Oacyupa9pyl9/xdB7t4dg0WJBXnYtPX6jxPXrqbxnbI8aKrAP/rJrbx+OeQuRPFe4NVxJeL4+VzHjy/AsuhvttwQ6JOy/x6oeZIaU52GmXXoWAGOTze0vPCK5ZbmUQka/zB8oiCYiso1nF9nJtEK3E4idMp1Qx4kLLLAnIdiUf1FJed8Z04DbDQdBhhwNXL0sQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pI2ew5L+M0FXxIh8z/kXeHf3QojJs2LMuk+85YmjY3Q=;
+ b=FCK/qcxvNntddPTUAbt0Cgk99TOAKPGeIA393DVaL2ylaFIwaDvhC/mv/XTV733mOUVQoUU3QROCCFVcsNRzOhaFHKuc9kIu2sd1Op7ht0uRMZo0R5ZfBl6yvpsme2L8j4Qqusp/VRCLiJfcav8lz3qLhqlsGlOmVw1jux3T5OD+uy13amoaAhGHC84DsJ7xINFS4rOQv2EQRzPXCu6AyTRHDCg6bN2MiZy1Glp6jCkRkW86p174MMfG1ch1TbyL2wEZAf17ra4uyZxkeoIeJmYYr9mRl9yEhsqPj4q271aByhBJ7hcxYZea6uSXzILHcDh7V0n9dWcBF8rT2iRPNA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pI2ew5L+M0FXxIh8z/kXeHf3QojJs2LMuk+85YmjY3Q=;
+ b=J4aXgkdWx26BLoVGHSHF4EkNUCGSkJej9JvoveKrarqsd4o5MNL7I1ybJYEjvGhlmOerzDzst2rQhrUlM4TffNy4T21HF8qDYwseu2Fv9BEhef1ldndJKROBpbAKKL6rZU9FpPdEjWj4BQ9ufTq7Ke/vc8Kn/JjAN3lPoTbOqfSa5qGBOdtzx1kHBPN/uU2g5wE+mL30c8mmsnEYM3CuMXK/ehazkXfaPyH8yEjhD3n+GMkQRIhlP6ttK9PmPjmstB5FL5NXfXVuiVfuJ/lZUI/sB6q3Y+R4ArLQnWI6rDQ3kYCVyxIoIjxjuANKCyPr3Vi2OrRxp6PEHeiWYgM4xA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB7821.eurprd04.prod.outlook.com (2603:10a6:102:c5::5)
+ by AM0PR04MB12098.eurprd04.prod.outlook.com (2603:10a6:20b:743::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Tue, 14 Apr
+ 2026 10:44:17 +0000
+Received: from PA4PR04MB7821.eurprd04.prod.outlook.com
+ ([fe80::67dc:4bd2:8552:9b50]) by PA4PR04MB7821.eurprd04.prod.outlook.com
+ ([fe80::67dc:4bd2:8552:9b50%5]) with mapi id 15.20.9769.046; Tue, 14 Apr 2026
+ 10:44:17 +0000
+Date: Tue, 14 Apr 2026 18:46:33 +0800
+From: Robby Cai <robby.cai@nxp.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: p.zabel@pengutronix.de, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, Frank.Li@nxp.com, s.hauer@pengutronix.de,
+	festevam@gmail.com, devicetree@vger.kernel.org,
+	kernel@pengutronix.de, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	aisheng.dong@nxp.com
+Subject: Re: [PATCH 1/2] dt-bindings: reset: imx8mq: Add _N suffix to
+ IMX8MQ_RESET_MIPI_CSI*_RESET
+Message-ID: <20260414104633.GB2624044@shlinux88>
+References: <20260331101331.1405588-1-robby.cai@nxp.com>
+ <20260331101331.1405588-2-robby.cai@nxp.com>
+ <20260401-simple-dragonfly-of-will-fedc8c@quoll>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260401-simple-dragonfly-of-will-fedc8c@quoll>
+X-ClientProxiedBy: SI2PR02CA0010.apcprd02.prod.outlook.com
+ (2603:1096:4:194::15) To PA4PR04MB7821.eurprd04.prod.outlook.com
+ (2603:10a6:102:c5::5)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260413100700.30995-1-phucduc.bui@gmail.com> <20260413100700.30995-7-phucduc.bui@gmail.com>
- <20260414-funky-sincere-polecat-20b0bf@quoll>
-In-Reply-To: <20260414-funky-sincere-polecat-20b0bf@quoll>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Tue, 14 Apr 2026 17:40:57 +0700
-X-Gm-Features: AQROBzDyXFYNs7TrKIvlK_AGlBy9o7qpqavO_nNuacnjcjUFmQX1mxW8gHCuSbM
-Message-ID: <CAABR9nEKGSRNp=eK=ZHf6-MNsj=6cDCy1YdbzSPrHyuc3Ux0Ow@mail.gmail.com>
-Subject: Re: [PATCH v2 6/6] ASoC: dt-bindings: renesas,fsi: add support for
- multiple clocks
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: kuninori.morimoto.gx@renesas.com, broonie@kernel.org, lgirdwood@gmail.com, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	geert+renesas@glider.be, magnus.damm@gmail.com, perex@perex.cz, 
-	tiwai@suse.com, linux-sound@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB7821:EE_|AM0PR04MB12098:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1ee5b48c-09bd-4649-099b-08de9a12c6a2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|376014|1800799024|7416014|52116014|38350700014|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	GKCwlNAfDlEXVAV1QThxQH6rQebggP1BZ8WFIePwKStV9ORVd70EvLd38ilBHO5eMEfYlxIz5+uzjeaCDiwRQZixecKe1okmUF46F0hR8kaemrKAcPr26gP17jBflcd7YGNMcT7NAUPx3xufwtjvhVR7pTm19AtL9NljSNkAvo7i0u10bJA0gM2QcyEGWFHEw5uajneRnYxWaqaFCBtHRtccPDQ/q1SJ7fQTfVFXcgr7bzU5e+sxiXS8Fb8Mzr4SnFK8kMo+HhgTBYUbHguZRBndM+OzzQ9zEeAmHVKMiQfR6jZ09Xx1MD3+LM+B0e5kKIyzYz0pnMleddOMsTHvgA5yeL+zi8cAq81I+YtgzhlAdtyOILF/G8US8FZMgDGPvZV5uiCfNvF7utcSbS/esh3Hx13BX8PdnXc+FTdov8B/cKEHRGQoN9+fiBWJTrg8ZTwOHycvrIlU5hlPmBf67NSCnCF4RjwithrSV4DzhKGcZ6WoxF8IQ1/oMG+E4J39TyZg0zlfguag6VSpMqhNS45BWG6lmNOdNkZNQrRC857FCfD2a19KAZGWrEDyx27nRDIu77kZWXjpm0Ngys6SRunRypt8SF/HhaNt8Ri299fzRZF/qNmKJcxIFeU99QK2FEkzuBctyFv4BxfN5onmHo526xuhOcrS6uH9X5Bo/zCM751JZIvsaDXv3tfvuoO7lvxs72wUbTkVOIcXGVuBN8uLg0cNqaisKhYNTtJ1SDdVth31wQlgil/7+Ow0fJjhefftYOKfTdPMtzcWPMdCfdHSvslWPg8+lIFUTc/tooY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB7821.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(376014)(1800799024)(7416014)(52116014)(38350700014)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?1AIf0ztpgrQ748YA2s4uT9CogfMMiv2Uj6r1XIkNu4R9MYY14iMX7pbMBIfw?=
+ =?us-ascii?Q?QvfhvOcgYkDznxkdLwkVLAnsb/085Bxlx+FhhG/dR4pmcVYFgbMEyyMc0bC2?=
+ =?us-ascii?Q?D0KVCng5q7F0BrL2iTPyP0mWWtuxoDxibqjrzrMkKOJV8qp0IZ6n7+oqjAjF?=
+ =?us-ascii?Q?W3gfwsXyuWZFWhEInhMKUdNRg5CYTPk5kUemQB1Y87JhFuJLU6sP3OfHPx9D?=
+ =?us-ascii?Q?zHIOgP/LFfSqr4MgDBs7Sz/ujaHk33rte0na7kJSHGi4WLDV0MrUJ2SpR0il?=
+ =?us-ascii?Q?MjgjvcBdg+zwZ/+nJ+7LUYjcI2pVNoy75pjPaw0WgjJ5droAHar8kCk4P6yc?=
+ =?us-ascii?Q?UdzFdB5CLuQZKYF4WnL0F7ut7i2A8bu1ocUavPnoo9Q0jM9j9keoL6CyfBNb?=
+ =?us-ascii?Q?ZJdNTI6vRIhSUm73Iy0xvN/r1sCzY9GoagXQusiKYBp7W0lnVzuFTjIRZ1eM?=
+ =?us-ascii?Q?e7QiA1Nqe5uRPFRZw4qllXBSuklN+n+P4vKQZ7gcEI8PmMPuDG/Ln2BLMO5d?=
+ =?us-ascii?Q?naihueCOBTETmQjWdzBdae4VurS/arVV58ibm5juMhEHLGyoPGokDbYeybQe?=
+ =?us-ascii?Q?7TraRspoWkfRmq103PYK/0yfYfotQUU3bsKZJayzj29BaHtDOLgkVxcLqa/3?=
+ =?us-ascii?Q?ai/SurUZvEeIFWwkY0ehPVUdtg7jeHM635qbUgktXo1fb7adpyX/+UhugGiE?=
+ =?us-ascii?Q?aJIMMcHVJfNQBBeNPhwYHrx0XX6TBPrQgq/vIa01WSqgxBmjkUsuTfE76KoJ?=
+ =?us-ascii?Q?X64GOEA/7yxKf0gnkBYu7j14B1YH5A3br6CFiwmU7Tjk8CAWDNhefqPgkEDB?=
+ =?us-ascii?Q?9MK2WkFtLiJjM0MIDOY5PiHEGoxo4+79Pc35ZkV/VJs4IfSZtkn2Fl4pM2jA?=
+ =?us-ascii?Q?rgkRYcbFxX0bqF7JoUA7ULzlUKJdti5aHJ8QxQFcv49ybTlHqZ1H2QcgiO9k?=
+ =?us-ascii?Q?aT9MpZlbNx/os+hkWW5fZTwT8aNybU0Quc+7TpQIwh1O7LdgJId/m1O78LDW?=
+ =?us-ascii?Q?2jN5yIP/wNAVNC83OeZuNvZ4kMcn/gYJVag2SR61ajJoe6x/kND7YU8S7ccc?=
+ =?us-ascii?Q?RP3vtV6TIu0uR63JLeYzaHauatXc4PwMvoR6f2qMiukhKAWAVHnA/jfTWRS9?=
+ =?us-ascii?Q?jlr4avRPHSC1myHN9SWERw5v0c2HrNuPNXGijnMpKoCFr/XtTcCSUPTsj2Ya?=
+ =?us-ascii?Q?hGB0AZZSwsJcL3BOspj/KB1mCheiYxBLDQSu8NX53KqwIIkhowKRKhoiyKVW?=
+ =?us-ascii?Q?5gjioGfPS1//vROx9SJmSah/h8OwkoezBMuL+MWFlX9Aa3HwVkHRm6nsUFE4?=
+ =?us-ascii?Q?vgHXWMgrjWLoYGiND0S7zW6Iz5HecNfPTidjW0MWeBvb2EDlxYdhAtzq+ICq?=
+ =?us-ascii?Q?9L1HPJ8sevYkkrk15b1hckjIyCwv600uWFSgLghtmDmxR1nmeZDJvfXzmNu6?=
+ =?us-ascii?Q?hSXR2ibNCpGxG7A2oFlQ1htk5015+7V3oIOLh2cIvLFkH8ccExRmAbACSSgE?=
+ =?us-ascii?Q?tVse87r3UXWcPDjVnS75ilbmbv0HKciX+UDMJ4HeAWsabLLckvb3JAVPUJOr?=
+ =?us-ascii?Q?yWPN7kbQtTu2Nr02EsQaPaZj3ZI1lZ/hYct/+2ntdo2QQFvYU8zscifIUwk9?=
+ =?us-ascii?Q?NuGiawfg3ev/qKlU3vz01ItZg1wvDQj/rm5q6N2dVnxeU6InkIh012W/uq40?=
+ =?us-ascii?Q?Uu0LM8HN9VCuabDYtUvZwoKs9elcVOs7LOp6lrOkF9UBhvKBALcuqzTd1Jw2?=
+ =?us-ascii?Q?vKHwBGRkEQ=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ee5b48c-09bd-4649-099b-08de9a12c6a2
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB7821.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2026 10:44:16.9666
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BU1cir7dTP5BlR28kqvlcXUKLSaEzRpHeRQaNKz2vOAdSMZVie4Fcw05IazlMNxVNcogE+v+wh+K5cX7kam55g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB12098
 
-Hi Krzysztof,
+On Wed, Apr 01, 2026 at 09:41:48AM +0200, Krzysztof Kozlowski wrote:
+> On Tue, Mar 31, 2026 at 06:13:30PM +0800, Robby Cai wrote:
+> > The assert logic of the MIPI CSI reset signals is active-low on i.MX8MQ,
+> > but the existing names do not indicate this explicitly. To improve
+> > consistency and clarity, append the _N suffix to all
+> > IMX8MQ_RESET_MIPI_CSI*_RESET definitions. The deprecated
+> > IMX8MQ_RESET_MIPI_CSI*_RESET versions remain temporarily for DT ABI
+> > compatibility and will be removed at an appropriate time in the future.
+> > 
+> > Signed-off-by: Robby Cai <robby.cai@nxp.com>
+> > ---
+> >  include/dt-bindings/reset/imx8mq-reset.h | 18 ++++++++++++------
+> >  1 file changed, 12 insertions(+), 6 deletions(-)
+> > 
+> > diff --git a/include/dt-bindings/reset/imx8mq-reset.h b/include/dt-bindings/reset/imx8mq-reset.h
+> > index 705870693ec2..83a155dbbd4a 100644
+> > --- a/include/dt-bindings/reset/imx8mq-reset.h
+> > +++ b/include/dt-bindings/reset/imx8mq-reset.h
+> > @@ -46,12 +46,18 @@
+> >  #define IMX8MQ_RESET_PCIEPHY2_PERST		35	/* i.MX8MM/i.MX8MN does NOT support */
+> >  #define IMX8MQ_RESET_PCIE2_CTRL_APPS_EN		36	/* i.MX8MM/i.MX8MN does NOT support */
+> >  #define IMX8MQ_RESET_PCIE2_CTRL_APPS_TURNOFF	37	/* i.MX8MM/i.MX8MN does NOT support */
+> > -#define IMX8MQ_RESET_MIPI_CSI1_CORE_RESET	38	/* i.MX8MM/i.MX8MN does NOT support */
+> > -#define IMX8MQ_RESET_MIPI_CSI1_PHY_REF_RESET	39	/* i.MX8MM/i.MX8MN does NOT support */
+> > -#define IMX8MQ_RESET_MIPI_CSI1_ESC_RESET	40	/* i.MX8MM/i.MX8MN does NOT support */
+> > -#define IMX8MQ_RESET_MIPI_CSI2_CORE_RESET	41	/* i.MX8MM/i.MX8MN does NOT support */
+> > -#define IMX8MQ_RESET_MIPI_CSI2_PHY_REF_RESET	42	/* i.MX8MM/i.MX8MN does NOT support */
+> > -#define IMX8MQ_RESET_MIPI_CSI2_ESC_RESET	43	/* i.MX8MM/i.MX8MN does NOT support */
+> > +#define IMX8MQ_RESET_MIPI_CSI1_CORE_RESET	38	/* Deprecated. Use *_RESET_N instead */
+> > +#define IMX8MQ_RESET_MIPI_CSI1_CORE_RESET_N	38	/* i.MX8MM/i.MX8MN does NOT support */
+> 
+> That's quite a churn for no need. The entire point of these values being
+> the binding is that it describes the ABI for SW and DTS, not your
+> hardware registers.
+> 
+> Whether signal is active low or high is kind of irrelevant. Linux uses
+> it exactly the same way.
+> 
 
-Thank you for your detailed review and feedback.
+The original naming was taken from the reference manual at the time.
+The upcoming RM revision will clarify that these resets are active-low and
+use the _N suffix, consistent with MIPI DSI.
 
-> Flexible is not allowed. Provide reasons for exception.
+However, I agree that the DT binding and naming need not be changed.
+I'll keep the existing binding and naming, and address this in v2 by fixing the
+reset logic in the driver only.
 
-I understand and will remove this approach and replace it with
-explicit valid clock combinations.
 
-> This goes to the "clocks:"
-
-Understood, I will move the description to "clocks".
-
-> > +    minItems: 1
-> > +    items:
-> > +      - const: own
-> > +      - &fsi_all_clks
->
-> I don't understand this syntax.
-
-Understood, I will drop the YAML anchor and use explicit constraints instead.
-
-I will update it to the following structure:
-
-  clocks:
-    description: |
-      Clock driving the FSI Controller :
-      - "own": Main FSI module clock (must be first and always present)
-      - "spu": SPU bus/bridge clock. On R8A7740, this clock must be
-        enabled to allow register access as the FSI block is connected
-        behind the SPU bus.
-      - "icka" / "ickb": CPG DIV6 functional clocks for FSI port A/B
-      - "diva"/"divb": Internal FSI dividers for port A/B used for
-        audio clock generation
-      - "xcka"/"xckb": External clock inputs for FSI port A/B
-        provided by the board
-    minItems: 1
-    maxItems: 8
-
-  clock-names:
-
-    minItems: 1
-    maxItems: 8
-
-allOf:
-  - $ref: dai-common.yaml#
-  - if:
-      properties:
-        compatible:
-          contains:
-            const: renesas,fsi2-r8a7740
-    then:
-      properties:
-        clock-names:
-          oneOf:
-            - items:
-                - const: own
-                - const: spu
-            - items:
-                - const: own
-                - const: spu
-                - const: ickb
-                - const: divb
-
-Best regards,
-Phuc
+Regards,
+Robby
