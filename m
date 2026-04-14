@@ -1,125 +1,101 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 869D73D6CD7;
-	Tue, 14 Apr 2026 10:33:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D37F3D6CBA;
+	Tue, 14 Apr 2026 10:33:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776162806; cv=none; b=gcZC53G4f3ofwlvjRk8n3mwfBPgnR3zIGFvusM66mYf/fMGvsbBq70bH/AHwENOTkX/gVlZvJQ6SwNFckuzdvI9tfIW1A205uPI0c7Ge/OY7Yr0T8I2C7HYd8DDPa8KEIZebNX4z/I08GttTKuM2F8/QFeJEAMmlXXPIpZRScZc=
+	t=1776162840; cv=none; b=QdoTePGfcOmVqrzr/WplRlO63T3vrHabAI7slr1FLBgOfuHVgunpRt/TxGMT/Yuh+hJ6TkdMwU6ppgNBDeAvTgN9nGwbAlXJWiiOZdfbuAVQKp0cI51liyYh14dgtyVtK2WmKiBJsrHbAzhtPyqnhBmgsGapJSdHSkcAuADz2mc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776162806; c=relaxed/simple;
-	bh=j3gm+iLaEL8WRuEuzb9NdgT+b7ApkWWcUYD4kvbV65I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ewvZza7NNyeMJnEy0Q/9vI/3bdTAHC3J/u9gw6PaNQ4rXWuM3O/GxAnzs1ijPpOEON8PtEbXnRj2En7G8hsmXihPqMyIsRJp3XrPYhMapUL8e8NqpYT8vZvp4v+ox2MQBQQFWBB5HUXdV9tiv4q/0uj0Txa4RoCU8psIGJXwWWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Mrf4yW+J; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1776162840; c=relaxed/simple;
+	bh=peArRsgSCdj7tCOZzX4QtAqjUdjIstvhefAfXi/8La8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ObfiIdlFRWl5BnNxa4u3qmtm2XP+QDdALJZXFeU05W3tDufw3Cs6yrrTnSYSm539Rw/t8qimA56hlz/UWLWq1SsQVeZ6F2pNtNdQ15TUVhdD5fGQCXRlsSHDcsEck6QAZID/4fy7lkcGpAdHA8Bjkty6gXNE0v99hLtPFdEzl+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=JO0JIPLx; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Mrf4yW+J"
-Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
-	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 6A0DD225;
-	Tue, 14 Apr 2026 12:31:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1776162704;
-	bh=j3gm+iLaEL8WRuEuzb9NdgT+b7ApkWWcUYD4kvbV65I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Mrf4yW+JqdwljbE9dioHm1NkWf6A+TsdMU4TP7Z925URtyRd9lxzpqgatsOWwyyLQ
-	 9hR5mCbhMoerdcKEuD42bv0C7QZKG3XuXuvvaiCA/ez5oAhkRQfXdMngEuQJYpmZR3
-	 CWYKr8TpXQPqrBH/i8ixQ1dbBZEhmApL8sbe9jfM=
-Date: Tue, 14 Apr 2026 13:33:15 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Tarang Raval <tarang.raval@siliconsignals.io>
-Cc: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
-	"sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 2/2] media: i2c: add os02g10 image sensor driver
-Message-ID: <20260414103315.GA1023076@killaraus.ideasonboard.com>
-References: <20260414084952.217215-1-elgin.perumbilly@siliconsignals.io>
- <20260414084952.217215-3-elgin.perumbilly@siliconsignals.io>
- <20260414092758.GE4061@killaraus.ideasonboard.com>
- <MA0P287MB2178FAA81D07B561FA68014988252@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
- <20260414095727.GF4061@killaraus.ideasonboard.com>
- <PN3P287MB1829155B216E557C7DF7B6778B252@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="JO0JIPLx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1776162825;
+	bh=peArRsgSCdj7tCOZzX4QtAqjUdjIstvhefAfXi/8La8=;
+	h=From:Subject:Date:To:Cc:From;
+	b=JO0JIPLxnzATb3XL7LLUAIMuCPWiB4uDlrtuMDy8pkPSk08izy7xNRM6+a1WDgBoF
+	 Ff+48Qxg33kZg8++zzDQsy7hHMZsEfuAO7TvFkpmccR+Fvu/1ikEXWwFWToYFazr8p
+	 PsObnyrPPbl5sY1ZnnG6WzcKvFd6xFOgr732TdqqnIop+1rVubZ5t1rrtSuPi7baeZ
+	 QnaAc3KOCUYP8b9dBCDvX4Zhio6Ud3RtlO5ozS0d8K7TpmsGb2a8kru2OuOLR83zl4
+	 6sSat6EgsCsrd72VY3qfu7OGh9zUtB8tHrG9QCqYgBp946p2oFg4Oq6Ajc4c6KfURa
+	 g/gw16G01Ky2A==
+Received: from yukiji.home (unknown [100.64.0.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: laeyraud)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0A89717E0EB6;
+	Tue, 14 Apr 2026 12:33:44 +0200 (CEST)
+From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Subject: [PATCH 0/3] Mediatek Genio 510/700-EVK: add CPU power supplies
+Date: Tue, 14 Apr 2026 12:33:30 +0200
+Message-Id: <20260414-mtk-g510-700-cpu-supplies-v1-0-3b8313e5ca8d@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <PN3P287MB1829155B216E557C7DF7B6778B252@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NywqDMBBFf0Vm3YHEqin+SnER09EObWLMowjiv
+ zfULs+Fe84OkQJThL7aIdCHIy+ugLxUYJ7azYT8KAy1qDvRyCva9MK5lQKVEGh8xpi9fxcFNlK
+ rm+7GSaoWyt8Hmnj7ue/DyYHWXBLpHGHUkdAs1nLqK0dbwn9GwHAcX6sad3ecAAAA
+X-Change-ID: 20260413-mtk-g510-700-cpu-supplies-41a78a6bf175
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: kernel@collabora.com, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, 
+ Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776162824; l=1365;
+ i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
+ bh=peArRsgSCdj7tCOZzX4QtAqjUdjIstvhefAfXi/8La8=;
+ b=NXk+aPBqN3LNQq+MyWv/ARR7Zmgai7cJuc9VV97YVOvAoxADMXzwzGDLeyBqBj1iszsiacPFG
+ dOyhAKK8+OVDKdRepioQuYsNVf6/XKPQKBty+njlyaNeyLYw7+rvZ8s
+X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
+ pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
 
-On Tue, Apr 14, 2026 at 10:19:23AM +0000, Tarang Raval wrote:
-> > On Tue, Apr 14, 2026 at 09:43:32AM +0000, Elgin Perumbilly wrote:
-> > > > On Tue, Apr 14, 2026 at 02:19:45PM +0530, Elgin Perumbilly wrote:
-> > > > > Add a v4l2 subdevice driver for the Omnivision os02g10 sensor.
-> > > > >
-> > > > > The Omnivision os02g10 is a CMOS image sensor with an active array size of
-> > > > > 1920 x 1080.
-> > > > >
-> > > > > The following features are supported:
-> > > > > - Manual exposure an gain control support
-> > > > > - vblank/hblank control support
-> > > > > - vflip/hflip control support
-> > > > > - Test pattern control support
-> > > > > - Supported resolution: 1920 x 1080 @ 30fps (SBGGR10)
-> > > > >
-> > > > > Signed-off-by: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
-> > > > > Reviewed-by: Tarang Raval <tarang.raval@siliconsignals.io>
-> > > > > ---
-> > > > >  MAINTAINERS                 |    1 +
-> > > > >  drivers/media/i2c/Kconfig   |   10 +
-> > > > >  drivers/media/i2c/Makefile  |    1 +
-> > > > >  drivers/media/i2c/os02g10.c | 1039 +++++++++++++++++++++++++++++++++++
-> > > > >  4 files changed, 1051 insertions(+)
-> > > > >  create mode 100644 drivers/media/i2c/os02g10.c
-> > >
-> > > I have added a new function, os02g10_set_framefmt, which dynamically sets
-> > > the mode register.
-> > >
-> > > Please let me know if I have missed anything or if further changes are
-> > > needed.
-> >
-> > You also need to drop the supported_modes array, and implement support
-> > for .set_selection().
-> 
-> Are you suggesting that we should drop the array below?
+This series adds for the Mediatek Genio 510-EVK (MT8370) and 700-EVK
+(MT8390) boards the CPU power supply definitions in their devicetree
+that are missing for all their CPU cores.
 
-Correct.
+On the boards, the big core power is supplied by a MT6319 (sub PMIC)
+and little core power by a MT6365 (main PMIC).
 
-> static const struct os02g10_mode supported_modes[] = {
->     {
->         .width = 1920,
->         .height = 1080,
->         .vts_def = 1246,
->         .hts_def = 1082,
->         .exp_def = 1100,
->         .x_start = 2,
->         .y_start = 6,
->     },
-> };
-> 
-> If we remove this, how would we provide mode-specific parameters such as VTS?
+Patch 1 adds the MT6319 PMIC support that was not yet enabled for these
+boards.
+Patch 2 adds the CPU power supplies definitions that are common to both
+Genio 510 and 700 EVK boards, and patch 3 adds the Genio 700-EVK
+specific ones.
 
-Those should be computed by the driver based on the format and crop
-rectangle configured by userspace.
+The series has been tested on Genio 510-EVK board with a kernel based
+on linux-next (tag: next-20260410).
 
+Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+---
+Louis-Alexis Eyraud (3):
+      arm64: dts: mediatek: mt8390-genio-common: add MT6319 PMIC support
+      arm64: dts: mediatek: mt8390-genio-common: add CPU power supplies
+      arm64: dts: mediatek: mt8390-genio-700-evk: add specific CPU power supplies
+
+ .../boot/dts/mediatek/mt8390-genio-700-evk.dts     |  7 +++
+ .../boot/dts/mediatek/mt8390-genio-common.dtsi     | 68 ++++++++++++++++++++++
+ 2 files changed, 75 insertions(+)
+---
+base-commit: f244905cd8cff7a7249cd3dac8a366e02d61ad4f
+change-id: 20260413-mtk-g510-700-cpu-supplies-41a78a6bf175
+
+Best regards,
 -- 
-Regards,
+Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
-Laurent Pinchart
