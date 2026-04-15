@@ -1,132 +1,145 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BAB73382CB
-	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 12:12:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31B6D3B28D
+	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 12:19:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776255178; cv=none; b=MJ9FtTOsI9FMhXBwDnmUysKbsyzVHwZt1/oYVeyJP2gPE56IZyVE0lObkIRBx9ehnrplMEdnO+VYCe9Or5OwYcOA89hZEPLf+F+CAFAG8WAyyEMfR0pNtR82F270ruHewGVz91fnA24ME49ms+xvLL5t3f/BDm3qdavUxqsYuHY=
+	t=1776255583; cv=none; b=QKdebo7GXksd1EUbMPcfWdqk3qL+jMpLf6I5h5U+s3wU6Qf/aWZbeF5Fgb9edm0pDakilxI4M7UQ6garcJ2Q1CvQvWfI4brrLpGwdQjB52h05zyjmgMAeebIf40XnsQ59XMMB6N9CYSFM7G7gFJFvsaXO5Cjkl3mWFgfsFtSRUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776255178; c=relaxed/simple;
-	bh=aBfzyu2TGg94jDcHyA7UEDezz7c2+m1UW527MciqLkg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KZYOoGfbwRIh3m2vGpfd0YZg8v4QFCDny3KK2Q4AF4YD99xsAkeyY5RInvD2kwcz63k5ZP2rn3JYmuDGm8cjAHZvL7WDBDIKgx4XMWUOtHfzvl53te03/c1ODqP9LbxS/mj4Bedqfzf8qWw63c9nTJ0+6mVS0SBQ4Wjz/pYZhQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ifJIeiZn; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776255583; c=relaxed/simple;
+	bh=xZ0T4yzAgv7b5+PwCNimP1qrM9469B2e+xvejj7R0ok=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qucg3FVHPsgrJ222PgWVuem8kmOsRIbM+8/z+emISq6o6BBatc7lQd7YC1qKlSgfkCdeq/KOvibST7PVOIRfYOFDPb7gUsrcdmajC4GAFLveN0tL0q7MFeKkfXC09Tuv9fuvzpR+PUP1ERqDlCK0ct3Yl5+Lg1Q/CwDUbsouKaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=suNrZoYG; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ifJIeiZn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ECA2C19424;
-	Wed, 15 Apr 2026 12:12:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="suNrZoYG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D27D3C19424
+	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 12:19:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776255178;
-	bh=aBfzyu2TGg94jDcHyA7UEDezz7c2+m1UW527MciqLkg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ifJIeiZnhCaVmaSWobmLdMqbdMACSYdM6EqNqCvgYs9brjTkG2Vznr3RSYD38so1u
-	 IxcFt+gx61/NYZWbi+dYOhSTFgT0y5GuAvVzI4d1PNyBIiNoiQc1vcAQnHIZeU7Ff+
-	 ByKcsgPr1L22Gh60pJzkec+ZJllaUuwVYXbxQQDsPy8wkyUBo8O2HcdzhWiTfDaiXA
-	 f7MuZ5ApFMFBrLmJESYteB9vPPzB76nJPKTRswF2cZv9cIOXkyC94phwVje5qcglS/
-	 Tjau0+8P4OEFG0t8OA+2ffoZBhFsTMqhShzOGyf2V72koe77G0b5WWvOQCT7EVWvgv
-	 pn9SD7YG1hDfw==
-Date: Wed, 15 Apr 2026 14:12:55 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: Benjamin Larsson <benjamin.larsson@genexis.eu>
-Cc: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
-	Arnd Bergmann <arnd@arndb.de>
-Subject: Re: [PATCH v2] arm64: dts: airoha: en7581: Enable spi nand
- controller for EN7581 EVB
-Message-ID: <ad-Ax97ny5gg-yjz@lore-desk>
-References: <20250225-en7581-snfi-probe-fix-v2-1-92e35add701b@kernel.org>
- <abBPufvrG8I8UP69@lore-desk>
- <CA+_ehUyfP7bohsSZEbjp-KLxD084NcR+2SmhDNrpoKQE=BiHcQ@mail.gmail.com>
- <ab5bab39-88be-4f58-aee6-2bb0dc49a732@genexis.eu>
+	s=k20201202; t=1776255582;
+	bh=xZ0T4yzAgv7b5+PwCNimP1qrM9469B2e+xvejj7R0ok=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=suNrZoYGWA3jQ/5vT8KC+r3fqb2DvhFQblQlXpNMfAuzmIoDj13LOGInwoTYEiq33
+	 Cs727I4ai145VCz65qJwxaN1CoUYTVrtURWQSRXcgHEmGv8fu+uHeATsHRPre/LBtO
+	 AMmtDqme2YhVT7d9irY+axsa8Ns3FagHizFdkQBYE/lH+jlEoIRFADppqkESfuPKfR
+	 xaCGPuzFNISOCkEPCq4mxPFQ2PTrFARqtMcIRnGHRZkl0H1iJBTpBMIVzgSDgSgsgJ
+	 rNwtRrfTK8Emk5KHviz5QsTt1aobAmcctntC7/Z7hWA8hBQVouiQrPh04E0cKgqMGY
+	 Epwr4/Ki+lMeg==
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6714fa8b955so5706810a12.0
+        for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 05:19:42 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9z3FlN0u/HU+TO/iJVUrEIMZCn/SJhWO7yIQA0ZjScjczExJeHA9YTlsQ42PXGgmvC4C8RxgOllESg@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywd+G/sHN/pO2ZxhcvWcaZj/peZ8PZ2ySVo0mhLuX8UKsczza22
+	C7iUHHRqd6H4EyLSDhY3L4CSeIer7xnESKwp8HR/b+o48M7IvPJb4/4KiUPy4K0Cl+kMMoT1xRH
+	+pfjDiOohmdOpV/otKjywAqbPEGmi9Q==
+X-Received: by 2002:a05:6402:1465:b0:671:e912:885e with SMTP id
+ 4fb4d7f45d1cf-671e912912fmr3360745a12.9.1776255581409; Wed, 15 Apr 2026
+ 05:19:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="8vPczH/oiUxX08+n"
-Content-Disposition: inline
-In-Reply-To: <ab5bab39-88be-4f58-aee6-2bb0dc49a732@genexis.eu>
-
-
---8vPczH/oiUxX08+n
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20260414161558.2579920-1-ben.levinsky@amd.com>
+ <20260414161558.2579920-2-ben.levinsky@amd.com> <774a8e9f-cfd9-4584-aaf0-2fd1189f65e8@kernel.org>
+ <e82faa64-22fa-4dba-8cde-f02cf9f95e25@amd.com>
+In-Reply-To: <e82faa64-22fa-4dba-8cde-f02cf9f95e25@amd.com>
+From: Rob Herring <robh@kernel.org>
+Date: Wed, 15 Apr 2026 07:19:29 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqKE1G+sdJnSZazVVyy=gV6iAz=HgtCOBXGz31qdzbUShQ@mail.gmail.com>
+X-Gm-Features: AQROBzC1fPJTosTVs6GDYoMZUqJgsG4LML4H4W00sv4JdDSdDEmNCyhwHBthKaY
+Message-ID: <CAL_JsqKE1G+sdJnSZazVVyy=gV6iAz=HgtCOBXGz31qdzbUShQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings: remoteproc: add AMD MicroBlaze binding
+To: Michal Simek <michal.simek@amd.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Ben Levinsky <ben.levinsky@amd.com>, andersson@kernel.org, 
+	mathieu.poirier@linaro.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, tanmay.shah@amd.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
->=20
-> On 4/15/26 11:47, Christian Marangi (Ansuel) wrote:
-> > Il giorno mar 10 mar 2026 alle ore 18:07 Lorenzo Bianconi
-> > <lorenzo@kernel.org> ha scritto:
-> > > > Enable spi controller used for snand memory device for EN7581 evalu=
-ation
-> > > > board.
-> > > >=20
-> > > > Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@=
-collabora.com>
-> > > > Signed-off-by: Lorenzo Bianconi <lorenzo@kernel.org>
-> > > Hi all,
-> > >=20
-> > > it seems this patch has been reviewed by AngeloGioacchino, but it has=
- never
-> > > been applied to linux-mediatek tree (or at least I can't find it). It=
- is marked
-> > > as 'New, archived' in patchwork [0]. Am I missing something?
-> > >=20
-> > > Regards,
-> > > Lorenzo
-> > >=20
-> > > [0] https://patchwork.kernel.org/project/linux-mediatek/patch/2025022=
-5-en7581-snfi-probe-fix-v2-1-92e35add701b@kernel.org/
-> > >=20
-> > Hi,
-> >=20
-> > friendly ping here. There are lots of patch with review tag and ACK
-> > also for 7583.
-> >=20
-> > Any chance someone can ping maintainers that take care of picking these=
- patch?
-> > Or someone that can reply on how to handle this? Maybe we need to sync =
-with
-> > them? Lorenzo (and also me) are fully maintaining the Airoha ARM target=
- also on
-> > U-Boot. Also on OpenWrt this target is starting to get traction and is
-> > getting used
-> > there, so Airoha is not considered an abandoned target anymore.
->=20
-> I think the following Airoha patch set has not been picked up either:
->=20
-> [PATCH RESEND v3 0/2] ARM: dts: airoha: en7523: update dts
->=20
-> MvH
->=20
-> Benjamin Larsson
->=20
+On Wed, Apr 15, 2026 at 1:16=E2=80=AFAM Michal Simek <michal.simek@amd.com>=
+ wrote:
+>
+>
+>
+> On 4/14/26 19:53, Krzysztof Kozlowski wrote:
+> > On 14/04/2026 18:15, Ben Levinsky wrote:
+> >
+> > A nit, subject: drop second/last, redundant "binding". The "dt-bindings=
+"
+> > prefix is already stating that these are bindings.
+> > See also:
+> > https://elixir.bootlin.com/linux/v6.17-rc3/source/Documentation/devicet=
+ree/bindings/submitting-patches.rst#L18
+> >
+> >> +---
+> >> +$id: http://devicetree.org/schemas/remoteproc/amd,microblaze.yaml#
+> >> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> >> +
+> >> +title: AMD MicroBlaze remote processor
+> >> +
+> >> +maintainers:
+> >> +  - Ben Levinsky <ben.levinsky@amd.com>
+> >> +
+> >> +description:
+> >> +  MicroBlaze remote processor controlled by Linux through the remotep=
+roc
+> >> +  framework.
+> >
+> > Describe hardware, not Linux frameworks. IOW, Linux framework is here
+> > irrelevant.
+> >
+> >> +
+> >> +  The executable firmware memory window is described in the
+> >> +  MicroBlaze-local address space by the node's reg property and trans=
+lated
+> >> +  to the system physical address space with standard devicetree addre=
+ss
+> >> +  translation provided by the parent bus node's ranges property.
+> >> +
+> >> +properties:
+> >> +  $nodename:
+> >> +    pattern: "^remoteproc@[0-9a-f]+$"
+> >> +
+> >> +  compatible:
+> >> +    const: amd,microblaze
+> >
+> > microblaze is architecture, so this feels way too generic. You need SoC
+> > specific compatibles and I suggest do not reference architecture, but
+> > name or the function of the processor, if there are such.
+>
+> I have been arguing internally that I think when you look at driver itsel=
+f it
+> can be pretty much generic loader for any firmware and doesn't really mat=
+ter if
+> target subsystem is Microblaze/Risc-V/whatever based. And I was suggestin=
+g them
+> to use more generic name.
 
-ack. Thx Ben for pointing this out.
-It is not clear to me if these patches should go via linux-mediatek tree.
-@AngeloGioacchino @Matthias: any input about it?
+Generic to AMD though, not everyone, right?
 
-Regards,
-Lorenzo
+I agree it probably doesn't matter what the processor arch is. The
+compatible just needs to be specific enough when there's some
+quirk/feature in the interface to the operating system, that we can
+distinguish the specific implementation *without* a DT update.
 
---8vPczH/oiUxX08+n
-Content-Type: application/pgp-signature; name=signature.asc
+> Because at the end of day reg property is pointing to location where firm=
+ware
+> should be loaded and gpio is a way how to start that subsystem and there =
+is
+> nothing Microblaze specific.
+>
+> I can also imagine that the same driver could be extended with optional p=
+ower
+> domain, power regulator and clock properties if there is a need to drive =
+them
+> before subsystem gets out of reset.
 
------BEGIN PGP SIGNATURE-----
+That never works because then there's timing/ordering constraints for
+enabling/disabling all those resources. Then we end up with a never
+ending stream of properties added which results in a poorly designed
+binding.
 
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCad+AxwAKCRA6cBh0uS2t
-rDQuAQCnScvp/PlYWDJUXaQxTJ0+x4isrD9cGiuLlUR6FLCOLgD9EGIOIf01gaxB
-5BbOzMFMcHGr+2KmLZKbLvT2Ket6KwY=
-=0i3n
------END PGP SIGNATURE-----
-
---8vPczH/oiUxX08+n--
+Rob
