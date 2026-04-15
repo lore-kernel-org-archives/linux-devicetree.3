@@ -1,297 +1,262 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58FB810785;
-	Wed, 15 Apr 2026 20:57:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C8BC25C818
+	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 21:01:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776286656; cv=none; b=apgzXLKnTz6NrMGalQ449Xu8FGs1DfEdPE26apA0/QKpv2kly3HNUMIhU+2T4MmRuNPqwV2FRGe1edVioJfoeWNW+h5JaZPTI9zh9Ij9zo92lo6ErrnPyN9txg5oGu+IDBxq7F1i8eur+Cx5rTcyDTyNs5IFWb+CalUGg5sd6Ak=
+	t=1776286888; cv=none; b=Ah0865Rut05NOizm/rD3vfOAmZaYqr8hyTeyUEKre2Qx8RUxcVOxxf0PR06/WwIHsXdLNWjqpby7MrhLtLNg5gji0JwT9ieIhopauY21B7lukBMYIkz5jhgscZYCLxn52mDyuDAYcq5S6fPM2kb2xBjVxCbGDTVe4LVoA0Xezg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776286656; c=relaxed/simple;
-	bh=aqhppy8I9dR8UMYq5nQG0mjZqAyJaHAT6wJPHqTBjp4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VWYfR4IOHrQloeyxjlZQSG7CQhNBODEnZq2/3r7cu1nzBgaMipngklN3t+nq/mdaKe53MxR31HCXjwcgTw2fvyjnW09NORORgY/df4agtbohfMigSj4M0VEYhUyaoB1TWVrmHwjquxr9bsI1zGnlmnayCVuMHlWERDAcJE/BtCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qvrvxP8f; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776286888; c=relaxed/simple;
+	bh=LIGk+6JCqpmGlvNj4DXjLt3b/bSistoZdo0VtPcUw8g=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=eRCaWQP80JSB7JKeyOhRV2gsi0fJB8LEVLjtYg8sRuf6g+lMGuCMBwtxzstEZ4+u0xlRZUrK812Gye5pziI+Hx7jBxAISTPxc/Fu3jGjWs5fl6wMVKacnLyg3Oh2XSbary7v5RAHYFNIWoLBuoEI6HU8M0dGtBi9bB/KSdO4Au8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=YIshGjK6; arc=none smtp.client-ip=185.67.36.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qvrvxP8f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D819DC19424;
-	Wed, 15 Apr 2026 20:57:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776286656;
-	bh=aqhppy8I9dR8UMYq5nQG0mjZqAyJaHAT6wJPHqTBjp4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qvrvxP8f3feyB84C54LUvSSbpisJTYNVytbYbS977fkWQ1Yn8/kU3888fH18CC2gc
-	 CxsjSPfxa+Y0/rYs7Z0J0iD2iLR4iBAJfetB4POM2eLmN9IZhw8nwjXgFD3yB+0dFp
-	 e/ejxw++syxZqhq4qQlhTuYue6ydk3c7yXcgopbPEFGFn+XZxGh9Xq8qAHDC0J1ChT
-	 r64fQH4f529LG0zJkRJRBTsIS1bETKyTkSP/z/ftFUmYX1rFbT8YNJiRvLEqaumPoJ
-	 CPbFIkzw+59fQaS6pTNsGG6xWCC6kiP13U+TAs7Xx9FU5gGJKOBwe7nds/T8y/Gfa9
-	 9bM5ZsiCSnv7Q==
-Date: Wed, 15 Apr 2026 15:57:33 -0500
-From: Rob Herring <robh@kernel.org>
-To: John Madieu <john.madieu.xa@bp.renesas.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Thomas Gleixner <tglx@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	John Madieu <john.madieu@gmail.com>,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dmaengine@vger.kernel.org, linux-sound@vger.kernel.org
-Subject: Re: [PATCH v2 06/24] ASoC: dt-bindings: Add RZ/G3E (R9A09G047) sound
- binding
-Message-ID: <20260415205733.GA354660-robh@kernel.org>
-References: <20260402090524.9137-1-john.madieu.xa@bp.renesas.com>
- <20260402090524.9137-7-john.madieu.xa@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="YIshGjK6"
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout02.posteo.de (Postfix) with ESMTPS id F397A240101
+	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 22:54:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
+	t=1776286470; bh=sqQbN/cl0vomVFx2IrUxM16Wezbrd+GAm8eM7tvhzs0=;
+	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
+	 MIME-Version:OpenPGP:From;
+	b=YIshGjK6qqi+7jZtjDuTszaT6lyjEs7ovEbA37zxmPT+IkOu6qMWjwNUKAmZ9K5ER
+	 9/QassmrCHww0c75SXY3T+jGonu6SHABcwK8bzWS88cqGoqFn+mqVmCSxbXSOZ7CxR
+	 01qfXLXqm5ZIAlhdy9c6YFigdSzvl7vAgeZwmZyF5ZgKL9oBCb9gu2bwro4nKnRJCU
+	 QKFBEdod/HcIdNIcKAyifeGHSrarYJTeYrV4OQR5kN+CA/Wke/hwsdzipFxRXIVUma
+	 Yuc0FOiDY6vJTaXlQzt2a7WqeKXlVS348pMe3s1xhXbWCzeLHve915Evs/O53kDUPd
+	 G/v6F4S/u/Vvw==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4fwtg65z9Pz6tvq;
+	Wed, 15 Apr 2026 22:54:26 +0200 (CEST)
+Message-ID: <8c8555b3375375dac47a22fad40080fd5b4228a5.camel@posteo.de>
+Subject: Re: [PATCH v7 2/2] dt-bindings: embedded-controller: Add synology
+ microp devices
+From: Markus Probst <markus.probst@posteo.de>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Hans de Goede <hansg@kernel.org>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=	
+ <ilpo.jarvinen@linux.intel.com>, Bryan O'Donoghue
+ <bryan.odonoghue@linaro.org>,  Lee Jones <lee@kernel.org>, Pavel Machek
+ <pavel@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng
+ <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?=
+ Roy Baron	 <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl
+ <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich
+ <dakr@kernel.org>, Rob Herring	 <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley	 <conor+dt@kernel.org>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	platform-driver-x86@vger.kernel.org, linux-leds@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org
+Date: Wed, 15 Apr 2026 20:54:29 +0000
+In-Reply-To: <125cad6c-fb58-4498-a967-41778f6f91f6@kernel.org>
+References: <20260411-synology_microp_initial-v7-0-9a3a094e763a@posteo.de>
+	 <20260411-synology_microp_initial-v7-2-9a3a094e763a@posteo.de>
+	 <20260412-cuddly-taipan-of-reputation-1cafe0@quoll>
+	 <485ab9e829e902e3f29172059be8c3203062d06b.camel@posteo.de>
+	 <125cad6c-fb58-4498-a967-41778f6f91f6@kernel.org>
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+ keydata=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
+ jfGillcaQOqFZ3WwVqyzG1BUfTow==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-zCxPlgqRCfQxERdu6rZO"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260402090524.9137-7-john.madieu.xa@bp.renesas.com>
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
 
-On Thu, Apr 02, 2026 at 11:05:05AM +0200, John Madieu wrote:
-> The RZ/G3E shares the same audio IP as the R-Car variants but differs
-> in several aspects: it supports up to 5 DMA controllers per audio
-> channel, requires additional clocks (47 total including per-SSI ADG
-> clocks, SCU domain clocks and SSIF supply) and additional reset lines
-> (14 total including SCU, ADG and Audio DMAC peri-peri resets).
-> 
-> Add a dedicated devicetree binding for the RZ/G3E sound controller.
-> The binding references the common renesas,rsnd-common.yaml schema for
-> shared property and subnode definitions.
-> 
-> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
-> ---
-> 
-> Changes:
-> 
-> v2: New patch
-> 
->  .../sound/renesas,r9a09g047-sound.yaml        | 371 ++++++++++++++++++
->  1 file changed, 371 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml b/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml
-> new file mode 100644
-> index 000000000000..1dfe9bab3382
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml
-> @@ -0,0 +1,371 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/renesas,r9a09g047-sound.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Renesas RZ/G3E Sound Controller
-> +
-> +maintainers:
-> +  - Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> +  - John Madieu <john.madieu.xa@bp.renesas.com>
-> +
-> +description:
-> +  The RZ/G3E (R9A09G047) integrates an R-Car compatible sound controller
-> +  with extended DMA channel support (up to 5 DMACs per direction), additional
-> +  clock domains, and additional reset lines compared to the R-Car Gen2/Gen3
-> +  variants.
-> +
-> +allOf:
-> +  - $ref: renesas,rsnd-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: renesas,r9a09g047-sound
-> +
-> +  reg:
-> +    maxItems: 5
-> +
-> +  reg-names:
-> +    items:
-> +      - const: scu
-> +      - const: adg
-> +      - const: ssiu
-> +      - const: ssi
-> +      - const: audmapp
-> +
-> +  clocks:
-> +    maxItems: 47
-> +
-> +  clock-names:
-> +    items:
-> +      - const: ssi-all
-> +      - const: ssi.9
-> +      - const: ssi.8
-> +      - const: ssi.7
-> +      - const: ssi.6
-> +      - const: ssi.5
-> +      - const: ssi.4
-> +      - const: ssi.3
-> +      - const: ssi.2
-> +      - const: ssi.1
-> +      - const: ssi.0
-> +      - const: src.9
-> +      - const: src.8
-> +      - const: src.7
-> +      - const: src.6
-> +      - const: src.5
-> +      - const: src.4
-> +      - const: src.3
-> +      - const: src.2
-> +      - const: src.1
-> +      - const: src.0
-> +      - const: mix.1
-> +      - const: mix.0
-> +      - const: ctu.1
-> +      - const: ctu.0
-> +      - const: dvc.0
-> +      - const: dvc.1
-> +      - const: clk_a
-> +      - const: clk_b
-> +      - const: clk_c
-> +      - const: clk_i
-> +      - const: ssif_supply
-> +      - const: scu
-> +      - const: scu_x2
-> +      - const: scu_supply
-> +      - const: adg.ssi.9
-> +      - const: adg.ssi.8
-> +      - const: adg.ssi.7
-> +      - const: adg.ssi.6
-> +      - const: adg.ssi.5
-> +      - const: adg.ssi.4
-> +      - const: adg.ssi.3
-> +      - const: adg.ssi.2
-> +      - const: adg.ssi.1
-> +      - const: adg.ssi.0
-> +      - const: audmapp
-> +      - const: adg
-> +
-> +  resets:
-> +    maxItems: 14
-> +
-> +  reset-names:
-> +    items:
-> +      - const: ssi-all
-> +      - const: ssi.9
-> +      - const: ssi.8
-> +      - const: ssi.7
-> +      - const: ssi.6
-> +      - const: ssi.5
-> +      - const: ssi.4
-> +      - const: ssi.3
-> +      - const: ssi.2
-> +      - const: ssi.1
-> +      - const: ssi.0
-> +      - const: scu
-> +      - const: adg
-> +      - const: audmapp
-> +
-> +  rcar_sound,dvc:
-> +    description: DVC subnode.
-> +    type: object
 
-Move 'additionalProperties' here.
+--=-zCxPlgqRCfQxERdu6rZO
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-blank line after.
+On Sun, 2026-04-12 at 15:22 +0200, Krzysztof Kozlowski wrote:
+> On 12/04/2026 15:21, Markus Probst wrote:
+> > On Sun, 2026-04-12 at 10:26 +0200, Krzysztof Kozlowski wrote:
+> > > On Sat, Apr 11, 2026 at 05:27:35PM +0200, Markus Probst wrote:
+> > > > +properties:
+> > > > +  compatible:
+> > > > +    enum:
+> > > > +      - synology,ds923p-microp
+> > > > +      - synology,ds918p-microp
+> > > > +      - synology,ds214play-microp
+> > > > +      - synology,ds225p-microp
+> > > > +      - synology,ds425p-microp
+> > > > +      - synology,ds710p-microp
+> > > > +      - synology,ds1010p-microp
+> > > > +      - synology,ds723p-microp
+> > > > +      - synology,ds1522p-microp
+> > > > +      - synology,rs422p-microp
+> > > > +      - synology,ds725p-microp
+> > > > +      - synology,ds118-microp
+> > > > +      - synology,ds124-microp
+> > > > +      - synology,ds223-microp
+> > > > +      - synology,ds223j-microp
+> > > > +      - synology,ds1823xsp-microp
+> > > > +      - synology,rs822p-microp
+> > > > +      - synology,rs1221p-microp
+> > > > +      - synology,rs1221rpp-microp
+> > > > +      - synology,ds925p-microp
+> > > > +      - synology,ds1525p-microp
+> > > > +      - synology,ds1825p-microp
+> > >=20
+> > > Previous comment is not resolved. For example you stated that ds723p =
+is
+> > > compatible with ds725p, so this should be expressed.
+> > Using this expression?
+> >=20
+> > properties:
+> >   compatible:
+> >     oneOf:
+> >       - enum:
+> >           - synology,ds923p-microp
+> >           - synology,ds1522p-microp
+> >       - enum:
+> >           - synology,ds918p-microp
+> >           - synology,ds415p-microp
+> >       - const: synology,ds214play-microp
+> > ...
+> > ?
+> > If so shall there each be a description?
+>=20
+> No, you changed nothing. You need fallbacks, please read example-schema
+> or DTS101 slides.
+The documentation says to "use fallback compatibles when devices are
+the same as or a superset of prior implementations" [1].
 
-> +    patternProperties:
-> +      "^dvc-[0-1]$":
-> +        type: object
-> +        additionalProperties: false
+Differences are not publicly documented in this device, making it hard
+to tell if it is a superset or the same implementation. This would make
+no device a fallback, as compatibility is not guaranteed. I could
+imagine it would be an ABI breakage if a fallback is no longer
+considered compatible with a device later on.
 
-blank line
+If deciding based on driver compatibility (accepting loss of features
+and accounting for future driver features), one device entry would look
+like this:
 
-> +        properties:
-> +          dmas:
-> +            maxItems: 5
+- items:
+  - const: synology,ds923p-microp
+  - const: synology,ds1522p-microp
+  - const: synology,ds925p-microp # no current sensor from here
+  - const: synology,ds425p-microp
+  - const: synology,ds1525p-microp
+  - const: synology,ds918p-microp
+  - const: synology,ds1823xsp-microp # no fan failure check from here
+  - const: synology,ds1825p-microp
 
-blank line
+which isn't maintainable in this size for ~22 entries.
 
-> +          dma-names:
-> +            maxItems: 5
-> +            allOf:
 
-Don't need 'allOf'
+But the example schema
 
-> +              - items:
-> +                  enum:
-> +                    - tx
+- items:
+  - enum:
+    - vendor,soc4-ip
+    - vendor,soc3-ip
+    - vendor,soc2-ip
+  - enum:
+    - vendor,soc1-ip
 
-blank line
+also does not have all of the previous devices as fallbacks (assuming
+"vendor,soc3-ip" is compatible with "vendor,soc2-ip" and so on).
 
-> +        required:
-> +          - dmas
-> +          - dma-names
-> +    additionalProperties: false
-> +
-> +  rcar_sound,src:
-> +    description: SRC subnode.
-> +    type: object
-> +    patternProperties:
-> +      "^src-[0-9]$":
-> +        type: object
-> +        additionalProperties: false
-> +        properties:
-> +          interrupts:
-> +            maxItems: 1
-> +          dmas:
-> +            maxItems: 10
-> +          dma-names:
-> +            maxItems: 10
-> +            allOf:
-> +              - items:
-> +                  enum:
-> +                    - tx
-> +                    - rx
-> +    additionalProperties: false
-> +
-> +  rcar_sound,ssiu:
-> +    description: SSIU subnode.
-> +    type: object
-> +    patternProperties:
-> +      "^ssiu-[0-9]+$":
-> +        type: object
-> +        additionalProperties: false
-> +        properties:
-> +          dmas:
-> +            maxItems: 10
-> +          dma-names:
-> +            maxItems: 10
-> +            allOf:
-> +              - items:
-> +                  enum:
-> +                    - tx
-> +                    - rx
-> +        required:
-> +          - dmas
-> +          - dma-names
-> +    additionalProperties: false
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reg-names
-> +  - clocks
-> +  - clock-names
-> +  - resets
-> +  - reset-names
+Only adding devices as fallbacks with the exact same known feature set
+would ignore the other devices with less features which would still
+work (e.g. "synology,ds925p-microp" would still work on a ds923+, but
+the "current sensor" would not be accessible).
 
-Most of these are already required by the common schema. No need to 
-duplicate.
+So my question is, what makes a device eligible to be a fallback for
+another device?
 
-> +
-> +unevaluatedProperties: false
+Just using the one device that is compatible with most of the devices
+(having the least features) for all of the compatible devices as
+fallback like in the example?
+
+
+I would prefer a generic "synology,microp-x64" entry as fallback only,
+which only supports the baseline of features (power led, status led,
+shutdown/reboot, power button, fan speed), which all devices I am aware
+of support.
+But documentation explicitly states "DON=E2=80=99T use wildcards or device-
+family names in compatible strings" [1], so I think I am not allowed to
+do that.
+
+Thanks
+- Markus Probst
+
+[1] https://docs.kernel.org/devicetree/bindings/writing-bindings.html
+
+>=20
+> Best regards,
+> Krzysztof
+
+--=-zCxPlgqRCfQxERdu6rZO
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmnf+vcbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPS9cYP/03t5hh6MXyY2hpnIpEO
+5bv7fMrSvcw9pR9f6hlMla0caRKuoAvFxa0U3RNFKCDesvB9P54tXAceRDeIkYMG
+2K2WtYlwalFnB5Kqn9eV8DNYlNfq+o9EIEKWTS+2lLC/SXxx8nW9luqVOifLomgh
+sLmrd8ICjyV9JxSSP1rqxfQGrUp4VX95wsGt1zFeT6LmDRikBYUpmNdoQ62A2VaL
+31BMSuXfnCYZPqDR2JRWqvm6rvPkXBrq4IbaPEVRdAp8dPDlX0X+1//BhVx7CrPw
+7iNCqRAx+U9KvPR23k5Ig0zBxFT7b4ngch9/qtF2OYdxHmf52SZWkDGmoTj3qSXt
+rTauYrUTN7sW4CB0Y2zni+ljOchOSfuE8WwJLDCa/anqJvCJLlf1jATP6tFO9jOV
+A8bUDN7XSTF+QGR1de2pDDY5F1ScnKKXUTrn6sCF40fpmAvvPNQkH573gn3uxct2
+gNvg87wS/QibyuvGJtdE/Mam0DinvzMK7oh0ojLb7/as/atJWrRmKW8AVdb1SWAI
+IJkSRE9v9C54qf2+VvDmyYB9QZbETuLSHoEAoiSXBo5QfS3HuI9gPtBm8WWbtoL0
+sFs8QMr4jrXTRMguIa6o/5aTk2DwfaK//zBhNumZPdU+PeiKLSLCtEn4skSRknvf
+EVUw50yIk3E/NwiCYuOV+pFL
+=b+JB
+-----END PGP SIGNATURE-----
+
+--=-zCxPlgqRCfQxERdu6rZO--
