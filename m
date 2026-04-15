@@ -1,75 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05F77384246;
-	Wed, 15 Apr 2026 22:19:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 236952192F9;
+	Wed, 15 Apr 2026 22:31:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776291556; cv=none; b=CC331nobXWmxS93+4KZCGDPmXtSCSpp7F94HFVPf4byva0FIZv/I//gVt/p90DyZLsS9W/Y/qc/Q2EsJDvNZa1tJ7F3EUbINdV54b7O3/7wyoDiXnn+Hj1QFhzigU1jpRzSoY1Vj7sUekdmD1yIByCZ8GXauv0kcAH+ixSJrQ3k=
+	t=1776292314; cv=none; b=TQ6OR3TjGDgBBlb6gN6gci6hUyeJJFQycx4js1wWrdN++D3K/Nl5q3xg2I6GblaiRQ473F0bjs2xmb9s9rF+R44wX9MHW8YV8t5Y8O4EwrhokwDqhDrKdBLoHVbFKTNEF9noc15z1iUUnTnz4McC0gFbFu0LgpT+Q52ngbNrX6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776291556; c=relaxed/simple;
-	bh=mRess9A22TiEIHAr1pMNzwfEEnZOrtxnuNvs8DfH/ps=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QpsgGkpUXsYrQbPEBFEHMm58x1CY0NMo8WogRmjzRksz1A1vbKj+dbOcGxDZ/9M7pVSW8a876rcOHjIUmFNICQd/YXq2oGzv5IJhfLfE2mGbre4eROOguso23U95eBRJ5E5T9uiPhcH2aS2VpzqJO+aA394FH8ege1g6XtPBTQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fRpznHNS; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776292314; c=relaxed/simple;
+	bh=usjqRhUrHdefvg550NoYkdLrbpoiUwaN7du2pNz9Hfk=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=FFe0WwwkA3GBBvGmu8N7ZzaMedNC1wtX8YKsilAJpL6kIsZaXnDBy5KyJwjfIb6p9LKBW92N9cVjZmC1Um3YtUjj0aSfIB9RdqNeDifeD6I2U3KQ6d+LjYkS1xY94AKEIwuuRQPofd9di7VOGd17o2nMeH5m71iwLveCoWS3e3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RgPGHcG7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fRpznHNS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FF61C19424;
-	Wed, 15 Apr 2026 22:19:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RgPGHcG7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86A6BC19424;
+	Wed, 15 Apr 2026 22:31:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776291555;
-	bh=mRess9A22TiEIHAr1pMNzwfEEnZOrtxnuNvs8DfH/ps=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=fRpznHNSJps8tAiOqTCFPPCaloTKdTXsut7aAvF7j4LFJ2yptKptuffjty43Evm0f
-	 uQ71Fpo9n0FSNNSHaUbuJpmwYLmC/jkHDkMzv7IbHANU+BuL2stxKwByGu6m9r0zcK
-	 HEoEAawskEqfOcisvoR1j2GK+HLR/2R1QX2PEwoG1V8muyst0eN2kqeBaOFRSjTfoY
-	 vEfOKAGoGxHgKBaATQvR0JGoCkMP3rIXiJLWnBeUc9QQ3WwjWQykuJhFBA9Jh1R2Ru
-	 sr9QV24qrS4EueJALfbGZT7ofJD63BS2cx7shkxu5itm3VB+DEeXIrXm6XvBB8FXhJ
-	 eqSWnI7lpe4cA==
-Date: Wed, 15 Apr 2026 17:19:11 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Heiko Stuebner <heiko@sntech.de>, kernel@collabora.com,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
-	linux-input@vger.kernel.org, devicetree@vger.kernel.org,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	linux-arm-kernel@lists.infradead.org,
-	Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH v3 1/4] dt-bindings: input: adc-keys: allow all input
- properties
-Message-ID: <177629155084.842035.13171332724449829324.robh@kernel.org>
-References: <20260408-rock4d-audio-v3-0-49e43c3c2a68@collabora.com>
- <20260408-rock4d-audio-v3-1-49e43c3c2a68@collabora.com>
+	s=k20201202; t=1776292313;
+	bh=usjqRhUrHdefvg550NoYkdLrbpoiUwaN7du2pNz9Hfk=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+	b=RgPGHcG7qAh3Bm8lSOD0W1RTlWds35ZM7iCvHAVan/F0bxi5KjXOn14BpCMHdLTYm
+	 MnM1nW03Pq8s0gQLoZzGlLYk9YFR94+YdPqh1eI/zmMzkI4kvKbwNYK1WhY8gOQcSk
+	 bImXyxcThqQ17u22HZLrtys2sZzNOmSYiHojjyziivyWExaAbK3bVYS0aoPLYEGzP3
+	 YmdpuQ1BSjJByAnJVErMpOiLlQO6EhyX5YbHZNsGdGG0+skpFMsfRhFdsiTUyPUS5m
+	 o3tikdeBqR56sbjiyt1e82q/CayP2M4xNeBK5EnJxIMZOjoeJ0KeMd7xJ3/jL6p1mM
+	 P7udaw+Ph2+Vw==
+Date: Wed, 15 Apr 2026 17:31:51 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260408-rock4d-audio-v3-1-49e43c3c2a68@collabora.com>
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>, Ryan Chen <ryan_chen@aspeedtech.com>, 
+ Joel Stanley <joel@jms.id.au>, Conor Dooley <conor+dt@kernel.org>, 
+ openbmc@lists.ozlabs.org, linux-aspeed@lists.ozlabs.org, 
+ linux-gpio@vger.kernel.org, linux-clk@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, Lee Jones <lee@kernel.org>, 
+ linux-kernel@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
+ Andrew Jeffery <andrew@aj.id.au>
+To: Billy Tsai <billy_tsai@aspeedtech.com>
+In-Reply-To: <20260414-upstream_pinctrl-v6-1-709f2127da33@aspeedtech.com>
+References: <20260414-upstream_pinctrl-v6-0-709f2127da33@aspeedtech.com>
+ <20260414-upstream_pinctrl-v6-1-709f2127da33@aspeedtech.com>
+Message-Id: <177629231003.934121.15016914373469082341.robh@kernel.org>
+Subject: Re: [PATCH v6 1/3] dt-bindings: pinctrl: Add
+ aspeed,ast2700-soc0-pinctrl
 
 
-On Wed, 08 Apr 2026 19:49:39 +0200, Nicolas Frattaroli wrote:
-> adc-keys, unlike gpio-keys, does not allow linux,input-type as a valid
-> property. This makes it impossible to model devices that have ADC inputs
-> that should generate switch events.
+On Tue, 14 Apr 2026 17:38:59 +0800, Billy Tsai wrote:
+> Add a device tree binding for the pin controller found in the
+> ASPEED AST2700 SoC0.
 > 
-> Replace "additionalProperties" with "unevaluatedProperties", so that any
-> of the properties in the referenced input.yaml schema can be used.
-> Consequently, throw out the explicit mention of "linux,code" and extend
-> the example to verify.
+> The controller manages various peripheral functions such as eMMC, USB,
+> VGA DDC, JTAG, and PCIe root complex signals.
 > 
-> Suggested-by: Krzysztof Kozlowski <krzk@kernel.org>
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> Describe the AST2700 SoC0 pin controller using standard pin multiplexing
+> and configuration properties.
+> 
+> Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
 > ---
->  Documentation/devicetree/bindings/input/adc-keys.yaml | 17 ++++++++++++-----
->  1 file changed, 12 insertions(+), 5 deletions(-)
+>  .../pinctrl/aspeed,ast2700-soc0-pinctrl.yaml       | 170 +++++++++++++++++++++
+>  1 file changed, 170 insertions(+)
 > 
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+My bot found errors running 'make dt_binding_check' on your patch:
+
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pinctrl/aspeed,ast2700-soc0-pinctrl.yaml: patternProperties:-state$:allOf:2: 'then' is a dependency of 'if'
+	hint: Keywords must be a subset of known json-schema keywords
+	from schema $id: http://devicetree.org/meta-schemas/keywords.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pinctrl/aspeed,ast2700-soc0-pinctrl.yaml: patternProperties:-state$:allOf:2: 'then' is a dependency of 'else'
+	hint: Keywords must be a subset of known json-schema keywords
+	from schema $id: http://devicetree.org/meta-schemas/keywords.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260414-upstream_pinctrl-v6-1-709f2127da33@aspeedtech.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
