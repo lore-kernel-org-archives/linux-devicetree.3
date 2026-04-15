@@ -1,103 +1,165 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010007.outbound.protection.outlook.com [52.101.228.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 829251F2380;
-	Wed, 15 Apr 2026 04:52:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776228771; cv=none; b=GmA1XOvDphH0/JSYaXLLWZdXEluldsvSQYlKyQCxNFr++NLu8BOy63Eu/zHS0FxaX0LYeV19lNHiEniH592sYLKgx+AyNlRMMw86NpfjeO6as4g/o8aBdmVn7u+JZU1xq+hoMFTHxU80osV/TUp0P6aSeizdCyD6NMckyvYq72Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776228771; c=relaxed/simple;
-	bh=wE54XjqV/Mc+zVuNbW4dmvSFEl+O6H8mzJLili8gt8A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=vFMjzKzVjgXTz7kNEAbvsW355A03q2mu7/MD25ZtUnl2sK4arGWlo0VovufUYnmU3FXmHhIc0In/HBuSh+zTaWhs+yZd0C7ttgCi8BQrw0Rq+N6zmq70+ICbi7CmDHHlmWBeGyNoiYObGeYFeNn+q+hWyVoZL+n9jJnwD9i4y5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=B01rwa4w; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32FC729E0E5;
+	Wed, 15 Apr 2026 04:55:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776228933; cv=fail; b=THZBe8PW3xjU25+8++fyzC+fy2vtDEEI7N1v2KhiPGvRYCjAuENiFDCrj4ujDaoLymnV5r4OFeeKDqRji57kTv8YjCMLBALmsTW5qwxgRU5mnMw+XytqCEzqe9cFj6jZ5quEUH6m9sjtVP580BOJ1N3RaASL4V9z24007RGPZKw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776228933; c=relaxed/simple;
+	bh=8J3wYHT5i7ueYMtomfVKTw/1Y2/esIgFaLnxO55p0Pk=;
+	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=fC4pRS6w/IJFvKmIy+KsM541bY2/fldCzBX81uW0zSyPndPg5R1O/h2qMtpqGbGx7fJqlraR/whEZf2cujLpuvZTqDAlgHJZ8A4XD59DUVZJUj8a6t+c5Y25lYlMOpLc1MoOtym7jrIU8CrpCTacVqR31F1zME5QGejlKIjFpDE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=RnVy93lH; arc=fail smtp.client-ip=52.101.228.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="B01rwa4w"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1776228770; x=1807764770;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=wE54XjqV/Mc+zVuNbW4dmvSFEl+O6H8mzJLili8gt8A=;
-  b=B01rwa4wQSD7qkqcBQTSrjoZlxADXe/fIudzQaxv7lUzco6Az3xhiR92
-   RH8p65fQaDmG6fxaU8g1o/eJebiNak2uQsiT+nF5ZY78FTrISFElZ3C/o
-   uPJyRb4ojXPsEZO/n4FY+P5IgCYzyUKJ+PuPeiHYi6J7CmAODAsunkNFc
-   MxV8ENPjB1i6Idd8t2GTB+SkImpnyy6jgSGrRTxb31L6IAkqefXDar77e
-   QcQlR5GFloStmchQfzfa/lrdVGHNQVD9nMSCZgh673dOk7tI6CsZ1t2+x
-   52dRuyYYfr6OU7lpNJEzAO0cZFS6ueO6sokdbJazWycZnXy/qwgtD0GGe
-   A==;
-X-CSE-ConnectionGUID: mY+Fqw5KTCKV5JojZHjxZw==
-X-CSE-MsgGUID: 1ZVbRtdUSJ6nVgeFmC84uA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11759"; a="88578476"
-X-IronPort-AV: E=Sophos;i="6.23,179,1770624000"; 
-   d="scan'208";a="88578476"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Apr 2026 21:52:49 -0700
-X-CSE-ConnectionGUID: OsfhTPXvR5uTKLN7asx5+w==
-X-CSE-MsgGUID: 8xxbdzCjSCOYaFK3TnYcwQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,179,1770624000"; 
-   d="scan'208";a="225601433"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost) ([10.245.244.34])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Apr 2026 21:52:47 -0700
-Date: Wed, 15 Apr 2026 07:52:44 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: "Torreno, Alexis Czezar" <AlexisCzezar.Torreno@analog.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	"Hennerich, Michael" <Michael.Hennerich@analog.com>,
-	David Lechner <dlechner@baylibre.com>,
-	"Sa, Nuno" <Nuno.Sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v7 2/2] iio: dac: ad5706r: Add support for AD5706R DAC
-Message-ID: <ad8ZnOZ_mmx5I6BZ@ashevche-desk.local>
-References: <20260410-dev_ad5706r-v7-0-af93a4caa186@analog.com>
- <20260410-dev_ad5706r-v7-2-af93a4caa186@analog.com>
- <20260414195400.60d39158@jic23-huawei>
- <PH0PR03MB6351E875581B45ED279785D0F1222@PH0PR03MB6351.namprd03.prod.outlook.com>
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="RnVy93lH"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VzHBVeNjMiwmQgJ/lIsnUjC829yyhg2I3WnwPugmgBvpSaEm+AttBGG4Ux8LfCTqmrPktfS6JOafHhkPKPl24R767KaEY64MPZCH+j0UzLO473AryRzVHqpQ41X8BD8EsXSg/xELjkNU69OJ9NjqBZ0JKZWCL1nIV/KXE82mRmy2prvMdLlqvkR6Y9+VzHgMF3cS/yuCfHH1bHBN+5Rr3abKpcd5dplRbgb6ItmCh68Tbrshqu162vhE7wApFAGGw0AGhcbNGHA/cTqTWQ+x+G6ei2fcm2O99QsV74XtZqg1WbkQYGCDNUcZJ8ZkOs0TYlJC9yHsE0mlgVX8wWLtlQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rxK1LkTNOU2uxjodhqdmaa6VuE7Z68aYPNOPhLIDcK8=;
+ b=cQ3y6mdIKLDBwEfBN07DCcux755Zo4WgHm+8S9vPgcEIQli9fwukrE4VnvxEQYoqBP20F5W3wRRgIV7OSIO2mw4OHM1uET6PNcl7XlQXtWE2QS3GhRhxE03OQ/0glLLduLgT/Mvu9/4VCg4I6tYzMSKK9KZ+iykt/jWMoq7AGBBJEHLeGZB4sr4Bx0bcBsz7B5wci4jLFQyIF6hHkGDRO3sAyv+1htoKJfVRID5YpyNw64z90QuPWMFmR/XQrgs7t7NvhR3l8ckPvKpYj2e3ZbmyZnL6ftlykQvbqZlLKOwOm8j4XbKCbqp/Y9Fp5nzhd6DJrtHbFLEMB6lMoVge7A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rxK1LkTNOU2uxjodhqdmaa6VuE7Z68aYPNOPhLIDcK8=;
+ b=RnVy93lHat7AGDa+kWr91RXDSudzaP99QpBcxTnOEPnOoZef4+TCRFZaiuvZIXNSTAMY48nG/l5Pt2uh/UlOu0UXgMBbjXJng97A/HBobGDqP2d14U5ELPScp2UFhlvfxtXl7oAdD0Kpdt0au45enJucGWV08FK4PqCvy/Ynh/E=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from TY3PR01MB11797.jpnprd01.prod.outlook.com (2603:1096:400:373::8)
+ by TY3PR01MB9856.jpnprd01.prod.outlook.com (2603:1096:400:22a::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Wed, 15 Apr
+ 2026 04:55:28 +0000
+Received: from TY3PR01MB11797.jpnprd01.prod.outlook.com
+ ([fe80::1868:c915:c230:a383]) by TY3PR01MB11797.jpnprd01.prod.outlook.com
+ ([fe80::1868:c915:c230:a383%5]) with mapi id 15.20.9769.048; Wed, 15 Apr 2026
+ 04:55:28 +0000
+Message-ID: <87wly87rgg.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Bui Duc Phuc <phucduc.bui@gmail.com>
+Cc: broonie@kernel.org,
+	lgirdwood@gmail.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	geert+renesas@glider.be,
+	magnus.damm@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 4/6] ASoC: renesas: fsi: refactor clock initialization
+In-Reply-To: <CAABR9nERzKW=2vZTWNuTcjz4KuVyc+eaCKBNP6ZGb4UAYw3qUQ@mail.gmail.com>
+References: <20260413100700.30995-1-phucduc.bui@gmail.com>
+	<20260413100700.30995-5-phucduc.bui@gmail.com>
+	<87qzoipdo4.wl-kuninori.morimoto.gx@renesas.com>
+	<CAABR9nERzKW=2vZTWNuTcjz4KuVyc+eaCKBNP6ZGb4UAYw3qUQ@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 Emacs/29.3 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Wed, 15 Apr 2026 04:55:27 +0000
+X-ClientProxiedBy: TY4PR01CA0097.jpnprd01.prod.outlook.com
+ (2603:1096:405:37d::10) To TY3PR01MB11797.jpnprd01.prod.outlook.com
+ (2603:1096:400:373::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <PH0PR03MB6351E875581B45ED279785D0F1222@PH0PR03MB6351.namprd03.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY3PR01MB11797:EE_|TY3PR01MB9856:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3d1346b8-f0ee-4ec7-dfc8-08de9aab36b2
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|1800799024|52116014|366016|376014|56012099003|22082099003|18002099003|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	lm3DDOmpw/juqDeT/pC7cldVWPXLkBIHiNENAsWR6RqU6HwZwRAyjPcCFymvifUoLhyu6cwpqmw7ahVn/cwBqc+AFSVQQH6QVopK55s+0vhZ9WAfXGcTDasGNoIdkn5h1P5zR51I4011reVuJkpYuXp9WbGE5H6gpaqeKYWj34m27/s/iwnDNamUwLi3kJF/PJZ7WWMmyD6n6kPtRL0Ri709cvCOHG7WpdloQoPX9fTZ0QcAPY0OFh4geyOTov+Ayu9LapaqTzglVxI79jIIYgG2Uu5euaUIv3Tb0y09sgyPGv8HfYfKf2E8zgoPhBZ9sp3wxdbTkp/8q7bQohZVu1+gQnboxYjiFabQXMNmqsy7/llm1viReRsbIz+coFhxSUF/GcwH+P34Y941haEi9aigiBHY4CF2K88pn1fg5WM/FGRKSj0rVHrW2EEphmE6nAaD7XHeZ73uQM/TGiEDruru0bP+Zkv832AyzrS7FpKDPns9iAeg5eDIfjnf/L/RE0BtQOQKfF2Qy7qdm6QMJQEIZ+xo69Fl6hFLuA8IcfLZmkIBcW+lOhwdt3VExBPs3mPQ82FouURxWMIMtkrRr3A+wpiVbvopghvqgFW9Ag7EYgUGd+kG8TVQiO40XkEZEx7FhRiAT/iDiRV4m8eYhEgvtX5Brg7HADDElfyIN+2kD5QTjwscYedPHYzcHI4wQ71IWTu8Z/OsOAexmNa2z1YJEyMr8lhZhqjBCMniFoX+dj2n4PAzEX0vFjh2O8H93wIFiP6DdwFgoQl7WcMCS3vwdJ79LNGh8N7VpfSGN54=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11797.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(52116014)(366016)(376014)(56012099003)(22082099003)(18002099003)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?KEXkdkauvnChlyaf+ctUNMq/twxJ0yq+tkmzmMIqGTqJTlKOv3rrSMEqEL9O?=
+ =?us-ascii?Q?6c4M1q+QRZVFYWQgUHeVoSMOMhKwRDDOY9gYerG46Cxsk9ZmPbeYmzAdhEu4?=
+ =?us-ascii?Q?cPD6q8nxOnKBEEqMhGqYoiZZRUExnge4QHnfqWWhXZMWbIonOKdzj3koMtdx?=
+ =?us-ascii?Q?KE1O3UU2rDglNHc8oafBo9qyRvODfa3C9ud/5H/UsHHrfAYII29gftpCVAht?=
+ =?us-ascii?Q?Ov03XURNcqs1WeUbf2T+t2a/O+92/ViWCaRb7iPbjhNIXyzFyauAAi1l/weY?=
+ =?us-ascii?Q?tZJ5NypetiI0ONeDT0d1sXdYWSzQZpd6MkxQ6UtkCZRucHKgKi7S3jvCsxZc?=
+ =?us-ascii?Q?Cj85QCpaVtp97cGEnlUEhIEUShQ6PW0+e45VHNWrmC3R52y1lRHIlmZJEL1W?=
+ =?us-ascii?Q?2IfeXKKPaP0/NP2Cs7ZuI99WykSeS4ebyKgbftwwHgdv24GaP5IsQXe0+GDc?=
+ =?us-ascii?Q?ibcA3FqB+Ki7mtqIdPmdAbbxwSIDsl8G77DBr7SgWgKvsTZoK4zBRXOqr02v?=
+ =?us-ascii?Q?TtLjf75MxgMVNck6uX+/ku2mgDpYOapRz0bmGheIB+9f59ENHkyTBpHoTF8u?=
+ =?us-ascii?Q?n9tBs/GbIyfiXE0kU8o+xG2hu1bnm7S9+jSSxyWDEcNOlyTKmQ18ApPFy82Q?=
+ =?us-ascii?Q?76yLrQ8OhH0neOIHD9IsMtXwx5mCUASt1agW8JolOMgHK+fBwWZtxt5FTDfy?=
+ =?us-ascii?Q?Iwjas0YAZ6Uj7OYpcVd/YnU4KKVTH64wdBHxdxBoOgKCzaidPFvHcv6Q6LZ/?=
+ =?us-ascii?Q?Xo8nRR/+YUMLNrqfRuqubg/X51wtlRsRb4tDApGqZ773i/XeTxMtaLxgSF5k?=
+ =?us-ascii?Q?0eB8hFc5UoZ9WycCrhnWBBy5pX07TYGlhsda6udgT7Rzu4oIHcPnZm+jjamf?=
+ =?us-ascii?Q?WEcenRBwtARFV+VcWdZVs8aZ3IBoXcwpwFvsYiMQZ7iLWVYvoyFP072B5U+H?=
+ =?us-ascii?Q?NkakaaPDxlE8qlYr9zqXwAZON/0FS1kZZ0d0XjzEgm4UlR9ayp5BnkE3mWSJ?=
+ =?us-ascii?Q?G8oxj3SC/GlNs44RTDwdM8WNmdUq832Xh5GyOVsQkeNEnHNngda++qzoboC3?=
+ =?us-ascii?Q?in69gg70BW7YyjokTU0NREM8azHPSdxknIOVhnDnD55G16Z+34mzvloRt4AW?=
+ =?us-ascii?Q?JLv0jq0dDx0ZOQp/Eaiai8gwml1IiNYujAmqOXg7FD6TD6Gwy9iwqyhjoI1n?=
+ =?us-ascii?Q?odtsnHpmJm6MI/hHrV8iOkUWDzWnWFbilPer0dnj9DHaet0mjLwuPvz7evE+?=
+ =?us-ascii?Q?pw3x9yO3Usg9Jv3OWx/FUDF6ekaP1xmUJrkqyVKUuLgjnCkDfzFd13KzOhws?=
+ =?us-ascii?Q?iZ5hda66wKCd34X1Xz8GXKXIZYZInp+xLfsbcn8Axx/Du1vMGFiZuZ3XQSNv?=
+ =?us-ascii?Q?gu4z+46dZML6qWZwpcnagk0sv5iekJsAZj6tZT0Y5Ebfgw/LRjhI0t9Gqr5a?=
+ =?us-ascii?Q?Asvuxot88AVQUR4ybqeI0UV8tvM+nuhAejdMHFEock9qTHBfuePBmEfMZDA0?=
+ =?us-ascii?Q?gBj91asaL3T6m7O8RYRoVcD54PqaK4RCBgzRiPTBMwJtPCB2+vY2jukRATJr?=
+ =?us-ascii?Q?3NtGpGCp4/RkKoofM2zaJSRzXKx6fo97tqL7O4SHJuVTjCBrgmZBJn90yp0G?=
+ =?us-ascii?Q?8QyBJuC53STuJM7NHM9+AEaS9jcQpA8+Gp3JiGtRf4gmbkzLwHUMngB0bEN3?=
+ =?us-ascii?Q?dVE5ECWYZejfdIutfSKSWW3/g3/Az1vvq9lSZMOUrenYgWh8NT/E3cj7omQj?=
+ =?us-ascii?Q?PsXiuUiWw87zfGAWNGfV3ytRBLEnehLWng0E96vuLiHEiq9zuPQy?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d1346b8-f0ee-4ec7-dfc8-08de9aab36b2
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11797.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2026 04:55:28.2785
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MCor4X8ALzkITcaSgvzSySVpbKZ5W0Nm8GbYkxP6iDZ+2is3VxBjiar3h8lTIpoqTM0g+cY/shhEElSZ/rcot4mXFFezABdWQK6yC5cTb4MVY3WL40av9i4kDxkPAIJf
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB9856
 
-On Wed, Apr 15, 2026 at 01:10:09AM +0000, Torreno, Alexis Czezar wrote:
 
-...
+Hi Bui
 
-> > > +	case IIO_CHAN_INFO_RAW:
-> > > +		if (!in_range(val, 0, AD5706R_DAC_MAX_CODE))
-> > 
-> > I'm not seeing a strong reason to use in_range() here (hopefully I didn't
-> > suggest it in an earlier review ;)  It make sense when we have a  val >= base &&
-> > val < base + length. With base as 0 and MAX_CODE not 'obviously' from it's
-> > name being the length (it only is becauset he base is 0) this seems odd.
-> > 
-> > 		if (val < 0 || val >= AD5706R_DAC_MAX_CODE) Though see
-> > above on MAX_CODE not being the maximum code...
+> > I have mentioned in previous mail to just move fsi_clk_init(), but why do
+> > you need to move it ? It works without any issue without moving function,
+> > I guess ?
 > 
-> I think around v3 Andy suggested the use of in_range, as the function itself helps
-> document what the line does. Is this a style preference?
+> I moved fsi_clk_init() below the two functions fsi_clk_set_rate_cpg
+> and fsi_clk_set_rate_external because, inside fsi_clk_init(),
+> I assign these functions to clock->set_rate. Moving the function was
+> necessary to avoid compilation errors.
 
-I believe it was me, who suggested that, but we can open code it. Indeed, it's
-just a style preference in this case.
+Ah, OK.
+So the patch 1) moves fsi_clk_init() and 2) update it.
+It is including many features in 1 patch. Please separate it.
 
--- 
-With Best Regards,
-Andy Shevchenko
+One note here is that /* clock function */ is for all fsi_clk_xxx(),
+so don't move it.
+
+> > And why you need to call fsi_clk_init() twice ?
+> The FSI controller has two independent ports (Port A and Port B).
+> Each port requires its own clock resource initialization and configuration.
+
+Ah, yes indeed.
 
 
+Thank you for your help !!
+
+Best regards
+---
+Kuninori Morimoto
