@@ -1,146 +1,216 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010018.outbound.protection.outlook.com [52.101.61.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64149344DAC;
-	Wed, 15 Apr 2026 14:50:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776264618; cv=fail; b=cm0Yt/M3CilZVLJzCKdbr55XnDhz9hp+3ckrFl+GW2V3iLal8i1NVO6G8/6MxLK/6zz7EBcEPhNhoVG4mvZT8Y2oqoJ1ToPP96dT+nj0n1TnPCjMje7pJUDuultzEed4GgT4e8svIZ3M7w5JTV/KFgnd6soA28VklhYQx70bCzY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776264618; c=relaxed/simple;
-	bh=fcUVuaGi24iIpYzK9BSKVCk/Euj0NUZc/IMpwAipdPA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=QsOasOldfT5Hqdlk+HXgZIcRP0+rCXFPsdmopXKm0VPtON7kfjnI0T+UHef7c2mWec9fek/42gZzpeIyZ8vm0A0rufbQt368SxJOo8TZ+4nR8h1SepYNiMVt+Vx7/HVWg6Uk1aHSZ2mbCcv+s1v6XKmfGD8ckyl2qhB2LgQrnvk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=KVE2GMlI; arc=fail smtp.client-ip=52.101.61.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63B4D3290A6;
+	Wed, 15 Apr 2026 14:57:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776265029; cv=none; b=tLmfw3JttcZZhZCaLR1HdCO55o0j86nf0HIQZJOOMZn1EDdM8cLSoTafa2AcXp2JdlctyTNEJrBeRTmB03NCKk5eXb27recVWOCSJDJDgDipJ87v7OxfTA1UvxsVte5xxM/W+spkx2jZ7qMImYSUJ/iRKohzjyrClHR52S+HxvA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776265029; c=relaxed/simple;
+	bh=1S2kdSoru/ifNvwgwwUu/EShTTtvBQkznTzuC20u86I=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dKd6O9rUDcbdDc4wOwby9ZSxZ/4rBKBKFVqVwXF7FQ49NrLQK0wCZpn7Eeiqom/LVRJlYC5wuPfS4hAxA4VjfWHCh74fPnqB6k7OvoAarGOu4K0NlaE/j805XEbBzKQP+8U6LIeePkEDNjVjxZ6f2kzodDyZNh7lK/jO6Oo36W8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=odMVGQ2n; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="KVE2GMlI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cpcaue15rO8ziYo5svBPipJHGc8MDgGQqbQEFmFGZVQ24i7gaDKAxoCIomoRRYEQMx6bTdqr/g8ljr+XuHN7L5L+kEDcPIqOwAaeSYT3vLIV+20ENFaRsqAcwyBVShlln/+0sCPWaLcccAByHhar8QWoLe7d/ucbiWUN9FipBHAxPvcgDWR/eyrqAeeNTICvWCxMjaog6XF219HYo6LqEmTDjssk3Ek+lV40zHHit/auAQhs52DnApSzfhfdy5iAlvmOnjJp2GsIk9NGePz6v6ObtsOiyZvzZiy2IYVEJI5lieVQ+S2dfl5BCyPYC5o1wcpnd/s43+2D04M4IOEYTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pRyc++YffsL+giojdmkCUrxcM8RaPSGgMZnbMSgK9M4=;
- b=rsRmydeINPKC5U2DoLZqafZvhBozTdHoKhxMoqEJxRDHYAxh/jqrTA4O0gdTT/GpYQnsPSkYRvfH29XseWO/RRYddvRYXIzRtNBElBw5gaKfv/Dr+rJ0PcphYaMsGaUhyUi/GMrCibWAYqaMaNuzL6p4nhamwpVs09jxKhmEp5XPhIdbtXTrWIrHDVhmHZZiFWTk18iJV7JDT4MMrDrqkuf4/RPDKL9L/iKer92efXL2h3O89dDsmsFbNVj8s75qbXMtDetc0YEgF8y6KuMk8jmQDzaK30NRlbhQHgYQRXP4c2sGF9z+SG68tEwtDLrL7RvYABGRsOBZRe/EGhG99g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pRyc++YffsL+giojdmkCUrxcM8RaPSGgMZnbMSgK9M4=;
- b=KVE2GMlI0DnlyMiS7Vb8tbaOMsOor8GyPjb0HwYhh7mcfz+UTBl3F2dWItH+K3X+kpH8oeizDbYAbXmfmENaJxfP9s6XbBIf4p8M+LLcCGRGh+nEIjFsXA/h4ky23MIpfwVkSk/UkJuA4f+U73bOtaLv1UMk/D7Yo5r2+QPHI+M=
-Received: from BL1P223CA0023.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:2c4::28)
- by BY5PR10MB4146.namprd10.prod.outlook.com (2603:10b6:a03:20d::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.21; Wed, 15 Apr
- 2026 14:50:13 +0000
-Received: from MN1PEPF0000F0E3.namprd04.prod.outlook.com
- (2603:10b6:208:2c4:cafe::24) by BL1P223CA0023.outlook.office365.com
- (2603:10b6:208:2c4::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.49 via Frontend Transport; Wed,
- 15 Apr 2026 14:50:12 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- MN1PEPF0000F0E3.mail.protection.outlook.com (10.167.242.41) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Wed, 15 Apr 2026 14:50:11 +0000
-Received: from DFLE211.ent.ti.com (10.64.6.69) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 15 Apr
- 2026 09:50:03 -0500
-Received: from DFLE201.ent.ti.com (10.64.6.59) by DFLE211.ent.ti.com
- (10.64.6.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 15 Apr
- 2026 09:50:02 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE201.ent.ti.com
- (10.64.6.59) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
- Transport; Wed, 15 Apr 2026 09:50:02 -0500
-Received: from [128.247.81.183] (ltpf5gwk6l.dhcp.ti.com [128.247.81.183])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 63FEo2Ex2410563;
-	Wed, 15 Apr 2026 09:50:02 -0500
-Message-ID: <fe21165f-e253-4eba-b039-4e82c6f90f93@ti.com>
-Date: Wed, 15 Apr 2026 09:50:02 -0500
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="odMVGQ2n"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id B7C594E429FE;
+	Wed, 15 Apr 2026 14:57:05 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 7D7B360420;
+	Wed, 15 Apr 2026 14:57:05 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A90DA10459FC4;
+	Wed, 15 Apr 2026 16:56:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1776265023; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=wNrWnquhsR0dlE0WJjRS5Whb5Pw+B2YUuFT6hABZVPw=;
+	b=odMVGQ2nxDTLW1G3zgpTCupAd+WE2qFmsXEHoMqdccBJm6+seTVkYni4wkvFut2s/DTE9G
+	rQgJl0iu49WoTtlt1D/ZKPek9XtvZcEmNB9JnLU3j86MKSmxk0y1H4eOFoLP4pJQsWK0+w
+	LDUa2pRoeccJ5yO0iFUiIEbEnbUiIajUOclrFN+JeJ62x/Xy4nqUEFN9xkXGH+zLdqVXtx
+	kehs4bdgRvsag91OXjg4XIBY8DTEtrZvQr4puEi8w9yA6S832dhmPp7KfxTskDf4t6OHwQ
+	pnPSy6MjhtDRs2iRsgVjZI0ToOQtgYM1i8qxDLRKg3x0iefOJqJW241JPYnlmg==
+Date: Wed, 15 Apr 2026 16:56:51 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Manivannan
+ Sadhasivam <mani@kernel.org>, Manivannan Sadhasivam
+ <manivannan.sadhasivam@oss.qualcomm.com>, Rob Herring <robh@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
+ <jirislaby@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Nicolas
+ Schier <nicolas.schier@linux.dev>, Hans de Goede <hansg@kernel.org>, Ilpo
+ =?UTF-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Mark Pearson
+ <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto
+ von Dentz <luiz.dentz@gmail.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
+ Bartosz Golaszewski <brgl@kernel.org>, linux-serial@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org, linux-pci@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-bluetooth@vger.kernel.org, linux-pm@vger.kernel.org, Stephan Gerhold
+ <stephan.gerhold@linaro.org>, Dmitry Baryshkov
+ <dmitry.baryshkov@oss.qualcomm.com>, linux-acpi@vger.kernel.org, Hans de
+ Goede <johannes.goede@oss.qualcomm.com>, Bartosz Golaszewski
+ <bartosz.golaszewski@oss.qualcomm.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH v7 0/8] Add support for handling PCIe M.2 Key E
+ connectors in devicetree
+Message-ID: <20260415165651.153b573d@bootlin.com>
+In-Reply-To: <CAGXv+5EPA29G-fsH=wWOD8AK6TZFezFhsE0NHPYj_Pt3nT+d_w@mail.gmail.com>
+References: <20260326-pci-m2-e-v7-0-43324a7866e6@oss.qualcomm.com>
+	<20260413075459.GA2626902@google.com>
+	<fpcs4p62f35a5qyqwgm5ysa73stbysxcr62tkmmkrrcvsuf4t4@4ivukyqjey57>
+	<eeytuhqpgdz4do4tgtbmfntub2femtyq7bij7svhodpyjwaylx@j3gmvq2a2zqc>
+	<CAGXv+5E=tujhtZjwi6Qm7hk3Ks74UzTQHWq82NiTEw1+vYod5g@mail.gmail.com>
+	<ad36pIu-0dutL7Nk@ashevche-desk.local>
+	<CAGXv+5EGe59nJctLweEdZjb3MNmMvjuCHngGSfptzN985OiLdg@mail.gmail.com>
+	<ad4tJN27opdEooA7@ashevche-desk.local>
+	<CAGXv+5EPA29G-fsH=wWOD8AK6TZFezFhsE0NHPYj_Pt3nT+d_w@mail.gmail.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/4] ASoC: codecs: Add TAS67524 quad-channel audio
- amplifier driver
-To: Mark Brown <broonie@kernel.org>
-CC: <linux-sound@vger.kernel.org>, <lgirdwood@gmail.com>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
-	<perex@perex.cz>, <tiwai@suse.com>, <shenghao-ding@ti.com>,
-	<kevin-lu@ti.com>, <baojun.xu@ti.com>, <niranjan.hy@ti.com>,
-	<l-badrinarayanan@ti.com>, <devarsht@ti.com>, <v-singh1@ti.com>,
-	<linux-kernel@vger.kernel.org>
-References: <20260409220607.686146-1-sen@ti.com>
- <20260409220607.686146-3-sen@ti.com> <adkC_fNHcpRA_ffo@sirena.co.uk>
- <a0f50798-3293-4b2b-8d9c-7a85fce9e8e7@ti.com>
- <dd740c4c-e0bc-4140-961d-6c6c604a594d@sirena.org.uk>
-Content-Language: en-US
-From: "Wang, Sen" <sen@ti.com>
-In-Reply-To: <dd740c4c-e0bc-4140-961d-6c6c604a594d@sirena.org.uk>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E3:EE_|BY5PR10MB4146:EE_
-X-MS-Office365-Filtering-Correlation-Id: 700f701d-52fe-4e02-cc1f-08de9afe4bd0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|7416014|376014|1800799024|18096099003|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	eTGTa7cCXnGIQoOogsATKX/Xw4pq8ES7oZBJIv87NfK/PaDVN7DGXA8dNNptnYS+vnrnjRLR2YbSB04GAmlpFMSow2BenF5HcnYy4WotMIXDciGpbSGn+IOSnsdbE7iRgJ+sPNcwvJYktyKrNX3tl3IueMiJc2zA6dQ1Ymlj5EryClWWajlHqJYbp97KPfnuN9UI6hSPCKMo02FafUJqh4STnh9fHOjJvKl7O87Fx9tRa8hwbc0OjniKxS5zCk0AXQBuikeHJV0ZxOJXn2NuMtWY6DaASP3jjjoIBcmJS7oyterKyodXYXB2JW4V/CniuvITYRX+QmUEApG8K0c/UnI/aulORq6i/1DjM/+zvNMQs27EtzESsRood0hWBztSWr/0ihRZDnP1Ow+WwymHo/U5hNar7R/aCs0mxXTb219faTiDMYe4m2wZOHxcbHDKLIzHFVX0m7hRb0tqfFQ66QCZWApcIR3WY4RsEv4npPzbQaw2PlUnS2uRn83cKiWkYA1E90oNnpdVBfHp999F9V/QaNEks4eyDpa+3E+uawIOTJ4ueGrAd4iVnL7N3nvJVUATD1snYJrdVF7hPWvGcL66z+tlS1RfjmnnZUbJYELWhGAfyu0pu8bghBt6fhIWEeHUzylpk126fBaSA8qHJcjKUh7pqU4bYkaR7bBXschiudS1D55AfLccwV3jUjq2232nR5ptOEeqSf+Uze3qbBHB78b0sYra/J+1AX4fb/2dIjuTa0Oy1a+HWyLmU+xuxxcKLS9ZpxIMd+lGTz+lzA==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(7416014)(376014)(1800799024)(18096099003)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	VmM/vlgUUkp5kyCuZgKTYB5zvOVoyQdR0c1nfHf7bAnA8GgnoPembHN/5Doniam0J6Koic3NIZByU29RdcTJSNTcl7Qv17uiFqR95t+ogCbnAv/GAh77mAfbTj9/GFCAQOy8b4eZUv5Od+6TV/sZzLS8FkpFDMqklJJLfgfRYzH1hCTnuAL+s6qNxyU7amdLkqxLzBWwKpsD7sb/Aj1143ZMDAUuSwHhufaCyhk5JxNs0oH9p6+Tx4CXdkZTmgNE5WOm2/OxUCCb9+K0oCOetJy94cYP2MqXO47388shdZKSfMchNRMCC8vdwwKMBwdg9+XH5oXyoMY/1tugz5Y1hkEl5hUkiJqh1GZC9s9sgHXaDuHy2ZrweTPFhXZMvK0VKMNBhRU1s1WEmUJW2AxC3D9CtkFPMewrNOPoZsKl7T9lh4+XCRuOqO7+K6p6J1tQ
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2026 14:50:11.6824
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 700f701d-52fe-4e02-cc1f-08de9afe4bd0
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000F0E3.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR10MB4146
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 4/14/2026 1:08 PM, Mark Brown wrote:
-> On Fri, Apr 10, 2026 at 12:56:47PM -0500, Sen Wang wrote:
->> On 4/10/26 09:02, Mark Brown wrote:
+Hi Chen, all,
+
+...
+ 
 > 
->>> This looks mostly good, but one issue I see is that AFAICT we only stop
->>> fault_check_work during runtime suspsend - if runtime PM is disabled, or
->>> if the driver is removed, the work will be left running.
->> (snip)
->> Do you think the DAPM fallback would suffice, or is the current approach
->> (poll until removal) acceptable given the hardware behavior? Any other
->> suggestions would be greatly appreciated!
+> I'm not arguing for a even more generic "M.2" connector. The "key" is
+> already described in the compatible. I'm saying we should have some way
+> of describing the individual interfaces (PCIe, SDIO, USB, UART, I2S, I2C)
+> on the connector so further nodes or properties can be attached to them,
+> either with overlays or dynamically within the kernel. Right now the
+> are only described as individual ports, but we can't actually tie a
+> device to a OF graph port.
 > 
-> It's fine to keep on checking for faults if there's faults that can be
-> generated, the only reason I mentioned runtime PM there was that it's
-> the only thing that stops the polling in the current version.  So long
-> as everything is stopped when the device is removed it's fine.  No need
-> for a DAPM fallback.
+> But maybe I'm overthinking the representation part. AFAICT for Qualcomm's
+> UART-based BT bit part, Mani just had the driver create a device node
+> under the UART (by traversing the OF graph to find the UART). If that's
+> the desired way then the connector binding should mention it. And that
+> works for me. But I think it's messier and also we're missing an
+> opportunity to make the M.2 connector a standardized attachment point
+> for overlays.
+> 
+> Mani, could you also chime in a bit on what you envisioned?
+> 
+> (Added Luca from Bootlin to CC, as I think there are parallels to the
+>  "Hotplug of Non-discoverable Hardware" work)
+>
 
-Understood, will make sure services (check_work/IRQ) are canceled when 
-driver is removed for the next version.
+Related to "Hotplug of Non-discoverable Hardware",
 
-Best,
-Sen Wang
+I would add entries for busses in the connector without using an OF graph.
+
+For I2C and later SPI, this was is done.
+
+You already have an i2c-parent property but no node where an i2c device
+can be added.
+
+The last discussion related to hotplug, connectors and DT led to the RFC
+series [1].
+
+It is a huge series. The last patch give a real example of representation:
+  https://lore.kernel.org/all/20260112142009.1006236-78-herve.codina@bootlin.com/
+
+In your case I would see some thing like:
+
+    connector {
+        compatible = "pcie-m2-e-connector";
+        vpcie3v3-supply = <&vreg_wcn_3p3>;
+        vpcie1v8-supply = <&vreg_l15b_1p8>;
+
+	/*
+	 * If those GPIOs have to be used by components available in
+	 * the connected board, a Nexus node should be used.
+         */
+        w-disable1-gpios = <&tlmm 115 GPIO_ACTIVE_LOW>;
+        w-disable2-gpios = <&tlmm 116 GPIO_ACTIVE_LOW>;
+        viocfg-gpios = <&tlmm 117 GPIO_ACTIVE_HIGH>;
+        uart-wake-gpios = <&tlmm 118 GPIO_ACTIVE_LOW>;
+        sdio-wake-gpios = <&tlmm 119 GPIO_ACTIVE_LOW>;
+        sdio-reset-gpios = <&tlmm 120 GPIO_ACTIVE_LOW>;
+
+	conn-i2c {
+		i2c-parent = <&i2c0>;
+
+		/*
+ 		 * Here i2c devices available on the board
+		 * connected to the connector can be described.
+		 */
+	};
+
+	/* Same kind to description for other busses */
+	conn-pcie {
+		pci-parent = <&xxxxx>;
+
+		/*
+		 * The PCIe bus has abilities to discover devices.
+		 * Not sure this node is needed.
+		 *
+		 * If a PCI device need a DT description to describe
+		 * stuffs behind the device, what has been done for LAN966x
+		 * could be re-used [2] and [3]
+		 */
+	};
+
+	conn_uart {
+		uart-parent = <&uart-ctrl>;
+
+		/* uart child (maybe a serdes) should be describe here
+	};
+
+	...
+    };
+
+Of course, some DT symbols need to be exported in order to have them usable from
+the DT describing the connected board.
+
+This notion of exported symbol is not yet available upstream and is the purpose of
+the RFC series [1].
+
+[1] https://lore.kernel.org/all/20260112142009.1006236-1-herve.codina@bootlin.com/
+[2] https://elixir.bootlin.com/linux/v7.0/source/drivers/misc/lan966x_pci.c
+[3] https://elixir.bootlin.com/linux/v7.0/source/drivers/misc/lan966x_pci.dtso
+
+Feel free to ask for more specific question if needed.
+
+Best regards,
+Hervé
+
+> 
+> Thanks
+> ChenYu
+> 
+> 
+> > > The latter part is solvable, but we likely need child nodes under the
+> > > connector for the different interfaces. Properties that make sense for
+> > > one type might not make sense for another.
+> > >
+> > > P.S. We could also just add child device nodes under the controller to
+> > > put the generic properties, but that's splitting the description into
+> > > multiple parts. Let's not go there if at all possible.  
+> >
+> > --
+> > With Best Regards,
+> > Andy Shevchenko
+> >
+> >  
+
+
+
+-- 
+Hervé Codina, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
