@@ -1,63 +1,63 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49DCC35C1BD
-	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 12:47:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C9A4330678
+	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 12:47:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776257270; cv=none; b=BOpozAVfLSCZorV3DoaRw/l0mVSZBGelcinrlOd2Yt9ITl1ElXlGUdoB6VSl0jhprqMouDYt23z3KLBA44Lq7trBiGx57f7VLRYWohqpBBoTmWyfIrwCvN8YkPni2LcOSmVgbHz69FBWDvxdbt4Y0d7T2jQn71QV/ptz60OYs0g=
+	t=1776257271; cv=none; b=rwJVfyNdfI3U+MaCvva19JghY6sEYCTTpe1EG1WAEP/F50XHCyh9pDRw5qWfaEdlQvf2yAzztocsRkNilhMOo6FxOjfTOW9LQyia/meXqBsfwraAKLiCnYo7mUrVon/FsKTOKDsqSPm6xXfCjw2Lohth28C924JboyBxVUwDdrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776257270; c=relaxed/simple;
-	bh=jEQUdAtH8yE5mBvf4ytaTJJnGJ58WWs9SMxtTW7gBUg=;
+	s=arc-20240116; t=1776257271; c=relaxed/simple;
+	bh=cHIp6KuufZJKj+9QDEYAC41FG9t4fNq15lb/6RK1zSE=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=W7IodxB3wqD1vvaPxtyFXoHjoqKXzl8DbdSiV51Rux2PZ8esJLkJyl9ky21FXGY0JXDffBnfqTku5LGI/uJWeXzncqOwFHDtdFLZs1BVuajEMicwNiyFcQRZWNHGmyHl1TNsvag/sSAgaDbJ6B2Us0AuY0Poh+ZRI38lnNQT4FI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pOT800eY; arc=none smtp.client-ip=209.85.221.46
+	 MIME-Version; b=i4YHC1sZ5lliK0MEVsc+hFQ87SGL5MOoEJvSmQbzcN4HggHM77Eyj529s77wiQ+49fU1OACUpyeD3g+/BvAXNxEOudm6HJju0SEKtp7oBPii7G0rRuM/ALAuwV873zdLs3IAEPoOWYirltAfHsBw11Nx/6yMpuZ/6Kxi8TTzpJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kGosha4A; arc=none smtp.client-ip=209.85.221.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pOT800eY"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-43d72875729so2427750f8f.3
-        for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 05:47:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kGosha4A"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-43d7badbd7dso1650689f8f.2
+        for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 05:47:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776257267; x=1776862067; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1776257268; x=1776862068; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=bzcOCyQLNmU8cBIifwv6HJp2UvPykwfLFilqam8mArk=;
-        b=pOT800eYk1HANo1s6Jv49cU/Aj3dWRzvCsbG099gjq75vYWtjkC5uzR2/FYYqb5yiI
-         sXWGfI0HMaQ4CtP7Ah06ftVkap+YvMDq2TuEpN8riwTPE0l3joQJwUl0uJF9XQl1eiyJ
-         b0DhiN6O5zrmZVk0NqyxJHuk+O6UJ4bgS+nCa76bmUHjUTju4Sv3wrmDtpRuRb6xC/HP
-         y3B+XtANE1MFDyT5NYEljd49rLst9rNUaTk1mZSJ2VkvPAVXDViakJmqQzU6+bW7u9Nr
-         WogIEhstTcN/OTZidJ28nRiQGLffEd7P1LJbAFwHFbb5eBCtFvStP6/Zq/kSbo6jcSoF
-         qaAw==
+        bh=UBHWbtUtlzPl+OxM8QOAujP59U80OqIWeXAKTEjo1lo=;
+        b=kGosha4A2ROn4iFWCGDtiYyyRFAprmG2r7M8vq09yHHyY4e051cs54O+qcLnvApfwq
+         R+dPnohsjojcxXEnBEulwSyjU1je8xcwRImqVj4il25xRA0te4TKv4YyF5h6C7GtJzEh
+         /8UJSmIt1HmabOFV/FWIs/tP9AisNA3dG2096ed95UwOdgAVnC95zXlp28Nh92Oiqa+R
+         jGFZ2pPWKhx4lQozbOtJ/zCdPZTQomGASrcD+ylKkcvArfSEjEcFIjSEOnCT+wLb8BkG
+         wD+2UnwntTWQvH0lRWhARz+GBbcW4+YB9Izd4FgUlJpSpDqYiDYuZFW/CRQkQNc6LEp5
+         X7qg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776257267; x=1776862067;
+        d=1e100.net; s=20251104; t=1776257268; x=1776862068;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=bzcOCyQLNmU8cBIifwv6HJp2UvPykwfLFilqam8mArk=;
-        b=CYzfA8uUyxvQEd/4tWzw597ljwpVBKUg7uUFq6G8qOzqvprLcyZ72/W1ItTNr5T2bG
-         q+LfyIsq3H4WsaprP3VXtGQYgmBo3D4iLmQwva1+iRK3d54f5HNV0H8Bsqh8fuvqkeec
-         9/BJM5c1UjvJjZwt4+Fw+//I1CB9VphcWL7w98THHQw8Et3oxaK2uIw7kCS8uXp+odlS
-         MQ8sP+SbGYAEGNw/H+tzn5mRXIxTZkMoX8NtMrYRV5P3FmDhLNLDhsf69ujRyRfvqvWw
-         5gVYmDJO60MD9wg50dKdQb2hvXa3luJ8dOCv4UWLW9/SOyq0GY2A7wQ4/nkvnJpdMku7
-         QS9A==
-X-Forwarded-Encrypted: i=1; AFNElJ9Z3BHEMxxOZJWZQ+l6maz+2LRHk5rEYWXmkN8JIob9BXK7DgfBQ5grrVD/HVcajk54okdLJE/mzuOp@vger.kernel.org
-X-Gm-Message-State: AOJu0YyO1RaiwiPOo/MdzDo2jqzUA4XMQZ6y+MtiQwUCMCanti5EdKGr
-	UFsllL5Y2bfSBJQSjyhdDnv9GXzYCK6rkq7j+p4ULSjC6s5K+RdDo7H9
-X-Gm-Gg: AeBDieuDrY5qyvO9aqWzRDUxrWg8fP+q39dh4fBECL3/M3dRTCze6vaX+RS/cg+VehM
-	PyeTb8blvcWMbtS6Ld0VmmRSFmue8KmN8kE08rICxXvvIhjKzcydfn5gQJKIuZrnW6bbTmDKpxi
-	mMXuXWJWb2gBMsHbHuwDLF9tQxEymeeXHT9sfhpwFiAEG97QMs/E1i9Ca7p8DVfp5wbF1I/jTKC
-	8qGJcgIydZoWSckt/B/O2ompzfWhXj2y8ED0uD4zo4ZsZWREpOyBRIvMs8z8MNPSFPf+3Gi30Dg
-	cTkX37K4p+wwJUax3E45O9GslyyEN9UKba/FruNe1J6E48h8xJ9dHdAJiAWvauu4bh2UUc4T4w6
-	8w71Y/lZmTFkmKzMFutYOP5Qmx7N+np0JK8QFHoNZsu0o6QPA6mZt9KYZOLxIWdKAN4EAkB0769
-	xYl4v6AkXpdUGHE4Icf7+3TBCp5fioJr2RCmYcMg==
-X-Received: by 2002:a05:6000:2081:b0:43d:6ff5:3a2d with SMTP id ffacd0b85a97d-43d6ff53ad1mr19853081f8f.10.1776257266466;
-        Wed, 15 Apr 2026 05:47:46 -0700 (PDT)
+        bh=UBHWbtUtlzPl+OxM8QOAujP59U80OqIWeXAKTEjo1lo=;
+        b=rUUODl6Wo5L4/a2yBuqpgOL3g8bqOXlcbLJjG96VOsPcoV+Ioipq4gTxwiuTzys07G
+         BpUPFC1SD6G/mtwYbG2C8vAVNHJ9fcrkYar66ZrGvpEbuPMEW5ybVFxKebOabQ0bBFxj
+         9svpQ1dPyW+Q4dZya8W57BLhFwHzBXjAvnKnxUED/eGyVzXGTWUBNWe+C8jpIIZBNqIH
+         qFEi85nEbDYvWleYaSkIjWivE86vGQCGfA2YCLKxI+vcMg1YZqL5LPoHbJTACwjHnpEi
+         hZN4Gb7X82Putsz8yibrJBNmG81Ma9yKevogMLhcDKHN5jr7CN2TLLTaeZNgyehHgQXi
+         mO8Q==
+X-Forwarded-Encrypted: i=1; AFNElJ9ONsV9yjgBIZptwAPn2+vclvSwN5OREEafPRzrsmc7JN+OFSIMIzl21w2w3/7hYM92t+iUaXLCZZ1f@vger.kernel.org
+X-Gm-Message-State: AOJu0YyzjQqu3pCDIS4g8qRkJj1s0gRUWZjQGW/zqkiih20UxsQ8Jthn
+	OJWfQmBY/ioxgE1qUhSLFgAElk1TSqu4Mnjviep0Y7VMeNhGgmJn9YZl
+X-Gm-Gg: AeBDievejtLYhH9T1GS4qiPSGrHhHaEv4Ig1rs9ZboT9TDqE3m+fe+RII/BEoHInO1b
+	4wzCP0u0i1au213kFO7tx7lGm1WhXRQVI6m/l+xlpqsbnWxe8mIBAZELHA8yhs7tRhD51cd2ekt
+	GPMg4eNL1iPrI2/QKJfENTV3kdjdjHAIEz26SSYcVTBuyYKwIuSK4KlmPS9Ug94XkSY9sO5ngWS
+	YNASuhISbz8eRZeKJAPbemaff5c/TQdSpCD8LIFKbBtcn9tMSq/TgUywag2gw39aWEV34ujC4a4
+	D4HLYwGsF+H+l8r1CcMCebmNqJkE1NuRBZBn8HnrjXs8fLTa8SMXhDp23H3qidrc86JFiSIRM7V
+	FqG4n/1jjF3JFZE2LcVk8765ubTN7OVRpPMi2h77gUKitlu4MGZToqLpqKF2gzIulELuM4CeQUR
+	3OTaq87qDmEAJyjTOV4rPqbyB+g8xQXw5NhGFpow==
+X-Received: by 2002:a05:6000:4010:b0:43b:5095:d101 with SMTP id ffacd0b85a97d-43d642b8e12mr33503201f8f.27.1776257267636;
+        Wed, 15 Apr 2026 05:47:47 -0700 (PDT)
 Received: from localhost.localdomain ([2001:41d0:406:c100::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43ead356616sm5123319f8f.13.2026.04.15.05.47.45
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43ead356616sm5123319f8f.13.2026.04.15.05.47.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Apr 2026 05:47:46 -0700 (PDT)
+        Wed, 15 Apr 2026 05:47:47 -0700 (PDT)
 From: John Madieu <john.madieu@gmail.com>
 X-Google-Original-From: John Madieu <john.madieu.xa@bp.renesas.com>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
@@ -79,9 +79,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	John Madieu <john.madieu.xa@bp.renesas.com>
-Subject: [PATCH v5 10/14] ASoC: rsnd: Add ADG reset support for RZ/G3E
-Date: Wed, 15 Apr 2026 12:47:27 +0000
-Message-Id: <20260415124731.3684773-11-john.madieu.xa@bp.renesas.com>
+Subject: [PATCH v5 11/14] ASoC: rsnd: adg: Add per-SSI ADG and SSIF supply clock management
+Date: Wed, 15 Apr 2026 12:47:28 +0000
+Message-Id: <20260415124731.3684773-12-john.madieu.xa@bp.renesas.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260415124731.3684773-1-john.madieu.xa@bp.renesas.com>
 References: <20260415124731.3684773-1-john.madieu.xa@bp.renesas.com>
@@ -93,55 +93,199 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-RZ/G3E requires the ADG reset line to be deasserted for the audio
-subsystem to operate. The ADG module clock is already managed via
-rsnd_adg_clk_enable/disable() through adg->adg, so no additional
-clock handling is needed.
+RZ/G3E's ADG module requires explicit clock management for SSI audio
+interfaces that differs from R-Car Gen2/Gen3/Gen4:
 
-Add support for the optional "adg" reset control on Renesas RZ/G3E SoC.
+ - Per-SSI ADG clocks (adg.ssi.N) for each SSI module
+ - A shared SSIF supply clock for the SSI subsystem
+
+These clocks are acquired using optional APIs, making them transparent
+to platforms that do not require them.
+
+Clock prepare/unprepare is handled in rsnd_adg_clk_control(), which
+is called from probe, remove, suspend and resume (all sleepable
+contexts). The trigger path (atomic context) only calls
+clk_enable/clk_disable, which is atomic-safe and requires no
+additional splitting.
 
 Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
 ---
 
 Changes:
-
+ 
 v5: No changes
 
 v4:
- - Collapse dev_err_probe() and rsnd_mod_init() calls to single lines
+ - Move clk_prepare/unprepare for per-SSI ADG and SSIF supply clocks
+   into rsnd_adg_clk_control() instead of separate prepare/unprepare
+   functions, centralizing clock lifecycle management
+ - Return proper errors on clk_enable() failure instead of dev_warn()
+ - Eliminates hw_params prepare leak concern since prepare now happens
+   once at probe/resume
 
 v3: No changes
-v2: No changes
+v2:
+ - Split clock handling into prepare/enable phases for atomic context
+   safety
 
- sound/soc/renesas/rcar/adg.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ sound/soc/renesas/rcar/adg.c | 91 +++++++++++++++++++++++++++++++++++-
+ 1 file changed, 89 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/renesas/rcar/adg.c b/sound/soc/renesas/rcar/adg.c
-index 0105c60a144e..813ad5eabba6 100644
+index 813ad5eabba6..9cae3bbefa55 100644
 --- a/sound/soc/renesas/rcar/adg.c
 +++ b/sound/soc/renesas/rcar/adg.c
-@@ -771,6 +771,7 @@ void rsnd_adg_clk_dbg_info(struct rsnd_priv *priv, struct seq_file *m)
+@@ -19,6 +19,9 @@
+ #define CLKOUT3	3
+ #define CLKOUTMAX 4
  
++/* Maximum SSI count for per-SSI clocks */
++#define ADG_SSI_MAX	10
++
+ #define BRGCKR_31	(1 << 31)
+ #define BRRx_MASK(x) (0x3FF & x)
+ 
+@@ -34,6 +37,9 @@ struct rsnd_adg {
+ 	struct clk *adg;
+ 	struct clk *clkin[CLKINMAX];
+ 	struct clk *clkout[CLKOUTMAX];
++	/* RZ/G3E: per-SSI ADG clocks (adg.ssi.0 through adg.ssi.9) */
++	struct clk *clk_adg_ssi[ADG_SSI_MAX];
++	struct clk *clk_ssif_supply;
+ 	struct clk *null_clk;
+ 	struct clk_onecell_data onecell;
+ 	struct rsnd_mod mod;
+@@ -343,8 +349,16 @@ int rsnd_adg_clk_query(struct rsnd_priv *priv, unsigned int rate)
+ 
+ int rsnd_adg_ssi_clk_stop(struct rsnd_mod *ssi_mod)
+ {
++	struct rsnd_priv *priv = rsnd_mod_to_priv(ssi_mod);
++	struct rsnd_adg *adg = rsnd_priv_to_adg(priv);
++	int id = rsnd_mod_id(ssi_mod);
++
+ 	rsnd_adg_set_ssi_clk(ssi_mod, 0);
+ 
++	/* RZ/G3E: only disable here, unprepare is done in hw_free */
++	clk_disable(adg->clk_adg_ssi[id]);
++	clk_disable(adg->clk_ssif_supply);
++
+ 	return 0;
+ }
+ 
+@@ -354,7 +368,8 @@ int rsnd_adg_ssi_clk_try_start(struct rsnd_mod *ssi_mod, unsigned int rate)
+ 	struct rsnd_adg *adg = rsnd_priv_to_adg(priv);
+ 	struct device *dev = rsnd_priv_to_dev(priv);
+ 	struct rsnd_mod *adg_mod = rsnd_mod_get(adg);
+-	int data;
++	int id = rsnd_mod_id(ssi_mod);
++	int ret, data;
+ 	u32 ckr = 0;
+ 
+ 	data = rsnd_adg_clk_query(priv, rate);
+@@ -376,6 +391,22 @@ int rsnd_adg_ssi_clk_try_start(struct rsnd_mod *ssi_mod, unsigned int rate)
+ 		(ckr) ?	adg->brg_rate[ADG_HZ_48] :
+ 			adg->brg_rate[ADG_HZ_441]);
+ 
++	/*
++	 * RZ/G3E: enable per-SSI and supply clocks
++	 */
++	ret = clk_enable(adg->clk_adg_ssi[id]);
++	if (ret) {
++		dev_err(dev, "Cannot enable adg.ssi.%d ADG clock\n", id);
++		return ret;
++	}
++
++	ret = clk_enable(adg->clk_ssif_supply);
++	if (ret) {
++		dev_err(dev, "Cannot enable SSIF supply clock\n");
++		clk_disable(adg->clk_adg_ssi[id]);
++		return ret;
++	}
++
+ 	return 0;
+ }
+ 
+@@ -424,9 +455,35 @@ int rsnd_adg_clk_control(struct rsnd_priv *priv, int enable)
+ 	if (ret < 0)
+ 		rsnd_adg_clk_disable(priv);
+ 
++	/* RZ/G3E: per-SSI ADG and SSIF supply clocks */
++	if (enable) {
++		for (i = 0; i < ADG_SSI_MAX; i++) {
++			ret = clk_prepare(adg->clk_adg_ssi[i]);
++			if (ret < 0) {
++				while (--i >= 0)
++					clk_unprepare(adg->clk_adg_ssi[i]);
++				rsnd_adg_clk_disable(priv);
++				return ret;
++			}
++		}
++		ret = clk_prepare(adg->clk_ssif_supply);
++		if (ret < 0) {
++			for (i = 0; i < ADG_SSI_MAX; i++)
++				clk_unprepare(adg->clk_adg_ssi[i]);
++			rsnd_adg_clk_disable(priv);
++			return ret;
++		}
++	}
++
+ 	/* disable adg */
+-	if (!enable)
++	if (!enable) {
++		/* RZ/G3E: unprepare per-SSI and supply clocks */
++		clk_unprepare(adg->clk_ssif_supply);
++		for (i = 0; i < ADG_SSI_MAX; i++)
++			clk_unprepare(adg->clk_adg_ssi[i]);
++
+ 		clk_disable_unprepare(adg->adg);
++	}
+ 
+ 	return ret;
+ }
+@@ -769,6 +826,31 @@ void rsnd_adg_clk_dbg_info(struct rsnd_priv *priv, struct seq_file *m)
+ #define rsnd_adg_clk_dbg_info(priv, m)
+ #endif
+ 
++static int rsnd_adg_get_ssi_clks(struct rsnd_priv *priv)
++{
++	struct rsnd_adg *adg = rsnd_priv_to_adg(priv);
++	struct device *dev = rsnd_priv_to_dev(priv);
++	char name[16];
++	int i;
++
++	/* SSIF supply clock */
++	adg->clk_ssif_supply = devm_clk_get_optional(dev, "ssif_supply");
++	if (IS_ERR(adg->clk_ssif_supply))
++		return dev_err_probe(dev, PTR_ERR(adg->clk_ssif_supply),
++				     "failed to get ssif_supply clock\n");
++
++	/* Per-SSI ADG clocks */
++	for (i = 0; i < ADG_SSI_MAX; i++) {
++		snprintf(name, sizeof(name), "adg.ssi.%d", i);
++		adg->clk_adg_ssi[i] = devm_clk_get_optional(dev, name);
++		if (IS_ERR(adg->clk_adg_ssi[i]))
++			return dev_err_probe(dev, PTR_ERR(adg->clk_adg_ssi[i]),
++					     "failed to get %s clock\n", name);
++	}
++
++	return 0;
++}
++
  int rsnd_adg_probe(struct rsnd_priv *priv)
  {
-+	struct reset_control *rstc;
- 	struct rsnd_adg *adg;
- 	struct device *dev = rsnd_priv_to_dev(priv);
- 	int ret;
-@@ -779,8 +780,11 @@ int rsnd_adg_probe(struct rsnd_priv *priv)
- 	if (!adg)
- 		return -ENOMEM;
- 
--	ret = rsnd_mod_init(priv, &adg->mod, &adg_ops,
--		      NULL, NULL, 0, 0);
-+	rstc = devm_reset_control_get_optional_exclusive(dev, "adg");
-+	if (IS_ERR(rstc))
-+		return dev_err_probe(dev, PTR_ERR(rstc), "failed to get adg reset\n");
-+
-+	ret = rsnd_mod_init(priv, &adg->mod, &adg_ops, NULL, rstc, 0, 0);
+ 	struct reset_control *rstc;
+@@ -798,6 +880,11 @@ int rsnd_adg_probe(struct rsnd_priv *priv)
  	if (ret)
  		return ret;
  
++	/* RZ/G3E-specific: per-SSI ADG and SSIF supply clocks */
++	ret = rsnd_adg_get_ssi_clks(priv);
++	if (ret)
++		return ret;
++
+ 	ret = rsnd_adg_clk_enable(priv);
+ 	if (ret)
+ 		return ret;
 -- 
 2.25.1
 
