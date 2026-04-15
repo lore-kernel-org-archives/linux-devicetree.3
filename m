@@ -1,42 +1,55 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E003126B9;
-	Wed, 15 Apr 2026 21:34:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20A571DE3B7;
+	Wed, 15 Apr 2026 21:48:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776288885; cv=none; b=qy3We6T5AYLxDHl8p0w0rn/c8xMM5E01tlDsgU++qYrxHrZR7MR/l3LWh0MpAg1CuXiHjXrPiOHiQM+LhrlzGy3zGT4riNrewWpBEe1XpCbmi9tv6lIT9CUdCgF+tpzXVb3shfHiJwVvtrJxxThV8/+2v9h1SV9nW+Eu2wd5xHA=
+	t=1776289698; cv=none; b=aogV9K87xQTFnHAHWECy4T3lWiZrOOymbr+cO8GbFE4TvDejKoyAQnflxnMt/T1FW6ZKqnVnStk5g6n7cISfJiEtHF02n73dDUsKHuKsvt8QxM7XkbW3U78DrS12V2kcTE+zdDc5kRbownR3oene1fAhvJKC/S67+7rY7MeXcDI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776288885; c=relaxed/simple;
-	bh=uxvv9k/yYu+Yqjx/Or4JX/wVZl0+qopF24eDGX7bZc0=;
+	s=arc-20240116; t=1776289698; c=relaxed/simple;
+	bh=gAPjSmYjlAZJG9i+cMI+wy3rlcXaGDsPq4l5oXukpWs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CMrmnZ5y5EvsXLIjiwD0/UreaIjS2PEc8ZSmVeTAYZInMM7beIEj1dqhSa/hw5OZga6zggYXbLzP9QrCj7i+oLw7sfScOXbon1+qNDtKrMiR7y8WQLb9XL+EOXT1EOKVNJ5zbfNNSpMX/QBPO6CrQJ1hAUZOu7XhYhN8k0dewuc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DvVkkk8x; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=CXKy46qJuDXBEEnA+NMJpo94eWmsEBwrMwJHl2TOWYZ4aKxkIFhUKuuc9NxFA80Df5DZRELAfjsDl/W0WFR3Ih5AIj9MKzZFZ4492sykQHn5IqyQFOpMM1RTazEgNQnoZaCEqjjSmZnjY3iz4+RFizOVCYl1wbN3lnhRRn3JJls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=akOXoQdp; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DvVkkk8x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27795C19424;
-	Wed, 15 Apr 2026 21:34:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="akOXoQdp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71E72C19424;
+	Wed, 15 Apr 2026 21:48:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776288885;
-	bh=uxvv9k/yYu+Yqjx/Or4JX/wVZl0+qopF24eDGX7bZc0=;
+	s=k20201202; t=1776289697;
+	bh=gAPjSmYjlAZJG9i+cMI+wy3rlcXaGDsPq4l5oXukpWs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DvVkkk8xhF3LzLYQOg7YIOeKBi5S2sKDEsU8behzc7vF6Pi94/mPqsYykSaEQfQtr
-	 qzKSZ1+zaDGM5WStx3+cCtzYCHYPoLX3FN5AQQRaOGrIZixNN64Q8B1NxBfAh8aD6u
-	 +w2qVNqVHJTRGHO7WEZ//qkXWOx2fDCktjp9dLzUSMwD1iSnCEK1/WAk56KsnsaVL4
-	 aP9eGVmTFzn8tU1xLFGyzg71YKPlIQ+8M8gUETlMHaYRL5+JYdpkH1LUO7IGxQm1w8
-	 QKD7QjD2kr0gMX8JmIXkUmsArCXzWQos41jWXGQxTODVno63UQXeIWkDDv+b/7A7VV
-	 CHo1knbct5s0w==
-Date: Wed, 15 Apr 2026 16:34:43 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: phucduc.bui@gmail.com
-Cc: tglx@kernel.org, linux-input@vger.kernel.org, krzk@kernel.org,
-	dmitry.torokhov@gmail.com, linux-kernel@vger.kernel.org,
-	conor+dt@kernel.org, conor@kernel.org, devicetree@vger.kernel.org,
-	mingo@kernel.org, krzk+dt@kernel.org, marex@denx.de
-Subject: Re: [PATCH v4] dt-bindings: input: touchscreen: ti,tsc2005: Add
- wakeup-source
-Message-ID: <177628888260.592110.11727813820499601669.robh@kernel.org>
-References: <20260403040714.106093-1-phucduc.bui@gmail.com>
+	b=akOXoQdpYx6F35U2Oi8V/sfnOibsWcJeDCkUV1hZaLCMahRZS7/fN506jwYd9lRQn
+	 lU9jov35+5SdAZlC7KczMJm8VO45bBWR7qFyN6uWUDn3nWbQgUmxkdaHpgORFV4amQ
+	 XppiywyWSYqj0cZLzTZmGTcHE5WIQFLpnw2yjEtxaYHMcO4T4gKPGJSLRSXgDizRNr
+	 2rgGC0+6Xa0n60nS8LN131nt/POlLg48AVdnbT9f8CnhT3Qe9wHH7KyOU2RX+FJJ7h
+	 NqZ70IyRHdwn2ciRMFdOWCuiw/wiHhpSV2sWMQ3qE7MldvuRaBc5uxXVSOpo7YYedc
+	 x+5uulJZ2jmEw==
+Date: Wed, 15 Apr 2026 16:48:15 -0500
+From: Rob Herring <robh@kernel.org>
+To: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Lee Jones <lee@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Beniamino Galvani <b.galvani@gmail.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, linux-amlogic@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-i2c@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-pm@vger.kernel.org
+Subject: Re: [PATCH v2 1/8] dt-bindings: mfd: khadas: Add new compatible for
+ Khadas VIM4 MCU
+Message-ID: <20260415214815.GA602572-robh@kernel.org>
+References: <20260403-add-mcu-fan-khadas-vim4-v2-0-70536b22439a@aliel.fr>
+ <20260403-add-mcu-fan-khadas-vim4-v2-1-70536b22439a@aliel.fr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,27 +58,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260403040714.106093-1-phucduc.bui@gmail.com>
+In-Reply-To: <20260403-add-mcu-fan-khadas-vim4-v2-1-70536b22439a@aliel.fr>
 
-
-On Fri, 03 Apr 2026 11:07:14 +0700, phucduc.bui@gmail.com wrote:
-> From: bui duc phuc <phucduc.bui@gmail.com>
+On Fri, Apr 03, 2026 at 06:08:34PM +0200, Ronald Claveau wrote:
+> The Khadas VIM4 MCU register is slightly different
+> from previous boards' MCU.
+> This board also features a switchable power source for its fan.
 > 
-> Document the "wakeup-source" property for the ti,tsc2005 touchscreen
-> controllers to allow the device to wake the system from suspend.
-> 
-> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
 > ---
+>  Documentation/devicetree/bindings/mfd/khadas,mcu.yaml | 5 +++++
+>  1 file changed, 5 insertions(+)
 > 
-> changes:
-> v4: Drop redundant "type: boolean" for wakeup-source to use the core
->     definition from dt-schema (as suggested by Rob Herring).
-> v3: Remove blank lines (suggested by Conor).
-> v2: Revise the commit content and remove patch1 related to I2C and SPI
-> wakeup handling
->  .../devicetree/bindings/input/touchscreen/ti,tsc2005.yaml     | 4 ++++
->  1 file changed, 4 insertions(+)
+> diff --git a/Documentation/devicetree/bindings/mfd/khadas,mcu.yaml b/Documentation/devicetree/bindings/mfd/khadas,mcu.yaml
+> index 084960fd5a1fd..67769ef5d58b1 100644
+> --- a/Documentation/devicetree/bindings/mfd/khadas,mcu.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/khadas,mcu.yaml
+> @@ -18,6 +18,7 @@ properties:
+>    compatible:
+>      enum:
+>        - khadas,mcu # MCU revision is discoverable
+
+The revision is no longer discoverable as was claimed?
+
+> +      - khadas,vim4-mcu
+>  
+>    "#cooling-cells": # Only needed for boards having FAN control feature
+>      const: 2
+> @@ -25,6 +26,10 @@ properties:
+>    reg:
+>      maxItems: 1
+>  
+> +  fan-supply:
+> +    description: Phandle to the regulator that powers the fan.
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +
+>  required:
+>    - compatible
+>    - reg
 > 
-
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-
+> -- 
+> 2.49.0
+> 
