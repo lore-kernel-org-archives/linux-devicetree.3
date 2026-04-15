@@ -1,292 +1,377 @@
-Received: from mx0b-00128a01.pphosted.com (mx0b-00128a01.pphosted.com [148.163.139.77])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFD8040DFC9;
-	Wed, 15 Apr 2026 01:10:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.139.77
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776215431; cv=fail; b=atmtXdUmpGgNqlP0SnE68KUnQk4P9Sl8+tYCSU8S509Kwbhat882kE9bIdrgO0q01GEXKfAN+zQ3pAYJi/ZLRT8VuVCzAczzm7qbgsSChIV47+hUWfxmvImdVJn3Ef6mCIi+cjj00HBbYnym/cw7Z6g86G1FRhCpkkRmJ4W+lRk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776215431; c=relaxed/simple;
-	bh=s8ey0OkkaDTZs6zFNZ6SGkniUMTAScyejtAmp62Gxes=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ZQckxx75q0gg5SgA7YSANe9o+JJUtUL5iZhhAUAcNWbmpvu/NsczDlFxgyBgMdwPfDomTZI/c3iylGvAE3Gee243Z3NNUMtakcRgAKzJT76NynAL2fCLtNiNiS09X0ggyXg4F8El/abppaPM/ae0srAX7E9a+MaeucYIz4LkcNA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=ZEEeb8uT; arc=fail smtp.client-ip=148.163.139.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4732878C9C;
+	Wed, 15 Apr 2026 01:56:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776218212; cv=none; b=uB7/UbzFTOxvbP3kEMn8AIIta52/IOVEPx1RFe/n0wmrCfiAbyHXMFid76rpxcju9zcWw6dGaptbuqnxC5xPm8l7tZmvVMWZFwVPKQHP7L13DuFP10AmJDRmGF8hgD27vQsDhtD6iXfold+2jY6rBj5pgyianmehSpkKIux2zBA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776218212; c=relaxed/simple;
+	bh=eGuXhlim7GxEjVvbvxWqPHczFhFF5K21YPs2upqlNIY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=eshJFHnIRFcUBYYD6aOKxfWMsAcXprDx22wHkAbTVbF6RkNUBl0+UXimaVgM09ULiw0Q+5O7XuNP1kpkBkHn6QPfA8lPzNRW2RWDVBDXmJYI15Crsy6AJ03PHPgCrS/0cC4kX3v6PvmMn/weFYUYZFNxt+5EDI3VX+ZzLPlwkYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RYIc9NrE; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="ZEEeb8uT"
-Received: from pps.filterd (m0167091.ppops.net [127.0.0.1])
-	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63F0CcdS3602676;
-	Tue, 14 Apr 2026 21:10:13 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=YodIY
-	Xfu9ACGAH5PRTi6rVfT6S8KzjCD3x/qVXU3qUY=; b=ZEEeb8uT3hOGnG3Uhx5tZ
-	5ySBFjozrqb3W1stkC10iaXm+mK6HuzQrjWNhu+S7c43a1wuoMPECTby+o4Ofe7p
-	OTMxRWh1QbFowFon1QRW0sYZJzQUHuipB6vO5rLnwYfmSvZ2uObl1Yb9IM945liB
-	CdIpKVOYIXaheiEj4yNcTdNipVGWU9FvwICp3Miy1+mepHvDAO7Yvo+4ZdjfMzLD
-	/Rxz15/8APLfAhJstJkEitU5X/GRLDdRmWyzD38z7Uf88bL+2bemczKKeYFF3n1D
-	GoUFRniN9A2CF7ublSj6ZTq3L19P4/qFN2LkH0zU9RkWpSuC9nGfWxGebbmAqulY
-	w==
-Received: from co1pr03cu002.outbound.protection.outlook.com (mail-westus2azon11010044.outbound.protection.outlook.com [52.101.46.44])
-	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4dh84r48br-2
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 14 Apr 2026 21:10:13 -0400 (EDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Sjgoz4ESI4dkflZQR+EvLhTSpr/mtkjYuoJAMHQmtTWQy1g+7VI6L+1QcfzTMqWq9cnXzdJtAup/HalhLkXLkOCXt3ZEvRBlR4VLoQCFXXzVpRudzT+aBa1lS7m6Uuv0RHPwl3aRLW67FY/f4lmbmEmPZTo7VehJ6QF8Xe4XmTfIVoxJ9dbXb7jHOSbA8Nus62m9fNNH2ckS4fOjXOnlem+C2ZnVNh5u1UlXPr3ZokZ0ATnR2jej/40ZLkSJmO2jpstcynWImbK0A518GYx9QX79roXzj6cDj+cinI40/+eGM7cDNKvLb9pO2/6V88ZFYO1qSO8X5i3DMWZTZI0Akw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YodIYXfu9ACGAH5PRTi6rVfT6S8KzjCD3x/qVXU3qUY=;
- b=hPZitJrP8qAMNrJlSO2bscHTa9GxCxUDUgMpFR9+w1W6Xqmv7089vp8uDJO43oCVJEACguFa+AXKRG+oReijro4zGFnwGno92NYc86iFCU6WZPWc/AEpeg31YmcqXjwDLQ+c7jXeiQHDwnlm6Ht49izGrg0k1U7SSH3MbnnoFRNSbv4KqCwnm52HvXGpQE5YVUhDljVnAIrcTIiiAUEe63cTbzXeEuUK6dTsxLdUTkxCHyBwCBxq97v4GpvKzkeA9Q6tpqOK4imW0AHTCCkEsBVZrHsqvx/LI9K4W+oelzfVmD9/+LNmPZ2puQpJjNCJWyTa8Nm4dWX1vVDEjMRaXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
- dkim=pass header.d=analog.com; arc=none
-Received: from PH0PR03MB6351.namprd03.prod.outlook.com (2603:10b6:510:ab::18)
- by CH0PR03MB6177.namprd03.prod.outlook.com (2603:10b6:610:d0::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Wed, 15 Apr
- 2026 01:10:09 +0000
-Received: from PH0PR03MB6351.namprd03.prod.outlook.com
- ([fe80::1578:4572:29b5:2442]) by PH0PR03MB6351.namprd03.prod.outlook.com
- ([fe80::1578:4572:29b5:2442%6]) with mapi id 15.20.9769.046; Wed, 15 Apr 2026
- 01:10:09 +0000
-From: "Torreno, Alexis Czezar" <AlexisCzezar.Torreno@analog.com>
-To: Jonathan Cameron <jic23@kernel.org>
-CC: Lars-Peter Clausen <lars@metafoo.de>,
-        "Hennerich, Michael"
-	<Michael.Hennerich@analog.com>,
-        David Lechner <dlechner@baylibre.com>,
-        "Sa,
- Nuno" <Nuno.Sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
-        Rob Herring
-	<robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
-	<conor+dt@kernel.org>,
-        "linux-iio@vger.kernel.org"
-	<linux-iio@vger.kernel.org>,
-        "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>,
-        Andy Shevchenko <andriy.shevchenko@intel.com>
-Subject: RE: [PATCH v7 2/2] iio: dac: ad5706r: Add support for AD5706R DAC
-Thread-Topic: [PATCH v7 2/2] iio: dac: ad5706r: Add support for AD5706R DAC
-Thread-Index: AQHcyLYbntrYV2qu+ES6PcRhOUDLm7Xe7q8AgABbqlA=
-Date: Wed, 15 Apr 2026 01:10:09 +0000
-Message-ID:
- <PH0PR03MB6351E875581B45ED279785D0F1222@PH0PR03MB6351.namprd03.prod.outlook.com>
-References: <20260410-dev_ad5706r-v7-0-af93a4caa186@analog.com>
-	<20260410-dev_ad5706r-v7-2-af93a4caa186@analog.com>
- <20260414195400.60d39158@jic23-huawei>
-In-Reply-To: <20260414195400.60d39158@jic23-huawei>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR03MB6351:EE_|CH0PR03MB6177:EE_
-x-ms-office365-filtering-correlation-id: 21d545bc-149b-4e70-ebe2-08de9a8bbcfc
-x-ld-processed: eaa689b4-8f87-40e0-9c6f-7228de4d754a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|7416014|376014|366016|38070700021|22082099003|18002099003|56012099003;
-x-microsoft-antispam-message-info:
- NnhRJH5dtdLKdcjNFFuZkXLJ05+0JLD00RE4le089BciAaHOYEHYOvW/PAQqtL5FGLFDcX+YdEZbKRlJnN6BV4rtR73hJnPtWVA4gBpZ2UmJkqCdaeMyvB9nNGUmYClk+RimYHpJTfKz31ECfI3ISqWpgeYB5up7OLFem4ah+HkJFEqey58rIMVRB0jSOs5TZIdNM7JxnJjaey6q9pDeKUfgPAh3JHnZcg4UouqNUP0Xkc/EeHB/EziQzLSiBn55tHdiOWUyumBh1mTrlwzeNI/lH7k9aTq7+XZ+ea9Hbo4v48ksVx6AOcfw/HrIk1KC80w87dTkW+BCDrBWcIOHOxVLwz32UXlKWjgkpipVdc7tBYe6c9NjhugT03oB4+tid3ia9oyxgRrciaFX9oRe4TOwkUJuA+L+ev5icTm/ickLTYIfQ5H8NPTDM4m9zQJKonkVbVzy9DOLkojy7M8teITIYnkIm3OgWh+vZz6qMjCGLQAJGZew3H37NQy+qThgXvdLEFTkubR7jyTMVmEvKzp4b1Pn8DafAxM7VRhXAq3jX86COIa8gxYXlEMVo8H0T8ZvOc6PdPDjPmSkTGszg+BOG61XPrM5I9TTQ9ACwuOxBoCxt3UqHltbqTymfurNlxEq6lRCfZqLFtMH3EkhDPRlGRiSGiO0fN0m0VB0Mt95eWD+2M69qrcr9E7uRqaSln2UzYRFcCBYfCMgCQ30yS8zkyRdjuCVit8WQ8Q7tfUVuZANXSMo40b7VyrKeeS47jlXOYbH6vuPcv2wFnX5JF4yaGOICAGxB3oiXhjCPUk=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR03MB6351.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(38070700021)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?xuD4R4pGpKQQxrF0pXXtxjRBUNoN6PaW6woSxsrl9gaiiEhGEsnA1MMRxgcv?=
- =?us-ascii?Q?fhowxpz6iWaKpeIPT32QL83B+hPk6ZL/I58oPyMMRg6QwHu6Y90CejwdIHaJ?=
- =?us-ascii?Q?yAJIHpnWYyz6vrUVMWJuAg5mgsvx8yL7dYn5lWG+OFHqMr4tNz8aRNQRMd9Z?=
- =?us-ascii?Q?dJqXLCjyldDrfcPQW40Nshg/zePcmvDx2ezRgs6oQpYyJFfpMAYfYE/EmIHr?=
- =?us-ascii?Q?COSLiwZt2j/c0TJbj9o9U2pU0Qpov9keJ91t3GfSJQ3zvxxdL+EPVIvyP1fg?=
- =?us-ascii?Q?z/dhJpyW6zXCFzMu9WxcXCBfqnpvzZxsQCi1qzhVjMqpognruspBgEtzgs3M?=
- =?us-ascii?Q?aVTSOb9iApfLSRgdCX/xZr6JV5THgUshZ+UJFuYImPrg9syAHAA8BwmzL82j?=
- =?us-ascii?Q?0y7SJLf4m95hSQLplfvH3xarwCeG649B4QQiW9Wsl2uMM1zTpvlh0w5XHTNW?=
- =?us-ascii?Q?EwJLIEIMkhYgZGa+FvasszvfmkPVeHp+O6zugW6vCKhqEKLtVpKJnGPAIMzf?=
- =?us-ascii?Q?6PFzwDCIEW3zQNU3cyDh4ZjlhdYalCSc87/+PqgVD8TB9Guy19tRE5gAdSHy?=
- =?us-ascii?Q?7cJek7/fDmihugtLyzwVIs+V90DN8XcYTUHJzEzYeqaKSIwW3ADhek9jUJG+?=
- =?us-ascii?Q?7r9UEZ62YOjA/f/dcPt7VSHcrmxc6Fpuo8kgx0CgIK+IMxBj6+Bg2li0zJvR?=
- =?us-ascii?Q?8MkNywJyA0YxPcxJk/xoSi57ID69D6wjtKxNGYZ0fOfk0O93DFZ1C2U0w94T?=
- =?us-ascii?Q?DFmfMfVqs6pfGWD3JPu22ppyV08WGRGyy4twp/4yTS82QURFp7kZwkZkkqR1?=
- =?us-ascii?Q?OHydNO+sRFxx2MzgtHAPP8HM1OXeRksHIfPVtHE75M3eYBVJqQ0+QW4y/+y0?=
- =?us-ascii?Q?0VMsfJzCbWA12MS6OXp13beBPi6FfQyH90EKxwMs/oqbCNRedl/FNIF/mYel?=
- =?us-ascii?Q?8iGB/Ujodb5ZOhJ6kyVMFfpO3ad3qBKaxzpc8fIbqjvg6ctE9JexNjpYzcHI?=
- =?us-ascii?Q?hbL1epLMPwccz1aG+E61UzUYQw4djB07Ntet+kCOP8LRT9uONlEhR6nBPxn/?=
- =?us-ascii?Q?80yr/QziU5BCKwt6WxtNnsmuTxh7WL2XATxTTlNUjo1Xom9XwDQEECwuYKgc?=
- =?us-ascii?Q?2GS6VHAs7pRFy492ufznlYmXbZKDkcdVBeBb0KSDRge6+Uoc2B5a+3XcY7Y3?=
- =?us-ascii?Q?+pCpJsjWsJiUr4dP7taYunt9O4KFx/qvx14fR6di43YXHDdh1ZW7uXq5xv7a?=
- =?us-ascii?Q?NSEL7mGEAH/ABSACyPQ0y1pc9wSnq5e7PhlyCBFueju4zW7oS68Y0mcpgygs?=
- =?us-ascii?Q?7X5rhIixp8VSzzmIWQb1kmtdPLlY3X/uCkj4Wj5w2SlmuuLGTIs06uXkDtoY?=
- =?us-ascii?Q?Cqxn1JirF4WeZNMsri/pjeJZRgxMwlAr0rzuqZb/o+Or0n83xXasuFbT3H8K?=
- =?us-ascii?Q?3/leC/wOLtuGrvN1yLtL8SZ1/8W3yUGNjEKoimxE+fL3UFTrPkTLI10kJ2I+?=
- =?us-ascii?Q?kXVCtKpQEuya0wxfkK7HkcG+w/6LXI03lRTSAL6+ACxeSFXajSDxfZMZFrg2?=
- =?us-ascii?Q?LxnzhFN9B07s7vrgc9JuD2FoBBEasBX/LzZDZwk0+uu9ABWixpTRQyjEPU1+?=
- =?us-ascii?Q?I9WeTYeSEPbZ2CX3WDhtNBpyeHqT4ZViD01qDP6vhH0psQ+NsD6H6pANUhh0?=
- =?us-ascii?Q?UQxDs0AgHpq3bSHbdtTSasqbAtWr0nDiJNGSh6IgsO4kPkAkKcBAnv2J2BTs?=
- =?us-ascii?Q?2nyWN3fx+ml9LOwox+1AKSYk1cvOLSU=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RYIc9NrE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50F02C19425;
+	Wed, 15 Apr 2026 01:56:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776218212;
+	bh=eGuXhlim7GxEjVvbvxWqPHczFhFF5K21YPs2upqlNIY=;
+	h=From:Subject:Date:To:Cc:From;
+	b=RYIc9NrET70ahLVdLOkcUFt4BPLUTsfSzwtdz3a5NDBR9GJGjQssx4nKHPSFgyvgV
+	 o5V7FhtVMzzSkKAQKsK2ly6gWoMTlEBs/30q9Baz0texuTvWqN2P+6zyr6PZL9PvKn
+	 /3bINBpqVZugUdgUQVyXqVyRNAFWi7PpwPE2vAD2yXghDiSIkdvCxyeWjNTvHSPmK2
+	 IsU7ZjxRBq0VQcgUMd5mHVh07cPhONY57ek9r+bSTRKUdNje6l30BKtmT7Ju/vgeTy
+	 DmkXl/XwvAIHO21g3lEE7FuJWQUlzoMJMX6RodZS6dq54hP/kxeziaewJtFYhHEzsv
+	 27DiHvIjO0N1g==
+From: Drew Fustini <fustini@kernel.org>
+Subject: [PATCH RFC v3 00/11] RISC-V: QoS: add CBQRI resctrl interface
+Date: Tue, 14 Apr 2026 18:53:54 -0700
+Message-Id: <20260414-ssqosid-cbqri-rqsc-v7-0-v3-0-b3b2e7e9847a@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	WhiGBTO7B78CuUIA3YlH568GgaNv7CxghhE73HuHY91UMQ1QMark68EI7B37umpHBl/MyQ/AqSJ88H9eBP5Wq0kVcrycxU4UF0KkuFCljGthUQvjLsfHv7gjQjvu3d4S+Fc6z69Ka0OL/yVrnSrVOT5+G1Uk7xf5jRkMAY6nGliauUfH66cEqacZ5V9OuUf1yB4qjaUnxEDmf6X+/9VjMK4UhTTm4y0jWI/adD0l9sMoDb13XYSAnjNB2SmghGcACFcn7ogu0R2dk4qy9daOiVNUNpFPFesStCrW3ygnkUcLLeD1OS30aQIy2ipnk5hRTvTrSoo5AtivVTC/BXVbkA==
-X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR03MB6351.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 21d545bc-149b-4e70-ebe2-08de9a8bbcfc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Apr 2026 01:10:09.4886
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: eOyO5gfPbDRPqbtx4ohT2iuOqKi2CMbPmXDlSzJdAF0tWp7RV5SjMrsDQNIHxlK0oGiP28CPyA0nauKFHtiICRkYXhXMCz0Ij+yHz0XIcFQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR03MB6177
-X-Authority-Analysis: v=2.4 cv=E979Y6dl c=1 sm=1 tr=0 ts=69dee575 cx=c_pps
- a=feJg8xcwi6yo0k/5NfVkgw==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=ugNRTJOwpmtT476g4l8T:22 a=wimFQrT0xA_z0L6LzgUA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-GUID: G6RfE6V7u6yrc9Qnki_dl81CepQwlQrN
-X-Proofpoint-ORIG-GUID: G6RfE6V7u6yrc9Qnki_dl81CepQwlQrN
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE1MDAwOCBTYWx0ZWRfX4zpt5/0pT8Pa
- WwzjRqPccYvz1IJgD3Ml61XvtAk3Uz7E9Y4fvdP3CPHhBEFbWe7eD0PfHuPAoO8Wx9S1vrh/g8r
- mYslx5ROc6ga4b5MtKPlceRXPx3x5VMLQ3sWqhvjEwE8KGb+mbcmLiPvg+393HVxO3WLIA5eECN
- SmOBYI1VBjf4YwXrIde1L36pF+60jg4rLytnSXIgHt57/YYNzSred5liVIcu1X/uuGq6hpVTcvs
- hjfZmLpYYrJJJ0/yzEcl5WtmSUtS68HgOWCZ6TcZwKcYtDTQqqZmPErOowH/qBXizsmx3AiOtbu
- M5t5qjDpthFdM5sPRdiOu+9aVLU5I7hex167kdIvMIk1GUZkNajhamBZzVYeOpLarJFUllkePm6
- Jvunh64jQMyUuHD9ft4miLnJ/QEIVuWqkNzz6xX8FlRQuKu3Y59KTH+d6wbg8a9CcXfk26EN/c+
- HOtqudQi5gN3PF7jSpA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-14_04,2026-04-13_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 bulkscore=0 spamscore=0 priorityscore=1501
- clxscore=1015 suspectscore=0 phishscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604150008
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALPv3mkC/x3MMQqEMBBA0avI1DsQomjWVtgD2IpFEsd1GjUzI
+ IJ4d4PlK/6/QEmYFNriAqGDlbc1o/wUEBe//gl5ygZrbG1K+0XVtClPGEMSRkka8WjQYDCxcS7
+ 4UDkPud6FZj7f8wD9r4Pxvh+RLfcRbgAAAA==
+X-Change-ID: 20260329-ssqosid-cbqri-rqsc-v7-0-b0c788bab48a
+To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ =?utf-8?q?Radim_Kr=C4=8Dm=C3=A1=C5=99?= <rkrcmar@ventanamicro.com>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Adrien Ricciardi <aricciardi@baylibre.com>, 
+ Nicolas Pitre <npitre@baylibre.com>, 
+ =?utf-8?q?Kornel_Dul=C4=99ba?= <mindal@semihalf.com>, 
+ Atish Patra <atish.patra@linux.dev>, 
+ Atish Kumar Patra <atishp@rivosinc.com>, 
+ Vasudevan Srinivasan <vasu@rivosinc.com>, Ved Shanbhogue <ved@rivosinc.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ yunhui cui <cuiyunhui@bytedance.com>, Chen Pei <cp0613@linux.alibaba.com>, 
+ Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, Weiwei Li <liwei1518@gmail.com>, 
+ guo.wenjia23@zte.com.cn, Gong Shuai <gong.shuai@sanechips.com.cn>, 
+ Gong Shuai <gsh517@gmail.com>, liu.qingtao2@zte.com.cn, 
+ Reinette Chatre <reinette.chatre@intel.com>, 
+ Tony Luck <tony.luck@intel.com>, Babu Moger <babu.moger@amd.com>, 
+ Peter Newman <peternewman@google.com>, Fenghua Yu <fenghua.yu@intel.com>, 
+ James Morse <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>, 
+ Dave Martin <Dave.Martin@arm.com>, Rob Herring <robh@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
+ Robert Moore <robert.moore@intel.com>, Sunil V L <sunilvl@ventanamicro.com>, 
+ Drew Fustini <fustini@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ x86@kernel.org, linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev, 
+ devicetree@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=14552; i=fustini@kernel.org;
+ h=from:subject:message-id; bh=eGuXhlim7GxEjVvbvxWqPHczFhFF5K21YPs2upqlNIY=;
+ b=owGbwMvMwCV2+43O4ZsaG3kYT6slMWTe+5DUk/n88qdHzdcUX256mxfDkuz36VcKY3Tem1X9E
+ jmqR2S3dJSyMIhxMciKKbJs+pB3YYlX6NcF819sg5nDygQyhIGLUwAmYsXCyDCn2s1h/ts3fM5/
+ XuknPHvl+zXTeqZQrk2Y8Io1nvutdYMZGRY6z+v1/7fd57hXhETmTSN9i7ePneoLPRXWCpy+7XS
+ GhRsA
+X-Developer-Key: i=fustini@kernel.org; a=openpgp;
+ fpr=1B6F948213EA489734F3997035D5CD577C1E6010
 
-> > +#define AD5706R_DAC_RESOLUTION		16
-> > +#define AD5706R_DAC_MAX_CODE		BIT(16)
->=20
-> Trivial but I'd expect something called MAX_CODE to be GENMASK(15, 0) not
-> BIT(16). E.g. inclusive limit.
+This RFC series adds RISC-V Quality-of-Service support: the Ssqosid
+extension [1] (srmcfg register), the CBQRI controller interface [2]
+integrated with the kernel's resctrl subsystem [3], and ACPI RQSC [4]
+table support for controller discovery. Device tree support is possible
+but no platform drivers are included. All patches are available as a
+branch [5].
 
-Since it's dac code I guess this makes better sense, will edit.
+There is a QEMU patch series [6] that implements Ssqosid and CBQRI. ACPI
+RQSC support is implemented as a set of additional patches [7]. All of
+the QEMU patches are available as a branch [8].
 
->=20
-> > +#define AD5706R_MULTIBYTE_REG_START	0x14
-> > +#define AD5706R_MULTIBYTE_REG_END	0x71
-> > +#define AD5706R_MAX_REG			0x77
-> > +#define AD5706R_SINGLE_BYTE_LEN		1
-> > +#define AD5706R_DOUBLE_BYTE_LEN		2
->=20
-> See below. I'm not sure these two defines bring us anything.
->=20
-> > +
-> > +struct ad5706r_state {
-> > +	struct spi_device *spi;
-> > +	struct regmap *regmap;
-> > +
-> > +	u8 tx_buf[4] __aligned(IIO_DMA_MINALIGN);
-> > +	u8 rx_buf[4];
-> > +};
-> > +
-> > +static int ad5706r_reg_len(unsigned int reg) {
-> > +	if (reg >=3D AD5706R_MULTIBYTE_REG_START && reg <=3D
-> AD5706R_MULTIBYTE_REG_END)
-> > +		return AD5706R_DOUBLE_BYTE_LEN;
->=20
-> What do the defines for 2 =3D=3D 2-bytes and 1 =3D=3D 1-byte bring us ove=
-r using
-> numbers directly?  E.g.
->=20
-> 	if (reg >=3D AD5706R_MULTIBYTE_REG_START && reg <=3D
-> AD5706R_MULTIBYTE_REG_END)
-> 		return 2;
-> 	return 1;
->=20
+[1] https://github.com/riscv/riscv-ssqosid/releases/tag/v1.0
+[2] https://github.com/riscv-non-isa/riscv-cbqri/releases/tag/v1.0
+[3] https://docs.kernel.org/filesystems/resctrl.html
+[4] https://github.com/riscv-non-isa/riscv-rqsc/blob/main/src/
+[5] https://git.kernel.org/pub/scm/linux/kernel/git/fustini/linux.git/log/?h=b4/ssqosid-cbqri-rqsc
+[6] https://lore.kernel.org/qemu-devel/20260105-riscv-ssqosid-cbqri-v4-0-9ad7671dde78@kernel.org/
+[7] https://lore.kernel.org/qemu-devel/20260202-riscv-rqsc-v1-0-dcf448a3ed73@kernel.org/
+[8] https://github.com/tt-fustini/qemu/tree/b4/riscv-rqsc
 
-I suppose not much, it won't change in the future so a hard "1" or "2" can =
-work.
-Will remove the defines and just put the actual number
+Series organization
+-------------------
+ 01:    DT binding for Ssqosid extension
+ 02-03: Ssqosid ISA support (detection, srmcfg CSR and switch_to)
+ 04-07: CBQRI resctrl (hw interface, arch callbacks, domain
+        management, Kconfig/build wiring)
+ 08-11: ACPI support (PPTT helper, actbl2.h RQSC structs [DO NOT
+        MERGE], RQSC parser, controller initialization)
 
-> > +
-> > +	return AD5706R_SINGLE_BYTE_LEN;
-> > +}
-> > +
-> > +static int ad5706r_regmap_write(void *context, const void *data,
-> > +size_t count) {
-> > +	struct ad5706r_state *st =3D context;
-> > +	unsigned int num_bytes, val;
-> > +	u16 reg;
-> > +
-> > +	if (count !=3D 4)
-> > +		return -EINVAL;
-> > +
-> > +	reg =3D get_unaligned_be16(data);
-> > +	num_bytes =3D ad5706r_reg_len(reg);
-> > +
-> > +	struct spi_transfer xfer =3D {
-> > +		.tx_buf =3D st->tx_buf,
-> > +		.len =3D num_bytes + 2,
-> > +	};
-> > +
-> > +	val =3D get_unaligned_be32(data);
-> > +	put_unaligned_be32(val, &st->tx_buf[0]);
-> > +
-> > +	/* For single byte, copy the data to the correct position */
-> > +	if (num_bytes =3D=3D AD5706R_SINGLE_BYTE_LEN)
-> > +		st->tx_buf[2] =3D st->tx_buf[3];
->=20
-> This does feel a bit odd vs using if / else if as you do in the read case=
-.  Also,
-> same as above wrt to single bytes having a length of
-> 1 meaning that just using a 1 might be easier to read.
+RISC-V QoS
+----------
+QoS (Quality of Service) in this context is concerned with shared
+resources on an SoC such as cache capacity and memory bandwidth.
 
-Unlike in the read, I thought it would be simpler to copy the whole data of=
- 4bytes,
-then just correct the buffer during single_byte.
-Should I make it similarly coded with the read()?
+The Ssqosid extension defines the srmcfg CSR which configures a hart
+with two identifiers:
 
->=20
-> > +
-> > +	return spi_sync_transfer(st->spi, &xfer, 1); }
->=20
-> > +static int ad5706r_write_raw(struct iio_dev *indio_dev,
-> > +			     struct iio_chan_spec const *chan,
-> > +			     int val, int val2, long mask) {
-> > +	struct ad5706r_state *st =3D iio_priv(indio_dev);
-> > +	unsigned int reg;
-> > +
-> > +	switch (mask) {
-> > +	case IIO_CHAN_INFO_RAW:
-> > +		if (!in_range(val, 0, AD5706R_DAC_MAX_CODE))
->=20
-> I'm not seeing a strong reason to use in_range() here (hopefully I didn't
-> suggest it in an earlier review ;)  It make sense when we have a  val >=
-=3D base &&
-> val < base + length. With base as 0 and MAX_CODE not 'obviously' from it'=
-s
-> name being the length (it only is becauset he base is 0) this seems odd.
->=20
-> 		if (val < 0 || val >=3D AD5706R_DAC_MAX_CODE) Though see
-> above on MAX_CODE not being the maximum code...
->=20
+ - Resource Control ID (RCID)
+ - Monitoring Counter ID (MCID)
 
-I think around v3 Andy suggested the use of in_range, as the function itsel=
-f helps
-document what the line does. Is this a style preference?
+These identifiers accompany each request issued by the hart to shared
+resource controllers. This allows the capacity and bandwidth resources
+used by a software workload (e.g. a process or a set of processes) to be
+controlled and monitored.
 
-Regards,
-Alexis
+CBQRI defines operations to configure resource usage limits, in the form
+of capacity or bandwidth, for an RCID. CBQRI also defines operations to
+configure counters to track resource utilization per MCID. Furthermore,
+the Access Type (AT) field allows resource usage to be differentiated
+between data and code.
+
+x86 comparison
+--------------
+The existing QoS identifiers on x86 map well to RISC-V:
+
+  CLOSID (Class of Service ID) on x86 is RCID on RISC-V
+    RMID (Resource Monitoring ID) on x86 is MCID on RISC-V
+
+In addition, CDP (code data prioritization) on x86 is similar to the
+AT (access type) field in CBQRI which defines code and data types.
+
+One aspect of CBQRI that simplifies the RISC-V resctrl interface is that
+any CPU (technically a hart, or hardware thread, in RISC-V terminology)
+can access the memory-mapped registers of any CBQRI controller in the
+system. This means it does not matter which CPU runs the resctrl code.
+
+Example SoC
+-----------
+This series was developed and tested using the QEMU virt platform
+configured as a hypothetical SoC with a cache controller that implements
+CBQRI capacity operations and a memory controller that implements CBQRI
+bandwidth operations.
+
+  - L2 cache controllers
+    - Resource type: Capacity
+    - Number of capacity blocks (NCBLKS): 12
+    	- In the context of a set-associative cache, the number of
+	  capacity blocks can be thought of as the number of ways
+    - Number of access types: 2 (code and data)
+    - Usage monitoring not supported
+    - Capacity allocation operations: CONFIG_LIMIT, READ_LIMIT
+
+  - Last-level cache (LLC) controller
+    - Resource type: Capacity
+    - Number of capacity blocks (NCBLKS): 16
+    - Number of access types: 2 (code and data)
+    - Usage monitoring operations: CONFIG_EVENT, READ_COUNTER
+    - Event IDs supported: None, Occupancy
+    - Capacity allocation ops: CONFIG_LIMIT, READ_LIMIT, FLUSH_RCID
+
+  - Memory controllers
+    - Resource type: Bandwidth
+    - Number of bandwidth blocks (NBWBLKS): 1024
+       - Bandwidth blocks do not have a unit but instead represent a
+         portion of the total bandwidth resource. For NBWBLKS of 1024,
+	 each block represents about 0.1% of the bandwidth resource.
+    - Maximum reserved bandwidth blocks (MRBWB): 819 (80% of NBWBLKS)
+    - Number of access types: 1 (no code/data differentiation)
+    - Usage monitoring operations: CONFIG_EVENT, READ_COUNTER
+    - Event IDs supported: None, Total read/write byte count, Total
+                           read byte count, Total write byte count
+    - Bandwidth allocation operations: CONFIG_LIMIT, READ_LIMIT
+
+The memory map for this example SoC:
+
+  Base addr  Size
+  0x4820000  4KB  Cluster 0 L2 cache controller
+  0x4821000  4KB  Cluster 1 L2 cache controller
+  0x4828000  4KB  Memory controller 0
+  0x4829000  4KB  Memory controller 1
+  0x482a000  4KB  Memory controller 2
+  0x482b000  4KB  Shared LLC cache controller
+
+This configuration is only meant to provide a "concrete" example, and it
+represents just one of many possible ways that hardware can implement
+the CBQRI spec.
+
+The example SoC configuration is created with the following:
+
+  qemu-system-riscv64 \
+	-M virt,pflash0=pflash0,pflash1=pflash1,aia=aplic-imsic  \
+	-smp cpus=8,sockets=1,clusters=2,cores=4,threads=1 \
+	-m 1G \
+	-nographic \
+	-kernel ${LINUX}/arch/riscv/boot/Image \
+	-append "root=/dev/vda rootwait" \
+	-blockdev node-name=pflash0,driver=file,read-only=on,filename=${EDK}/RISCV_VIRT_CODE.fd \
+	-blockdev node-name=pflash1,driver=file,filename=${EDK}/RISCV_VIRT_VARS.fd \
+	-drive if=none,file=${ROOTFS}/rootfs.ext2,format=raw,id=hd0 \
+	-device virtio-blk-device,drive=hd0 \
+	-device qemu-xhci \
+	-device usb-kbd \
+	-device virtio-net-pci,netdev=net0 \
+	-netdev user,id=net0 \
+	-device riscv.cbqri.capacity,max_mcids=256,max_rcids=64,ncblks=12,alloc_op_flush_rcid=false,mon_op_config_event=false,mon_op_read_counter=false,mon_evt_id_none=false,mon_evt_id_occupancy=false,mmio_base=0x04820000 \
+	-device riscv.cbqri.capacity,max_mcids=256,max_rcids=64,ncblks=12,alloc_op_flush_rcid=false,mon_op_config_event=false,mon_op_read_counter=false,mon_evt_id_none=false,mon_evt_id_occupancy=false,mmio_base=0x04821000 \
+	-device riscv.cbqri.capacity,max_mcids=256,max_rcids=64,ncblks=16,mmio_base=0x0482B000 \
+	-device riscv.cbqri.bandwidth,max_mcids=256,max_rcids=64,nbwblks=1024,mrbwb=819,mmio_base=0x04828000 \
+	-device riscv.cbqri.bandwidth,max_mcids=256,max_rcids=64,nbwblks=1024,mrbwb=819,mmio_base=0x04829000 \
+	-device riscv.cbqri.bandwidth,max_mcids=256,max_rcids=64,nbwblks=1024,mrbwb=819,mmio_base=0x0482a000
+
+Open issues:
+------------
+ - RQSC structs in actbl2.h must go through ACPICA upstream first. The
+   spec is in the final phase before ratification.
+
+ - No L2 and L3 cache occupancy monitoring
+   - This is not currently implemented and I have decided to leave
+     it for a followup series.
+
+ - No MBM (bandwidth monitoring)
+   - MBA schema works ok for the CBQRI-enabled memory controllers, but
+     resctrl does not currently have a solution for representing MBM for
+     bandwidth resources that are not associated with a L3 cache.
+   - For the old CBQRI proof-of-concept RFC, two separate domains were
+     created for each memory controller: one for MB (allocation) and one
+     for MBM (monitoring). The monitoring domains had to pretend that
+     these memory controllers were L3 caches which is not the case. I
+     have removed this as it was too complicated and not the right
+     solution.
+
+Changelog
+---------
+Changes in v3:
+ Series restructuring:
+ - Restructure from 17 to 11 patches: introduce data structures
+   alongside their first users, consolidate build wiring into a
+   single "enable resctrl" commit
+ - Split the monolithic patch 08/17 into separate patches for HW
+   interface, arch callbacks, domain management, and Kconfig wiring
+ - Do not expose monitoring to resctrl; allocation only for now.
+   A separate followup series will add cache occupancy monitoring.
+   Bandwidth monitoring will have to wait for the larger issue of non-L3
+   bandwidth to be resolved first.
+
+ Bug fixes from v2 review:
+ - Fix cbqri_apply_bw_config() and resctrl_arch_get_config() using
+   capacity operation constants instead of bandwidth
+ - Fix missing err = -ENOMEM after ioremap() failure
+ - Fix ver_major not shifted after masking with GENMASK(7, 4)
+ - Fix ctrl->mcid_count = node->rcid in RQSC parser
+
+ Improvements from v2 review:
+ - Implement resctrl_arch_set_cpu_default_closid_rmid() (was no-op),
+   use per-cpu cpu_srmcfg_default for resctrl allocation rule 2
+ - Remove hw_dom->ctrl_val[] cache, read/write CBQRI registers directly
+ - Drop resctrl_arch_find_domain(), use resctrl_find_domain() directly
+ - Use sorted domain insertion via resctrl_find_domain()
+ - Set domain id from cache_id (capacity) or prox_dom (bandwidth)
+ - Define RISCV_RESCTRL_EMPTY_CLOSID instead of referencing x86 constant
+ - Find minimum mcid_count across controllers for max_rmid
+ - Convert SHIFT/MASK pairs to GENMASK() and FIELD_GET()/FIELD_PREP()
+ - Use acpi_pptt_get_cpumask_from_cache_id() instead of hardcoding
+ - Remove fixed-size f[6] array in RQSC; parse with ACPI_ADD_PTR and
+   flexible array for resource descriptors
+
+ Error handling and robustness:
+ - Implement resctrl_arch_reset_all_ctrls() to reset all CLOSID
+   allocations to defaults on unmount, including CDP code/data entries
+ - Capture resctrl_init() return and cleanup on failure
+ - Call resctrl_exit() on cpuhp_setup_state() failure
+ - Call resctrl_offline_ctrl_domain() before freeing in error path
+ - Check resctrl_find_domain() return to reject duplicate domain ids
+ - Validate nbwblks!=0 during probe; bounds-check RQSC res[0] access
+ - Skip controllers with bad cpumask instead of adding with empty mask
+ - Validate resource capabilities match across controllers at same
+   cache level
+
+ Bandwidth allocation:
+ - Derive max_bw from hardware MRBWB/NBWBLKS with DIV_ROUND_UP()
+ - Clamp rbwb to mrbwb so write/readback round-trips exactly
+ - Copy cpu_mask for bandwidth domains from proximity domain NUMA node
+
+ Hardware interface:
+ - Return final register from cbqri_wait_busy_flag() to eliminate
+   redundant MMIO reads after busy-wait
+ - Add per-controller spinlock for MMIO register sequence serialization
+ - Use readq_poll_timeout_atomic() instead of hand-rolled jiffies loop
+ - Move max_rmid update after successful controller probe
+
+ Cleanup:
+ - Add lockdep_assert_cpus_held() in resctrl_arch_update_domains()
+   and resctrl_arch_reset_all_ctrls()
+ - Mark acpi_parse_rqsc() __init
+ - Convert __switch_to_srmcfg() stub from macro to static inline to
+   make both checkpatch and clang happy
+ - Use pr_debug for per-controller details, pr_warn for non-fatal skips
+ - Remove unused arch stubs and dead code
+ - Use GENMASK_ULL for bits>=32, io-64-nonatomic-lo-hi.h for rv32
+
+ Link to v2: https://lore.kernel.org/r/20260128-ssqosid-cbqri-v2-0-dca586b091b9@kernel.org
+
+Changes in v2:
+ - Add support for ACPI RQSC table which provides the details needed to
+   discover the CBQRI controllers and support resctrl
+ - Drop the "not for upstream" platform drivers and QEMU dts patches.
+   Those can be found in v1 and were only for the RFC series. The
+   branch for the v1 series is preserved as ssqosid-cbqri-rfc-v1
+ - Change cbqri_wait_busy_flag() from 100 ms to 1 ms to avoid
+   unnecessary latency.
+ - Change resctrl_arch_get_config() to return resctrl_get_default_ctrl()
+   instead of a negative errno value which is not valid for u32.
+ - Change cbqri_probe_controller() to return -EBUSY when
+   request_mem_region() fails
+ - Change resctrl_arch_get_config() to no longer increment when rbwb
+   modulo ctrl->bc.nbwblks is true
+ - Fix indentation in cbqri_set_cbm(), cbqri_set_rbwb() and
+   cbqri_get_rbwb().
+ - Link to v1: https://lore.kernel.org/r/20260119-ssqosid-cbqri-v1-0-aa2a75153832@kernel.org
+
+---
+Drew Fustini (11):
+      dt-bindings: riscv: Add Ssqosid extension description
+      RISC-V: Detect the Ssqosid extension
+      RISC-V: Add support for srmcfg CSR from Ssqosid extension
+      RISC-V: QoS: add CBQRI hardware interface
+      RISC-V: QoS: add resctrl arch callbacks for CBQRI controllers
+      RISC-V: QoS: add resctrl setup and domain management
+      RISC-V: QoS: enable resctrl support for Ssqosid
+      ACPI: PPTT: Add acpi_pptt_get_cache_size_from_id helper
+      DO NOT MERGE: include: acpi: actbl2: Add structs for RQSC table
+      ACPI: RISC-V: Parse RISC-V Quality of Service Controller (RQSC) table
+      ACPI: RISC-V: Add support for RISC-V Quality of Service Controller (RQSC)
+
+ .../devicetree/bindings/riscv/extensions.yaml      |    6 +
+ MAINTAINERS                                        |   11 +
+ arch/riscv/Kconfig                                 |   20 +
+ arch/riscv/include/asm/acpi.h                      |   10 +
+ arch/riscv/include/asm/csr.h                       |    6 +
+ arch/riscv/include/asm/hwcap.h                     |    1 +
+ arch/riscv/include/asm/processor.h                 |    3 +
+ arch/riscv/include/asm/qos.h                       |   52 +
+ arch/riscv/include/asm/resctrl.h                   |    7 +
+ arch/riscv/include/asm/switch_to.h                 |    3 +
+ arch/riscv/kernel/Makefile                         |    2 +
+ arch/riscv/kernel/cpufeature.c                     |    1 +
+ arch/riscv/kernel/qos/Makefile                     |    2 +
+ arch/riscv/kernel/qos/internal.h                   |   81 ++
+ arch/riscv/kernel/qos/qos.c                        |   40 +
+ arch/riscv/kernel/qos/qos_resctrl.c                | 1092 ++++++++++++++++++++
+ drivers/acpi/pptt.c                                |   63 ++
+ drivers/acpi/riscv/Makefile                        |    1 +
+ drivers/acpi/riscv/init.c                          |   23 +
+ drivers/acpi/riscv/rqsc.c                          |  136 +++
+ include/acpi/actbl2.h                              |   36 +
+ include/linux/acpi.h                               |    8 +
+ include/linux/riscv_qos.h                          |  109 ++
+ 23 files changed, 1713 insertions(+)
+---
+base-commit: 7aaa8047eafd0bd628065b15757d9b48c5f9c07d
+change-id: 20260329-ssqosid-cbqri-rqsc-v7-0-b0c788bab48a
+
+Best regards,
+-- 
+Drew Fustini <fustini@kernel.org>
 
