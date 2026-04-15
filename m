@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 358DE1DED40;
-	Wed, 15 Apr 2026 06:50:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6380391E5C;
+	Wed, 15 Apr 2026 06:52:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776235836; cv=none; b=E4Z3P1evSaELRqxTWMFVUnr5qqz+O+kfRjJQqSvFEGBU1xFW1e0XsLg1RSpmLq4Ux1KYgbgG0T3xU/SfCjRfOiFs3SIE8tKUbYK3uZTPjHso1Vd0v9LFnNuA5HBO9qIbzgVpLJGgtUa5d1WArFfRpVuHfomLOqpPU14HrkOZY7w=
+	t=1776235921; cv=none; b=oeAD7AaUIqvvMzw31wCIh7yFrYBKM0JR++fV1lMZYMQgsR80f2HICTNstrOF4ljJUlyFpUO163yLAQwLbvevzEce5JCpCVjmNSr0ViBu1HI8oluXj1RtrAcWms2WiDf/wm4D0A/7DtooMqPlZpTKvMTbEh3DBfiGSZJHDO46KHI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776235836; c=relaxed/simple;
-	bh=VMsBoLHhYIV1HKVvlIVHKMnGf+X02Zf4nkTRpF9ABgA=;
+	s=arc-20240116; t=1776235921; c=relaxed/simple;
+	bh=oIPllxHWPyagWDL1Abeanp7dj2Ninry9o4xCoPbgQsc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XirAwrznFrSB+crHBd8FlI/6ujvcZm3UQVxkXEjpeTHHv24AI8gcq9vejIlqz/JdTgcZCkOyKCaRPD+d2JoPUTi9OCcxzQGx6r3waShFI+z16PNVdB+2A7WGf/EwNGnt58CvrBSL3TTHf2vaRpMtdMEl2qsfxyK0X2dFtA8zDkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uf6STzNo; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=ghVcR8C+ezb6eUGfyxF+lYiJXgh1LyI8TV1TTb7NscrDgXFdSH1L97KjolxGzLmnCCqdOeAOxU/+hnORPinpua2KwyvIppWKZ2+dhNcPZMWuwUU+pRmKNdaL99U3tTxEdZgnhfYKyo3u/ncA2LJ3Q4YMqqeejHL9EETT6GHvfLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lAY1UZjr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uf6STzNo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE11CC19424;
-	Wed, 15 Apr 2026 06:50:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lAY1UZjr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56BF0C19424;
+	Wed, 15 Apr 2026 06:51:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776235836;
-	bh=VMsBoLHhYIV1HKVvlIVHKMnGf+X02Zf4nkTRpF9ABgA=;
+	s=k20201202; t=1776235921;
+	bh=oIPllxHWPyagWDL1Abeanp7dj2Ninry9o4xCoPbgQsc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=uf6STzNoLtQ/PB/vp7RvJn5Yxl1Xr2hLXzHpLzgHvSSxTQuUz5SozAYlsJoZl+dHd
-	 5U6OZlOiiT8rjUlxd9EpTa047UA+zjyUhU0biPk9xILqNKvXmQLkk8SE1Z8ebvKhjm
-	 LPFGXeAEt15QUY/6SFVPQw5/cR8hzbE+lrBLySXeMVNurOYawv7uHUxKnqJyf1fCn/
-	 iz3WrWyxI+VExZzUBiq147+zF86T/wX63aYhqZTYKnMyHLAFO0VbkE0cAX3KQGE846
-	 mmoReb7yhi5OwuAlPPt9oR0kAEBUhfDEiTD/5MAEMdGguvqFwNAq/LyDC8rdOZ1BqH
-	 dPpK4Fk38Fj4A==
-Message-ID: <bf54faab-fac5-4c5c-89ea-04e328986760@kernel.org>
-Date: Wed, 15 Apr 2026 08:50:31 +0200
+	b=lAY1UZjrmymWFIklYCF4exMl9hXQ/GP1Q4HsuZ82zgD27kH2gQegE4w/jGlr8MTQu
+	 irlMGllfVMm3+bjTXaMv2VSmlIzzpAHqrv3X4UQadecNbfT8oXizMn84Lj/mb3hukq
+	 bimKPVew4rcb3MPd9ogWOlq/+FjIkWQO0FwGrB3ggJoeS9D2eX/ppShHDaTMGa0isC
+	 6Z51yO9iDwjiSkDdYgih7l6Nw7h7ax7rXwWtKYLEjY7//H/HjbLdiSayqBRlzML9LZ
+	 A3axe+DWtFGURDjqyWBTiQWALp+txj38G94zuZYhzHml3b8Ou2hFKtVaGBL+9vzELr
+	 HlR0fU+TbkoAQ==
+Message-ID: <bac33524-1caa-4bff-be36-df909917cf3b@kernel.org>
+Date: Wed, 15 Apr 2026 08:51:56 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,16 +35,21 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: remoteproc: add AMD MicroBlaze binding
-To: Michal Simek <michal.simek@amd.com>, Ben Levinsky <ben.levinsky@amd.com>,
- andersson@kernel.org, mathieu.poirier@linaro.org
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, tanmay.shah@amd.com
-References: <20260414161558.2579920-1-ben.levinsky@amd.com>
- <20260414161558.2579920-2-ben.levinsky@amd.com>
- <774a8e9f-cfd9-4584-aaf0-2fd1189f65e8@kernel.org>
- <e82faa64-22fa-4dba-8cde-f02cf9f95e25@amd.com>
+Subject: Re: [PATCH 02/10] dt-bindings: mfd: syscon: add qcom,msm8960-sps-sic
+To: Antony Kurniawan Soemardi <linux@smankusors.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
+ Rudraksha Gupta <guptarud@gmail.com>
+References: <20260414-msm8960-wifi-v1-0-007fda9d6134@smankusors.com>
+ <20260414-msm8960-wifi-v1-2-007fda9d6134@smankusors.com>
+ <20260414-frisky-aloof-koala-4cbfdb@quoll>
+ <b80727eb-6a7a-44fc-b6a2-56c4ee199b57@smankusors.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -90,77 +95,28 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <e82faa64-22fa-4dba-8cde-f02cf9f95e25@amd.com>
+In-Reply-To: <b80727eb-6a7a-44fc-b6a2-56c4ee199b57@smankusors.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15/04/2026 08:16, Michal Simek wrote:
+On 14/04/2026 20:34, Antony Kurniawan Soemardi wrote:
+> On 4/14/2026 2:19 PM, Krzysztof Kozlowski wrote:
+>> This was also sent. Where is the changelog and versioning? What changed
+>> here?
+> Sorry, the cover letter should have referenced the earlier dt-bindings
+> series [1] and explained about it.
 > 
+> In this patch series, I combined the original 2 patches into a larger 10
+> patch series to make it more complete. Especially since earlier feedback
+> noted that the bindings were not used by any in-tree consumers. Since
+> the scope changed significantly from the original, I resent it as a new
+> series rather than a v2.
 > 
-> On 4/14/26 19:53, Krzysztof Kozlowski wrote:
->> On 14/04/2026 18:15, Ben Levinsky wrote:
->>
->> A nit, subject: drop second/last, redundant "binding". The "dt-bindings"
->> prefix is already stating that these are bindings.
->> See also:
->> https://elixir.bootlin.com/linux/v6.17-rc3/source/Documentation/devicetree/bindings/submitting-patches.rst#L18
->>
->>> +---
->>> +$id: http://devicetree.org/schemas/remoteproc/amd,microblaze.yaml#
->>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>> +
->>> +title: AMD MicroBlaze remote processor
->>> +
->>> +maintainers:
->>> +  - Ben Levinsky <ben.levinsky@amd.com>
->>> +
->>> +description:
->>> +  MicroBlaze remote processor controlled by Linux through the remoteproc
->>> +  framework.
->>
->> Describe hardware, not Linux frameworks. IOW, Linux framework is here
->> irrelevant.
->>
->>> +
->>> +  The executable firmware memory window is described in the
->>> +  MicroBlaze-local address space by the node's reg property and translated
->>> +  to the system physical address space with standard devicetree address
->>> +  translation provided by the parent bus node's ranges property.
->>> +
->>> +properties:
->>> +  $nodename:
->>> +    pattern: "^remoteproc@[0-9a-f]+$"
->>> +
->>> +  compatible:
->>> +    const: amd,microblaze
->>
->> microblaze is architecture, so this feels way too generic. You need SoC
->> specific compatibles and I suggest do not reference architecture, but
->> name or the function of the processor, if there are such.
-> 
-> I have been arguing internally that I think when you look at driver itself it 
-> can be pretty much generic loader for any firmware and doesn't really matter if 
+> Would you prefer splitting this series into separate series like before,
+> for example:
 
-Luckily I don't speak about driver :)
-
-> target subsystem is Microblaze/Risc-V/whatever based. And I was suggesting them 
-> to use more generic name.
-
-So the binding is for drivers - generic loader? Then simply no. Not
-suitable for DT.
-
-> 
-> Because at the end of day reg property is pointing to location where firmware 
-> should be loaded and gpio is a way how to start that subsystem and there is 
-> nothing Microblaze specific.
-> 
-> I can also imagine that the same driver could be extended with optional power 
-> domain, power regulator and clock properties if there is a need to drive them 
-> before subsystem gets out of reset.
-> 
-> Does it make sense?
-
-Yes, drop from DT. No need for generic stuff. Or describe the hardware.
+No, you need to keep versioning, changelogs and make clear how previous
+comments got resolved.
 
 Best regards,
 Krzysztof
