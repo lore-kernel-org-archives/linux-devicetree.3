@@ -1,110 +1,149 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44D76344DAC;
-	Wed, 15 Apr 2026 15:44:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 419321DA23;
+	Wed, 15 Apr 2026 15:53:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776267847; cv=none; b=diNp91LzpTdauGfKBCcGSr0UZTu0aP5Cr1bnC8yTRfuDh3flLov8X6i/TEvEQbBvwarKdMH4X2jy/1NaWEFP7/Wn26Xrz5joPsXvCpvJ4eZZCxdydhriR9bd4ZcJe3RAEyU67A+Q9JDI1gv5TTe9oa3+UmHzHcZ4oKcxVYX6C98=
+	t=1776268433; cv=none; b=cf86sWlzs29y2R1D2J8EgiVeSN2S57NteMcLnlOm6kr8JIYBN92uhjWG5GPjHJqQ6Snu01QSfw4B8WlitNRMJlBJzTZieW0S/TCqmUdCbpJUx26v0t2B4ZDQdLvHPVrd0w3jYS9NHBXmkTFnfQVpKIkd4sPNv7/z7X5s+YqUC48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776267847; c=relaxed/simple;
-	bh=1Rml2uZbF3K3y7EMMrJGe51K78HqnYsNwGvhIUt/8f8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=p54Rf33aYydQXHZ3WiPUYE+HTWDWphmHx6S2Rkt1PEG/EwXEIY1ZiZRIOMn52+4d7F2k6rETZ1B5txkq01KdoBGUwPSe21DHZXsd4LhUgTFJskZxowWtfAm6hrmTV09y4TQqo2fIMUupA8sE6+T9L0M2D38zxmTKq99KLFR8VMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q8drgf46; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776268433; c=relaxed/simple;
+	bh=Us7yUv36VR/pQ2jT+9Hva+0cXXCK2Pqu3CcrJ7SAPWg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Wrk9uMeLzjeULtglsNXNYq7gifmfHJ5KqqyWmi5FAde+rPzwKPaBFt1JWBaoxKjf7SqxC+J/mdUnCo5OLrpjnpdD5/0Drq/JlG0VdUB6HAuPX1oP65xzGn+2jcI6i8xo2rg3b5XWh0O8FNeIaiHM3gHoArLJEtdi+4bqBDvIowY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DjIbpc+t; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q8drgf46"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CA838C19424;
-	Wed, 15 Apr 2026 15:44:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DjIbpc+t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C8E2C19424;
+	Wed, 15 Apr 2026 15:53:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776267846;
-	bh=1Rml2uZbF3K3y7EMMrJGe51K78HqnYsNwGvhIUt/8f8=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=Q8drgf46MQrH2j2TukG5zqtGlb8+Ld4Ja76gN3pdNPaPvadTOivI0RnCZeSaHVFqp
-	 cuCGp61ZQO/LXbYcX5IBa+USRO0N0meg2MvZPFBIpU0d6kh/1t6GKT9UE+L8QSVWLJ
-	 2UmQdRG2cCX5RtCuyaKLOkbMkqCRa4YcfFTwz86q2R+Lsmj8Xeo7N21o3z+juvfgDo
-	 M/2dd0cpHIHsT4EO6Lxf2MU9Oz/yF/NKxF+SQKyM6lZJct5qVWguGzK2ZALm0auvD7
-	 RzTs3DZvQScV6KcVO1tbtOOJ4zAO1Zd/NJo6UUl9BsDfLB3BzkDM3LHZdhBX2eatZR
-	 eSQvSJyYIPaXQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B612EF4384D;
-	Wed, 15 Apr 2026 15:44:06 +0000 (UTC)
-From: Vishwas Rajashekar via B4 Relay <devnull+vishwas.dev.vrajashkr.com@kernel.org>
-Date: Wed, 15 Apr 2026 21:13:40 +0530
-Subject: [PATCH] dt-bindings: iio: gyroscope: add mount-matrix for bmg160
+	s=k20201202; t=1776268432;
+	bh=Us7yUv36VR/pQ2jT+9Hva+0cXXCK2Pqu3CcrJ7SAPWg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=DjIbpc+tT05ZnG96Uo1tahGpZmjWGE7DLk7/a5R1L8t3v7L3KqoiPNxQbrTzSaCaw
+	 +Re1HIH2Qfrf5UBHmdjAU1mLML0jBk1wkXG3hfTFTFfdDOk5/BMNOTxKZd+/oyX1t2
+	 VOeNhfWtSRO7NkPCesaWVvvzpMJiPW3Gvt0LAItU1sHufnLVsTXxgD4Pgzti6syvQb
+	 BM+EpmgUnCgmWTIwgYuDCsGqDadn10dYeJLkglEpErZ2V6BJszkcSHm3uncIi/kSbk
+	 bINYh5yegwd2Z6VtM0cksuVApTB7ascyWp0CvIsXaqBmzzYse43zE93a8ah/rP4VLr
+	 PSPxGkI8/gZbg==
+Message-ID: <a055a390-2818-449d-9a10-fda0237cd16e@kernel.org>
+Date: Wed, 15 Apr 2026 17:53:47 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v2 00/11] Add support for AUDIN driver in Amlogic GXBB
+To: Jerome Brunet <jbrunet@baylibre.com>, Valerio Setti <vsetti@baylibre.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org
+References: <20260411-audin-rfc-v2-0-4c8a6ec5fcab@baylibre.com>
+ <1jh5pcs2gw.fsf@starbuckisacylon.baylibre.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <1jh5pcs2gw.fsf@starbuckisacylon.baylibre.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260415-bmg160-mount-matrix-dt-binding-v1-1-0e2c85964ee6@vrajashkr.com>
-X-B4-Tracking: v=1; b=H4sIACuy32kC/yXNTQqDMBBA4avIrDuQSEh/rlK6MM6YTiFjSWIRx
- Ls3tctv894GhbNwgVu3QeaPFJm1wZ46GJ+DRkahZuhN742zDkOK1htM86IV01CzrEgVgyiJRuS
- zJyK+uov30CLvzJOsx+D++Lss4cVj/VVh37+XPsTsggAAAA==
-X-Change-ID: 20260414-bmg160-mount-matrix-dt-binding-e76ddde94866
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, luca@lucaweiss.eu, 
- Vishwas Rajashekar <vishwas.dev@vrajashkr.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776267845; l=1356;
- i=vishwas.dev@vrajashkr.com; s=20260414; h=from:subject:message-id;
- bh=pcuRd/qLKaTlnrY5W5w/EZ94X8GzaogVmcptT8JzSSA=;
- b=uQx0SBFlnI+dg9jmGonNeL4eQ04Ym5InA6iB5YcWxwwhTuTMW8gSv+WrnBJbd7/TmVL0K9hZt
- 9XlHHMTbG3dBXOZ3w1Z7qBCYe2NFkOuziTT7kXTkNz+b18VC+wwryLj
-X-Developer-Key: i=vishwas.dev@vrajashkr.com; a=ed25519;
- pk=OvZgoGVJ7ofrIn3w/YijdoJ0IexAy1kREY51mGZPm9M=
-X-Endpoint-Received: by B4 Relay for vishwas.dev@vrajashkr.com/20260414
- with auth_id=734
-X-Original-From: Vishwas Rajashekar <vishwas.dev@vrajashkr.com>
-Reply-To: vishwas.dev@vrajashkr.com
 
-From: Vishwas Rajashekar <vishwas.dev@vrajashkr.com>
+On 15/04/2026 16:49, Jerome Brunet wrote:
+> On sam. 11 avril 2026 at 16:57, Valerio Setti <vsetti@baylibre.com> wrote:
+> 
+>> This series adds support for I2S audio input (AUDIN) on the Amlogic GXBB
+>> platform.
+>>
+>> It has been largely reshaped compared to what proposed in v1. Instead of
+>> adding an HACK commit to allow AIU to export its clock so that also
+>> AUDIN can control it, now the design closely follows what was implemented
+>> in the Meson AXG platform. "aiu-encoder-i2s" becomes the shared interface
+>> for playback/capture and it controls pins and clocks; data formatting
+>> is implemented in formatters which are named "aiu-formatter-i2s" and
+>> "audin-decoder-i2s" [1].
+>> Formatters are DAPM widgets which are dynamically attached/detached to
+>> the streams when the latters starts/stop, respectively.
+>>
+>> As of now only I2S input is supported, because it's the only one
+>> I could physically test in my setup, but other input sources (ex: SPDIF)
+>> are also allowed according to the SOC's manual and can be added in the
+>> future.
+>> This series was tested on an OdroidC2 board (Amlogic S905 SOC) with an
+>> NXP SGTL5000 codec connected to its I2S input port.
+>>
+>> Since this work brings GX platform very close to the AXG one, once this
+>> series is accepted, follow up work will be done in order to unify
+>> GX and AXG formatters so as to minimize the number of implementations.
+>>
+>> The series a bit long and it includes changes to drivers, dt-bindings and
+>> device-tree. Of course this only happens because this is an RFC and I
+>> wanted to give a full overview of what will be the final design. If no
+>> objection is raised, this patch series will be split into 3: one for
+>> reshaping AIU and introducing formatters, one to add AUDIN driver and its
+>> dt-bindings, one for the device-tree changes.
+>>
+>> [1]: Different naming for the aiu part is related to the fact that
+>> "aiu-encoder-i2s" is already used for the interface and the goal
+>> of this series was to introduce the minimum amount of changes that allow
+>> I2S capture to work. Renaming can be implemented in the future as follow up
+>> activity.
+> 
+> Thanks a lot for this awesome work Valerio. I know this was a lot of
+> effort. With Mark and Krzysztof comments addressed
+> 
 
-Adds mount-matrix as an optional property to dt-bindings
-for the bmg160 gyroscope as the driver reads this optional
-property during probe.
-
-Signed-off-by: Vishwas Rajashekar <vishwas.dev@vrajashkr.com>
----
-The bmg160 driver reads an optional mount-matrix using
-"iio_read_mount_matrix" in "bmg160_core_probe" and stores
-this orientation data in "struct bmg160_data". As the "mount-matrix"
-property is used by the driver, this change proposes to add it to
-the corresponding dt-bindings.
----
- Documentation/devicetree/bindings/iio/gyroscope/bosch,bmg160.yaml | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/iio/gyroscope/bosch,bmg160.yaml b/Documentation/devicetree/bindings/iio/gyroscope/bosch,bmg160.yaml
-index 3c6fe74af0b8..ea8689660adf 100644
---- a/Documentation/devicetree/bindings/iio/gyroscope/bosch,bmg160.yaml
-+++ b/Documentation/devicetree/bindings/iio/gyroscope/bosch,bmg160.yaml
-@@ -22,6 +22,9 @@ properties:
-   vdd-supply: true
-   vddio-supply: true
- 
-+  mount-matrix:
-+    description: an optional 3x3 mounting rotation matrix.
-+
-   spi-max-frequency:
-     maximum: 10000000
- 
-
----
-base-commit: 591cd656a1bf5ea94a222af5ef2ee76df029c1d2
-change-id: 20260414-bmg160-mount-matrix-dt-binding-e76ddde94866
+My comments are still unanswered. One of the devices looks like
+artificially split from some other, because one word register is not a
+device.
 
 Best regards,
---  
-Vishwas Rajashekar <vishwas.dev@vrajashkr.com>
-
-
+Krzysztof
