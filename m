@@ -1,260 +1,125 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013031.outbound.protection.outlook.com [40.93.196.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F338436494C;
-	Wed, 15 Apr 2026 11:04:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.31
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776251061; cv=fail; b=LsyiPL7brrIR2mdGQqYDVpU8HcFpnF3NMmK1SV8WkJwgwhbse15nSzUdwMDjmYGxPJ2aSrZEiQM0rVXb3yitU33q0jr54HTgU+eSwaWU5qar9YPZbqL6Hgeh9Lp7S6sRurw64PMR94MvB6fau1cSwTZtjZusz7wCYI/zmCF0ONI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776251061; c=relaxed/simple;
-	bh=d3BXypzWXkf0hZYS2YXjgrXrNhy4ktAxVHcE34YTpY4=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=O/iCV1wUH/VeffUPvRJx/HloxcNTi21aAREbFdgKO3Ar/C9d9sqmhvaNCJWxuiGUKEIHqwstugeW75a0/TdRWU+tpo3eEGlQZ+Oa/gHbL5r4Ie/ojFk9wT1cNQdn8YpS6jYHlYRLQTyy95fs07vF0GBkxLv2s7w2gGJQdSzW52E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=DwAAGQeU; arc=fail smtp.client-ip=40.93.196.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A8E1344D8E
+	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 11:06:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776251218; cv=none; b=DQz8rolxZtXnIOcY/4Bzv853mnm63iAwnbpc28dJNT6qMNcLOF6MfdK8O8B/vBGVTdy87zvMJU68Mtrn1/4X0bKm0u8Grmz81aaKI3MIxN0ZJcK2ByIihTQiEzTN2Ab5vJ8RcgnKyQ32z5MrM5ortNi9m312XwtgQML35E2znTY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776251218; c=relaxed/simple;
+	bh=LDI3mtUhr2Rd5w5ikgiCoRnemB42IOlavCohdIScs2s=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=VvjysYNwNP55is0rwBHSSxqmTatoMnbsuUb0xembDxaRlHxKo4JLFcaY1RiZXJvzWWWEf4VQaTYLV4YQbejO7+MMSQGuJj3IrcTxEFddiew7v6X7+lg/SKnD4bgtNU6pugVQn6rwZuC/XdYommn3x7jcF8gCWe6Jqr80KCZy8c0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=FC1dNizW; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="DwAAGQeU"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IDR6xNcgV5uRUTd/Idylb7BWB+bELTqWSmPSmCOZm+4Kn47PoJWPldKdNCXQeKzX8tZegDboFGAeuDgf5Ne+md47nWbw0UvfDIgkQDlHINskg/nBQiyYxvQGZM2g9UoakwKRJ0Y96WJVoez53YjWZ0CPgQudzOfCoksvouKmgzrRCeDhi4GG+GRB/BSRBiJ1bCq7H2amSuLSj1yHe+oMe7puDSLw8qbNIe8Cf9TPZPRiv7GJz0/r0bUmLsWJ3BWRZHX3W/1Xn2YbocCVoQfG3LD7b9REI3qMPZ1YyCTGRu+jm+/0aGXa6YxWjmhTUQJPrVjKk4Pqowmq2LmAfBUdxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pAAKTBFbQHIVsGK4ozRLR5YPW8kNgbxFHKNk1KShpbI=;
- b=SpII9qurV8lZ+dEMxE7DhpaYRdlSSRB90gki00OaN/fL/dZdoI/41BEWNb/OpcvCr3lmTqm+9dm9ap8IFKIvMpcdrL0HRwSaXFIseVE+xIv0vkGuLWWKXgFdWH/6J0mhzuxyShHtuK1UOyoIAzx+arVyO04e/aLoB69pDvozktw/gnAejrn4kBwCH+2Q56hlrP3YKSuHdKYFUH7FMasI4bMkMAjo2haW2Eh2X2leQYwllaDfuIuwuxBcE0bAb+rwjAiztr6zo4H1zbxidloSjapfEiot61opybD1FE8m2bqHiQuk+VHSYgBanMtyyF13Ar9JK+rWOldvrJ/s+XHYmw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pAAKTBFbQHIVsGK4ozRLR5YPW8kNgbxFHKNk1KShpbI=;
- b=DwAAGQeUEWlEBgpZEGX3eCEQctaN3w+KuwHN0AsWvS4YCK1r0NyWhfAjZwD9N9fW1lCAwMSZpZuHsk0iAEk/mi2sihCfEBTp+JMVLj46LQrHxIFgcaib5Gn7AOGrI+oftgj/AjFlWklBK6jL0urkc0u4IgT11e3Kw32zTQgHG4k=
-Received: from BY3PR03CA0013.namprd03.prod.outlook.com (2603:10b6:a03:39a::18)
- by SA1PR10MB6519.namprd10.prod.outlook.com (2603:10b6:806:2b1::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Wed, 15 Apr
- 2026 11:04:16 +0000
-Received: from SJ5PEPF000001CF.namprd05.prod.outlook.com
- (2603:10b6:a03:39a:cafe::9c) by BY3PR03CA0013.outlook.office365.com
- (2603:10b6:a03:39a::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.49 via Frontend Transport; Wed,
- 15 Apr 2026 11:04:16 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- SJ5PEPF000001CF.mail.protection.outlook.com (10.167.242.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Wed, 15 Apr 2026 11:04:15 +0000
-Received: from DFLE213.ent.ti.com (10.64.6.71) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 15 Apr
- 2026 06:04:15 -0500
-Received: from DFLE206.ent.ti.com (10.64.6.64) by DFLE213.ent.ti.com
- (10.64.6.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 15 Apr
- 2026 06:04:14 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE206.ent.ti.com
- (10.64.6.64) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
- Transport; Wed, 15 Apr 2026 06:04:14 -0500
-Received: from a0512632.dhcp.ti.com (a0512632.dhcp.ti.com [172.24.233.20])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 63FB49382077152;
-	Wed, 15 Apr 2026 06:04:10 -0500
-From: Swamil Jain <s-jain1@ti.com>
-To: <jyri.sarha@iki.fi>, <tomi.valkeinen@ideasonboard.com>,
-	<maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
-	<tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
-	<robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-	<devarsht@ti.com>
-CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <praneeth@ti.com>, <vigneshr@ti.com>,
-	<s-jain1@ti.com>
-Subject: [PATCH v4] dt-bindings: display: ti, am65x-dss: Fix AM62L DSS reg and clock constraints
-Date: Wed, 15 Apr 2026 16:34:09 +0530
-Message-ID: <20260415110409.2577633-1-s-jain1@ti.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="FC1dNizW"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-43d6fbd0954so2813132f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 04:06:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1776251215; x=1776856015; darn=vger.kernel.org;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Rw116FfYB2wR32SWs/TCFerpwP/9uG3dqe/oInwd9Xs=;
+        b=FC1dNizWonp4QpzI2N3Rq2W2xJ4iMmgVfWaMZPlRlepTj+O46bHcZeMyOvzm+f4p5B
+         0uL6aFM3ptRN6stlO+7R8SL3cN4C1leb1oZKGUZqvWTFFrL+9ofe30xrw7dS1bEepTjQ
+         J0ADmXh+JsoVhe2SX/nQRIjjwzpx/zqWnrwl+GJAsYiUS0ZzXbnZwadHVOurA4W8rzRO
+         9qm1UgBqRSE9VOZzXNUgmlPQxITuvHMnnuGTsAUeT7wZ700vKzw0QCgtOVH2VY4mS9Kr
+         klEEn4HbmUjn44Ac0GBJAeenFRV01M79S3CFRgUHuQKuQYuVeYJmzUFydARFzyqUq7GD
+         Uihw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776251215; x=1776856015;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Rw116FfYB2wR32SWs/TCFerpwP/9uG3dqe/oInwd9Xs=;
+        b=tPnt3Tkycue9mtIlQRh5xbL10E5AmXrwv+CT0A3DLWdlAFVLE4Y0w9Vnh+60kU3cTc
+         Qd9CXqqFPrE7YV+DDoRH4U6Zq3lFLUP/eAKJsCRfEoDSLHF5KZcLR2WYrAWfLKzETsew
+         hfg8vWXx/4qIiYRd26YwGOqJnDdqx40fy+Z5XMEqNwzA23RywoRW+R0nvtLktGgbTsfv
+         HIpUPpSKCS6suJ/U4JVn/m4Uu9qdnWBdrwa3tuuWEGRSAL5gmTHQqcGOXyqQ+/34nPhL
+         oudHWGU3yeiC+A3oKAdH4t8YnCW202N0O3fcGQNQDVEVC2aLS4vN0M0BapW/ra0sEOwn
+         6lYw==
+X-Forwarded-Encrypted: i=1; AFNElJ+omuleWI8aO7evBEP2zlKNBFt3d45rMllfINRrlbh0Xr+cu85TpXHAC0gFiG1iAx1dt3lZvVxQ7r9I@vger.kernel.org
+X-Gm-Message-State: AOJu0YwMtMAAYVaN1heVUlAT81V74IU5RF5fdce3z8ew0DtoWGGJaWs0
+	uPoWRYj9g1GozcH1MfRRFpmhpSYlHyEtU8PM0k3y3D/h8EjyfoGslFqrnVfXPe70u3M=
+X-Gm-Gg: AeBDieuMR90dOp0pKk4uLb5wYC9LyPvGhe6HVn5WVfNias9M1WZHcL4Gi6IO0ZH2IFs
+	/mN8IDVywdqq3gJmWzSsdSoPCnSXGpw7NcjH+y6CirPdNC2yieEbaXT9XGBefLomjX1Vl/od8GF
+	H9+aJq/7HCIF8XrbHfbnCXQnhLfEl7/YDeoqRSulZ53Zfw9N42Ucss7gbAnTfhi0zIHInoAMe5f
+	SMFZi+f4ik1kD6otfEU3ghTpkltR7yRiAiGGHbT/rU6hk8Kvi42+Rb1QG+AYzFLqOJhhNBigj82
+	x8draGR6Nh8oynteSzqdzbsfN3+4BUyGf8Vs5nhs9xg+3DWyVUUmK9Bx4tAX6xHj83NgktJRblw
+	y4UNPCS1dxPDd/Fe+5FSWxHedPXxJbng91FEbp5pJGr+8iG+2TDAyUJ1TijLUsoyH6oQi4d9isA
+	WbLwNKx4/WL/S0MOBkq8/Kb5oGJHoVoe73RWGOoUFt5OJ7f6MdsQXJNAe9atr2Ydy7Y7ofzxdvk
+	Nin/FaQ1zwgBegACg==
+X-Received: by 2002:a05:6000:184e:b0:43e:aa88:f1a6 with SMTP id ffacd0b85a97d-43eaa88f2cemr4326833f8f.45.1776251214558;
+        Wed, 15 Apr 2026 04:06:54 -0700 (PDT)
+Received: from localhost ([212.187.182.164])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43ead3e0091sm3867007f8f.25.2026.04.15.04.06.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 15 Apr 2026 04:06:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CF:EE_|SA1PR10MB6519:EE_
-X-MS-Office365-Filtering-Correlation-Id: d7fdd2ba-2bac-46bc-2515-08de9adebbdd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|82310400026|36860700016|921020|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	ZqduviPV6F+mRPfKcrg4dxIh0vjbK5KDzrVECujKYRmP3AQ18pWTan6k5g0Zgn2tLQPxQJwIzyucCJzzkHViMouaz65MeDglzch6NSTzO8i9ynnN/4UuGvVH/TU8XH7hLsxpJBjWGMk/63CEOHIk1t67moImotmGy9B6MEj8oWhedEJ8/ZG1/YJf22diE6g7CFV1PXSrAmTuTxS5HA358gsdihzjsdX4dRl9r8Wr6KPg2zGKGQj646fifoEGoBmbVrchPbnwPUxQNChDNQRNpmrifFey6wgkuRWG6hztsRt2ZuzD8xwNXZXiQ4t+RIuSJezgQpQTT1qkbpyZyMonfHgGo6GF5YIivlwOq2crYeOl2NujTzZDgT49W/spx3tw4zwlydKXaBtzXtNmwNjxlDyGb2WFHwgtRRVmcK/AQxvOpVy/XiASUoMZ/1Gu4ZEoW5lRiRvjhG4FkUY5vyqP0avHFAeCiHmtW0vOnQ1AQ1ugHtF2NRscm6niU2dU3zX+CaRl3eHo/yDTZmNL1Peo55VUBJYFBvkecoFdiw6fOLjalb34T4u2ZDD4YjR++6ykcxyCN3F7UlGx0gfGVfLzRKay22V2on+lpOVTTaXViQXuXa273wyD/PA5AitcTRAKIBXxzHaiG+7i0iwKNRi9cW0XnteLRAfCzOi2oVSez0UzHkdi6FhoQ7AL0amlS9W7qBmyHuGzHYowxirzteDTBqIyrfs55QBV5/UocY1oIVlQghkZQaludiO1Lou4uR6ffNTCbj5pPZk37mRHzPjQmSOeDdFv5aLXCpg3GD1mLZhWNOdckpkuXTt3at47xOdN6eWwiN4ICyXAN1xgCJL31Q==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(82310400026)(36860700016)(921020)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	QrEKDeGkQGlGAoGQ3MC+XohDLB8ZwIiYgPs2D1lH3Vg792tfE5r/+npDlf5JSOl8WF4g7AvnspSQ184b1jnrJwH/1vVtUv5rURhGudkQ+BQkVeWBma88uiipmcTdqUHPEqc4HNIy2DIK02Phnwq+/ZDSJUlPObln/qvu0XjXfjyzzKPa2xJxO8ypyWjX88NimD5RVMxstN181VNipA8czBXtbTsqHYpj10sTUCjNmaBIM+BXaLydnu4WTINp32ZRVcKYIqi10ANJYpGrXQ8fDdTwH2jyW6uqjnxszOVrbIBbEkT7bxLi2nfLbEok8KkIGOLF55eOiilDhcpe64tBFICTkkweLQABXXtO6Vtabxj5znwKqbwsI/DV5yLQ+PakjX4Tp1IlGr4e690kHjzdEpxm3CIfudGd5R5nSS0A14UUQvLmQuoa/Aa4qa4zdnzI
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2026 11:04:15.7157
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d7fdd2ba-2bac-46bc-2515-08de9adebbdd
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001CF.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR10MB6519
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 15 Apr 2026 12:06:53 +0100
+Message-Id: <DHTOI6CA1PS0.3JFMJ1VE6OJJZ@linaro.org>
+To: "Kumar Anurag" <kumar.singh@oss.qualcomm.com>, "Bjorn Andersson"
+ <andersson@kernel.org>, "Konrad Dybcio" <konradybcio@kernel.org>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Srinivas Kandagatla"
+ <srini@kernel.org>, "Liam Girdwood" <lgirdwood@gmail.com>, "Mark Brown"
+ <broonie@kernel.org>, "Jaroslav Kysela" <perex@perex.cz>, "Takashi Iwai"
+ <tiwai@suse.com>
+Cc: <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-sound@vger.kernel.org>
+Subject: Re: [PATCH v1 4/4] ASoC: qcom: sc8280xp: don't force S16_LE in
+ hw_params fixup
+From: "Alexey Klimov" <alexey.klimov@linaro.org>
+X-Mailer: aerc 0.21.0
+References: <20260413091937.134469-1-kumar.singh@oss.qualcomm.com>
+ <20260413091937.134469-5-kumar.singh@oss.qualcomm.com>
+In-Reply-To: <20260413091937.134469-5-kumar.singh@oss.qualcomm.com>
 
-The AM62L DSS [1] support incorrectly used the same register and
-clock constraints as AM65x, but AM62L has a single video port
+On Mon Apr 13, 2026 at 10:19 AM BST, Kumar Anurag wrote:
+> The machine driver was unconditionally forcing S16_LE in
+> sc8280xp_be_hw_params_fixup(), which prevents links (e.g. HDMI bridges)
+> that require 32-bit formats from working. Drop the format override and
+> keep only the fixed rate/channels constraints.
 
-Fix this by adding conditional constraints that properly define the
-register regions and clocks for AM62L DSS (single video port) versus
-other AM65x variants (dual video port).
+Why the format override is no longer needed? Please add it in the
+description.
 
-[1]: Section 12.7 (Display Subsystem and Peripherals)
-Link : https://www.ti.com/lit/pdf/sprujb4
+> Signed-off-by: Kumar Anurag <kumar.singh@oss.qualcomm.com>
+> ---
+>  sound/soc/qcom/sc8280xp.c | 2 --
+>  1 file changed, 2 deletions(-)
+>
+> diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
+> index 7925aa3f63ba..c00eabf200b7 100644
+> --- a/sound/soc/qcom/sc8280xp.c
+> +++ b/sound/soc/qcom/sc8280xp.c
+> @@ -75,10 +75,8 @@ static int sc8280xp_be_hw_params_fixup(struct snd_soc_=
+pcm_runtime *rtd,
+>  					SNDRV_PCM_HW_PARAM_RATE);
+>  	struct snd_interval *channels =3D hw_param_interval(params,
+>  					SNDRV_PCM_HW_PARAM_CHANNELS);
+> -	struct snd_mask *fmt =3D hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMA=
+T);
+> =20
+>  	rate->min =3D rate->max =3D 48000;
+> -	snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S16_LE);
 
-Fixes: cb8d4323302c ("dt-bindings: display: ti,am65x-dss: Add support for AM62L DSS")
-Cc: stable@vger.kernel.org
-Signed-off-by: Swamil Jain <s-jain1@ti.com>
----
-Validated the changes with some examples:
-https://gist.github.com/swamiljain/79f30568c9ece89f5a20218f52647486
+Does compressed playback work after this change? How did you test it?
 
-Changelog:
-v3->v4:
-- Add reg-names constraint
-- Re-order constraints to make it consistent with the properties order
+Will it be possible with this series to have compressed playback via
+HDMI (with 32-bit format, right?)? You might need to add some
+functionality for this in topology.
 
-Link to v3:
-https://lore.kernel.org/all/20260410105955.843868-1-s-jain1@ti.com/
-
-v2->v3:
-- Reduce redundancy and use constraints suggested by maintainers
-- Remove blank line between the tags
-
-Link to v2:
-https://lore.kernel.org/all/20260129150601.185882-1-s-jain1@ti.com/
-
-v1->v2:
-- Remove oneOf from top level constraints, it makes bindings redundant
-- Remove minItems from top level constraints
-- "dma-coherent" property shouldn't be changed in v1 itself
-- Add description for reg-names, clock and clock-names
-- Add constraints specific to AM62L and for other SoCs within allOf
-  check
-
-Link to v1:
-https://lore.kernel.org/all/20251224133150.2266524-1-s-jain1@ti.com/
----
- .../bindings/display/ti/ti,am65x-dss.yaml     | 70 ++++++++++++++-----
- 1 file changed, 52 insertions(+), 18 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
-index 38fcee91211e..49a007cbcd3a 100644
---- a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
-+++ b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
-@@ -36,34 +36,50 @@ properties:
-   reg:
-     description:
-       Addresses to each DSS memory region described in the SoC's TRM.
--    items:
--      - description: common DSS register area
--      - description: VIDL1 light video plane
--      - description: VID video plane
--      - description: OVR1 overlay manager for vp1
--      - description: OVR2 overlay manager for vp2
--      - description: VP1 video port 1
--      - description: VP2 video port 2
--      - description: common1 DSS register area
-+    oneOf:
-+      - items:
-+          - description: common DSS register area
-+          - description: VIDL1 light video plane
-+          - description: VID video plane
-+          - description: OVR1 overlay manager for vp1
-+          - description: OVR2 overlay manager for vp2
-+          - description: VP1 video port 1
-+          - description: VP2 video port 2
-+          - description: common1 DSS register area
-+      - items:
-+          - description: common DSS register area
-+          - description: VIDL1 light video plane
-+          - description: OVR1 overlay manager for vp1
-+          - description: VP1 video port 1
-+          - description: common1 DSS register area
- 
-   reg-names:
--    items:
--      - const: common
--      - const: vidl1
--      - const: vid
--      - const: ovr1
--      - const: ovr2
--      - const: vp1
--      - const: vp2
--      - const: common1
-+    oneOf:
-+      - items:
-+          - const: common
-+          - const: vidl1
-+          - const: vid
-+          - const: ovr1
-+          - const: ovr2
-+          - const: vp1
-+          - const: vp2
-+          - const: common1
-+      - items:
-+          - const: common
-+          - const: vidl1
-+          - const: ovr1
-+          - const: vp1
-+          - const: common1
- 
-   clocks:
-+    minItems: 2
-     items:
-       - description: fck DSS functional clock
-       - description: vp1 Video Port 1 pixel clock
-       - description: vp2 Video Port 2 pixel clock
- 
-   clock-names:
-+    minItems: 2
-     items:
-       - const: fck
-       - const: vp1
-@@ -179,6 +195,24 @@ allOf:
-         ports:
-           properties:
-             port@1: false
-+        reg:
-+          maxItems: 5
-+        reg-names:
-+          maxItems: 5
-+        clocks:
-+          maxItems: 2
-+        clock-names:
-+          maxItems: 2
-+    else:
-+      properties:
-+        reg:
-+          minItems: 8
-+        reg-names:
-+          minItems: 8
-+        clocks:
-+          minItems: 3
-+        clock-names:
-+          minItems: 3
- 
-   - if:
-       properties:
+Thanks,
+Alexey
