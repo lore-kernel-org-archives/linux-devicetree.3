@@ -1,114 +1,145 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BAB01EB5E3;
-	Wed, 15 Apr 2026 09:42:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 255AC33B6DB
+	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 09:43:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776246162; cv=none; b=Zmd5a+aDhUam7fos965EW+do4rBs7M5bEAzZ+jPI1No1TIrPUqFutYFNTacQoALrqP89eYHskAlSdC7r6G+yrtqbBwJFGJEiz5qSKxbbrbQMr72bMse5CCYZghsHiDjHEmblmHY/CQi5b5ILMBL48dPQ57e5HExY6pVxhUlbfKs=
+	t=1776246216; cv=none; b=DMsYzW5v/cfxvJiolvg0ImB2/fSkarh9DAKcqTksYVER8onfpkpvW5drz7E4IhMf4MM2tR/v7Wx/omyOFhHqSVDVu2iVVkp6rRimlpZlSJGk6jb2Z8dbO2akuGs8TRkvtoPfYj+16JxmdMRMEUMWjTQmROrcM3v5rHUP8o68984=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776246162; c=relaxed/simple;
-	bh=4j2ZogsOOHoBtk/jE2BeQiV4/qH2Y3yTurZ7Yqx6V3M=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HbIsuqaZrwOuAprHu3bC6LpNjz43Eu4bi55MejZ04mhd7IgcUx4EyCxoQvjZF3mJuCA6AagrvxXrS+9TI07MlrJOogq5wMSXmnEZ6cxQMIxM/KRKO4z4bMp9gBz7plypwhkOQpB1E9uO3WdYHiEB0zEtXjd2kdUOS/C24ygVqq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=eWpgd0yd; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=A6NpIhYx; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1776246216; c=relaxed/simple;
+	bh=BkNOkehDJkrp4NHd9wg0OovZlITEy0Z536OQnRXE/Ak=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hJNj6a1aMABMag2rmr4jG2TKkn6DeVk4Fg3KyHwo6e/0kGweAEYDsRkj4CO6WdMMKt2vg+RAuT1HnQCCJT6NGroDLTXJ0/pC7zwwzd/rq4ojeijJ7q42Miv9isn9Xn2Vspnh3J5xmrGw3JycCn1hyeu7fEkBdL5LcmZ/Se1X8q8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=X5tcAefE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iIOzDYZr; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="eWpgd0yd";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="A6NpIhYx"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=To:Message-Id:Subject:Date:From; t=1776246025; bh=ZGucYuZNovWXlK/4weCW01J
-	gbMeF/xybjfNwv0uZ6rE=; b=eWpgd0ydqc1tU4OGDqW052/nZ6m4yOU82KzhkJukC2wuhZTA9P
-	U0BLW1FV6tDmpxDBfLgFYdbcF2Q7QF/ADVG75C4iF1OWpWuW7Z7o2ycjXsMldvslkch0wH4Nz7r
-	jQG22sMyRg7VrAu/66b5FCMrPUmaapN+kSmaCpfHyJUovutL1tvrs9XWkDc50XSTD2D2g44NdnC
-	fLZ4p55o7Z3UDvEH6vqbOC7x3ld+vL+aDj2UzfIQ+xzQOYYDaeq1COKndIBOEptLG5Ru/1KNDM3
-	hhPEMsu3/C2B1SrtDGuB0Rh/LA8ShPAYu2qQKniVHgxXXjDCky94WIO5XzRU5Ja2eBQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=To:Message-Id:Subject:Date:From; t=1776246025; bh=ZGucYuZNovWXlK/4weCW01J
-	gbMeF/xybjfNwv0uZ6rE=; b=A6NpIhYx2Nubcu1RuVJXIgbWCMgVffHXIhoLFYnizL9z2Cvj1V
-	yTwylOJ53PWx64Kyz9/3VlQdLCn8HkvH+sDg==;
-From: Nickolay Goppen <setotau@mainlining.org>
-Date: Wed, 15 Apr 2026 12:40:24 +0300
-Subject: [PATCH 2/4] arm64: dts: qcom: sdm630: set adsp compute-cbs' regs
- properly
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="X5tcAefE";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iIOzDYZr"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63F8uAXg731025
+	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 09:43:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	kZj/oxg3uNVxM3EIb797B5MnQJqyDgWAp1DNROgmC5g=; b=X5tcAefE8UpDqeXk
+	pR0j8DA/rR/Gc4+02N1376/bOJtmWJI+diPOy5b0jXsJHwHkgQyAIAYPl/rJEeu7
+	7liIOpf1t01rQTQLig5JoWS/I10vbQSWA6fiSSR28JDWL+QfhhTOWXHKrBzW2xHi
+	zhzB5gUT5rNBWhvtfgRoR6+v9D1Ho7B1b/w1QBR8xpR/9uifUYDMSr8giLiw3mDD
+	BO/CzJgKH4SBszttkrDvrxv74EIw0Q0o9mOS9hRP3xnRyslhQoBYPmA8bLrPEqzg
+	PxsHstbxyFhkiVOBt4lIgkmBNrigTiI74vGCri8M4mF7dLHKbEVuehdmn9XVeHak
+	yfFvWQ==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dhruub5mg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 09:43:34 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50b33a19837so20217391cf.3
+        for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 02:43:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1776246213; x=1776851013; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=kZj/oxg3uNVxM3EIb797B5MnQJqyDgWAp1DNROgmC5g=;
+        b=iIOzDYZrgTc8E9Uah3Re+hQ+6uhDHDNbHt589q9Kz45fMdIrCyIJOUKeiVTfLkJdLJ
+         koA1YezSXSiUFTpVJDgwnwPZ0jJcWU08yS4lwYLGM75IJ7cOIbTGB0frY8qwGLz/hvow
+         EUHklef57tsneAWQFGhYbssuzRKlqCMjFSgyg0vJHoA2JlCHYu5eJX7Ip1lAYMct77bU
+         BmyYXRSMxjfqq2yoadYEVbB8hS/XNCftM8nR9mo2NPid7zXp29WPEtEBPTmU0cgMM2c0
+         nYv+avyZJOU2o4yqsS+lx8l9Vgx0/50JxorkdJLIQffvcZdJ2bkCMS+a1S2gfq/R0XKe
+         OQhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776246213; x=1776851013;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=kZj/oxg3uNVxM3EIb797B5MnQJqyDgWAp1DNROgmC5g=;
+        b=lBG+hKVYaqV6KODy5tyMKYPrinBYi23g7x8Y7B3hSiXTI66lxjc+z7RPE0UysxDmYR
+         m1VnQnVCffBpW9sexiIjVpuWayqmzRT2QvzEOLMNuxXKCmw9bo4IuWHp1SoyNtGknUKJ
+         s8u1RJBhfJpPWuFqJS/a5vNvzz5Lb87BiVNHemXW1H7AZJLhvFhCA9LWoQj+YTMWTRIa
+         lGMepFrO5eNpzCzW1VCqN9MpqDTweiQnNrNs6Q3zQdj/V0ZTTUNgjhfQnCBRGYJU/72S
+         Vyzsfjf2Nxq9eRIzCbxIz5hA5Xqdh6o4zy/rwuJYUC3/lTWI1flDwwVLvB4QfYvABLMl
+         UL+Q==
+X-Forwarded-Encrypted: i=1; AFNElJ+hIlT0ZKIIEX6blvXj8etHMFmSfaM0jCZUjLt7670KHoSfDWCm+8LThJe3CrjbEaYvO7phCtR37VNY@vger.kernel.org
+X-Gm-Message-State: AOJu0YygzEcmGTuRd3foYABjy7NyGoqdWBESlqQ3wKFdRwFhSwdWP6+u
+	M/AKYAeLLTHvKhws/hWklMFyMRvY9uIrXcIfZZrx3Pjn/pN8m2W9OzWIYMXh2qFTjUmz3FqqHIV
+	H/Kpdj11pjjlbNh+n3O7FiSaMOjZ8G3VqN6aSazs9ZT7vqs0rLgqAhibOK0Tfukzy
+X-Gm-Gg: AeBDieu+zWSYw0oRQqzGZ5QAjdDe3ZcKJVom7WObdPM2Yk4yBXtlXxkaRFNUcS9cdXB
+	CKgQnsxPQj7WisXw4HJLA2zHtgscPI0YdMOfWhGzebnG9DMegpl9fYh8ROHSCUYp0PiZwy3Ov97
+	O0i+FkI1tQJZYIzjBYS2Dt0+fwtWZ6c2Sv4IbJ20gX/S+anApbX965G7W3xS9kBW3hLqfRKsZQV
+	+TWmh7P/IuXZpYac7SPdylmq4qHANmFClAPVpKsrHzvc1UdHOOArR+xLlpBGrfh5XVdWjycV8uR
+	7JNgvLdLV6/mJnK/TzJ8Un3dSJ4iAPtGQ6oU/NO5gWkixHO2ZzfsVIYvVRfhzrcS/9TpvmaD9S7
+	LtqEZBNjsgkB7i9NoRUl1wqKTEums1BGg1crC0KQFbH4vSJu3EOEb5aIYz6OdRWIpCVoUMHduEn
+	rce7Xbm+wbuo85bQ==
+X-Received: by 2002:a05:622a:4887:b0:50b:2f83:b702 with SMTP id d75a77b69052e-50e1a7c066bmr15166031cf.6.1776246213358;
+        Wed, 15 Apr 2026 02:43:33 -0700 (PDT)
+X-Received: by 2002:a05:622a:4887:b0:50b:2f83:b702 with SMTP id d75a77b69052e-50e1a7c066bmr15165881cf.6.1776246212913;
+        Wed, 15 Apr 2026 02:43:32 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ba177dd36a5sm38267266b.54.2026.04.15.02.43.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 15 Apr 2026 02:43:32 -0700 (PDT)
+Message-ID: <42649c1c-3868-44ea-8186-49e34abf10b9@oss.qualcomm.com>
+Date: Wed, 15 Apr 2026 11:43:29 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260415-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v1-2-03b475b29554@mainlining.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] arm64: dts: qcom: sdm660: set cdsp compute-cbs' regs
+ properly
+To: Nickolay Goppen <setotau@mainlining.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
 References: <20260415-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v1-0-03b475b29554@mainlining.org>
-In-Reply-To: <20260415-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v1-0-03b475b29554@mainlining.org>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
- Nickolay Goppen <setotau@mainlining.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776246023; l=1405;
- i=setotau@mainlining.org; s=20250815; h=from:subject:message-id;
- bh=4j2ZogsOOHoBtk/jE2BeQiV4/qH2Y3yTurZ7Yqx6V3M=;
- b=kbSgN104+nmN+nLpHaUpxAiqHhpyc6SSBJnywA92i7VOied0g6RsuYJgPdjZCHuNY3zmOYXa0
- BYSCw9W2ALhAcv/j0UyfZObR+7bCh5oQnIpsozljuArTxWqcue4kSfx
-X-Developer-Key: i=setotau@mainlining.org; a=ed25519;
- pk=Og7YO6LfW+M2QfcJfjaUaXc8oOr5zoK8+4AtX5ICr4o=
+ <20260415-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v1-1-03b475b29554@mainlining.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260415-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v1-1-03b475b29554@mainlining.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: j2A9fI6zJHZdNX3LCH8x-KvlRG_trIez
+X-Authority-Analysis: v=2.4 cv=dpfrzVg4 c=1 sm=1 tr=0 ts=69df5dc6 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=OuZLqq7tAAAA:8 a=EUspDBNiAAAA:8 a=G6eyCl79rmFccwun_h4A:9 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22 a=AKGiAy9iJ-JzxKVHQNES:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE1MDA4OCBTYWx0ZWRfX/ivjt+UBIEAU
+ 2Tm4PmS+BhCI7nbW6bhEb1L43wBmv7Spph+MVurD30lVGp/9bvfp+TZvOpAMX1UeKUx+RJeBQWx
+ osYNnyq2JwBm3CXmweu+Pft/HYSGYXZXDMPAo9VEBg62ljarA1IYTZc0YH086g9Tg/5+kbRxwLv
+ +hWSOG1+qnQyzH+4nxAE/c21kDYLlf9ZC3Y2zVtCGTp6w45bqhjKm24k1RmsT4m5mQFW1qPwHSn
+ bzuufZaYRpUpY39/0kCMYrzvQEe5wqGu8Tkdd2OODVU6jZGofaPYa8MvkRGGzRCAQuCELyyrMRj
+ mpJv3AFJD9doF2xsIndtPzhrXSigcyfP2/uBUzeGM/7J4FUciiOc8Ji8wHjl/sq8bnHAGeo4oIA
+ sYSqyp8i83a/QBvFJLHOAOFfBK3LiMpa3TMAetUVJXF0A93ud15zhVKm6ABHl2kQN1Jj5mvghdk
+ 7w4SqyTXjXnykUMhy8A==
+X-Proofpoint-GUID: j2A9fI6zJHZdNX3LCH8x-KvlRG_trIez
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-14_04,2026-04-13_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 spamscore=0 adultscore=0 priorityscore=1501
+ clxscore=1015 phishscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604150088
 
-Changing FastRPC compute-cbs' reg values to matching iommu streams
-solves SMMU translation errors when trying to use FastRPC on ADSP
-so change FastRPC compute-cbs' reg values that way
+On 4/15/26 11:40 AM, Nickolay Goppen wrote:
+> Changing FastRPC compute-cbs' reg values to matching iommu streams
+> solves SMMU translation errors when trying to use FastRPC on CDSP
+> so change FastRPC compute-cbs' reg values that way
+> 
+> Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
+> ---
 
-Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
----
- arch/arm64/boot/dts/qcom/sdm630.dtsi | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+Fixes: c0c32a9e3493 ("arm64: dts: qcom: sdm630/660: Add CDSP-related nodes")
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm630.dtsi b/arch/arm64/boot/dts/qcom/sdm630.dtsi
-index bef3213165d6..4b47efdb57b2 100644
---- a/arch/arm64/boot/dts/qcom/sdm630.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm630.dtsi
-@@ -2459,27 +2459,27 @@ fastrpc {
- 					#address-cells = <1>;
- 					#size-cells = <0>;
- 
--					compute-cb@1 {
-+					compute-cb@3 {
- 						compatible = "qcom,fastrpc-compute-cb";
--						reg = <1>;
-+						reg = <3>;
- 						iommus = <&lpass_smmu 3>;
- 					};
- 
--					compute-cb@2 {
-+					compute-cb@7 {
- 						compatible = "qcom,fastrpc-compute-cb";
--						reg = <2>;
-+						reg = <7>;
- 						iommus = <&lpass_smmu 7>;
- 					};
- 
--					compute-cb@3 {
-+					compute-cb@8 {
- 						compatible = "qcom,fastrpc-compute-cb";
--						reg = <3>;
-+						reg = <8>;
- 						iommus = <&lpass_smmu 8>;
- 					};
- 
--					compute-cb@4 {
-+					compute-cb@9 {
- 						compatible = "qcom,fastrpc-compute-cb";
--						reg = <4>;
-+						reg = <9>;
- 						iommus = <&lpass_smmu 9>;
- 					};
- 				};
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
--- 
-2.53.0
-
+Konrad
