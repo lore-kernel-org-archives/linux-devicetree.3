@@ -1,110 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 601483D34BF;
-	Wed, 15 Apr 2026 14:28:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B429E3D411D
+	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 14:29:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776263304; cv=none; b=Zyr+snHi2MyZqudhWIDBxfguJINYwx4gFW91hiXIuPGb6qFvcHREbCMeWcIpxskZ4SVx0crG6BsOE+gq2GvxjZw7VQtQ+u9Eg1NIETcqoBnTXN2YwHz56dFKSyRvlIPVhZRnfLDue2xh/JHBQj9WiFWhqHdx/SDBzzXcFx8JUd0=
+	t=1776263344; cv=none; b=DYGMxx9VFEHzlECvk5igQ3Wkg7yhDXHLHed4i7lX5E1nRl3b5a97RhEolvLipEQi5LOTHvUjq/TNg3uulHZVzsDBtvL2zdpTUr6HNzPv+qmrMlhN2ylIX2/l1P+/wMXrf1e29PVXQyuL6mwMhP8lbY+Jm8tGg0X+ue1lsCuSAO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776263304; c=relaxed/simple;
-	bh=KLZl5mWnQ/fLEg517Nj8h/rm6MAMa8dENX79Fq95dso=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rxzkIDwZPZOEpWY4P1PY5yRQBQZP95LkDDot9K3+FPOWi0ycFznIDsIhTdUQdosWOdKFQKPyjlzhn230rE1aTHIIUY3RBJ83Pv+mUJ5bABY1OzLY4pHEhxY18xqcWfFTKWnq0JVmUOe6ikdjC3FUQbIZKmlB90bEM18ia3vXGOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H/YX+RVR; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776263344; c=relaxed/simple;
+	bh=fm9sJOxvII+3C6MXKq99rd446vFociX32pC4pCbh1EE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Iete4daYw0MSdqsDEbfGbt5bTD/6O4rolRjbdwhqkyTkwK9mUWol43SfBye5BuZkUdYfy1+fmJ/RVSIaADq8WIEhigZCwoDZ9EjmTSQSJdOtgL+8oqPMxJwjm/BuOpFxDY7btWIUDxqm1ZSCvwiNj4w2FMXssTfht7VpyQI+KcQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=YnWxpLt7; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H/YX+RVR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B35EBC19424;
-	Wed, 15 Apr 2026 14:28:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776263304;
-	bh=KLZl5mWnQ/fLEg517Nj8h/rm6MAMa8dENX79Fq95dso=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=H/YX+RVRFmDbZUEUouHLuZhFFOhEriVotbvOFw9wxSIAFOu1yin3oKr9hQA0Qc6pR
-	 I+WFVtfV4rosaPXwqeX+Kw27EcgVj1wXrS3hkWJI6FDy6VzZ/VM4FeseN1YJUcOtKF
-	 cIcgd6P3ftw6wMwBFE9Y5dT8LLZ8beEgm4Maazw7DT9d8U/b5MKbcLdDahzLWTvnq8
-	 y/Ia9YUWY2hscVdDJP/lLNEJaYQz2XQGSMPfrI7GvlevKVswmJ/nF5Bl8wOzaYMnE3
-	 3DB6G88J25UbvGy8+m0Peq0i8FqFF4fMf3+qxz5TJSxVacU/syZf5Hlb4HhAvCdLsO
-	 GpYzCyeW8yc9A==
-Date: Wed, 15 Apr 2026 15:28:18 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jia Wang <wangjia@ultrarisc.com>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 1/3] riscv: add UltraRISC SoC family Kconfig support
-Message-ID: <20260415-craving-rubbing-bc8d389d19de@spud>
-References: <20260415-ultrarisc-pcie-v3-0-73f06e972616@ultrarisc.com>
- <20260415-ultrarisc-pcie-v3-1-73f06e972616@ultrarisc.com>
+	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="YnWxpLt7"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-43cfac48bc7so4818925f8f.0
+        for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 07:29:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1776263341; x=1776868141; darn=vger.kernel.org;
+        h=mime-version:message-id:date:user-agent:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ee7S1C7CW9QXX3hiuXvnlueBA+ocQbUcyBQidGRH/6U=;
+        b=YnWxpLt7Q0NsVJjT7UyHIxpa3DfMML4YBraELqNBVC91IcUthdphgvvbjSNXhnnc2l
+         R+4uC6kXcD1ZF/t1FHxMghCXoYqswWqylU+QhAuRziCUuLbTTRJ8wZHw/Cuz/yiOeyQn
+         BU2TTPxJgqY/twRxySBfrLoCa2whTGX1gYOcuzA7FjkFWg+8mDsaL3V+PgMwBahlKsBZ
+         ygpsS4Cfq6JydF75UE9J5RFWm8TQPPAzTDVuhbl+nUswc/oInqlJXAWY3TQBq40jTc+E
+         WgoPCjhnVCFzs1spQRlKOkD0m2RymjtXwTikZjWAbwMau6yJeHe7rtuZ9gU0Db0QdPke
+         Pp9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776263341; x=1776868141;
+        h=mime-version:message-id:date:user-agent:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=ee7S1C7CW9QXX3hiuXvnlueBA+ocQbUcyBQidGRH/6U=;
+        b=mqrosJnCGi2XPGtZV+lH4igUa72gpQKIR6aMvseLKxpM2tKK9aRPHEHWAJbVLCpA/A
+         RKDN4t5TClgiS0l7KouDjgIMziXWfvtX9WJHA2qOxVzQyB91prQptjJ6zGRReesVAkDM
+         lMmqXeX61ksfpZvRfb7+9AWkEZ86Bbr8XqNiFUytSrgse9kXiQCkKLEGamxEzGs6DhU2
+         yS9kbBHdLVE1XvAKH3Hyi9WDIDSyT6PBZjCFyiQ7Nw+Bmf13dMVTAnpklbA1ogvtpIwo
+         rSriJyUbPgaFAlAwb9huL3joYUdpj6qG3UYJ7U+B07Luv4k7AWdOZd1NCNQ4UFPt5yUE
+         vjSw==
+X-Forwarded-Encrypted: i=1; AFNElJ8O7/4cBpN8jZXWxO6Ta+vrvxpcNwQgYzfqMuBQoHMowxYe2R2dn/sx2aFJLRzpaDfFEYD72uVcwdGl@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx7nti2YQnTercUj6MGDYC03t18NhUOu0uLTmsXMdCsntnUlde5
+	h5Jv2pO2YvRft1BmsX4uKQVi3/2VrS5bZQ9bYKzp6KoepsGn3P+TFyMenMnYKwO+16I=
+X-Gm-Gg: AeBDieutzzXNuKXRIYwMOreDguBcBArg08+aZBmmEoNe3etJ6ReG5QaCsgCJDqAN/Lx
+	MCPC2LvQzu3jTMpSzATcsdJGTBvixgFr/Ugpy6N3xAXWIo922RMB+FZFYPOWuygrR9Ryr83DGWy
+	bB1Gmp2TKNqJcHfRln6kB0YTcnvVkuTNSDT4XKBR8j0VTDg2zpbXHk2AEcnwEEDjenOXZMBtg53
+	bEbxCPqEye1A0USUUNtdQvdnFFw92NExj0ZPCKtNnA6/KdlPijI+nhcmuqZoUnQ2apwGpupVM5G
+	aGHioQqnrhvJliaM7mbAAhkI/EQTtdSIfO/zErn7EFbgOz96HR7R1QrwUe6EcNPYsFpklqzUEVA
+	9Cc/0HEZvow1/AszDGQCFI9wdml51BMOjoPZodeXBad+1PWW2aDD18hnlYuhZFGEqiEAuvRieKK
+	HM+3erVDuUKldxoTVGL+1plh1x1T/N4z8p
+X-Received: by 2002:a05:600c:5249:b0:488:c40b:c8a4 with SMTP id 5b1f17b1804b1-488d68057cdmr284525805e9.1.1776263341086;
+        Wed, 15 Apr 2026 07:29:01 -0700 (PDT)
+Received: from localhost ([2a01:e0a:3c5:5fb1:e64b:985d:5292:5ef5])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-488f096d110sm28244435e9.11.2026.04.15.07.29.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 15 Apr 2026 07:29:00 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Valerio Setti <vsetti@baylibre.com>,  Liam Girdwood
+ <lgirdwood@gmail.com>,  Jaroslav Kysela <perex@perex.cz>,  Takashi Iwai
+ <tiwai@suse.com>,  Neil Armstrong <neil.armstrong@linaro.org>,  Kevin
+ Hilman <khilman@baylibre.com>,  Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>,  Rob Herring <robh@kernel.org>,
+  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
+ <conor+dt@kernel.org>,  linux-kernel@vger.kernel.org,
+  linux-sound@vger.kernel.org,  linux-arm-kernel@lists.infradead.org,
+  linux-amlogic@lists.infradead.org,  devicetree@vger.kernel.org
+Subject: Re: [PATCH RFC v2 02/11] ASoC: meson: aiu-encoder-i2s: use gx_iface
+ and gx_stream structures
+In-Reply-To: <58d1df89-7c97-4e2f-af15-93d1f7bce5a7@sirena.org.uk> (Mark
+	Brown's message of "Tue, 14 Apr 2026 17:13:48 +0100")
+References: <20260411-audin-rfc-v2-0-4c8a6ec5fcab@baylibre.com>
+	<20260411-audin-rfc-v2-2-4c8a6ec5fcab@baylibre.com>
+	<58d1df89-7c97-4e2f-af15-93d1f7bce5a7@sirena.org.uk>
+User-Agent: mu4e 1.12.9; emacs 30.1
+Date: Wed, 15 Apr 2026 16:28:58 +0200
+Message-ID: <1jy0ios3f9.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="m8S0HS9rYZzLUqT+"
-Content-Disposition: inline
-In-Reply-To: <20260415-ultrarisc-pcie-v3-1-73f06e972616@ultrarisc.com>
+Content-Type: text/plain
 
+On mar. 14 avril 2026 at 17:13, Mark Brown <broonie@kernel.org> wrote:
 
---m8S0HS9rYZzLUqT+
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> On Sat, Apr 11, 2026 at 04:57:27PM +0200, Valerio Setti wrote:
+>
+>> @@ -200,13 +200,17 @@ static int aiu_encoder_i2s_hw_params(struct snd_pcm_substream *substream,
+>
+>> -	aiu_encoder_i2s_divider_enable(component, true);
+>> +	ret = gx_stream_set_cont_clocks(ts, iface->fmt);
+>> +	if (ret)
+>> +		dev_err(dai->dev, "failed to apply continuous clock setting\n");
+>> +
+>> +	aiu_encoder_i2s_divider_enable(component, 1);
+>
+> If we're checking the error here we should probably return it as well.
+> Including the error code in the log message is also generally helpful.
+>
+>> @@ -214,16 +218,20 @@ static int aiu_encoder_i2s_hw_params(struct snd_pcm_substream *substream,
+>>  static int aiu_encoder_i2s_hw_free(struct snd_pcm_substream *substream,
+>>  				   struct snd_soc_dai *dai)
+>>  {
+>> +	struct gx_stream *ts = snd_soc_dai_get_dma_data(dai, substream);
+>>  	struct snd_soc_component *component = dai->component;
+>>  
+>> -	aiu_encoder_i2s_divider_enable(component, false);
+>> -
+>> -	return 0;
+>> +	/* This is the last substream open and that is going to be closed. */
+>> +	if (snd_soc_dai_active(dai) <= 1)
+>> +		aiu_encoder_i2s_divider_enable(component, 0);
+>> +	return gx_stream_set_cont_clocks(ts, 0);
+>>  }
+>
+> Note that we only hw_free() if we preprared, but we enable in
+> hw_params().
 
-On Wed, Apr 15, 2026 at 03:21:17PM +0800, Jia Wang wrote:
-> The first SoC in the UltraRISC series is UR-DP1000, containing octa
-> UltraRISC CP100 cores.
->=20
-> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+Huh interresting, I had not thought of that. Valerio and I discussed the
+clock part a lot for this rework. It is the crux since since the
+interface and clock setting lives in the AIU subsys but serves both the
+AIU and AUDIN subsys.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Valerio maybe you could keep function above just to set the rate, but
+enabling the clocks through a DAPM supply widget ? This is kind of what
+the AXG is doing.
 
-> ---
->  arch/riscv/Kconfig.socs | 6 ++++++
->  1 file changed, 6 insertions(+)
->=20
-> diff --git a/arch/riscv/Kconfig.socs b/arch/riscv/Kconfig.socs
-> index d621b85dd63b..0b4d06a7b4bf 100644
-> --- a/arch/riscv/Kconfig.socs
-> +++ b/arch/riscv/Kconfig.socs
-> @@ -84,6 +84,12 @@ config ARCH_THEAD
->  	help
->  	  This enables support for the RISC-V based T-HEAD SoCs.
-> =20
-> +config ARCH_ULTRARISC
-> +	bool "UltraRISC RISC-V SoCs"
-> +	help
-> +	  This enables support for UltraRISC SoC platform hardware,
-> +	  including boards based on the UR-DP1000.
-> +
->  config ARCH_VIRT
->  	bool "QEMU Virt Machine"
->  	select POWER_RESET
->=20
-> --=20
-> 2.34.1
->=20
+what do you think ?
 
---m8S0HS9rYZzLUqT+
-Content-Type: application/pgp-signature; name="signature.asc"
+(actually in the AXG the each formatter widget call CCF
+clk_prepare_enable() but a supply widget poking the register would do
+the same thing)
 
------BEGIN PGP SIGNATURE-----
+>
+>> @@ -284,6 +295,8 @@ static int aiu_encoder_i2s_set_sysclk(struct snd_soc_dai *dai, int clk_id,
+>>  	if (ret)
+>>  		dev_err(dai->dev, "Failed to set sysclk to %uHz", freq);
+>>  
+>> +	aiu->i2s.iface.mclk_rate = freq;
+>> +
+>>  	return ret;
+>>  }
+>
+> This means we store the new rate even if the set above failed.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCad+gggAKCRB4tDGHoIJi
-0k5KAP9cH8g7du35W2DxfKVlGZGBX5/qlVgxSMv7M3SiUrg/7wEA4Wam3N4GLDGE
-WWQIvTM0dOVnQcN5PygYLDSqx+9yGQk=
-=gd+p
------END PGP SIGNATURE-----
-
---m8S0HS9rYZzLUqT+--
+-- 
+Jerome
