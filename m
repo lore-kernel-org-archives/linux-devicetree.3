@@ -1,63 +1,63 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59E6930E84B
-	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 12:47:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82557331A65
+	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 12:47:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776257263; cv=none; b=dgs3ErK8uF2BjB9aP6LlRS+O3365ZmT8AIWhmDLtrZmWSqDXlVYFKdLGY5KiaiENiJcD0IcX4gJqWo0H2UlVBLGqDTsz3Ym65tTuMqy+O0UMqrsYPes9YMCyoiKw/HZ/ZfKA9CdZDwtJNac1bpmFErTu8D5x8D9UZZwmeoFQPo0=
+	t=1776257263; cv=none; b=WLNGxzhuelNh0MJML83y81k6FpCVqn1RN7kPSvX0PvyIUrdj0CgfYuBQ8GS7jr1aYij8pXHbkueZrJmZ2u7h/ywzXXijzVjcgYm1JMk+18/LFum98eC8EkvM9ucLs7pgwqkH0iexuXyvRqrpkMxmegu54ib5Q8huzCbUzZ23TE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1776257263; c=relaxed/simple;
-	bh=ckJt9CA3Ip+Nr/sG9pWs92MvFhFGs423bXz1O9uCz18=;
+	bh=xDT8MmTCqfb4fabvJyfgo3B8m1QWaEboDw31Z4T8kO4=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=rtT+x7oKJk9sCcoKuqjajoYtvGNAphLAuWJ6+s2B33R+dzy3XZ3dgYMDRbuiMRvtz/Jv0yayj3IKSOfEPWuAuCLp0rY8YXVHbM6Cai0QhPdXTcHrtK0Eb3bp2XRVKp3BDzn1X+h5xRLT/v7qsUe3xK8+sh+ycHkAuB0GLrx3P3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=muAF0qxk; arc=none smtp.client-ip=209.85.221.52
+	 MIME-Version; b=SbgmvZsJjX3mDMULmgjL9huGZYdK6bVtbzGWqPceWg38slGgo40QRXhGeyVQWfWvFO4R2PJz/4ILFxEljvtkXcJWxAafxboX72IeMt5Bs+4XqzjP4XCBBW6MzBbJEdjukaaq1Q/GgDoldnIjNbBNi1G4g8e05Vx6pd8aEnFrgB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G51IAzEU; arc=none smtp.client-ip=209.85.221.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="muAF0qxk"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-43cfce3a195so4200321f8f.2
-        for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 05:47:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G51IAzEU"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-43d75312379so2285794f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 05:47:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776257259; x=1776862059; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1776257260; x=1776862060; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=muF5Fgr3euVIwq3LckXBbYSe5tnWfPAvxpBr8ofKVq4=;
-        b=muAF0qxkA5czICOMHz7qfe87hOQoGaIINqtNghNCFp9JaDLMvI8IEDb88+fQMFScf/
-         s6KyGcaCUZvap/Qkx1yP6IMsMmbEL3pRdJRWmWpmKGukw2oJbYRpEOhHKjZz9BW/blWL
-         bz/rF5/cfov4qx/RhFJJzBgr1/4jO/8wfI5ZBWmqthjlK6HjAXSLMiHwmlgmZNqgw3Js
-         e8a+vY7RhHrYc50FnN9dIDhLHUkREWL0Aaca1Ns4+/E+eIoxFsjQbBD88hz5HDXtJxg3
-         uIXS/kK/9dSdKTP7f6nbZQfjH0OkocjzJnTUfIGu7Ry576U6aYjM/epqJRVD+a2n8wNa
-         AF3A==
+        bh=MiKh6hXlgngZFeSLLnc8/Z2J3N8UGPehpM7gS84z/Lo=;
+        b=G51IAzEUId8lT41bjnjf5K80Qrm8fr0b39+EQun8vgL2LLQz0T70R/p6+FizRd6EKA
+         I/T3M4ocb665JLvWht5ygYDMOG1B901bEgTvCEIEFBsN5aBRqs+gN90V96jmJyi8xg24
+         yL2o00PVRsvypUd5FOd3uQnNc01JGuNtBdkOErNk17uPQBnHTviYwFR4Bem9/ypas4fz
+         04BjHOoH0wp1dteu0Ubai5igp5YVGhwG4DBtetfLgaBcV3qwKOCQ7blW4NxD+5r9Rpz5
+         aHmPQSO4/Ixz/wIGiWDR2hM6eDN+R9IVOxSsKq3gfA2FqUeq18ib4H0qjlQZQPC0Pf6Y
+         9YRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776257259; x=1776862059;
+        d=1e100.net; s=20251104; t=1776257260; x=1776862060;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=muF5Fgr3euVIwq3LckXBbYSe5tnWfPAvxpBr8ofKVq4=;
-        b=Lz/9+gB82BdkoHW6ZsjPehiBJ4GFFC8RNrZvWgUPDh51w0JiNLsTgIZPH4NI1jYZnz
-         4T9KQNowowYiOx2/jpYXII7tsZdMO43BXm6NDiAjz2ZE/U7keZ13AmIsOzFx8XspH+zJ
-         jZOHzN+NtqrOrb/zu9oQi/ePhXMKzZJHnpfLx7sT6GGivm+chlwc4Hr01of1kJshUmT3
-         cIkdatniXijkJqbLZm2TKnHEpAXABMLKXaYxTJVxeniWoogTbdvp38hdRuN5cZI02jpv
-         DEQKmmREvwVfZMiodL9oAGQvX74DvVR5a+WeeyfYy3+DI8n9LtOFH89KxMPGquTqkfln
-         cljg==
-X-Forwarded-Encrypted: i=1; AFNElJ9ctHBjPey5DXUedgFnPxLVAc7SFVqynbqO0O2YxvM1AenTEya5xctRGXDNVL3Wt/XyxSCMunrvKgaB@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw45xjldSO25Gs8y9ZBS9JXy7NQ8H6gUROvS//7B/9tD1V3SrB6
-	bumKGwRIMpuXbvbY4ULn0wxY+kQyaQ9dvn+FdxD+euEE118GqfgPu+UP
-X-Gm-Gg: AeBDieuWCg57pSaNy9t+k0ewfhU3OYXB/rWzRhMG9y2ptOpxjDwSfZLANYS+KsnMP7l
-	3sfV/sGvYMC++xEtJT3O1C62/CK6izHsPJX0ixZD8v3nLssJyVZiKl5S0ELJ3GWZ6a6qHDqCqhI
-	LyWhw4h6GQwPgbtQVTyfRA2yLsUMLbZIfffSjm4+9ny+/fkkhLM3bYF/a7qlIbsTQ9QXl3/HH6z
-	BG9YTPGBy7BPp2KADr6t5+JAzFDE2qItXvlPmv5ybru+hZpExW/gie2w7Xqx4wxG/H9Q41bmF27
-	IVvofJBwkkY0DP4H4pFM9D1nAc7bpav+CB3C0wGRo2ZcQP7To0etNKpmFIcgrn1w3CNTZdmgDya
-	DJ/eGZbkp/8TK2Vu1l2yq5EOXr7jKh5dMxIpytwk5sr317H02YlSmodgeCpQVH4tGKbA0l+gbq9
-	uh+iV5C4/G2uGA84U4bqjsmd5DzYf/3yDq5XUcfQ==
-X-Received: by 2002:a05:6000:4201:b0:43d:7403:4b63 with SMTP id ffacd0b85a97d-43d74034bd6mr20491386f8f.44.1776257258456;
-        Wed, 15 Apr 2026 05:47:38 -0700 (PDT)
+        bh=MiKh6hXlgngZFeSLLnc8/Z2J3N8UGPehpM7gS84z/Lo=;
+        b=m9Qy+X7mRG7y38fZCjcpTQKu3v03d91LfyBFqBPmM2oIzJCePkBdJ44UUhmSfHudXr
+         HIJVlEeRexxqoAUF2JXPZmUHwSuTtSaWskzkBbkLWIVLufNOyOWEzFkMGkwJQ1iaSKMo
+         himumFIwl4NhC3D5fhh+F7FIyvJ5r7VIuzH+t5tvLmcoHwvnDFUZ0c23kOYcVljEYHJx
+         ZgL4/J/SFhnJFQv/FbDlC9Ow3mXhIbacRe2OVlxVLWMxPL9NL4cdD8W9zqkQIaAGyf5Z
+         Wese4Oiz58SliYoGN2JgyRhHEQVntIG6T1T238uwOePZ8uq6CaK/a5j7s8Zy2YycoX1K
+         EBRA==
+X-Forwarded-Encrypted: i=1; AFNElJ/O1Qve/BVLcJAsYbEzF3+ONwduGIdvFrpVeURXO6XpHj584sVatAXGXvPAiBm6n3C5yO8jTB/UbKz3@vger.kernel.org
+X-Gm-Message-State: AOJu0YyFCa0XLZUA3x4YJZr04y1eDuFCcpkBHo1pAg8p5xRHjAAZaato
+	Xfi1cjfCu3m3exkk/wA+Qz0AIeF7iCoAkslqMhqJ8bM17jVDRy3HRoB0
+X-Gm-Gg: AeBDieuhuMNIyICSyJVSJMMm8Js3rLop8iqwEZaEbW5hQrnKPO9ky8RuiIkeI8cFjGb
+	uOY6RpMIi2yNUIg3fY7obrkYVQtan/3yReRiqTUV/zjGUFfO2P18ooIB1amaT2rBRQuSe/iwZK6
+	A822lpVqrqB7ZKSq9zPeLOkogBFOrkAhFRBj6usjISjI0izV0IFj/yHudzCdS/Xbd1GBVFGCkIk
+	xIm4aBC9icQWUuRRCSX9shPe+vWpXWpz7VDUunZCyXGkg7VM1wfjfsprRVgZ6MWk63EU9vegers
+	FUIPRVNhqSSZWoDR3ul/brdb4PmRYy/6UZcFxDdjREMSM0qCMkn8zXvN5VL/8A7beX/HdOXA/qz
+	TLH6dz2SFujJ8tuzr+f0YnAmSvbAL+gFIJPqjMbfaKhbecSg1IcGjRgvcl+B5TiJyscidZ1h5bq
+	xObiIVo+B7rV85bxdIYCrB3UNOLgoNAJACfreESA==
+X-Received: by 2002:a05:6000:144d:b0:43d:7c0f:b310 with SMTP id ffacd0b85a97d-43d7c0fb426mr15652967f8f.10.1776257259695;
+        Wed, 15 Apr 2026 05:47:39 -0700 (PDT)
 Received: from localhost.localdomain ([2001:41d0:406:c100::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43ead356616sm5123319f8f.13.2026.04.15.05.47.37
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43ead356616sm5123319f8f.13.2026.04.15.05.47.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Apr 2026 05:47:37 -0700 (PDT)
+        Wed, 15 Apr 2026 05:47:39 -0700 (PDT)
 From: John Madieu <john.madieu@gmail.com>
 X-Google-Original-From: John Madieu <john.madieu.xa@bp.renesas.com>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
@@ -79,9 +79,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	John Madieu <john.madieu.xa@bp.renesas.com>
-Subject: [PATCH v5 03/14] ASoC: rsnd: Add reset controller support to rsnd_mod
-Date: Wed, 15 Apr 2026 12:47:20 +0000
-Message-Id: <20260415124731.3684773-4-john.madieu.xa@bp.renesas.com>
+Subject: [PATCH v5 04/14] ASoC: rsnd: Add RZ/G3E SoC probing and register map
+Date: Wed, 15 Apr 2026 12:47:21 +0000
+Message-Id: <20260415124731.3684773-5-john.madieu.xa@bp.renesas.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260415124731.3684773-1-john.madieu.xa@bp.renesas.com>
 References: <20260415124731.3684773-1-john.madieu.xa@bp.renesas.com>
@@ -93,241 +93,310 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The RZ/G3E SoC requires per-module reset control for the audio subsystem.
-Add reset controller support to struct rsnd_mod and update rsnd_mod_init()
-to accept and handle a reset_control parameter and mirror it in
-rsnd_mod_quit().
+RZ/G3E audio subsystem has a different register layout compared to
+R-Car Gen2/Gen3/Gen4, as described below:
+
+- Different base address organization (SCU, ADG, SSIU, SSI as
+  separate regions accessed by name)
+- Additional registers: AUDIO_CLK_SEL3, SSI_MODE3, SSI_CONTROL2
+- Different register offsets within each region
+
+Add RZ/G3E SoC's audio subsystem register layouts and probe support.
 
 Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
 ---
 
 Changes:
 
-v5: No changes
+v5:
+ - Simplify flags layout comment per Kuninori's feedback
+ - RSND_SOC_MASK fix moved to dedicated patch 02/14
 
 v4:
- - Add reset_control_assert() in rsnd_mod_quit() for symmetry with
-   deassert in rsnd_mod_init()
+ - Fix RSND_SOC_MASK to (0xF << 4) to avoid overlap with RSND_RZ_MASK
+ - Add comment documenting flag nibble layout
+
 v3: No changes
 v2: No changes
 
- sound/soc/renesas/rcar/adg.c  |  2 +-
- sound/soc/renesas/rcar/cmd.c  |  2 +-
- sound/soc/renesas/rcar/core.c | 16 +++++++++++++++-
- sound/soc/renesas/rcar/ctu.c  |  2 +-
- sound/soc/renesas/rcar/dma.c  |  4 ++--
- sound/soc/renesas/rcar/dvc.c  |  2 +-
- sound/soc/renesas/rcar/mix.c  |  2 +-
- sound/soc/renesas/rcar/rsnd.h |  3 +++
- sound/soc/renesas/rcar/src.c  |  2 +-
- sound/soc/renesas/rcar/ssi.c  |  2 +-
- sound/soc/renesas/rcar/ssiu.c |  2 +-
- 11 files changed, 28 insertions(+), 11 deletions(-)
+ sound/soc/renesas/rcar/core.c |   1 +
+ sound/soc/renesas/rcar/gen.c  | 180 ++++++++++++++++++++++++++++++++++
+ sound/soc/renesas/rcar/rsnd.h |  26 ++++-
+ 3 files changed, 204 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/renesas/rcar/adg.c b/sound/soc/renesas/rcar/adg.c
-index 8641b73d1f77..0105c60a144e 100644
---- a/sound/soc/renesas/rcar/adg.c
-+++ b/sound/soc/renesas/rcar/adg.c
-@@ -780,7 +780,7 @@ int rsnd_adg_probe(struct rsnd_priv *priv)
- 		return -ENOMEM;
- 
- 	ret = rsnd_mod_init(priv, &adg->mod, &adg_ops,
--		      NULL, 0, 0);
-+		      NULL, NULL, 0, 0);
- 	if (ret)
- 		return ret;
- 
-diff --git a/sound/soc/renesas/rcar/cmd.c b/sound/soc/renesas/rcar/cmd.c
-index 8d9a1e345a22..13beef389797 100644
---- a/sound/soc/renesas/rcar/cmd.c
-+++ b/sound/soc/renesas/rcar/cmd.c
-@@ -171,7 +171,7 @@ int rsnd_cmd_probe(struct rsnd_priv *priv)
- 
- 	for_each_rsnd_cmd(cmd, priv, i) {
- 		int ret = rsnd_mod_init(priv, rsnd_mod_get(cmd),
--					&rsnd_cmd_ops, NULL,
-+					&rsnd_cmd_ops, NULL, NULL,
- 					RSND_MOD_CMD, i);
- 		if (ret)
- 			return ret;
 diff --git a/sound/soc/renesas/rcar/core.c b/sound/soc/renesas/rcar/core.c
-index 69fb19964a71..28467e45acab 100644
+index 28467e45acab..4544791f3883 100644
 --- a/sound/soc/renesas/rcar/core.c
 +++ b/sound/soc/renesas/rcar/core.c
-@@ -90,6 +90,7 @@
-  *
-  */
+@@ -107,6 +107,7 @@ static const struct of_device_id rsnd_of_match[] = {
+ 	{ .compatible = "renesas,rcar_sound-gen4", .data = (void *)RSND_GEN4 },
+ 	/* Special Handling */
+ 	{ .compatible = "renesas,rcar_sound-r8a77990", .data = (void *)(RSND_GEN3 | RSND_SOC_E) },
++	{ .compatible = "renesas,r9a09g047-sound", .data = (void *)(RSND_RZ3 | RSND_RZG3E) },
+ 	{},
+ };
+ MODULE_DEVICE_TABLE(of, rsnd_of_match);
+diff --git a/sound/soc/renesas/rcar/gen.c b/sound/soc/renesas/rcar/gen.c
+index d1f20cde66be..05d5f656fb01 100644
+--- a/sound/soc/renesas/rcar/gen.c
++++ b/sound/soc/renesas/rcar/gen.c
+@@ -464,6 +464,184 @@ static int rsnd_gen1_probe(struct rsnd_priv *priv)
+ 	return ret_adg | ret_ssi;
+ }
  
-+#include <linux/delay.h>
- #include <linux/pm_runtime.h>
- #include <linux/of_graph.h>
- #include "rsnd.h"
-@@ -196,18 +197,29 @@ int rsnd_mod_init(struct rsnd_priv *priv,
- 		  struct rsnd_mod *mod,
- 		  struct rsnd_mod_ops *ops,
- 		  struct clk *clk,
-+		  struct reset_control *rstc,
- 		  enum rsnd_mod_type type,
- 		  int id)
- {
--	int ret = clk_prepare(clk);
++/*
++ *		RZ/G3E Generation
++ */
++static int rsnd_rzg3e_probe(struct rsnd_priv *priv)
++{
++	static const struct rsnd_regmap_field_conf conf_ssiu[] = {
++		RSND_GEN_S_REG(SSI_MODE1,		0x804),
++		RSND_GEN_S_REG(SSI_MODE2,		0x808),
++		RSND_GEN_S_REG(SSI_MODE3,		0x80c),
++		RSND_GEN_S_REG(SSI_CONTROL,		0x810),
++		RSND_GEN_S_REG(SSI_CONTROL2,		0x814),
++		RSND_GEN_S_REG(SSI_SYS_STATUS0,		0x840),
++		RSND_GEN_S_REG(SSI_SYS_STATUS1,		0x844),
++		RSND_GEN_S_REG(SSI_SYS_STATUS2,		0x848),
++		RSND_GEN_S_REG(SSI_SYS_STATUS3,		0x84c),
++		RSND_GEN_S_REG(SSI_SYS_INT_ENABLE0,	0x850),
++		RSND_GEN_S_REG(SSI_SYS_INT_ENABLE1,	0x854),
++		RSND_GEN_S_REG(SSI_SYS_INT_ENABLE2,	0x858),
++		RSND_GEN_S_REG(SSI_SYS_INT_ENABLE3,	0x85c),
++		RSND_GEN_M_REG(SSI_BUSIF0_MODE,		0x0,	0x80),
++		RSND_GEN_M_REG(SSI_BUSIF0_ADINR,	0x4,	0x80),
++		RSND_GEN_M_REG(SSI_BUSIF0_DALIGN,	0x8,	0x80),
++		RSND_GEN_M_REG(SSI_BUSIF1_MODE,		0x20,	0x80),
++		RSND_GEN_M_REG(SSI_BUSIF1_ADINR,	0x24,	0x80),
++		RSND_GEN_M_REG(SSI_BUSIF1_DALIGN,	0x28,	0x80),
++		RSND_GEN_M_REG(SSI_BUSIF2_MODE,		0x40,	0x80),
++		RSND_GEN_M_REG(SSI_BUSIF2_ADINR,	0x44,	0x80),
++		RSND_GEN_M_REG(SSI_BUSIF2_DALIGN,	0x48,	0x80),
++		RSND_GEN_M_REG(SSI_BUSIF3_MODE,		0x60,	0x80),
++		RSND_GEN_M_REG(SSI_BUSIF3_ADINR,	0x64,	0x80),
++		RSND_GEN_M_REG(SSI_BUSIF3_DALIGN,	0x68,	0x80),
++		RSND_GEN_M_REG(SSI_MODE,		0xc,	0x80),
++		RSND_GEN_M_REG(SSI_CTRL,		0x10,	0x80),
++		RSND_GEN_M_REG(SSI_INT_ENABLE,		0x18,	0x80),
++		RSND_GEN_S_REG(SSI9_BUSIF0_MODE,	0x480),
++		RSND_GEN_S_REG(SSI9_BUSIF0_ADINR,	0x484),
++		RSND_GEN_S_REG(SSI9_BUSIF0_DALIGN,	0x488),
++		RSND_GEN_S_REG(SSI9_BUSIF1_MODE,	0x4a0),
++		RSND_GEN_S_REG(SSI9_BUSIF1_ADINR,	0x4a4),
++		RSND_GEN_S_REG(SSI9_BUSIF1_DALIGN,	0x4a8),
++		RSND_GEN_S_REG(SSI9_BUSIF2_MODE,	0x4c0),
++		RSND_GEN_S_REG(SSI9_BUSIF2_ADINR,	0x4c4),
++		RSND_GEN_S_REG(SSI9_BUSIF2_DALIGN,	0x4c8),
++		RSND_GEN_S_REG(SSI9_BUSIF3_MODE,	0x4e0),
++		RSND_GEN_S_REG(SSI9_BUSIF3_ADINR,	0x4e4),
++		RSND_GEN_S_REG(SSI9_BUSIF3_DALIGN,	0x4e8),
++	};
++	static const struct rsnd_regmap_field_conf conf_scu[] = {
++		RSND_GEN_M_REG(SRC_I_BUSIF_MODE,	0x0,	0x20),
++		RSND_GEN_M_REG(SRC_O_BUSIF_MODE,	0x4,	0x20),
++		RSND_GEN_M_REG(SRC_BUSIF_DALIGN,	0x8,	0x20),
++		RSND_GEN_M_REG(SRC_ROUTE_MODE0,		0xc,	0x20),
++		RSND_GEN_M_REG(SRC_CTRL,		0x10,	0x20),
++		RSND_GEN_M_REG(SRC_INT_ENABLE0,		0x18,	0x20),
++		RSND_GEN_M_REG(CMD_BUSIF_MODE,		0x184,	0x20),
++		RSND_GEN_M_REG(CMD_BUSIF_DALIGN,	0x188,	0x20),
++		RSND_GEN_M_REG(CMD_ROUTE_SLCT,		0x18c,	0x20),
++		RSND_GEN_M_REG(CMD_CTRL,		0x190,	0x20),
++		RSND_GEN_S_REG(SCU_SYS_STATUS0,		0x1c8),
++		RSND_GEN_S_REG(SCU_SYS_INT_EN0,		0x1cc),
++		RSND_GEN_S_REG(SCU_SYS_STATUS1,		0x1d0),
++		RSND_GEN_S_REG(SCU_SYS_INT_EN1,		0x1d4),
++		RSND_GEN_M_REG(SRC_SWRSR,		0x200,	0x40),
++		RSND_GEN_M_REG(SRC_SRCIR,		0x204,	0x40),
++		RSND_GEN_M_REG(SRC_ADINR,		0x214,	0x40),
++		RSND_GEN_M_REG(SRC_IFSCR,		0x21c,	0x40),
++		RSND_GEN_M_REG(SRC_IFSVR,		0x220,	0x40),
++		RSND_GEN_M_REG(SRC_SRCCR,		0x224,	0x40),
++		RSND_GEN_M_REG(SRC_BSDSR,		0x22c,	0x40),
++		RSND_GEN_M_REG(SRC_BSISR,		0x238,	0x40),
++		RSND_GEN_M_REG(CTU_SWRSR,		0x500,	0x100),
++		RSND_GEN_M_REG(CTU_CTUIR,		0x504,	0x100),
++		RSND_GEN_M_REG(CTU_ADINR,		0x508,	0x100),
++		RSND_GEN_M_REG(CTU_CPMDR,		0x510,	0x100),
++		RSND_GEN_M_REG(CTU_SCMDR,		0x514,	0x100),
++		RSND_GEN_M_REG(CTU_SV00R,		0x518,	0x100),
++		RSND_GEN_M_REG(CTU_SV01R,		0x51c,	0x100),
++		RSND_GEN_M_REG(CTU_SV02R,		0x520,	0x100),
++		RSND_GEN_M_REG(CTU_SV03R,		0x524,	0x100),
++		RSND_GEN_M_REG(CTU_SV04R,		0x528,	0x100),
++		RSND_GEN_M_REG(CTU_SV05R,		0x52c,	0x100),
++		RSND_GEN_M_REG(CTU_SV06R,		0x530,	0x100),
++		RSND_GEN_M_REG(CTU_SV07R,		0x534,	0x100),
++		RSND_GEN_M_REG(CTU_SV10R,		0x538,	0x100),
++		RSND_GEN_M_REG(CTU_SV11R,		0x53c,	0x100),
++		RSND_GEN_M_REG(CTU_SV12R,		0x540,	0x100),
++		RSND_GEN_M_REG(CTU_SV13R,		0x544,	0x100),
++		RSND_GEN_M_REG(CTU_SV14R,		0x548,	0x100),
++		RSND_GEN_M_REG(CTU_SV15R,		0x54c,	0x100),
++		RSND_GEN_M_REG(CTU_SV16R,		0x550,	0x100),
++		RSND_GEN_M_REG(CTU_SV17R,		0x554,	0x100),
++		RSND_GEN_M_REG(CTU_SV20R,		0x558,	0x100),
++		RSND_GEN_M_REG(CTU_SV21R,		0x55c,	0x100),
++		RSND_GEN_M_REG(CTU_SV22R,		0x560,	0x100),
++		RSND_GEN_M_REG(CTU_SV23R,		0x564,	0x100),
++		RSND_GEN_M_REG(CTU_SV24R,		0x568,	0x100),
++		RSND_GEN_M_REG(CTU_SV25R,		0x56c,	0x100),
++		RSND_GEN_M_REG(CTU_SV26R,		0x570,	0x100),
++		RSND_GEN_M_REG(CTU_SV27R,		0x574,	0x100),
++		RSND_GEN_M_REG(CTU_SV30R,		0x578,	0x100),
++		RSND_GEN_M_REG(CTU_SV31R,		0x57c,	0x100),
++		RSND_GEN_M_REG(CTU_SV32R,		0x580,	0x100),
++		RSND_GEN_M_REG(CTU_SV33R,		0x584,	0x100),
++		RSND_GEN_M_REG(CTU_SV34R,		0x588,	0x100),
++		RSND_GEN_M_REG(CTU_SV35R,		0x58c,	0x100),
++		RSND_GEN_M_REG(CTU_SV36R,		0x590,	0x100),
++		RSND_GEN_M_REG(CTU_SV37R,		0x594,	0x100),
++		RSND_GEN_M_REG(MIX_SWRSR,		0xd00,	0x40),
++		RSND_GEN_M_REG(MIX_MIXIR,		0xd04,	0x40),
++		RSND_GEN_M_REG(MIX_ADINR,		0xd08,	0x40),
++		RSND_GEN_M_REG(MIX_MIXMR,		0xd10,	0x40),
++		RSND_GEN_M_REG(MIX_MVPDR,		0xd14,	0x40),
++		RSND_GEN_M_REG(MIX_MDBAR,		0xd18,	0x40),
++		RSND_GEN_M_REG(MIX_MDBBR,		0xd1c,	0x40),
++		RSND_GEN_M_REG(MIX_MDBCR,		0xd20,	0x40),
++		RSND_GEN_M_REG(MIX_MDBDR,		0xd24,	0x40),
++		RSND_GEN_M_REG(MIX_MDBER,		0xd28,	0x40),
++		RSND_GEN_M_REG(DVC_SWRSR,		0xe00,	0x100),
++		RSND_GEN_M_REG(DVC_DVUIR,		0xe04,	0x100),
++		RSND_GEN_M_REG(DVC_ADINR,		0xe08,	0x100),
++		RSND_GEN_M_REG(DVC_DVUCR,		0xe10,	0x100),
++		RSND_GEN_M_REG(DVC_ZCMCR,		0xe14,	0x100),
++		RSND_GEN_M_REG(DVC_VRCTR,		0xe18,	0x100),
++		RSND_GEN_M_REG(DVC_VRPDR,		0xe1c,	0x100),
++		RSND_GEN_M_REG(DVC_VRDBR,		0xe20,	0x100),
++		RSND_GEN_M_REG(DVC_VOL0R,		0xe28,	0x100),
++		RSND_GEN_M_REG(DVC_VOL1R,		0xe2c,	0x100),
++		RSND_GEN_M_REG(DVC_VOL2R,		0xe30,	0x100),
++		RSND_GEN_M_REG(DVC_VOL3R,		0xe34,	0x100),
++		RSND_GEN_M_REG(DVC_VOL4R,		0xe38,	0x100),
++		RSND_GEN_M_REG(DVC_VOL5R,		0xe3c,	0x100),
++		RSND_GEN_M_REG(DVC_VOL6R,		0xe40,	0x100),
++		RSND_GEN_M_REG(DVC_VOL7R,		0xe44,	0x100),
++		RSND_GEN_M_REG(DVC_DVUER,		0xe48,	0x100),
++	};
++	static const struct rsnd_regmap_field_conf conf_adg[] = {
++		RSND_GEN_S_REG(BRRA,			0x00),
++		RSND_GEN_S_REG(BRRB,			0x04),
++		RSND_GEN_S_REG(BRGCKR,			0x08),
++		RSND_GEN_S_REG(AUDIO_CLK_SEL0,		0x0c),
++		RSND_GEN_S_REG(AUDIO_CLK_SEL1,		0x10),
++		RSND_GEN_S_REG(AUDIO_CLK_SEL2,		0x14),
++		RSND_GEN_S_REG(AUDIO_CLK_SEL3,		0x18),
++		RSND_GEN_S_REG(DIV_EN,			0x30),
++		RSND_GEN_S_REG(SRCIN_TIMSEL0,		0x34),
++		RSND_GEN_S_REG(SRCIN_TIMSEL1,		0x38),
++		RSND_GEN_S_REG(SRCIN_TIMSEL2,		0x3c),
++		RSND_GEN_S_REG(SRCIN_TIMSEL3,		0x40),
++		RSND_GEN_S_REG(SRCIN_TIMSEL4,		0x44),
++		RSND_GEN_S_REG(SRCOUT_TIMSEL0,		0x48),
++		RSND_GEN_S_REG(SRCOUT_TIMSEL1,		0x4c),
++		RSND_GEN_S_REG(SRCOUT_TIMSEL2,		0x50),
++		RSND_GEN_S_REG(SRCOUT_TIMSEL3,		0x54),
++		RSND_GEN_S_REG(SRCOUT_TIMSEL4,		0x58),
++		RSND_GEN_S_REG(CMDOUT_TIMSEL,		0x5c),
++	};
++	static const struct rsnd_regmap_field_conf conf_ssi[] = {
++		RSND_GEN_M_REG(SSICR,			0x00,	0x40),
++		RSND_GEN_M_REG(SSISR,			0x04,	0x40),
++		RSND_GEN_M_REG(SSIWSR,			0x20,	0x40),
++	};
 +	int ret;
- 
-+	ret = clk_prepare_enable(clk);
- 	if (ret)
- 		return ret;
- 
-+	ret = reset_control_deassert(rstc);
-+	if (ret) {
-+		clk_disable_unprepare(clk);
++
++	ret = rsnd_gen_regmap_init(priv, 10, RSND_BASE_SCU, "scu", conf_scu);
++	if (ret < 0)
 +		return ret;
-+	}
 +
-+	clk_disable(clk);
++	ret = rsnd_gen_regmap_init(priv, 1, RSND_BASE_ADG, "adg", conf_adg);
++	if (ret < 0)
++		return ret;
 +
- 	mod->id		= id;
- 	mod->ops	= ops;
- 	mod->type	= type;
- 	mod->clk	= clk;
-+	mod->rstc	= rstc;
- 	mod->priv	= priv;
++	ret = rsnd_gen_regmap_init(priv, 10, RSND_BASE_SSIU, "ssiu", conf_ssiu);
++	if (ret < 0)
++		return ret;
++
++	return rsnd_gen_regmap_init(priv, 10, RSND_BASE_SSI, "ssi", conf_ssi);
++}
++
+ /*
+  *		Gen
+  */
+@@ -487,6 +665,8 @@ int rsnd_gen_probe(struct rsnd_priv *priv)
+ 		ret = rsnd_gen2_probe(priv);
+ 	else if (rsnd_is_gen4(priv))
+ 		ret = rsnd_gen4_probe(priv);
++	else if (rsnd_is_rzg3e(priv))
++		ret = rsnd_rzg3e_probe(priv);
  
- 	return 0;
-@@ -217,6 +229,8 @@ void rsnd_mod_quit(struct rsnd_mod *mod)
- {
- 	clk_unprepare(mod->clk);
- 	mod->clk = NULL;
-+	reset_control_assert(mod->rstc);
-+	mod->rstc = NULL;
- }
- 
- void rsnd_mod_interrupt(struct rsnd_mod *mod,
-diff --git a/sound/soc/renesas/rcar/ctu.c b/sound/soc/renesas/rcar/ctu.c
-index bd4c61f9fb3c..81bba6a1af6e 100644
---- a/sound/soc/renesas/rcar/ctu.c
-+++ b/sound/soc/renesas/rcar/ctu.c
-@@ -360,7 +360,7 @@ int rsnd_ctu_probe(struct rsnd_priv *priv)
- 		}
- 
- 		ret = rsnd_mod_init(priv, rsnd_mod_get(ctu), &rsnd_ctu_ops,
--				    clk, RSND_MOD_CTU, i);
-+				    clk, NULL, RSND_MOD_CTU, i);
- 		if (ret)
- 			goto rsnd_ctu_probe_done;
- 
-diff --git a/sound/soc/renesas/rcar/dma.c b/sound/soc/renesas/rcar/dma.c
-index 2035ce06fe4c..68c859897e68 100644
---- a/sound/soc/renesas/rcar/dma.c
-+++ b/sound/soc/renesas/rcar/dma.c
-@@ -803,7 +803,7 @@ static int rsnd_dma_alloc(struct rsnd_dai_stream *io, struct rsnd_mod *mod,
- 
- 	*dma_mod = rsnd_mod_get(dma);
- 
--	ret = rsnd_mod_init(priv, *dma_mod, ops, NULL,
-+	ret = rsnd_mod_init(priv, *dma_mod, ops, NULL, NULL,
- 			    type, dma_id);
  	if (ret < 0)
- 		return ret;
-@@ -879,5 +879,5 @@ int rsnd_dma_probe(struct rsnd_priv *priv)
- 	priv->dma = dmac;
- 
- 	/* dummy mem mod for debug */
--	return rsnd_mod_init(NULL, &mem, &mem_ops, NULL, 0, 0);
-+	return rsnd_mod_init(NULL, &mem, &mem_ops, NULL, NULL, 0, 0);
- }
-diff --git a/sound/soc/renesas/rcar/dvc.c b/sound/soc/renesas/rcar/dvc.c
-index 988cbddbc611..bf7146ceb5f6 100644
---- a/sound/soc/renesas/rcar/dvc.c
-+++ b/sound/soc/renesas/rcar/dvc.c
-@@ -364,7 +364,7 @@ int rsnd_dvc_probe(struct rsnd_priv *priv)
- 		}
- 
- 		ret = rsnd_mod_init(priv, rsnd_mod_get(dvc), &rsnd_dvc_ops,
--				    clk, RSND_MOD_DVC, i);
-+				    clk, NULL, RSND_MOD_DVC, i);
- 		if (ret)
- 			goto rsnd_dvc_probe_done;
- 
-diff --git a/sound/soc/renesas/rcar/mix.c b/sound/soc/renesas/rcar/mix.c
-index aea74e703305..566e9b2a488c 100644
---- a/sound/soc/renesas/rcar/mix.c
-+++ b/sound/soc/renesas/rcar/mix.c
-@@ -328,7 +328,7 @@ int rsnd_mix_probe(struct rsnd_priv *priv)
- 		}
- 
- 		ret = rsnd_mod_init(priv, rsnd_mod_get(mix), &rsnd_mix_ops,
--				    clk, RSND_MOD_MIX, i);
-+				    clk, NULL, RSND_MOD_MIX, i);
- 		if (ret)
- 			goto rsnd_mix_probe_done;
- 
+ 		dev_err(dev, "unknown generation R-Car sound device\n");
 diff --git a/sound/soc/renesas/rcar/rsnd.h b/sound/soc/renesas/rcar/rsnd.h
-index 3e666125959b..3d419b31cf40 100644
+index 3d419b31cf40..16d7eafedae1 100644
 --- a/sound/soc/renesas/rcar/rsnd.h
 +++ b/sound/soc/renesas/rcar/rsnd.h
-@@ -15,6 +15,7 @@
- #include <linux/list.h>
- #include <linux/module.h>
- #include <linux/of.h>
-+#include <linux/reset.h>
- #include <linux/sh_dma.h>
- #include <linux/workqueue.h>
- #include <sound/soc.h>
-@@ -353,6 +354,7 @@ struct rsnd_mod {
- 	struct rsnd_mod_ops *ops;
- 	struct rsnd_priv *priv;
- 	struct clk *clk;
-+	struct reset_control *rstc;
- 	u32 status;
- };
- /*
-@@ -420,6 +422,7 @@ int rsnd_mod_init(struct rsnd_priv *priv,
- 		  struct rsnd_mod *mod,
- 		  struct rsnd_mod_ops *ops,
- 		  struct clk *clk,
-+		  struct reset_control *rstc,
- 		  enum rsnd_mod_type type,
- 		  int id);
- void rsnd_mod_quit(struct rsnd_mod *mod);
-diff --git a/sound/soc/renesas/rcar/src.c b/sound/soc/renesas/rcar/src.c
-index 6a3dbc84f474..8b58cc20e7a8 100644
---- a/sound/soc/renesas/rcar/src.c
-+++ b/sound/soc/renesas/rcar/src.c
-@@ -766,7 +766,7 @@ int rsnd_src_probe(struct rsnd_priv *priv)
- 		}
+@@ -143,13 +143,16 @@ enum rsnd_reg {
+ 	AUDIO_CLK_SEL0,
+ 	AUDIO_CLK_SEL1,
+ 	AUDIO_CLK_SEL2,
++	AUDIO_CLK_SEL3,
  
- 		ret = rsnd_mod_init(priv, rsnd_mod_get(src),
--				    &rsnd_src_ops, clk, RSND_MOD_SRC, i);
-+				    &rsnd_src_ops, clk, NULL, RSND_MOD_SRC, i);
- 		if (ret)
- 			goto rsnd_src_probe_done;
+ 	/* SSIU */
+ 	SSI_MODE,
+ 	SSI_MODE0,
+ 	SSI_MODE1,
+ 	SSI_MODE2,
++	SSI_MODE3,
+ 	SSI_CONTROL,
++	SSI_CONTROL2,
+ 	SSI_CTRL,
+ 	SSI_BUSIF0_MODE,
+ 	SSI_BUSIF1_MODE,
+@@ -622,14 +625,28 @@ struct rsnd_priv {
+ 	struct platform_device *pdev;
+ 	spinlock_t lock;
+ 	unsigned long flags;
++
++	/*
++	 * Flags layout: 0xDCBA
++	 *
++	 * A: R-Car generation (Gen1/Gen2/Gen3/Gen4)
++	 * B: R-Car SoC variant (e.g. SOC_E for E1/E2/E3)
++	 * C: RZ series generation
++	 * D: RZ series SoC identifier (e.g. RZG3E)
++	 *
++	 * Bits 16+ are used for capability flags.
++	 */
+ #define RSND_GEN_MASK	(0xF << 0)
+ #define RSND_GEN1	(1 << 0)
+ #define RSND_GEN2	(2 << 0)
+ #define RSND_GEN3	(3 << 0)
+ #define RSND_GEN4	(4 << 0)
+-#define RSND_SOC_MASK	(0xF << 4)
+-#define RSND_SOC_E	(1 << 4) /* E1/E2/E3 */
+-
++#define RSND_SOC_MASK	(0xF << 4)  /* nibble B */
++#define RSND_SOC_E	(1 << 4)    /* E1/E2/E3 */
++#define RSND_RZ_MASK	(0xF << 8)  /* nibble C */
++#define RSND_RZ3	(3 << 8)
++#define RSND_RZ_ID_MASK	(0xF << 12) /* nibble D */
++#define RSND_RZG3E	(1 << 12)
+ 	/*
+ 	 * below value will be filled on rsnd_gen_probe()
+ 	 */
+@@ -708,6 +725,9 @@ struct rsnd_priv {
+ #define rsnd_is_gen3_e3(priv)	(((priv)->flags & \
+ 					(RSND_GEN_MASK | RSND_SOC_MASK)) == \
+ 					(RSND_GEN3 | RSND_SOC_E))
++#define rsnd_is_rzg3e(priv) (((priv)->flags & \
++				(RSND_RZ_MASK | RSND_RZ_ID_MASK)) == \
++					(RSND_RZ3 | RSND_RZG3E))
  
-diff --git a/sound/soc/renesas/rcar/ssi.c b/sound/soc/renesas/rcar/ssi.c
-index 0420041e282c..c06cebb36170 100644
---- a/sound/soc/renesas/rcar/ssi.c
-+++ b/sound/soc/renesas/rcar/ssi.c
-@@ -1225,7 +1225,7 @@ int rsnd_ssi_probe(struct rsnd_priv *priv)
- 			ops = &rsnd_ssi_dma_ops;
- 
- 		ret = rsnd_mod_init(priv, rsnd_mod_get(ssi), ops, clk,
--				    RSND_MOD_SSI, i);
-+				    NULL, RSND_MOD_SSI, i);
- 		if (ret)
- 			goto rsnd_ssi_probe_done;
- 
-diff --git a/sound/soc/renesas/rcar/ssiu.c b/sound/soc/renesas/rcar/ssiu.c
-index 244fb833292a..0cfa84fe5ea8 100644
---- a/sound/soc/renesas/rcar/ssiu.c
-+++ b/sound/soc/renesas/rcar/ssiu.c
-@@ -586,7 +586,7 @@ int rsnd_ssiu_probe(struct rsnd_priv *priv)
- 		}
- 
- 		ret = rsnd_mod_init(priv, rsnd_mod_get(ssiu),
--				    ops, NULL, RSND_MOD_SSIU, i);
-+				    ops, NULL, NULL, RSND_MOD_SSIU, i);
- 		if (ret)
- 			return ret;
- 	}
+ #define rsnd_flags_has(p, f) ((p)->flags & (f))
+ #define rsnd_flags_set(p, f) ((p)->flags |= (f))
 -- 
 2.25.1
 
