@@ -1,115 +1,235 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3EC296BD2;
-	Wed, 15 Apr 2026 07:07:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42C1F31328E;
+	Wed, 15 Apr 2026 07:17:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776236840; cv=none; b=hotAFaSXlqrWX7UThT9iZ4skUhRdiXIacE7ch++vSfWUJy9oLY3+ksXfO6GblhfCngKpLxgPIgs3YXK/CrJBf5Ot7L8CeAuZ9YDfACrEMqHacbZNtbdQYtnNIPfME8VjU6pjRYT0hexQKCIZsrCGBY1B+AZbwQzXe5ML/k5kaKk=
+	t=1776237431; cv=none; b=DFhVJpMRjtllWcTfykdF1toE0z9qJ4xVfNshd+2C/nK0xL9EYoXjoN68Pb4iYkq2NSIrLkgUFuXjzOAJLwkp77KzHz8F302JnxL14TL2FvTtS6wRvsPnBucPrjVYSmT4avKmyYBaaacvzBxLQWfLI0ZGAw2OvOkEaMPnnAfyUeQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776236840; c=relaxed/simple;
-	bh=maMx2vGLy8HNPEs/euhCKH/uWqTfi44vavIfx5aHghg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=limuZFhe2x/P6RCYZaO0mdIWi4xUsTJcrxh8ARJ68dvo320OoQ2njHmq6R+Nt5jYs5XHyMM5S7SSGRrqYrj7xFwHU0vWeJv1G+VcwYhkbtlCPoahvv6hxETic0YB9AMw2sm3ihwS235/EcmUZDrZmo4oJ+57ulTxLSY0HgIAfVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QZiGMhWC; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776237431; c=relaxed/simple;
+	bh=bykFpr8kKL0KUiE5ut+6uzeRN863t6CApjvZn+J1jhQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hYYRrOcRBVRqSGWbryi8apYff4ZK14mK9b8rf+p6jL7l211tfTVaINiBuqcRnh+CZMubIreRZN5Hu4cgOX7xTqSDAxticVucJMeXCoXl8qEhrnGLo53hM7l3reApEa/VSLf85wYz56FVbyzv0jUsBKJeKFzDzNaKnf5mmSVLsJI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I4J6Veg5; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QZiGMhWC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15D9DC19424;
-	Wed, 15 Apr 2026 07:07:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I4J6Veg5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5772FC19424;
+	Wed, 15 Apr 2026 07:17:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776236840;
-	bh=maMx2vGLy8HNPEs/euhCKH/uWqTfi44vavIfx5aHghg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=QZiGMhWCX2WiW8PGXJsV4DTBVpLIHsUV8YE9b0RjmSl109HkVLwDl92xidR4uNHa8
-	 yNsaIUoMyX+5lngzVhMAZ0e6SEK1HXLws0ARoXyH/MyMlNwIn3R6KfftMLcIId7qny
-	 hfZ7Enj1VHpJl6apMjz6yAzdNxTMC+QwWDitvFxK2LZezObKq7AfrUIQOtojgmmdEG
-	 Xe3i0t1YRmLR/0nTlZ9se7vHddyf48BQDoQHqtErYCmC8fbznMavWEKGTnP9X07QkW
-	 lC0I9JHHb4REdDJ72PJRZdJdAd1ljN4/XzwOtChRTfWltctV/DQFwqcU6csLPZk0YJ
-	 h12UgGNg8cTiQ==
-Message-ID: <9cd3686a-5fa6-49cc-9b38-96637b9fca39@kernel.org>
-Date: Wed, 15 Apr 2026 09:07:16 +0200
+	s=k20201202; t=1776237430;
+	bh=bykFpr8kKL0KUiE5ut+6uzeRN863t6CApjvZn+J1jhQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=I4J6Veg5TT877gFljTbmDugKyzpSmgLY0RI1SWRbRpuBrqGoLpe9/Uohbo1XNMfbn
+	 Qdkiaye7Qn2CpOLyaZOSv0swCrgfySbYdfOovGaq1yLioet3xR26Z99Nj4DQA8Dewy
+	 2B7wPRPc7gKmgqGNNCK+avKo5iR8eKtJfHEVrAhPpNkqsHy6Ye1wyBm1a50I9Shotp
+	 AdLn1jgH7Q4GzE17Wjpwtx4q7bBi8oWZeOS/IbiQ3I7I9WnvgXKBpbFN8x9TOnE0DB
+	 F7RKcA23D4a5pueAggJFBxjZNLfI27yynum/E/IPG12nxf3lTFIHnawe7VZFI3n05r
+	 Kq0IOuO/ec+BA==
+Date: Wed, 15 Apr 2026 09:17:08 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Kaustabh Chakraborty <kauschluss@disroot.org>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, MyungJoo Ham <myungjoo.ham@samsung.com>, 
+	Chanwoo Choi <cw00.choi@samsung.com>, Sebastian Reichel <sre@kernel.org>, 
+	=?utf-8?B?QW5kcsOp?= Draszik <andre.draszik@linaro.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Nam Tran <trannamatk@gmail.com>, =?utf-8?B?xYF1a2FzeiBMZWJpZWR6acWEc2tp?= <kernel@lvkasz.us>, 
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-samsung-soc@vger.kernel.org, linux-rtc@vger.kernel.org, 
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v4 05/13] dt-bindings: mfd: s2mps11: add documentation
+ for S2MU005 PMIC
+Message-ID: <20260415-notorious-dainty-starfish-58a13c@quoll>
+References: <20260414-s2mu005-pmic-v4-0-7fe7480577e6@disroot.org>
+ <20260414-s2mu005-pmic-v4-5-7fe7480577e6@disroot.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: remoteproc: add AMD MicroBlaze binding
-To: Michal Simek <michal.simek@amd.com>, Ben Levinsky <ben.levinsky@amd.com>,
- andersson@kernel.org, mathieu.poirier@linaro.org
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, tanmay.shah@amd.com
-References: <20260414161558.2579920-1-ben.levinsky@amd.com>
- <20260414161558.2579920-2-ben.levinsky@amd.com>
- <774a8e9f-cfd9-4584-aaf0-2fd1189f65e8@kernel.org>
- <e82faa64-22fa-4dba-8cde-f02cf9f95e25@amd.com>
- <bf54faab-fac5-4c5c-89ea-04e328986760@kernel.org>
- <01f58865-3a89-4adf-9411-0bf8b8c985f7@amd.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <01f58865-3a89-4adf-9411-0bf8b8c985f7@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260414-s2mu005-pmic-v4-5-7fe7480577e6@disroot.org>
 
-On 15/04/2026 08:55, Michal Simek wrote:
->>>
->>> Does it make sense?
->>
->> Yes, drop from DT. No need for generic stuff. Or describe the hardware.
+On Tue, Apr 14, 2026 at 12:02:57PM +0530, Kaustabh Chakraborty wrote:
+> Samsung's S2MU005 PMIC includes subdevices for a charger, an MUIC (Micro
+> USB Interface Controller), and flash and RGB LED controllers.
 > 
-> You need to describe that connection to HW. GPIOs, memory location, etc.
-> It means there must be any description.
+> Since regulators are not supported by this device, unmark this property
+> as required and instead set this in a per-device basis for ones which
+> need it.
+> 
+> Add the compatible and documentation for the S2MU005 PMIC. Also, add an
+> example for nodes for supported sub-devices, i.e. charger, extcon,
+> flash, and rgb.
+> 
 
-No, you can write user-space driver or pass everything through SW nodes.
-No need for DT description.
+Limited review because this does not pass build checks.
 
-But if you want a DT description, then it must be for the specific
-hardware, since the hardware is not generic.
+> Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
+> ---
+>  .../devicetree/bindings/mfd/samsung,s2mps11.yaml   | 121 ++++++++++++++++++++-
+>  1 file changed, 120 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/mfd/samsung,s2mps11.yaml b/Documentation/devicetree/bindings/mfd/samsung,s2mps11.yaml
+> index ac5d0c149796b..d3d305b9aa765 100644
+> --- a/Documentation/devicetree/bindings/mfd/samsung,s2mps11.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/samsung,s2mps11.yaml
+> @@ -26,12 +26,28 @@ properties:
+>        - samsung,s2mps15-pmic
+>        - samsung,s2mpu02-pmic
+>        - samsung,s2mpu05-pmic
+> +      - samsung,s2mu005-pmic
+>  
+>    clocks:
+>      $ref: /schemas/clock/samsung,s2mps11.yaml
+>      description:
+>        Child node describing clock provider.
+>  
+> +  charger:
+> +    $ref: /schemas/power/supply/samsung,s2mu005-charger.yaml
+> +    description:
+> +      Child node describing battery charger device.
+> +
+> +  extcon:
+
+You got comment to drop extcon naming. If this stays, it's muic for
+example.
+
+> +    $ref: /schemas/extcon/samsung,s2mu005-muic.yaml
+> +    description:
+> +      Child node describing extcon device.
+> +
+> +  flash:
+> +    $ref: /schemas/leds/samsung,s2mu005-flash.yaml
+> +    description:
+> +      Child node describing flash LEDs.
+> +
+
+Please make it a separate binding file.
+
+>    interrupts:
+>      maxItems: 1
+>  
+> @@ -43,6 +59,11 @@ properties:
+>      description:
+>        List of child nodes that specify the regulators.
+>  
+> +  rgb:
+
+led
+
+> +    $ref: /schemas/leds/samsung,s2mu005-rgb.yaml
+> +    description:
+> +      Child node describing RGB LEDs.
+> +
+>    samsung,s2mps11-acokb-ground:
+>      description: |
+>        Indicates that ACOKB pin of S2MPS11 PMIC is connected to the ground so
+> @@ -63,7 +84,6 @@ properties:
+>  required:
+>    - compatible
+>    - reg
+> -  - regulators
+>  
+>  additionalProperties: false
+>  
+> @@ -78,6 +98,8 @@ allOf:
+>          regulators:
+>            $ref: /schemas/regulator/samsung,s2mps11.yaml
+>          samsung,s2mps11-wrstbi-ground: false
+> +      required:
+> +        - regulators
+>  
+>    - if:
+>        properties:
+> @@ -89,6 +111,8 @@ allOf:
+>          regulators:
+>            $ref: /schemas/regulator/samsung,s2mps13.yaml
+>          samsung,s2mps11-acokb-ground: false
+> +      required:
+> +        - regulators
+>  
+>    - if:
+>        properties:
+> @@ -101,6 +125,8 @@ allOf:
+>            $ref: /schemas/regulator/samsung,s2mps14.yaml
+>          samsung,s2mps11-acokb-ground: false
+>          samsung,s2mps11-wrstbi-ground: false
+> +      required:
+> +        - regulators
+>  
+>    - if:
+>        properties:
+> @@ -113,6 +139,8 @@ allOf:
+>            $ref: /schemas/regulator/samsung,s2mps15.yaml
+>          samsung,s2mps11-acokb-ground: false
+>          samsung,s2mps11-wrstbi-ground: false
+> +      required:
+> +        - regulators
+>  
+>    - if:
+>        properties:
+> @@ -125,6 +153,8 @@ allOf:
+>            $ref: /schemas/regulator/samsung,s2mpu02.yaml
+>          samsung,s2mps11-acokb-ground: false
+>          samsung,s2mps11-wrstbi-ground: false
+> +      required:
+> +        - regulators
+>  
+>    - if:
+>        properties:
+> @@ -137,6 +167,18 @@ allOf:
+>            $ref: /schemas/regulator/samsung,s2mpu05.yaml
+>          samsung,s2mps11-acokb-ground: false
+>          samsung,s2mps11-wrstbi-ground: false
+> +      required:
+> +        - regulators
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: samsung,s2mu005-pmic
+> +    then:
+> +      properties:
+> +        samsung,s2mps11-acokb-ground: false
+> +        samsung,s2mps11-wrstbi-ground: false
+>  
+>  examples:
+>    - |
+> @@ -278,3 +320,80 @@ examples:
+>              };
+>          };
+>      };
+> +
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    #include <dt-bindings/leds/common.h>
+> +
+> +    i2c {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        pmic@3d {
+> +            compatible = "samsung,s2mu005-pmic";
+> +            reg = <0x3d>;
+> +            interrupt-parent = <&gpa2>;
+> +            interrupts = <7 IRQ_TYPE_LEVEL_LOW>;
+> +
+> +            charger {
+> +                compatible = "samsung,s2mu005-charger";
+> +                monitored-battery = <&battery>;
+> +
+> +                port {
+> +                    charger_to_muic: endpoint {
+> +                        remote-endpoint = <&muic_to_charger>;
+
+graph between own nodes is pointless.
 
 Best regards,
 Krzysztof
+
