@@ -1,24 +1,35 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48D312FE056
-	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 09:56:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39D123290D9;
+	Wed, 15 Apr 2026 10:03:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776246966; cv=none; b=NaaT7ESmjw6uo0OEznFlv6vPbVEiEjVdPXsZ3XiGe/hOJf7nVa0mIoW6Pggi/oZCBKl7k3OjQdIIv5a8jLPs3kUP0PB925uFmT/Ucp7YMHoEGr/Fg3Q2rpMvkNGclBHjbZZa9q0k4IOdNLECsTlAinoU4Y75r7zC1KnqLAK6qsY=
+	t=1776247441; cv=none; b=qGrD6F2kixg2+l8yJM5O31eYH4XowWb6Fuwf+MwPgGygVrwUYfQVhgHoMXp1L02d1nyPE0wILGOAC4ir8+Nm949+ocAeyI4LKB2m8dnP4F1faLF9hKmPbpvcSdRFoQxDJH/0MyolpkH+xv4Sd8/MU+AWCFUE7zmqo2ntZo/W5ns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776246966; c=relaxed/simple;
-	bh=GHufoTvjdV/q0YSPANTPsP9Q4n0CjQGSqnJg3y+BKdE=;
-	h=Message-ID:Date:MIME-Version:From:To:Cc:Subject:Content-Type; b=i1dMfTPFj5CQ4gWjDD/+N5EF0kI3dcd7qtTjptmxmVKdOXqiMrqhQNRKFXnMMiLDmBO+mZ7BAE2sjP8cLboviCGD5oRJWrdSS9Z+8KMjWtGx37JhonheKuA3BbJW5a1wqUxAxO8lsEk+Yti42M0W5K/f4vqLyTx5n1mU6H0iBtE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=[127.0.0.1])
-	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
-	(envelope-from <a.fatoum@pengutronix.de>)
-	id 1wCwyU-0008Gi-E6; Wed, 15 Apr 2026 11:55:58 +0200
-Message-ID: <382d28eb-557c-4cae-898c-8ed5c8cd7843@pengutronix.de>
-Date: Wed, 15 Apr 2026 11:55:57 +0200
+	s=arc-20240116; t=1776247441; c=relaxed/simple;
+	bh=5yBTBGWlx6WJxLclL2VvWQ69gFKuMVjrjutE062FuGI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NTrtGm9Wf05QaGTlWqap+zJPrxsKeep/8ojFJoPHdo2zTwqutbQUxt2PTyOPC124VukK4ULYaNgMOrCT2kyec6YrDVxbzTX/MWuwhmG1xrW+ZqY5r0BfC90DoXFTeSjSV0nFOBdlITiGAWBPowQANwhX90sycUYEsJ/zt4QuDyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=jxmAWKgU; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=4PcGopkm; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="jxmAWKgU";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="4PcGopkm"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1776247435; bh=AWQZd7lMzwoEiIi2phJxA3k
+	aflwasMW5lqDeJ5guP6g=; b=jxmAWKgU7o8UjN7kiHE5n1Fwl4QkudrHzS/2AOCYv3dqIAhghk
+	fX0bprqbHsatIYQ/Gp1Y8jbBVmFaT18GPGHn8mnLHywN5PKikgoNY2yUKOcd+J3PfEM5i6QRmu+
+	ZMynZJAexiOUaiAxbPqQg+7Ry0SFq5rHuYHcf+YGrK1mV9TEH1anHNUSpvFAiM9Jtt8hj4rKQN8
+	qfnRlGcdjUimG/XsO3zBhLiE5edmBy0J3qyEISZL8cyEKfcwf42nu3POLLiz2fyCda2izoYuZjX
+	vOo3wAwpR+7v3jy/HAnecPLxR67Lv79fnTPV5rY23H7PQi3mdMBDA4/RAflE5fRtp/A==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1776247435; bh=AWQZd7lMzwoEiIi2phJxA3k
+	aflwasMW5lqDeJ5guP6g=; b=4PcGopkmv3G2f8w3VvxC54UVJFEuhhSxIXhPdobCRphoT6i3SZ
+	cTZ8voujRwfccvMl2RNdA84mp2N0VM7UV6Bw==;
+Message-ID: <479f6176-8f72-48f6-9401-b5e0b81d668d@mainlining.org>
+Date: Wed, 15 Apr 2026 13:03:54 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -26,54 +37,68 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-Content-Language: en-US, de-DE, de-BE
-To: Fabien Dessenne <fabien.dessenne@foss.st.com>,
- Patrice Chotard <patrice.chotard@foss.st.com>
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "kernel@pengutronix.de" <kernel@pengutronix.de>
-Subject: [BUG] stm32mp135-dk: DT uses PA13 used for LED and button at the same
- time
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH 3/4] arm64: dts: qcom: sdm630: describe adsp_mem region
+ properly
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
+References: <20260415-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v1-0-03b475b29554@mainlining.org>
+ <20260415-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v1-3-03b475b29554@mainlining.org>
+ <70d4dbe7-0e5b-4065-858e-b5a57bbf45e3@oss.qualcomm.com>
+Content-Language: ru-RU, en-US
+From: Nickolay Goppen <setotau@mainlining.org>
+In-Reply-To: <70d4dbe7-0e5b-4065-858e-b5a57bbf45e3@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
-X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Hello,
 
-I just noticed that barebox built against the v7.0-rc1 device trees
-reports following error:
+15.04.2026 12:52, Konrad Dybcio wrote:
+> On 4/15/26 11:40 AM, Nickolay Goppen wrote:
+>> Downstream [1] this region is marked as shared and reusable so
+>> describe it that way.
+>>
+>> [1]: https://github.com/xiaomi-sdm660/android_kernel_xiaomi_sdm660/blob/11-EAS/arch/arm/boot/dts/qcom/sdm660.dtsi#L448
+>>
+>> Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
+>> ---
+> +Ekansh some insight, please?
+>
+> We're giving away that memory via qcom_scm_assign_mem() anyway
+> and I would assume that making it not-"no-map" could introduce issues
+> when the OS tries to access that region
 
-  ERROR: gpiolib: _gpio_request: gpio-13 (led-red) status -16
+I've made it as sdm845 done [1].
 
-This is caused by the combination of following two commits:
+[1]: 
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/arch/arm64/boot/dts/qcom/sdm845.dtsi#n893
 
-57012d79fefd ("ARM: dts: stm32: add UserPA13 button on stm32mp135f-dk")
-31f0d9a486a8 ("ARM: dts: stm32: Add red LED for stm32mp135f-dk board")
-
-Both reference the same &gpioa 13. Linux didn't seem to mind, but
-barebox fails the LED driver probe, because the GPIO had already been
-requested.
-
-Assuming it is correct that they share the same GPIO physically,
-does the current DT description make sense though for actual use?
-
-Blinking the LED would register a button press, so it feels that they
-should rather be mutually exclusive?
-
-Thanks,
-Ahmad
-
+> Konrad
+>
+>
+>>   arch/arm64/boot/dts/qcom/sdm630.dtsi | 3 ++-
+>>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/sdm630.dtsi b/arch/arm64/boot/dts/qcom/sdm630.dtsi
+>> index 4b47efdb57b2..13094b5e9339 100644
+>> --- a/arch/arm64/boot/dts/qcom/sdm630.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/sdm630.dtsi
+>> @@ -495,8 +495,9 @@ venus_region: venus@9f800000 {
+>>   		};
+>>   
+>>   		adsp_mem: adsp-region@f6000000 {
+>> +			compatible = "shared-dma-pool";
+>>   			reg = <0x0 0xf6000000 0x0 0x800000>;
+>> -			no-map;
+>> +			reusable;
+>>   		};
+>>   
+>>   		qseecom_mem: qseecom-region@f6800000 {
+>>
 -- 
-Pengutronix e.K.                  |                             |
-Steuerwalder Str. 21              | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany         | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686  | Fax:   +49-5121-206917-5555 |
+Best regards,
+Nickolay
 
