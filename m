@@ -1,262 +1,126 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010007.outbound.protection.outlook.com [52.101.56.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44932346AD7
-	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 10:43:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776249840; cv=none; b=UuzLiCkL3br6ceaizm1LWIlxQZY0Xzj3dtBBCOsP9lw6urlawrKTKugLvt5cLpxLEywDqxQ6zniF9o/F95aPvrOTVYN63enUt5G+o4Q7Zt4vu+p4Bdwrpfnbf90Ux8FvfAJDWvkiWgGgNbECBU5jO8CIJkto7ExZQar4Jto88BA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776249840; c=relaxed/simple;
-	bh=I5rwwyun5vLsa+Rz7N5Es5Z7F8X7j52CQZjUfE9JhtQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dJmJIu9Ma5IiLun+L8XvzM+XAlinzoTo9jKsdmQB9IEePFXGaYEk7On1cktkjdyumiGY8SRoPtS5pdknuqDQQd7dqBGU1l+aO4I4QIRwyPb8ymBm0ybrnvUZj7LXoYgGHWYiTT8NywVp2hZGTDMxxpsIyt3oiO7Y7PcyyDY+IRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=giZH8VJP; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6992113AF2;
+	Wed, 15 Apr 2026 10:56:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776250603; cv=fail; b=QOOAORrX8hCwbZNcyxE7thriiLYnMClv4ByaAHAAXzJ+pCRjOEieY91Y10JWxpnImoslc9dldPty86D91j55u570FeHPDQiHtQQB9fUywMQgq5Ujn3xD1aj/akX5dLrnQLHaArvEHxElr7FYC4gzIaYPQqvPvv4hrEW2gLrXQeU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776250603; c=relaxed/simple;
+	bh=MKFGu2/ngrBB0SkQ6KZo8d9kTpi3zkWEIkaCe5aDYxA=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=BRGD2g22AyGibYQtaZ2UJVaSiICJAgwRGjtuc6CFu8RsnzcrkWJ4XfUDR2f0/VIOjAz70z24Sv8xwz76Pz9R7ILiOUUg203zrut0DkBOLua8ZhLgm94/jY1owSEcUYoQm99AnmYjI5vhbIttUia8spAj0NYe0HBjil8dHDzl9E4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=kYRhflMn; arc=fail smtp.client-ip=52.101.56.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="giZH8VJP"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4887f49ec5aso80597725e9.1
-        for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 03:43:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776249838; x=1776854638; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=+SC14nnT8Z+MZcGYvcmlfpHodRTXT6Fog7SITNI+yb0=;
-        b=giZH8VJPdgey27mzyma77E2lHOjQSjaBpAN1wEJ1QxzGm5aDqaXF/J+kJfKBCBK8KA
-         9y0fpUIQknDG/cYr/9DMqJetrT+gsxbCsgWByDBP2EGMl6smehPMnDwHR0nBV0mfVpQV
-         cnRHSv7NUxfVTO0BD1ItMQuHO6F1T3JkHKkvug/xTBcRSdjcqzmd97iNhp7SxiFzGDl3
-         39JSVhv66PhdCJiePJr/XJKDRr67lILofa1u7FkDqeLhw0rTB8lcttxDBePdNlswEf0W
-         xsRoPACic9K8zw0Laf/MS6d4ZvxBoxeZDs4uuB6Xpu1F0GIMZdtnAnuhL20mTkrhNf9N
-         mTeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776249838; x=1776854638;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=+SC14nnT8Z+MZcGYvcmlfpHodRTXT6Fog7SITNI+yb0=;
-        b=CrPXhuJR8QjAoblAWFJp+yl+vF+QQKECZu/Xerm1oYquVWqJnqtMySGNjcGSmpuISs
-         sX9BzFmUW6HsrQx3QVY8/S53NHmseYKK6yAM1fgu8bntxtb50PKL2uvRsyUgJpc8o0QR
-         gNywCHJcow3sErUBQpRhBZc9mAJPPXbznQN+ltffKYQ5V8l8935WUeCgVG7/WP4161/P
-         uEOscCme8/6iis7TZ2yuAkhBqUHHcjsLEXXfqSzTxzZvS7avGvLZkbrBNrfBn4FlmxPK
-         nNUFKV+ZJkyokZKE+9gv2aP4n+tRoAjYuEoGoaIn3t9ZmaCnX5IVmo9ymFNuWralUOxw
-         8YtA==
-X-Forwarded-Encrypted: i=1; AFNElJ97cJhvtmajaNQAupILz7To7Ql7D7Ox3AlLbTsvemdlevI+H5C4l20p9pvBicVZC2OvwHcPiVeAc+Y7@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz2qsbKcf/Pd5A+C8hdCmYiRAQGhuJL5bp1MVAo/eTCIXiNMTjz
-	Ft5N54LK/qxtfRjUiA82uIP5cnuW/76oBNULSxOnt1Orw5f26UTKQBoH
-X-Gm-Gg: AeBDietoJyOMxpyWjuiDVfO4nMHk3L4HWIlyiyUSneiuWZBNZ2jQrVWC1rq92/n7/0z
-	xmt8Tf6ZmPk0iOiFuxUxw7zjNrWmfNNe+v4cs759ideyyfpvtrR5D/QjgWT7rDd/tl3SAat3D11
-	whVylkcAGnOkLPzwWoqHM97PSuilnzfqEJzmUqncaqa6Z+JhgnqZ32qbZeDc709tQ9nNORUk6gN
-	BOwZCRQDykPLpM+y7+AWAtp0fc0a+L3V3aJdQoMws0Q1UzzDckQgQhkhXSlfPbldpivvY6Q6d4x
-	pkY7edmeBzhKgJgsWJ9ysZ9nVfp1nd7KfsXVEeq0M3BZx+I2uTOA28xDF5GH81IxejT7aXeQwyY
-	7fsANnRnudnso5yIlv+QHcZmzcHyaTN8lTIkwwNh5JXsLvMMKlhAUM+CUmFhz3/jpOVXzijGM90
-	P0ei0u3c3Lk4zxEBuvdO0rTL0XKXPYg6bsOtyseK6pIV5uzFNsIdHZhZ/z
-X-Received: by 2002:a05:600c:c0da:b0:485:4eaf:eb53 with SMTP id 5b1f17b1804b1-488d685c12dmr246513395e9.19.1776249837368;
-        Wed, 15 Apr 2026 03:43:57 -0700 (PDT)
-Received: from localhost (16.237.129.77.rev.sfr.net. [77.129.237.16])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43ead3f92f4sm3535100f8f.34.2026.04.15.03.43.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Apr 2026 03:43:56 -0700 (PDT)
-Date: Wed, 15 Apr 2026 12:43:56 +0200
-From: John Madieu <john.madieu@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: John Madieu <john.madieu.xa@bp.renesas.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Biju Das <biju.das.jz@bp.renesas.com>, linux-sound@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 02/12] ASoC: dt-bindings: Add RZ/G3E (R9A09G047) sound
- binding
-Message-ID: <20260415104305.ygt6ai66qk3tcuus@labcsmart-sqy>
-References: <20260409090302.2243305-1-john.madieu.xa@bp.renesas.com>
- <20260409090302.2243305-3-john.madieu.xa@bp.renesas.com>
- <20260410-astute-celadon-dugong-ee367b@quoll>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="kYRhflMn"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=j5ir10i0ENcCcxpGot+fZcRZ6KV/4Ye7hERB3cvqVvmNXv+vseIUKkdPONhtjLSM3IJNg4gTn9AdJ1DVjbo1GRCGygEznAEKwbgQxT8QTLNWHiLkegW5RMPU3mwkIzmpFWBSOKiI8JtbMPc7vy1HsEeMHbUkS/eJ4Eh2JTHo+D+4Pd264yIobCEkxj+zJJ9eCC3Y2JRcEQo99nFeLia94HQGcVqJY48P2Ln9Ni2cCqkrN0seOTGijCs9CqWlKmTxQqrcng9J5bA/5+OMSaHBbEpvig0/eiBK+3j8sCcUWgiuxEcZxyyQ9+EAwp+GjOFi2qCuQsIsRJ83fJj02nLMMw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ORMkIirTVyqhAbhva6OfdO9FUeMUmniBJil9afulF/I=;
+ b=GmmI9gHQaBKYCyD9W6r07CejRy2OSfO44OjzKVs8hdUIlpy/Jwf2jUyrAL1cOsjqunfkmmBo61j7LrSlwZPWUlaSzhWJG51yRzLAvWA0Ax2hA6/7U52W8rfKZnHzCRMOwrrKcd27YrKRgD60A5+wt7baFExamWRAU3QfXMZ4s/IzUDFnAtEqhBc4EF21P7bsxuQ5wjFfys0TarGVVl63Z/rUEKDNHGcx7fY6yq0dZQpNCLgodJAaltDyNqQNQxIpyRMY2PHw76GC8GxnEpd/MpNt/iKsoruort6VuoC6+MXJZlL5Wv5wWHOZ8OzMV4zdgfX885vjhjOvWqxxctoQFw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ORMkIirTVyqhAbhva6OfdO9FUeMUmniBJil9afulF/I=;
+ b=kYRhflMn7THtqu3fvMmykj75kg5F1A2lvpuzNkSubo7xHgAQpRMoFRGb7FuZTqEOL3/y2ur/ITz8vy00XJho8yH+ez1yo9CCpRLiqye4i6S0Xm7/BYwfoCKNQ/aSnBkie3jVfkAWXym0CwiR+xiamrni2RVNneoNMLteB+EgYJY=
+Received: from SA0PR11CA0003.namprd11.prod.outlook.com (2603:10b6:806:d3::8)
+ by BY5PR12MB4225.namprd12.prod.outlook.com (2603:10b6:a03:211::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9791.32; Wed, 15 Apr
+ 2026 10:56:38 +0000
+Received: from SN1PEPF0002529D.namprd05.prod.outlook.com
+ (2603:10b6:806:d3:cafe::28) by SA0PR11CA0003.outlook.office365.com
+ (2603:10b6:806:d3::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.48 via Frontend Transport; Wed,
+ 15 Apr 2026 10:56:38 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SN1PEPF0002529D.mail.protection.outlook.com (10.167.242.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Wed, 15 Apr 2026 10:56:38 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 15 Apr
+ 2026 05:56:37 -0500
+Received: from xhdshubhraj40.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Wed, 15 Apr 2026 05:56:34 -0500
+From: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+To: <linux-kernel@vger.kernel.org>
+CC: <git@amd.com>, <shubhrajyoti.datta@gmail.com>, Shubhrajyoti Datta
+	<shubhrajyoti.datta@amd.com>, Srinivas Neeli <srinivas.neeli@amd.com>,
+	"Michal Simek" <michal.simek@amd.com>, Linus Walleij <linusw@kernel.org>,
+	"Bartosz Golaszewski" <brgl@kernel.org>, Rob Herring <robh@kernel.org>,
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, <linux-gpio@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
+Subject: [PATCH v2 0/3] gpio: Add EIO GPIO support
+Date: Wed, 15 Apr 2026 16:26:25 +0530
+Message-ID: <20260415105628.957689-1-shubhrajyoti.datta@amd.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260410-astute-celadon-dugong-ee367b@quoll>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002529D:EE_|BY5PR12MB4225:EE_
+X-MS-Office365-Filtering-Correlation-Id: c755bf1f-6314-4c7b-1f43-08de9addab4c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|1800799024|7416014|376014|82310400026|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	mg9AcbgcY/WBKznRiMtAxjREuuCVFgxiBknnO1mhc/haSjtmb7f7mM0Z0LEkJHvbx9Urqbcsc2qjyZU91y1MlCegYF1X6eKku3yojTL2DM03b5sbZ1FHYXmJu96oJgZyk4ieyg0Y3fUM9RlgvCTdV0eTi8AmFTlry5N//xuGeyAYuZWudevkANgHDr2MxYcUjIfkd+2J+jGXEiSLLkDmMgI477iFSdRBcKrVrb8LyCdNrW1mb/K1DP/SLN5WAjUuMPplaHu88zTJq6znA7xJ8x/9zS7hQyiv8vlAycQVqyFbe9pukiU+/4g+bXR9RXDvgokX//cgI4vJ2nwJ+2whVM+8iRn8ZtyKaECMZI3Qr9yTqiME7ZenmaUa6husVnRU3bmrtgV2yUq1JQuenx5L0SWv843a1cCEc9BkK1qycACvv8/xa37TozwFYBXHVsZzF4kjpX32T2y+NS5PAVrKreh6DhiD4DRAjvB7V9+5CCqxLcK7KxCVCSPZv9WSirR4wjqMh7wh4AJBGLDmFMgTGEuElDo4JIOohMd4QWyVxQZ7Z9xpm+FvapAyjdvZ8k5mKAWpTdf8VMcwJyoUKSmVq1wBAdnssfGLQ1mxrZyzhi5Vsb42jyo8YcuPDOU5WmHVdKqfBfzxVocR9lbpzqykd029RKnTyxAG93y5uJS+dVbrEoVyqRLCynBtwqQTjcsB2TLp4rcxEF+PEfJqGulewAL24F+lN7CC0zASBv8rCiDhwE+364LS1OMA6JUnIIr/Gh01DiJss2Yz7zgpdLxRRA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(7416014)(376014)(82310400026)(56012099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Rus2fJN7XsQhXw4iQTLnaf/uEWwWO9jNcaNzEoQekmJLcZG6Qm6tt6ULfNkc6AKwRvoxB8B614SzqTOaQi4NLSaqvH/g0HU3D8PJb0QDcXquxiVJAI2FoaRdU/cpcRhRCJbtqG7MlV2kDPHsBEO2KzhRAVS6smWrdQF9aG0apTPUWTlmVooX5AKv5kDyfuP2Vdy6sN2/h0COIf6+HqpKcziofpPdTAe65bHFjN9Cer2FCBD3gkKN1ZLsFTjwgHExUAQhg0mOI0m62E797zGql1fnF72V6gHhBB2eut7OSXhpJf4qZdsuWv6HSnLLAECt33WC1KQKxfFb/FFuDkjIxcM0Ia+7j/ITVxoSfo0wVEkvtB3yq7udmyBPMdXVaYPwScS5vukdqe2cze9OzPqIhCwbfSzeo5mnkiIVJ/lQrfLceSY56DHZT79XYAgwegBi
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2026 10:56:38.4880
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c755bf1f-6314-4c7b-1f43-08de9addab4c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF0002529D.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4225
 
-Hi Krzysztof,
+Add the EIO GPIO support.
+Add the dt description and the compatible to the driver.
 
-Thank you for your review.
+Changes in v2:
+- Add new patch to sort the compatible strings alphabetically
+- Add description of EIO block in the dt-bindings patch
 
-> On Thu, Apr 09, 2026 at 11:02:51AM +0200, John Madieu wrote:
-> > The RZ/G3E shares the same audio IP as the R-Car variants but differs
-> > in several aspects: it supports up to 5 DMA controllers per audio
-> > channel, requires additional clocks (47 total including per-SSI ADG
-> > clocks, SCU domain clocks and SSIF supply) and additional reset lines
-> > (14 total including SCU, ADG and Audio DMAC peri-peri resets).
-> > 
-> > Add a dedicated devicetree binding for the RZ/G3E sound controller.
-> > The binding references the common renesas,rsnd-common.yaml schema for
-> > shared property and subnode definitions.
-> > 
-> > Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
-> > ---
-> > 
-> > Changes:
-> >  
-> > v4: No changes
-> > v3: No changes
-> > v2:
-> >  - Introduce RZ/G3E sound binding as a standalone schema
-> > 
-> >  .../sound/renesas,r9a09g047-sound.yaml        | 371 ++++++++++++++++++
-> >  1 file changed, 371 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml
-> > 
-> > diff --git a/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml b/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml
-> > new file mode 100644
-> > index 000000000000..1dfe9bab3382
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml
-> > @@ -0,0 +1,371 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/sound/renesas,r9a09g047-sound.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Renesas RZ/G3E Sound Controller
-> > +
-> > +maintainers:
-> > +  - Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> > +  - John Madieu <john.madieu.xa@bp.renesas.com>
-> > +
-> > +description:
-> > +  The RZ/G3E (R9A09G047) integrates an R-Car compatible sound controller
-> > +  with extended DMA channel support (up to 5 DMACs per direction), additional
-> > +  clock domains, and additional reset lines compared to the R-Car Gen2/Gen3
-> > +  variants.
-> > +
-> > +allOf:
-> > +  - $ref: renesas,rsnd-common.yaml#
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: renesas,r9a09g047-sound
-> > +
-> > +  reg:
-> > +    maxItems: 5
-> > +
-> > +  reg-names:
-> > +    items:
-> > +      - const: scu
-> > +      - const: adg
-> > +      - const: ssiu
-> > +      - const: ssi
-> > +      - const: audmapp
-> > +
-> > +  clocks:
-> > +    maxItems: 47
-> > +
-> > +  clock-names:
-> > +    items:
-> > +      - const: ssi-all
-> > +      - const: ssi.9
-> > +      - const: ssi.8
-> > +      - const: ssi.7
-> > +      - const: ssi.6
-> > +      - const: ssi.5
-> > +      - const: ssi.4
-> > +      - const: ssi.3
-> > +      - const: ssi.2
-> > +      - const: ssi.1
-> > +      - const: ssi.0
-> > +      - const: src.9
-> > +      - const: src.8
-> > +      - const: src.7
-> > +      - const: src.6
-> > +      - const: src.5
-> > +      - const: src.4
-> > +      - const: src.3
-> > +      - const: src.2
-> > +      - const: src.1
-> > +      - const: src.0
-> > +      - const: mix.1
-> > +      - const: mix.0
-> > +      - const: ctu.1
-> > +      - const: ctu.0
-> > +      - const: dvc.0
-> > +      - const: dvc.1
-> > +      - const: clk_a
-> > +      - const: clk_b
-> > +      - const: clk_c
-> > +      - const: clk_i
-> > +      - const: ssif_supply
-> > +      - const: scu
-> > +      - const: scu_x2
-> > +      - const: scu_supply
-> > +      - const: adg.ssi.9
-> > +      - const: adg.ssi.8
-> > +      - const: adg.ssi.7
-> > +      - const: adg.ssi.6
-> > +      - const: adg.ssi.5
-> > +      - const: adg.ssi.4
-> > +      - const: adg.ssi.3
-> > +      - const: adg.ssi.2
-> > +      - const: adg.ssi.1
-> > +      - const: adg.ssi.0
-> > +      - const: audmapp
-> > +      - const: adg
-> > +
-> 
-> Missing clock-cells.
-> 
-> Mising dai-cells.
-> 
-> Why your binding is so flexible? You have a fixed (as in afixed) ABI, no?
->
+Shubhrajyoti Datta (3):
+  dt-bindings: gpio: zynq: Sort compatible strings alphabetically
+  dt-bindings: gpio: Add EIO GPIO compatible to gpio-zynq
+  gpio: zynq: Add eio gpio support
 
-Will address this in v5.
- 
-> > +  resets:
-> > +    maxItems: 14
-> > +
-> > +  reset-names:
-> > +    items:
-> > +      - const: ssi-all
-> > +      - const: ssi.9
-> > +      - const: ssi.8
-> > +      - const: ssi.7
-> > +      - const: ssi.6
-> > +      - const: ssi.5
-> > +      - const: ssi.4
-> > +      - const: ssi.3
-> > +      - const: ssi.2
-> > +      - const: ssi.1
-> > +      - const: ssi.0
-> > +      - const: scu
-> > +      - const: adg
-> > +      - const: audmapp
-> > +
-> > +  rcar_sound,dvc:
-> 
-> All new properties must follow standard rules. I understand it will
-> create duplication, but really that's a mistake of 2014 of adding fake
-> vendor prefix rcar_sound.
-> 
+ .../devicetree/bindings/gpio/gpio-zynq.yaml    | 18 +++++++++++++++---
+ drivers/gpio/gpio-zynq.c                       | 12 ++++++++++++
+ 2 files changed, 27 insertions(+), 3 deletions(-)
 
-As this definitely changes from the original implementation, I'll simply
-drop the split patch and add a standalone binding for RZ/G3E. Hope this
-is ok for you.
-
-In there I'll address all the comments you've mentionned.
-
-Regards,
+-- 
+2.34.1
 
