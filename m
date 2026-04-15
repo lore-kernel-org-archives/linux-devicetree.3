@@ -1,171 +1,144 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 13AC533A9E2;
-	Wed, 15 Apr 2026 09:49:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.76.78.106
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F76C31F993
+	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 09:50:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776246584; cv=none; b=e0S5dBSuyXOjiOiInRWbVkE+U1/pM+GvJ31HTaAannSjJ9Z2ArHMOlxvkm2AP2UsdrA0OQDOutQ6XIJi4oWQecS3c53zaLQoKrzHNUQFEnbV4k7WWyHU/kg6bTA/83zHg63NYuFcj70b8KL3ZSbOygPoQjio7OEitzJ1lBHbOlM=
+	t=1776246616; cv=none; b=px8s9uUGEqNsuRrR6UNQWoNdsC/DeHoH4Vwu/sB0d0E6KxM55WPfpXKWlYAvMD+22fwU3DC+SBdNSCR3svT+ze2SbGQvrEiZDn8klMjbsqhrawhdO3U6IcwyrTdghebgDQvKXKRaO378pqCaPuddnene8YqvkRP7sR1Ekaqkd0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776246584; c=relaxed/simple;
-	bh=DYVFNdk+djD8K61KVIPUXoIqm13LT4O06uqmf+HTNoY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OjT9V6ecONQfOzo+x4GKfTT9yoXxle1fSz9+1CnRa8v7Pf8eqxxAQgVcJKB61G9I+ZPCq0/4MY+2Q+pyJ89Nl0TolPMC5zc1yfnKAW/2jG1iW6Th+jkM73nwc4cfN+h40M17Su8IkLXhA0MtGeAl1pp955m56C75971IH4CSVoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=13.76.78.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from E0005152DT.eswin.cn (unknown [10.12.96.41])
-	by app2 (Coremail) with SMTP id TQJkCgBXbaAWX99pReMRAA--.51076S2;
-	Wed, 15 Apr 2026 17:49:12 +0800 (CST)
-From: dongxuyang@eswincomputing.com
-To: ukleinek@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	ben-linux@fluff.org,
-	ben.dooks@codethink.co.uk,
-	p.zabel@pengutronix.de,
-	linux-pwm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: ningyu@eswincomputing.com,
-	linmin@eswincomputing.com,
-	xuxiang@eswincomputing.com,
-	wangguosheng@eswincomputing.com,
-	pinkesh.vaghela@einfochips.com,
-	Xuyang Dong <dongxuyang@eswincomputing.com>
-Subject: [PATCH v4 0/2] Update designware pwm driver
-Date: Wed, 15 Apr 2026 17:49:08 +0800
-Message-Id: <20260415094908.1539-1-dongxuyang@eswincomputing.com>
-X-Mailer: git-send-email 2.31.1.windows.1
+	s=arc-20240116; t=1776246616; c=relaxed/simple;
+	bh=5i2y3GXDyHPHWiKAGjURj4RugODet/PRdhcJE+zWkmY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fhXQh3nyGu9PbMC8q6vX52o/HKY1byVxlJxXfr5mH92AlAga7YItAHT5Glf3ltssjk8NQIqmN75XP5KOUA3VXbHtedwbJByQFQfZBdakp5ho7t8ktcHxtbO88gxSJ2mcN36R1KhFCTVAkJi7w6S7jLpnvMs7rCZk2KzRN52p9Zo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Tnamk2gw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=L5sUyzeQ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Tnamk2gw";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="L5sUyzeQ"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63F9fBRm1778836
+	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 09:50:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	fg7Xik3cuCHkFBDijQ2pzu3/5t4YHyhp1BJEICZMYVA=; b=Tnamk2gwcR+Gc0vY
+	UTdkeSkr2+wxWwsrSD2m00vmDEpCvXwjpdZrEoINHfgSziUpHT0kdOxqlJVfI9Gh
+	/DVszf7s+5oOx53uMCACAIhCrwcOSh3CHCdbuGGsT6qbil1u7akQ0yclAi59k7U2
+	XpsoDm8fpbqwfaB1HKlo+Bf8ZXW44ufBZf+5uHTsqjhtGX0AyY64QZFzk5GmvgQZ
+	cM6Vsgh2xvM3pXfR8plupscBncTjaaVlvvIrnUFqCx9tCRLSfce+QQEGSLNIVXPh
+	WGa79+H7g1aRmJIZREH2vGEG9+1IzLGpSQZPJWg6dm1jg7fJ+R5IBdsNrrHKtSU2
+	8fgN0A==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dhrw032ce-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 09:50:14 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-8aca8a79f42so7660706d6.2
+        for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 02:50:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1776246613; x=1776851413; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=fg7Xik3cuCHkFBDijQ2pzu3/5t4YHyhp1BJEICZMYVA=;
+        b=L5sUyzeQJlOAfcH0ZGU1tgacYDZsvkeZTVhtyNy4sm62Zvm1qWtQcXWbQ53f2+B8Xg
+         nCPnT9NRcLtIcRXBYkvSa/GY8dR25p7wl3w0gozrjPlC1EmQHXt2BvicAQZvqPPnl7YN
+         bu5ik7X3W6CpWUEYHLIFT8wgFgJjq/aHTbIAMYLoOIVVxUfaiYHyacln6NDGDB2BGIYG
+         W70DVM9EoVrJhJj6W7r9EBZXiaFoKCy7hrl7xbRzYwfodaLX3oW6GuNQh2IyDbBKRUh4
+         2zPXZAhyII41LU2c5BMvXLnje5LrXUxJ7faEfNBSiRwMTtI70Ww+N1YWFxweeUFAqFyI
+         rBHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776246613; x=1776851413;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=fg7Xik3cuCHkFBDijQ2pzu3/5t4YHyhp1BJEICZMYVA=;
+        b=pqBGMx/oLjAhgvIco5sivkg+Xt/kByx/4/C6YhbhESJQImMdKwo8FSLMwYa1fPl6qZ
+         8IyJ9y2NZoqTfbxR5gvQWVExkYyey2k6vTt5ytRJD4s0+9UiU1KcG/eeMxlf6UVbGo8i
+         A5WMv93jECtC/WLmbdSqk+qFXQ7wU16cUjQLDxUFWn2Q93cBcysuf/zAMylg0zjumyK/
+         6TxUdVTTnid71YkpKnNok9KOBBdG3JFVgXUlMY5dvOiIlz19b7y32kvFKzjWkJPUTGP8
+         YfMKJUWeVJbfqGheCeBqAzqcXNouLWOO6n27hONItt6x47H1CyHZwuSZApiYMzfPoci/
+         cLKQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+ky02HNQUxnzcH3ZOmOD1d1U3tPOWykH9TZyLPXW3Yiw8LdPq9oVgAY4oLxmUFgs2Ppn/0i7NXoXfd@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx4aoOq2vRjDCxyxzHuwNaeoTQ52eAmHDmgFF/FwVeUapKQJQPS
+	hgr5g7wpp2CtjzilIYRCDMOjXvh/6fGxvUfjrBrHI4XHpIW3PqKylNn4HPm1qy5w8Mazlc/k1ES
+	c4BuCrxZrs+iWZJL4AwaDo9im88DuYT3z7JIgiCaez+ABrczpm5X2gnjzI8MZ9BO+ulZt12UK
+X-Gm-Gg: AeBDiesQzOB6lIwSSXX+Bi5NBIcjYF0lafjF0uMbgT8f2x2BuenQZRUfrsPTfBq7RHo
+	xCO95m/mm1mX5GDu9rs3gO3rXgf5UeXX8GehXE0X4srYxA73qQ0ozye02gUs5cN1vVg470OTlUx
+	tj5cQEZQgnjCszMvRxwb+Mz+lP9jCqkmNHPRmCqOcCE4+QPFRwo/7OYKegV9+yyfF3/IhYBCUt9
+	B5CaHbNfOh3fRWs8WE3Bj29W1MgVj159ht+3uGNmU6/xD9O0wtoNKRw4waTOyrEpDIB9zW53Ghj
+	GlnkfBvTx8+jYTpKggmzWBQ3icgik8ZFiv3fvcdTae95b0/3gy9Unvs+ve9SL7dsrWrh3Sq8MnH
+	NBvXjZvznZzBuQSEq9uOXfmWVB3oD1Rb9h1tcU8QU54YSAo22zOeuGaS3oMXop2W0ltlK7Umanr
+	lFDy3/rpZegF2TcA==
+X-Received: by 2002:a05:6214:4111:b0:8ac:b4d5:50f0 with SMTP id 6a1803df08f44-8ae6a94537emr18051556d6.7.1776246613553;
+        Wed, 15 Apr 2026 02:50:13 -0700 (PDT)
+X-Received: by 2002:a05:6214:4111:b0:8ac:b4d5:50f0 with SMTP id 6a1803df08f44-8ae6a94537emr18051336d6.7.1776246613036;
+        Wed, 15 Apr 2026 02:50:13 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ba173d5d698sm40176566b.25.2026.04.15.02.50.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 15 Apr 2026 02:50:12 -0700 (PDT)
+Message-ID: <455942ab-a55e-48cd-a37b-6ab9efde84f4@oss.qualcomm.com>
+Date: Wed, 15 Apr 2026 11:50:09 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:TQJkCgBXbaAWX99pReMRAA--.51076S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAF1rZw4rXw1xJF1ktr4fZrb_yoWrKrWxpF
-	W8KrWakrWkWrySgan7X3W8uFyYq3Z5JF4UKwn5Ga4UZw1Yy3yUJrZY9Fy5tF9Fvr4kWFyY
-	yryfGa129a4YyF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBv14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r1q6r43MxkIecxEwVCm-wCF04
-	k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
-	MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr4
-	1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l
-	IxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4
-	A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUHCJQUUUUU=
-X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] arm64: dts: qcom: sdm630: set adsp compute-cbs' regs
+ properly
+To: Nickolay Goppen <setotau@mainlining.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
+References: <20260415-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v1-0-03b475b29554@mainlining.org>
+ <20260415-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v1-2-03b475b29554@mainlining.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260415-qcom-sdm660-cdsp-adsp-fastrpc-dts-fix-v1-2-03b475b29554@mainlining.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: e3p7WSPS9lhSPODiURNRGLBwRasdx1VI
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE1MDA5MCBTYWx0ZWRfX32q0o5nk7jHG
+ 5M0s8SaBxQD1mIkaJsVKfRsY+GTuXQR7xIS0pMKTFp84oC1iR7CyKWFqh3zoalOxIJInmDEf9Xi
+ qj+LdA35rIYMm5IvMXhhg4992x34+MftL0ReEZ8aWJlx+3aLiDZwG6vOER5waHN2SLXG+mYOlfu
+ c9qyJdiVPPdNslVwHoKjDY0BZ8cGxPOmiVewLkZplMcJGHfLt/LE3f3p9INEeL2OpZzPl/oA6Sw
+ ojHk0+6Jmdxu1kPpRRrgle83Z0aU8L6AWzlH58D9kqrIBK5UVJbbgeglzOYYn6GALUvs7Rw49/h
+ TynEsj9fgsHKd6fDUt5XZQ5ZKBJ55KhDkYjyv8FIz884GE/00IyFmex0som/qrbdHvFGsHamXUy
+ YLHWcUZnTZFT1p8TjjIatOsUU5EHZlugJ/vTRb0y4cHJfdSPC+luwiloRvZQrPftQdOBpn7kcj1
+ dj1QPiOiE3hh9PLVYmA==
+X-Proofpoint-ORIG-GUID: e3p7WSPS9lhSPODiURNRGLBwRasdx1VI
+X-Authority-Analysis: v=2.4 cv=YMGvDxGx c=1 sm=1 tr=0 ts=69df5f56 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=OuZLqq7tAAAA:8 a=EUspDBNiAAAA:8 a=G6eyCl79rmFccwun_h4A:9 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22 a=AKGiAy9iJ-JzxKVHQNES:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-14_04,2026-04-13_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 phishscore=0 bulkscore=0 spamscore=0
+ suspectscore=0 clxscore=1015 malwarescore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604150090
 
-From: Xuyang Dong <dongxuyang@eswincomputing.com>
+On 4/15/26 11:40 AM, Nickolay Goppen wrote:
+> Changing FastRPC compute-cbs' reg values to matching iommu streams
+> solves SMMU translation errors when trying to use FastRPC on ADSP
+> so change FastRPC compute-cbs' reg values that way
+> 
+> Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
+> ---
 
-There is already a patch [1] for the DesignWare PWM driver,
-which is posted by Ben and still under review.
-Based on this patch, this series is a continuation of [1]
-to add support for IP versions 2.11a and later, which
-includes support for "Pulse Width Modulation with 0%
-and 100% Duty Cycle".
+Fixes: af2ce7296643 ("arm64: dts: qcom: sdm630: Add FastRPC nodes to ADSP")
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Supported chips:
-ESWIN EIC7700 series SoC.
-
-Test:
-Tested this patch on the Sifive HiFive Premier P550 (which uses the EIC7700
-SoC).
-
-[1] https://lore.kernel.org/lkml/20230907161242.67190-1-ben.dooks@codethink.co.uk/
-
-Updates:
-  Change in v4:
-  - YAML:
-    - Change maxItems from 1 to 2. As there is a corresponding reset signal
-      for each clock domain, the effective maxItems of the resets property
-      is set to 2.
-    - Update the YAML commit message to describe the hardware.
-  - Driver:
-    - Replace devm_reset_control_get_optional_exclusive() with
-      devm_reset_control_array_get_optional_exclusive(). Since the number
-      of reset signals has increased from one to two.
-
-  - Link to v3: https://lore.kernel.org/all/20260402091718.1608-1-dongxuyang@eswincomputing.com/
-
-  Change in v3:
-  - YAML:
-    - Added a clear justification for the optional resets property. It is
-      required to support proper controller initialization when no PWM
-      channel is active at boot time, while allowing the driver to skip
-      reset deassertion if any channel is already enabled.
-  - Driver:
-    - Update the boundary value check of tmp in __dwc_pwm_configure_timer()
-      for DWC_TIM_CTRL_0N100PWM_EN.
-    - Replace 'sizeof(struct dwc_pwm_drvdata)' with
-      'struct_size(data, chips, 1)'.
-    - Drop devm_clk_get_enabled() in favor of devm_clk_get() with explicit
-      clk_prepare_enable() and clk_disable_unprepare() allowing runtime PM
-      to manage clock state.
-    - Replace devm_reset_control_get_optional_exclusive_deasserted() with
-      devm_reset_control_get_optional_exclusive() and issue a full reset via
-      reset_control_reset() only when no PWM channel is active at probe time.
-    - Detect bootloader-enabled PWM channels by reading the enable bit, and
-      initialize runtime PM as active for those channels by calling
-      pm_runtime_set_active() and pm_runtime_get_noresume().
-    - Remove autosuspend as it is not required for this driver.
-    - Use explicit pm_runtime_enable() and pm_runtime_disable() instead of
-      the managed devm_pm_runtime_enable() variant to ensure correct cleanup.
-    - On device removal, recheck the channel enable status. If any channel
-      remains active, call pm_runtime_put_noidle() before disabling clocks
-      via clk_disable_unprepare().
-      Resume device before register access during removal if it is runtime
-      suspended, and re-suspend it afterward.
-    - If device is suspended, resume it before register access during system
-      resume/suspend.
-    - Use pm_ptr() instead of pm_sleep_ptr() for correct PM operation.
-
-  - Link to v2: https://lore.kernel.org/all/20260306093000.2065-1-dongxuyang@eswincomputing.com/
-
-  Change in v2:
-  - YAML:
-    - Remove eswin,eic7700-pwm.yaml. Use snps,dw-apb-timers-pwm2.yaml.
-      The description in snps,dw-apb-timers-pwm2.yaml is better.
-    - Add the resets property as optional, as defined in the databook.
-    - Remove snps,pwm-full-range-enable as no additional property is needed.
-  - Driver:
-    - Change the file from pwm-dwc-eic7700.c to pwm-dwc-of.c from [1].
-    - Define DWC_TIM_VERSION_ID_2_11A 2.11a as the baseline version.
-    - Enable the 0% and 100% duty cycle mode by setting dwc->feature if
-      the version read from the TIMERS_COMP_VERSION register is later
-      than or equal to DWC_TIM_VERSION_ID_2_11A.
-    - Use the DIV_ROUND_UP_ULL() to calculate width in the .apply and
-      .get_state.
-    - Additionally, Power Management (PM) support has been added to the
-      pwm-dwc-of.c driver.
-    - Drop the headers that are not used.
-    - Use devm_clk_get_enabled() instead of devm_clk_get().
-    - Drop of_match_ptr.
-    - Fix build error with 1ULL << 32.
-      Reported-by: kernel test robot <lkp@intel.com>
-      Closes: https://lore.kernel.org/oe-kbuild-all/202512061720.j31AsgM7-lkp@intel.com/
-
-  - Link to v1: https://lore.kernel.org/all/20251205090411.1388-1-dongxuyang@eswincomputing.com/
-  - Link to v9: https://lore.kernel.org/lkml/20230907161242.67190-1-ben.dooks@codethink.co.uk/
-
-Xuyang Dong (2):
-  dt-bindings: pwm: dwc: add reset optional
-  pwm: dwc: add of/platform support
-
- .../bindings/pwm/snps,dw-apb-timers-pwm2.yaml |   3 +
- drivers/pwm/Kconfig                           |  10 +
- drivers/pwm/Makefile                          |   1 +
- drivers/pwm/pwm-dwc-core.c                    | 101 ++++--
- drivers/pwm/pwm-dwc-of.c                      | 331 ++++++++++++++++++
- drivers/pwm/pwm-dwc.h                         |  25 +-
- 6 files changed, 442 insertions(+), 29 deletions(-)
- create mode 100644 drivers/pwm/pwm-dwc-of.c
-
---
-2.34.1
-
+Konrad
