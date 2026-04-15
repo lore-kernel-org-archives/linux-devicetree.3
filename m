@@ -1,142 +1,260 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013031.outbound.protection.outlook.com [40.93.196.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0032E2852
-	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 11:01:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776250911; cv=none; b=c2Umi2VaJxuB3qLTlz9JAfE8uxTAqQbNdt88cxsrwkVD7hKkfljKcOj/GhuYJf6kdbpJ2e3+anXnyBy1YMKtIsA/tcbNt980WO9sdAJzDC6aq84cQZdVcKvsTHa8WWjRnlG8L4QTaORA7wdsLeaiQbk18sIb5G46aVRSyqf0sgU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776250911; c=relaxed/simple;
-	bh=POeJGXRJCe7mVrdtZsiPcOC5Xeqkta8xdyDSn2KlaXA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OvOQTArkk1c/w74i/tJlIjo4lV3WTYWMDlStJ1LAMFRs0qLEXS7zWfz84j+I5o1YL5IlAJ6uZN22o2V/oJ3MlCCY2alAT70cPnN9uVolb+EJnJsa4r6cedLB21x9L09LtsGvcro6nnV3KBurYjCBTwsd4SrRA1E68LmMEGqFfEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XzuMpIng; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=j0P9CzPG; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F338436494C;
+	Wed, 15 Apr 2026 11:04:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.31
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776251061; cv=fail; b=LsyiPL7brrIR2mdGQqYDVpU8HcFpnF3NMmK1SV8WkJwgwhbse15nSzUdwMDjmYGxPJ2aSrZEiQM0rVXb3yitU33q0jr54HTgU+eSwaWU5qar9YPZbqL6Hgeh9Lp7S6sRurw64PMR94MvB6fau1cSwTZtjZusz7wCYI/zmCF0ONI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776251061; c=relaxed/simple;
+	bh=d3BXypzWXkf0hZYS2YXjgrXrNhy4ktAxVHcE34YTpY4=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=O/iCV1wUH/VeffUPvRJx/HloxcNTi21aAREbFdgKO3Ar/C9d9sqmhvaNCJWxuiGUKEIHqwstugeW75a0/TdRWU+tpo3eEGlQZ+Oa/gHbL5r4Ie/ojFk9wT1cNQdn8YpS6jYHlYRLQTyy95fs07vF0GBkxLv2s7w2gGJQdSzW52E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=DwAAGQeU; arc=fail smtp.client-ip=40.93.196.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XzuMpIng";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="j0P9CzPG"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63F9c2TJ1778931
-	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 11:01:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	biDz4g6DTWtoGGWbNnsBijCTxZYo/Nv3TB29e5VcHFc=; b=XzuMpIngN52wTkWU
-	Pn+YStViJcACvJinL6J+lHj0LLe036DZJuPlBe41S13uUzxrOlBn5yjf+35nuxlq
-	w/MESiNqTbXWaT4yPdyWr05R3MdvF0/CasdMcTIoAT+nLXiGr2NXHIS9m9zkrHkr
-	m7B38ozWUwrh2QIEpL3Eh+Bo6AKpee+506EuLvhNmCpUYiSursDX9ih6VfDyE+Be
-	i6SDU4Obccc1npceum84L5oShB6L3/zSlszmwtoVUNSOG0MgdoMO2wyOjaoNcdkG
-	p/9SkVyFE/lTRNqXaR3mMckq8TWhTdeXmWCI9OIN6ieR2csyT48A6rbdFDZIwxX6
-	dFVHtw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dhrw039ca-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 11:01:49 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-8d56ae62e86so200032485a.0
-        for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 04:01:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776250909; x=1776855709; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=biDz4g6DTWtoGGWbNnsBijCTxZYo/Nv3TB29e5VcHFc=;
-        b=j0P9CzPGY64lldW5CZjWTWb4JX6wD5w6ytR+PMyNmLQZHRiNp9k59Zo3luDjqWFII3
-         WermY5dfnvvYbbpyvbOayhyCpIGNtkVDCqv49Pt0JOqDzVSMcVc9S76YUYdKypuRrGcA
-         tIQ/fAuAd+YI+yZHUVaZLgov8s18s82abXdQ5evdU3ZNhMagnLC+buOIQhcq6pj7mYyQ
-         si0GcfXh9NjF1lRCZBRbKtfB3Yoy5VKYk8HuNAdDjhTJdsyi0tuL00TrWazrpCHqezh4
-         siqIIdCzh57Hb4QR2BzvNKewjSNpSRQbYutliZnh6ihoNChhF85aOG2CQhX4uqGrxTff
-         ig6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776250909; x=1776855709;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=biDz4g6DTWtoGGWbNnsBijCTxZYo/Nv3TB29e5VcHFc=;
-        b=egblC2Yah3vhgwARc+tadPeFiGYs/PtAe00XOyHAcs7xqfvDoT24lxVRGJ/q8sRZId
-         8t2YI9s5FcX1gJkvBpSTirEcAJqxgnOsvT0ik5B8naRog6Wgq2HCC4dZUD/dgLoZToTR
-         ik73HvvyygygRfnVpYN/rfzsg5C2MzcHLeA8vRCvXhBPkP8o9F1naAK/gcQCPAa0a5v5
-         3fhQvUt8gPQ2ndl4kRyMe6DWrU6KOxdczaSwyH9zOdxPt0bvGxUNJ08ju6L530s1Sz2D
-         sB8dkJriO4nDcGbNVOj9XtUA/h9rQf3B2ISkrFO0ILjPzt03j/Q+pus3PTKXAHwGz5HT
-         kTVA==
-X-Forwarded-Encrypted: i=1; AFNElJ+QJ4aZobt2asKIJWAC95ZTyA9rTkmPZHyfVMdnZZoKBxy7B7pBWhTfGcZvh5bobSYV/vyq76WDr/tw@vger.kernel.org
-X-Gm-Message-State: AOJu0YzJGrMDarXyCX/fQ+z6AsehaQeNYCpNIwvReOUloVR03W+Whr3x
-	r+026fwBCAAycEaGHx+i2MgGNgC+0aIQxDtKao++QP62kRfbp6Qw8kvg1d4IWPjgwYtith168Nf
-	bbsXmpNvpAalezjX+bkz6DLkkkxCyTvGmvqTpfwnA5NvhJXm6ZLsnHvRIAhslaOGc
-X-Gm-Gg: AeBDievdrN6nZ2hgALSLJ4GKlmJatOBRzpB92CBqCZcd/zDg0neluFFmoxUjOWamAmw
-	HZvY32EaLQjO+WiAHPSlPJtKz1xGbLu7+31/QZouSIqbxrxnkhXIyol9ymOyBRd/lD+5Xtve7bz
-	123sDOLevShijuDNfuhKJndrEp657rRseXXWjZ45vucSeDInY3rjpb6QkPsbah8koFBXfbH0CJT
-	+exX06NT9XLOTn2PhllPwmNOvgi4ls3iEGd7KrTBl/d0V0VlfykVWPgPuxH3/tkmxoiwmnRuSto
-	lISxESYhxi1xyI5klmCOZJlq19F6f8HU45TO+ks5fYvICpIRhIn50aocYZ4xVeIau2Ewx2s0Bc3
-	xrhwfhn8CuwsCFfP4GHG9U5ja3ZvqwLNjA1kfU4XA8t0PVvBhliXtASPZbK8/9dVV2IxvGj27gF
-	DtRD75dWx9QgpcYA==
-X-Received: by 2002:a05:620a:17a6:b0:8cf:c856:8ff1 with SMTP id af79cd13be357-8e4cc8a280amr189901585a.8.1776250908741;
-        Wed, 15 Apr 2026 04:01:48 -0700 (PDT)
-X-Received: by 2002:a05:620a:17a6:b0:8cf:c856:8ff1 with SMTP id af79cd13be357-8e4cc8a280amr189897485a.8.1776250908151;
-        Wed, 15 Apr 2026 04:01:48 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-67237d8dceasm321621a12.13.2026.04.15.04.01.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 15 Apr 2026 04:01:46 -0700 (PDT)
-Message-ID: <020442d5-5697-476b-a96a-6e96ce054363@oss.qualcomm.com>
-Date: Wed, 15 Apr 2026 13:01:44 +0200
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="DwAAGQeU"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IDR6xNcgV5uRUTd/Idylb7BWB+bELTqWSmPSmCOZm+4Kn47PoJWPldKdNCXQeKzX8tZegDboFGAeuDgf5Ne+md47nWbw0UvfDIgkQDlHINskg/nBQiyYxvQGZM2g9UoakwKRJ0Y96WJVoez53YjWZ0CPgQudzOfCoksvouKmgzrRCeDhi4GG+GRB/BSRBiJ1bCq7H2amSuLSj1yHe+oMe7puDSLw8qbNIe8Cf9TPZPRiv7GJz0/r0bUmLsWJ3BWRZHX3W/1Xn2YbocCVoQfG3LD7b9REI3qMPZ1YyCTGRu+jm+/0aGXa6YxWjmhTUQJPrVjKk4Pqowmq2LmAfBUdxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pAAKTBFbQHIVsGK4ozRLR5YPW8kNgbxFHKNk1KShpbI=;
+ b=SpII9qurV8lZ+dEMxE7DhpaYRdlSSRB90gki00OaN/fL/dZdoI/41BEWNb/OpcvCr3lmTqm+9dm9ap8IFKIvMpcdrL0HRwSaXFIseVE+xIv0vkGuLWWKXgFdWH/6J0mhzuxyShHtuK1UOyoIAzx+arVyO04e/aLoB69pDvozktw/gnAejrn4kBwCH+2Q56hlrP3YKSuHdKYFUH7FMasI4bMkMAjo2haW2Eh2X2leQYwllaDfuIuwuxBcE0bAb+rwjAiztr6zo4H1zbxidloSjapfEiot61opybD1FE8m2bqHiQuk+VHSYgBanMtyyF13Ar9JK+rWOldvrJ/s+XHYmw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pAAKTBFbQHIVsGK4ozRLR5YPW8kNgbxFHKNk1KShpbI=;
+ b=DwAAGQeUEWlEBgpZEGX3eCEQctaN3w+KuwHN0AsWvS4YCK1r0NyWhfAjZwD9N9fW1lCAwMSZpZuHsk0iAEk/mi2sihCfEBTp+JMVLj46LQrHxIFgcaib5Gn7AOGrI+oftgj/AjFlWklBK6jL0urkc0u4IgT11e3Kw32zTQgHG4k=
+Received: from BY3PR03CA0013.namprd03.prod.outlook.com (2603:10b6:a03:39a::18)
+ by SA1PR10MB6519.namprd10.prod.outlook.com (2603:10b6:806:2b1::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Wed, 15 Apr
+ 2026 11:04:16 +0000
+Received: from SJ5PEPF000001CF.namprd05.prod.outlook.com
+ (2603:10b6:a03:39a:cafe::9c) by BY3PR03CA0013.outlook.office365.com
+ (2603:10b6:a03:39a::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.49 via Frontend Transport; Wed,
+ 15 Apr 2026 11:04:16 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ SJ5PEPF000001CF.mail.protection.outlook.com (10.167.242.43) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Wed, 15 Apr 2026 11:04:15 +0000
+Received: from DFLE213.ent.ti.com (10.64.6.71) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 15 Apr
+ 2026 06:04:15 -0500
+Received: from DFLE206.ent.ti.com (10.64.6.64) by DFLE213.ent.ti.com
+ (10.64.6.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 15 Apr
+ 2026 06:04:14 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE206.ent.ti.com
+ (10.64.6.64) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
+ Transport; Wed, 15 Apr 2026 06:04:14 -0500
+Received: from a0512632.dhcp.ti.com (a0512632.dhcp.ti.com [172.24.233.20])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 63FB49382077152;
+	Wed, 15 Apr 2026 06:04:10 -0500
+From: Swamil Jain <s-jain1@ti.com>
+To: <jyri.sarha@iki.fi>, <tomi.valkeinen@ideasonboard.com>,
+	<maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+	<tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
+	<robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+	<devarsht@ti.com>
+CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <praneeth@ti.com>, <vigneshr@ti.com>,
+	<s-jain1@ti.com>
+Subject: [PATCH v4] dt-bindings: display: ti, am65x-dss: Fix AM62L DSS reg and clock constraints
+Date: Wed, 15 Apr 2026 16:34:09 +0530
+Message-ID: <20260415110409.2577633-1-s-jain1@ti.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: kaanapali: Enable cpufreq cooling
- devices
-To: dipa.mantre@oss.qualcomm.com, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260415-cpufreq_kaanapali-v1-1-1fa94105d5c2@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260415-cpufreq_kaanapali-v1-1-1fa94105d5c2@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: GJTTtE2wUIdXy_SdwYxg0Y-HhgfLKb8k
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE1MDEwMSBTYWx0ZWRfX7nJK97iE4jVp
- 8uqUxsRZFITRXZyMwhZ8KLwtdiJY7KLKwf6gSbRzfmM8vIuOW/F2W1INeqFkzoQLxJTEgQ4ThDE
- UMEy9xTEvdPEfzitT/H79Dpg7lQrht0c1oWqSzdcewTUlrC/xaIKFAvG81Lc2BJv58ZL7pzcxkM
- E6K7QCTDwl2GeqthTYZ+50BQbKYya0FKvOSL7Cvme1i9C/Ccica0Qp6gaChbnjiCwzP8PYYB47J
- 94kWaQCOLw5Q13iiYFbR3OVLzLYh3dabF/6MhYubH8R0vuKeF8g31G/liGe+At/UUZWguRbmjaZ
- 25D2Kmyfh0weGjwCrygvWxR/ee7Z9iQT7WWa54hodo8vBRPdMdNPbF+L8nO5VRMPZb5D3TKwUP0
- BXouIKTMrnJWKv7fifSoFWE1Tt2mrIt96qnWrI8b4KJHAg7R6FLLT/PnHxVSyPu/DGINMyZX0d2
- TYjQoyNo7SFWqoB1XGQ==
-X-Proofpoint-ORIG-GUID: GJTTtE2wUIdXy_SdwYxg0Y-HhgfLKb8k
-X-Authority-Analysis: v=2.4 cv=YMGvDxGx c=1 sm=1 tr=0 ts=69df701d cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=1oU39qR64IH6zgjZjOcA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-14_04,2026-04-13_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 phishscore=0 bulkscore=0 spamscore=0
- suspectscore=0 clxscore=1015 malwarescore=0 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604150101
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CF:EE_|SA1PR10MB6519:EE_
+X-MS-Office365-Filtering-Correlation-Id: d7fdd2ba-2bac-46bc-2515-08de9adebbdd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|82310400026|36860700016|921020|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	ZqduviPV6F+mRPfKcrg4dxIh0vjbK5KDzrVECujKYRmP3AQ18pWTan6k5g0Zgn2tLQPxQJwIzyucCJzzkHViMouaz65MeDglzch6NSTzO8i9ynnN/4UuGvVH/TU8XH7hLsxpJBjWGMk/63CEOHIk1t67moImotmGy9B6MEj8oWhedEJ8/ZG1/YJf22diE6g7CFV1PXSrAmTuTxS5HA358gsdihzjsdX4dRl9r8Wr6KPg2zGKGQj646fifoEGoBmbVrchPbnwPUxQNChDNQRNpmrifFey6wgkuRWG6hztsRt2ZuzD8xwNXZXiQ4t+RIuSJezgQpQTT1qkbpyZyMonfHgGo6GF5YIivlwOq2crYeOl2NujTzZDgT49W/spx3tw4zwlydKXaBtzXtNmwNjxlDyGb2WFHwgtRRVmcK/AQxvOpVy/XiASUoMZ/1Gu4ZEoW5lRiRvjhG4FkUY5vyqP0avHFAeCiHmtW0vOnQ1AQ1ugHtF2NRscm6niU2dU3zX+CaRl3eHo/yDTZmNL1Peo55VUBJYFBvkecoFdiw6fOLjalb34T4u2ZDD4YjR++6ykcxyCN3F7UlGx0gfGVfLzRKay22V2on+lpOVTTaXViQXuXa273wyD/PA5AitcTRAKIBXxzHaiG+7i0iwKNRi9cW0XnteLRAfCzOi2oVSez0UzHkdi6FhoQ7AL0amlS9W7qBmyHuGzHYowxirzteDTBqIyrfs55QBV5/UocY1oIVlQghkZQaludiO1Lou4uR6ffNTCbj5pPZk37mRHzPjQmSOeDdFv5aLXCpg3GD1mLZhWNOdckpkuXTt3at47xOdN6eWwiN4ICyXAN1xgCJL31Q==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(82310400026)(36860700016)(921020)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	QrEKDeGkQGlGAoGQ3MC+XohDLB8ZwIiYgPs2D1lH3Vg792tfE5r/+npDlf5JSOl8WF4g7AvnspSQ184b1jnrJwH/1vVtUv5rURhGudkQ+BQkVeWBma88uiipmcTdqUHPEqc4HNIy2DIK02Phnwq+/ZDSJUlPObln/qvu0XjXfjyzzKPa2xJxO8ypyWjX88NimD5RVMxstN181VNipA8czBXtbTsqHYpj10sTUCjNmaBIM+BXaLydnu4WTINp32ZRVcKYIqi10ANJYpGrXQ8fDdTwH2jyW6uqjnxszOVrbIBbEkT7bxLi2nfLbEok8KkIGOLF55eOiilDhcpe64tBFICTkkweLQABXXtO6Vtabxj5znwKqbwsI/DV5yLQ+PakjX4Tp1IlGr4e690kHjzdEpxm3CIfudGd5R5nSS0A14UUQvLmQuoa/Aa4qa4zdnzI
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2026 11:04:15.7157
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d7fdd2ba-2bac-46bc-2515-08de9adebbdd
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001CF.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR10MB6519
 
-On 4/15/26 12:57 PM, Dipa Mantre via B4 Relay wrote:
-> From: Dipa Mantre <dipa.mantre@oss.qualcomm.com>
-> 
-> Add cooling-cells property to the CPU nodes to support cpufreq
-> cooling devices.
-> 
-> Signed-off-by: Dipa Mantre <dipa.mantre@oss.qualcomm.com>
-> ---
+The AM62L DSS [1] support incorrectly used the same register and
+clock constraints as AM65x, but AM62L has a single video port
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Fix this by adding conditional constraints that properly define the
+register regions and clocks for AM62L DSS (single video port) versus
+other AM65x variants (dual video port).
 
-Konrad
+[1]: Section 12.7 (Display Subsystem and Peripherals)
+Link : https://www.ti.com/lit/pdf/sprujb4
+
+Fixes: cb8d4323302c ("dt-bindings: display: ti,am65x-dss: Add support for AM62L DSS")
+Cc: stable@vger.kernel.org
+Signed-off-by: Swamil Jain <s-jain1@ti.com>
+---
+Validated the changes with some examples:
+https://gist.github.com/swamiljain/79f30568c9ece89f5a20218f52647486
+
+Changelog:
+v3->v4:
+- Add reg-names constraint
+- Re-order constraints to make it consistent with the properties order
+
+Link to v3:
+https://lore.kernel.org/all/20260410105955.843868-1-s-jain1@ti.com/
+
+v2->v3:
+- Reduce redundancy and use constraints suggested by maintainers
+- Remove blank line between the tags
+
+Link to v2:
+https://lore.kernel.org/all/20260129150601.185882-1-s-jain1@ti.com/
+
+v1->v2:
+- Remove oneOf from top level constraints, it makes bindings redundant
+- Remove minItems from top level constraints
+- "dma-coherent" property shouldn't be changed in v1 itself
+- Add description for reg-names, clock and clock-names
+- Add constraints specific to AM62L and for other SoCs within allOf
+  check
+
+Link to v1:
+https://lore.kernel.org/all/20251224133150.2266524-1-s-jain1@ti.com/
+---
+ .../bindings/display/ti/ti,am65x-dss.yaml     | 70 ++++++++++++++-----
+ 1 file changed, 52 insertions(+), 18 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
+index 38fcee91211e..49a007cbcd3a 100644
+--- a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
++++ b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
+@@ -36,34 +36,50 @@ properties:
+   reg:
+     description:
+       Addresses to each DSS memory region described in the SoC's TRM.
+-    items:
+-      - description: common DSS register area
+-      - description: VIDL1 light video plane
+-      - description: VID video plane
+-      - description: OVR1 overlay manager for vp1
+-      - description: OVR2 overlay manager for vp2
+-      - description: VP1 video port 1
+-      - description: VP2 video port 2
+-      - description: common1 DSS register area
++    oneOf:
++      - items:
++          - description: common DSS register area
++          - description: VIDL1 light video plane
++          - description: VID video plane
++          - description: OVR1 overlay manager for vp1
++          - description: OVR2 overlay manager for vp2
++          - description: VP1 video port 1
++          - description: VP2 video port 2
++          - description: common1 DSS register area
++      - items:
++          - description: common DSS register area
++          - description: VIDL1 light video plane
++          - description: OVR1 overlay manager for vp1
++          - description: VP1 video port 1
++          - description: common1 DSS register area
+ 
+   reg-names:
+-    items:
+-      - const: common
+-      - const: vidl1
+-      - const: vid
+-      - const: ovr1
+-      - const: ovr2
+-      - const: vp1
+-      - const: vp2
+-      - const: common1
++    oneOf:
++      - items:
++          - const: common
++          - const: vidl1
++          - const: vid
++          - const: ovr1
++          - const: ovr2
++          - const: vp1
++          - const: vp2
++          - const: common1
++      - items:
++          - const: common
++          - const: vidl1
++          - const: ovr1
++          - const: vp1
++          - const: common1
+ 
+   clocks:
++    minItems: 2
+     items:
+       - description: fck DSS functional clock
+       - description: vp1 Video Port 1 pixel clock
+       - description: vp2 Video Port 2 pixel clock
+ 
+   clock-names:
++    minItems: 2
+     items:
+       - const: fck
+       - const: vp1
+@@ -179,6 +195,24 @@ allOf:
+         ports:
+           properties:
+             port@1: false
++        reg:
++          maxItems: 5
++        reg-names:
++          maxItems: 5
++        clocks:
++          maxItems: 2
++        clock-names:
++          maxItems: 2
++    else:
++      properties:
++        reg:
++          minItems: 8
++        reg-names:
++          minItems: 8
++        clocks:
++          minItems: 3
++        clock-names:
++          minItems: 3
+ 
+   - if:
+       properties:
