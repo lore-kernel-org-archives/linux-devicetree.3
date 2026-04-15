@@ -1,63 +1,63 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2652B262FF8
-	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 12:47:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99CAB355F54
+	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 12:47:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776257268; cv=none; b=Cg2NU9MP/l9+yp1G1BOsEX37jHnr/KEDF243qtx8RFbVCbfeNqWHYbHMxQeyEArxldC5VeW9LtVCLNIRjKaGpOiIQqzUKNAP/Ldyf5jqABHcKqJdpQDxANJRItdzyWcG4a5AZbDkVrrUHa87pDPRLKZC70MQ2wOSU1/pwS/QW58=
+	t=1776257270; cv=none; b=WWhPpfwe3CZ7ybNoINKJppgW4+dIhvoG1J598QY8bZs1N7671v5G8FrlA6fKMc0VO5yqGrJZ36gGeEgRUy036tPKVIwESW0psgzvff6LWokrDC0R7VqivKhP6+4gkulMEutdaPygpcqn5Pw9IF5zbE25/lkFpBkGFdLJ+ASpMAo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776257268; c=relaxed/simple;
-	bh=zrguUJkTsmHxfkkJjR7jXzsxLZJp3bbWa1ZIg2o+Q6Y=;
+	s=arc-20240116; t=1776257270; c=relaxed/simple;
+	bh=+pFXbL5AUesXszbyYGLL+MT4o6mCBIo3EDz/8Nk1tsc=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=rr53q40i8x+YQTJArFNlcp8JnFSkaSTNRZByokU8DNR6DiJbd0VdtjJIDMswsufN+u4dIJ6Gk9V11ASpMVxjMlB4n7irN3Jf2Ftnuo5R/gdhA9t5m6eF78dQnTAip8lxFLwlsi0MgGMqw89ZtL7OUUJAeP3D9LbQzCbCisVWmzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dro3whAF; arc=none smtp.client-ip=209.85.128.45
+	 MIME-Version; b=oDcvLyRA6XcIcguRpn/6Tjj8SfdVQznjS6p1cX7gsO5VFzB0ZetbrNhtd1aA3rblS5ZdaYi4tIesf6X+cApQY42xxu8PQXT41Iu/DtY0kZX/nFF+UhXJitsNrMTzqJFm1uNGX97a+UWsGio5d8polqZVxQqWlbi9eaAc1gKQy7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bkRo6ALi; arc=none smtp.client-ip=209.85.221.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dro3whAF"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-488ba840146so66578725e9.1
-        for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 05:47:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bkRo6ALi"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-43cf8fe9c2aso4235046f8f.2
+        for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 05:47:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776257264; x=1776862064; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1776257266; x=1776862066; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=P6/tsH6v4egNQ8ZnSYLZFTG/36tQkFlhJNe8EuPwEFU=;
-        b=Dro3whAFbPddWereJ1Upe98VTS1ltu8Iqk4Gnoj7RX89g2ngNBj+4B5bHdKUy9MTQ0
-         qvmOnQt/PREMPyWDz2sePTZk6dV88ZnySO3sI40sOCV5eGFr5BuqNqEZigcr4tw4zg/Y
-         5cYjXHfo2r/VsOs06hhHyLUl6MLDiBaDXTWXCdL50VL7oVVvIN+Ux0MO2ycx8nEZAAub
-         /9quzKhpDV2jBIz4kaQ7Fe1sqDZisXeVNecLvlUeNaQtG/1pchX72qw1tlUFlVduf/AJ
-         8zUQ8SYBrvzloZRwVZh0hmWU9FwciDdJlwc1IBfjmYbB9v1eLmGwJcaXDrDBdqxYtFlo
-         AiQw==
+        bh=Jk3PxfqcVUsp/jCD7Gx4pQpsBhAEOkB0+K5c3K014GE=;
+        b=bkRo6ALi6W1W93K6is9Ju3AxZjJsSpwcqoBB7avtdHweihydmokzLL4Zc/82BWzhLQ
+         PWveHscKFnBFOBi4GYuDwmNZ6cLvyz2vMIh0U1oJgHFX8VVHAGa+NB0JQ26LiTRgVBlL
+         12CgOFOrlPjm22bwzjGAfWiKwnQTXNZumlXC+zbkZ0QAJySBcBLNdcUXjKx4eTO+X55w
+         HpagweuAS+aKINBcn3Pk7YXrfClavdnsEJlBLghuBjhOD5fUqG9RzWoWZ7xCBeKge+Iu
+         94Q3i4ZnGtK6ZIgWEVwy28CwPEa3fusy3jncp87lARxqwKgivg+z+0MG+5Ipgal53EUB
+         BjLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776257264; x=1776862064;
+        d=1e100.net; s=20251104; t=1776257266; x=1776862066;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=P6/tsH6v4egNQ8ZnSYLZFTG/36tQkFlhJNe8EuPwEFU=;
-        b=Udx9w2Cg0992XcgKVHeeS+wZvAazjF5kOUsapxR0+NizUWbtBtjY0teeglgX8k/cM9
-         b3V6aBXDMvwsoX7axmhNOFD5lyxDgVwMnNgwH3QR1M7OIi6v+azq1aggB8HF6K/LSBg4
-         TsgMJohzxA2KpvZRb21410ag9cRrfTtokdwiVGaYWYTYz74IIWAOB3eWoAMR6lgttTe0
-         mud90J0Dbl4kVuZf8B66yu6Y0cMwb2Pyf16oNhXEZhXZegJj1qD6gedmz/cscAdcA1JP
-         nm3MF0OCkUIel5I3xXzqSMmtexfPWBM1r7JsJseaw4jGAgZxuv4od9wKX284h85Mhlzk
-         P7VQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9oaieoNDO/kUtFoBi+Tv9Ga9GmBK4RWQJ7ujVpgPUSgkmOhCMLcLKFjm2NvDE88ttVgZ03WeZDzNr0@vger.kernel.org
-X-Gm-Message-State: AOJu0YxilUZZgChSem1tmAkiwiD+OsZPCj7YXdsA7UySydEDccTpz/oW
-	MTRaiklAO3N8fGpta2WktMisa22clX/OdrmHaheKMgyjSjI1POIuWTZR
-X-Gm-Gg: AeBDiesCd2GyBLvcndaRWrxiEbdKiFgYR66f3ly1DkKqKQtvS5FUczduF8GdWSn8ejU
-	ROLd1NOIQj/7NCaDRBXcKG2PhE8lp4RX3OYCfZSqqg0m9xy7XhOxJpkLcPRzEE6MwDibD0uqWj8
-	yIM7kzNcIVhnXcrfemlQWz7hxEl9PjcG0Eq2U86TsGW29aHNa1XpUgPS54AwGVh52a3bj98af5q
-	MVPQmlhDkuLG9CDV4svO2utkzhBqfLqZ0R0f5Vm8BBSy50CCVjj/ceXiEEtQzTgok7fhnsse5ep
-	82lQLenCnKit6wfWzFpyjNlRSmKd38G+k19Fk3raWi87nor41A3kvT3W3a9gWUskb3qRrdCgqSs
-	j9/Gsio+Ad+tqjiSCwxjEFQK5lRE8RM2ZAC8g1ikmqmE9hJlOguSXpHkosFFKracVviLlz5SNbO
-	BntZQy8/UAIQ//kj8ch/W3YGsrw/dXkLd6fYRQUg==
-X-Received: by 2002:a05:600c:c091:b0:488:a977:8d6 with SMTP id 5b1f17b1804b1-488d683662cmr215199215e9.19.1776257264281;
-        Wed, 15 Apr 2026 05:47:44 -0700 (PDT)
+        bh=Jk3PxfqcVUsp/jCD7Gx4pQpsBhAEOkB0+K5c3K014GE=;
+        b=gOKGpZSAcXjZpBHBsnI+M7H0jldcu3DkiiwRv1xJg6UvzIqKQv6mw2Fm4UoKqr0U6Y
+         p0N+WaeoGa/2hL4sVg/D8zDUw+rCNvn6IPw4//PhPq8kyOpWFOcquXPNSgvW2ruN3K82
+         R+Zp2jgqpKHOhwomvwzeATaVuil7Cl5kUkRdUhKD1zAKoRiBmmsz9QmLfhfteFMLaHVn
+         ZJGF7wXqHoxBx18xtISCHHinwE1pX1A+NUf5cgFWJ0+FTNvNlE6zY5Y+BXgMRRvaI4HU
+         /9tudu97+P64L07lSQTmKzX37q31we8nEwy4iL/qS0RGHJHuC78ARIK4U8Qo8vZ5XYez
+         suOw==
+X-Forwarded-Encrypted: i=1; AFNElJ9ES/jGO9HRVku5yU/uOUHx3Iim7g8jzLuktToKrkzl3/RUIzSlUBZkKHYm2+woXLyU/0qu1R6gtc8Z@vger.kernel.org
+X-Gm-Message-State: AOJu0YwMbTK1ur2tq3wA6Srk7R54r6ZgwOulxBbTldT2jFG0TBmFiakM
+	YaQwhssMZNT/GDY78syHwUHM26ZNRpMxXk53QjlTgaOcMq3eZDUua5kr
+X-Gm-Gg: AeBDievph+lhp+NmkItsDQZQBFFKuPT+pAH+paRl1Ke2he7tUbLLZrI83v6g/1fNqM1
+	Zf/d0l/LCMrVrimHOP67xTAcV8dQX70pmAWcOJtkVhDus2wBEXwI5c5BE+Rr5PKCabq8o0JpJlQ
+	F2wsgPZIZCWmWXXVokpSpH+hhpvNMa+fHiir6fi6SSJcSe8+6HTLVq09ncvcejnbZZA464X+3On
+	3cSWb8KZgQx7ia6HYurEt7HCI8S5eMzgYqv3ktVPx7NFhf7hot1LBOP8pncA+Q+X1ojbgMD9chV
+	TKfaI/zMhFNc8f7tkxLI/MTm5hVbAOE3jwlYp2TLk5vX3o9LR1frevMmXb4AhKRjqGfQqlqXjYq
+	TLagBXI+n39PX7v0kDnEp9xqcWhz860VYOFMokSJsVUZ+XP0j6ZmqU18mzOX8IikhHyBhRFw/vR
+	O5UDXmTk6WsHDvjXWfv67wTSZFXixU2OItuVsAsQ==
+X-Received: by 2002:a5d:5d83:0:b0:43b:40ef:5d1a with SMTP id ffacd0b85a97d-43d642552e7mr31331940f8f.5.1776257265506;
+        Wed, 15 Apr 2026 05:47:45 -0700 (PDT)
 Received: from localhost.localdomain ([2001:41d0:406:c100::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43ead356616sm5123319f8f.13.2026.04.15.05.47.43
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43ead356616sm5123319f8f.13.2026.04.15.05.47.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Apr 2026 05:47:43 -0700 (PDT)
+        Wed, 15 Apr 2026 05:47:44 -0700 (PDT)
 From: John Madieu <john.madieu@gmail.com>
 X-Google-Original-From: John Madieu <john.madieu.xa@bp.renesas.com>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
@@ -79,9 +79,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	John Madieu <john.madieu.xa@bp.renesas.com>
-Subject: [PATCH v5 08/14] ASoC: rsnd: ssui: Add RZ/G3E SSIU BUSIF support
-Date: Wed, 15 Apr 2026 12:47:25 +0000
-Message-Id: <20260415124731.3684773-9-john.madieu.xa@bp.renesas.com>
+Subject: [PATCH v5 09/14] ASoC: rsnd: Add SSI reset support for RZ/G3E platforms
+Date: Wed, 15 Apr 2026 12:47:26 +0000
+Message-Id: <20260415124731.3684773-10-john.madieu.xa@bp.renesas.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260415124731.3684773-1-john.madieu.xa@bp.renesas.com>
 References: <20260415124731.3684773-1-john.madieu.xa@bp.renesas.com>
@@ -93,27 +93,20 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for the SSIU found on the Renesas RZ/G3E SoC, which
-provides a different BUSIF layout compared to earlier generations:
+Add SSI reset support for the Renesas RZ/G3E SoC, which differs from
+earlier generations in several ways:
 
- - SSI0-SSI4: 4 BUSIF instances each (BUSIF0-3)
- - SSI5-SSI8: 1 BUSIF instance each (BUSIF0 only)
- - SSI9: 4 BUSIF instances (BUSIF0-3)
- - Total: 28 BUSIFs
+ - The SSI block always operates in BUSIF mode; RZ/G3E does not implement
+   the SSITDR/SSIRDR registers used by R-Car Gen2/Gen3/Gen4 for direct SSI
+   DMA. Consequently, for the RZ/G3E, all audio data must pass through
+   BUSIF. PIO mode remains available for R-Car Gen2/Gen3/Gen4 platforms.
+ - Each SSI instance has its own reset line, exposed using per-SSI names
+   such as "ssi0", "ssi1", etc., rather than a single shared reset.
 
-RZ/G3E also differs from Gen2/Gen3 implementations in that only two
-pairs of BUSIF error-status registers are available instead of four,
-and the SSI always operates in BUSIF mode with no PIO fallback.
-
-Rather than scattering SoC-specific checks across functional code,
-introduce an extra capability flags in the match data:
-
- - RSND_SSIU_BUSIF_STATUS_COUNT_2: only two BUSIF error-status
-   register pairs are present. Used in rsnd_ssiu_busif_err_irq_ctrl()
-   and rsnd_ssiu_busif_err_status_clear() to limit register iteration.
-
-Future SoCs sharing these constraints can set the flags without
-requiring code changes.
+To support these differences, rsnd_ssi_use_busif() always return 1 on
+RZ/G3E, ensuring that the driver consistently selects the BUSIF DMA path.
+While at it, update the reset acquisition logic to request the appropriate
+per-SSI reset controller based on the SSI instance name.
 
 Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
 ---
@@ -123,209 +116,53 @@ Changes:
 v5: No changes
 
 v4:
- - Move busif_status_count from rsnd_priv into new struct rsnd_ssiu_ctrl,
-   following the rsnd_dma_ctrl pattern for shared non-per-instance module
-   resources
- - Properly propagate reset control errors via dev_err_probe() instead
-   of silencing them
- - Update changelog to accurately describe rsnd_is_rzg3e() usage for
-   SoC-specific register handling
+ - Clarify in commit message that PIO mode remains available on R-Car
+   Gen2/Gen3/Gen4 platforms
 
 v3: No changes
 v2: No changes
 
- sound/soc/renesas/rcar/core.c |  3 +-
- sound/soc/renesas/rcar/rsnd.h |  2 ++
- sound/soc/renesas/rcar/ssiu.c | 63 +++++++++++++++++++++++++----------
- 3 files changed, 49 insertions(+), 19 deletions(-)
+ sound/soc/renesas/rcar/ssi.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/renesas/rcar/core.c b/sound/soc/renesas/rcar/core.c
-index 4544791f3883..cb31af8a34d4 100644
---- a/sound/soc/renesas/rcar/core.c
-+++ b/sound/soc/renesas/rcar/core.c
-@@ -107,7 +107,8 @@ static const struct of_device_id rsnd_of_match[] = {
- 	{ .compatible = "renesas,rcar_sound-gen4", .data = (void *)RSND_GEN4 },
- 	/* Special Handling */
- 	{ .compatible = "renesas,rcar_sound-r8a77990", .data = (void *)(RSND_GEN3 | RSND_SOC_E) },
--	{ .compatible = "renesas,r9a09g047-sound", .data = (void *)(RSND_RZ3 | RSND_RZG3E) },
-+	{ .compatible = "renesas,r9a09g047-sound", .data = (void *)(RSND_RZ3 | RSND_RZG3E |
-+								RSND_SSIU_BUSIF_STATUS_COUNT_2) },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, rsnd_of_match);
-diff --git a/sound/soc/renesas/rcar/rsnd.h b/sound/soc/renesas/rcar/rsnd.h
-index 16d7eafedae1..953a2d998a03 100644
---- a/sound/soc/renesas/rcar/rsnd.h
-+++ b/sound/soc/renesas/rcar/rsnd.h
-@@ -647,6 +647,7 @@ struct rsnd_priv {
- #define RSND_RZ3	(3 << 8)
- #define RSND_RZ_ID_MASK	(0xF << 12) /* nibble D */
- #define RSND_RZG3E	(1 << 12)
-+#define RSND_SSIU_BUSIF_STATUS_COUNT_2	BIT(16) /* Only 2 BUSIF error-status register pairs */
- 	/*
- 	 * below value will be filled on rsnd_gen_probe()
- 	 */
-@@ -665,6 +666,7 @@ struct rsnd_priv {
- 	/*
- 	 * below value will be filled on rsnd_ssi_probe()
- 	 */
-+	void *ssiu_ctrl;
- 	void *ssi;
- 	int ssi_nr;
+diff --git a/sound/soc/renesas/rcar/ssi.c b/sound/soc/renesas/rcar/ssi.c
+index c06cebb36170..c65435551283 100644
+--- a/sound/soc/renesas/rcar/ssi.c
++++ b/sound/soc/renesas/rcar/ssi.c
+@@ -1158,6 +1158,7 @@ int __rsnd_ssi_is_pin_sharing(struct rsnd_mod *mod)
  
-diff --git a/sound/soc/renesas/rcar/ssiu.c b/sound/soc/renesas/rcar/ssiu.c
-index 0cfa84fe5ea8..f483389868d2 100644
---- a/sound/soc/renesas/rcar/ssiu.c
-+++ b/sound/soc/renesas/rcar/ssiu.c
-@@ -29,31 +29,39 @@ struct rsnd_ssiu {
- 	     i++)
- 
- /*
-- *	SSI	Gen2		Gen3		Gen4
-- *	0	BUSIF0-3	BUSIF0-7	BUSIF0-7
-- *	1	BUSIF0-3	BUSIF0-7
-- *	2	BUSIF0-3	BUSIF0-7
-- *	3	BUSIF0		BUSIF0-7
-- *	4	BUSIF0		BUSIF0-7
-- *	5	BUSIF0		BUSIF0
-- *	6	BUSIF0		BUSIF0
-- *	7	BUSIF0		BUSIF0
-- *	8	BUSIF0		BUSIF0
-- *	9	BUSIF0-3	BUSIF0-7
-- *	total	22		52		8
-+ *	SSI	Gen2		Gen3		Gen4		RZ/G3E
-+ *	0	BUSIF0-3	BUSIF0-7	BUSIF0-7	BUSIF0-3
-+ *	1	BUSIF0-3	BUSIF0-7			BUSIF0-3
-+ *	2	BUSIF0-3	BUSIF0-7			BUSIF0-3
-+ *	3	BUSIF0		BUSIF0-7			BUSIF0-3
-+ *	4	BUSIF0		BUSIF0-7			BUSIF0-3
-+ *	5	BUSIF0		BUSIF0				BUSIF0
-+ *	6	BUSIF0		BUSIF0				BUSIF0
-+ *	7	BUSIF0		BUSIF0				BUSIF0
-+ *	8	BUSIF0		BUSIF0				BUSIF0
-+ *	9	BUSIF0-3	BUSIF0-7			BUSIF0-3
-+ *	total	22		52		8		28
-  */
- static const int gen2_id[] = { 0, 4,  8, 12, 13, 14, 15, 16, 17, 18 };
- static const int gen3_id[] = { 0, 8, 16, 24, 32, 40, 41, 42, 43, 44 };
- static const int gen4_id[] = { 0 };
-+static const int rzg3e_id[] = { 0, 4, 8, 12, 16, 20, 21, 22, 23, 24 };
-+
-+struct rsnd_ssiu_ctrl {
-+	unsigned int busif_status_count;
-+};
-+
-+#define rsnd_priv_to_ssiu_ctrl(priv) \
-+	((struct rsnd_ssiu_ctrl *)(priv)->ssiu_ctrl)
- 
- /* enable busif buffer over/under run interrupt. */
- #define rsnd_ssiu_busif_err_irq_enable(mod)  rsnd_ssiu_busif_err_irq_ctrl(mod, 1)
- #define rsnd_ssiu_busif_err_irq_disable(mod) rsnd_ssiu_busif_err_irq_ctrl(mod, 0)
- static void rsnd_ssiu_busif_err_irq_ctrl(struct rsnd_mod *mod, int enable)
+ int rsnd_ssi_probe(struct rsnd_priv *priv)
  {
-+	struct rsnd_priv *priv = rsnd_mod_to_priv(mod);
- 	int id = rsnd_mod_id(mod);
- 	int shift, offset;
--	int i;
- 
- 	switch (id) {
- 	case 0:
-@@ -72,7 +80,7 @@ static void rsnd_ssiu_busif_err_irq_ctrl(struct rsnd_mod *mod, int enable)
- 		return;
- 	}
- 
--	for (i = 0; i < 4; i++) {
-+	for (unsigned int i = 0; i < rsnd_priv_to_ssiu_ctrl(priv)->busif_status_count; i++) {
- 		enum rsnd_reg reg = SSI_SYS_INT_ENABLE((i * 2) + offset);
- 		u32 val = 0xf << (shift * 4);
- 		u32 sys_int_enable = rsnd_mod_read(mod, reg);
-@@ -87,10 +95,10 @@ static void rsnd_ssiu_busif_err_irq_ctrl(struct rsnd_mod *mod, int enable)
- 
- bool rsnd_ssiu_busif_err_status_clear(struct rsnd_mod *mod)
- {
-+	struct rsnd_priv *priv = rsnd_mod_to_priv(mod);
- 	bool error = false;
- 	int id = rsnd_mod_id(mod);
- 	int shift, offset;
--	int i;
- 
- 	switch (id) {
- 	case 0:
-@@ -109,7 +117,7 @@ bool rsnd_ssiu_busif_err_status_clear(struct rsnd_mod *mod)
- 		goto out;
- 	}
- 
--	for (i = 0; i < 4; i++) {
-+	for (unsigned int i = 0; i < rsnd_priv_to_ssiu_ctrl(priv)->busif_status_count; i++) {
- 		u32 reg = SSI_SYS_STATUS(i * 2) + offset;
- 		u32 status = rsnd_mod_read(mod, reg);
- 		u32 val = 0xf << (shift * 4);
-@@ -160,7 +168,8 @@ static int rsnd_ssiu_init(struct rsnd_mod *mod,
- 	/*
- 	 * SSI_MODE0
- 	 */
--	rsnd_mod_bset(mod, SSI_MODE0, (1 << id), !use_busif << id);
-+	if (!rsnd_is_rzg3e(priv))
-+		rsnd_mod_bset(mod, SSI_MODE0, (1 << id), !use_busif << id);
- 
- 	/*
- 	 * SSI_MODE1 / SSI_MODE2
-@@ -510,6 +519,8 @@ int rsnd_ssiu_probe(struct rsnd_priv *priv)
- {
- 	struct device *dev = rsnd_priv_to_dev(priv);
- 	struct device_node *node __free(device_node) = rsnd_ssiu_of_node(priv);
 +	struct reset_control *rstc;
-+	struct rsnd_ssiu_ctrl *ctrl;
- 	struct rsnd_ssiu *ssiu;
+ 	struct device_node *node;
+ 	struct device *dev = rsnd_priv_to_dev(priv);
  	struct rsnd_mod_ops *ops;
- 	const int *list = NULL;
-@@ -534,8 +545,15 @@ int rsnd_ssiu_probe(struct rsnd_priv *priv)
- 	if (!ssiu)
- 		return -ENOMEM;
- 
-+	ctrl = devm_kzalloc(dev, sizeof(*ctrl), GFP_KERNEL);
-+	if (!ctrl)
-+		return -ENOMEM;
-+
-+	ctrl->busif_status_count = rsnd_flags_has(priv, RSND_SSIU_BUSIF_STATUS_COUNT_2) ? 2 : 4;
-+
- 	priv->ssiu	= ssiu;
- 	priv->ssiu_nr	= nr;
-+	priv->ssiu_ctrl	= ctrl;
- 
- 	if (rsnd_is_gen1(priv))
- 		ops = &rsnd_ssiu_ops_gen1;
-@@ -558,12 +576,21 @@ int rsnd_ssiu_probe(struct rsnd_priv *priv)
- 		} else if (rsnd_is_gen4(priv)) {
- 			list	= gen4_id;
- 			nr	= ARRAY_SIZE(gen4_id);
-+		} else if (rsnd_is_rzg3e(priv)) {
-+			list	= rzg3e_id;
-+			nr	= ARRAY_SIZE(rzg3e_id);
- 		} else {
- 			dev_err(dev, "unknown SSIU\n");
- 			return -ENODEV;
- 		}
- 	}
- 
-+	/* Acquire shared reset once for all SSIU modules */
-+	rstc = devm_reset_control_get_optional_shared(dev, "ssi-all");
-+	if (IS_ERR(rstc))
-+		return dev_err_probe(dev, PTR_ERR(rstc),
-+				     "failed to get ssi-all reset\n");
-+
- 	for_each_rsnd_ssiu(ssiu, priv, i) {
- 		int ret;
- 
-@@ -586,7 +613,7 @@ int rsnd_ssiu_probe(struct rsnd_priv *priv)
+@@ -1207,6 +1208,16 @@ int rsnd_ssi_probe(struct rsnd_priv *priv)
+ 			goto rsnd_ssi_probe_done;
  		}
  
- 		ret = rsnd_mod_init(priv, rsnd_mod_get(ssiu),
--				    ops, NULL, NULL, RSND_MOD_SSIU, i);
-+				    ops, NULL, rstc, RSND_MOD_SSIU, i);
++		/*
++		 * RZ/G3E uses per-SSI reset controllers.
++		 * R-Car platforms typically don't have SSI reset controls.
++		 */
++		rstc = devm_reset_control_get_optional(dev, name);
++		if (IS_ERR(rstc)) {
++			ret = PTR_ERR(rstc);
++			goto rsnd_ssi_probe_done;
++		}
++
+ 		if (of_property_read_bool(np, "shared-pin"))
+ 			rsnd_flags_set(ssi, RSND_SSI_CLK_PIN_SHARE);
+ 
+@@ -1225,7 +1236,7 @@ int rsnd_ssi_probe(struct rsnd_priv *priv)
+ 			ops = &rsnd_ssi_dma_ops;
+ 
+ 		ret = rsnd_mod_init(priv, rsnd_mod_get(ssi), ops, clk,
+-				    NULL, RSND_MOD_SSI, i);
++				    rstc, RSND_MOD_SSI, i);
  		if (ret)
- 			return ret;
- 	}
+ 			goto rsnd_ssi_probe_done;
+ 
 -- 
 2.25.1
 
