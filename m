@@ -1,600 +1,81 @@
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69CC43101C0
-	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 23:35:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776296108; cv=pass; b=N7X8WsTxiuva1uq7qX3t5/2wSpR2f8i09GfAW6Pavk1LxpjqJCGKRFae4spxYpQdL/JIychGkfuLBEGnPolXDX2+8x3rpp5yFf4V8HpKt6CbS0F+CDDLopxdf1dKC4egPnTu5qgeyCa6LT3b1I4SlPkYCqLqA4//XMUqtXEPwM4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776296108; c=relaxed/simple;
-	bh=v2YhLIf71qnDSl5i+m0qK+ZQQyrbH/uejxYkW8Nn9ZY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=K/c6+5pgCfdILpB9xwZdZUOGP4LYm05gAw73C16LLFwJF5LGGMlV2uYslq8xG4bLWb5w4fyqvsIGHT50eNNHqAs31Y6u0vfZx5zthqdFLmKoi2tiqfmfw5HE0UZEeb6Sulg5bZJNa6FLKK1sENTQgMblL3sY5XSszJsOGR4jKeY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ausil.us; spf=pass smtp.mailfrom=gilmore.net.au; dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b=NjFtE55o; arc=pass smtp.client-ip=209.85.222.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ausil.us
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gilmore.net.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B400D34AAE3
+	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 23:45:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.22
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776296733; cv=none; b=TCnNvg2oeRAsP8Qz9W10dGqX66DiGXemw2jQ0p9547DauGzQEwPqOlX6Jlud10IVKQcGM/WdlNeml5VwWuP37sQFRntGxLHzjGd/hgWxUwIsAqPY5ax8kduL4ydb7qSbzZ3MfohhUtb3uFwlwNfCs9tMNnOofAD+uo2d0dySRoE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776296733; c=relaxed/simple;
+	bh=bBGGB5uETSggOS/t5xrmTu4m1EpOWZbQNCte2XUHoto=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=GNsV1MQ9ylLnmOnc0mGhK0WfoMqYVkJa5D4ZjD9oeXSiZfJT363Vee6vuKq6Xux7Ybey+S6GyX+g9qk+kNZ5osnFE0oJ8vYsQfnW1jWQG1gWrS628XOVwYpbyx3BEqogwPzY3CunHNJuShRj3r//9xxNXJfKr+E8NpWL/k4Va+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=DN+8J0gN; arc=none smtp.client-ip=185.70.43.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b="NjFtE55o"
-Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-8d6d5e45c43so893004285a.3
-        for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 16:35:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776296104; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Lx22CvSYnZLPsYmE/7InLUCK5RpffBV6nS+nCEadaVD6Si1T8KrakZuio5v0992oi1
-         4YJ5LBTmIb3gQn8Z0AHMgvYFc4+UhZ14fGy5btD/AydJf/4fPxlrW7XkHY+Ipyak/rid
-         ysg/J0PZGCuobhtuXXhsV3JFBH7SDliFNSrgS5t/pp0K3fUYQQH+vRs1h0nFX0c5WxdO
-         hCYOHQILG4YdrsBNlBFDnhLtDZA0f6Ljf+25RQ2BeKeKIgXYq4CIun4XBFHdjE3G9kBo
-         lwjQdqjuNfC7dbi2CesYn7AbNGQQ/QjlSeLH/WAHXiKonHIuu3fqpg+M5aS0WSbP8WOW
-         GUdA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MkZdmz5ZlEhseQt41KLWBN8TOovPwRLOZ1qkVFMEmMo=;
-        fh=T/ZQdfrE2ANb+yxHb1/AYT3DWQmzd5uWYcnRsOxnqVo=;
-        b=FmmtfWCs49laRhAsKmqKBJ2N0TTb7y5aPTx5mmaI+tt66OiBB4B1RsB39CC838ILgz
-         2PfN/tEwrZfHg4WeCGh5GTdWr9Wabw7FbKe/DfxN3dzqraDErLrY9feVe3m7vvsnOu2A
-         ktZBunKaqP3CMmmU2F3ei5aR7xHBdtgfGo6Dbb9lVj+UFrY10VMeXN4fLGdiRhDtyY/d
-         9vD43rwb6o8nHi61Zmp19uqPBcXHIAPVJ9x0Sl36SCwazWi7mXMmRou0nT7rH9rWxtAL
-         1GkJUCFfxsfKKsnoaPx7kjLE83/xEBeqquwTC227W/1mdbnbDux0g27UTriP/DdxZjaS
-         NeMg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ausil.us; s=google; t=1776296104; x=1776900904; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=MkZdmz5ZlEhseQt41KLWBN8TOovPwRLOZ1qkVFMEmMo=;
-        b=NjFtE55oJrst3TKF9HKVPa52jp3tUsH4ihv1Htx9GneKjNe66tQbm8y1OzrUOI5mlF
-         JMUvJ6emOsTWUOBw7knl/ZAB9VOLeTz/dFs4n4OU+/HKSzpo4wF2rcMqQie2hRqnSdkK
-         Bpe7PNjBUBMBb07uwYeF3M1gV/haDyxlRPas6Rn27U9aw+KK8n9Y1iICx1e8hmNmZ8GU
-         7C7Br/7xrR75ie95vk94VHy513bpHi5pkF25h9kZd3qbLEsJPqOgXx5HfATch8r8wOtB
-         ALXiy/nqvZrX40wY3KflFb7crw3UdIJRUn4M4ZjG2Xb2OWfc+9gg5Vh7lKIZjSaJRPhX
-         zy0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776296104; x=1776900904;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=MkZdmz5ZlEhseQt41KLWBN8TOovPwRLOZ1qkVFMEmMo=;
-        b=NTnTTJPVQlyk93mbxhYMWfRc+szUTtxYGzC7BsudOvscUvhefVUkmRGUsEuIOKv18N
-         x5frgQ8yf8FrLWQn/Z0k/Uh/PyRHW0QW6ZskW7vbKRZHIJbhBLTqdDfGK7PVYuuQfRl/
-         BjjnNqks2feRef2yRfpHm1MSF4DDh2vCqessaY22BNH8n+nOpptVZLpPhGnAovVe8pvY
-         HND8G+0gnXDBz/r/Rip+cOYB0CkWsXqraOPJB9Z379UAYTbzE/KQy/RDitnSoygTF0pR
-         Kx7BhaeFjfIOw2dO0RyeOK0FDoflTO8XGS5TJgKDQOjdRStvKlO/PUZ/Y/fjs1aBu7Sm
-         Lh4Q==
-X-Forwarded-Encrypted: i=1; AFNElJ9Hzi0T+zEzz+EnfX2a0f5owEN7SBHUNqsVUuhQUFdFYVzUoR77ZCpZZMs2HAIcDIUjdf1kwkQjPz0w@vger.kernel.org
-X-Gm-Message-State: AOJu0YwWgJzwjomeu2yuDqSefTCtjGFwt5k6XK+TJM20ysAR+RFCGXik
-	3emYMWcCh7R6e9cWL6CNP0OKJtE6wUHj3LXa321QBQHnilnd1R/KOD/WKIG/QIfdE8JFYIs256z
-	MXzJqcNDDB5tXFeN3b1rHVa+IU+GoUOY4Z36myi+yBQ==
-X-Gm-Gg: AeBDiesdTOmdad47sYhhqmR30WnrGSP/IJVGurUK06BSFTNO+TDatZ7SrasQl9v1inL
-	y7Votkto2sMPy1QxATOGoxaIS5X2hJyPCeb8o5eTLG7LSRqzMp9E4FNqL+TrN9R2V5UEXM9bAkw
-	PA6ct1GCPAKeQciLYPKP4VDCg7VzoQSnuolx2lPU2W/HiGX06O2S7x8ObZjGWhIAYzQg5ssBHY2
-	f2dYMdTxLzvoNQ+lAHAwHbPamVnpf/4XuFtR1kkWwYJFGfuUk843l5MF5WH1LfXFXrwQExE0eFB
-	NPaV3nX+Cwl7fARRDEZcT+VVZ4E/OI8fNNybhcXOvXHfZj+AQfdBmqtxPYiYmIRxUVfHuo96uip
-	05QDo
-X-Received: by 2002:a05:620a:2953:b0:8c6:ae78:f750 with SMTP id
- af79cd13be357-8ddcd5ffc39mr3310148285a.14.1776296104123; Wed, 15 Apr 2026
- 16:35:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="DN+8J0gN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1776296723; x=1776555923;
+	bh=bBGGB5uETSggOS/t5xrmTu4m1EpOWZbQNCte2XUHoto=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=DN+8J0gNAHRo/mJ4YD+m8BP2eHkDFf/E0ov1ckY/GXxOwrSUldj4BRJiYdcp4o8ZM
+	 h2WedJm+WLWq56abLwBzNHUVExHjD3HaK28aGRsK8yxl6F1l/evlx0rHyzgoeqDw1p
+	 Y45b7Q2OU5AdesE8NrfP+mV6Hk1Xi3E3TTT3Q/8KusihltHWpENx4sQPCZ5wgkw9C7
+	 VnPeca+hd3ZAxYESppo9306HIwZSkiVemJo76iTZuIyYFfuzeiFJV0F76Xhre/DgIG
+	 2CBTSTZxWXsBdtsQ8A6BjUP5QQ4U2pzkaywP+RJ3mqHUdBuVOTsgxnF9IWdHggrYMp
+	 T7N2RwQ3IXJog==
+Date: Wed, 15 Apr 2026 23:45:18 +0000
+To: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+From: Alexander Koskovich <akoskovich@pm.me>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Alexander Koskovich <akoskovich@pm.me>
+Subject: [PATCH RFT] arm64: dts: qcom: sm8650: Fix IPA IMEM slice
+Message-ID: <20260415-fix-8650-ipa-modem-tables-v1-1-95f8f425e416@pm.me>
+Feedback-ID: 37836894:user:proton
+X-Pm-Message-ID: a4eaec15df0fb93034c62411ff77e2f3bdbef0b9
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260414214104.1363987-1-dennis@ausil.us> <20260414214104.1363987-7-dennis@ausil.us>
- <CABjd4YxfeCfRUneZfFx31WmQOexO0gcH8yHPQmRY38GKNk=Ztg@mail.gmail.com>
-In-Reply-To: <CABjd4YxfeCfRUneZfFx31WmQOexO0gcH8yHPQmRY38GKNk=Ztg@mail.gmail.com>
-From: Dennis Gilmore <dennis@ausil.us>
-Date: Wed, 15 Apr 2026 18:34:49 -0500
-X-Gm-Features: AQROBzC4-qs-82YEAPMV9IhAdlFDvkQoD_ROH-jwp19mN9zmg-DXf3GNdyTSWBM
-Message-ID: <CAABkxwvKT8p3akUjTpmNh44ZQyuc6Tz-tULm_4bHv6+Q4pQ1Bw@mail.gmail.com>
-Subject: Re: [PATCH v7 6/6] arm64: dts: rockchip: Add Orange Pi 5 Pro board support
-To: Alexey Charkov <alchark@gmail.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Chaoyi Chen <chaoyi.chen@rock-chips.com>, Conor Dooley <conor+dt@kernel.org>, 
-	David Airlie <airlied@gmail.com>, devicetree@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, FUKAUMI Naoki <naoki@radxa.com>, 
-	Heiko Stuebner <heiko@sntech.de>, Hsun Lai <i@chainsx.cn>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Jimmy Hon <honyuenkwun@gmail.com>, 
-	John Clark <inindev@gmail.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Michael Opdenacker <michael.opdenacker@rootcommit.com>, 
-	Michael Riesch <michael.riesch@collabora.com>, Mykola Kvach <xakep.amatop@gmail.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Peter Robinson <pbrobinson@gmail.com>, 
-	Quentin Schulz <quentin.schulz@cherry.de>, Robert Foss <rfoss@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
-	Thomas Zimmermann <tzimmermann@suse.de>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Alexey,
+Downstream the IPA IMEM slice for SM8650 is described as:
+qcom,additional-mapping =3D <0x14683000 0x14683000 0x2000>;
 
-On Wed, Apr 15, 2026 at 3:57=E2=80=AFAM Alexey Charkov <alchark@gmail.com> =
-wrote:
->
-> On Wed, Apr 15, 2026 at 1:41=E2=80=AFAM Dennis Gilmore <dennis@ausil.us> =
-wrote:
-> >
-> > Add device tree for the Xunlong Orange Pi 5 Pro (RK3588S).
-> >
-> > - eMMC module, you can optionally solder a SPI NOR in place and turn
-> >  off the eMMC
-> > - PCIe-attached NIC (pcie2x1l1)
-> > - PCIe NVMe slot (pcie2x1l2)
->
-> Hi Dennis,
->
-> Sashiko noticed [1] that the controller names here do not match the
-> nodes/comments you have in the patch body - which ones are correct?
->
-> [1] https://sashiko.dev/#/patchset/20260414214104.1363987-1-dennis%40ausi=
-l.us
+Update upstream ipa_modem_tables to reflect downstream.
 
-The ones in the body are correct. will fix
+Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+---
+ arch/arm64/boot/dts/qcom/sm8650.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> > - AP6256 WiFi (BCM43456) via SDIO with mmc-pwrseq
-> > - BCM4345C5 Bluetooth
-> > - es8388 audio
-> > - USB 2.0 and USB 3.0
-> > - Two HDMI ports, the second is connected to the SoC's DP controller
-> >   driven through a Lontium LT8711UXD bridge.
-> >
-> > Vendors schematics are available at:
-> > https://drive.google.com/file/d/1qs1DratHuh7C6J6MEtQIwUsiSrg8qgTi/view
-> >
-> > Signed-off-by: Dennis Gilmore <dennis@ausil.us>
-> > ---
-> >  arch/arm64/boot/dts/rockchip/Makefile         |   1 +
-> >  .../dts/rockchip/rk3588s-orangepi-5-pro.dts   | 442 ++++++++++++++++++
-> >  2 files changed, 443 insertions(+)
-> >  create mode 100644 arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-pro=
-.dts
-> >
-> > diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dt=
-s/rockchip/Makefile
-> > index 4d384f153c13..c99dca2ae9e7 100644
-> > --- a/arch/arm64/boot/dts/rockchip/Makefile
-> > +++ b/arch/arm64/boot/dts/rockchip/Makefile
-> > @@ -214,6 +214,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588s-nanopi-r6c=
-.dtb
-> >  dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588s-odroid-m2.dtb
-> >  dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588s-orangepi-5.dtb
-> >  dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588s-orangepi-5b.dtb
-> > +dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588s-orangepi-5-pro.dtb
-> >  dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588s-orangepi-cm5-base.dtb
-> >  dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588s-radxa-cm5-io.dtb
-> >  dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588s-roc-pc.dtb
-> > diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-pro.dts b/=
-arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-pro.dts
-> > new file mode 100644
-> > index 000000000000..61462c66753d
-> > --- /dev/null
-> > +++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-pro.dts
-> > @@ -0,0 +1,442 @@
-> > +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-> > +
-> > +/dts-v1/;
-> > +
-> > +#include "rk3588s-orangepi-5.dtsi"
-> > +
-> > +/ {
-> > +       model =3D "Xunlong Orange Pi 5 Pro";
-> > +       compatible =3D "xunlong,orangepi-5-pro", "rockchip,rk3588s";
-> > +
-> > +       aliases {
-> > +               mmc0 =3D &sdhci;
-> > +               mmc1 =3D &sdmmc;
-> > +               mmc2 =3D &sdio;
-> > +       };
-> > +
-> > +       hdmi1-con {
-> > +               compatible =3D "hdmi-connector";
-> > +               label =3D "HDMI1 OUT";
-> > +               type =3D "a";
-> > +
-> > +               port {
-> > +                       hdmi1_con_in: endpoint {
-> > +                               remote-endpoint =3D <&lt8711uxd_out>;
-> > +                       };
-> > +               };
-> > +       };
-> > +
-> > +       lt8711uxd {
->
-> Please use a generic node name per DT convention. "hdmi-bridge" perhaps?
->
+diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/qco=
+m/sm8650.dtsi
+index 1604bc8cff37..0cfbf79c4c78 100644
+--- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
+@@ -7087,8 +7087,8 @@ sram@14680000 {
+=20
+ =09=09=09ranges =3D <0 0 0x14680000 0x2c000>;
+=20
+-=09=09=09ipa_modem_tables: modem-tables@8000 {
+-=09=09=09=09reg =3D <0x8000 0x2000>;
++=09=09=09ipa_modem_tables: modem-tables@3000 {
++=09=09=09=09reg =3D <0x3000 0x2000>;
+ =09=09=09};
+ =09=09};
+=20
 
-Will adopt hdmi-bridge
+---
+base-commit: 936c21068d7ade00325e40d82bfd2f3f29d9f659
+change-id: 20260415-fix-8650-ipa-modem-tables-1704e39721c2
 
-> > +               compatible =3D "lontium,lt8711uxd";
->
-> Don't you want to add "vdd-supply =3D <&vcc3v3_dp>;" here? It costs you
-> nothing, as it's already in the binding and in the driver, and having
-> this dependency listed explicitly will let the kernel order the driver
-> probes correctly, and also likely let you drop the boot-on/always-on
-> annotation from the regulator node.
-
-I will add the supply and test drop the boot-on/always-on
-
-> > +               ports {
-> > +                       #address-cells =3D <1>;
-> > +                       #size-cells =3D <0>;
-> > +
-> > +                       port@0 {
-> > +                               reg =3D <0>;
-> > +
-> > +                               lt8711uxd_in: endpoint {
-> > +                                       remote-endpoint =3D <&dp0_out_c=
-on>;
-> > +                               };
-> > +                       };
-> > +
-> > +                       port@1 {
-> > +                               reg =3D <1>;
-> > +
-> > +                               lt8711uxd_out: endpoint {
-> > +                                       remote-endpoint =3D <&hdmi1_con=
-_in>;
-> > +                               };
-> > +                       };
-> > +               };
-> > +       };
-> > +
-> > +       analog-sound {
-> > +               compatible =3D "simple-audio-card";
-> > +               pinctrl-names =3D "default";
-> > +               pinctrl-0 =3D <&hp_detect>;
-> > +               simple-audio-card,format =3D "i2s";
-> > +               simple-audio-card,hp-det-gpios =3D <&gpio1 RK_PD5 GPIO_=
-ACTIVE_HIGH>;
-> > +               simple-audio-card,mclk-fs =3D <256>;
-> > +               simple-audio-card,name =3D "rockchip,es8388";
-> > +               simple-audio-card,routing =3D
-> > +                       "Headphones", "LOUT1",
-> > +                       "Headphones", "ROUT1",
-> > +                       "LINPUT1", "Microphone Jack",
-> > +                       "RINPUT1", "Microphone Jack",
-> > +                       "LINPUT2", "Onboard Microphone",
-> > +                       "RINPUT2", "Onboard Microphone";
-> > +               simple-audio-card,widgets =3D
-> > +                       "Microphone", "Microphone Jack",
-> > +                       "Microphone", "Onboard Microphone",
-> > +                       "Headphone", "Headphones";
-> > +
-> > +               simple-audio-card,cpu {
-> > +                       sound-dai =3D <&i2s2_2ch>;
-> > +               };
-> > +
-> > +               simple-audio-card,codec {
-> > +                       sound-dai =3D <&es8388>;
-> > +                       system-clock-frequency =3D <12288000>;
-> > +               };
-> > +       };
-> > +
-> > +       pwm-leds {
-> > +               compatible =3D "pwm-leds";
-> > +
-> > +               led-0 {
-> > +                       color =3D <LED_COLOR_ID_BLUE>;
-> > +                       function =3D LED_FUNCTION_STATUS;
-> > +                       linux,default-trigger =3D "heartbeat";
-> > +                       max-brightness =3D <255>;
-> > +                       pwms =3D <&pwm15 0 1000000 0>;
-> > +               };
-> > +
-> > +               led-1 {
-> > +                       color =3D <LED_COLOR_ID_GREEN>;
-> > +                       function =3D LED_FUNCTION_ACTIVITY;
-> > +                       linux,default-trigger =3D "heartbeat";
-> > +                       max-brightness =3D <255>;
-> > +                       pwms =3D <&pwm3 0 1000000 0>;
-> > +               };
-> > +       };
-> > +
-> > +       fan: pwm-fan {
-> > +               compatible =3D "pwm-fan";
-> > +               #cooling-cells =3D <2>;
-> > +               cooling-levels =3D <0 50 100 150 200 255>;
-> > +               fan-supply =3D <&vcc5v0_sys>;
-> > +               pwms =3D <&pwm2 0 20000000 0>;
-> > +       };
-> > +
-> > +       vcc3v3_dp: regulator-vcc3v3-dp {
-> > +               compatible =3D "regulator-fixed";
-> > +               enable-active-high;
-> > +               gpios =3D <&gpio3 RK_PC2 GPIO_ACTIVE_HIGH>;
-> > +               pinctrl-names =3D "default";
-> > +               pinctrl-0 =3D <&dp_bridge_en>;
-> > +               regulator-max-microvolt =3D <3300000>;
-> > +               regulator-min-microvolt =3D <3300000>;
-> > +               regulator-name =3D "vcc3v3_dp";
-> > +               regulator-always-on;
-> > +               regulator-boot-on;
->
-> Please see if you can drop these always-on/boot-on when vdd-supply is
-> explicitly listed in the bridge node
->
-I have tested removing these with the supply change listed, the HDMI
-bridge fails to power on, it does work okay with regulator-always-on
-only. It seems necessary to ensure that the bridge is active and that
-HPD works. I am open to trying something else to ensure it all works
-
-> > +               vin-supply =3D <&vcc_3v3_s3>;
-> > +       };
-> > +
-> > +       vcc3v3_phy1: regulator-vcc3v3-phy1 {
-> > +               compatible =3D "regulator-fixed";
-> > +               enable-active-high;
-> > +               gpios =3D <&gpio3 RK_PB7 GPIO_ACTIVE_HIGH>;
-> > +               pinctrl-names =3D "default";
-> > +               pinctrl-0 =3D <&vcc3v3_phy1_en>;
->
-> The board schematics call the pin "Ethernet_EN"
-
-Will rename this
-
-> > +               regulator-max-microvolt =3D <3300000>;
-> > +               regulator-min-microvolt =3D <3300000>;
-> > +               regulator-name =3D "vcc3v3_phy1";
-> > +               startup-delay-us =3D <50000>;
-> > +               vin-supply =3D <&vcc_3v3_s3>;
-> > +       };
-> > +
-> > +       vcc5v0_otg: regulator-vcc5v0-otg {
-> > +               compatible =3D "regulator-fixed";
-> > +               enable-active-high;
-> > +               gpios =3D <&gpio0 RK_PC4 GPIO_ACTIVE_HIGH>;
-> > +               pinctrl-names =3D "default";
-> > +               pinctrl-0 =3D <&vcc5v0_otg_en>;
-> > +               regulator-max-microvolt =3D <5000000>;
-> > +               regulator-min-microvolt =3D <5000000>;
-> > +               regulator-name =3D "vcc5v0_otg";
-> > +               vin-supply =3D <&vcc5v0_sys>;
-> > +       };
-> > +
-> > +       sdio_pwrseq: sdio-pwrseq {
-> > +               compatible =3D "mmc-pwrseq-simple";
-> > +               clocks =3D <&hym8563>;
-> > +               clock-names =3D "ext_clock";
-> > +               pinctrl-names =3D "default";
-> > +               pinctrl-0 =3D <&wifi_enable_h>;
-> > +               post-power-on-delay-ms =3D <200>;
-> > +               reset-gpios =3D <&gpio0 RK_PD0 GPIO_ACTIVE_LOW>;
-> > +       };
-> > +
-> > +       typea_con: usb-a-connector {
-> > +               compatible =3D "usb-a-connector";
-> > +               data-role =3D "host";
-> > +               label =3D "USB3 Type-A";
-> > +               power-role =3D "source";
-> > +               vbus-supply =3D <&vcc5v0_otg>;
-> > +       };
-> > +};
-> > +
-> > +&dp0 {
-> > +       pinctrl-names =3D "default";
-> > +       pinctrl-0 =3D <&dp0m0_pins>;
-> > +       status =3D "okay";
-> > +};
-> > +
-> > +&dp0_in {
-> > +       dp0_in_vp1: endpoint {
-> > +               remote-endpoint =3D <&vp1_out_dp0>;
-> > +       };
-> > +};
-> > +
-> > +&dp0_out {
-> > +       dp0_out_con: endpoint {
-> > +               remote-endpoint =3D <&lt8711uxd_in>;
-> > +       };
-> > +};
-> > +
-> > +&i2c1 {
-> > +       pinctrl-names =3D "default";
-> > +       pinctrl-0 =3D <&i2c1m4_xfer>;
-> > +       status =3D "okay";
-> > +};
-> > +
-> > +&i2c3 {
-> > +       pinctrl-names =3D "default";
-> > +       pinctrl-0 =3D <&i2c3m0_xfer>;
-> > +       status =3D "okay";
-> > +
-> > +       es8388: audio-codec@11 {
-> > +               compatible =3D "everest,es8388", "everest,es8328";
-> > +               reg =3D <0x11>;
-> > +               #sound-dai-cells =3D <0>;
-> > +               AVDD-supply =3D <&vcca_3v3_s0>;
-> > +               DVDD-supply =3D <&vcca_1v8_s0>;
-> > +               HPVDD-supply =3D <&vcca_3v3_s0>;
-> > +               PVDD-supply =3D <&vcca_1v8_s0>;
-> > +               assigned-clock-rates =3D <12288000>;
-> > +               assigned-clocks =3D <&cru I2S2_2CH_MCLKOUT>;
-> > +               clocks =3D <&cru I2S2_2CH_MCLKOUT>;
-> > +               pinctrl-names =3D "default";
-> > +               pinctrl-0 =3D <&i2s2m1_mclk>;
-> > +       };
-> > +};
-> > +
-> > +&i2c4 {
-> > +       pinctrl-names =3D "default";
-> > +       pinctrl-0 =3D <&i2c4m3_xfer>;
-> > +       status =3D "okay";
-> > +};
-> > +
-> > +&i2s2_2ch {
-> > +       pinctrl-0 =3D <&i2s2m1_lrck &i2s2m1_sclk
-> > +                    &i2s2m1_sdi &i2s2m1_sdo>;
-> > +       status =3D "okay";
-> > +};
-> > +
-> > +&package_thermal {
-> > +       polling-delay =3D <1000>;
-> > +
-> > +       cooling-maps {
-> > +               map0 {
-> > +                       trip =3D <&package_fan0>;
-> > +                       cooling-device =3D <&fan THERMAL_NO_LIMIT 1>;
-> > +               };
-> > +
-> > +               map1 {
-> > +                       trip =3D <&package_fan1>;
-> > +                       cooling-device =3D <&fan 2 THERMAL_NO_LIMIT>;
-> > +               };
-> > +       };
-> > +
-> > +       trips {
-> > +               package_fan0: package-fan0 {
-> > +                       hysteresis =3D <2000>;
-> > +                       temperature =3D <55000>;
-> > +                       type =3D "active";
-> > +               };
-> > +
-> > +               package_fan1: package-fan1 {
-> > +                       hysteresis =3D <2000>;
-> > +                       temperature =3D <65000>;
-> > +                       type =3D "active";
-> > +               };
-> > +       };
-> > +};
-> > +
-> > +/* NVMe */
-> > +&pcie2x1l1 {
-> > +       pinctrl-names =3D "default";
-> > +       pinctrl-0 =3D <&pcie2x1l1_rst &pcie30x1m1_1_clkreqn &pcie30x1m1=
-_1_waken>;
->
-> Is there a particular reason to use the GPIO mode for the reset pin,
-> rather than the (confusingly named) &pcie30x1m1_1_perstn in line with
-> the other two?
-There is no particular reason. rk3588-turing-rk1.dtsi is the only
-example in the kernel currently doing something similar, and it is
-implemented that way there. I agree that the naming is confusing. I
-will change it.
-
-> > +       reset-gpios =3D <&gpio4 RK_PA2 GPIO_ACTIVE_HIGH>;
-> > +       supports-clkreq;
-> > +       vpcie3v3-supply =3D <&vcc_3v3_s3>;
-> > +       status =3D "okay";
-> > +};
-> > +
-> > +/* NIC */
-> > +&pcie2x1l2 {
-> > +       pinctrl-names =3D "default";
-> > +       pinctrl-0 =3D <&pcie2x1l2_rst>;
->
-> Similar to the above - have you tried the dedicated hardware mode for
-> this pin, i.e. &pcie20x1m0_perstn? You are not requesting the
-> &pcie20x1m0_clkreqn or &pcie20x1m0_waken either, even though they are
-> routed on the board - that will probably bite you if you try
-> suspending the board.
-
-I have not, I also have not tried to suspend. Will adopt and test.
+Best regards,
+--=20
+Alexander Koskovich <akoskovich@pm.me>
 
 
-
-> > +       reset-gpios =3D <&gpio3 RK_PD1 GPIO_ACTIVE_HIGH>;
-> > +       vpcie3v3-supply =3D <&vcc3v3_phy1>;
-> > +       status =3D "okay";
-> > +};
-> > +
-> > +&pinctrl {
-> > +       bluetooth {
-> > +               bt_wake_gpio: bt-wake-pin {
-> > +                       rockchip,pins =3D <0 RK_PC6 RK_FUNC_GPIO &pcfg_=
-pull_none>;
->
-> If you care about power consumption of the board it's probably better
-> to pull this down to make sure the Bluetooth module is predictably in
-> a sleep state when not explicitly requested, not floating randomly.
-> There is no dedicated pull-up/pull-down on your board.
-
-Will do
-
-> > +               };
-> > +
-> > +               bt_wake_host_irq: bt-wake-host-irq {
-> > +                       rockchip,pins =3D <0 RK_PC5 RK_FUNC_GPIO &pcfg_=
-pull_down>;
-> > +               };
-> > +       };
-> > +
-> > +       dp {
-> > +               dp_bridge_en: dp-bridge-en {
-> > +                       rockchip,pins =3D <3 RK_PC2 RK_FUNC_GPIO &pcfg_=
-pull_none>;
->
-> This pin doesn't have any dedicated pull-up/pull-down on the board, so
-> you might end up in a weird power state for the period of time between
-> the probing of the pinctrl subsystem and regulators. Better set it to
-> &pcfg_pull_down, which matches the power-on-reset default state of
-> this pin.
-
-Will do
-
-> > +               };
-> > +       };
-> > +
-> > +       pcie {
-> > +               pcie2x1l1_rst: pcie2x1l1-rst {
-> > +                       rockchip,pins =3D <4 RK_PA2 RK_FUNC_GPIO &pcfg_=
-pull_none>;
-> > +               };
-> > +
-> > +               pcie2x1l2_rst: pcie2x1l2-rst {
-> > +                       rockchip,pins =3D <3 RK_PD1 RK_FUNC_GPIO &pcfg_=
-pull_none>;
-> > +               };
-> > +
-> > +               vcc3v3_phy1_en: vcc3v3-phy1-en {
->
-> The schematic calls this pin "Ethernet_EN", so perhaps use that in the
-> label and node name for easier reference.
-
-Will do
-
-> > +                       rockchip,pins =3D <3 RK_PB7 RK_FUNC_GPIO &pcfg_=
-pull_none>;
->
-> As above: no dedicated pull resistors on the board, better set to
-> &pcfg_pull_down in line with POR default.
-
-Will do
-
-> > +               };
-> > +       };
-> > +
-> > +       usb {
-> > +               vcc5v0_otg_en: vcc5v0-otg-en {
-> > +                       rockchip,pins =3D <0 RK_PC4 RK_FUNC_GPIO &pcfg_=
-pull_none>;
->
-> As above: no dedicated pull resistors on the board, better set to
-> &pcfg_pull_down in line with POR default.
-
-
-Will do
-
-> > +               };
-> > +       };
-> > +
-> > +       wlan {
-> > +               wifi_enable_h: wifi-enable-h {
-> > +                       rockchip,pins =3D <0 RK_PD0 RK_FUNC_GPIO &pcfg_=
-pull_none>;
->
-> As above: no dedicated pull resistors on the board, better set to
-> &pcfg_pull_down in line with POR default.
-
-will do
-
-> Best regards,
-> Alexey
-
-I appreciate the feedback
-
-Dennis
