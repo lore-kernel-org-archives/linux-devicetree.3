@@ -1,94 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from cornsilk.ash.relay.mailchannels.net (cornsilk.ash.relay.mailchannels.net [23.83.222.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 498C233F383;
-	Wed, 15 Apr 2026 16:26:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776270418; cv=none; b=mTc4/ZiHeddc5D6/a65WNCfJyaMa7CRTMC8mlERsxPb/KedaEb/AbSynCrde4EYZN/mQXvY+wJc14SH0V+Vasbk1ZhqAqlih+gyl1Tben5zYUioe0Cr77e6Xpo7zcHwW7CRvKlNbh3gPyo709JA8HvnXaDw/JbxyCbvw3W7z4yo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776270418; c=relaxed/simple;
-	bh=BYzXL7EXoBSE9Cg9BXgwRZ578kNkDROKHQt5UtCGWPM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XFUTsMrjitPOC6l4HBsuJL1l36VyhKaIEHc2MrOn+/WCb4HsJxla8V9iukpy1+Sa/A3UoA5ruNaQNFkj6IINORwHPLXLC47J6Xeix63ns+KPEg8dGLB6ZiUBpeYxlMLeI10qUGx3mnKF25a1T+H1V0L+/0O+RDU1GndcqRQlpqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cTfiGFWL; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 927073E3DA3;
+	Wed, 15 Apr 2026 16:39:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=23.83.222.40
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776271194; cv=pass; b=TZkN5gYkDj2m/pYUy2Sh0zYddGypDs3Rkltp1THfJPGzYNycjuyrbzClAd+9cyHlhQj/1wgxbXI8B66dTdZkIzcWKM4OMsuSf252L62dCSy4b0WVBfYUCYooSGtXSmJGKvVWH3ux6SOVYRBYRJlwgUENecj25qUoKUjooIcG044=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776271194; c=relaxed/simple;
+	bh=+WYzEfzLHubdqx0fWn2UBfsq+Ag4FeaKeCuT/+YGbX0=;
+	h=Message-ID:MIME-Version:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Date; b=HsRQK4GTsfQlMIMdRrolFA1yiISDqm3yICro5ZUf+NQIoKOsAs/K7y9/O4NE86j8+3IYN5MDd9++7HK9diApWdK/61/zn4JDj55dp+NK41N1+orc2/MOITFiCJL74Hnv52robnNPBE+i4iyQNlJZzWEEaFa24DGaqU82SZpGfRY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com; spf=pass smtp.mailfrom=smankusors.com; dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b=lDxBsPIa; arc=pass smtp.client-ip=23.83.222.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smankusors.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cTfiGFWL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDE0EC19424;
-	Wed, 15 Apr 2026 16:26:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776270418;
-	bh=BYzXL7EXoBSE9Cg9BXgwRZ578kNkDROKHQt5UtCGWPM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=cTfiGFWLlja7r4I9jgst2Mfoe+hTtPuDgENPqB2H7bsUqs7c9wInsoWgHHK+VXIyw
-	 9sNQSu/oDcUL/3K+VOOHXwHHg4Da7hXMdk/ugiuxn13E4n74RNtYduMwXDjwbkIwob
-	 t0zC5pRJwgWCi/Sq6WZu8zTKSLY04hX7jpeltbrDbviMQ47rBnlzwu3vCxbTSbr4o6
-	 NfezuBc+ULH8qG9yJ4KJVGee1rDRPAnnzXeLtz0lOtOGTg7OfFOAUxvVNBNcxxHKsl
-	 d+QY7Uey58GE6Hy1zpiWGy0DU/sEOuvQwzC0OPCGCDWBFrlji6GLkiLcCKPGW+Xmjr
-	 P8KqpWpeN1Twg==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 6258D1AC57F4; Wed, 15 Apr 2026 17:26:55 +0100 (BST)
-Date: Wed, 15 Apr 2026 17:26:55 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Valerio Setti <vsetti@baylibre.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH RFC v2 02/11] ASoC: meson: aiu-encoder-i2s: use gx_iface
- and gx_stream structures
-Message-ID: <ad-8T6DBOlZsqugY@sirena.co.uk>
-References: <20260411-audin-rfc-v2-0-4c8a6ec5fcab@baylibre.com>
- <20260411-audin-rfc-v2-2-4c8a6ec5fcab@baylibre.com>
- <58d1df89-7c97-4e2f-af15-93d1f7bce5a7@sirena.org.uk>
- <1jy0ios3f9.fsf@starbuckisacylon.baylibre.com>
+	dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b="lDxBsPIa"
+X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id 8EB828C2652;
+	Wed, 15 Apr 2026 15:20:55 +0000 (UTC)
+Received: from de-fra-smtpout6.hostinger.io (100-101-170-129.trex-nlb.outbound.svc.cluster.local [100.101.170.129])
+	(Authenticated sender: hostingeremail)
+	by relay.mailchannels.net (Postfix) with ESMTPA id 434C48C2A8E;
+	Wed, 15 Apr 2026 15:20:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; d=mailchannels.net; s=arc-2022; cv=none;
+	t=1776266455;
+	b=25uoSoFF+bgBpsv11KQWbuzMKn/yTm+5kCnDht78r1L3BXAmE3b9GS8bFnaVOxGpHmpBYC
+	gcIZJF/jp/Dfk6DBtRdP8dKuC1/CcBAwu+4WMXHq7SKyA2stwSidvXy2CS+U4jEdE28K8w
+	WJxoCR2jdXSRP8kYAPrfs/ZWRdsKnpEpjv8U0S4z5feXkbmE/TwNta8JZgVIHVxSUWxxUf
+	lM7r64D/jibMJkziTQJiRYGSzeNF7c+kF+haOjAmM/woyFi4ziDiYOroCQcSuzvyWM62JH
+	c7ND2J7JI71bus14tX/q8J8tywnt5t/OvFcn4T2MfkDaGWL0Bsd2LBUVosOfew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mailchannels.net;
+	s=arc-2022; t=1776266455;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:dkim-signature;
+	bh=snluGqQP7QMHLqXPP6DrgIlyfEWJ6ROQdbtKBxFTO2Y=;
+	b=W52wRAJOYDdFo0/mHk+wpvQ1o8hzpPkdyeo+YWJROHbztdTOpIrx+IZgBvWtt+6WSlz3Mg
+	AadPu/Yw8kdnp3JLMv+IuiNdIjtORoLf4QFVU0/7HmX/Jgqm5b2bxpghc8A1wytLFGkA8X
+	nvXVTmsXqJlosUfCJS6XeRz3nB8pID4UtApkMNuGdpXy8C3ufWNCGuC6dM+M9AdY17vXTw
+	B/51wA1S/QVudGT6FCEjMiW/WuthQmYsgqWqxNOijSSrK63poPATrScTt2HDmRUjRGgo8N
+	3QJgVJE/296lnWaHRucbKdPHH6qh9dOO4H43RH2KNsy2uf5t3yA3e+vsw0SvQQ==
+ARC-Authentication-Results: i=1;
+	rspamd-6c65dd77f-mhjtr;
+	auth=pass smtp.auth=hostingeremail smtp.mailfrom=linux@smankusors.com
+X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: hostingeremail|x-authuser|linux@smankusors.com
+X-MailChannels-Auth-Id: hostingeremail
+X-Rock-Name: 49e245f656abb596_1776266455365_3373235585
+X-MC-Loop-Signature: 1776266455365:2485615051
+X-MC-Ingress-Time: 1776266455365
+Received: from de-fra-smtpout6.hostinger.io (de-fra-smtpout6.hostinger.io
+ [148.222.55.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.101.170.129 (trex/7.1.5);
+	Wed, 15 Apr 2026 15:20:55 +0000
+Received: from [IPV6:2001:448a:c020:f0b:7534:ccf3:5094:fe03] (unknown [IPv6:2001:448a:c020:f0b:7534:ccf3:5094:fe03])
+	(Authenticated sender: linux@smankusors.com)
+	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4fwlG04vQNz40HV;
+	Wed, 15 Apr 2026 15:20:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smankusors.com;
+	s=hostingermail-a; t=1776266450;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=snluGqQP7QMHLqXPP6DrgIlyfEWJ6ROQdbtKBxFTO2Y=;
+	b=lDxBsPIaz3WmKHq3+z0Rw236HOJ3BVNVsgWlzPCIrhLnYS/L5dM3sS1YL+4kdOVN7Vj2qM
+	Ip/D2y7nABaMnQE6oUYh0JLn0rVjACWWyK5040JdMQZVngzFn17YzOERwb82MZ5o+3eft/
+	XaAetJEz/Ao7k1Lx0NT7AOJq62A09KUGoemrWf3kHi/LMzPY3m2HRwqbq0mhc9w7bjZEFB
+	uYDagVVQsLDCuUUyis64eyK+Fh0re7IERbxryHqnSk5p07mQa9k+pGA8SJ/WPuYpeJxP4k
+	JSznJwyTZdqFYTBJuc0otxJwVbd/ovbv0WDtJ33jhQSF5FWWFMjZUV1LB1ksHg==
+Message-ID: <71751331-651d-43aa-b30f-135cc62e8915@smankusors.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="SGdE9JS1qidC2+vp"
-Content-Disposition: inline
-In-Reply-To: <1jy0ios3f9.fsf@starbuckisacylon.baylibre.com>
-X-Cookie: Victory uber allies!
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 03/10] mfd: qcom_rpm: add msm8960 QDSS clock resource
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
+ Rudraksha Gupta <guptarud@gmail.com>
+References: <20260414-msm8960-wifi-v1-0-007fda9d6134@smankusors.com>
+ <20260414-msm8960-wifi-v1-3-007fda9d6134@smankusors.com>
+ <c63abc0e-e060-4825-b595-a46ddf262673@oss.qualcomm.com>
+ <caa589af-f026-4664-8fb9-6b23b0e087f9@oss.qualcomm.com>
+Content-Language: en-US
+From: Antony Kurniawan Soemardi <linux@smankusors.com>
+In-Reply-To: <caa589af-f026-4664-8fb9-6b23b0e087f9@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Wed, 15 Apr 2026 15:20:40 +0000 (UTC)
+X-CM-Analysis: v=2.4 cv=etGNzZpX c=1 sm=1 tr=0 ts=69dfacd2 a=/xj++nRiCg+rJg+YP4cClA==:617 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=wxLWbCv9AAAA:8 a=wsXp2s140FDuPjEIReEA:9 a=QEXdDO2ut3YA:10 a=QJY96suAAestDpCc5Gi9:22
+X-CM-Envelope: MS4xfNIe7XyNq1kUinlkmwTHbt5KeWqtEuq1Q1faRjAiSSBpKIf8XSL2Ucsux3PV3Rya+8jnz333aC8v7iMw8BS8P6lySqoey5AAy2kDxYdA4u8++ZyNUN1a Kw3EIFfDeAw3c5j60LzBjSx5y0xVh+GK5o6qgeNv8AWtRblCx2DBt4PR7Wq/ijWjYbbEsQGfiqwJDpajrPS4+diJ7YCxklm9UYYOUwhWEckPCTSTb5moBmc1 4WigMbyLT2eqH3xTxqbBFk6l2Xid+tOXDF/kn7trUJ8xbNI6ygvB6RuBV9vPcgj1c1iNAnyH2aHN49CaAEWrq+2uuO9Kt5yQdvBtKFidY0dGRwEVTH4q4jsG hhbu4NuemvwjPTtlffADfw/9yLK312u9ZHcTz7zsPqiqlNApg2PRQNDo7E0pqlnxKr9xT/WaiPmGgXvQMMVCb1umvloJD0fPRdPiTd2UVGKF1J/FfSQm6cI+ M69T9LxlDCLHGOnkASkZ/1S21eWaBe5DGgJDuUc8UBzzXv0HWtB55XglWXclpXMH8AMGr2ByyjWhPjSPa25ki0Tj3dOJSuQm3vmNXkXDogkDgl7IE0LWhZnT kGg4jPr3EYOoFgoe06MwyJnFaTxoF18ftlRtevoygIwexuN4ZwtPQRYxHLeLeY49yDXyTYI/QhOkTLmaGjTYOfOXH6nIm8qCaNzbNag9c0xJEslInCOFzyvG bU3JZSCpYjTHAgbbkFl3tl9BjQsqIVGchpM5Zqx/JeAATog9VFTEgJiF/NM+sGoZYK2xo+l1UYX5rUmuc/vaOwBCY+cxfAWm
+X-AuthUser: linux@smankusors.com
 
+On 4/14/2026 3:07 PM, Konrad Dybcio wrote:
+> On 4/14/26 10:06 AM, Konrad Dybcio wrote:
+>> On 4/13/26 8:55 PM, Antony Kurniawan Soemardi via B4 Relay wrote:
+>>> From: Antony Kurniawan Soemardi <linux@smankusors.com>
+>>>
+>>> msm8960 uses the same clock descriptor as apq8064 but lacked the
+>>
+>> This doesn't quite seem to be the case, some fields differ and
+>> apq8064 additionally has:
+>>
+>> QCOM_RPM_PM8821_SMPS1
+>> QCOM_RPM_PM8821_SMPS2
+>> QCOM_RPM_PM8821_LDO1
+>> QCOM_RPM_VDDMIN_GPIO
+> 
+> Ah hmm, the MFD driver seems to provide *all* RPM resources..
 
---SGdE9JS1qidC2+vp
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+What I meant by "clock descriptor" in the commit message was
+specifically the subset corresponding to RPM managed clocks. From what I
+can tell based on downstream code, msm8960 and apq8064 seem to share the
+same set of RPM clocks, even though the overall resource lists differ.
 
-On Wed, Apr 15, 2026 at 04:28:58PM +0200, Jerome Brunet wrote:
+Is that understanding correct?
 
-> Valerio maybe you could keep function above just to set the rate, but
-> enabling the clocks through a DAPM supply widget ? This is kind of what
-> the AXG is doing.
-
-> what do you think ?
-
-FWIW this seems like a sensible plan to me.
-
---SGdE9JS1qidC2+vp
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnfvE4ACgkQJNaLcl1U
-h9Albwf8C0uE0EV4cFI4KJmG+Ojdhsq1MoR+wvBa2cUsXsaFOISw5Ifsm0FVdTMr
-ughkOmRGGsuvL+VIk74psmVagEFIYB3VkFVaZAlocG3/W6WZ8cc23BdvvFZL65Ks
-iCRE0QGEVyfNgfHIw2QLB1zeY4YJtvC/3SVWIF1dJo3gYiU/X/ElcKvReL/1sQ/Q
-VGhMgICik63g3aNAtMWh9k2OUy6CeHjQABUW0NV73Mgfmp3pF+TjOi/kz1j+Q/sD
-blJmyTc+TGvApNRwwthc5/Y9ibmzbMXFMZOSc6ZOohsIH6oOzyj/j1yI5lbSM8eR
-M5NWn6fI0JrxBUlLFquYldpMyWeqOw==
-=9wNW
------END PGP SIGNATURE-----
-
---SGdE9JS1qidC2+vp--
+-- 
+Thanks,
+Antony K. S.
