@@ -1,216 +1,137 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63B4D3290A6;
-	Wed, 15 Apr 2026 14:57:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95C202EDD62;
+	Wed, 15 Apr 2026 15:01:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776265029; cv=none; b=tLmfw3JttcZZhZCaLR1HdCO55o0j86nf0HIQZJOOMZn1EDdM8cLSoTafa2AcXp2JdlctyTNEJrBeRTmB03NCKk5eXb27recVWOCSJDJDgDipJ87v7OxfTA1UvxsVte5xxM/W+spkx2jZ7qMImYSUJ/iRKohzjyrClHR52S+HxvA=
+	t=1776265268; cv=none; b=dzA44ZOEV/swDYYl+OQk0/ohzerAZ073xU0Tac+UD8CEPc8gqty5UXBEXd9yqzCxrGcUrAMauJ/NdSQz20xrQaZVYuhH5X9rKWDNzO69YEfj+VFO4djgr3EZEQny65fvxQbgA5NwDWjqiiSFQu1lTh9CdqSnrlKaMC9brVxpJVk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776265029; c=relaxed/simple;
-	bh=1S2kdSoru/ifNvwgwwUu/EShTTtvBQkznTzuC20u86I=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dKd6O9rUDcbdDc4wOwby9ZSxZ/4rBKBKFVqVwXF7FQ49NrLQK0wCZpn7Eeiqom/LVRJlYC5wuPfS4hAxA4VjfWHCh74fPnqB6k7OvoAarGOu4K0NlaE/j805XEbBzKQP+8U6LIeePkEDNjVjxZ6f2kzodDyZNh7lK/jO6Oo36W8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=odMVGQ2n; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1776265268; c=relaxed/simple;
+	bh=BkVPFcAIuT9ItmchTe1dNaR4kZ/g7siiF/QjERIMqmo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jkbJTm3Y1A/NEtp/4MN2LFCV51lNwE30OieE/Wznj2MeS8Z9BoYUVmKvx+dKappag/iDTEI80cacjXqI+987wqMmKRFmp7i43HuaiRH/Nnoo0WESh46e6s3EtlDu6viamY/eeUhaJXUZL1/gN2XjwRhNaduI4dCWS3zkTfwDv9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I2icnaHq; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="odMVGQ2n"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id B7C594E429FE;
-	Wed, 15 Apr 2026 14:57:05 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 7D7B360420;
-	Wed, 15 Apr 2026 14:57:05 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A90DA10459FC4;
-	Wed, 15 Apr 2026 16:56:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1776265023; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=wNrWnquhsR0dlE0WJjRS5Whb5Pw+B2YUuFT6hABZVPw=;
-	b=odMVGQ2nxDTLW1G3zgpTCupAd+WE2qFmsXEHoMqdccBJm6+seTVkYni4wkvFut2s/DTE9G
-	rQgJl0iu49WoTtlt1D/ZKPek9XtvZcEmNB9JnLU3j86MKSmxk0y1H4eOFoLP4pJQsWK0+w
-	LDUa2pRoeccJ5yO0iFUiIEbEnbUiIajUOclrFN+JeJ62x/Xy4nqUEFN9xkXGH+zLdqVXtx
-	kehs4bdgRvsag91OXjg4XIBY8DTEtrZvQr4puEi8w9yA6S832dhmPp7KfxTskDf4t6OHwQ
-	pnPSy6MjhtDRs2iRsgVjZI0ToOQtgYM1i8qxDLRKg3x0iefOJqJW241JPYnlmg==
-Date: Wed, 15 Apr 2026 16:56:51 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Manivannan
- Sadhasivam <mani@kernel.org>, Manivannan Sadhasivam
- <manivannan.sadhasivam@oss.qualcomm.com>, Rob Herring <robh@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
- <jirislaby@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Nicolas
- Schier <nicolas.schier@linux.dev>, Hans de Goede <hansg@kernel.org>, Ilpo
- =?UTF-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Mark Pearson
- <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto
- von Dentz <luiz.dentz@gmail.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
- Bartosz Golaszewski <brgl@kernel.org>, linux-serial@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, linux-pci@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-bluetooth@vger.kernel.org, linux-pm@vger.kernel.org, Stephan Gerhold
- <stephan.gerhold@linaro.org>, Dmitry Baryshkov
- <dmitry.baryshkov@oss.qualcomm.com>, linux-acpi@vger.kernel.org, Hans de
- Goede <johannes.goede@oss.qualcomm.com>, Bartosz Golaszewski
- <bartosz.golaszewski@oss.qualcomm.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v7 0/8] Add support for handling PCIe M.2 Key E
- connectors in devicetree
-Message-ID: <20260415165651.153b573d@bootlin.com>
-In-Reply-To: <CAGXv+5EPA29G-fsH=wWOD8AK6TZFezFhsE0NHPYj_Pt3nT+d_w@mail.gmail.com>
-References: <20260326-pci-m2-e-v7-0-43324a7866e6@oss.qualcomm.com>
-	<20260413075459.GA2626902@google.com>
-	<fpcs4p62f35a5qyqwgm5ysa73stbysxcr62tkmmkrrcvsuf4t4@4ivukyqjey57>
-	<eeytuhqpgdz4do4tgtbmfntub2femtyq7bij7svhodpyjwaylx@j3gmvq2a2zqc>
-	<CAGXv+5E=tujhtZjwi6Qm7hk3Ks74UzTQHWq82NiTEw1+vYod5g@mail.gmail.com>
-	<ad36pIu-0dutL7Nk@ashevche-desk.local>
-	<CAGXv+5EGe59nJctLweEdZjb3MNmMvjuCHngGSfptzN985OiLdg@mail.gmail.com>
-	<ad4tJN27opdEooA7@ashevche-desk.local>
-	<CAGXv+5EPA29G-fsH=wWOD8AK6TZFezFhsE0NHPYj_Pt3nT+d_w@mail.gmail.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I2icnaHq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E383C19424;
+	Wed, 15 Apr 2026 15:01:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776265268;
+	bh=BkVPFcAIuT9ItmchTe1dNaR4kZ/g7siiF/QjERIMqmo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=I2icnaHqjp0xdrxXzB5xuSUu42KVP25gMmFYjCNm3a7Il6RLNqqR4teE4IRbeTWux
+	 R2QKNaX3I8+yq0oAALvxJCB0wo4K+CdctFhzDSXAWdva6SV5s8ZaEd0+3SvBvqAn7D
+	 HOOSpuVOmo6/c12itOJBTlTK1Bhib/A2tKFd3C4Lg0lowNiZAFKYXj/gcTuZRs1VL2
+	 7VH0ORDi9Q46fIAGgVuwnHQLYcjI0QVgWfvUuKLRQUMa01TSqXnPlvblNLU6WEZY/a
+	 lgi+8CB/ZhGhP/cq25p/cbCWKuDfbO9yLbixAlYx13lcjovMcPV+AORNGI7vt8z9p3
+	 L1oZZqzol+J8A==
+Date: Wed, 15 Apr 2026 16:01:03 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+Cc: linux-kernel@vger.kernel.org, git@amd.com, shubhrajyoti.datta@gmail.com,
+	Srinivas Neeli <srinivas.neeli@amd.com>,
+	Michal Simek <michal.simek@amd.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 2/3] dt-bindings: gpio: Add EIO GPIO compatible to
+ gpio-zynq
+Message-ID: <20260415-rectal-visible-a8ccb534a176@spud>
+References: <20260415105628.957689-1-shubhrajyoti.datta@amd.com>
+ <20260415105628.957689-3-shubhrajyoti.datta@amd.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
-
-Hi Chen, all,
-
-...
- 
-> 
-> I'm not arguing for a even more generic "M.2" connector. The "key" is
-> already described in the compatible. I'm saying we should have some way
-> of describing the individual interfaces (PCIe, SDIO, USB, UART, I2S, I2C)
-> on the connector so further nodes or properties can be attached to them,
-> either with overlays or dynamically within the kernel. Right now the
-> are only described as individual ports, but we can't actually tie a
-> device to a OF graph port.
-> 
-> But maybe I'm overthinking the representation part. AFAICT for Qualcomm's
-> UART-based BT bit part, Mani just had the driver create a device node
-> under the UART (by traversing the OF graph to find the UART). If that's
-> the desired way then the connector binding should mention it. And that
-> works for me. But I think it's messier and also we're missing an
-> opportunity to make the M.2 connector a standardized attachment point
-> for overlays.
-> 
-> Mani, could you also chime in a bit on what you envisioned?
-> 
-> (Added Luca from Bootlin to CC, as I think there are parallels to the
->  "Hotplug of Non-discoverable Hardware" work)
->
-
-Related to "Hotplug of Non-discoverable Hardware",
-
-I would add entries for busses in the connector without using an OF graph.
-
-For I2C and later SPI, this was is done.
-
-You already have an i2c-parent property but no node where an i2c device
-can be added.
-
-The last discussion related to hotplug, connectors and DT led to the RFC
-series [1].
-
-It is a huge series. The last patch give a real example of representation:
-  https://lore.kernel.org/all/20260112142009.1006236-78-herve.codina@bootlin.com/
-
-In your case I would see some thing like:
-
-    connector {
-        compatible = "pcie-m2-e-connector";
-        vpcie3v3-supply = <&vreg_wcn_3p3>;
-        vpcie1v8-supply = <&vreg_l15b_1p8>;
-
-	/*
-	 * If those GPIOs have to be used by components available in
-	 * the connected board, a Nexus node should be used.
-         */
-        w-disable1-gpios = <&tlmm 115 GPIO_ACTIVE_LOW>;
-        w-disable2-gpios = <&tlmm 116 GPIO_ACTIVE_LOW>;
-        viocfg-gpios = <&tlmm 117 GPIO_ACTIVE_HIGH>;
-        uart-wake-gpios = <&tlmm 118 GPIO_ACTIVE_LOW>;
-        sdio-wake-gpios = <&tlmm 119 GPIO_ACTIVE_LOW>;
-        sdio-reset-gpios = <&tlmm 120 GPIO_ACTIVE_LOW>;
-
-	conn-i2c {
-		i2c-parent = <&i2c0>;
-
-		/*
- 		 * Here i2c devices available on the board
-		 * connected to the connector can be described.
-		 */
-	};
-
-	/* Same kind to description for other busses */
-	conn-pcie {
-		pci-parent = <&xxxxx>;
-
-		/*
-		 * The PCIe bus has abilities to discover devices.
-		 * Not sure this node is needed.
-		 *
-		 * If a PCI device need a DT description to describe
-		 * stuffs behind the device, what has been done for LAN966x
-		 * could be re-used [2] and [3]
-		 */
-	};
-
-	conn_uart {
-		uart-parent = <&uart-ctrl>;
-
-		/* uart child (maybe a serdes) should be describe here
-	};
-
-	...
-    };
-
-Of course, some DT symbols need to be exported in order to have them usable from
-the DT describing the connected board.
-
-This notion of exported symbol is not yet available upstream and is the purpose of
-the RFC series [1].
-
-[1] https://lore.kernel.org/all/20260112142009.1006236-1-herve.codina@bootlin.com/
-[2] https://elixir.bootlin.com/linux/v7.0/source/drivers/misc/lan966x_pci.c
-[3] https://elixir.bootlin.com/linux/v7.0/source/drivers/misc/lan966x_pci.dtso
-
-Feel free to ask for more specific question if needed.
-
-Best regards,
-Hervé
-
-> 
-> Thanks
-> ChenYu
-> 
-> 
-> > > The latter part is solvable, but we likely need child nodes under the
-> > > connector for the different interfaces. Properties that make sense for
-> > > one type might not make sense for another.
-> > >
-> > > P.S. We could also just add child device nodes under the controller to
-> > > put the generic properties, but that's splitting the description into
-> > > multiple parts. Let's not go there if at all possible.  
-> >
-> > --
-> > With Best Regards,
-> > Andy Shevchenko
-> >
-> >  
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fmNPlvI7e/DqiZwD"
+Content-Disposition: inline
+In-Reply-To: <20260415105628.957689-3-shubhrajyoti.datta@amd.com>
 
 
+--fmNPlvI7e/DqiZwD
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
--- 
-Hervé Codina, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+On Wed, Apr 15, 2026 at 04:26:27PM +0530, Shubhrajyoti Datta wrote:
+> EIO (Extended IO) is a GPIO block found on xa2ve3288 silicon..
+
+
+Why does the compatible have a "1.0" when it is in silicon?
+Why doesn't the compatible contain "xa2ve3288"?
+Why is this device not compatible with existing ones, since
+gpio-lines-names appears to be the sole difference?
+
+>=20
+> Signed-off-by: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+> ---
+>=20
+> Changes in v2:
+> - Add description of EIO block in the dt-bindings patch
+>=20
+>  .../devicetree/bindings/gpio/gpio-zynq.yaml        | 14 +++++++++++++-
+>  1 file changed, 13 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/gpio/gpio-zynq.yaml b/Docu=
+mentation/devicetree/bindings/gpio/gpio-zynq.yaml
+> index 30a7f836c341..1ca067217509 100644
+> --- a/Documentation/devicetree/bindings/gpio/gpio-zynq.yaml
+> +++ b/Documentation/devicetree/bindings/gpio/gpio-zynq.yaml
+> @@ -12,6 +12,7 @@ maintainers:
+>  properties:
+>    compatible:
+>      enum:
+> +      - xlnx,eio-gpio-1.0
+>        - xlnx,pmc-gpio-1.0
+>        - xlnx,versal-gpio-1.0
+>        - xlnx,zynq-gpio-1.0
+> @@ -30,7 +31,7 @@ properties:
+> =20
+>    gpio-line-names:
+>      description: strings describing the names of each gpio line
+> -    minItems: 58
+> +    minItems: 52
+>      maxItems: 174
+> =20
+>    interrupt-controller: true
+> @@ -89,6 +90,17 @@ allOf:
+>            minItems: 116
+>            maxItems: 116
+> =20
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          enum:
+> +            - xlnx,eio-gpio-1.0
+> +    then:
+> +      properties:
+> +        gpio-line-names:
+> +          minItems: 52
+> +          maxItems: 52
+> +
+>  required:
+>    - compatible
+>    - reg
+> --=20
+> 2.34.1
+>=20
+
+--fmNPlvI7e/DqiZwD
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCad+oLwAKCRB4tDGHoIJi
+0kH6AP4zWEn75f2KqDah6ah38m6Ed/q3Z94RTDr52QeRGt4XVgEAzjDeYo1oCmhR
+rMEPeV6W7EqbJr5PlW6vW0H+f+vtoQs=
+=vZwx
+-----END PGP SIGNATURE-----
+
+--fmNPlvI7e/DqiZwD--
