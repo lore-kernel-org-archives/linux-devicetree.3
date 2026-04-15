@@ -1,207 +1,103 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010002.outbound.protection.outlook.com [52.101.69.2])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 890DC3446B0;
-	Wed, 15 Apr 2026 03:45:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776224730; cv=fail; b=S5U6lWsL23gh6rQeFUUKnOmj3WfPp56AUbGRz4gz94VzsMWLiO+KAW1fN9Z94Kx1j7C1Cl7wniHNWnb3VtHp/CF7eDDRGhdIsxZ80WXQ/Oc3j7eMg4tmb8/9pb1yBm68b97PbdsbZWiin2c/1yCRzfNeqLv1aBzysTcBaavb9rw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776224730; c=relaxed/simple;
-	bh=SzU6raMOa0mSv73RqOMRVYyGZk3FoNzxJmFGlUqdg8E=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=X+NnTzSR27oPXod13o6KFsdu+g8wAutDNwaalPFRTgcSsyXxVJcVvBR2mui+TFFHZ/4FytNC6yQ+naE9UR5eJIDIFy/VIUXurWskW6Oy8ATpNQLmhTeVARn6T2muOGKx50PtGT4BmD269ruByw9X92b5HkkaioHRza2YXWZIvxc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=khDidVJX; arc=fail smtp.client-ip=52.101.69.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 829251F2380;
+	Wed, 15 Apr 2026 04:52:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776228771; cv=none; b=GmA1XOvDphH0/JSYaXLLWZdXEluldsvSQYlKyQCxNFr++NLu8BOy63Eu/zHS0FxaX0LYeV19lNHiEniH592sYLKgx+AyNlRMMw86NpfjeO6as4g/o8aBdmVn7u+JZU1xq+hoMFTHxU80osV/TUp0P6aSeizdCyD6NMckyvYq72Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776228771; c=relaxed/simple;
+	bh=wE54XjqV/Mc+zVuNbW4dmvSFEl+O6H8mzJLili8gt8A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=vFMjzKzVjgXTz7kNEAbvsW355A03q2mu7/MD25ZtUnl2sK4arGWlo0VovufUYnmU3FXmHhIc0In/HBuSh+zTaWhs+yZd0C7ttgCi8BQrw0Rq+N6zmq70+ICbi7CmDHHlmWBeGyNoiYObGeYFeNn+q+hWyVoZL+n9jJnwD9i4y5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=B01rwa4w; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="khDidVJX"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yuVc2ixSTiCYKaz/+pO34hOHMfkr2lWits0326mj88VVmNDSfLQo5C98yKjB5azA+NxsuRoCuHkJwDCaMMlFWz/8NG29FMb0ekbmqmBk8Oiu3F+wuOtMkNB568lcUZZjwT1/CE3p1Rd+hZWfMKESG5kXpOrVqKDcEeSglViydoKRJuqCs0CckKitn1ApENuY356ZUZdvRxfQB4DpUjD1f5KgEJlwjHjlaWQnb0GY5xBdm/uvEgs42E6RXGZjeD/cmg4EPPptFm3dXeAJed9KIMa5o5++9kuvRfD5VdhDgZNJQQB0iss7A9m4UnOvtlvKDTyxJqJwCnYEu77aVrHCNw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lG/qLPv3am3Fh8QjgwrpLXDTuzCICbq1mCJfU8hICvU=;
- b=L5WGDcWRLAXmqwzLh8TOEAMMMVBXKey90inRfpKjC+CwhKa9xgZbKmWgmv4e0Wwaz/AuCjuTrYYOxh8A1/lqcq/fx4LMFn5we9lDZqW2ixRiESREgonz6dggJ6C2DCsj4mWNFQ7HIjd//9BRjHxbYM+QBwAml3y3uXFVUBd43NttxCnfS4oegIOxwnDorYK3OQ2dyJRPbBtMPypjcCEz57X8Vn+Z2sTssbzr3HucrcU7jf0H0J4WIbcYgXM4fwNlXyaFaQcV259KI9OupJp0KfWylZVmhxzzU299FSJ6qqPHXC6tcPPryYSAtBS9q+XKrvlyzOSCYrjNhp+8+7QTfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lG/qLPv3am3Fh8QjgwrpLXDTuzCICbq1mCJfU8hICvU=;
- b=khDidVJX9D9sBRs4XEp/K68QxNhmD4OK2F/fnlX3hB3N7zk6WJliKbanOfXo4BQrtefkYHAYY+0nHwHwUM2Ei/mvbLdxdAP1mII4Q2L9dxMb1LlUbc4c/Hwh3QwmvHC6bggPGaQWKD0yRiC/hSLJyJgt3DoHtSrkkvwbkedc8KvCJBy9yknMGoyDnuI3IXanNpaGXEKOyIzxOSBtkXHaERtyT21pGt2hPrMZFBUKbk58S+mQR+TFwxnbxeXoEhBK6LuCg7KCYd+1H4lRNAGLwKlqSv2lxtqYhNciFC1W3dOEukBUJxNNd5OdzxDYrhKLy6+7nin9M5swFhvEK1Ydzw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from DU2PR04MB9081.eurprd04.prod.outlook.com (2603:10a6:10:2f0::13)
- by AS8PR04MB8785.eurprd04.prod.outlook.com (2603:10a6:20b:42c::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Wed, 15 Apr
- 2026 03:45:04 +0000
-Received: from DU2PR04MB9081.eurprd04.prod.outlook.com
- ([fe80::b025:f7ce:2cc:9e5e]) by DU2PR04MB9081.eurprd04.prod.outlook.com
- ([fe80::b025:f7ce:2cc:9e5e%5]) with mapi id 15.20.9769.046; Wed, 15 Apr 2026
- 03:45:04 +0000
-From: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-Date: Wed, 15 Apr 2026 11:46:56 +0800
-Subject: [PATCH 5/5] media: synopsys: Add support for i.MX95
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260415-csi2_imx95-v1-5-7d63f3508719@oss.nxp.com>
-References: <20260415-csi2_imx95-v1-0-7d63f3508719@oss.nxp.com>
-In-Reply-To: <20260415-csi2_imx95-v1-0-7d63f3508719@oss.nxp.com>
-To: Michael Riesch <michael.riesch@collabora.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Frank Li <Frank.Li@nxp.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776224832; l=2243;
- i=guoniu.zhou@oss.nxp.com; s=20250815; h=from:subject:message-id;
- bh=SzU6raMOa0mSv73RqOMRVYyGZk3FoNzxJmFGlUqdg8E=;
- b=E0wp+fYoxJdSP7P5yBZ6Rn8YkQJtEeM/7Fnct8WQlK3yu7vjm6JMbF6ivgJpwK1dHYZP0Jdjv
- YfCqWoI4teGDBRefOH5TxJ+jDqBt21oi4fF79ORCdPtGItUbBvkdCFV
-X-Developer-Key: i=guoniu.zhou@oss.nxp.com; a=ed25519;
- pk=MM+/XICg5S78/gs+f9wtGP6yIvkyjTdZwfaxXeu5rlo=
-X-ClientProxiedBy: MA5P287CA0181.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1b6::8) To DU2PR04MB9081.eurprd04.prod.outlook.com
- (2603:10a6:10:2f0::13)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="B01rwa4w"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1776228770; x=1807764770;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=wE54XjqV/Mc+zVuNbW4dmvSFEl+O6H8mzJLili8gt8A=;
+  b=B01rwa4wQSD7qkqcBQTSrjoZlxADXe/fIudzQaxv7lUzco6Az3xhiR92
+   RH8p65fQaDmG6fxaU8g1o/eJebiNak2uQsiT+nF5ZY78FTrISFElZ3C/o
+   uPJyRb4ojXPsEZO/n4FY+P5IgCYzyUKJ+PuPeiHYi6J7CmAODAsunkNFc
+   MxV8ENPjB1i6Idd8t2GTB+SkImpnyy6jgSGrRTxb31L6IAkqefXDar77e
+   QcQlR5GFloStmchQfzfa/lrdVGHNQVD9nMSCZgh673dOk7tI6CsZ1t2+x
+   52dRuyYYfr6OU7lpNJEzAO0cZFS6ueO6sokdbJazWycZnXy/qwgtD0GGe
+   A==;
+X-CSE-ConnectionGUID: mY+Fqw5KTCKV5JojZHjxZw==
+X-CSE-MsgGUID: 1ZVbRtdUSJ6nVgeFmC84uA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11759"; a="88578476"
+X-IronPort-AV: E=Sophos;i="6.23,179,1770624000"; 
+   d="scan'208";a="88578476"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Apr 2026 21:52:49 -0700
+X-CSE-ConnectionGUID: OsfhTPXvR5uTKLN7asx5+w==
+X-CSE-MsgGUID: 8xxbdzCjSCOYaFK3TnYcwQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,179,1770624000"; 
+   d="scan'208";a="225601433"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost) ([10.245.244.34])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Apr 2026 21:52:47 -0700
+Date: Wed, 15 Apr 2026 07:52:44 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: "Torreno, Alexis Czezar" <AlexisCzezar.Torreno@analog.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	"Hennerich, Michael" <Michael.Hennerich@analog.com>,
+	David Lechner <dlechner@baylibre.com>,
+	"Sa, Nuno" <Nuno.Sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v7 2/2] iio: dac: ad5706r: Add support for AD5706R DAC
+Message-ID: <ad8ZnOZ_mmx5I6BZ@ashevche-desk.local>
+References: <20260410-dev_ad5706r-v7-0-af93a4caa186@analog.com>
+ <20260410-dev_ad5706r-v7-2-af93a4caa186@analog.com>
+ <20260414195400.60d39158@jic23-huawei>
+ <PH0PR03MB6351E875581B45ED279785D0F1222@PH0PR03MB6351.namprd03.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB9081:EE_|AS8PR04MB8785:EE_
-X-MS-Office365-Filtering-Correlation-Id: cd668df2-2332-4c11-dedb-08de9aa16127
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|376014|7416014|52116014|19092799006|366016|1800799024|38350700014|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
- 0bW6UW880VfZTVmnQw+nT2txEOfzdjixfCqBqgwLc2IXszPGAd56Vx0GBR03VT5cq9aCNnnwh1UBaKFPCaOvnWkZU4V1yJHpcniS+gUsYq3fmpOSAq0ZLwwQ77yfvIVs9aCZkn/hV44DlLpD0l9Xidvh4Vk22dPgItWnKrkEDwsqN4fK3fXd9HbJLT8ePSWTpUnQJoNIfvM2RC9tbhuxSYncxulLBBNSzwV72cKjYUNwlZUIDPXy92j9AiWzw2u6huto4pRqG7tmJUDhnZcHer32XKu4h8xlh/ReYawYL8OIFZ5QrVnliieZm2JduJ7z2cmjw8MJE2zY/Gs5JV136nXW+YjZDjWBSefeKLf3rZZGozpc/np1EIoEINIh43Adg921xu60ZO1tvy7AjrMe/Zh6fX851LATIs9J6XHRo/SXe/8pOh39iNqwg1XX1RCkaCNM30DiiyLwvazaSKQII+dW/5c7aOXPQU5QbJLiroS15asX4YRedo4wZHcUrDR5CBkMomHW487DAJsxKWlgH8d29R6DyNkbnhpIRxK7TE3nx3nCxFBeL8UdNmWqGcf59oaDnmZNO05sjqikSggF/KAUmOEfWXuqSeOrraZm3ZNIf5Tk0lC7Jgic8mzphyqXYZfKfbLLdzisZx/W+KUpLi4VJ2cUlf5stYrhpsslrbtItRklXgL55okmAd80s8Lbhob8Z58do4MNPKfNDk0dFFPS/H7kynwI9KdPkc6cAH8LG0R36RT6QJzGrgM2YSR8M2cRZ5z6bBJdy5RHlezZRaetTLNEbMZaEo0uMmcue+I=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB9081.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(52116014)(19092799006)(366016)(1800799024)(38350700014)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?K29oR2JNSk1kWlFFT3hUVFBzZXdwYThsZHU5a0svN0hqR2Qza2syRWJzUU9z?=
- =?utf-8?B?Zks0djZtdjFqQndLN1VMbDVqUTlzQ1l2enNoNzYxMndQekpHMVNmWVpSU2NO?=
- =?utf-8?B?R09uY010dEVGWXNLa3d0Uk9aNENRWS8wcXJEWVZjWU9oQm41MjhHWjdXYmZQ?=
- =?utf-8?B?VHNZc2l6NkY3dGgva3dERHRKL3UrRlFqdUFHMXJtdEl2UGtKM2ZHS2xWdGp4?=
- =?utf-8?B?NFJnN0ZJSDJ6VHc1MEtMUGJvbWd5MFVqWXB5VjFTdm4zV2h5aktpVWZ5WitP?=
- =?utf-8?B?REJNUlgzVDkyN0d5YTRtRGdJR3VwU091TTM3SndWbHdsemVhZ2hqWWtreFJ1?=
- =?utf-8?B?bGcwTEE0OURuaWIxa3R6M3VlanB3VlB2Wi9jeStNOUpJQzdlVk9tVmlyT3Nx?=
- =?utf-8?B?bkRzMG5INXJ3NW5mV1FUN1o5YjlVZ0pnbDRBMWEyTnU0eHA1QXFGZE14bzIx?=
- =?utf-8?B?S3BjQWUvQXB0dkYrQzFhVW1DU0dtditoWWNTNXdXK0lWZmMrUjhzVTEwaWFw?=
- =?utf-8?B?WTNxL0NGVWdWU1JmTzdZN290VXhWVXVBQkFFNXFqU21tZFRycVlVT3pmR01P?=
- =?utf-8?B?bVVXeCtvVE5rdjdBd1BLeWxKZmRWNlZFbkpuQkFTck5US1FJcVFETGYwTXVn?=
- =?utf-8?B?Mk5DYmZvR1JqMzEvOVFTREZ2NVo0RDBjeG1YckJzUlFqMTIrSkpYTWJsUkJD?=
- =?utf-8?B?a1puVk1obE1oMVZnVUZlNFpUa0ZrTy9va3JIWEdNMmRYejJubG1GM2s3Z2l0?=
- =?utf-8?B?U29YaWRjSFlxNWRKeDBIZk1ySlZ5aEY0d1VFbkUwaHdnT1RlN1Rla2xiWWlX?=
- =?utf-8?B?MmdwdGNyR1ljNVBxOWRhTXhoNUUzblZ0ZnRQVE5tMnpFNmJPU0hvN2lkWVdI?=
- =?utf-8?B?ck1OSTBaSTZDWVgyYS9iczN5dXNaT2tiZ202dHhIQ3ZPTHBaZ08xZjdTaTlX?=
- =?utf-8?B?Z3pMazNXU1pFY3hVL0JhZTZjUmYzcjd6bDZnY1N4UjlTZXRaUm5FY1JPZHhp?=
- =?utf-8?B?a3preldHL3FZWUFLQlJ4cUpBVW4vY2hUNUxKaU1uMUZBcTlhOGtwdlBaQ1VF?=
- =?utf-8?B?b2ljSHN6UTRFQ3hqR0NuOVZXc01sbXh0ck94TWZERkppakRXbGJqQ3RhWEs0?=
- =?utf-8?B?MUFxWURCTnREd1JMNlhESTQvQnRLM3JIK1dtVU4wS2xwYUs0ZmNpb3E5NHB1?=
- =?utf-8?B?UTlYZWVrUEo5WUJQM3BWNENheDJ4Mi9KZnlIM0lNclBWOW9sa2pONkRRTUlL?=
- =?utf-8?B?RUFkZ1RQaWZ3Z0QvSHovWmJIdC9JOHpoUkNabS9ZcHZOSnBlcHlPWDN5OXhX?=
- =?utf-8?B?ckNGM1dsU2t5UlkraGRvUHEzQXVIb0s0YXNCanR1ais1N0tJWmw1d2JiUEJZ?=
- =?utf-8?B?MVRXZU1MVCs0bEVhdTJ2Nmpxd2lXTzk3OUliRnBSMzBySURYeWhueTUvTEY5?=
- =?utf-8?B?VTVIT3NOU0luS0x2bk9yKzkyVXUwSHdkc3RkT0ZUUWNmMFIvcEVMeVBFMHBS?=
- =?utf-8?B?cklvSUNTdlE1ckl5cFo5OHpBSWhyUUhWdUJhY0lSdVR0azk2RDZzZXNld3hK?=
- =?utf-8?B?a0VXejdRa2ozSUhmbHRxZ09qa01WazdDa25JL0M5dTNvRkZXdFUzZndoOGpR?=
- =?utf-8?B?Qi9FTkNCRmt0MmdQUkQzdkxZZnhrcEtrN0t2QUVuWlhnOVdCbmR0YmpyTXpV?=
- =?utf-8?B?bTNjK0tsdVM2ZkZWcVkxVyt4bHNJUUdtMEZUWlpyZ1UxdFFST3RWMms3VEVR?=
- =?utf-8?B?OXR5L2pPZDc2WCszd0JDV0o4YXJveTlpTUhWSVgvN1lZbVpCVStPbC9zcWd6?=
- =?utf-8?B?ZTFhSWtZUmlyN2trSVBYdEk0QmtXSjJ6MmFNaHcvTTI5S2N3bXV3ZHZOQmhB?=
- =?utf-8?B?bUdqQlpZU0lxeDNQY2JqQ0YwOEtqZ1M3bVRQcFZPa3g3aXlFNGpOSUIrNGlQ?=
- =?utf-8?B?NVBndXZCQUpUdEpZZFAzZ2Nyc3NGWlBlcFNkaTR6Qy9vME9lUm1zb3BkWVdt?=
- =?utf-8?B?NWNnZ1FqMTYzbC9KeHVvZUNuenBvSUxZOHN6TWhremxhcTltZnRUMGxFNnZI?=
- =?utf-8?B?dlhpYjBKTGFucnRJcUFnNFArNlBsMHorYVJ5S1RDNXlpSEVTWjZtT1FSRno4?=
- =?utf-8?B?Z0FEQ1hXbW5SKzgzbXJpOU1VbEJFZWxzWkllMXhxUmxBenZLY0RINHNmU1Ur?=
- =?utf-8?B?M1BMSGc2KzB0dXU1dE5WYVV3OGpHY2JvQk5vbGNHYndFN3VzWFU0ZkhMSTcz?=
- =?utf-8?B?TDNsTExGZHowMlNUS2J0WGtDNitHcVRBMjRNcXJya2YwaU5DSWNUNGhLblFa?=
- =?utf-8?B?NzEySVlwbW8vNUw2VStqcnJOdDYvaG9NZ1JFUVFkeDJUQi9wd3VWZz09?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd668df2-2332-4c11-dedb-08de9aa16127
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB9081.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2026 03:45:04.5036
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Vvuvbu2n8J4WiAJKGLxd558TNoe3/NIRhII34JvO7JtiDcWPU1HVJney1b+4vOepY3MEroT9BLIC9vZEyBSOEw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8785
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <PH0PR03MB6351E875581B45ED279785D0F1222@PH0PR03MB6351.namprd03.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Add support for the i.MX95 MIPI CSI-2 receiver. The i.MX95 variant is
-nearly identical to i.MX93, with the main difference being the use of
-IDI (Image Data Interface) instead of IPI (Image Pixel Interface).
-However, the IDI interface is transparent to software, requiring only
-a different register map definition while sharing the same PHY control
-functions with i.MX93.
+On Wed, Apr 15, 2026 at 01:10:09AM +0000, Torreno, Alexis Czezar wrote:
 
-Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
----
- drivers/media/platform/synopsys/dw-mipi-csi2rx.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+...
 
-diff --git a/drivers/media/platform/synopsys/dw-mipi-csi2rx.c b/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
-index 27e4c1027816..bbb41baf789e 100644
---- a/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
-+++ b/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
-@@ -154,6 +154,17 @@ static const u32 imx93_regs[DW_MIPI_CSI2RX_MAX] = {
- 	[DW_MIPI_CSI2RX_IPI_SOFTRSTN] = DW_REG(0xa0),
- };
- 
-+static const u32 imx95_regs[DW_MIPI_CSI2RX_MAX] = {
-+	[DW_MIPI_CSI2RX_N_LANES] = DW_REG(0x4),
-+	[DW_MIPI_CSI2RX_RESETN] = DW_REG(0x8),
-+	[DW_MIPI_CSI2RX_PHY_SHUTDOWNZ] = DW_REG(0x40),
-+	[DW_MIPI_CSI2RX_DPHY_RSTZ] = DW_REG(0x44),
-+	[DW_MIPI_CSI2RX_PHY_STATE] = DW_REG(0x48),
-+	[DW_MIPI_CSI2RX_PHY_STOPSTATE] = DW_REG(0x4c),
-+	[DW_MIPI_CSI2RX_PHY_TST_CTRL0] = DW_REG(0x50),
-+	[DW_MIPI_CSI2RX_PHY_TST_CTRL1] = DW_REG(0x54),
-+};
-+
- static const struct v4l2_mbus_framefmt default_format = {
- 	.width = 3840,
- 	.height = 2160,
-@@ -901,11 +912,22 @@ static const struct dw_mipi_csi2rx_drvdata imx93_drvdata = {
- 	.wait_for_phy_stopstate = imx93_csi2rx_wait_for_phy_stopstate,
- };
- 
-+static const struct dw_mipi_csi2rx_drvdata imx95_drvdata = {
-+	.regs = imx95_regs,
-+	.dphy_assert_reset = imx93_csi2rx_dphy_assert_reset,
-+	.dphy_deassert_reset = imx93_csi2rx_dphy_deassert_reset,
-+	.wait_for_phy_stopstate = imx93_csi2rx_wait_for_phy_stopstate,
-+};
-+
- static const struct of_device_id dw_mipi_csi2rx_of_match[] = {
- 	{
- 		.compatible = "fsl,imx93-mipi-csi2",
- 		.data = &imx93_drvdata,
- 	},
-+	{
-+		.compatible = "fsl,imx95-mipi-csi2",
-+		.data = &imx95_drvdata,
-+	},
- 	{
- 		.compatible = "rockchip,rk3568-mipi-csi2",
- 		.data = &rk3568_drvdata,
+> > > +	case IIO_CHAN_INFO_RAW:
+> > > +		if (!in_range(val, 0, AD5706R_DAC_MAX_CODE))
+> > 
+> > I'm not seeing a strong reason to use in_range() here (hopefully I didn't
+> > suggest it in an earlier review ;)  It make sense when we have a  val >= base &&
+> > val < base + length. With base as 0 and MAX_CODE not 'obviously' from it's
+> > name being the length (it only is becauset he base is 0) this seems odd.
+> > 
+> > 		if (val < 0 || val >= AD5706R_DAC_MAX_CODE) Though see
+> > above on MAX_CODE not being the maximum code...
+> 
+> I think around v3 Andy suggested the use of in_range, as the function itself helps
+> document what the line does. Is this a style preference?
+
+I believe it was me, who suggested that, but we can open code it. Indeed, it's
+just a style preference in this case.
 
 -- 
-2.34.1
+With Best Regards,
+Andy Shevchenko
+
 
