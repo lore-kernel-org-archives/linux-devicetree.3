@@ -1,252 +1,174 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D987838B146;
-	Wed, 15 Apr 2026 08:41:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CD4D3D2FEC
+	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 08:56:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776242494; cv=none; b=uiUgNR+J0PPSlY4dbGl36VIVpvMsKEFzn0WLI6DPk7XX7KoblguJjJ2HFei/MgNGua8+QEVMf+wdT9kQnD/zs1s7H2kY97q8T8rj7KhXYSF1MTWnyf+kgqji/CnuX11KWD9NrcXU8AJUrBfqsgt2ELX/Wq6I/wNmQGkM2vIm0Dg=
+	t=1776243395; cv=none; b=A2qeVjY7za5aXGV9fDyiVPodQOGFM67gV8X5tc99eVCC9S8od18nR669OuqOyxo/uvse3qOex2NGVDWPZrkHV+CgBrsOkF6ACuPAEakBz8V8TX7RFRiZ5N+CzKjGXCP0SQkYqqxO/yxDFYm6Mp2OC72MU8kLRhx8JCqgZPSVcFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776242494; c=relaxed/simple;
-	bh=eNe90dnGEwFYmwMJ23lPtYLzIduu9ItXjVHRdlA/aWw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oe7BINMxO7xkauVaq9rfBeDRjPPeCqWS/pFVFh/vnG/lcMe9DHQkYf/6Ucu8gRpD9GiigxKLsXvczkzrxIg0T7me68ipuyVyWz7F6Kq+eQ/4JhqcLIrKYmoo1jzCLIXElEoXHwZ4cd+qjIFI+uOK1ubOP3cbR6aVwv7o9La7nHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ec21mLYw; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776243395; c=relaxed/simple;
+	bh=VYwZ55ze69o8u7PZFAwrAHqzRNPJl92Yyq9zPCoHx7Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rLz4parRRnNXoxj4R25Tg3sYBPs6F39hiMNSB+r2QxP2/E63eqSsdz41WbixqP4aw4/LZ8z4qyV/KdObI/QA16iRHaRkNRM2nzjAuUmozjBodHffgSlNHn60Bl7zMcI9/p5WEfhwMDH5pcI6FJeFQhDbwEjgP/QXtV6Xsuexszs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hZ0Uebp4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=j/0WM6et; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ec21mLYw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AFF1C19424;
-	Wed, 15 Apr 2026 08:41:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776242494;
-	bh=eNe90dnGEwFYmwMJ23lPtYLzIduu9ItXjVHRdlA/aWw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Ec21mLYwBJtwXg4pvb0psVyizRk3Rxx8Q6ZlZwMtJd88qQ1zvgiwRtRJdGW6niMr5
-	 ReVMO3HrLyBPRwDT1vhdoEt94SQeIVq5xZYMgCYOpPMvacbjJgKM2zXSkT3Hri5m4v
-	 2BqqYLEuGWGNu9KUeU4ElXuBYNwLGHvCdWFLHxL2CWsRIOmGsgik+MapokezdgBzao
-	 X7t/Obv3uQvm4VGQ9DliPuBqAYHDW4eXCyrWgMVGIy8txaH4fyxtbYpFr8irnadfh8
-	 YT1sRaN/v0bCLXS8HQDxpSVLWQYjeTsOOB7YQMQabPQWeESit7ZHQUmIzVd4vytT9i
-	 3E/CyLxdIxqhQ==
-Date: Wed, 15 Apr 2026 10:41:27 +0200
-From: Benjamin Tissoires <bentiss@kernel.org>
-To: Rob Herring <robh@kernel.org>, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Conor Dooley <conor@kernel.org>, 
-	Jingyuan Liang <jingyliang@chromium.org>, Jiri Kosina <jikos@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Mark Brown <broonie@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-input@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org, devicetree@vger.kernel.org, hbarnor@chromium.org, 
-	tfiga@chromium.org, Dmitry Antipov <dmanti@microsoft.com>, 
-	Jarrett Schultz <jaschultz@microsoft.com>
-Subject: Re: [PATCH v3 09/11] dt-bindings: input: Document hid-over-spi DT
- schema
-Message-ID: <ad9MbUYT12b61Ymo@beelink>
-References: <20260402-send-upstream-v3-0-6091c458d357@chromium.org>
- <20260402-send-upstream-v3-9-6091c458d357@chromium.org>
- <20260409-defuse-thank-4b038128fac5@spud>
- <adfdkwq_bF9dirAq@google.com>
- <20260410-sake-dollop-9f253ddb0749@spud>
- <20260413223439.GA3647847-robh@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hZ0Uebp4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="j/0WM6et"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63F4WNN42071454
+	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 08:56:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	/frILHXn/mBZKU9JIR1yyak2aX5M5anTEZUnZNPv1tg=; b=hZ0Uebp4YXLPvPuS
+	TMSB9U4WGf763twYB1B8nLl8B+w/ms8UWc1c0eaXwsLm8JlEI/k3yeAROmlhZYZU
+	BMjjfc5BFpsR8gM9c/84Z5kmqyXgHNyn0d0vYTaQsgqfL0aD2BnfKKmC4Cg8Ee3F
+	XClWDtXkEClEUROTdCs+42bDVPRmpJ+jso9bgPakXb85QzynCVz+ZkSMDbPcxpDe
+	Nw6c+ibDRautVTfWM9YdmMPnxVkBF8H23TW33LHqObJ72kq/PhwSwrLr0VVJQ5Hr
+	j/A5C1gB8JTv8v7jkwoxYD3KUaddLB+jZ0IyfPHzH1KOB25wLjhqkK0DgL2WPSpK
+	FDKx5w==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dhtc2ah0s-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 08:56:33 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-8d4c66096e5so77910285a.3
+        for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 01:56:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1776243392; x=1776848192; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=/frILHXn/mBZKU9JIR1yyak2aX5M5anTEZUnZNPv1tg=;
+        b=j/0WM6etUArY8mLMrfObGMLULt4ruZrqCBgumQYYVM0uLsUnYLCOeO8d/Ecx6/AFDg
+         DdAPIJMNGiZA5WVvSFOnP26Z2V9iq2ILjYHyLxLlUkEbjW++kdNdmuyWgD41FNkTDHdP
+         KE/fHrnEwxBEMxD/rf6vSyIboV4aEB0SkFhfoCGbVLRDnxstyNinZQ6EQP1tC+XAP93W
+         YNt67Myxfgi/UtrCqdywHe32+v7mKgcxXQe4OAkufMExJgC/QBbJDPYQt9s80bvVi+so
+         sjMYNkEmN+Cym6C86sQp88OAtHl8AoQFORNyDH8aVmFEuINwhAMCg1ik72LFM6s9sHvi
+         D1PA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776243392; x=1776848192;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=/frILHXn/mBZKU9JIR1yyak2aX5M5anTEZUnZNPv1tg=;
+        b=Hj8A4f88bSIxPPrBfGuVFltXGmnfCJxWFe4xLe9KJW0Io1Z05WrsGw6ezWzwmsy7Z+
+         SVlClRVfZdE/OPk1aZy5n98w7wmidDQAVOCA4gcT39LrEmNlZ9u5xja9QUOkart7T6xY
+         sXffGLdGxjwSwXdWm5hvHDoJk0E6wTi5l9OzNMBAfRLRmHt4LJMCfLZdNYL1IkTH/8kW
+         mOy75C1mp/1rIccFjNEpehoAc+/eJsFZ14VOmJqfkzER8ftKOayvs3Em8SMWQmyfUout
+         pGUap/09a2qNSghQ5tdbb+vSzhNlCsG6laeVzREaFu7w5906R/jtVr0W93oFxp4qK6Mw
+         CBYA==
+X-Forwarded-Encrypted: i=1; AFNElJ/dw0MXYtjFCJnqRuLsdwv5Jia6DiuuYQ7E7RK/TP3yZda8UHLbiUMNKrUZ3cLr15ZIv6h76l9uuKB7@vger.kernel.org
+X-Gm-Message-State: AOJu0YxB2Xy/J72vzaaIe6BUkJNbTc4tfu8LJ0AdyajiPCxzYe0c59SC
+	cpXnzRbkGIfSsqiUMGtx0Sjko7MsBT6jMCo0O49OSnQofKP4hsIQ37NdjmyKFrwozujTXqH3JJT
+	QnYrOACJK0fnqmYUjAOwBDGT2/m/RAyvjEOtsX2lWVxtT9IbgyIxIS1Ki3kdkUVPf
+X-Gm-Gg: AeBDieuyn2+MI2TjyKQ1G4tNGBVpIi3RE3MaBYK2GPknCNrItCnH8OMc+LPkIVHimXA
+	QKpXRusBMTx/Wnk0Naqw5EWKs9WXXXUJc6WdT30HQBd/eTttW12uI4byfHQIkveKMIYLbp7FdfN
+	qYbhSizngNUfpcBEMcoEwDw5BuV+ZZKr76rt/Wdy3M1/BfIIhunSbwJxWGJ9ghq4cWcOMiYfOr7
+	/GVazJ9OMjuGDU7vucGtY+zJ0eiedBEJMxl6JOIAHDsOBgKqxmnzhR/wg+6nl8HswEOfgtu88i3
+	/+UkZEgF7/dNzCIeyxpVRhXdIRr7stqBucH/uEpL9Q9SeaMpGfoTn0yQ5ouOL09m29V8BqwXtxr
+	Jjo/lm9ch5XR3sjXaqbTwrTmylBL+bccZ8AGS8QGka9Y/qlB60wyWpDJuPcc7L3QXPNzljD7J4D
+	9GeFKJQWerYP2cdQ==
+X-Received: by 2002:a05:6214:da4:b0:8ac:8337:ca0e with SMTP id 6a1803df08f44-8ae6a92e620mr18291546d6.6.1776243392405;
+        Wed, 15 Apr 2026 01:56:32 -0700 (PDT)
+X-Received: by 2002:a05:6214:da4:b0:8ac:8337:ca0e with SMTP id 6a1803df08f44-8ae6a92e620mr18291296d6.6.1776243392002;
+        Wed, 15 Apr 2026 01:56:32 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ba1773c381bsm33817966b.40.2026.04.15.01.56.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 15 Apr 2026 01:56:30 -0700 (PDT)
+Message-ID: <64ddaf47-d780-4058-9788-7e734a7070a0@oss.qualcomm.com>
+Date: Wed, 15 Apr 2026 10:56:28 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260413223439.GA3647847-robh@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] arm64: dts: qcom: Enable CAN RX via GPIO expander
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Anup Kulkarni <anup.kulkarni@oss.qualcomm.com>, andersson@kernel.org,
+        konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        mukesh.savaliya@oss.qualcomm.com, viken.dadhaniya@oss.qualcomm.com
+References: <20260402105253.3009382-1-anup.kulkarni@oss.qualcomm.com>
+ <tuanv2szadq5pnndy4zfxg4mo73pplfv3omanpsc3mcjorpmbc@itd2hayrix5h>
+ <9cf3b035-79c0-4e9b-8ab6-a81f8d27728f@oss.qualcomm.com>
+ <lghedhcnuh2fm4mp64mkgsgtpkd32yneftjazgrye7bovxxaby@uscrda3wtyoj>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <lghedhcnuh2fm4mp64mkgsgtpkd32yneftjazgrye7bovxxaby@uscrda3wtyoj>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: 2QVPsjIk7wx-6VFpjyjcwg5Q0t7Xz13b
+X-Proofpoint-GUID: 2QVPsjIk7wx-6VFpjyjcwg5Q0t7Xz13b
+X-Authority-Analysis: v=2.4 cv=HpNG3UTS c=1 sm=1 tr=0 ts=69df52c1 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=WNm122a_XVfSPSTBZdMA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE1MDA4MSBTYWx0ZWRfXwoO4ynH6cEBb
+ Bn0P5W6TBObo9z55270IJGPCe1CUG1/2YD2T4AaLtjE28Fr5XqVuATBoJTfseSmwQ4eZAKHKfCP
+ JWAAyyOxexsyBR+La/N+gkENbdHXSuRQ3sGCupsiI0mx6aEFFIiAFloAzNcyK48j+n9BjgND9sY
+ VA6/pMIbSC6aKLxVZs/5ZOu/pcfOWSBqGaIq/wfiLG2x0dVdK5nr5tqXkyTAf2gNiHv9860dn6/
+ TU/w49RpoeP9SU15128qcVBjbLYH3iqc2FHtLSvkVYIVvmWQDPgMPbc8evOg8SQaA9JC2/kwN9B
+ UevtllgKGpg7ANZwDbkKnQhOApXGHjCGcbbArgc67PVrsrE7sllgK6oaczBvcE+Dv/eX8T5dPXS
+ g1bt7MwtXa0Fz/s8pAdl1/7jFhq8+nUgRZARKeZgRK6JAUQb6T1ACLg8NY9Q7D72/cfBsAFIU2X
+ tv3TPRSxxGjmP+50cSg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-14_04,2026-04-13_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 impostorscore=0 lowpriorityscore=0 malwarescore=0 suspectscore=0
+ bulkscore=0 adultscore=0 clxscore=1015 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604150081
 
-On Apr 13 2026, Rob Herring wrote:
-> On Fri, Apr 10, 2026 at 06:35:00PM +0100, Conor Dooley wrote:
-> > On Thu, Apr 09, 2026 at 10:16:46AM -0700, Dmitry Torokhov wrote:
-> > > On Thu, Apr 09, 2026 at 05:02:11PM +0100, Conor Dooley wrote:
-> > > > On Thu, Apr 02, 2026 at 01:59:46AM +0000, Jingyuan Liang wrote:
-> > > > > Documentation describes the required and optional properties for
-> > > > > implementing Device Tree for a Microsoft G6 Touch Digitizer that
-> > > > > supports HID over SPI Protocol 1.0 specification.
-> > > > > 
-> > > > > The properties are common to HID over SPI.
-> > > > > 
-> > > > > Signed-off-by: Dmitry Antipov <dmanti@microsoft.com>
-> > > > > Signed-off-by: Jarrett Schultz <jaschultz@microsoft.com>
-> > > > > Signed-off-by: Jingyuan Liang <jingyliang@chromium.org>
-> > > > > ---
-> > > > >  .../devicetree/bindings/input/hid-over-spi.yaml    | 126 +++++++++++++++++++++
-> > > > >  1 file changed, 126 insertions(+)
-> > > > > 
-> > > > > diff --git a/Documentation/devicetree/bindings/input/hid-over-spi.yaml b/Documentation/devicetree/bindings/input/hid-over-spi.yaml
-> > > > > new file mode 100644
-> > > > > index 000000000000..d1b0a2e26c32
-> > > > > --- /dev/null
-> > > > > +++ b/Documentation/devicetree/bindings/input/hid-over-spi.yaml
-> > > > > @@ -0,0 +1,126 @@
-> > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > > > +%YAML 1.2
-> > > > > +---
-> > > > > +$id: http://devicetree.org/schemas/input/hid-over-spi.yaml#
-> > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > > > +
-> > > > > +title: HID over SPI Devices
-> > > > > +
-> > > > > +maintainers:
-> > > > > +  - Benjamin Tissoires <benjamin.tissoires@redhat.com>
-> > > > > +  - Jiri Kosina <jkosina@suse.cz>
-> > > > 
-> > > > Why them and not you, the developers of the series?
-> > > > 
-> > > > > +
-> > > > > +description: |+
-> > > > > +  HID over SPI provides support for various Human Interface Devices over the
-> > > > > +  SPI bus. These devices can be for example touchpads, keyboards, touch screens
-> > > > > +  or sensors.
-> > > > > +
-> > > > > +  The specification has been written by Microsoft and is currently available
-> > > > > +  here: https://www.microsoft.com/en-us/download/details.aspx?id=103325
-> > > > > +
-> > > > > +  If this binding is used, the kernel module spi-hid will handle the
-> > > > > +  communication with the device and the generic hid core layer will handle the
-> > > > > +  protocol.
-> > > > 
-> > > > This is not relevant to the binding, please remove it.
-> > > > 
-> > > > > +
-> > > > > +allOf:
-> > > > > +  - $ref: /schemas/input/touchscreen/touchscreen.yaml#
-> > > > > +
-> > > > > +properties:
-> > > > > +  compatible:
-> > > > > +    oneOf:
-> > > > > +      - items:
-> > > > > +          - enum:
-> > > > > +              - microsoft,g6-touch-digitizer
-> > > > > +          - const: hid-over-spi
-> > > > > +      - description: Just "hid-over-spi" alone is allowed, but not recommended.
-> > > > > +        const: hid-over-spi
-> > > > 
-> > > > Why is it allowed but not recommended? Seems to me like we should
-> > > > require device-specific compatibles.
-> > > 
-> > > Why would we want to change the driver code to add a new compatible each
-> > > time a vendor decides to create a chip that is fully hid-spi-protocol
-> > > compliant? Or is the plan to still allow "hid-over-spi" fallback but
-> > > require device-specific compatible that will be ignored unless there is
-> > > device-specific quirk needed?
+On 4/14/26 8:09 PM, Dmitry Baryshkov wrote:
+> On Tue, Apr 14, 2026 at 06:20:14PM +0200, Konrad Dybcio wrote:
+>> On 4/14/26 6:08 PM, Dmitry Baryshkov wrote:
+>>> On Thu, Apr 02, 2026 at 04:22:53PM +0530, Anup Kulkarni wrote:
+>>>> Few CAN controllers, part of RTSS sub-system on LeMans, route
+>>>> their RX signal through a I2C GPIO expander at address 0x3b.
+>>>> RTSS subsystem is an MCU like sub-system on LeMans with independent
+>>>> booting capability through OSPI interface and supports peripherals like
+>>>> RGMII, CAN-FD, UART, I2C, SPI etc.
+>>>>
+>>>> Describe this hardware wiring by configuring the expander GPIO 4 pin as
+>>>> hog with output-high, asserting the selected line during boot.
+>>>
+>>> Missing platform name in the subject.
+>>>
+>>>>
+>>>> Signed-off-by: Anup Kulkarni <anup.kulkarni@oss.qualcomm.com>
+>>>> ---
+>>>>  arch/arm64/boot/dts/qcom/lemans-evk.dts | 7 +++++++
+>>>>  1 file changed, 7 insertions(+)
+>>>>
+>>>> diff --git a/arch/arm64/boot/dts/qcom/lemans-evk.dts b/arch/arm64/boot/dts/qcom/lemans-evk.dts
+>>>> index a1ef4eba2a20..b8371bdf9933 100644
+>>>> --- a/arch/arm64/boot/dts/qcom/lemans-evk.dts
+>>>> +++ b/arch/arm64/boot/dts/qcom/lemans-evk.dts
+>>>> @@ -615,6 +615,13 @@ expander3: gpio@3b {
+>>>>  		interrupts-extended = <&tlmm 39 IRQ_TYPE_LEVEL_LOW>;
+>>>>  		pinctrl-0 = <&expander3_int>;
+>>>>  		pinctrl-names = "default";
+>>>> +
+>>>> +		rtss-can-sel-hog {
+>>>
+>>> Why is it being described as a hog rather than a pinctrl used by the
+>>> CAN device?
+>>
+>> My understanding is that the CAN bus is managed by SAIL ("RTSS")
 > 
-> The plan is the latter case (the 1st entry up above). The comment is 
-> remove the 2nd entry (with 'Just "hid-over-spi" alone is allowed, but 
-> not recommended.').
-> 
-> > This has nothing to do with the driver, just the oddity of having a
-> > comment saying that not having a device specific compatible was
-> > permitted by not recommended in a binding. Requiring device-specific
-> > compatibles is the norm after all and a comment like this makes draws
-> > more attention to the fact that this is abnormal. Regardless of what the
-> > driver does, device-specific compatibles should be required.
-> > 
-> > > > > +
-> > > > > +  reg:
-> > > > > +    maxItems: 1
-> > > > > +
-> > > > > +  interrupts:
-> > > > > +    maxItems: 1
-> > > > > +
-> > > > > +  reset-gpios:
-> > > > > +    maxItems: 1
-> > > > > +    description:
-> > > > > +      GPIO specifier for the digitizer's reset pin (active low). The line must
-> > > > > +      be flagged with GPIO_ACTIVE_LOW.
-> > > > > +
-> > > > > +  vdd-supply:
-> > > > > +    description:
-> > > > > +      Regulator for the VDD supply voltage.
-> > > > > +
-> > > > > +  input-report-header-address:
-> > > > > +    $ref: /schemas/types.yaml#/definitions/uint32
-> > > > > +    minimum: 0
-> > > > > +    maximum: 0xffffff
-> > > > > +    description:
-> > > > > +      A value to be included in the Read Approval packet, listing an address of
-> > > > > +      the input report header to be put on the SPI bus. This address has 24
-> > > > > +      bits.
-> > > > > +
-> > > > > +  input-report-body-address:
-> > > > > +    $ref: /schemas/types.yaml#/definitions/uint32
-> > > > > +    minimum: 0
-> > > > > +    maximum: 0xffffff
-> > > > > +    description:
-> > > > > +      A value to be included in the Read Approval packet, listing an address of
-> > > > > +      the input report body to be put on the SPI bus. This address has 24 bits.
-> > > > > +
-> > > > > +  output-report-address:
-> > > > > +    $ref: /schemas/types.yaml#/definitions/uint32
-> > > > > +    minimum: 0
-> > > > > +    maximum: 0xffffff
-> > > > > +    description:
-> > > > > +      A value to be included in the Output Report sent by the host, listing an
-> > > > > +      address where the output report on the SPI bus is to be written to. This
-> > > > > +      address has 24 bits.
-> > > > > +
-> > > > > +  read-opcode:
-> > > > > +    $ref: /schemas/types.yaml#/definitions/uint8
-> > > > > +    description:
-> > > > > +      Value to be used in Read Approval packets. 1 byte.
-> > > > > +
-> > > > > +  write-opcode:
-> > > > > +    $ref: /schemas/types.yaml#/definitions/uint8
-> > > > > +    description:
-> > > > > +      Value to be used in Write Approval packets. 1 byte.
-> > > > 
-> > > > Why can none of these things be determined from the device's compatible?
-> > > > On the surface, they like the kinds of things that could/should be.
-> > > 
-> > > Why would we want to keep tables of these values in the kernel and again
-> > > have to update the driver for each new chip?
-> > 
-> > That's pretty normal though innit? It's what match data does.
-> > If someone wants to have properties that communicate data that
-> > can be determined from the compatible, they need to provide
-> > justification why it is being done.
-> 
-> IIRC, it was explained in prior versions the spec itself says these 
-> values vary by device. If we expect variation, then I think these 
-> properties are fine. But please capture the reasoning for them in this 
-> patch or we will just keep asking the same questions over and over. 
-> 
+> So, Linux can affect what is being required for the safety island?
 
-Dmitry, FWIW, we roughly had the exact same of argument with Rob with
-i2c-hid :)
+Seems that way!
 
-It took me a while, but I finally understood the rationale and agreed to
-it (using the i2c-hid examples):
-
-Most i2c-hid devices are following the spec and rely purely on ACPI and
-the DT declaration of i2c-hid -> they are working fine and we don't need
-anything else for them. They declare their compatible and the i2c-hid
-compatible, and they work great.
-
-But some devices need a reset line. But the i2c-hid spec doesn't mention
-a reset line at all. And some other devices need a reset line with a
-different timing. etc... Relying purely on the i2c-hid driver means that
-the driver needs to now the platform the device is on and the exact
-device we have in front of us. i2c-hid provide a VID/PID through the
-protocol, but we are still lacking information: in some cases, the
-timing of the reset line for the same device differs depending on the
-platform they run.
-
-Having a device specific compatible means that we can make use of it
-before we load i2c-hid. This is why we have i2c-hid-core and module
-specifics on the side. Those extra module can do all the oddities they
-want, like having 2 or 3 reset lines, but in the end they are using the
-core i2c-hid once they are set up.
-
-Think of it as a way to quirk the device upfront without polluting the
-i2c-hid processing.
-
-That allowed us to clean up the i2c-hid code by removing the non
-standard regulators, reset lines, quirks that are device specific and
-keep it closer to the spec.
-
-Cheers,
-Benjamin
+Konrad
