@@ -1,70 +1,782 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 391BE364EB0;
-	Wed, 15 Apr 2026 07:56:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776239816; cv=none; b=BcWTGrcBiWUYcDvDh0DQ5/Uusi2MISbzRFGgKnv2D1FNbDIhc2rybh3DiDZhMc/4h0NjB1kcuXLIV4jZjsjXt9A5LnrR0SdFXA2UShMmjoL2QYj9Exl66EXeaTEck6YS1n5MdZoNI+FVPkhAcDU6P1lZh41tFxVMrasHt8NfoAw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776239816; c=relaxed/simple;
-	bh=JAqaeyCw5PU2u6iz1ihetntVR021RrJpXIaTnl1S7Bo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uvwvmCu9USaXi8Xx/tymhWPsLHxV7s1/4LhmzolB4YTMuvi28Xk47XERBJWioqU7oKrffWu6pwgn6AvZYmkbcxpczPQLFy68ZtiTwEzEcAQbiDBK5uKuBXZQ9yYWcT2QX+pcp0XzinFwc00SGTNvuLTtdyQoKJOGb9zz1b8crDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aQ6Q3abZ; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92D903A16BC
+	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 08:02:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776240149; cv=pass; b=BTXFhSp7Ij/Jhiv40qKyZBWPNqs/fYNvTVq3UOwy4+g2uEXXDTf2QR4lo0+2c/2kha535IRuX2WIZ7QE8Q6oqS0zl7zxOQa9JhkjmfLqNOLBNduCWAq4uDaF0k4d8np+9LZoa2BREqH45QiEBt/iEBBwq67kzuFLe1ZyxzIwL4c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776240149; c=relaxed/simple;
+	bh=2TvFfaJQ1Kpyi3o2FhGAdhsAsDkKdQbYgSb28x4cJrk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BNZjxREFFYaMasW0f/z0HTFh0u4LSwbkKcnIRvf4WybxioukaNeUM6PycKoce7v/zDfcxXSdKOWDo4raennd9oVFDcFmGmDraL6x62L4pYWtvn5GpHGPDLqnLX6Y+aevNuP2mutbbcYx23Jiun3vTrEj75w7BE/QqUGeRg0dQJo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f6C68I+h; arc=pass smtp.client-ip=209.85.160.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aQ6Q3abZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C94DC19424;
-	Wed, 15 Apr 2026 07:56:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776239815;
-	bh=JAqaeyCw5PU2u6iz1ihetntVR021RrJpXIaTnl1S7Bo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=aQ6Q3abZhY0zbDo01xx6lVG0+zvjxfFz4fvXiQXIuGt8gPMh0Z/QhfDnRDMeobYIA
-	 4bPhxMrNyoN/Ja9F/dzu7iajfVp8qp2qVUUfyrZ78mFHDSQ3josQdFTvfomZZqNIEI
-	 O1sTG+VDQ9gTU7SjLAUx12IrGzDZdgJFwyMxsNyxyhptAYIiGMAQ/xDXZR6ofatqhL
-	 PegVb5tawG+KYJQBddZShXQ2WCrogATfDwSdvGV6qwHKMMC9q4crqk9cqhdf/+RESQ
-	 OCjxL1foCtgf8kRSmG5cS9EKYKxUIo4jSQp+bkt68mUDk8sAWIAyggfdJQV8Zx55Ln
-	 odbhHQVfMPUkg==
-Date: Wed, 15 Apr 2026 09:56:53 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/7] dt-bindings: spi: qcom,spi-qcom-qspi: Add
- qcom,qcs615-qspi compatible
-Message-ID: <20260415-sticky-cornflower-jellyfish-291d9f@quoll>
-References: <20260414-spi-nor-v2-0-bcca40de4b5f@oss.qualcomm.com>
- <20260414-spi-nor-v2-1-bcca40de4b5f@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f6C68I+h"
+Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-50b2ebca625so57123111cf.0
+        for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 01:02:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776240144; cv=none;
+        d=google.com; s=arc-20240605;
+        b=eJC8Y91rfr1h93HTLQBhrU51MYuJzePQFViYvWu8fTRZZP/IkfPognmJGU5gD55OG3
+         iIQm4/u4DkUqAYdLMSEY8OctbWp3uWDmVdUqbkj9SwAqoANhrLfeAu5G+wkemIu135Ct
+         vRyZMijX+jrTemTlQAx3hSYcGJwK+tE4jI/tRQA2+46yCIwLIiUoGRBp8GXN2i5Ir5TN
+         7YOF+ogQ0zzsEV8Nm8QK5HUoBmdjVpNgCuE7FM9z0Lr1KjoCWRommieu4yCcDT2TdCcG
+         VALzjRWuwcrq1cv0TCk4csP9+N0B9bDqE3WQD/z/BSPtmYjuuNAM0h9DIOYYb6TxuE6g
+         M/Kg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rbxvJOa/JYW1hnfdEB5jM3Immknkau71T9SFVcN6XMA=;
+        fh=ZWhGLp3RNzxsKrYsv4D6hUiDV6JV63YpVEn6ZDvEv0A=;
+        b=Y4EB/kpI6A6VNLqCo8+ypjBxoUZiQ7tEk6R8Aohk57uumQFLmNY1vzyDIeYFH3hltW
+         peqStOEhAKiyLwnFTKKKcKFxhv/g1UtstBlRoSybL7JP5Aun3k1O1VIQvMgZs+afhSy4
+         8k4oqmwzVwTMtSLExd7s19F3UEoJmWEndy359eNA2XgsAYJFctpfXFboMve1b7ZKr9im
+         IeNGRSxyOWisxZf/xticuKewNtUl8HpOmN5ylQ3TSclHF6jsR8s8SkDHmDyQRTmSxwql
+         UEu36s8LoC9JRsNPz88Jlu3D6a93o66TgWllH1N7kEsNt0YqVKYIihGosxZCwZG5cYHo
+         MX7g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776240144; x=1776844944; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rbxvJOa/JYW1hnfdEB5jM3Immknkau71T9SFVcN6XMA=;
+        b=f6C68I+hDCguHmmwkp/5Kbz4o/Z4sQ9/XmPjZjvOMxMj6/z1Et0OnJ6nHPin1gb+vF
+         FgDm4CWmwtqGNAd77xm9Qk1oLFjJV5TvUBuh4mq+l7OYj8ubygj0TE5NUYEV3OhsdzWO
+         pu2GrsIm1Em9jxccssCXzZw+q1GBJUXrCwxUV/f/tgMiYZ+kBsv/B7GiKcVkJYg/GuoY
+         1SltwjCyqVX2QgJkM81tAOHBgjW7UNYVkZMWygAllVXevrXYZJu3vvcVFHLxy9WY9qFm
+         MCm7eAa0hy6D6FiftvnZQeQRfLStnXlvd9sGzvmDAPsim+GoyXnW03J44d5jhg4ThsKi
+         xgdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776240144; x=1776844944;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=rbxvJOa/JYW1hnfdEB5jM3Immknkau71T9SFVcN6XMA=;
+        b=C56Hpxd1OHBEFTRq2fnuaSVFz2zpzmX+6wEHUakTgdq8yUPdbA6D1uWFPqCv8UywMe
+         bBx81PJu/XNlE5zQirUlvqtT0LpKXwl3p9qBI03n4UAiWQbhTxmOK4Vz+m0CdgetvTAl
+         SnQeVIENwZ9Eufe75k3Ffcc7hZgx3EO0N93ej9SYQIWrU7JvxQMDVY/2bcnRuIdbQQvI
+         z+TpSHqt7hj95IsilJIFuo0uKwPUM9l9QIuWL3So+IJFHGXWCgjbAGaT8pRbJy9B1mgG
+         /cLNOeTxLgZuKGxaZBL/05blY7njCGZ7nfhFkAKfS/ZTE5kmlTZfTfEoJbhhW5jc46tf
+         TCiw==
+X-Forwarded-Encrypted: i=1; AFNElJ/zJKwO9hYSwM5KjWS1NI7z6cYSZQDSARPu2l1LAhWh4ke5BZsU2VzXnOr6bzCvO4VmJDJHFQ9RgkPF@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyhd+vbcfWXHxW72JbQ7McuhHNtTZeFRbL1iEgHyxdf92xJUNDF
+	uTEP29JHcWxNN4T40gabKKb8+Cc0UbwqEA3B55FO6GL9V4/6D51HtSN9CYLnWHJSphjuXtcKc+4
+	iiq7FvOtDPmNgqT176lAL5mYBfuGAAqU=
+X-Gm-Gg: AeBDies0EU+UwWo+vamFocmDn/Q0KrjQnV+CKhz9OwMjmewZgUx8JgS/TvMIQ8O+GXS
+	ikELjj6rrp4f2tiQbHdnFRLV1MpObY135Ab30DCOWsfGwj9cRL9sBKaLtCtOjAB02FRuUHH+yZI
+	73LdcyHnGBJkF0zLszM2Hb3gtkL5PwLDmqcZS1QpcpVqDX564WcYKsiDXM3g8v7Wb9VIvH097zZ
+	WRE2Cs8zoPmwv0u+Zkym1sraMdAYT71pQBFzEQyZbQq6Z8cGYSfZZmOfYZCWvIcltNr4KZp8YxA
+	hGBvGmM=
+X-Received: by 2002:a05:622a:5592:b0:509:20aa:49ea with SMTP id
+ d75a77b69052e-50dd6b7ab10mr259839571cf.18.1776240144181; Wed, 15 Apr 2026
+ 01:02:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260414-spi-nor-v2-1-bcca40de4b5f@oss.qualcomm.com>
+References: <20260414214104.1363987-1-dennis@ausil.us> <20260414214104.1363987-6-dennis@ausil.us>
+In-Reply-To: <20260414214104.1363987-6-dennis@ausil.us>
+From: Alexey Charkov <alchark@gmail.com>
+Date: Wed, 15 Apr 2026 12:02:09 +0400
+X-Gm-Features: AQROBzBxinnSm0ZUpMUnsQeJ0Cy2sLYN8DnKCbBE6CuxbhvJuI91PMGKe2ZVeXI
+Message-ID: <CABjd4Yy29f7g7wyZZJj0aZfoREaUANjo+Lj=p1gk5Q=NU7mODA@mail.gmail.com>
+Subject: Re: [PATCH v7 5/6] arm64: dts: rockchip: refactor items from Orange
+ Pi 5/b to prep for Pro
+To: Dennis Gilmore <dennis@ausil.us>
+Cc: Andrew Lunn <andrew@lunn.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Chaoyi Chen <chaoyi.chen@rock-chips.com>, Conor Dooley <conor+dt@kernel.org>, 
+	David Airlie <airlied@gmail.com>, devicetree@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, FUKAUMI Naoki <naoki@radxa.com>, 
+	Heiko Stuebner <heiko@sntech.de>, Hsun Lai <i@chainsx.cn>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Jimmy Hon <honyuenkwun@gmail.com>, 
+	John Clark <inindev@gmail.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Michael Opdenacker <michael.opdenacker@rootcommit.com>, 
+	Michael Riesch <michael.riesch@collabora.com>, Mykola Kvach <xakep.amatop@gmail.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Peter Robinson <pbrobinson@gmail.com>, 
+	Quentin Schulz <quentin.schulz@cherry.de>, Robert Foss <rfoss@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+	Thomas Zimmermann <tzimmermann@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Apr 14, 2026 at 10:38:19PM +0530, Viken Dadhaniya wrote:
-> +allOf:
-> +  - $ref: /schemas/spi/spi-controller.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: qcom,qcs615-qspi
-> +    then:
-> +      properties:
-> +        interconnects:
-> +          minItems: 2
+On Wed, Apr 15, 2026 at 1:41=E2=80=AFAM Dennis Gilmore <dennis@ausil.us> wr=
+ote:
+>
+> The Orange Pi 5 Pro uses the same SoC and base as the Orange Pi 5 and
+> Orange Pi 5B but has had sound, USB, and leds wired up differently. The
+> 5 and 5B boards use gmac for ethernet where the Pro has a PCIe attached
+> NIC.
+>
+> Move the 5/5B-specific bits (analog-sound/es8388, FUSB302 Type-C,
+> gmac1, pwm-leds, i2s1_8ch routing, USB role-switch plumbing) out of
+> rk3588s-orangepi-5.dtsi into a new rk3588s-orangepi-5-5b.dtsi that is
+> included by both 5 and 5B.
+>
+> The RK806 PLDO1 and PLDO2 outputs are wired differently between the
+> 5/5B and the Pro (PLDO1/PLDO2 are swapped), so label the PMIC node
+> rk806_single in the base dtsi, drop pldo-reg1/pldo-reg2 from it, and
+> define them via a &rk806_single regulators augmentation in
+> rk3588s-orangepi-5-5b.dtsi. The Pro will supply its own mapping.
+>
+> Signed-off-by: Dennis Gilmore <dennis@ausil.us>
+> ---
+>  .../dts/rockchip/rk3588s-orangepi-5-5b.dtsi   | 222 +++++++++++++++++
+>  .../boot/dts/rockchip/rk3588s-orangepi-5.dts  |   6 +-
+>  .../boot/dts/rockchip/rk3588s-orangepi-5.dtsi | 225 +-----------------
+>  .../boot/dts/rockchip/rk3588s-orangepi-5b.dts |   2 +-
+>  4 files changed, 240 insertions(+), 215 deletions(-)
+>  create mode 100644 arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-5b.dt=
+si
 
-Missing constraint for interconnect-names
+Hi Dennis,
 
+Sashiko makes a good point [1] about also moving the vbus_typec to the
+*-5-5b.dtsi, given that it's not used on the Pro. Same with mdio1
+which only makes sense together with its respective GMAC. Other than
+that, this looks good to me - feel free to include:
+
+Reviewed-by: Alexey Charkov <alchark@gmail.com
 
 Best regards,
-Krzysztof
+Alexey
 
+[1] https://sashiko.dev/#/patchset/20260414214104.1363987-1-dennis%40ausil.=
+us
+
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi b/ar=
+ch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi
+> new file mode 100644
+> index 000000000000..9e987ffa6241
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi
+> @@ -0,0 +1,222 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +/*
+> + * Device tree definitions shared by the Orange Pi 5 and Orange Pi 5B
+> + * but not the Orange Pi 5 Pro.
+> + */
+> +
+> +#include <dt-bindings/usb/pd.h>
+> +#include "rk3588s-orangepi-5.dtsi"
+> +
+> +/ {
+> +       aliases {
+> +               ethernet0 =3D &gmac1;
+> +       };
+> +
+> +       analog-sound {
+> +               compatible =3D "simple-audio-card";
+> +               pinctrl-names =3D "default";
+> +               pinctrl-0 =3D <&hp_detect>;
+> +               simple-audio-card,name =3D "rockchip,es8388";
+> +               simple-audio-card,bitclock-master =3D <&masterdai>;
+> +               simple-audio-card,format =3D "i2s";
+> +               simple-audio-card,frame-master =3D <&masterdai>;
+> +               simple-audio-card,hp-det-gpios =3D <&gpio1 RK_PD5 GPIO_AC=
+TIVE_HIGH>;
+> +               simple-audio-card,mclk-fs =3D <256>;
+> +               simple-audio-card,routing =3D
+> +                       "Headphones", "LOUT1",
+> +                       "Headphones", "ROUT1",
+> +                       "LINPUT1", "Microphone Jack",
+> +                       "RINPUT1", "Microphone Jack",
+> +                       "LINPUT2", "Onboard Microphone",
+> +                       "RINPUT2", "Onboard Microphone";
+> +               simple-audio-card,widgets =3D
+> +                       "Microphone", "Microphone Jack",
+> +                       "Microphone", "Onboard Microphone",
+> +                       "Headphone", "Headphones";
+> +
+> +               simple-audio-card,cpu {
+> +                       sound-dai =3D <&i2s1_8ch>;
+> +               };
+> +
+> +               masterdai: simple-audio-card,codec {
+> +                       sound-dai =3D <&es8388>;
+> +                       system-clock-frequency =3D <12288000>;
+> +               };
+> +       };
+> +
+> +       pwm-leds {
+> +               compatible =3D "pwm-leds";
+> +
+> +               led {
+> +                       color =3D <LED_COLOR_ID_GREEN>;
+> +                       function =3D LED_FUNCTION_STATUS;
+> +                       linux,default-trigger =3D "heartbeat";
+> +                       max-brightness =3D <255>;
+> +                       pwms =3D <&pwm0 0 25000 0>;
+> +               };
+> +       };
+> +};
+> +
+> +&gmac1 {
+> +       clock_in_out =3D "output";
+> +       phy-handle =3D <&rgmii_phy1>;
+> +       phy-mode =3D "rgmii-rxid";
+> +       pinctrl-0 =3D <&gmac1_miim
+> +                       &gmac1_tx_bus2
+> +                       &gmac1_rx_bus2
+> +                       &gmac1_rgmii_clk
+> +                       &gmac1_rgmii_bus>;
+> +       pinctrl-names =3D "default";
+> +       tx_delay =3D <0x42>;
+> +       status =3D "okay";
+> +};
+> +
+> +&i2c6 {
+> +       es8388: audio-codec@10 {
+> +               compatible =3D "everest,es8388", "everest,es8328";
+> +               reg =3D <0x10>;
+> +               clocks =3D <&cru I2S1_8CH_MCLKOUT>;
+> +               AVDD-supply =3D <&vcca_3v3_s0>;
+> +               DVDD-supply =3D <&vcca_1v8_s0>;
+> +               HPVDD-supply =3D <&vcca_3v3_s0>;
+> +               PVDD-supply =3D <&vcca_3v3_s0>;
+> +               assigned-clocks =3D <&cru I2S1_8CH_MCLKOUT>;
+> +               assigned-clock-rates =3D <12288000>;
+> +               #sound-dai-cells =3D <0>;
+> +       };
+> +
+> +       usbc0: usb-typec@22 {
+> +               compatible =3D "fcs,fusb302";
+> +               reg =3D <0x22>;
+> +               interrupt-parent =3D <&gpio0>;
+> +               interrupts =3D <RK_PD3 IRQ_TYPE_LEVEL_LOW>;
+> +               pinctrl-names =3D "default";
+> +               pinctrl-0 =3D <&usbc0_int>;
+> +               vbus-supply =3D <&vbus_typec>;
+> +               status =3D "okay";
+> +
+> +               usb_con: connector {
+> +                       compatible =3D "usb-c-connector";
+> +                       label =3D "USB-C";
+> +                       data-role =3D "dual";
+> +                       op-sink-microwatt =3D <1000000>;
+> +                       power-role =3D "dual";
+> +                       sink-pdos =3D
+> +                               <PDO_FIXED(5000, 1000, PDO_FIXED_USB_COMM=
+)>;
+> +                       source-pdos =3D
+> +                               <PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM=
+)>;
+> +                       try-power-role =3D "source";
+> +
+> +                       ports {
+> +                               #address-cells =3D <1>;
+> +                               #size-cells =3D <0>;
+> +
+> +                               port@0 {
+> +                                       reg =3D <0>;
+> +                                       usbc0_hs: endpoint {
+> +                                               remote-endpoint =3D <&usb=
+_host0_xhci_drd_sw>;
+> +                                       };
+> +                               };
+> +
+> +                               port@1 {
+> +                                       reg =3D <1>;
+> +                                       usbc0_ss: endpoint {
+> +                                               remote-endpoint =3D <&usb=
+dp_phy0_typec_ss>;
+> +                                       };
+> +                               };
+> +
+> +                               port@2 {
+> +                                       reg =3D <2>;
+> +                                       usbc0_sbu: endpoint {
+> +                                               remote-endpoint =3D <&usb=
+dp_phy0_typec_sbu>;
+> +                                       };
+> +                               };
+> +                       };
+> +               };
+> +       };
+> +};
+> +
+> +&i2s1_8ch {
+> +       rockchip,i2s-tx-route =3D <3 2 1 0>;
+> +       rockchip,i2s-rx-route =3D <1 3 2 0>;
+> +       pinctrl-names =3D "default";
+> +       pinctrl-0 =3D <&i2s1m0_sclk
+> +                          &i2s1m0_mclk
+> +                          &i2s1m0_lrck
+> +                          &i2s1m0_sdi1
+> +                          &i2s1m0_sdo3>;
+> +       status =3D "okay";
+> +};
+> +
+> +&pwm0 {
+> +       pinctrl-0 =3D <&pwm0m2_pins>;
+> +       pinctrl-names =3D "default";
+> +       status =3D "okay";
+> +};
+> +
+> +&rk806_single {
+> +       regulators {
+> +               vcc_1v8_s0: pldo-reg1 {
+> +                       regulator-name =3D "vcc_1v8_s0";
+> +                       regulator-always-on;
+> +                       regulator-boot-on;
+> +                       regulator-min-microvolt =3D <1800000>;
+> +                       regulator-max-microvolt =3D <1800000>;
+> +
+> +                       regulator-state-mem {
+> +                               regulator-off-in-suspend;
+> +                       };
+> +               };
+> +
+> +               vcca_1v8_s0: pldo-reg2 {
+> +                       regulator-name =3D "vcca_1v8_s0";
+> +                       regulator-always-on;
+> +                       regulator-boot-on;
+> +                       regulator-min-microvolt =3D <1800000>;
+> +                       regulator-max-microvolt =3D <1800000>;
+> +
+> +                       regulator-state-mem {
+> +                               regulator-off-in-suspend;
+> +                               regulator-suspend-microvolt =3D <1800000>=
+;
+> +                       };
+> +               };
+> +       };
+> +};
+> +
+> +
+> +&usb_host0_xhci {
+> +       dr_mode =3D "otg";
+> +       usb-role-switch;
+> +
+> +       port {
+> +               usb_host0_xhci_drd_sw: endpoint {
+> +                       remote-endpoint =3D <&usbc0_hs>;
+> +               };
+> +       };
+> +};
+> +
+> +&usb_host2_xhci {
+> +       status =3D "okay";
+> +};
+> +
+> +&usbdp_phy0 {
+> +       mode-switch;
+> +       orientation-switch;
+> +       sbu1-dc-gpios =3D <&gpio4 RK_PA5 GPIO_ACTIVE_HIGH>;
+> +       sbu2-dc-gpios =3D <&gpio4 RK_PA7 GPIO_ACTIVE_HIGH>;
+> +
+> +       port {
+> +               #address-cells =3D <1>;
+> +               #size-cells =3D <0>;
+> +
+> +               usbdp_phy0_typec_ss: endpoint@0 {
+> +                       reg =3D <0>;
+> +                       remote-endpoint =3D <&usbc0_ss>;
+> +               };
+> +
+> +               usbdp_phy0_typec_sbu: endpoint@1 {
+> +                       reg =3D <1>;
+> +                       remote-endpoint =3D <&usbc0_sbu>;
+> +               };
+> +       };
+> +};
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dts b/arch/a=
+rm64/boot/dts/rockchip/rk3588s-orangepi-5.dts
+> index 83b9b6645a1e..d76bdf1b5e90 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dts
+> @@ -2,12 +2,16 @@
+>
+>  /dts-v1/;
+>
+> -#include "rk3588s-orangepi-5.dtsi"
+> +#include "rk3588s-orangepi-5-5b.dtsi"
+>
+>  / {
+>         model =3D "Xunlong Orange Pi 5";
+>         compatible =3D "xunlong,orangepi-5", "rockchip,rk3588s";
+>
+> +       aliases {
+> +               mmc0 =3D &sdmmc;
+> +       };
+> +
+>         vcc3v3_pcie20: regulator-vcc3v3-pcie20 {
+>                 compatible =3D "regulator-fixed";
+>                 enable-active-high;
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi b/arch/=
+arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi
+> index fd5c6a025cd1..2b605e5fc35a 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi
+> @@ -3,19 +3,13 @@
+>  /dts-v1/;
+>
+>  #include <dt-bindings/gpio/gpio.h>
+> -#include <dt-bindings/leds/common.h>
+>  #include <dt-bindings/input/input.h>
+> +#include <dt-bindings/leds/common.h>
+>  #include <dt-bindings/pinctrl/rockchip.h>
+>  #include <dt-bindings/soc/rockchip,vop2.h>
+> -#include <dt-bindings/usb/pd.h>
+>  #include "rk3588s.dtsi"
+>
+>  / {
+> -       aliases {
+> -               ethernet0 =3D &gmac1;
+> -               mmc0 =3D &sdmmc;
+> -       };
+> -
+>         chosen {
+>                 stdout-path =3D "serial2:1500000n8";
+>         };
+> @@ -34,38 +28,6 @@ button-recovery {
+>                 };
+>         };
+>
+> -       analog-sound {
+> -               compatible =3D "simple-audio-card";
+> -               pinctrl-names =3D "default";
+> -               pinctrl-0 =3D <&hp_detect>;
+> -               simple-audio-card,name =3D "rockchip,es8388";
+> -               simple-audio-card,bitclock-master =3D <&masterdai>;
+> -               simple-audio-card,format =3D "i2s";
+> -               simple-audio-card,frame-master =3D <&masterdai>;
+> -               simple-audio-card,hp-det-gpios =3D <&gpio1 RK_PD5 GPIO_AC=
+TIVE_HIGH>;
+> -               simple-audio-card,mclk-fs =3D <256>;
+> -               simple-audio-card,routing =3D
+> -                       "Headphones", "LOUT1",
+> -                       "Headphones", "ROUT1",
+> -                       "LINPUT1", "Microphone Jack",
+> -                       "RINPUT1", "Microphone Jack",
+> -                       "LINPUT2", "Onboard Microphone",
+> -                       "RINPUT2", "Onboard Microphone";
+> -               simple-audio-card,widgets =3D
+> -                       "Microphone", "Microphone Jack",
+> -                       "Microphone", "Onboard Microphone",
+> -                       "Headphone", "Headphones";
+> -
+> -               simple-audio-card,cpu {
+> -                       sound-dai =3D <&i2s1_8ch>;
+> -               };
+> -
+> -               masterdai: simple-audio-card,codec {
+> -                       sound-dai =3D <&es8388>;
+> -                       system-clock-frequency =3D <12288000>;
+> -               };
+> -       };
+> -
+>         hdmi0-con {
+>                 compatible =3D "hdmi-connector";
+>                 type =3D "a";
+> @@ -77,18 +39,6 @@ hdmi0_con_in: endpoint {
+>                 };
+>         };
+>
+> -       pwm-leds {
+> -               compatible =3D "pwm-leds";
+> -
+> -               led {
+> -                       color =3D <LED_COLOR_ID_GREEN>;
+> -                       function =3D LED_FUNCTION_STATUS;
+> -                       linux,default-trigger =3D "heartbeat";
+> -                       max-brightness =3D <255>;
+> -                       pwms =3D <&pwm0 0 25000 0>;
+> -               };
+> -       };
+> -
+>         vbus_typec: regulator-vbus-typec {
+>                 compatible =3D "regulator-fixed";
+>                 enable-active-high;
+> @@ -101,15 +51,6 @@ vbus_typec: regulator-vbus-typec {
+>                 vin-supply =3D <&vcc5v0_sys>;
+>         };
+>
+> -       vcc5v0_sys: regulator-vcc5v0-sys {
+> -               compatible =3D "regulator-fixed";
+> -               regulator-name =3D "vcc5v0_sys";
+> -               regulator-always-on;
+> -               regulator-boot-on;
+> -               regulator-min-microvolt =3D <5000000>;
+> -               regulator-max-microvolt =3D <5000000>;
+> -       };
+> -
+>         vcc_3v3_sd_s0: regulator-vcc-3v3-sd-s0 {
+>                 compatible =3D "regulator-fixed";
+>                 gpios =3D <&gpio4 RK_PB5 GPIO_ACTIVE_LOW>;
+> @@ -119,6 +60,15 @@ vcc_3v3_sd_s0: regulator-vcc-3v3-sd-s0 {
+>                 regulator-max-microvolt =3D <3300000>;
+>                 vin-supply =3D <&vcc_3v3_s3>;
+>         };
+> +
+> +       vcc5v0_sys: regulator-vcc5v0-sys {
+> +               compatible =3D "regulator-fixed";
+> +               regulator-name =3D "vcc5v0_sys";
+> +               regulator-always-on;
+> +               regulator-boot-on;
+> +               regulator-min-microvolt =3D <5000000>;
+> +               regulator-max-microvolt =3D <5000000>;
+> +       };
+>  };
+>
+>  &combphy0_ps {
+> @@ -161,20 +111,6 @@ &cpu_l3 {
+>         cpu-supply =3D <&vdd_cpu_lit_s0>;
+>  };
+>
+> -&gmac1 {
+> -       clock_in_out =3D "output";
+> -       phy-handle =3D <&rgmii_phy1>;
+> -       phy-mode =3D "rgmii-rxid";
+> -       pinctrl-0 =3D <&gmac1_miim
+> -                    &gmac1_tx_bus2
+> -                    &gmac1_rx_bus2
+> -                    &gmac1_rgmii_clk
+> -                    &gmac1_rgmii_bus>;
+> -       pinctrl-names =3D "default";
+> -       tx_delay =3D <0x42>;
+> -       status =3D "okay";
+> -};
+> -
+>  &gpu {
+>         mali-supply =3D <&vdd_gpu_s0>;
+>         status =3D "okay";
+> @@ -270,69 +206,6 @@ &i2c6 {
+>         pinctrl-0 =3D <&i2c6m3_xfer>;
+>         status =3D "okay";
+>
+> -       es8388: audio-codec@10 {
+> -               compatible =3D "everest,es8388", "everest,es8328";
+> -               reg =3D <0x10>;
+> -               clocks =3D <&cru I2S1_8CH_MCLKOUT>;
+> -               AVDD-supply =3D <&vcca_3v3_s0>;
+> -               DVDD-supply =3D <&vcca_1v8_s0>;
+> -               HPVDD-supply =3D <&vcca_3v3_s0>;
+> -               PVDD-supply =3D <&vcca_3v3_s0>;
+> -               assigned-clocks =3D <&cru I2S1_8CH_MCLKOUT>;
+> -               assigned-clock-rates =3D <12288000>;
+> -               #sound-dai-cells =3D <0>;
+> -       };
+> -
+> -       usbc0: usb-typec@22 {
+> -               compatible =3D "fcs,fusb302";
+> -               reg =3D <0x22>;
+> -               interrupt-parent =3D <&gpio0>;
+> -               interrupts =3D <RK_PD3 IRQ_TYPE_LEVEL_LOW>;
+> -               pinctrl-names =3D "default";
+> -               pinctrl-0 =3D <&usbc0_int>;
+> -               vbus-supply =3D <&vbus_typec>;
+> -               status =3D "okay";
+> -
+> -               usb_con: connector {
+> -                       compatible =3D "usb-c-connector";
+> -                       label =3D "USB-C";
+> -                       data-role =3D "dual";
+> -                       op-sink-microwatt =3D <1000000>;
+> -                       power-role =3D "dual";
+> -                       sink-pdos =3D
+> -                               <PDO_FIXED(5000, 1000, PDO_FIXED_USB_COMM=
+)>;
+> -                       source-pdos =3D
+> -                               <PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM=
+)>;
+> -                       try-power-role =3D "source";
+> -
+> -                       ports {
+> -                               #address-cells =3D <1>;
+> -                               #size-cells =3D <0>;
+> -
+> -                               port@0 {
+> -                                       reg =3D <0>;
+> -                                       usbc0_hs: endpoint {
+> -                                               remote-endpoint =3D <&usb=
+_host0_xhci_drd_sw>;
+> -                                       };
+> -                               };
+> -
+> -                               port@1 {
+> -                                       reg =3D <1>;
+> -                                       usbc0_ss: endpoint {
+> -                                               remote-endpoint =3D <&usb=
+dp_phy0_typec_ss>;
+> -                                       };
+> -                               };
+> -
+> -                               port@2 {
+> -                                       reg =3D <2>;
+> -                                       usbc0_sbu: endpoint {
+> -                                               remote-endpoint =3D <&usb=
+dp_phy0_typec_sbu>;
+> -                                       };
+> -                               };
+> -                       };
+> -               };
+> -       };
+> -
+>         hym8563: rtc@51 {
+>                 compatible =3D "haoyu,hym8563";
+>                 reg =3D <0x51>;
+> @@ -346,18 +219,6 @@ hym8563: rtc@51 {
+>         };
+>  };
+>
+> -&i2s1_8ch {
+> -       rockchip,i2s-tx-route =3D <3 2 1 0>;
+> -       rockchip,i2s-rx-route =3D <1 3 2 0>;
+> -       pinctrl-names =3D "default";
+> -       pinctrl-0 =3D <&i2s1m0_sclk
+> -                    &i2s1m0_mclk
+> -                    &i2s1m0_lrck
+> -                    &i2s1m0_sdi1
+> -                    &i2s1m0_sdo3>;
+> -       status =3D "okay";
+> -};
+> -
+>  &i2s5_8ch {
+>         status =3D "okay";
+>  };
+> @@ -404,12 +265,6 @@ typec5v_pwren: typec5v-pwren {
+>         };
+>  };
+>
+> -&pwm0 {
+> -       pinctrl-0 =3D <&pwm0m2_pins>;
+> -       pinctrl-names =3D "default";
+> -       status =3D "okay";
+> -};
+> -
+>  &rknn_core_0 {
+>         npu-supply =3D <&vdd_npu_s0>;
+>         sram-supply =3D <&vdd_npu_s0>;
+> @@ -491,7 +346,7 @@ &spi2 {
+>         pinctrl-names =3D "default";
+>         pinctrl-0 =3D <&spi2m2_cs0 &spi2m2_pins>;
+>
+> -       pmic@0 {
+> +       rk806_single: pmic@0 {
+>                 compatible =3D "rockchip,rk806";
+>                 reg =3D <0x0>;
+>                 interrupt-parent =3D <&gpio0>;
+> @@ -666,31 +521,6 @@ regulator-state-mem {
+>                                 };
+>                         };
+>
+> -                       vcc_1v8_s0: pldo-reg1 {
+> -                               regulator-name =3D "vcc_1v8_s0";
+> -                               regulator-always-on;
+> -                               regulator-boot-on;
+> -                               regulator-min-microvolt =3D <1800000>;
+> -                               regulator-max-microvolt =3D <1800000>;
+> -
+> -                               regulator-state-mem {
+> -                                       regulator-off-in-suspend;
+> -                               };
+> -                       };
+> -
+> -                       vcca_1v8_s0: pldo-reg2 {
+> -                               regulator-name =3D "vcca_1v8_s0";
+> -                               regulator-always-on;
+> -                               regulator-boot-on;
+> -                               regulator-min-microvolt =3D <1800000>;
+> -                               regulator-max-microvolt =3D <1800000>;
+> -
+> -                               regulator-state-mem {
+> -                                       regulator-off-in-suspend;
+> -                                       regulator-suspend-microvolt =3D <=
+1800000>;
+> -                               };
+> -                       };
+> -
+>                         vdda_1v2_s0: pldo-reg3 {
+>                                 regulator-name =3D "vdda_1v2_s0";
+>                                 regulator-always-on;
+> @@ -841,26 +671,7 @@ &uart2 {
+>  };
+>
+>  &usbdp_phy0 {
+> -       mode-switch;
+> -       orientation-switch;
+> -       sbu1-dc-gpios =3D <&gpio4 RK_PA5 GPIO_ACTIVE_HIGH>;
+> -       sbu2-dc-gpios =3D <&gpio4 RK_PA7 GPIO_ACTIVE_HIGH>;
+>         status =3D "okay";
+> -
+> -       port {
+> -               #address-cells =3D <1>;
+> -               #size-cells =3D <0>;
+> -
+> -               usbdp_phy0_typec_ss: endpoint@0 {
+> -                       reg =3D <0>;
+> -                       remote-endpoint =3D <&usbc0_ss>;
+> -               };
+> -
+> -               usbdp_phy0_typec_sbu: endpoint@1 {
+> -                       reg =3D <1>;
+> -                       remote-endpoint =3D <&usbc0_sbu>;
+> -               };
+> -       };
+>  };
+>
+>  &usb_host0_ehci {
+> @@ -872,15 +683,7 @@ &usb_host0_ohci {
+>  };
+>
+>  &usb_host0_xhci {
+> -       dr_mode =3D "otg";
+> -       usb-role-switch;
+>         status =3D "okay";
+> -
+> -       port {
+> -               usb_host0_xhci_drd_sw: endpoint {
+> -                       remote-endpoint =3D <&usbc0_hs>;
+> -               };
+> -       };
+>  };
+>
+>  &usb_host1_ehci {
+> @@ -891,7 +694,7 @@ &usb_host1_ohci {
+>         status =3D "okay";
+>  };
+>
+> -&usb_host2_xhci {
+> +&vop {
+>         status =3D "okay";
+>  };
+>
+> @@ -899,10 +702,6 @@ &vop_mmu {
+>         status =3D "okay";
+>  };
+>
+> -&vop {
+> -       status =3D "okay";
+> -};
+> -
+>  &vp0 {
+>         vp0_out_hdmi0: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
+>                 reg =3D <ROCKCHIP_VOP2_EP_HDMI0>;
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5b.dts b/arch/=
+arm64/boot/dts/rockchip/rk3588s-orangepi-5b.dts
+> index d21ec320d295..8af174777809 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5b.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5b.dts
+> @@ -2,7 +2,7 @@
+>
+>  /dts-v1/;
+>
+> -#include "rk3588s-orangepi-5.dtsi"
+> +#include "rk3588s-orangepi-5-5b.dtsi"
+>
+>  / {
+>         model =3D "Xunlong Orange Pi 5B";
+> --
+> 2.53.0
+>
