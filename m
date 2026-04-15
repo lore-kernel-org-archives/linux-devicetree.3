@@ -1,69 +1,71 @@
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022122.outbound.protection.outlook.com [40.107.75.122])
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023085.outbound.protection.outlook.com [40.107.44.85])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 519D5347BDC;
-	Wed, 15 Apr 2026 11:38:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.122
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB01433D6D5;
+	Wed, 15 Apr 2026 11:40:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.85
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776253091; cv=fail; b=aq2IB9qF4vSMx/i5Du+s4DwvFAnhu5t7mm74wmtOKMYhyXt29RsoKpuvTF3nrDP0m6Jpx6egmOcVto9+DXQmbib6hwRdaG8eqk7TLsvcpudEFNqSoCxaNlgNPoJo8cVtgNWr7q7iPfXFo3Zov1jIqtMVjZzxFpxeOsSCErBpHgs=
+	t=1776253230; cv=fail; b=Mevfzr677VkMOIYiBLzCmBIZJLgsxF8Oo++hgSGFDltV6qPpe1cYQasQ9NA+9f10zULkSNBOEbAlSCKJMvP5Mv1YUVNH+yKHqX3nAo3vuENaKxx6cGEAoQTXW2IDwOt1JiloVeG+B4N0FEdijGRWEM+dEKDqH9pjQeKb6n6obZQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776253091; c=relaxed/simple;
-	bh=ODtUEWZGka7s2ik9727fTec7eoKQOxSVyNbBDj74W2U=;
+	s=arc-20240116; t=1776253230; c=relaxed/simple;
+	bh=6JAAL7zc2jhdKTx34fb0FQAkUpxL84nuLUPJBVD29pM=;
 	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=TBneZxgOdtHkZymPbZdMWR3XezrVfG8+Z9pF1ZZzUUlkkKpRJMi9O1Np/5HsK0AjLo9WSGXi+C9tOmbZcGjNIAfO5YNSnEroopi8b+qEKg2nh5wU9mCI+kz4BJlSGx8JIxAmxAg2rQGG0bWrFjs1o+2UbjAujNZ87VXq4NTSDzo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=I/fVL9Sz; arc=fail smtp.client-ip=40.107.75.122
+	 Content-Type:MIME-Version; b=pt64TAkF1yya/QCYGf+KZ5WJQcSut4I+vjhb7SX7ikseaM3nHwraQmBQeOvLMQjNNT3nOrNUR9cFdrEprJewyhTM/f5cGkv5hPJfPNqGue2XcHN2SlyPka9hGp8ip55NQB8a+2SLZd2K652C8iDljAuiBHQaeretkpYyFR+grTA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=aOXUMcdl; arc=fail smtp.client-ip=40.107.44.85
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="I/fVL9Sz"
+	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="aOXUMcdl"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eg74lnyBOGGRXJMBikAB90/qz+9vvVNDHms8x+psZNsAv3n6N+FowRluDc48BhL/x3xdTOE7HuD/qxuryYM/WuNsL36su1Ntn3Q0q3Ox9hHnHu2DAGzay4Ra+u7DXqZeHgTht5XHqpy8FinI/ye1ooUQjPytP5uaozdHvTS43lIgds4fzrOPd7W7rb+yOb97uEKxbUSnAYfVbPyriq/6g7Ln+aq71dbAEPU2jq2xNde41GX9YQlb2Yn2UFd+QIpL/3Q+DMqr3+Q6LhYy12HpItSAQEgzoX8hG8OjWK8F0X8vhbK5vslIUBniRrVev9ionVBejsSc15WVS8OpfmDeEg==
+ b=KnKJsXwuADyuXfCmJw4C38iYqL8ixU3DenRZ8y8OPfgaRh8MHdSEXkjnk2am5vdaUbpnnOREK4X7thhdODdMhNOt9QEwVCQlyz4PiwB/L51eG/LwWDPCdflruWnxLZgdb078FafKtbsxizOznZULzJmXK4J2YjgW8AVAw8YgkMLI723BtjNqiM9qEYG7DxOcrapovalRss6EAYx7oy0rnF/0LHOAKo4iCuG6EHjTUDsJSCPW4RZ5Bbh3YBTEKI02nrSS0BK6dHMXtRU+6B/rhzLnsdq4jQ81jwUoYZMwsd0qIhn/czh+DeohdAs0YLlUjJ7cpSbMe5WQMkQwmzy4mQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3I1z2WZnW4FrREZcAXsaSH1QeYiBmsYm0o0Il3E2Lho=;
- b=FusuYTenHj3v0prORkek6Wm3s+PnreTmKNXLErVjV/HDwP+Zc8W66TjAX5BGEprNFF+9Gr6pr/D4BADjN8b7L4tHHaxXUovBke08xYmDHL+l4YfmlLT1LrucrhviCGySymXcJHdg35tEoKOuPL10P+asZuIujkCF5AVVHZF7ZBexRReLe0iGkuUx8Kf348UKxkMM/7E6pN0CLNZxeAxu5GgVUMtGxFOothqS/6fDnAM/ruwMH344eRnwncmuDpcJuJxA1Euh3U1dWHmfOhu9VMXw9mkCJqox2ejzMDEW7ekXU6IdjbQB1EwuEKUmeowpp+Yh0ep36x3MN/BlJShmkQ==
+ bh=HDUifxSMMAtVElIaZBIlMCpL497OktTuF+xgv+R8ce0=;
+ b=YNwM86ZRFgW6MG/WnELjcNYd28Ch8jlGrwzFct/VHX4jWwAjPIZp+osbWhG+2VGm3uIZDbFHY8aNgeB/8r/cu8zGqaZ78heif4kyUwvu89fujOO+R5klZLYd4Ep6b8kJIBlWWALns98c8O3++yQJy5ObZmxr0jC9eIHw5TQtVKRUGHV4mTUeoqUvmrJ2cs6e2jpaenN7OzGyvXejZZ0ySauyTXDUUuTy3Ic3h+q5w6zfGNUTzd5tADDR0Rin/smzrDpwMVGIJKgqZFCHn50U67PlGJV5QVl9ZAXLtV9RGoQ9BG7hr2nX+yHL7YywfxgfWrJKMXC1613dYCDlH4aFhw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
  dkim=pass header.d=amlogic.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3I1z2WZnW4FrREZcAXsaSH1QeYiBmsYm0o0Il3E2Lho=;
- b=I/fVL9SzbhkaDY9EK2rc8tHGo/3jA++xT/qhJ7c3smQWSssXjXppgrxpQkNmyS+H1oob0JlLo7SwJj1OpLmwFRS/a6ZDCJOMfy8fHlfMI3E/kL54TKdJxuXwksMxAgSX+fEZdFP1gefxOdEk4ht8d9AxIh8sYbokPzn2OEutuRjOdJpjyJU5oAG3dbhlsOjMi4szMmyV/Prcwe50rX9x9w6iY5UKrF1uNjr7dXdaLe/qlFvrkVAHiIFvK/kYowEGNlcPt2fVxziq7qPiYUDWazzBQRUmq12ukM3tx87aUMqXZE+2L7MSBcgvfwGjvYu0lkCJlKlJoudliUlRUjkHDA==
+ bh=HDUifxSMMAtVElIaZBIlMCpL497OktTuF+xgv+R8ce0=;
+ b=aOXUMcdlNwFG91FuFhR4+Al9LtUjXijS1eIaJilMigjit7L8eoWDb6tf7LDtlwoH6iq+fRAMwdbFbqH1P/sr8Sl7S3dOaNTc0C6aVdp2Pb4xu/mBRCLuaUTkOZ6OOoLGSTEin7HzHta8ylaXUqvtoqFPFIYrR2xeHSMo722hM4saBXBxD0UasCPgm8db1kRLWuHt9yy/2fSp9NjBtWk+yBHzcHXtuC17TCOHpFb9EXutGzeqHbtQPN0Psp969KK8vgsXKixV0oQmR9JKb+WLeUubQt0YzJv456vp9s7svzgXHRJDeUTMnkFQgtzhTAepzEiN3JshtVp8AebgIuwiAQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from TYZPR03MB6896.apcprd03.prod.outlook.com (2603:1096:400:289::14)
- by SEYPR03MB7779.apcprd03.prod.outlook.com (2603:1096:101:139::8) with
+Received: from KL1PR03MB5778.apcprd03.prod.outlook.com (2603:1096:820:6d::13)
+ by SI2PR03MB6437.apcprd03.prod.outlook.com (2603:1096:4:1a0::7) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Wed, 15 Apr
- 2026 11:38:07 +0000
-Received: from TYZPR03MB6896.apcprd03.prod.outlook.com
- ([fe80::78d4:9dee:2e32:d1e4]) by TYZPR03MB6896.apcprd03.prod.outlook.com
- ([fe80::78d4:9dee:2e32:d1e4%3]) with mapi id 15.20.9769.046; Wed, 15 Apr 2026
- 11:38:07 +0000
-Message-ID: <68577e42-2fdb-4b66-84a4-610acb8b975b@amlogic.com>
-Date: Wed, 15 Apr 2026 19:38:03 +0800
+ 2026 11:40:24 +0000
+Received: from KL1PR03MB5778.apcprd03.prod.outlook.com
+ ([fe80::e1e:5c95:a889:828e]) by KL1PR03MB5778.apcprd03.prod.outlook.com
+ ([fe80::e1e:5c95:a889:828e%5]) with mapi id 15.20.9769.046; Wed, 15 Apr 2026
+ 11:40:23 +0000
+Message-ID: <366ea762-b228-4d6e-872d-2a7f9dc8b1d9@amlogic.com>
+Date: Wed, 15 Apr 2026 19:40:50 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] arm64: dts: amlogic: t7: Add UART controllers nodes
-Content-Language: en-US
-To: Ronald Claveau <linux-kernel-dev@aliel.fr>,
+Subject: Re: [PATCH 04/13] clk: amlogic: Add basic clock driver
+To: Krzysztof Kozlowski <krzk@kernel.org>,
  Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260415-add-bluetooth-t7-vim4-v1-0-0ba0746cc1d6@aliel.fr>
- <20260415-add-bluetooth-t7-vim4-v1-2-0ba0746cc1d6@aliel.fr>
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-In-Reply-To: <20260415-add-bluetooth-t7-vim4-v1-2-0ba0746cc1d6@aliel.fr>
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+References: <20260209-a9_clock_driver-v1-0-a9198dc03d2a@amlogic.com>
+ <20260209-a9_clock_driver-v1-4-a9198dc03d2a@amlogic.com>
+ <89cc0724-32a8-4da5-8070-c128cafcfc82@kernel.org>
+ <76ef272c-e09a-400e-b381-82d7f29760ca@amlogic.com>
+ <b97c2e64-8a43-498b-a447-6a5b67c525e5@kernel.org>
+From: Chuan Liu <chuan.liu@amlogic.com>
+In-Reply-To: <b97c2e64-8a43-498b-a447-6a5b67c525e5@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TP0P295CA0045.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:910:4::16) To TYZPR03MB6896.apcprd03.prod.outlook.com
- (2603:1096:400:289::14)
+X-ClientProxiedBy: TP0P295CA0015.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:910:2::13) To KL1PR03MB5778.apcprd03.prod.outlook.com
+ (2603:1096:820:6d::13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,170 +73,151 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYZPR03MB6896:EE_|SEYPR03MB7779:EE_
-X-MS-Office365-Filtering-Correlation-Id: eded4dde-598c-4a8b-8e99-08de9ae3769d
+X-MS-TrafficTypeDiagnostic: KL1PR03MB5778:EE_|SI2PR03MB6437:EE_
+X-MS-Office365-Filtering-Correlation-Id: 882dca0c-ecd5-47c3-5a30-08de9ae3c7d9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|18002099003|56012099003|22082099003;
+	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|18002099003|56012099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	lj1CzVYcu7j3bB16bbwLYE4rHfirvCB4FwEyLXEw9oKY6oWL/7SgJA2z1ofRvSWpso/LnNhISwp/dbJKz94r/Lwl7gLvU9GOYfrfrA+N9iUnP3+sQVp8k0n8Lk0c2ZZcJ2QvPXCulmK2qG4X2qbUUWmmre+9QU9UUQdQKAH5xUyw8rg9xuGP79ea852AtAVDEU1vNpcC8NZ6G+6XQIb4/GBiE8PxbmIzw+q/N1wQjaXvZOa0ZEFC/aGhrENbqA6wApLXHHX1iY6UkoratEGk1bGe6ZWKtQyXm/aTK+Ch5NVu/OSjti0GfOYCmTpCG2qqiic4EJbNwvf+8u0utxEqGugCnOYB/rztDbeNIHkTz7TOqlXIsbesI4bhih2TRbPEjK2KzvB+VSFfBt+BvXF41zkuOBrKNKEA7xs4KdL+8FNPiG7Y/+IOnU8T0zCPUwV9HYnxFvWS1FemJWXqBJiC/pY7mc6Yqk5goN9lCVB31AiD1hDq5I00TBn1LIuPPczZT5tWjrXe1XRAr4RfmTd+c5EvWRu0jzS3y28RaCMINI/8+9HxzG96p6G593+iEdt5SzDBN8rc3suTGAdsRABeU0p8obHIB0LaZRLJ2OAyjJc8cYlm6xHK+UiRgl0UDryKCG9t6HdjraLheRJoPkW0H6QFm+WmbMWSML+r3dO5RV6tKlqC3aqZ9S60YMdozKZaqrucZY9UjGjiYq4uwWpjlKdmFEi3z3Nqk++q7EetZIk=
+	+XRxZj54jIamq3+v7cHYHASU968Xuidu+mZaPUbl125mLbAaPReogHuA8mF4GgGjzQ1UJKI9oDFVFo6QzH92B+lFYjhQzcNayOy1YHY+uapnKTKozpPLCQghOLUoKKEBstWmf8y/2eKVBIhxsmCk0neJ/NCcwSz8OGqAOhCwhtkopgsfcN2hcfsk25cgivDFIEi7x0wcGm4qyx7RfUagC+KO9Zwt3Oo0W8T1fUdJmM1+UAq7y9F9az1tXVKv77tTZY18Jj6KkotQZiY+GDDIK1TAbAeTbRwF5dB558qZK9T0T7TxmNuAbofIa5VQ4XHYr1LStt0SFx4LnP77w+QkbPG4yTr4CxfWDQYLvOmLHTVkStcvv2+bSvDW5/fkB1qWLXekDxgWXpZ99vxWnj7ihpZ8LRX1fhKmX7v3TwBaKE8HjlWEDpID+uw14wRgVmz3220TD+OH9h5Rnha+EztTb5fCsOmeY2j3Cg0WQEqWhyAf8/0DBht0snEG61XNZebrK8iwsFCnD4uKP/N9gQ/m+2JgGHeYjAyY7B8LdcPYoibYSBW7M49v3dR3oVxqSjjsCrNIzSaTl2IfM0VMQInacNLhnggdjduWRzaR1ieEbOTwm+vhxeDSw+pSN2XrfEns6A9DnksZMGO7Y3296Wb5lbBdx/YbX/zZdj/4cg+4B4BNuFQR28q+moZ3nWKpd945rH4mNGiqJtmVCFciF00nmq+2hikB34hwjSMj/XGykYU=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6896.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5778.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?czgzZnYvWWJtenorRUlPTkhXemRSdHk3QnFOY09vK3RGUGpVNHdvOWtpbUdy?=
- =?utf-8?B?b0wrcmFleCtTN2pJYUswa2Y0TjY4VWJQTHMwTFNmbVRiSTh5YzV4eXk0dEUx?=
- =?utf-8?B?K1FoUmdBWTd6Vk1RdWxlNURreW5VV2FvcnhodlVjS0ozTXlyN1NUK3ZXS2tl?=
- =?utf-8?B?b3ZnY0pXVUpGYTFZV0RCQlhxRHlBTGkxWFhtYmdsdGZWK2ZjcVF4bDFzbUZB?=
- =?utf-8?B?eStENUNlSFNoanhtQTFnc0JYQU9wNElsd2FFMndxSERSVUsxYU1YUWgybFFw?=
- =?utf-8?B?a09jT1BOSEFaS3BjVXYveWd4QzR1aVRKbms4SDRaSm1OMEtIbTMvVTNkSUNt?=
- =?utf-8?B?ZTNRV1BhWkxRbEtEQUFKSUpBelJXQkN0N000SDliTHVJR1g4STI1eVlWVUdm?=
- =?utf-8?B?MzhtYVVkZzQzQzhrOWJia2xPRTBUUGVHMm5BQnFVdXZkVmxuMDk4N1ZuZXM0?=
- =?utf-8?B?ZERJSk10RFRPellZeWpEb2FYN0RmcldwcUlNaWhLNlhmaDRSc2gvOHc0Ykg4?=
- =?utf-8?B?UzJSQXlVUVF4SVZPajFGMWpvUjRzeHVWL1VudHpMek41dlpQVW9ZTjFhSjRy?=
- =?utf-8?B?VTl4dnJVQjFsN08rR1FiT0VaSThvNHUvamYyZWJGdXFJUnZZRDUzZ1ZUaDVp?=
- =?utf-8?B?N2JxY1paQnNnZ0puWWlteHJDV2RvekRqNG5uUFBRdmZkbDVsTGwxWHNtR3lM?=
- =?utf-8?B?N3dVNmFiOXUvRGlQR0d0eWFZaUJGSGhpQjNXY2VOckJkdUhYUEhtQVRTYXJF?=
- =?utf-8?B?U1VQOFlwT0k3dkxLeXEwVUJpbml6YWQrdWVUMGhPSjN1ekZSYUorUWloTStt?=
- =?utf-8?B?K3dhMHBiWUs0R1BjbCs0am5ZVjMzR3VyWjFCeEU1SXJUalM4SEV0eTB2RTI0?=
- =?utf-8?B?WUt1bkhxa2d1a3dMRkVIM2xCdElhUVZVbmZkcWIvdUlKdzhPUzYwU3V3K25G?=
- =?utf-8?B?MUJicGVMaE9sVElSZkxuZWFqWGc2WnJLUzZDd1NOQ1R4WTNBT085bDVRaWsr?=
- =?utf-8?B?c241KzJSeVQ4VzQrMXQ0Q2dOMlJwTVo1dHBRMG9UTElYdG52OXFOV0VwckQ3?=
- =?utf-8?B?VFJIZHhPQVBPUDgrYjR6TFJhVE5EZWsvZkdGSEJNTStEOU9JNXZUbDV5ajdT?=
- =?utf-8?B?SS9TMnk3NXFLbmVzTUE0RXlKemhWc2RHalBXNlI4YW9iL0Y2ZENQcWxOcnJK?=
- =?utf-8?B?UDEyMUplaERnMHhlRjQ1bGJTNTZCSGNlTXN3T05IOUNMMXJpbzJPOU80dFQ4?=
- =?utf-8?B?cUpLRE9zNXNFTURWeEdLc1dnVWw0L2xWVDlIR244aGpoUGszRExJTnQ2Vk5B?=
- =?utf-8?B?dStEWkhKOEUrNVZqZTN3WlJ6QnAwWFJpZHUzQWRTdW40UG8wVCszcW5NVkJk?=
- =?utf-8?B?Y2ZMS2RvOHhoS3hpOVJISU00NUhhU09CN2tORXBaMVNlN2RnVXo2TDBja0Na?=
- =?utf-8?B?RktKdVdqVDNMQUkwdEhHNUU2b1RIY0k2T3RJTkgrVFdkOGx1cTVCTGdPRFo5?=
- =?utf-8?B?OUlZSzRPV3hkVWVlcm5OU1R2K2ZJY3dBSzNkQ2U1WU44Z3FtaHV2bXNSTUNP?=
- =?utf-8?B?cm5EMGtYbVZoajdxY1ZMcmVVK1dNaWtGZGZYbUdYQXA3NFVXQTgzbjJVaDBv?=
- =?utf-8?B?Z1ZZK3JDTFJYUDBKdGpRMzV3NFY3aUpOZTNXWCtyREdvM0t4NE44eHBwN3BH?=
- =?utf-8?B?N3R6QzRRL2V4SEEwT3ZzMDd3MFNibkNldytQVlNuY0FaUWRtWHdhZm5rVmxS?=
- =?utf-8?B?c1hLZm9CeVZtbzRKV25CclZxaTlIKy9lcFlLZ3JiaUFhZ3Qyd2ljRjhMK0w5?=
- =?utf-8?B?VG5LdG84R2VQOUJTOEJ3cUdoSXVyNU9zUktFSlJzN3FDbUdqaE9DMjlyUkRR?=
- =?utf-8?B?NUhBNXJtKzF5L2F6YVFzSjc5V3dOdUd6R0lTcC9TNWJqS0hySVhiZTlQV253?=
- =?utf-8?B?OTFxRXZqKy9mN0t2a2hndzVFcHlKYUZtWWplOTFMZDBuWll2VCt4U1F1TWNU?=
- =?utf-8?B?K1ByR3dRV2V6OHpKallGQkJWUHlzY1prazZ1OGh3MlhCMVlLWE1tNktRcStH?=
- =?utf-8?B?NVlpcStLU2ZLZXd3NWtURUtlMEtsV2RPREh5MEhRS2Izd1A5WUlSY09uazhs?=
- =?utf-8?B?ekxTUlhHN3ppUjEvbzhGcHR3eW5rY2xtODZ3N3FkbDlPQ3BWc2FYM2dkQ2xH?=
- =?utf-8?B?TGpzUnBTWmlKbTRNMC9XUEE5dEZhdjFES3NZOFVld01Md2JqcmZlZVRVS2NU?=
- =?utf-8?B?dTdaWUhCdDQ0bzh4WlFKUzRpTHlUbDczV3FPdFoxeDhoMUl2dk5HRTdZWWo5?=
- =?utf-8?B?SEhkeS9GY1VYcDFLSTJEK0dVcjF4OTE1M1hia2hMQXNlbks0TWw2QT09?=
+	=?utf-8?B?VjdNbWhCakVrZUpEd2xtalgyb1RNR0lEMjF0Q0laTnh1YkhVMnlWbjBaU3RT?=
+ =?utf-8?B?dlBKcDZ0QmxDaDNkYTRRMW1YNysvVTJCaU1qcjY4UFljcGN1UnpLNHZTVE9Z?=
+ =?utf-8?B?MFEyR204UG5XejgxeHB4TGczV3JwaTdPc1FLL3RSWjRvaTBNdmpyRkZCTytK?=
+ =?utf-8?B?bWlxaG1obG5nZVdnMzZ4Q2pWUDEzazdITzdBUTBYeFNQTExCUmlkMmtvNFpB?=
+ =?utf-8?B?dGxNazVRTjE0R2JpbXkvQWZoYllPQWNqd3dCeHFNMlUzMnRrWE1wd0tuSnk0?=
+ =?utf-8?B?R2ZIQ2Y2Tm1kSDhVdDNJUFFqWWh1Y2ExYi96VHRNK1U5ZWVPMTBDWGNPU2dk?=
+ =?utf-8?B?OXRvbnVkTTl4NkQ4S1Y2UlNEY2xyOUtzQVpXWWtDcnpldDZXUzVVbzViTCtG?=
+ =?utf-8?B?VktLQWcyT2ltMWh5cU5mdW5Objc3RjI0SlZQR2NjV0YvZ1JDZ2JGeVluM2gr?=
+ =?utf-8?B?dnhrakIzUnJBT21TM21IMm1YSXhBdGFobUhKcjVqNUMyZHc0cHB2THlRcXk3?=
+ =?utf-8?B?bncwMUVmZmo5T3k4VzAxdXVvblFLT211SWVjUWRrN1p3VXl0aVJ4cURvbnhR?=
+ =?utf-8?B?ako0MEFLaXdudW5lNmh6dURLcUlRVy9DeGZQUElSY0o0U01TWkkyZjRqQmJ4?=
+ =?utf-8?B?OFdwRGl1cE4rZHdPTHFsUXBtMXM2dXpqeVNXNGRkL3RZTXhIVkxxUXlRdEZI?=
+ =?utf-8?B?TTVRaS9YMlFpUjVPYVl2U2R4NnBIR0QwYnJseVZpenI5SUJSby90Y0dCZnEx?=
+ =?utf-8?B?MXJucVlqMTZJendvMDZsWktXcU8veDBEUFJOb25FU2gyRlZWK25ZRTEvdGs3?=
+ =?utf-8?B?aHRRRm94eUZOcWk3U2xJWCtZWEVsTFlIT1JtSGZQMjlsL0hxWUNLdENDYnVr?=
+ =?utf-8?B?QndIeStnOFlnR2FzK3ByZENHa3BSMDZrZU83MXBENW4xRjZDNERUTlFvUHdq?=
+ =?utf-8?B?VlU2L2pOY3ZxR3Q2WGJlalVyRkhJVFpZSkY2TnR6eExEV2R5czcvV2xqMmJH?=
+ =?utf-8?B?b1g4MVBaN0hwdk9mTGhtWUVUZ2p0M3JiNHkxbnUyQ2MwbUh1aEROb3N5WVZM?=
+ =?utf-8?B?OHo0cTh6c0JuY212UW83TzNReVQ5ZllNc0k5OXZpSU45MjdWZ2cwSEdyYXNG?=
+ =?utf-8?B?N054ZW1jTkxENU1xUjRzeXZBaUIva0FDL3B5bXZLVXl4S3hleko2cWs0cnV2?=
+ =?utf-8?B?dGZqZVRncjNLRjl0R2hPWWNOOHJXcksxL3BKbWlKT25sQ2NTNGY0S1JtRVYz?=
+ =?utf-8?B?bjRxVERGN2VjSkdFWGJYb1FZUzFuUXBURjlXakZRb0huOStuZERUaXNTZGx1?=
+ =?utf-8?B?UXpOTTJ6Mlo4djNob0UzZVBicy9JbTRsN3I4NElab2lqTXQ1cHdtS0ozMEZ2?=
+ =?utf-8?B?M3JaK0ZmV2ZkOHhiUzlKWG9YSDkwNGFkcjRvd0pYK0JRcE5qek9pc0ZOUVJw?=
+ =?utf-8?B?MzNDTVJydndmMjNDZjRPd2NDTjlGMUxyby9WSmVJbjc3dk9vSDhoOGxST0J4?=
+ =?utf-8?B?OGJXVm8yNUhHMEcwMmFRRnlKbXB4d3FGWm1IK0NaRTE4UUcrMU5uVWcyc21C?=
+ =?utf-8?B?V2FoQlIzc3lLbTlndkJrMHNFdUVFbHN6UmRhTkt0S2xjVENTUEJ0L0VSckVY?=
+ =?utf-8?B?aWRJdEUxM3h4RDdVWWxzbjFibU83a3g5Zlp4VjJINmkyb2xrdTh3eVN2WXZD?=
+ =?utf-8?B?QXZsRENBTEtoNGhvS2w5SFIxVXlrT0Zicmx1Q3NMTEozcUdxdHArNUdQeGtL?=
+ =?utf-8?B?QS9DVEZrdjJwRmhrZXpvNStKQXZGZmVpeFMrd1J1YmVGdzZ1L0UzZUd6b2xa?=
+ =?utf-8?B?dkxnTlhCQ1NqZFJsTXRPMit0M0RNSEZBOVJjU1RwdzcwaGZ5MlBMMER2ZjlI?=
+ =?utf-8?B?eWhmQjI2SW1SUC9VUmhVa24wb21JckFuZWc4VWtjOGpYZGxXdVpaL0NaTE04?=
+ =?utf-8?B?enM2WkZnQ1haaE4zY3FESmpYN0p0UmVaZ3FYT3VzQ3BYQUsrQmRtQmVvcThU?=
+ =?utf-8?B?K244RXZSc1lHNDl0N3F6bDNKaU9nZE9TTERZNjBPVG1PRVUvZE9Ybkk3RGZW?=
+ =?utf-8?B?QUg4bWwzM0NTNzNGSUlDQmpvVFlTeUR5K0Q3THVjaUVkaE1rajBYdWdhNHo1?=
+ =?utf-8?B?UzhtOXVOK2lLalBzNnMwWEJoeWkxQnQzNVVtWnIwSnFCK1RsOVhnNFJrdWxG?=
+ =?utf-8?B?dy9TY3dZcnNSYVIzMUdFM0V2R1BDQnNQcmhZNURrU3B0enFPMUkxUlRmcmZr?=
+ =?utf-8?B?Q21BL21LQytvQ2ZzUlA4enFobnZuUy9lbHZoU0plcEtwZGdpOUpxTDRTN01p?=
+ =?utf-8?B?bm1LQ1NnV2UvNXdvMnQzUVIxU2JEL2RmelA0NGFybzcwL3FoSi9ldz09?=
 X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eded4dde-598c-4a8b-8e99-08de9ae3769d
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6896.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 882dca0c-ecd5-47c3-5a30-08de9ae3c7d9
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB5778.apcprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2026 11:38:07.2676
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2026 11:40:23.8404
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: r/ErtCEzf/GKbSmz6SikA57TqyGCiCQOzBHL9o3wjG3bgc8ToUSoFtQLTJz8aeklejlCY0SCB/zVvsFi+lUXS7epKN7qzivp45j058RtYBY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR03MB7779
+X-MS-Exchange-CrossTenant-UserPrincipalName: reUmgcUKJdtYOtOhyhOoiccF4iiV+k5CGytC66qNaVoWqMfb6buKRA9FxBcpA9/a6roaCh9sL+RcZTrlL1C+lw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SI2PR03MB6437
 
-Hi Ronald,
+Hi Krzysztof,
 
-On 2026/4/15 19:16, Ronald Claveau wrote:
-> Add device tree nodes for UART B through F (serial@7a000 to
-> serial@82000), completing the UART controller description for the T7
-> SoC. Each node includes the peripheral clock.
-> 
-> While at it, move the uart_a node to its correct position in the
-> bus address order (0x78000) to comply with the DT requirement that
-> nodes be sorted by their reg address. Complete the
-> uart_a node with its peripheral clock (CLKID_SYS_UART_A) and the
-> associated clock-names, matching the vendor default clock assignment,
-> consistent with the other UART nodes.
-> 
-> Signed-off-by: Ronald Claveau<linux-kernel-dev@aliel.fr>
-> ---
->   arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi | 61 +++++++++++++++++++++++++----
->   1 file changed, 54 insertions(+), 7 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-> index 531931cc1437c..56b015cfbd6d1 100644
-> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-> @@ -577,13 +577,6 @@ gpio_intc: interrupt-controller@4080 {
->                                          <10 11 12 13 14 15 16 17 18 19 20 21>;
->                          };
-> 
-> -                       uart_a: serial@78000 {
-> -                               compatible = "amlogic,t7-uart", "amlogic,meson-s4-uart";
-> -                               reg = <0x0 0x78000 0x0 0x18>;
-> -                               interrupts = <GIC_SPI 168 IRQ_TYPE_EDGE_RISING>;
-> -                               status = "disabled";
-> -                       };
-> -
->                          gp0: clock-controller@8080 {
->                                  compatible = "amlogic,t7-gp0-pll";
->                                  reg = <0x0 0x8080 0x0 0x20>;
-> @@ -713,6 +706,60 @@ pwm_ao_cd: pwm@60000 {
->                                  status = "disabled";
->                          };
-> 
-> +                       uart_a: serial@78000 {
-> +                               compatible = "amlogic,t7-uart", "amlogic,meson-s4-uart";
-> +                               reg = <0x0 0x78000 0x0 0x18>;
-> +                               interrupts = <GIC_SPI 168 IRQ_TYPE_EDGE_RISING>;
-> +                               clocks = <&xtal>, <&clkc_periphs CLKID_SYS_UART_A>, <&xtal>;
-> +                               clock-names = "xtal", "pclk", "baud";
 
-The xtal clock is defined in the board-level DTS file, while it is 
-referenced in the DTSI file, which seems a bit unusual.
+On 4/9/2026 2:12 PM, Krzysztof Kozlowski wrote:
+> [ EXTERNAL EMAIL ]
+> 
+> On 08/04/2026 16:32, Chuan Liu wrote:
+>> Hi Krzysztof (& ALL),
+>> Thanks for review.
+>>
+>> On 2/9/2026 9:17 PM, Krzysztof Kozlowski wrote:
+>>> [ EXTERNAL EMAIL ]
+>>>
+>>> On 09/02/2026 06:48, Chuan Liu via B4 Relay wrote:
+>>>> From: Chuan Liu <chuan.liu@amlogic.com>
+>>>>
+>>>> Implement core clock driver for Amlogic SoC platforms, supporting
+>>>
+>>> So how did all existing Amlogic SoC platforms work so far without basic
+>>> clock driver? Really, how?
+>>>
+>>> You are suppose to grow existing code, not add your completely new
+>>> "basic" driver just because you have it that way in downstream.
+>>>
+>>
+>> Firstly, apologies for the delayed response. I had intended to
+>> consolidate the V1 review feedback and come back with a clearer plan for
+>> V2 changes. In the meantime, Martin has provided many detailed and
+>> valuable suggestions - much appreciated.
+>>
+>> The original goal of optimizing the HW based on A9 and introducing a new
+>> clock driver is to reduce unnecessary complexity in the driver. On A9,
+> 
+> Nah, you just don't care about upstream and it is easier for you to
+> duplicate new code.
 
-On other chips, the xtal clock is usually defined directly in the DTSI file.
+Regarding the "duplicate new code": the ops implemented in clk-basic.c 
+are indeed based on the CCF components (clk-mux, clk-divider, clk-gate), 
+with the following enhancements:
+   - Register access via regmap (meson clock driver looks like this)
+   - Additional debug nodes to support Amlogic clock automated test 
+tools (in conjunction with clk-measure to verify hardware functionality 
+of each clock)
+   - Clock context save/restore support for STD/STR
 
-> +                               status = "disabled";
-> +                       };
-> +
-> +                       uart_b: serial@7a000 {
-> +                               compatible = "amlogic,t7-uart", "amlogic,meson-s4-uart";
-> +                               reg = <0x0 0x7a000 0x0 0x18>;
-> +                               interrupts = <GIC_SPI 169 IRQ_TYPE_EDGE_RISING>;
-> +                               clocks = <&xtal>, <&clkc_periphs CLKID_SYS_UART_B>, <&xtal>;
-> +                               clock-names = "xtal", "pclk", "baud";
-> +                               status = "disabled";
-> +                       };
-> +
-> +                       uart_c: serial@7c000 {
-> +                               compatible = "amlogic,t7-uart", "amlogic,meson-s4-uart";
-> +                               reg = <0x0 0x7c000 0x0 0x18>;
-> +                               interrupts = <GIC_SPI 170 IRQ_TYPE_EDGE_RISING>;
-> +                               clocks = <&xtal>, <&clkc_periphs CLKID_SYS_UART_C>, <&xtal>;
-> +                               clock-names = "xtal", "pclk", "baud";
-> +                               status = "disabled";
-> +                       };
-> +
-> +                       uart_d: serial@7e000 {
-> +                               compatible = "amlogic,t7-uart", "amlogic,meson-s4-uart";
-> +                               reg = <0x0 0x7e000 0x0 0x18>;
-> +                               interrupts = <GIC_SPI 171 IRQ_TYPE_EDGE_RISING>;
-> +                               clocks = <&xtal>, <&clkc_periphs CLKID_SYS_UART_D>, <&xtal>;
-> +                               clock-names = "xtal", "pclk", "baud";
-> +                               status = "disabled";
-> +                       };
-> +
-> +                       uart_e: serial@80000 {
-> +                               compatible = "amlogic,t7-uart", "amlogic,meson-s4-uart";
-> +                               reg = <0x0 0x80000 0x0 0x18>;
-> +                               interrupts = <GIC_SPI 172 IRQ_TYPE_EDGE_RISING>;
-> +                               clocks = <&xtal>, <&clkc_periphs CLKID_SYS_UART_E>, <&xtal>;
-> +                               clock-names = "xtal", "pclk", "baud";
-> +                               status = "disabled";
-> +                       };
-> +
-> +                       uart_f: serial@82000 {
-> +                               compatible = "amlogic,t7-uart", "amlogic,meson-s4-uart";
-> +                               reg = <0x0 0x82000 0x0 0x18>;
-> +                               interrupts = <GIC_SPI 173 IRQ_TYPE_EDGE_RISING>;
-> +                               clocks = <&xtal>, <&clkc_periphs CLKID_SYS_UART_F>, <&xtal>;
-> +                               clock-names = "xtal", "pclk", "baud";
-> +                               status = "disabled";
-> +                       };
-> +
->                          sd_emmc_a: mmc@88000 {
->                                  compatible = "amlogic,t7-mmc", "amlogic,meson-axg-mmc";
->                                  reg = <0x0 0x88000 0x0 0x800>;
+Other drivers mainly focus on adapting to A9-specific hardware 
+optimizations, as well as improving and refactoring the existing meson 
+drivers.
+
+> 
+>> we optimized the Clock/PLL controller HW to simplify driver performance,
+>> complexity, memory footprint, and reusability. Improvements on the HW
+>> side can also help drive corresponding enhancements in the driver:
+>>      - Performance: Encapsulates sub-clock functions, reducing call paths
+>>      - Complexity: Standardized register bits eliminate a large number of
+>> bit definitions (~1/3 of original code is defined register bit [1])
+>>      - Memory: Object-oriented design avoids copy/paste for repeated clocks
+> 
+> Object oriented design? Sorry, what?
+
+In the new driver, clocks are modeled as the SoC CCU itself. For 
+example, pwm_a/b/c... and emmc_a/b/c use the same CCU, represented as a 
+"composite-ccu". We instantiate the CCU once, rather than redefining 
+clocks for each module.
+
+> 
+>>      - Reusability: Same controller works across SoCs without driver
+>> changes (or with minimal changes)
+>>
+>> The old meson driver required compromises to unify legacy controller
+>> characteristics and driver styles. On A9, we want a fresh start.
+> 
+> And maintainers don't want that. We expressed this many times already.
+> Not only in this thread - that's one of the most known feedbacks.
+
+Thanks for the clarification.
+
+> 
+> Best regards,
+> Krzysztof
+
+-- 
+Best regards,
+Chuan
+
