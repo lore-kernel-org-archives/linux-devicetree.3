@@ -1,160 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B1130C631;
-	Wed, 15 Apr 2026 14:27:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 601483D34BF;
+	Wed, 15 Apr 2026 14:28:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776263250; cv=none; b=UzqVOeei+7GsahCkAoltpOt2doUCnnpmkEEzpHqL6L5mXdS57n/LdRpVY9+AaccE15U37ZrgabMQBi/HnxuVasQNtyGfsdVs+UklDklgrpRfXnIMaN6RjkB6/QIkYOWk0/It1dg5GlfjotnKocqqVyp5wTKo8NFQAwhc0PisTik=
+	t=1776263304; cv=none; b=Zyr+snHi2MyZqudhWIDBxfguJINYwx4gFW91hiXIuPGb6qFvcHREbCMeWcIpxskZ4SVx0crG6BsOE+gq2GvxjZw7VQtQ+u9Eg1NIETcqoBnTXN2YwHz56dFKSyRvlIPVhZRnfLDue2xh/JHBQj9WiFWhqHdx/SDBzzXcFx8JUd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776263250; c=relaxed/simple;
-	bh=HPxvLQoJdqNF3bOI+QUdScX6o7dfRuqIAw3ZzCgwaIw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jf8NYHuOWS3vmIc053DnewFbTcAF5ny0kYCz5gUTb6LSjq8O3LdHnCGUG11VDKpRph6pcD8Mwzt54IEMm6ZwQhTa3wRT+EBlHEMRiKigN1r3WWOEf3DayHEPdNt9tUOaIpKA8mnmPaXVJ/eaK515i3J7UzOORag0x74mnaHstnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ujlcNq3X; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776263304; c=relaxed/simple;
+	bh=KLZl5mWnQ/fLEg517Nj8h/rm6MAMa8dENX79Fq95dso=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rxzkIDwZPZOEpWY4P1PY5yRQBQZP95LkDDot9K3+FPOWi0ycFznIDsIhTdUQdosWOdKFQKPyjlzhn230rE1aTHIIUY3RBJ83Pv+mUJ5bABY1OzLY4pHEhxY18xqcWfFTKWnq0JVmUOe6ikdjC3FUQbIZKmlB90bEM18ia3vXGOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H/YX+RVR; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ujlcNq3X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A299C19424;
-	Wed, 15 Apr 2026 14:27:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H/YX+RVR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B35EBC19424;
+	Wed, 15 Apr 2026 14:28:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776263249;
-	bh=HPxvLQoJdqNF3bOI+QUdScX6o7dfRuqIAw3ZzCgwaIw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ujlcNq3Xgh3q75FXzvLM8+UagUdf8HoMeJyYpUWvw29teYYft9wWG4KNjMkPmnaea
-	 6ZwI14NgJ0aYSo40fGMVN5QSPGf84RrB4Wejnk9p1Kr1sWiwDVTWdl63lrZHVnuWgO
-	 nLTwTqxlz1JjO9QTV8mjMR+jYHkuRs+0UBCom2L+fZnAHanUzWBhmXmmYtGUZmED1y
-	 7cPI+FRgjAjX1KB9KRo1YB2T310trEar5JVg1LlhnIWcFpRrtdf7SJCvps+OFVE1IC
-	 1bKN8SxVKi1fuHgQmmeRyjqZbf1/AALUy48AMIC0iywmLb4CSV/Ye50aWTYX3iRMmI
-	 oYKRNWHlEzWoQ==
-Message-ID: <a51cbf67-ed36-432a-af58-fbda085f322e@kernel.org>
-Date: Wed, 15 Apr 2026 16:27:23 +0200
+	s=k20201202; t=1776263304;
+	bh=KLZl5mWnQ/fLEg517Nj8h/rm6MAMa8dENX79Fq95dso=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=H/YX+RVRFmDbZUEUouHLuZhFFOhEriVotbvOFw9wxSIAFOu1yin3oKr9hQA0Qc6pR
+	 I+WFVtfV4rosaPXwqeX+Kw27EcgVj1wXrS3hkWJI6FDy6VzZ/VM4FeseN1YJUcOtKF
+	 cIcgd6P3ftw6wMwBFE9Y5dT8LLZ8beEgm4Maazw7DT9d8U/b5MKbcLdDahzLWTvnq8
+	 y/Ia9YUWY2hscVdDJP/lLNEJaYQz2XQGSMPfrI7GvlevKVswmJ/nF5Bl8wOzaYMnE3
+	 3DB6G88J25UbvGy8+m0Peq0i8FqFF4fMf3+qxz5TJSxVacU/syZf5Hlb4HhAvCdLsO
+	 GpYzCyeW8yc9A==
+Date: Wed, 15 Apr 2026 15:28:18 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Jia Wang <wangjia@ultrarisc.com>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 1/3] riscv: add UltraRISC SoC family Kconfig support
+Message-ID: <20260415-craving-rubbing-bc8d389d19de@spud>
+References: <20260415-ultrarisc-pcie-v3-0-73f06e972616@ultrarisc.com>
+ <20260415-ultrarisc-pcie-v3-1-73f06e972616@ultrarisc.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 05/13] dt-bindings: mfd: s2mps11: add documentation for
- S2MU005 PMIC
-To: Kaustabh Chakraborty <kauschluss@disroot.org>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, MyungJoo Ham <myungjoo.ham@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>, Sebastian Reichel <sre@kernel.org>,
- =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Nam Tran <trannamatk@gmail.com>, =?UTF-8?B?xYF1a2FzeiBMZWJpZWR6acWEc2tp?=
- <kernel@lvkasz.us>, linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org, linux-rtc@vger.kernel.org,
- linux-doc@vger.kernel.org
-References: <20260414-s2mu005-pmic-v4-0-7fe7480577e6@disroot.org>
- <20260414-s2mu005-pmic-v4-5-7fe7480577e6@disroot.org>
- <20260415-notorious-dainty-starfish-58a13c@quoll>
- <DHTSO9L6YZTQ.WYM9ERXBGNGB@disroot.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <DHTSO9L6YZTQ.WYM9ERXBGNGB@disroot.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="m8S0HS9rYZzLUqT+"
+Content-Disposition: inline
+In-Reply-To: <20260415-ultrarisc-pcie-v3-1-73f06e972616@ultrarisc.com>
 
-On 15/04/2026 16:22, Kaustabh Chakraborty wrote:
-> On 2026-04-15 09:17 +02:00, Krzysztof Kozlowski wrote:
->> On Tue, Apr 14, 2026 at 12:02:57PM +0530, Kaustabh Chakraborty wrote:
->>>  
->>>    clocks:
->>>      $ref: /schemas/clock/samsung,s2mps11.yaml
->>>      description:
->>>        Child node describing clock provider.
->>>  
->>> +  charger:
->>> +    $ref: /schemas/power/supply/samsung,s2mu005-charger.yaml
->>> +    description:
->>> +      Child node describing battery charger device.
->>> +
->>> +  extcon:
->>
->> You got comment to drop extcon naming. If this stays, it's muic for
->> example.
->>
->>> +    $ref: /schemas/extcon/samsung,s2mu005-muic.yaml
->>> +    description:
->>> +      Child node describing extcon device.
->>> +
->>> +  flash:
->>> +    $ref: /schemas/leds/samsung,s2mu005-flash.yaml
->>> +    description:
->>> +      Child node describing flash LEDs.
->>> +
->>
->> Please make it a separate binding file.
-> 
-> What do you mean by that?
 
-I mean, S2MU005 should go to its own file.
+--m8S0HS9rYZzLUqT+
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> 
->>
->>>    interrupts:
->>>      maxItems: 1
->>>  
->>> @@ -43,6 +59,11 @@ properties:
->>>      description:
->>>        List of child nodes that specify the regulators.
->>>  
->>> +  rgb:
->>
->> led
-> 
-> Well flash ones are also LEDs. Would you rather have `flash { ... }` and
-> `rgb { ... }` under `led { ... }` instead?
+On Wed, Apr 15, 2026 at 03:21:17PM +0800, Jia Wang wrote:
+> The first SoC in the UltraRISC series is UR-DP1000, containing octa
+> UltraRISC CP100 cores.
+>=20
+> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
 
-There is no approved name "rgb" for LEDs. What is the name for flash LEDs?
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
-Best regards,
-Krzysztof
+> ---
+>  arch/riscv/Kconfig.socs | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>=20
+> diff --git a/arch/riscv/Kconfig.socs b/arch/riscv/Kconfig.socs
+> index d621b85dd63b..0b4d06a7b4bf 100644
+> --- a/arch/riscv/Kconfig.socs
+> +++ b/arch/riscv/Kconfig.socs
+> @@ -84,6 +84,12 @@ config ARCH_THEAD
+>  	help
+>  	  This enables support for the RISC-V based T-HEAD SoCs.
+> =20
+> +config ARCH_ULTRARISC
+> +	bool "UltraRISC RISC-V SoCs"
+> +	help
+> +	  This enables support for UltraRISC SoC platform hardware,
+> +	  including boards based on the UR-DP1000.
+> +
+>  config ARCH_VIRT
+>  	bool "QEMU Virt Machine"
+>  	select POWER_RESET
+>=20
+> --=20
+> 2.34.1
+>=20
+
+--m8S0HS9rYZzLUqT+
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCad+gggAKCRB4tDGHoIJi
+0k5KAP9cH8g7du35W2DxfKVlGZGBX5/qlVgxSMv7M3SiUrg/7wEA4Wam3N4GLDGE
+WWQIvTM0dOVnQcN5PygYLDSqx+9yGQk=
+=gd+p
+-----END PGP SIGNATURE-----
+
+--m8S0HS9rYZzLUqT+--
