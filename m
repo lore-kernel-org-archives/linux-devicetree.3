@@ -1,68 +1,33 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53AD6304BB2
-	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 12:56:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11ADA33F8B7;
+	Wed, 15 Apr 2026 12:58:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776257790; cv=none; b=FRqPfdGuyANhUggDeBBz+weGbmOqMcLG+oBjQpTXjneFe/NXH2/qkKMkmLlm+GnJZG6WWc/OMa0+k4d6SzyKZBxC0L0zdf0Y5FIB8zvvno//SA7TJdsIzV17czKxuU4mdD7mQlOoLrNkO3RZuH2jzgOu0NWpd8XT2q0N9us8kdM=
+	t=1776257891; cv=none; b=TYHi+70/rP5CiL0zTPTErOk7qRKApOYuA/Fcq7+gMX96Iwavmiyvt2/ggOSWvDeaGwqhzlrDCzzjiVwMJPZQr1PQw976mzkFp6skUzPjtBcAp6xJQm2fWfqz+Hq+ZqnYnVc9Ipm1auJARNL3FJ6AlWpKquEqAG+ZEe+Z/5/7IXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776257790; c=relaxed/simple;
-	bh=3NF/UT+bIdNGyzpzYRH7TdrzumbZFNv2O65NMnOA8tY=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=KzfIP5dnDBsqraLKVzODyzRDJKgAmqERqmS5IQkg1Qr4ZVAqrsyS+jHbskd0Q2Jmh1XF1+npi8FWxD2P22nqaA2a+y4/XO1CNUfUVMHpxx6DR4cvA5Q6KpFoInylEPdlHg9gCEiX4tEkiD1YuHyAmbS8sePqjpWziysfGvos0gg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=tasrePbG; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1776257891; c=relaxed/simple;
+	bh=r14QBh9Iuj4Kh39NLSY61SiRgxPRKjKK6mGI5O1EFFU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XGcjEIw8071hx9XtWmkk3MHSZECPk5V9pLmP3Wb2IUQuUfozY5FX5BUsRWWT3hji9tmg6DTbpLa8bwSMdgU0xMtHGuE0Rw0d7Bw7QwnOYzsCO51gpRY66O4zsi/2t3iukGHxuZrCsDp05JcHQIA3Eu0DYg4enxoG41BfW7F0VF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XatoVGpm; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="tasrePbG"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4852a9c6309so63735215e9.0
-        for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 05:56:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1776257788; x=1776862588; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=TlZO0eraAxc9RdlGoUu/4T/udUp+sK68ZU76CN9CV3w=;
-        b=tasrePbGlTg56XJvGmeyalLwXzcmwN72Y38ySygAj1LdS4WluYzhENWxAkZZ+3rcHL
-         iwnLWQIqwls5Rq+l2D59XTk1MIfhunSy2HcvWRVDMppzJl7wvqfmdxmv6ITtuu3/ztme
-         OJNuo85CItPSLPfHKDCixDEUS5jW2ocknBE/PPh2K+uJAu6++MzQE94aVEJTIhE0EhUq
-         Mf49xG6fMrm5CjgnSyGRKluxyNnXIoJH5N5PVWCsiriB50Ygx1xUgFjCgv41NVXb6Lpi
-         xrLq39qsOvFIWlsWzUELPnRQNTe+gnJRY+LsmjMe6Cn79Gl7RpfctdIHP1Ok4ZKz9M6Q
-         XQyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776257788; x=1776862588;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=TlZO0eraAxc9RdlGoUu/4T/udUp+sK68ZU76CN9CV3w=;
-        b=fYCD7JZzXb5QYR+DcNS9CVegrMH9mnI+tjO6QcZZP92gBlm/rtN8rCspPCaJo0A5q5
-         CMxIHsqXLUJv5DksN7tLWxZyh5MzKG7JCXFYByVRXbW4TbkElEdhlkKfClGvjTXRoaNK
-         eZ/mnlHhIpiBAEd1PrCfgn7D23xU54a/8G7As1Ue8cyOZTif3IoIqiNXJoZ1RMOISnug
-         l/2BX2ImBX4A4cbqV9/EwGw9rTk0pwe0+sZGL+87btDxVSj/jZxMmgKHzp+TArmQD8Qm
-         yyrrh7MKaWaH26D5eUn+PjyTHExnithQ9fhWxaLzWrLNqqhpWbyBIovYGN5E1UGIIf6C
-         4LZg==
-X-Forwarded-Encrypted: i=1; AFNElJ82r2fVj7t3fwTnoOj9cDn0w4gb+AKpLSpoEasFpaBteiNAR7h2yaNUly8e6torLCjpsiEXZAzZSkhK@vger.kernel.org
-X-Gm-Message-State: AOJu0YxBOqmh8rJOvsRDrwVZucaXGrsxgMSWbExJ+o2tSBXRy5dEz73W
-	3/7VEDT5wIRo9gUrelT8l1ytCnGObkU5dD6bBxPBVqOGBJRDUIsnXMf1sMK06RCc66s=
-X-Gm-Gg: AeBDiev28cAe1rA11aqHabmPeeOuwkt185xqJ4RNXvuIjNYf4GJevve1aETePft/acw
-	Oqn8Nr6iKenrOnnZ7rFYFynsdFOjuuvhYaxPu76DE1h6vG/WXrIQSuHwBx/6eimEWijkp3HxtXV
-	Eru0S/nqtwP57rv7hYIcfq/TX0crXFslQjX7snOGsxk4uDlsoIukZOcul3Wq51VGSWF2i8W+8sC
-	PvD5sBWocHlGh7R+gINV/SzwWhDXPFw7KQunj1z7q3Lnc5tBIBchkMzCAGtxK3J2re5PrUvLsZi
-	h7ZuvLYIxzQA1U20NvPzik2a3a4PvF/TkCc9jfMkDvBm2qqX5aVnF1zU9HLuoy79o0vTdvhs4Mp
-	tBg7TP/MRYOVHsab4QGb8VxkngkelBXjoFm3mVjpwXD+CKRWRc8wQAE5zuQ3poiEB1M7HDqGM+Z
-	RisbzzVJB4lCTTbMaZSwVvJgwRzT0Sss/WnH6XNdXleg2tMBYHMdOpKsnEufzYjILoEZ+iDMO2J
-	b3EtzSIKlwo7ZyLqQ==
-X-Received: by 2002:a05:600c:3b29:b0:486:fbf6:abd4 with SMTP id 5b1f17b1804b1-488d67d24cbmr280170325e9.9.1776257787605;
-        Wed, 15 Apr 2026 05:56:27 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:1c29:ca2f:5699:2fdf? ([2a01:e0a:106d:1080:1c29:ca2f:5699:2fdf])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488f1d5dd43sm49046795e9.0.2026.04.15.05.56.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 15 Apr 2026 05:56:26 -0700 (PDT)
-Message-ID: <661c12a0-d736-4a5e-8bd5-43f0b46da4d6@linaro.org>
-Date: Wed, 15 Apr 2026 14:56:25 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XatoVGpm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBF82C19424;
+	Wed, 15 Apr 2026 12:58:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776257890;
+	bh=r14QBh9Iuj4Kh39NLSY61SiRgxPRKjKK6mGI5O1EFFU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=XatoVGpmHPvvXXMoesamkliG8v2W9BF0yXn9BsbBHsMZ5asUu53+5IKimW+I33BYl
+	 IH7jp6ck3VyuChCnOvx+1rgoyKu7wcC0E08lccPyXe/cHC2Ct+GxfnSH6+YUZsBglg
+	 2U1MDIJYE05WY8R0FW4w4RApEqj5+VTPuyNwnPfgTGkq+fdDiyApuhWJBeDzu0PY6t
+	 TaFhaUgE+7B+d/NG35FfzXehmJEnHlQSRV+JwsmAw/M2QZz4M2LzElunM13ZAEC89L
+	 KPEc3fQMY8lr1E6IiPyu7Q5kN+2RTUsFNR7NV+7wg67vECmkuSdMRUgTCNfH4O2+Bl
+	 6Eo779567KFeA==
+Message-ID: <56a723b3-82fa-49c2-ba4b-433b7de98451@kernel.org>
+Date: Wed, 15 Apr 2026 14:58:06 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,94 +35,128 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v3 2/2] drm/bridge: waveshare-dsi: support DSI LCD kits
- with LVDS panels
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Thierry Reding
- <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
- Joseph Guo <qijian.guo@nxp.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260412-ws-lcd-v3-0-db22c2631828@oss.qualcomm.com>
- <20260412-ws-lcd-v3-2-db22c2631828@oss.qualcomm.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260412-ws-lcd-v3-2-db22c2631828@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH 04/13] clk: amlogic: Add basic clock driver
+To: Chuan Liu <chuan.liu@amlogic.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+References: <20260209-a9_clock_driver-v1-0-a9198dc03d2a@amlogic.com>
+ <20260209-a9_clock_driver-v1-4-a9198dc03d2a@amlogic.com>
+ <89cc0724-32a8-4da5-8070-c128cafcfc82@kernel.org>
+ <76ef272c-e09a-400e-b381-82d7f29760ca@amlogic.com>
+ <b97c2e64-8a43-498b-a447-6a5b67c525e5@kernel.org>
+ <366ea762-b228-4d6e-872d-2a7f9dc8b1d9@amlogic.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <366ea762-b228-4d6e-872d-2a7f9dc8b1d9@amlogic.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 4/12/26 19:32, Dmitry Baryshkov wrote:
-> Several Waveshare DSI LCD kits use LVDS panels and the ICN6202 DSI2LVDS
-> bridge. Support that setup by handling waveshare,dsi2lvds compatible.
-> The only difference with the existing waveshare,dsi2dpi is the bridge's
-> output type (LVDS vs DPI).
+On 15/04/2026 13:40, Chuan Liu wrote:
+> Hi Krzysztof,
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->   drivers/gpu/drm/bridge/waveshare-dsi.c | 5 +++--
->   1 file changed, 3 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/bridge/waveshare-dsi.c b/drivers/gpu/drm/bridge/waveshare-dsi.c
-> index 32d40414adb9..ded57f298d64 100644
-> --- a/drivers/gpu/drm/bridge/waveshare-dsi.c
-> +++ b/drivers/gpu/drm/bridge/waveshare-dsi.c
-> @@ -177,7 +177,7 @@ static int ws_bridge_probe(struct i2c_client *i2c)
->   	regmap_write(ws->reg_map, 0xc2, 0x01);
->   	regmap_write(ws->reg_map, 0xac, 0x01);
->   
-> -	ws->bridge.type = DRM_MODE_CONNECTOR_DPI;
-> +	ws->bridge.type = (uintptr_t)i2c_get_match_data(i2c);
->   	ws->bridge.of_node = dev->of_node;
->   	devm_drm_bridge_add(dev, &ws->bridge);
->   
-> @@ -185,7 +185,8 @@ static int ws_bridge_probe(struct i2c_client *i2c)
->   }
->   
->   static const struct of_device_id ws_bridge_of_ids[] = {
-> -	{.compatible = "waveshare,dsi2dpi",},
-> +	{.compatible = "waveshare,dsi2dpi", .data = (void *)DRM_MODE_CONNECTOR_DPI, },
-> +	{.compatible = "waveshare,dsi2lvds", .data = (void *)DRM_MODE_CONNECTOR_LVDS, },
->   	{ }
->   };
->   
+> On 4/9/2026 2:12 PM, Krzysztof Kozlowski wrote:
+>> [ EXTERNAL EMAIL ]
+>>
+>> On 08/04/2026 16:32, Chuan Liu wrote:
+>>> Hi Krzysztof (& ALL),
+>>> Thanks for review.
+>>>
+>>> On 2/9/2026 9:17 PM, Krzysztof Kozlowski wrote:
+>>>> [ EXTERNAL EMAIL ]
+>>>>
+>>>> On 09/02/2026 06:48, Chuan Liu via B4 Relay wrote:
+>>>>> From: Chuan Liu <chuan.liu@amlogic.com>
+>>>>>
+>>>>> Implement core clock driver for Amlogic SoC platforms, supporting
+>>>>
+>>>> So how did all existing Amlogic SoC platforms work so far without basic
+>>>> clock driver? Really, how?
+>>>>
+>>>> You are suppose to grow existing code, not add your completely new
+>>>> "basic" driver just because you have it that way in downstream.
+>>>>
+>>>
+>>> Firstly, apologies for the delayed response. I had intended to
+>>> consolidate the V1 review feedback and come back with a clearer plan for
+>>> V2 changes. In the meantime, Martin has provided many detailed and
+>>> valuable suggestions - much appreciated.
+>>>
+>>> The original goal of optimizing the HW based on A9 and introducing a new
+>>> clock driver is to reduce unnecessary complexity in the driver. On A9,
+>>
+>> Nah, you just don't care about upstream and it is easier for you to
+>> duplicate new code.
 > 
+> Regarding the "duplicate new code": the ops implemented in clk-basic.c 
+> are indeed based on the CCF components (clk-mux, clk-divider, clk-gate), 
+> with the following enhancements:
+>    - Register access via regmap (meson clock driver looks like this)
+>    - Additional debug nodes to support Amlogic clock automated test 
+> tools (in conjunction with clk-measure to verify hardware functionality 
+> of each clock)
+>    - Clock context save/restore support for STD/STR
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Thanks,
-Neil
+Add all of these to existing drivers and stop pushing your downstream
+approach. You received feedback already more than once from more than
+one person. No means no. You are waiting one week with a reply and then
+again pushing against feedback with ridiculous arguments of "objective
+design" or "optimizing".
+
+That pushing after receiving clear "no" means you value downstream or
+vendor or corporate rules more than what community wants and that's
+short way to get permanently PLONK-ed on all your submissions.
+
+NAK
+
+Best regards,
+Krzysztof
