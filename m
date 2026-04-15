@@ -1,554 +1,157 @@
-Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 973E93D47B2
-	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 08:57:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776243469; cv=pass; b=oM+F2+kAa/3CNRTSyXJxaCvH4NC3d/WGo3QzKyZPeiwMd3jxRXzNoRXgaNQOUrcIWbp15XNBZzvKYwEFVD7VYUSFbXYRS7r/5kAqeHy2WcNt3u2M33xkLvX0foXcNtL6VcozJlyPEIQJX4qNsl71x8srUfhGQqTpUx89avkZXvw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776243469; c=relaxed/simple;
-	bh=RsRRikMDvWMxQ3E4ivYFFXTltR6O1bpaB9GI+ei7GWU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ScdBNvKKL/HB0W/AFcQfWkXI6jMF3TZeN5Qn95fwRVcVWYKWwwDVVCodrPkWTqvuCY4B/1xYHOpPwA581DRaE+cCTjvyX2ZfLaLS83WOCRmOVUYcWwjmCRXtoGFNl7wIYSgg9BoMO2ORZytr3JKo8iowrIfY7kcUF1kCwozvAtM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o/8uuGlr; arc=pass smtp.client-ip=209.85.222.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00F304A0C
+	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 08:59:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776243565; cv=none; b=afilAIFptjgqE9qIb1YN81J6/i/iZyWLoVwkylJq1eiLi/SPEpUWY2eT1Tc0TZ/LBKKdnifA4R4Gnnt0WEFrqCrHoDtADKUmBIdGKGlqXT2uqTIdA8FYFANeLfQTlCGdzFc9b27n3YwtkMHFUS+HON8Z4UvQxaPpP8XN0q+4vG8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776243565; c=relaxed/simple;
+	bh=kGld0xNfDz0zDVpiCsicu7zkr9o5D0sKwZEZ6dZiTPs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SmTFLdWJ4vqSI1O3QJS08vhhoQsL4dirBkMFgkG7zsBrhF6xLMvJ322T+VlHuaPKRuy0hwB3+9ZffcOULn+1KOpbsFXaSEr6pPAk5jJz6AtD1Tc1uKYY1pTttXb/T+hM7ih4ukGIf9WMxSxWaIRhNqUKWGZuHGIxVHFFiIwfJY4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aBmhZGsW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JOwAqo5B; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o/8uuGlr"
-Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-8d68f702851so986394985a.0
-        for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 01:57:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776243466; cv=none;
-        d=google.com; s=arc-20240605;
-        b=O+vF+JiwU5sJJznG9HdPTJnDehe9e6gY7ZQEEFSTWULA3lnJ0ZwiPatOgtmON9PR8i
-         EmvSwKjnFcdILFBzcn36sgzPRHGpmq4sdXnVoX6aSzStzQnvEimUpwG4LRFa8UsiacgC
-         VS/wt+ZXGfriRRjFb7QsBHdMKMk4MC6a8qf36JSq/UhkMb4O+1+0olh2WIEFd4bYmPWH
-         K9FkJxprIQP+6QlYZAyCtaABh8Fr2yz7L9AfSSBPviXYZOzkn8Ykha/yC52Dv1wGZqAQ
-         t6S72r+7iST2b0K+Vq9u1owsCmCIo+eQZIizn16qIMHj7jh0sV/Ug1VXUtblAViI/qeT
-         RGzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=1Jjqr84WRLYmTsvMPyUGhcd+41sBX1COVuLB9jY1N90=;
-        fh=ApjWQMVsy5J+V++K5qTQQkjKAEMjcfcCf+khgbCGLqM=;
-        b=Gbf/De0fOAwqlzABX9OcuWX669prgE90AVSBIZ5kU1Q1JFrjmYi5dNCtaJah2dBUJR
-         G/8W0pBXDakii5FVne3U7epEWiTjfWBOQflbQY62gXuwl/djSQwAarUVMieRVYkvLIqZ
-         MrzwQvclnp8XxzDIE+s1nNC0yhlV4BG/ivWOym0zf0I8YwO/32IbuVyZeY31jAlu8v9O
-         ebAu/U7zZs3vNXs3MUZcp51Vx2rAzmYgBXVJ6QLo48SrzzsCMmwgQIvFG9RsPtRe7KH0
-         eaKcMFCrGIfNPb9m0sb7HUgVvDoIl/Lf6SjCFfFTdf6uyqeFX9+dPK4s+4hFSUinVP8Q
-         giAA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aBmhZGsW";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JOwAqo5B"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63F4HLmf2071412
+	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 08:59:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	4fuHeB8k/Mjlbeb4t9l+3i5xFCcgNDDnedViyIzx50s=; b=aBmhZGsWbc+vBlCV
+	VqEMSS8q4afL81ytUaQ/8FRL0x+OzOswgXXtU4OlLZ2E1tdOOJrAQC5FCwHOMheT
+	U+ehyjKbnUtuMR59E8Jy83H12TifqkNsu5ysmC0mDja8m4tmZBqp+x2Z4Y/BBG4l
+	Jaiwi3vmftUu3v2/DVfpJ1dVw3KmHgMh3afGFDlw6T8MKsOjI6mdcYX2vCnoYokK
+	mD8eEN/fmhNzUwQM/QC+nsPzwLJHzQHpndfmvT9evRLyb4JrqJlGZsBCWAj5rFv9
+	1UDlIYZOqp9870R+uHIZzqP+m/yU0acamM680lDbUDg89/d82Zpsnb7S8cWhgPvW
+	g8iV8g==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dhtc2ah7t-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 08:59:23 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50d8c183c2eso58114561cf.0
+        for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 01:59:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776243466; x=1776848266; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=1Jjqr84WRLYmTsvMPyUGhcd+41sBX1COVuLB9jY1N90=;
-        b=o/8uuGlrHIIhnGlwgRvYOGh6wcva6hpDoXqx95rCaDgQkRQRqhTD7Qfxzw6Xfqj82S
-         tUeY994eG5K7OlPc2RH5ad4o95PZv/U79dBWM8Nm6y307Rbz3CShz9+sMTSBzYVKtTfU
-         UGLwqFpUbv0vHl7IYvI1MB1iBz2baIVtyzftPbRXu+5IUWwjaiPHDuCWUKF98ZEKrFb2
-         a09jGFoxtlCixRD33KkKraIGc0MFdQk1SvDxVCNstVFHH9kSbyLA0PNiTVIWWtVUSWf3
-         542k4yYj6pgKUWlO8bZvmbrDUO5wAddFHz31Ph3yNQAlz502WfhGmyCPK4lJlUU5t8+1
-         xMcQ==
+        d=oss.qualcomm.com; s=google; t=1776243562; x=1776848362; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=4fuHeB8k/Mjlbeb4t9l+3i5xFCcgNDDnedViyIzx50s=;
+        b=JOwAqo5Bsr5g5/K0iiV5pmezNSkG/vEnLrJWLiHYj8zZzIh8IVq+bYM2x4m8EV4OOP
+         V6FAfvIFeVdthF1OMga4SzUijTDER8pRqhE+0aS0n1wEp7e6ks2N2Qsw0UIc/o2BBTAO
+         JbS3BgT+Vys5RQkFWv6MSe3KEwqlm2ses1Dg+vZIIkChUhBmPwcbcJjKTsBCmbVoRP3L
+         mpYWlrkHS3VfMO/vEJdOQVjOgNCGUmnuGGHi/abQfCF+wSk0VDMQDxWwIJCMywiErL6k
+         NAIWIsIkhq8qK749P3LNuoxnJnF3XwhGW7giIo04gXu2JhzQFxO+FpU+uyVYcGLjnZCX
+         Cvcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776243466; x=1776848266;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=1Jjqr84WRLYmTsvMPyUGhcd+41sBX1COVuLB9jY1N90=;
-        b=OMYsKHzCyVS091+rZcQuoZBEgTnz+K2GuhfNSDtgfKVNXwGAlk4KMb0DYdp2374jRE
-         s8bkim9VF0cy6a/5FQHLYfXGorcjYgZrqv0FVgwx+dgxg4V7UWSAbzSgJIIzFn57EttZ
-         elvTvmcaIydYRsJEfI9ypfkFt8aWn0m2UsDkSZBYVC7SJq7SbjTMCjECB2iY90RolTA2
-         fi1wDQo5G7/CTAoyqbOuD06odLrIBKv054DmElyYcUPfj+dA/bNCx7KFzH4VNzpmq1SZ
-         pM4kkqoojwTnvJhdS0kC+WgP2clmwoxbTfkpPct5aRyU0rdGmI7YNQ0Gmkqoap2Wgb3M
-         RwYg==
-X-Forwarded-Encrypted: i=1; AFNElJ/HQ7IBMyf1/TwgM+Vny6yS5WIRbd7cPcL8by4LDgB/rrzKAUUBG33skuL5ScVAg7+T4DCy7tvivXVB@vger.kernel.org
-X-Gm-Message-State: AOJu0YzTFQdQI6351Ta1fZeOS2cRz0+QwLQ5NpruaAvDsEsGvGnvwJgp
-	Jzc587U9aa8CXeAFfbcP/cGii/rqHImFCfdtoJ4BZYsSOdSOK1zvG4BmTSfsiO+/cq2MypOOrEm
-	+yzE9jj1AhoZkMJqIemeMsa+i0uyNvLs=
-X-Gm-Gg: AeBDietSbeLWe2lWXiOMOl/9uY7oIlqWWhJ/nHfcGFOx68LCR8SfPVY38cWCFKmvzih
-	WelV/K1+9tMHFpHONwr5w8xpY77jGK7kW+p4Dat1sNmfs1+NXSyJYgtMR8/iQJxgRHSKIquXEKM
-	H33WJsi80PdXCdPYODewgFicvjD/w5I9ydMYpjsQtUpZXfDd8ocOtBJYgJsyY0TVIhegGZkx02T
-	HGcW9XVz5SIRb9DuVlhd3mFdYqhX8IF8PvfM9OXVkB7kapbZomMEW/ed7nqaEsp2iH1TKv7Aurd
-	u7yCgOg=
-X-Received: by 2002:a05:622a:2a0c:b0:509:14f6:9841 with SMTP id
- d75a77b69052e-50dd5b7c649mr291665491cf.31.1776243466376; Wed, 15 Apr 2026
- 01:57:46 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1776243562; x=1776848362;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=4fuHeB8k/Mjlbeb4t9l+3i5xFCcgNDDnedViyIzx50s=;
+        b=cvrNDbKW5x80BPTNzSzgabrmmOyzxupHbWonTR3QSNFUNH5tHIBI2YLU3eGzAqBicZ
+         ef9VMSPK7OCKAbwQzjMoWAO423U1FvfjksFxz24nKrvyT6xiA4bt6/EKQXmoYh8Yui+y
+         rqMZO3rYFiP5p74rCZy37rolSbB8Y+f+VPLYOd7NI3RR36xa9BNLPC33PcDzbgiYXO3I
+         915one8cjOdq1MpldwbDFR0wTHMp9/XkqaDgx1TX6jgBrkLB1e77h1b5ESnLrpqBG4CR
+         OnUoDsuR4l2WdW7nlmM6306OPBRu8EfIQtNMhN3k1cVQ2KUKBTu01oFrmsD+GWJgtPcH
+         XqpA==
+X-Forwarded-Encrypted: i=1; AFNElJ9Vs1GMVAY9dwXfX90GoOKlAJgijCqTTR/xHtpj369Ib7Q5iuGSDp5ICOe/tkuNNpOtCY9H7NAkQNwD@vger.kernel.org
+X-Gm-Message-State: AOJu0YwEaHx6nchyE9K4By7s/fQQKs23DBPgYfggMLZKv8kgoELl2j3s
+	vWz9y0FBdiqBQ0ZVbjpPbMglwR5jlckWGCD/hBmla4Ft8wlmLGP99Y/icZ23KA5DiUCt1PVhtAl
+	lqwEjyEMwLzR41tMlGl/XQhajQl+pOaQKsJxaJnxqbIdcg9cc64gdCda0XF1GCp3k
+X-Gm-Gg: AeBDiesV6CD9wP+efy5bc3x1wqWBerc7Sr6jUIPTeV3A4LPpXy6by5NNp9wC5isd4JL
+	dtJS1gZDafrqVIVFalrn24BvpxM7whwWUv6jUfL0WS0bgcMZ6boB05e58eVBTAyiGppTNlregRv
+	X22QzUJQBdmdTdx4AP0SOXPzsFYlO4UrO0BSJmjxtzcLNikWWcXHQq2CVPa/eADLgdjT9WQ6O9Z
+	sPXlVTKpX0qbNjiilS6qP2PeFAilSefBH4jTyzRzrsI8EhHQNtvF2YCNXoChk+LbjZp73GqBpjP
+	2R2viEReByvSop3UwvsB9Y/3/RsCMhW9SMZrTLVeP5gqaMaTpBeo+Q31wLr8hy61fmjZMn+EUaB
+	eKDfxDIeE5G0LsB527dXtfahPGcz0Nw9opQUf7qnqBMqOOv8UFgZdh0RBMP5+FWOnmM1UihdGP4
+	0er1LmsIW5Xm+R9w==
+X-Received: by 2002:ac8:5893:0:b0:509:15aa:cf03 with SMTP id d75a77b69052e-50e1a703e9dmr14268221cf.4.1776243562117;
+        Wed, 15 Apr 2026 01:59:22 -0700 (PDT)
+X-Received: by 2002:ac8:5893:0:b0:509:15aa:cf03 with SMTP id d75a77b69052e-50e1a703e9dmr14267921cf.4.1776243561646;
+        Wed, 15 Apr 2026 01:59:21 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-67237d789a9sm236176a12.3.2026.04.15.01.59.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 15 Apr 2026 01:59:20 -0700 (PDT)
+Message-ID: <780812d1-f6ad-494f-a323-4b7027a715ab@oss.qualcomm.com>
+Date: Wed, 15 Apr 2026 10:59:18 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260414214104.1363987-1-dennis@ausil.us> <20260414214104.1363987-7-dennis@ausil.us>
-In-Reply-To: <20260414214104.1363987-7-dennis@ausil.us>
-From: Alexey Charkov <alchark@gmail.com>
-Date: Wed, 15 Apr 2026 12:57:31 +0400
-X-Gm-Features: AQROBzBEtWJOTHuxeBGjPJqMt4Wcq_1Spd5oLgN9jC4wNkqJlKqoy-oCTRuq_9Q
-Message-ID: <CABjd4YxfeCfRUneZfFx31WmQOexO0gcH8yHPQmRY38GKNk=Ztg@mail.gmail.com>
-Subject: Re: [PATCH v7 6/6] arm64: dts: rockchip: Add Orange Pi 5 Pro board support
-To: Dennis Gilmore <dennis@ausil.us>
-Cc: Andrew Lunn <andrew@lunn.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Chaoyi Chen <chaoyi.chen@rock-chips.com>, Conor Dooley <conor+dt@kernel.org>, 
-	David Airlie <airlied@gmail.com>, devicetree@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, FUKAUMI Naoki <naoki@radxa.com>, 
-	Heiko Stuebner <heiko@sntech.de>, Hsun Lai <i@chainsx.cn>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Jimmy Hon <honyuenkwun@gmail.com>, 
-	John Clark <inindev@gmail.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Michael Opdenacker <michael.opdenacker@rootcommit.com>, 
-	Michael Riesch <michael.riesch@collabora.com>, Mykola Kvach <xakep.amatop@gmail.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Peter Robinson <pbrobinson@gmail.com>, 
-	Quentin Schulz <quentin.schulz@cherry.de>, Robert Foss <rfoss@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
-	Thomas Zimmermann <tzimmermann@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: glymur: Drop RPMh CXO clocks from QMP
+ PHYs
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260414-dts-glymur-drop-rpmh-cxo-clk-from-qmpphys-v1-1-ab12d77c4aec@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260414-dts-glymur-drop-rpmh-cxo-clk-from-qmpphys-v1-1-ab12d77c4aec@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: AFo1nLHTRJ6f7PvKcwONpVr53ivfPmqN
+X-Proofpoint-GUID: AFo1nLHTRJ6f7PvKcwONpVr53ivfPmqN
+X-Authority-Analysis: v=2.4 cv=HpNG3UTS c=1 sm=1 tr=0 ts=69df536b cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=GxPRKtRK2lFiV6y-FhkA:9 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE1MDA4MSBTYWx0ZWRfX98m11LWlWFFX
+ VUnYN0mWfCnWZepwtjfDT0U2hN6po2qKvbVrDDfp2KQCRVFJEr2/8ZpdVxQAuuT87FDoCTkSxix
+ Pinip42krvde22+KwwtLwPGsnAJvdoycFnDXzhlqeX7JVFQRXo/jjOuyAM172N/uPJPbzij/Vbf
+ wHCax7NuGhRQqusmj8IsXlC/y0zZbo8tSqvpIiLCujkZ2+lSfKsqi9TBLXZYSs8KpLahT3P4Mz3
+ It64O0+tKudSjwoGuk8pUKpoxpnkduKlzxnaeDndipbAM8QeMGV0P1hftQQotdtVlTyJ9ABDWoD
+ ceGH8xZ4ooLJhHDGnqFgc7xBu9JbWuTBifqhNvAQ/kpoWCNjgN5D4oHak1ggG6JeZKdUrtTjD45
+ BTsRsF8L82mcjUKQ/MeogmkFwCXqN8TAQykr0eeZEEa2YOGIjfDPZvU0Qg3vcKNYoQQ93Tjt6so
+ USyiz/6WMDDXEhKpOEQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-14_04,2026-04-13_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 impostorscore=0 lowpriorityscore=0 malwarescore=0 suspectscore=0
+ bulkscore=0 adultscore=0 clxscore=1015 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604150081
 
-On Wed, Apr 15, 2026 at 1:41=E2=80=AFAM Dennis Gilmore <dennis@ausil.us> wr=
-ote:
->
-> Add device tree for the Xunlong Orange Pi 5 Pro (RK3588S).
->
-> - eMMC module, you can optionally solder a SPI NOR in place and turn
->  off the eMMC
-> - PCIe-attached NIC (pcie2x1l1)
-> - PCIe NVMe slot (pcie2x1l2)
-
-Hi Dennis,
-
-Sashiko noticed [1] that the controller names here do not match the
-nodes/comments you have in the patch body - which ones are correct?
-
-[1] https://sashiko.dev/#/patchset/20260414214104.1363987-1-dennis%40ausil.=
-us
-
-> - AP6256 WiFi (BCM43456) via SDIO with mmc-pwrseq
-> - BCM4345C5 Bluetooth
-> - es8388 audio
-> - USB 2.0 and USB 3.0
-> - Two HDMI ports, the second is connected to the SoC's DP controller
->   driven through a Lontium LT8711UXD bridge.
->
-> Vendors schematics are available at:
-> https://drive.google.com/file/d/1qs1DratHuh7C6J6MEtQIwUsiSrg8qgTi/view
->
-> Signed-off-by: Dennis Gilmore <dennis@ausil.us>
+On 4/14/26 7:05 PM, Abel Vesa wrote:
+> On Glymur, all QMP PHYs except the one used by USB SS0 take their
+> reference clock from the TCSR clock controller. Since these TCSR clocks
+> already derive from RPMH_CXO_CLK as their sole parent, there is no need
+> to provide an extra `clkref` clock to the PHY nodes.
+> 
+> Drop the extra RPMh CXO clock inputs and use the TCSR clocks as the PHY
+> reference clocks instead.
+> 
+> This also fixes the devicetree schema validation, as the bindings do not
+> allow a separate `clkref` clock.
+> 
+> Fixes: 4eee57dd4df9 ("arm64: dts: qcom: glymur: Add USB related nodes")
+> Reported-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Reported-by: Rob Herring <robh@kernel.org>
+> Closes: https://lore.kernel.org/r/20260410145205.GA554754-robh@kernel.org/
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 > ---
->  arch/arm64/boot/dts/rockchip/Makefile         |   1 +
->  .../dts/rockchip/rk3588s-orangepi-5-pro.dts   | 442 ++++++++++++++++++
->  2 files changed, 443 insertions(+)
->  create mode 100644 arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-pro.d=
-ts
->
-> diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/=
-rockchip/Makefile
-> index 4d384f153c13..c99dca2ae9e7 100644
-> --- a/arch/arm64/boot/dts/rockchip/Makefile
-> +++ b/arch/arm64/boot/dts/rockchip/Makefile
-> @@ -214,6 +214,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588s-nanopi-r6c.d=
-tb
->  dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588s-odroid-m2.dtb
->  dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588s-orangepi-5.dtb
->  dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588s-orangepi-5b.dtb
-> +dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588s-orangepi-5-pro.dtb
->  dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588s-orangepi-cm5-base.dtb
->  dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588s-radxa-cm5-io.dtb
->  dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588s-roc-pc.dtb
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-pro.dts b/ar=
-ch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-pro.dts
-> new file mode 100644
-> index 000000000000..61462c66753d
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-pro.dts
-> @@ -0,0 +1,442 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-> +
-> +/dts-v1/;
-> +
-> +#include "rk3588s-orangepi-5.dtsi"
-> +
-> +/ {
-> +       model =3D "Xunlong Orange Pi 5 Pro";
-> +       compatible =3D "xunlong,orangepi-5-pro", "rockchip,rk3588s";
-> +
-> +       aliases {
-> +               mmc0 =3D &sdhci;
-> +               mmc1 =3D &sdmmc;
-> +               mmc2 =3D &sdio;
-> +       };
-> +
-> +       hdmi1-con {
-> +               compatible =3D "hdmi-connector";
-> +               label =3D "HDMI1 OUT";
-> +               type =3D "a";
-> +
-> +               port {
-> +                       hdmi1_con_in: endpoint {
-> +                               remote-endpoint =3D <&lt8711uxd_out>;
-> +                       };
-> +               };
-> +       };
-> +
-> +       lt8711uxd {
 
-Please use a generic node name per DT convention. "hdmi-bridge" perhaps?
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-> +               compatible =3D "lontium,lt8711uxd";
-
-Don't you want to add "vdd-supply =3D <&vcc3v3_dp>;" here? It costs you
-nothing, as it's already in the binding and in the driver, and having
-this dependency listed explicitly will let the kernel order the driver
-probes correctly, and also likely let you drop the boot-on/always-on
-annotation from the regulator node.
-
-> +               ports {
-> +                       #address-cells =3D <1>;
-> +                       #size-cells =3D <0>;
-> +
-> +                       port@0 {
-> +                               reg =3D <0>;
-> +
-> +                               lt8711uxd_in: endpoint {
-> +                                       remote-endpoint =3D <&dp0_out_con=
->;
-> +                               };
-> +                       };
-> +
-> +                       port@1 {
-> +                               reg =3D <1>;
-> +
-> +                               lt8711uxd_out: endpoint {
-> +                                       remote-endpoint =3D <&hdmi1_con_i=
-n>;
-> +                               };
-> +                       };
-> +               };
-> +       };
-> +
-> +       analog-sound {
-> +               compatible =3D "simple-audio-card";
-> +               pinctrl-names =3D "default";
-> +               pinctrl-0 =3D <&hp_detect>;
-> +               simple-audio-card,format =3D "i2s";
-> +               simple-audio-card,hp-det-gpios =3D <&gpio1 RK_PD5 GPIO_AC=
-TIVE_HIGH>;
-> +               simple-audio-card,mclk-fs =3D <256>;
-> +               simple-audio-card,name =3D "rockchip,es8388";
-> +               simple-audio-card,routing =3D
-> +                       "Headphones", "LOUT1",
-> +                       "Headphones", "ROUT1",
-> +                       "LINPUT1", "Microphone Jack",
-> +                       "RINPUT1", "Microphone Jack",
-> +                       "LINPUT2", "Onboard Microphone",
-> +                       "RINPUT2", "Onboard Microphone";
-> +               simple-audio-card,widgets =3D
-> +                       "Microphone", "Microphone Jack",
-> +                       "Microphone", "Onboard Microphone",
-> +                       "Headphone", "Headphones";
-> +
-> +               simple-audio-card,cpu {
-> +                       sound-dai =3D <&i2s2_2ch>;
-> +               };
-> +
-> +               simple-audio-card,codec {
-> +                       sound-dai =3D <&es8388>;
-> +                       system-clock-frequency =3D <12288000>;
-> +               };
-> +       };
-> +
-> +       pwm-leds {
-> +               compatible =3D "pwm-leds";
-> +
-> +               led-0 {
-> +                       color =3D <LED_COLOR_ID_BLUE>;
-> +                       function =3D LED_FUNCTION_STATUS;
-> +                       linux,default-trigger =3D "heartbeat";
-> +                       max-brightness =3D <255>;
-> +                       pwms =3D <&pwm15 0 1000000 0>;
-> +               };
-> +
-> +               led-1 {
-> +                       color =3D <LED_COLOR_ID_GREEN>;
-> +                       function =3D LED_FUNCTION_ACTIVITY;
-> +                       linux,default-trigger =3D "heartbeat";
-> +                       max-brightness =3D <255>;
-> +                       pwms =3D <&pwm3 0 1000000 0>;
-> +               };
-> +       };
-> +
-> +       fan: pwm-fan {
-> +               compatible =3D "pwm-fan";
-> +               #cooling-cells =3D <2>;
-> +               cooling-levels =3D <0 50 100 150 200 255>;
-> +               fan-supply =3D <&vcc5v0_sys>;
-> +               pwms =3D <&pwm2 0 20000000 0>;
-> +       };
-> +
-> +       vcc3v3_dp: regulator-vcc3v3-dp {
-> +               compatible =3D "regulator-fixed";
-> +               enable-active-high;
-> +               gpios =3D <&gpio3 RK_PC2 GPIO_ACTIVE_HIGH>;
-> +               pinctrl-names =3D "default";
-> +               pinctrl-0 =3D <&dp_bridge_en>;
-> +               regulator-max-microvolt =3D <3300000>;
-> +               regulator-min-microvolt =3D <3300000>;
-> +               regulator-name =3D "vcc3v3_dp";
-> +               regulator-always-on;
-> +               regulator-boot-on;
-
-Please see if you can drop these always-on/boot-on when vdd-supply is
-explicitly listed in the bridge node
-
-> +               vin-supply =3D <&vcc_3v3_s3>;
-> +       };
-> +
-> +       vcc3v3_phy1: regulator-vcc3v3-phy1 {
-> +               compatible =3D "regulator-fixed";
-> +               enable-active-high;
-> +               gpios =3D <&gpio3 RK_PB7 GPIO_ACTIVE_HIGH>;
-> +               pinctrl-names =3D "default";
-> +               pinctrl-0 =3D <&vcc3v3_phy1_en>;
-
-The board schematics call the pin "Ethernet_EN"
-
-> +               regulator-max-microvolt =3D <3300000>;
-> +               regulator-min-microvolt =3D <3300000>;
-> +               regulator-name =3D "vcc3v3_phy1";
-> +               startup-delay-us =3D <50000>;
-> +               vin-supply =3D <&vcc_3v3_s3>;
-> +       };
-> +
-> +       vcc5v0_otg: regulator-vcc5v0-otg {
-> +               compatible =3D "regulator-fixed";
-> +               enable-active-high;
-> +               gpios =3D <&gpio0 RK_PC4 GPIO_ACTIVE_HIGH>;
-> +               pinctrl-names =3D "default";
-> +               pinctrl-0 =3D <&vcc5v0_otg_en>;
-> +               regulator-max-microvolt =3D <5000000>;
-> +               regulator-min-microvolt =3D <5000000>;
-> +               regulator-name =3D "vcc5v0_otg";
-> +               vin-supply =3D <&vcc5v0_sys>;
-> +       };
-> +
-> +       sdio_pwrseq: sdio-pwrseq {
-> +               compatible =3D "mmc-pwrseq-simple";
-> +               clocks =3D <&hym8563>;
-> +               clock-names =3D "ext_clock";
-> +               pinctrl-names =3D "default";
-> +               pinctrl-0 =3D <&wifi_enable_h>;
-> +               post-power-on-delay-ms =3D <200>;
-> +               reset-gpios =3D <&gpio0 RK_PD0 GPIO_ACTIVE_LOW>;
-> +       };
-> +
-> +       typea_con: usb-a-connector {
-> +               compatible =3D "usb-a-connector";
-> +               data-role =3D "host";
-> +               label =3D "USB3 Type-A";
-> +               power-role =3D "source";
-> +               vbus-supply =3D <&vcc5v0_otg>;
-> +       };
-> +};
-> +
-> +&dp0 {
-> +       pinctrl-names =3D "default";
-> +       pinctrl-0 =3D <&dp0m0_pins>;
-> +       status =3D "okay";
-> +};
-> +
-> +&dp0_in {
-> +       dp0_in_vp1: endpoint {
-> +               remote-endpoint =3D <&vp1_out_dp0>;
-> +       };
-> +};
-> +
-> +&dp0_out {
-> +       dp0_out_con: endpoint {
-> +               remote-endpoint =3D <&lt8711uxd_in>;
-> +       };
-> +};
-> +
-> +&i2c1 {
-> +       pinctrl-names =3D "default";
-> +       pinctrl-0 =3D <&i2c1m4_xfer>;
-> +       status =3D "okay";
-> +};
-> +
-> +&i2c3 {
-> +       pinctrl-names =3D "default";
-> +       pinctrl-0 =3D <&i2c3m0_xfer>;
-> +       status =3D "okay";
-> +
-> +       es8388: audio-codec@11 {
-> +               compatible =3D "everest,es8388", "everest,es8328";
-> +               reg =3D <0x11>;
-> +               #sound-dai-cells =3D <0>;
-> +               AVDD-supply =3D <&vcca_3v3_s0>;
-> +               DVDD-supply =3D <&vcca_1v8_s0>;
-> +               HPVDD-supply =3D <&vcca_3v3_s0>;
-> +               PVDD-supply =3D <&vcca_1v8_s0>;
-> +               assigned-clock-rates =3D <12288000>;
-> +               assigned-clocks =3D <&cru I2S2_2CH_MCLKOUT>;
-> +               clocks =3D <&cru I2S2_2CH_MCLKOUT>;
-> +               pinctrl-names =3D "default";
-> +               pinctrl-0 =3D <&i2s2m1_mclk>;
-> +       };
-> +};
-> +
-> +&i2c4 {
-> +       pinctrl-names =3D "default";
-> +       pinctrl-0 =3D <&i2c4m3_xfer>;
-> +       status =3D "okay";
-> +};
-> +
-> +&i2s2_2ch {
-> +       pinctrl-0 =3D <&i2s2m1_lrck &i2s2m1_sclk
-> +                    &i2s2m1_sdi &i2s2m1_sdo>;
-> +       status =3D "okay";
-> +};
-> +
-> +&package_thermal {
-> +       polling-delay =3D <1000>;
-> +
-> +       cooling-maps {
-> +               map0 {
-> +                       trip =3D <&package_fan0>;
-> +                       cooling-device =3D <&fan THERMAL_NO_LIMIT 1>;
-> +               };
-> +
-> +               map1 {
-> +                       trip =3D <&package_fan1>;
-> +                       cooling-device =3D <&fan 2 THERMAL_NO_LIMIT>;
-> +               };
-> +       };
-> +
-> +       trips {
-> +               package_fan0: package-fan0 {
-> +                       hysteresis =3D <2000>;
-> +                       temperature =3D <55000>;
-> +                       type =3D "active";
-> +               };
-> +
-> +               package_fan1: package-fan1 {
-> +                       hysteresis =3D <2000>;
-> +                       temperature =3D <65000>;
-> +                       type =3D "active";
-> +               };
-> +       };
-> +};
-> +
-> +/* NVMe */
-> +&pcie2x1l1 {
-> +       pinctrl-names =3D "default";
-> +       pinctrl-0 =3D <&pcie2x1l1_rst &pcie30x1m1_1_clkreqn &pcie30x1m1_1=
-_waken>;
-
-Is there a particular reason to use the GPIO mode for the reset pin,
-rather than the (confusingly named) &pcie30x1m1_1_perstn in line with
-the other two?
-
-> +       reset-gpios =3D <&gpio4 RK_PA2 GPIO_ACTIVE_HIGH>;
-> +       supports-clkreq;
-> +       vpcie3v3-supply =3D <&vcc_3v3_s3>;
-> +       status =3D "okay";
-> +};
-> +
-> +/* NIC */
-> +&pcie2x1l2 {
-> +       pinctrl-names =3D "default";
-> +       pinctrl-0 =3D <&pcie2x1l2_rst>;
-
-Similar to the above - have you tried the dedicated hardware mode for
-this pin, i.e. &pcie20x1m0_perstn? You are not requesting the
-&pcie20x1m0_clkreqn or &pcie20x1m0_waken either, even though they are
-routed on the board - that will probably bite you if you try
-suspending the board.
-
-> +       reset-gpios =3D <&gpio3 RK_PD1 GPIO_ACTIVE_HIGH>;
-> +       vpcie3v3-supply =3D <&vcc3v3_phy1>;
-> +       status =3D "okay";
-> +};
-> +
-> +&pinctrl {
-> +       bluetooth {
-> +               bt_wake_gpio: bt-wake-pin {
-> +                       rockchip,pins =3D <0 RK_PC6 RK_FUNC_GPIO &pcfg_pu=
-ll_none>;
-
-If you care about power consumption of the board it's probably better
-to pull this down to make sure the Bluetooth module is predictably in
-a sleep state when not explicitly requested, not floating randomly.
-There is no dedicated pull-up/pull-down on your board.
-
-> +               };
-> +
-> +               bt_wake_host_irq: bt-wake-host-irq {
-> +                       rockchip,pins =3D <0 RK_PC5 RK_FUNC_GPIO &pcfg_pu=
-ll_down>;
-> +               };
-> +       };
-> +
-> +       dp {
-> +               dp_bridge_en: dp-bridge-en {
-> +                       rockchip,pins =3D <3 RK_PC2 RK_FUNC_GPIO &pcfg_pu=
-ll_none>;
-
-This pin doesn't have any dedicated pull-up/pull-down on the board, so
-you might end up in a weird power state for the period of time between
-the probing of the pinctrl subsystem and regulators. Better set it to
-&pcfg_pull_down, which matches the power-on-reset default state of
-this pin.
-
-> +               };
-> +       };
-> +
-> +       pcie {
-> +               pcie2x1l1_rst: pcie2x1l1-rst {
-> +                       rockchip,pins =3D <4 RK_PA2 RK_FUNC_GPIO &pcfg_pu=
-ll_none>;
-> +               };
-> +
-> +               pcie2x1l2_rst: pcie2x1l2-rst {
-> +                       rockchip,pins =3D <3 RK_PD1 RK_FUNC_GPIO &pcfg_pu=
-ll_none>;
-> +               };
-> +
-> +               vcc3v3_phy1_en: vcc3v3-phy1-en {
-
-The schematic calls this pin "Ethernet_EN", so perhaps use that in the
-label and node name for easier reference.
-
-> +                       rockchip,pins =3D <3 RK_PB7 RK_FUNC_GPIO &pcfg_pu=
-ll_none>;
-
-As above: no dedicated pull resistors on the board, better set to
-&pcfg_pull_down in line with POR default.
-
-> +               };
-> +       };
-> +
-> +       usb {
-> +               vcc5v0_otg_en: vcc5v0-otg-en {
-> +                       rockchip,pins =3D <0 RK_PC4 RK_FUNC_GPIO &pcfg_pu=
-ll_none>;
-
-As above: no dedicated pull resistors on the board, better set to
-&pcfg_pull_down in line with POR default.
-
-> +               };
-> +       };
-> +
-> +       wlan {
-> +               wifi_enable_h: wifi-enable-h {
-> +                       rockchip,pins =3D <0 RK_PD0 RK_FUNC_GPIO &pcfg_pu=
-ll_none>;
-
-As above: no dedicated pull resistors on the board, better set to
-&pcfg_pull_down in line with POR default.
-
-Best regards,
-Alexey
+Konrad
