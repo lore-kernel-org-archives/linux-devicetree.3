@@ -1,170 +1,171 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59D03281357
-	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 08:21:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE79F3A5435;
+	Wed, 15 Apr 2026 08:24:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776241314; cv=none; b=TLmn0UxKvaM6etJey+b/2Bq7g6piOBKTO5Mb4F2nNSpV0+PFBLwXHKTuzS8bBa0NoFkJ0GpvRXd6pYphpycZ5kxH0bWDvBY3Qvh+Uj2zHPjMwWKk7B8I7bL7rT/qghpkq53ehSB9+fcT54If8U1Wjhkivnfb6FSulGc3lxcx0vM=
+	t=1776241482; cv=none; b=XOHs/PQ8uAgtHf2qolXs63fDipNYoKFeTQeXVQY2V3gTE3Ga1o5kiTmzS4bxR5Wi/insyg3YOkS8LAxUTkp7Mk596LyD/cFuT2hUi0qg4PK6dVHCtOhaUHqpK21wOZymZp4OFsTVroxgY7J4ez53YG+GFNXsnWNymL+rEH5tkb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776241314; c=relaxed/simple;
-	bh=QRV4MLHxKSpNcqM4BDf+UW00MmNeU+zesBUiRCyk4VM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pwq/nFsI39B3WQ5/hD31uvbLZLiBxT4H4RemxLXNfkDy+Wh+SpXgadQBP6OacsT2uPQskSyCasPMvbJaxLy0TMiARV9K3DIYBlzz1BUqa7j/X+x8L+00PP5r6ZvQaUqjuoroIhIntYpTYnzj0cfwEVvOciTUsGHr3loXIZZK940=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Oj/6ZZKk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LGrKIk/I; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1776241482; c=relaxed/simple;
+	bh=ITUjqoh6v/Y/cKBu7YDPhOAfAlNcg3tKnVNa0mtj7w8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tTKkVO7CtxX/GiiMITDUp8azbi7mhHHWVRzSEMGljvHo3rh2OMms9YHol4FjbVljwoqDyu8jHDEyRL0QTTeiTLoY5gXYlZKjeAc3saMscl9tZMUxyiotzvVdCbCiQ5p5Whm/ibc5YNN3Izgr+XE6tLj+d/pd5YGZcxaGhn9kCmo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LyVUR+8B; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Oj/6ZZKk";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LGrKIk/I"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63F4CqGd3759299
-	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 08:21:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=I0eqagUMBzZb/Qop6f7WgKx7bP7+THfDsWO
-	e5fhJtE0=; b=Oj/6ZZKk7FvsHVVWJGiDc1oUwdFN9G6s5bNN+57X1IJIIRISSdZ
-	v4ht5yl+6/aSuoTyhuSXNKpJm3EvXrkLbE6sBA+x0nbLVC/rNG4p5iTOc0sHKBhy
-	sAY7l+4u5GchpFKQkaZv9e7wo42W2lRXWfanWbvgEj0AMSYbsXIA1hduBQKqrJ9f
-	9Sc/30l6njFK+VhHfm67zf/vkdzG5zWLukOA5omc03uf77f8CzBa1EpXcF6BjlTO
-	6Xowi2UuMpttqjxJ8FP+wYpA732GDeueACVZjkYwcC+uLNi+AFgePSzV5Mp+Syr5
-	1f9FsOV2uZyWmfqQd1RK7PucETA7Cg2/xGw==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dhtg0abfj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 08:21:52 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50d5d1c2289so109863471cf.2
-        for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 01:21:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776241311; x=1776846111; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=I0eqagUMBzZb/Qop6f7WgKx7bP7+THfDsWOe5fhJtE0=;
-        b=LGrKIk/ICmJS0P5/UI88b5r/ZGy3UQ2nYQAFPTYwBPASvGNxFEhrSrecvICwoVTXz7
-         8X4QVl0qMxkYJcgFmMntKu234EVMbdtM5vemuUyBNFxW4Fd5jarjCo5l78GZolSB5/4f
-         GqMVPnE2MxXkENahQVZnnFLjEMxn74d0DEMHXbh5fhrcUll1AF1rcroB1ths7fX8DE5m
-         xND7USKuld5o2TRC+HUeE+LK2DJLR/RwOeq5kZ/cqEK8BGQA9GS5+hMpdUgvvLxKVOE1
-         GvRqFttOoIek5b9DFybjdQ6HC6tOl8/GYG6vd4MRaMgfh7dZh/oWJKR3XoFkOKZE57Jk
-         DQow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776241311; x=1776846111;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=I0eqagUMBzZb/Qop6f7WgKx7bP7+THfDsWOe5fhJtE0=;
-        b=JLgScoXFHzT3xAuMvfmdrR09s7qcO1o1szvK08h9Y7erGkjPu/+fWBNLUY8FQHMeaU
-         KXUgwhf93B5gIuNE0Or2BA1de+HwLDD/VplapJBnSO2DlxksVyzV8um31pAy8WeIXIEN
-         kjMMhCrNuLAB2k9lOWtw6DfG1o+79LWDXt3SKpGvLB4DVPwo/98COOqbb3FG2lL5yyzh
-         UbhXjPpgigO7onS8nS0bVl4NcFlGuMmctEBxa/dDIOHLxeAUBLk5EEpeNwBl2cIg0337
-         1GtlFpm8FQwcBMwfJ2vBscx6YwWFBWzSc9Yyaq6gpkvVclcWuj/5O6ed04523HGv1vau
-         FpKA==
-X-Forwarded-Encrypted: i=1; AFNElJ+jePb8mNfD+rsVRYIYnjhYY8qVUbfIemckBoMaIbfpX0JjDlcB5ySSB8g39VUANZ3P/eDuSwllEvYy@vger.kernel.org
-X-Gm-Message-State: AOJu0YzL6ZRQEktPd6/TUr/V2NTC13Q2x8X4P8M2z+LPjjMW04kBRkMq
-	sb6uU3LTceFh3CcHSJYz+j8A9qz0cyAM8P+Wk5g/o1L7c5dbE5sFqkBbkHDePIqhz8nwf0Cv+8H
-	rJC71D/vXokDSc1miSO6rFWAPdGVMb5AzWYf8h9S6fHvEzslssxPclt0gzOWiODCM
-X-Gm-Gg: AeBDievxL8AHgMrwy2USPUlzG512uKGMWyeTdi+DSgpdFAM3qWLTgR4Z70OL0d37NZK
-	qqiCTO0WhteejjT+Nr+QzNpsUpH8QygN/kkKMHS/V1qaNF0enjeV3qnhlSv3GecVIMwx8vHB1UD
-	giw61i1n2OZNCfPT7OMc7hZ2dSdtldxCIjotYNzxIzJI7NK6NGrR2gGai5ZRrRmHLqhs/YI6WsI
-	9+I4iaF7M8WE31NEqhs+BKsx/6o4KJz3cqhwJGp8mkP1sgMJwLv480R9ZGMIw2i77wyFpfYUY8d
-	VgEiWlOG5dZzNdNxDYXUPznK0OqKGztrA9VCrj9VQ8JRHBwptBaY8Twwaj40cxvJ9+xVDmPGrB1
-	qFSAA/Ct33cCpZMfNJLHTeWVbg3xP0VXIbkV7
-X-Received: by 2002:a05:622a:24c:b0:509:2677:68f7 with SMTP id d75a77b69052e-50dd5aab64emr303838701cf.5.1776241311554;
-        Wed, 15 Apr 2026 01:21:51 -0700 (PDT)
-X-Received: by 2002:a05:622a:24c:b0:509:2677:68f7 with SMTP id d75a77b69052e-50dd5aab64emr303838431cf.5.1776241311100;
-        Wed, 15 Apr 2026 01:21:51 -0700 (PDT)
-Received: from quoll ([178.197.219.94])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488f0ebd0e1sm14333445e9.28.2026.04.15.01.21.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Apr 2026 01:21:50 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH] docs: dt: writing-bindings: Extend compatible fallbacks guideline
-Date: Wed, 15 Apr 2026 10:21:14 +0200
-Message-ID: <20260415082113.22775-2-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LyVUR+8B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25B72C19424;
+	Wed, 15 Apr 2026 08:24:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776241482;
+	bh=ITUjqoh6v/Y/cKBu7YDPhOAfAlNcg3tKnVNa0mtj7w8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=LyVUR+8BP1gmttUdKfvnKhM8aE2sTk7ziyAXBiG07kUatn5+VMxGkSSeRgJGAQaQT
+	 MQIqwMYcOr9JMVGvkv9gVMpLXweN74smMXYDJA37gYRf592KJLR60WFDSYv5JfXElp
+	 ofZmA7oLyy7aRiKo4NRG3+ldmJlb6zUDltjwiPNQlvdD8BrttLc2of79DjX10fsBr1
+	 yu2Ge/9x6PO24KXhPG6sBxlmZ7UOIwMw6U9wlxwoYEUNAijAIGvXsIuLyitNBJDSWA
+	 my6haTNE9G1XSC+2TtI7OIrFSPnkTjMZ1TaWzPfQmlcAFQQo//zZkcv76KwTLYLUa7
+	 lKHncYuZfQB0w==
+Message-ID: <f5cd25ae-712f-4d0d-b24e-6ca33501f15d@kernel.org>
+Date: Wed, 15 Apr 2026 10:24:38 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1654; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=QRV4MLHxKSpNcqM4BDf+UW00MmNeU+zesBUiRCyk4VM=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBp30p5mBuRVBsm75haPO57WuvBG3SRGoHHe/bYh
- hZdlMqGMsiJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCad9KeQAKCRDBN2bmhouD
- 16WcD/9KdRDL5BEuBDX6uUevh6nOyhWdilO4PVAczQp1ENTFj+9EyLHVux7xHudi1uVkBOTf5xo
- BxK1MmvqosCBX2xSFVxeXEssP6ERQ0n9n+FX1mbotP2wNhdcIv1OS7279Kx5tDSlzSLakRyO5Zb
- 71LHGQq3ARKsBUZS/zHo7byjoZ0BwwKByMsE2mR5STvdTOlPnsEcM/LdZe8584WqLdQ/t3oOj1q
- bpiQYBuGXBnjgz2V9CwvSATNUR3higzGICIzLUanafLr8fuDIJtn0f4Efq5Zg1Z7kQMWZDTZIz5
- km7x91NAt7NsJ7B8JFTB81mhiOyXrHL9AHD/iCiKTWvPcpH0T5utrZoO9T0OhUUHu9ESBGZsBaA
- qPr2d20hQ+dcWYc3abTy1YIBGfUWHEVZ1amlPbqElEHPIXoLYT08xtNb73IqujXNXYG3uqKb/G4
- sn7xKE6n20CV+fdlUp4MUftM+KC2OBAP3KJLwbHzbLl1Iuxbw1bGjRPpPFXA8e5kOACgfYsiVhH
- h1RhBXZJM5sohYwyNOw2Ofky2TdMH9RY9OGVRjOVvG+dQSan1bD+H46rXeXsUIU++DTO0nCE+0O
- lxYAqctWTitkNgOwZrH45b+38Ys9mMGuCTD499hlU8MWu17njU6pAzIBQkh5vQ776xb6KEbwNxW qv28Yqp6O/GHkKg==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=AszeGu9P c=1 sm=1 tr=0 ts=69df4aa0 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=gOEeR9iKwsj33Yj5oN/cWg==:17
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=YRjzyCTZZ4-ze7UGkugA:9 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-GUID: BK_2aERgRrrLH1E_dFI843U7izJNsk9n
-X-Proofpoint-ORIG-GUID: BK_2aERgRrrLH1E_dFI843U7izJNsk9n
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE1MDA3NSBTYWx0ZWRfXzCDmOawkJzxx
- bNAPtEL4CPyjSVGXilMX89R7Fe/dkpg33RFPyaJd7eVupGPySlikSWgmCRNc3Of5JQRgBSRbPUP
- SUGt2yLglqz+wQZ82Og3wsrkWSanfwceT1nIX7znEw1BOQeZwgzc4qinnTklIAaKKAHzJLf0enL
- iANlyZCCpGQKv6U/kF/7f9EXwLvYSMjGJIwdgefpy1NFs4Pp+/QhySCN+oS7eQejMX4lVbREvkM
- QPzpUw0BSuqOIeNr5NuSZWZuxaXWaRwc2AYZPl9nGSYEPL+Y11m87KBHnUyJqKJgQOd9cKE0wgl
- VkfKvnlRbKwWW2QwpyCsrhi/N8M/4I6f5pquD7dypMcGxAlSLPJJKAtJmPhUyENpFuDsArTDn0Y
- +gnzEZYko9FCVnMn2WqQJv6rGtw+EEdLvnne9xphzWyXnWS8eCkaK5fU1uHLaNmpCTZyEZuZnEE
- DEVhgTacOFofyYjdDwg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-14_04,2026-04-13_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 bulkscore=0 impostorscore=0 clxscore=1015
- phishscore=0 suspectscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604150075
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: remoteproc: add AMD MicroBlaze binding
+To: Michal Simek <michal.simek@amd.com>, Ben Levinsky <ben.levinsky@amd.com>,
+ andersson@kernel.org, mathieu.poirier@linaro.org
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, tanmay.shah@amd.com
+References: <20260414161558.2579920-1-ben.levinsky@amd.com>
+ <20260414161558.2579920-2-ben.levinsky@amd.com>
+ <774a8e9f-cfd9-4584-aaf0-2fd1189f65e8@kernel.org>
+ <e82faa64-22fa-4dba-8cde-f02cf9f95e25@amd.com>
+ <bf54faab-fac5-4c5c-89ea-04e328986760@kernel.org>
+ <01f58865-3a89-4adf-9411-0bf8b8c985f7@amd.com>
+ <9cd3686a-5fa6-49cc-9b38-96637b9fca39@kernel.org>
+ <00aa7ec4-121b-430a-9b83-1430dfee2998@amd.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <00aa7ec4-121b-430a-9b83-1430dfee2998@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Extend the guidelines when to use fallback compatibles to cover to
-common review responses.  Devices are most likely compatible and should
-use fallbacks when having:
+On 15/04/2026 10:06, Michal Simek wrote:
+> 
+> 
+> On 4/15/26 09:07, Krzysztof Kozlowski wrote:
+>> On 15/04/2026 08:55, Michal Simek wrote:
+>>>>>
+>>>>> Does it make sense?
+>>>>
+>>>> Yes, drop from DT. No need for generic stuff. Or describe the hardware.
+>>>
+>>> You need to describe that connection to HW. GPIOs, memory location, etc.
+>>> It means there must be any description.
+>>
+>> No, you can write user-space driver or pass everything through SW nodes.
+>> No need for DT description.
+> 
+> The firmware memory typically sits behind AXI-to-AXI bridges and 
+> 
+> interconnect switches. The bus topology varies between FPGA designs. 
+> 
+> DT ranges-based address translation is the standard way to describe 
+> 
+> this, and pushing it into userspace would just mean hardcoding what 
+> 
+> ranges already provides.
+> 
+> I don't think SW nodes should be used here.
+> 
+>>
+>> But if you want a DT description, then it must be for the specific
+>> hardware, since the hardware is not generic.
+> 
+> But there is specific HW loaded. It is loaded at power up and don't change over 
+> life cycle. What I am just saying that access to this fixed HW (in fpga) is 
+> generic. At this stage memory and gpio only.
+> 
+> What I was trying to say is that the hardware topology (memory window + 
+> 
+> reset GPIO) is the same regardless of the soft-core cpu (MicroBlaze,
+> RISC-V, etc.)/fpga, so naming it after the ISA architecture felt wrong to me 
+> 
+> too.
+> 
+> When I look at other bindings. For example this one.
+> Documentation/devicetree/bindings/remoteproc/qcom,glink-rpm-edge.yaml
 
-1. Compatible programming interface, meaning one is a subset, and Linux
-   device drivers can use the subset to correctly match/bind and still
-   operate with the subset features.
+That's a subnode of other device. Not an independent device.
 
-2. Device variant discovery through some means, like registers.
+Plus I dislike most of Qualcomm remoteproc bindings and find them way to
+downstreamish, written to match downstream approaches without respecting
+DT rules.
 
-Devices are incompatible and fallback is not suitable when that
-fallback cannot be used by the drivers to match/bind.
+> 
+> the compatible describes the communication mechanism (FIFO-based G-Link), not 
+> the specific processor behind it. 
+> 
+>   
+> 
+> Our case is similar the compatible describes the control mechanism firmware 
+> loaded through a memory window, processor started via GPIO reset. What sits 
+> behind that interface varies and is opaque to the binding.
+>   
+> 
+> Would something like "amd,mem-gpio-rproc" be acceptable, following the same 
+> pattern where the compatible identifies the interface mechanism?
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
- Documentation/devicetree/bindings/writing-bindings.rst | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+Not for me. You have a very specific physical remote processor. That's
+what you write bindings for.
 
-diff --git a/Documentation/devicetree/bindings/writing-bindings.rst b/Documentation/devicetree/bindings/writing-bindings.rst
-index 667816dd7d50..03e29e2d50af 100644
---- a/Documentation/devicetree/bindings/writing-bindings.rst
-+++ b/Documentation/devicetree/bindings/writing-bindings.rst
-@@ -53,7 +53,12 @@ Properties
-    - DON'T use wildcards or device-family names in compatible strings.
- 
-    - DO use fallback compatibles when devices are the same as or a superset of
--     prior implementations.
-+     prior implementations.  Fallback compatibles are applicable especially
-+     when sharing a programming interface or when able to discover the
-+     variants.
-+
-+   - DON'T add fake fallback compatibles when software cannot use such to match
-+     and bind to a device, and still operate correctly.
- 
-    - DO add new compatibles in case there are new features or bugs.
- 
--- 
-2.51.0
-
+Best regards,
+Krzysztof
