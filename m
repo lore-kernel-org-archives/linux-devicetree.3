@@ -1,45 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBDBA2FF657;
-	Wed, 15 Apr 2026 21:50:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E2163803EF;
+	Wed, 15 Apr 2026 21:51:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776289853; cv=none; b=I/l02woWxWNwowubVEmpA/JEy2WrcWtQ+wSrKI2nIwma6xBGQFPjKyyHHpuTPcoA2w7HeO0HumBz5wg2KFbx/e9XnCI+8HpQRyBA02k/bvwPs6JFCscRT1+U/JCJAhj09zNdT8YxZwo8fOBL7hAIBL4h+rxjRoqnAYOeWfKYhvU=
+	t=1776289890; cv=none; b=lr29WnR+f8uw4VzeASqWKY0dxwVDVOD+fw9zb/mbh4Z8yhQA/j76kCBRIIsFLhmCgB5p5GnmdY+d5ocGyOb6zcxmzb/CZAUSZBT13Fm0hKpUi8xx/tKkoqwdRK4QHtupYpRJRpf5dX3e3BT0KtL8SLWwtWNRUp9iNIgmMfS4iOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776289853; c=relaxed/simple;
-	bh=02lsykzopo9u7E3TfGUZHaEVG1az3xZZw+wYJbw2CyA=;
+	s=arc-20240116; t=1776289890; c=relaxed/simple;
+	bh=oyZwUyRQzG/nIYpblsarSIbWA3aKj0rWxz5YN4dmVvc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Xs0wemujTysTnIrBwjquvBhhgPFeg6IuTOApjL7UB8mIef57kq1jcfORRaPooqOZFOF0XMqwr77I0ueXTfjmCNkFrFxfK/FfGn5erWCfu7Vi8vFBlwuQXrUp4NPC257Wc/uTGceOET8RqzE91QyLD29zi64In1FgD9aPgxCBEBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D+4XFSsg; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=NkQer20SXxu2qaEVYvoNbHFagVhZofjNCllyxhGiO9vZkYmlfQ4LUv5KyDUAZO1gtiX/rlDKdzQx1/3lpGN3mBbGmsYs0WbYyZu1mgdS8zviadE4IYvWdbncRg90yN7OlbBGiCFeb4ph3XBgU6HiEeH5uZDzYNyOCY6R+vN3J3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GyHizvdg; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D+4XFSsg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61CFAC2BCB3;
-	Wed, 15 Apr 2026 21:50:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GyHizvdg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EDEBC19424;
+	Wed, 15 Apr 2026 21:51:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776289853;
-	bh=02lsykzopo9u7E3TfGUZHaEVG1az3xZZw+wYJbw2CyA=;
+	s=k20201202; t=1776289890;
+	bh=oyZwUyRQzG/nIYpblsarSIbWA3aKj0rWxz5YN4dmVvc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=D+4XFSsgZ4Gp5Vx/0FJAsY18pGHxnbeudS4LQVUxK3Vm4/+Ro5pnmffMDUorfjL4u
-	 fKarBsFg5JFeD+P0fegk+sG6GfGSSKvu3XNOhXvHDTrIdQ4X8rrFML9LJfUTGpCBZg
-	 Ss8okeAlkb2UirNQQqqYSFFEWxzthgedw3Uu2xZRMYwkzMVawix4c4S5ZP1bhR8Xk2
-	 vDXZYmpS9sBAloat1+vUKpeq+0r6KfXnqRPUoH45bak/l/Dim5oJgEsr2hDc+ajkdU
-	 XMQSbZpo4X1P/otBXigJYGVz+v4LtnfpiOG3W99YfezKptdWGseiRialPhlbusaeC8
-	 wgsQKNrgkCesQ==
-Date: Wed, 15 Apr 2026 16:50:51 -0500
+	b=GyHizvdglc+29LgsaGAWqaYVL6ZYI/hYXuMgOIsu/Zi8LFkNtJj22L4xRaesCDyxx
+	 56gK+ShdTMhvUwTuDaJKwvx75vfy6rkw5u7MBiEkgK9McC6z9JYfSzckKZ/9t8J1rn
+	 EMFM+6wpvuDb52SRP9FnDqKPBLVl+tMw9JHUfX4wgCwyUUhgrZUmGqx3tkzNyoi7bW
+	 o88eNOnIyBlMxApe04QezRYHHAHC7AScrwcuSyM0v2t9hmLTsFjiurQFT0xr0XhRA/
+	 HfkpOdwNDKWy6sINOIFlvmjRtE3LY2uf387N81A9d7rsu9Qrv64u5AViTcWTkOL0Ek
+	 y7CyFYVuyJlhg==
+Date: Wed, 15 Apr 2026 16:51:26 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	Michael Turquette <mturquette@baylibre.com>,
-	linux-kernel@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Taniya Das <taniya.das@oss.qualcomm.com>
-Subject: Re: [PATCH] dt-bindings: clock: qcom,kaanapali-gxclkctl: Correctly
- use additionalProperties
-Message-ID: <177628985075.719572.15607564918118997220.robh@kernel.org>
-References: <20260404105436.138110-2-krzysztof.kozlowski@oss.qualcomm.com>
+To: Marek Vasut <marex@nabladev.com>
+Cc: Nicolin Chen <nicoleotsuka@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+	linuxppc-dev@lists.ozlabs.org, linux-sound@vger.kernel.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Fabio Estevam <festevam@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
+	Liam Girdwood <lgirdwood@gmail.com>, devicetree@vger.kernel.org,
+	Shengjiu Wang <shengjiu.wang@gmail.com>,
+	linux-kernel@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: fsl-sai: Document RX/TX BCLK
+ swap support
+Message-ID: <177628988619.723274.6196056382812573083.robh@kernel.org>
+References: <20260404183547.46509-1-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,17 +49,39 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260404105436.138110-2-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260404183547.46509-1-marex@nabladev.com>
 
 
-On Sat, 04 Apr 2026 12:54:37 +0200, Krzysztof Kozlowski wrote:
-> The binding does not reference any other schema, thus should use
-> "additionalProperties: false" to disallow any undocumented properties.
+On Sat, 04 Apr 2026 20:35:00 +0200, Marek Vasut wrote:
+> Document support for setting the Bit Clock Swap bit in CR2 register
+> via new "fsl,sai-bit-clock-swap" DT property. This bit swaps the
+> bit clock used by the transmitter or receiver in asynchronous mode,
+> i.e. makes transmitter use RX_BCLK and TX_SYNC, and vice versa,
+> makes receiver use TX_BCLK and RX_SYNC.
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
 > ---
->  .../devicetree/bindings/clock/qcom,kaanapali-gxclkctl.yaml      | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Fabio Estevam <festevam@gmail.com>
+> Cc: Jaroslav Kysela <perex@perex.cz>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Liam Girdwood <lgirdwood@gmail.com>
+> Cc: Mark Brown <broonie@kernel.org>
+> Cc: Nicolin Chen <nicoleotsuka@gmail.com>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Shengjiu Wang <shengjiu.wang@gmail.com>
+> Cc: Takashi Iwai <tiwai@suse.com>
+> Cc: Xiubo Li <Xiubo.Lee@gmail.com>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-sound@vger.kernel.org
+> Cc: linuxppc-dev@lists.ozlabs.org
+> ---
+> V2: - Drop | from description
+>     - Update email, rebase on next
+> ---
+>  Documentation/devicetree/bindings/sound/fsl,sai.yaml | 7 +++++++
+>  1 file changed, 7 insertions(+)
 > 
 
 Acked-by: Rob Herring (Arm) <robh@kernel.org>
