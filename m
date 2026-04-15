@@ -1,162 +1,225 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19B2A302742
-	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 09:01:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776243686; cv=none; b=gm8Wb5FN5gr7SkcqdAaxDMWahjcTjBA5IkXAe/9uz7sNr2dFqI5ISI9Xz0hQum9AgsYC4V/UJD84+bBPxf1u3IGszp4G1XfabDMacm6l20ND7TJqlIIhAuvywX62I1Iq68RN8WWNHUj2zdE5IIxC3g7hd7/20FJ8CIyqnc28IYk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776243686; c=relaxed/simple;
-	bh=7KpG4UWdwvqu8v/T88YZbQwzeTM3YOeeINseHlx/R2o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=t66vrEoJ380TM0auz9IaSRaszRy3SIA9b0aFGePGcPJOG6hXIj2FUa3xR86SAZM6QS0QTAnCQGZgYdRgl40mxa2nNUdJ8y4mTZKQzxZzrzV7Dy68Ub27HuimkW5kSeZFdGtf3dPcF4EKJPJV6twwXwKbqXDHRJK+GZx69cwMYW8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=C5PadLOn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LWBDldZA; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF2E3FCC
+	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 09:03:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776243785; cv=pass; b=EAvO6vX0uGuYIltLnwb+M9x693HtpOYXGzVabVp/Fz0+ZUJHM16cNjibRmV3lkY4LRPh3XG6mnj+qhoSmG4JE5koOZEsKXK1omXP6fyLEre5Fldx4rdmwtgwUZOW7tix0gnl6AuWmnl36a2whGKk19vYN+P9ugjfbPk4z0CRMFo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776243785; c=relaxed/simple;
+	bh=g8oimaORGIUiIaEIuPOcRHBRcNq8Tz0N0WhtWq2zChE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=prpvmJaPaheb4SGwGOTj34QDuAPXxvofB6uxIPFde8hSo6l2xohWO+gbBfO4EOlek+9aYvrAOwQAUC5bT4kietTnmIGYdBM6IGofGuKrWe+gL+pjLiP4L4M/F7enOusVUzfW0kv/9Dttz/FhPYeAnE1LM8ZfnEl0AbG7pj84NtU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QkUhTmjM; arc=pass smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="C5PadLOn";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LWBDldZA"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63F4Nekp3059018
-	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 09:01:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Ily7UQnWme6LgkWcvBf2LTy57LIttXFhiZpYV11UMT0=; b=C5PadLOnmCLU1OGK
-	wiHu9r4UzlUpR32Vhu7XyAqjSI5KJSrFvkVP0gLz2uY4BiGuRh8Q6OvZ8v8d2dfK
-	ESJHHAga7/c098jyjqh0oeA0mxP2AxNWmQ7DAGpTHl3VAWEnOTL2Q+RHryXa25j1
-	KdQFagRJVSADbWhZk1FmYzvkTRw3l5M/EPwjEndiOiee5KBSFbFbiNUe118OU+hY
-	YrlvVbPlsE/0ySCB0uzs4zGLP6HgKb/yNdueW2WXSlUNSEqcMK2YTiOkiW85eHKA
-	7t2lRAfZ+cAgPgKMxgNNNG7+KNAZsu4Xq2Fth0CSQyOf+aZeI0cEhfbhBJ8HM1rW
-	nxkqGw==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dhteptfux-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 09:01:23 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-6055c46b2c8so384701137.0
-        for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 02:01:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QkUhTmjM"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2ab46931cf1so40759685ad.0
+        for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 02:03:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776243784; cv=none;
+        d=google.com; s=arc-20240605;
+        b=lSKwMJiaSBsh/0yjJl4D/Pd48iW2A9X2NGMxAAiSb/sUrdP7VbySj6IdXbWEwz5GbX
+         wE77WpYONKAT0nklNKEwvA1qXiKsi0VlEeeEoP+p6Y73lXEIKetT6y1zHM2oAWQN3SRR
+         6yIHAL3ef27LjALGtzGYCva7ca5jkDjoIZI/xgl71LBbu1Wzk5dYir6el8s3EgSaa4WP
+         EDE2gfEv08Rm47vuNQ5R9iXLcunP+OZtPpDbwtP7n6HBPK29GvpUpe0lPwAgp3fYYggK
+         HArtL8EKyeQ1duTAYzJZ/6svzX66Ov66yEtgi7eFNz5bS3VuTEGgxgWAjb4YNeku09RD
+         u+Lw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GhSm6AC+EBob8Si9/iWbHEozFaMuoZoR04/c65WN25w=;
+        fh=JWLIZwAnCsyzy0/vkUG+JtcEGboAIHQZvMmljKzYDNY=;
+        b=giCfX8vtdQ5lWSNg+b4r2vrMrGQFef6CitBVU71BZjFzLw53KRR61WNk89Grwkpbug
+         bLYr3OTSWyP9fESsHH97atwo33NkPU7gTdsecUsq4JWssdLqFLFO5OABzN/G8uknhqwX
+         iBKXLvO57nRYen7XYPu9Wo6y/c0DxZMxVi0+rV1OW8TBprt/Iw9FvJsRStoIFUihv/i8
+         e/QDierB2++cqmNU7Hqi1LF2udm3A095hq3YkX4TDdsfmdjX3n9O5i75od6l8Hkd8q0j
+         qhc5LxZaLbM87tUQ+8oYrPEE+o9bU3nPMMevAD5nKEEzsNMB75KWccZUsVoYJKJPHrIG
+         WNYQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776243683; x=1776848483; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Ily7UQnWme6LgkWcvBf2LTy57LIttXFhiZpYV11UMT0=;
-        b=LWBDldZAnYbpSM1vS6qSelfQ2dc6jQ+Z3MKR6tjO87HeMclsyy6LdB7VGB5oO4lqCz
-         wZeVHbn/CTtAtNu29bwUxVc3l+U6Ql2a1WLTO9nat047HAlgZpSXfg8LwC0yMB4ACznY
-         CG7TwkZrxTG+8QTFRFaHQlBPpDRCgYLfH/bHom7yWY6bAFCCjgWkktrB98XeJK8jeVDg
-         klP+V1dPhPA2iqeAOWP1+izW76lJfT0sONlS6kyqtogGa3bSfTEoQA4dUnEweQhBTgEC
-         TF9I02qyToj0IoqMFQEN1AIj/YWD0ZX/JoSy02B9PuuwfrWyuKk302OtgRJ3lpAiHROK
-         JT2g==
+        d=gmail.com; s=20251104; t=1776243784; x=1776848584; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GhSm6AC+EBob8Si9/iWbHEozFaMuoZoR04/c65WN25w=;
+        b=QkUhTmjM7pkE6g+5OaZLFr/xsxJki72icpopITnJXsTxr/eoNjsNLWlhkb2LxYMrL5
+         rU9XzA1ktSeZzK1rtjMamf08jlXU9wLaOEQ14IC2Noo4jv6o+xrsXquYxIXJPNDbz7xd
+         toh9ib+sTh18uq389ZelxTojGvIV3G620IlnNtwpr6W5bD8E4we9lA8Y4vo9ZSU2fMId
+         E2rvqN64dTEbLFryoRZn5nWX6Zi38sZRnZCUjCiBQKSlu0W6RrUh7N5u8KxLz2B0WKlp
+         4pBaOy/mSBYb2Q/Wmc0YZ123pCpEPPa/mu4/NtyrpyI8n1o440TYLiEuS/zasPKQnPNj
+         9a3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776243683; x=1776848483;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Ily7UQnWme6LgkWcvBf2LTy57LIttXFhiZpYV11UMT0=;
-        b=mDOqX9ArpdlE7kJQmZ+3hRZjfH4Qbgrmhy+d47vaaS0aTexTUgn6mcjdoUuN5RI3Au
-         kyXM5RDL1y2ZpI0KqLpzrfWNlWy9peOtqHFWlwOnUoKYFVBOhn5rYFXbkmYKY3IpQkN6
-         Q6JaS7b2UBNgh1Dwn2kfjNpPFMccSPmpQMh5qFgEDrncNv4MmTeBEt7ezRgvlSnM2OFQ
-         NrDtQnC+OAOZAfiUkMrdka5acOTqbm9C6zmrNGy4QHodXGK9Bkn8x4VOAqM9Td0mqYg2
-         BUBilovI9Nw80VhfE87she4sECwsGFd581MLoRNkTQi4PGJnXl3PYlmqwrfIHVWd+NK0
-         KkWQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/AeVafPIVnHrUZQ6FLYm4FRiGeHeKvwukd5Erom24WYq7IR9E6HF5hIvUqOJ40VpsmjgIsLrBwFt18@vger.kernel.org
-X-Gm-Message-State: AOJu0YyET55gQz0xVFqByulDMynzz8Xg0P1IkmqDukbMnIK82RryWYUL
-	mdrD0PjIxiTJglF3bbht15lafrcjGoXlSCzLtLKfgiqR0AzPoLmCiByWkpiF9ol6XKfVbMx1Jv2
-	kKlJEr1C+P0O+j7VMJSdxrLz4E7GIDnvzL9TQ0QrUXJh/KQ1gW8KhpPRPD5I9SQiI
-X-Gm-Gg: AeBDietblilR3eUCgbft5UEog1GrMERrzJkjYLqGs+SI18vE51yqJeza7hOBNK3JMtW
-	bryddKtgkm4jOdA3Jo4+iBQTNFMQ/Vp0u0gGifmFsvGNRAbbAoI6Flq2xTqucNkTWD4V0YXzhI8
-	f4LEWZgLz0/et1UR18GaNs5r6I7RKhzSHi0G15r8G+Z2HF2hJLOLR+qiDZfvC5rWdeKqqrvvkBF
-	lkIHi9qq7sZLK0Zm5hP/CAzi54lMjRXON5ecLiM579gwdWjV3lUYNMdK0nDCIuBzlaqNDieFVhn
-	tggjPf+p6gX/x/fH1/l1dbw1kvlCQfJUTLT1ntqwe6tp7yVG83gzzrJFpE4GR2lqO5ZGRo4aa/W
-	q+azucy+HnaEIpLcAqRWpV+/M0cW//JB1BgKo9EghdInKS1UfTdLbKpP/EF3SCf6vzPQDLjQw8a
-	NNX0uilrGhPd51GA==
-X-Received: by 2002:a05:6102:114b:b0:5df:b52f:58ff with SMTP id ada2fe7eead31-612b8128344mr154467137.5.1776243683394;
-        Wed, 15 Apr 2026 02:01:23 -0700 (PDT)
-X-Received: by 2002:a05:6102:114b:b0:5df:b52f:58ff with SMTP id ada2fe7eead31-612b8128344mr154448137.5.1776243682984;
-        Wed, 15 Apr 2026 02:01:22 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ba1778c4e57sm35068366b.47.2026.04.15.02.01.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 15 Apr 2026 02:01:22 -0700 (PDT)
-Message-ID: <9c76480a-2586-41da-8dc9-37caf0ce9b7d@oss.qualcomm.com>
-Date: Wed, 15 Apr 2026 11:01:19 +0200
+        d=1e100.net; s=20251104; t=1776243784; x=1776848584;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=GhSm6AC+EBob8Si9/iWbHEozFaMuoZoR04/c65WN25w=;
+        b=fYRfi/z2hBdwIckcmhhwXzce7IeG5BjWUvuk6jcIgwxC+3LtvfarvlKRhvtgClAW8O
+         FFvb+59Oe1a/1XpDSurYwC5VZZ5DK5T1Ym67zSQc6D1oISeIPg6Pgms5KNf2NxVL/zPL
+         FwysvzxfqvFKUjlSqAixRF1JzrHP1rEoNBRCm0HaTOhbOtjsDqK4Qd7F0pmilxOZDV0A
+         cYpM+2Plw34P+0sh4tEJZMBzTI+3XzMnuu7L0GQtCdv8aJR6VVJJ/ImS1cPOzrAsWNhz
+         kfc2ITiqODt9Ia6fcG780BUu9BiBARj3UsO65XpDQqEIwzbmjjA7WOECtxTBfOBILwlu
+         nrDA==
+X-Forwarded-Encrypted: i=1; AFNElJ99+491IVZ+ZdBgktC/L4IDpCISStnmp3uwsw/JJuMPdnvN0ynYyu53YbAcUIRnWRM/7pyn3JniURrZ@vger.kernel.org
+X-Gm-Message-State: AOJu0YyhtWy5h6HsKhwDasMaLql1i0L57KqCt3WIIJ1NcLfh6iz92C+Z
+	9sIwHvpLtQRio7p/orWs2T9KOVcMyR8pSv7IQB51zRJ+SaR9dhYWoC4uev2xDLqcNfCOB/GMUU3
+	R8p/QhiA6zz1+Z9RARU+DxAE1rWYJrIk=
+X-Gm-Gg: AeBDies97fnS3oV90HuktdIJSCFw+DusC59tmsYDFADHaR1XI1vTKi6OV89agwEakhQ
+	bQka7iMM5rt+ML7zwHs96mWYgsfUvx8QEbtuaqpGe7swoldv+PXLZnL7Yc4vVFShELnPRg+U2FJ
+	BgYhPp9vIbr3gfxxWqV0UWgOw6XpNENEilLypmBFuxEHsUpIL4x4Q1ZeQwx9GJSdvRIkhwmNbh4
+	ZU9/nXSXJustdBpKCbFZj2sSpR9GEWyQ055lfVsbNo2ycKDsutgNYAUDy3B0keuLB6lCBpaiRAu
+	2lxX5/A1EV5hqafV7XS+ipM01hgCN9GKySg3fqPVXg+P/OJ9
+X-Received: by 2002:a17:902:ffcf:b0:2ae:4d6b:b2c7 with SMTP id
+ d9443c01a7336-2b2d5c7e6cbmr169035445ad.9.1776243783873; Wed, 15 Apr 2026
+ 02:03:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: msm8916-panasonic-eluga-u2: add
- initial device tree
-To: "Lin, Meng-Bo" <linmengbo06890@proton.me>, linux-kernel@vger.kernel.org
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, phone-devel@vger.kernel.org,
-        ~postmarketos/upstreaming@lists.sr.ht
-References: <20260414184429.168612-1-linmengbo06890@proton.me>
- <20260414184429.168612-3-linmengbo06890@proton.me>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260414184429.168612-3-linmengbo06890@proton.me>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: B3f4PeM5dKlbF0dwKHSnphftFZy2EEPR
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE1MDA4MiBTYWx0ZWRfXxIk54p0uO4iy
- a3QXQ6zkihhP2GZpAi9VxfOpmSUfgwO77dJ/Sd8At/ZctwWHOu7U782mjbgzKrjRDOOrJ6Fngmo
- hVNkuOyAO1496T6EM1NukfaI2tCijbtFCTnM+NpgJ0EQlrKQ+oJUpYgfXrQwN2deRzsNnS5oEkx
- 7Vs/yXUGfTdxjpPsynS9hz3aL4sRLibqPeeuA4xIGL+qvTuwGMKWJJPBCmpnH1SMAc6cg1rPK4W
- 6UK/A2WOztNzfKuJRmZgAZ3HUxAEnE88nU2W52SGHqxgBpTaveuJLmwTUbmIn5D6BqOZ9x4iw2K
- tQ86rXDT7DXJMF5tKuOtfuFcBlitR6hdNv5qcztP9Xguftur7YCbGl3txBEzY5zAeU53RnSmJBA
- T/ulOkkc2ICv9xc43pStxm938144iyb6+G3AbRlyhV5eFgrnqCnVq0nGc1vxUGAD/ffunFrzhDm
- q7A86fiPnbt1CsoPZNA==
-X-Authority-Analysis: v=2.4 cv=CoGPtH4D c=1 sm=1 tr=0 ts=69df53e3 cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=sXHwpbxk8QKxrbsP2dYA:9 a=QEXdDO2ut3YA:10
- a=crWF4MFLhNY0qMRaF8an:22
-X-Proofpoint-ORIG-GUID: B3f4PeM5dKlbF0dwKHSnphftFZy2EEPR
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-14_04,2026-04-13_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 priorityscore=1501 bulkscore=0 clxscore=1015
- malwarescore=0 spamscore=0 phishscore=0 suspectscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604150082
+References: <20260413100700.30995-1-phucduc.bui@gmail.com> <20260413100700.30995-3-phucduc.bui@gmail.com>
+ <87tstepes7.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87tstepes7.wl-kuninori.morimoto.gx@renesas.com>
+From: Bui Duc Phuc <phucduc.bui@gmail.com>
+Date: Wed, 15 Apr 2026 16:02:52 +0700
+X-Gm-Features: AQROBzApjElQGcdJZxtKJThRB3FUMvNfZsYqiHMqwpO1zQDkjasjpTPQUplvsIQ
+Message-ID: <CAABR9nFN9C4CGsaZoWzrHEjibBLqQ1KmM8o5oG2-pSMcrgMsAw@mail.gmail.com>
+Subject: Re: [PATCH v2 2/6] ASoC: renesas: fsi: Fix hang by enabling SPU clock
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: broonie@kernel.org, lgirdwood@gmail.com, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, geert+renesas@glider.be, 
+	magnus.damm@gmail.com, perex@perex.cz, tiwai@suse.com, 
+	linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 4/14/26 8:44 PM, Lin, Meng-Bo wrote:
-> Panasonic ELUGA U2 is a phone using the MSM8916 SoC released in 2015.
-> 
-> Add a device tree for with initial support for:
-> 
-> - GPIO keys
-> - GPIO LEDs
-> - pm8916-vibrator
-> - SDHCI (internal and external storage)
-> - USB Device Mode
-> - UART
-> - Regulators
-> 
-> Signed-off-by: "Lin, Meng-Bo" <linmengbo06890@proton.me>
+Hi Morimoto-san,
+
+Thank you for your detailed review and feedback.
+
+> 1st, please insert white line between "int ret =3D 0;" and "/* enable spu
+> clock */".
+>
+> 2nd, besically, FSI already has "lock", and using it for several protecti=
+ng.
+> Please re-use it, and don't add random new-lock. It makes code confusable=
+.
+> Then, please use guard().
+
+I will fix the coding style and use
+guard(spinlock_irqsave)(&master->lock) in v3.
+It=E2=80=99s much better than adding a new lock.
+
+> 3rd, I don't like above count inc/dec, and mutex_unlock() style, because
+> the code unnecessarily complicated. It can be...
+>
+>       int ret =3D 0;
+>
+>         if (master->clk_spu) {
+>                 guard(spinlock_irqsave)(&master->lock);
+>
+>                 if (master->spu_count =3D=3D 0)
+>                         ret =3D clk_prepare_enable(master->clk_spu);
+>
+>                 master->spu_count++;
+>         }
+>         if (ret < 0)
+>                 return ret;
+>
+> I'm not 100% sure, but I guess you need to count up spu_count anyway
+> regardless of clk_prepare_enable() result ?
+
+Regarding spu_count, I=E2=80=99m not entirely sure, but if we increment it
+even on failure,
+the counter might become unbalanced and clk_prepare_enable() may not
+be retried on the next call.
+Would it be better to increment spu_count only on success to keep the
+state consistent?
+
+Also, I have a question about the context here.
+Since fsi_hw_startup() and fsi_hw_shutdown() are called from fsi_dai_trigge=
+r(),
+I think this runs in an atomic context, but please correct me if I'm wrong.
+If so, is it safe to call clk_prepare_enable() under guard(spinlock_irqsave=
+)?
+Since clk_prepare() can sleep, I=E2=80=99m wondering if this could potentia=
+lly
+cause a "scheduling while atomic" issue.
+Would it make more sense to move clk_prepare() to init time (in new
+fsi_clk_init() ),
+and only use clk_enable() / clk_disable() in the trigger path?
+
+Best regards,
+Phuc
+
+On Tue, Apr 14, 2026 at 7:27=E2=80=AFAM Kuninori Morimoto
+<kuninori.morimoto.gx@renesas.com> wrote:
+>
+>
+> Hi
+>
+> Hi
+>
+> > Enable/disable the shared SPU clock in hw startup/shutdown. Without thi=
+s,
+> > accessing FSI registers may hang the system.
+> >
+> > Suggested-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> > Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+> > ---
+> (snip)
+> > @@ -1492,6 +1492,18 @@ static int fsi_hw_startup(struct fsi_priv *fsi,
+> >                         struct device *dev)
+> >  {
+> >       u32 data =3D 0;
+> > +     int ret =3D 0;
+> > +     /* enable spu clock */
+> > +     mutex_lock(&fsi->master->clk_lock);
+> > +     if (fsi->master->clk_spu && fsi->master->spu_count++ =3D=3D 0) {
+> > +             ret =3D clk_prepare_enable(fsi->master->clk_spu);
+> > +             if (ret < 0) {
+> > +                     fsi->master->spu_count--;
+> > +                     mutex_unlock(&fsi->master->clk_lock);
+> > +                     return ret;
+> > +             }
+> > +     }
+> > +     mutex_unlock(&fsi->master->clk_lock);
+>
+> 1st, please insert white line between "int ret =3D 0;" and "/* enable spu
+> clock */".
+>
+> 2nd, besically, FSI already has "lock", and using it for several protecti=
+ng.
+> Please re-use it, and don't add random new-lock. It makes code confusable=
+.
+> Then, please use guard().
+>
+> 3rd, I don't like above count inc/dec, and mutex_unlock() style, because
+> the code unnecessarily complicated. It can be...
+>
+>         int ret =3D 0;
+>
+>         if (master->clk_spu) {
+>                 guard(spinlock_irqsave)(&master->lock);
+>
+>                 if (master->spu_count =3D=3D 0)
+>                         ret =3D clk_prepare_enable(master->clk_spu);
+>
+>                 master->spu_count++;
+>         }
+>         if (ret < 0)
+>                 return ret;
+>
+> I'm not 100% sure, but I guess you need to count up spu_count anyway
+> regardless of clk_prepare_enable() result ?
+>
+> Thank you for your help !!
+>
+> Best regards
 > ---
-
-[...]
-
-> +&pm8916_resin {
-> +	linux,code = <KEY_VOLUMEDOWN>;
-> +	status = "okay";
-
-nit: let's uniformly keep a \n before 'status' across the file
-
-with Dmitry's comment taken care of:
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-Konrad
+> Kuninori Morimoto
