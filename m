@@ -1,46 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E2163803EF;
-	Wed, 15 Apr 2026 21:51:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5521B224B05;
+	Wed, 15 Apr 2026 22:04:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776289890; cv=none; b=lr29WnR+f8uw4VzeASqWKY0dxwVDVOD+fw9zb/mbh4Z8yhQA/j76kCBRIIsFLhmCgB5p5GnmdY+d5ocGyOb6zcxmzb/CZAUSZBT13Fm0hKpUi8xx/tKkoqwdRK4QHtupYpRJRpf5dX3e3BT0KtL8SLWwtWNRUp9iNIgmMfS4iOo=
+	t=1776290683; cv=none; b=gKVOEBEsoi6wxzcV7D4P8hvXReqSyKPotWC+kseqkb5yVAOUoMU3tZigxpDyDEFqlCeV6S1N4zc3/BQezJsC/kb2EbtikDbTkvrP2PYgoO1eX3WvO+PZ/coX89U08xGAsdwEYptFAVTOKYqRDC2FxfKlzWKGhPtuVMlRQ7/Usgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776289890; c=relaxed/simple;
-	bh=oyZwUyRQzG/nIYpblsarSIbWA3aKj0rWxz5YN4dmVvc=;
+	s=arc-20240116; t=1776290683; c=relaxed/simple;
+	bh=G8WHssE25KQ6tcDWOQojWxZnoS+qLkfpgZ3Cu4Pcp60=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NkQer20SXxu2qaEVYvoNbHFagVhZofjNCllyxhGiO9vZkYmlfQ4LUv5KyDUAZO1gtiX/rlDKdzQx1/3lpGN3mBbGmsYs0WbYyZu1mgdS8zviadE4IYvWdbncRg90yN7OlbBGiCFeb4ph3XBgU6HiEeH5uZDzYNyOCY6R+vN3J3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GyHizvdg; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=dWxYcBPPf4Ge+WTpoZFbAZKg9majfSeKzyM6W742z5a/oxEpatmf++hNqH2VPK7eV+NPy5XQOLgVUTAApFjBjYjcIDclKzCTZVbJ+nq2bXO1p9ka4pzRJdurysejPgkLVPM8OH75vtWOOSlU46upt19sKtjee9QYB1jCu4SnEY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N/qcc5h4; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GyHizvdg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EDEBC19424;
-	Wed, 15 Apr 2026 21:51:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N/qcc5h4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01D43C19424;
+	Wed, 15 Apr 2026 22:04:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776289890;
-	bh=oyZwUyRQzG/nIYpblsarSIbWA3aKj0rWxz5YN4dmVvc=;
+	s=k20201202; t=1776290683;
+	bh=G8WHssE25KQ6tcDWOQojWxZnoS+qLkfpgZ3Cu4Pcp60=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=GyHizvdglc+29LgsaGAWqaYVL6ZYI/hYXuMgOIsu/Zi8LFkNtJj22L4xRaesCDyxx
-	 56gK+ShdTMhvUwTuDaJKwvx75vfy6rkw5u7MBiEkgK9McC6z9JYfSzckKZ/9t8J1rn
-	 EMFM+6wpvuDb52SRP9FnDqKPBLVl+tMw9JHUfX4wgCwyUUhgrZUmGqx3tkzNyoi7bW
-	 o88eNOnIyBlMxApe04QezRYHHAHC7AScrwcuSyM0v2t9hmLTsFjiurQFT0xr0XhRA/
-	 HfkpOdwNDKWy6sINOIFlvmjRtE3LY2uf387N81A9d7rsu9Qrv64u5AViTcWTkOL0Ek
-	 y7CyFYVuyJlhg==
-Date: Wed, 15 Apr 2026 16:51:26 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Marek Vasut <marex@nabladev.com>
-Cc: Nicolin Chen <nicoleotsuka@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
-	linuxppc-dev@lists.ozlabs.org, linux-sound@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Fabio Estevam <festevam@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
-	Liam Girdwood <lgirdwood@gmail.com>, devicetree@vger.kernel.org,
-	Shengjiu Wang <shengjiu.wang@gmail.com>,
-	linux-kernel@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: fsl-sai: Document RX/TX BCLK
- swap support
-Message-ID: <177628988619.723274.6196056382812573083.robh@kernel.org>
-References: <20260404183547.46509-1-marex@nabladev.com>
+	b=N/qcc5h4qraB38xx6wKUQzmmnOlQ37RoMzApdWToa84syPrNXCRxo8BegPmq5DlHS
+	 c5K5J4ypKfrVQ5pG4cim/rZN2+nb/E/GAAIh2Ml3y4chtj0/BtabVlKNgjMP+gc2gX
+	 xrzrcxj6+gl5F6vSdVE2dzbnY80auQbUJ25t6usO85rxQ4tP9iBrQlJ5Y+y72MjYrf
+	 gACc1NMwjt4ptPgN3EaLWfvvi0Bd4MyQkSbibeAPrBI7dKf7uP7ykTPJrA+cMQ0CE9
+	 v/Cxc8tVSsBBNC0Wm+AFb7oBbs0ceSvW+NSXB+u6lGmID1HXDuIW7dMcPl6xUvv2lq
+	 NY0MKifhfWLlg==
+Date: Wed, 15 Apr 2026 17:04:41 -0500
+From: Rob Herring <robh@kernel.org>
+To: Fabio Estevam <festevam@gmail.com>
+Cc: heiko@sntech.de, hjc@rock-chips.com, andy.yan@rock-chips.com,
+	krzk+dt@kernel.org, conor+dt@kernel.org,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: display: rockchip: dw-hdmi: Allow resets
+ for Rockchip HDMI
+Message-ID: <20260415220441.GA724186-robh@kernel.org>
+References: <20260404200434.1954651-1-festevam@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,40 +45,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260404183547.46509-1-marex@nabladev.com>
+In-Reply-To: <20260404200434.1954651-1-festevam@gmail.com>
 
-
-On Sat, 04 Apr 2026 20:35:00 +0200, Marek Vasut wrote:
-> Document support for setting the Bit Clock Swap bit in CR2 register
-> via new "fsl,sai-bit-clock-swap" DT property. This bit swaps the
-> bit clock used by the transmitter or receiver in asynchronous mode,
-> i.e. makes transmitter use RX_BCLK and TX_SYNC, and vice versa,
-> makes receiver use TX_BCLK and RX_SYNC.
+On Sat, Apr 04, 2026 at 05:04:34PM -0300, Fabio Estevam wrote:
+> The Rockchip DW HDMI binding sets unevaluatedProperties: false while
+> also inheriting from synopsys,dw-hdmi.yaml via allOf.
 > 
-> Signed-off-by: Marek Vasut <marex@nabladev.com>
-> ---
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Fabio Estevam <festevam@gmail.com>
-> Cc: Jaroslav Kysela <perex@perex.cz>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Liam Girdwood <lgirdwood@gmail.com>
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: Nicolin Chen <nicoleotsuka@gmail.com>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Shengjiu Wang <shengjiu.wang@gmail.com>
-> Cc: Takashi Iwai <tiwai@suse.com>
-> Cc: Xiubo Li <Xiubo.Lee@gmail.com>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-sound@vger.kernel.org
-> Cc: linuxppc-dev@lists.ozlabs.org
-> ---
-> V2: - Drop | from description
->     - Update email, rebase on next
-> ---
->  Documentation/devicetree/bindings/sound/fsl,sai.yaml | 7 +++++++
->  1 file changed, 7 insertions(+)
+> The Synopsys binding defines the optional properties resets and
+> reset-names, but due to dt-schema rules these are not considered
+> allowed once unevaluatedProperties: false is set in the Rockchip
+> schema unless they are re-declared locally.
+
+That's not how unevaluatedProperties works. There is no resets nor 
+reset-names in synopsys,dw-hdmi.yaml.
+
 > 
-
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-
+> This went unnoticed because most Rockchip SoCs do not wire a reset line
+> to the HDMI controller in their DTS. The rk3228, however, does use a
+> reset, which causes dtbs_check to emit:
+> 
+> Unevaluated properties are not allowed ('resets', 'reset-names')
+> 
+> Re-declare these properties in the Rockchip schema so they are accepted
+> when present, matching the capabilities of the underlying Synopsys IP
+> and fixing the dtbs_check warning for rk3228.
+> 
+> Signed-off-by: Fabio Estevam <festevam@gmail.com>
+> ---
+>  .../bindings/display/rockchip/rockchip,dw-hdmi.yaml         | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-hdmi.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-hdmi.yaml
+> index 29716764413a..59fb084bb4fb 100644
+> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-hdmi.yaml
+> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-hdmi.yaml
+> @@ -113,6 +113,12 @@ properties:
+>        - port@0
+>        - port@1
+>  
+> +  resets:
+> +    maxItems: 1
+> +
+> +  reset-names:
+> +    const: hdmi
+> +
+>    rockchip,grf:
+>      $ref: /schemas/types.yaml#/definitions/phandle
+>      description:
+> -- 
+> 2.43.0
+> 
