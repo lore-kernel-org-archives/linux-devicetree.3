@@ -1,196 +1,164 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB153169AD2
-	for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 14:30:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8281D32BF41;
+	Thu, 16 Apr 2026 14:31:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776349844; cv=none; b=XZGtoujmeBLuFZOVqwOzi+2SmW2ZMBrKFfXTXfUPhZQDW9m7AEiYbmBD1U2mwNxCVhQfvrVe/ZM2owSyEbCoAlM9iZw5Ei2Nw4JlK08WRRfQbCzSeRL7NMuTDx7gByxaQxkm3hk2xOCyTidpTd0c3lc61vt0TU3vqjMtCj42b74=
+	t=1776349900; cv=none; b=L7yhKy3BlWNcZxmPaWq4jYKYRPC1+2LWhFglRAIUFSL1q/Ore1rgi2AlstpNID8iprM6psJCYDZil4duTz6Zk6L5/jG4EuGNlzcT4wwdd40CXiaWyrj959jyVIQFEau0V6vghNVRFZC1rZR1W3WQSLVrl5grpHOuMQvrAGg/K3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776349844; c=relaxed/simple;
-	bh=gfLBIxCP9gTBkqUQkCDioJa5j+uF4TVTBk1UlYn4f1Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OXAgVZwVU7KTAg/JLb1L9FF1+iuL7U/ZGuyyWnEZRics3t6kwlIEZUZbqK1yhBzsR5EI2d2kecXY4x8LQCS5KEhwMgA1cYAcf8a7MFdVoY6EVT5CXS/bySYujHD2fYQmJFUWDX5+Lynoz7vnl8bZSSd7TCjPY+49tmTCw3WTcPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qJ6zi6Ln; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1776349900; c=relaxed/simple;
+	bh=3+w8aV4K3TJoAHkxLcAzqYmj/vaK9TQwE/dDbxYTV4U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qsrL4qEFhNdAk6tV1jjIIEmVoSzvyLBfydzrzPyoKcLP5zbyVzCcvDh2sSBi/c6bF2DHyl0D0TGlMLBJs+6NYRSrGLOXa06il5+HLeajVhWjaVn7+tbt8MLXw4aKQo1NCgnqZXBOh91omd77XoGz+i2SNPhnDpjL6RFtNbvrIMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lxPI9/0z; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qJ6zi6Ln"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-488ba6366a7so96922645e9.0
-        for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 07:30:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776349840; x=1776954640; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=+kwLEL1gpqQktpl52WXxb4CxP8KVAiLEC1DOuEVmbLQ=;
-        b=qJ6zi6LnKLsu+MVzgdExoi4dB2CNROHGceCpeUcLO51pEu55t4jM8ha3AaKgEZMJn6
-         dTKO5cmYsRyBj1MlZOzVWvvgkDbyOVvDTucPxMIAzpwdwEOf5d0P5OldH5rf1mO1513S
-         ypzDiC19vgV+PW++gkvJcfSsCbWD4Y3bvoWTvsamW3lPgA12JPcEcki4AluTghtOCc2n
-         kflv7+hQG8A205uy7G8Oa4FoBithYCUp6WuV9O16Tlzja8B659SFVbZFmznNcSN9N+hg
-         ghxj0sGUTdxGJ6RpBttuPuJ/mlO/xV0R4lmSPdxMSHuV/FDtoaGYEwiayhC0JkWUUkkz
-         9bJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776349840; x=1776954640;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=+kwLEL1gpqQktpl52WXxb4CxP8KVAiLEC1DOuEVmbLQ=;
-        b=SFxNYI/ZWD3Q+HZsQZrwmtHMBgtDS60NWuTnLDwt4gHElm0/wEQjNDr8C/7SmhWBL0
-         Mhax1c6gL9a9aV23CKXiHovcImJ4n8oHsAhI2OdrJQLo+oXycbTkY8BvjEeCIFqtqcjn
-         Ik4Pkr6vIqECpUSvU2iiCCY6ZupsEtnyZF9nL13f3G7IsiKloMN31h3LRnOhtZUlV9FR
-         XNytiCpSVHs8Wj30JsJkIWO3QcqTg4RfFs9UJwdKTghdpzzkaGs8yrzTLeHzD9ocf6/G
-         AjLR7u7NK78sx+wHZTU6Djd4THPFCtmaA0I4uF9HzuPjKr1xWAZnMSoR3gClrTMUYg3Z
-         azlg==
-X-Forwarded-Encrypted: i=1; AFNElJ+Oj7EteYVtse3YyY72f8LHq6niKXOXynNu377AK5KDa+7U6DCj9r/MK/hRvFGUSKSjHc4z7iAKjasO@vger.kernel.org
-X-Gm-Message-State: AOJu0YxSMvZ8u9fDfnx7fh4zN0iFplFAPmYLPpGn7C2Az2RNDXDHy5D+
-	gtQQGEZbgikP3uOr/dqDs9NWutSl/bEpQ9XH2ypswcaLELkYznslR7KV
-X-Gm-Gg: AeBDieslF5J8K4QpbFCKODNZ/BjzMwHyv4qtp73kiEsmtK4HVmj6OzESlKX7q85zETg
-	wGqEtltfyi4TU5hwR8pTtThXKYv9+JnN4YlCfHU78sSzyKe2DtJSWDSFgWZpkKDHjBwyAtotsEA
-	Ni52fo9znnMR7gRYRkPFkjgHM3HTC4hVnq0//Q7fhIOuvatgMVHhbTw72PQdJD5PwtyNlz2GvW8
-	jU2FpgqkptErAPl0YIW5A7eAOz5oz56A9oU2Yeyp8reZJ7zsKE5TQ9/8ShSQcz92MtrTXK0ydL2
-	jifJGgZRCDliTfkxb3JWlCnMXXEx+G72mzyl3GnVZSZ1/lBSmhyxU8gvSWvgzVOeMeHjqbBCCWu
-	eoKN/0BoJsYEjw0Bmik54+TYqiK4Plu3h+Sv9wNkplR2Pe7pavRwtdn9KcGW58wvATbAiC/gfZv
-	2T9FNeSSMnrg6cc3Be6v4nmCAOzvg9/qFU+9b9E5p2Wnihfn1T+FR9IffUMykvzb43OMUWZwX2O
-	/5bhqEoyRDdEOAifVpLU0wg
-X-Received: by 2002:a05:600c:1391:b0:487:5c0:671f with SMTP id 5b1f17b1804b1-488d67e6a48mr377654785e9.9.1776349839862;
-        Thu, 16 Apr 2026 07:30:39 -0700 (PDT)
-Received: from orome (p200300e41f131500f22f74fffe1f3a53.dip0.t-ipconnect.de. [2003:e4:1f13:1500:f22f:74ff:fe1f:3a53])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488f5813970sm54034215e9.1.2026.04.16.07.30.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Apr 2026 07:30:38 -0700 (PDT)
-Date: Thu, 16 Apr 2026 16:30:35 +0200
-From: Thierry Reding <thierry.reding@gmail.com>
-To: Jon Hunter <jonathanh@nvidia.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, pshete@nvidia.com, 
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, arnd@arndb.de, bjorn.andersson@oss.qualcomm.com, 
-	conor+dt@kernel.org, dmitry.baryshkov@oss.qualcomm.com, ebiggers@kernel.org, 
-	geert@linux-m68k.org, krzk+dt@kernel.org, kuninori.morimoto.gx@renesas.com, 
-	linusw@kernel.org, luca.weiss@fairphone.com, michal.simek@amd.com, 
-	prabhakar.mahadev-lad.rj@bp.renesas.com, robh@kernel.org, rosenp@gmail.com, sven@kernel.org, 
-	thierry.reding@kernel.org, webgeek1234@gmail.com
-Subject: Re: [PATCH 6/6] arm64: defconfig: make Tegra238 and Tegra264 Pinctrl
- a loadable module
-Message-ID: <aeDv2oI6lJOlfJxR@orome>
-References: <20260409131340.168556-1-pshete@nvidia.com>
- <20260409131340.168556-7-pshete@nvidia.com>
- <9408f231-7a12-425c-b8de-2990d3162bb3@kernel.org>
- <097f71e0-cbc8-44e3-ba60-8bac79cf5217@nvidia.com>
- <19f390ab-ffa9-4237-9f24-ead07b627a89@nvidia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lxPI9/0z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5777DC2BCAF;
+	Thu, 16 Apr 2026 14:31:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776349900;
+	bh=3+w8aV4K3TJoAHkxLcAzqYmj/vaK9TQwE/dDbxYTV4U=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=lxPI9/0z96WQ+1HuVFx6HJtGRarNXYCHKUL/G1EhJNdvSZ9FUuA6ovhUEwJsMUk7A
+	 Ae0CYgiUvjO6U91J+EX9MoyZwXzGbxYpNfZFBP0XTnfn1w+dblLerkkg3GDfjlvE6G
+	 h3ZqNUQZgT9xVv02Av08AvbSxckYO2VRBDs7YSVSTgB7ql7uiQ88NLVyKROj/eISkH
+	 n3rjB+mzpRVXmTAV9KeLLSR7AHr/VWvoZNPQD8AWLEIU6JijSphYGvHrbIjMr0LsD3
+	 pCxkfkFUtK40NPGJWCj1IQxJUjKMoriglaa6A360edkxxUvxa/C6bW6BzSTBOAhkx6
+	 9pnc1dQIkOX0Q==
+Message-ID: <ac54d018-78e2-4f8d-97f5-3cfdb5151aa0@kernel.org>
+Date: Thu, 16 Apr 2026 15:31:33 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zdz2kxftdpnb3xlu"
-Content-Disposition: inline
-In-Reply-To: <19f390ab-ffa9-4237-9f24-ead07b627a89@nvidia.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 04/10] arm64: dts: qcom: msm8939: Add venus node
+To: Erikas Bitovtas <xerikasxx@gmail.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ phone-devel@vger.kernel.org
+References: <20260416-msm8939-venus-rfc-v1-0-a09fcf2c23df@gmail.com>
+ <KV8KCGTrLcQnaBrdbcO-8yqIObRcqYTBQgEYv3TaeT9dT0e9phTPowW1fza6BV9LfqNc6ZORybdss4WGdvnUTA==@protonmail.internalid>
+ <20260416-msm8939-venus-rfc-v1-4-a09fcf2c23df@gmail.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20260416-msm8939-venus-rfc-v1-4-a09fcf2c23df@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 16/04/2026 14:43, Erikas Bitovtas wrote:
+> +			video-decoder {
+> +				compatible = "venus-decoder";
+> +				clocks = <&gcc GCC_VENUS0_CORE0_VCODEC0_CLK>,
+> +					 <&gcc GCC_VENUS0_CORE1_VCODEC0_CLK>;
+> +				clock-names = "core0", "core1";
+> +				power-domains = <&gcc VENUS_CORE0_GDSC>,
+> +						<&gcc VENUS_CORE1_GDSC>;
 
---zdz2kxftdpnb3xlu
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 6/6] arm64: defconfig: make Tegra238 and Tegra264 Pinctrl
- a loadable module
-MIME-Version: 1.0
+This doesn't make sense.
 
-On Mon, Apr 13, 2026 at 10:49:50AM +0100, Jon Hunter wrote:
->=20
-> On 10/04/2026 09:25, Jon Hunter wrote:
-> >=20
-> >=20
-> > On 10/04/2026 07:37, Krzysztof Kozlowski wrote:
-> > > On 09/04/2026 15:13, pshete@nvidia.com wrote:
-> > > > From: Prathamesh Shete <pshete@nvidia.com>
-> > > >=20
-> > > > Building the Pinctrl driver into the kernel image increases its siz=
-e.
-> > >=20
-> > > That's obvious.
-> > >=20
-> > > > These drivers are not required during early boot, build them as
-> > > > a loadable
-> > > > module instead to reduce the kernel image size.
-> > >=20
-> > > So you replace built-in into module?
-> > > >=20
-> > > > Signed-off-by: Prathamesh Shete <pshete@nvidia.com>
-> > > > ---
-> > > > =C2=A0 arch/arm64/configs/defconfig | 2 ++
-> > > > =C2=A0 1 file changed, 2 insertions(+)
-> > > >=20
-> > > > diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defc=
-onfig
-> > > > index dd1ac01ee29b..f525670d3b84 100644
-> > > > --- a/arch/arm64/configs/defconfig
-> > > > +++ b/arch/arm64/configs/defconfig
-> > > > @@ -711,6 +711,8 @@ CONFIG_PINCTRL_SC8280XP_LPASS_LPI=3Dm
-> > > > =C2=A0 CONFIG_PINCTRL_SM8550_LPASS_LPI=3Dm
-> > > > =C2=A0 CONFIG_PINCTRL_SM8650_LPASS_LPI=3Dm
-> > > > =C2=A0 CONFIG_PINCTRL_SOPHGO_SG2000=3Dy
-> > > > +CONFIG_PINCTRL_TEGRA238=3Dm
-> > > > +CONFIG_PINCTRL_TEGRA264=3Dm
-> > >=20
-> > > No, you just added as module. Why do we want them in upstream defconf=
-ig?
-> > >=20
-> > > Standard question, already asked Nvidia more than once.
-> >=20
-> > Yes :-)
-> >=20
-> > Prathamesh, what we need to do is ...
-> >=20
-> > 1. Add a patch to populate the pinctrl DT nodes for Tegra264 device.
-> > 2. In this patch, only enable pinctrl for Tegra264 because we are
-> >  =C2=A0=C2=A0 lacking an upstream board for Tegra238 for that moment. I=
-n the commit
-> >  =C2=A0=C2=A0 message we should add a comment to indicate with Tegra264=
- platform is
-> >  =C2=A0=C2=A0 using this.
->=20
-> Thinking about this some more, I think I would prefer that we skip the
-> defconfig patch and just add ...
->=20
->  default m if ARCH_TEGRA_238_SOC
->=20
->  default m if ARCH_TEGRA_264_SOC
->=20
-> ... in the respective Kconfig files for the drivers.
+You have two cores => assign one to encoder and the other to decoder.
 
-I know some people have objected to this type of construct in the past
-because it means that you automatically enable these drivers in configs
-where it previously wasn't, bloating people's test builds, etc.
+And your resource struct looks like this
 
-I also know that people don't like it when we add seemingly random
-options to defconfig.
++static const struct venus_resources msm8939_res = {
++	.freq_tbl = msm8939_freq_table,
++	.freq_tbl_size = ARRAY_SIZE(msm8939_freq_table),
++	.reg_tbl = msm8939_reg_preset,
++	.reg_tbl_size = ARRAY_SIZE(msm8939_reg_preset),
++	.clks = { "core", "iface", "bus", },
++	.clks_num = 3,
++	.vcodec0_clks = { "core0", "core1" },
++	.vcodec_clks_num = 2,
++	.vcodec0_pmdomains = (const char *[]) { "core0", "core1" },
++	.vcodec0_pmdomains_num = 2,
++	.max_load = 489600, /* 1080p@30 + 1080p@30 */
 
-For this particular case, given that the options are dependent on the
-per-SoC Kconfig symbols I think the "default m" above is a fair
-compromise.
+You've got the max load right.
 
-Thierry
++	.hfi_version = HFI_VERSION_1XX,
++	.vmem_id = VIDC_RESOURCE_NONE,
++	.vmem_size = 0,
++	.vmem_addr = 0,
++	.dma_mask = 0xddc00000 - 1,
++	.fwname = "qcom/venus-1.8/venus.mbn",
++	.enc_nodename = "video-encoder",
++};
 
---zdz2kxftdpnb3xlu
-Content-Type: application/pgp-signature; name="signature.asc"
+8916 points the way here
 
------BEGIN PGP SIGNATURE-----
+static const struct venus_resources msm8916_res = {
+         .freq_tbl = msm8916_freq_table,
+         .freq_tbl_size = ARRAY_SIZE(msm8916_freq_table),
+         .reg_tbl = msm8916_reg_preset,
+         .reg_tbl_size = ARRAY_SIZE(msm8916_reg_preset),
+         .clks = { "core", "iface", "bus", },
+         .clks_num = 3,
+         .max_load = 352800, /* 720p@30 + 1080p@30 */
+         .hfi_version = HFI_VERSION_1XX,
+         .vmem_id = VIDC_RESOURCE_NONE,
+         .vmem_size = 0,
+         .vmem_addr = 0,
+         .dma_mask = 0xddc00000 - 1,
+         .fwname = "qcom/venus-1.8/venus.mbn",
+         .dec_nodename = "video-decoder",
+         .enc_nodename = "video-encoder",
+};
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmng8ocACgkQ3SOs138+
-s6GLDw//UkW/3SDVTez5uuRcccg2eBGqX/zaY1yU6TYz909vpObsLW+WrxFfq5Un
-qspGtIXmoOokDmBhG8UNvSainJ/q8PKsEfUIO7+jzvmr/FoxFdttJO7Ouo2D7SQL
-FuOg8npa4zaeybyh/PSr/XK1ET8CFJ8uJ7bNo7dq5lvnLA4LxRRrGgbJPUQYzIAK
-ZA8kwfGqWN6ZSaK7L57hRg3iermVGG803wyscNiFE3Vgqy7HuNjnFy79JIcYsvll
-cixH9CydPAbgzXyJK1vdl97JaMpm/PhfclkEq5tYycCRSTWp7FJuGrRizzDOeUaD
-8VyrvMmA1qnT/ou+oTi9OUaroPtqCWRebTkAKEy0toLCHanv9Tj9HoZYfSccos6i
-u2ZMQkTXTj5+2mdF8WrRq1F9arlq1K9Thox4K7XSq16rmu3mhd35qZy0wtXmlgVi
-3eUbtiD5oQ/syXHRCcm1XsMf7t1LWwGBsiFGXeiMVTJ7mrN59MwVft/1Z8vKkM8o
-YRbsW3shvFvQPQfJwiTLtxO2TDcgs43iOyL4g5CjHhYdt+SFOpts85y4Vuk2/3l6
-SJOFv40RNRUWeIl+PGzIgmVJmaJkYjQE9bLUQQzwI0E0nY9M+tEs6j4fCvlEXLij
-PCSXdQILNYyGAv6rccvVV13KUuQWvuldNdTr7e9AR0ceMYen2u0=
-=RApE
------END PGP SIGNATURE-----
-
---zdz2kxftdpnb3xlu--
+---
+bod
