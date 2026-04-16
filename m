@@ -1,45 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10AE42C0F8C;
-	Thu, 16 Apr 2026 15:51:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D46C257423;
+	Thu, 16 Apr 2026 15:54:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776354702; cv=none; b=IADHrJBjEd3d4dc49/B3CXRPCjW7E39rebTVPEljeGAW0HhKBucJe16gFvvGcPhl3arw6lxw7ywET7HDfeH4Ui1+al1uA+S686IsVsQ6unSTbgtmTHt76Go536vPsNVZo6CqtCAyNJv7gNLvrokmjo5D0/8tb+cfSPvK8hrcyNE=
+	t=1776354851; cv=none; b=kwiw4l0inw/HN+YUs0SyKHHZAMKA5Kh3KRagjGDkS+EsWAdDSRroLqaH7CD6uUbDI2/Ic5JT6v9niL6Au0p65hLqpRfMT/Vvyx9WbAM99oSWEkBsG5QR4FG2XpoPRoPgE//Q3WxN6iMzWy96VEWi1ZOPgQ+iolueTQxNORG+tl4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776354702; c=relaxed/simple;
-	bh=gocU0gn9oGsMsa4dqjIXHPUCMwGyN0yqB2RdmCXUIBg=;
+	s=arc-20240116; t=1776354851; c=relaxed/simple;
+	bh=A6PmtdwoxMFwfTIxnTYwHoYQS2S6o0smJnblGS/cOiY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m1frDKXV7CPQiSGzhaXHkcitK7Itamgej4z07YiWkUTgpeRNlIGDZXfUHkVVbtfUVUU1DBvqNPMDy1xxd1yu7qUBl+K0XzH1yw77aFDJn7QTsPPlEiItKVX/fy0zcxhQLlSPLmFIKUmwWQk3Iz4aI2fTWncPnMOxlIMCRmsKAgw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gi4NtKra; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=AYO/dVfzEVSos3q6EDIVQll94Omjv0EgaPjjJ0dPN26h6pA3DqaMzqGjXPNY9DJCA7NuaruED1EOkpTGUd/pJ6eOGxkrH8EqEY22+40k7+Jvu5Q3nA3fnMkCtXPVdgDJlstoz+55CDdCsEpVFkFE54C49SnJBPhUJYrf4KdwXWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oj41PPQr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gi4NtKra"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BD1DC2BCAF;
-	Thu, 16 Apr 2026 15:51:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oj41PPQr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54DF5C2BCAF;
+	Thu, 16 Apr 2026 15:54:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776354701;
-	bh=gocU0gn9oGsMsa4dqjIXHPUCMwGyN0yqB2RdmCXUIBg=;
+	s=k20201202; t=1776354850;
+	bh=A6PmtdwoxMFwfTIxnTYwHoYQS2S6o0smJnblGS/cOiY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=gi4NtKraGCKiZQoBXa+Hh+rs/3dJr1f6ZkScs24dWwL99kAtlugVXXENoW+2QTib8
-	 BW53UdxbjMghHn3op0d+aZFAayPlQNfQG7T2BjCPgmGziRm1+h+N1t3MMzrMH79DkU
-	 C0+6yh0oVEMuIIQv0X8IIhqReA+NDFWy8VXUSUZ8ywNhCjHJAQUXG3+ENYkySNzOuf
-	 l7SHtFAFT0t81O8Y9/nj3HAXNfdS5+WmsjFL2Wrss5Jzj6b8QICh/zCbmoR2Z3+45Y
-	 hQBC+D9yrI85gdYO9dJ4xx+y7emHLKdGGWpoNJX5ERa5IFj0VubMkxKj/l1nMywPWE
-	 Bghs5wPGgB7Pg==
-Date: Thu, 16 Apr 2026 16:51:37 +0100
+	b=oj41PPQr4urm3jmdEHQld+x/hq5vcKf+0oRYTBilCdX6ioul/2rHuuqOaI588SFkM
+	 j63PF99F+bmFIw8RsSLouiYzz4N25hKzx+inOkOCc0GrTulum2nJXqU8JbIGg/4Oqj
+	 sG6MuwQq3eidTpb+kJQvX+jjv00YMyDSdDBab1cD5wYIxYs2B1e/0Nl9tbxVAwTsgs
+	 FQfV7cq0V2yJEUjRvwY0IcIbsrLwAyDTSYNvJfUkt+/dNzy4AK5nUt0OcfIEwE3tqE
+	 8imsmrb5NLeLor0VoNqTTmgBTjB8oYu+SCl25g4HiLjkUFe8xvXSKS9LLNUp4gylcE
+	 VndHwdRKDCdlA==
+Date: Thu, 16 Apr 2026 16:54:05 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+To: Billy Tsai <billy_tsai@aspeedtech.com>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: hwmon: pmbus: add max20830
-Message-ID: <20260416-diaphragm-corrode-494560404ed4@spud>
-References: <20260416-dev_max20830-v2-0-2c7d676dc0bd@analog.com>
- <20260416-dev_max20830-v2-1-2c7d676dc0bd@analog.com>
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Andrew Jeffery <andrew@aj.id.au>, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
+	linux-gpio@vger.kernel.org, linux-clk@vger.kernel.org
+Subject: Re: [PATCH v7 1/3] dt-bindings: pinctrl: Add
+ aspeed,ast2700-soc0-pinctrl
+Message-ID: <20260416-brutishly-saga-ba7168a4cd14@spud>
+References: <20260416-upstream_pinctrl-v7-0-d72762253163@aspeedtech.com>
+ <20260416-upstream_pinctrl-v7-1-d72762253163@aspeedtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,145 +52,226 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xk2KV3EV8VV32UNB"
+	protocol="application/pgp-signature"; boundary="F+crD9IVk8CdCT4u"
 Content-Disposition: inline
-In-Reply-To: <20260416-dev_max20830-v2-1-2c7d676dc0bd@analog.com>
+In-Reply-To: <20260416-upstream_pinctrl-v7-1-d72762253163@aspeedtech.com>
 
 
---xk2KV3EV8VV32UNB
+--F+crD9IVk8CdCT4u
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Apr 16, 2026 at 03:59:10PM +0800, Alexis Czezar Torreno wrote:
-> Add device tree documentation for MAX20830 step-down DC-DC switching
-> regulator with PMBus interface.
+On Thu, Apr 16, 2026 at 03:29:43PM +0800, Billy Tsai wrote:
+> Add a device tree binding for the pin controller found in the
+> ASPEED AST2700 SoC0.
 >=20
-> Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+> The controller manages various peripheral functions such as eMMC, USB,
+> VGA DDC, JTAG, and PCIe root complex signals.
+>=20
+> Describe the AST2700 SoC0 pin controller using standard pin multiplexing
+> and configuration properties.
+>=20
+> Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
 > ---
->  .../bindings/hwmon/pmbus/adi,max20830.yaml         | 61 ++++++++++++++++=
+>  .../pinctrl/aspeed,ast2700-soc0-pinctrl.yaml       | 162 +++++++++++++++=
 ++++++
->  MAINTAINERS                                        |  7 +++
->  2 files changed, 68 insertions(+)
+>  1 file changed, 162 insertions(+)
 >=20
-> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/adi,max20830.y=
-aml b/Documentation/devicetree/bindings/hwmon/pmbus/adi,max20830.yaml
+> diff --git a/Documentation/devicetree/bindings/pinctrl/aspeed,ast2700-soc=
+0-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/aspeed,ast2700-s=
+oc0-pinctrl.yaml
 > new file mode 100644
-> index 0000000000000000000000000000000000000000..8b3ec1ffa0c9460de2122f660=
-6ce3dcbcdfbbcc7
+> index 000000000000..947f3cd09fcc
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/adi,max20830.yaml
-> @@ -0,0 +1,61 @@
+> +++ b/Documentation/devicetree/bindings/pinctrl/aspeed,ast2700-soc0-pinct=
+rl.yaml
+> @@ -0,0 +1,162 @@
 > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 > +%YAML 1.2
 > +---
-> +$id: http://devicetree.org/schemas/hwmon/pmbus/adi,max20830.yaml#
+> +$id: http://devicetree.org/schemas/pinctrl/aspeed,ast2700-soc0-pinctrl.y=
+aml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +title: Analog Devices MAX20830 Step-Down Switching Regulator with PMBus
+> +title: ASPEED AST2700 SoC0 Pin Controller
 > +
 > +maintainers:
-> +  - Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+> +  - Billy Tsai <billy_tsai@aspeedtech.com>
 > +
-> +description: |
-> +  The MAX20830 is a fully integrated step-down DC-DC switching regulator=
- with
-> +  PMBus interface. It provides 2.7V to 16V input, 0.4V to 5.8V adjustable
-> +  output, and up to 30A output current. It allows monitoring of input/ou=
-tput
-> +  voltage, output current and temperature through the PMBus serial inter=
-face.
-> +  Datasheet:
-> +    https://www.analog.com/en/products/max20830.html
+> +description:
+> +  The AST2700 features a dual-SoC architecture with two interconnected S=
+oCs,
+> +  each having its own System Control Unit (SCU) for independent pin cont=
+rol.
+> +  This pin controller manages the pin multiplexing for SoC0.
 > +
-> +allOf:
-> +  - $ref: /schemas/regulator/regulator.yaml#
+> +  The SoC0 pin controller manages pin functions including eMMC, VGA DDC,
+> +  dual USB3/USB2 ports (A and B), JTAG, and PCIe root complex interfaces.
 > +
 > +properties:
 > +  compatible:
-> +    const: adi,max20830
-> +
+> +    const: aspeed,ast2700-soc0-pinctrl
 > +  reg:
 > +    maxItems: 1
+> +
+> +patternProperties:
+> +  '-state$':
+> +    type: object
+> +    allOf:
+> +      - $ref: pinmux-node.yaml#
+> +      - $ref: pincfg-node.yaml#
+> +
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      function:
+> +        enum:
+> +          - EMMC
+> +          - JTAGDDR
+> +          - JTAGM0
+> +          - JTAGPCIEA
+> +          - JTAGPCIEB
+> +          - JTAGPSP
+> +          - JTAGSSP
+> +          - JTAGTSP
+> +          - JTAGUSB3A
+> +          - JTAGUSB3B
+> +          - PCIERC0PERST
+> +          - PCIERC1PERST
+> +          - TSPRSTN
+> +          - UFSCLKI
+> +          - USB2AD0
+> +          - USB2AD1
+> +          - USB2AH
+> +          - USB2AHP
+> +          - USB2AHPD0
+> +          - USB2AXH
+> +          - USB2AXH2B
+> +          - USB2AXHD1
+> +          - USB2AXHP
+> +          - USB2AXHP2B
+> +          - USB2AXHPD1
+> +          - USB2BD0
+> +          - USB2BD1
+> +          - USB2BH
+> +          - USB2BHP
+> +          - USB2BHPD0
+> +          - USB2BXH
+> +          - USB2BXH2A
+> +          - USB2BXHD1
+> +          - USB2BXHP
+> +          - USB2BXHP2A
+> +          - USB2BXHPD1
+> +          - USB3AXH
+> +          - USB3AXH2B
+> +          - USB3AXHD
+> +          - USB3AXHP
+> +          - USB3AXHP2B
+> +          - USB3AXHPD
+> +          - USB3BXH
+> +          - USB3BXH2A
+> +          - USB3BXHD
+> +          - USB3BXHP
+> +          - USB3BXHP2A
+> +          - USB3BXHPD
+> +          - VB
+> +          - VGADDC
+> +
+> +      groups:
+> +        enum:
+> +          - EMMCCDN
+> +          - EMMCG1
+> +          - EMMCG4
+> +          - EMMCG8
+> +          - EMMCWPN
+> +          - JTAG0
+> +          - PCIERC0PERST
+> +          - PCIERC1PERST
+> +          - TSPRSTN
+> +          - UFSCLKI
+> +          - USB2A
+> +          - USB2AAP
+> +          - USB2ABP
+> +          - USB2ADAP
+> +          - USB2AH
+> +          - USB2AHAP
+> +          - USB2B
+> +          - USB2BAP
+> +          - USB2BBP
+> +          - USB2BDBP
+> +          - USB2BH
+> +          - USB2BHBP
+> +          - USB3A
+> +          - USB3AAP
+> +          - USB3ABP
+> +          - USB3B
+> +          - USB3BAP
+> +          - USB3BBP
+> +          - VB0
+> +          - VB1
+> +          - VGADDC
+> +      pins:
+> +        enum:
+> +          - AB13
+> +          - AB14
+> +          - AC13
+> +          - AC14
+> +          - AD13
+> +          - AD14
+> +          - AE13
+> +          - AE14
+> +          - AE15
+> +          - AF13
+> +          - AF14
+> +          - AF15
 
-On the previous version, you got an LLM comment about not having the
-interrupts property amongst other things.
-I think the other things got implemented, but I didn't see any reply to
-the bot about that?
-I think the answer is that it shouldn't because the pin it referenced
-doesn't exist, but when looking at the schematic I have to wonder if
-there should be an interrupts property for dealing with "pgood"?
+Why do you have groups and pins?
 
-Cheers,
-Conor.
+Is it valid in your device to have groups and pins in the same node?
 
 > +
-> +  vddh-supply:
-> +    description:
-> +      Phandle to the regulator that provides the VDDH power supply.
+> +      drive-strength:
+> +        enum: [3, 6, 8, 11, 16, 18, 20, 23, 30, 32, 33, 35, 37, 38, 39, =
+41]
 > +
-> +  avdd-supply:
-> +    description:
-> +      Phandle to the regulator that provides the AVDD power supply.
-> +
-> +  ldoin-supply:
-> +    description:
-> +      Optional 2.5V to 5.5V LDO input supply.
+> +      bias-disable: true
+> +      bias-pull-up: true
+> +      bias-pull-down: true
 > +
 > +required:
 > +  - compatible
 > +  - reg
-> +  - vddh-supply
 > +
-> +unevaluatedProperties: false
+> +allOf:
+> +  - $ref: pinctrl.yaml#
+> +
+> +additionalProperties: false
 > +
 > +examples:
 > +  - |
-> +    i2c {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        regulator@30 {
-> +            compatible =3D "adi,max20830";
-> +            reg =3D <0x30>;
-> +            vddh-supply =3D <&vddh>;
+> +    pinctrl@400 {
+> +        compatible =3D "aspeed,ast2700-soc0-pinctrl";
+> +        reg =3D <0x400 0x318>;
+> +        emmc-state {
+> +            function =3D "EMMC";
+> +            groups =3D "EMMCG1";
 > +        };
 > +    };
-> +...
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 0a3991c10ade20dd79cc7d1bf2a1d307ba6bd19d..031c743e979521a92ed9ac679=
-15c178ce31727bd 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -15579,6 +15579,13 @@ F:	Documentation/devicetree/bindings/hwmon/pmbus=
-/adi,max17616.yaml
->  F:	Documentation/hwmon/max17616.rst
->  F:	drivers/hwmon/pmbus/max17616.c
-> =20
-> +MAX20830 HARDWARE MONITOR DRIVER
-> +M:	Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
-> +L:	linux-hwmon@vger.kernel.org
-> +S:	Supported
-> +W:	https://ez.analog.com/linux-software-drivers
-> +F:	Documentation/devicetree/bindings/hwmon/pmbus/adi,max20830.yaml
-> +
->  MAX2175 SDR TUNER DRIVER
->  M:	Ramesh Shanmugasundaram <rashanmu@gmail.com>
->  L:	linux-media@vger.kernel.org
 >=20
 > --=20
 > 2.34.1
 >=20
 
---xk2KV3EV8VV32UNB
+--F+crD9IVk8CdCT4u
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeEFiQAKCRB4tDGHoIJi
-0t7hAQDOOLZV3vgpWe3h0GvckV6mI1IAYYiUN2qSiHChot76wQEA6GyR+9BeaPF1
-NiSxvfVyp2jEdn60S2Ax1hDX0EGl7gQ=
-=fow4
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeEGHQAKCRB4tDGHoIJi
+0hrJAQCL/qPAeh9PhP0f+9cy9zlA9Di9yMRwuiovxWHDxpgp2QEAzMKci8tRvglD
+bIbgOLVyP2ugZhGFkQQHHd7o6vRTLQg=
+=QgdD
 -----END PGP SIGNATURE-----
 
---xk2KV3EV8VV32UNB--
+--F+crD9IVk8CdCT4u--
