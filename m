@@ -1,52 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A920349B0D;
-	Thu, 16 Apr 2026 18:57:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 755423ED5C8;
+	Thu, 16 Apr 2026 19:54:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776365861; cv=none; b=bcIzfvi6TpSkePv9Uz+q7jDWtF0XucmG3kPRNSOgXNlUfk/yIPZSydgrobQ/BhVvX2Ac3K67zG5JeHI1sZed2TZc2bdhzKUEElY3beYC2dcCV0ky3fmVRS9UUM00rTFlSqrkanJgOl74U5gP/wKNddi+9Fou6wkktbyLxhcCnw0=
+	t=1776369240; cv=none; b=uGmirUFfhAN9w+LgVK4GPbi0WW+2+sbzjS7KyfKwqute8ypuu1AWQkcti91voEZ7dMKI66LEeoCTXRU8ftHSVQ7jSGQc3jOcn6yhEdpVUMoOoLKpq36z0ueMclU6TGcUbfNvVi07T+MgUf2P6PadiluNfsF7UNy2x3wMnj1fKd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776365861; c=relaxed/simple;
-	bh=g2N2DlXRhjRxBrPCbAkET3bZWgkq1NAZoDcFEaAZ5Es=;
+	s=arc-20240116; t=1776369240; c=relaxed/simple;
+	bh=bdrgUpLv4Yx4lHu+3+pqe3aRgMPAEQa18wcoOo5mqdQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oBfv5D4TMc69Jq4eRaf9B8okRJJ7a7MiZUosXu8nkiRf1pfe98EW2E3U683Ta5aJ7BCA5DsX3ux+TRXwQ0DXm/jahfBmZhSN6k2ZFkzJGYt8G+Cp3xcXY5rfUjhpaqvjsO0FeoWKou9De5lzpbVNGNLGWuodo/9B2ftUz4oSGlk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lTFedHGr; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=JKhbOgwcZRxXvN0tJ6tM0UkltoM6uPQl4j2uEjPzJBau1jov04FvQN2x7einqFwL4PaRfEwIVlbgwoDIGzWQPVRyAHy8b5JuUwbkf11sXNTSZ9ZK86CHr8AqTq0lrDsQaUSdQ6os1pTBj4qvjiwRX7rLR4GzOV3+/HHwgCiXSPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cDb2lX/u; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lTFedHGr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59EEBC2BCAF;
-	Thu, 16 Apr 2026 18:57:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cDb2lX/u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DDB8C2BCAF;
+	Thu, 16 Apr 2026 19:53:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776365861;
-	bh=g2N2DlXRhjRxBrPCbAkET3bZWgkq1NAZoDcFEaAZ5Es=;
+	s=k20201202; t=1776369239;
+	bh=bdrgUpLv4Yx4lHu+3+pqe3aRgMPAEQa18wcoOo5mqdQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=lTFedHGry5HFxogbSEMZDntZ/VrLaifOQDOaJr7qXNjTh0PP1KokxoW8VFdurb69t
-	 911RYmFOGDfaihD7QeNrj86qEYhzVUS8uvczRAhvh/IymQ7GnL/MYHkIN1uITrK/gq
-	 +uerozRwF0KDHSS3f39HRz16PT3IUIZj8CmBOYipzMkwrMfx1jtUJt8Mh6mccePzQt
-	 ibbBTn3hZwstu/iEDfEwrWuOMF1Sqdpe2vTGnG7dkD9yvbhS8YB/+r+i+bTK2t61XU
-	 YANrxEd8r9GIMwL8m9sWxtT6gg6Fxdb8W/c+NSwpEutrKJ+fmYV8LkT9W6ofnhM/gD
-	 y9cL2YpqW7f9A==
-Date: Thu, 16 Apr 2026 19:57:34 +0100
-From: Mark Brown <broonie@kernel.org>
-To: John Madieu <john.madieu@gmail.com>
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Biju Das <biju.das.jz@bp.renesas.com>, linux-sound@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	John Madieu <john.madieu.xa@bp.renesas.com>
-Subject: Re: [PATCH v5 05/14] ASoC: rsnd: Add audmacpp clock and reset
- support for RZ/G3E
-Message-ID: <17da3459-9205-4853-af08-5b2863403a9a@sirena.org.uk>
-References: <20260415124731.3684773-1-john.madieu.xa@bp.renesas.com>
- <20260415124731.3684773-6-john.madieu.xa@bp.renesas.com>
+	b=cDb2lX/uFXCvwNxzod7p5xxzzlPzlI6GJPbjQ9VuMatEJgbgQ8W92/0k5/7laym6N
+	 UVqQxGSGvm+48oztB/vFEEtE+wHXtsn5L9ZMjYQa1ohA0lreOPL8kYPlblbolLvJsR
+	 BoD7dA/aaXbmT3A/aoMtgS3Xpou+zd0T3prlp1sNoi+DTGiME12azA8zC6kihZ9IaO
+	 aKI7tyG47G0PE6cRU4YPv/ePg5NKhDlcQ/ibGbp2nYebURtEP+QWr05oF06FNmg2HY
+	 JyR3VzqlbO1FUpTczew4I3VSZSqguukFutPNB8G0MWnmSekA2muh5udpLuMbY3PvRh
+	 XKv976WY4vLwA==
+Date: Thu, 16 Apr 2026 21:53:56 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: dongxuyang@eswincomputing.com
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	ben-linux@fluff.org, ben.dooks@codethink.co.uk, p.zabel@pengutronix.de, 
+	linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	ningyu@eswincomputing.com, linmin@eswincomputing.com, xuxiang@eswincomputing.com, 
+	wangguosheng@eswincomputing.com, pinkesh.vaghela@einfochips.com
+Subject: Re: [PATCH v4 1/2] dt-bindings: pwm: dwc: add reset optional
+Message-ID: <aeE-D5vC453uqtm6@monoceros>
+References: <20260415094908.1539-1-dongxuyang@eswincomputing.com>
+ <20260415095020.1597-1-dongxuyang@eswincomputing.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,53 +45,41 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="DBs2j5hUq/phU1mR"
+	protocol="application/pgp-signature"; boundary="2u45m4lertypw5tb"
 Content-Disposition: inline
-In-Reply-To: <20260415124731.3684773-6-john.madieu.xa@bp.renesas.com>
-X-Cookie: Process promptly.
+In-Reply-To: <20260415095020.1597-1-dongxuyang@eswincomputing.com>
 
 
---DBs2j5hUq/phU1mR
-Content-Type: text/plain; charset=us-ascii
+--2u45m4lertypw5tb
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
+Subject: Re: [PATCH v4 1/2] dt-bindings: pwm: dwc: add reset optional
+MIME-Version: 1.0
 
-On Wed, Apr 15, 2026 at 12:47:22PM +0000, John Madieu wrote:
+Hello,
 
-> +	/*
-> +	 * Audio DMAC peri-peri clock and reset for RZ/G3E.
-> +	 * These use optional APIs, so they gracefully return NULL
-> +	 * (no error) on platforms whose DT does not provide them.
-> +	 */
-> +	dmac->audmapp_rstc =
-> +		devm_reset_control_get_optional_exclusive_deasserted(dev, "audmapp");
-> +	if (IS_ERR(dmac->audmapp_rstc)) {
-> +		return dev_err_probe(dev, PTR_ERR(dmac->audmapp_rstc),
-> +				     "failed to get audmapp reset\n");
-> +	}
-> +
-> +	dmac->audmapp_clk = devm_clk_get_optional_enabled(dev, "audmapp");
-> +	if (IS_ERR(dmac->audmapp_clk)) {
-> +		return dev_err_probe(dev, PTR_ERR(dmac->audmapp_clk),
-> +				     "failed to get audmapp clock\n");
-> +	}
+I suggest
 
-Do we need the clock running before deasserting reset?  Usually the flow
-is to get the resources the hardware requires stable before we release,
-that helps everything start up cleanly.
+	dt-bindings: pwm: dwc: Add optional reset
 
---DBs2j5hUq/phU1mR
+as shortlog.
+
+Best regards
+Uwe
+
+--2u45m4lertypw5tb
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnhMR0ACgkQJNaLcl1U
-h9DkUAf+O+zaNgI31Zo/K1OHqyXpJjxG/HiG227eN2h9xGwiwDEcp2geoVxsIdZE
-tXvChn6svTv5uwwP7faXLajY6/29V7K9+u8Ktr41t4pvbSPTlIomlhmDhK9tJi61
-CYzhRssM1yoiGGFfU46vqGIrTtQv/jM/gmXd7AOfIH9DOIY5kCzcdDkXHCzRDyVY
-4MB5YGG5uVQ4Sp9Rj+aj4274EM+FgfWv/vaW4VMEF3lw9jZtUyK/RFBjNDhy6WE8
-NSK4L0TTB/LGeOZ9BfUKm7kHkZ2IflwmNMViJpKNQvmPjh6a3C8D/wBXPRZfvB6z
-xn58SWBKdAjDBwGEkEY3QzOoDbKNsg==
-=DBEf
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmnhPlIACgkQj4D7WH0S
+/k5StQgAuTx6lia9ofAcFhpDHln2LmLcS3WZ0H8ggZy1bqhM+5QDp0qSwazuObMa
+xbDInbNl1N6pDgTYdao8NMaCoVBjoufST2g/BaxW2bnIvq3OgECHMK09+pW25YGa
+/Zl0q35Sgh/qmP8ESTHBhqvbBcKKPjxmjBo8BrHWOsMxbfkjJmbElmZPl0F4yT1A
+u0MLFqV5C44yWMDNUzqIKlEZQaYRuSDCjLQyW4su09F8omrL0JbfC/Fd+QOxj15w
+kcyofJwq2NpiylDBbgQl8HSPpS3JpBIgGf5TnkzJMMP1dzrGgcjSGcn81cHD6zXX
+mA7KIiMddfldiaEK6H9/mO4hwJyzEw==
+=cqJh
 -----END PGP SIGNATURE-----
 
---DBs2j5hUq/phU1mR--
+--2u45m4lertypw5tb--
