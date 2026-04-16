@@ -1,66 +1,66 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CAB33E1CFC
-	for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 20:19:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB4493EDAD7
+	for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 20:19:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776370793; cv=none; b=hsedaxzloLSJATBuDet/Sk48J55v9WNUSEAqVElj/siuu/QoH3eK6rygKtsAhq1H+YksuZ0NiVPxTdDoTFod7yOl6BjYE7rCJHcN2NE5pE8E5xTAHgwjmFqvhgcF6LKwDHB8qHfgsgX5j7K6i8OK3StYVZL+ZQyxUEtYlIPfX94=
+	t=1776370799; cv=none; b=ZXeEriBavo4V0O9Zc6mJYAsjmhm90rnmgy3aK8S5/kwpV3GC8BAmvE6NV0hupAPAPhb9UlDdsOhCZfIOAVfOI5h0xIsabuibDyZrGezpXum2OS3jJVVWWLtX+xaitVhr/LGCYl5KyfFn5Au1jtqtEFUulUQdJoMPZnv45r2req8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776370793; c=relaxed/simple;
-	bh=DfFTCD7dR9UzG1/YZiQHT6WP9Ms5CofApjF0auiCUpM=;
+	s=arc-20240116; t=1776370799; c=relaxed/simple;
+	bh=ZNDyS+awGPYyhYY2wqVY+4vd+g5xgcLu7pSNmzdrdY0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TAY/nxijX8oyZqdZcNqn6QdHxz1W+nPjeRNQ/jIdbgKwUS5AvYZtcP+9SzAOAvjlYQSKNJFxYORh4tniuyqvJSUeYoVZmiPP4RkK8ktDehFhKRVb2PWpIe//XuDC7bYqcLi4QyG4p2G0zEOylUK3POLxifHzbezpRZm7VVGB25A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fbn3OBLw; arc=none smtp.client-ip=209.85.128.48
+	 In-Reply-To:To:Cc; b=Dw+veqJmYS2w1+OkPjZ9nYT8YJVOO0Hk82r8j376/CJMmZ2NEZEJgtVp0XyJBvDKr88c0c8MzdIPlzE/+55MqI/4fYLCSMQDnN9+VgbIPeFjVXT9wEYR/0C0DCLpYjyQt75KlIh0yaNxHn6pvP8CyLDWE4r8W2n3U2Y2m986ul0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cx4yLIaK; arc=none smtp.client-ip=209.85.221.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fbn3OBLw"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-488b8bc6bc9so60071845e9.3
-        for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 13:19:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cx4yLIaK"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-43d76dd4ee8so4334493f8f.2
+        for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 13:19:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776370783; x=1776975583; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1776370788; x=1776975588; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=rKL1UApwli0vBwJCTHGaBiJ+JuL3QPXRKM4vGc8erbQ=;
-        b=Fbn3OBLwsvH2XuUDyxkh3cXKfKOB2T9HGOuuldcUd76ok/KsuVFPLln+VeU1mbKdqy
-         muuhn3kU1rQIATsRtmNXlYAbH5q7oPZ/L/dUlsYhTfu5Pxa3gfWf8DYWL9fmlixoc3B+
-         ikZdeWK0iwbds+Uczoy81/FgsX0CRoOpoZSx6kZIJNSyOf2/fWqmR3LbFZgeUSY673nF
-         8juruDh9Zm5yEF1+/SXH3WiWKlc2mEtC04AVsEcKEbvwW/0zLgNkUr5RUHfrnnVSnNGg
-         NVF1oxnwQtKez9DYxXphDsYrjTRlfTOxXgWkfQ3udp6BvHir3YgYIAYMnT2mH67W+1KH
-         VbPQ==
+        bh=wSeMkiWEZl5lsLoSz5tNKqauPZwfUQxEknHNAlawPhY=;
+        b=Cx4yLIaK9q/+amhyhkjvV7qqxtJDOgGSU9vXuuBcylHGwzNuVgScGAjKeETEOIOPtH
+         FUImiVQ2KxgyhTLJXN+dK/nm7OmIhv7KAI1utLNYni0u4shN8eIOhWGTBQlYeYar8696
+         /jhqlAtCkqYdXDVHMo6Wp9jL/bZbTXpCLumeyue5yrHxdxpTRntEXAZj+MTYB1tGQAaX
+         sBz49+jAzFg3nUMW/LZikeAmcQJ3WuCtGULj0NkBhdl1tZTgjJ9hC0ardmezSGjx27GF
+         z25s3DMCyxKWhcMDOr/JQ1zUHcaoF4QOyKawzL6cKXlI4WNdQWii8BFfp8afXvQb1RaD
+         4s1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776370783; x=1776975583;
+        d=1e100.net; s=20251104; t=1776370788; x=1776975588;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=rKL1UApwli0vBwJCTHGaBiJ+JuL3QPXRKM4vGc8erbQ=;
-        b=oUgojGmQiHZqpUODOFBfsbsBLfozO+WnwIy9AB7wQHmFP0EQsz6muDZaI54rXY+9CA
-         sBB7xoqlbSHIwlTJAqMQbHlML/E2AspesF5uN80weLXiqjPOVwBOGifx9rfjDDPUN0Ad
-         BNFCRE44RhjSLC/IGS6eGvMcHR9pVahki3Hx6cONx7JfCp7A4bNYFoG3qC1aABMTEycD
-         Cxav4SXsSPlcytI3AEokXoLQSjB27w1HmB/fbuKEPCRKUcktB0whjFZtUZKQmsjXyYqU
-         /VSQUk4zzth76JuOQ8FDCBOBuVgkdrwWzbrkj354Fu3B8GHZYodjINIIoHFxEbZX4+KS
-         PLkQ==
-X-Forwarded-Encrypted: i=1; AFNElJ93A7SLFoWITdauO4UoR262mmTDmRXVS1S1rN7ZL7L2fxkH105W1rkqf082DMJrgmVyXHAq5I5a9TJf@vger.kernel.org
-X-Gm-Message-State: AOJu0YyMH6Nvr5Lwi4pLsURLEYKlCQAB/7Dm0xvzfmSMDflYD8R7kQAo
-	mQXJSqjlZifXjArv5rpD+LP6hjjS1smUYqp1LkOm1nUI74lVE+ZF9bP6
-X-Gm-Gg: AeBDievnLcMrYYZfhgZUNMfnTgK82NNXT1kF+45V8/mGJhJMIMMq672rFoXyLY7s/8H
-	mgTT9LaawL0N9qHKjNIw6v4q01qXzqN3Fg7Sz/2xMPiYgMHdMp80woZq4RUhc8OxOaFFzVY7+4d
-	GbZtRb0+QfL7YTKXkFpYWCnb8K70pkpSG2Uh+GLoUnPbDA7bByWchVEWaMpXiNBTM84F0D1J0Qa
-	8NWFV12DsSj57j0DJF/DIPlm91wNYAAewXtcdJqKBAQ3Un+Ao/1ve0wFAO/N7sBSRxQ4eKKkMTY
-	8eBSk1li7w0dsiLzF9CMlYuqU/gBQt6BAlGE7K0qHBJlAAd7wmbZkTmWhe4p8fgl1+6+Z0caS3l
-	3MzIHvTQhF8h1yrP+QyEtreny2vghd/pITANPB6WU9Pjii7sKgJXT0CboBhQ9FjboA+fK50Zv46
-	Sgj4t8fykUqSoJHq7SJhgDFxTFKGI300+BvKahJsEZ1wMTWw==
-X-Received: by 2002:a05:600c:c0c8:b0:488:ab1d:dcc5 with SMTP id 5b1f17b1804b1-488fb787ba3mr732015e9.27.1776370783286;
-        Thu, 16 Apr 2026 13:19:43 -0700 (PDT)
+        bh=wSeMkiWEZl5lsLoSz5tNKqauPZwfUQxEknHNAlawPhY=;
+        b=DRzDYX7N2Q8b+F8ViuJKCi6hhsSoYD1hgSvWchj3EuMJ+QBgdlvwTwFsYnJj4WYtQN
+         ffGTfZC6XU7g8dohTj2y6IQs875Cduo++dJ0PpiGe6teX10Wm67O2x5eQQBkSb1RxCwz
+         fbXhFGc3b1aLEGq5Hpe4rmFY3Kbi+eJsnCzF2o5Feh4zicooLx4md8mI/dlhA1IA5Ima
+         IFdEQFJZvl8wk7NH3KEPtVpDNHmfYXAlDlylgutFXvyQZ+0pldTfff2nXEa6j0oDZ4OO
+         eVjvOeF4g99SoXs7dsl13+JiYpBSRi2p4+jAW2L0vRL5qFCmE5ppE73LFIGvX/Qo1jQZ
+         IH7Q==
+X-Forwarded-Encrypted: i=1; AFNElJ/VOEoqGxr8DKVzAIvR+966fu49Fh0OUL+uTM1vBCdbTte3GHmbhj1WEbxmpjlwPHeOmIT3Wi6/ls+Q@vger.kernel.org
+X-Gm-Message-State: AOJu0YxnKLU6KvZkO2s2h6Ouycn80STZd4iucTnLi+h7uw1qP77Yihg2
+	l7nhGfCNIpQUAL4OaWEJTNIMYzpnAsAaxKQdFura7dyikLmH00v4yW5f
+X-Gm-Gg: AeBDieuTug7FfjQQr56O+Mk4ivNZGCQXy6LMAimnIVqLVRVesPMs5Vi1A5JNIO6N7Hw
+	uKt8jk5+ttRLB364sdsYRl6kKa4jp8lvcXqnIGg67nU5BmPfQIHYOHmsjKiAC3zH0zPa5JhNX2C
+	DKKdjX/W1SUEVkPekd0Elu8wL1Rz4VBqxTkaSRX7OGnqbrr3JNX29I+vJDC6tP07lVU5jKDgjD6
+	9VsuTFO7hD6HoePLokSTtR3DVWFv2OBWuvKYZiQ6yaxE+Jw9pCVRDJjxHA2/sTvdk9FKkk6XB2w
+	A/y1Taagg0IhZZYvZvl/kftQ+QicPGzbXooUWxi6/VktDeNzIWrrZYESjuhuBZmHLLXVO/uOO0c
+	YB22VN1kN/H7+g5kwLdjntXr/8vwpyI8kIRwRpRGlohuhvISvP+YOEJwvq4y9fzzeXFXrypwWCz
+	AGcc9hmhYoaDnxjOZSn4oWytbgyztDrnUEnhA8fr8hVU2tOX5i0vTCsvUG
+X-Received: by 2002:a05:6000:240b:b0:43c:f7e5:817a with SMTP id ffacd0b85a97d-43fe1195921mr1194343f8f.19.1776370787861;
+        Thu, 16 Apr 2026 13:19:47 -0700 (PDT)
 Received: from [192.168.0.2] ([197.250.227.196])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43ead35c026sm16180624f8f.15.2026.04.16.13.19.38
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43ead35c026sm16180624f8f.15.2026.04.16.13.19.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Apr 2026 13:19:42 -0700 (PDT)
+        Thu, 16 Apr 2026 13:19:47 -0700 (PDT)
 From: =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
-Date: Thu, 16 Apr 2026 23:19:11 +0300
-Subject: [PATCH v4 3/8] ARM: dts: Add D-Link DWR-932M support
+Date: Thu, 16 Apr 2026 23:19:12 +0300
+Subject: [PATCH v4 4/8] ARM: zte: Add support for zx29 low level debug
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,7 +69,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260416-send-v4-3-e19d02b944ec@gmail.com>
+Message-Id: <20260416-send-v4-4-e19d02b944ec@gmail.com>
 References: <20260416-send-v4-0-e19d02b944ec@gmail.com>
 In-Reply-To: <20260416-send-v4-0-e19d02b944ec@gmail.com>
 To: Jonathan Corbet <corbet@lwn.net>, 
@@ -87,135 +87,95 @@ Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
  soc@lists.linux.dev, linux-serial@vger.kernel.org, 
  =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3027;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2584;
  i=stefandoesinger@gmail.com; h=from:subject:message-id;
- bh=DfFTCD7dR9UzG1/YZiQHT6WP9Ms5CofApjF0auiCUpM=;
- b=owEBiQJ2/ZANAwAIAT0TvMhUTxoiAcsmYgBp4URKMjgP0rIgBZerMAS04qD7fxmmvb4Dtqzzl
- qq0lJcpsFeJAk8EAAEIADkWIQRDFvS2qgVbJ5UyXWw9E7zIVE8aIgUCaeFEShsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQPRO8yFRPGiKSgRAAhITFO+PosbwvE3BtTizQCM5HaxtoiNN
- PcknQEsqTA0dbu2+zLAYugjmebCwIo0Gd6QwM4l1TWj0iW9ti9QM9G+SQQBXFxrohZyh+U9ouIm
- gVclMgJnT86r4gWMVEf/f/VCzxERJsNXencypr3FPpTorY2YrTYv98MPNEHMAlEdmeCiLImCzqG
- LP+2Yf4fi8t3ki97W6CjCRgTbUL7vFRFhBn5IHugKznpqcXqnFsc0qqn+NIyaEzS7DGYgCjFz1a
- D9BujFr3Ghcugdx9NxwyQBFxKk3EtnYdakq8lYFVTRKRj/ux7Ga4R1WgybucAHe3a2lz3n9ZVUd
- kH7JDkBMMTCHQV0KNSQsg71IFEB2ERUsQhzrHMtqDTFc1D6bWOYYCO4+TtNBi0y7ysD1da4bR1S
- kPd+om15RV4vPr6mUec3rPMmOPE2fvcp58LRYTqgErhXquMJAWt0+vq9N2EIATPyH/4a+oAZsxJ
- XWi7/qA1mdWYbZ59qWN90uayMpSsOkB1xEPoCBo5N7zYwR0K7aHwqW6QyfTRuvrKumb/CRN3I5i
- xf1YgbgpQrElLCF8kX8qy+Np61GmIS2MelINW+r34WUPytspWVh//Z7/Y/zPEzNGLuFRLxuVD37
- 5P2OFcYy1ygGF8H2pGUny4dT3RJT9+e+JDpnItIQnI3U28+fPFSg=
+ bh=ZNDyS+awGPYyhYY2wqVY+4vd+g5xgcLu7pSNmzdrdY0=;
+ b=owEBiQJ2/ZANAwAIAT0TvMhUTxoiAcsmYgBp4URLRqhlAg7wWpuO7UM+dO5wr9IgPxdFB5P+5
+ vUoUcclmM6JAk8EAAEIADkWIQRDFvS2qgVbJ5UyXWw9E7zIVE8aIgUCaeFESxsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQPRO8yFRPGiLfbQ/+PTMWmPt4g6u+CTBldAZiNn549W+zIJW
+ BmndZJRxXguEwhB3ZX5goKPHuPssJBq3rhN092lxHwvSXn35vpbcrGYbUf67MJ5ip/WEDtGJGZR
+ 2dCHfqfMl50SVl3FTA6qG7NvCBLpX6+ebr9+sPj0FV+k6pqPa98rK20AayB5d9TFT6gXgMNLvOs
+ EGFfO4dkY2x/ARGjoK6hjhY6XhW5b5y0wb3krGYlJIzeyJu1/XT/yzFIRoqfFhAZ782Y2JsKTNs
+ nwm404jlvcFrzBq0jHUUfW9gChxUN/JXodBTzlI6NxJJJIaN9IulGto94+7tGMcU8WK39Osegr8
+ /G0nIqXZSFxtJGXjvelY8VcA2HatwQrZTgl5o0jBTrnJ/Pzm5y5ygNajb4BXVG88keAEzy6f7LJ
+ gZl9dln23feYfIxn/+zNLAyYZGCI5j2auIhw0JiRpak9JTKgq89kOxKHfG4mubeepSn4AVUdq2f
+ y44Pm2yK435+ZjyXoiwBBAZgz0wzphkmNAaagpOTM1A5eZb2wAKrK98gOR+npXoHaLVvGVmRfxa
+ BVVrkRIfMit3Cb634TWiCg4kTPIBUHVGzKDHBpzxZOf52kOEir2VQszoar6+Xo6V4SHedZA+bNC
+ iwy8mTcnO2zYDwCHJ7UdHGd9q3ZzWP45Bw8oVWlGPlnYehptsOHc=
 X-Developer-Key: i=stefandoesinger@gmail.com; a=openpgp;
  fpr=4F9C2C8728019633893EBBB98CB81F9A72BBA155
 
-This adds DT bindings for zx297520v3 and one board that consumes it.
+This is based on the removed zx29 code. A separate (more complicated)
+patch will re-add the register map to the pl011 serial driver.
 
 Signed-off-by: Stefan Dösinger <stefandoesinger@gmail.com>
----
- MAINTAINERS                              |  1 +
- arch/arm/boot/dts/Makefile               |  1 +
- arch/arm/boot/dts/zte/Makefile           |  3 +++
- arch/arm/boot/dts/zte/dlink-dwr-932m.dts | 21 ++++++++++++++++++
- arch/arm/boot/dts/zte/zx297520v3.dtsi    | 37 ++++++++++++++++++++++++++++++++
- 5 files changed, 63 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index bcade90ca14e..f7ca0d478e81 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -29203,6 +29203,7 @@ F:	tools/testing/selftests/cgroup/test_zswap.c
- ZX29
- M:	Stefan Dösinger <stefandoesinger@gmail.com>
- F:	Documentation/devicetree/bindings/arm/zte.yaml
-+F:	arch/arm/boot/dts/zte
- F:	arch/arm/mach-zte/
+---
+
+I am unsure about the virtual address. It doesn't seem to matter, as
+long as it is a valid address. This address is based on the old removed
+code. Is there a rule-of-thumb physical to virtual mapping I can use to
+give a sensible default value?
+---
+ arch/arm/Kconfig.debug         | 12 ++++++++++++
+ arch/arm/include/debug/pl01x.S |  7 +++++++
+ 2 files changed, 19 insertions(+)
+
+diff --git a/arch/arm/Kconfig.debug b/arch/arm/Kconfig.debug
+index 366f162e147d..98d8a5a60048 100644
+--- a/arch/arm/Kconfig.debug
++++ b/arch/arm/Kconfig.debug
+@@ -1331,6 +1331,16 @@ choice
+ 		  This option selects UART0 on VIA/Wondermedia System-on-a-chip
+ 		  devices, including VT8500, WM8505, WM8650 and WM8850.
  
- SENARYTECH AUDIO CODEC DRIVER
-diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index efe38eb25301..28fba538d552 100644
---- a/arch/arm/boot/dts/Makefile
-+++ b/arch/arm/boot/dts/Makefile
-@@ -39,3 +39,4 @@ subdir-y += unisoc
- subdir-y += vt8500
- subdir-y += xen
- subdir-y += xilinx
-+subdir-y += zte
-diff --git a/arch/arm/boot/dts/zte/Makefile b/arch/arm/boot/dts/zte/Makefile
-new file mode 100644
-index 000000000000..416c24a489cd
---- /dev/null
-+++ b/arch/arm/boot/dts/zte/Makefile
-@@ -0,0 +1,3 @@
-+# SPDX-License-Identifier: GPL-2.0
-+dtb-$(CONFIG_SOC_ZX297520V3) += \
-+	dlink-dwr-932m.dtb
-diff --git a/arch/arm/boot/dts/zte/dlink-dwr-932m.dts b/arch/arm/boot/dts/zte/dlink-dwr-932m.dts
-new file mode 100644
-index 000000000000..7b2a26aaaecb
---- /dev/null
-+++ b/arch/arm/boot/dts/zte/dlink-dwr-932m.dts
-@@ -0,0 +1,21 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * D-Link DWR-932M Board
-+ *
-+ * (C) Copyright 2026 Stefan Dösinger
-+ *
-+ */
++	config DEBUG_ZTE_ZX
++		bool "Kernel low-level debugging via zx29 UART"
++		select DEBUG_UART_PL01X
++		depends on ARCH_ZTE
++		help
++		  Say Y here if you are enabling ZTE zx297520v3 SOC and need
++		  debug UART support. This UART is a PL011 with different
++		  register addresses. The UART for boot messages on zx29 boards
++		  is usually UART1 and is operating at 921600 8N1.
 +
-+/dts-v1/;
+ 	config DEBUG_ZYNQ_UART0
+ 		bool "Kernel low-level debugging on Xilinx Zynq using UART0"
+ 		depends on ARCH_ZYNQ
+@@ -1545,6 +1555,7 @@ config DEBUG_UART_8250
+ 
+ config DEBUG_UART_PHYS
+ 	hex "Physical base address of debug UART"
++	default 0x01408000 if DEBUG_ZTE_ZX
+ 	default 0x01c28000 if DEBUG_SUNXI_UART0
+ 	default 0x01c28400 if DEBUG_SUNXI_UART1
+ 	default 0x01d0c000 if DEBUG_DAVINCI_DA8XX_UART1
+@@ -1701,6 +1712,7 @@ config DEBUG_UART_VIRT
+ 	default 0xf31004c0 if DEBUG_MESON_UARTAO
+ 	default 0xf4090000 if DEBUG_LPC32XX
+ 	default 0xf4200000 if DEBUG_GEMINI
++	default 0xf4708000 if DEBUG_ZTE_ZX
+ 	default 0xf6200000 if DEBUG_PXA_UART1
+ 	default 0xf7000000 if DEBUG_SUN9I_UART0
+ 	default 0xf7000000 if DEBUG_S3C64XX_UART && DEBUG_S3C_UART0
+diff --git a/arch/arm/include/debug/pl01x.S b/arch/arm/include/debug/pl01x.S
+index c7e02d0628bf..0c7bfa4c10db 100644
+--- a/arch/arm/include/debug/pl01x.S
++++ b/arch/arm/include/debug/pl01x.S
+@@ -8,6 +8,13 @@
+ */
+ #include <linux/amba/serial.h>
+ 
++#ifdef CONFIG_DEBUG_ZTE_ZX
++#undef UART01x_DR
++#undef UART01x_FR
++#define UART01x_DR     0x04
++#define UART01x_FR     0x14
++#endif
 +
-+#include "zx297520v3.dtsi"
-+
-+/ {
-+	model = "D-Link DWR-932M";
-+	compatible = "dlink,dwr932m", "zte,zx297520v3";
-+
-+	memory@20000000 {
-+		device_type = "memory";
-+		reg = <0x20000000 0x04000000>;
-+	};
-+};
-diff --git a/arch/arm/boot/dts/zte/zx297520v3.dtsi b/arch/arm/boot/dts/zte/zx297520v3.dtsi
-new file mode 100644
-index 000000000000..d6c71d52b26c
---- /dev/null
-+++ b/arch/arm/boot/dts/zte/zx297520v3.dtsi
-@@ -0,0 +1,37 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+
-+#include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+/ {
-+	#address-cells = <1>;
-+	#size-cells = <1>;
-+
-+	cpus {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		cpu@0 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a53";
-+			reg = <0>;
-+		};
-+	};
-+
-+	soc {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		compatible = "simple-bus";
-+		interrupt-parent = <&gic>;
-+		ranges;
-+
-+		gic: interrupt-controller@f2000000 {
-+			compatible = "arm,gic-v3";
-+			interrupt-controller;
-+			#interrupt-cells = <3>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			reg = <0xf2000000 0x10000>,
-+			      <0xf2040000 0x20000>;
-+		};
-+	};
-+};
+ #ifdef CONFIG_DEBUG_UART_PHYS
+ 		.macro	addruart, rp, rv, tmp
+ 		ldr	\rp, =CONFIG_DEBUG_UART_PHYS
 
 -- 
 2.52.0
