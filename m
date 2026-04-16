@@ -1,192 +1,253 @@
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A80C737C0FE
-	for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 08:19:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776327555; cv=pass; b=P2Hfs1QCdxtaWkU2wvmfJAs3ykcqv54O9zr0ALyD8vlB0QbWIoqGOhE+nD84fQPal10wGV2us3Z3xDJoTbk77bx6pLOCMOlfqbMUC71uANGOlD0xO/KN2A+IUBR2HF6Pbz3BSJLR46wr29JAqPjX3dzqRCDVyL7iwDPF4Xmm8S8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776327555; c=relaxed/simple;
-	bh=gyfD8pfwhSxVR5c5TiqO6lAdCFrxa/LwfKRn/PLAYnY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UVPKcZ81+3V6KDMh9oJOBZ2hffV+cX+7o9S8XLb/uzHumD8jnxiZEXwxkut4CsgzDViVao3Gjb8vNUm/hdL1hG5UzHFHZfWkWILrPyrphqNu+VbLNyOn/m/K+ZPN2vht65/s7I5lGYBFHiRP/HS1VYiMfd+7qI89FldcB1iS6mU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sylJ5RNJ; arc=pass smtp.client-ip=74.125.224.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6213C332604;
+	Thu, 16 Apr 2026 08:22:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776327780; cv=none; b=syLUQGkixiU0mQvEVx9LspvGXax4ZdUp0cNztE6EscupY9hlJLuydQpklQrX8dQNeb2xzetVOcZEvdBeMmANOR9wIoZqqTJE9e0jmURv+EFHplys2tiBjpnMXMpNYwz5UBUX+e6Llt1jzyfoNG4H0GlwqqX6aNq6WNiSvd6ilYI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776327780; c=relaxed/simple;
+	bh=I4Pcx3qfaVoC2hcfxf/U4ng8T/3Ds1K0AUyybcgED0w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LXCZdIgPUjM1vYZbyUJGdtG/1P4jV8FamVDi1s1j9ozJ9z4hkAbKmN1nSZEIsT1+xNpihqJslUYw16mBlv8OLc8YwjgVxlB2e80b3sUdpql1nftmVNOVPkoDnYDv86aZNOf/NCft9nuiojQsTyV9hEF9lwxW6KED8A2trN/URlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=IQOoASDj; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sylJ5RNJ"
-Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-650775f427eso8026194d50.2
-        for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 01:19:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776327552; cv=none;
-        d=google.com; s=arc-20240605;
-        b=jsOalBX7iUQ82an+rJeN4XU5IFHEtGboNmkATmuThTfFZtiM5ax+CyGC8xwiVF26Sc
-         QJn29noQl4kLkMF1hSjkZH1tLTFhkWVwQkryh7dK88rB/ksQOscBnSiWK9u7sqPcKiDR
-         N4JZpLQVjzUYPh/RaeHg+QBkuvTu1uzsv+7qxT5df9fTgKHW/v9KZRFB0Rt+3yG0ntZt
-         LXqDe9yaGh9e9RHVShcoeW1p+qHMxF/GpHan/fMyBjeSDRdv6xJWfU4OZ24Fg44BBL3G
-         mgN6+K5Fu+6Bk/L1ARGrV2V5rqhmJnLs7lETBDU7bcwfNsUj5WbGrIvAH6eaPXzuDEHS
-         QK5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=UYfM78rx5R3ZVmMPKEfuM0RYI+r7ma+Zgwh+UTlTNLE=;
-        fh=XaNd5jtMN3YiGD0LGOnuF3C7hoGZpXR4UQWPwa1wNFI=;
-        b=WmS8kxPiKMAh5oFCQvORzQVrT9zsE61yPC9Re6TllCbhHsPKUs02uPt8gL/cXCLBpz
-         YCLtmyf5vF+HbVngQfGfMcOMB0lQhd15PZVnzxbNc1tV/NCRv/RBRoPhXh/o3DaIQzGd
-         NVtqosE2roIsfUEfcCaYRwqgTwwrvcJodlDXsObbw1uj/xM3XL3rkwvbdciIeJoUoQWI
-         jINcELh1sIyR4F8z7IYpWwORhJYPQsAiH4JREnRBUPB/GUDwJMMCFLLPzMZA+kmHJXo5
-         PwsAtC2dCgs9J3/JhlgirTWPDXAJR0CXyJRAJoBQ1oWzMBkSS3/DaKOgH8ZmyEmo/JCy
-         lmpA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776327552; x=1776932352; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=UYfM78rx5R3ZVmMPKEfuM0RYI+r7ma+Zgwh+UTlTNLE=;
-        b=sylJ5RNJ+0hXdCnnGdXR5eE2v/EkbzJ+oigAXEMD1d0JhM51NM0L6K7wu1tcH+Z16h
-         fddFr8COfi6g6L9XHp+VYZU2YM1JYRkWOM9/ZKjAq51WvqJyvI8C0OBbhgbusvysg16H
-         1c7HjqPW/UBIkdmtbXS2m/h+jQe2fN4oxYt+QGpx2DwVaIwUHOFs7CNgDzGBrcThXCNG
-         ppbcN7ahpVYYu9SGmOcGyfwueSPJen5kHS86KuGFkSMrEhweMCB11zKNRvcHJNgNzL1M
-         ZUVNP+BQEmxlUmkFiThX5wdCPE6cX9B+OQV3CN/QMurXfMXZdadBaPLnDjE2QZpuHFK8
-         kmPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776327552; x=1776932352;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=UYfM78rx5R3ZVmMPKEfuM0RYI+r7ma+Zgwh+UTlTNLE=;
-        b=mAPNNsN/uIhkuONa3tPfb/hCdcm9IMqDABulhQmza13qtmGDnChrMoJUiNS0QhHXTI
-         qFANTTnN/i5/+n96HjeUFAp98+1kf5Va5PFKllpphVaCejKSuOKvZ14hJps1rq3OUmeu
-         jR9BhfaR43BOYwAefAIQqE9NtNncsN4quLm7cQotd+n4tbCEdRzMvRdXR8YfNSnpdMRD
-         BsPqT0y74vZrhNfeVjZR1yKPs5ng6TZjM+4OS1X7oe+Mx6i2UJihUOrcpx0koR/bCF8U
-         lqOmmRCxpEb5VoEzV7gAsrNJ24CEUPmrqi1j1Z0B2CCpOudRIWcKAZCJ0fxemiKLGHtJ
-         obJQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/yTaJK0IMLxRR8XrbO+8n+KSFinF+OlAY/B0dfBkBfS3OgKImgi/aQXltyd1sH9UOglLJGSRGGeuKA@vger.kernel.org
-X-Gm-Message-State: AOJu0YzjS4SmWwwUJjOn07RRTXqsx3hBVakGACY5smm113+k7zFDLhfx
-	wIjn68YEpq/VAf5y1ihj/eL5IWTrW5prXSjGFsscylq7ExbdMB9ipuXl2Bi+iIbxYce8NBeI0+e
-	gpjStEdQ37yy5uC0C8xQgQilJaQJ6DQ1GWq3U
-X-Gm-Gg: AeBDieslsoBto5/eWJpmuXYEvGBKXB7D6SEInxVvnzjZouzNdnANSRK3IhzFhgSnysF
-	Pn/aeqnDge1zFTljqmoXixOgmbBhClx7dttTQWY5mH2fqkep0leA+nFc5GfAt70YpJ7+YF6oruA
-	8Fk/DhiFARIuDNgpTt7oVCKi8ifUjL7eYtXAz7t5xGf0v4wfZy5c4YgxG28fWBzPZ7DWRuTi0uI
-	nY1Yd9OsVBAVNKZxF5Xv9dGZwTbFFUdGtTy9gslqvmLQroHLkUhAJTF4Gwwfx5W/+PbZ/2mU21K
-	QbM1B+QFRKLB32SA+AM=
-X-Received: by 2002:a05:690e:bc3:b0:651:becf:4523 with SMTP id
- 956f58d0204a3-651becf5113mr15959082d50.62.1776327551592; Thu, 16 Apr 2026
- 01:19:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="IQOoASDj"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id CBDE91A32F2;
+	Thu, 16 Apr 2026 08:22:56 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9605B5FDEB;
+	Thu, 16 Apr 2026 08:22:56 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EB1FD10459ECE;
+	Thu, 16 Apr 2026 10:22:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1776327775; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=vf1NAEo8S9OwitHAGAehGzHb+5Xj0NkwKk+qLaje2K4=;
+	b=IQOoASDjygSK/g57J/TKAASub60SdimIF6ESLFnep0UEYz75Noo9cFiE+IeunJPxCsUH6W
+	PVLAv7DRh04P+0Pli7o7n/QeXE7ojTi2BVzWzgehw2bGWPal4dqx7oekXOgHs4ldQ4Rn8E
+	l3jBqsY34iqG1U2AlGSipzQ945alsXEJmLzJaHOEo9c7FieaLiPSMH3mv9QBb/W72DnLUg
+	1B9bSOWckxHBmYXvyDKkNxvy66UYIicEXq8TUOPIE4dAZu8oPzbId01oQ7F71Itq6b6zan
+	Ju5h9IKbufhA05Jk3mCng0d4mUulXbzE4QxLKTjEx5hrnRjA4H3F3FVmvjeZCg==
+Message-ID: <068e2f41-33fd-4627-826f-83eb0770cc3c@bootlin.com>
+Date: Thu, 16 Apr 2026 10:22:42 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260413-orangepi-sd-card-uhs-v8-0-c21c40ec16d0@gmail.com>
- <f58ec12c-3957-4d44-b823-6a1ae1a1dd94@kernel.org> <CABdCQ=NhTkGJUh_fKnZoQMzdpyO-UbV5zrSfiNVUC7bkSBifTA@mail.gmail.com>
- <DHSQ6VG82QYX.1EVAYV9JTBCL7@linux.dev>
-In-Reply-To: <DHSQ6VG82QYX.1EVAYV9JTBCL7@linux.dev>
-From: Iker Pedrosa <ikerpedrosam@gmail.com>
-Date: Thu, 16 Apr 2026 10:18:59 +0200
-X-Gm-Features: AQROBzCXo6p3fgZAxRfHTUW7b152HxWrs_jxAbTxvFG6AIyn1RGKEh6tq-Z2nFo
-Message-ID: <CABdCQ=Oata1oXds6pV-RipwZjcztM0xk_J=Rk8Of2w2RqegbHA@mail.gmail.com>
-Subject: Re: [PATCH v8 0/9] riscv: spacemit: enable SD card support with UHS
- modes for OrangePi RV2
-To: Troy Mitchell <troy.mitchell@linux.dev>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>, 
-	Michael Opdenacker <michael.opdenacker@rootcommit.com>, 
-	Javier Martinez Canillas <javierm@redhat.com>, linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Anand Moon <linux.amoon@gmail.com>, 
-	Trevor Gamblin <tgamblin@baylibre.com>, Vincent Legoll <legoll@online.fr>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/4] Introduce Allwinner H616 PWM controller
+To: Paul Kocialkowski <paulk@sys-base.io>
+Cc: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ John Stultz <jstultz@google.com>, Joao Schim <joao@schimsalabim.eu>,
+ linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260305091959.2530374-1-richard.genoud@bootlin.com>
+ <adfe2z2YeBxm_6oR@shepard>
+From: Richard GENOUD <richard.genoud@bootlin.com>
+Content-Language: en-US, fr
+Organization: Bootlin
+In-Reply-To: <adfe2z2YeBxm_6oR@shepard>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-El mar, 14 abr 2026 a las 10:16, Troy Mitchell
-(<troy.mitchell@linux.dev>) escribi=C3=B3:
->
-> On Tue Apr 14, 2026 at 3:12 PM CST, Iker Pedrosa wrote:
-> > El lun, 13 abr 2026 a las 10:07, Krzysztof Kozlowski
-> > (<krzk@kernel.org>) escribi=C3=B3:
-> >>
-> >> On 13/04/2026 10:02, Iker Pedrosa wrote:
-> >> > This series enables complete SD card support for the Spacemit K1-bas=
-ed
-> >> > OrangePi RV2 board, including UHS (Ultra High Speed) modes for
-> >> > high-performance SD card operation.
-> >> >
-> >> > Background
-> >> >
-> >> > The Spacemit K1 SoC includes an SDHCI controller capable of supporti=
-ng
-> >> > SD cards up to UHS-I speeds (SDR104 at 208MHz). However, mainline
-> >> > currently lacks basic SD controller configuration, SDHCI driver
-> >> > enhancements for voltage switching and tuning, and power management
-> >> > infrastructure.
-> >> >
-> >> > Implementation
-> >> >
-> >> > The series enables SD card support through coordinated layers:
-> >> >
-> >> > - Hardware infrastructure (patches 1-2): Device tree bindings for vo=
-ltage
-> >> > switching hardware and essential clock infrastructure.
-> >> > - SDHCI driver enhancements (patches 3-7): Regulator framework
-> >> > integration, pinctrl state switching for voltage domains, AIB regist=
-er
-> >> > programming, and comprehensive SDR tuning support for reliable UHS
-> >> > operation.
-> >> > - SoC and board integration (patches 8-10): Complete K1 SoC controll=
-er
-> >> > definitions, PMIC power infrastructure, and OrangePi RV2 board enabl=
-ement
-> >> > with full UHS support.
-> >> >
-> >> > This transforms the OrangePi RV2 from having no SD card support to f=
-ull
-> >> > UHS-I capability, enabling high-performance storage up to 208MHz.
-> >> >
-> >> > Tested-by: Michael Opdenacker <michael.opdenacker@rootcommit.com>
-> >> > Signed-off-by: Iker Pedrosa <ikerpedrosam@gmail.com>
-> >> > ---
-> >> > Changes in v8:
-> >> > - Resending the series as v8. The v7 submission failed due to an SMT=
-P
-> >> >   error during transit, which resulted in a broken thread on the mai=
-ling
-> >> >   list.
-> >>
-> >> Hm? Everything is here:
-> >> https://lore.kernel.org/all/20260413-orangepi-sd-card-uhs-v7-1-16650f4=
-9c022@gmail.com/
-> >>
-> >> You can send individual patches to fix up threading, use --in-reply-to=
-.
-> >
-> > My apologies for the noise and the rapid resend.
-> >
-> > The reason for v8 was that the v7 cover letter (0/9) failed to reach
-> > the mailing list due to an SMTP error on my end. This left the v7
-> > thread "headless" in the archives without the changelog or the full
-> > context of the series. I was attempting to fix the threading
-> > immediately so that reviewers would have a complete set of patches to
-> > look at, but I realize now that resending the entire series on the
-> > same day was premature.
-> So that's why Krzysztof said you should send individual patch with --in-r=
-eply-to.
+Le 09/04/2026 à 19:16, Paul Kocialkowski a écrit :
+> Hi Richard,
+> 
+> On Thu 05 Mar 26, 10:19, Richard Genoud wrote:
+>> Allwinner H616 PWM controller is quite different from the A10 one.
+> 
+> As I've mentionned before, this PWM controller is not specific to the H616
+> but also appears in other chips, so the name of the driver and registers
+> should not mention H616.
+> 
+> After further investigation, I can see multiple versions of this new PWM IP
+> being used in different chips, starting with the R40/V40 (sun8iw11) in 2016.
+> 
+> The latest downstream BSP driver has a list of the different generations:
+> https://github.com/radxa/allwinner-bsp/blob/cubie-aiot-v1.4.6/drivers/pwm/pwm-sunxi.c#L1901
+> 
+> We have a first generation called v100/v101 for the following chips:
+> H616, R328 and R40. A second generation is called v200 and brings slight
+> register layout differences for A133, D1/T113-S3 and V851. Subsequent
+> iterations (v201-5) are used in more recent chips like A527 and A733 and
+> seem register-compatible with v200 (from a quick look).
+> 
+> So what I suggest here is to rename the driver "sun8i-pwm" and eventually add
+> a list of generations to the driver and different registers when needed, with
+> an appropriate suffix in their name.
+> 
+> But since you're currently only dealing with H616, this work can be done later
+> when introducing support for more chips.
+ok, I'm fine with that :)
 
-I see, thanks for the clarification. Just to clarify for my future
-workflow: is it acceptable for a series to be 'headless' (starting
-with Patch 1) if the cover letter is lost, or is the cover letter
-(Patch 0) strictly required as the thread root?
+> 
+>> It can drive 6 PWM channels, and like for the A10, each channel has a
+>> bypass that permits to output a clock, bypassing the PWM logic, when
+>> enabled.
+>>
+>> But, the channels are paired 2 by 2, sharing a first set of
+>> MUX/prescaler/gate.
+>> Then, for each channel, there's another prescaler (that will be bypassed
+>> if the bypass is enabled for this channel).
+>>
+>> It looks like that:
+>>              _____      ______      ________
+>> OSC24M --->|     |    |      |    |        |
+>> APB1 ----->| Mux |--->| Gate |--->| /div_m |-----> PWM_clock_src_xy
+>>             |_____|    |______|    |________|
+>>                            ________
+>>                           |        |
+>>                        +->| /div_k |---> PWM_clock_x
+>>                        |  |________|
+>>                        |    ______
+>>                        |   |      |
+>>                        +-->| Gate |----> PWM_bypass_clock_x
+>>                        |   |______|
+>> PWM_clock_src_xy -----+   ________
+>>                        |  |        |
+>>                        +->| /div_k |---> PWM_clock_y
+>>                        |  |________|
+>>                        |    ______
+>>                        |   |      |
+>>                        +-->| Gate |----> PWM_bypass_clock_y
+>>                            |______|
+>>
+>> Where xy can be 0/1, 2/3, 4/5
+>>
+>> PWM_clock_x/y serve for the PWM purpose.
+>> PWM_bypass_clock_x/y serve for the clock-provider purpose.
+>> The common clock framework has been used to manage those clocks.
+>>
+>> This PWM driver serves as a clock-provider for PWM_bypass_clocks.
+>> This is needed for example by the embedded AC300 PHY which clock comes
+>> from PMW5 pin (PB12).
+>>
+>> Usually, to get a clock from a PWM driver, we use the pwm-clock driver
+>> so that the PWM driver doesn't need to be a clk-provider itself.
+>> While this works in most cases, here it just doesn't.
+>> That's because the pwm-clock request a period from the PWM driver,
+>> without any clue that it actually wants a clock at a specific frequency,
+>> and not a PWM signal with duty cycle capability.
+> 
+>  From what I understand the pwm-clock driver will either assume a fixed rate
+> set in device-tree or deduce the rate from the pwm period. In any case it will
+> check that the pwm period (which it cannot change) is the same as the requested
+> clock period.
+> 
+> So I agree that pwm-clock is unable to change the clock rate at runtime and will
+> just use whatever frequency the pwm is running at (which is typically set
+> in the device-tree consumer property).
+> 
+>> So, the PWM driver doesn't know if it can use the bypass or not, it
+>> doesn't even have the real accurate frequency information (23809524 Hz
+>> instead of 24MHz) because PWM drivers only deal with periods.
+> 
+> I agree that the driver needs to register as a proper clock provider in
+> addition to pwm. But what happens if the same PWM clock is requested both from
+> the clk side and the pwm side?
 
-In such cases, would it be better to just send the missing cover
-letter as a reply to Patch 1 afterward to complete the thread without
-resending the whole series?
+The first to request it is the winner :)
+The other ones will receive a -EBUSY
+In h616_pwm_request() and h616_pwm_of_clk_get(), the channel mode is 
+checked, and if it's free to use, it's set as either PWM or CLK mode so 
+that it can't be requested a second time.
 
->
->                                       - Troy
->
+> 
+>> With pwm-clock, we loose a precious information along the way (that we
+>> actually want a clock and not a PWM signal).
+>> That's ok with simple PWM drivers that don't have multiple input clocks,
+>> but in this case, without this information, we can't know for sure which
+>> clock to use.
+>> And here, for instance, if we ask for a 24MHz clock, pwm-clock will
+>> requests 42ns (assigned-clocks doesn't help for that matter). The logic
+>> is to select the highest clock (100MHz) with no prescaler and a duty
+>> cycle value of 2/4 => we have 25MHz instead of 24MHz.
+>> And that's a perfectly fine choice for a PMW, because we still can
+>> change the duty cycle in the range [0-4]/4.
+>> But obviously for a clock, we don't care about the duty cycle, but more
+>> about the clock accuracy.
+>>
+>> And actually, this PWM is really a PWM AND a real clock when the bypass
+>> is set.
+> 
+> Make sense to me.
+> 
+>> This series is based onto v6.19-rc4
+>>
+>> NB: checkpatch is not happy with patch 2, but it's a false positive.
+>> It doesn't detect that PWM_XY_SRC_MUX/GATE/DIV are structures, but as
+>> it's more readable like that, I prefer keeping it that way.
+>>
+>> NB2: for geopolitical reasons, I didn't re-use the old series that Paul
+>> was referring to.
+>>
+>> Changes since v3:
+>> - gather Acked-by/Tested-by
+>> - fix cast from pointer to integer of different size (kernel test robot
+>>    with arc platform)
+>> - add devm_action for clk_hw_unregister_composite as suggested by Philipp
+>> - remove now unused pwm_remove as suggested by Philipp
+>>
+>> Changes since v2:
+>> - use U32_MAX instead of defining UINT32_MAX
+>> - add a comment on U32_MAX usage in clk_round_rate()
+>> - change clk_table_div_m (use macros)
+>> - fix formatting (double space, superfluous comma, extra line feed)
+>> - fix the parent clock order
+>> - simplify code by using scoped_guard()
+>> - add missing const in to_h616_pwm_chip() and rename to
+>> h616_pwm_from_chip()
+>> - add/remove missing/superflous error messages
+>> - rename cnt->period_ticks, duty_cnt->duty_ticks
+>> - fix PWM_PERIOD_MAX
+>> - add .remove() callback
+>> - fix DIV_ROUND_CLOSEST_ULL->DIV_ROUND_UP_ULL
+>> - add H616_ prefix
+>> - protect _reg in macros
+>> - switch to waveforms instead of apply/get_state
+>> - shrink struct h616_pwm_channel
+>> - rebase on v6.19-rc4
+>>
+>> Changes since v1:
+>> - rebase onto v6.19-rc1
+>> - add missing headers
+>> - remove MODULE_ALIAS (suggested by Krzysztof)
+>> - use sun4i-pwm binding instead of creating a new one (suggested by Krzysztof)
+>> - retrieve the parent clocks from the devicetree
+>> - switch num_parents to unsigned int
+>>
+>> Richard Genoud (4):
+>>    dt-bindings: pwm: allwinner: add h616 pwm compatible
+>>    pwm: sun50i: Add H616 PWM support
+>>    arm64: dts: allwinner: h616: add PWM controller
+>>    MAINTAINERS: Add entry on Allwinner H616 PWM driver
+>>
+>>   .../bindings/pwm/allwinner,sun4i-a10-pwm.yaml |  19 +-
+>>   MAINTAINERS                                   |   5 +
+>>   .../arm64/boot/dts/allwinner/sun50i-h616.dtsi |  47 +
+>>   drivers/pwm/Kconfig                           |  12 +
+>>   drivers/pwm/Makefile                          |   1 +
+>>   drivers/pwm/pwm-sun50i-h616.c                 | 936 ++++++++++++++++++
+>>   6 files changed, 1019 insertions(+), 1 deletion(-)
+>>   create mode 100644 drivers/pwm/pwm-sun50i-h616.c
+>>
+>>
+>> base-commit: 11439c4635edd669ae435eec308f4ab8a0804808
+> 
+
+Regards,
+Richard
