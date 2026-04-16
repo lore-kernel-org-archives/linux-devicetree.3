@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C931F21A95D;
-	Thu, 16 Apr 2026 06:19:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90874378D9E
+	for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 06:21:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776320354; cv=none; b=DUUsz5wHR+rHoWi/rseqhvun1vNmvCqDh94dqRX4YmcDuNVAUr2mluKPHIr9DavNQRBoY0U2Ma3BCx18q1cAXoydxW9/GxkYEbO9zzpHx099BRrumXmaHv+NCqn5LRxMHX3y/znhbRJo0IWyPngL0eeUmNJnLabHJKuIMlftXYs=
+	t=1776320507; cv=none; b=kTb+BIDuOcZLn08OH/WVkXsHs2RmAI7mLt2QvNNhSj0Pp14NO2OZYzLlStNrSsLHbEmYx2y0Z7seyixa3Q+L++JaE437FBbGpiueHN7GNEdLqWTh8IYdXJXuPg5l35SL5VnJ+5T2W8ExPgneGb4ikQY1/PXWvKxZ4YGycjdkwJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776320354; c=relaxed/simple;
-	bh=qNrd3txvGZOPg0VoT9q3rBedmFvwr8GAJPvfgU9ToZg=;
+	s=arc-20240116; t=1776320507; c=relaxed/simple;
+	bh=+8F/oNoPxuc2vDOxM10nGfFdu9tPo7pBm69TDEWVfqw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mWc0lTISEZHOVoN8f5Ydnx1jOftZ9rUIRYnDkEYkLW3UzXjnl0/BdUd5tuvpSGMaVpSfyaCAk2UlvHlk7nkJd4zD9WDqTZbk5s5lBpLRrT+N8/+h0Y9QLeN6J2zhUO9vRu1ngBAmSltuidy9eTi4nhc5ywVloo6aGPbyc3FblOU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l0S0DHLW; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=jTy45xCi/3wEkTh8JvG/TqX+MNj04oT53+UU4aWC9OW55zTNQu4w8zLkjUXf8mPO2y+gGNTYQITiX++M0HeR6SIPwPinRSYNJUDrkmjRrGvyy+6DL+fv3dzPMlxRBfK99W6azDKO2m10q8pn9N9WF1dOcpYx+RGFdJiUliJp9uY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dqjw73v6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l0S0DHLW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52436C2BCAF;
-	Thu, 16 Apr 2026 06:19:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dqjw73v6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2517CC2BCB3;
+	Thu, 16 Apr 2026 06:21:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776320354;
-	bh=qNrd3txvGZOPg0VoT9q3rBedmFvwr8GAJPvfgU9ToZg=;
+	s=k20201202; t=1776320507;
+	bh=+8F/oNoPxuc2vDOxM10nGfFdu9tPo7pBm69TDEWVfqw=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=l0S0DHLWlB+yr9O9wvzJccCI49pX553txPkOeqgZqP1vbpI/ajG0Kgc9ecpGHJrZ+
-	 8d3OKNGzL18SW2PSEko22GXeAGx35fOYNJyrAj2ZU5EDN0WXNekocJ00rkekNrNseG
-	 yDj/Aa/7GUq06JQL0/z+S1HczrHOhK4JXgDZ8WE79NNgNU1V/CH8Qj2jHiJ20JcC7n
-	 XoXQok6sVyr8NkhH+6eqOfzyqRNl6md2kSiLPFu3Pb5fdvCRZWGS+AWYczXAep8Sxk
-	 bOt98lNI9BXOpKqQzMlO9GphEHlAegzaNjeJayXtOjTYU47n92imZ3+aMIPz1MZ/gd
-	 yF5B80A1tJN2g==
-Message-ID: <d486616b-ef21-4933-aaf5-dcba339dd8cc@kernel.org>
-Date: Thu, 16 Apr 2026 08:19:09 +0200
+	b=dqjw73v6pCxPPkSP1tGhLm07LRmFYov7EMOcmrmGEnYpK3ksynagaWsZS+yJsfEsx
+	 0MM1VbjBbRm/TUB5RcxjJgtFzBbMC/37ZFzP/wIGX7/uFLNK+mmGMv744cClhyY8vg
+	 vRUrIxUbN4ZhyH8z8Ie52gwYTuY1IJrp3moQ9QHh7wZQU2tkStuuEKNSvgkpw2gvm4
+	 EeZBob/rnsOZmAQzEq1jEquvMVNKHQlMKxJhqiSzvdeuGvIX933nhgba88Ab98sRvv
+	 jbhl/L/SYfZNrHqOJsTappDlIK8Tk1nPwUhdx0mogQGbn16ZaeqNTCqdkpAiVhuUml
+	 18ZJXC2kWS9rg==
+Message-ID: <276df910-4ae0-4241-86bc-f8182e40eaf3@kernel.org>
+Date: Thu, 16 Apr 2026 08:21:42 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,20 +35,20 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/5] arch: arm64: dts: qcom: Add support for PCIe3a
-To: Qiang Yu <qiang.yu@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260412-glymur_gen5x8_phy_0413-v3-0-affcebc16b8b@oss.qualcomm.com>
- <20260412-glymur_gen5x8_phy_0413-v3-5-affcebc16b8b@oss.qualcomm.com>
- <20260415-pragmatic-termite-of-attraction-3dbab5@quoll>
- <aeBWfv1oXnSQC454@hu-qianyu-lv.qualcomm.com>
+Subject: Re: [PATCH v3 3/3] dt-bindings: i3c: Add AST2600 I3C global registers
+To: Dawid Glazik <dawid.glazik@linux.intel.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>, linux-aspeed@lists.ozlabs.org,
+ linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, Frank Li <Frank.Li@nxp.com>,
+ Maciej Lawniczak <maciej.lawniczak@intel.com>
+References: <cover.1775679285.git.dawid.glazik@linux.intel.com>
+ <7f55458097ef651b4fc46650254afd3fa7b87348.1775679285.git.dawid.glazik@linux.intel.com>
+ <20260409-beneficial-sociable-tamarin-dbcaeb@quoll>
+ <d74e7aa8-1110-469a-ac7e-3829c2458852@kernel.org>
+ <cb0d16bf-988d-403e-8a8e-c85bf2a208d0@linux.intel.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -94,82 +94,43 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <aeBWfv1oXnSQC454@hu-qianyu-lv.qualcomm.com>
+In-Reply-To: <cb0d16bf-988d-403e-8a8e-c85bf2a208d0@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 16/04/2026 05:24, Qiang Yu wrote:
-> On Wed, Apr 15, 2026 at 09:44:15AM +0200, Krzysztof Kozlowski wrote:
->> On Sun, Apr 12, 2026 at 11:26:00PM -0700, Qiang Yu wrote:
->>> Describe PCIe3a controller and PHY. Also add required system resources
->>> like regulators, clocks, interrupts and registers configuration for PCIe3a.
+On 15/04/2026 20:21, Dawid Glazik wrote:
+> On 4/9/2026 9:30 AM, Krzysztof Kozlowski wrote:
+>> On 09/04/2026 09:28, Krzysztof Kozlowski wrote:
+>>> On Wed, Apr 08, 2026 at 10:34:35PM +0200, Dawid Glazik wrote:
+>>>> Introduce the device-tree bindings for I3C global registers found on
+>>>> AST2600 SoCs.
+>>>>
+>>>> Signed-off-by: Dawid Glazik <dawid.glazik@linux.intel.com>
+>>>> ---
+>>>> I wasn't sure if I should add newline at the end of the
+>>>> file or not so I took
+>>>> https://github.com/torvalds/linux/tree/master/Documentation/devicetree/bindings/i3c
+>>>> as an example.
 >>>
->>> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
->>
->> subject: drop arch.
->>
->> Please use subject prefixes matching the subsystem. You can get them for
->> example with 'git log --oneline -- DIRECTORY_OR_FILE' on the directory
->> your patch is touching. For bindings, the preferred subjects are
->> explained here:
->> https://www.kernel.org/doc/html/latest/devicetree/bindings/submitting-patches.html#i-for-patch-submitters
->>
-> 
-> Thanks for pointing me the link. I’ll drop arch: in next version.
-> 
->>> ---
->>>  arch/arm64/boot/dts/qcom/glymur.dtsi | 316 ++++++++++++++++++++++++++++++++++-
->>>  1 file changed, 315 insertions(+), 1 deletion(-)
+>>> Answer is: you cannot have patch warnings.
 >>>
->>> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
->>> index f23cf81ddb77a4138deeb4e00dd8b316930a2feb..c15f87c37ecbad72076a6c731f4959a1a8bd8425 100644
->>> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
->>> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
->>> @@ -736,7 +736,7 @@ gcc: clock-controller@100000 {
->>>  				 <0>,				/* USB 2 Phy PCIE PIPEGMUX */
->>>  				 <0>,				/* USB 2 Phy PIPEGMUX */
->>>  				 <0>,				/* USB 2 Phy SYS PCIE PIPEGMUX */
->>> -				 <0>,				/* PCIe 3a */
->>> +				 <&pcie3a_phy>,			/* PCIe 3a */
->>>  				 <&pcie3b_phy>,			/* PCIe 3b */
->>>  				 <&pcie4_phy>,			/* PCIe 4 */
->>>  				 <&pcie5_phy>,			/* PCIe 5 */
->>> @@ -3640,6 +3640,320 @@ pcie3b_port0: pcie@0 {
->>>  			};
+>>> Documentation/devicetree/bindings/i3c does not have patch warning, does
+>>> it?
 >>
->> ...
+>> And if you tested this code with standard tools, you would see that...
 >>
->>>> +		pcie3a_phy: phy@f00000 {
->>
->> Same comment as before.
->>
+>> Best regards,
+>> Krzysztof
 > 
-> The existing PCIe/PHY nodes are not strictly ordered by address. Current
-> order is:
+> Thank you for the review and feedback. This is my first contribution to 
+> Linux kernel so I'm still learning the process and toolchain. I 
+> apologize for the rookie mistakes. I will address all the issues you've 
+> pointed out and resubmit the series.
 
-Obviously we cannot even keep order of nodes when creating a new DTSI
-file from scratch.
 
-But adding @f00000 after @1c10000 makes even less sense, regardless how
-bad existing code is. Don't make it worse!
-
-This goes before phy@fa0000
-
-> 
-> - pcie4: pci@1bf0000
-> - pcie4_phy: phy@1bf6000
-> - pcie5: pci@1b40000
-> - pcie5_phy: phy@1b50000
-> - pcie6: pci@1c00000
-> - pcie6_phy: phy@1c06000
-> - pcie3b: pci@1b80000
-> - pcie3a: pci@1c10000 (added in this patch)
-> - pcie3a_phy: phy@f00000 (added in this patch)
-> - pcie3b_phy: phy@f10000
-> 
-> Do you want me to reorder these nodes to follow strict address order?
-
-No, but don't add nodes randomly or following the previous broken order.
+So get the patch reviewed by Intel colleagues which would tell you what
+tools you must run and what warnings are accepted or not (and patch
+warning is never accepted).
 
 Best regards,
 Krzysztof
