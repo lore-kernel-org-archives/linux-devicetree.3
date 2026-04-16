@@ -1,63 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB4653803E4;
-	Thu, 16 Apr 2026 08:55:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C13FF37C924;
+	Thu, 16 Apr 2026 08:56:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776329759; cv=none; b=HkmqzkC237y8LyPKIZ9CMaQtNFubvzI1X+BPUfJ+BUs6HlrxlMpVrPtgkUGMTfapXOir4Xru7dJekFjEWmA53jZMwVkIcRwnQMYVHoPPBNBlRY/eFWsjJo2FlUw5PyGYUOtEhsYGDHVUIgAPk46JlNcG8QsR4dlLuSxSHE6tisk=
+	t=1776329818; cv=none; b=nKp/zUJEHCrQ6Tphu9uod7xF+RxvlePIPo18cojlenY1zyumJGbT+olbUpLYCIQ7wLGJYYe+VY9VbVYQo6NPB1qeh5vI96WP+TNinloWqsFLxigk6tuLZkeHzbHY70nrP+u12o71O2Uq5Hl4lxvLEhD+JufNr1AGev+WYcan29g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776329759; c=relaxed/simple;
-	bh=qP9op7qqcS5Lukl0xY0FbOKSLZSPfuuTkBQ5FGAIXHs=;
+	s=arc-20240116; t=1776329818; c=relaxed/simple;
+	bh=vl7msSVm/Rgwxg49h1Sq1unOUgNN5gUFB5siCR+yTVI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eecpctI9I+2cTil7kbrNbea4202oxQSJKHcb44SGCNU5poUE+WG4fRDVQYJ5R5XMiaf94mhhAnPYTUJy+2KIbq+mXyst139gR3KRpYAgWC7C+0joLv/+eU89GcQYC5kS846Jdg6Mx09Pz0KNrlpqKe9yYh/3QwBmC9JNKc2WvwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iJlnzjZD; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=qab4T8cIrFuaIIytzvk83IKB+T5e++MjsOERlpNR3x3oGJt1dzaPMDUCxxxjldETnxr5Prep5rf8kngjKNOy7z4jVo3Plvprs2OoTHV3H8oFAZVxg3nxl7fRaz6IbMjoeVHDpajqzQ90s7SspG23Y+JfYHtt80ZoR432RQ281CA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pgLFFsm6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iJlnzjZD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE584C2BCB3;
-	Thu, 16 Apr 2026 08:55:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pgLFFsm6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5A3FC2BCAF;
+	Thu, 16 Apr 2026 08:56:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776329759;
-	bh=qP9op7qqcS5Lukl0xY0FbOKSLZSPfuuTkBQ5FGAIXHs=;
+	s=k20201202; t=1776329818;
+	bh=vl7msSVm/Rgwxg49h1Sq1unOUgNN5gUFB5siCR+yTVI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=iJlnzjZDwcviicCbIILPDAxC4Y0Mnwb5Vex/ZZdnkcTF4swx0HthKq5a/CxVUQJ5I
-	 RaWf/yMsvg2I7H+kK63WbY+o5zZt0NKR7QtexrEONzBwSOzI6xsrS6jpTYT39jbH02
-	 JAJFyv/K9BkTkJQziyfkkJJ+FhebMJ0JYH6D9GiJAJLx0OQpJOmwTMXGH3MoSGp+d2
-	 bqootzA4OtnmAGQ1OTMfP8QAFPMn4OuQ2WmuMCjZIKcbYpFs1TAUh1TPAydaBLNcIX
-	 5xr/kJUuKYS9LEiUC46WBOHJwYYsjh4h8xTtUoYnGFn89huAW56f/j+VjePkFn3Dl6
-	 dy5VRIffuc3YA==
-Date: Thu, 16 Apr 2026 14:25:39 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Chen-Yu Tsai <wenst@chromium.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
-	Rob Herring <robh@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jiri Slaby <jirislaby@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
-	Nicolas Schier <nicolas.schier@linux.dev>, Hans de Goede <hansg@kernel.org>, 
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Mark Pearson <mpearson-lenovo@squebb.ca>, 
-	"Derek J. Clark" <derekjohn.clark@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Bartosz Golaszewski <brgl@bgdev.pl>, 
-	Bartosz Golaszewski <brgl@kernel.org>, linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-kbuild@vger.kernel.org, platform-driver-x86@vger.kernel.org, linux-pci@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
-	linux-pm@vger.kernel.org, Stephan Gerhold <stephan.gerhold@linaro.org>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, linux-acpi@vger.kernel.org, 
-	Hans de Goede <johannes.goede@oss.qualcomm.com>, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v7 0/8] Add support for handling PCIe M.2 Key E
- connectors in devicetree
-Message-ID: <4yockfx5rjcvfh2n2excrgsknnhi72rv2w7wf7onks2ryt33sm@w7zkcxuc6vem>
-References: <20260326-pci-m2-e-v7-0-43324a7866e6@oss.qualcomm.com>
- <20260413075459.GA2626902@google.com>
- <fpcs4p62f35a5qyqwgm5ysa73stbysxcr62tkmmkrrcvsuf4t4@4ivukyqjey57>
- <eeytuhqpgdz4do4tgtbmfntub2femtyq7bij7svhodpyjwaylx@j3gmvq2a2zqc>
- <CAGXv+5E=tujhtZjwi6Qm7hk3Ks74UzTQHWq82NiTEw1+vYod5g@mail.gmail.com>
- <ad36pIu-0dutL7Nk@ashevche-desk.local>
- <CAGXv+5EGe59nJctLweEdZjb3MNmMvjuCHngGSfptzN985OiLdg@mail.gmail.com>
- <ad4tJN27opdEooA7@ashevche-desk.local>
- <CAGXv+5EPA29G-fsH=wWOD8AK6TZFezFhsE0NHPYj_Pt3nT+d_w@mail.gmail.com>
- <20260415165651.153b573d@bootlin.com>
+	b=pgLFFsm6NHz3pwjpal0HBdNtK2K9UWYBSwSvTYF6hNldu5GBSvOUb/qDfaYLvjRmP
+	 t2VuX+M10i0DNuGtsM01lRnTiCftAnFhz/V2e/BiWuO/PjMkjma4wm3gyou/9CfV2A
+	 XCWWecdUlDqlfvOljHlGvLF68zQq3YKPEOrKrTAAyoyzwi2zcw71kjsN9yQFwPdlks
+	 qwi1eo6sYaz4EosAB9PpDTFFxHCic5BKyeNAxEOzahtjzjBwPObNi1OyGPJqCizDql
+	 CynunWN8OMIO3+ct8ptqc0GksMa6Y49V7bM+oo40Icu4MkDc3IkFxCOKwnLYq5f6qV
+	 INjFB9QOpYXrw==
+Date: Thu, 16 Apr 2026 10:56:55 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Xiaoshun Xu <xiaoshun.xu@mediatek.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+	Sirius Wang <sirius.wang@mediatek.com>, Vince-wl Liu <vince-wl.liu@mediatek.com>, 
+	Project_Global_Chrome_Upstream_Group@mediatek.com
+Subject: Re: [PATCH v3 4/6] dt-bindings: soc: mediatek: devapc: Add bindings
+ for MT8189
+Message-ID: <20260416-sophisticated-wealthy-hawk-efb7f4@quoll>
+References: <20260416031231.2932493-1-xiaoshun.xu@mediatek.com>
+ <20260416031231.2932493-5-xiaoshun.xu@mediatek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -66,104 +49,80 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260415165651.153b573d@bootlin.com>
+In-Reply-To: <20260416031231.2932493-5-xiaoshun.xu@mediatek.com>
 
-On Wed, Apr 15, 2026 at 04:56:51PM +0200, Herve Codina wrote:
-> Hi Chen, all,
+On Thu, Apr 16, 2026 at 11:12:07AM +0800, Xiaoshun Xu wrote:
+> Extend the devapc device tree bindings to support the MediaTek MT8189
+> SoC. This includes:
 > 
-> ...
+> - Adding "mediatek,mt8189-devapc" to the list of compatible strings.
+> - Introducing the "vio-idx-num" property to specify the number of bus
+>   slaves managed by devapc.
+> 
+> These changes enable proper configuration and integration of devapc on
+> MT8189 platforms, ensuring accurate device matching and resource
+> allocation in the device tree.
+
+Pointless paragraph. Would you write a commit which does not enable
+proper configuration?
+
+> 
+> Signed-off-by: Xiaoshun Xu <xiaoshun.xu@mediatek.com>
+> ---
+>  .../devicetree/bindings/soc/mediatek/devapc.yaml       | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/soc/mediatek/devapc.yaml b/Documentation/devicetree/bindings/soc/mediatek/devapc.yaml
+> index 99e2caafeadf..06a096440331 100644
+> --- a/Documentation/devicetree/bindings/soc/mediatek/devapc.yaml
+> +++ b/Documentation/devicetree/bindings/soc/mediatek/devapc.yaml
+> @@ -14,13 +14,14 @@ description: |
+>    analysis and countermeasures.
 >  
-> > 
-> > I'm not arguing for a even more generic "M.2" connector. The "key" is
-> > already described in the compatible. I'm saying we should have some way
-> > of describing the individual interfaces (PCIe, SDIO, USB, UART, I2S, I2C)
-> > on the connector so further nodes or properties can be attached to them,
-> > either with overlays or dynamically within the kernel. Right now the
-> > are only described as individual ports, but we can't actually tie a
-> > device to a OF graph port.
-> > 
-> > But maybe I'm overthinking the representation part. AFAICT for Qualcomm's
-> > UART-based BT bit part, Mani just had the driver create a device node
-> > under the UART (by traversing the OF graph to find the UART). If that's
-> > the desired way then the connector binding should mention it. And that
-> > works for me. But I think it's messier and also we're missing an
-> > opportunity to make the M.2 connector a standardized attachment point
-> > for overlays.
-> > 
-> > Mani, could you also chime in a bit on what you envisioned?
-> > 
-> > (Added Luca from Bootlin to CC, as I think there are parallels to the
-> >  "Hotplug of Non-discoverable Hardware" work)
-> >
-> 
-> Related to "Hotplug of Non-discoverable Hardware",
-> 
-> I would add entries for busses in the connector without using an OF graph.
-> 
+>  maintainers:
+> -  - Neal Liu <neal.liu@mediatek.com>
 
-I don't think this is a correct representation. It is non-standard to describe
-the device nodes in some other connectors. While it may work with your series in
-the future, not something I would bet-on at this point.
+Your commit said what the change is doing. It's pointless because we see
+it in the diff. Except that we don't...
 
-Using OF graph to link the connector nodes look like the cleaner solution to me.
+> +  - Xiaoshun Xu <xiaoshun.xu@mediatek.com>
+>  
+>  properties:
+>    compatible:
+>      enum:
+>        - mediatek,mt6779-devapc
+>        - mediatek,mt8186-devapc
+> +      - mediatek,mt8189-devapc
+>  
+>    reg:
+>      description: The base address of devapc register bank
+> @@ -30,6 +31,10 @@ properties:
+>      description: A single interrupt specifier
+>      maxItems: 1
+>  
+> +  vio-idx-num:
 
-> For I2C and later SPI, this was is done.
-> 
-> You already have an i2c-parent property but no node where an i2c device
-> can be added.
-> 
-> The last discussion related to hotplug, connectors and DT led to the RFC
-> series [1].
-> 
-> It is a huge series. The last patch give a real example of representation:
->   https://lore.kernel.org/all/20260112142009.1006236-78-herve.codina@bootlin.com/
-> 
-> In your case I would see some thing like:
-> 
->     connector {
->         compatible = "pcie-m2-e-connector";
->         vpcie3v3-supply = <&vreg_wcn_3p3>;
->         vpcie1v8-supply = <&vreg_l15b_1p8>;
-> 
-> 	/*
-> 	 * If those GPIOs have to be used by components available in
-> 	 * the connected board, a Nexus node should be used.
->          */
->         w-disable1-gpios = <&tlmm 115 GPIO_ACTIVE_LOW>;
->         w-disable2-gpios = <&tlmm 116 GPIO_ACTIVE_LOW>;
->         viocfg-gpios = <&tlmm 117 GPIO_ACTIVE_HIGH>;
->         uart-wake-gpios = <&tlmm 118 GPIO_ACTIVE_LOW>;
->         sdio-wake-gpios = <&tlmm 119 GPIO_ACTIVE_LOW>;
->         sdio-reset-gpios = <&tlmm 120 GPIO_ACTIVE_LOW>;
-> 
-> 	conn-i2c {
-> 		i2c-parent = <&i2c0>;
-> 
-> 		/*
->  		 * Here i2c devices available on the board
-> 		 * connected to the connector can be described.
-> 		 */
-> 	};
-> 
-> 	/* Same kind to description for other busses */
-> 	conn-pcie {
-> 		pci-parent = <&xxxxx>;
-> 
-> 		/*
-> 		 * The PCIe bus has abilities to discover devices.
-> 		 * Not sure this node is needed.
-> 		 *
-> 		 * If a PCI device need a DT description to describe
-> 		 * stuffs behind the device, what has been done for LAN966x
-> 		 * could be re-used [2] and [3]
-> 		 */
+Nah, compatible defines it. Please follow standard rules for bindings,
+see writing-bindings doc.
 
-I don't think anyone would connect something like LAN966x to the M.2 connector.
-M.2 cards have a defined purpose, like NVMe, WLAN etc... If anyone wants to
-connect another SoC like LAN966x, they would use non-M.2 connectors.
 
-- Mani
+> +    description: Describe the number of bus slaves controlled by devapc
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +
+>    clocks:
+>      description: Contains module clock source and clock names
+>      maxItems: 1
+> @@ -42,8 +47,6 @@ required:
+>    - compatible
+>    - reg
+>    - interrupts
+> -  - clocks
+> -  - clock-names
 
--- 
-மணிவண்ணன் சதாசிவம்
+Why?
+
+This commit explains nothing and makes some random-looking code changes.
+
+Best regards,
+Krzysztof
+
