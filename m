@@ -1,341 +1,150 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E571322B7D;
-	Thu, 16 Apr 2026 17:51:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50ADC191F91
+	for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 18:01:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776361878; cv=none; b=j7WmTq6R5uJ11KuUnS+2Go5gZC8ACjZwXYIMvuKUomy9xMw+q10tnujrFZkiI9AKdXGfur/qWlaiX5aU5j9J34oD7ogabWv7PYAq5DMzgm5XtXg14D97zU2rxNaaLYQN1qALzLWg1K3hVCbnDoRxSnITwfke36LOX+HeGrFnoSU=
+	t=1776362521; cv=none; b=YTJ7WdD8QMFZv5CwC5q4L5N41OwXC53pprlQ3ErhtcJ/QUH6/18PuHJ9kA/N/YwlGGcGoSGzUh8DYLY2ufY92dR0/5Oz/Ev7dq0MQYhRIC9PT0wMhHxef+o+uiqcmgoHyricPVcAF2tQlSMfm/YFN4PyVd/ZHu3F9+AnvPPxAM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776361878; c=relaxed/simple;
-	bh=n1mwyY11ooJjVMa1y3e0LBKRobsKQDCVDDmSs95TWUk=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=bv5V5u115+GYURIFQHsQRm6kFqmDIY9AiVNZnbgFQPBL1tsOcRw5tcu2Un1+QoZgzY8vROf9dcO3LFRjQRpmE4ojz7EhUYIsXsIh59600mLBBtEy2xDfwVNb7r8IqgSE2LhRAnvn5yDD+ZSIvkL7Xksyw+bfXTJawBvHDMPXcV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=pass smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=khL0DCG7; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1776362521; c=relaxed/simple;
+	bh=un5vJmKuf9KhDXulQKe/Bn2uSGgatkG8otaxH+Varv4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qyD4TstqqvfzcLQy1yZ+7z65z82AH2PdTr8z9ZKMChvdN9kYkR3vqCzQ1/hQNwQcLdIuw/38cGWdI1BhODousMOJHQ45PuKdZsgcMIU/tCWcRlAUEB9wzkP4YfoVe7jNj0w7IArCas3PSBiW0n3e3B8UzEDZq7Vfjoqcln9XsW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lFGqjjSZ; arc=none smtp.client-ip=74.125.82.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="khL0DCG7"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 919C7FB7E9;
-	Thu, 16 Apr 2026 19:51:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1776361868; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=jFEFBsckozMzj3hugoSbDEI2lfszgMQy6N4tJWS0jjg=;
-	b=khL0DCG7YRgrXR33Zv4TxZELi85EwoQYYaZ8HxNte1FuYAeua+6q8VSwGnuuDVP9UxWqLR
-	YMXJqRnnd0733PfrqxgAkdBw0fCuyy1HLt3fDV1ixbrMXSu+V4dzPlMm/bT1H5/aRh+Xh5
-	0dSTWfs5l3vrNeEPzESMAgntPUUurR1VCBBaMN6Nk9S+/l77UnI5QYdKIoAC4rHmVzegEA
-	xASYa6T7I4TY80SXmm5+WsSj8BdXie3A+jhW2ASqKcz4ky4Cb7Er3JuFcjvZwxkscacL6x
-	pHNT6pqXvq/9YBOt1ItKcvD7K1D2H/bZQwH8E6Mc7+Iu8iP+QHXj+BsZTaojIw==
-From: Caleb James DeLisle <cjd@cjdns.fr>
-To: linux-mips@vger.kernel.org
-Cc: naseefkm@gmail.com,
-	daniel.lezcano@kernel.org,
-	tglx@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Caleb James DeLisle <cjd@cjdns.fr>
-Subject: [PATCH 2/2] clocksource/timer-econet-en751221: Support irq number per timer
-Date: Thu, 16 Apr 2026 17:51:01 +0000
-Message-Id: <20260416175101.958073-3-cjd@cjdns.fr>
-In-Reply-To: <20260416175101.958073-1-cjd@cjdns.fr>
-References: <20260416175101.958073-1-cjd@cjdns.fr>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lFGqjjSZ"
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-12c7212836bso72346c88.0
+        for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 11:01:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776362518; x=1776967318; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=60N7vYgebawIQ/IuYOlbRBF7aQ2YJsB3l2hVZCHj0iY=;
+        b=lFGqjjSZawaoX9bvO5qtNBgabIeOn0sABdcSph05og/r72pUXZ4O1Ku2t5iqIIPJi8
+         IlLvf6F5kDq498QKUJL/vDTLs3Rly7TwJ4NQ5rj+RnTnTAqI8BML2Yn5Mg0GlYI0Q8dR
+         oYjVygkUtgI1wLwVkCwQ8jjot+7ozeP1vH81mjO61P0XgctK9p/syF6zPhTsXVM2AsA/
+         71RhFKggWWP63JVr6dEngtPOQQCMCIfhNEXLAM/u5DPu8qUe5DVIoPFO5AAd7LpM17M/
+         mPbNMbuKkrCBD3nhIwioUiqNcXfqH6OHKYPTt661ERPzrnAnzEgmKLXuX6e3c2yQErL+
+         bOWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776362518; x=1776967318;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=60N7vYgebawIQ/IuYOlbRBF7aQ2YJsB3l2hVZCHj0iY=;
+        b=Ne/XI4tsdJiEGW06FQ6cSK2uVs5V8azi4jMlKeJf5bqkFCsoeQLSq3hsx27RlHwlfk
+         96g56aWqj8Wc3QWRklYt3gIlTuXc/zYpb/BKpt2rDwO8YRLYydh85v0kJsPg469r1W+v
+         GKoWKcrbBrnt5KUbCEyfywWIVAX3++/HICyZhOwtoOUPU5j3wjp5n29Ic+eVBi0p+jCA
+         AltSX4AIP9ZRtqNL2e2vvVY7sn/76CRt05X8srO03Qnc69F1BN2kRImqRFxwrt53yDQP
+         ICD+UCypgfOR4k3In14CeFOHw9kjEhXTljwE8ig+/QeHV0tVeQTPP2MS9zaHs+zOicMd
+         UGXw==
+X-Forwarded-Encrypted: i=1; AFNElJ8Ap9k6wE3Nbvs7gpjTq7YxEkfV17dvsKxZ9DB/LUxBmbBbqc6psiZIoh+SeA8K96S1wwiMf0BEF2ZS@vger.kernel.org
+X-Gm-Message-State: AOJu0YxPH+Rrtl3r8HiK+xHkn4oPzvojGJ7g34AhGzBxU7rEPPctQm1u
+	9mnCnOTHl/2AJGxgvVHjkIEotaPHd1TIMiTly8Vfde4VeIiHMqe/6ui6zOvfUg==
+X-Gm-Gg: AeBDiethc2+aK5lMgfM9p32wEVe3R22W4975QGkciP17KskBdFCcilRhruw6kjiFBT/
+	HX36mZnTXO3zJtPWU4ET0QVEwY7a+4n6LXAtXtzcazUMbayOiLs5M2tYLpkE7ptAIbKPfRTAuJo
+	Uur3ouSRRrFczazfDxgGtQDcu7QkSmAz+mLRIAuTnPCnvYbsH9DI+DxEUzRS+mQalOOA0xJf9mz
+	dxpPMDEdB5THL1HH3zzxyOr12KPj8w5KTxUvla0qzKClUzy3NMHLTg8iMyHFhr8zYJxyQR3kmJD
+	b7BBhjsWeY64ritZnSH7UWoIbBE+w0ED9jb9dy4GEJleU7hrci3j1SOcIZJ/eCqh2Xq1keDK5sY
+	ufX5Almfb06n7VA/l3YSaQsqpPeGg26albx3OB9cY8eHJCIUnmu8IEapUnDgBarPK1GYc9YkGce
+	Yf4cgr7VX4fsv6CHd3vtrqLNTq72GjwD5K20haQWI9prMG/Cc=
+X-Received: by 2002:a05:7022:6b94:b0:12c:4928:e57f with SMTP id a92af1059eb24-12c7285b24dmr66236c88.25.1776362516755;
+        Thu, 16 Apr 2026 11:01:56 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-12c6e0fc4absm2056544c88.3.2026.04.16.11.01.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 16 Apr 2026 11:01:52 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Thu, 16 Apr 2026 11:01:49 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Conor Dooley <conor@kernel.org>
+Cc: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: hwmon: pmbus: add max20830
+Message-ID: <84a5154f-1139-425e-94ae-31d7e662cd0e@roeck-us.net>
+References: <20260416-dev_max20830-v2-0-2c7d676dc0bd@analog.com>
+ <20260416-dev_max20830-v2-1-2c7d676dc0bd@analog.com>
+ <20260416-diaphragm-corrode-494560404ed4@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260416-diaphragm-corrode-494560404ed4@spud>
 
-This timer was first developed on the EN751221 which is a MIPS 34Kc
-and therefore has a custom interrupt controller. The hardware for
-econet,en751221-intc implements percpu routing of the timer
-interrupts.
+On Thu, Apr 16, 2026 at 04:51:37PM +0100, Conor Dooley wrote:
+> On Thu, Apr 16, 2026 at 03:59:10PM +0800, Alexis Czezar Torreno wrote:
+> > Add device tree documentation for MAX20830 step-down DC-DC switching
+> > regulator with PMBus interface.
+> > 
+> > Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+> > ---
+> >  .../bindings/hwmon/pmbus/adi,max20830.yaml         | 61 ++++++++++++++++++++++
+> >  MAINTAINERS                                        |  7 +++
+> >  2 files changed, 68 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/adi,max20830.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/adi,max20830.yaml
+> > new file mode 100644
+> > index 0000000000000000000000000000000000000000..8b3ec1ffa0c9460de2122f6606ce3dcbcdfbbcc7
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/hwmon/pmbus/adi,max20830.yaml
+> > @@ -0,0 +1,61 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/hwmon/pmbus/adi,max20830.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Analog Devices MAX20830 Step-Down Switching Regulator with PMBus
+> > +
+> > +maintainers:
+> > +  - Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+> > +
+> > +description: |
+> > +  The MAX20830 is a fully integrated step-down DC-DC switching regulator with
+> > +  PMBus interface. It provides 2.7V to 16V input, 0.4V to 5.8V adjustable
+> > +  output, and up to 30A output current. It allows monitoring of input/output
+> > +  voltage, output current and temperature through the PMBus serial interface.
+> > +  Datasheet:
+> > +    https://www.analog.com/en/products/max20830.html
+> > +
+> > +allOf:
+> > +  - $ref: /schemas/regulator/regulator.yaml#
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: adi,max20830
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> 
+> On the previous version, you got an LLM comment about not having the
+> interrupts property amongst other things.
+> I think the other things got implemented, but I didn't see any reply to
+> the bot about that?
+> I think the answer is that it shouldn't because the pin it referenced
+> doesn't exist, but when looking at the schematic I have to wonder if
 
-However, the EN751627 and EN7528 are MIPS 1004Kc based, and
-therefore use the standard mti,gic compatible interrupt controller.
-This interrupt controller uses a different IRQ number for each
-timer interrupt.
+I had to look this up in the datasheet. A SMBus chip with no alert pin is
+a bit odd, but you are correct.
 
-Add support for both models in this timer driver.
+> there should be an interrupts property for dealing with "pgood"?
+> 
+FWIW, I have never seen that. Normally such pins are used to take devices
+out of reset.
 
-Co-developed-by: Ahmed Naseef <naseefkm@gmail.com>
-Signed-off-by: Ahmed Naseef <naseefkm@gmail.com>
-Link: https://github.com/openwrt/openwrt/commit/fab098cb6121647ca9cc6e501d56ebe8a9ea550b#diff-a09ee5e4166e89df337d03c1455dce7b81eb89797b1d0f714476b188e6685334
-
-[cjd@cjdns.fr minor changes:
-Set ECONET_MAX_IRQS to NR_CPUS rather than 4
-Use is_percpu_irq() instead of field
-Do not set CLOCK_EVT_FEAT_PERCPU in non-percpu mode
-Fold cevt_init() into timer_init()
-]
-
-Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
----
- drivers/clocksource/Kconfig                 |   5 +-
- drivers/clocksource/timer-econet-en751221.c | 137 ++++++++++++++++----
- 2 files changed, 114 insertions(+), 28 deletions(-)
-
-diff --git a/drivers/clocksource/Kconfig b/drivers/clocksource/Kconfig
-index d1a33a231a44..9a77f38d5fb7 100644
---- a/drivers/clocksource/Kconfig
-+++ b/drivers/clocksource/Kconfig
-@@ -79,7 +79,10 @@ config ECONET_EN751221_TIMER
- 	select CLKSRC_MMIO
- 	select TIMER_OF
- 	help
--	  Support for CPU timer found on EcoNet MIPS based SoCs.
-+	  Support for CPU timer found on EcoNet EN75xx MIPS based SoCs
-+	  (EN751221, EN751627, EN7528). The driver supports both GIC-based
-+	  (separate IRQ per CPU) and legacy interrupt controller (percpu IRQ)
-+	  modes.
- 
- config FTTMR010_TIMER
- 	bool "Faraday Technology timer driver" if COMPILE_TEST
-diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocksource/timer-econet-en751221.c
-index 4008076b1a21..e280ee8c2b1c 100644
---- a/drivers/clocksource/timer-econet-en751221.c
-+++ b/drivers/clocksource/timer-econet-en751221.c
-@@ -3,11 +3,13 @@
-  * Timer present on EcoNet EN75xx MIPS based SoCs.
-  *
-  * Copyright (C) 2025 by Caleb James DeLisle <cjd@cjdns.fr>
-+ * Copyright (C) 2025 by Ahmed Naseef <naseefkm@gmail.com>
-  */
- 
- #include <linux/io.h>
- #include <linux/cpumask.h>
- #include <linux/interrupt.h>
-+#include <linux/irq.h>
- #include <linux/clockchips.h>
- #include <linux/sched_clock.h>
- #include <linux/of.h>
-@@ -21,14 +23,26 @@
- #define ECONET_MAX_DELTA		GENMASK(ECONET_BITS - 2, 0)
- /* 34Kc hardware has 1 block and 1004Kc has 2. */
- #define ECONET_NUM_BLOCKS		DIV_ROUND_UP(NR_CPUS, 2)
-+#define ECONET_MAX_IRQS			NR_CPUS
- 
- static struct {
- 	void __iomem	*membase[ECONET_NUM_BLOCKS];
- 	u32		freq_hz;
-+	int		irqs[ECONET_MAX_IRQS];
-+	int		num_irqs;
- } econet_timer __ro_after_init;
- 
- static DEFINE_PER_CPU(struct clock_event_device, econet_timer_pcpu);
- 
-+/* This timer supports two interrupt controller models, either 1 IRQ which is in per-cpu
-+ * mode which is used on 34Kc CPUs, and separate IRQ number per CPU which is used on
-+ * 1004Kc CPUs with GIC intc.
-+ */
-+static inline bool is_percpu_irq(void)
-+{
-+	return econet_timer.num_irqs == 1;
-+}
-+
- /* Each memory block has 2 timers, the order of registers is:
-  * CTL, CMR0, CNT0, CMR1, CNT1
-  */
-@@ -98,12 +112,21 @@ static int cevt_init_cpu(uint cpu)
- 	struct clock_event_device *cd = &per_cpu(econet_timer_pcpu, cpu);
- 	u32 reg;
- 
-+	if (!is_percpu_irq() && cpu >= econet_timer.num_irqs)
-+		return -EINVAL;
-+
- 	pr_debug("%s: Setting up clockevent for CPU %d\n", cd->name, cpu);
- 
- 	reg = ioread32(reg_ctl(cpu)) | ctl_bit_enabled(cpu);
- 	iowrite32(reg, reg_ctl(cpu));
- 
--	enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
-+	if (is_percpu_irq()) {
-+		enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
-+	} else {
-+		if (irq_force_affinity(econet_timer.irqs[cpu], cpumask_of(cpu)))
-+			pr_warn("%s: failed to set IRQ %d affinity to CPU %d\n",
-+				cd->name, econet_timer.irqs[cpu], cpu);
-+	}
- 
- 	/* Do this last because it synchronously configures the timer */
- 	clockevents_config_and_register(cd, econet_timer.freq_hz,
-@@ -126,7 +149,20 @@ static void __init cevt_dev_init(uint cpu)
- 	iowrite32(U32_MAX, reg_compare(cpu));
- }
- 
--static int __init cevt_init(struct device_node *np)
-+static void __init cevt_setup_clockevent(struct clock_event_device *cd,
-+					 struct device_node *np,
-+					 int irq, int cpu)
-+{
-+	cd->rating		= 310;
-+	cd->features		= CLOCK_EVT_FEAT_ONESHOT |
-+				  CLOCK_EVT_FEAT_C3STOP;
-+	cd->set_next_event	= cevt_set_next_event;
-+	cd->irq			= irq;
-+	cd->cpumask		= cpumask_of(cpu);
-+	cd->name		= np->name;
-+}
-+
-+static int __init cevt_init_percpu(struct device_node *np)
- {
- 	int i, irq, ret;
- 
-@@ -137,42 +173,65 @@ static int __init cevt_init(struct device_node *np)
- 	}
- 
- 	ret = request_percpu_irq(irq, cevt_interrupt, np->name, &econet_timer_pcpu);
--
- 	if (ret < 0) {
- 		pr_err("%pOFn: IRQ %d setup failed (%d)\n", np, irq, ret);
--		goto err_unmap_irq;
-+		irq_dispose_mapping(irq);
-+		return ret;
- 	}
- 
- 	for_each_possible_cpu(i) {
- 		struct clock_event_device *cd = &per_cpu(econet_timer_pcpu, i);
- 
--		cd->rating		= 310;
--		cd->features		= CLOCK_EVT_FEAT_ONESHOT |
--					  CLOCK_EVT_FEAT_C3STOP |
--					  CLOCK_EVT_FEAT_PERCPU;
--		cd->set_next_event	= cevt_set_next_event;
--		cd->irq			= irq;
--		cd->cpumask		= cpumask_of(i);
--		cd->name		= np->name;
-+		cevt_setup_clockevent(cd, np, irq, i);
-+		cd->features |= CLOCK_EVT_FEAT_PERCPU;
-+		cevt_dev_init(i);
-+	}
-+
-+	return 0;
-+}
- 
-+static int __init cevt_init_separate(struct device_node *np)
-+{
-+	int i, ret;
-+
-+	for (i = 0; i < econet_timer.num_irqs; i++) {
-+		struct clock_event_device *cd = &per_cpu(econet_timer_pcpu, i);
-+
-+		econet_timer.irqs[i] = irq_of_parse_and_map(np, i);
-+		if (econet_timer.irqs[i] <= 0) {
-+			pr_err("%pOFn: irq_of_parse_and_map failed", np);
-+			ret = -EINVAL;
-+			goto err_free_irqs;
-+		}
-+
-+		ret = request_irq(econet_timer.irqs[i], cevt_interrupt,
-+				  IRQF_TIMER | IRQF_NOBALANCING,
-+				  np->name, NULL);
-+		if (ret < 0) {
-+			pr_err("%pOFn: IRQ %d setup failed (%d)\n", np,
-+			       econet_timer.irqs[i], ret);
-+			irq_dispose_mapping(econet_timer.irqs[i]);
-+			goto err_free_irqs;
-+		}
-+
-+		cevt_setup_clockevent(cd, np, econet_timer.irqs[i], i);
- 		cevt_dev_init(i);
- 	}
- 
--	cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
--			  "clockevents/econet/timer:starting",
--			  cevt_init_cpu, NULL);
- 	return 0;
- 
--err_unmap_irq:
--	irq_dispose_mapping(irq);
-+err_free_irqs:
-+	while (--i >= 0) {
-+		free_irq(econet_timer.irqs[i], NULL);
-+		irq_dispose_mapping(econet_timer.irqs[i]);
-+	}
- 	return ret;
- }
- 
- static int __init timer_init(struct device_node *np)
- {
--	int num_blocks = DIV_ROUND_UP(num_possible_cpus(), 2);
- 	struct clk *clk;
--	int ret;
-+	int ret, i;
- 
- 	clk = of_clk_get(np, 0);
- 	if (IS_ERR(clk)) {
-@@ -182,11 +241,18 @@ static int __init timer_init(struct device_node *np)
- 
- 	econet_timer.freq_hz = clk_get_rate(clk);
- 
--	for (int i = 0; i < num_blocks; i++) {
-+	econet_timer.num_irqs = of_irq_count(np);
-+	if (econet_timer.num_irqs <= 0 || econet_timer.num_irqs > ECONET_MAX_IRQS) {
-+		pr_err("%pOFn: invalid IRQ count %d\n", np, econet_timer.num_irqs);
-+		return -EINVAL;
-+	}
-+
-+	for (i = 0; i < ECONET_NUM_BLOCKS; i++) {
- 		econet_timer.membase[i] = of_iomap(np, i);
- 		if (!econet_timer.membase[i]) {
- 			pr_err("%pOFn: failed to map register [%d]\n", np, i);
--			return -ENXIO;
-+			ret = -ENXIO;
-+			goto err_unmap;
- 		}
- 	}
- 
-@@ -196,21 +262,38 @@ static int __init timer_init(struct device_node *np)
- 				    clocksource_mmio_readl_up);
- 	if (ret) {
- 		pr_err("%pOFn: clocksource_mmio_init failed: %d", np, ret);
--		return ret;
-+		goto err_unmap;
- 	}
- 
--	ret = cevt_init(np);
-+	if (is_percpu_irq())
-+		ret = cevt_init_percpu(np);
-+	else
-+		ret = cevt_init_separate(np);
-+
- 	if (ret < 0)
--		return ret;
-+		goto err_unmap;
-+
-+	cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
-+			  "clockevents/econet/timer:starting",
-+			  cevt_init_cpu, NULL);
- 
- 	sched_clock_register(sched_clock_read, ECONET_BITS,
- 			     econet_timer.freq_hz);
- 
--	pr_info("%pOFn: using %u.%03u MHz high precision timer\n", np,
-+	pr_info("%pOFn: using %u.%03u MHz high precision timer (%s mode)\n", np,
- 		econet_timer.freq_hz / 1000000,
--		(econet_timer.freq_hz / 1000) % 1000);
-+		(econet_timer.freq_hz / 1000) % 1000,
-+		is_percpu_irq() ? "percpu" : "separate IRQ");
- 
- 	return 0;
-+
-+err_unmap:
-+	for (i = 0; i < ECONET_NUM_BLOCKS; i++) {
-+		if (econet_timer.membase[i])
-+			iounmap(econet_timer.membase[i]);
-+	}
-+
-+	return ret;
- }
- 
--TIMER_OF_DECLARE(econet_timer_hpt, "econet,en751221-timer", timer_init);
-+TIMER_OF_DECLARE(econet_en751221_timer, "econet,en751221-timer", timer_init);
--- 
-2.39.5
-
+Thanks,
+Guenter
