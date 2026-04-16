@@ -1,163 +1,546 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2091.outbound.protection.partner.outlook.cn [139.219.146.91])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FB2C78F39;
-	Thu, 16 Apr 2026 07:03:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.91
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C428B38947D
+	for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 07:20:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.181
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776323022; cv=fail; b=l4BfXobMy3DLL1XnCXJH79xyymBMZl+jqhjHyuubvpK3kIZNRa7RS7Xi88gotGvoj24v70HRsiHG6lZjLUNtfLGIkG7YHV8mnwMp9Evv5hSAOEgf1q1aDwzmk0zt04FSwkfybCwWwdhwMWmn6Vv96LRDO3bw/K6bT19WKc/QHvM=
+	t=1776324008; cv=pass; b=nDAIvhy1D+h9dYpHZZ+QZUretu8+4++JkRKJNEjzJJhFQwmKhZ5mTUQ/JoooZ1tIk8Zl1GZdZ073UfbeVsC7tQShWOTap7rM0LS1GpNJmtMo2824Y8I0OftpJbERwxU7SX5nta2GXdToMPQZ/Nii215DPmi4mtpU62wztP+CCow=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776323022; c=relaxed/simple;
-	bh=cY7UROBu+5pyWIQGC0K3sQaFpS0JSteilRkz/rDm4f4=;
-	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=TqIfFGPHbilXYiFRXuxRHGbr1WyRTfq25aEpF3rhIgGSEP3nOEGTyZz457Gw8zsMKTnvlrNQ4vbBS4p3OG1GESWgqO4r9nms4jRxsvgEq4K4NRhEWyal8u1Lxrl5ca4AkHb5leiKbUeEwlwqq6IM0lnXwHRJbOwTJDMNE12sOHk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.91
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Mz7y2F2t3J/K9x7wnHG0Pio1iYAGUrPOClm73Jd7AOi7fLnnOtR1W+DiTDl9ix1NjCW6MEXUjS4a4FEZuWqlWv/wrc2egg9e4YMeroeQTvJbaKtvhYWIInVuUBFefFygA7y26I6tO2Y3W8Qw1Ii7VXK1XpYfkKWJRqyRq+j1DtWE8zzikY+0Bdj71qkrYOp+kFxFB/+FNnB/pEJsUx6XmIIegjS7KgKk3w0Cre4NMcwe0+EOf3wQm2v++w7Yo+Mg+clW64SxyahYAtCy/77sB+YGJSCo9QVLZXv5wTCB7kc3LQJXUY1+PDsn0WIOlzvb21BN9UjBieBs2HGIEySsMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RmnrUPcgTD8ahEorYwwbtT07/kasYa7E0rZPrsQJ1Nc=;
- b=C4T00qyLIWeR4FK6V3BmF53hc2wFaEiTEgKEkcDMqGez3AS6oVOyZAYRI+DsbwKP1ju2y5Lh/9qDsS5r9nfKPh0K4iwcCi6y6rnLctH+p17npowRqJWOdeCfgmW0Tq5P7VWwrdm2lYW6VjjQTVSnQnA58GnrD/vOnBGev21fRRv+Bp5UzJgmVwQ9xrUqfwPKTwiLyKxrVYqIA17wArVQXpdEKCeNszaennhj5FoXOG5+eTvtOz/Jb2GWYvvxyYlBbOlrtGVE7099n/AIHgUUbs1hg/l9LTL7+syDLX0kr7BE0YJi12o3ZBygi9DzywxyYhXp5QHzBGJiGlcTY/TCZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:11::9) by NT0PR01MB1231.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:e::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.51; Thu, 16 Apr
- 2026 06:48:14 +0000
-Received: from NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
- ([fe80::1666:48e8:19e9:ad29]) by
- NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn ([fe80::1666:48e8:19e9:ad29%7])
- with mapi id 15.20.9769.048; Thu, 16 Apr 2026 06:48:09 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Ley Foon Tan <leyfoon.tan@starfivetech.com>,
-	Changhuang Liang <changhuang.liang@starfivetech.com>
-Subject: [PATCH v2 0/5] Add interrupt controller for JHB100 SoC
-Date: Wed, 15 Apr 2026 23:47:46 -0700
-Message-Id: <20260416064751.632138-1-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: NT0PR01CA0006.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510::8) To NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:11::9)
+	s=arc-20240116; t=1776324008; c=relaxed/simple;
+	bh=/gyTRI5k1jPIFqSRQn4txK224+6rd+nA/ntO584T5dM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ndwg8CDqP1ny00gzkcl0BSQKtXwp3obg+xD0LXv6YC3k906nZGxT5PRtBi1KhKx6JuZJGe0tnEjRGUQaQ/anFu3UoXSrpYKAmQe8JljXQXF/FIZdqSnT6GaB5DpbUUSh1U7ey+s07a9cr59KAs24oAI/eV5uERVn5MfT8e5N2xk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bvp85Fs1; arc=pass smtp.client-ip=209.85.208.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bvp85Fs1"
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-38e12c67a6fso72250661fa.1
+        for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 00:20:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776324004; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Jb75cfxsJCjt+965pLKAAhA8BDGDTcvtic5+reiqia97rurh08Ya8X5wKXRvEKBokI
+         Bd/WW+XwnflkKVct/4niCPRr4VyuKIS4DR2FI6T9PCUQ9gkXQ4jCBoFJFBMqVWocIwWl
+         y1wRABD8TKu+Wlfridg+iz7qpeucbA7psbCQvKY04mDSzDpaYU+9Aqk8oK0UFeV1FfA5
+         CZk4tPlIAqNONODOtnVUc5x4ZFOW6QeC7+tEJzKSD5mT+cDFxWcnRTpn0CwT2k505/x+
+         7JlHdFa5j/Uy0q5aB0WbU2wdvsd3GkVYOBmOuE+t1tJnpy3tYXd3bmGDsOc/sRLqXLzN
+         PVeQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=12LljQo9v9VqYtlqMKjlKnyqUso1P6vImLmY4jcnOd0=;
+        fh=ZXPk0Fztp0zc9YT4BOP5tbviYipW7PkXbeQeQj54fl8=;
+        b=Uh/jaL/cJwjKAx6WM7+OzrQesHBxSDKGFNqGNKL5nt1iJmbo77sstaTbRzEdiNKJN9
+         k9OcBNXVoVlh6VWtA8WCeY03hfWZiCra+cfyD8I1RCAhaDf8DK3eO6oq/RaHbJUHjmgr
+         krTS7JZYK0Oqdxt4ot0TXHO3Gn+BWec3wtr2zmR/FFLZlXAHB3XwK2Vdq5PgO9Y1ibTv
+         RQw6+ZK75Ok7AjMxSmh2GIvUyTadP2HIw6H4XQbu2koQWNfwh4DjplrKkHQyaZwAzmQu
+         kiXclxuM6LREHoJb0i94HtpTWYu+u/HADr6YtgoFcx1JRkGNaB4uG0FFrMHntqmn+6vV
+         BADQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776324004; x=1776928804; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=12LljQo9v9VqYtlqMKjlKnyqUso1P6vImLmY4jcnOd0=;
+        b=Bvp85Fs1LVDLItOxiIdFOZ9UneCV2IAth6Sv7RFbGtX6xWHiXu6JXe1wSIoZ6DS+Oc
+         +Az6YMRNegWle1iThSM/EelLkc4xSGA8avygKCT0Q4MaLz6TY9g9d9iISj7W+e0AgQUm
+         +fHqGSDOwu3mJgwIa8RTyAraB43PkPcGTkBoxYiIxoL8bFw/Y25gjSFcTQzJGHYzv9Hf
+         CtNZIeaTISpfQDp55rcVli6YHFwocKlpOhF00myQ+ipZI7qz6rtd9nAXeGfKKHCwXeBD
+         NqUzl1iN+AcW6veq9vAdjIS6GFwNTbAC8NqnRaZWx54CLeeyVwPZDI5yN75lNnEvC2Oy
+         r8hQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776324004; x=1776928804;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=12LljQo9v9VqYtlqMKjlKnyqUso1P6vImLmY4jcnOd0=;
+        b=LkGTarTCYj4WQRHIo4MDqiS8vQzoO5nQVpqUO6PafiX3rIgr19LsBHaPeXrFwVqVN0
+         n31fOyc28sDokNz3ECCL8B+6D00SeTlYwECcsQOjhGVphOYvxVaGZ+Lewrq0pbdUpzIb
+         4vX/6DsOzM9boEVxW4yI3FRKkGHj4XLZ4V3qascU15cGcsVTVNmgZii6Qg2908WsYI7g
+         VMoaFUAo6NeHh0ef0M+5eGG820iiBoKPm29urtmd1ngYlKoZGckc8jgOF8fd9enEU/9N
+         DKPMwxuWCl6VIegiFArenY+7iXG+VFIM45K8XvBVJe3FGqH0JEGwRlqDd2RfkvK6r7t5
+         6AkQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/DxoUVaTBb1Mr4QTCucwhIqXpHpK/ioYbO3gar9Jfo7uy1/CDsJA7lNYfRnC04Nx6sA+v7jbGjeCZ6@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw71wxnXg/0sJ1nTU9SIZosFITR65QE3NV6MXifs0XDccwcsWH0
+	FYVus7zMkU8LvRBVJZrLeCJU1OW761ljVKjs6Cq+bzXM7BYXdAGYx542uK6Igx6eN9OopcPWQVP
+	iP6xKruImVM2a3NSzwrQ/oxWc0yRedIc=
+X-Gm-Gg: AeBDieskVN/yOOlgEGAMRUuvnS4gS6Xqz9Dkssyq5xXVw8XhyuUaOkkXm4++bSxFfSM
+	1a9aH4am66cJKy6FD82FFvWWY7CaXfVlkhX9C4hM8mmZQqKUOzxAotM3/UFNhDtMQT/gJb97PfK
+	h6QNy9Ls5MbMV2IkAvX2mb7+PLa5Akc2s+SE9BiQkWCszq9RY0Xd7FmcZyMNs3r5rG58e/5L9bW
+	TrHOhrvCp0QHRCVSq1c2S+AzzUpKb3XRbJgc2P3KLEYiZdU4SpPsFSvWkmDAUbRU69HM8CBD9Sh
+	MqY31uf1UGrhC+UVLlEQlAGQlZcv/GwN0oW5EeAHMfYplGRYRnAwZlSUXsUxCqdMJuW9fi163+T
+	kKZw=
+X-Received: by 2002:a05:6512:39c4:b0:5a3:e5f3:daec with SMTP id
+ 2adb3069b0e04-5a3efb2b6b1mr7853655e87.21.1776324003467; Thu, 16 Apr 2026
+ 00:20:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: NT0PR01MB1216:EE_|NT0PR01MB1231:EE_
-X-MS-Office365-Filtering-Correlation-Id: 29f1ef16-5a86-4f82-6129-08de9b841bc8
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|1800799024|52116014|38350700014|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	MUuECWQ4006zElwZC0ERmBSaJRPbhEy39lpRFt6O+VyiMZaPgUpjaK7+DfZJlTPgPGkjfczCE0/6jfdckV/rCAEhuB5ubfObqkDwk2mHazZwRmkDIw5lq5LySJObiD9jmhnshCWJZTYn05GXzxyYvF4aszL5PTEX5r21muo1ptDzPcdVU7ooWcTgNTSAXjrf9MVlng5lWEiQ9CsJYr+3n3PXBjqXdDAuNvEORpbkIuhgMo14q1UXz+vkQPqLV0i4zJsw3tTqke9iB0XDXwUTsw2YEJTcjyeLmG+LSgASkjwJQQyMm5TDIxH1NnsjPMJ1CsnvD5BLfLl5sKDDG+kCN4OVOzNta9ZZbX34XIrorXhVPlRtVeH4mf1MGnIVJ9hq3a6CEuXJoQtexwKx6huZ74LqE3FrBIe1n3VlLubt+SxKJPY05sI3F8GmNZw2R7cCIyoR9EPHXr/b9vUuuNB4l+OsQhFmZfSYB6lYmNsXDB/pt+VxvQzzeDoJ2IlT+4/0n/EQNnR6hLb0oiHdlqBQSwwGfRKr7J0dOVF/keqvOOoS9+65ZNUeQbXUhb4LAhymbXtHoK7qFRihEar9wFwjR+BIVTDTtdf3it5cn1ktu80=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(52116014)(38350700014)(56012099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?K/YfJLVq1NZTKsuRCzxr2mJqaUGfGyXeFaYWZ/1cFJ83e19NgrREsTa5+vQs?=
- =?us-ascii?Q?efQYXueTqM58XKZmVBdupw8V8NF+awzfHUX019eK77UbZ7mG1B85Xaavmqmn?=
- =?us-ascii?Q?ptBFWWB9KppKO6kUjTFbAeFJs6vFRe87xXaMuwv2iF6NMc2WYFcv4BjbqeKk?=
- =?us-ascii?Q?li8tqhwxCSxBlKwnphbIxdvk7WhxqJxbnSVz8YYqbgvaepclhWFzvtfAiv6O?=
- =?us-ascii?Q?QAvS4G+3Jkfv6CnFqYaNDR0z5AoHBPBczBqnE6wspzaTyh/sUXxuqANZDf77?=
- =?us-ascii?Q?jaPeO11oLhWiHp9uTu4/QuG+TjXD4dM9u7/aGidkBZn+pYy9J0V6DktnmdNq?=
- =?us-ascii?Q?K7eGDwemYUEc9/KlLCCxODx+Msvhyl/U7mBih+441R70ZAmhHKGre8kdy7lx?=
- =?us-ascii?Q?XapsHArCtFBk+JBp31aFoL+ta7H51GVwsO9R0Pp47EUqJTibNC2ubkys9s95?=
- =?us-ascii?Q?ui9ULhWurSNYg3EACGDBdcV834YBsDBsD83ydBQFzrpY6DmTLx4oQevOk2wZ?=
- =?us-ascii?Q?YsFjY5Fnt9ZWWgiascFrtmo3acu1JP1+7kkazdptsQj8alG2rRK95D7qMq+L?=
- =?us-ascii?Q?b0BgipFf9t+PbZbd7YRDl24pxh6N4wt14O6KP6429By8bqZ3RGAPQtIjgrPh?=
- =?us-ascii?Q?Rtl9Z379uXEmNmQ6YF5lv4gBkLlvKdOKo1HHpCTRkC07Hg38k0fnri+qDvCc?=
- =?us-ascii?Q?F9eCL4N4n7hX+B4xX7nztNzV8Y9wxXelJTXjtPsg3vYaGmTjkn7vNlonAscQ?=
- =?us-ascii?Q?IIj1fg1hJWB1u+75Qm77SBwtU8Z7L8KtsDzrNcI5MBoz/UZRzmj+Cjht59S+?=
- =?us-ascii?Q?VRmtgrl4q12R2BcQkwoeWoAX7FwKSnEraaC+6to4W0Ovot4BUP12R9DdctZK?=
- =?us-ascii?Q?AlY0+t2ItylxUC/eh1w6rgt0MM8siy9CYRBq3pIoB0q2IN70dwwVf6r8qftq?=
- =?us-ascii?Q?P8kpmCHgnQzxeFuSJcciKPT4iXL47tIYeCk4iIvCGKDuMNO31s7QpWXeTAA4?=
- =?us-ascii?Q?JVz73QNYa9qX0JaivmSGofu6OG6da8+ovcKipn/4yRyVpM9WoV5ENU0KZMWQ?=
- =?us-ascii?Q?O095iamACFGzN8jH+qPQgOZyJYHurHSPy+vwW9SpCxy8iHGi24Vb3PyB4Rcv?=
- =?us-ascii?Q?FCjf3/6Am00djfEvd9ylyTYeOEGJvdGUlstcSpiZ/PenGf7+hzTZSiEzwVl5?=
- =?us-ascii?Q?fy6iFNQr/0b/5sCzsDPqlxHgOKwBbPHQKvGyksFzxcXlxWh1/mRKBse9//pJ?=
- =?us-ascii?Q?yyzLEgx8eD6IAVZXD2ZpXQIogjDN5A3trKQuN/oD/8HFbN+3nlx+dYED+PRE?=
- =?us-ascii?Q?kJuIuFiix4IxiCCFOAIQE8JoF9wFI2g2Vw07zPr/vzwuuLMrlOHSfQVG41zL?=
- =?us-ascii?Q?0EI01orsgFD4NMiXH5lc33RhWFQGxnPOrfG9DZ3dJ5Spgu5qsCP8LYlz3U5F?=
- =?us-ascii?Q?BGp0MKlIMoMOCF0k55dOzK6HlMPnaxaBYj68OFV3P7LnXPhva3gjg+MKXwhH?=
- =?us-ascii?Q?Ud4+ovAofXoScdQcsjB8J5aur9eyvPlo9gx/+jVs2ExTJi+qgprKj/ZReHnj?=
- =?us-ascii?Q?Lxi0xQU9YGop+zbpuBZZNS5QBe3HoGQJzNO8U8p+fM76K1fOgBc2uWQ/o9L5?=
- =?us-ascii?Q?DRJRwSy7jKhKNHAFnJWuMq+FHOtyatT2oiPWdNDr8rboTP0+eEnv9o2syXLn?=
- =?us-ascii?Q?8Zxz3J8dAxekjZ2+DXpaTnbc7//OzR8OWSQSyOUcAPYUTqD5hxdyJWKEyAmh?=
- =?us-ascii?Q?5mOHWQgxjUSyBNBe4r84CEtxNkRoVeKyJ8jLGeg9pFsYQahyARfE?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29f1ef16-5a86-4f82-6129-08de9b841bc8
-X-MS-Exchange-CrossTenant-AuthSource: NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 06:48:09.4943
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RDMG5zfCidVlDjC1py20zL8g9iBKjC+N+tjhNp2KNQwq6BA9UyUsUeZZdypeb4dKeSg8fdsOwNXQKrLwrkNxvRl4va/AdCfctUF/f3pgeE34cmraFICK7plTqP/GWUjz
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: NT0PR01MB1231
+References: <20260408-ch13726a-v4-0-9bb1a9b8f329@gmail.com>
+ <20260408-ch13726a-v4-2-9bb1a9b8f329@gmail.com> <63870098-5e70-44af-ba18-1fd726b5ef5a@linaro.org>
+In-Reply-To: <63870098-5e70-44af-ba18-1fd726b5ef5a@linaro.org>
+From: Aaron Kling <webgeek1234@gmail.com>
+Date: Thu, 16 Apr 2026 02:19:50 -0500
+X-Gm-Features: AQROBzBj4-wwk9SE6AzOnvYO989LEw_EOowIk1wGyD260q_kQYqxrhnGdkEhtIk
+Message-ID: <CALHNRZ-aEmzSWwMNbs2TR_18uvEaBQVK3fy-S5r5-fhnN9Gq+A@mail.gmail.com>
+Subject: Re: [PATCH v4 2/2] drm/panel: Add panel driver for ChipWealth
+ CH13726A based panels
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This patchset adds external interrupt controller driver for the StarFive
-JHB100 SoC. It supports up to 64 interrupt sources, and both level and
-edge trigger types.
+On Mon, Apr 13, 2026 at 4:17=E2=80=AFAM Neil Armstrong
+<neil.armstrong@linaro.org> wrote:
+>
+> On 4/8/26 07:32, Aaron Kling via B4 Relay wrote:
+> > From: Teguh Sobirin <teguh@sobir.in>
+> >
+> > This is used by the AYN Thor for the bottom panel.
+> >
+> > Signed-off-by: Teguh Sobirin <teguh@sobir.in>
+> > Co-developed-by: Aaron Kling <webgeek1234@gmail.com>
+> > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> > ---
+> >   drivers/gpu/drm/panel/Kconfig                     |  11 +
+> >   drivers/gpu/drm/panel/Makefile                    |   1 +
+> >   drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c | 339 +++++++++++++=
++++++++++
+> >   3 files changed, 351 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kcon=
+fig
+> > index d6863b28ddc559..e2c00f08f4507d 100644
+> > --- a/drivers/gpu/drm/panel/Kconfig
+> > +++ b/drivers/gpu/drm/panel/Kconfig
+> > @@ -105,6 +105,17 @@ config DRM_PANEL_BOE_TV101WUM_LL2
+> >         Say Y here if you want to support for BOE TV101WUM-LL2
+> >         WUXGA PANEL DSI Video Mode panel
+> >
+> > +config DRM_PANEL_CHIPWEALTH_CH13726A
+> > +     tristate "CHIPWEALTH CH13726A-based DSI panel"
+> > +     depends on OF
+> > +     depends on DRM_MIPI_DSI
+> > +     depends on BACKLIGHT_CLASS_DEVICE
+> > +     select DRM_DISPLAY_DP_HELPER
+> > +     select DRM_DISPLAY_HELPER
+> > +     help
+> > +       Say Y here if you want to enable support for ChipWealth
+> > +       CH13726A-based display panels.
+> > +
+> >   config DRM_PANEL_EBBG_FT8719
+> >       tristate "EBBG FT8719 panel driver"
+> >       depends on OF
+> > diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Mak=
+efile
+> > index a4291dc3905bed..343d283d1620fb 100644
+> > --- a/drivers/gpu/drm/panel/Makefile
+> > +++ b/drivers/gpu/drm/panel/Makefile
+> > @@ -9,6 +9,7 @@ obj-$(CONFIG_DRM_PANEL_BOE_TD4320) +=3D panel-boe-td432=
+0.o
+> >   obj-$(CONFIG_DRM_PANEL_BOE_TH101MB31UIG002_28A) +=3D panel-boe-th101m=
+b31ig002-28a.o
+> >   obj-$(CONFIG_DRM_PANEL_BOE_TV101WUM_LL2) +=3D panel-boe-tv101wum-ll2.=
+o
+> >   obj-$(CONFIG_DRM_PANEL_BOE_TV101WUM_NL6) +=3D panel-boe-tv101wum-nl6.=
+o
+> > +obj-$(CONFIG_DRM_PANEL_CHIPWEALTH_CH13726A) +=3D panel-chipwealth-ch13=
+726a.o
+> >   obj-$(CONFIG_DRM_PANEL_DSI_CM) +=3D panel-dsi-cm.o
+> >   obj-$(CONFIG_DRM_PANEL_LVDS) +=3D panel-lvds.o
+> >   obj-$(CONFIG_DRM_PANEL_SIMPLE) +=3D panel-simple.o
+> > diff --git a/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c b/driver=
+s/gpu/drm/panel/panel-chipwealth-ch13726a.c
+> > new file mode 100644
+> > index 00000000000000..48a5e20e07c487
+> > --- /dev/null
+> > +++ b/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
+> > @@ -0,0 +1,339 @@
+> > +// SPDX-License-Identifier: GPL-2.0-only
+> > +/*
+> > + * ChipWealth CH13726A MIPI-DSI panel driver
+> > + * Copyright (c) 2024, Teguh Sobirin <teguh@sobir.in>.
+> > + */
+> > +
+> > +#include <linux/backlight.h>
+> > +#include <linux/delay.h>
+> > +#include <linux/gpio/consumer.h>
+> > +#include <linux/module.h>
+> > +#include <linux/of.h>
+> > +#include <linux/regulator/consumer.h>
+> > +
+> > +#include <drm/drm_mipi_dsi.h>
+> > +#include <drm/drm_modes.h>
+> > +#include <drm/drm_panel.h>
+> > +
+> > +#include <video/mipi_display.h>
+> > +
+> > +struct ch13726a_panel {
+> > +     struct drm_panel panel;
+> > +     struct mipi_dsi_device *dsi;
+> > +     struct regulator_bulk_data supplies[4];
+> > +     struct gpio_desc *reset_gpio;
+> > +     struct ch13726a_desc *desc;
+> > +     enum drm_panel_orientation orientation;
+> > +     bool prepared;
+>
+> Drop this, it's handled by the panel core now.
+Ack.
+>
+> > +};
+> > +
+> > +struct ch13726a_desc {
+> > +     unsigned int width_mm;
+> > +     unsigned int height_mm;
+> > +     unsigned int bpc;
+> > +
+> > +     const struct drm_display_mode *modes;
+> > +     unsigned int num_modes;
+> > +};
+> > +
+> > +static inline struct ch13726a_panel *to_ch13726a_panel(struct drm_pane=
+l *panel)
+> > +{
+> > +     return container_of(panel, struct ch13726a_panel, panel);
+> > +}
+> > +
+> > +static void ch13726a_reset(struct ch13726a_panel *ctx)
+> > +{
+> > +     gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> > +     usleep_range(10000, 11000);
+> > +     gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> > +     usleep_range(10000, 11000);
+> > +     gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> > +     usleep_range(10000, 11000);
+> > +}
+> > +
+> > +static int ch13726a_on(struct ch13726a_panel *ctx)
+> > +{
+> > +     struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
+> > +
+> > +     ctx->dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
+> > +
+> > +     mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf0, 0x50);
+> > +     mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb9, 0x00);
+> > +
+> > +     mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+> > +
+> > +     mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+> > +
+> > +     return dsi_ctx.accum_err;
+> > +}
+> > +
+> > +static int ch13726a_disable(struct drm_panel *panel)
+> > +{
+> > +     struct ch13726a_panel *ctx =3D to_ch13726a_panel(panel);
+> > +     struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
+> > +
+> > +     ctx->dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
+> > +
+> > +     mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+> > +     mipi_dsi_msleep(&dsi_ctx, 50);
+> > +     mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+> > +
+> > +     return dsi_ctx.accum_err;
+> > +}
+> > +
+> > +static int ch13726a_prepare(struct drm_panel *panel)
+> > +{
+> > +     struct ch13726a_panel *ctx =3D to_ch13726a_panel(panel);
+> > +     struct device *dev =3D &ctx->dsi->dev;
+> > +     int ret;
+> > +
+> > +     if (ctx->prepared)
+> > +             return 0;
+> > +
+> > +     ret =3D regulator_bulk_enable(ARRAY_SIZE(ctx->supplies), ctx->sup=
+plies);
+> > +     if (ret < 0) {
+> > +             dev_err(dev, "Failed to enable regulators: %d\n", ret);
+> > +             return ret;
+> > +     }
+> > +
+> > +     ch13726a_reset(ctx);
+> > +
+> > +     ret =3D ch13726a_on(ctx);
+> > +     if (ret < 0) {
+> > +             dev_err(dev, "Failed to initialize panel: %d\n", ret);
+> > +             gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> > +             regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->su=
+pplies);
+> > +             return ret;
+> > +     }
+> > +
+> > +     msleep(28);
+> > +
+> > +     ctx->prepared =3D true;
+> > +
+> > +     return 0;
+> > +}
+> > +
+> > +static int ch13726a_unprepare(struct drm_panel *panel)
+> > +{
+> > +     struct ch13726a_panel *ctx =3D to_ch13726a_panel(panel);
+> > +
+> > +     if (!ctx->prepared)
+> > +             return 0;
+> > +
+> > +     gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> > +     regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
+> > +
+> > +     ctx->prepared =3D false;
+> > +     return 0;
+> > +}
+> > +
+> > +static const struct drm_display_mode thor_bottom_modes[] =3D {
+> > +     {
+> > +             /* 120Hz */
+> > +             .clock =3D (1080 + 28 + 4 + 36) * (1240 + 16 + 4 + 8) * 1=
+20 / 1000,
+> > +             .hdisplay =3D 1080,
+> > +             .hsync_start =3D 1080 + 28,
+> > +             .hsync_end =3D 1080 + 28 + 4,
+> > +             .htotal =3D 1080 + 28 + 4 + 36,
+> > +             .vdisplay =3D 1240,
+> > +             .vsync_start =3D 1240 + 16,
+> > +             .vsync_end =3D 1240 + 16 + 4,
+> > +             .vtotal =3D 1240 + 16 + 4 + 8,
+> > +     },
+> > +     {
+> > +             /* 60Hz */
+> > +             .clock =3D (1080 + 28 + 4 + 36) * (1240 + 16 + 4 + 8) * 6=
+0 / 1000,
+> > +             .hdisplay =3D 1080,
+> > +             .hsync_start =3D 1080 + 28,
+> > +             .hsync_end =3D 1080 + 28 + 4,
+> > +             .htotal =3D 1080 + 28 + 4 + 36,
+> > +             .vdisplay =3D 1240,
+> > +             .vsync_start =3D 1240 + 16,
+> > +             .vsync_end =3D 1240 + 16 + 4,
+> > +             .vtotal =3D 1240 + 16 + 4 + 8,
+> > +     }
+> > +};
+> > +
+> > +static struct ch13726a_desc thor_bottom_desc =3D {
+> > +     .modes =3D thor_bottom_modes,
+> > +     .num_modes =3D ARRAY_SIZE(thor_bottom_modes),
+> > +     .width_mm =3D 65,
+> > +     .height_mm =3D 75,
+> > +     .bpc =3D 8,
+> > +};
+> > +
+> > +static int ch13726a_get_modes(struct drm_panel *panel,
+> > +                                     struct drm_connector *connector)
+> > +{
+> > +     struct ch13726a_panel *ctx =3D to_ch13726a_panel(panel);
+> > +
+> > +     for (uint8_t i =3D 0; i < ctx->desc->num_modes; i++) {
+> > +             const struct drm_display_mode *m =3D &ctx->desc->modes[i]=
+;
+> > +             struct drm_display_mode *mode;
+> > +
+> > +             mode =3D drm_mode_duplicate(connector->dev, m);
+> > +             if (!mode) {
+> > +                     dev_err(&ctx->dsi->dev, "failed to add mode %ux%u=
+@%u\n",
+> > +                             m->hdisplay, m->vdisplay, drm_mode_vrefre=
+sh(m));
+> > +                     return -ENOMEM;
+> > +             }
+>
+> Can you use drm_connector_helper_get_modes_fixed instead ?
 
-changes since v1:
-- irqchip: starfive -> irqchip/starfive
+Per the description for that function, it only works if there's a
+single mode. This panel supports two modes, 60hz and 120hz.
+>
+> > +
+> > +             mode->type =3D DRM_MODE_TYPE_DRIVER;
+> > +             if (i =3D=3D 0)
+> > +                     mode->type |=3D DRM_MODE_TYPE_PREFERRED;
+> > +
+> > +             drm_mode_set_name(mode);
+> > +             drm_mode_probed_add(connector, mode);
+> > +     }
+> > +
+> > +     connector->display_info.width_mm =3D ctx->desc->width_mm;
+> > +     connector->display_info.height_mm =3D ctx->desc->height_mm;
+> > +     connector->display_info.bpc =3D ctx->desc->bpc;
+> > +
+> > +     return ctx->desc->num_modes;
+> > +}
+> > +
+> > +static enum drm_panel_orientation ch13726a_get_orientation(struct drm_=
+panel *panel)
+> > +{
+> > +     struct ch13726a_panel *ctx =3D to_ch13726a_panel(panel);
+> > +
+> > +     return ctx->orientation;
+> > +}
+> > +
+> > +static const struct drm_panel_funcs ch13726a_panel_funcs =3D {
+> > +     .prepare =3D ch13726a_prepare,
+> > +     .unprepare =3D ch13726a_unprepare,
+> > +     .disable =3D ch13726a_disable,
+> > +     .get_modes =3D ch13726a_get_modes,
+> > +     .get_orientation =3D ch13726a_get_orientation,
+> > +};
+> > +
+> > +static int ch13726a_bl_update_status(struct backlight_device *bl)
+> > +{
+> > +     struct mipi_dsi_device *dsi =3D bl_get_data(bl);
+> > +     u16 brightness =3D backlight_get_brightness(bl);
+> > +     int ret;
+> > +
+> > +     dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
+> > +
+> > +     ret =3D mipi_dsi_dcs_set_display_brightness(dsi, brightness);
+> > +     if (ret < 0)
+> > +             return ret;
+> > +
+> > +     dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
+> > +
+> > +     return 0;
+> > +}
+> > +
+> > +static const struct backlight_ops ch13726a_bl_ops =3D {
+> > +     .update_status =3D ch13726a_bl_update_status,
+> > +};
+> > +
+> > +static struct backlight_device *
+> > +ch13726a_create_backlight(struct mipi_dsi_device *dsi)
+> > +{
+> > +     struct device *dev =3D &dsi->dev;
+> > +     const struct backlight_properties props =3D {
+> > +             .type =3D BACKLIGHT_RAW,
+> > +             .brightness =3D 255,
+> > +             .max_brightness =3D 255,
+> > +     };
+> > +
+> > +     return devm_backlight_device_register(dev, dev_name(dev), dev, ds=
+i,
+> > +                                           &ch13726a_bl_ops, &props);
+> > +}
+> > +
+> > +static int ch13726a_probe(struct mipi_dsi_device *dsi)
+> > +{
+> > +     struct device *dev =3D &dsi->dev;
+> > +     struct ch13726a_panel *ctx;
+> > +     int ret;
+> > +
+> > +     ctx =3D devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
+> > +     if (!ctx)
+> > +             return -ENOMEM;
+> > +
+> > +     ctx->desc =3D (struct ch13726a_desc *)of_device_get_match_data(de=
+v);
+> > +     if (!ctx->desc)
+> > +             return -ENODEV;
+> > +
+> > +     ctx->supplies[0].supply =3D "vdd1v2";
+> > +     ctx->supplies[1].supply =3D "vddio";
+> > +     ctx->supplies[2].supply =3D "vdd";
+> > +     ctx->supplies[3].supply =3D "avdd";
+> > +
+> > +     ret =3D devm_regulator_bulk_get(dev, ARRAY_SIZE(ctx->supplies),
+> > +                                   ctx->supplies);
+> > +     if (ret < 0)
+> > +             return dev_err_probe(dev, ret, "Failed to get regulators\=
+n");
+> > +
+> Can you switch to devm_regulator_bulk_get_const ?
 
-patch 1:
-- Update commit title and add Conor's Acked-by tag
+Looks like I can.
+>
+> > +     ctx->reset_gpio =3D devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
+> > +     if (IS_ERR(ctx->reset_gpio))
+> > +             return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
+> > +                                  "Failed to get reset-gpios\n");
+> > +
+> > +     ret =3D of_drm_get_panel_orientation(dev->of_node, &ctx->orientat=
+ion);
+> > +     if (ret < 0) {
+> > +             dev_err(dev, "%pOF: failed to get orientation %d\n", dev-=
+>of_node, ret);
+> > +             return ret;
+> > +     }
+> > +
+> > +     ctx->dsi =3D dsi;
+> > +     mipi_dsi_set_drvdata(dsi, ctx);
+> > +
+> > +     dsi->lanes =3D 4;
+> > +     dsi->format =3D MIPI_DSI_FMT_RGB888;
+> > +     dsi->mode_flags =3D MIPI_DSI_MODE_VIDEO |
+> > +                       MIPI_DSI_CLOCK_NON_CONTINUOUS;
+> > +
+> > +     drm_panel_init(&ctx->panel, dev, &ch13726a_panel_funcs,
+> > +                    DRM_MODE_CONNECTOR_DSI);
+>
+> Please use devm_drm_panel_alloc() instead.
 
-patch 3:
-- Use __free(kfree) cleanup
-- Replace dev_err() with dev_err_probe()
-- Replace devm_reset_control_get_optional() + reset_control_deassert()
-  with devm_reset_control_get_optional_exclusive_deasserted()
-
-patch 4:
-- Use guard(raw_spinlock)
-
-patch 5:
-- Update starfive_intc_set_type()
-
-v1: https://lore.kernel.org/all/20260410090106.622781-1-changhuang.liang@starfivetech.com/
-
-Changhuang Liang (4):
-  dt-bindings: interrupt-controller: repurpose binding for unreleased
-    jh8100 for jhb100
-  irqchip/starfive: Rename jh8100 to jhb100
-  irqchip/starfive: Use devm_ interfaces to simplify resource release
-  irqchip/starfive: Implement irq_set_type() and irq_ack() callbacks
-
-Mason Huo (1):
-  irqchip/starfive: Increase the interrupt source number up to 64
-
- ...00-intc.yaml => starfive,jhb100-intc.yaml} |  20 +-
- MAINTAINERS                                   |   6 +-
- drivers/irqchip/Kconfig                       |   6 +-
- drivers/irqchip/Makefile                      |   2 +-
- drivers/irqchip/irq-starfive-jh8100-intc.c    | 207 --------------
- drivers/irqchip/irq-starfive-jhb100-intc.c    | 254 ++++++++++++++++++
- 6 files changed, 265 insertions(+), 230 deletions(-)
- rename Documentation/devicetree/bindings/interrupt-controller/{starfive,jh8100-intc.yaml => starfive,jhb100-intc.yaml} (68%)
- delete mode 100644 drivers/irqchip/irq-starfive-jh8100-intc.c
- create mode 100644 drivers/irqchip/irq-starfive-jhb100-intc.c
-
---
-2.25.1
+Ack
+>
+> > +     ctx->panel.prepare_prev_first =3D true;
+> > +
+> > +     ctx->panel.backlight =3D ch13726a_create_backlight(dsi);
+> > +     if (IS_ERR(ctx->panel.backlight))
+> > +             return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
+> > +                                  "Failed to create backlight\n");
+> > +
+> > +     drm_panel_add(&ctx->panel);
+> > +
+> > +     ret =3D mipi_dsi_attach(dsi);
+> > +     if (ret < 0) {
+> > +             dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
+> > +             drm_panel_remove(&ctx->panel);
+> > +             return ret;
+> > +     }
+> > +
+> > +     return 0;
+> > +}
+> > +
+> > +static void ch13726a_remove(struct mipi_dsi_device *dsi)
+> > +{
+> > +     struct ch13726a_panel *ctx =3D mipi_dsi_get_drvdata(dsi);
+> > +     int ret;
+> > +
+> > +     ret =3D mipi_dsi_detach(dsi);
+> > +     if (ret < 0)
+> > +             dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n"=
+, ret);
+> > +
+> > +     drm_panel_remove(&ctx->panel);
+> > +}
+> > +
+> > +static const struct of_device_id ch13726a_of_match[] =3D {
+> > +     { .compatible =3D "ayntec,thor-panel-bottom", .data =3D &thor_bot=
+tom_desc },
+> > +     { /* sentinel */ }
+> > +};
+> > +MODULE_DEVICE_TABLE(of, ch13726a_of_match);
+> > +
+> > +static struct mipi_dsi_driver ch13726a_driver =3D {
+> > +     .probe =3D ch13726a_probe,
+> > +     .remove =3D ch13726a_remove,
+> > +     .driver =3D {
+> > +             .name =3D "panel-ch13726a-amoled",
+> > +             .of_match_table =3D ch13726a_of_match,
+> > +     },
+> > +};
+> > +module_mipi_dsi_driver(ch13726a_driver);
+> > +
+> > +MODULE_DESCRIPTION("DRM driver for CH13726A DSI panels");
+> > +MODULE_LICENSE("GPL");
+> >
+>
+Aaron
