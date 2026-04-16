@@ -1,66 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEAF1396573;
-	Thu, 16 Apr 2026 09:38:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BB0CF394789;
+	Thu, 16 Apr 2026 09:39:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776332308; cv=none; b=rkldYKAA/ikOT5S9MzMl6K7q6pwJWjr+xVDM1iVZA1dpvy6grHdUr48JrQCS6hbi74K0OXW4h3W+04GyDksxRxlQZoM41smh0iqvucSUvVYXivRsNItPpzd0iCelLWhphaLrdUfCBMfN3dNNA988DUkpaM1f+BgUmItsDsQRQQA=
+	t=1776332370; cv=none; b=SnnPILzjCyBoa7IZtM7GlAJzkXzlqjtqvzVrg6U95Ps6osUFzZ6f9MKTDKCMjCblufA6NSecy9WvrL7G9Cyt2TsQ+PO4M4QjcU+h3Vw3qDHmQRixA8VfKRtPJHeeG5q7uP92q2AspOY1Ji3+VxSkdJAhglTELumxE2nZvq5mZCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776332308; c=relaxed/simple;
-	bh=ZEk5LMSdObaEX3bHnYTn4K0ZqqQUmPLr8EtxN54Wbzc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iuA9id5srPY6bABMqXWih7QPxjYaHQL3eAt4BUmCo7ELIgpesJrOeJwbST+uvVnIRwJbF8foHwQYUzPB34sYDdLK3DDDP+xIIa5CO9CxIjMSKPLuL4MlHJtv+YxtY9ghvP+2a3D9t/yk6NH2/kVcop0l1pyRVbaikQxWvWKv9aM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pzPAa+US; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pzPAa+US"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE1D9C2BCB0;
-	Thu, 16 Apr 2026 09:38:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776332308;
-	bh=ZEk5LMSdObaEX3bHnYTn4K0ZqqQUmPLr8EtxN54Wbzc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pzPAa+USsIfvntejjAejl3l1C+DskMzWVVdijjf1YRUCpeRSRxETPTYWWYMaLLtGz
-	 9/MVI3DEV6eXiKlYFhuSAYW39V1LOecYUAWbZYezTs26xapIfjLANLgdxjErKLb3lB
-	 3pYr+OjAAlUlxIE+chRtTHTeKJ5vmWbhXuqMFiYbu8tJcmeJ8SWoQc8LTkl/a+Rvlo
-	 Frn+/cOsThi0QFAW5TgHrz6uW1tJL3N3Z1p7PKoDq2+6dpZ2zrAEP7RBAQ/WbEk5hy
-	 XLZ2joQFmh6LVtw1WaqvadEB2RtqEYnX/OfHeUPO2nNi7OmUrBD/XmNkulaNA/x9dm
-	 bkTxFOMp6YmUw==
-Date: Thu, 16 Apr 2026 11:38:24 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Daniel Golle <daniel@makrotopia.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Cyril Chao <Cyril.Chao@mediatek.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
-	=?utf-8?B?TsOtY29sYXMgRi4gUi4gQS4=?= Prado <nfraprado@collabora.com>, Eugen Hristev <eugen.hristev@linaro.org>, 
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH 1/9] dt-bindings: sound: mt2701-afe-pcm: add HDMI audio
- path clocks
-Message-ID: <20260416-qualified-violet-salmon-4bec7e@quoll>
-References: <cover.1776265610.git.daniel@makrotopia.org>
- <50afd83a314cd20c715fb9b0d3bc85fb00f9a6eb.1776265610.git.daniel@makrotopia.org>
+	s=arc-20240116; t=1776332370; c=relaxed/simple;
+	bh=T7CoLB2p6sG/di7D5Nmfq3bgVGiqmIyvmGldLZWNe50=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=M9qq3iM5dkIMjQokcsHcEpoh4ewjmu7eQeYwVhh4nHJ7WfRMb6bO+8CX5VPY0QIpiZLM1YNgWxfzMH6eu5mp0K1NGbVPZyp41gAz3y/6Vf87m8fIapfYt4XDoPcpBWfozIdc/c5ODdWxzU0rzW+Xnr5g+7MMqVhkHQ6XBkdtmtw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=162.243.161.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from dongxuyang$eswincomputing.com ( [10.12.96.41] ) by
+ ajax-webmail-app2 (Coremail) ; Thu, 16 Apr 2026 17:38:59 +0800 (GMT+08:00)
+Date: Thu, 16 Apr 2026 17:38:59 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: "Xuyang Dong" <dongxuyang@eswincomputing.com>
+To: "Krzysztof Kozlowski" <krzk@kernel.org>,
+	"Conor Dooley" <conor@kernel.org>
+Cc: ukleinek@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, ben-linux@fluff.org, ben.dooks@codethink.co.uk,
+	p.zabel@pengutronix.de, linux-pwm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	ningyu@eswincomputing.com, linmin@eswincomputing.com,
+	xuxiang@eswincomputing.com, wangguosheng@eswincomputing.com,
+	pinkesh.vaghela@einfochips.com
+Subject: Re: Re: [PATCH v4 1/2] dt-bindings: pwm: dwc: add reset optional
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
+ 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
+ mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
+In-Reply-To: <20260416-wandering-solemn-uakari-083ae7@quoll>
+References: <20260415094908.1539-1-dongxuyang@eswincomputing.com>
+ <20260415095020.1597-1-dongxuyang@eswincomputing.com>
+ <20260415-reacquire-handstand-d1923af82c9d@spud>
+ <20260416-wandering-solemn-uakari-083ae7@quoll>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <50afd83a314cd20c715fb9b0d3bc85fb00f9a6eb.1776265610.git.daniel@makrotopia.org>
+Message-ID: <281f7aa3.5575.19d95a879f8.Coremail.dongxuyang@eswincomputing.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:TQJkCgA3TJ8zruBp7yYSAA--.2351W
+X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/1tbiAgETAmnfvg1VQ
+	QAAsD
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-On Wed, Apr 15, 2026 at 04:23:27PM +0100, Daniel Golle wrote:
-> Document four additional optional clocks feeding the HDMI audio
-> output path on MT2701 and MT7623N: the HADDS2 PLL (root of the
-
-There is no MT7623N compatible in this file, so that's confusing. Does
-mt7622 have it? If not, then it should be restricted per variant. If
-yet, the model name is confusing.
-
-Best regards,
-Krzysztof
-
+PiA+ID4gCj4gPiA+IFRoZSBEZXNpZ25XYXJlIFBXTSBpbmNsdWRlcyBzZXBhcmF0ZSByZXNldCBz
+aWduYWxzIGRlZGljYXRlZCB0byBlYWNoIGNsb2NrCj4gPiA+IGRvbWFpbjoKPiA+ID4gVGhlIHBy
+ZXNldG4gc2lnbmFsIHJlc2V0cyBsb2dpYyBpbiBwY2xrIGRvbWFpbi4KPiA+ID4gVGhlIHRpbWVy
+X05fcmVzZXRuIHNpZ25hbCByZXNldHMgbG9naWMgaW4gdGhlIHRpbWVyX05fY2xrIGRvbWFpbi4K
+PiA+ID4gVGhlIHJlc2V0cyBhcmUgYWN0aXZlLWxvdy4KPiA+ID4gCj4gPiA+IFNpZ25lZC1vZmYt
+Ynk6IFh1eWFuZyBEb25nIDxkb25neHV5YW5nQGVzd2luY29tcHV0aW5nLmNvbT4KPiA+IAo+ID4g
+VGhpcyBjb21taXQgaW1wbGllcyB0aGF0IHlvdXIgaGFyZHdhcmUgZGlmZmVycyBmcm9tIGV4aXN0
+aW5nIGRldmljZXMsCj4gPiBJIHRoaW5rIHlvdSBzaG91bGQgYWRkIGEgZGV2aWNlLXNwZWNpZmlj
+IGNvbXBhdGlibGUuCj4gPiAKCkhpIENvbm9yIGFuZCBLcnp5c3p0b2YsCgpUaGUgRGVzaWduV2Fy
+ZSBQV00gRGF0YWJvb2sgZm9yIDIuMTNhIHNheXM6ICJUaGUgRFdfYXBiX3RpbWVycyBpbmNsdWRl
+c8KgCnNlcGFyYXRlIHJlc2V0IHNpZ25hbHMgZGVkaWNhdGVkIHRvIGVhY2ggY2xvY2sgZG9tYWlu
+Ii4gVGhleSBhcmU6ClRoZSBwcmVzZXRuIHNpZ25hbCByZXNldHMgbG9naWMgaW4gcGNsayBkb21h
+aW4gKGkuZS4sIHRoZSBidXMgY2xvY2sgaW4gRFQpLgpUaGUgdGltZXJfTl9yZXNldG4gc2lnbmFs
+IHJlc2V0cyBsb2dpYyBpbiB0aGUgdGltZXJfTl9jbGsgZG9tYWluIChpLmUuLAp0aGUgdGltZXIg
+Y2xvY2sgaW4gRFQpLgoKVGhlc2UgcmVzZXQgc2lnbmFscyBhcmUgb3B0aW9uYWw7IGl0IGlzIHVw
+IHRvIHRoZSBkZXNpZ25lcidzIAppbXBsZW1lbnRhdGlvbi4KCkFjY29yZGluZyB0byBbMV0sIHRo
+ZSBhcHBsaWVkIFlBTUwgaXMgYWxzbyBiYXNlZCBvbiAyLjEzYSwgc28gb3VywqAKaGFyZHdhcmUg
+aXMgdGhlIHNhbWUgYXMgdGhlIGV4aXN0aW5nIGRldmljZXMuIEl0J3MganVzdCB0aGF0IHRoZXNl
+IHR3b8KgCnJlc2V0IHNpZ25hbHMgd2VyZSBtaXNzaW5nIGZyb20gdGhlIG9yaWdpbmFsIFlBTUwg
+YmluZGluZy4KClsxXSBodHRwczovL2xvcmUua2VybmVsLm9yZy9saW51eC1wd20vOGJiNTEwM2Qt
+ODAzZS05MGQyLWZkOTMtMTMyYmIyYWFjMmQ2QHNpZml2ZS5jb20vCgo+ID4gPiAtLS0KPiA+ID4g
+IC4uLi9kZXZpY2V0cmVlL2JpbmRpbmdzL3B3bS9zbnBzLGR3LWFwYi10aW1lcnMtcHdtMi55YW1s
+ICAgICAgIHwgMyArKysKPiA+ID4gIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKykKPiA+
+ID4gCj4gPiA+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mv
+cHdtL3NucHMsZHctYXBiLXRpbWVycy1wd20yLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRy
+ZWUvYmluZGluZ3MvcHdtL3NucHMsZHctYXBiLXRpbWVycy1wd20yLnlhbWwKPiA+ID4gaW5kZXgg
+NzUyM2E4OWExNzczLi5hOGJiYWQwMzYwZjggMTAwNjQ0Cj4gPiA+IC0tLSBhL0RvY3VtZW50YXRp
+b24vZGV2aWNldHJlZS9iaW5kaW5ncy9wd20vc25wcyxkdy1hcGItdGltZXJzLXB3bTIueWFtbAo+
+ID4gPiArKysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvcHdtL3NucHMsZHct
+YXBiLXRpbWVycy1wd20yLnlhbWwKPiA+ID4gQEAgLTQzLDYgKzQzLDkgQEAgcHJvcGVydGllczoK
+PiA+ID4gICAgICAgIC0gY29uc3Q6IGJ1cwo+ID4gPiAgICAgICAgLSBjb25zdDogdGltZXIKPiA+
+ID4gIAo+ID4gPiArICByZXNldHM6Cj4gPiA+ICsgICAgbWF4SXRlbXM6IDIKPiAKPiBBbmQgdGhp
+cyBzaG91bGQgcmVhbGx5IGJlIGxpc3RlZCB3aXRoIGRlc2NyaXB0aW9uLCBiZWNhdXNlIG9yZGVy
+IGlzCj4gZml4ZWQuCj4gCgpUaGUgZGVzY3JpcHRpb24gb2YgcmVzZXRzIHdpbGwgYmUgbGlzdGVk
+IGluIG5leHQgdmVyc2lvbi4KCkJlc3QgcmVnYXJkcywKWHV5YW5nIERvbmcK
