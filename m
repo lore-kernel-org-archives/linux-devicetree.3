@@ -1,90 +1,75 @@
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BB0CF394789;
-	Thu, 16 Apr 2026 09:39:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
+Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A48C37C11C
+	for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 09:39:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.121
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776332370; cv=none; b=SnnPILzjCyBoa7IZtM7GlAJzkXzlqjtqvzVrg6U95Ps6osUFzZ6f9MKTDKCMjCblufA6NSecy9WvrL7G9Cyt2TsQ+PO4M4QjcU+h3Vw3qDHmQRixA8VfKRtPJHeeG5q7uP92q2AspOY1Ji3+VxSkdJAhglTELumxE2nZvq5mZCM=
+	t=1776332394; cv=none; b=CcHEP6R3MI+bJ/Vmdnh6HE+gSrdxJX6n52qYsjWkoS6CD4K8AN92f31b+CwHZ0GHy1tgcqH2/ZDYylj0oZFSJi4cQZJhA8G5z09As55B6zoHU0ZX7YcwYE8zeMMHAhe08vFzxSXBbLSo+bF+J4PQZv/mimxWREDBLYM0qIqLLCc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776332370; c=relaxed/simple;
-	bh=T7CoLB2p6sG/di7D5Nmfq3bgVGiqmIyvmGldLZWNe50=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=M9qq3iM5dkIMjQokcsHcEpoh4ewjmu7eQeYwVhh4nHJ7WfRMb6bO+8CX5VPY0QIpiZLM1YNgWxfzMH6eu5mp0K1NGbVPZyp41gAz3y/6Vf87m8fIapfYt4XDoPcpBWfozIdc/c5ODdWxzU0rzW+Xnr5g+7MMqVhkHQ6XBkdtmtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=162.243.161.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from dongxuyang$eswincomputing.com ( [10.12.96.41] ) by
- ajax-webmail-app2 (Coremail) ; Thu, 16 Apr 2026 17:38:59 +0800 (GMT+08:00)
-Date: Thu, 16 Apr 2026 17:38:59 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: "Xuyang Dong" <dongxuyang@eswincomputing.com>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>,
-	"Conor Dooley" <conor@kernel.org>
-Cc: ukleinek@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, ben-linux@fluff.org, ben.dooks@codethink.co.uk,
-	p.zabel@pengutronix.de, linux-pwm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	ningyu@eswincomputing.com, linmin@eswincomputing.com,
-	xuxiang@eswincomputing.com, wangguosheng@eswincomputing.com,
-	pinkesh.vaghela@einfochips.com
-Subject: Re: Re: [PATCH v4 1/2] dt-bindings: pwm: dwc: add reset optional
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
- 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
- mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
-In-Reply-To: <20260416-wandering-solemn-uakari-083ae7@quoll>
-References: <20260415094908.1539-1-dongxuyang@eswincomputing.com>
- <20260415095020.1597-1-dongxuyang@eswincomputing.com>
- <20260415-reacquire-handstand-d1923af82c9d@spud>
- <20260416-wandering-solemn-uakari-083ae7@quoll>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	s=arc-20240116; t=1776332394; c=relaxed/simple;
+	bh=BD0cwyV0XW/t5ezHwMgClNSnK70nWFAxhYPo27dixqg=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=K3+5ojD5LxmrnWI4M84m2VDixhF+1OlwV3sqd6Mg525HEcfDmwH1aGGyDadY8mZPhnGTEYVjEqqND94tQuyh6KaCZlH/L4yng+YA2Wl8QlG3KauDC07l2nju3ecKZLffj15dXHZuRLy2YJ9iEDdEZ0J1+iW7DO2OWpMxy8Cq4Yc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=VNzF41fr; arc=none smtp.client-ip=109.224.244.121
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="VNzF41fr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1776332390; x=1776591590;
+	bh=ZcOCyUzaVXe/Qvp5i/tcqCJQynw29lc63i+zflJ5wik=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=VNzF41frvY5ionnJnHTAvBiAuHtDG6uBAQt6rU9YVrmBAb8byv8g6f9uiae7L5i1h
+	 nvGpFY3WJfahEL6p9tmAkqcojB9ECXduN5lHbxVYeO24VaiqEHmfzsHSjcL8yFUOim
+	 lZbuU7OIP2pNwCaTSv3o7GR51wavfLWYps/4IZiLlgXl2IZVdHAb6HeLxx++uA6xN6
+	 LsLquGREOeM8MdO8e4z+HUba0VK2h8AJPmrSaNBLxpf3I61lqB68rB/jFVwaUj2+oC
+	 v6OlbHC6cGjUgO+5k8nAarvMqgGMD+HkEP7D8m/LRCmNBZcvHr6bId3pLlMT91pCf4
+	 jfsd9FA/nYSqQ==
+Date: Thu, 16 Apr 2026 09:39:46 +0000
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
+From: Alexander Koskovich <akoskovich@pm.me>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, Alexander Koskovich <akoskovich@pm.me>
+Subject: [PATCH v2 0/3] Describe IMEM on Eliza
+Message-ID: <20260416-eliza-imem-v2-0-fb7a71123451@pm.me>
+Feedback-ID: 37836894:user:proton
+X-Pm-Message-ID: 90e17c226ca56f779132f36ce5286861c6b415ed
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <281f7aa3.5575.19d95a879f8.Coremail.dongxuyang@eswincomputing.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:TQJkCgA3TJ8zruBp7yYSAA--.2351W
-X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/1tbiAgETAmnfvg1VQ
-	QAAsD
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-PiA+ID4gCj4gPiA+IFRoZSBEZXNpZ25XYXJlIFBXTSBpbmNsdWRlcyBzZXBhcmF0ZSByZXNldCBz
-aWduYWxzIGRlZGljYXRlZCB0byBlYWNoIGNsb2NrCj4gPiA+IGRvbWFpbjoKPiA+ID4gVGhlIHBy
-ZXNldG4gc2lnbmFsIHJlc2V0cyBsb2dpYyBpbiBwY2xrIGRvbWFpbi4KPiA+ID4gVGhlIHRpbWVy
-X05fcmVzZXRuIHNpZ25hbCByZXNldHMgbG9naWMgaW4gdGhlIHRpbWVyX05fY2xrIGRvbWFpbi4K
-PiA+ID4gVGhlIHJlc2V0cyBhcmUgYWN0aXZlLWxvdy4KPiA+ID4gCj4gPiA+IFNpZ25lZC1vZmYt
-Ynk6IFh1eWFuZyBEb25nIDxkb25neHV5YW5nQGVzd2luY29tcHV0aW5nLmNvbT4KPiA+IAo+ID4g
-VGhpcyBjb21taXQgaW1wbGllcyB0aGF0IHlvdXIgaGFyZHdhcmUgZGlmZmVycyBmcm9tIGV4aXN0
-aW5nIGRldmljZXMsCj4gPiBJIHRoaW5rIHlvdSBzaG91bGQgYWRkIGEgZGV2aWNlLXNwZWNpZmlj
-IGNvbXBhdGlibGUuCj4gPiAKCkhpIENvbm9yIGFuZCBLcnp5c3p0b2YsCgpUaGUgRGVzaWduV2Fy
-ZSBQV00gRGF0YWJvb2sgZm9yIDIuMTNhIHNheXM6ICJUaGUgRFdfYXBiX3RpbWVycyBpbmNsdWRl
-c8KgCnNlcGFyYXRlIHJlc2V0IHNpZ25hbHMgZGVkaWNhdGVkIHRvIGVhY2ggY2xvY2sgZG9tYWlu
-Ii4gVGhleSBhcmU6ClRoZSBwcmVzZXRuIHNpZ25hbCByZXNldHMgbG9naWMgaW4gcGNsayBkb21h
-aW4gKGkuZS4sIHRoZSBidXMgY2xvY2sgaW4gRFQpLgpUaGUgdGltZXJfTl9yZXNldG4gc2lnbmFs
-IHJlc2V0cyBsb2dpYyBpbiB0aGUgdGltZXJfTl9jbGsgZG9tYWluIChpLmUuLAp0aGUgdGltZXIg
-Y2xvY2sgaW4gRFQpLgoKVGhlc2UgcmVzZXQgc2lnbmFscyBhcmUgb3B0aW9uYWw7IGl0IGlzIHVw
-IHRvIHRoZSBkZXNpZ25lcidzIAppbXBsZW1lbnRhdGlvbi4KCkFjY29yZGluZyB0byBbMV0sIHRo
-ZSBhcHBsaWVkIFlBTUwgaXMgYWxzbyBiYXNlZCBvbiAyLjEzYSwgc28gb3VywqAKaGFyZHdhcmUg
-aXMgdGhlIHNhbWUgYXMgdGhlIGV4aXN0aW5nIGRldmljZXMuIEl0J3MganVzdCB0aGF0IHRoZXNl
-IHR3b8KgCnJlc2V0IHNpZ25hbHMgd2VyZSBtaXNzaW5nIGZyb20gdGhlIG9yaWdpbmFsIFlBTUwg
-YmluZGluZy4KClsxXSBodHRwczovL2xvcmUua2VybmVsLm9yZy9saW51eC1wd20vOGJiNTEwM2Qt
-ODAzZS05MGQyLWZkOTMtMTMyYmIyYWFjMmQ2QHNpZml2ZS5jb20vCgo+ID4gPiAtLS0KPiA+ID4g
-IC4uLi9kZXZpY2V0cmVlL2JpbmRpbmdzL3B3bS9zbnBzLGR3LWFwYi10aW1lcnMtcHdtMi55YW1s
-ICAgICAgIHwgMyArKysKPiA+ID4gIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKykKPiA+
-ID4gCj4gPiA+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mv
-cHdtL3NucHMsZHctYXBiLXRpbWVycy1wd20yLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRy
-ZWUvYmluZGluZ3MvcHdtL3NucHMsZHctYXBiLXRpbWVycy1wd20yLnlhbWwKPiA+ID4gaW5kZXgg
-NzUyM2E4OWExNzczLi5hOGJiYWQwMzYwZjggMTAwNjQ0Cj4gPiA+IC0tLSBhL0RvY3VtZW50YXRp
-b24vZGV2aWNldHJlZS9iaW5kaW5ncy9wd20vc25wcyxkdy1hcGItdGltZXJzLXB3bTIueWFtbAo+
-ID4gPiArKysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvcHdtL3NucHMsZHct
-YXBiLXRpbWVycy1wd20yLnlhbWwKPiA+ID4gQEAgLTQzLDYgKzQzLDkgQEAgcHJvcGVydGllczoK
-PiA+ID4gICAgICAgIC0gY29uc3Q6IGJ1cwo+ID4gPiAgICAgICAgLSBjb25zdDogdGltZXIKPiA+
-ID4gIAo+ID4gPiArICByZXNldHM6Cj4gPiA+ICsgICAgbWF4SXRlbXM6IDIKPiAKPiBBbmQgdGhp
-cyBzaG91bGQgcmVhbGx5IGJlIGxpc3RlZCB3aXRoIGRlc2NyaXB0aW9uLCBiZWNhdXNlIG9yZGVy
-IGlzCj4gZml4ZWQuCj4gCgpUaGUgZGVzY3JpcHRpb24gb2YgcmVzZXRzIHdpbGwgYmUgbGlzdGVk
-IGluIG5leHQgdmVyc2lvbi4KCkJlc3QgcmVnYXJkcywKWHV5YW5nIERvbmcK
+Add a compatible and describe the IMEM for the Eliza SoC.
+
+Also sort nodes by unit address.
+
+Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+---
+Changes in v2:
+- Fix sorting of nodes in eliza.dtsi
+- Link to v1: https://lore.kernel.org/r/20260415-eliza-imem-v1-0-4a90e86837=
+99@pm.me
+
+---
+Alexander Koskovich (3):
+      arm64: dts: qcom: eliza: Sort nodes by unit address
+      dt-bindings: sram: Document qcom,eliza-imem
+      arm64: dts: qcom: eliza: Add IMEM node
+
+ Documentation/devicetree/bindings/sram/sram.yaml |  1 +
+ arch/arm64/boot/dts/qcom/eliza.dtsi              | 94 ++++++++++++++------=
+----
+ 2 files changed, 58 insertions(+), 37 deletions(-)
+---
+base-commit: 936c21068d7ade00325e40d82bfd2f3f29d9f659
+change-id: 20260415-eliza-imem-e791f44abf1b
+
+Best regards,
+--=20
+Alexander Koskovich <akoskovich@pm.me>
+
+
