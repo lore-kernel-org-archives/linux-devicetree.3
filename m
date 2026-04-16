@@ -1,113 +1,116 @@
-Received: from mx3.wp.pl (mx3.wp.pl [212.77.101.10])
+Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 681D32C21C7
-	for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 18:04:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.77.101.10
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776362653; cv=none; b=tD2q/vcjOOBGB+bYp3xRrmG7jkim7u/WKqa/CVssF0EuyIw+FChsYKnXshgnXeI+jNYd5nTKWz/0d/S3VPkh7aSBM3qsmGw5gZtoArVXhinB4HS/8JEBLx/y/aNddvwCv9ltW0NhVhC9fWsYPGGYMFOlh7z6nCyvfW/XzEYf/pc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776362653; c=relaxed/simple;
-	bh=1aJB64SpCLSB+TqXKVC4Eo6mW4snqfD2tZf6JN6ekUk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FtJ2aUPV3oMW9jA8zHOZvCGYANQT5LGWZso9/k89/sPOGeEzSHkGbq5gH6nVSJB4sncBJUhFI5ANq9Rau3yqZURDro5+dq3oKkO8Mg6MdasjoUDgBSa6YkMpsGlhzxJFRVU5L5hL/w8c91JyjWmMvixj2lgWhEICxnO/5TOmzpc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl; spf=pass smtp.mailfrom=wp.pl; dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b=bNZv8G4S; arc=none smtp.client-ip=212.77.101.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wp.pl
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B615E22B584;
+	Thu, 16 Apr 2026 18:29:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776364181; cv=pass; b=k5R7J/TcyCHM9Kebpsq+gZPSXfN4JKSTH1lPLF8oC2mgBUgoTjdp3co+RmAiiWejplRDPfN7tduLmsv0MR7rrYOv6XYdsTBvve349wCQYNT68ydXAL8J8/G0GF0kvIi7WELAeDDlRURntCHuB7D8ei7VwooeZLWsE9W3cS1qxqI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776364181; c=relaxed/simple;
+	bh=W2xztWKQdo8jfaigNceGBZ7cq2BWKBMX3dFTzvKL3w8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Xr1tqtQ64HXKVgSEgyXRdzjcFyQvDHXZQlnCIcWaYVglPuZy442dALJt7qV1UliLzcHK2jD8AHOxpfwyqnmIiSgpcSZTSboktPPXIt+pKElw7Ukp/QL7Ewv3tdwMa741LRe4s3otZMCkfpkARZ9TrUMUw11SAkHZ36ONu1wrWNA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc; spf=pass smtp.mailfrom=ziyao.cc; dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b=byQaRwrd; arc=pass smtp.client-ip=136.143.188.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b="bNZv8G4S"
-Received: (wp-smtpd smtp.wp.pl 28894 invoked from network); 16 Apr 2026 20:04:04 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=20241105;
-          t=1776362644; bh=q2TLkBLJgx5iZgaI4yK1wJo0nl+wnUsigpfkHfj26wo=;
-          h=Subject:To:Cc:From;
-          b=bNZv8G4S4o5+V5wPHaAst1IsRHZxM/suNW+W7V59KiBJ9WHPirx0Yr8wrBYaPYGp/
-           8stCJm7EhJ3ZlkqWGi0rPsPtqnK0ZtAj+9ORqhkOqcTJ5InqYz8NwbtNaaR2URznLp
-           jQ0HvbCKrAfhOC04zh3Q9vroty62tI0HHpAtZeoqXs92rcrhFwcEJvGAQ86550uXFt
-           Dh99zMUvZqyGkr+i1uzI9yPkm46P1x/2xtArvO6eqT5Pprt1ehleLq60/UwtPa3SoV
-           VIndGzx4fdoul/pqZcglagPy6a/Jf9G61N3HKbt7U40y1F5J4TmJbX/T2RmqSvwxad
-           z4KsgncRhu2+A==
-Received: from 83.24.120.84.ipv4.supernova.orange.pl (HELO [192.168.3.203]) (olek2@wp.pl@[83.24.120.84])
-          (envelope-sender <olek2@wp.pl>)
-          by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
-          for <miquel.raynal@bootlin.com>; 16 Apr 2026 20:04:04 +0200
-Message-ID: <444b4349-3873-4da6-aadd-3605e738ad0d@wp.pl>
-Date: Thu, 16 Apr 2026 20:04:03 +0200
+	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b="byQaRwrd"
+ARC-Seal: i=1; a=rsa-sha256; t=1776364138; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=NE1kTZruiDkKdurSqrfKPQfNUW9o4u5ghQYH75IbdUyx3o7sj6y5wOOFBzJiz3krFD3HlyDu0ttTUS6rEGoLv3cyPaiTI1+qW5Wfu1eWzOpxDx2js9hFGI9Jl1QsaRnym5I9XZOJHnnwleYDFRg32/6L+nHXKRPor6MgFA5h9wk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1776364138; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=/YaAGSJbDEtzRAI5/6sj2uFumzW2z1vouVaPcA0oz+w=; 
+	b=hVzdjD2VQCZ6dSwa8hh6g7oUAQ7bL+c+D3cAhRHdCFjI2ef7dZoh4fiLsg9/lLPAMt5ffRjvs+4EYXOOADIG0+ZUEasRsl3kbgVytCRRhslOukT3Y5z2nvgXp9g93JQeXmjQZ3CVuHkyM50IPMkT4Xeleb2j+dH/6qxJUKbDcUU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=ziyao.cc;
+	spf=pass  smtp.mailfrom=me@ziyao.cc;
+	dmarc=pass header.from=<me@ziyao.cc>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776364138;
+	s=zmail; d=ziyao.cc; i=me@ziyao.cc;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=/YaAGSJbDEtzRAI5/6sj2uFumzW2z1vouVaPcA0oz+w=;
+	b=byQaRwrdr5W/VTDACSb+HBtBWXizaAMCpNmGK/GGECr4/KM+COGj11uFyIJfeVvf
+	3MQUH9onOpF9YfQxnvrcXHYm8GvOUVY8oN3BMWuvf77fKXay8FpBZYlUeHSwH3IcS7k
+	P+sCiU6wRU2TZRxWEJgliU2/dLj7en3Z8DrJB3Rw=
+Received: by mx.zohomail.com with SMTPS id 1776364135165890.8638924599645;
+	Thu, 16 Apr 2026 11:28:55 -0700 (PDT)
+Date: Thu, 16 Apr 2026 18:28:23 +0000
+From: Yao Zi <me@ziyao.cc>
+To: "Shuwei Wu" <shuwei.wu@mailbox.org>,
+	"Anand Moon" <linux.amoon@gmail.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+	"Viresh Kumar" <viresh.kumar@linaro.org>,
+	"Rob Herring" <robh@kernel.org>,
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+	"Conor Dooley" <conor+dt@kernel.org>,
+	"Paul Walmsley" <pjw@kernel.org>,
+	"Palmer Dabbelt" <palmer@dabbelt.com>,
+	"Albert Ou" <aou@eecs.berkeley.edu>,
+	"Alexandre Ghiti" <alex@ghiti.fr>, "Yixun Lan" <dlan@kernel.org>,
+	<linux-pm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
+	<devicetree@vger.kernel.org>
+Subject: Re: [PATCH v2 2/2] riscv: dts: spacemit: Add cpu scaling for K1 SoC
+Message-ID: <aeEqR-ctSI-NfEkR@pie>
+References: <20260410-shadow-deps-v2-0-4e16b8c0f60e@mailbox.org>
+ <20260410-shadow-deps-v2-2-4e16b8c0f60e@mailbox.org>
+ <CANAwSgSNHO3MNewNzpYbhuj4K3NTdfzDC9KPoUHbFH97P4M_UQ@mail.gmail.com>
+ <DHUCL24GMX7D.369IWK9DLPZPX@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/16] dt-bindings: interrupt-controller: Describe EIP-201
- AIC
-To: "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Olivia Mackall <olivia@selenic.com>, Herbert Xu
- <herbert@gondor.apana.org.au>, Jayesh Choudhary <j-choudhary@ti.com>,
- "David S. Miller" <davem@davemloft.net>,
- Christian Marangi <ansuelsmth@gmail.com>, Antoine Tenart
- <atenart@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Pascal EBERHARD <pascal.eberhard@se.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-crypto@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-References: <20260327-schneider-v7-0-rc1-crypto-v1-0-5e6ff7853994@bootlin.com>
- <20260327-schneider-v7-0-rc1-crypto-v1-2-5e6ff7853994@bootlin.com>
-Content-Language: pl
-From: Aleksander Jan Bajkowski <olek2@wp.pl>
-In-Reply-To: <20260327-schneider-v7-0-rc1-crypto-v1-2-5e6ff7853994@bootlin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-WP-MailID: 7de5bd77c80430cfb5ca2f9c375fd890
-X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
-X-WP-SPAM: NO 0000000 [wfNc]                               
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DHUCL24GMX7D.369IWK9DLPZPX@mailbox.org>
+X-ZohoMailClient: External
 
-Hi Miquel,
+On Thu, Apr 16, 2026 at 01:59:05PM +0800, Shuwei Wu wrote:
+> On Tue Apr 14, 2026 at 9:25 PM CST, Anand Moon wrote:
+> > Hi Shuwei,
+> >
+> > On Fri, 10 Apr 2026 at 13:30, Shuwei Wu <shuwei.wu@mailbox.org> wrote:
+> >>
+> >> Add Operating Performance Points (OPP) tables and CPU clock properties
+> >> for the two clusters in the SpacemiT K1 SoC.
+> >>
+> >> Also assign the CPU power supply (cpu-supply) for the Banana Pi BPI-F3
+> >> board to fully enable CPU DVFS.
+> >>
+> >> Signed-off-by: Shuwei Wu <shuwei.wu@mailbox.org>
+> >>
+> >> ---
+> >> Changes in v2:
+> >> - Add k1-opp.dtsi with OPP tables for both CPU clusters
+> >> - Assign CPU supplies and include OPP table for Banana Pi BPI-F3
+> >> ---
+> >>  arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts |  35 +++++++-
+> >>  arch/riscv/boot/dts/spacemit/k1-opp.dtsi        | 105 ++++++++++++++++++++++++
+> >>  arch/riscv/boot/dts/spacemit/k1.dtsi            |   8 ++
+> >>  3 files changed, 147 insertions(+), 1 deletion(-)
+> >>
 
-On 27/03/2026 21:09, Miquel Raynal (Schneider Electric) wrote:
-> diff --git a/include/dt-bindings/interrupt-controller/inside-secure,safexcel-eip201.h b/include/dt-bindings/interrupt-controller/inside-secure,safexcel-eip201.h
-> new file mode 100644
-> index 000000000000..ead73bd96296
-> --- /dev/null
-> +++ b/include/dt-bindings/interrupt-controller/inside-secure,safexcel-eip201.h
-> @@ -0,0 +1,14 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR MIT) */
-> +
-> +#ifndef _DT_BINDINGS_IRQ_SAFEXCEL_EIP201_AIC_H
-> +#define _DT_BINDINGS_IRQ_SAFEXCEL_EIP201_AIC_H
-> +
-> +#define AIC_PKA_INT0 0
-> +#define AIC_PKA_INT1 1
-> +#define AIC_PKA_INT2 2
-> +#define AIC_TRNG_INT 3
-> +#define AIC_RESERVED 4
-> +#define AIC_SL_ERR_INT  5
-> +#define AIC_PROTECTION_INT 6
-> +
-> +#endif
+...
 
-This interrupt mapping is specific to the EIP-150. The EIP-201 is also 
-integrated
-into other accelerators, such as the EIP-97, EIP-196, and EIP-197, and the
-interrupt mapping is likely different there. Maybe it would be better to use
-eip150 name instead of eip201?
+> Regarding the necessity of listing these clocks in the DT, my analysis is as follows:
+> 1. For CCI550, I did not find a clear definition of this clock's specific role
+> in the SoC datasheet. Although the vendor kernel increases its frequency,
+> my benchmarks show that maintaining the mainline default (245.76MHz) has a
+> negligible impact on CPU performance.
 
-As for EIP-28, it is also part of EIP-94. EIP-94 is supported by the 
-amcc driver.
-EIP-94 consists of four components:
-* crypto accelerator (unnamed?),
-* PRNG (EIP-73d),
-* TRNG (unnamed?),
-* PKA (EIP-28).
-Only the first three components are supported by the amcc driver.
+FYI, CCI550 is used for naming an ARM interconnect IP[1], which matches
+your observation.
 
+...
 
-Best regards,
-Aleksander
+> Best regards,
+> Shuwei Wu
 
+Regards,
+Yao Zi.
+
+[1]: https://developer.arm.com/Processors/CoreLink%20CCI-550
