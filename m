@@ -1,474 +1,203 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F257A286D5C
-	for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 03:26:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776310003; cv=none; b=cUN+MFstU7Yk4+Yh7/BZPXovkhOo4H9ibodMhXMNKBCQ4DeVMX1NEVj2QSxW9dmhRMqPOv4oKk3DtANmpU30t16hXiT+YMfpdq1SaRj0EG+OrKO3nnqSDPct+f5tso+PQ0hVRXZSXyvOVAmvpS7r5JnuNk1h6qceyZA51yYRmlU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776310003; c=relaxed/simple;
-	bh=YeNLm5HD9pelPvBZyoqENV0LIXfXT18gRjN/gUVw054=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UwCDK42fM/Ap2S5kDGy9Y/yw155hUgN1kuP8CCMZsU/iM13EtAKdPTXcB1L75Xkql9wLqx+X1M3ptGt7q7lnmA6IN0Tf+pe9IEl1zHQtDPUX6pPE+03gKL/ZtCXnc9njJO6nXAN2Wh2/7HinqRDkkvXR+71LxwYPbT3sJ6b+qOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SWY9Qd3W; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HX918G9n; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A244298CAB;
+	Thu, 16 Apr 2026 03:45:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=210.61.82.184
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776311163; cv=fail; b=UHhLR/LvCFPuY+GnZC6Ye05O80RqClkbkjS1Z7CfZJ3kA5z5B1EDzqCRS2IzpWxu4OAUPI6ODuENXS0I8FVpo840+Nr1J3lnyRseg3dgpkSk4zQprSiFukSslsnVCZW+Abp/bQJ0vksxabrW3CuBJIoHHVtRywOjN0zcldPYYdE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776311163; c=relaxed/simple;
+	bh=lIB+8qp0uWHHGX2QcwjdpwhYAqSoayseP+8JHJIHOvg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=OIxlhyHPqcJT4CdUissXndzW8kMRzPad2SpOoOVcZwXPVcniOIRrB0AWzfH/ls479mw0vYHlZjCVHry9LvVJ8hy/aOyVy8AUO/EZc5epaPKldn0AVdFfOfo+3UAC+WLAwhOUYCZ9WRYSgPd1Imp8/aEEpIhQx4jM3KRjLzzgNxc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=nXOpSjT3; dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b=a1FiZYm7; arc=fail smtp.client-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SWY9Qd3W";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HX918G9n"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63G37LTJ1565861
-	for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 03:26:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	vDK6pAlGwxYE897uZGp1sSM8FaPwo0OHKjiLMvDJlSM=; b=SWY9Qd3WKivoaF5z
-	JCNUWFn6lHYDHyOuTykCB5IdRbNsUrvJXHcbkMpoXZzEFaGmmiVh4/iNs5m2m3/d
-	1ctBxyEGpnQhAu31duNagl7MvxO6Dphq86jgT8s1bddtRVBYt5aiZvC0Q06xHb4f
-	pJ5mQ251/oFa31hOjocFi81oL7nTanhTsaxGMhiRvRj3+79HdoaaaOzK6DQpIlj8
-	DMKRTns25lEdApCluihx1mohx8vnRlScMBm04DII0VQ2demD5TuPnhQ0Qu4l9aQk
-	+r4A6uDr4avQHRyxxypoO1lgUgcJ9ZoXxMNexwA1OoF0Yg1Uo5d1Y4vVKNY0rEpu
-	3CT5jQ==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dj7wv3avb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 03:26:40 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-82f460260cfso4260835b3a.2
-        for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 20:26:40 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="nXOpSjT3";
+	dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b="a1FiZYm7"
+X-UUID: c502fb74394611f19a16598d5ca7f8ec-20260416
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From; bh=lIB+8qp0uWHHGX2QcwjdpwhYAqSoayseP+8JHJIHOvg=;
+	b=nXOpSjT35Onc6iXPemof2Jiq/gfpa8ZyE2gORQs5oYS0VZGqBf5VAHw6NA92NbIkai1ApKGbpU55jszCIMdz2BAWtYPkHgnZvkhYU1u36xZNafbi58IPcg2zvhFs+HsdKN/ZYYzY4Rnf3JzKp1Y+xkgd2sIxWyLcnfkJ4YD1F9k=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:4373818c-3237-4b78-ae85-dc761c1554c5,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:e7bac3a,CLOUDID:66167b8f-6df4-4a3d-a7a4-fbdc42d669ce,B
+	ulkID:nil,BulkQuantity:0,Recheck:0,SF:80|81|82|83|102|110|111|836|865|888|
+	898,TC:-5,Content:0|15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:ni
+	l,BEC:-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: c502fb74394611f19a16598d5ca7f8ec-20260416
+Received: from mtkmbs09n2.mediatek.inc [(172.21.101.94)] by mailgw02.mediatek.com
+	(envelope-from <ck.hu@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1954205261; Thu, 16 Apr 2026 11:45:54 +0800
+Received: from mtkmbs10n1.mediatek.inc (172.21.101.34) by
+ MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Thu, 16 Apr 2026 11:45:39 +0800
+Received: from SI4PR04CU001.outbound.protection.outlook.com (172.21.101.237)
+ by mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Thu, 16 Apr 2026 11:45:39 +0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YpIyQEuTo87RQ7qz7Ry4cV8kIjh8ED9sE2VsX41rokGb/LFhoTRTwmCNBicO6Vdh9FLvoJ/2mQKOdOvH+78RpX28I63/xsrWowbWJJIxrify3WuJYVGprGT56voOIZBZC9ZeCPj1GoOXrvb30U7L8bRlHGTlaxIZKn6fG0V1rNKZzwsRSQAlj687p1RDlO9smJHbwipAonsPwO+y5jwZ85GoK3RBjq6v/t2kpcr0Epk4tn1PTXryJnzqcm5tuWrZ+54eNBp93JMJJ01UFLPLkw9CGIGtNjbcKtJtvBz3zYIcrJ3GAUCM3PGwbtJaidappVCsozdoiazEJP5pGvTv0g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lIB+8qp0uWHHGX2QcwjdpwhYAqSoayseP+8JHJIHOvg=;
+ b=roT/pj15YCXU0NyYAQ8320IvzmqRREAlMlyyv75A6OmTC0jqjPW5sK9I+0jqP60HreV/1tUo2c+Q4gejCU4YZij2MNnqGk00weKmJaMk1yNB4x8vYQidNKOZuna/wTYGuYj/zfq5adWwHL+rldAqJOZ2C/ypR4KoaqkBM0mHvY59f4cM7o5KOFomz0dPmN2hFGxnDADMEvYL6UcZ0IeDq6FrS46T9v654tGxxVRC/I+Q5mALP8E11Nnx0b3KjVXkLrBxSvSMUpjUzYFctf1AX5HDwHTHZH6r7S4KbZotg4DLVutlkrp5yXSHdyiF0zg/xfCpoG0/4yz7OrtXjWx1Aw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
+ dkim=pass header.d=mediatek.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776310000; x=1776914800; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=vDK6pAlGwxYE897uZGp1sSM8FaPwo0OHKjiLMvDJlSM=;
-        b=HX918G9nZ6i2DfnyWHnPIiEQYhY3c78JF7SEhBCWi2ExnpBBUr4hTYI+trTWA0avXp
-         NeEi37Fc+mBAbjgx5OPiHsMwzq9z21GrTudWrwnZE3vI3OhVLezXuwW0+gb/dyyhXnAP
-         +kWRo2fCETpronsRCIssOOBdOT7GHMAtQdhW/mOEJBvznZy8xx3Wd/vS3mk3hvj3bih9
-         RmUpAzp70Xk+YOB77Bo4tTnQLd5kufbkFxqe5pXuohlrVMlRQWrEVJrvBEn7oPXr3Hyk
-         0Yo4uCEW75RvssIMMS9DYjGDCPuY4+79BpYbaq0tzqz9bc6Pqy2BFonfh1pxlKVNTmdo
-         3GeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776310000; x=1776914800;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=vDK6pAlGwxYE897uZGp1sSM8FaPwo0OHKjiLMvDJlSM=;
-        b=c+TWyrCDs57dxXTS5xteR2/W4JfLt5Wf7yiuzYviMnccU5tBaODMCMYRfgTaOfTATE
-         CCyth2sUhKkpi2fXmZ+6zZihXppguOk82vJdS0OL72P8lpdC/baPoOQuduCkDBgJ8jwZ
-         RXuMlhxaATGoHXmVOyVt4K8buRwTKiB6HeaLcfjuJkOn/8ITxkRWT4PZTdGAY3t+TxNV
-         5V3YXSbS0bGTwE+KJ3s8ZeMJ6kJ+CvV+seXbu6pIokcfsFXzUnOKl4NlfTHCb4IsfRLU
-         jHZKj3VoIcdpRzvawIFAjZfZraPszvmu8qnIZuFSRIaCTnGuJQkAL8OBLInAy0LoDfI+
-         G8rQ==
-X-Forwarded-Encrypted: i=1; AFNElJ99LKCGDhq+3yhboSMqBE+uOKORM0TGzow/C5qCpRe9S/l2l89bGpf2PE7wkrIApdeCp23Y9M0RHfV2@vger.kernel.org
-X-Gm-Message-State: AOJu0YzljyqNyBtE3/d5hrpjndFd9Xgj6weLU8qPOCwjEGq0k0U5hwmf
-	R4BN/QJFW3lMjtJdfk+fUHK73lyBJi2ktUbre/Iybuo0D9Dd9eOTAa82W8a4PQbivRj5knCYcKt
-	lDODRGLYh5LpoQi81zB8NpYiOaKkQJdzVWHaZmJKD9wbntvzp38I6+Dbieb/LSvwe
-X-Gm-Gg: AeBDievVotRZhQkSovzFQJg8flW3KbXWqhywbMhzs0K/p/PP6yyAwXuHEA9M/LsC8E/
-	pQaaZFClAazeaGlMvuECLrCc1YRuPPQ1enWpax/9rfKyJhwouSR01x+AhhhnKBXEBr8QkpV586I
-	2c+AmbI5WEQKHDD8AUofPLH+xGkv8PxEfCEjnlaP61giFbWNv22WZvXTU+ynwolsB0rc0OUp9IF
-	2S/up1svfKFdQeMN8NqOavbDQxa+9WBy1/7JxMRnv5Nh+lSXT/2VPMa5uTIXUUNel3qqbT2H0l/
-	dbC3ot7I31slKl2GUGwFZB2YAS64pYrD6KCdYnrRtU9WbebacoLguUHQpPGEcFeIHLle2Sblo75
-	czJ1G6OTbWGI8nSgFor/5U+jQRtjT2BIanc0BpZxfQMrhOjywrKsdtmp9
-X-Received: by 2002:a05:6a00:3924:b0:82c:77cd:50e8 with SMTP id d2e1a72fcca58-82f0c30f593mr23470691b3a.27.1776309999758;
-        Wed, 15 Apr 2026 20:26:39 -0700 (PDT)
-X-Received: by 2002:a05:6a00:3924:b0:82c:77cd:50e8 with SMTP id d2e1a72fcca58-82f0c30f593mr23470629b3a.27.1776309999089;
-        Wed, 15 Apr 2026 20:26:39 -0700 (PDT)
-Received: from [10.219.57.109] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82f6707b6b8sm4265094b3a.22.2026.04.15.20.26.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 15 Apr 2026 20:26:38 -0700 (PDT)
-Message-ID: <555b2695-1feb-482b-aec2-d6f3f2b2ef0e@oss.qualcomm.com>
-Date: Thu, 16 Apr 2026 08:56:24 +0530
+ d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lIB+8qp0uWHHGX2QcwjdpwhYAqSoayseP+8JHJIHOvg=;
+ b=a1FiZYm7djENJ5T0n4dwK9LiSs0tSh6yiqsJzgIhSmSGVE13Vsbn4j0A+O3hUeicRrAk2ICFisyPXZIltsINWzKoLo8ju7saTXRuGLeVrVWSV4pHTMjM881Cg65Yfd67NijEVFTUWbr4HVjqBA03AVjqQAIcOt3kJl5pBYqct2Y=
+Received: from SEYPR03MB6626.apcprd03.prod.outlook.com (2603:1096:101:83::7)
+ by KU2PPFD33A87D41.apcprd03.prod.outlook.com (2603:1096:d18::427) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.41; Thu, 16 Apr
+ 2026 03:45:36 +0000
+Received: from SEYPR03MB6626.apcprd03.prod.outlook.com
+ ([fe80::bca6:6e1d:33c7:b8fc]) by SEYPR03MB6626.apcprd03.prod.outlook.com
+ ([fe80::bca6:6e1d:33c7:b8fc%4]) with mapi id 15.20.9769.046; Thu, 16 Apr 2026
+ 03:45:36 +0000
+From: =?utf-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>
+To: "robh@kernel.org" <robh@kernel.org>,
+	=?utf-8?B?WGlhb3NodW4gWHUgKOW+kOaZk+mhuik=?= <Xiaoshun.Xu@mediatek.com>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
+	<conor+dt@kernel.org>, "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+CC: "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-mediatek@lists.infradead.org"
+	<linux-mediatek@lists.infradead.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, =?utf-8?B?U2lyaXVzIFdhbmcgKOeOi+eak+aYsSk=?=
+	<Sirius.Wang@mediatek.com>, Project_Global_Chrome_Upstream_Group
+	<Project_Global_Chrome_Upstream_Group@mediatek.com>,
+	=?utf-8?B?VmluY2UtV0wgTGl1ICjlionmlofpvo0p?= <Vince-WL.Liu@mediatek.com>
+Subject: Re: [PATCH v3 1/6] soc: mediatek: mtk-devapc: refine devapc interrupt
+ handler
+Thread-Topic: [PATCH v3 1/6] soc: mediatek: mtk-devapc: refine devapc
+ interrupt handler
+Thread-Index: AQHczU8I2LC2DaxlekSb8EMJ9ak2MLXhDFiA
+Date: Thu, 16 Apr 2026 03:45:35 +0000
+Message-ID: <e63f462b3db415f1a3380e72734c269608f9a36d.camel@mediatek.com>
+References: <20260416031231.2932493-1-xiaoshun.xu@mediatek.com>
+	 <20260416031231.2932493-2-xiaoshun.xu@mediatek.com>
+In-Reply-To: <20260416031231.2932493-2-xiaoshun.xu@mediatek.com>
+Accept-Language: zh-TW, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Evolution 3.52.3-0ubuntu1 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=mediatek.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SEYPR03MB6626:EE_|KU2PPFD33A87D41:EE_
+x-ms-office365-filtering-correlation-id: ccc49317-a391-48db-c704-08de9b6a9e5a
+x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|42112799006|1800799024|366016|22082099003|18002099003|56012099003|38070700021;
+x-microsoft-antispam-message-info: L6SLYwxAf0Cz9YFT7YTCCBm/7Lsz8B/fY2fc4CkQED3SCde8p6uobM7RQAONeU1DjMj+rLbSeGKoKa6CbRSg+mM8XnHKJ0Q8gBW5rTVWUh73X5AyJ9rMILnOPMyUOihU7v3mF4iJeZpt0QgeKI7qONbhdQuO3RebL13Km6YdlBmffHYZW7nW40iC6AeYBKaKNEcfo1hcQN2JL6KEm+aQRAIVxhcEIXbVvtVVzWktsHdQH0bgvZWMG3iyqEQSJbaNqt0HeREXxllojSOZAxloo4lvwQQEXeO6V68VF3twg3sDwUEFsIfgPzMbNZj8E6ofYOLm1jrCOBiI/X50ZYxnJVFXW+q+s1Bk35PGt+kivBzo3ZRnYMooGjwkJ5VqXux49erQYip0ac+Uv++4YIzktPoKaow0z1m13hVyl90Rfdck4h9X0xwY/7xwklEbNrGobYaPMRHlN9X81XMZnFQ4csxOi7dK40lnt6mflycTDE3PBtTPAU0r6UMEQVOjoylqD8AKRyo1yXL5sUhahwhWmqMC8yhKGsTQMe1xMRgX2/BH70lAONIIyVwl1vROyLdIIAP7Jyv5e0DipFjIi1kMAihFzBcCZnyOGm9z9TvZLd/oYMamhb69yF15/ZuShK4oCTmOVrgWBDEk/cRnKa00+0S4sZQW7cSVwHhD64OqpYp6sBVJkZL0TZRXlqBz7v8kpKi6v+z2/KxMI/5+0fAw6Gw8O+lhF06CHqnh/VpQNAifmF/5LfqUHuupyKGfWkz8X/5hbVAy5BsxmI1gJnZT85JAl7Gm0O1vZyD82H6TFPY=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SEYPR03MB6626.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(42112799006)(1800799024)(366016)(22082099003)(18002099003)(56012099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?a1NYYm4raHRtWjMwWExJMGUzR3cyS0w3OTJIN1FWUm9oRm5OZ1lwVTRTc0Uy?=
+ =?utf-8?B?WXRGVXJsTS9aVlRIOG5aYjgwaUtCY0lGb1AybVlwMlNoN2JCWGlsT3Jib1F2?=
+ =?utf-8?B?c2h4Ym9kWlFqcnU4cXNRcDNMZ2NNL0l4amJvL09kNWRMcXJhdDFlSnZ2NEpt?=
+ =?utf-8?B?NFVGMVhJN0o1M0sycjdIbWp3aTZwSkFDcHgzQ1FoeGtuYnhOWDlpZnQzN0x4?=
+ =?utf-8?B?UG1RalAyZE1VRzRLc1B3b2hxRXhNb0JQQmY4VlkwVVl0eFNuZjU0eWpmaThK?=
+ =?utf-8?B?bHJscXZ5NGhNTkRJYXAvVWh2ck9CdFFuZXN2UnFmMnJFQTVadGY5RGNhS3Y2?=
+ =?utf-8?B?MGc5aWJ0eUFWS3RNRXZkcDcwN0JoOXBBZVlOeVdnRzVMRWd6VUtjNXRmdTRK?=
+ =?utf-8?B?UGwrbzVKdkpnY0doY1JudkZMbW1GZ3hIdHRMZVlHQmFGTisxczJCV0lISUE4?=
+ =?utf-8?B?TUw2bWtsVi9rWnZ0TVZJQVFFMjliVWgvTEFiRWhHckZWZ3VyMGw3YjY2WDRs?=
+ =?utf-8?B?eldSckRRRVhJRE1FVm5nQzU5WlZpWFpKNFlZSk15Y0twZmNwMytHSXdJYnVP?=
+ =?utf-8?B?eGRrNHlOcWp4UU1KUnN5UklPcnlqWXlIMEEyTDdOaUdhb1ZPMm03bnFZcjlL?=
+ =?utf-8?B?V1hhN0dXZzRqcTBLeEtBMzl5RUhLQkF3TDlBQXo2UStRQWhyelQvaW5hbGJQ?=
+ =?utf-8?B?TldRNUx1MmFyVmVFTTZzcjlzT2JqeFVmV2h2dVBjLzAwdGJ5bitSSXJZSHhq?=
+ =?utf-8?B?cGRQT0s3eTkyR0xwaG1leHkyblRNZ0Fkdml1eGJQR1hUMDRnQVJPY1owTENy?=
+ =?utf-8?B?L2FycEYrZ1IwQUhMaytEYlFCSDdsYjg2T2hlTlpJNUZLbDc3VERWVXlQcEtp?=
+ =?utf-8?B?ZEJzQUZOdTEyTUQyakoxYXhicnFFN0twZ0YrRy82YTUzTmU5QUczeUlvaXZn?=
+ =?utf-8?B?ei9Ha1dPZkFRWVdSekFzN1hPU0RPUC9ueTdhUWE0MVdCeGpqMmd3ZGdSenE1?=
+ =?utf-8?B?OUhaN1l2VEhSRGhPL3pzYWN3VDI1ZE9aekpUNzQ5YXhZelU2Q0ZVcFFxdzhX?=
+ =?utf-8?B?d2FRamsyUmVPaWl1L0VvV0RxcVdaeXRNaTY1dW9GZmtNc3pSMGlZYzVXVXBU?=
+ =?utf-8?B?ZG54VmJoTHlXa2tncmZCRUpySmtIZ0JCeURVRkRGTEFXSWsxRkV1eXRDZDRE?=
+ =?utf-8?B?SjhCVVJ4Qjd1R0s1cnFxMkp2SUZ0RVd3TzV4R2NzYTVQdzZTeWI4V1p2M09D?=
+ =?utf-8?B?NXM2ZUdPNm1YNXhiTnI1OFpCd3hPKzFURU1SOXBvMlRmZVJJTHdtazhXUTJS?=
+ =?utf-8?B?alQ3R0xSNk1VbzNiQ01xMkpNWjlKeDJEdlQvREJic0lPbC93bkFsNmpjWUcx?=
+ =?utf-8?B?OG5DSllweFIydmFKbVNTSGFzMkpSQWRvUkVIei9HdEkvaFdlK2dObFJ4V29E?=
+ =?utf-8?B?dWk1YkR6Q3Y1OXoxaUMzY1JvdFA0UEU5cWl4YTlzRW1ldFpVaisxUHNYbUpt?=
+ =?utf-8?B?QllkS0tHZkFpNjB1Yk5oWVZRVmVPcVE1Z2s5NkowcVdvQmljTTRocG54czVQ?=
+ =?utf-8?B?bElaQ29lV2pHUjVmUldVSHlST3pzY2gyRFdFaWlQTmxBNWxyQk9HdnRPRmxy?=
+ =?utf-8?B?a0NIN3ZzVWhwVmVCamx5ZWJPWmpyWE9HaGJCRGoyNlZWWmlHaDB1OWRQdS9S?=
+ =?utf-8?B?R0dmMFpwYTJWNGZGeVo5ZFZ0QkU5a1gzTnptdWkxOVhvdTN0am42cW9Nem1M?=
+ =?utf-8?B?RW5Ka2VZTjNpdVE0cTVFNzJtOXpSRzd5ai90Sy9wbmVRWTN4V1Q3SEppbW5Z?=
+ =?utf-8?B?SE10a3ZCZk9ubUt6Z3NiTXNUd2I0YUFXRWNjUExsb1hkdTVxM01JVHdhc1NZ?=
+ =?utf-8?B?R1J5SkNQQjZySWJtU2ZZaUZHRmpwUEllaUVhWFFuUVZyS2U2OHArc1g1L3Jp?=
+ =?utf-8?B?SXpqRkNqZFJqNzhZamc2VnM3YlJtQ05nSUgzZVNLdlVvNVN3NzE3QXZ3L2F5?=
+ =?utf-8?B?S25pYkZnbnoybW9UNGx3dTdBMmhlVXBmaFRqN1NNWTVrWldNKzFnSVV0ZDBT?=
+ =?utf-8?B?QVFaWWJtYjMxdkZlS3ZvSGhIOEdDQ3BWTEFhSzhRbWxCZkhFM2FFRkFTajFr?=
+ =?utf-8?B?S0RXbFV4L2tuSnc4MmN1eTB2Vm8vbGE4ZUJPbmN3UHpGQ3lsRFhNOGtqSXFT?=
+ =?utf-8?B?VEh2RUN2SFlMR1lWd09PSlgwdEdZZUxNWXcxaG10WjZVRmVlMGJFM21ncWJh?=
+ =?utf-8?B?Wk41OVh3d2syUzlRWmRTR0svSGZmRjV4M3BycHhKMlFtanhHaEtobUpMbHFH?=
+ =?utf-8?B?NG1LNnNMV05iQ003UVZab09Jd3l4U3hrbDY1REIrQmJTdFVzWW8wdz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <254A11B1646E1047BBE015EA9A4C4EDA@apcprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 3/3] of: Respect #{iommu,msi}-cells in maps
-To: Nipun Gupta <nipun.gupta@amd.com>,
-        Nikhil Agarwal
- <nikhil.agarwal@amd.com>,
-        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, Marc Zyngier <maz@kernel.org>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Thomas Gleixner <tglx@kernel.org>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Richard Zhu <hongxing.zhu@nxp.com>,
-        Lucas Stach <l.stach@pengutronix.de>,
-        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bjorn Helgaas
- <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>, Juergen Gross <jgross@suse.com>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Prakash Gupta <prakash.gupta@oss.qualcomm.com>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-pci@vger.kernel.org, imx@lists.linux.dev,
-        xen-devel@lists.xenproject.org, linux-arm-msm@vger.kernel.org,
-        Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
-References: <20260408-parse_iommu_cells-v13-0-fa921e92661b@oss.qualcomm.com>
- <20260408-parse_iommu_cells-v13-3-fa921e92661b@oss.qualcomm.com>
-Content-Language: en-US
-From: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-In-Reply-To: <20260408-parse_iommu_cells-v13-3-fa921e92661b@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: xKJyEh0Z73wgMWxR11_pn1faeAknyU6E
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE2MDAyOSBTYWx0ZWRfXyco2uSrJIXXM
- m+cH1tIxpQ9Md9ebeIrwy/Jvlbh18fCjkwjWgGqtKW5YsxGhCQn9mw8JvRxTCQNxt5RQdZJhSAq
- nmDy7eOu7fuPShHB1hwT0SwcXpBGnxtu+CA9IfB0TB6AJaWrDUfwJkgIQRKWcry/XumSOZh1jQK
- B0fjvw7vtdqoIr6As9zfwf15XQoDxh5MSauDek/pXuy1Lbr5Hd9HnswOuWBPMnd2joAVEzs8lUp
- ekL8RyHJ62QB4KWwklH6MvZPP4ZiJp8hEMXrA4blZip845YAAZ01+nAGQn120PIl4vk26O59fdo
- xhM6w0im1ODe/hXQqouTABofpfRiciRWH9k0fIW85Xqi4/VyedTY1o95mMCtmzduLHGvKJazhkk
- UUTOX1ECQDqAUGhgEWs7vjOp6D3gpOw9DMkEIkGfTMpxCK+Zo8i3Esk3jdvUWrAAI82MFcjzisK
- w7v4+gHGSddaphWJGEw==
-X-Authority-Analysis: v=2.4 cv=GYgnWwXL c=1 sm=1 tr=0 ts=69e056f0 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=OsyBWCJeBE2wmg0BnjgA:9 a=QEXdDO2ut3YA:10
- a=zc0IvFSfCIW2DFIPzwfm:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-ORIG-GUID: xKJyEh0Z73wgMWxR11_pn1faeAknyU6E
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-16_01,2026-04-13_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0 spamscore=0
- clxscore=1015 priorityscore=1501 suspectscore=0 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604160029
+X-Exchange-RoutingPolicyChecked: oaYTZ6m2hiaGQQbgvFh41InXfA9r9QectCVGDW3fBi1g2L6yqlKwiyUSFBShK5YDM/hsJolwjIQVWtIm+BEVg9JhRsdzO+3ZUD+zSmQi0raTzuCymEp1IIAHig7mXdPW2nAGVrJL45he8EChW8TWhY/CGPf9yse+EHhYDPlM6CQCb+C9Kg4qrwRaIdqhdOGBnUP78Q8MKESskQiZe1y8LABhss160OdnYFhcpB9JGTCC5EeyGtYOPYVQL/oPgskDxWVEFRSsa2DmU3YGlblPnFFgRfGGG2BFX/40waC4lLsnhnVEk5Z6J63jeNNCwCnf0pIHY2gT5p12xnP8WExhNQ==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SEYPR03MB6626.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ccc49317-a391-48db-c704-08de9b6a9e5a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Apr 2026 03:45:35.7771
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: j3zk9xPILP++pGCQD49RVATbGFJd6i2x2cLnUzXX80t6KQceQ091Xy1yU6DnCNZK+6N7NvjeZYZXdkoLyACJoA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KU2PPFD33A87D41
+X-MTK: N
 
-
-
-On 4/8/2026 3:33 PM, Vijayanand Jitta wrote:
-> From: Robin Murphy <robin.murphy@arm.com>
-> 
-> So far our parsing of {iommu,msi}-map properties has always blindly
-> assumed that the output specifiers will always have exactly 1 cell.
-> This typically does happen to be the case, but is not actually enforced
-> (and the PCI msi-map binding even explicitly states support for 0 or 1
-> cells) - as a result we've now ended up with dodgy DTs out in the field
-> which depend on this behaviour to map a 1-cell specifier for a 2-cell
-> provider, despite that being bogus per the bindings themselves.
-> 
-> Since there is some potential use in being able to map at least single
-> input IDs to multi-cell output specifiers (and properly support 0-cell
-> outputs as well), add support for properly parsing and using the target
-> nodes' #cells values, albeit with the unfortunate complication of still
-> having to work around expectations of the old behaviour too.
-> 
-> Since there are multi-cell output specifiers, the callers of of_map_id()
-> may need to get the exact cell output value for further processing.
-> Update of_map_id() to set args_count in the output to reflect the actual
-> number of output specifier cells.
-> 
-> Signed-off-by: Robin Murphy <robin.murphy@arm.com>
-> Signed-off-by: Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
-> Signed-off-by: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-> ---
->  drivers/of/base.c  | 157 +++++++++++++++++++++++++++++++++++++++++------------
->  include/linux/of.h |   6 +-
->  2 files changed, 125 insertions(+), 38 deletions(-)
-> 
-> diff --git a/drivers/of/base.c b/drivers/of/base.c
-> index b3d002015192..2554e4f1a181 100644
-> --- a/drivers/of/base.c
-> +++ b/drivers/of/base.c
-> @@ -2096,18 +2096,48 @@ int of_find_last_cache_level(unsigned int cpu)
->  	return cache_level;
->  }
->  
-> +/*
-> + * Some DTs have an iommu-map targeting a 2-cell IOMMU node while
-> + * specifying only 1 cell. Fortunately they all consist of value '1'
-> + * as the 2nd cell entry with the same target, so check for that pattern.
-> + *
-> + * Example:
-> + *	IOMMU node:
-> + *		#iommu-cells = <2>;
-> + *
-> + *	Device node:
-> + *		iommu-map = <0x0000 &smmu 0x0000 0x1>,
-> + *			    <0x0100 &smmu 0x0100 0x1>;
-> + */
-> +static bool of_check_bad_map(const __be32 *map, int len)
-> +{
-> +	__be32 phandle = map[1];
-> +
-> +	if (len % 4)
-> +		return false;
-> +	for (int i = 0; i < len; i += 4) {
-> +		if (map[i + 1] != phandle || map[i + 3] != cpu_to_be32(1))
-> +			return false;
-> +	}
-> +	return true;
-> +}
-> +
->  /**
->   * of_map_id - Translate an ID through a downstream mapping.
->   * @np: root complex device node.
->   * @id: device ID to map.
->   * @map_name: property name of the map to use.
-> + * @cells_name: property name of target specifier cells.
->   * @map_mask_name: optional property name of the mask to use.
->   * @filter_np: optional device node to filter matches by, or NULL to match any.
->   *	If non-NULL, only map entries targeting this node will be matched.
->   * @arg: pointer to a &struct of_phandle_args for the result. On success,
-> - *	@arg->args[0] will contain the translated ID. If a map entry was
-> - *	matched, @arg->np will be set to the target node with a reference
-> - *	held that the caller must release with of_node_put().
-> + *	@arg->args_count will be set to the number of output specifier cells
-> + *	as defined by @cells_name in the target node, and
-> + *	@arg->args[0..args_count-1] will contain the translated output
-> + *	specifier values. If a map entry was matched, @arg->np will be set
-> + *	to the target node with a reference held that the caller must release
-> + *	with of_node_put().
->   *
->   * Given a device ID, look up the appropriate implementation-defined
->   * platform ID and/or the target device which receives transactions on that
-> @@ -2116,17 +2146,19 @@ int of_find_last_cache_level(unsigned int cpu)
->   * Return: 0 on success or a standard error code on failure.
->   */
->  int of_map_id(const struct device_node *np, u32 id,
-> -	       const char *map_name, const char *map_mask_name,
-> +	       const char *map_name, const char *cells_name,
-> +	       const char *map_mask_name,
->  	       const struct device_node *filter_np, struct of_phandle_args *arg)
->  {
->  	u32 map_mask, masked_id;
-> -	int map_len;
-> +	int map_bytes, map_len, offset = 0;
-> +	bool bad_map = false;
->  	const __be32 *map = NULL;
->  
->  	if (!np || !map_name || !arg)
->  		return -EINVAL;
->  
-> -	map = of_get_property(np, map_name, &map_len);
-> +	map = of_get_property(np, map_name, &map_bytes);
->  	if (!map) {
->  		if (filter_np)
->  			return -ENODEV;
-> @@ -2136,11 +2168,9 @@ int of_map_id(const struct device_node *np, u32 id,
->  		return 0;
->  	}
->  
-> -	if (!map_len || map_len % (4 * sizeof(*map))) {
-> -		pr_err("%pOF: Error: Bad %s length: %d\n", np,
-> -			map_name, map_len);
-> -		return -EINVAL;
-> -	}
-> +	if (map_bytes % sizeof(*map))
-> +		goto err_map_len;
-> +	map_len = map_bytes / sizeof(*map);
->  
->  	/* The default is to select all bits. */
->  	map_mask = 0xffffffff;
-> @@ -2153,39 +2183,84 @@ int of_map_id(const struct device_node *np, u32 id,
->  		of_property_read_u32(np, map_mask_name, &map_mask);
->  
->  	masked_id = map_mask & id;
-> -	for ( ; map_len > 0; map_len -= 4 * sizeof(*map), map += 4) {
-> +
-> +	while (offset < map_len) {
->  		struct device_node *phandle_node;
-> -		u32 id_base = be32_to_cpup(map + 0);
-> -		u32 phandle = be32_to_cpup(map + 1);
-> -		u32 out_base = be32_to_cpup(map + 2);
-> -		u32 id_len = be32_to_cpup(map + 3);
-> +		u32 id_base, phandle, id_len, id_off, cells = 0;
-> +		const __be32 *out_base;
-> +
-> +		if (map_len - offset < 2)
-> +			goto err_map_len;
-> +
-> +		id_base = be32_to_cpup(map + offset);
->  
->  		if (id_base & ~map_mask) {
-> -			pr_err("%pOF: Invalid %s translation - %s-mask (0x%x) ignores id-base (0x%x)\n",
-> -				np, map_name, map_name,
-> -				map_mask, id_base);
-> +			pr_err("%pOF: Invalid %s translation - %s (0x%x) ignores id-base (0x%x)\n",
-> +			       np, map_name, map_mask_name, map_mask, id_base);
->  			return -EFAULT;
->  		}
->  
-> -		if (masked_id < id_base || masked_id >= id_base + id_len)
-> -			continue;
-> -
-> +		phandle = be32_to_cpup(map + offset + 1);
->  		phandle_node = of_find_node_by_phandle(phandle);
->  		if (!phandle_node)
->  			return -ENODEV;
->  
-> +		if (bad_map) {
-> +			cells = 1;
-> +		} else if (of_property_read_u32(phandle_node, cells_name, &cells)) {
-> +			pr_err("%pOF: missing %s property\n", phandle_node, cells_name);
-> +			of_node_put(phandle_node);
-> +			return -EINVAL;
-> +		}
-> +
-> +		if (map_len - offset < 3 + cells) {
-> +			of_node_put(phandle_node);
-> +			goto err_map_len;
-> +		}
-> +
-> +		if (offset == 0 && cells == 2) {
-> +			bad_map = of_check_bad_map(map, map_len);
-> +			if (bad_map) {
-> +				pr_warn_once("%pOF: %s mismatches target %s, assuming extra cell of 0\n",
-> +					     np, map_name, cells_name);
-> +				cells = 1;
-> +			}
-> +		}
-> +
-> +		out_base = map + offset + 2;
-> +		offset += 3 + cells;
-> +
-> +		id_len = be32_to_cpup(map + offset - 1);
-> +		if (id_len > 1 && cells > 1) {
-> +			/*
-> +			 * With 1 output cell we reasonably assume its value
-> +			 * has a linear relationship to the input; with more,
-> +			 * we'd need help from the provider to know what to do.
-> +			 */
-> +			pr_err("%pOF: Unsupported %s - cannot handle %d-ID range with %d-cell output specifier\n",
-> +			       np, map_name, id_len, cells);
-> +			of_node_put(phandle_node);
-> +			return -EINVAL;
-> +		}
-> +		id_off = masked_id - id_base;
-> +		if (masked_id < id_base || id_off >= id_len) {
-> +			of_node_put(phandle_node);
-> +			continue;
-> +		}
-> +
->  		if (filter_np && filter_np != phandle_node) {
->  			of_node_put(phandle_node);
->  			continue;
->  		}
->  
->  		arg->np = phandle_node;
-> -		arg->args[0] = masked_id - id_base + out_base;
-> -		arg->args_count = 1;
-> +		for (int i = 0; i < cells; i++)
-> +			arg->args[i] = id_off + be32_to_cpu(out_base[i]);
-> +		arg->args_count = cells;
->  
->  		pr_debug("%pOF: %s, using mask %08x, id-base: %08x, out-base: %08x, length: %08x, id: %08x -> %08x\n",
-> -			np, map_name, map_mask, id_base, out_base,
-> -			id_len, id, masked_id - id_base + out_base);
-> +			np, map_name, map_mask, id_base, be32_to_cpup(out_base),
-> +			id_len, id, id_off + be32_to_cpup(out_base));
->  		return 0;
->  	}
->  
-> @@ -2196,6 +2271,10 @@ int of_map_id(const struct device_node *np, u32 id,
->  	arg->args[0] = id;
->  	arg->args_count = 1;
->  	return 0;
-> +
-> +err_map_len:
-> +	pr_err("%pOF: Error: Bad %s length: %d\n", np, map_name, map_bytes);
-> +	return -EINVAL;
->  }
->  EXPORT_SYMBOL_GPL(of_map_id);
->  
-> @@ -2205,18 +2284,21 @@ EXPORT_SYMBOL_GPL(of_map_id);
->   * @id: Requester ID of the device (e.g. PCI RID/BDF or a platform
->   *      stream/device ID) used as the lookup key in the iommu-map table.
->   * @arg: pointer to a &struct of_phandle_args for the result. On success,
-> - *	@arg->args[0] contains the translated ID. If a map entry was matched,
-> - *	@arg->np holds a reference to the target node that the caller must
-> - *	release with of_node_put().
-> + *	@arg->args_count will be set to the number of output specifier cells
-> + *	and @arg->args[0..args_count-1] will contain the translated output
-> + *	specifier values. If a map entry was matched, @arg->np holds a
-> + *	reference to the target node that the caller must release with
-> + *	of_node_put().
->   *
-> - * Convenience wrapper around of_map_id() using "iommu-map" and "iommu-map-mask".
-> + * Convenience wrapper around of_map_id() using "iommu-map", "#iommu-cells",
-> + * and "iommu-map-mask".
->   *
->   * Return: 0 on success or a standard error code on failure.
->   */
->  int of_map_iommu_id(const struct device_node *np, u32 id,
->  		    struct of_phandle_args *arg)
->  {
-> -	return of_map_id(np, id, "iommu-map", "iommu-map-mask", NULL, arg);
-> +	return of_map_id(np, id, "iommu-map", "#iommu-cells", "iommu-map-mask", NULL, arg);
->  }
->  EXPORT_SYMBOL_GPL(of_map_iommu_id);
->  
-> @@ -2229,17 +2311,20 @@ EXPORT_SYMBOL_GPL(of_map_iommu_id);
->   *	to match any. If non-NULL, only map entries targeting this node will
->   *	be matched.
->   * @arg: pointer to a &struct of_phandle_args for the result. On success,
-> - *	@arg->args[0] contains the translated ID. If a map entry was matched,
-> - *	@arg->np holds a reference to the target node that the caller must
-> - *	release with of_node_put().
-> + *	@arg->args_count will be set to the number of output specifier cells
-> + *	and @arg->args[0..args_count-1] will contain the translated output
-> + *	specifier values. If a map entry was matched, @arg->np holds a
-> + *	reference to the target node that the caller must release with
-> + *	of_node_put().
->   *
-> - * Convenience wrapper around of_map_id() using "msi-map" and "msi-map-mask".
-> + * Convenience wrapper around of_map_id() using "msi-map", "#msi-cells",
-> + * and "msi-map-mask".
->   *
->   * Return: 0 on success or a standard error code on failure.
->   */
->  int of_map_msi_id(const struct device_node *np, u32 id,
->  		  const struct device_node *filter_np, struct of_phandle_args *arg)
->  {
-> -	return of_map_id(np, id, "msi-map", "msi-map-mask", filter_np, arg);
-> +	return of_map_id(np, id, "msi-map", "#msi-cells", "msi-map-mask", filter_np, arg);
->  }
->  EXPORT_SYMBOL_GPL(of_map_msi_id);
-> diff --git a/include/linux/of.h b/include/linux/of.h
-> index 8548cd9eb4f1..51ac8539f2c3 100644
-> --- a/include/linux/of.h
-> +++ b/include/linux/of.h
-> @@ -462,7 +462,8 @@ const char *of_prop_next_string(const struct property *prop, const char *cur);
->  bool of_console_check(const struct device_node *dn, char *name, int index);
->  
->  int of_map_id(const struct device_node *np, u32 id,
-> -	       const char *map_name, const char *map_mask_name,
-> +	       const char *map_name, const char *cells_name,
-> +	       const char *map_mask_name,
->  	       const struct device_node *filter_np, struct of_phandle_args *arg);
->  
->  int of_map_iommu_id(const struct device_node *np, u32 id,
-> @@ -934,7 +935,8 @@ static inline void of_property_clear_flag(struct property *p, unsigned long flag
->  }
->  
->  static inline int of_map_id(const struct device_node *np, u32 id,
-> -			     const char *map_name, const char *map_mask_name,
-> +			     const char *map_name, const char *cells_name,
-> +			     const char *map_mask_name,
->  			     const struct device_node *filter_np,
->  			     struct of_phandle_args *arg)
->  {
-> 
-
-Gentle ping.
-
-Thanks,
-Vijay
+T24gVGh1LCAyMDI2LTA0LTE2IGF0IDExOjEyICswODAwLCBYaWFvc2h1biBYdSB3cm90ZToNCj4g
+QmVjYXVzZSB0aGUgdmlvbGF0aW9uIElSUSB1c2VzIGEgd2hpbGUgbG9vcCwgaXQgbWlnaHQgY2F1
+c2UgdGhlDQo+IHN5c3RlbSB0byByZW1haW4gaW4gdGhlIGludGVycnVwdCBoYW5kbGVyIGluZGVm
+aW5pdGVseS4gV2UgYXJlDQo+IGN1cnJlbnRseSBvcHRpbWl6aW5nIHRoaXMgcGFydCBvZiB0aGUg
+cHJvY2VzcyB0byBoYW5kbGUgb25seSAyMA0KPiB2aW9sYXRpb25zIGZvciBkZWJ1ZyB2aW9sYXRp
+b24gaXNzdWVzLCBhbmQgdGhlbiBleGl0IHRoZSBsb29wDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBY
+aWFvc2h1biBYdSA8eGlhb3NodW4ueHVAbWVkaWF0ZWsuY29tPg0KPiAtLS0NCj4gIGRyaXZlcnMv
+c29jL21lZGlhdGVrL210ay1kZXZhcGMuYyB8IDggKysrKysrKy0NCj4gIDEgZmlsZSBjaGFuZ2Vk
+LCA3IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2
+ZXJzL3NvYy9tZWRpYXRlay9tdGstZGV2YXBjLmMgYi9kcml2ZXJzL3NvYy9tZWRpYXRlay9tdGst
+ZGV2YXBjLmMNCj4gaW5kZXggZjU0Yzk2NjEzOGI1Li5jOWUxNDAxMzE1YWQgMTAwNjQ0DQo+IC0t
+LSBhL2RyaXZlcnMvc29jL21lZGlhdGVrL210ay1kZXZhcGMuYw0KPiArKysgYi9kcml2ZXJzL3Nv
+Yy9tZWRpYXRlay9tdGstZGV2YXBjLmMNCj4gQEAgLTEyLDYgKzEyLDcgQEANCj4gICNpbmNsdWRl
+IDxsaW51eC9vZl9pcnEuaD4NCj4gICNpbmNsdWRlIDxsaW51eC9vZl9hZGRyZXNzLmg+DQo+ICAN
+Cj4gKyNkZWZpbmUgTUFYX1ZJT19OVU0gMjANCj4gICNkZWZpbmUgVklPX01PRF9UT19SRUdfSU5E
+KG0pCSgobSkgLyAzMikNCj4gICNkZWZpbmUgVklPX01PRF9UT19SRUdfT0ZGKG0pCSgobSkgJSAz
+MikNCj4gIA0KPiBAQCAtMTg4LDEzICsxODksMTggQEAgc3RhdGljIHZvaWQgZGV2YXBjX2V4dHJh
+Y3RfdmlvX2RiZyhzdHJ1Y3QgbXRrX2RldmFwY19jb250ZXh0ICpjdHgpDQo+ICAgKi8NCj4gIHN0
+YXRpYyBpcnFyZXR1cm5fdCBkZXZhcGNfdmlvbGF0aW9uX2lycShpbnQgaXJxX251bWJlciwgdm9p
+ZCAqZGF0YSkNCj4gIHsNCj4gKwl1MzIgdmlvX251bSA9IDA7DQo+ICAJc3RydWN0IG10a19kZXZh
+cGNfY29udGV4dCAqY3R4ID0gZGF0YTsNCj4gIA0KPiAtCXdoaWxlIChkZXZhcGNfc3luY192aW9f
+ZGJnKGN0eCkpDQo+ICsJbWFza19tb2R1bGVfaXJxKGN0eCwgdHJ1ZSk7DQoNCm1hc2sgaXJxIGlz
+IG5vdCByZWxhdGVkIHRvIHRoaXMgcGF0Y2guIFRoaXMgcGF0Y2ggY2FyZSBhYm91dCB0aGUgaW5m
+aW5pdGUgbG9vcC4NClNvIHNlcGFyYXRlIG1hc2sgaXJxIHBhcnQgdG8gYW4gaW5kZXBlbmRlbnQg
+cGF0Y2ggYW5kIGRlc2NyaWJlIHdoeSBkbyB0aGlzLg0KDQpSZWdhcmRzLA0KQ0sNCg0KPiArDQo+
+ICsJZm9yICh2aW9fbnVtID0gMDsgKHZpb19udW0gPCBNQVhfVklPX05VTSkgJiYgKGRldmFwY19z
+eW5jX3Zpb19kYmcoY3R4KSk7ICsrdmlvX251bSkNCj4gIAkJZGV2YXBjX2V4dHJhY3RfdmlvX2Ri
+ZyhjdHgpOw0KPiAgDQo+ICAJY2xlYXJfdmlvX3N0YXR1cyhjdHgpOw0KPiAgDQo+ICsJbWFza19t
+b2R1bGVfaXJxKGN0eCwgZmFsc2UpOw0KPiArDQo+ICAJcmV0dXJuIElSUV9IQU5ETEVEOw0KPiAg
+fQ0KPiAgDQoNCg==
