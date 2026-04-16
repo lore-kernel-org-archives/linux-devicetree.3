@@ -1,524 +1,175 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A77A37997A;
-	Thu, 16 Apr 2026 05:59:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C931F21A95D;
+	Thu, 16 Apr 2026 06:19:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776319164; cv=none; b=B4D2Oi9GMNlD0wwRZqWAAVLEQogOaYRd9i2dmCa+2FcvNw0rh6EzPbPopYIWpMv2vw2tyaEUm2C2oYneCcPQK90iPZUBR43Y+gV6IJr6+OFbDsjObAMziVq2SysgB/BaclIB4jzXiQnbsWdWoDl1YzAFz6twmVBr7qqQ8ZqwdwM=
+	t=1776320354; cv=none; b=DUUsz5wHR+rHoWi/rseqhvun1vNmvCqDh94dqRX4YmcDuNVAUr2mluKPHIr9DavNQRBoY0U2Ma3BCx18q1cAXoydxW9/GxkYEbO9zzpHx099BRrumXmaHv+NCqn5LRxMHX3y/znhbRJo0IWyPngL0eeUmNJnLabHJKuIMlftXYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776319164; c=relaxed/simple;
-	bh=b6GXcjHcPMiBaPIn941JJJDw3UCq6GnTG0tuVxP2agU=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=NfSmw3BqExVMiM9X8yHIC8fALDv1BE6HDTLqf3u1eeyfvi5Em2Be7tx9UIH1wYLbL1lRJPFn0PFEcAJohDIcv/iEwzNeeMxRF/2MGrFNCkd162x0OTXgW3RRoLobElzjiS5VbN+AK6P65fgjGobLbTP8E6KPOZAEqXmfpg0HfnQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=T0d5FZuI; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1776320354; c=relaxed/simple;
+	bh=qNrd3txvGZOPg0VoT9q3rBedmFvwr8GAJPvfgU9ToZg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mWc0lTISEZHOVoN8f5Ydnx1jOftZ9rUIRYnDkEYkLW3UzXjnl0/BdUd5tuvpSGMaVpSfyaCAk2UlvHlk7nkJd4zD9WDqTZbk5s5lBpLRrT+N8/+h0Y9QLeN6J2zhUO9vRu1ngBAmSltuidy9eTi4nhc5ywVloo6aGPbyc3FblOU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l0S0DHLW; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="T0d5FZuI"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4fx6lq0M0Fz9v9H;
-	Thu, 16 Apr 2026 07:59:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1776319159;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vdYYj6riYPTbHMM03d5MjNlO26UgiwN7VzvRSyjNM9s=;
-	b=T0d5FZuIdovLQSma1yRC/MqVlnad0m/7B26hJJkNPWxROCk60QRoLX6Bc9CAlxB6n2IYfx
-	MvijupiQs9VPfrqOWiy/4JJhd4VBKXd6PyCdV7QuOJk/AG9lfupfKGTQkKXucNabXkIa5a
-	iwQWpZtPhnFoA6mKpS8xtGvZAD2KqMoojSTeo004xk4h8n1YlmMoaMTqEgUQhQtpk9x/w8
-	IC1iG90Z3MfzFqTuPpc1bi8s9eMMcHAAjfhC4GTi4LwF5ufeMsigGPzMmtbuDsxyrlbbwL
-	9YHRPd/atHZVjcZNxXj3DcpynbBjF4e2icTPz0tK1MnGVp9jW44Hgezo9OpmxQ==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l0S0DHLW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52436C2BCAF;
+	Thu, 16 Apr 2026 06:19:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776320354;
+	bh=qNrd3txvGZOPg0VoT9q3rBedmFvwr8GAJPvfgU9ToZg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=l0S0DHLWlB+yr9O9wvzJccCI49pX553txPkOeqgZqP1vbpI/ajG0Kgc9ecpGHJrZ+
+	 8d3OKNGzL18SW2PSEko22GXeAGx35fOYNJyrAj2ZU5EDN0WXNekocJ00rkekNrNseG
+	 yDj/Aa/7GUq06JQL0/z+S1HczrHOhK4JXgDZ8WE79NNgNU1V/CH8Qj2jHiJ20JcC7n
+	 XoXQok6sVyr8NkhH+6eqOfzyqRNl6md2kSiLPFu3Pb5fdvCRZWGS+AWYczXAep8Sxk
+	 bOt98lNI9BXOpKqQzMlO9GphEHlAegzaNjeJayXtOjTYU47n92imZ3+aMIPz1MZ/gd
+	 yF5B80A1tJN2g==
+Message-ID: <d486616b-ef21-4933-aaf5-dcba339dd8cc@kernel.org>
+Date: Thu, 16 Apr 2026 08:19:09 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/5] arch: arm64: dts: qcom: Add support for PCIe3a
+To: Qiang Yu <qiang.yu@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260412-glymur_gen5x8_phy_0413-v3-0-affcebc16b8b@oss.qualcomm.com>
+ <20260412-glymur_gen5x8_phy_0413-v3-5-affcebc16b8b@oss.qualcomm.com>
+ <20260415-pragmatic-termite-of-attraction-3dbab5@quoll>
+ <aeBWfv1oXnSQC454@hu-qianyu-lv.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
+ QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
+ +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
+ ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
+ 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
+ hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
+ tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
+ 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
+ naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
+ hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
+ whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
+ Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
+ MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
+ OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
+ GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
+ 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
+ YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
+ 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
+ BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
+ JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
+ 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
+ YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
+ qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
+ RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
+ Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
+ H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
+ dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
+ AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
+ jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
+ zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
+ XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
+In-Reply-To: <aeBWfv1oXnSQC454@hu-qianyu-lv.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 16 Apr 2026 13:59:05 +0800
-Message-Id: <DHUCL24GMX7D.369IWK9DLPZPX@mailbox.org>
-Subject: Re: [PATCH v2 2/2] riscv: dts: spacemit: Add cpu scaling for K1 SoC
-From: "Shuwei Wu" <shuwei.wu@mailbox.org>
-To: "Anand Moon" <linux.amoon@gmail.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, "Viresh Kumar"
- <viresh.kumar@linaro.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>,
- "Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>,
- "Yixun Lan" <dlan@kernel.org>, <linux-pm@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <spacemit@lists.linux.dev>, <devicetree@vger.kernel.org>
-References: <20260410-shadow-deps-v2-0-4e16b8c0f60e@mailbox.org>
- <20260410-shadow-deps-v2-2-4e16b8c0f60e@mailbox.org>
- <CANAwSgSNHO3MNewNzpYbhuj4K3NTdfzDC9KPoUHbFH97P4M_UQ@mail.gmail.com>
-In-Reply-To: <CANAwSgSNHO3MNewNzpYbhuj4K3NTdfzDC9KPoUHbFH97P4M_UQ@mail.gmail.com>
-X-MBO-RS-ID: b7b74779982dba8ead6
-X-MBO-RS-META: toouq7rwxsurys33hpqzupw7oknyhwcj
+Content-Transfer-Encoding: 8bit
 
-On Tue Apr 14, 2026 at 9:25 PM CST, Anand Moon wrote:
-> Hi Shuwei,
->
-> On Fri, 10 Apr 2026 at 13:30, Shuwei Wu <shuwei.wu@mailbox.org> wrote:
+On 16/04/2026 05:24, Qiang Yu wrote:
+> On Wed, Apr 15, 2026 at 09:44:15AM +0200, Krzysztof Kozlowski wrote:
+>> On Sun, Apr 12, 2026 at 11:26:00PM -0700, Qiang Yu wrote:
+>>> Describe PCIe3a controller and PHY. Also add required system resources
+>>> like regulators, clocks, interrupts and registers configuration for PCIe3a.
+>>>
+>>> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
 >>
->> Add Operating Performance Points (OPP) tables and CPU clock properties
->> for the two clusters in the SpacemiT K1 SoC.
+>> subject: drop arch.
 >>
->> Also assign the CPU power supply (cpu-supply) for the Banana Pi BPI-F3
->> board to fully enable CPU DVFS.
+>> Please use subject prefixes matching the subsystem. You can get them for
+>> example with 'git log --oneline -- DIRECTORY_OR_FILE' on the directory
+>> your patch is touching. For bindings, the preferred subjects are
+>> explained here:
+>> https://www.kernel.org/doc/html/latest/devicetree/bindings/submitting-patches.html#i-for-patch-submitters
 >>
->> Signed-off-by: Shuwei Wu <shuwei.wu@mailbox.org>
+> 
+> Thanks for pointing me the link. I’ll drop arch: in next version.
+> 
+>>> ---
+>>>  arch/arm64/boot/dts/qcom/glymur.dtsi | 316 ++++++++++++++++++++++++++++++++++-
+>>>  1 file changed, 315 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
+>>> index f23cf81ddb77a4138deeb4e00dd8b316930a2feb..c15f87c37ecbad72076a6c731f4959a1a8bd8425 100644
+>>> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
+>>> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
+>>> @@ -736,7 +736,7 @@ gcc: clock-controller@100000 {
+>>>  				 <0>,				/* USB 2 Phy PCIE PIPEGMUX */
+>>>  				 <0>,				/* USB 2 Phy PIPEGMUX */
+>>>  				 <0>,				/* USB 2 Phy SYS PCIE PIPEGMUX */
+>>> -				 <0>,				/* PCIe 3a */
+>>> +				 <&pcie3a_phy>,			/* PCIe 3a */
+>>>  				 <&pcie3b_phy>,			/* PCIe 3b */
+>>>  				 <&pcie4_phy>,			/* PCIe 4 */
+>>>  				 <&pcie5_phy>,			/* PCIe 5 */
+>>> @@ -3640,6 +3640,320 @@ pcie3b_port0: pcie@0 {
+>>>  			};
 >>
->> ---
->> Changes in v2:
->> - Add k1-opp.dtsi with OPP tables for both CPU clusters
->> - Assign CPU supplies and include OPP table for Banana Pi BPI-F3
->> ---
->>  arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts |  35 +++++++-
->>  arch/riscv/boot/dts/spacemit/k1-opp.dtsi        | 105 +++++++++++++++++=
-+++++++
->>  arch/riscv/boot/dts/spacemit/k1.dtsi            |   8 ++
->>  3 files changed, 147 insertions(+), 1 deletion(-)
+>> ...
 >>
->> diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/risc=
-v/boot/dts/spacemit/k1-bananapi-f3.dts
->> index 444c3b1e6f44..3780593f610d 100644
->> --- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
->> +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
->> @@ -5,6 +5,7 @@
+>>>> +		pcie3a_phy: phy@f00000 {
 >>
->>  #include "k1.dtsi"
->>  #include "k1-pinctrl.dtsi"
->> +#include "k1-opp.dtsi"
+>> Same comment as before.
 >>
->>  / {
->>         model =3D "Banana Pi BPI-F3";
->> @@ -86,6 +87,38 @@ &combo_phy {
->>         status =3D "okay";
->>  };
->>
->> +&cpu_0 {
->> +       cpu-supply =3D <&buck1_3v45>;
->> +};
->> +
->> +&cpu_1 {
->> +       cpu-supply =3D <&buck1_3v45>;
->> +};
->> +
->> +&cpu_2 {
->> +       cpu-supply =3D <&buck1_3v45>;
->> +};
->> +
->> +&cpu_3 {
->> +       cpu-supply =3D <&buck1_3v45>;
->> +};
->> +
->> +&cpu_4 {
->> +       cpu-supply =3D <&buck1_3v45>;
->> +};
->> +
->> +&cpu_5 {
->> +       cpu-supply =3D <&buck1_3v45>;
->> +};
->> +
->> +&cpu_6 {
->> +       cpu-supply =3D <&buck1_3v45>;
->> +};
->> +
->> +&cpu_7 {
->> +       cpu-supply =3D <&buck1_3v45>;
->> +};
->> +
->>  &emmc {
->>         bus-width =3D <8>;
->>         mmc-hs400-1_8v;
->> @@ -201,7 +234,7 @@ pmic@41 {
->>                 dldoin2-supply =3D <&buck5>;
->>
->>                 regulators {
->> -                       buck1 {
->> +                       buck1_3v45: buck1 {
->>                                 regulator-min-microvolt =3D <500000>;
->>                                 regulator-max-microvolt =3D <3450000>;
->>                                 regulator-ramp-delay =3D <5000>;
->> diff --git a/arch/riscv/boot/dts/spacemit/k1-opp.dtsi b/arch/riscv/boot/=
-dts/spacemit/k1-opp.dtsi
->> new file mode 100644
->> index 000000000000..768ae390686d
->> --- /dev/null
->> +++ b/arch/riscv/boot/dts/spacemit/k1-opp.dtsi
->> @@ -0,0 +1,105 @@
->> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
->> +
->> +/ {
->> +       cluster0_opp_table: opp-table-cluster0 {
->> +               compatible =3D "operating-points-v2";
->> +               opp-shared;
->> +
->> +               opp-614400000 {
->> +                       opp-hz =3D /bits/ 64 <614400000>;
->> +                       opp-microvolt =3D <950000>;
->> +                       clock-latency-ns =3D <200000>;
->> +               };
->> +
->> +               opp-819000000 {
->> +                       opp-hz =3D /bits/ 64 <819000000>;
->> +                       opp-microvolt =3D <950000>;
->> +                       clock-latency-ns =3D <200000>;
->> +               };
->> +
->> +               opp-1000000000 {
->> +                       opp-hz =3D /bits/ 64 <1000000000>;
->> +                       opp-microvolt =3D <950000>;
->> +                       clock-latency-ns =3D <200000>;
->> +               };
->> +
->> +               opp-1228800000 {
->> +                       opp-hz =3D /bits/ 64 <1228800000>;
->> +                       opp-microvolt =3D <950000>;
->> +                       clock-latency-ns =3D <200000>;
->> +               };
->> +
->> +               opp-1600000000 {
->> +                       opp-hz =3D /bits/ 64 <1600000000>;
->> +                       opp-microvolt =3D <1050000>;
->> +                       clock-latency-ns =3D <200000>;
->> +               };
->> +       };
->> +
->> +       cluster1_opp_table: opp-table-cluster1 {
->> +               compatible =3D "operating-points-v2";
->> +               opp-shared;
->> +
->> +               opp-614400000 {
->> +                       opp-hz =3D /bits/ 64 <614400000>;
->> +                       opp-microvolt =3D <950000>;
->> +                       clock-latency-ns =3D <200000>;
->> +               };
->> +
->> +               opp-819000000 {
->> +                       opp-hz =3D /bits/ 64 <819000000>;
->> +                       opp-microvolt =3D <950000>;
->> +                       clock-latency-ns =3D <200000>;
->> +               };
->> +
->> +               opp-1000000000 {
->> +                       opp-hz =3D /bits/ 64 <1000000000>;
->> +                       opp-microvolt =3D <950000>;
->> +                       clock-latency-ns =3D <200000>;
->> +               };
->> +
->> +               opp-1228800000 {
->> +                       opp-hz =3D /bits/ 64 <1228800000>;
->> +                       opp-microvolt =3D <950000>;
->> +                       clock-latency-ns =3D <200000>;
->> +               };
->> +
->> +               opp-1600000000 {
->> +                       opp-hz =3D /bits/ 64 <1600000000>;
->> +                       opp-microvolt =3D <1050000>;
->> +                       clock-latency-ns =3D <200000>;
->> +               };
->> +       };
->> +};
->> +
->> +&cpu_0 {
->> +       operating-points-v2 =3D <&cluster0_opp_table>;
->> +};
->> +
->> +&cpu_1 {
->> +       operating-points-v2 =3D <&cluster0_opp_table>;
->> +};
->> +
->> +&cpu_2 {
->> +       operating-points-v2 =3D <&cluster0_opp_table>;
->> +};
->> +
->> +&cpu_3 {
->> +       operating-points-v2 =3D <&cluster0_opp_table>;
->> +};
->> +
->> +&cpu_4 {
->> +       operating-points-v2 =3D <&cluster1_opp_table>;
->> +};
->> +
->> +&cpu_5 {
->> +       operating-points-v2 =3D <&cluster1_opp_table>;
->> +};
->> +
->> +&cpu_6 {
->> +       operating-points-v2 =3D <&cluster1_opp_table>;
->> +};
->> +
->> +&cpu_7 {
->> +       operating-points-v2 =3D <&cluster1_opp_table>;
->> +};
->> diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/=
-spacemit/k1.dtsi
->> index 529ec68e9c23..bdd109b81730 100644
->> --- a/arch/riscv/boot/dts/spacemit/k1.dtsi
->> +++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
->> @@ -54,6 +54,7 @@ cpu_0: cpu@0 {
->>                         compatible =3D "spacemit,x60", "riscv";
->>                         device_type =3D "cpu";
->>                         reg =3D <0>;
->> +                       clocks =3D <&syscon_apmu CLK_CPU_C0_CORE>;
->>                         riscv,isa =3D "rv64imafdcbv_zicbom_zicbop_zicboz=
-_zicntr_zicond_zicsr_zifencei_zihintpause_zihpm_zfh_zba_zbb_zbc_zbs_zkt_zvf=
-h_zvkt_sscofpmf_sstc_svinval_svnapot_svpbmt";
->>                         riscv,isa-base =3D "rv64i";
->>                         riscv,isa-extensions =3D "i", "m", "a", "f", "d"=
-, "c", "b", "v", "zicbom",
->> @@ -84,6 +85,7 @@ cpu_1: cpu@1 {
->>                         compatible =3D "spacemit,x60", "riscv";
->>                         device_type =3D "cpu";
->>                         reg =3D <1>;
->> +                       clocks =3D <&syscon_apmu CLK_CPU_C0_CORE>;
->
-> Based on the Spacemit kernel source, the k1-x_opp_table.dtsi file
-> defines several additional clocks for the Operating Performance Points
-> (OPP) table:
->
->  clocks =3D <&ccu CLK_CPU_C0_ACE>, <&ccu CLK_CPU_C1_ACE>, <&ccu CLK_CPU_C=
-0_TCM>,
->                         <&ccu CLK_CCI550>, <&ccu CLK_PLL3>, <&ccu
-> CLK_CPU_C0_HI>, <&ccu CLK_CPU_C1_HI>;
->                 clock-names =3D "ace0","ace1","tcm","cci","pll3", "c0hi",=
- "c1hi";
->
-> These hardware clocks are also explicitly registered in the APMU clock dr=
-iver
-> via the k1_ccu_apmu_hws array, confirming their availability for frequenc=
-y
-> and voltage scaling on the K1-X SoC.
->
-> static struct clk_hw *k1_ccu_apmu_hws[] =3D {
->         [CLK_CCI550]            =3D &cci550_clk.common.hw,
->         [CLK_CPU_C0_HI]         =3D &cpu_c0_hi_clk.common.hw,
->         [CLK_CPU_C0_CORE]       =3D &cpu_c0_core_clk.common.hw,
->         [CLK_CPU_C0_ACE]        =3D &cpu_c0_ace_clk.common.hw,
->         [CLK_CPU_C0_TCM]        =3D &cpu_c0_tcm_clk.common.hw,
->         [CLK_CPU_C1_HI]         =3D &cpu_c1_hi_clk.common.hw,
->         [CLK_CPU_C1_CORE]       =3D &cpu_c1_core_clk.common.hw,
->         [CLK_CPU_C1_ACE]        =3D &cpu_c1_ace_clk.common.hw,
->
-> Yes, it is possible to add these clocks for DVFS to work correctly,
-> provided they are managed by the appropriate driver and declared in
-> the Device Tree (DT).
->
-> Thanks
-> -Anand
+> 
+> The existing PCIe/PHY nodes are not strictly ordered by address. Current
+> order is:
 
-Thanks for your review and for pointing this out.
+Obviously we cannot even keep order of nodes when creating a new DTSI
+file from scratch.
 
-Regarding the clocks you mentioned, I'd like to clarify their roles based o=
-n
-the K1 datasheet. Taking Cluster 0 as an example, c0_core_clk is the primar=
-y
-clock for the cluster. c0_ace_clk and c0_tcm_clk are children derived from =
-it,
-defaulting to half the frequency of their parent core clock, while c0_hi_cl=
-k
-represents the high-speed path selection.
-Cluster 1 follows the same structure.
+But adding @f00000 after @1c10000 makes even less sense, regardless how
+bad existing code is. Don't make it worse!
 
-Based on the official SpacemiT Bianbu OS source, the spacemit-cpufreq.c dri=
-ver
-mainly performs the following tasks:
-1. Sets the CCI550 clock frequency to 614MHz.
-2. Sets the clock frequencies of c0_ace_clk, c1_ace1_clk, and c0_tcm_clk to=
- half
-the frequency of their parent clock.
-3. For the 1.6GHz OPP, it sets the PLL3 frequency to 3.2GHz and the
-c0_hi_clk/c1_hi_clk frequencies to 1.6GHz.
+This goes before phy@fa0000
 
-I booted with the manufacturer's OpenWRT image and used debugfs to confirm =
-that
-the clock states are exactly as described above.
+> 
+> - pcie4: pci@1bf0000
+> - pcie4_phy: phy@1bf6000
+> - pcie5: pci@1b40000
+> - pcie5_phy: phy@1b50000
+> - pcie6: pci@1c00000
+> - pcie6_phy: phy@1c06000
+> - pcie3b: pci@1b80000
+> - pcie3a: pci@1c10000 (added in this patch)
+> - pcie3a_phy: phy@f00000 (added in this patch)
+> - pcie3b_phy: phy@f10000
+> 
+> Do you want me to reorder these nodes to follow strict address order?
 
-At 1.6GHz:
-Clock Source & Tree           Rate (Hz)      HW Enable  Consumer
----------------------------------------------------------------------------
-pll3                          3,200,000,000      Y      deviceless
- =E2=94=94=E2=94=80 pll3_d2                   1,600,000,000      Y      dev=
-iceless
-     =E2=94=9C=E2=94=80 cpu_c1_hi_clk         1,600,000,000      Y      dev=
-iceless
-     =E2=94=82   =E2=94=94=E2=94=80 cpu_c1_pclk       1,600,000,000      Y =
-     cpu0
-     =E2=94=82       =E2=94=94=E2=94=80 cpu_c1_ace_clk  800,000,000      Y =
-     deviceless
-     =E2=94=94=E2=94=80 cpu_c0_hi_clk         1,600,000,000      Y      dev=
-iceless
-         =E2=94=94=E2=94=80 cpu_c0_core_clk   1,600,000,000      Y      cpu=
-0
-             =E2=94=9C=E2=94=80 cpu_c0_tcm_clk  800,000,000      Y      dev=
-iceless
-             =E2=94=94=E2=94=80 cpu_c0_ace_clk  800,000,000      Y      dev=
-iceless
+No, but don't add nodes randomly or following the previous broken order.
 
-pll1_2457p6_vco               2,457,600,000      Y      deviceless
- =E2=94=94=E2=94=80 pll1_d4                     614,400,000      Y      dev=
-iceless
-     =E2=94=94=E2=94=80 pll1_d4_614p4           614,400,000      Y      dev=
-iceless
-         =E2=94=94=E2=94=80 cci550_clk          614,400,000      Y      dev=
-iceless
-
-At 1.228GHz:
-Clock Source & Tree           Rate (Hz)      HW Enable  Consumer
----------------------------------------------------------------------------
-pll1_2457p6_vco               2,457,600,000      Y      deviceless
- =E2=94=94=E2=94=80 pll1_d2                   1,228,800,000      Y      dev=
-iceless
-     =E2=94=94=E2=94=80 pll1_d2_1228p8        1,228,800,000      Y      dev=
-iceless
-         =E2=94=9C=E2=94=80 cpu_c0_core_clk   1,228,800,000      Y      cpu=
-0
-         =E2=94=82   =E2=94=9C=E2=94=80 cpu_c0_tcm_clk  614,400,000      Y =
-     deviceless
-         =E2=94=82   =E2=94=94=E2=94=80 cpu_c0_ace_clk  614,400,000      Y =
-     deviceless
-         =E2=94=94=E2=94=80 cpu_c1_pclk       1,228,800,000      Y      cpu=
-0
-             =E2=94=94=E2=94=80 cpu_c1_ace_clk  614,400,000      Y      dev=
-iceless
-  =E2=94=94=E2=94=80 pll1_d4                     614,400,000      Y      de=
-viceless
-     =E2=94=94=E2=94=80 pll1_d4_614p4           614,400,000      Y      dev=
-iceless
-         =E2=94=94=E2=94=80 cci550_clk          614,400,000      Y      dev=
-iceless
-
-pll3                          3,200,000,000      Y      deviceless
- =E2=94=94=E2=94=80 pll3_d2                   1,600,000,000      Y      dev=
-iceless
-     =E2=94=9C=E2=94=80 cpu_c1_hi_clk         1,600,000,000      Y      dev=
-iceless
-     =E2=94=94=E2=94=80 cpu_c0_hi_clk         1,600,000,000      Y      dev=
-iceless
- =E2=94=94=E2=94=80 pll3_d3                   1,066,666,666      Y      dev=
-iceless
-
-Regarding the necessity of listing these clocks in the DT, my analysis is a=
-s follows:
-1. For CCI550, I did not find a clear definition of this clock's specific r=
-ole
-in the SoC datasheet. Although the vendor kernel increases its frequency,
-my benchmarks show that maintaining the mainline default (245.76MHz) has a
-negligible impact on CPU performance.
-2. For ACE and TCM clocks, they function as synchronous children of the cor=
-e
-clock with a default divide-by-2 ratio. Since they scale automatically rela=
-tive
-to c0_core_clk/c1_core_clk and no other peripherals depend on them, they do=
- not
-require manual management in the OPP table.
-3. For the high-speed path, the underlying clock controller logic already h=
-andles
-the parent MUX switching and PLL3 scaling automatically when clk_set_rate()
-is called on the core clock.
-
-I have verified this by checking the hardware state in the mainline kernel.
-The clock tree matches the vendor kernel's configuration:
-
-At 1.6GHz:
-Clock Source & Tree           Rate (Hz)      HW Enable  Consumer
----------------------------------------------------------------------------
-pll3                          3,200,000,000      Y      deviceless
- =E2=94=94=E2=94=80 pll3_d2                   1,600,000,000      Y      dev=
-iceless
-     =E2=94=9C=E2=94=80 cpu_c1_hi_clk         1,600,000,000      Y      dev=
-iceless
-     =E2=94=82   =E2=94=94=E2=94=80 cpu_c1_core_clk   1,600,000,000      Y =
-     cpu4
-     =E2=94=82       =E2=94=94=E2=94=80 cpu_c1_ace_clk  800,000,000      Y =
-     deviceless
-     =E2=94=94=E2=94=80 cpu_c0_hi_clk         1,600,000,000      Y      dev=
-iceless
-         =E2=94=94=E2=94=80 cpu_c0_core_clk   1,600,000,000      Y      cpu=
-0
-             =E2=94=9C=E2=94=80 cpu_c0_tcm_clk  800,000,000      Y      dev=
-iceless
-             =E2=94=94=E2=94=80 cpu_c0_ace_clk  800,000,000      Y      dev=
-iceless
-
-pll1                          2,457,600,000      Y      deviceless
- =E2=94=94=E2=94=80 pll1_d5                     491,520,000      Y      dev=
-iceless
-     =E2=94=94=E2=94=80 pll1_d5_491p52          491,520,000      Y      dev=
-iceless
-         =E2=94=94=E2=94=80 cci550_clk          245,760,000      Y      dev=
-iceless
-
-At 1.228GHz:
-Clock Source & Tree           Rate (Hz)      HW Enable  Consumer
----------------------------------------------------------------------------
-pll1                          2,457,600,000      Y      deviceless
- =E2=94=9C=E2=94=80 pll1_d5                     491,520,000      Y      dev=
-iceless
- =E2=94=82   =E2=94=94=E2=94=80 pll1_d5_491p52          491,520,000      Y =
-     deviceless
- =E2=94=82       =E2=94=94=E2=94=80 cci550_clk          245,760,000      Y =
-     deviceless
- =E2=94=94=E2=94=80 pll1_d2                   1,228,800,000      Y      dev=
-iceless
-     =E2=94=94=E2=94=80 pll1_d2_1228p8        1,228,800,000      Y      dev=
-iceless
-         =E2=94=94=E2=94=80 cpu_c0_core_clk   1,228,800,000      Y      cpu=
-0
-             =E2=94=9C=E2=94=80 cpu_c0_tcm_clk  614,400,000      Y      dev=
-iceless
-             =E2=94=94=E2=94=80 cpu_c0_ace_clk  614,400,000      Y      dev=
-iceless
-
-pll3                          3,200,000,000      Y      deviceless
- =E2=94=94=E2=94=80 pll3_d2                   1,600,000,000      Y      dev=
-iceless
-     =E2=94=94=E2=94=80 cpu_c1_hi_clk         1,600,000,000      Y      dev=
-iceless
-         =E2=94=94=E2=94=80 cpu_c1_core_clk   1,600,000,000      Y      cpu=
-4
-             =E2=94=94=E2=94=80 cpu_c1_ace_clk  800,000,000      Y      dev=
-iceless
-
-Performance benchmarks also confirm that the current configuration is suffi=
-cient:
-Benchmark (AWK computation): time awk 'BEGIN{for(i=3D0;i<10000000;i++) sum+=
-=3Di}'
----------------------------------------------------------------------------=
--
-Frequency    |      Mainline Linux (s)       |        OpenWrt (s)         =
-=20
-(kHz)        |  Real (Total) |  User (CPU)   |  Real (Total) |  User (CPU) =
-)
--------------+---------------+---------------+---------------+-------------=
--
-1,600,000    |     1.82s     |     1.81s     |     1.73s     |    1.73s   =
-=20
-1,228,800    |     2.34s     |     2.33s     |     2.26s     |    2.26s   =
-=20
-1,000,000    |     2.94s     |     2.86s     |     2.78s     |    2.78s   =
-=20
-  819,000    |     3.54s     |     3.53s     |     3.39s     |    3.39s   =
-=20
-  614,400    |     4.73s     |     4.71s     |     4.51s     |    4.51s   =
-=20
----------------------------------------------------------------------------=
--
-
-In summary, because the clock controller correctly handles the internal div=
-iders
-and parent switching, declaring only the primary core clock for each CPU no=
-de is
-sufficient for functional DVFS.
-
---=20
 Best regards,
-Shuwei Wu
+Krzysztof
