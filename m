@@ -1,117 +1,68 @@
-Received: from 10.mo546.mail-out.ovh.net (10.mo546.mail-out.ovh.net [46.105.76.192])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC6CD78F39
-	for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 08:41:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.105.76.192
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABB223803C5;
+	Thu, 16 Apr 2026 08:45:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776328917; cv=none; b=iPCE20OEqy59R8G/YKIfbGL0TnvKJStRtZ8tja3qk6jpTAOrgGS+xZhi22L5//qHSYU/n+zcgq+Voj9mYsLL7sTz3hxO87h/usA5YyCD7VouZ1aYnXrfGNyIPnDQk/rlSwoO/LYoeX1zpdDrDdPnBEQC++6IoqaYif172LJqATM=
+	t=1776329139; cv=none; b=MQ0a0PbMbRrY1oNmK0k/zNA2EJ1mbRVA+h6acpNVITT2vot28XQyoF2+dXkWYr/QebNRDfBohPyd6oAsSb30Ditm94OdLdvIhFFUNq2gGWurUENvRx9sQ1rUlo2qn9A0SZS/9PXvuyI8BXymvdVpzEy2YfEU7a374N6E/cPLMcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776328917; c=relaxed/simple;
-	bh=aw+BkfSLT9i7+XxykOTeoq6lWAXY6hQlNwsxo2cu4Hw=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:CC:References:
-	 In-Reply-To:Content-Type; b=iBMPaU6iT5vfqIJHUnw5XJ73ABh7MxTXN0UOSxiSPRc5YqDHgbnOhxIl6vBF5y1enXVwA9VhCyydtyixLC3Ck1lnIaIztt7Bkbu3tpnceVIdz1E0oAcyF0qHfFO4saKN4OBAQ9wlUeWiSi7oSNcfuJ7WOgpHc5/DD3Fmb+SafWI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aliel.fr; spf=pass smtp.mailfrom=aliel.fr; dkim=pass (2048-bit key) header.d=aliel.fr header.i=@aliel.fr header.b=WJj2u3Sw; arc=none smtp.client-ip=46.105.76.192
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aliel.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
+	s=arc-20240116; t=1776329139; c=relaxed/simple;
+	bh=TaoPdXb7fo2KgCWPj8CeI+oooRxf58FR1DvBmuvgJv4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DaRchcWtz3QUvuOlb5Okz15rO/3EKC+3VFQVzO2A/tNn1Ub6hoaB5QpCuJqlRJEkIEb0+DodJQgQ27Y0D+XIGRgbj+rNOjbCbXmNqgS0I6KOsK70f29sgDBU28iZIUaIR+r12Er8QhtW7ro4Z2rQh3TveYHuryMelmwe5p/lSHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=u7Z+0Yf9; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aliel.fr header.i=@aliel.fr header.b="WJj2u3Sw"
-Received: from ex.mail.ovh.net (unknown [10.111.174.41])
-	by mo546.mail-out.ovh.net (Postfix) with SMTP id 4fxB0K1fYFz658n;
-	Thu, 16 Apr 2026 08:25:21 +0000 (UTC)
-Message-ID: <6fc8ddeb-d54d-473d-94d2-49dc78a07154@aliel.fr>
-Date: Thu, 16 Apr 2026 10:25:19 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="u7Z+0Yf9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B47A8C2BCAF;
+	Thu, 16 Apr 2026 08:45:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776329139;
+	bh=TaoPdXb7fo2KgCWPj8CeI+oooRxf58FR1DvBmuvgJv4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=u7Z+0Yf9age7mCvPKhi6JIX5mKtFxjPBYmtNuE5+fjCm9wfe0APcw4ZedpCeSHIde
+	 f0M73lHdM4GlkQBKUkjsNnUqyBs5sI6D4VmVsEXacY7rmpUhxhnHpXW4FeCeDWGEc/
+	 urp2PnQ7R9xjgBqWwQaOGOqC5+FL5xW8t5k6Fj4yXheHMiBL0oGdpPSO/7irWK+2Cv
+	 Z0KVs4zOs30t0HLn99cTqNCaGoZGzFgVFXFhzoumGe/GjcE2UeB7AahNIPy+uzrkUa
+	 loz1u9M37sAVaulwyKssray8vh6s0+1mFfJtsJr5Q4mXqeD9Cja7oPp25BjwlZcrOt
+	 mvK8MoHr3vJDg==
+Date: Thu, 16 Apr 2026 10:45:36 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Jia Wang <wangjia@ultrarisc.com>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Jingoo Han <jingoohan1@gmail.com>, 
+	Xincheng Zhang <zhangxincheng@ultrarisc.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-pci@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] dt-bindings: PCI: Add UltraRISC DP1000 PCIe
+ controller
+Message-ID: <20260416-pretty-rebel-bee-dfceba@quoll>
+References: <20260415-ultrarisc-pcie-v3-0-73f06e972616@ultrarisc.com>
+ <20260415-ultrarisc-pcie-v3-2-73f06e972616@ultrarisc.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Subject: Re: [PATCH v2 1/8] dt-bindings: mfd: khadas: Add new compatible for
- Khadas VIM4 MCU
-To: Rob Herring <robh@kernel.org>
-CC: Neil Armstrong <neil.armstrong@linaro.org>, Lee Jones <lee@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>, Martin Blumenstingl
-	<martin.blumenstingl@googlemail.com>, Beniamino Galvani
-	<b.galvani@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>, Daniel
- Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, Lukasz
- Luba <lukasz.luba@arm.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
-	<broonie@kernel.org>, <linux-amlogic@lists.infradead.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-i2c@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-pm@vger.kernel.org>
-References: <20260403-add-mcu-fan-khadas-vim4-v2-0-70536b22439a@aliel.fr>
- <20260403-add-mcu-fan-khadas-vim4-v2-1-70536b22439a@aliel.fr>
- <20260415214815.GA602572-robh@kernel.org>
-Content-Language: en-US
-In-Reply-To: <20260415214815.GA602572-robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CAS6.indiv.local (172.16.1.6) To DAG11EX2.indiv.local
- (172.16.2.112)
-DKIM-Signature: v=1; a=rsa-sha256; d=aliel.fr; s=ovhex24454-selector1;
- c=relaxed/relaxed; t=1776327921; h=from:to:subject:date;
- bh=pFOmuggUuSRoz8cJkPKGP7DvDQuCHyf5KhKmxv5ivoA=;
- b=WJj2u3Sw9klNHCmqWBIBwUAd6tng48dLg+QKWHtKreX2JXQ67wigXe0TQP09NrQdmjUdwYsVTIyNXg4WsMawW2PmYK7jooYwzgx8we3T9RfQx1UZQXMpaipb4jkwQp18llokPWqyMOVBtBgrQPBrHmwTjeESar/AykfbQnBZNwp/pjzaIaW2WNcDq+ayKr+VpdIATbkHVjJTpB8++FJGaLn7Ol1tFFkyi1AGSgG98ENB42Y/mEsn2aeqTPV3QhE3SaopbBg7OcaxLDOhjq5VrsoBVb3M/ZQ9d/J23gPci+pOIg9idifu9W/UraOS+CQDDiVvyayR3TcF4gkqOf5YNw==
-x-ovh-tracer-id: 11309101614479183212
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTGn1Zxn7wlgRAk3Ls9HCSQIM4J7NsCvDBxD4MAUEzQ319Tl8D+J9DRCSxDWfnhZBirHrMBroybDTW/ifa7s/TX61Cq1qD7Plv4j4gqth9jElM8m8lL5uZaot7/CIcLhbmDQcxKVaGwJGKieR33WAaBijrVQPO30sMw94oTcS2ML8nPtfAsVfoiIzbsyHLnkFodLJa+IaEAujtZ7TULWFAR2dvLjd+30CuJOFupt+NPg60/KJvm8NS0WNT7b27RGiIs28KQWG7dLvMPlvP203CJnbo58FK18k6MC9luvcwxFxMp7VK/Kyynji+k+emjUreeA7ZNLd0jKJE7AShi72O9EK/Py+Qj7pqHOcFu0v99QnkqMJB32b0PzsZz78C1xa5o+Td1459KqjlMRtaidgNCiyUnIa8snrN6JAZTHZBdOpyJ1t0Qdgod0GBU+oll1AWzKYOB8WMck4/vqyf366h54XV3csqSAvMGnXmVieYrkzkzjxFkOilGcLN4Do2dalN99LVDjx3GW1UyV3b11o665Rqt4Kk8izf+4QDtdFIv/38vVISb7nnEqxHw+xQnEDwhZSW1Sh81XUad8bUy2pNAHeasPX5qPHxqLlVDYlmDV/weFzND9AK0qthn2R1CijJ4b9zO59gyCXlabD/w6m9y4Z7iNMp9G3Oyn1f7Ntu5iJA
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260415-ultrarisc-pcie-v3-2-73f06e972616@ultrarisc.com>
 
-On 4/15/26 11:48 PM, Rob Herring wrote:
-> On Fri, Apr 03, 2026 at 06:08:34PM +0200, Ronald Claveau wrote:
->> The Khadas VIM4 MCU register is slightly different
->> from previous boards' MCU.
->> This board also features a switchable power source for its fan.
->>
->> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
->> ---
->>  Documentation/devicetree/bindings/mfd/khadas,mcu.yaml | 5 +++++
->>  1 file changed, 5 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/mfd/khadas,mcu.yaml b/Documentation/devicetree/bindings/mfd/khadas,mcu.yaml
->> index 084960fd5a1fd..67769ef5d58b1 100644
->> --- a/Documentation/devicetree/bindings/mfd/khadas,mcu.yaml
->> +++ b/Documentation/devicetree/bindings/mfd/khadas,mcu.yaml
->> @@ -18,6 +18,7 @@ properties:
->>    compatible:
->>      enum:
->>        - khadas,mcu # MCU revision is discoverable
+On Wed, Apr 15, 2026 at 03:21:18PM +0800, Jia Wang wrote:
+> Add UltraRISC DP1000 SoC PCIe controller devicetree bindings.
 > 
-> The revision is no longer discoverable as was claimed?
-> 
+> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+> ---
+>  .../bindings/pci/ultrarisc,dp1000-pcie.yaml        | 93 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  7 ++
+>  2 files changed, 100 insertions(+)
 
-The firmware revision is still discoverable, and via the same register,
-but the VIM4 MCU has a different register layout (eg: no DEVICE_NO
-register). The new compatible is needed to describe a different MCU
-variant, not a different revision of the same MCU.
-I will remove the comment as it is confusing with new boards.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
->> +      - khadas,vim4-mcu
->>  
->>    "#cooling-cells": # Only needed for boards having FAN control feature
->>      const: 2
->> @@ -25,6 +26,10 @@ properties:
->>    reg:
->>      maxItems: 1
->>  
->> +  fan-supply:
->> +    description: Phandle to the regulator that powers the fan.
->> +    $ref: /schemas/types.yaml#/definitions/phandle
->> +
->>  required:
->>    - compatible
->>    - reg
->>
->> -- 
->> 2.49.0
->>
-
-
--- 
 Best regards,
-Ronald
+Krzysztof
+
