@@ -1,334 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from toucan.tulip.relay.mailchannels.net (toucan.tulip.relay.mailchannels.net [23.83.218.254])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4EB33346A8;
-	Thu, 16 Apr 2026 15:16:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776352564; cv=none; b=I0i20bSrgeFYUtyeRKkDA7bVhdP9Y8FbNuNOZxtGr1ultz1+gzyjjvyYn5do6vf3G0NTwbPckqXk3XVAFZIxYbxz2CcEWGX9AQHnrS9ojddt/+g3arFtVIniAZUYrHlZDJcFlM5NBMUJsj/1LBsmaSow/UT569fONo7P0VFxJtE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776352564; c=relaxed/simple;
-	bh=l6bkkSP7Cmuntn0/tS/mtGEL2aXlh377Zwdwnpd9BdE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rVzdX6OHn9yeOF+bhiO4EVtx8XpJt6BVdE0dpW++UPlxIZZu8+v7uCUz4dDHXfv21Oli6ywZ6f/OccJgqcAzp/oTtT9rsVwhF9SKoaq0UqhA+AD+Wu8v8hXgSLoPMTwGOt5aUSsHAiBvNkh+qu8KQfowdwbqc91QEJxFxgxMtb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D+jR5nKe; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 979393A0B2B;
+	Thu, 16 Apr 2026 15:17:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=23.83.218.254
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776352634; cv=pass; b=g149Jd5yMRgvihS/vSHGF3lx9CHzRZmVzZSTPEncw3kUGEmdKf6Qi/yxOFxgSewrXj+1NULqyZF1XTIxU5ZyLIGS+O3YX3ihlvEnbRKgdqreAmyTGsllJKaclkoQYKLpf7/ZWZnLGF41AdfytFl5SObEuhwopRDNak2m/SKgRs4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776352634; c=relaxed/simple;
+	bh=k5MUKGOVrCVrBWwmnXvVxw9XxdH4Lvc7kPSIVFfh5KY=;
+	h=Message-ID:MIME-Version:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Date; b=gJ/7PUphhflRlDS3VvXWolNrZTZLyz1Hxnb/KlM69tFZmLcofNxLki/c74wwqsoJV0WR5q8Tg9HG0oWSdRoXw4PgqVSPfboangTC+QOnx4tuaGxqiWKoiFwH02DDV8aSlqqSxEJr5Er3OcARlgg2zv1mNQBr9NraYu5NGljfmlc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com; spf=pass smtp.mailfrom=smankusors.com; dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b=lEv7agIW; arc=pass smtp.client-ip=23.83.218.254
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smankusors.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D+jR5nKe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC40DC2BCB3;
-	Thu, 16 Apr 2026 15:16:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776352564;
-	bh=l6bkkSP7Cmuntn0/tS/mtGEL2aXlh377Zwdwnpd9BdE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=D+jR5nKeynY2aEyqnc6T5ILVfh1jl10pceofGTAJcAzW01jV9lG7uN7nhD0DQIVDb
-	 6k4z/TZ2wGTlmAWi57GlVb7Bet0wnraauU6ahNGWJ5+6KZWNmHaKyOzrdCY65e2HBc
-	 G/hvdt1PhIwal753iipUzIYaYqprT2l+/dSIgSbS9so+LGTfpAs4PJOD1XJrbm+4m7
-	 D0WznRIpBHl/NC9GECVnJI/ePiZ9kXO+zoV1F72Q2XMdoERowD2wKSK/z8g3V/ZVxh
-	 WKzQK0KQhtPRj9lrB9/eofXdWiQgoQ7ZdIwPihFO6tW1CN7icWHMzn/dHFEAtvFogl
-	 qA2d8/YLGbd8w==
-Date: Thu, 16 Apr 2026 16:15:59 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Ariana Lazar <ariana.lazar@microchip.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: iio: dac: mcp47feb02: Fix binding issues
-Message-ID: <20260416-primate-robust-c9de03e50946@spud>
-References: <20260416-mcp47feb02-fix5-v1-1-9656c2fed6d2@microchip.com>
+	dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b="lEv7agIW"
+X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id 11E3B62972;
+	Thu, 16 Apr 2026 14:18:18 +0000 (UTC)
+Received: from fr-int-smtpout11.hostinger.io (100-104-232-135.trex-nlb.outbound.svc.cluster.local [100.104.232.135])
+	(Authenticated sender: hostingeremail)
+	by relay.mailchannels.net (Postfix) with ESMTPA id 65E1562156;
+	Thu, 16 Apr 2026 14:18:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; d=mailchannels.net; s=arc-2022; cv=none;
+	t=1776349097;
+	b=KkrIPuYuIa1s626KFZrMp4kd+TG40trShL9RHkBCAyCCFCvSCyvDSddm0yyP+xylp1YkCT
+	vJVp0bde4utCUhFfLbzB9c5kPoFNfIWPcooGb7RCbURlujStBoeSv8o5wbg96FzfoDHHxj
+	wfEjJr02KIOdWcBPJN1Pn/Xc3bFGN01ZMfillqrhxFNotezXeKm63AiukhqIVKo7AabdpS
+	Mdd/NgO1poTRBYZ1lAv/06ryg+q9t3aZ7KfIox+ECjtK66H1iGJ3u9rwm1ulDgmR4HcZVx
+	QueAX5e5iDqoFyNEP3/Uh37fqw3qau09JLMVQSXoOdogaiCyjU+ajqmb2G0BXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mailchannels.net;
+	s=arc-2022; t=1776349097;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:dkim-signature;
+	bh=Hn6SBBKIBqaGEQumTEmlP67MmqncRnqILDOCk7wtFDs=;
+	b=3FD/HUIHpOhQpipCg/YCIwraGX409AcFy0DQMsPNpRo5Jui8Os9LwEMliX6maPCJksspRV
+	wuecWR2CHA+WUYQuDaPcQySHiVmLXcnlWg16bnGNDzSF1EZCBt2bD7FnnaISdIksZJ3bzf
+	yLkHX24Ik4Dg9aoCQxzQ1KxB75j5TK17wfg01W25BluPlPcPEVkBhzCt458iLkrMY+Ru7i
+	j32hdqXyg6uD4/xLSgm6yPKaliesHsgMGSKe+bQ4RJEu7efvj2WVRZvgPMPEpJDxSPLnk7
+	NDDePxyNGtDkL8rH/EWEpZ1n68wiYf1Z4GomVAIs8SeiVVwLuUp/+ivWDG13jg==
+ARC-Authentication-Results: i=1;
+	rspamd-6c65dd77f-lfrr8;
+	auth=pass smtp.auth=hostingeremail smtp.mailfrom=linux@smankusors.com
+X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: hostingeremail|x-authuser|linux@smankusors.com
+X-MailChannels-Auth-Id: hostingeremail
+X-Soft-Squirrel: 4a053fd44af3bbf4_1776349097333_988753514
+X-MC-Loop-Signature: 1776349097333:2263129882
+X-MC-Ingress-Time: 1776349097333
+Received: from fr-int-smtpout11.hostinger.io (fr-int-smtpout11.hostinger.io
+ [148.222.54.47])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.104.232.135 (trex/7.1.5);
+	Thu, 16 Apr 2026 14:18:17 +0000
+Received: from [IPV6:2001:448a:c020:bc7:ac88:b14e:d67a:9dbd] (unknown [IPv6:2001:448a:c020:bc7:ac88:b14e:d67a:9dbd])
+	(Authenticated sender: linux@smankusors.com)
+	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4fxKqP3jdgzyZq;
+	Thu, 16 Apr 2026 14:18:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smankusors.com;
+	s=hostingermail-a; t=1776349092;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Hn6SBBKIBqaGEQumTEmlP67MmqncRnqILDOCk7wtFDs=;
+	b=lEv7agIWouzZiTX/q3GviFd5zRkt3hLZEedCn9EgArxYRRzbOmMcCEMvJw0xVP1fn2lrh+
+	32TwqbsRJ1q5p1r0gwucg57ZHqd3nRhawTxd8H6c+BYdBg2lvlKf9s62Zq2GJQ6QA2HL48
+	tkRIh+qVzRpvnHZaJHH6Hj1ELtF/JMReu90N1lp7tCL6Ck/DcWs3Afeqa0jpXlYeKh6eOR
+	ir8hm6HQzjOMDPDI497y1HFwdIhnBE/uGbG+HGaAZzGYRf7u4MyjpD72Zk3I3wbjgwFSOs
+	El4s9gliFLNOqaGHADFF7n96uLNrcG4txqfvbnSVTih1h1GCVmtNXsqhlLWVrg==
+Message-ID: <92c8ad93-8e7f-4714-91ea-ebdfa31a4ac0@smankusors.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="JQ4o0TT4kWMfmrhu"
-Content-Disposition: inline
-In-Reply-To: <20260416-mcp47feb02-fix5-v1-1-9656c2fed6d2@microchip.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 02/10] dt-bindings: mfd: syscon: add qcom,msm8960-sps-sic
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
+ Rudraksha Gupta <guptarud@gmail.com>
+References: <20260414-msm8960-wifi-v1-0-007fda9d6134@smankusors.com>
+ <20260414-msm8960-wifi-v1-2-007fda9d6134@smankusors.com>
+ <20260414-frisky-aloof-koala-4cbfdb@quoll>
+ <b80727eb-6a7a-44fc-b6a2-56c4ee199b57@smankusors.com>
+ <bac33524-1caa-4bff-be36-df909917cf3b@kernel.org>
+Content-Language: en-US
+From: Antony Kurniawan Soemardi <linux@smankusors.com>
+In-Reply-To: <bac33524-1caa-4bff-be36-df909917cf3b@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Thu, 16 Apr 2026 14:18:09 +0000 (UTC)
+X-CM-Analysis: v=2.4 cv=Gq4Q+V1C c=1 sm=1 tr=0 ts=69e0efa4 a=qlZgJvs7r4/QxD5CpBykdQ==:617 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=nC9N5ERdtgYCITw5gnEA:9 a=QEXdDO2ut3YA:10
+X-CM-Envelope: MS4xfIJNXRkwk6UfT2R1d4BLhZd8iSaOBTVF8KQ1LY2UKWlxoF4S1yfNAIk0bCspaFT+wBZCapQ9ThGLYZgIg6WrmM0e0VdU2JG4LL4Lg8n7ghFuNdXqsabh lTBBeIl8Kf23ush2n294cAyp3dkDsKx/NjVjWL03b/paRb/REC1DubGf65J7UdRxw1F+9yMuQmEfn7WaskcUBQpy7GatV1w+4Vvq+rJC/aPF+ZCCc/ylkjgJ ykHjFCTpZOMoVKrR6KDILzLMfEJfSVWtjQpXhGxBlfqi88MqyeO8hsR0G3B9jlDZb+g2TdE7HEuDThahTrGKqJG7m7GGAKy5IgKI/NpnFvtL2PVRUjcwYEH2 aSCMo7cK14lVXCoDDkEszO2eUISDf0h4RlJt2SP55dFzve8AzpDF5n31Uz08qICfzSonG0vGFFA+A+6wL2k7aWgFMJd1j/WhH1qLaLiqYQn1HJmSfX3A3Til 04zcUAGg5I0JGNsb9iq++dcYBvq7fb/M8aOkswTPs5eMmgBQcgUgk2UJ20hwE6hEUgdSAfpCIzCO8s2xb2Q+54bGksxMvF8VjXalPkhiAO8PJumsBreLZ/5c IUbpOuEPj/vj5Iv44u7k5GdQe5BZDXfOkC+3Z7CZB1Zz8H9lcXITkVU9S6jh1d0nUYrYMdWGrfZogYPp+C+YRUt7t8VPhbzyL8Y38l6B8JRjKgH2t+e1gnrw UI+5UXfhCgOP/UfTNgqfyO9r7gMS7lVm5CUISqaBjhEVoHtSfWGrOw==
+X-AuthUser: linux@smankusors.com
 
+On 4/15/2026 1:51 PM, Krzysztof Kozlowski wrote:
+> On 14/04/2026 20:34, Antony Kurniawan Soemardi wrote:
+>> On 4/14/2026 2:19 PM, Krzysztof Kozlowski wrote:
+>>> This was also sent. Where is the changelog and versioning? What changed
+>>> here?
+>> Sorry, the cover letter should have referenced the earlier dt-bindings
+>> series [1] and explained about it.
+>>
+>> In this patch series, I combined the original 2 patches into a larger 10
+>> patch series to make it more complete. Especially since earlier feedback
+>> noted that the bindings were not used by any in-tree consumers. Since
+>> the scope changed significantly from the original, I resent it as a new
+>> series rather than a v2.
+>>
+>> Would you prefer splitting this series into separate series like before,
+>> for example:
+> 
+> No, you need to keep versioning, changelogs and make clear how previous
+> comments got resolved.
 
---JQ4o0TT4kWMfmrhu
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I see, thanks for the clarification.
 
-Hey,
+To confirm my understanding, since this series already went out without
+proper versioning, the next resend should be labeled v3, with a
+changelog covering both what changed from the original dt-bindings
+series (v1) and from this series (v2).
 
-On Thu, Apr 16, 2026 at 04:33:36PM +0300, Ariana Lazar wrote:
-> Change maxItems value from 8 to 1 for the channel number reg property.
-> Change example reg value from 0 to 0x60.
-> Fix a few typos in property descriptions.
-> Sort the part numbers in the enum list lexicographically.
+Is that correct?
 
-Hmm, this looks like 3 or 4 patches to me. The maxItems change probably
-qualifies for a fixes tag, none of the rest do.
-
->=20
-> Fixes: 4ba12d304175 ("dt-bindings: iio: dac: adding support for Microchip=
- MCP47FEB02")
-
-> Reported-by: Conor Dooley <conor@kernel.org>
-> Closes: https://lore.kernel.org/all/20260403-speed-childless-1360de358229=
-@spud/
-
-I didn't report anything, I just commented on something that you had
-already "reported" when you fixed it yourself.
-
-> Reported-by: David Lechner <dlechner@baylibre.com>
-> Closes: https://lore.kernel.org/all/dd0dbadb-604b-4f12-8674-268b7db096fd@=
-baylibre.com/
-
-David didn't report anything either, he just gave you review feedback on
-the change you made to the example.
-
-> Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
-> ---
->  .../bindings/iio/dac/microchip,mcp47feb02.yaml     | 57 +++++++++++-----=
-------
->  1 file changed, 28 insertions(+), 29 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb=
-02.yaml b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.ya=
-ml
-> index d2466aa6bda2106a8b695347a0edf38462294d03..88a1495f2967a3d821ada7e7e=
-9a7fbb466401040 100644
-> --- a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml
-> +++ b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml
-> @@ -61,29 +61,29 @@ properties:
->    compatible:
->      enum:
->        - microchip,mcp47feb01
-> -      - microchip,mcp47feb11
-> -      - microchip,mcp47feb21
->        - microchip,mcp47feb02
-> +      - microchip,mcp47feb04
-> +      - microchip,mcp47feb08
-> +      - microchip,mcp47feb11
->        - microchip,mcp47feb12
-> +      - microchip,mcp47feb14
-> +      - microchip,mcp47feb18
-> +      - microchip,mcp47feb21
->        - microchip,mcp47feb22
-> +      - microchip,mcp47feb24
-> +      - microchip,mcp47feb28
->        - microchip,mcp47fvb01
-> -      - microchip,mcp47fvb11
-> -      - microchip,mcp47fvb21
->        - microchip,mcp47fvb02
-> -      - microchip,mcp47fvb12
-> -      - microchip,mcp47fvb22
->        - microchip,mcp47fvb04
-> -      - microchip,mcp47fvb14
-> -      - microchip,mcp47fvb24
->        - microchip,mcp47fvb08
-> +      - microchip,mcp47fvb11
-> +      - microchip,mcp47fvb12
-> +      - microchip,mcp47fvb14
->        - microchip,mcp47fvb18
-> +      - microchip,mcp47fvb21
-> +      - microchip,mcp47fvb22
-> +      - microchip,mcp47fvb24
->        - microchip,mcp47fvb28
-> -      - microchip,mcp47feb04
-> -      - microchip,mcp47feb14
-> -      - microchip,mcp47feb24
-> -      - microchip,mcp47feb08
-> -      - microchip,mcp47feb18
-> -      - microchip,mcp47feb28
-> =20
->    reg:
->      maxItems: 1
-> @@ -111,13 +111,13 @@ properties:
->          - for single-channel device: Vout0;
->          - for dual-channel device: Vout0, Vout1;
->          - for quad-channel device: Vout0, Vout2;
-> -        - for octal-channel device: Vout0, Vout2, Vout6, Vout8;
-> +        - for octal-channel device: Vout0, Vout2, Vout4, Vout6;
-> =20
->    vref1-supply:
->      description: |
->        Vref1 pin may be used as a voltage reference when this supply is s=
-pecified.
->        The internal reference will be taken into account for voltage refe=
-rence
-> -      beside VDD if this supply does not exist.
-> +      besides VDD if this supply does not exist.
-
-ngl, I don't think this is a typo, the sentence doesn't make sense
-either before or after the change. Should this be something like "The
-internal reference and VDD will be used as the voltage reference if this
-supply does not exist?
-
-> =20
->        This supply will be voltage reference for the following outputs:
->          - for quad-channel device: Vout1, Vout3;
-> @@ -141,7 +141,7 @@ properties:
->      description:
->        Enable buffering of the external Vref/Vref0 pin in cases where the
->        external reference voltage does not have sufficient current capabi=
-lity in
-> -      order not to drop it=E2=80=99s voltage when connected to the inter=
-nal resistor
-> +      order not to drop its voltage when connected to the internal resis=
-tor
->        ladder circuit.
-> =20
->    microchip,vref1-buffered:
-> @@ -149,7 +149,7 @@ properties:
->      description:
->        Enable buffering of the external Vref1 pin in cases where the exte=
-rnal
->        reference voltage does not have sufficient current capability in o=
-rder not
-> -      to drop it=E2=80=99s voltage when connected to the internal resist=
-or ladder
-> +      to drop its voltage when connected to the internal resistor ladder
->        circuit.
-> =20
->  patternProperties:
-> @@ -161,8 +161,7 @@ patternProperties:
->      properties:
->        reg:
->          description: The channel number.
-> -        minItems: 1
-> -        maxItems: 8
-> +        maxItems: 1
-> =20
->        label:
->          description: Unique name to identify which channel this is.
-> @@ -227,12 +226,12 @@ allOf:
->          compatible:
->            contains:
->              enum:
-> -              - microchip,mcp47fvb04
-> -              - microchip,mcp47fvb14
-> -              - microchip,mcp47fvb24
->                - microchip,mcp47feb04
->                - microchip,mcp47feb14
->                - microchip,mcp47feb24
-> +              - microchip,mcp47fvb04
-> +              - microchip,mcp47fvb14
-> +              - microchip,mcp47fvb24
->      then:
->        patternProperties:
->          "^channel@[0-3]$":
-> @@ -245,12 +244,12 @@ allOf:
->          compatible:
->            contains:
->              enum:
-> -              - microchip,mcp47fvb08
-> -              - microchip,mcp47fvb18
-> -              - microchip,mcp47fvb28
->                - microchip,mcp47feb08
->                - microchip,mcp47feb18
->                - microchip,mcp47feb28
-> +              - microchip,mcp47fvb08
-> +              - microchip,mcp47fvb18
-> +              - microchip,mcp47fvb28
->      then:
->        patternProperties:
->          "^channel@[0-7]$":
-> @@ -280,9 +279,9 @@ examples:
-> =20
->          #address-cells =3D <1>;
->          #size-cells =3D <0>;
-> -        dac@0 {
-> +        dac@60 {
->            compatible =3D "microchip,mcp47feb02";
-> -          reg =3D <0>;
-> +          reg =3D <0x60>;
->            vdd-supply =3D <&vdac_vdd>;
->            vref-supply =3D <&vref_reg>;
-> =20
-> @@ -297,6 +296,6 @@ examples:
->              reg =3D <0x1>;
->              label =3D "Adjustable_voltage_ch1";
->            };
-> -      };
-> +        };
->      };
-
-This whitespace change looks odd. You've aligned the opening and closing
-braces, but the indent is not consistent as there's mixed 4- and 2-space
-indentation used in this example. I think you need to do:
-diff --git a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02=
-=2Eyaml b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.ya=
-ml
-index d2466aa6bda21..a36874c4ae276 100644
---- a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml
-+++ b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml
-@@ -278,25 +278,25 @@ examples:
-   - |
-     i2c {
-=20
-+      #address-cells =3D <1>;
-+      #size-cells =3D <0>;
-+      dac@0 {
-+        compatible =3D "microchip,mcp47feb02";
-+        reg =3D <0>;
-+        vdd-supply =3D <&vdac_vdd>;
-+        vref-supply =3D <&vref_reg>;
-+
-         #address-cells =3D <1>;
-         #size-cells =3D <0>;
--        dac@0 {
--          compatible =3D "microchip,mcp47feb02";
-+        channel@0 {
-           reg =3D <0>;
--          vdd-supply =3D <&vdac_vdd>;
--          vref-supply =3D <&vref_reg>;
-+          label =3D "Adjustable_voltage_ch0";
-+        };
-=20
--          #address-cells =3D <1>;
--          #size-cells =3D <0>;
--          channel@0 {
--            reg =3D <0>;
--            label =3D "Adjustable_voltage_ch0";
--          };
--
--          channel@1 {
--            reg =3D <0x1>;
--            label =3D "Adjustable_voltage_ch1";
--          };
-+        channel@1 {
-+          reg =3D <0x1>;
-+          label =3D "Adjustable_voltage_ch1";
-+        };
-       };
-     };
- ...
-
-Cheers,
-Conor.
-
->  ...
->=20
-> ---
-> base-commit: d2a4ec19d2a2e54c23b5180e939994d3da4a6b91
-> change-id: 20260416-mcp47feb02-fix5-26994c5b428c
->=20
-> Best regards,
-> --=20
-> Ariana Lazar <ariana.lazar@microchip.com>
->=20
-
---JQ4o0TT4kWMfmrhu
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeD9LwAKCRB4tDGHoIJi
-0gFcAP9TedHY+84n7m1trbDiJ7xC2ULT4pkNyU53avTjzYo1EQD/T0yjOB9fivEM
-H0SAkgv5TL4VytP9I5cQsZjb7rhv9ws=
-=QboO
------END PGP SIGNATURE-----
-
---JQ4o0TT4kWMfmrhu--
+-- 
+Thanks,
+Antony K. S.
