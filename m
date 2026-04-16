@@ -1,145 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CEB43BED5A;
-	Thu, 16 Apr 2026 14:37:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A565EEA8
+	for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 14:42:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776350264; cv=none; b=j5MBQ19upruKDbYUYBaK7g6WF/8AUyhOsvcZ9xuCfFEDEJUI5+3yxMfXz0ZF2HTndV6d7uaykTRzGBGkuyZ2Aqhny1ssHpl4sX/nq6MLfZxn8YbpLp4bL9FzHuaOb6k5DckamYOKMVR+lCAqo4CI/p8eS7f2ozlEy3cHeBqa/O0=
+	t=1776350563; cv=none; b=uSOpvYK9TVxGCVjb5diXLgkCGnIm3+ZoxTM966e2ta5cecyf53kEFO6kNn0lO2wMUr21XsNgHw64LiTTSnxhKAFcTes6/r8+VomEk8LSQQ7RCUCjD1TnqiFJXFsiQe+EZ14iBh43EELm4SXdpWAvcNkQaWOXukaFgqvIQNzl6zM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776350264; c=relaxed/simple;
-	bh=G+KnY9y9FdnNF9iVCsYYY5VVlBQ/sjKrA5+JI/RlTLg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=dBEzkdrfWxQgdaA9UWIQLzM4ACmb7VWlqYMiI9cPTk++zyfp/Sovlc80dXs6VQ3JQhPEGzsHRVqnH1rL+FXanGIwT4WjWD584gai4z5AKtXd+pir+auH/niUXUs2j10L5mYJ4maNxUmKIKMLMmMFqza+Xg/wwsTi4vbtYey1CcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NvlbDkpO; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776350563; c=relaxed/simple;
+	bh=o7RjQadYHL/375cjm6XwoIOguUQh3DPk4SGVbAOcCPs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=iCGh/hQ+CwjdwLp7emo0uT0hxb5T4SkriJSrfSAh3ZEMN/2Iyh5+h7Az+5ECgExtK2/hZx+DuEGbXkVUTWX1zBsT2qsfaRrgeomjSXi9reCo739BpAFiGAujwzt/+1DFgN5sBwLPxwhgds38eTSxVMT+2weuem/cX+X7FA9C378=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JHdggSbA; arc=none smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NvlbDkpO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21F21C2BCB4;
-	Thu, 16 Apr 2026 14:37:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776350264;
-	bh=G+KnY9y9FdnNF9iVCsYYY5VVlBQ/sjKrA5+JI/RlTLg=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=NvlbDkpOkX2eVupOtyFCbP3DRuq7WY7ZyiuiJRl2cRJkhrdmnXJWiwRDm6+i8osVJ
-	 hEgXll92lkwnoyhrWTgyAmbPTqK+GrZng4pJynD+hCQYQRClBtiHoyx2FgkOCVjyNB
-	 PRPi8NLO7AiovljBdvexUpWlriHaJUtkIIyQIAFyedy9sB6sxPVe+G5q0yjnb/H2ly
-	 +XI4uk1O90wRBW82L2U/QsPQKtl2fjU4wH4sW9mulZKeYSvtY85JIpuSN+UA9XHRhv
-	 ziV1D+hU2IB66WIYjWeXBQP4UuGcAA7BV89FRg32YYYZLoVt0cEwFGg5loxLWg6RI3
-	 i4AJUfe+4StUw==
-Message-ID: <e3ab5e2d-9ed4-4921-acf4-71109aafcfc8@kernel.org>
-Date: Thu, 16 Apr 2026 16:37:36 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JHdggSbA"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-b982b0889d8so1198112866b.2
+        for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 07:42:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776350560; x=1776955360; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=kV10FdcC3w13UCLKuFTzhb2hnSCEpOxDvfqK3oc2E8s=;
+        b=JHdggSbA57Iie/Fxx3IzNvDlAMC/JIZ8T4unXqLV4Nl+uJ7MWwV9PrErGXsUkavglV
+         YIBmcFapRtot16rfq0ZQfr2KFibEYEOcJa9rx1eNveKNSO3656s7uyoIKSZV3DQ5UvON
+         iyoJIkYd06Z+HoIHmHrYENWx0XdoPG1m8N3XMAFqpptzqKIVp9S3kh6vGfpdkBCzI4MU
+         BI+aKgwRq+EkS3Gqh6yB9Zpdq+YUYf1HGCzdtHdaKyjyviFHSLke2XG2CTJBttQxdlID
+         TvWQChDq4mM5PiLFzlLMt4zD8BvUAkJyTJR2J0T+hh3fElzAKqlnSuirwE16IYfVaaZ0
+         Al+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776350560; x=1776955360;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kV10FdcC3w13UCLKuFTzhb2hnSCEpOxDvfqK3oc2E8s=;
+        b=Ins5xtfj3cPZACa2HBUsgrhQ+sc/33ETaV2j6qG6L/AMInGTM0x3YFcnWTKQpg0Axc
+         0I8Hq/pzJhfY6THztWrecQGUq7y0Ke/OUzmTk0qBK4tJD2gjqFRVwTROPFaBil13NT4t
+         0xGaVouZ5DiduKlrORAeDsxo3JRsb2AYoPAkStJ+deLTYc6HJbjJV6m0mjL0ZzQap9cK
+         hLFKL56O+1k3AssVMtJjOwxecRHrMbQPesvwRoIOQFLxg4pYSUCztfNcW9UsiaKo4Khv
+         8vlEmWxaWSWpvhE/yhbsQfHGNvyHuT8TmjSsDRgtqrH6UoUhlmro3fo7DjNgaOfQKg8A
+         yMZg==
+X-Forwarded-Encrypted: i=1; AFNElJ/IHHM5YCVRsZJs96VT6+NrmkZRQziP15QvCu36LDXYwESQLaAyMesNeUY2tG6c4AXWF9HbgzAEZGuS@vger.kernel.org
+X-Gm-Message-State: AOJu0YxC89y3Dj0ZiBaRWq5iiOfR1RsGO52kxslvTNNzDQhQRG0e98/n
+	EHCJfLXhQjd+pl1H4TMFn3xjfg9FwLA7uAvEVlRSz1Q0ZBYcgH7LKdRM
+X-Gm-Gg: AeBDieuT8RaUX+MEf26Hi0PKfEs8edeK5iW2JYACQ9mElWHzAAMuqa1gXP9I53bWnpe
+	DMhePJdhQtvg6xp2lkKq0ey569JkhpXhufFU0QGt3r0vbaKH/xcBxWoozhKwWlZ1oi1EWke3BTH
+	WtPifBd1E0CyKIldt7kOQC9Pe56GC6AyKVq1dkA99Om0CYJjIe+fID/GuJClXGJZLOaTT8M68FZ
+	mWEDFhQFhkZs6syhYzjOqTeDlqZnK6GtpeSyuztAE2LMFultnnZyJ8juf7L/3xcAKzCGSy3gj1c
+	zNOQgluT6JZthhDlOym457fCsNDk95FG+zny8PgF7Mi5GbCBilwd0zJz9WemlmcN7wIWBM1S2X6
+	mgqQDogPIKqYrvCiU4d25DxeEl283h88WvpsP5zEbv8BUZw3VKRdfesShpGBfakyJIr5pQHt9NV
+	iWgYCXPYRqkH/+ooWED+2ATMcpy6UteUYN62l9
+X-Received: by 2002:a17:907:782:b0:b9b:1cad:fe93 with SMTP id a640c23a62f3a-b9d7266157amr1436656866b.24.1776350560042;
+        Thu, 16 Apr 2026 07:42:40 -0700 (PDT)
+Received: from iris-Ian.. ([2a00:20:636a:3838:3bf9:3a9b:8000:4975])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ba2a112cc9csm90502766b.40.2026.04.16.07.42.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 16 Apr 2026 07:42:39 -0700 (PDT)
+From: iansdannapel@gmail.com
+To: linux-fpga@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: mdf@kernel.org,
+	yilun.xu@intel.com,
+	trix@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	neil.armstrong@linaro.org,
+	heiko@sntech.de,
+	marex@nabladev.com,
+	prabhakar.mahadev-lad.rj@bp.renesas.com,
+	dev@kael-k.io,
+	Ian Dannapel <iansdannapel@gmail.com>
+Subject: [PATCH v7 0/3] Add Efinix FPGA configuration support
+Date: Thu, 16 Apr 2026 16:42:33 +0200
+Message-ID: <20260416144237.373852-1-iansdannapel@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/6] arm64: defconfig: make Tegra238 and Tegra264 Pinctrl
- a loadable module
-To: Jon Hunter <jonathanh@nvidia.com>, pshete@nvidia.com,
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, arnd@arndb.de,
- bjorn.andersson@oss.qualcomm.com, conor+dt@kernel.org,
- dmitry.baryshkov@oss.qualcomm.com, ebiggers@kernel.org,
- geert@linux-m68k.org, krzk+dt@kernel.org, kuninori.morimoto.gx@renesas.com,
- linusw@kernel.org, luca.weiss@fairphone.com, michal.simek@amd.com,
- prabhakar.mahadev-lad.rj@bp.renesas.com, robh@kernel.org, rosenp@gmail.com,
- sven@kernel.org, thierry.reding@kernel.org, webgeek1234@gmail.com
-References: <20260409131340.168556-1-pshete@nvidia.com>
- <20260409131340.168556-7-pshete@nvidia.com>
- <9408f231-7a12-425c-b8de-2990d3162bb3@kernel.org>
- <097f71e0-cbc8-44e3-ba60-8bac79cf5217@nvidia.com>
- <19f390ab-ffa9-4237-9f24-ead07b627a89@nvidia.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <19f390ab-ffa9-4237-9f24-ead07b627a89@nvidia.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 13/04/2026 11:49, Jon Hunter wrote:
->>>> index dd1ac01ee29b..f525670d3b84 100644
->>>> --- a/arch/arm64/configs/defconfig
->>>> +++ b/arch/arm64/configs/defconfig
->>>> @@ -711,6 +711,8 @@ CONFIG_PINCTRL_SC8280XP_LPASS_LPI=m
->>>>   CONFIG_PINCTRL_SM8550_LPASS_LPI=m
->>>>   CONFIG_PINCTRL_SM8650_LPASS_LPI=m
->>>>   CONFIG_PINCTRL_SOPHGO_SG2000=y
->>>> +CONFIG_PINCTRL_TEGRA238=m
->>>> +CONFIG_PINCTRL_TEGRA264=m
->>>
->>> No, you just added as module. Why do we want them in upstream defconfig?
->>>
->>> Standard question, already asked Nvidia more than once.
->>
->> Yes :-)
->>
->> Prathamesh, what we need to do is ...
->>
->> 1. Add a patch to populate the pinctrl DT nodes for Tegra264 device.
->> 2. In this patch, only enable pinctrl for Tegra264 because we are
->>     lacking an upstream board for Tegra238 for that moment. In the commit
->>     message we should add a comment to indicate with Tegra264 platform is
->>     using this.
-> 
-> Thinking about this some more, I think I would prefer that we skip the 
-> defconfig patch and just add ...
-> 
->   default m if ARCH_TEGRA_238_SOC
-> 
->   default m if ARCH_TEGRA_264_SOC
-> 
-> ... in the respective Kconfig files for the drivers.
+From: Ian Dannapel <iansdannapel@gmail.com>
 
+Hi all,
 
-I support this, I am trying to do something similar to Qualcomm. None of
-core SoC drivers should become a question to the user. We want one
-multiplatform image in general, so whoever chooses ARCH_TEGRA or
-ARCH_QCOM should get everything (while still being able to disable if
-needed).
+This is v7 of the series adding support for programming Efinix FPGAs
+over SPI using the fpga-mgr subsystem.
 
-Best regards,
-Krzysztof
+The series adds DT bindings for the Efinix SPI configuration interface
+and a new FPGA manager driver implementing passive SPI configuration.
+
+Testing:
+- Verified on a custom board with an Efinix Trion T13 FPGA
+- Tested full bitstream configuration over SPI at 25 MHz
+
+Changes since v6:
+
+dt-bindings: fpga: Add Efinix SPI programming bindings
+- Require spi-cpha and spi-cpol in the binding to match the driver’s probe-time requirement
+- Dropped review tag
+
+fpga-mgr: Add Efinix SPI programming driver
+- moved Makefile entry to the end of the FPGA manager section
+- moved "keep asserted CS" comment to first appeareance
+- removed unnecessary variable struct device *dev = &mgr->dev; in fpga mgr callbacks
+- trimmed unused spi_device_id's
+
+Ian Dannapel (3):
+  dt-bindings: vendor-prefix: Add prefix for Efinix, Inc.
+  dt-bindings: fpga: Add Efinix SPI programming bindings
+  fpga-mgr: Add Efinix SPI programming driver
+
+ .../bindings/fpga/efinix,trion-config.yaml    |  98 +++++++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ drivers/fpga/Kconfig                          |   7 +
+ drivers/fpga/Makefile                         |   1 +
+ drivers/fpga/efinix-spi.c                     | 260 ++++++++++++++++++
+ 5 files changed, 368 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/fpga/efinix,trion-config.yaml
+ create mode 100644 drivers/fpga/efinix-spi.c
+
+-- 
+2.43.0
+
