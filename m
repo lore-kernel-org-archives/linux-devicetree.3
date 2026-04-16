@@ -1,71 +1,112 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9759439768C
-	for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 10:03:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D64C395257;
+	Thu, 16 Apr 2026 10:04:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776333841; cv=none; b=dKO71x5c6kpqIC2NxVm0D+unSks1KGIMuyQo4TTB+MO8JJHHHFJxy08Ux3TGeeCIM7kLfQxHLwlwfi6FCqrBDsjSmRA3onZ5UikkE98xU1sFyqAXPP5fX3DLfdwo3I11JBEc9MfmnT0K0O/6Up7dUpSkpPZi/ulwHV6xsA37970=
+	t=1776333900; cv=none; b=AQGiHg/I68SSHLEhstygRILWm5TRFhVWzdRUJ5Vht4VbszCopzEuYNzH2UKGPeQuZbqL+Fy647fmwEQhfVcdLfXecrEYUedM6FeJbGr4T2OqQqWkVH5mBzeW8alptSqfL0eli4Ld/FoenFR34ewCErUTh5LSN7X3HdCEVduJCVo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776333841; c=relaxed/simple;
-	bh=eJznwiWu3GS+G9YuTGcBBBnq7Dob2hnAe6bFBd1fFWA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eGZZUZiUIpS24qjOHgnH3q7Rh9zfEt+m8TpLsZzbCe4bBkFni0E7lWEN1CHvvMPIwq7SpzAsy71XVFaVyBRXkAvoiY18WSTtf0nkUskqOI1GP58x16Rq/Ne/BUEF5Kp1XTETHNRp1DYNoREwOK6LEoYZjkWG474Licod8HozmX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=qyK79Tbv; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1776333900; c=relaxed/simple;
+	bh=FveG3cDSPJvEj+BR5e9CPm1goj3oKIrxTt77DceQ09k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MgeegVeUc3cCn13PaHzIHmdhisLgHdqNkc6bQ5LoqNjfBR3JFaekEX+N0u6N8R4v6NaPv0cTfOlm48hNTYNAmaqvrKPrwvwkviZShQ8s9V9xYrxSy/7cHNg22yjmjYV1NE5zV6Er6S5hvPIKjZBbM/ft0OdcQMhLI5LYmXTE1rM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HHTb7kJU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="qyK79Tbv"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id BA40EC5C3C6;
-	Thu, 16 Apr 2026 10:04:34 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id A286260495;
-	Thu, 16 Apr 2026 10:03:56 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 215111045A177;
-	Thu, 16 Apr 2026 12:03:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1776333836; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=jz6qYFKNci22zxAWa0vLjki+Xbsl10MmWaT9hS9sWNc=;
-	b=qyK79Tbv0He5cPPGsSwcn+lVCvXGjTmv3N4N7u/qDZhmFp+hbI8pLmW9mcWyLOd2VyN+14
-	xaoZrDsp/5wI4SSW45AJnwFEWEQOVHHRb0CE3upt71IMae6Pc0F7VTF2Iar2k3B9wmNk/1
-	M3tIqi0ZASnSivJh5CEzgxo4Ft5/fHpTAT3m+mCW4Miqm29cFvvFaDIlwWjOeIygWhtMSn
-	okX4uO2v2SidwDQyrLSFNUlJLru3RTjyLVjh/nYirnb9UIKwr02CvoU/KDpE27Zb5QShtF
-	tNaWz7Fk9leY572KbswxsrSXuyN0peDtinPIJd7OOcSh5Uk9fvGrwL9Y/pH/EA==
-Date: Thu, 16 Apr 2026 12:03:54 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Adriana Stancu <adriana@arista.com>
-Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: rtc: ti,bq32k: Add delay on rtc reads
-Message-ID: <20260416100354ac85cb48@mail.local>
-References: <20260416092414.3210383-1-adriana@arista.com>
- <20260416095706.3212158-1-adriana@arista.com>
- <20260416095706.3212158-2-adriana@arista.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HHTb7kJU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82BE1C2BCB0;
+	Thu, 16 Apr 2026 10:04:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776333899;
+	bh=FveG3cDSPJvEj+BR5e9CPm1goj3oKIrxTt77DceQ09k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=HHTb7kJUT5czS1C6OdZ40Ix/d/xn04a/S/+jKsjLSDiHdYBuq9cwiqvHI5CSAdwpr
+	 OQTDVbmABVm93LIuHcBNX08oYYtAu2xnnqLuVmCmHcaYElyn7HBjq3ehecmAvbzOaH
+	 M8rYRwryq5P53lufJMPEwcuOU+84XvD+Aq4uKjZjmqsZ8soUMZ4XVnaQR9L00YcEi8
+	 s4EQVsPvluV5Jcn/z1Hp93nwrl6gf4i/ZkIMU3Xe76n4WgZ0XsjrULlVytMtOJBAMc
+	 0mMcoGHK4tpJfdmhzRg54LAfgx/B8usyoa3R8fOcC2E4Lvd62+iw/VuM17fZ9TJGfo
+	 O2EFfBGVLoZLQ==
+Message-ID: <950bae1b-9c82-485b-ae10-55d76fc9b974@kernel.org>
+Date: Thu, 16 Apr 2026 12:04:55 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260416095706.3212158-2-adriana@arista.com>
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] arm64: dts: qcom: eliza: Sort nodes by unit
+ address
+To: Alexander Koskovich <akoskovich@pm.me>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+References: <20260416-eliza-imem-v2-0-fb7a71123451@pm.me>
+ <20260416-eliza-imem-v2-1-fb7a71123451@pm.me>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260416-eliza-imem-v2-1-fb7a71123451@pm.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 16/04/2026 02:57:05-0700, Adriana Stancu wrote:
-> Add a configurable "ti,read-settle-us" property to resolve a limitation
-> where aggressive I2C polling prevents the BQ32000's internal register to
-> update. This ensures the hardware has sufficient idle time to update its
-> buffer, preventing stale data reads on systems where the "interrupts" are
-> not configured.
+On 16/04/2026 11:39, Alexander Koskovich wrote:
+> Qualcomm DTS uses sorting of MMIO nodes by the unit address, so move
+> few nodes in Eliza DTSI to fix that.
+> 
+> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+> ---
+>  arch/arm64/boot/dts/qcom/eliza.dtsi | 74 ++++++++++++++++++-------------------
+>  1 file changed, 37 insertions(+), 37 deletions(-)
 > 
 
-Why does it need to be configured?
+One patchset per 24h.
 
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Best regards,
+Krzysztof
