@@ -1,63 +1,63 @@
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6ADE381AEC
-	for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 09:57:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA8AD39B4A0
+	for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 09:57:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776333433; cv=none; b=G0/5fa4xVOF6+qH/E3/8r7/Y0a0Ns1ZZ635W76ZwvkHzEaPRsCtEd0yQGoYiFfzCEnbsScwj8PPF8XeVL9Mu81iSw8DbzuNsRAmtyBDzIkz/0YfoMXYE/zfUl2m8YXahl9y7rc4BaX38vdxvPWQm/n4pgriC3DKBo0yoPFliN2o=
+	t=1776333436; cv=none; b=AhKuNeKohw7pQaWo3+SJbjqo1NErsiuVovZ+Ui8I4sAlzjVOUlxYwt9e4G8XQYm1TTiSNgGO9NbygJqfER4ZwaU8R3hJk0ZdZlOor4kx185ZKs/Zlvd6pHDoVF1hsN+QAIb3hbdZlX4mCnuSu1s19WFTMIZunRPV5ipCjffIYtE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776333433; c=relaxed/simple;
-	bh=Z93aoZXsS4pPjtrQ7mV0ll0Vqxggd4ubOPS1K6vIpws=;
+	s=arc-20240116; t=1776333436; c=relaxed/simple;
+	bh=B35GEUiYL/i4rKfP8Gn+tSIfYFuWGyIXIcU6FNxorf0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W89FYXR1GZ+DSugD917ar1JguL5DvzCi2Jhnq2HH3z7QA3jQO/EvsLWk+1tF2Ioem3+UbacDlNViOfJCamUOT0THbfETnJXTKM6b/5OhFbR/xzNi33MW6tWnh5PvDkHEVvUrZf2Vtyi5LyrxlnxyIe2RBPpLzViE1EMbqyNp4gs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com; spf=pass smtp.mailfrom=arista.com; dkim=pass (2048-bit key) header.d=arista.com header.i=@arista.com header.b=SKtA8mMA; arc=none smtp.client-ip=74.125.82.41
+	 MIME-Version; b=ETWbPQ3tU06FZYbffRjGoXYZ7VQZykAeVjicO7wKWpXNnzynxbatwud2Uo2taNAwF/HDyEOLtm5l9e5+FmIVlUjt3iwiWnTYLObFMzApky6rSa07CyNX8ZKkvf9kvLr/mooOuHOPWIcRBqjYS9ke5fCqY2hK8L9YjEGrdmxDd9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com; spf=pass smtp.mailfrom=arista.com; dkim=pass (2048-bit key) header.d=arista.com header.i=@arista.com header.b=Aof3L7DW; arc=none smtp.client-ip=74.125.82.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arista.com header.i=@arista.com header.b="SKtA8mMA"
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-12c1161232dso328097c88.1
-        for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 02:57:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=arista.com header.i=@arista.com header.b="Aof3L7DW"
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-12736a0147cso599004c88.1
+        for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 02:57:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=arista.com; s=google; t=1776333431; x=1776938231; darn=vger.kernel.org;
+        d=arista.com; s=google; t=1776333433; x=1776938233; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=baWnCd3Ai+g3s8cPvIXwZp8BjMnFuTX7HKvOpj4gYZo=;
-        b=SKtA8mMAWddFDdTJAsKoE/bDYdP6YzIXa2Si80/c8hlKn3XEJIKYjyOve5ORogQ3aF
-         y10h5EH9RrRNpBBkXOVY0KEl4soZCU2PMnHAjHqR180t3E3Zx22+mwQbiAtu4/M4vOyL
-         AG4MmH/PkkOcb9HbpdYNIZQLvTeBG7adz04O3NrC1OoM/G9uQ6z4NOxvSs11NhHSs5qw
-         rklxZUtrZE4K2enRKL9VDzfpXD/Rn1ThsnB4r9bkvXlcfDMVV2xrg6Cr4k51XLtPrwuj
-         VZ9XoEu4giBR3iKVirEIGR5OICJ52u0imWQsBmgA/6uHk8FeX2sU/bK0w/0cfL9VT5/N
-         PUFA==
+        bh=BVEo1CGXYrQb+Ske7PtqTrPoqQ9eYUg9aVr/T0Vf6Tw=;
+        b=Aof3L7DWupwoJcKDUGZaU2bEMfpkIB7IYKua15lVjH1MBdhi1qwc8OrxirdAmHbJd1
+         iKIrizLxfAeRNdga/oIW3mqCXMlMKMD3IqOL7CRU48omxrLVkJcOfsXXNLjc+JPSoOIP
+         2/T6ci1ORsNz/Wg97svCUI9q/H2d6IK6GnahNfcV62YD8PeVR50q4kIHL5TKR9QNDJeX
+         jFgb8fJrbwX1sIFwlOG7gzqkoDiyeKGC57ECEdGaG+/rnPpliQxHMwg7IVPas/6u9rfs
+         ay6ICQjEdt60OTXOJv5yMd8ahln81PhHGISYhJ7LvLnd5Ds1f4aqvgGU5Y9u6L+YF+gS
+         oO0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776333431; x=1776938231;
+        d=1e100.net; s=20251104; t=1776333433; x=1776938233;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=baWnCd3Ai+g3s8cPvIXwZp8BjMnFuTX7HKvOpj4gYZo=;
-        b=i1vl/mc8pe7Tjd3El1Q/diKP9Vp7NJFO7D1lXuHawvaZAYGDIp0HTt58B5+ku+uJFw
-         1sTbiCzGja2uvhCthE3AmQz04KdNNykurjQyXGUYeg+WkRRV+MPmqmpRACL8iQEENqAX
-         p2smG8pfWRHpGgrA+DZDrVZ3/OzTfs+GkuT34sLiAUHJ/YLXGl63Ott/yRMY7LLLY5Rf
-         9cxhiVH9Sxf6fGmR/QFMEpRcNq0adZZtkvrBucJ84hqu6VtU2wiH+wFmJfAQWaB3v8OF
-         VuO0mSEuVqZm3vUZCPQkvCxpeZUB5UR8obOzVBVVfNgHpnBEaaqIzm/3U6tlvY4maeDE
-         JjYQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+QxwJNRpyVu4v5eluBTVhRelsADPeza25jbWilwywDj18/oPK0en2xfYF8uQqrzo7ncLxydQANekIo@vger.kernel.org
-X-Gm-Message-State: AOJu0YySAZekxSd2PtrqlKxZ0JHWwcz1KWrE5wFChVeXNGvT/yZT++B6
-	GeNXJQ0XZpYvBdXtDMxQi0c+qzJJbE72Po1cJBlwQ57KJ8g9KojIPjgwDQWrAuhouw==
-X-Gm-Gg: AeBDieuqtMTpH470elJ6yl3FGcwML8GH40bz5QFiOYGwNdBuHURRMSB/MKw1TGfCv3X
-	fyZ8Va+3YwDZBr11tSmRFsMtkWItuBE+CUFWznG0Ogv3xNIzefgADKOW2FTJt0L2zo0PaNKU7z+
-	wIuSndehfOGLMHoRFSpcO6a6wlz+vuT7HMex/Jjtw6SwJeVtQ+yxK7VN8lxoWVXzBtcdBP0pHzd
-	6rAHQVCBd8Lndz6Qgvpxjyh3ava2CPXnoewuUzlU2exQg4645iUN3OfT34czKZPvAA9fRe/Le+S
-	vya6Y+5Pa5eh+Q/xQ2jjNkyWYbpLfiZ/MLFW9qQfli1ndLcH8ExP92aaDAAYRScPe34dUaUkdBx
-	Xi4QpHT5Mc0a+cYgowIJSDv9HsfE0L/HJECtF6HexHxpzVzj1hEKYbjjqh15R9Aqe7Bl5HfsqHR
-	3K0npI5XtM3XLk+VGgaIbDtfQ2z6nW2HQz5K1vXKhG3pj+ufA+axzT4zd964I=
-X-Received: by 2002:a05:7022:519:b0:119:e56b:c3f5 with SMTP id a92af1059eb24-12c65d3aacbmr320152c88.5.1776333430634;
-        Thu, 16 Apr 2026 02:57:10 -0700 (PDT)
+        bh=BVEo1CGXYrQb+Ske7PtqTrPoqQ9eYUg9aVr/T0Vf6Tw=;
+        b=KbLNIExOZxMEUCrblRzv5cLYcZn91TsFGoJWRcWiS63D9rBO3yJL2nZfiMpXXu/+R/
+         2c7RRDswQtn/dLGPZhn9dHoJ0jC62tcI5QVeC/8NAdCY0BL+Z5t0L/WIKFW+YvyQrLHw
+         Eqdkik31HX0eOFA2ysVGZM+k09LhK+1CN4ofFDGjqBoIMw+JEooINLrqUGywUIPSJuCj
+         EXM2LlsTT8+VCncGUXjcfNdIP3wvsJS34SST0Bfj1bfoOSlzOXM7MhKi2nc4oocX1/pC
+         KEy0ZgYQvi2DQXUjwy1Jfvv5m3pB8PHWplVX9lftdhCCw1+JxS6etPzm2eCuz2Bih2xy
+         oSKQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/xQUbROSbDWngO/bFmUe9ZFHuHNoIwviXx88UDeBEhkaxCABizANJNzzB2JG5Ejk4x6VMAGtU0jq8b@vger.kernel.org
+X-Gm-Message-State: AOJu0YxF2OfdVCY19l2kmvsqf1sKEsceMTPGdF8cRwO9F0Qdas7HUnTn
+	1U9qqDI4fsnc1aaI7ilNcu5K3j0CxQezixCRFeQUi7jiscyeQLaqJ52oRxg490SJew==
+X-Gm-Gg: AeBDietUMVwZsG1UcUQFOPYF+u4JWUNABZ0MRrF63No/HMcPZU6XuKt0xqO3SuMG6F/
+	mMeB9VRyC+lQkSJs916KNfk/M8ZUY5zcwrrMqaq8QwgtIbpCPDgxCFxUHINTArjY5AwMs3WEpXn
+	UAm1T2H5SPv6e3yvYgoP/Zfupc5BCuNs7TBrGolUSYV9SirjYhn9FwAbqV+KXjEcEjcYYyiJDqz
+	yfk084jy8IbakbKAjoDvdCLgrBYzaGeukGMGiS5TFyA7dFznKDOyhhkDxf32XvgRkoYLeiYGqmg
+	aJ77kD+GFwuluxeFa01eR3RyBFKF91eHqdsNnnDsZ8GjJf5ySXzOb8CUDSsF1sqQnAPinQAMBmA
+	cz6nGIjytiHShDolerLFfZjZ/+psu9oM4P+xB0b0s/Z4m9OAJEjhZGiR2vcGEHR+Ll81npcs1qE
+	HYXZr/0rJ2Guk/2whm+DPwiSuX5iWURxfZ70M4/ZJArd7UFVfWhw+H1KMF1VA=
+X-Received: by 2002:a05:7022:48e:b0:12a:6ab6:8a64 with SMTP id a92af1059eb24-12c652c1211mr357227c88.0.1776333432722;
+        Thu, 16 Apr 2026 02:57:12 -0700 (PDT)
 Received: from adriana-schoodic-rtc.sjc.aristanetworks.com ([74.123.28.10])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-12c5f3f3d93sm4532913c88.15.2026.04.16.02.57.09
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-12c5f3f3d93sm4532913c88.15.2026.04.16.02.57.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Apr 2026 02:57:10 -0700 (PDT)
+        Thu, 16 Apr 2026 02:57:12 -0700 (PDT)
 From: Adriana Stancu <adriana@arista.com>
 To: alexandre.belloni@bootlin.com
 Cc: linux-rtc@vger.kernel.org,
@@ -67,12 +67,13 @@ Cc: linux-rtc@vger.kernel.org,
 	krzk+dt@kernel.org,
 	conor+dt@kernel.org,
 	Adriana Stancu <adriana@arista.com>
-Subject: [PATCH v2 0/2] rtc: bq32000: Add settle delay for aggressive polling
-Date: Thu, 16 Apr 2026 02:57:04 -0700
-Message-ID: <20260416095706.3212158-1-adriana@arista.com>
+Subject: [PATCH v2 1/2] dt-bindings: rtc: ti,bq32k: Add delay on rtc reads
+Date: Thu, 16 Apr 2026 02:57:05 -0700
+Message-ID: <20260416095706.3212158-2-adriana@arista.com>
 X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260416092414.3210383-1-adriana@arista.com>
+In-Reply-To: <20260416095706.3212158-1-adriana@arista.com>
 References: <20260416092414.3210383-1-adriana@arista.com>
+ <20260416095706.3212158-1-adriana@arista.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -81,32 +82,37 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series addresses a limitation in the TI BQ32000 RTC where aggressive
-I2C polling (done by userspace tools like hwclock on systems where the
-interrupt line is not connected to the CPU) can prevent the refresh of
-RTC registers.
+Add a configurable "ti,read-settle-us" property to resolve a limitation
+where aggressive I2C polling prevents the BQ32000's internal register to
+update. This ensures the hardware has sufficient idle time to update its
+buffer, preventing stale data reads on systems where the "interrupts" are
+not configured.
 
-This results in stale data reads or select() timeouts in userspace. The
-series introduces a configurable "settle delay" via device tree to ensure
-that the hardware has sufficient idle time between read attempts.
+Signed-off-by: Adriana Stancu <adriana@arista.com>
+---
+ Documentation/devicetree/bindings/rtc/ti,bq32000.yaml | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-Patch 1: Adds the "ti,read-settle-us" property to the YAML bindings.
-Patch 2: Implements the delay in the driver using usleep_range.
-
-Changes in v2:
-- Expanded dt-binding property description to explain use case.
-- Updated commit messages on dt change to describe the scenario when the
-dt property would be necessary.
-- Reword the commit messages to respect wrapping at 75 columns.
-
-Adriana Stancu (2):
-  dt-bindings: rtc: ti,bq32k: Add delay on rtc reads
-  rtc: bq32000: add configurable delay between RTC reads
-
- .../devicetree/bindings/rtc/ti,bq32000.yaml   |  9 +++++
- drivers/rtc/rtc-bq32k.c                       | 34 +++++++++++++++----
- 2 files changed, 37 insertions(+), 6 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/rtc/ti,bq32000.yaml b/Documentation/devicetree/bindings/rtc/ti,bq32000.yaml
+index bf9c1c4ddb7e..46403f0c85a5 100644
+--- a/Documentation/devicetree/bindings/rtc/ti,bq32000.yaml
++++ b/Documentation/devicetree/bindings/rtc/ti,bq32000.yaml
+@@ -29,6 +29,15 @@ properties:
+ 
+   trickle-diode-disable: true
+ 
++  ti,read-settle-us:
++    default: 0
++    description:
++      Delay in microseconds to wait before reading RTC registers.
++      Aggressive I2C polling on systems without an interrupt line
++      can prevent the BQ32000's internal refresh cycle, leading to
++      stale data. This delay ensures the hardware has sufficient
++      idle time to update its registers.
++
+ required:
+   - compatible
+   - reg
 -- 
 2.51.0
 
