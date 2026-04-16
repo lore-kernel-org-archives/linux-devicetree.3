@@ -1,245 +1,228 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A862E2852;
-	Thu, 16 Apr 2026 13:34:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AACEC38BF63;
+	Thu, 16 Apr 2026 13:34:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776346441; cv=none; b=FL/Iy4JBfrmdFYOq7/2EBrEwVRn6jmM440YbhGgrr7TfgYA6nnqnyRgi7z5a7Zn0zQW4Mbt1BtJ7WNeUif4PoSjAc7CcTJIS/JYWwfpFJgkm6kOThbcnRRwirq7dm49GdwA3tcogHGG5Kb2ItxtL6I6qiQ/P3OUE+JbIPhwyJpA=
+	t=1776346477; cv=none; b=jJROUxeD17HF7QaZRUT0Ip90fGDdQJI8ZhbrwZ4kbMDZALEOMfM5joFqwgfrTnz2ev1rSyflGkL+6BhklDAGqU7Ix31faUdLuVl6a+nNukzIGQBhus9EjXe6Ro7lCZR3gQG/NvzkbwrH/oPINHbYWSnrFV7gjjyvhy5H8Z2S0IU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776346441; c=relaxed/simple;
-	bh=VwCj12qajpP58w3o2KfI2iw3I1BImhw+DlXZ5RE9C2I=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=rTqauFK5AXpjxNNd+PB4BoKxBJi3ze0ZLJMQKLSQZLD14uN050NTfHxKYAbZbBzVtfP8tMipzz3FYp8eVqH8mX+jQDrj4l9yspWJu2OA41ciYPoG/di53j7XC0uTZAatOnHhNNla+QwTIjBVBW73EudkIbwAVpp3B6x37Nf/bjc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=CCGCVxKi; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1776346477; c=relaxed/simple;
+	bh=OdPGRiJ2OTAd0wN0VpIuzIvWe5D9n+gShs26W0B8xqs=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KN4c0OSYumQWlsmEKCbOgyqyBvvegLoAiFahJmzTq9woCjwVBWA4CUjMhC3VEPLOCm9H44+COB5KEhTUiihz2Glc7ROO9WbbKoRiFQ4LCkRfBFaJzb0sXtpB84b6/C6Pna4aEAGD6v+TFq7bXHp3f+ypIQo7f3Bfjn8+xA64zVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=EloIX9sM; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="CCGCVxKi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1776346438; x=1807882438;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:to:cc;
-  bh=VwCj12qajpP58w3o2KfI2iw3I1BImhw+DlXZ5RE9C2I=;
-  b=CCGCVxKi+0D6EZYYaPdAXKOSovVopJMC3LeRuM+y2uPFgll8+XXC0imv
-   rg83QFeK2fQM1m2jXSlPZjWhvB69enLxx53Ya5LmdSNU1+u7z99heH+ae
-   OA/nTOc8pgU3wgch9zue1tLz/QOpTZ7TwhscTrwPEbOYL9APsunI5+R+E
-   /UakXTr9DohJmF+XouzUxHazizZU6HexkdPUHaqJKrNbltxnFo9QFjLMw
-   b3Rs2lnJ9YYYcCfU2Rhuf9IsmMdXJ6MWGRGnOtSF0C9nt38m9/qyXwqVS
-   Tg5D6wdco3a4OB8ImPfG5+/c1TRd+EYVKKJZ2upOrSrGDOrjTMgJXzplG
-   w==;
-X-CSE-ConnectionGUID: AJfmCFcHRyyxJJh/K6vBsA==
-X-CSE-MsgGUID: R1gS9D9PT+WytH/6DECHrA==
-X-IronPort-AV: E=Sophos;i="6.23,181,1770620400"; 
-   d="scan'208";a="223466990"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Apr 2026 06:33:52 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
- chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.35; Thu, 16 Apr 2026 06:33:43 -0700
-Received: from [127.0.1.1] (10.10.85.11) by chn-vm-ex03.mchp-main.com
- (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Thu, 16 Apr 2026 06:33:40 -0700
-From: Ariana Lazar <ariana.lazar@microchip.com>
-Date: Thu, 16 Apr 2026 16:33:36 +0300
-Subject: [PATCH] dt-bindings: iio: dac: mcp47feb02: Fix binding issues
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="EloIX9sM"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 462291A32F4;
+	Thu, 16 Apr 2026 13:34:34 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 0867F60495;
+	Thu, 16 Apr 2026 13:34:34 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 360BB10460880;
+	Thu, 16 Apr 2026 15:34:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1776346472; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=3XpbdgVt+Cx8FP8MN9lmm4BPNvobbTQ5J2Ix6m+jMcE=;
+	b=EloIX9sM1QOhKmblue3jMDM5k8KpAKMHSGLQ8TanAuK7ENEV4CJPIMh2MskGhnhqAWn8Yw
+	kUAvaK1IF/Se+k3PBQG/MKIkBmVQpmTrY37v/4rJgCuO1y+r/1Gi1LkS705qt3VLfG8J/t
+	Xh6hvLhGANS4fiHpUfY431EjCRXdb9gafJMTVqrXQqnuY5IB80FZ7/DSZE6NczIytZJkU/
+	4zplh8emxfZOdpV5qrGtzBrEKS6pZZFh2AdjAIRSTDrK00XSpARNgEHfGzFQBwyefj3PSo
+	lEtKIt5lgvdG95GPo0kXJtjJ2O6cW+fsn6WroFDb1nkTBbUb0qISYKdg0D0cCg==
+Date: Thu, 16 Apr 2026 15:34:21 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Chen-Yu Tsai <wenst@chromium.org>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>, Manivannan Sadhasivam
+ <manivannan.sadhasivam@oss.qualcomm.com>, Rob Herring <robh@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
+ <jirislaby@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Nicolas
+ Schier <nicolas.schier@linux.dev>, Hans de Goede <hansg@kernel.org>, Ilpo
+ =?UTF-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Mark Pearson
+ <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto
+ von Dentz <luiz.dentz@gmail.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
+ Bartosz Golaszewski <brgl@kernel.org>, linux-serial@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org, linux-pci@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-bluetooth@vger.kernel.org, linux-pm@vger.kernel.org, Stephan Gerhold
+ <stephan.gerhold@linaro.org>, Dmitry Baryshkov
+ <dmitry.baryshkov@oss.qualcomm.com>, linux-acpi@vger.kernel.org, Hans de
+ Goede <johannes.goede@oss.qualcomm.com>, Bartosz Golaszewski
+ <bartosz.golaszewski@oss.qualcomm.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH v7 0/8] Add support for handling PCIe M.2 Key E
+ connectors in devicetree
+Message-ID: <20260416153421.1692848f@bootlin.com>
+In-Reply-To: <4yockfx5rjcvfh2n2excrgsknnhi72rv2w7wf7onks2ryt33sm@w7zkcxuc6vem>
+References: <20260326-pci-m2-e-v7-0-43324a7866e6@oss.qualcomm.com>
+	<20260413075459.GA2626902@google.com>
+	<fpcs4p62f35a5qyqwgm5ysa73stbysxcr62tkmmkrrcvsuf4t4@4ivukyqjey57>
+	<eeytuhqpgdz4do4tgtbmfntub2femtyq7bij7svhodpyjwaylx@j3gmvq2a2zqc>
+	<CAGXv+5E=tujhtZjwi6Qm7hk3Ks74UzTQHWq82NiTEw1+vYod5g@mail.gmail.com>
+	<ad36pIu-0dutL7Nk@ashevche-desk.local>
+	<CAGXv+5EGe59nJctLweEdZjb3MNmMvjuCHngGSfptzN985OiLdg@mail.gmail.com>
+	<ad4tJN27opdEooA7@ashevche-desk.local>
+	<CAGXv+5EPA29G-fsH=wWOD8AK6TZFezFhsE0NHPYj_Pt3nT+d_w@mail.gmail.com>
+	<20260415165651.153b573d@bootlin.com>
+	<4yockfx5rjcvfh2n2excrgsknnhi72rv2w7wf7onks2ryt33sm@w7zkcxuc6vem>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID: <20260416-mcp47feb02-fix5-v1-1-9656c2fed6d2@microchip.com>
-X-B4-Tracking: v=1; b=H4sIAC/l4GkC/x2MywqAIBAAf0X2nKCL2uNXokPZVnvIRCEC6d+Tj
- jMwUyBTYsowiAKJbs58hQq6EeCPOewkea0MqNApo508fTTtRotCufFjJbq+N94uBjsPtYqJqv+
- P4/S+H+OLtIFhAAAA
-X-Change-ID: 20260416-mcp47feb02-fix5-26994c5b428c
-To: Jonathan Cameron <jic23@kernel.org>, David Lechner
-	<dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
- Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-CC: Jonathan Cameron <Jonathan.Cameron@huawei.com>, Conor Dooley
-	<conor.dooley@microchip.com>, <linux-iio@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Conor Dooley
-	<conor@kernel.org>, Ariana Lazar <ariana.lazar@microchip.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776346420; l=5962;
- i=ariana.lazar@microchip.com; s=20250825; h=from:subject:message-id;
- bh=VwCj12qajpP58w3o2KfI2iw3I1BImhw+DlXZ5RE9C2I=;
- b=xHNJtGgi7DI9PvZBqeWT3I1sitOLbZH7NSV5isyDcGhi3oZDXzuMlGbGtxhsEA4a6FyIYqOR9
- /NMSfkze0n7A3TMT/vHCG9pvNmK3isEckG6PcvuGwcIk9aoY9jWqdHN
-X-Developer-Key: i=ariana.lazar@microchip.com; a=ed25519;
- pk=jmvf1fSxcnzZmXfITM3L94IwutM+wqA1POQHiYyD6Dk=
+X-Last-TLS-Session-Version: TLSv1.3
 
-Change maxItems value from 8 to 1 for the channel number reg property.
-Change example reg value from 0 to 0x60.
-Fix a few typos in property descriptions.
-Sort the part numbers in the enum list lexicographically.
+Hi Manivannan,
 
-Fixes: 4ba12d304175 ("dt-bindings: iio: dac: adding support for Microchip MCP47FEB02")
-Reported-by: Conor Dooley <conor@kernel.org>
-Closes: https://lore.kernel.org/all/20260403-speed-childless-1360de358229@spud/
-Reported-by: David Lechner <dlechner@baylibre.com>
-Closes: https://lore.kernel.org/all/dd0dbadb-604b-4f12-8674-268b7db096fd@baylibre.com/
-Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
----
- .../bindings/iio/dac/microchip,mcp47feb02.yaml     | 57 +++++++++++-----------
- 1 file changed, 28 insertions(+), 29 deletions(-)
+On Thu, 16 Apr 2026 14:25:39 +0530
+Manivannan Sadhasivam <mani@kernel.org> wrote:
 
-diff --git a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml
-index d2466aa6bda2106a8b695347a0edf38462294d03..88a1495f2967a3d821ada7e7e9a7fbb466401040 100644
---- a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml
-+++ b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml
-@@ -61,29 +61,29 @@ properties:
-   compatible:
-     enum:
-       - microchip,mcp47feb01
--      - microchip,mcp47feb11
--      - microchip,mcp47feb21
-       - microchip,mcp47feb02
-+      - microchip,mcp47feb04
-+      - microchip,mcp47feb08
-+      - microchip,mcp47feb11
-       - microchip,mcp47feb12
-+      - microchip,mcp47feb14
-+      - microchip,mcp47feb18
-+      - microchip,mcp47feb21
-       - microchip,mcp47feb22
-+      - microchip,mcp47feb24
-+      - microchip,mcp47feb28
-       - microchip,mcp47fvb01
--      - microchip,mcp47fvb11
--      - microchip,mcp47fvb21
-       - microchip,mcp47fvb02
--      - microchip,mcp47fvb12
--      - microchip,mcp47fvb22
-       - microchip,mcp47fvb04
--      - microchip,mcp47fvb14
--      - microchip,mcp47fvb24
-       - microchip,mcp47fvb08
-+      - microchip,mcp47fvb11
-+      - microchip,mcp47fvb12
-+      - microchip,mcp47fvb14
-       - microchip,mcp47fvb18
-+      - microchip,mcp47fvb21
-+      - microchip,mcp47fvb22
-+      - microchip,mcp47fvb24
-       - microchip,mcp47fvb28
--      - microchip,mcp47feb04
--      - microchip,mcp47feb14
--      - microchip,mcp47feb24
--      - microchip,mcp47feb08
--      - microchip,mcp47feb18
--      - microchip,mcp47feb28
- 
-   reg:
-     maxItems: 1
-@@ -111,13 +111,13 @@ properties:
-         - for single-channel device: Vout0;
-         - for dual-channel device: Vout0, Vout1;
-         - for quad-channel device: Vout0, Vout2;
--        - for octal-channel device: Vout0, Vout2, Vout6, Vout8;
-+        - for octal-channel device: Vout0, Vout2, Vout4, Vout6;
- 
-   vref1-supply:
-     description: |
-       Vref1 pin may be used as a voltage reference when this supply is specified.
-       The internal reference will be taken into account for voltage reference
--      beside VDD if this supply does not exist.
-+      besides VDD if this supply does not exist.
- 
-       This supply will be voltage reference for the following outputs:
-         - for quad-channel device: Vout1, Vout3;
-@@ -141,7 +141,7 @@ properties:
-     description:
-       Enable buffering of the external Vref/Vref0 pin in cases where the
-       external reference voltage does not have sufficient current capability in
--      order not to drop it’s voltage when connected to the internal resistor
-+      order not to drop its voltage when connected to the internal resistor
-       ladder circuit.
- 
-   microchip,vref1-buffered:
-@@ -149,7 +149,7 @@ properties:
-     description:
-       Enable buffering of the external Vref1 pin in cases where the external
-       reference voltage does not have sufficient current capability in order not
--      to drop it’s voltage when connected to the internal resistor ladder
-+      to drop its voltage when connected to the internal resistor ladder
-       circuit.
- 
- patternProperties:
-@@ -161,8 +161,7 @@ patternProperties:
-     properties:
-       reg:
-         description: The channel number.
--        minItems: 1
--        maxItems: 8
-+        maxItems: 1
- 
-       label:
-         description: Unique name to identify which channel this is.
-@@ -227,12 +226,12 @@ allOf:
-         compatible:
-           contains:
-             enum:
--              - microchip,mcp47fvb04
--              - microchip,mcp47fvb14
--              - microchip,mcp47fvb24
-               - microchip,mcp47feb04
-               - microchip,mcp47feb14
-               - microchip,mcp47feb24
-+              - microchip,mcp47fvb04
-+              - microchip,mcp47fvb14
-+              - microchip,mcp47fvb24
-     then:
-       patternProperties:
-         "^channel@[0-3]$":
-@@ -245,12 +244,12 @@ allOf:
-         compatible:
-           contains:
-             enum:
--              - microchip,mcp47fvb08
--              - microchip,mcp47fvb18
--              - microchip,mcp47fvb28
-               - microchip,mcp47feb08
-               - microchip,mcp47feb18
-               - microchip,mcp47feb28
-+              - microchip,mcp47fvb08
-+              - microchip,mcp47fvb18
-+              - microchip,mcp47fvb28
-     then:
-       patternProperties:
-         "^channel@[0-7]$":
-@@ -280,9 +279,9 @@ examples:
- 
-         #address-cells = <1>;
-         #size-cells = <0>;
--        dac@0 {
-+        dac@60 {
-           compatible = "microchip,mcp47feb02";
--          reg = <0>;
-+          reg = <0x60>;
-           vdd-supply = <&vdac_vdd>;
-           vref-supply = <&vref_reg>;
- 
-@@ -297,6 +296,6 @@ examples:
-             reg = <0x1>;
-             label = "Adjustable_voltage_ch1";
-           };
--      };
-+        };
-     };
- ...
+> On Wed, Apr 15, 2026 at 04:56:51PM +0200, Herve Codina wrote:
+> > Hi Chen, all,
+> > 
+> > ...
+> >    
+> > > 
+> > > I'm not arguing for a even more generic "M.2" connector. The "key" is
+> > > already described in the compatible. I'm saying we should have some way
+> > > of describing the individual interfaces (PCIe, SDIO, USB, UART, I2S, I2C)
+> > > on the connector so further nodes or properties can be attached to them,
+> > > either with overlays or dynamically within the kernel. Right now the
+> > > are only described as individual ports, but we can't actually tie a
+> > > device to a OF graph port.
+> > > 
+> > > But maybe I'm overthinking the representation part. AFAICT for Qualcomm's
+> > > UART-based BT bit part, Mani just had the driver create a device node
+> > > under the UART (by traversing the OF graph to find the UART). If that's
+> > > the desired way then the connector binding should mention it. And that
+> > > works for me. But I think it's messier and also we're missing an
+> > > opportunity to make the M.2 connector a standardized attachment point
+> > > for overlays.
+> > > 
+> > > Mani, could you also chime in a bit on what you envisioned?
+> > > 
+> > > (Added Luca from Bootlin to CC, as I think there are parallels to the
+> > >  "Hotplug of Non-discoverable Hardware" work)
+> > >  
+> > 
+> > Related to "Hotplug of Non-discoverable Hardware",
+> > 
+> > I would add entries for busses in the connector without using an OF graph.
+> >   
+> 
+> I don't think this is a correct representation. It is non-standard to describe
+> the device nodes in some other connectors. While it may work with your series in
+> the future, not something I would bet-on at this point.
+> 
+> Using OF graph to link the connector nodes look like the cleaner solution to me.
 
----
-base-commit: d2a4ec19d2a2e54c23b5180e939994d3da4a6b91
-change-id: 20260416-mcp47feb02-fix5-26994c5b428c
+In your DT binding, there is the i2c-parent property at connector level.
+
+How it is used or planned to be used in order to handle devices available on the
+board connected to the M2 connector ?
+
+> 
+> > For I2C and later SPI, this was is done.
+> > 
+> > You already have an i2c-parent property but no node where an i2c device
+> > can be added.
+> > 
+> > The last discussion related to hotplug, connectors and DT led to the RFC
+> > series [1].
+> > 
+> > It is a huge series. The last patch give a real example of representation:
+> >   https://lore.kernel.org/all/20260112142009.1006236-78-herve.codina@bootlin.com/
+> > 
+> > In your case I would see some thing like:
+> > 
+> >     connector {
+> >         compatible = "pcie-m2-e-connector";
+> >         vpcie3v3-supply = <&vreg_wcn_3p3>;
+> >         vpcie1v8-supply = <&vreg_l15b_1p8>;
+> > 
+> > 	/*
+> > 	 * If those GPIOs have to be used by components available in
+> > 	 * the connected board, a Nexus node should be used.
+> >          */
+> >         w-disable1-gpios = <&tlmm 115 GPIO_ACTIVE_LOW>;
+> >         w-disable2-gpios = <&tlmm 116 GPIO_ACTIVE_LOW>;
+> >         viocfg-gpios = <&tlmm 117 GPIO_ACTIVE_HIGH>;
+> >         uart-wake-gpios = <&tlmm 118 GPIO_ACTIVE_LOW>;
+> >         sdio-wake-gpios = <&tlmm 119 GPIO_ACTIVE_LOW>;
+> >         sdio-reset-gpios = <&tlmm 120 GPIO_ACTIVE_LOW>;
+> > 
+> > 	conn-i2c {
+> > 		i2c-parent = <&i2c0>;
+> > 
+> > 		/*
+> >  		 * Here i2c devices available on the board
+> > 		 * connected to the connector can be described.
+> > 		 */
+> > 	};
+> > 
+> > 	/* Same kind to description for other busses */
+> > 	conn-pcie {
+> > 		pci-parent = <&xxxxx>;
+> > 
+> > 		/*
+> > 		 * The PCIe bus has abilities to discover devices.
+> > 		 * Not sure this node is needed.
+> > 		 *
+> > 		 * If a PCI device need a DT description to describe
+> > 		 * stuffs behind the device, what has been done for LAN966x
+> > 		 * could be re-used [2] and [3]
+> > 		 */  
+> 
+> I don't think anyone would connect something like LAN966x to the M.2 connector.
+> M.2 cards have a defined purpose, like NVMe, WLAN etc... If anyone wants to
+> connect another SoC like LAN966x, they would use non-M.2 connectors.
+
+Hum, maybe yes, maybe not. I don't know what kind of hardware could be available
+on a M2 connector.
+
+One think sure is that a PCIe bus is available on the connector and so, potentially
+all PCI devices could be wired on a M2 form factor.
+
+LAN966x in PCI version is just a PCI device.
+
+Anyway, Is it allowed to have sub-nodes in a port node ?
+
+I mean, can we describe devices connected to a bus described by the port node ?
+
+For USB and PCI it is probably not needed for common use cases but having a DT
+description for devices on PCI and/or USB exists and is supported in the current
+kernel
+
+On SDIO, wireless devices can be described:
+  Documentation/devicetree/bindings/net/wireless/
+
+and so, sub-nodes will be needed.
+
+As those devices need an address (reg property), #address-cells and
+#size-cells will be needed.
+
+This will end in a mix of sub-nodes describing devices and a sub-node
+describing the endpoint connection.
+
+#address-cells and #size-cells will conflict at some points.
+
+Is a reg value for endpoints has the same characteristics as a reg value
+for a SDIO device ?
+
+How a BT devices is described under the UART available in the M2
+connector ?
 
 Best regards,
--- 
-Ariana Lazar <ariana.lazar@microchip.com>
-
+Hervé
