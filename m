@@ -1,48 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7376303CB0;
-	Thu, 16 Apr 2026 09:06:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 239B239A7E9;
+	Thu, 16 Apr 2026 09:18:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776330367; cv=none; b=PJJSaUDmcDWL+yDk1Ax6wpMz9tpUDkAvNsWaHB8+qcocCdP99RI6T+Eb8wrWw6QXq3bDL66u3fw/XcNnRYJYtyK4sjUal2mG3RwSj4/gPA4k0rgRP3Kfn/sV41E0ZCJD3EpIec9NlpzzHmvmOTMeSg9N27dXjztIU5vvrKQnoYs=
+	t=1776331111; cv=none; b=r6qkh6iAyYBEPzTVSEFwzsOz1ruThwz0B8BzUpYaX0dSUa0iUd+d6r0cwlmV3USpTHcqYTAVOJb74lCi6AEqkdzRTnRPVduSh8aBO8FQZeMT1dpEK4SAEZZFaSZR6h40VkqQmimrZpgqVkIDw90cVw894ExBIP7HtYzW3v+yHZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776330367; c=relaxed/simple;
-	bh=jdvOEzFNQCnkjiaq/gjCIrrpDBLRp/B98yKiskUg1Ew=;
+	s=arc-20240116; t=1776331111; c=relaxed/simple;
+	bh=4U4OAvkECWHeIcBHERmTEVZXXKRg5guY3xSB75Ww/z0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fnKCCqVL2aAhi7lNB6dz3jpYmukkhCBDf5A1vAfXLEEOgSex1af90E6k/gq4QAEi95QF0jktEvGmmlhyhlqeBrvOk7EQYw26vBXJhbA1URqUDi7SuxtJudAcgu89ZWLogsySzYDe2c1vUnYdvF3bsIv13IquRfkRlOUsFfwvQ8M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cKjANYqg; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=mmpoCcH+J7eqT9hBbIZvH3iG9I49FmXpMo030+xYgF85O4yeeOcaKWMmT3mLqjrHjpXTEAPWCiYL0XIU5t3UevJJxWsOeh3A4tehpccusaqlJd6xxKn87yAneVIqqShBB3PnuVrNrlg1fG1CJ6/JRLQyZNw5H5GHfg0PCiyp1LQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uAboXo3C; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cKjANYqg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3826C2BCAF;
-	Thu, 16 Apr 2026 09:06:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uAboXo3C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EEDFC2BCB3;
+	Thu, 16 Apr 2026 09:18:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776330367;
-	bh=jdvOEzFNQCnkjiaq/gjCIrrpDBLRp/B98yKiskUg1Ew=;
+	s=k20201202; t=1776331110;
+	bh=4U4OAvkECWHeIcBHERmTEVZXXKRg5guY3xSB75Ww/z0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=cKjANYqgXYLcM+Vu6dT3zaOm17uCcf5i5yRVA8jQLAj/7AjPuaOpFSsCkTxsPvlmO
-	 4m/CM47+1jCQDe/pv6hY+RZbVTCuPHo8cBiaqgiAuzhNc+U5BkT52hsdhihUyRPkiq
-	 OX6PEj9BbE50j/yRJHwlDU40yfhj0p74Gwzg2s/uSjzK9nMZkSehFg1MylQftmDcek
-	 W09I3eyXBiGGyzkBHt7jpK63Q2NBowPCZtb5ba54lk0kMlwfDskezXgfdIH5D91wyK
-	 cVZe23obJnTeq8xFUubqxTnZS205BZ2i6CGYjIl5iqFO/A0s6+3uuce+uDOAegZqFb
-	 NZBgG3n39+oSw==
-Date: Thu, 16 Apr 2026 11:06:04 +0200
+	b=uAboXo3CwF9etP73NJHeEYq/LPU9Xai8PIiS6yQAr4kG9Uiq7zA0MSstLchBUQd7J
+	 Nooq8WpZNZ4T8vWYFIuQbaNnelgIEonkuE2oQ2UXc5j3N9Lbez9CBgAJuk4S1yUFow
+	 yyr7E83yGzrhsfWbAogV7qYL9D1g4mNUpLofqOlEgbyLYoZJtIs9IJbpr0PgUnOXAt
+	 O/XBIuXBbr/UN/0wXBvPMuNh84sLjoyKoP41BAn3UEj8Mn2snOAg4KMFFCtz89LeiL
+	 JGwtwoSlrkiySYuawIs5ZSezCDksIqn/QXKmnyg/Lbz9tVdmbjofy/OIJShKc2C8eB
+	 vzQBkJdc/HRKg==
+Date: Thu, 16 Apr 2026 11:18:28 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Michal Simek <michal.simek@amd.com>
-Cc: Conor Dooley <conor@kernel.org>, 
-	Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>, linux-kernel@vger.kernel.org, git@amd.com, 
-	shubhrajyoti.datta@gmail.com, Srinivas Neeli <srinivas.neeli@amd.com>, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 2/3] dt-bindings: gpio: Add EIO GPIO compatible to
- gpio-zynq
-Message-ID: <20260416-graceful-warthog-of-superiority-62acbd@quoll>
-References: <20260415105628.957689-1-shubhrajyoti.datta@amd.com>
- <20260415105628.957689-3-shubhrajyoti.datta@amd.com>
- <20260415-rectal-visible-a8ccb534a176@spud>
- <c973f9d4-9bb5-40f4-8f09-72e23f92cd2d@amd.com>
+To: Charan Pedumuru <charan.pedumuru@gmail.com>
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Peter Griffin <peter.griffin@linaro.org>, linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: mmc: st,sdhci: convert to DT schema
+Message-ID: <20260416-merciful-bug-of-fantasy-f08d00@quoll>
+References: <20260409-st-mmc-v1-1-4c54321c3535@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,41 +44,120 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <c973f9d4-9bb5-40f4-8f09-72e23f92cd2d@amd.com>
+In-Reply-To: <20260409-st-mmc-v1-1-4c54321c3535@gmail.com>
 
-On Thu, Apr 16, 2026 at 07:58:27AM +0200, Michal Simek wrote:
-> 
-> 
-> On 4/15/26 17:01, Conor Dooley wrote:
-> > On Wed, Apr 15, 2026 at 04:26:27PM +0530, Shubhrajyoti Datta wrote:
-> > > EIO (Extended IO) is a GPIO block found on xa2ve3288 silicon..
-> > 
-> > 
-> > Why does the compatible have a "1.0" when it is in silicon?
-> 
-> Sorry not following what the problem is. Yes this is hard block in silicon
-> and it is silicon v1.
+On Thu, Apr 09, 2026 at 07:43:16AM +0000, Charan Pedumuru wrote:
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - const: st,sdhci
+> +      - items:
+> +          - const: st,sdhci-stih407
+> +          - const: st,sdhci
+> +
+> +  reg:
+> +    minItems: 1
+> +    maxItems: 2
 
-Writing bindings: compatibles should be specific to device, not some
-arbitrary versioning.
+replace maxItems with a list with description
 
-OR explain in commit msg. That commit msg clealy suggests code is wrong.
+> +
+> +  reg-names:
+> +    minItems: 1
+> +    maxItems: 2
+> +    items:
+> +      enum:
 
+List order is not flexible. The only flexibility is presence of top-mmc-delay
 
-> 
-> > Why doesn't the compatible contain "xa2ve3288"?
-> 
-> This unit can be used on different silicons too.
+> +        - mmc
+> +        - top-mmc-delay
+> +
+> +  clocks:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+> +  clock-names:
+> +    minItems: 1
+> +    maxItems: 2
+> +    items:
+> +      enum:
 
-That's not what the commit said.
+Same here
 
-> 
-> > Why is this device not compatible with existing ones, since
-> > gpio-lines-names appears to be the sole difference?
-> 
-> There is no way how to detect gpio width.
+> +        - mmc
+> +        - icn
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  interrupt-names:
+> +    const: mmcirq
+> +
+> +  pinctrl-names:
+> +    const: default
 
-Where in the commit msg are the differences explained?
+Drop
+
+> +
+> +  resets:
+> +    maxItems: 1
+> +    description: Phandle to reset line of host controller.
+
+Drop description
+
+> +
+> +  vqmmc-supply:
+> +    description: Regulator supplying I/O voltage (Vcc/Vdd for SD/eMMC).
+> +
+> +  non-removable:
+> +    type: boolean
+> +    description:
+> +      Indicates a non-removable device (e.g., eMMC). Also used for mmcss config.
+> +
+> +  bus-width:
+> +    description: Number of data lines.
+> +    enum: [1, 4, 8]
+> +
+> +  max-frequency:
+> +    enum: [50000000, 100000000, 200000000]
+> +    default: 50000000
+> +    description:
+> +      Maximum bus frequency. Used to configure CCONFIG3 in mmcss.
+> +
+> +  sd-uhs-sdr50:
+> +    type: boolean
+> +
+> +  sd-uhs-sdr104:
+> +    type: boolean
+> +
+> +  sd-uhs-ddr50:
+> +    type: boolean
+
+No, drop all above. Look how MMC bindings are written.
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - interrupts
+> +  - interrupt-names
+> +  - pinctrl-names
+> +
+
+Missing allOf with $ref to mmc-controller
+
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/clock/stih407-clks.h>
+> +    sdhci@9060000 {
+
+Wrong name. Look at other examples. You might need to fix DTS.
 
 Best regards,
 Krzysztof
