@@ -1,111 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch [79.135.106.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AE51396D10;
-	Thu, 16 Apr 2026 11:00:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0A59378D68;
+	Thu, 16 Apr 2026 11:04:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.30
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776337233; cv=none; b=uk/fV/HqUIOA8ngaUp45aXJZYpSRogFZK/HvA8whkj/QmeiSRRtXYU7rsk34JfGu1CV/uqqh1IyKolNCCP8FCHgqCR5EyO76OtUATmUdrGtjLlKrIOgXjd2l52afEeLhBBd5UPXZfgRedGpe3C3NqwHlaU8+4keOw7+3Ow9lVmw=
+	t=1776337494; cv=none; b=Ia5r6iK4C5AN9W6aSqXkDBQ3CMVFvY086ih4bafv772CgrkDt+vPKH5XDhaPm8CSTvG19Rz11b3Mn3yGryQuTEzxBeQGx3KqJDkH5cvtIvh3mbSC4KAUqgkDfNs92JCft9ibNsTJebKZMi19+nguB0j9tCNclxqlK7KFY9JGyOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776337233; c=relaxed/simple;
-	bh=UNM346qIOMFaM9dwhst0Kj3gfu0UGlzy8iqRjx8oFgg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uUYAWrynUn3V5hpiwAjdcv36PmHDanh28jPJ1JHCQJfjXtVkiKVrejuV+PjfeF7NVi88WV8xKaSF4TZueXze0j2LAcfNape6OSUBbmOCX1w7h1nEAeWrVIbW2jh3T4IbMJZGTI/vcVxGpkWkBKZvS6LmfNPeYpb+NfzuA/GcKdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fOsMoLtU; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776337494; c=relaxed/simple;
+	bh=v9dZUijvKbwEj6cICPn2Bfzs4TG9TBtGp5Pd+DQtyGE=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=Wi4eGxROVXSRy1NMxZZFHWbf/4U8VXQ3j2S+06TcKlyb3jalVB73zox9reegAvlpSAb/xPfe/bls1NJr0DjcuWH4bzKutFwqARacf1imF4ySEBuQ3jAO/ADMf8zHw8dhkl76A3C2OAppfWL75tE//JrCxzYNWOFEHkxhf5zrV+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=Moijb+2p; arc=none smtp.client-ip=79.135.106.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fOsMoLtU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB993C2BCB8;
-	Thu, 16 Apr 2026 11:00:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776337232;
-	bh=UNM346qIOMFaM9dwhst0Kj3gfu0UGlzy8iqRjx8oFgg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=fOsMoLtUFBTYN/S7ykCDnNBfjJHnElGNUadIiNcOQ5pSRpwUQEuoj6RWlkj1Avdpc
-	 2z95fahqe1SWwHeFqXEDlpUSD5TatBtbFVxEIfKmvz5FLYSSq/3W17bhP+3OuDOLCS
-	 JAJY0QK05fvL/eix3eyGp8Ixbw116hHMtAlYdZ+daYQu1iNjnowqS4wT8X/FfofQH3
-	 nAoFNaXCnDD5shH1ntgzVB3AqvwCbhjhv1c6X2LL9QP+vOuZ+yZbzDYxRr41oavRhG
-	 8zN+1MGv27IoDsCsNpAzx1A+9pOIIaV5jFYGgEXj7KECwyi0l564tFitjKPywOa/8F
-	 1AH+SfANb6ajg==
-Message-ID: <89bb6063-d473-498e-bca5-0185325608c3@kernel.org>
-Date: Thu, 16 Apr 2026 13:00:26 +0200
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="Moijb+2p"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1776337484; x=1776596684;
+	bh=ND45yB22FWjIji9RmDjY8g6tzsg5Y5+t9sZmH4XvSKU=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=Moijb+2pzfp8N/wXiwy0bwgPqgVdkJhMePsB+FlxuG1uwUPrPdeBbQYc0ECTTGOrT
+	 Ja+ruK/Mab3a7h2o74GGBRE0HX5xKs1hxoJzmoXqMQ1btDOvADD/69RZG1IOu6GDkh
+	 Ese1Fqb0qcV43l+bifDkT4nstPml/LWbXjasOR05CT05M+LPCS518qFzjIzpoSz/9t
+	 EefaZcK/DbS8myFgpV6S6Lcmi5vkqRPAKvLVTzGQ3xR3LFEgUydJkVvrVFRGai6Xwm
+	 /cm/ZhW6RDJcisnkHJ3pMOKzHzfiVuHb0LLx+RIeyK7ZeMhWmtbo2kZ7aYIR8B3Wue
+	 u1E2MC5Dn/ZZQ==
+Date: Thu, 16 Apr 2026 11:04:36 +0000
+To: Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Akhil P Oommen <akhilpo@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>
+From: Alexander Koskovich <akoskovich@pm.me>
+Cc: Luca Weiss <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Alexander Koskovich <akoskovich@pm.me>, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: [PATCH RFC v4 0/7] Add support for Adreno 810 GPU
+Message-ID: <20260416-adreno-810-v4-0-61676e073f8a@pm.me>
+Feedback-ID: 37836894:user:proton
+X-Pm-Message-ID: 9198165a4acde663ff75ac413a75938d5f73a19c
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: rtc: ti,bq32k: Add delay on rtc reads
-To: Adriana Stancu <adriana@arista.com>, alexandre.belloni@bootlin.com
-Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-References: <20260416092414.3210383-1-adriana@arista.com>
- <20260416095706.3212158-1-adriana@arista.com>
- <20260416095706.3212158-2-adriana@arista.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260416095706.3212158-2-adriana@arista.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 16/04/2026 11:57, Adriana Stancu wrote:
-> Add a configurable "ti,read-settle-us" property to resolve a limitation
-> where aggressive I2C polling prevents the BQ32000's internal register to
-> update. This ensures the hardware has sufficient idle time to update its
-> buffer, preventing stale data reads on systems where the "interrupts" are
-> not configured.
+Adreno 810 is present in the Milos SoC and is the first GPU to be released =
+in
+the A8x family.
 
-And why does the value different between each board layouts? Same
-device, different board and you need different value?
+This series is marked as RFC because it depends on a few other in review
+series, GPU GX GDSC handling [1], QFPROM efuse for Milos [2] and the GXCLKC=
+TL
+block for Milos [3].
 
-Do not attach (thread) your patchsets to some other threads (unrelated
-or older versions). This buries them deep in the mailbox and might
-interfere with applying entire sets. See also:
-https://elixir.bootlin.com/linux/v6.16-rc2/source/Documentation/process/submitting-patches.rst#L830
+Also depends on A8x batch 2 but it looks like that made it into linux-next.
+
+[1]: https://lore.kernel.org/linux-arm-msm/20260407-gfx-clk-fixes-v1-0-4bb5=
+583a5054@oss.qualcomm.com
+[2]: https://lore.kernel.org/linux-arm-msm/20260331-milos-qfprom-v1-0-36017=
+cc642db@pm.me
+[3]: https://lore.kernel.org/linux-arm-msm/20260403-milos-gxclkctl-v2-0-95e=
+b94a7d0a4@fairphone.com
+
+Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+---
+Changes in v4:
+- Add 1150MHz speedbin
+- Rebase on next-20260415
+- Add dep on efuse patchset
+- Link to v3: https://lore.kernel.org/r/20260407-adreno-810-v3-0-30cb7f196e=
+d4@pm.me
+
+Changes in v3:
+- Drop DEMET from GMU clocks (not required on A810)
+- Document qcom,adreno-44010000 compatible (regex is gone in 7.0+)
+- Drop zeroed out CP_PROTECT_REG[46, 62] range, not required
+- Add a810_protect to __build_asserts
+- Add UCHE_CCHE_TRAP_BASE_[LO|HI] and UCHE_CCHE_WRITE_THRU_BASE_[LO|HI] to =
+a810_pwrup_reglist_regs
+- Move TPL1 registers to a810_pwrup_reglist_regs
+- Include all protect registers in a810_ifpc_reglist_regs
+- Revert pipe reg comment, just copied it from downstream but original also=
+ works
+- Link to v2: https://lore.kernel.org/r/20260402-adreno-810-v2-0-ce337ca87a=
+9e@pm.me
+
+Changes in v2:
+- Mark as RFC due to dependency on in-review changes
+- Explain in DTS commit why qcom,kaanapali-gxclkctl.h and not qcom,milos-gx=
+clkctl.h
+- cx_mmio -> cx_misc_mmio
+- Sync a810_nonctxt_regs with GRAPHICS.LA.14.0.r5-03100-lanai.0
+- Link to v1: https://lore.kernel.org/r/20260331-adreno-810-v1-0-725801dbb1=
+2b@pm.me
+
+---
+Alexander Koskovich (7):
+      dt-bindings: display/msm/gmu: Document Adreno 810 GMU
+      dt-bindings: display/msm/gpu: Document A810 GPU
+      drm/msm/adreno: rename llc_mmio to cx_misc_mmio
+      drm/msm/adreno: set cx_misc_mmio regardless of if platform has LLCC
+      drm/msm/a8xx: use pipe protect slot 15 for last-span-unbound feature
+      drm/msm/adreno: add Adreno 810 GPU support
+      arm64: dts: qcom: milos: Add Adreno 810 GPU and GMU nodes
+
+ .../devicetree/bindings/display/msm/gmu.yaml       |  30 +++
+ .../devicetree/bindings/display/msm/gpu.yaml       |   1 +
+ arch/arm64/boot/dts/qcom/milos.dtsi                | 166 ++++++++++++
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c          | 296 +++++++++++++++++=
+++++
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c              |   8 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  44 ++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h              |  14 +-
+ drivers/gpu/drm/msm/adreno/a8xx_gpu.c              |   6 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h            |   5 +
+ 9 files changed, 532 insertions(+), 38 deletions(-)
+---
+base-commit: 5fe4fcc47bbe1ee4474e743378c1b296a0b40e4c
+change-id: 20260330-adreno-810-5a47525522cd
 
 Best regards,
-Krzysztof
+--=20
+Alexander Koskovich <akoskovich@pm.me>
+
+
