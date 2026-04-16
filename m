@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90874378D9E
-	for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 06:21:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A72F830C608;
+	Thu, 16 Apr 2026 06:34:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776320507; cv=none; b=kTb+BIDuOcZLn08OH/WVkXsHs2RmAI7mLt2QvNNhSj0Pp14NO2OZYzLlStNrSsLHbEmYx2y0Z7seyixa3Q+L++JaE437FBbGpiueHN7GNEdLqWTh8IYdXJXuPg5l35SL5VnJ+5T2W8ExPgneGb4ikQY1/PXWvKxZ4YGycjdkwJY=
+	t=1776321295; cv=none; b=TSFL9V+sb0u3M2XXUPQCmoO6Tf0Uh3E4wsyxKtQGCgi7NYOjwn2cyUwMfIpBFKC0d4rJYruyKouXcsx7aw6kHISACSH+0uFdDFBTgGXvssK6rcB8Jp0DNIVMSDSB4Kv7YYg6zKqR3aIoZUHANpC8QVhoAmUL3MhRzeiDd3PDs3w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776320507; c=relaxed/simple;
-	bh=+8F/oNoPxuc2vDOxM10nGfFdu9tPo7pBm69TDEWVfqw=;
+	s=arc-20240116; t=1776321295; c=relaxed/simple;
+	bh=N/Hxqw9DwApKPuJ9Q8r2VvfqDyVC1NQx+qFttUE32ec=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jTy45xCi/3wEkTh8JvG/TqX+MNj04oT53+UU4aWC9OW55zTNQu4w8zLkjUXf8mPO2y+gGNTYQITiX++M0HeR6SIPwPinRSYNJUDrkmjRrGvyy+6DL+fv3dzPMlxRBfK99W6azDKO2m10q8pn9N9WF1dOcpYx+RGFdJiUliJp9uY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dqjw73v6; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=KTe33gsZiurNuLH59jmb818MSRgJApe8YImoO4zvDeRRNYJJR/Zlgm1oX9RHeft3T8+bsPRGGe8A1eoZsiPSYqi9k3u81JSsbkvIRTXLgGXQNXcSX2MmTThj/w45oy1A+7Qe3kjlAeiSHGHkzx1jOfOJQH8C99O0uusmxVmMPRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cdZHAT0v; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dqjw73v6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2517CC2BCB3;
-	Thu, 16 Apr 2026 06:21:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cdZHAT0v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EC4DC2BCAF;
+	Thu, 16 Apr 2026 06:34:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776320507;
-	bh=+8F/oNoPxuc2vDOxM10nGfFdu9tPo7pBm69TDEWVfqw=;
+	s=k20201202; t=1776321295;
+	bh=N/Hxqw9DwApKPuJ9Q8r2VvfqDyVC1NQx+qFttUE32ec=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=dqjw73v6pCxPPkSP1tGhLm07LRmFYov7EMOcmrmGEnYpK3ksynagaWsZS+yJsfEsx
-	 0MM1VbjBbRm/TUB5RcxjJgtFzBbMC/37ZFzP/wIGX7/uFLNK+mmGMv744cClhyY8vg
-	 vRUrIxUbN4ZhyH8z8Ie52gwYTuY1IJrp3moQ9QHh7wZQU2tkStuuEKNSvgkpw2gvm4
-	 EeZBob/rnsOZmAQzEq1jEquvMVNKHQlMKxJhqiSzvdeuGvIX933nhgba88Ab98sRvv
-	 jbhl/L/SYfZNrHqOJsTappDlIK8Tk1nPwUhdx0mogQGbn16ZaeqNTCqdkpAiVhuUml
-	 18ZJXC2kWS9rg==
-Message-ID: <276df910-4ae0-4241-86bc-f8182e40eaf3@kernel.org>
-Date: Thu, 16 Apr 2026 08:21:42 +0200
+	b=cdZHAT0vXpbfokZSv7xRzy05mxSDCfOf33tUtvIScOWAEk77JJnoAeYygSoxyPCb0
+	 V0ZrBENJc1mpoTiu5gS40IjeXSDEsuMCpsaR1iCYtaOmfnk8Q7k+iAzsmpGJxicSHF
+	 PF66JySAoLDGB4atVL8uarJS9n6sIAQePQwEaqjlmGVIllzaNndmVv2kcjeQm7h1ok
+	 xUb53ZNtu7K0mqRGSkAORW6wxJDrmaCMoxv15QkVuM7D+FrnGvah/6PO2LpE46f5Km
+	 3Q8QTyMZ8Dd1lo40ZF6pclfNEaF1x1bkpz4k88IONbARKbdfdUny6MsX8cjNyW8fKX
+	 ixXo6qMpPPbuA==
+Message-ID: <21b09d39-ff7c-4859-a078-45e303a392e2@kernel.org>
+Date: Thu, 16 Apr 2026 08:34:50 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,20 +35,19 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] dt-bindings: i3c: Add AST2600 I3C global registers
-To: Dawid Glazik <dawid.glazik@linux.intel.com>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>, linux-aspeed@lists.ozlabs.org,
- linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, Frank Li <Frank.Li@nxp.com>,
- Maciej Lawniczak <maciej.lawniczak@intel.com>
-References: <cover.1775679285.git.dawid.glazik@linux.intel.com>
- <7f55458097ef651b4fc46650254afd3fa7b87348.1775679285.git.dawid.glazik@linux.intel.com>
- <20260409-beneficial-sociable-tamarin-dbcaeb@quoll>
- <d74e7aa8-1110-469a-ac7e-3829c2458852@kernel.org>
- <cb0d16bf-988d-403e-8a8e-c85bf2a208d0@linux.intel.com>
+Subject: Re: [PATCH 2/5] clk: qcom: add Global Clock controller (GCC) driver
+ for IPQ9650 SoC
+To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260415-ipq9650_boot_to_shell-v1-0-b37eb4c3a1d1@oss.qualcomm.com>
+ <20260415-ipq9650_boot_to_shell-v1-2-b37eb4c3a1d1@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -94,43 +93,38 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <cb0d16bf-988d-403e-8a8e-c85bf2a208d0@linux.intel.com>
+In-Reply-To: <20260415-ipq9650_boot_to_shell-v1-2-b37eb4c3a1d1@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15/04/2026 20:21, Dawid Glazik wrote:
-> On 4/9/2026 9:30 AM, Krzysztof Kozlowski wrote:
->> On 09/04/2026 09:28, Krzysztof Kozlowski wrote:
->>> On Wed, Apr 08, 2026 at 10:34:35PM +0200, Dawid Glazik wrote:
->>>> Introduce the device-tree bindings for I3C global registers found on
->>>> AST2600 SoCs.
->>>>
->>>> Signed-off-by: Dawid Glazik <dawid.glazik@linux.intel.com>
->>>> ---
->>>> I wasn't sure if I should add newline at the end of the
->>>> file or not so I took
->>>> https://github.com/torvalds/linux/tree/master/Documentation/devicetree/bindings/i3c
->>>> as an example.
->>>
->>> Answer is: you cannot have patch warnings.
->>>
->>> Documentation/devicetree/bindings/i3c does not have patch warning, does
->>> it?
->>
->> And if you tested this code with standard tools, you would see that...
->>
->> Best regards,
->> Krzysztof
+On 15/04/2026 15:33, Kathiravan Thirumoorthy wrote:
+> Add support for the global clock controller found on IPQ9650 SoC.
 > 
-> Thank you for the review and feedback. This is my first contribution to 
-> Linux kernel so I'm still learning the process and toolchain. I 
-> apologize for the rookie mistakes. I will address all the issues you've 
-> pointed out and resubmit the series.
+> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+> ---
+>  drivers/clk/qcom/Kconfig       |    8 +
+>  drivers/clk/qcom/Makefile      |    1 +
+>  drivers/clk/qcom/gcc-ipq9650.c | 3794 ++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 3803 insertions(+)
+> 
+> diff --git a/drivers/clk/qcom/Kconfig b/drivers/clk/qcom/Kconfig
+> index df21ef5ffd68..ed4c5765557b 100644
+> --- a/drivers/clk/qcom/Kconfig
+> +++ b/drivers/clk/qcom/Kconfig
+> @@ -434,6 +434,14 @@ config IPQ_GCC_9574
+>  	  i2c, USB, SD/eMMC, etc. Select this for the root clock
+>  	  of ipq9574.
+>  
+> +config IPQ_GCC_9650
+> +	tristate "IPQ9650 Global Clock Controller"
 
+And the soc is for ARM64? Add proper dependency.
 
-So get the patch reviewed by Intel colleagues which would tell you what
-tools you must run and what warnings are accepted or not (and patch
-warning is never accepted).
-
+> +	help
+> +	  Support for global clock controller on ipq9650 devices.
+> +	  Say Y if you want to use peripheral devices such as UART, SPI,
+> +	  i2c, USB, SD/eMMC, etc. Select this for the root clock
+> +	  of ipq9650.
+> +
 Best regards,
 Krzysztof
