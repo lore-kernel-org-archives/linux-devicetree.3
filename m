@@ -1,40 +1,39 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2109.outbound.protection.partner.outlook.cn [139.219.17.109])
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2091.outbound.protection.partner.outlook.cn [139.219.146.91])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C97237BE7B;
-	Thu, 16 Apr 2026 06:48:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.109
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FB2C78F39;
+	Thu, 16 Apr 2026 07:03:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.91
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776322131; cv=fail; b=e2hPxDjLoH4s5k2ryLds57A7YnCXvGyQKbntK3toCg77H85dZwtBgqomOySo5X+91V7ZSM0d8FoqLLhKInRpbaJGbW9UXw1ZsYvyrTSTmY49qnwTipc6lHDG3K6Se4cWk3aQMXJ+K8MYAbzeBF81MkUHmnDof/oSzpJGyPQj32s=
+	t=1776323022; cv=fail; b=l4BfXobMy3DLL1XnCXJH79xyymBMZl+jqhjHyuubvpK3kIZNRa7RS7Xi88gotGvoj24v70HRsiHG6lZjLUNtfLGIkG7YHV8mnwMp9Evv5hSAOEgf1q1aDwzmk0zt04FSwkfybCwWwdhwMWmn6Vv96LRDO3bw/K6bT19WKc/QHvM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776322131; c=relaxed/simple;
-	bh=8Cpl5B/ySK24ROygo8tjpK215mDkCPDcKgK8LsFcz4A=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=opThPmjkJgk/jWXUP5DGjvu/gWuUYFnAR7xOVxn0fKiua2rrtfN8tH8Y2YqxXrOgD4ssSA3+y/k9uthi0ihdDclFEoixnKWRvFlHRSimcYCyt8ggrOfDKC8UjmN4yeJw41Z7aFe+Gq5wP//I5a3pdDMD5BUN/eF237xTqOvPvbk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.109
+	s=arc-20240116; t=1776323022; c=relaxed/simple;
+	bh=cY7UROBu+5pyWIQGC0K3sQaFpS0JSteilRkz/rDm4f4=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=TqIfFGPHbilXYiFRXuxRHGbr1WyRTfq25aEpF3rhIgGSEP3nOEGTyZz457Gw8zsMKTnvlrNQ4vbBS4p3OG1GESWgqO4r9nms4jRxsvgEq4K4NRhEWyal8u1Lxrl5ca4AkHb5leiKbUeEwlwqq6IM0lnXwHRJbOwTJDMNE12sOHk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.91
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iBfx8GE/63FB2Kc5oXyoTVRAwBLZfkGXdhdy3GvWf3kptQy1DO1TJT0//u23HOTONJe7v+UpgElB+x7rIOGyiG4OI3WotVQUpe+Ax4xsq7XIA1jSvXNsDLizvHQ0KQfljHx3aKEWCeAUSLi4qRYhT+QivS/mELBV1GqOnwfFRbIsUPWu1kiv8E5sSR94TqBjXLs3KhzSBwIQgRMCHZJnYMfWpbfsqh3tO03/WbJCPCCgpdLU4ny6Z7s+vRcD+Us9xswNpbx+JKKMPKBiTQdrciVXbAdPzxnkDxurVp7KGaaRB04j1M1RR0poHMCeunouzJTPU6sYPdZnOH+2PuUBKQ==
+ b=Mz7y2F2t3J/K9x7wnHG0Pio1iYAGUrPOClm73Jd7AOi7fLnnOtR1W+DiTDl9ix1NjCW6MEXUjS4a4FEZuWqlWv/wrc2egg9e4YMeroeQTvJbaKtvhYWIInVuUBFefFygA7y26I6tO2Y3W8Qw1Ii7VXK1XpYfkKWJRqyRq+j1DtWE8zzikY+0Bdj71qkrYOp+kFxFB/+FNnB/pEJsUx6XmIIegjS7KgKk3w0Cre4NMcwe0+EOf3wQm2v++w7Yo+Mg+clW64SxyahYAtCy/77sB+YGJSCo9QVLZXv5wTCB7kc3LQJXUY1+PDsn0WIOlzvb21BN9UjBieBs2HGIEySsMQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=36LQKrzoyeqi/EovQ77CNtu3JpnSfH7XeZPX9HNd/WQ=;
- b=g+CnPigIL2fBel07HVj9DcbYACoY335YELIFIzjcEebNLAsmHhwUC5tnxRFKQik+pypIKXDcvTD26ZPplo9Ab693rZRXfKyFInbfL+tPJ0SaAaDCa904Xcku25SyZBpWdkrnCpqDCmw4iKum+GEpI3oTUpoe5nULnC9iekuNaVWnTxri7qpc+fCCGQTGe7oEXfneClfXpTjoKeU8CldDuolSDPbHPiVrQ3Eqoi2V3BEPuWZOevgYvlQZLDTeQO7q07sM5/4gTZ7/rU9dAmsXH7lMOjTwaLtTWKzDkjsVBIuYi+zlFcDR6y+ewMo5zSaDmjfO7a80w7snzTAxIpCUYA==
+ bh=RmnrUPcgTD8ahEorYwwbtT07/kasYa7E0rZPrsQJ1Nc=;
+ b=C4T00qyLIWeR4FK6V3BmF53hc2wFaEiTEgKEkcDMqGez3AS6oVOyZAYRI+DsbwKP1ju2y5Lh/9qDsS5r9nfKPh0K4iwcCi6y6rnLctH+p17npowRqJWOdeCfgmW0Tq5P7VWwrdm2lYW6VjjQTVSnQnA58GnrD/vOnBGev21fRRv+Bp5UzJgmVwQ9xrUqfwPKTwiLyKxrVYqIA17wArVQXpdEKCeNszaennhj5FoXOG5+eTvtOz/Jb2GWYvvxyYlBbOlrtGVE7099n/AIHgUUbs1hg/l9LTL7+syDLX0kr7BE0YJi12o3ZBygi9DzywxyYhXp5QHzBGJiGlcTY/TCZA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=starfivetech.com; dmarc=pass action=none
  header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=starfivetech.com;
 Received: from NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:11::9) by NT0PR01MB0958.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:7::7) with Microsoft SMTP Server (version=TLS1_2,
+ (2406:e500:c510:11::9) by NT0PR01MB1231.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:e::9) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.51; Thu, 16 Apr
- 2026 06:48:34 +0000
+ 2026 06:48:14 +0000
 Received: from NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
  ([fe80::1666:48e8:19e9:ad29]) by
  NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn ([fe80::1666:48e8:19e9:ad29%7])
- with mapi id 15.20.9769.048; Thu, 16 Apr 2026 06:48:34 +0000
+ with mapi id 15.20.9769.048; Thu, 16 Apr 2026 06:48:09 +0000
 From: Changhuang Liang <changhuang.liang@starfivetech.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -46,12 +45,10 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-riscv@lists.infradead.org,
 	Ley Foon Tan <leyfoon.tan@starfivetech.com>,
 	Changhuang Liang <changhuang.liang@starfivetech.com>
-Subject: [PATCH v2 5/5] irqchip/starfive: Implement irq_set_type() and irq_ack() callbacks
-Date: Wed, 15 Apr 2026 23:47:51 -0700
-Message-Id: <20260416064751.632138-6-changhuang.liang@starfivetech.com>
+Subject: [PATCH v2 0/5] Add interrupt controller for JHB100 SoC
+Date: Wed, 15 Apr 2026 23:47:46 -0700
+Message-Id: <20260416064751.632138-1-changhuang.liang@starfivetech.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260416064751.632138-1-changhuang.liang@starfivetech.com>
-References: <20260416064751.632138-1-changhuang.liang@starfivetech.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-ClientProxiedBy: NT0PR01CA0006.CHNPR01.prod.partner.outlook.cn
@@ -64,183 +61,103 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: NT0PR01MB1216:EE_|NT0PR01MB0958:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5c44bdef-cc50-40a2-2a24-08de9b842e20
+X-MS-TrafficTypeDiagnostic: NT0PR01MB1216:EE_|NT0PR01MB1231:EE_
+X-MS-Office365-Filtering-Correlation-Id: 29f1ef16-5a86-4f82-6129-08de9b841bc8
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|52116014|376014|38350700014|18002099003|22082099003|56012099003;
+	BCL:0;ARA:13230040|366016|376014|1800799024|52116014|38350700014|56012099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	hAEVKdIxzlnC3YDmB2+a62ooAxdmRF7wDeQ90iX9xCgmJUlc3bJBgNhAcOvmnDA4jAWk3CJ9KGZBbLdHJ8PN4dQ4Wu3zWWRN+Mk+IB4YSpB2piy/A2TjRoxrB872L5MQhasFqyLe61DAbLoBI/PWVdTKI15VKqDyhNdvo5ju2j/Lxid8IhI7SVr1yzJzCR3DJPpH68u+kDtB8zNR4s6PAD2sQJ2eCuCqXwLk7matRAzIaR0DN9cF3Se6tsyoN1KjTcrgqqETZqVHz0Wr9IO4bZ4n4adD7JBaIqDA72BFmELezvBEljSXBZxfmvQJwf8dgpVgVDXWRkhsPL0sCviZ/GwdmNHnlmxLi/COHsOP/6i4s9DGL9WLB/05ljx61S6ZYh6Pdmxgl6Mzeom5uDOJtbkmcdHx0hAhNvbVTsKijiuwLBgKmUaRi/winnc2gr3SO7UC3cFq1C/6Gz3cmUMXSHdAn18aLVb63LcTWo1UdVGcxHwivqBMONkMmSMmL4NzjUtIzgPXEUn44DmThvLAT+iSWBGDyuQJVmH0lcFoxqv52RzveG4ZMhlHQZREGbgKnsG0WmGDIRlSGTPoiN10L9OFJOt6E53iKX5RDz1RwfU=
+	MUuECWQ4006zElwZC0ERmBSaJRPbhEy39lpRFt6O+VyiMZaPgUpjaK7+DfZJlTPgPGkjfczCE0/6jfdckV/rCAEhuB5ubfObqkDwk2mHazZwRmkDIw5lq5LySJObiD9jmhnshCWJZTYn05GXzxyYvF4aszL5PTEX5r21muo1ptDzPcdVU7ooWcTgNTSAXjrf9MVlng5lWEiQ9CsJYr+3n3PXBjqXdDAuNvEORpbkIuhgMo14q1UXz+vkQPqLV0i4zJsw3tTqke9iB0XDXwUTsw2YEJTcjyeLmG+LSgASkjwJQQyMm5TDIxH1NnsjPMJ1CsnvD5BLfLl5sKDDG+kCN4OVOzNta9ZZbX34XIrorXhVPlRtVeH4mf1MGnIVJ9hq3a6CEuXJoQtexwKx6huZ74LqE3FrBIe1n3VlLubt+SxKJPY05sI3F8GmNZw2R7cCIyoR9EPHXr/b9vUuuNB4l+OsQhFmZfSYB6lYmNsXDB/pt+VxvQzzeDoJ2IlT+4/0n/EQNnR6hLb0oiHdlqBQSwwGfRKr7J0dOVF/keqvOOoS9+65ZNUeQbXUhb4LAhymbXtHoK7qFRihEar9wFwjR+BIVTDTtdf3it5cn1ktu80=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(52116014)(376014)(38350700014)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(52116014)(38350700014)(56012099003)(18002099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?6sHQ9rZRBIg068YM8m2f78VuNQwxu5cPAsm9YSk0bOA5DnDbcIdkD6iZ5eLq?=
- =?us-ascii?Q?ECoNHX8qQ8DUPjmGVCyf1vssTkjREWUYMwGBdAxsdCZuw4QLP7v8UnH60ZkG?=
- =?us-ascii?Q?fKwB8Hi+2Z0JeDcoLTr1HAOYY0Slp1cvHHxvYl/vfAYd5UGJTUR4ZzDM9a0v?=
- =?us-ascii?Q?UeblS4yRJ3fbTOdEamcnK1mGHT3qxB0uc/VwWljsEw2Cod8Bb6jgjC5/Uj3j?=
- =?us-ascii?Q?vZvdP7Ey3i5hcHXWT3bMKwu+H1BwtDvt0JMQ4jGGxPubLfiGAjU1WklfKA3m?=
- =?us-ascii?Q?cLc2mPdwNKTtDjC1uUQac+K6bhs/v00p7GeA/Hc+0rGa95GijNe4M4hFH6MC?=
- =?us-ascii?Q?83esael0cI8INc17zpTPHwrAD/RUe1O5kEwDv2YsPUEIOaCqg/RiUVTeeYDB?=
- =?us-ascii?Q?s6u+lHwRcUTGSjXTRqsbNe9KHP/4LmW2K06wx4OGh3Bknq/pBWATagvv+oZ8?=
- =?us-ascii?Q?15idXKBSPlrZWLDw27PZdsfocvKYsBghIkENzvkZ7jYlvaMQn4mr+xFnqq7U?=
- =?us-ascii?Q?F8d7TUZw1DylTyQV/Q51HHBEQcKwS8PN22B1yQQUP0KQQMZS+uNhTSoAvzM3?=
- =?us-ascii?Q?GyDL3fJ3wk3I+RmT2T05t85XChN+zqd4MmVxfF3OM7oqX6qhEFEJ0VexBApN?=
- =?us-ascii?Q?w5aAC197z1EREbbwCAoXTWJWM3q1FHQ97UNbTp61qHaSsLR6hg5qRNN79LV5?=
- =?us-ascii?Q?tXb3LaAWPqRfCbPAoEkd/erA7JHa3u8SRexLvM4CNlU9oov74noMZWpC7002?=
- =?us-ascii?Q?4J6rzpJyRXH2JOhXu8CrnHhBQ61Te4Ww8xWnasgA+j0zIE8hRqALjccPpHCc?=
- =?us-ascii?Q?mnN9nFYngxsEIZ/AcapoezN/YZNWbbkSWkKVCGhhier1Gp2pcRl00xIS+JuE?=
- =?us-ascii?Q?ORxuv3ItTCvmkZYyx8wdYINDAGJ0vRQVEPVz6Bq1Vj51QHm0LPEc/kLXAYnZ?=
- =?us-ascii?Q?t96dLQlt3lRKtOFjH2jbJ5WXUEoT5Cozt31CWnUYfwnhxsleh437sG6cmNks?=
- =?us-ascii?Q?S7HpKwdy7tOVL+3HaHNk/jXt+PLS2INn0CmW8CjLa9DJ0AYheTclZeoztWlv?=
- =?us-ascii?Q?8H5cwzp7HfdeehcjJMOW7eh8dVCQBzTB5ZBwBhi0oQ8qyFwArNxr7tvYnWIh?=
- =?us-ascii?Q?QWUSYlnVXlyi+Y46voHablGo5yNHovpXXxaWwKRNqWr/W8WtqL/xMnOH2r/h?=
- =?us-ascii?Q?dSmnjztTfCDSjBhVktO9L42evBwiW/p8/GSgGIF6K62+b88iwDAC9PQLn8Zz?=
- =?us-ascii?Q?z9yR41JwSgHK8H1vpv7phN2DlkhhZSy3nHPwkRO8bUanlovqCaVAwvxoIQfG?=
- =?us-ascii?Q?HBMAqxreBds+wcm8YL5+IFpuPLs15dPS3SnypV9XgDT3ntO6qJYbGSv0EePA?=
- =?us-ascii?Q?pYvYnBlfQ7nIwYQr1qx0HoaQUJEVBiL6eQXuvc9Nw0tSX86Z9pXynOC1RWAq?=
- =?us-ascii?Q?C+iUWj5DZtbOPrNhUqilLFTTPhQcKV1sHicmI7pfWnrjoJ1f/U2OQx2+8MDC?=
- =?us-ascii?Q?MScxPIkcccDzlmJaU0CCQOicB2hi9nZ5wDaSb54qtw6OmhGh1Vvz71SLYn7O?=
- =?us-ascii?Q?ZSHWg1eKxCmxxHI0K5277lYaCpmIdwr22o9oLlXCUuekp6KstpvcAeJfnczP?=
- =?us-ascii?Q?th6Urx1lMsRKB2wlQK1LbsaKIDVG0Vph8csCBILBgMRbwAdvl5Kcn0z9FiaQ?=
- =?us-ascii?Q?e4KpDbYeB+Ig/Zs9xgkXQgaA4YOIK8WqsbO4FXB0BNJ3U1CC6sWvDbqJN5N4?=
- =?us-ascii?Q?SOo3WtxMYhOrC8C+LeYHUM5deO2wofEXYyw/clPrwtHbrcnyjU7H?=
+	=?us-ascii?Q?K/YfJLVq1NZTKsuRCzxr2mJqaUGfGyXeFaYWZ/1cFJ83e19NgrREsTa5+vQs?=
+ =?us-ascii?Q?efQYXueTqM58XKZmVBdupw8V8NF+awzfHUX019eK77UbZ7mG1B85Xaavmqmn?=
+ =?us-ascii?Q?ptBFWWB9KppKO6kUjTFbAeFJs6vFRe87xXaMuwv2iF6NMc2WYFcv4BjbqeKk?=
+ =?us-ascii?Q?li8tqhwxCSxBlKwnphbIxdvk7WhxqJxbnSVz8YYqbgvaepclhWFzvtfAiv6O?=
+ =?us-ascii?Q?QAvS4G+3Jkfv6CnFqYaNDR0z5AoHBPBczBqnE6wspzaTyh/sUXxuqANZDf77?=
+ =?us-ascii?Q?jaPeO11oLhWiHp9uTu4/QuG+TjXD4dM9u7/aGidkBZn+pYy9J0V6DktnmdNq?=
+ =?us-ascii?Q?K7eGDwemYUEc9/KlLCCxODx+Msvhyl/U7mBih+441R70ZAmhHKGre8kdy7lx?=
+ =?us-ascii?Q?XapsHArCtFBk+JBp31aFoL+ta7H51GVwsO9R0Pp47EUqJTibNC2ubkys9s95?=
+ =?us-ascii?Q?ui9ULhWurSNYg3EACGDBdcV834YBsDBsD83ydBQFzrpY6DmTLx4oQevOk2wZ?=
+ =?us-ascii?Q?YsFjY5Fnt9ZWWgiascFrtmo3acu1JP1+7kkazdptsQj8alG2rRK95D7qMq+L?=
+ =?us-ascii?Q?b0BgipFf9t+PbZbd7YRDl24pxh6N4wt14O6KP6429By8bqZ3RGAPQtIjgrPh?=
+ =?us-ascii?Q?Rtl9Z379uXEmNmQ6YF5lv4gBkLlvKdOKo1HHpCTRkC07Hg38k0fnri+qDvCc?=
+ =?us-ascii?Q?F9eCL4N4n7hX+B4xX7nztNzV8Y9wxXelJTXjtPsg3vYaGmTjkn7vNlonAscQ?=
+ =?us-ascii?Q?IIj1fg1hJWB1u+75Qm77SBwtU8Z7L8KtsDzrNcI5MBoz/UZRzmj+Cjht59S+?=
+ =?us-ascii?Q?VRmtgrl4q12R2BcQkwoeWoAX7FwKSnEraaC+6to4W0Ovot4BUP12R9DdctZK?=
+ =?us-ascii?Q?AlY0+t2ItylxUC/eh1w6rgt0MM8siy9CYRBq3pIoB0q2IN70dwwVf6r8qftq?=
+ =?us-ascii?Q?P8kpmCHgnQzxeFuSJcciKPT4iXL47tIYeCk4iIvCGKDuMNO31s7QpWXeTAA4?=
+ =?us-ascii?Q?JVz73QNYa9qX0JaivmSGofu6OG6da8+ovcKipn/4yRyVpM9WoV5ENU0KZMWQ?=
+ =?us-ascii?Q?O095iamACFGzN8jH+qPQgOZyJYHurHSPy+vwW9SpCxy8iHGi24Vb3PyB4Rcv?=
+ =?us-ascii?Q?FCjf3/6Am00djfEvd9ylyTYeOEGJvdGUlstcSpiZ/PenGf7+hzTZSiEzwVl5?=
+ =?us-ascii?Q?fy6iFNQr/0b/5sCzsDPqlxHgOKwBbPHQKvGyksFzxcXlxWh1/mRKBse9//pJ?=
+ =?us-ascii?Q?yyzLEgx8eD6IAVZXD2ZpXQIogjDN5A3trKQuN/oD/8HFbN+3nlx+dYED+PRE?=
+ =?us-ascii?Q?kJuIuFiix4IxiCCFOAIQE8JoF9wFI2g2Vw07zPr/vzwuuLMrlOHSfQVG41zL?=
+ =?us-ascii?Q?0EI01orsgFD4NMiXH5lc33RhWFQGxnPOrfG9DZ3dJ5Spgu5qsCP8LYlz3U5F?=
+ =?us-ascii?Q?BGp0MKlIMoMOCF0k55dOzK6HlMPnaxaBYj68OFV3P7LnXPhva3gjg+MKXwhH?=
+ =?us-ascii?Q?Ud4+ovAofXoScdQcsjB8J5aur9eyvPlo9gx/+jVs2ExTJi+qgprKj/ZReHnj?=
+ =?us-ascii?Q?Lxi0xQU9YGop+zbpuBZZNS5QBe3HoGQJzNO8U8p+fM76K1fOgBc2uWQ/o9L5?=
+ =?us-ascii?Q?DRJRwSy7jKhKNHAFnJWuMq+FHOtyatT2oiPWdNDr8rboTP0+eEnv9o2syXLn?=
+ =?us-ascii?Q?8Zxz3J8dAxekjZ2+DXpaTnbc7//OzR8OWSQSyOUcAPYUTqD5hxdyJWKEyAmh?=
+ =?us-ascii?Q?5mOHWQgxjUSyBNBe4r84CEtxNkRoVeKyJ8jLGeg9pFsYQahyARfE?=
 X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5c44bdef-cc50-40a2-2a24-08de9b842e20
+X-MS-Exchange-CrossTenant-Network-Message-Id: 29f1ef16-5a86-4f82-6129-08de9b841bc8
 X-MS-Exchange-CrossTenant-AuthSource: NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 06:48:34.6227
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 06:48:09.4943
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Yt5d40H4CUqGnLO27XwDKwdnGqjNva42XLLTQ+9IUdkVGJvqGzYCTdeuubckRjf0bBsUO5Dvs3GSm7B0VKIxL7pN4GWhx4PDv95ONfjZTQFixULNKDJYeZriIuE01yxP
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: NT0PR01MB0958
+X-MS-Exchange-CrossTenant-UserPrincipalName: RDMG5zfCidVlDjC1py20zL8g9iBKjC+N+tjhNp2KNQwq6BA9UyUsUeZZdypeb4dKeSg8fdsOwNXQKrLwrkNxvRl4va/AdCfctUF/f3pgeE34cmraFICK7plTqP/GWUjz
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: NT0PR01MB1231
 
-Add irq_set_type() callback to support configuring interrupt trigger types
-(level high/low, edge rising/falling) for the JHB100 interrupt controller.
-Also add irq_ack() callabck as required by handle_edge_irq().
+This patchset adds external interrupt controller driver for the StarFive
+JHB100 SoC. It supports up to 64 interrupt sources, and both level and
+edge trigger types.
 
-Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
----
- drivers/irqchip/irq-starfive-jhb100-intc.c | 73 ++++++++++++++++++++++
- 1 file changed, 73 insertions(+)
+changes since v1:
+- irqchip: starfive -> irqchip/starfive
 
-diff --git a/drivers/irqchip/irq-starfive-jhb100-intc.c b/drivers/irqchip/irq-starfive-jhb100-intc.c
-index b3d86bd926ed..0d5914813afd 100644
---- a/drivers/irqchip/irq-starfive-jhb100-intc.c
-+++ b/drivers/irqchip/irq-starfive-jhb100-intc.c
-@@ -10,6 +10,7 @@
- #include <linux/bitops.h>
- #include <linux/cleanup.h>
- #include <linux/clk.h>
-+#include <linux/interrupt.h>
- #include <linux/irq.h>
- #include <linux/irqchip.h>
- #include <linux/irqchip/chained_irq.h>
-@@ -19,12 +20,20 @@
- #include <linux/reset.h>
- #include <linux/spinlock.h>
- 
-+#define STARFIVE_INTC_SRC_TYPE(n)	(0x04 + ((n) * 0x20))
- #define STARFIVE_INTC_SRC_CLEAR(n)	(0x10 + ((n) * 0x20))
- #define STARFIVE_INTC_SRC_MASK(n)	(0x14 + ((n) * 0x20))
- #define STARFIVE_INTC_SRC_INT(n)	(0x1c + ((n) * 0x20))
- 
-+#define STARFIVE_INTC_TRIGGER_MASK	0x3
-+#define STARFIVE_INTC_TRIGGER_HIGH	0
-+#define STARFIVE_INTC_TRIGGER_LOW	1
-+#define STARFIVE_INTC_TRIGGER_POSEDGE	2
-+#define STARFIVE_INTC_TRIGGER_NEGEDGE	3
-+
- #define STARFIVE_INTC_NUM		2
- #define STARFIVE_INTC_SRC_IRQ_NUM	32
-+#define STARFIVE_INTC_TYPE_NUM		16
- 
- struct starfive_irq_chip {
- 	void __iomem		*base;
-@@ -32,6 +41,16 @@ struct starfive_irq_chip {
- 	raw_spinlock_t		lock;
- };
- 
-+static void starfive_intc_mod(struct starfive_irq_chip *irqc, u32 reg, u32 mask, u32 data)
-+{
-+	u32 value;
-+
-+	value = ioread32(irqc->base + reg) & ~mask;
-+	data &= mask;
-+	data |= value;
-+	iowrite32(data, irqc->base + reg);
-+}
-+
- static void starfive_intc_bit_set(struct starfive_irq_chip *irqc,
- 				  u32 reg, u32 bit_mask)
- {
-@@ -76,10 +95,64 @@ static void starfive_intc_mask(struct irq_data *d)
- 	starfive_intc_bit_set(irqc, STARFIVE_INTC_SRC_MASK(i), BIT(bitpos));
- }
- 
-+static void starfive_intc_ack(struct irq_data *d)
-+{
-+	/* for handle_edge_irq, nothing to do */
-+}
-+
-+static int starfive_intc_set_type(struct irq_data *d, unsigned int type)
-+{
-+	struct starfive_irq_chip *irqc = irq_data_get_irq_chip_data(d);
-+	u32 i, bitpos, ty_pos, ty_shift, trigger, typeval;
-+	irq_flow_handler_t handler;
-+
-+	i = d->hwirq / STARFIVE_INTC_SRC_IRQ_NUM;
-+	bitpos = d->hwirq % STARFIVE_INTC_SRC_IRQ_NUM;
-+	ty_pos = bitpos / STARFIVE_INTC_TYPE_NUM;
-+	ty_shift = (bitpos % STARFIVE_INTC_TYPE_NUM) * 2;
-+
-+	switch (type) {
-+	case IRQF_TRIGGER_LOW:
-+		trigger = STARFIVE_INTC_TRIGGER_LOW;
-+		handler = handle_level_irq;
-+		break;
-+	case IRQF_TRIGGER_HIGH:
-+		trigger = STARFIVE_INTC_TRIGGER_HIGH;
-+		handler = handle_level_irq;
-+		break;
-+	case IRQF_TRIGGER_FALLING:
-+		trigger = STARFIVE_INTC_TRIGGER_NEGEDGE;
-+		handler = handle_edge_irq;
-+		break;
-+	case IRQF_TRIGGER_RISING:
-+		trigger = STARFIVE_INTC_TRIGGER_POSEDGE;
-+		handler = handle_edge_irq;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	irq_set_handler_locked(d, handler);
-+	typeval = trigger << ty_shift;
-+
-+	guard(raw_spinlock)(&irqc->lock);
-+
-+	starfive_intc_mod(irqc, STARFIVE_INTC_SRC_TYPE(i) + 4 * ty_pos,
-+			  STARFIVE_INTC_TRIGGER_MASK << ty_shift, typeval);
-+
-+	/* Once the type is updated, clear interrupt can help to reset the type value */
-+	starfive_intc_bit_set(irqc, STARFIVE_INTC_SRC_CLEAR(i), BIT(bitpos));
-+	starfive_intc_bit_clear(irqc, STARFIVE_INTC_SRC_CLEAR(i), BIT(bitpos));
-+
-+	return 0;
-+}
-+
- static struct irq_chip intc_dev = {
- 	.name		= "StarFive JHB100 INTC",
- 	.irq_unmask	= starfive_intc_unmask,
- 	.irq_mask	= starfive_intc_mask,
-+	.irq_ack	= starfive_intc_ack,
-+	.irq_set_type	= starfive_intc_set_type,
- };
- 
- static int starfive_intc_map(struct irq_domain *d, unsigned int irq,
--- 
+patch 1:
+- Update commit title and add Conor's Acked-by tag
+
+patch 3:
+- Use __free(kfree) cleanup
+- Replace dev_err() with dev_err_probe()
+- Replace devm_reset_control_get_optional() + reset_control_deassert()
+  with devm_reset_control_get_optional_exclusive_deasserted()
+
+patch 4:
+- Use guard(raw_spinlock)
+
+patch 5:
+- Update starfive_intc_set_type()
+
+v1: https://lore.kernel.org/all/20260410090106.622781-1-changhuang.liang@starfivetech.com/
+
+Changhuang Liang (4):
+  dt-bindings: interrupt-controller: repurpose binding for unreleased
+    jh8100 for jhb100
+  irqchip/starfive: Rename jh8100 to jhb100
+  irqchip/starfive: Use devm_ interfaces to simplify resource release
+  irqchip/starfive: Implement irq_set_type() and irq_ack() callbacks
+
+Mason Huo (1):
+  irqchip/starfive: Increase the interrupt source number up to 64
+
+ ...00-intc.yaml => starfive,jhb100-intc.yaml} |  20 +-
+ MAINTAINERS                                   |   6 +-
+ drivers/irqchip/Kconfig                       |   6 +-
+ drivers/irqchip/Makefile                      |   2 +-
+ drivers/irqchip/irq-starfive-jh8100-intc.c    | 207 --------------
+ drivers/irqchip/irq-starfive-jhb100-intc.c    | 254 ++++++++++++++++++
+ 6 files changed, 265 insertions(+), 230 deletions(-)
+ rename Documentation/devicetree/bindings/interrupt-controller/{starfive,jh8100-intc.yaml => starfive,jhb100-intc.yaml} (68%)
+ delete mode 100644 drivers/irqchip/irq-starfive-jh8100-intc.c
+ create mode 100644 drivers/irqchip/irq-starfive-jhb100-intc.c
+
+--
 2.25.1
-
