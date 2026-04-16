@@ -1,431 +1,178 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADB163947A1
-	for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 10:27:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B31873947A1;
+	Thu, 16 Apr 2026 10:27:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776335258; cv=none; b=lHN1vcONTQUHCMW5ae9sVwtGR+MHYC9MzuNJ3j2LDXv0/nOZMzOvXZD1lh7BpPlqLzAQgoPyPfaOABB8OeOkG5BIZ9AuMa0N3HEDQ8mxeNEtctEgyrasIG20HnWASrBQuP6GmRl8uXhQNY5iexF3GF2G4UGkQ7ZuZGQzx+zWrBY=
+	t=1776335279; cv=none; b=gfaQekVwL5BDUZnpFgjSCdK8VObCzBYq75sozkkFl3GbQBs4ln6pkE225TWMpuW1zr54D069bHNfUezVsi3V1xeaFGhDPaDiy92VcnpE8VLEbXgN4EROi0YwyrEtDyQyTDT3NLN7eEOlD0QCtWr4AuDvGYfx1fK6NU7WhWRgdhc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776335258; c=relaxed/simple;
-	bh=w9q388Vzqwl8rvLdEaZHWTqCR0j9/zn7j9pEumntPY4=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n3L9D2ty4140c125CTv66L9f49z4AJUJCDKL2uer+QcGBxSw3hHZ44M6+XTm+O4kxxkXXWyF4xAzEEbYov7Zd8uvUHjZLr+udc00uz32A4kMxpk8wTy6WAQi1plzWDJHj0yOKLxsMEm5tlHrFsCMIPKX/JFJe4JA8MgFxwTmTL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=bzDaiW1i; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1776335279; c=relaxed/simple;
+	bh=AQZQJXirR5uwff0hEtbTJcJQnw1BCQ4XAeUKJ+CP6VI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OSLPP3i8/GhApK+7H5KDFE2WevyKtPQnb3e063jFBEqyczPApG9fFWKwH1YyvJtT/cfOQnYPAml+/ruT6fv97I3HSJqHC9y+LuGjM5thgBcs97oC00ueD5PQOAaJKzDJGBwEUzdAgXqml8QzSpJSI07it0aMm9hW9+r4boSRLDs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=eTu2aUO6; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="bzDaiW1i"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-43d73352cf2so3978263f8f.1
-        for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 03:27:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1776335255; x=1776940055; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:date:from:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=4HCRqhH2DLFveExlKyLVA9G9WBAn4h6tRZdd4chEffg=;
-        b=bzDaiW1i5OZaAZnjzclrCjivvi/q76gjygkY5Rvg/nSfLF/MMJnasGzoK7uTsGA53J
-         JR3l8j3byiAudfEGyhuUPwWhe0UlEIaFu6EBod8eb9m+r2hD3EjIbXxKRmV86oddNNRd
-         yT9rQyrAMFqeOoCRWmlVgJ9XhHv63TXjfxOnNzTd9kGvPzql+5ZwkW5ROX+GkhG2uSGy
-         gj4Ep14yZr23Dp+CJuSGUpr1FtKD5fkUludeKQ3N6XgLA6W8uU6KnB52TNO99YSrYLvk
-         HN15BG6Nt4qbat0B5lwiaBc5dE/7behB1RwAxhrb93d4YQtO4XGjkU19d6hypjzgcUsS
-         V+tA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776335255; x=1776940055;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=4HCRqhH2DLFveExlKyLVA9G9WBAn4h6tRZdd4chEffg=;
-        b=U1aOA0RyJ/3b+PRtEePiydONsodB7yqwHoQubbmuIaNMYwxL/hND07V+zoiilF7y4A
-         naT4eW7cCMs7pHAh4mEW9nwepL8M/WU4e9fIP+s4JZ5uTJ6AV1cMI0rK4iOXVXy7vHuw
-         yx2/230vExJRRbcSp/6IH7MQq4pIsP4dSENhR0la1QDrV4d5vnze0eHD1RhOf2gjH4iZ
-         C1JkZBgySZ47fwYRFMJX48S5vDX6kZHlSWXkyyQHcZC93It7oXCDTwqiCIAxqs0LVwi6
-         yZY5gZs+YhzMbl8KljzN8mQkp9fAgt3p6/bM+nYOK/p/BmcDXR4P8nM44Qdr2QEKcdBh
-         95Qg==
-X-Forwarded-Encrypted: i=1; AFNElJ9kdJmgWk4Cz6WKawxac2at873STwGmn+RKB7kyF9UpMANaUrgsJ4HmJGxGDnCvBGJUUMV0HDH+VfuI@vger.kernel.org
-X-Gm-Message-State: AOJu0YwTWLNSdSDkw9e50y7UVQiqCiHTb3SkFadmUppDjXVP4C7CLnrU
-	XwcTB3IZu+zN0oDU/INp4jifUClHuRs6Uo5nUrxu4ZEGIe4mRC0CHvyVmyizRL1rwCs=
-X-Gm-Gg: AeBDiesGKsfyaPoDX9QZNxHm28rDJRjkRbBX4ugdUcGuS+DbYGB/OBoBEoml9JM8Fw8
-	3MsrY+15mwPlFQr6Gsfjo+1OVbXm7Kxbw5bmphKWWJswKQRrzGmf8yB/crqc4/W0M51BbjWbqoM
-	MfCxCS5nirIUorQsNTQxAG3GZ483uE8OIBodiQsDIHeUCZWlNTgAI2JGGfDZxIVst3HY6y81UMw
-	H6idLyW29hgOfd3ZDO67EsX/RBvhnX6q3Z9Am8RCeRz1/58jHNOGWlFlIhvedaJhi2G06vZfliE
-	qblBuFDJ5fB0ionyhwUJw2wf1iSNmHDAaA2Sse1SOFGHMWzVpISkZGhCmPUCyBTJRSMobtPu3x2
-	D2FsHxEJddTtERAfNt2dCo78xJia8MvvbxTqg3yG7DUzk4NhPj0gYVzlcsYdSJ3IM+2Fu41bxtY
-	5FlFT6l2jFT/2zBjGo0IQiPBLZq3nO9BTTptWxz7Z/4e5NrjlGMx97UApe6OtQamiyhIjGGM9kW
-	+LHV3Q=
-X-Received: by 2002:a05:6000:25c2:b0:439:c18f:5aaf with SMTP id ffacd0b85a97d-43d642ccd7dmr38851820f8f.34.1776335254939;
-        Thu, 16 Apr 2026 03:27:34 -0700 (PDT)
-Received: from localhost (host-79-33-140-232.retail.telecomitalia.it. [79.33.140.232])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43ead3566b7sm13011883f8f.11.2026.04.16.03.27.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Apr 2026 03:27:34 -0700 (PDT)
-From: Andrea della Porta <andrea.porta@suse.com>
-X-Google-Original-From: Andrea della Porta <aporta@suse.de>
-Date: Thu, 16 Apr 2026 12:30:43 +0200
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>
-Cc: Andrea della Porta <andrea.porta@suse.com>, linux-pwm@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Naushir Patuck <naush@raspberrypi.com>,
-	Stanimir Varbanov <svarbanov@suse.de>, mbrugger@suse.com
-Subject: Re: [PATCH v2 2/3] pwm: rp1: Add RP1 PWM controller driver
-Message-ID: <aeC6U7D6TfWm8JPx@apocalypse>
-References: <cover.1775829499.git.andrea.porta@suse.com>
- <0d99317b9150310dfbd98de1cb2a890f0bffe7cd.1775829499.git.andrea.porta@suse.com>
- <adkrHkANCzxO8KUP@monoceros>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="eTu2aUO6"
+Received: from ideasonboard.com (93-46-82-201.ip106.fastwebnet.it [93.46.82.201])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id ED188132;
+	Thu, 16 Apr 2026 12:26:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1776335182;
+	bh=AQZQJXirR5uwff0hEtbTJcJQnw1BCQ4XAeUKJ+CP6VI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=eTu2aUO6sA1fG+YdBTolGqXCKa5IC38ZxKNl+0vnLUVIWMo3I4QSvRuV1IxhW0bcL
+	 dQauGNfl0cAuXGdChE9PZkYzm0x5J/Nd1+nzyuLImWzfR0ZQGHqIfnOZrom+WOUHqJ
+	 0JPYiMwONuoAkb5+eNMyv9edH3vBFJNyIS67aAxc=
+Date: Thu, 16 Apr 2026 12:27:53 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Antoine Bouyer <antoine.bouyer@nxp.com>
+Cc: julien.vuillaumier@nxp.com, alexi.birlinger@nxp.com, 
+	daniel.baluta@nxp.com, peng.fan@nxp.com, frank.li@nxp.com, 
+	jacopo.mondi@ideasonboard.com, laurent.pinchart@ideasonboard.com, mchehab@kernel.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	michael.riesch@collabora.com, anthony.mcgivern@arm.com, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, 
+	jai.luthra@ideasonboard.com, paul.elder@ideasonboard.com
+Subject: Re: [PATCH v1 01/11] media: Documentation: uapi: Update V4L2 ISP for
+ extensible stats
+Message-ID: <aeC29bLZM3iuba_U@zed>
+References: <20260413160331.2611829-1-antoine.bouyer@nxp.com>
+ <20260413160331.2611829-2-antoine.bouyer@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <adkrHkANCzxO8KUP@monoceros>
+In-Reply-To: <20260413160331.2611829-2-antoine.bouyer@nxp.com>
 
-Hi Uwe,
+Hi Antoine
 
-On 19:31 Fri 10 Apr     , Uwe Kleine-König wrote:
-> Hello Andrea,
-> 
-> nice work for a v2!
+On Mon, Apr 13, 2026 at 06:03:21PM +0200, Antoine Bouyer wrote:
+> Add driver documentation for V4L2 ISP generic statistics format, mainly
+> copied from the generic parameters one.
+>
+> Signed-off-by: Antoine Bouyer <antoine.bouyer@nxp.com>
+> ---
+>  .../userspace-api/media/v4l/v4l2-isp.rst      | 39 +++++++++++++++++--
+>  1 file changed, 35 insertions(+), 4 deletions(-)
+>
+> diff --git a/Documentation/userspace-api/media/v4l/v4l2-isp.rst b/Documentation/userspace-api/media/v4l/v4l2-isp.rst
+> index facf6dba1ca7..9e9c71bfc0df 100644
+> --- a/Documentation/userspace-api/media/v4l/v4l2-isp.rst
+> +++ b/Documentation/userspace-api/media/v4l/v4l2-isp.rst
+> @@ -24,7 +24,7 @@ correctly populate the buffer header with the generic parameters format version
+>  and with the size (in bytes) of the binary data buffer where it will store the
+>  ISP blocks configuration.
+>
+> -Each *ISP configuration block* is preceded by an header implemented by the
+> +Each *ISP configuration block* is preceded by a header implemented by the
+>  :c:type:`v4l2_isp_params_block_header` structure, followed by the configuration
+
+I would update all occurences of v4l2_isp_params_block_header with
+v4l2_isp_block_header (same for the stats counterpart).
+
+The same goes for v4l2_isp_params_buffer and v4l2_isp_stats_buffer to be
+replaced with v4l2_isp_buffer.
+
+The compatibilty types should only be there to allow existing
+applications to continue working.
+
+>  parameters for that specific block, defined by the ISP driver specific data
+>  types.
+> @@ -32,8 +32,8 @@ types.
+>  Userspace applications are responsible for correctly populating each block's
+>  header fields (type, flags and size) and the block-specific parameters.
+>
+> -ISP block enabling, disabling and configuration
+> ------------------------------------------------
+> +ISP parameters block enabling, disabling and configuration
+> +----------------------------------------------------------
+>
+>  When userspace wants to configure and enable an ISP block it shall fully
+>  populate the block configuration and set the V4L2_ISP_PARAMS_FL_BLOCK_ENABLE
+> @@ -59,7 +59,38 @@ definition without invalidating the existing ones.
+>  ISP statistics
+>  ==============
+>
+> -Support for generic statistics format is not yet implemented in Video4Linux2.
+> +The generic ISP statistics format is similar to the generic ISP configuration
+
+Similar or identical ? :)
+
+> +parameters format. It is realized by defining a C structure that contains a
+> +header, followed by binary buffer where the ISP driver copies a variable number
+> +of ISP statistics block.
+> +
+> +The :c:type:`v4l2_isp_stats_buffer` structure defines the buffer header which
+
+In this case I would say:
+
+  Extensible statistics buffers have :c:type:`v4l2_isp_buffer` header
+  followed by ...
+
+
+> +is followed by a binary buffer of ISP statistics data. ISP drivers shall
+> +correctly populate the buffer header with the generic statistics format version
+
+s/generic statistics format version/serialization format version/
+
+Please check if this has to be changed for paramters as well
+
+> +and with the size (in bytes) of the binary data buffer where it will store the
+> +ISP statistics data.
+
+  and with the size (in bytes) of the binary data buffer where ISP statistics
+  data are serialized.
+
+> +
+> +Each *ISP statistics block* is preceded by a header implemented by the
+> +:c:type:`v4l2_isp_stats_block_header` structure, followed by the statistics
+
+Use v4l2_isp_block_header
+
+> +data for that specific block, defined by the ISP driver specific data types.
+> +
+> +Drivers are responsible for correctly populating each block's header fields
+> +(type and size) and the block-specific statistics data. The flags field can be
+> +left empty, it is not relevant for statistics data.
+
+I would say that
+
+  The flags field can be populated with driver-specific flags, if any.
+
+> +
+> +ISP statistics block configuration
+> +----------------------------------
+> +
+> +When an ISP driver wants to share statistics from an ISP block, it shall fully
+> +populate the block statistics.
+> +
+> +When ISP driver wants userspace to ignore statistics from an ISP block, it can
+> +either simply omit the full block, or omit the additional data after header.
+> +In second case, block header's `size` shall be filled with header structure's
+> +size only.
+
+Mmmm, I would not do that. Drivers should only report stats blocks if
+populated. Is there a use case for reporting only the header ? (we
+allow this for params as userspace can enable/disable blocks).
+
+> +
+> +Extension to the statistics format can be implemented by adding new blocks
+> +definition without invalidating the existing ones.
 
 Thanks!
+  j
 
-> 
-> On Fri, Apr 10, 2026 at 04:09:58PM +0200, Andrea della Porta wrote:
-
-<...snip...>
-
-> > +#define RP1_PWM_GLOBAL_CTRL	0x000
-> > +#define RP1_PWM_CHANNEL_CTRL(x)	(0x014 + ((x) * 0x10))
-> > +#define RP1_PWM_RANGE(x)	(0x018 + ((x) * 0x10))
-> > +#define RP1_PWM_PHASE(x)	(0x01C + ((x) * 0x10))
-> > +#define RP1_PWM_DUTY(x)		(0x020 + ((x) * 0x10))
-> > +
-> > +/* 8:FIFO_POP_MASK + 0:Trailing edge M/S modulation */
-> > +#define RP1_PWM_CHANNEL_DEFAULT		(BIT(8) + BIT(0))
-> 
-> Please add a #define for BIT(8) and then use that and
-> FIELD_PREP(RP1_PWM_MODE, RP1_PWM_MODE_SOMENICENAME) to define the
-> constant. Also I would define it below the register defines.
-
-Ack.
-
-> 
-> > +#define RP1_PWM_CHANNEL_ENABLE(x)	BIT(x)
-> > +#define RP1_PWM_POLARITY		BIT(3)
-> > +#define RP1_PWM_SET_UPDATE		BIT(31)
-> > +#define RP1_PWM_MODE_MASK		GENMASK(1, 0)
-> 
-> s/_MASK// please
-> 
-> It would be great if the bitfield's names started with the register
-> name.
-
-Ack.
-
-> 
-> > +
-> > +#define RP1_PWM_NUM_PWMS	4
-> > +
-> > +struct rp1_pwm {
-> > +	struct regmap	*regmap;
-> > +	struct clk	*clk;
-> > +	unsigned long	clk_rate;
-> > +	bool		clk_enabled;
-> > +};
-> > +
-> > +struct rp1_pwm_waveform {
-> > +	u32	period_ticks;
-> > +	u32	duty_ticks;
-> > +	bool	enabled;
-> > +	bool	inverted_polarity;
-> > +};
-> > +
-> > +static const struct regmap_config rp1_pwm_regmap_config = {
-> > +	.reg_bits    = 32,
-> > +	.val_bits    = 32,
-> > +	.reg_stride  = 4,
-> > +	.max_register = 0x60,
-> 
-> I'm not a fan of aligning the = in a struct, still more if it fails like
-> here. Please consistently align all =s, or even better, use a single
-> space before each =. (Same for the struct definitions above, but I won't
-> insist.)
-
-Let's use the single space.
-
-> 
-> > +};
-> > +
-> > +static void rp1_pwm_apply_config(struct pwm_chip *chip, struct pwm_device *pwm)
-> > +{
-> > +	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-> > +	u32 value;
-> > +
-> > +	/* update the changed registers on the next strobe to avoid glitches */
-> > +	regmap_read(rp1->regmap, RP1_PWM_GLOBAL_CTRL, &value);
-> > +	value |= RP1_PWM_SET_UPDATE;
-> > +	regmap_write(rp1->regmap, RP1_PWM_GLOBAL_CTRL, value);
-> 
-> I assume there is a glitch if I update two channels and the old
-> configuration of the first channel ends while I'm in the middle of
-> configuring the second?
-
-The configuration registers are per-channel but the update flag is global.
-I don't have details of the hw insights, my best guess is that anything that
-you set in the registers before updating the flag will take effect, so there
-should be no glitches.
-
-> 
-> > +}
-> > +
-> > +static int rp1_pwm_request(struct pwm_chip *chip, struct pwm_device *pwm)
-> > +{
-> > +	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-> > +
-> > +	/* init channel to reset defaults */
-> > +	regmap_write(rp1->regmap, RP1_PWM_CHANNEL_CTRL(pwm->hwpwm), RP1_PWM_CHANNEL_DEFAULT);
-> > +	return 0;
-> > +}
-> > +
-> > +static int rp1_pwm_round_waveform_tohw(struct pwm_chip *chip,
-> > +				       struct pwm_device *pwm,
-> > +				       const struct pwm_waveform *wf,
-> > +				       void *_wfhw)
-> > +{
-> > +	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-> > +	struct rp1_pwm_waveform *wfhw = _wfhw;
-> > +	u64 clk_rate = rp1->clk_rate;
-> > +	u64 ticks;
-> 
-> 	if (!wf->period_length_ns)
-> 		wfhw->enabled = false
-> 		return 0;
-> 
-> > +	ticks = mul_u64_u64_div_u64(wf->period_length_ns, clk_rate, NSEC_PER_SEC);
-> 
-> To ensure this doesn't overflow please fail to probe the driver if
-> clk_rate > 1 GHz with an explaining comment. (Or alternatively calculate
-> the length of period_ticks = U32_MAX and skip the calculation if
-> wf->period_length_ns is bigger.)
-
-Ack.
-
-> 
-> > +	if (ticks > U32_MAX)
-> > +		ticks = U32_MAX;
-> > +	wfhw->period_ticks = ticks;
-> 
-> What happens if wf->period_length_ns > 0 but ticks == 0?
-
-I've added a check, returning 1 to signal teh round-up, and a minimum tick of 1
-in this case.
-
-> 
-> > +	if (wf->duty_offset_ns + wf->duty_length_ns >= wf->period_length_ns) {
-> 
-> The maybe surprising effect here is that in the two cases
-> 
-> 	wf->duty_offset_ns == wf->period_length_ns and wf->duty_length_ns == 0
-> 
-> and
-> 	
-> 	wf->duty_length_ns == wf->period_length_ns and wf->duty_offset_ns == 0
-> 
-> you're configuring inverted polarity. I doesn't matter technically
-> because the result is the same, but for consumers still using pwm_state
-> this is irritating. That's why pwm-stm32 uses inverted polarity only if
-> also wf->duty_length_ns and wf->duty_offset_ns are non-zero.
-
-Ack.
-
-> 
-> > +		ticks = mul_u64_u64_div_u64(wf->period_length_ns - wf->duty_length_ns,
-> > +					    clk_rate, NSEC_PER_SEC);
-> 
-> The rounding is wrong here. You should pick the biggest duty_length not
-> bigger than wf->duty_length_ns, so you have to use
-> 
-> 	ticks = wfhw->period_ticks - mul_u64_u64_div_u64(wf->duty_length_ns, clk_rate, NSEC_PER_SEC):
-> 
-> . I see this is a hole in the pwmtestperf coverage.
-
-Ack.
-
-> 
-> > +		wfhw->inverted_polarity = true;
-> > +	} else {
-> > +		ticks = mul_u64_u64_div_u64(wf->duty_length_ns, clk_rate, NSEC_PER_SEC);
-> > +		wfhw->inverted_polarity = false;
-> > +	}
-> > +
-> > +	if (ticks > wfhw->period_ticks)
-> > +		ticks = wfhw->period_ticks;
-> 
-> You can and should assume that wf->duty_length_ns <=
-> wf->period_length_ns. Then the if condition can never become true.
-
-Ack.
-
-> 
-> > +	wfhw->duty_ticks = ticks;
-> > +
-> > +	wfhw->enabled = !!wfhw->duty_ticks;
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static int rp1_pwm_round_waveform_fromhw(struct pwm_chip *chip,
-> > +					 struct pwm_device *pwm,
-> > +					 const void *_wfhw,
-> > +					 struct pwm_waveform *wf)
-> > +{
-> > +	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-> > +	const struct rp1_pwm_waveform *wfhw = _wfhw;
-> > +	u64 clk_rate = rp1->clk_rate;
-> > +	u32 ticks;
-> > +
-> > +	memset(wf, 0, sizeof(*wf));
-> 
-> 	wf = (struct pwm_waveform){ };
-> 
-> is usually more efficient.
-
-Ack.
-
-> 
-> > +	if (!wfhw->enabled)
-> > +		return 0;
-> > +
-> > +	wf->period_length_ns = DIV_ROUND_UP_ULL((u64)wfhw->period_ticks * NSEC_PER_SEC, clk_rate);
-> > +
-> > +	if (wfhw->inverted_polarity) {
-> > +		wf->duty_length_ns = DIV_ROUND_UP_ULL((u64)wfhw->duty_ticks * NSEC_PER_SEC,
-> > +						      clk_rate);
-> > +	} else {
-> > +		wf->duty_offset_ns = DIV_ROUND_UP_ULL((u64)wfhw->duty_ticks * NSEC_PER_SEC,
-> > +						      clk_rate);
-> > +		ticks = wfhw->period_ticks - wfhw->duty_ticks;
-> > +		wf->duty_length_ns = DIV_ROUND_UP_ULL((u64)ticks * NSEC_PER_SEC, clk_rate);
-> > +	}
-> 
-> This needs adaption after the rounding issue in tohw is fixed.
-
-Ack.
-
-> 
-> > +	return 0;
-> > +}
-> > +
-> > +static int rp1_pwm_write_waveform(struct pwm_chip *chip,
-> > +				  struct pwm_device *pwm,
-> > +				  const void *_wfhw)
-> > +{
-> > +	struct rp1_pwm *rp1 = pwmchip_get_drvdata(chip);
-> > +	const struct rp1_pwm_waveform *wfhw = _wfhw;
-> > +	u32 value;
-> > +
-> > +	/* set period and duty cycle */
-> > +	regmap_write(rp1->regmap,
-> > +		     RP1_PWM_RANGE(pwm->hwpwm), wfhw->period_ticks);
-> > +	regmap_write(rp1->regmap,
-> > +		     RP1_PWM_DUTY(pwm->hwpwm), wfhw->duty_ticks);
-> > +
-> > +	/* set polarity */
-> > +	regmap_read(rp1->regmap, RP1_PWM_CHANNEL_CTRL(pwm->hwpwm), &value);
-> > +	if (!wfhw->inverted_polarity)
-> > +		value &= ~RP1_PWM_POLARITY;
-> > +	else
-> > +		value |= RP1_PWM_POLARITY;
-> > +	regmap_write(rp1->regmap, RP1_PWM_CHANNEL_CTRL(pwm->hwpwm), value);
-> > +
-> > +	/* enable/disable */
-> > +	regmap_read(rp1->regmap, RP1_PWM_GLOBAL_CTRL, &value);
-> > +	if (wfhw->enabled)
-> > +		value |= RP1_PWM_CHANNEL_ENABLE(pwm->hwpwm);
-> > +	else
-> > +		value &= ~RP1_PWM_CHANNEL_ENABLE(pwm->hwpwm);
-> > +	regmap_write(rp1->regmap, RP1_PWM_GLOBAL_CTRL, value);
-> 
-> You can exit early if wfhw->enabled is false after clearing the channel
-> enable bit.
-
-Ack.
-
-> 
-> > +	rp1_pwm_apply_config(chip, pwm);
-> > +
-> > +	return 0;
-> > +}
-> > +
-
-<,...snip...>
-
-> > +	}
-> > +
-> > +	return 0;
-> > +
-> > +err_disable_clk:
-> > +	clk_disable_unprepare(rp1->clk);
-> > +
-> > +	return ret;
-> > +}
-> 
-> On remove you miss to balance the call to clk_prepare_enable() (if no
-> failed call to clk_prepare_enable() in rp1_pwm_resume() happend).
-
-Since this driver now exports a syscon, it's only builtin (=Y) so
-it cannot be unloaded.
-I've also avoided the .remove callback via .suppress_bind_attrs.
-
-> 
-> > +
-> > +static int rp1_pwm_suspend(struct device *dev)
-> > +{
-> > +	struct rp1_pwm *rp1 = dev_get_drvdata(dev);
-> > +
-> > +	if (rp1->clk_enabled) {
-> > +		clk_disable_unprepare(rp1->clk);
-> > +		rp1->clk_enabled = false;
-> > +	}
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static int rp1_pwm_resume(struct device *dev)
-> > +{
-> > +	struct rp1_pwm *rp1 = dev_get_drvdata(dev);
-> > +	int ret;
-> > +
-> > +	ret = clk_prepare_enable(rp1->clk);
-> > +	if (ret) {
-> > +		dev_err(dev, "Failed to enable clock on resume: %d\n", ret);
-> 
-> Please use %pe for error codes.
-
-Ack.
-
-Best regards,
-Andrea
-
-> 
-> > +		return ret;
-> > +	}
-> > +
-> > +	rp1->clk_enabled = true;
-> > +
-> > +	return 0;
-> > +}
-> 
-> Best regards
-> Uwe
-
-
+>
+>  V4L2 ISP uAPI data types
+>  ========================
+> --
+> 2.51.0
+>
+>
