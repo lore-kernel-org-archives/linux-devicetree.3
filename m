@@ -1,188 +1,160 @@
-Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com [209.85.217.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7400E1CAA78
-	for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 12:45:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C633B3B4EA3
+	for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 13:07:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776343510; cv=none; b=tcYX8YIe6+IqvWKyw0q+MdWABwi3qgVml5t2mSBGDN4m7AG9NiMz8bQK4XBeXoY/N+nzEf33iNSIpzheDPjtp/8gSFdUCEEXld+oDiZ1dUyp146s1hfwo+cOYA7qy974Hx78eV5n43Km/vfeiWf5k8UfL8Iiw60+Nd+bdT1PaZc=
+	t=1776344854; cv=none; b=OtgVfsolHDw5R2vwVF6rsvyMY2Qwu4OYARYNxt1gt9yLpNBut+ENXp9cgfSciFBvmLQPdKjsjQzolBSxd7yG4h7YU1Kn/n6WY7FOJ1sQLDB58HkrUxHaQ/vGfPeVFFXe2X5RtTiP/jIhSS6ohPdGCMqAUuWwp94Zk9wmS0Gw0PI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776343510; c=relaxed/simple;
-	bh=4kn9I0bcpQj2uVpf1c/P1i5ST8RdY7n9EFWCzmeUKtc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tqAoFfXz2VjLBWdXw2xS0z2Pg08sljdCzZzi6IWuj4cufiK1Lvdp8CuKRCEbD5ESNE5lCELieiOKUgq2yy7PHhlbtgOsIoHAQK1Bro/XAZBOFVQygOQVEZUtqXO3UMt+P2XfLu31fKeiV09hl+zzSbrPtRjpd7rafNiuGhy9L3A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-60fea0840f3so427534137.0
-        for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 05:45:09 -0700 (PDT)
+	s=arc-20240116; t=1776344854; c=relaxed/simple;
+	bh=6LYYvW3a2jfG+sYqtjrDrNOPas3lIJ0V4OXqFVb6FOg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=DV+xYgtPMslcpNL1vVi7rQ+DqgB6HQ/yW+rzaBRzpo8XrdrtcmNfi8Ogjkk4FFTH8OUrBRjHkPiUEUGD4LjX8gzyPNKWzqX0i6+d9YfYTw99FK6RlnOWKzGla51SjQn3LEjS3cCPlnpF3yODtvL65Ej55FO3cSMHc9YqYwJX+ZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=H5ZNyVIq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RiHZpKIS; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="H5ZNyVIq";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RiHZpKIS"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63GC2DkV1668243
+	for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 13:07:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=POW8Tff6Ny9kwlW1q/aH/t
+	9A59tUh3oFYWOLgRQtEtQ=; b=H5ZNyVIqNSQLYV8RV78BymyisKxFongozKndo0
+	ANbwbXqyH0trjOjErfuf/e5WqSbJEwGQPC/p+CNEG1DPnBkg1dpuosVai/hhBz8f
+	AUUyNleE2OHZU1et5eIuaw9e3eo65OVrYEeLPH/hVJzV3/4O5jCa+NWnKiS2/79O
+	K89kVjBxFDsN5FQSqaP5JERZzPyJ3rHfxWoCjgRC/QZPRLH3NB6X5Ac29DgbP/QH
+	R5qsL8t0ZWybc6owicpfbdI00ZDnPicgt6t3nDkPlkk/9YDoe4JkghmzlGixGB7/
+	9rVA0YQyxZMLlyWfEOoOIucwAwht6CAg/MW+D81vRyPXfWQw==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4djtd91e1b-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 13:07:31 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-82f85179263so80969b3a.3
+        for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 06:07:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1776344851; x=1776949651; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=POW8Tff6Ny9kwlW1q/aH/t9A59tUh3oFYWOLgRQtEtQ=;
+        b=RiHZpKISgkd5VymehyZK3NEeZFg63kSyjiZkbRb9UenUOZQiToWhbe8Gwi0HpcIH9e
+         KzLCut/l2HUyd9xyXl5uDQPa+pm0BpF+4u67PBi6OqMOe4LlbTckMUcnfuRev5dt/ODV
+         tHqBfAzPnGMqMNApbVlx2UvRLItE5wVi3zZTfrLfUaFsWNXhMhowWD9YuAQzhR0+q+Zh
+         URcsjKZ7wDgYZ0M5fs3mXb0KzVcqs7m24DTqs04PfdMMTtLh5kT587beIUuM0Sn51eKX
+         Tw2t/JeR7VNxFOgz3OB0bwQBeFekCX7+ZKjQxi2eK1RcNmATpah/Li/hoxp/JusM67Pi
+         nSWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776343508; x=1776948308;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1776344851; x=1776949651;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Y6Trmvc791/1rDJLy3WyaJKC+o+3NUld8T5eNLrCZnc=;
-        b=krgOL/XdHy1G/B7+4dghy2qv0W+BP2n9cooKC4CS0Ipoy6b6hu6y8xnUPfTInDVL3d
-         f0EY85eSyfmtNU2h7axbrIbRhZ7gs5aakJWfpgqPWlZxa4CxJ/IVDLJd9v47df1RRDkH
-         KObebdWJp7jnTuHxewkBzvSM5eTXpOwjcdez+EV2ayC4jXf77m8wmKS1oQx6gYEhXtk4
-         42ZNteH0lt+ZaxHli9FsKAPSwmaWzROnYs9I4EXuxYJCdw+XXOCT8sT9eygh8/rWPkFO
-         UvGVdJhgYpCuP0xoNudLSiYlFmcw7h5DAi/RcziGp3LHMAg7g0r9PgkXV+0OYLOwepoC
-         Wunw==
-X-Forwarded-Encrypted: i=1; AFNElJ+GaG1QHaFOQ14Tf3BKl4NsX+dzH5mUsEl6FFNz/CmQqlP6rKPepXTDC8KN8yH4nFYP1l/65v6AP/WK@vger.kernel.org
-X-Gm-Message-State: AOJu0YxszmwbyHlONgbrVqRTA0/MgQaxdRcU/O1XS2uJHKibgGotppVe
-	qP4KKIEHxJFg8tD2mQ0QcCBPpMhLKaVqyPL3XpQB/hHukD6wuJ59f1OGkI/GOMlu
-X-Gm-Gg: AeBDietSNAjwOquXSQsw0UoqPEyt7YkdU48y6gOAbSpAYICXmUPhLKJC7RFNqPp5GBI
-	tFEIbDw7JUwQ9CXUlkofXAH4KF2f1SjcGxeQJklRH87+5z8EG8TjafeTLIS7x1YSk9YyF+MFYA9
-	1AbDnCu46Q0NIkP0dd1WSYgUrt77VV3jzKuKRzHQBTrrnrEvcKsfEqLmnQNWiL7Rp0AKIqy+wOJ
-	hkpgsgHGQag6gNNeobHoi9yuCfo4tGLWvYHJ4aVMnYqCRFgfyGurnikwWjxubaYcEtg4YOJy37y
-	c/Sct2ji7JEZJYByoqqocfV1tpbYLm3eNxccDTHlqpk/f3dHLIsrSQWZBKnus0ZAQA6HKzzQdH1
-	GzvEhQIbl0KpnQjWAUIdi+CoWfuY/EhGJ9n/Uv9PiHT/ETI4Uk7YHBcgCTDopYZDmGnJBsAlIJu
-	ukWQV5BT23VeKS/FS0NtUAZ3CM8bWbSH5Blg7BEYn2kAtTSN6GklYUo/ZObPGrZBhC6rS+Xwo=
-X-Received: by 2002:a05:6102:419e:b0:602:afbc:ae78 with SMTP id ada2fe7eead31-613ba7d0ef8mr1373100137.2.1776343508286;
-        Thu, 16 Apr 2026 05:45:08 -0700 (PDT)
-Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com. [209.85.217.48])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-958656c0b4dsm2176074241.10.2026.04.16.05.45.06
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 16 Apr 2026 05:45:06 -0700 (PDT)
-Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-60579e72ff9so396777137.1
-        for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 05:45:06 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/ucdnM3uuBO7x7/89lMPJ+byKqfJ5kZa989zAii6qSXJuqknYI2zeMp5q7qQy9bHFX/c9i0U0xhPSn@vger.kernel.org
-X-Received: by 2002:a05:6102:3584:b0:600:d0f:bacf with SMTP id
- ada2fe7eead31-613bc3401cdmr1332642137.11.1776343505953; Thu, 16 Apr 2026
- 05:45:05 -0700 (PDT)
+        bh=POW8Tff6Ny9kwlW1q/aH/t9A59tUh3oFYWOLgRQtEtQ=;
+        b=ShV/qZ0vP9c+teoGmregXUPiwbk5k3tVDp+wU+jzy21Srx/vvP3Id3r62KBAspSR0w
+         Zf5yKTSXsUJ7aA+QEwx0vvjqMnD5KxdCA3nez3CWSR/wR0/I6pGBNMPChqnwF4BizYHm
+         QLFD6ixu4uRRjDRFjHCnPvIRkz3YlWXSLfQI/qTPz+KCFEKUML5ESRn4mRP0Kp0VixRz
+         P/HERaB8JBOqmXJwSbRtBGfncPKHF0KYXJR7LtL8ClmdpOaGwTUjAAWs3CrPsYkZ2mS+
+         Epn78tdgMGTJcZb46LBKmH07807TVwYVOWPNibDjU38HEtPYXLarW6i0VCY+2l15VRAF
+         2J2Q==
+X-Forwarded-Encrypted: i=1; AFNElJ/tt6dM6mrbipZlADRRmJdl6I+Y3qNybMUYNCBPc0tfvABOu6A+97u7EDmvUFDxM0f8LVHmmDSWyOOE@vger.kernel.org
+X-Gm-Message-State: AOJu0YyR8a0u/24R8c/+7SBFfX1cCztmmH5qMcLYBP3x30RyNviGMmZe
+	KpNRiCg0T+WFj21FiUE8rM+5lPmJTqwRSeYaZ60O87vXN9SbCZsTag12CvUOE+zEDBf1V38eIBt
+	Scm7acDjl5FV87/gs6PEgcM/Az9tyU9YWGfQNrIQ5vrk6GARSmg7iMPHnuiKHqImn
+X-Gm-Gg: AeBDieuWgVxCPO+u11BtwdqCGxAGaZJMBY7ka+1hhwWCee185i47FFic6eoR/wvEuhz
+	QWL+veDc4ZyNorGpDcR8eEkrTewbp2Y40o9Q0Q2/vd5cNbjasFQ0jEXPLDaD6RhQsIq+2SbImCT
+	SoTNXKGx2/83Szo1hRFvKfyCkfX+O+hSrvxVwZqM3+s6hE8GCnzyudhtEsRIVzEtWRS8wuN9PUc
+	jbpO+p618YZrqcuRdIgLb6eePzSa7e+iabgqqy0OICpXbuCry6+Ltjt0/7gdNTcmroeGyl+z3iK
+	tlCewJ1unHwEiPCFtJuwOW77CFPZc2f06ypfTTG4tL6ynrlKy7BjaQYf064Y3C1HV35ILUC/wh4
+	HxH/YQBCOSeAF82bc26zhRuNJLWVCEj0yb5j1bEYpSTeoYmX9QghW3aXEeA==
+X-Received: by 2002:a05:6a00:244d:b0:82d:603f:f3a with SMTP id d2e1a72fcca58-82f0c2493e0mr26814432b3a.24.1776344850677;
+        Thu, 16 Apr 2026 06:07:30 -0700 (PDT)
+X-Received: by 2002:a05:6a00:244d:b0:82d:603f:f3a with SMTP id d2e1a72fcca58-82f0c2493e0mr26814365b3a.24.1776344850094;
+        Thu, 16 Apr 2026 06:07:30 -0700 (PDT)
+Received: from hu-hdev-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82f67449c3asm5383605b3a.53.2026.04.16.06.07.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 16 Apr 2026 06:07:29 -0700 (PDT)
+From: Harshal Dev <harshal.dev@oss.qualcomm.com>
+Subject: [PATCH 0/2] Add Crypto Engine support for the Glymur SoC
+Date: Thu, 16 Apr 2026 18:37:19 +0530
+Message-Id: <20260416-glymur_crypto_enablement-v1-0-75e768c1417c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260413100700.30995-1-phucduc.bui@gmail.com> <20260413100700.30995-7-phucduc.bui@gmail.com>
- <20260414-funky-sincere-polecat-20b0bf@quoll> <CAABR9nEKGSRNp=eK=ZHf6-MNsj=6cDCy1YdbzSPrHyuc3Ux0Ow@mail.gmail.com>
-In-Reply-To: <CAABR9nEKGSRNp=eK=ZHf6-MNsj=6cDCy1YdbzSPrHyuc3Ux0Ow@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 16 Apr 2026 14:44:54 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVPbcz4rF8ojEcvxp1NaM2mbQ2o+HZLwnnjNnX8uHf4HA@mail.gmail.com>
-X-Gm-Features: AQROBzAlwTEokj2EdisJZZId_dsgmifb7t182C9EYzjoqr7qTm3MDCvnELzLUhU
-Message-ID: <CAMuHMdVPbcz4rF8ojEcvxp1NaM2mbQ2o+HZLwnnjNnX8uHf4HA@mail.gmail.com>
-Subject: Re: [PATCH v2 6/6] ASoC: dt-bindings: renesas,fsi: add support for
- multiple clocks
-To: Bui Duc Phuc <phucduc.bui@gmail.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, kuninori.morimoto.gx@renesas.com, broonie@kernel.org, 
-	lgirdwood@gmail.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	geert+renesas@glider.be, magnus.damm@gmail.com, perex@perex.cz, 
-	tiwai@suse.com, linux-sound@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAff4GkC/x3MQQqDMBBG4avIrBuIgwjtVUqRJP6xAxplYosi3
+ t3g8lu8d1CGCjK9qoMUf8kyp4L6UVH4ujTASF9MbLm1Td2aYdynn3ZB92WdOyTnR0xIq/HgGC2
+ zb/hJJV8UUbZ7/f6c5wVsV8uAagAAAA==
+X-Change-ID: 20260416-glymur_crypto_enablement-be2ff022b429
+To: Thara Gopinath <thara.gopinath@gmail.com>,
+        Herbert Xu <herbert@gondor.apana.org.au>,
+        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
+        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+        linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Harshal Dev <harshal.dev@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776344844; l=664;
+ i=harshal.dev@oss.qualcomm.com; s=20251124; h=from:subject:message-id;
+ bh=6LYYvW3a2jfG+sYqtjrDrNOPas3lIJ0V4OXqFVb6FOg=;
+ b=1bf97Oq2NNlGFeEkOKUdw/XcDAJQcDlHp7qBHHcRZBOcHXeYZ70pMoY4VpSDkqiw/wguh5C9u
+ iKt0KpOkfDrBHoCG2v7ibA7EkrIGm8CidhgrsmcQxG0ANkS9FE6y/qC
+X-Developer-Key: i=harshal.dev@oss.qualcomm.com; a=ed25519;
+ pk=SHJ8K4SglF5t7KmfMKXl6Mby40WczSeLs4Qus7yFO7c=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE2MDEyNSBTYWx0ZWRfX4geBZEJKm7E8
+ RZaceuR1FI0BfInRtGJeMRiZS5tpegcl+tUNAoZYqZ70Kh243MLgIe6Mfj+RLH2li41lIhHkEgd
+ 22H0b12pGQTW6dIEdoqmizPzrLTW4OAsVaKWxVU7Pt5KrnSmPXbeTEAgdS0DpLXkL2jK6RCPfcr
+ RchBeLx8LwtiSSdgkCNQRWq9hPCbukkk5U81wXqhu/wFqIyQ1yUVttqIVNNNX83g3I+ccGDRF+/
+ pOQoHEWePrbqIwyy9HRNZzBdHVNdyc+gRE6GV1OcYYGL7t6kej9AR80v6nORsFjJYo6ota1cosQ
+ Uxs/MSz2YDz9v0wqZaxy3GaQ7t56GvzVqzCqjFyRfIJhavOP6yQF3iEkdz4YzvGDjWa/zdMcy3e
+ WrmtqQW1KnIJ+g2hSZC7BDejXB6EwoQwXUiNwH/UAiBmS0nedSgn+VZ+/wbb9nhPTmEgDyu3FDy
+ u33VAWcK6tbn6wA9Rkw==
+X-Authority-Analysis: v=2.4 cv=avuCzyZV c=1 sm=1 tr=0 ts=69e0df13 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=RuLhemBIKpjh240wRt4A:9 a=QEXdDO2ut3YA:10
+ a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-GUID: 2-l-IsNBHAVaQfTB6aqILZ3m65Bwrw-2
+X-Proofpoint-ORIG-GUID: 2-l-IsNBHAVaQfTB6aqILZ3m65Bwrw-2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-16_03,2026-04-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 spamscore=0 bulkscore=0 priorityscore=1501
+ adultscore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604160125
 
-Hi Bui,
+Document and add the device-tree nodes to enable the Crypto Engine
+and its BAM for Glymur.
 
-On Tue, 14 Apr 2026 at 12:41, Bui Duc Phuc <phucduc.bui@gmail.com> wrote:
-> > Flexible is not allowed. Provide reasons for exception.
->
-> I understand and will remove this approach and replace it with
-> explicit valid clock combinations.
->
-> > This goes to the "clocks:"
->
-> Understood, I will move the description to "clocks".
->
-> > > +    minItems: 1
-> > > +    items:
-> > > +      - const: own
-> > > +      - &fsi_all_clks
-> >
-> > I don't understand this syntax.
->
-> Understood, I will drop the YAML anchor and use explicit constraints instead.
->
-> I will update it to the following structure:
->
->   clocks:
->     description: |
->       Clock driving the FSI Controller :
->       - "own": Main FSI module clock (must be first and always present)
->       - "spu": SPU bus/bridge clock. On R8A7740, this clock must be
->         enabled to allow register access as the FSI block is connected
->         behind the SPU bus.
->       - "icka" / "ickb": CPG DIV6 functional clocks for FSI port A/B
->       - "diva"/"divb": Internal FSI dividers for port A/B used for
->         audio clock generation
->       - "xcka"/"xckb": External clock inputs for FSI port A/B
->         provided by the board
->     minItems: 1
->     maxItems: 8
+Signed-off-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
+---
+Harshal Dev (2):
+      dt-bindings: crypto: qcom-qce: Document the Glymur crypto engine
+      arm64: dts: qcom: glymur: Add crypto engine
 
-'move the description to "clocks"' means:
+ .../devicetree/bindings/crypto/qcom-qce.yaml       |  1 +
+ arch/arm64/boot/dts/qcom/glymur.dtsi               | 26 ++++++++++++++++++++++
+ 2 files changed, 27 insertions(+)
+---
+base-commit: 936c21068d7ade00325e40d82bfd2f3f29d9f659
+change-id: 20260416-glymur_crypto_enablement-be2ff022b429
 
-    clocks:
-      minItems: 1
-      items:
-        - description: Main FSI module clock
-        - description: SPU bus/bridge clock [...]
-          [...[
-
->   clock-names:
->
->     minItems: 1
->     maxItems: 8
-
-and:
-
-    clock-names:
-      minItems: 1
-      items:
-        - const: "fck"
-        - const: "spu"
-          [...]
-
-But this imposes a fixed order, and would prevent optional
-clocks in the middle of the list.
-
-So you may be better off using a similar description like in
-Documentation/devicetree/bindings/serial/renesas,scif.yaml
-
-    clock-names:
-      minItems: 1
-      maxItems: 8
-      items:
-        - fck # Main FSI module clock
-        - spu # optional SPU bus/bridge clock [...]
-        - icka # optional CPG DIV6 functional clocks for FSI port A
-        - ickb # optional CPG DIV6 functional clocks for FSI port B
-          [...]
-
->
-> allOf:
->   - $ref: dai-common.yaml#
->   - if:
->       properties:
->         compatible:
->           contains:
->             const: renesas,fsi2-r8a7740
->     then:
->       properties:
->         clock-names:
->           oneOf:
->             - items:
->                 - const: own
->                 - const: spu
->             - items:
->                 - const: own
->                 - const: spu
->                 - const: ickb
->                 - const: divb
-
-+ the above making it stricter.
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
+Best regards,
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Harshal Dev <harshal.dev@oss.qualcomm.com>
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
