@@ -1,39 +1,39 @@
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+Received: from mail-43102.protonmail.ch (mail-43102.protonmail.ch [185.70.43.102])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B400D34AAE3
-	for <devicetree@vger.kernel.org>; Wed, 15 Apr 2026 23:45:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47BD217C211;
+	Thu, 16 Apr 2026 00:23:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776296733; cv=none; b=TCnNvg2oeRAsP8Qz9W10dGqX66DiGXemw2jQ0p9547DauGzQEwPqOlX6Jlud10IVKQcGM/WdlNeml5VwWuP37sQFRntGxLHzjGd/hgWxUwIsAqPY5ax8kduL4ydb7qSbzZ3MfohhUtb3uFwlwNfCs9tMNnOofAD+uo2d0dySRoE=
+	t=1776299023; cv=none; b=HjTKHE4dxlaNZEWyL7i51HYrFScxVWdyOcfyzh3SUimKPydMOBQaglRts8z7mKKxgEXo5DeitoTNTOnXM/W1QMEl2O3rkU596kEtGPNxB6T4Vfv76XHxh53Qw3kpRervBm6sSL1zSEPVhoUE0YdGZhdo7FvYvMlz+1zV0vOSFWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776296733; c=relaxed/simple;
-	bh=bBGGB5uETSggOS/t5xrmTu4m1EpOWZbQNCte2XUHoto=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=GNsV1MQ9ylLnmOnc0mGhK0WfoMqYVkJa5D4ZjD9oeXSiZfJT363Vee6vuKq6Xux7Ybey+S6GyX+g9qk+kNZ5osnFE0oJ8vYsQfnW1jWQG1gWrS628XOVwYpbyx3BEqogwPzY3CunHNJuShRj3r//9xxNXJfKr+E8NpWL/k4Va+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=DN+8J0gN; arc=none smtp.client-ip=185.70.43.22
+	s=arc-20240116; t=1776299023; c=relaxed/simple;
+	bh=t7V3EQfNXi+zUiRcTG1auE19RDqnd6aAKgkgSLJpf5M=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=GrTAWPE4uIKIpDKOrGBxwvNXmBjq1VFJJ0XJcr71l3O0u6TdQLPQZjWa8G8nJrNyeATQbOwbAXojl6/TajI43Y4ZPBMTqaAbZ7Y0c79v4wZ0ojNh/feqmQ83seZenykUaPZt+Q3NouR8gYSywh4lHJoZEl+VT4T7g/IVTY9DhbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=gkwF2/Ip; arc=none smtp.client-ip=185.70.43.102
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="DN+8J0gN"
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="gkwF2/Ip"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1776296723; x=1776555923;
-	bh=bBGGB5uETSggOS/t5xrmTu4m1EpOWZbQNCte2XUHoto=;
+	s=protonmail3; t=1776299013; x=1776558213;
+	bh=/kO5sLVWHV577778m/vBhxM6H4oMac6z5TOPbNkRp0Q=;
 	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
 	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=DN+8J0gNAHRo/mJ4YD+m8BP2eHkDFf/E0ov1ckY/GXxOwrSUldj4BRJiYdcp4o8ZM
-	 h2WedJm+WLWq56abLwBzNHUVExHjD3HaK28aGRsK8yxl6F1l/evlx0rHyzgoeqDw1p
-	 Y45b7Q2OU5AdesE8NrfP+mV6Hk1Xi3E3TTT3Q/8KusihltHWpENx4sQPCZ5wgkw9C7
-	 VnPeca+hd3ZAxYESppo9306HIwZSkiVemJo76iTZuIyYFfuzeiFJV0F76Xhre/DgIG
-	 2CBTSTZxWXsBdtsQ8A6BjUP5QQ4U2pzkaywP+RJ3mqHUdBuVOTsgxnF9IWdHggrYMp
-	 T7N2RwQ3IXJog==
-Date: Wed, 15 Apr 2026 23:45:18 +0000
-To: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+	b=gkwF2/IpjykiX+GMr/PnVgC2G90whGKcLRsmMCRk39A+Kw9m3mKmP29nxIrDl9dn6
+	 Ovu1bmVck8s+nyJ5PMRdlS3NImzq/m0CRaJ5K26gIAXJfDBg18vtL0wa7LihfdDJ8a
+	 mtHST6qK6YvpBv86d5bo3CDS/HmW3UACBf4g6h2af+ob0AGkem39M9r3TnczNHuGZT
+	 J+vSOfN0xdvffN/+7Oi2/iLGPlNovwfd25+IRM3X+HO4+08j6985PsKJTBq55H0+su
+	 QBPZItNffxt9nhdnXGreSgyF4qhxuGBidQd2kt/NVD4uhoWyBpPoD6dZyLa+J+ReU1
+	 oqX6OiWeTsf+Q==
+Date: Thu, 16 Apr 2026 00:23:27 +0000
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
 From: Alexander Koskovich <akoskovich@pm.me>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Alexander Koskovich <akoskovich@pm.me>
-Subject: [PATCH RFT] arm64: dts: qcom: sm8650: Fix IPA IMEM slice
-Message-ID: <20260415-fix-8650-ipa-modem-tables-v1-1-95f8f425e416@pm.me>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, Alexander Koskovich <akoskovich@pm.me>
+Subject: [PATCH 0/2] Describe IMEM on Eliza
+Message-ID: <20260415-eliza-imem-v1-0-4a90e8683799@pm.me>
 Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: a4eaec15df0fb93034c62411ff77e2f3bdbef0b9
+X-Pm-Message-ID: 916f527443bdd0ad8a231961c005d737ed2ef811
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -43,36 +43,20 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Downstream the IPA IMEM slice for SM8650 is described as:
-qcom,additional-mapping =3D <0x14683000 0x14683000 0x2000>;
-
-Update upstream ipa_modem_tables to reflect downstream.
+Add a compatible and describe the IMEM for the Eliza SoC.
 
 Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
 ---
- arch/arm64/boot/dts/qcom/sm8650.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Alexander Koskovich (2):
+      dt-bindings: sram: Document qcom,eliza-imem
+      arm64: dts: qcom: eliza: Add IMEM node
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/qco=
-m/sm8650.dtsi
-index 1604bc8cff37..0cfbf79c4c78 100644
---- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-@@ -7087,8 +7087,8 @@ sram@14680000 {
-=20
- =09=09=09ranges =3D <0 0 0x14680000 0x2c000>;
-=20
--=09=09=09ipa_modem_tables: modem-tables@8000 {
--=09=09=09=09reg =3D <0x8000 0x2000>;
-+=09=09=09ipa_modem_tables: modem-tables@3000 {
-+=09=09=09=09reg =3D <0x3000 0x2000>;
- =09=09=09};
- =09=09};
-=20
-
+ Documentation/devicetree/bindings/sram/sram.yaml |  1 +
+ arch/arm64/boot/dts/qcom/eliza.dtsi              | 20 ++++++++++++++++++++
+ 2 files changed, 21 insertions(+)
 ---
 base-commit: 936c21068d7ade00325e40d82bfd2f3f29d9f659
-change-id: 20260415-fix-8650-ipa-modem-tables-1704e39721c2
+change-id: 20260415-eliza-imem-e791f44abf1b
 
 Best regards,
 --=20
