@@ -1,68 +1,68 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 798FD3CBE75
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 15:12:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CE313CCFB8
+	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 15:12:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776438725; cv=none; b=qcBeruW71jUzE2W5Wtjet2ioBQ5p4sRjd5+PXUdAY0/3xQiWzFVPNh+DEUxGR+tCJr93/ZJXpm08sB6fa+/s1bIWAcDttpiwggDq1Zemg4IxUfpSvg6fnPzwk5AJAfb8K3JcTPUYr8CweyvU1Gu4BJCPpNrniPziL63BGIqjTu4=
+	t=1776438729; cv=none; b=TdFR9mYsg23UaRcxYbD8ODY+5N2nHneNm4qs2o5enjH5998WWS39d+3KKHZEgxMNTx6LbjQl5FxTMFRL4kAdhj6SSBJgkP+QH/LsSXgQRHvyqy85w3f3P9JyovPs+FzXIoem79Bj8u2yPFR2BPxTLwoHSndPrn/p0FpDqyAt9hQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776438725; c=relaxed/simple;
-	bh=NvfvyU1IImSrCF3iQB5Qso5w+H1TNTTu2n7InPVjkh4=;
+	s=arc-20240116; t=1776438729; c=relaxed/simple;
+	bh=9E+GVCevJV58fhmm0CYyTjqLcW41sUgTRpTXQLHwLHc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=BkPQEN4x9mihwVhXvNISqdnqVUMZzbFGll8GDYi03r6A+HW8ff3UaQUVzhy4VjaSK+BRcSvUgkbtcW1pK/HNmUGAbniypqJuPU8UxxeAYIW4JgEGwKZ4wo/qUKRnYJCnRYH2I6EfzLgUxmNeE57ye78qMUqLXmlfeo4ZhmiITz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=cOb0JTwT; arc=none smtp.client-ip=209.85.221.46
+	 In-Reply-To:To:Cc; b=D4jPnvyp+qE+ya/3GX8MHlc+YDMFoQDMyzroh5peaa2HZsnXLfsiJGSl01prpRTwEDbRn2b+dJJUEEElZHniuosmBC7Rji083OO7cvyfQZZlfADXwMeVz8MKUm/hkrw7EF6teW8jLNasmoCevvrXS7jemmWWarPzcJDrsy7uEq8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=k74u2ayo; arc=none smtp.client-ip=209.85.218.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="cOb0JTwT"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-43d572f7437so595660f8f.1
-        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 08:12:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="k74u2ayo"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-b941762394aso117595066b.1
+        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 08:12:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1776438723; x=1777043523; darn=vger.kernel.org;
+        d=flipper.net; s=google; t=1776438727; x=1777043527; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=c0h/bSzKrRDyDdmyG30auftZMv/S6b+0T+VipJS3jxA=;
-        b=cOb0JTwTxMCT5bBXyzwgrH3otZk16alJ1iPfSuQFYcX2QKbmqalnu172PPUveLDat9
-         ixFlbKB3UY5NIaMiOAZfbfGMzG+cshz3zNrS2W7dr+GiC1nR8sPgbZkQL0S1hnrHERE3
-         dwAg0feBP4pPo4Jd/Q6f/aNGSsysfaBTdbmkLwW3GCAXeoXt4wfyC0QSJWGQYDluJ7U7
-         m1Sf0rRKgLcRXhT/A3roz+Et+21HbS+4CfBA+klrdBCgsNZwIw0IaOESPkwSptb8T2xW
-         CQZ1yj2LxxlBgIqC0ker1eEW0PNwg9gGqsVLiEBBotALFfuWphjA2tzEI7svwk9M2rGS
-         VHHQ==
+        bh=VqX8mavnBNkgyap63RnjubBar/UFOY4VCctk2eUAZ6g=;
+        b=k74u2ayoWLC5DNpd0RYI/7CyHOOrl6NjtuyotJuzimx2kLmYsuIsu+dOK/1FE1a1sj
+         cW8DaIzIj6olQSWRKm1w5NOKoEx2itYe2paLCOJLL65+VgBUJCcZrSqoOiwBQJd76h6T
+         o35K7Q6UGM84LBlAkraWW9gpfZeDexU2rB54YXGRJNE6onOZI3aLFG/eWcEFutJoUNni
+         q9UCUWn+3Yl7D0tm/jZ/7IRDi6Ymg193nyyzV8ZcqOWTgOP7zOAQGBE+MeQidalU5ahI
+         kq6bE8KQYeYxcBPP3oPNVHWFRxjp1REzZkMrBmV55gbxy3uwegEOj04c64U1iT5Er4zX
+         mjtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776438723; x=1777043523;
+        d=1e100.net; s=20251104; t=1776438727; x=1777043527;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=c0h/bSzKrRDyDdmyG30auftZMv/S6b+0T+VipJS3jxA=;
-        b=SXt2lSw9zxmNiBLuNwO/mIojjSwRgMtIdd+PR5EvfAkOoMc40zEP/VOdQJmYbvQnWc
-         T+hEXfIExRgA+XUxCxSEk1AZ4/4a1Z2Ni3JVipy/97dJUNom3OZsXI2/J2Vqmjce/9wz
-         WM4IJzdtEyZRj+HXvU44rzgiPpnn8lm5+bxBn+OjR1LGXvYZqfpYRnLGwSAIIJHU/n7H
-         6yc3cne76y01TIMM5ohLMCSjLhPtUgbH/kZsIq3WSQ1lPDtAoGJNk1MVvLIKDBZh2dKv
-         rPHvMUadIiZm99CaX6Nd7kNtqIGTULo1omem622XcFNBef7K67cRAnELFULRsmyCO2G9
-         v94g==
-X-Forwarded-Encrypted: i=1; AFNElJ8qLlKoBAOObfH/tRvYNOen3b9a8xQCH61zAm7o8krL683ruWS68Izhc3r2BcTRz6CdmS8fZYmeBtTR@vger.kernel.org
-X-Gm-Message-State: AOJu0YyAvm3E/iF88X/sAa4mu93b5PVcB66aW7FsMLj0KbUlrOQE7blW
-	ga0/J9ECy1IivfKA7AmOzk416DA7ZRVtummgjI0WeTyIUXTIrsCAV94dBGuByeTjqUQ=
-X-Gm-Gg: AeBDies6rRGgh/pVTXfU0PIbEgTr62ikyaNObhV1g1DU4rWHbzlW4hivJnCdVKP0kwf
-	8Vn+8hp6GkZRaBmtg6kyl59iuxMFl3ypYi+Ful+bc41007Axr5RzVtpG9cp1NY99tZi6SQ4wI3l
-	Y0e57ht0TZIa2MwSSneinK0I3JKdhRg0W3bMRRXcxwwS3hJnIR2k/WmvRWzj7EnEGkyTUez04dR
-	sYuaHswYSGhI/YiD0KAW2m+IFriuyr2tkVOfhClnxSBDiYwfICwx3W8tLFLLhPLq0n1B69VHDhP
-	ahq0z+7IJBQCpwxbyHJ6zbCS8YJEAcZU3vFbZrhNOhps4IzDCEq3sxWY7BzjlucVP7ltEy7DwvW
-	k3c049yGT26cUywY4fzMuePze2x97ab7ZhHVKtAxVPMGsMSZrukKh5rZGho+6QtJuFxaREQY3lF
-	6ZMn/pPiKTQE01Fj11Ro1gNo5oruydgGPSOrtKTmnkv5Vt2bmBNfNnRjiBoRtrAfdW8DlVHODIO
-	UZOpmYykTHHPfuG
-X-Received: by 2002:a05:6000:18a6:b0:43d:70de:1c68 with SMTP id ffacd0b85a97d-43fe3e08c35mr4827304f8f.30.1776438722860;
-        Fri, 17 Apr 2026 08:12:02 -0700 (PDT)
+        bh=VqX8mavnBNkgyap63RnjubBar/UFOY4VCctk2eUAZ6g=;
+        b=iYYTcxMAwX2ZdBVmYFq09KpOX+HojmUiZ7n9EdROZwkrrv09O0fm3Yv6uymBh1kMpW
+         6g30b00Gd2uJMo1/xux+neF2iiOTPjfyoQCOPdvEHBZZNm0VlX4drnaDkSrA6Ku+BDcL
+         Cri498hRIUj3w0iG1+LUyQPNo2UVKynt2khykwWepZqBpWKtSeHSUvFPpRyADhdVqRTW
+         kNFd8Oj9bYkx+6uxfPznszlpmnIaqC10MHRWYDIWZQiBqWkYBda+owujjYC0ai3c0+QA
+         g42GCjlOcvjNRDwyqWRZYDL/uEfWlLgnNQYaH4/CdOtCGbByZseVZtoiOESBz1kRc9Mh
+         mqkg==
+X-Forwarded-Encrypted: i=1; AFNElJ+GkntkUMvIy7g+IbBLQyTQ+i7jCucdUaDyMM858j74kE8CF6vY6+mm6vXm/HBIQRGRvkv/2FlFHdXo@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw3g2TSxwYD0UzrGsYMAbUK9vYdPFnOaOiESkYFQKRQmd5n8JYe
+	XzeZXG+RFCvl40qq27+0u6g0jhdWZ6O7UoiVtankRoMf2FrOiHDNoe52nmkUr4B6npI=
+X-Gm-Gg: AeBDietf+h5bsy9sER911wI65H2Skn+1FCwq1KyWXOkSvvhfCf39Nx2Li9zbXqKWHq0
+	Yl+vHnIHFE/v2nNsuSUrisJIdd9Lc/KlOO6plTla6uePUJ61Aqq8roMcCkmUnRO4Vahopw0f4Hu
+	EzaSFbjDdyFqpI2hqqXS7N1i9doEOvSBe1jsYgYr1m4Q5sgkt5aV4Dg5ckTloKgh+Styj04XERp
+	XEMYMUy7m6rk30dOLQY/urDwEBFrfiki1MFB7WASRaH7oSnotPWGqsesAxmTazck5m0VhRyVHtl
+	CzuezMmI6ZUX65zFHFE8MPH7v/0PNbEwbQ0x9VN54Idc7CIRzb/pxLhXKelUaT8XKyw+ON00SHU
+	oCOMKBBY9pBv766B+SouDjravhPYs97ozObuD86Qj7WFQJaS9kBAxIDrgdDzkI3p07VLLzsm2ln
+	SsjI8cIo1KQ3TUBZV/I08suNk6WR1m9wxFEHxvw4uUW/GxntoU3aMOdhmFbHCIQNlyWc5clCsUY
+	8vqk0R4YIKg65wBo4EEPL1n+YY=
+X-Received: by 2002:a17:907:3c8e:b0:b9c:b069:8abe with SMTP id a640c23a62f3a-ba418e853b7mr164954266b.12.1776438726689;
+        Fri, 17 Apr 2026 08:12:06 -0700 (PDT)
 Received: from alchark-surface.localdomain (bba-86-98-192-109.alshamil.net.ae. [86.98.192.109])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43fe4e591cesm7376426f8f.36.2026.04.17.08.11.59
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43fe4e591cesm7376426f8f.36.2026.04.17.08.12.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Apr 2026 08:12:02 -0700 (PDT)
+        Fri, 17 Apr 2026 08:12:06 -0700 (PDT)
 From: Alexey Charkov <alchark@flipper.net>
-Date: Fri, 17 Apr 2026 19:11:45 +0400
-Subject: [PATCH RFC 2/4] clk: rockchip: pll: use round-nearest in
- determine_rate
+Date: Fri, 17 Apr 2026 19:11:46 +0400
+Subject: [PATCH RFC 3/4] clk: rockchip: rk3576: allow dclk_vp1_src to
+ propagate rate to parent PLL
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,8 +70,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260417-rk3576-dclk-v1-2-26a9d0dcb2de@flipper.net>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260417-rk3576-dclk-v1-3-26a9d0dcb2de@flipper.net>
 References: <20260417-rk3576-dclk-v1-0-26a9d0dcb2de@flipper.net>
 In-Reply-To: <20260417-rk3576-dclk-v1-0-26a9d0dcb2de@flipper.net>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -85,67 +85,48 @@ Cc: Pavel Zhovner <pavel@flipper.net>,
  linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
  Alexey Charkov <alchark@flipper.net>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1952; i=alchark@flipper.net;
- h=from:subject:message-id; bh=NvfvyU1IImSrCF3iQB5Qso5w+H1TNTTu2n7InPVjkh4=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWQ+8t0mFK38Z9ft90/KpYsSdv70XXD10YenzgXaixSqJ
- vwM+vdKo2MiC4MYF4OlmCLL3G9LbKca8c3a5eHxFWYOKxPIEGmRBgYgYGHgy03MKzXSMdIz1TbU
- MzTSMdYxYuDiFICpzipnZPiXM6nmzcpO/RZJe/8Jl6LLDT4zicyQ35vOmzlnyhXFdRGMDNM+vyo
- 6x3zN912Ur3S2wqWjEzvDkpb/1XCwURZbUfi+iREA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1840; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=9E+GVCevJV58fhmm0CYyTjqLcW41sUgTRpTXQLHwLHc=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWQ+8t127xRniY258Vemr65Gvz625DB3Scj+eCYSeP5gs
+ fcvv3b1joksDGJcDJZiiixzvy2xnWrEN2uXh8dXmDmsTCBDpEUaGICAhYEvNzGv1EjHSM9U21DP
+ 0EjHWMeIgYtTAKZ6aiEjQ3+bJOvdiLL/kZfbGnlnOLHPfHN8uXm/VpTI9PfMj8VenmJk2Fa/+au
+ BLrPpiRN5S0p7vgYdNTL//2592W/rcMcA1r3zOQE=
 X-Developer-Key: i=alchark@flipper.net; a=openpgp;
  fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-rockchip_pll_determine_rate() walks the rate table in descending order
-and picks the first entry <= the requested rate. This floor-rounding
-interacts poorly with consumers that use CLK_SET_RATE_PARENT: a divider
-iterating candidates asks the PLL for rate*div, and a tiny undershoot
-causes the PLL to snap to a much lower entry.
+dclk_vp1_src feeds the display clock for Video Port 1. When parented to
+the default GPLL (1188 MHz), the 8-bit divider cannot synthesize the
+248.88 MHz pixel clock required for 2560x1440@60 which VP1 supports:
+1188 / 5 = 237.6 MHz (-4.53% error). This exceeds DisplayPort's +/-0.5%
+tolerance and causes black screens on strict sinks.
 
-For example, requesting 1991.04 MHz (248.88 MHz * 8) causes the PLL to
-return 1968 MHz instead of 1992 MHz — a 24 MHz table gap that produces
-a 1.2% pixel clock error when divided back down.
+Add CLK_SET_RATE_PARENT so that when dclk_vp1_src is reparented to a
+programmable PLL (e.g. VPLL via assigned-clock-parents), the CCF divider
+can ask the PLL to retune. For example, VPLL at 1992 MHz / 8 = 249 MHz
+(0.048% error).
 
-Change to round-to-nearest: for each table entry compute the absolute
-distance from the request, and pick the entry with the smallest delta.
-The CCF's divider and composite logic handle over/undershoot preferences
-via their own ROUND_CLOSEST flags.
+This flag relies on reparenting the VP1 source clock to VPLL at DT level
+to ensure no consumer calls clk_set_rate on dclk_vp1 while its parent is
+set to the boot-time default of GPLL.
 
 Signed-off-by: Alexey Charkov <alchark@flipper.net>
 ---
- drivers/clk/rockchip/clk-pll.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ drivers/clk/rockchip/clk-rk3576.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/clk/rockchip/clk-pll.c b/drivers/clk/rockchip/clk-pll.c
-index 6b853800cb6b..c142f2c4fd99 100644
---- a/drivers/clk/rockchip/clk-pll.c
-+++ b/drivers/clk/rockchip/clk-pll.c
-@@ -66,19 +66,19 @@ static int rockchip_pll_determine_rate(struct clk_hw *hw,
- {
- 	struct rockchip_clk_pll *pll = to_rockchip_clk_pll(hw);
- 	const struct rockchip_pll_rate_table *rate_table = pll->rate_table;
-+	unsigned long best = 0;
- 	int i;
- 
--	/* Assuming rate_table is in descending order */
- 	for (i = 0; i < pll->rate_count; i++) {
--		if (req->rate >= rate_table[i].rate) {
--			req->rate = rate_table[i].rate;
--
--			return 0;
--		}
-+		if (abs((long)req->rate - (long)rate_table[i].rate) <
-+		    abs((long)req->rate - (long)best))
-+			best = rate_table[i].rate;
- 	}
- 
--	/* return minimum supported value */
--	req->rate = rate_table[i - 1].rate;
-+	if (best)
-+		req->rate = best;
-+	else
-+		req->rate = rate_table[pll->rate_count - 1].rate;
- 
- 	return 0;
- }
+diff --git a/drivers/clk/rockchip/clk-rk3576.c b/drivers/clk/rockchip/clk-rk3576.c
+index 2557358e0b9d..28eb5a802e83 100644
+--- a/drivers/clk/rockchip/clk-rk3576.c
++++ b/drivers/clk/rockchip/clk-rk3576.c
+@@ -1105,7 +1105,7 @@ static struct rockchip_clk_branch rk3576_clk_branches[] __initdata = {
+ 	COMPOSITE(DCLK_VP0_SRC, "dclk_vp0_src", gpll_cpll_vpll_bpll_lpll_p, CLK_SET_RATE_NO_REPARENT,
+ 			RK3576_CLKSEL_CON(145), 8, 3, MFLAGS, 0, 8, DFLAGS,
+ 			RK3576_CLKGATE_CON(61), 10, GFLAGS),
+-	COMPOSITE(DCLK_VP1_SRC, "dclk_vp1_src", gpll_cpll_vpll_bpll_lpll_p, CLK_SET_RATE_NO_REPARENT,
++	COMPOSITE(DCLK_VP1_SRC, "dclk_vp1_src", gpll_cpll_vpll_bpll_lpll_p, CLK_SET_RATE_NO_REPARENT | CLK_SET_RATE_PARENT,
+ 			RK3576_CLKSEL_CON(146), 8, 3, MFLAGS, 0, 8, DFLAGS,
+ 			RK3576_CLKGATE_CON(61), 11, GFLAGS),
+ 	COMPOSITE(DCLK_VP2_SRC, "dclk_vp2_src", gpll_cpll_vpll_bpll_lpll_p, CLK_SET_RATE_NO_REPARENT,
 
 -- 
 2.52.0
