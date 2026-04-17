@@ -1,117 +1,120 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com [209.85.217.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CF4E2765E2;
-	Fri, 17 Apr 2026 12:17:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776428240; cv=none; b=DF0VUEVbrLsp6TsTfmxTYMzLucl0V+geegY9ii2kAGSyJrWGmHzA1veA2RQixPdZsQhuBa96iAjruWYcNpsdWsOja6g6UtcVFsrMdHtYZJrCtTTniBRSL+IsiPbS8IuPtz0ZCLEignMzt0eNussAUeYUrxoMZs9KUQGADmNqipM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776428240; c=relaxed/simple;
-	bh=uWmlR1t2iiczGuV1IEyg0LPS03vBOy9Q7lm4B/fjozM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Fd+if0NUeROllcqOp2yC8Dw9fS94hlKp52oZsUvkZakY2inQFLGgM43hIcDXsLcJxUMu30HfhJcMhOL3wkSynJH+WRXHtA2r/qC+jwYUTQ8MzFbfzgpScQOInxs9YDckGNSXKft2AbrWhEfNQ0603ELfyhbDArgv/dNIVaGJYjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OEVRKnA4; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89CB53563CD
+	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 12:23:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776428637; cv=pass; b=lt3EevdXiSYX7+Ql/7FGChx812UvmK9hKPymkOtu6v9Ex+zILgkDoRCDtjnjTF+JAakNrKK1CYJB4afL3NL4lSTHqMzvxYNvh53BfEU+QjXpv29JM0Kzy4l3VOc1iWk4Hdg/luQzolAom0CQbAtiSLEsa+3i29RI9mAylRkuVuU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776428637; c=relaxed/simple;
+	bh=XpCq8Sf4SUf8hB4URITm6CXymy9bJ7uTQ5Arv6MXawk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZzWWULS3SkfHlnU3GMR8sHiXtj9BFWsqHrp7H9VS9YhGnekQO1zdrPBs/H8eXUvKQpuT9D1JIV7oJ+KVeCoDFQBwgh6LXqkXqubaq/6KLEO568wwuT562MhTlWwhhB6cauNisbgUF8mGpvT4yFVSHAqbb+Oz0K7DTJr81dRtr5w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h/2hXFtf; arc=pass smtp.client-ip=209.85.217.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OEVRKnA4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1776428238; x=1807964238;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=uWmlR1t2iiczGuV1IEyg0LPS03vBOy9Q7lm4B/fjozM=;
-  b=OEVRKnA4/nf22OzVNHk/v0ovarrHA49Azpp4qpj07GTU3UxwdkHM0hPI
-   L7CrMnZeduuBL1mGpfyfr4FM7YxktRcLvMBNq2qZ7M7BQzPGBWxjQbgI6
-   9Sq/xgu38jLNUP2q5aUrxpeQY8IAbiP296Nu6pkRriytvdNlv6m0hu4hh
-   EwyqaDJ7Jnc0WNN6gk6V33jfqsHis5OZC299sk+n6dh3pbCOUvMf+Bi8l
-   KjFjUEqhNQcdsNEnGHytQb3XWYfes0XXfDiYMUCySuZ9GHJ3L4RcaHB14
-   F1R8f52WWnmk2wCFWaMgcJNeNBd6qqbV0t4f13my0bY2xBSGZxOiaxDeR
-   Q==;
-X-CSE-ConnectionGUID: 0fBG1CBiTiyXXIc6hf1xlA==
-X-CSE-MsgGUID: uLm9ZlaETyeYqRsaZXTEcw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11761"; a="77515101"
-X-IronPort-AV: E=Sophos;i="6.23,184,1770624000"; 
-   d="scan'208";a="77515101"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Apr 2026 05:17:17 -0700
-X-CSE-ConnectionGUID: A0RfwFXBTc6tlLoqezujDg==
-X-CSE-MsgGUID: dCKMxc7WQX2jK6Mr7DnXEw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,184,1770624000"; 
-   d="scan'208";a="235983067"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.170])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Apr 2026 05:17:16 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id C7AAB120E0E;
-	Fri, 17 Apr 2026 15:17:35 +0300 (EEST)
-Date: Fri, 17 Apr 2026 15:17:35 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH v1 2/5] media: lm3560: Add IN supply support
-Message-ID: <aeIk3z8f4dvjEXBQ@kekkonen.localdomain>
-References: <20260417114226.100033-1-clamor95@gmail.com>
- <20260417114226.100033-3-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h/2hXFtf"
+Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-6108228a851so191750137.0
+        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 05:23:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776428635; cv=none;
+        d=google.com; s=arc-20240605;
+        b=UadJ2vyRIXvHjxl+Vra0DJOWzB0Ef+7xI4H9P5uZKp4dwkdD9R7IKdSootS6RnDJRd
+         2wajlCvXvzqQvMw/8sEEDt9xWRfLcn1kraT9ZXEcVBeIJCHWMdhppDTGNYXWg2cC4vrO
+         p/uNz1Xw4Ebgj/+nAd8gXp0XVVwcAW05CWvzRyMmoI8CtsKSpcw+WD1jwfZP+Dhd4Vu2
+         fppZGOaHLKB/fAbfpt9nlGlj8pR9ssHc/CbLIvzkMafETf5gwL06hEhSsRj5XF3FYAjD
+         hDSLhcmbcObYVUn2ajk7ltFgCj42QuWkJGR5AuYMMOA+JyPpqONMgufuS0j9HHNHOVxu
+         Lxvg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=XpCq8Sf4SUf8hB4URITm6CXymy9bJ7uTQ5Arv6MXawk=;
+        fh=/sTVWnr0bPHEFEnkl/dJg6BYPawA4tigZrEQjJWXPc0=;
+        b=E44eB/w48cf+pQjeUXoG/2xf20C/5Xom3tj8MNkF8bp7GiWl0rCA2i8TzkmoUuROOn
+         wkFeK7cwU0bySyB4bygzFYuUoyTuji4UfbTtwY66BUVZ6UBs0tx8bi6sePtiK20Rabz4
+         GGV2oQ9oueHpy1QbOOy+EGTPGvIjz74BNb+xaLQqxOuYHr62Y8PUDWjhCbWsd8Y1nUgA
+         i14ciTjcwNJIc1IZFxnvZdo2LU/ZXp/DI1bOAUuoSSG4h9Bay3e89Qbb0xxSk9geL6Qr
+         tdj5kJoBqCFFI/5V8fkVxUrkbukCY1uBrD7c94mtyLIY2qUB8usnfoA8US8XDwgzjV03
+         j70g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776428635; x=1777033435; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=XpCq8Sf4SUf8hB4URITm6CXymy9bJ7uTQ5Arv6MXawk=;
+        b=h/2hXFtfEuO7HmwOj61+/Xbxk6NQ64StW8SU+GSJBeCR9uZL0UFK5ABD1XVqLkCY1L
+         BVfh/iRGHkBo8SRKqvFXRgKdM8OxB35cgxU2PTUvIzzfxhkFrcWWCh/2gO3MIap8ppDh
+         JGYji+UOdQ5hbSEkFsDnRkmL5XueYQkZ9porKWHCBX1SZ8BFcFhoSVasYUYGpspR3tSy
+         r4iq7FyfIpIGueXaqeBmNGxYTn7uhx9KV09lxRhBuGvibpYMfuDeIBSBd+Lu6ijWOoZF
+         KcquvbCj7lmv3SrUNq9gJSziaQZCD9ELZTl4ZcY5n1EOwcwx6dcCEoA1nWCypoBF5ZeQ
+         DVuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776428635; x=1777033435;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=XpCq8Sf4SUf8hB4URITm6CXymy9bJ7uTQ5Arv6MXawk=;
+        b=MVzgd68JMfPFBsaO53wNCahoMn0C53AizMwuOqONQy4DH3fu9QFygisrP3GRG9WL+m
+         x9LmDGxGWbkSDNy8UI3JCSl17+JyQ4EsqR01fxUgtGgJ08GcJF6ApXgK8DNwFOcZ1yLX
+         RytGxzRi/HTL8T1BT0RQCepMaNGuH3Sj1lCisceU5J/7GcMpyd7osjUamIznrHqLf+vN
+         SgS0q0J57HkbKAuQsL8CiU/g8uhe/uKNvdOylg2r5iANMYW51yAmMRK1l98qLpT5JUKQ
+         Fs9BCDJxveBFKOizxu1tGdDHKusyManlqHrofbRAzKorJNAq4E8ca3+0NylNfkysdhHW
+         GSqg==
+X-Forwarded-Encrypted: i=1; AFNElJ8UWPR+h+dBXuH+JV4hKfdG8i5X95cDxUn/mYFVQbH/OgAbcMb824I+9ek1GCKdKEKYlVDmhmBG8nk2@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz1s60jV6L1LxTQt0qaj+tYMGXtJpO18sS0gipvcetWHoZi9kCw
+	aVCA+NOd4kWiHaLWOnM4rlTfTH22QAbRshBNGCLU+UQnPq8o1gDx5u1yIi6id5CFAddb3sAhf6q
+	7Aa28JpAtHpjc9XThWHA+gYvdqJn1mk8=
+X-Gm-Gg: AeBDieusyYg70AWhVm7z5GbhIu4FG0TyrWxV46pixLb+2jD1lNiDUCSjRL+twZcu/38
+	Z1v6KFKMk81TMRnvank3l0d+zfNdgyxAn/pET3uW/w6AXsdscWf5kWBitisk7ajhM21TQHoctys
+	r+9XfAWCLAxkjpHph8tPjrrCycaNmJYYGNfJUnMfTjGt9zjXkeKbzOm0DKMQkkrLV7Vv6KKufhl
+	F2dtMlMbgONT2JMlzDly0/LWTq/+5vHrSRsbqrh5B1CKMriQVHWa1n+psT5zqhaPIv24iumSws7
+	UboBz7Eu3E14I0jsMg==
+X-Received: by 2002:a05:6102:3588:b0:5ff:2963:52dc with SMTP id
+ ada2fe7eead31-616f474365amr846225137.4.1776428635433; Fri, 17 Apr 2026
+ 05:23:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260417114226.100033-3-clamor95@gmail.com>
+References: <20260228125431.23098-1-mitltlatltl@gmail.com> <awrfjdwsf4gyyg2s6ppw4jfmpzp5s2aavosmspsp26oqccco7y@csij6bpnfpu7>
+In-Reply-To: <awrfjdwsf4gyyg2s6ppw4jfmpzp5s2aavosmspsp26oqccco7y@csij6bpnfpu7>
+From: Pengyu Luo <mitltlatltl@gmail.com>
+Date: Fri, 17 Apr 2026 20:23:11 +0800
+X-Gm-Features: AQROBzAgHsr8AIpWiF4vnwp5PfaZ0TeyboP9_vrim6_Gnnej-q0JbDRhTZ3mCIQ
+Message-ID: <CAH2e8h7W8Tng4v9Da9c7xg-oczHgNcMvz0OF6A27L9m+Pw7iZA@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: qcom: sc8280xp: use refgen regulator for DSI
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Svyatoslav,
+On Sat, Feb 28, 2026 at 9:13=E2=80=AFPM Dmitry Baryshkov
+<dmitry.baryshkov@oss.qualcomm.com> wrote:
+>
+> On Sat, Feb 28, 2026 at 08:54:30PM +0800, Pengyu Luo wrote:
+> > Use it for the DSI controllers, since DSI nodes have been added.
+> >
+> > Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
+> > ---
+> > This patch depends on the below series:
+> > https://lore.kernel.org/linux-arm-msm/20260228101907.18043-1-mitltlatlt=
+l@gmail.com/
+>
+> Why was it not squashed into that series? I'd assume that DSI nodes are
+> incomplete and are working "by luck" without the refgen supplies.
+>
 
-On Fri, Apr 17, 2026 at 02:42:23PM +0300, Svyatoslav Ryhel wrote:
-> Add IN supply (2.5V - 5.5V) found in LM3560 to ensure its proper work.
-> 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> ---
->  drivers/media/i2c/lm3560.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/drivers/media/i2c/lm3560.c b/drivers/media/i2c/lm3560.c
-> index e6af61415821..a2674af6c9fb 100644
-> --- a/drivers/media/i2c/lm3560.c
-> +++ b/drivers/media/i2c/lm3560.c
-> @@ -16,6 +16,7 @@
->  #include <linux/slab.h>
->  #include <linux/mutex.h>
->  #include <linux/regmap.h>
-> +#include <linux/regulator/consumer.h>
->  #include <linux/videodev2.h>
->  #include <media/i2c/lm3560.h>
->  #include <media/v4l2-ctrls.h>
-> @@ -434,6 +435,11 @@ static int lm3560_probe(struct i2c_client *client)
->  		return dev_err_probe(&client->dev, PTR_ERR(flash->hwen_gpio),
->  				     "failed to get hwen gpio\n");
->  
-> +	rval = devm_regulator_get_enable(&client->dev, "vin");
+Today, I did a casual read. I found the register(0x8900000 + 0x80) to
+enable refgen is always 0 on windows. The refgen driver may be not
+compatible with sc8280xp or the DT configuration is wrong.
 
-I'd also enable this via runtime PM.
-
-Sensor drivers such as imx219 serve as a good example here.
-
-> +	if (rval)
-> +		return dev_err_probe(&client->dev, rval,
-> +				     "failed to enable regulator\n");
-> +
->  	rval = lm3560_subdev_init(flash, LM3560_LED0, "lm3560-led0");
->  	if (rval < 0)
->  		return rval;
-
--- 
-Kind regards,
-
-Sakari Ailus
+Best wishes,
+Pengyu
