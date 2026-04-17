@@ -1,43 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9E5F28F5;
-	Fri, 17 Apr 2026 16:17:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0791934D93B;
+	Fri, 17 Apr 2026 16:19:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776442645; cv=none; b=e0OU0A7LR8WPYIARlk6mZSU7PPkxMJN/Ad9/BEUG4H6k27S9SWjuN3WjB+tCJS27no9YNdp1g1jpGARki1HYKB5r4Xt8RuljXg6A7Z5kofnwN1d6w7gCKTBPEPUyh74QvPFu2CApc97mepkIdGHIO6ISi1hnkowqU3R/bAbgKOw=
+	t=1776442750; cv=none; b=kQAhuFdpmHRNqdo15/tfbXH5sZAN1euRzFimh79uDFqw2+gW2WjYz7Tcn/dUa4dMzMfpYt56Rgf2UbmEHZWh4YdxQ/eHROj0OjGzAXQPRbdXHfoJ9Remc2A3tTjSbduXysAuGob7RcOm3jO4pggPJleQREZIjf3NQ6Icn+tFuCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776442645; c=relaxed/simple;
-	bh=8apwD0Uu49O9/L0RV1+lQTrPxFIZu8qTAZBBQWMysOU=;
+	s=arc-20240116; t=1776442750; c=relaxed/simple;
+	bh=Gqz700Nrcu8eh6o0BJ1G6B6osDYiQo7TSTlizR1FQ0c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hvPvWFd1MaAYA2815HzY7O25NiZq2TUuQo/jp35r/AKeIPz575pbtdXXeRQ+V0YZhC2pr6DeWOhXI5Gj27mNkiXEHEvU7bQHfzOmlkZeMyDqAkU+4BhndM6GdOU7zFn64J3Xl4htpjwHLV5KhU/qno0+HmF36uhAlUbaMeXpKxw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X4huMo5t; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=ImBOjJ10F4HFj3WO30CJrUvlyNTp70b9NloeC3tV4bKFBJijme05ZgJt0qNALNQsYN9QCOupdSkSt8f8g/E6of9Bqdz/8xgpafPTlI68SVAGDzHc8vZAHE6eiVRA3Rt8ucD/gy2LCthGtkFKspKROKAx6LabFnrDL0rpNdGJMmU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=px7y7IT2; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X4huMo5t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75FFCC19425;
-	Fri, 17 Apr 2026 16:17:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="px7y7IT2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E4EDC19425;
+	Fri, 17 Apr 2026 16:19:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776442645;
-	bh=8apwD0Uu49O9/L0RV1+lQTrPxFIZu8qTAZBBQWMysOU=;
+	s=k20201202; t=1776442749;
+	bh=Gqz700Nrcu8eh6o0BJ1G6B6osDYiQo7TSTlizR1FQ0c=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=X4huMo5tVUupfqMqLJvJbvXWZepfaZuz0/fPjHxbWIcVpykF+xdD98DT0MVjPhftq
-	 Ib6dq2Jx2LjHcQPhXRJavO8y0KAv3jY/DY1bvhlU4Ne2Z2slSeCGsRsoqL3UXZ/Iyo
-	 vLerK9pH3UVJq/NwDmk6WgNtE1nFLGsg+jp9ajWZkZ25yfaqsvkYNENWgkaw6IGHan
-	 X1DH6gjj5fkKsV4i9RT2bIz2yGMLFrJCgEoa0a/UUOSKRKKuTdEBj0sNdCb4l64QjS
-	 dhnS/MdTFZUzqemm/Buxvhk5gl+2a9MnzD7U4uzgmU/vQJHCTAdKYG5o73Tbtwv3ES
-	 Q2uxD8ul0csHw==
-Date: Fri, 17 Apr 2026 17:17:21 +0100
+	b=px7y7IT2ZKgpKpl8/wMgrPzXILbU0LnWNA4L1I+MFVYgow91EBciFGR3J4xGfSi0r
+	 l6zL7+qRJQQBTrd7QMXuLoC/O0WLNeNzMe3b61LNyepyU7e34ZSYPWIx7iM+IIkhpj
+	 IqlkP9Fh6zlJmMTbv16dJiHPfs4Tvtk13nm0R6+wWcRllszIXQfv6lzjj8k3+n9QA/
+	 Iikjm3y2W+mCLXZ5f+EidM+kH2/wFSI3vx7mx1V6/7zlLMmZ6agq/u/CTwlWsxAa4H
+	 wFL/O+6CuQWucWUXodJlw+NOvK60pG4gkmfxxn2JHPnEUe/2r7CKnoxwFTuCzhTzxM
+	 4ui4D7XPko7Ew==
+Date: Fri, 17 Apr 2026 17:19:03 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Caleb James DeLisle <cjd@cjdns.fr>
-Cc: linux-mips@vger.kernel.org, naseefkm@gmail.com,
-	daniel.lezcano@kernel.org, tglx@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: timer: econet: Update EN751627 for
- multi-IRQ
-Message-ID: <20260417-outlet-ascent-eefba2a4aa19@spud>
-References: <20260416175101.958073-1-cjd@cjdns.fr>
- <20260416175101.958073-2-cjd@cjdns.fr>
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, Jagan Teki <jagan@edgeble.ai>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+	Marek Vasut <marex@nabladev.com>, Kael D'Alcamo <dev@kael-k.io>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: display: panel: Add compatibles for
+ Zhunyi Z40046
+Message-ID: <20260417-wisplike-seismic-380c96863444@spud>
+References: <20260417104740.259689-1-l.scorcia@gmail.com>
+ <20260417104740.259689-2-l.scorcia@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,102 +55,81 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ahSFO216kMteIe+a"
+	protocol="application/pgp-signature"; boundary="4RQNWT+XJzTeXJqp"
 Content-Disposition: inline
-In-Reply-To: <20260416175101.958073-2-cjd@cjdns.fr>
+In-Reply-To: <20260417104740.259689-2-l.scorcia@gmail.com>
 
 
---ahSFO216kMteIe+a
+--4RQNWT+XJzTeXJqp
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Apr 16, 2026 at 05:51:00PM +0000, Caleb James DeLisle wrote:
-> From conception, this driver supported EN751627 as it is the same
-> hardware that is used in EN751221. However, it was expected that
-> EN751627 would use a percpu IRQ as does EN751221, this is how it
-> works in vendor code. However upon finding that the "mti,gic" intc
-> works on EN751627 with no modification - but it provides a unique
-> interrupt per-timer, it is deemed best to make this driver use
-> multiple IRQs when on the EN751627 platform.
+On Fri, Apr 17, 2026 at 11:46:30AM +0100, Luca Leonardo Scorcia wrote:
+> The Zhunyi Z40046 is a 480x800 24-bit WVGA DSI panel based on the
+> Fitipower JD9161Z DSI controller found in the Xiaomi Mi Smart Clock
+> x04g, apparently in two different variants.
+>=20
+> The Fitipower JD9161Z LCD driver IC is very similar to the Jadard
+> JD9365DA-H3, it just uses a different initialization sequence.
+>=20
+> Since this is the first supported device from this vendor, document its
+> name to the vendor-prefixes.yaml file as well.
+>=20
+> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 
-Please drop mention of drivers here, bindings are about hardware,
-whether or not the driver uses 1 or 4 interrupts doesn't matter, the
-binding should have 4 because the hardware has 4.
-pw-bot: changes-requested
-
-Otherwise, this looks fine, so with that stuff culled
 Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
->=20
-> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
 > ---
->  .../bindings/timer/econet,en751221-timer.yaml    | 16 +++++++++++++---
->  1 file changed, 13 insertions(+), 3 deletions(-)
+>  .../devicetree/bindings/display/panel/jadard,jd9365da-h3.yaml   | 2 ++
+>  Documentation/devicetree/bindings/vendor-prefixes.yaml          | 2 ++
+>  2 files changed, 4 insertions(+)
 >=20
-> diff --git a/Documentation/devicetree/bindings/timer/econet,en751221-time=
-r.yaml b/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml
-> index c1e7c2b6afde..f338739e039c 100644
-> --- a/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml
-> +++ b/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml
-> @@ -28,8 +28,8 @@ properties:
->      maxItems: 2
+> diff --git a/Documentation/devicetree/bindings/display/panel/jadard,jd936=
+5da-h3.yaml b/Documentation/devicetree/bindings/display/panel/jadard,jd9365=
+da-h3.yaml
+> index e39efb44ed42..158388a284d9 100644
+> --- a/Documentation/devicetree/bindings/display/panel/jadard,jd9365da-h3.=
+yaml
+> +++ b/Documentation/devicetree/bindings/display/panel/jadard,jd9365da-h3.=
+yaml
+> @@ -24,6 +24,8 @@ properties:
+>            - radxa,display-10hd-ad001
+>            - radxa,display-8hd-ad002
+>            - taiguanck,xti05101-01a
+> +          - zhunyikeji,z40046-ctc
+> +          - zhunyikeji,z40046-boe
+>        - const: jadard,jd9365da-h3
 > =20
->    interrupts:
-> -    maxItems: 1
-> -    description: A percpu-devid timer interrupt shared across CPUs.
-> +    minItems: 1
-> +    maxItems: 4
-> =20
->    clocks:
->      maxItems: 1
-> @@ -52,21 +52,31 @@ allOf:
->            items:
->              - description: VPE timers 0 and 1
->              - description: VPE timers 2 and 3
-> +        interrupts:
-> +          description: An interrupt for each timer (one per VPE)
-> +          minItems: 4
->      else:
->        properties:
->          reg:
->            items:
->              - description: VPE timers 0 and 1
-> +        interrupts:
-> +          description: A percpu-devid timer interrupt shared across time=
-rs
-> +          maxItems: 1
-> =20
->  additionalProperties: false
-> =20
->  examples:
->    - |
-> +    #include <dt-bindings/interrupt-controller/mips-gic.h>
->      timer@1fbf0400 {
->          compatible =3D "econet,en751627-timer", "econet,en751221-timer";
->          reg =3D <0x1fbf0400 0x100>, <0x1fbe0000 0x100>;
->          interrupt-parent =3D <&intc>;
-> -        interrupts =3D <30>;
-> +        interrupts =3D <GIC_SHARED 30 IRQ_TYPE_LEVEL_HIGH>,
-> +                     <GIC_SHARED 29 IRQ_TYPE_LEVEL_HIGH>,
-> +                     <GIC_SHARED 37 IRQ_TYPE_LEVEL_HIGH>,
-> +                     <GIC_SHARED 36 IRQ_TYPE_LEVEL_HIGH>;
->          clocks =3D <&hpt_clock>;
->      };
->    - |
+>    reg:
+> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Doc=
+umentation/devicetree/bindings/vendor-prefixes.yaml
+> index 6339988e3805..debaec59e9a0 100644
+> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> @@ -1923,6 +1923,8 @@ patternProperties:
+>      description: Zealz
+>    "^zeitec,.*":
+>      description: ZEITEC Semiconductor Co., LTD.
+> +  "^zhunyikeji,.*":
+> +    description: Shenzhen Zhunyi Technology Co., Ltd.
+>    "^zidoo,.*":
+>      description: Shenzhen Zidoo Technology Co., Ltd.
+>    "^zii,.*":
 > --=20
-> 2.39.5
+> 2.43.0
 >=20
 
---ahSFO216kMteIe+a
+--4RQNWT+XJzTeXJqp
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeJdEQAKCRB4tDGHoIJi
-0hSOAQCaJODtAPQb5wGy//l8xDIYl60EXO9mwMqpJ7jVMXy+CwEAvkrqwFkte9qD
-UOZywla/ZGFA1/MhHGy7LTAp0dwhuQ8=
-=EmxE
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeJddwAKCRB4tDGHoIJi
+0uPcAQDiiUwHwEaOFL6lZjiJi7xuyBZVyTp5yaXHmyRpUpuuyQEAnK3zwourBQ0E
+Ha9E1aiEpbrTHZIQvv9OEnFcBhwDGAw=
+=by6q
 -----END PGP SIGNATURE-----
 
---ahSFO216kMteIe+a--
+--4RQNWT+XJzTeXJqp--
