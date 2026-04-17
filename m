@@ -1,237 +1,148 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8F143A0B38
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 18:23:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03F20487BE;
+	Fri, 17 Apr 2026 18:41:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776450196; cv=none; b=MCm5zkOZM7WZTr9AdqONvJgBUJkJfsQ8YUsZiVM8+AuVIUG2N+FGA5kNn+5Qzt2iK6OdUO3/IQXrWfIjmCPsmEzFlEl/f8YmNFHDX+SZkKJFySnu1sbcT0RTnzCfA4zFhomSIRo79Pp+Mp6V4aIFvRYR/Yxuc+Qn+SzvKNg8KVM=
+	t=1776451288; cv=none; b=gJxAI8keG2Dq5hp1WarubPPNkUxoALoYlMl/JI0N2l+VXN4OhR+DJfPPbyOR+K4nCpodFmnkCsE5cx+ttLt7GCfyj7uJsL997UKybqYUMn/F4XeROfFBHOwC7CAV+IpI2Vk25cBhG+vq9MPNoL1g7ueFkdtqbqJmXG0l1+BiK5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776450196; c=relaxed/simple;
-	bh=FOVV8ytkXqNmDOPHJRES0xYYASo8VFa6Q/ljQtjPeWQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j0X0VTBWl9PXm3O1Kmd05z2sSMJVGLmEBCkrcO54f/GajHj91j8XHjeVE+16HyZyBW2At93idf0b/CPeBza4tpTTgUCFG9P+NmSFzmWAXhnLKC47TaFzJK5cQgiA44OHS2zzbaTO0a5iwWTQJ0mFTglYsXMZzrhUsaxQCcxXOwA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=N8xeBqhb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BrABvKEY; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1776451288; c=relaxed/simple;
+	bh=5risQFavyvSUG+7hlUkPBMK3PweOdQMNAioAGmE/5Z8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Pnf0hTyOcg/sYFWVIuyFSkdu6WmOWspaT3O+VnyB4aeoSzCmfmpM7eIE5Kz3xPzyLypSczt/gyLGQsn+wVbScBqOUnAkmOy7zyAp3PwDw+B92MMgNwa0R3fd70pj8ShbXK0PtaUKAOtZSCq+jer9XhYDUUkYyIlRAqSweIQ/ghw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jO5Nmm8d; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="N8xeBqhb";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BrABvKEY"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63HG4R1O2945186
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 18:23:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=c/Vo33zTig6JD1FHHp+ufQHh
-	3tG0Ic/BRrAC/lMpdIY=; b=N8xeBqhbKm7+PectbSVf9VmQT8daYMkUTkQinlTc
-	yiYnts6LdEzn7KFk1//jEFKrFjXIfySj6IlbbewU0TYuSRXecRrooi5hpI1VQ2qU
-	dvlM8iPQpf8BvQURfDvS22w9LoYh7AbtLWU1cHUX+ejPuuzNERCAlhlBRFUMdbQJ
-	HJ/6DTkfCx2MTQ6JOYW6d1MiajiDX0PqSSfLuM3+xJ5pfNYhy4zix4hY4toCnXv7
-	DPkgALxkL+J62K0JJbdVVcpHnHg9a752f5XT7Y66B1kejBYbM3V1g6/2b0GR2WH4
-	obL7+UbJwdEb2OcYJgCzoBzWzYLlgMSmOjLG0mjIWsgKig==
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dkdgy2vu3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 18:23:11 +0000 (GMT)
-Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-60ff08dfb37so463842137.3
-        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 11:23:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776450191; x=1777054991; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=c/Vo33zTig6JD1FHHp+ufQHh3tG0Ic/BRrAC/lMpdIY=;
-        b=BrABvKEYTqlEVl6ekvCtT+PG1Nqax3EW/oqr1vahK2JjN3b6QhKxIelnzCnET/mZTe
-         up3oKzUZBhavBp4ObSYSumPvfXyBeLMDA1oAGbciRcKBQLvaVmrLjWPCyigYnGaKsA/y
-         U7o6GQmehIZIvG/pUQnYyzESkc2149Xlknl+L95l8hdui1FaZAP5hsnQZkz/8gg9D7HI
-         PXXgFucEia6gxeZA11ViFRgHERyFR5he2a3KEC/cDk0LhiUqMdRlzrWIaGkWNBCiTn6n
-         E4AsYqgycIC63FVb41dNlq6YNO5x5rNuRPVNGVIEAeheF+/11blV+nhYkUj07jz71rX6
-         CAQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776450191; x=1777054991;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=c/Vo33zTig6JD1FHHp+ufQHh3tG0Ic/BRrAC/lMpdIY=;
-        b=oZJvjE1KHvjv1AO7SfuJf9I1z7yYieq5O57B5IXNToye7zfIPdARr4q6/WIC+8kzlk
-         3zHAm6XgQ5goQEytOZ8fegGa7MmCeTHHGNOtfQsqcgLmwKZNt5DyuqRNgV17HRHbz83r
-         8YaMSlOJByHUwVxm3uRg3TUvf6VKWIGnw5cKzJSJy1y2S6XLP6Y0OjZnwwDaRmyiiTRN
-         xUHFcxzngwEvcYABx9bvdnGC0l0q0Lq7KLoQzGi+tAmY/qAofLsKaOHNDp6Y2Mb7VOjy
-         oo55fCTMWfYExfdR/tIIJAw0P1LBVBzyIJpXBaRuf5e/S0lABI4JIr2g2CIa/eFhjM1s
-         3/Pw==
-X-Forwarded-Encrypted: i=1; AFNElJ8cfaObVlVJ4kKC5ctU/IzZIOuwETidpxqxEro8zUe7lTE4e+U+70rXbdWb305qCgFBc1pUcKdjmQbf@vger.kernel.org
-X-Gm-Message-State: AOJu0YzVqjKt8D3hXJod8jWTYah0yFa0+O73ccqhJlzSq91Ocrg1BGkb
-	AtAfVkWtLQ9C2sTKH1jLZmsA5bTkPDH97X884qaUywgIPyUVrtQZuAxRM+ZvYT/ybb4KT1u2F38
-	BePcuGfRxbmzez7zTT+myOWg3hIKeDxBFhOfY5pzdeXRU/OYoo07CqnC7jmC+zaNO
-X-Gm-Gg: AeBDiesjyh/qvXtfX21XPb7N2xwDsR0EHEOKB8ix6jN5aKSMLBeSzGnGwXx9entGaJ+
-	QHw0xLrP/2P0O85+L5/IyMhcVZoLp2puOfIVtJLKJeXhfIBndOo+mlJMNhI/Zkdw5uoi5IGXc66
-	5ZNy4P0yiy3t1K6WZxlQ6eucA5UAtifOffZjGByH9rulLNN90vuH92HSBM7uJuX9fSHj/oJSmTu
-	TKoHHth//glpBrMPyRmpOUqAg1Lk8rUE8r8dwnAXFBJQnG8yVzhckgxar8Zhnkafl5j7IBZ0pe2
-	RFhXpFraMql9EnIGMULxVJ1l+X7rZuggCjhpT+sufYPYUcWKQuW724uV1TgvqTCYskq7XCpIZnM
-	tlvyM72xpjqzUH1MCQ4x43V6pUdr/E/Z5sjGG9mZD14/8VY+i2DM9ak748jKUk5Lsxs8vW2CHqu
-	RjL79K2+yJa6thP6L5kg9d5WjR8bMjbzgWnIdjJ3c+UqBtfg==
-X-Received: by 2002:a05:6102:38c9:b0:613:86e6:b2d with SMTP id ada2fe7eead31-616f7c5f0camr1810562137.21.1776450190344;
-        Fri, 17 Apr 2026 11:23:10 -0700 (PDT)
-X-Received: by 2002:a05:6102:38c9:b0:613:86e6:b2d with SMTP id ada2fe7eead31-616f7c5f0camr1810489137.21.1776450189831;
-        Fri, 17 Apr 2026 11:23:09 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-38ecb763653sm5616471fa.42.2026.04.17.11.23.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Apr 2026 11:23:08 -0700 (PDT)
-Date: Fri, 17 Apr 2026 21:23:07 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Joerg Roedel <joro@8bytes.org>,
-        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, iommu@lists.linux.dev
-Subject: Re: [PATCH 04/11] media: iris: Add helper to create a context bank
- device on iris vpu bus
-Message-ID: <sqg2db63gsjg3cxfdfbmndhxibzlprgviarbcl4l6isza36nc3@ljgg23nkuooi>
-References: <20260414-glymur-v1-0-7d3d1cf57b16@oss.qualcomm.com>
- <20260414-glymur-v1-4-7d3d1cf57b16@oss.qualcomm.com>
- <ie6dad3xewm25gdrqqne2fsroopu3jwgrqmu54sfzjliis6mo5@6qsgagvyynwx>
- <b0ba2172-3f66-c912-29e9-0a48b4480987@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jO5Nmm8d"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7D608C2BCB3;
+	Fri, 17 Apr 2026 18:41:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776451287;
+	bh=5risQFavyvSUG+7hlUkPBMK3PweOdQMNAioAGmE/5Z8=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=jO5Nmm8dpQj3FhYE0twDtq/gJTZC62DBB0F0CuWWyDeT5G5ZLfxZ+uN6B74QLb0Em
+	 fY7Ss1BE9+tcAzJlBxYef4yGOPUA6zowYdjRbrO1GNQjZs5Kq8w/IdbIYvdwzRGcWc
+	 lPp7x7m7h1rHAznsKuaM6rCK2mfxdM6hUIfhXsyuQL3biQcfh7+g8H2rdSm2XrnzwN
+	 Zo7JdssZ0mQFx+wJDSDBQMtDq5IucmHqbCnFDwRyEvB1/teEKh5psXNpcynvVnDTKX
+	 /tMDqkXyiitQorrN26SW00jaz5jCcGQq+epJ0A5AlKa5YKRpK0xew0kiajRjay6Tbr
+	 TIT16bqgcMjKg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 682C0F8D75C;
+	Fri, 17 Apr 2026 18:41:27 +0000 (UTC)
+From: Vishwas Rajashekar via B4 Relay <devnull+vishwas.dev.vrajashkr.com@kernel.org>
+Date: Sat, 18 Apr 2026 00:11:09 +0530
+Subject: [PATCH v3] dt-bindings: iio: gyroscope: add mount-matrix for
+ bmg160
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b0ba2172-3f66-c912-29e9-0a48b4480987@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: JZD14WxRhTkguEni291dcgbJpVAP194u
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE3MDE4NCBTYWx0ZWRfX+WJPcLQT+KIe
- JSHR+XMyHIT+dLpYGGkoxApft6uIoPLZT7ZkN+xHsqhQCIggS5h+xQlcZaZ5D+XmInbuGWW6uR6
- 8or9pTXU4Ed6iy4rrPvDoxxFzC3Mex21WDh3lfy6y3j++8yGbsm6Nq4DBcbbVaPYOOCnhE2rBlB
- 3fMbzxfecOMI7jwRRYOVZripF8LOOM9zNK8NBJ/QKPzeVbHNdYk0MZAojId6nVs4bj8Iq24srdw
- 1Nx17K7HFub1InVQgrIxk69IOrvMb7OqsG3c+SNSRsV2EhGTifeGE2UFbsbTl32xqY8YdrVyIum
- SnBmWso2XwzuvQaqcQRKUzE9vh6wi5Jcfi4nDUQ6v2fbPhkOqvDLd9THWtCEsl6Rk0Mam1CNGR/
- jvluK6WkwbPiaoD/0wer3qM3HnWAJxVnfYmWwQmY4HoWVGamjnPaUxCkQRNQL3SRUwsPXmXRU5C
- xc1aEv0kLgmR+fx2/ew==
-X-Authority-Analysis: v=2.4 cv=GN041ONK c=1 sm=1 tr=0 ts=69e27a8f cx=c_pps
- a=P2rfLEam3zuxRRdjJWA2cw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=qp5--WL1MiOyaZoWmgIA:9 a=CjuIK1q_8ugA:10 a=ODZdjJIeia2B_SHc_B0f:22
-X-Proofpoint-GUID: JZD14WxRhTkguEni291dcgbJpVAP194u
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-17_01,2026-04-17_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 spamscore=0 impostorscore=0 suspectscore=0
- lowpriorityscore=0 malwarescore=0 adultscore=0 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604170184
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260418-bmg160-mount-matrix-dt-binding-v3-1-ce8020ecbf9a@vrajashkr.com>
+X-B4-Tracking: v=1; b=H4sIAMR+4mkC/4WOQQ6CMBBFr0K6dgytMIIr72FcQDvAaCimLQ3Gc
+ HdBY2LcuHzJz3v/ITw5Ji8OyUM4iux5sAvsNonQXWVbAjYLC5UqTDOZQd23ElPoh9EG6KvgeAI
+ ToGZr2LZAezTGUJkViGKR3Bw1PL0Cp/Ob/VhfSIfVui469mFw99eDKNfdJ5b/i0UJElJSushLz
+ IjwGF11qXx3dVs99GINRvWtxL9KtSgJUTe5bpqCil/lPM9PO6E29TUBAAA=
+X-Change-ID: 20260414-bmg160-mount-matrix-dt-binding-e76ddde94866
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ "H. Nikolaus Schaller" <hns@goldelico.com>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, luca@lucaweiss.eu, 
+ Vishwas Rajashekar <vishwas.dev@vrajashkr.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776451286; l=2793;
+ i=vishwas.dev@vrajashkr.com; s=20260414; h=from:subject:message-id;
+ bh=0hFO4pVSk29VQGp7JRnLEM4OixgjM26nPl8qocDmLp8=;
+ b=mT7mV223BgKj7ZWEZJn3VqZ2EIir63jVXxPLfx9vXSf2O8OgVVd6O+ftcBRxN7lLdJ6rW/9m6
+ HAHcRbKh0a2DmtX84n4DqNiVFG1X2kkMLKNkkGdrz7hEVDB2w3tf85Q
+X-Developer-Key: i=vishwas.dev@vrajashkr.com; a=ed25519;
+ pk=OvZgoGVJ7ofrIn3w/YijdoJ0IexAy1kREY51mGZPm9M=
+X-Endpoint-Received: by B4 Relay for vishwas.dev@vrajashkr.com/20260414
+ with auth_id=734
+X-Original-From: Vishwas Rajashekar <vishwas.dev@vrajashkr.com>
+Reply-To: vishwas.dev@vrajashkr.com
 
-On Fri, Apr 17, 2026 at 08:49:44PM +0530, Vishnu Reddy wrote:
-> 
-> On 4/14/2026 8:48 PM, Dmitry Baryshkov wrote:
-> > On Tue, Apr 14, 2026 at 10:30:00AM +0530, Vishnu Reddy wrote:
-> > > From: Vikash Garodia<vikash.garodia@oss.qualcomm.com>
-> > > 
-> > > Add a helper function to allocate and register context bank (CB) device
-> > > on the iris vpu bus. The function ID associated with the CB is specified
-> > > from the platform data, allowing the bus dma_configure callback to apply
-> > > correct stream ID mapping when device is registered.
-> > > 
-> > > Signed-off-by: Vikash Garodia<vikash.garodia@oss.qualcomm.com>
-> > > Signed-off-by: Vishnu Reddy<busanna.reddy@oss.qualcomm.com>
-> > > ---
-> > >   drivers/media/platform/qcom/iris/iris_resources.c | 33 +++++++++++++++++++++++
-> > >   drivers/media/platform/qcom/iris/iris_resources.h |  1 +
-> > >   2 files changed, 34 insertions(+)
-> > > 
-> > > diff --git a/drivers/media/platform/qcom/iris/iris_resources.c b/drivers/media/platform/qcom/iris/iris_resources.c
-> > > index 773f6548370a..a25e0f2e9d26 100644
-> > > --- a/drivers/media/platform/qcom/iris/iris_resources.c
-> > > +++ b/drivers/media/platform/qcom/iris/iris_resources.c
-> > > @@ -6,6 +6,7 @@
-> > >   #include <linux/clk.h>
-> > >   #include <linux/devfreq.h>
-> > >   #include <linux/interconnect.h>
-> > > +#include <linux/iris_vpu_bus.h>
-> > >   #include <linux/pm_domain.h>
-> > >   #include <linux/pm_opp.h>
-> > >   #include <linux/pm_runtime.h>
-> > > @@ -141,3 +142,35 @@ int iris_disable_unprepare_clock(struct iris_core *core, enum platform_clk_type
-> > >   	return 0;
-> > >   }
-> > > +
-> > > +static void iris_release_cb_dev(struct device *dev)
-> > > +{
-> > > +	kfree(dev);
-> > > +}
-> > > +
-> > > +struct device *iris_create_cb_dev(struct iris_core *core, const char *name, const u32 *f_id)
-> > Please move into the bus code and make it generic enough.
-> Do you suggest to add a wrapper to pass the varying inputs to the generic
-> bus, something like this
-> struct device* create_and_register_device(dma_mask, parent_dev, *release,
-> dev_name,...)
+From: Vishwas Rajashekar <vishwas.dev@vrajashkr.com>
 
-Definitely not the release function. The devname is also not that
-important. The rest, yes, you are correct.
+The mount-matrix property supplies a 3x3 matrix that is used
+to transform the values from the gyroscope to get vector
+values that are relative to the way the sensor has been mounted
+on the device. When the property is not specified, the identity
+matrix is used.
 
-> > > +{
-> > > +	struct device *dev;
-> > > +	int ret;
-> > > +
-> > > +	dev = kzalloc_obj(*dev);
-> > > +	if (!dev)
-> > > +		return ERR_PTR(-ENOMEM);
-> > > +
-> > > +	dev->release = iris_release_cb_dev;
-> > > +	dev->bus = &iris_vpu_bus_type;
-> > > +	dev->parent = core->dev;
-> > > +	dev->coherent_dma_mask = core->iris_platform_data->dma_mask;
-> > > +	dev->dma_mask = &dev->coherent_dma_mask;
-> > Would you also need to set the of_node? See
-> > device_set_of_node_from_dev()
-> 
-> It might be needed for FastRPC as they are following sub node approach, Iris
-> does not need.
+This change adds mount-matrix as an optional property to the
+dt-bindings for the bmg160 gyroscope.
 
-Wouldn't it save you from passing it to of_dma_configure_id()?
+Signed-off-by: Vishwas Rajashekar <vishwas.dev@vrajashkr.com>
+---
+The bmg160 driver reads an optional mount-matrix using
+"iio_read_mount_matrix" in "bmg160_core_probe" and stores
+this orientation data in "struct bmg160_data". As the "mount-matrix"
+property is used by the driver, this change proposes to add it to
+the corresponding dt-bindings.
+---
+Changes in v3:
+- Addressed review feedback: updated the commit message to indicate
+  relevance to hardware and remove references to the Linux driver.
+- Link to v2: https://patch.msgid.link/20260416-bmg160-mount-matrix-dt-binding-v2-1-e66cf5cff8e8@vrajashkr.com
 
-> > > +
-> > > +	dev_set_name(dev, "%s", name);
-> > > +	dev_set_drvdata(dev, (void *)f_id);
-> > > +
-> > > +	ret = device_register(dev);
-> > > +	if (ret) {
-> > > +		put_device(dev);
-> > > +		return ERR_PTR(ret);
-> > > +	}
-> > > +
-> > > +	return dev;
-> > > +}
-> > > diff --git a/drivers/media/platform/qcom/iris/iris_resources.h b/drivers/media/platform/qcom/iris/iris_resources.h
-> > > index 6bfbd2dc6db0..4a494627ff23 100644
-> > > --- a/drivers/media/platform/qcom/iris/iris_resources.h
-> > > +++ b/drivers/media/platform/qcom/iris/iris_resources.h
-> > > @@ -15,5 +15,6 @@ int iris_unset_icc_bw(struct iris_core *core);
-> > >   int iris_set_icc_bw(struct iris_core *core, unsigned long icc_bw);
-> > >   int iris_disable_unprepare_clock(struct iris_core *core, enum platform_clk_type clk_type);
-> > >   int iris_prepare_enable_clock(struct iris_core *core, enum platform_clk_type clk_type);
-> > > +struct device *iris_create_cb_dev(struct iris_core *core, const char *name, const u32 *f_id);
-> > >   #endif
-> > > 
-> > > -- 
-> > > 2.34.1
-> > > 
+Changes in v2:
+- Addressed review feedback: add mount-matrix example for bmg160
+- Link to v1: https://patch.msgid.link/20260415-bmg160-mount-matrix-dt-binding-v1-1-0e2c85964ee6@vrajashkr.com
 
--- 
-With best wishes
-Dmitry
+To: Jonathan Cameron <jic23@kernel.org>
+To: David Lechner <dlechner@baylibre.com>
+To: Nuno Sá <nuno.sa@analog.com>
+To: Andy Shevchenko <andy@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+Cc: linux-iio@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+ Documentation/devicetree/bindings/iio/gyroscope/bosch,bmg160.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/iio/gyroscope/bosch,bmg160.yaml b/Documentation/devicetree/bindings/iio/gyroscope/bosch,bmg160.yaml
+index 3c6fe74af0b8..ec97778cca78 100644
+--- a/Documentation/devicetree/bindings/iio/gyroscope/bosch,bmg160.yaml
++++ b/Documentation/devicetree/bindings/iio/gyroscope/bosch,bmg160.yaml
+@@ -22,6 +22,9 @@ properties:
+   vdd-supply: true
+   vddio-supply: true
+ 
++  mount-matrix:
++    description: an optional 3x3 mounting rotation matrix.
++
+   spi-max-frequency:
+     maximum: 10000000
+ 
+@@ -52,6 +55,9 @@ examples:
+             reg = <0x69>;
+             interrupt-parent = <&gpio6>;
+             interrupts = <18 IRQ_TYPE_EDGE_RISING>;
++            mount-matrix = "0", "1", "0",
++                           "1", "0", "0",
++                           "0", "0", "1";
+         };
+     };
+ ...
+
+---
+base-commit: 591cd656a1bf5ea94a222af5ef2ee76df029c1d2
+change-id: 20260414-bmg160-mount-matrix-dt-binding-e76ddde94866
+
+Best regards,
+--  
+Vishwas Rajashekar <vishwas.dev@vrajashkr.com>
+
+
