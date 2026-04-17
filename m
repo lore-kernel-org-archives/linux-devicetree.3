@@ -1,102 +1,245 @@
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8859397E91
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 12:02:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF0B637107F;
+	Fri, 17 Apr 2026 12:13:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776427333; cv=none; b=ad0Jr+SSsaGEAAqNVnJA7gn/nzcaRu2HONbjjUgO+Yon/GVi01QCmGHKlWIb4NEXOM/rE81Up2rOBvZduyaWDlorbZ0IN6iBgz/OQi9DXABN66i0oyB8TJi4DBhYX7Km+EozvGWXYdA3pXzjUV/56O37PYPKCJS5FGOKEe+HYRc=
+	t=1776428024; cv=none; b=HRJmk7LDDKG+LGwa46/3PGOddwjWhapsvpkkiNu5AG9Hlqrvw9/DIvmdxNQnahHfoAZECNfwDX8wYMHTc6AMVQyxvwLbKNH+SiCVbEfheOI0obkjyu3Qb+BwDlYZ3Kq3tKGJ7khQX4HYWJnmPv6iAMf9AUYRG1sKrpHTwLZkQ28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776427333; c=relaxed/simple;
-	bh=t6eZXyHNiWJlMPxM72NMbuvVY0gQaMo5L301Abw+9Es=;
-	h=From:To:Cc:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
-	 Content-Type:References; b=m0Z38RdeboSxTnwBDBcknl6WEx7MgSEeG9HBgUFFL/h2yCGg/ri5Oapr77TpoOR/2lMeYzMKXu4TzFfTmHEmwtEqP1eE+zyCrnP5tSI0VmhPXnrU3BLsHzQ2m+S26FFJsq4LXoaMVCj8zjIjMB54iG9hEb6CFXzz9nhF7QeXf2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=uXtjwSbA; arc=none smtp.client-ip=203.254.224.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1776428024; c=relaxed/simple;
+	bh=6vV0tPd+iDgulVpOy/wCn3Ur6rPXEv+SBjpAHinR6GA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=G5DBcWlZ8tx+a8OjWkISI3Qr4prYvtzmZHltLbCGutSWlslPi6RGhIuu1eO3xzHuJaVkdJwnF+YaYXcNyXzJ8goUQ/U6KDBwKGw+m/O1fxnyX/P7NQTvfVeyhWZMYyBAi3y9zLJE3MlWsB6qKnyvSbSSV5n1f5uLH1JAUm4bLpY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LK8MztV+; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="uXtjwSbA"
-Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20260417120210epoutp02ea8c302bd2c3547e918987086c5bddb8~nIz6rlCxY2137221372epoutp02Z
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 12:02:10 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20260417120210epoutp02ea8c302bd2c3547e918987086c5bddb8~nIz6rlCxY2137221372epoutp02Z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1776427330;
-	bh=t6eZXyHNiWJlMPxM72NMbuvVY0gQaMo5L301Abw+9Es=;
-	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
-	b=uXtjwSbAib6XoQjCQgQ78lt0aB8YO/+qZUvT8NpBjbGzzITK0/wjiGlxZZM6h4k8f
-	 hgaDFhZeL/JCOl3qI5vgaAXs8WDSQ5PPoHRY9GubM3fZNSuhoKpt34QlODyrUrAULe
-	 M4kdQBw3Ijdwl2+YXJeA46IjTDhcOs7YZ21iab7M=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
-	20260417120209epcas5p2c7b7b1351fa2fb6592e924044fe204da~nIz6QPy7D1732117321epcas5p2A;
-	Fri, 17 Apr 2026 12:02:09 +0000 (GMT)
-Received: from epcas5p4.samsung.com (unknown [182.195.38.89]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4fxtm04wSkz3hhT3; Fri, 17 Apr
-	2026 12:02:08 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260417120208epcas5p1c0a1fdff70a9d0b153c785d4e9ad40ad~nIz43G8ib2498824988epcas5p1W;
-	Fri, 17 Apr 2026 12:02:08 +0000 (GMT)
-Received: from INBRO002756 (unknown [107.122.3.168]) by epsmtip2.samsung.com
-	(KnoxPortal) with ESMTPA id
-	20260417120205epsmtip25f2452928dcab35412aea6c8c3ff68fc~nIz2vLA7w0953009530epsmtip2i;
-	Fri, 17 Apr 2026 12:02:05 +0000 (GMT)
-From: "Alim Akhtar" <alim.akhtar@samsung.com>
-To: <avri.altman@wdc.com>, <bvanassche@acm.org>, <robh@kernel.org>,
-	<martin.petersen@oracle.com>, <krzk+dt@kernel.org>
-Cc: <sowon.na@samsung.com>, <peter.griffin@linaro.org>,
-	<linux-scsi@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-samsung-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	"'Krzysztof	Kozlowski'" <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20260417121452.827054-3-alim.akhtar@samsung.com>
-Subject: RE: [PATCH v2 2/4] dt-bindings: ufs: exynos: add ExynosAutov920
- compatible string
-Date: Fri, 17 Apr 2026 17:32:03 +0530
-Message-ID: <27b401dcce62$03bd3280$0b379780$@samsung.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LK8MztV+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1776428022; x=1807964022;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=6vV0tPd+iDgulVpOy/wCn3Ur6rPXEv+SBjpAHinR6GA=;
+  b=LK8MztV+MBL+zfTSwQY/RKRhpzpgNR8dMJP0CeftRCkMoqQGa+Z/LE5D
+   lVgZdHgrDgg08II8yxJ6uJKFV7GHgpubcAiV06PW4Py7p7ziaN9pIb6D8
+   j8tvkGOXRAxxGiHaGsrzpe+sXTYCY2akouPn3nnG87M+HBWeHDLH7ooEp
+   OxO4Y6rZEsHiMFEDp2ajPKdS6w79NA+uhRyYrFfu0jsqYZ9SoSdoMkRtT
+   XOsNK9bDbeAXSsr517eRYLd9+uqd+ukuIQkkB/rvsejvTN9jMyL/5TLla
+   fDV4G5d37sKKpmf79BhbwrBGLZCBm/4Fs637jA5mFnzWGQGhIjrnOiMTP
+   Q==;
+X-CSE-ConnectionGUID: aT8muja8QrmWfIOCxSPKGw==
+X-CSE-MsgGUID: Q9JLF0hPS1ybxVE1PxZLKg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11761"; a="77350876"
+X-IronPort-AV: E=Sophos;i="6.23,184,1770624000"; 
+   d="scan'208";a="77350876"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Apr 2026 05:13:42 -0700
+X-CSE-ConnectionGUID: dxklX58ZSlSVM03O5JizWQ==
+X-CSE-MsgGUID: qwUNsMKoS8egrTXkrJ1FHg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,184,1770624000"; 
+   d="scan'208";a="227891219"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.170])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Apr 2026 05:13:38 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id DFF30120E0E;
+	Fri, 17 Apr 2026 15:13:57 +0300 (EEST)
+Date: Fri, 17 Apr 2026 15:13:57 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+Subject: Re: [PATCH v1 5/5] dt-bindings: leds: Document TI LM3560 Synchronous
+ Boost Flash Driver
+Message-ID: <aeIkBR4cx54OVmGo@kekkonen.localdomain>
+References: <20260417114226.100033-1-clamor95@gmail.com>
+ <20260417114226.100033-6-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQGOvTbkBrgGLxEZFB5FxnehV1lv0gFmXzAQAmEqbtm2YQzccA==
-Content-Language: en-us
-X-CMS-MailID: 20260417120208epcas5p1c0a1fdff70a9d0b153c785d4e9ad40ad
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-543,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260417115842epcas5p1fb06d6f1663b97b1eae3aafaa6a3de0b
-References: <20260417121452.827054-1-alim.akhtar@samsung.com>
-	<CGME20260417115842epcas5p1fb06d6f1663b97b1eae3aafaa6a3de0b@epcas5p1.samsung.com>
-	<20260417121452.827054-3-alim.akhtar@samsung.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260417114226.100033-6-clamor95@gmail.com>
 
+Hi Svyatoslav,
 
+Thanks for the set.
 
-> -----Original Message-----
-> From: Alim Akhtar <alim.akhtar=40samsung.com>
-> Sent: Friday, April 17, 2026 5:45 PM
-> To: avri.altman=40wdc.com; bvanassche=40acm.org; robh=40kernel.org;
-> martin.petersen=40oracle.com; krzk+dt=40kernel.org
-> Cc: sowon.na=40samsung.com; peter.griffin=40linaro.org; linux-
-> scsi=40vger.kernel.org; devicetree=40vger.kernel.org; linux-samsung-
-> soc=40vger.kernel.org; linux-kernel=40vger.kernel.org; Krzysztof Kozlowsk=
-i
-> <krzysztof.kozlowski=40linaro.org>; Alim Akhtar <alim.akhtar=40samsung.co=
-m>
-> Subject: =5BPATCH v2 2/4=5D dt-bindings: ufs: exynos: add ExynosAutov920
-> compatible string
->=20
-> From: Sowon Na <sowon.na=40samsung.com>
->=20
-> Add samsung,exynosautov920-ufs compatible for ExynosAutov920 SoC.
->=20
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski=40linaro.org>
-Just noticed that this email is no longer valid, In case there is a re-spin=
-, will correct this.
-Sorry for the noise.=20
+This patch should be the first one in the set, or at least before those
+using the bindings defined here.
 
+On Fri, Apr 17, 2026 at 02:42:26PM +0300, Svyatoslav Ryhel wrote:
+> Document TI LM3560 Synchronous Boost Flash Driver used for camera flash
+> LEDs.
+> 
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  .../devicetree/bindings/leds/ti,lm3560.yaml   | 134 ++++++++++++++++++
+>  1 file changed, 134 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/leds/ti,lm3560.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/leds/ti,lm3560.yaml b/Documentation/devicetree/bindings/leds/ti,lm3560.yaml
+> new file mode 100644
+> index 000000000000..460ea1fbc1e5
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/leds/ti,lm3560.yaml
+> @@ -0,0 +1,134 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/leds/ti,lm3560.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: TI LM3560 Synchronous Boost Flash Driver
+> +
+> +maintainers:
+> +  - Svyatoslav Ryhel <clamor95@gmail.com>
+> +
+> +description:
+> +  The LM3560 is a 2-MHz fixed frequency synchronous boost converter with two
+> +  1000-mA constant current drivers for high-current white LEDs. The dual high-
+> +  side current sources allow for grounded cathode LED operation and can be
+> +  tied together for providing flash currents at up to 2 A through a single LED.
+> +  An adaptive regulation method ensures the current for each LED remains in
+> +  regulation and maximizes efficiency.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - ti,lm3559
+> +      - ti,lm3560
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  '#address-cells':
+> +    const: 1
+> +
+> +  '#size-cells':
+> +    const: 0
+> +
+> +  enable-gpios:
+> +    description: GPIO connected to the HWEN pin.
+> +    maxItems: 1
+> +
+> +  vin-supply:
+> +    description: Supply connected to the IN line.
+> +
+> +  ti,peak-current-microamp:
+> +    description:
+> +      The LM3560 features 4 selectable current limits 1.6A, 2.3A, 3A, and 3.6A.
+> +      When the current limit is reached, the LM3560 stops switching for the
+> +      remainder of the switching cycle.
+> +    enum: [16000000, 23000000, 30000000, 36000000]
+> +    default: 36000000
+> +
+> +  ti,max-flash-timeout-ms:
+> +    description:
+> +      Maximum flash timeout in ms with step 32ms.
+> +    minimum: 32
+> +    maximum: 1024
+> +    default: 1024
+> +
+> +patternProperties:
+> +  '^led@[01]$':
+> +    description: LED control bank nodes.
+> +    $ref: /schemas/leds/common.yaml#
+> +    unevaluatedProperties: false
+> +
+> +    properties:
+> +      reg:
+> +        description: Control bank selection (0 = bank A, 1 = bank B).
+> +        maximum: 1
+> +
+> +      ti,max-flash-current-microamp:
+> +        description:
+> +          Maximum flash current in uA with step 62500uA.
+> +        minimum: 62500
+> +        maximum: 1000000
+> +        default: 1000000
+> +
+> +      ti,max-torch-current-microamp:
+
+Don't the LED flash bindings already have standardised properties for
+these?
+
+> +        description:
+> +          Maximum flash current in uA with step 31250uA.
+> +        minimum: 31250
+> +        maximum: 250000
+> +        default: 250000
+> +
+> +    required:
+> +      - reg
+
+I'd say the max current properties are required as well, same for the
+timeouts. Or make the lowest the default. The lowest values are very seldom
+used in practice though.
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - '#address-cells'
+> +  - '#size-cells'
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    i2c {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        led-controller@53 {
+> +            compatible = "ti,lm3560";
+> +            reg = <0x53>;
+> +
+> +            enable-gpios = <&gpio 28 GPIO_ACTIVE_HIGH>;
+> +            vin-supply = <&vdd_3v3_sys>;
+> +
+> +            ti,peak-current-microamp = <16000000>;
+> +            ti,max-flash-timeout-ms = <1024>;
+> +
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            led@0 {
+> +                reg = <0>;
+> +
+> +                label = "white::flash";
+> +                linux,default-trigger = "flash";
+> +
+> +                ti,max-flash-current-microamp = <562500>;
+> +                ti,max-torch-current-microamp = <156250>;
+> +            };
+> +
+> +            led@1 {
+> +                reg = <1>;
+> +
+> +                label = "yellow::flash";
+> +                linux,default-trigger = "flash";
+> +
+> +                ti,max-flash-current-microamp = <562500>;
+> +                ti,max-torch-current-microamp = <156250>;
+> +            };
+> +        };
+> +    };
+
+-- 
+Kind regards,
+
+Sakari Ailus
