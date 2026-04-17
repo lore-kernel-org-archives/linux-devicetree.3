@@ -1,227 +1,108 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic301-20.consmr.mail.gq1.yahoo.com (sonic301-20.consmr.mail.gq1.yahoo.com [98.137.64.146])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E8A031B830
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 05:24:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 736DD31B830
+	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 05:25:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=98.137.64.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776403455; cv=none; b=J1N4Daruj4YaQ8i9Hi4yEt2WFU/Y1PEIh9nwD2kUYc23tGfeh7BPZ4PgvM0huFwn59pXBG1UFQWcdpuw4E9cBL19E1OpQCg0XGx5bxKnAmaP16y2x9z1YmI4SPbMwCT5DqyQf3vI8T7ePgZvDDr3oSKhwh/XTazrvm4XhxSYZaU=
+	t=1776403545; cv=none; b=eVpb1yjYQgvoPcntKaAb+rd4GHSI5tjsLUfADex6z+NdT/dM7+ppp1Qq/g36C0H4gxfLThzuIp9zZabbnISTq0pduuF0ed77QjpBzRITAY/u6/YYtOC9CUPWpN5QJBD1ffUn5lINML0XZQtdW4Kol1x8e4q/XSqukSH6iYoOMQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776403455; c=relaxed/simple;
-	bh=jGOtRlgc7tII7CGpwyewueifmpvFdF9A/vqjXaUAVGY=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=NRciphGbeqzsGb79uGB9eWu2mJeQJBrwOPHkoXBFFS6mqw+48cWBOXOVM3T2u03NBhdRs75ncat8QpaxAliu8XbeXNBG6t1kcq7HwIDfcPk1IjOpd+BmctDx2hWbdn+gH1XAFogCPh4N/WGtoVjFcOdxPtml5EYSJUisE93bUv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oWcbfert; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WIDcTTtU; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1776403545; c=relaxed/simple;
+	bh=lqRcrFalZmTwDqqlPgrjBpSpxBFJWhSFvtK9XK9FksA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:References; b=cqVV5Vlz5GH5UpkpUCCQ2h5qUi3X4/NjFzEx/WV7K13A9E7N8pLIk/ghVyoJrf980Xm8mqHcbJlO8JbdKpYu1sBP/SvX4hZoLdxoIP0T5AiL+AuJKd6LjWducBut5Tta/INM2kdTsbRfbX0qVncyH4BrzoyYO1FfPVHKStGHb7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=dc8l0XK0; arc=none smtp.client-ip=98.137.64.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oWcbfert";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WIDcTTtU"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63H185KC667583
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 05:24:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	eBieD+yFwPB8d0ibsPHTSSGgmXv2ocvr84vGd67hR8U=; b=oWcbfertka83hM8P
-	/eKpkATLUXVVJ70pq3erAT62vdBqLkYhTyg2z9ABoLDDve39fAQqiA3pQzV7mXAj
-	M+hJtF639MJCeVymUJmuqWSxvagCw7NcucQtLUtlhWVUgwMgdfzSh1wtQH+Fk9Qb
-	u3+FG3untQ2BzddvrGAWryC2I/pDDx+Q2IGiOALcfKXgnL8eszuRe7zLX3DQkhVN
-	OdHHjrDDuin0HwidygdfoTCrTQ1UOHOSktYi/auWqRYLjWbNIWYl8FDR1t8elHfl
-	RQi30FGk5Tdr067TBVhikVoj9wVdS9d7f9FMQqGXcDXk735t53CNqKWMNLRMIrb9
-	4iXZtQ==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dkaxcrm1v-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 05:24:13 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2b2d83e7461so5274315ad.3
-        for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 22:24:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776403452; x=1777008252; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=eBieD+yFwPB8d0ibsPHTSSGgmXv2ocvr84vGd67hR8U=;
-        b=WIDcTTtUkALlmE3W9Lwm27TUr6eseR1ThMhtbze24OkZ1S8yEWZlxQxMTVKKtbtsKb
-         BlaZ6/B6kXPLuwIxOGtaERrYbFqxEXJ7UVbzRvBruZG35d545AWQUW3zX7HkA848ypBj
-         lPwE012oZQmwpJC1dC4YoYpDhJYC5h13uJinWV5YX4khE8iCPcJ8vMDTtTI+WknKufl6
-         GkTWgyg9VaE7pdIsSc9CAIsR+bpCP3z8D2AC84C1JrQfJoF8aLMriHFSn9EreVfzxaVb
-         zp+J+U7OOgYgwk4H6C1lp+TeoimUvIkbw4NyqEG8e/s/5+he+5EANbRz2pC8/xCefu5H
-         c8sQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776403452; x=1777008252;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=eBieD+yFwPB8d0ibsPHTSSGgmXv2ocvr84vGd67hR8U=;
-        b=htH03bEVhNbdTe/bHfATQkfKmDRNe8uMfG7/lf/YdDZbhkZMoKcNKBdaRbN5Nu64YO
-         F+POBYPVb5wE4kPQf/KZ9eFoxM3V118ufZFkpM/yFgvbBmKOH1GJqpsgyenzk/CNnr6z
-         qaQ9G/BvdoQWCGSdnl1TYNeGlFiXqtWCkf2wAlL5fZr5WjS3zMKJUujujNJvdHc+WRUB
-         B9B41B4qIgCuVDXe06L77DJMqKCJB9cf/B04yiTT26kBHHwhi/3FTkg4BfZfc5jHL83x
-         SscMV2V5/TRnohq6HD/o2UbBnwJbIo0YiIGZZv/qMOwb1l7AWZlHSILNWhpK6ee/b+WK
-         m/RQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+M1RkVjhj+14KkjK5benwIGxKYVJNU0WCxCTtbXaVZWjINlygkKDfqYJsi2SAmLKDt6ow3AAyPdJ20@vger.kernel.org
-X-Gm-Message-State: AOJu0YzdsFi884zgBIVcFSMLBZxy/hZEaCPIivt08xsDuTWB2xVAYexi
-	jN5JnuO0QGCF8I3jqQACCdbN3FqUO33+eY6E+aSus9wV45c24R8lxRpOxB/MHjp+FutQCTTli9t
-	zW0uJOxH1UaNsNSrLdBRW/rhGhtvGFReldzfaGk5bpcNknkWKVnHUU6LRyI2PFJjDCxJe8N6FOA
-	M=
-X-Gm-Gg: AeBDieuhNJXklsbYLNoDG9R/ZbM5mZKkvFxCxf3Z0wOLE7ctbRTBHme0EnkRCu0lHwJ
-	DDXBYtD06zZAIwnG1FYA5PBrOMCjKKrRmtoAzcO6gD7UnrJIn+Mmx8c+NJ7hmX2l99boXEWduO5
-	e8ZnLC9b0zAajxwWM9UeFMuk+TqKOBTYklt0XLZ3yWVDFqY8dhasoQRG9fim1DCbcSOUDcIWdE4
-	6z7JtGS9k6izEFPIIfM0ZnbCvafnMKQJDpaWdjl9ZXvopvX5Sb5tHIUuSJK9tVugClW1bt3rU2c
-	P4ttJVn2+HpYXdoq7lkTaeTicbTK/lzJ9UVeh+OEvmVmjMoEvcfVGQTI1u4ekqoP/Rye43d1H8/
-	QgWHzv2xV9z9TNLTP/j1u7GzF2uxXU3ANK31e+y+E1nmd56HiJQy44E5EinjD4+qFNShFi5Z3KD
-	Bt9UKefTPDU9QD3sRLo3R4BYt1Cw==
-X-Received: by 2002:a17:903:48e:b0:2b2:aa93:cc5f with SMTP id d9443c01a7336-2b5f9e9a38fmr10441085ad.10.1776403451838;
-        Thu, 16 Apr 2026 22:24:11 -0700 (PDT)
-X-Received: by 2002:a17:903:48e:b0:2b2:aa93:cc5f with SMTP id d9443c01a7336-2b5f9e9a38fmr10440945ad.10.1776403451333;
-        Thu, 16 Apr 2026 22:24:11 -0700 (PDT)
-Received: from [10.133.33.249] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b5faa32ad8sm7118215ad.31.2026.04.16.22.24.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 16 Apr 2026 22:24:10 -0700 (PDT)
-Message-ID: <48bbcc34-f5bf-4ada-8210-b115f72ee850@oss.qualcomm.com>
-Date: Fri, 17 Apr 2026 13:24:07 +0800
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="dc8l0XK0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1776403538; bh=B9BNCvCcJON6w4dWFj1ORo2p50udYVqX7VweGTT9oyI=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=dc8l0XK0puB7604jmdZvuJWf3SvcG9wPpqiecPWzyfb5w4pzM0vfQOuenZkgCM2JFpPLB+A8pqiwS9m1LuqInGkTASO0ZDxcuMbIw2x1uZikHFrZMAlilqMZQSEqO+2AHxjNvtvHh2bI+CRMn0Ll4X7yfb/RmXSDwjWbnRlAf4G68eicmt1Clsngd8DOxrqhraTGciMAb73uPrV/hBCIR514F0+JN1RJUIFSh+Fmyt/FnKwgPdOncX75oxZeBA3e/e5NdYB1PCc7s4N1k384/BzGDxF6Huo8LvdiJrhJg1X0SE37NypRaGvzdPWX5bxYJAVgMdTOeH9qJL7Imr2G1g==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1776403538; bh=n41WJO0RMuBtRwkaLj3Z0dtfhoIHqauia2NjVgORpFX=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=T7M02xJmCL/xTqk9LoPY33ha3Vgkaeg7uYR/1hDmPLAe7mVAcJe5mBLVJ/bqRc9whz28g7UomNxZY6f9Ea7nLu2JLS419L7RW1AhZ5L1UOxOY/tc0ZM6YNB0oneLsc3/04gVdsLQ3HAGWAXGQ1xsj0RsKo7OPgZNv3cSSO+wLoaBJvBhER4dXVw8sstJTlBQJVGqllXxEYqzh05Ayt9EDKyoJadCe64A7TJRyLMfZLetB9J8zfOtCUm/ylPr/TSj7qtSU64xVxUqVCKvVui8idoUI46FzqgfD+/JDs4DhiBtut4n8P+4H3M2Pt3S+0p/H04LBHMAp57FHd75txU2Dw==
+X-YMail-OSG: AbVn0kQVM1l4mYvMyPS0llwcXmVvKhXiM5PZbnlZZ5gZgEZ._DwUnAHL6IG9W_8
+ kDlhMC84cZOgJwCpxZghfBPZ_1trEf1nUabUUCxp5._VZnvtgEW3HEulRwl3jCxR23xAlzse1X89
+ Ek_swy1ARH4EwkjP2jLH.5p_GK_gIU1rSGYrwpO6BKOjMgyJTLrOAZ58G3pkXTWfiln1lmVI48D_
+ Z5XFfszhzH58f8LaAya5ZK1v2JV41Rwq.SywvYRqT1NoL9P5yqnUphml6l6WFDQQrYB.zml6eEPl
+ .IlbbzHCuxJwrwCGT7ba.KoN4cIv175sKdAnsVLd8FrYRuBGuIa2N.ZN0jCwlAkVjh4t7X0oehoY
+ XIUedZP2lARuj9QvQTyqJ2_aRAyXDq_5TWzAcdudlzFnJpWDE2.NOiDmvDxH7REFzK9Ulv6cBpnX
+ qyDu9jAcxbdYDxSUngte_UpIaTN64EY5v493eVZhTokaaFUrugfKIAZI2.7ibK_4aKgGfvMtpyP9
+ zPWRZys4I8ZtmugX29ALjl41iOZtwM7NinsPN6_fWqgkmi6_gFICx3btfgUWWCKEHHLCFkVRE74e
+ 3MgGQTwfIWRahtsXVFWb5VClCLi0MXNQdVwafcUuZt9n8Trv0v0c9gLa8GOHKz8WZ.X6ryrw8Dcp
+ J.Omb9m1qjhdw.pAS9iJa2aaIlP7lKdARLSeI5gFZ3TtSLmMpiSIR3GP2MQcHiEbNgVG99qQ51zq
+ 8h2dJz6BM0iK_lUmiM5nTND9Wim6jq84YPEttaOmv.3qP86yQOP.IncA5BblwUdUHOSn6jtlMWFL
+ fdLBn9m3ITQu09eE_o7iNb9tYgawQwposgUuAlWinqKGTL8FOzQzMc7N2WMuTPmF8N7Lro3RyUxX
+ lH4qa8XFs37JY.x_zRRU2HOY3KoycaERR6wG_dBPZNuMU1H1uEV3CvoU3pcXkO5TGsMwnvmM5MHq
+ aZkrBe_b77fi6eKdOfGjqH5OEVhpWl8n_vnzHkM5ZCje7F75X8kNyM4iP4VT6Z5FbmSOyM_ctnso
+ q9KS0I2uFF2JOaE07njHJvc6ztSvKn7fkkO_Mlq5b3gvQOltQbocwB2MBCvnfqcFNKXnTHHSigIf
+ zpb71CIXCmFe5TpAI97XnfnhlijVDct_fWcA6LYcdX7l1PgEfW766iDCtf43__vvzBpwRvvAkT88
+ 6swp3kKrBTMLKe6w5McpIui7UJJa_jun51ZFAoiv2MCbH8QCwFlBLe6B1xvP4xVVY5TSISo5ouef
+ mQXtcLccFPi7My9Q.d_JJl4Kt2sfDnrbSlhMrxu9ilRfTYq0eBNciXuACuNA29xkpKmz5Q9GKkv6
+ D9QAs1rN5k6AR1K_toap7N.38RDyKISjLAJUbHJbXhAGPb03AAgtbiIcrDogcetDB0BzFZdYo2Y5
+ _b5yLD2KbxJLB43QWdVmhjcyebO3Y.BWgXyZFSUwJ29C_zK.Fa89o4UT44eblHySzbbZko7WfJRv
+ vQC8l5buWncT_nSkOHM4rxD7iyB2a50SHOBkYQqVLgzKPIqAM6vouxwCMF.kKbTOanx2cDfWP36M
+ G7w46x3_MaOMi2wIX5U6m9eed1H2fSeaj6Ju8kmeDuNOwHTaTyb4KragN3CiEwLDnGV.QzQv0R08
+ 9hOP5ziufBllb6Y31UxwQ2NlFg.6r0HPkzQxl1DyIpSzHPRPw7yK4m4cb2gt3AXQ1PFJh6c8B_Fx
+ 3BeDZo_sK0uFCzwIqZPIMKcdnuFdqoG2eHc5vfCog_9xOr9y8LsiID1fceA5Ed4eardm0YjiOPsQ
+ wjjYhWConjOI4skFbmagzcA2YI.Sg.eW6JQCefdBjdg668YG_fXRrcIM41Nw4vv9lqyAfo3dzfCd
+ kld3KlUjokcvTHfrjNAhNA.ULmYRrQ4cWGlxpUShRSgCWydK_bRo46ciylYl7xKtGdAKVJxIg.c6
+ 2U9tAq..N8Uov050.3DbMXcVJ1TeG1QfMKuWe2thoY7Qj9UwtrY6Gp3uY3AL22x8EeGTHR_U__ce
+ RtiQ7hoT7j.Z2KwfGPPKEAyC9ap1yjg2yzcBw..ERRNrvDBRl3sVF1u.ieNWv2JQmzUSwPSbCr6y
+ P87SHz.2GmiDWzA1xwxIvs50TVH954y4PDVD.4VojBN9z_yfId5tcEqysWbA3LtCQt5q0q47X5a2
+ Ld9Iz_nuCpl5d5yPpMi5q8pER0Y0tfHQqU4wehJTTccNNru1iq_fpv30k9ZR9isSsZF7hfqgcQ.C
+ Ct2RZCPkTwafd2ZU8Xk6U1GjKDpc8eZgO04SnOv.KfLBCNuExz1Yfoy4iNdmuRyNOAVQHTH5l5ZI
+ -
+X-Sonic-MF: <sainiharpreet29@yahoo.com>
+X-Sonic-ID: 9b4d61ef-95d8-4972-980c-164a6834cebd
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic301.consmr.mail.gq1.yahoo.com with HTTP; Fri, 17 Apr 2026 05:25:38 +0000
+Received: by hermes--production-bf1-697f88457-j95vr (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 38d5a94697f1210cb7ec8e732b22a1d9;
+          Fri, 17 Apr 2026 05:25:35 +0000 (UTC)
+From: Harpreet Saini <sainiharpreet29@yahoo.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: David Lechner <david@lechnology.com>,
+	Harpreet Saini <sainiharpreet29@yahoo.com>,
+	devicetree@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] input: misc: Add PixArt PAJ7620 gesture sensor
+Date: Fri, 17 Apr 2026 01:25:25 -0400
+Message-ID: <20260417052527.62535-1-sainiharpreet29@yahoo.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] spmi: spmi-pmic-arb: add support for PMIC arbiter
- v8.5
-From: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
-        David Collins <david.collins@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org, kernel@oss.qualcomm.com
-References: <20260401-hawi-spmi-v1-0-c40963041078@oss.qualcomm.com>
- <20260401-hawi-spmi-v1-2-c40963041078@oss.qualcomm.com>
- <mxawruvb2p6svks3y4rab7feyn4dhkwe6dosjyc6yt2ozdaual@bvvof6rzm3jo>
- <c5d1578d-729d-4c09-b761-c67e6d3be745@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <c5d1578d-729d-4c09-b761-c67e6d3be745@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=JcqMa0KV c=1 sm=1 tr=0 ts=69e1c3fd cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=nEY8QQf2np8axcGL7LcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE3MDA0OSBTYWx0ZWRfX6sjMyQwh9nBB
- 3c1VG6YTHlGnYGZIp+4ivJTCGpeifYQlKH4cWyJkOYFbH3t/Ij9ijtNDoYsUhBz0gLdIUdvxsq6
- BP4DJ1KppdmZm7dhrKn1ginyMcZLRakwJ/ZBmftxodIpshLR7KFRVH1Rw10tC4t0eUAgHMT4xbo
- ZT/PIgWmNgwxEaN4lCeo8nieOt9lYD6g2QoG1BjE7Mpcq5H4dDLxT6nOjD9LGjiiDcIYDhx6N03
- 8fYDo6OsVYXiPui9JVjXo8qYhSSti7FfH9tWGxx+0bBBSmUJwaAJ+pSMZ0ghFPvLNfTiMGzRLiH
- h/8glRECJOhHyAOyiDylGfC9T7+/vFwDVjJriRagXPpPDoGdIOBpeqFvbHlgug0ZslM+12V+Pbq
- Gfo4sA60IyqhdYBVdi83Z1q4EpfMUx25WOcA+VPdoe5fLtnc+BznDzLlPr2I8VmC2yToRjxCaBW
- kvSyv61XvDVOO+uGqTQ==
-X-Proofpoint-GUID: 3v6dBGEYTwGkxoxJo7UdT9HZFIj41iyg
-X-Proofpoint-ORIG-GUID: 3v6dBGEYTwGkxoxJo7UdT9HZFIj41iyg
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-16_04,2026-04-16_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 clxscore=1015 malwarescore=0 phishscore=0
- suspectscore=0 priorityscore=1501 impostorscore=0 lowpriorityscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2604070000
- definitions=main-2604170049
+References: <20260417052527.62535-1-sainiharpreet29.ref@yahoo.com>
 
+This series adds support for the PixArt PAJ7620 gesture sensor.
 
-On 4/2/2026 12:18 PM, Fenglin Wu wrote:
->
-> On 4/1/2026 7:22 PM, Dmitry Baryshkov wrote:
->> On Wed, Apr 01, 2026 at 02:41:24AM -0700, Fenglin Wu wrote:
->>> PMIC arbiter v8.5 is an extension of PMIC arbiter v8 that updated
->>> the definition of the channel status register bit fields. Add support
->>> to handle this difference.
->>>
->>> Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
->>> ---
->>>   drivers/spmi/spmi-pmic-arb.c | 69 
->>> ++++++++++++++++++++++++++++++++++++++------
->>>   1 file changed, 60 insertions(+), 9 deletions(-)
->>>
->>> diff --git a/drivers/spmi/spmi-pmic-arb.c 
->>> b/drivers/spmi/spmi-pmic-arb.c
->>> index 69f8d456324a..deeaa39bb647 100644
->>> --- a/drivers/spmi/spmi-pmic-arb.c
->>> +++ b/drivers/spmi/spmi-pmic-arb.c
->>> @@ -28,6 +28,7 @@
->>>   #define PMIC_ARB_VERSION_V5_MIN        0x50000000
->>>   #define PMIC_ARB_VERSION_V7_MIN        0x70000000
->>>   #define PMIC_ARB_VERSION_V8_MIN        0x80000000
->>> +#define PMIC_ARB_VERSION_V8P5_MIN    0x80050000
->>>   #define PMIC_ARB_INT_EN            0x0004
->>>     #define PMIC_ARB_FEATURES        0x0004
->>> @@ -63,11 +64,34 @@
->>>   #define SPMI_OWNERSHIP_PERIPH2OWNER(X)    ((X) & 0x7)
->>>     /* Channel Status fields */
->>> -enum pmic_arb_chnl_status {
->>> -    PMIC_ARB_STATUS_DONE    = BIT(0),
->>> -    PMIC_ARB_STATUS_FAILURE    = BIT(1),
->>> -    PMIC_ARB_STATUS_DENIED    = BIT(2),
->>> -    PMIC_ARB_STATUS_DROPPED    = BIT(3),
->>> +struct pmic_arb_chnl_status_mask {
->>> +    u8    done;
->>> +    u8    failure;
->>> +    u8    crc;
->>> +    u8    parity;
->>> +    u8    nack;
->>> +    u8    denied;
->>> +    u8    dropped;
->>> +};
->>> +
->>> +static const struct pmic_arb_chnl_status_mask chnl_status_mask = {
->>> +    .done        = BIT(0),
->>> +    .failure    = BIT(1),
->>> +    .crc        = 0,
->>> +    .parity        = 0,
->>> +    .nack        = 0,
->>> +    .denied        = BIT(2),
->>> +    .dropped    = BIT(3),
->>> +};
->>> +
->>> +static const struct pmic_arb_chnl_status_mask chnl_status_mask_v8p5 
->>> = {
->>> +    .done        = BIT(0),
->>> +    .failure    = BIT(1),
->>> +    .crc        = BIT(2),
->>> +    .parity        = BIT(3),
->>> +    .nack        = BIT(4),
->>> +    .denied        = BIT(5),
->>> +    .dropped    = BIT(6),
->> Would it be better to extract generation-specific callback to decode the
->> error rather than defining the list of masks?
->
-> Are you proposing to add a callback in pmic_arb_ver_ops, like 
-> '*check_chnl_status', and create separate implementations for PMIC 
-> arbiter versions before and after v8.5?
->
-> This approach would add more extensive code changes with some code 
-> duplication, especially for handling common error bits shared across 
-> all versions—even if they only print error messages and return an 
-> error code. Is that a concern?
->
-> Fenglin 
+Following review feedback on v1, the driver has been moved from IIO
+to the Input subsystem as gestures are user-interaction events.
+The bindings have been updated to include mandatory power supplies
+and GPIO controller properties.
 
-Hi Dmitry,
+Changes in v2:
+- Moved driver from drivers/iio/light to drivers/input/misc
+- Updated DT bindings to include mandatory vdd, vbus, and vled supplies
+- Added Runtime PM support with autosuspend logic
+- Combined bindings and driver into a single series
 
-Please let me know if this your preferred way and if you are fine with 
-the concern that I mentioned.
+Harpreet Saini (2):
+  dt-bindings: input: Add PixArt PAJ7620 gesture sensor
+  input: misc: Add PixArt PAJ7620 gesture sensor driver
 
-I can come up with this approach and post a new patch.
+ .../bindings/input/pixart,paj7620.yaml        |  70 ++++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ drivers/input/misc/Kconfig                    |  12 +
+ drivers/input/misc/Makefile                   |   1 +
+ drivers/input/misc/paj7620.c                  | 350 ++++++++++++++++++
+ 5 files changed, 435 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/input/pixart,paj7620.yaml
+ create mode 100644 drivers/input/misc/paj7620.c
 
-Thanks
-
-Fenglin
+-- 
+2.43.0
 
