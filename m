@@ -1,118 +1,90 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F61E361DC8
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 17:52:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2416236494E;
+	Fri, 17 Apr 2026 17:55:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776448366; cv=none; b=j8b7tC5bEETZ3U2oXM5MXJ+cfGgboncpwJgXmy13KIhYcjZ0HSCbyeC75sXvO/pM/yth94mkujtFzFAmI6v4gcyxyCwcraJl9B2o+e5rqikFjLfgKlkY6jiEmdJEhY58yebDZCnkUaK9Qjk5sD/irwVUrpyVCO3LHwMhaAg4RB8=
+	t=1776448523; cv=none; b=JuqykQf5J+gmH58CNwZP6SEl5OIr/t7nQFG4eER4PdZPseD0j3PD4wnlANCa4oyr4gdOM3p7OPn3RiOkwubXyhEWjWEhSSZelfpEvkJJBy8ba0/s7ZYlIIHAYYrmOs+kot413mfiU/TxiX3j6pC3nZVLKRioa0JG1O37c/br1O8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776448366; c=relaxed/simple;
-	bh=YpOTPUvd7+Ix6fxPIg06TIb4qRZNZIUThtvV8RtBuU0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NxDbL6oW6W5qibTb6+DqK59tTOi6McWPvaTeJa5kNUQINTGFpiue9ZCHqBuffrQwhaVd5hkCeddZ2YJaqeiqmzddMlhClkDz92tYjes4Arj1QzHoPva5sm/AgHZub1S3fBwl4OPatY7ch7Xhut1Y9qdgzPGboNEpCvamSseFkr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mn/F8pMN; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1776448523; c=relaxed/simple;
+	bh=Q/GzuWIQEHuvkg9yZh9vcQC8AxPXoccLErnZodAciHk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OJL5iVp5aIUHV7gAnlHjNopKpilNTR91r3tHRj+djVazs345uNUBfGSZ6h6j0JX3Uy2F5HIrWg5QlAVdh3VXqC0nUsTIKHOo3PZWN4qdn/HIgVL0ld/NWol1A+El83amOUnj5tVe1hHNMBsiZBiMJLZaL/I6bmuAyAJ2HXaXQII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Ud7SICim; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mn/F8pMN"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-488af96f6b2so12496215e9.0
-        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 10:52:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776448358; x=1777053158; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=t9WLAo+FIpFIL/Tg50QaIjrY8GmsgmdfX6tOY1c2ldc=;
-        b=Mn/F8pMNVp5aFI0BNyZkcQ9VhbZogux7o+NIkiDH+EP/NzurTmBexARF/F8S4XFH6w
-         2jr9o0nIxQGu0qEdg9VIaD//kzvBLQmgQoEe0GVWUlek4MDaFzKzClsQLyWgqVTC58kq
-         p+G68+uPDwdSpxeMqEe/JYTXbW/BQFj8mdQPVC3J+v08sSq3dCBtsERZ9C5VTW16TFmp
-         Ed98JQ0a8p3LVMbCBndbOi98GWeMjYXf9BJCImsUG0wt4vlhQUNxE1o0JdAegJy1aqOs
-         jNlHJagiRHRqBLbQMjNu0msSVikg/2LsjW7Z94GxDNGWXGzwbAtN4KnMrYZ1w95FV+ms
-         JT7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776448358; x=1777053158;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=t9WLAo+FIpFIL/Tg50QaIjrY8GmsgmdfX6tOY1c2ldc=;
-        b=PmB9e75hkX6EuSWNqRqElUjSSpEqcqXYCtEACIy8BMoo7P/2JksmmgF6jHvczVPO7A
-         WF0pm+G6dU7wvObA5vbqKIfYYA4IbOVchNrvQfBR8cAqS7M1BUNZ+d5tLN3dVkanj632
-         Xtgh956nvFkjNGHGIV0zB/u4U5kUVcayAxRdmLGd42nwJ+pgwwqmH9cD/GG1w3Bwa1iP
-         c1dXOIPKUBdGWJpGsn/gGwsckGharqMWoGK5ndghgrjQ0P3fnBJfSgtyjvs52INwfUEa
-         Vms4FzzA/58AZ3o50Ph0TefOb/iORvVl8fetKfVRzFJshwidwMgXvxmYXAzjwMNiaIx/
-         g/lA==
-X-Forwarded-Encrypted: i=1; AFNElJ+uxXq+UgDFMX9tjjeOEmrDhozWleCpoI0QNXSRiDhe6vjMLIYU6GB3Fs5nrp1KXmbKs+TWcSLgNbOx@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy+PRqZU+mI96KZUYBJUBk+RXDdADk22NINEdTNtxCXVFZ0GIpB
-	zvMjzu8HMAv+O+Bm5bYevW7AA+95UaZp3JIMHCEHOzNT/BIKiNB7gEl6
-X-Gm-Gg: AeBDieu2JljKTcE+2fjtRCrDP5V+gN9Xe8PzsDzYuYmaxXGXDTomr/UbmC9oFA6RlDv
-	Q1sLzZP/jvSYli3FKnOTAdMqlA0HDGRkbf3lWspBCP9ls8eOBBF6Et/d2Ug+eHCV+SceiWLtngu
-	IELmTyl91ObqQ1InDp4PFiRCYrZsriehzD/Y3AZy2/BxqYuKI44rhSWuIuQVywzDXPwOaDCYsHx
-	awRufaVhsbtP5oRosnJj0wu6u7q2jwsngjV2QkAQGMaqwEBqIZIWZ6t9BIubZi5lhjLbZtSZk4x
-	qzRqdBpOAYzeTLu8HXcNBpFAK8EzutUS2H8EnGVVcG1+yeoBy2Q0vbpXnvgNpbND9akzN7DPRZX
-	X6PZxH6V69zr70vDp/YEbdngBZxFfdHxfa1GNwJ5DqUIqx7z6neYPUZ5jMnfX3+ac2GBOwMEngT
-	NvEpKiyZyWA6hxyjw6Zer5kmQ1lhmY5Gv1GrBV77i6
-X-Received: by 2002:a05:600c:8183:b0:488:b187:d898 with SMTP id 5b1f17b1804b1-488fb771445mr53526905e9.14.1776448358089;
-        Fri, 17 Apr 2026 10:52:38 -0700 (PDT)
-Received: from biju.lan ([2a00:23c4:a758:8a01:528c:590:5bef:9bc8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488fc1c773fsm56166535e9.12.2026.04.17.10.52.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Apr 2026 10:52:37 -0700 (PDT)
-From: Biju <biju.das.au@gmail.com>
-X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Lee Jones <lee@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Biju Das <biju.das.au@gmail.com>,
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Subject: [PATCH 1/3] dt-bindings: mfd: syscon: Document the LVDS_CMN syscon for the RZ/G3L
-Date: Fri, 17 Apr 2026 18:52:28 +0100
-Message-ID: <20260417175235.224809-2-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260417175235.224809-1-biju.das.jz@bp.renesas.com>
-References: <20260417175235.224809-1-biju.das.jz@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Ud7SICim"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1776448518;
+	bh=Q/GzuWIQEHuvkg9yZh9vcQC8AxPXoccLErnZodAciHk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Ud7SICimNN1HnVxsVZ3WfMCv8BI5OB7UvQ9beJebQtQmpu+coTXWZz8u7N0GISF5O
+	 Oxdrr9Eczp15S4lJpmFXUQU2OZ15f43hE3z/CvimwKyeySfmkLQAlYYlUvKC0RUUes
+	 mu7PLc6arQL9Um1iQErLyMZke9U2PRElA9D9fddK792XireuYepTaVW+5EyUfTM7tf
+	 2PYtNFlkW6fwEIOUWFstvW2mXmVXhfWZ4VYzPKTlGAYavKcM8RMrcNU0rruRYJT1X7
+	 yjc5xpzNKjI5rGsHXqSnYgMXQ13OjkCSv/BDX096cBXQHqEizTRnGJ/zALBlESGop1
+	 X6cTELVcasb0Q==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: cristicc)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 67BBC17E131F;
+	Fri, 17 Apr 2026 19:55:18 +0200 (CEST)
+Message-ID: <70e9a8a0-414d-428f-8da8-9b65cc764849@collabora.com>
+Date: Fri, 17 Apr 2026 20:55:17 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/40] arm64: dts: rockchip: Wire up frl-enable-gpios for
+ RK3576/RK3588 boards
+To: Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: kernel@collabora.com, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260417-dts-rk-frl-enable-gpios-v1-0-a19c0dd8c9f6@collabora.com>
+ <2297365.1BCLMh4Saa@phil>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <2297365.1BCLMh4Saa@phil>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
+Hi Heiko,
 
-The RZ/G3{E,L} SoCs have an LVDS Common (LVDS_CMN) region which is common
-to all LVDS channels. The RZ/G3L has single-link, but the RZ/G3E has both
-single and dual-link.
+On 4/17/26 2:34 PM, Heiko Stuebner wrote:
+> Hi Cristan,
+> 
+> Am Freitag, 17. April 2026, 11:24:34 Mitteleuropäische Sommerzeit schrieb Cristian Ciocaltea:
+> 
+> [...]
+> 
+>> Cristian Ciocaltea (40):
+>>       arm64: dts: rockchip: Add frl-enable-gpios to rk3576-100ask-dshanpi-a1
+>>       arm64: dts: rockchip: Add frl-enable-gpios to rk3576-armsom-sige5
+>>       arm64: dts: rockchip: Add frl-enable-gpios to rk3576-evb1-v10
+>>       arm64: dts: rockchip: Add frl-enable-gpios to rk3576-evb2-v10
+>>       arm64: dts: rockchip: Add frl-enable-gpios to rk3576-luckfox-core3576
+>>       arm64: dts: rockchip: Add frl-enable-gpios to rk3576-nanopi-m5
+>>       arm64: dts: rockchip: Add frl-enable-gpios to rk3576-nanopi-r76s
+>>       arm64: dts: rockchip: Add frl-enable-gpios to rk3576-roc-pc
+>>       arm64: dts: rockchip: Add frl-enable-gpios to rk3576-rock-4d
+> 
+> I do think one patch per SoC (rk3576, rk3588, rk3588s) would make more
+> sense, because these patches really are mostly identical :-)
 
-Use the syscon interface to access these registers for scalability.
+Yeah, apologies for the large number of patches, I went this way to allow
+per-board reviews.  As previously noted, I tried to identify the GPIO pins from
+multiple sources, so I'm not entirely sure about the accuracy in every case.
 
-Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
- Documentation/devicetree/bindings/mfd/syscon.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Would it be preferable to squash the patches per SoC and board vendor, instead?
 
-diff --git a/Documentation/devicetree/bindings/mfd/syscon.yaml b/Documentation/devicetree/bindings/mfd/syscon.yaml
-index e22867088063..9c81010d5a74 100644
---- a/Documentation/devicetree/bindings/mfd/syscon.yaml
-+++ b/Documentation/devicetree/bindings/mfd/syscon.yaml
-@@ -221,6 +221,7 @@ properties:
-               - nxp,s32g3-gpr
-               - qcom,apq8064-mmss-sfpb
-               - qcom,apq8064-sps-sic
-+              - renesas,r9a08g046-lvds-cmn
-               - rockchip,px30-qos
-               - rockchip,rk3036-qos
-               - rockchip,rk3066-qos
--- 
-2.43.0
-
+Thanks,
+Cristian
