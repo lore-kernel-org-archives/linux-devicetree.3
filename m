@@ -1,122 +1,166 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 207D322CBE6
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 14:44:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776437066; cv=pass; b=g5WZibGpZzgA+/kiJj7vXkhl8vn8yCInFOJjviKSRwN9h3IMAasBz5ITojaIcv2RQKto99sNKWa3GgcMXvSkV08eGI7vp98rKWLNFq+jtnZmRUZXQYZaX4FqsNOFhG3843OA4KoUXNaXVhkic1V67777mviSyrKDZa6DrT1QsIQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776437066; c=relaxed/simple;
-	bh=RvZjgleGuZmwgvhgJ8Vxd86Xkc62XC508140/KU6t+c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=u8NxnrG5pz/CrHsQgNGHDY0+ZikBspArooKl6gjn0SvWSCe4OZyeevty+iHdocOK7wLxW9HVVTGSBY6BR9fIepIeqNugcWl6Wv+r3pWZ6RU8w5pThff3qQnP81ezF5tNB+Vi+YyRqPUn9jm0jouxjDjkZMtgWBaFpMUfeYZ1X5A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gyiof/KM; arc=pass smtp.client-ip=209.85.215.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F472C027B;
+	Fri, 17 Apr 2026 14:51:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776437484; cv=none; b=m0kQPYUlsrq5HssMFVYWEt7iqhlJWl/ghP+EMAlQvEy3ZwAgJEFo9DcR9mXc74XJ7Mv5U96drNsdc8Z2u9D+D8FJeQRZaOt4ZP66isr+ChoqSeddempsEg+Iro1GQIA0PmPQz9Kpn7Yw/poXE0XOd0ptxBdqGuC9oOZRjCalOk4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776437484; c=relaxed/simple;
+	bh=0WlQsgQ9vdAi/fQs63xgbJ+x3wmh2V+kgGHYinqBMNo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QlxhpU/5YYpCyPD0xgycIKE/Z73wBiX695S0qD/oE9guM6x52Syl+NBR0/+byxFixpTykWEhAFlhWQTlqmwMv2lZK7dEy55DUhlVVdXCnFD+JHNhqlUX7EujcHjOfhLN4z1L3elDj31Fyq/BLlPMx1DSRcSrIh+aQdHg8NIRaOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LSHs9lU+; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gyiof/KM"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-c795a47186bso353204a12.0
-        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 07:44:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776437064; cv=none;
-        d=google.com; s=arc-20240605;
-        b=TsnhN7WfL/fAR/0bp/q9059MfLTThDGYXxLlarOHZ9iPStdBeppQpmkB3uWwxF9bXi
-         hxm/N2NCQ7BQYA6FFk+D/fIPcSlkFoTXu/XWy7EDCdojaYtacH49uAWQo/ePoZPhlesJ
-         8GlJqt0aCAOmu0fY9pEQ/S/GGR5tHjaUEEsSd3OReYTdlxsvLB83gMJoxUR+oBr5f/sO
-         8EchkIJS2QnW2zaITYJkoPFZnzd4dm+nhamrQdrlEDoZtyNFMl7pt++z5EZe0HfWB85V
-         sARQ3N8oNgUyJa2cUzDMqmzf/3LzQus0x3oUTnBd+ZUKDiY+h5O4z3QY76aBlRA8BB25
-         Onfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=RvZjgleGuZmwgvhgJ8Vxd86Xkc62XC508140/KU6t+c=;
-        fh=mgnbKk1xK6dv9152DL2EHPMyhFJuvPfDhkkJENz3yZI=;
-        b=HHqfyUbP+e0WCapPRZPJ4pH3AVG0nmT4w+SMMVLcepC49KWgk2h/NVI0SAjPCtMZo+
-         hSsJ4CaId20WgqD4+yfD/lPvFTL31teSW7ERFbSDb7vyu8NuwP2JFvsrMr4YftuuHdlT
-         thTkM/iZHel9Idn4AXNrFVdkiutBHTLr7jZIJjrn1fglAUlFkUpCVfyKeP3JSsfpjH4L
-         VFfj3KuPVfZ5Qx+chQr5I1DB64iGxkfaQBPntPibbSNeYAd8/7ncSncffviTkCoGFoSF
-         P/fFGBZrphejlEo9/mFnZhxYcNZfM82BBsf+nSVjSnAeEP0xNx6S/3W0eE3x7JOJMPXh
-         XfUg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776437064; x=1777041864; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=RvZjgleGuZmwgvhgJ8Vxd86Xkc62XC508140/KU6t+c=;
-        b=gyiof/KMfniQ+vBTz4M+I+0symhU8LwM3NyiRxFYpTOz3jWQjiibj8RNFT/fIjVJRO
-         dxLERqkg0xfqe06ESeiA16riFfZhoD553zUfNTdhsR7S51NE8FyDMlstdMLZQSsWo2kY
-         XVfDRkCFLKfPLHiqUQiYFS6vDmnujQky8/vKBp0Ht49KAfediXRWRDHcdcYPfPh932xo
-         2knFi3L2jWxPpK2N2V4V3UOxejzlcC3J0y+zmFtxCaKYQGtibndllI0MzT58Scs3dDEr
-         Mzr/do4PGuSLZj7G4CrCnBc9xmR3iHQA3JL/QKikp5DOBobQTpbF1KAVbeTkt+7ad1oO
-         yHEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776437064; x=1777041864;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=RvZjgleGuZmwgvhgJ8Vxd86Xkc62XC508140/KU6t+c=;
-        b=BDEi4678uuGn2h0nWPeSpKFA3uh6l8l8dqHgYQDVZpk4HYoQcUZ5+gnJFq120zDAjN
-         7+4qGwSx6Vk4o9XvHGYmpUyoroYD7FigI4AelNwEwU9ka6rpXxYbVFtQ4a9GPso8DKbq
-         6JN8ysbDEIuw6RUKFCm315R+w3IAyDOqVJQRhr5kurSyCFo+f0zTetcC1H+cxJjiemn8
-         H3p0fVLvRsV0dSW1xg5biBeSJRcGqMRXuHcHrh3AIS2WnuDWmlzPB53/jkuJW58d90KG
-         /+FXrvQsB7F//Wh01v6zOXeqnIZy5vX+eVqa0sZnRLv5cYWRxFjyfZqXwPYLQnpz7iwE
-         xn8Q==
-X-Forwarded-Encrypted: i=1; AFNElJ8qEw6sa+0KK8pL58/IKDZKzgiRktX+gzzNOrWZ1axjf4Bk5dYIxLCQFbHD2lQE/URh61kQ4LhPWUUp@vger.kernel.org
-X-Gm-Message-State: AOJu0YxPPqq11uotxTjPY+M0Go337V3VI33JXGarumohqWYt9MmGsYlj
-	sFYzRoIsXZZAavu57j2MeH+nwleoWYjQfy9qI3mH3glAVZ3Qnd4b7J6pr+EwUwL5Dl7u8nb4ADF
-	zh+AIklk9qk06xMyszD+b6pZzrfc12XI=
-X-Gm-Gg: AeBDiet5Ljks3CB9OeYiKWDh8pSy6RNNZGaygf4lmWgXTtVx3vHY9IAsHz/hd2t6lpF
-	NzmxbnfpNk5vuZ168OwJaxXTvX8yP//ZC+LjcZlr7dEwVYw124QFtksKFnCY6fRROZNk+qhiVOa
-	7NA7Yt7j6qH9UJQfbCisCppwS96DCVaqTcnDyuULB4plFBiTZl/DOAcve6egb5auwu+TpWY6iK8
-	XEQ5giP3F2vFuuM+vHMz2XmXrGUY2JACGQqz417t3IM0q0sDCPQ6QLBMKehzC9LWmgvUWrjmylp
-	d2RABQDwIt6CzaUij9wr8/8dIAoQ2iVsqAfaCUljTF63e4ARflxUDwO3ujgsXPCSD001dCKtbsV
-	tt/MA4D9mnmVEOiVmsA==
-X-Received: by 2002:a05:6a21:3285:b0:398:7796:7823 with SMTP id
- adf61e73a8af0-3a08c85a42fmr2848043637.6.1776437064234; Fri, 17 Apr 2026
- 07:44:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LSHs9lU+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E9E9C19425;
+	Fri, 17 Apr 2026 14:51:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776437484;
+	bh=0WlQsgQ9vdAi/fQs63xgbJ+x3wmh2V+kgGHYinqBMNo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=LSHs9lU+aW0fMLQl7vYxCgrIrFrn3x/+I1ZlG3Eh5gZpKWtJ443Ep3FdnZe/ZqhN2
+	 enhrOcEUdmLNrKZ2Xe4KaKDDZXWJAKZoRty2mejQ/o8I48ZBuX6/jl6DSWLfICaKLA
+	 6tB5F17PlxJBCmhs6RFbFPxvT/6AHNo/hrTT1aNB26BfmL9cBXl1S9ek9Z3KSMkVF6
+	 zafktzheuXF1PGXJ5bkuKgjqT/QMzPmIKRtXSclsoHs1FKfdPwO57M8ASXaI8EcQ4g
+	 Va6H0b0Dq+Vzck7xlw3w/fxLuOGyHTYQMxsdeY0LZ6FC9rteLUsyWK/IByVqnzS/Is
+	 lj6Zm+BpDDkVw==
+Date: Fri, 17 Apr 2026 15:51:19 +0100
+From: Conor Dooley <conor@kernel.org>
+To: linusw@kernel.org
+Cc: Conor Dooley <conor.dooley@microchip.com>,
+	Linus Walleij <linus.walleij@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, Valentina.FernandezAlanis@microchip.com
+Subject: Re: [PATCH v3 6/6] riscv: dts: microchip: add pinctrl nodes for
+ mpfs/icicle kit
+Message-ID: <20260417-outweigh-escalate-f056312b3f4b@spud>
+References: <20260119-rearrange-germproof-3e3096cc0da4@spud>
+ <20260119-natural-buddy-acb391bcd9f6@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260413100700.30995-1-phucduc.bui@gmail.com> <20260413100700.30995-7-phucduc.bui@gmail.com>
- <20260414-funky-sincere-polecat-20b0bf@quoll> <CAABR9nEKGSRNp=eK=ZHf6-MNsj=6cDCy1YdbzSPrHyuc3Ux0Ow@mail.gmail.com>
- <CAMuHMdVPbcz4rF8ojEcvxp1NaM2mbQ2o+HZLwnnjNnX8uHf4HA@mail.gmail.com>
- <CAABR9nF131G3K3-vUdaDwHuQ7MCCLd-VO5syLApE_qsn+J49kA@mail.gmail.com> <CAMuHMdXie1HR6XzkHXAtonh2oemNxH2UZE3uSUjW3xoOmhRjYQ@mail.gmail.com>
-In-Reply-To: <CAMuHMdXie1HR6XzkHXAtonh2oemNxH2UZE3uSUjW3xoOmhRjYQ@mail.gmail.com>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Fri, 17 Apr 2026 21:44:11 +0700
-X-Gm-Features: AQROBzAQoWeu6BUfwIVhLLCWyt7hmvErfzqvAfs0Xeg-5QUpm0Ag_AdFXLu6Y0g
-Message-ID: <CAABR9nE73CcehRNpoZgT4mEL3SAzpK7s+syoBxcCMgdToEWXoQ@mail.gmail.com>
-Subject: Re: [PATCH v2 6/6] ASoC: dt-bindings: renesas,fsi: add support for
- multiple clocks
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, kuninori.morimoto.gx@renesas.com, broonie@kernel.org, 
-	lgirdwood@gmail.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	geert+renesas@glider.be, magnus.damm@gmail.com, perex@perex.cz, 
-	tiwai@suse.com, linux-sound@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="LBW7VOKBT163tmLl"
+Content-Disposition: inline
+In-Reply-To: <20260119-natural-buddy-acb391bcd9f6@spud>
 
-Hi Geert,
 
-> It is the main clock that needs to be enabled to make the device
-> function. This is independent from the notion of it being a
-> "Module Stop Clock" or not, and became sort of a convention.
+--LBW7VOKBT163tmLl
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> Correct. On most (all?) Renesas SoCs, devices are part of a clock
-> domain, and their functional clocks are managed by Runtime PM.
+On Mon, Jan 19, 2026 at 11:03:57AM +0000, Conor Dooley wrote:
 
-> It is not strictly needed to be the first clock, and mostly a relic of the past,
-> when clocks weren't accessed by name, but by index.
-> Also, many devices have only a single clock, so don't need a name.
+> +
+> +&i2c0 {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&i2c0_fabric>;
+> +};
+> +
+> +&i2c1 {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&i2c1_fabric>;
+> +};
 
-Thank you for the clarification. It was very helpful and cleared up my
-confusion about the clock naming and ordering.
-I really appreciate your support.
+Seemingly, I have run into an erratum here. What I noticed that this
+didn't match the schematic and changed it when I applied. Turns out,
+this is actually correct on engineering sample silicon but not on
+production. Something like
+diff --git a/arch/riscv/boot/dts/microchip/mpfs-icicle-kit-fabric.dtsi b/ar=
+ch/riscv/boot/dts/microchip/mpfs-icicle-kit-fabric.dtsi
+index 2d14e92f068d5..9078e5b1e49c1 100644
+--- a/arch/riscv/boot/dts/microchip/mpfs-icicle-kit-fabric.dtsi
++++ b/arch/riscv/boot/dts/microchip/mpfs-icicle-kit-fabric.dtsi
+@@ -101,16 +101,6 @@ &ccc_nw {
+=E2=80=83=E2=80=83status =3D "okay";
+};
 
-Best regards,
-Phuc
+-&i2c0 {
+-=E2=80=83=E2=80=83pinctrl-names =3D "default";
+-=E2=80=83=E2=80=83pinctrl-0 =3D <&i2c0_fabric>;
+-};
+-
+-&i2c1 {
+-=E2=80=83=E2=80=83pinctrl-names =3D "default";
+-=E2=80=83=E2=80=83pinctrl-0 =3D <&i2c1_mssio>;
+-};
+-
+&mmuart1 {
+=E2=80=83=E2=80=83pinctrl-names =3D "default";
+=E2=80=83=E2=80=83pinctrl-0 =3D <&uart1_fabric>;
+diff --git a/arch/riscv/boot/dts/microchip/mpfs-icicle-kit-prod.dts b/arch/=
+riscv/boot/dts/microchip/mpfs-icicle-kit-prod.dts
+index 8afedece89d1f..636493f6584d2 100644
+--- a/arch/riscv/boot/dts/microchip/mpfs-icicle-kit-prod.dts
++++ b/arch/riscv/boot/dts/microchip/mpfs-icicle-kit-prod.dts
+@@ -14,6 +14,16 @@ / {
+=E2=80=83=E2=80=83=E2=80=83=E2=80=83     "microchip,mpfs";
+};
+
++&i2c0 {
++=E2=80=83=E2=80=83pinctrl-names =3D "default";
++=E2=80=83=E2=80=83pinctrl-0 =3D <&i2c0_fabric>;
++};
++
++&i2c1 {
++=E2=80=83=E2=80=83pinctrl-names =3D "default";
++=E2=80=83=E2=80=83pinctrl-0 =3D <&i2c1_mssio>;
++};
++
+&syscontroller {
+=E2=80=83=E2=80=83microchip,bitstream-flash =3D <&sys_ctrl_flash>;
+};
+diff --git a/arch/riscv/boot/dts/microchip/mpfs-icicle-kit.dts b/arch/riscv=
+/boot/dts/microchip/mpfs-icicle-kit.dts
+index 556aa9638282e..6fadce815c9a2 100644
+--- a/arch/riscv/boot/dts/microchip/mpfs-icicle-kit.dts
++++ b/arch/riscv/boot/dts/microchip/mpfs-icicle-kit.dts
+@@ -11,3 +11,22 @@ / {
+=E2=80=83=E2=80=83=E2=80=83=E2=80=83     "microchip,mpfs-icicle-kit",
+=E2=80=83=E2=80=83=E2=80=83=E2=80=83     "microchip,mpfs";
+};
++
++&i2c0 {
++=E2=80=83=E2=80=83pinctrl-names =3D "default";
++=E2=80=83=E2=80=83pinctrl-0 =3D <&i2c0_fabric>;
++};
++
++/*
++ * Due to silicon errata, routing via MSS IOs doesn't work on ES devices.
++ * Instead, i2c1, appearing on B1/C1, which are normally MSS IOs, is routed
++ * via the fabric and back to B1/C1 via "fabric-test" functionality.
++ * This is done silently by Libero, so the iomux0 setting for i2c1 has to
++ * be fabric IO, despite tooling etc saying that MSS IOs are used.
++ *
++ * See Section 3.3 of https://ww1.microchip.com/downloads/aemDocuments/doc=
+uments/FPGA/ProductDocuments/Errata/polarfiresoc/microsemi_polarfire_soc_fp=
+ga_egineering_samples_errata_er0219_v1.pdf
++ */
++&i2c1 {
++=E2=80=83=E2=80=83pinctrl-names =3D "default";
++=E2=80=83=E2=80=83pinctrl-0 =3D <&i2c1_fabric>;
++};
+
+is needed to restore functionality and a further change is required to
+"document" in code the extent of the hack required to make it work.
+
+--LBW7VOKBT163tmLl
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeJI5AAKCRB4tDGHoIJi
+0vKtAP9ZXaTAVu3j1YyONGgM0DO2d27IZPB6X6YXseeZZVKFUAD9FBgRKGbjZt/J
+duGUc+FtA0xH3v2xT64t2VeulBfDXQg=
+=oDvd
+-----END PGP SIGNATURE-----
+
+--LBW7VOKBT163tmLl--
