@@ -1,114 +1,198 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 544413563FB;
-	Fri, 17 Apr 2026 16:40:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65DF6396D19
+	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 17:24:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776444036; cv=none; b=Srvurhht+PLBCWND3G57dcFs/9VIuZhCrHut3Dy5PYeAcUKeBahBQEIjP2I8kX5nMhn6yBh3KgRiMKO8IUpxICJZxZzWvp6NHBInXN4TYKDc5iPrdf2gOsnjO/JEWhMJuO8pO07layv0J1h3gM9c+9vZBjBTlmgTKQynoneIruI=
+	t=1776446669; cv=none; b=IGNWiyGxa4AdcjEQpjIkW7aUziiz2s0MyhFxyXYQbchJ6SHYQp8tYOlbbEjazEKkNtOvfSD45RDchMiOWwWdVw46dO8DsH7uZRDY3g+V/+mfnpyr7xJ0FjMJ4ZXT0fw8iJ/RVY2PX/f3/MN1i79CzUYBhSuLIt9p+4cqkbpkK88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776444036; c=relaxed/simple;
-	bh=vS+6JjIgSwATnAo0FDNGd2EBykmQuR1wkqPKp83GKMk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hqaLWfeoNLcyzX3XpU3wbxNd+0Rd0r6oQRg6JARpAUHxoIhn7f9BhWl+tjaB13cyDQVuvOPfL0Ll5LZHItfQeMiaE9EL3l/Lx02ze+66bUg4CWvXhmsJPLq4DjLwx5+yi+nMJjDKu00qs3Up51K2lgxlnaWl6GYO6FEQD0niVTA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J9GWZ1tk; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776446669; c=relaxed/simple;
+	bh=KVxkAo6OaK7ElY1yVtpbpwz5EsN+i4mdWUQboHKutek=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=agiigv7AVwyXFGLH0pHfzc/c6loDDlpp5gkOo6qMPNvk0shCwZjHZXYPw+RoqYafQLbJwE3/RjeCaqa7Cj7F7dPuGbVUMW2rZ8nlTl13lfpdUNC38Q224iXDIaZw61gpMht6t5wm4AXSH5HbFMJveeEvF3RDYyEIqNp/SxmsMC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lsgTwCI0; arc=none smtp.client-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J9GWZ1tk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B168FC19425;
-	Fri, 17 Apr 2026 16:40:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776444035;
-	bh=vS+6JjIgSwATnAo0FDNGd2EBykmQuR1wkqPKp83GKMk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=J9GWZ1tk5cd9ZwIhZsBOpKbe1Wt4MbDlnyOBqRcBM3Z2ySyLmocXF9Y4f2eXQ0Gzi
-	 Nvv6xCB4ZZKL+TEgTyYg3Uj78qNZWG38cCwP/8dPab0YZmsVGkoX4vqzN6g7PB/ARa
-	 YLxVw8QCDZnVxh6cZcVhOlG4QNM6klXU4/OqYM6JDfGaqjdDzqSZjqohcZgelD9Uas
-	 KnWYQkGlov7sgzkeE8zyidF4Ot5QbarZ23UnlHKMF+sGQP3BLfLDheRiE6EnoFGDix
-	 6L1DypqMLaqlpISnowtoZBeVggsS6xPcZy/YJoMyb+Xb8T3grFgqw1hpzFaJbWSMjA
-	 ZD84jBXaSRrVA==
-Date: Fri, 17 Apr 2026 17:40:30 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Binbin Shi <binbin.shi@mediatek.com>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Hector Yuan <hector.yuan@mediatek.com>, linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Project_Global_Chrome_Upstream_Group@mediatek.com,
-	vince-wl.liu@mediatek.com
-Subject: Re: [PATCH] dt-bindings: cpufreq: add mt8189 cpufreq hw dt-bindings
-Message-ID: <20260417-heat-broom-3ffd6419fa07@spud>
-References: <20260417080648.3692438-1-binbin.shi@mediatek.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lsgTwCI0"
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-b9c3e2cf3c0so169434266b.1
+        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 10:24:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776446665; x=1777051465; darn=vger.kernel.org;
+        h=to:references:message-id:cc:date:in-reply-to:from:subject
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=q6tVQ0pUQqp8YvBCfgccdHLoTS042A6J2tPjUSrHHQY=;
+        b=lsgTwCI0Z8SDi0FYU6LYZaL/NeDcf291HghT3EKpwg8JCMYn7tZYbt4Ntxu6HbnZqx
+         Rrwk1I1ArIbolgdaVIWaCDblPfjHKvzPN/gRL3XDxg0rymkbrhX4A7ryUQhmU6LuI+Xv
+         hF0AuP4H2Ah7JN+D2md9Q/kD5s4s6FP+/DK37sHxIJ2F1FlXRB4hPype7PbS2+xVbqhv
+         S2iJE8CHiPiGOx+UR4SNCvj0BFVmMKxs9E6d79szxFsI6yqkWkJSoyinm3YvG/+cgs6B
+         ngbnDSZiQ/2gGucK1rbqxHeCSuaF9wnI23BV6aLogkZtiKVMx36IMiMmVQTe6awqsGM6
+         F6ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776446665; x=1777051465;
+        h=to:references:message-id:cc:date:in-reply-to:from:subject
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=q6tVQ0pUQqp8YvBCfgccdHLoTS042A6J2tPjUSrHHQY=;
+        b=bOuBV4Perl1I9QU9codvbHVZ1YGLv68jb1+3+T+GAvHT4QuIU5Wsgnom7QbvhORl+C
+         0KUxdhpOD0pZm4hYDWdPuygutpT50vnNbXH99n/+QVSuh4/+3k+V1NrbbAZAnNEiBVzh
+         a75oyAyn6JpXHrKDzf9en7Z3AF1ewUGFYMrvvLqTbxFZqluKsC5gci0MGI96C4D9NrcY
+         aTk/9oHp+aacItAaW1/SSBgiUksPJKMCE7JxBrQrT2t8mrkcyqF8hJnnmK+UPvjL8h2F
+         ywWsWNfroZLcs7IsrffT4eI7qlqaQNsd94/xk2ADEX0lkjW/vvzY4Ibf7FWk4eDj9WbD
+         1RpQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+jhYW++f24f1kYh9is4Q4YDB8S7GsnpZjJexo1mzXwwkiD/rwRmgimA7hUMc01cymKvDTXIWU//yR5@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz9RFxqg8SGRyToOUqh9gKwitUd0OB0rjEE7GJWtaDx8cN7HelB
+	POy2DffbHXvTgUsqWjh00jhl8yu4DrhQC11km3PskponEc5t3fY4/KXx
+X-Gm-Gg: AeBDieswlzLqAjSskPKoPihdbS1SvdJ9ymHqwpKJ6qJJTgyItguMySQz+S4RB2HEMLx
+	EAD68o78b/QwCiHYsEbC5wn+U3666mvdUyLBaWC6an4LfVgKtf1LGO1JGFEm+0+wGYBUHudPvzq
+	pdkVAXjQNggHZxkFwDIU1GY5b6TChiNL9oPql1PKGKpXGPUhEyQXUJ7AYANKinbWKQlC576k0ND
+	79mGnEkjgPpND2OZoGmpFjmO3+yDRkVVdzwbzysFAimhM0syugToX/Qc/KDLgDKZUxvKcz/fnJT
+	0obRITWDONjD2YWtWHU5urfTtE4u47Ig0rv0kPo2Ms4wnKEQqi4lqXRyl+AumqgWo0VzCvNzPbh
+	Mh6dkQGVndZw/Ay943Juy7QeGMjBnM0ZZU4LUQlGEz3nOkYWDjCFXwE0UUOJdVdhmEppONsvlkL
+	fN5RujWpPsHqSVRIYmdRzXv6AIEvccWHK1AuD+xKtAS4tgaE1dSX9vak7aRoYjATix
+X-Received: by 2002:a17:907:9495:b0:ba2:48d:a95c with SMTP id a640c23a62f3a-ba41a04cdccmr206095866b.29.1776446664275;
+        Fri, 17 Apr 2026 10:24:24 -0700 (PDT)
+Received: from smtpclient.apple ([197.250.227.196])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ba45503c435sm75465166b.43.2026.04.17.10.24.19
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 17 Apr 2026 10:24:23 -0700 (PDT)
+Content-Type: multipart/signed;
+	boundary="Apple-Mail=_6363C69E-ACB3-474B-9473-521CD530D032";
+	protocol="application/pgp-signature";
+	micalg=pgp-sha256
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="O16sYH1P8rELRFuU"
-Content-Disposition: inline
-In-Reply-To: <20260417080648.3692438-1-binbin.shi@mediatek.com>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.500.181\))
+Subject: Re: [PATCH v4 7/8] ARM: dts: Declare UART1 on zx297520v3 boards
+From: =?utf-8?Q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
+In-Reply-To: <0d80dcbe-cb46-45e5-821a-de5299d6a663@app.fastmail.com>
+Date: Fri, 17 Apr 2026 20:24:05 +0300
+Cc: Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Russell King <linux@armlinux.org.uk>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Linus Walleij <linusw@kernel.org>,
+ Drew Fustini <fustini@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>,
+ linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org,
+ soc@lists.linux.dev,
+ linux-serial@vger.kernel.org
+Message-Id: <D3228B7D-0C11-4087-9547-0D1F7D5FB628@gmail.com>
+References: <20260416-send-v4-0-e19d02b944ec@gmail.com>
+ <20260416-send-v4-7-e19d02b944ec@gmail.com>
+ <0d80dcbe-cb46-45e5-821a-de5299d6a663@app.fastmail.com>
+To: Arnd Bergmann <arnd@arndb.de>
+X-Mailer: Apple Mail (2.3864.500.181)
 
 
---O16sYH1P8rELRFuU
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--Apple-Mail=_6363C69E-ACB3-474B-9473-521CD530D032
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=utf-8
 
-On Fri, Apr 17, 2026 at 04:06:17PM +0800, Binbin Shi wrote:
-> Add mt8189 cpufreq hw compatible in dt-bindings.
+Hi Arnd,
 
-Why's this not compatible with the existing device? You've got no driver
-change with this so I can't even guess as why. The incompatibility should
-be explained in the commit message.
+Thanks for your comments.
 
-pw-bot: changes-requested
+> Am 17.04.2026 um 11:59 schrieb Arnd Bergmann <arnd@arndb.de>:
+>=20
+> On Thu, Apr 16, 2026, at 22:19, Stefan D=C3=B6singer wrote:
+>>=20
+>> The reason why I add the serial1=3Duart1 alias is to keep =
+console=3DttyAMA1
+>> stable regardless of the other enabled UARTs. UART0, as the name
+>> implies, has a lower MMIO address, but uart1 is the one that usually =
+has
+>> the boot output and console.
+>=20
+> I'm not sure I'm following here. You generally want to either make
+> sure the alias matches whatever number is printed on the product
+> if there are multiple numbered ports, or you just use 'serial0'
+> as the only alias if there is only one port.
+
+Not all boards have their uart pins labeled, but those that do have the =
+pins that connect to the UART at 0x01408000 named UART1RX/UART1TX. Most =
+boards have only one though. I have seen a picture of only one that has =
+UART0 and UART1. I could not test that board myself yet.
+
+My original reason is one of developer convenience: If I have
+
+uart0=3Dserial@131000{
+    reg =3D <0x00131000 0x1000>;
+    ...
+    status =3D "disabled";
+};
+uart1=3Dserial@1408000{
+    reg =3D <0x01408000 0x1000>;
+    ...
+    status =3D "okay";
+};
+
+cmdline=3D"... console=3DttyAMA{0/1} ..."
+
+changing uart0.status between disabled and okay (e.g. to experiment with =
+uart0 and pinctrl) required changing the command line to match. I found =
+that pretty annoying and the aliases seemed like the best way to avoid =
+this.
+
+Either way I am open to do whatever. I can keep the current naming for =
+the reasons stated above, I can name serial@1408000 "uart0" and leave =
+the others without an alias or I can drop the alias altogether.
+
+> Either way, the alias should go into the board specific file, not
+> the general SoC file, as a board might be using a different
+> set of UARTs.
+
+That works for me, I'll move them. The aliases will most likely be the =
+same for all boards based on this chipset, meaning duplicate code, but =
+matching the alias to the board labels makes sense to me.
+
+> Since you know the addresses of the other uart instances, I would
+> suggest you add all of them at the same time.
+
+Will do.
+
+I'll hold off for a bit before I resend the patches to see if some other =
+comments come up.
 
 Cheers,
-Conor.
+Stefan=
 
->=20
-> Signed-off-by: Binbin Shi <binbin.shi@mediatek.com>
-> ---
->  .../devicetree/bindings/cpufreq/cpufreq-mediatek-hw.yaml      | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/cpufreq/cpufreq-mediatek-h=
-w.yaml b/Documentation/devicetree/bindings/cpufreq/cpufreq-mediatek-hw.yaml
-> index d0aecde2b89b..cff52fffc6b8 100644
-> --- a/Documentation/devicetree/bindings/cpufreq/cpufreq-mediatek-hw.yaml
-> +++ b/Documentation/devicetree/bindings/cpufreq/cpufreq-mediatek-hw.yaml
-> @@ -16,7 +16,9 @@ description:
-> =20
->  properties:
->    compatible:
-> -    const: mediatek,cpufreq-hw
-> +    enum:
-> +      - mediatek,cpufreq-hw
-> +      - mediatek,mt8189-cpufreq-hw
-> =20
->    reg:
->      minItems: 1
-> --=20
-> 2.45.2
->=20
-
---O16sYH1P8rELRFuU
-Content-Type: application/pgp-signature; name="signature.asc"
+--Apple-Mail=_6363C69E-ACB3-474B-9473-521CD530D032
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename=signature.asc
+Content-Type: application/pgp-signature;
+	name=signature.asc
+Content-Description: Message signed with OpenPGP
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeJifgAKCRB4tDGHoIJi
-0s9TAQD+qCFWSseJi4hwmF+JLmEE23ceOhV1OauB+CRT623n9AD/UTVQllhEmCr7
-1OjjOwDL92kHJhFrA7d6dYxHqxkLqQ8=
-=VuKY
+iQIzBAEBCAAdFiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmnibLUACgkQPRO8yFRP
+GiIKTQ/+NaGjhii1hGtfVI27m5B7xvrO45mnvMkcV0ceIDc63OvWS4qRsBlOJnwF
+9pjaplL2Kbm4sf/uPfQnAE0BviBly1d/14riJjJmEr4G4re2+Q/c9BeCxazBDbDJ
+tjODl+Ajwiu273EcwTN4ZU28p/80oJjmuEEAHsL8crw7d8rhnOjrwY/Ige9HgcBl
+BYlJRjunX6SxHxGNH/eEfrwrABGjHVD1ya8YjQ9NIZnkEEub9lRZO4v3gr3mU0F1
+tjATbZV1BL1SQ3/Zld3BNzYkj7JzCmiEH601T3RZittY4yZBDefYMFantWcrq8Ug
+nVM3or6OxSiKoLQ6vak5XVW9ks1iX1k+jU19AUN71/VIvWQ+zTVnO9c1wJae/eEe
+SMeyP/Kt4bOGDi1Bq22aD+nv2lJ8wo/4l3k9vDv8vJDECg6UxjLFgYPbtJyEV/wr
+mTaODzo1XDfo4PXQD5x0bpgYrguK4X0wVM5Yu/+x/kZLKrm+TWfXN4exCwO6WJPW
+sZ7mj6ksI03MTxB5XpBKeoaruf//hQe3lhLDJ837SaDq8xCekCsldXyMop/qQ92a
+HBwMG6hD3kLzxRjClYksypijVruKHNcHshp0imqt1Hhs5wXNbaEsTQOqRUgSWj08
+Yb2Veu9YNoQcnrIK0Kh0YtoHMDb29uagvWkRg63fyD40m56GPyA=
+=CzCY
 -----END PGP SIGNATURE-----
 
---O16sYH1P8rELRFuU--
+--Apple-Mail=_6363C69E-ACB3-474B-9473-521CD530D032--
