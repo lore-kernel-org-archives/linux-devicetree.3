@@ -1,196 +1,205 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB2C8377559;
-	Fri, 17 Apr 2026 09:42:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB89392C2A;
+	Fri, 17 Apr 2026 09:42:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776418929; cv=none; b=uPjtWoJVmn2JqXkZtLRXCfdGnDCpV2ZH0mot5+oe740gmL2kIXitrugSR30A15gdwEXk+Dl8pp4VYJ9o0IJwJpCbrPphY47hWnzINqs7+564rfgeHe1c+SQe+sL0mRv/CDS4KQAQni+eqyMEvrvuWIRNwdlCB7E7hC5V9fZtA/4=
+	t=1776418974; cv=none; b=pswpU+ymCV6FOUi1xhob2U6EIdqN7GOe3UF32RDJdZvd6ObF+uKMQ2W7II4w2dnJ9z4TcdeCL4JYnpjfUbuG5K7p8l1p+vu3WJeTTC3SjScNl0HQ6c6zwM6BS2GxXOMbN6IknAWE3RmIYOWH12ku62xjrwXcV8tI5cM5HcAsXVk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776418929; c=relaxed/simple;
-	bh=Z+mCdJrRxlOygbeRflRlN+EWtIiksemWgAkWykezN28=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hJXh8y9I6Ts9kdhrFBpnxSSnLqvNOm+Vdn6pd6NZ3cwLEBPm3aJ3uXU/BglX1rGcU63AeweDPExwiV1p7AMLsagF1RxU5VlJguFXMgBxhjsPZ+9+djPO9YCgYID+oKlMFEJCsr1go0JJ/2E+WTOsgRSvUjBpIwSBK5Tbk4lTnQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qcy6qSzp; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776418974; c=relaxed/simple;
+	bh=v9tHhY1o+rWXC3qQwdj4wKf+nh8bguz7yCmVc0hoTAw=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=a+0OsNTSDcwW+AEFkyvd1YOtLYFtawrVMUnr0YffKgOcAiHwI9wu9qXXVhA4eRnoJ1XvglpL7jdAQzDxGLXmpa4FBv13l+YwGfwF2mHFAMasziWMEKCcXoly8F1IrGgpf8G/pN5HMp1frjohgcrfj+F/3a++WXgwEr5VRcfn/Es=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=OC+2JyVo; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qcy6qSzp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46CAFC19425;
-	Fri, 17 Apr 2026 09:42:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776418929;
-	bh=Z+mCdJrRxlOygbeRflRlN+EWtIiksemWgAkWykezN28=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=qcy6qSzpio0ZARGG+IDS+drz0YpoiaDhRqvlyxBtanEX49n/t9i5TQfurLy7RmUwR
-	 GxLIdw8EosKbLR+HDoNi6Yks0O1Mb2yZ9yLJk9bl3nJSBKXy3pwi6pI+34dS4uToWj
-	 cLqtBXUPMALZOYjmyzzmQTzeP9sIs52vkfRR223nVmkYY9qjrkGNL1AiBHfzIiRJ+7
-	 S8/onPmoccSOhigrqRMfMdOfPm0HhF+U2WpLZ2WaP/AOFUVe6IhoJRM3l+Be1eZcoh
-	 VRXiMlbD10Id5ADCNGdpUuV0wkHNzKuEEFRlG3Ha81IGI+R+PjZWoDd9N8h2vGUZmt
-	 gllmcveSTSr8w==
-Message-ID: <b6600312-3667-472b-9b76-c9977355115a@kernel.org>
-Date: Fri, 17 Apr 2026 11:42:05 +0200
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="OC+2JyVo"
+Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63H7MA6W1700016;
+	Fri, 17 Apr 2026 05:42:48 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=EVi5ub0sdGNkerY6W2AigjKU0Qv
+	mNH3i0SnkRlrLzvU=; b=OC+2JyVo2Oy7SHTfow/isc3/jeyPBH8km7lNcb86eJ6
+	rDwGRyYCW6ef2NXkh7G+iVrqaQNQqKC0Qx9ElI0+zhJFs9UAhAyJCecWAb7oG53S
+	quMvhceVDJ40EfeSBUXdLkGIxZdlrKAwKptgdQAm70ybJ/T5bBfSN1IKRFjngFzb
+	5VU8iYSDfUmU9UUa3+5i5K5qE8913K7wpr7P1RjX1l5JZ4fL7fDTqBEJFz9FLeWG
+	z9k3WV2rv5sa+B4qIoCREwdwozFEfxu5ZeRiOyGYJgm6p+nkAk91ln1KY+nrknJN
+	fNnb32+xxD0FEU5vcsnF/FCGhLmnmwLjBA1NO+i9BRA==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4dk4cm2sd7-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 17 Apr 2026 05:42:48 -0400 (EDT)
+Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 63H9gl1b019659
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 17 Apr 2026 05:42:47 -0400
+Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
+ ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Fri, 17 Apr 2026 05:42:47 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
+ ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Fri, 17 Apr 2026 05:42:47 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Fri, 17 Apr 2026 05:42:47 -0400
+Received: from HYB-7P5GeKnsiiX.ad.analog.com ([10.118.4.168])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 63H9gZIh000824;
+	Fri, 17 Apr 2026 05:42:38 -0400
+From: Edelweise Escala <edelweise.escala@analog.com>
+Subject: [PATCH v6 0/2] Add Support for LTC3220 18 Channel LED Driver
+Date: Fri, 17 Apr 2026 17:42:26 +0800
+Message-ID: <20260417-ltc3220-driver-v6-0-18157871eddd@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] arm64: dts: qcom: qcs6490-rb3gen2: Add WCD headset
- playback and record for qcs6490-rb3gen2 industrial mezzanine
-To: Karthik S <karthik.s@qss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260417093327.3251203-1-karthik.s@qss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260417093327.3251203-1-karthik.s@qss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAIIA4mkC/33Oz24CIRDH8VcxnKVhhj8rnnyPpgeEQUl017CGt
+ DH77h09bUva42/I5xseYqZaaBb7zUNUamUu08jDbTcinsN4IlkSb4EKnQLl5OUeNaKSqZZGVWY
+ fji5Gn4CMYHSrlMvnK/j+wftc5vtUv179Bs/rn6kGUslB81tyGZzxhzCGy3R6i9NVPFsNVx6w8
+ 8g+KaOV3eVoUu68Xnl2v71mnyk7QIomh9B5s/b9/w37aL2FAZWLaDpv//eWPVgMWpHfhePwwy/
+ L8g2Tv7OBrQEAAA==
+X-Change-ID: 20260106-ltc3220-driver-f9ab6cc9d1e4
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+        Rob Herring
+	<robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>
+CC: <linux-leds@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>,
+        Edelweise Escala
+	<edelweise.escala@analog.com>,
+        Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776418955; l=3791;
+ i=edelweise.escala@analog.com; s=20260106; h=from:subject:message-id;
+ bh=v9tHhY1o+rWXC3qQwdj4wKf+nh8bguz7yCmVc0hoTAw=;
+ b=6CAbgjZH6mA9AYyL0A75IDqpEVqm7woFfLk5WPlcjXMcF+0WBiq2E39QP55Ebmgkr8lVlbW45
+ n73WTpdrKp1CvTeMrVFcSo0ECQFDMQmUwlrf/ZiOaScuvuarGWIpQxX
+X-Developer-Key: i=edelweise.escala@analog.com; a=ed25519;
+ pk=lf5HLFe8ZeQjXZgkBkFMK+u9qH5/tqZhCIushTKduNQ=
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Authority-Analysis: v=2.4 cv=dpDrzVg4 c=1 sm=1 tr=0 ts=69e20098 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=0sLvza09kfJOxVLZPwjg:22 a=uXIjobp8t2wMuQ0fPvqm:22 a=VwQbUJbxAAAA:8
+ a=gAnH3GRIAAAA:8 a=XYAwZIGsAAAA:8 a=ug16CcPq06YyOAJwHUsA:9 a=QEXdDO2ut3YA:10
+ a=E8ToXWR_bxluHZ7gmE-Z:22
+X-Proofpoint-ORIG-GUID: RbF2PMqr1wQmVV9UkzW-QT5r8Jf45d2m
+X-Proofpoint-GUID: RbF2PMqr1wQmVV9UkzW-QT5r8Jf45d2m
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE3MDA5NiBTYWx0ZWRfX5quT+KizBFIo
+ Ufox9Mbm59nRpvpTZ7OrWBlqqcf9W9AUNsg7zvV3a7FFTmsXTpol7IKzbeIL5h2mTQmc0TjW5Im
+ 1GHej5qRgRgNL4MAmJA/erh0e/yzFEri8h4kc1g43HORdL9HuQgT+XmBsjJRhsNT7wymtm7c3wN
+ h9ptMQxvgRZu4RCyf+BoDKKHQtEt+pA6KZNqoKhoW4Ut/FITEsEwoziwQfY0RRZ/pxsEob2rAwk
+ MypnBptSepF4/1pxNKD60tDxm+/qGICIRObqdzucOs3m8JtOabc0umSAXrIZ8pA/PmuhiFmhmR9
+ 40D3WKIyoeryxNNZlHYVCeqVx37UDyYHJbscf7mTa++yNnV33fiHjrsClkV+iD3yzZxRqwoSi0i
+ Bv3maXTzXbNe1lOQZzbeyJC/YkX0qZWKRSmP2Q53LVh/MMD2xnT032mJ8Kp2MchaiKX3HBPlfWL
+ sD/wALbg0SS2jG3hn7Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-16_04,2026-04-16_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 suspectscore=0 spamscore=0 priorityscore=1501
+ lowpriorityscore=0 impostorscore=0 clxscore=1011 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604170096
 
-On 17/04/2026 11:33, Karthik S wrote:
-> Add WCD playback and capture DAI link to sound node. Add WCD
-> codec node and corresponding soundwire nodes to perform
-> headset playback and record.
-> 
-> Signed-off-by: Karthik S <karthik.s@qss.qualcomm.com>
-> ---
->  .../qcs6490-rb3gen2-industrial-mezzanine.dtso | 133 ++++++++++++++++++
->  1 file changed, 133 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
-> index 83908db335af..d2503fce352c 100644
-> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
-> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
-> @@ -6,6 +6,7 @@
->  /dts-v1/;
->  /plugin/;
->  #include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/sound/qcom,q6afe.h>
->  #include <dt-bindings/clock/qcom,gcc-sc7280.h>
->  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
->  
-> @@ -30,6 +31,29 @@ vreg_1p8: regulator-1v8 {
->  		regulator-always-on;
->  		regulator-boot-on;
->  	};
-> +
-> +	wcd9370: audio-codec-0 {
+The LTC3220/LTC3220-1 is a multi-display LED driver, which contains a
+high-efficiency, low-noise charge pump to provide power to up to
+18 LED current sources. The LEDs are individually configurable to
+64-step linear brightness control, blinking and gradation control
+via 2-wire I2C interface. The blinking and gradation configuration
+is shared across all LED.
 
-Why 'audio-codec' goes after 'regulator'? And is there audio-codec-1? If
-so, where?
+LTC3220 has a quick write function which allows changing the brightness
+on all LEDS simultaneously when the brightness is changed on led 1.
+For this leds are aggregated in the device tree and on probe we check
+if led-sources exist to enable quick write. 
+We would like to know if this approach is alright?
+Another way we might want to know is, is it alright to just make a
+virtual led for the quick write function. Changing brightness on 
+the virtual led will change the brightness for all.
 
-> +		compatible = "qcom,wcd9370-codec";
-> +
-> +		pinctrl-0 = <&wcd_default>;
-> +		pinctrl-names = "default";
-> +
-> +		reset-gpios = <&tlmm 83 GPIO_ACTIVE_LOW>;
-> +		vdd-buck-supply = <&vph_pwr>;
-> +		vdd-rxtx-supply = <&vph_pwr>;
-> +		vdd-px-supply = <&vph_pwr>;
-> +		vdd-mic-bias-supply = <&vph_pwr>;
-> +		qcom,micbias1-microvolt = <1800000>;
-> +		qcom,micbias2-microvolt = <1800000>;
-> +		qcom,micbias3-microvolt = <1800000>;
-> +		qcom,micbias4-microvolt = <1800000>;
-> +		qcom,hphl-jack-type-normally-closed = <1>;
-> +		qcom,ground-jack-type-normally-closed = <1>;
-> +		qcom,rx-device = <&wcd937x_rx>;
-> +		qcom,tx-device = <&wcd937x_tx>;
-> +
-> +		#sound-dai-cells = <1>;
-> +	};
->  };
->  
->  &remoteproc_wpss {
-> @@ -283,8 +307,117 @@ pcie1_tc9563_resx_n: pcie1-tc9563-resx-state {
->  		output-enable;
->  	};
->  
-> +        wcd_default: wcd-reset-n-active-state {
+Signed-off-by: Edelweise Escala <edelweise.escala@analog.com>
+---
+Changes in v6:
+- Fix commit message
+- Add manufacturer on Kconfig and improve description
+- Rearrange register map and bitmask and improve naming
+- Use regmap, also use update bits of regmap to avoid unnecessary
+  structs
+- Alignment and spacing fixes
+- Use Define for magic naumbers
+- Fix blink calculation
+- Add comments on aggregated LED
+- Fix variable name to something more understandable like i to led_index
+- Link to v5: https://lore.kernel.org/r/20260126-ltc3220-driver-v5-0-152a30e98ab7@analog.com
 
-Messed indentation.
+Changes in v5:
+- Missed rename on bindings filename in MAINTAINERS file
+- Link to v4: https://lore.kernel.org/linux-leds/20260126-ltc3220-driver-v4-0-c59517206c24@analog.com
 
-> +                pins = "gpio83";
-> +                function = "gpio";
-> +                drive-strength = <16>;
-> +                bias-disable;
-> +        };
-> +
->  };
->  
->  &wifi {
->         status = "disabled";
->  };
-> +
-> +&swr0 {
+Changes in v4:
+- Rename leds-ltc3220.yaml to adi,ltc3220.yaml
+- Add Reviewed-by: Conor Dooley <conor.dooley@microchip.com> on
+  adi,ltc3220.yaml
+Other V1 comments I think already addressed
+- Subject commit message was already changed to match hardware
+- Fixed wrapping after description
+- Dropped "Bindings for" in descriptions and improved description to match hardware
+- Dropped adi,ltc3220-1
+- Dropped redundant description on reset-gpios
+- Dropped adi,force-cpo-level
+- Dropped adi,quick-write in favor of aggregated LED
+- Used consistent quotes ^led@([1-9]|1[0-8])$
+- Fixed wrapping on error messages
 
-What sort of sorting is this?
+- Link to v3: https://lore.kernel.org/r/20260120-ltc3220-driver-v3-0-fef612ec4faa@analog.com
 
-> +	status = "okay";
-> +
-> +	wcd937x_rx: codec@0,4 {
-> +	compatible = "sdw20217010a00";
-> +	reg = <0 4>;
+Changes in v3:
+- Dropped quick-write on bindings and added aggregated led instead.
+- Add aggregated led example.
+- Modify quick write to check if there is aggregated led, if there is
+  aggregated led enable quick write.
+- Use DEFINE_SIMPLE_DEV_PM_OPS instead of SIMPLE_DEV_PM_OPS.
+- Link to v2: https://lore.kernel.org/r/20260112-ltc3220-driver-v2-0-d043058fc4df@analog.com
 
-Even worse here.
+Changes in v2:
+leds-ltc3220.yaml changes
+- Fix wrapping on description
+- Improve description and commit messge to describe hardware
+- Drop ltc3220-1
+- Drop charge pump
+ltc3220.c changes
+- Fix wrapping
+- Drop ltc3220-1
+- Drop devname_mandatory
+- Link to v1: https://lore.kernel.org/r/20260106-ltc3220-driver-v1-0-73601d6f1649@analog.com
 
-And finally:
+---
+Edelweise Escala (2):
+      dt-bindings: leds: Add LTC3220 18 channel LED Driver
+      leds: ltc3220: Add Support for LTC3220 18 channel LED Driver
 
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
-
-Undocumented ABI (without any reference in changelog where to find
-posted patch).
+ .../devicetree/bindings/leds/adi,ltc3220.yaml      | 120 ++++++
+ MAINTAINERS                                        |   8 +
+ drivers/leds/Kconfig                               |  12 +
+ drivers/leds/Makefile                              |   1 +
+ drivers/leds/leds-ltc3220.c                        | 418 +++++++++++++++++++++
+ 5 files changed, 559 insertions(+)
+---
+base-commit: 8856d7fe1758937ac528770f552ec58c388c255b
+change-id: 20260106-ltc3220-driver-f9ab6cc9d1e4
 
 Best regards,
-Krzysztof
+-- 
+Edelweise Escala <edelweise.escala@analog.com>
+
