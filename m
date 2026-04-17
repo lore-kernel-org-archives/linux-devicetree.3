@@ -1,53 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0791934D93B;
-	Fri, 17 Apr 2026 16:19:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 922EB3491C4;
+	Fri, 17 Apr 2026 16:22:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776442750; cv=none; b=kQAhuFdpmHRNqdo15/tfbXH5sZAN1euRzFimh79uDFqw2+gW2WjYz7Tcn/dUa4dMzMfpYt56Rgf2UbmEHZWh4YdxQ/eHROj0OjGzAXQPRbdXHfoJ9Remc2A3tTjSbduXysAuGob7RcOm3jO4pggPJleQREZIjf3NQ6Icn+tFuCg=
+	t=1776442929; cv=none; b=EEl8XalFnY08WR4FxILZJO5TYt5t0ZupldLZqt2cOqc7ns3K7jb/OMpOvRn3Dnlqbv5XayYOGwp3lR7tfoFCW426Po+e0PXAqcXrdzDs2ONH+6jmY4KJxsCM/EEZuXSp+odbjmAsCVMqjKwHuY5xsnpJPbvJYrDvztqrch/Wkq0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776442750; c=relaxed/simple;
-	bh=Gqz700Nrcu8eh6o0BJ1G6B6osDYiQo7TSTlizR1FQ0c=;
+	s=arc-20240116; t=1776442929; c=relaxed/simple;
+	bh=egW6uHF4eK85Hi/etR9aA8Lh7/2sOL+cwSmZ8PG8Gr4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ImBOjJ10F4HFj3WO30CJrUvlyNTp70b9NloeC3tV4bKFBJijme05ZgJt0qNALNQsYN9QCOupdSkSt8f8g/E6of9Bqdz/8xgpafPTlI68SVAGDzHc8vZAHE6eiVRA3Rt8ucD/gy2LCthGtkFKspKROKAx6LabFnrDL0rpNdGJMmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=px7y7IT2; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=R7i+YQJoyHZuMb8NnUlzdT0G8zjVl7Sjhoo1mVWXQMVdFKYDfhnohzdNbaFnLWu+fyEIVO46PLWswDXofPPWbPDdjrY3RfE8j+OdyxNULaIqoiBMWDJd6bikwXNptDVAwJuc0daveHZFDTncrhKVRMEz9ZKKflez371OaBgUCpE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oAjE8slq; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="px7y7IT2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E4EDC19425;
-	Fri, 17 Apr 2026 16:19:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oAjE8slq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 164A1C2BCB4;
+	Fri, 17 Apr 2026 16:22:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776442749;
-	bh=Gqz700Nrcu8eh6o0BJ1G6B6osDYiQo7TSTlizR1FQ0c=;
+	s=k20201202; t=1776442929;
+	bh=egW6uHF4eK85Hi/etR9aA8Lh7/2sOL+cwSmZ8PG8Gr4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=px7y7IT2ZKgpKpl8/wMgrPzXILbU0LnWNA4L1I+MFVYgow91EBciFGR3J4xGfSi0r
-	 l6zL7+qRJQQBTrd7QMXuLoC/O0WLNeNzMe3b61LNyepyU7e34ZSYPWIx7iM+IIkhpj
-	 IqlkP9Fh6zlJmMTbv16dJiHPfs4Tvtk13nm0R6+wWcRllszIXQfv6lzjj8k3+n9QA/
-	 Iikjm3y2W+mCLXZ5f+EidM+kH2/wFSI3vx7mx1V6/7zlLMmZ6agq/u/CTwlWsxAa4H
-	 wFL/O+6CuQWucWUXodJlw+NOvK60pG4gkmfxxn2JHPnEUe/2r7CKnoxwFTuCzhTzxM
-	 4ui4D7XPko7Ew==
-Date: Fri, 17 Apr 2026 17:19:03 +0100
+	b=oAjE8slqT10r02Jkq/UXK6Kdkj3JB5VRdtK1k8ORy64oM77yRDN7qbQIKATWgsBN9
+	 +fFnVE+KdJzN2hV07uY06YSdkRVq9BNCLIXZnMagW1/zEM3zLHV6AIWjLqS7WJ0/GB
+	 jBbbvtgOljpAv+rS/hfMJR9TdU29LnbWcUMh1Jj5579VKSwMsE5yiJyDfxn8lMF3Ce
+	 LxH+hlSq9mfuiR0u91ZZ1Mxuvd4VYcRGW8Ch65vw5mgftnDUK+8YYALFEWrfScN36A
+	 COqa+LZTJWJSIA7Vf+rkptt0/xKAF7ocTbGkZ5/Ng6ycUkLHFi2Z1d1/KO+r2aQkRW
+	 +aMGlDsy+4ZCw==
+Date: Fri, 17 Apr 2026 17:22:03 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, Jagan Teki <jagan@edgeble.ai>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-	Marek Vasut <marex@nabladev.com>, Kael D'Alcamo <dev@kael-k.io>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: display: panel: Add compatibles for
- Zhunyi Z40046
-Message-ID: <20260417-wisplike-seismic-380c96863444@spud>
-References: <20260417104740.259689-1-l.scorcia@gmail.com>
- <20260417104740.259689-2-l.scorcia@gmail.com>
+To: Jianhua Lin <jianhua.lin@mediatek.com>
+Cc: nicolas@ndufresne.ca, mchehab@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	Project_Global_Chrome_Upstream_Group@mediatek.com,
+	sirius.wang@mediatek.com, vince-wl.liu@mediatek.com,
+	jh.hsu@mediatek.com
+Subject: Re: [PATCH v7 1/3] dt-bindings: media: mediatek-jpeg-decoder: add
+ MT8189 compatible string
+Message-ID: <20260417-steersman-scowling-1b8923c3d6fc@spud>
+References: <20260417100519.1043-1-jianhua.lin@mediatek.com>
+ <20260417100519.1043-2-jianhua.lin@mediatek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -55,81 +50,138 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4RQNWT+XJzTeXJqp"
+	protocol="application/pgp-signature"; boundary="SI+6e7v0m6f8SmPK"
 Content-Disposition: inline
-In-Reply-To: <20260417104740.259689-2-l.scorcia@gmail.com>
+In-Reply-To: <20260417100519.1043-2-jianhua.lin@mediatek.com>
 
 
---4RQNWT+XJzTeXJqp
+--SI+6e7v0m6f8SmPK
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Apr 17, 2026 at 11:46:30AM +0100, Luca Leonardo Scorcia wrote:
-> The Zhunyi Z40046 is a 480x800 24-bit WVGA DSI panel based on the
-> Fitipower JD9161Z DSI controller found in the Xiaomi Mi Smart Clock
-> x04g, apparently in two different variants.
+On Fri, Apr 17, 2026 at 06:05:17PM +0800, Jianhua Lin wrote:
+> Add the compatible string for the JPEG decoder block found in the
+> MediaTek MT8189 SoC.
 >=20
-> The Fitipower JD9161Z LCD driver IC is very similar to the Jadard
-> JD9365DA-H3, it just uses a different initialization sequence.
+> Compared to previous generation ICs, the MT8189 JPEG decoder requires
+> 34-bit IOVA address space support and only needs a single clock
+> ("jpgdec") instead of two. Therefore, it is added as a standalone
+> compatible string without falling back to older SoCs.
 >=20
-> Since this is the first supported device from this vendor, document its
-> name to the vendor-prefixes.yaml file as well.
+> Update the binding schema to include the new compatible string and add
+> an `allOf` block with conditional checks. This enforces the single clock
+> requirement for MT8189 while preserving the two-clock requirement
+> ("jpgdec-smi", "jpgdec") for older SoCs.
 >=20
-> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
-
+> Signed-off-by: Jianhua Lin <jianhua.lin@mediatek.com>
 > ---
->  .../devicetree/bindings/display/panel/jadard,jd9365da-h3.yaml   | 2 ++
->  Documentation/devicetree/bindings/vendor-prefixes.yaml          | 2 ++
->  2 files changed, 4 insertions(+)
+>  .../bindings/media/mediatek-jpeg-decoder.yaml | 48 +++++++++++++++----
+>  1 file changed, 40 insertions(+), 8 deletions(-)
 >=20
-> diff --git a/Documentation/devicetree/bindings/display/panel/jadard,jd936=
-5da-h3.yaml b/Documentation/devicetree/bindings/display/panel/jadard,jd9365=
-da-h3.yaml
-> index e39efb44ed42..158388a284d9 100644
-> --- a/Documentation/devicetree/bindings/display/panel/jadard,jd9365da-h3.=
-yaml
-> +++ b/Documentation/devicetree/bindings/display/panel/jadard,jd9365da-h3.=
-yaml
-> @@ -24,6 +24,8 @@ properties:
->            - radxa,display-10hd-ad001
->            - radxa,display-8hd-ad002
->            - taiguanck,xti05101-01a
-> +          - zhunyikeji,z40046-ctc
-> +          - zhunyikeji,z40046-boe
->        - const: jadard,jd9365da-h3
+> diff --git a/Documentation/devicetree/bindings/media/mediatek-jpeg-decode=
+r.yaml b/Documentation/devicetree/bindings/media/mediatek-jpeg-decoder.yaml
+> index a4aacd3eb189..fd895688a038 100644
+> --- a/Documentation/devicetree/bindings/media/mediatek-jpeg-decoder.yaml
+> +++ b/Documentation/devicetree/bindings/media/mediatek-jpeg-decoder.yaml
+> @@ -15,10 +15,10 @@ description: |-
+>  properties:
+>    compatible:
+>      oneOf:
+> -      - items:
+> -          - enum:
+> -              - mediatek,mt8173-jpgdec
+> -              - mediatek,mt2701-jpgdec
+> +      - enum:
+> +          - mediatek,mt2701-jpgdec
+> +          - mediatek,mt8173-jpgdec
+> +          - mediatek,mt8189-jpgdec
+>        - items:
+>            - enum:
+>                - mediatek,mt7623-jpgdec
+> @@ -32,13 +32,20 @@ properties:
+>      maxItems: 1
 > =20
->    reg:
-> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Doc=
-umentation/devicetree/bindings/vendor-prefixes.yaml
-> index 6339988e3805..debaec59e9a0 100644
-> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> @@ -1923,6 +1923,8 @@ patternProperties:
->      description: Zealz
->    "^zeitec,.*":
->      description: ZEITEC Semiconductor Co., LTD.
-> +  "^zhunyikeji,.*":
-> +    description: Shenzhen Zhunyi Technology Co., Ltd.
->    "^zidoo,.*":
->      description: Shenzhen Zidoo Technology Co., Ltd.
->    "^zii,.*":
+>    clocks:
+> +    minItems: 1
+>      maxItems: 2
+> -    minItems: 2
+> =20
+>    clock-names:
+> -    items:
+> -      - const: jpgdec-smi
+> -      - const: jpgdec
+> +    oneOf:
+> +      - items:
+> +          - const: jpgdec
+> +      - items:
+> +          - const: jpgdec-smi
+> +          - const: jpgdec
+> +
+> +  mediatek,larb:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description: a phandle to the smi_larb node.
+
+This should be restricted to only the new platform.
+
+> =20
+>    power-domains:
+>      maxItems: 1
+> @@ -60,6 +67,31 @@ required:
+>    - power-domains
+>    - iommus
+> =20
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: mediatek,mt8189-jpgdec
+> +    then:
+> +      properties:
+> +        clocks:
+> +          minItems: 1
+> +          maxItems: 1
+
+Constraints that duplicate the outtermost ones don't need to
+be/shouldn't be repeated here. You only need the maxItems here and the
+minItems in the else.
+
+pw-bot: changes-requested
+
+Cheers,
+COnor.
+
+> +        clock-names:
+> +          minItems: 1
+> +          maxItems: 1
+> +      required:
+> +        - mediatek,larb
+> +    else:
+> +      properties:
+> +        clocks:
+> +          minItems: 2
+> +          maxItems: 2
+> +        clock-names:
+> +          minItems: 2
+> +          maxItems: 2
+> +
+>  additionalProperties: false
+> =20
+>  examples:
 > --=20
-> 2.43.0
+> 2.45.2
 >=20
 
---4RQNWT+XJzTeXJqp
+--SI+6e7v0m6f8SmPK
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeJddwAKCRB4tDGHoIJi
-0uPcAQDiiUwHwEaOFL6lZjiJi7xuyBZVyTp5yaXHmyRpUpuuyQEAnK3zwourBQ0E
-Ha9E1aiEpbrTHZIQvv9OEnFcBhwDGAw=
-=by6q
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeJeKwAKCRB4tDGHoIJi
+0kqgAP97U/dCLPVLSL5QUuwO1PDi3nC/QrG3oONPZ0qzcA0Q5gEA41YDuwB2x+5b
+Kaq5lytA+wheHyQALeOAnjtKDlX3RgA=
+=5MTH
 -----END PGP SIGNATURE-----
 
---4RQNWT+XJzTeXJqp--
+--SI+6e7v0m6f8SmPK--
