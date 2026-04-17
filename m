@@ -1,120 +1,300 @@
-Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com [209.85.217.53])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89CB53563CD
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 12:23:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C9C93368B4
+	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 12:30:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.54
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776428637; cv=pass; b=lt3EevdXiSYX7+Ql/7FGChx812UvmK9hKPymkOtu6v9Ex+zILgkDoRCDtjnjTF+JAakNrKK1CYJB4afL3NL4lSTHqMzvxYNvh53BfEU+QjXpv29JM0Kzy4l3VOc1iWk4Hdg/luQzolAom0CQbAtiSLEsa+3i29RI9mAylRkuVuU=
+	t=1776429046; cv=pass; b=WvFNIhdCAQisjD5VMaKnORnh/v4jvH3IO6oFn2DkUk7jiwbgy/MSrpPwvhBeE/KXeSOmZbnxHV9EFw1dl5o75bg3Zik0U5i6aeNZXftab8LNGvwpB8xfm8n9n4yy8FoMmb3OdGBa7A2s+pko8/F6/y7JubXSOXscWQGtoI+4zJY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776428637; c=relaxed/simple;
-	bh=XpCq8Sf4SUf8hB4URITm6CXymy9bJ7uTQ5Arv6MXawk=;
+	s=arc-20240116; t=1776429046; c=relaxed/simple;
+	bh=ZEh9eTjwFPZ3QnfRFXk0+uFn/4lL3yczZsSKU/HfvO4=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZzWWULS3SkfHlnU3GMR8sHiXtj9BFWsqHrp7H9VS9YhGnekQO1zdrPBs/H8eXUvKQpuT9D1JIV7oJ+KVeCoDFQBwgh6LXqkXqubaq/6KLEO568wwuT562MhTlWwhhB6cauNisbgUF8mGpvT4yFVSHAqbb+Oz0K7DTJr81dRtr5w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h/2hXFtf; arc=pass smtp.client-ip=209.85.217.53
+	 To:Cc:Content-Type; b=BOKXUtDA09JQ+IfU6TrmVCGtnzgGYl8a9tLt3IR44zrQG0ON6Chjh5jxopqvKj15NAinJFnNFI0RqqUOPx0fxiYbSE1FMA1O1P2dbpAtvtoblIjK2/8R1AtrRzK/SfIWhM9472hfc9Dpj7pLqRvTLyM96lbxiGea7ECZ8EIo2G0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dizukVIj; arc=pass smtp.client-ip=209.85.221.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h/2hXFtf"
-Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-6108228a851so191750137.0
-        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 05:23:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776428635; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dizukVIj"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-43d73422431so468596f8f.2
+        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 05:30:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776429043; cv=none;
         d=google.com; s=arc-20240605;
-        b=UadJ2vyRIXvHjxl+Vra0DJOWzB0Ef+7xI4H9P5uZKp4dwkdD9R7IKdSootS6RnDJRd
-         2wajlCvXvzqQvMw/8sEEDt9xWRfLcn1kraT9ZXEcVBeIJCHWMdhppDTGNYXWg2cC4vrO
-         p/uNz1Xw4Ebgj/+nAd8gXp0XVVwcAW05CWvzRyMmoI8CtsKSpcw+WD1jwfZP+Dhd4Vu2
-         fppZGOaHLKB/fAbfpt9nlGlj8pR9ssHc/CbLIvzkMafETf5gwL06hEhSsRj5XF3FYAjD
-         hDSLhcmbcObYVUn2ajk7ltFgCj42QuWkJGR5AuYMMOA+JyPpqONMgufuS0j9HHNHOVxu
-         Lxvg==
+        b=eGOl1pPyHe1re6LsY7ZVbZ+gtW8aG+u6GifkmEhAAS9rmIY+g0Bu4ajZYkO5jvEtK+
+         yWuIj8FesskFh80dG64+/slYNZrjjwvBb+m+peMvHGVLuRPdQLOa5IH017cnfa4bIVS6
+         3v1QffhCxxTPlqlnA5hRjgnzq6iccyYGscBzkSF1nO561EsFHsYfkFEJei2CKiDCotFG
+         MDrV4qvCQjrBXZpATlCOeLWJqNbxD9Y0Gj+xeNjfxJQnMvbxnFmAQBdZen2cS+wcVeZr
+         JmG0VfRLCbmKYMkdihCIYvIeDiXZQNfePOrAZbBjgoVGoWNjrQmJzoBKPKOyft/qUio9
+         VDHw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=XpCq8Sf4SUf8hB4URITm6CXymy9bJ7uTQ5Arv6MXawk=;
-        fh=/sTVWnr0bPHEFEnkl/dJg6BYPawA4tigZrEQjJWXPc0=;
-        b=E44eB/w48cf+pQjeUXoG/2xf20C/5Xom3tj8MNkF8bp7GiWl0rCA2i8TzkmoUuROOn
-         wkFeK7cwU0bySyB4bygzFYuUoyTuji4UfbTtwY66BUVZ6UBs0tx8bi6sePtiK20Rabz4
-         GGV2oQ9oueHpy1QbOOy+EGTPGvIjz74BNb+xaLQqxOuYHr62Y8PUDWjhCbWsd8Y1nUgA
-         i14ciTjcwNJIc1IZFxnvZdo2LU/ZXp/DI1bOAUuoSSG4h9Bay3e89Qbb0xxSk9geL6Qr
-         tdj5kJoBqCFFI/5V8fkVxUrkbukCY1uBrD7c94mtyLIY2qUB8usnfoA8US8XDwgzjV03
-         j70g==;
+        bh=3RbDXw7oOLyQBxsRsPjm752yvj7/SEG0Ag12AzayEHM=;
+        fh=Q3NgN3+QIbc2y30C5s50rgudm+VEIbeEp77FweWNdcU=;
+        b=I8vX3Gdy5SpJq4rmEQU3Thh5DNrMzQP6QhEGmOELfjDFlBuUedlqE99lDlovqsH2cP
+         iVQofiLBfrgtLH085/KCD06WlFyG57aGcWDCQJJAmitgn3ggOzo3dOHWRQm56zFD6FOc
+         jrUdlO0iWIuZfBg/Z8L1tAeXXhbzlblW2yAAvSvIEx7BuxjYusPRpw4X4roBJ9IsKUWO
+         WazdYcVjUzZwB62BUDEq3KeaBPubsHiqCGva8OcIkrs/NJlGQQjQhpHa6I5Y8jGQZijX
+         KpydlX/YYosuZaeroL7FpSha3gIhBDb7eAUoN7gZ+oGIgexNEjeianyfa4IpNNlenhUp
+         nK6A==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776428635; x=1777033435; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1776429043; x=1777033843; darn=vger.kernel.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XpCq8Sf4SUf8hB4URITm6CXymy9bJ7uTQ5Arv6MXawk=;
-        b=h/2hXFtfEuO7HmwOj61+/Xbxk6NQ64StW8SU+GSJBeCR9uZL0UFK5ABD1XVqLkCY1L
-         BVfh/iRGHkBo8SRKqvFXRgKdM8OxB35cgxU2PTUvIzzfxhkFrcWWCh/2gO3MIap8ppDh
-         JGYji+UOdQ5hbSEkFsDnRkmL5XueYQkZ9porKWHCBX1SZ8BFcFhoSVasYUYGpspR3tSy
-         r4iq7FyfIpIGueXaqeBmNGxYTn7uhx9KV09lxRhBuGvibpYMfuDeIBSBd+Lu6ijWOoZF
-         KcquvbCj7lmv3SrUNq9gJSziaQZCD9ELZTl4ZcY5n1EOwcwx6dcCEoA1nWCypoBF5ZeQ
-         DVuA==
+        bh=3RbDXw7oOLyQBxsRsPjm752yvj7/SEG0Ag12AzayEHM=;
+        b=dizukVIjeYZqOYLQNuIA7/7LSPp9W2Dvp17OWDzNpdeQa8NfymHBByQ3YPHm5OQH0k
+         CrdHjVqEzUSEzejUMFEY9tMfhHMNe9fBxkEV6Pr6jtbreBjwUDoun/hOZ9TS27cT3c9g
+         +krfz2qIe+rNoS5N3XCirWrCtyZjKQz0qg6fT6i8ekALk2rkLtmmtQTQV/X1NVGOLiER
+         QuJK/YlDN7YJFVixyu/mGnRThnTu5ufRv8kU60WAUVxc8I+krjjmQmPHANsXGaR3OVeb
+         XjU33MLRbKl6oXl9RQaONCMsPPcdE9LUcd2jsybfsP3yXAd+sZh7X1UwCle5MI4xLz4C
+         K7jQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776428635; x=1777033435;
+        d=1e100.net; s=20251104; t=1776429043; x=1777033843;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=XpCq8Sf4SUf8hB4URITm6CXymy9bJ7uTQ5Arv6MXawk=;
-        b=MVzgd68JMfPFBsaO53wNCahoMn0C53AizMwuOqONQy4DH3fu9QFygisrP3GRG9WL+m
-         x9LmDGxGWbkSDNy8UI3JCSl17+JyQ4EsqR01fxUgtGgJ08GcJF6ApXgK8DNwFOcZ1yLX
-         RytGxzRi/HTL8T1BT0RQCepMaNGuH3Sj1lCisceU5J/7GcMpyd7osjUamIznrHqLf+vN
-         SgS0q0J57HkbKAuQsL8CiU/g8uhe/uKNvdOylg2r5iANMYW51yAmMRK1l98qLpT5JUKQ
-         Fs9BCDJxveBFKOizxu1tGdDHKusyManlqHrofbRAzKorJNAq4E8ca3+0NylNfkysdhHW
-         GSqg==
-X-Forwarded-Encrypted: i=1; AFNElJ8UWPR+h+dBXuH+JV4hKfdG8i5X95cDxUn/mYFVQbH/OgAbcMb824I+9ek1GCKdKEKYlVDmhmBG8nk2@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz1s60jV6L1LxTQt0qaj+tYMGXtJpO18sS0gipvcetWHoZi9kCw
-	aVCA+NOd4kWiHaLWOnM4rlTfTH22QAbRshBNGCLU+UQnPq8o1gDx5u1yIi6id5CFAddb3sAhf6q
-	7Aa28JpAtHpjc9XThWHA+gYvdqJn1mk8=
-X-Gm-Gg: AeBDieusyYg70AWhVm7z5GbhIu4FG0TyrWxV46pixLb+2jD1lNiDUCSjRL+twZcu/38
-	Z1v6KFKMk81TMRnvank3l0d+zfNdgyxAn/pET3uW/w6AXsdscWf5kWBitisk7ajhM21TQHoctys
-	r+9XfAWCLAxkjpHph8tPjrrCycaNmJYYGNfJUnMfTjGt9zjXkeKbzOm0DKMQkkrLV7Vv6KKufhl
-	F2dtMlMbgONT2JMlzDly0/LWTq/+5vHrSRsbqrh5B1CKMriQVHWa1n+psT5zqhaPIv24iumSws7
-	UboBz7Eu3E14I0jsMg==
-X-Received: by 2002:a05:6102:3588:b0:5ff:2963:52dc with SMTP id
- ada2fe7eead31-616f474365amr846225137.4.1776428635433; Fri, 17 Apr 2026
- 05:23:55 -0700 (PDT)
+        bh=3RbDXw7oOLyQBxsRsPjm752yvj7/SEG0Ag12AzayEHM=;
+        b=SpHwgv5cuFShM5BMPrvy3iYRUmdKK46c+Z7hcABJBeOU+3zLzJKuyPHymy54/J06r0
+         +M6lLajbqQ7eZ2psxsHqU0kKHKxqcAE+YPAusJK/SjEwBgF19EKcDpO6idU81e6APgL9
+         kAWZAMnPdcq56EsA8ciCPFTT5AG+OQSrEg7azveQlcOuf3n6jjirUBHnBUdoR/zYVAcG
+         ZWbD7zib5+26gN4suRZsh0SHy/KsebTQGcmyI42kLz2bs+iTRjvpyDCz0NXJy+gciRNs
+         WufplCC2+XgxNzGzaHYj5iYy49Y/PttqaGQqV82pbX2hdbu6l8KUwEQdKyTNHdNTM8Iv
+         Cn0Q==
+X-Forwarded-Encrypted: i=1; AFNElJ9I7hFaRy99L0lOi0yMwiGOV0slpTm09KS19hhMBWXTYcW41Z0HtkIQDid39hrPIaiAPQoRbMXMEtN3@vger.kernel.org
+X-Gm-Message-State: AOJu0YyzcpNWkqttK3/Pq3HRmg4E37KUkDI24X77lY1YCEKkqpfLb/PU
+	PCwlEiYCv3SohBawLgstjPWPMrC6bUX+x8eC3pOYsMvYNY2Ucz7zAZdw161Ox0Ai/EOv2/ORyZZ
+	XNqKAozDXsSw7VrjeA8zm725Zro/0+Lw=
+X-Gm-Gg: AeBDiesZo9g9/RgF/F+vG3GIAUon31Edu2CIomI5WIuPLSlmFj/BvoqSjj/ZXuaM/io
+	4DP4HP507D59FFrjJxoh3V3yaPSjXe2EtECY7SSSYR3dTyQgLoDQqMRGcro2ZFV9T7OhJWOZN/f
+	SyhRalIXLRW4/JuGPCoFj/GvYNeQJATAVz7Kbb6GbUvp2ZZEPWb6mZMEBUCBUC0wJmimAUwHcdW
+	k0/Mlv/HvzBuPjvfxS8avIMgYHg/U+OuX/kaqcHB6dU976sAhOU35NJtzbUhfNTkDeU6+dwk8eU
+	ml1UdZey17MuCtJI2Co=
+X-Received: by 2002:a05:6000:2890:b0:43d:77c6:be78 with SMTP id
+ ffacd0b85a97d-43fe3e16c4dmr4209904f8f.39.1776429043184; Fri, 17 Apr 2026
+ 05:30:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260228125431.23098-1-mitltlatltl@gmail.com> <awrfjdwsf4gyyg2s6ppw4jfmpzp5s2aavosmspsp26oqccco7y@csij6bpnfpu7>
-In-Reply-To: <awrfjdwsf4gyyg2s6ppw4jfmpzp5s2aavosmspsp26oqccco7y@csij6bpnfpu7>
-From: Pengyu Luo <mitltlatltl@gmail.com>
-Date: Fri, 17 Apr 2026 20:23:11 +0800
-X-Gm-Features: AQROBzAgHsr8AIpWiF4vnwp5PfaZ0TeyboP9_vrim6_Gnnej-q0JbDRhTZ3mCIQ
-Message-ID: <CAH2e8h7W8Tng4v9Da9c7xg-oczHgNcMvz0OF6A27L9m+Pw7iZA@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: qcom: sc8280xp: use refgen regulator for DSI
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+References: <20260417114226.100033-1-clamor95@gmail.com> <20260417114226.100033-6-clamor95@gmail.com>
+ <aeIkBR4cx54OVmGo@kekkonen.localdomain>
+In-Reply-To: <aeIkBR4cx54OVmGo@kekkonen.localdomain>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Fri, 17 Apr 2026 15:30:30 +0300
+X-Gm-Features: AQROBzA1dd8_0NTxSqGN0BqxldytYvwtdWN7VaTpfF2Ohg6pumR-lzUZ706dVSo
+Message-ID: <CAPVz0n3wi2yzVc0noYe=5=VR2NWEeyXke3EPKJpSPm81qrpp4Q@mail.gmail.com>
+Subject: Re: [PATCH v1 5/5] dt-bindings: leds: Document TI LM3560 Synchronous
+ Boost Flash Driver
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Feb 28, 2026 at 9:13=E2=80=AFPM Dmitry Baryshkov
-<dmitry.baryshkov@oss.qualcomm.com> wrote:
+=D0=BF=D1=82, 17 =D0=BA=D0=B2=D1=96=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 15:1=
+3 Sakari Ailus <sakari.ailus@linux.intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
 >
-> On Sat, Feb 28, 2026 at 08:54:30PM +0800, Pengyu Luo wrote:
-> > Use it for the DSI controllers, since DSI nodes have been added.
+> Hi Svyatoslav,
+>
+> Thanks for the set.
+>
+> This patch should be the first one in the set, or at least before those
+> using the bindings defined here.
+>
+
+Maybe before conversion, but definitely not the first. I would like to
+avoid patch multiplication caused by schema adjustments after every
+single commit if possible.
+
+> On Fri, Apr 17, 2026 at 02:42:26PM +0300, Svyatoslav Ryhel wrote:
+> > Document TI LM3560 Synchronous Boost Flash Driver used for camera flash
+> > LEDs.
 > >
-> > Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 > > ---
-> > This patch depends on the below series:
-> > https://lore.kernel.org/linux-arm-msm/20260228101907.18043-1-mitltlatlt=
-l@gmail.com/
+> >  .../devicetree/bindings/leds/ti,lm3560.yaml   | 134 ++++++++++++++++++
+> >  1 file changed, 134 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/leds/ti,lm3560.ya=
+ml
+> >
+> > diff --git a/Documentation/devicetree/bindings/leds/ti,lm3560.yaml b/Do=
+cumentation/devicetree/bindings/leds/ti,lm3560.yaml
+> > new file mode 100644
+> > index 000000000000..460ea1fbc1e5
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/leds/ti,lm3560.yaml
+> > @@ -0,0 +1,134 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/leds/ti,lm3560.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: TI LM3560 Synchronous Boost Flash Driver
+> > +
+> > +maintainers:
+> > +  - Svyatoslav Ryhel <clamor95@gmail.com>
+> > +
+> > +description:
+> > +  The LM3560 is a 2-MHz fixed frequency synchronous boost converter wi=
+th two
+> > +  1000-mA constant current drivers for high-current white LEDs. The du=
+al high-
+> > +  side current sources allow for grounded cathode LED operation and ca=
+n be
+> > +  tied together for providing flash currents at up to 2 A through a si=
+ngle LED.
+> > +  An adaptive regulation method ensures the current for each LED remai=
+ns in
+> > +  regulation and maximizes efficiency.
+> > +
+> > +properties:
+> > +  compatible:
+> > +    enum:
+> > +      - ti,lm3559
+> > +      - ti,lm3560
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  '#address-cells':
+> > +    const: 1
+> > +
+> > +  '#size-cells':
+> > +    const: 0
+> > +
+> > +  enable-gpios:
+> > +    description: GPIO connected to the HWEN pin.
+> > +    maxItems: 1
+> > +
+> > +  vin-supply:
+> > +    description: Supply connected to the IN line.
+> > +
+> > +  ti,peak-current-microamp:
+> > +    description:
+> > +      The LM3560 features 4 selectable current limits 1.6A, 2.3A, 3A, =
+and 3.6A.
+> > +      When the current limit is reached, the LM3560 stops switching fo=
+r the
+> > +      remainder of the switching cycle.
+> > +    enum: [16000000, 23000000, 30000000, 36000000]
+> > +    default: 36000000
+> > +
+> > +  ti,max-flash-timeout-ms:
+> > +    description:
+> > +      Maximum flash timeout in ms with step 32ms.
+> > +    minimum: 32
+> > +    maximum: 1024
+> > +    default: 1024
+> > +
+> > +patternProperties:
+> > +  '^led@[01]$':
+> > +    description: LED control bank nodes.
+> > +    $ref: /schemas/leds/common.yaml#
+> > +    unevaluatedProperties: false
+> > +
+> > +    properties:
+> > +      reg:
+> > +        description: Control bank selection (0 =3D bank A, 1 =3D bank =
+B).
+> > +        maximum: 1
+> > +
+> > +      ti,max-flash-current-microamp:
+> > +        description:
+> > +          Maximum flash current in uA with step 62500uA.
+> > +        minimum: 62500
+> > +        maximum: 1000000
+> > +        default: 1000000
+> > +
+> > +      ti,max-torch-current-microamp:
 >
-> Why was it not squashed into that series? I'd assume that DSI nodes are
-> incomplete and are working "by luck" without the refgen supplies.
+> Don't the LED flash bindings already have standardised properties for
+> these?
 >
 
-Today, I did a casual read. I found the register(0x8900000 + 0x80) to
-enable refgen is always 0 on windows. The refgen driver may be not
-compatible with sc8280xp or the DT configuration is wrong.
+Oh, they do! Thanks for pointing out. led-max-microamp,
+flash-max-microamp and flash-max-timeout-us. Very nice, I will adjust
+in the v2.
 
-Best wishes,
-Pengyu
+> > +        description:
+> > +          Maximum flash current in uA with step 31250uA.
+> > +        minimum: 31250
+> > +        maximum: 250000
+> > +        default: 250000
+> > +
+> > +    required:
+> > +      - reg
+>
+> I'd say the max current properties are required as well, same for the
+> timeouts. Or make the lowest the default. The lowest values are very seld=
+om
+> used in practice though.
+>
+
+I have transferred from the driver which uses maximum values as
+default one. I can change to minimum if needed, that is not a big
+deal.
+
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - '#address-cells'
+> > +  - '#size-cells'
+> > +
+> > +additionalProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    #include <dt-bindings/gpio/gpio.h>
+> > +
+> > +    i2c {
+> > +        #address-cells =3D <1>;
+> > +        #size-cells =3D <0>;
+> > +
+> > +        led-controller@53 {
+> > +            compatible =3D "ti,lm3560";
+> > +            reg =3D <0x53>;
+> > +
+> > +            enable-gpios =3D <&gpio 28 GPIO_ACTIVE_HIGH>;
+> > +            vin-supply =3D <&vdd_3v3_sys>;
+> > +
+> > +            ti,peak-current-microamp =3D <16000000>;
+> > +            ti,max-flash-timeout-ms =3D <1024>;
+> > +
+> > +            #address-cells =3D <1>;
+> > +            #size-cells =3D <0>;
+> > +
+> > +            led@0 {
+> > +                reg =3D <0>;
+> > +
+> > +                label =3D "white::flash";
+> > +                linux,default-trigger =3D "flash";
+> > +
+> > +                ti,max-flash-current-microamp =3D <562500>;
+> > +                ti,max-torch-current-microamp =3D <156250>;
+> > +            };
+> > +
+> > +            led@1 {
+> > +                reg =3D <1>;
+> > +
+> > +                label =3D "yellow::flash";
+> > +                linux,default-trigger =3D "flash";
+> > +
+> > +                ti,max-flash-current-microamp =3D <562500>;
+> > +                ti,max-torch-current-microamp =3D <156250>;
+> > +            };
+> > +        };
+> > +    };
+>
+> --
+> Kind regards,
+>
+> Sakari Ailus
