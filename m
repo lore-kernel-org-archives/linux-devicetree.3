@@ -1,50 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C6F3AC0C4;
-	Fri, 17 Apr 2026 09:39:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBEA33B2FFF;
+	Fri, 17 Apr 2026 09:39:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776418750; cv=none; b=fReiLP4W1FW2hpOqFh2rLTc0r/xsu3Wey0HWjL2A2M5prnUjNuNp+YLOwetEn3r/wWaZtsRyHeSnwGhpQ6xvHQz7y53KsKrHFhf02kK+BlL7xVziYZvH/6G3xorQ3xzaqPOdvqlh1L10qj00Auhom2FZ4tuX7acLTkISWpCQkUI=
+	t=1776418762; cv=none; b=iAEEbjVylkGhInOMfYxOUgUH8kKqxRFAdkmj1A5cyLvsS9EXqsoAL4TT6C8wnfPoDMzrJB8P+jsWFxmk90VwiwETTRj7lZDBhGIqh+c7ED0kk5gakUaPseB7y2JZTewp2iq0wpHM9G4YgLyjG4SlsVsnI0EONw6qaMDxKPv5Yfk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776418750; c=relaxed/simple;
-	bh=Eh1S2IzmtKMHkjqznYSHNrmJkZn1+LZInRAwIKWmG74=;
+	s=arc-20240116; t=1776418762; c=relaxed/simple;
+	bh=wCAyYw14gLqGk8eaZxY5cWKcSIjWak/HrsGDFgcEs9c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uP8CSshkeUyRe+VJ78BfJLlUmDcihywIYjdfDoUyMOkJ7rBZvly7F2dHhLBOi7xYAgYxWWMlbxFA4bgwfhHOa1Zq+AhBB8xSDrbqXhelh0iVhbkHNuUDw7OqnspBhU25tyWypEm8h8ydNU81A4/RLmyk+19DAHNhjfMPPhVR96Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=s177EnDp; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=CaSiE48oSkAhR5b73hx+8RZJVpUdNs/qFsBmatW7RKKR/zFx6JnNPyobktN8SuNKLjIzYer5c8Kttq6YXsaW1gUpHCUZM+ygABBb/nx1iSHECtduUQifF4hm0EZ4nkopGMgvhfGK6C9n0Rf1R4ORliguEJWAcGm6G4yOzCBwnOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CldFIFJQ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="s177EnDp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DC98C19425;
-	Fri, 17 Apr 2026 09:39:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CldFIFJQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDCEAC19425;
+	Fri, 17 Apr 2026 09:39:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776418749;
-	bh=Eh1S2IzmtKMHkjqznYSHNrmJkZn1+LZInRAwIKWmG74=;
+	s=k20201202; t=1776418761;
+	bh=wCAyYw14gLqGk8eaZxY5cWKcSIjWak/HrsGDFgcEs9c=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=s177EnDpVKE+++up2dzu3jyS841mG8kncq+z7IJrAhMXkGHbaYMphlScCfU6DCeAR
-	 chf0Kfi794MSnHzQ6zHgeBM+1kOtUsTGdr4oFWacLn3dgLz2vAL5o6SDqq5zVos8WL
-	 CYzFVDbDHg9hXEytF2czL5c5IAjRIRst6XZDDJPULbjhczpusR4BqXFJro4Gcry4Pp
-	 ABy2spyrdJOaH3/Pvi50tq/UdEAgWs3fbpyzklQ/vHoquQ/OK3gOpkvKQYKxJ1cIck
-	 AcDXxP0r9CQTPaQNRZC93EYhgnaQ9DploIryVQ6DckD6Fbgb4z7DL0uFKwCzLhTOYR
-	 06vE9twJmZS5Q==
-Date: Fri, 17 Apr 2026 15:09:00 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Qiang Yu <qiang.yu@oss.qualcomm.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Taniya Das <taniya.das@oss.qualcomm.com>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, johan@kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 3/4] clk: qcom: tcsrcc-glymur: Migrate
- tcsr_pcie_N_clkref_en to clk_ref common helper
-Message-ID: <z4h53al3dcy5u63zglu4rdavm3cse6sy2bbha2kxxepplawnho@4pwg7fx3cmnj>
-References: <20260331-qref_vote-v1-0-3fd7fbf87864@oss.qualcomm.com>
- <20260331-qref_vote-v1-3-3fd7fbf87864@oss.qualcomm.com>
- <ebce5979-0ab5-47ff-963e-68e27216821d@oss.qualcomm.com>
- <ac306hTHe3qVORk2@hu-qianyu-lv.qualcomm.com>
- <adem2WKh2B-Leivq@baldur>
- <adyV7qKQL+SJ6TxL@hu-qianyu-lv.qualcomm.com>
- <3d4a12f1-a9ba-4955-b018-f1c271aab766@oss.qualcomm.com>
+	b=CldFIFJQbf4GHzJIbW+s2Dm0aAi1zKinaItqUnqXKgMOxVt77mKQZ45uqHGJNrc+3
+	 qFe8k37IZ0+b0nF6bNWvKeEzayfBhhe1HLvlICTaKPVSrsbk0ApdXegXc0YDL53Scw
+	 AyaOE/x5K289iLDy5SDMnp9/8Fjlqs2ANtFSko+V8p+8qfn7ZFuG/ZYp5sHIdkAI0l
+	 N90MuUrdjsKbK859/9x2av2nNfOuaeboSqe9eCPS4r3VW1Hj2HuFUNC9OL33CqcLEB
+	 FV+Xg/3mafuSK2QQbI8GHWcdLyixmf5PX8UK+b5+FM6SmFQfAcUTlle2ldJNmanz9O
+	 ZSNW18hU6ztug==
+Date: Fri, 17 Apr 2026 11:39:19 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Harpreet Saini <sainiharpreet29@yahoo.com>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, David Lechner <david@lechnology.com>, devicetree@vger.kernel.org, 
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] input: misc: Add PixArt PAJ7620 gesture sensor
+ driver
+Message-ID: <20260417-gleaming-flawless-hound-e65def@quoll>
+References: <20260417052527.62535-1-sainiharpreet29@yahoo.com>
+ <20260417052527.62535-3-sainiharpreet29@yahoo.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -53,64 +46,179 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <3d4a12f1-a9ba-4955-b018-f1c271aab766@oss.qualcomm.com>
+In-Reply-To: <20260417052527.62535-3-sainiharpreet29@yahoo.com>
 
-On Mon, Apr 13, 2026 at 01:18:16PM +0200, Konrad Dybcio wrote:
-> On 4/13/26 9:06 AM, Qiang Yu wrote:
-> > On Thu, Apr 09, 2026 at 08:19:41AM -0500, Bjorn Andersson wrote:
-> >> On Wed, Apr 01, 2026 at 09:47:38PM -0700, Qiang Yu wrote:
-> >>> On Wed, Apr 01, 2026 at 10:05:12PM +0530, Taniya Das wrote:
-> >>>> On 4/1/2026 12:05 PM, Qiang Yu wrote:
-> >>>>> diff --git a/drivers/clk/qcom/tcsrcc-glymur.c b/drivers/clk/qcom/tcsrcc-glymur.c
-> >> [..]
-> >>>>> +static const char * const tcsr_pcie_4_regulators[] = {
-> >>>>> +	"vdda-refgen-0p9",
-> >>>>> +	"vdda-refgen-1p2",
-> >>>>> +	"vdda-qreftx1-0p9",
-> >>>>> +	"vdda-qrefrpt0-0p9",
-> >>>>> +	"vdda-qrefrpt1-0p9",
-> >>>>> +	"vdda-qrefrpt2-0p9",
-> >>>>> +	"vdda-qrefrx2-0p9",
-> >>>>> +};
-> >>>>> +
-> >>>>
-> >>>> TCSR clock refs are just not for PCIe alone, they would have supplies
-> >>>> for all the ref clocks. These supplies can also be shared across other
-> >>>> clock refs. I think it is not the correct way to handle the supplies, as
-> >>>> TCSR does not have the complete supplies map.
-> >>>>
-> >>> We have complete supplies map. You can get it on ipcatlog. Here is example
-> >>> for other instances eg USB and EDP:
-> >>> - Glymur (eDP): CXO PAD -> TX0 -> RPT0 -> RX0 -> eDP
-> >>> - Glymur (USB4_2): CXO PAD -> TX0 -> RPT0 -> RPT1 -> RX1 -> USB4_2
-> >>> - Glymur (USB3): CXO PAD -> TX0 -> RPT3 -> RPT4 -> RX4 -> USB3_SS3
-> >>>
-> >>> I only add supplies for PCIe in this series because USB and EDP vote these
-> >>> LDO in their PHY driver. They can remove them in PHY dts node and add same
-> >>> regulator list here.
-> >>>
-> >>
-> >> The regulators are reference counted. Can't we add the USB and eDP
-> >> handling here as well now, and then after they are voted here we remove
-> >> them from the PHY?
-> >>
-> > 
-> > For USB, I’m not yet sure which tcsr_*_clkref_en each USB instance in the
-> > QREF diagram is tied to. I need to confirm that mapping first, I'm
-> > checking with Wesley Cheng.
+On Fri, Apr 17, 2026 at 01:25:27AM -0400, Harpreet Saini wrote:
+> +
+> +static int paj7620_init(struct paj7620_data *data)
+> +{
+> +	int state = 0, ret, i;
+> +
+> +	/* 1. Wake-up sequence: Read register 0x00 until it returns 0x20 */
+> +	for (i = 0; i < 10; i++) {
+> +		ret = regmap_read(data->regmap, 0x00, &state);
+> +		if (ret >= 0 && state == 0x20)
+> +			break;
+> +		usleep_range(1000, 2000);
+> +	}
+> +
+> +	if (state != 0x20) {
+> +		dev_err(&data->client->dev, "Sensor wake-up failed (0x%02x)\n", state);
+> +		return -ENODEV;
+> +	}
+> +
+> +	/* 2. Blast full register array into PAJ7620 instantly */
+> +	ret = regmap_multi_reg_write(data->regmap, Init_Register,
+> +				     ARRAY_SIZE(Init_Register));
+> +	if (ret < 0) {
+> +		dev_err(&data->client->dev, "Multi-reg write failed (%d)\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	ret = regmap_write(data->regmap, PAJ7620_REG_BANK_SEL, 0x00);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret = regmap_multi_reg_write(data->regmap, Init_Gesture_Array,
+> +				     ARRAY_SIZE(Init_Gesture_Array));
+> +	if (ret < 0) {
+> +		dev_err(&data->client->dev, "Multi-reg write failed (%d)\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	dev_info(&data->client->dev, "Gesture Sensor Registers Initialized\n");
+
+Drop, driver should be silent.
+
+...
+
+> +	data->client = client;
+> +	i2c_set_clientdata(client, data);
+> +
+> +	data->supplies[0].supply = "vdd";
+> +	data->supplies[1].supply = "vbus";
+> +	data->supplies[2].supply = "vled";
+> +
+> +	ret = devm_regulator_bulk_get(&client->dev, ARRAY_SIZE(data->supplies), data->supplies);
+> +	if (ret)
+> +		return dev_err_probe(&client->dev, ret, "Failed to get regulators\n");
+> +
+> +	ret = regulator_bulk_enable(ARRAY_SIZE(data->supplies), data->supplies);
+> +	if (ret)
+> +		return ret;
+> +
+> +	data->regmap = devm_regmap_init_i2c(client, &paj7620_reg_config);
+> +	if (IS_ERR(data->regmap))
+> +		return PTR_ERR(data->regmap);
+
+Leaking regulator enable.
+
+> +
+> +	ret = paj7620_init(data);
+> +	if (ret)
+> +		goto err_reg;
+> +
+> +	data->idev = devm_input_allocate_device(&client->dev);
+> +	if (!data->idev) {
+> +		ret = -ENOMEM; goto err_reg;
+
+Messed syntax/wrapped lines.
+
+And you must not print error msg on ENOMEM error.
+
+> +	}
+> +
+> +	data->idev->name = "PAJ7620 Gesture Sensor";
+> +	data->idev->id.bustype = BUS_I2C;
+> +
+> +	input_set_capability(data->idev, EV_KEY, KEY_UP);
+> +	input_set_capability(data->idev, EV_KEY, KEY_DOWN);
+> +	input_set_capability(data->idev, EV_KEY, KEY_LEFT);
+> +	input_set_capability(data->idev, EV_KEY, KEY_RIGHT);
+> +	input_set_capability(data->idev, EV_KEY, KEY_ENTER);
+> +	input_set_capability(data->idev, EV_KEY, KEY_BACK);
+> +	input_set_capability(data->idev, EV_KEY, KEY_NEXT);
+> +	input_set_capability(data->idev, EV_KEY, KEY_PREVIOUS);
+> +	input_set_capability(data->idev, EV_KEY, KEY_MENU);
+> +
+> +	ret = input_register_device(data->idev);
+> +	if (ret)
+> +		goto err_reg;
+> +
+> +	pm_runtime_set_active(&client->dev);
+> +	pm_runtime_enable(&client->dev);
+> +	pm_runtime_set_autosuspend_delay(&client->dev, 2000);
+> +	pm_runtime_use_autosuspend(&client->dev);
+> +
+> +	ret = devm_request_threaded_irq(&client->dev, client->irq, NULL,
+> +					paj7620_irq_thread, IRQF_ONESHOT,
+> +					"paj7620", data);
+> +	if (ret)
+> +		goto err_reg;
+> +
+> +	dev_info(&client->dev, "Gesture Sensor Initialized\n");
+
+Pointless message, drop. Driver should be silent on success.
+
+
+> +	return 0;
+> +
+> +err_reg:
+> +	dev_err_probe(&client->dev, ret, "%s: failed with error %d\n", __func__, ret);
+
+No, move it to individual errors, but only where applicable. For example
+devm_request_threaded_irq() must not have it.
+
+Neither devm_input_allocate_device.
+
+
+> +	if (pm_runtime_enabled(&client->dev)) {
+> +		pm_runtime_disable(&client->dev);
+> +		pm_runtime_dont_use_autosuspend(&client->dev);
+> +	}
+> +	regulator_bulk_disable(ARRAY_SIZE(data->supplies), data->supplies);
+> +	return ret;
+> +}
+> +
+> +static void paj7620_remove(struct i2c_client *client)
+> +{
+> +	int ret;
+> +	struct paj7620_data *data = i2c_get_clientdata(client);
+> +
+> +	pm_runtime_get_sync(&client->dev);
+> +	pm_runtime_disable(&client->dev);
+> +	pm_runtime_dont_use_autosuspend(&client->dev);
+> +	pm_runtime_put_noidle(&client->dev);
+> +
+> +	ret = paj7620_power_down(data);
+> +	if (ret)
+> +		dev_err(&data->client->dev, "Sensor power down failed\n");
+> +
+> +	ret = regulator_bulk_disable(ARRAY_SIZE(data->supplies), data->supplies);
+> +	if (ret)
+> +		dev_err(&data->client->dev, "Sensor regulator disable failed\n");
+> +}
+> +
+> +static const struct of_device_id paj7620_of_match[] = {
+> +	{ .compatible = "pixart,paj7620" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, paj7620_of_match);
+> +
+> +static struct i2c_driver paj7620_driver = {
+> +	.driver = {
+> +		.name = "paj7620",
+> +		.of_match_table = paj7620_of_match,
+> +		.pm = &paj7620_pm_ops,
+> +	},
+> +	.probe = paj7620_probe,
+> +	.remove = paj7620_remove,
+> +};
+> +module_i2c_driver(paj7620_driver);
+> +
+> +MODULE_LICENSE("GPL");
+> +MODULE_AUTHOR("Harpreet Saini");
+> +MODULE_DESCRIPTION("PAJ7620 Gesture Input Driver");
+> -- 
+> 2.43.0
 > 
-> I think on at least some platforms the reference clock for the primary
-> USB controller is not sw-controllable (so we wouldn't get a handle to
-> toggle the regulator this way).. please check that
-> 
-
-I would suggest we move forward with atleast PCIe regulators for now. Since USB
-and eDP are voting for these regulators on their own, we can work with relevant
-teams later to switch to this model and this is not going to cause any
-regression for them.
-
-- Mani
-
--- 
-மணிவண்ணன் சதாசிவம்
