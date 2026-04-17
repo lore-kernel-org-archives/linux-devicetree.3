@@ -1,86 +1,99 @@
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC7F33F394
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 21:25:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBE5637CD3D
+	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 21:36:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776461161; cv=none; b=oFvRxGftnfNXhMbLJmL36WJSnOC3IJhqpGP1NQRofuJQ3Xe5YTYhBspES0P54CfWiFkR1JGlvlTtJioTI8P/1kZNFv7VGODHpWnKc9HcZyVwWp5/+42AeKih/WT/HIHWuU87mwxeB9BFLiROM+Z4FyNa2KOH52n5MMhKbdPss1Y=
+	t=1776461795; cv=none; b=F1F6a+TSVhqKBHPYx+KpiaMFeY5PhJX0EdFIug71TMSDeBsM/dY5V6lBv0ysS6x2QCkSemmTjDGjdvqfrJGxp2WEtS8smiQFEzEuJ35g20RQnL9L/CkQd3oa5AGUNdlme9zqPGImmM7LOP/s5ea6Rqz91OZvz3MO6xhs58lKxF8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776461161; c=relaxed/simple;
-	bh=cM9udh9m47+Gpj0oDvbKWKK6KeOdsP7t3oTK77nW7+s=;
+	s=arc-20240116; t=1776461795; c=relaxed/simple;
+	bh=45mII1+xcjg6myIsPEEJz+gygn1qFcoTPSB9uHRcm84=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hxigU+9T9T5dK6L1TLu7nRMyu3emXa5o3xksKg8KCTnilZRpnuI0eUEvlZi3/BmseZVd0AOr9QKZ1Nw3tEMw6WBDM8KtgcV5+UOzcLpS/GOHVti7FUjatHX3bsoTLszQr2Br071H/Y5Q6SExnZXDVZ5hOc9b2CQSkGt9AXXEiOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ZpYCguTV; arc=none smtp.client-ip=74.125.82.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=t/NeyrO6ziO5X/i6CzA+wzPyIbw1Yxqh6NI93DPPRhU0Hs2/oDPwvFMZkqOfeSfywiFhbxmnfCM86FflQpD+Gu5p7tM/JLMIhPe5KGduRdwVTYCkw0PLC/wH8Xde8bYxuNxuySXWGPYCn+6HUr99cGusWPCbCMJeKdXRrsx08H4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=BwxAj1iG; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ETWdsg/H; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ZpYCguTV"
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-12c565dd3a7so2007615c88.1
-        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 14:25:59 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="BwxAj1iG";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ETWdsg/H"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1776461792;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZfbRBXQJE7XBqTPyM/9pBB24pVjmhOJfH/25m2T2XAw=;
+	b=BwxAj1iGug6LYyjDz30pn67TiMxIAzHyeqGZQlk14l+seYcGKcb4a3aJgXgHzeZZW/nv26
+	XZMrTdsrwXTBnHBlKEf1ghmxSmOScUhH8YjsSWUk02InhpQNZLYxZcQhAaKBRGRV/O9aeW
+	6OPTiGD5sEDO/PnB2DK4sTyiA3l3tM4=
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-574-o7IFgb7cNMWcOZlUvaxjmg-1; Fri, 17 Apr 2026 17:36:30 -0400
+X-MC-Unique: o7IFgb7cNMWcOZlUvaxjmg-1
+X-Mimecast-MFC-AGG-ID: o7IFgb7cNMWcOZlUvaxjmg_1776461790
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-50d890580e1so24504581cf.3
+        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 14:36:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1776461159; x=1777065959; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1776461789; x=1777066589; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=ErnZs3Q6bv+thvgwVa4Ah5gWyVYiLGdPrGb5UASYA1s=;
-        b=ZpYCguTV0o0Sf2iEY8xS42Qyzg+nnAPv3PIH54VNBUlu0GzlSbgS+OO2US+7yjLtYN
-         nttDBb+gUI6RIWRCpWMyIqitmpFZdu+N+s2700cyrv7Iktw1D4UoNiL/ZiHnRXhp+OZ9
-         tTVFoO10UvGvZ2o2mPU993DLD9sqgi+pvadNE=
+        bh=ZfbRBXQJE7XBqTPyM/9pBB24pVjmhOJfH/25m2T2XAw=;
+        b=ETWdsg/HPQIINF/olpAan/KCvAlxykoJgg+TiQalSBDbWx4R0X7cEwXZUnrWdUX5n/
+         p1+N+tK0rP0/G2QhAU+tw7JhyV+rIe/c3FzHz9IanPta5VtnJXRXY8NGqmzGhM/ki9Mz
+         9OYYk3BhqrNKklkj3lWBLncqAMooLp7IjOoKc1GbjT/+qS+7i9k6SZcxW8keUZQaVQ+E
+         VVRwCrVW6FuYA9Zw/ach94DnyvFdz9LihSu1e7ZTdC0RqR9xvVkpKoFsEtPXaLY2ZSc0
+         Nv61SsUt6GCdZvtZvxCjkMExdxtN+xZ9sr2QnkMV1pl9cIvMY5AGCI9vbsZc23DfPbUj
+         rv1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776461159; x=1777065959;
+        d=1e100.net; s=20251104; t=1776461789; x=1777066589;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=ErnZs3Q6bv+thvgwVa4Ah5gWyVYiLGdPrGb5UASYA1s=;
-        b=Jk6bedSpz18MUjpzVSAEO1h7D/h8uP6//9B0t58axPkGbQKaZB599AGqc95pXwhpej
-         sUuSFJho+fnmGHY2yR8cQHvXdfMDEi8du1LCcMpslAF69ya7QbMSpEHUup5+XjLPwFm7
-         7O0IoPh4L9rh0LzuDR+m92OY7U9+TOKZkF3NrJBJhkoEtNVKazDP64f4YzMH3IPFsdhC
-         xMQXfPvUo6j7zNWJwpjsBAxNNtQhDrT1wJGCMo/AQAPBz48LfHh002lr32uF4oPYs4rg
-         8i2mk3QYTgiSYKrM9XF6hp0CzSd2SMD/1IvAnGFLIuEMf/sFnm2/9kLuaWMe95Zq1z6Z
-         V0Dw==
-X-Forwarded-Encrypted: i=1; AFNElJ/ewgMQMqpZ+Gl4ZRGHSqN1Ya8rA7EDe2W2niY6c71E+6gUlurodHbT44V121+lmNrSfyOFd4S1J2km@vger.kernel.org
-X-Gm-Message-State: AOJu0YzpaBDQ/oWgGDTuAlr0NLYqDddtfwDfX6icdaH23yDqWT5zShXR
-	Rx4KbPsLy2opiB5QQGtiHis/hH0boZ463vNuQ8Ruj7pfDFUbk4QPzJwIlJomubIckCeknkybNCN
-	XvhQ=
-X-Gm-Gg: AeBDiesSe2kSBM36pITtEk+hIMpebVCZFqIeIZumj5RyXWSGBXgowtfWYf6o4uXUj+R
-	AxCTCio4ljAw7281w2ILPXwp7MFhuVLiFBbJucMT9Qd37sZaNVaUyeQdeps9K+MIhxT4bjuaM1Z
-	1v+NSKxtXheCDNRwY5GmRwr5NUFVQNqwYZsGfrCkKXHCHA1RB3mF5Dk/U4DIPTubjJw+8YKdHc4
-	8KZGTeUliFa0KdSQht7PySnOrtW6/j/+qUFYcawiIIMinEOf0yDpFalKo3HGn+wpwsDUxf8ds4x
-	X6Rlb1OH7M9Wx7w6JAONJ3TCAy+/v92cUF8mcPNorIBoXbbPjra11zA1G88mZiMTJB9Lo/tiFOl
-	NcY9rarGru51kGg7WF0EdjOeYxMSFznqowKL8cNlbP5sSaUrUOzuW1ojB0ezVbADA2XXae1tvjh
-	NqXNN/RV1Z7OBRirmjAZguzdIAmSr5LhDel6avKuJe4wKmbP8qUtYHHh1Iw2sPbkIM/k5y1Nw=
-X-Received: by 2002:a05:7022:383:b0:128:cf86:d1e8 with SMTP id a92af1059eb24-12c73fa708emr2682205c88.29.1776461158761;
-        Fri, 17 Apr 2026 14:25:58 -0700 (PDT)
-Received: from localhost ([2a00:79e0:2e7c:8:a468:d4b1:9c3:f6c7])
-        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-12c74a185a8sm3892511c88.9.2026.04.17.14.25.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 17 Apr 2026 14:25:57 -0700 (PDT)
-Date: Fri, 17 Apr 2026 14:25:55 -0700
-From: Brian Norris <briannorris@chromium.org>
-To: Chen-Yu Tsai <wenst@chromium.org>, Rob Herring <robh@kernel.org>
-Cc: Sasha Levin <sashal@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Doug Anderson <dianders@chromium.org>,
-	Julius Werner <jwerner@chromium.org>,
-	chrome-platform@lists.linux.dev
-Subject: [regression] of: mis-parsing Depthcharge's /firmware
-Message-ID: <aeKlYzTiL0OB1y3g@google.com>
-References: <Z0NUdoG17EwuCigT@sashalap>
- <c25e6a80-f6dc-4ef9-a90d-0fa09cbbc217@linaro.org>
- <Z0NbeyTwxo-M4Lgi@sashalap>
- <936bf452-3d1f-4940-9a91-69efcdc6985e@collabora.com>
- <CAGXv+5FLkZbZVHNkfRWuT+OioZ0TG=u2WfaFCx-jZFi73QHnVg@mail.gmail.com>
- <19ba4910-f909-41b4-ba62-c904bc37d41d@linaro.org>
- <e77669ea-9edd-4321-8d17-4da40161b59d@linaro.org>
- <Z0R6myuCR4Jpmc_y@sashalap>
- <CAL_Jsq+QBweDZ+1=FXq7Hez=+mhiOxOvurr3rP0+3y_FCd49Ew@mail.gmail.com>
- <20241209092809.GA3246424@google.com>
+        bh=ZfbRBXQJE7XBqTPyM/9pBB24pVjmhOJfH/25m2T2XAw=;
+        b=aohfK9T6ynS8+d+d6ky9DNeHcd8ecOkrn0MScDZMJlf/Yatl6TP9xLSGgdBBLEPIi1
+         xzjlaVeb87TjMFIYyxoJQKr4qAzSYTlhwiq4q+A20DVgO23GmpiAWqy5JEGaUd3MCOyY
+         wNKWri3u4miNjWdI0RYDTUX4lC1WJ+7RWKLLiNIo+w6O723qmTGLyMHGnJQv9+VYVgTg
+         qpzSvNnI+0WD+LxpCuRDGe4FJcW7o/F8Fo4fkVvQnsPixnxJOC+anZd8Ux983Vqg3Cq0
+         ZJiKGeXnQ0MbFz1VbeEiuIzDhy5IypZHnkqEPCbHY9TRvoMywl3ps9QYa98DbD3NRCki
+         Qpag==
+X-Forwarded-Encrypted: i=1; AFNElJ87Ngi9GCcimGiRHubbNJDl6cbt82nOWK33V9eRCNr3NMClKkDNT9d4TpEsKkRteErvw4m+qG9vdEpG@vger.kernel.org
+X-Gm-Message-State: AOJu0YxP79AntwJMSCNoFS6DsaxZjCvAK2iCmD3xqI8cscfyKEKNslDh
+	AhsVACpke7LOVmi/fdfXAsLwShZKUKSAySUNVmWI+mSMLC6qunYn+s5GvTEeQgGGZLIaj+S+SAA
+	Vj4WlUQQrbHZcZyKOsouM5IXUQcdrK1T/MsMPm9EyXhDlFdQVli7QIAu5b3+7M1c=
+X-Gm-Gg: AeBDietyD414SYaO3jr5PTod5t5GAc7zlBqY5Y2mfRqIL7fkLgZu3NWslMufQvQYBAP
+	qq6va+GcqUjT4++CsXffv73Op7aEB1/xpVwofONME+8/DVlEfwMH0Wk+sAu7ZVCYewUpSvfhJcE
+	1sal89etxiveeaVrd4SYcgaN/Jnd1ftJYwHwKhOy9f9m6YrD6RPoxYt4Fi1iY5nDUhC4mR6ykwS
+	HJkL6kjl2r7ixNZB1PWqGQivuIoxyVGPpe4sjUF/kzTxugtRKlIXNUuE65Gyfli2+sghpo0IHzs
+	cLH8q5O32sKlk0wWRFFA2+JROv/I9FnJ7ZMUu44+4TQFMEWSTMgSTmGjvxZBYpjsbdFqptDhl/q
+	VDuR5hFgCKdrAjp9GwOZE+0dZ3cz7/Gi5inevPg/uV1y6XywZsZmqLeAjyCayy6Em
+X-Received: by 2002:a05:622a:1650:b0:50b:2eef:c8fb with SMTP id d75a77b69052e-50e36effb95mr67588601cf.56.1776461789570;
+        Fri, 17 Apr 2026 14:36:29 -0700 (PDT)
+X-Received: by 2002:a05:622a:1650:b0:50b:2eef:c8fb with SMTP id d75a77b69052e-50e36effb95mr67588171cf.56.1776461789124;
+        Fri, 17 Apr 2026 14:36:29 -0700 (PDT)
+Received: from jkangas-thinkpadp1gen3.rmtuswa.csb ([2601:1c2:4400:6bf0:7677:bcee:4ef0:e09d])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-50e393ff941sm20825251cf.19.2026.04.17.14.36.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Apr 2026 14:36:28 -0700 (PDT)
+Date: Fri, 17 Apr 2026 14:36:25 -0700
+From: Jared Kangas <jkangas@redhat.com>
+To: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Chester Lin <chester62515@gmail.com>,
+	Matthias Brugger <mbrugger@suse.com>,
+	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
+	NXP S32 Linux Team <s32@nxp.com>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linaro-s32@linaro.org, netdev@vger.kernel.org
+Subject: Re: [PATCH v6 3/3] dts: s32g: Add GPR syscon region
+Message-ID: <aeKn2dvOOO43zdev@jkangas-thinkpadp1gen3.rmtuswa.csb>
+References: <cover.1769764941.git.dan.carpenter@linaro.org>
+ <0e922537c02d1c47734142090f98eb78e921ed34.1769764941.git.dan.carpenter@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,99 +102,96 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241209092809.GA3246424@google.com>
+In-Reply-To: <0e922537c02d1c47734142090f98eb78e921ed34.1769764941.git.dan.carpenter@linaro.org>
 
-Hi all,
+Hi Dan,
 
-(New subject; was "Re: [GIT PULL] Devicetree updates for v6.13")
-
-On Mon, Dec 09, 2024 at 05:28:09PM +0800, Chen-Yu Tsai wrote:
-> steelix.dtb is the same, plus the firmware now inserts #address-cells
-> and #size-cells under /firmware. This fix has landed for all future
-> ChromeOS devices via our main firmware branch [1].
+On Fri, Jan 30, 2026 at 04:19:52PM +0300, Dan Carpenter wrote:
+> Add the GPR syscon region for the s32 chipset.
 > 
-> AFAIK they also have a bad FDT END symbol. This was only recently
-> discovered and fixed for future devices [2].
-> 
-> 
-> ChenYu
-> 
-> [1] Gerrit: https://crrev.com/c/6051580
-> [2] Gerrit: https://review.coreboot.org/c/coreboot/+/85462
+> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+> ---
+>
+> [snip]
+>
+> diff --git a/arch/arm64/boot/dts/freescale/s32g3.dtsi b/arch/arm64/boot/dts/freescale/s32g3.dtsi
+> index e314f3c7d61d..be03db737384 100644
+> --- a/arch/arm64/boot/dts/freescale/s32g3.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/s32g3.dtsi
+> @@ -383,6 +383,11 @@ usdhc0-200mhz-grp4 {
+>  			};
+>  		};
+>  
+> +		gpr: syscon@4007c000 {
+> +			compatible = "nxp,s32g3-gpr", "syscon";
+> +			reg = <0x4007c000 0x3000>;
+> +		};
+> +
+>  		ocotp: nvmem@400a4000 {
+>  			compatible = "nxp,s32g3-ocotp", "nxp,s32g2-ocotp";
+>  			reg = <0x400a4000 0x400>;
+> @@ -808,6 +813,7 @@ gmac0: ethernet@4033c000 {
+>  			compatible = "nxp,s32g2-dwmac";
+>  			reg = <0x4033c000 0x2000>, /* gmac IP */
+>  			      <0x4007c004 0x4>;    /* GMAC_0_CTRL_STS */
+> +			nxp,phy-sel = <&gpr 0x4>;
+>  			interrupt-parent = <&gic>;
+>  			interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
+>  			interrupt-names = "macirq";
 
-This all comes back to bite us, since nobody went back to patch the
-existing Chromebook device trees, and now we've added a true regression
-on top:
+I gave this a test on an S32G-VNP-RDB3 and didn't see any issues on the
+dwmac-s32 side, but this appears to trigger a panic when reading the new
+debugfs regmap/*/registers file for the syscon node:
 
-In commit 6e5773d52f4a ("of/address: Fix WARN when attempting
-translating non-translatable addresses") we now reject devices without
-'#address-cells', and this breaks the DTs generated by bootloaders
-without Chen-Yu's https://crrev.com/c/6051580 fix (this is ... pretty
-much all Chromebooks). Specifically, Linux now refuses to add 'reg'
-resources to the /firmware/coreboot device, and we fail with:
+    # grep 4007c000 /proc/vmallocinfo
+    0xffff800083da8000-0xffff800083dac000   16384 ioremap_prot+0x74/0xe0 phys=0x000000004007c000 ioremap
+    # cat /sys/kernel/debug/regmap/dummy-syscon@0x000000004007c000/registers
+    Internal error: synchronous external abort: 0000000096000210 [#1]  SMP
+    [...]
+    CPU: 0 UID: 0 PID: 4344 Comm: cat Tainted: G   M        E  X   ------  ---  6.12.0+ #226 PREEMPT_RT
+    Tainted: [M]=MACHINE_CHECK, [E]=UNSIGNED_MODULE, [X]=AUX
+    [...]
+    pc : regmap_mmio_read32le+0x44/0xa0
+    lr : regmap_mmio_read32le+0x44/0xa0
+    [...]
+    x23: ffff00080c080000 x22: ffff000802ac4c00 x21: ffff800087b13c9c
+    x20: ffff800080a46494 x19: ffff800083da810c x18: 0000000000000004
+    [...]
+    x5 : ffff800080a46448 x4 : ffff800083da8000 x3 : ffff800080a46494
+    x2 : ffff800080a47230 x1 : ffff800083da810c x0 : 0000000000000020
+    Call trace:
+     regmap_mmio_read32le+0x44/0xa0 (P)
+     regmap_mmio_read+0x4c/0x80
+     [...]
+    Code: 52800400 8b214093 aa1303e1 97f4caf0 (b9400275)
+    ---[ end trace 0000000000000000 ]---
+    Kernel panic - not syncing: synchronous external abort: Fatal exception
 
-[   11.886271] coreboot_table firmware:coreboot: probe with driver coreboot_table failed with error -22
+Running this through decodecode gives:
 
-This is almost certainly a DTB ABI regression.
+    All code
+    ========
+       0:   52800400        mov     w0, #0x20                       // #32
+       4:   8b214093        add     x19, x4, w1, uxtw
+       8:   aa1303e1        mov     x1, x19
+       c:   97f4caf0        bl      0xffffffffffd32bcc
+      10:*  b9400275        ldr     w21, [x19]              <-- trapping instruction
 
-This was noticed here (OpenWrt supports some Chromium-based WiFi routers
-that use Depthcharge-based bootloaders from many years ago):
+    Code starting with the faulting instruction
+    ===========================================
+       0:   b9400275        ldr     w21, [x19]
 
-https://github.com/openwrt/openwrt/issues/21243
+x19's offset from the base address in /proc/vmallocinfo is 0x10c, which
+points to a bad read at physical address 0x4007c10c; I also confirmed
+that the preceding memory reads back without issues:
 
-For now, I just patched up the OpenWrt DTS files like so:
-https://github.com/openwrt/openwrt/pull/22951
+    # head -c 990 /sys/kernel/debug/regmap/dummy-syscon@0x000000004007c000/registers | tail -1
+    0104: 00000000
+    # head -c 1005 /sys/kernel/debug/regmap/dummy-syscon@0x000000004007c000/registers | tail -1
+    0108: 00000000
+    # head -c 1020 /sys/kernel/debug/regmap/dummy-syscon@0x000000004007c000/registers | tail -1
+    <panic>
 
-But what should we do going forward? I note that Rob says "We may
-revisit this later and address with a fixup to the DT itself" in commit
-8600058ba28a ("of: Add coreboot firmware to excluded default cells
-list").
+Best,
+Jared
 
-That never happened, and a ton of Chromium devices are still broken.
-(They don't have WARNINGs, but /sys/firmware/vpd, etc., is still
-missing.)
-
-Can we patch of_bus_default_match() to accept an empty 'ranges' [1]? Or
-should I go patch every Chromium-device DTS file I can find? So far, I
-think I can get that done in 17 files in the upstream tree...
-
-Brian
-
-[1] From ePAPR:
-
-  "If the [ranges] property is defined with an <empty> value, it
-  specifies that the parent and child address 28 space is identical, and
-  no address translation is required."
-
-And:
-
-  "An ePAPR-compliant boot program shall supply #address-cells and
-  #size-cells on all nodes 16 that have children.
-
-  If missing, a client program should assume a default value of 2 for
-  #address-cells, and a value of 1 for #size-cells."
-
-So far, this does the trick, but I didn't review all the ramifications
-here.
-
-diff --git a/drivers/of/address.c b/drivers/of/address.c
-index 4034d798c55a..f86386c407d4 100644
---- a/drivers/of/address.c
-+++ b/drivers/of/address.c
-@@ -328,7 +328,15 @@ static int of_bus_default_flags_match(struct device_node *np)
- 
- static int of_bus_default_match(struct device_node *np)
- {
--	return of_property_present(np, "#address-cells");
-+	int len;
-+
-+	if (of_property_present(np, "#address-cells"))
-+		return true;
-+
-+	if (of_find_property(np, "ranges", &len) && len == 0)
-+		return true;
-+
-+	return false;
- }
- 
- /*
