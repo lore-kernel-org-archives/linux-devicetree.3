@@ -1,42 +1,42 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F00A3B583D;
-	Fri, 17 Apr 2026 09:25:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 583A03D349D;
+	Fri, 17 Apr 2026 09:25:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776417937; cv=none; b=LGVKON29XzXatZI6oslkDeJj7smvLScdsQ6IqQH0dS2pCcYvN4vmgKTk8eRXn5TSv98VFM7AzvQ4QS+AUpzhC8ItZ+4DYlqfT+d6lHaO3AD0SiL5coZ8L4ceAGPqLD9bxQYNVlTD3fzB6zBATWY/M142yiN5RVCkyotdLyCUSkU=
+	t=1776417938; cv=none; b=E7hHpu+/R5X+J7mQYfw1AoW7gzroGhrJ0iLarEcp2cSTxCvCIWSsQnENODWFn7Ls2MX7Xmhiglh5hukNQEkbyrtE3OB4/pfKaBWZYHhWv5kW3RlrkJssqCG7KRPC1pDzm+nr7E4zxzcvR0qFUl5UfI5/JLzUyJoiHz4SsXkwBpc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776417937; c=relaxed/simple;
-	bh=8BVv2+9i5rVUtWjWzUURXxzhxj6Yejhxy2SGX2/xM+Y=;
+	s=arc-20240116; t=1776417938; c=relaxed/simple;
+	bh=NlHg4VGvwnByoVZ8nGKKfl07owTaqbpvNt+6hi+fyo8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dBjd6HRYNFA1wU5Kdkdxq3nit3p28eNu8LfT0qIKVdHrVh/sSlhImhMI34Meis0oWcOTe/aLjhuBUazx3EXTb+mgyD4aEALscqZeeV4DLff4qs3Qmktr1sQ1uko9+oD0LmMclwyvByZNAR9NML1B3ZpyVq71Q6qlosA4BP5WTDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=j/hC1OmQ; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=czKSZZb5PamWCYcLTT0yhuL4KfM0lQkONftLWrZCOAFTyNNvGBCpqJurj2t+KS7wEdacokBcRZ8GVyfMdsePjb0fo2h5n/BqkboqOowOiF1/9iiPGNtP0OBBCE4WOh593DVwx6NxF7tcX5HMDIBHCawDSoibjo9a13dcXKQO6rc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=jMTBZKIT; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="j/hC1OmQ"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="jMTBZKIT"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1776417935;
-	bh=8BVv2+9i5rVUtWjWzUURXxzhxj6Yejhxy2SGX2/xM+Y=;
+	bh=NlHg4VGvwnByoVZ8nGKKfl07owTaqbpvNt+6hi+fyo8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=j/hC1OmQQJCI3lBkHLNWJ7qAjE2drYECiSsToRbGZMhnloefT7mjs/8C6/UObcgeJ
-	 /FtV1U+bEsSQtIv3AqdQ4Y1hG0pasLO8ANN9cPdhx9Mncpvkg61WOkA6/8oQHiq5Hi
-	 PEwX7PPyn76Umdc/tJtXOaoobfHuRHiIbysGhK0zY2zJU8bds2K2UBxXLWjSm59fSD
-	 cI0siCVg6gh9TFuTbM10TMmAMVEAKJrnRqZFCc+YKN82LHOmR1Hf1RToe5savmAg0c
-	 L+vpWLJSHNXRp5f6Jj1Oxza7SMQyWLiyb42FEcBPsdPkACWs5yY19dLIbJ9OTKsEKj
-	 6TpnvgYFVyNYQ==
+	b=jMTBZKITIHzNnFNxdB2hm6gr/JYXwQxLID0STcVxyfQuCA7BvfRG1XDhcWIdvtlhs
+	 aBBzTMwCYV/eUhFzF2LCbStSIPMhOebmwFcIuD2dTzoor44zWjc3eAvl2F5cPsRnDs
+	 dYe302+82A+OHWdOFF2oQs+SKqHxfrH+vVYM3u1GeyK7w62T+SBE6fVVvk6BXYjjLB
+	 JeCsDmxQj+pjL8ZDzIE//ZyKyGXsa6/Zm/GUzkWquHX4GiYHaZt66BsD7AJRlEe8G1
+	 Vl6TQ0crxp5/2f1x/KA5GV1tR8bXfuOqDKmzbR3rtgcz2z5REvKz4qLOfeqEstPhfU
+	 PM+wb6N4H/VJA==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id D4C1D17E0F7F;
-	Fri, 17 Apr 2026 11:25:34 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id A6BEA17E145D;
+	Fri, 17 Apr 2026 11:25:35 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Fri, 17 Apr 2026 12:25:07 +0300
-Subject: [PATCH 33/40] arm64: dts: rockchip: Add frl-enable-gpios to
- rk3588s-nanopi-r6
+Date: Fri, 17 Apr 2026 12:25:08 +0300
+Subject: [PATCH 34/40] arm64: dts: rockchip: Add frl-enable-gpios to
+ rk3588s-odroid-m2
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260417-dts-rk-frl-enable-gpios-v1-33-a19c0dd8c9f6@collabora.com>
+Message-Id: <20260417-dts-rk-frl-enable-gpios-v1-34-a19c0dd8c9f6@collabora.com>
 References: <20260417-dts-rk-frl-enable-gpios-v1-0-a19c0dd8c9f6@collabora.com>
 In-Reply-To: <20260417-dts-rk-frl-enable-gpios-v1-0-a19c0dd8c9f6@collabora.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -65,14 +65,14 @@ FRL operating modes.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi | 9 +++++++++
+ arch/arm64/boot/dts/rockchip/rk3588s-odroid-m2.dts | 9 +++++++++
  1 file changed, 9 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi
-index 1b6a59f7cabc..d4560c0d6cd1 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi
-@@ -236,6 +236,9 @@ &gpu {
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-odroid-m2.dts b/arch/arm64/boot/dts/rockchip/rk3588s-odroid-m2.dts
+index a72063c55140..2ec3bb6d682e 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588s-odroid-m2.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588s-odroid-m2.dts
+@@ -249,6 +249,9 @@ &gpu {
  };
  
  &hdmi0 {
@@ -82,19 +82,19 @@ index 1b6a59f7cabc..d4560c0d6cd1 100644
  	status = "okay";
  };
  
-@@ -404,6 +407,12 @@ lan2_led_pin: lan2-led-pin {
- 		};
- 	};
+@@ -438,6 +441,12 @@ &pd_gpu {
+ };
  
+ &pinctrl {
 +	hdmi {
 +		hdmi0_frl_en: hdmi0-frl-en {
 +			rockchip,pins = <4 RK_PB6 RK_FUNC_GPIO &pcfg_pull_none>;
 +		};
 +	};
 +
- 	hym8563 {
- 		rtc_int: rtc-int {
- 			rockchip,pins = <0 RK_PB0 RK_FUNC_GPIO &pcfg_pull_up>;
+ 	lcd {
+ 		lcd_pwren: lcd-pwren {
+ 			rockchip,pins = <4 RK_PA3 RK_FUNC_GPIO &pcfg_pull_none>;
 
 -- 
 2.53.0
