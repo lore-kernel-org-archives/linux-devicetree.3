@@ -1,198 +1,202 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C86EF37C90C
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 23:11:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C9CA24A047;
+	Fri, 17 Apr 2026 23:12:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776467494; cv=none; b=shc1tz2qzY7bWyRPM53YXnEX8kd8PKlAHXqGVAJTzoojCeV6YaOShPk+tCsQxI7corfvbYiMvzKd7GoMJSDCZYH+o4bKPKzVIS6UnwZ6AfhBShTUZDKBroc1XbLUOE1fi3uT8dLXejRnoVhfC9ORgwAd6IjR4AavXfus539oNsw=
+	t=1776467533; cv=none; b=Z9M79WVJXFXUMS5coife8IsO8ESLFj719M0xZ0RIAF1HTjdZRh9SsdJptWWWD4WeMdL1FMa8iEfPXCkPmhpVH6nibpuCY0MsZ9revM8zurdLa95m+hNxVtnoxWHnULi7Jcig6DNbSYVkmwHF/zvuGIBXqfrZ9nzX9K7lcrLvT2o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776467494; c=relaxed/simple;
-	bh=hnxiBWWseYu7U8phGQzW7KPEJbdX4nSfS63nDcSiVw0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=HqO+9XMwjEKZa7VHq6TEXtA4mPenBu9jMXUj8ZvU7mEVuC36yik2d2w3VzGy8u3MdejEPELsNULu1Inq5gO19AyylaFMrclOLRUk3gGunmlkRTcYdcKKFRfO7H6+H++nd/TRY2GkIWqqOpspe9QDWsDBAdS2ritsXPMA1vM87Fk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hZ+3eMvM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XacX50cQ; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1776467533; c=relaxed/simple;
+	bh=4bblBGSL1f2hJrlDzK6fXgU7jLCMARyVgrGK1vmgc0s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=laNUZOab5CYwuwzxOJXFSo86H1IeOURUJxF7uDwkdJNcDpvwLF3Sihkjw7oeOmmnOkW6U4KkTEb8OreqWjjzAt3vI4w5pC6CCxw3EU7xWCjlTZr5XWwYFLL884lJqui/af9pxVgFugkvZTN6but2rODLSybuk20ApOdH9Qrsb/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=Hn//9lpm; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hZ+3eMvM";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XacX50cQ"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63HG4bBV975028
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 23:11:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	r9vlvT/yQ2K62b6JOQlgrZNorBhm2dAWPSxZZK/89x0=; b=hZ+3eMvMMiqhWS74
-	cfSj9dpGME3VJfgYr/j7TmvyToM4KcvIXMnMta/yfylNcsZqbDR++RNBqSu8DhP+
-	21KpqcWO3aM8rZ56Ej6dIb+bOInmjA7mTrS3uxdZ8IgU3itHTRTGgW9yJ1/IQAG1
-	LqyBj4JVhT2QhSlxPlh+oOBazZJ8XbgPnw3YNHfCalhqawViNf5j/QmvCZsM0Sjf
-	6aBfgirDAfLnoB6XNod/rlUuc3CpNUTWi2HEWhgwUNg33dy2D1JsJ53n+PEKd3q4
-	WmQAd1TnjXcGw/r+NY24k12A9HHYPkknTy/mj2BQeLoZ98BJMWHWa4YfEP4NRiIZ
-	I9YDYQ==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dkg7ru2q5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 23:11:31 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-50b4b81c632so29738531cf.1
-        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 16:11:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776467490; x=1777072290; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:date:message-id:subject
-         :references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=r9vlvT/yQ2K62b6JOQlgrZNorBhm2dAWPSxZZK/89x0=;
-        b=XacX50cQdOw/qgTMcB8KMLOzb/RulLvf5M1kz/WywcDr8X2vVg1baxrJxYUu5RkVzi
-         2zyOiBlm7lZkXT3QaKtgE3XhkGhAF5FzT/yDi95ZAIt3ujYPUDZ0DgXgJbM8Yc1QgPmY
-         9DpkCEWzNiT+V42poA1sZw7ZQmNR6ZlRUG/6j8SWBBSl/ilpcF7/DIVLlK5Abo+qg5+k
-         JFUQdKhuQWZTvDZK+h5g44A/onYfvBuDDBnmOVsmjV75cHorhzvOMKjtj62L3dFF19Ju
-         S+FZnveyTeU7/vnoxZLI/xisIWE9AygzIwf3v3Y57xM2l+PdnSVtEVh8H6zLDLvx8SGE
-         R5zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776467490; x=1777072290;
-        h=content-transfer-encoding:mime-version:date:message-id:subject
-         :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=r9vlvT/yQ2K62b6JOQlgrZNorBhm2dAWPSxZZK/89x0=;
-        b=UtzHzQfLbsLreRRNdEwUsdBZL4eW2DjL//HFAoUkwdfkGGW7VlzNyxD/4GngKUmYR5
-         FJcTcH5rwTd1ZZm3os3U7QgMP7W6PDz7Q/uUq2kzKhVb9gAuPzm80CiWraVJILXdgvLB
-         eUIVWbEszGdLHGzyPUa8YYFWsAk2gZXB9i5gmPUcpu4Lce49HPzN9NIJSa6yfMU6cL7S
-         2s26dbwrFbK74uP+ykw0CbIqhLKzLUvD+bq/nYjuNsBpwGvnMyB7SCk+PfXzekS5cbri
-         tSWmtAzvRYs4biiZMX9Gk84Jn4sLQUOalfV/E7DG//IgMUyOui1dlKfCT7ds1gd/LGo4
-         se+A==
-X-Forwarded-Encrypted: i=1; AFNElJ+b4rCI6k4Rc0DJxTnsZY6WO5O1ZoxWzmp9AUFrARvanddlIAyO6PAdoMVt5eMlbhIH3VFYB7qK/Ypn@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyy/dKeiHHWeMRE0/v+NQZx82fkQhL2MJINrQZySHIgZMc1w0f6
-	qfVHp0bqafvmojA4gxuCIFMmSptH/1fFTi6mc6kJ0S+tlqHXwh6cK6QUS6ndcdKZwq39qcPhg1c
-	PKV1uBpeR+YkQQgme5TuG7yFhR3zOjne592tcy04J7hQJoyNNZmJJxuPru/yp7j1l
-X-Gm-Gg: AeBDieu3tLCGH+CHF/bnlS83lzcyWKraFbflEV28+cPr7Du916PS7/dLtcNHW4+s+a/
-	v27K1uZbOe8+Pyy8b4P0DSCelLyxKMoIw07MMr8VP1B4mgTsFftIcZvyAyicyloBkC9nit34l9b
-	TVrU96C1XO6bsWzDeF013g05qva5aOrEh/CGyvijPAznC9M9KsTQaFSshFWs/rnKnN/R+HVkWhB
-	WSG7oqV6/sAeL4KucfLHj8Y3Y/3roLHurnVWOQJ/6ikNpyOPICT73lYzZcx1woP4jhFSmKDlqW9
-	QdE7oQBqkAW4KzFnvf9S12z6Y8PPZ85loS66sj1InlV87t+jfsojUg0L2jNprieRWB3U/xMXLam
-	2JAMcykHg5KOSbqDLnDcApAujgXTXvANqvUT2JWA649de8lBH2eU1Cy4QnFZMuoJRnrUQge0Obf
-	KH48vl/r6NlrSx+ORl0H73ocfLQG9ZKVOLJp96EYdiFCygeg==
-X-Received: by 2002:ac8:5fd1:0:b0:50d:a6e3:ae1 with SMTP id d75a77b69052e-50e3693d3d6mr79033041cf.17.1776467490291;
-        Fri, 17 Apr 2026 16:11:30 -0700 (PDT)
-X-Received: by 2002:ac8:5fd1:0:b0:50d:a6e3:ae1 with SMTP id d75a77b69052e-50e3693d3d6mr79032601cf.17.1776467489817;
-        Fri, 17 Apr 2026 16:11:29 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a41ab29ae4sm496283e87.4.2026.04.17.16.11.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Apr 2026 16:11:28 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Cong Yang <yangcong5@huaqin.corp-partner.google.com>,
-        Ondrej Jirman <megi@xff.cz>,
-        Javier Martinez Canillas <javierm@redhat.com>,
-        Jagan Teki <jagan@edgeble.ai>, Liam Girdwood <lgirdwood@gmail.com>,
-        Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Jie Gan <jie.gan@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Riccardo Mereu <r.mereu@arduino.cc>
-In-Reply-To: <20260413-waveshare-dsi-touch-v3-0-3aeb53022c32@oss.qualcomm.com>
-References: <20260413-waveshare-dsi-touch-v3-0-3aeb53022c32@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v3 00/21] drm/panel: support Waveshare DSI
- TOUCH kits
-Message-Id: <177646748816.2514455.14063972983042934626.b4-ty@b4>
-Date: Sat, 18 Apr 2026 02:11:28 +0300
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="Hn//9lpm"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=OX7xe87h18UEYQ/QaaM5hIYsx/fVizMj3KUfwM6/Tug=; b=Hn//9lpmGlH/Sc8sWAr5U3iWyQ
+	NdJXhECA0sDzP0ZaPV7oR0N+RP3vOmv4KuQhI5bw0fGkWWSYdV6Yx7aaaOanfQKy7DiosBurauOp6
+	Jn/7ZXX+7hzCub21m5S+KWpmwi2BYO9JC2IxosgodA1+jSqQdVAlBjahUyipHKOwwNWobtUhGrulU
+	8N4gs506pZYhPgBU/nMSvr3QT/C2qql2AJPCXfEXmNTW5/jwK2BKO2IjL+mO2/sAHrQ9a7NVdClYa
+	zNvvajE8AkebH6vp9ysuIg4FfNLEaRY5NKpaMCftH1YhlfSMXuXmEwSjX590+w5idM/HPkfXLMPkU
+	dqoOlbMQ==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: kernel@collabora.com, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH 05/40] arm64: dts: rockchip: Add frl-enable-gpios to
+ rk3576-luckfox-core3576
+Date: Sat, 18 Apr 2026 01:12:00 +0200
+Message-ID: <2282688.C4sosBPzcN@phil>
+In-Reply-To: <62f51359-9d91-4107-917b-cd722c7321c2@collabora.com>
+References:
+ <20260417-dts-rk-frl-enable-gpios-v1-0-a19c0dd8c9f6@collabora.com>
+ <2000470.6tgchFWduM@phil>
+ <62f51359-9d91-4107-917b-cd722c7321c2@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.1
-X-Proofpoint-ORIG-GUID: pmGLhIcsRJC940bXZVOs-3z0fsZJoAr3
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE3MDIzMSBTYWx0ZWRfX0QpZcu8EsQo0
- xlF78Tpmw/xOPMt2CAKPFT52KYMdO5LOHGzcMAkrJXuYlTK7a7tQ6IPUrJDlP4gYFk/qJksOrr1
- s+GSt16yS9uLZiGfOCTG+KHBYpLXgv7SS7Cw/26NTxOgxroH0irKXFaZYudc+YlJnbKMOPpCmZq
- KDHdU8RRw8uAr378ZasXuWU82CzfVLSMr+//Zu2FgCMJag4FnQwOXTFGr85b9emdzv4BzB+vHGP
- K/rj9r7duj/a3WxPieRqg7CMKbUJWW74cTeDt/LpGaqjHRSOSZND4mIkrioGX99Lg7BHo1fqwXQ
- vi09L3gRCVA28WaBuBVNwyRa5JOLFo8HyCwrVNwKWwR85PI3sCOtN6gnaV3Y/thpJCcVBS9IWY9
- GpRTwZpjqUw6qcYkZQ54ryNVO9Uk9eGVLTiUl0wtCAWXcN00MEZz77g7x9d7yOmoJ0t652IP71F
- TjgG3PrOLoeVCaSnXoQ==
-X-Authority-Analysis: v=2.4 cv=b4mCJNGx c=1 sm=1 tr=0 ts=69e2be23 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=dsQwgn-brIFo03Fd59kA:9
- a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-GUID: pmGLhIcsRJC940bXZVOs-3z0fsZJoAr3
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-17_02,2026-04-17_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 priorityscore=1501 adultscore=0 bulkscore=0
- phishscore=0 clxscore=1015 spamscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604170231
 
-On Mon, 13 Apr 2026 17:05:23 +0300, Dmitry Baryshkov wrote:
-> The Waveshare DSI TOUCH family of DSI panel kits feature different DSI
-> video-mode panels, bundled with the separate controlling circuit,
-> produing necessary voltages from the 3.3V and 5V supplies. Extend panel
-> drivers to support those Waveshare panels and also add GPIO driver for
-> the onboard control circuitry.
-> 
-> 
-> [...]
+Hi Cristian,
 
-Applied to drm-misc-next, thanks!
+Am Freitag, 17. April 2026, 18:34:17 Mitteleurop=C3=A4ische Sommerzeit schr=
+ieb Cristian Ciocaltea:
+> On 4/17/26 2:32 PM, Heiko Stuebner wrote:
+> > the comments below apply sort of to all patches in that series.
+> >=20
+> > Am Freitag, 17. April 2026, 11:24:39 Mitteleurop=C3=A4ische Sommerzeit =
+schrieb Cristian Ciocaltea:
+> >> The board exposes the GPIO4_C6 line to control the voltage bias on the
+> >> HDMI data lines.  It must be asserted when operating in HDMI 2.1 FRL
+> >> mode and deasserted for HDMI 1.4/2.0 TMDS mode.
+> >>
+> >> Wire up the HDMI node to the GPIO line using the frl-enable-gpios
+> >> property and drop the line from the vcc_5v0_hdmi regulator to allow
+> >> adjusting the bias when transitioning between TMDS and FRL operating
+> >> modes.
+> >>
+> >> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+> >> ---
+> >>  arch/arm64/boot/dts/rockchip/rk3576-luckfox-core3576.dtsi | 9 ++++---=
+=2D-
+> >>  1 file changed, 4 insertions(+), 5 deletions(-)
+> >>
+> >> diff --git a/arch/arm64/boot/dts/rockchip/rk3576-luckfox-core3576.dtsi=
+ b/arch/arm64/boot/dts/rockchip/rk3576-luckfox-core3576.dtsi
+> >> index 749f0a54b478..93ae37699366 100644
+> >> --- a/arch/arm64/boot/dts/rockchip/rk3576-luckfox-core3576.dtsi
+> >> +++ b/arch/arm64/boot/dts/rockchip/rk3576-luckfox-core3576.dtsi
+> >> @@ -140,10 +140,7 @@ regulator-state-mem {
+> >> =20
+> >>  	vcc_5v0_hdmi: regulator-vcc-5v0-hdmi {
+> >>  		compatible =3D "regulator-fixed";
+> >> -		enable-active-high;
+> >> -		gpios =3D <&gpio4 RK_PC6 GPIO_ACTIVE_HIGH>;
+> >> -		pinctrl-names =3D "default";
+> >> -		pinctrl-0 =3D <&hdmi_con_en>;
+> >> +		regulator-always-on;
+> >>  		regulator-min-microvolt =3D <5000000>;
+> >>  		regulator-max-microvolt =3D <5000000>;
+> >>  		regulator-name =3D "vcc_5v0_hdmi";
+> >=20
+> > I think this regulator was sort of a complete hack, to set that
+> > gpio to some sort of default state, by declaring it as hdmi-pwr-supply.
+> >=20
+> > Only 2 rk3576 boards seem, to use that hack, so I think as that "regula=
+tor"
+> > is completely functionless now, the whole thing could be removed?
+>=20
+> Ack, let's just drop it.
+>=20
+> >=20
+> >=20
+> >> @@ -231,6 +228,8 @@ &gpu {
+> >>  };
+> >> =20
+> >>  &hdmi {
+> >> +	pinctrl-0 =3D <&hdmi_txm0_pins &hdmi_tx_scl &hdmi_tx_sda &hdmi_frl_e=
+n>;
+> >> +	frl-enable-gpios =3D <&gpio4 RK_PC6 GPIO_ACTIVE_LOW>;
+> >=20
+> > this should be sorted the other way around I think.
+> >=20
+> > Also please provide a pinctrl-names property too. If for whatever reason
+> > the dw-hdmi aquires a 2nd pinctrl state in the future, this makes sure
+> > board DTs are staying in the "old" compatible mode until they are adapt=
+ed.
+>=20
+> Just to make sure I fully understand, the convention is that=20
+>=20
+>   pinctrl-names =3D "default";
+>=20
+> should be always provided, even when the node overrides an existing pinct=
+rl-0
+> property?
+>=20
+> E.g. in rk3576.dtsi we have:
+>=20
+>   hdmi: hdmi@27da0000 {
+>     ...
+>     pinctrl-names =3D "default";
+>     pinctrl-0 =3D <&hdmi_txm0_pins &hdmi_tx_scl &hdmi_tx_sda>;
+>     ...
+>   }
+>=20
+> Hence I omitted pinctrl-names which doesn't change and just appended
+> &hdmi_frl_en to pinctrl-0's original value.
 
-[01/21] dt-bindings: display/panel: himax,hx83102: describe Waveshare panel
-        commit: 0eb86d3622d20679a4c64606df4e8cd6af5398e6
-[02/21] dt-bindings: display/panel: himax,hx8394: describe Waveshare panel
-        commit: 4a70ba67ee5f8ba3a563611eed6ff41eac2b41ed
-[03/21] dt-bindings: display/panel: jadard,jd9365da-h3: describe Waveshare panel
-        commit: d13d9306acac0a71c567154a4e1b3ca9d5c58cc0
-[04/21] dt-bindings: display/panel: ilitek,ili9881c: describe Waveshare panel
-        (no commit info)
-[05/21] dt-bindings: dipslay/panel: describe panels using Focaltech OTA7290B
-        commit: 17b2ab777384d04cae0e5c1e19287d16369e745d
-[06/21] drm/of: add helper to count data-lanes on a remote endpoint
-        commit: a8c56e00c608d5c70eb89464676ea0b3cdcb1ce6
-[07/21] drm/panel: himax-hx83102: support Waveshare 12.3" DSI panel
-        commit: 1af0feaca130e7fef016184f85f803385de13ba0
-[08/21] drm/panel: himax-hx8394: set prepare_prev_first
-        commit: dd0d0a487172bbe9626efc59a43d5dfbea64cdd4
-[09/21] drm/panel: himax-hx8394: simplify hx8394_enable()
-        commit: 917e888d38fa1e81781da39daceffad41e9d2109
-[10/21] drm/panel: himax-hx8394: support Waveshare DSI panels
-        commit: c3b595b16cd2830bf755b4385b19db41f2c238a8
-[11/21] drm/panel: jadard-jd9365da-h3: use drm_connector_helper_get_modes_fixed
-        commit: 0a26b74898a5d385fa9226475d7d2d3afef1716b
-[12/21] drm/panel: jadard-jd9365da-h3: support variable DSI configuration
-        commit: eb019688f2a97bb95384853072de3a88b981f1f3
-[13/21] drm/panel: jadard-jd9365da-h3: set prepare_prev_first
-        commit: b55a4b5d4769a650f52ea3f1ae680610169d125e
-[14/21] drm/panel: jadard-jd9365da-h3: support Waveshare round DSI panels
-        commit: ba362fb2e7fe5676b388da4fd976c993046e3611
-[15/21] drm/panel: jadard-jd9365da-h3: support Waveshare WXGA DSI panels
-        commit: 5a7770a06f38152e50e3fa8d1acd77d0ef259c3d
-[16/21] drm/panel: jadard-jd9365da-h3: support Waveshare 720p DSI panels
-        commit: 13414cfd4839804b924ad9cdf0337d3c335a1943
-[17/21] drm/panel: ilitek-ili9881c: support Waveshare 7.0" DSI panel
-        (no commit info)
-[18/21] drm/panel: add devm_drm_panel_add() helper
-        commit: e43a8e3ad8fa3c2c2220a06fa46545c7ff82a9b7
-[19/21] drm/panel: add driver for Waveshare 8.8" DSI TOUCH-A panel
-        commit: 07853e95424869059d7ce1cd25c800f88ee03e95
+correct, please always provide a pinctrl-names entry when setting a new
+pinctrl-0 .
 
-Best regards,
--- 
-With best wishes
-Dmitry
+The background is, imagine you have a base:
+
+pinctrl-names =3D "default";
+pinstrl-0 =3D <....>;
+
+and override pinctrl-0 in a board.
+
+Now a newer binding introduces a 2nd pinctrl state "foo". Of course
+we're backwards compatible, and both are valid and the driver checks
+what states are defined.
+
+So the base sets:
+pinctrl-names =3D "default", "foo";
+pinctrl-0 =3D <...>;
+pinctrl-1 =3D <...>;
+
+in your (old) board you override pinctrl-0, but the driver still sees
+the new variant with 2 pinctrl states, where it should've stayed with
+the legacy 1-state, until the board-dts might get adapted in the future.
+
+
+And I know, we're likely not doing that everywhere, and also in most
+cases it won't really matter, but still it is safer and sets the better
+precedent :-) .
+
+
+> >>  	status =3D "okay";
+> >>  };
+> >> =20
+> >> @@ -655,7 +654,7 @@ &pcie0 {
+> >> =20
+> >>  &pinctrl {
+> >>  	hdmi {
+> >> -		hdmi_con_en: hdmi-con-en {
+> >> +		hdmi_frl_en: hdmi-frl-en {
+> >=20
+> > pinctrl names should ideally match the naming in schematics, for exampl=
+e the
+> > "HDMI0_TX_ON_H" for jaguar and tiger. This makes it way easier to> go f=
+rom DT
+> > to schematics and back.
+>=20
+> I opted for a more descriptive name that could be used consistently acros=
+s all
+> boards, given that not all schematics are publicly available.
+>=20
+> You make a fair point though, we should probably stick with the pretty te=
+rrible
+> hdmi[N]_tx_on_h naming instead.
+
+yep, we're doing that everywhere else already too, and sticking to the
+schematics naming, also prevents any discussions about how something
+should be named ;-) .
+
+
+Heiko
 
 
