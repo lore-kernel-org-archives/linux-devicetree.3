@@ -1,42 +1,42 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 820323B4E9F;
-	Fri, 17 Apr 2026 09:25:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3311D3B4EA3;
+	Fri, 17 Apr 2026 09:25:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776417928; cv=none; b=M4+Qa8YEpPDP0ID6X9qPzkY2q08NZz8LeOXTumMuyWFR3/lvbD4jUUCZ75r5XbNT/PIctp6XGG3gzdfga17U8qnz1hU8CKaEYqYXposf2SugVgnBVBieXynx8UoxDSfs/2H/xNJU/dNiMXvWGU01C11qE/8jt41FbYQiZCUAq1s=
+	t=1776417929; cv=none; b=eb1/I5pDAHbX3LXmioqApMe8HkrFrr3fXCB0awXcBdXhTXGs/JLmPmMAeWdndYwKZg9bwPCTXOgSiutyp2/ap+AxGs3dKMA9fsZM33LNjJxT1j4+d2g1osLrLSX7jdezUcTDqhCXnIdGHlMTqkKW2MkGLRvgGcaoTlbgMJx2Tvw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776417928; c=relaxed/simple;
-	bh=k4fv7FLscxi4zjT/qCu8YnVssEr69kCSvYKLDAyF+cY=;
+	s=arc-20240116; t=1776417929; c=relaxed/simple;
+	bh=jtQEyQGL2Fv4pcwOJtIEqissSCpIvy9rVx/FpMLP1Sg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jQLhNtQn9mxXzXRhCyuN8k8ZZ1bdjEjhgEz31eJC0AHM2ijpEWLLwAw9trTQBXlG0As0DiIBiyX9aUJ+M+HWWIg9Lyb3A+uLa8HMfVtm04xGhvB7TXRSH79+lqVXcOe1wntKX2zdQnBDuPJQIz5aLf+PbUprH6D7+n3Vs5njGdg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=GCIocr8J; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=mMKXe9m7aMDtc+Cm8us8Q74mIjFcn4duVzNjU1aDzd4bqBwR8i/mLntdVCq+tp/pe5uw9/tqLfmpP9ChM3vb8fXD8iJ+8CBGgd9/HDH5tG+G+Tl1ZfJZGD6UJMPcK3abJ7d7OJd3OjU8FD4GYchb9PFh0elEKgl9kJQBgYqh/TY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=n5jTS8VS; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="GCIocr8J"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="n5jTS8VS"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1776417926;
-	bh=k4fv7FLscxi4zjT/qCu8YnVssEr69kCSvYKLDAyF+cY=;
+	bh=jtQEyQGL2Fv4pcwOJtIEqissSCpIvy9rVx/FpMLP1Sg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=GCIocr8JfzXEDKrYjwzeIBnsE4e59vRFiQ1BzTvDWFyymva0yJ10gvpWcwwrmvfCE
-	 Tuo9dB1wP6KsTHKxdM5frWx1Wg3cl7hkCFdqqIFUxt6HalCNPY5xQAZDDAC8nSz5M1
-	 HyHi0Tq6pBzD7UjKVbVgTk+jmw2RrMqUQb/fjvGk9gA/1IAiKcjrG4slW4NZuB0xFm
-	 f36tjSG+wS5+Vr+lk6+auDqw/6yY0/TjKw3nbvoLLiUXjfGkmePV6z8t3bCgQw74qO
-	 57fa2zB4+zRbIUnsKY7RXA7L9kLFc2uOMydrMm61JuXD+Gm/eh5qhQrYBCaXnKq5nl
-	 nK7HUUh/1MT2g==
+	b=n5jTS8VShKH5ZnbIkeCJKFIbl3pdZ6Yle17DPFwUlmuUm6teilQOIE3XHfsRvdrkA
+	 Q0dBFfIv9fMwP0xwFMzJ+Z3U3UT6dngqenrNDSpCCPU1KP+kCIftIGjIacA2PXWP7f
+	 7Gh+EPujUQYiDwUWytVHRRKv/o/VOXKwPo95e40SP8zIskO9FJN2z+Os1jwcAud3sF
+	 vW2eWV5cVvzDp4hzn+H1rnfFpIV18U8CxIJ1wCHQpEoBq+0Fjqq5f1JzGeopCB5/Zx
+	 xhnJcVHYXVC52Aq6OFz5Y68OTKVcboOuGqmMWIYy62xLrTBxECah1LKqWFQi/OxqGh
+	 6WActtVH2xq7A==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id CC92217E1340;
-	Fri, 17 Apr 2026 11:25:25 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id A488117E0CA9;
+	Fri, 17 Apr 2026 11:25:26 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Fri, 17 Apr 2026 12:24:56 +0300
-Subject: [PATCH 22/40] arm64: dts: rockchip: Add frl-enable-gpios to
- rk3588-orangepi-5-max
+Date: Fri, 17 Apr 2026 12:24:57 +0300
+Subject: [PATCH 23/40] arm64: dts: rockchip: Add frl-enable-gpios to
+ rk3588-orangepi-5-plus
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260417-dts-rk-frl-enable-gpios-v1-22-a19c0dd8c9f6@collabora.com>
+Message-Id: <20260417-dts-rk-frl-enable-gpios-v1-23-a19c0dd8c9f6@collabora.com>
 References: <20260417-dts-rk-frl-enable-gpios-v1-0-a19c0dd8c9f6@collabora.com>
 In-Reply-To: <20260417-dts-rk-frl-enable-gpios-v1-0-a19c0dd8c9f6@collabora.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -66,14 +66,14 @@ between TMDS and FRL operating modes.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-max.dts | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-max.dts b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-max.dts
-index 8b1d35760c3b..f2cf61e28bbb 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-max.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-max.dts
-@@ -35,6 +35,9 @@ hdmi1_con_in: endpoint {
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
+index 9950d1147e12..3a8d19ec8bd8 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
+@@ -121,6 +121,9 @@ &fan {
  };
  
  &hdmi0 {
@@ -83,17 +83,17 @@ index 8b1d35760c3b..f2cf61e28bbb 100644
  	status = "okay";
  };
  
-@@ -57,7 +60,8 @@ &hdmi0_sound {
+@@ -141,6 +144,9 @@ hdmi0_out_con: endpoint {
+ };
+ 
  &hdmi1 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&hdmim0_tx1_cec &hdmim0_tx1_hpd
--			     &hdmim1_tx1_scl &hdmim1_tx1_sda>;
-+			     &hdmim1_tx1_scl &hdmim1_tx1_sda &hdmi1_frl_en>;
++	pinctrl-0 = <&hdmim2_tx1_cec &hdmim0_tx1_hpd
++		     &hdmim1_tx1_scl &hdmim1_tx1_sda &hdmi1_frl_en>;
 +	frl-enable-gpios = <&gpio4 RK_PB2 GPIO_ACTIVE_LOW>;
  	status = "okay";
  };
  
-@@ -102,6 +106,15 @@ &led_green_pwm {
+@@ -278,6 +284,16 @@ &pcie2x1l2 {
  };
  
  &pinctrl {
@@ -106,9 +106,10 @@ index 8b1d35760c3b..f2cf61e28bbb 100644
 +			rockchip,pins = <4 RK_PB2 RK_FUNC_GPIO &pcfg_pull_none>;
 +		};
 +	};
- 
- 	usb {
- 		usb_otg_pwren: usb-otg-pwren {
++
+ 	hym8563 {
+ 		hym8563_int: hym8563-int {
+ 			rockchip,pins = <0 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
 
 -- 
 2.53.0
