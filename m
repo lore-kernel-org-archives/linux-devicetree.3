@@ -1,66 +1,86 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18B06399002
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 13:28:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6121039C006
+	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 13:29:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776432533; cv=none; b=hVAf0O4G7gSxd0FuPF2aJoS7zZRxoV6OVuNqWEO8jPeURgGzztFObY2/+1uqCnn3ECbCTnRDHXcOPYMazlaLllRb6twK/6jEUtMCdNukzXaPIF/X1KmGG/gCqsdPHVDO7Q89y0dz35u0IPTqguX+18iIiP0uFmgCfHXSOE3R/T0=
+	t=1776432593; cv=none; b=cDtI+c8gx67nSl1oALh186hwec2IoeervjRhRAIpDjbRJecfduuGrxnWc1sk0SA0qIyMdrOv7Xd9CZD6zpyzgAUroulPTx0IJt7yopMJp8iXbIEx0IxhSQeUNFD+uNuihAYapsiiZAlJ2hbgEycZ4p4uC6BvNU55ZtDtALola70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776432533; c=relaxed/simple;
-	bh=LX0qWu7Xbd8TT1NvBOE97BzH3UzHyHp8aIxB3oRV2iQ=;
+	s=arc-20240116; t=1776432593; c=relaxed/simple;
+	bh=SDOJrrI3lTBAebziczGzMC8S5O6qT7RZbqRtoZr1W6Q=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Zqtf/yhvUauSPxwlqBypM1WhNyiRF//bk+rX2SWmIKjLSSkxUPQQRONSW2guIQ4/DgBFCRvuXb9Wl8YvTyfoiseve+9+lZHuoOJEZrrkxGbNkrCmeqTCEL3D5TwL2VuEfRy5paLPPToPfd+J7zGkUYx35KR5c3ZWOCSPL08r64U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=fGYXAHpe; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	 In-Reply-To:Content-Type; b=q872oGquOeilfQgzhQBqpL7bVkyEwN7UvVGZMuZzPU+8ID9V9fomQRsoztMfIHW4Bt+gF8vZLL6rX0ZqNlkpf41lNr7MqlGm+otxlYZi4rgHOltQuCylWKAjhfrGYx7/pJGcXfD9fQPyD3y96T5FvvjOEscnjwG44gclZySRCaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iidswQYE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DQYtnBoF; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="fGYXAHpe"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-48897fd88ebso7442905e9.2
-        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 06:28:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iidswQYE";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DQYtnBoF"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63H8B6lL1981913
+	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 13:29:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	1HeSxgq6qe6Gt1Ak2J5KtEc+UgWpolaht6umu9cGq9I=; b=iidswQYEQzjN85nH
+	G2ti/igpUnv19vyXSn0ZYOPAvXEd4sksWg+Y/P5kXJS470Nbi/PdEdfLCFZzIoZS
+	JzZM/r2NjRsgDGjo738SNRl1toTXwvK1bAekOC24GvQGfg0ehdWEPcc/hEoupjqB
+	fnJroOKZwMclndwTw0vh1DJp+p9Xs6xm7Ym6e6VVfpRxxmqy/U2MmpgV/ZHFHJSA
+	Vp67f19HWYjJPdBZzytZGBzCNPAkvBkzDDUSLJeA35TJDjp2te9f9sGBtDi21nge
+	uccaAl5FJEs6uw38iiwE2uJpltwjBLCbRoihjOlmjONR+9awUgvdPH2bQzy2Imoh
+	eJDcBA==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dk52jkgs7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 13:29:50 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-82f2138a9e0so475619b3a.3
+        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 06:29:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1776432530; x=1777037330; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1776432590; x=1777037390; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=LiSRutZE2i6BYCdYYnb6mg9P5OvuB1XSyhcSB7iODxI=;
-        b=fGYXAHpe1Soi9YINpIgSZWLTi0aHWdHeqniatQYcxVVGY/osBdF+OfGFMELkn8ZC2S
-         kbqy3Za0da5vNOq0qF8yGzKgvNErTWQExc4GnlG4ODFp2Q0lfKV3WrXLKcE2DUCOkGA5
-         v69RB/Tzs4dmgp7TGA//CWuCznEqEVu/Nlg7RodmWwBDhRswLkS7t2xJYJMWtFSeNBml
-         MkeCcmqxj4z0sI1JDYEUbAparuCZe4k/tNVGtzp1idM0OWB9qYZWp6me00EqOx41bNTO
-         H+elb4tbHxGNVpAHjyQiWNuHhp4JiUoX/3mQ3Zhs1aqO7LtZlVzEGa6eSqUAd8GeJJLY
-         hodQ==
+        bh=1HeSxgq6qe6Gt1Ak2J5KtEc+UgWpolaht6umu9cGq9I=;
+        b=DQYtnBoFUhEVJMbx4PRgvMyaCDUoO8it4C8EbMrdNzxJnsNacomRmRKC9F+wM2EQof
+         txQ5jz5hjWMQnS+Cm9X5zYvon+ZxBOiZfQ9AYXJimVQ6enscV47sbIBbPy7GTi0q5vvx
+         yA75LjprB82xnQhNNXEYjEklxDMbOaSU0v0B8SdNG0T7KsPOgI2IrPyUkZ+89gnXLwt3
+         tKn3yaV76Thfcf4v302Zfr2QtuxgOYYyJp1SYZjY/sf9A4psx7G4UW0+gEs2034Wr51i
+         Q6i5Vk8PIYhXRTze1m8Q/xlfKucIgRkndrGRyAg0fvrA6GHOaKtqGLDikojVJKPZQLw1
+         I6Tg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776432530; x=1777037330;
+        d=1e100.net; s=20251104; t=1776432590; x=1777037390;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=LiSRutZE2i6BYCdYYnb6mg9P5OvuB1XSyhcSB7iODxI=;
-        b=RsfkvZhSAD3janDxoajlCpmDIecs3K/K7YePVdm+ufZzNG4dQ5CMnvsKqWilGmfL5x
-         HZymWqrFKS36/xQk16glvMPXpD9+o7rdiCx3D6Q1/NKQWN87wEd0Rgudjqes3jsvDsMF
-         AzKr6zrp+w0sFBj3hYMtJebTFyqnRQlY70jo7RsXoqvkEl7cvENIl284iyA+8gw8dckU
-         0LUOIwbfgYEsIhYbI/9FicNNLC8Z4bs4G6xt/JGlSjz2/F4o5XKsfXdypui1TnWwXDK5
-         r5NY6/EG9VMJ+sb91tRmLLRfnyaNAhpswuV/FFvNexqGktY86/0facEwqDafGetBCsOS
-         zy2A==
-X-Forwarded-Encrypted: i=1; AFNElJ/j+i+GP+6o5a0pDpFjbTDBxOfShOKHFzNDV4Xd8WoWNRA4MGbO5i6XwEe7apEnLi0RmIHEUwgIvguk@vger.kernel.org
-X-Gm-Message-State: AOJu0YxzGE3AnK6LLJWY71/yW1vmjQXUkB30kmtOeidw9dpJpPjYmQyf
-	4PUTk0t6QXgUSv5+CNp8hluF5yZ2bH8M43oafXIdFPb2Bsab+eCQaPth/6VZOVLDSmQ=
-X-Gm-Gg: AeBDievpQFfVEI+bAs32qINI45EPqJ4ivdsW33R3UAieyz8FMLnKtdg2PVbbq2hwN2C
-	H7wzRku4EqN0ETER3duIO+j4PWRycEJ2ECNquF/FTx7Yg4GYobw9/3gX39HLuu+5f+cMsMiZXMl
-	wQzB2wIQfbRDve9nfEt/295A9TkrG6BQ3hjnZ6ky8M6Hu0XQ2Nx1ClIM/YCaHLLryr+2AfbvMB4
-	qPtGLVLROU8Xv7z1lUfHr4PiHvb4M7x6q9cwq+s175HcQFcO86RrHcx03avYGUneuprrA9tJg3v
-	WU5CNDdmDx86Q57E2LxbRFKZuzK/lnAiQNtZ2Fek9iiR3WpeS4aC3xWmxL71ccANmn6egpVDa9Q
-	7p8jW9cgPjEjnbbk64+t61Iy0ApBGiF1KuxucrBPgjiwcfrnrdxWPMPc1TkhnODVVZnrSyW3q0y
-	OsUG73wWojJOXvT6xypKMkuuSsKZiDcoDEH60PaCiOAA==
-X-Received: by 2002:a05:600c:a318:b0:486:fdca:ea8d with SMTP id 5b1f17b1804b1-488fb784662mr31297785e9.25.1776432530464;
-        Fri, 17 Apr 2026 06:28:50 -0700 (PDT)
-Received: from [10.11.12.108] ([79.115.63.48])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-488fc1c0354sm40049075e9.11.2026.04.17.06.28.48
+        bh=1HeSxgq6qe6Gt1Ak2J5KtEc+UgWpolaht6umu9cGq9I=;
+        b=Jow4DYjHUMKHyo2p+ZG8TrPA2mNykYrFahN+AGsU2Z40T9+XW98cFtkOFTo0VEgOeV
+         ZoOsx3/XySypHv0KazOrM88rQ1Vpvkvr7h7cvkw/+1n09o+Bef59CXqDioNeCvWvzW7l
+         an85F5Jx5QZQqRpyo8eRJFZFu/ZztxypbMRhRChmCDWKe5fl2qa3Rzz150LIposKo26Z
+         IqHVGRGBtWngMrYi4j7xUYE6UXW09wudE7lmhYhj+1+2aEA89hkjO3wQ1VjexyGivLIa
+         zGlGe8P1nb2y5kmxdO8GxFESSyPOuhmM7akxKWCYXIF5dua2mTgRjaAyHnC6MBBeAw1z
+         ErBA==
+X-Forwarded-Encrypted: i=1; AFNElJ/bgV/3iae2bNZd6D/KeuPAk86SjtNjbjtry3USCC5rmloj+1T+rA8I7M3NTd7XEzFUIEn7JDyJEZZN@vger.kernel.org
+X-Gm-Message-State: AOJu0YwgRLmQKpFfnGRRK9qlLrjBjAPB+p2RIpaA/Xbkn2+auzO2WTJ+
+	/r/Z2k4z0XTIFuae/CP0PRTm6PE7kETt7DG+eOk/j7FnpV51j0v+xYkJw9dElXzkIKjQt6xENzk
+	UqsDssTWxYrFbR7UchVjDTfcSYu7ipjKn824JIoSDxu41tIjC15VNkqaIFe3FxhlB
+X-Gm-Gg: AeBDievYqzzsl+O2LN4CI3t4ZhOsSvw0bLp2Ry1qTJ5UkcVE1TjAMKgTZioShdTUVeX
+	ssgiuoFVeJzCXrF+oQn+AfeXZIKnzjhhqi0wxunUnOOAS7HcZSYurRNXwbkN9gD2RkIwB+eQpDr
+	pVncBuJ1wzRYWa0jEkSLLdZAShaqn2WWpGujhH5tzhdkgaeENaj+1UKjpjFz1zAjVoc3uBTAn7q
+	9zhdsLksJr2Hbr4108vk1NsCQakdc48Br7hKaDvGnHdtzh3/sgRV4ohlzIwExhymQKEYNF5sH+g
+	afytTfR7fm2EnLFIGmWyS5SsnzQo08g0jWkr4BBK1izBQFdkbd+L3H6znHcDMnIKGFKzKceXLeM
+	awlYqDFqdcJUYFw2WQY1cLNqTJjv5UqKCNZDu9ydNInrJyPEuoLh6WB67ayfSrQ==
+X-Received: by 2002:a05:6a00:a241:b0:822:6830:5900 with SMTP id d2e1a72fcca58-82f8c7eee25mr2726435b3a.6.1776432589975;
+        Fri, 17 Apr 2026 06:29:49 -0700 (PDT)
+X-Received: by 2002:a05:6a00:a241:b0:822:6830:5900 with SMTP id d2e1a72fcca58-82f8c7eee25mr2726388b3a.6.1776432589265;
+        Fri, 17 Apr 2026 06:29:49 -0700 (PDT)
+Received: from [10.217.223.121] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82f8ea0a97esm2695706b3a.27.2026.04.17.06.29.43
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 17 Apr 2026 06:28:50 -0700 (PDT)
-Message-ID: <3a36821a-4a44-4f3a-9f0d-5ce521b323aa@linaro.org>
-Date: Fri, 17 Apr 2026 16:28:42 +0300
+        Fri, 17 Apr 2026 06:29:48 -0700 (PDT)
+Message-ID: <a432b2c2-475e-4833-9225-801990cb2d34@oss.qualcomm.com>
+Date: Fri, 17 Apr 2026 18:59:42 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,71 +88,124 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/7] dt-bindings: thermal: Add Google GS101 TMU
-To: Alexey Klimov <alexey.klimov@linaro.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@linaro.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-Cc: willmcvicker@google.com, jyescas@google.com, shin.son@samsung.com,
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-hardening@vger.kernel.org
-References: <20260119-acpm-tmu-v2-0-e02a834f04c6@linaro.org>
- <20260119-acpm-tmu-v2-1-e02a834f04c6@linaro.org>
- <DGUJIFLIOK7Y.1Q4PZQU3MOWTT@linaro.org>
+Subject: Re: [PATCH v8 3/5] mmc: sdhci-msm: Set ICE clk to TURBO at sdhci ICE
+ init
+To: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+        "Martin K. Petersen" <martin.petersen@oracle.com>,
+        Adrian Hunter <adrian.hunter@intel.com>,
+        Ulf Hansson
+ <ulf.hansson@linaro.org>,
+        Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
+        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        Rob Herring
+ <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-scsi@vger.kernel.org, linux-mmc@vger.kernel.org,
+        devicetree@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20260409-enable-ice-clock-scaling-v8-0-ca1129798606@oss.qualcomm.com>
+ <20260409-enable-ice-clock-scaling-v8-3-ca1129798606@oss.qualcomm.com>
 Content-Language: en-US
-From: Tudor Ambarus <tudor.ambarus@linaro.org>
-In-Reply-To: <DGUJIFLIOK7Y.1Q4PZQU3MOWTT@linaro.org>
+From: Harshal Dev <harshal.dev@oss.qualcomm.com>
+In-Reply-To: <20260409-enable-ice-clock-scaling-v8-3-ca1129798606@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=buR8wkai c=1 sm=1 tr=0 ts=69e235ce cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=i-sMpDq2_rzAXM5hadQA:9 a=QEXdDO2ut3YA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-GUID: Wk2qzcp-OfD9MvZxdlDOj3Ty7Ac-kftu
+X-Proofpoint-ORIG-GUID: Wk2qzcp-OfD9MvZxdlDOj3Ty7Ac-kftu
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE3MDEzNSBTYWx0ZWRfX6efmNDuio7w0
+ KQbwgldpoD9pQBeyNZ0BWbQ3J2IbkIAsrHSbklrJTC78RDF2oZU5NwM21Wnu5dcSnO3v1mW21yk
+ hqbto/0a63wXd4+zduze6S3go5PbgwR8kV7STmqNz7EeUONkWlcD9WbB/RM+KC909L1yo6OHZQi
+ 9YBJ+N6zJ8m1RmCqxoynjGzggUhqh+Ii9FED8/VDuO3lR7aJe7ywk4jHj4EnjiKKTzNGEoDfbgU
+ WuBSSWy+oEgV6Zq9qEL6pgyV9z48LvAVfqNacEXclabdC6pvmiT34xhtsRZNDlz1wS8tu6CwDhk
+ RNFJVVLvYyhCivaqVI3kxlZhV2iJK8Kc34BtI/Fok+VZJj4X9JRfOeLo4MEphCYgA1A7NprIFfX
+ jAOUYBXOy/YRdkxEM18kfb1CtuCl03yxqc4DpffkaXrVD5Q/+BMxmXJ8lOvJIBHUrRGpZjx5i9X
+ lsXtRfgrLyt7JyRfbMQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-17_01,2026-04-17_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0 bulkscore=0
+ priorityscore=1501 spamscore=0 malwarescore=0 phishscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604170135
 
 
 
-On 3/5/26 5:48 AM, Alexey Klimov wrote:
-> Hi Tudor,
+On 4/9/2026 5:14 PM, Abhinaba Rakshit wrote:
+> MMC controller lacks a clock scaling mechanism, unlike the UFS
+> controller. By default, the MMC controller is set to TURBO mode
+> during probe, but the ICE clock remains at XO frequency,
+> leading to read/write performance degradation on eMMC.
 > 
-> On Mon Jan 19, 2026 at 12:08 PM GMT, Tudor Ambarus wrote:
->> Document the Thermal Management Unit (TMU) found on the Google GS101 SoC.
->>
->> The GS101 TMU utilizes a hybrid control model shared between the
->> Application Processor (AP) and the ACPM (Alive Clock and Power Manager)
->> firmware.
->>
->> While the TMU is a standard memory-mapped IP block, on this platform
+> To address this, set the ICE clock to TURBO during sdhci_msm_ice_init
+> to align it with the controller clock. This ensures consistent
+> performance and avoids mismatches between the controller
+> and ICE clock frequencies.
 > 
-> this ^^
+> For platforms where ICE is represented as a separate device,
+> use the OPP framework to vote for TURBO mode, maintaining
+> proper voltage and power domain constraints.
+> 
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
+> ---
+>  drivers/mmc/host/sdhci-msm.c | 24 ++++++++++++++++++++++++
+>  1 file changed, 24 insertions(+)
 > 
 
-okay
+[...]
 
-cut
+>  
+>  static const struct blk_crypto_ll_ops sdhci_msm_crypto_ops; /* forward decl */
+> +static int sdhci_msm_ice_scale_clk(struct sdhci_msm_host *msm_host, unsigned long target_freq,
+> +				   bool round_ceil); /* forward decl */
+>  
+>  static int sdhci_msm_ice_init(struct sdhci_msm_host *msm_host,
+>  			      struct cqhci_host *cq_host)
+> @@ -1964,6 +1966,11 @@ static int sdhci_msm_ice_init(struct sdhci_msm_host *msm_host,
+>  	}
+>  
+>  	mmc->caps2 |= MMC_CAP2_CRYPTO;
+> +
+> +	err = sdhci_msm_ice_scale_clk(msm_host, INT_MAX, false);
 
-> Is it Google TMU hardware block or Exynos/Samsung TMU block?
-> 
-> My understanding at this point is that ACPM interface, ACPM protocols, etc
-> appeared on Samsung SoCs before gs101 (maybe even before initial SCMI
-> prototyping). It looks like ACPM firmware, communication via mailboxes,
-> TMU channel, dealing with TMU behing ACPM, etc are actually a standard
-> Samsung Exynos architectural feature, rather than a Google-specific
-> implementation. I can't say though what was the first chipset where it
-> was implemented.
+The 2nd parameter is an unsigned long, do you really want to pass INT_MAX here? I would go with
+UINT_MAX. But still, why go with such a high value? Do we not have an upper bound for the clk
+frequency that we know we can't ever exceed for any target across OPP tables? If not, then maybe
+UINT_MAX is best we can do here.
 
-autov920, exynos850 too can use the hybrid ACPM TMU approach.
-I'll generalize the description.
-> 
-> Given that this is a Samsung design that predates the gs101, would it
-> make sense to use more generic name for this binding to reflect that
-> it is Exynos-derived? That would save us from generalizing things later
+Regards,
+Harshal
 
-The name has to match the compatible. We can rename it when other Samsung
-compatibles are added.
-
-Cheers,
-ta
+> +	if (err && err != -EOPNOTSUPP)
+> +		dev_warn(dev, "Unable to boost ICE clock to TURBO\n");
+> +
+>  	return 0;
+>  }
+>  
+> @@ -1989,6 +1996,16 @@ static int sdhci_msm_ice_suspend(struct sdhci_msm_host *msm_host)
+>  	return 0;
+>  }
+>  
+> +static int sdhci_msm_ice_scale_clk(struct sdhci_msm_host *msm_host,
+> +				   unsigned long target_freq,
+> +				   bool round_ceil)
+> +{
+> +	if (msm_host->mmc->caps2 & MMC_CAP2_CRYPTO)
+> +		return qcom_ice_scale_clk(msm_host->ice, target_freq, round_ceil);
+> +
+> +	return 0;
+> +}
+> +
