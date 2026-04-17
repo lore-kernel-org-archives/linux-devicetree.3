@@ -1,63 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DC942BEC2B;
-	Fri, 17 Apr 2026 21:24:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC1D303A0A
+	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 21:24:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776461053; cv=none; b=Gjsxti9Ru8PGnd7Zc2UzTP1WMYJzK6bAsgBbV4sclDYZeyjCeazWagbC/pcKdD98bbgjFG2ThY8rgqs0ByJ27PWU7UxTJeGvolJIoxw0krwoHyT1PZshxE6TcuOZUpKiEE612tVJQQ/3VbNkXLjN7cGH+Dz47gM7B/rvROberuI=
+	t=1776461082; cv=none; b=BNEHEvJpxTX5AyCltXhbF9bu1O6m42a0cf7jj3KISZ8yjqZgYXPkaempnpobhUK99qXIQ2nyPKgO1sxESsv2pGMpsI7xBGYDK7XN8N3d6S7ex4Q0kx3URnWURVnx6Fk8f+d2L23+lxQ0NufFuXVnO0rOQNcrGH06u3nCJEPsIyg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776461053; c=relaxed/simple;
-	bh=yxw/8V9vvHxyw0zJwz+xcswNwAcY/DFgO0ThmnB7Sdc=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=S+WYmHMxJaU2EhogiE0cPBf6mBUnvGnayvbUlW7q75bmkfx2FpnTlhE4teB7jv2VQ+5Mi8OitDiooDi8UUrFm21Rk56a4/cC7wlg+2cyPmbqAVyF4OHehs2h7QCEX5O1NJzxJsQbMuCbU4Woh7H2AwIPnsmdteKh35cwwx7N1xQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bv/c2h/m; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776461082; c=relaxed/simple;
+	bh=SfW3aKMNDF3itjmw5mDGazvjrO1+TlvAVfQgjmpgN1I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=k5P1uf0z2Nm2Jf6egLGD+4Bx5h2jUcCdyxN1OwYnqXfNieB6Fqb3Pwruc2/pwTbvPkAU6Vl70CX+ZrL8NM7pz2vnDCP9p/IbtyJ1V3+oVWjCkFVuJ54saasGir3fwKFiZSAZYYZ000LginW8N0KTwFYR/JvrjmqGw2BKSGp4g9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y1IFCL4I; arc=none smtp.client-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bv/c2h/m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5BDDC19425;
-	Fri, 17 Apr 2026 21:24:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776461052;
-	bh=yxw/8V9vvHxyw0zJwz+xcswNwAcY/DFgO0ThmnB7Sdc=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc:From;
-	b=Bv/c2h/mrVHNzgxRqHajX4PICqBxVqoeCpEy0V6p6652jC95guw2AQY2zTkL5MeSg
-	 hWwA/Yyf2QVd/Cc+jOywThFc1CONr7QRJhFA+w1QM0dRC31uY4yEx0k1uAj5Q63NjP
-	 EicZ6rr4+uY3CoB21A3yudLPRdsiUhSHKVVBGCGWNf0u27aQgvvE6Z1gNfi1BK/179
-	 D2x6z1qm51CJVcVLYzNQU/PdxZmHMfqBJkD80HvN04JdeCO7OIhaPCH7FJFQuEV8Kp
-	 19vcs9dl12wEbZyXgf1vaTj/ufnlwiHnNXOmOHMl9iA8U5ceq17h6SmFZnuiBXShX2
-	 QhQx0+B/dBnDQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7CE45380CEE7;
-	Fri, 17 Apr 2026 21:23:41 +0000 (UTC)
-Subject: Re: [GIT PULL] Devicetree updates for v7.1
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20260417184448.GA1533367-robh@kernel.org>
-References: <20260417184448.GA1533367-robh@kernel.org>
-X-PR-Tracked-List-Id: <devicetree.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20260417184448.GA1533367-robh@kernel.org>
-X-PR-Tracked-Remote: ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/robh/linux.git tags/devicetree-for-7.1
-X-PR-Tracked-Commit-Id: a74c2e55ab66519ffa2069ac9ae83cd937bff4c4
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: e2d10998e4293a27c0389870b5fdf736a71d61ef
-Message-Id: <177646102014.161623.12058284851803757809.pr-tracker-bot@kernel.org>
-Date: Fri, 17 Apr 2026 21:23:40 +0000
-To: Rob Herring <robh@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Saravana Kannan <saravanak@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y1IFCL4I"
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-12c555f886dso1809042c88.0
+        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 14:24:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776461080; x=1777065880; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=9YMgPDsRl1INUEuGfQBN2K0mpewlXYhHoJVyAhAldtE=;
+        b=Y1IFCL4IL4YYYhrphm7z00mjd9GRO/KIC4Zyqew9QjkGR9AdjivC19iU7hDPS/XUDw
+         /QmJLcQuajzICwfhzrnhFPo0p4SWL7BUi/yT42QAZH08D5kmEDel8OoC8clZZhtpIxL7
+         TcGJEc6TIXn/mb1gcHcO2kY5IaHp0FURjEHznoKL1Bx9pC3on6g5JGHoUzwpYS5WTdih
+         brKW/ke2xXPLjm1Zx5puJ9x6fkQCoVF/Eeoq33t6IOkESfMcvosY6viWozLhdX2YtpO2
+         jP5GKMTgNuld+yQglT6QklnYun1nL732o7LhoYSulJK/vU7UbF12xZ906KkavsgdlxGb
+         gHpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776461080; x=1777065880;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=9YMgPDsRl1INUEuGfQBN2K0mpewlXYhHoJVyAhAldtE=;
+        b=IysV/aUmRKtqxlSmAE5sA26V4s4emc7ap09ZglOET2EAhj/9NM7vDAI/fnMRxKX8Ul
+         YB5k8UEoqTt8Lqkmuqq3RQr/RLBVq+u4Et6CGpyryxudAJB9fXtyp/ao0KpqgZRT5yZ6
+         R+YbzaMzAlV8shnOGvI9dgG2crg3ECyZtimLL17Coi7qnT2deeUgNOXl6uXVhMw0ZW1f
+         DDvGehEEowL6d8STukURGk6vZTJEqH6p6ermwav4JZp0bN/T5GVuUknP25nyIp/4foVw
+         gcxt8kRuq1NT2sAwcj9vQN3UqtNgQjgUunLUkhoMd8XzPfYbPhn++mWJ8afWQNznVEV+
+         m+0A==
+X-Forwarded-Encrypted: i=1; AFNElJ8IseQVMu4ELOmeEmu4uIhP7tx0G5tIFFQur1wMV+vgZY8OtYrY+9mORSFwUXC1pifUXww3HlT8SRax@vger.kernel.org
+X-Gm-Message-State: AOJu0YyP0TK2zJ3y2188LJAthKJIbhPbzPSluPta6EdiRrYzbdrMesB4
+	7u29xvNCwuOEeSqaDCi7BknebOhh37zH43U3JzPUHseWvMctelS4kcpH
+X-Gm-Gg: AeBDievzcGELj6NybJj7vl+3HMcmrwa502au+oo08/sBiOnjdnmeZZYSiCfppTksWiw
+	ZPAbzh4lZsfAPfAAXAfY/ouUuMDl3c2C5Pwd4eCTtObn2H2YTSAml+gx8EPaudcVzhOrUYTsCxF
+	1/XqWtUJsgyHylFUibRD0P+PGN7zzPFCb8Z+JK3qfLRGEZXWaqwqSpX194MAPX0GU4HC43ZVzMs
+	M4sS64ikR1syuvdyRHZ6PyRhQgGcr3ID2TbzpmDKEhrzQOnFMZBwJJRcOD9WARaXQASYolYhaK5
+	tYRFHm306MiRNJTXK/dYZTpEVf7mwOiK6m6dwaEqlo4Qlh0uZndZ3btnV9Nxe22guS70lbq64/4
+	cdjhh0XN58dIlpcGiEUcE9LgLjwX+YrQdGBKzBrMmlQK3cG1BziI+5+tgN9U2CMbvkDhuL2kDow
+	SKaaRMlOUx5a2wRMlG8cJHxjQj9uDJertkeqr5+g1FSTVXV3kB680acjmheIa9YSFwZXjDC68=
+X-Received: by 2002:a05:7022:60f:b0:124:abaa:7ff2 with SMTP id a92af1059eb24-12c73f9bc97mr2419280c88.24.1776461080143;
+        Fri, 17 Apr 2026 14:24:40 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:a3:a483:e585:b80])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2e53ccd2564sm4053982eec.18.2026.04.17.14.24.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Apr 2026 14:24:39 -0700 (PDT)
+Date: Fri, 17 Apr 2026 14:24:36 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Harpreet Saini <sainiharpreet29@yahoo.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	David Lechner <david@lechnology.com>, devicetree@vger.kernel.org, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] input: misc: Add PixArt PAJ7620 gesture sensor
+ driver
+Message-ID: <aeKjPSy5c1yAz4Ge@google.com>
+References: <20260417052527.62535-1-sainiharpreet29@yahoo.com>
+ <20260417052527.62535-3-sainiharpreet29@yahoo.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260417052527.62535-3-sainiharpreet29@yahoo.com>
 
-The pull request you sent on Fri, 17 Apr 2026 13:44:48 -0500:
+Hi Harpreet,
 
-> ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/robh/linux.git tags/devicetree-for-7.1
+On Fri, Apr 17, 2026 at 01:25:27AM -0400, Harpreet Saini wrote:
+> This driver adds support for the PixArt PAJ7620 gesture sensor.
+> It implements hand gesture recognition (up, down, left, right,
+> etc.) and reports them as standard input key events. The driver
+> includes power management support via Runtime PM.
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/e2d10998e4293a27c0389870b5fdf736a71d61ef
+Sashiko has identified a number of valid concerns, please address them.
 
-Thank you!
+Also consider:
+
+- moving powering up and down the chip into open()/close() for input
+  device
+- getting keymap from device properties and allowing adjusting it from
+  userspace vi EVIOCSKEYCODE
+- no capitals in type names
+- use 'error' instead of 'ret' for variables holding only error code
+  or 0.
+
+Thanks.
 
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+Dmitry
