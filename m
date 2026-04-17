@@ -1,142 +1,127 @@
-Received: from mail-4317.protonmail.ch (mail-4317.protonmail.ch [185.70.43.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64BF235AC10
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 19:07:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71CB7355F49;
+	Fri, 17 Apr 2026 19:55:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776452858; cv=none; b=E1N+Ngr9+tZLwnMCBjzikSZafoufBk2JaO/dPkU86+WRoVQ+DNocCZ5urb37IFFWRUXYK1Ntg0WTxexX8QGfdxhdRnNAW8eYV1nds92US/VeKpePx+/lwD8tAmTh8ujb7Zq2EcbA744emYDbQtAAApFTJO2uYTorqa2/c0PC6go=
+	t=1776455735; cv=none; b=tMh/gXmm+eAC/uB3M5UdtVj5hr1+0BEn9YcRilS8XtejAkkfBAw2EuhiQZpIjdjCsNpy1yzkSpfvBVtorii+LWrjJEOVfj5Gr8ZWnJdwFEdU1gA4uoxa4RDoIG56+X9j1hRM6mLDyLjN+fyPdLeAj7DxsuG8P8oJuz+c9vNjdX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776452858; c=relaxed/simple;
-	bh=qAS0e48uAVyRkB1PEyF7MtvwBshJ2+J0XnQwyWlnmUE=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nhnGEDoDTLxLbTAo+UzSA1na9WvmiTBp5xAOkcMVRI7PUZdEuyWILcFaqtFXITbS2mjHf99T3L3wOxb/HZ5WkEa4kQ9axc3ybFCJHSBGKHGconJXBc5Gby/FkTdtCyVxID05NbxwdaKWznjl43cqIIEvqpmw36j4H7DjSMwOpL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vrajashkr.com; spf=pass smtp.mailfrom=vrajashkr.com; dkim=pass (2048-bit key) header.d=vrajashkr.com header.i=@vrajashkr.com header.b=US5xJZ4v; arc=none smtp.client-ip=185.70.43.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vrajashkr.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vrajashkr.com
+	s=arc-20240116; t=1776455735; c=relaxed/simple;
+	bh=l+dL+bsfkqpxw8vBZ2qjjX1NYJoorXmurqTXyqgMrXM=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=QBcEbN06/Lw93YXFZVVZUya4BLI7zO/rMLlsSdlijAHIKk0gfWv+bTce7qNVTA+X/2OQuPJpHvwuzZi8PwG2G6BG/jDMQhMC6xE0Qh2kq6HtnGBlQszQ32ZLt0A9CFIAbNTJWzFfOTqvlQNalLrAO2WP59zpL7Rw5GOvyJQOpks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oeyODZQ7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vrajashkr.com header.i=@vrajashkr.com header.b="US5xJZ4v"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vrajashkr.com;
-	s=protonmail3; t=1776452848; x=1776712048;
-	bh=ReQYU+/EBwCXhXoTvP1t9mmtth4hJCVc+tkZ18BSp9w=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=US5xJZ4vXTxQ8CpRxdWVr0CGa6DZ7iKxWmT3H0ftJp2Wdq6YHRRbcErqRTNRaCAwW
-	 bPt0Kg5iEulYbj5xvDASlHD//m2/kxOoZhOj4KodipBNYrBqu9KSCLOOxasWDXDg9c
-	 ATU6UXMTI7flD+ysHDKN/kKIxJPKL56EfttVJBkIH+j+aOpAlEKAp539me1m75o8gy
-	 nayv2QSy1MoV566KpGdEzmEg7DsDWMH2JXVh1H815cQ8+g6eDFW9c9pME9sEZhXAYO
-	 PIGEd3h0lbP6nPZAVq3XtAg+eVmDS5cV+JD/pN0BOyMSWt3ylDsuD+0TxD/AIcFIPA
-	 G00KwhlZmISbg==
-Date: Fri, 17 Apr 2026 19:07:25 +0000
-To: Conor Dooley <conor@kernel.org>
-From: Vishwas Rajashekar <vishwas.dev@vrajashkr.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, =?utf-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "H. Nikolaus Schaller" <hns@goldelico.com>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, luca@lucaweiss.eu
-Subject: Re: [PATCH v2] dt-bindings: iio: gyroscope: add mount-matrix for bmg160
-Message-ID: <xt0iLerdioxyPfs9gFZaQbsip_uxDE-hplc8YGNA7BCet-ZT9B0U3Y3TNXZg3gScVK6avywf-3YDK5Psjud3iLqll12DafMyvovfFfUTWAA=@vrajashkr.com>
-In-Reply-To: <20260416-level-unbitten-eb3bf8d4a6c7@spud>
-References: <20260416-bmg160-mount-matrix-dt-binding-v2-1-e66cf5cff8e8@vrajashkr.com> <20260416-level-unbitten-eb3bf8d4a6c7@spud>
-Feedback-ID: 192380685:user:proton
-X-Pm-Message-ID: 1bcacc1de08cc8ee01a8e9ac340e5a6e253b51fc
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oeyODZQ7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4050C19425;
+	Fri, 17 Apr 2026 19:55:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776455735;
+	bh=l+dL+bsfkqpxw8vBZ2qjjX1NYJoorXmurqTXyqgMrXM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:From;
+	b=oeyODZQ7mydKqug4mEFFqwgFy2wf0FKAlp7sEFJNQSbj1jDtm1VgmE/QiQPf6wMmb
+	 D6zt0jL2JMD8k/PnfFAHGgbQYWawCD76DJ6c1cxShv6ZsPixx+NHg+fAHLDx6wWtSo
+	 j6P1XSuE4JxbkM/JjIL41MapnGeDAPaBqhHqJ5fdrx+owkVvW5RBdGMUu8YzGH5uMv
+	 rr5BQnn8via7fKYmj89e3OfqaLe0mNoiG+3E1vhRhcFZpC42zQZ4HxSVrQXPGd21h5
+	 XFp0/tLX+i+3NsVPU0mCh+pOoCIROYgYzKM7j/B3RMf8AwiLoqUpuHStC6GxYRdvl/
+	 RcVvpgff6WYVQ==
+Date: Fri, 17 Apr 2026 14:55:33 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Sherry Sun <sherry.sun@nxp.com>
+Cc: "robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	Frank Li <frank.li@nxp.com>,
+	"s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
+	"kernel@pengutronix.de" <kernel@pengutronix.de>,
+	"festevam@gmail.com" <festevam@gmail.com>,
+	"lpieralisi@kernel.org" <lpieralisi@kernel.org>,
+	"kwilczynski@kernel.org" <kwilczynski@kernel.org>,
+	"mani@kernel.org" <mani@kernel.org>,
+	"bhelgaas@google.com" <bhelgaas@google.com>,
+	Hongxing Zhu <hongxing.zhu@nxp.com>,
+	"l.stach@pengutronix.de" <l.stach@pengutronix.de>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>,
+	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH V13 02/12] PCI: host-generic: Add common helpers for
+ parsing Root Port properties
+Message-ID: <20260417195533.GA92707@bhelgaas>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <VI0PR04MB1211449884AC3BC8E3711F1AB92202@VI0PR04MB12114.eurprd04.prod.outlook.com>
 
-On Thursday, April 16th, 2026 at 21:12, Conor Dooley <conor@kernel.org> wro=
-te:
+On Fri, Apr 17, 2026 at 03:17:16AM +0000, Sherry Sun wrote:
+> > On Thu, Apr 16, 2026 at 07:14:12PM +0800, Sherry Sun wrote:
+> > > Introduce generic helper functions to parse Root Port device
+> > > tree nodes and extract common properties like reset GPIOs. This
+> > > allows multiple PCI host controller drivers to share the same
+> > > parsing logic.
+> > >
+> > > Define struct pci_host_port to hold common Root Port properties
+> > > (currently only reset GPIO descriptor) and add
+> > > pci_host_common_parse_ports() to parse Root Port nodes from
+> > > device tree.
+> > 
+> > Are the Root Port and the RC the only possible places for 'reset'
+> > GPIO descriptions in DT?  I think PERST# routing is outside the
+> > PCIe spec, so it seems like a system could provide a PERST# GPIO
+> > routed to any Switch Upstream Port or Endpoint (I assume a PERST#
+> > connected to a switch would apply to both the upstream port and
+> > the downstream ports).
+> 
+> Thanks for the feedback. You're right that PERST# routing could
+> theoretically be connected to any device in the hierarchy. However,
+> for this patch series, I've focused on the most common use case in
+> practice: use Root Port level PERST# instead of the legacy Root
+> Complex level PERST#.
+> 
+> Root Port level PERST# - This is the primary target, where each Root
+> Port has individual control over devices connected to it.  RC level
+> PERST# - Legacy binding support, where a single GPIO controls all
+> ports.
+> 
+> We can extend this framework later if real hardware emerges that
+> needs Switch or EP-level PERST# control. I can add a comment
+> documenting this limitation if needed.
+> 
+> BTW, Mani and Rob had some great discussions in dt-schema about
+> PERST# and WAKE# sideband signals settings.
 
-> On Thu, Apr 16, 2026 at 08:33:21PM +0530, Vishwas Rajashekar via B4 Relay=
- wrote:
-> > From: Vishwas Rajashekar <vishwas.dev@vrajashkr.com>
-> >=20
-> > Adds mount-matrix as an optional property to dt-bindings
-> > for the bmg160 gyroscope as the driver reads this optional
-> > property during probe.
->=20
-> Ultimately, what the driver does is not relevant here. All that matters
-> is that the property is relevant to the hardware. Please come up with a
-> commit message that avoids mentioning linux drivers and instead explains
-> why it is relevant to the hardware.
->=20
-> pw-bot: changes-requested
->=20
-> Cheers,
-> Conor.
->=20
+> You can check here:
+> https://github.com/devicetree-org/dt-schema/issues/168
+> https://github.com/devicetree-org/dt-schema/pull/126
+> https://github.com/devicetree-org/dt-schema/pull/170
 
-Thank you for the feedback! I've updated the commit message in v3.
+The upshot of all those conversations is that WAKE# and PERST# can be
+routed to arbitrary devices independent of the PCI topology.
 
-> >=20
-> > Signed-off-by: Vishwas Rajashekar <vishwas.dev@vrajashkr.com>
-> > ---
-> > The bmg160 driver reads an optional mount-matrix using
-> > "iio_read_mount_matrix" in "bmg160_core_probe" and stores
-> > this orientation data in "struct bmg160_data". As the "mount-matrix"
-> > property is used by the driver, this change proposes to add it to
-> > the corresponding dt-bindings.
-> > ---
-> > Changes in v2:
-> > - Addressed review feedback: add mount-matrix example for bmg160
-> > - Link to v1: https://patch.msgid.link/20260415-bmg160-mount-matrix-dt-=
-binding-v1-1-0e2c85964ee6@vrajashkr.com
-> >=20
-> > To: Jonathan Cameron <jic23@kernel.org>
-> > To: David Lechner <dlechner@baylibre.com>
-> > To: Nuno S=C3=A1 <nuno.sa@analog.com>
-> > To: Andy Shevchenko <andy@kernel.org>
-> > To: Rob Herring <robh@kernel.org>
-> > To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> > To: Conor Dooley <conor+dt@kernel.org>
-> > To: "H. Nikolaus Schaller" <hns@goldelico.com>
-> > Cc: linux-iio@vger.kernel.org
-> > Cc: devicetree@vger.kernel.org
-> > Cc: linux-kernel@vger.kernel.org
-> > ---
-> >  Documentation/devicetree/bindings/iio/gyroscope/bosch,bmg160.yaml | 6 =
-++++++
-> >  1 file changed, 6 insertions(+)
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/iio/gyroscope/bosch,bmg1=
-60.yaml b/Documentation/devicetree/bindings/iio/gyroscope/bosch,bmg160.yaml
-> > index 3c6fe74af0b8..ec97778cca78 100644
-> > --- a/Documentation/devicetree/bindings/iio/gyroscope/bosch,bmg160.yaml
-> > +++ b/Documentation/devicetree/bindings/iio/gyroscope/bosch,bmg160.yaml
-> > @@ -22,6 +22,9 @@ properties:
-> >    vdd-supply: true
-> >    vddio-supply: true
-> > =20
-> > +  mount-matrix:
-> > +    description: an optional 3x3 mounting rotation matrix.
-> > +
-> >    spi-max-frequency:
-> >      maximum: 10000000
-> > =20
-> > @@ -52,6 +55,9 @@ examples:
-> >              reg =3D <0x69>;
-> >              interrupt-parent =3D <&gpio6>;
-> >              interrupts =3D <18 IRQ_TYPE_EDGE_RISING>;
-> > +            mount-matrix =3D "0", "1", "0",
-> > +                           "1", "0", "0",
-> > +                           "0", "0", "1";
-> >          };
-> >      };
-> >  ...
-> >=20
-> > ---
-> > base-commit: 591cd656a1bf5ea94a222af5ef2ee76df029c1d2
-> > change-id: 20260414-bmg160-mount-matrix-dt-binding-e76ddde94866
-> >=20
-> > Best regards,
-> > -- =20
-> > Vishwas Rajashekar <vishwas.dev@vrajashkr.com>
-> >=20
-> >=20
->=20
+I think extending host-generic to look for 'reset' in Root Port nodes
+is the right thing.  My concern is more about where we store it.  This
+patch saves it in a new "pci_host_port" struct, but someday we'll want
+a place to save the PERST# GPIOs for several slots behind a switch.
+Then we'll have two different ways to save the same information.
 
-Regards,
-Vishwas
+WAKE# signals might be more pertinent -- we definitely need to support
+multiple WAKE# signals below a single Root Port, and it seems like
+PERST# and WAKE# GPIOs should be saved the same place.
+
+I'm wondering if both should go in the pci_dev itself.  I guess the
+implication is that a pci_dev->reset GPIO would describe a PERST#
+connected to the device *below* the pci_dev, at least for Downstream
+Ports.
+
+I don't know about WAKE# signals.  When it's in a connector, there's
+probably only a single possible WAKE# per Downstream Port.  But is it
+possible have multiple WAKE# signals from a multi-function device
+that's on the motherboard?  Saving the WAKE# GPIO in the Downstream
+Port wouldn't accommodate that case.
