@@ -1,172 +1,218 @@
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011030.outbound.protection.outlook.com [40.107.74.30])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FD60126C02;
-	Fri, 17 Apr 2026 03:53:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 959F0361DBC
+	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 04:11:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.46
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776398020; cv=fail; b=nU+gvkVNXEwW5v4+ei6E4qChH0jaIEfCVfK4YgHOvipT9FKlhRqgGb0YoS0f3Bim8veUg4EcwhlUlWnKPsV0nsNKRAjXE7w9yZc66YSVcsZym3dsvEcmPYdgAK5SRmHh3tZIGPJwPZR9y/9mcrfp2xAJf/VyBuOk1GcfblHPpUk=
+	t=1776399112; cv=pass; b=kRu+RuYQb2eu5Kz533JDP59Em2lP3UHFBgdoheXpZypCMlgHBRsibvYOrg7o1zDIPSQnwT94adw9VZc+UWecoYvd5lATHOSftRy44DPMD7g50aTCENaVIsZUzTc3leHPnAE5/173ptHCodK2xqgp9LppH+xkNg7unZxHDDmf1Bc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776398020; c=relaxed/simple;
-	bh=DW8Kexo1fug/5AF9P7N4iTCQfn91avfc0Cj2IWGbUKI=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=h4FGIf0NNa5jXDJ7DX7cqfFLsDsZczUmZ7Is1MVW6NSRpmKjUabDX9eoUELzd2/vRd+WJ/q5wTCQLelKN/5qgXIV7HEPFIgGjnRcb6hvY8DDTMQ6moA7VHfX2oCuRaP73X1JWqT5bWwOpEDEJIC2lva+icHELB2IwKDRU2yjSXw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=Kn9d49Io; arc=fail smtp.client-ip=40.107.74.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	s=arc-20240116; t=1776399112; c=relaxed/simple;
+	bh=+2ab5IrqPbFXNNIQ8XJUFEH8BXNrH+M+B3Q0jwDK8y0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qgprtxS24RNhvl2/Lkl9NtlN0Ns0amHks5SUWuqm7K29i//sYJfazlWejbIBXDh3soW2juh98bTgsYH5pvOIQ18DtaCkwE0bOTQCpgxmMgKMzHH9+bgPAFA0q6DQEzrnd18TLwHwTmKAHnyh37beYV6DrNGRyba5sPDBcfVbC2w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nH8rnOod; arc=pass smtp.client-ip=209.85.219.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="Kn9d49Io"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gSKq/yVJh+tvNJAjoChWkQzkssq8tqkoNExNiBoQ4MxZ7OKxWx4uy8AClNDGIf1N/WQsfF6EZw6OZrvMsOCr0j0jd5gWwGuot750yQimUlA8aDfLEBntkC7pVd110pC9OtQHeSfOFEZzLva0+rWOX/EVPivN/n6q7rknOXsxDIoE+qgH7zHea9V3aOVXR354jSnJoxUy4Ur+47JDS1mAwX61YLk3+eObBpstFN7uZWFV5SNwRXqq14MUfPakPhMDKUFEwSTnvV1kfb0mcbftx2DOwY1T1/olpS9/4qnQjo1f2tVT2yUQw0H559sCnmG0osuJkhNtlLEBFieh5jn9vA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YIwSPzdH/8zkAuUdxQEHPnwgzglo/OpO2pIw6BdzyZQ=;
- b=p+KyusKJXr7cmSJbnYFpUd57L9A2nfRGTJsWeUmPq5jwOXvpHEI4Cly/MPZyWLxAGC/ViZvZjmlmhZRYCgcJjOgDfrWuEbsTXLI8PdCG26KV47UJFE/vLUZj2q6G/GvlQ/tn+F9DK6B4wCQz8NOAOaECW92+n3fx1fnxSlmk/XETisbo3ccN12o+KlNuUODrYVsZjJtuWXuErpWlW8YMvPx4pg/eniQu5+l/3BMffrX7x2DiJKS8XP0qiJWQzs6+0JXdsZY/TXSIzovrLtsL3exjqCqolTmITUqT5EUh0uUumK5l4cZf4HpY+A8lLTu9V9opWKKJDuqnrk4ZcUS2Mw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YIwSPzdH/8zkAuUdxQEHPnwgzglo/OpO2pIw6BdzyZQ=;
- b=Kn9d49Io6UPs/QxLQnPJMaJbsBE59AXsKKKxcfxyXxOVB6Gh8K8dp8lBi66Zg496O6hCK2V9WoBThwN8fvrEcZuORUON2IIHD5x5ikWwHJV/jV1nXL1s59nUT51BeobheymET/WSJ48LhTc4rfHQCy9OyilKS7ayh8Q2DmTgs1A=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from TY3PR01MB11797.jpnprd01.prod.outlook.com (2603:1096:400:373::8)
- by OSZPR01MB8749.jpnprd01.prod.outlook.com (2603:1096:604:157::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.25; Fri, 17 Apr
- 2026 03:53:35 +0000
-Received: from TY3PR01MB11797.jpnprd01.prod.outlook.com
- ([fe80::1868:c915:c230:a383]) by TY3PR01MB11797.jpnprd01.prod.outlook.com
- ([fe80::1868:c915:c230:a383%5]) with mapi id 15.20.9818.023; Fri, 17 Apr 2026
- 03:53:35 +0000
-Message-ID: <87fr4uz1hd.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: John Madieu <john.madieu@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	linux-sound@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	John Madieu <john.madieu.xa@bp.renesas.com>
-Subject: Re: [PATCH v5 12/14] ASoC: rsnd: src: Add SRC reset and clock support for RZ/G3E
-In-Reply-To: <20260415124731.3684773-13-john.madieu.xa@bp.renesas.com>
-References: <20260415124731.3684773-1-john.madieu.xa@bp.renesas.com>
-	<20260415124731.3684773-13-john.madieu.xa@bp.renesas.com>
-User-Agent: Wanderlust/2.15.9 Emacs/29.3 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Fri, 17 Apr 2026 03:53:35 +0000
-X-ClientProxiedBy: TYCP286CA0152.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:383::14) To TY3PR01MB11797.jpnprd01.prod.outlook.com
- (2603:1096:400:373::8)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nH8rnOod"
+Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-8a3342d301aso2491836d6.2
+        for <devicetree@vger.kernel.org>; Thu, 16 Apr 2026 21:11:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776399108; cv=none;
+        d=google.com; s=arc-20240605;
+        b=XwkRcg8PlCXESLnFprTXy8sUkc5WjqzJQYcPqvNI1VH7GLYxFuncgPLDSujnQqlr0q
+         cr9vRzFRM1gJ0DAmK9wF75QjqA99Esse6yiFouWtzxAguXB2EHPWlgjNo31fW6Lpz/9v
+         mJYk90waOynyu0Mdj7cWJMYejwbi4TUVGPjUdwYsWWzskEapTZE9iRtDID0sDG7NJCW6
+         FFchvJ2k80KqXO4L/6Slizh0U/5Jeacq+T1NeTzjJXxauSYTxo2vp87ORavLtvIlurbU
+         CkDgz/kHM6oDo7ha4qEpP2vgnrtTz5IZRHCzXELOS/g7ANqxV97gi0FLRvrjljzYSQxu
+         t6Dw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=aNWr/yLeqoiJfJkarHcqgujpjoQyDiWBvxAIr+NZ/fg=;
+        fh=S7e2ufZav8KK6SK6T2aUDtgwulcAZnTdYbxwmqXFcAA=;
+        b=J2RxD1C2ANl7kgATMyrsMGhjx3z3Xtrbf9IoNsuT87k4ekRzzGk1Bl7VzW6O5r2ja5
+         9y7Ppg2m7DJ93lULecDytA7Zar8mrZHQI/wQ3fq3KeGxVW30dyTtW8A6LkLjsxNYrwlp
+         zrE0rSTUz6cpbm5ulZDwQmGZo2MIMNv7BUjJDxcG4N9vV1EyZcyuaqebm4G1frAzPHhW
+         jqNl77PtPOUqQ+7qjL+BL+1v+09udC/CZPXjmQZzraOg1b+ueeA8nhDFJH4qwOjk6JUN
+         ZHcXlb2WUZfaRrtnrsefpZZ/+xdpdGrPbGr5L1CGeMR6fBOC/3+UtfoLcsn0kdWGAk3O
+         4FQg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776399108; x=1777003908; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=aNWr/yLeqoiJfJkarHcqgujpjoQyDiWBvxAIr+NZ/fg=;
+        b=nH8rnOodupDm7ykYjQuKn2AGFzEAuwnRouqcJyordQKDaP1N3tXdd8yFQYufSZHKWH
+         F7dxRH2FpUP7kC2oxIJUNjkAT4Lv99H7zNuxbwsoB6+1Sai6UCLcBYHrsGYosJ25vTy5
+         aI5QKcOpy+m5rf3f2CAU6SPF805a0TvVOhwitwCPjyFbfXuEmWFcBul8SogB5taWs32I
+         MwIabDAcdXKyHDaFgq+Fsarz+5sX4WYqd33sV/Wr+w0fUxaLL9YjrMcMYYvuGlhjR4q0
+         Y0Z4eB2FtNLs6UHF79XFeHcFweqH34qtLA2FhlUKhC5Ji/D2slgphNH2JQAey/kLPOQm
+         ODkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776399108; x=1777003908;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=aNWr/yLeqoiJfJkarHcqgujpjoQyDiWBvxAIr+NZ/fg=;
+        b=ruD/45Jg4lsNWLKSO0cK2AWUZBug/LLv30h/7L1Ln/xXRlmKet8S53i3dh6SnU98OD
+         2UtHQ6pllpiTmVBJiqxcm5hsmS6i3liFlPTA0d8YQaNn71eP9YNo31bpOYvRuhywAQnO
+         MJzuCdQxqdRhovoSqPaNqnqNmM1wCzL7He3iYPipJ/hFqvxmsvZ4v3lFZ42o+V9BJiUZ
+         TDatVPqIpnzXfcuTHONVISmrfXWC9fb8USDvW2TkBqBgrfV0eRXtlN3L6M/J9f+hdp4D
+         RkBih/3VFfGMZ3nRX+pxglIkWbDRWyjPRNrOGcitEpcXn0Mu/Tq+Vk+fS1IJfEzX0j7d
+         U2nw==
+X-Forwarded-Encrypted: i=1; AFNElJ9MApzonNiGjdchLcCJ5baY2a/x3mGt7cE6ffm9rmCn2saVpBg8GKX/Y+lSiszMQF0LJeBZBubx8HSM@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw3gRpj+FY1S5BVm/LVPAInF5up96LcJZ6BQz5yEIycz/tn+LdV
+	Uq2TRO/VtYnxXPpQJb1lcUDyEDuDj/oIvK+5RFGiKWi01PPaJIdR+wfOxSrQBhwdAsf+Eknc+lc
+	cYFL/OO+U6vjuwV2IrtnPLK2x+Yr25rkRw+Pz
+X-Gm-Gg: AeBDievOZ7CbTepw4+3Vvvxz+oZnjBSVz/+Ej3GIKHXhtRmpNIrw5KkURX1/nDR1pLf
+	Ix2TOJk/h7+inTER8r+Y9Cawdey8KJSxWoOw/ofYoC+GOiNQhKZYzt7sT/thnTa96n0Z2JVso0B
+	Lxn6LNTPrvSkpq6NgAu0+JXtebm40QYm6Xrtc8NEQnubc7RcfJk2aJvKE+vKXyaPQF4XKCR6uii
+	mZrh9BDmyNw2wqhvUsvDqY8FWWKjGk3PVQS099sgWRYqz0Z6aevwcVFU34u5l4WpTu5MSC13EES
+	IEiXWb5iOV/2h7wDQ2WEDt9lhFG9/bQI8RVn5TJxqLhTiOsnNiWepXxibCexffAcgTXlXjLYh3G
+	Q3Da+IM/4mVNHziKOBSAxGtxBgVHugYG+K8O6
+X-Received: by 2002:a05:6214:5b87:b0:8ac:ab13:8f15 with SMTP id
+ 6a1803df08f44-8b027ff994cmr24935216d6.7.1776399108576; Thu, 16 Apr 2026
+ 21:11:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY3PR01MB11797:EE_|OSZPR01MB8749:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4b3881d2-b5f2-4dde-8c26-08de9c34e678
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|52116014|7416014|1800799024|18002099003|22082099003|56012099003|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	uvyfKKVmlp8P8wb08Xqm2ZI7FFHIBHX61icFaNu0MO1AMOcA2Y7CwKPWDyv6UN5+2l335II2xQv/cTK3m8Av5XY6DKI2PTZmF8yuc+N3a1UGBD7in9uloZTQKAdPxdUN9Ga9rY7Sze+fQAsbCHmiQrAZMMt/ySKjoZkcn+SReqgpLaujmSq39tM6akpTAxwmsShDDnvHJbccrA+ummZ4vI/kPC81jH5wZo6PPyOY8/YJ3FpZAW/WavMzKagYUhcqF0iY+HtCZxAP2wjZvSRmi0uHMLhPt9qp9GQP2kNFFFJB4Yos3BM5TWoQujBPu1BZ38jY5D9t6Titp5ZajWznWmYhL1c6C9iTdNOm5iMEzlJ7Z9Fw2Ou6wZjMdGpi2oRAcl9S/r4pc9I2iXSDqx5Xnvbk68dvdWobGb4CzKRv2b8t2rvqnoDHPaUAl9TXvfHKsSMX7aphTz5PsKqu+bEXoW7phRGcy+KKn0Nrv5f6BXU7Wus831s3GKaQ4/gCgdD4NnAZNzt0pSmR6brSoYQ78uWoGLTSlCuJOh+LzkHPTMEFF2SvZHrr1ecxUCdcYtU9sXmBuCaGZbjSFeq3Xz5p0POUwRuprWqfAg3HWr4s6RDJ0Ob5ysUkHVdZPTkRbXg/9ixnZrwShCy1x6XoUFu7zBZC9J2Kk4BEHHb4z0DNEwgv0JOqiQB3NAAb07uSNfwvO3GlWYiw8AWaxMJcXG1jbC2k2hshldi2JhFlD66e58JMrT6XFKhDSM99C/Sf0Drl5WswACQnlFslPyUx2qUQLhE84a9q9Y+hegA/Y1bPGOk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11797.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(52116014)(7416014)(1800799024)(18002099003)(22082099003)(56012099003)(38350700014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?JD5BI1cT3dJshkYIITNCvXPDqzLSY5pIVEWDYOof5EFO8QhiBTvt3sLJWPGt?=
- =?us-ascii?Q?kj4OH1+nc9yBvrNW/a5j/5slUmUtIPFc9OQ11CcRDKW7E8/HRODt9rICi++s?=
- =?us-ascii?Q?rAhLjNEBzy76WnDVcsuYuVEe3w1XTUDNxtFu52cmx9vE3FAWJ44SRf0zv/VL?=
- =?us-ascii?Q?t6biv8HuzPqXQNneb1T1f4F8WGQyeXVY5HzHr6v9MqUG7LDQKpZ70LjWxIhk?=
- =?us-ascii?Q?qDM7XGWbXZ7dBJ5uYYZJ5KP1aBaRT0cPXf4JFL9ahYO0HuxvPu+z5Za4JNQt?=
- =?us-ascii?Q?zwm06YClsui7USGt4xOKXrSQ17WJnmYZR6/QJKDxau5OKd526e7n5eivgIom?=
- =?us-ascii?Q?bN+fZgaeZyyDWR8NAoyjZXc9EOVbA3udLiP0uBNgTIF2pkSxwK+Lrewgxdzb?=
- =?us-ascii?Q?SkvKPznWBtZSHLOK6lwopeqcnXn1+LfiyH1Jd+ED2nlXvVdFEY3Bv4CC9DdQ?=
- =?us-ascii?Q?0U3rPI9vgSLAVLRiZKQ/I33XeNCYALuev7cHFlenV2/Oupieh9G9KRj4vFQ0?=
- =?us-ascii?Q?skbexIgRoBcMySnaVOW/1sr5Gqqq1yG1faWzoI5wCURZOeHNkS1HdxQYqWQX?=
- =?us-ascii?Q?kJPqsuJBzjb1irPzr9ROvgMrK5C9Zk3K8PQRML97ZHbyvxKqgE8J8EK4oQa0?=
- =?us-ascii?Q?j7aKt3WAGlJ9Ell2dNWLvz8wr7JnC1Ek6pLLIftcpVnw1UCyja736KN3n9U2?=
- =?us-ascii?Q?rKiigF9o0ZA79PtHXt1NeewL7Z+kH+/mP8b7+bl/+7QKR9Gj+ouS7AmgoY2n?=
- =?us-ascii?Q?vY4IhgIDorz93GK3jTQcS8rPPC5qfZ80Ovxu4gr9Q59HQcoyqK3+iLUvl51d?=
- =?us-ascii?Q?J9KUzAXrYWWyakEZWL5xj9TBsK1Gljcpk9gdMDkhn2uMsMg2yc5+AeGTfgw7?=
- =?us-ascii?Q?6ONIiCalE5+D6QYJ3kIj4xVzuE7K894i1x3jdeCeXItvnw5rc50+E5P4df6n?=
- =?us-ascii?Q?fTA4O4B9bNRvoeBOgJtDeZnXV/HtVSn4m0fAogbxsjpEkseELoI3YmcC+WbB?=
- =?us-ascii?Q?c1ONLKm+xZUQgWFaVcLdDjubY3ywb1v5wFaGiEUZEF4Z3+INtfJwlnLmjbAO?=
- =?us-ascii?Q?plcfWYBG2kI5RopuAOfE+wpSVJOdSeITjyP02vcOePemq6a7TvVCTOj7dYfv?=
- =?us-ascii?Q?1DdAymZhhAh1UCvbz4CGQJo+pDsWy5gl4OlUidvfujJQdLr8faZeqJDWkN1L?=
- =?us-ascii?Q?JPhepwGvSzjAtJ2IjpF5Shx90Ck78/G20oJlns5ZQPzSAklAk0QPl8vKvCS2?=
- =?us-ascii?Q?Xxuc4FfyC0GBqQfzzoqi+RZjkfq/s2RGZM9ZYZ9gkviU+zo52VyHBntY9gK5?=
- =?us-ascii?Q?OrgvaCjKK/mFnuqBWvnINumqr69x8yLpii5IuQ1ofB+k0ge7P7YzGfTtfrjZ?=
- =?us-ascii?Q?wADdVtQl5ovEeP98c00tYbqHtyY3imn8yq3ZggVakubcPMlyAt/Y6v1jJ5ji?=
- =?us-ascii?Q?dcZgXoJRq4hXJ5Q8QSY4EexYJAukU8qDGz8ZeCqWMKRwwh3zQI1Mo3K08f6r?=
- =?us-ascii?Q?XhLLCETCKOmJJNl8EhZGRRbfLEBlK2r6OWjEgCThO2BiCdg6uMq8esbVQqOD?=
- =?us-ascii?Q?AJIx3+zzrZBamPHw3/3ft+UZI6L89hZgghjr1hwNOPKDQ0rh+9HaTKK+F4mv?=
- =?us-ascii?Q?pBRLB7y/w/hGNvzP8f2k4/GhjbBHa+tuWFZlLiOiL6pn5/3y+BQp8+BFXrcf?=
- =?us-ascii?Q?HWdysqfeOiURFbGtqPAIuBahiT3U3D6YQRgmSKscbNs+dZj4bmwqhNSZnKki?=
- =?us-ascii?Q?Fv6j9XnDsogf4QTDpqDXnPx+uRUCjtgTS44ADHrbK0j4ZpUyq1nT?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4b3881d2-b5f2-4dde-8c26-08de9c34e678
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11797.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2026 03:53:35.3365
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +et61FOuurxOvjH/BAscUsOnhe1Pov9/UNOueX6pfpckUkggX7hWiyQ8S1b4janQuLFTXWMZ2NYLVOpROQGazQz91zk1QEkrJzdGotyqtT8AtNa9V5e9nRaYDa+9Bovn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZPR01MB8749
+References: <20260416152329.6016-1-chaitanya.msabnis@gmail.com>
+In-Reply-To: <20260416152329.6016-1-chaitanya.msabnis@gmail.com>
+From: Max Filippov <jcmvbkbc@gmail.com>
+Date: Thu, 16 Apr 2026 21:11:36 -0700
+X-Gm-Features: AQROBzDilUU0qSd7ImlmaZmVdXmndkGf1PbYURtmqbEVARS0JSZHu4ZqyEUBOoI
+Message-ID: <CAMo8Bf+jD1QiLOgOcu3OOnfHyG9XCdyi6CTTQ+uSREz7yy0Hrg@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: dt-bindings: cdns: Convert xtfpga I2S to dt-schema
+To: Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-Hi John
-
-> The RZ/G3E SoC requires explicit SCU (Sampling Rate Converter Unit)
-> reset and clock management unlike previous R-Car generations:
-> 
-> - scu_clk: SCU module clock
-> - scu_clkx2: SCU double-rate clock
-> - scu_supply_clk: SCU supply clock
-> 
-> Without these clocks enabled, the SRC module cannot operate on RZ/G3E.
-> Add support for the shared SCU reset controller used by the SRC modules
-> on the Renesas RZ/G3E SoC. All SRC instances are gated by the same "scu"
-> reset line.
-> 
-> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
+On Thu, Apr 16, 2026 at 8:25=E2=80=AFAM Chaitanya Sabnis
+<chaitanya.msabnis@gmail.com> wrote:
+>
+> Convert the Cadence XTensa FPGA I2S controller plain-text binding
+> documentation to standard dt-schema (YAML).
+>
+> The hardware requires exactly one memory region, one interrupt line,
+> and one phandle to the master clock. Verified these constraints against
+> the driver source in sound/soc/xtensa/xtfpga-i2s.c.
+>
+> Signed-off-by: Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
 > ---
-(snip)
-> +struct rsnd_src_ctrl {
-> +	struct clk *scu;
-> +	struct clk *scu_x2;
-> +	struct clk *scu_supply;
-> +};
+>  .../bindings/sound/cdns,xtfpga-i2s.txt        | 18 -------
+>  .../bindings/sound/cdns,xtfpga-i2s.yaml       | 48 +++++++++++++++++++
+>  2 files changed, 48 insertions(+), 18 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/sound/cdns,xtfpga-i=
+2s.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/cdns,xtfpga-i=
+2s.yaml
+>
+> diff --git a/Documentation/devicetree/bindings/sound/cdns,xtfpga-i2s.txt =
+b/Documentation/devicetree/bindings/sound/cdns,xtfpga-i2s.txt
+> deleted file mode 100644
+> index 860fc0da39c0..000000000000
+> --- a/Documentation/devicetree/bindings/sound/cdns,xtfpga-i2s.txt
+> +++ /dev/null
+> @@ -1,18 +0,0 @@
+> -Bindings for I2S controller built into xtfpga Xtensa bitstreams.
+> -
+> -Required properties:
+> -- compatible: shall be "cdns,xtfpga-i2s".
+> -- reg: memory region (address and length) with device registers.
+> -- interrupts: interrupt for the device.
+> -- clocks: phandle to the clk used as master clock. I2S bus clock
+> -  is derived from it.
+> -
+> -Examples:
+> -
+> -       i2s0: xtfpga-i2s@d080000 {
+> -               #sound-dai-cells =3D <0>;
+> -               compatible =3D "cdns,xtfpga-i2s";
+> -               reg =3D <0x0d080000 0x40>;
+> -               interrupts =3D <2 1>;
+> -               clocks =3D <&cdce706 4>;
+> -       };
+> diff --git a/Documentation/devicetree/bindings/sound/cdns,xtfpga-i2s.yaml=
+ b/Documentation/devicetree/bindings/sound/cdns,xtfpga-i2s.yaml
+> new file mode 100644
+> index 000000000000..9a4a9db3c159
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/cdns,xtfpga-i2s.yaml
+> @@ -0,0 +1,48 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/cdns,xtfpga-i2s.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Cadence XTensa FPGA I2S Controller
 
-I noticed that "scu_supply" is used in init/quit, but scu/scu_x2 are
-enabled when probe time only ?
-I guess this is because it is needed for whole SRC ?
+When put like this it looks like an official name, but it's not and it miss=
+es an
+important bit: 'xtfpga' is a group name for very specific FPGAs bitstreams
+generated for xtensa cores, spelling it as XTensa FPGA makes it less
+obvious what it is. I'd suggest keeping the original description.
 
-If so, it need to count whole SRC user and enable/disable it when
-1st/last user.
+For other changes:
+Reviewed-by: Max Filippov <jcmvbkbc@gmail.com>
 
-Thank you for your help !!
+> +
+> +maintainers:
+> +  - Max Filippov <jcmvbkbc@gmail.com>
+> +
+> +allOf:
+> +  - $ref: dai-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: cdns,xtfpga-i2s
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +    description: phandle to the clk used as master clock. I2S bus clock =
+is derived from it.
+> +
+> +  "#sound-dai-cells":
+> +    const: 0
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - clocks
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    i2s@d080000 {
+> +        compatible =3D "cdns,xtfpga-i2s";
+> +        reg =3D <0x0d080000 0x40>;
+> +        interrupts =3D <2 1>;
+> +        clocks =3D <&cdce706 4>;
+> +        #sound-dai-cells =3D <0>;
+> +    };
+> --
+> 2.43.0
+>
 
-Best regards
----
-Kuninori Morimoto
+
+--=20
+Thanks.
+-- Max
