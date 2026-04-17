@@ -1,165 +1,205 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 307BB313E03
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 15:03:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A31FA2989BC
+	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 15:11:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776438204; cv=none; b=NPvUlSHkcUJSTO4NgfOvKZjU2sCXOC1DbwMD/wMjzT4qjR7qevIddmiPIFg9ZqoOtUBu/V/kMaKrcaw4EdL/2Na31mE5PUvLGBsk4oy3YIkNssu2wEr+gNZkwVoyyjvkttR/xFr0oYQmvu8VGYoq+UI1gKJtA32IqVdby5LHUuo=
+	t=1776438718; cv=none; b=EpHSSyps8bKaUbPwGrdS+IvO8MGe9sj6q3hJIKn3jsoAWTyvbIyBQzmvNhMBpj3Q/+lmjQ2IpzlArv92E1qfpmE5cxKW7JDtKeKOoaiNpAPmjMTCxCAH5LdI8k35+yd5ve9R7ug3RAqM04jRskc7LDFsXBHZzX6TOfVhe73mhY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776438204; c=relaxed/simple;
-	bh=9R8L9pnEC6/7D0qx0eTa9FTB2bGqiw8EzNmDTrkkM7o=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=YYq5dCPCGau0WiJy2V62n7vJsXZTKdGg7F6tum7GBmTDLzshLROo10Az2hrcyIBGmFOrh9q3xJUw8uRAI8IfE+SvXQ+PB6HGwPeotzWPLuNB6CakCr+bmWPcsCFvW7uLqkGZkaTnIO0KnFEGiPGrkIAVrNn0QAaqhaAunNkarFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kfko1gwp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MrU/saTh; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1776438718; c=relaxed/simple;
+	bh=eG6IXyh4y0jftfvJQuYeuV3rZuFLFef4kpCOHmG+mBg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=UNtBLgYXwiJiAs1qnJpfYicetPenqkCCP4+c4eKKFzEJ5QxDsVW2o60zMd4Kin+a4GKYC0sUgIuIK4DnZ9dCLgThFSN58Qlt+hJX0ZB0Sp9B4XUWtFb1g5EfSuvc1P3nSzp4GhrUe2HxhjtUVPjkwNVDOaMuFZEq2gIoIeuBgrg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=QkxLvHVx; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kfko1gwp";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MrU/saTh"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63HD04BC3439549
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 15:03:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	oFw7s4390u02QSe6dzeniTny7yN1q34Z7uu2sNp1DC0=; b=kfko1gwpf+VtV+3y
-	64tEFrq5mtt10P0ADLXlvcmSqCRLBHXDt5ACIPGiZqG363Aa2d3tR0FL+ddm5wqR
-	Q6C5mhhPzWZhrDMP8mOfRMnDoqQsA2mXo82Vm5Ra+5/zzrV2ay/HyYoRc6p3v8K3
-	9kFca3ckIk1XGNCpolG6evdGkhD3TWwXQK8oFmQANbRblJRihxgsNTmELr4z2559
-	QGLH78DHintV/ntlLW9ma9A9jivkmwcbjz6UOLeAb81zdFUOVQzFeoCErffAGXOT
-	mXpUWuZSX6OaXnU6m4Z1y6gfhvQthi9E/GiG0ju4zEE3HEX4dgPm/L6ELsSvaUOE
-	C++vhQ==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dkg88sr73-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 15:03:22 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2b4654f9bb6so9357885ad.2
-        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 08:03:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="QkxLvHVx"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-43d77f60944so592794f8f.3
+        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 08:11:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776438201; x=1777043001; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=oFw7s4390u02QSe6dzeniTny7yN1q34Z7uu2sNp1DC0=;
-        b=MrU/saThKCbhmzQsL2DU47W+jWseE3xhk7pOJlf9InzAA2edDtHpcB7lgRDBUw0nSZ
-         o3wXtk/hLImo2pS5tOuwyYfGtgE+2Y5KfX/OmB+I2Tn8qtGHmpWRLzdlpR43CEmzB+qF
-         PClcljGr5SpdUBuTooC7Y93XjuUbvw45mK1AR6Dvh0lNHIRhyWnwhMpM/QMyyZ9P9Z5t
-         jLk0lnkr3iV6DsZP47JT4JxoqbwX0tisZtNm7JAJNino3DtJgpCEV01vrsstir4MVNL8
-         rg5dY9OkzpSg1DqUMyye1oxZ6TvAm69S/5+1XQCp1Kee/ArmZL7I6LQlboSaopPIof70
-         gfRQ==
+        d=flipper.net; s=google; t=1776438715; x=1777043515; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=sQg7mK9oWEfVQ2/f5M3NYZgfP1n9UD9hwZDhumEKaq0=;
+        b=QkxLvHVxW2Z+SHbiI0NK7acDx14gZVT5ucGVy81JqXKA3lIFWUUwTf6MN540dn+nqX
+         81LwSVZpZuQgVWuMMmpsavd06WghCRFDw8AP2/WHNTtwrPrJnDNxBM7WGoh6uVVYwJt2
+         ENCY3pfshDEOHCGEAN5AZBOk9uvE/CIVNkyzkV4ayUiNdLErUUhOcx2Sd6F7sDDqhdk5
+         f9SkFC55mR6J8CcqjA94ElgPM/3qaaeFpLCm+HG1tvRqtV8Y/8FI2jISWpx/54Ci4DsG
+         mqOR+aTWuRCNvIYgXtrQMbBlf9cPyDLrE5bEigKIVpIuhPmknaudhccPFkp9QBE+79iG
+         jeKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776438201; x=1777043001;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=oFw7s4390u02QSe6dzeniTny7yN1q34Z7uu2sNp1DC0=;
-        b=PXgQZAOuKpxy+XpeVx0mMMxZSgfWbwBrUyERBt1p9kVRQor0QflEL7H4yeaumnYqrY
-         rnOd18fZ0HsxiW+y+flsfb9SkL+7hCWTkPJ7bdTPPVde6zde7wUvAWPRr/964sDfFxt8
-         OfayP1keIGf+R5FFb0bX8lQlP+lHkFiWSPcxmHZ9xKNmGNU8wPBoavpojytyzZRZHi2U
-         WJM+HgRXXRoxaVaPL80kggUDZ5DVcgtLDoZwg0RMff+ss18mjGCzdnYXZvgtoMKOm/9X
-         q3mH5GAKjVrnQNjJ3ZB7DumrdRqddxsmXY//aEWbDGV0hGq3S8C6lEz/Al0zPzQ7GJ5X
-         vISA==
-X-Forwarded-Encrypted: i=1; AFNElJ9UDCMVNqf72jhV/e7bkn7b+GBr5QbfXFn+TxNbepY4L9IxJg9bL0Ss19/R5OV38qzyMh09+YvXnH0W@vger.kernel.org
-X-Gm-Message-State: AOJu0YwVbLH7itgstK09i8XL8x3XklH7OLY41T7TwgSOKScT/7P4Rc1B
-	L8oXMk6u3PyWC4xuKs0TFoXlDv3lmG2KV5PNxeMX5lu5zRs15LJ6cXSGET8oTVVM3nixRZtF8hK
-	1KvsKpmDE3ObljNdYTBffwx6BYW56AkeiJGbT/jbrH9zh4m3YX0CwHuIa3pHIHq5O
-X-Gm-Gg: AeBDievwwsegTRNyDANJdWdSjSO1vt3C0JgP1t6KcMtwvl8TS0f9hPW6SJBitNTIaMa
-	wBaCKUMPUUMN8wJ2v1IbvYqcfAMd1tSSG+BQThK/09Xla46hF8mcsMCTeiUgkK2J0IvMeq3coYM
-	a0YvonYle5QwGxTEoUsiVSeA1D9pLf69nbzSSksBZIHQDAPu1cWqTRkqzxS3CC1GwsXUA+c2AYX
-	+jHlxFwUoV2uzO/ggod3Wt0ImeNaH6ijHZ84ekoF6JwYz7/x6w3QqYIr/dJPtZV3tyQ5NxA0gHn
-	LfohXyFZUrmRZCR9OVGg8DRAX2Lgs9QavrPR+dA6vwiZuGkxRAUUvzStsQt5US4XqKtzwUunSLS
-	q00sBKBcygyUF5Pwlj/jbJw47bS0PDpR42sfJcfDT9tGZRiv/M8+7dtfuFgv12QMR
-X-Received: by 2002:a17:902:988a:b0:2b4:689a:e420 with SMTP id d9443c01a7336-2b5f9e7a9c1mr22893135ad.8.1776438200993;
-        Fri, 17 Apr 2026 08:03:20 -0700 (PDT)
-X-Received: by 2002:a17:902:988a:b0:2b4:689a:e420 with SMTP id d9443c01a7336-2b5f9e7a9c1mr22892455ad.8.1776438200160;
-        Fri, 17 Apr 2026 08:03:20 -0700 (PDT)
-Received: from [10.206.105.200] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2b5faa507cbsm23809775ad.37.2026.04.17.08.03.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 17 Apr 2026 08:03:19 -0700 (PDT)
-Message-ID: <9d97d9c8-29ef-3419-464c-2db642759d39@oss.qualcomm.com>
-Date: Fri, 17 Apr 2026 20:33:11 +0530
+        d=1e100.net; s=20251104; t=1776438715; x=1777043515;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=sQg7mK9oWEfVQ2/f5M3NYZgfP1n9UD9hwZDhumEKaq0=;
+        b=A/2dcQ5VJlknEYX/8f6LUIVpc+gq/XGo6MA3JOt06Db16Xaql0UUIcywTaApN25+6W
+         Yqa5MSypN4UG7rglU4Ep1LYjb61DeMDjK1EUODbHds9WcJEVneVVmjLesR5lAQtujp+Y
+         DJMYgAOgzBOugeHrAOrWoF8t3aFRj2R1R0yMzZnxC6aWb3j+qREX9ZfBqH0nkfZmmsJc
+         ULKM801Yjr1PFHWPz0pLRzbO3NSONmvg3GVpwx7Luko32XiI881OM0k2yrnGYSjLxr5C
+         aIlIlWglA5chVY/YdxT4fRg2fjwee1X4+Bw/lZWduiDBO/d16oJ6bmuinrUCt6PbEGkE
+         Jt0Q==
+X-Forwarded-Encrypted: i=1; AFNElJ/EyCymWp84DLGYZgdu9wF8hk/QwB2kfsHorXksa6Wkry4BELmGv+TmZFjOYBY6G+B9s0cgt9x5enc+@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx1nhw1wNinh3sWy1b4AGGCKd4ojbIl0IAxLJIyKAFkpKct/c2/
+	7hayvlhAnsguvOSb0ZbxGeHauflxp9MB7S8EnA5vndkUd7wb87yC/BJLGkKKq4prqtw=
+X-Gm-Gg: AeBDiescJZsltcPdAJOldcmnPtLLyTsa0mUGQStf9hoLqxpTDe+frA2yKgFYKSRuaeV
+	vAZqyePAmIdm4B1VDbCaYAtqJESK8yOxTq8Adwv5Qrp1H8jPA1x7zNvCwkPJh+3xIz+qh1iIiiP
+	VFtcJBGtAuYxKLMWV0Xjh7G2aUVt4XbkUGj7FHKuvmnjwkBQ5Z53rKMVWP0RDBVGQMb3wdIpkiP
+	J9MX473XZ4Ech1k/ADlWMQGspLuIazjPuupvsxyoLKDOqAUfTJ5UG9HhsFStMlTJljNS4dqfFws
+	pJm1PXfQbZhovwsRDBNIlRDqLp8aqf19/RqiPiiwrMRHFb6voMw3x4V+kZOUKR9AemsKpIjs6DR
+	jtUdOfcxsTJox9ukQYt85VN8JCb8p58pWP71/VS+iyC85mssS7lUFIs9hC6FkHBncHAB70WW9Bv
+	Poids/VVAiFDevr3A4SWhwUWmSGN6HIW/jvX51bAKViga8domLNI8ZoM7pQaiD5PDdTsX1CYuan
+	BKQpbts4wlQNA71
+X-Received: by 2002:a05:6000:25c6:b0:43d:7af0:3a7c with SMTP id ffacd0b85a97d-43fe3e0d44emr5071076f8f.29.1776438714844;
+        Fri, 17 Apr 2026 08:11:54 -0700 (PDT)
+Received: from alchark-surface.localdomain (bba-86-98-192-109.alshamil.net.ae. [86.98.192.109])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43fe4e591cesm7376426f8f.36.2026.04.17.08.11.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Apr 2026 08:11:54 -0700 (PDT)
+From: Alexey Charkov <alchark@flipper.net>
+Subject: [PATCH RFC 0/4] arm64: rockchip: The hunt for exact pixel clocks
+ on RK3576
+Date: Fri, 17 Apr 2026 19:11:43 +0400
+Message-Id: <20260417-rk3576-dclk-v1-0-26a9d0dcb2de@flipper.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Subject: Re: [PATCH 03/11] media: iris: Add context bank hooks for platform
- specific initialization
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Joerg Roedel <joro@8bytes.org>,
-        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, iommu@lists.linux.dev
-References: <20260414-glymur-v1-0-7d3d1cf57b16@oss.qualcomm.com>
- <20260414-glymur-v1-3-7d3d1cf57b16@oss.qualcomm.com>
- <3vuensoscjzsjuh7c5e3jff5cej66iwboiau7vhnpvtmqevexf@ouox5cize3fn>
-Content-Language: en-US
-In-Reply-To: <3vuensoscjzsjuh7c5e3jff5cej66iwboiau7vhnpvtmqevexf@ouox5cize3fn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: EE1l_GxhxpPqvI9te0O28JQ3mzWoMlVq
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE3MDE1MSBTYWx0ZWRfX6xT18LW8Xzse
- RQgTGoNTrk3iqTssE36fyNF/Wv9NIBy5xQ9/qth7ayz3YK1VWv7PAfE5d4qT2RGAQmqawXMW3iY
- qJGdHxW+J5FuKlBRJP1Lb4G+/rfKVCdKGdoOjSfraKLXmbNMg7G4ZTDQI4CVX7AhRd0Xw6NYZ+M
- uZhYtaXDJLj7EQeBw9IxaenK8mPRPdZQ1OZmLC4t8mFmHpoIoS+psDF8pIqgY16jTiXyrkrXN3b
- GWn+ImgumnpHRoUPl1hMzmu4nu5jag6CPJkR4G8akljcuNumMkwi3GDbaoiA7Rffpz8p/cTS+JF
- Dvb212pjIBFmX+Wsz4qk5x01snukGyuLOda2z8toldQzTJcINxAexL0ZQu2G34KiOz3xxIx0+6w
- qMrN0IjcPYXpyBNmrWFPd2YlTAGOJ4TrtKn3oMmn50Y3hy9wuG+tLFNcWHbwzbEcC1l8xAYU3R5
- P/ps4/6wcAsoJfzsR1g==
-X-Authority-Analysis: v=2.4 cv=X+Fi7mTe c=1 sm=1 tr=0 ts=69e24bba cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=Gxg087mSlOwoK-wMwRkA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-GUID: EE1l_GxhxpPqvI9te0O28JQ3mzWoMlVq
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-17_01,2026-04-17_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 spamscore=0 impostorscore=0 lowpriorityscore=0
- bulkscore=0 priorityscore=1501 malwarescore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604170151
+X-B4-Tracking: v=1; b=H4sIAK9N4mkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDE0Nz3aJsY1NzM92U5JxsXZNkS9OkpCQzc1MLQyWgjoKi1LTMCrBp0Up
+ Bbs5KsbW1AIDnryliAAAA
+X-Change-ID: 20260417-rk3576-dclk-4c95bbb67581
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>
+Cc: Pavel Zhovner <pavel@flipper.net>, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Andy Yan <andy.yan@rock-chips.com>, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+ Alexey Charkov <alchark@flipper.net>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5622; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=eG6IXyh4y0jftfvJQuYeuV3rZuFLFef4kpCOHmG+mBg=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWQ+8t2WWV9R/clycvGR0/uPTWCN3dJ9VT99gcTL/Hd5f
+ GmKaUv4OiayMIhxMViKKbLM/bbEdqoR36xdHh5fYeawMoEMkRZpYAACFga+3MS8UiMdIz1TbUM9
+ QyMdYx0jBi5OAZjq9xmMDGuFlPK4MlSmfOu6l9yp8VWFYYnYIr53Sd8+n/vLFHqtfTsjw/UZxlM
+ 2PbvjOunWdh5h59QtF+ewbtocl+W88rtRnJeeISsA
+X-Developer-Key: i=alchark@flipper.net; a=openpgp;
+ fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
+Dear all,
 
-On 4/14/2026 8:46 PM, Dmitry Baryshkov wrote:
-> On Tue, Apr 14, 2026 at 10:29:59AM +0530, Vishnu Reddy wrote:
->> Add init and deinit hooks in the platform data for context bank setup.
->> These hooks allow platform specific code to initialize and tear down
->> context banks.
->>
->> The Glymur platform requires a dedicated firmware context bank device
->> which is mapped to the firmware stream ID to load the firmware.
-> Change the order of paragraphs. You should start with the definition of
-> the problem rather than putting the cart before the horse and starting
-> from the solution.
-Ack.
+Need the help of the collective wisdom of the community.
 
-Thanks,
-Vishnu Reddy.
+The problem I'm trying to solve is reliably obtaining the exact pixel
+clock for arbitrary display modes supported by the RK3576 SoC.
 
->> Signed-off-by: Vishnu Reddy<busanna.reddy@oss.qualcomm.com>
->> ---
->>   .../platform/qcom/iris/iris_platform_common.h      |  2 ++
->>   drivers/media/platform/qcom/iris/iris_probe.c      | 23 +++++++++++++++++++++-
->>   2 files changed, 24 insertions(+), 1 deletion(-)
->>
+Rockchip RK3576 has three display output processors VP0~VP2, each
+supporting different ranges of display modes, roughly as follows:
+- VP0: 4K 120Hz
+- VP1: 2.5k 60Hz
+- VP2: 1080p 60Hz
+
+Each one obviously needs a pixel clock. The required frequencies for the
+pixel clocks vary greatly depending on the display mode, and need to be
+matched within a tight tolerance, or else many displays will refuse to
+work. E.g. the preferred (maximum) display mode out of VP1 is particularly
+awkward, because it requires a pixel clock of 248.88 MHz, which cannot
+be obtained using integer dividers from its default clock source (GPLL
+at 1188 MHz), and the nearest approximation is 237.6 MHz, which is well
+outside the tolerance of e.g. DP specification, resulting in a blank
+screen on most displays by default.
+
+The clock sources are of course configurable, in particular there are muxes
+connected to each VP for selecting the source of the pixel clock:
+- Each VP can take the clock either from the (single!) HDMI PHY or from
+  its dedicated dclk_vpX_src mux
+- The dclk_vpX_src mux can select the clock from a number of system PLLs
+  (GPLL, CPLL, VPLL, BPLL, LPLL)
+
+While the system PLLs can be configured to output a wide range of
+frequencies, they are shared between many system components. E.g. on the
+current mainline kernel on one of my RK3576 boards I've got the following:
+GPLL: 1188 MHz, enable count 20
+CPLL: 1000 MHz, enable count 17
+VPLL: 594 MHz, enable count 0 (yaay!)
+BPLL, LPLL: 816 MHz, enable count 0 (but these last ones don't have
+            predividers, so are less flexible)
+
+So ultimately there is exactly one free fractional PLL (VPLL) which can be
+used to generate arbitrary pixel clocks, but we have up to three consumers
+trying to drive different display modes from it (e.g. HDMI on VP0, DP on
+VP1 and MIPI DSI on VP2). We also want to be able to adjust the PLL output
+frequency on the fly to satisfy the requirements of the selected display
+mode.
+
+And this is where I'm stuck. Trying to satisfy the requirements of up to
+three consumers while changing the PLL frequency on the fly sounds like
+a poorly tractable mathematical problem (is it 3-SAT?). We can take the
+HDMI output out of the equation, because it can be driven from the HDMI
+PHY (which is capable of arbitrary rates) instead of the mux, but that
+makes the decision of which dclk source to use for a VP block dependent on
+which downstream consumer is connected to it (HDMI vs. something else).
+Even then we somehow need two devices to cooperate in picking a PLL
+frequency that satisfies the requirements of both of them, and change to it
+without display corruption. I'm not even sure if the CCF has mechanisms
+for that?..
+
+What follows is a brief set of patches which illustrate a partial solution
+for the case of "I just need 2.5k60Hz on VP1 via DP and don't care about
+the rest". It switches the VP1 unconditionally to use VPLL as the source
+for its dclk mux, allows changing the VPLL frequency on the fly, and also
+changes the frequency calculation logic to allow for nearest-match
+frequencies which are not necessarily rounded down. These are not meant
+to be merged as-is, as I see the following issues:
+- The flag allowing the PLL to change rate is in the clock driver, while
+  the reparenting to an unused PLL is in the device tree. If these go out
+  of sync, we might end up trying to change the frequency of a PLL which
+  is used by other consumers (I presume that could be dangerous)
+- If VP0 happens to be driving DP output, it won't be able to produce the
+  2560x1440@60Hz mode for the same reasons as VP1 - then it must also be
+  reparented to VPLL and allowed to change its frequency on the fly
+
+It does bring me from a state of "always blank screen on DP output until
+the mode is switched to something magically working" to a state of
+"most monitors work at the default preferred mode" though.
+
+It is tempting to just reparent both VP0 and VP1 to VPLL and allow both of
+them to change its frequency, while leaving VP2 on the default (fixed)
+GPLL and relying on the fact that 148.5 MHz (the required frequency for
+its maximum supported mode of 1920x1080@60Hz) is conveniently 1188/8 MHz -
+just what GPLL can provide. Then also force whichever VP is driving HDMI
+output to use the HDMI PHY as its clock source. But we still have the
+problem of DT vs. driver coordination, and I'm not sure how to define
+the policy for "if you've got HDMI connected, you must use the HDMI PHY
+clock for the respective VP, whichever VP that is".
+
+I would very much appreciate any thoughts on how to approach this.
+
+Signed-off-by: Alexey Charkov <alchark@flipper.net>
+---
+Alexey Charkov (4):
+      arm64: dts: rockchip: rk3576: assign dclk_vp1_src to VPLL
+      clk: rockchip: pll: use round-nearest in determine_rate
+      clk: rockchip: rk3576: allow dclk_vp1_src to propagate rate to parent PLL
+      clk: rockchip: rk3576: add ROUND_CLOSEST to dclk_vp1_src divider
+
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi |  2 ++
+ drivers/clk/rockchip/clk-pll.c           | 16 ++++++++--------
+ drivers/clk/rockchip/clk-rk3576.c        |  4 ++--
+ 3 files changed, 12 insertions(+), 10 deletions(-)
+---
+base-commit: c7275b05bc428c7373d97aa2da02d3a7fa6b9f66
+change-id: 20260417-rk3576-dclk-4c95bbb67581
+
+Best regards,
+-- 
+Alexey Charkov <alchark@flipper.net>
+
