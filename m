@@ -1,166 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F472C027B;
-	Fri, 17 Apr 2026 14:51:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8F4E2882CD;
+	Fri, 17 Apr 2026 14:55:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776437484; cv=none; b=m0kQPYUlsrq5HssMFVYWEt7iqhlJWl/ghP+EMAlQvEy3ZwAgJEFo9DcR9mXc74XJ7Mv5U96drNsdc8Z2u9D+D8FJeQRZaOt4ZP66isr+ChoqSeddempsEg+Iro1GQIA0PmPQz9Kpn7Yw/poXE0XOd0ptxBdqGuC9oOZRjCalOk4=
+	t=1776437712; cv=none; b=Z4/MgnBShDxJ8USSrtzkCYhtA7CB0tB9ENTb/My4WLZ2/W2csyMTiqKms7e3qTycMPgnr2XKunqhXOM7SHQRDAf4Vd/u4UG/CHB+yzhEnL/KofJ9TphJWES3PmBhDJQ2c5HDke/bdiQMaMDE8QRDAUEeX4NMRM5eBV0BW6JYaqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776437484; c=relaxed/simple;
-	bh=0WlQsgQ9vdAi/fQs63xgbJ+x3wmh2V+kgGHYinqBMNo=;
+	s=arc-20240116; t=1776437712; c=relaxed/simple;
+	bh=TYlSqOszeeYSwrMoI/JAgYy7vYiPOoFhR+pIxbvSuvE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QlxhpU/5YYpCyPD0xgycIKE/Z73wBiX695S0qD/oE9guM6x52Syl+NBR0/+byxFixpTykWEhAFlhWQTlqmwMv2lZK7dEy55DUhlVVdXCnFD+JHNhqlUX7EujcHjOfhLN4z1L3elDj31Fyq/BLlPMx1DSRcSrIh+aQdHg8NIRaOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LSHs9lU+; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=JLu0SOHueyi3IpQYbRIpVgNYterp+kBS8gVHbZ7cNuNBzs0Z/rByeQBPpauS4Atb5+Kmg9Ehzc8L93nynpuxVVIBMuDunhXqA4pdTv2g8CzGJ/cW8xHDeBuM96lSIWpFhJdxzvyY7xYxNbn0lrClQdYnqWR/TSiPGBtD7MwcD4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=1NPGVzsD; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LSHs9lU+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E9E9C19425;
-	Fri, 17 Apr 2026 14:51:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776437484;
-	bh=0WlQsgQ9vdAi/fQs63xgbJ+x3wmh2V+kgGHYinqBMNo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=LSHs9lU+aW0fMLQl7vYxCgrIrFrn3x/+I1ZlG3Eh5gZpKWtJ443Ep3FdnZe/ZqhN2
-	 enhrOcEUdmLNrKZ2Xe4KaKDDZXWJAKZoRty2mejQ/o8I48ZBuX6/jl6DSWLfICaKLA
-	 6tB5F17PlxJBCmhs6RFbFPxvT/6AHNo/hrTT1aNB26BfmL9cBXl1S9ek9Z3KSMkVF6
-	 zafktzheuXF1PGXJ5bkuKgjqT/QMzPmIKRtXSclsoHs1FKfdPwO57M8ASXaI8EcQ4g
-	 Va6H0b0Dq+Vzck7xlw3w/fxLuOGyHTYQMxsdeY0LZ6FC9rteLUsyWK/IByVqnzS/Is
-	 lj6Zm+BpDDkVw==
-Date: Fri, 17 Apr 2026 15:51:19 +0100
-From: Conor Dooley <conor@kernel.org>
-To: linusw@kernel.org
-Cc: Conor Dooley <conor.dooley@microchip.com>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="1NPGVzsD"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=F0v/lr1RlyvCfC0Fcoq03DcmH0KJc601cMR3ZELVMN8=; b=1NPGVzsDzrUAiCb5DHMS9YM/r5
+	mJkgVXVKCck1TZ5q+P7b+7O4/deMM85qN0DwnI92Vqlt7jS9H4C1Q4jNzMdmpTK0bMD4f8dp8G233
+	2uAywm3sHNp+Vm8QLR6cyFuEBRaBult2zUGAKRuhYPa9BPC5UiCroWqJfgUS9wnCl5d4=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wDkas-00GQBf-5h; Fri, 17 Apr 2026 16:54:54 +0200
+Date: Fri, 17 Apr 2026 16:54:54 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Minda Chen <minda.chen@starfivetech.com>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Emil Renner Berthing <emil.renner.berthing@canonical.com>,
+	Rob Herring <robh+dt@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org, Valentina.FernandezAlanis@microchip.com
-Subject: Re: [PATCH v3 6/6] riscv: dts: microchip: add pinctrl nodes for
- mpfs/icicle kit
-Message-ID: <20260417-outweigh-escalate-f056312b3f4b@spud>
-References: <20260119-rearrange-germproof-3e3096cc0da4@spud>
- <20260119-natural-buddy-acb391bcd9f6@spud>
+	Conor Dooley <conor@kernel.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	devicetree@vger.kernel.org
+Subject: Re: [net-next v2 1/5] dt-bindings: net: starfive,jh7110-dwmac:
+ Remove JH8100
+Message-ID: <27151bd8-6a3b-411f-94fd-7b1b932b9aa9@lunn.ch>
+References: <20260417024523.107786-1-minda.chen@starfivetech.com>
+ <20260417024523.107786-2-minda.chen@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="LBW7VOKBT163tmLl"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260119-natural-buddy-acb391bcd9f6@spud>
+In-Reply-To: <20260417024523.107786-2-minda.chen@starfivetech.com>
 
+On Fri, Apr 17, 2026 at 10:45:19AM +0800, Minda Chen wrote:
+> Remove JH8100 dt-bindings because do not support it now.
 
---LBW7VOKBT163tmLl
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> StarFive have stopped JH8100 developing and will release it
+> outside.
 
-On Mon, Jan 19, 2026 at 11:03:57AM +0000, Conor Dooley wrote:
+Is there a missing "not" in that sentence?
 
-> +
-> +&i2c0 {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&i2c0_fabric>;
-> +};
-> +
-> +&i2c1 {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&i2c1_fabric>;
-> +};
+    Andrew
 
-Seemingly, I have run into an erratum here. What I noticed that this
-didn't match the schematic and changed it when I applied. Turns out,
-this is actually correct on engineering sample silicon but not on
-production. Something like
-diff --git a/arch/riscv/boot/dts/microchip/mpfs-icicle-kit-fabric.dtsi b/ar=
-ch/riscv/boot/dts/microchip/mpfs-icicle-kit-fabric.dtsi
-index 2d14e92f068d5..9078e5b1e49c1 100644
---- a/arch/riscv/boot/dts/microchip/mpfs-icicle-kit-fabric.dtsi
-+++ b/arch/riscv/boot/dts/microchip/mpfs-icicle-kit-fabric.dtsi
-@@ -101,16 +101,6 @@ &ccc_nw {
-=E2=80=83=E2=80=83status =3D "okay";
-};
-
--&i2c0 {
--=E2=80=83=E2=80=83pinctrl-names =3D "default";
--=E2=80=83=E2=80=83pinctrl-0 =3D <&i2c0_fabric>;
--};
--
--&i2c1 {
--=E2=80=83=E2=80=83pinctrl-names =3D "default";
--=E2=80=83=E2=80=83pinctrl-0 =3D <&i2c1_mssio>;
--};
--
-&mmuart1 {
-=E2=80=83=E2=80=83pinctrl-names =3D "default";
-=E2=80=83=E2=80=83pinctrl-0 =3D <&uart1_fabric>;
-diff --git a/arch/riscv/boot/dts/microchip/mpfs-icicle-kit-prod.dts b/arch/=
-riscv/boot/dts/microchip/mpfs-icicle-kit-prod.dts
-index 8afedece89d1f..636493f6584d2 100644
---- a/arch/riscv/boot/dts/microchip/mpfs-icicle-kit-prod.dts
-+++ b/arch/riscv/boot/dts/microchip/mpfs-icicle-kit-prod.dts
-@@ -14,6 +14,16 @@ / {
-=E2=80=83=E2=80=83=E2=80=83=E2=80=83     "microchip,mpfs";
-};
-
-+&i2c0 {
-+=E2=80=83=E2=80=83pinctrl-names =3D "default";
-+=E2=80=83=E2=80=83pinctrl-0 =3D <&i2c0_fabric>;
-+};
-+
-+&i2c1 {
-+=E2=80=83=E2=80=83pinctrl-names =3D "default";
-+=E2=80=83=E2=80=83pinctrl-0 =3D <&i2c1_mssio>;
-+};
-+
-&syscontroller {
-=E2=80=83=E2=80=83microchip,bitstream-flash =3D <&sys_ctrl_flash>;
-};
-diff --git a/arch/riscv/boot/dts/microchip/mpfs-icicle-kit.dts b/arch/riscv=
-/boot/dts/microchip/mpfs-icicle-kit.dts
-index 556aa9638282e..6fadce815c9a2 100644
---- a/arch/riscv/boot/dts/microchip/mpfs-icicle-kit.dts
-+++ b/arch/riscv/boot/dts/microchip/mpfs-icicle-kit.dts
-@@ -11,3 +11,22 @@ / {
-=E2=80=83=E2=80=83=E2=80=83=E2=80=83     "microchip,mpfs-icicle-kit",
-=E2=80=83=E2=80=83=E2=80=83=E2=80=83     "microchip,mpfs";
-};
-+
-+&i2c0 {
-+=E2=80=83=E2=80=83pinctrl-names =3D "default";
-+=E2=80=83=E2=80=83pinctrl-0 =3D <&i2c0_fabric>;
-+};
-+
-+/*
-+ * Due to silicon errata, routing via MSS IOs doesn't work on ES devices.
-+ * Instead, i2c1, appearing on B1/C1, which are normally MSS IOs, is routed
-+ * via the fabric and back to B1/C1 via "fabric-test" functionality.
-+ * This is done silently by Libero, so the iomux0 setting for i2c1 has to
-+ * be fabric IO, despite tooling etc saying that MSS IOs are used.
-+ *
-+ * See Section 3.3 of https://ww1.microchip.com/downloads/aemDocuments/doc=
-uments/FPGA/ProductDocuments/Errata/polarfiresoc/microsemi_polarfire_soc_fp=
-ga_egineering_samples_errata_er0219_v1.pdf
-+ */
-+&i2c1 {
-+=E2=80=83=E2=80=83pinctrl-names =3D "default";
-+=E2=80=83=E2=80=83pinctrl-0 =3D <&i2c1_fabric>;
-+};
-
-is needed to restore functionality and a further change is required to
-"document" in code the extent of the hack required to make it work.
-
---LBW7VOKBT163tmLl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeJI5AAKCRB4tDGHoIJi
-0vKtAP9ZXaTAVu3j1YyONGgM0DO2d27IZPB6X6YXseeZZVKFUAD9FBgRKGbjZt/J
-duGUc+FtA0xH3v2xT64t2VeulBfDXQg=
-=oDvd
------END PGP SIGNATURE-----
-
---LBW7VOKBT163tmLl--
+---
+pw-bot: cr
