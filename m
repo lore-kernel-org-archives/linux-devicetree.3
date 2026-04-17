@@ -1,42 +1,42 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3311D3B4EA3;
-	Fri, 17 Apr 2026 09:25:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C3F23CF050;
+	Fri, 17 Apr 2026 09:25:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776417929; cv=none; b=eb1/I5pDAHbX3LXmioqApMe8HkrFrr3fXCB0awXcBdXhTXGs/JLmPmMAeWdndYwKZg9bwPCTXOgSiutyp2/ap+AxGs3dKMA9fsZM33LNjJxT1j4+d2g1osLrLSX7jdezUcTDqhCXnIdGHlMTqkKW2MkGLRvgGcaoTlbgMJx2Tvw=
+	t=1776417930; cv=none; b=odFWu4UXbqQprKuwxd2HwDjKLMv3F0uaXu7rY59LZAGpCPxqAb4/mOW2SI09sRr4VhaPMbZCgUejurXfU1UNISM/JrpcCcdW3oA6iFl6OvXmodS6pekNBaxRTmNOshGBMycNqVbpX82hJQSR3G9JB3P/unlQZqinnlqspNka61s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776417929; c=relaxed/simple;
-	bh=jtQEyQGL2Fv4pcwOJtIEqissSCpIvy9rVx/FpMLP1Sg=;
+	s=arc-20240116; t=1776417930; c=relaxed/simple;
+	bh=XA64gsmd6KJbIrvvu5Dmgjjt7ajhyMvFMl5Ha8MY2ws=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mMKXe9m7aMDtc+Cm8us8Q74mIjFcn4duVzNjU1aDzd4bqBwR8i/mLntdVCq+tp/pe5uw9/tqLfmpP9ChM3vb8fXD8iJ+8CBGgd9/HDH5tG+G+Tl1ZfJZGD6UJMPcK3abJ7d7OJd3OjU8FD4GYchb9PFh0elEKgl9kJQBgYqh/TY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=n5jTS8VS; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=i9KI79f7OHgAqxtIxbMExHMOoSCSH+Jz2wJ5JAid1MT3oFWvmv2xMX9rWHg7gpF4TGH1i+uH0UmVSqgMNgaXz+rKduNZIsbLQOIRHLPqKna+FS+/odWyVf02dKihTdMS3NH7e+HMpjPIGbQsvwWX3FkJKP8Idq8sIq1d0VFVy98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=lHa+o5Yf; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="n5jTS8VS"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="lHa+o5Yf"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1776417926;
-	bh=jtQEyQGL2Fv4pcwOJtIEqissSCpIvy9rVx/FpMLP1Sg=;
+	s=mail; t=1776417927;
+	bh=XA64gsmd6KJbIrvvu5Dmgjjt7ajhyMvFMl5Ha8MY2ws=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=n5jTS8VShKH5ZnbIkeCJKFIbl3pdZ6Yle17DPFwUlmuUm6teilQOIE3XHfsRvdrkA
-	 Q0dBFfIv9fMwP0xwFMzJ+Z3U3UT6dngqenrNDSpCCPU1KP+kCIftIGjIacA2PXWP7f
-	 7Gh+EPujUQYiDwUWytVHRRKv/o/VOXKwPo95e40SP8zIskO9FJN2z+Os1jwcAud3sF
-	 vW2eWV5cVvzDp4hzn+H1rnfFpIV18U8CxIJ1wCHQpEoBq+0Fjqq5f1JzGeopCB5/Zx
-	 xhnJcVHYXVC52Aq6OFz5Y68OTKVcboOuGqmMWIYy62xLrTBxECah1LKqWFQi/OxqGh
-	 6WActtVH2xq7A==
+	b=lHa+o5Yf1xOxjhmRvLuJPzTjGUd/ptUBq2qIdB41sGUMsYzIgHx/F7l4zpWkQmgkm
+	 J21/gUk+QAmrRxD6b53gzVewGJgE0gFF0jX7EI7bUW6cib+Piq6fgE5yiYFtYrhNUk
+	 VvyD/WJMfzlvACZwdiQME7+vSfl5b/cBLdMDJHybJcMUrvoupePadoHNRNlfmOJE6I
+	 WGJ68jNIDDFLSI6bEvUgE2OhtlW2DQ5OprYwsS6JaYdVpifxZMk+XZGVJvxs6jZtYh
+	 5b8nG7LE8p+cxNt4bg88dOZzNiR+2cO+keNRwvTe+LPjepLa0+OwvncXUzTt8Bu5I3
+	 xOEsI9v978NVw==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id A488117E0CA9;
-	Fri, 17 Apr 2026 11:25:26 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7C7EA17E0F7F;
+	Fri, 17 Apr 2026 11:25:27 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Fri, 17 Apr 2026 12:24:57 +0300
-Subject: [PATCH 23/40] arm64: dts: rockchip: Add frl-enable-gpios to
- rk3588-orangepi-5-plus
+Date: Fri, 17 Apr 2026 12:24:58 +0300
+Subject: [PATCH 24/40] arm64: dts: rockchip: Add frl-enable-gpios to
+ rk3588-orangepi-5-ultra
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260417-dts-rk-frl-enable-gpios-v1-23-a19c0dd8c9f6@collabora.com>
+Message-Id: <20260417-dts-rk-frl-enable-gpios-v1-24-a19c0dd8c9f6@collabora.com>
 References: <20260417-dts-rk-frl-enable-gpios-v1-0-a19c0dd8c9f6@collabora.com>
 In-Reply-To: <20260417-dts-rk-frl-enable-gpios-v1-0-a19c0dd8c9f6@collabora.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -55,61 +55,46 @@ Cc: kernel@collabora.com, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.1
 
-The board exposes the GPIO4_B1 and GPIO4_B2 lines to control the voltage
-bias on the data lines for the HDMI0 and HDMI1 ports.  These lines must
-be asserted when operating in HDMI 2.1 FRL mode and deasserted for HDMI
-1.4/2.0 TMDS mode.
+The board exposes the GPIO4_B2 line to control the voltage bias on the
+HDMI1 data lines.  It must be asserted when operating in HDMI 2.1 FRL
+mode and deasserted for HDMI 1.4/2.0 TMDS mode.
 
-Wire up both HDMI ports to their respective GPIO lines using the
-frl-enable-gpios property to allow adjusting the bias when transitioning
-between TMDS and FRL operating modes.
+Wire up the HDMI1 node to the GPIO line using the frl-enable-gpios
+property to allow adjusting the bias when transitioning between TMDS and
+FRL operating modes.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-ultra.dts | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-index 9950d1147e12..3a8d19ec8bd8 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-@@ -121,6 +121,9 @@ &fan {
- };
- 
- &hdmi0 {
-+	pinctrl-0 = <&hdmim0_tx0_cec &hdmim0_tx0_hpd
-+		     &hdmim0_tx0_scl &hdmim0_tx0_sda &hdmi0_frl_en>;
-+	frl-enable-gpios = <&gpio4 RK_PB1 GPIO_ACTIVE_LOW>;
- 	status = "okay";
- };
- 
-@@ -141,6 +144,9 @@ hdmi0_out_con: endpoint {
- };
- 
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-ultra.dts b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-ultra.dts
+index f8c6c080e418..8a3040ad7450 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-ultra.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-ultra.dts
+@@ -27,7 +27,8 @@ hdmi1_con_in: endpoint {
  &hdmi1 {
-+	pinctrl-0 = <&hdmim2_tx1_cec &hdmim0_tx1_hpd
-+		     &hdmim1_tx1_scl &hdmim1_tx1_sda &hdmi1_frl_en>;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&hdmim0_tx1_cec &hdmim0_tx1_hpd
+-			     &hdmim1_tx1_scl &hdmim1_tx1_sda>;
++			     &hdmim1_tx1_scl &hdmim1_tx1_sda &hdmi1_frl_en>;
 +	frl-enable-gpios = <&gpio4 RK_PB2 GPIO_ACTIVE_LOW>;
  	status = "okay";
  };
  
-@@ -278,6 +284,16 @@ &pcie2x1l2 {
+@@ -64,6 +65,12 @@ &led_green_pwm {
  };
  
  &pinctrl {
 +	hdmi {
-+		hdmi0_frl_en: hdmi0-frl-en {
-+			rockchip,pins = <4 RK_PB1 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+
 +		hdmi1_frl_en: hdmi1-frl-en {
 +			rockchip,pins = <4 RK_PB2 RK_FUNC_GPIO &pcfg_pull_none>;
 +		};
 +	};
 +
- 	hym8563 {
- 		hym8563_int: hym8563-int {
- 			rockchip,pins = <0 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
+ 	usb {
+ 		usb_otg_pwren: usb-otg-pwren {
+ 			rockchip,pins = <4 RK_PB1 RK_FUNC_GPIO &pcfg_pull_none>;
 
 -- 
 2.53.0
