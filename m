@@ -1,123 +1,131 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9282336606C
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 07:11:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776409902; cv=pass; b=ralCN0r9OouXCxwSl+pRE+Fmpu1OkfUzssizSb5HmFL/XxpSx9Htt1WbH4irKuejCFM5HObEz5N8VJj/42Ud63KSQ5YihpFROQgCcm8P8LwRMK4MJ7+KQ4/zbyousH5lrzNwgPhfNwo4D4zvPMitUqOeiXr/vyAf+LjU8P/U6ZM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776409902; c=relaxed/simple;
-	bh=jtz7GuhXRP8kE8tZI9mplR5rsQDAs8LrpkdCl8PvHSg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ah+f5/NfPRh67YXGrrO4ZaQKA5pMd+KNUPlRasb2qb9r1JiDoscdnaDKetrsfjHp9XoCcKFE3JkM7qWP6T99OkAhItxvP4mY8le1ilA2uxO9OIlRGY5nYoy1HO8NxaRGi113yfCM0RNQ1jWh7vavFuY2gZcbp9ndc58mB2SFvug=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lRl73Ztf; arc=pass smtp.client-ip=209.85.214.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADBF91C3BFC;
+	Fri, 17 Apr 2026 07:15:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776410162; cv=none; b=RypRSI2qOWP62wGTicDg3rNsVPwl0DtQ5Bf4pkdg8ZSKY4D3Pto6zuOctTPyN3I3V+LbXZm0BBAltpeaLG3FSMMU+MRjBSrLQ/7iv1KimAMoTDAR8tZO/+rgvWpVmgwHbhlZzyEUyJKpBObkMS7s9ESB8F3gQ5FJVdFUkOEPxIw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776410162; c=relaxed/simple;
+	bh=4S2CWU6/SMrhpf9GUfOJN6Snxr66DLowPKAGkEZOrbI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ubL2VPbEytYQ91ouf6Cr9SZWIWa5mvATb4BElHq0YzH8XIofWQtv7yZ6Z3rP6OrVJuU2x/Ntve/ui+H4XB283SDOH3M07WN5fcZvqSkuyhAYMMUtRhh7CYLSm9era3FBS5Wb3iV5aXV5gOXyQX/w5ymkIiUjc9PKWVt0V1zJEQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=cOWLAO1S; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lRl73Ztf"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2addb31945aso2294025ad.1
-        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 00:11:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776409901; cv=none;
-        d=google.com; s=arc-20240605;
-        b=hjHLfw9w9vQTJ0AtlMmq1TthyTuGaeIiKYeXQe6ZBQrZKcgotn/EhOeGrVzJQYO9tb
-         Kzw8yafoLKXC5xZpv7IoXmvLrTlY1BwCHLLSbNCyetcWlvVXGKP+JxpuyW/cwBFwbFD0
-         yVmQowgPygu4WziTK+4IALCxRcGSjfLxshl7imalgxMJQyVKF0MblHBqfl0JwI8/rz1U
-         p6zHGG8/5zKLGkwpV99BtVpJnlnTsd4fLGurtr3nu0tettiD11WlYqXFQ3UbNR4BRoHh
-         ZvJNzC+cmxufhioHlnJcviJDMwPnEu4YXp+3Ul3CrDnA0XrJ91BDGvAxC5G5q1s8sXlD
-         NhMg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=jtz7GuhXRP8kE8tZI9mplR5rsQDAs8LrpkdCl8PvHSg=;
-        fh=j9fUiA5KtuRV8/S5wPn/AML47NmEZ3oP4zIYtYezBPE=;
-        b=T+ZX+5wxUJyPsV1ANO/AqCbIXcq840kdXcuzNjWo7J+/NQMFqR+dmCDVQZFENDO5va
-         P+ALWPqZNEFWzNbwtYVu9lY63OMLkS80qfoTXqE0GL6zrL08Zw/Uax3QBBPRSUpAlR5M
-         EfgPFEtQmWFQ0BjJgflFXq7AA+/E6uFvFHg9X1OtG+S9hlWezG5NJIOt3Z9ea8i1lpbV
-         LI88t4QKYEEdFpVUPxrz4O+nEkBJ5++fP1TpJMJVJ7mhey9dVwmvkzLLs17TQF7Y6Z9p
-         /rWrW5qV8xb/h5BTaQ43nbHLaqtjV2H3sfr1iATKjpqYNVNEIWdgocFYjuKbEWF4lvH+
-         gGzw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776409901; x=1777014701; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jtz7GuhXRP8kE8tZI9mplR5rsQDAs8LrpkdCl8PvHSg=;
-        b=lRl73Ztf6vQ+dPDOijkfogT4WK+g9JIxcMkPxmJoY/YNnPqKSm263lgh0BspbfHV4y
-         CEG0X5E+FTiKT0FK2r3oCYyJFS2EH8MQIA8cbJ1/+jMsnHLitDUfqrbQtjlYzQp8ZhaJ
-         24Jaa2iqS/+FkS/bwyMFT/1+eQHcktkSq3J/yHZPLZy1ps5KQzAq/jD1bYHyWBDACC7l
-         I8FJnTP2r8NcjJK3GHA2jsmgdZqNNRL+zSe3EfKjpfrJl9mxDNva+W2Ny1pCuQkmZnEG
-         4dWut37vCCRklixj+rUfNe2sUN7UC2KZOgWXe3/D8AGPacVuwgVOaJeBN+tHFN0tmTY7
-         D93A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776409901; x=1777014701;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=jtz7GuhXRP8kE8tZI9mplR5rsQDAs8LrpkdCl8PvHSg=;
-        b=gulO4ENfH781+QSdFymNUDsARXQzlt28r3sGrF3NJxrmQan0Khup4Jk/ZxIRFns2gT
-         Ot1ciqIePSRRZjTZD6DRgBYDbD9mHTveN646vXXKdBw5BzglxPFkyaAFw6aC0gGeVoC7
-         fubAZrCiSkl/+lFCeq1SLPJHPV8VAsfKZGEfkfX7tCd91t7v3kqb20L9OvacPTj4fR13
-         zDwnsPZ5CwHjxcFYf2gwa6chByK0+rBX/M1kaPdFfGLdOyOg/vtZ4xqJOgt+eBacFAFh
-         8SIKQwerh7mnjNlRWaIqCBLQpfbEeS+9BcqHhbvztxQ6BIMoBsxmi7DwTszJ/l9QmooH
-         SI8A==
-X-Forwarded-Encrypted: i=1; AFNElJ9q8T7AzFCJpw+eeoRF07xuWxb9EnFGft4QNEFAWL5KDHZC4ot43s3ECiAnZM1T9HKfxGL8aWvQ/kLs@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx0ixXhhzmXWvfuQBnjqovXYyfiNiYL1dYn4dCGQ+H8fxVCcyq6
-	GyLFmNs0F3ZZOIOg5vxAUiMwS9OpLKLhZ8lE9hOrrUgvvLDVxMwVxT2HM2odPcYX3o2Znv/hQeO
-	3rDRvBhpMT7OGAcHa5g5OW5jEJ1el1Q8=
-X-Gm-Gg: AeBDietq4b826bzDuqORy6IbyrM1rIZ9MiltcMXdE1zZkHSnTZAoXjgJQjqdl3KGac8
-	dK/LSQCdPib1M042rkQREaa9mFGWN45hykm22iYsfcMn/Q02LbNNX4wmYPAYq1Im22uxSn/lCVA
-	tg1H+3cIwS4pBgTjfdjfzCw4r2qjcbr3OHKjoozh2kx3XpMxzdz/P1kWfPwN+N77z9+DazOr1G6
-	r9vO5Vbk1HxJbYU3XnjDkjdmRYKVPziLkmsE+gavegjX/3V6zQHiXKJQ64ge4RAuyzWQFTMaBMw
-	sdf3LX2eylD7SEsMTlJcLslBYFZiSlLZPKhiaU6Kvr9a8XKq
-X-Received: by 2002:a17:903:1988:b0:2b4:5cea:f618 with SMTP id
- d9443c01a7336-2b5f9e7823fmr16651795ad.3.1776409900985; Fri, 17 Apr 2026
- 00:11:40 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="cOWLAO1S"
+Received: from ideasonboard.com (net-93-65-100-155.cust.vodafonedsl.it [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id AFD9949F;
+	Fri, 17 Apr 2026 09:14:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1776410060;
+	bh=4S2CWU6/SMrhpf9GUfOJN6Snxr66DLowPKAGkEZOrbI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=cOWLAO1SnCkXbGrKMX8E6ClI6lCJluEf2bHzz4Xzjbh/sa5MTALFNaScwYsGVsXlE
+	 EF973k+flVph55ugr0YBBn7uK/bM4csvatCnCxGFK0n8CO88zGHrO8Xp2ZGXoSAHo1
+	 DeRsGoe7XV2+3dVR7Bv+xfdq1R5F2vLqPhQEDywY=
+Date: Fri, 17 Apr 2026 09:15:52 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Antoine Bouyer <antoine.bouyer@nxp.com>
+Cc: julien.vuillaumier@nxp.com, alexi.birlinger@nxp.com, 
+	daniel.baluta@nxp.com, peng.fan@nxp.com, frank.li@nxp.com, 
+	jacopo.mondi@ideasonboard.com, laurent.pinchart@ideasonboard.com, mchehab@kernel.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	michael.riesch@collabora.com, anthony.mcgivern@arm.com, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, 
+	jai.luthra@ideasonboard.com, paul.elder@ideasonboard.com
+Subject: Re: [PATCH v1 03/11] media: v4l2-isp: Add helper function to compute
+ extended stats size
+Message-ID: <aeHd0G_JDaROMWDd@zed>
+References: <20260413160331.2611829-1-antoine.bouyer@nxp.com>
+ <20260413160331.2611829-4-antoine.bouyer@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260413100700.30995-1-phucduc.bui@gmail.com> <20260413100700.30995-3-phucduc.bui@gmail.com>
- <87tstepes7.wl-kuninori.morimoto.gx@renesas.com> <CAABR9nFN9C4CGsaZoWzrHEjibBLqQ1KmM8o5oG2-pSMcrgMsAw@mail.gmail.com>
- <87pl3yzabq.wl-kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87pl3yzabq.wl-kuninori.morimoto.gx@renesas.com>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Fri, 17 Apr 2026 14:11:29 +0700
-X-Gm-Features: AQROBzDizsepmDX0MeErlaHCs1gi7_m9r-_da5ZnWboWUDc9-Dlr4ZBcUowHw4U
-Message-ID: <CAABR9nGdBVaidxSoPHjXSFZxuiN2-194DKqB-d=__awc1qGGrQ@mail.gmail.com>
-Subject: Re: [PATCH v2 2/6] ASoC: renesas: fsi: Fix hang by enabling SPU clock
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: broonie@kernel.org, lgirdwood@gmail.com, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, geert+renesas@glider.be, 
-	magnus.damm@gmail.com, perex@perex.cz, tiwai@suse.com, 
-	linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260413160331.2611829-4-antoine.bouyer@nxp.com>
 
-Hi Morimoto-san,
+Hi Antoine
 
-> > I d> Since fsi_hw_startup() and fsi_hw_shutdown() are called from fsi_d=
-ai_trigger(),
-> > I think this runs in an atomic context, but please correct me if I'm wr=
-ong.
-> > If so, is it safe to call clk_prepare_enable() under guard(spinlock_irq=
-save)?
-> > Since clk_prepare() can sleep, I=E2=80=99m wondering if this could pote=
-ntially
-> > cause a "scheduling while atomic" issue.
-> >
-> > Would it make more sense to move clk_prepare() to init time (in new
-> > fsi_clk_init() ),
-> > and only use clk_enable() / clk_disable() in the trigger path?
+On Mon, Apr 13, 2026 at 06:03:23PM +0200, Antoine Bouyer wrote:
+> v4l2-isp framework only supports extended buffer for generic ISP
+> configuration. This patch adds simple helper function to compute the
+> extended statistics buffer size, exactly the same as for extended
+> parameters, except that it uses the `v4l2_isp_stats_block_header`
+> structure definition to prevent conflict with the
+> `v4l2_isp_params_block_header` one.
 >
-> I don't remember detail of SH-Mobile clock driver, but yes.
+> Signed-off-by: Antoine Bouyer <antoine.bouyer@nxp.com>
+> ---
+>  include/media/v4l2-isp.h | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+>
+> diff --git a/include/media/v4l2-isp.h b/include/media/v4l2-isp.h
+> index f3a6d0edcb24..9a93a534e7b0 100644
+> --- a/include/media/v4l2-isp.h
+> +++ b/include/media/v4l2-isp.h
+> @@ -27,6 +27,19 @@ struct vb2_buffer;
+>  #define v4l2_isp_params_buffer_size(max_params_size) \
+>  	(offsetof(struct v4l2_isp_params_buffer, data) + (max_params_size))
+>
+> +/**
+> + * v4l2_isp_stats_buffer_size - Calculate size of v4l2_isp_stats_buffer
+> + * @max_stats_size: The total size of the ISP statistic blocks
+> + *
+> + * Users of the v4l2 extensible statistics buffers will have differing sized data
+> + * arrays depending on their specific ISP blocks. Drivers and userspace will need
+> + * to be able to calculate the appropriate size of the struct to accommodate all
+> + * ISP statistics blocks provided by the platform.
+> + * This macro provides a convenient tool for the calculation.
+> + */
+> +#define v4l2_isp_stats_buffer_size(max_stats_size) \
+> +	(offsetof(struct v4l2_isp_stats_buffer, data) + (max_stats_size))
+> +
 
-Thank you. I will update it in the next version.
+Should we do this or simply:
 
-Best Regards,
-Phuc
+--- a/include/media/v4l2-isp.h
++++ b/include/media/v4l2-isp.h
+@@ -15,17 +15,21 @@ struct device;
+ struct vb2_buffer;
+
+ /**
+- * v4l2_isp_params_buffer_size - Calculate size of v4l2_isp_params_buffer
+- * @max_params_size: The total size of the ISP configuration blocks
++ * v4l2_isp_buffer_size - Calculate size of v4l2_isp_buffer
++ * @max_size: The total size of the ISP configuration or statistics blocks
++ *
++ * Users of v4l2-isp will have differing sized data arrays for parameters and
++ * statistics, depending on their specific blocks. Drivers need to be able to
++ * calculate the appropriate size of the buffer to accommodate all ISP blocks
++ * supported by the platform. This macro provides a convenient tool for the
++ * calculation.
++ *
++ * The intended users of this function are drivers initializing the size
++ * of their metadata (parameters and statistics) buffers.
+  *
+- * Users of the v4l2 extensible parameters will have differing sized data arrays
+- * depending on their specific parameter buffers. Drivers and userspace will
+- * need to be able to calculate the appropriate size of the struct to
+- * accommodate all ISP configuration blocks provided by the platform.
+- * This macro provides a convenient tool for the calculation.
+  */
+-#define v4l2_isp_params_buffer_size(max_params_size) \
+-       (offsetof(struct v4l2_isp_params_buffer, data) + (max_params_size))
++#define v4l2_isp_buffer_size(max_size)                 \
++       (offsetof(struct v4l2_isp_buffer, data) + (max_size))
+
+(I wrote this before noticing your patch :)
+
+>  /**
+>   * v4l2_isp_params_validate_buffer_size - Validate a V4L2 ISP buffer sizes
+>   * @dev: the driver's device pointer
+> --
+> 2.51.0
+>
