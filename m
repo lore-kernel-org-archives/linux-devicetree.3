@@ -1,180 +1,110 @@
-Received: from sonic301-20.consmr.mail.gq1.yahoo.com (sonic301-20.consmr.mail.gq1.yahoo.com [98.137.64.146])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97AB92D7BF
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 05:25:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=98.137.64.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B7902D7BF;
+	Fri, 17 Apr 2026 05:26:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776403554; cv=none; b=YCFnSvse411qTI4rSxdO3CEd4zPpkSjD4f/P5Z+VN4y8n1mYJzxL7vKBo2/sXlRZZkMCo67u1KfNvoHmQzwO0K7b3h7hPZIn3FHN1cKSwOCVJG80OEo62lIKpR3++2bhZs40rQfsiDrHW0gKRw5W0ykU+PlQn5kvylECTNIY/gg=
+	t=1776403586; cv=none; b=QXjs5VDSrMO3NBAWMPyYB7lUpzpPuOlgiXCw/k8TKFi8p+eszscQLQQJ53zIlzJwpma9nl5Xb4Vm8yWwjn82IoMIcRadSypYXd/MBNAW29RY7RZ3f2YET2kAzaF16CnADwH4gcX3M5l/yh/wPRiG3SkUq7FsUfwGpp0v6QBI3W4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776403554; c=relaxed/simple;
-	bh=1J7MwF8rPlG88VoS8a0IxHCnCg1K6SzG/2NtEPqqUWE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BH+dwPaNbve+n5gSIi+0cQAQ9oQOBKo76IJpyiuzydMoDsSzBO+AaHT54Lstyiyq4mmJsL/OpvQ81lFTFHJEPP/HEvxZmAUoLJvSkihL0nXp+Fedb0qY/KaPgJPo8yMHALzy2bCg4iLKyZeIhARP6wVyT0Ac90U6jWVtaYs7Yjc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=sVCE+UFr; arc=none smtp.client-ip=98.137.64.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="sVCE+UFr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1776403553; bh=9vTObqX85QaCEXwY5LKFK7LitXf1Ajy/mqo2ml1SXtY=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=sVCE+UFrYTsrzMNQz6kMSQclQf+DWIUwkPqENgTM1wmNmTcnOkF0e2+ofa8l+oTgkYb98TD2Jw5dYKJSTmXZthobDcx1LLrTZwPsdWXedczulZuxwOS/8JLPmt64UeltrBJmhSIP+U+jV+l0tzqpl59uhr49EYavfBqLKlRUhV2Naj+qzJWpdAqZT7Yl4bQplulW9HiuQsRZT4B7zFttK216agUdfxHF6s50ImWZ+2XTGTJ+zmgW+G1gi0YFG8aQxbj0l27znMGVF6vUQaGW3dZ2ivW9lDLDETRm0LgqFqAZlyizpbbySply7ACsGyQ3yPiS/8v9VbM9VwauzDFCzw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1776403553; bh=wnzQedxQPKCytp+vrnLr7BNFX2ZzBhw6+mSBAfRSbXI=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=dk9twg/VZ1fsteZzhsafEGj/5aFTzWK1WZ16/0HpRuTkRHx74rVm26Uho0DhIiYGZ5PkBqenPAOuaxOUEXVqBYX5JVbmVHkJ9uH+Vs5uFtv0LLl5KFsiiVbR9q2b8fHxyhcJepUMEXFbM6FI4oEHWKDmacUiXtQdNM+srZfyzEQjk8HrsHEaji76z5UEmab8k5rYiE41AbULjbUwLezPf0rQ4xiSIXx0X4Gqp9t4E//xcPef09ozQrdEuENiP8x2Ye8gfsR4xWqLaEmmisE5nFDvgSj2I5Gxd45eFHNOThYjS6ZbiGwWsBy3cH93Lh0KA1f/zy0mZowW/WfhdiblLw==
-X-YMail-OSG: ki2x4k8VM1mGyvGkuUOl3vQaC3My0fRbHGspnr1i6ybHJw2GQMdV7ah8qihgiK8
- MDn_8nknJbHvHf_FdYaYhBQr.6np7zukT9_nuHM.pJPdp8vuRaP5zV7uCZgxOPpK2v_XHeDqzqVw
- itRQW9KkV9Z8NjvxxMt5sBIP4vZioTJEqgv3VNXUkvajsPUsc.DKsrSios9ln_qvcYEEvo8QWjO7
- GIKIvtBLUvezghjolWhuvx5wDag2AoF8kIZWU2c9lDjvjKh3_j5lBndxObwX9Y26ojw1Hy6_dEPR
- JdNpEZqzDkavRrxoafVEH0Y99IE2mpoyN1Dwze1j01firUd2FMiCbO.6ogRfq0a6hhl2vGcRethS
- xJjyoDAlVECpCM.QaICciJtW3Va8UfYUAS2ro41Dx5er2tQ2MB7tZ7c9WoVwBFSE7dtxm0HU0pFG
- wM_AAyMWUmyH7O79KKWiHb727Qdm1J9vNbPM4KokQaPl2uOzJzyPHgHgOWpL1eJa70FfCBEFXdRh
- 327SSVzhZzIKEIfI0RkqfllLwwgasKA0_QIZYKD.iLqxrZnoarT3gTWWVx8Fm3E1YAdwv.A9zuvr
- uyyQKzbCSHwcUvN37UBr0Ze1iJBHeITTjCrptgouK86TK3jz3SipA11CDZz6wSGOs2XGRsvr1ngI
- 0wxyJG6sGdY9AQRm.5YNBczmuSC4ZiVr2_zngI9VKKXQG08CYSgAq9GF4KiPE8_aQe9lBqI3Jh02
- jL3UbbZjd1sy3v2tpgG5YetKpK.04y5nOKxu4zacRbqpUsHT4xNb_3yqzPCHGnDVfG1Id9USmZoY
- xPLPjT4uGoQpl46aIvjTYnhO0ijPMe8TA_ruYzvEO1kjk7JLJpW5WBizX60voGOOehLDxeVWMttT
- hPCG6ItX0PGbdHxKBw0G4R_y3pYRjWPK.f7jSG4UUECQauByWkPc9xMAViucTjI9KLLgFKPI7dpE
- 5VEgOjlINGWwkIRQ2gDlfmuMGfLmJOjr4ojNnywmGdACWWHitScV.ObJkjVvvkATRKU8HKe4jnvJ
- 5IZJyYpezv_vc7hC2bIju8MtpRoztVcX4zlF5fPtpcr9QADzKxNlbQvDTbia3QmMhtvUYd6xa99R
- 3zxIdHRRiZLCHz3ClU2U3BF4DBIwA0ZcnlCKewINJDo2kaMPoGNjm3sGzgIhp.XPpsVv93di9.gu
- vwplwG462qiCIx7LOqgPxgKZhRHw_bHxho6gmFTCDkkPkXqMlgOPq7eJqOiNoEkP5TJ16fFbmTC4
- ra4Acn_7WXIINEfZCYEtvjaDNMfQkEpll5gaD17nX6h1irUJhbIZ_NxAscQ6mbu0XGR3HrFHAsMj
- n.PCd9SqFIsL7hx.gT4p.CeSvLkmnr9sNKLBrCGP8.BoAHlmTuwyQa5KYKRqxEekbDQiXV5TAplQ
- xVNovlmjlbDOuoTBeVWjckR34emVqVKsEdyJpoFhUBINq6LBBjeAtGYHACbn.qZLI5qdB0LUMI2H
- UVLjGMtPoTmsbvWCiD4kiyZ28VCid2KLfyCwl9weXTQkqgkbq2ekf6aU1qKJwIxj0im._pXtVmGp
- i9QYmmN2ctsLV2wh13HAfndq8rEIke.EsAPR4H4T94jVD_KMzv3Bvwd92w9kQvrAVwCbgFbrD.gh
- gmQhyKABwXaI6v.GS.hWNURmQelPP99N.xEvqocBydmvhA_1RyJa6kawHz__kiKsDT5hgZpJ0J9w
- THs5toU3maQt71LuUVt3W7C6iNrayvoGsMKTKQ1hiw0TN4XVO43a8Z6Uyncdr0gYA78VhD0Cv_6e
- gnhv7JkYR63NVZK1JNZG_t4Z41ouEZZrtAXqqg1jLVi2uLGD6y3sNepdOMbJVl0nUkoq_rDoVg77
- Su1eT7n8f0jWZFMraayxwq3So30wR4WA_7SrcUMKSiVmitE7mdMF8edLEMtt_R755KcMl85pbTgT
- OgpJwILA4AJGK7fKeKVOFxJwqXRp3hgaVs0N7QMNCGoAJE_wBG2CT4MQFv1EJGFeKzuoLJTXKnP.
- hDSB61Ga1pjdaLsFlUaolvPb0C22XuS8cRgGjpoubeWCoWzIvq6MIl5HB8LFfLLb7cFysvH5NEgE
- txjBxrvXlPWiWqc7ROLC76FRDQLKf7Uzh2Xb0lwzlgp.aQJ7KiQqeZ884fOqs0D_67jkCxzYaNXs
- SO0HQNr73xDiaKiRyblti7gdLr9B_wXBwikw4ddWsJbqwJQ101FUz6p2JhWDzpPnYUovbbdKRmi0
- f.qMXsay2ftfqs_j0i2leeNVm2kcZfFAGGY_yKkSpjtCHvPX9_8hzwqFX0iasgfTpWcOxfs0gWZh
- c3tY-
-X-Sonic-MF: <sainiharpreet29@yahoo.com>
-X-Sonic-ID: f7439bbd-de34-4375-9a4d-aa8b8bec4a41
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic301.consmr.mail.gq1.yahoo.com with HTTP; Fri, 17 Apr 2026 05:25:53 +0000
-Received: by hermes--production-ne1-555c74f9db-j2jxh (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 05d4cf41444c4727275ccaeea87724bf;
-          Fri, 17 Apr 2026 05:25:48 +0000 (UTC)
-From: Harpreet Saini <sainiharpreet29@yahoo.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: David Lechner <david@lechnology.com>,
-	Harpreet Saini <sainiharpreet29@yahoo.com>,
-	devicetree@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/2] dt-bindings: input: Add PixArt PAJ7620 gesture sensor
-Date: Fri, 17 Apr 2026 01:25:26 -0400
-Message-ID: <20260417052527.62535-2-sainiharpreet29@yahoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260417052527.62535-1-sainiharpreet29@yahoo.com>
-References: <20260417052527.62535-1-sainiharpreet29@yahoo.com>
+	s=arc-20240116; t=1776403586; c=relaxed/simple;
+	bh=MU6txtE0r5T8F9o++3q9SKZjYNj01DatRotbaf7Ywhw=;
+	h=From:Date:Message-ID:To:Cc:In-Reply-To:References:Subject; b=peS2W9iFV0/lwIbuW7Eq4UJyIWdisi+QMTq22yEUp1/4N+mDLKNb1su9ls0VQMGdEixk7Nwn+uxGNSdkp4T5FYOdl7ggSFQmdDZJjf4QBs57cMNd0cdd5O8zA8btpt7M//CJGRhi0uMEqxK1JLebwSv5dYe/BkHg9Gb2A9qN/Ic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from 0005-drivers-of-v2-2.eml (unknown [111.196.245.116])
+	by APP-03 (Coremail) with SMTP id rQCowABnieB7xOFpCjhZDg--.45457S2;
+	Fri, 17 Apr 2026 13:26:19 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Date: Fri, 17 Apr 2026 20:40:00 +0800
+Message-ID: <20260417223003.2-drivers-of-reconfig-status-v2-pengpeng@iscas.ac.cn>
+To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, pengpeng@iscas.ac.cn
+In-Reply-To: <20260417223003.1-drivers-of-live-tree-v2-pengpeng@iscas.ac.cn>
+References: <20260403183501.1-drivers-of-live-tree-pengpeng@iscas.ac.cn> <20260417223003.1-drivers-of-live-tree-v2-pengpeng@iscas.ac.cn>
+Subject: [PATCH v2 2/2] drivers/of: validate status properties in reconfig
+ state changes
+X-CM-TRANSID:rQCowABnieB7xOFpCjhZDg--.45457S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7CFyxAFy7KFWfXrW3AFW5Wrg_yoW8ZF47pF
+	Wjvw4Yg3y8JrWrGa9xtw1ruF9xKr1ktFWxtr9rtw1UZ3WYgas8AF17JryYgrn8Cr95Z3y5
+	Ja1xuF98Ga1jkr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBjb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M280x2IEY4vEnII2Ix
+	kI6r1a6r45M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8I
+	cVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z2
+	80aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE
+	52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAV
+	WUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48J
+	M4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwI
+	xGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
+	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7
+	IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k2
+	6cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxV
+	AFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0p_DGYXUUUUU=
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Signed-off-by: Harpreet Saini <sainiharpreet29@yahoo.com>
+Live-tree reconfiguration properties also carry raw values plus explicit
+lengths. `of_reconfig_get_state_change()` currently treats `status`
+property values as NUL-terminated strings and feeds them straight into
+`strcmp()`.
+
+Factor the `"okay"` / `"ok"` check out into a helper that first verifies
+that the property contains a bounded C string within `prop->length`.
+Malformed `status` updates should be treated as not enabling the node.
+
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 ---
- .../bindings/input/pixart,paj7620.yaml        | 70 +++++++++++++++++++
- .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
- 2 files changed, 72 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/input/pixart,paj7620.yaml
+Changes since v1:
+- no change; carried in v2 because patch 1/2 was reworked
 
-diff --git a/Documentation/devicetree/bindings/input/pixart,paj7620.yaml b/Documentation/devicetree/bindings/input/pixart,paj7620.yaml
-new file mode 100644
-index 000000000000..d4f58b712810
---- /dev/null
-+++ b/Documentation/devicetree/bindings/input/pixart,paj7620.yaml
-@@ -0,0 +1,70 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org
-+$schema: http://devicetree.org
+ drivers/of/dynamic.c | 20 ++++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/of/dynamic.c b/drivers/of/dynamic.c
+index 1a06175def37..efee59ed371a 100644
+--- a/drivers/of/dynamic.c
++++ b/drivers/of/dynamic.c
+@@ -74,6 +74,20 @@ static const char *action_names[] = {
+ 	[OF_RECONFIG_UPDATE_PROPERTY] = "UPDATE_PROPERTY",
+ };
+ 
++static bool of_property_status_ok(const struct property *prop)
++{
++	const char *status;
 +
-+title: PixArt PAJ7620 Gesture Sensor
++	if (!prop || !prop->value || prop->length <= 0)
++		return false;
 +
-+maintainers:
-+  - Harpreet Saini <sainiharpreet29@yahoo.com>
++	status = prop->value;
++	if (strnlen(status, prop->length) >= prop->length)
++		return false;
 +
-+description: |
-+  The PixArt PAJ7620 is a gesture recognition sensor with an integrated
-+  infrared LED and CMOS array. It communicates over an I2C interface and
-+  provides gesture data via a dedicated interrupt pin.
++	return !strcmp(status, "okay") || !strcmp(status, "ok");
++}
 +
-+properties:
-+  compatible:
-+    const: pixart,paj7620
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  vdd-supply:
-+    description: Main power supply.
-+
-+  vbus-supply:
-+    description: I/O and I2C bus power supply.
-+
-+  vled-supply:
-+    description: Power for the integrated IR LED.
-+
-+  # Added per reviewer request for completeness
-+  gpio-controller: true
-+
-+  "#gpio-cells":
-+    const: 2
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - vdd-supply
-+  - vbus-supply
-+  - vled-supply
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        gesture@73 {
-+            compatible = "pixart,paj7620";
-+            reg = <0x73>;
-+            interrupt-parent = <&gpio>;
-+            interrupts = <4 IRQ_TYPE_EDGE_FALLING>;
-+            vdd-supply = <&reg_3v3>;
-+            vbus-supply = <&reg_1v8>;
-+            vled-supply = <&reg_3v3>;
-+            gpio-controller;
-+            #gpio-cells = <2>;
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index ee7fd3cfe203..d73a0bf62b62 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1273,6 +1273,8 @@ patternProperties:
-     description: Pine64
-   "^pineriver,.*":
-     description: Shenzhen PineRiver Designs Co., Ltd.
-+  "^pixart,.*":
-+    description: PixArt Imaging Inc.
-   "^pixcir,.*":
-     description: PIXCIR MICROELECTRONICS Co., Ltd
-   "^plantower,.*":
+ #define _do_print(func, prefix, action, node, prop, ...) ({	\
+ 	func("changeset: " prefix "%-15s %pOF%s%s\n",		\
+ 	     ##__VA_ARGS__, action_names[action], node,		\
+@@ -135,11 +149,9 @@ int of_reconfig_get_state_change(unsigned long action, struct of_reconfig_data *
+ 
+ 	if (prop && !strcmp(prop->name, "status")) {
+ 		is_status = 1;
+-		status_state = !strcmp(prop->value, "okay") ||
+-			       !strcmp(prop->value, "ok");
++		status_state = of_property_status_ok(prop);
+ 		if (old_prop)
+-			old_status_state = !strcmp(old_prop->value, "okay") ||
+-					   !strcmp(old_prop->value, "ok");
++			old_status_state = of_property_status_ok(old_prop);
+ 	}
+ 
+ 	switch (action) {
 -- 
-2.43.0
+2.50.1 (Apple Git-155)
 
