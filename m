@@ -1,111 +1,126 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C48A27B33B;
-	Fri, 17 Apr 2026 07:46:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1453371CEE;
+	Fri, 17 Apr 2026 07:50:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776412028; cv=none; b=CbEEfQxuzKG5qQw/VvSUWExBZWxC+M1oyelegYdQT1aJAXdlrEWy3NRkDJGOwVJKkYYs8jCGUkW2IBA2vnhB6lG+aeFivXPDixGjHoyVMcAwcysTHGfVH6vrXQFB4l78DONdnXzkiHgHtb1v3EnQKRBc1IGFk1k+nVHItvsWEq0=
+	t=1776412243; cv=none; b=K9TUrqDx4+C/kTZMub+WXUlayWkQrGDzWPWxiBE3XslJUQi8ppVfK4EmtCR7lr05A4ecrGuT4fs5OQ73+Pz/qsvnALVO6Wkaov4km/MAZz9MiYZvDzRHlDdY3NobyE65hGBT3h4vtvrV/TutL8Uu/6tqdvZS5OxxzIwZKAp2ZeY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776412028; c=relaxed/simple;
-	bh=d0V2K7hHg944fwYwkvw6cOFWAKLw942mwZXIbway+No=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HHhoNwTcwgDZskdfXpYBKexkbwVEyK+wurfVEXOh4StnUJRMx8Wu4hlYCsjozxcBRBKCseysyuZK+fP0sv7YsTuUu9jFO1kL8nFSQeaKIodCae8PFbgB5gFAWr2Q96rISGnLQaQcN5cL9f/0Zbu81t5Ir1hBhsJ42bNBW9eubIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FYMm6yKX; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1776412243; c=relaxed/simple;
+	bh=mN9SIeXfRCe7zV5stdN76y8+361AYnzBpG7i78ynP6E=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=JoToOxa+lIZRiz7Yup28ttnUQBMmuePprPHsf5Xzjaxg16h5MlLzK2b3BRYFLoLrNCHvQNatGQ9lAOSWUpxN3N7uBXxTbKFIVlXOyS1Aa9P+jOzZQdWR8l0fVWt20R2kq/xHXK6apm1a15j5Be8QoO+WCsINJs1u7vyTmogvsGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=kSSVjutW; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FYMm6yKX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1776412020; x=1807948020;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=d0V2K7hHg944fwYwkvw6cOFWAKLw942mwZXIbway+No=;
-  b=FYMm6yKX6bww98lq5Jb4PbpaWvk7W4Wb8z8Beq1dfHz2eRhwTbEk/C97
-   /Bd5QcamC16xqCdZo5GXeJ0nPGRlZ2sneNXn99ooYOsoY5U/8qSBac8Wp
-   +o2rDowzC8g6Xmi7WppCv8l+V+lG/ZY+UhWdEs1EJDxHaCo76ZeuVY7C6
-   wPWJUlbOttkRH48HMcWVk9dNiIdUqP37cAmni6v2RhOQCm26SiUEAOlOz
-   0C9HHh7zWnQ2WlqY1we2DAPfEwskgXf4TCuNjJGRqlbBv6p+zpfpfffx7
-   CK/ZhvIAQN+sF5fawE6qFpX5Swm8/am6LZnqLlJzBllrLVaqqZXFyAwGZ
-   w==;
-X-CSE-ConnectionGUID: MAvCt3cbSEqrtdF8wZiwzQ==
-X-CSE-MsgGUID: +6i2DfYSSPCX6+fJHG1MOg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11761"; a="77295099"
-X-IronPort-AV: E=Sophos;i="6.23,183,1770624000"; 
-   d="scan'208";a="77295099"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Apr 2026 00:46:55 -0700
-X-CSE-ConnectionGUID: SClO325QS+K9uV0xBRh9eA==
-X-CSE-MsgGUID: pMUBXXPOQ7KF7t0wTQZRzA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,183,1770624000"; 
-   d="scan'208";a="234959932"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.78])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Apr 2026 00:46:52 -0700
-Date: Fri, 17 Apr 2026 10:46:49 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Jia Wang <wangjia@ultrarisc.com>
-Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	Zhang Xincheng <zhangxincheng@ultrarisc.com>
-Subject: Re: [PATCH v2 2/2] riscv: ultrarisc: 8250_dw: support DP1000 uart
-Message-ID: <aeHlaTIKm1wl0J0_@ashevche-desk.local>
-References: <20260316-ultrarisc-serial-v2-0-6ab3e7fa891c@ultrarisc.com>
- <20260316-ultrarisc-serial-v2-2-6ab3e7fa891c@ultrarisc.com>
- <abfrDBeJrValJR9a@ashevche-desk.local>
- <177641113786.3193169.8990532982066985425.b4-reply@b4>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="kSSVjutW"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 7DD1FC5C3D8;
+	Fri, 17 Apr 2026 07:51:10 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 00A6360497;
+	Fri, 17 Apr 2026 07:50:32 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C98CC10460952;
+	Fri, 17 Apr 2026 09:50:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1776412230; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=TfT7hmmZx8Kr7kxPd8PXiGjFEe0ZJMTCF2H4FVfguC0=;
+	b=kSSVjutW5+6st3wLsgmGMbKBs+AWGo9jKztX2gQQHiLq/D5ZaxHz6TQmy6/ktSAAKONcQq
+	f3ydv7wWoVRA6Q5iHv23NRExFtqmD9MxBsLqw46YhA1XbbTeTWEdLuqNRIiUJ25ghokeOm
+	+b2o1rbkO6Ue3xrujQzfvDBIKF4otZMr3Wl6w4NGIFcwa7U9Ibfj777V/EBtTxB9DL9ix4
+	gLttANP+B7PX+lLr0ygG+R9l7BDCTonz097+IYQlWJdZ0Ug7lkLK82rZhjofdasPo+lkbr
+	XIsX6CNajkMrXAtWPPRhhFfWhMYEmWYGQrV8PRbFtQl8v/l3UL9y0V+mTI3WFw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Aleksander Jan Bajkowski <olek2@wp.pl>
+Cc: Michael Turquette <mturquette@baylibre.com>,  Stephen Boyd
+ <sboyd@kernel.org>,  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
+ <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Thomas
+ Gleixner <tglx@kernel.org>,  Olivia Mackall <olivia@selenic.com>,  Herbert
+ Xu <herbert@gondor.apana.org.au>,  Jayesh Choudhary <j-choudhary@ti.com>,
+  "David S. Miller" <davem@davemloft.net>,  Christian Marangi
+ <ansuelsmth@gmail.com>,  Antoine Tenart <atenart@kernel.org>,  Geert
+ Uytterhoeven <geert+renesas@glider.be>,  Magnus Damm
+ <magnus.damm@gmail.com>,  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+  Pascal EBERHARD <pascal.eberhard@se.com>,  Wolfram Sang
+ <wsa+renesas@sang-engineering.com>,  linux-clk@vger.kernel.org,
+  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org,
+  linux-crypto@vger.kernel.org,  linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 02/16] dt-bindings: interrupt-controller: Describe
+ EIP-201 AIC
+In-Reply-To: <444b4349-3873-4da6-aadd-3605e738ad0d@wp.pl> (Aleksander Jan
+	Bajkowski's message of "Thu, 16 Apr 2026 20:04:03 +0200")
+References: <20260327-schneider-v7-0-rc1-crypto-v1-0-5e6ff7853994@bootlin.com>
+	<20260327-schneider-v7-0-rc1-crypto-v1-2-5e6ff7853994@bootlin.com>
+	<444b4349-3873-4da6-aadd-3605e738ad0d@wp.pl>
+User-Agent: mu4e 1.12.7; emacs 30.2
+Date: Fri, 17 Apr 2026 09:50:20 +0200
+Message-ID: <87tstac9fn.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <177641113786.3193169.8990532982066985425.b4-reply@b4>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Apr 17, 2026 at 03:32:17PM +0800, Jia Wang wrote:
-> On 2026-03-16 13:35 +0200, Andy Shevchenko wrote:
-> > On Mon, Mar 16, 2026 at 02:33:23PM +0800, Jia Wang via B4 Relay wrote:
+Hi Aleksander,
 
-...
+On 16/04/2026 at 20:04:03 +02, Aleksander Jan Bajkowski <olek2@wp.pl> wrote:
 
-> > > +#define DW_UART_QUIRK_FIXED_TYPE	BIT(6)
-> > 
-> > Seems unrequired.
-> > 
-> > But to make sure, can you elaborate what's going on here?
-> > What is the reads from UCV and CPR registers?
-> 
-> Apologies for the delayed response.
-> 
-> Our DW UART implementation on DP1000 does not provide the CPR/UCV capability
-> registers, and reads from both registers always return 0. As a result, the
-> autodetection logic in 8250_dw cannot obtain meaningful capability
-> information.
-> 
-> To handle this, the current approach is to skip autodetection and rely on
-> fixed configuration via a quirk.
-> 
-> If there is a preferred or more appropriate way to support DW UART instances
-> without CPR/UCV, I would be happy to adjust the implementation based on your
-> suggestions.
+> Hi Miquel,
+>
+> On 27/03/2026 21:09, Miquel Raynal (Schneider Electric) wrote:
+>> diff --git
+>> a/include/dt-bindings/interrupt-controller/inside-secure,safexcel-eip201=
+.h
+>> b/include/dt-bindings/interrupt-controller/inside-secure,safexcel-eip201=
+.h
+>> new file mode 100644
+>> index 000000000000..ead73bd96296
+>> --- /dev/null
+>> +++ b/include/dt-bindings/interrupt-controller/inside-secure,safexcel-ei=
+p201.h
+>> @@ -0,0 +1,14 @@
+>> +/* SPDX-License-Identifier: (GPL-2.0-only OR MIT) */
+>> +
+>> +#ifndef _DT_BINDINGS_IRQ_SAFEXCEL_EIP201_AIC_H
+>> +#define _DT_BINDINGS_IRQ_SAFEXCEL_EIP201_AIC_H
+>> +
+>> +#define AIC_PKA_INT0 0
+>> +#define AIC_PKA_INT1 1
+>> +#define AIC_PKA_INT2 2
+>> +#define AIC_TRNG_INT 3
+>> +#define AIC_RESERVED 4
+>> +#define AIC_SL_ERR_INT  5
+>> +#define AIC_PROTECTION_INT 6
+>> +
+>> +#endif
+>
+> This interrupt mapping is specific to the EIP-150. The EIP-201 is also
+> integrated
+> into other accelerators, such as the EIP-97, EIP-196, and EIP-197, and the
+> interrupt mapping is likely different there. Maybe it would be better to =
+use
+> eip150 name instead of eip201?
 
-Why can't you provide a CPR value via the existing quirk?
+Thanks a lot for the heads up, I didn't had that information, I will
+adapt the naming to make it more accurate future proof.
 
--- 
-With Best Regards,
-Andy Shevchenko
+> As for EIP-28, it is also part of EIP-94. EIP-94 is supported by the
+> amcc driver.
+> EIP-94 consists of four components:
+> * crypto accelerator (unnamed?),
+> * PRNG (EIP-73d),
+> * TRNG (unnamed?),
+> * PKA (EIP-28).
+> Only the first three components are supported by the amcc driver.
 
+Is this driver upstream? I didn't find it. Anyhow, thanks for the
+feedback, I will update with this knowledge in mind.
 
+Miqu=C3=A8l
