@@ -1,301 +1,111 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A993C36BCCA;
-	Fri, 17 Apr 2026 07:46:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C48A27B33B;
+	Fri, 17 Apr 2026 07:46:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776411983; cv=none; b=Oxkzg5GIUwNlmTca3+OWpcHyit/VWA500jK5w+K7+Q8B0B7SyDIVdUywocZE3PkDZlQwfIvYAD/OBWcoOmuXeTUvxthN9fWzOdZNwo3CjEKNsbnUq/JQEZHBV9CQDqAaK2h3ttuTYQcAC3q5fS7TujeFDb9ICRlzS9obFxb1YtQ=
+	t=1776412028; cv=none; b=CbEEfQxuzKG5qQw/VvSUWExBZWxC+M1oyelegYdQT1aJAXdlrEWy3NRkDJGOwVJKkYYs8jCGUkW2IBA2vnhB6lG+aeFivXPDixGjHoyVMcAwcysTHGfVH6vrXQFB4l78DONdnXzkiHgHtb1v3EnQKRBc1IGFk1k+nVHItvsWEq0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776411983; c=relaxed/simple;
-	bh=SuDZB1k+Ya+urLN7UyfPUuifosdbXSlCDXPeBP/qPVo=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jOtgmQQlU2+l9uggCBAH5QcioTCziou7Orx3ECHwq7dQT3dYLD9ohzrRgtzxeiOZMiWJb2GCu5DANtKs7otvH2SsGs6JQXAb9OMGDZthjKEGhuvhb67ypj7POTjyTzL8IDBAv50xOSD6WYD2A/DhLDSCeIb3M+cCGSigtU86dQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=MMIifCz8; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1776412028; c=relaxed/simple;
+	bh=d0V2K7hHg944fwYwkvw6cOFWAKLw942mwZXIbway+No=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HHhoNwTcwgDZskdfXpYBKexkbwVEyK+wurfVEXOh4StnUJRMx8Wu4hlYCsjozxcBRBKCseysyuZK+fP0sv7YsTuUu9jFO1kL8nFSQeaKIodCae8PFbgB5gFAWr2Q96rISGnLQaQcN5cL9f/0Zbu81t5Ir1hBhsJ42bNBW9eubIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FYMm6yKX; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="MMIifCz8"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 63H7jnV633464891, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1776411949; bh=BYbv53LE8/LhMGLZZozxK2INqCGiYtH4XKtdiuLZJPQ=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type;
-	b=MMIifCz81wM57VwrsvswbuK0z/4MdMW/mw7DNEp9T+L5dk38xISJS5hD0CL1aievc
-	 8B94pZDjoKLmi4nmG0xGJGA9izN5MFwSeTAd7xips7pS/fO+Eadf4FCF2D0cHnV/hK
-	 NaUfAvZWTmR0w5gv4/d2T6oLP4o5hdm+WzRbvBXh8pBKm0v+hnQDHpZ/Sk5IcJLwmi
-	 /uCL+Bj9i6yH98f0RYYrRo5kgFrF7ZiZvakzznHwzQjK8tZFl2Hr18vhQmtvky/ifT
-	 dWYq2VeDlOViRvN1u2cxniZ0JdKfwhNVDTJ0P8sC1bmr0prn8Nnnp3Ru1xMvbI1li8
-	 i5O9vgs08w9kQ==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.26/5.94) with ESMTPS id 63H7jnV633464891
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 17 Apr 2026 15:45:49 +0800
-Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.10; Fri, 17 Apr 2026 15:45:49 +0800
-Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
- RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.10; Fri, 17 Apr 2026 15:45:48 +0800
-Received: from cn1dhc-k02 (172.21.252.101) by RTKEXHMBS05.realtek.com.tw
- (10.21.1.55) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Fri, 17 Apr 2026 15:45:48 +0800
-From: Yu-Chun Lin <eleanor.lin@realtek.com>
-To: <bmasney@redhat.com>
-CC: <afaerber@suse.com>, <conor+dt@kernel.org>, <cy.huang@realtek.com>,
-        <cylee12@realtek.com>, <devicetree@vger.kernel.org>,
-        <eleanor.lin@realtek.com>, <james.tai@realtek.com>,
-        <jyanchou@realtek.com>, <krzk+dt@kernel.org>,
-        <linux-arm-kernel@lists.infradead.org>, <linux-clk@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>,
-        <linux-realtek-soc@lists.infradead.org>, <mturquette@baylibre.com>,
-        <p.zabel@pengutronix.de>, <robh@kernel.org>, <sboyd@kernel.org>,
-        <stanley_chang@realtek.com>
-Subject: Re: [PATCH v6 08/10] clk: realtek: Add RTD1625-CRT clock controller driver
-Date: Fri, 17 Apr 2026 15:45:48 +0800
-Message-ID: <20260417074548.1605550-1-eleanor.lin@realtek.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <ac_bsflBlSGf9M-h@redhat.com>
-References: <ac_bsflBlSGf9M-h@redhat.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FYMm6yKX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1776412020; x=1807948020;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=d0V2K7hHg944fwYwkvw6cOFWAKLw942mwZXIbway+No=;
+  b=FYMm6yKX6bww98lq5Jb4PbpaWvk7W4Wb8z8Beq1dfHz2eRhwTbEk/C97
+   /Bd5QcamC16xqCdZo5GXeJ0nPGRlZ2sneNXn99ooYOsoY5U/8qSBac8Wp
+   +o2rDowzC8g6Xmi7WppCv8l+V+lG/ZY+UhWdEs1EJDxHaCo76ZeuVY7C6
+   wPWJUlbOttkRH48HMcWVk9dNiIdUqP37cAmni6v2RhOQCm26SiUEAOlOz
+   0C9HHh7zWnQ2WlqY1we2DAPfEwskgXf4TCuNjJGRqlbBv6p+zpfpfffx7
+   CK/ZhvIAQN+sF5fawE6qFpX5Swm8/am6LZnqLlJzBllrLVaqqZXFyAwGZ
+   w==;
+X-CSE-ConnectionGUID: MAvCt3cbSEqrtdF8wZiwzQ==
+X-CSE-MsgGUID: +6i2DfYSSPCX6+fJHG1MOg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11761"; a="77295099"
+X-IronPort-AV: E=Sophos;i="6.23,183,1770624000"; 
+   d="scan'208";a="77295099"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Apr 2026 00:46:55 -0700
+X-CSE-ConnectionGUID: SClO325QS+K9uV0xBRh9eA==
+X-CSE-MsgGUID: pMUBXXPOQ7KF7t0wTQZRzA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,183,1770624000"; 
+   d="scan'208";a="234959932"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.78])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Apr 2026 00:46:52 -0700
+Date: Fri, 17 Apr 2026 10:46:49 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Jia Wang <wangjia@ultrarisc.com>
+Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org, linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	Zhang Xincheng <zhangxincheng@ultrarisc.com>
+Subject: Re: [PATCH v2 2/2] riscv: ultrarisc: 8250_dw: support DP1000 uart
+Message-ID: <aeHlaTIKm1wl0J0_@ashevche-desk.local>
+References: <20260316-ultrarisc-serial-v2-0-6ab3e7fa891c@ultrarisc.com>
+ <20260316-ultrarisc-serial-v2-2-6ab3e7fa891c@ultrarisc.com>
+ <abfrDBeJrValJR9a@ashevche-desk.local>
+ <177641113786.3193169.8990532982066985425.b4-reply@b4>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <177641113786.3193169.8990532982066985425.b4-reply@b4>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Brian,
+On Fri, Apr 17, 2026 at 03:32:17PM +0800, Jia Wang wrote:
+> On 2026-03-16 13:35 +0200, Andy Shevchenko wrote:
+> > On Mon, Mar 16, 2026 at 02:33:23PM +0800, Jia Wang via B4 Relay wrote:
 
-> Hi Yu-Chun,
+...
+
+> > > +#define DW_UART_QUIRK_FIXED_TYPE	BIT(6)
+> > 
+> > Seems unrequired.
+> > 
+> > But to make sure, can you elaborate what's going on here?
+> > What is the reads from UCV and CPR registers?
 > 
-
-(snip)
-
-> > +
-> > +static const struct reg_sequence pll_acpu_seq_power_off[] = {
-> > +	{RTD1625_REG_PLL_ACPU2,         0x4},
-> > +};
-> > +
-> > +static const struct reg_sequence pll_acpu_seq_pre_set_freq[] = {
-> > +	{RTD1625_REG_PLL_SSC_DIG_ACPU0, 0x4},
-> > +};
-> > +
-> > +static const struct reg_sequence pll_acpu_seq_post_set_freq[] = {
-> > +	{RTD1625_REG_PLL_SSC_DIG_ACPU0, 0x5},
-> > +};
-> > +
-> > +static struct clk_pll pll_acpu = {
->
-> static const?
->
-
-The clock object should not be declared as const.
-
-> > +	.clkr.hw.init = CLK_HW_INIT("pll_acpu", "osc27m", &rtk_clk_pll_ops, CLK_GET_RATE_NOCACHE),
-> > +	.seq_power_on          = pll_acpu_seq_power_on,
-> > +	.num_seq_power_on      = ARRAY_SIZE(pll_acpu_seq_power_on),
-> > +	.seq_power_off         = pll_acpu_seq_power_off,
-> > +	.num_seq_power_off     = ARRAY_SIZE(pll_acpu_seq_power_off),
-> > +	.seq_pre_set_freq      = pll_acpu_seq_pre_set_freq,
-> > +	.num_seq_pre_set_freq  = ARRAY_SIZE(pll_acpu_seq_pre_set_freq),
-> > +	.seq_post_set_freq     = pll_acpu_seq_post_set_freq,
-> > +	.num_seq_post_set_freq = ARRAY_SIZE(pll_acpu_seq_post_set_freq),
-> > +	.freq_reg              = RTD1625_REG_PLL_SSC_DIG_ACPU1,
-> > +	.freq_tbl              = acpu_tbl,
-> > +	.freq_mask             = FREQ_NF_MASK,
-> > +	.freq_ready_reg        = RTD1625_REG_PLL_SSC_DIG_ACPU_DBG2,
-> > +	.freq_ready_mask       = BIT(20),
-> > +	.freq_ready_val        = BIT(20),
-> > +	.power_reg             = RTD1625_REG_PLL_ACPU2,
-> > +	.power_mask            = 0x7,
-> > +	.power_val_on          = 0x3,
-> > +};
-
-(snip)
-
-> > +
-> > +static const struct reg_sequence pll_ve1_seq_post_set_freq[] = {
-> > +	{RTD1625_REG_PLL_SSC_DIG_VE1_0, 0x5},
-> > +};
-> > +
-> > +static struct clk_pll pll_ve1 = {
+> Apologies for the delayed response.
 > 
-> Same here about static const, plus some others below?
->
+> Our DW UART implementation on DP1000 does not provide the CPR/UCV capability
+> registers, and reads from both registers always return 0. As a result, the
+> autodetection logic in 8250_dw cannot obtain meaningful capability
+> information.
+> 
+> To handle this, the current approach is to skip autodetection and rely on
+> fixed configuration via a quirk.
+> 
+> If there is a preferred or more appropriate way to support DW UART instances
+> without CPR/UCV, I would be happy to adjust the implementation based on your
+> suggestions.
 
-No. The clock object cannot be const.
+Why can't you provide a CPR value via the existing quirk?
 
-(snip)
+-- 
+With Best Regards,
+Andy Shevchenko
 
-> > +static const struct of_device_id rtd1625_crt_match[] = {
-> > +	{.compatible = "realtek,rtd1625-crt-clk", .data = &rtd1625_crt_desc,},
-> > +	{/* sentinel */}
->
-> Add a space around the comment like so:
->
-> { /* sentinel */ }
->
 
-Ack.
-
->
-> > +};
-> > +
-> > +static struct platform_driver rtd1625_crt_driver = {
-> > +	.probe = rtd1625_crt_probe,
-> > +	.driver = {
-> > +		.name = "rtk-rtd1625-crt-clk",
-> > +		.of_match_table = rtd1625_crt_match,
-> > +	},
-> > +};
-> > +
-> > +static int __init rtd1625_crt_init(void)
-> > +{
-> > +	return platform_driver_register(&rtd1625_crt_driver);
-> > +}
-> > +subsys_initcall(rtd1625_crt_init);
-> > +
-> > +MODULE_DESCRIPTION("Reatek RTD1625 CRT Controller Driver");
->
->s/Reatek/Realtex/
->
-
-Will fix it.
-
-> > +MODULE_AUTHOR("Cheng-Yu Lee <cylee12@realtek.com>");
-> > +MODULE_LICENSE("GPL");
-> > +MODULE_IMPORT_NS("REALTEK_CLK");
-> > diff --git a/drivers/reset/realtek/Kconfig b/drivers/reset/realtek/Kconfig
-> > index 99a14d355803..a44c7834191c 100644
-> > --- a/drivers/reset/realtek/Kconfig
-> > +++ b/drivers/reset/realtek/Kconfig
-> > @@ -1,3 +1,5 @@
-> >  # SPDX-License-Identifier: GPL-2.0-only
-> >  config RESET_RTK_COMMON
-> >  	bool
-> > +	select AUXILIARY_BUS
-> > +	default COMMON_CLK_RTD1625
-> > diff --git a/drivers/reset/realtek/Makefile b/drivers/reset/realtek/Makefile
-> > index b59a3f7f2453..8ca1fa939f10 100644
-> > --- a/drivers/reset/realtek/Makefile
-> > +++ b/drivers/reset/realtek/Makefile
-> > @@ -1,2 +1,2 @@
-> >  # SPDX-License-Identifier: GPL-2.0-only
-> > -obj-$(CONFIG_RESET_RTK_COMMON) += common.o
-> > +obj-$(CONFIG_RESET_RTK_COMMON) += common.o reset-rtd1625-crt.o
->
->CONFIG_RESET_RTK_COMMON is supposed to be common, right? If so, the
-> SoC-specific driver shouldn't be included here.
->
-
-This Makefile will change to
-
-obj-$(CONFIG_RESET_RTK_COMMON) += common.o
-obj-$(CONFIG_RESET_RTD1625) += reset-rtd1625-crt.o
-
-> > diff --git a/drivers/reset/realtek/reset-rtd1625-crt.c b/drivers/reset/realtek/reset-rtd1625-crt.c
-> > new file mode 100644
-> > index 000000000000..ebb15bb68885
-> > --- /dev/null
-> > +++ b/drivers/reset/realtek/reset-rtd1625-crt.c
-> > @@ -0,0 +1,186 @@
-> > +// SPDX-License-Identifier: GPL-2.0-only
-> > +/*
-> > + * Copyright (C) 2026 Realtek Semiconductor Corporation
-> > + */
-> > +
-> > +#include <dt-bindings/reset/realtek,rtd1625.h>
-> > +#include <linux/auxiliary_bus.h>
-> > +#include <linux/device.h>
-> > +#include <linux/errno.h>
-> > +#include <linux/slab.h>
-> > +#include "common.h"
-> > +
-> > +#define RTD1625_CRT_RSTN_MAX	123
-> > +
-> > +static struct rtk_reset_desc rtd1625_crt_reset_descs[] = {
-> > +	/* Bank 0: offset 0x0 */
-> > +	[RTD1625_CRT_RSTN_MISC]         = { .ofs = 0x0, .bit = 0,  .write_en = 1 },
-> > +	[RTD1625_CRT_RSTN_DIP]          = { .ofs = 0x0, .bit = 2,  .write_en = 1 },
-> > +	[RTD1625_CRT_RSTN_GSPI]         = { .ofs = 0x0, .bit = 4,  .write_en = 1 },
-> > +	[RTD1625_CRT_RSTN_SDS]          = { .ofs = 0x0, .bit = 6,  .write_en = 1 },
-> > +	[RTD1625_CRT_RSTN_SDS_REG]      = { .ofs = 0x0, .bit = 8,  .write_en = 1 },
-> > +	[RTD1625_CRT_RSTN_SDS_PHY]      = { .ofs = 0x0, .bit = 10, .write_en = 1 },
-> > +	[RTD1625_CRT_RSTN_GPU2D]        = { .ofs = 0x0, .bit = 12, .write_en = 1 },
-> > +	[RTD1625_CRT_RSTN_DC_PHY]       = { .ofs = 0x0, .bit = 22, .write_en = 1 },
-> > +	[RTD1625_CRT_RSTN_DCPHY_CRT]    = { .ofs = 0x0, .bit = 24, .write_en = 1 },
-> > +	[RTD1625_CRT_RSTN_LSADC]        = { .ofs = 0x0, .bit = 26, .write_en = 1 },
-> > +	[RTD1625_CRT_RSTN_SE]           = { .ofs = 0x0, .bit = 28, .write_en = 1 },
-> > +	[RTD1625_CRT_RSTN_DLA]          = { .ofs = 0x0, .bit = 30, .write_en = 1 },
->
-> Sashiko reports:
-> https://sashiko.dev/#/patchset/20260402073957.2742459-1-eleanor.lin%40realtek.com
->
->    Can this cause undefined behavior during reset mask computation?
->    
->    Several reset array entries set .bit = 30 and .write_en = 1. In
->    rtk_reset_assert() and rtk_reset_deassert(), if the bitmask is computed as
->    0x3 << desc->bit, 0x3 is a signed 32-bit integer literal. Left-shifting it by
->    30 results in 0xC0000000, which exceeds the maximum positive value for a
->    signed 32-bit integer.
->
->    Modifying the sign bit via left-shift on a signed type invokes undefined
->    behavior in C. Would an unsigned literal (e.g., 0x3U << desc->bit) be needed
->    to safely construct the mask?
-
-Agreed, Will make it 0x3U.
-
-(snip)
-
-> > +
-> > +static int rtd1625_crt_reset_probe(struct auxiliary_device *adev,
-> > +				   const struct auxiliary_device_id *id)
-> > +{
-> > +	struct device *dev = &adev->dev;
-> > +	struct rtk_reset_data *data;
-> > +
-> > +	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-> > +	if (!data)
-> > +		return -ENOMEM;
-> > +
-> > +	data->descs           = rtd1625_crt_reset_descs;
-> > +	data->rcdev.nr_resets = RTD1625_CRT_RSTN_MAX;
-> > +	return rtk_reset_controller_add(dev, data);
->
-> Sashiko reports:
-> https://sashiko.dev/#/patchset/20260402073957.2742459-1-eleanor.lin%40realtek.com
->
->    Will the reset controller driver unconditionally fail to probe with -ENODEV
->    due to an incompatible regmap acquisition method?
->
->    The rtk_reset_controller_add() helper attempts to retrieve the shared regmap
->    from the parent clock device using dev_get_regmap(parent, NULL). However, the
->    parent clock driver (rtk_clk_probe()) acquires its regmap via
->    device_node_to_regmap().
->
->    This syscon helper creates the regmap but does not associate it with the
->    parent struct device via devres. Because the regmap is absent from the
->    parent's devres list, dev_get_regmap() will always return NULL, causing the
->    reset driver probe to fail unconditionally and leaving dependent peripherals
->    without reset control.
->
-> Brian
->
-
-Thanks for identifying this issue. I've fixed the regmap passing mechanism:
-
-Changes:
-1. 'rtk_reset_controller_register()' in clk/realtek/common.c passes the
-regmap as platform data via 'devm_auxiliary_device_create()'
-2. 'rtk_reset_controller_add()' in reset/realtek/common.c retrieves it
-using 'dev_get_platdata()' instead of 'dev_get_regmap()'
-
-This ensures the reset controller can access the shared regmap regardless
-of how the parent clock driver acquired it
-
-Best Regards,
-Yu-Chun
