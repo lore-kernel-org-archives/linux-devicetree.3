@@ -1,222 +1,167 @@
-Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C0043A3E69
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 13:30:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 940872DC78C
+	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 13:32:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776432659; cv=none; b=ecWwoavWZXBnRg5XkCbN5LCKP7PzY8beKqmPvzGY0HXqxQw6BbuyN4ig2cYsVVUaYdqJHeZJQKOy3wrUFG5AxH9zkAS6Y6Zo7L/ktaN3t/s66i/hJYQkxwbhb9F91KhcFPZC9WCTHkhENdRKwXivqp+h8D+6v1IxgAMNKA3fEZE=
+	t=1776432730; cv=none; b=cPdME9FMqrpTwPO+ecMTq47QiY3zebJmW3DAU/Hkz2hX7gnp0EP6gMVmUCRcjozpqRtaG05k8JI21Eq1IioIxDdoBejkoGHJ2mrYxn76VdgfYUymnJL6GIzJezPgvz48wokZ+XsAvdYBVkarzEvRdBcimUHD7ehtqe/WjBDrDqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776432659; c=relaxed/simple;
-	bh=yP43LVUbNS6gGNJtlMHBKpP7X3d/8IsFX56UHBlJ47E=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=U4kiZhILET4HaOuDbt3jlerFoXrxCyUDop5q1J09b13YVqQcOE+uvWDE498xGpF+r2L49pCiMM4HnV9jyo7UjO8jslPWZoGp0RhvelqXd8m1wQp+a5nmUfJdX/HfstC93PvPLCrp4LHQlZSDcRP1vWkUCxARMirLNeqwaJVKGQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=QaQAFChV; arc=none smtp.client-ip=74.125.224.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	s=arc-20240116; t=1776432730; c=relaxed/simple;
+	bh=RFvWEcHs09Ac7BQ/P1ahsX/rY3bcE0CJB0jwJ6qDepU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DWRo14GlkMYAdy0AV6zhuqb18tqDN/CgFX9NZufvqQLz4HOJySyDS15yX2Ww4PuszFXZvSmY+PHNDnNjNWYF3YNgleyAsdRKEBym/MSpudgZkudyLpuOxuXAdy1Ac+g6wZjw2f+/0PPlzUIUqJN9iLao2mYqZ/pHZm5vkBuZG98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=d37InmBs; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=E603tFxi; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="QaQAFChV"
-Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-651cfaa21e6so696473d50.0
-        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 06:30:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="d37InmBs";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="E603tFxi"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63H9kiFj1042380
+	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 13:32:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	/evtMQvA7PUd4sSb8YH73FDCN+57LuBUVGM3HCz06NI=; b=d37InmBsPomDCzSM
+	ZYZXfMvHTOTytDN1t+lwSMuU99e3aSTq1U7Ay0qJETDRPlEZXEhivd9f05Bflkn9
+	EotbJBH60D7i6u+VIoWu/404y7iDQLdR+KKoEu62CDw2XwKdVE1lKC3anMlSsY16
+	D8gy+UJwaTRNAzss0UdEg3zYdKIUuY1vP9Dqyisiiuc1xt0LJD866Y5eQtWPFiFC
+	RNcDJiw7Y321zOTskc9TukPKqRCIbEzrA0yewDLqp14ADJfdlsUYHjajXIKXlWfk
+	gJjw5pYRemmKQ2dAjJ6HOm+ERi7TkkOlfxKMWRfYyyAMpE4IT+T4bLx4ooPofYy9
+	pP7Y5w==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dkjhdrs6x-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 13:32:08 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-82f460260cfso837858b3a.2
+        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 06:32:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1776432657; x=1777037457; darn=vger.kernel.org;
-        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
-         :from:subject:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=yP43LVUbNS6gGNJtlMHBKpP7X3d/8IsFX56UHBlJ47E=;
-        b=QaQAFChVYrJgYuXA9g6Qd+K2MbdvqsgmgkSlirdgPGGOmVGsl1ECS37oRtD7cycnmw
-         yItolkE109NJ1HRNcCi4AOaxNcEpgKNM7dLNuqSi7LeCY7ZaCN1Pujivl36IP0UI8OXY
-         mBqsltezb8tUvX7fucly5i5nhD6IYGeQ06Cn5v+mwYVOTYe2oLMzC+dHH97TkgLkR7NB
-         EjQ9nL4k0qjuf5bisQO1W5xm/w++jy+4ceci0U2LXoiEq4MMGdGgFtIKlVbp9R5tmmpb
-         ECy3cRKbyQSb+KeQBE6D0s+8NO88iD8EDw75lP6XX3sI4CRVIoo4WlfqZsO0HGeY9lFi
-         WQhA==
+        d=oss.qualcomm.com; s=google; t=1776432728; x=1777037528; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=/evtMQvA7PUd4sSb8YH73FDCN+57LuBUVGM3HCz06NI=;
+        b=E603tFxikMSp9hnNnl5YMGR1ua428BD3FQM7M9J292C6jp68jlx9JoRG8uPcffR1Pz
+         UizhG/HVoyBU+tmGzjs1OGp5v8h9+WMoMucL225R8vbu0LAj9Y4YGT8Pr0IqBw1ZoKYE
+         XznV/CGRmsS6dM4MXQTNxMVVeLb+W2fxMt1P8IgCPqqQj8BVgpQNii0tzXotz1nwtLja
+         dZcrVzKCAwoxwAeZcBHhPvbkvjuy2vbyjlFdDVzFQVUyeEkw7lP3zMaDDZ0UmW5p1y2h
+         JsgcNBAvMutVrpxP2iMD0pUEUOH24sL5CYE/gHVLymKb22SgAA2YZRqsDXBYxXgM4yT9
+         cg/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776432657; x=1777037457;
-        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
-         :from:subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=yP43LVUbNS6gGNJtlMHBKpP7X3d/8IsFX56UHBlJ47E=;
-        b=qI4P/iQJtBywCSANF4v91LiW2T71xDXGbMR5DjCXZgNSGEdwr/anQcqy/rd0Qa49Yp
-         KpBSOsV+vvKzpRRQWG0t6kYDUqyLyEWYmecodiiVon//gbR11avh1jTzQZCHnwqSTSWe
-         CZd1v7OsUUEuxIA+T7DJrPPXD3XZn4BDCGBhW8/kFLRCeRU/hwpk+DqlT4+XZJnpT6QY
-         4cPVrXRHPcTCB4SclqmzkirBn/S4PdTq4IGyqRnwiS+vyGlNgcDN7wLz1BdS7nD3i5tH
-         NuOTVOQKjTXQHd/wPKHBtLcGy6plTBLPIl1mDHnw8AtdYxHvuD2akGlbL/4ran3bvl6n
-         zGIQ==
-X-Gm-Message-State: AOJu0Yx/NH7KEQwRsh2QzcPzFRwTMHcCQkhIIvKNWcLW82yK7rqmtMeF
-	TJpSiwbH0IQDPKml4qbPgPlqnoYNwSD8gcxl1GT2XPU+eMOebMKWHy00fPjISBSSAmUxd1V407y
-	+Qw6s
-X-Gm-Gg: AeBDieuBjS6cpWlTg0sXSXmrRHHRmkB65v/Pfaw4pNvrvs9ttfgb9V2kzNAaUJhbTiH
-	9dd7sk3G8HRuxDWI5MsNGfziCbfkics55mun9j3WiNkFUeDOs7VLmXvZ0NZExKTGqt4Y98PeWjF
-	WAc6REwGCMdkSupg0U266o4LnYZ47KhurS9QDmHe5Yp8r3z3eF3Z0XKCb+4TDudTD5Ws3YFwmWb
-	9H6ZLQJ7pHBEyBNFwsNTvWEsfbFILgKe9iCB7Pu4iU9ljJoqovGxtSEeK+Za8doWYEHMSu4XAly
-	PdAoqCmF965AtCjuFUARBP77ohnThiqspIhSkEPXYxxs70/NNGF/dHRW9h95/blsoEf/mVKlhUC
-	BF4yPXsR8FAwWwpyOr43jeo0rXHOhIottZTsrB3G9Q95QLwWGSZfwtsPcAlGqIPkXLakOAvDnY9
-	nM91ZOmcZ/mkTlsllfpxZm4J2VMc8/bNKEuPjrBH8=
-X-Received: by 2002:a05:690e:4850:b0:64c:ec30:9dd8 with SMTP id 956f58d0204a3-65311c8b52fmr1160833d50.47.1776432656675;
-        Fri, 17 Apr 2026 06:30:56 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:15:e06b::c41? ([2606:6d00:15:e06b::c41])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8b02ac77546sm10334746d6.17.2026.04.17.06.30.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Apr 2026 06:30:55 -0700 (PDT)
-Message-ID: <5b4cf8f7951cc2766901b09f2e886ef73d48671b.camel@ndufresne.ca>
-Subject: Re: [PATCH v7 0/3] Mediatek MT8189 JPEG support
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Jianhua Lin <jianhua.lin@mediatek.com>, mchehab@kernel.org,
- robh@kernel.org, 	krzk+dt@kernel.org, conor+dt@kernel.org,
- matthias.bgg@gmail.com, 	angelogioacchino.delregno@collabora.com
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org, 
-	Project_Global_Chrome_Upstream_Group@mediatek.com,
- sirius.wang@mediatek.com, 	vince-wl.liu@mediatek.com, jh.hsu@mediatek.com
-Date: Fri, 17 Apr 2026 09:30:53 -0400
-In-Reply-To: <20260417100519.1043-1-jianhua.lin@mediatek.com>
-References: <20260417100519.1043-1-jianhua.lin@mediatek.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-Ge/8Q+z1/L/Ug2FhDTGi"
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+        d=1e100.net; s=20251104; t=1776432728; x=1777037528;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=/evtMQvA7PUd4sSb8YH73FDCN+57LuBUVGM3HCz06NI=;
+        b=NDxOtN4WqD56aTm8XFp6QCN3N9GgJ6uUCuADv62VGAZvW1i6UYrJJQPiNqnpDKVl9Z
+         Jx5ZnjHEEVjChC7MQBL7ey13QrNURDRUEiy7S5Pn2FusIfuXTol6TMpmy1veMxS63Tx3
+         LVTHwS/ipwF/O7Pp/hf7CR1NaeGGQqd2VRyqUrqGm0FNUw2gPpAUHq0yUzZTfc/iLL41
+         tXrZQsup8/jFbHONIy5jPIbAZpRTcRn9S5A87csPm0Tn+ea1BMFsJq5tBrXsQzllfq52
+         3VLmF3euvhS8lgssAGTYE5iUSVJPV+YFmCoCC7E8HwnG7CNKOiQ+1oPXRv8zpYTr/TOQ
+         yu0A==
+X-Forwarded-Encrypted: i=1; AFNElJ8shH8nQva3MaVNQqiDO6NG0qfHQFCwShQm0EUGB23QbPVFPdiAdDedUkqlcWtIarzeWoBrMUUziXy9@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywzre4RNhbrWLI8Vg0IO5K549+itqyqZDqz5Q5gLbPkJ+JJNRle
+	kvxccjuZDbX0+q0U0C6Rq8EdL7qf/n+tAj58jmvfOX/8qgRu3LmBHY6CWtUyYNmTYMkTWN/cIlv
+	eqzumHMdrjLQcGXNODZJK0eGMZpaeKOL6tWkx2OdXW30H/wLTa7JIT35y/Ciz/Fp7
+X-Gm-Gg: AeBDievZFQRY2kefLPG/XGjrk9tkcNyPt8wii1DjC6t3k0yBGMOk7Fstx/bHnZhw7Oo
+	vPBRZ584j/1+6CTFGrYqZu52O5c2Ctv/kn7mbcIGOlJNeeyyR5IbzgYoodFLiYiqv+WmLeREN6W
+	aRaNcAgesimXY+iGcX4V+f43bjVvOAv96qFNVuegcWV4TxFIEoJ1WCQktqcE3cFkYVJFBGB7OVt
+	m1MbZELX7Bi4kaj6pbHYUDxRq9pGVoHDmIwPFWRY2pNgaXU5LHf+iDcCqZfchgDXgzePF9eH/O4
+	Bzr8PYohr/4/DfC3hTld86qITPKnJNDbgsmWAjvzPRL4EuCtljrbUEr7F9NQI9gf2QBN04U9qgU
+	b1dWs/UCyFOBScjMKI9WxJkzhDJiQ3+Xui7fd2gQtZfr1cCbHKQu+Bb6AwYdrlQ==
+X-Received: by 2002:a05:6a00:3498:b0:82c:20be:57e6 with SMTP id d2e1a72fcca58-82f8c81273emr3064756b3a.11.1776432728134;
+        Fri, 17 Apr 2026 06:32:08 -0700 (PDT)
+X-Received: by 2002:a05:6a00:3498:b0:82c:20be:57e6 with SMTP id d2e1a72fcca58-82f8c81273emr3064679b3a.11.1776432727437;
+        Fri, 17 Apr 2026 06:32:07 -0700 (PDT)
+Received: from [10.217.223.121] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82f8e984f20sm2306640b3a.8.2026.04.17.06.32.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 17 Apr 2026 06:32:06 -0700 (PDT)
+Message-ID: <a2f1112b-86c3-46ac-9520-bf49a399a98c@oss.qualcomm.com>
+Date: Fri, 17 Apr 2026 19:02:00 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 2/5] ufs: host: Add ICE clock scaling during UFS clock
+ changes
+To: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+        "Martin K. Petersen" <martin.petersen@oracle.com>,
+        Adrian Hunter <adrian.hunter@intel.com>,
+        Ulf Hansson
+ <ulf.hansson@linaro.org>,
+        Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
+        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        Rob Herring
+ <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-scsi@vger.kernel.org, linux-mmc@vger.kernel.org,
+        devicetree@vger.kernel.org
+References: <20260409-enable-ice-clock-scaling-v8-0-ca1129798606@oss.qualcomm.com>
+ <20260409-enable-ice-clock-scaling-v8-2-ca1129798606@oss.qualcomm.com>
+Content-Language: en-US
+From: Harshal Dev <harshal.dev@oss.qualcomm.com>
+In-Reply-To: <20260409-enable-ice-clock-scaling-v8-2-ca1129798606@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: FS_8Fw_DGO28Dv4Yky25aCDtxmu8LVGa
+X-Authority-Analysis: v=2.4 cv=YpQ/gYYX c=1 sm=1 tr=0 ts=69e23658 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=moC-RjrLiBHrLYWkWSAA:9 a=QEXdDO2ut3YA:10
+ a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE3MDEzNiBTYWx0ZWRfX8FCgmOsyRkp1
+ STo3/AJErCXJUPNe9gkVRHZ2lC59whqtiLxTsS8Go0KklkYaISqYo0NQR+ZQCSCtdYjr9zLmHPw
+ QxeqK5lxxM7PPwD6atkGrmGqsQF2TmpH8/hoaaAY/Vj0KJt2VkbjC73LIZZ/tFiq68NH/fJkaC/
+ YZpfMHYPu3tCVoeaKK4dYG0bdvhDay1RXrLK4N0C/BFm6tVMb5MQpxOFYg8/LNO5sIKobIqxoHq
+ Gn16jimMN4cvnHGbNic7WfJ97Wuk4Sj3xtMuRXm8yVbDE3GPbZgJkXEv0ny34wK2KwXrx2rhMis
+ vbR0eiQ72JQt0wnXbrxz7fBY+2x9beJZtEBk3k28w3ooOhtZrEpng9pSS0GXplgy7tQOrGBvs73
+ sUgOSkMQF1X5AGy+lA146QoMMHU2Vozc+HhF2pnN1PO7H1NyR9cduNP60Qt5Bpq60kjgJjixPIh
+ QwxAZ0o7ZT1ohNQ0ZAA==
+X-Proofpoint-ORIG-GUID: FS_8Fw_DGO28Dv4Yky25aCDtxmu8LVGa
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-17_01,2026-04-17_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 malwarescore=0 lowpriorityscore=0
+ phishscore=0 spamscore=0 suspectscore=0 clxscore=1015 impostorscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2604070000
+ definitions=main-2604170136
 
 
---=-Ge/8Q+z1/L/Ug2FhDTGi
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On 4/9/2026 5:14 PM, Abhinaba Rakshit wrote:
+> Implement ICE (Inline Crypto Engine) clock scaling in sync with
+> UFS controller clock scaling. This ensures that the ICE operates at
+> an appropriate frequency when the UFS clocks are scaled up or down,
+> improving performance and maintaining stability for crypto operations.
+> 
+> For scale_up operation ensure to pass ~round_ceil (round_floor)
+> and vice-versa for scale_down operations.
+> 
+> Incase of OPP scaling is not supported by ICE, ensure to not prevent
+> devfreq for UFS, as ICE OPP-table is optional.
+> 
+> Acked-by: Manivannan Sadhasivam <mani@kernel.org>
+> Signed-off-by: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
+> ---
+Whoops, I mistakenly replied to v7 of this patch with a Reviewed-by, please
+ignore that one.
 
-Le vendredi 17 avril 2026 =C3=A0 18:05 +0800, Jianhua Lin a =C3=A9crit=C2=
-=A0:
-> This series is based on tag: next-20260410, linux-next/master
+Reviewed-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
 
-What dependencies justify not submitting based on media-committers/next as =
-usual
-? Its fine to say you tested against linux-next of course, and if its only
-working there, its really nice to explain why.
-
-Nicolas
-
->=20
-> Changes compared with v6:
-> - Patches 1/3 (dt-bindings: decoder):
-> =C2=A0 update the existing `allOf` condition for mediatek,mt8189-jpgdec t=
-o
-> =C2=A0 make the 'mediatek,larb' property strictly required for MT8189 SoC=
-.
-> - Patches 2/3 (dt-bindings: encoder):
-> =C2=A0 Add an `allOf` condition to enforce that the `mediatek,larb` prope=
-rty
-> =C2=A0 is strictly required when the compatible string contains
-> =C2=A0 mediatek,mt8189-jpgenc.
->=20
-> Changes compared with v5:
-> - Patches 1/3 (dt-bindings: decoder):
-> =C2=A0 - Drop top-level minItems/maxItems for clock-names per Krzysztof's
-> =C2=A0=C2=A0=C2=A0 review.
-> =C2=A0 - Refine allOf block to strictly enforce clock constraints.
->=20
-> Changes compared with v4:
-> - Refines the device tree bindings for JPEG decoder and encoder.
-> =C2=A0 - Patches 1/3 (dt-bindings: decoder):
-> =C2=A0=C2=A0=C2=A0 Moved the standalone compatible string mediatek,mt8189=
--jpgdec
-> =C2=A0=C2=A0=C2=A0 into the first oneOf entry along with mt2701 and mt817=
-3, as
-> =C2=A0=C2=A0=C2=A0 suggested by Rob Herring. This correctly groups all in=
-dependent
-> =C2=A0=C2=A0=C2=A0 ICs and removes the redundant items wrapper.
-> =C2=A0 - Patches 2/3 (dt-bindings: encoder):
-> =C2=A0=C2=A0=C2=A0 Applied the same logic suggested by Rob Herring to the=
- encoder
-> =C2=A0=C2=A0=C2=A0 binding. Restructured the compatible property to clear=
-ly
-> =C2=A0=C2=A0=C2=A0 distinguish between the standalone IC (mediatek,mt8189=
--jpgenc)
-> =C2=A0=C2=A0=C2=A0 and the ICs that must fallback to mediatek,mtk-jpgenc.
->=20
-> Changes compared with v3:
-> - The v4 is resending the cover-letter, because the v3 cover-letter was
-> =C2=A0 not sent successfully.
->=20
-> Changes compared with v2:
-> - Dropped the dts patch (arm64: dts: mt8188: update JPEG encoder/decoder
-> =C2=A0 compatible) as it belongs to a different tree/series.
-> - Patches 1/3 (dt-bindings: decoder):
-> =C2=A0 - Changed the MT8189 compatible to be a standalone `const` instead=
- of
-> =C2=A0=C2=A0=C2=A0 an `enum`.
-> =C2=A0 - Added an `allOf` block with conditional checks to enforce the si=
-ngle
-> =C2=A0=C2=A0=C2=A0 clock ("jpgdec") requirement for MT8189, while preserv=
-ing the
-> =C2=A0=C2=A0=C2=A0 two-clock requirement for older SoCs.
-> =C2=A0 - Updated commit message to reflect the schema structure changes a=
-nd
-> =C2=A0=C2=A0=C2=A0 hardware differences.
-> - Patches 2/3 (dt-bindings: encoder):
-> =C2=A0 - Changed the MT8189 compatible to be a standalone `const` instead=
- of
-> =C2=A0=C2=A0=C2=A0 an `enum` inside the `items` list, as it does not fall=
-back to
-> =C2=A0=C2=A0=C2=A0 "mediatek,mtk-jpgenc" due to 34-bit IOVA requirements.
-> =C2=A0 - Updated commit message to explain the standalone compatible desi=
-gn.
-> - Patches 3/3 (media: mediatek: jpeg):
-> =C2=A0 - Refined commit message for better clarity regarding 34-bit IOVA =
-and
-> =C2=A0=C2=A0=C2=A0 single clock configuration.
->=20
-> Changes compared with v1:
-> - Patches 1/4:
-> =C2=A0 - Updating commit message
-> - Patches 2/4, 3/4:=20
-> =C2=A0 - Updating commit message
-> =C2=A0 - Adjusted property descriptions acorrding to hardware requirement=
-s
-> =C2=A0 - Improved formatting for better readability and consistency
-> - Patches 4/4:
-> =C2=A0 - Updating commit message
->=20
-> Jianhua Lin (3):
-> =C2=A0 dt-bindings: media: mediatek-jpeg-decoder: add MT8189 compatible
-> =C2=A0=C2=A0=C2=A0 string
-> =C2=A0 dt-bindings: media: mediatek-jpeg-encoder: add MT8189 compatible
-> =C2=A0=C2=A0=C2=A0 string
-> =C2=A0 media: mediatek: jpeg: add compatible for MT8189 SoC
->=20
-> =C2=A0.../bindings/media/mediatek-jpeg-decoder.yaml | 48 +++++++++++++++-=
----
-> =C2=A0.../bindings/media/mediatek-jpeg-encoder.yaml | 29 ++++++++---
-> =C2=A0.../platform/mediatek/jpeg/mtk_jpeg_core.c=C2=A0=C2=A0=C2=A0 | 44 +=
-++++++++++++++++
-> =C2=A03 files changed, 107 insertions(+), 14 deletions(-)
-
---=-Ge/8Q+z1/L/Ug2FhDTGi
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaeI2DQAKCRDZQZRRKWBy
-9FAeAP9hNlBMJeDwrd4Q36uw0NTXVgqg2wu5S1txSqHzY2sxkgD/dIedXuzuO0AL
-3iduYnYusZ1QaDh8eK2hofWngg9wdAc=
-=4Pdh
------END PGP SIGNATURE-----
-
---=-Ge/8Q+z1/L/Ug2FhDTGi--
+Regards,
+Harshal
