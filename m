@@ -1,83 +1,81 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE36E37883D
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 07:35:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BBB13783C0
+	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 07:35:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776411343; cv=none; b=sdjKvslPBrFrx3kdzrbsBIMjty6yLkMbfFUAZVbN0jjnuxf08bLEBA7BOXncpfdbz0sU/16txTAoVkZJblsX1sa+n9lqDFywcfGh2PbD8jzxWLMIoIad4nqPnxy2pKQ9ijdUT1qonH5j1jXzyN8lFO8hEWBY0n5TNlLz39Z115M=
+	t=1776411346; cv=none; b=mHa1z8w1nzTLL0HsoAXZ8qCLC3urEXQo+KVzplwKtbRz0Wyvkvp3WropXo7qWRqh8yZsXjPDlewl5dnL9HYPZWlo3XthvGvRSg9HM91AD3J8Lx3kORbUFjjC8kR/eHNcv9vRlYSaiZYFKYJqYSFThPoVr+9uN9nf1wzkDsyUlzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776411343; c=relaxed/simple;
-	bh=GEmR7CzCu5H5zvYZVoqpDAhWjryzga0aLX9bHxBgneA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=NKWTnMAY84Hcs8EU/oZMkKeV/bwV8gshKQoMLnh1uws9qHh4lPualJh8HnVXb8AwkMIwHS1JO4hkTJX9frx/U6yWoIgnOYdUZnseUKBlOAV0Rx6bDLjT4Z1Kb1XmJvF4xhG2Gc2oU8/rWh6aaWSpbhIRZLTX9J8Yf3161a2IBzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Wwz3s1/W; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gEXmFDWW; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1776411346; c=relaxed/simple;
+	bh=i6Dx/w8U92GppmyEj0Z9RmZfxPL+luiTyPV5nQTsCNE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=cN+Q5DjxBMz7P8kvvjfAdkpbZ4f+O2c9zhkn+/hSCw8GmQicCynyvtQPjLZMMpVKuGpF7gPtcIlD7OYwlNVZOzy2h9GYJiGLvawB3hcp53lJ2rTp9SNeGdUyGjSQhnbuLMSV2ngC8Swjmf34cHWnZuQw/nnSNelbrOsiSRg6F7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=n8KyOyPq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MmZvVtXd; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Wwz3s1/W";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gEXmFDWW"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="n8KyOyPq";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MmZvVtXd"
 Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63H79Tn23942114
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 07:35:41 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63H79TnC3942114
+	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 07:35:43 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=MFQ3m+SHQrR
-	zsnZiG8iyDH3C/8U2N2e2WUWT/QPYIIQ=; b=Wwz3s1/WEct3GKudkQL4VE190/f
-	4WrnNaY/0UDwdPOP3bD5L5HdEvlnk8O6OzQLq1DozyCSDYP7SZncmBkTV5y14NHx
-	3auRFvBouV/7Maf8Hk0prL1kOn+Hx1v8Hp45m18Y4zfWvLHKFPySiv04kjLAHDuR
-	e3hwP5M1VuSeJK4OITqjaFRui9cbcngiXZzmAIerFMjcKqgvVTcdV1Bhkc603rGT
-	BUhbC5BgOC8gfRyoXqDimubHPCy7wN9N3O197K5qVg4dMjoa6o1YGZmAboGKEsMd
-	zTt12aox/FXpqAB0OE9OIRLlel7SRw817AgymISGGy040JmlZOjbBcHvXuw==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dkg7rr4bt-1
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=3HocU7IhYxF6acAv8tTVx1
+	GwTqNP589mPZcFMf7PVSE=; b=n8KyOyPqAFC6WM9ANhOAcMXT1dEHowfMVA/hq0
+	NLOLfM19Ay4vTMvL0mGVJXZQikTei7ggj07ruOVGFC2bYCCD26iGfvKxVJWUP3tx
+	GAmmctew2h+ObsdvqpVaOsoLJLqoGb8UBhHqaDcAo2XSg9ClpiRbS1EWpGZ2RubV
+	Xl79ZvoJVPvr+nbIAAWDaHjWJacS1th2r9IgbzqtUpl6Nc+3RxwtooUqbFYfZagv
+	zl9DDLERr8nQA1HpZ9/B/e2q+gprQgtykhf6CITh+bA64TS4Lc18mYCxIkZRgolX
+	uwCF5K7Ng+Gxd0qAdYR+GBSvk/5oEBZjHHwKin4GtmYBe9/Q==
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dkg7rr46n-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 07:35:40 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-2da19227bc1so1805350eec.1
-        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 00:35:39 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 07:35:43 +0000 (GMT)
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-12c726ddda8so501321c88.1
+        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 00:35:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776411246; x=1777016046; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=MFQ3m+SHQrRzsnZiG8iyDH3C/8U2N2e2WUWT/QPYIIQ=;
-        b=gEXmFDWWIHMjml4WaGKj/drDub5hczKjLZYVzE8xl/fvYI7+FlqdaX+ASfDNy4Ty40
-         Q9GUEVqWfMr2QCT8T2zL69qFO+gGMBJxmqhCK7dddTNwNKa2ypB+PfZIzRAp30HEva2y
-         kDYQ+z15+3U2AgX0jvA8PDQ0shRHz/EtRNOYOwUvxq1TncBbgaiSHZob4K1+On+WFpRy
-         ZKVbpCLxXeZS+6AvZ0pIapnSq1uXGYmxtd2jevidhqNZZNpe1/cE9yKNtykbCgYUVVPV
-         jupgcv8QWrY3vaKBtN4xxVAX9wre0XXvfz33eJGB1KSXAG6YIV2qT3nmK2nyHqR1GUvN
-         OCRA==
+        d=oss.qualcomm.com; s=google; t=1776411238; x=1777016038; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=3HocU7IhYxF6acAv8tTVx1GwTqNP589mPZcFMf7PVSE=;
+        b=MmZvVtXdqa5iDB4ubyOx7wlBoE/a7SSYvE+ao0E2NeEqs31phApo1Ft0mAbwJIJDMj
+         H5CEmE5AT2pl8zGsnn05DHU3oa7ltsYNfKFRmdphT1hFOcaB97Kb+vmned+ygvYq3UIv
+         5BNbmajwAjD8hG8mpIwfwZW+DdG3jcThYYB7GGHN/8Isv91QRcsDQ4arXz6clggIH6d1
+         fox4c9rvVuWcsnsHQYCLROTqnLdDLoU745G5C2aXGwcT1wnfwDEWN/vUGRgeT5f3zFeb
+         P50vBFr6ummlNeDFMtVP8XeLZBtYuk/ZmYGRu4dby/a6hblGS+bNcxvbbWYXlizoXImR
+         zTlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776411246; x=1777016046;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=MFQ3m+SHQrRzsnZiG8iyDH3C/8U2N2e2WUWT/QPYIIQ=;
-        b=jzmHZgiWlokGcTaWqtmFiA5OWZIjvNYhW3lbXsjwZKh3avwiK1vTCR+6TCOGFf0uVE
-         C3x11409BxKQfDRhOaxZ+vIF0t+916pLJF3K/1je6skrl9j2+m65E2I+CNJITgC1g7aT
-         JPN+hG0ZBdabpmeuorHeTq18WOLBZxkMDyk0c5K1L9Xv3EtCCUyAU0D0kbCFi0Ag8Uql
-         AxHQIC8lWpPgk6Lm6lQ6cIWYhXFVL3JmDE6/J+nha5TL+gn4hGhVdVMfrVANEuBxD3kl
-         bU/6szMYjo/bWklJ/vOjklSSVftm20I+FbZBO0NhT/bQK3tZFYv3ZzsEcSmdxNvzYpmp
-         Mzpw==
-X-Forwarded-Encrypted: i=1; AFNElJ+DEPdlz3tp6s9PfqtVuFF3CgE1alYqRYPXSTBKVksql6RudKGNGzDaKU2JhZnfg/tb7aIR5QlL8ujZ@vger.kernel.org
-X-Gm-Message-State: AOJu0YwX22jQxG/FMQPMR4EFkRil/wmGdZNmt2gl/2QUfeVos4otnGBo
-	YXQswwVGu4rK+DLwi75yX1t2xi4IEczJaoNuzSOjdQAPSWOUXA4GwqMC1SxyduZTYiuOvgmS+TZ
-	Tb6jMMOphlPlq+FK2Ssf/QxkFbSQyx8rSTz0/fA5OYGl9iLflDJARsSWBVs3VJxiP
-X-Gm-Gg: AeBDiesTGfrEz4SLllWfK15PN6p2G4/ENKrNEnhZWwA+7R+gTrh3RqJID9EQjdZOpz8
-	bZtztfYb/c5eZjbfVK+U/AE/xDAkMB8ehrx1OE9E0gvw9QGNGNXhMpfJSq+q73vwuNQj4v9vilc
-	3PIJaYfq/sKer8undgnPClf6dEmJRvREB7x65bXVh1xVkeU0GJqTJqrOkwbCrt/fITp202KHsHC
-	RM0HqM/u7HQqZfhxB7t8gAoFvDMWrbTRdyJ4UJ6B7p3E0DGvpkaNnK4SNbzJjKRXW75kH2U0Grv
-	5j39zKD2vV8pUKCIIx7APChZNGskmYePGo9LTciyU9Awcu3YGWhfOMZKrGgLydCMgp6xhElbKG8
-	+YnHxlfYrO27YR/8nS3lr/YQR3Ef0aD9LuGdIiv6NYk7n70seqUgr+JjKGHl58+a0RADu8Wa1L1
-	yPxXnDmkD78TU=
-X-Received: by 2002:a05:7301:1693:b0:2b8:5159:eca5 with SMTP id 5a478bee46e88-2e4786460dfmr653669eec.14.1776411245653;
-        Fri, 17 Apr 2026 00:34:05 -0700 (PDT)
-X-Received: by 2002:a05:7301:1693:b0:2b8:5159:eca5 with SMTP id 5a478bee46e88-2e4786460dfmr653638eec.14.1776411245033;
-        Fri, 17 Apr 2026 00:34:05 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1776411238; x=1777016038;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3HocU7IhYxF6acAv8tTVx1GwTqNP589mPZcFMf7PVSE=;
+        b=icakf/2JYFey24hlNEIyfk77XshNvntP0PhiayxAqiBG0mnMuYLCuTNR/yOwr2Bi2M
+         dTKy7y8ubc+yk04ebLFw+7H44858uJGFdTMUT9hBsKZwPj4KvhkzV4ifQ587xsgcXgX4
+         c7hmjBjvr9KeGsNbkRJXou9YDwDdvwQeItACaA8sE773gMcKjiM93HkLXzw6cBgzTtg4
+         bW8eMF5mi+XONx+SDDZSOSRA41722RDQ/oZ5TBBmYfRVU/4E5FxN/UzJzPslw6LyG7Q/
+         SIrF9GYb6LnmSKUrpwOisIJUoifUkZ73nqylQj1aRwDzAhSB7VEPZjY5eCogoBxq6tvf
+         ajzQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8qZlP7jTBHKKu+PhW4wlsS3lT91bPAkNOqKXHQvh/HODykMtNXSRy0gcrhkGSeTxdxZ7zV/6HlBkYj@vger.kernel.org
+X-Gm-Message-State: AOJu0YzbpzivQ1O14q+Wk8084/NU0RLG9vDiGmFCla9LYXDzCJZ1fRp2
+	sHCh8M9CcAquLhieaG2l0QP6MOVwLwju/Qm+emPE6ss9TciIQUiQ5PQ4c1Mm2toYK4fMXm8RWll
+	YilsgJMDCQ4j50sXA38QK/8b9mpDntzI1DexZ27yEdd/VmibkYlExCQwLwGRo4Wop
+X-Gm-Gg: AeBDievnYwGpw6Vq1lxME3/uxMs9akyAZEs2x1fx4JXnJNDDKaHNG76Oo04w9r6yNH1
+	7Z797nxSBwew4pp9NtpFbGcYrbhST9Z/+RdoKznYBIEZvRwiSIzVq6bhaRqQbmdr4WcQWZrf9F2
+	ut5slRNT87l2gjV6ktwbTUf05IYyxnPYgl9w9DhygCQtWndlwbS/x8tuYeHtTPsNXg58STBV0bR
+	mIFBiuV4IvujZf57eQyP37Md3Y+rJKDmmHYDox/54rppwM/Pd5EzOxDI21xXpvtqagjbggybUfD
+	YHZ7dipmnQ/o0jqnp0cpstjKeOz5zRnBr3n5atF68W2gndqlRhmVZLjKrGVYNFj661O2JvyemPB
+	SvQMCqD00/TVuVuEaKVgXAyj7dai+Wgxy6hNy3DfGyErbHETpziMG6b/pApLQp7FVbJkejikKRX
+	sf/kaWdr2C0vU=
+X-Received: by 2002:a05:7022:458d:b0:12b:f616:1a4e with SMTP id a92af1059eb24-12c73fa362emr611229c88.23.1776411237497;
+        Fri, 17 Apr 2026 00:33:57 -0700 (PDT)
+X-Received: by 2002:a05:7022:458d:b0:12b:f616:1a4e with SMTP id a92af1059eb24-12c73fa362emr611211c88.23.1776411236719;
+        Fri, 17 Apr 2026 00:33:56 -0700 (PDT)
 Received: from hu-songchai-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2e53ccd2564sm1135168eec.18.2026.04.17.00.34.04
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2e53ccd2564sm1135168eec.18.2026.04.17.00.33.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Apr 2026 00:34:04 -0700 (PDT)
+        Fri, 17 Apr 2026 00:33:55 -0700 (PDT)
 From: Songwei Chai <songwei.chai@oss.qualcomm.com>
 To: andersson@kernel.org, alexander.shishkin@linux.intel.com,
         mike.leach@linaro.org, konrad.dybcio@oss.qualcomm.com,
@@ -86,35 +84,36 @@ To: andersson@kernel.org, alexander.shishkin@linux.intel.com,
 Cc: Songwei Chai <songwei.chai@oss.qualcomm.com>, linux-kernel@vger.kernel.org,
         linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
         coresight@lists.linaro.org, devicetree@vger.kernel.org,
-        gregkh@linuxfoundation.org, Jie Gan <jie.gan@oss.qualcomm.com>
-Subject: [PATCH v14 4/7] qcom-tgu: Add TGU decode support
-Date: Fri, 17 Apr 2026 00:33:33 -0700
-Message-Id: <20260417073336.2712426-5-songwei.chai@oss.qualcomm.com>
+        gregkh@linuxfoundation.org
+Subject: [PATCH v14 0/7] Provide support for Trigger Generation Unit
+Date: Fri, 17 Apr 2026 00:33:29 -0700
+Message-Id: <20260417073336.2712426-1-songwei.chai@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260417073336.2712426-1-songwei.chai@oss.qualcomm.com>
-References: <20260417073336.2712426-1-songwei.chai@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: FrdWfwuc7nJ7o6fdIl2Uw-rtWFATay0h
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE3MDA3NSBTYWx0ZWRfX/lqFo31gVdHH
- 8t368rQFhYBQzkO6TI3vGhaaCGSYG4CCl2BlvwOoyMo+medMMktxRhdjOEc5a+54Mbqzsn9xU/O
- gxOp4cYrNvFvYPtqNq06MO+lmTOFzr3Yn7wKjmmThqBiZK+G++BrOGYdUvixdNdUYWqDDZWEHvh
- O4HnvZQ8fsAH8hO285Yz+pRdZVGYEcvzYtGBMo3yY8VvcU+u7kyPTr7oJmD45LBA1imk+IURwBT
- zSWwi5a0ZKEu3jUv2P0j9phW/RFPNa24T7Ocex4FYymOS7/HX665G43NcVt16gH8eKw4CVkB1fm
- xswckMgrNofYw1neidpqM0dbV5e44SrlXDQBIFe+m3HsH1ogp/H+dGVw4EzL6kfnK/DnOwpbkT+
- RA4VuBG/cxPTdRsFYVRFXUohmhRatDRIiILeOgiawee+rJMaZmpMOWcV1VrVefojmRWzZedjjSr
- nDX1ydHXaeG8aN9dCxg==
-X-Authority-Analysis: v=2.4 cv=b4mCJNGx c=1 sm=1 tr=0 ts=69e1e2cc cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=p0PFFVR7nGJo5X-0Br8A:9 a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-GUID: FrdWfwuc7nJ7o6fdIl2Uw-rtWFATay0h
+X-Proofpoint-ORIG-GUID: Lz2dpfncHwYTWxx56AxHc7FmlppQt5UV
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE3MDA3NSBTYWx0ZWRfX/NnOqTKPKop4
+ K9p5PDer8L/XKIiXBpJJ56PcWJLiTDjOaI5BS7G5E9206YcY61GTphsftiAZo1mktOJyRE4gzHL
+ 1EoNeAs7br7kfbGBk/o4Ad+TCA3bncIlRjOStMTkc2Oki/5hPnWKfkgJRbPrO5GLTbVQpg7P1bz
+ LDYNCnqJGKf0wM/1aAJOCfp5QKgXyEytXUm+2+msSARW5zSikvmnK1elK/eBNIIY2Wk/HHHGLAI
+ smFgoT19bmQxwfpAQrLx2FTtCp2msGu89mtQKjDLFANaD6xae+pO44Y/hcJBm0gdMe65+z5GFji
+ 280c26a+Q4ChYJr4jHj3C/EhOV4/3G0h2hIKKbtcx+gLyAE5soVEvlUA9UuJRv3Mc5/BLXDfRn/
+ AQ1XhdWy68YqVmB7DKJWZdonZ+QYgUV28/OsX73AxjLorWRthisv7Rvy5dOsAGa2uWcKpl+YkoU
+ SUr3Du8j3FzGFqBriTg==
+X-Authority-Analysis: v=2.4 cv=b4mCJNGx c=1 sm=1 tr=0 ts=69e1e2cf cx=c_pps
+ a=JYo30EpNSr/tUYqK9jHPoA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8
+ a=c-b-Iuaj2I7m8o0bT80A:9 a=0hHQqaPVBmyjKOdT:21 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=Fk4IpSoW4aLDllm1B1p-:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: Lz2dpfncHwYTWxx56AxHc7FmlppQt5UV
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-16_04,2026-04-16_03,2025-10-01_01
@@ -124,392 +123,459 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604170075
 
-Decoding is when all the potential pieces for creating a trigger
-are brought together for a given step. Example - there may be a
-counter keeping track of some occurrences and a priority-group that
-is being used to detect a pattern on the sense inputs. These 2
-inputs to condition_decode must be programmed, for a given step,
-to establish the condition for the trigger, or movement to another
-steps.
+We propose creating a new qcom directory under drivers/hwtracing
+to host this TGU driver, as well as additional Qualcomm-specific
+hwtracing drivers that we plan to submit in the coming months.
+This structure will help organize vendor-specific implementations
+and facilitate future development and maintenance.
 
-Reviewed-by: Jie Gan <jie.gan@oss.qualcomm.com>
-Signed-off-by: Songwei Chai <songwei.chai@oss.qualcomm.com>
+Feedback from the community on this proposal is highly appreciated.
+
+- Why we are proposing this:
+
+TGU has the ability to monitor signal conditions and trigger debug-related
+actions, serving as a programmable hardware component that enhances system
+trace and debug capabilities. Placing it under drivers/hwtracing aligns
+with its function as a trace generation utility.
+
+We previously attempted to push this driver to drivers/hwtracing/coresight,
+but did not receive support from the maintainers of the CoreSight
+subsystem. The reason provided was: “This component is primarily a part
+of the Qualcomm proprietary QPMDA subsystem, and is capable of operating
+independently from the CoreSight hardware trace generation system.”
+
+Chat history : https://lore.kernel.org/all/CAJ9a7ViKxHThyZfFFDV_FkNRimk4uo1NrMtQ-kcaj1qO4ZcGnA@mail.gmail.com/
+
+Given this, we have been considering whether it would be appropriate
+to create a dedicated drivers/hwtracing/qcom directory for
+Qualcomm-related hwtracing drivers. This would follow the precedent set
+by Intel, which maintains its own directory at drivers/hwtracing/intel_th.
+We believe this structure would significantly facilitate
+future submissions of related Qualcomm drivers.
+
+- Maintenance of drivers/hwtracing/qcom:
+
+Bjorn, who maintains linux-arm-msm, will be the maintainer of this
+directory — we’ve discussed this with him and he’s aware that his task
+list may grow accordingly. Additionally, Qualcomm engineers familiar with
+the debug hardware — such as [Tingwei Zhang, Jinlong Mao, Songwei Chai],
+will be available to review incoming patches and support ongoing
+development.
+
+- Detail for TGU:
+
+This component can be utilized to sense a plurality of signals and
+create a trigger into the CTI or generate interrupts to processors
+once the input signal meets the conditions. We can treat the TGU’s
+workflow as a flowsheet, it has some “steps” regions for customization.
+In each step region, we can set the signals that we want with priority
+in priority_group, set the conditions in each step via condition_decode,
+and set the resultant action by condition_select. Meanwhile,
+some TGUs (not all) also provide timer/counter functionality.
+Based on the characteristics described above, we consider the TGU as a
+helper in the CoreSight subsystem. Its master device is the TPDM, which
+can transmit signals from other subsystems, and we reuse the existing
+ports mechanism to link the TPDM to the connected TGU.
+
+Here is a detailed example to explain how to use the TGU:
+
+In this example, the TGU is configured to use 2 conditions, 2 steps, and
+the timer. The goal is to look for one of two patterns which are generated
+from TPDM, giving priority to one, and then generate a trigger once the
+timer reaches a certain value. In other words, two conditions are used
+for the first step to look for the two patterns, where the one with the
+highest priority is used in the first condition. Then, in the second step,
+the timer is enabled and set to be compared to the given value at each
+clock cycle. These steps are better shown below.
+    
+              |-----------------|
+              |                 |
+              |       TPDM      |
+              |                 |
+              |-----------------|
+                       |
+                       |
+    --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ------
+    |                  |                                                 |
+    |                  |                          |--------------------| |
+    |    |---- --->    |                          |  Go to next steps  | |
+    |    |             |                |--- ---> |  Enable timer      | |
+    |    |             v                |         |                    | |
+    |    |    |-----------------|       |         |--------------------| |
+    |    |    |                 |  Yes  |                    |           |
+    |    |    |   inputs==0xB   | ----->|                    | <-------- |
+    |    |    |                 |       |                    |      No | |
+    | No |    |-----------------|       |                    v         | |
+    |    |             |                |          |-----------------| | |
+    |    |             |                |          |                 | | |
+    |    |             |                |          |      timer>=3   |-- |
+    |    |             v                |          |                 |   |
+    |    |    |-----------------|       |          |-----------------|   |
+    |    |    |                 |  Yes  |                    |           |
+    |    |--- |   inputs==0xA   | ----->|                    | Yes       |
+    |         |                 |                            |           |
+    |         |-----------------|                            v           |
+    |                                              |-----------------|   |
+    |                                              |                 |   |
+    |                                              |      Trigger    |   |
+    |                                              |                 |   |
+    |                                              |-----------------|   |
+    |  TGU                                                   |           |
+    |--- --- --- --- --- --- --- --- --- --- --- --- --- --- |--- --- -- |
+                                                             |
+                                                             v
+                                                    |-----------------|
+                                                    |The controllers  |
+                                                    |which will use   |
+                                                    |triggers further |
+                                                    |-----------------|
+
+steps:
+    1. Reset TGU /*it will disable tgu and reset dataset*/
+    - echo 1 > /sys/bus/amba/devices/<tgu-name>/reset_tgu
+
+    2. Set the pattern match for priority0 to 0xA = 0b1010 and for
+       priority 1 to 0xB = 0b1011.
+    - echo 0x11113232 > /sys/bus/amba/devices/<tgu-name>/step0_priority0/reg0
+    - echo 0x11113233 > /sys/bus/amba/devices/<tgu-name>/step0_priority1/reg0
+
+    Note:
+        Bit distribution diagram for each priority register
+    |-------------------------------------------------------------------|
+    |   Bits          |       Field Nam   |    Description              |
+    |-------------------------------------------------------------------|
+    |                 |                   | 00 = bypass for OR output   |
+    |     29:28       |   SEL_BIT7_TYPE2  | 01 = bypass for AND output  |
+    |                 |                   | 10 = sense input '0' is true|
+    |                 |                   | 11 = sense input '1' is true|
+    |-------------------------------------------------------------------|
+    |                 |                   | 00 = bypass for OR output   |
+    |     25:24       |   SEL_BIT6_TYPE2  | 01 = bypass for AND output  |
+    |                 |                   | 10 = sense input '0' is true|
+    |                 |                   | 11 = sense input '1' is true|
+    |-------------------------------------------------------------------|
+    |                 |                   | 00 = bypass for OR output   |
+    |     21:20       |   SEL_BIT5_TYPE2  | 01 = bypass for AND output  |
+    |                 |                   | 10 = sense input '0' is true|
+    |                 |                   | 11 = sense input '1' is true|
+    |-------------------------------------------------------------------|
+    |                 |                   | 00 = bypass for OR output   |
+    |     17:16       |   SEL_BIT4_TYPE2  | 01 = bypass for AND output  |
+    |                 |                   | 10 = sense input '0' is true|
+    |                 |                   | 11 = sense input '1' is true|
+    |-------------------------------------------------------------------|
+    |                 |                   | 00 = bypass for OR output   |
+    |     13:12       |   SEL_BIT3_TYPE2  | 01 = bypass for AND output  |
+    |                 |                   | 10 = sense input '0' is true|
+    |                 |                   | 11 = sense input '1' is true|
+    |-------------------------------------------------------------------|
+    |                 |                   | 00 = bypass for OR output   |
+    |      9:8        |   SEL_BIT2_TYPE2  | 01 = bypass for AND output  |
+    |                 |                   | 10 = sense input '0' is true|
+    |                 |                   | 11 = sense input '1' is true|
+    |-------------------------------------------------------------------|
+    |                 |                   | 00 = bypass for OR output   |
+    |      5:4        |  SEL_BIT1_TYPE2   | 01 = bypass for AND output  |
+    |                 |                   | 10 = sense input '0' is true|
+    |                 |                   | 11 = sense input '1' is true|
+    |-------------------------------------------------------------------|
+    |                 |                   | 00 = bypass for OR output   |
+    |      1:0        |  SEL_BIT0_TYPE2   | 01 = bypass for AND output  |
+    |                 |                   | 10 = sense input '0' is true|
+    |                 |                   | 11 = sense input '1' is true|
+    |-------------------------------------------------------------------|
+    These bits are used to identify the signals we want to sense, with
+    a maximum signal number of 140. For example, to sense the signal
+    0xA (binary 1010), we set the value of bits 0 to 13 to 3232, which
+    represents 1010. The remaining bits are set to 1, as we want to use
+    AND gate to summarize all the signals we want to sense here. For
+    rising or falling edge detection of any input to the priority, set
+    the remaining bits to 0 to use an OR gate.
+
+    3. look for the pattern for priority_i i=0,1.
+    - echo 0x3 > /sys/bus/amba/devices/<tgu-name>/step0_condition_decode/reg0
+    - echo 0x30 > /sys/bus/amba/devices/<tgu-name>/step0_condition_decode/reg1
+
+    |-------------------------------------------------------------------------------|
+    |   Bits          |    Field Nam        |            Description                |
+    |-------------------------------------------------------------------------------|
+    |                 |                     |For each decoded condition, this       |
+    |      24         |       NOT           |inverts the output. If the condition   |
+    |                 |                     |decodes to true, and the NOT field     |
+    |                 |                     |is '1', then the output is NOT true.   |
+    |-------------------------------------------------------------------------------|
+    |                 |                     |When '1' the output from the associated|
+    |      21         |  BC0_COMP_ACTIVE    |comparator will be actively included in|
+    |                 |                     |the decoding of this particular        |
+    |                 |                     |condition.                             |
+    |-------------------------------------------------------------------------------|
+    |                 |                     |When '1' the output from the associated|
+    |                 |                     |comparator will need to be 1 to affect |
+    |      20         |   BC0_COMP_HIGH     |the decoding of this condition.        |
+    |                 |                     |Conversely, a '0' here requires a '0'  |
+    |                 |                     |from the comparator                    |
+    |-------------------------------------------------------------------------------|
+    |                 |                     |When '1' the output from the associated|
+    |      17         |                     |comparator will be actively included in|
+    |                 |  TC0_COMP_ACTIVE    |the decoding of this particular        |
+    |                 |                     |condition.                             |
+    |-------------------------------------------------------------------------------|
+    |                 |                     |When '1' the output from the associated|
+    |                 |                     |comparator will need to be 1 to affect |
+    |      16         |  TC0_COMP_HIGH      |the decoding of this particular        |
+    |                 |                     |condition.Conversely, a 0 here         |
+    |                 |                     |requires a '0' from the comparator     |
+    |-------------------------------------------------------------------------------|
+    |                 |                     |When '1' the output from Priority_n    |
+    |                 |                     |OR logic will be actively              |
+    |     4n+3        | Priority_n_OR_ACTIVE|included in the decoding of            |
+    |                 |    (n=0,1,2,3)      |this particular condition.             |
+    |                 |                     |                                       |
+    |-------------------------------------------------------------------------------|
+    |                 |                     |When '1' the output from Priority_n    |
+    |                 |                     |will need to be '1' to affect the      |
+    |     4n+2        |  Priority_n_OR_HIGH |decoding of this particular            |
+    |                 |    (n=0,1,2,3)      |condition. Conversely, a '0' here      |
+    |                 |                     |requires a '0' from Priority_n OR logic|
+    |-------------------------------------------------------------------------------|
+    |                 |                     |When '1' the output from Priority_n    |
+    |                 |                     |AND logic will be actively             |
+    |     4n+1        |Priority_n_AND_ACTIVE|included in the decoding of this       |
+    |                 |  (n=0,1,2,3)        |particular condition.                  |
+    |                 |                     |                                       |
+    |-------------------------------------------------------------------------------|
+    |                 |                     |When '1' the output from Priority_n    |
+    |                 |                     |AND logic will need to be '1' to       |
+    |      4n         | Priority_n_AND_HIGH |affect the decoding of this            |
+    |                 |   (n=0,1,2,3)       |particular condition. Conversely,      |
+    |                 |                     |a '0' here requires a '0' from         |
+    |                 |                     |Priority_n AND logic.                  |
+    |-------------------------------------------------------------------------------|
+    Since we use `priority_0` and `priority_1` with an AND output in step 2, we set `0x3`
+    and `0x30` here to activate them.
+
+    4. Set NEXT_STEP = 1 and TC0_ENABLE = 1 so that when the conditions
+       are met then the next step will be step 1 and the timer will be enabled.
+    - echo 0x20008 > /sys/bus/amba/devices/<tgu-name>/step0_condition_select/reg0
+    - echo 0x20008 > /sys/bus/amba/devices/<tgu-name>/step0_condition_select/reg1
+
+    |-----------------------------------------------------------------------------|
+    |   Bits          |       Field Nam   |            Description                |
+    |-----------------------------------------------------------------------------|
+    |                 |                   |This field defines the next step the   |
+    |    18:17        |     NEXT_STEP     |TGU will 'goto' for the associated     |
+    |                 |                   |Condition and Step.                    |
+    |-----------------------------------------------------------------------------|
+    |                 |                   |For each possible output trigger       |
+    |    13           |     TRIGGER       |available, set a '1' if you want       |
+    |                 |                   |the trigger to go active for the       |
+    |                 |                   |associated condition and Step.         |
+    |-----------------------------------------------------------------------------|
+    |                 |                   |This will cause BC0 to increment if the|
+    |    9            |     BC0_INC       |associated Condition is decoded for    |
+    |                 |                   |this step.                             |
+    |-----------------------------------------------------------------------------|
+    |                 |                   |This will cause BC0 to decrement if the|
+    |    8            |     BC0_DEC       |associated Condition is decoded for    |
+    |                 |                   |this step.                             |
+    |-----------------------------------------------------------------------------|
+    |                 |                   |This will clear BC0 count value to 0 if|
+    |    7            |     BC0_CLEAR     |the associated Condition is decoded    |
+    |                 |                   |for this step.                         |
+    |-----------------------------------------------------------------------------|
+    |                 |                   |This will cause TC0 to increment until |
+    |    3            |     TC0_ENABLE    |paused or cleared if the associated    |
+    |                 |                   |Condition is decoded for this step.    |
+    |-----------------------------------------------------------------------------|
+    |                 |                   |This will cause TC0 to pause until     |
+    |    2            |     TC0_PAUSE     |enabled if the associated Condition    |
+    |                 |                   |is decoded for this step.              |
+    |-----------------------------------------------------------------------------|
+    |                 |                   |This will clear TC0 count value to 0   |
+    |    1            |     TC0_CLEAR     |if the associated Condition is         |
+    |                 |                   |decoded for this step.                 |
+    |-----------------------------------------------------------------------------|
+    |                 |                   |This will set the done signal to the   |
+    |    0            |     DONE          |TGU FSM if the associated Condition    |
+    |                 |                   |is decoded for this step.              |
+    |-----------------------------------------------------------------------------|
+    Based on the distribution diagram, we set `0x20008` for `priority0` and `priority1` to
+    achieve "jump to step 1 and enable TC0" once the signal is sensed.
+
+    5. activate the timer comparison for this step.
+    -  echo 0x30000  > /sys/bus/amba/devices/<tgu-name>/step1_condition_decode/reg0
+
+    |-------------------------------------------------------------------------------|
+    |                 |                     |When '1' the output from the associated|
+    |      17         |                     |comparator will be actively included in|
+    |                 |  TC0_COMP_ACTIVE    |the decoding of this particular        |
+    |                 |                     |condition.                             |
+    |-------------------------------------------------------------------------------|
+    |                 |                     |When '1' the output from the associated|
+    |                 |                     |comparator will need to be 1 to affect |
+    |      16         |  TC0_COMP_HIGH      |the decoding of this particular        |
+    |                 |                     |condition.Conversely, a 0 here         |
+    |                 |                     |requires a '0' from the comparator     |
+    |-------------------------------------------------------------------------------|
+    Accroding to the decode distribution diagram , we give 0x30000 here to set 16th&17th bit
+    to enable timer comparison.
+
+    6. Set the NEXT_STEP = 0 and TC0_PAUSE = 1 and TC0_CLEAR = 1 once the timer
+       has reached the given value.
+    - echo 0x6 > /sys/bus/amba/devices/<tgu-name>/step1_condition_select/reg0
+
+    7. Enable Trigger 0 for TGU when the condition 0 is met in step1,
+       i.e. when the timer reaches 3.
+    - echo 0x2000 > /sys/bus/amba/devices/<tgu-name>/step1_condition_select/default
+
+    Note:
+        1. 'default' register allows for establishing the resultant action for
+        the default condition
+
+        2. Trigger:For each possible output trigger available from
+        the Design document, there are three triggers: interrupts, CTI,
+        and Cross-TGU mapping.All three triggers can occur, but
+        the choice of which trigger to use depends on the user's
+        needs.
+
+    8. Compare the timer to 3 in step 1.
+    - echo 0x3 > /sys/bus/amba/devices/<tgu-name>/step1_timer/reg0
+
+    9. enale tgu
+    - echo 1 > /sys/bus/amba/devices/<tgu-name>/enable_tgu
 ---
- .../ABI/testing/sysfs-bus-amba-devices-tgu    |   7 +
- drivers/hwtracing/qcom/tgu.c                  | 157 +++++++++++++++---
- drivers/hwtracing/qcom/tgu.h                  |  27 +++
- 3 files changed, 170 insertions(+), 21 deletions(-)
+Link to V13: https://lore.kernel.org/all/20260402092838.341295-1-songwei.chai@oss.qualcomm.com/
 
-diff --git a/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu b/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
-index 223873789ca6..4ef0d696d3d0 100644
---- a/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
-+++ b/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
-@@ -14,3 +14,10 @@ KernelVersion:	7.1
- Contact:	Jinlong Mao <jinlong.mao@oss.qualcomm.com>, Songwei Chai <songwei.chai@oss.qualcomm.com>
- Description:
- 		(RW) Set/Get the sensed signal with specific step and priority for TGU.
-+
-+What:		/sys/bus/amba/devices/<tgu-name>/step[0:7]_condition_decode/reg[0:3]
-+Date:		April 2026
-+KernelVersion:	7.1
-+Contact:	Jinlong Mao <jinlong.mao@oss.qualcomm.com>, Songwei Chai <songwei.chai@oss.qualcomm.com>
-+Description:
-+		(RW) Set/Get the decode mode with specific step for TGU.
-diff --git a/drivers/hwtracing/qcom/tgu.c b/drivers/hwtracing/qcom/tgu.c
-index 7d69986c3e3d..937211923d93 100644
---- a/drivers/hwtracing/qcom/tgu.c
-+++ b/drivers/hwtracing/qcom/tgu.c
-@@ -18,8 +18,33 @@ static int calculate_array_location(struct tgu_drvdata *drvdata,
- 				    int step_index, int operation_index,
- 				    int reg_index)
- {
--	return operation_index * (drvdata->num_step) * (drvdata->num_reg) +
--		step_index * (drvdata->num_reg) + reg_index;
-+	switch (operation_index) {
-+	case TGU_PRIORITY0:
-+	case TGU_PRIORITY1:
-+	case TGU_PRIORITY2:
-+	case TGU_PRIORITY3:
-+		return operation_index * (drvdata->num_step) *
-+			(drvdata->num_reg) +
-+			step_index * (drvdata->num_reg) + reg_index;
-+	case TGU_CONDITION_DECODE:
-+		return step_index * (drvdata->num_condition_decode) +
-+			reg_index;
-+	default:
-+		break;
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static int check_array_location(struct tgu_drvdata *drvdata, int step,
-+				int ops, int reg)
-+{
-+	int result = calculate_array_location(drvdata, step, ops, reg);
-+
-+	if (result == -EINVAL)
-+		dev_err(drvdata->dev, "check array location - Fail\n");
-+
-+	return result;
- }
- 
- static ssize_t tgu_dataset_show(struct device *dev,
-@@ -30,12 +55,26 @@ static ssize_t tgu_dataset_show(struct device *dev,
- 			container_of(attr, struct tgu_attribute, attr);
- 	int index;
- 
--	index = calculate_array_location(drvdata, tgu_attr->step_index,
--					 tgu_attr->operation_index,
--					 tgu_attr->reg_num);
--
--	return sysfs_emit(buf, "0x%x\n",
--			  drvdata->value_table->priority[index]);
-+	index = check_array_location(drvdata, tgu_attr->step_index,
-+			tgu_attr->operation_index, tgu_attr->reg_num);
-+
-+	if (index == -EINVAL)
-+		return index;
-+
-+	switch (tgu_attr->operation_index) {
-+	case TGU_PRIORITY0:
-+	case TGU_PRIORITY1:
-+	case TGU_PRIORITY2:
-+	case TGU_PRIORITY3:
-+		return sysfs_emit(buf, "0x%x\n",
-+				drvdata->value_table->priority[index]);
-+	case TGU_CONDITION_DECODE:
-+		return sysfs_emit(buf, "0x%x\n",
-+				drvdata->value_table->condition_decode[index]);
-+	default:
-+		break;
-+	}
-+	return -EINVAL;
- }
- 
- static ssize_t tgu_dataset_store(struct device *dev,
-@@ -54,13 +93,31 @@ static ssize_t tgu_dataset_store(struct device *dev,
- 		return ret;
- 
- 	guard(spinlock)(&tgu_drvdata->lock);
--	index = calculate_array_location(tgu_drvdata, tgu_attr->step_index,
-+	index = check_array_location(tgu_drvdata, tgu_attr->step_index,
- 					 tgu_attr->operation_index,
- 					 tgu_attr->reg_num);
- 
--	tgu_drvdata->value_table->priority[index] = val;
-+	if (index == -EINVAL)
-+		return index;
-+
-+	switch (tgu_attr->operation_index) {
-+	case TGU_PRIORITY0:
-+	case TGU_PRIORITY1:
-+	case TGU_PRIORITY2:
-+	case TGU_PRIORITY3:
-+		tgu_drvdata->value_table->priority[index] = val;
-+		ret = size;
-+		break;
-+	case TGU_CONDITION_DECODE:
-+		tgu_drvdata->value_table->condition_decode[index] = val;
-+		ret = size;
-+		break;
-+	default:
-+		ret = -EINVAL;
-+		break;
-+	}
- 
--	return size;
-+	return ret;
- }
- 
- static umode_t tgu_node_visible(struct kobject *kobject,
-@@ -77,13 +134,26 @@ static umode_t tgu_node_visible(struct kobject *kobject,
- 	if (tgu_attr->step_index >= drvdata->num_step)
- 		return SYSFS_GROUP_INVISIBLE;
- 
--	if (tgu_attr->reg_num >= drvdata->num_reg)
--		return 0;
-+	switch (tgu_attr->operation_index) {
-+	case TGU_PRIORITY0:
-+	case TGU_PRIORITY1:
-+	case TGU_PRIORITY2:
-+	case TGU_PRIORITY3:
-+		if (tgu_attr->reg_num < drvdata->num_reg)
-+			return attr->mode;
-+		break;
-+	case TGU_CONDITION_DECODE:
-+		if (tgu_attr->reg_num < drvdata->num_condition_decode)
-+			return attr->mode;
-+		break;
-+	default:
-+		break;
-+	}
- 
--	return attr->mode;
-+	return 0;
- }
- 
--static void tgu_write_all_hw_regs(struct tgu_drvdata *drvdata)
-+static ssize_t tgu_write_all_hw_regs(struct tgu_drvdata *drvdata)
- {
- 	int i, j, k, index;
- 
-@@ -91,8 +161,10 @@ static void tgu_write_all_hw_regs(struct tgu_drvdata *drvdata)
- 	for (i = 0; i < drvdata->num_step; i++) {
- 		for (j = 0; j < MAX_PRIORITY; j++) {
- 			for (k = 0; k < drvdata->num_reg; k++) {
--				index = calculate_array_location(
-+				index = check_array_location(
- 							drvdata, i, j, k);
-+				if (index == -EINVAL)
-+					goto exit;
- 
- 				writel(drvdata->value_table->priority[index],
- 					drvdata->base +
-@@ -100,9 +172,23 @@ static void tgu_write_all_hw_regs(struct tgu_drvdata *drvdata)
- 			}
- 		}
- 	}
-+
-+	for (i = 0; i < drvdata->num_step; i++) {
-+		for (j = 0; j < drvdata->num_condition_decode; j++) {
-+			index = check_array_location(drvdata, i,
-+						TGU_CONDITION_DECODE, j);
-+			if (index == -EINVAL)
-+				goto exit;
-+
-+			writel(drvdata->value_table->condition_decode[index],
-+				drvdata->base + CONDITION_DECODE_STEP(i, j));
-+		}
-+	}
- 	/* Enable TGU to program the triggers */
- 	writel(1, drvdata->base + TGU_CONTROL);
-+exit:
- 	TGU_LOCK(drvdata->base);
-+	return index >= 0 ? 0 : -EINVAL;
- }
- 
- static void tgu_set_reg_number(struct tgu_drvdata *drvdata)
-@@ -131,16 +217,26 @@ static void tgu_set_steps(struct tgu_drvdata *drvdata)
- 	drvdata->num_step = TGU_DEVID_STEPS(devid);
- }
- 
-+static void tgu_set_conditions(struct tgu_drvdata *drvdata)
-+{
-+	u32 devid;
-+
-+	devid = readl(drvdata->base + TGU_DEVID);
-+	drvdata->num_condition_decode = TGU_DEVID_CONDITIONS(devid);
-+}
-+
- static int tgu_enable(struct device *dev)
- {
- 	struct tgu_drvdata *drvdata = dev_get_drvdata(dev);
-+	int ret;
- 
- 	guard(spinlock)(&drvdata->lock);
--	drvdata->enabled = true;
- 
--	tgu_write_all_hw_regs(drvdata);
-+	ret = tgu_write_all_hw_regs(drvdata);
-+	if (!ret)
-+		drvdata->enabled = true;
- 
--	return 0;
-+	return ret;
- }
- 
- static void tgu_do_disable(struct tgu_drvdata *drvdata)
-@@ -262,6 +358,14 @@ static const struct attribute_group *tgu_attr_groups[] = {
- 	PRIORITY_ATTRIBUTE_GROUP_INIT(7, 1),
- 	PRIORITY_ATTRIBUTE_GROUP_INIT(7, 2),
- 	PRIORITY_ATTRIBUTE_GROUP_INIT(7, 3),
-+	CONDITION_DECODE_ATTRIBUTE_GROUP_INIT(0),
-+	CONDITION_DECODE_ATTRIBUTE_GROUP_INIT(1),
-+	CONDITION_DECODE_ATTRIBUTE_GROUP_INIT(2),
-+	CONDITION_DECODE_ATTRIBUTE_GROUP_INIT(3),
-+	CONDITION_DECODE_ATTRIBUTE_GROUP_INIT(4),
-+	CONDITION_DECODE_ATTRIBUTE_GROUP_INIT(5),
-+	CONDITION_DECODE_ATTRIBUTE_GROUP_INIT(6),
-+	CONDITION_DECODE_ATTRIBUTE_GROUP_INIT(7),
- 	NULL,
- };
- 
-@@ -269,8 +373,8 @@ static int tgu_probe(struct amba_device *adev, const struct amba_id *id)
- {
- 	struct device *dev = &adev->dev;
- 	struct tgu_drvdata *drvdata;
--	unsigned int *priority;
--	size_t priority_size;
-+	unsigned int *priority, *condition;
-+	size_t priority_size, condition_size;
- 	int ret;
- 
- 	drvdata = devm_kzalloc(dev, sizeof(*drvdata), GFP_KERNEL);
-@@ -288,6 +392,7 @@ static int tgu_probe(struct amba_device *adev, const struct amba_id *id)
- 
- 	tgu_set_reg_number(drvdata);
- 	tgu_set_steps(drvdata);
-+	tgu_set_conditions(drvdata);
- 
- 	ret = sysfs_create_groups(&dev->kobj, tgu_attr_groups);
- 	if (ret) {
-@@ -310,6 +415,16 @@ static int tgu_probe(struct amba_device *adev, const struct amba_id *id)
- 
- 	drvdata->value_table->priority = priority;
- 
-+	condition_size = drvdata->num_condition_decode * drvdata->num_step;
-+
-+	condition = devm_kcalloc(dev, condition_size,
-+				sizeof(*(drvdata->value_table->condition_decode)),
-+				GFP_KERNEL);
-+	if (!condition)
-+		return -ENOMEM;
-+
-+	drvdata->value_table->condition_decode = condition;
-+
- 	drvdata->enabled = false;
- 
- 	pm_runtime_put(&adev->dev);
-diff --git a/drivers/hwtracing/qcom/tgu.h b/drivers/hwtracing/qcom/tgu.h
-index f994d83acb1d..56e4161a8bc2 100644
---- a/drivers/hwtracing/qcom/tgu.h
-+++ b/drivers/hwtracing/qcom/tgu.h
-@@ -16,6 +16,8 @@
- 	((int)FIELD_GET(GENMASK(17, 10), devid_val))
- #define TGU_DEVID_STEPS(devid_val) \
- 	((int)FIELD_GET(GENMASK(6, 3), devid_val))
-+#define TGU_DEVID_CONDITIONS(devid_val) \
-+	((int)FIELD_GET(GENMASK(2, 0), devid_val))
- #define TGU_BITS_PER_SIGNAL 4
- #define LENGTH_REGISTER 32
- 
-@@ -49,6 +51,7 @@
-  */
- #define STEP_OFFSET 0x1D8
- #define PRIORITY_START_OFFSET 0x0074
-+#define CONDITION_DECODE_OFFSET 0x0050
- #define PRIORITY_OFFSET 0x60
- #define REG_OFFSET 0x4
- 
-@@ -57,6 +60,9 @@
- 	(PRIORITY_START_OFFSET + PRIORITY_OFFSET * priority +\
- 	 REG_OFFSET * reg + STEP_OFFSET * step)
- 
-+#define CONDITION_DECODE_STEP(step, decode) \
-+	(CONDITION_DECODE_OFFSET + REG_OFFSET * decode + STEP_OFFSET * step)
-+
- #define tgu_dataset_rw(name, step_index, type, reg_num)                  \
- 	(&((struct tgu_attribute[]){ {                                   \
- 		__ATTR(name, 0644, tgu_dataset_show, tgu_dataset_store), \
-@@ -68,6 +74,8 @@
- #define STEP_PRIORITY(step_index, reg_num, priority)                     \
- 	tgu_dataset_rw(reg##reg_num, step_index, TGU_PRIORITY##priority, \
- 			reg_num)
-+#define STEP_DECODE(step_index, reg_num) \
-+	tgu_dataset_rw(reg##reg_num, step_index, TGU_CONDITION_DECODE, reg_num)
- 
- #define STEP_PRIORITY_LIST(step_index, priority) \
- 	{STEP_PRIORITY(step_index, 0, priority), \
-@@ -91,6 +99,14 @@
- 	 NULL                   \
- 	}
- 
-+#define STEP_DECODE_LIST(n) \
-+	{STEP_DECODE(n, 0), \
-+	 STEP_DECODE(n, 1), \
-+	 STEP_DECODE(n, 2), \
-+	 STEP_DECODE(n, 3), \
-+	 NULL               \
-+	}
-+
- #define PRIORITY_ATTRIBUTE_GROUP_INIT(step, priority)\
- 	(&(const struct attribute_group){\
- 		.attrs = (struct attribute*[])STEP_PRIORITY_LIST(step, priority),\
-@@ -98,11 +114,19 @@
- 		.name = "step" #step "_priority" #priority \
- 	})
- 
-+#define CONDITION_DECODE_ATTRIBUTE_GROUP_INIT(step)\
-+	(&(const struct attribute_group){\
-+		.attrs = (struct attribute*[])STEP_DECODE_LIST(step),\
-+		.is_visible = tgu_node_visible,\
-+		.name = "step" #step "_condition_decode" \
-+	})
-+
- enum operation_index {
- 	TGU_PRIORITY0,
- 	TGU_PRIORITY1,
- 	TGU_PRIORITY2,
- 	TGU_PRIORITY3,
-+	TGU_CONDITION_DECODE,
- };
- 
- /* Maximum priority that TGU supports */
-@@ -117,6 +141,7 @@ struct tgu_attribute {
- 
- struct value_table {
- 	unsigned int *priority;
-+	unsigned int *condition_decode;
- };
- 
- static inline void TGU_LOCK(void __iomem *addr)
-@@ -146,6 +171,7 @@ static inline void TGU_UNLOCK(void __iomem *addr)
-  * @value_table: Store given value based on relevant parameters
-  * @num_reg: Maximum number of registers
-  * @num_step: Maximum step size
-+ * @num_condition_decode: Maximum number of condition_decode
-  *
-  * This structure defines the data associated with a TGU device,
-  * including its base address, device pointers, clock, spinlock for
-@@ -160,6 +186,7 @@ struct tgu_drvdata {
- 	struct value_table *value_table;
- 	int num_reg;
- 	int num_step;
-+	int num_condition_decode;
- };
- 
- #endif
+Changes in V14:
+- Fix some typos and formatting.
+---
+Link to V12: https://lore.kernel.org/all/20260317032639.2393221-1-songwei.chai@oss.qualcomm.com/
+
+Changes in V13:
+- add ":" after "KernelVersion"
+- add an enablement check in the enable function to avoid increasing the counter each time
+---
+Link to V11: https://lore.kernel.org/all/ee1ca8e6-8e5f-47d8-8a24-f904ee2fc6d0@oss.qualcomm.com/
+
+Changes in V12:
+- Remove the in-ports property from the bindings, as this device is decoupled from CoreSight.
+- Update kernel version and date.
+---
+Link to V10: https://lore.kernel.org/all/20c5406d-3e9f-4fdb-84ba-4cbe629c79b5@oss.qualcomm.com/
+
+Changes in V11:
+- Change the names of members in drvdata: max_xxx -> num_xxx, enable -> enabled
+- Use "FIELD_GET" to replace "BMVAL"
+- Use devm_kcalloc to replace devm_kzalloc once create members of value_table
+- Keep a consistent \n above return
+- Keep reverse-Christmas-tree style
+- Add checks so that the enable and reset nodes only accept 0 or 1
+---
+Link to V9: https://lore.kernel.org/all/20251219065902.2296896-1-songwei.chai@oss.qualcomm.com/
+
+Changes in V10:
+- Modified code formatting based on Jie's feedback to improve readability.
+- Applied inverse Christmas tree order to the variables.
+---
+Link to V8: https://lore.kernel.org/all/20251203090055.2432719-1-songwei.chai@oss.qualcomm.com/
+
+Changes in V9:
+- Decoupled the tgu driver from coresight header file and registered it as an amba device.
+- Retained Rob's reviewed-by tag on patch1/7 since the file remains unchanged.
+- Updated the sysfs node path in the Documentation directory.
+---
+Link to V7: https://lore.kernel.org/all/20251104064043.88972-1-songwei.chai@oss.qualcomm.com/
+
+Changes in V8:
+- Add "select" section in bindings.
+- Update publish date in "sysfs-bus-coresight-devices-tgu".
+---
+Link to V6: https://lore.kernel.org/all/20250709104114.22240-1-songchai@qti.qualcomm.com/
+
+Changes in V7:
+- Move the TGU code location from 'drivers/hwtracing/coresight/' to 'drivers/hwtracing/qcom/'.
+- Rename the spinlock used in the code from 'spinlock' to 'lock'.
+- Perform the 'calculate_array_location' separately, instead of doing it within the function.
+- Update the sender email address.
+---
+Link to V5: https://lore.kernel.org/all/20250529081949.26493-1-quic_songchai@quicinc.com/
+
+Changes in V6:
+- Replace spinlock with guard(spinlock) in tgu_enable.
+- Remove redundant blank line.
+- Update publish date and contact member's name in "sysfs-bus-coresight-devices-tgu".
+---
+Link to V4: https://patchwork.kernel.org/project/linux-arm-msm/cover/20250423101054.954066-1-quic_songchai@quicinc.com/
+
+Changes in V5:
+- Update publish date and kernel_version in "sysfs-bus-coresight-devices-tgu"
+---
+Link to V3: https://lore.kernel.org/all/20250227092640.2666894-1-quic_songchai@quicinc.com/
+
+Changes in V4:
+- Add changlog in coverletter.
+- Correct 'year' in Copyright in patch1.
+- Correct port mechansim description in patch1.
+- Remove 'tgu-steps','tgu-regs','tgu-conditions','tgu-timer-counters' from dt-binding
+and set them through reading DEVID register as per Mike's suggestion.
+- Modify tgu_disable func to make it have single return point in patch2 as per
+Mike's suggestion.
+- Use sysfs_emit in enable_tgu_show func in ptach2.
+- Remove redundant judgement in enable_tgu_store in patch2.
+- Correct typo in description in patch3.
+- Set default ret as SYSFS_GROUP_INVISIBLE, and returnret at end in pacth3 as
+per Mike's suggestion.
+- Remove tgu_dataset_ro definition in patch3
+- Use #define constants with explanations of what they are rather than
+arbitrary magic numbers in patch3 and patch4.
+- Check -EINVAL before using 'calculate_array_location()' in array in patch4.
+- Add 'default' in 'tgu_dataset_show''s switch part in patch4.
+- Document the value needed to initiate the reset in pacth7.
+- Check "value" in 'reset_tgu_store' and bail out with an error code if 0 in patch7.
+- Remove dev_dbg in 'reset_tgu_store' in patch7.
+---
+Link to V2: https://lore.kernel.org/all/20241010073917.16023-1-quic_songchai@quicinc.com/
+
+Changes in V3:
+- Correct typo and format in dt-binding in patch1
+- Rebase to the latest kernel version
+---
+Link to V1: https://lore.kernel.org/all/20240830092311.14400-1-quic_songchai@quicinc.com/
+
+Changes in V2:
+ - Use real name instead of login name,
+ - Correct typo and format in dt-binding and code.
+ - Bring order in tgu_prob(declarations with and without assignments) as per
+Krzysztof's suggestion.
+ - Add module device table in patch2.
+ - Set const for tgu_common_grp and tgu_ids in patch2.
+ - Initialize 'data' in tgu_ids to fix the warning in pacth2.
+---
+Songwei Chai (7):
+  dt-bindings: arm: Add support for Qualcomm TGU trace
+  qcom-tgu: Add TGU driver
+  qcom-tgu: Add signal priority support
+  qcom-tgu: Add TGU decode support
+  qcom-tgu: Add support to configure next action
+  qcom-tgu: Add timer/counter functionality for TGU
+  qcom-tgu: Add reset node to initialize
+
+ .../ABI/testing/sysfs-bus-amba-devices-tgu    |  51 ++
+ .../devicetree/bindings/arm/qcom,tgu.yaml     |  71 ++
+ drivers/Makefile                              |   1 +
+ drivers/hwtracing/Kconfig                     |   2 +
+ drivers/hwtracing/qcom/Kconfig                |  20 +
+ drivers/hwtracing/qcom/Makefile               |   3 +
+ drivers/hwtracing/qcom/tgu.c                  | 704 ++++++++++++++++++
+ drivers/hwtracing/qcom/tgu.h                  | 275 +++++++
+ 8 files changed, 1127 insertions(+)
+ create mode 100644 Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
+ create mode 100644 Documentation/devicetree/bindings/arm/qcom,tgu.yaml
+ create mode 100644 drivers/hwtracing/qcom/Kconfig
+ create mode 100644 drivers/hwtracing/qcom/Makefile
+ create mode 100644 drivers/hwtracing/qcom/tgu.c
+ create mode 100644 drivers/hwtracing/qcom/tgu.h
+
 -- 
 2.34.1
 
