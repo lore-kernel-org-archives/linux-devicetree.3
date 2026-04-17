@@ -1,224 +1,196 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBEA33B2FFF;
-	Fri, 17 Apr 2026 09:39:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB2C8377559;
+	Fri, 17 Apr 2026 09:42:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776418762; cv=none; b=iAEEbjVylkGhInOMfYxOUgUH8kKqxRFAdkmj1A5cyLvsS9EXqsoAL4TT6C8wnfPoDMzrJB8P+jsWFxmk90VwiwETTRj7lZDBhGIqh+c7ED0kk5gakUaPseB7y2JZTewp2iq0wpHM9G4YgLyjG4SlsVsnI0EONw6qaMDxKPv5Yfk=
+	t=1776418929; cv=none; b=uPjtWoJVmn2JqXkZtLRXCfdGnDCpV2ZH0mot5+oe740gmL2kIXitrugSR30A15gdwEXk+Dl8pp4VYJ9o0IJwJpCbrPphY47hWnzINqs7+564rfgeHe1c+SQe+sL0mRv/CDS4KQAQni+eqyMEvrvuWIRNwdlCB7E7hC5V9fZtA/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776418762; c=relaxed/simple;
-	bh=wCAyYw14gLqGk8eaZxY5cWKcSIjWak/HrsGDFgcEs9c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CaSiE48oSkAhR5b73hx+8RZJVpUdNs/qFsBmatW7RKKR/zFx6JnNPyobktN8SuNKLjIzYer5c8Kttq6YXsaW1gUpHCUZM+ygABBb/nx1iSHECtduUQifF4hm0EZ4nkopGMgvhfGK6C9n0Rf1R4ORliguEJWAcGm6G4yOzCBwnOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CldFIFJQ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776418929; c=relaxed/simple;
+	bh=Z+mCdJrRxlOygbeRflRlN+EWtIiksemWgAkWykezN28=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hJXh8y9I6Ts9kdhrFBpnxSSnLqvNOm+Vdn6pd6NZ3cwLEBPm3aJ3uXU/BglX1rGcU63AeweDPExwiV1p7AMLsagF1RxU5VlJguFXMgBxhjsPZ+9+djPO9YCgYID+oKlMFEJCsr1go0JJ/2E+WTOsgRSvUjBpIwSBK5Tbk4lTnQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qcy6qSzp; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CldFIFJQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDCEAC19425;
-	Fri, 17 Apr 2026 09:39:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qcy6qSzp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46CAFC19425;
+	Fri, 17 Apr 2026 09:42:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776418761;
-	bh=wCAyYw14gLqGk8eaZxY5cWKcSIjWak/HrsGDFgcEs9c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=CldFIFJQbf4GHzJIbW+s2Dm0aAi1zKinaItqUnqXKgMOxVt77mKQZ45uqHGJNrc+3
-	 qFe8k37IZ0+b0nF6bNWvKeEzayfBhhe1HLvlICTaKPVSrsbk0ApdXegXc0YDL53Scw
-	 AyaOE/x5K289iLDy5SDMnp9/8Fjlqs2ANtFSko+V8p+8qfn7ZFuG/ZYp5sHIdkAI0l
-	 N90MuUrdjsKbK859/9x2av2nNfOuaeboSqe9eCPS4r3VW1Hj2HuFUNC9OL33CqcLEB
-	 FV+Xg/3mafuSK2QQbI8GHWcdLyixmf5PX8UK+b5+FM6SmFQfAcUTlle2ldJNmanz9O
-	 ZSNW18hU6ztug==
-Date: Fri, 17 Apr 2026 11:39:19 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Harpreet Saini <sainiharpreet29@yahoo.com>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, David Lechner <david@lechnology.com>, devicetree@vger.kernel.org, 
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] input: misc: Add PixArt PAJ7620 gesture sensor
- driver
-Message-ID: <20260417-gleaming-flawless-hound-e65def@quoll>
-References: <20260417052527.62535-1-sainiharpreet29@yahoo.com>
- <20260417052527.62535-3-sainiharpreet29@yahoo.com>
+	s=k20201202; t=1776418929;
+	bh=Z+mCdJrRxlOygbeRflRlN+EWtIiksemWgAkWykezN28=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=qcy6qSzpio0ZARGG+IDS+drz0YpoiaDhRqvlyxBtanEX49n/t9i5TQfurLy7RmUwR
+	 GxLIdw8EosKbLR+HDoNi6Yks0O1Mb2yZ9yLJk9bl3nJSBKXy3pwi6pI+34dS4uToWj
+	 cLqtBXUPMALZOYjmyzzmQTzeP9sIs52vkfRR223nVmkYY9qjrkGNL1AiBHfzIiRJ+7
+	 S8/onPmoccSOhigrqRMfMdOfPm0HhF+U2WpLZ2WaP/AOFUVe6IhoJRM3l+Be1eZcoh
+	 VRXiMlbD10Id5ADCNGdpUuV0wkHNzKuEEFRlG3Ha81IGI+R+PjZWoDd9N8h2vGUZmt
+	 gllmcveSTSr8w==
+Message-ID: <b6600312-3667-472b-9b76-c9977355115a@kernel.org>
+Date: Fri, 17 Apr 2026 11:42:05 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260417052527.62535-3-sainiharpreet29@yahoo.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] arm64: dts: qcom: qcs6490-rb3gen2: Add WCD headset
+ playback and record for qcs6490-rb3gen2 industrial mezzanine
+To: Karthik S <karthik.s@qss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260417093327.3251203-1-karthik.s@qss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
+ QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
+ +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
+ ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
+ 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
+ hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
+ tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
+ 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
+ naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
+ hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
+ whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
+ Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
+ MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
+ OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
+ GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
+ 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
+ YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
+ 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
+ BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
+ JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
+ 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
+ YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
+ qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
+ RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
+ Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
+ H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
+ dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
+ AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
+ jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
+ zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
+ XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
+In-Reply-To: <20260417093327.3251203-1-karthik.s@qss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Apr 17, 2026 at 01:25:27AM -0400, Harpreet Saini wrote:
-> +
-> +static int paj7620_init(struct paj7620_data *data)
-> +{
-> +	int state = 0, ret, i;
-> +
-> +	/* 1. Wake-up sequence: Read register 0x00 until it returns 0x20 */
-> +	for (i = 0; i < 10; i++) {
-> +		ret = regmap_read(data->regmap, 0x00, &state);
-> +		if (ret >= 0 && state == 0x20)
-> +			break;
-> +		usleep_range(1000, 2000);
-> +	}
-> +
-> +	if (state != 0x20) {
-> +		dev_err(&data->client->dev, "Sensor wake-up failed (0x%02x)\n", state);
-> +		return -ENODEV;
-> +	}
-> +
-> +	/* 2. Blast full register array into PAJ7620 instantly */
-> +	ret = regmap_multi_reg_write(data->regmap, Init_Register,
-> +				     ARRAY_SIZE(Init_Register));
-> +	if (ret < 0) {
-> +		dev_err(&data->client->dev, "Multi-reg write failed (%d)\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = regmap_write(data->regmap, PAJ7620_REG_BANK_SEL, 0x00);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret = regmap_multi_reg_write(data->regmap, Init_Gesture_Array,
-> +				     ARRAY_SIZE(Init_Gesture_Array));
-> +	if (ret < 0) {
-> +		dev_err(&data->client->dev, "Multi-reg write failed (%d)\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	dev_info(&data->client->dev, "Gesture Sensor Registers Initialized\n");
-
-Drop, driver should be silent.
-
-...
-
-> +	data->client = client;
-> +	i2c_set_clientdata(client, data);
-> +
-> +	data->supplies[0].supply = "vdd";
-> +	data->supplies[1].supply = "vbus";
-> +	data->supplies[2].supply = "vled";
-> +
-> +	ret = devm_regulator_bulk_get(&client->dev, ARRAY_SIZE(data->supplies), data->supplies);
-> +	if (ret)
-> +		return dev_err_probe(&client->dev, ret, "Failed to get regulators\n");
-> +
-> +	ret = regulator_bulk_enable(ARRAY_SIZE(data->supplies), data->supplies);
-> +	if (ret)
-> +		return ret;
-> +
-> +	data->regmap = devm_regmap_init_i2c(client, &paj7620_reg_config);
-> +	if (IS_ERR(data->regmap))
-> +		return PTR_ERR(data->regmap);
-
-Leaking regulator enable.
-
-> +
-> +	ret = paj7620_init(data);
-> +	if (ret)
-> +		goto err_reg;
-> +
-> +	data->idev = devm_input_allocate_device(&client->dev);
-> +	if (!data->idev) {
-> +		ret = -ENOMEM; goto err_reg;
-
-Messed syntax/wrapped lines.
-
-And you must not print error msg on ENOMEM error.
-
-> +	}
-> +
-> +	data->idev->name = "PAJ7620 Gesture Sensor";
-> +	data->idev->id.bustype = BUS_I2C;
-> +
-> +	input_set_capability(data->idev, EV_KEY, KEY_UP);
-> +	input_set_capability(data->idev, EV_KEY, KEY_DOWN);
-> +	input_set_capability(data->idev, EV_KEY, KEY_LEFT);
-> +	input_set_capability(data->idev, EV_KEY, KEY_RIGHT);
-> +	input_set_capability(data->idev, EV_KEY, KEY_ENTER);
-> +	input_set_capability(data->idev, EV_KEY, KEY_BACK);
-> +	input_set_capability(data->idev, EV_KEY, KEY_NEXT);
-> +	input_set_capability(data->idev, EV_KEY, KEY_PREVIOUS);
-> +	input_set_capability(data->idev, EV_KEY, KEY_MENU);
-> +
-> +	ret = input_register_device(data->idev);
-> +	if (ret)
-> +		goto err_reg;
-> +
-> +	pm_runtime_set_active(&client->dev);
-> +	pm_runtime_enable(&client->dev);
-> +	pm_runtime_set_autosuspend_delay(&client->dev, 2000);
-> +	pm_runtime_use_autosuspend(&client->dev);
-> +
-> +	ret = devm_request_threaded_irq(&client->dev, client->irq, NULL,
-> +					paj7620_irq_thread, IRQF_ONESHOT,
-> +					"paj7620", data);
-> +	if (ret)
-> +		goto err_reg;
-> +
-> +	dev_info(&client->dev, "Gesture Sensor Initialized\n");
-
-Pointless message, drop. Driver should be silent on success.
-
-
-> +	return 0;
-> +
-> +err_reg:
-> +	dev_err_probe(&client->dev, ret, "%s: failed with error %d\n", __func__, ret);
-
-No, move it to individual errors, but only where applicable. For example
-devm_request_threaded_irq() must not have it.
-
-Neither devm_input_allocate_device.
-
-
-> +	if (pm_runtime_enabled(&client->dev)) {
-> +		pm_runtime_disable(&client->dev);
-> +		pm_runtime_dont_use_autosuspend(&client->dev);
-> +	}
-> +	regulator_bulk_disable(ARRAY_SIZE(data->supplies), data->supplies);
-> +	return ret;
-> +}
-> +
-> +static void paj7620_remove(struct i2c_client *client)
-> +{
-> +	int ret;
-> +	struct paj7620_data *data = i2c_get_clientdata(client);
-> +
-> +	pm_runtime_get_sync(&client->dev);
-> +	pm_runtime_disable(&client->dev);
-> +	pm_runtime_dont_use_autosuspend(&client->dev);
-> +	pm_runtime_put_noidle(&client->dev);
-> +
-> +	ret = paj7620_power_down(data);
-> +	if (ret)
-> +		dev_err(&data->client->dev, "Sensor power down failed\n");
-> +
-> +	ret = regulator_bulk_disable(ARRAY_SIZE(data->supplies), data->supplies);
-> +	if (ret)
-> +		dev_err(&data->client->dev, "Sensor regulator disable failed\n");
-> +}
-> +
-> +static const struct of_device_id paj7620_of_match[] = {
-> +	{ .compatible = "pixart,paj7620" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, paj7620_of_match);
-> +
-> +static struct i2c_driver paj7620_driver = {
-> +	.driver = {
-> +		.name = "paj7620",
-> +		.of_match_table = paj7620_of_match,
-> +		.pm = &paj7620_pm_ops,
-> +	},
-> +	.probe = paj7620_probe,
-> +	.remove = paj7620_remove,
-> +};
-> +module_i2c_driver(paj7620_driver);
-> +
-> +MODULE_LICENSE("GPL");
-> +MODULE_AUTHOR("Harpreet Saini");
-> +MODULE_DESCRIPTION("PAJ7620 Gesture Input Driver");
-> -- 
-> 2.43.0
+On 17/04/2026 11:33, Karthik S wrote:
+> Add WCD playback and capture DAI link to sound node. Add WCD
+> codec node and corresponding soundwire nodes to perform
+> headset playback and record.
 > 
+> Signed-off-by: Karthik S <karthik.s@qss.qualcomm.com>
+> ---
+>  .../qcs6490-rb3gen2-industrial-mezzanine.dtso | 133 ++++++++++++++++++
+>  1 file changed, 133 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
+> index 83908db335af..d2503fce352c 100644
+> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
+> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
+> @@ -6,6 +6,7 @@
+>  /dts-v1/;
+>  /plugin/;
+>  #include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/sound/qcom,q6afe.h>
+>  #include <dt-bindings/clock/qcom,gcc-sc7280.h>
+>  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+>  
+> @@ -30,6 +31,29 @@ vreg_1p8: regulator-1v8 {
+>  		regulator-always-on;
+>  		regulator-boot-on;
+>  	};
+> +
+> +	wcd9370: audio-codec-0 {
+
+Why 'audio-codec' goes after 'regulator'? And is there audio-codec-1? If
+so, where?
+
+> +		compatible = "qcom,wcd9370-codec";
+> +
+> +		pinctrl-0 = <&wcd_default>;
+> +		pinctrl-names = "default";
+> +
+> +		reset-gpios = <&tlmm 83 GPIO_ACTIVE_LOW>;
+> +		vdd-buck-supply = <&vph_pwr>;
+> +		vdd-rxtx-supply = <&vph_pwr>;
+> +		vdd-px-supply = <&vph_pwr>;
+> +		vdd-mic-bias-supply = <&vph_pwr>;
+> +		qcom,micbias1-microvolt = <1800000>;
+> +		qcom,micbias2-microvolt = <1800000>;
+> +		qcom,micbias3-microvolt = <1800000>;
+> +		qcom,micbias4-microvolt = <1800000>;
+> +		qcom,hphl-jack-type-normally-closed = <1>;
+> +		qcom,ground-jack-type-normally-closed = <1>;
+> +		qcom,rx-device = <&wcd937x_rx>;
+> +		qcom,tx-device = <&wcd937x_tx>;
+> +
+> +		#sound-dai-cells = <1>;
+> +	};
+>  };
+>  
+>  &remoteproc_wpss {
+> @@ -283,8 +307,117 @@ pcie1_tc9563_resx_n: pcie1-tc9563-resx-state {
+>  		output-enable;
+>  	};
+>  
+> +        wcd_default: wcd-reset-n-active-state {
+
+Messed indentation.
+
+> +                pins = "gpio83";
+> +                function = "gpio";
+> +                drive-strength = <16>;
+> +                bias-disable;
+> +        };
+> +
+>  };
+>  
+>  &wifi {
+>         status = "disabled";
+>  };
+> +
+> +&swr0 {
+
+What sort of sorting is this?
+
+> +	status = "okay";
+> +
+> +	wcd937x_rx: codec@0,4 {
+> +	compatible = "sdw20217010a00";
+> +	reg = <0 4>;
+
+Even worse here.
+
+And finally:
+
+Please run scripts/checkpatch.pl on the patches and fix reported
+warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+patches and (probably) fix more warnings. Some warnings can be ignored,
+especially from --strict run, but the code here looks like it needs a
+fix. Feel free to get in touch if the warning is not clear.
+
+Undocumented ABI (without any reference in changelog where to find
+posted patch).
+
+Best regards,
+Krzysztof
