@@ -1,372 +1,180 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013070.outbound.protection.outlook.com [40.107.162.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5476D3B6BFF;
-	Fri, 17 Apr 2026 11:00:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.70
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776423628; cv=fail; b=od0apSbmr/6egsST8lNeolTLx62BMidp+Vq+yLh8J2l/6VW9WCS1UqvYsTd0WrHpvLXWhG3hogIbRguvqOl9FSbGNXmK/kSgxEZYnAs0hZVUzWdPQYnF2k19EbHqJssSWbUhTybNfKsO13K/k8bIaXSBfStcGshS5z3l0+QbUR8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776423628; c=relaxed/simple;
-	bh=k4DIP+ZWCBuFi18xGouwwxLP7TnKfHbQICk2w1z9Z1Y=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=DkaCBJer6F10wzADkW8bHc5xQhUD9G9AkVubVaMR0Y8/lwIfuP1sNl/nkq+/pV7dKAMPkUjA7Ul46QeZOO3sPVKlaAeQL+rfkd8yBuKg8oLhezxcxYjnXxcSeKYJ3ozd28lx1p2CKDl72JG4Fkaxn1eTFIMsqB8WBPcPA/PspM4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=RuommCOj; arc=fail smtp.client-ip=40.107.162.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB663B7B7D
+	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 11:04:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1776423881; cv=none; b=VActErovi/OTI9Xn5Ds5RRNNVpQpCyo0OZqwfk22X2W9Db937nILe/UwzfMqWmp3D+JAiWjCM9RZ8wFZ+RTlibyO/fYOhRl4RBptl6/EtbvdbBQu7IuDhIcf++o1FmSCReupF0bg5BiNkAqc1woCpM6r7tQ/Fvckx1m8oRf1DBU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1776423881; c=relaxed/simple;
+	bh=hRt6bnj6JmwIsk2Q7eHHKPQ3L38fkyslxwE5kAHtrQU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IoV1OLbTvT1OuczsspkQFsDW/O0M6Yba3h4iySmriVk147RSp8OcuKJ9Kqd1E0Txb5/du8GiAHGpNj4CIc1mEcSg05PSUZo0Kmf4PTPADcuawtHWmI201kgb+X6Es7O9LKUIwcINbWl8Saw4GGnSCfp1cLkv2KgqLiD8oLqTL3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FIcA/5Ef; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="RuommCOj"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JafGX1KfeFumpVBKrTwE6+KnhxJ2svoEepHW0dmrhWrUL3FKht4+4VucM73PmP0z6y3XmIi9dRukQJu+p7q6yyIkNxlOMUTNXlxMaY2pF1AgFrWpg11VCvIwc6z+qSaxxnUjzyWR3oNEWyg9yLGQZ8VlXyRhYa3zdtj5En6a/zQOl+izagk11shE2A8hBt5Jo5z6w6p4cZoQyAIDcuqfcuJ2OFWze5vMbijHhwry+td6luntj5UfhKgLSRWCjHub2LLRPtMAjYBirBo37zU+9CycLMFmP3/8kVkH3HVVOtNe3JiuRU1IH9t4nl0vevH5C2PGtEHR4oaaGC9Ovxehiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FQ81AlTbCGMHW7yz+oktZy3cy7e/sBoRpvj6SXtoVlU=;
- b=gm99JWJJwKiONdsoKOIWze1n3l6FgX6zqjAC3BuT85+iuM3chjQvQS4mtb3W8pDM7FxfSDWdZrh/lWbxKA1+2G65Hz7crEP3dCjCV3DqOkDo35g/v+QuGChyMIeHm3Qt/B/A1SRnDTcZRtdTk9R4jxmjozJS9Kd98uT6Kq474U8mCFa5IAYL4bO/H1AOzRtkQgxwnRm0YS0CllPw6mUJm1CpPQapLo2nkEy1HXSK7KN8XBrMniiNF+0T+ic7c0IXQ8Zcy5GPEnESpJWBpOoS8Ruz6XcoToXMOpilAHyGg20UGR+QsCYoNQr5jUi/TyNIvTkbhRy0afEIHdv1jSF4lg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FQ81AlTbCGMHW7yz+oktZy3cy7e/sBoRpvj6SXtoVlU=;
- b=RuommCOjSox+JdZz0n+GNWQnH/WmFQdc1ZUtd9oMClt0CaPVdwVdV0cQnejVvNOVLbqNlKyGIZGY2ZGUAw6ZTxcXwvrnfe6NFwov0OMi/JXsIgo03QndNKOp/fsl+Q44HkpDsbWR6zf50OFi1/4lDoHsBj0WH43UZB51r++tnfig4pgiHjW6UdD1E7AWhdyHhXFQU19xOT0PXrVhIRoP4UOv3xaAipSjL07NZamSVP7evVubC5zXrQBvdZcf5ZYirPi1u5BYBUgOaZLvQm09oyF4i1nnAb2WyI9+JAlPr7ZSh9oTixFMfcRXrD2eQDCV8zrs4x8lGmHdE8ZuTk7BGg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB7821.eurprd04.prod.outlook.com (2603:10a6:102:c5::5)
- by GV2PR04MB11683.eurprd04.prod.outlook.com (2603:10a6:150:2b0::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.25; Fri, 17 Apr
- 2026 11:00:22 +0000
-Received: from PA4PR04MB7821.eurprd04.prod.outlook.com
- ([fe80::67dc:4bd2:8552:9b50]) by PA4PR04MB7821.eurprd04.prod.outlook.com
- ([fe80::67dc:4bd2:8552:9b50%5]) with mapi id 15.20.9818.023; Fri, 17 Apr 2026
- 11:00:21 +0000
-From: Robby Cai <robby.cai@nxp.com>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	Frank.Li@nxp.com,
-	s.hauer@pengutronix.de,
-	festevam@gmail.com,
-	shawnguo@kernel.org,
-	martin.kepplinger@puri.sm
-Cc: kernel@pengutronix.de,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FIcA/5Ef"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-36143b0dbdbso201167a91.2
+        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 04:04:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776423876; x=1777028676; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=XM9OAm7LxW6dUYuM9tCumZEGq0uUmwkPB3O9AymjDmU=;
+        b=FIcA/5EfjfMCuR1gI9Y1+Fin3GHV2osEX1muWKWlQh6q5Z+jVI/W243gWeKyUWvQn6
+         pU+p+WF9TlrMcLoZ/PnvKsT1xbXKjhyeTlAy+QPjrQLslLna+3GQraLOMyyzSHkJq3KE
+         N528MPduNyNHldu0cwV1HkaLQPlq7aii36PUkBJBu3zzQ7KfwlE3FJ5M70pW2IsYAJaA
+         sxOBuOKOb3x2PnF5gy5nkikT3gpFFRZ8278leglE1jvK1WW0a0WV3ug5ygwkBa68Jqr4
+         LqOO5v3RJ8WtsgmeTtOt755tgKgNTmxjD74zBBuPkZ1N+GV8V4sCNdcGFnSUyy8g+dxW
+         IJ8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776423876; x=1777028676;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=XM9OAm7LxW6dUYuM9tCumZEGq0uUmwkPB3O9AymjDmU=;
+        b=kWV/BB+SH4SGEnJMzxLM7BIiSfBjjxsditLSPWfO3zexvlxE9nMMsC4JvwtWQlxowp
+         Lgfmq8LHDLi/EdU674QRUZdTPLu2znacsbGbZxAu3dVFaCDG8lFgF7/Xk9WdYbZnpZrA
+         hdXAdRkA1ugpII6feGO6+mPQwvPjyAzP4iNmfdI7SCRpyv5PZojYdLQxXqlzvC0Fnotd
+         9OghAL9r8VjqSqNVN4geSiOwCv/EboQ1LKR4R/9RsuQ55TvF7oEhW7xVr/XzkCqNu8cX
+         bWFtzFu9n21fW8UF30pCEGNlcytAheoCjkTGUkWV7vsQsAXGrziUfVHJowTwMQch9syz
+         /Txw==
+X-Forwarded-Encrypted: i=1; AFNElJ9QpgHHqRMxTyz1qUEQjncUV536s4u3ZBiMBaOtKyN4YSnLDi/Rq4TlcFsQlRd/TrZA1p6SBEEOHmGO@vger.kernel.org
+X-Gm-Message-State: AOJu0YzpFpUjdzJFWu2cF+g33ypUOZ0o4doihs6e6BenItxpF94gmWT+
+	RDzlwH+QTq4itpGXJ/UNVWt2dlX2ybAcKuBifw5xj+nh9MwS7Qsx4wSF
+X-Gm-Gg: AeBDiesXpBW7nTIRKTRU/9vua1MOtCa7qqw13DHH40LQ1lEmhe+trKH3K+Lj+9xvcRZ
+	DuCa5Tbhj4nAzhEqB+XbusWex8Fdsp11Ts0rGdfE/vBwMKfFuuVc6x34b9LquUlZMN1deFAnjkn
+	zV1REiGN1UE/Fa70KW4bVo0oRBhfLre08uUXAeLRPdhyuMuMuQRpOCQ+yaiQR4sRDdgMG7LMYJF
+	vxMNArknipo0+MmGBZFDClSdufJlBc2pLunzNlUqri5FZbsdah20i5c/Rzyq1gUqzvu6y9GkTz7
+	EY/+47YKnW0GRzj7oeSXko3lvV6EyCRDndvBlBbxTD6l+WfI2SvA7i2INgQfBDbaBy2FEGoDXUC
+	AOJDojavuJsHq/calU5ihvFXWt3JNqfM5wLoN/J3wb6Ghog9r8N5sI7OHR/h8THpFhVB9Avw4un
+	ouWRkeA5mHeS924LmpIAu1EaCKdcaDnsedQSuWSFhew+wL9OlW1emcII3mEwV1q7sjmAhL4jJLv
+	kvbHuFrsnA=
+X-Received: by 2002:a17:90b:5865:b0:35d:b00a:3c54 with SMTP id 98e67ed59e1d1-3614049447emr2541018a91.22.1776423875925;
+        Fri, 17 Apr 2026 04:04:35 -0700 (PDT)
+Received: from chaitanya-virtualbox.. ([103.249.241.52])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-361410bafa9sm1758409a91.15.2026.04.17.04.04.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Apr 2026 04:04:35 -0700 (PDT)
+From: Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
+To: Max Filippov <jcmvbkbc@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-sound@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] arm64: dts: imx8mq-evk: Enable MIPI CSI and dual OV5640 cameras
-Date: Fri, 17 Apr 2026 19:02:00 +0800
-Message-Id: <20260417110200.753678-3-robby.cai@nxp.com>
-X-Mailer: git-send-email 2.37.1
-In-Reply-To: <20260417110200.753678-1-robby.cai@nxp.com>
-References: <20260417110200.753678-1-robby.cai@nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MA1P287CA0016.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a00:35::33) To PA4PR04MB7821.eurprd04.prod.outlook.com
- (2603:10a6:102:c5::5)
+	linux-kernel@vger.kernel.org,
+	Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
+Subject: [PATCH v2] ASoC: dt-bindings: cdns: Convert xtfpga I2S to dt-schema
+Date: Fri, 17 Apr 2026 16:34:10 +0530
+Message-ID: <20260417110410.4482-1-chaitanya.msabnis@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB7821:EE_|GV2PR04MB11683:EE_
-X-MS-Office365-Filtering-Correlation-Id: f9ab6c4d-9335-4c00-6b0a-08de9c708513
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|366016|376014|52116014|19092799006|1800799024|22082099003|18002099003|56012099003|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	x/pHMmyva+mau3HyagdoIRmK7thd4PnkIS4aYy0dOqCNWN8Alz/di8EkRj4LQSAADIbL5lL8OpP+t4xpV931PnnilhDR6aRwSbQUX0H5InwnSfuG5jEWtQUBQLHrMjluWQ/MCaYIVWsK4sHZw4v8p4YUuD3IImmcXHgxX3F6LTgZJK7fSO2bagHYJw31LvU07OQd14RKZUrR+aKIECSkBQcK+w5g2nv9Kul8kPNQQd4TQEJyZYlieKyD/Eny8CS7dYbdFNaXf6iKXTIqDaRkImGbzlIZHZW1GHA1eSwHcJz4xawF+Z6EWj31N72NbdswLeteikhzPqWkCzh5Pg1k+UBBKECBe3mveomsVMTOC66fRZc94JjrTkxN6qeETwXmxq7fZfwx9LefovBIhhp769N/05NmadglWQZ/tXyoBH2P2bYpXb1WhDx+KzWSGKzcWwKBs+t9f0+8gUV3kUno0Pj2DRbMm38oZLICnnLpP8YDWnFb7haRivyO8z6kuc2GdQzGdqlaqdwwRpOtg/zOUOrHuvoRHk1a8Twgg5dB/tJjFkUdBu61GSRdMOgj4qcZqGkfEvO64iyc4ftort8PwxVWNo+6x0KAxPrSzdZaeE29CPJQ7sjIKtUDbRiZAlaE73I9W6hmgvfplOwoD4eM6bW3w1OoicXYAdm2wiq8bYEr1msE4Qx/MCcEPMmwMCM4HY3JcGRCoIpFU0hwYJtCvKY6tTo7iwEWHRXmg+4lrccxU30vNQ4kup9VHzaVXyrOESEqe7SXLsUu82IyxtMy8DxyNsQIr8eHbOMBZ/GcceU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB7821.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(52116014)(19092799006)(1800799024)(22082099003)(18002099003)(56012099003)(38350700014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?GuoV1pil/aekmmg6/GdGmTOo/72cWXpniWBBYQX0+H5E/ELQAvsUZnxB29Es?=
- =?us-ascii?Q?zDBQ9Gx91rf3FduPkDkqsis2Zn9tPm3SdVldQaOQuDILpasVAEzEYa026xBi?=
- =?us-ascii?Q?WnKGQWZluPjOcx7Rmcsh9RK/3DlJUyOV0tSugMAIFrY/53EjtpNeLA9V8l1k?=
- =?us-ascii?Q?gKU0iXH5CX2969ZwD9BTMzxinLq9dwdfgUccP3ZBi0UF+YmZutXm9fzyUe5T?=
- =?us-ascii?Q?2KPu7Zg9vJ8uD+dK8ITmUcT+i6ICw0nveeuJ4zQ+UvRULdwT8Et34p4pmz8Q?=
- =?us-ascii?Q?XjvIl/kkDyZq3wFVEs+067i8nHtKdlPm4voANV+judeXEHUPJrSE4tmt2avn?=
- =?us-ascii?Q?/ZyEdY8jDqUZNTKLJhHeYvg7wqh9+66wxxMxd44wavyvgf0/cBCozIB2l2/t?=
- =?us-ascii?Q?QW4OOQuT4mAWOdVrqDwxnVTGtjS+0d7sfjibY8lNF8HyW1jshqI+RAZNQlTe?=
- =?us-ascii?Q?0jozCRJC9EiMN+8vCe/hrMPkwgYm0R28WNJsCp536JnZlsIoBJrQEFpLLMID?=
- =?us-ascii?Q?8KinxNVl4K10Xqlh/DUBE6+BmJ1AflG5/T6A1Nq9rbaXW0MAGUJCIzUvJp/S?=
- =?us-ascii?Q?NX/BFy3OiM7s3xIqzaotKZy3FM7RdyfxYTSneXNgm9HPe3e0BSzs3q2GKWi8?=
- =?us-ascii?Q?34pkmdn9gNagjL2lzy7jA+TcZ5kP2+6R9JaZnwevWTQNf9pQMb2ATBvzWlI8?=
- =?us-ascii?Q?j8Fm6399ogNr4NxR3cw2KsGc4jWNRsBam26l6VZeB9ozvCwB5YfyizsTTWia?=
- =?us-ascii?Q?31qr7Nbj/mVPC+yaZiyhOSOv85fr/GAFVG2w0Pgzv+roXu/8CpvEGvxUhckM?=
- =?us-ascii?Q?NeG3tKbCcSiu7jBKYmGmgPxzPmGCDAdrNNOUbRCS5yVN+eKXcdb8bgEGxI1Z?=
- =?us-ascii?Q?AsB/ZIyjIv1WIA81y4TYz6tZWFYkJzvQAvm/Id9MMU/vpCf95q0Mh6J7czpi?=
- =?us-ascii?Q?HvQUzeGegE8IlX8xbtr3Y8dDnA3kaH4OaHAzQV1j9VuuAZjvOPjcRGwPlnKA?=
- =?us-ascii?Q?Y9AAJ+QVNFXtrLdJChIiXGjBPZGAohGJ+QN2nyKaEx/r/DeaSN6vpBuQMQwS?=
- =?us-ascii?Q?TgrgErg4B/hMV4fGizsZKakCgaAnnIVXihbZ5+9g/QUO2AzAS3ld16+3O98C?=
- =?us-ascii?Q?sbU3QdmDxwQJBMaM35OJxCrh6ufBGvOtXQkGxni2FUAyIiB3CGZT5ePi/+pJ?=
- =?us-ascii?Q?AcDLriQgcrV1lPf8rANxTWePJD8Egcdaxx6tU3zgGYe4l1JOUSx56xgiTwsV?=
- =?us-ascii?Q?+04tyv237eoxxJ6LxAMOPberKZzBQGI88b+tswByh7kMYaZq+31rDsQa8r7e?=
- =?us-ascii?Q?BFzBYQ1r9y4eS2ew91YvNMnD0lzH8lt5Am/ybSxZWtQdsqFCbj3rRXfkAxNA?=
- =?us-ascii?Q?e0um8eoQAQ5essCpV16gSE5VGfS05dL1528q+AyVvBjvnQmCvswVQfrC0EbO?=
- =?us-ascii?Q?B5C78TwYYfxQZvK5iRuJ8aE09Zn3bjtTBumiS3wY33VKXZI8S5HqOgxArw1d?=
- =?us-ascii?Q?4I5Sr5MOJNLT5VrKIP8+VDky97K5owsCFIw+SbAAZYwEXq8ycs2cIPSR0QMN?=
- =?us-ascii?Q?/j6vpeRF0kiTFZrpKX66NsiCqnwVkjFAPclHE+ZrodH3UXMhmkiNa8SGBG8J?=
- =?us-ascii?Q?oQRIH/ZGDXYTAKWrqjAuAAMf5E0B7f20Ctvzl2ylQNZq7QpLI/mjl8JCzjLe?=
- =?us-ascii?Q?IVhlMiTR48RyG3e5KgU7A+K1/hwZBcVBTooRDbHPgIDEJY1TaN8h7BO3J/7s?=
- =?us-ascii?Q?PVM3ygkqLA=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f9ab6c4d-9335-4c00-6b0a-08de9c708513
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB7821.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2026 11:00:21.8458
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GcEZ9x64pvSS6wzdxa/8/dLttfh/vg1hoOA1SfjChqAB2/LjQ0T7+lVHaYEX8JCNGQ01gUcQr4Ea8jfSle/ngQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB11683
+Content-Transfer-Encoding: 8bit
 
-Enable CSI1/CSI2 bridges and the MIPI-CSI host interfaces, and add
-two OV5640 MIPI camera sensor nodes on I2C1 and I2C2.
+Convert the xtfpga I2S controller plain-text binding
+documentation to standard dt-schema (YAML).
 
-The resulting camera pipelines are as follows:
+The hardware requires exactly one memory region, one interrupt line,
+and one phandle to the master clock. Verified these constraints against
+the driver source in sound/soc/xtensa/xtfpga-i2s.c.
 
-  - OV5640 on I2C2 -> MIPI CSI1 -> CSI1
-  - OV5640 on I2C1 -> MIPI CSI2 -> CSI2
+Reviewed-by: Max Filippov <jcmvbkbc@gmail.com>
 
-Signed-off-by: Robby Cai <robby.cai@nxp.com>
-
+Signed-off-by: Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
 ---
+ .../bindings/sound/cdns,xtfpga-i2s.txt        | 18 -------
+ .../bindings/sound/cdns,xtfpga-i2s.yaml       | 48 +++++++++++++++++++
+ 2 files changed, 48 insertions(+), 18 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/cdns,xtfpga-i2s.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/cdns,xtfpga-i2s.yaml
 
-Tested with following commands:
-
-On CSI1:
-
-media-ctl -d 0 -l "'ov5640 1-003c':0 -> 'imx8mq-mipi-csi2 30a70000.csi':0 [1]"
-media-ctl -d 0 -V "'ov5640 1-003c':0 [fmt:YUYV8_1X16/640x480 field:none]"
-media-ctl -d 0 -V "'imx8mq-mipi-csi2 30a70000.csi':0 [fmt:YUYV8_1X16/640x480 field:none]"
-media-ctl -d 0 -V "'csi':0 [fmt:YUYV8_1X16/640x480 field:none]"
-v4l2-ctl -d 0 --set-fmt-video=width=640,height=480,pixelformat=YUYV --stream-mmap
-
-On CSI2:
-
-media-ctl -d 1 -l "'ov5640 0-003c':0 -> 'imx8mq-mipi-csi2 30b60000.csi':0 [1]"
-media-ctl -d 1 -V "'ov5640 0-003c':0 [fmt:YUYV8_1X16/640x480 field:none]"
-media-ctl -d 1 -V "'imx8mq-mipi-csi2 30b60000.csi':0 [fmt:YUYV8_1X16/640x480 field:none]"
-media-ctl -d 1 -V "'csi':0 [fmt:YUYV8_1X16/640x480 field:none]"
-v4l2-ctl -d 1 --set-fmt-video=width=640,height=480,pixelformat=YUYV --stream-mmap
----
- arch/arm64/boot/dts/freescale/imx8mq-evk.dts | 149 +++++++++++++++++++
- 1 file changed, 149 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/freescale/imx8mq-evk.dts b/arch/arm64/boot/dts/freescale/imx8mq-evk.dts
-index d48f901487d4..8bdfbfebfcc9 100644
---- a/arch/arm64/boot/dts/freescale/imx8mq-evk.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mq-evk.dts
-@@ -6,6 +6,8 @@
- 
- /dts-v1/;
- 
-+#include <dt-bindings/media/video-interfaces.h>
+diff --git a/Documentation/devicetree/bindings/sound/cdns,xtfpga-i2s.txt b/Documentation/devicetree/bindings/sound/cdns,xtfpga-i2s.txt
+deleted file mode 100644
+index 860fc0da39c0..000000000000
+--- a/Documentation/devicetree/bindings/sound/cdns,xtfpga-i2s.txt
++++ /dev/null
+@@ -1,18 +0,0 @@
+-Bindings for I2S controller built into xtfpga Xtensa bitstreams.
+-
+-Required properties:
+-- compatible: shall be "cdns,xtfpga-i2s".
+-- reg: memory region (address and length) with device registers.
+-- interrupts: interrupt for the device.
+-- clocks: phandle to the clk used as master clock. I2S bus clock
+-  is derived from it.
+-
+-Examples:
+-
+-	i2s0: xtfpga-i2s@d080000 {
+-		#sound-dai-cells = <0>;
+-		compatible = "cdns,xtfpga-i2s";
+-		reg = <0x0d080000 0x40>;
+-		interrupts = <2 1>;
+-		clocks = <&cdce706 4>;
+-	};
+diff --git a/Documentation/devicetree/bindings/sound/cdns,xtfpga-i2s.yaml b/Documentation/devicetree/bindings/sound/cdns,xtfpga-i2s.yaml
+new file mode 100644
+index 000000000000..9617acef3f0c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/cdns,xtfpga-i2s.yaml
+@@ -0,0 +1,48 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/cdns,xtfpga-i2s.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- #include "imx8mq.dtsi"
- 
- / {
-@@ -50,6 +52,20 @@ reg_usdhc2_vmmc: regulator-vsd-3v3 {
- 		enable-active-high;
- 	};
- 
-+	reg_1v5: regulator-1v5 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VDD_1V5";
-+		regulator-min-microvolt = <1500000>;
-+		regulator-max-microvolt = <1500000>;
-+	};
++title: I2S controller built into xtfpga Xtensa bitstreams
 +
-+	reg_2v8: regulator-2v8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VDD_2V8";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+	};
++maintainers:
++  - Max Filippov <jcmvbkbc@gmail.com>
 +
- 	buck2_reg: regulator-buck2 {
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&pinctrl_buck2>;
-@@ -172,6 +188,14 @@ &A53_3 {
- 	cpu-supply = <&buck2_reg>;
- };
- 
-+&csi1 {
-+	status = "okay";
-+};
++allOf:
++  - $ref: dai-common.yaml#
 +
-+&csi2 {
-+	status = "okay";
-+};
++properties:
++  compatible:
++    const: cdns,xtfpga-i2s
 +
- &ddrc {
- 	operating-points-v2 = <&ddrc_opp_table>;
- 	status = "okay";
-@@ -330,12 +354,101 @@ vgen6_reg: vgen6 {
- 			};
- 		};
- 	};
++  reg:
++    maxItems: 1
 +
-+	camera@3c {
-+		compatible = "ovti,ov5640";
-+		reg = <0x3c>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_camera2_pwdn>;
-+		clocks = <&clk IMX8MQ_CLK_CLKO2>;
-+		clock-names = "xclk";
-+		assigned-clocks = <&clk IMX8MQ_CLK_CLKO2>;
-+		assigned-clock-parents = <&clk IMX8MQ_SYS2_PLL_200M>;
-+		assigned-clock-rates = <20000000>;
-+		powerdown-gpios = <&gpio1 5 GPIO_ACTIVE_HIGH>;
-+		DOVDD-supply = <&sw4_reg>;
-+		AVDD-supply = <&reg_2v8>;
-+		DVDD-supply = <&reg_1v5>;
-+		status = "okay";
++  interrupts:
++    maxItems: 1
 +
-+		port {
-+			camera2_ep: endpoint {
-+				remote-endpoint = <&mipi_csi2_in_ep>;
-+				clock-lanes = <0>;
-+				data-lanes = <1 2>;
-+			};
-+		};
-+	};
-+};
++  clocks:
++    maxItems: 1
++    description: phandle to the clk used as master clock. I2S bus clock is derived from it.
 +
-+&i2c2 {
-+	clock-frequency = <100000>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_i2c2>;
-+	status = "okay";
++  "#sound-dai-cells":
++    const: 0
 +
-+	camera@3c {
-+		compatible = "ovti,ov5640";
-+		reg = <0x3c>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_camera1_pwdn>, <&pinctrl_camera_rst>;
-+		clocks = <&clk IMX8MQ_CLK_CLKO2>;
-+		clock-names = "xclk";
-+		assigned-clocks = <&clk IMX8MQ_CLK_CLKO2>;
-+		assigned-clock-parents = <&clk IMX8MQ_SYS2_PLL_200M>;
-+		assigned-clock-rates = <20000000>;
-+		powerdown-gpios = <&gpio1 3 GPIO_ACTIVE_HIGH>;
-+		DOVDD-supply = <&sw4_reg>;
-+		AVDD-supply = <&reg_2v8>;
-+		DVDD-supply = <&reg_1v5>;
-+		status = "okay";
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
 +
-+		port {
-+			camera1_ep: endpoint {
-+				remote-endpoint = <&mipi_csi1_in_ep>;
-+				clock-lanes = <0>;
-+				data-lanes = <1 2>;
-+			};
-+		};
-+	};
- };
- 
- &lcdif {
- 	status = "okay";
- };
- 
-+&mipi_csi1 {
-+	status = "okay";
++unevaluatedProperties: false
 +
-+	ports {
-+		port@0 {
-+			reg = <0>;
-+
-+			mipi_csi1_in_ep: endpoint {
-+				remote-endpoint = <&camera1_ep>;
-+				data-lanes = <1 2>;
-+				bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-+			};
-+		};
-+	};
-+};
-+
-+&mipi_csi2 {
-+	status = "okay";
-+
-+	ports {
-+		port@0 {
-+			reg = <0>;
-+
-+			mipi_csi2_in_ep: endpoint {
-+				remote-endpoint = <&camera2_ep>;
-+				data-lanes = <1 2>;
-+				bus-type = <4>;
-+			};
-+		};
-+	};
-+};
-+
- &mipi_dsi {
- 	#address-cells = <1>;
- 	#size-cells = <0>;
-@@ -532,12 +645,41 @@ &wdog1 {
- };
- 
- &iomuxc {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_hog>;
-+
-+	pinctrl_hog: hoggrp {
-+		fsl,pins = <
-+			/* MCLK for cameras on both CSI1 and CSI2 */
-+			MX8MQ_IOMUXC_GPIO1_IO15_CCMSRCGPCMIX_CLKO2	0x59
-+		>;
-+	};
-+
- 	pinctrl_buck2: vddarmgrp {
- 		fsl,pins = <
- 			MX8MQ_IOMUXC_GPIO1_IO13_GPIO1_IO13		0x19
- 		>;
- 	};
- 
-+	pinctrl_camera1_pwdn: camera1pwdngrp {
-+		fsl,pins = <
-+			MX8MQ_IOMUXC_GPIO1_IO03_GPIO1_IO3		0x19
-+		>;
-+	};
-+
-+	pinctrl_camera2_pwdn: camera2pwdngrp {
-+		fsl,pins = <
-+			MX8MQ_IOMUXC_GPIO1_IO05_GPIO1_IO5		0x19
-+		>;
-+	};
-+
-+	pinctrl_camera_rst: camerarstgrp {
-+		fsl,pins = <
-+			/* Reset PIN for cameras on both CSI1 and CSI2 */
-+			MX8MQ_IOMUXC_GPIO1_IO06_GPIO1_IO6		0x19
-+		>;
-+	};
-+
- 	pinctrl_fec1: fec1grp {
- 		fsl,pins = <
- 			MX8MQ_IOMUXC_ENET_MDC_ENET1_MDC			0x3
-@@ -565,6 +707,13 @@ MX8MQ_IOMUXC_I2C1_SDA_I2C1_SDA			0x4000007f
- 		>;
- 	};
- 
-+	pinctrl_i2c2: i2c2grp {
-+		fsl,pins = <
-+			MX8MQ_IOMUXC_I2C2_SCL_I2C2_SCL			0x4000007f
-+			MX8MQ_IOMUXC_I2C2_SDA_I2C2_SDA			0x4000007f
-+		>;
-+	};
-+
- 	pinctrl_ir: irgrp {
- 		fsl,pins = <
- 			MX8MQ_IOMUXC_GPIO1_IO12_GPIO1_IO12		0x4f
++examples:
++  - |
++    i2s@d080000 {
++        compatible = "cdns,xtfpga-i2s";
++        reg = <0x0d080000 0x40>;
++        interrupts = <2 1>;
++        clocks = <&cdce706 4>;
++        #sound-dai-cells = <0>;
++    };
 -- 
-2.37.1
+2.43.0
 
