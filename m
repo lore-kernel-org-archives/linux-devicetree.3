@@ -1,131 +1,155 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADBF91C3BFC;
-	Fri, 17 Apr 2026 07:15:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8653E33B95A
+	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 07:26:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776410162; cv=none; b=RypRSI2qOWP62wGTicDg3rNsVPwl0DtQ5Bf4pkdg8ZSKY4D3Pto6zuOctTPyN3I3V+LbXZm0BBAltpeaLG3FSMMU+MRjBSrLQ/7iv1KimAMoTDAR8tZO/+rgvWpVmgwHbhlZzyEUyJKpBObkMS7s9ESB8F3gQ5FJVdFUkOEPxIw=
+	t=1776410779; cv=none; b=uMP5zy3xfeNXoJzwV99BHoqrOP9MbuRvN2R88Qkooj42dPmeBz4XLjCtJkFG65NX7ZFsd5AnjHaxlOqSS0pFwMmbmiZpqPKwkRG3oCO+IHyEhQb6ofzdRNcbK7Q4Y+qT7rv1YYCEc9bwXJQXmSkX93UAnRbt07sEOIJqsHS3gFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776410162; c=relaxed/simple;
-	bh=4S2CWU6/SMrhpf9GUfOJN6Snxr66DLowPKAGkEZOrbI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ubL2VPbEytYQ91ouf6Cr9SZWIWa5mvATb4BElHq0YzH8XIofWQtv7yZ6Z3rP6OrVJuU2x/Ntve/ui+H4XB283SDOH3M07WN5fcZvqSkuyhAYMMUtRhh7CYLSm9era3FBS5Wb3iV5aXV5gOXyQX/w5ymkIiUjc9PKWVt0V1zJEQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=cOWLAO1S; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="cOWLAO1S"
-Received: from ideasonboard.com (net-93-65-100-155.cust.vodafonedsl.it [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id AFD9949F;
-	Fri, 17 Apr 2026 09:14:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1776410060;
-	bh=4S2CWU6/SMrhpf9GUfOJN6Snxr66DLowPKAGkEZOrbI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=cOWLAO1SnCkXbGrKMX8E6ClI6lCJluEf2bHzz4Xzjbh/sa5MTALFNaScwYsGVsXlE
-	 EF973k+flVph55ugr0YBBn7uK/bM4csvatCnCxGFK0n8CO88zGHrO8Xp2ZGXoSAHo1
-	 DeRsGoe7XV2+3dVR7Bv+xfdq1R5F2vLqPhQEDywY=
-Date: Fri, 17 Apr 2026 09:15:52 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Antoine Bouyer <antoine.bouyer@nxp.com>
-Cc: julien.vuillaumier@nxp.com, alexi.birlinger@nxp.com, 
-	daniel.baluta@nxp.com, peng.fan@nxp.com, frank.li@nxp.com, 
-	jacopo.mondi@ideasonboard.com, laurent.pinchart@ideasonboard.com, mchehab@kernel.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	michael.riesch@collabora.com, anthony.mcgivern@arm.com, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, 
-	jai.luthra@ideasonboard.com, paul.elder@ideasonboard.com
-Subject: Re: [PATCH v1 03/11] media: v4l2-isp: Add helper function to compute
- extended stats size
-Message-ID: <aeHd0G_JDaROMWDd@zed>
-References: <20260413160331.2611829-1-antoine.bouyer@nxp.com>
- <20260413160331.2611829-4-antoine.bouyer@nxp.com>
+	s=arc-20240116; t=1776410779; c=relaxed/simple;
+	bh=a3NnvCevtSewQG0Oj/xyg6Ev7RwvAs1YGUH7obmLO9g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Wv1FvNgCsCrQDD23GpRQGNUaFhnjFkTYQzTl0+PyMmRgkDrNlDDmDmxlSCcgj9BMyHx2SfiF/+jGQXw9gLL8eL1Ym8tJufTx81pTJ+CrGhDHgMJvlMoi1bwlEzo5TbvLYK9SHJo96ksXsYs7FJpliOJL7pqYlNbaVlNuGXjSk28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-56daad0fdbaso110003e0c.3
+        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 00:26:18 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776410777; x=1777015577;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=M0filTeR7XuW1VhPPsFA0jH5OYwoCxnw8iV1YuSDtZA=;
+        b=JBhvb6m+1rBimP1oa4hc98WhoBoMTlpq+cSIqeT7tIr3RFjXJpyszn6RsaYkU88Xhc
+         JDPV9xuN9o/GLSC41UPuEhq1GYGfkiQ8I3eZG+O9UvkvRMWaq/57U+9fBmpSm1n6cfzj
+         9X6eiPGNlQe/xx9FO4/dm8U8mnB7NFsYlEFq1nrZMXKnqSFChpsBzx7d/JldS8ln9zHH
+         SvMZzbtGWX/nIgbWrphbHCT70PvX8/Xcbci93ai6V0v8gSqhLolvXSuGYpL0h0RUrAa/
+         FL0ZuFuL+P/64xXG3qybZm2VkyIv9AURni//8YbQHXnW+dBpUsQnCpeG1kzNvfwCZQ4L
+         JHMw==
+X-Forwarded-Encrypted: i=1; AFNElJ/IMNLelP2CxUC47P2ieZhlUMWD1das/Z5tc+/qJX34A7ndzugqGzQaeeG/cmyX1quG9JVRbepoC/oW@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzrk1fb6GBtD8vp6ExHzWDcHn0C9Q7S3hL8GUKg3jtghpfp4Wh3
+	1EYAx04lgseVGVZPZpFssGpi+Wp+FMt0dMidhMkAY1a/QYUKrx+g/TVmvfG+TFOt
+X-Gm-Gg: AeBDiesLPC9FOVZmvkYCrBr584eQr3rBe81SUUH1oqe/NJDdANgQ9wBvmJI5LBSmBpF
+	2wHlhMgsrZ/uORLveDqbdHwP+4o3f28tZTnf+xX9X3mdvOkxaw4IyBF6qrRP0JnYqpFIJe12R8x
+	q+Np6bbRPbJ528cM3Q92e/pGSe4F/EXDgxYxTaZ+8iPxGQzG6aUSHHl3t5y2uenzHodmJ9IzJ90
+	/9qukXjyKWem+6x3LeQqrqtto02HjrsnLb6+75qrPmJe82arT2HG0A5SKX5nmoRIYv2phMxXHip
+	j80eQ+5R0jpciNMKbIBMLOtFxbJ3szHQuy1M/bXN4xELss+gF/IPWn4RtCN/QEByhqy7hT/EL1U
+	7PtqZBlBHsizRpQer9DtHusUJ60I92ljlwtFoFIglRA5yK71fkR7++bUVE5FmLOOZA8RIhRtrRR
+	mk2bfxEyVvAwBQ9fzUtnO67M8vk+Vo3iqO8TOGwN4eDJMulvjcZ5pfp4P+m4oowK0SHAy7immVH
+	Cw=
+X-Received: by 2002:a05:6122:45aa:b0:56e:f071:d4ef with SMTP id 71dfb90a1353d-56fa58c1f7emr621653e0c.8.1776410777329;
+        Fri, 17 Apr 2026 00:26:17 -0700 (PDT)
+Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com. [209.85.221.173])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-56fa92f2207sm408731e0c.10.2026.04.17.00.26.15
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 17 Apr 2026 00:26:15 -0700 (PDT)
+Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-5673804da95so128804e0c.0
+        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 00:26:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/WgyvS+lyH8xihR/hZjeZqUkQuS8tWWfo95ukofKaWh+CFl3kgTSN42h8v+vOIEF4QrA/08Yb9YKta@vger.kernel.org
+X-Received: by 2002:a05:6122:4881:b0:56a:e46f:2cfa with SMTP id
+ 71dfb90a1353d-56fa59f3567mr602125e0c.12.1776410775292; Fri, 17 Apr 2026
+ 00:26:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260413160331.2611829-4-antoine.bouyer@nxp.com>
+References: <20260413100700.30995-1-phucduc.bui@gmail.com> <20260413100700.30995-7-phucduc.bui@gmail.com>
+ <20260414-funky-sincere-polecat-20b0bf@quoll> <CAABR9nEKGSRNp=eK=ZHf6-MNsj=6cDCy1YdbzSPrHyuc3Ux0Ow@mail.gmail.com>
+ <CAMuHMdVPbcz4rF8ojEcvxp1NaM2mbQ2o+HZLwnnjNnX8uHf4HA@mail.gmail.com> <CAABR9nF131G3K3-vUdaDwHuQ7MCCLd-VO5syLApE_qsn+J49kA@mail.gmail.com>
+In-Reply-To: <CAABR9nF131G3K3-vUdaDwHuQ7MCCLd-VO5syLApE_qsn+J49kA@mail.gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 17 Apr 2026 09:26:04 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXie1HR6XzkHXAtonh2oemNxH2UZE3uSUjW3xoOmhRjYQ@mail.gmail.com>
+X-Gm-Features: AQROBzD4ej1pJTTRzELIJ2wgirossSrvDsKxLrNzMC07pv8sxHPrEXyoOqf8Biw
+Message-ID: <CAMuHMdXie1HR6XzkHXAtonh2oemNxH2UZE3uSUjW3xoOmhRjYQ@mail.gmail.com>
+Subject: Re: [PATCH v2 6/6] ASoC: dt-bindings: renesas,fsi: add support for
+ multiple clocks
+To: Bui Duc Phuc <phucduc.bui@gmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, kuninori.morimoto.gx@renesas.com, broonie@kernel.org, 
+	lgirdwood@gmail.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	geert+renesas@glider.be, magnus.damm@gmail.com, perex@perex.cz, 
+	tiwai@suse.com, linux-sound@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Antoine
+Hi Phuc,
 
-On Mon, Apr 13, 2026 at 06:03:23PM +0200, Antoine Bouyer wrote:
-> v4l2-isp framework only supports extended buffer for generic ISP
-> configuration. This patch adds simple helper function to compute the
-> extended statistics buffer size, exactly the same as for extended
-> parameters, except that it uses the `v4l2_isp_stats_block_header`
-> structure definition to prevent conflict with the
-> `v4l2_isp_params_block_header` one.
+On Fri, 17 Apr 2026 at 05:35, Bui Duc Phuc <phucduc.bui@gmail.com> wrote:
+> > Where does this match the driver?
+> > Usually the functional clock is called "fck".
 >
-> Signed-off-by: Antoine Bouyer <antoine.bouyer@nxp.com>
-> ---
->  include/media/v4l2-isp.h | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
+> Regarding the clock name "own", I used it because of the following
+> implementation in the current driver:
 >
-> diff --git a/include/media/v4l2-isp.h b/include/media/v4l2-isp.h
-> index f3a6d0edcb24..9a93a534e7b0 100644
-> --- a/include/media/v4l2-isp.h
-> +++ b/include/media/v4l2-isp.h
-> @@ -27,6 +27,19 @@ struct vb2_buffer;
->  #define v4l2_isp_params_buffer_size(max_params_size) \
->  	(offsetof(struct v4l2_isp_params_buffer, data) + (max_params_size))
+>    clock->own = devm_clk_get(dev, NULL);
+>    if (IS_ERR(clock->own))
+>       return -EINVAL;
 >
-> +/**
-> + * v4l2_isp_stats_buffer_size - Calculate size of v4l2_isp_stats_buffer
-> + * @max_stats_size: The total size of the ISP statistic blocks
-> + *
-> + * Users of the v4l2 extensible statistics buffers will have differing sized data
-> + * arrays depending on their specific ISP blocks. Drivers and userspace will need
-> + * to be able to calculate the appropriate size of the struct to accommodate all
-> + * ISP statistics blocks provided by the platform.
-> + * This macro provides a convenient tool for the calculation.
-> + */
-> +#define v4l2_isp_stats_buffer_size(max_stats_size) \
-> +	(offsetof(struct v4l2_isp_stats_buffer, data) + (max_stats_size))
-> +
+> The driver currently fetches the first clock in the list (index 0) and
+> stores it in a variable named own.
+> That is why I named it "own" in the DT bindings to match.
 
-Should we do this or simply:
+Thanks, I hadn't looked at variables names (I searched for "own"
+including double quotes).
 
---- a/include/media/v4l2-isp.h
-+++ b/include/media/v4l2-isp.h
-@@ -15,17 +15,21 @@ struct device;
- struct vb2_buffer;
+> However, I have noticed that other DTS files commonly use "fck" for
+> the functional clock.
+> Are you suggesting that I should also rename the variable from "own"
+> to "fck" in the driver code ??
 
- /**
-- * v4l2_isp_params_buffer_size - Calculate size of v4l2_isp_params_buffer
-- * @max_params_size: The total size of the ISP configuration blocks
-+ * v4l2_isp_buffer_size - Calculate size of v4l2_isp_buffer
-+ * @max_size: The total size of the ISP configuration or statistics blocks
-+ *
-+ * Users of v4l2-isp will have differing sized data arrays for parameters and
-+ * statistics, depending on their specific blocks. Drivers need to be able to
-+ * calculate the appropriate size of the buffer to accommodate all ISP blocks
-+ * supported by the platform. This macro provides a convenient tool for the
-+ * calculation.
-+ *
-+ * The intended users of this function are drivers initializing the size
-+ * of their metadata (parameters and statistics) buffers.
-  *
-- * Users of the v4l2 extensible parameters will have differing sized data arrays
-- * depending on their specific parameter buffers. Drivers and userspace will
-- * need to be able to calculate the appropriate size of the struct to
-- * accommodate all ISP configuration blocks provided by the platform.
-- * This macro provides a convenient tool for the calculation.
-  */
--#define v4l2_isp_params_buffer_size(max_params_size) \
--       (offsetof(struct v4l2_isp_params_buffer, data) + (max_params_size))
-+#define v4l2_isp_buffer_size(max_size)                 \
-+       (offsetof(struct v4l2_isp_buffer, data) + (max_size))
+I think there is no need to rename the variable.
 
-(I wrote this before noticing your patch :)
-
->  /**
->   * v4l2_isp_params_validate_buffer_size - Validate a V4L2 ISP buffer sizes
->   * @dev: the driver's device pointer
-> --
-> 2.51.0
+> For example:
 >
+>     clocks = <&mstp2_clks R8A7740_CLK_SCIFA1>;
+>     clock-names = "fck";
+>
+> But from the hardware manual, MSTP refers to a "Module Stop Clock",
+> not a "functional clock".
+> So I'm not sure if using "fck" here is appropriate. Could you explain
+> the reasoning behind calling this clock "fck"?
+
+It is the main clock that needs to be enabled to make the device
+function. This is independent from the notion of it being a
+"Module Stop Clock" or not, and became sort of a convention.
+
+> Regarding the FSI clocks, they can be categorized into two types:
+> audio clocks and module clocks (which may include bus/bridge clocks).
+> The driver itself does not explicitly handle the enabling/disabling of
+> the module clock; it only manages the audio clocks.
+> From my code tracing:
+>     At boot: The kernel automatically attaches the PM domain and
+> prepares the clocks during device initialization.
+>     During playback (aplay): The FSI driver doesn't enable the module
+> clock directly. Instead, it is handled via:
+>     genpd_runtime_resume -> pm_clk_resume -> clk_core_enable ->
+> cpg_mstp_clock_endisable.
+
+Correct. On most (all?) Renesas SoCs, devices are part of a clock
+domain, and their functional clocks are managed by Runtime PM.
+
+> Since this module clock is essential for register access, it must
+> always be the first entry in the clocks property (index 0) so
+> devm_clk_get(dev, NULL)
+> can fetch it correctly, right?
+
+It is not strictly needed to be the first clock, and mostly a relic of the past,
+when clocks weren't accessed by name, but by index.
+Also, many devices have only a single clock, so don't need a name.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
