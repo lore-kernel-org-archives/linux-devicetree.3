@@ -1,209 +1,115 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABB032AEE1
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 13:39:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 774B838D69E;
+	Fri, 17 Apr 2026 13:39:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776433145; cv=none; b=VvclboDv17cDQlHfXCdLbP9m7oN69WwQls8ieZV8ji9vYlvj8ylJa70LXM9/InqDngCMHxZIuhHbQKIlI1+OIsYyquLSRnrGd0NxQ2zXhBmBG3FHs2K2Cn+MEHgqYM2P6HrJR3stDCJbmh92Ha9q9e8b1uoXWId55jTEwNklMRU=
+	t=1776433162; cv=none; b=WN0a5WDI5FwkxE8XsbyTMK+2AfsTDDXzbK0CK4A/H40PO7ekCLjaKScBPrznykRY5KhTLssQKyw9DCfrq4lr1dwLe8LLIdLMgf+nzgTCvi95263OTb8dsb6j1DN3qkr4OQ39hGTdEYGqHyjEuSqnwe/ZFHiGZFKzeQue03Zj96k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776433145; c=relaxed/simple;
-	bh=t7cDliQXykgBo+DCx8KGKV7xEmgslwFTXM5ZKUO+gQY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ss+S+cUm6EA0vKr8O1pvZljGAPIGCZ9n5/DaauJzT7DI7GsY4ApwK0PslicayxdH/uwusjsjsbAVMUbHEe6S0hCSvRX2nhdIaKzRZL1xozO5JDeF1A+AjQxyGld5fDYdxYJmtd9EdpxtOnJF9bjHmSYJ4XnhxoI+B+gmhk0iWbc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=feJRt25q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AMGu+fsS; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1776433162; c=relaxed/simple;
+	bh=X1bpzLR/ZOvX6ydSU2JnR3zUvyTA3rYgZyfqoBObJD0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=Wv9JHEuPm7er8ilSA0ETAxYqzu+t80HciQnSXpY3TyWV+SrJIBxtysbbWm+wqbF4WnonTcEz4nK+/7IWr9WWtZ5gBfXfhvRCF9MnEyT6Z812zIS06GElaqTNNLkT+1me86rQKLWzcxysZiX/SX2dsUrZdWkwSfiI8gj01/GlKiE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=Ip1nQgiz; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="feJRt25q";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AMGu+fsS"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 63H8G548065678
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 13:39:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	LEV3M/S5NAu+rB8Y3D2M+b+TS/8kFcI0Azn+lMsweqQ=; b=feJRt25q4WzgUEAR
-	4WVfVvlSKLpGj4hIBWgd77npJcAZOesM2C0bGxw6cH48+tCT7cdrXZYauu0PxP6R
-	5ML1I8CQDTs0PfkXSkAvSaQC+8cHvPjbGNBA3tcQjG7kiEKJf2SXSwE+xAsokKM8
-	IjltaVzAPTqAF9bgYHCKEwoxE9OCNEDGw8aMQblpiZZ1n3V1fvf4g1dOWApOMM8x
-	U6RqtmEADlmseFdu8PBVfLpEhDlprzkyV7Nd1L60ubL52bCZVQ3hroE9PCBEUhAx
-	BYVwDsmaQrpjQVtMme91Tx3ley6jpx3EzDo6+TRnYfJD/BCRggRVTNC+LSK7gBT1
-	fufFDw==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dk3af3xn8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 13:39:04 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-35d99c2908cso853412a91.0
-        for <devicetree@vger.kernel.org>; Fri, 17 Apr 2026 06:39:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1776433143; x=1777037943; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=LEV3M/S5NAu+rB8Y3D2M+b+TS/8kFcI0Azn+lMsweqQ=;
-        b=AMGu+fsSj4VLP6GK49K/1ye+/9bISx/wTY8/jmDsTQsN1AzojmSUiDj3RJwxklK7A9
-         lgdO+hbKyEPe4VC5f97m3MwOjn6CfB4qEx8hfinmpuB5VuZlrtxgl2Bff7s+J0s0x6+W
-         LowMngZc/6+/vV29Ov42NwibgX3vZEj4sZ4j9IrP+3DSi/xhBl5OW2Ni97Bp/aboP6QB
-         8dueOdUbnuor7LJzOHaFIRdvYNSexN2p1itNxy55SJHbcb7eyP69tqjynVcww6eE9dik
-         saz6qYpNMiJTGK5xRWwO1W+FeqWPn22EF2CfG2ImodyE7g2JhUject3v0ybZ6MXj5wIv
-         d8xA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776433143; x=1777037943;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=LEV3M/S5NAu+rB8Y3D2M+b+TS/8kFcI0Azn+lMsweqQ=;
-        b=M+w/jiEWGxN5KZUqPmqoHwoaFgJhsLOQZ3DS0kDYRyOYTtmoXq/WmZ7A3y4DjiKYGz
-         nid92/WKuup+yMMD/KsolMcUGoFOKqyOPVmtVsi4D9PR/Fr+5SowUVYe+ssZKST2VSf6
-         gvrqPA5X7ABvVkDe/gjyJ9uCFViDgcsTmmmqVcVlcOs43axj+bn/Q3Qj17BvccJUGWWv
-         FKRbJizSiq/w98BWdFx4PBvH6PzXMy5FKJRPCG8+iHCEsLiKM4PC9Y3PLqItPmJBKDDZ
-         VBgn4KHY7JsydEEUI1gyHVTsmOCD07V2o3pa3V31CrFj6+gTRRJNDGI5S/SAEDc/fqVX
-         Lq5Q==
-X-Forwarded-Encrypted: i=1; AFNElJ8vh4CKlGN4UelxRAzaqakFklBGr87rDy2NzRM9p4WtKQcjYvRZrHLBoOOh7YzqK96HvrRM6PN8e6IL@vger.kernel.org
-X-Gm-Message-State: AOJu0YyyUy9LR0KPxFx4HgeTAls9WEyw720gtQ0GUZS9ZlMhPgu8uFqk
-	9ifzBKjzimSu6c9zWGERN41Xm/v+RrrE3PySLSsNiBZ6NL5r3M/30eQfQ3xvwlwH5WiKCqGv5/Z
-	52X0zxinq4jsFALXPk/37UDuILpVKRULWkVUQamrvACzj3W9/noiT1rgo5L64YA6GL8Ri6iVy
-X-Gm-Gg: AeBDieuxyoIBeZVd04iwvdCDu5s7uXJh8AsdpshMssBkTTwubpubo/Jx9Mt0LM2TA8i
-	9Zl494SGGC6+9Pj7/XZOZ9dJdI9pw3Vk4aadRkveWXyPMyjQQn3GWPA4DE0gBshF5Lmss8g+J1r
-	au4kqtKuodlAMIAZnR+JoymyuIBeOI4x2g6wFVS2Q3zwTtYM2UVMS5DqvgPUrWfZvViQgMBFc0S
-	f0MEhOQ5ijbY+APgpnoz+9rIaGwnSa2pdBXhVMDT4TXHO+95/3g0dDe+jxiRHN6apDjhTGRhVH6
-	If8u/45EEgDN6wD8wOff08nM8MxSFptt6jjK7jI7Wh9XzhNx7DCcGNWPWEEfZhuTxc2LkD9fOVg
-	DNhwhAcAsjZo2cjMXnpO4U8KhbrPHZ4KflFn/+rxsnDIHapnBzCGcufvOH7pqHw==
-X-Received: by 2002:a17:90b:528c:b0:359:f2e1:5906 with SMTP id 98e67ed59e1d1-361403bdcb1mr2847248a91.4.1776433143222;
-        Fri, 17 Apr 2026 06:39:03 -0700 (PDT)
-X-Received: by 2002:a17:90b:528c:b0:359:f2e1:5906 with SMTP id 98e67ed59e1d1-361403bdcb1mr2847215a91.4.1776433142753;
-        Fri, 17 Apr 2026 06:39:02 -0700 (PDT)
-Received: from [10.217.223.121] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36141990bb6sm2265184a91.17.2026.04.17.06.38.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 17 Apr 2026 06:39:02 -0700 (PDT)
-Message-ID: <0d5bf2bd-b90c-4814-bd2e-126a9bcb82ce@oss.qualcomm.com>
-Date: Fri, 17 Apr 2026 19:08:55 +0530
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="Ip1nQgiz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1776433161; x=1807969161;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:to:cc;
+  bh=X1bpzLR/ZOvX6ydSU2JnR3zUvyTA3rYgZyfqoBObJD0=;
+  b=Ip1nQgizT5bJkyPaNdeytBdRicZoNoN4zPywfKjd4TI4bxHTqHopw4x8
+   YQBVpKQkTJWkhpRouDnB15iDlLYL0F/wAXDJdep7/AMUazWHvmhGPTES1
+   W6ys4oRIiYjUW0AEIwuZYvdAXQ66yiP9in627m0CeWqHrAzTbHQ0ebRkt
+   mE+p158elQi6xzLBY9Dq8sMA3WziLQ/OV8XrnZXKnjunViuQG503N/yDy
+   jgFlVONkHtCaXWoUDrUCYxf1ZyqQM8v3FjBpYTX00UVKb086Cxd5rINxO
+   KolZSmK9fzejWA9FWQxk5AfAD+XVtKf4iN6Uk4yT/WbE/ftdFuLa6sW3h
+   g==;
+X-CSE-ConnectionGUID: JfG4m+J3Scebrk4q4xN5Tg==
+X-CSE-MsgGUID: V7ExrjMGQ3CDuOkUhsAYyQ==
+X-IronPort-AV: E=Sophos;i="6.23,184,1770620400"; 
+   d="scan'208";a="56264296"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 17 Apr 2026 06:39:21 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Fri, 17 Apr 2026 06:38:40 -0700
+Received: from [127.0.1.1] (10.10.85.11) by chn-vm-ex02.mchp-main.com
+ (10.10.85.144) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Fri, 17 Apr 2026 06:38:37 -0700
+From: Ariana Lazar <ariana.lazar@microchip.com>
+Date: Fri, 17 Apr 2026 16:38:29 +0300
+Subject: [PATCH v2] dt-bindings: iio: dac: mcp47feb02: Fix maxItems value
+ for reg property
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: glymur: Add crypto engine
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Thara Gopinath <thara.gopinath@gmail.com>,
-        Herbert Xu <herbert@gondor.apana.org.au>,
-        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        johannes.goede@oss.qualcomm.com
-Cc: Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
-        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
-        linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260416-glymur_crypto_enablement-v1-0-75e768c1417c@oss.qualcomm.com>
- <20260416-glymur_crypto_enablement-v1-2-75e768c1417c@oss.qualcomm.com>
- <653fc8bb-295f-4f1d-b9ac-a33e0d8a933b@oss.qualcomm.com>
- <b8f781b0-f7ba-407e-8603-ca504535a894@oss.qualcomm.com>
- <82e0d347-9ac9-497c-bc67-0db9206c5dd2@oss.qualcomm.com>
-Content-Language: en-US
-From: Harshal Dev <harshal.dev@oss.qualcomm.com>
-In-Reply-To: <82e0d347-9ac9-497c-bc67-0db9206c5dd2@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE3MDEzNyBTYWx0ZWRfXyL0Or7UzLsGk
- 9k9i43Am0LCCvmYHWmR6r3bmiG3SZCNXo45Juiwu+J4PLRVOzz/faVO1AroJ9jnTgIQo2Zwcc3s
- etACl8qSIdJwVFl/PyEmh5VgjUh2fJqG1XGkdxK4l7Nxnis/toE+KdR+kL8YBumlOIPhepTlc6W
- 4fYmtih7/XeOnGT1ntDC5YL2HZMtQtOg+FBFW7iXLKglNzw/10mTmJKRdiERnFofDMI0cEOgb3V
- Ha01N4xfgaOhY/eCHFzK6BHpcCMNOCnwLcreMJMfP3dSqr5X8LT1KjqpLmt+D/dGxn3GvpWthIB
- WsX7JQVq4/hzv32UgtM9ZpGPgVXIBehCS9PTjVa5RpZ0Zws2qiIq0aRjLAQtVdf1NEsx1a0PoIR
- 0GoUhUijFYe+N9UBUKmcc4jmI3z8gBgpD1K3wYAp77oD7elnpVgUDdrtMZERFzGMh5iLaDUMzqd
- PbCFb/36gqr6xNrspyw==
-X-Proofpoint-ORIG-GUID: RBriGNVnex14KHN0RIB6O3U-j4_KBqKS
-X-Proofpoint-GUID: RBriGNVnex14KHN0RIB6O3U-j4_KBqKS
-X-Authority-Analysis: v=2.4 cv=DfInbPtW c=1 sm=1 tr=0 ts=69e237f8 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=-7XOZWLW2PA2tXdyhFAA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-17_01,2026-04-17_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 clxscore=1015 priorityscore=1501 phishscore=0
- lowpriorityscore=0 malwarescore=0 bulkscore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604170137
+Message-ID: <20260417-mcp47feb02-fix5-v2-1-6592ea499cce@microchip.com>
+X-B4-Tracking: v=1; b=H4sIANQ34mkC/3WNQQ6CMBBFr0JmbU07KVVccQ/DQqZTmUUpaQ3RE
+ O5uZe/yveS/v0HhLFzg1myQeZUiaa6ApwZoesxPVuIrA2p02hqnIi32EnjUqIK8W4Wu6yy1o8U
+ rQV0tmas/iveh8iTllfLnOFjNz/5vrUYZ1bnWEQb2zmMfhXKiSZYzpQjDvu9fO8BxcrIAAAA=
+X-Change-ID: 20260416-mcp47feb02-fix5-26994c5b428c
+To: Jonathan Cameron <jic23@kernel.org>, David Lechner
+	<dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
+ Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+CC: Conor Dooley <conor.dooley@microchip.com>, Jonathan Cameron
+	<Jonathan.Cameron@huawei.com>, <linux-iio@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Ariana Lazar
+	<ariana.lazar@microchip.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776433116; l=1487;
+ i=ariana.lazar@microchip.com; s=20250825; h=from:subject:message-id;
+ bh=X1bpzLR/ZOvX6ydSU2JnR3zUvyTA3rYgZyfqoBObJD0=;
+ b=qUZFFpG+1s3taaB7St8PVmB5zU0W0aJ3xpJaPUWd82Cc9gN4FJzKjCPqjEToNuU0iLbl27xIQ
+ GZGT+nkfZjHBM3ewRM7u8RpfbI+mrm1APapSKLhNClA++3IpANpw1zR
+X-Developer-Key: i=ariana.lazar@microchip.com; a=ed25519;
+ pk=jmvf1fSxcnzZmXfITM3L94IwutM+wqA1POQHiYyD6Dk=
 
+Change maxItems value from 8 to 1 for the channel number reg property.
 
+Fixes: 4ba12d304175 ("dt-bindings: iio: dac: adding support for Microchip MCP47FEB02")
+Link: https://lore.kernel.org/all/20260403-speed-childless-1360de358229@spud/
+Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
+---
+Changes in v2:
+- keep just maxItems value update in this patch
+- remove Reported-by from commit message
+- Link to v1: https://lore.kernel.org/r/20260416-mcp47feb02-fix5-v1-1-9656c2fed6d2@microchip.com
+---
+ Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-On 4/17/2026 4:36 PM, Konrad Dybcio wrote:
-> On 4/17/26 11:22 AM, Harshal Dev wrote:
->> Hi,
->>
->> On 4/16/2026 7:10 PM, Konrad Dybcio wrote:
->>> On 4/16/26 3:07 PM, Harshal Dev wrote:
->>>> On Glymur, there is a crypto engine IP block similar to the ones found on
->>>> SM8x50 platforms.
->>>>
->>>> Describe the crypto engine and its BAM.
->>>>
->>>> Signed-off-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
->>>> ---
->>>>  arch/arm64/boot/dts/qcom/glymur.dtsi | 26 ++++++++++++++++++++++++++
->>>>  1 file changed, 26 insertions(+)
->>>>
->>>> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
->>>> index f23cf81ddb77..e8c796f2c572 100644
->>>> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
->>>> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
->>>> @@ -3675,6 +3675,32 @@ pcie3b_phy: phy@f10000 {
->>>>  			status = "disabled";
->>>>  		};
->>>>  
->>>> +		cryptobam: dma-controller@1dc4000 {
->>>> +			compatible = "qcom,bam-v1.7.4", "qcom,bam-v1.7.0";
->>>> +			reg = <0x0 0x01dc4000 0x0 0x28000>;
->>>> +			interrupts = <GIC_SPI 272 IRQ_TYPE_LEVEL_HIGH>;
->>>> +			#dma-cells = <1>;
->>>> +			iommus = <&apps_smmu 0x480 0x0>,
->>>> +				 <&apps_smmu 0x481 0x0>;
->>>
->>> It seems like these aren't the right SIDs on this platform.. Have you
->>> tested this patch on hw?
->>
->> Thanks a lot for catching this Konrad. The correct SID pairs are <0x80 0x0> and <0x81 0x0>.
->> (I hope I don't need to pad them?)
-> 
-> No, you don't
+diff --git a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml
+index d2466aa6bda2106a8b695347a0edf38462294d03..f2efa0ccbaa32482dcdc69d98c1565518538793f 100644
+--- a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml
++++ b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47feb02.yaml
+@@ -161,8 +161,7 @@ patternProperties:
+     properties:
+       reg:
+         description: The channel number.
+-        minItems: 1
+-        maxItems: 8
++        maxItems: 1
+ 
+       label:
+         description: Unique name to identify which channel this is.
 
-Ack.
+---
+base-commit: d2a4ec19d2a2e54c23b5180e939994d3da4a6b91
+change-id: 20260416-mcp47feb02-fix5-26994c5b428c
 
-> 
->>
->> Unfortunately, I could only validate driver probe on my limited ramdisk environment:
->>
->> [    4.583802] qcrypto 1dfa000.crypto: Crypto device found, version 5.9.1
->>
->> I was waiting for Wenjia to run the full crypto user-space test suite once. I'll update the
->> SIDs and wait for a Tested-by from him.
-> 
-> Thanks
-> 
-> I think you should be able to get some life out of the crypto engine
-> via CONFIG_EXPERT=y && CONFIG_CRYPTO_SELFTESTS=y (which btw +Hans
-> mentioned reports a failure on Hamoa)
-
-Sure, I'll try this, could you also point me to the bug report?
-
-Regards,
-Harshal
-
-> 
-> Konrad
+Best regards,
+-- 
+Ariana Lazar <ariana.lazar@microchip.com>
 
