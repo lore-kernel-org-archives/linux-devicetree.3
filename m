@@ -1,148 +1,266 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03F20487BE;
-	Fri, 17 Apr 2026 18:41:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48DDE36CDEF;
+	Fri, 17 Apr 2026 18:44:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1776451288; cv=none; b=gJxAI8keG2Dq5hp1WarubPPNkUxoALoYlMl/JI0N2l+VXN4OhR+DJfPPbyOR+K4nCpodFmnkCsE5cx+ttLt7GCfyj7uJsL997UKybqYUMn/F4XeROfFBHOwC7CAV+IpI2Vk25cBhG+vq9MPNoL1g7ueFkdtqbqJmXG0l1+BiK5c=
+	t=1776451491; cv=none; b=AF2h7sVr0qS4gPGzKzZD58nHk9ghmC2IXsJIlOgLTcT0/0hoGMQvvHObG3FMZVVtc0ksOMl8M74BP7rkJ8KKXf1ullwPFXYsarMuH7OEJH6/sc8CoP3I9SLPgQwvHLG+U+RagzVNZwB7vxTF+ijHlTM/EGPJk6XQk0GnJRWKb9c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1776451288; c=relaxed/simple;
-	bh=5risQFavyvSUG+7hlUkPBMK3PweOdQMNAioAGmE/5Z8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Pnf0hTyOcg/sYFWVIuyFSkdu6WmOWspaT3O+VnyB4aeoSzCmfmpM7eIE5Kz3xPzyLypSczt/gyLGQsn+wVbScBqOUnAkmOy7zyAp3PwDw+B92MMgNwa0R3fd70pj8ShbXK0PtaUKAOtZSCq+jer9XhYDUUkYyIlRAqSweIQ/ghw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jO5Nmm8d; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1776451491; c=relaxed/simple;
+	bh=Ayvwm5UM4uzpT7NIEKa3LIVdPgPzJnRd/omMmNThpPo=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=cJZD0a1u+MAF/3PNS5UJKaKo8/j5H8EPP30tm68mt8SUFrt3l/kIMzazHP3yIx2V80pYHO6PnNjgx2VEHVPPS3Du0gqQ1n2OfExt+Wy3yD8bT09w6ulOXUMyZ9/VUfknAEgYjcO6/B0mjkVP7MGpvnJczzhu9lKj6lW59hM0IUA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZBlRYWZU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jO5Nmm8d"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7D608C2BCB3;
-	Fri, 17 Apr 2026 18:41:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZBlRYWZU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 442DFC19425;
+	Fri, 17 Apr 2026 18:44:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776451287;
-	bh=5risQFavyvSUG+7hlUkPBMK3PweOdQMNAioAGmE/5Z8=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=jO5Nmm8dpQj3FhYE0twDtq/gJTZC62DBB0F0CuWWyDeT5G5ZLfxZ+uN6B74QLb0Em
-	 fY7Ss1BE9+tcAzJlBxYef4yGOPUA6zowYdjRbrO1GNQjZs5Kq8w/IdbIYvdwzRGcWc
-	 lPp7x7m7h1rHAznsKuaM6rCK2mfxdM6hUIfhXsyuQL3biQcfh7+g8H2rdSm2XrnzwN
-	 Zo7JdssZ0mQFx+wJDSDBQMtDq5IucmHqbCnFDwRyEvB1/teEKh5psXNpcynvVnDTKX
-	 /tMDqkXyiitQorrN26SW00jaz5jCcGQq+epJ0A5AlKa5YKRpK0xew0kiajRjay6Tbr
-	 TIT16bqgcMjKg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 682C0F8D75C;
-	Fri, 17 Apr 2026 18:41:27 +0000 (UTC)
-From: Vishwas Rajashekar via B4 Relay <devnull+vishwas.dev.vrajashkr.com@kernel.org>
-Date: Sat, 18 Apr 2026 00:11:09 +0530
-Subject: [PATCH v3] dt-bindings: iio: gyroscope: add mount-matrix for
- bmg160
+	s=k20201202; t=1776451490;
+	bh=Ayvwm5UM4uzpT7NIEKa3LIVdPgPzJnRd/omMmNThpPo=;
+	h=Date:From:To:Cc:Subject:From;
+	b=ZBlRYWZUw0QbV8kohP7wy53OmZtaqBNXmq45Lo8QRLvsdOScM4tYt2r4meoMY7SMa
+	 jq6guXRoUPVyHfHCWYl3Ec6v5Vd0UO2FySUs7/tXOF3JECJo9MlqVRxRDXOViNqdoE
+	 gjSJ3YN9tFlSK3cgD2NGnzyzDrRCXcsxlwn9wg4yITCknx3NY16YqIMXPFNTnpPNWj
+	 dtglZXcFfXG8ICkCwhW5sBg6Q0P5S1XUTcRmsFpC9z653Jikk4wxTHwmpvZ/jczL93
+	 E8ZK5LWtzshgs3OqXhLotKa2rfrXutGNhcVi11KwhEHHpo5qCj0m2BSZ5LSfPPmvn3
+	 d0iMdKEzg3NUg==
+Date: Fri, 17 Apr 2026 13:44:48 -0500
+From: Rob Herring <robh@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Saravana Kannan <saravanak@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [GIT PULL] Devicetree updates for v7.1
+Message-ID: <20260417184448.GA1533367-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260418-bmg160-mount-matrix-dt-binding-v3-1-ce8020ecbf9a@vrajashkr.com>
-X-B4-Tracking: v=1; b=H4sIAMR+4mkC/4WOQQ6CMBBFr0K6dgytMIIr72FcQDvAaCimLQ3Gc
- HdBY2LcuHzJz3v/ITw5Ji8OyUM4iux5sAvsNonQXWVbAjYLC5UqTDOZQd23ElPoh9EG6KvgeAI
- ToGZr2LZAezTGUJkViGKR3Bw1PL0Cp/Ob/VhfSIfVui469mFw99eDKNfdJ5b/i0UJElJSushLz
- IjwGF11qXx3dVs99GINRvWtxL9KtSgJUTe5bpqCil/lPM9PO6E29TUBAAA=
-X-Change-ID: 20260414-bmg160-mount-matrix-dt-binding-e76ddde94866
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, luca@lucaweiss.eu, 
- Vishwas Rajashekar <vishwas.dev@vrajashkr.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776451286; l=2793;
- i=vishwas.dev@vrajashkr.com; s=20260414; h=from:subject:message-id;
- bh=0hFO4pVSk29VQGp7JRnLEM4OixgjM26nPl8qocDmLp8=;
- b=mT7mV223BgKj7ZWEZJn3VqZ2EIir63jVXxPLfx9vXSf2O8OgVVd6O+ftcBRxN7lLdJ6rW/9m6
- HAHcRbKh0a2DmtX84n4DqNiVFG1X2kkMLKNkkGdrz7hEVDB2w3tf85Q
-X-Developer-Key: i=vishwas.dev@vrajashkr.com; a=ed25519;
- pk=OvZgoGVJ7ofrIn3w/YijdoJ0IexAy1kREY51mGZPm9M=
-X-Endpoint-Received: by B4 Relay for vishwas.dev@vrajashkr.com/20260414
- with auth_id=734
-X-Original-From: Vishwas Rajashekar <vishwas.dev@vrajashkr.com>
-Reply-To: vishwas.dev@vrajashkr.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-From: Vishwas Rajashekar <vishwas.dev@vrajashkr.com>
+Linus,
 
-The mount-matrix property supplies a 3x3 matrix that is used
-to transform the values from the gyroscope to get vector
-values that are relative to the way the sensor has been mounted
-on the device. When the property is not specified, the identity
-matrix is used.
+Please pull DT updates for 7.1.
 
-This change adds mount-matrix as an optional property to the
-dt-bindings for the bmg160 gyroscope.
+There's a couple of conflicts now with your current tree. linux-next has 
+the correct resolutions.
 
-Signed-off-by: Vishwas Rajashekar <vishwas.dev@vrajashkr.com>
----
-The bmg160 driver reads an optional mount-matrix using
-"iio_read_mount_matrix" in "bmg160_core_probe" and stores
-this orientation data in "struct bmg160_data". As the "mount-matrix"
-property is used by the driver, this change proposes to add it to
-the corresponding dt-bindings.
----
-Changes in v3:
-- Addressed review feedback: updated the commit message to indicate
-  relevance to hardware and remove references to the Linux driver.
-- Link to v2: https://patch.msgid.link/20260416-bmg160-mount-matrix-dt-binding-v2-1-e66cf5cff8e8@vrajashkr.com
-
-Changes in v2:
-- Addressed review feedback: add mount-matrix example for bmg160
-- Link to v1: https://patch.msgid.link/20260415-bmg160-mount-matrix-dt-binding-v1-1-0e2c85964ee6@vrajashkr.com
-
-To: Jonathan Cameron <jic23@kernel.org>
-To: David Lechner <dlechner@baylibre.com>
-To: Nuno Sá <nuno.sa@analog.com>
-To: Andy Shevchenko <andy@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: linux-iio@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
- Documentation/devicetree/bindings/iio/gyroscope/bosch,bmg160.yaml | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/iio/gyroscope/bosch,bmg160.yaml b/Documentation/devicetree/bindings/iio/gyroscope/bosch,bmg160.yaml
-index 3c6fe74af0b8..ec97778cca78 100644
---- a/Documentation/devicetree/bindings/iio/gyroscope/bosch,bmg160.yaml
-+++ b/Documentation/devicetree/bindings/iio/gyroscope/bosch,bmg160.yaml
-@@ -22,6 +22,9 @@ properties:
-   vdd-supply: true
-   vddio-supply: true
- 
-+  mount-matrix:
-+    description: an optional 3x3 mounting rotation matrix.
-+
-   spi-max-frequency:
-     maximum: 10000000
- 
-@@ -52,6 +55,9 @@ examples:
-             reg = <0x69>;
-             interrupt-parent = <&gpio6>;
-             interrupts = <18 IRQ_TYPE_EDGE_RISING>;
-+            mount-matrix = "0", "1", "0",
-+                           "1", "0", "0",
-+                           "0", "0", "1";
-         };
-     };
- ...
-
----
-base-commit: 591cd656a1bf5ea94a222af5ef2ee76df029c1d2
-change-id: 20260414-bmg160-mount-matrix-dt-binding-e76ddde94866
-
-Best regards,
---  
-Vishwas Rajashekar <vishwas.dev@vrajashkr.com>
+Rob
 
 
+The following changes since commit 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f:
+
+  Linux 7.0-rc1 (2026-02-22 13:18:59 -0800)
+
+are available in the Git repository at:
+
+  ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/robh/linux.git tags/devicetree-for-7.1
+
+for you to fetch changes up to a74c2e55ab66519ffa2069ac9ae83cd937bff4c4:
+
+  dt-bindings: display: panel: panel-simple: Add lg,sw49410 compatible (2026-04-16 08:57:47 -0500)
+
+----------------------------------------------------------------
+Devicetree updates for v7.1:
+
+DT core:
+- Cleanup of the reserved memory code to keep CMA specifics in CMA code
+
+- Add and convert several users to new of_machine_get_match() helper
+
+- Validate nul termination in string properties
+
+- Update dtc to upstream v1.7.2-69-g53373d135579
+
+- Limit matching reserved memory devices to /reserved-memory nodes
+
+- Fix some UAF in unittests
+
+- Remove Baikal SoC bus driver
+
+- Fix false DT_SPLIT_BINDING_PATCH checkpatch warning
+
+- Allow fw_devlink device-tree on x86
+
+- Fix kerneldoc return description for of_property_count_elems_of_size()
+
+DT bindings:
+- Add fsl,imx25-aips, fsl,imx25-tcq, qcom,eliza-pdc,
+  qcom,eliza-spmi-pmic-arb, qcom,hawi-imem, qcom,milos-imem,
+  qcom,hawi-pdc, and lg,sw49410 bindings
+
+- Convert arm,vexpress-scc to DT schema
+
+- Deprecate Qualcomm generic CPU compatibles. Add Apple M3 CPU cores.
+
+- Move some dual-link display panels to the dual-link schema
+
+- Drop mux controller node name constraints
+
+- Remove Baikal SoC bus bindings
+
+- Fix a false warning in the thermal trip node binding
+
+----------------------------------------------------------------
+Abel Vesa (2):
+      dt-bindings: qcom,pdc: document the Eliza Power Domain Controller
+      dt-bindings: spmi: qcom,x1e80100-spmi-pmic-arb: Document Eliza compatible
+
+Andy Shevchenko (2):
+      bus: Remove not-going-to-be-supported code for Baikal SoC
+      dt-bindings: bus: Remove unused bindings
+
+Frank Li (2):
+      dt-bindings: fsl: add compatible string fsl,imx25-aips
+      dt-bindings: input: touchscreen: convert fsl-mx25-tcq.txt to yaml
+
+Geert Uytterhoeven (7):
+      dt-bindings: interrupt-controller: arm,gic-v3: Fix EPPI range
+      of: Add of_machine_get_match() helper
+      of: Convert to of_machine_get_match()
+      cpufreq: airoha: Convert to of_machine_get_match()
+      cpufreq: qcom-nvmem: Convert to of_machine_get_match()
+      cpufreq: ti-cpufreq: Convert to of_machine_get_match()
+      soc: qcom: pd-mapper: Convert to of_machine_get_match()
+
+Herve Codina (1):
+      of: property: Allow fw_devlink device-tree on x86
+
+Janne Grunau (1):
+      dt-bindings: arm: cpus: Add Apple M3 CPU core compatibles
+
+Kenny Cheng (1):
+      of: fix incorrect device creation for reserved memory nodes
+
+Khushal Chitturi (1):
+      dt-bindings: ARM: arm,vexpress-scc: convert to DT schema
+
+Konrad Dybcio (1):
+      dt-bindings: sram: Allow multiple-word prefixes to sram subnode
+
+Krzysztof Kozlowski (2):
+      dt-bindings: arm: cpus: Deprecate Qualcomm generic compatibles
+      dt-bindings: display: lt8912b: Drop redundant endpoint properties
+
+Luca Weiss (1):
+      dt-bindings: sram: Document qcom,milos-imem
+
+Marek Szyprowski (7):
+      of: reserved_mem: remove fdt node from the structure
+      of: reserved_mem: use -ENODEV instead of -ENOENT
+      of: reserved_mem: switch to ops based OF_DECLARE()
+      of: reserved_mem: replace CMA quirks by generic methods
+      of: reserved_mem: rearrange code a bit
+      of: reserved_mem: clarify fdt_scan_reserved_mem*() functions
+      of: reserved_mem: rework fdt_init_reserved_mem_node()
+
+Marek Vasut (2):
+      dt-bindings: display: simple: Move AUO 21.5" FHD to dual-link
+      dt-bindings: display: simple: Move Innolux G156HCE-L01 panel to dual-link
+
+Markus Heidelberg (1):
+      docs: dt: unittest: update to current unittest filenames
+
+Mukesh Ojha (2):
+      dt-bindings: sram: Document qcom,hawi-imem compatible
+      dt-bindings: qcom,pdc: document the Hawi Power Domain Controller
+
+Paul Sajna (1):
+      dt-bindings: display: panel: panel-simple: Add lg,sw49410 compatible
+
+Pengpeng Hou (2):
+      drivers/of: fdt: validate stdout-path properties before parsing them
+      drivers/of: fdt: validate flat DT string properties before string use
+
+Rob Herring (Arm) (4):
+      checkpatch: Fix false DT_SPLIT_BINDING_PATCH warnings
+      Merge branch 'dt-reserved-mem-cleanups' into dt/next
+      scripts/dtc: Update to upstream version v1.7.2-69-g53373d135579
+      dt-bindings: thermal: Fix false warning with 'phandle' in trips nodes
+
+Song Hongyi (1):
+      of: property: fix typo in kernel-doc return description
+
+Swamil Jain (1):
+      dt-bindings: display: ti, am65x-dss: Fix AM62L DSS reg and clock constraints
+
+Tommaso Merciai (1):
+      dt-bindings: mux: Remove nodename pattern constraints
+
+Vivian Wang (1):
+      dt-bindings: opp-v2: Fix example 3 CPU reg value
+
+Wentao Liang (2):
+      of: unittest: fix use-after-free in of_unittest_changeset()
+      of: unittest: fix use-after-free in testdrv_probe()
+
+Xu Yang (1):
+      dt-bindings: connector: add pd-disable dependency
+
+ .../devicetree/bindings/arm/arm,vexpress-scc.yaml  |  53 +++
+ Documentation/devicetree/bindings/arm/cpus.yaml    | 292 +++++++--------
+ .../bindings/arm/freescale/fsl,imx51-m4if.yaml     |   1 +
+ .../devicetree/bindings/arm/vexpress-scc.txt       |  33 --
+ .../devicetree/bindings/bus/baikal,bt1-apb.yaml    |  90 -----
+ .../devicetree/bindings/bus/baikal,bt1-axi.yaml    | 107 ------
+ .../bindings/connector/usb-connector.yaml          |   1 +
+ .../bindings/display/bridge/lontium,lt8912b.yaml   |   3 -
+ .../panel/panel-simple-lvds-dual-ports.yaml        |   4 +
+ .../bindings/display/panel/panel-simple.yaml       |   6 +-
+ .../bindings/display/ti/ti,am65x-dss.yaml          |  70 +++-
+ .../bindings/input/touchscreen/fsl,imx25-tcq.yaml  |  69 ++++
+ .../bindings/input/touchscreen/fsl-mx25-tcq.txt    |  34 --
+ .../bindings/interrupt-controller/arm,gic-v3.yaml  |   2 +-
+ .../bindings/interrupt-controller/qcom,pdc.yaml    |   2 +
+ .../devicetree/bindings/mux/mux-controller.yaml    |   6 -
+ Documentation/devicetree/bindings/opp/opp-v2.yaml  |   8 +-
+ .../bindings/spmi/qcom,x1e80100-spmi-pmic-arb.yaml |   4 +-
+ Documentation/devicetree/bindings/sram/sram.yaml   |   4 +-
+ .../devicetree/bindings/thermal/thermal-zones.yaml | 111 +++---
+ Documentation/devicetree/of_unittest.rst           |  20 +-
+ .../translations/zh_CN/devicetree/of_unittest.rst  |  21 +-
+ drivers/bus/Kconfig                                |  30 --
+ drivers/bus/Makefile                               |   2 -
+ drivers/bus/bt1-apb.c                              | 396 ---------------------
+ drivers/bus/bt1-axi.c                              | 292 ---------------
+ drivers/cpufreq/airoha-cpufreq.c                   |   7 +-
+ drivers/cpufreq/qcom-cpufreq-nvmem.c               |  16 +-
+ drivers/cpufreq/ti-cpufreq.c                       |  12 +-
+ drivers/memory/tegra/tegra210-emc-table.c          |  19 +-
+ drivers/of/base.c                                  |  20 +-
+ drivers/of/fdt.c                                   |  44 +--
+ drivers/of/of_private.h                            |   2 +-
+ drivers/of/of_reserved_mem.c                       | 320 ++++++++++-------
+ drivers/of/platform.c                              |  12 +-
+ drivers/of/property.c                              |  28 +-
+ drivers/of/unittest.c                              |   4 +-
+ drivers/soc/qcom/qcom_pd_mapper.c                  |   8 +-
+ include/linux/cma.h                                |  10 -
+ include/linux/dma-map-ops.h                        |   3 -
+ include/linux/of.h                                 |  11 +-
+ include/linux/of_reserved_mem.h                    |  16 +-
+ kernel/dma/coherent.c                              |  19 +-
+ kernel/dma/contiguous.c                            |  86 +++--
+ kernel/dma/swiotlb.c                               |  19 +-
+ scripts/checkpatch.pl                              |   2 +-
+ scripts/dtc/checks.c                               |   2 +-
+ scripts/dtc/dtc-lexer.l                            |   3 -
+ scripts/dtc/dtc.h                                  |   2 +-
+ scripts/dtc/libfdt/fdt.c                           |   8 +
+ scripts/dtc/libfdt/fdt_rw.c                        |   9 +-
+ scripts/dtc/version_gen.h                          |   2 +-
+ 52 files changed, 795 insertions(+), 1550 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/arm/arm,vexpress-scc.yaml
+ delete mode 100644 Documentation/devicetree/bindings/arm/vexpress-scc.txt
+ delete mode 100644 Documentation/devicetree/bindings/bus/baikal,bt1-apb.yaml
+ delete mode 100644 Documentation/devicetree/bindings/bus/baikal,bt1-axi.yaml
+ create mode 100644 Documentation/devicetree/bindings/input/touchscreen/fsl,imx25-tcq.yaml
+ delete mode 100644 Documentation/devicetree/bindings/input/touchscreen/fsl-mx25-tcq.txt
+ delete mode 100644 drivers/bus/bt1-apb.c
+ delete mode 100644 drivers/bus/bt1-axi.c
